@@ -2,58 +2,55 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B8C883A4D9C
-	for <lists+linux-man@lfdr.de>; Sat, 12 Jun 2021 10:32:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 340EA3A4DA5
+	for <lists+linux-man@lfdr.de>; Sat, 12 Jun 2021 10:33:00 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231145AbhFLIeI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 12 Jun 2021 04:34:08 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36018 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229584AbhFLIeI (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 12 Jun 2021 04:34:08 -0400
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com [IPv6:2a00:1450:4864:20::32b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B0E87C061767
-        for <linux-man@vger.kernel.org>; Sat, 12 Jun 2021 01:31:57 -0700 (PDT)
-Received: by mail-wm1-x32b.google.com with SMTP id v206-20020a1cded70000b02901a586d3fa23so9902902wmg.4
-        for <linux-man@vger.kernel.org>; Sat, 12 Jun 2021 01:31:57 -0700 (PDT)
+        id S230012AbhFLIe6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 12 Jun 2021 04:34:58 -0400
+Received: from mail-wm1-f47.google.com ([209.85.128.47]:55946 "EHLO
+        mail-wm1-f47.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S230400AbhFLIe4 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 12 Jun 2021 04:34:56 -0400
+Received: by mail-wm1-f47.google.com with SMTP id g204so9253431wmf.5
+        for <linux-man@vger.kernel.org>; Sat, 12 Jun 2021 01:32:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=LI/AXTw8JaIbfLp1uK+ObX2zjaPj9tH/hHGcvF/F8FE=;
-        b=Za+TsY7mSeVyoP+aXuyA38MP+wWS9j+hu+Yz0i2M1HxTfobWYacbx0CVH0a8m+UXhF
-         tdhcD9ZDwPnwoJzE9gCSbIqL4b59Kl5ydg7KYysfONcnCe5xMZCWARxAdRT52XX+pIX9
-         3Y8Os2Qcw7ylNV/71XK5QFP5wUXwIMBE3gXl7GmwI509AVq/gSGzE2UYHlm35+TLhhKw
-         oe6rqIXDLrjWyAvp3i1x+Bj0a1yKeelX97yENx193AMrLTLwRU72667/kA2bLHMscU40
-         iSooHUGY1BpsLG97GxX8w0PM+oHeEbub3cXbdyU69mnh3ez/OE9KexaqwmQsqgiPRMq8
-         GIRw==
+        bh=DcMQSutww+Ma7C5vRIZFVNRmBV3OW3S7CluYYZWHaHc=;
+        b=XSgcdWEAijWzofgdwfqLb0xw/vlNnHw8zbSUms8UM/X01dS2ud+JTAd9cQkAGFlGIo
+         bej8aSywvgkVvTF0/awWWKUdWVjWHcr0bCOp0W/wpS3T4BwRMiKuHzfWI/VLClID72TD
+         w95s0IcE6KsVhf7gsDJ0PY8OAFcNl/swkyTqkmNS5AQhUh2ImAi/kEJXA/QGUGabGWYD
+         Fky0puxH2ZIMwOxU/KrNVIS6R43kfVicrA4NBKmjIP4JA5XH+I5yHyrOu1yi3nft/+rB
+         Nn29od2deScoTcTQDdKaQnE0hh7lapxa7pxxgoX/chHH6N1kvoXleKtfsW1kgyA1Mq/j
+         eZEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=LI/AXTw8JaIbfLp1uK+ObX2zjaPj9tH/hHGcvF/F8FE=;
-        b=Uy0GmLBj84LERzvmNqw6d0yAd1ct52AS/9j1+7SRsptOz3lc91g/+4ni6sdk59nZGc
-         0hgHs54XtmVmRmX/2RddKxZdskvAxB+ezo4nIWs1+pWPEFrjWvrFzDpeHolEOXeXyCQH
-         J9y5DUzez/ahotrs9ZcoqKACQssQh1pJzih7fy+IIWTIddwmAovPWsczGnB2BhxSkFrR
-         4q3TzUGN5HzA6LpRv894Qjofn3kSiH7WuHcY6ntKTh1VUPUyiQlOqxEHtEk1e39c+1D4
-         ihwdTG1jWTB5U0X/g4ZBg5ifrnvqSgmLo3HaO/HSCbNhNmd+3PrLaDWuz/7C9LbRO/0R
-         fKgw==
-X-Gm-Message-State: AOAM532xOt1lqz3dnfZAb1MFYZRCXuMeoRsVWkEP6rM5Ax5Lae/dZz4u
-        iRPmG3hda7Idz/W9GlM5evk=
-X-Google-Smtp-Source: ABdhPJwzIvyxHr3FKPuPhNvOf7Om4EOHusbVW765PHartFUxvtuUXw4IJkZMjcJJNbM5adOfUh3FwA==
-X-Received: by 2002:a05:600c:2046:: with SMTP id p6mr23581495wmg.19.1623486716397;
-        Sat, 12 Jun 2021 01:31:56 -0700 (PDT)
+        bh=DcMQSutww+Ma7C5vRIZFVNRmBV3OW3S7CluYYZWHaHc=;
+        b=ipp84rxaXdUy9l9bcrNcD0O8ztKgY6RfqVIcKMtDuHcmcPbW4sQv7oc2ka09qssmvG
+         H4DumCQI9z4k50D3yUveOOPErO7CwnpHgK6GaysfrZHWEiRIO+2TJOC66CJuchC7cUv8
+         m8yMtNjK48w4fhhZywvXaN0smRSQYXPVQ5lY1hpPPDBZJGQa4dz+p9NrsFRl2ZWSDbGU
+         IgIK5II/D4tsgnc3WyTv1F+E03pKDol6291lIX/Eb2f+3kPmlM1Wm82+14FiDRSnZ+fj
+         4z+pv10gThT46reJSD1aeT4SPeGvF6NhtHjTdUazcmoQN4RRFZvwjhsuAezp4nswwMxW
+         LiGg==
+X-Gm-Message-State: AOAM533g6mw+xYBs5UlwVpXSPL2H+EKFI/vyNSIFAPu8tRS97/qqYaJU
+        ydom1Q2KsBB4kfBcWBYuNr8=
+X-Google-Smtp-Source: ABdhPJylby+i1sSc2x/raalOCqpgG25SQg/Z4ZWiBIgUOU5c7s9WaN9cTND/ZYteD7SpGGDoiSYitg==
+X-Received: by 2002:a05:600c:4f0c:: with SMTP id l12mr7439998wmq.123.1623486717095;
+        Sat, 12 Jun 2021 01:31:57 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.36.171])
-        by smtp.googlemail.com with ESMTPSA id c12sm11165110wrr.90.2021.06.12.01.31.55
+        by smtp.googlemail.com with ESMTPSA id c12sm11165110wrr.90.2021.06.12.01.31.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Sat, 12 Jun 2021 01:31:56 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org
-Subject: [PATCH 12/28] syscall.2: wfix + ffix
-Date:   Sat, 12 Jun 2021 10:31:29 +0200
-Message-Id: <20210612083145.12485-13-alx.manpages@gmail.com>
+Subject: [PATCH 13/28] syslog.2: Use syscall(SYS_...); for raw system calls
+Date:   Sat, 12 Jun 2021 10:31:30 +0200
+Message-Id: <20210612083145.12485-14-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210612083145.12485-1-alx.manpages@gmail.com>
 References: <20210612083145.12485-1-alx.manpages@gmail.com>
@@ -65,22 +62,29 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man2/syscall.2 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ man2/syslog.2 | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/man2/syscall.2 b/man2/syscall.2
-index 0b542ab10..abdf1c702 100644
---- a/man2/syscall.2
-+++ b/man2/syscall.2
-@@ -44,8 +44,8 @@
- syscall \- indirect system call
+diff --git a/man2/syslog.2 b/man2/syslog.2
+index b3b205172..46928df49 100644
+--- a/man2/syslog.2
++++ b/man2/syslog.2
+@@ -35,10 +35,14 @@ syslog, klogctl \- read and/or clear kernel message ring buffer;
+ set console_loglevel
  .SH SYNOPSIS
  .nf
-+.BR "#include <sys/syscall.h>" "      /* Definition of " SYS_* " constants */"
- .B #include <unistd.h>
--.BR "#include <sys/syscall.h>   "  "/* For SYS_xxx definitions */"
+-.BI "int syslog(int " type ", char *" bufp ", int " len );
++.BR "#include <sys/klog.h>" "        /* Definition of " SYSLOG_* " constants */"
++.BR "#include <sys/syscall.h>" "     /* Definition of " SYS_* " constants */"
++.B #include <unistd.h>
++.PP
++.BI "int syscall(SYS_syslog, int " type ", char *" bufp ", int " len );
  .PP
- .BI "long syscall(long " number ", ...);"
+ /* The glibc interface */
+-.B "#include <sys/klog.h>"
++.B #include <sys/klog.h>
+ .PP
+ .BI "int klogctl(int " type ", char *" bufp ", int " len );
  .fi
 -- 
 2.32.0
