@@ -2,58 +2,55 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 78AF23A4D96
-	for <lists+linux-man@lfdr.de>; Sat, 12 Jun 2021 10:31:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8F6F63A4DA2
+	for <lists+linux-man@lfdr.de>; Sat, 12 Jun 2021 10:32:55 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230459AbhFLIdw (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 12 Jun 2021 04:33:52 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35998 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229584AbhFLIdw (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 12 Jun 2021 04:33:52 -0400
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com [IPv6:2a00:1450:4864:20::336])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E7890C061767
-        for <linux-man@vger.kernel.org>; Sat, 12 Jun 2021 01:31:52 -0700 (PDT)
-Received: by mail-wm1-x336.google.com with SMTP id l9so9277830wms.1
-        for <linux-man@vger.kernel.org>; Sat, 12 Jun 2021 01:31:52 -0700 (PDT)
+        id S231161AbhFLIex (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 12 Jun 2021 04:34:53 -0400
+Received: from mail-wm1-f46.google.com ([209.85.128.46]:40644 "EHLO
+        mail-wm1-f46.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S229819AbhFLIew (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 12 Jun 2021 04:34:52 -0400
+Received: by mail-wm1-f46.google.com with SMTP id b145-20020a1c80970000b029019c8c824054so9917224wmd.5
+        for <linux-man@vger.kernel.org>; Sat, 12 Jun 2021 01:32:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=pL8LZ2K0wUOULtxfeeWVdQP6Tlx+z9olK+/hxJMrxVg=;
-        b=OZ3x6LAvYGuXCATer4/H6i3WQMnI2GLoJMyyhy+jkwIgO+2W4+S/Q8A/kj9M++fSjO
-         6q4HbV1Ny8zozOZhO6yfwTzurqnGt0oxvYRgya4wwCqAf0+PEiLX5LCxpA1IQsU4dlJu
-         tT3hIU9fM7NDVOee9/htgjt3QE/MxOs46D0TJEZXYheP7vojYlbNUMakIqBq+tj/orRy
-         Wmcw+6w+QXfzLXQVD3YIX7eNgdZWCGviS9iDo+rMP4V8VqpfoCYfELDpuGAwWra13xKh
-         7Vpd2TbstqqTCBVGtiOLVkHtKrx+oL0f7VNlC5vJPWU/tbJgQ0mDU6IjTersJIeD0/gb
-         TAkA==
+        bh=KZWw4Zzdt42s/980dqYtatfovJfhW11EXVzv3Q6PZdw=;
+        b=Z6jHebazCr0Va70nyCaycrjjIsz4TqQjlA+nYfx/eVNp5+FR+480um2Zlqq07O3VmU
+         Awve57otFlHfJFjXKmzc+6T0xzgv2kzDzBk7G2L98tNnRivEnUfLiIVUanwaDvOXx9Jn
+         N/VD6OUh/RIf9XxzPK9EaOWenfgYYFaHNHxojBBpFl94qOp4/Hi0iIPc5ENZztu8jvRQ
+         Bgpi7e3kfRR+X1t7YXAYCvfg0+COnke+tazUxyYu86npXzC7UhfcY1nRHeoPWlnycl41
+         2Q13VZmRQZxFbraUpMUlGtgbw4rxVr++0YqI1pv629mKn+VJjWr8cBBaIUCcbrUmgIhz
+         NgPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=pL8LZ2K0wUOULtxfeeWVdQP6Tlx+z9olK+/hxJMrxVg=;
-        b=Y1h8+8jODM9F1t/6050uWy+WxBCokv7pdNMpGU3LQ2ZEKUCaQfulHiJ20ZAj3HT+FQ
-         +i6fVNsnDM83gQFJAecTxaEdiW4EeCqyHgwMXCeKgigCFamGva8VunG430TNQrgmrvpW
-         so1/Rrrr+nwP3S4uwISX4u5DYL6TZK5XZfWDdlyC4m8++/Wes9SzMEoXDqjigqyIL4k6
-         87ZdnMBgfCJOSscQofMwnSPur/65I+DV1ybI3pzNq0LtYrYWGvtj/07VeGI7dI4iW7g4
-         WR1ti7T0zXo0H8b02cF8tRYNqKTjqEEECqMmVdx46z2xJNlMyRqNkZXQXZqiPAs4rtj5
-         RFtA==
-X-Gm-Message-State: AOAM5339bN3XufC/wOtOYIO7qcDdv+0jzi2DEUHJW7d8s8zd0brGMwpK
-        0PyuQgSstCrtygYXKd8FfLU=
-X-Google-Smtp-Source: ABdhPJzKUIwR9KZO4AJYazZB8DYhR+iZsLP1RHBCcFrKdieYgxolPmVm2+s3fUAPqcyXyUJRNk1b0g==
-X-Received: by 2002:a1c:9dc5:: with SMTP id g188mr23507346wme.141.1623486711624;
-        Sat, 12 Jun 2021 01:31:51 -0700 (PDT)
+        bh=KZWw4Zzdt42s/980dqYtatfovJfhW11EXVzv3Q6PZdw=;
+        b=BN4pqY7tK/QgxDUifIKIcvrKLY81kYBdrsACxd1ve0eBdVH+LGyutD7IzrQ9LRVbEu
+         TvDlbpz8tczZeZYVnACm+djH1wAFLS3FTCe+Ba8KtgZJA3VusmeihHx5nSt7xhjrEIwF
+         jPgl53ytJBTJJSab4FHPiYnAZVNww1LF6cgzFhcouvWe1axbA1q62fXpe+eE/30aWc+o
+         9IbqafuL24xSY4I6o5sQfGO+Nty2/DLwb0PfkRDGSHRcJYSHeCL7Qdg8Q+r6MZcVW3LG
+         nCRNmE3CKVaYLHT09IhXF35axWeKr3UArthkRmqi5XRWMl9Loav54KEmRM1K5X16PjBB
+         ynIQ==
+X-Gm-Message-State: AOAM530s9fN0EJU0EM8Cxbi9YAg/6Dhez9pGSwcimq/TSQF+qQLfjfTQ
+        fI0ZfB0o46yzQEM7ZsFuT6I=
+X-Google-Smtp-Source: ABdhPJwmE8cp6Wia9DazMYAp40omi38ZjYAginysrCbYMWCHTsF5WtSKJV9ZBsUL+ko1/dOiQ1DCOg==
+X-Received: by 2002:a05:600c:8a6:: with SMTP id l38mr7352259wmp.108.1623486712278;
+        Sat, 12 Jun 2021 01:31:52 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.36.171])
-        by smtp.googlemail.com with ESMTPSA id c12sm11165110wrr.90.2021.06.12.01.31.50
+        by smtp.googlemail.com with ESMTPSA id c12sm11165110wrr.90.2021.06.12.01.31.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Jun 2021 01:31:51 -0700 (PDT)
+        Sat, 12 Jun 2021 01:31:52 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org
-Subject: [PATCH 05/28] pipe.2: SYNOPSIS: Fix incorrect prototype
-Date:   Sat, 12 Jun 2021 10:31:22 +0200
-Message-Id: <20210612083145.12485-6-alx.manpages@gmail.com>
+Subject: [PATCH 06/28] spu_run.2: Use syscall(SYS_...), for system calls without a wrapper
+Date:   Sat, 12 Jun 2021 10:31:23 +0200
+Message-Id: <20210612083145.12485-7-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210612083145.12485-1-alx.manpages@gmail.com>
 References: <20210612083145.12485-1-alx.manpages@gmail.com>
@@ -63,29 +60,46 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-A function declarator with empty parentheses, which is not a
-prototype, is an obsolescent feature of C (See C17 6.11.6.1), and
-doesn't mean 0 parameters, but instead that no information about
-the parameters is provided (See C17 6.5.2.2).
-
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man2/pipe.2 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ man2/spu_run.2 | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
-diff --git a/man2/pipe.2 b/man2/pipe.2
-index 93fbd36f2..41a482f37 100644
---- a/man2/pipe.2
-+++ b/man2/pipe.2
-@@ -56,7 +56,7 @@ pipe, pipe2 \- create pipe
- .B struct fd_pair {
- .B "    long fd[2];"
- .B "};"
--.B struct fd_pair pipe();
-+.B struct fd_pair pipe(void);
+diff --git a/man2/spu_run.2 b/man2/spu_run.2
+index def974772..d5fdc2280 100644
+--- a/man2/spu_run.2
++++ b/man2/spu_run.2
+@@ -28,13 +28,18 @@
+ spu_run \- execute an SPU context
+ .SH SYNOPSIS
+ .nf
+-.B #include <sys/spu.h>
++.BR "#include <sys/spu.h>" "          /* Definition of " SPU_* " constants */"
++.BR "#include <sys/syscall.h>" "      /* Definition of " SYS_* " constants */"
++.B #include <unistd.h>
+ .PP
+ .BI "int spu_run(int " fd ", uint32_t *" npc ", uint32_t *" event );
  .fi
+ .PP
+ .IR Note :
+-There is no glibc wrapper for this system call; see NOTES.
++glibc provides no wrapper for
++.BR spu_run (),
++necessitating the use of
++.BR syscall (2).
  .SH DESCRIPTION
- .BR pipe ()
+ The
+ .BR spu_run ()
+@@ -195,9 +200,6 @@ This call is Linux-specific and implemented only by the PowerPC
+ architecture.
+ Programs using this system call are not portable.
+ .SH NOTES
+-Glibc does not provide a wrapper for this system call; call it using
+-.BR syscall (2).
+-Note however, that
+ .BR spu_run ()
+ is meant to be used from libraries that implement a more abstract
+ interface to SPUs, not to be used from regular applications.
 -- 
 2.32.0
 
