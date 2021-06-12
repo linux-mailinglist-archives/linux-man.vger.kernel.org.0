@@ -2,55 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 19BE23A4DA8
-	for <lists+linux-man@lfdr.de>; Sat, 12 Jun 2021 10:33:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B8C883A4D9C
+	for <lists+linux-man@lfdr.de>; Sat, 12 Jun 2021 10:32:09 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231169AbhFLIfF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 12 Jun 2021 04:35:05 -0400
-Received: from mail-wr1-f54.google.com ([209.85.221.54]:39824 "EHLO
-        mail-wr1-f54.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231165AbhFLIfE (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 12 Jun 2021 04:35:04 -0400
-Received: by mail-wr1-f54.google.com with SMTP id l2so8484689wrw.6
-        for <linux-man@vger.kernel.org>; Sat, 12 Jun 2021 01:32:56 -0700 (PDT)
+        id S231145AbhFLIeI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 12 Jun 2021 04:34:08 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36018 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S229584AbhFLIeI (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 12 Jun 2021 04:34:08 -0400
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com [IPv6:2a00:1450:4864:20::32b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B0E87C061767
+        for <linux-man@vger.kernel.org>; Sat, 12 Jun 2021 01:31:57 -0700 (PDT)
+Received: by mail-wm1-x32b.google.com with SMTP id v206-20020a1cded70000b02901a586d3fa23so9902902wmg.4
+        for <linux-man@vger.kernel.org>; Sat, 12 Jun 2021 01:31:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=jAwJvbmbTV32qzZVy0p/+Ks+UFu84AMzzDZJspKMntY=;
-        b=E1RBytAzJVC9jJitKqyNf5FY8WvNVNBk4XopGSS5CJABqyEHA1/B4lpt1HPmxy9rsp
-         SJLmjuZpA9saXlbq2In7eeq2i3U2vssLhMsfziJ7vuN4ns0vYMgVmdwaoGuL+ZV3pq/W
-         tmWRXihsSi1YZ5mCPV/Hwt8ycFB9dkLPhYBryysb/0TwPGm7yae0j48pPIVZA7zzCcqU
-         Q7JKJrTPEjmFDd3SGb1rQF5kj4D6PtJO+gjm+fjcUMZTz3tIVph3KinjA/6h/rDQj9Hx
-         Tm94ad2uY2gYBj9yjxha0qzqH6A0tNjXxJjigbLsRjilvLsIkneaSgAAjSOy6TyohP6n
-         S5oA==
+        bh=LI/AXTw8JaIbfLp1uK+ObX2zjaPj9tH/hHGcvF/F8FE=;
+        b=Za+TsY7mSeVyoP+aXuyA38MP+wWS9j+hu+Yz0i2M1HxTfobWYacbx0CVH0a8m+UXhF
+         tdhcD9ZDwPnwoJzE9gCSbIqL4b59Kl5ydg7KYysfONcnCe5xMZCWARxAdRT52XX+pIX9
+         3Y8Os2Qcw7ylNV/71XK5QFP5wUXwIMBE3gXl7GmwI509AVq/gSGzE2UYHlm35+TLhhKw
+         oe6rqIXDLrjWyAvp3i1x+Bj0a1yKeelX97yENx193AMrLTLwRU72667/kA2bLHMscU40
+         iSooHUGY1BpsLG97GxX8w0PM+oHeEbub3cXbdyU69mnh3ez/OE9KexaqwmQsqgiPRMq8
+         GIRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=jAwJvbmbTV32qzZVy0p/+Ks+UFu84AMzzDZJspKMntY=;
-        b=huVlKwngnTagio9d3xS7gNZ6C+k/K2zYLeUrc9AlA3oNVbJWMwPowS9JgKoyelcUik
-         jVlijRyaqByNvKNXu57aGySQgegYIz9nJnIEMualU1PHSeszQVC0YRs15slJZhd67uaJ
-         x+kqIezD/W1Dcawa2nMYeDe0rfSFce9mKRkW1hm4QNB3s6shpCf8fB/znWIEOvBuPFCR
-         ffOVb9pVy8g9gPosULiEtW8Db1wLcmPTC+2742c1L3I3QQele7//zKQPPWgLJj1ovSfk
-         1s8OxlMnNoVLY/daHOE5ttGCx7BFhY341/+Da73MgN7an/cAxDaNCf+quKerO+v2RwYF
-         kQqw==
-X-Gm-Message-State: AOAM531kVST9p3VKcF3jHSNhaLNYVnyqUIRA19TNG2pF0yAyT8g+RZQR
-        tL8e9zyVdPLnRoKvoMC5IqQ=
-X-Google-Smtp-Source: ABdhPJzs3Z3r2uY9DBnuKzjrtHNhmpnBawogJz44dvdjXnezMQDDtEgv5b16FOCUC/d9pA3fWMeB4Q==
-X-Received: by 2002:adf:a1c1:: with SMTP id v1mr8092896wrv.234.1623486715741;
-        Sat, 12 Jun 2021 01:31:55 -0700 (PDT)
+        bh=LI/AXTw8JaIbfLp1uK+ObX2zjaPj9tH/hHGcvF/F8FE=;
+        b=Uy0GmLBj84LERzvmNqw6d0yAd1ct52AS/9j1+7SRsptOz3lc91g/+4ni6sdk59nZGc
+         0hgHs54XtmVmRmX/2RddKxZdskvAxB+ezo4nIWs1+pWPEFrjWvrFzDpeHolEOXeXyCQH
+         J9y5DUzez/ahotrs9ZcoqKACQssQh1pJzih7fy+IIWTIddwmAovPWsczGnB2BhxSkFrR
+         4q3TzUGN5HzA6LpRv894Qjofn3kSiH7WuHcY6ntKTh1VUPUyiQlOqxEHtEk1e39c+1D4
+         ihwdTG1jWTB5U0X/g4ZBg5ifrnvqSgmLo3HaO/HSCbNhNmd+3PrLaDWuz/7C9LbRO/0R
+         fKgw==
+X-Gm-Message-State: AOAM532xOt1lqz3dnfZAb1MFYZRCXuMeoRsVWkEP6rM5Ax5Lae/dZz4u
+        iRPmG3hda7Idz/W9GlM5evk=
+X-Google-Smtp-Source: ABdhPJwzIvyxHr3FKPuPhNvOf7Om4EOHusbVW765PHartFUxvtuUXw4IJkZMjcJJNbM5adOfUh3FwA==
+X-Received: by 2002:a05:600c:2046:: with SMTP id p6mr23581495wmg.19.1623486716397;
+        Sat, 12 Jun 2021 01:31:56 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.36.171])
         by smtp.googlemail.com with ESMTPSA id c12sm11165110wrr.90.2021.06.12.01.31.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Jun 2021 01:31:55 -0700 (PDT)
+        Sat, 12 Jun 2021 01:31:56 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org
-Subject: [PATCH 11/28] symlink.2: ffix
-Date:   Sat, 12 Jun 2021 10:31:28 +0200
-Message-Id: <20210612083145.12485-12-alx.manpages@gmail.com>
+Subject: [PATCH 12/28] syscall.2: wfix + ffix
+Date:   Sat, 12 Jun 2021 10:31:29 +0200
+Message-Id: <20210612083145.12485-13-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210612083145.12485-1-alx.manpages@gmail.com>
 References: <20210612083145.12485-1-alx.manpages@gmail.com>
@@ -62,22 +65,23 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man2/symlink.2 | 2 +-
+ man2/syscall.2 | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/man2/symlink.2 b/man2/symlink.2
-index b6744109e..87c25d5f4 100644
---- a/man2/symlink.2
-+++ b/man2/symlink.2
-@@ -39,7 +39,7 @@ symlink, symlinkat \- make a new name for a file
- .PP
- .BI "int symlink(const char *" target ", const char *" linkpath );
- .PP
--.BR "#include <fcntl.h>           " "/* Definition of AT_* constants */"
-+.BR "#include <fcntl.h>           " "/* Definition of " AT_* " constants */"
+diff --git a/man2/syscall.2 b/man2/syscall.2
+index 0b542ab10..abdf1c702 100644
+--- a/man2/syscall.2
++++ b/man2/syscall.2
+@@ -44,8 +44,8 @@
+ syscall \- indirect system call
+ .SH SYNOPSIS
+ .nf
++.BR "#include <sys/syscall.h>" "      /* Definition of " SYS_* " constants */"
  .B #include <unistd.h>
+-.BR "#include <sys/syscall.h>   "  "/* For SYS_xxx definitions */"
  .PP
- .BI "int symlinkat(const char *" target ", int " newdirfd \
+ .BI "long syscall(long " number ", ...);"
+ .fi
 -- 
 2.32.0
 
