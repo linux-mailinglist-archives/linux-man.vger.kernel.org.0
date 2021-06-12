@@ -2,55 +2,55 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8F6F63A4DA2
-	for <lists+linux-man@lfdr.de>; Sat, 12 Jun 2021 10:32:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B15CE3A4DA4
+	for <lists+linux-man@lfdr.de>; Sat, 12 Jun 2021 10:32:59 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231161AbhFLIex (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 12 Jun 2021 04:34:53 -0400
-Received: from mail-wm1-f46.google.com ([209.85.128.46]:40644 "EHLO
-        mail-wm1-f46.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229819AbhFLIew (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 12 Jun 2021 04:34:52 -0400
-Received: by mail-wm1-f46.google.com with SMTP id b145-20020a1c80970000b029019c8c824054so9917224wmd.5
-        for <linux-man@vger.kernel.org>; Sat, 12 Jun 2021 01:32:52 -0700 (PDT)
+        id S231153AbhFLIe4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 12 Jun 2021 04:34:56 -0400
+Received: from mail-wr1-f45.google.com ([209.85.221.45]:37816 "EHLO
+        mail-wr1-f45.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S230012AbhFLIe4 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 12 Jun 2021 04:34:56 -0400
+Received: by mail-wr1-f45.google.com with SMTP id i94so8473408wri.4
+        for <linux-man@vger.kernel.org>; Sat, 12 Jun 2021 01:32:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=KZWw4Zzdt42s/980dqYtatfovJfhW11EXVzv3Q6PZdw=;
-        b=Z6jHebazCr0Va70nyCaycrjjIsz4TqQjlA+nYfx/eVNp5+FR+480um2Zlqq07O3VmU
-         Awve57otFlHfJFjXKmzc+6T0xzgv2kzDzBk7G2L98tNnRivEnUfLiIVUanwaDvOXx9Jn
-         N/VD6OUh/RIf9XxzPK9EaOWenfgYYFaHNHxojBBpFl94qOp4/Hi0iIPc5ENZztu8jvRQ
-         Bgpi7e3kfRR+X1t7YXAYCvfg0+COnke+tazUxyYu86npXzC7UhfcY1nRHeoPWlnycl41
-         2Q13VZmRQZxFbraUpMUlGtgbw4rxVr++0YqI1pv629mKn+VJjWr8cBBaIUCcbrUmgIhz
-         NgPQ==
+        bh=RRdeM043PnDvnqk/yLkSNsIr3DDz58aq8iWsNCBVxQM=;
+        b=Lbaew7hVPVqIySxepdn/gsxMzxNVmykZpm6xfmxxtH1OYYUl4gXJbKwzbM5dGRr2Cn
+         CVNZXl3plLq9pbUfw3KRbK57UzBm3asJoAg1FwhItSPqMxqNfaV+6Q/J1ki9UhAA83cG
+         hDdGqT4nRN3kUpa60za1mL5Jgav9k8pl2LFlY9diDv4haeOupavJrcHd+teC1uC4r1us
+         C2D0FFqYHsmqCrlChhWHWlodyihs6o8V4QmbjtjdJDQJI3JuGYYXuKoxWQ81JKRW8TWs
+         1HR5UR8mXQd3u4gGSD/rHYMAQBgjdkJjMuKAYPKrHdEET+vkrrHwnEZiZppdIkNsFdx9
+         3rug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=KZWw4Zzdt42s/980dqYtatfovJfhW11EXVzv3Q6PZdw=;
-        b=BN4pqY7tK/QgxDUifIKIcvrKLY81kYBdrsACxd1ve0eBdVH+LGyutD7IzrQ9LRVbEu
-         TvDlbpz8tczZeZYVnACm+djH1wAFLS3FTCe+Ba8KtgZJA3VusmeihHx5nSt7xhjrEIwF
-         jPgl53ytJBTJJSab4FHPiYnAZVNww1LF6cgzFhcouvWe1axbA1q62fXpe+eE/30aWc+o
-         9IbqafuL24xSY4I6o5sQfGO+Nty2/DLwb0PfkRDGSHRcJYSHeCL7Qdg8Q+r6MZcVW3LG
-         nCRNmE3CKVaYLHT09IhXF35axWeKr3UArthkRmqi5XRWMl9Loav54KEmRM1K5X16PjBB
-         ynIQ==
-X-Gm-Message-State: AOAM530s9fN0EJU0EM8Cxbi9YAg/6Dhez9pGSwcimq/TSQF+qQLfjfTQ
-        fI0ZfB0o46yzQEM7ZsFuT6I=
-X-Google-Smtp-Source: ABdhPJwmE8cp6Wia9DazMYAp40omi38ZjYAginysrCbYMWCHTsF5WtSKJV9ZBsUL+ko1/dOiQ1DCOg==
-X-Received: by 2002:a05:600c:8a6:: with SMTP id l38mr7352259wmp.108.1623486712278;
-        Sat, 12 Jun 2021 01:31:52 -0700 (PDT)
+        bh=RRdeM043PnDvnqk/yLkSNsIr3DDz58aq8iWsNCBVxQM=;
+        b=SrfPUgeE+hw2YKJ4oVNddTwtjwT2XqnWdYsR9D2EnhjCiFr6ysdjOFX97dsNldyvnH
+         yBda6GqjfSWP2wI2HIMVjCaSZ1xr3f0eWJiZugp1tXs/6gz+SiK4kETVZz27kncfHn31
+         4ZOvIp1xgnc72mVgAC/YkB1YJRlcskxO+0bYQt7WM6g/7yQtLZl/yAWhyQOWiRJ7vtE6
+         +9mSzTC+EHhRdZLhkX2BuOCHbz1Mzie+IG27bux0q6RAOECvieaEqM/trBAbpo51t4mP
+         eYlGtWWhRrGsLsQ1pm1k5/RawTeRpSIp7CbF0Ro4GwY1trMLKLB4/c3J7D/DPoMR1Js7
+         QGiQ==
+X-Gm-Message-State: AOAM532DSbndezOtGBd7MTdf1gY0cwLyYmzY23gn5RZG+sEvck9wDW2d
+        YkhEUOuWaHVZpRrfufFBAbA=
+X-Google-Smtp-Source: ABdhPJwPjRziMKjc1lUq8kf4qf2/IzjSrIefwQdoW9ca9vjxDNOM49sAAOBxnVz4l2HqWlzzN/FluA==
+X-Received: by 2002:a5d:51c3:: with SMTP id n3mr8048133wrv.322.1623486713023;
+        Sat, 12 Jun 2021 01:31:53 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.36.171])
-        by smtp.googlemail.com with ESMTPSA id c12sm11165110wrr.90.2021.06.12.01.31.51
+        by smtp.googlemail.com with ESMTPSA id c12sm11165110wrr.90.2021.06.12.01.31.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Sat, 12 Jun 2021 01:31:52 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org
-Subject: [PATCH 06/28] spu_run.2: Use syscall(SYS_...), for system calls without a wrapper
-Date:   Sat, 12 Jun 2021 10:31:23 +0200
-Message-Id: <20210612083145.12485-7-alx.manpages@gmail.com>
+Subject: [PATCH 07/28] stat.2: SYNOPSIS: Fix includes
+Date:   Sat, 12 Jun 2021 10:31:24 +0200
+Message-Id: <20210612083145.12485-8-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210612083145.12485-1-alx.manpages@gmail.com>
 References: <20210612083145.12485-1-alx.manpages@gmail.com>
@@ -60,46 +60,37 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Remove <sys/types.h>; ffix too
+
+<sys/types.h> is only needed for 'struct stat'.
+That is better documented in system_data_types(7).
+
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man2/spu_run.2 | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+ man2/stat.2 | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/man2/spu_run.2 b/man2/spu_run.2
-index def974772..d5fdc2280 100644
---- a/man2/spu_run.2
-+++ b/man2/spu_run.2
-@@ -28,13 +28,18 @@
- spu_run \- execute an SPU context
+diff --git a/man2/stat.2 b/man2/stat.2
+index d356ce15a..339920d71 100644
+--- a/man2/stat.2
++++ b/man2/stat.2
+@@ -41,7 +41,6 @@
+ stat, fstat, lstat, fstatat \- get file status
  .SH SYNOPSIS
  .nf
--.B #include <sys/spu.h>
-+.BR "#include <sys/spu.h>" "          /* Definition of " SPU_* " constants */"
-+.BR "#include <sys/syscall.h>" "      /* Definition of " SYS_* " constants */"
-+.B #include <unistd.h>
+-.B #include <sys/types.h>
+ .B #include <sys/stat.h>
  .PP
- .BI "int spu_run(int " fd ", uint32_t *" npc ", uint32_t *" event );
- .fi
+ .BI "int stat(const char *restrict " pathname ,
+@@ -50,7 +49,7 @@ stat, fstat, lstat, fstatat \- get file status
+ .BI "int lstat(const char *restrict " pathname ,
+ .BI "         struct stat *restrict " statbuf );
  .PP
- .IR Note :
--There is no glibc wrapper for this system call; see NOTES.
-+glibc provides no wrapper for
-+.BR spu_run (),
-+necessitating the use of
-+.BR syscall (2).
- .SH DESCRIPTION
- The
- .BR spu_run ()
-@@ -195,9 +200,6 @@ This call is Linux-specific and implemented only by the PowerPC
- architecture.
- Programs using this system call are not portable.
- .SH NOTES
--Glibc does not provide a wrapper for this system call; call it using
--.BR syscall (2).
--Note however, that
- .BR spu_run ()
- is meant to be used from libraries that implement a more abstract
- interface to SPUs, not to be used from regular applications.
+-.BR "#include <fcntl.h>           " "/* Definition of AT_* constants */"
++.BR "#include <fcntl.h>           " "/* Definition of " AT_* " constants */"
+ .B #include <sys/stat.h>
+ .PP
+ .BI "int fstatat(int " dirfd ", const char *restrict " pathname ,
 -- 
 2.32.0
 
