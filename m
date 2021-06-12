@@ -2,58 +2,55 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0F73F3A4D97
-	for <lists+linux-man@lfdr.de>; Sat, 12 Jun 2021 10:31:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3007F3A4DA9
+	for <lists+linux-man@lfdr.de>; Sat, 12 Jun 2021 10:33:11 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230208AbhFLIdz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 12 Jun 2021 04:33:55 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36008 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229584AbhFLIdz (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 12 Jun 2021 04:33:55 -0400
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com [IPv6:2a00:1450:4864:20::32b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BFC0DC061767
-        for <linux-man@vger.kernel.org>; Sat, 12 Jun 2021 01:31:55 -0700 (PDT)
-Received: by mail-wm1-x32b.google.com with SMTP id b205so4565844wmb.3
-        for <linux-man@vger.kernel.org>; Sat, 12 Jun 2021 01:31:55 -0700 (PDT)
+        id S230208AbhFLIfI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 12 Jun 2021 04:35:08 -0400
+Received: from mail-wr1-f54.google.com ([209.85.221.54]:38773 "EHLO
+        mail-wr1-f54.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S231145AbhFLIfE (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 12 Jun 2021 04:35:04 -0400
+Received: by mail-wr1-f54.google.com with SMTP id c9so8454737wrt.5
+        for <linux-man@vger.kernel.org>; Sat, 12 Jun 2021 01:32:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=kjDsHgSmJ98CZinPxQ0iFmwo1UfbV1JSdSWo7uUKicY=;
-        b=gwpQ+Fn7zLIpDDr//sauu6aye5ROBAADvlIugw6QpPP4Zx/2vdPjjnj8u6N3y3DKr9
-         nc6evhfbUBz4CM9/SlKT6UYqALcXmlcil3HZR6bsy7+0b//S8jbZFB2JFS8QJdDVieoZ
-         3lTQiKWLDTze3FHcDc2KHNCNHgPCeUnoFs68SSXGGxt1lYtsJoWWsZzeGVg2MyJnqW9f
-         HvGWJQe3s9zwXycUaks0MfT6/2IbffRNfrsomils5sP13SCGAFxAIcOuwxFeitSf0T1E
-         XdgIFLWQ3iVscCRnusidCYKuMjuR/MvJ3I+yKOpVH3oNSTmalVE07TkKCuue2qOFEkHa
-         zV5w==
+        bh=BBuf0d/5Ak2dGeGOQy9Aoqa+7RlJjBkdL1s1ANsUrcc=;
+        b=txeBNeI/gKhSXHWWU4uNJ6p+BPY0bCZ6VUv9BM9XEeGlO62PdCeuBkfj3RswtL4WDi
+         JqbJGwtdsk4QVt60II/n3XxpbALyCJ+GTquR5Vkc1/YDSwabZkKdMU+wDSwI1CplEbQZ
+         XloUT5r13kcfHkX3kokosb/twk+x4ga+NjNJD0KX04XOC7TJYDh3PHFs7Ud0Ph3fEh8Y
+         Tugo9FyToployFiQL3+nezFlq6TRg65FULS0Iubor5SPzvnrS5MUJ+ks38zYZ0ElH/Bo
+         LELfICYG63w3k0ExWVpA0ciKCncrjrKARj/ruzUyDprrNKGgnLufgAl6+I9NsxTFvxFB
+         8yzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=kjDsHgSmJ98CZinPxQ0iFmwo1UfbV1JSdSWo7uUKicY=;
-        b=ZOHGJ7r0LleckqR56T3hzo/qcsdW2qnmeOirIz1Sq5oTOWOssqunEsK9NOPPu0k9tl
-         aEkqVnDsX9ZtVgdVq9md7XXbSLxQf/N+sTgpfqm0jNZfToaWJLHoT3YOB/XxxcAUfl6N
-         fCl9zCfxF3O7BiLuDTDwQq8RJxKU/XYxE8IxSgEPN88QHlNUua/oscJEKNXjIOSCm+ti
-         +h6b7fn4jBQqWQCHKha6fWLKI0y6dfRmZWPHKmwce9tAiA/Mf/1CZS9PkIAFkVvDjSLy
-         WAWi5aVmbdcGbkyATNCHuE5q79Y07PhxK8WrP30VjypHRBu7z0+iIcIEc0b1NLW3JFPA
-         xb9w==
-X-Gm-Message-State: AOAM5305lVaK/7Kh2ygfT4a3ufKKbpDkunFjS6/hX1q8SPlkqoQlJmqm
-        LT6sSu9ijJUyA0h8wkWO/eqNAkvmjyg=
-X-Google-Smtp-Source: ABdhPJy9yuCEhrdiabnEogTj7VN/FyVZpEGgNdGTF6ppmDb9vgJ7DDRZ7AP1e1kZNkKcGo32oIzPhw==
-X-Received: by 2002:a7b:c38f:: with SMTP id s15mr24374549wmj.16.1623486714443;
-        Sat, 12 Jun 2021 01:31:54 -0700 (PDT)
+        bh=BBuf0d/5Ak2dGeGOQy9Aoqa+7RlJjBkdL1s1ANsUrcc=;
+        b=cbRjoT72Nslw3Lpg+d4JROO8zH0um1JH41KpaVl3u5WO8/QJg0uW1PF1TpfaCC2/M5
+         kUubRuktmoUcplEO1JFctDBpNOWAyi6aTBs30mkN2PI52ifdruWekkfkJa1vNmjFej8g
+         iWBJDSAOy37hIiR7QYl/moxlyuMn8Ox/W8Y+uncUXC9/DqIvwjmIfYKhsMb1aV6dPkav
+         weluy6lV63u51wnoNJPptIFZ3AkJn+2jhwcFXX2nawoEL8Ztd7bCxkdWPqROnrZqHl5q
+         IfJyQ0cxgrzl1op235ljvHMZaVeGNsfvjskWguFx3zZ22l5thDlTnPg2xDVxDXWogONb
+         sLQQ==
+X-Gm-Message-State: AOAM532NhF0K0C5O1ihOLSuI+3Kmojx4Kr61uAg/1VC6ivDVa1DIvrfV
+        14NyWakNHFB+aOAOjkde8MY=
+X-Google-Smtp-Source: ABdhPJwoI/QvQ7Y2v+0q0n4ffxlJRMJK6Z6q3ezL8vS88zN8oszlqOqKQUnFhgZ2duuVstzY4D3wxQ==
+X-Received: by 2002:a5d:4291:: with SMTP id k17mr8302185wrq.40.1623486715082;
+        Sat, 12 Jun 2021 01:31:55 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.36.171])
-        by smtp.googlemail.com with ESMTPSA id c12sm11165110wrr.90.2021.06.12.01.31.53
+        by smtp.googlemail.com with ESMTPSA id c12sm11165110wrr.90.2021.06.12.01.31.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Sat, 12 Jun 2021 01:31:54 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org
-Subject: [PATCH 09/28] subpage_prot.2: Use syscall(SYS_...); for system calls without a wrapper
-Date:   Sat, 12 Jun 2021 10:31:26 +0200
-Message-Id: <20210612083145.12485-10-alx.manpages@gmail.com>
+Subject: [PATCH 10/28] swapon.2: SYNOPSIS: Fix includes
+Date:   Sat, 12 Jun 2021 10:31:27 +0200
+Message-Id: <20210612083145.12485-11-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210612083145.12485-1-alx.manpages@gmail.com>
 References: <20210612083145.12485-1-alx.manpages@gmail.com>
@@ -63,47 +60,27 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+There seems to be no reason to include <unistd.h>.
+<sys/swap.h> already provides both the function prototypes and the
+SWAP_* constants.
+
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man2/subpage_prot.2 | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
+ man2/swapon.2 | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/man2/subpage_prot.2 b/man2/subpage_prot.2
-index dc07753b5..91bb789e1 100644
---- a/man2/subpage_prot.2
-+++ b/man2/subpage_prot.2
-@@ -32,12 +32,18 @@
- subpage_prot \- define a subpage protection for an address range
+diff --git a/man2/swapon.2 b/man2/swapon.2
+index cebeb3cdb..07d5fe86c 100644
+--- a/man2/swapon.2
++++ b/man2/swapon.2
+@@ -44,7 +44,6 @@
+ swapon, swapoff \- start/stop swapping to file/device
  .SH SYNOPSIS
  .nf
--.BI "int subpage_prot(unsigned long " addr ", unsigned long " len \
--", uint32_t *" map );
-+.BR "#include <sys/syscall.h>" "      /* Definition of " SYS_* " constants */"
-+.B #include <unistd.h>
-+.PP
-+.BI "int syscall(SYS_subpage_prot, unsigned long " addr ", unsigned long " len ,
-+.BI "            uint32_t *" map );
- .fi
+-.B #include <unistd.h>
+ .B #include <sys/swap.h>
  .PP
- .IR Note :
--There is no glibc wrapper for this system call; see NOTES.
-+glibc provides no wrapper for
-+.BR subpage_prot (),
-+necessitating the use of
-+.BR syscall (2).
- .SH DESCRIPTION
- The PowerPC-specific
- .BR subpage_prot ()
-@@ -96,9 +102,6 @@ No library support is provided.
- .SH CONFORMING TO
- This system call is Linux-specific.
- .SH NOTES
--Glibc does not provide a wrapper for this system call; call it using
--.BR syscall (2).
--.PP
- Normal page protections (at the 64-kB page level) also apply;
- the subpage protection mechanism is an additional constraint,
- so putting 0 in a 2-bit field won't allow writes to a page that is otherwise
+ .BI "int swapon(const char *" path ", int " swapflags );
 -- 
 2.32.0
 
