@@ -2,55 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0BA823A4DA6
-	for <lists+linux-man@lfdr.de>; Sat, 12 Jun 2021 10:33:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 107E53A4D9F
+	for <lists+linux-man@lfdr.de>; Sat, 12 Jun 2021 10:32:19 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231166AbhFLIfC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 12 Jun 2021 04:35:02 -0400
-Received: from mail-wr1-f53.google.com ([209.85.221.53]:36607 "EHLO
-        mail-wr1-f53.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230400AbhFLIfA (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 12 Jun 2021 04:35:00 -0400
-Received: by mail-wr1-f53.google.com with SMTP id n7so2341736wri.3
-        for <linux-man@vger.kernel.org>; Sat, 12 Jun 2021 01:33:00 -0700 (PDT)
+        id S230511AbhFLIeQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 12 Jun 2021 04:34:16 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36040 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S231157AbhFLIeQ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 12 Jun 2021 04:34:16 -0400
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com [IPv6:2a00:1450:4864:20::336])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 66520C061574
+        for <linux-man@vger.kernel.org>; Sat, 12 Jun 2021 01:32:02 -0700 (PDT)
+Received: by mail-wm1-x336.google.com with SMTP id g204so9253486wmf.5
+        for <linux-man@vger.kernel.org>; Sat, 12 Jun 2021 01:32:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=zXAobAi9r6NTUzD+Dyw8bP1W0jU7/kGkSFitJz3no7k=;
-        b=dFuG7wuB0W1naU+ePmAk+CQxyEBR+F+THuM8AA7dGkafQ3zKkd6J2Ylalwy5fWHDY5
-         7Qjm41moGopxDNRo6O22yxDZsYe91D1OjNCy8VG8hYlDDcQAAkjsAnH7Bborhpl3wYR7
-         dqTLQNBVMSspPaZSAkGPhNEPq4os0qtBYQ6NIX9je/CwLp4IAriwdxjiF1COqlolcbsR
-         v3Xo4VPnJQdC7VFtwveKrekZal0pQYr7qpiCM2r+1iyt/GyqQFdQBznVjrwNIMZx6yFf
-         +1jkxp2/WNebIys7tq+5bXp70/ecPm56MnT+q+z5884bcLkhYn3sIdn+0hRmEgdEsFrD
-         5mVg==
+        bh=Lkb9JVwed0J0QQfd6bQwmgHPaDHtmw3mtaxnMwJir48=;
+        b=GssmnWugpKgDlk5FkLjMUtkLucMq5/KarH1XbNSCOyRssYxuP8iSscrUbgqg99TAFu
+         0FJNZNm9xQjrS1N2/p58Wu4QOhF8zmcJKlQnLRyy0TFCSG9KUXYCTFgk00oHHfbIS5El
+         W+I1PKrhkYSukzN1vgFAWQ3wjSWB9qgGcH1iC0Rmckfb5D4+ithImEqjc5pG7Jw1YiVY
+         vhmgnppOu6BG74cXb+M5P0vSR9SwIlbFT8OmTOAopUD2oZfiY0mdWEYII40tLu06VMKh
+         SjL4h/08tmw62E/kde6JjwDEjpV396VgHLXLi8ISD7OkeuGFHYICfTiYrOsnzNv9NMQ9
+         bEOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=zXAobAi9r6NTUzD+Dyw8bP1W0jU7/kGkSFitJz3no7k=;
-        b=RKWRbAJgrwHLJlOkzI/uYJDbWvjx4QaEmW3v7shlbQNPFdRDh6lCLOba/L7OldbTLa
-         78Nxn2NWexFBQtlXUT9GkNtcPXAzlUNcTdHdwSPgRezUGEyQ84vvOlcWTAMw9DzveaEn
-         OXQ95slfb8uJR6A18U+EXdvDWAU6PhvVBSz7McQo0jWAYTadp2A2qRisf8qeXC7CP91F
-         pbQAuP3hnHJvfr2JmHJqoSuSXItUI1UdvaoX09JlR/xQn8+Zb59ahzjsPkS/IffO9FBJ
-         io2RXjW6w7x8u/qXnVzVauuWR1hc8oIAbI/vuEEDHijS1Tstb8tD9WeTFuv/bqygGa/C
-         +fqg==
-X-Gm-Message-State: AOAM5326ECTFBMsWHryf0+AL6pHVWsukbrBkUHbU6mFhD/Yd8hJ3PTXZ
-        9NYp4tlB52XENKQHFU4+yn0cW0AS64c=
-X-Google-Smtp-Source: ABdhPJxbGMEprk5I4+wlDIaQ0HjjyJ0wj2JhS+aRDBib0NzGhRJNomFpVSJm42Bqxl5O7RU22nmcnw==
-X-Received: by 2002:adf:fe86:: with SMTP id l6mr8375374wrr.106.1623486720474;
-        Sat, 12 Jun 2021 01:32:00 -0700 (PDT)
+        bh=Lkb9JVwed0J0QQfd6bQwmgHPaDHtmw3mtaxnMwJir48=;
+        b=IpY1I4jEu4ojl37leyUK6jybrL9arwa0JoxAjJQ2pt6cexyO52/sa9tct9GgRDafWj
+         aFc4O+zbsQrEUZUsVO+dLYSLQ4VExkyDn8zPIceJRJAN3xgYUTxfqXMC4opmDbYsQrca
+         K2r+fDD6i97kmymXiIEt3GEPgnLTR+dS4Qt+q11IyAH/0DJERmV4fvgCHg1EMzQ+DOuD
+         tiVTm+os0AEpfIZehEuKCtTea3SaJFNGwJQqGfGLKRovzcGhGoPKAAuOyt5CQwSFpnOV
+         gZWIGVdpxJCamUVlsNv+OZ6+uXO8FYeghWslzdn89PZHk/5MZ0fqzKcH755O4GJ5FlkR
+         wMOQ==
+X-Gm-Message-State: AOAM530K0TDZP5iyjZSoRl2mxDhuVQdVjcOUtBEn3ztiS36GIaWSPu2A
+        TbW6z+k8RReDv+8VXlCyHS0=
+X-Google-Smtp-Source: ABdhPJzkoG9DoiG3bLXVVF7KMyY/x9nPNPCrnqwGkG/rTLIci4mUBLdwuE6XCNXXH/iTbSnPcAJbBA==
+X-Received: by 2002:a1c:4c07:: with SMTP id z7mr23171122wmf.90.1623486721106;
+        Sat, 12 Jun 2021 01:32:01 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.36.171])
-        by smtp.googlemail.com with ESMTPSA id c12sm11165110wrr.90.2021.06.12.01.31.59
+        by smtp.googlemail.com with ESMTPSA id c12sm11165110wrr.90.2021.06.12.01.32.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Sat, 12 Jun 2021 01:32:00 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org
-Subject: [PATCH 18/28] tkill.2: Use syscall(SYS_...); for system calls without a wrapper; fix includes too
-Date:   Sat, 12 Jun 2021 10:31:35 +0200
-Message-Id: <20210612083145.12485-19-alx.manpages@gmail.com>
+Subject: [PATCH 19/28] truncate.2: Remove <sys/types.h>
+Date:   Sat, 12 Jun 2021 10:31:36 +0200
+Message-Id: <20210612083145.12485-20-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210612083145.12485-1-alx.manpages@gmail.com>
 References: <20210612083145.12485-1-alx.manpages@gmail.com>
@@ -60,54 +63,26 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+'off_t', which is the only reason this might have been ever
+needed, is provided by <unistd.h> since POSIX.1-2001.
+
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man2/tkill.2 | 22 +++++++++++++---------
- 1 file changed, 13 insertions(+), 9 deletions(-)
+ man2/truncate.2 | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/man2/tkill.2 b/man2/tkill.2
-index a6752591b..6ff930e17 100644
---- a/man2/tkill.2
-+++ b/man2/tkill.2
-@@ -31,14 +31,22 @@
- tkill, tgkill \- send a signal to a thread
+diff --git a/man2/truncate.2 b/man2/truncate.2
+index a882e41c7..ebe3c4ef4 100644
+--- a/man2/truncate.2
++++ b/man2/truncate.2
+@@ -46,7 +46,6 @@ truncate, ftruncate \- truncate a file to a specified length
  .SH SYNOPSIS
  .nf
--.BI "int tkill(pid_t " tid ", int " sig );
--.BI "int tgkill(pid_t " tgid ", pid_t " tid ", int " sig );
-+.BR "#include <signal.h>" "           /* Definition of " SIG* " constants */"
-+.BR "#include <sys/syscall.h>" "      /* Definition of " SYS_* " constants */"
-+.B #include <unistd.h>
-+.PP
-+.BI "int syscall(SYS_tkill, pid_t " tid ", int " sig );
-+.PP
-+.B #include <signal.h>
-+.PP
-+.BI "int tgkill, pid_t " tgid ", pid_t " tid ", int " sig );
- .fi
+ .B #include <unistd.h>
+-.B #include <sys/types.h>
  .PP
- .IR Note :
--There is no glibc wrapper for
--.BR tkill ();
--see NOTES.
-+glibc provides no wrapper for
-+.BR tkill (),
-+necessitating the use of
-+.BR syscall (2).
- .SH DESCRIPTION
- .BR tgkill ()
- sends the signal
-@@ -138,10 +146,6 @@ in
- .BR clone (2)
- for an explanation of thread groups.
- .PP
--Glibc does not provide a wrapper for
--.BR tkill ();
--call it using
--.BR syscall (2).
- Before glibc 2.30, there was also no wrapper function for
- .BR tgkill ().
- .SH SEE ALSO
+ .BI "int truncate(const char *" path ", off_t " length );
+ .BI "int ftruncate(int " fd ", off_t " length );
 -- 
 2.32.0
 
