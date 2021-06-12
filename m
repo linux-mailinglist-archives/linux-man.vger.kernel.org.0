@@ -2,84 +2,94 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id BAB5F3A2667
-	for <lists+linux-man@lfdr.de>; Thu, 10 Jun 2021 10:18:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2B97A3A4D2D
+	for <lists+linux-man@lfdr.de>; Sat, 12 Jun 2021 08:47:47 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229941AbhFJIT7 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 10 Jun 2021 04:19:59 -0400
-Received: from mail.chalver.com.ec ([186.3.12.10]:42194 "EHLO
-        mail.chalver.com.ec" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229715AbhFJIT7 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 10 Jun 2021 04:19:59 -0400
-X-Greylist: delayed 4664 seconds by postgrey-1.27 at vger.kernel.org; Thu, 10 Jun 2021 04:19:58 EDT
-Received: from mail.chalver.com.ec (localhost.localdomain [127.0.0.1])
-        by mail.chalver.com.ec (Postfix) with ESMTPS id 6C8BA1F23D3D;
-        Thu, 10 Jun 2021 01:17:56 -0500 (ECT)
-Received: from localhost (localhost.localdomain [127.0.0.1])
-        by mail.chalver.com.ec (Postfix) with ESMTP id 6CE731F230AD;
-        Thu, 10 Jun 2021 00:50:16 -0500 (ECT)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.chalver.com.ec 6CE731F230AD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chalver.com.ec;
-        s=E2A417BC-DDA7-11E6-85F6-38495636B764; t=1623304216;
-        bh=PxMh0SAMbBGlctefOH2OhvTlJNlHw25bONEEE7Ldp0I=;
-        h=MIME-Version:To:From:Date:Message-Id;
-        b=fBbeEvFoeTKXFIwar9wXxvsvpVuRK6pzV0a2NGZt0I4PNUH9dbvmH3CocLagyrGpY
-         K7Csw4p21YMlSnP2Kqmfu/NycZ+DnEeZBFPn01+T9rCCgxVFBEDM+b6EVyBLMSsKqy
-         jukiaZq1JOEOxrfJ+DZ8c3fJri8jAExH92uYM7xcyRb8crfnBUjlYHGMLraBo4yaLa
-         dhU/MVk4PHHElIsTCJSF3xt48xcwR2rl4DYEOW5M7t/BwjtISZuKoRIlm+qlaggqWg
-         EuonsmI76MXXd5R0ds1EelMMqT/NR1TKMW7ddZ6mE5npRKiCXoi5k6XVZKVrh067bW
-         TsAh5lOp0355w==
-X-Virus-Scanned: amavisd-new at chalver.com.ec
-Received: from mail.chalver.com.ec ([127.0.0.1])
-        by localhost (mail.chalver.com.ec [127.0.0.1]) (amavisd-new, port 10026)
-        with ESMTP id U2Q8SCdVOvvK; Thu, 10 Jun 2021 00:50:16 -0500 (ECT)
-Received: from cris-PC.wifi (unknown [105.9.120.116])
-        by mail.chalver.com.ec (Postfix) with ESMTPSA id 5BC7D1F23713;
-        Thu, 10 Jun 2021 00:50:03 -0500 (ECT)
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
+        id S231161AbhFLGto (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 12 Jun 2021 02:49:44 -0400
+Received: from mail.kernel.org ([198.145.29.99]:46580 "EHLO mail.kernel.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S229584AbhFLGtn (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Sat, 12 Jun 2021 02:49:43 -0400
+Received: by mail.kernel.org (Postfix) with ESMTPS id A847F61374
+        for <linux-man@vger.kernel.org>; Sat, 12 Jun 2021 06:47:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1623480464;
+        bh=+oydtDpQRABjp1bMMoWIxShuC1+SkUsSQ+vDI2ZWKbE=;
+        h=From:To:Subject:Date:From;
+        b=qd4oQD6cBF/ILZ8bGqr2wUF/21kcVHm2Av1/1LtEYjX0mEkiXNow+shjcrqncQlZD
+         FaAa+8VWUhO6yxDSfIJ5l2psU1XKTC6KObOAgOWiqY8pQAZbRCf/KD2KcQ1pMqBVdP
+         CagJ3iu71cg21AquRScKXIKaadMHEXKVEEO3l3IzqnNCTEjl2bXdFByP4b1aPYGoLt
+         fRwkyhK+d0FoWkBB8RwUJqDeEPPwy77fW09/9fdwrkeIPwVv6XMn4XoMXyeEOdaBgT
+         8uzEYqQSshV0dqH9GIDhRleEXQ0dyBpCSlimIfnbRtzS7Q2Hhxp+0VcnltC5b9uV9h
+         AU/q1f+TB8wgA==
+Received: by pdx-korg-bugzilla-2.web.codeaurora.org (Postfix, from userid 48)
+        id 9CAF6611F0; Sat, 12 Jun 2021 06:47:44 +0000 (UTC)
+From:   bugzilla-daemon@bugzilla.kernel.org
+To:     linux-man@vger.kernel.org
+Subject: [Bug 213419] New: Outdated limitation for powerpc in vdso(7)
+Date:   Sat, 12 Jun 2021 06:47:44 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: new
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Documentation
+X-Bugzilla-Component: man-pages
+X-Bugzilla-Version: unspecified
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: christophe.leroy@csgroup.eu
+X-Bugzilla-Status: NEW
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P1
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: bug_id short_desc product version rep_platform
+ op_sys bug_status bug_severity priority component assigned_to reporter
+ cf_regression
+Message-ID: <bug-213419-11311@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Description: Mail message body
-Subject: =?utf-8?q?Covid_19_Wohlt=C3=A4tigkeitsfonds?=
-To:     Recipients <mpaucar@chalver.com.ec>
-From:   ''Tayeb souami'' <mpaucar@chalver.com.ec>
-Date:   Thu, 10 Jun 2021 07:57:19 +0200
-Reply-To: Tayebsouam.spende@gmail.com
-Message-Id: <20210610055004.5BC7D1F23713@mail.chalver.com.ec>
-X-Laboratorios-Chalver-MailScanner-Information: Please contact the ISP for more information
-X-Laboratorios-Chalver-MailScanner-ID: 5BC7D1F23713.AFA22
-X-Laboratorios-Chalver-MailScanner: Not scanned: please contact your Internet E-Mail Service Provider for details
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
+MIME-Version: 1.0
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+https://bugzilla.kernel.org/show_bug.cgi?id=3D213419
 
-Lieber Freund,
+            Bug ID: 213419
+           Summary: Outdated limitation for powerpc in vdso(7)
+           Product: Documentation
+           Version: unspecified
+          Hardware: All
+                OS: Linux
+            Status: NEW
+          Severity: normal
+          Priority: P1
+         Component: man-pages
+          Assignee: documentation_man-pages@kernel-bugs.osdl.org
+          Reporter: christophe.leroy@csgroup.eu
+        Regression: No
 
-Ich bin Herr Tayeb Souami, New Jersey, Vereinigte Staaten von Amerika, der =
-Mega-Gewinner von $ 315million In Mega Millions Jackpot, spende ich an 5 zu=
-f=C3=A4llige Personen, wenn Sie diese E-Mail erhalten, dann wurde Ihre E-Ma=
-il nach einem Spinball ausgew=C3=A4hlt.Ich habe den gr=C3=B6=C3=9Ften Teil =
-meines Verm=C3=B6gens auf eine Reihe von Wohlt=C3=A4tigkeitsorganisationen =
-und Organisationen verteilt.Ich habe mich freiwillig dazu entschieden, die =
-Summe von =E2=82=AC 2.000.000,00 an Sie als eine der ausgew=C3=A4hlten 5 zu=
- spenden, um meine Gewinne zu =C3=BCberpr=C3=BCfen, sehen Sie bitte meine Y=
-ou Tube Seite unten.
+https://man7.org/linux/man-pages/man7/vdso.7.html (as of today, flagged
+2021-03-22)
 
-UHR MICH HIER: https://www.youtube.com/watch?v=3DZ6ui8ZDQ6Ks
+ppc/32 and ppc/64 sections both have the following note:
 
+The CLOCK_REALTIME_COARSE and CLOCK_MONOTONIC_COARSE clocks are
+       not supported by the __kernel_clock_getres and
+       __kernel_clock_gettime interfaces; the kernel falls back to the
+       real system call
 
+This note has been wrong from quite some time now, since commit 654abc69ef2e
+("powerpc/vdso32: Add support for CLOCK_{REALTIME/MONOTONIC}_COARSE") and
+commit 5c929885f1bb ("powerpc/vdso64: Add support for
+CLOCK_{REALTIME/MONOTONIC}_COARSE")
 
-Das ist dein Spendencode: [TS530342018]
+--=20
+You may reply to this email to add a comment.
 
-
-
-Antworten Sie mit dem SPENDE-CODE an diese
-
-E-Mail:Tayebsouam.spende@gmail.com
-
-
-Ich hoffe, Sie und Ihre Familie gl=C3=BCcklich zu machen.
-
-Gr=C3=BC=C3=9Fe
-Herr Tayeb Souami
+You are receiving this mail because:
+You are watching the assignee of the bug.=
