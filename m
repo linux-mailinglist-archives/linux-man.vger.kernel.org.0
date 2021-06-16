@@ -2,83 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E8B103A9778
-	for <lists+linux-man@lfdr.de>; Wed, 16 Jun 2021 12:34:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2C6CB3AA074
+	for <lists+linux-man@lfdr.de>; Wed, 16 Jun 2021 17:55:35 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232375AbhFPKga (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 16 Jun 2021 06:36:30 -0400
-Received: from mail.oss.com.pe ([161.132.100.45]:51386 "EHLO
-        mail.consorciolp.com.pe" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232574AbhFPKfb (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 16 Jun 2021 06:35:31 -0400
-X-Greylist: delayed 10967 seconds by postgrey-1.27 at vger.kernel.org; Wed, 16 Jun 2021 06:35:31 EDT
-Received: from localhost (localhost [127.0.0.1])
-        by mail.consorciolp.com.pe (Postfix) with ESMTP id 621EF34A468A2;
-        Wed, 16 Jun 2021 01:44:45 -0500 (-05)
-Received: from mail.consorciolp.com.pe ([127.0.0.1])
-        by localhost (mail.consorciolp.com.pe [127.0.0.1]) (amavisd-new, port 10032)
-        with ESMTP id 8dRC710-AoPV; Wed, 16 Jun 2021 01:44:45 -0500 (-05)
-Received: from localhost (localhost [127.0.0.1])
-        by mail.consorciolp.com.pe (Postfix) with ESMTP id DA888349D2E68;
-        Wed, 16 Jun 2021 01:42:21 -0500 (-05)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.consorciolp.com.pe DA888349D2E68
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oss.com.pe;
-        s=675A380C-4679-11E8-96E4-C0788CA36BC0; t=1623825743;
-        bh=7Y6RtNhSVAIVHdJEU2gHHWYvaP8LRgEAhMNj0EoKaAA=;
-        h=MIME-Version:To:From:Date:Message-Id;
-        b=N3CTU+wTBTZ3SM/QfSEzxxmRCAeUELhHD/CbHl0jmPXkQg/hFpFUxArKpZQNIYyb1
-         HA4jYHBzGHmgsPpOVApKUXOwRbvakQ+2JB9RDmTp0oCDK+8fYSxkFiAqjFIxGraaXA
-         dewNtjtRpijxPNHt8y5KuiD9rQk7HoujIWp+P51qKk+7Qm/DLnig1KtPJ7bxV4KTOj
-         bl9kyQLNQjEMx1dMaS2kmBEyV7eKT225/tUfvpPsm4tHNgN6fbVA5YbReX6ESYvCSG
-         An0l+D6BtVopRmF8PhwlOqVZj7iZSV3nuUg9/PxwxjTTm7Uxp/B9zyOEoiyvCv6dan
-         qbbGA5bc7ry8g==
-X-Virus-Scanned: amavisd-new at consorciolp.com.pe
-Received: from mail.consorciolp.com.pe ([127.0.0.1])
-        by localhost (mail.consorciolp.com.pe [127.0.0.1]) (amavisd-new, port 10026)
-        with ESMTP id knHBQ3-0JfXC; Wed, 16 Jun 2021 01:42:21 -0500 (-05)
-Received: from cris-PC.wifi (unknown [105.9.118.225])
-        by mail.consorciolp.com.pe (Postfix) with ESMTPSA id 0501733AEA773;
-        Wed, 16 Jun 2021 01:40:00 -0500 (-05)
-Content-Type: text/plain; charset="utf-8"
+        id S234836AbhFPP5c (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 16 Jun 2021 11:57:32 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44286 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S235080AbhFPPzm (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 16 Jun 2021 11:55:42 -0400
+X-Greylist: delayed 1626 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Wed, 16 Jun 2021 08:53:07 PDT
+Received: from h2919243.stratoserver.net (unknown [IPv6:2a01:238:43fc:a400:9f63:45df:c23f:a27a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CDA5AC0613A2
+        for <linux-man@vger.kernel.org>; Wed, 16 Jun 2021 08:53:07 -0700 (PDT)
+Received: from webmail.awareness.gr (localhost [IPv6:::1])
+        by h2919243.stratoserver.net (Postfix) with ESMTPSA id 4C97D21E90;
+        Wed, 16 Jun 2021 18:24:08 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=awareness.gr;
+        s=default; t=1623857139;
+        bh=lil2Yii2E7edQ0z4mAvwLHEBQUEKXUt86PhtMQnc89s=; h=From:To:Subject;
+        b=hNiCZaL4XA5mJeFXnj4TNW437a65ff1/A8TBbJPJb5srd8utdYbZQaU3qnkVhLZQI
+         sHysnOtQ2P2OllxtpgR/ezywOXiscd98Mr2c4OLaTm8zgXWI6e1XXEIB4rZJZITLAe
+         5cS0aXRrqFshREDMUk0tK/meRNjdPUVY4fWYoFWU=
+Authentication-Results: h2919243.stratoserver.net;
+        spf=pass (sender IP is ::1) smtp.mailfrom=activities@awareness.gr smtp.helo=webmail.awareness.gr
+Received-SPF: pass (h2919243.stratoserver.net: connection is authenticated)
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Description: Mail message body
-Subject: spende von 2,000,000 euro
-To:     Recipients <sechegaray@oss.com.pe>
-From:   ''Tayeb souami'' <sechegaray@oss.com.pe>
-Date:   Wed, 16 Jun 2021 08:41:36 +0200
-Reply-To: Tayebsouam.spende@gmail.com
-Message-Id: <20210616064001.0501733AEA773@mail.consorciolp.com.pe>
+Date:   Wed, 16 Jun 2021 15:24:08 +0000
+From:   Julienne Garrison <activities@awareness.gr>
+To:     undisclosed-recipients:;
+Subject: Let me know if we can,
+Reply-To: juliennegarrison762@gmail.com
+User-Agent: Roundcube Webmail/1.4.11
+Message-ID: <8d668a70fef8a8d13a8b032755bf8834@awareness.gr>
+X-Sender: activities@awareness.gr
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: <162385706336.5553.8797044595941070988@h2919243.stratoserver.net>
+X-PPP-Vhost: awareness.gr
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Lieber Freund,
-
-Ich bin Herr Tayeb Souami, New Jersey, Vereinigte Staaten von Amerika, der =
-Mega-Gewinner von $ 315million In Mega Millions Jackpot, spende ich an 5 zu=
-f=C3=A4llige Personen, wenn Sie diese E-Mail erhalten, dann wurde Ihre E-Ma=
-il nach einem Spinball ausgew=C3=A4hlt.Ich habe den gr=C3=B6=C3=9Ften Teil =
-meines Verm=C3=B6gens auf eine Reihe von Wohlt=C3=A4tigkeitsorganisationen =
-und Organisationen verteilt.Ich habe mich freiwillig dazu entschieden, die =
-Summe von =E2=82=AC 2.000.000,00 an Sie als eine der ausgew=C3=A4hlten 5 zu=
- spenden, um meine Gewinne zu =C3=BCberpr=C3=BCfen, sehen Sie bitte meine Y=
-ou Tube Seite unten.
-
-UHR MICH HIER: https://www.youtube.com/watch?v=3DZ6ui8ZDQ6Ks
 
 
+-- 
+Hello dear, my names are Julienne Carvell Garrison. I want to ask you if 
+we can work together to support the widows,  children and old people who 
+are suffering right now? Can i trust you with our funds? I'm currently 
+living under the care of my insurance company due to unforeseen life 
+circumstances. Please get back to me if we can work together and if you 
+can be trusted.
 
-Das ist dein Spendencode: [TS530342018]
-
-
-
-Antworten Sie mit dem SPENDE-CODE an diese
-
-E-Mail:Tayebsouam.spende@gmail.com
-
-
-Ich hoffe, Sie und Ihre Familie gl=C3=BCcklich zu machen.
-
-Gr=C3=BC=C3=9Fe
-Herr Tayeb Souami
+Thank you
+Julienne Carvell Garrison.
