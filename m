@@ -2,85 +2,83 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 533243A7122
-	for <lists+linux-man@lfdr.de>; Mon, 14 Jun 2021 23:21:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E8B103A9778
+	for <lists+linux-man@lfdr.de>; Wed, 16 Jun 2021 12:34:26 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230081AbhFNVXl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 14 Jun 2021 17:23:41 -0400
-Received: from mail-io1-f54.google.com ([209.85.166.54]:46642 "EHLO
-        mail-io1-f54.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234397AbhFNVXl (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 14 Jun 2021 17:23:41 -0400
-Received: by mail-io1-f54.google.com with SMTP id b14so26125533iow.13
-        for <linux-man@vger.kernel.org>; Mon, 14 Jun 2021 14:21:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:reply-to:from:date:message-id:subject:to;
-        bh=1lGgBqcW5K9OGibLJ4OHzDuCFfS1P9S5IkLN1gfKCKE=;
-        b=OHzIOsqfkVfL+07FdLCb2uYRszFbkeD/bl3We9S2OZcZOaUv97EEWuOHqC8C/7TtE7
-         /KmizwIT4eDJLs+0POcKNc6P7xaYaaHf6pl0k5Jqa96vGUPs3BijdCHOlSFDHcgop2oX
-         CL0QzuCDr2TX/51gZcuJnfsJg2EUpSiHvIj9in7wqzdFBZddsmaRdHqc74xS9AjuYWc9
-         2AtFLFhlDoZ1Q58sCKYJRRcUK8JXtknEGH0EN1qaHr10PsG99a5HDJ6UI6oKbtGQ1tZv
-         0bxTv7uYRvBs6SjYJ0oO1wgtYG925svEVLK3BuQcbRwFWhNMiKsZCSB843ZAdk+Xqng+
-         +Llw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to;
-        bh=1lGgBqcW5K9OGibLJ4OHzDuCFfS1P9S5IkLN1gfKCKE=;
-        b=mRgybPIBl5fAQqSI1fyXbrsdWPJWNoGe6c5XLzuPHr3ZodWczjRm/AqfShwqOsIqa0
-         EsD2RwfLndS0009ApVXj63giUPAWbdIYMDkyao28j8OyMw5PIgUWztZ1FdwAHFRpZxMj
-         S45po7T+weaL/k9nTjXH9lblIoLoGH1qxjb24hfvZ+Fk9cuNCw/sA2LRyNzFV3urVQbr
-         YZpNNVI8Eamwm1UQcFKkv238CtShJNHZKZ+WU/iSShBJX2z3hmtXUkDXHqFpjt98cGTt
-         NSW5gHbKVJEx1pfjZFYzNAbDsB3kDeyD/G/a15+jBXGeYaLGn7u9TqnKxkPmEnpSFICw
-         kmGQ==
-X-Gm-Message-State: AOAM533NnZxLq9x7/CEstzLcLNQlLNi5k7huwkQeZHIeKHm8037xhRLL
-        vaus+ROzWnM6136zCHv6cue1NWphi+PlHnk4SYo=
-X-Google-Smtp-Source: ABdhPJwPQM9fLLjD6ibviq6X3WLbdN/SDHcaKW0glxlAKyp9hztN3sYnbKCZDaRgc1n1HSdZ4GqoOiAq2a3bHrsncnw=
-X-Received: by 2002:a02:5b4a:: with SMTP id g71mr18605147jab.132.1623705623712;
- Mon, 14 Jun 2021 14:20:23 -0700 (PDT)
+        id S232375AbhFPKga (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 16 Jun 2021 06:36:30 -0400
+Received: from mail.oss.com.pe ([161.132.100.45]:51386 "EHLO
+        mail.consorciolp.com.pe" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S232574AbhFPKfb (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 16 Jun 2021 06:35:31 -0400
+X-Greylist: delayed 10967 seconds by postgrey-1.27 at vger.kernel.org; Wed, 16 Jun 2021 06:35:31 EDT
+Received: from localhost (localhost [127.0.0.1])
+        by mail.consorciolp.com.pe (Postfix) with ESMTP id 621EF34A468A2;
+        Wed, 16 Jun 2021 01:44:45 -0500 (-05)
+Received: from mail.consorciolp.com.pe ([127.0.0.1])
+        by localhost (mail.consorciolp.com.pe [127.0.0.1]) (amavisd-new, port 10032)
+        with ESMTP id 8dRC710-AoPV; Wed, 16 Jun 2021 01:44:45 -0500 (-05)
+Received: from localhost (localhost [127.0.0.1])
+        by mail.consorciolp.com.pe (Postfix) with ESMTP id DA888349D2E68;
+        Wed, 16 Jun 2021 01:42:21 -0500 (-05)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.consorciolp.com.pe DA888349D2E68
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oss.com.pe;
+        s=675A380C-4679-11E8-96E4-C0788CA36BC0; t=1623825743;
+        bh=7Y6RtNhSVAIVHdJEU2gHHWYvaP8LRgEAhMNj0EoKaAA=;
+        h=MIME-Version:To:From:Date:Message-Id;
+        b=N3CTU+wTBTZ3SM/QfSEzxxmRCAeUELhHD/CbHl0jmPXkQg/hFpFUxArKpZQNIYyb1
+         HA4jYHBzGHmgsPpOVApKUXOwRbvakQ+2JB9RDmTp0oCDK+8fYSxkFiAqjFIxGraaXA
+         dewNtjtRpijxPNHt8y5KuiD9rQk7HoujIWp+P51qKk+7Qm/DLnig1KtPJ7bxV4KTOj
+         bl9kyQLNQjEMx1dMaS2kmBEyV7eKT225/tUfvpPsm4tHNgN6fbVA5YbReX6ESYvCSG
+         An0l+D6BtVopRmF8PhwlOqVZj7iZSV3nuUg9/PxwxjTTm7Uxp/B9zyOEoiyvCv6dan
+         qbbGA5bc7ry8g==
+X-Virus-Scanned: amavisd-new at consorciolp.com.pe
+Received: from mail.consorciolp.com.pe ([127.0.0.1])
+        by localhost (mail.consorciolp.com.pe [127.0.0.1]) (amavisd-new, port 10026)
+        with ESMTP id knHBQ3-0JfXC; Wed, 16 Jun 2021 01:42:21 -0500 (-05)
+Received: from cris-PC.wifi (unknown [105.9.118.225])
+        by mail.consorciolp.com.pe (Postfix) with ESMTPSA id 0501733AEA773;
+        Wed, 16 Jun 2021 01:40:00 -0500 (-05)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Received: by 2002:a5d:8517:0:0:0:0:0 with HTTP; Mon, 14 Jun 2021 14:20:23
- -0700 (PDT)
-Reply-To: denniswilliamjr6@gmail.com
-From:   "Mr.Steven Stratis" <om2295565@gmail.com>
-Date:   Mon, 14 Jun 2021 14:20:23 -0700
-Message-ID: <CACtm5PHMM4vzZ01hphc=YbhOVb6EVSrhgDUkpTZEDWeH_jGCvA@mail.gmail.com>
-Subject: contact my secretary and ask him for a cheque
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Description: Mail message body
+Subject: spende von 2,000,000 euro
+To:     Recipients <sechegaray@oss.com.pe>
+From:   ''Tayeb souami'' <sechegaray@oss.com.pe>
+Date:   Wed, 16 Jun 2021 08:41:36 +0200
+Reply-To: Tayebsouam.spende@gmail.com
+Message-Id: <20210616064001.0501733AEA773@mail.consorciolp.com.pe>
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
--- 
-Dear Friend,
+Lieber Freund,
 
-I am very happy to inform you about my success in getting that fund
-transferred. Now I want you to contact my secretary and ask him for a
-cheque worth of USD $800,000 million which I kept for you as a
-Compensation of your past assistance to me. His
+Ich bin Herr Tayeb Souami, New Jersey, Vereinigte Staaten von Amerika, der =
+Mega-Gewinner von $ 315million In Mega Millions Jackpot, spende ich an 5 zu=
+f=C3=A4llige Personen, wenn Sie diese E-Mail erhalten, dann wurde Ihre E-Ma=
+il nach einem Spinball ausgew=C3=A4hlt.Ich habe den gr=C3=B6=C3=9Ften Teil =
+meines Verm=C3=B6gens auf eine Reihe von Wohlt=C3=A4tigkeitsorganisationen =
+und Organisationen verteilt.Ich habe mich freiwillig dazu entschieden, die =
+Summe von =E2=82=AC 2.000.000,00 an Sie als eine der ausgew=C3=A4hlten 5 zu=
+ spenden, um meine Gewinne zu =C3=BCberpr=C3=BCfen, sehen Sie bitte meine Y=
+ou Tube Seite unten.
 
-contact details is below;
+UHR MICH HIER: https://www.youtube.com/watch?v=3DZ6ui8ZDQ6Ks
 
-Name: Dennis William Jr,
-Email;denniswilliamjr6@gmail.com
-Kindly reconfirm to him the following below information:
 
-Your full name_________________________
-Your address__________________________
-Your country___________________________
-Your age______________________________
-Your occupation________________________
-Your Phone number______________________
-Your Passport/Drivers license ______________________
 
-Note that if you did not send him the above information complete,he
-will not release the cheque to you because he has to be sure that it
-is you. Note also that I will not be reached by email or phone at this
-moment because I am currently in London for investment trip with my
-share.
+Das ist dein Spendencode: [TS530342018]
 
-Regards,
 
-Mr.Steven Stratis.
+
+Antworten Sie mit dem SPENDE-CODE an diese
+
+E-Mail:Tayebsouam.spende@gmail.com
+
+
+Ich hoffe, Sie und Ihre Familie gl=C3=BCcklich zu machen.
+
+Gr=C3=BC=C3=9Fe
+Herr Tayeb Souami
