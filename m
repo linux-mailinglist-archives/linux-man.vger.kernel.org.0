@@ -2,59 +2,42 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2B5303AB187
-	for <lists+linux-man@lfdr.de>; Thu, 17 Jun 2021 12:40:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 4DFDD3ACA42
+	for <lists+linux-man@lfdr.de>; Fri, 18 Jun 2021 13:44:25 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231422AbhFQKmG convert rfc822-to-8bit (ORCPT
-        <rfc822;lists+linux-man@lfdr.de>); Thu, 17 Jun 2021 06:42:06 -0400
-Received: from 6-200-5-45.rpnnetprovedor.com.br ([45.5.200.6]:33852 "EHLO
-        srv01.rpnnetprovedor.com.br" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S229716AbhFQKmG (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 17 Jun 2021 06:42:06 -0400
-X-Greylist: delayed 17416 seconds by postgrey-1.27 at vger.kernel.org; Thu, 17 Jun 2021 06:42:05 EDT
-Received: from [84.38.130.143] (helo=IP-130-143.dataclub.eu)
-        by srv01.rpnnetprovedor.com.br with esmtpa (Exim 4.92.2)
-        (envelope-from <robertnellsona@citromail.hu>)
-        id 1ltkuK-0000uk-RH
-        for linux-man@vger.kernel.org; Thu, 17 Jun 2021 02:49:41 -0300
+        id S234173AbhFRLqa convert rfc822-to-8bit (ORCPT
+        <rfc822;lists+linux-man@lfdr.de>); Fri, 18 Jun 2021 07:46:30 -0400
+Received: from [210.180.118.67] ([210.180.118.67]:35462 "EHLO blank.cafe24.com"
+        rhost-flags-FAIL-FAIL-OK-FAIL) by vger.kernel.org with ESMTP
+        id S234066AbhFRLq2 (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Fri, 18 Jun 2021 07:46:28 -0400
+X-Greylist: delayed 108572 seconds by postgrey-1.27 at vger.kernel.org; Fri, 18 Jun 2021 07:46:27 EDT
+Received: from IP-130-143.dataclub.eu (ip-130-143.dataclub.info [84.38.130.143] (may be forged))
+        (authenticated bits=0)
+        by blank.cafe24.com (8.14.7/8.14.7) with ESMTP id 15IBiBIp011442
+        for <linux-man@vger.kernel.org>; Fri, 18 Jun 2021 20:44:16 +0900
+Message-Id: <202106181144.15IBiBIp011442@blank.cafe24.com>
 Content-Type: text/plain; charset="iso-8859-1"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8BIT
 Content-Description: Mail message body
-Subject: CAN YOU INVEST WITH ME?...6
+Subject: BUSINESS LOAN/PROJECT FUNDING...67
 To:     linux-man@vger.kernel.org
-From:   "Mr.  Robert" <robertnellsona@citromail.hu>
-Date:   Thu, 17 Jun 2021 08:49:33 +0300
-Reply-To: robertnellsona@citromail.hu
-Message-Id: <E1ltkuK-0000uk-RH@srv01.rpnnetprovedor.com.br>
+From:   "Smith Green" <ssbinvestmentsllc@citromail.hu>
+Date:   Fri, 18 Jun 2021 14:44:53 +0300
+Reply-To: ssbinvestmentsllc@citromail.hu
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Dear Sir/Madam,
 
-ATTENTION; linux-man@vger.kernel.org,
+Our Investors are based in the middle east with a profound track record. We invite you to take advantage of our investment loan program to fund your existing or intending projects. We offer a straight or convertible loan investment program for projects with high-returns and payback prospects without the usual rigid procedures of conventional lenders.
+ 
+Kindly forward a copy of your Executive business summary for our review: info@ssbinvestmentsllc.us
 
-IMPORTANT INVESTMENT INFORMATION
-
-We have a good investment program going on now.
-We have $95m USD for Investment in your Country.
-We use this opportunity to invest you to join the investment program and you will never regret it.
-Please kindly invest with us and you will be receiving monthly income/return/profit every month.
-We can also give you Loan, 
-
-We have: 
-
-1. Short Term Loan, 
-
-2. Medium Term Loan 
-
-3. and Long Term Loan, 
-
-There is no need of collateral security. We will use our company to sign agreement and guarantee on your behalf and our Lawyer will sign on your behalf.
-
-Reply for more detail.
-
-Thank you Sir.
-
-Robert Nellson.
-INVESTMENT MANAGER.
+ 
+Best Regards.
+Smith Green
+E:info@ssbinvestmentsllc.us
+International investment broker
