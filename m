@@ -2,57 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 314C43AE045
-	for <lists+linux-man@lfdr.de>; Sun, 20 Jun 2021 22:28:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7051C3AE046
+	for <lists+linux-man@lfdr.de>; Sun, 20 Jun 2021 22:29:08 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229897AbhFTUa6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 20 Jun 2021 16:30:58 -0400
-Received: from mout.gmx.net ([212.227.17.21]:48301 "EHLO mout.gmx.net"
+        id S229901AbhFTUbU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 20 Jun 2021 16:31:20 -0400
+Received: from mout.gmx.net ([212.227.17.20]:42753 "EHLO mout.gmx.net"
         rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S229632AbhFTUa4 (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Sun, 20 Jun 2021 16:30:56 -0400
+        id S229632AbhFTUbU (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Sun, 20 Jun 2021 16:31:20 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
-        s=badeba3b8450; t=1624220922;
+        s=badeba3b8450; t=1624220945;
         bh=neBf7sOm0CL+iZoLzl0OQIMdHKumSHQU3Yklf5Ue8IA=;
-        h=X-UI-Sender-Class:Date:From:To:Subject;
-        b=dXy7IH8i/Smi0T1PVpbeAafAaNzMKdP+HDsVOAt3/4lUV570yLnBDCxjj504ZdVPM
-         weXN8q27mZFnIoi0refxpjiplFWZ+1FGNgBLJcE9O3kHRK8nnOvxRq+d6/rMQQnUPz
-         8pSM0qPksPt/FmwUwCD4v3NU3fBtQk/ZqzdAVGmM=
+        h=X-UI-Sender-Class:Date:From:To:Cc:Subject;
+        b=SuO83TWABvNT5EobQ16EEiAf9dhgbwqUUcFwHuEKdIvjuRsJH3nYhnqtS2zHhTSEC
+         7xFlgkgha691lQ9Nqtdw2PV5hmvv8xPu9QqQ+HzILJhSy+frNHuMwKdmfTeg9q1+gG
+         A7eExOvu2x2JEs1QHNZeLN/ep9Yd6rmOyN1j8POs=
 X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from linux-ff1t ([109.42.0.226]) by mail.gmx.net (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MTiTt-1lijIN1mZx-00U1XC for
- <linux-man@vger.kernel.org>; Sun, 20 Jun 2021 22:28:42 +0200
-Date:   Sun, 20 Jun 2021 22:28:41 +0200
+Received: from linux-ff1t ([109.42.0.226]) by mail.gmx.net (mrgmx105
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MOREc-1le6m722QQ-00Pw34; Sun, 20
+ Jun 2021 22:29:05 +0200
+Date:   Sun, 20 Jun 2021 22:29:04 +0200
 From:   Radisson97@gmx.de
 To:     linux-man@vger.kernel.org
+Cc:     alx.manpages@gmail.com
 Subject: new:mbrtoc32.3: convert from to c32
-Message-ID: <60cfa4f9.oQaEtQkckFQJoYb7%Radisson97@gmx.de>
+Message-ID: <60cfa510.GHWZSa6DNoE9MWRF%Radisson97@gmx.de>
 User-Agent: Heirloom mailx 12.5 7/5/10
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:tRjVk8TOjmbqiIkXTTssmqz+xp91efLmVtsPWKJDbgcnKPDaqFA
- xT+LHAF72l1gian/sngObe5KbZSM5X6XoqfM+mSjhoqfOkuLAqmtFp/zTpFMr1W/hj/Emop
- EmNDnNdFiIdeb9GX9Rpg4PDptDebUFjFBWh4hP2zR1uX38mGl8c7qe7+O/f891NN2m2z9MN
- rxJboI4+yLfEqsSWdLKAg==
+X-Provags-ID: V03:K1:qiPyd6u5TlfXJqpwxM/TAGGTIVBMaFLchi+gRJZW1g20RtKExCQ
+ nf8F6n4Ds03MzzkOLcyz+AjO0v0GbGGC/OnhLyC0gE3tno/lIrZF+8tXrqH7N7v8XfxDV8j
+ nakBS7h2nLYb6HjtzpYLUMVkCbRIhGIzpPc+wGiljFr+snHWbKctkwsptzfvu2ASjyZb4y7
+ eE1OzDFm4lUWU81QKf0Hw==
 X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:w4Bp4mejE+I=:wkKB/5Ab8+GjhgHoJO5Z+6
- tYLMKJ6tGbGc84DszS0qoz5XJAIiV1rizMIReTedhp+J3Il6QOG4CxXfRNDlZQE6+8PStqBM9
- D4PRJ4p6iGrsoByjZe53NmRp2qGihA+dIFv87qDS7+fZ6u6PZ+rGluX84VKKYGRWUrig+slJr
- wuUEvsS38vxKltU7WC5mcyf0M4+dP3dsjAq+waXA++n3nuLvC5Cw64VL6JI94zyFOMII8+T8t
- UxOpFjald60r0YtfiObjBlT4Uxr9sdwqF+m1Vkiok9vcAjhgwav1sMzE0ixRgcNnA9+5lwets
- RRPZf1KoYcpUM/Dezqd9rPoDMWWIfaGnEoM6quRGyR2IJVDifOA5e0G7iJYYQySH+n79fINSV
- xdDS7Uy+voYR1gfmrAL4iD+QZc1DhbWzRMZwzbSy470/B7K0EP4zXnFiFb0kgkGN/hSTVTI3Z
- cvobT1zVhS1IhRKg08/XACzJsXR/q4j47rf3wKGCQDTjar4GHFwKp3cqyQEOHAIE3bdf+yicT
- ADJLUKILbEjNlpJYlq7FMQQ4OpN8BJ6u56VM8CHvR00+7CfFOw0H+tVZNJNQlgSEOXzcIXrWC
- bo0QynJT+OyMa5w6MwUMRuD0M0bvnZr+JSYOWRsLgyKEwfQXWQk+olZICOWFHeJZR/OLXtvAd
- L/QobG0rD8CZvQ0iUdtZb3nuKBAZm2oh6u3Cy1BzuDIMqENBTi/aBZkJUuTrUVyH90igPjvD+
- yrgi5upafheNse8LDxvWj/wGnqk6szhYjAvyus8x1ktEQpHEebokxtcPAXUs9l9naMU2pM7Hb
- LUNauGnTZB/XgpmdGtxaJ0Ur0VKthZZ500l5xjEr4iui+FHCL8qkPUKb7Hv1Vmo+6XehqYDlu
- /CmbaecRa8u4gLzXnLuQN6RWk9AFsOQb+fgUdu6yTJMH1L1WOAiwuPXDZ9COJUwXcU9FMSZ82
- aerJZEkuz0QrkGm5NrjO35CVYlOsZ3WywJMUPZVEuWebz3AHpxZoPa+SgeHTgYIT0zt6S9fc/
- NQ2kwVT9izdMGi/STCia0F5LRwbrV4SUKAZlwGT8kblxNijE7O92jhtMk6BUF3KJ/gTbYeZcR
- kPTyssm+vxMrXkBV+WICo/Mk7t5yTVhbh5a
+X-UI-Out-Filterresults: notjunk:1;V03:K0:yZ11T5yVVY8=:j+bONIQGDfMAiBbfQFrcEa
+ O3oYlewbQajJjc6B4cSC4KyeQLa9z4Ywscbg4lo4DeLy1mBJ4lp6M1uXIiwl+BjDpHowPHlJt
+ ihJRN+LUw8lG7HXDIGiQbKmnL7w1iQjcOS/1x17YBR0+lh9Zpj/jQfZuPhx0xAEZR6s5vEkkg
+ Uur+xMC+ZeMrFrOmlhYnj3p3Dov3SO+/am1HSEkqAqexswkmDzmcJ4SxS4UyDn3s1tHcC5k/e
+ Ycf8r9serv9B496nLW62cJzZbhvXVAN9Iqps/NejZAJM/g3gwDh1VHU5zjXG68Xn7cTiYqIen
+ xUcRMuvcPjcI9L2cRUUCctDuUKkwzGfVoXo+Rehp9lqbKJ/FdZDV45hfKskL6NitiMaAVZvja
+ JIXG/ZuAFValCXPxd5xHiKx9MTsYLr5FMDRLHhsPJhkIKcHuFPNzCwGfawzyTbtxp6L7z4A6O
+ 0+ztzEX0XXzjHBRjftJDSX03LZBQsN/sKsr+fiuoa5qbKo31Eo+BWYBbULvcke9EI8h0VgUkn
+ pLIh0nITYAReCcHdyY2B9HiVAI4XW+1giifad3N9rwvlaBO0CaODiD2uijj8e3MXFOVhQ7Pou
+ Y4osvbCdXNiNB5AHLXO5xOBbOGcirn0i4kq+Yv/BrzMiDIa5ipmXRFZcGHTRboJ2ftdtI+YHu
+ uWQaiztDKLe9o3yxqCDSR/IxRu5vOk8I3z7Ao6M+58DwGoziAYMnXkQtrkTXYV8P4flAZEJLr
+ ZTc35YH+53w2DNBN/iOYOw4EcS7zviNdD7p+eKAzeGED+GkimpbAIxqWtkammI0KW0FSbjYCh
+ Cyh9QYMSTV7MMSBTo5dP8dGrzEUhx9xaYRWEhN+LYFlHV/JzQtp/IKI+ISy+xAvrfjbQpgaHj
+ YWhe35TAs5OX9rFw3/Yo+XSrClJSPR95y16EbLcTNF9PVEyoCv8vgOwSI3iTYtNAgaYJG/T4w
+ AMBACTpyLvNRyagtQEpsoJU2tKFTiMnASkOhF8//Jp99VJ0DfzOUROOOs8cqCpwtHzdXmSYXu
+ fgyxIFASAq90HC1/1s45INqRA1nPKWZUcs5PsSxIZSp0WNDUJNTKQa/HbbBaO8cNHLl7jvnwc
+ r21HtQBEox8w19BxtFFxl0wMPAnhm9UCHEn
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
