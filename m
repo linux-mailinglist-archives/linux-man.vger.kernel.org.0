@@ -2,79 +2,78 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0D7E53ADC78
-	for <lists+linux-man@lfdr.de>; Sun, 20 Jun 2021 05:51:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id BB9133ADC7D
+	for <lists+linux-man@lfdr.de>; Sun, 20 Jun 2021 05:54:49 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229899AbhFTDxb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 19 Jun 2021 23:53:31 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55816 "EHLO
+        id S229683AbhFTD5A (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 19 Jun 2021 23:57:00 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56574 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229591AbhFTDxa (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 19 Jun 2021 23:53:30 -0400
-Received: from mail-pg1-x52c.google.com (mail-pg1-x52c.google.com [IPv6:2607:f8b0:4864:20::52c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 35F10C061574
-        for <linux-man@vger.kernel.org>; Sat, 19 Jun 2021 20:51:17 -0700 (PDT)
-Received: by mail-pg1-x52c.google.com with SMTP id t13so11210277pgu.11
-        for <linux-man@vger.kernel.org>; Sat, 19 Jun 2021 20:51:17 -0700 (PDT)
+        with ESMTP id S229615AbhFTD5A (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 19 Jun 2021 23:57:00 -0400
+Received: from mail-pl1-x629.google.com (mail-pl1-x629.google.com [IPv6:2607:f8b0:4864:20::629])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 86E1AC061574;
+        Sat, 19 Jun 2021 20:54:47 -0700 (PDT)
+Received: by mail-pl1-x629.google.com with SMTP id i4so2995841plt.12;
+        Sat, 19 Jun 2021 20:54:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=0hWyrWsvDJSvOVGFF9MGK7JGvkt68gpmxF88VJocjY0=;
-        b=LCtKoOprhmDAxd15sjzrmGZk90Md3b3JXZpvP6MLz7MKEziV1II8zbk1XjWA3fvXYE
-         ZWTWpA/RjxvlbfyfHjED2vDgeNRhwj5q/fZ+bHgJ+gT07quqVZ1OahScqP/gqtzQINSg
-         2O0i/yDkWhJDm4W1pB59dBVPW1zSqhN4lusbp03Mjc7mC7493r3c930obecscjZ1TYW9
-         SuSoHZizyR8tLlVFZzfFJ1L8dru5v0NuMYPfeAwtC14eXwPAVyQqWHghPZFXh5oGMHAu
-         1BCVpwc75L7UbLp1p/fYoCLa22aOdnJqnAAoYYJ8WdFhnXh97vVyHBReki80QDueFr3Z
-         A+Wg==
+        bh=hM4kp+Fh2kyq7dtgUbZatmQI1FiYValUzraIYhuWGOk=;
+        b=bWE1tDmgg/fvKIlK/quzucRRf8ApBx2YOsYzpEyFoHxXglUH8diBY/p++Jir7GSCwY
+         b+1D1YIYaxPOpj2IHtU2sqZU7VD7AZUri1Za3wBzTBUseZXPlUdbPCuByXpF1Lrglxq0
+         g9uRi60Yo6Vmi7wt2H3mM6e4dMtFKoOo/P1hKjhycZcZwd6l9eorddixAQ1ANFJQP11f
+         Ax5e7vO82Quc2Wx+uzwHJHAwxN41aSbp4RV38xjs64BGNrAKsN2OGNOuKSe0vbGdYYEw
+         rdEbL+iK5XJvoMJFrgaEi9PKwexm5EBIp5utYuhLdWQ1U7h6qXX1G/3q6mjLt5HA7U3F
+         xLfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=0hWyrWsvDJSvOVGFF9MGK7JGvkt68gpmxF88VJocjY0=;
-        b=EScykq8Yd/878+DwERIypB/WOUudEyLMYh0p/q7Roglw7ovkPSjgAx5DBPE3AvF+LD
-         h55gxTlOkdiKBxm/Srkzuiw2l+vi6xmrWUDKo6m79Kkgy3xv37/7fOmIwunYzmokILg5
-         3oxtoYSniQfzf9V23hOULJG+KWDalvSchAICmQ0YaFnZFhWJVztOKJpvS6vnNK/JleyO
-         mfojm/KztEZrQnIC3KSz4DdExLp+DZXPQhFlPeqtesfEq2iPlUG+RhKKxMhyxyfdLtik
-         NEfGH6WdUlamlgHvdC6F52lUudRyw4DgnWY9jQXZ7uckh6RNF3gILjWxkfWVzHAvuS5w
-         pJ9w==
-X-Gm-Message-State: AOAM533YiuyBfSqp5ocTEYf0P+HfVSqWnzuqCfQjybTkNB94/NQD3aTC
-        GBpW7ERQ3AHWF2wPvZKFrNY=
-X-Google-Smtp-Source: ABdhPJwYELpXJ6WNkbiGrGGuGZhYvCxJARzcvWP1imx9w5RvU7wnOGKmRcHfB/Aov7o7xkce609ouA==
-X-Received: by 2002:aa7:921a:0:b029:2cf:b55b:9d52 with SMTP id 26-20020aa7921a0000b02902cfb55b9d52mr12847016pfo.35.1624161076825;
-        Sat, 19 Jun 2021 20:51:16 -0700 (PDT)
+        bh=hM4kp+Fh2kyq7dtgUbZatmQI1FiYValUzraIYhuWGOk=;
+        b=P3TUMM8I1i2zpNP9ysI27Q6zhyqywcRWQt/r3Oz9vlR6XiTPOdIiu23uqThr/1edYT
+         g/QkZagU9SsG2fa+IFv2qReS+QX6FRaKrzHG78YN3H9xPOFF5exyfpC5L2CZu6KBlXpd
+         rlYipZivBp0m1SCfAGqnrC5AEQQ2qiyh4dqYx/mJG8hzbrc1GA2mMaxgMwzAp72dtnMm
+         R8rS1xMQ7ZAVfGeOEBdA6WI3dDLRBNUW9CTK2TD4MTL/qmxMGnP4ubYr/6LIErQLXPd7
+         0Uxs8TNXeAs95n3KOr0Jel315MAaYRjWQsRlV2iqCcWGvrkSWpUeQL3GQN4iEKKvaLze
+         wK1g==
+X-Gm-Message-State: AOAM533aA3cl4uJ9FBd9HtaZr+xUKAd0mgtTpfuswI+8r+arbfBpPaUm
+        lldJ810lt9zZK9kf4aNfh1GxzM3F3II=
+X-Google-Smtp-Source: ABdhPJzm3GxvzWNesY7UUjI9q8nj/oBgQFqAhp19UhfemWGnmYNfsrD3dwNJbhMnAFg6TJ53LtC7rg==
+X-Received: by 2002:a17:90b:388a:: with SMTP id mu10mr12333751pjb.101.1624161286730;
+        Sat, 19 Jun 2021 20:54:46 -0700 (PDT)
 Received: from [192.168.1.70] (122-61-176-117-fibre.sparkbb.co.nz. [122.61.176.117])
-        by smtp.gmail.com with ESMTPSA id r134sm7936790pfc.68.2021.06.19.20.51.14
+        by smtp.gmail.com with ESMTPSA id y80sm4901208pfb.204.2021.06.19.20.54.43
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 19 Jun 2021 20:51:16 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        =?UTF-8?B?xaB0xJtww6FuIE7Em21lYw==?= <stepnem@gmail.com>
-Subject: Re: [PATCH 3/3] strcmp.3: tfix
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-References: <20210612082741.12211-1-alx.manpages@gmail.com>
- <20210612082741.12211-3-alx.manpages@gmail.com>
+        Sat, 19 Jun 2021 20:54:46 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, selinux@vger.kernel.org
+Subject: Re: [patch] mount.2: document SELinux use of MS_NOSUID mount flag
+To:     Topi Miettinen <toiwoton@gmail.com>, linux-man@vger.kernel.org,
+        alx.manpages@gmail.com
+References: <20210612085109.20363-1-toiwoton@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <196eeea4-92b2-2a78-1ada-b59fdf18f60e@gmail.com>
-Date:   Sun, 20 Jun 2021 15:51:12 +1200
+Message-ID: <e1f0ced0-7980-0d09-7fbd-636eee67b7ad@gmail.com>
+Date:   Sun, 20 Jun 2021 15:54:42 +1200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.1
 MIME-Version: 1.0
-In-Reply-To: <20210612082741.12211-3-alx.manpages@gmail.com>
+In-Reply-To: <20210612085109.20363-1-toiwoton@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Štěpán and Alex,
+Helo Topi,
 
-On 6/12/21 8:27 PM, Alejandro Colomar wrote:
-> With a simple backslash, '\0' ended up as ' ' in the man output.
+On 6/12/21 8:51 PM, Topi Miettinen wrote:
+> Using mount flag `MS_NOSUID` also affects SELinux domain transitions but
+> this has not been documented well.
 > 
-> Reported-by: Štěpán Němec <stepnem@gmail.com>
-> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+> Signed-off-by: Topi Miettinen <toiwoton@gmail.com>
 
 Thanks. Patch applied.
 
@@ -83,22 +82,24 @@ Cheers,
 Michael
 
 > ---
->  man3/strcmp.3 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  man2/mount.2 | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
 > 
-> diff --git a/man3/strcmp.3 b/man3/strcmp.3
-> index c1992c184..3c5a5a6ad 100644
-> --- a/man3/strcmp.3
-> +++ b/man3/strcmp.3
-> @@ -143,7 +143,7 @@ First, some examples using
->  .EX
->  $ \fB./string_comp ABC ABC\fP
->  <str1> and <str2> are equal
-> -$ \fB./string_comp ABC AB\fP      # \(aqC\(aq is ASCII 67; \(aqC\(aq \- \(aq\0\(aq = 67
-> +$ \fB./string_comp ABC AB\fP      # \(aqC\(aq is ASCII 67; \(aqC\(aq \- \(aq\e0\(aq = 67
->  <str1> is greater than <str2> (67)
->  $ \fB./string_comp ABA ABZ\fP     # \(aqA\(aq is ASCII 65; \(aqZ\(aq is ASCII 90
->  <str1> is less than <str2> (\-25)
+> diff --git a/man2/mount.2 b/man2/mount.2
+> index d8521880b..d7d5b2ad4 100644
+> --- a/man2/mount.2
+> +++ b/man2/mount.2
+> @@ -220,7 +220,9 @@ Do not allow programs to be executed from this filesystem.
+>  .TP
+>  .B MS_NOSUID
+>  Do not honor set-user-ID and set-group-ID bits or file capabilities
+> -when executing programs from this filesystem.
+> +when executing programs from this filesystem. In addition, SELinux domain
+> +transitions require permission nosuid_transition, which in turn needs
+> +also policy capability nnp_nosuid_transition.
+>  .\" (This is a security feature to prevent users executing set-user-ID and
+>  .\" set-group-ID programs from removable disk devices.)
+>  .TP
 > 
 
 
