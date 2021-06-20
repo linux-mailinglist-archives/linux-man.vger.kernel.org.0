@@ -2,97 +2,79 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6D2BB3ADC76
-	for <lists+linux-man@lfdr.de>; Sun, 20 Jun 2021 05:50:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2AC633ADC77
+	for <lists+linux-man@lfdr.de>; Sun, 20 Jun 2021 05:50:49 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229836AbhFTDwg (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 19 Jun 2021 23:52:36 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55610 "EHLO
+        id S229901AbhFTDw7 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 19 Jun 2021 23:52:59 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55702 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229591AbhFTDwg (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 19 Jun 2021 23:52:36 -0400
-Received: from mail-pf1-x42b.google.com (mail-pf1-x42b.google.com [IPv6:2607:f8b0:4864:20::42b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4659CC061574
-        for <linux-man@vger.kernel.org>; Sat, 19 Jun 2021 20:50:23 -0700 (PDT)
-Received: by mail-pf1-x42b.google.com with SMTP id u18so5611867pfk.11
-        for <linux-man@vger.kernel.org>; Sat, 19 Jun 2021 20:50:23 -0700 (PDT)
+        with ESMTP id S229591AbhFTDw7 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 19 Jun 2021 23:52:59 -0400
+Received: from mail-pj1-x1031.google.com (mail-pj1-x1031.google.com [IPv6:2607:f8b0:4864:20::1031])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B2B15C061574
+        for <linux-man@vger.kernel.org>; Sat, 19 Jun 2021 20:50:46 -0700 (PDT)
+Received: by mail-pj1-x1031.google.com with SMTP id k22-20020a17090aef16b0290163512accedso8774563pjz.0
+        for <linux-man@vger.kernel.org>; Sat, 19 Jun 2021 20:50:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=AALGDxK6Ui7o5oS+C9C9fG1NvskCkfoLIQ1nNqLFXmQ=;
-        b=IMnTOlpW48qWj+6/K59BTNzq6aBktDc6NMTFFQXPJwtIN0hPPvpTEMIuDb5CSwMeMg
-         NQzpzwnAIGKzCymTftFoG3eo59gaPOQIWm1URDFJ+1TFazkaa9Z1rzc5Agru9Pc2l9fZ
-         mauNmUtvpLVi7SIhIGvgKWXw2uNheE4vdFeIioHOknayqP7uKU92wAg/FyVSGC/+0MQc
-         TSkzLnF/YzUBYG1KCz/KMd2Ml9PVuUPX8xhEIEWO1Unp/oQn5B6z9AVBRq6khYQVNfgf
-         1ChTi/vSbiiRNyUbmiap8TxDtbfyyKYonj2oFCQ7m3R+wyNM8fzWAGmrVAXChuZtcerC
-         YvJA==
+        bh=B5VmEHjyHe1Bf+mvmccIpjnwJ+ELre88MJXWpsphle4=;
+        b=Vd0hOn70kqYsrg1/RDDcK38uUkzLtYQnDvnrfNhdxXXW/MEFD7/Ier9pCWbqUCR2Fv
+         AKYjJUOPhkJ/0tDc2pth+jpPI8CIxFv/7JvvlZQFUd0dDxUQ9RzgWSh1/ozsaXQ28ipY
+         3SKN/gnEB+kDATV8GpCyQyQNlMDXCE3RtUuotfL9sNnxDVp+VtAvyTYfqw0CMSSW7QZf
+         vuJGU/jNYp0T9xUkQzMWvERnJizDCOX1PYA2EUUYlIV46s9dMaKkBnL7RMnWn6pEtSa4
+         njKGDtCJtg3FoaTcX0vD++NGsRnz6NdhYl339M2a+daw51eVC9H04JtXjiSQPKxZh/ju
+         BOkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=AALGDxK6Ui7o5oS+C9C9fG1NvskCkfoLIQ1nNqLFXmQ=;
-        b=gjzxWmElX3KJ98D3jY1FbcXCSihsVzZMdR0IZ9c3B7rlqOvqs9JU3AknNLxfasYeOH
-         Af8lyfSuZw0J/x+fg3bz+dnX9VnCdkzb2Z9JyMFIzolLAiIj+MoEJLScpRsIRUWqOO1M
-         9iwGUUQG+YyzDBddnKNpct8d0zYH2v6yKienwl2s7RU/cth5xm7sd2BN8RUQ95bMMbtN
-         YTH0chUnridzdh1KFPjvYIRtlGc5F3qOu8FpnzgkqSSU45z+mle8eqhRsUKRBbJ5KbEi
-         mZSvsnmCQyxZ2+UR+Ub/BZ91jN012OqrQ/IaLSNMHojbwpfFGzFgIl+JzJWouZMMT+7N
-         MdpA==
-X-Gm-Message-State: AOAM53313LtitfwtN7tsaeAKC9nN3EyASj0RckbXbK7ZYgWcwBtGnx+U
-        UGNhHkZCUk6w88mvkNzXH0zzUeHtkII=
-X-Google-Smtp-Source: ABdhPJxoL8+TgiVTM6FEoQ18zEODn5mYiLfxT8Ozoa6sn+4Nf9vU451yOzdk4YeCOYqG0rKk4WdEHQ==
-X-Received: by 2002:a62:7f58:0:b029:300:9551:8cc0 with SMTP id a85-20020a627f580000b029030095518cc0mr9334989pfd.21.1624161022452;
-        Sat, 19 Jun 2021 20:50:22 -0700 (PDT)
+        bh=B5VmEHjyHe1Bf+mvmccIpjnwJ+ELre88MJXWpsphle4=;
+        b=rSio9JzjUb/I2H/CkjpbZVMClBPCbba1Xf3+9ZW3xZKBIiRaNh73UM8mhWXoevprEL
+         W7qxebm7+R8RiaJ2hjxxyCvbZP9S/PLGkNqG3Q2GGay734TPZkortQw7DP1pUgY8bpoP
+         c+3g64BwozAVUFNXmwzxcTGaTVFpw8L5gty/ctj50Mo8bd1vLXXL48iqcmVQ7pU42p1f
+         SKRWED/9RWEzoIUgY/f8f84rF+HJCfAdyQU6WmBsQRtxYLNkmpAkL9cOdbWZU3dXTY3O
+         2P/219hU9Qw06ofMPl7KQJIA6RwniMKJbqZ7uCKBxqzAY7XuCkBZg93UswROiQ8Tauut
+         cWjQ==
+X-Gm-Message-State: AOAM533xpQs6UcAP2+Fre/ZM2QvVeoO8g/xhyNcAdrmGieuODNMJHF8y
+        s/4xAKwDtLB9ZbJkLV4uSqihWdX67R8=
+X-Google-Smtp-Source: ABdhPJy623Q81FczQ833sr/XBBgCxNDRCU/CdpeUTWwqhCRMQL4JT9UbQp9djaPEG3grgIvpWH2fvw==
+X-Received: by 2002:a17:90a:1d0a:: with SMTP id c10mr18853242pjd.39.1624161046097;
+        Sat, 19 Jun 2021 20:50:46 -0700 (PDT)
 Received: from [192.168.1.70] (122-61-176-117-fibre.sparkbb.co.nz. [122.61.176.117])
-        by smtp.gmail.com with ESMTPSA id g8sm13241275pgo.10.2021.06.19.20.50.19
+        by smtp.gmail.com with ESMTPSA id j10sm11509729pjb.36.2021.06.19.20.50.43
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 19 Jun 2021 20:50:21 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com,
-        =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>,
+        Sat, 19 Jun 2021 20:50:45 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, thomasavoss <thomasavoss@protonmail.com>,
         linux-man@vger.kernel.org
-Subject: Re: [PATCH 1/3] getline.3: !*lineptr is sufficient
+Subject: Re: [PATCH 2/3] ferror.3: tfix
 To:     Alejandro Colomar <alx.manpages@gmail.com>
 References: <20210612082741.12211-1-alx.manpages@gmail.com>
+ <20210612082741.12211-2-alx.manpages@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <bdf50301-c36a-2536-b12e-a0b18df2658b@gmail.com>
-Date:   Sun, 20 Jun 2021 15:50:18 +1200
+Message-ID: <7b49d842-33ed-29df-14e2-f5e58d73521c@gmail.com>
+Date:   Sun, 20 Jun 2021 15:50:42 +1200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.1
 MIME-Version: 1.0
-In-Reply-To: <20210612082741.12211-1-alx.manpages@gmail.com>
+In-Reply-To: <20210612082741.12211-2-alx.manpages@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Alex and Ahelenia,
+Hello Alex and Thomas,
 
 On 6/12/21 8:27 PM, Alejandro Colomar wrote:
-> From: наб <nabijaczleweli@nabijaczleweli.xyz>
+> From: thomasavoss <thomasavoss@protonmail.com>
 > 
-> No implementation or spec requires *n to be 0 to allocate a new buffer:
->   * musl checks for !*lineptr
->     (and sets *n=0 for later allocations)
->   * glibc checks for !*lineptr || !*n
->     (but only because it allocates early)
->   * NetBSD checks for !*lineptr
->     (and sets *n=0 for later allocations)
->     (but specifies *n => mlen(*lineptr) >= *n as a precondition,
->      to which this appears to be an exception)
->   * FreeBSD checks for !*lineptr and sets *n=0
->     (and specifies !*lineptr as sufficient)
->   * Lastly, POSIX.1-2017 specifies:
->     > If *n is non-zero, the application shall ensure that *lineptr
->     > either points to an object of size at least *n bytes,
->     > or is a null pointer.
-> 
-> The new wording matches POSIX, even if it arrives at the point slightly
-> differently
-> 
-> Signed-off-by: Ahelenia Ziemiańska <nabijaczleweli@nabijaczleweli.xyz> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+
 
 Thanks. Patch applied.
 
@@ -101,24 +83,22 @@ Cheers,
 Michael
 
 > ---
->  man3/getline.3 | 4 +---
->  1 file changed, 1 insertion(+), 3 deletions(-)
+>  man3/ferror.3 | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/man3/getline.3 b/man3/getline.3
-> index a32d7e770..6641ecc35 100644
-> --- a/man3/getline.3
-> +++ b/man3/getline.3
-> @@ -59,9 +59,7 @@ one was found.
+> diff --git a/man3/ferror.3 b/man3/ferror.3
+> index 41fd9a3b0..cb63e24fc 100644
+> --- a/man3/ferror.3
+> +++ b/man3/ferror.3
+> @@ -85,7 +85,7 @@ function returns nonzero if the end-of-file indicator is set for
+>  otherwise, it returns zero.
 >  .PP
->  If
->  .I "*lineptr"
-> -is set to NULL and
-> -.I *n
-> -is set 0 before the call, then
-> +is set to NULL before the call, then
->  .BR getline ()
->  will allocate a buffer for storing the line.
->  This buffer should be freed by the user program
+>  The
+> -.BR feof ()
+> +.BR ferror ()
+>  function returns nonzero if the error indicator is set for
+>  .IR stream ;
+>  otherwise, it returns zero.
 > 
 
 
