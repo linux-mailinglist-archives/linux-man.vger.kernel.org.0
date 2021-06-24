@@ -2,38 +2,35 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id DD1B33B34E9
-	for <lists+linux-man@lfdr.de>; Thu, 24 Jun 2021 19:38:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6E1013B350E
+	for <lists+linux-man@lfdr.de>; Thu, 24 Jun 2021 19:55:46 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232456AbhFXRkx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 24 Jun 2021 13:40:53 -0400
-Received: from mail1.protonmail.ch ([185.70.40.18]:54102 "EHLO
-        mail1.protonmail.ch" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229464AbhFXRkw (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 24 Jun 2021 13:40:52 -0400
-Date:   Thu, 24 Jun 2021 17:38:29 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=spmail.info;
-        s=protonmail2; t=1624556311;
-        bh=YuLP0x2q2xuK1KSTlbH5NZFGYbKe4IwGfH5HVJndj1c=;
+        id S230480AbhFXR6E (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 24 Jun 2021 13:58:04 -0400
+Received: from mail-0201.mail-europe.com ([51.77.79.158]:44905 "EHLO
+        mail-0201.mail-europe.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S230450AbhFXR6E (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 24 Jun 2021 13:58:04 -0400
+Date:   Thu, 24 Jun 2021 17:55:40 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+        s=protonmail; t=1624557342;
+        bh=E+WqKiet+kH98mEdEg1gM5QvX0hUTA9La0U9pbZst4o=;
         h=Date:To:From:Reply-To:Subject:From;
-        b=hMEZrZxO+dE96WIoMBBPUNpv0rYsMi/GQIeLkZb7486z5XoCTk7DXtgJDZ5Gvc2Ev
-         RHSAIzVTxJgjtOQOW6HhiyoegrTeafeRSZg+PMjiHrOyn/UF1+6dKEbyNcVZv8mfad
-         +VJJiE3OskWPGBQOl1vFwecrq2usrJSBiW0+f1FrJG/w3eKRLEKcZP23OPBGIb7PRE
-         uxAokd5mM3CVMZds3WHpBUuWaFlx+2nK/lUQ6OtA82ttlBVCyBEFHsTGMRjJC1crYS
-         kEfUH8NbmpBxUkftbNHz0Z+9EhT7fli8izl42zmuLrCSuxlI+tTfzVLOmmMVW68+bV
-         Ot2wEAPM+87mQ==
+        b=BLiSMmNqNZP6AKv87BcIc65Lj8+MxhLXH2aklt3mDdqrRAmSfX0OKSdtJf1PPJSNP
+         h2dUD0WZ8TGQd0lsRFT/ip9uDmaLM8tAfN2MNeFn/Qzc8ExWU3J9wx5sIDU6tScC/B
+         vHBcgFhVzacSa6L3YG8NYPjIfOCfO5olrM2lcTMs=
 To:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
-        Alejandro Colomar <alx.manpages@gmail.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>
-From:   Sergey Petrakov <kr@spmail.info>
-Reply-To: Sergey Petrakov <kr@spmail.info>
-Subject: [PATCH] printf.3: wfix
-Message-ID: <OS__dSBxRx5DHJbgzyVTGxQ5GDBYmp9SjHoKTnxdL-t-y60vMFJUa9J7wrZIUrvgOcROHoSowVhKznMQJ7lOqbb1rv9M8vB8RdzXhp9Q-zA=@spmail.info>
+        "alx.manpages@gmail.com" <alx.manpages@gmail.com>,
+        "mtk.manpages@gmail.com" <mtk.manpages@gmail.com>
+From:   Thomas Voss <thomasavoss@protonmail.com>
+Reply-To: Thomas Voss <thomasavoss@protonmail.com>
+Subject: [patch] Change multiple occurrences of "char **argv" to "char *argv[]" to remain consistent with the vast majority of manual pages.
+Message-ID: <dQfiruW0nMqdV5dny28jYwxkt2uPa82znT6stDqJVTAUWhhgQCpp7oPeqlsVXhZUs8ZBn4-qgURe7lIXHxJbCCn34UKVD-StlJ8N8QV765M=@protonmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/mixed;
+ boundary="b1_RbKccHZFcZZBofO1hn9pv0LDZp7mTRBIrNJPL7pCYLo"
 X-Spam-Status: No, score=-1.2 required=10.0 tests=ALL_TRUSTED,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF shortcircuit=no
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM shortcircuit=no
         autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on
         mailout.protonmail.ch
@@ -41,27 +38,89 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Signed-off-by: Sergey Petrakov <kr@spmail.info>
----
- man3/printf.3 | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+This is a multi-part message in MIME format.
 
-diff --git a/man3/printf.3 b/man3/printf.3
-index fcc3bd6f3..28435af62 100644
---- a/man3/printf.3
-+++ b/man3/printf.3
-@@ -114,9 +114,8 @@ is the same as
- .BR fprintf ()
- except that it outputs to a file descriptor,
- .IR fd ,
--instead of to a
--.I stdio
--stream.
-+instead of to the given output
-+.IR stream .
- .PP
- The functions
- .BR snprintf ()
---
-2.20.1
+--b1_RbKccHZFcZZBofO1hn9pv0LDZp7mTRBIrNJPL7pCYLo
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+I've sent the patch as an attachment, but you can achieve the same effect w=
+ith:
+        sed -i s/int argc, char \*\*argv/int argc, char \*argv\[\]/ man*/*
+
+ - Thomas Voss
+--b1_RbKccHZFcZZBofO1hn9pv0LDZp7mTRBIrNJPL7pCYLo
+Content-Type: text/x-patch; name=manpage-argv-format-fix.patch
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename=manpage-argv-format-fix.patch
+
+ZGlmZiAtLWdpdCBhL21hbjIvYnBmLjIgYi9tYW4yL2JwZi4yCmluZGV4IDZlMWZmYTE5OC4uMjQ2
+MDUzMjAxIDEwMDY0NAotLS0gYS9tYW4yL2JwZi4yCisrKyBiL21hbjIvYnBmLjIKQEAgLTEyMTIs
+NyArMTIxMiw3IEBAIHJpc2N2IChzaW5jZSBMaW51eCA1LjEpLgogICogNC4gcHJpbnQgbnVtYmVy
+IG9mIHJlY2VpdmVkIFRDUC9VRFAgcGFja2V0cyBldmVyeSBzZWNvbmQKICAqLwogaW50Ci1tYWlu
+KGludCBhcmdjLCBjaGFyICoqYXJndikKK21haW4oaW50IGFyZ2MsIGNoYXIgKmFyZ3ZbXSkKIHsK
+ICAgICBpbnQgc29jaywgbWFwX2ZkLCBwcm9nX2ZkLCBrZXk7CiAgICAgbG9uZyBsb25nIHZhbHVl
+ID0gMCwgdGNwX2NudCwgdWRwX2NudDsKZGlmZiAtLWdpdCBhL21hbjIvY29weV9maWxlX3Jhbmdl
+LjIgYi9tYW4yL2NvcHlfZmlsZV9yYW5nZS4yCmluZGV4IDQ2N2ExNjMwMC4uMDNiYWZjZmZjIDEw
+MDY0NAotLS0gYS9tYW4yL2NvcHlfZmlsZV9yYW5nZS4yCisrKyBiL21hbjIvY29weV9maWxlX3Jh
+bmdlLjIKQEAgLTIzNiw3ICsyMzYsNyBAQCBvciBzZXJ2ZXItc2lkZS1jb3B5IChpbiB0aGUgY2Fz
+ZSBvZiBORlMpLgogI2luY2x1ZGUgPHVuaXN0ZC5oPgogCiBpbnQKLW1haW4oaW50IGFyZ2MsIGNo
+YXIgKiphcmd2KQorbWFpbihpbnQgYXJnYywgY2hhciAqYXJndltdKQogewogICAgIGludCBmZF9p
+biwgZmRfb3V0OwogICAgIHN0cnVjdCBzdGF0IHN0YXQ7CmRpZmYgLS1naXQgYS9tYW4yL21lbWJh
+cnJpZXIuMiBiL21hbjIvbWVtYmFycmllci4yCmluZGV4IGZlYzgyZjIyOC4uMjc3MWViZGNiIDEw
+MDY0NAotLS0gYS9tYW4yL21lbWJhcnJpZXIuMgorKysgYi9tYW4yL21lbWJhcnJpZXIuMgpAQCAt
+MzU4LDcgKzM1OCw3IEBAIHNsb3dfcGF0aChpbnQgKnJlYWRfYSkKIH0KIAogaW50Ci1tYWluKGlu
+dCBhcmdjLCBjaGFyICoqYXJndikKK21haW4oaW50IGFyZ2MsIGNoYXIgKmFyZ3ZbXSkKIHsKICAg
+ICBpbnQgcmVhZF9hLCByZWFkX2I7CiAKQEAgLTQ0NCw3ICs0NDQsNyBAQCBzbG93X3BhdGgoaW50
+ICpyZWFkX2EpCiB9CiAKIGludAotbWFpbihpbnQgYXJnYywgY2hhciAqKmFyZ3YpCittYWluKGlu
+dCBhcmdjLCBjaGFyICphcmd2W10pCiB7CiAgICAgaW50IHJlYWRfYSwgcmVhZF9iOwogCmRpZmYg
+LS1naXQgYS9tYW4yL3BlcmZfZXZlbnRfb3Blbi4yIGIvbWFuMi9wZXJmX2V2ZW50X29wZW4uMgpp
+bmRleCAzYmZjN2MxMDMuLjIyOWZhZGM3ZiAxMDA2NDQKLS0tIGEvbWFuMi9wZXJmX2V2ZW50X29w
+ZW4uMgorKysgYi9tYW4yL3BlcmZfZXZlbnRfb3Blbi4yCkBAIC0zNzYyLDcgKzM3NjIsNyBAQCBw
+ZXJmX2V2ZW50X29wZW4oc3RydWN0IHBlcmZfZXZlbnRfYXR0ciAqaHdfZXZlbnQsIHBpZF90IHBp
+ZCwKIH0KIAogaW50Ci1tYWluKGludCBhcmdjLCBjaGFyICoqYXJndikKK21haW4oaW50IGFyZ2Ms
+IGNoYXIgKmFyZ3ZbXSkKIHsKICAgICBzdHJ1Y3QgcGVyZl9ldmVudF9hdHRyIHBlOwogICAgIGxv
+bmcgbG9uZyBjb3VudDsKZGlmZiAtLWdpdCBhL21hbjIvc2VjY29tcC4yIGIvbWFuMi9zZWNjb21w
+LjIKaW5kZXggYTM0MjE4NzFmLi44YzgwZmI3YmIgMTAwNjQ0Ci0tLSBhL21hbjIvc2VjY29tcC4y
+CisrKyBiL21hbjIvc2VjY29tcC4yCkBAIC0xMTk5LDcgKzExOTksNyBAQCBpbnN0YWxsX2ZpbHRl
+cihpbnQgc3lzY2FsbF9uciwgaW50IHRfYXJjaCwgaW50IGZfZXJybm8pCiB9CiAKIGludAotbWFp
+bihpbnQgYXJnYywgY2hhciAqKmFyZ3YpCittYWluKGludCBhcmdjLCBjaGFyICphcmd2W10pCiB7
+CiAgICAgaWYgKGFyZ2MgPCA1KSB7CiAgICAgICAgIGZwcmludGYoc3RkZXJyLCAiVXNhZ2U6ICIK
+ZGlmZiAtLWdpdCBhL21hbjMvYnNlYXJjaC4zIGIvbWFuMy9ic2VhcmNoLjMKaW5kZXggMjVhYjNl
+OGRlLi40M2U4YjljNTcgMTAwNjQ0Ci0tLSBhL21hbjMvYnNlYXJjaC4zCisrKyBiL21hbjMvYnNl
+YXJjaC4zCkBAIC0xMjQsNyArMTI0LDcgQEAgY29tcG1pKGNvbnN0IHZvaWQgKm0xLCBjb25zdCB2
+b2lkICptMikKIH0KIAogaW50Ci1tYWluKGludCBhcmdjLCBjaGFyICoqYXJndikKK21haW4oaW50
+IGFyZ2MsIGNoYXIgKmFyZ3ZbXSkKIHsKICAgICBxc29ydChtb250aHMsIG5yX29mX21vbnRocywg
+c2l6ZW9mKG1vbnRoc1swXSksIGNvbXBtaSk7CiAgICAgZm9yIChpbnQgaSA9IDE7IGkgPCBhcmdj
+OyBpKyspIHsKZGlmZiAtLWdpdCBhL21hbjMvZ2V0b3B0LjMgYi9tYW4zL2dldG9wdC4zCmluZGV4
+IDBkNmFkMWM1NC4uY2U0YzI4MDg4IDEwMDY0NAotLS0gYS9tYW4zL2dldG9wdC4zCisrKyBiL21h
+bjMvZ2V0b3B0LjMKQEAgLTQ5MSw3ICs0OTEsNyBAQCB3aXRoIG1vc3Qgb2YgaXRzIGZlYXR1cmVz
+LgogI2luY2x1ZGUgPGdldG9wdC5oPgogCiBpbnQKLW1haW4oaW50IGFyZ2MsIGNoYXIgKiphcmd2
+KQorbWFpbihpbnQgYXJnYywgY2hhciAqYXJndltdKQogewogICAgIGludCBjOwogICAgIGludCBk
+aWdpdF9vcHRpbmQgPSAwOwpkaWZmIC0tZ2l0IGEvbWFuMy9nZXRzdWJvcHQuMyBiL21hbjMvZ2V0
+c3Vib3B0LjMKaW5kZXggOTlkMTEyZTYzLi4yNjQ5OTg0YmIgMTAwNjQ0Ci0tLSBhL21hbjMvZ2V0
+c3Vib3B0LjMKKysrIGIvbWFuMy9nZXRzdWJvcHQuMwpAQCAtMTYwLDcgKzE2MCw3IEBAIFRoZSBm
+b2xsb3dpbmcgcHJvZ3JhbSBleHBlY3RzIHN1Ym9wdGlvbnMgZm9sbG93aW5nIGEgIlwtbyIgb3B0
+aW9uLgogI2luY2x1ZGUgPHN0ZGlvLmg+CiAKIGludAotbWFpbihpbnQgYXJnYywgY2hhciAqKmFy
+Z3YpCittYWluKGludCBhcmdjLCBjaGFyICphcmd2W10pCiB7CiAgICAgZW51bSB7CiAgICAgICAg
+IFJPX09QVCA9IDAsCmRpZmYgLS1naXQgYS9tYW4zL3B0aHJlYWRfc2V0bmFtZV9ucC4zIGIvbWFu
+My9wdGhyZWFkX3NldG5hbWVfbnAuMwppbmRleCBhMWZiM2ZhMjEuLjc3YzE4YTNjZiAxMDA2NDQK
+LS0tIGEvbWFuMy9wdGhyZWFkX3NldG5hbWVfbnAuMworKysgYi9tYW4zL3B0aHJlYWRfc2V0bmFt
+ZV9ucC4zCkBAIC0xODAsNyArMTgwLDcgQEAgdGhyZWFkZnVuYyh2b2lkICpwYXJtKQogfQogCiBp
+bnQKLW1haW4oaW50IGFyZ2MsIGNoYXIgKiphcmd2KQorbWFpbihpbnQgYXJnYywgY2hhciAqYXJn
+dltdKQogewogICAgIHB0aHJlYWRfdCB0aHJlYWQ7CiAgICAgaW50IHJjOwpkaWZmIC0tZ2l0IGEv
+bWFuMy93b3JkZXhwLjMgYi9tYW4zL3dvcmRleHAuMwppbmRleCBjNTgzZDU1OWUuLjBhZWY0Y2M2
+OCAxMDA2NDQKLS0tIGEvbWFuMy93b3JkZXhwLjMKKysrIGIvbWFuMy93b3JkZXhwLjMKQEAgLTI0
+MCw3ICsyNDAsNyBAQCBpcyBhcHByb3hpbWF0ZWx5IHRoYXQgb2YgImxzIFthLWNdKi5jIi4KICNp
+bmNsdWRlIDx3b3JkZXhwLmg+CiAKIGludAotbWFpbihpbnQgYXJnYywgY2hhciAqKmFyZ3YpCitt
+YWluKGludCBhcmdjLCBjaGFyICphcmd2W10pCiB7CiAgICAgd29yZGV4cF90IHA7CiAgICAgY2hh
+ciAqKnc7CmRpZmYgLS1naXQgYS9tYW43L2Zhbm90aWZ5LjcgYi9tYW43L2Zhbm90aWZ5LjcKaW5k
+ZXggNmE3ZTcwZDc1Li45YzIxOGZkMDYgMTAwNjQ0Ci0tLSBhL21hbjcvZmFub3RpZnkuNworKysg
+Yi9tYW43L2Zhbm90aWZ5LjcKQEAgLTEwNjksNyArMTA2OSw3IEBAICQgXGZCbWtkaXIgXC1wIC9o
+b21lL3VzZXIvdGVzdGRpclxmUCAgICAgICAgICAjIEluIGFub3RoZXIgdGVybWluYWwKICNkZWZp
+bmUgQlVGX1NJWkUgMjU2CiAKIGludAotbWFpbihpbnQgYXJnYywgY2hhciAqKmFyZ3YpCittYWlu
+KGludCBhcmdjLCBjaGFyICphcmd2W10pCiB7CiAgICAgaW50IGZkLCByZXQsIGV2ZW50X2ZkLCBt
+b3VudF9mZDsKICAgICBzc2l6ZV90IGxlbiwgcGF0aF9sZW47Cg==
+
+--b1_RbKccHZFcZZBofO1hn9pv0LDZp7mTRBIrNJPL7pCYLo--
 
