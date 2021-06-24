@@ -2,125 +2,86 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6E1013B350E
-	for <lists+linux-man@lfdr.de>; Thu, 24 Jun 2021 19:55:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E381D3B372C
+	for <lists+linux-man@lfdr.de>; Thu, 24 Jun 2021 21:42:18 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230480AbhFXR6E (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 24 Jun 2021 13:58:04 -0400
-Received: from mail-0201.mail-europe.com ([51.77.79.158]:44905 "EHLO
-        mail-0201.mail-europe.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230450AbhFXR6E (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 24 Jun 2021 13:58:04 -0400
-Date:   Thu, 24 Jun 2021 17:55:40 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-        s=protonmail; t=1624557342;
-        bh=E+WqKiet+kH98mEdEg1gM5QvX0hUTA9La0U9pbZst4o=;
-        h=Date:To:From:Reply-To:Subject:From;
-        b=BLiSMmNqNZP6AKv87BcIc65Lj8+MxhLXH2aklt3mDdqrRAmSfX0OKSdtJf1PPJSNP
-         h2dUD0WZ8TGQd0lsRFT/ip9uDmaLM8tAfN2MNeFn/Qzc8ExWU3J9wx5sIDU6tScC/B
-         vHBcgFhVzacSa6L3YG8NYPjIfOCfO5olrM2lcTMs=
-To:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
-        "alx.manpages@gmail.com" <alx.manpages@gmail.com>,
-        "mtk.manpages@gmail.com" <mtk.manpages@gmail.com>
-From:   Thomas Voss <thomasavoss@protonmail.com>
-Reply-To: Thomas Voss <thomasavoss@protonmail.com>
-Subject: [patch] Change multiple occurrences of "char **argv" to "char *argv[]" to remain consistent with the vast majority of manual pages.
-Message-ID: <dQfiruW0nMqdV5dny28jYwxkt2uPa82znT6stDqJVTAUWhhgQCpp7oPeqlsVXhZUs8ZBn4-qgURe7lIXHxJbCCn34UKVD-StlJ8N8QV765M=@protonmail.com>
+        id S232841AbhFXTo1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 24 Jun 2021 15:44:27 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59774 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S232178AbhFXTo0 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 24 Jun 2021 15:44:26 -0400
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com [IPv6:2a00:1450:4864:20::62b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 10054C061574
+        for <linux-man@vger.kernel.org>; Thu, 24 Jun 2021 12:42:06 -0700 (PDT)
+Received: by mail-ej1-x62b.google.com with SMTP id d16so7801981ejm.7
+        for <linux-man@vger.kernel.org>; Thu, 24 Jun 2021 12:42:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:to:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=PwyMKOnoZFdb9ROx5ypLqlEoFqhjvHmPCFQOrjkNmoo=;
+        b=Z7t1e9XFDWfu/qq6ydlWUB+3MWeT5p0B0eh7q+vqxN4Xw1AH6hWh3mYJLMcy1fCV6x
+         3crPtA79R0UrEkzvlrd8cCBEVFG43N0V8Tn0ngJe2E0VYGiPhV9TASj/WUjVZSKA9pau
+         qckNNSIWyihRh/IrFAbTfOYwczQuNqLXGgfrzfJI3DxPSshKEkYp/VQreJmVbCHJpcuT
+         wUUjlrOZlvu4SfLzfo/z3Yn9QsiTZWLAiJ7Zt9FpAkZKuRI5/amBZj6QgIl4ncn4TpCX
+         V6m0YxlpSlDV+x6db3MeBqhOfN+EOS/trIfWFCv8iXCZ28Q+tlJTVOeagujESa+fF+yP
+         RpsQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=PwyMKOnoZFdb9ROx5ypLqlEoFqhjvHmPCFQOrjkNmoo=;
+        b=dmFV4QwMTheEADG1f5/xGxhwR7uVsDJtR/Fhm6cJlzF5gTtQUjFVAYSaR+INl1w2Nk
+         uvgAfmQtmeLRSozt8pVkDNUT7Un7lqSi1WyIUfbYV0xpjjkLrVs9+wFCmYbM0/UdCNcR
+         VLLA13W+Cn5jvij6ehKKt5PaXIKnYzcty8yJrVcVWCqheV6H63/8hS64hMjwgrzyrNbv
+         J2U0SevozloO5Mg9QAgqjXSubBzo9gKSCsYFegT6iUqmmSZGwT7vBBD4lNfLqItDhcO1
+         fKHGFCkykiqI+kBc6HA41zWNZfQfT/GfwK6royP2rYlHz6/pZkq6Q66qg+viEQyir3oI
+         NYIQ==
+X-Gm-Message-State: AOAM532F1+elDX8S6G+I2eMYyPjR06yPOJgflcVbWrU0YQdR24JkHDSa
+        P0Coyf5L1blHilJc1J3fvI++/fIQ47s=
+X-Google-Smtp-Source: ABdhPJzdv1FIaIlI0Rf4S114PvO2yOjDQP/UA6BHf9Gh7fuFaD/1GGcyjyS2vRuaj0TYlZUkaqF4tQ==
+X-Received: by 2002:a17:906:a281:: with SMTP id i1mr6746074ejz.307.1624563724384;
+        Thu, 24 Jun 2021 12:42:04 -0700 (PDT)
+Received: from localhost ([185.112.167.54])
+        by smtp.gmail.com with ESMTPSA id d6sm2526816edq.37.2021.06.24.12.42.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Jun 2021 12:42:03 -0700 (PDT)
+From:   =?UTF-8?q?=C5=A0t=C4=9Bp=C3=A1n=20N=C4=9Bmec?= <stepnem@gmail.com>
+To:     linux-man@vger.kernel.org,
+        Alejandro Colomar <alx.manpages@gmail.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+Subject: [PATCH] path_resolution.7: tfix
+Date:   Thu, 24 Jun 2021 21:42:02 +0200
+Message-Id: <20210624194202.713112-1-stepnem@gmail.com>
+X-Mailer: git-send-email 2.32.0.rc1.27.g991a26804f1e
 MIME-Version: 1.0
-Content-Type: multipart/mixed;
- boundary="b1_RbKccHZFcZZBofO1hn9pv0LDZp7mTRBIrNJPL7pCYLo"
-X-Spam-Status: No, score=-1.2 required=10.0 tests=ALL_TRUSTED,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM shortcircuit=no
-        autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on
-        mailout.protonmail.ch
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is a multi-part message in MIME format.
+Signed-off-by: Štěpán Němec <stepnem@gmail.com>
+---
+ man7/path_resolution.7 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---b1_RbKccHZFcZZBofO1hn9pv0LDZp7mTRBIrNJPL7pCYLo
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+diff --git a/man7/path_resolution.7 b/man7/path_resolution.7
+index 0901ed7c8a98..f24837ef9ce5 100644
+--- a/man7/path_resolution.7
++++ b/man7/path_resolution.7
+@@ -63,7 +63,7 @@ argument).
+ The current working directory is inherited from the parent, and can
+ be changed by use of the
+ .BR chdir (2)
+-system call.)
++system call.
+ .PP
+ Pathnames starting with a \(aq/\(aq character are called absolute pathnames.
+ Pathnames not starting with a \(aq/\(aq are called relative pathnames.
 
-I've sent the patch as an attachment, but you can achieve the same effect w=
-ith:
-        sed -i s/int argc, char \*\*argv/int argc, char \*argv\[\]/ man*/*
-
- - Thomas Voss
---b1_RbKccHZFcZZBofO1hn9pv0LDZp7mTRBIrNJPL7pCYLo
-Content-Type: text/x-patch; name=manpage-argv-format-fix.patch
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename=manpage-argv-format-fix.patch
-
-ZGlmZiAtLWdpdCBhL21hbjIvYnBmLjIgYi9tYW4yL2JwZi4yCmluZGV4IDZlMWZmYTE5OC4uMjQ2
-MDUzMjAxIDEwMDY0NAotLS0gYS9tYW4yL2JwZi4yCisrKyBiL21hbjIvYnBmLjIKQEAgLTEyMTIs
-NyArMTIxMiw3IEBAIHJpc2N2IChzaW5jZSBMaW51eCA1LjEpLgogICogNC4gcHJpbnQgbnVtYmVy
-IG9mIHJlY2VpdmVkIFRDUC9VRFAgcGFja2V0cyBldmVyeSBzZWNvbmQKICAqLwogaW50Ci1tYWlu
-KGludCBhcmdjLCBjaGFyICoqYXJndikKK21haW4oaW50IGFyZ2MsIGNoYXIgKmFyZ3ZbXSkKIHsK
-ICAgICBpbnQgc29jaywgbWFwX2ZkLCBwcm9nX2ZkLCBrZXk7CiAgICAgbG9uZyBsb25nIHZhbHVl
-ID0gMCwgdGNwX2NudCwgdWRwX2NudDsKZGlmZiAtLWdpdCBhL21hbjIvY29weV9maWxlX3Jhbmdl
-LjIgYi9tYW4yL2NvcHlfZmlsZV9yYW5nZS4yCmluZGV4IDQ2N2ExNjMwMC4uMDNiYWZjZmZjIDEw
-MDY0NAotLS0gYS9tYW4yL2NvcHlfZmlsZV9yYW5nZS4yCisrKyBiL21hbjIvY29weV9maWxlX3Jh
-bmdlLjIKQEAgLTIzNiw3ICsyMzYsNyBAQCBvciBzZXJ2ZXItc2lkZS1jb3B5IChpbiB0aGUgY2Fz
-ZSBvZiBORlMpLgogI2luY2x1ZGUgPHVuaXN0ZC5oPgogCiBpbnQKLW1haW4oaW50IGFyZ2MsIGNo
-YXIgKiphcmd2KQorbWFpbihpbnQgYXJnYywgY2hhciAqYXJndltdKQogewogICAgIGludCBmZF9p
-biwgZmRfb3V0OwogICAgIHN0cnVjdCBzdGF0IHN0YXQ7CmRpZmYgLS1naXQgYS9tYW4yL21lbWJh
-cnJpZXIuMiBiL21hbjIvbWVtYmFycmllci4yCmluZGV4IGZlYzgyZjIyOC4uMjc3MWViZGNiIDEw
-MDY0NAotLS0gYS9tYW4yL21lbWJhcnJpZXIuMgorKysgYi9tYW4yL21lbWJhcnJpZXIuMgpAQCAt
-MzU4LDcgKzM1OCw3IEBAIHNsb3dfcGF0aChpbnQgKnJlYWRfYSkKIH0KIAogaW50Ci1tYWluKGlu
-dCBhcmdjLCBjaGFyICoqYXJndikKK21haW4oaW50IGFyZ2MsIGNoYXIgKmFyZ3ZbXSkKIHsKICAg
-ICBpbnQgcmVhZF9hLCByZWFkX2I7CiAKQEAgLTQ0NCw3ICs0NDQsNyBAQCBzbG93X3BhdGgoaW50
-ICpyZWFkX2EpCiB9CiAKIGludAotbWFpbihpbnQgYXJnYywgY2hhciAqKmFyZ3YpCittYWluKGlu
-dCBhcmdjLCBjaGFyICphcmd2W10pCiB7CiAgICAgaW50IHJlYWRfYSwgcmVhZF9iOwogCmRpZmYg
-LS1naXQgYS9tYW4yL3BlcmZfZXZlbnRfb3Blbi4yIGIvbWFuMi9wZXJmX2V2ZW50X29wZW4uMgpp
-bmRleCAzYmZjN2MxMDMuLjIyOWZhZGM3ZiAxMDA2NDQKLS0tIGEvbWFuMi9wZXJmX2V2ZW50X29w
-ZW4uMgorKysgYi9tYW4yL3BlcmZfZXZlbnRfb3Blbi4yCkBAIC0zNzYyLDcgKzM3NjIsNyBAQCBw
-ZXJmX2V2ZW50X29wZW4oc3RydWN0IHBlcmZfZXZlbnRfYXR0ciAqaHdfZXZlbnQsIHBpZF90IHBp
-ZCwKIH0KIAogaW50Ci1tYWluKGludCBhcmdjLCBjaGFyICoqYXJndikKK21haW4oaW50IGFyZ2Ms
-IGNoYXIgKmFyZ3ZbXSkKIHsKICAgICBzdHJ1Y3QgcGVyZl9ldmVudF9hdHRyIHBlOwogICAgIGxv
-bmcgbG9uZyBjb3VudDsKZGlmZiAtLWdpdCBhL21hbjIvc2VjY29tcC4yIGIvbWFuMi9zZWNjb21w
-LjIKaW5kZXggYTM0MjE4NzFmLi44YzgwZmI3YmIgMTAwNjQ0Ci0tLSBhL21hbjIvc2VjY29tcC4y
-CisrKyBiL21hbjIvc2VjY29tcC4yCkBAIC0xMTk5LDcgKzExOTksNyBAQCBpbnN0YWxsX2ZpbHRl
-cihpbnQgc3lzY2FsbF9uciwgaW50IHRfYXJjaCwgaW50IGZfZXJybm8pCiB9CiAKIGludAotbWFp
-bihpbnQgYXJnYywgY2hhciAqKmFyZ3YpCittYWluKGludCBhcmdjLCBjaGFyICphcmd2W10pCiB7
-CiAgICAgaWYgKGFyZ2MgPCA1KSB7CiAgICAgICAgIGZwcmludGYoc3RkZXJyLCAiVXNhZ2U6ICIK
-ZGlmZiAtLWdpdCBhL21hbjMvYnNlYXJjaC4zIGIvbWFuMy9ic2VhcmNoLjMKaW5kZXggMjVhYjNl
-OGRlLi40M2U4YjljNTcgMTAwNjQ0Ci0tLSBhL21hbjMvYnNlYXJjaC4zCisrKyBiL21hbjMvYnNl
-YXJjaC4zCkBAIC0xMjQsNyArMTI0LDcgQEAgY29tcG1pKGNvbnN0IHZvaWQgKm0xLCBjb25zdCB2
-b2lkICptMikKIH0KIAogaW50Ci1tYWluKGludCBhcmdjLCBjaGFyICoqYXJndikKK21haW4oaW50
-IGFyZ2MsIGNoYXIgKmFyZ3ZbXSkKIHsKICAgICBxc29ydChtb250aHMsIG5yX29mX21vbnRocywg
-c2l6ZW9mKG1vbnRoc1swXSksIGNvbXBtaSk7CiAgICAgZm9yIChpbnQgaSA9IDE7IGkgPCBhcmdj
-OyBpKyspIHsKZGlmZiAtLWdpdCBhL21hbjMvZ2V0b3B0LjMgYi9tYW4zL2dldG9wdC4zCmluZGV4
-IDBkNmFkMWM1NC4uY2U0YzI4MDg4IDEwMDY0NAotLS0gYS9tYW4zL2dldG9wdC4zCisrKyBiL21h
-bjMvZ2V0b3B0LjMKQEAgLTQ5MSw3ICs0OTEsNyBAQCB3aXRoIG1vc3Qgb2YgaXRzIGZlYXR1cmVz
-LgogI2luY2x1ZGUgPGdldG9wdC5oPgogCiBpbnQKLW1haW4oaW50IGFyZ2MsIGNoYXIgKiphcmd2
-KQorbWFpbihpbnQgYXJnYywgY2hhciAqYXJndltdKQogewogICAgIGludCBjOwogICAgIGludCBk
-aWdpdF9vcHRpbmQgPSAwOwpkaWZmIC0tZ2l0IGEvbWFuMy9nZXRzdWJvcHQuMyBiL21hbjMvZ2V0
-c3Vib3B0LjMKaW5kZXggOTlkMTEyZTYzLi4yNjQ5OTg0YmIgMTAwNjQ0Ci0tLSBhL21hbjMvZ2V0
-c3Vib3B0LjMKKysrIGIvbWFuMy9nZXRzdWJvcHQuMwpAQCAtMTYwLDcgKzE2MCw3IEBAIFRoZSBm
-b2xsb3dpbmcgcHJvZ3JhbSBleHBlY3RzIHN1Ym9wdGlvbnMgZm9sbG93aW5nIGEgIlwtbyIgb3B0
-aW9uLgogI2luY2x1ZGUgPHN0ZGlvLmg+CiAKIGludAotbWFpbihpbnQgYXJnYywgY2hhciAqKmFy
-Z3YpCittYWluKGludCBhcmdjLCBjaGFyICphcmd2W10pCiB7CiAgICAgZW51bSB7CiAgICAgICAg
-IFJPX09QVCA9IDAsCmRpZmYgLS1naXQgYS9tYW4zL3B0aHJlYWRfc2V0bmFtZV9ucC4zIGIvbWFu
-My9wdGhyZWFkX3NldG5hbWVfbnAuMwppbmRleCBhMWZiM2ZhMjEuLjc3YzE4YTNjZiAxMDA2NDQK
-LS0tIGEvbWFuMy9wdGhyZWFkX3NldG5hbWVfbnAuMworKysgYi9tYW4zL3B0aHJlYWRfc2V0bmFt
-ZV9ucC4zCkBAIC0xODAsNyArMTgwLDcgQEAgdGhyZWFkZnVuYyh2b2lkICpwYXJtKQogfQogCiBp
-bnQKLW1haW4oaW50IGFyZ2MsIGNoYXIgKiphcmd2KQorbWFpbihpbnQgYXJnYywgY2hhciAqYXJn
-dltdKQogewogICAgIHB0aHJlYWRfdCB0aHJlYWQ7CiAgICAgaW50IHJjOwpkaWZmIC0tZ2l0IGEv
-bWFuMy93b3JkZXhwLjMgYi9tYW4zL3dvcmRleHAuMwppbmRleCBjNTgzZDU1OWUuLjBhZWY0Y2M2
-OCAxMDA2NDQKLS0tIGEvbWFuMy93b3JkZXhwLjMKKysrIGIvbWFuMy93b3JkZXhwLjMKQEAgLTI0
-MCw3ICsyNDAsNyBAQCBpcyBhcHByb3hpbWF0ZWx5IHRoYXQgb2YgImxzIFthLWNdKi5jIi4KICNp
-bmNsdWRlIDx3b3JkZXhwLmg+CiAKIGludAotbWFpbihpbnQgYXJnYywgY2hhciAqKmFyZ3YpCitt
-YWluKGludCBhcmdjLCBjaGFyICphcmd2W10pCiB7CiAgICAgd29yZGV4cF90IHA7CiAgICAgY2hh
-ciAqKnc7CmRpZmYgLS1naXQgYS9tYW43L2Zhbm90aWZ5LjcgYi9tYW43L2Zhbm90aWZ5LjcKaW5k
-ZXggNmE3ZTcwZDc1Li45YzIxOGZkMDYgMTAwNjQ0Ci0tLSBhL21hbjcvZmFub3RpZnkuNworKysg
-Yi9tYW43L2Zhbm90aWZ5LjcKQEAgLTEwNjksNyArMTA2OSw3IEBAICQgXGZCbWtkaXIgXC1wIC9o
-b21lL3VzZXIvdGVzdGRpclxmUCAgICAgICAgICAjIEluIGFub3RoZXIgdGVybWluYWwKICNkZWZp
-bmUgQlVGX1NJWkUgMjU2CiAKIGludAotbWFpbihpbnQgYXJnYywgY2hhciAqKmFyZ3YpCittYWlu
-KGludCBhcmdjLCBjaGFyICphcmd2W10pCiB7CiAgICAgaW50IGZkLCByZXQsIGV2ZW50X2ZkLCBt
-b3VudF9mZDsKICAgICBzc2l6ZV90IGxlbiwgcGF0aF9sZW47Cg==
-
---b1_RbKccHZFcZZBofO1hn9pv0LDZp7mTRBIrNJPL7pCYLo--
+base-commit: 33248cfe50ebb8762208e7ef3264676dad71b016
+-- 
+2.32.0.rc1.27.g991a26804f1e
 
