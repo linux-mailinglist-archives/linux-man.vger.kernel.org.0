@@ -2,64 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 3D05A3B6998
-	for <lists+linux-man@lfdr.de>; Mon, 28 Jun 2021 22:19:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DAF423B6AF5
+	for <lists+linux-man@lfdr.de>; Tue, 29 Jun 2021 00:30:01 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235013AbhF1UWN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 28 Jun 2021 16:22:13 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58538 "EHLO
+        id S232621AbhF1Wc0 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 28 Jun 2021 18:32:26 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59024 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233074AbhF1UWM (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 28 Jun 2021 16:22:12 -0400
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com [IPv6:2a00:1450:4864:20::32d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3E18FC061574
-        for <linux-man@vger.kernel.org>; Mon, 28 Jun 2021 13:19:46 -0700 (PDT)
-Received: by mail-wm1-x32d.google.com with SMTP id l18-20020a1ced120000b029014c1adff1edso268888wmh.4
-        for <linux-man@vger.kernel.org>; Mon, 28 Jun 2021 13:19:46 -0700 (PDT)
+        with ESMTP id S232323AbhF1WcZ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 28 Jun 2021 18:32:25 -0400
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com [IPv6:2a00:1450:4864:20::432])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C59D4C061574
+        for <linux-man@vger.kernel.org>; Mon, 28 Jun 2021 15:29:58 -0700 (PDT)
+Received: by mail-wr1-x432.google.com with SMTP id u6so1049835wrs.5
+        for <linux-man@vger.kernel.org>; Mon, 28 Jun 2021 15:29:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:references:from:message-id:date:user-agent:mime-version
-         :in-reply-to:content-language:content-transfer-encoding;
-        bh=Eh79qRxn+lRqHOHr4I/w9FlYvHx7kubNxIolsruWlE0=;
-        b=nTA1j3hamIwObZ4E9i9oDj2KbgR7yht/LsEbp3m6hxCkclrQ0xuTWwrWRRw1+mejGS
-         yCiuctWlny2NoqSyNGB4k1D5LWXSdFxluZ6Hxji9z9ghVp330Htcn0wpgfGuHe5DalXP
-         E4tdd7XwEQKhbMZeMEVqTFVA4Obe1CHOwrRA6SzSZUT3CP1K8ZOjRhg+oz4dRDqtY+9R
-         cOleboOFcZltX3j3QbimpVJyDfUsMpnaSe/ZkiSWwCURDJ8IgXh2AITE0TA1x8A/HEs6
-         HFkBcSns6tQeAOFyCsni2aECcqeDLpoZd+hHV42LK052yeA9weOJtd7rfe2FIrlBKeSi
-         d/vw==
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=kou+rORgnK2Eiao2Y8lndaSp0QIJmnwk965oFeDRXZU=;
+        b=dsZ79Jc5yE0v3VkOKmhsGrS7LynFAGV3E84vHWDzwVsG+2cvWoRjh8IYHh2nB2T1GQ
+         8m73dHE2koxcB9vLet8/62UHq6wkATBTjy+PhXi8k6tAUvX2CwQkuemLB/pSz13KhHVD
+         DI6AKLGDs0eiF4xZPJLdQUlcOoDPe/j/KVgVQlwL5NV5EP9cQ7JvCPF1OMylEglXaFgN
+         HHYqCQ9hy9Slz/0XpIRJ0cq4EQ03aTT5mbqcRIQHOZpDHmRFx8OWJwweLXrJ7s1aKqDh
+         2El7+B/hjnv52aHJR+GiVbwBMXQKLuHeLmQymrV4BVGU5rapadPYblYOm7YVMIIzJSYv
+         yCEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:references:from:message-id:date
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=Eh79qRxn+lRqHOHr4I/w9FlYvHx7kubNxIolsruWlE0=;
-        b=liObxlNfoAcezmnCUnik1XYn9vB0bQtpCA3x9Z2SgoEmFZQ8zYjQL57tW/AqnHcCQI
-         fYORQLPzT7AETdSzYmaDCnMEgufk3AUHcrYXoaCWrjZrXpiBh8Uh4zAXVtDIKUUOpWPD
-         YE5YGu1drugUTXQ8OxagLSjWvTDdSCXveMiYpM6TiKngMYA/Y9usyGOIxonze9L6WG+n
-         QH7T1xMZlj9nW9ySGL+77MfCeETyCPzbEV0WTpqOKebKzALyf0wvqPUfAZAWmQThKnA6
-         wVRD75fWas1kXGlxqoxUoLsCOWhN1fUeaIvuFucA2uGZnNptspOidLt6s4lyHvbgdw87
-         yTQA==
-X-Gm-Message-State: AOAM532UN7xU4lXXqj+VJA7sMz0usLPS15ULi527koULKjCN4CEKJ95s
-        QibD41FnTngmb+V2OFpkwGA=
-X-Google-Smtp-Source: ABdhPJwUToyAJD+aHyJm1IrpVwYqMTTyL1rUR/FwirY2u/Mak+5itta7Ztn110gKoefNMhh4g1yRfQ==
-X-Received: by 2002:a7b:ca4b:: with SMTP id m11mr9378925wml.90.1624911584919;
-        Mon, 28 Jun 2021 13:19:44 -0700 (PDT)
+        bh=kou+rORgnK2Eiao2Y8lndaSp0QIJmnwk965oFeDRXZU=;
+        b=J+tWG3sYjeZdVDbMGuekXB0ASDQ74Qw4b4+KzQ485YLOY9xN4HI0WE8RmVQy5K8lJN
+         A/2GdalbyIRN2e1h4+wVF8zhgcymrKhQjiGG4xkr7nFNa50L3SYYGAzjkRXhslq8nNsl
+         242r/oGG+wth3dMjO3C0FzHq5EHwioQGzbSHigpnVZWk+A7Ygr8MmgAjSxavOGPU2nmP
+         AEHqU6FzuIeA1nk6dNshfLSORGWAuE4bln3llVlVNisyr+vtWv/ilhKQnMwP2T26wdIT
+         ELKgD36PmadLna/SyGFahj5Hyx9R8G7nG3b8lYZQiKDBpifFaHjMD8UcBDh2ksnq4po9
+         7Hyw==
+X-Gm-Message-State: AOAM533RaM1hSXkqJ6vjhmPREwp140NK/5VKpHPl1Wh2JsRdzJpZoJ9c
+        5WZzuujPumtMjlsUHGq7G+cwnbOYChY=
+X-Google-Smtp-Source: ABdhPJyBNQjYO4o2D2GrQKNogO/z1sOZEoVd8Ih9jloN3+udU9ujpdZMSvsYHttBIAuLzyUVJR62Fw==
+X-Received: by 2002:adf:a2d1:: with SMTP id t17mr29505016wra.74.1624919397327;
+        Mon, 28 Jun 2021 15:29:57 -0700 (PDT)
 Received: from [10.8.0.150] ([195.53.121.100])
-        by smtp.gmail.com with ESMTPSA id y16sm16090326wrp.51.2021.06.28.13.19.43
+        by smtp.gmail.com with ESMTPSA id m7sm16792202wrv.35.2021.06.28.15.29.56
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 28 Jun 2021 13:19:44 -0700 (PDT)
-Subject: Re: [PATCH] preadv2: Note preadv2(..., RWF_NOWAIT) bug in BUGS
- section
-To:     will@williammanley.net, linux-man@vger.kernel.org,
-        Michael Kerrisk <mtk.manpages@gmail.com>
-References: <3f280647-143d-4c52-822a-79338a1b76f7@www.fastmail.com>
+        Mon, 28 Jun 2021 15:29:56 -0700 (PDT)
+Subject: Re: [PATCH] strcpy.3: Add missing 'restrict'
+To:     mtk.manpages@gmail.com
+Cc:     linux-man <linux-man@vger.kernel.org>
+References: <20210628203829.1056324-1-alx.manpages@gmail.com>
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <c06bfb13-3e4e-633d-b54f-6b4a46173cc0@gmail.com>
-Date:   Mon, 28 Jun 2021 22:19:42 +0200
+Message-ID: <cd48300b-8bf7-5e81-7897-a19fac493f17@gmail.com>
+Date:   Tue, 29 Jun 2021 00:29:55 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <3f280647-143d-4c52-822a-79338a1b76f7@www.fastmail.com>
+In-Reply-To: <20210628203829.1056324-1-alx.manpages@gmail.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -67,57 +66,29 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Will,
+D'oh!
 
-On 6/1/21 4:15 PM, Will Manley wrote:
-> To save the next person before they fall foul of it.  See
-> https://lore.kernel.org/linux-fsdevel/fea8b16d-5a69-40f9-b123-e84dcd6e8f2e@www.fastmail.com/T/#u
-> and https://github.com/tokio-rs/tokio/issues/3803 for more information.
+It's really been a long time without writing that email address... :-)
 
-Thanks. Patch applied.
-Sorry for the delay!
-
-I applied a few minor tweaks to your patch. See
-<https://github.com/alejandro-colomar/man-pages/commits/main>.
-I also added a signed-off-by line on your behalf.
-
-Thanks,
-
-Alex
-
+On 6/28/21 10:38 PM, Alejandro Colomar wrote:
+> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 > ---
->   man2/readv.2 | 11 ++++++++++-
->   1 file changed, 10 insertions(+), 1 deletion(-)
+>   man3/strcpy.3 | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/man2/readv.2 b/man2/readv.2
-> index df42cf830..3355fa9d7 100644
-> --- a/man2/readv.2
-> +++ b/man2/readv.2
-> @@ -243,7 +243,9 @@ If some data was successfully read, it will return the number of bytes read.
->   If no bytes were read, it will return \-1 and set
->   .IR errno
->   to
-> -.BR EAGAIN .
-> +.BR EAGAIN
-> +(but see
-> +.BR BUGS ")."
->   Currently, this flag is meaningful only for
->   .BR preadv2 ().
->   .TP
-> @@ -425,6 +427,13 @@ iov[1].iov_len = strlen(str1);
->   nwritten = writev(STDOUT_FILENO, iov, 2);
->   .EE
->   .in
-> +.SH BUGS
-> +Linux v5.9 and v5.10 have a bug where
-> +.BR preadv2()
-> +with the
-> +.BR RWF_NOWAIT
-> +flag may return 0 even when not at end of file.  See
-> +https://lore.kernel.org/linux-fsdevel/fea8b16d-5a69-40f9-b123-e84dcd6e8f2e@www.fastmail.com/T/#u
->   .SH SEE ALSO
->   .BR pread (2),
->   .BR read (2),
+> diff --git a/man3/strcpy.3 b/man3/strcpy.3
+> index db4663ff8..545e86107 100644
+> --- a/man3/strcpy.3
+> +++ b/man3/strcpy.3
+> @@ -39,7 +39,7 @@ strcpy, strncpy \- copy a string
+>   .nf
+>   .B #include <string.h>
+>   .PP
+> -.BI "char *strcpy(char *restrict " dest ", const char *" src );
+> +.BI "char *strcpy(char *restrict " dest ", const char *restrict " src );
+>   .BI "char *strncpy(char *restrict " dest ", const char *restrict " src \
+>   ", size_t " n );
+>   .fi
 > 
 
 
