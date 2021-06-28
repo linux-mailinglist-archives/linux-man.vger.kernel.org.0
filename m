@@ -2,89 +2,121 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id BCA8C3B5F34
-	for <lists+linux-man@lfdr.de>; Mon, 28 Jun 2021 15:38:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D0E743B691B
+	for <lists+linux-man@lfdr.de>; Mon, 28 Jun 2021 21:30:26 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230166AbhF1NlW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 28 Jun 2021 09:41:22 -0400
-Received: from sender4-op-o14.zoho.com ([136.143.188.14]:17422 "EHLO
-        sender4-op-o14.zoho.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231259AbhF1NlU (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 28 Jun 2021 09:41:20 -0400
-ARC-Seal: i=1; a=rsa-sha256; t=1624887531; cv=none; 
-        d=zohomail.com; s=zohoarc; 
-        b=MPrqZJhDNRBAqRpB3xutLbt0GQITyw1NkMJhnyCAB3d7HbWAQZWWouOEAzbxJhg96C0QTLC2l1jIHoUeyjVh8z89aXwz1wuHFwEG6JRWQAb0HAmjZkqkmrsSr2KTj7g3XlvtdAFqmKiSXSf/X5foJjiwxyleX5sxqzAtxyzr+sU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-        t=1624887531; h=Content-Type:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-        bh=7qUo1kH/P4AO9ynZmlbXill090A8JQMnmx1pacQV9sI=; 
-        b=UVYgz5UmHzXstKNBrkITNWawNoBkF6hGOxHISYdsvXiZUVDclatqU6ZHlgSxjO3u5JbMOFr9visn0Tjo5CYw4g/VLCsNfMY1Mu6wCep7fYY8+Fx7z7jxR2yVjSFUiNw7Y526BkZVFtixa8iPkoCwfyq5rDacSXT6N96BLWVpBVM=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-        spf=pass  smtp.mailfrom=dan@dlrobertson.com;
-        dmarc=pass header.from=<dan@dlrobertson.com>
-Received: from dlrobertson.com (pool-108-51-207-71.washdc.fios.verizon.net [108.51.207.71]) by mx.zohomail.com
-        with SMTPS id 1624887528441593.376846587812; Mon, 28 Jun 2021 06:38:48 -0700 (PDT)
-Date:   Mon, 28 Jun 2021 13:13:09 +0000
-From:   Dan Robertson <dan@dlrobertson.com>
-To:     "Darrick J. Wong" <djwong@kernel.org>
-Cc:     linux-man@vger.kernel.org, alx.manpages@gmail.com,
-        mtk.manpages@gmail.com
-Subject: Re: [PATCH 1/1] man2/fallocate.2: tfix documentation of shared blocks
-Message-ID: <YNnK5cuO7+RitEk5@dlrobertson.com>
-References: <20210621004453.7437-1-dan@dlrobertson.com>
- <20210621004453.7437-2-dan@dlrobertson.com>
- <20210621042550.GG158232@locust>
+        id S236576AbhF1Tcv (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 28 Jun 2021 15:32:51 -0400
+Received: from mail.kernel.org ([198.145.29.99]:37646 "EHLO mail.kernel.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S236567AbhF1Tcr (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Mon, 28 Jun 2021 15:32:47 -0400
+Received: by mail.kernel.org (Postfix) with ESMTPS id 2CEBB61C97
+        for <linux-man@vger.kernel.org>; Mon, 28 Jun 2021 19:30:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1624908621;
+        bh=ks5E2KotITyJWWK9CC8rrlvwBHMsU2lv7ryPwz+bE2M=;
+        h=From:To:Subject:Date:In-Reply-To:References:From;
+        b=Dt/KF8pgefXF0VqplC2N4RV9RHma3atgMDi4VQNXtmtf7tiZUNsVxkr9wv0JhTxwS
+         TisCSDtgHU3xeV1Zua8Fw0sUYsHUs+j7Rjf8cVfzDJsSFDrYTypJmuQC2LFNwdF5tR
+         m+ddt7avZvO8ypG2lxPoJ2wkpkAI9yPHfHHJ0GebvKb59xpkcVTYTcyg0jAvXQVn3s
+         pD/n0R1p++epiO0RHnVxX3qxnK5Iu1+8Lf8WEE1JsNrUqbQLfUbW9FOinLj9u6yXE3
+         +uL2SW1VApCWSq3dTGbWMyMJWgXrPMUFbPt3djmnHCOMFCVLItqr5Tuf4kcT5bgyB+
+         w8scJnoRxhTWg==
+Received: by pdx-korg-bugzilla-2.web.codeaurora.org (Postfix, from userid 48)
+        id 1FD33612A5; Mon, 28 Jun 2021 19:30:21 +0000 (UTC)
+From:   bugzilla-daemon@bugzilla.kernel.org
+To:     linux-man@vger.kernel.org
+Subject: [Bug 213013] getopt.3: further clarify behaviour
+Date:   Mon, 28 Jun 2021 19:30:20 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Documentation
+X-Bugzilla-Component: man-pages
+X-Bugzilla-Version: unspecified
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: alx.manpages@gmail.com
+X-Bugzilla-Status: NEW
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P1
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: 
+Message-ID: <bug-213013-11311-GxcSpQSkXg@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-213013-11311@https.bugzilla.kernel.org/>
+References: <bug-213013-11311@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="Zu6hRUHuDCKFgesu"
-Content-Disposition: inline
-In-Reply-To: <20210621042550.GG158232@locust>
-X-Zoho-Virus-Status: 1
-X-ZohoMailClient: External
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+https://bugzilla.kernel.org/show_bug.cgi?id=3D213013
 
---Zu6hRUHuDCKFgesu
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+--- Comment #5 from Alejandro Colomar (man-pages) (alx.manpages@gmail.com) =
+---
+Hi James,
 
-On Sun, Jun 20, 2021 at 09:25:50PM -0700, Darrick J. Wong wrote:
-> On Sun, Jun 20, 2021 at 08:44:53PM -0400, Dan Robertson wrote:
-> > Fix a typo in the documentation of using fallocate to allocate shared
-> > blocks. The flag FALLOC_FL_UNSHARE should instead be documented as
-> > FALLOC_FL_UNSHARE_RANGE.
-> >=20
-> > Fixes: 07c7a6a35497 ("man2/fallocate.2: Document behavior with shared b=
-locks")
-> > Signed-off-by: Dan Robertson <dan@dlrobertson.com>
->=20
-> Definitely an artifact of unshare being added and removed repeatedly
-> during the development of XFS reflink.  Thanks for fixing this...
+Sorry for the delay!
 
-Yeah, that makes sense. Thanks for checking this!
+(In reply to James Hunt from comment #4)
+> Thanks again for reviewing. I've updated the patch but I still think it
+> needs to be "spelt out" that two plus symbols may be required since that
+> avoids any confusion.
 
- - Dan
+Okay.
 
---Zu6hRUHuDCKFgesu
-Content-Type: application/pgp-signature; name="signature.asc"
+> Also, I'm afraid I'm using a webmailer so submitting patches to a mailing
+> list is going to be painful for me, whereas this bugzilla is quick and ea=
+sy
+> (and doesn't require me to register,
 
------BEGIN PGP SIGNATURE-----
+BTW, you don't need to subscribe to <linux-man@vger.kernel.org> to post the=
+re
+:-)
+But, I understand the rest.
 
-iQIzBAABCAAdFiEEF5dO2RaKc5C+SCJ9RcSmUsR+QqUFAmDZyuUACgkQRcSmUsR+
-QqVAHA//f5SDzpsaGjbS59R+lEOAs5OgaIu/YIhalzn1ryGT9dc/V31AhPI4hZWC
-ht20CBaMmjmkrmB3l25QhCxN4GB/Upd+L7Lpq/8PZc/rxPQQHHx5gjvPPLbo+GCh
-E8+LzPLFaU7eCzzVY+kH8/hzZKd4IdbO40TT8wLxM/5R/0odOlQbnSdzbyYwr+mz
-C3NEWEwguLDv6chmyy6yuQngMrUP2tpFCuUXFsIwHsoYVABEMUlIpbEev9zjJ11R
-qKCIRloYY7qZJXywHDhay/adHdNIyFE7RQy8cIHDe+pCfCA3E134B4m9uaG+mcJb
-A0zixjTpX1/0N+I3aCr/Oc7vKOgaEjle+NNWDFitt/rA5bKDOMj4cx12EyqbWp4X
-ZZPlbCI0JLlAXDal/Kj84LnRLUf7C4RDLF5Rxvs+uOcf+9DkQZHDJhfKjXqw1coi
-h8Og7Ylfw1oQTC1lL8GsffJorZxMnHdv7/8CjbxhQjRMLOaRDv0ZmtxQQnItvKtK
-7UmsMpqKLA4XoesTfu6b2t/NEzCB1H3XYcnhSO+e7Ta8swrHKjMEpBOlFsoHbdl5
-zYuhn79wX1wD6v9s3wzS3SPJzQgishexumyNBh3p5h6sAC3sXw4GXd2l6H+8hPdZ
-XI61wuUXz132TwpV6L1uPzFBcZENaaua3Ex4Cq1l4xtZfjiVyKo=
-=5F+l
------END PGP SIGNATURE-----
+> format mails in particular ways, plus
+> of course to manage a ton more emails ;) But if the real action is happen=
+ing
+> on the ML, I wonder if in the future it might be possible to forward all
+> bugzilla activity automatically to the ML rather than _vice versa_?
 
---Zu6hRUHuDCKFgesu--
+Yes.  After you said these, I remembered that I asked about that some time =
+ago.
+ The ML was subscribed again to this bugzilla activity :)
+
+Now the review:
+
+Could you please use '.IR ...' instead of '\fI...\fP...'?
+
+See this extract from man-manpages(7):
+
+[[
+       The preferred way to write this in the source file is:
+
+           .BR fcntl ()
+
+       (Using this format, rather than the use of  "\fB...\fP()"
+       makes it easier to write tools that parse man page source
+       files.)
+]]
+
+
+> Thanks again for your help.
+
+Thank you!
+
+Alex
+
+--=20
+You may reply to this email to add a comment.
+
+You are receiving this mail because:
+You are watching the assignee of the bug.=
