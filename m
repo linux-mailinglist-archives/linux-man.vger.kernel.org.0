@@ -2,53 +2,87 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C15BA3B729C
-	for <lists+linux-man@lfdr.de>; Tue, 29 Jun 2021 14:53:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 595DF3B7A27
+	for <lists+linux-man@lfdr.de>; Tue, 29 Jun 2021 23:57:05 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232908AbhF2Mzx convert rfc822-to-8bit (ORCPT
-        <rfc822;lists+linux-man@lfdr.de>); Tue, 29 Jun 2021 08:55:53 -0400
-Received: from [218.75.92.58] ([218.75.92.58]:65373 "EHLO WIN-VTPUBHNS72V"
-        rhost-flags-FAIL-FAIL-OK-FAIL) by vger.kernel.org with ESMTP
-        id S233222AbhF2Mzw (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Tue, 29 Jun 2021 08:55:52 -0400
-Received: from [192.168.43.47] (Unknown [197.210.79.43])
-        by WIN-VTPUBHNS72V with ESMTPA
-        ; Thu, 24 Jun 2021 20:46:54 +0800
-Message-ID: <3468000B-1059-4524-9150-6EF091F027F7@WIN-VTPUBHNS72V>
-Content-Type: text/plain; charset="iso-8859-1"
+        id S235280AbhF2V7c (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 29 Jun 2021 17:59:32 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:32964 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S235094AbhF2V7c (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 29 Jun 2021 17:59:32 -0400
+Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com [IPv6:2607:f8b0:4864:20::632])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8A998C061760
+        for <linux-man@vger.kernel.org>; Tue, 29 Jun 2021 14:57:03 -0700 (PDT)
+Received: by mail-pl1-x632.google.com with SMTP id i4so295544plt.12
+        for <linux-man@vger.kernel.org>; Tue, 29 Jun 2021 14:57:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=Xm4XwEnWYNmqvRotFo4YNC8hYsjWQAo5fxJB9pF+KTk=;
+        b=JcDglthdBzJSIWOfoEHqNaomkz9HbZhKUecQXZka2qDHUOLqrCetsjvOm9KOTW908y
+         cyuAft2NDLJ+KSDBF9/mRVdozAYYFqlhHygeEHzN7JmSvZSf1G5gikjAzZqLwcScc8jY
+         qLx5A+bLX8rysWF0z+SDZiqX3qb3I7znLrk5G/OWT6mdHgHvxkiERMg2Geiopo75moMY
+         pvSZTk9cj9T+81zxzMTEmTOHIp6zpvjuCVo+71TKN5cqlWllkmnekAtOSW1jfI1ddtEk
+         Fn9QwxCgBmX/w5kr68INjhgZ8+3itQNuvuE/1nKlSgfk7EWDd0Vyy+fjaylryqwvdpHm
+         fxBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=Xm4XwEnWYNmqvRotFo4YNC8hYsjWQAo5fxJB9pF+KTk=;
+        b=I25HolhGJihBTHq4ZYiE9N7bTGHjDgTq7WRfR87hf7kwDZiZV7fA9BYcS2PLx+krAB
+         8rpzoRw8m8EE+V/t+81s4/QRdRwQS+4jq/7qWWw6NaV448L8bvTeKm042khG8vdGy4N0
+         p7imZytC21GtpGeXs+8rFF3bnMq35M3lWxjl40OMLsDNsW0NKUawtUjN1T9yQq2TmNno
+         /Ew8o09eMNndW51ixljvc/y9mACs7jSK7WCOgXR09XOdAlDcnr6t0C8VNBrt7fi9Sg+U
+         b3B9LNIjDOxd3nX/9hHulKjIOY8q9/Ll4Dm/MR5voFWKkd415D6dK6MY1SIY3pl5RzgM
+         tjRQ==
+X-Gm-Message-State: AOAM531XmQGqlhMVhqSCwA0smDRVIa0qva952K694HJLNtOPS3PoSmbK
+        2OYYm+aIjKij3KGhbIcYWxwpUbDViapDmP5a
+X-Google-Smtp-Source: ABdhPJyvd0AxAmsBe6E3XYyH2FKfnMfQwBh8lwcZFjHno9pb827cTmRTdxgQcaohmoKXOB05qncd3Q==
+X-Received: by 2002:a17:90a:eb11:: with SMTP id j17mr10716328pjz.177.1625003822607;
+        Tue, 29 Jun 2021 14:57:02 -0700 (PDT)
+Received: from kir-rhat.lan (c-76-104-243-248.hsd1.wa.comcast.net. [76.104.243.248])
+        by smtp.gmail.com with ESMTPSA id u23sm21885898pgk.38.2021.06.29.14.57.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Jun 2021 14:57:02 -0700 (PDT)
+From:   Kir Kolyshkin <kolyshkin@gmail.com>
+To:     linux-man@vger.kernel.org
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        Kir Kolyshkin <kolyshkin@gmail.com>
+Subject: [PATCH 1/3] capabilities.7: tfix
+Date:   Tue, 29 Jun 2021 14:56:58 -0700
+Message-Id: <20210629215700.137856-1-kolyshkin@gmail.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8BIT
-Content-Description: Mail message body
-Subject: URGENT ATTENTION
-To:     Recipients <wjjt@wjjt.cn>
-From:   "Andres Auchincloss" <wjjt@wjjt.cn>
-Date:   Thu, 24 Jun 2021 14:46:29 +0200
-Reply-To: andresauchincloss926@gmail.com
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi,
+Add a missing comma.
 
-I will like to use this opportunity to wish you a productive time in 2021 and also confide in you to finalize this transaction of mutual benefits. It may seem strange to you, but it is real. This is a transaction that has no risk at all, due process shall be followed and it shall be carried out under the ambit of the financial laws. Being the Chief Financial Officer, BP Plc. I want to trust and put in your care Eighteen Million British Pounds Sterling, The funds were acquired from an over-invoiced payment from a past contract executed in one of my departments.
+Fixes: 3dcdef9437fafb
+Signed-off-by: Kir Kolyshkin <kolyshkin@gmail.com>
+---
+ man7/capabilities.7 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-I can't successfully achieve this transaction without presenting you as foreign contractor who will provide a bank account to receive the funds.
-
-Documentation for the claim of the funds will be legally processed and documented, so I will need your full cooperation on this matter for our mutual benefits. We will discuss details if you are interested to work with me to secure this funds. I will appreciate your prompt response in every bit of our communication. Stay Blessed and Stay Safe.
-
-
-
-Best Regards
-
-
-
-
-Tel: +1 (587) 770-0485
-Andres .B. Auchincloss
-Chief financial officerBP Petroleum p.l.c.
-
-
-
-
-                                  Copyright ©? 1996-2021
+diff --git a/man7/capabilities.7 b/man7/capabilities.7
+index cf9dc190f..9f8f0087f 100644
+--- a/man7/capabilities.7
++++ b/man7/capabilities.7
+@@ -215,7 +215,7 @@ Lock memory
+ .BR shmctl (2));
+ .IP *
+ Allocate memory using huge pages
+-.RB ( memfd_create (2)
++.RB ( memfd_create (2),
+ .BR mmap (2),
+ .BR shmctl (2)).
+ .PD 0
+-- 
+2.31.1
 
