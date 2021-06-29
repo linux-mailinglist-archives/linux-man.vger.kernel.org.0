@@ -2,108 +2,96 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D14B13B7A28
-	for <lists+linux-man@lfdr.de>; Tue, 29 Jun 2021 23:57:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 473613B7A84
+	for <lists+linux-man@lfdr.de>; Wed, 30 Jun 2021 00:55:16 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235094AbhF2V7c (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 29 Jun 2021 17:59:32 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:32974 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235240AbhF2V7c (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 29 Jun 2021 17:59:32 -0400
-Received: from mail-pj1-x102f.google.com (mail-pj1-x102f.google.com [IPv6:2607:f8b0:4864:20::102f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9E091C061766
-        for <linux-man@vger.kernel.org>; Tue, 29 Jun 2021 14:57:04 -0700 (PDT)
-Received: by mail-pj1-x102f.google.com with SMTP id cs1-20020a17090af501b0290170856e1a8aso2888905pjb.3
-        for <linux-man@vger.kernel.org>; Tue, 29 Jun 2021 14:57:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=ndGQsXax8xSAIxrif/4+6DM5Xr82K+8x5vGB9i76dKM=;
-        b=hNfsR6fOcsd4Pd5VFOju6zl5n6YAjW3p4d9FiwWe01xa38spNvlPh0rgiNGdLgl/sx
-         gTFuOyUrzb/iHFwcsrk1U3mje5S7/uhHVEQZQetbaCRpTC/f9FJXeozzaTD7tVX6zofL
-         MpO2DUu7NTbI+/YHVSWsaj0/pKopQT3mSp7WNcmPREM7Sy4ONFefxmoXsiUkdnMF2tCB
-         FAPEWSytJu/RzinBx1TkrUsEeR6phYXN4F6SvaGFxDB5z7Vc5zD8lLIc7uilEhFgas8p
-         s4OEXRCME3+tYBMgD/t4tDK+osuDlmyQYMWaL8sd+z+4ePZXlFIqo43CQusMN1weKfv3
-         S6dw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=ndGQsXax8xSAIxrif/4+6DM5Xr82K+8x5vGB9i76dKM=;
-        b=DPQbFWyh/Qow9KLm2EK/Fdpyb05nZdP7ZLg8TSNleyWGz8Kfi/PaZQwFxtGWmKuQVc
-         k8aHuYLKM9a3e7VZbcRWdgjuG7kmd577y40zZ1LpWr/y383PaOmKaplkhsIcwrzvhTXw
-         trjJgou1cALaV47KDCqTPmeC1SXePuir0g2BbNleaUzYcBqcRvdT6sOLB+aGpjP0HziW
-         CWwh3DiuL35AAq4CCkAwTnSYIdth9jPfTPANs1Ovd241iTJCcDGEhrehl8FFYH5uh2Gc
-         hZkSa2Gy/kOL3c6lTg9ICajmX7OQDYJhq8jkUocQ/hP0lJ6t8hHLZVRVEDSGswHqml9d
-         k4OA==
-X-Gm-Message-State: AOAM5319lCOB6pWnZAcouNda0EM7GocKANPEpfKFs5+s9SeNgwbj7pNv
-        NBAN5UV5uonC+3HP/2lYz2aqmHbJRjPw2kkh
-X-Google-Smtp-Source: ABdhPJwv+dw97hppZdP8g0pPwymx1nUQ7b/3LdmHw2A+msrQ7m0l68u/pMQ3cbjovBGQBmghs0X7Uw==
-X-Received: by 2002:a17:90b:1bc6:: with SMTP id oa6mr963663pjb.151.1625003823928;
-        Tue, 29 Jun 2021 14:57:03 -0700 (PDT)
-Received: from kir-rhat.lan (c-76-104-243-248.hsd1.wa.comcast.net. [76.104.243.248])
-        by smtp.gmail.com with ESMTPSA id u23sm21885898pgk.38.2021.06.29.14.57.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Jun 2021 14:57:03 -0700 (PDT)
-From:   Kir Kolyshkin <kolyshkin@gmail.com>
-To:     linux-man@vger.kernel.org
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        id S235427AbhF2W5i (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 29 Jun 2021 18:57:38 -0400
+Received: from out03.mta.xmission.com ([166.70.13.233]:35474 "EHLO
+        out03.mta.xmission.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S235231AbhF2W5g (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 29 Jun 2021 18:57:36 -0400
+Received: from in02.mta.xmission.com ([166.70.13.52]:47960)
+        by out03.mta.xmission.com with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+        (Exim 4.93)
+        (envelope-from <ebiederm@xmission.com>)
+        id 1lyMdH-000LwU-8A; Tue, 29 Jun 2021 16:55:07 -0600
+Received: from ip68-227-160-95.om.om.cox.net ([68.227.160.95]:41336 helo=email.xmission.com)
+        by in02.mta.xmission.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+        (Exim 4.93)
+        (envelope-from <ebiederm@xmission.com>)
+        id 1lyMdG-0039ez-C7; Tue, 29 Jun 2021 16:55:06 -0600
+From:   ebiederm@xmission.com (Eric W. Biederman)
+To:     <linux-api@vger.kernel.org>
+Cc:     Kees Cook <keescook@chromium.org>,
+        Andy Lutomirski <luto@amacapital.net>,
+        Will Drewry <wad@chromium.org>,
+        Linus Torvalds <torvalds@linux-foundation.org>,
+        Al Viro <viro@ZenIV.linux.org.uk>,
         Michael Kerrisk <mtk.manpages@gmail.com>,
-        Kir Kolyshkin <kolyshkin@gmail.com>
-Subject: [PATCH 3/3] capabilities.7, user_namespaces.7: describe CAP_SETFCAP
-Date:   Tue, 29 Jun 2021 14:57:00 -0700
-Message-Id: <20210629215700.137856-3-kolyshkin@gmail.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210629215700.137856-1-kolyshkin@gmail.com>
-References: <20210629215700.137856-1-kolyshkin@gmail.com>
+        <linux-man@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Date:   Tue, 29 Jun 2021 17:54:24 -0500
+Message-ID: <87r1gkp9i7.fsf@disp2133>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.1 (gnu/linux)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-XM-SPF: eid=1lyMdG-0039ez-C7;;;mid=<87r1gkp9i7.fsf@disp2133>;;;hst=in02.mta.xmission.com;;;ip=68.227.160.95;;;frm=ebiederm@xmission.com;;;spf=neutral
+X-XM-AID: U2FsdGVkX1+C/+RI8ccgi3UsWtxmzQboBPz6VqLQeJo=
+X-SA-Exim-Connect-IP: 68.227.160.95
+X-SA-Exim-Mail-From: ebiederm@xmission.com
+X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on sa06.xmission.com
+X-Spam-Level: 
+X-Spam-Status: No, score=0.8 required=8.0 tests=ALL_TRUSTED,BAYES_50,
+        DCC_CHECK_NEGATIVE,T_XMDrugObfuBody_08 autolearn=disabled version=3.4.2
+X-Spam-Report: * -1.0 ALL_TRUSTED Passed through trusted hosts only via SMTP
+        *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
+        *      [score: 0.4894]
+        * -0.0 DCC_CHECK_NEGATIVE Not listed in DCC
+        *      [sa06 1397; Body=1 Fuz1=1 Fuz2=1]
+        *  1.0 T_XMDrugObfuBody_08 obfuscated drug references
+X-Spam-DCC: XMission; sa06 1397; Body=1 Fuz1=1 Fuz2=1 
+X-Spam-Combo: ;<linux-api@vger.kernel.org>
+X-Spam-Relay-Country: 
+X-Spam-Timing: total 317 ms - load_scoreonly_sql: 0.03 (0.0%),
+        signal_user_changed: 12 (3.7%), b_tie_ro: 10 (3.2%), parse: 0.92
+        (0.3%), extract_message_metadata: 2.9 (0.9%), get_uri_detail_list:
+        0.73 (0.2%), tests_pri_-1000: 3.5 (1.1%), tests_pri_-950: 1.19 (0.4%),
+        tests_pri_-900: 1.00 (0.3%), tests_pri_-90: 66 (20.9%), check_bayes:
+        65 (20.4%), b_tokenize: 4.4 (1.4%), b_tok_get_all: 4.9 (1.6%),
+        b_comp_prob: 1.60 (0.5%), b_tok_touch_all: 51 (15.9%), b_finish: 0.91
+        (0.3%), tests_pri_0: 209 (65.9%), check_dkim_signature: 0.43 (0.1%),
+        check_dkim_adsp: 2.7 (0.8%), poll_dns_idle: 0.91 (0.3%), tests_pri_10:
+        3.1 (1.0%), tests_pri_500: 8 (2.5%), rewrite_mail: 0.00 (0.0%)
+Subject: Semantics of SECCOMP_MODE_STRICT?
+X-SA-Exim-Version: 4.2.1 (built Sat, 08 Feb 2020 21:53:50 +0000)
+X-SA-Exim-Scanned: Yes (on in02.mta.xmission.com)
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Signed-off-by: Kir Kolyshkin <kolyshkin@gmail.com>
----
- man7/capabilities.7    | 6 ++++++
- man7/user_namespaces.7 | 6 ++++++
- 2 files changed, 12 insertions(+)
 
-diff --git a/man7/capabilities.7 b/man7/capabilities.7
-index 9f8f0087f..2f9c9a61e 100644
---- a/man7/capabilities.7
-+++ b/man7/capabilities.7
-@@ -349,6 +349,12 @@ write a group ID mapping in a user namespace (see
- .TP
- .BR CAP_SETFCAP " (since Linux 2.6.24)"
- Set arbitrary capabilities on a file.
-+.IP
-+.\" commit db2e718a47984b9d71ed890eb2ea36ecf150de18
-+Since Linux 5.12, this capability is
-+also needed to map uid 0 (as in
-+.BR unshare\ -Ur ,
-+.RB see unshare (1).
- .TP
- .B CAP_SETPCAP
- If file capabilities are supported (i.e., since Linux 2.6.24):
-diff --git a/man7/user_namespaces.7 b/man7/user_namespaces.7
-index 518e7a3bb..3378b6057 100644
---- a/man7/user_namespaces.7
-+++ b/man7/user_namespaces.7
-@@ -577,6 +577,12 @@ or be in the parent user namespace of the process
- The mapped user IDs (group IDs) must in turn have a mapping
- in the parent user namespace.
- .IP 4.
-+.\" commit db2e718a47984b9d71ed890eb2ea36ecf150de18
-+If a writing process is root (i.e. UID 0) trying to map host user ID 0,
-+it must have
-+.B CAP_SETFCAP
-+capability (since Linux 5.12).
-+.IP 5.
- One of the following two cases applies:
- .RS
- .IP * 3
--- 
-2.31.1
+I am the process of cleaning up the process exit path in the kernel, and
+as part of that I am looking at the callers of do_exit.  A very
+interesting one is __seccure_computing_strict.
+
+Looking at the code is very clear that if a system call is attempted
+that is not in the table the thread attempting to execute that system
+call is terminated.
+
+Reading the man page for seccomp it says that the process is delivered
+SIGKILL.
+
+The practical difference is what happens for multi-threaded
+applications.
+
+What are the desired semantics for a multi-threaded application if one
+thread attempts to use a unsupported system call?  Should the thread be
+terminated or the entire application?
+
+Do we need to fix the kernel, or do we need to fix the manpages?
+
+Thank you,
+Eric
+
+
 
