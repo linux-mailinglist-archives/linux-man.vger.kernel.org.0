@@ -2,123 +2,125 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 4CC463BAA14
-	for <lists+linux-man@lfdr.de>; Sat,  3 Jul 2021 21:01:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E83C23BAA24
+	for <lists+linux-man@lfdr.de>; Sat,  3 Jul 2021 21:37:56 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229854AbhGCTEZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 3 Jul 2021 15:04:25 -0400
-Received: from mail.kernel.org ([198.145.29.99]:38952 "EHLO mail.kernel.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S229813AbhGCTEX (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Sat, 3 Jul 2021 15:04:23 -0400
-Received: by mail.kernel.org (Postfix) with ESMTPS id 891366188B
-        for <linux-man@vger.kernel.org>; Sat,  3 Jul 2021 19:01:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1625338909;
-        bh=7eioJuElMrhQofFqwR4YlBFdNPclN1UXeN9BU4sx5NM=;
-        h=From:To:Subject:Date:In-Reply-To:References:From;
-        b=uEXCCvh9G3h8YWF2S/8upajitOutLmaZG3cG3pPycFc9T6DYD2tAHC/zstiT86L/5
-         Zax7XljTzxUgfhXNbUF6I7GBm0odSqKEajiLKyXW5pYylg5fpdGbI4g/SyOST7BkQy
-         BYw2mh2Pfsjx5rnoBze0hCk7IXDvICr6cz89RdgUrXbwv4f1jamzPmUP8oWP7G2iqJ
-         a1SosNfnbrWqf08J3ZGH4wjFtx0OeQP8aoiQC2Kl6O8n7BcQBIHDrCigpMWxadogs4
-         r1spRz7cpWP2sE/9xoW6bQ7SMSQgGM9n8KSLf0HeouYCP8HD4CRe/2w85csPxOqCTO
-         k9e/mYIwxtkDg==
-Received: by pdx-korg-bugzilla-2.web.codeaurora.org (Postfix, from userid 48)
-        id 8386C61182; Sat,  3 Jul 2021 19:01:49 +0000 (UTC)
-From:   bugzilla-daemon@bugzilla.kernel.org
-To:     linux-man@vger.kernel.org
-Subject: [Bug 213577] kernel_lockdown.7 seems to be incorrect about
- automatically enabling lockdown mode in secure boot mode
-Date:   Sat, 03 Jul 2021 19:01:49 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: changed
-X-Bugzilla-Watch-Reason: AssignedTo
- documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Product: Documentation
-X-Bugzilla-Component: man-pages
-X-Bugzilla-Version: unspecified
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: normal
-X-Bugzilla-Who: alx.manpages@gmail.com
-X-Bugzilla-Status: NEW
-X-Bugzilla-Resolution: 
-X-Bugzilla-Priority: P1
-X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: 
-Message-ID: <bug-213577-11311-F9yHeDq1SP@https.bugzilla.kernel.org/>
-In-Reply-To: <bug-213577-11311@https.bugzilla.kernel.org/>
-References: <bug-213577-11311@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
+        id S229481AbhGCTk3 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 3 Jul 2021 15:40:29 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55368 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S229473AbhGCTk3 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 3 Jul 2021 15:40:29 -0400
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com [IPv6:2a00:1450:4864:20::429])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6532FC061762
+        for <linux-man@vger.kernel.org>; Sat,  3 Jul 2021 12:37:54 -0700 (PDT)
+Received: by mail-wr1-x429.google.com with SMTP id m18so16814772wrv.2
+        for <linux-man@vger.kernel.org>; Sat, 03 Jul 2021 12:37:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=1xHZoBzUXlKeh5CfjI7UTaI8AknrEb5uyBgCdyvmTi8=;
+        b=CaxOhf3l3g+7JJl1fU4jzBsBObRygQxN1/jgfIDe3xyhK8qWZNLCEnJZxCD7Mtcwb2
+         9QNY7KnzmwQjGPn95ikc6D7kBi10H8mLgNknypAwVRv7ec8wJVjJuM+B59UcBhZCafHg
+         CvmsjWufj4yjaL5P6mJjwTLGDWkb2LH5rnbAf2zb2pknO7Dk/UeCJdmtyKc2EalXFGOI
+         azpX6j3JtWPdq5wDZAm6Wgi8GRXR6ucH0tEbIVpG8IZyAxewlxVKpoklCHiyeAUKA/1B
+         SAbSGVivNcz7QsiNu3aZSrzdK2OKfWfzBFOshpHtKLP3c4n1RauTB6e6wM8ufH921jrG
+         MbmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=1xHZoBzUXlKeh5CfjI7UTaI8AknrEb5uyBgCdyvmTi8=;
+        b=ByaMhbE6w6wYQETDZ17H3xGuUQ7IGVyt+UCTIqikFKuN0TrJmoF9npr5kTEyHjoQxx
+         ORgjGWT1nx5ADbm/DvLEgSegvzpL9FC8xeTadirLr5lFKM4IGDzkNXscF4K0WevY9ZRV
+         nVvW8o6qHvHSi+idSocmIih7owEFji1pGKNfrLPR/utPoMNtqIH7Uuqa7BoYPMTb7cjd
+         XyXGfQ8RxR+psbkSD1bz/RtBfwWAWBW7sGgDxx1ibRd6Poa2LaPQmcS180seyYekkBso
+         x4kUtuL+5SNgwB7dSZ+tw7jqVukSonMdQkNnZkLaqNtjQYoTBhH5fr8nIySAPs7coyhb
+         EfiQ==
+X-Gm-Message-State: AOAM532GlWnUxUf5NnhhPti5HIsR9PNY3+FmGea6q5nEPw6BTUwmlfAB
+        UtuNlY08HrpWzaukd/XECxc=
+X-Google-Smtp-Source: ABdhPJwc6Thm8osv6wHZnZJnkJxmu4rzTtnUehlm/36rCaw7zPpE7QnMfT8/ZvXiIjbUJOnZxUXWxQ==
+X-Received: by 2002:a5d:4590:: with SMTP id p16mr6740678wrq.253.1625341072630;
+        Sat, 03 Jul 2021 12:37:52 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id x21sm12355051wmj.6.2021.07.03.12.37.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 03 Jul 2021 12:37:52 -0700 (PDT)
+Subject: Re: [PATCH 3/3] capabilities.7, user_namespaces.7: describe
+ CAP_SETFCAP
+To:     Kir Kolyshkin <kolyshkin@gmail.com>, linux-man@vger.kernel.org
+Cc:     Michael Kerrisk <mtk.manpages@gmail.com>
+References: <20210629215700.137856-1-kolyshkin@gmail.com>
+ <20210629215700.137856-3-kolyshkin@gmail.com>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Message-ID: <f4bc11ae-8b5d-2e37-1b48-1ee6b3c7e413@gmail.com>
+Date:   Sat, 3 Jul 2021 21:37:51 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
+In-Reply-To: <20210629215700.137856-3-kolyshkin@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D213577
+Hi Kir,
 
---- Comment #1 from Alejandro Colomar (man-pages) (alx.manpages@gmail.com) =
----
-Added a few CCs.
+On 6/29/21 11:57 PM, Kir Kolyshkin wrote:
+> Signed-off-by: Kir Kolyshkin <kolyshkin@gmail.com>
 
-On 6/25/21 8:58 AM, bugzilla-daemon@bugzilla.kernel.org wrote:
-> https://bugzilla.kernel.org/show_bug.cgi?id=3D213577
->=20
->             Bug ID: 213577
->            Summary: kernel_lockdown.7 seems to be incorrect about
->                     automatically enabling lockdown mode in secure boot
->                     mode
->            Product: Documentation
->            Version: unspecified
->           Hardware: All
->                 OS: Linux
->             Status: NEW
->           Severity: normal
->           Priority: P1
->          Component: man-pages
->           Assignee: documentation_man-pages@kernel-bugs.osdl.org
->           Reporter: peter@typeblog.net
->         Regression: No
->=20
-> As of the time of posting, the kernel_lockdown.7 manpage [1] contains a
-> description about how lockdown mode is enabled by default when using EFI
-> secure
-> boot:
->=20
->> On an EFI-enabled x86 or arm64 machine, lockdown will be automatically
->> enabled
-> if the system boots in EFI Secure Boot mode.
->=20
-> I have not followed lockdown development upstream recently, but it seems =
-that
-> as of today the feature described above is still a downstream patch shipp=
-ed
-> by
-> some distributions like Fedora [2][3]. If this is the case, then including
-> this
-> statement in the man page would be inappropriate, since it would not appl=
-y to
-> other distributions such as Arch Linux which do not include said patches.
->=20
-> [1]:
->
-> https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/man7/ker=
-nel_lockdown.7#n31
-> [2]:
->
-> https://src.fedoraproject.org/rpms/kernel/blob/rawhide/f/Patchlist.change=
-log#_205
-> [3]:
->
-> https://gitlab.com/cki-project/kernel-ark/-/commit/5850c93175b9d2e1081873=
-f4bbe08dead202cb08
->
+I applied all 3 patches in this series (and some minor tweaks).
 
---=20
-You may reply to this email to add a comment.
+Thanks,
 
-You are receiving this mail because:
-You are watching the assignee of the bug.=
+Alex
+
+> ---
+>  man7/capabilities.7    | 6 ++++++
+>  man7/user_namespaces.7 | 6 ++++++
+>  2 files changed, 12 insertions(+)
+> 
+> diff --git a/man7/capabilities.7 b/man7/capabilities.7
+> index 9f8f0087f..2f9c9a61e 100644
+> --- a/man7/capabilities.7
+> +++ b/man7/capabilities.7
+> @@ -349,6 +349,12 @@ write a group ID mapping in a user namespace (see
+>  .TP
+>  .BR CAP_SETFCAP " (since Linux 2.6.24)"
+>  Set arbitrary capabilities on a file.
+> +.IP
+> +.\" commit db2e718a47984b9d71ed890eb2ea36ecf150de18
+> +Since Linux 5.12, this capability is
+> +also needed to map uid 0 (as in
+> +.BR unshare\ -Ur ,
+> +.RB see unshare (1).
+>  .TP
+>  .B CAP_SETPCAP
+>  If file capabilities are supported (i.e., since Linux 2.6.24):
+> diff --git a/man7/user_namespaces.7 b/man7/user_namespaces.7
+> index 518e7a3bb..3378b6057 100644
+> --- a/man7/user_namespaces.7
+> +++ b/man7/user_namespaces.7
+> @@ -577,6 +577,12 @@ or be in the parent user namespace of the process
+>  The mapped user IDs (group IDs) must in turn have a mapping
+>  in the parent user namespace.
+>  .IP 4.
+> +.\" commit db2e718a47984b9d71ed890eb2ea36ecf150de18
+> +If a writing process is root (i.e. UID 0) trying to map host user ID 0,
+> +it must have
+> +.B CAP_SETFCAP
+> +capability (since Linux 5.12).
+> +.IP 5.
+>  One of the following two cases applies:
+>  .RS
+>  .IP * 3
+> 
+
+-- 
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
