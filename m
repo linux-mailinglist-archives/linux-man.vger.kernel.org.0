@@ -2,64 +2,65 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D9F863BAA00
-	for <lists+linux-man@lfdr.de>; Sat,  3 Jul 2021 20:34:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 074683BAA07
+	for <lists+linux-man@lfdr.de>; Sat,  3 Jul 2021 20:40:57 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229473AbhGCSgx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 3 Jul 2021 14:36:53 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41622 "EHLO
+        id S229520AbhGCSna (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 3 Jul 2021 14:43:30 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43082 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229463AbhGCSgx (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 3 Jul 2021 14:36:53 -0400
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com [IPv6:2a00:1450:4864:20::335])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E8B05C061762
-        for <linux-man@vger.kernel.org>; Sat,  3 Jul 2021 11:34:17 -0700 (PDT)
-Received: by mail-wm1-x335.google.com with SMTP id i2-20020a05600c3542b02902058529ea07so709711wmq.3
-        for <linux-man@vger.kernel.org>; Sat, 03 Jul 2021 11:34:17 -0700 (PDT)
+        with ESMTP id S229463AbhGCSn3 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 3 Jul 2021 14:43:29 -0400
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com [IPv6:2a00:1450:4864:20::42a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B2D5AC061762
+        for <linux-man@vger.kernel.org>; Sat,  3 Jul 2021 11:40:55 -0700 (PDT)
+Received: by mail-wr1-x42a.google.com with SMTP id l8so16623714wry.13
+        for <linux-man@vger.kernel.org>; Sat, 03 Jul 2021 11:40:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:references:cc:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=pgKdth9xXoJdKv0BSdHMBVfT1sarX4IK2y2wLBRREGo=;
-        b=nGU52tn7GeMm5c813n1ClvVn4Xomkj2nBL4+c3fyYD94TN9I1o0bPCglUtOwDOxr2z
-         szQxti0xDeiJ5gJTfFTwU+NYpNb27usfOoeoYXsUtsSyLPfnVCI574/JUDRQrqMQKJ1n
-         mFY2yGSlmXZnyy3cudQ4T+b5brL7XDOYTHU8RhVYH4gKxq7KPVuugpl2FcOgxhItH+O/
-         TMGFySu7D0MpkNY0Q2FqknkM+wjX7ajlFmIH2FGT42sXyHvLiB3qABgFDv0f5JwFIwD0
-         TWKRdCQXLtDiw4fgWPB1bg+mxhiHhxSgIyBtC75MSNG9DV5s3BFz53RWQbNrzop84dDc
-         TJNA==
+        h=subject:to:references:from:message-id:date:user-agent:mime-version
+         :in-reply-to:content-language:content-transfer-encoding;
+        bh=vgCC+StzWbAfOlL/XWXfbQwjqNLNSt8uRorBn+ZKFOs=;
+        b=FCityDVH2BjoFkjtXIymD92wOx/ou0It9nOOdiQXzPjb1uF3up3LZirbuL9xcIOR5E
+         sjNhxNY1VIl68DskhnZdwyXkAfrTBDGCg/FYcZFPH4B7qH9oUEGFdislMi1/mr1dM5cb
+         jsjAMRXVDO9eRcMN4dpD8lbw4Ye5B3GOs1gKChS7I3PXQu9YOomL+z/na4MrduUBqp+y
+         o5aMbL/fZzcjPVkX//JMnLJPTQBttkBAcnOo/ljihlfHcZoaTB2oNosShWvCOvozzt3Z
+         kzV72Nc1J8V7gpgoC7fKYoDN0JPCXHA589UzKrYgIBjo/VQWYtY9lec3TotNeAh7NWPx
+         ZT5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:references:cc:from:message-id:date
+        h=x-gm-message-state:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=pgKdth9xXoJdKv0BSdHMBVfT1sarX4IK2y2wLBRREGo=;
-        b=sNz2byFIRYp1BCoaT4g+EPnbn+U58kujilqinUHJoVzQWUsdgMnFkzzifZMdVko3Jl
-         /6C5zhw2x6UR07y/C/Ls//cdRLgmyaHQLYwbfVy4C7iPx2DdtfA+SumgGCN8B5rZJPHA
-         y6HckwscB0A1b80DDIuAw4NUMCjKw2h1luWjmwM2C74bbbUgiVBkOiOk5Ijesefymg+/
-         5viavC9a5U5rpXCXWQyLEuSb5bd7XEL/0ENetbbFB6/geduTzB2kGvIaz5zsprZRgRBM
-         nuQEG2Jhfusgc5WmOqYs21UatX6jm8eoJT7qAnz71dxqxsQz7khILnuiqKkaePO9akbw
-         JCbw==
-X-Gm-Message-State: AOAM531Ca+WY1mO7SYxybBg/svJK4z97FDngdWz5bTKQJPb63WyTekKP
-        NscEeeoOr1BD/tDLJgAkXiI=
-X-Google-Smtp-Source: ABdhPJyc8bgqeelfKswOVyJ6hS7n5fwcegyQBaHEZIMrDX+l44we+DxCXWubblwcbekDZZTJi8xz9A==
-X-Received: by 2002:a7b:c191:: with SMTP id y17mr5696300wmi.25.1625337255730;
-        Sat, 03 Jul 2021 11:34:15 -0700 (PDT)
+        bh=vgCC+StzWbAfOlL/XWXfbQwjqNLNSt8uRorBn+ZKFOs=;
+        b=d5wTwiTTVfgYizcDTQZFR84IV9dj6A0T/dcFgjBD7ylEjqUUKzQd2zzSTqR7BeNdnC
+         B/IOHOKCiAa3zcVOucw+X/7iJ68nTkFZ9vhJdwYt7TQCavjArP4i1E66GPamwf09ED+r
+         ciqOdVcx7XPSzOVLIuKh6s/il2V0oltx6Ccg9/PWNcDZaqROlXEwkVxCYDqQ6XLmKPyj
+         6tRyT6D/QaffMN0ESfcJfpwyB1PHI+HmTGyS/aNNduilCHtqwGmTCer843WNiWKN+5AA
+         qJY/sMo9ZDfn7EHWf3OKQBOpZ3g07dhYKjMgDbXc3UseItFrSEne3GuytjcLvgZAQdmu
+         M7Xg==
+X-Gm-Message-State: AOAM530EiyJctf+F7CotH9BibNV4VXDwiojmX/Oy8IdI65gsqFdQWqfT
+        l4sMk6PedhTUW4gjsXByXZ8=
+X-Google-Smtp-Source: ABdhPJzOUfGik7IA4yHugp4Wmb/F/WkbkGM3H+JfDHsA0esPQ0hKoOe/etUUHkQnNTocA3P34bE6LQ==
+X-Received: by 2002:a5d:52c1:: with SMTP id r1mr6498341wrv.294.1625337654406;
+        Sat, 03 Jul 2021 11:40:54 -0700 (PDT)
 Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id y8sm7071906wrr.76.2021.07.03.11.34.15
+        by smtp.gmail.com with ESMTPSA id t17sm6783235wmi.47.2021.07.03.11.40.53
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 03 Jul 2021 11:34:15 -0700 (PDT)
-Subject: Re: [PATCH] printf.3: wfix
-To:     Sergey Petrakov <kr@spmail.info>
-References: <OS__dSBxRx5DHJbgzyVTGxQ5GDBYmp9SjHoKTnxdL-t-y60vMFJUa9J7wrZIUrvgOcROHoSowVhKznMQJ7lOqbb1rv9M8vB8RdzXhp9Q-zA=@spmail.info>
-Cc:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
-        Michael Kerrisk <mtk.manpages@gmail.com>
+        Sat, 03 Jul 2021 11:40:54 -0700 (PDT)
+Subject: Re: [patch] Change multiple occurrences of "char **argv" to "char
+ *argv[]" to remain consistent with the vast majority of manual pages.
+To:     Thomas Voss <thomasavoss@protonmail.com>,
+        "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
+        "mtk.manpages@gmail.com" <mtk.manpages@gmail.com>
+References: <dQfiruW0nMqdV5dny28jYwxkt2uPa82znT6stDqJVTAUWhhgQCpp7oPeqlsVXhZUs8ZBn4-qgURe7lIXHxJbCCn34UKVD-StlJ8N8QV765M=@protonmail.com>
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <4da79252-7916-d9b8-860e-a41bd7a56765@gmail.com>
-Date:   Sat, 3 Jul 2021 20:34:14 +0200
+Message-ID: <821eb562-51e8-040b-f541-dde444e39653@gmail.com>
+Date:   Sat, 3 Jul 2021 20:40:53 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <OS__dSBxRx5DHJbgzyVTGxQ5GDBYmp9SjHoKTnxdL-t-y60vMFJUa9J7wrZIUrvgOcROHoSowVhKznMQJ7lOqbb1rv9M8vB8RdzXhp9Q-zA=@spmail.info>
+In-Reply-To: <dQfiruW0nMqdV5dny28jYwxkt2uPa82znT6stDqJVTAUWhhgQCpp7oPeqlsVXhZUs8ZBn4-qgURe7lIXHxJbCCn34UKVD-StlJ8N8QV765M=@protonmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -67,67 +68,17 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Peter,
+Hi Thomas,
 
-I applied a different patch.  But thanks for the report!
+On 6/24/21 7:55 PM, Thomas Voss wrote:
+> sed -i s/int argc, char \*\*argv/int argc, char \*argv\[\]/ man*/*
+
+Thanks for the script.  Patch applied (and added a signed-off-by line in
+your name).
 
 Cheers,
 
 Alex
-
-On 6/24/21 7:38 PM, Sergey Petrakov wrote:
-> Signed-off-by: Sergey Petrakov <kr@spmail.info>
-> ---
->  man3/printf.3 | 5 ++---
->  1 file changed, 2 insertions(+), 3 deletions(-)
-> 
-> diff --git a/man3/printf.3 b/man3/printf.3
-> index fcc3bd6f3..28435af62 100644
-> --- a/man3/printf.3
-> +++ b/man3/printf.3
-> @@ -114,9 +114,8 @@ is the same as
->  .BR fprintf ()
->  except that it outputs to a file descriptor,
->  .IR fd ,
-> -instead of to a
-> -.I stdio
-> -stream.
-> +instead of to the given output
-> +.IR stream .
->  .PP
->  The functions
->  .BR snprintf ()
-> --
-> 2.20.1
-> 
-
-From: Alejandro Colomar <alx.manpages@gmail.com>
-Date: Sat, 3 Jul 2021 20:31:04 +0200
-Subject: [PATCH] printf.3: wfix
-
-Reported-by: Sergey Petrakov <kr@spmail.info>
-Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
----
- man3/printf.3 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/man3/printf.3 b/man3/printf.3
-index fcc3bd6f3..1074626e1 100644
---- a/man3/printf.3
-+++ b/man3/printf.3
-@@ -115,7 +115,7 @@ is the same as
- except that it outputs to a file descriptor,
- .IR fd ,
- instead of to a
--.I stdio
-+.I FILE
- stream.
- .PP
- The functions
--- 
-2.32.0
-
-
 
 -- 
 Alejandro Colomar
