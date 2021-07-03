@@ -2,125 +2,106 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E83C23BAA24
-	for <lists+linux-man@lfdr.de>; Sat,  3 Jul 2021 21:37:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 398323BAA3F
+	for <lists+linux-man@lfdr.de>; Sat,  3 Jul 2021 22:35:30 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229481AbhGCTk3 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 3 Jul 2021 15:40:29 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55368 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229473AbhGCTk3 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 3 Jul 2021 15:40:29 -0400
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com [IPv6:2a00:1450:4864:20::429])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6532FC061762
-        for <linux-man@vger.kernel.org>; Sat,  3 Jul 2021 12:37:54 -0700 (PDT)
-Received: by mail-wr1-x429.google.com with SMTP id m18so16814772wrv.2
-        for <linux-man@vger.kernel.org>; Sat, 03 Jul 2021 12:37:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=1xHZoBzUXlKeh5CfjI7UTaI8AknrEb5uyBgCdyvmTi8=;
-        b=CaxOhf3l3g+7JJl1fU4jzBsBObRygQxN1/jgfIDe3xyhK8qWZNLCEnJZxCD7Mtcwb2
-         9QNY7KnzmwQjGPn95ikc6D7kBi10H8mLgNknypAwVRv7ec8wJVjJuM+B59UcBhZCafHg
-         CvmsjWufj4yjaL5P6mJjwTLGDWkb2LH5rnbAf2zb2pknO7Dk/UeCJdmtyKc2EalXFGOI
-         azpX6j3JtWPdq5wDZAm6Wgi8GRXR6ucH0tEbIVpG8IZyAxewlxVKpoklCHiyeAUKA/1B
-         SAbSGVivNcz7QsiNu3aZSrzdK2OKfWfzBFOshpHtKLP3c4n1RauTB6e6wM8ufH921jrG
-         MbmA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=1xHZoBzUXlKeh5CfjI7UTaI8AknrEb5uyBgCdyvmTi8=;
-        b=ByaMhbE6w6wYQETDZ17H3xGuUQ7IGVyt+UCTIqikFKuN0TrJmoF9npr5kTEyHjoQxx
-         ORgjGWT1nx5ADbm/DvLEgSegvzpL9FC8xeTadirLr5lFKM4IGDzkNXscF4K0WevY9ZRV
-         nVvW8o6qHvHSi+idSocmIih7owEFji1pGKNfrLPR/utPoMNtqIH7Uuqa7BoYPMTb7cjd
-         XyXGfQ8RxR+psbkSD1bz/RtBfwWAWBW7sGgDxx1ibRd6Poa2LaPQmcS180seyYekkBso
-         x4kUtuL+5SNgwB7dSZ+tw7jqVukSonMdQkNnZkLaqNtjQYoTBhH5fr8nIySAPs7coyhb
-         EfiQ==
-X-Gm-Message-State: AOAM532GlWnUxUf5NnhhPti5HIsR9PNY3+FmGea6q5nEPw6BTUwmlfAB
-        UtuNlY08HrpWzaukd/XECxc=
-X-Google-Smtp-Source: ABdhPJwc6Thm8osv6wHZnZJnkJxmu4rzTtnUehlm/36rCaw7zPpE7QnMfT8/ZvXiIjbUJOnZxUXWxQ==
-X-Received: by 2002:a5d:4590:: with SMTP id p16mr6740678wrq.253.1625341072630;
-        Sat, 03 Jul 2021 12:37:52 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id x21sm12355051wmj.6.2021.07.03.12.37.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 03 Jul 2021 12:37:52 -0700 (PDT)
-Subject: Re: [PATCH 3/3] capabilities.7, user_namespaces.7: describe
- CAP_SETFCAP
-To:     Kir Kolyshkin <kolyshkin@gmail.com>, linux-man@vger.kernel.org
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>
-References: <20210629215700.137856-1-kolyshkin@gmail.com>
- <20210629215700.137856-3-kolyshkin@gmail.com>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <f4bc11ae-8b5d-2e37-1b48-1ee6b3c7e413@gmail.com>
-Date:   Sat, 3 Jul 2021 21:37:51 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+        id S229561AbhGCUiB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 3 Jul 2021 16:38:01 -0400
+Received: from sender4-op-o14.zoho.com ([136.143.188.14]:17463 "EHLO
+        sender4-op-o14.zoho.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S229473AbhGCUiB (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 3 Jul 2021 16:38:01 -0400
+ARC-Seal: i=1; a=rsa-sha256; t=1625344522; cv=none; 
+        d=zohomail.com; s=zohoarc; 
+        b=ksoOKPircRlyY72JKpJuLkI2MjRUBTnnGolKdI3TgtYtQIBVuj2dtVzfnOJyRaMfQWOB87+BiTFsb5FUGjXWzyvVgmUq96PYBwFHcGWtBSuFCGX2pFWdG0pQMoii6TeTzWtzXocmNrGMP20rJr5rS5AY49tEQzgLJ1yAJXE96pg=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+        t=1625344522; h=Content-Type:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
+        bh=/uQ8OrTPv5VBbqZsBw+KOTo3mQGg2pBRurJiqCklk2A=; 
+        b=YT4r0b+pwqGQetOhYwu7o8hEbyhX0dLmXf1ZT3arfUxK26ZlaU8S0zRKq7464bktmf2ikflHQF9/o8xYvRmJLYMOaxibN0YaikEAaHx8nOTx2cFKvHWbUlnPgzCtk8w/t6IiByN4VdQIkeZIkq3dfeqfh+lkau4c29uc54cmYPM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+        spf=pass  smtp.mailfrom=dan@dlrobertson.com;
+        dmarc=pass header.from=<dan@dlrobertson.com>
+Received: from dlrobertson.com (pool-108-51-207-71.washdc.fios.verizon.net [108.51.207.71]) by mx.zohomail.com
+        with SMTPS id 1625344519373410.84710056011966; Sat, 3 Jul 2021 13:35:19 -0700 (PDT)
+Date:   Sat, 3 Jul 2021 20:09:34 +0000
+From:   Dan Robertson <dan@dlrobertson.com>
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org, mtk.manpages@gmail.com,
+        "Darrick J. Wong" <djwong@kernel.org>
+Subject: Re: [PATCH 1/1] man2/fallocate.2: tfix documentation of shared blocks
+Message-ID: <YODD/v/bn6ILbIUO@dlrobertson.com>
+References: <20210621004453.7437-1-dan@dlrobertson.com>
+ <20210621004453.7437-2-dan@dlrobertson.com>
+ <20210621042550.GG158232@locust>
+ <342ad836-cb11-ed19-d867-51d2906b3b27@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20210629215700.137856-3-kolyshkin@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+        protocol="application/pgp-signature"; boundary="SFRPChXM0wiesE/1"
+Content-Disposition: inline
+In-Reply-To: <342ad836-cb11-ed19-d867-51d2906b3b27@gmail.com>
+X-Zoho-Virus-Status: 1
+X-ZohoMailClient: External
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Kir,
 
-On 6/29/21 11:57 PM, Kir Kolyshkin wrote:
-> Signed-off-by: Kir Kolyshkin <kolyshkin@gmail.com>
+--SFRPChXM0wiesE/1
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I applied all 3 patches in this series (and some minor tweaks).
+On Sat, Jul 03, 2021 at 08:26:26PM +0200, Alejandro Colomar (man-pages) wro=
+te:
+> Hi Dan,
+>=20
+> > On Sun, Jun 20, 2021 at 08:44:53PM -0400, Dan Robertson wrote:
+> >> Fix a typo in the documentation of using fallocate to allocate shared
+> >> blocks. The flag FALLOC_FL_UNSHARE should instead be documented as
+> >> FALLOC_FL_UNSHARE_RANGE.
+> >>
+> >> Fixes: 07c7a6a35497 ("man2/fallocate.2: Document behavior with shared =
+blocks")
+>=20
+> BTW, I can't find that commit hash in git.  I have that commit as
+> 63a599c657d8.
+>=20
+> However, git doesn't fail...  It's weird.  Could you confirm that?
 
-Thanks,
+Gah! You are correct. My bad. I used copied the commit hash for the commit =
+in
+the kernel that introduced the FALLOC_FL_UNSHARE_RANGE flag. My bad. I can
+submit a second version of the patch with the correct commit hash if you'd =
+like.
 
-Alex
+>=20
+> Thanks,
+>=20
+> Alex
+>=20
+> --=20
+> Alejandro Colomar
+> Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+> http://www.alejandro-colomar.es/
 
-> ---
->  man7/capabilities.7    | 6 ++++++
->  man7/user_namespaces.7 | 6 ++++++
->  2 files changed, 12 insertions(+)
-> 
-> diff --git a/man7/capabilities.7 b/man7/capabilities.7
-> index 9f8f0087f..2f9c9a61e 100644
-> --- a/man7/capabilities.7
-> +++ b/man7/capabilities.7
-> @@ -349,6 +349,12 @@ write a group ID mapping in a user namespace (see
->  .TP
->  .BR CAP_SETFCAP " (since Linux 2.6.24)"
->  Set arbitrary capabilities on a file.
-> +.IP
-> +.\" commit db2e718a47984b9d71ed890eb2ea36ecf150de18
-> +Since Linux 5.12, this capability is
-> +also needed to map uid 0 (as in
-> +.BR unshare\ -Ur ,
-> +.RB see unshare (1).
->  .TP
->  .B CAP_SETPCAP
->  If file capabilities are supported (i.e., since Linux 2.6.24):
-> diff --git a/man7/user_namespaces.7 b/man7/user_namespaces.7
-> index 518e7a3bb..3378b6057 100644
-> --- a/man7/user_namespaces.7
-> +++ b/man7/user_namespaces.7
-> @@ -577,6 +577,12 @@ or be in the parent user namespace of the process
->  The mapped user IDs (group IDs) must in turn have a mapping
->  in the parent user namespace.
->  .IP 4.
-> +.\" commit db2e718a47984b9d71ed890eb2ea36ecf150de18
-> +If a writing process is root (i.e. UID 0) trying to map host user ID 0,
-> +it must have
-> +.B CAP_SETFCAP
-> +capability (since Linux 5.12).
-> +.IP 5.
->  One of the following two cases applies:
->  .RS
->  .IP * 3
-> 
+--SFRPChXM0wiesE/1
+Content-Type: application/pgp-signature; name="signature.asc"
 
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEF5dO2RaKc5C+SCJ9RcSmUsR+QqUFAmDgw/4ACgkQRcSmUsR+
+QqX5+xAAn2F/R3pkM7XLAP1w5+41uyNcO4BoJKAQuB54jZ93XLxqzjrfXHjIO1z3
+TbpTFmuPyYtsW0Ll5p1v0sOo8kPLHfp9iMsXgb/+p8P06j907/ErkecQ/K3fufnX
+/UeEZuZVLNTr055eRd/bDYfhIh0v4U8MZ+Js+/1UDv046NVA9OHdAopwIbHomPx+
+vp5d3IBq9JPLMd2TRRF9+lgKXxxD/i7VKNr2Zy+j97VKD2l35JY4eDMVQitGPtFH
+qaZsi3tsuhd+6jc2bjxehXVEIysCTs7eRZP9HjTQvQdDeacmrAyalQHw3lNLKN+B
+Ki6Slo425oB8ZtWaKtLbvP976WKsm9aoJ+/eAyfVJ3bl3mDh2pq1XZi85ZHALy85
+b61jLNQ80qrzUY2jhAGuyJ24nqmcawOLFGaQh3Px35iKQ7qF4p0VF8zitucGp9ue
+d7FEPl4r/M4viRYvh3ONqbneoLaq/MFPSZxaRZUF9Uer/NKuef9TSj/3XT3gMx3N
+122gYP1Nr3OOlzqGUfE0Q0NDyI72L4yIEZP3Jbn/ibl8qHHVykAQmYO1b59O1QEe
+wDASpOia/ju/PSaubliLadVXTpJAuN3z4dH+R3Fzmq111EdwWKmsa5urIdiYhAwh
+bTMG8AqUHG99Ty1L6dnfp5o/Td6XCS+zsoof12lmWrWDG/YNajw=
+=Wq9Y
+-----END PGP SIGNATURE-----
+
+--SFRPChXM0wiesE/1--
