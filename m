@@ -2,129 +2,123 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 9A7653BAA0E
-	for <lists+linux-man@lfdr.de>; Sat,  3 Jul 2021 20:56:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 4CC463BAA14
+	for <lists+linux-man@lfdr.de>; Sat,  3 Jul 2021 21:01:55 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229473AbhGCS6k (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 3 Jul 2021 14:58:40 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46328 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229463AbhGCS6j (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 3 Jul 2021 14:58:39 -0400
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com [IPv6:2a00:1450:4864:20::32c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 577FAC061762
-        for <linux-man@vger.kernel.org>; Sat,  3 Jul 2021 11:56:05 -0700 (PDT)
-Received: by mail-wm1-x32c.google.com with SMTP id a5-20020a7bc1c50000b02901e3bbe0939bso8556523wmj.0
-        for <linux-man@vger.kernel.org>; Sat, 03 Jul 2021 11:56:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=hKLKe8wmdl0EwpyTduqk70wNbFBVoNszbvJuynC84JI=;
-        b=g4kltd5Y+WSPIjqxaKqXp2ItInQQI23jWIYT3ynsY5YQKiIZjWvSKT50zvOU4TJhqm
-         4bJiNbmv14gYH9ernaiV5HYMZVLnNCZCNHCww8rhMQ0wpqpFtpwjxvJ8yI6Fsa7/DBmV
-         qtvheBwKoguqC/rHxr/SO8hB0P3S/Dojz0HDTnnAS32ViDVT8+Zv9LnArz/IvMYKn/F5
-         QLjlHtiioeb3tWABn9yGrclDOtgN6C0vc3Rf4iRQ3jr7b4LIu72vQ1UiU5TgjUeQ3jPg
-         7JLB621qKa4PO8A67xIUgXzcrcgjszniz7yeyXdAs9r1/xgPPvHAuA+NGVDBISVmW6eQ
-         XMcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=hKLKe8wmdl0EwpyTduqk70wNbFBVoNszbvJuynC84JI=;
-        b=r4dGaKlB+573oaHpmKb79y8t91yDtklEzAXCnAsuqx/Fro56hR2SnvGy6ChUPFGFty
-         Dd/vY5w/xUlT4QvaCxv0xY5x+n09qRUd6xFcY58z22mtYBMfqErh0tYD63afSFXv9CRf
-         jY8FE4KpZEJyMJsV2jf1CN00dt3w/ocA8Cu3PkHz9O8RVwWKDD0P2Tm+fdxTy5CnDD49
-         GIMEve+CPhpPN4DzTz1nPeamq6cRF/s/Mr6ASyUqmZPeE7QXF/tn7SBN6hsL7DHxT89O
-         Wx4VNu1eWfaCJt+BoiyUoL41sWiJDD7mySBs0oXhkl1+X/ZcQXE6oejWPQFbltBNppAe
-         9KYA==
-X-Gm-Message-State: AOAM531H648YDlS5aJGXwMP9xfqLdt+xpW4vuESBmQ9+qpkEhBUYF9t/
-        BDaI+coV+CXp/lkbPAZEAQUyGlaJLQE=
-X-Google-Smtp-Source: ABdhPJx7VJK4vysmnRoNnNxTm0i4HvwhhjANbmq5R+vap7HV1dYCPk/cGinSLGor2fzgjsSN5+r52A==
-X-Received: by 2002:a1c:f016:: with SMTP id a22mr6122033wmb.65.1625338563717;
-        Sat, 03 Jul 2021 11:56:03 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id f18sm7570610wru.53.2021.07.03.11.56.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 03 Jul 2021 11:56:03 -0700 (PDT)
-Subject: Re: execve(2) man page: "absolute pathname" inconsistency
-To:     Nora Platiel <nplatiel@gmx.us>, mtk.manpages@gmail.com,
-        Shawn Landden <shawn@git.icu>
-Cc:     linux-man@vger.kernel.org
-References: <trinity-131cbf9a-6570-4d3c-8b80-a808d1ad445a-1624567328724@3c-app-mailcom-bs07>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <9558b097-7760-beb5-be4d-13e298461e82@gmail.com>
-Date:   Sat, 3 Jul 2021 20:56:02 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+        id S229854AbhGCTEZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 3 Jul 2021 15:04:25 -0400
+Received: from mail.kernel.org ([198.145.29.99]:38952 "EHLO mail.kernel.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S229813AbhGCTEX (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Sat, 3 Jul 2021 15:04:23 -0400
+Received: by mail.kernel.org (Postfix) with ESMTPS id 891366188B
+        for <linux-man@vger.kernel.org>; Sat,  3 Jul 2021 19:01:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1625338909;
+        bh=7eioJuElMrhQofFqwR4YlBFdNPclN1UXeN9BU4sx5NM=;
+        h=From:To:Subject:Date:In-Reply-To:References:From;
+        b=uEXCCvh9G3h8YWF2S/8upajitOutLmaZG3cG3pPycFc9T6DYD2tAHC/zstiT86L/5
+         Zax7XljTzxUgfhXNbUF6I7GBm0odSqKEajiLKyXW5pYylg5fpdGbI4g/SyOST7BkQy
+         BYw2mh2Pfsjx5rnoBze0hCk7IXDvICr6cz89RdgUrXbwv4f1jamzPmUP8oWP7G2iqJ
+         a1SosNfnbrWqf08J3ZGH4wjFtx0OeQP8aoiQC2Kl6O8n7BcQBIHDrCigpMWxadogs4
+         r1spRz7cpWP2sE/9xoW6bQ7SMSQgGM9n8KSLf0HeouYCP8HD4CRe/2w85csPxOqCTO
+         k9e/mYIwxtkDg==
+Received: by pdx-korg-bugzilla-2.web.codeaurora.org (Postfix, from userid 48)
+        id 8386C61182; Sat,  3 Jul 2021 19:01:49 +0000 (UTC)
+From:   bugzilla-daemon@bugzilla.kernel.org
+To:     linux-man@vger.kernel.org
+Subject: [Bug 213577] kernel_lockdown.7 seems to be incorrect about
+ automatically enabling lockdown mode in secure boot mode
+Date:   Sat, 03 Jul 2021 19:01:49 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Documentation
+X-Bugzilla-Component: man-pages
+X-Bugzilla-Version: unspecified
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: alx.manpages@gmail.com
+X-Bugzilla-Status: NEW
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P1
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: 
+Message-ID: <bug-213577-11311-F9yHeDq1SP@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-213577-11311@https.bugzilla.kernel.org/>
+References: <bug-213577-11311@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 MIME-Version: 1.0
-In-Reply-To: <trinity-131cbf9a-6570-4d3c-8b80-a808d1ad445a-1624567328724@3c-app-mailcom-bs07>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Nora,
+https://bugzilla.kernel.org/show_bug.cgi?id=3D213577
 
-On 6/24/21 10:42 PM, Nora Platiel wrote:
-> Hello,
-> I'm reporting a problem with the execve(2) man page (see the "absolute pathname" part):
-> 
->> If the pathname argument of execve() specifies an interpreter
->> script, then interpreter will be invoked with the following
->> arguments:
->>
->>     interpreter [optional-arg] pathname arg...
->>
->> where pathname is the absolute pathname of the file specified as
->>                       ^^^^^^^^^^^^^^^^^
->> the first argument of execve(), and arg...  is the series of
->> words pointed to by the argv argument of execve(), starting at
->> argv[1].  Note that there is no way to get the argv[0] that was
->> passed to the execve() call.
-> 
-> Then in the final example:
-> 
->> $ ./execve ./script
->> argv[0]: ./myecho
->> argv[1]: script-arg
->> argv[2]: ./script
->> argv[3]: hello
->> argv[4]: world
-> 
-> According to the description, argv[2] is supposed to be the *absolute pathname* of "./script" but it is not.
-> (In path_resolution(7), an absolute pathname is defined to be a pathname starting with a '/' character.)
-> 
-> I tested the example with kernel 4.4.246 and the output is the same as the one in the man page (relative paths are preserved).
-> I don't know about newer kernels, but if I understand correctly, either the "absolute pathname" wording is incorrect or the example is.
-> (In the latter case, perhaps the man page could also mention the change in behavior.)
-> 
-> The "absolute pathname" wording was introduced here:
-> https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?id=60f16bf2fe6bd2d2d001d0a41936e778b1e7e3f6
-> https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?id=63059c4b527d0da73666da5ff29dcc902e219371
+--- Comment #1 from Alejandro Colomar (man-pages) (alx.manpages@gmail.com) =
+---
+Added a few CCs.
 
-Thanks for all of the info and links.
+On 6/25/21 8:58 AM, bugzilla-daemon@bugzilla.kernel.org wrote:
+> https://bugzilla.kernel.org/show_bug.cgi?id=3D213577
+>=20
+>             Bug ID: 213577
+>            Summary: kernel_lockdown.7 seems to be incorrect about
+>                     automatically enabling lockdown mode in secure boot
+>                     mode
+>            Product: Documentation
+>            Version: unspecified
+>           Hardware: All
+>                 OS: Linux
+>             Status: NEW
+>           Severity: normal
+>           Priority: P1
+>          Component: man-pages
+>           Assignee: documentation_man-pages@kernel-bugs.osdl.org
+>           Reporter: peter@typeblog.net
+>         Regression: No
+>=20
+> As of the time of posting, the kernel_lockdown.7 manpage [1] contains a
+> description about how lockdown mode is enabled by default when using EFI
+> secure
+> boot:
+>=20
+>> On an EFI-enabled x86 or arm64 machine, lockdown will be automatically
+>> enabled
+> if the system boots in EFI Secure Boot mode.
+>=20
+> I have not followed lockdown development upstream recently, but it seems =
+that
+> as of today the feature described above is still a downstream patch shipp=
+ed
+> by
+> some distributions like Fedora [2][3]. If this is the case, then including
+> this
+> statement in the man page would be inappropriate, since it would not appl=
+y to
+> other distributions such as Arch Linux which do not include said patches.
+>=20
+> [1]:
+>
+> https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/man7/ker=
+nel_lockdown.7#n31
+> [2]:
+>
+> https://src.fedoraproject.org/rpms/kernel/blob/rawhide/f/Patchlist.change=
+log#_205
+> [3]:
+>
+> https://gitlab.com/cki-project/kernel-ark/-/commit/5850c93175b9d2e1081873=
+f4bbe08dead202cb08
+>
 
-I think you're right.  In fact, POSIX talks about pathname, and not
-absolute pathname
-(<https://pubs.opengroup.org/onlinepubs/9699919799/functions/exec.html>).
+--=20
+You may reply to this email to add a comment.
 
-However, the kernel documentation talks about 'full path', so I'm not
-sure if maybe some versions of the kernel did not support relative paths
- (<https://www.kernel.org/doc/html/latest/admin-guide/binfmt-misc.html>).
-
-I added Shawn to the thread, so maybe he can shed some light (he added
-that text).
-
-Regards,
-
-Alex
-
-
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+You are receiving this mail because:
+You are watching the assignee of the bug.=
