@@ -2,121 +2,108 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 32ABC3BA9A0
-	for <lists+linux-man@lfdr.de>; Sat,  3 Jul 2021 18:59:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 73A9E3BA9CD
+	for <lists+linux-man@lfdr.de>; Sat,  3 Jul 2021 19:25:17 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229847AbhGCRCC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 3 Jul 2021 13:02:02 -0400
-Received: from mail.kernel.org ([198.145.29.99]:48700 "EHLO mail.kernel.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S229823AbhGCRCC (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Sat, 3 Jul 2021 13:02:02 -0400
-Received: by mail.kernel.org (Postfix) with ESMTPS id 490D2613ED
-        for <linux-man@vger.kernel.org>; Sat,  3 Jul 2021 16:59:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1625331568;
-        bh=HFkP/iDqZZ26tfn46YYU20yPTDLagYTCs38Dmi3QOec=;
-        h=From:To:Subject:Date:In-Reply-To:References:From;
-        b=Hf8DzUKBcxk2RldzbGDP5V0JTAwIeQ5fOPzfNGjSA7jPptkUt9vRpxwiux7fWrNV1
-         keTwhQQbiWzhmnCJzW1TJeq9MStX/CNVA6cUJ36acnJ2fGp8IZriBIZRTr+ix5QHKW
-         J+LjOt9HYwAlc3xga7psHrvYlsptlvs3/f+1Fp7joAB2c2oo+ChWZW6JyTvXACy1yO
-         Bph/H1plHMmlqp8vu0UdmUZ9Sgl1XCtMfquQyWiiJYeyMLDfuc9UcmMt78fjFfPRFH
-         6mogVtrRwDRVdYhbNvJeF97qbmhV4cUVw1Vktc+Gs8Mx4gjWhr6iQ2d0W29J96fY4b
-         HyUyuS/0JCZCQ==
-Received: by pdx-korg-bugzilla-2.web.codeaurora.org (Postfix, from userid 48)
-        id 4098B61179; Sat,  3 Jul 2021 16:59:28 +0000 (UTC)
-From:   bugzilla-daemon@bugzilla.kernel.org
-To:     linux-man@vger.kernel.org
-Subject: [Bug 213421] vdso(7) misses the y2038 compliant gettime for ppc/32
-Date:   Sat, 03 Jul 2021 16:59:27 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: changed
-X-Bugzilla-Watch-Reason: AssignedTo
- documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Product: Documentation
-X-Bugzilla-Component: man-pages
-X-Bugzilla-Version: unspecified
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: normal
-X-Bugzilla-Who: alx.manpages@gmail.com
-X-Bugzilla-Status: RESOLVED
-X-Bugzilla-Resolution: DOCUMENTED
-X-Bugzilla-Priority: P1
-X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: bug_status cc resolution
-Message-ID: <bug-213421-11311-gMhPxPzOSi@https.bugzilla.kernel.org/>
-In-Reply-To: <bug-213421-11311@https.bugzilla.kernel.org/>
-References: <bug-213421-11311@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
+        id S229557AbhGCR1u (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 3 Jul 2021 13:27:50 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54944 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S229463AbhGCR1u (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 3 Jul 2021 13:27:50 -0400
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com [IPv6:2a00:1450:4864:20::32b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 39AE0C061762
+        for <linux-man@vger.kernel.org>; Sat,  3 Jul 2021 10:25:16 -0700 (PDT)
+Received: by mail-wm1-x32b.google.com with SMTP id u8-20020a7bcb080000b02901e44e9caa2aso8421979wmj.4
+        for <linux-man@vger.kernel.org>; Sat, 03 Jul 2021 10:25:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=8wGaP6iq7jaT8RaWvQbePCqyyjT7PO2ONeRHtnfE2Gs=;
+        b=dWGGffaNp0v5bqZ2qjRJ6+oYean1C9qxgf4NL5u4KFbcAwM014MOs6McZglO1//t3N
+         8i1eX0rRM+JvdSwpZGd2kjthHvXBmG2bBhyL7su29DWSM0vMx+7WQ5ftD9NQ22jQbva2
+         2qw3ULkHY2jtvC6Ig+pYzKKOvYGQdfVWT644wj0fiMxwGA5Fu2JU6LLcdWsRo2ux9Gac
+         pm4k0RMoRf2Bj+U4A9IeGgI3SfyFRlbvzrRbQcg6OkvuZ3dAbpkXlaiSjJfpdlKMMuWA
+         eeqgpEY3gBf9k98zN8Z9YvRBx2FMvKFzTwCyMhoh1cD1Abdx6mxCME3XkCyhHZmB0Mdv
+         b0VQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=8wGaP6iq7jaT8RaWvQbePCqyyjT7PO2ONeRHtnfE2Gs=;
+        b=WgO0URPcblG1tzPppV4TLmCrvh/h30LKL6z4QVE3uIU3eUJTs79nicef8TJ+wSdXbQ
+         IY+3LfizU1OJNRwlitxYIYFvgRUTBSLfNTfD7VFWKcq20HF1413L2x270zAJ1NXyei+S
+         jOOSLvI7QxZozQQSDC+M61nL4mxLGBCFkVWl1f30kSDyoXEv87YL/wvGpIODzJpSw6gL
+         yAF+Er7eir6nKxQl7zKJI4lf2F6vLkSufXLTzYMlHGGvtj5e30e7BY71dkUxvnYwapFb
+         Wb6buJlrtwSzoJCWQE3IiEaEO4kIK0Aku5jT32mhNOjTNuO7Ui8MEzHvDK+4m9Glbste
+         BlwA==
+X-Gm-Message-State: AOAM531bZ7t4IlIUIfBxuA3DyEnKUImwKFq5vVjMBkLjcPcUx2nRlrZG
+        v4Snp6hFfeZJTA63NjLko6fG8PBalTc=
+X-Google-Smtp-Source: ABdhPJy13JGZjxV9QkJ4QtL7eburuxZtxJlXCE2R6HmG/XiN8BzvnQavmOyIbWfaKUPjxE/hZ2vzDA==
+X-Received: by 2002:a05:600c:2215:: with SMTP id z21mr5694676wml.92.1625333114840;
+        Sat, 03 Jul 2021 10:25:14 -0700 (PDT)
+Received: from localhost.localdomain ([170.253.36.171])
+        by smtp.googlemail.com with ESMTPSA id t9sm7152770wrq.92.2021.07.03.10.25.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 03 Jul 2021 10:25:14 -0700 (PDT)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org,
+        Alan Peakall <Alan.Peakall@helpsystems.com>
+Subject: [PATCH] posixoptions.7: Fix legacy functions list (s/getcwd/getwd/)
+Date:   Sat,  3 Jul 2021 19:23:52 +0200
+Message-Id: <20210703172351.79481-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.32.0
+In-Reply-To: <SN6PR08MB49282117AFEB2499B3DD224380319@SN6PR08MB4928.namprd08.prod.outlook.com>
+References: <SN6PR08MB49282117AFEB2499B3DD224380319@SN6PR08MB4928.namprd08.prod.outlook.com>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D213421
+Alan:
 
-Alejandro Colomar (man-pages) (alx.manpages@gmail.com) changed:
+[
+The on-line copy of the manual page "posixoptions(7)" dated
+2018-04-30 has an entry for "getcwd()" in the section headed
+"XSI - _XOPEN_LEGACY - _SC_XOPEN_LEGACY".
+I believe that entry should be "getwd()" as that is the API call
+which was present in X/Open-6 but withdrawn in X/Open-7.
+]
 
-           What    |Removed                     |Added
-----------------------------------------------------------------------------
-             Status|NEW                         |RESOLVED
-                 CC|                            |alx.manpages@gmail.com
-         Resolution|---                         |DOCUMENTED
-
---- Comment #1 from Alejandro Colomar (man-pages) (alx.manpages@gmail.com) =
+Reported-by: Alan Peakall <Alan.Peakall@helpsystems.com>
+Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
-Hi Christophe,
 
-Thanks for the report.
-I applied the following patch.
+Hi Alan,
+Thanks for the report.  This patch should fix it.
+
+Hi Michael,
+Please apply this patch.
 
 Thanks,
 
 Alex
 
----
-Author: Alejandro Colomar <alx.manpages@gmail.com>
-Date:   Sat Jul 3 18:54:52 2021 +0200
+ man7/posixoptions.7 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-    vdso.7: Add y2038 compliant gettime for ppc/32
+diff --git a/man7/posixoptions.7 b/man7/posixoptions.7
+index d2ee10302..d6882fe05 100644
+--- a/man7/posixoptions.7
++++ b/man7/posixoptions.7
+@@ -968,7 +968,7 @@ The following functions are present:
+ .IR fcvt ()
+ .IR ftime ()
+ .IR gcvt ()
+-.IR getcwd ()
++.IR getwd ()
+ .IR index ()
+ .IR mktemp ()
+ .IR rindex ()
+-- 
+2.32.0
 
-    Christophe Leroy via Bugzilla:
-
-    [
-    https://man7.org/linux/man-pages/man7/vdso.7.html (2021-03-22)
-
-    In ppc32 functions section, the Y2038 compliant function
-    __kernel_clock_gettime64() is missing.
-
-    It was added by commit d0e3fc69d00d
-    ("powerpc/vdso: Provide __kernel_clock_gettime64() on vdso32")
-    ]
-
-    .../linux$ git describe d0e3fc69d00d
-    v5.10-rc2-76-gd0e3fc69d00d
-
-    Reported-by: Christophe Leroy <christophe.leroy@csgroup.eu>
-    Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
-
-diff --git a/man7/vdso.7 b/man7/vdso.7
-index 1d527c38e..5fb22ab5e 100644
---- a/man7/vdso.7
-+++ b/man7/vdso.7
-@@ -371,6 +371,7 @@ symbol      version
- _
- __kernel_clock_getres  LINUX_2.6.15
- __kernel_clock_gettime LINUX_2.6.15
-+__kernel_clock_gettime64       LINUX_5.10
- __kernel_datapage_offset       LINUX_2.6.15
- __kernel_get_syscall_map       LINUX_2.6.15
- __kernel_get_tbfreq    LINUX_2.6.15
-
---=20
-You may reply to this email to add a comment.
-
-You are receiving this mail because:
-You are watching the assignee of the bug.=
