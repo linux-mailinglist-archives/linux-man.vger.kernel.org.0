@@ -2,101 +2,127 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 5134B3BAA0A
-	for <lists+linux-man@lfdr.de>; Sat,  3 Jul 2021 20:43:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9A7653BAA0E
+	for <lists+linux-man@lfdr.de>; Sat,  3 Jul 2021 20:56:11 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229504AbhGCSqH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 3 Jul 2021 14:46:07 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43646 "EHLO
+        id S229473AbhGCS6k (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 3 Jul 2021 14:58:40 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46328 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229463AbhGCSqG (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 3 Jul 2021 14:46:06 -0400
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com [IPv6:2a00:1450:4864:20::42f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9E0BAC061762
-        for <linux-man@vger.kernel.org>; Sat,  3 Jul 2021 11:43:31 -0700 (PDT)
-Received: by mail-wr1-x42f.google.com with SMTP id a13so16653626wrf.10
-        for <linux-man@vger.kernel.org>; Sat, 03 Jul 2021 11:43:31 -0700 (PDT)
+        with ESMTP id S229463AbhGCS6j (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 3 Jul 2021 14:58:39 -0400
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com [IPv6:2a00:1450:4864:20::32c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 577FAC061762
+        for <linux-man@vger.kernel.org>; Sat,  3 Jul 2021 11:56:05 -0700 (PDT)
+Received: by mail-wm1-x32c.google.com with SMTP id a5-20020a7bc1c50000b02901e3bbe0939bso8556523wmj.0
+        for <linux-man@vger.kernel.org>; Sat, 03 Jul 2021 11:56:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:references:cc:from:message-id:date:user-agent
+        h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=/Mu6MYKMV7jjeVskT34tWSg+IIKQv6QydfCwvqni3RI=;
-        b=Trxk01geSIxnOv/TjEkh7YbMfaeZ3PQyEBPE7TXwr7Xru8HKCKMfnsMkC3yuohRBax
-         14tcP7HviDFV4mmAPhuxgiPlGn+Sb0Vo6A8xaSr5Ng5cdm6D3TFtliN2W0pBAbYFr12x
-         HZAKuTymG5iC3o/5EBRTyifZBHrCdF86ecXRtGWIsG/DVjXakMuMmXWm1RkMs8HhoXWc
-         RDsPoHnWfNdLmZZpoV9WlNDSQ7h4z5AAHyL6/BFELvfa8H+XZcVBeVihzeuS/CdpOXdt
-         PNRXMqnc+x1ndvh5cqtAaytXOPYAwJ7RKG85VZ4nWCFL1PgXljC7DCloy0qvtuKZxpJ8
-         PCgg==
+        bh=hKLKe8wmdl0EwpyTduqk70wNbFBVoNszbvJuynC84JI=;
+        b=g4kltd5Y+WSPIjqxaKqXp2ItInQQI23jWIYT3ynsY5YQKiIZjWvSKT50zvOU4TJhqm
+         4bJiNbmv14gYH9ernaiV5HYMZVLnNCZCNHCww8rhMQ0wpqpFtpwjxvJ8yI6Fsa7/DBmV
+         qtvheBwKoguqC/rHxr/SO8hB0P3S/Dojz0HDTnnAS32ViDVT8+Zv9LnArz/IvMYKn/F5
+         QLjlHtiioeb3tWABn9yGrclDOtgN6C0vc3Rf4iRQ3jr7b4LIu72vQ1UiU5TgjUeQ3jPg
+         7JLB621qKa4PO8A67xIUgXzcrcgjszniz7yeyXdAs9r1/xgPPvHAuA+NGVDBISVmW6eQ
+         XMcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:references:cc:from:message-id:date
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=/Mu6MYKMV7jjeVskT34tWSg+IIKQv6QydfCwvqni3RI=;
-        b=VHzVZS2UZONOuRsWkbdrX0UTUCi5Q8qouN4B7nWPEd5nzXcGNoQPE+BHxQcDD3oafb
-         aQG5ayI//ipjret3Efbe9jK1MbtyQxIFLUohBzgRNgj2tREbFESeXhRwtAY+pOkW6t9H
-         VsQ64KROskqqnosBBB3rVs2eU7PtzN/aaKaBytJxIc2JCcJY3sxIvOBsVaJUarNUY46y
-         MPuly+25g1ryBjOFvYyNjZSwQDYnkuuBNveqcvTuD4R0Q2Xo9ezvPkoradrXexHZR6tG
-         3LdySmLGbH4csGMPCf2F9Azy0MIsuY6F9uIiAd80XG7cdqhGuF0P+g+dKpCNM8yjIfSD
-         3LCg==
-X-Gm-Message-State: AOAM530nT7wb3FbriKYUS5GtFvjbrD6pv3zYq39vNoVkY9wozHrb+BG4
-        +XHW3pFWX9evX69FFoduiDPY7IQ7Ni4=
-X-Google-Smtp-Source: ABdhPJzzeOm51wITW2uoTJoAD5O+LBx6qjt9rHGtxAGd7cXeiRVISkxCI0n1BFTZW2VfUcRaydyF7A==
-X-Received: by 2002:a5d:4f01:: with SMTP id c1mr6638150wru.266.1625337810228;
-        Sat, 03 Jul 2021 11:43:30 -0700 (PDT)
+        bh=hKLKe8wmdl0EwpyTduqk70wNbFBVoNszbvJuynC84JI=;
+        b=r4dGaKlB+573oaHpmKb79y8t91yDtklEzAXCnAsuqx/Fro56hR2SnvGy6ChUPFGFty
+         Dd/vY5w/xUlT4QvaCxv0xY5x+n09qRUd6xFcY58z22mtYBMfqErh0tYD63afSFXv9CRf
+         jY8FE4KpZEJyMJsV2jf1CN00dt3w/ocA8Cu3PkHz9O8RVwWKDD0P2Tm+fdxTy5CnDD49
+         GIMEve+CPhpPN4DzTz1nPeamq6cRF/s/Mr6ASyUqmZPeE7QXF/tn7SBN6hsL7DHxT89O
+         Wx4VNu1eWfaCJt+BoiyUoL41sWiJDD7mySBs0oXhkl1+X/ZcQXE6oejWPQFbltBNppAe
+         9KYA==
+X-Gm-Message-State: AOAM531H648YDlS5aJGXwMP9xfqLdt+xpW4vuESBmQ9+qpkEhBUYF9t/
+        BDaI+coV+CXp/lkbPAZEAQUyGlaJLQE=
+X-Google-Smtp-Source: ABdhPJx7VJK4vysmnRoNnNxTm0i4HvwhhjANbmq5R+vap7HV1dYCPk/cGinSLGor2fzgjsSN5+r52A==
+X-Received: by 2002:a1c:f016:: with SMTP id a22mr6122033wmb.65.1625338563717;
+        Sat, 03 Jul 2021 11:56:03 -0700 (PDT)
 Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id f9sm7443089wrm.48.2021.07.03.11.43.29
+        by smtp.gmail.com with ESMTPSA id f18sm7570610wru.53.2021.07.03.11.56.02
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 03 Jul 2021 11:43:29 -0700 (PDT)
-Subject: Re: [PATCH] path_resolution.7: tfix
-To:     =?UTF-8?B?xaB0xJtww6FuIE7Em21lYw==?= <stepnem@gmail.com>
-References: <20210624194202.713112-1-stepnem@gmail.com>
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>, linux-man@vger.kernel.org
+        Sat, 03 Jul 2021 11:56:03 -0700 (PDT)
+Subject: Re: execve(2) man page: "absolute pathname" inconsistency
+To:     Nora Platiel <nplatiel@gmx.us>, mtk.manpages@gmail.com,
+        Shawn Landden <shawn@git.icu>
+Cc:     linux-man@vger.kernel.org
+References: <trinity-131cbf9a-6570-4d3c-8b80-a808d1ad445a-1624567328724@3c-app-mailcom-bs07>
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <8f85a597-6fb0-66ab-c2a3-855e68713b71@gmail.com>
-Date:   Sat, 3 Jul 2021 20:43:29 +0200
+Message-ID: <9558b097-7760-beb5-be4d-13e298461e82@gmail.com>
+Date:   Sat, 3 Jul 2021 20:56:02 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <20210624194202.713112-1-stepnem@gmail.com>
+In-Reply-To: <trinity-131cbf9a-6570-4d3c-8b80-a808d1ad445a-1624567328724@3c-app-mailcom-bs07>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Štěpán,
+Hi Nora,
 
-On 6/24/21 9:42 PM, Štěpán Němec wrote:
-> Signed-off-by: Štěpán Němec <stepnem@gmail.com>
+On 6/24/21 10:42 PM, Nora Platiel wrote:
+> Hello,
+> I'm reporting a problem with the execve(2) man page (see the "absolute pathname" part):
+> 
+>> If the pathname argument of execve() specifies an interpreter
+>> script, then interpreter will be invoked with the following
+>> arguments:
+>>
+>>     interpreter [optional-arg] pathname arg...
+>>
+>> where pathname is the absolute pathname of the file specified as
+>>                       ^^^^^^^^^^^^^^^^^
+>> the first argument of execve(), and arg...  is the series of
+>> words pointed to by the argv argument of execve(), starting at
+>> argv[1].  Note that there is no way to get the argv[0] that was
+>> passed to the execve() call.
+> 
+> Then in the final example:
+> 
+>> $ ./execve ./script
+>> argv[0]: ./myecho
+>> argv[1]: script-arg
+>> argv[2]: ./script
+>> argv[3]: hello
+>> argv[4]: world
+> 
+> According to the description, argv[2] is supposed to be the *absolute pathname* of "./script" but it is not.
+> (In path_resolution(7), an absolute pathname is defined to be a pathname starting with a '/' character.)
+> 
+> I tested the example with kernel 4.4.246 and the output is the same as the one in the man page (relative paths are preserved).
+> I don't know about newer kernels, but if I understand correctly, either the "absolute pathname" wording is incorrect or the example is.
+> (In the latter case, perhaps the man page could also mention the change in behavior.)
+> 
+> The "absolute pathname" wording was introduced here:
+> https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?id=60f16bf2fe6bd2d2d001d0a41936e778b1e7e3f6
+> https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?id=63059c4b527d0da73666da5ff29dcc902e219371
 
-Patch applied.
+Thanks for all of the info and links.
 
-Thanks,
+I think you're right.  In fact, POSIX talks about pathname, and not
+absolute pathname
+(<https://pubs.opengroup.org/onlinepubs/9699919799/functions/exec.html>).
+
+However, the kernel documentation talks about 'full path', so I'm not
+sure if maybe some versions of the kernel did not support relative paths
+ (<https://www.kernel.org/doc/html/latest/admin-guide/binfmt-misc.html>).
+
+I added Shawn to the thread, so maybe he can shed some light (he added
+that text).
+
+Regards,
 
 Alex
 
-> ---
->  man7/path_resolution.7 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/man7/path_resolution.7 b/man7/path_resolution.7
-> index 0901ed7c8a98..f24837ef9ce5 100644
-> --- a/man7/path_resolution.7
-> +++ b/man7/path_resolution.7
-> @@ -63,7 +63,7 @@ argument).
->  The current working directory is inherited from the parent, and can
->  be changed by use of the
->  .BR chdir (2)
-> -system call.)
-> +system call.
->  .PP
->  Pathnames starting with a \(aq/\(aq character are called absolute pathnames.
->  Pathnames not starting with a \(aq/\(aq are called relative pathnames.
-> 
-> base-commit: 33248cfe50ebb8762208e7ef3264676dad71b016
-> 
 
 -- 
 Alejandro Colomar
