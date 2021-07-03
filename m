@@ -2,83 +2,101 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 074683BAA07
-	for <lists+linux-man@lfdr.de>; Sat,  3 Jul 2021 20:40:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5134B3BAA0A
+	for <lists+linux-man@lfdr.de>; Sat,  3 Jul 2021 20:43:35 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229520AbhGCSna (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 3 Jul 2021 14:43:30 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43082 "EHLO
+        id S229504AbhGCSqH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 3 Jul 2021 14:46:07 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43646 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229463AbhGCSn3 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 3 Jul 2021 14:43:29 -0400
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com [IPv6:2a00:1450:4864:20::42a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B2D5AC061762
-        for <linux-man@vger.kernel.org>; Sat,  3 Jul 2021 11:40:55 -0700 (PDT)
-Received: by mail-wr1-x42a.google.com with SMTP id l8so16623714wry.13
-        for <linux-man@vger.kernel.org>; Sat, 03 Jul 2021 11:40:55 -0700 (PDT)
+        with ESMTP id S229463AbhGCSqG (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 3 Jul 2021 14:46:06 -0400
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com [IPv6:2a00:1450:4864:20::42f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9E0BAC061762
+        for <linux-man@vger.kernel.org>; Sat,  3 Jul 2021 11:43:31 -0700 (PDT)
+Received: by mail-wr1-x42f.google.com with SMTP id a13so16653626wrf.10
+        for <linux-man@vger.kernel.org>; Sat, 03 Jul 2021 11:43:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:references:from:message-id:date:user-agent:mime-version
-         :in-reply-to:content-language:content-transfer-encoding;
-        bh=vgCC+StzWbAfOlL/XWXfbQwjqNLNSt8uRorBn+ZKFOs=;
-        b=FCityDVH2BjoFkjtXIymD92wOx/ou0It9nOOdiQXzPjb1uF3up3LZirbuL9xcIOR5E
-         sjNhxNY1VIl68DskhnZdwyXkAfrTBDGCg/FYcZFPH4B7qH9oUEGFdislMi1/mr1dM5cb
-         jsjAMRXVDO9eRcMN4dpD8lbw4Ye5B3GOs1gKChS7I3PXQu9YOomL+z/na4MrduUBqp+y
-         o5aMbL/fZzcjPVkX//JMnLJPTQBttkBAcnOo/ljihlfHcZoaTB2oNosShWvCOvozzt3Z
-         kzV72Nc1J8V7gpgoC7fKYoDN0JPCXHA589UzKrYgIBjo/VQWYtY9lec3TotNeAh7NWPx
-         ZT5Q==
+        h=subject:to:references:cc:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=/Mu6MYKMV7jjeVskT34tWSg+IIKQv6QydfCwvqni3RI=;
+        b=Trxk01geSIxnOv/TjEkh7YbMfaeZ3PQyEBPE7TXwr7Xru8HKCKMfnsMkC3yuohRBax
+         14tcP7HviDFV4mmAPhuxgiPlGn+Sb0Vo6A8xaSr5Ng5cdm6D3TFtliN2W0pBAbYFr12x
+         HZAKuTymG5iC3o/5EBRTyifZBHrCdF86ecXRtGWIsG/DVjXakMuMmXWm1RkMs8HhoXWc
+         RDsPoHnWfNdLmZZpoV9WlNDSQ7h4z5AAHyL6/BFELvfa8H+XZcVBeVihzeuS/CdpOXdt
+         PNRXMqnc+x1ndvh5cqtAaytXOPYAwJ7RKG85VZ4nWCFL1PgXljC7DCloy0qvtuKZxpJ8
+         PCgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:references:from:message-id:date
+        h=x-gm-message-state:subject:to:references:cc:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=vgCC+StzWbAfOlL/XWXfbQwjqNLNSt8uRorBn+ZKFOs=;
-        b=d5wTwiTTVfgYizcDTQZFR84IV9dj6A0T/dcFgjBD7ylEjqUUKzQd2zzSTqR7BeNdnC
-         B/IOHOKCiAa3zcVOucw+X/7iJ68nTkFZ9vhJdwYt7TQCavjArP4i1E66GPamwf09ED+r
-         ciqOdVcx7XPSzOVLIuKh6s/il2V0oltx6Ccg9/PWNcDZaqROlXEwkVxCYDqQ6XLmKPyj
-         6tRyT6D/QaffMN0ESfcJfpwyB1PHI+HmTGyS/aNNduilCHtqwGmTCer843WNiWKN+5AA
-         qJY/sMo9ZDfn7EHWf3OKQBOpZ3g07dhYKjMgDbXc3UseItFrSEne3GuytjcLvgZAQdmu
-         M7Xg==
-X-Gm-Message-State: AOAM530EiyJctf+F7CotH9BibNV4VXDwiojmX/Oy8IdI65gsqFdQWqfT
-        l4sMk6PedhTUW4gjsXByXZ8=
-X-Google-Smtp-Source: ABdhPJzOUfGik7IA4yHugp4Wmb/F/WkbkGM3H+JfDHsA0esPQ0hKoOe/etUUHkQnNTocA3P34bE6LQ==
-X-Received: by 2002:a5d:52c1:: with SMTP id r1mr6498341wrv.294.1625337654406;
-        Sat, 03 Jul 2021 11:40:54 -0700 (PDT)
+        bh=/Mu6MYKMV7jjeVskT34tWSg+IIKQv6QydfCwvqni3RI=;
+        b=VHzVZS2UZONOuRsWkbdrX0UTUCi5Q8qouN4B7nWPEd5nzXcGNoQPE+BHxQcDD3oafb
+         aQG5ayI//ipjret3Efbe9jK1MbtyQxIFLUohBzgRNgj2tREbFESeXhRwtAY+pOkW6t9H
+         VsQ64KROskqqnosBBB3rVs2eU7PtzN/aaKaBytJxIc2JCcJY3sxIvOBsVaJUarNUY46y
+         MPuly+25g1ryBjOFvYyNjZSwQDYnkuuBNveqcvTuD4R0Q2Xo9ezvPkoradrXexHZR6tG
+         3LdySmLGbH4csGMPCf2F9Azy0MIsuY6F9uIiAd80XG7cdqhGuF0P+g+dKpCNM8yjIfSD
+         3LCg==
+X-Gm-Message-State: AOAM530nT7wb3FbriKYUS5GtFvjbrD6pv3zYq39vNoVkY9wozHrb+BG4
+        +XHW3pFWX9evX69FFoduiDPY7IQ7Ni4=
+X-Google-Smtp-Source: ABdhPJzzeOm51wITW2uoTJoAD5O+LBx6qjt9rHGtxAGd7cXeiRVISkxCI0n1BFTZW2VfUcRaydyF7A==
+X-Received: by 2002:a5d:4f01:: with SMTP id c1mr6638150wru.266.1625337810228;
+        Sat, 03 Jul 2021 11:43:30 -0700 (PDT)
 Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id t17sm6783235wmi.47.2021.07.03.11.40.53
+        by smtp.gmail.com with ESMTPSA id f9sm7443089wrm.48.2021.07.03.11.43.29
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 03 Jul 2021 11:40:54 -0700 (PDT)
-Subject: Re: [patch] Change multiple occurrences of "char **argv" to "char
- *argv[]" to remain consistent with the vast majority of manual pages.
-To:     Thomas Voss <thomasavoss@protonmail.com>,
-        "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
-        "mtk.manpages@gmail.com" <mtk.manpages@gmail.com>
-References: <dQfiruW0nMqdV5dny28jYwxkt2uPa82znT6stDqJVTAUWhhgQCpp7oPeqlsVXhZUs8ZBn4-qgURe7lIXHxJbCCn34UKVD-StlJ8N8QV765M=@protonmail.com>
+        Sat, 03 Jul 2021 11:43:29 -0700 (PDT)
+Subject: Re: [PATCH] path_resolution.7: tfix
+To:     =?UTF-8?B?xaB0xJtww6FuIE7Em21lYw==?= <stepnem@gmail.com>
+References: <20210624194202.713112-1-stepnem@gmail.com>
+Cc:     Michael Kerrisk <mtk.manpages@gmail.com>, linux-man@vger.kernel.org
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <821eb562-51e8-040b-f541-dde444e39653@gmail.com>
-Date:   Sat, 3 Jul 2021 20:40:53 +0200
+Message-ID: <8f85a597-6fb0-66ab-c2a3-855e68713b71@gmail.com>
+Date:   Sat, 3 Jul 2021 20:43:29 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <dQfiruW0nMqdV5dny28jYwxkt2uPa82znT6stDqJVTAUWhhgQCpp7oPeqlsVXhZUs8ZBn4-qgURe7lIXHxJbCCn34UKVD-StlJ8N8QV765M=@protonmail.com>
+In-Reply-To: <20210624194202.713112-1-stepnem@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Thomas,
+Hi Štěpán,
 
-On 6/24/21 7:55 PM, Thomas Voss wrote:
-> sed -i s/int argc, char \*\*argv/int argc, char \*argv\[\]/ man*/*
+On 6/24/21 9:42 PM, Štěpán Němec wrote:
+> Signed-off-by: Štěpán Němec <stepnem@gmail.com>
 
-Thanks for the script.  Patch applied (and added a signed-off-by line in
-your name).
+Patch applied.
 
-Cheers,
+Thanks,
 
 Alex
+
+> ---
+>  man7/path_resolution.7 | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/man7/path_resolution.7 b/man7/path_resolution.7
+> index 0901ed7c8a98..f24837ef9ce5 100644
+> --- a/man7/path_resolution.7
+> +++ b/man7/path_resolution.7
+> @@ -63,7 +63,7 @@ argument).
+>  The current working directory is inherited from the parent, and can
+>  be changed by use of the
+>  .BR chdir (2)
+> -system call.)
+> +system call.
+>  .PP
+>  Pathnames starting with a \(aq/\(aq character are called absolute pathnames.
+>  Pathnames not starting with a \(aq/\(aq are called relative pathnames.
+> 
+> base-commit: 33248cfe50ebb8762208e7ef3264676dad71b016
+> 
 
 -- 
 Alejandro Colomar
