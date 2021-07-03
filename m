@@ -2,134 +2,158 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 178FA3BA34B
-	for <lists+linux-man@lfdr.de>; Fri,  2 Jul 2021 18:37:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CA4123BA992
+	for <lists+linux-man@lfdr.de>; Sat,  3 Jul 2021 18:50:46 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229499AbhGBQk0 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 2 Jul 2021 12:40:26 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41998 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229455AbhGBQk0 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 2 Jul 2021 12:40:26 -0400
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com [IPv6:2a00:1450:4864:20::62e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 92037C061764
-        for <linux-man@vger.kernel.org>; Fri,  2 Jul 2021 09:37:53 -0700 (PDT)
-Received: by mail-ej1-x62e.google.com with SMTP id hp26so4341856ejc.6
-        for <linux-man@vger.kernel.org>; Fri, 02 Jul 2021 09:37:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kinvolk.io; s=google;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=AWY2RjKT+2r3oOmvFmiVbr8M8QoRSQ2qxYObjvNjLmQ=;
-        b=U+hn6zNHXD+IESe1KrFQasFz7kosnf4i5y/6PFBQmfHlyo5Szovx60z28i/0+ggl0P
-         umuN5Rt8TyW/5ilPETR7GTovfa5gv3B5JxdURNuVsSFp7NYyl4MeCx0Rfj9B5v/gXgMX
-         eEl/V2Okc1baBWkL3L8amgCJWe6sqhlOPXulw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=AWY2RjKT+2r3oOmvFmiVbr8M8QoRSQ2qxYObjvNjLmQ=;
-        b=opu/HceVeMXD5b6Td+K/ipf8/5yKMjhXE1hkhEclP/lGLu+yjLwvynfdAogxDElWYz
-         7RZmRx/67kiBhe2qUF2U6uv64xGCrycLOEFpSnbjgxqKr2XduSQaFRARZMNSexZk5YVy
-         KAoEBbIXBF3F6DDCsR0WALtBOcWHV6wkzQV+7rJvUyYudTR7Du8tO6d4UAqa5LSB6iWT
-         DVakFTKMM16U+dAqWnQXF6Qk5hkvP5Gcvezc8VgFRtbufWUAMC6vBQo2NVZIE+2KaNTC
-         kaOIA2St3+G2BMjBH1Ej4z1qYUiWWCyaHtzLd2OQt5tv3HJLZIkuHV/f8Pn4NcQjCX+Q
-         MI9A==
-X-Gm-Message-State: AOAM531ZxOQbdHShecNf44jq9gPLKzUskkLuo/U438WhBejFGSp1IaG+
-        Sdmr8Kd7HKqDlWiz/+Pmlm7Bq9EgGTA2MO3vHYilshYxrm47dcwcm0Q7/+0iWwoCmJc38uUUGwv
-        YIZSx4Lvoi2VyCSqOa45HzqFWnOf5OEypIgdUXHhsjui/K4pUCKTptRfjxBLwSeXY+zBN71oFGJ
-        XI3Q==
-X-Google-Smtp-Source: ABdhPJwR/GYYl0fu9wEzKJ0eiUPDI1kkw+wyvUlhtvQtLoDy9p07qEo7EIkd0+kGi0B68yIw0pvYhA==
-X-Received: by 2002:a17:906:bc83:: with SMTP id lv3mr583357ejb.133.1625243871841;
-        Fri, 02 Jul 2021 09:37:51 -0700 (PDT)
-Received: from localhost.localdomain ([2a02:8109:9880:57f0:ba7c:cdd5:fff7:623c])
-        by smtp.gmail.com with ESMTPSA id g23sm1536450edp.74.2021.07.02.09.37.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Jul 2021 09:37:51 -0700 (PDT)
-From:   Rodrigo Campos <rodrigo@kinvolk.io>
-To:     linux-man@vger.kernel.org,
-        Alejandro Colomar <alx.manpages@gmail.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>
-Cc:     linux-kernel@vger.kernel.org, Alban Crequy <alban@kinvolk.io>,
-        =?UTF-8?q?Mauricio=20V=C3=A1squez=20Bernal?= <mauricio@kinvolk.io>,
-        Sargun Dhillon <sargun@sargun.me>,
-        Rodrigo Campos <rodrigo@kinvolk.io>
-Subject: [PATCH] seccomp_unotify.2: Add doc for SECCOMP_ADDFD_FLAG_SEND
-Date:   Fri,  2 Jul 2021 18:37:44 +0200
-Message-Id: <20210702163744.265749-1-rodrigo@kinvolk.io>
-X-Mailer: git-send-email 2.30.2
+        id S229492AbhGCQxR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 3 Jul 2021 12:53:17 -0400
+Received: from mail.kernel.org ([198.145.29.99]:47026 "EHLO mail.kernel.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S229463AbhGCQxR (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Sat, 3 Jul 2021 12:53:17 -0400
+Received: by mail.kernel.org (Postfix) with ESMTPS id 94EB66193D
+        for <linux-man@vger.kernel.org>; Sat,  3 Jul 2021 16:50:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1625331043;
+        bh=njwwGdyi9F8oTqZtAsgSjm+Di5HWey134ex4pAeTjao=;
+        h=From:To:Subject:Date:In-Reply-To:References:From;
+        b=tZXltkHgPiZjvfQ4riG0tQoVvCoYEzo48fJUk7m7YDEuHfctfDpvj9+KBJGbdYbUy
+         coBZur1uMRVsFfskpi8PJOajYGJnCFfsFCaZvaU5OCh+OG+Zea/AIjtem6bXH9s29B
+         qieJg/FIrVwiquXelAsh1cVOpVtFNEu16r0otCVtuBkQlXCGsS1pT1IEeAtb6uBA4P
+         MmRq0+YJyjkg3ozc05P20VYqLHJWRVvh+mA7pfZkSMngzwlAkONSkCRSELVIyE0RQO
+         lCuEV4QJLMp4za7d9MbioRVYptNLtUn6ydz2Hdxm04at8wwWKcDJGND/Iu9fOdA0FJ
+         ZrEKxautIw3hQ==
+Received: by pdx-korg-bugzilla-2.web.codeaurora.org (Postfix, from userid 48)
+        id 8E08761179; Sat,  3 Jul 2021 16:50:43 +0000 (UTC)
+From:   bugzilla-daemon@bugzilla.kernel.org
+To:     linux-man@vger.kernel.org
+Subject: [Bug 213419] Outdated limitation for powerpc in vdso(7)
+Date:   Sat, 03 Jul 2021 16:50:43 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Documentation
+X-Bugzilla-Component: man-pages
+X-Bugzilla-Version: unspecified
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: alx.manpages@gmail.com
+X-Bugzilla-Status: RESOLVED
+X-Bugzilla-Resolution: DOCUMENTED
+X-Bugzilla-Priority: P1
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: bug_status cc resolution
+Message-ID: <bug-213419-11311-Eyuf2mj5ki@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-213419-11311@https.bugzilla.kernel.org/>
+References: <bug-213419-11311@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This flag was recently added to Linux 5.14 by a patch I wrote:
-	https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=0ae71c7720e3ae3aabd2e8a072d27f7bd173d25c
+https://bugzilla.kernel.org/show_bug.cgi?id=3D213419
 
-This patch adds documentation for the flag, the error code that the flag
-added and explains in the caveat when it is useful.
+Alejandro Colomar (man-pages) (alx.manpages@gmail.com) changed:
 
-Signed-off-by: Rodrigo Campos <rodrigo@kinvolk.io>
+           What    |Removed                     |Added
+----------------------------------------------------------------------------
+             Status|NEW                         |RESOLVED
+                 CC|                            |alx.manpages@gmail.com
+         Resolution|---                         |DOCUMENTED
+
+--- Comment #1 from Alejandro Colomar (man-pages) (alx.manpages@gmail.com) =
 ---
-Hi! Here goes the documentation for the flag I just added. Please feel free to
-amend as you want and let me know if something is not clear :)
+Hi Christophe,
 
+Thanks for the report.
+I applied the following patch.
 
- man2/seccomp_unotify.2 | 26 ++++++++++++++++++++++++++
- 1 file changed, 26 insertions(+)
+Thanks,
 
-diff --git a/man2/seccomp_unotify.2 b/man2/seccomp_unotify.2
-index 2673d9bc7..9bd27214f 100644
---- a/man2/seccomp_unotify.2
-+++ b/man2/seccomp_unotify.2
-@@ -739,6 +739,17 @@ When allocating the file descriptor in the target,
- use the file descriptor number specified in the
- .I newfd
- field.
-+.TP
-+.BR SECCOMP_ADDFD_FLAG_SEND
-+Available since Linux 5.14, combines the
-+.B SECCOMP_IOCTL_NOTIF_ADDFD
-+ioctl with
-+.B SECCOMP_IOCTL_NOTIF_SEND
-+into an atomic operation. On successful invocation, the target process's
-+errno will be 0 and the return value will be the file descriptor number that was
-+installed in the target. If allocating the file descriptor in the tatget fails,
-+the target's syscall continues to be blocked until a successful response is
-+sent.
- .RE
- .TP
- .I srcfd
-@@ -801,6 +812,13 @@ Allocating the file descriptor in the target would cause the target's
- limit to be exceeded (see
- .BR getrlimit (2)).
- .TP
-+.B EBUSY
-+If the flag
-+.B SECCOMP_IOCTL_NOTIF_SEND
-+is used, this means the operation can't proceed until other
-+.B SECCOMP_IOCTL_NOTIF_ADDFD
-+requests are processed.
-+.TP
- .B EINPROGRESS
- The user-space notification specified in the
- .I id
-@@ -1131,6 +1149,14 @@ that would
- normally be restarted by the
- .BR SA_RESTART
- flag.
-+.PP
-+Furthermore, if the supervisor response is a file descriptor
-+added with
-+.B SECCOMP_IOCTL_NOTIF_ADDFD,
-+then the flag
-+.B SECCOMP_ADDFD_FLAG_SEND
-+can be used to atomically add the file descriptor and return that value,
-+making sure no file descriptors are inadvertently leaked into the target.
- .\" FIXME
- .\" About the above, Kees Cook commented:
- .\"
--- 
-2.30.2
+Alex
 
+---
+Author: Alejandro Colomar <alx.manpages@gmail.com>
+Date:   Sat Jul 3 18:43:16 2021 +0200
+
+    vdso.7: Remove outdated limitation for powerpc
+
+    Christophe Leroy via Bugzilla:
+
+    [
+    https://man7.org/linux/man-pages/man7/vdso.7.html
+    (as of today, flagged 2021-03-22)
+
+    ppc/32 and ppc/64 sections both have the following note:
+
+           The CLOCK_REALTIME_COARSE and CLOCK_MONOTONIC_COARSE clocks
+           are not supported by the __kernel_clock_getres and
+           __kernel_clock_gettime interfaces; the kernel falls back to
+           the real system call
+
+    This note has been wrong from quite some time now,
+    since commit 654abc69ef2e
+    ("powerpc/vdso32: Add support for CLOCK_{REALTIME/MONOTONIC}_COARSE")
+    and commit 5c929885f1bb
+    ("powerpc/vdso64: Add support for CLOCK_{REALTIME/MONOTONIC}_COARSE")
+    ]
+
+    Reported-by: Christophe Leroy <christophe.leroy@csgroup.eu>
+    Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+
+diff --git a/man7/vdso.7 b/man7/vdso.7
+index ef6bef5bd..1d527c38e 100644
+--- a/man7/vdso.7
++++ b/man7/vdso.7
+@@ -385,19 +385,6 @@ __kernel_sync_dicache_p5   LINUX_2.6.15
+ .in
+ .ft P
+ \}
+-.PP
+-The
+-.B CLOCK_REALTIME_COARSE
+-and
+-.B CLOCK_MONOTONIC_COARSE
+-clocks are
+-.I not
+-supported by the
+-.I __kernel_clock_getres
+-and
+-.I __kernel_clock_gettime
+-interfaces;
+-the kernel falls back to the real system call.
+ .SS ppc/64 functions
+ .\" See linux/arch/powerpc/kernel/vdso64/vdso64.lds.S
+ The table below lists the symbols exported by the vDSO.
+@@ -423,19 +410,6 @@ __kernel_sync_dicache_p5   LINUX_2.6.15
+ .in
+ .ft P
+ \}
+-.PP
+-The
+-.B CLOCK_REALTIME_COARSE
+-and
+-.B CLOCK_MONOTONIC_COARSE
+-clocks are
+-.I not
+-supported by the
+-.I __kernel_clock_getres
+-and
+-.I __kernel_clock_gettime
+-interfaces;
+-the kernel falls back to the real system call.
+ .SS riscv functions
+ .\" See linux/arch/riscv/kernel/vdso/vdso.lds.S
+ The table below lists the symbols exported by the vDSO.
+
+--=20
+You may reply to this email to add a comment.
+
+You are receiving this mail because:
+You are watching the assignee of the bug.=
