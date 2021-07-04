@@ -2,137 +2,68 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A40BB3BAA9F
-	for <lists+linux-man@lfdr.de>; Sun,  4 Jul 2021 01:21:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8272D3BACBE
+	for <lists+linux-man@lfdr.de>; Sun,  4 Jul 2021 12:32:37 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229561AbhGCXYX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 3 Jul 2021 19:24:23 -0400
-Received: from sender4-op-o14.zoho.com ([136.143.188.14]:17440 "EHLO
-        sender4-op-o14.zoho.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229557AbhGCXYX (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 3 Jul 2021 19:24:23 -0400
-ARC-Seal: i=1; a=rsa-sha256; t=1625354501; cv=none; 
-        d=zohomail.com; s=zohoarc; 
-        b=Tsp999KX9UZYnVuEoc82oUXdZMgKvA766mb3qAqHEZ8khECRl4BilHC8IPX07uo05YU5oSGgeDvfm4PTf2UsOo/JYPBsXyEFjRn9PhtbJzQmh2A3o+19D502SVrsmTWhQSt6CsNP7oOBAqxAphEWLLcW4gOOOcn1sfF43Jd+8vM=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-        t=1625354501; h=Content-Type:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-        bh=bEzn21RSaxWb8/NHRvhxfOI7q+5JdH+JaBd0hFUfb34=; 
-        b=PCcHKwL7F3LaLUa9E1+9sxDuGYhhM+h2RLWbgAX/WZdEzbfCenPEaBObcGSr6QgERV0raAHu3TmEKfVzzLDfGdj572NkQaWgO/VjHbmD1cuBebDmYOpm2JnEZh8fVMM2RrnsAKdqJnJrFzlG8jYYbzTMl835/XqZF1Vthm3Nn4U=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-        spf=pass  smtp.mailfrom=dan@dlrobertson.com;
-        dmarc=pass header.from=<dan@dlrobertson.com>
-Received: from dlrobertson.com (pool-108-51-207-71.washdc.fios.verizon.net [108.51.207.71]) by mx.zohomail.com
-        with SMTPS id 162535449824865.62905376971321; Sat, 3 Jul 2021 16:21:38 -0700 (PDT)
-Date:   Sat, 3 Jul 2021 22:55:53 +0000
-From:   Dan Robertson <dan@dlrobertson.com>
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org, mtk.manpages@gmail.com,
-        "Darrick J. Wong" <djwong@kernel.org>
-Subject: Re: [PATCH 1/1] man2/fallocate.2: tfix documentation of shared blocks
-Message-ID: <YODq+ZGxJLDxu5JY@dlrobertson.com>
-References: <20210621004453.7437-1-dan@dlrobertson.com>
- <20210621004453.7437-2-dan@dlrobertson.com>
- <20210621042550.GG158232@locust>
- <342ad836-cb11-ed19-d867-51d2906b3b27@gmail.com>
- <YODD/v/bn6ILbIUO@dlrobertson.com>
- <91a46f14-2337-e39a-386b-120a7b4ceb99@gmail.com>
+        id S229713AbhGDKfL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 4 Jul 2021 06:35:11 -0400
+Received: from mo4-p00-ob.smtp.rzone.de ([85.215.255.23]:17776 "EHLO
+        mo4-p00-ob.smtp.rzone.de" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S229492AbhGDKfL (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 4 Jul 2021 06:35:11 -0400
+X-Greylist: delayed 358 seconds by postgrey-1.27 at vger.kernel.org; Sun, 04 Jul 2021 06:35:11 EDT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1625394393;
+    s=strato-dkim-0002; d=clisp.org;
+    h=Message-ID:Date:Subject:To:From:Cc:Date:From:Subject:Sender;
+    bh=oTvGo1+vTdTFukXGt3THZjAB4ofoijN24yn9QqIS9kI=;
+    b=DUrAYOfJIsqjClKmdLHWWBmGQLKgZ3EOgWSk/HeO92/u+UCJaY3KbH40gjFkYniLbI
+    yfScLVkeB4MPYcxjxgjNn+1TO4selSUARZpYGoZRcfIRRiSl69bX+f0sCY43CLQjGTsm
+    cD8OjHoUwCGGLNu9e2O6LmjMhig0TfQEhAc0wSfhOHUrydRh5PcJkemzqcXvxpjlO6BC
+    E9UH99GSpDDCX4ylJDKhu+u+0344P8OrH0ZX6DzG9cuPIyvldkHO4UAAHCkMblBcd0Mv
+    TijCSgG6dPEyFZl5n6dO9tHef/1Eur4mcc6hQV4RR/k/+WtVUrVo2ZfDkbxQBs8ySQSK
+    9WYQ==
+Authentication-Results: strato.com;
+    dkim=none
+X-RZG-AUTH: ":Ln4Re0+Ic/6oZXR1YgKryK8brlshOcZlIWs+iCP5vnk6shH+AHjwLuWOGKf9yfs="
+X-RZG-CLASS-ID: mo00
+Received: from bruno.haible.de
+    by smtp.strato.de (RZmta 47.28.1 DYNA|AUTH)
+    with ESMTPSA id e088a2x64AQXHjG
+        (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
+        (Client did not present a certificate);
+    Sun, 4 Jul 2021 12:26:33 +0200 (CEST)
+From:   Bruno Haible <bruno@clisp.org>
+To:     alx.manpages@gmail.com, libc-alpha@sourceware.org,
+        linux-man@vger.kernel.org, Peter Radisson <Radisson97@gmx.de>
+Subject: Re: new:mbrtoc32.3: convert from to c32
+Date:   Sun, 04 Jul 2021 12:26:31 +0200
+Message-ID: <8295983.X7ISPF4pOe@omega>
+User-Agent: KMail/5.1.3 (Linux/4.4.0-210-generic; KDE/5.18.0; x86_64; ; )
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="F8SeJZTF3ZeluE1P"
-Content-Disposition: inline
-In-Reply-To: <91a46f14-2337-e39a-386b-120a7b4ceb99@gmail.com>
-X-Zoho-Virus-Status: 1
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+> mbrtoc32, c32rtomb \- convert between multibyte sequence and 32-bit wide character
 
---F8SeJZTF3ZeluE1P
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+I would suggest two separate man pages for these functions.
+Rationale:
+It is rare that some code uses mbrtoc32 and c32rtomb in the same function.
+(Basically, functions that do input call mbrtoc32, and functions that do
+output call c32rtomb.) And the description of mbrtoc32 is a bit complex.
 
-Alex,
+> Are there any important differences compared to the already-documented
+> and C99-compliant mbrtowc(3) and wcrtomb(3)?  I mean, apart from the
+> types of the parameters.
 
-On Sat, Jul 03, 2021 at 11:31:32PM +0200, Alejandro Colomar (man-pages) wro=
-te:
-> >>> On Sun, Jun 20, 2021 at 08:44:53PM -0400, Dan Robertson wrote:
-> >>>> Fix a typo in the documentation of using fallocate to allocate shared
-> >>>> blocks. The flag FALLOC_FL_UNSHARE should instead be documented as
-> >>>> FALLOC_FL_UNSHARE_RANGE.
-> >>>>
-> >>>> Fixes: 07c7a6a35497 ("man2/fallocate.2: Document behavior with share=
-d blocks")
-> >>
-> >> BTW, I can't find that commit hash in git.  I have that commit as
-> >> 63a599c657d8.
-> >>
-> >> However, git doesn't fail...  It's weird.  Could you confirm that?
-> >=20
-> > Gah! You are correct. My bad. I used copied the commit hash for the com=
-mit in
-> > the kernel that introduced the FALLOC_FL_UNSHARE_RANGE flag. My bad.
->=20
-> I thought so, but I couldn't find that commit in Linus' tree either :/
->=20
-> [
-> .../linux$ git log -1 07c7a6a35497
-> fatal: ambiguous argument '07c7a6a35497': unknown revision or path not
-> in the working tree.
-> Use '--' to separate paths from revisions, like this:
-> 'git <command> [<revision>...] -- [<file>...]'
-> .../linux$ git log -1 07c7a6a35497 --
-> fatal: bad revision '07c7a6a35497'
-> .../linux$ cd ../man-pages/
-> .../man-pages$ git log -1 07c7a6a35497
-> .../man-pages$ git log -1 07c7a6a35497 --
-> .../man-pages$
-> ]
->=20
-> I can't understand that.  It fails in the kernel tree, but not in the
-> man-pages tree.  But it doesn't find it in either.
->=20
-> It doesn't matter, but I'm curious...
+No for c32rtomb, but yes for mbrtoc32: mbrtowc has the special return
+values (size_t)-1 and (size_t)-2, whereas mbrtoc32 also has the special
+return value (size_t)-3. Although, on glibc currently this special
+return value (size_t)-3 cannot occur. But IMO the man page should
+mention it nevertheless, otherwise people write code that is not
+future-proof.
 
-Ah! Got it! 07c7a6a35497 is the tree hash for 63a599c657d8 in the man-pages
-repo.
+Bruno
 
-=2E../man-pages$ git rev-parse --short=3D12 63a599c657d8:
-07c7a6a35497
-
-I bet I copied the wrong hash from git blame in vim-fugitive when trying to
-find the commit that first contained the typo.
-
->=20
-> > I can
-> > submit a second version of the patch with the correct commit hash if yo=
-u'd like.
->=20
-> No, don't worry; I fixed it.
-
-Thanks!
-
- - Dan
-
---F8SeJZTF3ZeluE1P
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEF5dO2RaKc5C+SCJ9RcSmUsR+QqUFAmDg6vkACgkQRcSmUsR+
-QqWq0xAAtWM3qGq2M4r6ogBsEowsHjtIcWUXhdMQ1VCxrt8DSLB1C4s3jrfbTRvi
-0gMvaWsCNtf6KkNwupR7/miWnNElMMyiQj7ian6SluW5vPnYHNKtwMtLwMIGHZhX
-ypuQHHxwd+auNgPYf5zHVR2nCSELdfh26r0O77YSACrLQ/hcltV8fAPFhxSpnqrM
-tV76SyhXHXzu5OdPLvHsKL7kjo6nQrxnQZlgjBXV/mJ/G0PfhOtbO9+cHDrQE9Uq
-P0Mryykf2uHOW23HPh+CYsOISY4TQFW6cfHTxTojqB4w7UW38G9VxifSz/ZbFIU3
-+GzOE5QwdYNdJejqgS7JNe4dMsJHYWMxEZvaVLoFkC4FrQMJRngWDtXrb3BtotsF
-/OkVYCIO8RGx+3+Z026+oHf2kzNmN3N3GVC9iso0k8PNuMvCMSN0uG3TsdeFSmDf
-dQ+Ch/RGoJLmXVVlCTLM6hqLs6+1aMHIcDFBBLxsn7F6GlOr/lWCMm+v/uMp3hPe
-wD3lQuttXyJZGfiIVlvF+b1Gce0bKd7Cq6Lxlb1+KMcgYA+qOLUOuTH0RdTnBSqb
-5O+lVdDPvtM5jCydhRceldL1G9lvnw5OVWgt1FvGu92+yw6CrSYAfJNIjgZAMWZT
-CBbfVPujIWxAPwF4WAhnwG9IghO6VeDn0YVGl+cw7Dm0xISJZr8=
-=3qzx
------END PGP SIGNATURE-----
-
---F8SeJZTF3ZeluE1P--
