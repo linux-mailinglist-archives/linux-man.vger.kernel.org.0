@@ -2,148 +2,87 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 3049E3BACE6
-	for <lists+linux-man@lfdr.de>; Sun,  4 Jul 2021 13:27:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5B4333BB947
+	for <lists+linux-man@lfdr.de>; Mon,  5 Jul 2021 10:29:14 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229543AbhGDLac (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 4 Jul 2021 07:30:32 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35058 "EHLO
+        id S230118AbhGEIbt (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 5 Jul 2021 04:31:49 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56476 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229529AbhGDLac (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 4 Jul 2021 07:30:32 -0400
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com [IPv6:2a00:1450:4864:20::431])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E2183C061574
-        for <linux-man@vger.kernel.org>; Sun,  4 Jul 2021 04:27:55 -0700 (PDT)
-Received: by mail-wr1-x431.google.com with SMTP id t6so8519616wrm.9
-        for <linux-man@vger.kernel.org>; Sun, 04 Jul 2021 04:27:55 -0700 (PDT)
+        with ESMTP id S230115AbhGEIbt (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 5 Jul 2021 04:31:49 -0400
+Received: from mail-pg1-x532.google.com (mail-pg1-x532.google.com [IPv6:2607:f8b0:4864:20::532])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3C259C061574
+        for <linux-man@vger.kernel.org>; Mon,  5 Jul 2021 01:29:12 -0700 (PDT)
+Received: by mail-pg1-x532.google.com with SMTP id e20so17673768pgg.0
+        for <linux-man@vger.kernel.org>; Mon, 05 Jul 2021 01:29:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=v+pTNjtMfCe1/YpSIecJRCWQZhXgp2tEJ3A348/GgQ8=;
-        b=Vya5URSpnFVsj4czndGCRdn5jg3OJDtbQVa/NYWCWiAipA/zYPRQbyS/7zRMjhZslq
-         wbDkVRFio7YPgNGK5wRjcoLKjdWrHKcxSTuz//4KXnzvTwNB/oBxzyEFL6iv0cZOl5XM
-         OTwSaPVAJNg++kxq/lVSr8wsHH5gsn3pnM6tLfT+GUBXBDoJFb3e2m+vbRBUSg2SAr4Y
-         EdZfEkz/Tpt/CrWPTMKhJVU5o+XNhQxEH0AmMUGoNEEHJ/YtyrlDlV8vCQBMviN5IhiY
-         9ZG0IHNAU6WQg8opTnGINYtFLwwLJLDiecRwv4t8dyufnoBM4svnN92tiHHGmJm8A6/Q
-         13TA==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=Bta3MFM7kNEN2cJdtBkGK9+BKZO3fP1gqIaYPsO9DAY=;
+        b=HsLaRBbEY9XI31Q/YdeIUzy7KH2TLi3KZj3kioJxuF3D3c5Xey4BBcZKp9978xBJTg
+         Yt5w1t0c8N7ZoPFSEscSKpnCglKiX0xVtxh7zxPci5/BCQScrKleOxCdxCRxDlOPNgYb
+         oVhe7fT7iCSy+4QfYZMWCK+bRPHBcMc9Sx3VAQ1Uz3QGyfBwNB39plk6MJoF/PgNVn8a
+         PN3WJVXgaWwBAPMHq60UCGMsmJ4pWXevgcsFXnnxy1F4zNZYZn5BvuEQ2A8JNB06srgV
+         LfBb+ws5GdoZ7/UOFVF97v0kdX1crnOU9bplJpeG1syVab3ji1U+jf0Kh5c8sTwLuViO
+         KelA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=v+pTNjtMfCe1/YpSIecJRCWQZhXgp2tEJ3A348/GgQ8=;
-        b=BsGrKf32t3g6ssJCmQ4mzZ4RPNFCEMR6JJ8+ZowtuZ7o79PIC3nBP4AfttWV7MnAt7
-         1AlcUWi3dRo4Nmdzy6DNfMEXT0PP96iy1gmUorfd573YmivhocXvZ+rg+8NDl8G4Z1FS
-         feZtvv36ZxTwou0c8mv1Xe/XuS2uVEa55FQAv9+iLNrxHqHrWGaKOs+kgAYRFf4JNSgg
-         V8CmKQQzbBGZ0mjUjRRVt/TQfNH/Vur5Z4f+zIkpiB5xWTGGq90rpasP/YGkyAvbBVz4
-         qBDv9VQAihXcVi7zTcr2vcY5+vIgsW/KyVJ0XssW5Qt0ixrFBhSyV7oHX5bLcxXE5EAg
-         e/qQ==
-X-Gm-Message-State: AOAM533bB8yfqA93eQcfm+opuOAclYtF9KD18M/wbK8Pjt0og/W8dOhw
-        UzG4djDR6C+xKdCzPWCt+3CPE5QVYM4=
-X-Google-Smtp-Source: ABdhPJzCht/8BlCqoaDB+1X/xV6nQLlQmAkKk282jQhkbD0NbNysvuDpndsK3jAmGm6MpF776N4Ihg==
-X-Received: by 2002:a5d:46cc:: with SMTP id g12mr9543758wrs.136.1625398074352;
-        Sun, 04 Jul 2021 04:27:54 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id y13sm9561151wrp.80.2021.07.04.04.27.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 04 Jul 2021 04:27:54 -0700 (PDT)
-Subject: Re: [PATCH 1/1] man2/fallocate.2: tfix documentation of shared blocks
-To:     Dan Robertson <dan@dlrobertson.com>
-Cc:     linux-man@vger.kernel.org, mtk.manpages@gmail.com,
-        "Darrick J. Wong" <djwong@kernel.org>
-References: <20210621004453.7437-1-dan@dlrobertson.com>
- <20210621004453.7437-2-dan@dlrobertson.com> <20210621042550.GG158232@locust>
- <342ad836-cb11-ed19-d867-51d2906b3b27@gmail.com>
- <YODD/v/bn6ILbIUO@dlrobertson.com>
- <91a46f14-2337-e39a-386b-120a7b4ceb99@gmail.com>
- <YODq+ZGxJLDxu5JY@dlrobertson.com>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <7be3ce11-d562-92bc-87ff-28297e52d5ab@gmail.com>
-Date:   Sun, 4 Jul 2021 13:27:53 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+        bh=Bta3MFM7kNEN2cJdtBkGK9+BKZO3fP1gqIaYPsO9DAY=;
+        b=DlLJWdUBpKqxVTFnFwW53MZ8LQ/TmRFU9WbVruH9Ob90CeUm1YjoRkkrK7UKAve91S
+         1SFrcLYrYZuvMtvnDa6WICU/FKWcZjkuShZkifqN6WeLNAWa1qWVmNUjJar4ydO9DCtS
+         oRmseD/mnkeYbILBfNtrTyCwa4slIO3TZOzyJVf7tpltGqzZmo7jf23gbhSbjWlnIGje
+         HjPgKFfUN5DXWRZLxLChUbyCkkLBkwvw3tBSoaK5wIOw7B26xnSTTiguHBYYUZs7tysJ
+         z9Orv8a5ZBrMwCKanTm8znFjihnevpLlPuVHEHaywxvJ9cWYEsmQZztic19gtO2GAJ8N
+         p0+w==
+X-Gm-Message-State: AOAM532P0WZHgIWYnja7PwizK15isZwtxzJTN+nwWgibO8aNG3oDcl6L
+        6e78t3uOyUFfGQ4t7Ksmjpe0phHJfLV2ACWf
+X-Google-Smtp-Source: ABdhPJybV4nGdGnIJKwxmWPqsfU8GWsjBlI0DWGGFpNdOaiG+Ieztq/6BrOEDcHSueSRqjwG3pWu3A==
+X-Received: by 2002:a63:f916:: with SMTP id h22mr14581351pgi.6.1625473751468;
+        Mon, 05 Jul 2021 01:29:11 -0700 (PDT)
+Received: from pc.. ([129.227.150.165])
+        by smtp.gmail.com with ESMTPSA id d20sm11785726pfn.219.2021.07.05.01.29.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Jul 2021 01:29:11 -0700 (PDT)
+From:   kXuan <kxuanobj@gmail.com>
+To:     linux-man@vger.kernel.org, alx.manpages@gmail.com,
+        mtk.manpages@gmail.com
+Cc:     kXuan <kxuanobj@gmail.com>
+Subject: [PATCH] recv.2: tfix
+Date:   Mon,  5 Jul 2021 16:29:07 +0800
+Message-Id: <20210705082907.1513197-1-kxuanobj@gmail.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-In-Reply-To: <YODq+ZGxJLDxu5JY@dlrobertson.com>
-Content-Type: text/plain; charset=windows-1252
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Dan,
+The recv.2 misspelled `SO_EE_OFFENDER` to `SOCK_EE_OFFENDER`.
 
-On 7/4/21 12:55 AM, Dan Robertson wrote:
-> Alex,
-> 
-> On Sat, Jul 03, 2021 at 11:31:32PM +0200, Alejandro Colomar (man-pages) wrote:
->>>>> On Sun, Jun 20, 2021 at 08:44:53PM -0400, Dan Robertson wrote:
->>>>>> Fix a typo in the documentation of using fallocate to allocate shared
->>>>>> blocks. The flag FALLOC_FL_UNSHARE should instead be documented as
->>>>>> FALLOC_FL_UNSHARE_RANGE.
->>>>>>
->>>>>> Fixes: 07c7a6a35497 ("man2/fallocate.2: Document behavior with shared blocks")
->>>>
->>>> BTW, I can't find that commit hash in git.  I have that commit as
->>>> 63a599c657d8.
->>>>
->>>> However, git doesn't fail...  It's weird.  Could you confirm that?
->>>
->>> Gah! You are correct. My bad. I used copied the commit hash for the commit in
->>> the kernel that introduced the FALLOC_FL_UNSHARE_RANGE flag. My bad.
->>
->> I thought so, but I couldn't find that commit in Linus' tree either :/
->>
->> [
->> .../linux$ git log -1 07c7a6a35497
->> fatal: ambiguous argument '07c7a6a35497': unknown revision or path not
->> in the working tree.
->> Use '--' to separate paths from revisions, like this:
->> 'git <command> [<revision>...] -- [<file>...]'
->> .../linux$ git log -1 07c7a6a35497 --
->> fatal: bad revision '07c7a6a35497'
->> .../linux$ cd ../man-pages/
->> .../man-pages$ git log -1 07c7a6a35497
->> .../man-pages$ git log -1 07c7a6a35497 --
->> .../man-pages$
->> ]
->>
->> I can't understand that.  It fails in the kernel tree, but not in the
->> man-pages tree.  But it doesn't find it in either.
->>
->> It doesn't matter, but I'm curious...
-> 
-> Ah! Got it! 07c7a6a35497 is the tree hash for 63a599c657d8 in the man-pages
-> repo.
-> 
-> .../man-pages$ git rev-parse --short=12 63a599c657d8:
-> 07c7a6a35497
-> 
-> I bet I copied the wrong hash from git blame in vim-fugitive when trying to
-> find the commit that first contained the typo.
+This patch fix this typo.
 
-Hmm, interesting.  I didn't knew about tree hashes (well, I guessed
-there was something like that, but I had never seen them).  I learnt
-something new today :)
+Signed-off-by: kXuan <kxuanobj@gmail.com>
+---
+ man2/recv.2 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Cheers,
-
-Alex
-
-> 
->>
->>> I can
->>> submit a second version of the patch with the correct commit hash if you'd like.
->>
->> No, don't worry; I fixed it.
-> 
-> Thanks!
-> 
->  - Dan
-> 
-
+diff --git a/man2/recv.2 b/man2/recv.2
+index 2659957a6..884c86355 100644
+--- a/man2/recv.2
++++ b/man2/recv.2
+@@ -196,7 +196,7 @@ number of the queued error.
+ is the origin code of where the error originated.
+ The other fields are protocol-specific.
+ The macro
+-.B SOCK_EE_OFFENDER
++.B SO_EE_OFFENDER
+ returns a pointer to the address of the network object
+ where the error originated from given a pointer to the ancillary message.
+ If this address is not known, the
 -- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+2.32.0
+
