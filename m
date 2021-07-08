@@ -2,94 +2,68 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0885F3BF9EF
-	for <lists+linux-man@lfdr.de>; Thu,  8 Jul 2021 14:17:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D2C3D3C1463
+	for <lists+linux-man@lfdr.de>; Thu,  8 Jul 2021 15:38:11 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229619AbhGHMUC convert rfc822-to-8bit (ORCPT
-        <rfc822;lists+linux-man@lfdr.de>); Thu, 8 Jul 2021 08:20:02 -0400
-Received: from us-smtp-delivery-44.mimecast.com ([207.211.30.44]:26348 "EHLO
-        us-smtp-delivery-44.mimecast.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S229552AbhGHMUB (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 8 Jul 2021 08:20:01 -0400
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-451-60oFprcYMOy7ryUWwYjM1g-1; Thu, 08 Jul 2021 08:17:17 -0400
-X-MC-Unique: 60oFprcYMOy7ryUWwYjM1g-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
-        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-        (No client certificate requested)
-        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 304DD80006E
-        for <linux-man@vger.kernel.org>; Thu,  8 Jul 2021 12:17:16 +0000 (UTC)
-Received: from asgard.redhat.com (unknown [10.36.110.45])
-        by smtp.corp.redhat.com (Postfix) with ESMTPS id 7274810016F7
-        for <linux-man@vger.kernel.org>; Thu,  8 Jul 2021 12:17:15 +0000 (UTC)
-Date:   Thu, 8 Jul 2021 14:17:13 +0200
-From:   Eugene Syromyatnikov <evgsyr@gmail.com>
-To:     linux-man@vger.kernel.org
-Subject: [PATCH v2] getrlimit.2: old_getrlimit/ugetrlimit and RLIM_INFINITY
- discrepancies
-Message-ID: <20210708121713.GA15864@asgard.redhat.com>
+        id S231755AbhGHNkw (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 8 Jul 2021 09:40:52 -0400
+Received: from 5.mo548.mail-out.ovh.net ([188.165.49.213]:38483 "EHLO
+        5.mo548.mail-out.ovh.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S231747AbhGHNkw (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 8 Jul 2021 09:40:52 -0400
+X-Greylist: delayed 599 seconds by postgrey-1.27 at vger.kernel.org; Thu, 08 Jul 2021 09:40:52 EDT
+Received: from mxplan6.mail.ovh.net (unknown [10.108.16.193])
+        by mo548.mail-out.ovh.net (Postfix) with ESMTPS id 7C71B205ED;
+        Thu,  8 Jul 2021 13:32:49 +0000 (UTC)
+Received: from jwilk.net (37.59.142.101) by DAG4EX2.mxp6.local (172.16.2.32)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.10; Thu, 8 Jul
+ 2021 15:32:48 +0200
+Authentication-Results: garm.ovh; auth=pass (GARM-101G0047699402f-8b09-4a7e-8622-014400daebf7,
+                    A1FE38477F9A9F1AE3DC32770B9A4BD99AC82036) smtp.auth=jwilk@jwilk.net
+X-OVh-ClientIp: 5.173.81.109
+From:   Jakub Wilk <jwilk@jwilk.net>
+To:     Michael Kerrisk <mtk.manpages@gmail.com>
+CC:     <linux-man@vger.kernel.org>
+Subject: [PATCH 1/3] seccomp_unotify.2: tfix
+Date:   Thu, 8 Jul 2021 15:32:44 +0200
+Message-ID: <20210708133246.2879-1-jwilk@jwilk.net>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-User-Agent: Mutt/1.5.23 (2014-03-12)
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-Authentication-Results: relay.mimecast.com;
-        auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=evgsyr@gmail.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: gmail.com
-Content-Type: text/plain; charset=WINDOWS-1252
-Content-Disposition: inline
-Content-Transfer-Encoding: 8BIT
+Content-Transfer-Encoding: 7BIT
+Content-Type:   text/plain; charset=US-ASCII
+X-Originating-IP: [37.59.142.101]
+X-ClientProxiedBy: DAG5EX2.mxp6.local (172.16.2.42) To DAG4EX2.mxp6.local
+ (172.16.2.32)
+X-Ovh-Tracer-GUID: c734e294-81f8-41a7-83f0-3afde379bd4f
+X-Ovh-Tracer-Id: 18338939161151985629
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: 0
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvtddrtdeggdeigecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecunecujfgurhephffvufffkffoggfgtghisehtkeertdertddtnecuhfhrohhmpeflrghkuhgsucghihhlkhcuoehjfihilhhksehjfihilhhkrdhnvghtqeenucggtffrrghtthgvrhhnpedvheejjeffjeejvdekheehjeeilefhffdtudetfeehueekueeivdduheevheefhfenucfkpheptddrtddrtddrtddpfeejrdehledrudegvddruddtudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhhouggvpehsmhhtphdqohhuthdphhgvlhhopehmgihplhgrnheirdhmrghilhdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomhepjhifihhlkhesjhifihhlkhdrnhgvthdprhgtphhtthhopehlihhnuhigqdhmrghnsehvghgvrhdrkhgvrhhnvghlrdhorhhg
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Signed-off-by: Eugene Syromyatnikov <evgsyr@gmail.com>
----
- man2/getrlimit.2 | 31 +++++++++++++++++++++++++++++++
- 1 file changed, 31 insertions(+)
+Remove duplicated word.
 
-diff --git a/man2/getrlimit.2 b/man2/getrlimit.2
-index 648fd3c..f80c63d 100644
---- a/man2/getrlimit.2
-+++ b/man2/getrlimit.2
-@@ -646,6 +646,37 @@ The name of the glibc wrapper function is
- .BR prlimit ();
- the underlying system call is
- .BR prlimit64 ().
-+The corresponding infinity value constant is provided in
-+.I <linux/resource.h>
-+as
-+.BR RLIM64_INFINITY.
-+.PP
-+Original Linux implementation used signed types for limits; that was changed
-+(along with the value of the
-+.B RLIM_INFINITY
-+constant)
-+.\" http://repo.or.cz/davej-history.git/blobdiff/129f8758d8c41e0378ace0b6e2f56bbb8a1ec694..15305d2e69c3a838bacd78962c07077d2821f255:/include/linux/resource.h
-+during 2.4 development cycle, as it wasn't compatible
-+with Single UNIX Specification.
-+However, in order to preserve backward compatibility, the routine
-+.IR sys_old_getrlimit
-+has been implemented under
-+.B __NR_getrlimit
-+syscall slot, with infinity checks being performed against hard-coded 0x7fffffff
-+value, and the routine
-+.I sys_getrlimit
-+has been exposed under a new name,
-+.BR ugetrlimit ().
-+Note that most newer architectures don't have the latter, with
-+.BR getrlimit ()
-+providing proper implementation.
-+Also worth noting that Several architectures decided not to change
-+.B RLIM_INFINITY
-+value: 32-bit mips and sparc (but not 64-bit variants, that switched
-+to the new value of (~0UL)) retained the old 0x7fffffff value,
-+and alpha retained 0x7ffffffffffffffful.
-+.\" ...along with a request to call when one runs into it:
-+.\" https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/uapi/asm/resource.h#n15
- .SH BUGS
- In older Linux kernels, the
- .B SIGXCPU
+Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
+---
+ man2/seccomp_unotify.2 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/man2/seccomp_unotify.2 b/man2/seccomp_unotify.2
+index 2673d9bc7..13bd93ead 100644
+--- a/man2/seccomp_unotify.2
++++ b/man2/seccomp_unotify.2
+@@ -1085,7 +1085,7 @@ Alternatively, in the
+ example, the supervisor might use
+ .BR poll (2)
+ to monitor both the notification file descriptor
+-(so as as to discover when the target's
++(so as to discover when the target's
+ .BR accept (2)
+ call has been interrupted) and the listening file descriptor
+ (so as to know when a connection is available).
 -- 
-2.1.4
+2.32.0
 
