@@ -2,140 +2,100 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D0AE03C25BC
-	for <lists+linux-man@lfdr.de>; Fri,  9 Jul 2021 16:17:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C2BFF3C2755
+	for <lists+linux-man@lfdr.de>; Fri,  9 Jul 2021 18:12:14 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231925AbhGIOTz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 9 Jul 2021 10:19:55 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57626 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231857AbhGIOTz (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 9 Jul 2021 10:19:55 -0400
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com [IPv6:2a00:1450:4864:20::333])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 20165C0613DD
-        for <linux-man@vger.kernel.org>; Fri,  9 Jul 2021 07:17:12 -0700 (PDT)
-Received: by mail-wm1-x333.google.com with SMTP id j34so6415224wms.5
-        for <linux-man@vger.kernel.org>; Fri, 09 Jul 2021 07:17:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=kGSZa4qnpw4wqIIi1BgrShtvlW6d2FBNyhwLRHxsbXc=;
-        b=KVUQMcZgatA8zNMMilAV06b8otl2DZiM8QDS//NUcQgCSx0QsZXLoiroxc3J7el3qG
-         KUmCLfhXm+G10HpWYT4tHWPvqpOH+iiL3A+935zas8rqwrozDfBXmt/nrm/ZUkn5yGmW
-         1JG83VHu4mg31n19GnAPIJ+kwhpPU1Z0X0Bec7unN2o7sKQl3SKFYsSIBXAXcMpIZldz
-         1+pb162w+rznHKaqE9JwHPv6LElyuAcga4eFlBcWR++V5rN8qqGXSkiizW+upYRbYpYR
-         SSA7+6pNyG9PzUDcRalNUwADoyy5G12kSi/qM1tMNcBBhhqJ5mlHPWgIS3MhqOia49YK
-         rf7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=kGSZa4qnpw4wqIIi1BgrShtvlW6d2FBNyhwLRHxsbXc=;
-        b=k59n9fHCgEKUa8ax31Wf1MZSktPj+vIIRrcbEoUBo7Nk9IgCLhM9qJ9q0KsHpqo6MP
-         9GlqY/n3VRMx1SDi/OEwuk2S4lLv6qN21M/UPY8y4myAfs6WX4o1Z5q8h39C+EyOQb0s
-         hfNKDwKOfk1pXQflZwi+Le18bIBShctmHe3QaY4fzQ0kKKckuB1g4uvStYxyJIT/93Fg
-         pWwC6iH6Y7dgCHVYFRzxhhD6B9vVsaS23K6HIoEBU9BvjlCSRiyZQ+OowNjZE8W3HtgD
-         B4yDsvGLK6gS52YTICHGGN2/HPbEyti4wU8cty0H4FAQWzj6YD5LXwy0zFbbJGx7q8IH
-         5gHg==
-X-Gm-Message-State: AOAM532g9gUwo9Y+lZogNjPq8BDMpybe20i51HlUAavNbKsiDAB4P7MJ
-        RNPEz0TVZOUtlams0bl15cg=
-X-Google-Smtp-Source: ABdhPJwpeHm9blzSR25wyuR+mNc5BemO2Lsn2B02MUppxAF2ou00TQ53L7LUgsw88otYjopZ8XNBqg==
-X-Received: by 2002:a05:600c:4fd0:: with SMTP id o16mr12246916wmq.179.1625840230751;
-        Fri, 09 Jul 2021 07:17:10 -0700 (PDT)
-Received: from [10.8.0.150] ([195.53.121.100])
-        by smtp.gmail.com with ESMTPSA id b12sm5381944wrx.60.2021.07.09.07.17.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 09 Jul 2021 07:17:10 -0700 (PDT)
+        id S229487AbhGIQO5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 9 Jul 2021 12:14:57 -0400
+Received: from mengyan1223.wang ([89.208.246.23]:32984 "EHLO mengyan1223.wang"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S229459AbhGIQO5 (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Fri, 9 Jul 2021 12:14:57 -0400
+Received: from [IPv6:240e:35a:108d:3c00:dc73:854d:832e:3] (unknown [IPv6:240e:35a:108d:3c00:dc73:854d:832e:3])
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+         key-exchange ECDHE (P-256) server-signature ECDSA (P-384) server-digest SHA384)
+        (Client did not present a certificate)
+        (Authenticated sender: xry111@mengyan1223.wang)
+        by mengyan1223.wang (Postfix) with ESMTPSA id C10C166874;
+        Fri,  9 Jul 2021 12:12:06 -0400 (EDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mengyan1223.wang;
+        s=mail; t=1625847133;
+        bh=yad6aRp/STRZ9wBS8ZoEAV8/bsx3GJtOe+Fo+WVGodw=;
+        h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+        b=dMoD0RZ3rw9zexXsyada7g//duMH7lI/bOVIVoFP8hQZCdgavpaNBddm1mEm9bS9k
+         jSkid/4sUIq+nukVOludUMV9VuE3/xyE2joycRZo7FqRT392Ln930Gx0z1mAKUT+xh
+         4ShiCfFRBKxN1nv4SId979cCDucUPTDWaWby7OZdsm6Z5fkPN/cIrg1oYIeMFdkWMQ
+         4eOGCuHPBubKV6p1J4o/ruXH9HZuLVnsDe5NQ9vAIgpNaEDkSdOJh7rrpxkXqvaoK5
+         DDDSbw+pyrWct13m8PMonr6Al+wBBYpOliyTAHjvJXHlSw2lXvPYdjkIpsXJKIBcN2
+         P9NXOZCTyXGrg==
+Message-ID: <eb7d17ddda7376f4d550081bf1698e564016b222.camel@mengyan1223.wang>
 Subject: Re: strlen
-To:     Jonny Grant <jg@jguk.org>,
+From:   Xi Ruoyao <xry111@mengyan1223.wang>
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
+        Jonny Grant <jg@jguk.org>,
         Segher Boessenkool <segher@kernel.crashing.org>
 Cc:     gcc-help@gcc.gnu.org, linux-man <linux-man@vger.kernel.org>,
         Florian Weimer <fw@deneb.enyo.de>,
         Michael Kerrisk <mtk.manpages@gmail.com>
+Date:   Sat, 10 Jul 2021 00:11:47 +0800
+In-Reply-To: <fbd62475-fa04-d26e-7d58-bc96180f7e4c@gmail.com>
 References: <87363whf2z.fsf@mid.deneb.enyo.de>
- <48e874cb-2b95-2783-ddfc-ae12d9aaf8f5@jguk.org>
- <87bl7fozxi.fsf@mid.deneb.enyo.de>
- <23679a28-5986-0af2-4d98-7de68ed0deec@jguk.org>
- <53b3666b-d200-ef97-b050-cc38669c61cd@gmail.com>
- <b6fccca1-6e2b-fb20-d9d6-9df94cd3f05f@gmail.com>
- <564825ed-1e1f-b344-da35-1b83c551ed5f@jguk.org>
- <b71170df-7c6b-4582-c3d1-84b811fe5259@gmail.com>
- <5566b180-1333-d73b-22ee-6c6d32053921@jguk.org>
- <feb6c15d-b242-83fc-c58d-2ebfbcd4f2bd@gmail.com>
- <20210708234929.GU1583@gate.crashing.org>
- <3ddd0291-04d2-b35a-ce81-034bb0d9392a@jguk.org>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <fbd62475-fa04-d26e-7d58-bc96180f7e4c@gmail.com>
-Date:   Fri, 9 Jul 2021 16:17:08 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+         <48e874cb-2b95-2783-ddfc-ae12d9aaf8f5@jguk.org>
+         <87bl7fozxi.fsf@mid.deneb.enyo.de>
+         <23679a28-5986-0af2-4d98-7de68ed0deec@jguk.org>
+         <53b3666b-d200-ef97-b050-cc38669c61cd@gmail.com>
+         <b6fccca1-6e2b-fb20-d9d6-9df94cd3f05f@gmail.com>
+         <564825ed-1e1f-b344-da35-1b83c551ed5f@jguk.org>
+         <b71170df-7c6b-4582-c3d1-84b811fe5259@gmail.com>
+         <5566b180-1333-d73b-22ee-6c6d32053921@jguk.org>
+         <feb6c15d-b242-83fc-c58d-2ebfbcd4f2bd@gmail.com>
+         <20210708234929.GU1583@gate.crashing.org>
+         <3ddd0291-04d2-b35a-ce81-034bb0d9392a@jguk.org>
+         <fbd62475-fa04-d26e-7d58-bc96180f7e4c@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.40.2 
 MIME-Version: 1.0
-In-Reply-To: <3ddd0291-04d2-b35a-ce81-034bb0d9392a@jguk.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Jonny, Segher,
-
-On 7/9/21 3:54 PM, Jonny Grant wrote:
-> Yes, this could work. But it does rely on programmer typing it like that every time... Maybe an inline function better.
-
-I agree on that.
-
+On Fri, 2021-07-09 at 16:17 +0200, Alejandro Colomar (man-pages) via
+Gcc-help wrote:
+> Hi Jonny, Segher,
 > 
-> inline size_t safestrlen(const char * s) {return s?strlen(s) : 0}
+> On 7/9/21 3:54 PM, Jonny Grant wrote:
+> > Yes, this could work. But it does rely on programmer typing it like
+> > that every time... Maybe an inline function better.
 > 
-> Perhaps there are too many email addresses on this cc list now.
+> I agree on that.
 > 
-> I'd prefer a Annex K of C11 style function ISO/IEC TR 24731-1 for strlen() - but there isn't one such as strnlen_s.
+> > 
+> > inline size_t safestrlen(const char * s) {return s?strlen(s) : 0}
+> > 
+> > Perhaps there are too many email addresses on this cc list now.
 
-Please, consider not calling some function safesomething() or similar, 
-as it isn't 100% safe.  It's like calling some thing "the new X".  How 
-will you call the next version?  "the nova X"? And the next? "the 
-supernew X"?
+I think the discussion at least has nothing to do with linux-man or gcc-
+help: man pages just describe the existing API (C or POSIX or Linux
+specific), and GCC just compiles code and doesn't care what the API is.
+Neither is a place to discuss "how to design an API".
 
-As I said before, unsigned types are unsafe, you may want to accept it 
-or not, but they are.
+And I think Jonny should discuss the API design with the users of his
+API (maybe his collegue or downstream developers), instead of some
+random guys in mail list.  The users are the ones who will call his
+function anyway so it's better to choose an API they like.  Yes, Jonny
+can "force" the users to do something for safety, but this decision
+should also be discussed with them and documented.  Or they won't
+understand the decision, and may "invent" or "improvise" some "new
+wheels", breaking Jonny's design.
 
-Now, the day you realize that and develop an even safer function that 
-doesn't use unsigned size_t, what will you call it?  supersafestrlen()?
-
-Use names that define your functions as closely as possible.
-
-> 
-> 
-> On 09/07/2021 00:49, Segher Boessenkool wrote:
->> wherever you need it.  If a function name isn't self-explanatory, and
-
-Agree on this
-
->> even *cannot* be, your factoring is most likely not ideal.  Code is
-But not on this.
-
-You could call it strlennull(), that is, a strlen() that special-cases 
-NULL.  I find it a good enough name, as long as you document your function.
-
-It saves the problem of repeating yourself every time.
-
->> primarily there for humans to read, it should be optimised for that.
->>
-
-Agree on this again, but I think the following is readable:
-
-len = strlennull(maybenull);
-
-
-Regards,
-
-Alex
-
+For example, I don't like a function silently treats NULL as an empty
+string.  I prefer a function to abort() or print a log "strlen_checked()
+is called with NULL, there is a bug in your code" when I (mis)use NULL.
+But it's just my 2 cents: if the potential users of the API agree the
+function to act as that, then it's good to go.
 
 -- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+Xi Ruoyao <xry111@mengyan1223.wang>
+School of Aerospace Science and Technology, Xidian University
+
