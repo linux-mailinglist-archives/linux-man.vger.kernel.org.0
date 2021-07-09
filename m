@@ -2,60 +2,59 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 390463C230A
-	for <lists+linux-man@lfdr.de>; Fri,  9 Jul 2021 13:43:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7EFCD3C253D
+	for <lists+linux-man@lfdr.de>; Fri,  9 Jul 2021 15:48:53 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230180AbhGILp6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 9 Jul 2021 07:45:58 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50316 "EHLO
+        id S231696AbhGINvf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 9 Jul 2021 09:51:35 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51044 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230024AbhGILp5 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 9 Jul 2021 07:45:57 -0400
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com [IPv6:2a00:1450:4864:20::429])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5EC63C0613DD
-        for <linux-man@vger.kernel.org>; Fri,  9 Jul 2021 04:43:13 -0700 (PDT)
-Received: by mail-wr1-x429.google.com with SMTP id l7so10821343wrv.7
-        for <linux-man@vger.kernel.org>; Fri, 09 Jul 2021 04:43:13 -0700 (PDT)
+        with ESMTP id S231682AbhGINvf (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 9 Jul 2021 09:51:35 -0400
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com [IPv6:2a00:1450:4864:20::435])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2F35CC0613DD
+        for <linux-man@vger.kernel.org>; Fri,  9 Jul 2021 06:48:51 -0700 (PDT)
+Received: by mail-wr1-x435.google.com with SMTP id l7so11311281wrv.7
+        for <linux-man@vger.kernel.org>; Fri, 09 Jul 2021 06:48:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:from:to:cc:references:message-id:date:user-agent
+        d=jguk.org; s=google;
+        h=from:subject:to:cc:references:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=ClWSPkoyZ4kyPTi1hPaPEc5rFfqFNG7FC+IrpcYZj3o=;
-        b=aYy2weH95BD/JVNID7Odp4Fbtw/WD43SU1QOK34lRI/UhZ89JGGArneZ1IfrPqJtYX
-         1X4JyLcuq/PhuxJ4LT0nVjqO+iGEsmVv7by3EwigvKntu0cb/xLUvbh6RKD9MK0N/ryu
-         sTWKbP2OvW0WDvIG7k5FL0rUaTU6hAFyfYaTUZyqFYPXWeIOWXWs+VQcwmYZDszcZoE9
-         FcBjBGwFUKL9J0QyafSxwwkrwsBz1D8PRhJLm38zHuiW+CRfaFsBcamp7AgJp/M/ppjs
-         8aM2PA3jwO2kZq7DFvMxSex1wq1i5dzHw4xyt8f+j55HAjuOY+KhC7RmNZUokpRV2Jko
-         giEw==
+        bh=5vaPvtRuz1i+9Y8kzn3AqBDNDKnQfNKAEDQmR9AJpFM=;
+        b=mfn2HeuBX6mlUD6531bEzYY6xoe/Hi5bV/2wf0wm3JVoiEWV7bB3fcT0jzyEzaQVen
+         KkJl6P6n/QL5h7PlZH1bcVNRBemHD8W+xYhQvsA4dIOTSOmDhjBWwbGptePwuuVaNG6q
+         ZCvuDKf2XTkRSX5RUr8qh6h7zzZlGZTHzlipzCcvdzR+4sCuVOtgzC8/PofLX06Xr9GQ
+         E9iXm/HUrHGrL1AhEtsBk1nH0smkghJDG+/Bw4RTvBwahWz2ef5gxqeQHBuL4rmbnTej
+         OP1aVvaEOY/G8iXxEIkjsGlzMsW0d64dU20Q2+v6C6LQCf3WNgAqbKtLELL7lDbShcRw
+         R6ow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:from:to:cc:references:message-id:date
+        h=x-gm-message-state:from:subject:to:cc:references:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=ClWSPkoyZ4kyPTi1hPaPEc5rFfqFNG7FC+IrpcYZj3o=;
-        b=eof5444hrB7UTnM3ItahQpSloilMiJHaDAcmZgcUmsr2yDxesODtAxru5MQT5bv6Pm
-         i1JpnVV37h0Mg+rU1lknBiK28U6aRWozCVXLmPuyf+xPER08K6dvgIfF9CssGhdRfkfc
-         koMfOkVCv4lOnSPFBzOWQdKdZ53RqPUIXg7aLylhyihuXQMBLPpzptS5aqUnqClBIynP
-         vRaP9juC79w3LObhRuPeMLQVjY0a1PQeaCQnRi+q9RWFvLkVXGQ+9e8TfbLUo26rhHIV
-         Vy0E2yh9z8KaRyvT8H7uN8Qp6a7CkohnhVprefMBKi369B8+0RBzz1trbuIlXjlkORGj
-         gYqg==
-X-Gm-Message-State: AOAM533UKPObZxl5rUYaBeeLhM6V+lU3pkiQVwNXsHUcVnOuJuIIeSVs
-        LFRexZFRGXA5997Zh/MUMUk=
-X-Google-Smtp-Source: ABdhPJybBr0jQ470m8EgprRmf4ezldPduYDnQbu/YFrwCPlPEuNZQt/ARSnbYMmMLHlLsxTzPsfuXA==
-X-Received: by 2002:adf:e689:: with SMTP id r9mr22263091wrm.416.1625830991858;
-        Fri, 09 Jul 2021 04:43:11 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id y204sm143540wmg.9.2021.07.09.04.43.11
+        bh=5vaPvtRuz1i+9Y8kzn3AqBDNDKnQfNKAEDQmR9AJpFM=;
+        b=pFosuN4wqTT58PNXeYTmhZB8SzfYyFBfaLgBHsw5+m4c367fwhnGOv1q3Jy3Q/hhtQ
+         21Lbs2CuTjAD0AOIEnvHD2WoA1k32KnTAzfmrpdvOMXB5EFw67XGe7L0Rb7h/Zc2eVB6
+         cBdWCMn6QqycJgHVskBvXw64IJ9JaCnG7kDiNyHtnf1oVEKbWyW+WZWZYl0TrX/ZTEbY
+         9wRwlf1ZKxCSYzjrc2Do/Z03oLmNzbrlRI0NhCUrw5bz0CzWIAdmUuwXbl+sKfuU/FEe
+         ZeHb8BvERZ0UMjyIHKczTwtbFiUZ46njEhCBD1if+ff6388dfWkA4TvM5cGflC/1lUqX
+         Ks/g==
+X-Gm-Message-State: AOAM532sBuMS4tc0adfbBAnhrWAd6VPwEsTRfVABycgw+gVIq2eUEtuV
+        ErSOIdRfDunQhDFK+q6aG4kaMQ==
+X-Google-Smtp-Source: ABdhPJwapZTV4AxzQrYQv1oqHoMXL4So+d9k5eHkoUEf6rxAqF1wBMn8ZlwCFcSgM9URnvR0pO3Amg==
+X-Received: by 2002:a5d:6302:: with SMTP id i2mr4546904wru.366.1625838529809;
+        Fri, 09 Jul 2021 06:48:49 -0700 (PDT)
+Received: from [192.168.0.12] (cpc87345-slou4-2-0-cust172.17-4.cable.virginm.net. [81.101.252.173])
+        by smtp.gmail.com with ESMTPSA id b9sm6341272wrh.81.2021.07.09.06.48.48
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 09 Jul 2021 04:43:11 -0700 (PDT)
+        Fri, 09 Jul 2021 06:48:49 -0700 (PDT)
+From:   Jonny Grant <jg@jguk.org>
 Subject: Re: strlen
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-To:     Jonny Grant <jg@jguk.org>
-Cc:     linux-man <linux-man@vger.kernel.org>,
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
         Michael Kerrisk <mtk.manpages@gmail.com>,
-        Florian Weimer <fw@deneb.enyo.de>, gcc-help@gcc.gnu.org,
-        Segher Boessenkool <segher@kernel.crashing.org>,
-        Xi Ruoyao <xry111@mengyan1223.wang>
+        Florian Weimer <fw@deneb.enyo.de>
+Cc:     linux-man <linux-man@vger.kernel.org>,
+        Libc-alpha <libc-alpha@sourceware.org>
 References: <0bf239e9-cfc7-8889-ca00-b1d1566bd174@jguk.org>
  <87lfhpgxf8.fsf@mid.deneb.enyo.de>
  <017a5a66-ba66-7cc8-c607-f851c2e54fc4@jguk.org>
@@ -67,54 +66,65 @@ References: <0bf239e9-cfc7-8889-ca00-b1d1566bd174@jguk.org>
  <b6fccca1-6e2b-fb20-d9d6-9df94cd3f05f@gmail.com>
  <564825ed-1e1f-b344-da35-1b83c551ed5f@jguk.org>
  <b71170df-7c6b-4582-c3d1-84b811fe5259@gmail.com>
- <5566b180-1333-d73b-22ee-6c6d32053921@jguk.org>
- <feb6c15d-b242-83fc-c58d-2ebfbcd4f2bd@gmail.com>
- <9d1681ef-1d97-2d08-9abe-dc63d817ca8a@jguk.org>
- <0ea47fb3-9acc-3517-9593-debcdbce2dd4@gmail.com>
-Message-ID: <35c7db99-fa18-7d77-5c4b-eb80ed621bdf@gmail.com>
-Date:   Fri, 9 Jul 2021 13:43:10 +0200
+ <84867122-ec74-b87b-a459-3e7178ffc6d2@gmail.com>
+ <8b0914da-0413-e161-3835-c43ed6d0042c@gmail.com>
+Message-ID: <ed11d358-d1f0-a551-33eb-e2f9ad9bd83e@jguk.org>
+Date:   Fri, 9 Jul 2021 14:48:48 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <0ea47fb3-9acc-3517-9593-debcdbce2dd4@gmail.com>
+In-Reply-To: <8b0914da-0413-e161-3835-c43ed6d0042c@gmail.com>
 Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Language: en-GB
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
 
-On 7/9/21 1:27 PM, Alejandro Colomar (man-pages) wrote:
-> Annex K has been an attempt of Microsoft to provide safer functions, but
-> while there are some functions there that have good intentions, most of
-> them are just badly designed.  That annex K is DOA, and will probably be
-> marked as deprecated in C22 (currently C2x).
+On 07/07/2021 18:33, Alejandro Colomar (man-pages) wrote:
+> On 7/7/21 7:23 PM, Alejandro Colomar (man-pages) wrote:
+>> How do you think this should be handled?
+>> Adding a line in NOTES for every such function?  Adding [[gnu::nonnull]] to every such prototype in SYNOPSIS (this might be too noisy)?  Else?
 > 
-> I think that a standard should not try to design new functions, and
-> instead just annotate common usage, as they did in the first ones.
-> Problems like the ones Annex K suffers could have been detected early if
-> they had been implemented as an extension to some compiler(s) decade(s)
-> before being standardized.  Therefore, if the implementation passes the
-> test of time, you standardize it, else not, IMO.  Otherwise, we have a
-> standard that is declared deprecated in the next version of the
-> standard, similar to what is happening with the C++ standards (which,
-> guess what, BTW I recently read that they are undeprecating a lot of C
-> stuff they deprecated in the first standards).
+> As an example of how man pages could look like with the addition of [[gnu::nonnull]], you can have a look at this manual page of mine:
+> 
+> [[
+> ...
+> SYNOPSIS
+>        #include <alx/base/stdlib.h>
+> 
+>        [[gnu::nonnull]] [[gnu::warn_unused_result]]
+>        int alx_callocs(type **ptr, ptrdiff_t nmemb);
+> 
+>        [[gnu::malloc]] [[gnu::warn_unused_result]]
+>        void *alx_mallocarray(ptrdiff_t nmemb, ssize_t size);
+> 
+>        [[gnu::nonnull]] [[gnu::warn_unused_result]]
+>        int alx_mallocarrays(type **ptr, ptrdiff_t nmemb);
+> 
+>        [[gnu::nonnull]] [[gnu::warn_unused_result]]
+>        int alx_mallocs(type **ptr, ssize_t nmemb);
+> 
+>        [[gnu::warn_unused_result]]
+>        void *alx_reallocarrayf(void *ptr, ptrdiff_t nmemb, ssize_t nmemb);
+> 
+>        [[gnu::nonnull]] [[gnu::warn_unused_result]]
+>        int alx_reallocarrayfs(type **ptr, ptrdiff_t nmemb);
+> 
+>        [[gnu::nonnull]] [[gnu::warn_unused_result]]
+>        int alx_reallocfs(type **ptr, ssize_t nmemb);
+> 
+>        [[gnu::nonnull]] [[gnu::warn_unused_result]]
+>        int alx_reallocs(type **ptr, ssize_t nmemb);
+> 
+>        [[gnu::nonnull]]
+>        int alx_frees(type **ptr);
+> ...
+> ]]
+> 
+> Source: <https://github.com/alejandro-colomar/libalx/tree/main/share/man/base/man3>.
 
-But let's analyze Annex K (C11):
 
-It has been designed by Microsoft.
-
-MS's compiler (MS Visual Studio) doesn't even fully support C99 yet (and
-by that trend, I doubt it never will).  At most it supports C89.  Visual
-Studio has a long history of not supporting C except for those parts
-required to implement their C++ compiler.  Would you buy a car designed
-by a bike manufacturer?
-
-
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+May I ask, could a note be added to the NOTES section as well?
