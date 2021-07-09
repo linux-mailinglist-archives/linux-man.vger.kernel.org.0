@@ -2,63 +2,60 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 7EFCD3C253D
-	for <lists+linux-man@lfdr.de>; Fri,  9 Jul 2021 15:48:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id AE75D3C254A
+	for <lists+linux-man@lfdr.de>; Fri,  9 Jul 2021 15:54:09 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231696AbhGINvf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 9 Jul 2021 09:51:35 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51044 "EHLO
+        id S231761AbhGIN4w (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 9 Jul 2021 09:56:52 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52216 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231682AbhGINvf (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 9 Jul 2021 09:51:35 -0400
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com [IPv6:2a00:1450:4864:20::435])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2F35CC0613DD
-        for <linux-man@vger.kernel.org>; Fri,  9 Jul 2021 06:48:51 -0700 (PDT)
-Received: by mail-wr1-x435.google.com with SMTP id l7so11311281wrv.7
-        for <linux-man@vger.kernel.org>; Fri, 09 Jul 2021 06:48:51 -0700 (PDT)
+        with ESMTP id S229499AbhGIN4v (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 9 Jul 2021 09:56:51 -0400
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com [IPv6:2a00:1450:4864:20::330])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4D773C0613DD
+        for <linux-man@vger.kernel.org>; Fri,  9 Jul 2021 06:54:07 -0700 (PDT)
+Received: by mail-wm1-x330.google.com with SMTP id y21-20020a7bc1950000b02902161fccabf1so5939957wmi.2
+        for <linux-man@vger.kernel.org>; Fri, 09 Jul 2021 06:54:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=jguk.org; s=google;
         h=from:subject:to:cc:references:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=5vaPvtRuz1i+9Y8kzn3AqBDNDKnQfNKAEDQmR9AJpFM=;
-        b=mfn2HeuBX6mlUD6531bEzYY6xoe/Hi5bV/2wf0wm3JVoiEWV7bB3fcT0jzyEzaQVen
-         KkJl6P6n/QL5h7PlZH1bcVNRBemHD8W+xYhQvsA4dIOTSOmDhjBWwbGptePwuuVaNG6q
-         ZCvuDKf2XTkRSX5RUr8qh6h7zzZlGZTHzlipzCcvdzR+4sCuVOtgzC8/PofLX06Xr9GQ
-         E9iXm/HUrHGrL1AhEtsBk1nH0smkghJDG+/Bw4RTvBwahWz2ef5gxqeQHBuL4rmbnTej
-         OP1aVvaEOY/G8iXxEIkjsGlzMsW0d64dU20Q2+v6C6LQCf3WNgAqbKtLELL7lDbShcRw
-         R6ow==
+        bh=90fhIyoBAEzc4pAHffwze8Sz0S5WG73c2BpX8ZqqvKw=;
+        b=lNeZVKXxq7e1PidXS3vU4E0PvKLT3X1DlhhXyWMBcGEz13QSlR+eOCJVUx6kXYsxlW
+         lGFpDP2jdqe3m4UXBfAkRd75EuCj0C/s1g/sz75pCqBz/+UzanC7jxKsKbmFqngkjrUO
+         OaPIPitIWrxXUKaPKyrhqH0YVtWWCfvBirflwGWckiGWES8fN3h2FpnwIwrtdY8qceMa
+         MZkaercUuIrwYQFknFSHfHlMc4lMxB/JDP73iAd/fCghu9iDiHmkZSRv75G9tqy052LG
+         ggQN5uU0FqYXgVb+wGpvStgTGLGwS4lLPuuK+3aU6bFlRs66GPS1Q5C3MfllGdbG/2Ub
+         n93A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:subject:to:cc:references:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=5vaPvtRuz1i+9Y8kzn3AqBDNDKnQfNKAEDQmR9AJpFM=;
-        b=pFosuN4wqTT58PNXeYTmhZB8SzfYyFBfaLgBHsw5+m4c367fwhnGOv1q3Jy3Q/hhtQ
-         21Lbs2CuTjAD0AOIEnvHD2WoA1k32KnTAzfmrpdvOMXB5EFw67XGe7L0Rb7h/Zc2eVB6
-         cBdWCMn6QqycJgHVskBvXw64IJ9JaCnG7kDiNyHtnf1oVEKbWyW+WZWZYl0TrX/ZTEbY
-         9wRwlf1ZKxCSYzjrc2Do/Z03oLmNzbrlRI0NhCUrw5bz0CzWIAdmUuwXbl+sKfuU/FEe
-         ZeHb8BvERZ0UMjyIHKczTwtbFiUZ46njEhCBD1if+ff6388dfWkA4TvM5cGflC/1lUqX
-         Ks/g==
-X-Gm-Message-State: AOAM532sBuMS4tc0adfbBAnhrWAd6VPwEsTRfVABycgw+gVIq2eUEtuV
-        ErSOIdRfDunQhDFK+q6aG4kaMQ==
-X-Google-Smtp-Source: ABdhPJwapZTV4AxzQrYQv1oqHoMXL4So+d9k5eHkoUEf6rxAqF1wBMn8ZlwCFcSgM9URnvR0pO3Amg==
-X-Received: by 2002:a5d:6302:: with SMTP id i2mr4546904wru.366.1625838529809;
-        Fri, 09 Jul 2021 06:48:49 -0700 (PDT)
+        bh=90fhIyoBAEzc4pAHffwze8Sz0S5WG73c2BpX8ZqqvKw=;
+        b=fvjz7ln8yxiMY5bJRd38wb6IAua/h8pTNZw8GJnSgrOnz/ZD3mZptgs6TjbUZrYyrZ
+         eHnpWSnPRABA//QFxMriRjwRFq5zOf5urSsCiAtYnablo/pBpiiBFoye158IGPsPlBGS
+         gCpcjVULJ42Rhu+5xV8s4hr5V6EF/jtqRd9kM088Dv+gZZfCSAu4uZkybjYAEb5Da0qU
+         vj5pnxVNwaGa/NNjIpvtoSub/SoA7BbzKjEaC/yRJgratvfvdbSbp3tQR8+ax93o4z5A
+         wwykzyBPH97uk+Jzn42S1SvI2n8u7pEMAxIGLhk4FL3E+PshJUuiyr5NWAkEx6igFRkG
+         WDFQ==
+X-Gm-Message-State: AOAM532xiSHqr86ac9+ZBulJO0QFiugx1hfG3qKsII47ThntaWzTgWS7
+        wjt3xAGewbVCwvxmxH9pco8Utg==
+X-Google-Smtp-Source: ABdhPJzW5E4z9pRbCvA+PhoQcbD8syt+qqTo03NYeIdvAYXBq5Cm8mTOU27l33epCT/nBbvBUmeopg==
+X-Received: by 2002:a05:600c:a01:: with SMTP id z1mr12061602wmp.77.1625838845789;
+        Fri, 09 Jul 2021 06:54:05 -0700 (PDT)
 Received: from [192.168.0.12] (cpc87345-slou4-2-0-cust172.17-4.cable.virginm.net. [81.101.252.173])
-        by smtp.gmail.com with ESMTPSA id b9sm6341272wrh.81.2021.07.09.06.48.48
+        by smtp.gmail.com with ESMTPSA id z12sm5195889wrs.39.2021.07.09.06.54.05
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 09 Jul 2021 06:48:49 -0700 (PDT)
+        Fri, 09 Jul 2021 06:54:05 -0700 (PDT)
 From:   Jonny Grant <jg@jguk.org>
 Subject: Re: strlen
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        Florian Weimer <fw@deneb.enyo.de>
-Cc:     linux-man <linux-man@vger.kernel.org>,
-        Libc-alpha <libc-alpha@sourceware.org>
-References: <0bf239e9-cfc7-8889-ca00-b1d1566bd174@jguk.org>
- <87lfhpgxf8.fsf@mid.deneb.enyo.de>
- <017a5a66-ba66-7cc8-c607-f851c2e54fc4@jguk.org>
- <87363whf2z.fsf@mid.deneb.enyo.de>
+To:     Segher Boessenkool <segher@kernel.crashing.org>,
+        "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Cc:     gcc-help@gcc.gnu.org, linux-man <linux-man@vger.kernel.org>,
+        Florian Weimer <fw@deneb.enyo.de>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+References: <87363whf2z.fsf@mid.deneb.enyo.de>
  <48e874cb-2b95-2783-ddfc-ae12d9aaf8f5@jguk.org>
  <87bl7fozxi.fsf@mid.deneb.enyo.de>
  <23679a28-5986-0af2-4d98-7de68ed0deec@jguk.org>
@@ -66,65 +63,69 @@ References: <0bf239e9-cfc7-8889-ca00-b1d1566bd174@jguk.org>
  <b6fccca1-6e2b-fb20-d9d6-9df94cd3f05f@gmail.com>
  <564825ed-1e1f-b344-da35-1b83c551ed5f@jguk.org>
  <b71170df-7c6b-4582-c3d1-84b811fe5259@gmail.com>
- <84867122-ec74-b87b-a459-3e7178ffc6d2@gmail.com>
- <8b0914da-0413-e161-3835-c43ed6d0042c@gmail.com>
-Message-ID: <ed11d358-d1f0-a551-33eb-e2f9ad9bd83e@jguk.org>
-Date:   Fri, 9 Jul 2021 14:48:48 +0100
+ <5566b180-1333-d73b-22ee-6c6d32053921@jguk.org>
+ <feb6c15d-b242-83fc-c58d-2ebfbcd4f2bd@gmail.com>
+ <20210708234929.GU1583@gate.crashing.org>
+Message-ID: <3ddd0291-04d2-b35a-ce81-034bb0d9392a@jguk.org>
+Date:   Fri, 9 Jul 2021 14:54:04 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <8b0914da-0413-e161-3835-c43ed6d0042c@gmail.com>
+In-Reply-To: <20210708234929.GU1583@gate.crashing.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
 
-On 07/07/2021 18:33, Alejandro Colomar (man-pages) wrote:
-> On 7/7/21 7:23 PM, Alejandro Colomar (man-pages) wrote:
->> How do you think this should be handled?
->> Adding a line in NOTES for every such function?  Adding [[gnu::nonnull]] to every such prototype in SYNOPSIS (this might be too noisy)?  Else?
+On 09/07/2021 00:49, Segher Boessenkool wrote:
+> On Thu, Jul 08, 2021 at 01:06:17PM +0200, Alejandro Colomar (man-pages) via Gcc-help wrote:
+>> On 7/8/21 12:07 PM, Jonny Grant wrote:
+>>> We can't guarantee safestrlen() won't be called with NULL. So because 
+>>> strlen() itself doesn't check for NULL in C standard we'd need to call the 
+>>> wrapper so that NULL can be checked for.
 > 
-> As an example of how man pages could look like with the addition of [[gnu::nonnull]], you can have a look at this manual page of mine:
+>>> size_t __attribute__((optimize("O0"))) safestrlen(const char * s)
+>>> {
+>>>     if (NULL == s) return 0;
+>>>     else return strlen(s);
+>>> }
 > 
-> [[
-> ...
-> SYNOPSIS
->        #include <alx/base/stdlib.h>
+>> That also allows differentiating a length of 0 (i.e., "") from an 
+>> invalid string (i.e., NULL), by returning -1 for NULL.
 > 
->        [[gnu::nonnull]] [[gnu::warn_unused_result]]
->        int alx_callocs(type **ptr, ptrdiff_t nmemb);
+> It is incorrect to return any particular value for strlen(0); not 0, not
+> -1, not anything.  Since there *is* no string, it doesn't have a length
+> either.
 > 
->        [[gnu::malloc]] [[gnu::warn_unused_result]]
->        void *alx_mallocarray(ptrdiff_t nmemb, ssize_t size);
+> So instead of making some function for this, I recommend just writing
+> something like
 > 
->        [[gnu::nonnull]] [[gnu::warn_unused_result]]
->        int alx_mallocarrays(type **ptr, ptrdiff_t nmemb);
-> 
->        [[gnu::nonnull]] [[gnu::warn_unused_result]]
->        int alx_mallocs(type **ptr, ssize_t nmemb);
-> 
->        [[gnu::warn_unused_result]]
->        void *alx_reallocarrayf(void *ptr, ptrdiff_t nmemb, ssize_t nmemb);
-> 
->        [[gnu::nonnull]] [[gnu::warn_unused_result]]
->        int alx_reallocarrayfs(type **ptr, ptrdiff_t nmemb);
-> 
->        [[gnu::nonnull]] [[gnu::warn_unused_result]]
->        int alx_reallocfs(type **ptr, ssize_t nmemb);
-> 
->        [[gnu::nonnull]] [[gnu::warn_unused_result]]
->        int alx_reallocs(type **ptr, ssize_t nmemb);
-> 
->        [[gnu::nonnull]]
->        int alx_frees(type **ptr);
-> ...
-> ]]
-> 
-> Source: <https://github.com/alejandro-colomar/libalx/tree/main/share/man/base/man3>.
+>   bla = s ? strlen(s) : 0;
 
 
-May I ask, could a note be added to the NOTES section as well?
+Hi Segher
+
+Yes, this could work. But it does rely on programmer typing it like that every time... Maybe an inline function better.
+
+inline size_t safestrlen(const char * s) {return s?strlen(s) : 0}
+
+Perhaps there are too many email addresses on this cc list now.
+
+I'd prefer a Annex K of C11 style function ISO/IEC TR 24731-1 for strlen() - but there isn't one such as strnlen_s.
+
+
+> 
+> wherever you need it.  If a function name isn't self-explanatory, and
+> even *cannot* be, your factoring is most likely not ideal.  Code is
+> primarily there for humans to read, it should be optimised for that.
+> 
+> 
+> Segher
+> .
+
+Good point
+Jonny
