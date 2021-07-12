@@ -2,54 +2,69 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8D2E63C60AE
-	for <lists+linux-man@lfdr.de>; Mon, 12 Jul 2021 18:36:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id BD9BB3C624A
+	for <lists+linux-man@lfdr.de>; Mon, 12 Jul 2021 19:58:05 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230300AbhGLQjb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 12 Jul 2021 12:39:31 -0400
-Received: from 8.mo548.mail-out.ovh.net ([46.105.45.231]:43625 "EHLO
-        8.mo548.mail-out.ovh.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230184AbhGLQjb (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 12 Jul 2021 12:39:31 -0400
-Received: from mxplan6.mail.ovh.net (unknown [10.108.20.149])
-        by mo548.mail-out.ovh.net (Postfix) with ESMTPS id B9902200BC;
-        Mon, 12 Jul 2021 16:36:41 +0000 (UTC)
-Received: from jwilk.net (37.59.142.106) by DAG4EX2.mxp6.local (172.16.2.32)
+        id S232912AbhGLSAx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 12 Jul 2021 14:00:53 -0400
+Received: from 8.mo52.mail-out.ovh.net ([46.105.37.156]:52869 "EHLO
+        8.mo52.mail-out.ovh.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S233424AbhGLSAx (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 12 Jul 2021 14:00:53 -0400
+X-Greylist: delayed 2400 seconds by postgrey-1.27 at vger.kernel.org; Mon, 12 Jul 2021 14:00:52 EDT
+Received: from mxplan6.mail.ovh.net (unknown [10.109.138.7])
+        by mo52.mail-out.ovh.net (Postfix) with ESMTPS id 2E8E9286142;
+        Mon, 12 Jul 2021 18:40:30 +0200 (CEST)
+Received: from jwilk.net (37.59.142.96) by DAG4EX2.mxp6.local (172.16.2.32)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Mon, 12 Jul
- 2021 18:36:40 +0200
-Authentication-Results: garm.ovh; auth=pass (GARM-106R0062b64e540-f982-418f-9d4e-6f8c02c70994,
+ 2021 18:40:29 +0200
+Authentication-Results: garm.ovh; auth=pass (GARM-96R00195b6f87c-7e1d-4804-ab41-243cb956b8b9,
                     5C274AFC0EEBB6A3AE8BBE403DAD1BA76CA38561) smtp.auth=jwilk@jwilk.net
 X-OVh-ClientIp: 37.30.17.216
-Date:   Mon, 12 Jul 2021 18:36:38 +0200
 From:   Jakub Wilk <jwilk@jwilk.net>
-To:     Stefan Kanthak <stefan.kanthak@nexgo.de>
-CC:     <mtk.manpages@gmail.com>, <alx.manpages@gmail.com>,
-        <linux-man@vger.kernel.org>
-Subject: Re: wcstok(3) code sample
-Message-ID: <20210712163638.p5cfe3zbxoud5fij@jwilk.net>
-References: <8514C525E9C345FEA377AC5912010871@H270>
+To:     Michael Kerrisk <mtk.manpages@gmail.com>
+CC:     <linux-man@vger.kernel.org>
+Subject: [PATCH] wcstok.3: Fix type mismatch in the example
+Date:   Mon, 12 Jul 2021 18:40:26 +0200
+Message-ID: <20210712164026.4204-1-jwilk@jwilk.net>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"; format=flowed
-Content-Disposition: inline
-In-Reply-To: <8514C525E9C345FEA377AC5912010871@H270>
-User-Agent: NeoMutt/20180716
-X-Originating-IP: [37.59.142.106]
-X-ClientProxiedBy: DAG5EX1.mxp6.local (172.16.2.41) To DAG4EX2.mxp6.local
+Content-Transfer-Encoding: 7BIT
+Content-Type:   text/plain; charset=US-ASCII
+X-Originating-IP: [37.59.142.96]
+X-ClientProxiedBy: DAG2EX2.mxp6.local (172.16.2.12) To DAG4EX2.mxp6.local
  (172.16.2.32)
-X-Ovh-Tracer-GUID: c73b18bc-3335-4f72-bc42-528e710ff092
-X-Ovh-Tracer-Id: 8041458613075826656
+X-Ovh-Tracer-GUID: 4b91e615-258f-470b-a127-20da3cff4440
+X-Ovh-Tracer-Id: 8105916382074296285
 X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvtddruddvgddutdduucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepfffhvffukfhfgggtuggjfghisehttdertddtredvnecuhfhrohhmpeflrghkuhgsucghihhlkhcuoehjfihilhhksehjfihilhhkrdhnvghtqeenucggtffrrghtthgvrhhnpefhfedvfeehvefhkeeltdejgeelteefvdefvdduvdefgfduueeitdeitedvtdehgfenucfkpheptddrtddrtddrtddpfeejrdehledrudegvddruddtieenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhhouggvpehsmhhtphdqohhuthdphhgvlhhopehmgihplhgrnheirdhmrghilhdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomhepjhifihhlkhesjhifihhlkhdrnhgvthdprhgtphhtthhopehlihhnuhigqdhmrghnsehvghgvrhdrkhgvrhhnvghlrdhorhhg
+X-VR-SPAMSCORE: 0
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvtddruddvgddutddvucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucenucfjughrpefhvffufffkofgggfgtihesthekredtredttdenucfhrhhomheplfgrkhhusgcuhghilhhkuceojhifihhlkhesjhifihhlkhdrnhgvtheqnecuggftrfgrthhtvghrnhepvdehjeejffejjedvkeehheejieelhffftdduteefheeukeeuiedvudehveehfefhnecukfhppedtrddtrddtrddtpdefjedrheelrddugedvrdelieenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhhouggvpehsmhhtphdqohhuthdphhgvlhhopehmgihplhgrnheirdhmrghilhdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomhepjhifihhlkhesjhifihhlkhdrnhgvthdprhgtphhtthhopehlihhnuhigqdhmrghnsehvghgvrhdrkhgvrhhnvghlrdhorhhg
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-* Stefan Kanthak <stefan.kanthak@nexgo.de>, 2021-07-12, 11:07:
->|  wchar_t *wcs = strdup(...);
+Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
+---
+ man3/wcstok.3 | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-You meant wcsdup().
-
+diff --git a/man3/wcstok.3 b/man3/wcstok.3
+index 401411d98..af642ca46 100644
+--- a/man3/wcstok.3
++++ b/man3/wcstok.3
+@@ -108,9 +108,9 @@ The following code loops over the tokens contained in a wide-character string.
+ wchar_t *wcs = ...;
+ wchar_t *token;
+ wchar_t *state;
+-for (token = wcstok(wcs, " \et\en", &state);
++for (token = wcstok(wcs, L" \et\en", &state);
+     token != NULL;
+-    token = wcstok(NULL, " \et\en", &state)) {
++    token = wcstok(NULL, L" \et\en", &state)) {
+     ...
+ }
+ .EE
 -- 
-Jakub Wilk
+2.32.0
+
