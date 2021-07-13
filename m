@@ -2,236 +2,89 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id EFF413C6828
-	for <lists+linux-man@lfdr.de>; Tue, 13 Jul 2021 03:39:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 79D4A3C6B51
+	for <lists+linux-man@lfdr.de>; Tue, 13 Jul 2021 09:37:46 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233028AbhGMBl6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 12 Jul 2021 21:41:58 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39642 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233213AbhGMBlu (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 12 Jul 2021 21:41:50 -0400
-Received: from mail-qv1-xf4a.google.com (mail-qv1-xf4a.google.com [IPv6:2607:f8b0:4864:20::f4a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5CFACC0613DD
-        for <linux-man@vger.kernel.org>; Mon, 12 Jul 2021 18:39:01 -0700 (PDT)
-Received: by mail-qv1-xf4a.google.com with SMTP id x18-20020ad440d20000b02902e121b2b364so7666836qvp.12
-        for <linux-man@vger.kernel.org>; Mon, 12 Jul 2021 18:39:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20161025;
-        h=date:message-id:mime-version:subject:from:to:cc;
-        bh=S3Wii2PyRZQO2OtmxcTVnGt9js4+EH2ry2mkpjbEdlE=;
-        b=nzQUAZ1GYvknrVwxrh0lgikVtRIXfhnrORO3nXyMwP0F7lB3NbGmszB3786OS4x6qf
-         dnlbI9meyD7JO59yJNuyvMH3JuOWU1EDjFwo2T8wi+BK/9T+H6ALE0UPSvKsRp6LB3Tb
-         AceWkGjDgT9uzEv1amInfcrUPUUW002B/xFdloCbRWzZ+2qwdLnumT9uBOe503s/Yst0
-         iwpVPrPpE9E7HkShQZIifHmLjU/ltgpgypSe4qNk+BKkmuVmeXAT2mwaZNRKeXqRTsce
-         uDBUbnezlmSjSqNSU7XIiZWYPka6VbiYwamweHZPzXBKUlJRx3gBLO7i/zngqaRjGFm7
-         NfmA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
-        bh=S3Wii2PyRZQO2OtmxcTVnGt9js4+EH2ry2mkpjbEdlE=;
-        b=IjP43ewD5TWjnSS19Dr8mb9UTlbF6jsX4YmS/K8zu3O2p5E5WewPbqMDo9llgZZgHr
-         ljrHpWxTWNk6/EHi8S7zyURkKo+HylRIZyjLDtLRt8pO5Si79dT9OB7rCPihRQ/zAt+U
-         cq76JevHZ7+RjWeHSWzn381i4dURjb7tKX1v0LHNd5DikgnUI1lgawb8tcJOounLnvRa
-         1szPJP6StuPeb99fHUywPmUHc11/B0+PtFTgT7fRSpC93j9nLMn20NiISidOIKyXkoAX
-         9qFqgkVHKnaq0HMdvqpDzkXPht66ErL4MOOnknlFoaBH+dO54u+NHyWx+cGuqEoKA++1
-         eqzg==
-X-Gm-Message-State: AOAM530EezVM+0eMfSRQPzJAcUgt9/GXKYGVLZy34WMxpa1v+9L4wxmL
-        xgX3XieLbH/eg/QrQSzfrPStIIc=
-X-Google-Smtp-Source: ABdhPJw1p94roLuMlaAO8me3nT8WYuLNraxllNXIec9KgctyxfyVbU1pJGp2xX1xFCgddw9Fcj6PJVg=
-X-Received: from pcc-desktop.svl.corp.google.com ([2620:15c:2ce:200:5ef:57d6:e87d:2958])
- (user=pcc job=sendgmr) by 2002:a05:6214:68d:: with SMTP id
- r13mr2186600qvz.36.1626140340164; Mon, 12 Jul 2021 18:39:00 -0700 (PDT)
-Date:   Mon, 12 Jul 2021 18:38:57 -0700
-Message-Id: <20210713013857.3237634-1-pcc@google.com>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.32.0.93.g670b81a890-goog
-Subject: [PATCH v3] sigaction.2: Document SA_EXPOSE_TAGBITS and the flag
- support detection protocol
-From:   Peter Collingbourne <pcc@google.com>
-To:     Catalin Marinas <catalin.marinas@arm.com>,
-        Evgenii Stepanov <eugenis@google.com>,
-        Kostya Serebryany <kcc@google.com>,
-        Vincenzo Frascino <vincenzo.frascino@arm.com>,
-        Dave Martin <Dave.Martin@arm.com>,
-        Will Deacon <will@kernel.org>, Oleg Nesterov <oleg@redhat.com>,
-        "Eric W. Biederman" <ebiederm@xmission.com>,
-        "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     Peter Collingbourne <pcc@google.com>,
-        Linux ARM <linux-arm-kernel@lists.infradead.org>,
-        Kevin Brodsky <kevin.brodsky@arm.com>,
-        Andrey Konovalov <andreyknvl@gmail.com>,
-        linux-api@vger.kernel.org, Helge Deller <deller@gmx.de>,
-        David Spickett <david.spickett@linaro.org>,
-        linux-man@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+        id S234305AbhGMHke (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 13 Jul 2021 03:40:34 -0400
+Received: from smtp-out2.suse.de ([195.135.220.29]:44510 "EHLO
+        smtp-out2.suse.de" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S234172AbhGMHkd (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 13 Jul 2021 03:40:33 -0400
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+        by smtp-out2.suse.de (Postfix) with ESMTP id 8E40E2005F;
+        Tue, 13 Jul 2021 07:37:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+        t=1626161863;
+        h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+         cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=Hq2c9xZsvqW774kdI59IJ8mNNDC47Lg/E7EzR1uxpDA=;
+        b=sED8oC/wG6zAbqcB04S1b7O4/JRSiBboPBv5Wc6y52lzyj0hu05r2dsVh0A3Jh/FXzVGgR
+        jXWT9PwYnH9WeJO2phajYnMhLqChJUy/ZBHq4tgTCtbwPEsWqXdtni+scGXBirQdGFJVPx
+        173ehJ5yEDxfiWrrLP/Gku1i1uwlX1E=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+        s=susede2_ed25519; t=1626161863;
+        h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+         cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=Hq2c9xZsvqW774kdI59IJ8mNNDC47Lg/E7EzR1uxpDA=;
+        b=0Fuir0sXP7YuUKpefjMFkTFS0Cmx7gafaOFe3cMyKvWzSTorBikxaNhzONbFWwso3mwYXm
+        rMCGGi4iUOlXALAQ==
+Received: from g78 (unknown [10.163.24.38])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        by relay2.suse.de (Postfix) with ESMTPS id 4CCE4A3B8B;
+        Tue, 13 Jul 2021 07:37:43 +0000 (UTC)
+References: <20210708100853.17391-1-rpalethorpe@suse.com>
+ <20210712161159.no5qnjjzsrjev2s3@jwilk.net>
+User-agent: mu4e 1.4.15; emacs 27.2
+From:   Richard Palethorpe <rpalethorpe@suse.de>
+To:     Jakub Wilk <jwilk@jwilk.net>
+Cc:     linux-man@vger.kernel.org,
+        Alejandro Colomar <alx.manpages@gmail.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+Subject: Re: [PATCH] wait.2: Add ESRCH for when pid == INT_MIN
+Reply-To: rpalethorpe@suse.de
+In-reply-to: <20210712161159.no5qnjjzsrjev2s3@jwilk.net>
+Date:   Tue, 13 Jul 2021 08:37:42 +0100
+Message-ID: <871r827jg9.fsf@suse.de>
+MIME-Version: 1.0
+Content-Type: text/plain
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Signed-off-by: Peter Collingbourne <pcc@google.com>
----
-This feature landed back in 5.11, but the manpage
-update seems to have fallen through the cracks.
-Here's a v3 with the introducing version specified
-and with one formatting nit fixed.
+Hello Jakub,
 
-v3:
-- s/5.x/5.11/g
-- s/.IR/.I/ in one location
+Jakub Wilk <jwilk@jwilk.net> writes:
 
-v2:
-- fix formatting
-- address feedback from Dave
+> * Richard Palethorpe <rpalethorpe@suse.com>, 2021-07-08, 11:08:
+>>Please see upstream commit:
+>>
+>> commit dd83c161fbcc5d8be637ab159c0de015cbff5ba4
+>> Author: zhongjiang <zhongjiang@huawei.com>
+>> Date:   Mon Jul 10 15:53:01 2017 -0700
+>>
+>>     kernel/exit.c: avoid undefined behaviour when calling wait4()
+>>
+>>It avoids negating INT_MIN by returning early with ESRCH.
+>
+> That sounds like a bug in the kernel, though?
+>
+> POSIX says the error should be ECHILD if "the process group specified
+> by pid does not exist".
 
- man2/sigaction.2 | 125 +++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 125 insertions(+)
+The absolute value of INT_MIN is undefined or "not representable" in
+two's complement. So I think this can reasonably be considered undefined
+behaviour and the kernel can do what it wants.
 
-diff --git a/man2/sigaction.2 b/man2/sigaction.2
-index 57ad6418c..6b90982d4 100644
---- a/man2/sigaction.2
-+++ b/man2/sigaction.2
-@@ -261,6 +261,44 @@ This flag is meaningful only when establishing a signal handler.
- .\" .I sa_sigaction
- .\" field was added in Linux 2.1.86.)
- .\"
-+.TP
-+.BR SA_UNSUPPORTED
-+Used to dynamically probe for flag bit support.
-+.IP
-+If an attempt to register a handler succeeds with this flag set in
-+.I act->sa_flags
-+alongside other flags that are potentially unsupported by the kernel,
-+and an immediately subsequent
-+.BR sigaction ()
-+call specifying the same signal number n and with non-NULL
-+.I oldact
-+yields
-+.B SA_UNSUPPORTED
-+.I clear
-+in
-+.IR oldact->sa_flags ,
-+then
-+.I oldact->sa_flags
-+may be used as a bitmask
-+describing which of the potentially unsupported flags are,
-+in fact, supported.
-+See the section "Dynamically probing for flag bit support"
-+below for more details.
-+.TP
-+.BR SA_EXPOSE_TAGBITS " (since Linux 5.11)"
-+Normally, when delivering a signal,
-+an architecture-specific set of tag bits are cleared from the
-+.I si_addr
-+field of
-+.IR siginfo_t .
-+If this flag is set,
-+an architecture-specific subset of the tag bits will be preserved in
-+.IR si_addr .
-+.IP
-+Programs that need to be compatible with Linux versions older than 5.11
-+must use
-+.B SA_UNSUPPORTED
-+to probe for support.
- .SS The siginfo_t argument to a SA_SIGINFO handler
- When the
- .B SA_SIGINFO
-@@ -846,6 +884,93 @@ Triggered by a
- .BR seccomp (2)
- filter rule.
- .RE
-+.SS Dynamically probing for flag bit support
-+The
-+.BR sigaction ()
-+call on Linux accepts unknown bits set in
-+.I act->sa_flags
-+without error.
-+The behavior of the kernel starting with Linux 5.11 is that a second
-+.BR sigaction ()
-+will clear unknown bits from
-+.IR oldact->sa_flags .
-+However, historically, a second
-+.BR sigaction ()
-+call would typically leave those bits set in
-+.IR oldact->sa_flags .
-+.PP
-+This means that support for new flags cannot be detected
-+simply by testing for a flag in
-+.IR sa_flags ,
-+and a program must test that
-+.B SA_UNSUPPORTED
-+has been cleared before relying on the contents of
-+.IR sa_flags .
-+.PP
-+Since the behavior of the signal handler cannot be guaranteed
-+unless the check passes,
-+it is wise to either block the affected signal
-+while registering the handler and performing the check in this case,
-+or where this is not possible,
-+for example if the signal is synchronous, to issue the second
-+.BR sigaction ()
-+in the signal handler itself.
-+.PP
-+In kernels that do not support a specific flag,
-+the kernel's behavior is as if the flag was not set,
-+even if the flag was set in
-+.IR act->sa_flags .
-+.PP
-+The flags
-+.BR SA_NOCLDSTOP ,
-+.BR SA_NOCLDWAIT ,
-+.BR SA_SIGINFO ,
-+.BR SA_ONSTACK ,
-+.BR SA_RESTART ,
-+.BR SA_NODEFER ,
-+.BR SA_RESETHAND ,
-+and, if defined by the architecture,
-+.B SA_RESTORER
-+may not be reliably probed for using this mechanism,
-+because they were introduced before Linux 5.11.
-+However, in general, programs may assume that these flags are supported,
-+since they have all been supported since Linux 2.6,
-+which was released in the year 2003.
-+.PP
-+The following example program exits with status 0 if
-+.B SA_EXPOSE_TAGBITS
-+is determined to be supported, and 1 otherwise.
-+.PP
-+.EX
-+#include <signal.h>
-+#include <stdio.h>
-+#include <unistd.h>
-+
-+void handler(int signo, siginfo_t *info, void *context) {
-+  struct sigaction oldact;
-+  if (sigaction(SIGSEGV, 0, &oldact) == 0 &&
-+      !(oldact.sa_flags & SA_UNSUPPORTED) &&
-+      (oldact.sa_flags & SA_EXPOSE_TAGBITS)) {
-+    _exit(0);
-+  } else {
-+    _exit(1);
-+  }
-+}
-+
-+int main(void) {
-+  struct sigaction act = {};
-+  act.sa_flags = SA_SIGINFO | SA_UNSUPPORTED | SA_EXPOSE_TAGBITS;
-+  act.sa_sigaction = handler;
-+  if (sigaction(SIGSEGV, &act, 0) != 0) {
-+    perror("sigaction");
-+    return 1;
-+  }
-+
-+  /* Force a SIGSEGV. */
-+  *(volatile int *)0 = 0;
-+  return 1;
-+}
-+.EE
- .SH RETURN VALUE
- .BR sigaction ()
- returns 0 on success; on error, \-1 is returned, and
+Also, as the error code is different, we can detect if the fix has been
+applied without UBSAN enabled (unlike a similar fix in kill).
+
+OTOH, I would have probably used ECHILD for consistency. However it is
+done now and has been in use for some years.
+
 -- 
-2.32.0.93.g670b81a890-goog
-
+Thank you,
+Richard.
