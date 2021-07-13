@@ -2,91 +2,102 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id CCDDC3C750A
-	for <lists+linux-man@lfdr.de>; Tue, 13 Jul 2021 18:38:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7D8FD3C76EE
+	for <lists+linux-man@lfdr.de>; Tue, 13 Jul 2021 21:26:14 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233964AbhGMQj6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 13 Jul 2021 12:39:58 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45054 "EHLO
+        id S230376AbhGMT3E (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 13 Jul 2021 15:29:04 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55988 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231651AbhGMQj4 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 13 Jul 2021 12:39:56 -0400
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com [IPv6:2a00:1450:4864:20::431])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AEC23C06178A
-        for <linux-man@vger.kernel.org>; Tue, 13 Jul 2021 09:37:04 -0700 (PDT)
-Received: by mail-wr1-x431.google.com with SMTP id t5so17478251wrw.12
-        for <linux-man@vger.kernel.org>; Tue, 13 Jul 2021 09:37:04 -0700 (PDT)
+        with ESMTP id S229478AbhGMT3D (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 13 Jul 2021 15:29:03 -0400
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com [IPv6:2a00:1450:4864:20::635])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 38638C0613DD
+        for <linux-man@vger.kernel.org>; Tue, 13 Jul 2021 12:26:12 -0700 (PDT)
+Received: by mail-ej1-x635.google.com with SMTP id hd33so14820017ejc.9
+        for <linux-man@vger.kernel.org>; Tue, 13 Jul 2021 12:26:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
+        h=from:to:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=GkBnQz3k5bLmXELexJ5h5XMAi3/Z9UxkbG5CoQEVieo=;
-        b=BV7L4EMs2+ewb+a8X4YFcgfntHjBffTKvQ8eudRW0C06Prti6PT82dM0JORuEAj5LI
-         To2UMcwbGAcleCqB02pLXmNXAcR8wpg95UGnUw1WZx7+48IrWHRPpM5xHd2UrFnH9u1w
-         tt7riiMm/Z4VOkZiv33Rfc3KGUY+6sNs/W5riruHM68LiclfBYVJiP2nXeon5729zeU2
-         3FYe2bpxnsCmme20wPXPObBQi7eaIC/001OHr0z9zovTVgrYsXf9HJJ2KZeoCGm13CT8
-         NIhHmd/yCm5fX1HSpVmnHRzgGC2hMySUZe2QFgIFR8TfM/v0vR/bkPa62gAXgwblz2Qd
-         BaeQ==
+        bh=9gAo7AsJT97vYIFSImbw/WtHXzs+8KsCFekbYYjM4IA=;
+        b=pyaZhoUEaQ18HMi8ZXugcofFEmrRKvrKi+037Bh6KPssKlVG9wspvlOHx0VvphBv0r
+         gD7Y2o6Gbj3MDhs8vjlAGz4cYgmuffEAImcteJxL34zktOZC28UWfVRM9VRQKpdBbVbS
+         ANdZqKQQOxkD7AExRqmwO+/nqOIBlUcACIsL9ZGux5ULT+IV8WMuzUNg3R7Jylyl0JTI
+         PacK7bG9mH/VGItfEF2mePfOhSlgV1uIJWWLE0iA8jmYrre0/rP53Cen8TeS7CflONvK
+         L2mqPcMt6rh+XSDBVqQkV552N2p+6M1P8hUqKywesT9he9F8zq2qdewlL9Hh/S82y1wt
+         lQDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+        h=x-gm-message-state:from:to:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=GkBnQz3k5bLmXELexJ5h5XMAi3/Z9UxkbG5CoQEVieo=;
-        b=YUZpa+/RnerSxi1+NZXMy+pz4QlDETn9KaVmfNr3fx9iksdLEtbjp+Cncj0B+G4dnb
-         aZRs8JGdD4S+fLCHC8Jixfm/zr5Lz/0HEf0hvhkFutGE8EUjh4FFjPKPRsEZRlxgNzvx
-         UhTNB+1NA61V2ffzlmTB8G3IMghphQ0+auWzozuuDAP6r6qJNG81i7AuGkas/8Hi7SJc
-         bWjD+dtEbEhpO/hxTawSJ+XuFqFY0Y81VS+Ih7k/WUK1lpha1rZ2fcXjbK2f6cPomX/a
-         uT/HhxOAChRWHqjMXlIEGvsJvBmTi27iM/v37hLXaqvVd7d/XXtFYigLS2dd+XaLXBEC
-         5H5g==
-X-Gm-Message-State: AOAM533We6VlBSlLVWoCewyW5sBvX2XfK9obwmliyppGXMSK0FqGfYue
-        OAW8lkDPdFSU4o8gfbucTSE=
-X-Google-Smtp-Source: ABdhPJy9UaqBBiC7gRyxUjcLxMYNPDX65sT2K9w5NErcDQKaSyvjD/znMocfIRZBKDpljhoPic1+Ew==
-X-Received: by 2002:adf:e749:: with SMTP id c9mr6910714wrn.407.1626194223351;
-        Tue, 13 Jul 2021 09:37:03 -0700 (PDT)
-Received: from amir-ThinkPad-T480.ctera.local (bzq-166-168-31-246.red.bezeqint.net. [31.168.166.246])
-        by smtp.gmail.com with ESMTPSA id m18sm15219563wmq.45.2021.07.13.09.37.02
+        bh=9gAo7AsJT97vYIFSImbw/WtHXzs+8KsCFekbYYjM4IA=;
+        b=T8/FhztP0+p6SKPk3Chw+0v0H9Is+YVA5X8Jj9u+03HtjjOb1aT+JgMge1BME6PtDK
+         +dGy0nBIlTQbALAqWBrHffn0lwFGxDqmztG5jhtSQEGbszx0GzU60MKLeHXK0Q+yE7DD
+         o9486DCJZCs/FZJd89wl+0i3VaM0+1JItwCrRQgYsXoiLeRV+A/ax527KYh2wIIYvTaL
+         D0JL1ZVOTg3u9P8z+lnVgHsRrLAYPoNxog6irIOOS++PVVy0WM6iR2rkqEusn9Oo6vbs
+         m2qvJn1okrAv8f8Zw0CgmWbNLbKypeh7w/yIJyLElCerMj8LQbqMfzR366Uvtdxa7DFk
+         r8pQ==
+X-Gm-Message-State: AOAM5324oimSTYOiaJRp7QcnG8jBqQUiDFAUL6ZpXgQLny/trZEzrUNy
+        bHQ1d7rgsTIfuFC3MRpvWj9sbZjahA4=
+X-Google-Smtp-Source: ABdhPJz/VMkQawwoXCQ88NVBsJsMXEU29wFvbc2Ak0JfZUTvONl9sJOlgzqtMZtmtRuKNUjo5IzUYg==
+X-Received: by 2002:a17:906:c7d6:: with SMTP id dc22mr7626618ejb.517.1626204370548;
+        Tue, 13 Jul 2021 12:26:10 -0700 (PDT)
+Received: from localhost ([185.112.167.53])
+        by smtp.gmail.com with ESMTPSA id u2sm10036750eds.78.2021.07.13.12.26.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Jul 2021 09:37:02 -0700 (PDT)
-From:   Amir Goldstein <amir73il@gmail.com>
-To:     Michael Kerrisk <mtk.manpages@gmail.com>
-Cc:     Jan Kara <jack@suse.cz>,
-        Matthew Bobrowski <mbobrowski@mbobrowski.org>,
-        linux-man@vger.kernel.org
-Subject: [PATCH] fanotify_mark.2: Update w.r.t tmpfs support
-Date:   Tue, 13 Jul 2021 19:36:52 +0300
-Message-Id: <20210713163652.36196-1-amir73il@gmail.com>
-X-Mailer: git-send-email 2.25.1
+        Tue, 13 Jul 2021 12:26:10 -0700 (PDT)
+From:   =?UTF-8?q?=C5=A0t=C4=9Bp=C3=A1n=20N=C4=9Bmec?= <stepnem@gmail.com>
+To:     linux-man@vger.kernel.org,
+        Alejandro Colomar <alx.manpages@gmail.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+Subject: [PATCH] namespaces.7: fix confusion caused by text reorganization
+Date:   Tue, 13 Jul 2021 21:26:08 +0200
+Message-Id: <20210713192608.3804441-1-stepnem@gmail.com>
+X-Mailer: git-send-email 2.32.0.rc1.27.g991a26804f1e
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-tmpfs can be watched with FAN_REPORT_FID since kernel v5.13.
+Since commit ee81d7e41852, the flags list has been (only) above, not
+below, these references.
 
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+(The flags table was added even before that, in commit
+0b497138b908 ("namespaces.7: Add table of namespaces to top of page"))
+
+Fixes: ee81d7e41852 ("namespaces.7: Include manual page references in the summary table of namespace types")
+Signed-off-by: Štěpán Němec <stepnem@gmail.com>
 ---
- man2/fanotify_mark.2 | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ man7/namespaces.7 | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/man2/fanotify_mark.2 b/man2/fanotify_mark.2
-index add678735..34c20b8cf 100644
---- a/man2/fanotify_mark.2
-+++ b/man2/fanotify_mark.2
-@@ -401,7 +401,12 @@ The filesystem object indicated by
- is not associated with a filesystem that supports
- .I fsid
- (e.g.,
--.BR tmpfs (5)).
-+.BR fuse (4)).
-+.BR tmpfs (5)
-+did not support
-+.I fsid
-+prior to Linux 5.13.
-+.\" commit 59cda49ecf6c9a32fae4942420701b6e087204f6
- This error can be returned only with an fanotify group that identifies
- filesystem objects by file handles.
- .TP
+diff --git a/man7/namespaces.7 b/man7/namespaces.7
+index d35c2d383e32..0ac32c77e21c 100644
+--- a/man7/namespaces.7
++++ b/man7/namespaces.7
+@@ -97,7 +97,7 @@ If the
+ .I flags
+ argument of the call specifies one or more of the
+ .B CLONE_NEW*
+-flags listed below, then new namespaces are created for each flag,
++flags listed above, then new namespaces are created for each flag,
+ and the child process is made a member of those namespaces.
+ (This system call also implements a number of features
+ unrelated to namespaces.)
+@@ -119,7 +119,7 @@ If the
+ .I flags
+ argument of the call specifies one or more of the
+ .B CLONE_NEW*
+-flags listed below, then new namespaces are created for each flag,
++flags listed above, then new namespaces are created for each flag,
+ and the calling process is made a member of those namespaces.
+ (This system call also implements a number of features
+ unrelated to namespaces.)
+
+base-commit: 33248cfe50ebb8762208e7ef3264676dad71b016
 -- 
-2.25.1
+2.32.0.rc1.27.g991a26804f1e
 
