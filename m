@@ -2,59 +2,78 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2E9FC3CF249
-	for <lists+linux-man@lfdr.de>; Tue, 20 Jul 2021 04:58:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id ED4213CF552
+	for <lists+linux-man@lfdr.de>; Tue, 20 Jul 2021 09:32:39 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234346AbhGTCR4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 19 Jul 2021 22:17:56 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55896 "EHLO
+        id S233852AbhGTGv7 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 20 Jul 2021 02:51:59 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60720 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1345468AbhGTCRM (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 19 Jul 2021 22:17:12 -0400
-Received: from mail-io1-xd2e.google.com (mail-io1-xd2e.google.com [IPv6:2607:f8b0:4864:20::d2e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0915BC061574
-        for <linux-man@vger.kernel.org>; Mon, 19 Jul 2021 19:57:49 -0700 (PDT)
-Received: by mail-io1-xd2e.google.com with SMTP id z11so22505249iow.0
-        for <linux-man@vger.kernel.org>; Mon, 19 Jul 2021 19:57:49 -0700 (PDT)
+        with ESMTP id S233549AbhGTGvv (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 20 Jul 2021 02:51:51 -0400
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com [IPv6:2a00:1450:4864:20::331])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 57492C061762
+        for <linux-man@vger.kernel.org>; Tue, 20 Jul 2021 00:32:29 -0700 (PDT)
+Received: by mail-wm1-x331.google.com with SMTP id f10-20020a05600c4e8ab029023e8d74d693so1418663wmq.3
+        for <linux-man@vger.kernel.org>; Tue, 20 Jul 2021 00:32:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:from:date:message-id:subject:to:cc;
-        bh=FNcUGq14q2lrKh/R5zcFqK9O3eWGttcXMLTPBFX1xR8=;
-        b=LxxG9nS2A4UhRb+AtLOGEAn3ymMYkZt8jiAUV1MQhhTyYsQyV28OHoqlQzIyA5L0ZA
-         deQGG9j9yqnF97GWTpnCkmjBrJyI/uc8tzwnpxOQpLMP97QJwkmBXKL0VWA8pWbg+BsH
-         gI4HzDYwTmeIKum7RopJ4g8nUYh2VEyCiR6IC2iwHM4g4nryQuYKy1d2mG5QSSgWEV+/
-         KJSoskW2XmkFGX37/bl1Ah6CF8wEaSuGTplJipN7U5aE6H40J10zBOzfJPl1X5gKpd8s
-         h8zSHcA+hTFEL0CIuvqcytPOVuiF7G7zvLYxFqGWIKV3MufVJKXjuagKNd04fHi4RK/A
-         Sw9A==
+        d=jguk.org; s=google;
+        h=to:from:subject:message-id:date:user-agent:mime-version
+         :content-language:content-transfer-encoding;
+        bh=vlxPXS6qqXLQkrm84fqRX0SXGk+2T54DG0TzmP9d16I=;
+        b=LHuKq1LPUPM/xQ0TpYv/KC/tOWQw2euAANBQuaPJd11XWd7UqzCjpmtmeMUl4Fje2e
+         3KFcRJwb6gEtBOBH6lKg9PgYWHN3iFNQFN91C4BtLnvUNq2xUVIIA9XbEbGr0hY3KFcK
+         IVo05ix8mCN6S3v2nIGUEyVB1CRBluokqNtJWCJ0+KR/5ZVLzBYewF5KPdAd41VcNOQ7
+         +DHVYV+DIGvsPHXs3EhKgbmT2vc7i/xT/zDYJo8cVKscAXDmFDpx1SBjW5MyYseK2dop
+         YMm78TX/KRemYzRjvbUVoCmms56L64neHIjoY0XWrjBR4AfMbuG90FmOKlwOWfsUgYXS
+         iXvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
-        bh=FNcUGq14q2lrKh/R5zcFqK9O3eWGttcXMLTPBFX1xR8=;
-        b=ShrpcpVQoP0xQGcpz+tLUKJYOZktbUHD6jpvlzwV06flvsxvHc63zpHKNpcxH1oM0A
-         SDt3HbmrkKC4gbTL9z2BXguLOjJ95K4Hgjx8C+OAc5rs+39WXnzs7OUnvZ6D4o84Cd2G
-         4ZBaODeoYDoueYRSAo9ZsBRRxQcUoMBMjN5mFLJ5eN2hTi36bSKqG8wpiMUDF35XTTtv
-         xi/X8rg6adoxpITE/5ZT7S8hSKByabvOZQg2Nqk7imTkdj/LBEudvPq9yTKIE25dydI8
-         /6d+qhM2tU0px8lQp5AVA+IgEfyDXjrxfg0gXvYtpvebdxxNy7uNDC4wIecpNE9C/nNh
-         mBXA==
-X-Gm-Message-State: AOAM533Z1/OPsVjHMN1xbPa4Y80Gagiyh1064y/GdypNtUsfJs8h+gfw
-        iQ5Q6ch0SHclwHAlADS/rHrnAySWDz6uFkrDT4g=
-X-Google-Smtp-Source: ABdhPJyJYS0Vpi1SOgJ7brZ2JSMqWt4uQWQQPutd6Rl9ajNaR7K0Rr1BQgthlTV4tAhuwN7MEJYdzzZzlTPQo8tlwnw=
-X-Received: by 2002:a5d:93d3:: with SMTP id j19mr20950596ioo.184.1626749868522;
- Mon, 19 Jul 2021 19:57:48 -0700 (PDT)
+        h=x-gm-message-state:to:from:subject:message-id:date:user-agent
+         :mime-version:content-language:content-transfer-encoding;
+        bh=vlxPXS6qqXLQkrm84fqRX0SXGk+2T54DG0TzmP9d16I=;
+        b=k+cLgcPT17RLUU/ff1WieERRokIINehTylhWu9DCpU5ospxEar4OshlBFePwGEuVKc
+         /IAJN8tQxnTjRqkyTQ3zaaMIVMEMVUXzGAn7wjzcxDrHo/G9bzJIfmJBp6SSloi8uOD2
+         PetwqeWV8YUp3nt3JZDeqTScVEy4EzwWuU/6BZhBEHRkRka0hBU8rLVsrfY7j27/9Hcv
+         3CKOPty9hs6BmNXrzDPPUxggIX8pz5aNxpIhFPcEkF73WgloBKld5IFVGywXNX4YsJxh
+         qXDr5B81QEKbYlQS+s/6HnqeOgw67SPfvaK0STLosD1hB6NgWXvXUItX0Z3ljyh0nbjL
+         CVXQ==
+X-Gm-Message-State: AOAM531KtatixFqnjvIzRVgLpx8BuzvgmUZoL63SkfTOG+5jM3rnMiGH
+        LevdmX4zljV69NWYWxzlZBwgKg/OrHW2LA==
+X-Google-Smtp-Source: ABdhPJxn6O7jEYR/cq0vUDS7D/NgLkgglBO50Lk8GZpj6dMwbkg91enozpzZx1LH4ITtdeGFSCZFlg==
+X-Received: by 2002:a05:600c:2f17:: with SMTP id r23mr36420645wmn.39.1626766347977;
+        Tue, 20 Jul 2021 00:32:27 -0700 (PDT)
+Received: from [192.168.0.12] (cpc87345-slou4-2-0-cust172.17-4.cable.virginm.net. [81.101.252.173])
+        by smtp.gmail.com with ESMTPSA id x8sm22690097wrt.93.2021.07.20.00.32.27
+        for <linux-man@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 20 Jul 2021 00:32:27 -0700 (PDT)
+To:     linux-man <linux-man@vger.kernel.org>
+From:   Jonny Grant <jg@jguk.org>
+Subject: membarrier english feedback
+Message-ID: <ff4fe3f6-d83c-3f49-37b5-f1d23ad9c0b6@jguk.org>
+Date:   Tue, 20 Jul 2021 08:32:26 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-From:   snow under <hikigaya58@gmail.com>
-Date:   Tue, 20 Jul 2021 10:57:35 +0800
-Message-ID: <CALBoereYSTo=9qfsWN-FSbRtdtYsqSKrkZAYuQRA_fBj0Nhq2Q@mail.gmail.com>
-Subject: typo in systemd.unit(5)
-To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-location: [UNIT] SECTION OPTIONS > Upholds= > first line "but as long
-a this unit is up"
-checked from online page:
-https://man7.org/linux/man-pages/man5/systemd.unit.5.html#[UNIT]_SECTION_OPTIONS
-thanks for your great work.
+Hello
+
+https://man7.org/linux/man-pages/man2/membarrier.2.html
+
+"Use of memory barriers needs to be done taking into account that"
+
+Sounds a bit quirky.
+
+Could it be re-phrased :-
+
+"Use of memory barriers needs to take into account that"
+
+Cheers
+Jonny
