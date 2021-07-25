@@ -2,87 +2,111 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 80C4F3D4AB1
-	for <lists+linux-man@lfdr.de>; Sun, 25 Jul 2021 01:51:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C941E3D4EE6
+	for <lists+linux-man@lfdr.de>; Sun, 25 Jul 2021 19:09:13 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229609AbhGXXLL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 24 Jul 2021 19:11:11 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54158 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229601AbhGXXLL (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 24 Jul 2021 19:11:11 -0400
-Received: from mail-il1-x134.google.com (mail-il1-x134.google.com [IPv6:2607:f8b0:4864:20::134])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A7D6DC061575
-        for <linux-man@vger.kernel.org>; Sat, 24 Jul 2021 16:51:41 -0700 (PDT)
-Received: by mail-il1-x134.google.com with SMTP id u7so1932656ilj.8
-        for <linux-man@vger.kernel.org>; Sat, 24 Jul 2021 16:51:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=ueO8q7RhcvVzzeMaoF3i3yhEgGh+B9YmfI44bai8XeY=;
-        b=G6JO5LjvOxVQbra4q4K/ZWDCmfMmR1Bn4NmeSJBt6cojoEqJqP5Hejf5zvQQsjaNIu
-         8ApIBLUC8XBSjuYMzQm3rt1LcXh0aUBq/nqjxzNUdcNl2/XPwW7kS6kyGHHmPVIWbbKS
-         KQlqXbisTPwaUk8qlCyzJute/Br+6iy7wSFFPOWe88X1Fj/mOJnStXO4IK/R4E/t9G+e
-         asfLYqn+8gBWkvpYUFbHRgKxm+TNUDOkdi96TMPzitB6rL46GsEbkqU1Wa3pktquHiEv
-         bKzYCWNChUGc02jlJuUwpuvsTKNqVaW01demOM4bn32D5OMVQhSbw0jvGpCKyyfvwqyB
-         l6NQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=ueO8q7RhcvVzzeMaoF3i3yhEgGh+B9YmfI44bai8XeY=;
-        b=hdE3i4PH8bxUGd/tCXWUE69eqm2ujyA48HWIL6nOy/6S6Oq6hZe5nWnNps6ZVEkS2V
-         2+n2R6gZ0434Do4qabfdI89JT8FVu7oug84koUjIF9DTMOhN4jBHPSc9OWGFASGjVKzK
-         02my3WKfxUW6cxRl5xeVXIAaXCoZFziKAtc4ab1/kuvJ95NtZZYEwZ8ApBvPQea7d88e
-         IeNkM9o5YJbBFpg/uiOMj0Iu/UKHerL0NIA5qdTLygp8YrQnr3/l+CJPHDJ15lvUKhEy
-         nW+bDVh44fXVuHMJ91GuGs6TvQ+wp7TrXmzvgfeVjV0EtolimxwK0uRXiuR9+shblYOq
-         Z69Q==
-X-Gm-Message-State: AOAM533HZR/xLk9KD4tPEXfDCQNH1tuH8Z1M02lCS3KsYZZlhxWuUbtu
-        MH7VP9QxRg21WfYgHYr/IXUT9Gj35SFJXXLW55LsHMQr97okpg==
-X-Google-Smtp-Source: ABdhPJx7stE1pTGyWKrAYXFdyIXfcVSvzUCnMXEzbqNmL96CYC506CrvlU0zN/2CKs2HNWrEIOWX2xW6deMprDV898A=
-X-Received: by 2002:a05:6e02:cf:: with SMTP id r15mr7972951ilq.58.1627170699960;
- Sat, 24 Jul 2021 16:51:39 -0700 (PDT)
-MIME-Version: 1.0
-References: <CAL9Lf7yvYytb3Q9mHfK-dkxhk+80R1jGB5eRL_w7+qXDQG2RTw@mail.gmail.com>
- <20210724163944.cqp66jrpipj2khn6@jwilk.net>
-In-Reply-To: <20210724163944.cqp66jrpipj2khn6@jwilk.net>
-From:   Viet Than <thanhoangviet@gmail.com>
-Date:   Sat, 24 Jul 2021 19:51:28 -0400
-Message-ID: <CAL9Lf7xpqJd9dHiRiJnX+WcEmC_Cb0fqvQtcVKfvzrz7WydK2w@mail.gmail.com>
-Subject: [PATCH v2] time.2: wfix regarding year-2038
-To:     Jakub Wilk <jwilk@jwilk.net>
-Cc:     linux-man@vger.kernel.org,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        Alejandro Colomar <alx.manpages@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+        id S229584AbhGYQ2m (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 25 Jul 2021 12:28:42 -0400
+Received: from luckmann.name ([213.239.213.133]:56899 "EHLO
+        static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S229545AbhGYQ2m (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 25 Jul 2021 12:28:42 -0400
+X-Greylist: delayed 302 seconds by postgrey-1.27 at vger.kernel.org; Sun, 25 Jul 2021 12:28:42 EDT
+Received: from localhost (localhost [127.0.0.1])
+  (uid 502)
+  by static.213-239-213-133.clients.your-server.de with local
+  id 0000000000BD8002.0000000060FD9989.00003F53; Sun, 25 Jul 2021 19:04:09 +0200
+Date:   Sun, 25 Jul 2021 19:04:09 +0200
+From:   Helge Kreutzmann <debian@helgefjell.de>
+To:     mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org
+Subject: Errors in man pages
+Message-ID: <20210725170409.GA16163@Debian-50-lenny-64-minimal>
+Mime-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-16211-1627232649-0001-2"
+Content-Disposition: inline
+X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
+X-homepage: http://www.helgefjell.de/debian
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-> I suppose this should say "...the clock reaches the time 2**31",
-> and then we can keep the parenthetical as is.
-Thanks for the insight!  here's the new patch
+This is a MIME-formatted message.  If you see this text it means that your
+E-mail software does not support MIME-formatted messages.
 
-Cc: Jakub Wilk <jwilk@jwilk.net>
-Signed-off-by: Viet Than <thanhoangviet@gmail.com>
+--=_luckmann.name-16211-1627232649-0001-2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
----
-man2/time.2 | 2 +-
-1 file changed, 1 insertion(+), 1 deletion(-)
+Dear Linux manpages maintainer,
+the manpage-l10n project maintains a large number of translations of
+man pages both from a large variety of sources (including Linux
+Manpages) as well for a large variety of target languages.
 
-diff --git a/man2/time.2 b/man2/time.2
-index 059222dcd..a7410bfc8 100644
---- a/man2/time.2
-+++ b/man2/time.2
-@@ -93,7 +93,7 @@ specified as NULL cannot fail with the error
-.BR EOVERFLOW ,
-even on ABIs where
-.I time_t
--is a signed 32-bit integer and the clock ticks past the time 2**31
-+is a signed 32-bit integer and the clock reaches at or beyond the time 2**31
-(2038-01-19 03:14:08 UTC, ignoring leap seconds).
-(POSIX.1 permits, but does not require, the
-.B EOVERFLOW
--- 
-2.25.1
+During their work translators notice different possible issues in the
+original (english) man pages. Sometimes this is a straightforward
+typo, sometimes a hard to read sentence, sometimes this is a
+convention not held up and sometimes we simply do not understand the
+original.
+
+We use several distributions as sources and update regularly (at
+least every 2 month). This means we are fairly recent (some
+distributions like archlinux also update frequently) but might miss
+the latest upstream version once in a while, so the error might be
+already fixed. We apologize and ask you to close the issue immediately
+if this should be the case, but given the huge volume of projects and
+the very limited number of volunteers we are not able to double check
+each and every issue.
+
+Secondly we translators see the manpages in the neutral po format,
+i.e. converted and harmonized, but not the original source (be it man,
+groff, xml or other). So we cannot provide a true patch (where
+possible), but only an approximation which you need to convert into
+your source format.
+
+Finally the issues I'm reporting have accumulated over time and are
+not always discovered by me, so sometimes my description of the
+problem my be a bit limited - do not hesitate to ask so we can clarify
+them.
+
+I'm now reporting the errors for your project. If future reports
+should use another channel, please let me know.
+
+As requested, the individual reports come in single mails. This is
+only the announcement for those 27 future mails.
+
+Thanks for taking care!
+
+Greetings
+
+         Helge
+--=20
+      Dr. Helge Kreutzmann                     debian@helgefjell.de
+           Dipl.-Phys.                   http://www.helgefjell.de/debian.php
+        64bit GNU powered                     gpg signed mail preferred
+           Help keep free software "libre": http://www.ffii.de/
+
+--=_luckmann.name-16211-1627232649-0001-2
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmD9mYgACgkQQbqlJmgq
+5nC5EhAArkUenbq1xT8oAK/CPZSCUFXK+571xwZ8H4pIVVxDtwTC8uEvDZYGZeNN
++/Gj2PobauKmpOSP1xU0ViOqFWI1seN6WdGtuGaKbvFWIyq7kmsrSY5nr3TZnrPn
+bGlm7jEeE2IOSkavIG27Y14KsipZ85rmo+vgvq44c9M/EW1DWso8hZNW8uqKsSVG
+QfaJiw6Wyt3hwBJlOHZQXF8vp4Ib9kSQbUVz+zPcU7i/N0NI8BCxI7oDaSHeplYq
+j2B7meYB5azvV490drs+zS46481COXRIZVsZDVKkWFmv/PAAu+evGErs0Ln3wD3Y
+ARSuLF1l1sJ7jSITx+VNHmtOHYALghmZoMmYiQf27BLbPgwntTgle90NzzV2dd/v
+QMbljv9F9rQmnDVn5hvwDKoarDT2oKIOxI46vdkSSPmTix3eyDthjYNbMN3bCUm9
+HeTgBQkCmGtFJoXbhcOjEPsLpFN7QnM4ecwtusUHGPBfTiVWjdvafE52bXQrWCrY
+YQVmk3cyRVoWCjGgvEUFxfbSWADUIGlmVyKBBkOfKx4AiZ59wnmdZC5+gpAW0UGP
+p0O6Zi23Ynj1B1kyucbXsQNMVU+hyQDFOx6LvQccve5VmnDH03LgZ7MzqIHxeGn3
+gx0lRB+yQ+7d4OGHpYwNgfRs2OrFWJeXEevIxCJunaV5YD0bjtA=
+=q7YE
+-----END PGP SIGNATURE-----
+
+--=_luckmann.name-16211-1627232649-0001-2--
