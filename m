@@ -2,28 +2,28 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 906243D4F01
-	for <lists+linux-man@lfdr.de>; Sun, 25 Jul 2021 19:13:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 974FE3D4F02
+	for <lists+linux-man@lfdr.de>; Sun, 25 Jul 2021 19:14:07 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229689AbhGYQd1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 25 Jul 2021 12:33:27 -0400
+        id S230077AbhGYQdg (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 25 Jul 2021 12:33:36 -0400
 Received: from luckmann.name ([213.239.213.133]:56899 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S229545AbhGYQd1 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 25 Jul 2021 12:33:27 -0400
+        by vger.kernel.org with ESMTP id S229545AbhGYQdg (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 25 Jul 2021 12:33:36 -0400
 X-Greylist: delayed 302 seconds by postgrey-1.27 at vger.kernel.org; Sun, 25 Jul 2021 12:28:42 EDT
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000BD8025.0000000060FD9AA7.0000416D; Sun, 25 Jul 2021 19:08:55 +0200
-Date:   Sun, 25 Jul 2021 19:08:55 +0200
+  id 0000000000BD8027.0000000060FD9AB0.000041AF; Sun, 25 Jul 2021 19:09:04 +0200
+Date:   Sun, 25 Jul 2021 19:09:04 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: rmdir.2
-Message-ID: <20210725170855.GA16724@Debian-50-lenny-64-minimal>
+Subject: Errors in man pages, here: shmop.2
+Message-ID: <20210725170904.GA16750@Debian-50-lenny-64-minimal>
 Mime-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-16749-1627232935-0001-2"
+Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-16815-1627232944-0001-2"
 Content-Disposition: inline
 X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
 X-homepage: http://www.helgefjell.de/debian
@@ -35,7 +35,7 @@ X-Mailing-List: linux-man@vger.kernel.org
 This is a MIME-formatted message.  If you see this text it means that your
 E-mail software does not support MIME-formatted messages.
 
---=_luckmann.name-16749-1627232935-0001-2
+--=_luckmann.name-16815-1627232944-0001-2
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
@@ -74,13 +74,11 @@ them.
 I'm now reporting the errors for your project. If future reports
 should use another channel, please let me know.
 
-Man page: rmdir.2
-Issue: Unmatched ( in 'See also'
+Man page: shmop.2
+Issue: "I<errno>" correct here? errno indicates the error, but does it fail=
+ itself?
 
-"Write access to the directory containing I<pathname> was not allowed, or o=
-ne "
-"of the directories in the path prefix of I<pathname> did not allow search "
-"permission.  (See also B<path_resolution>(7)."
+"B<shmdt>()  I<errno> can fail with one of the following errors:"
 
 --=20
       Dr. Helge Kreutzmann                     debian@helgefjell.de
@@ -88,25 +86,25 @@ ne "
         64bit GNU powered                     gpg signed mail preferred
            Help keep free software "libre": http://www.ffii.de/
 
---=_luckmann.name-16749-1627232935-0001-2
+--=_luckmann.name-16815-1627232944-0001-2
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmD9mqcACgkQQbqlJmgq
-5nBMbA/+JbpEtjEuTvaK+1SRGKjtATAPB4+Dff6qxrlhxNPMkI4isj46cBVoqXvF
-ffTb0KrRZqBEI9+Pm4uogiqWi4V0eCbSgjo4ze55BNiNTEJbK7ihnRgHiRjfoG4Y
-2NJzpuNsGxnh9j6GbPscqESo4Z6ToJYlQwqKa/wpw2nDAqeu5/n8WiATCzkCc61t
-Y52qjSbeLp2HyC56QmscisH67oFW3jbdm6cvyl7iPtfqgZvjtVc6nYraLt2B2ysD
-+YNBWeerXVqc8taRBDBFwOwomBIL56HfNQ0uSb62VNcaaSVxkbcFWgoalekWYWc8
-ekmifedg4TO1L0cC67RDvRJTxYSo7bE13SytZVneNJjvENwh9DB0TUaUcv/rwzVw
-buKtxd7DBuN00AZQNcuMKxxq4m0qybTbe/gxZdgXECTcUPqMGO8nIf4o8qeR6trO
-5/V9mvjNAZIHBnE2HD1ZVYINwC4OqO0NfREiGTYesWL+XtzYpuFqBGJJTizvC40l
-RncrwP1/2hAbJiK686VubMuGP/JG04B4BLISF+CFEbVPYht7Y4RFA/UwiZNEBg03
-rAV1v5SzLuMKGP7LqM5eoe6IvSrQqPZdhT7wK3jYnEAC9EXH9FUJUhsQLSfpNIrm
-J4RIb3WfNdYgHAwGEBTL+z6pF6zqN6AP2Xc96gpxghBT7hVgvzA=
-=OoCK
+iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmD9mrAACgkQQbqlJmgq
+5nA3Aw//UpRMe+qTg9TLTar08i2dz1qn7UJMxZo1m9N1IC8NgYF8cw5n9oqeHVjl
+5enNV1mUkqcewICdplfwraV4SdHHeAgy/jCmzr0Wpwv1ESlR5FibkVKg0eP4eg0I
+QMtoi+q8RT2dQqaIP/XW8sh/LTwA//b3CuAmaZiHdb9SuD2ekEffNuu+8AdbXO/Z
+mwWB646wUORRsaK7D0GXhTj4XcksPbFh90PWbCm88FLg5ZX9VqJNl6pC+ejgw6jn
+y6PNYftddCRYWHLerfrQGhDTiMMIju0LkUlsSM2u4oxWODUZzR/1f8YKtAci1Omf
+mJ+tE1xOpsz6BNperSIkwaIYs8yZPe0NudvkZWAlt38FON/4X+6kLP7l9cd/JWyP
+PxQHM4lsUnCBl/KDtzHjtV08/8pHq13vbVSVZyor6p0a8VsK7T6oWPtQVlxwlIf8
+VQy1Ge9DaGRfLcTn0snZEtM4fRG/5boBFR93RHt6JktKOkTpXABAIsmsLYDnaSWS
+P4+go+X5lkxx4mLblLdoejAqFIQMrS1LwyhNJTN2xkWi24pZbBp7g69rCge3VY2x
+0a3mZ0tcSb4AzLGreeAyU3aKyxMzhndbtzbIyB1pQ3IghwmDq8kAAvMjh500vVAs
+TBqjCRp+/taBMjwi5U8KJ9ax5T+ce7bP9O9or4U4riCpn503k8E=
+=cyWa
 -----END PGP SIGNATURE-----
 
---=_luckmann.name-16749-1627232935-0001-2--
+--=_luckmann.name-16815-1627232944-0001-2--
