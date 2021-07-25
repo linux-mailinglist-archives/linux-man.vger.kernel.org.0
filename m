@@ -2,55 +2,55 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 7FB8E3D500B
-	for <lists+linux-man@lfdr.de>; Sun, 25 Jul 2021 22:55:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5A6593D500C
+	for <lists+linux-man@lfdr.de>; Sun, 25 Jul 2021 22:59:04 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230364AbhGYUPG (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 25 Jul 2021 16:15:06 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46806 "EHLO
+        id S229661AbhGYUSd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 25 Jul 2021 16:18:33 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47556 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230284AbhGYUPG (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 25 Jul 2021 16:15:06 -0400
-Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com [IPv6:2607:f8b0:4864:20::22f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 42894C061757
-        for <linux-man@vger.kernel.org>; Sun, 25 Jul 2021 13:55:36 -0700 (PDT)
-Received: by mail-oi1-x22f.google.com with SMTP id q6so8621930oiw.7
-        for <linux-man@vger.kernel.org>; Sun, 25 Jul 2021 13:55:36 -0700 (PDT)
+        with ESMTP id S229518AbhGYUSc (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 25 Jul 2021 16:18:32 -0400
+Received: from mail-oo1-xc35.google.com (mail-oo1-xc35.google.com [IPv6:2607:f8b0:4864:20::c35])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 400FFC061757
+        for <linux-man@vger.kernel.org>; Sun, 25 Jul 2021 13:59:01 -0700 (PDT)
+Received: by mail-oo1-xc35.google.com with SMTP id w24-20020a4ac1980000b0290251d599f19bso1791044oop.8
+        for <linux-man@vger.kernel.org>; Sun, 25 Jul 2021 13:59:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=mime-version:references:in-reply-to:reply-to:from:date:message-id
          :subject:to:cc;
-        bh=IRo4ygimceAKUlmT2p+Xo56lvFT30fY6CxpJxyjVBPw=;
-        b=McJBj4WBtEPhTcWBr4Tz71MxHDf1uQ//gLcb6fUcXppigIRo0kbNRKVGJ0bjeL9ifh
-         Jw6rsKSTojvQ52TdI1ad2JbyVcqVcjt+FNNT+M1pu6W3vMVgYFWtDsx1NtJJE0mL7pDD
-         ufgu6XZDtM5BJ6doSSR8Ruiu/upI8f6ZNimbiDraV8pRfTh0dOeYWTgUTqMNNnw0DYQc
-         NobuhD9Rjb8RP93bJW0FcGnNPJzCM8GTxbuiszNdkJ5yZynk+ver0zlpd2fTp0qw5JvR
-         b4y1uicrs8nmRcm3+rg1hWMhralo1ENLc+cznAfGDx8I++bI3NQuK0H/ekcu/4FWiGPV
-         R5lA==
+        bh=CeLSG868yN7VaRNsk/H46WfFHOpXTdJqzFmCKf8O2J4=;
+        b=nmXupgpmSyu0KgKURQljCbWth75Bh8kSD6MU/acY5AtJ7ThLz9mCNKLNCmGXFx4ZpN
+         au93BSZp+VhKrHlmvE6+Uk08w2dr9LwKKEWfud1UCqwR9CLJiAu5DaE81Fu+2Xu/LtFs
+         eHhMzAuAZ+0ME3Xneku+ttzCr+P6o2bMiUEMDLczukdtKzi8P8nQqpJzvXfbiocY9mRc
+         p2fgpjhHtwNprgDTAWheAwLbtY5rVV5AZPbzLciIQjkhX6aOROeIQav9Gz7Pg5Q2x/uh
+         zEExgZyC+AHGTmEmzPfS610jrahicYUJF2E8snikB/CdCCKzNsjUBx3nwplbX8o3+/kR
+         XB6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
          :from:date:message-id:subject:to:cc;
-        bh=IRo4ygimceAKUlmT2p+Xo56lvFT30fY6CxpJxyjVBPw=;
-        b=PumjuXs9JRAzzqRQPiMYLHSJwdaG+HrLAjQN6HXBIUDJ9WwaAPG6RUOmoDw5/4kwCX
-         qD1tOCDaw5ubaJ9PaILHqzDe6+J8Jv0f23uVP0FLYel1n14VDIRgXVp4fiCjroe/ON2Z
-         gX8Em5K+B7BImBGqtkMiAUqJnXMQ6i4V1b/ygEgMkBxLcxThlBPXRbpx+EQO3yxxvikB
-         mYdYB0ZmuGW8pajyLTWpGXGBTfoFEGgKEIztsXclO4dRu9p2NtiA+BdymHJiikgpUakr
-         kOOoFFb/vcnP5zD3GusRwOHuc1fVxXnJQwXoiowDWeaEn6wHVTDdpMNunNBqOKVwWZbL
-         6NWQ==
-X-Gm-Message-State: AOAM531+BiQTh+b22k/H9ipgac+lPjZqNlojN3L9+CiVCJVa+4kNvzpp
-        J946492CgdKfws8nCm4QoQYMdz9Fa+6fJkqrxDc=
-X-Google-Smtp-Source: ABdhPJxMSODDC5/eIhLa8IfJxYrzQMil+QNj9PBbIUTST12qUvhqURT7zvGzFHxSIDv3Mp88KoJRMLusfyLZo6r+LSc=
-X-Received: by 2002:a54:4094:: with SMTP id i20mr8999653oii.159.1627246535660;
- Sun, 25 Jul 2021 13:55:35 -0700 (PDT)
+        bh=CeLSG868yN7VaRNsk/H46WfFHOpXTdJqzFmCKf8O2J4=;
+        b=Ntr5yvIE0RHLI3f+xJzI/mmuUySART3tAUiHaqxJj4xFkIBuA8+PhiBV0W4sSSw9YJ
+         wlPiUaE+raETRFuX7q5acHSdLMeFKUN/7FjNjbSAmJkGHvPUFAEWUoOm4tSsa1+RlQEx
+         LTSTNSv5mj2pGzFRStRwpXERVmyagGrsz13Vp4+Y3a2VkVpYPouO6oUxev7cnMj4RlHj
+         r/62vrUPNRvsdnXZDfERFC9dLv/DMlkT6UpF9wXB4zJuN53DZke5pogje0aUHvo8OQRK
+         Lw0O2iiSLehtUX36rDIE6pVcPcGldAGufbxM0yzN09td446hcWBcDFchRNG4/Xq8MN5d
+         UB2Q==
+X-Gm-Message-State: AOAM530mW8vbXbDSJwbvMoFEU8tQbt7zJE6IXraONlAGw7180DXruW1u
+        g6HyrpK2A0MeCOWmM/xcRCSpOhFNQ5jlgr1BzjM=
+X-Google-Smtp-Source: ABdhPJwcSlizCIDzHnsm011HmDVrgVimOC9JywLCgqQxWUxOu9cSHOVtJsNPwhH71VFse7a0uE7bOCXkIds7kN4a5lo=
+X-Received: by 2002:a4a:9783:: with SMTP id w3mr8496428ooi.80.1627246740539;
+ Sun, 25 Jul 2021 13:59:00 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210725170701.GA16440@Debian-50-lenny-64-minimal>
-In-Reply-To: <20210725170701.GA16440@Debian-50-lenny-64-minimal>
+References: <20210725170955.GA16896@Debian-50-lenny-64-minimal>
+In-Reply-To: <20210725170955.GA16896@Debian-50-lenny-64-minimal>
 Reply-To: mtk.manpages@gmail.com
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Sun, 25 Jul 2021 22:55:24 +0200
-Message-ID: <CAKgNAkjEdVpPp5odfd4Y1uOUoM2xHDE36v9G4P+Hbn5B+tXcfw@mail.gmail.com>
-Subject: Re: Errors in man pages, here: hier.7
+Date:   Sun, 25 Jul 2021 22:58:49 +0200
+Message-ID: <CAKgNAkg4Kxy0mi4p2to9zKohFXuZ7QWN7bCS4vRX46=YgAK67A@mail.gmail.com>
+Subject: Re: Errors in man pages, here: sysvipc.7
 To:     Helge Kreutzmann <debian@helgefjell.de>
 Cc:     linux-man <linux-man@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
@@ -60,21 +60,16 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Hello Helge
 
-
-> Man page: hier.7
-> Issue: Should start with uppercase letter
+> Man page: sysvipc.7
+> Issue: Missing full stop after actions
 >
-> "is the traditional place to look for X11 executables; on Linux, it usually "
-> "is a symbolic link to I</usr/X11R6/bin>."
+> "System V semaphores allow processes to synchronize their actions System V "
+> "semaphores are allocated in groups called sets; each semaphore in a set is a "
+> "counting semaphore.  POSIX semaphores provide an alternative API for "
+> "achieving the same result; see B<sem_overview>(7)."
 
-Fixed. s/is the/This is the/
+Fixed. s/action/actions./
 
-Thanks,
+Cheers,
 
 Michael
-
-
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
