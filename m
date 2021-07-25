@@ -2,55 +2,55 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8ECEB3D4FDE
-	for <lists+linux-man@lfdr.de>; Sun, 25 Jul 2021 22:29:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E52513D4FE2
+	for <lists+linux-man@lfdr.de>; Sun, 25 Jul 2021 22:30:23 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230393AbhGYTsk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 25 Jul 2021 15:48:40 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40940 "EHLO
+        id S229709AbhGYTtx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 25 Jul 2021 15:49:53 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41198 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230364AbhGYTsk (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 25 Jul 2021 15:48:40 -0400
-Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com [IPv6:2607:f8b0:4864:20::336])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 46A36C061757
-        for <linux-man@vger.kernel.org>; Sun, 25 Jul 2021 13:29:09 -0700 (PDT)
-Received: by mail-ot1-x336.google.com with SMTP id o2-20020a9d22020000b0290462f0ab0800so3262309ota.11
-        for <linux-man@vger.kernel.org>; Sun, 25 Jul 2021 13:29:09 -0700 (PDT)
+        with ESMTP id S230439AbhGYTtv (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 25 Jul 2021 15:49:51 -0400
+Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com [IPv6:2607:f8b0:4864:20::22d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A2DE9C061757
+        for <linux-man@vger.kernel.org>; Sun, 25 Jul 2021 13:30:21 -0700 (PDT)
+Received: by mail-oi1-x22d.google.com with SMTP id q6so8565697oiw.7
+        for <linux-man@vger.kernel.org>; Sun, 25 Jul 2021 13:30:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=mime-version:references:in-reply-to:reply-to:from:date:message-id
          :subject:to:cc:content-transfer-encoding;
-        bh=Gh/Cu51xmt2ohPZMAT0fEFVgVpRKXzc9WGxKHOdaLIM=;
-        b=dLUt0UiYLt4tHu7IIPfPMvwL4wcBA9DTEO24gC/3JXixhlatCK8UPUPWTrykflYYxH
-         /cK3VDODqWgPakALwm6+EaB2S1mh3r2hTtl4gyn9KpgStWPTQalUVqByRxPRHPRtHnO9
-         2rYlg9NSs6UEI/aTfQDpjEAyFCMeO/E5/4RDSzUaObbUlfkpHyq+uyKnyOfxOoFNbjhB
-         CBKEqx26kL9/lEnj/BLnZZVO+BgCd/fvt4jeiq3LziAskT3P39/j7CIr0oukhJhgf3LH
-         j1HsaC5O5ss0nzowSGiO+UneyGyRwdCcysIicCZkrNhQq+k/Y6ZeDl5X99wHW+dnba4T
-         Uv0Q==
+        bh=Q2Pe7xb1yNJJSg7WWpwFujeJiETPHSbRLq+1obojYfs=;
+        b=Y4IltEHy5LsGY3JbqHgnrBaDG+cktbXy/43tsgeA9zH5dnF3BNK3m2frKphAJfIqk8
+         5ZRgIUUY2YXgRQ2zYnuaFR8OMm9iS6MJbOryohW6WkOil/GoznjGDH1oTmoWIPIs5lcR
+         ENqOpodr+o6I1cOf/Tn31vT6q23re5RPiceyRdV9f0gX1vaz8yuX9rh7Be8ktt2a4zr1
+         DFYOiX2ATsFt2k4ANsUFi6shbbDnMcPsXXuiSxW5MxocCPYWjMC/C0knc9ndg/OAJQPz
+         v2fiEeycAJpzF0ef96UlsG6Oebdf11utHtvtSarWXAKKkNYttJG0V5ro6DJtoJdjHxRr
+         4mYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
          :from:date:message-id:subject:to:cc:content-transfer-encoding;
-        bh=Gh/Cu51xmt2ohPZMAT0fEFVgVpRKXzc9WGxKHOdaLIM=;
-        b=oGbyvvfMTA+ca5B2sUMvS4CSfr8Ar5LQIvTf52xzhtMFyllWRJRrjXpFup/FsWE+F6
-         io5VYkdnHnm/qI9Lx22bZJ1NsCkiKaNg9u99iCWKQhJ1o6tUG4BcmDF8vTQEWOgno3YY
-         92XATcVtyATL/tb6OtS8Q1UdvfHIAP+3ynMzRCW1S8PsnDHKtAYPV/vm7e99phLjKLIk
-         rABQ7hkPm1TpaisaEKBnyqLqAtYlR5pcix5sbsC0vztras/L5s0lTtwxX1IS0gP2aCFj
-         gvMq4RDQ8sFKzjqHA1TGy+qznY7YdDQkedW2NKUM7SEA2F2XAY9SypZwVq3HadyzSoM3
-         K9hA==
-X-Gm-Message-State: AOAM530+QU5WIl3OELZkdfbtBr4i7LJmeo3PpE9Vizm2xxwrOSMAeB8x
-        ZSk2vA1mSoukEgbM9Enx/I96EFU47yY+nBqIS8WHs6vOPqU=
-X-Google-Smtp-Source: ABdhPJyf7p+9mNqiaSgx7df1lt5KYfXND+HkiW3TeQOor/8a3nC+/gGOfItaggHu0mOorXT1tZMLY53QR2pPEodsYzQ=
-X-Received: by 2002:a9d:172e:: with SMTP id i46mr9594058ota.308.1627244948639;
- Sun, 25 Jul 2021 13:29:08 -0700 (PDT)
+        bh=Q2Pe7xb1yNJJSg7WWpwFujeJiETPHSbRLq+1obojYfs=;
+        b=TrxG1MgcHx4V2ydxeMhEL8eHviwstLs7li5HxuVBGP5G+WOWtCiEM33DrfayurFYeL
+         JVacdLxBtgQ5TR5wvLDs8wYieR8JESLXBxztU51XqPg5eVsbET3ysdE2nGxGA6PeSLjD
+         iE/vB5HNKz1KR1jEzZ4b1k7dw+GOmmcbVRUEoCQEEosESXEZIz3lRRjvE6ywYjrP6nX4
+         K7blD1dMXqjq3vBC/yjlwT3PHswRC5RV3tLxxroYtsT9cCQTml9ami3RajRzlWqR2QJm
+         Fza2K5fHTfl/hemmClir43RHsa8H+ryJPLnvbJqVAM28dSluJlLDl+qd1uqGxdcEm/ST
+         IQtg==
+X-Gm-Message-State: AOAM530dU/IeyKbp/Er5gGQePYo6DeBKX8Vk7Lgt5qogPg2rv9bls3+G
+        wr3EpIMNw77KpkWAiLPzUZwTXquGPQ1mUypw5gM=
+X-Google-Smtp-Source: ABdhPJyTkWvO6yIPTt+lQEKs01OID0hYpfRGpxIrpgDxr/X+x+BmHAT+dCBuLoeYd2g27q0cnjl9AJ9GLgrHitYpNKs=
+X-Received: by 2002:aca:1206:: with SMTP id 6mr9005939ois.148.1627245021118;
+ Sun, 25 Jul 2021 13:30:21 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210725170532.GA16265@Debian-50-lenny-64-minimal>
-In-Reply-To: <20210725170532.GA16265@Debian-50-lenny-64-minimal>
+References: <20210725170552.GA16301@Debian-50-lenny-64-minimal>
+In-Reply-To: <20210725170552.GA16301@Debian-50-lenny-64-minimal>
 Reply-To: mtk.manpages@gmail.com
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Sun, 25 Jul 2021 22:28:57 +0200
-Message-ID: <CAKgNAkiHW4fNROsYdCgqyBkTrjHb=wud86++a1HCVimxj4y12Q@mail.gmail.com>
-Subject: Re: Errors in man pages, here: atanh.3
+Date:   Sun, 25 Jul 2021 22:30:09 +0200
+Message-ID: <CAKgNAkhgXHXpwpe8J18_-3OjXD4iONSB3Q90igtdjrfPTotFuA@mail.gmail.com>
+Subject: Re: Errors in man pages, here: bzero.3
 To:     Helge Kreutzmann <debian@helgefjell.de>
 Cc:     linux-man <linux-man@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
@@ -59,9 +59,9 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Helge,
+Thanks, Helge.
 
-Fixed as 'is set'. Thanks for the report.
+Fixed as you suggest.
 
 Cheers,
 
@@ -104,13 +104,21 @@ On Sun, 25 Jul 2021 at 19:05, Helge Kreutzmann <debian@helgefjell.de> wrote=
 > I'm now reporting the errors for your project. If future reports
 > should use another channel, please let me know.
 >
-> Man page: atanh.3
-> Issue: as set =E2=86=92 was set
+> Man page: bzero.3
+> Issue: to zeroed =E2=86=92 to be zeroed
 >
-> "In glibc 2.9 and earlier, when a pole error occurs, I<errno> as set to "
-> "B<EDOM> instead of the POSIX-mandated B<ERANGE>.  Since version 2.10, gl=
-ibc "
-> "does the right thing."
+> "The B<explicit_bzero>()  function addresses a problem that security-"
+> "conscious applications may run into when using B<bzero>(): if the compil=
+er "
+> "can deduce that the location to zeroed will never again be touched by a =
+"
+> "I<correct> program, then it may remove the B<bzero>()  call altogether. =
+ "
+> "This is a problem if the intent of the B<bzero>()  call was to erase "
+> "sensitive data (e.g., passwords)  to prevent the possibility that the da=
+ta "
+> "was leaked by an incorrect or compromised program.  Calls to "
+> "B<explicit_bzero>()  are never optimized away by the compiler."
 >
 > --
 >       Dr. Helge Kreutzmann                     debian@helgefjell.de
