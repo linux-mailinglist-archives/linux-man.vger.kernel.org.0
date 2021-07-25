@@ -2,79 +2,61 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2D6573D50A9
-	for <lists+linux-man@lfdr.de>; Mon, 26 Jul 2021 01:30:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A17413D50E4
+	for <lists+linux-man@lfdr.de>; Mon, 26 Jul 2021 03:27:38 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229956AbhGYWuQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 25 Jul 2021 18:50:16 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52458 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229829AbhGYWuQ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 25 Jul 2021 18:50:16 -0400
-Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com [IPv6:2607:f8b0:4864:20::32b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1D279C061757
-        for <linux-man@vger.kernel.org>; Sun, 25 Jul 2021 16:30:45 -0700 (PDT)
-Received: by mail-ot1-x32b.google.com with SMTP id c2-20020a0568303482b029048bcf4c6bd9so6960768otu.8
-        for <linux-man@vger.kernel.org>; Sun, 25 Jul 2021 16:30:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=1wtDuDxvyJSrDbbsoLO4s4COpfKvPPNtaupyaVTY/N0=;
-        b=CgJih5NwQj5q9C/kEWa/q8DZvOm6Xky0yzQRHIlDOKwybEK/cFKTmJPjY6JJcQr3Sv
-         odl8mQDRWRRpJQZ4hiZBz44ymnAilDFPmDST2qWuAnwDI+2B8AcyksmBhfzW67hN097a
-         8TyD8F47KJx+DE4gu/7tIxoNbDBT0JXLtyoBtX575Maq3Yu/EpXgUn8dorv0Qo9s8TG5
-         +8chQX+6YmPd1+G1PbxaSXkDSroFj5Ra5UQJwFSYLxRft9Jti7Um/56TpJv+HljylfwU
-         3QLPy3o+hKjt+dp3IoTMO0tMoA/wJktz8l/MxwSFyq2Tere6oRt1zD/Tv/8UVU9ylTAm
-         EXHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=1wtDuDxvyJSrDbbsoLO4s4COpfKvPPNtaupyaVTY/N0=;
-        b=giMLbc5CbQjqdV2M9UKMbNPdIgkSCvMpaP9cPt12D2/525VCLRTWIQTpbg+8fYE8xy
-         Wquw4zq8LpvNefAZJ2MiauEtgmWEcOI4i1fkicWGRLuAMi3kY2ICKvGsMg36so3HpUen
-         F1NqrmR3Xb/0ZFLU6BhAPvh3VlFsVet4IfXUX1cz90jD3b3S1bScW8/F3wxdePTfBZIW
-         5JjQ0+pHJ/qQS32bbrC1SeH8se+ZLsOXy3HleyVLpcrF4FQENPWmNq3XaogJUraVMKGF
-         0u1dD6W8Zjx0seip0OXgsKmPa2PYBTrRmPv5Ktot2OWppsYdDcKyNvEmaqM2SiYordy8
-         Cs5A==
-X-Gm-Message-State: AOAM532Eb9Dqkb4Z53bW8WYR7eOt+xfd4slaPefUkZ6Ki6LR7mYWSmkz
-        FVSCclhca++LGXiSe171TBw0gLj3jClzsugrLDg=
-X-Google-Smtp-Source: ABdhPJw0C7gDWEzyCCAIWHEthTuq8SDy5FsK/qLQj+1nZTdKRsh99VkMHJrwr68w5wUDzq7YF0zeBZaW4/ptemcfnPU=
-X-Received: by 2002:a9d:172e:: with SMTP id i46mr9901243ota.308.1627255844549;
- Sun, 25 Jul 2021 16:30:44 -0700 (PDT)
+        id S231250AbhGZArH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 25 Jul 2021 20:47:07 -0400
+Received: from mta01.cne.gob.ve ([201.130.83.71]:36704 "EHLO mta01.cne.gob.ve"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S230152AbhGZArH (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Sun, 25 Jul 2021 20:47:07 -0400
+Received: from localhost (localhost [127.0.0.1])
+        by mta01.cne.gob.ve (Postfix) with ESMTP id E8C73E9AA3E;
+        Sun, 25 Jul 2021 16:38:40 -0400 (-04)
+Received: from mta01.cne.gob.ve ([127.0.0.1])
+        by localhost (mta01.cne.gob.ve [127.0.0.1]) (amavisd-new, port 10032)
+        with ESMTP id q2LzFO5-tR3F; Sun, 25 Jul 2021 16:38:40 -0400 (-04)
+Received: from localhost (localhost [127.0.0.1])
+        by mta01.cne.gob.ve (Postfix) with ESMTP id D1FB7ECC144;
+        Sun, 25 Jul 2021 16:28:10 -0400 (-04)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mta01.cne.gob.ve D1FB7ECC144
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cne.gob.ve;
+        s=cnemailcorp; t=1627244890;
+        bh=vKCGNy7XAh3lONWrfQueXCMYb2sDxVWWB8MXCvnhj34=;
+        h=MIME-Version:To:From:Date:Message-Id;
+        b=1nLVPJ8Lp4WpL5ADUvtKSLuPeZljJKg+EvOqR/GHuo4x/lKAaAryKix1sK6FfVg7c
+         48bk6o4Zd9HcvJIXf5fNBf+du9bQRhaI9XA9NzeFdrErfzwzJa/foBtVBWoWvKTF87
+         dyS8nTg9vJ4jHYzdxaPOvkIhvrLFwjWfhXMq0dy3SxwyvS4e+IowzFSlZPUwgWVXPO
+         T8auVfuLTDLrSxs+5PcHFlIZB0YDOpYUSUaOxG9TdO0buigHbIomAfOGGVAfjNtG8X
+         xkJGJU48ctXpmyd99hjOoMtiRRtnjmy7E4ZGvdfw0mzJkhaf5+7svCqFETKjWJcHuQ
+         dtXqWj7JQtCAQ==
+X-Virus-Scanned: amavisd-new at cne.gob.ve
+Received: from mta01.cne.gob.ve ([127.0.0.1])
+        by localhost (mta01.cne.gob.ve [127.0.0.1]) (amavisd-new, port 10026)
+        with ESMTP id CGSzr8z4ZIIM; Sun, 25 Jul 2021 16:28:10 -0400 (-04)
+Received: from [172.20.10.3] (unknown [129.205.113.210])
+        by mta01.cne.gob.ve (Postfix) with ESMTPSA id 381DEE9AEEE;
+        Sun, 25 Jul 2021 16:15:20 -0400 (-04)
+Content-Type: text/plain; charset="iso-8859-1"
 MIME-Version: 1.0
-References: <CALBoerdTNOd0w0gj4XQMd8Y76MP4tRhSvhAXcQifH1RgydNw-g@mail.gmail.com>
-In-Reply-To: <CALBoerdTNOd0w0gj4XQMd8Y76MP4tRhSvhAXcQifH1RgydNw-g@mail.gmail.com>
-Reply-To: mtk.manpages@gmail.com
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Mon, 26 Jul 2021 01:30:33 +0200
-Message-ID: <CAKgNAkhdFSWtCyOOb-nXgOXD2AeEFtwqCV_3ECGaLx-nF47Wng@mail.gmail.com>
-Subject: Re: typo in systemd.unit(5)
-To:     snow under <hikigaya58@gmail.com>
-Cc:     linux-man <linux-man@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Description: Mail message body
+Subject: spende
+To:     Recipients <ycanizalez@cne.gob.ve>
+From:   ycanizalez@cne.gob.ve
+Date:   Sun, 25 Jul 2021 21:02:35 +0100
+Reply-To: tomcrist760@gmail.com
+Message-Id: <20210725201521.381DEE9AEEE@mta01.cne.gob.ve>
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Thanks, but this bug needs to be reported to a different project.
+Bin Herr Tom Crist. Ich spende einen Zuschuss von 10.500.000 USD
 
-See https://man7.org/linux/man-pages/man5/systemd.unit.5.html#COLOPHON
+an dich.Kontaktiere mich (tomcrist760@gmail.com) f=FCr
 
-Cheers,
+weitere Details.
 
-Michael
-
-On Mon, 19 Jul 2021 at 09:30, snow under <hikigaya58@gmail.com> wrote:
->
-> location: [UNIT] SECTION OPTIONS > Upholds= > first line "but as long a this unit is up"
-> checked from online page: https://man7.org/linux/man-pages/man5/systemd.unit.5.html#[UNIT]_SECTION_OPTIONS
-> thanks for your great work.
-
-
-
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+Danke und Gottes Segen.
+Tom Crist
