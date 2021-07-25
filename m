@@ -2,55 +2,55 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id BCF0D3D5096
-	for <lists+linux-man@lfdr.de>; Mon, 26 Jul 2021 01:09:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8E88D3D5097
+	for <lists+linux-man@lfdr.de>; Mon, 26 Jul 2021 01:11:28 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229808AbhGYW2t (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 25 Jul 2021 18:28:49 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47818 "EHLO
+        id S229808AbhGYWa5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 25 Jul 2021 18:30:57 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48272 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229547AbhGYW2t (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 25 Jul 2021 18:28:49 -0400
-Received: from mail-ot1-x32d.google.com (mail-ot1-x32d.google.com [IPv6:2607:f8b0:4864:20::32d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CF814C061757
-        for <linux-man@vger.kernel.org>; Sun, 25 Jul 2021 16:09:18 -0700 (PDT)
-Received: by mail-ot1-x32d.google.com with SMTP id i39-20020a9d17270000b02904cf73f54f4bso6433175ota.2
-        for <linux-man@vger.kernel.org>; Sun, 25 Jul 2021 16:09:18 -0700 (PDT)
+        with ESMTP id S229547AbhGYWa4 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 25 Jul 2021 18:30:56 -0400
+Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com [IPv6:2607:f8b0:4864:20::32b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BD392C061757
+        for <linux-man@vger.kernel.org>; Sun, 25 Jul 2021 16:11:25 -0700 (PDT)
+Received: by mail-ot1-x32b.google.com with SMTP id c2-20020a0568303482b029048bcf4c6bd9so6920522otu.8
+        for <linux-man@vger.kernel.org>; Sun, 25 Jul 2021 16:11:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=mime-version:references:in-reply-to:reply-to:from:date:message-id
          :subject:to:cc:content-transfer-encoding;
-        bh=55T5SPX8sO8bQ7hfM6c+eUrYXeAKqY1CbdxD2vEG0jU=;
-        b=m4tNwckd0RQ8cAZ8TuTo9h1IsavH9q+ruESGRmcsjHvbL8dvofMXgRZD5EV+Hyg1Vv
-         T87Vvdhp5wQMbyyXR+gpFcH7hDQbURzRq59UBKFeycuu29qrfkglvPUNKZSCd/+YsOb0
-         0Cyk6NybiuMPyRcTZzp0qdpUtmZdXvb7nqL+xZE6fcWJrPNxJud0/GPaLAumlAxdlWpY
-         /53MU0SdO5FsdJcK7xG2lucn2wQEMb/RPE7xfRDttVug+EMV4bMYsKHWbKaidnlRfr91
-         CyTOlHfTw6e2ga/RiTyV6ExPRQfwzLTgNUS+TBTvPN4CbiOmK3nxW1NEsVdEygCJBM7n
-         MCIA==
+        bh=IwhFelYqOwGDPI3Qgl46nFY767l0f1S/CkHFd3aq6Jw=;
+        b=vJATGAdk0Q7Xwd+j1VnXCN68UmMCbIFnyBwwI5Ow8jH1nbhwt97pIJrP7bwfNnF/Gm
+         CS2JGSzD4CYDB42nI0J1omXJCGTG/l26yNMggjK8BL6e5HjxPdErUmqnUOlfVDDO/odT
+         fFvRnss8prD00YaJAV0Qs49KopzXBN5D/JV2U5ybXNfJsVwaTAa0omJFElQrWjjcV0eO
+         1vMecaA2b56aojYlYb8FU1ulsER6PsdJFcwYqpdWQDUZG13/wuF1LykAPqfxEXLdpQa7
+         2uFoh6d43FZB/qzSM2KCbjGSv/oF/NpoOU2x+hJ4rGu0l4rNo4lLy3HvhPLcVt+bPDus
+         5C6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
          :from:date:message-id:subject:to:cc:content-transfer-encoding;
-        bh=55T5SPX8sO8bQ7hfM6c+eUrYXeAKqY1CbdxD2vEG0jU=;
-        b=idglcifKgGvylV8TNEZNKOYzaMcF0OspNfOBaSvgIxKR0hlcFj4FiT8fRcLbBggyi5
-         joJ2+VIM5ho8qPs1pMwF16W+8bGe7iwhdjmmjN/5c47Zu50MFEH9QYVFXBa6W2iXGK7o
-         B+rephaGrh+NjotM90oQPdefcbZRNsFyqHRBnB8dJ4dBwKdRekPz6WDx++spnkZelJou
-         FqN5BvUnvNHeAKsPx0zeUq23JJwuM1emhjFL8snKsjEFwpqPs0Mb+AuU4WHLa2K7gffB
-         CRoSodr5pz3pHEQsV//sFfEsUlqh3RhO72N/a0gDH7tJVZLicZ3B7Hbn6kFvPHL189JT
-         dvtg==
-X-Gm-Message-State: AOAM530n5xafOCAm/w2f46V4qXqTU2iHTVMI4opa33pP64cN81Een0yn
-        ppsk7Z9bBkjqk9eXHpF3NWN9E598elXOKu3SIG4=
-X-Google-Smtp-Source: ABdhPJzyuu1Xczn47jPck2qAWGTcYlRKu/W1K3kXUxs7H7EgwHqGNAUsg/ztGRYFqWqD4vUOdhK0ugSqKPb87Uzkoek=
-X-Received: by 2002:a9d:172e:: with SMTP id i46mr9864171ota.308.1627254558282;
- Sun, 25 Jul 2021 16:09:18 -0700 (PDT)
+        bh=IwhFelYqOwGDPI3Qgl46nFY767l0f1S/CkHFd3aq6Jw=;
+        b=q1TAf2qvkY2lr1AlOOFXHJ3ZcmyaHvqT+8ZLJh+Cp8vdW50vIN9VNZhlGZ0ndQ4uQx
+         3fzqAOXj/pDWFXZjd+IUhiCva5XxDBzgsPdkQ/09zWkJ2dAXCKhi4Qw9yxGtVKlVWnwX
+         LLnes2bvbzt0cHKBh+JNWUnYpFDgbAPCTiXryRM6KrY0O7QUlFc88ZslCZuZPJiFDulh
+         8RxS9qFvED5y3g+98pKgPaVhrmUegZ/l2tDx6NeMBtfxZJ8f17+sYaPhbWPQXGLiikNa
+         DQvVNk2vGg0uwcc8Wwz/EeSWXBH8lm1GYoiNbPsSznl7an7rLmmGpOXsNDRT5JR8y4Fw
+         xTdg==
+X-Gm-Message-State: AOAM530AyNhQJ69RjLb+ShAx96l+tCqxF42C8I8o7v6yNEaWoc+GIaXP
+        UZhl2jA6Y18z3pYdmCAqq5GgrR87/WLPmrAzfVU=
+X-Google-Smtp-Source: ABdhPJyCmELd4Epmb/m1C/iOPxyPfBO7EEkTlfUifYYi0KkAF8nf+6r2QMkpuyPP+4dAnNzSUWu49lOrb9W8J1cV0Pg=
+X-Received: by 2002:a9d:2782:: with SMTP id c2mr9958792otb.323.1627254685110;
+ Sun, 25 Jul 2021 16:11:25 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210725170802.GA16588@Debian-50-lenny-64-minimal>
-In-Reply-To: <20210725170802.GA16588@Debian-50-lenny-64-minimal>
+References: <20210725170822.GA16643@Debian-50-lenny-64-minimal>
+In-Reply-To: <20210725170822.GA16643@Debian-50-lenny-64-minimal>
 Reply-To: mtk.manpages@gmail.com
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Mon, 26 Jul 2021 01:09:06 +0200
-Message-ID: <CAKgNAkg5iC_KU3f8njpLn0Jm4M0Gt283i9T-tsWRii__vss8Zw@mail.gmail.com>
-Subject: Re: Errors in man pages, here: mmap.2
+Date:   Mon, 26 Jul 2021 01:11:13 +0200
+Message-ID: <CAKgNAkgCSD_pwAf0-A2ywdZ1n0zCVc2DWLxegsE7_xCobXA06g@mail.gmail.com>
+Subject: Re: Errors in man pages, here: open.2
 To:     Helge Kreutzmann <debian@helgefjell.de>
 Cc:     linux-man <linux-man@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
@@ -59,9 +59,12 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Thanks, Helge. Fixed.
+Hello Helge,
 
-Cheers,
+This bug report appears to be obsolete. I can't find this error in the page=
+.
+
+Thanks,
 
 Michael
 
@@ -102,19 +105,17 @@ On Sun, 25 Jul 2021 at 19:08, Helge Kreutzmann <debian@helgefjell.de> wrote=
 > I'm now reporting the errors for your project. If future reports
 > should use another channel, please let me know.
 >
-> Man page: mmap.2
-> Issue: I<len> =E2=86=92 I<length>
+> Man page: open.2
+> Issue: same was =E2=86=92 same ways
 >
-> "Don't interpret I<addr> as a hint: place the mapping at exactly that "
-> "address.  I<addr> must be suitably aligned: for most architectures a "
-> "multiple of the page size is sufficient; however, some architectures may=
- "
-> "impose additional restrictions.  If the memory region specified by I<add=
-r> "
-> "and I<len> overlaps pages of any existing mapping(s), then the overlappe=
-d "
-> "part of the existing mapping(s) will be discarded.  If the specified add=
-ress "
+> "When these APIs are given a I<dirfd> argument of B<AT_FDCWD> or the "
+> "specified pathname is absolute, then they handle their pathname argument=
+ in "
+> "the same way as the corresponding conventional APIs.  However, in this c=
+ase, "
+> "several of the APIs have a I<flags> argument that provides access to "
+> "functionality that is not available with the corresponding conventional =
+APIs."
 >
 > --
 >       Dr. Helge Kreutzmann                     debian@helgefjell.de
