@@ -2,28 +2,28 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C5C3A3D4EFB
-	for <lists+linux-man@lfdr.de>; Sun, 25 Jul 2021 19:12:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DE7433D4EFC
+	for <lists+linux-man@lfdr.de>; Sun, 25 Jul 2021 19:13:04 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229709AbhGYQcW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 25 Jul 2021 12:32:22 -0400
+        id S229831AbhGYQce (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 25 Jul 2021 12:32:34 -0400
 Received: from luckmann.name ([213.239.213.133]:56899 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S229689AbhGYQcV (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 25 Jul 2021 12:32:21 -0400
+        by vger.kernel.org with ESMTP id S229689AbhGYQcd (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 25 Jul 2021 12:32:33 -0400
 X-Greylist: delayed 302 seconds by postgrey-1.27 at vger.kernel.org; Sun, 25 Jul 2021 12:28:42 EDT
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000BD8019.0000000060FD9A66.000040CB; Sun, 25 Jul 2021 19:07:50 +0200
-Date:   Sun, 25 Jul 2021 19:07:50 +0200
+  id 0000000000BD801B.0000000060FD9A72.000040E6; Sun, 25 Jul 2021 19:08:02 +0200
+Date:   Sun, 25 Jul 2021 19:08:02 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: locale.5
-Message-ID: <20210725170750.GA16562@Debian-50-lenny-64-minimal>
+Subject: Errors in man pages, here: mmap.2
+Message-ID: <20210725170802.GA16588@Debian-50-lenny-64-minimal>
 Mime-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-16587-1627232870-0001-2"
+Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-16614-1627232882-0001-2"
 Content-Disposition: inline
 X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
 X-homepage: http://www.helgefjell.de/debian
@@ -35,7 +35,7 @@ X-Mailing-List: linux-man@vger.kernel.org
 This is a MIME-formatted message.  If you see this text it means that your
 E-mail software does not support MIME-formatted messages.
 
---=_luckmann.name-16587-1627232870-0001-2
+--=_luckmann.name-16614-1627232882-0001-2
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
@@ -74,20 +74,17 @@ them.
 I'm now reporting the errors for your project. If future reports
 should use another channel, please let me know.
 
-Man page: locale.5
-Issue: Better single-character string =E2=86=92 single character?
+Man page: mmap.2
+Issue: I<len> =E2=86=92 I<length>
 
-"followed by the single-character string that will be used as the decimal "
-"delimiter when formatting monetary quantities."
-
-"followed by the single-character string that will be used as a group "
-"separator when formatting monetary quantities."
-
-"followed by the single-character string that will be used as the decimal "
-"delimiter when formatting numeric quantities."
-
-"followed by the single-character string that will be used as a group "
-"separator when formatting numeric quantities."
+"Don't interpret I<addr> as a hint: place the mapping at exactly that "
+"address.  I<addr> must be suitably aligned: for most architectures a "
+"multiple of the page size is sufficient; however, some architectures may "
+"impose additional restrictions.  If the memory region specified by I<addr>=
+ "
+"and I<len> overlaps pages of any existing mapping(s), then the overlapped "
+"part of the existing mapping(s) will be discarded.  If the specified addre=
+ss "
 
 --=20
       Dr. Helge Kreutzmann                     debian@helgefjell.de
@@ -95,25 +92,25 @@ Issue: Better single-character string =E2=86=92 single character?
         64bit GNU powered                     gpg signed mail preferred
            Help keep free software "libre": http://www.ffii.de/
 
---=_luckmann.name-16587-1627232870-0001-2
+--=_luckmann.name-16614-1627232882-0001-2
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmD9mmYACgkQQbqlJmgq
-5nAF6Q/8DemWwXaZKg+bhVvr+0hg523wIYqu7DWy0gUjh+0wspOvgA/SppUpU50K
-i8vCo3ToAENA3pS4JhEUBUUsRkGWBcNbVfygtUUgBB4DevQAMjDSiAwmRSPrTWbu
-csemZ9s+1uaCRjPrAc1KcDdiSrbRTDhHWBw1dbs8bqNyF6HobTRBCohOR4IDXvq5
-nHij2YIs5u4SUWbYLcEO4Ei4ItTEuPbN7TLUAOzH7dT/i7rAK6MbymGIyDGpeYvp
-pTMmTQVw/gPJhfdOFPQKRWtzjjRD0dhv0n4TPkHHfluSU0R9jOzKjp0RwNvvyq3Z
-nIZPq509QmA9rljdKjbZK4zNSRzooMXHtgv/M6KeWdUkS3go/JZ23UWnId0NEIBv
-Wu+n7PrnzEVaufipJBtkv7wCJup1l94jNb39K5dSWMXRtY3Lj9DJHOp115+zlZ1u
-MyHE1/IULmON3QtqSVRM57AhBH3JZIp4072/7GFs5hHlzV0G+pSFU8/R7MmZDnic
-sk8YPscfTjPZQ571OYE4RQVNfMgk5sqYEePif2lNgcYIh/1hx5RgLR9q9tPogk40
-CXgeau1jscoCm234txpFMM/JNEUjRV8cMIoXTuOjPonssxaNJZeP3JC/im2jNlol
-NF3iQ4k95rWQ8Mors2sPIYRmI6wgoD3hgXLYsZZtUHv5uY1LarM=
-=vCjg
+iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmD9mnIACgkQQbqlJmgq
+5nBQ4xAAiaNa5W+AorJfI9YMtPsg+yGbQYB5MTgteidQ9/wn9B/uz2/VKtNLAjSQ
+LzA99QwNxIHcltnghBoYQ9QeZixx5qyvVJb5q1A331aLLsCKcBZ+uCE4hcRUWVYA
+6VFwamkH5USFBxgA2DttcceNGpEhRDp+GNkbhXuH+IkyfJtakEBEj30ztEaG4Rs3
+M7IjSXUY408auCipFYPBI11PyyxSJ8JklWqV06taTSo4R1y0r+arG7yzNJG2hCNC
+jA2Jrraqz8f8HaYJUyGf8wdi5xaDRd2gUnKSmoAVHaiWm0DoQLYwviWsmf2k6tEz
+1PMtX7pa0PXEop/Mzz60+X9A4kgQCQx9nfRWmA6LTFPrQGjuAmZ2c2/XTINIiIFH
+0Sb4b7gQmhHsE/hutNb97accH0OJL0Bb0CpNMo0brrjWpi6nisnzkot87n6cqTXF
+dq4ZSY6Oq9uElTVzlvhHqxkX27UTALfvn+i2RzvJzkDJVzoi6q87X75KgISv20Uk
+BeHG3DeMPZoNAnWfr3YTIsfe+x/67P+5ypi5H0/308/ugrwzjdqSpQFfMPFU+RHQ
+G5heRXdw5Tp/T48Kf77UhFnI/S3Ckqz7kb5rPIkZSMQeO/3OxjDSPAqxu4zWEn8W
+h/KBWngmTssdsM/lT3Zpld7Ye1oImb3qGKXNo/lm+07yNlVh9EE=
+=x1SU
 -----END PGP SIGNATURE-----
 
---=_luckmann.name-16587-1627232870-0001-2--
+--=_luckmann.name-16614-1627232882-0001-2--
