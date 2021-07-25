@@ -2,28 +2,28 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 23FE43D4EE7
-	for <lists+linux-man@lfdr.de>; Sun, 25 Jul 2021 19:09:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 935D33D4EE9
+	for <lists+linux-man@lfdr.de>; Sun, 25 Jul 2021 19:09:31 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229689AbhGYQ2p (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 25 Jul 2021 12:28:45 -0400
+        id S229825AbhGYQ3A (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 25 Jul 2021 12:29:00 -0400
 Received: from luckmann.name ([213.239.213.133]:56899 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S229545AbhGYQ2p (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 25 Jul 2021 12:28:45 -0400
+        by vger.kernel.org with ESMTP id S229709AbhGYQ3A (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 25 Jul 2021 12:29:00 -0400
 X-Greylist: delayed 302 seconds by postgrey-1.27 at vger.kernel.org; Sun, 25 Jul 2021 12:28:42 EDT
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000BD8002.0000000060FD9ABA.000041C8; Sun, 25 Jul 2021 19:09:14 +0200
-Date:   Sun, 25 Jul 2021 19:09:14 +0200
+  id 0000000000BD8002.0000000060FD9AC9.000041E3; Sun, 25 Jul 2021 19:09:29 +0200
+Date:   Sun, 25 Jul 2021 19:09:29 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: shmop.2
-Message-ID: <20210725170914.GA16816@Debian-50-lenny-64-minimal>
+Subject: Errors in man pages, here: signal.2
+Message-ID: <20210725170929.GA16841@Debian-50-lenny-64-minimal>
 Mime-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-16840-1627232954-0001-2"
+Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-16867-1627232969-0001-2"
 Content-Disposition: inline
 X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
 X-homepage: http://www.helgefjell.de/debian
@@ -35,8 +35,8 @@ X-Mailing-List: linux-man@vger.kernel.org
 This is a MIME-formatted message.  If you see this text it means that your
 E-mail software does not support MIME-formatted messages.
 
---=_luckmann.name-16840-1627232954-0001-2
-Content-Type: text/plain; charset=utf-8
+--=_luckmann.name-16867-1627232969-0001-2
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
@@ -74,11 +74,18 @@ them.
 I'm now reporting the errors for your project. If future reports
 should use another channel, please let me know.
 
-Man page: shmop.2
-Issue: file =E2=86=92 files
+Man page: signal.2
+Issue: Such paragraphs shouldn't be no-wrap
 
-"The following header file is included by the \"reader\" and \"writer\" "
-"programs."
+"B<WARNING>:\n"
+" the behavior of\n"
+"B<signal>()\n"
+"varies across UNIX versions,\n"
+"and has also varied historically across different versions of Linux.\n"
+"B<Avoid its use>: use\n"
+"B<sigaction>(2)\n"
+"instead.\n"
+"See I<Portability> below.\n"
 
 --=20
       Dr. Helge Kreutzmann                     debian@helgefjell.de
@@ -86,25 +93,25 @@ Issue: file =E2=86=92 files
         64bit GNU powered                     gpg signed mail preferred
            Help keep free software "libre": http://www.ffii.de/
 
---=_luckmann.name-16840-1627232954-0001-2
+--=_luckmann.name-16867-1627232969-0001-2
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIyBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmD9mroACgkQQbqlJmgq
-5nChmw/4q6zHnkhTBhnk/HrgdFGSsnHh2QSvC9vLWR94j3sUAe3pQzMK60KCqT4t
-rCXHdkTZxNUsF07NGmId+JjMCDLheC0MMsAXIi66Fta0UhzEqmRWVzsmH8lc32/0
-muiglvKjKgBKS8xPCRW1y5hZlo1H9MpDJ5q+HsBr/eNcHAKlVMpcjrY1JHACMRMK
-+qbnl8rsZknhscH+Zg2zrejYDxK0/3tgLohJ5NP34nC/DJguxW2Ol7huuDlYPB7J
-SxxjlDphRpH7JgKA3reVBBiSUpTsVOlO2M0X7p76KQs2po0kPR4/QAU7qkYUqKuc
-RMEVQYv+76s71gr8fNarRnQqo+UMfvkJtCt6ruiZHDL3/yVh8sagCc9r80SJyp3t
-wFLTMyrJSaOKWCCzI4RwFAcEY9HoO5rdhm2RLY92sdg3RkcKfteNnZfPyVbAJo5T
-z1P1dJQXquJPVDWy4pOgokzd/BWTsz2CwnPRntkE0WMYm7auCuKGyxf5pm/pHea+
-shQH/ZI5AeAJ694GkncS8AG6S91REy1mfRt1OywsYN1q7B83POykOq+wKhLr560E
-fBnsEUSqFOqmyUJGXnIXOfRQ8nMIp9DA5Kc3rguJ98d+GXjvJxkh3PnY7H1C4h6j
-yybqpiQxpLfI/WgV/MvWCw//pppYoFTpoUBBIdtYii6WA/W5Pg==
-=uqIa
+iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmD9mskACgkQQbqlJmgq
+5nDsGg//YGwV1O0NIum95QkNSU2k8myS0KrRyeaSWTMU8LLoPKCzXoUC0C8wQo9X
+UKZB3roljB4nW3J0sf7JBkBR2HOGrXTBm8PP/q5ECDJeIw4y49aLFDZMStwxMvKH
+YBbkvknr3l9y6FfKjHDSgmKytM3UzBaC6ESLpQ4Dg6Npf3fIKN5OAyFxqjsLNorS
+lgGJ2ke2lshg7Q420Xsbij8pgQnYQ/hb600bRbxyH7nLE/LtKC9ysn15B3RIH4cO
+xe1PEPbfua/fGbnKfRCP4fJ1we8X9dVfDq7x3nCuHY3+kA6h1IKYT0PHdojSEpZt
+St9q7J9MPoFykNXRHRj3QPL8KK20kMZh40dBo5GtCDoqqRHwpGbrTJJecjYM4HqF
+g+UDD/U1PE0hE5BFqglPLdvJPg2aAABR1zEIfAO+3++6JBT6vQLg3zx15LshkPWI
+ip5clqqu5Ho4rWgX90S0w4XKoFkepOnUVu3QDgBPgFWppFOx907OWbFdL709pxbV
+/NX0Ue/WMs+A+Yq+IoZnUYKc3I7rS7qYHJYkDmUS7YPpoovPYOzt7DlaRmwko6uM
+2YtHFcokh6aFkDXb2u/HXo6kUJ9X3RPxmBaWWGsiKmw51SCkAlUdbjBfjsEssYAi
+KpXWaR3JzTCipL/l/Wgq1+FxCaKL/lhrLK6mI7TJfg4xh3myJt4=
+=osVh
 -----END PGP SIGNATURE-----
 
---=_luckmann.name-16840-1627232954-0001-2--
+--=_luckmann.name-16867-1627232969-0001-2--
