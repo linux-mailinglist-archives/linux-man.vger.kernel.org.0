@@ -2,77 +2,75 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C22BD3D5076
-	for <lists+linux-man@lfdr.de>; Mon, 26 Jul 2021 00:49:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 220AA3D507B
+	for <lists+linux-man@lfdr.de>; Mon, 26 Jul 2021 00:54:33 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229543AbhGYWJT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 25 Jul 2021 18:09:19 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43520 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229531AbhGYWJS (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 25 Jul 2021 18:09:18 -0400
-Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com [IPv6:2607:f8b0:4864:20::22e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BBEB6C061757
-        for <linux-man@vger.kernel.org>; Sun, 25 Jul 2021 15:49:47 -0700 (PDT)
-Received: by mail-oi1-x22e.google.com with SMTP id l126so8917620oib.2
-        for <linux-man@vger.kernel.org>; Sun, 25 Jul 2021 15:49:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=Mo9wAcugu3vcngqAzkBqSD/tXL/WjFmUkDMT12pt6xw=;
-        b=NNJLji3ZlG46Ib/LozBBlmeDPb6B0J/BUF9Ae/9V7wYysGqF367+pPZaEtCZZU5Tlu
-         Yy3TAvEfzGH3tVHDn3HeoAJfjSud7CNzVqqxzvBEAeKyedzXiuBDc/c2tHAAQWUfOunZ
-         drjQ/Aoi/3xCEg+sE+IeTjxYmeFKhywVqoSXSv5KdxIrFHLxVkHT2oF6BnboYwpKqdkd
-         CLfdDcCv4MgPbz6Xh77uME1NnkJcKjOYNotDzR6H6y3P+SZvS/g84bVZ5XgkBeVIjPRn
-         FmNihtnIpEINw3WOfAJsWzaghAijjbCIcsrVc41VAlAVxdfAq5T/kyxel09kuguq8uaA
-         gQVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=Mo9wAcugu3vcngqAzkBqSD/tXL/WjFmUkDMT12pt6xw=;
-        b=EaGf6At+/u42Qfuoxu7tD2azFMWYcAf4V1gBWMN+yu3p3a8RPEbCgIzARmF/Bal0Pm
-         3UhHxpslfHhbm+wbXb3TsCOCRRxtGBqe9Fvvv0Nep5no7dIN1o46kl6qM2QAB0O/sB31
-         H6OYK259QA3GLyEYCo1bcuXlE0ijKUwa2j/QpRyCCjsfesY187/Bmmj00o6dX3oYoIJr
-         NyoUozjQ/S9h/AyBiXwtcDznbcEl25u2VO0G20a/6egDlNC3E5CEZSDrGDn/ORoLdgqy
-         iq0EuZkXbcCpnOjDpbkalYEZlyB/tPT4UWPLSVAGMMfY/KbybhCkgaw020NA4qBDT9+3
-         phhQ==
-X-Gm-Message-State: AOAM533YhU2a3WNTTfLD3osuSkQEhhdnd/4D5PHnyPrVNdNwWmrGZ6g7
-        NfTup0IW6KiZilhzBsJHcco21tY1CCduO2VApLw=
-X-Google-Smtp-Source: ABdhPJwJhvXzXo7APCQ92bTA8P0eSAGsj76KTsanm+gvt7Ou4zzf8T2yQ4bQPrlDnPYHIqVwAatRgOt+3CiW2XaPkh4=
-X-Received: by 2002:aca:1206:: with SMTP id 6mr9205038ois.148.1627253386897;
- Sun, 25 Jul 2021 15:49:46 -0700 (PDT)
+        id S229604AbhGYWOC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 25 Jul 2021 18:14:02 -0400
+Received: from mail.kernel.org ([198.145.29.99]:38082 "EHLO mail.kernel.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S229531AbhGYWOB (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Sun, 25 Jul 2021 18:14:01 -0400
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 5919C60E78;
+        Sun, 25 Jul 2021 22:54:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1627253671;
+        bh=6cZVzGO0OOJfnPFXMhyuWeUqYBPd2GwvRpVMpupHVu4=;
+        h=From:To:Subject:Date:From;
+        b=CTvbE16lgeMr+x3+qMwA8J/uHBy32kr4xkJxPgkKgNTBHMBAJoLm//EYrBFT6KYy2
+         R7AO0JVg+d/6CDnJTsveUL1MJm7X44QnLF20Jd2jjaO1DjDoNvC/kdgbPEp/qgU3HP
+         sLT13v2IUwlVesUlECxVHiiU/TZ9qOCulQ7DfmnuvQd7QbQdmUV2SO7ofVg7cFYkI0
+         MKt52V/LdIhQr2mh/YSs1JIvqH84oSYPA0Ev/Fe1a19m73WYnd39dJwzme6W0f/OvP
+         vwvnmA7+zl6rLJwSp/Nk6OmwTFFtFb4IzVY1hTZZTLp5u6VbBh5zFzVS7Q3x/tZ6Fz
+         XyvKtf3SUHnVQ==
+Received: by pali.im (Postfix)
+        id DBA4CAFA; Mon, 26 Jul 2021 00:54:28 +0200 (CEST)
+From:   =?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>
+To:     linux-man@vger.kernel.org,
+        Alejandro Colomar <alx.manpages@gmail.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+Subject: [PATCH] termios.3: Document missing baudrate constants
+Date:   Mon, 26 Jul 2021 00:53:57 +0200
+Message-Id: <20210725225357.7271-1-pali@kernel.org>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-References: <20210725170833.GA16668@Debian-50-lenny-64-minimal>
-In-Reply-To: <20210725170833.GA16668@Debian-50-lenny-64-minimal>
-Reply-To: mtk.manpages@gmail.com
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Mon, 26 Jul 2021 00:49:35 +0200
-Message-ID: <CAKgNAkis8D-ygTXzyFze6+V2Kf2z6Qo6Zt4rkUEruKeU1fxrTg@mail.gmail.com>
-Subject: Re: Errors in man pages, here: proc.5
-To:     Helge Kreutzmann <debian@helgefjell.de>
-Cc:     linux-man <linux-man@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Helge,
+These baudrate macro constants are defined in bits/termios.h and are
+already supported.
 
-> Man page: proc.5
-> Issue: Is it "OOM kiling" or "OOM-killing" (with dash)? Both is used.
->
-> "The value of I<oom_score_adj> is added to the badness score before it is "
-> "used to determine which task to kill.  Acceptable values range from -1000 "
-> "(OOM_SCORE_ADJ_MIN) to +1000 (OOM_SCORE_ADJ_MAX).  This allows user space to "
-> "control the preference for OOM-killing, ranging from always preferring a "
-> "certain task or completely disabling it from OOM killing.  The lowest "
-> "possible value, -1000, is equivalent to disabling OOM-killing entirely for "
-> "that task, since it will always report a badness score of 0."
+Signed-off-by: Pali Rohár <pali@kernel.org>
+---
+ man3/termios.3 | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-Thanks. I added a '-'.
+diff --git a/man3/termios.3 b/man3/termios.3
+index 797778680fcf..01c20994424d 100644
+--- a/man3/termios.3
++++ b/man3/termios.3
+@@ -945,6 +945,18 @@ to by \fItermios_p\fP to \fIspeed\fP, which must be one of these constants:
+ 	B57600
+ 	B115200
+ 	B230400
++	B460800
++	B500000
++	B576000
++	B921600
++	B1000000
++	B1152000
++	B1500000
++	B2000000
++	B2500000
++	B3000000
++	B3500000
++	B4000000
+ .ft P
+ .fi
+ .PP
+-- 
+2.20.1
 
-Cheers,
-
-Michael
