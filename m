@@ -2,28 +2,28 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 25EE23D4EF5
-	for <lists+linux-man@lfdr.de>; Sun, 25 Jul 2021 19:11:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 288D63D4EF6
+	for <lists+linux-man@lfdr.de>; Sun, 25 Jul 2021 19:11:52 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229689AbhGYQbI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 25 Jul 2021 12:31:08 -0400
+        id S229825AbhGYQbV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 25 Jul 2021 12:31:21 -0400
 Received: from luckmann.name ([213.239.213.133]:56899 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S229584AbhGYQbH (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 25 Jul 2021 12:31:07 -0400
+        by vger.kernel.org with ESMTP id S229584AbhGYQbU (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 25 Jul 2021 12:31:20 -0400
 X-Greylist: delayed 302 seconds by postgrey-1.27 at vger.kernel.org; Sun, 25 Jul 2021 12:28:42 EDT
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000BD800D.0000000060FD9A1D.0000401E; Sun, 25 Jul 2021 19:06:37 +0200
-Date:   Sun, 25 Jul 2021 19:06:36 +0200
+  id 0000000000BD800F.0000000060FD9A29.00004037; Sun, 25 Jul 2021 19:06:49 +0200
+Date:   Sun, 25 Jul 2021 19:06:49 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     linux-man@vger.kernel.org
-Subject: Errors in man pages, here: crypt.3
-Message-ID: <20210725170636.GA16387@Debian-50-lenny-64-minimal>
+Subject: Errors in man pages, here: environ.7
+Message-ID: <20210725170649.GA16415@Debian-50-lenny-64-minimal>
 Mime-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-16414-1627232797-0001-2"
+Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-16439-1627232809-0001-2"
 Content-Disposition: inline
 X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
 X-homepage: http://www.helgefjell.de/debian
@@ -35,7 +35,7 @@ X-Mailing-List: linux-man@vger.kernel.org
 This is a MIME-formatted message.  If you see this text it means that your
 E-mail software does not support MIME-formatted messages.
 
---=_luckmann.name-16414-1627232797-0001-2
+--=_luckmann.name-16439-1627232809-0001-2
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
@@ -74,10 +74,12 @@ them.
 I'm now reporting the errors for your project. If future reports
 should use another channel, please let me know.
 
-Man page: crypt.3
-Issue: Use tbl macro
+Man page: environ.7
+Issue: "set a login time" twice
 
-"ID  | Method"
+"A user's login directory, set a login time.  Set at login time, see sectio=
+n "
+"NOTES below."
 
 --=20
       Dr. Helge Kreutzmann                     debian@helgefjell.de
@@ -85,25 +87,25 @@ Issue: Use tbl macro
         64bit GNU powered                     gpg signed mail preferred
            Help keep free software "libre": http://www.ffii.de/
 
---=_luckmann.name-16414-1627232797-0001-2
+--=_luckmann.name-16439-1627232809-0001-2
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmD9mhwACgkQQbqlJmgq
-5nC+Ww//Wy/o8P+stZtElQECsFpv+9mRwX+Aq9r5wvEv6GQroruH0ZwC1tyW9FSK
-7qRykkYQEtqOfGXMfa4I2x11u0HvZ3Bhg5f30BsblCiK8xHhnHL3ghw3suiodSe9
-g1K9AWHE5kTCDzlvw9FhU1ll7tqIL7q2iami2ss4nZ8GtLRfC5wRRY2z+TtSogxs
-A6bpSobwaXJtCLDYwBBIgSVUxMSWWpTaDTnaQ4KtwywZHv/8J8wFkeiogdH737eN
-VwNI824K3jUxbx9L86sQH0UHpNtGJPvhk4b7WKxhIsfA+UEPGdJUroGbEUFWEz4e
-5okq60HdF1Bfr5my3IqpDyIEnJKZsS6HWi38APy2SL9caTUi3PavHjMIAKJQiKMj
-38eRPIiKMVzglevJzf8IP7MDzjjRZ8p4yQq8dDe29ln9O6nHWpr0ieh719AYZWYQ
-u2rQqEk+HgvozEz6wI/LPza4LCcUbUgY7DX2r71gYH0B3Io/Bho/oUUR/GOukfcy
-gb+2RMojNyDtw8kZzdMFT2+rLX8kZPNs3o/IpxtcOsVCWhUsFRWFLbDobzoN5/We
-jrfM/PMc406LIm6xkQAVsVzExcFO4eTO5bwAlfqBLKD2Pi6A5ESJB1vqk/l8GKQf
-swMPRJVu8uN0lvn95gS8HkWDJadIU6CRF8TKJnInGfiFCO/XbvY=
-=LFUN
+iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmD9mikACgkQQbqlJmgq
+5nDsRRAAsuggbXn/mqYn+1Y8Gte5+TIjm/Z0tpz/eFmA7mYEDS41hFfPnP/ON7uk
+FjD7zMzmVg7lq4zp8hZZQUoXbsgC+IUdTUy1PgRFP0HCKLB928O5gh+fbZGfRFnP
+hpwQtchWE0p+fmguHBR2Oy0u37ZGElLKXP/skAwQ5aJ5tfYB3E9eIk9fxXGi2olM
+FeKLf61TyYB0NorQc1fEQ8VHNLzwXWUrXpYc3CdkN7oxathHafRfQhjyLXhU47Iu
+o4rzyinK1aFQMGujQikVmVsEODKzcOtTGCGNmSH14ZvVT1K5Qux3p+pNyjruqy2t
+imYb0LsoObbRfMLzcmWCtPVqxgGJaePCLk3b1iA65+a0VTygeqiDGBk9e88bN5Xn
+NCNVxcKBiJGVMp2/N4FFMIautikh+ZVgt46dqa1Uw1vNs+l2VwFKdcoci8Vb6K08
+1NSAQUTLmV7O+TZHqpJktTwnpHDiAWnu9w3Koh1wBsON0PCAGePFRNogV5iFBrKJ
+pEGXQaIvvysKpiJBnNgqv+li0nSitCqQsDJqcNF/DIv8Kmw/0jyx7CzoDHF5IVpU
+gB2+lk+617JZ9gh6uqhFKfzuCqllKC2srKqS6a0NBUxxXR8w9UD0iq06UAHNnuDm
+9ZC/HTpwOrS6SyxNryqurkzF5dpMybzn+uD9YM/UGNbNIQkrIvA=
+=4kti
 -----END PGP SIGNATURE-----
 
---=_luckmann.name-16414-1627232797-0001-2--
+--=_luckmann.name-16439-1627232809-0001-2--
