@@ -2,74 +2,80 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 5A6593D500C
-	for <lists+linux-man@lfdr.de>; Sun, 25 Jul 2021 22:59:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7FD983D500E
+	for <lists+linux-man@lfdr.de>; Sun, 25 Jul 2021 23:00:30 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229661AbhGYUSd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 25 Jul 2021 16:18:33 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47556 "EHLO
+        id S229709AbhGYUTx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 25 Jul 2021 16:19:53 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47850 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229518AbhGYUSc (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 25 Jul 2021 16:18:32 -0400
-Received: from mail-oo1-xc35.google.com (mail-oo1-xc35.google.com [IPv6:2607:f8b0:4864:20::c35])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 400FFC061757
-        for <linux-man@vger.kernel.org>; Sun, 25 Jul 2021 13:59:01 -0700 (PDT)
-Received: by mail-oo1-xc35.google.com with SMTP id w24-20020a4ac1980000b0290251d599f19bso1791044oop.8
-        for <linux-man@vger.kernel.org>; Sun, 25 Jul 2021 13:59:01 -0700 (PDT)
+        with ESMTP id S229518AbhGYUTv (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 25 Jul 2021 16:19:51 -0400
+Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com [IPv6:2607:f8b0:4864:20::22a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 70AF5C061757
+        for <linux-man@vger.kernel.org>; Sun, 25 Jul 2021 14:00:20 -0700 (PDT)
+Received: by mail-oi1-x22a.google.com with SMTP id u25so8657476oiv.5
+        for <linux-man@vger.kernel.org>; Sun, 25 Jul 2021 14:00:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=CeLSG868yN7VaRNsk/H46WfFHOpXTdJqzFmCKf8O2J4=;
-        b=nmXupgpmSyu0KgKURQljCbWth75Bh8kSD6MU/acY5AtJ7ThLz9mCNKLNCmGXFx4ZpN
-         au93BSZp+VhKrHlmvE6+Uk08w2dr9LwKKEWfud1UCqwR9CLJiAu5DaE81Fu+2Xu/LtFs
-         eHhMzAuAZ+0ME3Xneku+ttzCr+P6o2bMiUEMDLczukdtKzi8P8nQqpJzvXfbiocY9mRc
-         p2fgpjhHtwNprgDTAWheAwLbtY5rVV5AZPbzLciIQjkhX6aOROeIQav9Gz7Pg5Q2x/uh
-         zEExgZyC+AHGTmEmzPfS610jrahicYUJF2E8snikB/CdCCKzNsjUBx3nwplbX8o3+/kR
-         XB6w==
+         :subject:to:cc:content-transfer-encoding;
+        bh=xnZPcTIPkh4zs4eqIswDKlN8AksjpEuaP1Gv2un4LQU=;
+        b=AAaHEvk4DupZxb8tjJ3wEaD6fyFjP4zy0FsJUC128oIB56ZpDNd5A1mImFlkEcxYw+
+         4qoQa7Eelc0P1f1jmWsYGTgB8oWFB5kEvBikjEZOX+KLxVyaXFFabXkoGyFkNNsTL9QX
+         yID5nbQltY02GzF9WCRjhITk6vCQ7KeG/pv6QklAZtqkb1qcAGY23n4oowK+mGCMGKbW
+         n5Uczvb0b8d24vxnb8bXDvbh6YDN97zSN2Rxm5WtU3kXMvl7ompGdbl22dpVW/4RmbzI
+         O1eTfhQpfKsSnkJ2+p3UyIWMca0PZjKFh3C3Yi8YUuSl39QMiRaneanCpHxTlz835APl
+         4aig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=CeLSG868yN7VaRNsk/H46WfFHOpXTdJqzFmCKf8O2J4=;
-        b=Ntr5yvIE0RHLI3f+xJzI/mmuUySART3tAUiHaqxJj4xFkIBuA8+PhiBV0W4sSSw9YJ
-         wlPiUaE+raETRFuX7q5acHSdLMeFKUN/7FjNjbSAmJkGHvPUFAEWUoOm4tSsa1+RlQEx
-         LTSTNSv5mj2pGzFRStRwpXERVmyagGrsz13Vp4+Y3a2VkVpYPouO6oUxev7cnMj4RlHj
-         r/62vrUPNRvsdnXZDfERFC9dLv/DMlkT6UpF9wXB4zJuN53DZke5pogje0aUHvo8OQRK
-         Lw0O2iiSLehtUX36rDIE6pVcPcGldAGufbxM0yzN09td446hcWBcDFchRNG4/Xq8MN5d
-         UB2Q==
-X-Gm-Message-State: AOAM530mW8vbXbDSJwbvMoFEU8tQbt7zJE6IXraONlAGw7180DXruW1u
-        g6HyrpK2A0MeCOWmM/xcRCSpOhFNQ5jlgr1BzjM=
-X-Google-Smtp-Source: ABdhPJwcSlizCIDzHnsm011HmDVrgVimOC9JywLCgqQxWUxOu9cSHOVtJsNPwhH71VFse7a0uE7bOCXkIds7kN4a5lo=
-X-Received: by 2002:a4a:9783:: with SMTP id w3mr8496428ooi.80.1627246740539;
- Sun, 25 Jul 2021 13:59:00 -0700 (PDT)
+         :from:date:message-id:subject:to:cc:content-transfer-encoding;
+        bh=xnZPcTIPkh4zs4eqIswDKlN8AksjpEuaP1Gv2un4LQU=;
+        b=CBX1TL0d9pK25y5XgAkZDriym7OXYnpZpLgJpTSLa7CGwm3XcgxzoCdRJ+hiqKnSwn
+         KRpVEJ1BUbYX9b2poAdZBkZSeqyYp606JBDU1FLn5tZ/y2+4VaPr3iQ8O47+rR1EOI72
+         CA21+TPJFa5WACiGFoRulAlW5EEtTlQyfSNIBjUZLADnIM0I2HnfJAwOev0GrMS5W/3g
+         ew1Gh/HsRUIOsuci+loJm50vVyGPWnQ9f6I+BxKjz7ORo5asVL4OwM4Lsfdmrm/voV05
+         CqjcEdikiOCWGSXdON7ydGhpYmEKRvRcXQ3J4cKKx6dOxdPF62hrig5TyqCqw43sJCbM
+         AfhQ==
+X-Gm-Message-State: AOAM532pLEsm0A9ZEe6VH2DLl7+PALpO9U7R2KnyVUZsBnG1Q8m0XOLF
+        X69bWtpPgNk+nhpRdnWwNiliRmkO8yX639l6kis=
+X-Google-Smtp-Source: ABdhPJyCfe0A6QF5SBddjtroqMvyTsboFRLqJaIkRwVEl/3jjQxerXIRCnIsGj9PdNFA2zsnrGMRAyHDlNF91DCLGe0=
+X-Received: by 2002:a54:4094:: with SMTP id i20mr9005794oii.159.1627246819918;
+ Sun, 25 Jul 2021 14:00:19 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210725170955.GA16896@Debian-50-lenny-64-minimal>
-In-Reply-To: <20210725170955.GA16896@Debian-50-lenny-64-minimal>
+References: <20210725170941.GA16868@Debian-50-lenny-64-minimal>
+In-Reply-To: <20210725170941.GA16868@Debian-50-lenny-64-minimal>
 Reply-To: mtk.manpages@gmail.com
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Sun, 25 Jul 2021 22:58:49 +0200
-Message-ID: <CAKgNAkg4Kxy0mi4p2to9zKohFXuZ7QWN7bCS4vRX46=YgAK67A@mail.gmail.com>
-Subject: Re: Errors in man pages, here: sysvipc.7
+Date:   Sun, 25 Jul 2021 23:00:08 +0200
+Message-ID: <CAKgNAkjS0auS3DFa2s618d65nj7Uv-=eSd7iyPu7VKJLCkYrtg@mail.gmail.com>
+Subject: Re: Errors in man pages, here: sync.2
 To:     Helge Kreutzmann <debian@helgefjell.de>
 Cc:     linux-man <linux-man@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Helge
-
-> Man page: sysvipc.7
-> Issue: Missing full stop after actions
+> Man page: sync.2
+> Issue: to a files =E2=86=92 to a file
 >
-> "System V semaphores allow processes to synchronize their actions System V "
-> "semaphores are allocated in groups called sets; each semaphore in a set is a "
-> "counting semaphore.  POSIX semaphores provide an alternative API for "
-> "achieving the same result; see B<sem_overview>(7)."
+> "Data was written to a files on NFS or another filesystem which does not =
+"
+> "allocate space at the time of a B<write>(2)  system call, and some previ=
+ous "
+> "write failed due to insufficient storage space."
 
-Fixed. s/action/actions./
+Thanks. Fixed.
 
 Cheers,
 
 Michael
+
+
+--=20
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
