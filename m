@@ -2,89 +2,77 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 451333D5074
-	for <lists+linux-man@lfdr.de>; Mon, 26 Jul 2021 00:46:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C22BD3D5076
+	for <lists+linux-man@lfdr.de>; Mon, 26 Jul 2021 00:49:49 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229543AbhGYWFa (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 25 Jul 2021 18:05:30 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42700 "EHLO
+        id S229543AbhGYWJT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 25 Jul 2021 18:09:19 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43520 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229531AbhGYWFa (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 25 Jul 2021 18:05:30 -0400
-Received: from mail-oo1-xc2e.google.com (mail-oo1-xc2e.google.com [IPv6:2607:f8b0:4864:20::c2e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CDA45C061757
-        for <linux-man@vger.kernel.org>; Sun, 25 Jul 2021 15:45:58 -0700 (PDT)
-Received: by mail-oo1-xc2e.google.com with SMTP id y16-20020a4ad6500000b0290258a7ff4058so1838859oos.10
-        for <linux-man@vger.kernel.org>; Sun, 25 Jul 2021 15:45:58 -0700 (PDT)
+        with ESMTP id S229531AbhGYWJS (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 25 Jul 2021 18:09:18 -0400
+Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com [IPv6:2607:f8b0:4864:20::22e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BBEB6C061757
+        for <linux-man@vger.kernel.org>; Sun, 25 Jul 2021 15:49:47 -0700 (PDT)
+Received: by mail-oi1-x22e.google.com with SMTP id l126so8917620oib.2
+        for <linux-man@vger.kernel.org>; Sun, 25 Jul 2021 15:49:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc:content-transfer-encoding;
-        bh=ltjlmFB1rYkpjOZ/DZzUpTOhhNfKpNBConlf6eYaRps=;
-        b=uyKiIpQnp3RWSmIwKDL0NbNTL+UZX7yG1EoNzQ5GHKC9jVfNuiULa6omvNkZ/DVmZ9
-         H5ykkWrNy6tujIrBAKeC+29RmFoLV6L3E8szeL8ywbRSobUFPv+9cDucc82eoi4pGV31
-         UVwKrP6KUyZuwgR9czwIRfqJ/1WaGMKAsWVFL0uoHl8Ru9eFU1FCZgtOUjeiWXw3M6fs
-         ajfKsqGw1NItMxB/8PvJIO0tWCGRwQAW2ZaHibhkOsL+r0wi5GpZxZGn2N8iIj7Sikb+
-         qloRAHbJztRU+/35NMnT24cEuJqk/S5CnsnhwDUrrsk+0eT/TH1l+FhnSYFQun76XPmr
-         Gd4w==
+         :subject:to:cc;
+        bh=Mo9wAcugu3vcngqAzkBqSD/tXL/WjFmUkDMT12pt6xw=;
+        b=NNJLji3ZlG46Ib/LozBBlmeDPb6B0J/BUF9Ae/9V7wYysGqF367+pPZaEtCZZU5Tlu
+         Yy3TAvEfzGH3tVHDn3HeoAJfjSud7CNzVqqxzvBEAeKyedzXiuBDc/c2tHAAQWUfOunZ
+         drjQ/Aoi/3xCEg+sE+IeTjxYmeFKhywVqoSXSv5KdxIrFHLxVkHT2oF6BnboYwpKqdkd
+         CLfdDcCv4MgPbz6Xh77uME1NnkJcKjOYNotDzR6H6y3P+SZvS/g84bVZ5XgkBeVIjPRn
+         FmNihtnIpEINw3WOfAJsWzaghAijjbCIcsrVc41VAlAVxdfAq5T/kyxel09kuguq8uaA
+         gQVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc:content-transfer-encoding;
-        bh=ltjlmFB1rYkpjOZ/DZzUpTOhhNfKpNBConlf6eYaRps=;
-        b=IATzWoNqM55U1CtA1U2QGFf68kbZ8r5lXkD41THAeMFo8JBpOcTo5a5gpQ47oVtOnY
-         2nQdxolQ86tkdoRgTC+ztI1T9gD2qWg912AoshAoYHZJsM7hXY+XTuEW5gavxYNU7po9
-         dCfPkTinH6/5CnxsVLc2WHaRqXNuhwv30DsK0mhYbS2AeRxErhQafM2bySUSTTZGOXA1
-         HwGg6xxdLzJcOqpYj2tHwmX4ZZiPZxuVP8u2koGuyed3Z+8E4hssX1nGVQ8Y1xM8aIWN
-         jQjGnX6QpC6sU4nkQTa9KTatqqQ8BzTEDXEBMDCy77gV9DneaS1aRJJTL2ggO3zoYINZ
-         L81g==
-X-Gm-Message-State: AOAM531BvgvRGwOIoTrFqJziRi1/hY7KCzzULUMu/wICPujYvjhNPzt+
-        Q2/8HWIjVMYuu0mWCofaIQoMCQSzPn1Y9S8A3JAwBGm/knU=
-X-Google-Smtp-Source: ABdhPJx6MntskWETaR4eCZcijMs4VkaOYkkrTDEqlsvk/a8UqxEmpAEOot5Hg4xTkeaH7DexozZ5EKAWyAmksd4tszo=
-X-Received: by 2002:a4a:df02:: with SMTP id i2mr8815327oou.14.1627253157633;
- Sun, 25 Jul 2021 15:45:57 -0700 (PDT)
+         :from:date:message-id:subject:to:cc;
+        bh=Mo9wAcugu3vcngqAzkBqSD/tXL/WjFmUkDMT12pt6xw=;
+        b=EaGf6At+/u42Qfuoxu7tD2azFMWYcAf4V1gBWMN+yu3p3a8RPEbCgIzARmF/Bal0Pm
+         3UhHxpslfHhbm+wbXb3TsCOCRRxtGBqe9Fvvv0Nep5no7dIN1o46kl6qM2QAB0O/sB31
+         H6OYK259QA3GLyEYCo1bcuXlE0ijKUwa2j/QpRyCCjsfesY187/Bmmj00o6dX3oYoIJr
+         NyoUozjQ/S9h/AyBiXwtcDznbcEl25u2VO0G20a/6egDlNC3E5CEZSDrGDn/ORoLdgqy
+         iq0EuZkXbcCpnOjDpbkalYEZlyB/tPT4UWPLSVAGMMfY/KbybhCkgaw020NA4qBDT9+3
+         phhQ==
+X-Gm-Message-State: AOAM533YhU2a3WNTTfLD3osuSkQEhhdnd/4D5PHnyPrVNdNwWmrGZ6g7
+        NfTup0IW6KiZilhzBsJHcco21tY1CCduO2VApLw=
+X-Google-Smtp-Source: ABdhPJwJhvXzXo7APCQ92bTA8P0eSAGsj76KTsanm+gvt7Ou4zzf8T2yQ4bQPrlDnPYHIqVwAatRgOt+3CiW2XaPkh4=
+X-Received: by 2002:aca:1206:: with SMTP id 6mr9205038ois.148.1627253386897;
+ Sun, 25 Jul 2021 15:49:46 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210725170750.GA16562@Debian-50-lenny-64-minimal>
-In-Reply-To: <20210725170750.GA16562@Debian-50-lenny-64-minimal>
+References: <20210725170833.GA16668@Debian-50-lenny-64-minimal>
+In-Reply-To: <20210725170833.GA16668@Debian-50-lenny-64-minimal>
 Reply-To: mtk.manpages@gmail.com
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Mon, 26 Jul 2021 00:45:46 +0200
-Message-ID: <CAKgNAkiPpAceVgyis8PGwu7Jsh2hqLEK2rxO8OJnDfCL618F4w@mail.gmail.com>
-Subject: Re: Errors in man pages, here: locale.5
+Date:   Mon, 26 Jul 2021 00:49:35 +0200
+Message-ID: <CAKgNAkis8D-ygTXzyFze6+V2Kf2z6Qo6Zt4rkUEruKeU1fxrTg@mail.gmail.com>
+Subject: Re: Errors in man pages, here: proc.5
 To:     Helge Kreutzmann <debian@helgefjell.de>
 Cc:     linux-man <linux-man@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Helge,
+Hello Helge,
 
-> Man page: locale.5
-> Issue: Better single-character string =E2=86=92 single character?
+> Man page: proc.5
+> Issue: Is it "OOM kiling" or "OOM-killing" (with dash)? Both is used.
 >
-> "followed by the single-character string that will be used as the decimal=
- "
-> "delimiter when formatting monetary quantities."
->
-> "followed by the single-character string that will be used as a group "
-> "separator when formatting monetary quantities."
->
-> "followed by the single-character string that will be used as the decimal=
- "
-> "delimiter when formatting numeric quantities."
->
-> "followed by the single-character string that will be used as a group "
-> "separator when formatting numeric quantities."
+> "The value of I<oom_score_adj> is added to the badness score before it is "
+> "used to determine which task to kill.  Acceptable values range from -1000 "
+> "(OOM_SCORE_ADJ_MIN) to +1000 (OOM_SCORE_ADJ_MAX).  This allows user space to "
+> "control the preference for OOM-killing, ranging from always preferring a "
+> "certain task or completely disabling it from OOM killing.  The lowest "
+> "possible value, -1000, is equivalent to disabling OOM-killing entirely for "
+> "that task, since it will always report a badness score of 0."
 
-"Single-character string" seems okay to me. No change is needed, I think.
+Thanks. I added a '-'.
 
-Thanks,
+Cheers,
 
 Michael
-
---=20
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
