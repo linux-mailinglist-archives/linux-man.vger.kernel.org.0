@@ -2,36 +2,36 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0E97E3D507D
-	for <lists+linux-man@lfdr.de>; Mon, 26 Jul 2021 00:55:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2BF0D3D507F
+	for <lists+linux-man@lfdr.de>; Mon, 26 Jul 2021 00:55:38 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229547AbhGYWOa (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 25 Jul 2021 18:14:30 -0400
-Received: from mail.kernel.org ([198.145.29.99]:38178 "EHLO mail.kernel.org"
+        id S229604AbhGYWO5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 25 Jul 2021 18:14:57 -0400
+Received: from mail.kernel.org ([198.145.29.99]:38218 "EHLO mail.kernel.org"
         rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S229531AbhGYWOa (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Sun, 25 Jul 2021 18:14:30 -0400
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 9B7F260249;
-        Sun, 25 Jul 2021 22:54:59 +0000 (UTC)
+        id S229531AbhGYWOs (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Sun, 25 Jul 2021 18:14:48 -0400
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 2846A60249;
+        Sun, 25 Jul 2021 22:55:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1627253699;
-        bh=CVpoAAe404FdROZZJHb8WZel2X2s6mzipWdLSqZxn34=;
+        s=k20201202; t=1627253718;
+        bh=xWKDtMKp96ySUTRlkjOTp9B+OB/BgcebxLciL+8fjsE=;
         h=From:To:Subject:Date:From;
-        b=qzXhOl1AodZJN19F6krRXfLxJm1c4bDCiISTsZWuW/2Rnu7YbpCIWdCEmCuSxlsjq
-         aH9+CVtu1MRhc+iFRkC3dpkGws1ne9KR7YCv0wBq/Y0/whcoYj3XHClJ90QgjbAd3J
-         cKVCOcyYuR2Cd/FHT9jvvzCpZgl+lvY0x4QJCZ4qFC5f+QOv49Yxn01Zzh/VD7DnhN
-         s1VHfBgcSoR4PoQtmXkSrA88ihDbgA9PpE1FQto5B9TIcs2xXufTYYvw/TQCLegKV3
-         GHVTJ9ayNToJfWWZnA1T6YSKYnId+hPUq4Dgw1G8xOHw7lQGxqo1chRPBqpfWIGBGk
-         vVEyLKo+RWPeg==
+        b=eL8U7Q9Fh2lKaai+T5mNT7PLMRFqyFAWELOapZYM1jE1iqNSCT+6fFqNgD0p+Khxt
+         jpwBXz0P/7xAciKJOS9AmGynDjWNjou6enC5pAmeHAwxwbYwnr0y7f9JUhSAucnS0o
+         DLxT11M8qdCmj+yYZUdXtYnxuJfLqsi4dEdJj4A26ZHyqiRO0dZNSzcVAkr8cx6lBr
+         2xUpjLgQpj0YgxPNYBCpDlP7otRw+EVmJg4IlqAeulVz5TDD/xbx/kV8/Bi6cDg+cj
+         CADUWBKcgoPGzBG6M5p6y1I/CJaRNlp9uHNPi7jbQs1dGRsKw3ZULAQ324ELB6tJaw
+         V2fDnkezQiVRA==
 Received: by pali.im (Postfix)
-        id E626BAFA; Mon, 26 Jul 2021 00:54:57 +0200 (CEST)
+        id 77B71AFA; Mon, 26 Jul 2021 00:55:16 +0200 (CEST)
 From:   =?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>
 To:     linux-man@vger.kernel.org,
         Alejandro Colomar <alx.manpages@gmail.com>,
         Michael Kerrisk <mtk.manpages@gmail.com>
-Subject: [PATCH] termios.3: Use bold style for Bnn and EXTn macro constants
-Date:   Mon, 26 Jul 2021 00:54:53 +0200
-Message-Id: <20210725225453.7341-1-pali@kernel.org>
+Subject: [PATCH] ioctl_tty.2: Document ioctls: TCGETS2, TCSETS2, TCSETSW2, TCSETSF2
+Date:   Mon, 26 Jul 2021 00:55:06 +0200
+Message-Id: <20210725225506.7404-1-pali@kernel.org>
 X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -42,25 +42,49 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Signed-off-by: Pali Rohár <pali@kernel.org>
 ---
- man3/termios.3 | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ man2/ioctl_tty.2 | 29 +++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
 
-diff --git a/man3/termios.3 b/man3/termios.3
-index 01c20994424d..e603879e18d4 100644
---- a/man3/termios.3
-+++ b/man3/termios.3
-@@ -1068,8 +1068,9 @@ and
- are nonstandard, but available on the BSDs.
- .SH NOTES
- UNIX\ V7 and several later systems have a list of baud rates
--where after the fourteen values B0, ..., B9600 one finds the
--two constants EXTA, EXTB ("External A" and "External B").
-+where after the fourteen values \fBB0\fP, ..., \fBB9600\fP
-+one finds the two constants \fBEXTA\fP, \fBEXTB\fP
-+("External A" and "External B").
- Many systems extend the list with much higher baud rates.
- .PP
- The effect of a nonzero \fIduration\fP with
+diff --git a/man2/ioctl_tty.2 b/man2/ioctl_tty.2
+index c8269070180f..0c3a8ec24c76 100644
+--- a/man2/ioctl_tty.2
++++ b/man2/ioctl_tty.2
+@@ -77,6 +77,35 @@ The following four ioctls are just like
+ .BR TCSETSW ,
+ .BR TCSETSF ,
+ except that they take a
++.I "struct termios2\ *"
++instead of a
++.IR "struct termios\ *" .
++.I "struct termios2\ *"
++is defined in header file
++.IR "<asm/termbits.h>" .
++If struct member
++.B c_cflag
++contains
++.B BOTHER
++then baudrate is stored in struct members
++.BR c_ispeed " and " c_ospeed
++as integer values.
++These ioctls are not supported on all architectures.
++.IP
++.BI "TCGETS2	struct termios2 *" argp
++.IP
++.BI "TCSETS2	const struct termios2 *" argp
++.IP
++.BI "TCSETSW2	const struct termios2 *" argp
++.IP
++.BI "TCSETSF2	const struct termios2 *" argp
++.PP
++The following four ioctls are just like
++.BR TCGETS ,
++.BR TCSETS ,
++.BR TCSETSW ,
++.BR TCSETSF ,
++except that they take a
+ .I "struct termio\ *"
+ instead of a
+ .IR "struct termios\ *" .
 -- 
 2.20.1
 
