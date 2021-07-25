@@ -2,134 +2,99 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E52513D4FE2
-	for <lists+linux-man@lfdr.de>; Sun, 25 Jul 2021 22:30:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CD46D3D4FE6
+	for <lists+linux-man@lfdr.de>; Sun, 25 Jul 2021 22:33:39 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229709AbhGYTtx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 25 Jul 2021 15:49:53 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41198 "EHLO
+        id S229709AbhGYTxI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 25 Jul 2021 15:53:08 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41954 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230439AbhGYTtv (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 25 Jul 2021 15:49:51 -0400
-Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com [IPv6:2607:f8b0:4864:20::22d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A2DE9C061757
-        for <linux-man@vger.kernel.org>; Sun, 25 Jul 2021 13:30:21 -0700 (PDT)
-Received: by mail-oi1-x22d.google.com with SMTP id q6so8565697oiw.7
-        for <linux-man@vger.kernel.org>; Sun, 25 Jul 2021 13:30:21 -0700 (PDT)
+        with ESMTP id S229661AbhGYTxI (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 25 Jul 2021 15:53:08 -0400
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com [IPv6:2a00:1450:4864:20::435])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CCAAEC061757
+        for <linux-man@vger.kernel.org>; Sun, 25 Jul 2021 13:33:37 -0700 (PDT)
+Received: by mail-wr1-x435.google.com with SMTP id r2so8609189wrl.1
+        for <linux-man@vger.kernel.org>; Sun, 25 Jul 2021 13:33:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc:content-transfer-encoding;
-        bh=Q2Pe7xb1yNJJSg7WWpwFujeJiETPHSbRLq+1obojYfs=;
-        b=Y4IltEHy5LsGY3JbqHgnrBaDG+cktbXy/43tsgeA9zH5dnF3BNK3m2frKphAJfIqk8
-         5ZRgIUUY2YXgRQ2zYnuaFR8OMm9iS6MJbOryohW6WkOil/GoznjGDH1oTmoWIPIs5lcR
-         ENqOpodr+o6I1cOf/Tn31vT6q23re5RPiceyRdV9f0gX1vaz8yuX9rh7Be8ktt2a4zr1
-         DFYOiX2ATsFt2k4ANsUFi6shbbDnMcPsXXuiSxW5MxocCPYWjMC/C0knc9ndg/OAJQPz
-         v2fiEeycAJpzF0ef96UlsG6Oebdf11utHtvtSarWXAKKkNYttJG0V5ro6DJtoJdjHxRr
-         4mYw==
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=rAkjJMs2/d63q2KA3aFkzMxqGbG9Xyl18yBLTrAxkEE=;
+        b=K+lsLSuvdyZs9CgJ/Xa+b4sBYNmUXza1u8DgzTuXBUFUwtCevJMYV2Jh5vDNwRuPja
+         jZmvto3OY5tE5I9NTAzVwoNDoh0CIGDO+PTD9NTFe7fwbaFCJBHMacBJKiIUydIlDs2W
+         HogKHTGDWmcgNd2knomB/nzsPMcFKBYCIEvln8lxhHrnl6FXrkjLqfvXx31cXWVWhgFh
+         CD3UlN/4zhRggRBgyJY1FIRekeawtID7NHyOiHz2tDJe9le5ttQXUlOrVd611tlfXtth
+         YLikUFFCCvNsaRSCtkEA0O3UwdWvPt9ScrLex3Nt35ItSrLEVncm4CoCI5+I3pEbBPfJ
+         YMog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc:content-transfer-encoding;
-        bh=Q2Pe7xb1yNJJSg7WWpwFujeJiETPHSbRLq+1obojYfs=;
-        b=TrxG1MgcHx4V2ydxeMhEL8eHviwstLs7li5HxuVBGP5G+WOWtCiEM33DrfayurFYeL
-         JVacdLxBtgQ5TR5wvLDs8wYieR8JESLXBxztU51XqPg5eVsbET3ysdE2nGxGA6PeSLjD
-         iE/vB5HNKz1KR1jEzZ4b1k7dw+GOmmcbVRUEoCQEEosESXEZIz3lRRjvE6ywYjrP6nX4
-         K7blD1dMXqjq3vBC/yjlwT3PHswRC5RV3tLxxroYtsT9cCQTml9ami3RajRzlWqR2QJm
-         Fza2K5fHTfl/hemmClir43RHsa8H+ryJPLnvbJqVAM28dSluJlLDl+qd1uqGxdcEm/ST
-         IQtg==
-X-Gm-Message-State: AOAM530dU/IeyKbp/Er5gGQePYo6DeBKX8Vk7Lgt5qogPg2rv9bls3+G
-        wr3EpIMNw77KpkWAiLPzUZwTXquGPQ1mUypw5gM=
-X-Google-Smtp-Source: ABdhPJyTkWvO6yIPTt+lQEKs01OID0hYpfRGpxIrpgDxr/X+x+BmHAT+dCBuLoeYd2g27q0cnjl9AJ9GLgrHitYpNKs=
-X-Received: by 2002:aca:1206:: with SMTP id 6mr9005939ois.148.1627245021118;
- Sun, 25 Jul 2021 13:30:21 -0700 (PDT)
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=rAkjJMs2/d63q2KA3aFkzMxqGbG9Xyl18yBLTrAxkEE=;
+        b=TVv3YEYweUupchtHJhxfISlMdbAcSV/LxRuvQF0kRVtQzS4T/edpaNByfBdMCv4SYb
+         x0ia8mrIWtA7yb+7OFxTGdI343Fp6ScfmtWELPREBSVn9hqa3ASU42oVaO6y5Ks8aJnC
+         6Xdrg172ba6ng0WHBkMpf09Qw4G8BIq9UGjKfdF1A2NAvbz4ggU7XmTCDucstv5QvIWa
+         yOBO7RWKlnwWT/atQCM3HHcIipu3OBIFCb/oS1+rMQpz7HN4kXQvjy2Q3npbU+eswHA7
+         hYcBIhKORAgtAHm7YjxLJ+mZzwQT6BEhGhL3qqcKqnzmsVoGf8vp4KkBeNuIZzzft2Aw
+         tPdg==
+X-Gm-Message-State: AOAM533lJa17IIj1NdDyyiXffSaMUljUibr6JH2uU2JvXNmy5cuRXVNW
+        FYZRtI8qr0tOldtthjM8THs=
+X-Google-Smtp-Source: ABdhPJxeljE2XMpD2EVmoqBJvk8d6u9XsS0lUBuDK0ClEsioAmNw6krrFVcmwbIq721/KV5ic4Emlw==
+X-Received: by 2002:adf:fcca:: with SMTP id f10mr15416740wrs.323.1627245216437;
+        Sun, 25 Jul 2021 13:33:36 -0700 (PDT)
+Received: from [10.8.0.150] ([195.53.121.100])
+        by smtp.gmail.com with ESMTPSA id d5sm8010531wre.77.2021.07.25.13.33.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 25 Jul 2021 13:33:35 -0700 (PDT)
+Subject: Re: strstr(3): add special case for empty needle, as in wcsstr(3)
+To:     Stefan Kanthak <stefan.kanthak@nexgo.de>
+Cc:     linux-man@vger.kernel.org, mtk.manpages@gmail.com
+References: <A957374054024F7DAA865C767B958654@H270>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Message-ID: <60df2547-dd6a-0f6a-c69d-c6ad0c1de610@gmail.com>
+Date:   Sun, 25 Jul 2021 22:33:34 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-References: <20210725170552.GA16301@Debian-50-lenny-64-minimal>
-In-Reply-To: <20210725170552.GA16301@Debian-50-lenny-64-minimal>
-Reply-To: mtk.manpages@gmail.com
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Sun, 25 Jul 2021 22:30:09 +0200
-Message-ID: <CAKgNAkhgXHXpwpe8J18_-3OjXD4iONSB3Q90igtdjrfPTotFuA@mail.gmail.com>
-Subject: Re: Errors in man pages, here: bzero.3
-To:     Helge Kreutzmann <debian@helgefjell.de>
-Cc:     linux-man <linux-man@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <A957374054024F7DAA865C767B958654@H270>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Thanks, Helge.
+Hi Stefan,
 
-Fixed as you suggest.
+On 7/12/21 11:20 AM, Stefan Kanthak wrote:
+> Hi,
+> 
+> in the section return value, wcsstr(3) provides the following note
+> for the special case of an empty needle:
+> 
+> <https://man7.org/linux/man-pages/man3/wcsstr.3.html#RETURN_VALUE>
+> 
+> |  Note the special case: If needle is the empty wide-character
+> |  string, the return value is always haystack itself.
+> 
+> The same note is but missing in strstr(3) and should be added there:
+> 
+> <https://man7.org/linux/man-pages/man3/strstr.3.html#RETURN_VALUE>
+> 
+> |  Note the special case: If needle is the empty string, the return
+> |  value is always haystack itself.
 
-Cheers,
+Thanks, I applied a patch with that addition.  What a coincidence! I was 
+looking for that special case this morning, and had to guess it out 
+considering it as a normal case :)
 
-Michael
+Regards,
 
-On Sun, 25 Jul 2021 at 19:05, Helge Kreutzmann <debian@helgefjell.de> wrote=
-:
->
-> Dear Linux manpages maintainer,
-> the manpage-l10n project maintains a large number of translations of
-> man pages both from a large variety of sources (including Linux
-> Manpages) as well for a large variety of target languages.
->
-> During their work translators notice different possible issues in the
-> original (english) man pages. Sometimes this is a straightforward
-> typo, sometimes a hard to read sentence, sometimes this is a
-> convention not held up and sometimes we simply do not understand the
-> original.
->
-> We use several distributions as sources and update regularly (at
-> least every 2 month). This means we are fairly recent (some
-> distributions like archlinux also update frequently) but might miss
-> the latest upstream version once in a while, so the error might be
-> already fixed. We apologize and ask you to close the issue immediately
-> if this should be the case, but given the huge volume of projects and
-> the very limited number of volunteers we are not able to double check
-> each and every issue.
->
-> Secondly we translators see the manpages in the neutral po format,
-> i.e. converted and harmonized, but not the original source (be it man,
-> groff, xml or other). So we cannot provide a true patch (where
-> possible), but only an approximation which you need to convert into
-> your source format.
->
-> Finally the issues I'm reporting have accumulated over time and are
-> not always discovered by me, so sometimes my description of the
-> problem my be a bit limited - do not hesitate to ask so we can clarify
-> them.
->
-> I'm now reporting the errors for your project. If future reports
-> should use another channel, please let me know.
->
-> Man page: bzero.3
-> Issue: to zeroed =E2=86=92 to be zeroed
->
-> "The B<explicit_bzero>()  function addresses a problem that security-"
-> "conscious applications may run into when using B<bzero>(): if the compil=
-er "
-> "can deduce that the location to zeroed will never again be touched by a =
-"
-> "I<correct> program, then it may remove the B<bzero>()  call altogether. =
- "
-> "This is a problem if the intent of the B<bzero>()  call was to erase "
-> "sensitive data (e.g., passwords)  to prevent the possibility that the da=
-ta "
-> "was leaked by an incorrect or compromised program.  Calls to "
-> "B<explicit_bzero>()  are never optimized away by the compiler."
->
-> --
->       Dr. Helge Kreutzmann                     debian@helgefjell.de
->            Dipl.-Phys.                   http://www.helgefjell.de/debian.=
-php
->         64bit GNU powered                     gpg signed mail preferred
->            Help keep free software "libre": http://www.ffii.de/
+Alex
 
-
-
---=20
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+-- 
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
