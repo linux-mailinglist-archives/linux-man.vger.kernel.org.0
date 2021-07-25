@@ -2,55 +2,55 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id EB0EC3D500A
-	for <lists+linux-man@lfdr.de>; Sun, 25 Jul 2021 22:54:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7FB8E3D500B
+	for <lists+linux-man@lfdr.de>; Sun, 25 Jul 2021 22:55:37 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231285AbhGYUNg (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 25 Jul 2021 16:13:36 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46470 "EHLO
+        id S230364AbhGYUPG (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 25 Jul 2021 16:15:06 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46806 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230507AbhGYUNg (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 25 Jul 2021 16:13:36 -0400
-Received: from mail-ot1-x32a.google.com (mail-ot1-x32a.google.com [IPv6:2607:f8b0:4864:20::32a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3A4A2C061757
-        for <linux-man@vger.kernel.org>; Sun, 25 Jul 2021 13:54:06 -0700 (PDT)
-Received: by mail-ot1-x32a.google.com with SMTP id c2-20020a0568303482b029048bcf4c6bd9so6640678otu.8
-        for <linux-man@vger.kernel.org>; Sun, 25 Jul 2021 13:54:06 -0700 (PDT)
+        with ESMTP id S230284AbhGYUPG (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 25 Jul 2021 16:15:06 -0400
+Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com [IPv6:2607:f8b0:4864:20::22f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 42894C061757
+        for <linux-man@vger.kernel.org>; Sun, 25 Jul 2021 13:55:36 -0700 (PDT)
+Received: by mail-oi1-x22f.google.com with SMTP id q6so8621930oiw.7
+        for <linux-man@vger.kernel.org>; Sun, 25 Jul 2021 13:55:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=mime-version:references:in-reply-to:reply-to:from:date:message-id
          :subject:to:cc;
-        bh=heyLt+hGd7mD3ZTjGMnhAnTXt1VMwvOObvTyinjkdTA=;
-        b=QkCHtXORTiuVzy67vdjZTGBe8rTPG22C/Z4NHLtOts0Zk+MsH4ssIa7yp+bjikHn0c
-         nvXyKS656V5wCphJKZemaDoy+d2EGqAyavXO90xurRQZQuoHBpy7smz1TdkjAeeOE5gx
-         3K8NcA5Qx9ic9F10PsPsX5EsEVhqYk80t87Ak3ni8pwe3OhYoeu+ovbzBBESzZt9vkqW
-         Q92PlW8Fk4u8VT2Oq3x2IGro8DiB6OPqFxZxllCipbeOW1mOj73BsFKtDMDt4kn5FPML
-         lcObDNlK8VTqN2rZbnVCPSYrbfK6lWv/QauEUoX5LNaEXfD3pgKqzQuJcFce6qn3nVzg
-         FQbA==
+        bh=IRo4ygimceAKUlmT2p+Xo56lvFT30fY6CxpJxyjVBPw=;
+        b=McJBj4WBtEPhTcWBr4Tz71MxHDf1uQ//gLcb6fUcXppigIRo0kbNRKVGJ0bjeL9ifh
+         Jw6rsKSTojvQ52TdI1ad2JbyVcqVcjt+FNNT+M1pu6W3vMVgYFWtDsx1NtJJE0mL7pDD
+         ufgu6XZDtM5BJ6doSSR8Ruiu/upI8f6ZNimbiDraV8pRfTh0dOeYWTgUTqMNNnw0DYQc
+         NobuhD9Rjb8RP93bJW0FcGnNPJzCM8GTxbuiszNdkJ5yZynk+ver0zlpd2fTp0qw5JvR
+         b4y1uicrs8nmRcm3+rg1hWMhralo1ENLc+cznAfGDx8I++bI3NQuK0H/ekcu/4FWiGPV
+         R5lA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
          :from:date:message-id:subject:to:cc;
-        bh=heyLt+hGd7mD3ZTjGMnhAnTXt1VMwvOObvTyinjkdTA=;
-        b=kg1MFrJlDEfFoSLE0wXSA1Xb7Ptoe4eNTRtf4eAOKqeMKCru1aLhPIXXaY+kJa/p1B
-         uwr/L6zPbaPYxpboIHeTVnIdzZTI2FtGpaLidfVECK8uyX1n+wW2E9mXa0oCMWYpQlxo
-         8uezViqg/rjoSjWEPnEk8J3QOQLXFA5MSQVUvBAvJCcRyRWTSxCD3ieXLZwUAUSIbQ4W
-         Y73nipL+O72gSaO4GN2D570d/EZ9mCG8/WzTgVj0p+n3jCeeiZO5Aix3yrNXxdrVHcQN
-         +FxtHtU5koRKb9EN+Ue1c4g2pQSjB2vJR1EOjJutheul7HFlewgfSYqko16+/sdH4Vgv
-         SJTQ==
-X-Gm-Message-State: AOAM531OtucZAReKOyC3WpFXVMAX5LrI2W0ScKuNqvwvsOzp9/vI2Mwg
-        ZbwMgbMKzJemsoDTL0bN0h1jRYoFqzpfeqigGaI=
-X-Google-Smtp-Source: ABdhPJxBFosdc3qZOuIg2ofYhRgymF7pP26Sdc5HUjo9pHV+SgEbRrPEEhj/iEl86+GKdIXOMsHLNQBM3nJIiCqXP9s=
-X-Received: by 2002:a9d:3a49:: with SMTP id j67mr10418240otc.114.1627246445698;
- Sun, 25 Jul 2021 13:54:05 -0700 (PDT)
+        bh=IRo4ygimceAKUlmT2p+Xo56lvFT30fY6CxpJxyjVBPw=;
+        b=PumjuXs9JRAzzqRQPiMYLHSJwdaG+HrLAjQN6HXBIUDJ9WwaAPG6RUOmoDw5/4kwCX
+         qD1tOCDaw5ubaJ9PaILHqzDe6+J8Jv0f23uVP0FLYel1n14VDIRgXVp4fiCjroe/ON2Z
+         gX8Em5K+B7BImBGqtkMiAUqJnXMQ6i4V1b/ygEgMkBxLcxThlBPXRbpx+EQO3yxxvikB
+         mYdYB0ZmuGW8pajyLTWpGXGBTfoFEGgKEIztsXclO4dRu9p2NtiA+BdymHJiikgpUakr
+         kOOoFFb/vcnP5zD3GusRwOHuc1fVxXnJQwXoiowDWeaEn6wHVTDdpMNunNBqOKVwWZbL
+         6NWQ==
+X-Gm-Message-State: AOAM531+BiQTh+b22k/H9ipgac+lPjZqNlojN3L9+CiVCJVa+4kNvzpp
+        J946492CgdKfws8nCm4QoQYMdz9Fa+6fJkqrxDc=
+X-Google-Smtp-Source: ABdhPJxMSODDC5/eIhLa8IfJxYrzQMil+QNj9PBbIUTST12qUvhqURT7zvGzFHxSIDv3Mp88KoJRMLusfyLZo6r+LSc=
+X-Received: by 2002:a54:4094:: with SMTP id i20mr8999653oii.159.1627246535660;
+ Sun, 25 Jul 2021 13:55:35 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210725170649.GA16415@Debian-50-lenny-64-minimal>
-In-Reply-To: <20210725170649.GA16415@Debian-50-lenny-64-minimal>
+References: <20210725170701.GA16440@Debian-50-lenny-64-minimal>
+In-Reply-To: <20210725170701.GA16440@Debian-50-lenny-64-minimal>
 Reply-To: mtk.manpages@gmail.com
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Sun, 25 Jul 2021 22:53:54 +0200
-Message-ID: <CAKgNAkixVnwZBRnXN-SPxgL0A4a+V0LBT4V=BrXauycf5nryog@mail.gmail.com>
-Subject: Re: Errors in man pages, here: environ.7
+Date:   Sun, 25 Jul 2021 22:55:24 +0200
+Message-ID: <CAKgNAkjEdVpPp5odfd4Y1uOUoM2xHDE36v9G4P+Hbn5B+tXcfw@mail.gmail.com>
+Subject: Re: Errors in man pages, here: hier.7
 To:     Helge Kreutzmann <debian@helgefjell.de>
 Cc:     linux-man <linux-man@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
@@ -61,14 +61,20 @@ X-Mailing-List: linux-man@vger.kernel.org
 Hello Helge
 
 
-> Man page: environ.7
-> Issue: "set a login time" twice
+> Man page: hier.7
+> Issue: Should start with uppercase letter
 >
-> "A user's login directory, set a login time.  Set at login time, see section "
-> "NOTES below."
+> "is the traditional place to look for X11 executables; on Linux, it usually "
+> "is a symbolic link to I</usr/X11R6/bin>."
 
-Fixed. s/, set a login time//
+Fixed. s/is the/This is the/
 
 Thanks,
 
 Michael
+
+
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
