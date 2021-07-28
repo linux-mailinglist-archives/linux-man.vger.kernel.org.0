@@ -2,59 +2,59 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 473FD3D9683
-	for <lists+linux-man@lfdr.de>; Wed, 28 Jul 2021 22:20:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 87E273D9685
+	for <lists+linux-man@lfdr.de>; Wed, 28 Jul 2021 22:20:23 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231416AbhG1UUX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 28 Jul 2021 16:20:23 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35508 "EHLO
+        id S231334AbhG1UUY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 28 Jul 2021 16:20:24 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35514 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231268AbhG1UUU (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 28 Jul 2021 16:20:20 -0400
+        with ESMTP id S231331AbhG1UUV (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 28 Jul 2021 16:20:21 -0400
 Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com [IPv6:2a00:1450:4864:20::429])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 16DEAC061765
-        for <linux-man@vger.kernel.org>; Wed, 28 Jul 2021 13:20:18 -0700 (PDT)
-Received: by mail-wr1-x429.google.com with SMTP id j2so3997042wrx.9
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0EDB9C061757
+        for <linux-man@vger.kernel.org>; Wed, 28 Jul 2021 13:20:19 -0700 (PDT)
+Received: by mail-wr1-x429.google.com with SMTP id d8so4024909wrm.4
         for <linux-man@vger.kernel.org>; Wed, 28 Jul 2021 13:20:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=5ZhZyU02glAk+5Tee+oSCo+999UhTv7GTzGcZYZaKlI=;
-        b=HyqwkY229tb+5gf7r/Zd/RdZChoUsXDIxXS+u2yewVwKxwz1ytCwRSYwB8fL1cDui1
-         P5Bs6wcSxdLLAWrA3VDROV9zc8yq2MMtvoGcdvdNF0r9x1pra+G/MvZBpA+8lp0ggPf9
-         k3pZno/HgfvFz5XTg7aByxCfyU6aITuuOew7X6qbrNXV4dpL41io8w76V6EMQ6zDPbrn
-         F2tr7dKZNlEsPYa2ULKonomnfpqcl9Dq3FYfDaQZLhztFwtVMeDh5K83ddjiP73PGIhV
-         1E6h2R8s20m+AtRRBybup/a5BsA6mrpNdexU8Z+/FfDKdI1zr9uwob2sOLuwTSc5y/YB
-         fF5w==
+        bh=qCV8owMaQp7FNrH9Vt6zInjzBbgUiYAwlKYZG+m3g5U=;
+        b=XDqZxi6hbuI7RRiLYe35mHTCj/d1QhmUfj1SZxCsXsRqdbw6iChWt8d7fauFw0z+ct
+         TqTeLDpsm8F9icPf6kRk8hAzgiHXlu7jp2lqugrzGtkT4UII1SsMmWy6gmr2ShRJk7kN
+         aA5V/7zwF/Ou/YqgQFlr3z8iIF8BWEXUQpg3MSGnfVKwpbom3wEp1/h8Ls/veymMqmYJ
+         1EI/ClW3Ns2u5Xz+9DROaGLa5sGedLxVH7FNEf0GTk+Xg/0n4ZG4T3ORvi19RRqPEaur
+         09PTWRgE4VN4k89K18SMzAu5EP2cvbg4Hn1q+zbD+u16JXbRCDjNYw2XUyebDEnXr3cP
+         fqAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=5ZhZyU02glAk+5Tee+oSCo+999UhTv7GTzGcZYZaKlI=;
-        b=sd9N+dlTJ+Uoo9imkHNIz07uOz9dxu9Q98J2906Nit9nqgL0lOu05hyw6SuI1g/nLx
-         swtodAkv6GGlDnAqQuxK8j224qIKDis323GI3vXnw81qxmZMaKb84HR4VBiuThqYMsM3
-         uRdNy7QNcsai8lacv9/oEa13zeWs3Cd3N7KLJpalbld954NY8rms0XwKL4mDygJY0bbZ
-         aqEjHpZNvmtqQsGwgq5pckZE4yqsRDoZnSM6n0g4GJu7cytSV/5zJSbqFGpYXeW2ktd1
-         zm7XgSo8FD5J5mGNqZKV83egiuEiy/8Cth/srvHdfxTgw+fKCJYvl8cKpLcrG6DjD74N
-         MYeg==
-X-Gm-Message-State: AOAM531WW1Iv6iDbcs0IhLSMrvanX3VYMMuHBUQM9HCO5X9xs1W0t0cU
-        wXSp5nI3NNW1f/jmpBiypWA=
-X-Google-Smtp-Source: ABdhPJxeEfpRwky1YHFz6sL4Y3975AuI6Vg8u0ULH4HpvVDGwLt8o+KLVvj4BsK3YFNPWAME133l7Q==
-X-Received: by 2002:adf:de06:: with SMTP id b6mr1090690wrm.316.1627503616763;
-        Wed, 28 Jul 2021 13:20:16 -0700 (PDT)
+        bh=qCV8owMaQp7FNrH9Vt6zInjzBbgUiYAwlKYZG+m3g5U=;
+        b=X256ry2onqLt3ojs9scYC92DwPsckjKLF74sbcN4Mo0wMMpfU6ngQX7m/SBaaLTlfg
+         KuJBf9Z2qkA1hEWe2vJ7qRMNS/Yuggz6XCXAazDT9BnoAUmeh3mEOOnmClL41fa+RckF
+         bMX1rfHxnSz3GvGorEJUcP306kkHpFhsmGd/mDz52tONSBVt+qN1q4uBFWiXZdzQRhru
+         l8i4Zn0wPyNcMMLsRPJdH81RBisrlUsTLvbrY4NOiWzyNDaMCYO4kTJVru/eT0vYKhws
+         Ti/qjStbDJRKaou1e6Xh5HXJZUy2fK5sqHN+D2g8VRL5O1x8YOE7Nj0ffv7HsAM08GxH
+         JoVA==
+X-Gm-Message-State: AOAM533Iz4qTdgDKGXEuo7PFIRsgWrO1erAf/HxKGRepHiR4UQ5J7iUr
+        ywFc/f7at+MWouLttrObO0o=
+X-Google-Smtp-Source: ABdhPJy7p0Q5FQudDQHO+sx/0mV0EvJ38a0StbcmYOM1NCDUZrMFOS5zD9NT53d3qDTc20H9dz8jcg==
+X-Received: by 2002:adf:e550:: with SMTP id z16mr1148445wrm.250.1627503617753;
+        Wed, 28 Jul 2021 13:20:17 -0700 (PDT)
 Received: from sqli.sqli.com ([195.53.121.100])
-        by smtp.googlemail.com with ESMTPSA id o29sm879703wms.13.2021.07.28.13.20.15
+        by smtp.googlemail.com with ESMTPSA id o29sm879703wms.13.2021.07.28.13.20.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Jul 2021 13:20:16 -0700 (PDT)
+        Wed, 28 Jul 2021 13:20:17 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org,
-        Christophe Leroy <christophe.leroy@csgroup.eu>
-Subject: [PATCH 04/32] vdso.7: Add y2038 compliant gettime for ppc/32
-Date:   Wed, 28 Jul 2021 22:19:40 +0200
-Message-Id: <20210728202008.3158-5-alx.manpages@gmail.com>
+        Alan Peakall <Alan.Peakall@helpsystems.com>
+Subject: [PATCH 05/32] posixoptions.7: Fix legacy functions list (s/getcwd/getwd/)
+Date:   Wed, 28 Jul 2021 22:19:41 +0200
+Message-Id: <20210728202008.3158-6-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210728202008.3158-1-alx.manpages@gmail.com>
 References: <20210728202008.3158-1-alx.manpages@gmail.com>
@@ -64,39 +64,35 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Christophe Leroy via Bugzilla:
+Alan:
 
 [
-https://man7.org/linux/man-pages/man7/vdso.7.html (2021-03-22)
-
-In ppc32 functions section, the Y2038 compliant function
-__kernel_clock_gettime64() is missing.
-
-It was added by commit d0e3fc69d00d
-("powerpc/vdso: Provide __kernel_clock_gettime64() on vdso32")
+The on-line copy of the manual page "posixoptions(7)" dated
+2018-04-30 has an entry for "getcwd()" in the section headed
+"XSI - _XOPEN_LEGACY - _SC_XOPEN_LEGACY".
+I believe that entry should be "getwd()" as that is the API call
+which was present in X/Open-6 but withdrawn in X/Open-7.
 ]
 
-.../linux$ git describe d0e3fc69d00d
-v5.10-rc2-76-gd0e3fc69d00d
-
-Reported-by: Christophe Leroy <christophe.leroy@csgroup.eu>
+Reported-by: Alan Peakall <Alan.Peakall@helpsystems.com>
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man7/vdso.7 | 1 +
- 1 file changed, 1 insertion(+)
+ man7/posixoptions.7 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/man7/vdso.7 b/man7/vdso.7
-index 1d527c38e..5fb22ab5e 100644
---- a/man7/vdso.7
-+++ b/man7/vdso.7
-@@ -371,6 +371,7 @@ symbol	version
- _
- __kernel_clock_getres	LINUX_2.6.15
- __kernel_clock_gettime	LINUX_2.6.15
-+__kernel_clock_gettime64	LINUX_5.10
- __kernel_datapage_offset	LINUX_2.6.15
- __kernel_get_syscall_map	LINUX_2.6.15
- __kernel_get_tbfreq	LINUX_2.6.15
+diff --git a/man7/posixoptions.7 b/man7/posixoptions.7
+index d2ee10302..d6882fe05 100644
+--- a/man7/posixoptions.7
++++ b/man7/posixoptions.7
+@@ -968,7 +968,7 @@ The following functions are present:
+ .IR fcvt ()
+ .IR ftime ()
+ .IR gcvt ()
+-.IR getcwd ()
++.IR getwd ()
+ .IR index ()
+ .IR mktemp ()
+ .IR rindex ()
 -- 
 2.32.0
 
