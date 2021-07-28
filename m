@@ -2,65 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 86A923D96A3
-	for <lists+linux-man@lfdr.de>; Wed, 28 Jul 2021 22:22:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 316D03D96A6
+	for <lists+linux-man@lfdr.de>; Wed, 28 Jul 2021 22:23:47 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231158AbhG1UWL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 28 Jul 2021 16:22:11 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35960 "EHLO
+        id S231334AbhG1UXs (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 28 Jul 2021 16:23:48 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36314 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231539AbhG1UWL (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 28 Jul 2021 16:22:11 -0400
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com [IPv6:2a00:1450:4864:20::429])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 07633C061757
-        for <linux-man@vger.kernel.org>; Wed, 28 Jul 2021 13:22:09 -0700 (PDT)
-Received: by mail-wr1-x429.google.com with SMTP id e2so4027393wrq.6
-        for <linux-man@vger.kernel.org>; Wed, 28 Jul 2021 13:22:08 -0700 (PDT)
+        with ESMTP id S229878AbhG1UXr (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 28 Jul 2021 16:23:47 -0400
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com [IPv6:2a00:1450:4864:20::335])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 90410C061757
+        for <linux-man@vger.kernel.org>; Wed, 28 Jul 2021 13:23:44 -0700 (PDT)
+Received: by mail-wm1-x335.google.com with SMTP id n28-20020a05600c3b9cb02902552e60df56so2468784wms.0
+        for <linux-man@vger.kernel.org>; Wed, 28 Jul 2021 13:23:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=eHW/q7KaVYcGdNY2FUkQ1lAgr1SCvK57BZ9568zq7kA=;
-        b=Oc+vxf2X/m3wZkj9LBJnWl+uOx2npZ5UddZeb2aa/fmo328e8tP8E+Ggql1QT249ZX
-         OCOQxSut0YHXBInZAlpyjxMIYfsvk3j61WbzX1+BWEqTnQY/5KNyZsW5l5JWQ/orf+wi
-         r44zM+5oROsjFTY6wpY+GohLNH2v8GXKAGllwPusJGMBxtkLZnnSJ8H47KOmBIEnr0Th
-         h9L6AymZk8cYbSoSb6L63wBkXprXOG7wZxIBPIONvu3CIP+hYexkjZO+wfLhgqyXHYjv
-         dybypYjVEeDw3DZ4Sl0Jkr4JmMXSI81HFYJ5uZGCZfxeEaA4RmtGFbdc4+rltaK6lJ13
-         cJFA==
+        bh=jewQNVWJC8WLnzzb4NexMguI3/NcU5oO4urw6qyCTdE=;
+        b=tuAiw+aS7ekXQGGNcH0qMmvJ+hoOP0uiXdb5f3mytS0o3d5FdOcKV9NqpZEplzkKwv
+         xo8CxD5lylUP3Ljv05e8rvDRaiToPNYtPhOE/jvPWo2/4TuoHsljaMJSoK+tufZw8edt
+         oWVrFciOkrrcrnP0pf0nkyvAEknSHPJXNBf06BRmRzsSri6OOe+UEPCPsqGazElCB6R2
+         QKeyjdZth86OlHHroZB46bFJ7bJcNQKmSg+xiNsBgS95BcjCGhZYCiYC5r5Q3Frswezf
+         3DjoGwhzozS4Sv+dKanBuCvIuce9icVBYSBM1Gtv85+HgHdPgQLEByRiyFschy0qZHns
+         lu+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=eHW/q7KaVYcGdNY2FUkQ1lAgr1SCvK57BZ9568zq7kA=;
-        b=qTRqxgZGIuCS7tC9zzu+lgO0q/mx3lNkLqKjazA9SWj1DhyZGDx5ZYEBisvb9RRmEu
-         s2tU43+zQtUmFgA+sUJLmkmx82PnhPtvx1A8YnGcNeDLyq1nATm9mgz2rxOIFJ0ffjCq
-         jjFnqMaqEqfP9NomdUhTlGWuwifH9Ys8DoZdMHluIUd68wRlklLiX4h7p0BlpR1RnDw+
-         nPV9A44wZojKuucbulYS6eCy34rSUUdVinjxkS17ETEMtSJm6EjkzyC2ps8FhkADgmCI
-         6aHvz/wx+bkrywR4JThlkR0XQgM9JcY8rERkB10PjboWyFl6AyQzWQV2uuZ3ujm3EZra
-         jQgA==
-X-Gm-Message-State: AOAM533C4Z1UkEy81UY0gW0tE6M+u/wHQeb4ICD1EyyJbAFADiuq3FJf
-        JOAa4j2Qu8z4C6eFJ4pKxlgI2b7fGd0=
-X-Google-Smtp-Source: ABdhPJxuQvgRhRZyNuYJyF9PfP3GX1hQEd8N/DtKtC3o5wYjnhjVWrF0JxUKBvKAFnWOZ73I8ba0MQ==
-X-Received: by 2002:a05:6000:110:: with SMTP id o16mr1153228wrx.2.1627503727711;
-        Wed, 28 Jul 2021 13:22:07 -0700 (PDT)
+        bh=jewQNVWJC8WLnzzb4NexMguI3/NcU5oO4urw6qyCTdE=;
+        b=mWv1a9NGCZl1PfCaVs2mXUl05+9FRj+yeRPJGpM5dL92AQoTR4HCQsJZFFv9ayA2jo
+         wHkHL2dlRg5v15t9GpJXATH5u+6qWTWMEb48sKt40pwvXxCXsQEozyKn1rX6sp6xMfPK
+         +MF3cYeiHKdyW1WqAeMVuBzQpqrnwrPJ78yb9ibFWVD6e5oGUGNaTTXwNKz61/gRfrdG
+         wvhnm+MdMLQ4HDT9XHCSuxA+hzY5Qeiri1f8zVhLox2cYK4zYoDbPLU2Cy3M9C6i6EkH
+         4aqsmfd7FJUZjKE0gCsKCiYeimQQ5FaAsmppN0r93PFFnG6K1YA52auBYgCkveZltj3M
+         TEnQ==
+X-Gm-Message-State: AOAM533Gmzztf7QAt7fbY1xUh9wX1kwNIHgE9XpxW2jEQnK+eGjTyC/f
+        dyCUDcNUeeBZvfeJ7kmhp5Y=
+X-Google-Smtp-Source: ABdhPJxChwjBGps/D5LWPdmdtOCdSEL4xsk4KkQbSBzDhlAaUe9OhrPbuoB2zXVPIpE/N+7L4K1BKA==
+X-Received: by 2002:a1c:4c19:: with SMTP id z25mr5574234wmf.119.1627503823278;
+        Wed, 28 Jul 2021 13:23:43 -0700 (PDT)
 Received: from [10.8.0.150] ([195.53.121.100])
-        by smtp.gmail.com with ESMTPSA id u2sm7570659wmm.37.2021.07.28.13.22.07
+        by smtp.gmail.com with ESMTPSA id r2sm846101wrq.15.2021.07.28.13.23.42
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 28 Jul 2021 13:22:07 -0700 (PDT)
-Subject: Re: [PATCH] tkill.2: tfix
-To:     Sagar Patel <sagarmp@cs.unc.edu>
-Cc:     linux-man@vger.kernel.org
-References: <20210724045855.82231-1-sagarmp@cs.unc.edu>
- <92994df0-fec0-3e5b-74ea-14a7d4a31411@gmail.com>
- <CAMGmevCXTOx+WgnJAzob8TVP5_Zi=T0W9=jcJSWQzAjRsendXA@mail.gmail.com>
+        Wed, 28 Jul 2021 13:23:42 -0700 (PDT)
+Subject: Re: [PATCH] namespaces.7: ffix
+To:     =?UTF-8?Q?Michael_Wei=c3=9f?= <michael.weiss@aisec.fraunhofer.de>
+Cc:     linux-man@vger.kernel.org, Michael Kerrisk <mtk.manpages@gmail.com>
+References: <20210728104429.17744-1-michael.weiss@aisec.fraunhofer.de>
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <5dfa520b-feab-6b80-8d58-5751bc7d0a03@gmail.com>
-Date:   Wed, 28 Jul 2021 22:22:06 +0200
+Message-ID: <dfc5f4f3-654f-0acb-9c56-a583a4024421@gmail.com>
+Date:   Wed, 28 Jul 2021 22:23:41 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <CAMGmevCXTOx+WgnJAzob8TVP5_Zi=T0W9=jcJSWQzAjRsendXA@mail.gmail.com>
+In-Reply-To: <20210728104429.17744-1-michael.weiss@aisec.fraunhofer.de>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
@@ -68,33 +66,33 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Sagar.
+Hi Michael,
 
-On 7/28/21 6:20 PM, Sagar Patel wrote:
-> Thank you, Alex!
+On 7/28/21 12:44 PM, Michael Weiß wrote:
+> Signed-off-by: Michael Weiß <michael.weiss@aisec.fraunhofer.de>
 
-:)
-
-> 
->> Oops, my bad!  Patch applied.
-> 
-> If you don't mind me asking, where has the patch been applied? I don't
-> see it on the kernel.org repo [1].
-
-Sure, I don't yet have a kernel account, so my tree is on github: 
-<https://github.com/alejandro-colomar/man-pages>.
-
-I forwarded it right now in a patch set to Michael's tree (the one in 
-kernel.org).
-
-Cheers,
+Patch applied.  Thanks,
 
 Alex
 
+> ---
+>   man7/namespaces.7 | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
 > 
-> [1]: https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/
-> 
-> —Sagar Patel
+> diff --git a/man7/namespaces.7 b/man7/namespaces.7
+> index d35c2d383..73c85c1ef 100644
+> --- a/man7/namespaces.7
+> +++ b/man7/namespaces.7
+> @@ -71,7 +71,8 @@ Time	CLONE_NEWTIME	\fBtime_namespaces\fP(7)	T{
+>   Boot and monotonic
+>   clocks
+>   T}
+> -User	CLONE_NEWUSER	\fBuser_namespaces\fP(7)	T{User and group IDs
+> +User	CLONE_NEWUSER	\fBuser_namespaces\fP(7)	T{
+> +User and group IDs
+>   T}
+>   UTS	CLONE_NEWUTS	\fButs_namespaces\fP(7)	T{
+>   Hostname and NIS
 > 
 
 
