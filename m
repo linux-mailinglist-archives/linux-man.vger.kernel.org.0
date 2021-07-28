@@ -2,72 +2,84 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 54BED3D8C19
-	for <lists+linux-man@lfdr.de>; Wed, 28 Jul 2021 12:45:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 70AC63D8E69
+	for <lists+linux-man@lfdr.de>; Wed, 28 Jul 2021 14:59:47 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234181AbhG1KpH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 28 Jul 2021 06:45:07 -0400
-Received: from mout.kundenserver.de ([217.72.192.75]:48955 "EHLO
-        mout.kundenserver.de" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232736AbhG1KpF (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 28 Jul 2021 06:45:05 -0400
-Received: from weisslap.aisec.fraunhofer.de ([178.27.102.95]) by
- mrelayeu.kundenserver.de (mreue107 [212.227.15.183]) with ESMTPSA (Nemesis)
- id 1MybX9-1n76jx0Wp3-00yuNu; Wed, 28 Jul 2021 12:45:00 +0200
-From:   =?UTF-8?q?Michael=20Wei=C3=9F?= <michael.weiss@aisec.fraunhofer.de>
-To:     Alejandro Colomar <alx.manpages@gmail.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org,
-        =?UTF-8?q?Michael=20Wei=C3=9F?= <michael.weiss@aisec.fraunhofer.de>
-Subject: [PATCH] namespaces.7: ffix
-Date:   Wed, 28 Jul 2021 12:44:29 +0200
-Message-Id: <20210728104429.17744-1-michael.weiss@aisec.fraunhofer.de>
-X-Mailer: git-send-email 2.20.1
+        id S234256AbhG1M7r (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 28 Jul 2021 08:59:47 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46248 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S233315AbhG1M7r (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 28 Jul 2021 08:59:47 -0400
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com [IPv6:2a00:1450:4864:20::532])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B962DC061757;
+        Wed, 28 Jul 2021 05:59:44 -0700 (PDT)
+Received: by mail-ed1-x532.google.com with SMTP id j2so3031784edp.11;
+        Wed, 28 Jul 2021 05:59:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
+        bh=K6cjzR42EklyjKqvSNPb70Hz5hfQ/Z6w+MNfhc7EMP4=;
+        b=ulgixdj8GlcUTL8H1JRD8zj+H0Hh0tmTh2YBKaEeZoKLOGCudEurhjvIS+SKaW/h+M
+         LjxE3AKeUaHGUW4Q713Cz95rjkqAU8uZejW0CEooSXpF9m0sL0fSuvqXOdTyHW3SiGVB
+         zjUl/lIfrXnl9vbR065R9n51e6i0a/eOXxa6TkvmZM3sqRZ51pCzcyyAKFJI0PwFuBx3
+         4BN9zHPmmGkXuT8EaUa/ptS7dK3K14YmvL1xdg/vBmHKLXf2wVWJEKBMuc9o0akbb+Ev
+         OQc8bi9HdZMKaLGsvBm0VR+LXl8hc5jBgN6IEuI+oKydCk0NxeBhjRJzt8Vg/CJIVjab
+         20PQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to;
+        bh=K6cjzR42EklyjKqvSNPb70Hz5hfQ/Z6w+MNfhc7EMP4=;
+        b=JmI9D252l/5ugzHwUDFBpPjdbzxNsR7/KfX5vo+V2wNvJcyCKG8c5sb9pcKcGT36nj
+         V46v3JmG/gCTYM5u9xEFn4KJ7vMZgDiVkzgMrefJxexrpkycmroXC2Zg00t+yBGhKQ/v
+         CdZ2hip8DFouM1t5L7iHHgjUPL0bbWx4gEoVK2Ayr8nHhq+rZJbqwWNBQg2GdCHripL6
+         SE/TtKqukNp3fmzvJ0ZjxAUNtdkIdHGFIH6+Nq8t+QM9Vq6r6pMhz3WrLyNAnpvggr11
+         5iyd4WOxYjvgvGp1TLAnYddiU6CNi/0p6isz4kpj5hV2cYP4+bZ6rpJ9NQkzchRiNQYE
+         U4pg==
+X-Gm-Message-State: AOAM530LSNEOlkjzVKAhse/JDlepcqcYFZ/PobbSVbsR0UW1nBRdNkXl
+        4yYmTC5WrIrx+Hx/voYXlcZYaZ34dIbfvrK1nTek1NDRwW4H4g==
+X-Google-Smtp-Source: ABdhPJxGJjfZXiOhXdSsFC+vjplEzv25XW8meo0c7FxobyNFOfAFFs3lPVC1CXnfTPe5qFl0Awhq9dTkvWGQlQpGMiQ=
+X-Received: by 2002:a05:6402:221c:: with SMTP id cq28mr34078272edb.115.1627477183148;
+ Wed, 28 Jul 2021 05:59:43 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Provags-ID: V03:K1:5wSZu1nxEqjDJ+C6sy1suy8CEFfffFlKC3rqA3L63sy99zhs8rQ
- HZg40/SADwfiEaMWDB31XSYrT7DMKc+kP5L7VeYbwFUukaB/EUcLfF5aZ17qQu9jDiu5dN9
- f/9nfTy045TI/R0pOtrvj2KhTWITTOuc2uHCpUrZoLu93locK7E/RPHLzx/028qBhKc2Qc5
- uWAbabCZ+F+VkdXakxN0A==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:Gf78YCaO6DM=:eC2MrsMh1MM6WkxETO4+8Y
- ZtsHLOlrAKhGEHDfbu4tITe0B16y6HirJkqw+iqxMsUTeQdAzmfTh21jHxWJCtM/4WPQlVrQh
- 9kspdkTEuipWKLgmxaiXaUrIqtm1/NNdej+GhT23OJj9vwj4RjYpCOoxlzTNmUzMwHsNW7b6P
- w++xJXaLyU2D6Ima2AlmRTlpWcdPgNIi/qZ5/KaefoKWtTdpvIO5LxfhkiCXKVm9oult+np8a
- xKfSnnIxfyEW2Ior5tWtaYPozga1IRVe32X/meDYcE3u+2nb2INAsPvUA2fhYBAKAk6ybakux
- TPOaoIzYji+rtBj6tD1HR4pmKyEmhhSIc6q4le5DY3Vw7Sg09BTu8P5lsigddTtPDerppKjLu
- ha6kJYr2OSfIxwiU4dWwbrbWPmzqEZR0WDItocDx/APxWKSKI0HkmxYb8DwQGdJL//T8iYCwb
- qNYGQ8qtV/Yt8mdWfCVGTLZgtqnGYiny9vqjkUln+ZvcbzBHTDTuq6sGDuU43gWP+Fn+L9GvQ
- dz1wsny2LhQsvlMmlbzk3Swrnx6DpEH8KWkQPf8X4sl94MbI55rFyqPV1IKo/eK8ImsLijIzZ
- CcyPP3tCvq67v/R9DOxjx6hmlWlZ7yINh0SHsakIbvsyu3m5E2is5970FepBtPvIkIymdDNeA
- HM4Hb4iP/Mrb9Roy9Pccdwa2mvPBABbddrPICEAJlPntTPNl+b/5baFx52f7QSGO3U71IURH0
- Rm/HDVPmdsOLC4x+q1kqafMaQgpJJP0Syv1ZlDzZAdUBKqGDpAApYSywXvhs3rGDkNZo8cM0E
- UPa7VKJ/mmhZiPZYjYrTryLHt71HXetCtsfqGTx5QmRCaqBvORed4QefMz2BJpv988VXKdz/V
- 2sN4BBY8RSAsfp/5dpWg==
+References: <CAOVCmzEJqg6=FW3Vu1MScyj8GS-KXb2s_ztxBxwDmcbN5sbQuA@mail.gmail.com>
+In-Reply-To: <CAOVCmzEJqg6=FW3Vu1MScyj8GS-KXb2s_ztxBxwDmcbN5sbQuA@mail.gmail.com>
+From:   Shivank Garg <shivankgarg98@gmail.com>
+Date:   Wed, 28 Jul 2021 18:29:27 +0530
+Message-ID: <CAOVCmzEzwFkiDz_Tf0LFQQZYKYdbACjyjdLOpawh0BB9JpDg1Q@mail.gmail.com>
+Subject: Fwd: /proc/pid/sched units
+To:     linux-doc@vger.kernel.org, linux-man@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Signed-off-by: Michael Weiß <michael.weiss@aisec.fraunhofer.de>
----
- man7/namespaces.7 | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+---------- Forwarded message ---------
+From: Shivank Garg <shivankgarg98@gmail.com>
+Date: Wed, Jul 28, 2021 at 6:26 PM
+Subject: /proc/pid/sched units
+To: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, Linux MM
+<linux-mm@kvack.org>, <util-linux@vger.kernel.org>
 
-diff --git a/man7/namespaces.7 b/man7/namespaces.7
-index d35c2d383..73c85c1ef 100644
---- a/man7/namespaces.7
-+++ b/man7/namespaces.7
-@@ -71,7 +71,8 @@ Time	CLONE_NEWTIME	\fBtime_namespaces\fP(7)	T{
- Boot and monotonic
- clocks
- T}
--User	CLONE_NEWUSER	\fBuser_namespaces\fP(7)	T{User and group IDs
-+User	CLONE_NEWUSER	\fBuser_namespaces\fP(7)	T{
-+User and group IDs
- T}
- UTS	CLONE_NEWUTS	\fButs_namespaces\fP(7)	T{
- Hostname and NIS
--- 
-2.20.1
 
+Hi Everyone,
+
+I'm analyzing the cpu time taken ("se.sum_exec_runtime" in
+/proc/$pid/sched) by process in different configurations for my
+project work. But I was not able to get the time units for the values
+displayed in the file. I tried searching it in source code -
+kernel/sched/cputime.c,include/linux/sched.h etc. but it left me more
+confused.
+
+Can you please answer me about the measurement units (is it
+microseconds, nanoseconds, jiffles ...) ?
+
+Also, I was not able to find proper documentation for /proc/pid/sched.
+Please point to me if it's already there. If not, I would love to
+contribute toward documenting these variables. It would be very
+helpful for newbies (like me) in future.
+
+Thanks,
+Best Regards,
+Shivank Garg
