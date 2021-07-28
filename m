@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id DB44B3D969C
-	for <lists+linux-man@lfdr.de>; Wed, 28 Jul 2021 22:20:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 303E83D969D
+	for <lists+linux-man@lfdr.de>; Wed, 28 Jul 2021 22:20:45 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231576AbhG1UUq (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        id S231562AbhG1UUq (ORCPT <rfc822;lists+linux-man@lfdr.de>);
         Wed, 28 Jul 2021 16:20:46 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35646 "EHLO
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35652 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231562AbhG1UUp (ORCPT
+        with ESMTP id S231574AbhG1UUp (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Wed, 28 Jul 2021 16:20:45 -0400
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com [IPv6:2a00:1450:4864:20::331])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CDBB0C061757
-        for <linux-man@vger.kernel.org>; Wed, 28 Jul 2021 13:20:42 -0700 (PDT)
-Received: by mail-wm1-x331.google.com with SMTP id l4-20020a05600c1d04b02902506f89ad2dso4434061wms.1
-        for <linux-man@vger.kernel.org>; Wed, 28 Jul 2021 13:20:42 -0700 (PDT)
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com [IPv6:2a00:1450:4864:20::335])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D3E55C061765
+        for <linux-man@vger.kernel.org>; Wed, 28 Jul 2021 13:20:43 -0700 (PDT)
+Received: by mail-wm1-x335.google.com with SMTP id u15so2233985wmj.1
+        for <linux-man@vger.kernel.org>; Wed, 28 Jul 2021 13:20:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=+/B12nT3NCumx9WV68HhAe/09thrf2qIhZPa4m+pecQ=;
-        b=DRAzXA1cCLl1ZMRi9ETNosLEfVOu3RSl7gLExJDKlm6TaXssFJ01xb5jix1zvGkFTZ
-         LdBA07pRTbzdPdwmscNKggD+ELColzhsAljc/kmCrpKfJ0wQKV7TQRChr64LNiJjiovT
-         rBVh/ki+PwHncSeumkdXo+va+s7A8G/aYaV27nuJp5mCwFSa8/g7yefn5eCUdmtGo8Jy
-         bSGj2GiXClv+e9XBtJ+TIoXFVW0vDwryHwZk+UN8Wl71dErYUMyr3j+Ditho6gBU+6dl
-         4UKmTsKD4ZWDUb8pAC95Rd3Mez0fdtCmgXATAAKIF6Qj8APbs+/tpuUMyhHuE1sDFnAo
-         mFfg==
+        bh=o8UZDg9IRwUfKJt7vWmCC1kOSWrUIuySd/hdhOWQFOY=;
+        b=ut/D5aoGf7ULkBsjnFaW8j5mB9lLfNQhSO8xZ4/Kq1aEFebFKhe2p893uLrG3PoTh6
+         BAqn+WM+VI6DOs0KtcJhm5JEROz2GVgClPerWPIVDvj6jk081j1gGil3XQBo9V2NJs72
+         33BXtoHoJdL7qUAh9yxg0vdDuVVlBWAG0Aa2iEmGSoEMvkwVGFBRHaA/GridUFczbz0r
+         WdW6gkpKa+t1rUQVP0HpAgmwjyfsz1+yDh8aVFf6oJdkzSTNMFU5IL7IVihOM9NgDfP+
+         nvzqWZsdPNmKu4Woro02Sau3+KtsKoBgqUOJrT95yMOqVa8L1QZ8+qUTliXMXGg5vRAd
+         26xw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=+/B12nT3NCumx9WV68HhAe/09thrf2qIhZPa4m+pecQ=;
-        b=fTfayvQRyuLRkpgX6/iTcHBDRaGnEKDrvRCm4UVC8PsMFBEGY7cbgw1h0My096rSC6
-         +sQj3P5zPKFRo3APbs8+gO3aX2/dELE1sPH0fCkgMh/I1bIb3TwGfAVzbhiclQ7Ne6bG
-         2mAa5nUuUaZQVDy7qH3LOmO+op43H0WFfbycvQMBboiYhOJrXQ3GKlFLpwBG0yiiJERp
-         cpVwqYUVBcExZ5Jtu6lxxEUKx0kFiupyalBGSSUI7+tweNJ6YqYDySIl7pD9m+TvnL9X
-         /QPe/HSJpiN257vZWbyZDEGDHc6gNgUI4GN/aoTbnj872fE4UL8Z2p5RsnwDDjvBjP1X
-         ocPg==
-X-Gm-Message-State: AOAM531JcviwTyZQKcYbzmUuYWvEL6yLSkLVSmEeQX2s374AQy2ybSXX
-        S95d3wPLC2LDfEuQwP8MDaFzmkm0j8M=
-X-Google-Smtp-Source: ABdhPJxI8Dg2TmqKKEESSnDf/ZHT+9TwAhCoY7NeZ81rYY/5e4ypi6m65bebTQKjhN0bpzKKYoGJtA==
-X-Received: by 2002:a05:600c:4c96:: with SMTP id g22mr10752715wmp.70.1627503641465;
-        Wed, 28 Jul 2021 13:20:41 -0700 (PDT)
+        bh=o8UZDg9IRwUfKJt7vWmCC1kOSWrUIuySd/hdhOWQFOY=;
+        b=FFOzukUbpT9lRT7ShhdVJkYfIt/wo+fl5YkYl+Jc7l2fbMPpMbPSF5eWGxW4hqmAlS
+         pIuJe3vxIBRw/iXqbLxu+DK4rhajBGqofX5BZh0AsXc9r2BWPocjiwqEkZr+FH823D40
+         iKJOE1qgnJnRouiSHJnLv4KcrsCPq4abz4gDNjyyCTcGQpvWvcdltoaiMzccdeoCOonC
+         ak+ov57GQ0cXkUnTsj69uVunmzo6Xnwblnz9pzCnEAy9HRPXuVXzCTbKlpc2Epxdbjxu
+         c0eG5tkn7OsxCsOXl81+sKZezQb9fAhcBO3B/lc7lwrOovGAUPbuAnddwLxYdppBYrSz
+         wmJg==
+X-Gm-Message-State: AOAM531c2+9ZwQRB4snBB+UZrXSlzmSF1pnoC2C8MnTbE6BmGDZCRGfX
+        tQp6+PBJambbAfzIbDFV7v1u1MclCBs=
+X-Google-Smtp-Source: ABdhPJw7BxByK7xue3DfGbW0f442XQLpfAardukipbkVCPldXf5oWTLJZlJowk3XX30lXyuotEmZYQ==
+X-Received: by 2002:a05:600c:2319:: with SMTP id 25mr1307549wmo.27.1627503642489;
+        Wed, 28 Jul 2021 13:20:42 -0700 (PDT)
 Received: from sqli.sqli.com ([195.53.121.100])
-        by smtp.googlemail.com with ESMTPSA id o29sm879703wms.13.2021.07.28.13.20.40
+        by smtp.googlemail.com with ESMTPSA id o29sm879703wms.13.2021.07.28.13.20.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Jul 2021 13:20:41 -0700 (PDT)
+        Wed, 28 Jul 2021 13:20:42 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org
-Subject: [PATCH 29/32] sigaction.2: Apply minor tweaks to Peter's patch
-Date:   Wed, 28 Jul 2021 22:20:05 +0200
-Message-Id: <20210728202008.3158-30-alx.manpages@gmail.com>
+        linux-man@vger.kernel.org, Jonny Grant <jg@jguk.org>
+Subject: [PATCH 30/32] strlen.3, wcslen.3: Add recommendations for safer variants
+Date:   Wed, 28 Jul 2021 22:20:06 +0200
+Message-Id: <20210728202008.3158-31-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210728202008.3158-1-alx.manpages@gmail.com>
 References: <20210728202008.3158-1-alx.manpages@gmail.com>
@@ -63,113 +63,48 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-- Move example program to a new EXAMPLES section
-- Invert logic in the handler to have the failure in the conditional path,
-  and the success in out of any conditionals.
-- Use NULL, EXIT_SUCCESS, and EXIT_FAILURE instead of magic numbers
-- Separate declarations from code
-- Put function return type on its own line
-- Put function opening brace on its line
-
+Reported-by: Jonny Grant <jg@jguk.org>
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man2/sigaction.2 | 76 +++++++++++++++++++++++++++---------------------
- 1 file changed, 43 insertions(+), 33 deletions(-)
+ man3/strlen.3 | 6 ++++++
+ man3/wcslen.3 | 9 ++++++++-
+ 2 files changed, 14 insertions(+), 1 deletion(-)
 
-diff --git a/man2/sigaction.2 b/man2/sigaction.2
-index 4bf6f095e..18404dde1 100644
---- a/man2/sigaction.2
-+++ b/man2/sigaction.2
-@@ -936,39 +936,6 @@ because they were introduced before Linux 5.11.
- However, in general, programs may assume that these flags are supported,
- since they have all been supported since Linux 2.6,
- which was released in the year 2003.
--.PP
--The following example program exits with status 0 if
--.B SA_EXPOSE_TAGBITS
--is determined to be supported, and 1 otherwise.
--.PP
--.EX
--#include <signal.h>
--#include <stdio.h>
--#include <unistd.h>
--
--void handler(int signo, siginfo_t *info, void *context) {
--    struct sigaction oldact;
--    if (sigaction(SIGSEGV, 0, &oldact) == 0 &&
--        !(oldact.sa_flags & SA_UNSUPPORTED) &&
--        (oldact.sa_flags & SA_EXPOSE_TAGBITS)) {
--        _exit(0);
--    } else {
--        _exit(1);
--    }
--}
--
--int main(void) {
--    struct sigaction act = {0};
--    act.sa_flags = SA_SIGINFO | SA_UNSUPPORTED | SA_EXPOSE_TAGBITS;
--    act.sa_sigaction = handler;
--    if (sigaction(SIGSEGV, &act, 0) != 0) {
--        perror("sigaction");
--        return 1;
--    }
--
--    raise(SIGSEGV);
--}
--.EE
- .SH RETURN VALUE
- .BR sigaction ()
- returns 0 on success; on error, \-1 is returned, and
-@@ -1174,6 +1141,49 @@ This bug was fixed in kernel 2.6.14.
- .SH EXAMPLES
- See
- .BR mprotect (2).
-+.PP
-+The following example program exits with status
-+.B EXIT_SUCCESS
-+if
-+.B SA_EXPOSE_TAGBITS
-+is determined to be supported, and
-+.B EXIT_FAILURE
-+otherwise.
-+.PP
-+.EX
-+#include <signal.h>
-+#include <stdlib.h>
-+#include <stdio.h>
-+#include <unistd.h>
-+
-+void
-+handler(int signo, siginfo_t *info, void *context)
-+{
-+    struct sigaction oldact;
-+
-+    if (sigaction(SIGSEGV, NULL, &oldact) != 0 ||
-+        (oldact.sa_flags & SA_UNSUPPORTED) ||
-+        !(oldact.sa_flags & SA_EXPOSE_TAGBITS)) {
-+        _exit(EXIT_FAILURE);
-+    }
-+    _exit(EXIT_SUCCESS);
-+}
-+
-+int
-+main(void)
-+{
-+    struct sigaction act = {0};
-+
-+    act.sa_flags = SA_SIGINFO | SA_UNSUPPORTED | SA_EXPOSE_TAGBITS;
-+    act.sa_sigaction = &handler;
-+    if (sigaction(SIGSEGV, &act, NULL) != 0) {
-+        perror("sigaction");
-+        exit(EXIT_FAILURE);
-+    }
-+
-+    raise(SIGSEGV);
-+}
-+.EE
+diff --git a/man3/strlen.3 b/man3/strlen.3
+index dea4c1050..78783c446 100644
+--- a/man3/strlen.3
++++ b/man3/strlen.3
+@@ -66,6 +66,12 @@ T}	Thread safety	MT-Safe
+ .sp 1
+ .SH CONFORMING TO
+ POSIX.1-2001, POSIX.1-2008, C89, C99, C11, SVr4, 4.3BSD.
++.SH NOTES
++.SS strnlen(3)
++If the input buffer size is known,
++it is probably better to use
++.BR strnlen (3),
++which can prevent reading past the end of the array.
  .SH SEE ALSO
- .BR kill (1),
- .BR kill (2),
+ .BR string (3),
+ .BR strnlen (3),
+diff --git a/man3/wcslen.3 b/man3/wcslen.3
+index af3fcb9ca..fe1d6331b 100644
+--- a/man3/wcslen.3
++++ b/man3/wcslen.3
+@@ -58,5 +58,12 @@ T}	Thread safety	MT-Safe
+ .sp 1
+ .SH CONFORMING TO
+ POSIX.1-2001, POSIX.1-2008, C99.
++.SH NOTES
++.SS wcsnlen(3)
++If the input buffer size is known,
++it is probably better to use
++.BR wcsnlen (3),
++which can prevent reading past the end of the array.
+ .SH SEE ALSO
+-.BR strlen (3)
++.BR strlen (3),
++.BR wcsnlen (3)
 -- 
 2.32.0
 
