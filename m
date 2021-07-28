@@ -2,58 +2,59 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 299533D9686
-	for <lists+linux-man@lfdr.de>; Wed, 28 Jul 2021 22:20:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 66E7C3D9687
+	for <lists+linux-man@lfdr.de>; Wed, 28 Jul 2021 22:20:26 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231331AbhG1UUY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 28 Jul 2021 16:20:24 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35524 "EHLO
+        id S231475AbhG1UU0 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 28 Jul 2021 16:20:26 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35530 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229878AbhG1UUX (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 28 Jul 2021 16:20:23 -0400
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com [IPv6:2a00:1450:4864:20::435])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 22AF1C061757
-        for <linux-man@vger.kernel.org>; Wed, 28 Jul 2021 13:20:21 -0700 (PDT)
-Received: by mail-wr1-x435.google.com with SMTP id r2so4043639wrl.1
-        for <linux-man@vger.kernel.org>; Wed, 28 Jul 2021 13:20:21 -0700 (PDT)
+        with ESMTP id S229878AbhG1UUY (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 28 Jul 2021 16:20:24 -0400
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com [IPv6:2a00:1450:4864:20::32b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1BD8AC061757
+        for <linux-man@vger.kernel.org>; Wed, 28 Jul 2021 13:20:22 -0700 (PDT)
+Received: by mail-wm1-x32b.google.com with SMTP id d131-20020a1c1d890000b02902516717f562so2483746wmd.3
+        for <linux-man@vger.kernel.org>; Wed, 28 Jul 2021 13:20:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=paINCzxQVfUQiVR79KjUK5djDoBo9iY6OjfBLlPYQA8=;
-        b=I3pt/E3KDExsAXej1kdJ9ZJJjCvnSLXDTtV9RYSiAH61C49lbr1OYuZ5yjjeVvMrRV
-         U9c8IkPKSUO/XmA/7DimERfK8z2L3DGsEVtEDEzEy1pcfS6Rcq4SEyiTkA6qEfF+DKEM
-         34T1gMg0Ixk3zqxrE+QG9mZ7owNAqoCHEe71UawWHz5f9ZsUnL6yiFaYd7cF2/tQi22p
-         penrM9Bl/krSKTFARnuIFiTVRiMpUe4l3SI1o1CZwZIk2sQUPpA/Q1jb/IvH/pIeP9PJ
-         AWGTgLpd+i50+2fArVrl4Nr+PusM+rnvXk4E8fB3z9YEP6lmWul/GrWKJH5Svenh9MSY
-         EAvg==
+        bh=FpmiKZ3+ygBbi3axeElHUvn6tYAkAiaNXqeWi6NqzyY=;
+        b=NijBmOqbSLsqYezT8R95Kkf8umFQNFZgMOgUYdqGC6Pl7x4bMHylSSY9A7DtOVU9q0
+         a6x2NZzw1NoqjaiaER2SU0c8xfgb44NDA9vBqeZAnHZFlnAOrJhAqozdOWzL2ujWNgKL
+         a+SXa1TZCFSibLniVtaikGwq+8reD4UV7xPYTHz9XATzQBeOa0NwDpaxbfWdZ6LSz7+p
+         rGqSNbPNZo1sCyF763mF+TCsdoWrXHG7YWh5Z+L1F/N9G2Kv6jGp+tY1qZR3Pvkavd3Z
+         4TMPy3zpYlO98686a6Wvusv/AvySykJUbtMN8vLvWYbl2kw7oe2t1b+juJe1J5ptVkPe
+         L+GA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=paINCzxQVfUQiVR79KjUK5djDoBo9iY6OjfBLlPYQA8=;
-        b=LRMYY2OOXZAL341r+oi3mx+eTuRvab8L5QXnA8PlA8SvyS76u9I/EkuVkyCFu+Er2C
-         9+tUX2Hszo6wnfIHTMGxjOL+oFOMNe+usjmVOnIMOHlXMPkCjBrYaPL0yq6E2iXXUXo7
-         JpyLelJygX+RfzFpvRx9BJjx12tRU0YW+lwEAtNhuewCWNmQFRwsfRwNQ3Q8Da0XgmuG
-         K40ZghuJXSX1feN7QwNsIzE5bhE0G589jEHYmj28xQUe959mnO+ijtKj8mwTYkpCZYiY
-         vY9VyJD+VNEfs5Blul6M8EkDjmlWGjLKI1naMZfi5FGNPHK/5tO1k5W7DSds/QC3uS9G
-         UeUA==
-X-Gm-Message-State: AOAM533lgAvsFpgAIy07RvqNQbV/aJnmNCcmwfY1P8T6H+cdH79MtzIz
-        /JHGD3tSbz5Wfv16qd7FbOw=
-X-Google-Smtp-Source: ABdhPJzeg+HRAOki+dVLnhE42SPv2yIWCr5b9wCUtEcdMLcJrZLEItfTSmCiWwL68yKgOgn/E1CVGA==
-X-Received: by 2002:adf:f112:: with SMTP id r18mr1087794wro.160.1627503619804;
-        Wed, 28 Jul 2021 13:20:19 -0700 (PDT)
+        bh=FpmiKZ3+ygBbi3axeElHUvn6tYAkAiaNXqeWi6NqzyY=;
+        b=CIML/Sjcmf3w/LdViGfswm+UbuHco5qz+9HOYGr6jXcaAyci2sayyb+un4ruEkvWWn
+         zpxuxa4hEtvM/MMXW9mVdTK9Rg/dWHQfUGcWt1AJZSwWHvkK1fqJPqyB9Vwp8f40eeFw
+         8lX2hD8UMlF1NzPQBWh5AsKiyWOzT9CX+QS6cKUd2FrEPFa1x/AHyJokADpUgCj2VM75
+         CUn0Xii5QaTi74XB3S6BHPuRAFZvS3LiXwnek7y3BrpLoDNxeG8x35Lo8uLumR7EFGAc
+         TLH/jttsphZmUdjKXGywNM1wgR3r3jMhsNuUaYhYHgCfGv0UbYl9nVKVF0KFrSxON+ma
+         fmsA==
+X-Gm-Message-State: AOAM53196z2B1N7DFUuPNewoKygO68dIpMQD7B9UP/6/nytuaO6rB198
+        VkCJOcTXgwEB8Km+NHahdDg=
+X-Google-Smtp-Source: ABdhPJwk8IdGFbiOkifbH2CDS7M4C7CWU6JXyu8yq7dry6sycLjKFs6E+1JQ+o5NCJmZKCpoOEftuw==
+X-Received: by 2002:a05:600c:4649:: with SMTP id n9mr3670814wmo.168.1627503620759;
+        Wed, 28 Jul 2021 13:20:20 -0700 (PDT)
 Received: from sqli.sqli.com ([195.53.121.100])
-        by smtp.googlemail.com with ESMTPSA id o29sm879703wms.13.2021.07.28.13.20.18
+        by smtp.googlemail.com with ESMTPSA id o29sm879703wms.13.2021.07.28.13.20.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Jul 2021 13:20:19 -0700 (PDT)
+        Wed, 28 Jul 2021 13:20:20 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org, Sergey Petrakov <kr@spmail.info>
-Subject: [PATCH 07/32] printf.3: wfix
-Date:   Wed, 28 Jul 2021 22:19:43 +0200
-Message-Id: <20210728202008.3158-8-alx.manpages@gmail.com>
+Cc:     Thomas Voss <thomasavoss@protonmail.com>,
+        linux-man@vger.kernel.org,
+        Alejandro Colomar <alx.manpages@gmail.com>
+Subject: [PATCH 08/32] Various pages: Consistently use '*argv[]'
+Date:   Wed, 28 Jul 2021 22:19:44 +0200
+Message-Id: <20210728202008.3158-9-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210728202008.3158-1-alx.manpages@gmail.com>
 References: <20210728202008.3158-1-alx.manpages@gmail.com>
@@ -63,25 +64,181 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Reported-by: Sergey Petrakov <kr@spmail.info>
+From: Thomas Voss <thomasavoss@protonmail.com>
+
+Scripted change:
+
+$ find man? -type f \
+  | sed -i 's/int argc, char \*\*argv/int argc, char \*argv\[\]/';
+
+Signed-off-by: Thomas Voss <thomasavoss@protonmail.com>
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man3/printf.3 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ man2/bpf.2                | 2 +-
+ man2/copy_file_range.2    | 2 +-
+ man2/membarrier.2         | 4 ++--
+ man2/perf_event_open.2    | 2 +-
+ man2/seccomp.2            | 2 +-
+ man3/bsearch.3            | 2 +-
+ man3/getopt.3             | 2 +-
+ man3/getsubopt.3          | 2 +-
+ man3/pthread_setname_np.3 | 2 +-
+ man3/wordexp.3            | 2 +-
+ man7/fanotify.7           | 2 +-
+ 11 files changed, 12 insertions(+), 12 deletions(-)
 
-diff --git a/man3/printf.3 b/man3/printf.3
-index fcc3bd6f3..1074626e1 100644
---- a/man3/printf.3
-+++ b/man3/printf.3
-@@ -115,7 +115,7 @@ is the same as
- except that it outputs to a file descriptor,
- .IR fd ,
- instead of to a
--.I stdio
-+.I FILE
- stream.
- .PP
- The functions
+diff --git a/man2/bpf.2 b/man2/bpf.2
+index 6e1ffa198..246053201 100644
+--- a/man2/bpf.2
++++ b/man2/bpf.2
+@@ -1212,7 +1212,7 @@ riscv (since Linux 5.1).
+  * 4. print number of received TCP/UDP packets every second
+  */
+ int
+-main(int argc, char **argv)
++main(int argc, char *argv[])
+ {
+     int sock, map_fd, prog_fd, key;
+     long long value = 0, tcp_cnt, udp_cnt;
+diff --git a/man2/copy_file_range.2 b/man2/copy_file_range.2
+index 467a16300..03bafcffc 100644
+--- a/man2/copy_file_range.2
++++ b/man2/copy_file_range.2
+@@ -236,7 +236,7 @@ or server-side-copy (in the case of NFS).
+ #include <unistd.h>
+ 
+ int
+-main(int argc, char **argv)
++main(int argc, char *argv[])
+ {
+     int fd_in, fd_out;
+     struct stat stat;
+diff --git a/man2/membarrier.2 b/man2/membarrier.2
+index fec82f228..2771ebdcb 100644
+--- a/man2/membarrier.2
++++ b/man2/membarrier.2
+@@ -358,7 +358,7 @@ slow_path(int *read_a)
+ }
+ 
+ int
+-main(int argc, char **argv)
++main(int argc, char *argv[])
+ {
+     int read_a, read_b;
+ 
+@@ -444,7 +444,7 @@ slow_path(int *read_a)
+ }
+ 
+ int
+-main(int argc, char **argv)
++main(int argc, char *argv[])
+ {
+     int read_a, read_b;
+ 
+diff --git a/man2/perf_event_open.2 b/man2/perf_event_open.2
+index d2523dd3d..daf5edddf 100644
+--- a/man2/perf_event_open.2
++++ b/man2/perf_event_open.2
+@@ -3762,7 +3762,7 @@ perf_event_open(struct perf_event_attr *hw_event, pid_t pid,
+ }
+ 
+ int
+-main(int argc, char **argv)
++main(int argc, char *argv[])
+ {
+     struct perf_event_attr pe;
+     long long count;
+diff --git a/man2/seccomp.2 b/man2/seccomp.2
+index a3421871f..8c80fb7bb 100644
+--- a/man2/seccomp.2
++++ b/man2/seccomp.2
+@@ -1199,7 +1199,7 @@ install_filter(int syscall_nr, int t_arch, int f_errno)
+ }
+ 
+ int
+-main(int argc, char **argv)
++main(int argc, char *argv[])
+ {
+     if (argc < 5) {
+         fprintf(stderr, "Usage: "
+diff --git a/man3/bsearch.3 b/man3/bsearch.3
+index 25ab3e8de..43e8b9c57 100644
+--- a/man3/bsearch.3
++++ b/man3/bsearch.3
+@@ -124,7 +124,7 @@ compmi(const void *m1, const void *m2)
+ }
+ 
+ int
+-main(int argc, char **argv)
++main(int argc, char *argv[])
+ {
+     qsort(months, nr_of_months, sizeof(months[0]), compmi);
+     for (int i = 1; i < argc; i++) {
+diff --git a/man3/getopt.3 b/man3/getopt.3
+index 0d6ad1c54..ce4c28088 100644
+--- a/man3/getopt.3
++++ b/man3/getopt.3
+@@ -491,7 +491,7 @@ with most of its features.
+ #include <getopt.h>
+ 
+ int
+-main(int argc, char **argv)
++main(int argc, char *argv[])
+ {
+     int c;
+     int digit_optind = 0;
+diff --git a/man3/getsubopt.3 b/man3/getsubopt.3
+index 99d112e63..2649984bb 100644
+--- a/man3/getsubopt.3
++++ b/man3/getsubopt.3
+@@ -160,7 +160,7 @@ The following program expects suboptions following a "\-o" option.
+ #include <stdio.h>
+ 
+ int
+-main(int argc, char **argv)
++main(int argc, char *argv[])
+ {
+     enum {
+         RO_OPT = 0,
+diff --git a/man3/pthread_setname_np.3 b/man3/pthread_setname_np.3
+index a1fb3fa21..77c18a3cf 100644
+--- a/man3/pthread_setname_np.3
++++ b/man3/pthread_setname_np.3
+@@ -180,7 +180,7 @@ threadfunc(void *parm)
+ }
+ 
+ int
+-main(int argc, char **argv)
++main(int argc, char *argv[])
+ {
+     pthread_t thread;
+     int rc;
+diff --git a/man3/wordexp.3 b/man3/wordexp.3
+index c583d559e..0aef4cc68 100644
+--- a/man3/wordexp.3
++++ b/man3/wordexp.3
+@@ -240,7 +240,7 @@ is approximately that of "ls [a-c]*.c".
+ #include <wordexp.h>
+ 
+ int
+-main(int argc, char **argv)
++main(int argc, char *argv[])
+ {
+     wordexp_t p;
+     char **w;
+diff --git a/man7/fanotify.7 b/man7/fanotify.7
+index 6a7e70d75..9c218fd06 100644
+--- a/man7/fanotify.7
++++ b/man7/fanotify.7
+@@ -1069,7 +1069,7 @@ $ \fBmkdir \-p /home/user/testdir\fP          # In another terminal
+ #define BUF_SIZE 256
+ 
+ int
+-main(int argc, char **argv)
++main(int argc, char *argv[])
+ {
+     int fd, ret, event_fd, mount_fd;
+     ssize_t len, path_len;
 -- 
 2.32.0
 
