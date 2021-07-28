@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 1CDC63D9699
+	by mail.lfdr.de (Postfix) with ESMTP id CC5F53D969A
 	for <lists+linux-man@lfdr.de>; Wed, 28 Jul 2021 22:20:42 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231549AbhG1UUn (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 28 Jul 2021 16:20:43 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35630 "EHLO
+        id S231571AbhG1UUo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 28 Jul 2021 16:20:44 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35634 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231398AbhG1UUm (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 28 Jul 2021 16:20:42 -0400
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com [IPv6:2a00:1450:4864:20::32c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D7E33C061757
-        for <linux-man@vger.kernel.org>; Wed, 28 Jul 2021 13:20:39 -0700 (PDT)
-Received: by mail-wm1-x32c.google.com with SMTP id n11so2229174wmd.2
-        for <linux-man@vger.kernel.org>; Wed, 28 Jul 2021 13:20:39 -0700 (PDT)
+        with ESMTP id S231398AbhG1UUn (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 28 Jul 2021 16:20:43 -0400
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com [IPv6:2a00:1450:4864:20::32f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D3371C061765
+        for <linux-man@vger.kernel.org>; Wed, 28 Jul 2021 13:20:40 -0700 (PDT)
+Received: by mail-wm1-x32f.google.com with SMTP id u15so2233903wmj.1
+        for <linux-man@vger.kernel.org>; Wed, 28 Jul 2021 13:20:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=Oo7IwEWgLfsUi0ixl3R3pYsLfpIgmPTzHi0hfEC8Rv8=;
-        b=ob00kcggKiAxrb4WX7qBnu3p8MlwOXcjXhGCZUqLw4UTmOCgmWA5KqTdWO3YOkdfl+
-         FZ4pU6b7UxZzOPcIwGIu6nLDJhRll1PiwdeKiZZmzRuJftiWpQID1BOXu5bLGrs//l60
-         0wlyndqH+9E12Ln5YHrQcuF6ddf8aCJomFyA5yTxTWpHwgoJdpPvDlA0/iP715PoBO6X
-         iCzT/AGDI4MLdZhG6FIrJC/aWDnZo71DnMQMIM+3n1t7BSZeAQ/brA2BuAvvoCFxh08w
-         Cj91bhNTh65flVp8MvhQVpOFQI1J6wAIq7R2eHsEec8UoC8VAp4gi0Bxhlv5JFHUdEhZ
-         X7rQ==
+        bh=PC7NxOZobGf0go+lfZECKbVukKdgUUF8cNhTRsh23hc=;
+        b=eI19XdFfXXfAByS2O0M0GZ790YivQ/4Sr6CEuT9DOOob45e2+3d3UHTYi+M9mliXUN
+         7ACpbMRO+QqvG/5stj62Rhh+1yh5l07v5uuqToP5BOAAwu37Y3iYznRA64LA7yMb4j8I
+         eICJZ6kK6Nv21wRar35w/SgZFaE9BgHdFtPQZzfo0fw0PIrRbFiJo7hdn2pkAdu2Zu+b
+         YGjos1v2R6aaYkgVSkHKG/fcpU77Y5ou5LzVXpDsk5qku943qCNin6d+EqtP5//V8z6f
+         L3EA7ZVbUkKFoqfMC+mQec1MHOVUsDD7GU9sJRtUfjAwLc+XNY+nSjQiRAszlvV0O6Ca
+         /DzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=Oo7IwEWgLfsUi0ixl3R3pYsLfpIgmPTzHi0hfEC8Rv8=;
-        b=Eb+Bi3q06RjZdietaU+AP2tdcgn2xJ1h8WJkj4zt3WQOTjrJZ33QGfEiaC70d1sKFe
-         AIQfh3W3/Fe2fhikkmL7CqjXTbxojRtgbTOAZ6V9B8CBExazuoQxBPhtNCiZH9WkSgjX
-         ax8WJ3tji9vvkQyX5HwAHZmSnkE/EoOpyWKEIxVoiaA3yEe9vvmO0h1fh81M5r7yht40
-         oi9ApNii++IBsPD+V3rXDqGbJvINDS+nVGnkqUvSuRJpMxPu9k3Ba/qokfuwos0bKOs3
-         fPlBKgYcaI0bKSch1jp8SfBZo8/tUVYitpd+Oo3dGQ+TfcdsYnP3lPlJIPkk+dQt95i4
-         s6BA==
-X-Gm-Message-State: AOAM532jbaqQa8HiSGVjlteYZii1d8q6oumFBTy6O+pyXlDBB9VoFmYh
-        We0+bLggHek0qn0EsNyXdR4=
-X-Google-Smtp-Source: ABdhPJzn1xtgQWX5ChsKn7BfiFQGYni418Gs/4YUyI8rdljL6gfCOEXXNskuD/GNbMPTv6NojXSpkg==
-X-Received: by 2002:a05:600c:350b:: with SMTP id h11mr10768842wmq.20.1627503638589;
-        Wed, 28 Jul 2021 13:20:38 -0700 (PDT)
+        bh=PC7NxOZobGf0go+lfZECKbVukKdgUUF8cNhTRsh23hc=;
+        b=m0MeuXuG5/Bzbo8zsmrtCjw/YLQFTtxAwH1YA0PARbMyffUplJsuiaZFLMOUnPEQd1
+         XJJ9Vi9cGXPQndPwDK09j48OjKK5g/M2jxZot06GlzIe3nFrhO2jc0gWh51R4tAebZPC
+         gK7o/DGNAF9y8p31wLKK4i4vvQvtoX3atF8oDqNeVmkCgGwWvUgzdo4M7jjsdzm52Jbm
+         UgHMGZHh1wzwOtinGwYNwNmxvkob1WKDgEXV2M2BpCG4KwMPXn7ooLBOexkTCnh3pPY0
+         tZRJlJHFHuUM/h2lVEf/tDu2bChfwciXFQyfyKj8seoyYEvmVFW+P5JebeoM6IUdXkFm
+         rLVA==
+X-Gm-Message-State: AOAM533n0HyIkla8Vj+inpuExL6NO7rbDN1LI3X2zISFoVzyARSzYZV+
+        Pj08ONStShb1rGhucSFhnIhPe7DH5j0=
+X-Google-Smtp-Source: ABdhPJyf4CCh4dJgDXHMR5r8CtAJQL5dYSrRg6eb1u69EyGw2+Z4bGxgzRnaNRV9ok1jl40ibLve5A==
+X-Received: by 2002:a1c:1b55:: with SMTP id b82mr3043146wmb.121.1627503639486;
+        Wed, 28 Jul 2021 13:20:39 -0700 (PDT)
 Received: from sqli.sqli.com ([195.53.121.100])
-        by smtp.googlemail.com with ESMTPSA id o29sm879703wms.13.2021.07.28.13.20.37
+        by smtp.googlemail.com with ESMTPSA id o29sm879703wms.13.2021.07.28.13.20.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Jul 2021 13:20:38 -0700 (PDT)
+        Wed, 28 Jul 2021 13:20:39 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
-Cc:     Sagar Patel <sagarmp@cs.unc.edu>, linux-man@vger.kernel.org,
-        Alejandro Colomar <alx.manpages@gmail.com>
-Subject: [PATCH 26/32] tkill.2: tfix
-Date:   Wed, 28 Jul 2021 22:20:02 +0200
-Message-Id: <20210728202008.3158-27-alx.manpages@gmail.com>
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org, Stefan Kanthak <stefan.kanthak@nexgo.de>
+Subject: [PATCH 27/32] strstr.3: Add special case for empty needle
+Date:   Wed, 28 Jul 2021 22:20:03 +0200
+Message-Id: <20210728202008.3158-28-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210728202008.3158-1-alx.manpages@gmail.com>
 References: <20210728202008.3158-1-alx.manpages@gmail.com>
@@ -63,28 +63,31 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From: Sagar Patel <sagarmp@cs.unc.edu>
-
-Correct function signature by adding missing parenthesis.
-
+Reported-by: Stefan Kanthak <stefan.kanthak@nexgo.de>
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man2/tkill.2 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ man3/strstr.3 | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/man2/tkill.2 b/man2/tkill.2
-index 6ff930e17..6e1afcd36 100644
---- a/man2/tkill.2
-+++ b/man2/tkill.2
-@@ -39,7 +39,7 @@ tkill, tgkill \- send a signal to a thread
- .PP
- .B #include <signal.h>
- .PP
--.BI "int tgkill, pid_t " tgid ", pid_t " tid ", int " sig );
-+.BI "int tgkill(pid_t " tgid ", pid_t " tid ", int " sig );
- .fi
- .PP
- .IR Note :
+diff --git a/man3/strstr.3 b/man3/strstr.3
+index e085409c2..41ee87489 100644
+--- a/man3/strstr.3
++++ b/man3/strstr.3
+@@ -61,6 +61,14 @@ but ignores the case of both arguments.
+ .SH RETURN VALUE
+ These functions return a pointer to the beginning of the
+ located substring, or NULL if the substring is not found.
++.PP
++Note the special case:
++If
++.I needle
++is the empty string,
++the return value is always
++.I haystack
++itself.
+ .SH ATTRIBUTES
+ For an explanation of the terms used in this section, see
+ .BR attributes (7).
 -- 
 2.32.0
 
