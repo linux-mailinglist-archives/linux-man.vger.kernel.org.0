@@ -2,176 +2,123 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2FAAD3DA110
-	for <lists+linux-man@lfdr.de>; Thu, 29 Jul 2021 12:30:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C7FCE3DA175
+	for <lists+linux-man@lfdr.de>; Thu, 29 Jul 2021 12:45:26 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235755AbhG2Kaf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 29 Jul 2021 06:30:35 -0400
-Received: from mx0a-001b2d01.pphosted.com ([148.163.156.1]:19046 "EHLO
-        mx0a-001b2d01.pphosted.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S235741AbhG2Kae (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 29 Jul 2021 06:30:34 -0400
-Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
-        by mx0a-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id 16TA9XjQ074133;
-        Thu, 29 Jul 2021 06:30:29 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=date : from : to : cc :
- subject : message-id : references : content-type : in-reply-to :
- mime-version; s=pp1; bh=kG7qmPC0mpWciXBythR6/76yhYJ60bZKI/NnBaPlVcg=;
- b=hR1u1GL9YLpomT2FS/SoHbUG3QRbjyF/MT271G/v2Tg9wcjvTPXdNybX1EbjSKy8yufL
- XUj7qO8gvFAC6fL9uP8/PF5EsUMUSdFNnqzU0hdYZ+dvKGM3XA2GdBIpE96P39Q+4udB
- pa4W91BWRRgfXBDxdlia/bd/3luksZYOG9d8EPFCW1xwiJk0KS0GSE4hak+AugxWrlrY
- kaGsRah7Vz9WIU3OWslZnrGuXoboQw0VG4BQrfnU2cwYa9LvzrJ7lt9SJ9JmUUt1Zpqi
- hkx8bJhSxEfdIfzyp0YYEMe5QthwYooFSs5UbOyB9r9E1J1+AFqkpchIpvS7Lm3wh5n3 BA== 
-Received: from pps.reinject (localhost [127.0.0.1])
-        by mx0a-001b2d01.pphosted.com with ESMTP id 3a3qrjq2sf-1
-        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-        Thu, 29 Jul 2021 06:30:29 -0400
-Received: from m0098393.ppops.net (m0098393.ppops.net [127.0.0.1])
-        by pps.reinject (8.16.0.43/8.16.0.43) with SMTP id 16TA9bxX074550;
-        Thu, 29 Jul 2021 06:30:29 -0400
-Received: from ppma04ams.nl.ibm.com (63.31.33a9.ip4.static.sl-reverse.com [169.51.49.99])
-        by mx0a-001b2d01.pphosted.com with ESMTP id 3a3qrjq2rj-1
-        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-        Thu, 29 Jul 2021 06:30:28 -0400
-Received: from pps.filterd (ppma04ams.nl.ibm.com [127.0.0.1])
-        by ppma04ams.nl.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 16TAROvf021422;
-        Thu, 29 Jul 2021 10:30:26 GMT
-Received: from b06cxnps4075.portsmouth.uk.ibm.com (d06relay12.portsmouth.uk.ibm.com [9.149.109.197])
-        by ppma04ams.nl.ibm.com with ESMTP id 3a235m1mp8-1
-        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-        Thu, 29 Jul 2021 10:30:26 +0000
-Received: from d06av22.portsmouth.uk.ibm.com (d06av22.portsmouth.uk.ibm.com [9.149.105.58])
-        by b06cxnps4075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 16TAUOc626607994
-        (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-        Thu, 29 Jul 2021 10:30:24 GMT
-Received: from d06av22.portsmouth.uk.ibm.com (unknown [127.0.0.1])
-        by IMSVA (Postfix) with ESMTP id E8E884C058;
-        Thu, 29 Jul 2021 10:30:23 +0000 (GMT)
-Received: from d06av22.portsmouth.uk.ibm.com (unknown [127.0.0.1])
-        by IMSVA (Postfix) with ESMTP id 2282D4C040;
-        Thu, 29 Jul 2021 10:30:23 +0000 (GMT)
-Received: from linux.ibm.com (unknown [9.145.86.232])
-        by d06av22.portsmouth.uk.ibm.com (Postfix) with ESMTPS;
-        Thu, 29 Jul 2021 10:30:23 +0000 (GMT)
-Date:   Thu, 29 Jul 2021 13:30:20 +0300
-From:   Mike Rapoport <rppt@linux.ibm.com>
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     Mike Rapoport <rppt@kernel.org>, linux-api@vger.kernel.org,
-        linux-man@vger.kernel.org, linux-mm@kvack.org,
-        Michael Kerrisk <mtk.manpages@gmail.com>
-Subject: Re: [PATCH v2] man2: new page describing memfd_secret() system call
-Message-ID: <YQKDPMmyKdKcqHJf@linux.ibm.com>
-References: <20210729082900.1581359-1-rppt@kernel.org>
- <3572b371-80ab-eac1-e2c5-26b07748f767@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3572b371-80ab-eac1-e2c5-26b07748f767@gmail.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: 7t0Hs_ox8908HUzsk7u_Wh99JHMgHuPy
-X-Proofpoint-ORIG-GUID: iVOSCbM7ojFlC7al4ZmYn23SMy0N8lob
-X-Proofpoint-UnRewURL: 0 URL was un-rewritten
+        id S235722AbhG2Kp2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 29 Jul 2021 06:45:28 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35024 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S235679AbhG2Kp2 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 29 Jul 2021 06:45:28 -0400
+Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com [IPv6:2607:f8b0:4864:20::631])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4A00DC0613C1
+        for <linux-man@vger.kernel.org>; Thu, 29 Jul 2021 03:45:24 -0700 (PDT)
+Received: by mail-pl1-x631.google.com with SMTP id t21so6435965plr.13
+        for <linux-man@vger.kernel.org>; Thu, 29 Jul 2021 03:45:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to:user-agent;
+        bh=crkNm62YP52WDQ9z8mrAZ1Fx8kMbxbVrmPDeYRfuEKI=;
+        b=vLAV4XMPKlARxU1wNLYSMDDbPQf/OTRJmTRgtEEYv5817m+Y+ma0RuTIMYaz4fiBXh
+         rLarkV3bKSlIPJN2FV3k9NGwRLuat+KTFNq+MxfA6gI+myUzqBgUbrPC8WAq2woPHBCH
+         EYoT3sMxP4SleOI1OoI9KGkXFUjOhJb75vQcPP+jngjEOLUGqQni5RtepLvjcLp6RQKW
+         xab4id5Y5QS+zj7x75JQFbzIzP3ijBxhyyyYQ9QmXbaKx5zRQNpUQ5iDzaVKz4nxrMpf
+         C8VXhRsrmo8K/XT5Spky3rFYCsgVATW0By4zOM1iqYfpKUHZVKO6KrqBoGAun+cVNbKf
+         Ub1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to:user-agent;
+        bh=crkNm62YP52WDQ9z8mrAZ1Fx8kMbxbVrmPDeYRfuEKI=;
+        b=i61VjAEA/97nGF7dHh9Yf0OrWEOxljL2HKYH07Fj6F+fFSd/Pq2R78YO2oEU8wiNhx
+         gy4XKl5r+8IWLafuxOlEo8MEjGmIIYT/94GO7V96SqmhMxVoD6h83m/kyWV3/w/iH62H
+         QSyPgA6BpM3eBcpeNXhuY8F/Iug37wrsXodud54kGGto8lXx7dD1hFepsHoSC1EybLbM
+         OstWImZeh6kxUKmlKyWenv/wH6dt9gi0P0zoMqSuRCFtvlgtp4wkZcckqnyL0JsCuWcu
+         CjA1RT9WpJZN0FWfeJDYJByrx5kqjq6tvawakJMvywTAOkUI7g4EvCtYaLPWclfY+0vP
+         2wQA==
+X-Gm-Message-State: AOAM530Wl+/7pVyeEMxOPLfpWe88L3B6GJUpJw9pip3dIuPY87UQXfir
+        H7vN6UAem48IFk0xDNTEDuI=
+X-Google-Smtp-Source: ABdhPJzcmsa3/6KvTxxeTIkDrObMWWOPuTuIchp4MlRaS+GVWSVIWCS2XghZTy+f+M95uWp6y/69TQ==
+X-Received: by 2002:a17:90a:6e07:: with SMTP id b7mr2021858pjk.1.1627555523852;
+        Thu, 29 Jul 2021 03:45:23 -0700 (PDT)
+Received: from localhost.localdomain ([1.145.2.147])
+        by smtp.gmail.com with ESMTPSA id u33sm3222517pfg.3.2021.07.29.03.45.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Jul 2021 03:45:23 -0700 (PDT)
+Date:   Thu, 29 Jul 2021 20:45:19 +1000
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To:     mtk.manpages@gmail.com, Viet Than <thanhoangviet@gmail.com>,
+        linux-man@vger.kernel.org
+Subject: Re: [PATCH 31/32] time.2: wfix regarding year-2038
+Message-ID: <20210729104517.a4kktqk54ef72m22@localhost.localdomain>
+References: <20210728202008.3158-1-alx.manpages@gmail.com>
+ <20210728202008.3158-32-alx.manpages@gmail.com>
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391,18.0.790
- definitions=2021-07-29_09:2021-07-29,2021-07-29 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 bulkscore=0 malwarescore=0
- suspectscore=0 clxscore=1011 impostorscore=0 priorityscore=1501
- lowpriorityscore=0 phishscore=0 mlxscore=0 adultscore=0 spamscore=0
- mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2107140000 definitions=main-2107290061
+Content-Type: multipart/signed; micalg=pgp-sha256;
+        protocol="application/pgp-signature"; boundary="6s7h64dg3eoeoyij"
+Content-Disposition: inline
+In-Reply-To: <20210728202008.3158-32-alx.manpages@gmail.com>
+User-Agent: NeoMutt/20180716
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Thu, Jul 29, 2021 at 12:12:12PM +0200, Alejandro Colomar (man-pages) wrote:
-> Hi Mike,
-> 
-> On 7/29/21 10:29 AM, Mike Rapoport wrote:
-> > From: Mike Rapoport <rppt@linux.ibm.com>
-> > 
-> > Signed-off-by: Mike Rapoport <rppt@linux.ibm.com>
-> > ---
-> > 
-> > v2: address Alex's comments:
-> > * update synopsis to match new style for syscalls without a wrapper
-> > * drop note about absence of glibc wrapper
-> > * update formatting
-> 
-> Please check a small typo introduced in v2 below.
-> 
-> Thanks!
-> 
-> Alex
-> 
-> > 
-> > v1: https://lore.kernel.org/linux-api/20210727124140.1487079-1-rppt@kernel.org
-> > 
-> >   man2/memfd_secret.2 | 147 ++++++++++++++++++++++++++++++++++++++++++++
-> >   1 file changed, 147 insertions(+)
-> >   create mode 100644 man2/memfd_secret.2
-> > 
-> > diff --git a/man2/memfd_secret.2 b/man2/memfd_secret.2
-> > new file mode 100644
-> > index 000000000..5a70cb5d2
-> > --- /dev/null
-> > +++ b/man2/memfd_secret.2
-> > @@ -0,0 +1,147 @@
-> > +.\" Copyright (c) 2021, IBM Corporation.
-> > +.\" Written by Mike Rapoport <rppt@linux.ibm.com>
-> > +.\"
-> > +.\" Based on memfd_create(2) man page
-> > +.\" Copyright (C) 2014 Michael Kerrisk <mtk.manpages@gmail.com>
-> > +.\" and Copyright (C) 2014 David Herrmann <dh.herrmann@gmail.com>
-> > +.\"
-> > +.\" %%%LICENSE_START(GPLv2+)
-> > +.\"
-> > +.\" This program is free software; you can redistribute it and/or modify
-> > +.\" it under the terms of the GNU General Public License as published by
-> > +.\" the Free Software Foundation; either version 2 of the License, or
-> > +.\" (at your option) any later version.
-> > +.\"
-> > +.\" This program is distributed in the hope that it will be useful,
-> > +.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
-> > +.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-> > +.\" GNU General Public License for more details.
-> > +.\"
-> > +.\" You should have received a copy of the GNU General Public
-> > +.\" License along with this manual; if not, see
-> > +.\" <http://www.gnu.org/licenses/>.
-> > +.\" %%%LICENSE_END
-> > +.\"
-> > +.TH MEMFD_SECRET 2 2020-08-02 Linux "Linux Programmer's Manual"
-> > +.SH NAME
-> > +memfd_secret \- create an anonymous file to access secret memory regions
-> > +.SH SYNOPSIS
-> > +.nf
-> > +.PP
-> > +.BR "#include <sys/syscall.h>" "      /* Definition of " SYS_* " constants */"
-> > +.B #include <unistd.h>
-> > +.PP
-> > +.BI "int syscall(SYS_memfd_secret, int " cmd ", unsigned int " flags \
-> > +", int " cpu_id );
-> 
-> Check the parameter list :)
- 
-Argh. 
 
-Would you need v3 or this on top would suffice?
+--6s7h64dg3eoeoyij
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/man2/memfd_secret.2 b/man2/memfd_secret.2
-index 5a70cb5d2..8263f18d5 100644
---- a/man2/memfd_secret.2
-+++ b/man2/memfd_secret.2
-@@ -31,8 +31,7 @@ memfd_secret \- create an anonymous file to access secret memory regions
- .BR "#include <sys/syscall.h>" "      /* Definition of " SYS_* " constants */"
- .B #include <unistd.h>
- .PP
--.BI "int syscall(SYS_memfd_secret, int " cmd ", unsigned int " flags \
--", int " cpu_id );
-+.BI "int syscall(SYS_memfd_secret, unsigned int " flags ");
- .fi
- .PP
- .IR Note :
+Hi Than,
 
--- 
-Sincerely yours,
-Mike.
+At 2021-07-28T22:20:07+0200, Alejandro Colomar wrote:
+> From: Viet Than <thanhoangviet@gmail.com>
+>=20
+> Cc: Jakub Wilk <jwilk@jwilk.net>
+> Signed-off-by: Viet Than <thanhoangviet@gmail.com>
+> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+> ---
+>  man2/time.2 | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/man2/time.2 b/man2/time.2
+> index 059222dcd..a7410bfc8 100644
+> --- a/man2/time.2
+> +++ b/man2/time.2
+> @@ -93,7 +93,7 @@ specified as NULL cannot fail with the error
+>  .BR EOVERFLOW ,
+>  even on ABIs where
+>  .I time_t
+> -is a signed 32-bit integer and the clock ticks past the time 2**31
+> +is a signed 32-bit integer and the clock reaches at or beyond the time 2=
+**31
+
+"[R]eaches at" is not standard English.  More idiomatic would be
+"reaches or exceeds".
+
+Regards,
+Branden
+
+--6s7h64dg3eoeoyij
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmEChrUACgkQ0Z6cfXEm
+bc5XLhAAl1tCPxEKvza/ziVqtbt97CUXD8Q3JtVEF0BlpIItZX0Q95M5KRFuNlkv
+MJb5MbINkwZ87+hRRbBt3Jcoz10E1/Sw5ynVQJSj3Y1KsQ6jiR5dLhhigAWA0NLf
+j42jFXD96hYJPZUtrWmEbdOHSsibl8JPjPCJZUbTVo/fe91Qn/mlK5+TSYzm91Kv
+eE7uixOzwi1bP8pP7NUMV7Q5Ylsm/NA73b5yCsyn/ilu51ny8ESt76qzukIMaRNm
+8rz8Jpj3/dDZ1OSqBOoP5SE4JNvPEVRKLAG9mnF4FAJ1u15M/QjSPfyOkYXS011v
+MfIk59lWrfS5UEY0u41oySN8mOJB6kEdehIYJtWBp/nUt3e8N2OKG9QSu40Ce7yX
+ezwgRRWRMR+BDrolz6JM1zzasp4J6aUHJ6ARMX4uWAPIrWDvpGzDRUyqMUzCfUVP
+Ua18IeuKO2Uo2YHnsSD+Ob3sZ8gRCT3VrBT4fPi76MC7Cq7S9Ds14xVbEKaTEu74
+v/1aIKlwghlHJIBbET2/2GKUlpzOehdZtjFStnbcWX3C5OqGOlr8VNhyfhcn6qyY
+bZrG25acxAG8lklIuHmW1GqJIV3MZgq9Cecl5xY82vx8KeXAg5mSIamPXx/PyTpr
+trXc/XRXxbgmZzvroYhENh1AJGAS+80FN9W667Mcjcpshr3uP8s=
+=m6Cy
+-----END PGP SIGNATURE-----
+
+--6s7h64dg3eoeoyij--
