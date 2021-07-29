@@ -2,339 +2,176 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B3C743DA100
-	for <lists+linux-man@lfdr.de>; Thu, 29 Jul 2021 12:24:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2FAAD3DA110
+	for <lists+linux-man@lfdr.de>; Thu, 29 Jul 2021 12:30:34 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235695AbhG2KYQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 29 Jul 2021 06:24:16 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58172 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235686AbhG2KYQ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 29 Jul 2021 06:24:16 -0400
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com [IPv6:2a00:1450:4864:20::32c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 08F36C061757
-        for <linux-man@vger.kernel.org>; Thu, 29 Jul 2021 03:24:13 -0700 (PDT)
-Received: by mail-wm1-x32c.google.com with SMTP id n21so3366423wmq.5
-        for <linux-man@vger.kernel.org>; Thu, 29 Jul 2021 03:24:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=pLJd/P1l6EwU5fz/Bw3NOmQiHJV3obAaK4EKIcp7Z2U=;
-        b=DWb5a4uQ9nSuKXzQVfrAqVYixEfSUPyGHX2cPMYEOl0ZawKgTfMKWRJd1Ev6gm2wcJ
-         r5cYD/hjfwlFf248L8r/M1Q4uAZ2tzVaAtzCw8k1+v69LK37eX7qtAdQIkB9UyoQAasA
-         gerykQ47KE/F8QUw77BhIoda52npwGlIgR8x+NBgClqUXl+KgG1Wibizr0Mce3xCRx+S
-         v/7PFuzfj24rlVAiBqgOmInkzFV2hLINzWWSRBe/8eFV7TJRcQSG9XmTR3H1wmNc9602
-         rU6akCNuZylNgZn1kZvjRemgd/nyu1dicYaSif7Zh8Mq5V/CCpuBVf+N9IU2zk38Mxlp
-         1IQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=pLJd/P1l6EwU5fz/Bw3NOmQiHJV3obAaK4EKIcp7Z2U=;
-        b=Ir64CzazALazZBVsaupIUY+Fn5KJxzurkq8vgIUBWkrbFJXR7lbf+737/nHsbioLV0
-         /0t3XioxFQJkaJSZoepCDN03MDO7RHKD4nHGRrAWBDrlqNYt3BohrLr+AGg+vmCHQc0Y
-         BZIEOIXHxUaHvjOpkOvFR6a8wtEPnPsrYIIjAeMaAnqTlG8xPOBpB5zi6QouZgJUCYDY
-         Vkv03rBNdCWTb/CgLsiLHhNMmg048MQjI+qkipL5YDbm5vwFElYb78ib2/JyjtdCIrDs
-         pIQ+m3/uBYVkW/a5NPGd4sbvweNK2GUApRJyw4v007TcVIIw+Pj5z8uCDQgaQLn4JsFJ
-         ipLA==
-X-Gm-Message-State: AOAM531v25tmpGpClJz6VRV59FWJnxKSGRgvRWgProuXZFyUDHewvuxc
-        wC+RnDRDYtcrRomsNYH039gzom+v3ZU=
-X-Google-Smtp-Source: ABdhPJzSpvbp0UK3CjytFo1a8unc568vK3xpGK5NE23XhcgJiZ+nEADb6CAD4H45jD2wYVVzv5kMKQ==
-X-Received: by 2002:a1c:f203:: with SMTP id s3mr13207085wmc.138.1627554251508;
-        Thu, 29 Jul 2021 03:24:11 -0700 (PDT)
-Received: from [10.8.0.150] ([195.53.121.100])
-        by smtp.gmail.com with ESMTPSA id l3sm6684284wmq.2.2021.07.29.03.24.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 29 Jul 2021 03:24:11 -0700 (PDT)
-Subject: Re: [PATCH 11/32] futex.2: Minor tweaks to Kurt's patch
-To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org
-References: <20210728202008.3158-1-alx.manpages@gmail.com>
- <20210728202008.3158-12-alx.manpages@gmail.com>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <d8d288a2-bf9e-8fc9-f6d3-f47bc81db863@gmail.com>
-Date:   Thu, 29 Jul 2021 12:24:10 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+        id S235755AbhG2Kaf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 29 Jul 2021 06:30:35 -0400
+Received: from mx0a-001b2d01.pphosted.com ([148.163.156.1]:19046 "EHLO
+        mx0a-001b2d01.pphosted.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S235741AbhG2Kae (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 29 Jul 2021 06:30:34 -0400
+Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
+        by mx0a-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id 16TA9XjQ074133;
+        Thu, 29 Jul 2021 06:30:29 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=date : from : to : cc :
+ subject : message-id : references : content-type : in-reply-to :
+ mime-version; s=pp1; bh=kG7qmPC0mpWciXBythR6/76yhYJ60bZKI/NnBaPlVcg=;
+ b=hR1u1GL9YLpomT2FS/SoHbUG3QRbjyF/MT271G/v2Tg9wcjvTPXdNybX1EbjSKy8yufL
+ XUj7qO8gvFAC6fL9uP8/PF5EsUMUSdFNnqzU0hdYZ+dvKGM3XA2GdBIpE96P39Q+4udB
+ pa4W91BWRRgfXBDxdlia/bd/3luksZYOG9d8EPFCW1xwiJk0KS0GSE4hak+AugxWrlrY
+ kaGsRah7Vz9WIU3OWslZnrGuXoboQw0VG4BQrfnU2cwYa9LvzrJ7lt9SJ9JmUUt1Zpqi
+ hkx8bJhSxEfdIfzyp0YYEMe5QthwYooFSs5UbOyB9r9E1J1+AFqkpchIpvS7Lm3wh5n3 BA== 
+Received: from pps.reinject (localhost [127.0.0.1])
+        by mx0a-001b2d01.pphosted.com with ESMTP id 3a3qrjq2sf-1
+        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+        Thu, 29 Jul 2021 06:30:29 -0400
+Received: from m0098393.ppops.net (m0098393.ppops.net [127.0.0.1])
+        by pps.reinject (8.16.0.43/8.16.0.43) with SMTP id 16TA9bxX074550;
+        Thu, 29 Jul 2021 06:30:29 -0400
+Received: from ppma04ams.nl.ibm.com (63.31.33a9.ip4.static.sl-reverse.com [169.51.49.99])
+        by mx0a-001b2d01.pphosted.com with ESMTP id 3a3qrjq2rj-1
+        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+        Thu, 29 Jul 2021 06:30:28 -0400
+Received: from pps.filterd (ppma04ams.nl.ibm.com [127.0.0.1])
+        by ppma04ams.nl.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 16TAROvf021422;
+        Thu, 29 Jul 2021 10:30:26 GMT
+Received: from b06cxnps4075.portsmouth.uk.ibm.com (d06relay12.portsmouth.uk.ibm.com [9.149.109.197])
+        by ppma04ams.nl.ibm.com with ESMTP id 3a235m1mp8-1
+        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+        Thu, 29 Jul 2021 10:30:26 +0000
+Received: from d06av22.portsmouth.uk.ibm.com (d06av22.portsmouth.uk.ibm.com [9.149.105.58])
+        by b06cxnps4075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 16TAUOc626607994
+        (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+        Thu, 29 Jul 2021 10:30:24 GMT
+Received: from d06av22.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+        by IMSVA (Postfix) with ESMTP id E8E884C058;
+        Thu, 29 Jul 2021 10:30:23 +0000 (GMT)
+Received: from d06av22.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+        by IMSVA (Postfix) with ESMTP id 2282D4C040;
+        Thu, 29 Jul 2021 10:30:23 +0000 (GMT)
+Received: from linux.ibm.com (unknown [9.145.86.232])
+        by d06av22.portsmouth.uk.ibm.com (Postfix) with ESMTPS;
+        Thu, 29 Jul 2021 10:30:23 +0000 (GMT)
+Date:   Thu, 29 Jul 2021 13:30:20 +0300
+From:   Mike Rapoport <rppt@linux.ibm.com>
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Cc:     Mike Rapoport <rppt@kernel.org>, linux-api@vger.kernel.org,
+        linux-man@vger.kernel.org, linux-mm@kvack.org,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+Subject: Re: [PATCH v2] man2: new page describing memfd_secret() system call
+Message-ID: <YQKDPMmyKdKcqHJf@linux.ibm.com>
+References: <20210729082900.1581359-1-rppt@kernel.org>
+ <3572b371-80ab-eac1-e2c5-26b07748f767@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3572b371-80ab-eac1-e2c5-26b07748f767@gmail.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: 7t0Hs_ox8908HUzsk7u_Wh99JHMgHuPy
+X-Proofpoint-ORIG-GUID: iVOSCbM7ojFlC7al4ZmYn23SMy0N8lob
+X-Proofpoint-UnRewURL: 0 URL was un-rewritten
 MIME-Version: 1.0
-In-Reply-To: <20210728202008.3158-12-alx.manpages@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391,18.0.790
+ definitions=2021-07-29_09:2021-07-29,2021-07-29 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 bulkscore=0 malwarescore=0
+ suspectscore=0 clxscore=1011 impostorscore=0 priorityscore=1501
+ lowpriorityscore=0 phishscore=0 mlxscore=0 adultscore=0 spamscore=0
+ mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2107140000 definitions=main-2107290061
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 7/28/21 10:19 PM, Alejandro Colomar wrote:
-> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
-
-Drop this one too.
-
-> ---
->   man2/futex.2 | 69 ++++++++++++++++++++++++++--------------------------
->   1 file changed, 34 insertions(+), 35 deletions(-)
+On Thu, Jul 29, 2021 at 12:12:12PM +0200, Alejandro Colomar (man-pages) wrote:
+> Hi Mike,
 > 
-> diff --git a/man2/futex.2 b/man2/futex.2
-> index 2f340e0e0..217b76734 100644
-> --- a/man2/futex.2
-> +++ b/man2/futex.2
-> @@ -222,9 +222,9 @@ This allows the kernel to make some additional performance optimizations.
->   .\" taking reference counts on file backing store, and so on.
->   .IP
->   As a convenience,
-> -.IR <linux/futex.h>
-> +.I <linux/futex.h>
->   defines a set of constants with the suffix
-> -.BR _PRIVATE
-> +.B _PRIVATE
->   that are equivalents of all of the operations listed below,
->   .\" except the obsolete FUTEX_FD, for which the "private" flag was
->   .\" meaningless
-> @@ -247,19 +247,19 @@ This option bit can be employed only with the
->   and
->   (since Linux v5.14.0)
->   .\" commit bf22a6976897977b0a3f1aeba6823c959fc4fdae
-> -.BR FUTEX_LOCK_PI2
-> +.B FUTEX_LOCK_PI2
->   operations.
->   .IP
->   If this option is set, the kernel measures the
->   .I timeout
->   against the
-> -.BR CLOCK_REALTIME
-> +.B CLOCK_REALTIME
->   clock.
->   .IP
->   If this option is not set, the kernel measures the
->   .I timeout
->   against the
-> -.BR CLOCK_MONOTONIC
-> +.B CLOCK_MONOTONIC
->   clock.
->   .PP
->   The operation specified in
-> @@ -968,9 +968,8 @@ PI futexes are operated on by specifying one of the values listed below in
->   Note that the PI futex operations must be used as paired operations
->   and are subject to some additional requirements:
->   .IP * 3
-> -.B FUTEX_LOCK_PI
-> -,
-> -.B FUTEX_LOCK_PI2
-> +.BR FUTEX_LOCK_PI ,
-> +.BR FUTEX_LOCK_PI2 ,
->   and
->   .B FUTEX_TRYLOCK_PI
->   pair with
-> @@ -1123,7 +1122,7 @@ The
->   .IR uaddr2 ,
->   .IR val ,
->   and
-> -.IR val3
-> +.I val3
->   arguments are ignored.
->   .\"
->   .\""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-> @@ -1135,7 +1134,7 @@ This operation works similar like
->   .BR FUTEX_LOCK_PI .
->   The only difference is the
->   timeout argument.
-> -.BR FUTEX_LOCK_PI2
-> +.B FUTEX_LOCK_PI2
->   has support for selectable clocks.
->   .IP
->   If
-> @@ -1466,7 +1465,7 @@ The value pointed to by
->   is not equal to the expected value
->   .IR val3 .
->   .TP
-> -.BR EAGAIN
-> +.B EAGAIN
->   .RB ( FUTEX_LOCK_PI ,
->   .BR FUTEX_LOCK_PI2 ,
->   .BR FUTEX_TRYLOCK_PI ,
-> @@ -1480,7 +1479,7 @@ is about to exit,
->   but has not yet handled the internal state cleanup.
->   Try again.
->   .TP
-> -.BR EDEADLK
-> +.B EDEADLK
->   .RB ( FUTEX_LOCK_PI ,
->   .BR FUTEX_LOCK_PI2 ,
->   .BR FUTEX_TRYLOCK_PI ,
-> @@ -1522,18 +1521,18 @@ a spurious wakeup; since Linux 2.6.22, this no longer happens.
->   .TP
->   .B EINVAL
->   The operation in
-> -.IR futex_op
-> +.I futex_op
->   is one of those that employs a timeout, but the supplied
->   .I timeout
->   argument was invalid
->   .RI ( tv_sec
->   was less than zero, or
-> -.IR tv_nsec
-> +.I tv_nsec
->   was not less than 1,000,000,000).
->   .TP
->   .B EINVAL
->   The operation specified in
-> -.IR futex_op
-> +.I futex_op
->   employs one or both of the pointers
->   .I uaddr
->   and
-> @@ -1545,17 +1544,17 @@ the address is not four-byte-aligned.
->   .RB ( FUTEX_WAIT_BITSET ,
->   .BR FUTEX_WAKE_BITSET )
->   The bit mask supplied in
-> -.IR val3
-> +.I val3
->   is zero.
->   .TP
->   .B EINVAL
->   .RB ( FUTEX_CMP_REQUEUE_PI )
->   .I uaddr
->   equals
-> -.IR uaddr2
-> +.I uaddr2
->   (i.e., an attempt was made to requeue to the same futex).
->   .TP
-> -.BR EINVAL
-> +.B EINVAL
->   .RB ( FUTEX_FD )
->   The signal number supplied in
->   .I val
-> @@ -1570,9 +1569,9 @@ is invalid.
->   The kernel detected an inconsistency between the user-space state at
->   .I uaddr
->   and the kernel state\(emthat is, it detected a waiter which waits in
-> -.BR FUTEX_LOCK_PI
-> +.B FUTEX_LOCK_PI
->   or
-> -.BR FUTEX_LOCK_PI2
-> +.B FUTEX_LOCK_PI2
->   on
->   .IR uaddr .
->   .TP
-> @@ -1588,7 +1587,7 @@ This indicates either state corruption
->   or that the kernel found a waiter on
->   .I uaddr
->   which is waiting via
-> -.BR FUTEX_WAIT
-> +.B FUTEX_WAIT
->   or
->   .BR FUTEX_WAIT_BITSET .
->   .TP
-> @@ -1601,9 +1600,9 @@ and the kernel state;
->   .\"	The kernel sees: I have non PI state for a futex you tried to
->   .\"     tell me was PI
->   that is, the kernel detected a waiter which waits via
-> -.BR FUTEX_WAIT
-> +.B FUTEX_WAIT
->   or
-> -.BR FUTEX_WAIT_BITSET
-> +.B FUTEX_WAIT_BITSET
->   on
->   .IR uaddr2 .
->   .TP
-> @@ -1613,9 +1612,9 @@ The kernel detected an inconsistency between the user-space state at
->   .I uaddr
->   and the kernel state;
->   that is, the kernel detected a waiter which waits via
-> -.BR FUTEX_WAIT
-> +.B FUTEX_WAIT
->   or
-> -.BR FUTEX_WAIT_BITSET
-> +.B FUTEX_WAIT_BITSET
->   on
->   .IR uaddr .
->   .TP
-> @@ -1627,9 +1626,9 @@ and the kernel state;
->   that is, the kernel detected a waiter which waits on
->   .I uaddr
->   via
-> -.BR FUTEX_LOCK_PI
-> +.B FUTEX_LOCK_PI
->   or
-> -.BR FUTEX_LOCK_PI2
-> +.B FUTEX_LOCK_PI2
->   (instead of
->   .BR FUTEX_WAIT_REQUEUE_PI ).
->   .TP
-> @@ -1656,7 +1655,7 @@ Invalid argument.
->   .RB ( FUTEX_FD )
->   The system-wide limit on the total number of open files has been reached.
->   .TP
-> -.BR ENOMEM
-> +.B ENOMEM
->   .RB ( FUTEX_LOCK_PI ,
->   .BR FUTEX_LOCK_PI2 ,
->   .BR FUTEX_TRYLOCK_PI ,
-> @@ -1669,7 +1668,7 @@ Invalid operation specified in
->   .TP
->   .B ENOSYS
->   The
-> -.BR FUTEX_CLOCK_REALTIME
-> +.B FUTEX_CLOCK_REALTIME
->   option was specified in
->   .IR futex_op ,
->   but the accompanying operation was neither
-> @@ -1679,7 +1678,7 @@ but the accompanying operation was neither
->   nor
->   .BR FUTEX_LOCK_PI2 .
->   .TP
-> -.BR ENOSYS
-> +.B ENOSYS
->   .RB ( FUTEX_LOCK_PI ,
->   .BR FUTEX_LOCK_PI2 ,
->   .BR FUTEX_TRYLOCK_PI ,
-> @@ -1690,7 +1689,7 @@ A run-time check determined that the operation is not available.
->   The PI-futex operations are not implemented on all architectures and
->   are not supported on some CPU variants.
->   .TP
-> -.BR EPERM
-> +.B EPERM
->   .RB ( FUTEX_LOCK_PI ,
->   .BR FUTEX_LOCK_PI2 ,
->   .BR FUTEX_TRYLOCK_PI ,
-> @@ -1703,11 +1702,11 @@ the futex at
->   .IR uaddr2 ).
->   (This may be caused by a state corruption in user space.)
->   .TP
-> -.BR EPERM
-> +.B EPERM
->   .RB ( FUTEX_UNLOCK_PI )
->   The caller does not own the lock represented by the futex word.
->   .TP
-> -.BR ESRCH
-> +.B ESRCH
->   .RB ( FUTEX_LOCK_PI ,
->   .BR FUTEX_LOCK_PI2 ,
->   .BR FUTEX_TRYLOCK_PI ,
-> @@ -1716,7 +1715,7 @@ The thread ID in the futex word at
->   .I uaddr
->   does not exist.
->   .TP
-> -.BR ESRCH
-> +.B ESRCH
->   .RB ( FUTEX_CMP_REQUEUE_PI )
->   The thread ID in the futex word at
->   .I uaddr2
-> @@ -1724,7 +1723,7 @@ does not exist.
->   .TP
->   .B ETIMEDOUT
->   The operation in
-> -.IR futex_op
-> +.I futex_op
->   employed the timeout specified in
->   .IR timeout ,
->   and the timeout expired before the operation completed.
+> On 7/29/21 10:29 AM, Mike Rapoport wrote:
+> > From: Mike Rapoport <rppt@linux.ibm.com>
+> > 
+> > Signed-off-by: Mike Rapoport <rppt@linux.ibm.com>
+> > ---
+> > 
+> > v2: address Alex's comments:
+> > * update synopsis to match new style for syscalls without a wrapper
+> > * drop note about absence of glibc wrapper
+> > * update formatting
 > 
+> Please check a small typo introduced in v2 below.
+> 
+> Thanks!
+> 
+> Alex
+> 
+> > 
+> > v1: https://lore.kernel.org/linux-api/20210727124140.1487079-1-rppt@kernel.org
+> > 
+> >   man2/memfd_secret.2 | 147 ++++++++++++++++++++++++++++++++++++++++++++
+> >   1 file changed, 147 insertions(+)
+> >   create mode 100644 man2/memfd_secret.2
+> > 
+> > diff --git a/man2/memfd_secret.2 b/man2/memfd_secret.2
+> > new file mode 100644
+> > index 000000000..5a70cb5d2
+> > --- /dev/null
+> > +++ b/man2/memfd_secret.2
+> > @@ -0,0 +1,147 @@
+> > +.\" Copyright (c) 2021, IBM Corporation.
+> > +.\" Written by Mike Rapoport <rppt@linux.ibm.com>
+> > +.\"
+> > +.\" Based on memfd_create(2) man page
+> > +.\" Copyright (C) 2014 Michael Kerrisk <mtk.manpages@gmail.com>
+> > +.\" and Copyright (C) 2014 David Herrmann <dh.herrmann@gmail.com>
+> > +.\"
+> > +.\" %%%LICENSE_START(GPLv2+)
+> > +.\"
+> > +.\" This program is free software; you can redistribute it and/or modify
+> > +.\" it under the terms of the GNU General Public License as published by
+> > +.\" the Free Software Foundation; either version 2 of the License, or
+> > +.\" (at your option) any later version.
+> > +.\"
+> > +.\" This program is distributed in the hope that it will be useful,
+> > +.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+> > +.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+> > +.\" GNU General Public License for more details.
+> > +.\"
+> > +.\" You should have received a copy of the GNU General Public
+> > +.\" License along with this manual; if not, see
+> > +.\" <http://www.gnu.org/licenses/>.
+> > +.\" %%%LICENSE_END
+> > +.\"
+> > +.TH MEMFD_SECRET 2 2020-08-02 Linux "Linux Programmer's Manual"
+> > +.SH NAME
+> > +memfd_secret \- create an anonymous file to access secret memory regions
+> > +.SH SYNOPSIS
+> > +.nf
+> > +.PP
+> > +.BR "#include <sys/syscall.h>" "      /* Definition of " SYS_* " constants */"
+> > +.B #include <unistd.h>
+> > +.PP
+> > +.BI "int syscall(SYS_memfd_secret, int " cmd ", unsigned int " flags \
+> > +", int " cpu_id );
+> 
+> Check the parameter list :)
+ 
+Argh. 
 
+Would you need v3 or this on top would suffice?
+
+diff --git a/man2/memfd_secret.2 b/man2/memfd_secret.2
+index 5a70cb5d2..8263f18d5 100644
+--- a/man2/memfd_secret.2
++++ b/man2/memfd_secret.2
+@@ -31,8 +31,7 @@ memfd_secret \- create an anonymous file to access secret memory regions
+ .BR "#include <sys/syscall.h>" "      /* Definition of " SYS_* " constants */"
+ .B #include <unistd.h>
+ .PP
+-.BI "int syscall(SYS_memfd_secret, int " cmd ", unsigned int " flags \
+-", int " cpu_id );
++.BI "int syscall(SYS_memfd_secret, unsigned int " flags ");
+ .fi
+ .PP
+ .IR Note :
 
 -- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+Sincerely yours,
+Mike.
