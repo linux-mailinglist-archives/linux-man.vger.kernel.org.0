@@ -2,136 +2,336 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id AE7AD3DA28B
-	for <lists+linux-man@lfdr.de>; Thu, 29 Jul 2021 13:55:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 4F8F33DA2DC
+	for <lists+linux-man@lfdr.de>; Thu, 29 Jul 2021 14:10:01 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231674AbhG2LzU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 29 Jul 2021 07:55:20 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51794 "EHLO
+        id S234098AbhG2MKC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 29 Jul 2021 08:10:02 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55476 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233413AbhG2LzR (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 29 Jul 2021 07:55:17 -0400
-Received: from mail-pl1-x62e.google.com (mail-pl1-x62e.google.com [IPv6:2607:f8b0:4864:20::62e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 90027C061765
-        for <linux-man@vger.kernel.org>; Thu, 29 Jul 2021 04:55:14 -0700 (PDT)
-Received: by mail-pl1-x62e.google.com with SMTP id e5so6671626pld.6
-        for <linux-man@vger.kernel.org>; Thu, 29 Jul 2021 04:55:14 -0700 (PDT)
+        with ESMTP id S231674AbhG2MKB (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 29 Jul 2021 08:10:01 -0400
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com [IPv6:2a00:1450:4864:20::42b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7EF2FC061765;
+        Thu, 29 Jul 2021 05:09:58 -0700 (PDT)
+Received: by mail-wr1-x42b.google.com with SMTP id g15so6669389wrd.3;
+        Thu, 29 Jul 2021 05:09:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to:user-agent;
-        bh=PbgTmxdIYSmXpwB7ZvSVd2GGexW4d2zHR5uFP72F1kE=;
-        b=Od+WRzw56PSy0a+lIJLFJSqbL7UsBmqb3h/AT+QqdpIxH0NeDgBxPWXLgRTjpx91tv
-         D7H2I2BXw4g+4t+I1ToffXoTnTf7xHmCuCSdtfhoKxSKOc0bUaqFN9DrIypSEIwX7qeb
-         VHo5mUXz0TH+53GiJGmk2eoyvbl+7aJSrRMEtA65mkAQu3BtAVUDXyGiyE/1yPMj7xs8
-         yAjqDMaHXLp/arZq1Yu/BgK/RGLBT7Q2Jsa52LBuj8Le1YEYVGmEPJZnE2HgShNRe4/q
-         WaA67+ViD0g/HAJJCkvcfyb5TPgJPWX7CftbwupgxSEy3lbphlIz4rkNklJDwBAT84ec
-         ENZw==
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=vQTKbKS+/LH19uuLNpiiGje2jFblTOyPqwAuffuliDA=;
+        b=qeBmZy4bp9GmS6mfdgEVjwkaC/m+fALTtDySt72x1ZNIT/nBFugoJ8892oMXlVLIc+
+         joJiSlMlCzgYFQd5DMiM9cOG8njk6MfNia4bwsYHabc3XhZY57z7jD+AOj6tYZYedm2Q
+         6eA8oPaYdJlCV4sGGGnU1srECxrpaH6tF1XnSKI8wDAzcLSRuHhBY/QUwIfzWIYD/omm
+         vFTT/zx5oI0qXineSC8KU9nd7LR3EqbhrmX5PGOBYcyF3rWU/Gh6xZW26Q34TAjWFN8w
+         bGMPN3rKFgadPnmhBTSyK6bGL1qw0oQi4mX2vZJM1Gyl6+2KigLzbQEIwmE78/lWYdXR
+         axlA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=PbgTmxdIYSmXpwB7ZvSVd2GGexW4d2zHR5uFP72F1kE=;
-        b=Bb+i8i31pxpcJfKkZeS5lokFkDLotEwGcRkQFPjl/4Dp2el33Yve8LejBm/K71GwKZ
-         1BbMnMsPCyiJamgySkXR+BD975z5Rdkl7XCbtVzziC4Lg0R0E9p4gz760YQ/l57/o0al
-         AjdDegbKa0qUWa8l1Y8Dmg8aySCdbNebMCZ0ESDpifCJYFvcGwtQNerwfGaQfcZdSCor
-         IKh7yxK2+cgur/bhN8iCfUxqe94EbmPTLNbLzYAbyNez3kHZU3gFMS+wDNWFudh+BdTw
-         X1/kfeSZMjvrcLBhh7FFtZAIU1jIovr+D+J1EpJqTEWeJwlO8iqPd/VSNIWHolrHxBfq
-         b1Uw==
-X-Gm-Message-State: AOAM532vrxQ6Oaz0EeI+BAuUka5caaIDeJwmk7SJlirIw3rrsWzkz4wz
-        nwvPwbeUVtyR7wdv0J5WqYo=
-X-Google-Smtp-Source: ABdhPJzCdpicLrriBXsfEpFtpOgV/Ocl/xmW4DWVFgN1pYGmCv2aN/kuOhjkIMovg5HmfjaLbJNpkg==
-X-Received: by 2002:a17:90a:2a45:: with SMTP id d5mr5120173pjg.122.1627559714177;
-        Thu, 29 Jul 2021 04:55:14 -0700 (PDT)
-Received: from localhost.localdomain ([1.145.2.147])
-        by smtp.gmail.com with ESMTPSA id d22sm3398497pfo.88.2021.07.29.04.55.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Jul 2021 04:55:13 -0700 (PDT)
-Date:   Thu, 29 Jul 2021 21:55:09 +1000
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
-        "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
-Subject: nonbreaking spaces (was: [patch] nscd.conf.5: describe reloading,
- clarifications)
-Message-ID: <20210729115508.pt6btsqd7g5tuhg6@localhost.localdomain>
-References: <BL0PR2101MB13161790A220976723139258A1E99@BL0PR2101MB1316.namprd21.prod.outlook.com>
- <cca56558-7749-e15b-3f97-85a304674a29@gmail.com>
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=vQTKbKS+/LH19uuLNpiiGje2jFblTOyPqwAuffuliDA=;
+        b=sERayNgWJKdeJk3+Ch5pJyDD/Eo5qmO5nMUqpGeqrts0Kg/btW0Y4Ch2p6AvHUpwJl
+         VgwUt0djbOgzV9nHnYAiCh4hEah7ebcmn0QyETwiQ58T4VbzLZbYtD/wumJx5iNrMyY5
+         BlMoodb5bOChflF81weD5oaCgSFyvB8BzTsZY/DXPCJXxFC8VRo+DZBC1VYqhT0MaW8i
+         8Y/fNm9pU2TMEDpbsR0HZiFJ3WA3zz487dguiHwNCTAjF6rKC/6z04chtmBZgkKU9qzI
+         AJ8FWgmyFhN9r8zA7M4W5EHnt6W/2ocNaAUXUupiHoWlPwgZ1hgpnmWmm0KulA6zDH7x
+         pqtg==
+X-Gm-Message-State: AOAM532tyllpk4w0BP/UjkTbQb7y69lAzJSuXxjQW22QUTbbL3CwHoak
+        7jkg/AbvPuUm8C3oyx8LFa0nk5cqxTA=
+X-Google-Smtp-Source: ABdhPJwnUNmNkrWN95kZ2B6Gb6qydeBm6knpM3GsbDmvw45bhZOXojMavgbLX1+XR8M9BleQVTG7NQ==
+X-Received: by 2002:adf:e550:: with SMTP id z16mr4741697wrm.250.1627560597074;
+        Thu, 29 Jul 2021 05:09:57 -0700 (PDT)
+Received: from [10.8.0.150] ([195.53.121.100])
+        by smtp.gmail.com with ESMTPSA id j1sm3432402wrm.86.2021.07.29.05.09.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 29 Jul 2021 05:09:56 -0700 (PDT)
+Subject: Re: [PATCH] refpage_create.2: Document refpage_create(2)
+To:     Peter Collingbourne <pcc@google.com>
+Cc:     Jann Horn <jannh@google.com>,
+        Linux ARM <linux-arm-kernel@lists.infradead.org>,
+        linux-mm@kvack.org, kernel test robot <lkp@intel.com>,
+        Matthew Wilcox <willy@infradead.org>,
+        Linux API <linux-api@vger.kernel.org>,
+        "Kirill A . Shutemov" <kirill@shutemov.name>,
+        linux-doc@vger.kernel.org, linux-man@vger.kernel.org,
+        John Hubbard <jhubbard@nvidia.com>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Evgenii Stepanov <eugenis@google.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+References: <20210717025951.3946505-1-pcc@google.com>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Message-ID: <d4a138c2-88cc-704b-5bb5-cafe580376aa@gmail.com>
+Date:   Thu, 29 Jul 2021 14:09:54 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="dxia7fjkns5qckci"
-Content-Disposition: inline
-In-Reply-To: <cca56558-7749-e15b-3f97-85a304674a29@gmail.com>
-User-Agent: NeoMutt/20180716
+In-Reply-To: <20210717025951.3946505-1-pcc@google.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Hi Peter,
 
---dxia7fjkns5qckci
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 7/17/21 4:59 AM, Peter Collingbourne wrote:
+> ---
+> The syscall has not landed in the kernel yet.
+> Therefore, as usual, the patch should not be taken yet
+> and I've used 5.x as the introducing kernel version for now.
 
-Hi, Alex!
+Thanks!  Please see a few comments below.
+Apart from formatting and code issues I noted,
+the text looks good to me.
 
-At 2021-07-28T22:31:26+0200, Alejandro Colomar (man-pages) wrote:
-> Also from man-pages(7):
-[...]
->        If the command is short, then it can be included inline  in
->        the  text,  in italic format, for example, man 7 man=E2=80=90pages.
->        In this case, it may  be  worth  using  nonbreaking  spaces
->        ("\ ")  at suitable places in the command.  Command options
->        should be written in italics (e.g., -l).
-
-I'd like to note that \~ is a superior escape sequence to use for this
-purpose in most siutations.  The problem is that "\ " does, or rather
-doesn't do, two things: it doesn't break and it doesn't adjust (that
-is, it doesn't participate in widening when a line is justified to both
-the left and right margins, a common typesetting practice).  It's also,
-in my opinion, confusing to see and to write and speak about.
-
-\~ is, admittedly, a groffism, but it is one that has been supported by
-other actively maintained troff implementations and man page
-rendererers.
-
-Heirloom Doctools troff has supported it since its 2005-09-15
-release[1].  mandoc has supported it since 2018-12-15[2], released
-2019-03-10[3].
-
-(Support in groff itself goes at least as far back as version 1.02, in
-June 1991[4].)
-
-What do you think about updating this guidance?
+Please, ping us when this is merged in the kernel :)
 
 Regards,
-Branden
 
-[1] https://github.com/n-t-roff/heirloom-doctools/blob/master/CHANGES_GR#L1=
-143
-[2] https://cvsweb.bsd.lv/mandoc/mandoc.c.diff?r1=3D1.110&r2=3D1.111
-[3] https://mandoc.bsd.lv/
-[4] https://git.savannah.gnu.org/cgit/groff.git/tree/troff/input.c?id=3D351=
-da0dcdf702cf243d26ffa998961bce2aa8653#n1270
+Alex
 
---dxia7fjkns5qckci
-Content-Type: application/pgp-signature; name="signature.asc"
+> 
+>   man2/refpage_create.2 | 167 ++++++++++++++++++++++++++++++++++++++++++
+>   1 file changed, 167 insertions(+)
+>   create mode 100644 man2/refpage_create.2
+> 
+> diff --git a/man2/refpage_create.2 b/man2/refpage_create.2
+> new file mode 100644
+> index 000000000..c0b928b92
+> --- /dev/null
+> +++ b/man2/refpage_create.2
+> @@ -0,0 +1,167 @@
+> +.\" Copyright (C) 2021 Google LLC
+> +.\" Author: Peter Collingbourne <pcc@google.com>
+> +.\"
+> +.\" %%%LICENSE_START(VERBATIM)
+> +.\" Permission is granted to make and distribute verbatim copies of this
+> +.\" manual provided the copyright notice and this permission notice are
+> +.\" preserved on all copies.
+> +.\"
+> +.\" Permission is granted to copy and distribute modified versions of this
+> +.\" manual under the conditions for verbatim copying, provided that the
+> +.\" entire resulting derived work is distributed under the terms of a
+> +.\" permission notice identical to this one.
+> +.\"
+> +.\" Since the Linux kernel and libraries are constantly changing, this
+> +.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+> +.\" responsibility for errors or omissions, or for damages resulting from
+> +.\" the use of the information contained herein.  The author(s) may not
+> +.\" have taken the same level of care in the production of this manual,
+> +.\" which is licensed free of charge, as they might when working
+> +.\" professionally.
+> +.\"
+> +.\" Formatted or processed versions of this manual, if unaccompanied by
+> +.\" the source, must acknowledge the copyright and authors of this work.
+> +.\" %%%LICENSE_END
+> +.\"
+> +.TH REFPAGE_CREATE 2 2021-07-16 "Linux" "Linux Programmer's Manual"
+> +.SH NAME
+> +refpage_create \- create a reference page file descriptor
+> +.SH SYNOPSIS
+> +.nf
+> +.BR "#include <unistd.h>"
+> +.PP
+> +.BI "int syscall(SYS_refpage_create, void *" content ", unsigned int " size ,
+> +.BI "            unsigned long " flags ");"
+> +.fi
+> +.PP
+> +.IR Note :
+> +glibc provides no wrapper for
+> +.BR refpage_create (),
+> +necessitating the use of
+> +.BR syscall (2).
+> +.SH DESCRIPTION
+> +The
+> +.BR refpage_create ()
+> +system call is used to create a file descriptor
+> +that conceptually refers to a read-only file
+> +whose contents are an infinite repetition of
+> +.I size
+> +bytes of data read from the
+> +.I content
+> +argument to the system call,
+> +and which may be mapped into memory with
+> +.BR mmap (2).
+> +The file descriptor is created as if by passing
+> +.BR O_RDONLY | O_CLOEXEC
+> +to
+> +.BR open (2).
+> +.PP
+> +In reality, any read-only pages in the mapping are backed
+> +by a so-called reference page,
+> +whose contents are specified using the arguments to
+> +.BR refpage_create ().
+> +.PP
+> +The reference page will consist of repetitions of
+> +.I size
+> +bytes read
+> +from
+> +.IR content ,
+> +as many as are required to fill the page. The
+> +.I size
+> +argument must be a power of two less than or equal to the page size, and the
+> +.I content
+> +argument must have at least
+> +.I size
+> +alignment. The behavior is as if a copy of this data
 
------BEGIN PGP SIGNATURE-----
+s/\. /.\n/
 
-iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmEClxIACgkQ0Z6cfXEm
-bc6G2A/8DnMIbQ5yQMs65PeP5RqInGEc1Csa9xfVym4QUWt1HtLWjfmDNj49rtuE
-IIpJZso/puk6WwFVUUamgoCucn2vub5/e8mnDVdmqa4MCIqLCAE9t2hcgeHzU6o2
-m9asJOPAUUeQPiqUjUopUCwcoBnoghnhijrHzthkMr4B0jx3dXlCAU82ZEs3I1F7
-o/oHRhtcRuPJOD3z2WDKz/gzCsytOG7+LNSjrPBO4hR1oF/UzwJD+2BA8mW3vr+A
-inD90g0Pi0vxnqmFX6KshgC/FLIfZGtwprwDhj4HHW1XqiTm8LXbIAjxVP5+foWY
-jBt7CgfjbWpyMXfJTE9cUmi0lun1b+QJKTZtiTgbE5bARnCNMk1MvX4Tz7jEV/oV
-SdUQvmvSDJZqtOMU3GuJlgUGTdEOEh0f5Yu1d8uoZhO+GMSbnuExh+l8SZ6D7niR
-6v343xZfJROaIY7eEF1MAxa0bPrPNtmKl2NTjG6Df71VsJ0tTqPiahOJ+LDD/nhM
-J+Vf38TQyyQHBQEZA+d+C2liT5LVYPKIJ3a9jCVQLxkkNAQuGwzga5Yq/oGTIft3
-LdQzJ6YHka+w8ueMlVWeF2DuFDGft5Dx7pQ5Oxlv1AEWFFSACAwJcMo95fLDZZf1
-JbxcIfNXynn71UJejQTXXRcnW3f8EqRoWHQShdSN5npzwXnkd/0=
-=mtms
------END PGP SIGNATURE-----
+Rationale: semantic newlines.
 
---dxia7fjkns5qckci--
+> +is made while servicing the system call;
+> +any updates to the data after the system call has returned
+> +will not be reflected in the reference page.
+> +.PP
+> +If the architecture specifies that // metadata may be associated /J/
+
+Please, use semantic newlines (see man-pages(7))
+
+> +with memory addresses, // that metadata if present is copied
+> +into the reference page along with the data itself,
+> +but only if the size argument is at least as large
+> +as the granularity of the metadata.
+> +For example, with the ARMv8.5 Memory Tagging Extension,
+> +the memory tags are copied, // but only if the size is greater than /J/
+> +or equal to // the architecturally specified tag granule size of 16 bytes.
+> +.PP
+> +Writable private mappings trigger specific copy-on-write behavior
+> +when a page in the mapping is written to.
+> +The behavior is as if the reference page is copied,
+> +but the kernel may use a more efficient technique such as
+> +.BR memset (3)
+> +to produce the copy if the
+> +.I size
+> +argument originally used to create the reference page file descriptor
+> +is sufficiently small.
+> +For this reason it is recommended to specify as small of a
+> +.I size
+> +argument as possible
+> +in order to activate any such optimizations implemented in the kernel.
+> +.PP
+> +The advantage of using this system call
+> +over creating normal anonymous mappings
+> +and manually initializing the pages from userspace
+> +is that it is more efficient.
+> +If it is not known that all of the pages in the mapping
+> +will be faulted (for example, if the system call is used
+> +by a general purpose memory allocator
+> +where the behavior of the client program is unknown),
+> +letting the pages be prepared on fault only if needed
+> +is more efficient from both a performance
+> +and memory consumption perspective.
+> +Even if all of the pages would end up being faulted,
+> +it would still be more efficient
+> +to have the kernel initialize the pages with the required contents once
+> +than to have the kernel zero initialize them on fault
+> +and then have userspace initialize them again with different contents.
+> +.SH EXAMPLES
+> +The following program creates a 128KB memory mapping
+
+The SI mandates that a space shall be inserted between a number and the 
+associated unit.
+
+Also, if it really means 128 KiB, which I guess, please use KiB.  See 
+units(7).
+
+Use a non-breaking space to make sure that the unit goes with the number.
+
+With all that, it would be:
+
+... creates a 128\ KiB memory ...
+
+> +preinitialized with the pattern byte 0xAA
+> +and verifies that the contents of the mapping are correct.
+> +.PP
+> +.EX
+> +#include <linux/unistd.h>
+> +#include <stdio.h>
+> +#include <sys/mman.h>
+> +#include <unistd.h>
+> +
+> +int main() {
+> +    unsigned char pattern = 0xaa;
+
+Please use capital AA to help visually differentiate x and a.
+
+> +    unsigned long mmap_size = 131072;
+
+Why that magic number?
+Maybe a shift to indicate that it's a power of 2...  or 128 * 1024...
+I don't know from the top of my head powers of 2 that high :)
+
+Also, why 'unsigned long'?  The SYNOPSIS says it's an 'unsigned int'.
+
+> +
+> +    int fd = syscall(SYS_refpage_create, &pattern, 1, 0);
+
+Please use sizeof(pattern) instead of 1 to communicate the relationship 
+between them.
+
+> +    if (fd < 0) {
+> +        perror("refpage_create");
+> +        return 1;
+
+Please use EXIT_FAILURE (<stdlib.h>).  Also use exit(3) instead of 
+return, as is common practice in manual pages.
+
+> +    }
+> +    unsigned char *p = mmap(0, mmap_size, PROT_READ | PROT_WRITE,
+
+Use NULL instead of 0 for pointers.  The first argument of mmap(2) is 
+'void *addr'.
+
+> +                            MAP_PRIVATE, fd, 0);
+> +    if (p == MAP_FAILED) {
+> +        perror("mmap");
+> +        return 1;
+> +    }
+> +    for (unsigned i = 0; i != mmap_size; ++i) {
+
+s/unsigned/unsigned int/
+
+> +        if (p[i] != pattern) {
+> +            fprintf(stderr, "refpage failed contents check @ %u: "
+> +                    "0x%x != 0x%x\n",
+
+I prefer 0x%X, which is already in use in some manual pages (seccomp(2)).
+
+Also, 'i' may be more readable in hex, given it's an offset of an 
+address (actually the concept of a size_t, even if the kernel doesn't 
+use that type) don't you think?
+
+> +                    i, p[i], pattern);
+> +            return 1;
+
+exit(3)
+
+> +        }
+> +    }
+> +}
+> +.EE
+> +.SH NOTE
+> +Reading from a reference page file descriptor, e.g. with
+> +.BR read (2),
+> +is not supported, nor would this be particularly useful.
+> +.SH VERSIONS
+> +This system call first appeared in Linux 5.x. > +.SH CONFORMING TO
+> +The
+> +.BR refpage_create ()
+> +system call is Linux-specific.
+> +.SH SEE ALSO
+> +.BR mmap (2),
+> +.BR open (2).
+> 
+
+
+-- 
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
