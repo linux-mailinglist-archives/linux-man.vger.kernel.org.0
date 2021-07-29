@@ -2,79 +2,110 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 35B023DA1A3
-	for <lists+linux-man@lfdr.de>; Thu, 29 Jul 2021 12:58:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id AE9753DA1A4
+	for <lists+linux-man@lfdr.de>; Thu, 29 Jul 2021 12:58:42 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232135AbhG2K6H (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 29 Jul 2021 06:58:07 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38040 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231815AbhG2K6G (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 29 Jul 2021 06:58:06 -0400
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com [IPv6:2a00:1450:4864:20::331])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BCD70C061765
-        for <linux-man@vger.kernel.org>; Thu, 29 Jul 2021 03:58:02 -0700 (PDT)
-Received: by mail-wm1-x331.google.com with SMTP id n28-20020a05600c3b9cb02902552e60df56so3708578wms.0
-        for <linux-man@vger.kernel.org>; Thu, 29 Jul 2021 03:58:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=jguk.org; s=google;
-        h=from:subject:to:message-id:date:user-agent:mime-version
-         :content-language:content-transfer-encoding;
-        bh=UnaW6Y0baj5Z80xORg1+nUmySEzi8EpfQW5kaHd9OeU=;
-        b=qDZm5ULZN3Tvot/2/DXorA8ugEzItxoAz1fZXZIz/GpU1VCMZxlN/eFXcR27cYwvBT
-         2r4+z3j/G4amKHD4yAkIHK3gNPRbWzWzSwt+rzVWbPPnVPpsXWBlW0jb09Qv/6hWkyHz
-         Tg5U9QmRbreJ+UEGd6kv5UUXws+NRfsLQrWjsAg46uXE8JZFEts13UsVd36gzlIEW9Sv
-         i2gZFTlTq1s9zezmDISQoEV7GPNKN0hWPb8FLPrneNfsug8EALuxgJJ//vZTBnjivG1I
-         aiw9z3it2rJcfpLhXoUfyI3uYUWDPnUuFsnx6TrktWyVPqlqOoTbD2jfbllgqk5YbUiN
-         O6/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:subject:to:message-id:date:user-agent
-         :mime-version:content-language:content-transfer-encoding;
-        bh=UnaW6Y0baj5Z80xORg1+nUmySEzi8EpfQW5kaHd9OeU=;
-        b=tTLj0TGh+OcnSB4zVgR/aDYm4VmwQJ/1TR0+Bo8GIN/0sU+lOnC07w5YFgMOpYxIhV
-         8EzUGwdaq2xBS+53sqgib+2U7yd+rj0UJYXPnXfVcSPZjLU6UqaeFIP+1KS1Ye9mmpRh
-         lDJ34g3vIUeVhOKfjE91ILhWxcurxrEF+mAq/LZvzXxB9IJm5aQkCav7ffjFVPze63cu
-         5ovBkh3JQUe6/OcmALpO4zYSJ7Z9ACD6GTVmM+o4TnhJ57O1z/Guw2svq4vbrEhJezux
-         eP9kUHTSkFBNogKpyJ4gQY0fXlhrvYtSXH4SHWOUJByRutyc8nNsiRGyAFaCW6jTxTyH
-         rAxA==
-X-Gm-Message-State: AOAM532IoO/34XQMF1GDSX03g3RmTnbuNOPmkAm/44HWElGD8il3TPF8
-        TBLFFUYyydPb/05Z/OJzMLApBce4pd9h2w==
-X-Google-Smtp-Source: ABdhPJzcZuxh9t3vGSoskmLH0xU22my8Vap6VOtatH3COABfueje+1m8wA3d9bQphsQf+ia1xHPIdw==
-X-Received: by 2002:a1c:a187:: with SMTP id k129mr4145138wme.17.1627556281379;
-        Thu, 29 Jul 2021 03:58:01 -0700 (PDT)
-Received: from [192.168.0.12] (cpc87345-slou4-2-0-cust172.17-4.cable.virginm.net. [81.101.252.173])
-        by smtp.gmail.com with ESMTPSA id i5sm2970759wrw.13.2021.07.29.03.58.00
-        for <linux-man@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 29 Jul 2021 03:58:00 -0700 (PDT)
-From:   Jonny Grant <jg@jguk.org>
-Subject: wcslen and wcsnlen wchar_t
-To:     linux-man <linux-man@vger.kernel.org>
-Message-ID: <99a33792-2c7a-949b-8ef9-7deb8f5a5fd0@jguk.org>
-Date:   Thu, 29 Jul 2021 11:58:00 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+        id S231815AbhG2K6o (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 29 Jul 2021 06:58:44 -0400
+Received: from Galois.linutronix.de ([193.142.43.55]:43978 "EHLO
+        galois.linutronix.de" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S234000AbhG2K6n (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 29 Jul 2021 06:58:43 -0400
+From:   Kurt Kanzenbach <kurt@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+        s=2020; t=1627556320;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=4ozvwcTNBLC8tag6ijEDKD65Qy3Jf4VbRoPSgMMoOwI=;
+        b=S/pKxqk32vEA9mxtcDAy3U4zqEt98TpmZ/eIpGChtZ37bYLl0rPfoZrgxUlO6mfTAIeRQb
+        kD5r0wZMmNFi8EGOFDXsqtPXS5R6W5LBbLwkjcTsZhuQmruYKzjAisLvn0D/h2LBr/9PSY
+        xeLlmRfsNWsYjN9cH83x0pWonPFVKaoVo8nGh4LyNXuC2llin2Wy5pb4f2TqvBuoICNQxT
+        335XCCA39kV5opH4cueYv/5JseqD1s2A1m54kU5cxLqDS1HacSc+9RBlhQXhnQX3XRXAtT
+        1x2KE28FdsdDmtgGe4aCI97FJ4iGM3uXHt+OhT9jZJpjnBajfWMWyDEd+ZzZCA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+        s=2020e; t=1627556320;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=4ozvwcTNBLC8tag6ijEDKD65Qy3Jf4VbRoPSgMMoOwI=;
+        b=s/ctHv66vrIvsEC3qEBMYZbbYqqUpTesMSJYSsIUYn9jntzTdLxvAWK1y+qsvwGlPQVG0y
+        I15BP/q8tGtaQ8CA==
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
+        Thomas Gleixner <tglx@linutronix.de>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
+        Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Subject: Re: [PATCH v1] futex.2: Document FUTEX_LOCK_PI2
+In-Reply-To: <0b8992e1-37ae-0b02-a9a6-df635d6fe9b9@gmail.com>
+References: <20210625101051.1206558-1-kurt@linutronix.de>
+ <8735rxjzxm.ffs@tglx> <0b8992e1-37ae-0b02-a9a6-df635d6fe9b9@gmail.com>
+Date:   Thu, 29 Jul 2021 12:58:38 +0200
+Message-ID: <878s1pqtcx.fsf@kurt>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; boundary="=-=-=";
+        micalg=pgp-sha512; protocol="application/pgp-signature"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello
+--=-=-=
+Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
 
-https://man7.org/linux/man-pages/man3/wcslen.3.html
+Hi Alex,
 
-My understanding is these pages document glibc. wchar_t is 32bit, (even on my 64bit computer).
-So that means it's UTF32LE as I understand it. Could the man page clarify the bit width as 32bit? and that the endianness (unless a big-endian glibc has it the other way)
+On Thu Jul 29 2021, Alejandro Colomar (man-pages) wrote:
+> Hi Kurt, Thomas,
+>
+> On 7/29/21 10:18 AM, Thomas Gleixner wrote:
+>> On Fri, Jun 25 2021 at 12:10, Kurt Kanzenbach wrote:
+>>> FUTEX_LOCK_PI2 is a new futex operation which was recently introduced i=
+nto the
+>>> Linux kernel. It works exactly like FUTEX_LOCK_PI. However, it has supp=
+ort for
+>>> selectable clocks for timeouts. By default CLOCK_MONOTONIC is used. If
+>>> FUTEX_CLOCK_REALTIME is specified then the timeout is measured against
+>>> CLOCK_REALTIME.
+>>>
+>>> This new operation addresses an inconsistency in the futex interface:
+>>> FUTEX_LOCK_PI only works with timeouts based on CLOCK_REALTIME in contr=
+ast to
+>>> all the other PI operations.
+>>>
+>>> Document the FUTEX_LOCK_PI2 command.
+>>>
+>>> Signed-off-by: Kurt Kanzenbach <kurt@linutronix.de>
+>
+> Sorry, I merged it and forgot to reply.  Patch applied (And a minor=20
+> inconsistency fixed: s/5.14.0/5.14/ ; All references to kernel 5=20
+> versions have 2 fields in the manual pages).  And some other minor fixes=
+=20
+> too.
 
+Sounds good. Thanks for fixing it up.
 
-There's also the others wcscpy
-https://man7.org/linux/man-pages/man3/wcscpy.3.html
-^ Could this link in SEE ALSO to wcsncpy ?
+Thanks,
+Kurt
 
+--=-=-=
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Kind regards
-Jonny
+-----BEGIN PGP SIGNATURE-----
+
+iQJHBAEBCgAxFiEEooWgvezyxHPhdEojeSpbgcuY8KYFAmECid4THGt1cnRAbGlu
+dXRyb25peC5kZQAKCRB5KluBy5jwpkusD/9N2YkbgNhJIWp5ciWWNovyR/YFJiah
+cwcX+JJ6oiRexGP1Vaf3DJ7cyPhZfimmufd7UwAoNj1TzkMIgx7WEYRMgLg1RQi/
+C+csBdbMMsvvQPQ2G7TY0C8EW0IU2QA7h2ByDcoiSEt4Eg5GQz5dgRV407Hb7DvG
+kCJWYlWt1cex1/O2/nt3YITIF4exyec9BhvmJqztZc9L8XwqmwmLPRecHuxrapmS
+dLDok+INv5tv4lAQ+SuQStpCuqoBne8Cp/hF9pp/aWulvpSbZpbSlDdHuBQdjxSI
+VzCS3aaqpgjFCt9FrjK6PrTeQG5G2aswpN4PIULaAi7AfWQnWll4mhpOBvJXb4lR
+wGRGstwFeMdw5JmEy1ReqBXFJ5aF5sxJNRlQenZIU/dZh2rhw76vPggtggDkQ4Q6
+Qz3R/ruDOmdz8NNiQ/ipYu/1LTPAGJqUzw3o03mH/ywfFz3LYXNYLinkRuCnyC+t
+pO1kbH8nnTd3KO+CLIOiQsxmI8ym5IlGVk0/hRtf8V/MYIUSRKKNlcGLg90cfIZs
+0CM25FwqDvQgnK/vZ9nRvpQo84aQu5aMzbBvXC859apTnycDs1vlkCu88YjSblWw
+FTpRC06O6s3TCZGHkxBaACU9IPtFeaqOz65kX2c60fLHfADYdsk4/D3i1L9yk6re
+k4rrVcUQBSAi2g==
+=3D0n
+-----END PGP SIGNATURE-----
+--=-=-=--
