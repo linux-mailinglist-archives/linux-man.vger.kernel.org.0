@@ -2,216 +2,246 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id CC9843DAEFE
-	for <lists+linux-man@lfdr.de>; Fri, 30 Jul 2021 00:35:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 35FCF3DAF2C
+	for <lists+linux-man@lfdr.de>; Fri, 30 Jul 2021 00:36:15 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233798AbhG2Wez (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 29 Jul 2021 18:34:55 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37768 "EHLO
+        id S234655AbhG2WgI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 29 Jul 2021 18:36:08 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37874 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233516AbhG2Wev (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 29 Jul 2021 18:34:51 -0400
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com [IPv6:2a00:1450:4864:20::42b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 18F08C061765;
-        Thu, 29 Jul 2021 15:34:48 -0700 (PDT)
-Received: by mail-wr1-x42b.google.com with SMTP id g15so8731231wrd.3;
-        Thu, 29 Jul 2021 15:34:48 -0700 (PDT)
+        with ESMTP id S234595AbhG2Wf5 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 29 Jul 2021 18:35:57 -0400
+Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com [IPv6:2607:f8b0:4864:20::102a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C100CC061386
+        for <linux-man@vger.kernel.org>; Thu, 29 Jul 2021 15:35:41 -0700 (PDT)
+Received: by mail-pj1-x102a.google.com with SMTP id nh14so596432pjb.2
+        for <linux-man@vger.kernel.org>; Thu, 29 Jul 2021 15:35:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=NJzJaENW4uciUcPuU9DFkvO0zp/1wtimx8cQMwu5W6U=;
-        b=qYPJN9HbCj2ZjhR2YzFMQXShSUL1641UI7LViNU4wHx/iDepkBq1WTEAE6ihu3hDCm
-         XHEVuDMvxHuvjEvttU/AwKWjLYC08OtnOHGRkATZypIDur7GwTsjkb0ud6AWxq+RPi3o
-         AMmTApNm7hhqGsnyEq88W2CcXWSU/JqsHU+XuZaDzra4m2+abbuPMW9Gvay1MBXtyL8i
-         nlP69WhdD4piG5zyt1W0OST5QWCmESY1JsSDp9OD9aI+nIoIOw92Rls3pJZBmNfOH/Zv
-         06KgweC4C9EosBu4i3UPCtWJ0vfoLG0JRORAMmI6C9gKHa96lBG07eMynJC9dyIVyUR/
-         jnfQ==
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to:user-agent;
+        bh=7aB/LGpCWYIDCNnaAAwRD6mu4VtbtHX1iPE7ASGmgu4=;
+        b=kz64ols6PDGq5PmFcMBmtMUVwOXWGmDFLOBsyZvtCV1tLopV60Z0mnB4pCxN6Yhrxo
+         W2d4kEUGLIIVBq4zMAjicrY/uYdaGn22HxT2mYjrl7quq2KneJeyLWPqJurBubykh8np
+         HOYFTxyAl0Jx4LmQ4y8+Io3nihqMZcotWCG5NkQy2WJz8F+XbQtbgEtMrsclHgks7uU1
+         iHSF2J+7lVfcxAxLHZ+qrbcW7CefBn38KDlIWUSp7l2Gv/Za02zsfgjbU4wWRPinnqba
+         lD1gndpcDB2izBS4I9SqCnFgwnDdSm3iuRH+/c8qXYROY0C+6c2N/WZIAzGSPubOJGz3
+         oO8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=NJzJaENW4uciUcPuU9DFkvO0zp/1wtimx8cQMwu5W6U=;
-        b=fszpxgm4FgQw/mhFPSP3tfK+biVR///X7Rfv0B8/UFWtm9ig5USBeotZSKNjcID0B3
-         AcQRYdV+/yR4yIwG0X6C7V6Z3fjz+wd1IJMML8SlKvixdygctpnLh2GYRoLkVPsaYJKd
-         VQKJNnxIBw8KGbYehtKQ3vgGr5O8wddMkIlIngJ7A6BZ5wgCKHZD51Gs/pQ0cVDuBnsf
-         4k6XUFB24ZirodeXE23ozeckUqwpz8iuCjG6D7fqJeIpOEi1WOKun84JW8l9IblTbKNH
-         ZkcaK4wfOJQpHKPsEXCC248N5/MIp8WrIdHAhiZw6WeuvfsHM86eSvZtOqn/2HWrEZOE
-         2hAw==
-X-Gm-Message-State: AOAM533T9/nQHCnECt+N2pKxdKrnzY8Y2lJvlmkgkbur6mpqZeJ8gzdB
-        Ldg3CyDJiUVcsvcAnQODS5k=
-X-Google-Smtp-Source: ABdhPJxZh7Z+sPwIh0PZrDpuViudC0sz2H5Ao4UjWw2VDTOWPmqUtUQ8VN0lyJCUpG1UJRMHhg093g==
-X-Received: by 2002:a5d:54c2:: with SMTP id x2mr7406305wrv.338.1627598086564;
-        Thu, 29 Jul 2021 15:34:46 -0700 (PDT)
-Received: from [10.8.0.10] ([195.53.121.100])
-        by smtp.gmail.com with ESMTPSA id e3sm5259084wrv.65.2021.07.29.15.34.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 29 Jul 2021 15:34:46 -0700 (PDT)
-Subject: Re: [PATCH v2 1/4] landlock.7: Add a new page to introduce Landlock
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>
-Cc:     Jann Horn <jannh@google.com>, Jonathan Corbet <corbet@lwn.net>,
-        Kees Cook <keescook@chromium.org>,
-        Randy Dunlap <rdunlap@infradead.org>,
-        Vincent Dagonneau <vincent.dagonneau@ssi.gouv.fr>,
-        landlock@lists.linux.dev, linux-kernel@vger.kernel.org,
-        linux-man@vger.kernel.org, linux-security-module@vger.kernel.org,
-        =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@linux.microsoft.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>
-References: <20210712155745.831580-1-mic@digikod.net>
- <20210712155745.831580-2-mic@digikod.net>
- <3f1b943b-2477-2c4e-c835-d6616888176c@gmail.com>
- <20210729220129.ymfdnybbpvej4qck@localhost.localdomain>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <9e97c060-f9b9-07ed-6502-3e1f716f3f06@gmail.com>
-Date:   Fri, 30 Jul 2021 00:34:43 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to:user-agent;
+        bh=7aB/LGpCWYIDCNnaAAwRD6mu4VtbtHX1iPE7ASGmgu4=;
+        b=kdeRgderNviPV9WkOH9dMceNFz0q7UNxOzD6YKaLjfNPaQCCisTi0FNXL1sSbkI4ed
+         tFl79xb7mMrJ33/sca5HIrxSaZXg6j5xzkwFrpeXdELBnAy70mYfG6fk7qk4allgmBTB
+         wIlUR4/omVocCg9VXo/283Vo0HwL/0wKGOhb9ye7qrRoLkcGIJ/iIlAczRkIDQw5mkYh
+         jkdVj52UEygEHKkXslJ1fbKKpO9Hzsq3kexRpvMZAras4NAW1oIIHu3kbnLXgU7ITKug
+         5r7pjDUZjAw1ddgCR3cADoTgR55m+SZtghQD0qcYd30q9crBcdhdG1JwC6bNtpZ3tezp
+         SLxQ==
+X-Gm-Message-State: AOAM533vRaLs7ElhunLdzjkf9VwQS/26UHr3EFtcZnWqiIG/EqIOF2vQ
+        UTqrVQB5lo0gNcNY9Psg1r8=
+X-Google-Smtp-Source: ABdhPJzswF7tM+ybtsoj2tKQLzoXhWr78JPNV7Jjjm9d5QKXL8ylDBtUm12BgJrayxI6572KNMt4XA==
+X-Received: by 2002:a17:902:bb92:b029:12c:31cd:2400 with SMTP id m18-20020a170902bb92b029012c31cd2400mr6674309pls.16.1627598141166;
+        Thu, 29 Jul 2021 15:35:41 -0700 (PDT)
+Received: from localhost.localdomain ([1.145.37.91])
+        by smtp.gmail.com with ESMTPSA id 6sm732574pjk.1.2021.07.29.15.35.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Jul 2021 15:35:40 -0700 (PDT)
+Date:   Fri, 30 Jul 2021 08:35:37 +1000
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To:     Eugene Syromyatnikov <evgsyr@gmail.com>
+Cc:     linux-man@vger.kernel.org,
+        Alejandro Colomar <alx.manpages@gmail.com>
+Subject: Re: [PATCH v3] getrlimit.2: old_getrlimit/ugetrlimit and
+ RLIM_INFINITY discrepancies
+Message-ID: <20210729223535.qvyomfqvvahzmu5w@localhost.localdomain>
+References: <20210729154401.GA22699@asgard.redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20210729220129.ymfdnybbpvej4qck@localhost.localdomain>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+        protocol="application/pgp-signature"; boundary="brjc5l62r2fanofc"
+Content-Disposition: inline
+In-Reply-To: <20210729154401.GA22699@asgard.redhat.com>
+User-Agent: NeoMutt/20180716
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Branden!
 
+--brjc5l62r2fanofc
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 7/30/21 12:01 AM, G. Branden Robinson wrote:
-> Hi, Alex!
-> 
-> [regrets for the huge CC--those not interested in English/linux-man
-> style issues can skip this]
-> 
-> At 2021-07-29T16:56:37+0200, Alejandro Colomar (man-pages) wrote:
->> On 7/12/21 5:57 PM, Mickaël Salaün wrote:
->>> +For instance, one process's thread may apply Landlock rules to itself,
->>
->> s/process's/process'/
-> 
-> Many English language authorities would disagree with you, but I'll skip
-> digging up citations to them because the Linux man-pages project's
-> practice is already firmly in the other direction.
-> 
-> $ git grep "s's\>" | wc -l
-> 322
-> 
-> Moreover, "process's" is extensively attested as most of those...
-> 
-> $ git grep "process's" | wc -l
-> 320
+Hi, Eugene!
 
-My bad.  It was correct.  I was wrong.
+I thought I'd offer some style suggestions since Alex hasn't yet.
 
-I learnt today that the omission of "s" after the apostrophe is only in 
-the case of plural nouns (I don't remember having learnt that at school :/).
+At 2021-07-29T17:44:01+0200, Eugene Syromyatnikov wrote:
+> +The corresponding infinity value constant is provided in
+> +.I <linux/resource.h>
+> +as
+> +.BR RLIM64_INFINITY.
+> +.PP
+> +Original Linux implementation used signed types for limits; that was changed
 
-I suspect I probably wrote that before learning that.
+Grammatically, you need an article at the beginning of this sentence.
+More broadly, however, what constitutes "*the* original Linux
+implementation" may not be well-defined and is not as relevant to the
+discussion as Linux kernels that were widely deployed.  The earliest
+conveivable Linux attested, what Torvalds produced on his 80386 in 1991
+("Freax") is less important than Linux 2.4.
 
-> 
-> ...and a global change in the opposite direction from your
-> recommendation is credited to mtk in the Changes.old file.
-> 
-> $ grep -B2 "process' " Changes.old |head -n 3
-> A few files
->      mtk
->          s/process' /process's/
-> 
-> Finding examples of the opposite practice is complicated by the use of
-> apostrophes as single quotes (these usually _aren't_ confounded by code
-> examples, however, since it would be incorrect C language syntax to
-> quote a string literal with them).  There are many such occurrences in
-> Changes.old; I'll skip them.  The remainder are few enough that I'll
-> quote them here.
-> 
-> $ git grep -E "s'(\s|$)" man*
-> man2/adjtimex.2:Linux uses David L.\& Mills' clock adjustment algorithm (see RFC\ 5905).
-> man2/move_pages.2:.\" FIXME Describe the result if pointers in the 'pages' array are
-> man2/utimensat.2:.\" given a 'times' array in which both tv_nsec fields are UTIME_NOW, which
-> man2/utimensat.2:.\" provides equivalent functionality to specifying 'times' as NULL, the
-> man3/getaddrinfo.3:.\" 2008-02-26, mtk; clarify discussion of NULL 'hints' argument; other
-> man3/printf.3:thousands' grouping character is used.
-> man3/printf.3:the output is to be grouped with thousands' grouping characters
-> man3/printf.3:.\" no thousands' separator, no NaN or infinity, no "%m$" and "*m$".
-> man3/scanf.3:This specifies that the input number may include thousands'
-> man3/xdr.3:the array elements' C form, and their external
-> man3/xdr.3:the array elements' C form, and their external
-> man5/elf.5:The array element is unused and the other members' values are undefined.
-> man5/proc.5:under the default overcommit 'guess' mode (i.e., 0 in
-> man5/proc.5:because other nodes' memory may be free,
-> man7/bootparam.7:The Linux kernel accepts certain 'command-line options' or 'boot time
-> man7/bootparam.7:parameters' at the moment it is started.
-> man7/bootparam.7:The option 'reboot=bios' will
-> man7/bootparam.7:A SCSI device can have a number of 'subdevices' contained within
-> man7/hier.7:Users' mailboxes.
-> man7/mount_namespaces.7:the root directory under several users' home directories.
-> man7/uri.7:schemes; see those tools' documentation for information on those schemes.
-> man7/uri.7:detects the users' environment (e.g., text or graphics,
-> man8/ld.so.8:and do not apply to those objects' children,
-> 
-> Of the above,
-> 
-> 1. most are correct uses of the English plural possessive ("nodes'");
-> 2. a few occur in comments, where they're fine if present as
->     commentary--if they're "commented out" chunks of man page source,
->     they should follow man page formatting rules in the event they
->     require "resurrection";
-> 3. we see some uses of apostrophes as quotation marks; and
-> 4. David L. Mills's name is marked as a plural possessive.  The
->     application of apostrophe+s to singular proper names ending in "s" is
->     a debated issue, and there is probably some room for personal
->     preference on the part of the bearer of the name.
-> 
-> Two side issues:
-> 
-> A. Regarding point 3, I'd say this illustrates advantages of using
-> special character escape sequences like \[lq] and \[rq] for quotation.
-> First, you will get paired quotation marks in UTF-8, PDF, and HTML
-> output.  Second, you won't encounter false positives in searches like
-> the above.  Third, you semantically enrich the content.  On the
-> downside, adopting special character escapes would likely mean having to
-> choose between U.S. and U.K. quotation styles[1].
+So I would recast and use semantic newlines [see man-pages(7)]:
 
-I don't know what to do about this.  For searches, if you come up with a 
-complex enough regex, you can get rid of quotations.  If we use 
-different characters, then it will be really difficult to search for 
-actual quotations (I don't have them on my keyboard ;).
+	Linux 2.4 and earlier used signed types for limits;
+	that was changed
 
-But having nicer PDF/HTML pages would be an advantage.  However, I think 
-most usage of man-pages is in the terminal, so I'd focus on the terminal.
+Alex will surely direct you to the semantic newline advice in
+man-pages(7).
 
-What do you think about this?
+   Use semantic newlines
+       In the source of a manual page, new sentences should be started
+       on new lines, and long sentences should  split  into  lines  at
+       clause  breaks  (commas,  semicolons, colons, and so on).  This
+       convention, sometimes known as "semantic  newlines",  makes  it
+       easier to see the effect of patches, which often operate at the
+       level of individual sentences or sentence clauses.
 
-> 
-> B. Regarding another active thread we're in, I observe
-> 
-> man2/adjtimex.2:Linux uses David L.\& Mills' clock adjustment algorithm (see RFC\ 5905).
-> 
-> as another case where \~ recommends itself over "\ "; this isn't even a
-> code example, and it illustrates the desirability of decoupling
-> non-breaking from participation in space adjustment.
+I won't point out every instance where a semantic newline is preferred.
 
-Agreed.
+> +(along with the value of the
+> +.B RLIM_INFINITY
+> +constant)
 
-> 
-> Popping the stack, have I persuaded you on the plural possessive front?
-> :)
+I see there is some precedent in the Linux man-pages to call a
+preprocessor symbol that is replaced with a C language literal a
+"constant".  I would not employ this usage myself, since C has the
+"const" type qualifier that suggests, and is is widely interpreted, as
+"constant".  I think it would be helpful if we referred to as "constant"
+only C objects bearing such a declaration.  Does anyone think this would
+be a worthwhile shift in usage?  (The most important virtue that
+constants in the sense I'm using them have over preprocessor symbols is
+that the former survive the translation process into executable format,
+and (if not optimized out) will appear in a symbol table, which means a
+debugger can know about them.)
 
-Yup :)
+> +.\" http://repo.or.cz/davej-history.git/blobdiff/129f8758d8c41e0378ace0b6e2f56bbb8a1ec694..15305d2e69c3a838bacd78962c07077d2821f255:/include/linux/resource.h
+> +during 2.4 development cycle, as it wasn't compatible
 
-> 
-> Best regards,
-> Branden
-> 
-> [1] https://man7.org/linux/man-pages/man7/groff_char.7.html (search for
->      "the apostrophe")
-> 
+s/during/& the/
 
+> +with Single UNIX Specification.
 
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+s/with/& the/
+
+> +However, in order to preserve backward compatibility, the routine
+
+s/routine/function/ ?
+
+> +.IR sys_old_getrlimit
+> +has been implemented under
+
+s/has been/was/
+s/under/using the/
+
+> +.B __NR_getrlimit
+> +syscall slot, with infinity checks being performed against hard-coded 0x7fffffff
+
+s/hard-coded/a literal/
+
+> +value, and the routine
+
+s/the routine//
+(it will be clear from context that this is another function)
+
+> +.I sys_getrlimit
+> +has been exposed under a new name,
+
+s/has been/was/
+s/exposed/made available/
+
+> +.BR ugetrlimit ().
+> +Note that most newer architectures don't have the latter, with
+
+s/Note that most/Most/
+
+I call this a "Kemper notectomy", after my colleague in groff
+development, Dave Kemper, who has pointed out that we tend to massively
+overuse the phrase "note that" in software documentation.  We write for
+impatient readers.  Everything we say in a manual should be worthy of
+note; if it is not, it should be deleted or moved to a place in the text
+reserved for supplemental commentary (a footnote; a (sub)section entitled
+"Background", "History", or "Notes"; or similar).
+
+> +.BR getrlimit ()
+> +providing proper implementation.
+
+What's "proper" about it?  That it's unsigned, or that it's conforming?
+Say so.  Again, an article is needed.
+
+s/proper/a conforming/
+
+> +Also worth noting that several architectures decided not to change
+
+I'd condense this.
+
+s/Also worth noting that/However,
+/
+
+> +.B RLIM_INFINITY
+> +value: 32-bit mips and sparc (but not 64-bit variants, that switched
+
+s/mips/MIPS/
+
+The Linux man-pages are mostly consistent about this casing[1], and it
+is normative[2].
+
+s/sparc/SPARC/
+
+The Linux man-pages are mostly consistent about this casing[3], and it
+is normative[4].
+
+> +to the new value of (~0UL)) retained the old 0x7fffffff value,
+> +and alpha retained 0x7ffffffffffffffful.
+
+s/alpha/Alpha/
+
+You can probably guess what I'm going to say.  ;-)
+
+> +.\" ...along with a request to call when one runs into it:
+> +.\" https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/alpha/include/uapi/asm/resource.h#n15
+>  .SH BUGS
+>  In older Linux kernels, the
+>  .B SIGXCPU
+
+Thank you for your patience with my comments.  I hope they've been
+helpful.
+
+Regards,
+Branden
+
+[1] vdso(7) may be an exception.
+[2] https://booksite.elsevier.com/9780124077263/downloads/historial%20perspectives/section_4.16.pdf
+[3] clone(2), syscall(2), and exec(3) may be exceptions.
+[4] https://sparc.org/timeline/
+
+--brjc5l62r2fanofc
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmEDLSgACgkQ0Z6cfXEm
+bc4awA//ZAZGdt+ES6CMvvAgf4cHWH1GuY3Mrh3jBlnMdaUmFllIYJrpLNfjrzh4
+Fxylxm7ptoh05LiDv52WWmoyVZYdekDbQU4nsUH5KPDHUGWbqnVUZC6NRqsbq3HA
+upWVuA933CXS+wwvB/xHYF8oQw2YUHU6wWAzN7f++WeAq5+VnTYVOtvjkbIflmuo
+H/WXdHU4KDxO8z8m8Jai0saK0OHeZffVMZygzLd0+QgN5Zuu5sqPMeUUB7/SLVog
+mKo9urJkrBMlfQIhE0ZaSX+s2OiOnZfr50r3NQHftQs7jE4hgVIvk/0qLaHav+bN
+y07iXido6s7VnK6ggkGJotgYEYlcrCGbzipDH6YM7IksHcoC2OOaieXIT1Y50kqm
+OzwRSrzjqa8BIQhryvE5reHReruF8vERyD3gU+jsIePUlx+uwj9jSrpy7NRuTZYl
+pFSfAcM/Wrtl1GMj+dKJyNAjQXX1Dm6VVkXegNgTlMjDAygIGvTy3pbXpXYH6ipQ
+GJ560zhIIGDeIFkeKA7FgX6jytkPtqqCUYGU5+pP3yy2QumtvzOejkZEG8iba59A
+buXG+0QccbkbcPX9HbOaNTx98hW5Egkn2RyqE5tEuIqjFQJ4oCfftoP+SF5u3uEg
+RQXkBLQH139pKhuOu9DJkp7tEE2fHbJAu8buPYnXl2BUlKrH4w0=
+=5+Bv
+-----END PGP SIGNATURE-----
+
+--brjc5l62r2fanofc--
