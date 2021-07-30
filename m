@@ -2,67 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 61EC43DBE42
-	for <lists+linux-man@lfdr.de>; Fri, 30 Jul 2021 20:20:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CE0783DBE46
+	for <lists+linux-man@lfdr.de>; Fri, 30 Jul 2021 20:22:33 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229773AbhG3SUL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 30 Jul 2021 14:20:11 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45672 "EHLO
+        id S229921AbhG3SWh (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 30 Jul 2021 14:22:37 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46268 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229921AbhG3SUL (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 30 Jul 2021 14:20:11 -0400
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com [IPv6:2a00:1450:4864:20::42c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3AE4AC06175F
-        for <linux-man@vger.kernel.org>; Fri, 30 Jul 2021 11:20:05 -0700 (PDT)
-Received: by mail-wr1-x42c.google.com with SMTP id p5so12411109wro.7
-        for <linux-man@vger.kernel.org>; Fri, 30 Jul 2021 11:20:05 -0700 (PDT)
+        with ESMTP id S229773AbhG3SWh (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 30 Jul 2021 14:22:37 -0400
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com [IPv6:2a00:1450:4864:20::335])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9D82CC061765
+        for <linux-man@vger.kernel.org>; Fri, 30 Jul 2021 11:22:31 -0700 (PDT)
+Received: by mail-wm1-x335.google.com with SMTP id b128so6532456wmb.4
+        for <linux-man@vger.kernel.org>; Fri, 30 Jul 2021 11:22:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=/RylP+HxNusXHGQoEJ+QdocH2FDJqIjxZ9oTR0n7zc0=;
-        b=pyncBioQ4lK37VCwyNgNciYzLL2WINNmqVg6n4ShrlZ24irILzLzDK1VcNteI7ZzbZ
-         q575B7yRxc+56NUhzgzTM/SIgbeoXxPrushpvWVMT3z6C8QUjP5AVAZrXrOhzyh5y6d5
-         pVSwC4lNKY1TzE5usMo0aHlMNVq9zqs7nrQT52MsB9svwKfB8IcqU7Rx4YQ9sN7suM6d
-         180GjAeV++n6i3p9mTKUlen87pBRt7JlTDx3TvuYVP8DG+OGMUTX2QkQ0RgGejMxXS/D
-         DpC2e0y8oac09Q1xUr2mIGtVdYvzdp6VE48twkytkzoAUioGTzars56WTTGy7DZEF3tj
-         R6wg==
+        h=subject:to:references:from:message-id:date:user-agent:mime-version
+         :in-reply-to:content-language:content-transfer-encoding;
+        bh=+Ny1JHWFDSCMUHB2DFoPRoB0XkAacAO1eJ1xNjl87ZI=;
+        b=crQdI0OE0tPGMXm3Ow/8HBaCVBWBpcOTxK5aEMUjWYoUd71nlD4RFcWuGjfUYgDWlV
+         sjiAdQ87wFZRcnUyiWQDXCoGntDo6dWS5hwhxwW/vVAOyDXjMSHJE/FebNXPTcbFcR+5
+         J+2a/KlKtgZEFsvvVGpHTpdsAfi3c56ufX0mIlSB9UbnhCU+kcCJ1rES7rMK0pcybSi/
+         rLVUWGcKjQ0ecAzhbWjqdW0AwlLKoi/T2/rtEOeXuasptcBsm8661hgqU8ELkm2DZQUu
+         HFFVxEa3s7seo9EJVHWUQNsj4AwuESID9TLNn6ET/8bE0AZSQaUWXRDjKh5xhwbnup7d
+         pmUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+        h=x-gm-message-state:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=/RylP+HxNusXHGQoEJ+QdocH2FDJqIjxZ9oTR0n7zc0=;
-        b=N+t/iMA4G8qz1dUiMnTwf6pjG+QK467b1G63pL8Vk7yAYFhvp0Q0SN0PKEg7bgrtFG
-         y9vssW3/Ar8BAzV7oNSn0TCoSvILkeEro5uF6z2Ig7j46B3nXDycsYJN3gnquO3WHmtZ
-         2i4nSE3M/rMyqEnLZHbDtJ4CheDHKzlX4QC7cSNpnreuhY3wqFwQ88G+ncnbB1/tVzsq
-         A5If5tpaSxgwPOlbIZUVk83UTXYlGi2PPJ1ouewe31hKvjT/I6uQdua6fSaBRqXLoGoL
-         2MFQwtmNe/6gTR+Rvo6P05ufIUq0+QYdFdMHA1iChuSzzV8d+EiJlr/M7dfFqL0VudTj
-         vy2A==
-X-Gm-Message-State: AOAM5302xYWzzfbsiVyDamHsdH9Ao5lZ4sbeH0u7e15fZ8CEuek95l7W
-        ScM9ULBvI4Eya/tWSvxmRXk=
-X-Google-Smtp-Source: ABdhPJzCGntxjKkmURt6mtOVwz5z1DsKEbGzsRTcPJOqheEPaLJO7RkxVi4Wkj3uIMZrVWPDvOAsRQ==
-X-Received: by 2002:a5d:5645:: with SMTP id j5mr4337127wrw.426.1627669203914;
-        Fri, 30 Jul 2021 11:20:03 -0700 (PDT)
+        bh=+Ny1JHWFDSCMUHB2DFoPRoB0XkAacAO1eJ1xNjl87ZI=;
+        b=otPoh3EqrFRF23yzpTOmIV/XEllALsDDbluU3SZyPfBwAnrZUwq9Uxcflu+vJCK2+K
+         CsLek51a+sYo5iy7akHqCkvdQWEeodWAOAoA9irjPMUKdBUFGUwD3ieEbV2lxwx1eeMV
+         nF052roz4RYZ7Uyx96vE9+5gQMg2RBBkMTw4FnwOjRE4JIGbjnXGe+HybH0a3UjOeHNd
+         6MYqrtFFlYgzWSmLhL6ZpA/HEyux/1oVMAOWc4KebI8rsrjlJl6kEofZ3XqDFc/WCY8O
+         ArrCVO44sd8NdKu1yC/65ySXzr13u9CWTZ1rUdEgztLyoXE94KfGL6GeiCYvuWevPR3d
+         gZ6A==
+X-Gm-Message-State: AOAM531ZIXsRduqLYslKrXcaz06tZCQURvpUJ4Q5eCe6nv0wkbp4xQ1x
+        bSMJs/rgHgynHzVAPkUVLcYSFl65KlU=
+X-Google-Smtp-Source: ABdhPJy6Gq6J96LiAAhMcGbZMCaqyumOlDR6rWDSU0ds218lup82acixmlKQOKXw8JMgWdqF5dHdMA==
+X-Received: by 2002:a1c:6a0c:: with SMTP id f12mr4249478wmc.82.1627669350232;
+        Fri, 30 Jul 2021 11:22:30 -0700 (PDT)
 Received: from [10.8.0.10] ([195.53.121.100])
-        by smtp.gmail.com with ESMTPSA id p2sm2448664wrr.21.2021.07.30.11.20.03
+        by smtp.gmail.com with ESMTPSA id u11sm2616373wrt.89.2021.07.30.11.22.29
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 30 Jul 2021 11:20:03 -0700 (PDT)
-Subject: Re: [PATCH v2] ioctl_tty.2: Document ioctls: TCGETS2, TCSETS2,
- TCSETSW2, TCSETSF2
-To:     =?UTF-8?Q?Pali_Roh=c3=a1r?= <pali@kernel.org>
-Cc:     =?UTF-8?Q?Marek_Beh=c3=ban?= <kabel@kernel.org>,
-        linux-man@vger.kernel.org, libc-alpha@sourceware.org,
-        Michael Kerrisk <mtk.manpages@gmail.com>
-References: <20210725225506.7404-1-pali@kernel.org>
- <20210730104803.10328-1-pali@kernel.org>
+        Fri, 30 Jul 2021 11:22:29 -0700 (PDT)
+Subject: Re: [PATCH] ioctl_tty.2: Update DTR example
+To:     =?UTF-8?Q?Pali_Roh=c3=a1r?= <pali@kernel.org>,
+        linux-man@vger.kernel.org, Michael Kerrisk <mtk.manpages@gmail.com>
+References: <20210730105444.10483-1-pali@kernel.org>
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <2e3eb624-310b-bae3-c244-fbfac0bc22d6@gmail.com>
-Date:   Fri, 30 Jul 2021 20:20:02 +0200
+Message-ID: <1ac4e6e1-3336-a98e-b768-9b8ff25e7fba@gmail.com>
+Date:   Fri, 30 Jul 2021 20:22:28 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <20210730104803.10328-1-pali@kernel.org>
+In-Reply-To: <20210730105444.10483-1-pali@kernel.org>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
@@ -72,62 +68,34 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Hi Pali,
 
-On 7/30/21 12:48 PM, Pali Rohár wrote:
-> Signed-off-by: Pali Rohár <pali@kernel.org>
+On 7/30/21 12:54 PM, Pali Rohár wrote:
+> Do not include unused (and incompatible) header file termios.h and include
+> required header files for puts() and close() functions.
 > 
+> Signed-off-by: Pali Rohár <pali@kernel.org>
 
 Patch applied.  Thanks,
 
 Alex
 
 > ---
-> Changes in v2:
-> * Remove information about asm/termbits.h (will be in followup patch)
-> * Style fixes
-> ---
->   man2/ioctl_tty.2 | 29 +++++++++++++++++++++++++++++
->   1 file changed, 29 insertions(+)
+>   man2/ioctl_tty.2 | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
 > 
 > diff --git a/man2/ioctl_tty.2 b/man2/ioctl_tty.2
-> index 2a0effdae8ab..c1875530f0b1 100644
+> index 91aceddb7828..b5356738d4bb 100644
 > --- a/man2/ioctl_tty.2
 > +++ b/man2/ioctl_tty.2
-> @@ -77,6 +77,35 @@ The following four ioctls are just like
->   .BR TCSETSW ,
->   .BR TCSETSF ,
->   except that they take a
-> +.I "struct termios2\ *"
-> +instead of a
-> +.IR "struct termios\ *" .
-> +If struct member
-> +.B c_cflag
-> +contains
-> +.B BOTHER
-> +then baudrate is stored in struct members
-> +.B c_ispeed
-> +and
-> +.B c_ospeed
-> +as integer values.
-> +These ioctls are not supported on all architectures.
-> +.RS
-> +.TS
-> +lb l.
-> +TCGETS2	\fBstruct termios2 *\fPargp
-> +TCSETS2	\fBconst struct termios2 *\fPargp
-> +TCSETSW2	\fBconst struct termios2 *\fPargp
-> +TCSETSF2	\fBconst struct termios2 *\fPargp
-> +.TE
-> +.RE
-> +.PP
-> +The following four ioctls are just like
-> +.BR TCGETS ,
-> +.BR TCSETS ,
-> +.BR TCSETSW ,
-> +.BR TCSETSF ,
-> +except that they take a
->   .I "struct termio\ *"
->   instead of a
->   .IR "struct termios\ *" .
+> @@ -743,7 +743,8 @@ Insufficient permission.
+>   Check the condition of DTR on the serial port.
+>   .PP
+>   .EX
+> -#include <termios.h>
+> +#include <stdio.h>
+> +#include <unistd.h>
+>   #include <fcntl.h>
+>   #include <sys/ioctl.h>
+>   
 > 
 
 
