@@ -2,109 +2,185 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B90923DB003
-	for <lists+linux-man@lfdr.de>; Fri, 30 Jul 2021 01:41:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A849F3DB024
+	for <lists+linux-man@lfdr.de>; Fri, 30 Jul 2021 02:09:19 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235100AbhG2Xl5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 29 Jul 2021 19:41:57 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53620 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229982AbhG2Xl5 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 29 Jul 2021 19:41:57 -0400
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com [IPv6:2a00:1450:4864:20::42f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3C735C061765
-        for <linux-man@vger.kernel.org>; Thu, 29 Jul 2021 16:41:52 -0700 (PDT)
-Received: by mail-wr1-x42f.google.com with SMTP id r2so8907529wrl.1
-        for <linux-man@vger.kernel.org>; Thu, 29 Jul 2021 16:41:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=cp4kQZkl5NvQzV+BdurKVioPC5fUgFULgZMGgpSX7Ds=;
-        b=RVnNClRgNa/eBgq07giOnp5cdX8GslSWO2cPBlnwxw8z+2K/pa3ckPWZk8+f8/0474
-         KWovMUicWS9/KEexAjjRWSEkSOJqhr3JUKna9fr69AE8WdYG7DoIqNZd/iM0a9DlWp2R
-         NXzv3LS2fLFyL1zGELs+rTwR5tQTAR/saz71ojKuNi0T/V51gXYKj+AJZUhUtcYlgCu9
-         1NJdjzsckVm4i1A//WXVGJns+Y8d6VsIYn9nnxqLp4JdDlmsCuexzCvJErCmIHkJjRYY
-         5VVNEf3a5PiLTa+Yh73dT7a1Y9nespbDLV8/Btnp6uxqyDMt+DmbDpJUfIAoFgpjCuc5
-         qphw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=cp4kQZkl5NvQzV+BdurKVioPC5fUgFULgZMGgpSX7Ds=;
-        b=q4PNS38Vyl6TSj81WatElxdvOGPNT2WJCzApYggzkmw3hFYbxZe2c/l3sM+tSnfvhB
-         wkKsfhRBtrvsl4oFdjEpk0erTIDrGUibIjay7XOI8dnExt/liHIy7fGoMAtoyZD1QJeJ
-         5u3BpVr13jFaMvCVdXigfVvY1TfUYrsJ14XHvJ+hYfyYbX/Sx6mdvgpfjCXCcq9DH/Z9
-         e22n9X31R7wqPilpANzRFeAh3ncbyRWTaWWRKJiT1FJhoFcXtPHC8xfUKhVREH2jUghR
-         iEdXxtl8Oy39AU/XohIoe2xOLj7g5CoByl6LQ1d3xthGUgFddjVOjNTZ5pnsXRUi1alt
-         ROSQ==
-X-Gm-Message-State: AOAM530ZX7/0UDwFD4JBP8v1x5kIYFEv0XaIRmg0Il3RODwWDjLLPnh2
-        sIQ9786eS8DBqnE5TCcE3Rw=
-X-Google-Smtp-Source: ABdhPJzH6SdHVIdjYb/ltvVCP00jJs0XlNY0vlF/UiNWtVnAsJg28C5FHgGZDsPv/R4EIcszNJzbPQ==
-X-Received: by 2002:adf:f383:: with SMTP id m3mr7132185wro.81.1627602110828;
-        Thu, 29 Jul 2021 16:41:50 -0700 (PDT)
-Received: from [10.8.0.10] ([195.53.121.100])
-        by smtp.gmail.com with ESMTPSA id w1sm10627594wmc.19.2021.07.29.16.41.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 29 Jul 2021 16:41:50 -0700 (PDT)
-Subject: Re: [PATCH] termios.3: Use bold style for Bnn and EXTn macro
- constants
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-man@vger.kernel.org,
-        =?UTF-8?Q?Pali_Roh=c3=a1r?= <pali@kernel.org>
-References: <20210725225453.7341-1-pali@kernel.org>
- <430eaca8-3ea9-5df9-8db5-5d94bcb06815@gmail.com>
- <20210729172320.xhrbonoxisqioe3e@pali>
- <20210729230421.lm65cjomqx6rezzl@localhost.localdomain>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <304b7610-a399-3275-755e-5648bfb941f2@gmail.com>
-Date:   Fri, 30 Jul 2021 01:41:49 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+        id S235162AbhG3AJW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 29 Jul 2021 20:09:22 -0400
+Received: from mail.kernel.org ([198.145.29.99]:35056 "EHLO mail.kernel.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S235124AbhG3AJV (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Thu, 29 Jul 2021 20:09:21 -0400
+Received: by mail.kernel.org (Postfix) with ESMTPSA id AFBFE60F6F;
+        Fri, 30 Jul 2021 00:09:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1627603758;
+        bh=dEeMKA1w0d9eJPJIBm2gAzO+gckm5ZB/kZBqcFJI1sg=;
+        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+        b=Nht4bOXn20vhYNicCK/wrC9xxEU0Oj9QtOLszhwfKHaAc49ZdzkIrCrxVwSTxdrwb
+         rNxVDsWo0pAyPP2Uz9q0MLVX9w1ymeBw23dx2i3Jocc47kRSiloY+g/bUuj9biJ4J0
+         0dpz7mNUkmBamgfj3biakS2LsmMj1Mn+5ITkqllKFYd0G5fxFdbes+1WWvqkO6N+Iu
+         ykPzJyQes1lWqsflPNxlNVLjWCn5vzh0hJoDbxdsd+lRlMPf4nUP1m2blgGIFsEbl2
+         JC9Kxq9Coz/FFOX4WcWWch5dha+4jFk7yA0n74gIVPu8H34XxVSyVSt48U6I1K9RHJ
+         hMu+jGFqHneRw==
+Received: by pali.im (Postfix)
+        id 3EDCA888; Fri, 30 Jul 2021 02:09:15 +0200 (CEST)
+Date:   Fri, 30 Jul 2021 02:09:15 +0200
+From:   Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Cc:     Michael Kerrisk <mtk.manpages@gmail.com>, linux-man@vger.kernel.org
+Subject: Re: [PATCH] ioctl_tty.2: Document ioctls: TCGETS2, TCSETS2,
+ TCSETSW2, TCSETSF2
+Message-ID: <20210730000915.d6ieqiuqah4tjjxf@pali>
+References: <20210725225506.7404-1-pali@kernel.org>
+ <271f5402-95f5-4e65-84ee-a227879e1c33@gmail.com>
+ <20210729173118.pud4xucnt4kncvol@pali>
+ <7d48a1dd-9641-53e9-bb65-868c86f22821@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20210729230421.lm65cjomqx6rezzl@localhost.localdomain>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Language: en-US
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <7d48a1dd-9641-53e9-bb65-868c86f22821@gmail.com>
+User-Agent: NeoMutt/20180716
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Branden,
+Hello!
 
-On 7/30/21 1:04 AM, G. Branden Robinson wrote:
-> At 2021-07-29T19:23:20+0200, Pali Rohár wrote:
->> How do you prefer to format this part? \fBB0\fP, ..., \fBB9600\fP
+On Friday 30 July 2021 01:39:11 Alejandro Colomar (man-pages) wrote:
+> Hi Pali,
 > 
-> I'd use the B or BR macro to set the literals, depending on whether they
-> are directly followed by something that should be in the roman style,
-> and I would definitely set the ellipsis in roman; when used as such,
-> it should never be set in bold or italics.  Use of the ellipsis in *roff
-> input requires some care, which is unfortunately often neglected.
+> On 7/29/21 7:31 PM, Pali RohÃ¡r wrote:
+> > 
+> > > > +.IR "<asm/termbits.h>" .
 > 
-> .BR B0 ,
-> \&.\|.\|.\|,
-> .B 9600
+> Is that the header that the user should include?
+
+Yes.
+
+> I don't know.  I typically avoid 'asm/' includes, but maybe in this case
+> it's the correct one.  Shouldn't the user maybe include <linux/termios.h>?
+
+Problem is that you cannot include <linux/termios.h> together with
+<sys/ioctl.h>. It cause redefinition of symbols and compile errors.
+
+And without <sys/ioctl.h> you cannot call ioctl() function which
+basically means that you cannot use TCGETS2 (as it is ioctl).
+
+Probably this is a bug in glibc header files...
+
+So currently it is needed to include <asm/termbits.h> file to use
+TCGETS2 ioctl. I'm not sure if it is "correct", but it is the only
+possible option for now about which I know (unless you want to
+copy+paste structures and macros from that file into your program, to
+avoid inclusion of asm/* files).
+
+If you want, I can send a patch for ioctl_tty.2 example section with
+simple C program to show how to use TCGETS2/TCSETS2 ioctl.
+
+> user@sqli:/usr/include$ grep -rn 'struct termios {'
+> asm-generic/termbits.h:12:struct termios {
+> user@sqli:/usr/include$ grep -rn '<asm-generic/termbits.h>'
+> x86_64-linux-gnu/asm/termbits.h:1:#include <asm-generic/termbits.h>
+> user@sqli:/usr/include$ grep -rn '<asm/termbits.h>'
+> asm-generic/termios.h:12:#include <asm/termbits.h>
+> user@sqli:/usr/include$ grep -rn '<asm-generic/termios.h>'
+> x86_64-linux-gnu/asm/termios.h:1:#include <asm-generic/termios.h>
+> user@sqli:/usr/include$ grep -rn '<asm/termios.h>'
+> linux/termios.h:6:#include <asm/termios.h>
+> user@sqli:/usr/include$ grep -rn '<linux/termios.h>'
+> user@sqli:/usr/include$
 > 
-> (I dithered over inclusion of the thin space escape sequence \| between
-> the ellipsis and the comma.  I can see arguments either way, and a quick
-> Internet search does not suggest to me a strong wind in either
-> direction.  Since its presence or absence makes no difference for
-> terminal output, I expect most writers of man pages won't care.)
+> 
+> > > > +These ioctls are not supported on all architectures.
+> > > > +.IP
+> > > > +.BI "TCGETS2	struct termios2 *" argp
+> > > 
+> > > Please follow the same style as in the rest of the page:
+> > > 
+> > > .TP
+> > > .B TCGETS2
+> > > Argument:
+> > > .BI "struct termios2 *" argp
+> > > 
+> > > Unless there's a good reason not to.
+> > 
+> > Few lines below in this file is:
+> > 
+> > .IR "struct termios\ *" .
+> > .IP
+> > .BI "TCGETA	struct termio *" argp
+> > .IP
+> > .BI "TCSETA	const struct termio *" argp
+> > .IP
+> > .BI "TCSETAW	const struct termio *" argp
+> > .IP
+> > .BI "TCSETAF	const struct termio *" argp
+> > 
+> > Therefore I used same style for TCGETS2...
+> > 
+> > So, how should I format this part to be consistent?
+> 
+> 
+> Hmm, sorry, I didn't see those.
 
+Ah, now I see that Michael one hour later (after I sent this patch)
+fixed above style to another. See commit aceee9e827e6.
 
-Thanks again for your input!
-Good to know that.
+But changed it to another new style:
 
+.RS
+.TS
+lb l.
+TCGETA	\fBstruct termio *\fPargp
+TCSETA	\fBconst struct termio *\fPargp
+TCSETAW	\fBconst struct termio *\fPargp
+TCSETAF	\fBconst struct termio *\fPargp
+.TE
+.RE
 
-Cheers,
+> So there's a mix in the file.
+> The more correct form is the one I used, so please use that one (the one
+> with .TP)
 
-Alex
+So, could you check with Michael which style to use? Because now there
+are 3 different (yours, Michael's and the one which was there before)
+and I'm really not sure what is correct...
 
-
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+> 
+> Thanks,
+> 
+> Alex
+> 
+> 
+> > 
+> > > > +.IP
+> > > > +.BI "TCSETS2	const struct termios2 *" argp
+> > > > +.IP
+> > > > +.BI "TCSETSW2	const struct termios2 *" argp
+> > > > +.IP
+> > > > +.BI "TCSETSF2	const struct termios2 *" argp
+> > > > +.PP
+> > > > +The following four ioctls are just like
+> > > > +.BR TCGETS ,
+> > > > +.BR TCSETS ,
+> > > > +.BR TCSETSW ,
+> > > > +.BR TCSETSF ,
+> > > > +except that they take a
+> > > >    .I "struct termio\ *"
+> > > >    instead of a
+> > > >    .IR "struct termios\ *" .
+> > > > 
+> > > 
+> > > 
+> > > -- 
+> > > Alejandro Colomar
+> > > Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+> > > http://www.alejandro-colomar.es/
+> 
+> 
+> -- 
+> Alejandro Colomar
+> Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+> http://www.alejandro-colomar.es/
