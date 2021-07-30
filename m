@@ -2,121 +2,88 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 589023DB06C
-	for <lists+linux-man@lfdr.de>; Fri, 30 Jul 2021 02:53:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E57A03DB09D
+	for <lists+linux-man@lfdr.de>; Fri, 30 Jul 2021 03:26:09 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230021AbhG3Axh (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 29 Jul 2021 20:53:37 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41672 "EHLO
+        id S230088AbhG3B0M (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 29 Jul 2021 21:26:12 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49118 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229667AbhG3Axb (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 29 Jul 2021 20:53:31 -0400
-Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com [IPv6:2607:f8b0:4864:20::632])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2BA19C061765
-        for <linux-man@vger.kernel.org>; Thu, 29 Jul 2021 17:53:27 -0700 (PDT)
-Received: by mail-pl1-x632.google.com with SMTP id e5so9018980pld.6
-        for <linux-man@vger.kernel.org>; Thu, 29 Jul 2021 17:53:27 -0700 (PDT)
+        with ESMTP id S229971AbhG3B0M (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 29 Jul 2021 21:26:12 -0400
+Received: from mail-il1-x132.google.com (mail-il1-x132.google.com [IPv6:2607:f8b0:4864:20::132])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 69AA2C061765
+        for <linux-man@vger.kernel.org>; Thu, 29 Jul 2021 18:26:08 -0700 (PDT)
+Received: by mail-il1-x132.google.com with SMTP id c3so7793565ilh.3
+        for <linux-man@vger.kernel.org>; Thu, 29 Jul 2021 18:26:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to:user-agent;
-        bh=tYyQNKE/0qlIcpB4bnVlm0oJQoY15NQYYoWtnM7QMOU=;
-        b=lVajvFZ2tyLCZ91ZBBwI3+DXVklbaqDavGVR9Xb/10kvVNev94NEAY0peW+cz2EI+J
-         wNm7sOtZbMU73T3uksiYI0G1W8gHmtXIFWdSY+1QzUBe+0ADD062RsidrLiyRALjwwE8
-         NqC7e+XE2u6Rq1cSg2ItZUCMiFBG2d741sdS0vHbL36qEXDL/vKT9XqDFuvDdIldEUBh
-         QGfvM/oWqCjKs9CytyHsJLif2+LsLU7DUwm8deoK+F37ZNDz/mG0+7qVj6e8di0CieJM
-         PYUXnR/gpS0K/SY35OXtMRJT4vLjEbdT2WRCpwwT+Dx6X0J65ql8GHr6R+OR9/H/Zkzb
-         6zaA==
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=3d6OvB+VDct0KC3mlhW5thROGoKUYJQrkRMeN5rtZAU=;
+        b=K6lOHfDvmYZGvi7D8nyA4b+/TYC6E181QGttSI0l1SmAIN4GBCUEUgJ42L1ihwYwmR
+         tOaQwkhLFfdroNY/JGy4LXm7yQ7INQNus8kMRhkfrj9Reys/Y8aLCy+2O3v/iUDHe0Tg
+         MvXn55+s031Tye5hvN6HQbDujcslKaQZ8x/bDFDgN8reVhaQ6L2z5uhrKZxIy8nLrc7Y
+         rtB9tZxTrzlYRhnQgGPrPtwi+4PCregxj0vEqBpVWs7+KDmJ26aNq+6wvUD+7wUBjL2f
+         ZIv2NtKjzWljBZGtDpk4nN9UkGetwzhwAxF4+CxpwKvlu8rUKKT+4MmIvOD/P4XvHOg8
+         h9AA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=tYyQNKE/0qlIcpB4bnVlm0oJQoY15NQYYoWtnM7QMOU=;
-        b=U9CToFsmrgE53ayvvm/LdZhTZjKP+ghYg0pS1YYRgXswXsiXJV+FNHRXVe6KkgAVTr
-         5MvLDPwhIib0pAeTpsIzJ8qz/4xfS5GCeCn3Mdmf8XEQdV0QVNQ/Ref36aTNAAQOgzv5
-         slFpuGuwb9SOgcWQ15Mhi3plUDElZNdpzvj0T9iq1X/WxBOeC/Z8zeYaj2c3gtLu79Kz
-         PeYbudOwZTKX23DVv57dltjomosRTZkqQzIklbKMBIMpG48rrHhX5JvSP/VhAt9Ks3A5
-         LDVfObEhpeEv5tYpf9ANNbz6ov/bfjwr7ufQf9pq61mwkndaXWJ5gBu9ug2/ZmP8TZL1
-         C1Bg==
-X-Gm-Message-State: AOAM531MyZGiXN9rmkVrtX0/NnR2DaqMnh7ssxlMJC38EL24Vb1JnyJn
-        ZB1KyswOxew3yI36qIH5qj4=
-X-Google-Smtp-Source: ABdhPJwdAg3p/I93K5ZJNsR3XXTFzcgV52YmFiBJh8rZoMf/8IgHWTOPZTJiGOz+v1A1Aok/Kib6MQ==
-X-Received: by 2002:a63:f342:: with SMTP id t2mr6241996pgj.45.1627606406848;
-        Thu, 29 Jul 2021 17:53:26 -0700 (PDT)
-Received: from localhost.localdomain ([1.145.37.91])
-        by smtp.gmail.com with ESMTPSA id 26sm4541863pjj.27.2021.07.29.17.53.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Jul 2021 17:53:26 -0700 (PDT)
-Date:   Fri, 30 Jul 2021 10:53:22 +1000
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>
-Cc:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-man@vger.kernel.org
-Subject: Re: [PATCH] termios.3: Use bold style for Bnn and EXTn macro
- constants
-Message-ID: <20210730005321.nyu4lbtzpoa3xw6g@localhost.localdomain>
-References: <20210725225453.7341-1-pali@kernel.org>
- <430eaca8-3ea9-5df9-8db5-5d94bcb06815@gmail.com>
- <20210729172320.xhrbonoxisqioe3e@pali>
- <20210729230421.lm65cjomqx6rezzl@localhost.localdomain>
- <304b7610-a399-3275-755e-5648bfb941f2@gmail.com>
- <20210730002133.ix3rfgr7bpvtltag@pali>
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=3d6OvB+VDct0KC3mlhW5thROGoKUYJQrkRMeN5rtZAU=;
+        b=VU9QFHvRlwJ+uXiI3Cp9MGejjXu9D6kFbFRZLzhQcWEuLeD0ytolPRR4B9ChlVSn7P
+         /qAiZjM88w7sw2Cb1s0gOofTEi+DIa9DJSX/khRvSIDTdnuMPUiT00uv6JWOihvypkny
+         kkSCAfr6QxSuIIHGZUbH2blj4d9Cy38RoeiDmkJAb46jeCwZszbrqAHP0fUNXnCsJfmw
+         KGZ4OltRYh/YTR5HeAl/HPt9hRa+QkljT8CXlZS4+th+V0FA2o8LBYbfCsE/oZMmv2U6
+         M7p/f2JeDDpOYU0n9JYK/x/dl7QOrj9nn2ov8SgOEFLv5c/APSHGs91IbilIe+cLPG8l
+         DxWg==
+X-Gm-Message-State: AOAM5319U1V+1gKO0xvRFGJXHg/VPlaEv0SwDUMntAEWdQ0AX22+bQTl
+        5AOgrdtug682uCRQPChHGd7Bjw2LVgOQBMbm9ns=
+X-Google-Smtp-Source: ABdhPJxTZjD/3Kd3SFvsXU/oHKuBGouw1xTdvbyzQjcSMSh8llqhyxsFG8rKtcr9NiwdVJ066SEhwaVSi9+yHod2DTA=
+X-Received: by 2002:a92:cecf:: with SMTP id z15mr26786ilq.225.1627608367901;
+ Thu, 29 Jul 2021 18:26:07 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="st2rbdov2zwt4xl4"
-Content-Disposition: inline
-In-Reply-To: <20210730002133.ix3rfgr7bpvtltag@pali>
-User-Agent: NeoMutt/20180716
+References: <20210728202008.3158-1-alx.manpages@gmail.com> <20210728202008.3158-32-alx.manpages@gmail.com>
+ <20210729104517.a4kktqk54ef72m22@localhost.localdomain>
+In-Reply-To: <20210729104517.a4kktqk54ef72m22@localhost.localdomain>
+From:   Viet Than <thanhoangviet@gmail.com>
+Date:   Thu, 29 Jul 2021 21:25:56 -0400
+Message-ID: <CAL9Lf7yp7ychhStn6yEPLxntMyfNk5k-SWgk3AShDSCGZ-Lwfw@mail.gmail.com>
+Subject: Re: [PATCH 31/32] time.2: wfix regarding year-2038
+To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc:     Michael Kerrisk <mtk.manpages@gmail.com>, linux-man@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+> "[R]eaches at" is not standard English.  More idiomatic would be
+> "reaches or exceeds".
 
---st2rbdov2zwt4xl4
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thanks Branden. Searching around on Google, you're right. Usage of
+"reaches at or beyond" is way less (1,240 results on Google) than
+"reaches or exceeds" (376,000 results). I've modified the patch
+accordingly.
 
-At 2021-07-30T02:21:33+0200, Pali Roh=E1r wrote:
-> > On 7/30/21 1:04 AM, G. Branden Robinson wrote:
-> > > .BR B0 ,
-> > > \&.\|.\|.\|,
-> > > .B 9600
-[..]
-> Perfect! I will change it in this way.
+Signed-off-by: Viet Than <thanhoangviet@gmail.com>
 
-Sadly I violated the Law of "B" Conservation in the above.
+---
+man2/time.2 | 2 +-
+1 file changed, 1 insertion(+), 1 deletion(-)
 
-It should have been:
-
-=2EBR B0 ,
-\&.\|.\|.\|,
-=2EB B9600
-
-(I got hyper-focused on the ellipsis.)
-
-Regards,
-Branden
-
---st2rbdov2zwt4xl4
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmEDTYEACgkQ0Z6cfXEm
-bc46iw/9GhRCO2t6wDkcS0yYL185b4kd5itJqf4tJkbPMDlIXFr9q6+zDFDoJZQg
-0ZJ66Hi5F9JW96ggcnZPaIHq7tTwQZUwV/YYvJIhnG4nZlHAJU7G6emevCVZoalP
-NSZOt/KnSgSnpxKBLGnQvuFYoE4q8yRSN5IulRM02k80tc/wI1Ojpj0uMcKPmZJL
-OLwIHiHXOEvp5erZIuStyvUfE2QTx57a9oNxhzWFWPebCoAPPGWXvaVRndAdAsO+
-Gn32UvC//8zj24sjlherU3dGas+9R3dNMv+2pWfXDCjQcDv2Nv2ORR0vaeZzFG8g
-zeSasMBJFuKjyV7vCVFH5zTR4zmWWCs2jJveqOw12NlDSzYd+1wFkoBVVJPxwuum
-wp4g5wTasPSoSuNXsHLG/LgQhhcQ+m6wKAthB79Dw98M4mxVizrw2dcjEbxYlt7P
-EsdKFx3LSJyV4JsjJ0ck5X3p6onSYQvmWJS2nChYBvyy26QwHhmZZkD5zhy1XXrp
-fuUYYrJo/Krae4l0DqgHCrhQLVDuv+7fSHNF2aOXXW89SNHVvlZkeKCEKozuUDmA
-fmt8E63PCkKrwM6wnYReDK7z4Sl8vRLbOxBsCi0SO0jw/Os01tF+A44F5qS1FnCp
-zj7BmbOqYbX3gO+oVU7Ehsgw0MBmwe7r2w1TjnhBacu+7v1O7jE=
-=65BG
------END PGP SIGNATURE-----
-
---st2rbdov2zwt4xl4--
+diff --git a/man2/time.2 b/man2/time.2
+index 059222dcd..ab3d3ecba 100644
+--- a/man2/time.2
++++ b/man2/time.2
+@@ -93,7 +93,7 @@ specified as NULL cannot fail with the error
+.BR EOVERFLOW ,
+even on ABIs where
+.I time_t
+-is a signed 32-bit integer and the clock ticks past the time 2**31
++is a signed 32-bit integer and the clock reaches or exceeds 2**31 seconds
+(2038-01-19 03:14:08 UTC, ignoring leap seconds).
+(POSIX.1 permits, but does not require, the
+.B EOVERFLOW
+-- 
+2.32.0
