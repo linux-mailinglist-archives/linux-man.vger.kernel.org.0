@@ -2,223 +2,222 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id DCA6E3DB777
-	for <lists+linux-man@lfdr.de>; Fri, 30 Jul 2021 12:56:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id EA9913DB806
+	for <lists+linux-man@lfdr.de>; Fri, 30 Jul 2021 13:47:11 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S238409AbhG3K4S (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 30 Jul 2021 06:56:18 -0400
-Received: from mail.kernel.org ([198.145.29.99]:57452 "EHLO mail.kernel.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S238383AbhG3K4S (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Fri, 30 Jul 2021 06:56:18 -0400
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 896A46069E;
-        Fri, 30 Jul 2021 10:56:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1627642573;
-        bh=YvDsN9QJItQrbJxN3jw8gagedUWQdoyHzhvFRDyG84c=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=TGP+merwyzkV7YFzwLScbiLBwXKsVZcbWywT+EK/5h1/4ipiRnIPULY5SCUK0mVcg
-         99D5+nP0ROjuPRlI6tUVel1ozqn669L+vMkjAG/z9Tjuk5kW42sfCdCu9jMi+0+bCj
-         rVXjM5ZACOhoaWxMwFgKx4FdKoV4DVwFrO7FJBlPz7181P3oTujZI2Jna1bD1XZvrO
-         bo3LBuY4YZhZm2PpXNlkcb2hjm18ip5RaRHWYiWZXz9v4fnssX9MV9qkONWxJm6rAA
-         wOE6F3aI+kcUSczPmq+I+OM17prJymhLo3GOZ5YzHgGa8DfkpbzgwezwKTXnjLrVn0
-         DMNcncOjzfJUg==
-Received: by pali.im (Postfix)
-        id 7CA86772; Fri, 30 Jul 2021 12:56:11 +0200 (CEST)
-Date:   Fri, 30 Jul 2021 12:56:11 +0200
-From:   Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-man@vger.kernel.org, Glibc <libc-alpha@sourceware.org>
-Subject: Re: [PATCH] ioctl_tty.2: Document ioctls: TCGETS2, TCSETS2,
- TCSETSW2, TCSETSF2
-Message-ID: <20210730105611.rtmd5642ed2ountm@pali>
-References: <20210725225506.7404-1-pali@kernel.org>
- <271f5402-95f5-4e65-84ee-a227879e1c33@gmail.com>
- <20210729173118.pud4xucnt4kncvol@pali>
- <7d48a1dd-9641-53e9-bb65-868c86f22821@gmail.com>
- <20210730000915.d6ieqiuqah4tjjxf@pali>
- <35947a18-65b8-6c31-2715-42f9a5c2c6f7@gmail.com>
+        id S238616AbhG3LrP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 30 Jul 2021 07:47:15 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55900 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S230353AbhG3LrO (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 30 Jul 2021 07:47:14 -0400
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com [IPv6:2a00:1450:4864:20::436])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BC4F6C061765
+        for <linux-man@vger.kernel.org>; Fri, 30 Jul 2021 04:47:09 -0700 (PDT)
+Received: by mail-wr1-x436.google.com with SMTP id b7so10963151wri.8
+        for <linux-man@vger.kernel.org>; Fri, 30 Jul 2021 04:47:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=zu+j36tJzgwTv9S/PS0mcvRxLGYCGBDHoi6JUPrgB98=;
+        b=GbutRE7cOdWvPKDXlk/XYKyvcllNfQJVyYarDpQXkG4a0VE4hBPcb5G7JO9nQsxySt
+         ZKRJPddFRd3cjaZRIsUg56FP2X5CfUgBYHmUCvwmfWuMlPxxX2cSyc/aUZLRLsHPByV4
+         Az1gN5EZAQceBlXNJ1Z4iOQR3wMxsc0yRbhrMbNGkiQr0ysQpyDPYuGLK17+mpRe18Re
+         lNzoZ1ABLYRj8UiuNwXo2Cw/+Y0TPxi93BBsVoJ9dO/zryUHWAlOXL5i3TRODI1Szbpn
+         Y45MLaxxKTl7V2BsmA3ZZc+XJ6pRfeBO3CF16ctKCwF0CrAUpkANztMA0I5PslSVERiM
+         Wm+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=zu+j36tJzgwTv9S/PS0mcvRxLGYCGBDHoi6JUPrgB98=;
+        b=F2zNWy8pbXQDY4cA6nc06aFy5S+iSxtY5Z5VJ66UfDi/36WKaZV/0lO3/z/LZ4beP5
+         rD3Ny2Tz9sk0g7u1h8oQPYO3Akgwyu6GEv/48zEuVMqix+o4SIP09vzFUM+zI/4dx6gY
+         DdFJQCeMmXX0tLAicSe4X/LhTZ3v7QQlmJYMcJ3ZAeU5e3tKO91//iQ0L9LBgBOmAMkr
+         ITNyCILil2g4gTClyKOUTrCumFbJEeq07dtxwtKH98C3ENGEtcn/6SNBjfPk8tl7g3nd
+         FgrKDusGjZWxSYRg/MdC4tFY6eoAauJEg5hRH4zkZ8c5fwTyvnLM4URCJQNRHzbWbIzY
+         cgpA==
+X-Gm-Message-State: AOAM533fAMJBnCQ+rq+00doQ4YzfmPUfsnRqzPkqd/nkL5ng/eE0sOLa
+        ioaBhrkgttR+Zbr/5upV1y/JW17fD5o=
+X-Google-Smtp-Source: ABdhPJwt1c9OSil3hWr8y87rahBeeTK96SmuIKxFKbOqTYNRrvZ7m/V9o497wiBAqRWKf5LtGzdJxg==
+X-Received: by 2002:adf:ed50:: with SMTP id u16mr2612454wro.174.1627645628331;
+        Fri, 30 Jul 2021 04:47:08 -0700 (PDT)
+Received: from [10.8.0.10] ([195.53.121.100])
+        by smtp.gmail.com with ESMTPSA id e5sm1776292wrr.36.2021.07.30.04.47.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 30 Jul 2021 04:47:07 -0700 (PDT)
+Subject: Re: [PATCH] ioctl_tty.2: Add example how to get or set baudrate on
+ the serial port
+To:     =?UTF-8?Q?Pali_Roh=c3=a1r?= <pali@kernel.org>
+Cc:     =?UTF-8?Q?Marek_Beh=c3=ban?= <kabel@kernel.org>,
+        libc-alpha@sourceware.org,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        linux-man@vger.kernel.org
+References: <20210730095333.6118-1-pali@kernel.org>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Message-ID: <b8ef8f70-ae61-b0f1-58dc-37380ae242ee@gmail.com>
+Date:   Fri, 30 Jul 2021 13:47:06 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+In-Reply-To: <20210730095333.6118-1-pali@kernel.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <35947a18-65b8-6c31-2715-42f9a5c2c6f7@gmail.com>
-User-Agent: NeoMutt/20180716
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Friday 30 July 2021 09:04:46 Alejandro Colomar (man-pages) wrote:
-> CC += glibc
-> 
-> On 7/30/21 2:09 AM, Pali Rohár wrote:
-> > Hello!
-> > 
-> > On Friday 30 July 2021 01:39:11 Alejandro Colomar (man-pages) wrote:
-> > > Hi Pali,
-> > > 
-> > > On 7/29/21 7:31 PM, Pali Rohár wrote:
-> > > > 
-> > > > > > +.IR "<asm/termbits.h>" .
-> > > 
-> > > Is that the header that the user should include?
-> > 
-> > Yes.
-> > 
-> > > I don't know.  I typically avoid 'asm/' includes, but maybe in this case
-> > > it's the correct one.  Shouldn't the user maybe include <linux/termios.h>?
-> > 
-> > Problem is that you cannot include <linux/termios.h> together with
-> > <sys/ioctl.h>. It cause redefinition of symbols and compile errors.
-> > 
-> > And without <sys/ioctl.h> you cannot call ioctl() function which
-> > basically means that you cannot use TCGETS2 (as it is ioctl).
-> 
-> Seems fair.
-> 
-> > 
-> > Probably this is a bug in glibc header files...
-> 
-> I CCed glibc just in case they want to comment.
-> 
-> > 
-> > So currently it is needed to include <asm/termbits.h> file to use
-> > TCGETS2 ioctl. I'm not sure if it is "correct", but it is the only
-> > possible option for now about which I know (unless you want to
-> > copy+paste structures and macros from that file into your program, to
-> > avoid inclusion of asm/* files).
-> 
-> Re copy&paste: no thanks :)
-> 
-> > 
-> > If you want, I can send a patch for ioctl_tty.2 example section with
-> > simple C program to show how to use TCGETS2/TCSETS2 ioctl.
-> 
-> Great!  Please CC glibc in the patch.
-> 
-> > 
-> > > user@sqli:/usr/include$ grep -rn 'struct termios {'
-> > > asm-generic/termbits.h:12:struct termios {
-> > > user@sqli:/usr/include$ grep -rn '<asm-generic/termbits.h>'
-> > > x86_64-linux-gnu/asm/termbits.h:1:#include <asm-generic/termbits.h>
-> > > user@sqli:/usr/include$ grep -rn '<asm/termbits.h>'
-> > > asm-generic/termios.h:12:#include <asm/termbits.h>
-> > > user@sqli:/usr/include$ grep -rn '<asm-generic/termios.h>'
-> > > x86_64-linux-gnu/asm/termios.h:1:#include <asm-generic/termios.h>
-> > > user@sqli:/usr/include$ grep -rn '<asm/termios.h>'
-> > > linux/termios.h:6:#include <asm/termios.h>
-> > > user@sqli:/usr/include$ grep -rn '<linux/termios.h>'
-> > > user@sqli:/usr/include$
-> > > 
-> > > 
-> > > > > > +These ioctls are not supported on all architectures.
-> > > > > > +.IP
-> > > > > > +.BI "TCGETS2	struct termios2 *" argp
-> > > > > 
-> > > > > Please follow the same style as in the rest of the page:
-> > > > > 
-> > > > > .TP
-> > > > > .B TCGETS2
-> > > > > Argument:
-> > > > > .BI "struct termios2 *" argp
-> > > > > 
-> > > > > Unless there's a good reason not to.
-> > > > 
-> > > > Few lines below in this file is:
-> > > > 
-> > > > .IR "struct termios\ *" .
-> > > > .IP
-> > > > .BI "TCGETA	struct termio *" argp
-> > > > .IP
-> > > > .BI "TCSETA	const struct termio *" argp
-> > > > .IP
-> > > > .BI "TCSETAW	const struct termio *" argp
-> > > > .IP
-> > > > .BI "TCSETAF	const struct termio *" argp
-> > > > 
-> > > > Therefore I used same style for TCGETS2...
-> > > > 
-> > > > So, how should I format this part to be consistent?
-> > > 
-> > > 
-> > > Hmm, sorry, I didn't see those.
-> > 
-> > Ah, now I see that Michael one hour later (after I sent this patch)
-> > fixed above style to another. See commit aceee9e827e6.
-> > 
-> > But changed it to another new style:
-> > 
-> > .RS
-> > .TS
-> > lb l.
-> > TCGETA	\fBstruct termio *\fPargp
-> > TCSETA	\fBconst struct termio *\fPargp
-> > TCSETAW	\fBconst struct termio *\fPargp
-> > TCSETAF	\fBconst struct termio *\fPargp
-> > .TE
-> > .RE
-> > 
-> > > So there's a mix in the file.
-> > > The more correct form is the one I used, so please use that one (the one
-> > > with .TP)
-> > 
-> > So, could you check with Michael which style to use? Because now there
-> > are 3 different (yours, Michael's and the one which was there before)
-> > and I'm really not sure what is correct...
-> 
-> Sorry, I was also confused, as I had Michael's version, and didn't see the
-> table he reformatted, which I now understand was what you were doing (in the
-> old format).  So if what you wrote corresponds to what Michael reformatted,
-> please use Michael's new format (the table).
-> 
-> Thanks,
-> 
-> Alex
+Hi Pali,
 
-Hello! Now I sent a new version and reformatted this part according to
-Michael style.
+On 7/30/21 11:53 AM, Pali Rohár wrote:
+> Signed-off-by: Pali Rohár <pali@kernel.org>
 
-> > 
-> > > 
-> > > Thanks,
-> > > 
-> > > Alex
-> > > 
-> > > 
-> > > > 
-> > > > > > +.IP
-> > > > > > +.BI "TCSETS2	const struct termios2 *" argp
-> > > > > > +.IP
-> > > > > > +.BI "TCSETSW2	const struct termios2 *" argp
-> > > > > > +.IP
-> > > > > > +.BI "TCSETSF2	const struct termios2 *" argp
-> > > > > > +.PP
-> > > > > > +The following four ioctls are just like
-> > > > > > +.BR TCGETS ,
-> > > > > > +.BR TCSETS ,
-> > > > > > +.BR TCSETSW ,
-> > > > > > +.BR TCSETSF ,
-> > > > > > +except that they take a
-> > > > > >     .I "struct termio\ *"
-> > > > > >     instead of a
-> > > > > >     .IR "struct termios\ *" .
-> > > > > > 
-> > > > > 
-> > > > > 
-> > > > > -- 
-> > > > > Alejandro Colomar
-> > > > > Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-> > > > > http://www.alejandro-colomar.es/
-> > > 
-> > > 
-> > > -- 
-> > > Alejandro Colomar
-> > > Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-> > > http://www.alejandro-colomar.es/
+Thanks for the patch!
+
+Please see some comments below.
+
+Cheers,
+
+Alex
+
+
+> ---
+>   man2/ioctl_tty.2 | 60 ++++++++++++++++++++++++++++++++++++++++++++++++
+>   1 file changed, 60 insertions(+)
 > 
+> diff --git a/man2/ioctl_tty.2 b/man2/ioctl_tty.2
+> index 0b0083c671a7..9d394572ae93 100644
+> --- a/man2/ioctl_tty.2
+> +++ b/man2/ioctl_tty.2
+> @@ -750,6 +750,66 @@ main(void)
+>       close(fd);
+>   }
+>   .EE
+> +.PP
+> +Get or set arbitrary baudrate on the serial port.
+> +.PP
+> +.EX
+> +#include <stdio.h>
+> +#include <stdlib.h>
+> +#include <sys/types.h>
+> +#include <fcntl.h>
+> +#include <unistd.h>
+> +#include <sys/ioctl.h>
+> +#include <asm/termbits.h>
+
+Unless there's a reason to use a specific include order (and if so, add 
+a comment), please use alphabetical order.
+
+> +
+> +int
+> +main(int argc, char *argv[])
+> +{
+> +#if !defined(TCGETS2) || !defined(TCSETS2) || !defined(BOTHER)
+> +    fprintf(stderr, "TCGETS2, TCSETS2 or BOTHER is unsupported\\n");
+> +    return 1;
+> +#else
+
+Do we want the program to compile if those are unsupported?
+
+Maybe you can #error there and simplify the reader having to parse the 
+preprocessor directive mentally:
+
+#if !defined...
+# error ...
+#endif
+
+I know it's non-standard, but I think it's common enough so that we can 
+use it here.
+
+> +    struct termios2 tio2;
+> +    int fd, rc;
+> +
+> +    if (argc != 2 && argc != 3) {
+> +        fprintf(stderr, "Usage: %s device [new_baudrate]\\n", argv[0]);
+
+We use \e for printing the escape character.  Not \\
+CC: Branden
+
+See groff_man(7):
+    Portability
+        [...]
+
+        Similar  caveats  apply  to escapes.  Some escape sequences
+        are however required for correct typesetting  even  in  man
+        pages and usually do not cause portability problems:
+
+        [...]
+
+        \e     Widely used in man pages to  represent  a  backslash
+               output  glyph.  It works reliably as long as the .ec
+               request is not used, which should  never  happen  in
+               man pages, and it is slightly more portable than the
+               more exact ‘\(rs’  (“reverse  solidus”)  escape  se‐
+               quence.
+
+
+> +        return 1;
+> +    }
+> +
+> +    fd = open(argv[1], O_RDWR | O_NONBLOCK | O_NOCTTY);
+> +    if (fd < 0) {
+> +        perror("open");
+> +        return 1;
+
+exit(EXIT_FAILURE);
+
+> +    }
+> +
+> +    rc = ioctl(fd, TCGETS2, &tio2);
+> +    if (rc) {
+> +        perror("TCGETS2");
+> +        close(fd);
+> +        return 1;
+
+exit(3)
+
+> +    }
+> +
+> +    printf("%u\\n", tio2.c_ospeed);
+
+\e
+
+> +
+> +    if (argc == 3) {
+> +        tio2.c_cflag &= ~CBAUD;
+> +        tio2.c_cflag |= BOTHER;
+> +        tio2.c_ospeed = tio2.c_ispeed = atoi(argv[2]);
+> +
+> +        rc = ioctl(fd, TCSETS2, &tio2);
+> +        if (rc) {
+> +            perror("TCSETS2");
+> +            close(fd);
+> +            return 1;
+
+exit(3)
+
+> +        }
+> +    }
+> +
+> +    close(fd);
+> +    return 0;
+
+exit(3)
+
+> +#endif
+> +}
+> +.EE
+>   .SH SEE ALSO
+>   .BR ldattach (1),
+>   .BR ioctl (2),
 > 
-> -- 
-> Alejandro Colomar
-> Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-> http://www.alejandro-colomar.es/
+
+
+-- 
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
