@@ -2,107 +2,103 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 910213DBE96
-	for <lists+linux-man@lfdr.de>; Fri, 30 Jul 2021 20:59:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 4C9583DC05C
+	for <lists+linux-man@lfdr.de>; Fri, 30 Jul 2021 23:41:15 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230094AbhG3S7i (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 30 Jul 2021 14:59:38 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55214 "EHLO
+        id S230310AbhG3VlS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 30 Jul 2021 17:41:18 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38556 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230455AbhG3S7g (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 30 Jul 2021 14:59:36 -0400
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com [IPv6:2a00:1450:4864:20::329])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A9354C061765
-        for <linux-man@vger.kernel.org>; Fri, 30 Jul 2021 11:59:30 -0700 (PDT)
-Received: by mail-wm1-x329.google.com with SMTP id l34-20020a05600c1d22b02902573c214807so4367082wms.2
-        for <linux-man@vger.kernel.org>; Fri, 30 Jul 2021 11:59:30 -0700 (PDT)
+        with ESMTP id S229840AbhG3VlS (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 30 Jul 2021 17:41:18 -0400
+Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com [IPv6:2607:f8b0:4864:20::32b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 782DDC06175F;
+        Fri, 30 Jul 2021 14:41:13 -0700 (PDT)
+Received: by mail-ot1-x32b.google.com with SMTP id 19-20020a9d08930000b02904b98d90c82cso11032997otf.5;
+        Fri, 30 Jul 2021 14:41:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:references:from:message-id:date:user-agent:mime-version
-         :in-reply-to:content-language:content-transfer-encoding;
-        bh=jBUZfPhFULwG8JHy4Jn+6klcoT129cX05cwwPJHSzoA=;
-        b=PzdtdB9HhRBQhLJtPSgU58QmHmOybNTeWD43ZcMOH96hZlBRnajYYsibQLh914Wb3B
-         LgWZ3Qn2FMX4vJZZdTm+ofVSAGWaInMXRQY/IMKo80ULVvgC5a3hVY5/e1PXMcPdZZjY
-         IzbWYbbdm7Kd7m/b05kDRUc86Y6SUiXWpJ8G+fdwEX3pHxMydtj/6TElkmcbwe4kajbl
-         Gd0AVHjCQuGs72PNSkXaD+3YH4AWQMjjhd5lW+QPbcBvulTjhavJo8PFvZI7aK2g+/LD
-         vIzZMtnCd30pTdyjyvSbXNkcp4Cz1ujFyT5DszhkMDLyBYsrO745n6gP/EAgCkw8MFYu
-         vc7Q==
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=AKKfZKLdRcRLxfNFf+EiCg6yC+z/o1cqpRK7Y8kSj+Q=;
+        b=cUv/i2auUvj1HgNq+O6SEp/ndegm1ITy1BQLpWtWVvKQz651yzeUZZujU6DBee5bmO
+         YBIeFF5DxcltwVkUCJq0u0nD6bK1tt4x6aZfgpK0/tfQX4q3FoZeW1fzLH/HxM323e+U
+         kyGb5wN2Osf1Ro3OtFGZHVJTsA6N0Slk+pZ+H7/qIOZHI96TxESD9lvH3Q9G9omUUJAi
+         3EVeDCJ8oZI3Lsa9cE4fFuEHdz1HUUv7yQTU79FWAAJ4rpIgH2qtWM/ZgtTA25y4hAa2
+         GJ5JMRg6dZlZIMZr/RjRdz9r+6ZDXXTHXh9HZy1dMG7nFftbGgL8WCOaceEXITL3Ah20
+         PBRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=jBUZfPhFULwG8JHy4Jn+6klcoT129cX05cwwPJHSzoA=;
-        b=KetpOaDMmZyRuoQcWD9QIbOn83tWaW3uF/r7LJuKXY/L1GznJerDNCF4fUV7lUnDO/
-         lfV02yodp7kH55rhTV+f3b+2DBnaS6aktGFBzO58ndtuBUC7wgejqrWfJpVoMHQshe0i
-         i8XOxkl8zCDmXIGv55usovey9cmXv/jU0fx7ky73FnLs83QQowj6w4uP3vxYH+IHWM/1
-         amhPoG6KlKIqumGI9AFoHoYvWH5bWSDOsLqI2YTxhbVOKTMIPi0ZYx9Kta9Zc+GCs1SE
-         mEnZWNtcXEvaUSMN27FTEEAtizJDVG6w0aYRFtH9/LWUR0DXCu2hf7c32DZid5amus12
-         aO/A==
-X-Gm-Message-State: AOAM533zaNfLP/gAYojmZ26HoU8biVdErohBCqeDf7xcTOfCcx+YQqJB
-        NyjiNCJ9LQyLueJd1nvIrsY=
-X-Google-Smtp-Source: ABdhPJyALC7GP9Vn0mKFWt+A6VjQLx+5aT6LsWGFsHsyQmNvU5gggHm/oxRViPIE0XtBID28R03mJQ==
-X-Received: by 2002:a05:600c:4fd1:: with SMTP id o17mr883814wmq.131.1627671569317;
-        Fri, 30 Jul 2021 11:59:29 -0700 (PDT)
-Received: from [10.8.0.10] ([195.53.121.100])
-        by smtp.gmail.com with ESMTPSA id j140sm2473679wmj.37.2021.07.30.11.59.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 30 Jul 2021 11:59:29 -0700 (PDT)
-Subject: Re: [PATCH v2] termios.3: Add information how to set baud rate to any
- other value
-To:     =?UTF-8?Q?Pali_Roh=c3=a1r?= <pali@kernel.org>,
-        linux-man@vger.kernel.org, Michael Kerrisk <mtk.manpages@gmail.com>
-References: <20210730153044.23673-1-pali@kernel.org>
- <20210730184536.13620-1-pali@kernel.org>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <2c52aeed-d1dd-fbda-934f-690162a92305@gmail.com>
-Date:   Fri, 30 Jul 2021 20:59:27 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=AKKfZKLdRcRLxfNFf+EiCg6yC+z/o1cqpRK7Y8kSj+Q=;
+        b=TzpXvBG9Ewh8U1cAzJt0WV2c/avdcIIp9659JZtYfXGbBUUxVyrYJpbwA04tPKwnjE
+         dGzrRRI8GqmqpoxV2CgAaidgVKA0Hxhzm14lF2ua2gXNpdGXl4DFSMXCUe3SjQ9NQf0S
+         3N1SqLY7zd5XYW74kkQ+qkoDoGI/fIUJhM4f1AAWDPryK+gLBXszK+oC4hHw9yQnUSxz
+         nimt67WEjlfHQD0GAoma1xXV8OaMRCkINfoyKC4k/lKYDzraQbcd9fKZfLSL4bJ0wZ0f
+         398EO7q05NfyakyHO2hUHhDND87AdqsTC/A5M8URxfS7IuVV1X6rsmhuduN8qH5NEeor
+         TBZg==
+X-Gm-Message-State: AOAM531By56MsFEUmq9a3iiCkFqd0Z6H4VvvAri1OQPcax0w5t3KC8/O
+        Z/O9H40xESiA4iXe8Eor3S1CTNIbnVoKGFkhWt4=
+X-Google-Smtp-Source: ABdhPJzVsSFlC5znMhwCmkqgNX7DVNILsMugblg7PlKjxjC0eQosMkSRmAlWb1tSn7NxPGvVwFdTflybw5uiT55mMuY=
+X-Received: by 2002:a9d:3a49:: with SMTP id j67mr3949669otc.114.1627681272884;
+ Fri, 30 Jul 2021 14:41:12 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20210730184536.13620-1-pali@kernel.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+References: <CAOVCmzEJqg6=FW3Vu1MScyj8GS-KXb2s_ztxBxwDmcbN5sbQuA@mail.gmail.com>
+ <CAOVCmzEzwFkiDz_Tf0LFQQZYKYdbACjyjdLOpawh0BB9JpDg1Q@mail.gmail.com>
+In-Reply-To: <CAOVCmzEzwFkiDz_Tf0LFQQZYKYdbACjyjdLOpawh0BB9JpDg1Q@mail.gmail.com>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Fri, 30 Jul 2021 23:41:01 +0200
+Message-ID: <CAKgNAkioMyEYk2AfjC-bHtD4ZxM=brm9CMWF-WXNfqYNvyyQKQ@mail.gmail.com>
+Subject: Re: /proc/pid/sched units
+To:     Shivank Garg <shivankgarg98@gmail.com>
+Cc:     linux-doc@vger.kernel.org, linux-man <linux-man@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Pali,
+Hello Shivank,
 
-On 7/30/21 8:45 PM, Pali Rohár wrote:
-> Signed-off-by: Pali Rohár <pali@kernel.org>
+On Wed, 28 Jul 2021 at 14:59, Shivank Garg <shivankgarg98@gmail.com> wrote:
+>
+> ---------- Forwarded message ---------
+> From: Shivank Garg <shivankgarg98@gmail.com>
+> Date: Wed, Jul 28, 2021 at 6:26 PM
+> Subject: /proc/pid/sched units
+> To: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, Linux MM
+> <linux-mm@kvack.org>, <util-linux@vger.kernel.org>
+>
+>
+> Hi Everyone,
+>
+> I'm analyzing the cpu time taken ("se.sum_exec_runtime" in
+> /proc/$pid/sched) by process in different configurations for my
+> project work. But I was not able to get the time units for the values
+> displayed in the file. I tried searching it in source code -
+> kernel/sched/cputime.c,include/linux/sched.h etc. but it left me more
+> confused.
+>
+> Can you please answer me about the measurement units (is it
+> microseconds, nanoseconds, jiffles ...) ?
+>
+> Also, I was not able to find proper documentation for /proc/pid/sched.
+> Please point to me if it's already there. If not, I would love to
+> contribute toward documenting these variables. It would be very
+> helpful for newbies (like me) in future.
 
-Patch applied.  Thanks,
+It looks like se.sum_exec_runtime is milliseconds. In
+kernel/sched/debug.c, see proc_sched_show_task(), the definition of
+the PN() PNS(), and SPLIT_NS() macros, and the nsec_high(x) and
+nsec_low(x) functions.
 
-Alex
+Thanks,
 
-> ---
->   man3/termios.3 | 7 +++++++
->   1 file changed, 7 insertions(+)
-> 
-> diff --git a/man3/termios.3 b/man3/termios.3
-> index b7cdec507524..7b195c95912b 100644
-> --- a/man3/termios.3
-> +++ b/man3/termios.3
-> @@ -968,6 +968,13 @@ Normally, this will disconnect the line.
->   for the speeds beyond those defined in POSIX.1 (57600 and above).
->   Thus, \fBB57600\fP & \fBCBAUDEX\fP is nonzero.
->   .PP
-> +Setting the baud rate to a value other that those defined by
-> +.B Bnnn
-> +constants is possible via the
-> +.B TCSETS2
-> +ioctl; see
-> +.BR ioctl_tty (2).
-> +.PP
->   .BR cfgetispeed ()
->   returns the input baud rate stored in the \fItermios\fP structure.
->   .PP
-> 
+Michael
 
 
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+--
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
