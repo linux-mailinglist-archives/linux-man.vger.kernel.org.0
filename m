@@ -2,89 +2,140 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 714853DB039
-	for <lists+linux-man@lfdr.de>; Fri, 30 Jul 2021 02:21:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A12133DB069
+	for <lists+linux-man@lfdr.de>; Fri, 30 Jul 2021 02:51:24 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234989AbhG3AVj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 29 Jul 2021 20:21:39 -0400
-Received: from mail.kernel.org ([198.145.29.99]:50600 "EHLO mail.kernel.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S234931AbhG3AVi (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Thu, 29 Jul 2021 20:21:38 -0400
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 1610D60C3F;
-        Fri, 30 Jul 2021 00:21:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1627604495;
-        bh=7o2wY/HKpMO3FRFVaMV4393KSdF/tlZSfHc/16EKVvA=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=TFkwQywvr+7l57aShkrSLYS/K61pftBNumWODUj5J5ZPJTTC+CaJ3j7X4Jq9QlkI2
-         O0BsX96bJ614pKIf86jivimAI8YTkPnf9NqTn9XPtfebls9yDwduxLXbLtrrXP5G/i
-         7l84LLKbjUEZGuVmkeQgBQXhHuPoXGSqIkDPeVRIrusGFatx2IxRzf731UyA7rUtXn
-         KsRhKh5+SrzeE44oIfDjAfsfCQ4qJF+LIZsIhtExSeHC2XSlJlfHDh6uFEOtOMtmYz
-         Y2dckM6hi0+X6YUgg4hIpYCNny1i2dFzFuZISyGLl1jO8+gm615CUhKG9/pN3ecXxl
-         8dF513Z7ApDFg==
-Received: by pali.im (Postfix)
-        id 624EB888; Fri, 30 Jul 2021 02:21:33 +0200 (CEST)
-Date:   Fri, 30 Jul 2021 02:21:33 +0200
-From:   Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-man@vger.kernel.org
-Subject: Re: [PATCH] termios.3: Use bold style for Bnn and EXTn macro
- constants
-Message-ID: <20210730002133.ix3rfgr7bpvtltag@pali>
-References: <20210725225453.7341-1-pali@kernel.org>
- <430eaca8-3ea9-5df9-8db5-5d94bcb06815@gmail.com>
- <20210729172320.xhrbonoxisqioe3e@pali>
- <20210729230421.lm65cjomqx6rezzl@localhost.localdomain>
- <304b7610-a399-3275-755e-5648bfb941f2@gmail.com>
+        id S229749AbhG3Av0 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 29 Jul 2021 20:51:26 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41178 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S229667AbhG3Av0 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 29 Jul 2021 20:51:26 -0400
+Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com [IPv6:2607:f8b0:4864:20::633])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E9A46C061765
+        for <linux-man@vger.kernel.org>; Thu, 29 Jul 2021 17:51:21 -0700 (PDT)
+Received: by mail-pl1-x633.google.com with SMTP id i10so9045370pla.3
+        for <linux-man@vger.kernel.org>; Thu, 29 Jul 2021 17:51:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to:user-agent;
+        bh=7oMNuoppQe1qLKmMOUERRktb+q1RnOAPIUmVZa8Hza0=;
+        b=ny5sQWOp0K0XwKteE4toGN9bAt4KTvP6Z4v07Zf17Q9tWCCYu9a7+9HjAOoV9vcE6J
+         F5dvqIJi9wFMrXZhT/ZiayUbi3tU2kY1szATNCiTPmv07uYWL5xmFnTvHx0c4azOZUDG
+         wPoO2xR5ygJwP6w6EdbHgYu29ZyvBwcFRBoh/JISArVPDepZmE/09ZJkFMuyaIAAj+t+
+         JQ174DJJp8A526nSGqaMvJYx4mvndj9mQTJIaC6V1lsJmCemqOpabR/Ol7iqhZgy8qsa
+         V74BIk4SOmJ4UaYOaMH6Se8K9I8qfSsROkeAUXGlabadlbrVTNEqxKgsUercZG2F/e7z
+         vZPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to:user-agent;
+        bh=7oMNuoppQe1qLKmMOUERRktb+q1RnOAPIUmVZa8Hza0=;
+        b=X581PuJjiMLNVfTlb6oAdZFZs3tPkyWSubsF7yC/OVqEIpHfAgblh4opedR0icjKQb
+         KCBEFCSn5N4oXdj2vqlA5TmlALS5/1mDYUBan8ugd0MM7zrDwr1x4SrRMRaK19x4YAW+
+         jVW5jhzU+BwAEsedEU4yVaDqGmk/5HUC6fwZBlovnw1Q+Eb7f8JBrvxQZ37iyS18aEFX
+         4WUiwVXgezmtxbBflBs//9+n4XAFLnO+nSD52iFL95EvKkTbbHQ630uH3Z4nD4GCe9O9
+         HFhZVM38YDpwpnbjPOC9cDwA6pmS7KoHtIzmyQwGeZM6PkRMcgYLvfVS0Dk+sAVVmm9p
+         zvYw==
+X-Gm-Message-State: AOAM531BiDTmJwK8YNm4HdnVTKXydXHZd2FZ4pkvU4kyda0NZogH9SQn
+        mngcX1XFfFCaNwjanuGhDF0=
+X-Google-Smtp-Source: ABdhPJwyvKAVrBt7IPWxV1Ztypm/kY4iXqO97PyATcNfCaHgTqp5igjHib26z/t1j1mB+sQoAA3qaA==
+X-Received: by 2002:a17:90a:d3ca:: with SMTP id d10mr202502pjw.35.1627606281603;
+        Thu, 29 Jul 2021 17:51:21 -0700 (PDT)
+Received: from localhost.localdomain ([1.145.37.91])
+        by smtp.gmail.com with ESMTPSA id w21sm26161pfq.40.2021.07.29.17.51.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Jul 2021 17:51:21 -0700 (PDT)
+Date:   Fri, 30 Jul 2021 10:51:17 +1000
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To:     Eugene Syromyatnikov <evgsyr@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>,
+        Alejandro Colomar <alx.manpages@gmail.com>
+Subject: Re: [PATCH v3] getrlimit.2: old_getrlimit/ugetrlimit and
+ RLIM_INFINITY discrepancies
+Message-ID: <20210730005115.esvyqw5ds334qcxh@localhost.localdomain>
+References: <20210729154401.GA22699@asgard.redhat.com>
+ <20210729223535.qvyomfqvvahzmu5w@localhost.localdomain>
+ <CACGkJdu1K2-dER+WKwjBt9Yweteb=GnpvpeXq7OFij4YWhd09w@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha256;
+        protocol="application/pgp-signature"; boundary="liu2bgylmwvdkepb"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <304b7610-a399-3275-755e-5648bfb941f2@gmail.com>
+In-Reply-To: <CACGkJdu1K2-dER+WKwjBt9Yweteb=GnpvpeXq7OFij4YWhd09w@mail.gmail.com>
 User-Agent: NeoMutt/20180716
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Friday 30 July 2021 01:41:49 Alejandro Colomar (man-pages) wrote:
-> Hi Branden,
-> 
-> On 7/30/21 1:04 AM, G. Branden Robinson wrote:
-> > At 2021-07-29T19:23:20+0200, Pali Rohár wrote:
-> > > How do you prefer to format this part? \fBB0\fP, ..., \fBB9600\fP
-> > 
-> > I'd use the B or BR macro to set the literals, depending on whether they
-> > are directly followed by something that should be in the roman style,
-> > and I would definitely set the ellipsis in roman; when used as such,
-> > it should never be set in bold or italics.  Use of the ellipsis in *roff
-> > input requires some care, which is unfortunately often neglected.
-> > 
-> > .BR B0 ,
-> > \&.\|.\|.\|,
-> > .B 9600
-> > 
-> > (I dithered over inclusion of the thin space escape sequence \| between
-> > the ellipsis and the comma.  I can see arguments either way, and a quick
-> > Internet search does not suggest to me a strong wind in either
-> > direction.  Since its presence or absence makes no difference for
-> > terminal output, I expect most writers of man pages won't care.)
-> 
-> 
-> Thanks again for your input!
-> Good to know that.
 
-Perfect! I will change it in this way.
+--liu2bgylmwvdkepb
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> 
-> Cheers,
-> 
-> Alex
-> 
-> 
-> -- 
-> Alejandro Colomar
-> Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-> http://www.alejandro-colomar.es/
+At 2021-07-30T02:14:56+0200, Eugene Syromyatnikov wrote:
+> On Fri, Jul 30, 2021 at 12:35 AM G. Branden Robinson
+> I'd stick with the current "constant" usage for brevity: system
+> headers do not tend to employ const symbols, especially
+> kernel-provided ones, for reasons, so "constant" meaning is more or
+> less clear in the section 2 with that regard, albeit not totally
+> technically sound with respect to the C language.
+
+That's fair.  I don't expect all my reformist suggestions to be adopted.
+:)
+
+> > > +However, in order to preserve backward compatibility, the routine
+> >
+> > s/routine/function/ ?
+>=20
+> I followed syscalls(2) naming convention here.
+
+Also a fair point.  Yes, I see that usage is fairly thick in the "NOTES"
+section.
+
+> > I call this a "Kemper notectomy", after my colleague in groff
+> > development, Dave Kemper, who has pointed out that we tend to
+> > massively overuse the phrase "note that" in software documentation.
+> > We write for impatient readers.  Everything we say in a manual
+> > should be worthy of note; if it is not, it should be deleted or
+> > moved to a place in the text reserved for supplemental commentary (a
+> > footnote; a (sub)section entitled "Background", "History", or
+> > "Notes"; or similar).
+>=20
+> This is literally the "Notes" section, though.
+
+True--I wasn't aware of that before.  But by that token, you could say
+that the "note that" phrase is now redundant for a different reason. ;-)
+
+It's not a big deal--I mention it because I've found it a useful prompt
+to myself when writing: when I want to say, "note that", what am I
+_really_ trying to say?  "Pay attention here"?  "Danger, Will
+Robinson!"?  Usually I wind up either dropping "note that" or recasting
+the sentence to more clearly motivate why a statement is worthy of
+special attention.
+
+Regards,
+Branden
+
+--liu2bgylmwvdkepb
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmEDTPsACgkQ0Z6cfXEm
+bc6KIQ/9GoI7TV9+6BVmMD8l7uF+nHXOvcz16ChtyBN+bcyYF0hj+5A78fTmtTT3
+cwt59qWOWqaEt6GocvF5fbHKpvkI4WQ5oRTBrrblI+p5ZJwD76fLVbmC5c5Qno4Q
+1cXetzmB79V89/KmimCtR+DYkc4Cb576J8M2AMlp+iCu2gdL48Ebpkdov/scQa+4
+g1gDFO2W28XonM/4Bre4sKYu/1nV9iiKH1H4+D6UWYpyJE3Pmk4Bg7PlsCSpTFNU
+o0WO6KfbYnS1UjIAEXFkPdVtPijUCDDKNPFlqG/vOQJciBkLlPIJCOmTThdfKKHZ
+YxCdeBHCD+HhxXP8Fk9jcXHyBGgK+gD4JrqJRABVaWqepcWwzS7c4EdDWK0cgZW6
+uWknh9P8/K3Nqhd4+r6tV+bElrxeKttN8iMuCNW+V21D8fVt8lsf18qD4T1VvuKb
+DpY5l0GWoXtFTb5FSOFQ4tYCFWbFcO00l7G1e8xhNz2eayvyPyhnPor0YxLqDB1W
+EtI3D2At1EiJxQR6F99EvmWz6QYZpvEZLx9j1PDq9BFNBt2KPyR/aJMChovyGaJp
+4BarxEx9NOrBCClI+6cMiWIb0tGRdEB5VXk7LHK7Lsqvuu9sDKUdSA70EOf4YuJA
+a2z9kxJicPcErgnzyShJWxVidsV0tgP/ulUl/P/oH2yfRovL7Qg=
+=VlCq
+-----END PGP SIGNATURE-----
+
+--liu2bgylmwvdkepb--
