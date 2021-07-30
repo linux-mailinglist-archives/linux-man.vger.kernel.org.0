@@ -2,65 +2,67 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 725FC3DBE40
-	for <lists+linux-man@lfdr.de>; Fri, 30 Jul 2021 20:17:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 61EC43DBE42
+	for <lists+linux-man@lfdr.de>; Fri, 30 Jul 2021 20:20:07 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230184AbhG3SRp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 30 Jul 2021 14:17:45 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45058 "EHLO
+        id S229773AbhG3SUL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 30 Jul 2021 14:20:11 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45672 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230094AbhG3SRp (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 30 Jul 2021 14:17:45 -0400
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com [IPv6:2a00:1450:4864:20::334])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 856F3C061765
-        for <linux-man@vger.kernel.org>; Fri, 30 Jul 2021 11:17:40 -0700 (PDT)
-Received: by mail-wm1-x334.google.com with SMTP id m19so6550127wms.0
-        for <linux-man@vger.kernel.org>; Fri, 30 Jul 2021 11:17:40 -0700 (PDT)
+        with ESMTP id S229921AbhG3SUL (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 30 Jul 2021 14:20:11 -0400
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com [IPv6:2a00:1450:4864:20::42c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3AE4AC06175F
+        for <linux-man@vger.kernel.org>; Fri, 30 Jul 2021 11:20:05 -0700 (PDT)
+Received: by mail-wr1-x42c.google.com with SMTP id p5so12411109wro.7
+        for <linux-man@vger.kernel.org>; Fri, 30 Jul 2021 11:20:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:references:from:message-id:date:user-agent:mime-version
-         :in-reply-to:content-language:content-transfer-encoding;
-        bh=OLzgVO5gZui8+df6W7u7nHIR9xMWQi0avzwwWTqeCSY=;
-        b=vVbc6v+MGPsyWBax+FExoXySoTYqd/jTNadH95KsGPkrXIpHap7MM+clqG9mlRtwpJ
-         ubqNA892TlsEnxynzjoODZJ8THiEwq6qtQ3Sq6HyXBqD4tkJb1XcUVt8vSUteKCEpMuK
-         My2f+HVn94fybxLK5TQrFJQet1iB2QUzvoslByONe3nAbkplnzPX9JR7B0/KanGPU15v
-         CEB+Qqoin7f8fiofq7cm8C/xHlwdS8AfAg3qbR+Laqwu+J6TnvgvjVXV10oQbrEC98AN
-         jeBMoTydn/N9Oi+CqwHWiCLFbBg0o9koBHBi28r1Uk69FN5xRqGcaYEIhwkGVfUb2jOW
-         Y3LQ==
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=/RylP+HxNusXHGQoEJ+QdocH2FDJqIjxZ9oTR0n7zc0=;
+        b=pyncBioQ4lK37VCwyNgNciYzLL2WINNmqVg6n4ShrlZ24irILzLzDK1VcNteI7ZzbZ
+         q575B7yRxc+56NUhzgzTM/SIgbeoXxPrushpvWVMT3z6C8QUjP5AVAZrXrOhzyh5y6d5
+         pVSwC4lNKY1TzE5usMo0aHlMNVq9zqs7nrQT52MsB9svwKfB8IcqU7Rx4YQ9sN7suM6d
+         180GjAeV++n6i3p9mTKUlen87pBRt7JlTDx3TvuYVP8DG+OGMUTX2QkQ0RgGejMxXS/D
+         DpC2e0y8oac09Q1xUr2mIGtVdYvzdp6VE48twkytkzoAUioGTzars56WTTGy7DZEF3tj
+         R6wg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:references:from:message-id:date
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=OLzgVO5gZui8+df6W7u7nHIR9xMWQi0avzwwWTqeCSY=;
-        b=dHhyw5PUfsqLllV2CKtOKzzvt1CXaQLyhxLn3MohRZRpauH4+niHwssJqDBbC4zoLc
-         Sg055CWLRPfbLcbqxQrT0ECitmRXXLLBtiWrfd/Yl1SNIzN6YiVp2HjSUQiLPt4zo5gy
-         zqE3cMCjxFXHPd9LnWWvdsy5bGQzy2gFNAX8t6N2g5IVs6TVzlwrrEFxyzHHNS/B6ARO
-         H4WZ00WNJ/dUme7MxT+sqdNgTh7FEczxDLLf1aF7jkjal1Gidhpv+0KebwqTE+tWsYaH
-         uSej0P1Ae2Q09uFmY/jkwLSuYXmjFjxDHMlEvuIDb9yFeIExN2lsqiTmKBfrFjfctTex
-         pfVA==
-X-Gm-Message-State: AOAM532Eb8F0lPsWo/CqN3ZzmDP6IYQbc+/7Y0ynHi4JgneRFZe9vShv
-        E4WGa6V7h9B3014bzh08jz8=
-X-Google-Smtp-Source: ABdhPJzCnQK+t2hWRnBWefCyTTQPzMQeYjKDCvAZEgiE2nVuSW9GRqXMYshD2Rc4wRLxUP71W4Lxzg==
-X-Received: by 2002:a1c:1b55:: with SMTP id b82mr4370952wmb.121.1627669059181;
-        Fri, 30 Jul 2021 11:17:39 -0700 (PDT)
+        bh=/RylP+HxNusXHGQoEJ+QdocH2FDJqIjxZ9oTR0n7zc0=;
+        b=N+t/iMA4G8qz1dUiMnTwf6pjG+QK467b1G63pL8Vk7yAYFhvp0Q0SN0PKEg7bgrtFG
+         y9vssW3/Ar8BAzV7oNSn0TCoSvILkeEro5uF6z2Ig7j46B3nXDycsYJN3gnquO3WHmtZ
+         2i4nSE3M/rMyqEnLZHbDtJ4CheDHKzlX4QC7cSNpnreuhY3wqFwQ88G+ncnbB1/tVzsq
+         A5If5tpaSxgwPOlbIZUVk83UTXYlGi2PPJ1ouewe31hKvjT/I6uQdua6fSaBRqXLoGoL
+         2MFQwtmNe/6gTR+Rvo6P05ufIUq0+QYdFdMHA1iChuSzzV8d+EiJlr/M7dfFqL0VudTj
+         vy2A==
+X-Gm-Message-State: AOAM5302xYWzzfbsiVyDamHsdH9Ao5lZ4sbeH0u7e15fZ8CEuek95l7W
+        ScM9ULBvI4Eya/tWSvxmRXk=
+X-Google-Smtp-Source: ABdhPJzCGntxjKkmURt6mtOVwz5z1DsKEbGzsRTcPJOqheEPaLJO7RkxVi4Wkj3uIMZrVWPDvOAsRQ==
+X-Received: by 2002:a5d:5645:: with SMTP id j5mr4337127wrw.426.1627669203914;
+        Fri, 30 Jul 2021 11:20:03 -0700 (PDT)
 Received: from [10.8.0.10] ([195.53.121.100])
-        by smtp.gmail.com with ESMTPSA id h25sm2509624wmp.33.2021.07.30.11.17.38
+        by smtp.gmail.com with ESMTPSA id p2sm2448664wrr.21.2021.07.30.11.20.03
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 30 Jul 2021 11:17:38 -0700 (PDT)
-Subject: Re: [PATCH v2] termios.3: Use bold style for Bnn and EXTn macro
- constants
-To:     =?UTF-8?Q?Pali_Roh=c3=a1r?= <pali@kernel.org>,
-        linux-man@vger.kernel.org, Michael Kerrisk <mtk.manpages@gmail.com>
-References: <20210725225453.7341-1-pali@kernel.org>
- <20210730103247.9079-1-pali@kernel.org>
+        Fri, 30 Jul 2021 11:20:03 -0700 (PDT)
+Subject: Re: [PATCH v2] ioctl_tty.2: Document ioctls: TCGETS2, TCSETS2,
+ TCSETSW2, TCSETSF2
+To:     =?UTF-8?Q?Pali_Roh=c3=a1r?= <pali@kernel.org>
+Cc:     =?UTF-8?Q?Marek_Beh=c3=ban?= <kabel@kernel.org>,
+        linux-man@vger.kernel.org, libc-alpha@sourceware.org,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+References: <20210725225506.7404-1-pali@kernel.org>
+ <20210730104803.10328-1-pali@kernel.org>
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <32e5d669-5995-1166-16d0-a966284d7149@gmail.com>
-Date:   Fri, 30 Jul 2021 20:17:37 +0200
+Message-ID: <2e3eb624-310b-bae3-c244-fbfac0bc22d6@gmail.com>
+Date:   Fri, 30 Jul 2021 20:20:02 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <20210730103247.9079-1-pali@kernel.org>
+In-Reply-To: <20210730104803.10328-1-pali@kernel.org>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
@@ -70,7 +72,7 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Hi Pali,
 
-On 7/30/21 12:32 PM, Pali Rohár wrote:
+On 7/30/21 12:48 PM, Pali Rohár wrote:
 > Signed-off-by: Pali Rohár <pali@kernel.org>
 > 
 
@@ -80,33 +82,52 @@ Alex
 
 > ---
 > Changes in v2:
-> * Do not use inline style
-> * Fix formatting ellipsis
+> * Remove information about asm/termbits.h (will be in followup patch)
+> * Style fixes
 > ---
->   man3/termios.3 | 10 ++++++++--
->   1 file changed, 8 insertions(+), 2 deletions(-)
+>   man2/ioctl_tty.2 | 29 +++++++++++++++++++++++++++++
+>   1 file changed, 29 insertions(+)
 > 
-> diff --git a/man3/termios.3 b/man3/termios.3
-> index 01c20994424d..b7cdec507524 100644
-> --- a/man3/termios.3
-> +++ b/man3/termios.3
-> @@ -1068,8 +1068,14 @@ and
->   are nonstandard, but available on the BSDs.
->   .SH NOTES
->   UNIX\ V7 and several later systems have a list of baud rates
-> -where after the fourteen values B0, ..., B9600 one finds the
-> -two constants EXTA, EXTB ("External A" and "External B").
-> +where after the fourteen values
-> +.BR B0 ,
-> +\&.\|.\|.\|,
-> +.B B9600
-> +one finds the two constants
-> +.BR EXTA ,
-> +.B EXTB
-> +("External A" and "External B").
->   Many systems extend the list with much higher baud rates.
->   .PP
->   The effect of a nonzero \fIduration\fP with
+> diff --git a/man2/ioctl_tty.2 b/man2/ioctl_tty.2
+> index 2a0effdae8ab..c1875530f0b1 100644
+> --- a/man2/ioctl_tty.2
+> +++ b/man2/ioctl_tty.2
+> @@ -77,6 +77,35 @@ The following four ioctls are just like
+>   .BR TCSETSW ,
+>   .BR TCSETSF ,
+>   except that they take a
+> +.I "struct termios2\ *"
+> +instead of a
+> +.IR "struct termios\ *" .
+> +If struct member
+> +.B c_cflag
+> +contains
+> +.B BOTHER
+> +then baudrate is stored in struct members
+> +.B c_ispeed
+> +and
+> +.B c_ospeed
+> +as integer values.
+> +These ioctls are not supported on all architectures.
+> +.RS
+> +.TS
+> +lb l.
+> +TCGETS2	\fBstruct termios2 *\fPargp
+> +TCSETS2	\fBconst struct termios2 *\fPargp
+> +TCSETSW2	\fBconst struct termios2 *\fPargp
+> +TCSETSF2	\fBconst struct termios2 *\fPargp
+> +.TE
+> +.RE
+> +.PP
+> +The following four ioctls are just like
+> +.BR TCGETS ,
+> +.BR TCSETS ,
+> +.BR TCSETSW ,
+> +.BR TCSETSF ,
+> +except that they take a
+>   .I "struct termio\ *"
+>   instead of a
+>   .IR "struct termios\ *" .
 > 
 
 
