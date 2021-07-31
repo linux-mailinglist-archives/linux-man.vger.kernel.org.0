@@ -2,1051 +2,319 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 87BA93DC58B
-	for <lists+linux-man@lfdr.de>; Sat, 31 Jul 2021 12:16:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 542653DC59C
+	for <lists+linux-man@lfdr.de>; Sat, 31 Jul 2021 12:51:37 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232711AbhGaKQT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 31 Jul 2021 06:16:19 -0400
-Received: from mail.kernel.org ([198.145.29.99]:38712 "EHLO mail.kernel.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S232619AbhGaKQQ (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Sat, 31 Jul 2021 06:16:16 -0400
-Received: by mail.kernel.org (Postfix) with ESMTPSA id D153F60F3A;
-        Sat, 31 Jul 2021 10:16:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1627726570;
-        bh=pn/Zw1s/iIUblAYQD3WS754ah1XKuMcNreY6kcqJYHw=;
-        h=From:To:Cc:Subject:Date:From;
-        b=GTLrguv0iRFSJ8pNj5Gn1TSAO7srJrylp8gEcDFt9jLuBL9763ebXLOjHrgNH8gMz
-         Ag/MH6qj+d+2xnziwNsyyanUTP1ASWTY6KVXuqHHZkl+TXioIJn69iiItdhquq60HP
-         Z0UYKxtuE4PoJPMRqBrGI8iyha3/nk5z7M2wxAwbKj3ukknt80ORfZv+9yx9ImMIRc
-         bSzUmHWb+enD8Ko/K2Ak5IO5QGyhuovmtRi9Rhrii9WVnaD+CDrwMAWjLE5ycLgBTT
-         BRVNMVp5TrKWETz/N1sZSAMU9LOMjeb3JRPJY/P/m2XBQmTnW/LhLMdhy5mABnVZXj
-         RIdyfOwjJC04Q==
-From:   Christian Brauner <brauner@kernel.org>
-To:     Alejandro Colomar <alx.manpages@gmail.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-man@vger.kernel.org
-Cc:     Christoph Hellwig <hch@infradead.org>,
-        linux-fsdevel@vger.kernel.org,
-        Christian Brauner <christian.brauner@ubuntu.com>
-Subject: [PATCH v3] mount_setattr.2: New manual page documenting the mount_setattr() system call
-Date:   Sat, 31 Jul 2021 12:15:27 +0200
-Message-Id: <20210731101527.423200-1-brauner@kernel.org>
-X-Mailer: git-send-email 2.30.2
+        id S232263AbhGaKvl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 31 Jul 2021 06:51:41 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58380 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S232182AbhGaKvl (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 31 Jul 2021 06:51:41 -0400
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com [IPv6:2a00:1450:4864:20::335])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B029BC06175F;
+        Sat, 31 Jul 2021 03:51:34 -0700 (PDT)
+Received: by mail-wm1-x335.google.com with SMTP id o7-20020a05600c5107b0290257f956e02dso4349232wms.1;
+        Sat, 31 Jul 2021 03:51:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=3MbPGGFdc87JQ1GGBZR/+XaGAcjWM2QvN+yXxpzVnXM=;
+        b=uawVsHRrS+KLo4QAmbzJ420yZ44XyEr0r48bq9LyW6sWccOPUCS3RsnoB9rl8XCTVp
+         jRhiVpUBDMcxf5DDQrJ5KFn16tbY1WrNuSOUgPFBifEqi/uGz/N8G/E+sDkZ2ltkAy7o
+         YgE+nByORvBhXfLmF+MPL0RY5JZpv1MK+n/Sa2hyXrJGhoENJi3hRY0LPt777PK0UTlX
+         T7wDkJecRMY13UrfvblKqkO+C/FeCdIaHeYHN7UjKTFiQNohhdxLHOnNM0Ny7pBYix6/
+         2TfGPtWrUi4Y+m7ZvyGKVwg5BO4Xn4n/9e1/o6fynIh7J/nXR7+yqXZR1JUL/kw7jtfR
+         Yong==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=3MbPGGFdc87JQ1GGBZR/+XaGAcjWM2QvN+yXxpzVnXM=;
+        b=CLeMyzBI1TounmTk5UQVamWHEkEUj5WDuUsUc51DYfHC0rjK85l/s1qiFax9cw1vua
+         m+thheFweJikJ8p8ZPtZvWoNNjVw/yTJ4hMZpr8XYk1k6aqO4bIcovn+YD5JhxVcw5uO
+         lshP4LV9AaPUG08h4wEDc7j6fEl9KBmR8bEo5u4MjE1A3osBBPX6tzqeWQxBhXLfXB81
+         7NQZMibGQ9Vzid/G6nZqW8qNhyYu9cyh+7nHVKk+sIuDHERy/ilJyLVtURWw8VX2ORID
+         oYCPRu4nVIXdpAvrZTUD9cfbDBkpyXE8AtD6TGufsQIKbppvoG+WqraB16O81Br9fqi4
+         Zq+g==
+X-Gm-Message-State: AOAM532Vn5WLoHoxRmLL9ZymVag8JrbBB1mYwpxOZGloefnFzGBXezpF
+        l32Nkdood20NwMGr5otu+g0=
+X-Google-Smtp-Source: ABdhPJxemSUnxWWL0NEQXB6tuSxMeBE9xH+LXo9DK7/dOEMpxPDsskyXxIyACr8AE4U/r9FdvuGvZQ==
+X-Received: by 2002:a1c:3b07:: with SMTP id i7mr7806552wma.7.1627728693227;
+        Sat, 31 Jul 2021 03:51:33 -0700 (PDT)
+Received: from [10.8.0.10] ([195.53.121.100])
+        by smtp.gmail.com with ESMTPSA id p22sm4300563wma.10.2021.07.31.03.51.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 31 Jul 2021 03:51:32 -0700 (PDT)
+Subject: Re: [PATCH v2 1/4] landlock.7: Add a new page to introduce Landlock
+To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>
+Cc:     Jann Horn <jannh@google.com>, Jonathan Corbet <corbet@lwn.net>,
+        Kees Cook <keescook@chromium.org>,
+        Randy Dunlap <rdunlap@infradead.org>,
+        Vincent Dagonneau <vincent.dagonneau@ssi.gouv.fr>,
+        landlock@lists.linux.dev, linux-kernel@vger.kernel.org,
+        linux-man@vger.kernel.org, linux-security-module@vger.kernel.org,
+        =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@linux.microsoft.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+References: <20210712155745.831580-1-mic@digikod.net>
+ <20210712155745.831580-2-mic@digikod.net>
+ <3f1b943b-2477-2c4e-c835-d6616888176c@gmail.com>
+ <c5036c5c-37a1-57d2-e5dc-1f41a5ed0d31@digikod.net>
+ <20210730233931.lbtq67esmeuo4o6d@localhost.localdomain>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Message-ID: <e88fe0d9-1330-3de4-53e1-4b72360ce7d3@gmail.com>
+Date:   Sat, 31 Jul 2021 12:51:30 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=29356; h=from:subject; bh=gWX2ZVAFqBbzQaTR+n1e6vt54xiV3Rdlekr4cc1Hh00=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMSSyKm32mnxze1ZouVDW3tjzcpL18+zY/ptdtNugd3m7U4Op 3zfHjlIWBjEuBlkxRRaHdpNwueU8FZuNMjVg5rAygQxh4OIUgImISTD8L7dnv9K24gW/yJxTU6WVUu vO6X+datWZIcatXaGacynHlZHhoZHLiTypqgc1K08KpM8ISwhK2vtumvmub7ILe3qXCLhzAQA=
-X-Developer-Key: i=christian.brauner@ubuntu.com; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+In-Reply-To: <20210730233931.lbtq67esmeuo4o6d@localhost.localdomain>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From: Christian Brauner <christian.brauner@ubuntu.com>
+Hi Branden, Mickaël,
 
-Signed-off-by: Christian Brauner <christian.brauner@ubuntu.com>
----
-/* v3 */
-- "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>:
-   - Adjust for comments provided by Alex.
----
- man2/mount_setattr.2 | 985 +++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 985 insertions(+)
- create mode 100644 man2/mount_setattr.2
+On 7/31/21 1:39 AM, G. Branden Robinson wrote:
+> Hi, Mickaël!
+> 
+> I'm going to rearrange your message to reply to it to put the shortest
+> point first, as I am nervous of people tiring of my info dumps,
+> especially with such an efflorescent CC list.
+> 
+> At 2021-07-30T14:15:48+0200, Mickaël Salaün wrote:
+>>>> +The rule will only allow reading the file hierarchy
+>>>> +.IR /usr .
+>>
+>> Why ".IR" is correct here?
+> 
+> Because you don't want a space or a line break in the output between
+> "/usr" and the period.
+> 
+> Line breaks in *roff input usually mean "insert a word break here".[1]
+> 
+> [the long version]
+>> When do we really need .IR? Isn't `.I "foo bar"` the same as `.IR foo
+>> bar`? What do you use roman for?
+>>
+>> Where can we find these preferences? The best I found was
+>> https://www.man7.org/linux/man-pages/man7/groff_man.7.html but it
+>> doesn't explain what to use. The current man pages seems to use both
+>> interchangeably.
+> 
+> This is a good news/bad news situation for me.  As the maintainer of
+> that man page, I'm delighted to hear that you found it the best resource
+> of its type.  But that you came away still not knowing when or why to
+> use .IR tells me I still have work to do.
+> 
+> One of the things I did after the groff 1.22.4 release (December 2018)
+> was to split groff_man(7) into two pages.  The one you've linked is the
+> terser reference for seasoned (perhaps salty) man page writers.  Near
+> the top of it you'll find this.
+> 
+>         This document presents the macros thematically; for those needing
+>         only a quick reference, the following table lists them
+>         alphabetically, with cross-references to appropriate subsections
+>         below.
+> 
+>         Man page authors and maintainers who are not already experienced
+>         groff users should consult groff_man_style(7), an expanded
+>         version of this document, for additional explanations and advice.
+>         It covers only those concepts required for man page document
+>         maintenance, and not the full breadth of the groff typesetting
+>         system.
 
-diff --git a/man2/mount_setattr.2 b/man2/mount_setattr.2
-new file mode 100644
-index 000000000..853b6b6ab
---- /dev/null
-+++ b/man2/mount_setattr.2
-@@ -0,0 +1,985 @@
-+.\" Copyright (c) 2021 by Christian Brauner <christian.brauner@ubuntu.com>
-+.\"
-+.\" %%%LICENSE_START(VERBATIM)
-+.\" Permission is granted to make and distribute verbatim copies of this
-+.\" manual provided the copyright notice and this permission notice are
-+.\" preserved on all copies.
-+.\"
-+.\" Permission is granted to copy and distribute modified versions of this
-+.\" manual under the conditions for verbatim copying, provided that the
-+.\" entire resulting derived work is distributed under the terms of a
-+.\" permission notice identical to this one.
-+.\"
-+.\" Since the Linux kernel and libraries are constantly changing, this
-+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
-+.\" responsibility for errors or omissions, or for damages resulting from
-+.\" the use of the information contained herein.  The author(s) may not
-+.\" have taken the same level of care in the production of this manual,
-+.\" which is licensed free of charge, as they might when working
-+.\" professionally.
-+.\"
-+.\" Formatted or processed versions of this manual, if unaccompanied by
-+.\" the source, must acknowledge the copyright and authors of this work.
-+.\" %%%LICENSE_END
-+.\"
-+.TH MOUNT_SETATTR 2 2021-03-22 "Linux" "Linux Programmer's Manual"
-+.SH NAME
-+mount_setattr \- change mount properties of a mount or mount tree
-+.SH SYNOPSIS
-+.nf
-+
-+.PP
-+.BR "#include <linux/fcntl.h>" " /* Definition of " AT_* " constants */"
-+.BR "#include <linux/mount.h>" " /* Definition of struct mount_attr and MOUNT_ATTR_* constants */"
-+.BR "#include <sys/syscall.h>" " /* Definition of " SYS_* " constants */"
-+.B #include <unistd.h>
-+.PP
-+.BI "int syscall(SYS_mount_setattr, int " dfd ", const char *" path \
-+", unsigned int " flags \
-+", struct mount_attr *" attr ", size_t " size );
-+.fi
-+.PP
-+.IR Note :
-+glibc provides no wrapper for
-+.BR mount_setattr (),
-+necessitating the use of
-+.BR syscall (2).
-+.SH DESCRIPTION
-+The
-+.BR mount_setattr (2)
-+system call changes the mount properties of a mount or entire mount tree.
-+If
-+.I path
-+is a relative pathname,
-+then it is interpreted relative to the directory referred to by the file
-+descriptor
-+.I dfd
-+(or the current working directory of the calling process,
-+if
-+.I dfd
-+is the special value
-+.BR AT_FDCWD ).
-+If
-+.I path
-+is the empty string and
-+.BR AT_EMPTY_PATH
-+is specified in
-+.I flags
-+then the mount properties of the mount identified by
-+.I dfd
-+are changed.
-+.PP
-+The
-+.BR mount_setattr (2)
-+system call uses an extensible structure
-+.IR ( "struct mount_attr" )
-+to allow for future extensions.
-+Any non-flag extensions to
-+.BR mount_setattr (2)
-+will be implemented as new fields appended to the above structure,
-+with a zero value in a new field resulting in the kernel behaving
-+as though that extension field was not present.
-+Therefore,
-+the caller
-+.I must
-+zero-fill this structure on initialization.
-+(See the "Extensibility" section under
-+.B NOTES
-+for more details on why this is necessary.)
-+.PP
-+The
-+.I size
-+argument should usually be specified as
-+.IR "sizeof(struct mount_attr)" .
-+However,
-+if the caller does not intend to make use of features that got
-+introduced after the initial version of
-+.I struct mount_attr
-+they are free to pass the size of the initial struct together with the larger
-+struct.
-+This allows the kernel to not copy later parts of the struct that aren't used
-+anyway.
-+With each extension that changes the size of
-+.I struct mount_attr
-+the kernel will expose a define of the form
-+.BR MOUNT_ATTR_SIZE_VER<number> .
-+For example the macro for the size of the initial version of
-+.I struct mount_attr
-+is
-+.BR MOUNT_ATTR_SIZE_VER0 .
-+.PP
-+The
-+.I flags
-+argument can be used to alter the path resolution behavior.
-+The supported values are:
-+.TP
-+.B AT_EMPTY_PATH
-+If
-+.I path
-+is the empty string change the mount properties on
-+.I dfd
-+itself.
-+.TP
-+.B AT_RECURSIVE
-+Change the mount properties of the entire mount tree.
-+.TP
-+.B AT_SYMLINK_NOFOLLOW
-+Don't follow trailing symlinks.
-+.TP
-+.B AT_NO_AUTOMOUNT
-+Don't trigger automounts.
-+.PP
-+The
-+.I attr
-+argument of
-+.BR mount_setattr (2)
-+is a structure of the following form:
-+.PP
-+.in +4n
-+.EX
-+struct mount_attr {
-+    __u64 attr_set;    /* Mount properties to set. */
-+    __u64 attr_clr;    /* Mount properties to clear. */
-+    __u64 propagation; /* Mount propagation type. */
-+    __u64 userns_fd;   /* User namespace file descriptor. */
-+};
-+.EE
-+.in
-+.PP
-+The
-+.I attr_set
-+and
-+.I attr_clr
-+members are used to specify the mount properties that are supposed to be set or
-+cleared for a given mount or mount tree.
-+Flags set in
-+.I attr_set
-+enable a property on a mount or mount tree and flags set in
-+.I attr_clr
-+remove a property from a mount or mount tree.
-+.PP
-+When changing mount properties the kernel will first clear the flags specified
-+in the
-+.I attr_clr
-+field and then set the flags specified in the
-+.I attr_set
-+field:
-+.PP
-+.in +4n
-+.EX
-+struct mount_attr attr = {
-+    .attr_clr = MOUNT_ATTR_NOEXEC | MOUNT_ATTR_NODEV,
-+    .attr_set = MOUNT_ATTR_RDONLY | MOUNT_ATTR_NOSUID,
-+};
-+unsigned int current_mnt_flags = mnt->mnt_flags;
-+
-+/*
-+ * Clear all flags set in .attr_clr, i.e.
-+ * clear MOUNT_ATTR_NOEXEC and MOUNT_ATTR_NODEV.
-+ */
-+current_mnt_flags &= ~attr->attr_clr;
-+
-+/*
-+ * Now set all flags set in .attr_set, i.e.
-+ * set MOUNT_ATTR_RDONLY and MOUNT_ATTR_NOSUID.
-+ */
-+current_mnt_flags |= attr->attr_set;
-+
-+mnt->mnt_flags = current_mnt_flags;
-+.EE
-+.in
-+.PP
-+The effect of this change will be a mount or mount tree that is read-only,
-+blocks the execution of set-user-ID and set-group-ID binaries but does allow to
-+execute programs and access to devices nodes.
-+Multiple changes with the same set of flags requested
-+in
-+.I attr_clr
-+and
-+.I attr_set
-+are guaranteed to be idempotent after the changes have been applied.
-+.PP
-+The following mount attributes can be specified in the
-+.I attr_set
-+or
-+.I attr_clr
-+fields:
-+.TP
-+.B MOUNT_ATTR_RDONLY
-+If set in
-+.I attr_set
-+makes the mount read only and if set in
-+.I attr_clr
-+removes the read only setting if set on the mount.
-+.TP
-+.B MOUNT_ATTR_NOSUID
-+If set in
-+.I attr_set
-+makes the mount not honor set-user-ID and set-group-ID binaries,
-+and file capabilities when executing programs.
-+If set in
-+.I attr_clr
-+clears the set-user-ID, set-group-ID,
-+and file capability restriction if set on this mount.
-+.TP
-+.B MOUNT_ATTR_NODEV
-+If set in
-+.I attr_set
-+prevents access to devices on this mount and if set in
-+.I attr_clr
-+removes the device access restriction if set on this mount.
-+.TP
-+.BR MOUNT_ATTR_NOEXEC
-+If set in
-+.I attr_set
-+prevents executing programs on this mount and if set in
-+.I attr_clr
-+removes the restriction to execute programs on this mount.
-+.TP
-+.B MOUNT_ATTR_NODIRATIME
-+If set in
-+.I attr_set
-+prevents updating access time for directories on this mount and if set in
-+.I attr_clr
-+removes access time restriction for directories.
-+Note that
-+.BR MOUNT_ATTR_NODIRATIME
-+can be combined with other access time settings and is implied
-+by the noatime setting.
-+All other access time settings are mutually exclusive.
-+.TP
-+.BR MOUNT_ATTR__ATIME " - Changing access time settings
-+In the new mount api the access time values are an enum starting from 0.
-+Even though they are an enum in contrast to the other mount flags such as
-+.BR MOUNT_ATTR_NOEXEC
-+they are nonetheless passed in
-+.I attr_set
-+and
-+.I attr_clr
-+for consistency with
-+.BR fsmount (2)
-+which introduced this behavior.
-+.IP
-+Note,
-+since access times are an enum,
-+not a bitmap,
-+users wanting to transition to a different access time setting cannot simply
-+specify the access time in
-+.I attr_set
-+but must also set
-+.B MOUNT_ATTR__ATIME
-+in the
-+.I attr_clr
-+field.
-+The kernel will verify that
-+.BR MOUNT_ATTR__ATIME
-+isn't partially set in
-+.I attr_clr
-+and that
-+.I attr_set
-+doesn't have any access time bits set if
-+.BR MOUNT_ATTR__ATIME
-+isn't set in
-+.IR attr_clr .
-+.RS
-+.TP
-+.B MOUNT_ATTR_RELATIME
-+When a file is accessed via this mount,
-+update the file's last access time
-+(atime)
-+only if the current value of atime is less than or equal to the file's
-+last modification time (mtime) or last status change time (ctime).
-+.IP
-+To enable this access time setting on a mount or mount tree
-+.BR MOUNT_ATTR_RELATIME
-+must be set in
-+.I attr_set
-+and
-+.BR MOUNT_ATTR__ATIME
-+must be set in the
-+.I attr_clr
-+field.
-+.TP
-+.BR MOUNT_ATTR_NOATIME
-+Do not update access times for (all types of) files on this mount.
-+.IP
-+To enable this access time setting on a mount or mount tree
-+.BR MOUNT_ATTR_NOATIME
-+must be set in
-+.I attr_set
-+and
-+.BR MOUNT_ATTR__ATIME
-+must be set in the
-+.I attr_clr
-+field.
-+.TP
-+.BR MOUNT_ATTR_STRICTATIME
-+Always update the last access time (atime) when files are accessed on this
-+mount.
-+.IP
-+To enable this access time setting on a mount or mount tree
-+.BR MOUNT_ATTR_STRICTATIME
-+must be set in
-+.I attr_set
-+and
-+.BR MOUNT_ATTR__ATIME
-+must be set in the
-+.I attr_clr
-+field.
-+.RE
-+.TP
-+.BR MOUNT_ATTR_IDMAP
-+If set in
-+.I attr_set
-+creates an idmapped mount.
-+The idmapping is taken from the user namespace specified in
-+.I userns_fd
-+and attached to the mount.
-+It is not supported to change the idmapping of a mount after it has been
-+idmapped.
-+Therefore,
-+it is invalid to specify
-+.BR MOUNT_ATTR_IDMAP
-+in
-+.IR attr_clr .
-+More details can be found in subsequent paragraphs.
-+.IP
-+Creating an idmapped mount allows to change the ownership of all files located
-+under a given mount.
-+Other mounts that expose the same files will not be affected,
-+i.e.,
-+the ownership will not be changed.
-+Consequently,
-+a caller accessing files through an idmapped mount will see them owned by the
-+uid and gid according to the idmapping attached to the mount.
-+.IP
-+The idmapping is also applied to the following
-+.BR xattr (7)
-+namespaces:
-+.RS
-+.RS
-+.IP \(bu 2
-+.IR security .
-+namespace when interacting with filesystem capabilities through the
-+.I security.capability
-+key whenever filesystem
-+.BR capabilities (7)
-+are stored or returned in the
-+.I VFS_CAP_REVISION_3
-+format which stores a rootid alongside the capabilities.
-+.IP \(bu 2
-+.I system.posix_acl_access
-+and
-+.I system.posix_acl_default
-+keys whenever uids or gids are stored in
-+.BR ACL_USER
-+and
-+.BR ACL_GROUP
-+entries.
-+.RE
-+.RE
-+.IP
-+The following conditions must be met in order to create an idmapped mount:
-+.RS
-+.RS
-+.IP \(bu 2
-+The caller must have
-+.I CAP_SYS_ADMIN
-+in the initial user namespace.
-+.IP \(bu 2
-+The filesystem must be mounted in the initial user namespace.
-+.IP \(bu
-+The underlying filesystem must support idmapped mounts.
-+Currently
-+.BR xfs (5),
-+.BR ext4 (5)
-+and
-+.BR fat
-+filesystems support idmapped mounts with more filesystems being actively worked
-+on.
-+.IP \(bu
-+The mount must not already be idmapped.
-+This also implies that the idmapping of a mount cannot be altered.
-+.IP \(bu
-+The mount must be a detached/anonymous mount,
-+i.e.,
-+it must have been created by calling
-+.BR open_tree (2)
-+with the
-+.I OPEN_TREE_CLONE
-+flag and it must not already have been visible in the filesystem.
-+.RE
-+.RE
-+.IP
-+In the common case the user namespace passed in
-+.I userns_fd
-+together with
-+.BR MOUNT_ATTR_IDMAP
-+in
-+.I attr_set
-+to create an idmapped mount will be the user namespace of a container.
-+In other scenarios it will be a dedicated user namespace associated with a
-+given user's login session as is the case for portable home directories in
-+.BR systemd-homed.service (8)) .
-+Details on how to create user namespaces and how to setup idmappings can be
-+gathered from
-+.BR user_namespaces (7) .
-+.IP
-+In essence,
-+an idmapping associated with a user namespace is a 1-to-1 mapping
-+between source and target ids for a given range.
-+For example,
-+and idmapping of uid 1000 1001 1 would mean that uid 1000 is mapped to uid 1001,
-+gid 1000 1001 2 would mean that gid 1000 will be mapped to gid 1001 and gid
-+1001 to gid 1002.
-+If we were to attach the idmapping of uid 1000 1001 1 to a mount it would cause
-+all files owned by uid 1000 to be owned by uid 1001.
-+It is possible to specify up to 340 of such idmappings providing for a great
-+deal of flexibility.
-+If any source ids are not mapped to a target id all files owned by that
-+unmapped source id will appear as being owned by the overflow uid or overflow
-+gid respectively (see
-+.BR user_namespaces (7)
-+and
-+.BR proc (5)) .
-+.IP
-+Idmapped mounts can be useful in the following and a variety of other
-+scenarios:
-+.RS
-+.RS
-+.IP \(bu 2
-+Idmapped mounts make it possible to easily share files between multiple users
-+or multiple machines especially in complex scenarios.
-+For example,
-+idmapped mounts are used to implement portable home directories in
-+.BR systemd-homed.service (8)
-+where they allow users to move their home directory to an external storage
-+device and use it on multiple computers where they are assigned different uids
-+and gids.
-+This effectively makes it possible to assign random uids and gids at login time.
-+.IP \(bu
-+It is possible to share files from the host with unprivileged containers
-+without having to change ownership permanently through
-+.BR chown (2).
-+.IP \(bu
-+It is possible to idmap a container's root filesystem without having to mangle
-+every file.
-+.IP \(bu
-+It is possible to share files between containers with non-overlapping
-+idmappings.
-+.IP \(bu
-+Filesystem that lack a proper concept of ownership such as fat can use idmapped
-+mounts to implement discretionary access (DAC) permission checking.
-+.IP \(bu
-+Idmapped mounts allow users to efficiently change ownership on a per-mount
-+basis without having to (recursively)
-+.BR chown (2)
-+all files.
-+In contrast to
-+.BR chown (2)
-+changing ownership of large sets of files is instantenous with idmapped mounts.
-+This is especially useful when ownership of an entire root filesystem of a
-+virtual machine or container is to be changed.
-+With idmapped mounts a single
-+.BR mount_setattr (2)
-+system call will be sufficient to change the ownership of all files.
-+.IP \(bu
-+Idmapped mounts always take the current ownership into account as
-+idmappings specify what a given uid or gid is supposed to be mapped to.
-+This contrasts with the
-+.BR chown (2)
-+system call which cannot by itself take the current ownership of the files it
-+changes into account.
-+It simply changes the ownership to the specified uid and gid.
-+.IP \(bu
-+Idmapped mounts allow to change ownership locally,
-+restricting it to specific mounts,
-+and temporarily as the ownership changes only apply as long
-+as the mount exists.
-+In contrast,
-+changing ownership via the
-+.BR chown (2)
-+system call changes the ownership globally and permanently.
-+.RE
-+.RE
-+.PP
-+The
-+.I propagation
-+field is used to specify the propagation type of the mount or mount tree.
-+Mount propagation options are mutually exclusive,
-+i.e.,
-+the propagation values behave like an enum.
-+The supported mount propagation settings are:
-+.TP
-+.B MS_PRIVATE
-+Turn all mounts into private mounts.
-+Mount and unmount events do not propagate into or out of this mount point.
-+.TP
-+.B MS_SHARED
-+Turn all mounts into shared mounts.
-+Mount points share events with members of a peer group.
-+Mount and unmount events immediately under this mount point
-+will propagate to the other mount points that are members of the peer group.
-+Propagation here means that the same mount or unmount will automatically occur
-+under all of the other mount points in the peer group.
-+Conversely,
-+mount and unmount events that take place under peer mount points will propagate
-+to this mount point.
-+.TP
-+.B MS_SLAVE
-+Turn all mounts into dependent mounts.
-+Mount and unmount events propagate into this mount point from a shared peer
-+group.
-+Mount and unmount events under this mount point do not propagate to any peer.
-+.TP
-+.B MS_UNBINDABLE
-+This is like a private mount,
-+and in addition this mount can't be bind mounted.
-+Attempts to bind mount this mount will fail.
-+When a recursive bind mount is performed on a directory subtree,
-+any bind mounts within the subtree are automatically pruned
-+(i.e., not replicated)
-+when replicating that subtree to produce the target subtree.
-+.PP
-+.SH RETURN VALUE
-+On success,
-+.BR mount_setattr (2)
-+returns zero.
-+On error,
-+\-1 is returned and
-+.I errno
-+is set to indicate the cause of the error.
-+.SH ERRORS
-+.TP
-+.B EBADF
-+.I dfd
-+is not a valid file descriptor.
-+.TP
-+.B EBADF
-+An invalid file descriptor value was specified in
-+.I userns_fd.
-+.TP
-+.B EBUSY
-+The caller tried to change the mount to
-+.BR MOUNT_ATTR_RDONLY
-+but the mount had writers.
-+.TP
-+.B EINVAL
-+The path specified via the
-+.I dfd
-+and
-+.I path
-+arguments to
-+.BR mount_setattr (2)
-+isn't a mountpoint.
-+.TP
-+.B EINVAL
-+An unsupported value was set in
-+.I flags.
-+.TP
-+.B EINVAL
-+An unsupported value was specified in the
-+.I attr_set
-+field of
-+.IR mount_attr .
-+.TP
-+.B EINVAL
-+An unsupported value was specified in the
-+.I attr_clr
-+field of
-+.IR mount_attr .
-+.TP
-+.B EINVAL
-+An unsupported value was specified in the
-+.I propagation
-+field of
-+.IR mount_attr .
-+.TP
-+.B EINVAL
-+More than one of
-+.BR MS_SHARED,
-+.BR MS_SLAVE,
-+.BR MS_PRIVATE,
-+or
-+.BR MS_UNBINDABLE
-+was set in
-+.I propagation
-+field of
-+.IR mount_attr .
-+.TP
-+.B EINVAL
-+An access time setting was specified in the
-+.I attr_set
-+field without
-+.BR MOUNT_ATTR__ATIME
-+being set in the
-+.I attr_clr
-+field.
-+.TP
-+.B EINVAL
-+.BR MOUNT_ATTR_IDMAP
-+was specified in
-+.IR attr_clr .
-+.TP
-+.B EINVAL
-+A file descriptor value was specified in
-+.I userns_fd
-+which exceeds
-+.BR INT_MAX .
-+.TP
-+.B EINVAL
-+A valid file descriptor value was specified in
-+.I userns_fd
-+but the file descriptor wasn't a namespace file descriptor or did not refer to
-+a user namespace.
-+.TP
-+.B EINVAL
-+The underlying filesystem does not support idmapped mounts.
-+.TP
-+.B EINVAL
-+The mount to idmap is not a detached/anonymous mount,
-+i.e.,
-+the mount is already visible in the filesystem.
-+.TP
-+.B EINVAL
-+A partial access time setting was specified in
-+.I attr_clr
-+instead of
-+.BR MOUNT_ATTR__ATIME
-+being set.
-+.TP
-+.B EINVAL
-+The mount is located outside the caller's mount namespace.
-+.TP
-+.B EINVAL
-+The underlying filesystem is mounted in a user namespace.
-+.TP
-+.B ENOENT
-+A pathname was empty or had a nonexistent component.
-+.TP
-+.B ENOMEM
-+When changing mount propagation to
-+.BR MS_SHARED
-+a new peer group id needs to be allocated for all mounts without a peer group
-+id set.
-+Allocation of this peer group id has failed.
-+.TP
-+.B ENOSPC
-+When changing mount propagation to
-+.BR MS_SHARED
-+a new peer group id needs to be allocated for all mounts without a peer group
-+id set.
-+Allocation of this peer group id can fail.
-+Note that technically further error codes are possible that are specific to the
-+id allocation implementation used.
-+.TP
-+.B EPERM
-+One of the mounts had at least one of
-+.BR MOUNT_ATTR_RDONLY,
-+.BR MOUNT_ATTR_NODEV,
-+.BR MOUNT_ATTR_NOSUID,
-+.BR MOUNT_ATTR_NOEXEC,
-+.BR MOUNT_ATTR_NOATIME,
-+or
-+.BR MOUNT_ATTR_NODIRATIME
-+set and the flag is locked.
-+Mount attributes become locked on a mount if:
-+.RS
-+.IP \(bu 2
-+a new mount or mount tree is created causing mount propagation across user
-+namespaces.
-+The kernel will lock the aforementioned flags to protect these sensitive
-+properties from being altered.
-+.IP \(bu
-+a new mount and user namespace pair is created.
-+This happens for example when specifying
-+.BR CLONE_NEWUSER | CLONE_NEWNS
-+in
-+.BR unshare (2),
-+.BR clone (2),
-+or
-+.BR clone3 (2) .
-+The aformentioned flags become locked to protect user namespaces from altering
-+sensitive mount properties.
-+.RE
-+.TP
-+.B EPERM
-+A valid file descriptor value was specified in
-+.I userns_fd
-+but the file descriptor refers to the initial user namespace.
-+.TP
-+.B EPERM
-+An already idmapped mount was supposed to be idmapped.
-+.TP
-+.B EPERM
-+The caller does not have
-+.I CAP_SYS_ADMIN
-+in the initial user namespace.
-+.SH VERSIONS
-+.BR mount_setattr (2)
-+first appeared in Linux 5.12.
-+.\" commit 7d6beb71da3cc033649d641e1e608713b8220290
-+.\" commit 2a1867219c7b27f928e2545782b86daaf9ad50bd
-+.\" commit 9caccd41541a6f7d6279928d9f971f6642c361af
-+.SH CONFORMING TO
-+.BR mount_setattr (2)
-+is Linux specific.
-+.SH NOTES
-+.SS Extensibility
-+In order to allow for future extensibility,
-+.BR mount_setattr (2)
-+along with other system calls such as
-+.BR openat2 (2)
-+and
-+.BR clone3 (2)
-+requires the user-space application to specify the size of the
-+.I mount_attr
-+structure that it is passing.
-+By providing this information, it is possible for
-+.BR mount_setattr (2)
-+to provide both forwards- and backwards-compatibility, with
-+.I size
-+acting as an implicit version number.
-+(Because new extension fields will always
-+be appended, the structure size will always increase.)
-+This extensibility design is very similar to other system calls such as
-+.BR perf_setattr (2),
-+.BR perf_event_open (2),
-+.BR clone3 (2)
-+and
-+.BR openat2 (2) .
-+.PP
-+Let
-+.I usize
-+be the size of the structure as specified by the user-space application,
-+and let
-+.I ksize
-+be the size of the structure which the kernel supports,
-+then there are three cases to consider:
-+.IP \(bu 2
-+If
-+.IR ksize
-+equals
-+.IR usize ,
-+then there is no version mismatch and
-+.I attr
-+can be used verbatim.
-+.IP \(bu
-+If
-+.IR ksize
-+is larger than
-+.IR usize ,
-+then there are some extension fields that the kernel supports which the
-+user-space application is unaware of.
-+Because a zero value in any added extension field signifies a no-op,
-+the kernel treats all of the extension fields not provided by the user-space
-+application as having zero values.
-+This provides backwards-compatibility.
-+.IP \(bu
-+If
-+.IR ksize
-+is smaller than
-+.IR usize ,
-+then there are some extension fields which the user-space application is aware
-+of but which the kernel does not support.
-+Because any extension field must have its zero values signify a no-op,
-+the kernel can safely ignore the unsupported extension fields if they are
-+all zero.
-+If any unsupported extension fields are non-zero, then \-1 is returned and
-+.I errno
-+is set to
-+.BR E2BIG .
-+This provides forwards-compatibility.
-+.PP
-+Because the definition of
-+.I struct mount_attr
-+may change in the future
-+(with new fields being added when system headers are updated),
-+user-space applications should zero-fill
-+.I struct mount_attr
-+to ensure that recompiling the program with new headers will not result in
-+spurious errors at runtime.
-+The simplest way is to use a designated initializer:
-+.PP
-+.in +4n
-+.EX
-+struct mount_attr attr = {
-+    .attr_set = MOUNT_ATTR_RDONLY,
-+    .attr_clr = MOUNT_ATTR_NODEV
-+};
-+.EE
-+.in
-+.PP
-+or explicitly using
-+.BR memset (3)
-+or similar functions:
-+.PP
-+.in +4n
-+.EX
-+struct mount_attr attr;
-+memset(&attr, 0, sizeof(attr));
-+attr.attr_set = MOUNT_ATTR_RDONLY;
-+attr.attr_clr = MOUNT_ATTR_NODEV;
-+.EE
-+.in
-+.PP
-+A user-space application that wishes to determine which extensions the running
-+kernel supports can do so by conducting a binary search on
-+.IR size
-+with a structure which has every byte nonzero
-+(to find the largest value which doesn't produce an error of
-+.BR E2BIG ) .
-+.SH EXAMPLES
-+.EX
-+/*
-+ * This program allows the caller to create a new detached mount and set
-+ * various properties on it.
-+ */
-+#define _GNU_SOURCE
-+#include <errno.h>
-+#include <fcntl.h>
-+#include <getopt.h>
-+#include <linux/mount.h>
-+#include <linux/types.h>
-+#include <stdbool.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <sys/syscall.h>
-+#include <unistd.h>
-+
-+static inline int mount_setattr(int dfd,
-+                                const char *path,
-+                                unsigned int flags,
-+                                struct mount_attr *attr,
-+                                size_t size)
-+{
-+    return syscall(SYS_mount_setattr, dfd, path,
-+                   flags, attr, size);
-+}
-+
-+static inline int open_tree(int dfd, const char *filename,
-+                            unsigned int flags)
-+{
-+    return syscall(SYS_open_tree, dfd, filename, flags);
-+}
-+
-+static inline int move_mount(int from_dfd,
-+                             const char *from_pathname,
-+                             int to_dfd,
-+                             const char *to_pathname,
-+                             unsigned int flags)
-+{
-+    return syscall(SYS_move_mount, from_dfd,
-+                   from_pathname, to_dfd, to_pathname, flags);
-+}
-+
-+static const struct option longopts[] = {
-+    {"map-mount",       required_argument,  0,  'a'},
-+    {"recursive",       no_argument,        0,  'b'},
-+    {"read-only",       no_argument,        0,  'c'},
-+    {"block-setid",     no_argument,        0,  'd'},
-+    {"block-devices",   no_argument,        0,  'e'},
-+    {"block-exec",      no_argument,        0,  'f'},
-+    {"no-access-time",  no_argument,        0,  'g'},
-+    { NULL,             0,                  0,   0 },
-+};
-+
-+#define exit_log(format, ...)                   \\
-+    ({                                          \\
-+        fprintf(stderr, format, ##__VA_ARGS__); \\
-+        exit(EXIT_FAILURE);                     \\
-+    })
-+
-+int main(int argc, char *argv[])
-+{
-+    int fd_userns = -EBADF, index = 0;
-+    bool recursive = false;
-+    struct mount_attr *attr = &(struct mount_attr){};
-+    const char *source, *target;
-+    int fd_tree, new_argc, ret;
-+    char *const *new_argv;
-+
-+    while ((ret = getopt_long_only(argc, argv, "",
-+                                  longopts, &index)) != -1) {
-+        switch (ret) {
-+        case 'a':
-+            fd_userns = open(optarg, O_RDONLY | O_CLOEXEC);
-+            if (fd_userns < 0)
-+                exit_log("%m - Failed top open %s\en", optarg);
-+            break;
-+        case 'b':
-+            recursive = true;
-+            break;
-+        case 'c':
-+            attr->attr_set |= MOUNT_ATTR_RDONLY;
-+            break;
-+        case 'd':
-+            attr->attr_set |= MOUNT_ATTR_NOSUID;
-+            break;
-+        case 'e':
-+            attr->attr_set |= MOUNT_ATTR_NODEV;
-+            break;
-+        case 'f':
-+            attr->attr_set |= MOUNT_ATTR_NOEXEC;
-+            break;
-+        case 'g':
-+            attr->attr_set |= MOUNT_ATTR_NOATIME;
-+            attr->attr_clr |= MOUNT_ATTR__ATIME;
-+            break;
-+        default:
-+            exit_log("Invalid argument specified");
-+        }
-+    }
-+
-+    new_argv = &argv[optind];
-+    new_argc = argc - optind;
-+    if (new_argc < 2)
-+        exit_log("Missing source or target mountpoint\en");
-+    source = new_argv[0];
-+    target = new_argv[1];
-+
-+    fd_tree = open_tree(-EBADF, source,
-+                        OPEN_TREE_CLONE |
-+                        OPEN_TREE_CLOEXEC |
-+                        AT_EMPTY_PATH |
-+                        (recursive ? AT_RECURSIVE : 0));
-+    if (fd_tree < 0)
-+        exit_log("%m - Failed to open %s\en", source);
-+
-+    if (fd_userns >= 0) {
-+        attr->attr_set  |= MOUNT_ATTR_IDMAP;
-+        attr->userns_fd = fd_userns;
-+    }
-+    ret = mount_setattr(fd_tree, "",
-+                        AT_EMPTY_PATH |
-+                        (recursive ? AT_RECURSIVE : 0),
-+                        attr, sizeof(struct mount_attr));
-+    if (ret < 0)
-+        exit_log("%m - Failed to change mount attributes\en");
-+    close(fd_userns);
-+
-+    ret = move_mount(fd_tree, "", -EBADF, target,
-+                     MOVE_MOUNT_F_EMPTY_PATH);
-+    if (ret < 0)
-+        exit_log("%m - Failed to attach mount to %s\en", target);
-+    close(fd_tree);
-+
-+    exit(EXIT_SUCCESS);
-+}
-+.EE
-+.fi
-+.SH SEE ALSO
-+.BR capabilities (7),
-+.BR clone (2),
-+.BR clone3 (2),
-+.BR ext4 (5),
-+.BR mount (2),
-+.BR mount_namespaces (7),
-+.BR newuidmap (1),
-+.BR newgidmap (1),
-+.BR proc (5),
-+.BR unshare (2),
-+.BR user_namespaces (7),
-+.BR xattr (7),
-+.BR xfs (5)
+Hmmmm, I can't find that text on my Debian Sid (with a bit of 
+experimental) groff_man(7).  Not even in the SEE ALSO.
 
-base-commit: fbe71b1b79e72be3b9afc44b5d479e7fd84b598a
+
+SEE ALSO
+        Groff:  The GNU Implementation of troff, by Trent A. Fisher
+        and Werner Lemberg, is the main groff  documentation.   You
+        can browse it interactively with “info groff”.
+
+        tbl(1),  eqn(1),  and  refer(1) are preprocessors used with
+        man pages.
+
+        man(1) describes the man page formatter on your system.
+
+        groff_mdoc(7) describes the groff version of the BSD‐origi‐
+        nated alternative macro package for man pages.
+
+        groff(7), groff_char(7), man(7)
+
+groff 1.22.4              27 January 2021             GROFF_MAN(7)
+
+> 
+> There, at <https://www.man7.org/linux/man-pages/man7/groff_man.7.html>,
+> I'd direct you to the following.
+> 
+>     Font style macros
+>         The man macro package is limited in its font styling options,
+>         offering only bold (.B), italic (.I), and roman.  Italic text is
+>         usually set underscored instead on terminal devices.  The .SM and
+>         .SB macros set text in roman or bold, respectively, at a smaller
+>         point size; these differ visually from regular-sized roman or
+>         bold text only on typesetter devices.  It is often necessary to
+>         set text in different styles without intervening space.  The
+>         macros .BI, .BR, .IB, .IR, .RB, and .RI, where “B”, “I”, and “R”
+>         indicate bold, italic, and roman, respectively, set their odd-
+>         and even-numbered arguments in alternating styles, with no space
+>         separating them.
+> [...]
+>         .I [text]
+>                Set text in italics.  If the macro is given no arguments,
+>                the text of the next input line is set in italics.
+> 
+>                Use italics for file and path names, for environment
+>                variables, for enumeration or preprocessor constants in C,
+>                for variable (user-determined) portions of syntax
+>                synopses, for the first occurrence (only) of a technical
+>                concept being introduced, for names of works of software
+>                (including commands and functions, but excluding names of
+>                operating systems or their kernels), and anywhere a
+>                parameter requiring replacement by the user is
+>                encountered.  An exception involves variable text in a
+>                context that is already marked up in italics, such as file
+>                or path names with variable components; in such cases,
+>                follow the convention of mathematical typography: set the
+>                file or path name in italics as usual but use roman for
+>                the variable part (see .IR and .RI below), and italics
+>                again in running roman text when referring to the variable
+>                material.
+
+Re-reading this, we've been doing it wrong (as you pointed out in 
+another thread) with macro names with variable part.
+
+I wasn't very convinced by the current usage of the man pages, but it 
+was already current, so I just followed it :/
+
+I'll try to follow this from now.
+
+> [...]
+>         Note what is not prescribed for setting in bold or italics above:
+>         elements of “synopsis language” such as ellipses and brackets
+>         around options; proper names and adjectives; titles of anything
+>         other than works of literature or software; identifiers for
+>         standards documents or technical reports such as CSTR #54,
+>         RFC 1918, Unicode 13.0, or POSIX.1-2017; acronyms; and
+>         occurrences after the first of a technical term or piece of
+>         jargon.  Again, the names of operating systems and their kernels
+>         are, by practically universal convention, set in roman.
+> 
+>         Be frugal with italics for emphasis, and particularly with bold.
+>         Brief runs of literal text, such as references to individual
+>         characters or short strings, including section and subsection
+>         headings of man pages, are suitable objects for quotation; see
+>         the \(lq, \(rq, \(oq, and \(cq escapes in subsection
+>         “Portability” below.
+> 
+>         Unlike the above font style macros, the font style alternation
+>         macros below accept only arguments on the same line as the macro
+>         call.  Italic corrections are applied as appropriate.  If space
+>         is required within one of the arguments, first consider whether
+>         the same result could be achieved with as much clarity by using
+>         the single-style macros on separate input lines.  When it cannot,
+>         double-quote an argument containing embedded space characters.
+>         Setting all three different styles within a word presents
+>         challenges; it is possible with the \c and/or \f escapes, but see
+>         subsection “Portability” below for caveats.
+
+Ahh, I missed this text, as it was neither under .I nor .IR, and only 
+had a fast read of the page.
+The 3rd paragraph hints that you should only use .IR when really needed, 
+and use .I otherwise.  But someone new to man-pages, who probably did 
+never read this page (or read some specific paragraphs of it when 
+needed), and found the extensive (and somewhat incorrect) usage of .IR 
+in place of .I in the current man pages, might be confused by all of 
+that inconsistency and hard-to-find (except by those who already know 
+where it is (reference to Pirates of the Caribbean intended :) )) 
+information.
+
+> [...]
+>         .IR italic-text roman-text ...
+>                Set each argument in italics and roman, alternately.
+> 
+>                       This is the first command of the
+>                       .IR prologue .
+> 
+> I'd appreciate feedback from anyone on how I can improve the above.
+
+I think it's great.  But unless one reads the page with some time (and 
+not only the bullets), one might think that the man page is incomplete. 
+  Maybe groff_man_style(7) is better suited for newbies, but I can't 
+tell...  I couldn't find it.
+
+> 
+>>>> +upper layer.
+>>>> +From a Landlock policy point of view,
+>>>> +each OverlayFS layers and merge hierarchies are standalone and contains
+>>>> +their own set of files and directories,
+>>>> +which is different from bind mounts.
+>>>
+>>>
+>>> Incorrect mix of singular and plural, I think.
+>>
+>> Is it OK with s/contains/contain/?
+> 
+> That's correct, but you also need s/their/its/.
+
+I'm not sure, but maybe (I always get confused by these things)?:
+
+[
+each _of the_ OverlayFS layers and merge hierarchies _is_ standalone and 
+_contains_
+_its_ own set of files and directories,
+which is different from bind mounts.
+]
+
+And still I'm not sure about the last "mounts".
+
+
+Without s/each/each of the/ we still have layers and hierarchies 
+(plurals), which don't mix well with each (singular).
+
+
+Regards,
+
+Alex
+
+> 
+> A handy technique for resolving inflection/agreement problems in English
+> is to drop phrases from the sentence in a way that preserves its
+> structure; this usually makes clear what should be done.
+> 
+> In this case, "... Each ... contains its own set."
+> 
+> Native speakers screw this up even in simpler cases; e.g.,
+> 
+>    *"The spaces in between leave room for you and I to grow."
+> 
+> We get thrown by the conjunction "and", which makes the language organ
+> in our brain think of plural number.  But no native speaker ever commits
+> the error
+> 
+>    *"Will you buy a hamburger for I?"
+> 
+> unless for deliberate effect.  (Though there is probably some hamlet in
+> the West Midlands of England or something where this is standard. :-| )
+> 
+> Regards,
+> Branden
+> 
+> [1] "Usually."  In roff terms, this generalization applies to text lines
+>      (not control lines; that is, lines starting with a control
+>      character) that do not end with the output line continuation escape
+>      sequence, '\c'.
+> 
+
+
 -- 
-2.30.2
-
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
