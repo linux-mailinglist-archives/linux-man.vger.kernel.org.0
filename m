@@ -2,61 +2,61 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D22663DC2FC
-	for <lists+linux-man@lfdr.de>; Sat, 31 Jul 2021 05:40:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7BD6D3DC2FF
+	for <lists+linux-man@lfdr.de>; Sat, 31 Jul 2021 05:45:13 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231487AbhGaDkF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 30 Jul 2021 23:40:05 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38888 "EHLO
+        id S231491AbhGaDpS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 30 Jul 2021 23:45:18 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40166 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235763AbhGaDkD (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 30 Jul 2021 23:40:03 -0400
-Received: from mail-pl1-x62f.google.com (mail-pl1-x62f.google.com [IPv6:2607:f8b0:4864:20::62f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E1512C0613CF
-        for <linux-man@vger.kernel.org>; Fri, 30 Jul 2021 20:39:57 -0700 (PDT)
-Received: by mail-pl1-x62f.google.com with SMTP id c16so13316796plh.7
-        for <linux-man@vger.kernel.org>; Fri, 30 Jul 2021 20:39:57 -0700 (PDT)
+        with ESMTP id S231487AbhGaDpR (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 30 Jul 2021 23:45:17 -0400
+Received: from mail-pl1-x634.google.com (mail-pl1-x634.google.com [IPv6:2607:f8b0:4864:20::634])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5F03FC06175F
+        for <linux-man@vger.kernel.org>; Fri, 30 Jul 2021 20:45:12 -0700 (PDT)
+Received: by mail-pl1-x634.google.com with SMTP id a20so13411631plm.0
+        for <linux-man@vger.kernel.org>; Fri, 30 Jul 2021 20:45:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=date:from:to:cc:subject:message-id:mime-version:content-disposition
          :user-agent;
-        bh=OaqNA3mh5IXgKBBz9ZpGCiBXe5O88Jcvh5egbXEePzg=;
-        b=JneIe3E6GgDgPnEJyP4RGXR6A0kvIT2FnHTCLCEOM9QLdq95ZrSlGMdX4jdeKHFqS6
-         nAXEPU4+9QiW89PqMzp6+4kuOYNkH2u850S8CBN5kHqlMu9HcgkFlogaY7jtYdO66gLX
-         G/5DNm8D8y+nDf2NXKjvpNAwhK7ZDd2y+y5XwKHQqiELo48+7wYW6EiV5pOnUofw8+Ts
-         XwUBdN7EvUKCY5eBpylgDV/LjlrGZhzwomWB3IIF3z+/tY72XgkAvuvly7tNLCm5gTAA
-         GyFsbfmgE1a35jFhOYqs2RCMyWqDsrCn3WklzavrTGhiaJb9rX0X1fCxuhu30KKFsgEp
-         QS7w==
+        bh=uu64qWZSkqkxKc/cDxEdBQJx/esTz7cmUOAptRZ+Nco=;
+        b=efX5xuJNdPWcP6nSPvZwWkpmega1QOPdYuQ1bJluHj8M1OL0zcE/OQs5NFpXa11UKs
+         qdSwuajMQVVYnpJRtXeyMns8i/P8o5x456ECSP0XUx6ESn74wxMWCnh84R88PqLbvkEQ
+         91T37m5jvxN5lh5JLxvd2NRWP7AutaAag2rd0lwtdFtoYKMrcRhe27dsyRle2uZLWy1+
+         R7s/p0V5ysbpmhw6UQQVS/B8VFMjX7qZEE4WAeCoEYtQITwMbktHSxgCwyhRcz47MpQr
+         3wwtndy1RP+J+OdH4Gxz0ObpOy5n4rkV4kZSfD9qtLpiPIDbnSJS5cgn/Q+4wvl1zdfR
+         dwNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
          :content-disposition:user-agent;
-        bh=OaqNA3mh5IXgKBBz9ZpGCiBXe5O88Jcvh5egbXEePzg=;
-        b=W3fKBJyjsn57seIR8TYurdGv2gnL/JOFPGvPZhnvCU6AUuYBqrb9DMTa9Xt4jNqx26
-         HiI5XMtEGb21CG9PQNrIYjh7GOAzyRrxP5hQdEuQ7wGsB+reiygre28mQBJTWJogWkoL
-         FNRJs7rbpolRLNG7MT30jxBm6ghx6Qi14NTSx+TaJ4esBAjLiM/S0uXuZRs+khK6PYz7
-         0GbB3GENCTxCHK0bs2JDWtsihvc0+5bBcaHuOQYG1DhwT7/xp1/AKHawI+cAg62j1XjF
-         9a62vfX1k88mS1sXtuNGkFj2kvGSQGzNUVD+jOMRWwWwtptlHFZ7YSGTu1RvBcs72tQ6
-         ZnAw==
-X-Gm-Message-State: AOAM532N0JTZD0UzgHfbBhqlwRQOfWjstUOABoCrFKtK1L/8LfRuMNJY
-        8+VEn2FF0DHTId1THePB1nB+ygVeaizt6g==
-X-Google-Smtp-Source: ABdhPJxTVmT++JGIfPFxAFw/cUWQbdbBBnEAlmt/aE5Rk5YxwJps804dy0kn1YM/F2fXERd1acNpOg==
-X-Received: by 2002:a17:902:d916:b029:11e:3249:4a17 with SMTP id c22-20020a170902d916b029011e32494a17mr5151923plz.0.1627702796961;
-        Fri, 30 Jul 2021 20:39:56 -0700 (PDT)
+        bh=uu64qWZSkqkxKc/cDxEdBQJx/esTz7cmUOAptRZ+Nco=;
+        b=lLvXAKwnGRRdOPd+twEGD1a0uV3TrGz2MbxUgqYSXBhsGdDFKZKx+MhEhfyTdhNseN
+         HkwZ98DcM8I5Egl14dar4KGR/UdODtk8Am7BZYLSw8p/KX82bMcBtsex5DByhWUOC2Ed
+         nznsUDlnZPgBa+DkmIxDw2fE2ZYuXe2AN3UhZODbMNPAEa8CCIDdQgMqiBWbllWIi5Ja
+         2mbX/Q88Snt9qpRHHpXLCLJqlocuh07jeiasUBKzW8gmS7wWvPV6lZNN7bWtUeumEmAj
+         Z4Qar5Jdok8kCjtb2ZRDzd4bFvEQg3hkgtRgsiv3sPc+42AeVvl03uHcprh7VKZtLlQs
+         7GHg==
+X-Gm-Message-State: AOAM533zsLoEL+2QoJhYc9G8yNnBkguylCfXpPUCXfTcg637BlnAGXxg
+        5AfZ+6dDfqFSfiREgfZl063FQnm9X3O0WA==
+X-Google-Smtp-Source: ABdhPJyPiwqIaNCJJ1UQEnRwAgfCyNn7EpiS7jMNGyXJvRDIFcDKFC4zR+lVRaJAmfzFqeilPX8v1g==
+X-Received: by 2002:a17:90a:ce03:: with SMTP id f3mr6357187pju.30.1627703111778;
+        Fri, 30 Jul 2021 20:45:11 -0700 (PDT)
 Received: from localhost.localdomain ([1.145.37.91])
-        by smtp.gmail.com with ESMTPSA id z14sm4005017pfr.121.2021.07.30.20.39.55
+        by smtp.gmail.com with ESMTPSA id m11sm4635635pgn.56.2021.07.30.20.45.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Jul 2021 20:39:56 -0700 (PDT)
-Date:   Sat, 31 Jul 2021 13:39:52 +1000
+        Fri, 30 Jul 2021 20:45:11 -0700 (PDT)
+Date:   Sat, 31 Jul 2021 13:45:07 +1000
 From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
 To:     linux-man@vger.kernel.org
-Cc:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>
-Subject: [PATCH 1/2] man-pages.7: wfix
-Message-ID: <20210731033948.z33f5rllnqjk57lx@localhost.localdomain>
+Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
+        "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Subject: [PATCH 2/2] man-pages.7: Update non-breaking space advice.
+Message-ID: <20210731034458.6s76okhgjxw42mpx@localhost.localdomain>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="tduuu2ndu4lqgvry"
+        protocol="application/pgp-signature"; boundary="szqtfben7v24qcyy"
 Content-Disposition: inline
 User-Agent: NeoMutt/20180716
 Precedence: bulk
@@ -64,92 +64,134 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---tduuu2ndu4lqgvry
-Content-Type: multipart/mixed; boundary="gydcmk4q2vwszjj6"
+--szqtfben7v24qcyy
+Content-Type: multipart/mixed; boundary="5w6vdy2s6czwjjtk"
 Content-Disposition: inline
 
 
---gydcmk4q2vwszjj6
+--5w6vdy2s6czwjjtk
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Saw this while preparing the "switch to \~" change Alex invited.
+* Advise usage of \~ escape instead of \SPACE; the former, a groff
+  extension from circa 1990, has been supported by Heirloom Doctools
+  troff since 2005 and by mandoc since 2019.  The advantage is that
+  \~ is an _adjustable_ non-breaking space, so it will typeset
+  non-jarringly both in .EX/.EE examples when filling is off, and in
+  normal running text (which is filled).
+* Say "non-breaking" instead of "nonbreaking".  These are the only
+  occurrences of either in the man-pages tree, except in Changes.old,
+  which uses "non-breaking".
 
+See linux-man@ list discussion at
+<https://lore.kernel.org/linux-man/\
+20210729115508.pt6btsqd7g5tuhg6@localhost.localdomain/> and follow-ups.
 ---
- man7/man-pages.7 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ man7/man-pages.7 | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/man7/man-pages.7 b/man7/man-pages.7
-index 6cb805343..3819dfd97 100644
+index 3819dfd97..06dc7097c 100644
 --- a/man7/man-pages.7
 +++ b/man7/man-pages.7
-@@ -638,7 +638,7 @@ makes it easier to write tools that parse man page sour=
-ce files.)
- .SS Use semantic newlines
- In the source of a manual page,
- new sentences should be started on new lines,
--and long sentences should split into lines at clause breaks
-+and long sentences should be split into lines at clause breaks
- (commas, semicolons, colons, and so on).
- This convention, sometimes known as "semantic newlines",
- makes it easier to see the effect of patches,
+@@ -686,14 +686,14 @@ man 7 man\-pages
+ If the command is short, then it can be included inline in the text,
+ in italic format, for example,
+ .IR "man 7 man-pages" .
+-In this case, it may be worth using nonbreaking spaces
+-("\e\ ") at suitable places in the command.
++In this case, it may be worth using non-breaking spaces
++(\e\(ti) at suitable places in the command.
+ Command options should be written in italics (e.g.,
+ .IR \-l ).
+ .PP
+ Expressions, if not written on a separate indented line, should
+ be specified in italics.
+-Again, the use of nonbreaking spaces may be appropriate
++Again, the use of non-breaking spaces may be appropriate
+ if the expression is inlined with normal text.
+ .PP
+ When showing example shell sessions, user input should be formatted in bol=
+d, for example
 --=20
 2.20.1
 
 
---gydcmk4q2vwszjj6
+--5w6vdy2s6czwjjtk
 Content-Type: text/x-diff; charset=us-ascii
-Content-Disposition: attachment; filename="0001-man-pages.7-wfix.patch"
+Content-Disposition: attachment; filename="0002-man-pages.7-Update-non-breaking-space-advice.patch"
 Content-Transfer-Encoding: quoted-printable
 
-=46rom 73c9edb11ab7d147167268ac1fd5c5e6f81f2374 Mon Sep 17 00:00:00 2001
+=46rom 302aa3a0f2e5f0c3e9188936d4b0a25761ff5fd7 Mon Sep 17 00:00:00 2001
 =46rom: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Date: Sat, 31 Jul 2021 13:30:30 +1000
-Subject: [PATCH 1/2] man-pages.7: wfix
+Date: Sat, 31 Jul 2021 13:30:58 +1000
+Subject: [PATCH 2/2] man-pages.7: Update non-breaking space advice.
 
+* Advise usage of \~ escape instead of \SPACE; the former, a groff
+  extension from circa 1990, has been supported by Heirloom Doctools
+  troff since 2005 and by mandoc since 2019.  The advantage is that
+  \~ is an _adjustable_ non-breaking space, so it will typeset
+  non-jarringly both in .EX/.EE examples when filling is off, and in
+  normal running text (which is filled).
+* Say "non-breaking" instead of "nonbreaking".  These are the only
+  occurrences of either in the man-pages tree, except in Changes.old,
+  which uses "non-breaking".
+
+See linux-man@ list discussion at
+<https://lore.kernel.org/linux-man/\
+20210729115508.pt6btsqd7g5tuhg6@localhost.localdomain/> and follow-ups.
 ---
- man7/man-pages.7 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ man7/man-pages.7 | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/man7/man-pages.7 b/man7/man-pages.7
-index 6cb805343..3819dfd97 100644
+index 3819dfd97..06dc7097c 100644
 --- a/man7/man-pages.7
 +++ b/man7/man-pages.7
-@@ -638,7 +638,7 @@ makes it easier to write tools that parse man page sour=
-ce files.)
- .SS Use semantic newlines
- In the source of a manual page,
- new sentences should be started on new lines,
--and long sentences should split into lines at clause breaks
-+and long sentences should be split into lines at clause breaks
- (commas, semicolons, colons, and so on).
- This convention, sometimes known as "semantic newlines",
- makes it easier to see the effect of patches,
+@@ -686,14 +686,14 @@ man 7 man\-pages
+ If the command is short, then it can be included inline in the text,
+ in italic format, for example,
+ .IR "man 7 man-pages" .
+-In this case, it may be worth using nonbreaking spaces
+-("\e\ ") at suitable places in the command.
++In this case, it may be worth using non-breaking spaces
++(\e\(ti) at suitable places in the command.
+ Command options should be written in italics (e.g.,
+ .IR \-l ).
+ .PP
+ Expressions, if not written on a separate indented line, should
+ be specified in italics.
+-Again, the use of nonbreaking spaces may be appropriate
++Again, the use of non-breaking spaces may be appropriate
+ if the expression is inlined with normal text.
+ .PP
+ When showing example shell sessions, user input should be formatted in bol=
+d, for example
 --=20
 2.20.1
 
 
---gydcmk4q2vwszjj6--
+--5w6vdy2s6czwjjtk--
 
---tduuu2ndu4lqgvry
+--szqtfben7v24qcyy
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmEExfwACgkQ0Z6cfXEm
-bc4weg/+KXnarELYOUFZDtG4tYKIanIghSjXptRhhxxEyoxg2J98JlRFT9EmgZrG
-gmo8v7MZdq7vzYlbg6Aa+S31eyKuhlWOTLkVlozM/HjODB8W8Zxlk0TDB+LfJZHf
-NngxW3nl6kwtnQJ2Le0JQYqS/rZSmM+DPJUd2VcBVthbw1SiTei8ly0gF7NHFt1m
-sElMDrpSG+MAYEWD6sk5TcQ4L1RxeayZoOeEFUpXAJKTRFKFmGOeHKfOgWq0XoGP
-mI3ZQYvxtpIzA+de0Vz8nRzcx4MMPCOcVtTJDwahveXpxQ20uaXAXzQBmyW8FD+Q
-0aaqp6JO7QpIs2cyr5GpBQTvEcLj50G+CSyRxvD544Qg3JmIyHnoEY3npTTDViXD
-jrlDX75451ETa2ogtSpuHJFY1YS9ISAKYujPQ38QR77+iZMxCTASYMxtBsg7IxV4
-Xvf+jKyOdBSz4rPZC63ZCrCb2S/mK23LMm0KSocUPVtypzINUhhx5g1XSvmEes90
-wH9hIKg2yd1dqI6DtFpLJ/Jb3E+51j6HZm+fE9qS4ABbpoLYf4IAFys6hErBXCGP
-HnjVtIcDnRxEWF6NeAUQ33MUExM98gtJe8EHRH/oLE6nuyCKgjkzsOLBGdtZuHnb
-bu4HWTPcIxPoCkprGm07AcZ02rTwheHwbSIAf02S4TyLV5dpMTU=
-=kU4R
+iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmEExzoACgkQ0Z6cfXEm
+bc5RuA/+NwMjX+wPQBw8bmGYXunlPtwnbT99qIet/C+8FmijgBhU8PC6psQFDnQB
+YvgMYCf8BD8TO7gNEeCio/Ic6ozc02PV7eWUis/wM70iZVNPOKNN7Ptbn7HJAfEG
+rGEB06Lx9Q44nVIPQiG2W35KQMlQ7UncSn3ANPllyLYGF5fQu1Fj9vT9HThFP8Yi
+zGQ0oWs1LE/3TE3RfNqHEIkbmlJqaySytUFdj5h6SXafvziFNv7OxeL4Hc0fpcb6
++T85LsbCUyP9ZawgB3PkmTO9UcoD3bRwoat4ZLSYHTusi0sHmyMwZG8FG6JN9vVD
+0TzIW9BkXs4c3SJ7iL84huMczKbEwCm3jRnznU73HO0dCL/4UGnhBF+BOfkw225E
+2opYUontZgyFBtxO1ComBzJTBN20XL7uFXEzllkxqofWYFlRlBrYNFO/4nELMzll
+Wr4ZkrX7P5093quLJOUKz2iubJsxTE3fPjCtvG6B7NiyAjEyGvEozoiItvAeFugK
+6U4Y35ABGHXXKDluQTO8d4W8RDY6GB0DjQrvV0IOuN8nn9cJ+Nlk/KJ/AZHNTV4q
+1EeRl0Y4T694K/4HsaOocXb5dRiW8eQ9LXWgdTZlygdtLRvsLKNQNxeREiDB3ire
+rrePIduMyF+vWjqKd8QgXzvAUTDZr43bwbgz0Pef+ikAEGiI1YI=
+=jWdr
 -----END PGP SIGNATURE-----
 
---tduuu2ndu4lqgvry--
+--szqtfben7v24qcyy--
