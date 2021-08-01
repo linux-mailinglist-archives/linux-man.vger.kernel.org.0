@@ -2,99 +2,65 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id ED4F93DC66D
-	for <lists+linux-man@lfdr.de>; Sat, 31 Jul 2021 16:55:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id EB1953DCAC3
+	for <lists+linux-man@lfdr.de>; Sun,  1 Aug 2021 10:32:05 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233196AbhGaOzc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 31 Jul 2021 10:55:32 -0400
-Received: from mail.kernel.org ([198.145.29.99]:48018 "EHLO mail.kernel.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S233232AbhGaOzc (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Sat, 31 Jul 2021 10:55:32 -0400
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 8CF5F60F56;
-        Sat, 31 Jul 2021 14:55:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1627743325;
-        bh=tLLeTpMhazTkZUfSLYM1FqjU6B2AB8y8pUmQZYq9noY=;
-        h=From:To:Subject:Date:From;
-        b=IkcE290CRc9gFknl2FFxCK+UDH9kiHZNEc0b9yxkCkHUzn3zV/TYq/Oy2q7gx3H4L
-         SSWl+LyqTJPxyhbNc65r0J0tzGVXurwRhtWzzP8QUzXCewJzhKyrO5rb+bRC4ILy6G
-         7k4f/zxikmrhNOXXUg1NxykPpg5Z/vOVYx4l299rbIgI+8OvxGG3fqo9QQl0EhoqNe
-         nftuGPu32LTGpXH7MIYuJahr7j1i/LHmp2tgUDgz2KUAu9xYymmQcDoaTSHw9+hOHe
-         R8yf4+Jftb7s535SJ/7D5gn+MJCRlRJhBMY1AXRZ1GZkJSXZKu5VMb85TOgzY619aj
-         zw8BTRGJPXl5g==
-Received: by pali.im (Postfix)
-        id 211B8941; Sat, 31 Jul 2021 16:55:23 +0200 (CEST)
-From:   =?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>
-To:     linux-man@vger.kernel.org,
-        Alejandro Colomar <alx.manpages@gmail.com>,
-        "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>
-Subject: [PATCH] termios.3: SPARC architecture has 4 different Bnnn constants
-Date:   Sat, 31 Jul 2021 16:55:01 +0200
-Message-Id: <20210731145501.9944-1-pali@kernel.org>
-X-Mailer: git-send-email 2.20.1
+        id S230087AbhHAIcM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 1 Aug 2021 04:32:12 -0400
+Received: from poczta.vectranet.pl ([88.156.222.93]:47406 "EHLO
+        poczta.vectranet.pl" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S229885AbhHAIcL (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 1 Aug 2021 04:32:11 -0400
+X-Greylist: delayed 2230 seconds by postgrey-1.27 at vger.kernel.org; Sun, 01 Aug 2021 04:32:11 EDT
+Received: from localhost (localhost [127.0.0.1])
+        by poczta.vectranet.pl (Postfix) with ESMTP id 0F462460891;
+        Sun,  1 Aug 2021 09:54:52 +0200 (CEST)
+Received: from poczta.vectranet.pl ([127.0.0.1])
+        by localhost (abo-poczta.vectranet.pl [127.0.0.1]) (amavisd-new, port 10024)
+        with ESMTP id E6BCa2+lGd-w; Sun,  1 Aug 2021 09:54:51 +0200 (CEST)
+Received: from evbox.pl (localhost [127.0.0.1])
+        by poczta.vectranet.pl (Postfix) with ESMTP id 34C2446082B;
+        Sun,  1 Aug 2021 09:54:51 +0200 (CEST)
+Received: from 41.144.71.155
+        (SquirrelMail authenticated user rnowakowskii@evbox.pl)
+        by evbox.pl with HTTP;
+        Sun, 1 Aug 2021 09:54:51 +0200
+Message-ID: <60fb2dfbbb0312fbe8730ee243ccf0fc.squirrel@evbox.pl>
+Date:   Sun, 1 Aug 2021 09:54:51 +0200
+Subject: Invitation to Bid
+From:   "Pfizer" <info@pfizer.com>
+Reply-To: pfizersupplier@daum.net
+User-Agent: SquirrelMail/1.4.19
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type:   text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7BIT
+X-Priority: 3 (Normal)
+Importance: Normal
+To:     undisclosed-recipients:;
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-SPARC is special, it does not have Bnnn constants for baud rates above
-2000000. Instead it defines 4 Bnnn constants with smaller baud rates.
+Good Day Sir / Ms.,
 
-This difference between SPARC and non-SPARC architectures is present in
-both glibc API (termios.h) and also kernel ioctl API (asm/termbits.h).
+We are pleased to invite you or your company to quote the following item
+listed below:
 
-Signed-off-by: Pali Rohár <pali@kernel.org>
----
- man3/termios.3 | 23 +++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
+Product/Model No: ADEX MEDIUM PRESSURE PUMP MODEL NO: WK2789
+Qty. 45 units
 
-diff --git a/man3/termios.3 b/man3/termios.3
-index 7b195c95912b..2ff8cc80e9eb 100644
---- a/man3/termios.3
-+++ b/man3/termios.3
-@@ -952,15 +952,38 @@ to by \fItermios_p\fP to \fIspeed\fP, which must be one of these constants:
- 	B1000000
- 	B1152000
- 	B1500000
- 	B2000000
-+.ft P
-+.fi
-+.PP
-+On SPARC architecture are additionally supported these constants:
-+.PP
-+.nf
-+.ft B
-+	B76800
-+	B153600
-+	B307200
-+	B614400
-+.ft P
-+.fi
-+.PP
-+On non-SPARC architectures are additionally supported these constants:
-+.PP
-+.nf
-+.ft B
- 	B2500000
- 	B3000000
- 	B3500000
- 	B4000000
- .ft P
- .fi
- .PP
-+Due to differences between architectures, portable applications should check
-+if particular
-+.BI B nnn
-+constant is defined prior using it.
-+.PP
- The zero baud rate, \fBB0\fP,
- is used to terminate the connection.
- If B0 is specified, the modem control lines shall no longer be asserted.
- Normally, this will disconnect the line.
--- 
-2.20.1
+We are in desperate need of this item due to the overwhelming demand for
+COVID 19 vaccine.
+
+If your supplier have the items to the quantity required, kindly send us
+your quotation to order@pfizersupplier.com for immediate approval.
+
+Kind Regards,
+Albert Bourla
+
+PFIZER BV Supply Chain Manager
+Phone: 31 (0) 208 080 880
+Email: order@pfizersupplier.com
+ADDRESS: Rivium Westlaan 142, 2909 LD
+Capelle aan den IJssel, Netherlands
 
