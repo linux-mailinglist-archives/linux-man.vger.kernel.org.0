@@ -2,179 +2,168 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8172D3DCB35
-	for <lists+linux-man@lfdr.de>; Sun,  1 Aug 2021 12:38:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2F42F3DCB42
+	for <lists+linux-man@lfdr.de>; Sun,  1 Aug 2021 12:49:44 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231473AbhHAKit (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 1 Aug 2021 06:38:49 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42636 "EHLO
+        id S231518AbhHAKtu (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 1 Aug 2021 06:49:50 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45314 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231470AbhHAKit (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 1 Aug 2021 06:38:49 -0400
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com [IPv6:2a00:1450:4864:20::42a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2DDF5C06175F
-        for <linux-man@vger.kernel.org>; Sun,  1 Aug 2021 03:38:40 -0700 (PDT)
-Received: by mail-wr1-x42a.google.com with SMTP id c16so17785467wrp.13
-        for <linux-man@vger.kernel.org>; Sun, 01 Aug 2021 03:38:40 -0700 (PDT)
+        with ESMTP id S231470AbhHAKtu (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 1 Aug 2021 06:49:50 -0400
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com [IPv6:2a00:1450:4864:20::434])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 64682C06175F
+        for <linux-man@vger.kernel.org>; Sun,  1 Aug 2021 03:49:42 -0700 (PDT)
+Received: by mail-wr1-x434.google.com with SMTP id k4so7018462wrc.0
+        for <linux-man@vger.kernel.org>; Sun, 01 Aug 2021 03:49:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=pIeCqAWeEzg0RChzRUMYwE8KOMd2dQJ2ywUoaZ1BQFc=;
-        b=fgVPp1Blo6nqyxumVKxqO7J2/mpo5fVW7qk9Q2LJhxBfSwIjmO8z7Zj5o+Pc7WNFnn
-         6QR8katE4jYF2uZdroiZnxNv9dejlO7ohXHd+ZtzL21vO3qQ98JOrueoW7vkm7qPz150
-         2VUJAFnOzh8nFix0lZzW6ViT0cI1B3nFmfx35l56j3pq8JVEQvIFua2d2xYLKT42my+v
-         TIk8TjW2Ha+dyCixiSNdSaw9Al/V2UPztcArJsL+cb7Mn5BqEjkh2bMfgqj4JhTaemTi
-         qVtbku2Os78IM2V4cQ47SqYTCeQsTEMijP2GEjVrXcynXB5uX4RSxBpdN9EDOkDzU/Ru
-         G6yw==
+        bh=A0fZRBQOGKxE68Zu2dehKDi3NmkYZFHQ/oz0A2hEPeU=;
+        b=CnqBHaode0gbe8Z5seagxDs1VE/1BG/TYTiVWkwJGt3jibslTT1LUbmbZJDXkF6zLT
+         LdrO9toMhCmqJLA4OZlGemzxChU7xgVm8Yqfg87bm6idSvez8PjiUSmj4I0kNtnBqkdr
+         i8/+OdhH4ENltGVfcWyoRg1NR34TAsO3vn03cfVLQHwbFcudJ5xZZvb6YVG959PMyCz2
+         A81RtZYuT9Bz0PEwLAB8UdUTznW4Y2md6DHWYKLdfIDHaSo+p0hAHFAmdpfDKlhDyIux
+         JxD5gz8AlYlPs+Q8x7FNu0f0oLwQv4c2orXtomAut3Ms3rRrlAiypeXSSQn7PMsU3fSJ
+         hk5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=pIeCqAWeEzg0RChzRUMYwE8KOMd2dQJ2ywUoaZ1BQFc=;
-        b=kX3x9jjROnWpcn/LUTkXccldhRr79Chbx9pukdD4ydTcqzmDvxsILI201m2BGxZJK5
-         Xd1AkBW1wpVdXQnNbTrj4/OO/7eS5nZTDMrzyP49glPPVeCHhwhOPPQXxjnQeRgRVEoh
-         NEJZ45cHHLj/mclOMbDZ5iVhGbY9kWwsX6HgGfMuywkDUj2inSuj5w2CtfoILVOoWKXw
-         KmOePATlkML7qV+WL/9ADJ07Lvy8odMPeERDXGDD3EPmKWLEoPwI22xLT1ZKDiU0f2vj
-         iEY94YFPRhHPthcW/jN51Ga365zQo5NWYNz0BFblUP4ct5XU9eC/selaSQDjFXAGZ3XZ
-         zXxA==
-X-Gm-Message-State: AOAM530u2HrMJV84lMWsBvHjh21GjsHv9ld0uYun0+7U1M83Fl/WfWsD
-        UVHlBxKMVjembJ0zDyYbcfwpT4pQIQ8=
-X-Google-Smtp-Source: ABdhPJyftuiBOpyHfDnDYtMgGNjmKMShVnV8f5fqIyVn9iZm32IDLLvCMzgqSMMbwwdPUuxAQNww/A==
-X-Received: by 2002:a5d:6306:: with SMTP id i6mr12338809wru.94.1627814318702;
-        Sun, 01 Aug 2021 03:38:38 -0700 (PDT)
+        bh=A0fZRBQOGKxE68Zu2dehKDi3NmkYZFHQ/oz0A2hEPeU=;
+        b=aPO+7PcDdZR9iw3y94JjsHEY6CiPhc4TXIe3Pg6jw4CRLUVSAC1NpvOTVHUTzeiMYH
+         LfqHLqhDfWyLqh/X+NNIIpwN6T/kSbozl2rPnt2DjL25nQrxmgDYs4mu/DjglFmaCVsO
+         vRHr/dAdYpQ8IyrORyzOxwWo+sQ7f9MoTxdhRDpplfTUTiP2xG/yhOOsJNwSugS0umpt
+         w7Y4pqLjwZnHqUFzsRaD34OH2rFoJJaEUEDGNIaudNhp4xmV2HDh8/xjps+Jdr4whVsV
+         90KRRKdDPTBM+1fq1PfY0lyPPGD18qRLbFkQaKJBOESsznN6tuEb1XJkhUNDWPJefjOl
+         FQTg==
+X-Gm-Message-State: AOAM530s3xaRWMRfnT0zYCZxAQhlv5aRbphitt8G8fzOufIamIkJ2Wtt
+        sy7JFXuSD/zx+RPlTu3zR8TTp2Ci3IA=
+X-Google-Smtp-Source: ABdhPJw3iLLdZbc+ASGdLj+zFLmRH18nGQbXrSv8BwDzuKyKXYQakuxrep4vBimklLqBvJEN3Ho0hA==
+X-Received: by 2002:a5d:6184:: with SMTP id j4mr12331825wru.340.1627814980924;
+        Sun, 01 Aug 2021 03:49:40 -0700 (PDT)
 Received: from [10.8.0.10] ([195.53.121.100])
-        by smtp.gmail.com with ESMTPSA id l41sm7688762wmp.23.2021.08.01.03.38.37
+        by smtp.gmail.com with ESMTPSA id c10sm7171157wmb.40.2021.08.01.03.49.40
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 01 Aug 2021 03:38:38 -0700 (PDT)
-Subject: Re: [PATCH v2] mount_setattr.2: New manual page documenting the
- mount_setattr() system call
+        Sun, 01 Aug 2021 03:49:40 -0700 (PDT)
+Subject: Re: [PATCH 2/2] man-pages.7: Update non-breaking space advice.
 To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc:     linux-man@vger.kernel.org
-References: <20210730094121.3252024-1-brauner@kernel.org>
- <9ba8d98e-dee9-1d8d-0777-bb5496103e24@gmail.com>
- <20210731014251.whqfubv3hzu3mssw@localhost.localdomain>
- <00d3c648-bdb5-3005-807f-ec2d3360f16a@gmail.com>
- <20210801100234.mcgwwxr42wxwe7gf@localhost.localdomain>
+Cc:     Michael Kerrisk <mtk.manpages@gmail.com>, linux-man@vger.kernel.org
+References: <20210731034458.6s76okhgjxw42mpx@localhost.localdomain>
+ <e097bf4a-7188-e810-7d3b-e4d1469397d3@gmail.com>
+ <20210801101221.poigrttumltcdenl@localhost.localdomain>
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <1cde7dff-b62b-4697-1229-dd02529b3110@gmail.com>
-Date:   Sun, 1 Aug 2021 12:38:36 +0200
+Message-ID: <233dc372-453f-713e-13ef-cb59721e806a@gmail.com>
+Date:   Sun, 1 Aug 2021 12:49:39 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <20210801100234.mcgwwxr42wxwe7gf@localhost.localdomain>
-Content-Type: text/plain; charset=utf-8; format=flowed
+In-Reply-To: <20210801101221.poigrttumltcdenl@localhost.localdomain>
+Content-Type: text/plain; charset=windows-1252; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Branden!
+Hi, Branden!
 
-On 8/1/21 12:02 PM, G. Branden Robinson wrote:
-> [CC list brutally trimmed]
-> 
+On 8/1/21 12:12 PM, G. Branden Robinson wrote:
 > Hi, Alex!
 > 
-> At 2021-07-31T13:20:59+0200, Alejandro Colomar (man-pages) wrote:
->> On 7/31/21 3:42 AM, G. Branden Robinson wrote:
-> [...]
->>> I recommend:
->>>
->>> .BI MOUNT_ATTR_SIZE_VER number\c
->>> \&.
+> At 2021-07-31T13:42:08+0200, Alejandro Colomar (man-pages) wrote:
+>> On 7/31/21 5:45 AM, G. Branden Robinson wrote:
+>>> * Advise usage of \~ escape instead of \SPACE; the former, a groff
+>>>     extension from circa 1990, has been supported by Heirloom
+>>>     Doctools troff since 2005 and by mandoc since 2019.  The
+>>>     advantage is that \~ is an _adjustable_ non-breaking space, so it
+>>>     will typeset non-jarringly both in .EX/.EE examples when filling
+>>>     is off, and in normal running text (which is filled).
 >>
->> I also prefer your way (at least in cases like this one (maybe in the
->> synopsis \f would be more appropriate)).  It is more consistent with
->> our current style of placing each identifier in a line of its own, and
->> normal text separately (punctuation is placed wherever it's simpler,
->> but in this case I think it's simpler in a separate line).
+>> Thanks for the patch!
 > 
-> Another benefit of using the font escapes that I was reminded of today
-> while doing a big revision pass on groff_man_style(7)[1] is that you get
-> italic corrections for free with them.  This was already true to some
-> extent in groff 1.22.4, but I refactored the implementation of the
-> macros earlier this year to be brutally consistent[2].
-> 
-> I would say that I like being able to tell man page authors that they
-> need not learn the italic correction escapes, but I'd probably hear from
-> many of them that they had no intention of doing so in the first place.
-> I might get threatened with defections to RST and Sphinx just for
-> bringing it up.  🤣
+> You're welcome!  I've found no use cases for "\ " in man pages.  \~ is
+> almost always what is desired.
 
-What are "font escapes" and "italic correction escapes"?  I don't know 
-those technical terms.
+Agreed.
 
 > 
-> [...]
->>> groff -man -rCHECKSTYLE=n
-> [...]
->> I'll try it.  Thanks!
-> 
-> Cool!
-> 
+>>> * Say "non-breaking" instead of "nonbreaking".  These are the only
+>>>     occurrences of either in the man-pages tree, except in
+>>>     Changes.old, which uses "non-breaking".
 >>
->>>>> +.BR open_tree (2)
->>>>> +with the
->>>>> +.I OPEN_TREE_CLONE
->>>>> +flag and it must not already have been visible in the filesystem.
->>>>> +.RE
->>>>> +.IP
->>>>
->>>> .IP here doesn't mean anything, if I'm not mistaken.
->>>
->>> It certainly _should_--it should cause the insertion of vertical
->>> space.  (It would also cause a break, but .RE already did that.)
->>>
->>> The interaction of .IP and .RS/.RE is tricky and can probably be
->>> blamed, back in 2017, for irritating me to the point that I became a
->>> groff developer.  I've documented it as extensively as I am able in
->>> groff_man_style(7)[1].
+>> I'll do as usual and copy here an extract from man-pages(7) :) :
 >>
->> Yes, indeed there are 2 consecutive blank lines, which is incorrect
->> most likely.
+>>     Hyphenation with multi, non, pre, re, sub, and so on
 > 
-> That sounds like a bug in your man(7) renderer, and it sounds badly
-> violative of the semantics of these macros in _any_ implementation.
-> (You can't stack adjacent paragraph macros to make additional blank
-> space; you just get the one.[3])  This stuff has been stable since 1979.
+> Ahhh, ha.  Yes.  This is an impedance mismatch between the house styles
+> of the Linux man-pages and groff, at least as applied specifically to
+> the word "non-?breaking", which sees frequent use in discussions of
+> typesetting.
 > 
-> I do not get _2_ blank lines after the paragraph ending "visible in the
-> filesystem."  Just one.  None of groff 1.22.4 (Debian), groff Git HEAD,
-> nor mandoc 1.14.4 misrender for me in that way.  What's your tool set?
-> If it's groff, I'm intensely curious to know how it's screwing this up.
-> I can likely help you root-cause it.
+>> BTW, this one also doesn't apply.  I think it is probably your mailer.
+>> Can you use git-send-email(1)?
+> 
+> Apparently not.  :(
+> 
+> $ git send-email
+> git: 'send-email' is not a git command. See 'git --help'.
+> $ git --help -a | grep send
+>     imap-send            Send a collection of patches from stdin to an IMAP folder
+>     send-email           Send a collection of patches as emails
+>     send-pack            Push objects over Git protocol to another repository
 
-Ahh, I used mgroff(1) (mental groff).  I should debug my mental parser.
+$ apt-file find git-send-email
+git-doc: /usr/share/doc/git-doc/git-send-email.html
+git-doc: /usr/share/doc/git-doc/git-send-email.txt
+git-email: /usr/lib/git-core/git-send-email
+git-email: /usr/share/man/man1/git-send-email.1.gz
 
-So, as I suspected, that .IP is ignored, if my mental groff is working 
-correctly now.
+
+You should install git-email if you're on Debian.
+
+apt-cache also helps if you don't know the exact name of the 
+git-send-email file:
+
+
+user@sqli:~$ apt-cache search git email | grep -e git -e email | grep -v 
+github
+git-email - fast, scalable, distributed revision control system (email 
+add-on)
+git-notifier - git commit email notification script
+git-publish - git command to prepare and store patch revisions as git tags
+ruby-email-reply-parser - Small library to parse plain text email content
+svn-all-fast-export - fast-import based converter to convert repos from 
+Subversion to git
+
+
 
 > 
->> Probably a glitch of copying and pasting without really understanding
->> what each macro does (not to blame Christian, but that the
->> groff_man(7) language (or dialect actually) is not something familiar
->> to programmers, and most of them legitimately don't have time to learn
->> it well).
+> I did a web search and did not find any reports that NeoMutt does
+> violence to Git-formatted patches.  Perhaps it is GMail's fault?  (I use
+> its SMPTS server to send mail.)  Does someone on this list have
+> experience with this MUA and/or provider?  Is there a trick?
+
+I also use gmail, so their servers shouldn't cause any errors, I guess. 
+  But I'm no expert on emailing.
+
+
+[sendemail]
+	smtpuser = alx.manpages
+	smtpserver = smtp.googlemail.com
+	smtpencryption = tls
+	smtpserverport = 587
+	smtpPass = my_password_goes_here
+
+
 > 
-> There is a wealth of terrible examples to follow, which make the
-> language seem harder than it is.  A large part of my work on groff's man
-> pages has been to make them good examples to follow--but as, at my last
-> count, groff's ~60 man pages produce 364 pages of type on U.S. letter
-> paper, this is a process that is taking some time.
+> This would explain my Michael despaired of my patch submissions even
+> when I kept their scopes under control.
 > 
-> I acknowledge that you and Michael are wrestling an even bigger bear. :)
 
-Yup.  Since almost when I started here, I'm trying to have the man-pages 
-be consistent across all of the pages, both in terms of source code and 
-rendered output.  Not an easy thing...
-
-I hope that when I finish this (if it can ever be finished), reading and 
-writing man-pages is a simpler task for newbies :)
-
-Regards,
+Cheers,
 
 Alex
 
