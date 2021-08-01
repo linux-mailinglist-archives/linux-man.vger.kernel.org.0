@@ -2,125 +2,146 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 4F42E3DCB00
-	for <lists+linux-man@lfdr.de>; Sun,  1 Aug 2021 12:04:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9C6F83DCB0D
+	for <lists+linux-man@lfdr.de>; Sun,  1 Aug 2021 12:12:30 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231684AbhHAKE0 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 1 Aug 2021 06:04:26 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34264 "EHLO
+        id S231470AbhHAKMh (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 1 Aug 2021 06:12:37 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36262 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231752AbhHAKEU (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 1 Aug 2021 06:04:20 -0400
-Received: from mail-pj1-x102c.google.com (mail-pj1-x102c.google.com [IPv6:2607:f8b0:4864:20::102c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 43070C0613D3
-        for <linux-man@vger.kernel.org>; Sun,  1 Aug 2021 03:04:10 -0700 (PDT)
-Received: by mail-pj1-x102c.google.com with SMTP id mz5-20020a17090b3785b0290176ecf64922so27322938pjb.3
-        for <linux-man@vger.kernel.org>; Sun, 01 Aug 2021 03:04:10 -0700 (PDT)
+        with ESMTP id S231446AbhHAKMg (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 1 Aug 2021 06:12:36 -0400
+Received: from mail-pj1-x1033.google.com (mail-pj1-x1033.google.com [IPv6:2607:f8b0:4864:20::1033])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id ED6EDC06175F
+        for <linux-man@vger.kernel.org>; Sun,  1 Aug 2021 03:12:27 -0700 (PDT)
+Received: by mail-pj1-x1033.google.com with SMTP id ds11-20020a17090b08cbb0290172f971883bso27398108pjb.1
+        for <linux-man@vger.kernel.org>; Sun, 01 Aug 2021 03:12:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=date:from:to:cc:subject:message-id:references:mime-version
          :content-disposition:in-reply-to:user-agent;
-        bh=i64Brf9ZV5ZwImlowZ7ZVBPtNJ0MeWqrFwCKfEU1ABc=;
-        b=AHB2aBORlMaRV653XegikwWiin0b3XIldJk443Loi+RDE1aY8WX38SR9E/eXXMu8YX
-         5XSEa7rv6h1pzoYAxJttM8H/4q3/oGoM7ocKaFqaBNwhC8qh/Eh+yxvG4MAlXZxnaVXn
-         GSrAQY9InrOSuvhPnlqhMi7oqGiEzxUmy/uASa/oLNoyZzxbQ1TakMhnTR8gfRus/li2
-         6bUbGemjBqh7cPHUwmeanoNWCzHk8YbwmeMuiBreFLpfHlq8RpxDcLnU3g5OkZXBt3lH
-         fXkQbt5rvB6CHptgIfYGhhZ1Yu3Svst74UlZj+B4FDya8FpbmRDbcRcIYZurMIMXFk/m
-         OKVw==
+        bh=CvZea/HEA+RIaVaYpJguk8W157jqic9sEobAO84URAw=;
+        b=is92gEqvlsP15p1N85yOuAU4MBzjhDBpfwCHabMr2b9snhkXZZZowJ0R8TNHxhNjdc
+         I+O30LMZ7gUJdg2KzVC4FYqh0wLiaJbnKccrwNDZfVQT1iF780Ng6iHOhPh7q2dW+Koc
+         3JQ/UeRPZdxJ0Q0nWJS2zBfNIfVNvV4K0e3n5Jfnu/Qzu8zS6JngTK92Xn9uYyIE2NWX
+         po70MhuGPety0M2dN1IAkcugeowf583gHuNN+pgVw+dPLRRJ5vOCGQMhrLahCZt00UmZ
+         yKr++9F5d97VjJtLxkWxN63W4KmzQsP5p1OQn8qBUW7llSaNeeQWXsjHeAggqV+Jt5yg
+         knyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:date:from:to:cc:subject:message-id:references
          :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=i64Brf9ZV5ZwImlowZ7ZVBPtNJ0MeWqrFwCKfEU1ABc=;
-        b=FczYday2WfDqeNTr4x6n7dlMdlaUztJCnUY9ShUB+KPyj2kRZd40Vd+PUZaBowgVr7
-         iHwyV882PzJMeuwC8cb/0YRqvjegFBlT1T5APZaSwYakYdwoky0c1lnBh3Goa9n8B5CA
-         hcMzPaOAp42u9mQLb0yLdT4W5bo/WDtwy9Ay0wQinxYj+SS9TUkIh5UzVHSWhzrDI9YR
-         mBUTYgz8J4II6td97l0dlKrh7Y+hebpOsySXi8N/3XCgtnaOYd4NW7ILKLt+mM1G27Zu
-         NugI249vftaYq9DBU+Fc1zCTzn5twoScVoYgIrFEChY/0VVGnBNrYmdQS6PYUMlSQgG5
-         n1eQ==
-X-Gm-Message-State: AOAM5331EohELGPJ8BAB9pLv/G3+Hn1kI2atpZxnE5mDaubOK8oUK513
-        DErxQrjYqqoEiCqd7+CeEmY=
-X-Google-Smtp-Source: ABdhPJyX2Oj0Cj/9BvTkCHlCQ+txkd5TZX84j4NW8Pyl3mFvsXEOD7CdSTTxeL334m+D9w8Mn8DSpg==
-X-Received: by 2002:a17:90b:3b47:: with SMTP id ot7mr11736524pjb.149.1627812249876;
-        Sun, 01 Aug 2021 03:04:09 -0700 (PDT)
+        bh=CvZea/HEA+RIaVaYpJguk8W157jqic9sEobAO84URAw=;
+        b=fgCqIdxIe6xb4Nmq/NC9h+VTZqtGOrZMYJdPDQ8SOXGrKK5otg2jaWWbBaVaesVRYc
+         lpEnfDNVSdf4dURQgTKsh3qMA+TSnAMxXklISPzYHATqTl5T+XvjZEX0mjMmNdNATnPx
+         4pbv2acIlELb0auRdpjoJgp+e4kpb8W42m93G0/a7uVFFMtGk7RENuP5p1fos7IEOK/C
+         28Ch1Y+o9HwDDAaP04gDp6HkGnUCfD8ggIfA8uLq5zhbuzODV7UyrcficX4Wwfn3veF9
+         oO6+pL3nD+0vdsnQZRuEF1kgrySk34pHl/Izc19Y47aCFqXkdbZTsKmKGR3AUN2Fvt7N
+         HImA==
+X-Gm-Message-State: AOAM5306D6Rl0qi3EaicQI2Adtwrambg3ePCjRY2adGDFD4Tyz5mo8VA
+        F4MBCG4TEtJYqC5lGk051tw=
+X-Google-Smtp-Source: ABdhPJyyhGKAf3ws7A9GlT/oUmcKDgSb7hpK3qiY3KIyo0+ZolB7iQDwZA8VdAj0uonauE8y0CpTlA==
+X-Received: by 2002:a17:903:20c1:b029:12c:4a37:5cbb with SMTP id i1-20020a17090320c1b029012c4a375cbbmr9593606plb.57.1627812747556;
+        Sun, 01 Aug 2021 03:12:27 -0700 (PDT)
 Received: from localhost.localdomain ([1.145.37.91])
-        by smtp.gmail.com with ESMTPSA id d2sm7333706pjd.24.2021.08.01.03.04.07
+        by smtp.gmail.com with ESMTPSA id y9sm8768689pgr.10.2021.08.01.03.12.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Aug 2021 03:04:09 -0700 (PDT)
-Date:   Sun, 1 Aug 2021 20:04:05 +1000
+        Sun, 01 Aug 2021 03:12:27 -0700 (PDT)
+Date:   Sun, 1 Aug 2021 20:12:23 +1000
 From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
 To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
 Cc:     Michael Kerrisk <mtk.manpages@gmail.com>, linux-man@vger.kernel.org
-Subject: Re: [PATCH 1/2] man-pages.7: wfix
-Message-ID: <20210801100404.zvzttwl4olrrgbll@localhost.localdomain>
-References: <20210731033948.z33f5rllnqjk57lx@localhost.localdomain>
- <2b436e93-ce9f-48bb-29ed-1277aacb0ad2@gmail.com>
+Subject: Re: [PATCH 2/2] man-pages.7: Update non-breaking space advice.
+Message-ID: <20210801101221.poigrttumltcdenl@localhost.localdomain>
+References: <20210731034458.6s76okhgjxw42mpx@localhost.localdomain>
+ <e097bf4a-7188-e810-7d3b-e4d1469397d3@gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="cyhqaz6hstubebyc"
+        protocol="application/pgp-signature"; boundary="6qmpho2jieyjwezk"
 Content-Disposition: inline
-In-Reply-To: <2b436e93-ce9f-48bb-29ed-1277aacb0ad2@gmail.com>
+In-Reply-To: <e097bf4a-7188-e810-7d3b-e4d1469397d3@gmail.com>
 User-Agent: NeoMutt/20180716
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---cyhqaz6hstubebyc
+--6qmpho2jieyjwezk
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hi, Alex,
+Hi, Alex!
 
-At 2021-07-31T13:36:36+0200, Alejandro Colomar (man-pages) wrote:
-> Hi Branden,
+At 2021-07-31T13:42:08+0200, Alejandro Colomar (man-pages) wrote:
+> On 7/31/21 5:45 AM, G. Branden Robinson wrote:
+> > * Advise usage of \~ escape instead of \SPACE; the former, a groff
+> >    extension from circa 1990, has been supported by Heirloom
+> >    Doctools troff since 2005 and by mandoc since 2019.  The
+> >    advantage is that \~ is an _adjustable_ non-breaking space, so it
+> >    will typeset non-jarringly both in .EX/.EE examples when filling
+> >    is off, and in normal running text (which is filled).
 >=20
-> On 7/31/21 5:39 AM, G. Branden Robinson wrote:
-> > Saw this while preparing the "switch to \~" change Alex invited.
->=20
-> Patch applied (manually).
->=20
-> [
-> $ git am -s patches/recv/\[PATCH\ 1_2\]\ man-pages.7\:\ wfix.eml
-> Applying: man-pages.7: wfix
-> error: patch failed: man7/man-pages.7:638
-> error: man7/man-pages.7: patch does not apply
-> Patch failed at 0001 man-pages.7: wfix
-> hint: Use 'git am --show-current-patch=3Ddiff' to see the failed patch
-> When you have resolved this problem, run "git am --continue".
-> If you prefer to skip this patch, run "git am --skip" instead.
-> To restore the original branch and stop patching, run "git am --abort".
-> ]
->=20
-> I don't yet understand how to fix these problems, so I wrote it myself
-> and changed the author.
+> Thanks for the patch!
 
-Thanks for taking care of it, but I'm baffled how such a simple patch
-could be screwed up.  :(
+You're welcome!  I've found no use cases for "\ " in man pages.  \~ is
+almost always what is desired.
+
+> > * Say "non-breaking" instead of "nonbreaking".  These are the only
+> >    occurrences of either in the man-pages tree, except in
+> >    Changes.old, which uses "non-breaking".
+>=20
+> I'll do as usual and copy here an extract from man-pages(7) :) :
+>=20
+>    Hyphenation with multi, non, pre, re, sub, and so on
+
+Ahhh, ha.  Yes.  This is an impedance mismatch between the house styles
+of the Linux man-pages and groff, at least as applied specifically to
+the word "non-?breaking", which sees frequent use in discussions of
+typesetting.
+
+> BTW, this one also doesn't apply.  I think it is probably your mailer.
+> Can you use git-send-email(1)?
+
+Apparently not.  :(
+
+$ git send-email
+git: 'send-email' is not a git command. See 'git --help'.
+$ git --help -a | grep send
+   imap-send            Send a collection of patches from stdin to an IMAP =
+folder
+   send-email           Send a collection of patches as emails
+   send-pack            Push objects over Git protocol to another repository
+
+I did a web search and did not find any reports that NeoMutt does
+violence to Git-formatted patches.  Perhaps it is GMail's fault?  (I use
+its SMPTS server to send mail.)  Does someone on this list have
+experience with this MUA and/or provider?  Is there a trick?
+
+This would explain my Michael despaired of my patch submissions even
+when I kept their scopes under control.
 
 Regards,
 Branden
 
-
---cyhqaz6hstubebyc
+--6qmpho2jieyjwezk
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmEGcZQACgkQ0Z6cfXEm
-bc6KHw/+PhuJXWcBaDqXJTA80RM701Ze1QN6s40WXmORhKGH2HkP7reryQ1ryhXw
-qdd2W6dijMF/hmoN732L/NybPcf/7PjvRv9dGoiLnR/ySBb/bVIBTEcpctWRS7x6
-i1ML5F+BG2JJmdxlgpFO+bjCxLMw4SiwPr/TYlQpZyTVtU04n9OkIyhkIb2KM/JC
-icgmYUJdmYF7mEAIZtQSt9g5pdiKhAZW/3BOO+sF7Md3FAbj2m3NF5ySAX7+zRkD
-ytpGI3Xr/bsTSz7OBuB8oOvZCCLNQCc6ZgoBqAGov6/OiEwRtHE+X/Hgyvk2HWx5
-6PQoN+q9srSiHLt9x/bds6tP4TAG/K6P+gtHsb3EkyXnkyxnBsYyoxEhvCN1vVUv
-ctzmeAbbRW8GbqWrk/wHGHBwNjZMyLVem+6t+MhN9nBh8u9cM0xLl3fYUcMW9God
-32tASe5CDySK/yjdz0lHSfr7Q1iCpd/sQ8ry+r/ozvCZAYHNFXk5tr794EYuhXSF
-o0oxgp/wGPIZH7VnFbr5eKfxPW7dntU04fB1jHxU99DjiQ4Q9CcfnFGDF+Y/B3lD
-OkuU+E4RZROdrdz4kmeWjWYIoIvO/IhhQ5r2jeKtmSJoGgqZ9Z/1BPKQ4HHfJcWU
-TiyuWGAbl+UI51qkshHvmf65TpqIocR/vzUKhfWVSl6cPBvhgaE=
-=fcIu
+iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmEGc4UACgkQ0Z6cfXEm
+bc7kXRAAoIypyIdkQVqyz8ZXpvbK3aDCJDbgECP8bba70vTzMJe+W7sKmy6yX5kL
+B/0YEQG3qwRHpHcvkKgIYydzXz/LXMRlOomBCQGAu8T5qCSc2jdd5pAEvBnS3KXV
+V4qME7FX0TznIQG4DNVtFFRcISn35yFuL0+9KlxKR1BmOt+wY++JzQvWR4ii3yvT
+rYj4/MUMk1SX1Cbr1aafl3ZyXGYqzl+rep7iYJJgHzcP9asBvkKdzxfl2u3WORmr
+Zp0oMFebT5hoLCFAtSPdx0BRjERKyd/9+SSCmjeFmPE+kSmRBtMM6hKGJ49yC/RQ
+peUCEJw86nD/Qk6wcVrUq+/ronVKgugGaKe8MfNzLmE98OVzR2EV3LdcpnidT+Lr
+h2KmIj3C+z8Q9ezeVOO37PX1PohNOuDuLlzMM2egl3l7ETV5kxCI6XMtmF96Jf+Q
++ErOQRl9mmYnw+jYCT57Igl0UpDp7C0DoMLB4tJT/KgdU/FidZ9NGBLkv14LEjmc
+uh3X7uTsYBkuSPZycgRp5dciy8+enxGWjVj0Dv9ekU/U0dr1lMjM5WsM/nnYpBoU
+o6VNWVdgJa511ZBAPD0FQSWKUhtWbaU3c2eQNlCe/NuYwxEaHAlOTH0DSvJ1JeE7
+D6JHncdGxVgEHr8XMk0fUgH8/6LhGVGj6LRIO23UjBxH+Pqg59c=
+=7rnx
 -----END PGP SIGNATURE-----
 
---cyhqaz6hstubebyc--
+--6qmpho2jieyjwezk--
