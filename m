@@ -2,118 +2,162 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id ACCFE3DCB4C
-	for <lists+linux-man@lfdr.de>; Sun,  1 Aug 2021 13:07:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 50CF73DCB58
+	for <lists+linux-man@lfdr.de>; Sun,  1 Aug 2021 13:22:42 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231462AbhHALH5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 1 Aug 2021 07:07:57 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49618 "EHLO
+        id S231791AbhHALWt (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 1 Aug 2021 07:22:49 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53180 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231461AbhHALH4 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 1 Aug 2021 07:07:56 -0400
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com [IPv6:2a00:1450:4864:20::32c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B6300C06175F
-        for <linux-man@vger.kernel.org>; Sun,  1 Aug 2021 04:07:47 -0700 (PDT)
-Received: by mail-wm1-x32c.google.com with SMTP id u15so8690508wmj.1
-        for <linux-man@vger.kernel.org>; Sun, 01 Aug 2021 04:07:47 -0700 (PDT)
+        with ESMTP id S231461AbhHALWs (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 1 Aug 2021 07:22:48 -0400
+Received: from mail-pj1-x1034.google.com (mail-pj1-x1034.google.com [IPv6:2607:f8b0:4864:20::1034])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5225EC06175F
+        for <linux-man@vger.kernel.org>; Sun,  1 Aug 2021 04:22:41 -0700 (PDT)
+Received: by mail-pj1-x1034.google.com with SMTP id nh14so9794362pjb.2
+        for <linux-man@vger.kernel.org>; Sun, 01 Aug 2021 04:22:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=qGrCLBIQdJ2jMulw2osLVZo3nmLSp+D4S8WjdJgulqc=;
-        b=dmiCK1Rc+uTwarH1f3bqLMISDqeKz3kHe27DAF69joaaitrd+Bulunenk0bhM9krpv
-         8bD1ITJjpy4CEgFDoHRg3RP8XUJCK+T7sc6/3VDBBET/TTsJFUPDmBmUrzXDlnd1ynK0
-         STrc9yblFLyy8F6mSrS4hU+fTus45cFT9gZ53m9OyA1n0JWbKtW/0qgdafWG7YXQXSyb
-         aGpagBN6GdsMndVfWbfzTLw18PhnE/4ACdEfCPyukLrhC4vbyq2DM9QKMG0bMdGacKTb
-         pqOJ8sKS3VYLIOlD5x4566kRfOf0C6KJ/aFlb05Pq8eKyDs97YnhU1j8AgfvVRdoUy14
-         f/UQ==
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to:user-agent;
+        bh=pW2ydM6Gow27i6DHgIf7i+N87xhhUrXuYiqiWueiXYk=;
+        b=WLh1ufzSxnFX3632RLUJWAlA8f4+P44CWjdMOFOC+r41UAFjvSkfCyReYog8oxVM/m
+         Q2ns9bORJDmJ6uOmhQwVmlgT6J4lOTWdHYGCcqAU3DdRj+WIR3x7X5sX53KsiXsBePCV
+         7e//jBFNxzE90UaYOFS/ooHkhNkKtZ4hedg+Lu3S63MBVZh+Vtc6YSvzuguHkGUFWEiE
+         h87E3E37ugUkPBmtZcVW+Q8ohQDUZX9YP7NniCA8VbBOieN6e1h6vDsBj6aAbcmNnS7A
+         wtqO84BaawexhIjPqtygZFbEi4iyZuNhkcxEAQjODc93ioKq0Iyx9v4bFF6VHPEUpm/2
+         t6sA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=qGrCLBIQdJ2jMulw2osLVZo3nmLSp+D4S8WjdJgulqc=;
-        b=rG5ZpptBBW+GU8Hewu4PsrW+PkgjfgWHonAcBqAdy+z8b9QCNXot9AunsbouEz95JV
-         BcNIPIit8cqcnfcSYw2m07ejBaclMcBs13yX7M6E8SkcfL1IDrXBnHo8AUnHNRdUsT1p
-         UghlQHBidpSy/PQL8LEn7ewyAOxfxEsEIr80RdoFMtItkghCLAAR1tW/wM+u1sY4zlR2
-         Eq9d3ooF8oAyAps4cY61YJJsH9jVJR06KEd5R3gzqdV2mrOzxRJIyWSTEmoefDEe3xUI
-         27JjMdjfNTPIOk+Lhnowuchc8rQp62EkFMKWvpYQYT+Kfvw/xXAPMMvl/llSJkaV0FPy
-         /ntw==
-X-Gm-Message-State: AOAM531Ykl7yxtCnwZXtJaXMDVE0sf4+6VRvyZDlrjnfQqN6c5gqDg80
-        D8rzxMjQROwT7YuJ0UTnVTHZePeisQA=
-X-Google-Smtp-Source: ABdhPJwHCiog673YPu6QtrFYuh1EkEeUkzonYOa6p0iLZVfRyO7ePYcQxEugm2KaqxZVcHaIcy3ngg==
-X-Received: by 2002:a05:600c:896:: with SMTP id l22mr2139816wmp.68.1627816066411;
-        Sun, 01 Aug 2021 04:07:46 -0700 (PDT)
-Received: from [10.8.0.10] ([195.53.121.100])
-        by smtp.gmail.com with ESMTPSA id w10sm5918254wrr.23.2021.08.01.04.07.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 01 Aug 2021 04:07:46 -0700 (PDT)
-Subject: Re: [PATCH v2] termios.3: Add information how to set baud rate to any
- other value
-To:     =?UTF-8?Q?Pali_Roh=c3=a1r?= <pali@kernel.org>
-Cc:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-man@vger.kernel.org
-References: <20210730153044.23673-1-pali@kernel.org>
- <20210730184536.13620-1-pali@kernel.org>
- <20210731001943.pqpclzfhjgwztdo7@localhost.localdomain>
- <b0ac0201-e102-0556-04f9-9685abf1c5c9@gmail.com>
- <20210731110649.2irr2eb335jpwuo6@pali>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <3f5d41da-f7b0-72f3-0104-45bccb18c8a2@gmail.com>
-Date:   Sun, 1 Aug 2021 13:07:44 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to:user-agent;
+        bh=pW2ydM6Gow27i6DHgIf7i+N87xhhUrXuYiqiWueiXYk=;
+        b=PFyte298zr1vsUtSEfMdlz4hvwX4MVHCtMpFWFERzRE5tOZIH3izqc0dRjL7TAkVG1
+         A/PP/66Q+o374b+aC/w34hy5sJDwC2o9PWS/YCK5hZP1j64vgi3KVVWozFmKIfNotmbT
+         ZtcNYFIKvRwsBXg9LAvImyEFPT6WQyLVco08OWup3Yv6rv/II0brHj70nUOPukLKRJJY
+         fryx0l8iyn0A4q2YdJd/KjuLE+VKf7FOKu4Q85fbcqAr3QfmnYed+xHLN5PDfkJ+uv8O
+         OrCKO4kcob0eAiYX5H7WxzsQgTRuV7W7TX4HxEuf0rEYufYq4ztUZUT4J285MgjqLIRL
+         06AA==
+X-Gm-Message-State: AOAM531SgsaAxsEFqm8o9qBQ8vwWKZR/te2UrGgaBjpdFxigPfoxrRVX
+        pQbekL6S4PNtAul7y0gqyLc=
+X-Google-Smtp-Source: ABdhPJzYcauUWY+TwRz7Pay55V8sYLHPs8u/owHYg1PCH35RcV6P0Z8wVFKfP1KSq9fRM4/tAGcANw==
+X-Received: by 2002:a65:410a:: with SMTP id w10mr722430pgp.343.1627816960942;
+        Sun, 01 Aug 2021 04:22:40 -0700 (PDT)
+Received: from localhost.localdomain ([1.145.37.91])
+        by smtp.gmail.com with ESMTPSA id s36sm9424464pgk.64.2021.08.01.04.22.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Aug 2021 04:22:40 -0700 (PDT)
+Date:   Sun, 1 Aug 2021 21:22:30 +1000
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To:     Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>
+Cc:     linux-man@vger.kernel.org,
+        Alejandro Colomar <alx.manpages@gmail.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+Subject: Re: [PATCH] termios.3: SPARC architecture has 4 different Bnnn
+ constants
+Message-ID: <20210801112229.w75qb3sggampa757@localhost.localdomain>
+References: <20210731145501.9944-1-pali@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20210731110649.2irr2eb335jpwuo6@pali>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+        protocol="application/pgp-signature"; boundary="ejsrfuhv5ubzxiz3"
+Content-Disposition: inline
+In-Reply-To: <20210731145501.9944-1-pali@kernel.org>
+User-Agent: NeoMutt/20180716
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Pali,
 
+--ejsrfuhv5ubzxiz3
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On 7/31/21 1:06 PM, Pali Rohár wrote:
-> On Saturday 31 July 2021 13:04:50 Alejandro Colomar (man-pages) wrote:
->> Hi Branden,
->>
->> On 7/31/21 2:19 AM, G. Branden Robinson wrote:
->>> Hi, Pali!
->>>
->>> At 2021-07-30T20:45:36+0200, Pali Rohár wrote:
->>>> +Setting the baud rate to a value other that those defined by
->>>> +.B Bnnn
->>>> +constants is possible via the
->>>
->>> I'd say
->>>
->>> .BI B nnn
->>>
->>> because the "nnn" is not literal, but variable.
->>
->> Agree.
->>
->> But as I already merged the patch, I'll add a new patch with that change.
->> Moreover, man pages mostly-consistently use .B Bnn style (although
->> incorrectly, from reading groff_man(7)), so it deserves a separate patch.
-> 
-> Makes sense. Would you fix style on all places ('git grep Bnn')?
+Hi, Pali!
 
-I fixed it right now for Bnnn: 
-<https://github.com/alejandro-colomar/man-pages/commit/e505393f80d040a03f3c2955e0d236c8e109ee6e>
+At 2021-07-31T16:55:01+0200, Pali Roh=E1r wrote:
+> SPARC is special, it does not have Bnnn constants for baud rates above
+> 2000000. Instead it defines 4 Bnnn constants with smaller baud rates.
+>=20
+> This difference between SPARC and non-SPARC architectures is present
+> in both glibc API (termios.h) and also kernel ioctl API
+> (asm/termbits.h).
+[...]
+>  	B1500000
+>  	B2000000
+> +.ft P
 
-I'll try to fix it for every other case of FOO* in the pages soon.
+I see you're following existing termios(3) page practice here, so this
+feedback may be more for Alex and Michael than you; it's not a
+criticism.
 
+I would discourage the use of the *roff 'ft' request in man pages.
+Here, it is redunant because the following PP macro will set the font
+style back to roman anyway.
+
+I also discourage the use of tab characters in man page sources (outside
+of tbl(1) tables).
+
+I'll show my recommendation in a few lines.
+
+> +.fi
+> +.PP
+> +On SPARC architecture are additionally supported these constants:
+> +.PP
+> +.nf
+> +.ft B
+> +	B76800
+> +	B153600
+> +	B307200
+> +	B614400
+> +.ft P
+> +.fi
+
+Here's how I'd do that:
+
+=2EP
+On the SPARC architecture,
+the following additional constants are supported.
+=2ERS
+=2ETP
+=2EB B76800
+=2ETQ
+=2EB B153600
+=2ETQ
+=2EB B307200
+=2ETQ
+=2EB  B614400
+=2ERE
+
+Why would I do it this way?  I'm trying to keep the size of the language
+we ask man page writers to learn as small as possible, and I especially
+try to keep the number of *roff requests they have to know as close to
+zero as possible.  There are already two ways to change fonts: through
+macros and escape sequences.  Personally, I'd like to protect casual man
+page writers from having to learn the third.  (And, again, outside of
+tbl(1) tables, I'd prefer they not have to know the second [escapes].)
 
 Regards,
+Branden
 
-Alex
+--ejsrfuhv5ubzxiz3
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
 
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmEGg+0ACgkQ0Z6cfXEm
+bc6C0g//Vt4zs1cXx4z8Vn4QCnOIPE3pBwmnM38H5+4tx+raJWx2W+gAS1fT+esN
+MySYdWxGw9SHUHfcG13jIFOY4NWPLhFMSFUXT+ScsejNFTd4yyWrPn9E1piBK6Qo
+wBIdsnIsb2Q15+4I+D1D2IpcgyCpfxK4LAjJ1u1Cl22fUVkz/ixxOBTUbFHUroM9
+VNnVfZImKYiY8CLVMMVQSM4810k984jCLtocxOcRgQuUWRwRmL0Os0cdgTgvRxw2
+7XG8w7r+r3fuyfLk4/muvcY+cX+/devlRu3Ua+rr1u1n8hxg6ccs+N0HaygzeOlW
+zbKUJFTh5nDRi+0V55ceXcHLNcvbyy1pcFe87gQkwep2LHMrUIULFIDGcP1oe6lF
+ap0dm4KlFpCXS2KGD/c2J6vzaBfOGhBMAop3XfEVcUXm6lRXf1zrK4LnkDe8UtXK
+C0HHZ8ff2hHaZjva7718/cEVkslRWWSwm86sgSIp+kjT0pKcsuU3B2X1RLXd0Cv7
+hORpqr6kwKf/+KEPqrHXyk4JyUXsGA9pcVjALTJS/ZRAirTpL8DfxYIVf76VopG1
+/RtILGIdCrLIYkFfRubKdWW6j1y7fYnTwDaD++hO3qe/bEzgLq2vZdem0TS0qUcy
+PV5ZRFJ8tWtIHVw3IxAgFUQyHOemi4Foleq/tb20+C7DXsi2aio=
+=oXXt
+-----END PGP SIGNATURE-----
+
+--ejsrfuhv5ubzxiz3--
