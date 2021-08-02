@@ -2,1089 +2,371 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 1CB1E3DD418
-	for <lists+linux-man@lfdr.de>; Mon,  2 Aug 2021 12:42:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 028AE3DD493
+	for <lists+linux-man@lfdr.de>; Mon,  2 Aug 2021 13:21:55 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233382AbhHBKmn (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 2 Aug 2021 06:42:43 -0400
-Received: from mail.kernel.org ([198.145.29.99]:38898 "EHLO mail.kernel.org"
+        id S233463AbhHBLV6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 2 Aug 2021 07:21:58 -0400
+Received: from mail.kernel.org ([198.145.29.99]:58304 "EHLO mail.kernel.org"
         rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S233346AbhHBKmn (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Mon, 2 Aug 2021 06:42:43 -0400
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 32F5B60FA0;
-        Mon,  2 Aug 2021 10:42:31 +0000 (UTC)
+        id S233464AbhHBLV6 (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Mon, 2 Aug 2021 07:21:58 -0400
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 57BA760FD8;
+        Mon,  2 Aug 2021 11:21:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1627900953;
-        bh=csI23+QHOpCN3MS5PO0G/pkmARqF4ecxl1W+6JGo+kk=;
-        h=From:To:Cc:Subject:Date:From;
-        b=ViLJfnZ12BZJup/Mp6EoB4NkutXTTncbWUACcLoItmXXx7dz7HaMizFBKpkU7rL5V
-         e8P3IXBPjLI28dxo4JOAUIeq+gEKHABje9IGt6cGFpOC+Gfu5qaDKC6HOvyFCTxOiV
-         h3/jZLaVkwKp7reli+X6L11VVCtUUY2nEZQIx8Zv9g+WzZS1RyQJbE6vseqWE+KLIs
-         CsfFP/3bUO5qAG0QNpznQNziJ6rkivwhTUA256s7j8Woj1PcKHlcqOXqMJvaGmF869
-         P0VRrmy2rw+ULkEcLvbqM6Dx+bbDZaqRq+zcfSnXOJIVU7L2unLIIyJnPC47Yr6BXq
-         hfC2tlsZEDdUA==
-From:   Christian Brauner <brauner@kernel.org>
-To:     Alejandro Colomar <alx.manpages@gmail.com>,
+        s=k20201202; t=1627903309;
+        bh=jDlHV014x9rAROwwlwoYLKLmQ2dAtFwsKHY5yX1IK/A=;
+        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+        b=S/Z+ouTznhLgGXpjUal4LeZf7gFfh4KeOeww37tTRIzs29GPGAhvLHb6sXTCkTMPm
+         CjFoIbr0gbl7e3C0Z4hTGctcisLAOdrqvsg3wey68AHXeRIY01J43LAZBr14zAfcic
+         d0IrHn3EuoBRquAXICqbhTCHF2tM4pvKodlrqTOG4tF/OFvE3o2yw+/+4WfPgXEBgd
+         SoFMs2o4OX627XObWc3VD/nmKz452CHT5CtR9ydN63PUgf8DkvIGZDBfnJDSMzGcEb
+         oarYkTrvZ/pswu6iHRYw8H0G/K4ckuauRguFvkXg7gX5llCbij5+Y+BQWqsipvYrGv
+         tK+PUGKShg0Ug==
+Date:   Mon, 2 Aug 2021 14:21:42 +0300
+From:   Mike Rapoport <rppt@kernel.org>
+To:     Axel Rasmussen <axelrasmussen@google.com>
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-man@vger.kernel.org
-Cc:     Christoph Hellwig <hch@infradead.org>,
-        linux-fsdevel@vger.kernel.org,
-        Christian Brauner <christian.brauner@ubuntu.com>
-Subject: [PATCH v4] mount_setattr.2: New manual page documenting the mount_setattr() system call
-Date:   Mon,  2 Aug 2021 12:42:15 +0200
-Message-Id: <20210802104215.525543-1-brauner@kernel.org>
-X-Mailer: git-send-email 2.30.2
+        Andrea Arcangeli <aarcange@redhat.com>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Hugh Dickins <hughd@google.com>,
+        Mike Kravetz <mike.kravetz@oracle.com>,
+        Peter Xu <peterx@redhat.com>,
+        LKML <linux-kernel@vger.kernel.org>, linux-man@vger.kernel.org,
+        Linux MM <linux-mm@kvack.org>
+Subject: Re: [PATCH v2] ioctl_userfaultfd.2, userfaultfd.2: add minor fault
+ mode
+Message-ID: <YQfVRuV2Ab2rlKVI@kernel.org>
+References: <20210604195622.1249588-1-axelrasmussen@google.com>
+ <CAJHvVcjzi-7Wvrho1LqWiQC2WNbtg0XGf6-JBRcDZS1=banbVA@mail.gmail.com>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=31042; h=from:subject; bh=ikzIHtSmMgGZbcI4HQ5Pf62hLaXZH1kfy+A6SEF2PK8=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMSSyn36wV0mglGlRL6NXkF//K93CPsEqx0K1LMeXC7yUFpan Vi7qKGVhEONikBVTZHFoNwmXW85TsdkoUwNmDisTyBAGLk4BmMjPWwz/NANv8k7Me2bL4y3tdqfzh+ ctgd+n3l1jFjm7/5XRYSbWNwx/eD8/PZj0882B3Bspj67FtovrPpv5WkLcdL/vk7DvLUsMuQA=
-X-Developer-Key: i=christian.brauner@ubuntu.com; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAJHvVcjzi-7Wvrho1LqWiQC2WNbtg0XGf6-JBRcDZS1=banbVA@mail.gmail.com>
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From: Christian Brauner <christian.brauner@ubuntu.com>
+(added man-pages maintainers)
 
-Signed-off-by: Christian Brauner <christian.brauner@ubuntu.com>
----
-/* v3 */
-- "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>:
-   - Adjust for comments provided by Alex.
+On Tue, Jul 27, 2021 at 09:32:34AM -0700, Axel Rasmussen wrote:
+> Any remaining issues with this patch? I just realized today it was
+> never merged. 5.13 (which contains this new feature) was released some
+> weeks ago.
+> 
+> On Fri, Jun 4, 2021 at 12:56 PM Axel Rasmussen <axelrasmussen@google.com> wrote:
+> >
+> > Userfaultfd minor fault mode is supported starting from Linux 5.13.
+> >
+> > This commit adds a description of the new mode, as well as the new ioctl
+> > used to resolve such faults. The two go hand-in-hand: one can't resolve
+> > a minor fault without continue, and continue can't be used to resolve
+> > any other kind of fault.
+> >
+> > This patch covers just the hugetlbfs implementation (in 5.13). Support
+> > for shmem is forthcoming, but as it has not yet made it into a kernel
+> > release candidate, it will be added in a future commit.
+> >
+> > Signed-off-by: Axel Rasmussen <axelrasmussen@google.com>
+> > ---
+> >  man2/ioctl_userfaultfd.2 | 125 ++++++++++++++++++++++++++++++++++++---
+> >  man2/userfaultfd.2       |  79 ++++++++++++++++++++-----
+> >  2 files changed, 182 insertions(+), 22 deletions(-)
+> >
+> > diff --git a/man2/ioctl_userfaultfd.2 b/man2/ioctl_userfaultfd.2
+> > index 504f61d4b..7b990c24a 100644
+> > --- a/man2/ioctl_userfaultfd.2
+> > +++ b/man2/ioctl_userfaultfd.2
+> > @@ -214,6 +214,10 @@ memory accesses to the regions registered with userfaultfd.
+> >  If this feature bit is set,
+> >  .I uffd_msg.pagefault.feat.ptid
+> >  will be set to the faulted thread ID for each page-fault message.
+> > +.TP
+> > +.BR UFFD_FEATURE_MINOR_HUGETLBFS " (since Linux 5.13)"
+> > +If this feature bit is set, the kernel supports registering userfaultfd ranges
+> > +in minor mode on hugetlbfs-backed memory areas.
+> >  .PP
+> >  The returned
+> >  .I ioctls
+> > @@ -240,6 +244,11 @@ operation is supported.
+> >  The
+> >  .B UFFDIO_WRITEPROTECT
+> >  operation is supported.
+> > +.TP
+> > +.B 1 << _UFFDIO_CONTINUE
+> > +The
+> > +.B UFFDIO_CONTINUE
+> > +operation is supported.
+> >  .PP
+> >  This
+> >  .BR ioctl (2)
+> > @@ -278,14 +287,8 @@ by the current kernel version.
+> >  (Since Linux 4.3.)
+> >  Register a memory address range with the userfaultfd object.
+> >  The pages in the range must be "compatible".
+> > -.PP
+> > -Up to Linux kernel 4.11,
+> > -only private anonymous ranges are compatible for registering with
+> > -.BR UFFDIO_REGISTER .
+> > -.PP
+> > -Since Linux 4.11,
+> > -hugetlbfs and shared memory ranges are also compatible with
+> > -.BR UFFDIO_REGISTER .
+> > +Please refer to the list of register modes below for the compatible memory
+> > +backends for each mode.
+> >  .PP
+> >  The
+> >  .I argp
+> > @@ -324,9 +327,16 @@ the specified range:
+> >  .TP
+> >  .B UFFDIO_REGISTER_MODE_MISSING
+> >  Track page faults on missing pages.
+> > +Since Linux 4.3, only private anonymous ranges are compatible.
+> > +Since Linux 4.11, hugetlbfs and shared memory ranges are also compatible.
+> >  .TP
+> >  .B UFFDIO_REGISTER_MODE_WP
+> >  Track page faults on write-protected pages.
+> > +Since Linux 5.7, only private anonymous ranges are compatible.
+> > +.TP
+> > +.B UFFDIO_REGISTER_MODE_MINOR
+> > +Track minor page faults.
+> > +Since Linux 5.13, only hugetlbfs ranges are compatible.
+> >  .PP
+> >  If the operation is successful, the kernel modifies the
+> >  .I ioctls
+> > @@ -735,6 +745,105 @@ or not registered with userfaultfd write-protect mode.
+> >  .TP
+> >  .B EFAULT
+> >  Encountered a generic fault during processing.
+> > +.\"
+> > +.SS UFFDIO_CONTINUE
+> > +(Since Linux 5.13.)
+> > +Resolve a minor page fault by installing page table entries for existing pages
+> > +in the page cache.
+> > +.PP
+> > +The
+> > +.I argp
+> > +argument is a pointer to a
+> > +.I uffdio_continue
+> > +structure as shown below:
+> > +.PP
+> > +.in +4n
+> > +.EX
+> > +struct uffdio_continue {
+> > +    struct uffdio_range range; /* Range to install PTEs for and continue */
+> > +    __u64 mode;                /* Flags controlling the behavior of continue */
+> > +    __s64 mapped;              /* Number of bytes mapped, or negated error */
+> > +};
+> > +.EE
+> > +.in
+> > +.PP
+> > +The following value may be bitwise ORed in
+> > +.IR mode
+> > +to change the behavior of the
+> > +.B UFFDIO_CONTINUE
+> > +operation:
+> > +.TP
+> > +.B UFFDIO_CONTINUE_MODE_DONTWAKE
+> > +Do not wake up the thread that waits for page-fault resolution.
+> > +.PP
+> > +The
+> > +.I mapped
+> > +field is used by the kernel to return the number of bytes
+> > +that were actually mapped, or an error in the same manner as
+> > +.BR UFFDIO_COPY .
+> > +If the value returned in the
+> > +.I mapped
+> > +field doesn't match the value that was specified in
+> > +.IR range.len ,
+> > +the operation fails with the error
+> > +.BR EAGAIN .
+> > +The
+> > +.I mapped
+> > +field is output-only;
+> > +it is not read by the
+> > +.B UFFDIO_CONTINUE
+> > +operation.
+> > +.PP
+> > +This
+> > +.BR ioctl (2)
+> > +operation returns 0 on success.
+> > +In this case, the entire area was mapped.
+> > +On error, \-1 is returned and
+> > +.I errno
+> > +is set to indicate the error.
+> > +Possible errors include:
+> > +.TP
+> > +.B EAGAIN
+> > +The number of bytes mapped (i.e., the value returned in the
+> > +.I mapped
+> > +field) does not equal the value that was specified in the
+> > +.I range.len
+> > +field.
+> > +.TP
+> > +.B EINVAL
+> > +Either
+> > +.I range.start
+> > +or
+> > +.I range.len
+> > +was not a multiple of the system page size; or
+> > +.I range.len
+> > +was zero; or the range specified was invalid.
+> > +.TP
+> > +.B EINVAL
+> > +An invalid bit was specified in the
+> > +.IR mode
+> > +field.
+> > +.TP
+> > +.B EEXIST
+> > +One or more pages were already mapped in the given range.
+> > +.TP
+> > +.B ENOENT
+> > +The faulting process has changed its virtual memory layout simultaneously with
+> > +an outstanding
+> > +.B UFFDIO_CONTINUE
+> > +operation.
+> > +.TP
+> > +.B ENOMEM
+> > +Allocating memory needed to setup the page table mappings failed.
+> > +.TP
+> > +.B EFAULT
+> > +No existing page could be found in the page cache for the given range.
+> > +.TP
+> > +.BR ESRCH
+> > +The faulting process has exited at the time of a
+> > +.B UFFDIO_CONTINUE
+> > +operation.
+> > +.\"
+> >  .SH RETURN VALUE
+> >  See descriptions of the individual operations, above.
+> >  .SH ERRORS
+> > diff --git a/man2/userfaultfd.2 b/man2/userfaultfd.2
+> > index 593c189d8..07f53c6ff 100644
+> > --- a/man2/userfaultfd.2
+> > +++ b/man2/userfaultfd.2
+> > @@ -78,7 +78,7 @@ all memory ranges that were registered with the object are unregistered
+> >  and unread events are flushed.
+> >  .\"
+> >  .PP
+> > -Userfaultfd supports two modes of registration:
+> > +Userfaultfd supports three modes of registration:
+> >  .TP
+> >  .BR UFFDIO_REGISTER_MODE_MISSING " (since 4.10)"
+> >  When registered with
+> > @@ -92,6 +92,18 @@ or an
+> >  .B UFFDIO_ZEROPAGE
+> >  ioctl.
+> >  .TP
+> > +.BR UFFDIO_REGISTER_MODE_MINOR " (since 5.13)"
+> > +When registered with
+> > +.B UFFDIO_REGISTER_MODE_MINOR
+> > +mode, user-space will receive a page-fault notification
+> > +when a minor page fault occurs.
+> > +That is, when a backing page is in the page cache, but
+> > +page table entries don't yet exist.
+> > +The faulted thread will be stopped from execution until the page fault is
+> > +resolved from user-space by an
+> > +.B UFFDIO_CONTINUE
+> > +ioctl.
+> > +.TP
+> >  .BR UFFDIO_REGISTER_MODE_WP " (since 5.7)"
+> >  When registered with
+> >  .B UFFDIO_REGISTER_MODE_WP
+> > @@ -212,9 +224,10 @@ a page fault occurring in the requested memory range, and satisfying
+> >  the mode defined at the registration time, will be forwarded by the kernel to
+> >  the user-space application.
+> >  The application can then use the
+> > -.B UFFDIO_COPY
+> > +.B UFFDIO_COPY ,
+> > +.B UFFDIO_ZEROPAGE ,
+> >  or
+> > -.B UFFDIO_ZEROPAGE
+> > +.B UFFDIO_CONTINUE
+> >  .BR ioctl (2)
+> >  operations to resolve the page fault.
+> >  .PP
+> > @@ -318,6 +331,43 @@ should have the flag
+> >  cleared upon the faulted page or range.
+> >  .PP
+> >  Write-protect mode supports only private anonymous memory.
+> > +.\"
+> > +.SS Userfaultfd minor fault mode (since 5.13)
+> > +Since Linux 5.13, userfaultfd supports minor fault mode.
+> > +In this mode, fault messages are produced not for major faults (where the
+> > +page was missing), but rather for minor faults, where a page exists in the page
+> > +cache, but the page table entries are not yet present.
+> > +The user needs to first check availability of this feature using
+> > +.B UFFDIO_API
+> > +ioctl against the feature bit
+> > +.B UFFD_FEATURE_MINOR_HUGETLBFS
+> > +before using this feature.
+> > +.PP
+> > +To register with userfaultfd minor fault mode, the user needs to initiate the
+> > +.B UFFDIO_REGISTER
+> > +ioctl with mode
+> > +.B UFFD_REGISTER_MODE_MINOR
+> > +set.
+> > +.PP
+> > +When a minor fault occurs, user-space will receive a page-fault notification
+> > +whose
+> > +.I uffd_msg.pagefault.flags
+> > +will have the
+> > +.B UFFD_PAGEFAULT_FLAG_MINOR
+> > +flag set.
+> > +.PP
+> > +To resolve a minor page fault, the handler should decide whether or not the
+> > +existing page contents need to be modified first.
+> > +If so, this should be done in-place via a second, non-userfaultfd-registered
+> > +mapping to the same backing page (e.g., by mapping the hugetlbfs file twice).
+> > +Once the page is considered "up to date", the fault can be resolved by
+> > +initiating an
+> > +.B UFFDIO_CONTINUE
+> > +ioctl, which installs the page table entries and (by default) wakes up the
+> > +faulting thread(s).
+> > +.PP
+> > +Minor fault mode supports only hugetlbfs-backed memory.
+> > +.\"
+> >  .SS Reading from the userfaultfd structure
+> >  Each
+> >  .BR read (2)
+> > @@ -456,19 +506,20 @@ For
+> >  the following flag may appear:
+> >  .RS
+> >  .TP
+> > -.B UFFD_PAGEFAULT_FLAG_WRITE
+> > -If the address is in a range that was registered with the
+> > -.B UFFDIO_REGISTER_MODE_MISSING
+> > -flag (see
+> > -.BR ioctl_userfaultfd (2))
+> > -and this flag is set, this a write fault;
+> > -otherwise it is a read fault.
+> > +.B UFFD_PAGEFAULT_FLAG_WP
+> > +If this flag is set, then the fault was a write-protect fault.
+> >  .TP
+> > +.B UFFD_PAGEFAULT_FLAG_MINOR
+> > +If this flag is set, then the fault was a minor fault.
+> > +.TP
+> > +.B UFFD_PAGEFAULT_FLAG_WRITE
+> > +If this flag is set, then the fault was a write fault.
+> > +.HP
+> > +If neither
+> >  .B UFFD_PAGEFAULT_FLAG_WP
+> > -If the address is in a range that was registered with the
+> > -.B UFFDIO_REGISTER_MODE_WP
+> > -flag, when this bit is set, it means it is a write-protect fault.
+> > -Otherwise it is a page-missing fault.
+> > +nor
+> > +.B UFFD_PAGEFAULT_FLAG_MINOR
+> > +are set, then the fault was a missing fault.
+> >  .RE
+> >  .TP
+> >  .I pagefault.feat.pid
+> > --
+> > 2.32.0.rc1.229.g3e70b5a671-goog
+> >
+> 
 
-/* v4 */
-- "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>:
-   - Adjust for comments provided by Alex.
-
-- Christian Brauner <christian.brauner@ubuntu.com>:
-  - Add missing MOUNT_ATTR_NOSYMFOLLOW flag.
-  - Reword AT_FDCWD handling.
-  - Reword reference to "Extensibility" section.
-  - Reformat and reword wording in example to explain how attr_set and
-    attr_clr are applied.
-  - s/read only/read-only/g to match mount(2).
-  - Reword security.capability reference when explaining idmappings.
-  - s/uid/user ID/g, s/gid/group ID/g to comply with the style used in
-    other manpages.
-  - Remove pointless uses of "given".
-  - Reformulate explanation of idmappings.
-  - Reformulate explanation what idmappings apply to.
-  - All negative numbers such as -EBADF have been changed to \-EBADF for
-    consistency with other man pages.
-  - Fix indendation of list in NOTES on system call extensibility.
----
- man2/mount_setattr.2 | 1002 ++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 1002 insertions(+)
- create mode 100644 man2/mount_setattr.2
-
-diff --git a/man2/mount_setattr.2 b/man2/mount_setattr.2
-new file mode 100644
-index 000000000..16881d90d
---- /dev/null
-+++ b/man2/mount_setattr.2
-@@ -0,0 +1,1002 @@
-+.\" Copyright (c) 2021 by Christian Brauner <christian.brauner@ubuntu.com>
-+.\"
-+.\" %%%LICENSE_START(VERBATIM)
-+.\" Permission is granted to make and distribute verbatim copies of this
-+.\" manual provided the copyright notice and this permission notice are
-+.\" preserved on all copies.
-+.\"
-+.\" Permission is granted to copy and distribute modified versions of this
-+.\" manual under the conditions for verbatim copying, provided that the
-+.\" entire resulting derived work is distributed under the terms of a
-+.\" permission notice identical to this one.
-+.\"
-+.\" Since the Linux kernel and libraries are constantly changing, this
-+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
-+.\" responsibility for errors or omissions, or for damages resulting from
-+.\" the use of the information contained herein.  The author(s) may not
-+.\" have taken the same level of care in the production of this manual,
-+.\" which is licensed free of charge, as they might when working
-+.\" professionally.
-+.\"
-+.\" Formatted or processed versions of this manual, if unaccompanied by
-+.\" the source, must acknowledge the copyright and authors of this work.
-+.\" %%%LICENSE_END
-+.\"
-+.TH MOUNT_SETATTR 2 2021-03-22 "Linux" "Linux Programmer's Manual"
-+.SH NAME
-+mount_setattr \- change mount properties of a mount or mount tree
-+.SH SYNOPSIS
-+.nf
-+
-+.PP
-+.BR "#include <linux/fcntl.h>" " /* Definition of " AT_* " constants */"
-+.BR "#include <linux/mount.h>" " /* Definition of struct mount_attr and MOUNT_ATTR_* constants */"
-+.BR "#include <sys/syscall.h>" " /* Definition of " SYS_* " constants */"
-+.B #include <unistd.h>
-+.PP
-+.BI "int syscall(SYS_mount_setattr, int " dfd ", const char *" path \
-+", unsigned int " flags \
-+", struct mount_attr *" attr ", size_t " size );
-+.fi
-+.PP
-+.IR Note :
-+glibc provides no wrapper for
-+.BR mount_setattr (),
-+necessitating the use of
-+.BR syscall (2).
-+.SH DESCRIPTION
-+The
-+.BR mount_setattr (2)
-+system call changes the mount properties of a mount or entire mount tree.
-+If
-+.I path
-+is a relative pathname,
-+then it is interpreted relative to the directory referred to by the file
-+descriptor
-+.IR dfd .
-+If
-+.I dfd
-+is the special value
-+.B AT_FDCWD
-+then
-+.I path
-+is taken to be relative to the current working directory of the calling process.
-+If
-+.I path
-+is the empty string and
-+.BR AT_EMPTY_PATH
-+is specified in
-+.I flags
-+then the mount properties of the mount identified by
-+.I dfd
-+are changed.
-+.PP
-+The
-+.BR mount_setattr (2)
-+system call uses an extensible structure
-+.IR ( "struct mount_attr" )
-+to allow for future extensions.
-+Any non-flag extensions to
-+.BR mount_setattr (2)
-+will be implemented as new fields appended to the above structure,
-+with a zero value in a new field resulting in the kernel behaving
-+as though that extension field was not present.
-+Therefore,
-+the caller
-+.I must
-+zero-fill this structure on initialization.
-+Please see the "Extensibility" section under
-+.B NOTES
-+for more details.
-+.PP
-+The
-+.I size
-+argument should usually be specified as
-+.IR "sizeof(struct mount_attr)" .
-+However,
-+if the caller does not intend to make use of features that got
-+introduced after the initial version of
-+.I struct mount_attr
-+they are free to pass the size of the initial struct together with the larger
-+struct.
-+This allows the kernel to not copy later parts of the struct that aren't used
-+anyway.
-+With each extension that changes the size of
-+.I struct mount_attr
-+the kernel will expose a define of the form
-+.BR MOUNT_ATTR_SIZE_VER<number> .
-+For example the macro for the size of the initial version of
-+.I struct mount_attr
-+is
-+.BR MOUNT_ATTR_SIZE_VER0 .
-+.PP
-+The
-+.I flags
-+argument can be used to alter the path resolution behavior.
-+The supported values are:
-+.TP
-+.B AT_EMPTY_PATH
-+If
-+.I path
-+is the empty string change the mount properties on
-+.I dfd
-+itself.
-+.TP
-+.B AT_RECURSIVE
-+Change the mount properties of the entire mount tree.
-+.TP
-+.B AT_SYMLINK_NOFOLLOW
-+Don't follow trailing symlinks.
-+.TP
-+.B AT_NO_AUTOMOUNT
-+Don't trigger automounts.
-+.PP
-+The
-+.I attr
-+argument of
-+.BR mount_setattr (2)
-+is a structure of the following form:
-+.PP
-+.in +4n
-+.EX
-+struct mount_attr {
-+    __u64 attr_set;    /* Mount properties to set. */
-+    __u64 attr_clr;    /* Mount properties to clear. */
-+    __u64 propagation; /* Mount propagation type. */
-+    __u64 userns_fd;   /* User namespace file descriptor. */
-+};
-+.EE
-+.in
-+.PP
-+The
-+.I attr_set
-+and
-+.I attr_clr
-+members are used to specify the mount properties that are supposed to be set or
-+cleared for a mount or mount tree.
-+Flags set in
-+.I attr_set
-+enable a property on a mount or mount tree and flags set in
-+.I attr_clr
-+remove a property from a mount or mount tree.
-+.PP
-+When changing mount properties the kernel will first clear the flags specified
-+in the
-+.I attr_clr
-+field and then set the flags specified in the
-+.I attr_set
-+field:
-+.PP
-+.in +4n
-+.EX
-+struct mount_attr attr = {
-+    .attr_clr = MOUNT_ATTR_NOEXEC | MOUNT_ATTR_NODEV,
-+    .attr_set = MOUNT_ATTR_RDONLY | MOUNT_ATTR_NOSUID,
-+};
-+unsigned int current_mnt_flags = mnt->mnt_flags;
-+
-+/*
-+ * Clear all flags set in .attr_clr,
-+ * clearing MOUNT_ATTR_NOEXEC and MOUNT_ATTR_NODEV.
-+ */
-+current_mnt_flags &= ~attr->attr_clr;
-+
-+/*
-+ * Now set all flags set in .attr_set,
-+ * applying MOUNT_ATTR_RDONLY and MOUNT_ATTR_NOSUID.
-+ */
-+current_mnt_flags |= attr->attr_set;
-+
-+mnt->mnt_flags = current_mnt_flags;
-+.EE
-+.in
-+.PP
-+The effect of this change will be a mount or mount tree that is read-only,
-+blocks the execution of set-user-ID and set-group-ID binaries but does allow to
-+execute programs and access to devices nodes.
-+Multiple changes with the same set of flags requested
-+in
-+.I attr_clr
-+and
-+.I attr_set
-+are guaranteed to be idempotent after the changes have been applied.
-+.PP
-+The following mount attributes can be specified in the
-+.I attr_set
-+or
-+.I attr_clr
-+fields:
-+.TP
-+.B MOUNT_ATTR_RDONLY
-+If set in
-+.I attr_set
-+makes the mount read-only and if set in
-+.I attr_clr
-+removes the read-only setting if set on the mount.
-+.TP
-+.B MOUNT_ATTR_NOSUID
-+If set in
-+.I attr_set
-+makes the mount not honor set-user-ID and set-group-ID binaries,
-+and file capabilities when executing programs.
-+If set in
-+.I attr_clr
-+clears the set-user-ID, set-group-ID,
-+and file capability restriction if set on this mount.
-+.TP
-+.B MOUNT_ATTR_NODEV
-+If set in
-+.I attr_set
-+prevents access to devices on this mount and if set in
-+.I attr_clr
-+removes the device access restriction if set on this mount.
-+.TP
-+.BR MOUNT_ATTR_NOEXEC
-+If set in
-+.I attr_set
-+prevents executing programs on this mount and if set in
-+.I attr_clr
-+removes the restriction to execute programs on this mount.
-+.TP
-+.BR MOUNT_ATTR_NOSYMFOLLOW
-+If set in
-+.I attr_set
-+prevents following symlinks on this mount and if set in
-+.I attr_clr
-+removes the restriction to not follow symlinks on this mount.
-+.TP
-+.B MOUNT_ATTR_NODIRATIME
-+If set in
-+.I attr_set
-+prevents updating access time for directories on this mount and if set in
-+.I attr_clr
-+removes access time restriction for directories.
-+Note that
-+.BR MOUNT_ATTR_NODIRATIME
-+can be combined with other access time settings and is implied
-+by the noatime setting.
-+All other access time settings are mutually exclusive.
-+.TP
-+.BR MOUNT_ATTR__ATIME " - Changing access time settings
-+In the new mount api the access time values are an enum starting from 0.
-+Even though they are an enum in contrast to the other mount flags such as
-+.BR MOUNT_ATTR_NOEXEC
-+they are nonetheless passed in
-+.I attr_set
-+and
-+.I attr_clr
-+for consistency with
-+.BR fsmount (2)
-+which introduced this behavior.
-+.IP
-+Note,
-+since access times are an enum,
-+not a bitmap,
-+users wanting to transition to a different access time setting cannot simply
-+specify the access time in
-+.I attr_set
-+but must also set
-+.B MOUNT_ATTR__ATIME
-+in the
-+.I attr_clr
-+field.
-+The kernel will verify that
-+.BR MOUNT_ATTR__ATIME
-+isn't partially set in
-+.I attr_clr
-+and that
-+.I attr_set
-+doesn't have any access time bits set if
-+.BR MOUNT_ATTR__ATIME
-+isn't set in
-+.IR attr_clr .
-+.RS
-+.TP
-+.B MOUNT_ATTR_RELATIME
-+When a file is accessed via this mount,
-+update the file's last access time
-+(atime)
-+only if the current value of atime is less than or equal to the file's
-+last modification time (mtime) or last status change time (ctime).
-+.IP
-+To enable this access time setting on a mount or mount tree
-+.BR MOUNT_ATTR_RELATIME
-+must be set in
-+.I attr_set
-+and
-+.BR MOUNT_ATTR__ATIME
-+must be set in the
-+.I attr_clr
-+field.
-+.TP
-+.BR MOUNT_ATTR_NOATIME
-+Do not update access times for (all types of) files on this mount.
-+.IP
-+To enable this access time setting on a mount or mount tree
-+.BR MOUNT_ATTR_NOATIME
-+must be set in
-+.I attr_set
-+and
-+.BR MOUNT_ATTR__ATIME
-+must be set in the
-+.I attr_clr
-+field.
-+.TP
-+.BR MOUNT_ATTR_STRICTATIME
-+Always update the last access time (atime) when files are accessed on this
-+mount.
-+.IP
-+To enable this access time setting on a mount or mount tree
-+.BR MOUNT_ATTR_STRICTATIME
-+must be set in
-+.I attr_set
-+and
-+.BR MOUNT_ATTR__ATIME
-+must be set in the
-+.I attr_clr
-+field.
-+.RE
-+.TP
-+.BR MOUNT_ATTR_IDMAP
-+If set in
-+.I attr_set
-+creates an idmapped mount.
-+Since it is not supported to change the idmapping of a mount after it has been
-+idmapped,
-+it is invalid to specify
-+.B MOUNT_ATTR_IDMAP
-+in
-+.IR attr_clr .
-+The idmapping is taken from the user namespace specified in
-+.I userns_fd
-+and attached to the mount.
-+More details can be found in subsequent paragraphs.
-+.IP
-+Creating an idmapped mount allows to change the ownership of all files located
-+under a mount.
-+Thus, idmapped mounts make it possible to change ownership in a temporary and
-+localized way.
-+It is a localized change because ownership changes are restricted to a specific
-+mount.
-+All other users and locations where the filesystem is exposed are unaffected.
-+And it is a temporary change because ownership changes are tied to the lifetime
-+of the mount.
-+.IP
-+Whenever callers interact with the filesystem through an idmapped mount the
-+idmapping of the mount will be applied to user and group IDs associated with
-+filesystem objects.
-+This encompasses the user and group IDs associated with inodes and also
-+the following
-+.BR xattr (7)
-+keys:
-+.RS
-+.RS
-+.IP \(bu 2
-+.IR security.capability
-+whenever filesystem
-+.BR capabilities (7)
-+are stored or returned in the
-+.I VFS_CAP_REVISION_3
-+format which stores a rootid alongside the capabilities.
-+.IP \(bu 2
-+.I system.posix_acl_access
-+and
-+.I system.posix_acl_default
-+whenever user IDs or group IDs are stored in
-+.BR ACL_USER
-+and
-+.BR ACL_GROUP
-+entries.
-+.RE
-+.RE
-+.IP
-+The following conditions must be met in order to create an idmapped mount:
-+.RS
-+.RS
-+.IP \(bu 2
-+The caller must have
-+.I CAP_SYS_ADMIN
-+in the initial user namespace.
-+.IP \(bu 2
-+The filesystem must be mounted in the initial user namespace.
-+.IP \(bu
-+The underlying filesystem must support idmapped mounts.
-+Currently
-+.BR xfs (5),
-+.BR ext4 (5)
-+and
-+.BR fat
-+filesystems support idmapped mounts with more filesystems being actively worked
-+on.
-+.IP \(bu
-+The mount must not already be idmapped.
-+This also implies that the idmapping of a mount cannot be altered.
-+.IP \(bu
-+The mount must be a detached/anonymous mount,
-+i.e.,
-+it must have been created by calling
-+.BR open_tree (2)
-+with the
-+.I OPEN_TREE_CLONE
-+flag and it must not already have been visible in the filesystem.
-+.RE
-+.RE
-+.IP
-+Idmappings can be created for user IDs, group IDs, and project IDs.
-+An idmapping is essentially a mapping of a range of user or group IDs into
-+another or the same range of user or group IDs.
-+Idmappings are usually written as three numbers either separated by white space
-+or a full stop.
-+The first two numbers specify the starting user or group ID in each of the two
-+user namespaces.
-+The third number specifies the range of the idmapping.
-+For example, a mapping for user IDs such as 1000:1001:1 would indicate that
-+user ID 1000 in the caller's user namespace is mapped to user ID 1001 in its
-+ancestor user namespace.
-+Since the map range is 1 only user ID 1000 is mapped.
-+It is possible to specify up to 340 idmappings for each idmapping type.
-+If any user IDs or group IDs are not mapped all files owned by that unmapped
-+user or group ID will appear as being owned by the overflow user ID or overflow
-+group ID respectively.
-+Further details and instructions for setting up idmappings can be found in the
-+.BR user_namespaces (7)
-+man page.
-+.IP
-+In the common case the user namespace passed in
-+.I userns_fd
-+together with
-+.BR MOUNT_ATTR_IDMAP
-+in
-+.I attr_set
-+to create an idmapped mount will be the user namespace of a container.
-+In other scenarios it will be a dedicated user namespace associated with a
-+user's login session as is the case for portable home directories in
-+.BR systemd-homed.service (8) ).
-+It is also perfectly fine to create a dedicated user namespace for the sake of
-+idmapping a mount.
-+.IP
-+Idmapped mounts can be useful in the following and a variety of other
-+scenarios:
-+.RS
-+.RS
-+.IP \(bu 2
-+sharing files between multiple users or multiple machines especially in
-+complex scenarios.
-+For example,
-+idmapped mounts are used to implement portable home directories in
-+.BR systemd-homed.service (8)
-+where they allow users to move their home directory to an external storage
-+device and use it on multiple computers where they are assigned different user IDs
-+and group IDs.
-+This effectively makes it possible to assign random user IDs and group IDs at login time.
-+.IP \(bu
-+sharing files from the host with unprivileged containers.
-+This allows user to avoid having to change ownership permanently through
-+.BR chown (2) .
-+.IP \(bu
-+idmapping a container's root filesystem.
-+Users don't need to change ownership
-+permanently through
-+.BR chown (2) .
-+Especially for large root filesystems using
-+.BR chown (2)
-+can be prohibitively expensive.
-+.IP \(bu
-+sharing files between containers with non-overlapping
-+idmappings.
-+.IP \(bu
-+implementing discretionary access (DAC) permission checking for fileystems
-+lacking a concept of ownership.
-+.IP \(bu
-+efficiently change ownership on a per-mount basis.
-+In contrast to
-+.BR chown (2)
-+changing ownership of large sets of files is instantenous with idmapped mounts.
-+This is especially useful when ownership of an entire root filesystem of a
-+virtual machine or container is to be changed as we've mentioned above.
-+With idmapped mounts a single
-+.BR mount_setattr (2)
-+system call will be sufficient to change the ownership of all files.
-+.IP \(bu
-+taking the current ownership into account.
-+Idmappings specify precisely what a user or group ID is supposed to be
-+mapped to.
-+This contrasts with the
-+.BR chown (2)
-+system call which cannot by itself take the current ownership of the files it
-+changes into account.
-+It simply changes the ownership to the specified user ID and group ID.
-+.IP \(bu
-+locally and temporarily restricted ownership changes.
-+Idmapped mounts allow to change ownership locally,
-+restricting it to specific mounts,
-+and temporarily as the ownership changes only apply as long as the mount exists.
-+In contrast,
-+changing ownership via the
-+.BR chown (2)
-+system call changes the ownership globally and permanently.
-+.RE
-+.RE
-+.PP
-+The
-+.I propagation
-+field is used to specify the propagation type of the mount or mount tree.
-+Mount propagation options are mutually exclusive,
-+i.e.,
-+the propagation values behave like an enum.
-+The supported mount propagation settings are:
-+.TP
-+.B MS_PRIVATE
-+Turn all mounts into private mounts.
-+Mount and unmount events do not propagate into or out of this mount point.
-+.TP
-+.B MS_SHARED
-+Turn all mounts into shared mounts.
-+Mount points share events with members of a peer group.
-+Mount and unmount events immediately under this mount point
-+will propagate to the other mount points that are members of the peer group.
-+Propagation here means that the same mount or unmount will automatically occur
-+under all of the other mount points in the peer group.
-+Conversely,
-+mount and unmount events that take place under peer mount points will propagate
-+to this mount point.
-+.TP
-+.B MS_SLAVE
-+Turn all mounts into dependent mounts.
-+Mount and unmount events propagate into this mount point from a shared peer
-+group.
-+Mount and unmount events under this mount point do not propagate to any peer.
-+.TP
-+.B MS_UNBINDABLE
-+This is like a private mount,
-+and in addition this mount can't be bind mounted.
-+Attempts to bind mount this mount will fail.
-+When a recursive bind mount is performed on a directory subtree,
-+any bind mounts within the subtree are automatically pruned
-+(i.e., not replicated)
-+when replicating that subtree to produce the target subtree.
-+.PP
-+.SH RETURN VALUE
-+On success,
-+.BR mount_setattr (2)
-+returns zero.
-+On error,
-+\-1 is returned and
-+.I errno
-+is set to indicate the cause of the error.
-+.SH ERRORS
-+.TP
-+.B EBADF
-+.I dfd
-+is not a valid file descriptor.
-+.TP
-+.B EBADF
-+.I userns_fd
-+is not a valid file descriptor.
-+.TP
-+.B EBUSY
-+The caller tried to change the mount to
-+.BR MOUNT_ATTR_RDONLY
-+but the mount still has files open for writing.
-+.TP
-+.B EINVAL
-+The path specified via the
-+.I dfd
-+and
-+.I path
-+arguments to
-+.BR mount_setattr (2)
-+isn't a mountpoint.
-+.TP
-+.B EINVAL
-+An unsupported value was set in
-+.I flags.
-+.TP
-+.B EINVAL
-+An unsupported value was specified in the
-+.I attr_set
-+field of
-+.IR mount_attr .
-+.TP
-+.B EINVAL
-+An unsupported value was specified in the
-+.I attr_clr
-+field of
-+.IR mount_attr .
-+.TP
-+.B EINVAL
-+An unsupported value was specified in the
-+.I propagation
-+field of
-+.IR mount_attr .
-+.TP
-+.B EINVAL
-+More than one of
-+.BR MS_SHARED,
-+.BR MS_SLAVE,
-+.BR MS_PRIVATE,
-+or
-+.BR MS_UNBINDABLE
-+was set in
-+.I propagation
-+field of
-+.IR mount_attr .
-+.TP
-+.B EINVAL
-+An access time setting was specified in the
-+.I attr_set
-+field without
-+.BR MOUNT_ATTR__ATIME
-+being set in the
-+.I attr_clr
-+field.
-+.TP
-+.B EINVAL
-+.BR MOUNT_ATTR_IDMAP
-+was specified in
-+.IR attr_clr .
-+.TP
-+.B EINVAL
-+A file descriptor value was specified in
-+.I userns_fd
-+which exceeds
-+.BR INT_MAX .
-+.TP
-+.B EINVAL
-+A valid file descriptor value was specified in
-+.I userns_fd
-+but the file descriptor wasn't a namespace file descriptor or did not refer to
-+a user namespace.
-+.TP
-+.B EINVAL
-+The underlying filesystem does not support idmapped mounts.
-+.TP
-+.B EINVAL
-+The mount to idmap is not a detached/anonymous mount,
-+i.e.,
-+the mount is already visible in the filesystem.
-+.TP
-+.B EINVAL
-+A partial access time setting was specified in
-+.I attr_clr
-+instead of
-+.BR MOUNT_ATTR__ATIME
-+being set.
-+.TP
-+.B EINVAL
-+The mount is located outside the caller's mount namespace.
-+.TP
-+.B EINVAL
-+The underlying filesystem is mounted in a user namespace.
-+.TP
-+.B ENOENT
-+A pathname was empty or had a nonexistent component.
-+.TP
-+.B ENOMEM
-+When changing mount propagation to
-+.BR MS_SHARED
-+a new peer group id needs to be allocated for all mounts without a peer group
-+id set.
-+Allocation of this peer group id has failed.
-+.TP
-+.B ENOSPC
-+When changing mount propagation to
-+.BR MS_SHARED
-+a new peer group id needs to be allocated for all mounts without a peer group
-+id set.
-+Allocation of this peer group id can fail.
-+Note that technically further error codes are possible that are specific to the
-+id allocation implementation used.
-+.TP
-+.B EPERM
-+One of the mounts had at least one of
-+.BR MOUNT_ATTR_NOATIME,
-+.BR MOUNT_ATTR_NODEV,
-+.BR MOUNT_ATTR_NODIRATIME,
-+.BR MOUNT_ATTR_NOEXEC,
-+.BR MOUNT_ATTR_NOSUID,
-+or
-+.BR MOUNT_ATTR_RDONLY
-+set and the flag is locked.
-+Mount attributes become locked on a mount if:
-+.RS
-+.IP \(bu 2
-+a new mount or mount tree is created causing mount propagation across user
-+namespaces.
-+The kernel will lock the aforementioned flags to protect these sensitive
-+properties from being altered.
-+.IP \(bu
-+a new mount and user namespace pair is created.
-+This happens for example when specifying
-+.BR CLONE_NEWUSER | CLONE_NEWNS
-+in
-+.BR unshare (2),
-+.BR clone (2),
-+or
-+.BR clone3 (2) .
-+The aformentioned flags become locked to protect user namespaces from altering
-+sensitive mount properties.
-+.RE
-+.TP
-+.B EPERM
-+A valid file descriptor value was specified in
-+.I userns_fd
-+but the file descriptor refers to the initial user namespace.
-+.TP
-+.B EPERM
-+An already idmapped mount was supposed to be idmapped.
-+.TP
-+.B EPERM
-+The caller does not have
-+.I CAP_SYS_ADMIN
-+in the initial user namespace.
-+.SH VERSIONS
-+.BR mount_setattr (2)
-+first appeared in Linux 5.12.
-+.\" commit 7d6beb71da3cc033649d641e1e608713b8220290
-+.\" commit 2a1867219c7b27f928e2545782b86daaf9ad50bd
-+.\" commit 9caccd41541a6f7d6279928d9f971f6642c361af
-+.SH CONFORMING TO
-+.BR mount_setattr (2)
-+is Linux specific.
-+.SH NOTES
-+.SS Extensibility
-+In order to allow for future extensibility,
-+.BR mount_setattr (2)
-+along with other system calls such as
-+.BR openat2 (2)
-+and
-+.BR clone3 (2)
-+requires the user-space application to specify the size of the
-+.I mount_attr
-+structure that it is passing.
-+By providing this information, it is possible for
-+.BR mount_setattr (2)
-+to provide both forwards- and backwards-compatibility, with
-+.I size
-+acting as an implicit version number.
-+(Because new extension fields will always
-+be appended, the structure size will always increase.)
-+This extensibility design is very similar to other system calls such as
-+.BR perf_setattr (2),
-+.BR perf_event_open (2),
-+.BR clone3 (2)
-+and
-+.BR openat2 (2) .
-+.PP
-+Let
-+.I usize
-+be the size of the structure as specified by the user-space application,
-+and let
-+.I ksize
-+be the size of the structure which the kernel supports,
-+then there are three cases to consider:
-+.RS
-+.IP \(bu 2
-+If
-+.IR ksize
-+equals
-+.IR usize ,
-+then there is no version mismatch and
-+.I attr
-+can be used verbatim.
-+.IP \(bu
-+If
-+.IR ksize
-+is larger than
-+.IR usize ,
-+then there are some extension fields that the kernel supports which the
-+user-space application is unaware of.
-+Because a zero value in any added extension field signifies a no-op,
-+the kernel treats all of the extension fields not provided by the user-space
-+application as having zero values.
-+This provides backwards-compatibility.
-+.IP \(bu
-+If
-+.IR ksize
-+is smaller than
-+.IR usize ,
-+then there are some extension fields which the user-space application is aware
-+of but which the kernel does not support.
-+Because any extension field must have its zero values signify a no-op,
-+the kernel can safely ignore the unsupported extension fields if they are
-+all zero.
-+If any unsupported extension fields are non-zero, then \-1 is returned and
-+.I errno
-+is set to
-+.BR E2BIG .
-+This provides forwards-compatibility.
-+.RE
-+.PP
-+Because the definition of
-+.I struct mount_attr
-+may change in the future
-+(with new fields being added when system headers are updated),
-+user-space applications should zero-fill
-+.I struct mount_attr
-+to ensure that recompiling the program with new headers will not result in
-+spurious errors at runtime.
-+The simplest way is to use a designated initializer:
-+.PP
-+.in +4n
-+.EX
-+struct mount_attr attr = {
-+    .attr_set = MOUNT_ATTR_RDONLY,
-+    .attr_clr = MOUNT_ATTR_NODEV
-+};
-+.EE
-+.in
-+.PP
-+or explicitly using
-+.BR memset (3)
-+or similar functions:
-+.PP
-+.in +4n
-+.EX
-+struct mount_attr attr;
-+memset(&attr, 0, sizeof(attr));
-+attr.attr_set = MOUNT_ATTR_RDONLY;
-+attr.attr_clr = MOUNT_ATTR_NODEV;
-+.EE
-+.in
-+.PP
-+A user-space application that wishes to determine which extensions the running
-+kernel supports can do so by conducting a binary search on
-+.IR size
-+with a structure which has every byte nonzero
-+(to find the largest value which doesn't produce an error of
-+.BR E2BIG ) .
-+.SH EXAMPLES
-+.EX
-+/*
-+ * This program allows the caller to create a new detached mount and set
-+ * various properties on it.
-+ */
-+#define _GNU_SOURCE
-+#include <errno.h>
-+#include <fcntl.h>
-+#include <getopt.h>
-+#include <linux/mount.h>
-+#include <linux/types.h>
-+#include <stdbool.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <sys/syscall.h>
-+#include <unistd.h>
-+
-+static inline int mount_setattr(int dfd,
-+                                const char *path,
-+                                unsigned int flags,
-+                                struct mount_attr *attr,
-+                                size_t size)
-+{
-+    return syscall(SYS_mount_setattr, dfd, path,
-+                   flags, attr, size);
-+}
-+
-+static inline int open_tree(int dfd, const char *filename,
-+                            unsigned int flags)
-+{
-+    return syscall(SYS_open_tree, dfd, filename, flags);
-+}
-+
-+static inline int move_mount(int from_dfd,
-+                             const char *from_pathname,
-+                             int to_dfd,
-+                             const char *to_pathname,
-+                             unsigned int flags)
-+{
-+    return syscall(SYS_move_mount, from_dfd,
-+                   from_pathname, to_dfd, to_pathname, flags);
-+}
-+
-+static const struct option longopts[] = {
-+    {"map-mount",       required_argument,  NULL,  'a'},
-+    {"recursive",       no_argument,        NULL,  'b'},
-+    {"read-only",       no_argument,        NULL,  'c'},
-+    {"block-setid",     no_argument,        NULL,  'd'},
-+    {"block-devices",   no_argument,        NULL,  'e'},
-+    {"block-exec",      no_argument,        NULL,  'f'},
-+    {"no-access-time",  no_argument,        NULL,  'g'},
-+    { NULL,             0,                  NULL,   0 },
-+};
-+
-+#define exit_log(format, ...)                   \\
-+    ({                                          \\
-+        fprintf(stderr, format, ##__VA_ARGS__); \\
-+        exit(EXIT_FAILURE);                     \\
-+    })
-+
-+int main(int argc, char *argv[])
-+{
-+    int fd_userns = \-EBADF, index = 0;
-+    bool recursive = false;
-+    struct mount_attr *attr = &(struct mount_attr){};
-+    const char *source, *target;
-+    int fd_tree, new_argc, ret;
-+    char *const *new_argv;
-+
-+    while ((ret = getopt_long_only(argc, argv, "",
-+                                  longopts, &index)) != \-1) {
-+        switch (ret) {
-+        case 'a':
-+            fd_userns = open(optarg, O_RDONLY | O_CLOEXEC);
-+            if (fd_userns == \-1)
-+                exit_log("%m - Failed top open %s\en", optarg);
-+            break;
-+        case 'b':
-+            recursive = true;
-+            break;
-+        case 'c':
-+            attr->attr_set |= MOUNT_ATTR_RDONLY;
-+            break;
-+        case 'd':
-+            attr->attr_set |= MOUNT_ATTR_NOSUID;
-+            break;
-+        case 'e':
-+            attr->attr_set |= MOUNT_ATTR_NODEV;
-+            break;
-+        case 'f':
-+            attr->attr_set |= MOUNT_ATTR_NOEXEC;
-+            break;
-+        case 'g':
-+            attr->attr_set |= MOUNT_ATTR_NOATIME;
-+            attr->attr_clr |= MOUNT_ATTR__ATIME;
-+            break;
-+        default:
-+            exit_log("Invalid argument specified");
-+        }
-+    }
-+
-+    new_argv = &argv[optind];
-+    new_argc = argc \- optind;
-+    if (new_argc < 2)
-+        exit_log("Missing source or target mountpoint\en");
-+    source = new_argv[0];
-+    target = new_argv[1];
-+
-+    fd_tree = open_tree(\-EBADF, source,
-+                        OPEN_TREE_CLONE |
-+                        OPEN_TREE_CLOEXEC |
-+                        AT_EMPTY_PATH |
-+                        (recursive ? AT_RECURSIVE : 0));
-+    if (fd_tree == \-1)
-+        exit_log("%m - Failed to open %s\en", source);
-+
-+    if (fd_userns >= 0) {
-+        attr->attr_set  |= MOUNT_ATTR_IDMAP;
-+        attr->userns_fd = fd_userns;
-+    }
-+    ret = mount_setattr(fd_tree, "",
-+                        AT_EMPTY_PATH |
-+                        (recursive ? AT_RECURSIVE : 0),
-+                        attr, sizeof(struct mount_attr));
-+    if (ret == \-1)
-+        exit_log("%m - Failed to change mount attributes\en");
-+    close(fd_userns);
-+
-+    ret = move_mount(fd_tree, "", \-EBADF, target,
-+                     MOVE_MOUNT_F_EMPTY_PATH);
-+    if (ret == \-1)
-+        exit_log("%m - Failed to attach mount to %s\en", target);
-+    close(fd_tree);
-+
-+    exit(EXIT_SUCCESS);
-+}
-+.EE
-+.fi
-+.SH SEE ALSO
-+.BR capabilities (7),
-+.BR clone (2),
-+.BR clone3 (2),
-+.BR ext4 (5),
-+.BR mount (2),
-+.BR mount_namespaces (7),
-+.BR newuidmap (1),
-+.BR newgidmap (1),
-+.BR proc (5),
-+.BR unshare (2),
-+.BR user_namespaces (7),
-+.BR xattr (7),
-+.BR xfs (5)
-
-base-commit: fbe71b1b79e72be3b9afc44b5d479e7fd84b598a
 -- 
-2.30.2
-
+Sincerely yours,
+Mike.
