@@ -2,74 +2,150 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id DD36F3DCF63
-	for <lists+linux-man@lfdr.de>; Mon,  2 Aug 2021 06:24:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id BDD093DD18B
+	for <lists+linux-man@lfdr.de>; Mon,  2 Aug 2021 09:50:58 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232201AbhHBEY0 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 2 Aug 2021 00:24:26 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43676 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232128AbhHBEYV (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 2 Aug 2021 00:24:21 -0400
-Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com [IPv6:2a00:1450:4864:20::542])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A2DA3C0617A3
-        for <linux-man@vger.kernel.org>; Sun,  1 Aug 2021 21:24:10 -0700 (PDT)
-Received: by mail-ed1-x542.google.com with SMTP id n2so22621747eda.10
-        for <linux-man@vger.kernel.org>; Sun, 01 Aug 2021 21:24:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:reply-to:from:date:message-id:subject:to;
-        bh=JbMtpdZj7sghISs4e5T5yryQDvERMuYalazmdQP0RcA=;
-        b=FtyL1jenxhHoD0FEqr0JzEzar9WxjQ0aFEwPIjOui/KxHqjdRIaWw+qc9fVrqT7/Dn
-         Pnh35Va41LybAL6U8YkeIBgROe6j/64zDWESXr3a3yRfbQQPGRB9fNiPFd+zLtRJzUIN
-         QuzzTY5SkBKHMhw3aNm828s4szNx+qezVfjbXBb1AnLosRqM3hZLsmXFs11UFe9XwQd0
-         8wSmR+hXWoecdn7C1dRJ3raMOO2OzRp8To/v4OIIenhLUR2Xi2bEwQKHQsPiMZ9RJ/f/
-         /P5G34L+RYG0gvY4mQKUVcv9jgYngramQoP+XViWVUuAojxufRmPTkFAnPt7xVda61k1
-         G8fw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to;
-        bh=JbMtpdZj7sghISs4e5T5yryQDvERMuYalazmdQP0RcA=;
-        b=uex7ubbIPbOv+SegpEJ9KMbvXYvAWnX350ecLuFVQ30zlfSmnnnzXQian+4DqUh0GL
-         QYsA4hnIBUgUrDjj+S2W7HbnNYBLqpNYGUspIORXZejWXExUdxHrniMyKbzdRYwuoixr
-         uC+BaJMv56RwygwH/dOQ5JETDgS3pz91hDyePzddDhu5YnslUvHhm1375siehe9+Hhc3
-         F9TJTk62tjMUCN3EXqOBcA53yGsZpsdDNEp7Mhow2JyKnyDz/yS5SMTwFeafO6zp/hgk
-         lAHCDX+tb+bZbHCVT6SF1hEEOviLqsYCj9QC+/42WP+9Cjfdiy9FgajfNNvlBb2f8NnW
-         SrrQ==
-X-Gm-Message-State: AOAM5314PC+pX/8cRIQOcgbmYugRN3L8nW/TiwXjI33/liR1s32iRx9f
-        iBdffcGHkKLVOBKohi8gUFRoB/Q7ec0BHGk6zRg=
-X-Google-Smtp-Source: ABdhPJzys5yCwXnLOHH4NsCIcKA9f726GMnAOsN9NLlhSmyZNb7UhzU0IEwJ6FYKksyg3UeOKVwrbLA6pAJm2hMlOV0=
-X-Received: by 2002:aa7:c0d1:: with SMTP id j17mr16890014edp.217.1627878249276;
- Sun, 01 Aug 2021 21:24:09 -0700 (PDT)
+        id S232578AbhHBHvG (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 2 Aug 2021 03:51:06 -0400
+Received: from mail.kernel.org ([198.145.29.99]:54192 "EHLO mail.kernel.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S232654AbhHBHvC (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Mon, 2 Aug 2021 03:51:02 -0400
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 9590160FC1;
+        Mon,  2 Aug 2021 07:50:51 +0000 (UTC)
+Date:   Mon, 2 Aug 2021 09:50:46 +0200
+From:   Christian Brauner <christian.brauner@ubuntu.com>
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Cc:     Christian Brauner <brauner@kernel.org>,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        linux-man@vger.kernel.org, Christoph Hellwig <hch@infradead.org>,
+        linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH v3] mount_setattr.2: New manual page documenting the
+ mount_setattr() system call
+Message-ID: <20210802075046.frh2deqjmgkjrm4r@wittgenstein>
+References: <20210731101527.423200-1-brauner@kernel.org>
+ <828acf6c-dd06-e153-f7c8-9e1de7342b5f@gmail.com>
 MIME-Version: 1.0
-Received: by 2002:a17:907:d0b:0:0:0:0 with HTTP; Sun, 1 Aug 2021 21:24:08
- -0700 (PDT)
-Reply-To: ablahikazabl67@gmail.com
-From:   Abdoulahi Kazim <drwilliamcuthbert@gmail.com>
-Date:   Mon, 2 Aug 2021 05:24:08 +0100
-Message-ID: <CAKwBCXuzDf40zPCct3xg8L9LubxzXWgC230fQ80GXrmg_Yuttw@mail.gmail.com>
-Subject: More Authentic Information
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <828acf6c-dd06-e153-f7c8-9e1de7342b5f@gmail.com>
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
--- 
-Dear Partner,
+On Sun, Aug 01, 2021 at 03:47:53PM +0200, Alejandro Colomar (man-pages) wrote:
+> Hi Christian,
+> 
+> This time I'm going to point out issues about the contents only, not groff
+> fixes nor even punctuation fixes.  I'll fix those myself and CC you when I
 
-I am soliciting your partnership to relocate $12.5 Million to your
-country for investment on my behalf and you will be entitled to 30% of
-the sum once the transaction is successful made.
+It's fine, I'm happy to do them if you point them out especially if
+there need to be content changes because then I have rework anyway. I
+just don't want to wade through other emails. :)
 
-Please indicate your genuine interest if you are capable so that i
-will send you the authentic details and documents of the transaction
-in awareness with some of my fellow Directors in the bank.
+> do that.
+> 
+> However, if you render the page yourself (man ./mount_setattr.2), you will
+> probably notice some formatting issues.
 
-If you are interested, here is my private Email address:
-(ablahikazabl67@gmail.com)
-For more authentic and legit information.
+I'll obviously fix them if I see them. :)
 
+> 
+> Please see some comments below.
+> 
+> Thanks,
+> 
+> Alex
+> 
+> On 7/31/21 12:15 PM, Christian Brauner wrote:
+> > 
+> > +.SH ERRORS
+> > +.TP
+> > +.B EBADF
+> > +.I dfd
+> > +is not a valid file descriptor.
+> > +.TP
+> > +.B EBADF
+> > +An invalid file descriptor value was specified in
+> > +.I userns_fd.
+> 
+> Why a different wording compared to the above?  Aren't they the same?
+> 
+> userns_fd is not a valid descriptor.
+> 
+> That would be consistent with the first EBADF, and would keep the meaning,
+> right?
 
-Regards :  Abdoulahi Kazim
+Sounds good.
+
+> 
+> > +.TP
+> > +.B EBUSY
+> > +The caller tried to change the mount to
+> > +.BR MOUNT_ATTR_RDONLY
+> > +but the mount had writers.
+> 
+> This is not so clear.  I think I understood it, but maybe using language
+> similar to that of mount(2) is clearer:
+> 
+> EBUSY  source cannot be remounted read‐only, because it still holds files
+> open for writing.
+> 
+> Something like?:
+> 
+> The caller tried to change the mount to MOUNT_ATTR_ONLY but the mount still
+> has files open for writing
+
+Sounds good.
+
+> 
+> 
+> > 
+> > +static const struct option longopts[] = {
+> > +    {"map-mount",       required_argument,  0,  'a'},
+> > +    {"recursive",       no_argument,        0,  'b'},
+> > +    {"read-only",       no_argument,        0,  'c'},
+> > +    {"block-setid",     no_argument,        0,  'd'},
+> > +    {"block-devices",   no_argument,        0,  'e'},
+> > +    {"block-exec",      no_argument,        0,  'f'},
+> > +    {"no-access-time",  no_argument,        0,  'g'},
+> > +    { NULL,             0,                  0,   0 },
+> > +};
+> 
+> The third field is an 'int *' (https://www.gnu.org/software/libc/manual/html_node/Getopt-Long-Options.html).
+> Please, use NULL instead of 0.
+
+ok
+
+> 
+> 
+> > 
+> > +    struct mount_attr *attr = &(struct mount_attr){};
+> 
+> Wow!  Interesting usage of compound literals.
+> I had to check that this has automatic storage duration (I would have said
+> that it has static s.d., but no).
+> 
+> I'm curious: why use that instead of just?:
+> 
+> struct mount_attr attr = {0};
+
+I like the ability to directly pass "attr" as pointer and I also like
+that I can use "attr->" instead of "attr.". It's entirely convenience. :)
+
+> 
+> > 
+> > +    if (ret < 0)
+> > +        exit_log("%m - Failed to change mount attributes\en");
+> 
+> 
+> Although I typically use myself that same < 0 check,
+> manual pages typically use == -1 when a function returns -1 on error (which
+> most syscalls do), and Michael prefers that.
+
+Sure, will change for mount_setattr() and move_mount() calls. I'd leave
+the open_tree() and open().
+
+Thanks!
+Christian
