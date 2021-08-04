@@ -2,189 +2,198 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 572703E0585
-	for <lists+linux-man@lfdr.de>; Wed,  4 Aug 2021 18:12:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id F0D623E0A3D
+	for <lists+linux-man@lfdr.de>; Thu,  5 Aug 2021 00:09:45 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233244AbhHDQM5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 4 Aug 2021 12:12:57 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50608 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234054AbhHDQKz (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 4 Aug 2021 12:10:55 -0400
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [IPv6:2a00:1098:0:82:1000:25:2eeb:e3e3])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DBD6CC0613D5;
-        Wed,  4 Aug 2021 09:10:33 -0700 (PDT)
-Received: from [127.0.0.1] (localhost [127.0.0.1])
-        (Authenticated sender: krisman)
-        with ESMTPSA id 77E571F43697
-From:   Gabriel Krisman Bertazi <krisman@collabora.com>
-To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org, linux-api@vger.kernel.org,
-        Gabriel Krisman Bertazi <krisman@collabora.com>,
-        Amir Goldstein <amir73il@gmail.com>, Jan Kara <jack@suse.cz>,
-        Matthew Bobrowski <repnop@google.com>
-Subject: [PATCH v2] fanotify.7, fanotify_mark.2: Document FAN_FS_ERROR
-Date:   Wed,  4 Aug 2021 12:10:24 -0400
-Message-Id: <20210804161024.3578338-1-krisman@collabora.com>
-X-Mailer: git-send-email 2.32.0
+        id S234938AbhHDWJ6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 4 Aug 2021 18:09:58 -0400
+Received: from mail.kernel.org ([198.145.29.99]:52920 "EHLO mail.kernel.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S231249AbhHDWIl (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Wed, 4 Aug 2021 18:08:41 -0400
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 21D786109F;
+        Wed,  4 Aug 2021 22:08:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1628114891;
+        bh=9Mh3zQj7N4giEdHC93zuncEJfUDERAwyM4EdZo6zheU=;
+        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+        b=PcTblenphuGMAXoRzELxwkApfJRmtU3JPzKkZzTXlj+td/Rsz5B13ofj2XIHhf7oT
+         +6r2lHz8xg8Fyib+ISNw8kPWvPrZ2pbYGLJHJOtOUXhRrFpB7qflUsec3aw2iBQ60t
+         7AaB8nx5mIr6TM0IkXh7tig4ac6DlVS/XtgHAbJ6CtoKv4OlNjtqG1YoO84I7Xy6x9
+         iEqKzpHz4aJ0Xls2a4IFgJoppKnIaw1295+895SphqIhe5Up+1lA4yRlF+3r7dialv
+         GY2ZZ5XNP7Nhg88JLLJ2rGtDtjuZ09gvJiz0i1XSXdEsV3gCZ4/GRfkCFRus3spAK9
+         C5R95mZR2399A==
+Received: by pali.im (Postfix)
+        id B807E77F; Thu,  5 Aug 2021 00:08:08 +0200 (CEST)
+Date:   Thu, 5 Aug 2021 00:08:08 +0200
+From:   Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>
+To:     Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc:     Marek =?utf-8?B?QmVow7pu?= <kabel@kernel.org>,
+        libc-alpha@sourceware.org,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        linux-man@vger.kernel.org, linux-serial@vger.kernel.org,
+        Alejandro Colomar <alx.manpages@gmail.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+Subject: Re: [PATCH v3] ioctl_tty.2: Add example how to get or set baudrate
+ on the serial port
+Message-ID: <20210804220808.cetleob6dldpfnjk@pali>
+References: <20210730095333.6118-1-pali@kernel.org>
+ <20210801135146.14849-1-pali@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210801135146.14849-1-pali@kernel.org>
+User-Agent: NeoMutt/20180716
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-The kernel patches are not merged upstream, so please refrain from merging
-it at the moment.  This submission attempts to preview the interface
-and gather some interface review.
++ linux-serial
++ Greg
 
-Cc: Amir Goldstein <amir73il@gmail.com>
-Cc: Jan Kara <jack@suse.cz>
-Cc: Matthew Bobrowski <repnop@google.com>
-Signed-off-by: Gabriel Krisman Bertazi <krisman@collabora.com>
+Greg, could I ask you for reviewing this documentation manpage patch?
 
----
-Changes since v1:
-(Matthew)
-  - Grammar fixes
-  - Don't use the term "submitted" for events sent to the listener
-  - Clarify the kind of information that is file system specific
----
- man2/fanotify_mark.2 | 16 ++++++++++
- man7/fanotify.7      | 73 ++++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 89 insertions(+)
-
-diff --git a/man2/fanotify_mark.2 b/man2/fanotify_mark.2
-index be3f72e040c0..2ae52f81d43b 100644
---- a/man2/fanotify_mark.2
-+++ b/man2/fanotify_mark.2
-@@ -214,6 +214,22 @@ Create an event when a marked file or directory itself is deleted.
- An fanotify group that identifies filesystem objects by file handles
- is required.
- .TP
-+.BR FAN_FS_ERROR "(since Linux 5.15)"
-+.\" commit WIP
-+Create an event when a file system error is detected.
-+A fanotify group that identifies filesystem objects by file handles
-+is required.
-+Support for this type of notification is done per-file system,
-+but not every filesystem supports it.
-+A user can also expect to receive additional information
-+in the form of a
-+.BR FAN_EVENT_INFO_TYPE_ERROR
-+record
-+alongside the generic metadata event.
-+See
-+.BR fanotify (7)
-+for additional details.
-+.TP
- .BR FAN_MOVED_FROM " (since Linux 5.1)"
- .\" commit 235328d1fa4251c6dcb32351219bb553a58838d2
- Create an event when a file or directory has been moved from a marked
-diff --git a/man7/fanotify.7 b/man7/fanotify.7
-index 6a7e70d75845..b8b7f44d4e32 100644
---- a/man7/fanotify.7
-+++ b/man7/fanotify.7
-@@ -188,6 +188,24 @@ struct fanotify_event_info_fid {
- .EE
- .in
- .PP
-+In case of a FAN_FS_ERROR event,
-+besides the file handle record,
-+an additional record describing the error that occurred
-+is included in the read buffer.
-+The structure described below, will follow the generic
-+.I fanotify_event_metadata
-+structure within the read buffer:
-+.PP
-+.in +4n
-+.EX
-+struct fanotify_event_info_error {
-+    struct fanotify_event_info_header hdr;
-+    __s32 error;
-+    __u32 error_count;
-+};
-+.EE
-+.in
-+.PP
- For performance reasons, it is recommended to use a large
- buffer size (for example, 4096 bytes),
- so that multiple events can be retrieved by a single
-@@ -311,6 +329,9 @@ A child file or directory was deleted in a watched parent.
- .B FAN_DELETE_SELF
- A watched file or directory was deleted.
- .TP
-+.B FAN_FS_ERROR
-+A file-system error was detected.
-+.TP
- .B FAN_MOVED_FROM
- A file or directory has been moved from a watched parent directory.
- .TP
-@@ -510,6 +531,32 @@ and the file handle is followed by a null terminated string that identifies the
- name of a directory entry in that directory, or '.' to identify the directory
- object itself.
- .PP
-+The fields of the
-+.I fanotify_event_info_error
-+structure are as follows:
-+.TP
-+.I hdr
-+This is a structure of type
-+.IR fanotify_event_info_header .
-+and is a generic header that contains information used to
-+describe an additional information record attached to the event.
-+For
-+.IR fanotify_event_info_error ,
-+.I info_type
-+will have the value
-+.BR FAN_EVENT_INFO_TYPE_ERROR .
-+.I len
-+has the size of the additional information record including the
-+.IR fanotify_event_info_header
-+itself.
-+.TP
-+.I error
-+Identifies the file system specific error that occured
-+.TP
-+.I error_count
-+This counts the number of errors suppressed
-+since the last error was read.
-+.PP
- The following macros are provided to iterate over a buffer containing
- fanotify event metadata returned by a
- .BR read (2)
-@@ -599,6 +646,32 @@ field.
- In that case, the audit subsystem will log information about the access
- decision to the audit logs.
- .\"
-+.SS Monitoring file systems for errors
-+A single FAN_FS_ERROR event is stored by the kernel at once.
-+Extra error messages are suppressed and accounted for
-+inside the current FAN_FS_ERROR event record,
-+but details about the errors are lost.
-+.PP
-+Error types reported by FAN_FS_ERROR are file system specific
-+and not all kinds of errors are reported by all file system.
-+Refer to the file system documentation
-+for additional information on the type of errors that are reported,
-+and the meaning of those errors.
-+.PP
-+Errors not directly related to a file (i.e. super block corruption)
-+are reported with an invalid
-+.IR file_handle .
-+For these errors, the
-+.I file_handle
-+will have the field
-+.I handle_type
-+set to
-+.BR FILEID_INVALID ,
-+and the
-+.I f_handle
-+buffer set to
-+.BR 0 .
-+.\"
- .SS Closing the fanotify file descriptor
- When all file descriptors referring to the fanotify notification group are
- closed, the fanotify group is released and its resources
--- 
-2.32.0
-
+On Sunday 01 August 2021 15:51:45 Pali Rohár wrote:
+> Signed-off-by: Pali Rohár <pali@kernel.org>
+> 
+> ---
+> Changes in v3:
+> * Check support for custom baudrate only based on BOTHER macro
+> * Use TCGETS/TCSETS/termios when TCGETS2/TCSETS2/termios2 is not available
+> 
+> Changes in v2:
+> * Use \e for backslash
+> * Use exit(EXIT_*) instead of return num
+> * Sort includes
+> * Add comment about possible fallback
+> ---
+> 
+> Hello Alejandro!
+> 
+> I found out that this stuff is more complicated as I originally thought.
+> And seems that additional documentation on this topic is needed...
+> 
+> For setting custom baudrate it is needed to set BOTHER flag in c_cflag
+> field and baudrate value itself in c_ospeed and c_ispeed fields.
+> 
+> So when BOTHER flag is not provided by <asm/termbits.h> then setting custom
+> baudrate is not possible, fields c_ospeed and c_ispeed do not exist (and
+> only some predefined Bnnn baudrate values are supported). This applies when
+> compiling application with older version of header files (prior support for
+> custom baudrate was introduced into header files).
+> 
+> First caveat: BOTHER constant is different for different architectures.
+> So it is not possible to provide fallback #ifndef..#define BOTHER.
+> 
+> And now the biggest issue: Some architectures have these c_ospeed and
+> c_ispeed fields in struct termios and some in struct termios2.
+> 
+> TCGETS/TCSETS ioctls use struct termios and TCGETS/TCSETS2 use
+> struct termios2.
+> 
+> Some architectures (e.g. amd64) provide both struct termios and struct
+> termios2, but c_ospeed and c_ispeed are only in struct termios2.
+> 
+> Some other architectures (e.g. alpha) provide both struct termios and struct
+> termios2 and both have c_ospeed and c_ispeed fields.
+> 
+> And some other architectures (e.g. powerpc) provide only struct termios
+> (no struct termios2) and it has c_ospeed and c_ispeed fields.
+> 
+> So basically to support all architectures it is needed to use
+> struct termios2 when TCGETS2/TCSETS2 is supported. Otherwise it is needed
+> to use struct termios with TCGETS/TCSETS (case for e.g. powerpc).
+> 
+> I updated v3 patch to handle this logic.
+> ---
+>  man2/ioctl_tty.2 | 73 ++++++++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 73 insertions(+)
+> 
+> diff --git a/man2/ioctl_tty.2 b/man2/ioctl_tty.2
+> index 3020f9984872..d83cbd17225b 100644
+> --- a/man2/ioctl_tty.2
+> +++ b/man2/ioctl_tty.2
+> @@ -764,6 +764,79 @@ main(void)
+>      close(fd);
+>  }
+>  .EE
+> +.PP
+> +Get or set arbitrary baudrate on the serial port.
+> +.PP
+> +.EX
+> +#include <asm/termbits.h>
+> +#include <fcntl.h>
+> +#include <stdio.h>
+> +#include <stdlib.h>
+> +#include <sys/ioctl.h>
+> +#include <sys/types.h>
+> +#include <unistd.h>
+> +
+> +int
+> +main(int argc, char *argv[])
+> +{
+> +#ifndef BOTHER
+> +    fprintf(stderr, "BOTHER is unsupported\en");
+> +    /* Program may fallback to TCGETS/TCSETS with Bnnn constants */
+> +    exit(EXIT_FAILURE);
+> +#else
+> +#ifdef TCGETS2
+> +    struct termios2 tio;
+> +#else
+> +    struct termios tio;
+> +#endif
+> +    int fd, rc;
+> +
+> +    if (argc != 2 && argc != 3) {
+> +        fprintf(stderr, "Usage: %s device [new_baudrate]\en", argv[0]);
+> +        exit(EXIT_FAILURE);
+> +    }
+> +
+> +    fd = open(argv[1], O_RDWR | O_NONBLOCK | O_NOCTTY);
+> +    if (fd < 0) {
+> +        perror("open");
+> +        exit(EXIT_FAILURE);
+> +    }
+> +
+> +#ifdef TCGETS2
+> +    rc = ioctl(fd, TCGETS2, &tio);
+> +#else
+> +    rc = ioctl(fd, TCGETS, &tio);
+> +#endif
+> +    if (rc) {
+> +        perror("TCGETS");
+> +        close(fd);
+> +        exit(EXIT_FAILURE);
+> +    }
+> +
+> +    printf("%u\en", tio.c_ospeed);
+> +
+> +    if (argc == 3) {
+> +        tio.c_cflag &= ~CBAUD;
+> +        tio.c_cflag |= BOTHER;
+> +        tio.c_ospeed = tio.c_ispeed = atoi(argv[2]);
+> +
+> +#ifdef TCSETS2
+> +        rc = ioctl(fd, TCSETS2, &tio);
+> +#else
+> +        rc = ioctl(fd, TCSETS, &tio);
+> +#endif
+> +        if (rc) {
+> +            perror("TCSETS");
+> +            close(fd);
+> +            exit(EXIT_FAILURE);
+> +        }
+> +    }
+> +
+> +    close(fd);
+> +    exit(EXIT_SUCCESS);
+> +#endif
+> +}
+> +.EE
+>  .SH SEE ALSO
+>  .BR ldattach (1),
+>  .BR ioctl (2),
+> -- 
+> 2.20.1
+> 
