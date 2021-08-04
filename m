@@ -2,84 +2,105 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 490183DFE26
-	for <lists+linux-man@lfdr.de>; Wed,  4 Aug 2021 11:40:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D027C3DFF9D
+	for <lists+linux-man@lfdr.de>; Wed,  4 Aug 2021 12:50:14 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S237105AbhHDJkL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 4 Aug 2021 05:40:11 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44784 "EHLO
+        id S237603AbhHDKuW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 4 Aug 2021 06:50:22 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60978 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S237035AbhHDJkL (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 4 Aug 2021 05:40:11 -0400
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com [IPv6:2a00:1450:4864:20::52f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 21424C0613D5
-        for <linux-man@vger.kernel.org>; Wed,  4 Aug 2021 02:39:59 -0700 (PDT)
-Received: by mail-ed1-x52f.google.com with SMTP id x90so2684701ede.8
-        for <linux-man@vger.kernel.org>; Wed, 04 Aug 2021 02:39:59 -0700 (PDT)
+        with ESMTP id S237593AbhHDKuT (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 4 Aug 2021 06:50:19 -0400
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com [IPv6:2a00:1450:4864:20::333])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DA34BC0613D5
+        for <linux-man@vger.kernel.org>; Wed,  4 Aug 2021 03:50:05 -0700 (PDT)
+Received: by mail-wm1-x333.google.com with SMTP id a192-20020a1c7fc90000b0290253b32e8796so3466642wmd.0
+        for <linux-man@vger.kernel.org>; Wed, 04 Aug 2021 03:50:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:user-agent:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=1ko20TG/AnZ0HCPt2+UKwWgp2L0mx7hTcw5XKJQCcdM=;
-        b=ECzgiYvjo6Ej+yexhJeeorft+4CVe6xpGMn6pCJQCR5GPudYaU57HGx+/CrxRmRXz+
-         jhuIGU6RpJsKslDDuasUBb8v4Ew8aERI+rzAJ3PmDlRlk6VplqNTONRkedqi87tKomxp
-         mt2POlgb1t8m+VjJDWfWPcGIBGdPOCP4qrPE0wTHpR4/YIWOrkeOW7Ac2G2TFY4G3zhH
-         1XA8Rp4rlsT73km0lk+d4vynUJnySZ2NE6eEExY5YmNPVz8NQqQLtx482wBA3bhZ2j3E
-         wjDh6mqWuG3XRSNpZ6Bf+UbeJK8f7qia6u+35OBKB6vVe/GKMVRq59/qubLl1q7qSXtC
-         wl8w==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=YUHIZlcdKnQ/mKwF6+sa1P81aIYBbwxAJGiHp1eTCTM=;
+        b=ntGPPL2Pb4oDLVMtZgbffoIs+39RNI8mK/lgxdd3kFZYOWEfd7B8vKA7KMkA5J/sB0
+         A7FNZHAyGRpid2t9z9sAOyNzPmmXhp8x7ZDRwb+qJCOY/xnxoqoV//IdGEdbgvcnxWru
+         QQ0dl0aOwt5hP/haUDy0gnrfLyejIqAwmE+ctaNKDzSJjJ2fhilZZaGpwjkn8Y5tkAVV
+         hSrO6kYAaFyD/OMLV+28osEKOGKTSYNJ4k+a7PFdPK7OcpJgkFwqBOQBhERnHwpPgsco
+         dBecSLk/5bdjE+n5FJAYUgzskHf4gkFYjwPEmbc9iIuogWiVtGKUkso9iar7z9G5nzv5
+         yNgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:user-agent:date:message-id
-         :mime-version:content-transfer-encoding;
-        bh=1ko20TG/AnZ0HCPt2+UKwWgp2L0mx7hTcw5XKJQCcdM=;
-        b=rn+hieiy+XqXfG6D/Ocxf+pjAmDinehh7Vh6n4+mgsD4Qx0ozz7M14Kn4kkQ0UEikT
-         PTX3tk+Ezem+wZko+zoW5wLZnEluApG1OuI4voqiFwaZ5sn1IRDrjI6kPeE0pfkLw/3W
-         e+rjR8QTt9RQhXbNlYKGO6YSgv1vaLtxV2NrziPGHFkpu71OJuXVOBNrDO8DJ26ouQGM
-         k4h6HNYjhSIslOmjV0kcPqlCVoFo77KasFpy2saHbqD+ZYEul4iH6mYrD3A596lD6qz7
-         ls5Dz23wHOMQu20RQzybyHVgA6ti+CXUAjqXkVjjmYyD60Oqe1UY8e8q7MXNNhksaex5
-         aHTw==
-X-Gm-Message-State: AOAM532RoeuwOhoeoZbQNZzA1IB2ttJfhGm9IParD09yA+p0Qc7I7VnN
-        KOqxkhAH9mXeNhfG/yCWVIo=
-X-Google-Smtp-Source: ABdhPJy0OrSPmY332Sc9gaWLpeFx4ZhjIzwfUJ0V7rhtaL8Wo1W0UGVc2kU61fnCIa9LJlxykjA0uw==
-X-Received: by 2002:aa7:dd84:: with SMTP id g4mr30805581edv.134.1628069997768;
-        Wed, 04 Aug 2021 02:39:57 -0700 (PDT)
-Received: from localhost (dynamic-109-81-211-243.ipv4.broadband.iol.cz. [109.81.211.243])
-        by smtp.gmail.com with ESMTPSA id c13sm699827edv.93.2021.08.04.02.39.57
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=YUHIZlcdKnQ/mKwF6+sa1P81aIYBbwxAJGiHp1eTCTM=;
+        b=aC3PVEQhNWpRbkSGnuiTgxa5UiDNwDxuoExD63kRteUwoT1LSg2bxtwYNpTvG/Q4pE
+         IzeJdZQXS+inj1oSc3ylkjUrR0mosOzaAzd5UqwLxjTRHd+E89onMTe0mdSlFQtX/+pr
+         R44QRvXciIN036Lnc3JeJc+i0okWhLq70o7fh6YYrVbkxI209SNF/Yzsf0IPmT9O9gAA
+         wOgBqHoeY/5cC3Wog23FAFrAhYk5mQQQcYVgXeSDL9Yl7b1D+h39Lomr/Fxv/ZD0MgDX
+         KNqjC/U0C1t4vN++Z+JLm82K3wOfcSi7vsEp5KxNcfLraCVrHK8RLB9Yqj/5zqA2ldHQ
+         UG8g==
+X-Gm-Message-State: AOAM530eLgz6o9gLxQCB109sS5EQjfLJTddN76HNsg+G4WMnR8+FToTZ
+        jUwNnKcGgTT4bKs3JauHeYQ=
+X-Google-Smtp-Source: ABdhPJxzYoCBBgcaIvJCzE1W22iPPNCEKon8hBDwwmH1WEneM9oJwFndAon5VxX/MWhZ6GshdvDRPQ==
+X-Received: by 2002:a1c:1d44:: with SMTP id d65mr27094428wmd.181.1628074204539;
+        Wed, 04 Aug 2021 03:50:04 -0700 (PDT)
+Received: from sqli.sqli.com ([195.53.121.100])
+        by smtp.googlemail.com with ESMTPSA id o17sm1998651wrw.17.2021.08.04.03.50.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Aug 2021 02:39:57 -0700 (PDT)
-From:   =?utf-8?B?xaB0xJtww6FuIE7Em21lYw==?= <stepnem@gmail.com>
-To:     Michael Kerrisk <mtk.manpages@gmail.com>,
-        Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-Subject: Error in getopts(1p)
-User-Agent: Notmuch/0.32.2 (https://notmuchmail.org) Emacs/28.0.50
- (x86_64-pc-linux-gnu)
-Date:   Wed, 04 Aug 2021 11:40:01 +0200
-Message-ID: <20210804114001+0200.622908-stepnem@gmail.com>
+        Wed, 04 Aug 2021 03:50:04 -0700 (PDT)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org,
+        =?UTF-8?q?=C5=A0t=C4=9Bp=C3=A1n=20N=C4=9Bmec?= <stepnem@gmail.com>
+Subject: [PATCH] man-pages-posix-2017/man1p/getopts.1p: Fix usage of printf(1) in example
+Date:   Wed,  4 Aug 2021 12:49:37 +0200
+Message-Id: <20210804104936.397846-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20210804114001+0200.622908-stepnem@gmail.com>
+References: <20210804114001+0200.622908-stepnem@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+The original HTML files are correct, so this seems a bug in the
+conversion.  For now, let's fix the page.
 
-  Hello,
+Reported-by: Štěpán Němec <stepnem@gmail.com>
+Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+---
 
-there is an error at the end of the example:
+Hi, Štěpán!
 
-  printf "Remaining arguments are: %s\n$*"
+You can check the source code here:
+<https://git.kernel.org/pub/scm/docs/man-pages/man-pages-posix.git/>
 
-should be
+It's autogenerated from the original HTML POSIX pages, so we should
+fix the python script.  But here's the fix you proposed.
 
-  printf "Remaining arguments are: %s\n" "$*"
+Thanks,
 
-(cf.
-https://pubs.opengroup.org/onlinepubs/9699919799/utilities/getopts.html )
+Alex
 
-I would have sent a patch, but couldn't find the POSIX man page sources.
-Are they available somewhere?
 
-  Thanks,
+ man-pages-posix-2017/man1p/getopts.1p | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-  =C5=A0t=C4=9Bp=C3=A1n
+diff --git a/man-pages-posix-2017/man1p/getopts.1p b/man-pages-posix-2017/man1p/getopts.1p
+index 6651993..616db6f 100644
+--- a/man-pages-posix-2017/man1p/getopts.1p
++++ b/man-pages-posix-2017/man1p/getopts.1p
+@@ -337,7 +337,7 @@ if [ ! -z "$bflag" ]; then
+     printf \(aqOption -b "%s" specified\en\(aq "$bval"
+ fi
+ shift $(($OPTIND - 1))
+-printf "Remaining arguments are: %s\en$*"
++printf "Remaining arguments are: %s\en" "$*"
+ .fi
+ .P
+ .RE
+-- 
+2.32.0
+
