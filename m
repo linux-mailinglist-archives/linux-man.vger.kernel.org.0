@@ -2,135 +2,145 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 5E5653DFB62
-	for <lists+linux-man@lfdr.de>; Wed,  4 Aug 2021 08:20:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id BC2C03DFBFB
+	for <lists+linux-man@lfdr.de>; Wed,  4 Aug 2021 09:21:10 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235197AbhHDGUu (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 4 Aug 2021 02:20:50 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56034 "EHLO
+        id S235606AbhHDHVW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 4 Aug 2021 03:21:22 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41206 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234982AbhHDGUt (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 4 Aug 2021 02:20:49 -0400
-Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com [IPv6:2607:f8b0:4864:20::632])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CBB40C0613D5
-        for <linux-man@vger.kernel.org>; Tue,  3 Aug 2021 23:20:36 -0700 (PDT)
-Received: by mail-pl1-x632.google.com with SMTP id e21so1901890pla.5
-        for <linux-man@vger.kernel.org>; Tue, 03 Aug 2021 23:20:36 -0700 (PDT)
+        with ESMTP id S235394AbhHDHVV (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 4 Aug 2021 03:21:21 -0400
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com [IPv6:2a00:1450:4864:20::336])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8EE48C0613D5
+        for <linux-man@vger.kernel.org>; Wed,  4 Aug 2021 00:21:08 -0700 (PDT)
+Received: by mail-wm1-x336.google.com with SMTP id x17so576862wmc.5
+        for <linux-man@vger.kernel.org>; Wed, 04 Aug 2021 00:21:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to:user-agent;
-        bh=dneARIv+smsnSboT2zsqE0VdkHbBbcGjey5kTGDnA90=;
-        b=D5B9bATYdCFVrr6XtSYtTjZwZAmbmFqGjy7e6yPktaCCzpl/0kFOEDFarfm4UyaufJ
-         ypwL8ebmFUHArfv1L7YAHXJzqUTQwPm9Kf4E7x3zSRPTlqAGZ1tebmWOQejPMyE8/7LL
-         ib7FWE4gOmoGSBKEarS//raHBbiYbRB74Q/oQLMbNqGvbAdbbrgJcYOYPCiKRvg9uNx4
-         pZ8ufSs3k8LcyzEy97mIFMYTN/6pfVF3OFSQVQtshgjkoAWIoHYPPP21LYdOgRnYFWBO
-         T19jbdKK1K9Jq08E2F7VZKdo1c9pja8IfS1w6y0/IBn0+7IIvAN0iixbDnMeMmDARr58
-         oxCg==
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=d47MilEDQ5+nmkDYElQ1PvX79R9NMVYP4OGGd0gn4y0=;
+        b=sF3iatB4m8HPe6TiapYeRmXD4DgnnB01nl/6Btn+wuSwsOlzJuTcun8scdIdOs2wHX
+         w/a3QLLgb6HrM/K/bZcoBO0iNIhtVCFcWFC/me+aQFG1jBLTK66MBf4fBcUK656jxa4A
+         zQEYSkkGk0TyzvY7GPei4gaR4zFV6AGa6Ved+TBsIDW2dH0C6Fi1IomfECCcLsoBA1WW
+         v3SvPb1P8rG7eM6nQBexYG/efE3OMTQ6yXBt542RBZWCItYFe/NcvN8iQ77O+OOPQwkb
+         UXQElP86xHBeoQkutKGQJlsPbxpIO8J6Xz8TmWaWB4xB0w9kb8FulbiW+2kSJ5cVEtZq
+         BWFQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=dneARIv+smsnSboT2zsqE0VdkHbBbcGjey5kTGDnA90=;
-        b=FRP4Sw8jzwrlr24lG1Y/bB/7BKnoDgTUy4lOxS8HLVAEH6QHIpGn5/MLeI2dJZEEd+
-         xsuY0rEeCS/jDi1i1PZPIlhtBA4KGTROrnGVpNmYfaAsvJO7f8Vop1D6mx8aP81yzRjn
-         j/i3poXTsRL6tTtPiGRB/TNv51LE5CqnADn2DLObpTi+tbr8/fsL/6Kwlx+cT2gjvh9t
-         NtSWn4BP4e6RLXTrW/+Rw6nvK7PtqF4yItpuF8HZUklXhrmyJK2meDtEo4w8EiQlOLVg
-         UWwJ/sf4lZ89qkQm47caFYAOIFWBU8i6MmwIpXy8s5AyA7HUN5xn01c05jKEBS+W3veS
-         aQgg==
-X-Gm-Message-State: AOAM533WfvB66E0si/k2zcb335AQzi+XaRjEzU9Uo9zKMk+g4I6+8PwW
-        60sqvlkKXPRxkqVhsWGchBk=
-X-Google-Smtp-Source: ABdhPJwpH8iveeKLXc2haXtlZiBSY0NHQl6t5E377K5iVaUEXzhbVEYWXVPW7myuCz8oTUsnCTF87w==
-X-Received: by 2002:a17:902:8606:b029:12c:2625:76cf with SMTP id f6-20020a1709028606b029012c262576cfmr21543763plo.17.1628058036321;
-        Tue, 03 Aug 2021 23:20:36 -0700 (PDT)
-Received: from localhost.localdomain ([1.145.37.91])
-        by smtp.gmail.com with ESMTPSA id f6sm1241200pfe.10.2021.08.03.23.20.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Aug 2021 23:20:35 -0700 (PDT)
-Date:   Wed, 4 Aug 2021 16:20:32 +1000
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>, linux-man@vger.kernel.org
-Subject: Re: [PATCH 2/2] man-pages.7: Update non-breaking space advice.
-Message-ID: <20210804062030.x5lqsl54edbx3ld6@localhost.localdomain>
-References: <20210731034458.6s76okhgjxw42mpx@localhost.localdomain>
- <e097bf4a-7188-e810-7d3b-e4d1469397d3@gmail.com>
- <20210801101221.poigrttumltcdenl@localhost.localdomain>
- <233dc372-453f-713e-13ef-cb59721e806a@gmail.com>
- <20210801114156.w3hmedegg5574zho@localhost.localdomain>
- <3ace504d-338f-039f-462d-3faffc9af4d1@gmail.com>
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=d47MilEDQ5+nmkDYElQ1PvX79R9NMVYP4OGGd0gn4y0=;
+        b=OAGgoMH3Zjnw+/QSO8h/cfsr2HTra3DEW2hx8aQuuQwsOd0VF44n+FYRvdtZP4Iuk/
+         8Fh20Ya5x3IqNyb1VMGc3WX9kEW3/JRXdIPUgsZ2fYnDjdM8lYHrvCHm3p64o44eQuqO
+         QZj7zQD8gc0bpIdQPi0pUQbS8jMk+48Zs6rln49kOp+oWQW7cmBf44VKLtBG9t6wHKtw
+         1eQDM+rMaVvwIi6S+nUiXnoXk+fhuQmj72LTMwfl6OcWoMziKokJNEeh4rMdAT+70SFC
+         iZTngCzsC5c0NmyGtKgqdrTEPuU1a/+g3hJpQ7LY2M8coEXWFSekmrNMNkrOov3bSkAZ
+         WXOA==
+X-Gm-Message-State: AOAM5335gCK8jWPGIxCCsFeEypEMKTTm965krjoFGatA9HW67+xiCDVf
+        sQvx7xKH7va9TeXJ+zHbKEKezkoAoQo=
+X-Google-Smtp-Source: ABdhPJxk83w5Tb2NGsJW5y3gSjFZ0HGc659C0NIyq2686T2W4QGreJxnTd2BNEIYDkawFlYLPgYxtQ==
+X-Received: by 2002:a05:600c:1ca4:: with SMTP id k36mr8221235wms.107.1628061667194;
+        Wed, 04 Aug 2021 00:21:07 -0700 (PDT)
+Received: from [10.8.0.10] ([195.53.121.100])
+        by smtp.gmail.com with ESMTPSA id d15sm1468380wri.96.2021.08.04.00.21.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Aug 2021 00:21:06 -0700 (PDT)
+Subject: Re: [PATCH] proc.5: PID/stat: add I, fix P state doc
+To:     Kir Kolyshkin <kolyshkin@gmail.com>
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+References: <20210804021506.181989-1-kolyshkin@gmail.com>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Message-ID: <9207c4dd-5a08-88dc-509c-3f9929ce6ce2@gmail.com>
+Date:   Wed, 4 Aug 2021 09:21:05 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="qw2ztbvijuxgnmkj"
-Content-Disposition: inline
-In-Reply-To: <3ace504d-338f-039f-462d-3faffc9af4d1@gmail.com>
-User-Agent: NeoMutt/20180716
+In-Reply-To: <20210804021506.181989-1-kolyshkin@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Hi Kir,
 
---qw2ztbvijuxgnmkj
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 8/4/21 4:15 AM, Kir Kolyshkin wrote:
+> 1. The I state was not documented -- add it.
+> 
+> 2. The P state was documented to be absent since Linux 3.13.
+>     It appears it has been reintroduced in Linux 4.14. Document
+>     it, and move the description up (so that currently present
+>     states will be above the ones that got removed).
+> 
+> 3. Consolidate the two descriptions of W state.
+> 
+> This way, the set of states documented matches those that are present
+> as of Linux v5.14-rc4 ("RSDTtXZPI").
+> 
+> Signed-off-by: Kir Kolyshkin <kolyshkin@gmail.com>
 
-At 2021-08-01T14:30:00+0200, Alejandro Colomar (man-pages) wrote:
-> The same happened to me the first time.
->=20
-> I guess it's the way Debian folks do their packaging, breaking
-> semantically :) every package into smaller packages.  As send-email
-> isn't needed at all for (basic) git usage, it can go into a separate
-> package.
->=20
-> I like it.  It reduces the size of every package, and you have more
-> control over what you have installed on your system.
->=20
-> Comparing that to the short time that I used Manjaro (Arch-based),
-> where I had to install full-blown GUI programs just to get a C
-> library...
+Thanks for the patch!  Please see a few minor comments below.
 
-It's ironic that I overlooked this possibility.  I used to maintain
-XFree86, a monolithic X Window System distribution, for Debian (XFree86
-is a project now best known as a spectacular case of Open Source
-Seppuku).  When I took over maintenance, it was already dozens of
-packages, and I sliced it even finer.
+Thanks,
 
-But at the time it was Debian's policy to configure and provide
-X11-enabled versions of software everywhere possible except under
-special circumstaces involving package priority.  You could make a "no
-X" alternative build and binary package if you wanted to go to the
-trouble.
+Alex
 
-> > Thanks!  Without some NeoMutt help, it looks like this is my route
-> > forward.
->=20
-> If you get it to work while still signing your emails, I'd be
-> interested in knowing how you have set it up.
+> ---
+>   man5/proc.5 | 19 +++++++++++--------
+>   1 file changed, 11 insertions(+), 8 deletions(-)
+> 
+> diff --git a/man5/proc.5 b/man5/proc.5
+> index 69f6e15dd..d6027c469 100644
+> --- a/man5/proc.5
+> +++ b/man5/proc.5
+> @@ -2099,10 +2099,18 @@ Stopped (on a signal) or (before Linux 2.6.33) trace stopped
+>   .IP t
+>   .\" commit 44d90df6b757c59651ddd55f1a84f28132b50d29
+>   Tracing stop (Linux 2.6.33 onward)
+> -.IP W
+> -Paging (only before Linux 2.6.0)
+>   .IP X
+>   Dead (from Linux 2.6.0 onward)
+> +.IP I
+> +.\" commit 06eb61844d841d0032a9950ce7f8e783ee49c0d0
+> +Idle kernel thread (Linux 4.14 onward)
+> +.IP P
+> +.\" commit f2530dc71cf0822f90bb63ea4600caaef33a66bb
+> +Parked (Linux 3.9 to
+> +.\" commit 74e37200de8e9c4e09b70c21c3f13c2071e77457
+> +3.13,
+> +.\" commit 8ef9925b02c23e3838d5e593c5cf37984141150f
+> +from 4.14 onwards)
 
-If I manage it, I certainly will.  Thanks!
+s/onwards/onward/
 
-Regards,
-Branden
+I'd add an "and" before "from", or change s/,/;/
 
---qw2ztbvijuxgnmkj
-Content-Type: application/pgp-signature; name="signature.asc"
+>   .IP x
+>   .\" commit 44d90df6b757c59651ddd55f1a84f28132b50d29
+>   Dead (Linux 2.6.33 to
+> @@ -2117,12 +2125,7 @@ Wakekill (Linux 2.6.33 to
+>   .\" commit 44d90df6b757c59651ddd55f1a84f28132b50d29
+>   Waking (Linux 2.6.33 to
+>   .\" commit 74e37200de8e9c4e09b70c21c3f13c2071e77457
+> -3.13 only)
+> -.IP P
+> -.\" commit f2530dc71cf0822f90bb63ea4600caaef33a66bb
+> -Parked (Linux 3.9 to
+> -.\" commit 74e37200de8e9c4e09b70c21c3f13c2071e77457
+> -3.13 only)
+> +3.13 only) or (before Linux 2.6.0) paging
+>   .RE
+>   .TP
+>   (4) \fIppid\fP \ %d
+> 
 
------BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmEKMa4ACgkQ0Z6cfXEm
-bc5dqg//Yy2F4yqiZAAFa4Wbn5TSA55aySiBXW26X5xQ8ADSJujYDFiXBcrJ+VHk
-Ssf7zaOzc/mW4j6e1Uwyts7vOrLEnQaGdS0DBBIOtIlv9Z2XXzp32phNTBcI1zPW
-Ajb8vMuGZb/6cbuuuy8Nl/sjtNnxZYPwP8LfNJsGViOPKhY2fnr21MUm2dr3qYaW
-rhTrtMKpUES05LyucEMuDk0Ta+ZXEPTStNZajJL7Q2Vjva3RWyo5lrU1yH8c9lZG
-+zIvq5aKU0+XBmWduMNdNA5iDCDy1CyrQ6pcwuEeXMXJ85363WrMeIlvjGp8rQtD
-g94an+RUmXnerxW4ZoFZI1eYTyJKcvzM3rk1SN5GRIUZBdqfyb0YR+yeAra1Ajsa
-T9XfAhgw522SzFoiFpqSYB2h9TWTfA6X3X6k7KRC0NVDAJf54rm5MazIGRNeE1VP
-QfFpOQOR17jP4ekQmYmQM8jLY667yn/IzLl8t0KWSZRPlI797s38KLX+/HiA8pmv
-LvqBEgSir0W6XAcKJV1yG3cpxI6tqrGhztDr52CRPYJCiULHxyMKLuYWbGO8n0P8
-CfNqP8ZBOINmtLZzge0EJbaqfDeigcwm1nc+xn8jmjeRbir1SO3q9dZyznukzlEc
-4sLBSta5eHx4LyZ/3iO3m/Dxd25sH9fl+7kqbrAmPYQurIxV7zM=
-=j32q
------END PGP SIGNATURE-----
-
---qw2ztbvijuxgnmkj--
+-- 
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
