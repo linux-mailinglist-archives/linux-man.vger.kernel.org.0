@@ -2,149 +2,270 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id ECCA93E0DE5
-	for <lists+linux-man@lfdr.de>; Thu,  5 Aug 2021 07:52:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 150A83E0E72
+	for <lists+linux-man@lfdr.de>; Thu,  5 Aug 2021 08:35:21 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234675AbhHEFwX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 5 Aug 2021 01:52:23 -0400
-Received: from mail.kernel.org ([198.145.29.99]:41108 "EHLO mail.kernel.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S229892AbhHEFwU (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Thu, 5 Aug 2021 01:52:20 -0400
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 5970760EBB;
-        Thu,  5 Aug 2021 05:52:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-        s=korg; t=1628142726;
-        bh=ZKU+PLv7kgX0N+MxB8BCiFigoXZVFNf9axw628nM5to=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=paTwXLBvTHtUmdQ4JprqZteMH/wu2+6VdbxtSgIOozVFGbFvzqjsvbsJT5SSHWCAN
-         Gz5r8daBRPxitkfZxcJmPPVc9k4gCT5Y+y/G7HknBgTpJH0pe1nX6pec/LB2rjvXZu
-         W/ENmS3ueNRHdSdvUg49Fq9fv+l+dTv7kBvc2Ims=
-Date:   Thu, 5 Aug 2021 07:52:03 +0200
-From:   Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To:     Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>
-Cc:     Marek =?iso-8859-1?Q?Beh=FAn?= <kabel@kernel.org>,
-        libc-alpha@sourceware.org,
-        "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        linux-man@vger.kernel.org, linux-serial@vger.kernel.org,
-        Alejandro Colomar <alx.manpages@gmail.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>
-Subject: Re: [PATCH v3] ioctl_tty.2: Add example how to get or set baudrate
- on the serial port
-Message-ID: <YQt8g+ECel20fA/g@kroah.com>
-References: <20210730095333.6118-1-pali@kernel.org>
- <20210801135146.14849-1-pali@kernel.org>
- <20210804220808.cetleob6dldpfnjk@pali>
+        id S235754AbhHEGfc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 5 Aug 2021 02:35:32 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46054 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S231154AbhHEGfc (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 5 Aug 2021 02:35:32 -0400
+Received: from mail-pl1-x62e.google.com (mail-pl1-x62e.google.com [IPv6:2607:f8b0:4864:20::62e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D51B6C0613C1
+        for <linux-man@vger.kernel.org>; Wed,  4 Aug 2021 23:35:18 -0700 (PDT)
+Received: by mail-pl1-x62e.google.com with SMTP id e5so5883202pld.6
+        for <linux-man@vger.kernel.org>; Wed, 04 Aug 2021 23:35:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20161025;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=yw+dfXvJIDBVeZYoVj8XzX5qi4Azokeflw5Ku86+K6w=;
+        b=GTDi+zK4gVfIGBCxIO46T6VDh1Knx03ODP2kRO1DnNsUOPLAeE6v/vSDGzYkycfWtX
+         VYwqqxBDCuvvHs5SShVCIQudMwYb/AlfeasjvmOR4eHsV8B/424D0xpPGoci681z139U
+         DBFzjU1NV7yibp5JbmkBhVFSxRu1NlQUr6CTbhoyd67k+k32XQGfYA3FVp52kIBL5ndT
+         ejpAtNanR2uAg4G03ajOUw5vh91PGH7GruVkgTUw4iU1bpLjH20TPw6nCIOpAqgmjSKX
+         Ahv0F1ykQck6neW24kGBcGelHF6i/ud4jMld+GrqcWZchonJSz9eU3gAKc3fLfmGMn0u
+         z66g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=yw+dfXvJIDBVeZYoVj8XzX5qi4Azokeflw5Ku86+K6w=;
+        b=qkKbsHQBjUuxaDBUWNKgrlb4ivEzc2nqITOpBT7OgJEbS2FRrVL4EkGDSS5UklvFEG
+         m6phTjZxV12ta8ARYnOt88tRMGcR/5SaXbLuuPBptUNEBKJNphgFEFx53qRSz8n2elXY
+         guaXjjCA1qTrZRmu3nNj4S8gnLMlGX3WPbnFt/3vl4ceCjlE0DQm73qHCS6lA3cGk1Q2
+         Q7r2SUQjwJ06GOWX8rRFwXo53Vlm56w30y4rP0QLUsTCwfhSFhf+Yws5NNywYWqBnnXK
+         mVZM0pTE35fwCrrzaBt07xCdcbJRsIX3hDvKMpwYJPFp7dwLXBlNEaBX5IfwxY35WVHP
+         8KHA==
+X-Gm-Message-State: AOAM531BfGKN9EVTFCesPMRzfg/hmQPch8VwbT7pdWOpzX41M1voUs0H
+        xKq3MyXJ78oyZbPke76foSK7+g==
+X-Google-Smtp-Source: ABdhPJzhf1OaJMjLkOM/kIo9B/w+IVVstmRNwiiT3o0BYEzrLaeYNmmFs/II0q2QK/wS8jLuCzKsuA==
+X-Received: by 2002:a65:6910:: with SMTP id s16mr282728pgq.270.1628145318236;
+        Wed, 04 Aug 2021 23:35:18 -0700 (PDT)
+Received: from google.com ([2401:fa00:9:211:8490:30e3:f52b:e185])
+        by smtp.gmail.com with ESMTPSA id z15sm6184331pgc.13.2021.08.04.23.35.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Aug 2021 23:35:17 -0700 (PDT)
+Date:   Thu, 5 Aug 2021 16:35:05 +1000
+From:   Matthew Bobrowski <repnop@google.com>
+To:     Gabriel Krisman Bertazi <krisman@collabora.com>
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
+        linux-api@vger.kernel.org, Amir Goldstein <amir73il@gmail.com>,
+        Jan Kara <jack@suse.cz>
+Subject: Re: [PATCH v2] fanotify.7, fanotify_mark.2: Document FAN_FS_ERROR
+Message-ID: <YQuGmbgZHH+VKyzB@google.com>
+References: <20210804161024.3578338-1-krisman@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20210804220808.cetleob6dldpfnjk@pali>
+In-Reply-To: <20210804161024.3578338-1-krisman@collabora.com>
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Thu, Aug 05, 2021 at 12:08:08AM +0200, Pali Rohár wrote:
-> + linux-serial
-> + Greg
+On Wed, Aug 04, 2021 at 12:10:24PM -0400, Gabriel Krisman Bertazi wrote:
+> The kernel patches are not merged upstream, so please refrain from merging
+> it at the moment.  This submission attempts to preview the interface
+> and gather some interface review.
 > 
-> Greg, could I ask you for reviewing this documentation manpage patch?
-
-If it is submitted in a format I can review, sure (i.e. not top-post...)
-
-But I will dig down below to say one thing...
-
+> Cc: Amir Goldstein <amir73il@gmail.com>
+> Cc: Jan Kara <jack@suse.cz>
+> Cc: Matthew Bobrowski <repnop@google.com>
+> Signed-off-by: Gabriel Krisman Bertazi <krisman@collabora.com>
 > 
-> On Sunday 01 August 2021 15:51:45 Pali Rohár wrote:
-> > Signed-off-by: Pali Rohár <pali@kernel.org>
-> > 
-> > ---
-> > Changes in v3:
-> > * Check support for custom baudrate only based on BOTHER macro
-> > * Use TCGETS/TCSETS/termios when TCGETS2/TCSETS2/termios2 is not available
-> > 
-> > Changes in v2:
-> > * Use \e for backslash
-> > * Use exit(EXIT_*) instead of return num
-> > * Sort includes
-> > * Add comment about possible fallback
-> > ---
-> > 
-> > Hello Alejandro!
-> > 
-> > I found out that this stuff is more complicated as I originally thought.
-> > And seems that additional documentation on this topic is needed...
-> > 
-> > For setting custom baudrate it is needed to set BOTHER flag in c_cflag
-> > field and baudrate value itself in c_ospeed and c_ispeed fields.
-> > 
-> > So when BOTHER flag is not provided by <asm/termbits.h> then setting custom
-> > baudrate is not possible, fields c_ospeed and c_ispeed do not exist (and
-> > only some predefined Bnnn baudrate values are supported). This applies when
-> > compiling application with older version of header files (prior support for
-> > custom baudrate was introduced into header files).
-> > 
-> > First caveat: BOTHER constant is different for different architectures.
-> > So it is not possible to provide fallback #ifndef..#define BOTHER.
-> > 
-> > And now the biggest issue: Some architectures have these c_ospeed and
-> > c_ispeed fields in struct termios and some in struct termios2.
-> > 
-> > TCGETS/TCSETS ioctls use struct termios and TCGETS/TCSETS2 use
-> > struct termios2.
-> > 
-> > Some architectures (e.g. amd64) provide both struct termios and struct
-> > termios2, but c_ospeed and c_ispeed are only in struct termios2.
-> > 
-> > Some other architectures (e.g. alpha) provide both struct termios and struct
-> > termios2 and both have c_ospeed and c_ispeed fields.
-> > 
-> > And some other architectures (e.g. powerpc) provide only struct termios
-> > (no struct termios2) and it has c_ospeed and c_ispeed fields.
-> > 
-> > So basically to support all architectures it is needed to use
-> > struct termios2 when TCGETS2/TCSETS2 is supported. Otherwise it is needed
-> > to use struct termios with TCGETS/TCSETS (case for e.g. powerpc).
-> > 
-> > I updated v3 patch to handle this logic.
-> > ---
-> >  man2/ioctl_tty.2 | 73 ++++++++++++++++++++++++++++++++++++++++++++++++
-> >  1 file changed, 73 insertions(+)
-> > 
-> > diff --git a/man2/ioctl_tty.2 b/man2/ioctl_tty.2
-> > index 3020f9984872..d83cbd17225b 100644
-> > --- a/man2/ioctl_tty.2
-> > +++ b/man2/ioctl_tty.2
-> > @@ -764,6 +764,79 @@ main(void)
-> >      close(fd);
-> >  }
-> >  .EE
-> > +.PP
-> > +Get or set arbitrary baudrate on the serial port.
-> > +.PP
-> > +.EX
-> > +#include <asm/termbits.h>
-> > +#include <fcntl.h>
-> > +#include <stdio.h>
-> > +#include <stdlib.h>
-> > +#include <sys/ioctl.h>
-> > +#include <sys/types.h>
-> > +#include <unistd.h>
-> > +
-> > +int
-> > +main(int argc, char *argv[])
-> > +{
-> > +#ifndef BOTHER
-> > +    fprintf(stderr, "BOTHER is unsupported\en");
-> > +    /* Program may fallback to TCGETS/TCSETS with Bnnn constants */
-> > +    exit(EXIT_FAILURE);
+> ---
+> Changes since v1:
+> (Matthew)
+>   - Grammar fixes
+>   - Don't use the term "submitted" for events sent to the listener
+>   - Clarify the kind of information that is file system specific
+> ---
+>  man2/fanotify_mark.2 | 16 ++++++++++
+>  man7/fanotify.7      | 73 ++++++++++++++++++++++++++++++++++++++++++++
+>  2 files changed, 89 insertions(+)
+> 
+> diff --git a/man2/fanotify_mark.2 b/man2/fanotify_mark.2
+> index be3f72e040c0..2ae52f81d43b 100644
+> --- a/man2/fanotify_mark.2
+> +++ b/man2/fanotify_mark.2
+> @@ -214,6 +214,22 @@ Create an event when a marked file or directory itself is deleted.
+>  An fanotify group that identifies filesystem objects by file handles
+>  is required.
+>  .TP
+> +.BR FAN_FS_ERROR "(since Linux 5.15)"
+> +.\" commit WIP
+> +Create an event when a file system error is detected.
+> +A fanotify group that identifies filesystem objects by file handles
+   ^ 
+   An
 
-So this is a BOTHER test only?
+> +is required.
+> +Support for this type of notification is done per-file system,
+> +but not every filesystem supports it.
 
-What is the goal of this program?  Don't throw a bunch of #ifdef in here
-for no good reason.  These options should all be present on all normal
-kernels, why wouldn't they be?
+IMO, I think this would be clearer by saying something like:
 
-thanks,
+Support for such a notification type is dependent on the underlying
+filesystem.
+Not all filesystems support such notification types.
 
-greg k-h
+...
+
+Also, not sure whether this has already been considered, but it may be a
+good idea to keep/include a list of supported filesystems somewhere in the
+man-pages too. Understand that lists generally are hard to maintain moving
+forward and at some point in the future they tend to move a way from
+depicting what actually is the case. As in, something like:
+
+The filesystems that currently support FAN_FS_ERROR are:
+    * ext4
+
+Looks like this was something that was included in the kernel documentation
+side of things.
+
+> +A user can also expect to receive additional information
+> +in the form of a
+> +.BR FAN_EVENT_INFO_TYPE_ERROR
+> +record
+> +alongside the generic metadata event.
+> +See
+> +.BR fanotify (7)
+> +for additional details.
+> +.TP
+>  .BR FAN_MOVED_FROM " (since Linux 5.1)"
+>  .\" commit 235328d1fa4251c6dcb32351219bb553a58838d2
+>  Create an event when a file or directory has been moved from a marked
+> diff --git a/man7/fanotify.7 b/man7/fanotify.7
+> index 6a7e70d75845..b8b7f44d4e32 100644
+> --- a/man7/fanotify.7
+> +++ b/man7/fanotify.7
+> @@ -188,6 +188,24 @@ struct fanotify_event_info_fid {
+>  .EE
+>  .in
+>  .PP
+> +In case of a FAN_FS_ERROR event,
+> +besides the file handle record,
+> +an additional record describing the error that occurred
+> +is included in the read buffer.
+
+There's mention of getting a bonus file_handle, but there's no mention of
+FAN_FS_ERROR being dependent on FAN_REPORT_FID. This needs to be corrected
+IMO. I think the most appropriate place to put this kind of detail would be
+in fanotify_mark(2) under the actual definition of FAN_FS_ERROR. I believe
+it'd also make sense to document what the behavior/status code of setting a
+mark on notification group without FAN_REPORT_FID actually is.
+
+> +The structure described below, will follow the generic
+> +.I fanotify_event_metadata
+> +structure within the read buffer:
+> +.PP
+> +.in +4n
+> +.EX
+> +struct fanotify_event_info_error {
+> +    struct fanotify_event_info_header hdr;
+> +    __s32 error;
+> +    __u32 error_count;
+> +};
+> +.EE
+> +.in
+> +.PP
+>  For performance reasons, it is recommended to use a large
+>  buffer size (for example, 4096 bytes),
+>  so that multiple events can be retrieved by a single
+> @@ -311,6 +329,9 @@ A child file or directory was deleted in a watched parent.
+>  .B FAN_DELETE_SELF
+>  A watched file or directory was deleted.
+>  .TP
+> +.B FAN_FS_ERROR
+> +A file-system error was detected.
+> +.TP
+>  .B FAN_MOVED_FROM
+>  A file or directory has been moved from a watched parent directory.
+>  .TP
+> @@ -510,6 +531,32 @@ and the file handle is followed by a null terminated string that identifies the
+>  name of a directory entry in that directory, or '.' to identify the directory
+>  object itself.
+>  .PP
+> +The fields of the
+> +.I fanotify_event_info_error
+> +structure are as follows:
+> +.TP
+> +.I hdr
+> +This is a structure of type
+> +.IR fanotify_event_info_header .
+> +and is a generic header that contains information used to
+> +describe an additional information record attached to the event.
+> +For
+> +.IR fanotify_event_info_error ,
+> +.I info_type
+> +will have the value
+> +.BR FAN_EVENT_INFO_TYPE_ERROR .
+> +.I len
+> +has the size of the additional information record including the
+> +.IR fanotify_event_info_header
+> +itself.
+> +.TP
+> +.I error
+> +Identifies the file system specific error that occured
+
+s/occured/occurred
+
+> +.TP
+> +.I error_count
+> +This counts the number of errors suppressed
+
+This is a count of the number...
+
+> +since the last error was read.
+> +.PP
+>  The following macros are provided to iterate over a buffer containing
+>  fanotify event metadata returned by a
+>  .BR read (2)
+> @@ -599,6 +646,32 @@ field.
+>  In that case, the audit subsystem will log information about the access
+>  decision to the audit logs.
+>  .\"
+> +.SS Monitoring file systems for errors
+> +A single FAN_FS_ERROR event is stored by the kernel at once.
+
+This has to be a single FAN_FS_ERROR event per object? If so, I think we'd
+need to make that clear here.
+
+> +Extra error messages are suppressed and accounted for
+> +inside the current FAN_FS_ERROR event record,
+> +but details about the errors are lost.
+> +.PP
+> +Error types reported by FAN_FS_ERROR are file system specific
+> +and not all kinds of errors are reported by all file system.
+
+... not all kinds of error types are reported by all filesystems.
+
+> +Refer to the file system documentation
+> +for additional information on the type of errors that are reported,
+> +and the meaning of those errors.
+> +.PP
+> +Errors not directly related to a file (i.e. super block corruption)
+> +are reported with an invalid
+> +.IR file_handle .
+> +For these errors, the
+> +.I file_handle
+> +will have the field
+> +.I handle_type
+> +set to
+> +.BR FILEID_INVALID ,
+> +and the
+> +.I f_handle
+> +buffer set to
+> +.BR 0 .
+> +.\"
+
+This might strick controversy, but for the sake of keeping things
+consistent in this man page (as neither are really wrong), let's generally
+stick with the following throughout the supplied updates:
+
+s/{file system, file-system}/filesystem
+
+:P
+
+/M
