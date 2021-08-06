@@ -2,258 +2,252 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 425643E2926
-	for <lists+linux-man@lfdr.de>; Fri,  6 Aug 2021 13:11:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0C9BF3E2C4E
+	for <lists+linux-man@lfdr.de>; Fri,  6 Aug 2021 16:15:04 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232832AbhHFLLm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 6 Aug 2021 07:11:42 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41158 "EHLO
+        id S237233AbhHFOPS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 6 Aug 2021 10:15:18 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55870 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232403AbhHFLLm (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 6 Aug 2021 07:11:42 -0400
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com [IPv6:2a00:1450:4864:20::42a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9B5CCC061798
-        for <linux-man@vger.kernel.org>; Fri,  6 Aug 2021 04:11:26 -0700 (PDT)
-Received: by mail-wr1-x42a.google.com with SMTP id c16so10565235wrp.13
-        for <linux-man@vger.kernel.org>; Fri, 06 Aug 2021 04:11:26 -0700 (PDT)
+        with ESMTP id S229775AbhHFOPR (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 6 Aug 2021 10:15:17 -0400
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com [IPv6:2a00:1450:4864:20::32f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 070F0C061798
+        for <linux-man@vger.kernel.org>; Fri,  6 Aug 2021 07:15:01 -0700 (PDT)
+Received: by mail-wm1-x32f.google.com with SMTP id l4-20020a05600c1d04b02902506f89ad2dso7366991wms.1
+        for <linux-man@vger.kernel.org>; Fri, 06 Aug 2021 07:15:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=SeA8kdlnhVqv/gqyb6RaQGkka+jd06XKboNZbDF/uKo=;
-        b=X8FT7tzP/AMNrpbs8tATmli92WuEsJMLGCLyftuFTQRY4QbMQyy8HZraVmFzzs+3l3
-         +P+qFgdizZGbiag7Om/9C5/DCijFoLeAOVOxqykcyoJElFlIKxNboFozPOiQDIhABSte
-         iz6MumGv45chpztdcYLuaVBr8UsGHXc3kuz/I2YXFATBN0jdkwaHzknIS7d7JU59TnGw
-         vAbjYT0wpb1cosz6TyXoR+QY+f1gpoy/cRb9UX64Hy7+9/dNrdUdlWS238sUQnZPjwEg
-         3pnxID1GYTSC3DyJ/T1MwDWYvpWMt4gXmLjJI9WfOPaR44HWFaIRhhLvXdYPYLegX/bL
-         nlHQ==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=LUw8swlwjyke2ksltwn1GT8otRgNj+6ONFYvbHtB+kI=;
+        b=aPZ45MKGk7J/95SyRU8z+MZ6X54KTbGkdvU/W28ql7/5jL2AMxv7kM4k49HrG3wfzo
+         AvyrWqm67/BOel1g4czRNsBV+gqctYmKqMcE69aYxHpnCdV39gyXJ5TaFeMhvFiI/g08
+         JEKu5XemiL7/MxeywWka88mcvmaK+AqgsLnhRao0hXbUIekw+TsbXmUjdUTf0mXo3NZo
+         jqgjZMiB6HJBWAmsdA1ui7IBiTL8b3CELY+08XFmCqgD9qaawurONJN00pJLJkkaGIgl
+         79IoeXwcGJoYQOWKGDytLfqk3+V7a3C1D/uhiYbjvQn6lr9mgcBs1ODYJKgpYvuX1g9w
+         Xnbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=SeA8kdlnhVqv/gqyb6RaQGkka+jd06XKboNZbDF/uKo=;
-        b=dfhTqwshG3NxOuUC7wFeDvNZFR9hDsnQ4LabkaOz2psKpN6fft1LjffrY2RxI9ZxgL
-         xaTzVZBU6QP4AfmdgBdJKbdYHlYI16jZb+KZr/cMfYV3PAwe0S7+975SgG/qbyca9KdD
-         5Y1oqrIaAxTrZtUZdDOHATj5Ms84cNg7WfzJBgN7og6zwObtjcaB4wn1WDo+AMEDAeyN
-         EV8sJOyFk6el+qsdMXohC5aLsc6hL/r/LBLWMx9scYVyobPa6IsZUj1TChlx8fLK5Sv4
-         Y2skHyQJt0r+S1YOzUymruTETdboFooUld1VfD4WU8oOieI+EjS9gFjuy5qqIDyE+uEC
-         vkCQ==
-X-Gm-Message-State: AOAM531QI8jSgaZAjfYBTsyB89VZCgJvpgGQwzxAgHegc5B0Py6O/dMo
-        4AEY8nSDoFA5WMrgO6o+iib8ViOvyos=
-X-Google-Smtp-Source: ABdhPJwh74+QcPaIs1dle37MJYJWPhJlNkrkhEXuHki3vYblP0PH0FGaB8abxBMMyqNFD61I4JPW7w==
-X-Received: by 2002:adf:ed82:: with SMTP id c2mr10298011wro.19.1628248285196;
-        Fri, 06 Aug 2021 04:11:25 -0700 (PDT)
-Received: from [10.8.0.10] ([195.53.121.100])
-        by smtp.gmail.com with ESMTPSA id w4sm9548852wrm.24.2021.08.06.04.11.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 06 Aug 2021 04:11:24 -0700 (PDT)
-Subject: Re: nscd.conf.5: describe reloading, clarifications, v4
-To:     Greg Banks <gbanks@linkedin.com>
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
-        "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
-        DJ Delorie <dj@redhat.com>,
-        "libc-alpha@sourceware.org" <libc-alpha@sourceware.org>
-References: <BL0PR2101MB13169E7F7783D74DE828D83EA1F29@BL0PR2101MB1316.namprd21.prod.outlook.com>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <10b8d641-67d7-21d0-45ab-9d5f7b11028f@gmail.com>
-Date:   Fri, 6 Aug 2021 13:11:23 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
+        bh=LUw8swlwjyke2ksltwn1GT8otRgNj+6ONFYvbHtB+kI=;
+        b=Pta8ndtl0Jf3cTXYfDBQBk1my7Z+1jvWIPuEiUDidFAA1ieMmxlJsujxwtBikR534m
+         54o9MDI7ZomD3xNjQWISbmK4kCC3HvJFhbiIBhjwGTSoyLxO87igeKKf1yWH6Rp9Vmon
+         2qk/8KLV799IdfYYhA4WW1B/WSAKi6KkStzOJtnCiWyl7KOunKp8JNN3KI4wqodkCqBJ
+         L6QeYZOQKkOplOENBen0BfA6Sh6z/6CBiCx2MagtBdK/PMM3jOqiDEFqNyB9J/0094OD
+         M2k9Z/E6d9ngJM1M8y6hVo4yLHHRxqnlrUQj7ChSVs68A0mfEqDjC9GQS8RaIULYIJfv
+         EZoQ==
+X-Gm-Message-State: AOAM530s2/Auxn9KCMe5xwNMJc+N8co/Q509pcNsyfdWb7YVDqNCDw8k
+        pK/4ZXoVIVJxuEJSebkqM1I=
+X-Google-Smtp-Source: ABdhPJwGFCgKajCIPGDfJIK+pRzUboHgS8Kqezl3DFydPT/1FEwUPIQqyLMJniL36yMl8IamOS3wbw==
+X-Received: by 2002:a05:600c:3641:: with SMTP id y1mr3511612wmq.43.1628259299186;
+        Fri, 06 Aug 2021 07:14:59 -0700 (PDT)
+Received: from sqli.sqli.com ([195.53.121.100])
+        by smtp.googlemail.com with ESMTPSA id x16sm9767634wru.40.2021.08.06.07.14.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Aug 2021 07:14:58 -0700 (PDT)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+To:     mtk.manpages@gmail.com,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org,
+        =?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>
+Subject: [RFC] LICENSES/GPL-2.0-or-later.txt, getent.1: Use SPDX markings, and be REUSE compliant
+Date:   Fri,  6 Aug 2021 16:09:37 +0200
+Message-Id: <20210806140936.608742-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-In-Reply-To: <BL0PR2101MB13169E7F7783D74DE828D83EA1F29@BL0PR2101MB1316.namprd21.prod.outlook.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Greg,
+Reported-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Pali Rohár <pali@kernel.org>
+Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+---
 
-On 8/6/21 12:10 AM, Greg Banks wrote:
-> The following changes since commit fbe71b1b79e72be3b9afc44b5d479e7fd84b598a:
-> 
->    ioctl_tty.2: wfix (2021-07-26 01:31:54 +0200)
-> 
-> are available in the Git repository at:
-> 
->    git@github.com:gnb/man-pages.git nscd.conf.5.v4
-> 
-> for you to fetch changes up to 2cb4e042b6aee518f1673d8897fd06056bd87767:
-> 
->    nscd.conf.5: describe reloading, clarifications, v4 (2021-08-05 15:07:20 -0700)
+Hi Greg, Michael,
 
-Thanks for the research and the patch!
+This is a preview of what I'll do about licensing.
+I'll do the same for the rest of the pages,
+and then we could embed a COPYRIGHT section in each page at release time
+(as we do with the COLOPHON already)
+autogenerated from the SPDX comments.
 
-Please see some comments below.
+That way we only specify the copyright once, avoiding possible errors.
 
-Thanks,
-
-Alex
-
-> 
-> ----------------------------------------------------------------
-> Greg Banks (1):
->        nscd.conf.5: describe reloading, clarifications, v4
-> 
->   man5/nscd.conf.5 | 112 +++++++++++++++++++++++++++++++++++++++++++++++++++++--
->   1 file changed, 109 insertions(+), 3 deletions(-)
-> 
-> diff --git a/man5/nscd.conf.5 b/man5/nscd.conf.5
-> index 7356bf7c2..9635922fd 100644
-> --- a/man5/nscd.conf.5
-> +++ b/man5/nscd.conf.5
-> @@ -1,5 +1,6 @@
->   .\" Copyright (c) 1999, 2000 SuSE GmbH Nuernberg, Germany
->   .\" Author: Thorsten Kukuk <kukuk@suse.de>
-> +.\" Updates: Greg Banks <gbanks@linkedin.com> Copyright (c) 2021 Microsoft Corp.
->   .\"
->   .\" %%%LICENSE_START(GPLv2+_SW_3_PARA)
->   .\" This program is free software; you can redistribute it and/or
-> @@ -53,9 +54,12 @@ The default is 0.
->   .B threads
->   .I number
->   .RS
-> -This is the number of threads that are started to wait for
-> +This is the initial number of threads that are started to wait for
->   requests.
->   At least five threads will always be created.
-> +The number of threads may increase dynamically up to
-> +.B max\-threads
-> +in response to demand from clients, but never decreases.
->   .RE
->   .PP
->   .B max\-threads
-> @@ -83,9 +87,20 @@ Specifies the user who is allowed to request statistics.
->   unlimited |
->   .I number
->   .RS
-> -Limit on the number of times a cached entry gets reloaded without being used
-> +Sets a limit on the number of times a cached entry
-> +gets reloaded without being used
->   before it gets removed.
-> -The default is 5.
-> +The limit can take values ranging from 0 to 254;
-> +values 255 or higher behave the same as
-> +.BR unlimited .
-> +Limit values can be specified in either decimal
-> +or hexadecimal with a "0x" prefix.
-
-Only decimal or hexadecimal?
-
- From what you say above that values greater than 255 behave 
-equivalently to 255, and also this, I suspect this is being parsed with 
-strtoul(), and they also accept octal with 0... notation.
-
-Also, I guess this behavior is common to all numeric values, so maybe 
-it's a better idea to put it in a common paragraph (if you know for sure 
-that this is the case).
-
-> +The special value
-> +.B unlimited
-> +is case-insensitive.
-> +The default limit is 5.
-> +A limit of 0 turns off the reloading feature.
-> +See NOTES below for further discussion of reloading.
-
-Apart from the comment above, I applied some minor formatting fixes to 
-your text (see below; whitespace, punctuation, and a typo); could you 
-include them in your next revision?
+Any thoughts?
 
 Thanks,
 
 Alex
 
 
-diff --git a/man5/nscd.conf.5 b/man5/nscd.conf.5
-index 9635922fd..7534b77e6 100644
---- a/man5/nscd.conf.5
-+++ b/man5/nscd.conf.5
-@@ -59,7 +59,8 @@ requests.
-  At least five threads will always be created.
-  The number of threads may increase dynamically up to
-  .B max\-threads
--in response to demand from clients, but never decreases.
-+in response to demand from clients,
-+but never decreases.
-  .RE
-  .PP
-  .B max\-threads
-@@ -259,7 +260,8 @@ The default values used in the configuration file of
-  your distribution might differ.
-  .SS Reloading
-  .BR nscd (8)
--has a feature called reloading whose behavior can be surprising.
-+has a feature called reloading,
-+whose behavior can be surprising.
-  .PP
-  Reloading is enabled when the
-  .B reload-count
-@@ -270,10 +272,11 @@ although your distribution may differ.
-  When reloading is enabled,
-  positive cached entries (the results of successful queries)
-  do not simply expire when their TTL is up.
--Instead, at the expiry time
-+Instead, at the expiry time,
-  .B nscd
-  will "reload",
--i.e., re-issue to the name service the same query that created the 
-cached entry,
-+i.e.,
-+re-issue to the name service the same query that created the cached entry,
-  to get a new value to cache.
-  Depending on
-  .I /etc/nsswitch.conf
-@@ -284,20 +287,20 @@ until
-  .B reload-count
-  reloads have happened for the entry,
-  and only then will it actually be removed from the cache.
--A request from a client which hits the entry will reset the
--reload counter on the entry.
-+A request from a client which hits the entry will
-+reset the reload counter on the entry.
-  Purging the cache using
-  .I nscd\~-i
-  overrides the reload logic and removes the entry.
-  .PP
--Reloading has the effect of extending cache entry TTLs without
--compromising on cache coherency,
-+Reloading has the effect of extending cache entry TTLs
-+without compromising on cache coherency,
-  at the cost of additional load on the backing name service.
-  Whether this is a good idea on your system depends on
-  details of your applications' behavior,
-  your name service,
-  and the effective TTL values of your cache entries.
-  Note that for some name services
-  (for example, DNS),
-  the effective TTL is the value returned from the name service and
-  .I not
-@@ -308,7 +311,7 @@ attribute.
-  Please consider the following advice carefully:
-  .IP \(bu
-  If your application will make a second request for the same name,
--after more then 1 TTL but before
-+after more than 1 TTL but before
-  .B reload\-count
-  TTLs,
-  and is sensitive to the latency of a cache miss,
-@@ -330,8 +333,8 @@ Setting
-  to
-  .B unlimited
-  is almost never a good idea,
--as it will result in a cache that never expires entries and puts 
-never-ending
--additional load on the backing name service.
-+as it will result in a cache that never expires entries
-+and puts never-ending additional load on the backing name service.
-  .PP
-  Some distributions have an init script for
-  .BR nscd (8)
+ LICENSES/GPL-2.0-or-later.txt | 117 ++++++++++++++++++++++++++++++++++
+ man1/getent.1                 |  26 +-------
+ 2 files changed, 120 insertions(+), 23 deletions(-)
+ create mode 100644 LICENSES/GPL-2.0-or-later.txt
 
-
+diff --git a/LICENSES/GPL-2.0-or-later.txt b/LICENSES/GPL-2.0-or-later.txt
+new file mode 100644
+index 000000000..17cb28643
+--- /dev/null
++++ b/LICENSES/GPL-2.0-or-later.txt
+@@ -0,0 +1,117 @@
++GNU GENERAL PUBLIC LICENSE
++Version 2, June 1991
++
++Copyright (C) 1989, 1991 Free Software Foundation, Inc.
++51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
++
++Everyone is permitted to copy and distribute verbatim copies of this license document, but changing it is not allowed.
++
++Preamble
++
++The licenses for most software are designed to take away your freedom to share and change it. By contrast, the GNU General Public License is intended to guarantee your freedom to share and change free software--to make sure the software is free for all its users. This General Public License applies to most of the Free Software Foundation's software and to any other program whose authors commit to using it. (Some other Free Software Foundation software is covered by the GNU Lesser General Public License instead.) You can apply it to your programs, too.
++
++When we speak of free software, we are referring to freedom, not price. Our General Public Licenses are designed to make sure that you have the freedom to distribute copies of free software (and charge for this service if you wish), that you receive source code or can get it if you want it, that you can change the software or use pieces of it in new free programs; and that you know you can do these things.
++
++To protect your rights, we need to make restrictions that forbid anyone to deny you these rights or to ask you to surrender the rights. These restrictions translate to certain responsibilities for you if you distribute copies of the software, or if you modify it.
++
++For example, if you distribute copies of such a program, whether gratis or for a fee, you must give the recipients all the rights that you have. You must make sure that they, too, receive or can get the source code. And you must show them these terms so they know their rights.
++
++We protect your rights with two steps: (1) copyright the software, and (2) offer you this license which gives you legal permission to copy, distribute and/or modify the software.
++
++Also, for each author's protection and ours, we want to make certain that everyone understands that there is no warranty for this free software. If the software is modified by someone else and passed on, we want its recipients to know that what they have is not the original, so that any problems introduced by others will not reflect on the original authors' reputations.
++
++Finally, any free program is threatened constantly by software patents. We wish to avoid the danger that redistributors of a free program will individually obtain patent licenses, in effect making the program proprietary. To prevent this, we have made it clear that any patent must be licensed for everyone's free use or not licensed at all.
++
++The precise terms and conditions for copying, distribution and modification follow.
++
++TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
++
++0. This License applies to any program or other work which contains a notice placed by the copyright holder saying it may be distributed under the terms of this General Public License. The "Program", below, refers to any such program or work, and a "work based on the Program" means either the Program or any derivative work under copyright law: that is to say, a work containing the Program or a portion of it, either verbatim or with modifications and/or translated into another language. (Hereinafter, translation is included without limitation in the term "modification".) Each licensee is addressed as "you".
++
++Activities other than copying, distribution and modification are not covered by this License; they are outside its scope. The act of running the Program is not restricted, and the output from the Program is covered only if its contents constitute a work based on the Program (independent of having been made by running the Program). Whether that is true depends on what the Program does.
++
++1. You may copy and distribute verbatim copies of the Program's source code as you receive it, in any medium, provided that you conspicuously and appropriately publish on each copy an appropriate copyright notice and disclaimer of warranty; keep intact all the notices that refer to this License and to the absence of any warranty; and give any other recipients of the Program a copy of this License along with the Program.
++
++You may charge a fee for the physical act of transferring a copy, and you may at your option offer warranty protection in exchange for a fee.
++
++2. You may modify your copy or copies of the Program or any portion of it, thus forming a work based on the Program, and copy and distribute such modifications or work under the terms of Section 1 above, provided that you also meet all of these conditions:
++
++     a) You must cause the modified files to carry prominent notices stating that you changed the files and the date of any change.
++
++     b) You must cause any work that you distribute or publish, that in whole or in part contains or is derived from the Program or any part thereof, to be licensed as a whole at no charge to all third parties under the terms of this License.
++
++     c) If the modified program normally reads commands interactively when run, you must cause it, when started running for such interactive use in the most ordinary way, to print or display an announcement including an appropriate copyright notice and a notice that there is no warranty (or else, saying that you provide a warranty) and that users may redistribute the program under these conditions, and telling the user how to view a copy of this License. (Exception: if the Program itself is interactive but does not normally print such an announcement, your work based on the Program is not required to print an announcement.)
++
++These requirements apply to the modified work as a whole. If identifiable sections of that work are not derived from the Program, and can be reasonably considered independent and separate works in themselves, then this License, and its terms, do not apply to those sections when you distribute them as separate works. But when you distribute the same sections as part of a whole which is a work based on the Program, the distribution of the whole must be on the terms of this License, whose permissions for other licensees extend to the entire whole, and thus to each and every part regardless of who wrote it.
++
++Thus, it is not the intent of this section to claim rights or contest your rights to work written entirely by you; rather, the intent is to exercise the right to control the distribution of derivative or collective works based on the Program.
++
++In addition, mere aggregation of another work not based on the Program with the Program (or with a work based on the Program) on a volume of a storage or distribution medium does not bring the other work under the scope of this License.
++
++3. You may copy and distribute the Program (or a work based on it, under Section 2) in object code or executable form under the terms of Sections 1 and 2 above provided that you also do one of the following:
++
++     a) Accompany it with the complete corresponding machine-readable source code, which must be distributed under the terms of Sections 1 and 2 above on a medium customarily used for software interchange; or,
++
++     b) Accompany it with a written offer, valid for at least three years, to give any third party, for a charge no more than your cost of physically performing source distribution, a complete machine-readable copy of the corresponding source code, to be distributed under the terms of Sections 1 and 2 above on a medium customarily used for software interchange; or,
++
++     c) Accompany it with the information you received as to the offer to distribute corresponding source code. (This alternative is allowed only for noncommercial distribution and only if you received the program in object code or executable form with such an offer, in accord with Subsection b above.)
++
++The source code for a work means the preferred form of the work for making modifications to it. For an executable work, complete source code means all the source code for all modules it contains, plus any associated interface definition files, plus the scripts used to control compilation and installation of the executable. However, as a special exception, the source code distributed need not include anything that is normally distributed (in either source or binary form) with the major components (compiler, kernel, and so on) of the operating system on which the executable runs, unless that component itself accompanies the executable.
++
++If distribution of executable or object code is made by offering access to copy from a designated place, then offering equivalent access to copy the source code from the same place counts as distribution of the source code, even though third parties are not compelled to copy the source along with the object code.
++
++4. You may not copy, modify, sublicense, or distribute the Program except as expressly provided under this License. Any attempt otherwise to copy, modify, sublicense or distribute the Program is void, and will automatically terminate your rights under this License. However, parties who have received copies, or rights, from you under this License will not have their licenses terminated so long as such parties remain in full compliance.
++
++5. You are not required to accept this License, since you have not signed it. However, nothing else grants you permission to modify or distribute the Program or its derivative works. These actions are prohibited by law if you do not accept this License. Therefore, by modifying or distributing the Program (or any work based on the Program), you indicate your acceptance of this License to do so, and all its terms and conditions for copying, distributing or modifying the Program or works based on it.
++
++6. Each time you redistribute the Program (or any work based on the Program), the recipient automatically receives a license from the original licensor to copy, distribute or modify the Program subject to these terms and conditions. You may not impose any further restrictions on the recipients' exercise of the rights granted herein. You are not responsible for enforcing compliance by third parties to this License.
++
++7. If, as a consequence of a court judgment or allegation of patent infringement or for any other reason (not limited to patent issues), conditions are imposed on you (whether by court order, agreement or otherwise) that contradict the conditions of this License, they do not excuse you from the conditions of this License. If you cannot distribute so as to satisfy simultaneously your obligations under this License and any other pertinent obligations, then as a consequence you may not distribute the Program at all. For example, if a patent license would not permit royalty-free redistribution of the Program by all those who receive copies directly or indirectly through you, then the only way you could satisfy both it and this License would be to refrain entirely from distribution of the Program.
++
++If any portion of this section is held invalid or unenforceable under any particular circumstance, the balance of the section is intended to apply and the section as a whole is intended to apply in other circumstances.
++
++It is not the purpose of this section to induce you to infringe any patents or other property right claims or to contest validity of any such claims; this section has the sole purpose of protecting the integrity of the free software distribution system, which is implemented by public license practices. Many people have made generous contributions to the wide range of software distributed through that system in reliance on consistent application of that system; it is up to the author/donor to decide if he or she is willing to distribute software through any other system and a licensee cannot impose that choice.
++
++This section is intended to make thoroughly clear what is believed to be a consequence of the rest of this License.
++
++8. If the distribution and/or use of the Program is restricted in certain countries either by patents or by copyrighted interfaces, the original copyright holder who places the Program under this License may add an explicit geographical distribution limitation excluding those countries, so that distribution is permitted only in or among countries not thus excluded. In such case, this License incorporates the limitation as if written in the body of this License.
++
++9. The Free Software Foundation may publish revised and/or new versions of the General Public License from time to time. Such new versions will be similar in spirit to the present version, but may differ in detail to address new problems or concerns.
++
++Each version is given a distinguishing version number. If the Program specifies a version number of this License which applies to it and "any later version", you have the option of following the terms and conditions either of that version or of any later version published by the Free Software Foundation. If the Program does not specify a version number of this License, you may choose any version ever published by the Free Software Foundation.
++
++10. If you wish to incorporate parts of the Program into other free programs whose distribution conditions are different, write to the author to ask for permission. For software which is copyrighted by the Free Software Foundation, write to the Free Software Foundation; we sometimes make exceptions for this. Our decision will be guided by the two goals of preserving the free status of all derivatives of our free software and of promoting the sharing and reuse of software generally.
++
++NO WARRANTY
++
++11. BECAUSE THE PROGRAM IS LICENSED FREE OF CHARGE, THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW. EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES PROVIDE THE PROGRAM "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU. SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING, REPAIR OR CORRECTION.
++
++12. IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING WILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MAY MODIFY AND/OR REDISTRIBUTE THE PROGRAM AS PERMITTED ABOVE, BE LIABLE TO YOU FOR DAMAGES, INCLUDING ANY GENERAL, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OR INABILITY TO USE THE PROGRAM (INCLUDING BUT NOT LIMITED TO LOSS OF DATA OR DATA BEING RENDERED INACCURATE OR LOSSES SUSTAINED BY YOU OR THIRD PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER PROGRAMS), EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
++
++END OF TERMS AND CONDITIONS
++
++How to Apply These Terms to Your New Programs
++
++If you develop a new program, and you want it to be of the greatest possible use to the public, the best way to achieve this is to make it free software which everyone can redistribute and change under these terms.
++
++To do so, attach the following notices to the program. It is safest to attach them to the start of each source file to most effectively convey the exclusion of warranty; and each file should have at least the "copyright" line and a pointer to where the full notice is found.
++
++     one line to give the program's name and an idea of what it does. Copyright (C) yyyy name of author
++
++     This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
++
++     This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
++
++     You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA. Also add information on how to contact you by electronic and paper mail.
++
++If the program is interactive, make it output a short notice like this when it starts in an interactive mode:
++
++     Gnomovision version 69, Copyright (C) year name of author Gnomovision comes with ABSOLUTELY NO WARRANTY; for details type `show w'. This is free software, and you are welcome to redistribute it under certain conditions; type `show c' for details.
++
++The hypothetical commands `show w' and `show c' should show the appropriate parts of the General Public License. Of course, the commands you use may be called something other than `show w' and `show c'; they could even be mouse-clicks or menu items--whatever suits your program.
++
++You should also get your employer (if you work as a programmer) or your school, if any, to sign a "copyright disclaimer" for the program, if necessary. Here is a sample; alter the names:
++
++     Yoyodyne, Inc., hereby disclaims all copyright interest in the program `Gnomovision' (which makes passes at compilers) written by James Hacker.
++
++signature of Ty Coon, 1 April 1989 Ty Coon, President of Vice
+diff --git a/man1/getent.1 b/man1/getent.1
+index 4822c2c12..56bc7edd7 100644
+--- a/man1/getent.1
++++ b/man1/getent.1
+@@ -1,26 +1,6 @@
+-.\" Copyright (c) 2011, Mark R. Bannister <cambridge@users.sourceforge.net>
+-.\" Copyright (c) 2015, Robin H. Johnson <robbat2@gentoo.org>
+-.\"
+-.\" %%%LICENSE_START(GPLv2+_DOC_FULL)
+-.\" This is free documentation; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License as
+-.\" published by the Free Software Foundation; either version 2 of
+-.\" the License, or (at your option) any later version.
+-.\"
+-.\" The GNU General Public License's references to "object code"
+-.\" and "executables" are to be interpreted as the output of any
+-.\" document formatting or typesetting system, including
+-.\" intermediate and printed output.
+-.\"
+-.\" This manual is distributed in the hope that it will be useful,
+-.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+-.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-.\" GNU General Public License for more details.
+-.\"
+-.\" You should have received a copy of the GNU General Public
+-.\" License along with this manual; if not, see
+-.\" <http://www.gnu.org/licenses/>.
+-.\" %%%LICENSE_END
++.\" SPDX-FileCopyrightText: 2011, Mark R. Bannister <cambridge@users.sourceforge.net>
++.\" SPDX-FileCopyrightText: 2015, Robin H. Johnson <robbat2@gentoo.org>
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+ .TH GETENT 1 2021-03-22 "Linux" "User Commands"
+ .SH NAME
 -- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+2.32.0
+
