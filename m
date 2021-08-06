@@ -2,252 +2,151 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0C9BF3E2C4E
-	for <lists+linux-man@lfdr.de>; Fri,  6 Aug 2021 16:15:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id AF8703E2C79
+	for <lists+linux-man@lfdr.de>; Fri,  6 Aug 2021 16:26:16 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S237233AbhHFOPS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 6 Aug 2021 10:15:18 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55870 "EHLO
+        id S238680AbhHFO0b (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 6 Aug 2021 10:26:31 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58402 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229775AbhHFOPR (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 6 Aug 2021 10:15:17 -0400
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com [IPv6:2a00:1450:4864:20::32f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 070F0C061798
-        for <linux-man@vger.kernel.org>; Fri,  6 Aug 2021 07:15:01 -0700 (PDT)
-Received: by mail-wm1-x32f.google.com with SMTP id l4-20020a05600c1d04b02902506f89ad2dso7366991wms.1
-        for <linux-man@vger.kernel.org>; Fri, 06 Aug 2021 07:15:00 -0700 (PDT)
+        with ESMTP id S238446AbhHFO0b (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 6 Aug 2021 10:26:31 -0400
+Received: from mail-qv1-xf2c.google.com (mail-qv1-xf2c.google.com [IPv6:2607:f8b0:4864:20::f2c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5398EC0613CF
+        for <linux-man@vger.kernel.org>; Fri,  6 Aug 2021 07:26:14 -0700 (PDT)
+Received: by mail-qv1-xf2c.google.com with SMTP id f91so4963909qva.9
+        for <linux-man@vger.kernel.org>; Fri, 06 Aug 2021 07:26:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=LUw8swlwjyke2ksltwn1GT8otRgNj+6ONFYvbHtB+kI=;
-        b=aPZ45MKGk7J/95SyRU8z+MZ6X54KTbGkdvU/W28ql7/5jL2AMxv7kM4k49HrG3wfzo
-         AvyrWqm67/BOel1g4czRNsBV+gqctYmKqMcE69aYxHpnCdV39gyXJ5TaFeMhvFiI/g08
-         JEKu5XemiL7/MxeywWka88mcvmaK+AqgsLnhRao0hXbUIekw+TsbXmUjdUTf0mXo3NZo
-         jqgjZMiB6HJBWAmsdA1ui7IBiTL8b3CELY+08XFmCqgD9qaawurONJN00pJLJkkaGIgl
-         79IoeXwcGJoYQOWKGDytLfqk3+V7a3C1D/uhiYbjvQn6lr9mgcBs1ODYJKgpYvuX1g9w
-         Xnbw==
+        h=mime-version:from:date:message-id:subject:to:cc;
+        bh=3Fxrf3/Z5Oj01EWmFJ5MPedurh+lBot7nvHmVMPAby8=;
+        b=LFUYUkX9Z2CmkXdczXty6t1bR/SLDqfaqINap8no2ym4mxuv0vWCJ22z/qD9pAeWjb
+         DyHxcp0ATN+d3Cmq9VspGqP6LhDzoR2AAWWKgYvw3O++g+iLPdCuJP1Waf8e6EbEvH4F
+         maJ+oUfY8rEkJwprNth8uDAN9A9WIrsHOyMIyf/xLJj7MYbsHKpo63SMeXtF3BO3F5aN
+         hf1RFGfQuPa8BvxJ4EqVfF6d3re/QHbOJpAQPw8BQVubJQh2BarpvKYlxi44tTrihHL0
+         E0Rd4aPKlwKjKmsBTawXfMVFCr0PoXWmoZeDbVdNWeM18jj/2ujLmDlSQeXgLLSG3QBE
+         knvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=LUw8swlwjyke2ksltwn1GT8otRgNj+6ONFYvbHtB+kI=;
-        b=Pta8ndtl0Jf3cTXYfDBQBk1my7Z+1jvWIPuEiUDidFAA1ieMmxlJsujxwtBikR534m
-         54o9MDI7ZomD3xNjQWISbmK4kCC3HvJFhbiIBhjwGTSoyLxO87igeKKf1yWH6Rp9Vmon
-         2qk/8KLV799IdfYYhA4WW1B/WSAKi6KkStzOJtnCiWyl7KOunKp8JNN3KI4wqodkCqBJ
-         L6QeYZOQKkOplOENBen0BfA6Sh6z/6CBiCx2MagtBdK/PMM3jOqiDEFqNyB9J/0094OD
-         M2k9Z/E6d9ngJM1M8y6hVo4yLHHRxqnlrUQj7ChSVs68A0mfEqDjC9GQS8RaIULYIJfv
-         EZoQ==
-X-Gm-Message-State: AOAM530s2/Auxn9KCMe5xwNMJc+N8co/Q509pcNsyfdWb7YVDqNCDw8k
-        pK/4ZXoVIVJxuEJSebkqM1I=
-X-Google-Smtp-Source: ABdhPJwGFCgKajCIPGDfJIK+pRzUboHgS8Kqezl3DFydPT/1FEwUPIQqyLMJniL36yMl8IamOS3wbw==
-X-Received: by 2002:a05:600c:3641:: with SMTP id y1mr3511612wmq.43.1628259299186;
-        Fri, 06 Aug 2021 07:14:59 -0700 (PDT)
-Received: from sqli.sqli.com ([195.53.121.100])
-        by smtp.googlemail.com with ESMTPSA id x16sm9767634wru.40.2021.08.06.07.14.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Aug 2021 07:14:58 -0700 (PDT)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     mtk.manpages@gmail.com,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org,
-        =?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>
-Subject: [RFC] LICENSES/GPL-2.0-or-later.txt, getent.1: Use SPDX markings, and be REUSE compliant
-Date:   Fri,  6 Aug 2021 16:09:37 +0200
-Message-Id: <20210806140936.608742-1-alx.manpages@gmail.com>
-X-Mailer: git-send-email 2.32.0
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+        bh=3Fxrf3/Z5Oj01EWmFJ5MPedurh+lBot7nvHmVMPAby8=;
+        b=Qm31pnlT/CijUVCnS4YEiSTcRQFcZW/dZNMr6zjt2DDr82oUj22kIBKmFhdAiamM97
+         vNrH+44WNd6c4dI72lp8qc++hacKnH2l+LgQp2X35JfcLbZWp6Ac+SZzs2bivpPcJF6J
+         gZAR9WPOt+fTmBctp+vhaamvy+Qy8fsfyycZXDQErd1bTcOpmQeMM9tRrxZqH7SHq8Gt
+         7UVf6nuuoW1vxJGxeB7Ed//Ro+zHFV4B5E2BiEXkFWPjJ1B3x9CSHMSgRjWsdWwLwvZg
+         QQuERcL4Qv9o/TSppehU3a5vc/m7TbMD6cve698+peLWO1/IWDsur4WIT043i4D/lmli
+         Uvfw==
+X-Gm-Message-State: AOAM533z5UYSQO0+JyfO/u1LT9lm1absaKJ0a9+KX7Vzqx0Ue5Tdufw/
+        pqpnzrv2SLpshmV6FO81WCR4g0SqVx9j4hHaxhg=
+X-Google-Smtp-Source: ABdhPJyE/WI6Z0mkrUkAaqQF+6JOSvsSGelwtv7umWcYRL8U9F2qxMhsNWx9PX9Az7u+hKTIomRMufHO+i/legN8XcE=
+X-Received: by 2002:a0c:cb8d:: with SMTP id p13mr11134048qvk.53.1628259973523;
+ Fri, 06 Aug 2021 07:26:13 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Received: by 2002:aed:216a:0:0:0:0:0 with HTTP; Fri, 6 Aug 2021 07:26:12 -0700 (PDT)
+From:   Emanuele Torre <torreemanuele6@gmail.com>
+Date:   Fri, 6 Aug 2021 16:26:12 +0200
+Message-ID: <CAA7hNqc8gExU=OfsoqY3Cw78J1BOCXrMfFmg+fUaCDt54wDrBQ@mail.gmail.com>
+Subject: [man-pages] Misleading example in ldd(1).
+To:     mtk.manpages@gmail.com, alx.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Reported-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Pali Rohár <pali@kernel.org>
-Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
----
+Hello.
 
-Hi Greg, Michael,
+I was reading the man page for ldd(1)[1]; and I read this in the first
+paragraph of the DECRIPTION section:
 
-This is a preview of what I'll do about licensing.
-I'll do the same for the rest of the pages,
-and then we could embed a COPYRIGHT section in each page at release time
-(as we do with the COLOPHON already)
-autogenerated from the SPDX comments.
+ ldd prints the shared objects (shared libraries) required by each
+ program or shared object specified on the command line.  An
+ example of its use and output (using sed(1) to trim leading white
+ space for readability in this page) is the following:
 
-That way we only specify the copyright once, avoiding possible errors.
+     $ ldd /bin/ls | sed 's/^ */    /'
+         linux-vdso.so.1 (0x00007ffcc3563000)
+         libselinux.so.1 => /lib64/libselinux.so.1 (0x00007f87e5459000)
+         libcap.so.2 => /lib64/libcap.so.2 (0x00007f87e5254000)
+         libc.so.6 => /lib64/libc.so.6 (0x00007f87e4e92000)
+         libpcre.so.1 => /lib64/libpcre.so.1 (0x00007f87e4c22000)
+         libdl.so.2 => /lib64/libdl.so.2 (0x00007f87e4a1e000)
+         /lib64/ld-linux-x86-64.so.2 (0x00005574bf12e000)
+         libattr.so.1 => /lib64/libattr.so.1 (0x00007f87e4817000)
+         libpthread.so.0 => /lib64/libpthread.so.0 (0x00007f87e45fa000)
 
-Any thoughts?
+This is a little confusing though since that sed(1) command does not
+seem to work. (and also potentially misleading for someone who is trying
+figure out how to parse ldd(1)'s output.)
 
-Thanks,
+ldd(1) prepends a TAB character (0x09) to each line, not spaces:
 
-Alex
+ $ ldd /bin/ls | xxd | head -1
+ 00000000: 096c 696e 7578 2d76 6473 6f2e 736f 2e31  .linux-vdso.so.1
 
+I read ldd(1)'s source code[2] (it is part of glibc) and it seems to be
+a bash script that tries to use different rtld programs ( ld.so(8) )
+from an RTLDLIST.
 
- LICENSES/GPL-2.0-or-later.txt | 117 ++++++++++++++++++++++++++++++++++
- man1/getent.1                 |  26 +-------
- 2 files changed, 120 insertions(+), 23 deletions(-)
- create mode 100644 LICENSES/GPL-2.0-or-later.txt
+Those, on my system, are:
 
-diff --git a/LICENSES/GPL-2.0-or-later.txt b/LICENSES/GPL-2.0-or-later.txt
-new file mode 100644
-index 000000000..17cb28643
---- /dev/null
-+++ b/LICENSES/GPL-2.0-or-later.txt
-@@ -0,0 +1,117 @@
-+GNU GENERAL PUBLIC LICENSE
-+Version 2, June 1991
-+
-+Copyright (C) 1989, 1991 Free Software Foundation, Inc.
-+51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
-+
-+Everyone is permitted to copy and distribute verbatim copies of this license document, but changing it is not allowed.
-+
-+Preamble
-+
-+The licenses for most software are designed to take away your freedom to share and change it. By contrast, the GNU General Public License is intended to guarantee your freedom to share and change free software--to make sure the software is free for all its users. This General Public License applies to most of the Free Software Foundation's software and to any other program whose authors commit to using it. (Some other Free Software Foundation software is covered by the GNU Lesser General Public License instead.) You can apply it to your programs, too.
-+
-+When we speak of free software, we are referring to freedom, not price. Our General Public Licenses are designed to make sure that you have the freedom to distribute copies of free software (and charge for this service if you wish), that you receive source code or can get it if you want it, that you can change the software or use pieces of it in new free programs; and that you know you can do these things.
-+
-+To protect your rights, we need to make restrictions that forbid anyone to deny you these rights or to ask you to surrender the rights. These restrictions translate to certain responsibilities for you if you distribute copies of the software, or if you modify it.
-+
-+For example, if you distribute copies of such a program, whether gratis or for a fee, you must give the recipients all the rights that you have. You must make sure that they, too, receive or can get the source code. And you must show them these terms so they know their rights.
-+
-+We protect your rights with two steps: (1) copyright the software, and (2) offer you this license which gives you legal permission to copy, distribute and/or modify the software.
-+
-+Also, for each author's protection and ours, we want to make certain that everyone understands that there is no warranty for this free software. If the software is modified by someone else and passed on, we want its recipients to know that what they have is not the original, so that any problems introduced by others will not reflect on the original authors' reputations.
-+
-+Finally, any free program is threatened constantly by software patents. We wish to avoid the danger that redistributors of a free program will individually obtain patent licenses, in effect making the program proprietary. To prevent this, we have made it clear that any patent must be licensed for everyone's free use or not licensed at all.
-+
-+The precise terms and conditions for copying, distribution and modification follow.
-+
-+TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
-+
-+0. This License applies to any program or other work which contains a notice placed by the copyright holder saying it may be distributed under the terms of this General Public License. The "Program", below, refers to any such program or work, and a "work based on the Program" means either the Program or any derivative work under copyright law: that is to say, a work containing the Program or a portion of it, either verbatim or with modifications and/or translated into another language. (Hereinafter, translation is included without limitation in the term "modification".) Each licensee is addressed as "you".
-+
-+Activities other than copying, distribution and modification are not covered by this License; they are outside its scope. The act of running the Program is not restricted, and the output from the Program is covered only if its contents constitute a work based on the Program (independent of having been made by running the Program). Whether that is true depends on what the Program does.
-+
-+1. You may copy and distribute verbatim copies of the Program's source code as you receive it, in any medium, provided that you conspicuously and appropriately publish on each copy an appropriate copyright notice and disclaimer of warranty; keep intact all the notices that refer to this License and to the absence of any warranty; and give any other recipients of the Program a copy of this License along with the Program.
-+
-+You may charge a fee for the physical act of transferring a copy, and you may at your option offer warranty protection in exchange for a fee.
-+
-+2. You may modify your copy or copies of the Program or any portion of it, thus forming a work based on the Program, and copy and distribute such modifications or work under the terms of Section 1 above, provided that you also meet all of these conditions:
-+
-+     a) You must cause the modified files to carry prominent notices stating that you changed the files and the date of any change.
-+
-+     b) You must cause any work that you distribute or publish, that in whole or in part contains or is derived from the Program or any part thereof, to be licensed as a whole at no charge to all third parties under the terms of this License.
-+
-+     c) If the modified program normally reads commands interactively when run, you must cause it, when started running for such interactive use in the most ordinary way, to print or display an announcement including an appropriate copyright notice and a notice that there is no warranty (or else, saying that you provide a warranty) and that users may redistribute the program under these conditions, and telling the user how to view a copy of this License. (Exception: if the Program itself is interactive but does not normally print such an announcement, your work based on the Program is not required to print an announcement.)
-+
-+These requirements apply to the modified work as a whole. If identifiable sections of that work are not derived from the Program, and can be reasonably considered independent and separate works in themselves, then this License, and its terms, do not apply to those sections when you distribute them as separate works. But when you distribute the same sections as part of a whole which is a work based on the Program, the distribution of the whole must be on the terms of this License, whose permissions for other licensees extend to the entire whole, and thus to each and every part regardless of who wrote it.
-+
-+Thus, it is not the intent of this section to claim rights or contest your rights to work written entirely by you; rather, the intent is to exercise the right to control the distribution of derivative or collective works based on the Program.
-+
-+In addition, mere aggregation of another work not based on the Program with the Program (or with a work based on the Program) on a volume of a storage or distribution medium does not bring the other work under the scope of this License.
-+
-+3. You may copy and distribute the Program (or a work based on it, under Section 2) in object code or executable form under the terms of Sections 1 and 2 above provided that you also do one of the following:
-+
-+     a) Accompany it with the complete corresponding machine-readable source code, which must be distributed under the terms of Sections 1 and 2 above on a medium customarily used for software interchange; or,
-+
-+     b) Accompany it with a written offer, valid for at least three years, to give any third party, for a charge no more than your cost of physically performing source distribution, a complete machine-readable copy of the corresponding source code, to be distributed under the terms of Sections 1 and 2 above on a medium customarily used for software interchange; or,
-+
-+     c) Accompany it with the information you received as to the offer to distribute corresponding source code. (This alternative is allowed only for noncommercial distribution and only if you received the program in object code or executable form with such an offer, in accord with Subsection b above.)
-+
-+The source code for a work means the preferred form of the work for making modifications to it. For an executable work, complete source code means all the source code for all modules it contains, plus any associated interface definition files, plus the scripts used to control compilation and installation of the executable. However, as a special exception, the source code distributed need not include anything that is normally distributed (in either source or binary form) with the major components (compiler, kernel, and so on) of the operating system on which the executable runs, unless that component itself accompanies the executable.
-+
-+If distribution of executable or object code is made by offering access to copy from a designated place, then offering equivalent access to copy the source code from the same place counts as distribution of the source code, even though third parties are not compelled to copy the source along with the object code.
-+
-+4. You may not copy, modify, sublicense, or distribute the Program except as expressly provided under this License. Any attempt otherwise to copy, modify, sublicense or distribute the Program is void, and will automatically terminate your rights under this License. However, parties who have received copies, or rights, from you under this License will not have their licenses terminated so long as such parties remain in full compliance.
-+
-+5. You are not required to accept this License, since you have not signed it. However, nothing else grants you permission to modify or distribute the Program or its derivative works. These actions are prohibited by law if you do not accept this License. Therefore, by modifying or distributing the Program (or any work based on the Program), you indicate your acceptance of this License to do so, and all its terms and conditions for copying, distributing or modifying the Program or works based on it.
-+
-+6. Each time you redistribute the Program (or any work based on the Program), the recipient automatically receives a license from the original licensor to copy, distribute or modify the Program subject to these terms and conditions. You may not impose any further restrictions on the recipients' exercise of the rights granted herein. You are not responsible for enforcing compliance by third parties to this License.
-+
-+7. If, as a consequence of a court judgment or allegation of patent infringement or for any other reason (not limited to patent issues), conditions are imposed on you (whether by court order, agreement or otherwise) that contradict the conditions of this License, they do not excuse you from the conditions of this License. If you cannot distribute so as to satisfy simultaneously your obligations under this License and any other pertinent obligations, then as a consequence you may not distribute the Program at all. For example, if a patent license would not permit royalty-free redistribution of the Program by all those who receive copies directly or indirectly through you, then the only way you could satisfy both it and this License would be to refrain entirely from distribution of the Program.
-+
-+If any portion of this section is held invalid or unenforceable under any particular circumstance, the balance of the section is intended to apply and the section as a whole is intended to apply in other circumstances.
-+
-+It is not the purpose of this section to induce you to infringe any patents or other property right claims or to contest validity of any such claims; this section has the sole purpose of protecting the integrity of the free software distribution system, which is implemented by public license practices. Many people have made generous contributions to the wide range of software distributed through that system in reliance on consistent application of that system; it is up to the author/donor to decide if he or she is willing to distribute software through any other system and a licensee cannot impose that choice.
-+
-+This section is intended to make thoroughly clear what is believed to be a consequence of the rest of this License.
-+
-+8. If the distribution and/or use of the Program is restricted in certain countries either by patents or by copyrighted interfaces, the original copyright holder who places the Program under this License may add an explicit geographical distribution limitation excluding those countries, so that distribution is permitted only in or among countries not thus excluded. In such case, this License incorporates the limitation as if written in the body of this License.
-+
-+9. The Free Software Foundation may publish revised and/or new versions of the General Public License from time to time. Such new versions will be similar in spirit to the present version, but may differ in detail to address new problems or concerns.
-+
-+Each version is given a distinguishing version number. If the Program specifies a version number of this License which applies to it and "any later version", you have the option of following the terms and conditions either of that version or of any later version published by the Free Software Foundation. If the Program does not specify a version number of this License, you may choose any version ever published by the Free Software Foundation.
-+
-+10. If you wish to incorporate parts of the Program into other free programs whose distribution conditions are different, write to the author to ask for permission. For software which is copyrighted by the Free Software Foundation, write to the Free Software Foundation; we sometimes make exceptions for this. Our decision will be guided by the two goals of preserving the free status of all derivatives of our free software and of promoting the sharing and reuse of software generally.
-+
-+NO WARRANTY
-+
-+11. BECAUSE THE PROGRAM IS LICENSED FREE OF CHARGE, THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW. EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES PROVIDE THE PROGRAM "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU. SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING, REPAIR OR CORRECTION.
-+
-+12. IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING WILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MAY MODIFY AND/OR REDISTRIBUTE THE PROGRAM AS PERMITTED ABOVE, BE LIABLE TO YOU FOR DAMAGES, INCLUDING ANY GENERAL, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OR INABILITY TO USE THE PROGRAM (INCLUDING BUT NOT LIMITED TO LOSS OF DATA OR DATA BEING RENDERED INACCURATE OR LOSSES SUSTAINED BY YOU OR THIRD PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER PROGRAMS), EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
-+
-+END OF TERMS AND CONDITIONS
-+
-+How to Apply These Terms to Your New Programs
-+
-+If you develop a new program, and you want it to be of the greatest possible use to the public, the best way to achieve this is to make it free software which everyone can redistribute and change under these terms.
-+
-+To do so, attach the following notices to the program. It is safest to attach them to the start of each source file to most effectively convey the exclusion of warranty; and each file should have at least the "copyright" line and a pointer to where the full notice is found.
-+
-+     one line to give the program's name and an idea of what it does. Copyright (C) yyyy name of author
-+
-+     This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
-+
-+     This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-+
-+     You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA. Also add information on how to contact you by electronic and paper mail.
-+
-+If the program is interactive, make it output a short notice like this when it starts in an interactive mode:
-+
-+     Gnomovision version 69, Copyright (C) year name of author Gnomovision comes with ABSOLUTELY NO WARRANTY; for details type `show w'. This is free software, and you are welcome to redistribute it under certain conditions; type `show c' for details.
-+
-+The hypothetical commands `show w' and `show c' should show the appropriate parts of the General Public License. Of course, the commands you use may be called something other than `show w' and `show c'; they could even be mouse-clicks or menu items--whatever suits your program.
-+
-+You should also get your employer (if you work as a programmer) or your school, if any, to sign a "copyright disclaimer" for the program, if necessary. Here is a sample; alter the names:
-+
-+     Yoyodyne, Inc., hereby disclaims all copyright interest in the program `Gnomovision' (which makes passes at compilers) written by James Hacker.
-+
-+signature of Ty Coon, 1 April 1989 Ty Coon, President of Vice
-diff --git a/man1/getent.1 b/man1/getent.1
-index 4822c2c12..56bc7edd7 100644
---- a/man1/getent.1
-+++ b/man1/getent.1
-@@ -1,26 +1,6 @@
--.\" Copyright (c) 2011, Mark R. Bannister <cambridge@users.sourceforge.net>
--.\" Copyright (c) 2015, Robin H. Johnson <robbat2@gentoo.org>
--.\"
--.\" %%%LICENSE_START(GPLv2+_DOC_FULL)
--.\" This is free documentation; you can redistribute it and/or
--.\" modify it under the terms of the GNU General Public License as
--.\" published by the Free Software Foundation; either version 2 of
--.\" the License, or (at your option) any later version.
--.\"
--.\" The GNU General Public License's references to "object code"
--.\" and "executables" are to be interpreted as the output of any
--.\" document formatting or typesetting system, including
--.\" intermediate and printed output.
--.\"
--.\" This manual is distributed in the hope that it will be useful,
--.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
--.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
--.\" GNU General Public License for more details.
--.\"
--.\" You should have received a copy of the GNU General Public
--.\" License along with this manual; if not, see
--.\" <http://www.gnu.org/licenses/>.
--.\" %%%LICENSE_END
-+.\" SPDX-FileCopyrightText: 2011, Mark R. Bannister <cambridge@users.sourceforge.net>
-+.\" SPDX-FileCopyrightText: 2015, Robin H. Johnson <robbat2@gentoo.org>
-+.\" SPDX-License-Identifier: GPL-2.0-or-later
- .\"
- .TH GETENT 1 2021-03-22 "Linux" "User Commands"
- .SH NAME
--- 
-2.32.0
+ * /usr/lib/ld-linux.so.2
+ * /usr/lib64/ld-linux-x86-64.so.2
+ * /usr/libx32/ld-linux-x32.so.2
 
+And they all seem to also be part of glibc.
+
+I have tried to follow the git history of glibc to see when the switch
+from spaces to the TAB character occured, but, to me, it seems like
+glibc.git/elf/rtld.c has always used '\t'; at since
+6a76c115150318eae5d02eca76f2fc03be7bd029[3] (358th commit since glibc
+started using the git repository repository - Nov 18th 1995): before
+that commit there are not any results for `git grep '\\t'` in the elf
+directory and I did not investigate further.
+
+Still, at the time of that commit, glibc did not seem to have an ldd(1)
+utility.
+
+Perhaps the man page is old and its original author was using and
+documenting an ldd(1) utility that was not part of glibc when he was
+writing it.
+
+Anyhow, since I think that sed(1) command will not work on any system
+that uses, at least, the most recent version of glibc (because lld(1)
+and the ld.so(8) programs it depends on are all part of glibc), I think
+that that example should be changed to avoid confusions.
+
+The output format of ldd(1) does not seem to be clearly defined, so I
+think this would be a good option:
+
+ $ ldd /bin/ls | sed 's/^[[:space:]]*/    /'
+
+NB: ^\s* should also work on most GNU/Linux systems, but \s is
+    non-standard or documented so I don not suggest using it in the man
+    page.
+
+Another option could be to remove "the pipe to sed(1)" part and the note
+in parentheses that explains why it was used by the original author.
+
+Cheers.
+ emanuele6
+
+[1]: https://man7.org/linux/man-pages/man1/ldd.1.html
+[2]: https://sourceware.org/git/?p=glibc.git;a=blob;f=elf/ldd.bash.in;h=ba736464ac5e4a9390b1b6a39595035238250232;hb=5188a9d0265cc6f7235a8af1d31ab02e4a24853d
+[3]: https://sourceware.org/git/?p=glibc.git;a=commit;h=6a76c115150318eae5d02eca76f2fc03be7bd029
+
+///////
+
+ $ uname -a
+ Linux t420 5.10.54-1-lts #1 SMP Wed, 28 Jul 2021 15:05:20 +0000
+x86_64 GNU/Linux
+ $ pacman -Qo ldd
+ /usr/bin/ldd is owned by glibc 2.33-5
+ $ pacman -Qo /usr/share/man/man1/ldd.1.gz
+ /usr/share/man/man1/ldd.1.gz is owned by man-pages 5.12-2
+ $ pacman -Qo /usr/lib/ld-linux.so.2
+ /usr/lib/ld-linux.so.2 is owned by lib32-glibc 2.33-5
+ $ pacman -Qo /usr/lib64/ld-linux-x86-64.so.2
+ /usr/lib/ld-linux-x86-64.so.2 is owned by glibc 2.33-5
+ $ pacman -F /usr/libx32/ld-linux-x32.so.2 || echo not available on arch linux.
+ not available on arch linux.
