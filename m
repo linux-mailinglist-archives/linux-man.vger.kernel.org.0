@@ -2,96 +2,135 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6D96E3E23F1
-	for <lists+linux-man@lfdr.de>; Fri,  6 Aug 2021 09:25:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 50D023E262B
+	for <lists+linux-man@lfdr.de>; Fri,  6 Aug 2021 10:32:37 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S239712AbhHFHZl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 6 Aug 2021 03:25:41 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45054 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235225AbhHFHZl (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 6 Aug 2021 03:25:41 -0400
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com [IPv6:2a00:1450:4864:20::432])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 99F90C061798
-        for <linux-man@vger.kernel.org>; Fri,  6 Aug 2021 00:25:24 -0700 (PDT)
-Received: by mail-wr1-x432.google.com with SMTP id c9so9768540wri.8
-        for <linux-man@vger.kernel.org>; Fri, 06 Aug 2021 00:25:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=JtvIn0FJ+WOdLsf9J/BeWtvPQcyO6jREmarMQ1PPpQI=;
-        b=KKBZT6Za9JBjt2552a3ImSrc+ulEZjRLDvp/FAAMeqxsAR3meyrH3EaCd3qpNN6M5p
-         AtCAXa5y1j4smyEnK0swJ9CGropEpEz0R4MCKAp0/0RIvzVCS1jNffDj29NqujUBZeK4
-         ehKEfsOkppR4byyLo7uP7ys7NosoaoKMIuJDbjhjGd+IcueUVLvA+kIdv3SW2ivJI2bm
-         tE6FU3QypARMdZepSFDxT8GIVWguxIlvuYsSN5A/evfPZSndlwjU1i7v9e11tvFxJQs3
-         MX1G/5ZdTgqm9N2kBAJ0eP7uflL9mnzf/oZrG50SrcCgLMlAKkKjWlgXCoAlci0i16ok
-         9l3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=JtvIn0FJ+WOdLsf9J/BeWtvPQcyO6jREmarMQ1PPpQI=;
-        b=c7h1C1C2Eb0YoE8iVm4MYGm5ewtHsZ6ZvYSv/Q2fKh81/3l6cTezt8E2quFrG50dvs
-         QZeNo9SUP3oruNSjC2ib6F3MvkqUshRMvZEvMF3C/dCKID6ON9LdnFFgM9kNUOyKuFbJ
-         gv7E2rmNW7eJ1tMYGPPlW/iX5xu9lJlzVrMeGKcGPMBJmcjEoXaFkOa3m6R2qB+UORwx
-         VpQMfdh5qrSeSXmOQ+ilmnBYiKlZkskvFiTiPv8TiIEVh8r0ZePzbarHm9ZDGMUXTN4n
-         BsCM68hzxhwkbmySWzWy8H6mfi/qortR4WGAMK+JymcqmiuqINp51Ub0lM2EGibC4sRN
-         DFog==
-X-Gm-Message-State: AOAM533oZWVcvCZE4sSIj73RcImOtesyGSRAL2JV4wU6Fj+t2Ivh9IYM
-        eSspCNrhTrE/zBW2TNtzZm/Zq+flrNw=
-X-Google-Smtp-Source: ABdhPJzbsT/DoHYnE3zY7AEHwHZvLPc0YJsbfVnp1PlNKwvHQXdlV+t/pst49XkaTBiCKJ/T4AidwA==
-X-Received: by 2002:a05:6000:110d:: with SMTP id z13mr7939925wrw.345.1628234723220;
-        Fri, 06 Aug 2021 00:25:23 -0700 (PDT)
-Received: from [10.8.0.10] ([195.53.121.100])
-        by smtp.gmail.com with ESMTPSA id m27sm8285905wrh.34.2021.08.06.00.25.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 06 Aug 2021 00:25:22 -0700 (PDT)
-Subject: Re: [pr] nscd.conf.5: describe reloading, clarifications, v3
-To:     Greg Banks <gbanks@linkedin.com>
-Cc:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
-References: <BL0PR2101MB13165DA16EA08B6ECF60D1CAA1F19@BL0PR2101MB1316.namprd21.prod.outlook.com>
- <0c851411-caf6-5178-09c5-f5d54fb12c97@gmail.com>
- <BL0PR2101MB1316CCF8B96DDEC9D0D5F5D4A1F29@BL0PR2101MB1316.namprd21.prod.outlook.com>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <925300a8-2f31-da7b-cb01-5b74d996eb4e@gmail.com>
-Date:   Fri, 6 Aug 2021 09:25:22 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
+        id S241962AbhHFIct (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 6 Aug 2021 04:32:49 -0400
+Received: from mail.kernel.org ([198.145.29.99]:35790 "EHLO mail.kernel.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S242206AbhHFIcq (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Fri, 6 Aug 2021 04:32:46 -0400
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 5C66F611F0;
+        Fri,  6 Aug 2021 08:32:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1628238751;
+        bh=pkduKxG75bOFS7Mu9r1UK0lVa8oyh2IcVqJAW1oD38s=;
+        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+        b=dGusvExKQOxVinelJT9LtZvAg4xNc0/hRVU/2BYA2p3BpT7LmUV5wWZ6T2awGg9SJ
+         6cK5OYtH36E/mO1u+Gj2qh8qIR/W6M9cK13yrl7KV0iRaZCjU/GrdFc2lY+zVB8tdw
+         ONUCv7J/6DzIlC7mo/ZIStjB0qdg7nfii+Zyu9gMYZFZTX/qwi/vPnfu7uI5zdP/BI
+         SlAbJlwB/km6eEgJJXXTMOXbVHNsNTc+SYQT+VWbiOrzMy1WTUfpk/GHfmGByppjV8
+         +wEkxHCX/z8AM12L5AohYnCkUi7qeBd8Eyo5jj8bZv09mWuOQy2erSwpYR4ZtirqyS
+         73PPKZZTyGp0g==
+Received: by pali.im (Postfix)
+        id 93E75768; Fri,  6 Aug 2021 10:32:28 +0200 (CEST)
+Date:   Fri, 6 Aug 2021 10:32:28 +0200
+From:   Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Cc:     Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        Marek =?utf-8?B?QmVow7pu?= <kabel@kernel.org>,
+        libc-alpha@sourceware.org,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        linux-man@vger.kernel.org, linux-serial@vger.kernel.org,
+        Walter Harms <wharms@bfs.de>, Andres Brouwer <aeb@cwi.nl>
+Subject: Re: Licensing example programs in man-pages (was [PATCH v3]
+ ioctl_tty.2: Add example how to get or set baudrate on the serial port)
+Message-ID: <20210806083228.vja7jqnophuomg73@pali>
+References: <20210805082243.qciylqnt5g74if7i@pali>
+ <YQuhl18CgJ2+LUPW@kroah.com>
+ <20210805084410.sb5lybdri6r7t2da@pali>
+ <YQumV3qljhFSau0y@kroah.com>
+ <20210805095100.n2qkm3kdiucwt6jd@pali>
+ <418a281b-441d-66fc-6929-5d29fafc459b@gmail.com>
+ <YQwOaWqbHFG29wQF@kroah.com>
+ <4757a0c3-896f-a402-acb1-7e7fcadaa907@gmail.com>
+ <YQwl0dTUIFZf5Ax4@kroah.com>
+ <40ed8a18-cf49-f807-9227-201e994e9a5a@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <BL0PR2101MB1316CCF8B96DDEC9D0D5F5D4A1F29@BL0PR2101MB1316.namprd21.prod.outlook.com>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <40ed8a18-cf49-f807-9227-201e994e9a5a@gmail.com>
+User-Agent: NeoMutt/20180716
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Greg,
-
-On 8/6/21 12:14 AM, Greg Banks wrote:
-> Hi Alejandro,
+On Friday 06 August 2021 09:22:59 Alejandro Colomar (man-pages) wrote:
+> Hi Greg, Pali,
 > 
->> Okay, this works.  Could you please do this and also send the patch to
->> the list inline (that way it's easier to comment)?  If it is reformatted 
->> and doesn't arrive to the list, I'll forward it.
+> Hi GregOn 8/5/21 7:54 PM, Greg Kroah-Hartman wrote:
+> > > > What is the license of this page?
+> > > 
+> > > .../linux/man-pages$ head -n8 man2/ioctl_tty.2
+> > > .\" Copyright 2002 Walter Harms <walter.harms@informatik.uni-oldenburg.de>
+> > > .\" and Andries Brouwer <aeb@cwi.nl>.
+> > > .\"
+> > > .\" %%%LICENSE_START(GPL_NOVERSION_ONELINE)
+> > > .\" Distributed under GPL
+> > 
+> > What version of GPL?
 > 
-> Done, with a new subject.
+> I don't know :/
+> Maybe v1...
 > 
-> My email client has a "Switch to plain text" function but it seems to 
-> only work on the initial message compose and not when replying, even 
-> when the message being replied to is already plain text.
+> > 
+> > > .\" %%%LICENSE_END
+> > > .\"
+> > > .TH IOCTL_TTY 2 2021-03-22 "Linux" "Linux Programmer's Manual"
+> > > 
+> > > I'm don't know what GPL_NOVERSION_ONLINE is at all.
+> > 
+> > I would recommend adding proper SPDX markings to all of these files.
+> > Even better, work to make the whole repo REUSE compliant which means
+> > that there is no ambuiguity here.
+> > 
+> 
+> Agree.  If Michael has no problems with that, I'll add it to my TODO list.
+> 
+> > But, the above license does not show up on the code in the original
+> > example here, and that needs to be present if anyone wants this to be
+> > used.
+> 
+> Yup.
+> 
+> > 
+> > > Still, if the code is going to have a different license than the rest of the
+> > > page, it could perfectly have an SPDX comment in the first line of the
+> > > example program.
+> > 
+> > Even if it is different, it should still be present as no one can see
+> > the license of a man page "easily" when reading the documentation
+> > through normal tools.
+> 
+> Yup.
+> 
+> > 
+> > thanks,
+> > 
+> > greg k-h
+> > 
+> 
+> Pali,
+> 
+> If you want to specify a specific license for your code, add 2 SPDX lines
+> according to REUSE <https://reuse.software/>.  If not, I'll assume that you
+> don't care, and when I fix the pages to show the license (which in this case
+> I'm not sure which one will be, maybe GPLv1) your code will use that same
+> license.  I'll take care of any necessary adjustments such as providing  the
+> license text in the repository; you don't need to do that.
 
-Hmmm, not a nice email client it is. :/
+Just do not complicate it and use same license as for other manpages or
+examples.
 
-
-Thanks!
-
-Alex
-
-
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+> 
+> Cheers,
+> 
+> Alex
+> 
+> 
+> -- 
+> Alejandro Colomar
+> Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+> http://www.alejandro-colomar.es/
