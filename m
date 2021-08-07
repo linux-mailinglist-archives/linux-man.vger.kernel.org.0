@@ -2,61 +2,64 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E453B3E377E
-	for <lists+linux-man@lfdr.de>; Sun,  8 Aug 2021 00:59:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 70E3D3E3780
+	for <lists+linux-man@lfdr.de>; Sun,  8 Aug 2021 00:59:43 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229578AbhHGW75 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 7 Aug 2021 18:59:57 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33410 "EHLO
+        id S229826AbhHGXAA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 7 Aug 2021 19:00:00 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33422 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229537AbhHGW75 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 7 Aug 2021 18:59:57 -0400
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com [IPv6:2a00:1450:4864:20::42e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2D203C061760
-        for <linux-man@vger.kernel.org>; Sat,  7 Aug 2021 15:59:38 -0700 (PDT)
-Received: by mail-wr1-x42e.google.com with SMTP id n12so6034277wrr.2
-        for <linux-man@vger.kernel.org>; Sat, 07 Aug 2021 15:59:38 -0700 (PDT)
+        with ESMTP id S229537AbhHGW77 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 7 Aug 2021 18:59:59 -0400
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com [IPv6:2a00:1450:4864:20::431])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AA783C0613CF
+        for <linux-man@vger.kernel.org>; Sat,  7 Aug 2021 15:59:39 -0700 (PDT)
+Received: by mail-wr1-x431.google.com with SMTP id n12so6034314wrr.2
+        for <linux-man@vger.kernel.org>; Sat, 07 Aug 2021 15:59:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=fb+6E1jpTezt0zS6957oZY6tDgzMy9R+fruCXHLaXxU=;
-        b=qvWMkWatoQUFZFoLYMJ1zhCojy115ceRPKkQu2IOw6FLhWuQUoszJOjjwheZLwzMDV
-         uTB4hY2QvjXnO0783Ij8qHCMCA19d8MnL0dvN6iXr9V3a0BqWYW+TOgLdZUw71D68Uey
-         T890xIJyHxCTteOrseJw4soOMVhnSF+7dzdjHl4ZjpBqNT45kIwa5++aCA5pmqMP03Ut
-         OeWhORcezU3Ii08B+WX8u+LKyEmIEKIQPmHOg63uIPXly7MUE9w7R+ZyAhAqelO9Dj06
-         R46NGOCCBL4e3I/gLoD1B8E8MP/5lDKlAtqQweAAaSr3Rz88be7gEQo2RFgDSezDA5Ab
-         xvow==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=o4k9wk4oNtx+ONKe61vd2uHRbNSHHdV6t7lZR48UNPM=;
+        b=Jpypjp6ieKRBAAnpgIYUvoxC2ES0mHolH64fgYObra4c6BJ8wG+z4+AZ3iLsP5m4PH
+         Qr0pVauY+/qwCqzZgNAo53xcPL29upYq3TDuRaErsXgpk1IvpbR3MMH9iP+MhPyNfw6j
+         hYRybIGVwLYf5D9gaqJaXBB36BDd5SecHvoj3MT3HdtWMLO+0dFjUgJ1bO/23MqjsEqb
+         a0pJrOLGftxry9leItD6eyLJ8gk6MhDKAXLouav1FAHDkCz5uIX81B2gB45p7b2VrdUf
+         2vcTxw0kA099NZ/mGXvmFLbTapevN/KrS0tfhmHNUv5sPNvMLh0JQiN2Sj4jMgy7AbiZ
+         uyRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=fb+6E1jpTezt0zS6957oZY6tDgzMy9R+fruCXHLaXxU=;
-        b=UysxZB6GXwY3BjMAmBL6AoaT4GvHYQBGZlHmMgjYdm/opTLkEWTLeg6u5RcQG7+Obw
-         ZdvnNQ8rFK3Lpa0WO/UvUYuBK1RIzqgSeR0cZxShG2OXOKO+d40TX6iMNAi1CJLiPul3
-         9F0B22r6+zQdAxu+IYx+ym3jNmTOmjYA6QSscPJdEdNm9l0HrpYdv/hXZFv7WElutIe3
-         YXPk+5yrMn4DpNNvwvbmGGXs7gaRptNmuHsPloZaWI6d+kdWceBl69/Oe7FIw2ky+KSC
-         z/sXfW27D3jx1TzNf/9mC0UO+FvLu24lUpD0Igci2+p2xXvvFXQ4KQjNHcngZKxIaR43
-         4KLw==
-X-Gm-Message-State: AOAM532lFYUp9/4Pu140njbpbgeoHsQPghGPJYHtKaD6ESBLp4kz5LTK
-        qOXYRG3FrdocRGVPlcb53Zs=
-X-Google-Smtp-Source: ABdhPJwR+MhmERxa3H00+meMIeX/2sgHQWyv0VvyLRMLvAbXlFwalcHcx61ifP78j0eICzFIyF+0gQ==
-X-Received: by 2002:adf:e60c:: with SMTP id p12mr17455506wrm.285.1628377176603;
-        Sat, 07 Aug 2021 15:59:36 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=o4k9wk4oNtx+ONKe61vd2uHRbNSHHdV6t7lZR48UNPM=;
+        b=oW0XOJOiRBimqDHR93Dp2RvF3Tb0iWd9VpTOgHP/todKRNCrM6a1djQxlfM17KcVzJ
+         UEBM4/B65tUtrU/euffyjZsJUPXoLwtnP97+GUcbupNQStYk4lT2pAYK5m9b0g/Qnt4R
+         fHklykHcByFG1pqIzPWMFljxBNRzF8FdYRQ/nxdO+LkIgXS/0gj9gVMF0i3B8LptAZlx
+         olxB3BrJ/e8uAeNuk8p5Vg7Org1ZPdktF43lan0Ju+xTjxzvy3q8BGgt8hjGEx9zYPaQ
+         jLjIpaclJFttGup8lVDtEO0fwLTuXtxICshRP9zTrk9BeRHuse8XjchxTNdUUVbVsXSy
+         KdRQ==
+X-Gm-Message-State: AOAM530OQUDgWy1vzZtlCfTZDeEMq504PciFEL5rY38Jvn5uaVFtb4Zb
+        MlMWKaSzoEDJlJHwydHb7Stqgsx05tc=
+X-Google-Smtp-Source: ABdhPJxBtm9taOpGkh/1/c3cn8lnQM7eq/iTQfDCuNWLLglQ+Mq3jLx6Vs4WDiTi557W/6nHnDr5tQ==
+X-Received: by 2002:a05:6000:227:: with SMTP id l7mr16762809wrz.289.1628377177460;
+        Sat, 07 Aug 2021 15:59:37 -0700 (PDT)
 Received: from localhost.localdomain ([170.253.36.171])
-        by smtp.googlemail.com with ESMTPSA id l9sm14132221wro.92.2021.08.07.15.59.35
+        by smtp.googlemail.com with ESMTPSA id l9sm14132221wro.92.2021.08.07.15.59.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Aug 2021 15:59:36 -0700 (PDT)
+        Sat, 07 Aug 2021 15:59:37 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org,
         Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH 1/6] LICENSES/GPL-2.0-or-later.txt: Add license text
-Date:   Sun,  8 Aug 2021 00:57:44 +0200
-Message-Id: <20210807225748.15653-1-alx.manpages@gmail.com>
+Subject: [PATCH 2/6] Many pages: Use SPDX markings, and be REUSE compliant
+Date:   Sun,  8 Aug 2021 00:57:45 +0200
+Message-Id: <20210807225748.15653-2-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20210807225748.15653-1-alx.manpages@gmail.com>
+References: <20210807225748.15653-1-alx.manpages@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
@@ -65,146 +68,1537 @@ X-Mailing-List: linux-man@vger.kernel.org
 Reported-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
+ man7/armscii-8.7            | 24 ++---------------------
+ man7/ascii.7                | 24 ++---------------------
+ man7/attributes.7           | 24 +++--------------------
+ man7/bootparam.7            | 24 ++---------------------
+ man7/charsets.7             | 12 +++---------
+ man7/cp1251.7               | 24 ++---------------------
+ man7/cp1252.7               | 24 ++---------------------
+ man7/environ.7              | 39 +++++++++----------------------------
+ man7/epoll.7                | 21 ++------------------
+ man7/glob.7                 | 24 ++---------------------
+ man7/intro.7                | 27 +++----------------------
+ man7/iso_8859-1.7           | 25 +++---------------------
+ man7/iso_8859-10.7          | 24 ++---------------------
+ man7/iso_8859-11.7          | 26 +++----------------------
+ man7/iso_8859-13.7          | 24 ++---------------------
+ man7/iso_8859-14.7          | 24 ++---------------------
+ man7/iso_8859-15.7          | 26 +++----------------------
+ man7/iso_8859-16.7          | 24 ++---------------------
+ man7/iso_8859-2.7           | 27 ++++---------------------
+ man7/iso_8859-3.7           | 24 ++---------------------
+ man7/iso_8859-4.7           | 24 ++---------------------
+ man7/iso_8859-5.7           | 24 ++---------------------
+ man7/iso_8859-6.7           | 24 ++---------------------
+ man7/iso_8859-7.7           | 24 ++---------------------
+ man7/iso_8859-8.7           | 24 ++---------------------
+ man7/iso_8859-9.7           | 24 ++---------------------
+ man7/kernel_lockdown.7      | 12 +++---------
+ man7/keyrings.7             | 13 ++++---------
+ man7/koi8-r.7               | 24 ++---------------------
+ man7/koi8-u.7               | 24 ++---------------------
+ man7/persistent-keyring.7   | 11 +++--------
+ man7/posixoptions.7         | 24 ++---------------------
+ man7/process-keyring.7      | 11 +++--------
+ man7/sched.7                | 35 +++++++--------------------------
+ man7/session-keyring.7      | 11 +++--------
+ man7/sock_diag.7            | 25 +++---------------------
+ man7/spufs.7                | 19 ++----------------
+ man7/standards.7            | 24 ++---------------------
+ man7/thread-keyring.7       | 11 +++--------
+ man7/unicode.7              | 24 ++---------------------
+ man7/user-keyring.7         | 11 +++--------
+ man7/user-session-keyring.7 | 11 +++--------
+ man7/utf-8.7                | 24 ++---------------------
+ man7/xattr.7                | 29 +++------------------------
+ man8/iconvconfig.8          | 24 ++---------------------
+ man8/intro.8                | 27 +++----------------------
+ man8/ldconfig.8             | 21 ++++----------------
+ man8/nscd.8                 | 20 +++----------------
+ 48 files changed, 131 insertions(+), 939 deletions(-)
 
-Hi Michael,
-
-This patch set adds GPL-2.0-or-later to LICENSES, and fixes the headers
-of all pages using it to use SPDX markings.
-
-I had to break it into many patches to fit the 100 KB limit
-of the mailing list.
-
-Cheers,
-
-Alex
-
- LICENSES/GPL-2.0-or-later.txt | 117 ++++++++++++++++++++++++++++++++++
- 1 file changed, 117 insertions(+)
- create mode 100644 LICENSES/GPL-2.0-or-later.txt
-
-diff --git a/LICENSES/GPL-2.0-or-later.txt b/LICENSES/GPL-2.0-or-later.txt
-new file mode 100644
-index 000000000..17cb28643
---- /dev/null
-+++ b/LICENSES/GPL-2.0-or-later.txt
-@@ -0,0 +1,117 @@
-+GNU GENERAL PUBLIC LICENSE
-+Version 2, June 1991
-+
-+Copyright (C) 1989, 1991 Free Software Foundation, Inc.
-+51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
-+
-+Everyone is permitted to copy and distribute verbatim copies of this license document, but changing it is not allowed.
-+
-+Preamble
-+
-+The licenses for most software are designed to take away your freedom to share and change it. By contrast, the GNU General Public License is intended to guarantee your freedom to share and change free software--to make sure the software is free for all its users. This General Public License applies to most of the Free Software Foundation's software and to any other program whose authors commit to using it. (Some other Free Software Foundation software is covered by the GNU Lesser General Public License instead.) You can apply it to your programs, too.
-+
-+When we speak of free software, we are referring to freedom, not price. Our General Public Licenses are designed to make sure that you have the freedom to distribute copies of free software (and charge for this service if you wish), that you receive source code or can get it if you want it, that you can change the software or use pieces of it in new free programs; and that you know you can do these things.
-+
-+To protect your rights, we need to make restrictions that forbid anyone to deny you these rights or to ask you to surrender the rights. These restrictions translate to certain responsibilities for you if you distribute copies of the software, or if you modify it.
-+
-+For example, if you distribute copies of such a program, whether gratis or for a fee, you must give the recipients all the rights that you have. You must make sure that they, too, receive or can get the source code. And you must show them these terms so they know their rights.
-+
-+We protect your rights with two steps: (1) copyright the software, and (2) offer you this license which gives you legal permission to copy, distribute and/or modify the software.
-+
-+Also, for each author's protection and ours, we want to make certain that everyone understands that there is no warranty for this free software. If the software is modified by someone else and passed on, we want its recipients to know that what they have is not the original, so that any problems introduced by others will not reflect on the original authors' reputations.
-+
-+Finally, any free program is threatened constantly by software patents. We wish to avoid the danger that redistributors of a free program will individually obtain patent licenses, in effect making the program proprietary. To prevent this, we have made it clear that any patent must be licensed for everyone's free use or not licensed at all.
-+
-+The precise terms and conditions for copying, distribution and modification follow.
-+
-+TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
-+
-+0. This License applies to any program or other work which contains a notice placed by the copyright holder saying it may be distributed under the terms of this General Public License. The "Program", below, refers to any such program or work, and a "work based on the Program" means either the Program or any derivative work under copyright law: that is to say, a work containing the Program or a portion of it, either verbatim or with modifications and/or translated into another language. (Hereinafter, translation is included without limitation in the term "modification".) Each licensee is addressed as "you".
-+
-+Activities other than copying, distribution and modification are not covered by this License; they are outside its scope. The act of running the Program is not restricted, and the output from the Program is covered only if its contents constitute a work based on the Program (independent of having been made by running the Program). Whether that is true depends on what the Program does.
-+
-+1. You may copy and distribute verbatim copies of the Program's source code as you receive it, in any medium, provided that you conspicuously and appropriately publish on each copy an appropriate copyright notice and disclaimer of warranty; keep intact all the notices that refer to this License and to the absence of any warranty; and give any other recipients of the Program a copy of this License along with the Program.
-+
-+You may charge a fee for the physical act of transferring a copy, and you may at your option offer warranty protection in exchange for a fee.
-+
-+2. You may modify your copy or copies of the Program or any portion of it, thus forming a work based on the Program, and copy and distribute such modifications or work under the terms of Section 1 above, provided that you also meet all of these conditions:
-+
-+     a) You must cause the modified files to carry prominent notices stating that you changed the files and the date of any change.
-+
-+     b) You must cause any work that you distribute or publish, that in whole or in part contains or is derived from the Program or any part thereof, to be licensed as a whole at no charge to all third parties under the terms of this License.
-+
-+     c) If the modified program normally reads commands interactively when run, you must cause it, when started running for such interactive use in the most ordinary way, to print or display an announcement including an appropriate copyright notice and a notice that there is no warranty (or else, saying that you provide a warranty) and that users may redistribute the program under these conditions, and telling the user how to view a copy of this License. (Exception: if the Program itself is interactive but does not normally print such an announcement, your work based on the Program is not required to print an announcement.)
-+
-+These requirements apply to the modified work as a whole. If identifiable sections of that work are not derived from the Program, and can be reasonably considered independent and separate works in themselves, then this License, and its terms, do not apply to those sections when you distribute them as separate works. But when you distribute the same sections as part of a whole which is a work based on the Program, the distribution of the whole must be on the terms of this License, whose permissions for other licensees extend to the entire whole, and thus to each and every part regardless of who wrote it.
-+
-+Thus, it is not the intent of this section to claim rights or contest your rights to work written entirely by you; rather, the intent is to exercise the right to control the distribution of derivative or collective works based on the Program.
-+
-+In addition, mere aggregation of another work not based on the Program with the Program (or with a work based on the Program) on a volume of a storage or distribution medium does not bring the other work under the scope of this License.
-+
-+3. You may copy and distribute the Program (or a work based on it, under Section 2) in object code or executable form under the terms of Sections 1 and 2 above provided that you also do one of the following:
-+
-+     a) Accompany it with the complete corresponding machine-readable source code, which must be distributed under the terms of Sections 1 and 2 above on a medium customarily used for software interchange; or,
-+
-+     b) Accompany it with a written offer, valid for at least three years, to give any third party, for a charge no more than your cost of physically performing source distribution, a complete machine-readable copy of the corresponding source code, to be distributed under the terms of Sections 1 and 2 above on a medium customarily used for software interchange; or,
-+
-+     c) Accompany it with the information you received as to the offer to distribute corresponding source code. (This alternative is allowed only for noncommercial distribution and only if you received the program in object code or executable form with such an offer, in accord with Subsection b above.)
-+
-+The source code for a work means the preferred form of the work for making modifications to it. For an executable work, complete source code means all the source code for all modules it contains, plus any associated interface definition files, plus the scripts used to control compilation and installation of the executable. However, as a special exception, the source code distributed need not include anything that is normally distributed (in either source or binary form) with the major components (compiler, kernel, and so on) of the operating system on which the executable runs, unless that component itself accompanies the executable.
-+
-+If distribution of executable or object code is made by offering access to copy from a designated place, then offering equivalent access to copy the source code from the same place counts as distribution of the source code, even though third parties are not compelled to copy the source along with the object code.
-+
-+4. You may not copy, modify, sublicense, or distribute the Program except as expressly provided under this License. Any attempt otherwise to copy, modify, sublicense or distribute the Program is void, and will automatically terminate your rights under this License. However, parties who have received copies, or rights, from you under this License will not have their licenses terminated so long as such parties remain in full compliance.
-+
-+5. You are not required to accept this License, since you have not signed it. However, nothing else grants you permission to modify or distribute the Program or its derivative works. These actions are prohibited by law if you do not accept this License. Therefore, by modifying or distributing the Program (or any work based on the Program), you indicate your acceptance of this License to do so, and all its terms and conditions for copying, distributing or modifying the Program or works based on it.
-+
-+6. Each time you redistribute the Program (or any work based on the Program), the recipient automatically receives a license from the original licensor to copy, distribute or modify the Program subject to these terms and conditions. You may not impose any further restrictions on the recipients' exercise of the rights granted herein. You are not responsible for enforcing compliance by third parties to this License.
-+
-+7. If, as a consequence of a court judgment or allegation of patent infringement or for any other reason (not limited to patent issues), conditions are imposed on you (whether by court order, agreement or otherwise) that contradict the conditions of this License, they do not excuse you from the conditions of this License. If you cannot distribute so as to satisfy simultaneously your obligations under this License and any other pertinent obligations, then as a consequence you may not distribute the Program at all. For example, if a patent license would not permit royalty-free redistribution of the Program by all those who receive copies directly or indirectly through you, then the only way you could satisfy both it and this License would be to refrain entirely from distribution of the Program.
-+
-+If any portion of this section is held invalid or unenforceable under any particular circumstance, the balance of the section is intended to apply and the section as a whole is intended to apply in other circumstances.
-+
-+It is not the purpose of this section to induce you to infringe any patents or other property right claims or to contest validity of any such claims; this section has the sole purpose of protecting the integrity of the free software distribution system, which is implemented by public license practices. Many people have made generous contributions to the wide range of software distributed through that system in reliance on consistent application of that system; it is up to the author/donor to decide if he or she is willing to distribute software through any other system and a licensee cannot impose that choice.
-+
-+This section is intended to make thoroughly clear what is believed to be a consequence of the rest of this License.
-+
-+8. If the distribution and/or use of the Program is restricted in certain countries either by patents or by copyrighted interfaces, the original copyright holder who places the Program under this License may add an explicit geographical distribution limitation excluding those countries, so that distribution is permitted only in or among countries not thus excluded. In such case, this License incorporates the limitation as if written in the body of this License.
-+
-+9. The Free Software Foundation may publish revised and/or new versions of the General Public License from time to time. Such new versions will be similar in spirit to the present version, but may differ in detail to address new problems or concerns.
-+
-+Each version is given a distinguishing version number. If the Program specifies a version number of this License which applies to it and "any later version", you have the option of following the terms and conditions either of that version or of any later version published by the Free Software Foundation. If the Program does not specify a version number of this License, you may choose any version ever published by the Free Software Foundation.
-+
-+10. If you wish to incorporate parts of the Program into other free programs whose distribution conditions are different, write to the author to ask for permission. For software which is copyrighted by the Free Software Foundation, write to the Free Software Foundation; we sometimes make exceptions for this. Our decision will be guided by the two goals of preserving the free status of all derivatives of our free software and of promoting the sharing and reuse of software generally.
-+
-+NO WARRANTY
-+
-+11. BECAUSE THE PROGRAM IS LICENSED FREE OF CHARGE, THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW. EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES PROVIDE THE PROGRAM "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU. SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING, REPAIR OR CORRECTION.
-+
-+12. IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING WILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MAY MODIFY AND/OR REDISTRIBUTE THE PROGRAM AS PERMITTED ABOVE, BE LIABLE TO YOU FOR DAMAGES, INCLUDING ANY GENERAL, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OR INABILITY TO USE THE PROGRAM (INCLUDING BUT NOT LIMITED TO LOSS OF DATA OR DATA BEING RENDERED INACCURATE OR LOSSES SUSTAINED BY YOU OR THIRD PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER PROGRAMS), EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
-+
-+END OF TERMS AND CONDITIONS
-+
-+How to Apply These Terms to Your New Programs
-+
-+If you develop a new program, and you want it to be of the greatest possible use to the public, the best way to achieve this is to make it free software which everyone can redistribute and change under these terms.
-+
-+To do so, attach the following notices to the program. It is safest to attach them to the start of each source file to most effectively convey the exclusion of warranty; and each file should have at least the "copyright" line and a pointer to where the full notice is found.
-+
-+     one line to give the program's name and an idea of what it does. Copyright (C) yyyy name of author
-+
-+     This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
-+
-+     This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-+
-+     You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA. Also add information on how to contact you by electronic and paper mail.
-+
-+If the program is interactive, make it output a short notice like this when it starts in an interactive mode:
-+
-+     Gnomovision version 69, Copyright (C) year name of author Gnomovision comes with ABSOLUTELY NO WARRANTY; for details type `show w'. This is free software, and you are welcome to redistribute it under certain conditions; type `show c' for details.
-+
-+The hypothetical commands `show w' and `show c' should show the appropriate parts of the General Public License. Of course, the commands you use may be called something other than `show w' and `show c'; they could even be mouse-clicks or menu items--whatever suits your program.
-+
-+You should also get your employer (if you work as a programmer) or your school, if any, to sign a "copyright disclaimer" for the program, if necessary. Here is a sample; alter the names:
-+
-+     Yoyodyne, Inc., hereby disclaims all copyright interest in the program `Gnomovision' (which makes passes at compilers) written by James Hacker.
-+
-+signature of Ty Coon, 1 April 1989 Ty Coon, President of Vice
+diff --git a/man7/armscii-8.7 b/man7/armscii-8.7
+index 2dcf074f1..f60b7e3c4 100644
+--- a/man7/armscii-8.7
++++ b/man7/armscii-8.7
+@@ -1,25 +1,5 @@
+-.\" Copyright 2009  Lefteris Dimitroulakis <edimitro at tee.gr>
+-.\"
+-.\" %%%LICENSE_START(GPLv2+_DOC_FULL)
+-.\" This is free documentation; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License as
+-.\" published by the Free Software Foundation; either version 2 of
+-.\" the License, or (at your option) any later version.
+-.\"
+-.\" The GNU General Public License's references to "object code"
+-.\" and "executables" are to be interpreted as the output of any
+-.\" document formatting or typesetting system, including
+-.\" intermediate and printed output.
+-.\"
+-.\" This manual is distributed in the hope that it will be useful,
+-.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+-.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-.\" GNU General Public License for more details.
+-.\"
+-.\" You should have received a copy of the GNU General Public
+-.\" License along with this manual; if not, see
+-.\" <http://www.gnu.org/licenses/>.
+-.\" %%%LICENSE_END
++.\" SPDX-FileCopyrightText: 2009, Lefteris Dimitroulakis <edimitro at tee.gr>
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+ .TH ARMSCII-8 7 2020-08-13 "Linux" "Linux Programmer's Manual"
+ .SH NAME
+diff --git a/man7/ascii.7 b/man7/ascii.7
+index 053b13809..db772c229 100644
+--- a/man7/ascii.7
++++ b/man7/ascii.7
+@@ -1,25 +1,5 @@
+-.\" Copyright (c) 1993 Michael Haardt (michael@moria.de)
+-.\"
+-.\" %%%LICENSE_START(GPLv2+_DOC_FULL)
+-.\" This is free documentation; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License as
+-.\" published by the Free Software Foundation; either version 2 of
+-.\" the License, or (at your option) any later version.
+-.\"
+-.\" The GNU General Public License's references to "object code"
+-.\" and "executables" are to be interpreted as the output of any
+-.\" document formatting or typesetting system, including
+-.\" intermediate and printed output.
+-.\"
+-.\" This manual is distributed in the hope that it will be useful,
+-.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+-.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-.\" GNU General Public License for more details.
+-.\"
+-.\" You should have received a copy of the GNU General Public
+-.\" License along with this manual; if not, see
+-.\" <http://www.gnu.org/licenses/>.
+-.\" %%%LICENSE_END
++.\" SPDX-FileCopyrightText: 1993, Michael Haardt <michael@moria.de>
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+ .\" Created  1993-04-02 by Michael Haardt (michael@moria.de)
+ .\" Modified 1993-07-24 by Rik Faith (faith@cs.unc.edu)
+diff --git a/man7/attributes.7 b/man7/attributes.7
+index 580ebfe86..d60926e41 100644
+--- a/man7/attributes.7
++++ b/man7/attributes.7
+@@ -1,26 +1,8 @@
+-.\" Copyright (c) 2014, Red Hat, Inc
++.\" SPDX-FileCopyrightText: 2014, Red Hat, Inc
++.\" SPDX-License-Identifier: GPL-2.0-or-later
++.\"
+ .\"     Written by Alexandre Oliva <aoliva@redhat.com>
+ .\"
+-.\" %%%LICENSE_START(GPLv2+_DOC_FULL)
+-.\" This is free documentation; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License as
+-.\" published by the Free Software Foundation; either version 2 of
+-.\" the License, or (at your option) any later version.
+-.\"
+-.\" The GNU General Public License's references to "object code"
+-.\" and "executables" are to be interpreted as the output of any
+-.\" document formatting or typesetting system, including
+-.\" intermediate and printed output.
+-.\"
+-.\" This manual is distributed in the hope that it will be useful,
+-.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+-.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-.\" GNU General Public License for more details.
+-.\"
+-.\" You should have received a copy of the GNU General Public
+-.\" License along with this manual; if not, see
+-.\" <http://www.gnu.org/licenses/>.
+-.\" %%%LICENSE_END
+ .TH ATTRIBUTES 7 2021-03-22 "Linux" "Linux Programmer's Manual"
+ .SH NAME
+ attributes \- POSIX safety concepts
+diff --git a/man7/bootparam.7 b/man7/bootparam.7
+index d3cb9357e..d21bc6810 100644
+--- a/man7/bootparam.7
++++ b/man7/bootparam.7
+@@ -1,25 +1,5 @@
+-.\" Copyright (c) 1995,1997 Paul Gortmaker and Andries Brouwer
+-.\"
+-.\" %%%LICENSE_START(GPLv2+_DOC_FULL)
+-.\" This is free documentation; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License as
+-.\" published by the Free Software Foundation; either version 2 of
+-.\" the License, or (at your option) any later version.
+-.\"
+-.\" The GNU General Public License's references to "object code"
+-.\" and "executables" are to be interpreted as the output of any
+-.\" document formatting or typesetting system, including
+-.\" intermediate and printed output.
+-.\"
+-.\" This manual is distributed in the hope that it will be useful,
+-.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+-.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-.\" GNU General Public License for more details.
+-.\"
+-.\" You should have received a copy of the GNU General Public
+-.\" License along with this manual; if not, see
+-.\" <http://www.gnu.org/licenses/>.
+-.\" %%%LICENSE_END
++.\" SPDX-FileCopyrightText: 1995, 1997, Paul Gortmaker and Andries Brouwer
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+ .\" This man page written 950814 by aeb, based on Paul Gortmaker's HOWTO
+ .\" (dated v1.0.1, 15/08/95).
+diff --git a/man7/charsets.7 b/man7/charsets.7
+index 1e28ef361..522ab909d 100644
+--- a/man7/charsets.7
++++ b/man7/charsets.7
+@@ -1,12 +1,6 @@
+-.\" Copyright (c) 1996 Eric S. Raymond <esr@thyrsus.com>
+-.\" and Copyright (c) Andries Brouwer <aeb@cwi.nl>
+-.\"
+-.\" %%%LICENSE_START(GPLv2+_DOC_ONEPARA)
+-.\" This is free documentation; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License as
+-.\" published by the Free Software Foundation; either version 2 of
+-.\" the License, or (at your option) any later version.
+-.\" %%%LICENSE_END
++.\" SPDX-FileCopyrightText: 1996, Eric S. Raymond <esr@thyrsus.com>
++.\" SPDX-FileCopyrightText: 1996, Andries Brouwer <aeb@cwi.nl>
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+ .\" This is combined from many sources, including notes by aeb and
+ .\" research by esr.  Portions derive from a writeup by Roman Czyborra.
+diff --git a/man7/cp1251.7 b/man7/cp1251.7
+index 597dee768..82b7d0c6b 100644
+--- a/man7/cp1251.7
++++ b/man7/cp1251.7
+@@ -1,25 +1,5 @@
+-.\" Copyright 2009    Lefteris Dimitroulakis (edimitro@tee.gr)
+-.\"
+-.\" %%%LICENSE_START(GPLv2+_DOC_FULL)
+-.\" This is free documentation; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License as
+-.\" published by the Free Software Foundation; either version 2 of
+-.\" the License, or (at your option) any later version.
+-.\"
+-.\" The GNU General Public License's references to "object code"
+-.\" and "executables" are to be interpreted as the output of any
+-.\" document formatting or typesetting system, including
+-.\" intermediate and printed output.
+-.\"
+-.\" This manual is distributed in the hope that it will be useful,
+-.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+-.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-.\" GNU General Public License for more details.
+-.\"
+-.\" You should have received a copy of the GNU General Public
+-.\" License along with this manual; if not, see
+-.\" <http://www.gnu.org/licenses/>.
+-.\" %%%LICENSE_END
++.\" SPDX-FileCopyrightText: 2009, Lefteris Dimitroulakis <edimitro@tee.gr>
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+ .TH CP1251 7 2020-08-13 "Linux" "Linux Programmer's Manual"
+ .SH NAME
+diff --git a/man7/cp1252.7 b/man7/cp1252.7
+index 5139f2b8d..0bdc27279 100644
+--- a/man7/cp1252.7
++++ b/man7/cp1252.7
+@@ -1,25 +1,5 @@
+-.\" Copyright 2014 (C) Marko Myllynen <myllynen@redhat.com>
+-.\"
+-.\" %%%LICENSE_START(GPLv2+_DOC_FULL)
+-.\" This is free documentation; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License as
+-.\" published by the Free Software Foundation; either version 2 of
+-.\" the License, or (at your option) any later version.
+-.\"
+-.\" The GNU General Public License's references to "object code"
+-.\" and "executables" are to be interpreted as the output of any
+-.\" document formatting or typesetting system, including
+-.\" intermediate and printed output.
+-.\"
+-.\" This manual is distributed in the hope that it will be useful,
+-.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+-.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-.\" GNU General Public License for more details.
+-.\"
+-.\" You should have received a copy of the GNU General Public
+-.\" License along with this manual; if not, see
+-.\" <http://www.gnu.org/licenses/>.
+-.\" %%%LICENSE_END
++.\" SPDX-FileCopyrightText: 2014, Marko Myllynen <myllynen@redhat.com>
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+ .TH CP1252 7 2020-08-13 "Linux" "Linux Programmer's Manual"
+ .SH NAME
+diff --git a/man7/environ.7 b/man7/environ.7
+index 220a7c0b6..13fabfea3 100644
+--- a/man7/environ.7
++++ b/man7/environ.7
+@@ -1,34 +1,13 @@
+-.\" Copyright (c) 1993 Michael Haardt (michael@moria.de),
+-.\"   Fri Apr  2 11:32:09 MET DST 1993
+-.\" and Andries Brouwer (aeb@cwi.nl), Fri Feb 14 21:47:50 1997.
++.\" SPDX-FileCopyrightText: 1993, Michael Haardt <michael@moria.de>
++.\" SPDX-FileCopyrightText: 1997, Andries Brouwer <aeb@cwi.nl>
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+-.\" %%%LICENSE_START(GPLv2+_DOC_FULL)
+-.\" This is free documentation; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License as
+-.\" published by the Free Software Foundation; either version 2 of
+-.\" the License, or (at your option) any later version.
+-.\"
+-.\" The GNU General Public License's references to "object code"
+-.\" and "executables" are to be interpreted as the output of any
+-.\" document formatting or typesetting system, including
+-.\" intermediate and printed output.
+-.\"
+-.\" This manual is distributed in the hope that it will be useful,
+-.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+-.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-.\" GNU General Public License for more details.
+-.\"
+-.\" You should have received a copy of the GNU General Public
+-.\" License along with this manual; if not, see
+-.\" <http://www.gnu.org/licenses/>.
+-.\" %%%LICENSE_END
+-.\"
+-.\" Modified Sun Jul 25 10:45:30 1993 by Rik Faith (faith@cs.unc.edu)
+-.\" Modified Sun Jul 21 21:25:26 1996 by Andries Brouwer (aeb@cwi.nl)
+-.\" Modified Mon Oct 21 17:47:19 1996 by Eric S. Raymond (esr@thyrsus.com)
+-.\" Modified Wed Aug 27 20:28:58 1997 by Nicolás Lichtmaier (nick@debian.org)
+-.\" Modified Mon Sep 21 00:00:26 1998 by Andries Brouwer (aeb@cwi.nl)
+-.\" Modified Wed Jan 24 06:37:24 2001 by Eric S. Raymond (esr@thyrsus.com)
++.\" Modified Sun Jul 25 10:45:30 1993 by Rik Faith <faith@cs.unc.edu>
++.\" Modified Sun Jul 21 21:25:26 1996 by Andries Brouwer <aeb@cwi.nl>
++.\" Modified Mon Oct 21 17:47:19 1996 by Eric S. Raymond <esr@thyrsus.com>
++.\" Modified Wed Aug 27 20:28:58 1997 by Nicolás Lichtmaier <nick@debian.org>
++.\" Modified Mon Sep 21 00:00:26 1998 by Andries Brouwer <aeb@cwi.nl>
++.\" Modified Wed Jan 24 06:37:24 2001 by Eric S. Raymond <esr@thyrsus.com>
+ .\" Modified Thu Dec 13 23:53:27 2001 by Martin Schulze <joey@infodrom.org>
+ .\"
+ .TH ENVIRON 7 2021-03-22 "Linux" "Linux Programmer's Manual"
+diff --git a/man7/epoll.7 b/man7/epoll.7
+index c10e73a7c..5626090e4 100644
+--- a/man7/epoll.7
++++ b/man7/epoll.7
+@@ -1,22 +1,5 @@
+-.\"  Copyright (C) 2003  Davide Libenzi
+-.\"
+-.\" %%%LICENSE_START(GPLv2+_SW_3_PARA)
+-.\"  This program is free software; you can redistribute it and/or modify
+-.\"  it under the terms of the GNU General Public License as published by
+-.\"  the Free Software Foundation; either version 2 of the License, or
+-.\"  (at your option) any later version.
+-.\"
+-.\"  This program is distributed in the hope that it will be useful,
+-.\"  but WITHOUT ANY WARRANTY; without even the implied warranty of
+-.\"  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-.\"  GNU General Public License for more details.
+-.\"
+-.\" You should have received a copy of the GNU General Public
+-.\" License along with this manual; if not, see
+-.\" <http://www.gnu.org/licenses/>.
+-.\" %%%LICENSE_END
+-.\"
+-.\"  Davide Libenzi <davidel@xmailserver.org>
++.\" SPDX-FileCopyrightText: 2003, Davide Libenzi <davidel@xmailserver.org>
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+ .TH EPOLL 7 2021-03-22 "Linux" "Linux Programmer's Manual"
+ .SH NAME
+diff --git a/man7/glob.7 b/man7/glob.7
+index 2b173e46d..c092a78d2 100644
+--- a/man7/glob.7
++++ b/man7/glob.7
+@@ -1,25 +1,5 @@
+-.\" Copyright (c) 1998 Andries Brouwer
+-.\"
+-.\" %%%LICENSE_START(GPLv2+_DOC_FULL)
+-.\" This is free documentation; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License as
+-.\" published by the Free Software Foundation; either version 2 of
+-.\" the License, or (at your option) any later version.
+-.\"
+-.\" The GNU General Public License's references to "object code"
+-.\" and "executables" are to be interpreted as the output of any
+-.\" document formatting or typesetting system, including
+-.\" intermediate and printed output.
+-.\"
+-.\" This manual is distributed in the hope that it will be useful,
+-.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+-.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-.\" GNU General Public License for more details.
+-.\"
+-.\" You should have received a copy of the GNU General Public
+-.\" License along with this manual; if not, see
+-.\" <http://www.gnu.org/licenses/>.
+-.\" %%%LICENSE_END
++.\" SPDX-FileCopyrightText: 1998, Andries Brouwer
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+ .\" 2003-08-24 fix for / by John Kristoff + joey
+ .\"
+diff --git a/man7/intro.7 b/man7/intro.7
+index 636e7551e..2ffef88d0 100644
+--- a/man7/intro.7
++++ b/man7/intro.7
+@@ -1,30 +1,9 @@
+-.\" Copyright (c) 1993 Michael Haardt
+-.\" (michael@moria.de), Fri Apr 2 11:32:09 MET DST
+-.\" 1993
+-.\"
+-.\" %%%LICENSE_START(GPLv2+_DOC_FULL)
+-.\" This is free documentation; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License as
+-.\" published by the Free Software Foundation; either version 2 of
+-.\" the License, or (at your option) any later version.
+-.\"
+-.\" The GNU General Public License's references to "object code"
+-.\" and "executables" are to be interpreted as the output of any
+-.\" document formatting or typesetting system, including
+-.\" intermediate and printed output.
+-.\"
+-.\" This manual is distributed in the hope that it will be useful,
+-.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+-.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-.\" GNU General Public License for more details.
+-.\"
+-.\" You should have received a copy of the GNU General Public
+-.\" License along with this manual; if not, see
+-.\" <http://www.gnu.org/licenses/>.
+-.\" %%%LICENSE_END
++.\" SPDX-FileCopyrightText: 1993, Michael Haardt <michael@moria.de>
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+ .\" Modified by Thomas Koenig (ig25@rz.uni-karlsruhe.de) 24 Apr 1993
+ .\" Modified Sat Jul 24 17:28:08 1993 by Rik Faith (faith@cs.unc.edu)
++.\"
+ .TH INTRO 7  2007-10-23 "Linux" "Linux Programmer's Manual"
+ .SH NAME
+ intro \- introduction to overview and miscellany section
+diff --git a/man7/iso_8859-1.7 b/man7/iso_8859-1.7
+index 96a4bfa33..dd6c2381a 100644
+--- a/man7/iso_8859-1.7
++++ b/man7/iso_8859-1.7
+@@ -1,28 +1,9 @@
+-.\" Copyright 1993-1995 Daniel Quinlan (quinlan@yggdrasil.com)
+-.\"
+-.\" %%%LICENSE_START(GPLv2+_DOC_FULL)
+-.\" This is free documentation; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License as
+-.\" published by the Free Software Foundation; either version 2 of
+-.\" the License, or (at your option) any later version.
+-.\"
+-.\" The GNU General Public License's references to "object code"
+-.\" and "executables" are to be interpreted as the output of any
+-.\" document formatting or typesetting system, including
+-.\" intermediate and printed output.
+-.\"
+-.\" This manual is distributed in the hope that it will be useful,
+-.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+-.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-.\" GNU General Public License for more details.
+-.\"
+-.\" You should have received a copy of the GNU General Public
+-.\" License along with this manual; if not, see
+-.\" <http://www.gnu.org/licenses/>.
+-.\" %%%LICENSE_END
++.\" SPDX-FileCopyrightText: 1993-1995, Daniel Quinlan <quinlan@yggdrasil.com>
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+ .\" Slightly rearranged, aeb, 950713
+ .\" Updated, dpo, 990531
++.\"
+ .TH ISO_8859-1 7 2020-08-13 "Linux" "Linux Programmer's Manual"
+ .SH NAME
+ iso_8859-1 \- ISO 8859-1 character set encoded in octal, decimal,
+diff --git a/man7/iso_8859-10.7 b/man7/iso_8859-10.7
+index 197a6e0f0..ceaa576ea 100644
+--- a/man7/iso_8859-10.7
++++ b/man7/iso_8859-10.7
+@@ -1,25 +1,5 @@
+-.\" Copyright 2009    Lefteris Dimitroulakis (edimitro@tee.gr)
+-.\"
+-.\" %%%LICENSE_START(GPLv2+_DOC_FULL)
+-.\" This is free documentation; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License as
+-.\" published by the Free Software Foundation; either version 2 of
+-.\" the License, or (at your option) any later version.
+-.\"
+-.\" The GNU General Public License's references to "object code"
+-.\" and "executables" are to be interpreted as the output of any
+-.\" document formatting or typesetting system, including
+-.\" intermediate and printed output.
+-.\"
+-.\" This manual is distributed in the hope that it will be useful,
+-.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+-.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-.\" GNU General Public License for more details.
+-.\"
+-.\" You should have received a copy of the GNU General Public
+-.\" License along with this manual; if not, see
+-.\" <http://www.gnu.org/licenses/>.
+-.\" %%%LICENSE_END
++.\" SPDX-FileCopyrightText: 2009, Lefteris Dimitroulakis <edimitro@tee.gr>
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+ .TH ISO_8859-10 7 2020-08-13 "Linux" "Linux Programmer's Manual"
+ .SH NAME
+diff --git a/man7/iso_8859-11.7 b/man7/iso_8859-11.7
+index 9a74afe08..e6a80e759 100644
+--- a/man7/iso_8859-11.7
++++ b/man7/iso_8859-11.7
+@@ -1,27 +1,7 @@
+-.\" Copyright 2009 Lefteris Dimitroulakis <edimitro at tee.gr>
++.\" SPDX-FileCopyrightText: 2009, Lefteris Dimitroulakis <edimitro at tee.gr>
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+-.\" %%%LICENSE_START(GPLv2+_DOC_FULL)
+-.\" This is free documentation; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License as
+-.\" published by the Free Software Foundation; either version 2 of
+-.\" the License, or (at your option) any later version.
+-.\"
+-.\" The GNU General Public License's references to "object code"
+-.\" and "executables" are to be interpreted as the output of any
+-.\" document formatting or typesetting system, including
+-.\" intermediate and printed output.
+-.\"
+-.\" This manual is distributed in the hope that it will be useful,
+-.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+-.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-.\" GNU General Public License for more details.
+-.\"
+-.\" You should have received a copy of the GNU General Public
+-.\" License along with this manual; if not, see
+-.\" <http://www.gnu.org/licenses/>.
+-.\" %%%LICENSE_END
+-.\"
+-.\"Thanomsub Noppaburana <donga.nb@gmail.com> made valuable suggestions.
++.\" Thanomsub Noppaburana <donga.nb@gmail.com> made valuable suggestions.
+ .\"
+ .TH ISO_8859-11 7 2020-08-13 "Linux" "Linux Programmer's Manual"
+ .SH NAME
+diff --git a/man7/iso_8859-13.7 b/man7/iso_8859-13.7
+index 5c7db7ca2..d2d36bec6 100644
+--- a/man7/iso_8859-13.7
++++ b/man7/iso_8859-13.7
+@@ -1,25 +1,5 @@
+-.\" Copyright 2009   Lefteris Dimitroulakis (edimitro@tee.gr)
+-.\"
+-.\" %%%LICENSE_START(GPLv2+_DOC_FULL)
+-.\" This is free documentation; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License as
+-.\" published by the Free Software Foundation; either version 2 of
+-.\" the License, or (at your option) any later version.
+-.\"
+-.\" The GNU General Public License's references to "object code"
+-.\" and "executables" are to be interpreted as the output of any
+-.\" document formatting or typesetting system, including
+-.\" intermediate and printed output.
+-.\"
+-.\" This manual is distributed in the hope that it will be useful,
+-.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+-.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-.\" GNU General Public License for more details.
+-.\"
+-.\" You should have received a copy of the GNU General Public
+-.\" License along with this manual; if not, see
+-.\" <http://www.gnu.org/licenses/>.
+-.\" %%%LICENSE_END
++.\" SPDX-FileCopyrightText: 2009, Lefteris Dimitroulakis <edimitro@tee.gr>
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+ .TH ISO_8859-13 7 2020-08-13 "Linux" "Linux Programmer's Manual"
+ .SH NAME
+diff --git a/man7/iso_8859-14.7 b/man7/iso_8859-14.7
+index 7c0e09910..25136bba5 100644
+--- a/man7/iso_8859-14.7
++++ b/man7/iso_8859-14.7
+@@ -1,25 +1,5 @@
+-.\" Copyright 2009   Lefteris Dimitroulakis (edimitro@tee.gr)
+-.\"
+-.\" %%%LICENSE_START(GPLv2+_DOC_FULL)
+-.\" This is free documentation; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License as
+-.\" published by the Free Software Foundation; either version 2 of
+-.\" the License, or (at your option) any later version.
+-.\"
+-.\" The GNU General Public License's references to "object code"
+-.\" and "executables" are to be interpreted as the output of any
+-.\" document formatting or typesetting system, including
+-.\" intermediate and printed output.
+-.\"
+-.\" This manual is distributed in the hope that it will be useful,
+-.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+-.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-.\" GNU General Public License for more details.
+-.\"
+-.\" You should have received a copy of the GNU General Public
+-.\" License along with this manual; if not, see
+-.\" <http://www.gnu.org/licenses/>.
+-.\" %%%LICENSE_END
++.\" SPDX-FileCopyrightText: 2009, Lefteris Dimitroulakis <edimitro@tee.gr>
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+ .TH ISO_8859-14 7 2020-08-13 "Linux" "Linux Programmer's Manual"
+ .SH NAME
+diff --git a/man7/iso_8859-15.7 b/man7/iso_8859-15.7
+index c3dbdb2df..2ab5cafb2 100644
+--- a/man7/iso_8859-15.7
++++ b/man7/iso_8859-15.7
+@@ -1,26 +1,6 @@
+-.\" Copyright 1993-1995 Daniel Quinlan (quinlan@yggdrasil.com)
+-.\" Copyright 1999      Dimitri Papadopoulos (dpo@club-internet.fr)
+-.\"
+-.\" %%%LICENSE_START(GPLv2+_DOC_FULL)
+-.\" This is free documentation; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License as
+-.\" published by the Free Software Foundation; either version 2 of
+-.\" the License, or (at your option) any later version.
+-.\"
+-.\" The GNU General Public License's references to "object code"
+-.\" and "executables" are to be interpreted as the output of any
+-.\" document formatting or typesetting system, including
+-.\" intermediate and printed output.
+-.\"
+-.\" This manual is distributed in the hope that it will be useful,
+-.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+-.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-.\" GNU General Public License for more details.
+-.\"
+-.\" You should have received a copy of the GNU General Public
+-.\" License along with this manual; if not, see
+-.\" <http://www.gnu.org/licenses/>.
+-.\" %%%LICENSE_END
++.\" SPDX-FileCopyrightText: 1993-1995, Daniel Quinlan <quinlan@yggdrasil.com>
++.\" SPDX-FileCopyrightText: 1999, Dimitri Papadopoulos <dpo@club-internet.fr>
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+ .TH ISO_8859-15 7 2020-08-13 "Linux" "Linux Programmer's Manual"
+ .SH NAME
+diff --git a/man7/iso_8859-16.7 b/man7/iso_8859-16.7
+index e0ce33a5d..1b985d59c 100644
+--- a/man7/iso_8859-16.7
++++ b/man7/iso_8859-16.7
+@@ -1,25 +1,5 @@
+-.\" Copyright 2002 Ionel Mugurel Ciobîcă (IMCiobica@netscape.net)
+-.\"
+-.\" %%%LICENSE_START(GPLv2+_DOC_FULL)
+-.\" This is free documentation; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License as
+-.\" published by the Free Software Foundation; either version 2 of
+-.\" the License, or (at your option) any later version.
+-.\"
+-.\" The GNU General Public License's references to "object code"
+-.\" and "executables" are to be interpreted as the output of any
+-.\" document formatting or typesetting system, including
+-.\" intermediate and printed output.
+-.\"
+-.\" This manual is distributed in the hope that it will be useful,
+-.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+-.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-.\" GNU General Public License for more details.
+-.\"
+-.\" You should have received a copy of the GNU General Public
+-.\" License along with this manual; if not, see
+-.\" <http://www.gnu.org/licenses/>.
+-.\" %%%LICENSE_END
++.\" SPDX-FileCopyrightText: 2002, Ionel Mugurel Ciobîcă <IMCiobica@netscape.net>
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+ .TH ISO_8859-16 7 2020-08-13 "Linux" "Linux Programmer's Manual"
+ .SH NAME
+diff --git a/man7/iso_8859-2.7 b/man7/iso_8859-2.7
+index 1e00d8bae..8af975164 100644
+--- a/man7/iso_8859-2.7
++++ b/man7/iso_8859-2.7
+@@ -1,29 +1,10 @@
+-.\" Copyright 1999 Roman Maurer (roman.maurer@hermes.si)
+-.\" Copyright 1993-1995 Daniel Quinlan (quinlan@yggdrasil.com)
+-.\"
+-.\" %%%LICENSE_START(GPLv2+_DOC_FULL)
+-.\" This is free documentation; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License as
+-.\" published by the Free Software Foundation; either version 2 of
+-.\" the License, or (at your option) any later version.
+-.\"
+-.\" The GNU General Public License's references to "object code"
+-.\" and "executables" are to be interpreted as the output of any
+-.\" document formatting or typesetting system, including
+-.\" intermediate and printed output.
+-.\"
+-.\" This manual is distributed in the hope that it will be useful,
+-.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+-.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-.\" GNU General Public License for more details.
+-.\"
+-.\" You should have received a copy of the GNU General Public
+-.\" License along with this manual; if not, see
+-.\" <http://www.gnu.org/licenses/>.
+-.\" %%%LICENSE_END
++.\" SPDX-FileCopyrightText: 1999, Roman Maurer <roman.maurer@hermes.si>
++.\" SPDX-FileCopyrightText: 1993-1995, Daniel Quinlan <quinlan@yggdrasil.com>
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+ .\" Slightly rearranged, aeb, 950713
+ .\" Updated, dpo, 990531
++.\"
+ .TH ISO_8859-2 7 2020-08-13 "Linux" "Linux Programmer's Manual"
+ .SH NAME
+ iso_8859-2 \- ISO 8859-2 character set encoded in octal, decimal,
+diff --git a/man7/iso_8859-3.7 b/man7/iso_8859-3.7
+index 1ee0a7ce9..c09dbca70 100644
+--- a/man7/iso_8859-3.7
++++ b/man7/iso_8859-3.7
+@@ -1,25 +1,5 @@
+-.\" Copyright 2009  Lefteris Dimitroulakis (edimitro@tee.gr)
+-.\"
+-.\" %%%LICENSE_START(GPLv2+_DOC_FULL)
+-.\" This is free documentation; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License as
+-.\" published by the Free Software Foundation; either version 2 of
+-.\" the License, or (at your option) any later version.
+-.\"
+-.\" The GNU General Public License's references to "object code"
+-.\" and "executables" are to be interpreted as the output of any
+-.\" document formatting or typesetting system, including
+-.\" intermediate and printed output.
+-.\"
+-.\" This manual is distributed in the hope that it will be useful,
+-.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+-.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-.\" GNU General Public License for more details.
+-.\"
+-.\" You should have received a copy of the GNU General Public
+-.\" License along with this manual; if not, see
+-.\" <http://www.gnu.org/licenses/>.
+-.\" %%%LICENSE_END
++.\" SPDX-FileCopyrightText: 2009, Lefteris Dimitroulakis <edimitro@tee.gr>
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+ .TH ISO_8859-3 7 2020-08-13 "Linux" "Linux Programmer's Manual"
+ .SH NAME
+diff --git a/man7/iso_8859-4.7 b/man7/iso_8859-4.7
+index 652d0a55d..afda6af6c 100644
+--- a/man7/iso_8859-4.7
++++ b/man7/iso_8859-4.7
+@@ -1,25 +1,5 @@
+-.\" Copyright 2009  Lefteris Dimitroulakis (edimitro@tee.gr)
+-.\"
+-.\" %%%LICENSE_START(GPLv2+_DOC_FULL)
+-.\" This is free documentation; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License as
+-.\" published by the Free Software Foundation; either version 2 of
+-.\" the License, or (at your option) any later version.
+-.\"
+-.\" The GNU General Public License's references to "object code"
+-.\" and "executables" are to be interpreted as the output of any
+-.\" document formatting or typesetting system, including
+-.\" intermediate and printed output.
+-.\"
+-.\" This manual is distributed in the hope that it will be useful,
+-.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+-.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-.\" GNU General Public License for more details.
+-.\"
+-.\" You should have received a copy of the GNU General Public
+-.\" License along with this manual; if not, see
+-.\" <http://www.gnu.org/licenses/>.
+-.\" %%%LICENSE_END
++.\" SPDX-FileCopyrightText: 2009, Lefteris Dimitroulakis <edimitro@tee.gr>
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+ .TH ISO_8859-4 7 2020-08-13 "Linux" "Linux Programmer's Manual"
+ .SH NAME
+diff --git a/man7/iso_8859-5.7 b/man7/iso_8859-5.7
+index ffd728245..917e97bf1 100644
+--- a/man7/iso_8859-5.7
++++ b/man7/iso_8859-5.7
+@@ -1,25 +1,5 @@
+-.\" Copyright 2009   Lefteris Dimitroulakis (edimitro@tee.gr)
+-.\"
+-.\" %%%LICENSE_START(GPLv2+_DOC_FULL)
+-.\" This is free documentation; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License as
+-.\" published by the Free Software Foundation; either version 2 of
+-.\" the License, or (at your option) any later version.
+-.\"
+-.\" The GNU General Public License's references to "object code"
+-.\" and "executables" are to be interpreted as the output of any
+-.\" document formatting or typesetting system, including
+-.\" intermediate and printed output.
+-.\"
+-.\" This manual is distributed in the hope that it will be useful,
+-.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+-.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-.\" GNU General Public License for more details.
+-.\"
+-.\" You should have received a copy of the GNU General Public
+-.\" License along with this manual; if not, see
+-.\" <http://www.gnu.org/licenses/>.
+-.\" %%%LICENSE_END
++.\" SPDX-FileCopyrightText: 2009, Lefteris Dimitroulakis <edimitro@tee.gr>
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+ .TH ISO_8859-5 7 2020-08-13 "Linux" "Linux Programmer's Manual"
+ .SH NAME
+diff --git a/man7/iso_8859-6.7 b/man7/iso_8859-6.7
+index 8775a44b8..26a774f44 100644
+--- a/man7/iso_8859-6.7
++++ b/man7/iso_8859-6.7
+@@ -1,25 +1,5 @@
+-.\" Copyright 2009  Lefteris Dimitroulakis (edimitro@tee.gr)
+-.\"
+-.\" %%%LICENSE_START(GPLv2+_DOC_FULL)
+-.\" This is free documentation; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License as
+-.\" published by the Free Software Foundation; either version 2 of
+-.\" the License, or (at your option) any later version.
+-.\"
+-.\" The GNU General Public License's references to "object code"
+-.\" and "executables" are to be interpreted as the output of any
+-.\" document formatting or typesetting system, including
+-.\" intermediate and printed output.
+-.\"
+-.\" This manual is distributed in the hope that it will be useful,
+-.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+-.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-.\" GNU General Public License for more details.
+-.\"
+-.\" You should have received a copy of the GNU General Public
+-.\" License along with this manual; if not, see
+-.\" <http://www.gnu.org/licenses/>.
+-.\" %%%LICENSE_END
++.\" SPDX-FileCopyrightText: 2009, Lefteris Dimitroulakis <edimitro@tee.gr>
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+ .TH ISO_8859-6 7 2020-08-13 "Linux" "Linux Programmer's Manual"
+ .SH NAME
+diff --git a/man7/iso_8859-7.7 b/man7/iso_8859-7.7
+index e12bb0b17..6110a16e7 100644
+--- a/man7/iso_8859-7.7
++++ b/man7/iso_8859-7.7
+@@ -1,25 +1,5 @@
+-.\" Copyright 1999      Dimitri Papadopoulos (dpo@club-internet.fr)
+-.\"
+-.\" %%%LICENSE_START(GPLv2+_DOC_FULL)
+-.\" This is free documentation; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License as
+-.\" published by the Free Software Foundation; either version 2 of
+-.\" the License, or (at your option) any later version.
+-.\"
+-.\" The GNU General Public License's references to "object code"
+-.\" and "executables" are to be interpreted as the output of any
+-.\" document formatting or typesetting system, including
+-.\" intermediate and printed output.
+-.\"
+-.\" This manual is distributed in the hope that it will be useful,
+-.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+-.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-.\" GNU General Public License for more details.
+-.\"
+-.\" You should have received a copy of the GNU General Public
+-.\" License along with this manual; if not, see
+-.\" <http://www.gnu.org/licenses/>.
+-.\" %%%LICENSE_END
++.\" SPDX-FileCopyrightText: 1999, Dimitri Papadopoulos <dpo@club-internet.fr>
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+ .TH ISO_8859-7 7 2020-08-13 "Linux" "Linux Programmer's Manual"
+ .SH NAME
+diff --git a/man7/iso_8859-8.7 b/man7/iso_8859-8.7
+index 5bf17240a..708bb4186 100644
+--- a/man7/iso_8859-8.7
++++ b/man7/iso_8859-8.7
+@@ -1,25 +1,5 @@
+-.\" Copyright 2009   Lefteris Dimitroulakis (edimitro@tee.gr)
+-.\"
+-.\" %%%LICENSE_START(GPLv2+_DOC_FULL)
+-.\" This is free documentation; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License as
+-.\" published by the Free Software Foundation; either version 2 of
+-.\" the License, or (at your option) any later version.
+-.\"
+-.\" The GNU General Public License's references to "object code"
+-.\" and "executables" are to be interpreted as the output of any
+-.\" document formatting or typesetting system, including
+-.\" intermediate and printed output.
+-.\"
+-.\" This manual is distributed in the hope that it will be useful,
+-.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+-.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-.\" GNU General Public License for more details.
+-.\"
+-.\" You should have received a copy of the GNU General Public
+-.\" License along with this manual; if not, see
+-.\" <http://www.gnu.org/licenses/>.
+-.\" %%%LICENSE_END
++.\" SPDX-FileCopyrightText: 2009, Lefteris Dimitroulakis <edimitro@tee.gr>
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+ .\" Eli Zaretskii <eliz@gnu.org> made valuable suggestions
+ .\"
+diff --git a/man7/iso_8859-9.7 b/man7/iso_8859-9.7
+index 223fa8042..ef849adfb 100644
+--- a/man7/iso_8859-9.7
++++ b/man7/iso_8859-9.7
+@@ -1,25 +1,5 @@
+-.\" Copyright 2002      Dimitri Papadopoulos (dpo@club-internet.fr)
+-.\"
+-.\" %%%LICENSE_START(GPLv2+_DOC_FULL)
+-.\" This is free documentation; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License as
+-.\" published by the Free Software Foundation; either version 2 of
+-.\" the License, or (at your option) any later version.
+-.\"
+-.\" The GNU General Public License's references to "object code"
+-.\" and "executables" are to be interpreted as the output of any
+-.\" document formatting or typesetting system, including
+-.\" intermediate and printed output.
+-.\"
+-.\" This manual is distributed in the hope that it will be useful,
+-.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+-.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-.\" GNU General Public License for more details.
+-.\"
+-.\" You should have received a copy of the GNU General Public
+-.\" License along with this manual; if not, see
+-.\" <http://www.gnu.org/licenses/>.
+-.\" %%%LICENSE_END
++.\" SPDX-FileCopyrightText: 2002, Dimitri Papadopoulos <dpo@club-internet.fr>
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+ .TH ISO_8859-9 7 2020-08-13 "Linux" "Linux Programmer's Manual"
+ .SH NAME
+diff --git a/man7/kernel_lockdown.7 b/man7/kernel_lockdown.7
+index 07ab82921..383b4bb4e 100644
+--- a/man7/kernel_lockdown.7
++++ b/man7/kernel_lockdown.7
+@@ -1,13 +1,7 @@
++.\" SPDX-FileCopyrightText: 2017, Red Hat, Inc.
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+-.\" Copyright (C) 2017 Red Hat, Inc. All Rights Reserved.
+-.\" Written by David Howells (dhowells@redhat.com)
+-.\"
+-.\" %%%LICENSE_START(GPLv2+_SW_ONEPARA)
+-.\" This program is free software; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License
+-.\" as published by the Free Software Foundation; either version
+-.\" 2 of the License, or (at your option) any later version.
+-.\" %%%LICENSE_END
++.\" Written by David Howells <dhowells@redhat.com>
+ .\"
+ .TH KERNEL_LOCKDOWN 7 2021-06-20 Linux "Linux Programmer's Manual"
+ .SH NAME
+diff --git a/man7/keyrings.7 b/man7/keyrings.7
+index 831f511e3..d46bce30d 100644
+--- a/man7/keyrings.7
++++ b/man7/keyrings.7
+@@ -1,13 +1,8 @@
+-.\" Copyright (C) 2014 Red Hat, Inc. All Rights Reserved.
+-.\" Written by David Howells (dhowells@redhat.com)
+-.\" and Copyright (C) 2016 Michael Kerrisk <mtk.manpages@gmail.com>
++.\" SPDX-FileCopyrightText: 2014, Red Hat, Inc.
++.\" SPDX-FileCopyrightText: 2016, Michael Kerrisk <mtk.manpages@gmail.com>
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+-.\" %%%LICENSE_START(GPLv2+_SW_ONEPARA)
+-.\" This program is free software; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License
+-.\" as published by the Free Software Foundation; either version
+-.\" 2 of the License, or (at your option) any later version.
+-.\" %%%LICENSE_END
++.\" Written by David Howells <dhowells@redhat.com>
+ .\"
+ .TH KEYRINGS 7 2021-03-22 Linux "Linux Programmer's Manual"
+ .SH NAME
+diff --git a/man7/koi8-r.7 b/man7/koi8-r.7
+index d995860f2..09f1f02d5 100644
+--- a/man7/koi8-r.7
++++ b/man7/koi8-r.7
+@@ -1,25 +1,5 @@
+-.\" Copyright 2001      Alexey Mahotkin <alexm@hsys.msk.ru>
+-.\"
+-.\" %%%LICENSE_START(GPLv2+_DOC_FULL)
+-.\" This is free documentation; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License as
+-.\" published by the Free Software Foundation; either version 2 of
+-.\" the License, or (at your option) any later version.
+-.\"
+-.\" The GNU General Public License's references to "object code"
+-.\" and "executables" are to be interpreted as the output of any
+-.\" document formatting or typesetting system, including
+-.\" intermediate and printed output.
+-.\"
+-.\" This manual is distributed in the hope that it will be useful,
+-.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+-.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-.\" GNU General Public License for more details.
+-.\"
+-.\" You should have received a copy of the GNU General Public
+-.\" License along with this manual; if not, see
+-.\" <http://www.gnu.org/licenses/>.
+-.\" %%%LICENSE_END
++.\" SPDX-FileCopyrightText: 2001, Alexey Mahotkin <alexm@hsys.msk.ru>
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+ .TH KOI8-R 7 2020-08-13 "Linux" "Linux Programmer's Manual"
+ .SH NAME
+diff --git a/man7/koi8-u.7 b/man7/koi8-u.7
+index 2e8c79e43..4f9ec8a86 100644
+--- a/man7/koi8-u.7
++++ b/man7/koi8-u.7
+@@ -1,25 +1,5 @@
+-.\" Copyright 2009  Lefteris Dimitroulakis <edimitro at tee.gr>
+-.\"
+-.\" %%%LICENSE_START(GPLv2+_DOC_FULL)
+-.\" This is free documentation; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License as
+-.\" published by the Free Software Foundation; either version 2 of
+-.\" the License, or (at your option) any later version.
+-.\"
+-.\" The GNU General Public License's references to "object code"
+-.\" and "executables" are to be interpreted as the output of any
+-.\" document formatting or typesetting system, including
+-.\" intermediate and printed output.
+-.\"
+-.\" This manual is distributed in the hope that it will be useful,
+-.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+-.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-.\" GNU General Public License for more details.
+-.\"
+-.\" You should have received a copy of the GNU General Public
+-.\" License along with this manual; if not, see
+-.\" <http://www.gnu.org/licenses/>.
+-.\" %%%LICENSE_END
++.\" SPDX-FileCopyrightText: 2009, Lefteris Dimitroulakis <edimitro at tee.gr>
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+ .\" 2009-01-15, mtk, Some edits
+ .\"
+diff --git a/man7/persistent-keyring.7 b/man7/persistent-keyring.7
+index 48b81bc90..3f43173b1 100644
+--- a/man7/persistent-keyring.7
++++ b/man7/persistent-keyring.7
+@@ -1,12 +1,7 @@
+-.\" Copyright (C) 2014 Red Hat, Inc. All Rights Reserved.
+-.\" Written by David Howells (dhowells@redhat.com)
++.\" SPDX-FileCopyrightText: 2014, Red Hat, Inc.
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+-.\" %%%LICENSE_START(GPLv2+_SW_ONEPARA)
+-.\" This program is free software; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License
+-.\" as published by the Free Software Foundation; either version
+-.\" 2 of the License, or (at your option) any later version.
+-.\" %%%LICENSE_END
++.\" Written by David Howells (dhowells@redhat.com)
+ .\"
+ .TH PERSISTENT-KEYRING 7 2020-08-13 Linux "Linux Programmer's Manual"
+ .SH NAME
+diff --git a/man7/posixoptions.7 b/man7/posixoptions.7
+index d6882fe05..90b5f0dd3 100644
+--- a/man7/posixoptions.7
++++ b/man7/posixoptions.7
+@@ -1,25 +1,5 @@
+-.\" Copyright (c) 2003 Andries Brouwer (aeb@cwi.nl)
+-.\"
+-.\" %%%LICENSE_START(GPLv2+_DOC_FULL)
+-.\" This is free documentation; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License as
+-.\" published by the Free Software Foundation; either version 2 of
+-.\" the License, or (at your option) any later version.
+-.\"
+-.\" The GNU General Public License's references to "object code"
+-.\" and "executables" are to be interpreted as the output of any
+-.\" document formatting or typesetting system, including
+-.\" intermediate and printed output.
+-.\"
+-.\" This manual is distributed in the hope that it will be useful,
+-.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+-.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-.\" GNU General Public License for more details.
+-.\"
+-.\" You should have received a copy of the GNU General Public
+-.\" License along with this manual; if not, see
+-.\" <http://www.gnu.org/licenses/>.
+-.\" %%%LICENSE_END
++.\" SPDX-FileCopyrightText: 2003, Andries Brouwer <aeb@cwi.nl>
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+ .TH POSIXOPTIONS 7 2018-04-30 "" "Linux Programmer's Manual"
+ .SH NAME
+diff --git a/man7/process-keyring.7 b/man7/process-keyring.7
+index b586e4954..4a19f0c3d 100644
+--- a/man7/process-keyring.7
++++ b/man7/process-keyring.7
+@@ -1,12 +1,7 @@
+-.\" Copyright (C) 2014 Red Hat, Inc. All Rights Reserved.
+-.\" Written by David Howells (dhowells@redhat.com)
++.\" SPDX-FileCopyrightText: 2014, Red Hat, Inc.
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+-.\" %%%LICENSE_START(GPLv2+_SW_ONEPARA)
+-.\" This program is free software; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License
+-.\" as published by the Free Software Foundation; either version
+-.\" 2 of the License, or (at your option) any later version.
+-.\" %%%LICENSE_END
++.\" Written by David Howells (dhowells@redhat.com)
+ .\"
+ .TH PROCESS-KEYRING 7 2020-08-13 Linux "Linux Programmer's Manual"
+ .SH NAME
+diff --git a/man7/sched.7 b/man7/sched.7
+index fcc68a34f..8a7fe8cc3 100644
+--- a/man7/sched.7
++++ b/man7/sched.7
+@@ -1,31 +1,10 @@
+-.\" Copyright (C) 2014 Michael Kerrisk <mtk.manpages@gmail.com>
+-.\" and Copyright (C) 2014 Peter Zijlstra <peterz@infradead.org>
+-.\" and Copyright (C) 2014 Juri Lelli <juri.lelli@gmail.com>
+-.\" Various pieces from the old sched_setscheduler(2) page
+-.\" 	Copyright (C) Tom Bjorkholm, Markus Kuhn & David A. Wheeler 1996-1999
+-.\" 	and Copyright (C) 2007 Carsten Emde <Carsten.Emde@osadl.org>
+-.\" 	and Copyright (C) 2008 Michael Kerrisk <mtk.manpages@gmail.com>
+-.\"
+-.\" %%%LICENSE_START(GPLv2+_DOC_FULL)
+-.\" This is free documentation; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License as
+-.\" published by the Free Software Foundation; either version 2 of
+-.\" the License, or (at your option) any later version.
+-.\"
+-.\" The GNU General Public License's references to "object code"
+-.\" and "executables" are to be interpreted as the output of any
+-.\" document formatting or typesetting system, including
+-.\" intermediate and printed output.
+-.\"
+-.\" This manual is distributed in the hope that it will be useful,
+-.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+-.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-.\" GNU General Public License for more details.
+-.\"
+-.\" You should have received a copy of the GNU General Public
+-.\" License along with this manual; if not, see
+-.\" <http://www.gnu.org/licenses/>.
+-.\" %%%LICENSE_END
++.\" SPDX-FileCopyrightText: 1996-1999, Tom Bjorkholm, Markus Kuhn & David A. Wheeler
++.\" SPDX-FileCopyrightText: 2007, Carsten Emde <Carsten.Emde@osadl.org>
++.\" SPDX-FileCopyrightText: 2008, Michael Kerrisk <mtk.manpages@gmail.com>
++.\" SPDX-FileCopyrightText: 2014, Michael Kerrisk <mtk.manpages@gmail.com>
++.\" SPDX-FileCopyrightText: 2014, Peter Zijlstra <peterz@infradead.org>
++.\" SPDX-FileCopyrightText: 2014, Juri Lelli <juri.lelli@gmail.com>
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+ .\" Worth looking at: http://rt.wiki.kernel.org/index.php
+ .\"
+diff --git a/man7/session-keyring.7 b/man7/session-keyring.7
+index a7340f90c..32fe33fbc 100644
+--- a/man7/session-keyring.7
++++ b/man7/session-keyring.7
+@@ -1,12 +1,7 @@
+-.\" Copyright (C) 2014 Red Hat, Inc. All Rights Reserved.
+-.\" Written by David Howells (dhowells@redhat.com)
++.\" SPDX-FileCopyrightText: 2014, Red Hat, Inc.
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+-.\" %%%LICENSE_START(GPLv2+_SW_ONEPARA)
+-.\" This program is free software; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License
+-.\" as published by the Free Software Foundation; either version
+-.\" 2 of the License, or (at your option) any later version.
+-.\" %%%LICENSE_END
++.\" Written by David Howells (dhowells@redhat.com)
+ .\"
+ .TH SESSION-KEYRING 7 2021-03-22 Linux "Linux Programmer's Manual"
+ .SH NAME
+diff --git a/man7/sock_diag.7 b/man7/sock_diag.7
+index cccd73264..e4cb8d01f 100644
+--- a/man7/sock_diag.7
++++ b/man7/sock_diag.7
+@@ -1,26 +1,7 @@
+-.\" Copyright (c) 2016 Pavel Emelyanov <xemul@virtuozzo.com>
+-.\" Copyright (c) 2016 Dmitry V. Levin <ldv@altlinux.org>
++.\" SPDX-FileCopyrightText: 2016, Pavel Emelyanov <xemul@virtuozzo.com>
++.\" SPDX-FileCopyrightText: 2016, Dmitry V. Levin <ldv@altlinux.org>
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+-.\" %%%LICENSE_START(GPLv2+_DOC_FULL)
+-.\" This is free documentation; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License as
+-.\" published by the Free Software Foundation; either version 2 of
+-.\" the License, or (at your option) any later version.
+-.\"
+-.\" The GNU General Public License's references to "object code"
+-.\" and "executables" are to be interpreted as the output of any
+-.\" document formatting or typesetting system, including
+-.\" intermediate and printed output.
+-.\"
+-.\" This manual is distributed in the hope that it will be useful,
+-.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+-.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-.\" GNU General Public License for more details.
+-.\"
+-.\" You should have received a copy of the GNU General Public
+-.\" License along with this manual; if not, see
+-.\" <http://www.gnu.org/licenses/>.
+-.\" %%%LICENSE_END
+ .TH SOCK_DIAG 7 2021-03-22 "Linux" "Linux Programmer's Manual"
+ .SH NAME
+ sock_diag \- obtaining information about sockets
+diff --git a/man7/spufs.7 b/man7/spufs.7
+index f79f1fe43..736378a97 100644
+--- a/man7/spufs.7
++++ b/man7/spufs.7
+@@ -1,20 +1,5 @@
+-.\" Copyright (c) International Business Machines Corp., 2006
+-.\"
+-.\" %%%LICENSE_START(GPLv2+_SW_3_PARA)
+-.\" This program is free software; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License as
+-.\" published by the Free Software Foundation; either version 2 of
+-.\" the License, or (at your option) any later version.
+-.\"
+-.\" This program is distributed in the hope that it will be useful,
+-.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+-.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
+-.\" the GNU General Public License for more details.
+-.\"
+-.\" You should have received a copy of the GNU General Public
+-.\" License along with this manual; if not, see
+-.\" <http://www.gnu.org/licenses/>.
+-.\" %%%LICENSE_END
++.\" SPDX-FileCopyrightText: 2006, International Business Machines Corp.
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+ .\" HISTORY:
+ .\" 2005-09-28, created by Arnd Bergmann <arndb@de.ibm.com>,
+diff --git a/man7/standards.7 b/man7/standards.7
+index e1d8bd56f..916917fd5 100644
+--- a/man7/standards.7
++++ b/man7/standards.7
+@@ -1,25 +1,5 @@
+-.\" Copyright (c) 2006, Michael Kerrisk <mtk.manpages@gmail.com>
+-.\"
+-.\" %%%LICENSE_START(GPLv2+_DOC_FULL)
+-.\" This is free documentation; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License as
+-.\" published by the Free Software Foundation; either version 2 of
+-.\" the License, or (at your option) any later version.
+-.\"
+-.\" The GNU General Public License's references to "object code"
+-.\" and "executables" are to be interpreted as the output of any
+-.\" document formatting or typesetting system, including
+-.\" intermediate and printed output.
+-.\"
+-.\" This manual is distributed in the hope that it will be useful,
+-.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+-.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-.\" GNU General Public License for more details.
+-.\"
+-.\" You should have received a copy of the GNU General Public
+-.\" License along with this manual; if not, see
+-.\" <http://www.gnu.org/licenses/>.
+-.\" %%%LICENSE_END
++.\" SPDX-FileCopyrightText: 2006, Michael Kerrisk <mtk.manpages@gmail.com>
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+ .TH STANDARDS 7 2020-11-01 "Linux" "Linux Programmer's Manual"
+ .SH NAME
+diff --git a/man7/thread-keyring.7 b/man7/thread-keyring.7
+index 81a6ab33d..9a95dfa87 100644
+--- a/man7/thread-keyring.7
++++ b/man7/thread-keyring.7
+@@ -1,12 +1,7 @@
+-.\" Copyright (C) 2014 Red Hat, Inc. All Rights Reserved.
+-.\" Written by David Howells (dhowells@redhat.com)
++.\" SPDX-FileCopyrightText: 2014, Red Hat, Inc.
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+-.\" %%%LICENSE_START(GPLv2+_SW_ONEPARA)
+-.\" This program is free software; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License
+-.\" as published by the Free Software Foundation; either version
+-.\" 2 of the License, or (at your option) any later version.
+-.\" %%%LICENSE_END
++.\" Written by David Howells (dhowells@redhat.com)
+ .\"
+ .TH THREAD-KEYRING 7 2020-08-13 Linux "Linux Programmer's Manual"
+ .SH NAME
+diff --git a/man7/unicode.7 b/man7/unicode.7
+index f64e877ca..ccaf6aa1d 100644
+--- a/man7/unicode.7
++++ b/man7/unicode.7
+@@ -1,25 +1,5 @@
+-.\" Copyright (C) Markus Kuhn, 1995, 2001
+-.\"
+-.\" %%%LICENSE_START(GPLv2+_DOC_FULL)
+-.\" This is free documentation; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License as
+-.\" published by the Free Software Foundation; either version 2 of
+-.\" the License, or (at your option) any later version.
+-.\"
+-.\" The GNU General Public License's references to "object code"
+-.\" and "executables" are to be interpreted as the output of any
+-.\" document formatting or typesetting system, including
+-.\" intermediate and printed output.
+-.\"
+-.\" This manual is distributed in the hope that it will be useful,
+-.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+-.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-.\" GNU General Public License for more details.
+-.\"
+-.\" You should have received a copy of the GNU General Public
+-.\" License along with this manual; if not, see
+-.\" <http://www.gnu.org/licenses/>.
+-.\" %%%LICENSE_END
++.\" SPDX-FileCopyrightText: 1995, 2001, Markus Kuhn
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+ .\" 1995-11-26  Markus Kuhn <mskuhn@cip.informatik.uni-erlangen.de>
+ .\"      First version written
+diff --git a/man7/user-keyring.7 b/man7/user-keyring.7
+index 4b249d60d..8943ffda1 100644
+--- a/man7/user-keyring.7
++++ b/man7/user-keyring.7
+@@ -1,12 +1,7 @@
+-.\" Copyright (C) 2014 Red Hat, Inc. All Rights Reserved.
+-.\" Written by David Howells (dhowells@redhat.com)
++.\" SPDX-FileCopyrightText: 2014, Red Hat, Inc.
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+-.\" %%%LICENSE_START(GPLv2+_SW_ONEPARA)
+-.\" This program is free software; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License
+-.\" as published by the Free Software Foundation; either version
+-.\" 2 of the License, or (at your option) any later version.
+-.\" %%%LICENSE_END
++.\" Written by David Howells (dhowells@redhat.com)
+ .\"
+ .TH USER-KEYRING 7 2020-08-13 Linux "Linux Programmer's Manual"
+ .SH NAME
+diff --git a/man7/user-session-keyring.7 b/man7/user-session-keyring.7
+index 22560bd19..72894a4ee 100644
+--- a/man7/user-session-keyring.7
++++ b/man7/user-session-keyring.7
+@@ -1,12 +1,7 @@
+-.\" Copyright (C) 2014 Red Hat, Inc. All Rights Reserved.
+-.\" Written by David Howells (dhowells@redhat.com)
++.\" SPDX-FileCopyrightText: 2014, Red Hat, Inc.
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+-.\" %%%LICENSE_START(GPLv2+_SW_ONEPARA)
+-.\" This program is free software; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License
+-.\" as published by the Free Software Foundation; either version
+-.\" 2 of the License, or (at your option) any later version.
+-.\" %%%LICENSE_END
++.\" Written by David Howells (dhowells@redhat.com)
+ .\"
+ .TH USER-SESSION-KEYRING 7 2020-08-13 Linux "Linux Programmer's Manual"
+ .SH NAME
+diff --git a/man7/utf-8.7 b/man7/utf-8.7
+index ec93affca..1becec861 100644
+--- a/man7/utf-8.7
++++ b/man7/utf-8.7
+@@ -1,25 +1,5 @@
+-.\" Copyright (C) Markus Kuhn, 1996, 2001
+-.\"
+-.\" %%%LICENSE_START(GPLv2+_DOC_FULL)
+-.\" This is free documentation; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License as
+-.\" published by the Free Software Foundation; either version 2 of
+-.\" the License, or (at your option) any later version.
+-.\"
+-.\" The GNU General Public License's references to "object code"
+-.\" and "executables" are to be interpreted as the output of any
+-.\" document formatting or typesetting system, including
+-.\" intermediate and printed output.
+-.\"
+-.\" This manual is distributed in the hope that it will be useful,
+-.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+-.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-.\" GNU General Public License for more details.
+-.\"
+-.\" You should have received a copy of the GNU General Public
+-.\" License along with this manual; if not, see
+-.\" <http://www.gnu.org/licenses/>.
+-.\" %%%LICENSE_END
++.\" SPDX-FileCopyrightText: 1996, 2001, Markus Kuhn
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+ .\" 1995-11-26  Markus Kuhn <mskuhn@cip.informatik.uni-erlangen.de>
+ .\"      First version written
+diff --git a/man7/xattr.7 b/man7/xattr.7
+index 92ffbe36b..4631c2ccd 100644
+--- a/man7/xattr.7
++++ b/man7/xattr.7
+@@ -1,29 +1,6 @@
+-.\" Extended attributes manual page
+-.\"
+-.\" Copyright (C) 2000, 2002, 2007  Andreas Gruenbacher <agruen@suse.de>
+-.\" Copyright (C) 2001, 2002, 2004, 2007 Silicon Graphics, Inc.
+-.\" All rights reserved.
+-.\"
+-.\" %%%LICENSE_START(GPLv2+_DOC_FULL)
+-.\" This is free documentation; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License as
+-.\" published by the Free Software Foundation; either version 2 of
+-.\" the License, or (at your option) any later version.
+-.\"
+-.\" The GNU General Public License's references to "object code"
+-.\" and "executables" are to be interpreted as the output of any
+-.\" document formatting or typesetting system, including
+-.\" intermediate and printed output.
+-.\"
+-.\" This manual is distributed in the hope that it will be useful,
+-.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+-.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-.\" GNU General Public License for more details.
+-.\"
+-.\" You should have received a copy of the GNU General Public
+-.\" License along with this manual.  If not, see
+-.\" <http://www.gnu.org/licenses/>.
+-.\" %%%LICENSE_END
++.\" SPDX-FileCopyrightText: 2000, 2002, 2007, Andreas Gruenbacher <agruen@suse.de>
++.\" SPDX-FileCopyrightText: 2001, 2002, 2004, 2007, Silicon Graphics, Inc.
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+ .TH XATTR 7 2020-06-09 "Linux" "Linux Programmer's Manual"
+ .SH NAME
+diff --git a/man8/iconvconfig.8 b/man8/iconvconfig.8
+index d74132937..6cd62299e 100644
+--- a/man8/iconvconfig.8
++++ b/man8/iconvconfig.8
+@@ -1,25 +1,5 @@
+-.\" Copyright (C) 2014 Marko Myllynen <myllynen@redhat.com>
+-.\"
+-.\" %%%LICENSE_START(GPLv2+_DOC_FULL)
+-.\" This is free documentation; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License as
+-.\" published by the Free Software Foundation; either version 2 of
+-.\" the License, or (at your option) any later version.
+-.\"
+-.\" The GNU General Public License's references to "object code"
+-.\" and "executables" are to be interpreted as the output of any
+-.\" document formatting or typesetting system, including
+-.\" intermediate and printed output.
+-.\"
+-.\" This manual is distributed in the hope that it will be useful,
+-.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+-.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-.\" GNU General Public License for more details.
+-.\"
+-.\" You should have received a copy of the GNU General Public
+-.\" License along with this manual; if not, see
+-.\" <http://www.gnu.org/licenses/>.
+-.\" %%%LICENSE_END
++.\" SPDX-FileCopyrightText: 2014, Marko Myllynen <myllynen@redhat.com>
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+ .TH ICONVCONFIG 8 2021-03-22 "GNU" "Linux System Administration"
+ .SH NAME
+diff --git a/man8/intro.8 b/man8/intro.8
+index d83e78d43..b511df8f0 100644
+--- a/man8/intro.8
++++ b/man8/intro.8
+@@ -1,27 +1,6 @@
+-.\" Copyright (c) 1993 Michael Haardt (michael@moria.de),
+-.\"         Fri Apr  2 11:32:09 MET DST 1993
+-.\" and Copyright (C) 2007 Michael Kerrisk <mtk.manpages@gmail.com>
+-.\"
+-.\" %%%LICENSE_START(GPLv2+_DOC_FULL)
+-.\" This is free documentation; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License as
+-.\" published by the Free Software Foundation; either version 2 of
+-.\" the License, or (at your option) any later version.
+-.\"
+-.\" The GNU General Public License's references to "object code"
+-.\" and "executables" are to be interpreted as the output of any
+-.\" document formatting or typesetting system, including
+-.\" intermediate and printed output.
+-.\"
+-.\" This manual is distributed in the hope that it will be useful,
+-.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+-.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-.\" GNU General Public License for more details.
+-.\"
+-.\" You should have received a copy of the GNU General Public
+-.\" License along with this manual; if not, see
+-.\" <http://www.gnu.org/licenses/>.
+-.\" %%%LICENSE_END
++.\" SPDX-FileCopyrightText: 1993, Michael Haardt <michael@moria.de>
++.\" SPDX-FileCopyrightText: 2007, Michael Kerrisk <mtk.manpages@gmail.com>
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+ .\" Modified Sat Jul 24 17:35:48 1993 by Rik Faith (faith@cs.unc.edu)
+ .\" 2007-10-23 mtk: minor rewrites, and added paragraph on exit status
+diff --git a/man8/ldconfig.8 b/man8/ldconfig.8
+index 4b639b0d7..58bede2c8 100644
+--- a/man8/ldconfig.8
++++ b/man8/ldconfig.8
+@@ -1,24 +1,11 @@
+-.\" Copyright 1999 SuSE GmbH Nuernberg, Germany
+-.\" Author: Thorsten Kukuk <kukuk@suse.de>
+-.\"
+-.\" %%%LICENSE_START(GPLv2+_SW_3_PARA)
+-.\" This program is free software; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License as
+-.\" published by the Free Software Foundation; either version 2 of the
+-.\" License, or (at your option) any later version.
+-.\"
+-.\" This program is distributed in the hope that it will be useful,
+-.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+-.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+-.\" General Public License for more details.
++.\" SPDX-FileCopyrightText: 1999, SuSE GmbH Nuernberg, Germany
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+-.\" You should have received a copy of the GNU General Public
+-.\" License along with this manual; if not, see
+-.\" <http://www.gnu.org/licenses/>.
+-.\" %%%LICENSE_END
++.\" Author: Thorsten Kukuk <kukuk@suse.de>
+ .\"
+ .\" Modified, 6 May 2002, Michael Kerrisk, <mtk.manpages@gmail.com>
+ .\"   Change listed order of /usr/lib and /lib
++.\"
+ .TH LDCONFIG 8 2021-03-22 "GNU" "Linux Programmer's Manual"
+ .SH NAME
+ ldconfig \- configure dynamic linker run-time bindings
+diff --git a/man8/nscd.8 b/man8/nscd.8
+index 8ddc538d3..b9e0d78ff 100644
+--- a/man8/nscd.8
++++ b/man8/nscd.8
+@@ -1,21 +1,7 @@
+-.\" Copyright 1999 SuSE GmbH Nuernberg, Germany
+-.\" Author: Thorsten Kukuk <kukuk@suse.de>
+-.\"
+-.\" %%%LICENSE_START(GPLv2+_SW_3_PARA)
+-.\" This program is free software; you can redistribute it and/or
+-.\" modify it under the terms of the GNU General Public License as
+-.\" published by the Free Software Foundation; either version 2 of the
+-.\" License, or (at your option) any later version.
++.\" SPDX-FileCopyrightText: 1999, SuSE GmbH Nuernberg, Germany
++.\" SPDX-License-Identifier: GPL-2.0-or-later
+ .\"
+-.\" This program is distributed in the hope that it will be useful,
+-.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+-.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+-.\" General Public License for more details.
+-.\"
+-.\" You should have received a copy of the GNU General Public
+-.\" License along with this manual; if not, see
+-.\" <http://www.gnu.org/licenses/>.
+-.\" %%%LICENSE_END
++.\" Author: Thorsten Kukuk <kukuk@suse.de>
+ .\"
+ .\" 2008-12-05 Petr Baudis <pasky@suse.cz>
+ .\"	Rewrite the NOTES section to reflect modern reality
 -- 
 2.32.0
 
