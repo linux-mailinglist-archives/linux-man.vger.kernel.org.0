@@ -2,65 +2,68 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 506793E3786
-	for <lists+linux-man@lfdr.de>; Sun,  8 Aug 2021 01:05:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2F5953E378A
+	for <lists+linux-man@lfdr.de>; Sun,  8 Aug 2021 01:10:57 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229809AbhHGXGE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 7 Aug 2021 19:06:04 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34728 "EHLO
+        id S229578AbhHGXLN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 7 Aug 2021 19:11:13 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35850 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229537AbhHGXGE (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 7 Aug 2021 19:06:04 -0400
-Received: from mail-pl1-x630.google.com (mail-pl1-x630.google.com [IPv6:2607:f8b0:4864:20::630])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9AFE6C061760
-        for <linux-man@vger.kernel.org>; Sat,  7 Aug 2021 16:05:44 -0700 (PDT)
-Received: by mail-pl1-x630.google.com with SMTP id u16so12232389ple.2
-        for <linux-man@vger.kernel.org>; Sat, 07 Aug 2021 16:05:44 -0700 (PDT)
+        with ESMTP id S229537AbhHGXLN (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 7 Aug 2021 19:11:13 -0400
+Received: from mail-pj1-x1031.google.com (mail-pj1-x1031.google.com [IPv6:2607:f8b0:4864:20::1031])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 79EBEC061760
+        for <linux-man@vger.kernel.org>; Sat,  7 Aug 2021 16:10:55 -0700 (PDT)
+Received: by mail-pj1-x1031.google.com with SMTP id u21-20020a17090a8915b02901782c36f543so19456796pjn.4
+        for <linux-man@vger.kernel.org>; Sat, 07 Aug 2021 16:10:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=xgBTK01edjblrub4XM0BxOA5P+Lg4/eK0PwM770mr68=;
-        b=WcRNT9oL0cZjWavOPfBc3KKomiNlncUqVUO2fUJ3sG/Ig7t4AfVox+hP6TPLLVCjla
-         7t/QVz65yjWDQMCaIU3pkpZRCDXg15B7N1T/SMKgRR1Ptlc9vLOnLXG9KJYuKVkTFJym
-         dA/rZyYp6ifw6R0T7bqkTnopCbYD7wRkdKOfuiicgXuoFZrxbEHeKxIYCJrgIO51ymXW
-         SDbkwP49NSU64wNeYHaYL+DPFmWaSnJ0xffesD4yqrKhIRL64VAWqzDVEIpoE32fQ8FN
-         txfe2xAm3uNnCpEAqG4XpcpLsB58A/azGNqqTNQN9qGPGEuwBefv3KMTMgW57FI+qclf
-         IfVQ==
+        bh=NEe8/QwJl0vBI+6KWPq4C2IpfthRUS5JWn2O8AMqGoU=;
+        b=s6oWEadC6rXca+SUDcWpaGWHywZeNZkHvZLLfSfVvtzKREKO9M/TnjoVDu244L+VGK
+         q0jO/7wmzCJ+x7gDqviM24og2//zFsdUCjLCLhew+BhPIFIprLqTLu9aLMY3jQJzI/xr
+         UponDjEnKuAp74ioLpSErD4MgtedlFBClMEGNEAiKAuPMng35Dgs4ZXueM4XpcJK9Obb
+         WHPpwvXUlecVFzdMt4oJnY7+M9DEAUVWs2MrOneUoh9Kg1c9Vxdg5XVeQgrCDyGNEQPY
+         huGoW+gvPjLRd2xaLrf77kLlT8Ld/iB/EC1FBc+cyZ1P80/F5GQPpYSJBRHuHrTT6+WJ
+         LpRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=xgBTK01edjblrub4XM0BxOA5P+Lg4/eK0PwM770mr68=;
-        b=Hfd/CRJOCvxRTPL2D4H1tqaNnaWYmIWZL91cAJaMMA5/ce2W+jiAbmYPyL283lDLCl
-         BK2uRZuPShg77TYvIF1HPTY8wb7S76o7m7n1+94vq0FdXpuZlUbjnMkeDcFlrkWnt7eY
-         83+UYYdMyt3QrQou2SqrshzT9gBWBtvGx8ZybFZNnKqf84JPgyJoPyu9LTN4G6Yrn4HC
-         IAV/fKG1pRY0k0TkSCI3GE94qW9l9YWRkTVtQx13qJ1VRvVVQGnttlq2Ljhhk/DP7G+T
-         tazv+FaCAlHuWbvmiMa1G4fKVAw2DGoufQEcxdWzbf0r5ta6bmfpCfDkqgHUNUS663uY
-         vTFg==
-X-Gm-Message-State: AOAM530aWfn596LXZaXAvwbKLQihbsNxdkqJ8mtLnc0YtU5raGAbMi0l
-        tQVFrghqY3zv806TyUvx4B6OyYLgaRk=
-X-Google-Smtp-Source: ABdhPJxV1cYy/DlOp6ixsKPVYPQVerG5vc1DNEkWM8XgZ7GE1xgbxSjVtBkezPkMLCKb4/LzgOXZ8Q==
-X-Received: by 2002:a17:90a:9318:: with SMTP id p24mr17018465pjo.138.1628377543717;
-        Sat, 07 Aug 2021 16:05:43 -0700 (PDT)
+        bh=NEe8/QwJl0vBI+6KWPq4C2IpfthRUS5JWn2O8AMqGoU=;
+        b=mZSieR8mWfXBfYI+B1/cEi2+rKUKuTMynzfxRc13L5tRHJ5YS74zA0Gq4Dn4SGbVY0
+         8Jo2nVNBSB5xBvjaTQYA35GfeXQ21pOyjU3ewdJCnNCDf/ExNDMSgy6jyGrjJg+SXc1g
+         a670FMrBK0yVDOPakAQyiZ8U4OMf5k+E+IA5Wwvj4Mzp1C3h+MmmAXzUWNqHPJJJJ1Yn
+         YmQB0jBU4j/gULsxovF83H57tgu/ZKDolJUbPJEBblLzvYYVaTkMFbxIT0G/2DeNHQVj
+         P8SX3pvU4CZATnSFznp/zF5satX6x3zr4M47SBAkPEevhiOw2dw9ks6OA833UsVYMvjx
+         n/Iw==
+X-Gm-Message-State: AOAM532TAeHxxUhfQmXfXQ7DKcR1AAgjblvVzpGdkerMlrIxisiJDNen
+        x6gpDMe6MCSKHP03xcq9Eds=
+X-Google-Smtp-Source: ABdhPJwpOnFLvRPQXR+64Rm3+XYVeSbmWykCCvqJUSh5vvd0cCcShJ/I7LppNR3vGg6FIxJ0QWFkCQ==
+X-Received: by 2002:a17:90a:a883:: with SMTP id h3mr17701802pjq.226.1628377854952;
+        Sat, 07 Aug 2021 16:10:54 -0700 (PDT)
 Received: from [192.168.1.71] (122-61-176-117-fibre.sparkbb.co.nz. [122.61.176.117])
-        by smtp.gmail.com with ESMTPSA id mm7sm2968488pjb.44.2021.08.07.16.05.41
+        by smtp.gmail.com with ESMTPSA id t1sm16205210pgp.42.2021.08.07.16.10.52
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 07 Aug 2021 16:05:43 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, Richard Palethorpe <rpalethorpe@suse.com>,
-        linux-man@vger.kernel.org
-Subject: Re: [PATCH 20/32] wait.2: Add ESRCH for when pid == INT_MIN
-To:     Alejandro Colomar <alx.manpages@gmail.com>
+        Sat, 07 Aug 2021 16:10:54 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
+        Sergey Petrakov <kr@spmail.info>
+Subject: Re: [PATCH 07/32] printf.3: wfix
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
 References: <20210728202008.3158-1-alx.manpages@gmail.com>
- <20210728202008.3158-21-alx.manpages@gmail.com>
+ <20210728202008.3158-8-alx.manpages@gmail.com>
+ <78b9440a-1e5b-3f2f-65f7-e222dfa1e477@gmail.com>
+ <557edcab-8036-9249-e7bb-cb4e3765f59d@gmail.com>
+ <5d08063e-5109-3ea3-30d0-77af0c842029@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <be2b400f-3e22-a9a9-1ae0-18149dc78577@gmail.com>
-Date:   Sun, 8 Aug 2021 01:05:39 +0200
+Message-ID: <6372ea2d-e10b-0f71-126e-201363b0c6f9@gmail.com>
+Date:   Sun, 8 Aug 2021 01:10:50 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <20210728202008.3158-21-alx.manpages@gmail.com>
+In-Reply-To: <5d08063e-5109-3ea3-30d0-77af0c842029@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -68,68 +71,27 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Richard and Alex,
+Hello Alex,
 
-On 7/28/21 10:19 PM, Alejandro Colomar wrote:
-> From: Richard Palethorpe <rpalethorpe@suse.com>
+On 8/8/21 12:32 AM, Alejandro Colomar (man-pages) wrote:
 > 
-> Please see upstream commit:
 > 
->  commit dd83c161fbcc5d8be637ab159c0de015cbff5ba4
->  Author: zhongjiang <zhongjiang@huawei.com>
->  Date:   Mon Jul 10 15:53:01 2017 -0700
+> On 8/8/21 12:20 AM, Alejandro Colomar (man-pages) wrote:
+>> stdio (7)', and it's only a ffix.
 > 
->      kernel/exit.c: avoid undefined behaviour when calling wait4()
-> 
-> It avoids negating INT_MIN by returning early with ESRCH.
-> 
-> Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
-> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>> ---
->  man2/wait.2 | 9 +++++++++
->  1 file changed, 9 insertions(+)
-> 
-> diff --git a/man2/wait.2 b/man2/wait.2
-> index 5ae955b3f..63d872ee6 100644
-> --- a/man2/wait.2
-> +++ b/man2/wait.2
-> @@ -455,6 +455,15 @@ was caught; see
->  The
->  .I options
->  argument was invalid.
-> +.TP
-> +.B ESRCH
-> +(for
-> +.BR wait ()
-> +or
-> +.BR waitpid ())
-> +.I pid
-> +is equal to
-> +.I INT_MIN
->  .SH CONFORMING TO
->  SVr4, 4.3BSD, POSIX.1-2001.
->  .SH NOTES
+> s/7/3/
 
-Thanks. Patch applied, and added the follow-up patch below.
+I dropped the original patch, and made ir
 
-Thanks,
+.BR stdio (3)
+
+This is a case where it would have been good to ask the 
+proposer for a commit message explaining the motivation for
+the original patch (when that patch was submitted).
+
+Cheers,
 
 Michael
-
-
-
-diff --git a/man2/wait.2 b/man2/wait.2
-index 63d872ee6..b6cb326c0 100644
---- a/man2/wait.2
-+++ b/man2/wait.2
-@@ -463,7 +463,7 @@ or
- .BR waitpid ())
- .I pid
- is equal to
--.I INT_MIN
-+.BR INT_MIN .
- .SH CONFORMING TO
- SVr4, 4.3BSD, POSIX.1-2001.
- .SH NOTES
 
 -- 
 Michael Kerrisk
