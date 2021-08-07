@@ -2,89 +2,78 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 183923E3771
-	for <lists+linux-man@lfdr.de>; Sun,  8 Aug 2021 00:47:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 302233E3772
+	for <lists+linux-man@lfdr.de>; Sun,  8 Aug 2021 00:47:44 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229578AbhHGWrU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 7 Aug 2021 18:47:20 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58882 "EHLO
+        id S229578AbhHGWsB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 7 Aug 2021 18:48:01 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59028 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229537AbhHGWrT (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 7 Aug 2021 18:47:19 -0400
-Received: from mail-pj1-x1036.google.com (mail-pj1-x1036.google.com [IPv6:2607:f8b0:4864:20::1036])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BFD83C061760
-        for <linux-man@vger.kernel.org>; Sat,  7 Aug 2021 15:47:00 -0700 (PDT)
-Received: by mail-pj1-x1036.google.com with SMTP id mt6so22136700pjb.1
-        for <linux-man@vger.kernel.org>; Sat, 07 Aug 2021 15:47:00 -0700 (PDT)
+        with ESMTP id S229537AbhHGWsA (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 7 Aug 2021 18:48:00 -0400
+Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com [IPv6:2607:f8b0:4864:20::632])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D3697C061760
+        for <linux-man@vger.kernel.org>; Sat,  7 Aug 2021 15:47:41 -0700 (PDT)
+Received: by mail-pl1-x632.google.com with SMTP id t3so12158613plg.9
+        for <linux-man@vger.kernel.org>; Sat, 07 Aug 2021 15:47:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=SsRNUgA0kXbQ9gcbQOPaNsm8l7Gct+4uvggICWRKqoE=;
-        b=JOUF4KBtfnS+EcPQFaHOXQmVABw1mz3gAHaeDD+oEOjw/B6LZz35c+SXWS5ObHRuk/
-         n6X/s2eH9xMw/4PKRBd2aUQqOMnu4BSnqk6vXLmi3z8b+UTPaQ1Vd9xuUj2AeF/n9sgM
-         Jxhov0g6DG+drxxHM6ddQ1bWSG9LQ05NGIVhWRAelhwflpsjauG9DZFMm1TZjFUTrwh5
-         Kb2B3m3Gq8+XIu+ARItesIByn1eEFsYjun89eewjaj9NdqqlZZBmr5DJm8muBzCMyZsl
-         eQqeRNazJp7ckLwxWxxmpOTKEArsqKi3RPkTa4q9MqE+L+/QVChPeu26pE9Hg4N2F9/s
-         9hZg==
+        bh=0YBzNCtR17l5UaFD/6sg921A+k5pZrb/FuyRWI3p1KA=;
+        b=GlCeOZbjJsULs06hP6sNgTncMSYmV0dzOzQioEFdE+Zeu4EWEFitDiHG7e8kRWO4Gl
+         q9Tup+z57Y9gwD4ilHZLfcnGjsbRvP/SAQuKrzjb5CGFipkuksvOCl4waGFidYJdocRZ
+         22+ltNhzFG7fZpFUOGB040T2hzAKK/azeQZA9LSxC3CX3KdpWnPLrU/0CHjZssENwhs+
+         kv4IQN55/AHjhiHStoe6LdReU5mQShIXXw+7qRCgWOdP/suHmCeFaO5nO5fPUOVrxvqp
+         LT10xJ+J5Q2hK9bX2TwClI+BQaB0lh4MI9da+eNM5UN9yQpkllWMxPmjqx17zsQrsp5Y
+         C2lw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=SsRNUgA0kXbQ9gcbQOPaNsm8l7Gct+4uvggICWRKqoE=;
-        b=qv4+R6W38aY6s9Cvhnd4XtvhrdM7yPzTv8d/3B3x/VfKi6LLe2SDKOesBgcqOsasDq
-         yZYR7IWc9j1U76aIUU4H34Rl5P2vjpRn+cxjoHMMaLLl/lyLZYXvHKNliVNc/2VkNb8P
-         NIQIh7Pr6NGCDc61xg/mUueII8TjJQFDkIlsYOxnil1WPlxw780awmmvheDq4DPxcV2H
-         2KiAbgl1baOVvqxIUwMbONyUw3l/LiyqBkdLFMsiU9GcqQhSvgo5nltkxQTJqkLTwiNa
-         TS98gByWOGT/qGis4CzYeXXJqF5MipOX9zYtwPfPORtt8n4CZaxTGalPRY6JfbVlWnAC
-         N5JQ==
-X-Gm-Message-State: AOAM5337EplRz98FEp5MJqPA60o8KB2cle4TAEGMSdXyJXYQpjDE68EA
-        hD1ljVVepJJrjiXVmEehSxK8UT1C5+g=
-X-Google-Smtp-Source: ABdhPJysp8uhxtXWKZB4VOWLu7plSq8nldCxzw7CK6Hqe/m134kcvCaFmVFRu7OsN1xEMHVBV6xAGQ==
-X-Received: by 2002:a05:6a00:a88:b029:31a:c2ef:d347 with SMTP id b8-20020a056a000a88b029031ac2efd347mr17798305pfl.20.1628376419840;
-        Sat, 07 Aug 2021 15:46:59 -0700 (PDT)
+        bh=0YBzNCtR17l5UaFD/6sg921A+k5pZrb/FuyRWI3p1KA=;
+        b=iddzQPxX7BlWaOli1bDP2Remh+VM2+XHyPod0215H/if5eTTQisIfQZZK5KCBPnCxb
+         yFaqObbHbUPFaJXhb96r3HyTq9bGsMTCko6jTozahbX0LdgYeLdTUFhdJpz1n+8balJx
+         1YHqkUJTOEuEAS6ud2UQniamWT0+3bD280OU6vC/Vfj+mJ4rIzT1vEFS4EUMsrlqzvd2
+         Gx1FblmsRW1sATv2jhgAIbHxPswHF6hu4lW3QmvFPgNi7ZMW+jRoh8BQSobkckY0/nr0
+         nxOgUQHMWU2fhdkHs+VMIBfN/nMSfI5pDRmPZkPXmRA+sHwmL6uWfTh9xHIvpxB6pNoZ
+         QgiA==
+X-Gm-Message-State: AOAM532F8q+lrXbPisbz0rDgGiLxLrIlGKQMvcOlvXGQUfjwvIGR0PCT
+        wPKfdmt6e3syt24P7L6z7dusGNgc+KA=
+X-Google-Smtp-Source: ABdhPJyuk8soB6dXXwVMGyZUrvkm1jhg+S3d1DxOMhrVXsAf8XI6sRxxUAcSN478voEUoBqm3eErkg==
+X-Received: by 2002:a62:7f09:0:b029:3c8:584:72d with SMTP id a9-20020a627f090000b02903c80584072dmr9701782pfd.80.1628376461129;
+        Sat, 07 Aug 2021 15:47:41 -0700 (PDT)
 Received: from [192.168.1.71] (122-61-176-117-fibre.sparkbb.co.nz. [122.61.176.117])
-        by smtp.gmail.com with ESMTPSA id x25sm14953463pfq.28.2021.08.07.15.46.57
+        by smtp.gmail.com with ESMTPSA id c13sm14966098pfi.71.2021.08.07.15.47.38
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 07 Aug 2021 15:46:59 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com,
-        =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>,
+        Sat, 07 Aug 2021 15:47:40 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, Jakub Wilk <jwilk@jwilk.net>,
         linux-man@vger.kernel.org
-Subject: Re: [PATCH 19/32] ascii.7: add vertical rule to separate the two
- columns
+Subject: Re: [PATCH 23/32] scripts/bash_aliases: tfix
 To:     Alejandro Colomar <alx.manpages@gmail.com>
 References: <20210728202008.3158-1-alx.manpages@gmail.com>
- <20210728202008.3158-20-alx.manpages@gmail.com>
+ <20210728202008.3158-24-alx.manpages@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <3a0d5399-9f15-da01-279f-c9a37a1e1a5b@gmail.com>
-Date:   Sun, 8 Aug 2021 00:46:55 +0200
+Message-ID: <fa425e84-1b40-cd31-a255-2e66feaabe17@gmail.com>
+Date:   Sun, 8 Aug 2021 00:47:36 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <20210728202008.3158-20-alx.manpages@gmail.com>
+In-Reply-To: <20210728202008.3158-24-alx.manpages@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello наб and Alex,
+Hi Laex, Jakub,
 
 On 7/28/21 10:19 PM, Alejandro Colomar wrote:
-> From: наб <nabijaczleweli@nabijaczleweli.xyz>
+> From: Jakub Wilk <jwilk@jwilk.net>
 > 
-> I regularly get mildly lost in this table (and, indeed, didn't realise
-> it had two columns the first few times I used it to look at something
-> from the left column) ‒ separating the two columns improves clarity,
-> and makes which soup of numbers belongs to which character
-> much more obvious
-> 
-> Other encodings don't need this as they don't use double-columnated
-> tables
-> 
-> Signed-off-by: Ahelenia Ziemiańska <nabijaczleweli@nabijaczleweli.xyz>
+> Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
 > Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 
 Thanks. Patch applied.
@@ -94,22 +83,22 @@ Cheers,
 Michael
 
 > ---
->  man7/ascii.7 | 2 +-
+>  scripts/bash_aliases | 2 +-
 >  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/man7/ascii.7 b/man7/ascii.7
-> index f1c0c8d74..053b13809 100644
-> --- a/man7/ascii.7
-> +++ b/man7/ascii.7
-> @@ -48,7 +48,7 @@ C program \f(CW\(aq\eX\(aq\fP escapes are noted.
->  .ft CW
->  \}
->  .TS
-> -l l l l l l l l.
-> +l l l l | l l l l.
->  Oct	Dec	Hex	Char	Oct	Dec	Hex	Char
->  _
->  000	0	00	NUL \(aq\e0\(aq (null character)	100	64	40	@
+> diff --git a/scripts/bash_aliases b/scripts/bash_aliases
+> index 102c458d7..ecac0029d 100644
+> --- a/scripts/bash_aliases
+> +++ b/scripts/bash_aliases
+> @@ -24,7 +24,7 @@ EX_USAGE=64;
+>  #	C
+>  
+>  #  sed_rm_ccomments()  removes C comments.
+> -# It can't handle multiple comments in a sinlge line correctly,
+> +# It can't handle multiple comments in a single line correctly,
+>  # nor mixed or embedded //... and /*...*/ comments.
+>  # Use as a filter (see man_lsfunc() in this file).
+>  
 > 
 
 
