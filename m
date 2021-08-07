@@ -2,76 +2,118 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 01B403E3767
-	for <lists+linux-man@lfdr.de>; Sun,  8 Aug 2021 00:32:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 183923E3771
+	for <lists+linux-man@lfdr.de>; Sun,  8 Aug 2021 00:47:04 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229947AbhHGWc1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 7 Aug 2021 18:32:27 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55674 "EHLO
+        id S229578AbhHGWrU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 7 Aug 2021 18:47:20 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58882 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229537AbhHGWc1 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 7 Aug 2021 18:32:27 -0400
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com [IPv6:2a00:1450:4864:20::32f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 31A54C061760
-        for <linux-man@vger.kernel.org>; Sat,  7 Aug 2021 15:32:08 -0700 (PDT)
-Received: by mail-wm1-x32f.google.com with SMTP id k38-20020a05600c1ca6b029025af5e0f38bso11579486wms.5
-        for <linux-man@vger.kernel.org>; Sat, 07 Aug 2021 15:32:08 -0700 (PDT)
+        with ESMTP id S229537AbhHGWrT (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 7 Aug 2021 18:47:19 -0400
+Received: from mail-pj1-x1036.google.com (mail-pj1-x1036.google.com [IPv6:2607:f8b0:4864:20::1036])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BFD83C061760
+        for <linux-man@vger.kernel.org>; Sat,  7 Aug 2021 15:47:00 -0700 (PDT)
+Received: by mail-pj1-x1036.google.com with SMTP id mt6so22136700pjb.1
+        for <linux-man@vger.kernel.org>; Sat, 07 Aug 2021 15:47:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:from:to:cc:references:message-id:date:user-agent
+        h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=mKU5qdSdmq3rNocCfPrXjswwbd+0gMuPUbqE4FdWRyc=;
-        b=aw+9KXTarE2BstHuT9IE8gDzxJ3OkjQuxWbFpPjumJc9TJs+2ll3SeU9ekWsFJBygI
-         45I0rGCjeSmJfKVk8kBDI1alG8/b1CMjlGES0vmwKSNxGqhu6QMVp/TQbSqfwqMKADZ1
-         p4pYiTxYJpgR9HaXaTCotuqbnuWFeux0axO3TD/PlsXZcsOj6Rgi7U2RunpHPRcXii7W
-         B61+CbMcXfTiPcp+gTGIIyKdZwpDt/IHKUS9UwJtv/ONxxv2a/nTf2jCLJ8EaqyVZvVA
-         gA7qqLVtp8QAjUZVC6wE6m9u7cfN6qPAfTDHbR3GHrRabXIe7cL6422GYFSHk3Ce5XRt
-         Vcmg==
+        bh=SsRNUgA0kXbQ9gcbQOPaNsm8l7Gct+4uvggICWRKqoE=;
+        b=JOUF4KBtfnS+EcPQFaHOXQmVABw1mz3gAHaeDD+oEOjw/B6LZz35c+SXWS5ObHRuk/
+         n6X/s2eH9xMw/4PKRBd2aUQqOMnu4BSnqk6vXLmi3z8b+UTPaQ1Vd9xuUj2AeF/n9sgM
+         Jxhov0g6DG+drxxHM6ddQ1bWSG9LQ05NGIVhWRAelhwflpsjauG9DZFMm1TZjFUTrwh5
+         Kb2B3m3Gq8+XIu+ARItesIByn1eEFsYjun89eewjaj9NdqqlZZBmr5DJm8muBzCMyZsl
+         eQqeRNazJp7ckLwxWxxmpOTKEArsqKi3RPkTa4q9MqE+L+/QVChPeu26pE9Hg4N2F9/s
+         9hZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:from:to:cc:references:message-id:date
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=mKU5qdSdmq3rNocCfPrXjswwbd+0gMuPUbqE4FdWRyc=;
-        b=n/isVNRXN52yINOSm3d7eTAkRbRfDBmoLS9l1g9PtACEfwWnL5GDluzl24VGhE/5k/
-         q8U2p1+LyfqFtZiL+IYTvxPUUEJ8pe/ugekVJKdlFRvoigddVjMvFYnao0MqZvuTdyTq
-         p21Bvx8ojjTgvhOOURnoy8SGs6HKvrMH8mCwSntFVu3SmPYQWEOnZTmefdWxV5HIwz1C
-         kml0ZQXG1orSqKf6UQaX/hz4f0/d+ICNYmD6AnuJuMrooo6dXrf8vnB3hYCmNekMSwNv
-         duzQnp7YLZjwqiSbaHMcarjwEWJRM7DTLuOkcD96EL5ZgHaTL2jOBQy/R81+vf0HGDYp
-         C2XQ==
-X-Gm-Message-State: AOAM531PJOqESRtMn8lX7hyO1kTy3fWxf1hlSHgEBsrQiU3S0O9q2a9/
-        89YI0Cyt6TWY57zSQLn5p3Q=
-X-Google-Smtp-Source: ABdhPJwoDZRmThiiay28lGfXVFluuRYO5kefyOGsxXl4xy0pP4HF1k6kuntJ4qQfplAL3+DEdvxcbQ==
-X-Received: by 2002:a05:600c:a05:: with SMTP id z5mr9604291wmp.73.1628375526899;
-        Sat, 07 Aug 2021 15:32:06 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id n7sm12668644wmd.3.2021.08.07.15.32.06
+        bh=SsRNUgA0kXbQ9gcbQOPaNsm8l7Gct+4uvggICWRKqoE=;
+        b=qv4+R6W38aY6s9Cvhnd4XtvhrdM7yPzTv8d/3B3x/VfKi6LLe2SDKOesBgcqOsasDq
+         yZYR7IWc9j1U76aIUU4H34Rl5P2vjpRn+cxjoHMMaLLl/lyLZYXvHKNliVNc/2VkNb8P
+         NIQIh7Pr6NGCDc61xg/mUueII8TjJQFDkIlsYOxnil1WPlxw780awmmvheDq4DPxcV2H
+         2KiAbgl1baOVvqxIUwMbONyUw3l/LiyqBkdLFMsiU9GcqQhSvgo5nltkxQTJqkLTwiNa
+         TS98gByWOGT/qGis4CzYeXXJqF5MipOX9zYtwPfPORtt8n4CZaxTGalPRY6JfbVlWnAC
+         N5JQ==
+X-Gm-Message-State: AOAM5337EplRz98FEp5MJqPA60o8KB2cle4TAEGMSdXyJXYQpjDE68EA
+        hD1ljVVepJJrjiXVmEehSxK8UT1C5+g=
+X-Google-Smtp-Source: ABdhPJysp8uhxtXWKZB4VOWLu7plSq8nldCxzw7CK6Hqe/m134kcvCaFmVFRu7OsN1xEMHVBV6xAGQ==
+X-Received: by 2002:a05:6a00:a88:b029:31a:c2ef:d347 with SMTP id b8-20020a056a000a88b029031ac2efd347mr17798305pfl.20.1628376419840;
+        Sat, 07 Aug 2021 15:46:59 -0700 (PDT)
+Received: from [192.168.1.71] (122-61-176-117-fibre.sparkbb.co.nz. [122.61.176.117])
+        by smtp.gmail.com with ESMTPSA id x25sm14953463pfq.28.2021.08.07.15.46.57
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 07 Aug 2021 15:32:06 -0700 (PDT)
-Subject: Re: [PATCH 07/32] printf.3: wfix
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org, Sergey Petrakov <kr@spmail.info>
+        Sat, 07 Aug 2021 15:46:59 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com,
+        =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>,
+        linux-man@vger.kernel.org
+Subject: Re: [PATCH 19/32] ascii.7: add vertical rule to separate the two
+ columns
+To:     Alejandro Colomar <alx.manpages@gmail.com>
 References: <20210728202008.3158-1-alx.manpages@gmail.com>
- <20210728202008.3158-8-alx.manpages@gmail.com>
- <78b9440a-1e5b-3f2f-65f7-e222dfa1e477@gmail.com>
- <557edcab-8036-9249-e7bb-cb4e3765f59d@gmail.com>
-Message-ID: <5d08063e-5109-3ea3-30d0-77af0c842029@gmail.com>
-Date:   Sun, 8 Aug 2021 00:32:05 +0200
+ <20210728202008.3158-20-alx.manpages@gmail.com>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <3a0d5399-9f15-da01-279f-c9a37a1e1a5b@gmail.com>
+Date:   Sun, 8 Aug 2021 00:46:55 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <557edcab-8036-9249-e7bb-cb4e3765f59d@gmail.com>
+In-Reply-To: <20210728202008.3158-20-alx.manpages@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Hello наб and Alex,
+
+On 7/28/21 10:19 PM, Alejandro Colomar wrote:
+> From: наб <nabijaczleweli@nabijaczleweli.xyz>
+> 
+> I regularly get mildly lost in this table (and, indeed, didn't realise
+> it had two columns the first few times I used it to look at something
+> from the left column) ‒ separating the two columns improves clarity,
+> and makes which soup of numbers belongs to which character
+> much more obvious
+> 
+> Other encodings don't need this as they don't use double-columnated
+> tables
+> 
+> Signed-off-by: Ahelenia Ziemiańska <nabijaczleweli@nabijaczleweli.xyz>
+> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+
+Thanks. Patch applied.
+
+Cheers,
+
+Michael
+
+> ---
+>  man7/ascii.7 | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/man7/ascii.7 b/man7/ascii.7
+> index f1c0c8d74..053b13809 100644
+> --- a/man7/ascii.7
+> +++ b/man7/ascii.7
+> @@ -48,7 +48,7 @@ C program \f(CW\(aq\eX\(aq\fP escapes are noted.
+>  .ft CW
+>  \}
+>  .TS
+> -l l l l l l l l.
+> +l l l l | l l l l.
+>  Oct	Dec	Hex	Char	Oct	Dec	Hex	Char
+>  _
+>  000	0	00	NUL \(aq\e0\(aq (null character)	100	64	40	@
+> 
 
 
-On 8/8/21 12:20 AM, Alejandro Colomar (man-pages) wrote:
-> stdio (7)', and it's only a ffix.
-
-s/7/3/
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
