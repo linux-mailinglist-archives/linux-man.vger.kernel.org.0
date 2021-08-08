@@ -2,66 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 912403E3800
-	for <lists+linux-man@lfdr.de>; Sun,  8 Aug 2021 04:42:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 14C253E3801
+	for <lists+linux-man@lfdr.de>; Sun,  8 Aug 2021 04:54:22 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230098AbhHHCnQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 7 Aug 2021 22:43:16 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52954 "EHLO
+        id S229951AbhHHCyi (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 7 Aug 2021 22:54:38 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55394 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229882AbhHHCnQ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 7 Aug 2021 22:43:16 -0400
-Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com [IPv6:2607:f8b0:4864:20::631])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 08063C061760
-        for <linux-man@vger.kernel.org>; Sat,  7 Aug 2021 19:42:58 -0700 (PDT)
-Received: by mail-pl1-x631.google.com with SMTP id u2so12592743plg.10
-        for <linux-man@vger.kernel.org>; Sat, 07 Aug 2021 19:42:58 -0700 (PDT)
+        with ESMTP id S229882AbhHHCyi (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 7 Aug 2021 22:54:38 -0400
+Received: from mail-pj1-x102e.google.com (mail-pj1-x102e.google.com [IPv6:2607:f8b0:4864:20::102e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 68390C061760
+        for <linux-man@vger.kernel.org>; Sat,  7 Aug 2021 19:54:20 -0700 (PDT)
+Received: by mail-pj1-x102e.google.com with SMTP id mq2-20020a17090b3802b0290178911d298bso1052355pjb.1
+        for <linux-man@vger.kernel.org>; Sat, 07 Aug 2021 19:54:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=k/Gg1EpE39+M3M7ahZp9vbYpC+n/TDZ6o71oO47S0+Q=;
-        b=NyMzOhOjDcsex7MouXqaumeaKiZcv1hHDwNESLdlfqeuGhX69x5HDZf1CP5B8JqWAX
-         Ovu7kWIneEPSA2bDH1mAX2+tbiN1+jJDICEpLoL2xGP7Kidxwb29bpBqaKzA8cz18DHU
-         XC/CYhP7xqdRDu9QfkEUJNFrvNPL1jMMsAQ1pkxMjtUoewFNUA3uq8CIGc0j7fnlJPBx
-         LWh6gzQobBubb4TrHOV5QX+7tdOIE6UIMdDih0h4qZa7zkYIx47VOlSkpiQfEYxmddAy
-         la1WaIBYbuHY9XUkDNGqM6HhEAWqM+N5CAvWKNFIg/Bz6vQ1ESxi/7BdB0DnHWmhsOc2
-         qvAw==
+        bh=Nk6yJzJWZvB/fUBnMt+SAN4Z7WM05UuBkIrj/QlG2fI=;
+        b=Aih2YZBCNoELIZXYQG5b4eukyfkHf3MlqgckCY7/Ng3cwXLm3is2rRep/xiQmvgr6Q
+         FyQMSUq3gPbzI55x+jEc7RiEn5bnghOzipjzbHcDTHL6BqStjZngecxCS3PdhxVtNHUT
+         oW08jH1js8/Zx48jZgXU3pacd3VsSfw/AlwO1N8lmkrCqh09b1qX1O4rVktWu+Nq+oeS
+         i0LUxuAkJvFTj40uXwBj1Sm7suwWeX2HYx6RcAiFAymr4NHuyEJYR0612DUsoFLfRElt
+         ZjVsclPW5lJ3CCr3MfjAa9olgs9MJzuPJ52hdrF7AGLe6Fg90vG6/eaEPw05avwz7M7O
+         qcNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=k/Gg1EpE39+M3M7ahZp9vbYpC+n/TDZ6o71oO47S0+Q=;
-        b=MJKwDX649SCT8sQ4O2VnqKKD9mnaYnst8SEdbZXxNdZ1rIcAfLQnCTYbRTEHxFS129
-         dGngirKMl+cCMFnwDngswgsCKNhV65sXoYVZK/61cjR2dAWOTRTXxx1g1+FD+Tl2sr4q
-         dVzpHoHrVC7FYV+E4zg9x4vXTuMhgl1EPN5eo6ZTk/GjQ9O0nYrziPuTd36X5L6w90+V
-         6FqQV9ONTG7bt+x1t6GieEObjVLkgHDi0bTrwCRT0l1qoAt4kKN9ClxEAKfPU6XAh/su
-         ikWLD+hY1rsApXT8Zxo4+onNVatTJ4/R+6XBrYcb4iFJL/dOpXN2j9zAQVL0QiZTeUHq
-         +ADg==
-X-Gm-Message-State: AOAM531gGOCwIV5KHrL5m74yxBbmv5aBvwqj74WkBQvJe6fSM16LYLIi
-        TL3ZugrvsZoCfI82GQUBjKo=
-X-Google-Smtp-Source: ABdhPJwv6gl9GIwCq/LSeqVN0FVR6a2QePwYAIS4H2atloo6+EkizOZr31T+bJZ/DxUR7/ALSkR0vQ==
-X-Received: by 2002:a17:90a:de18:: with SMTP id m24mr17830011pjv.78.1628390577603;
-        Sat, 07 Aug 2021 19:42:57 -0700 (PDT)
+        bh=Nk6yJzJWZvB/fUBnMt+SAN4Z7WM05UuBkIrj/QlG2fI=;
+        b=bQvU4ohP2zlNCyPsBWr5IOGg1IDmluPesgzEcObzAPKlQevPKMq34io3xMZH+CArT7
+         u8ckDDR9Tpa/2TaAfcHJpXiUmX++Ssd6mdG61Ev5VVIgv3S6As7tDMXiE+raIM+qx/eC
+         clKHOi8nket4K+lWnniFJ8e9NyilIX7Xc58gamZqglb5ccWzdqb34p3PJnTBq/d2ju2n
+         oicB1+U4NOX7r4zsM8xgfQS1oT4YUqF18iXvR0uDnx2tqo/kz0DlPP3gyee4MUx+8wOw
+         IobjKC7UbOu+JqRa4wrCjgXxLCxYikl3uGNwG5ggVryovKAQo4FCjQvFFwJLPE5uH1DP
+         jSSw==
+X-Gm-Message-State: AOAM530Ld5PJ70LwrTz+kPrTP47RkMKTxZVVSlDszkNrOGJcDUXI6C3k
+        YIfJBjnoDNLFkbUwlMgh3KaGrnNrG9A=
+X-Google-Smtp-Source: ABdhPJz2fI6cncqgr8wFNoeYqLIHsROUm8lp1TGMhNJfPvgmUONOmOFLArkTvS61TnPVJT2UNLb7Eg==
+X-Received: by 2002:a63:f749:: with SMTP id f9mr121780pgk.77.1628391259511;
+        Sat, 07 Aug 2021 19:54:19 -0700 (PDT)
 Received: from [192.168.1.71] (122-61-176-117-fibre.sparkbb.co.nz. [122.61.176.117])
-        by smtp.gmail.com with ESMTPSA id e7sm15492373pfe.124.2021.08.07.19.42.55
+        by smtp.gmail.com with ESMTPSA id v7sm15026156pfu.39.2021.08.07.19.54.16
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 07 Aug 2021 19:42:57 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        Will Manley <will@williammanley.net>
-Subject: Re: [PATCH 02/32] readv.2: Minor tweaks to Will's patch
+        Sat, 07 Aug 2021 19:54:19 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, Kir Kolyshkin <kolyshkin@gmail.com>,
+        linux-man@vger.kernel.org
+Subject: Re: [PATCH 14/32] capabilities.7, user_namespaces.7: describe
+ CAP_SETFCAP
 To:     Alejandro Colomar <alx.manpages@gmail.com>
 References: <20210728202008.3158-1-alx.manpages@gmail.com>
- <20210728202008.3158-3-alx.manpages@gmail.com>
- <95690798-14c3-a679-5386-bc96e52e829c@gmail.com>
+ <20210728202008.3158-15-alx.manpages@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <70ac06f6-2461-a1ad-f409-006df6ee205c@gmail.com>
-Date:   Sun, 8 Aug 2021 04:42:53 +0200
+Message-ID: <c44ab66d-e6bf-dc12-be4a-c56eabec9030@gmail.com>
+Date:   Sun, 8 Aug 2021 04:54:14 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <95690798-14c3-a679-5386-bc96e52e829c@gmail.com>
+In-Reply-To: <20210728202008.3158-15-alx.manpages@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -69,65 +69,63 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Alex and Will
+Hello Kir, Alex,
 
-Will, thanks for taking time to write up the patch!
-
-On 8/8/21 4:30 AM, Michael Kerrisk (man-pages) wrote:
-> Hello Alex,
+On 7/28/21 10:19 PM, Alejandro Colomar wrote:
+> From: Kir Kolyshkin <kolyshkin@gmail.com>
 > 
-> On 7/28/21 10:19 PM, Alejandro Colomar wrote:
->> Cc: Will Manley <will@williammanley.net>
->> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+> Signed-off-by: Kir Kolyshkin <kolyshkin@gmail.com>
+> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+> ---
+>  man7/capabilities.7    | 6 ++++++
+>  man7/user_namespaces.7 | 6 ++++++
+>  2 files changed, 12 insertions(+)
 > 
-> Patch applied, but see my follow-up mail.
+> diff --git a/man7/capabilities.7 b/man7/capabilities.7
+> index 9f8f0087f..2f9c9a61e 100644
+> --- a/man7/capabilities.7
+> +++ b/man7/capabilities.7
+> @@ -349,6 +349,12 @@ write a group ID mapping in a user namespace (see
+>  .TP
+>  .BR CAP_SETFCAP " (since Linux 2.6.24)"
+>  Set arbitrary capabilities on a file.
+> +.IP
+> +.\" commit db2e718a47984b9d71ed890eb2ea36ecf150de18
 
-Alex, see the follow-up patch that I applied, below.
+Thank you for including the commit; that's always really helpful!
+
+> +Since Linux 5.12, this capability is
+> +also needed to map uid 0 (as in
+> +.BR unshare\ -Ur ,
+> +.RB see unshare (1).
+>  .TP
+>  .B CAP_SETPCAP
+>  If file capabilities are supported (i.e., since Linux 2.6.24):
+> diff --git a/man7/user_namespaces.7 b/man7/user_namespaces.7
+> index 518e7a3bb..3378b6057 100644
+> --- a/man7/user_namespaces.7
+> +++ b/man7/user_namespaces.7
+> @@ -577,6 +577,12 @@ or be in the parent user namespace of the process
+>  The mapped user IDs (group IDs) must in turn have a mapping
+>  in the parent user namespace.
+>  .IP 4.
+> +.\" commit db2e718a47984b9d71ed890eb2ea36ecf150de18
+> +If a writing process is root (i.e. UID 0) trying to map host user ID 0,
+> +it must have
+> +.B CAP_SETFCAP
+> +capability (since Linux 5.12).
+> +.IP 5.
+>  One of the following two cases applies:
+>  .RS
+>  .IP * 3
+
+Thanks for the patch. I've applied.
 
 Cheers,
 
 Michael
 
-commit 76dec7bbd4e8761249a339db5f13f7e63a37aac3 (HEAD -> master)
-Author: Michael Kerrisk <mtk.manpages@gmail.com>
-Date:   Sun Aug 8 04:34:37 2021 +0200
 
-    readv.2: Minor fixes (part 2) to Will Manley's patch
-    
-    Mainly: I generally don't want us to be including URLs to mailing
-    list discussions in a manual page. Either, the issue in the
-    discussion is worth writing up in the manual page (so that
-    the reader doesn't have to look elsewhere), or the details
-    are less important, in which case it is sufficient to note the
-    existence of the bug. I think this is an example of the latter.
-    
-    Signed-off-by: Michael Kerrisk <mtk.manpages@gmail.com>
-
-diff --git a/man2/readv.2 b/man2/readv.2
-index 0debc2d57..bd0a6cd2f 100644
---- a/man2/readv.2
-+++ b/man2/readv.2
-@@ -428,12 +428,17 @@ nwritten = writev(STDOUT_FILENO, iov, 2);
- .EE
- .in
- .SH BUGS
--Linux v5.9 and v5.10 have a bug where
-+Linux 5.9 and 5.10 have a bug where
- .BR preadv2()
- with the
- .BR RWF_NOWAIT
--flag may return 0 even when not at end of file.  See
--https://lore.kernel.org\:/linux-fsdevel\:/fea8b16d-5a69-40f9-b123-e84dcd6e8f2e@www.fastmail.com\:/T\:/#u
-+flag may return 0 even when not at end of file.
-+.\" See
-+.\" <https://lore.kernel.org/linux-fsdevel/fea8b16d-5a69-40f9-b123-e84dcd6e8f2e@www.fastmail.com/T/#u>
-+.\" The bug was introduced in
-+.\"    efa8480a831 fs: RWF_NOWAIT should imply IOCB_NOIO
-+.\"and fixed in
-+.\"    06c0444290 mm/filemap.c: generic_file_buffered_read() now uses find_get_pages_contig
- .SH SEE ALSO
- .BR pread (2),
- .BR read (2),
 
 -- 
 Michael Kerrisk
