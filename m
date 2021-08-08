@@ -2,59 +2,62 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C3D073E3994
-	for <lists+linux-man@lfdr.de>; Sun,  8 Aug 2021 10:41:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1903B3E3995
+	for <lists+linux-man@lfdr.de>; Sun,  8 Aug 2021 10:41:47 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230354AbhHHImD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 8 Aug 2021 04:42:03 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45366 "EHLO
+        id S231247AbhHHImE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 8 Aug 2021 04:42:04 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45368 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230301AbhHHImD (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 8 Aug 2021 04:42:03 -0400
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com [IPv6:2a00:1450:4864:20::336])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C9970C061760
-        for <linux-man@vger.kernel.org>; Sun,  8 Aug 2021 01:41:44 -0700 (PDT)
-Received: by mail-wm1-x336.google.com with SMTP id o7-20020a05600c5107b0290257f956e02dso12159836wms.1
-        for <linux-man@vger.kernel.org>; Sun, 08 Aug 2021 01:41:44 -0700 (PDT)
+        with ESMTP id S230301AbhHHImE (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 8 Aug 2021 04:42:04 -0400
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com [IPv6:2a00:1450:4864:20::432])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B6DE8C061760
+        for <linux-man@vger.kernel.org>; Sun,  8 Aug 2021 01:41:45 -0700 (PDT)
+Received: by mail-wr1-x432.google.com with SMTP id c9so17070994wri.8
+        for <linux-man@vger.kernel.org>; Sun, 08 Aug 2021 01:41:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=S9WupCrSFRURo8hx7Ei2/ks9HmuBezrSYPJgrQSnF7E=;
-        b=VoMFOY1cdQzLmW3yocxDTAhtBFmhIa1sp3mbePsP5GkGOLSz0z8XhFATx5x3V7lGCB
-         QxHKQkGZBhBVdTtZ0jsiMRrZoSDdqSK9JI5ZttH/Ne74VRZC/FXeAfyDA7HhQYDHmJ38
-         uHQOpqTr6siZReabrZtSKXYq4OHVd7lVVtv8Q0Ahn95N/aEuA7t6y8hKo3tqkMatRir9
-         usQlY0jxBm9EQEMSrRCQ/f2zwW+e+SmnTCbfBqViK1ZfRMBLzpyb3adIMRnS1RFM2gYh
-         rK7F32dZ0H/IK/9L6eFUgcRFddldlQn07uJt7213+zfRjqtJQHt+VRleVwpvVFz7n1dj
-         w5YQ==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=fShiKrAJWeQoSu6nzJ9HS6A8CxQWmdPhnrCiaHEdaX8=;
+        b=RZK4zsvLkZy0QGYUHGMK6eRcvrJOoZ/TRUIYEfrTxe6Vk/c59i6/eJjzhTzqhYF7cN
+         S1QbPZa7I1PACM0SQxbQSwUei4sMdfPtedNf5MF3kuQzyxzlf2rz+kvJWI4lK60eJRKC
+         bkLoa7MR1UJTa+eSEAD2SapxXfKDFWmMIvi/SkBVjLGZXSEysOPF90tKLKVNHHNdFLbH
+         osow5XVZe4OvV3kgkuLQIVk5hUNti2Zzbk2dDlaq6FwB9SapgQNQMAnr5mlYlnVU4DoE
+         A5qw3pV7PZUBvBXO6uEQe2FCXg9nLQhWpfZxTKc6xTZZ7s95G/qwUAshw6RJe0kNS3EX
+         WtOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=S9WupCrSFRURo8hx7Ei2/ks9HmuBezrSYPJgrQSnF7E=;
-        b=tkJKbAkD6vdWP5YaMo8arvxItgTGL5i610RoXNP5z9spshzji7jHsRqPcAwLsg/4qH
-         tZ4IKVNs225kwe9XsHT4B9kot2CVvsGb6rig8Lvx61yfSkP7lZLZccL4WjQ2y0690XLF
-         Pt+q3lPcHS/PwZAAEc6WYZs1pQvK+PP1H8Vdxxcsc6V2SBaIPw1xYimLr1T1IfGQp+gO
-         l6OU4rga+pUdtUOqk4pR3LfUp8aGgjs2/PtVwoteQTUna4FFj7jcGVtjrNjKGh2gTVU1
-         B3/attcXBs82G5qXLmpud7jciORa0SdQJ+3kMDnN1m0avrdiQ1VLy/p+m5J15BvqbUhj
-         TQqQ==
-X-Gm-Message-State: AOAM530nabjvtwD4ipvVmpBhZ/7o62fA4BOsicsjUU1fL7p/tssl85TN
-        CsjdN1XbZhY8cY/ERG2Sl80=
-X-Google-Smtp-Source: ABdhPJxUi8UwcvKPMmX04BXIWf+Vpx5nhXdwj9v54xaC2uDPmzRzHOO/OvfLDdEmlpnGFpr4XR/O3A==
-X-Received: by 2002:a1c:4e1a:: with SMTP id g26mr27631826wmh.52.1628412103405;
-        Sun, 08 Aug 2021 01:41:43 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=fShiKrAJWeQoSu6nzJ9HS6A8CxQWmdPhnrCiaHEdaX8=;
+        b=OaI7ZLva0X24Ve5kqEW23H0nrqjQ09fuUQZx7QFUoz3jFpli56B8458f99BYTCkUUI
+         gRrXHVRhPNFJkYF3caVTUhFGZ9MxnnxB1r2YgVxIlWzJew+8NHWotp0+HfcICvSez8lk
+         3Sr3ttdhCs9TgtrJqD5z1aAvibXGIMCXGd3wVwFeOsd2A66U/ylbA6VmVqoqRFpUniGt
+         e5WSSLUoPCOa/XV/mPshxknHIjZGdryRq4HSbWXjSp3S25s0zjJUajtIMQNfAGuvuI25
+         Vb2TM8l5DzsfUZerKkzgYI779JopsrqRccBSRyFgAfDugpUQREKll7f/zTR7jwqpWCzr
+         4g3Q==
+X-Gm-Message-State: AOAM533zG42J6rFzYDOd6SXnVFfSFty6WpCrs16sbw1lVvJF2eDqpcYI
+        cF9ve874E4YYWAQiBkHWu5o=
+X-Google-Smtp-Source: ABdhPJxf+orDKgboymU8fudhpFwAPKUcmP9ZC2Cs2bSUjjJSYhoBgSZ2VLjBVrmWwt7lyMEXsQInWg==
+X-Received: by 2002:a05:6000:1086:: with SMTP id y6mr447891wrw.406.1628412104354;
+        Sun, 08 Aug 2021 01:41:44 -0700 (PDT)
 Received: from sqli.sqli.com ([195.53.121.100])
-        by smtp.googlemail.com with ESMTPSA id h12sm15592004wrm.62.2021.08.08.01.41.42
+        by smtp.googlemail.com with ESMTPSA id h12sm15592004wrm.62.2021.08.08.01.41.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Aug 2021 01:41:43 -0700 (PDT)
+        Sun, 08 Aug 2021 01:41:44 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org
-Subject: [PATCH 00/23] More patches from others
-Date:   Sun,  8 Aug 2021 10:41:10 +0200
-Message-Id: <20210808084133.734274-1-alx.manpages@gmail.com>
+Cc:     =?UTF-8?q?=D0=BD=D0=B0=D0=B1?= <nabijaczleweli@nabijaczleweli.xyz>,
+        linux-man@vger.kernel.org,
+        Alejandro Colomar <alx.manpages@gmail.com>
+Subject: [PATCH 01/23] pipe.7: also mention writev(2) in atomicity section
+Date:   Sun,  8 Aug 2021 10:41:11 +0200
+Message-Id: <20210808084133.734274-2-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20210808084133.734274-1-alx.manpages@gmail.com>
+References: <20210808084133.734274-1-alx.manpages@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -62,83 +65,36 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+From: наб <nabijaczleweli@nabijaczleweli.xyz>
 
-Hello, Michael!
+writev(2) notes that buffers don't interleave with other process'
+(a reasonable question to ask), but points to pipe(7) for an exception.
+pipe(7) did /not/ mention "writev", "iov", "scat", or "gath", which are,
+in order, reasonable search terms: this was confusing at best and
+alarming at worst
 
-Here's another patch set with patches from others,
-and a few small fixes of mine.
+By mentioning writev(2) in the heading, we clearly note that this sort
+of interleaving behaviour matches write(2)'s and isn't a concern
 
-Cheers,
+Signed-off-by: Ahelenia Ziemiańska <nabijaczleweli@nabijaczleweli.xyz>
+Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+---
+ man7/pipe.7 | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Alex
-
-
-
-Alejandro Colomar (7):
-  sigaction.2: Apply minor tweaks to Peter's patch
-  futex.2: Minor tweaks to Kurt's patch
-  getopt.3: Minor tweak to James's patch
-  termios.3: ffix
-  mount_setattr.2: Minor tweaks to Chirstian's patch
-  ldd.1: Fix example command
-  close_range.2: Glibc added a wrapper recently
-
-Christian Brauner (1):
-  mount_setattr.2: New manual page documenting the mount_setattr()
-    system call
-
-G. Branden Robinson (1):
-  man-pages.7: wfix
-
-James O. D. Hunt (1):
-  getopt.3: Further clarification of optstring
-
-Kurt Kanzenbach (1):
-  futex.2: Document FUTEX_LOCK_PI2
-
-Michael Weiß (1):
-  namespaces.7: ffix
-
-Mike Rapoport (1):
-  man2: new page describing memfd_secret() system call
-
-Pali Rohár (6):
-  termios.3: Document missing baudrate constants
-  termios.3: Use bold style for Bnn and EXTn macro constants
-  ioctl_tty.2: Document ioctls: TCGETS2, TCSETS2, TCSETSW2, TCSETSF2
-  ioctl_tty.2: Update DTR example
-  termios.3: Add information how to set baud rate to any other value
-  termios.3: SPARC architecture has 4 different Bnnn constants
-
-Peter Collingbourne (1):
-  sigaction.2: Document SA_EXPOSE_TAGBITS and the flag support detection
-    protocol
-
-Štěpán Němec (1):
-  unix.7: tfix
-
-наб (2):
-  pipe.7: also mention writev(2) in atomicity section
-  regex.3: wfix
-
- man1/ldd.1           |    5 +-
- man2/close_range.2   |    5 -
- man2/futex.2         |  111 +++--
- man2/ioctl_tty.2     |   32 +-
- man2/memfd_secret.2  |  146 ++++++
- man2/mount_setattr.2 | 1006 ++++++++++++++++++++++++++++++++++++++++++
- man2/sigaction.2     |  133 ++++++
- man3/getopt.3        |   10 +-
- man3/regex.3         |    4 +-
- man3/termios.3       |   74 +++-
- man7/man-pages.7     |    2 +-
- man7/namespaces.7    |    3 +-
- man7/pipe.7          |    2 +
- man7/unix.7          |    2 +-
- 14 files changed, 1478 insertions(+), 57 deletions(-)
- create mode 100644 man2/memfd_secret.2
- create mode 100644 man2/mount_setattr.2
-
+diff --git a/man7/pipe.7 b/man7/pipe.7
+index c3210320c..29f6cf6cb 100644
+--- a/man7/pipe.7
++++ b/man7/pipe.7
+@@ -246,6 +246,8 @@ limits; see BUGS.
+ .SS PIPE_BUF
+ POSIX.1 says that
+ .BR write (2)s
++and
++.BR writev (2)s
+ of less than
+ .B PIPE_BUF
+ bytes must be atomic: the output data is written to the pipe as a
 -- 
 2.32.0
 
