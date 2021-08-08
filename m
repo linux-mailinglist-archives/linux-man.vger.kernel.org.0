@@ -2,143 +2,164 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 608823E3807
-	for <lists+linux-man@lfdr.de>; Sun,  8 Aug 2021 05:03:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3B8D73E398F
+	for <lists+linux-man@lfdr.de>; Sun,  8 Aug 2021 10:26:40 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230131AbhHHDDe (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 7 Aug 2021 23:03:34 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57314 "EHLO
+        id S231176AbhHHI05 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 8 Aug 2021 04:26:57 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42128 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229882AbhHHDDd (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 7 Aug 2021 23:03:33 -0400
-Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com [IPv6:2607:f8b0:4864:20::633])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A7D94C061760
-        for <linux-man@vger.kernel.org>; Sat,  7 Aug 2021 20:03:14 -0700 (PDT)
-Received: by mail-pl1-x633.google.com with SMTP id z3so12642510plg.8
-        for <linux-man@vger.kernel.org>; Sat, 07 Aug 2021 20:03:14 -0700 (PDT)
+        with ESMTP id S230301AbhHHI05 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 8 Aug 2021 04:26:57 -0400
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com [IPv6:2a00:1450:4864:20::334])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7D3CEC061760
+        for <linux-man@vger.kernel.org>; Sun,  8 Aug 2021 01:26:37 -0700 (PDT)
+Received: by mail-wm1-x334.google.com with SMTP id d131-20020a1c1d890000b02902516717f562so9184455wmd.3
+        for <linux-man@vger.kernel.org>; Sun, 08 Aug 2021 01:26:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
+        h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=rkaKEddB9W8m9YmnP9LSKX9pvJGI8sfW8lhad5S/zkI=;
-        b=vewBo8GMLffLl1EosyZ7r7YgmsiUoc52MpTRppOV9/GNi5Q8YTvUfBxu3shNRCRCwP
-         Um3s0FbcQR5rxivXsyMtYaFUdN/MznAwi3Ycu/oLM76GgMoAXOrixKyTgoPxPkhQtTr2
-         cyYR4TA3wEPSQ+hxcGb40Qejyqw0l810jOGzHt3EBWyflqBU5BIFT0YoKeTqnfN2G3PU
-         4b2TAkoOgd/IT+jb/HCvDzA90lKUrrEV6esfielFMP3bIuX4iG9Js/XW66Y/WRsfBBpN
-         CjFpp0ndrJeYczuWYACMGWYa37G72g6vpiieZGgig1Hbr+7fbfAttMXpGZuKuesR+Oow
-         wiYQ==
+        bh=UY3UnF8swrE9a2YQJ/iktfOEYttWRMxMnEZWZ6UOTvU=;
+        b=QqBAl3qR6ODjL/yR2HPQdR68E9oPw7/z4682H4aI3xmeCFUVQWGPAzt1AT6Vo5MerX
+         YgHTgYNxyUniQZAuXIKykEvLZbaEh/S/8H0e7+ra7ilRN55dHTkqBOHeQoPgQ85mLOgy
+         tbe/QLwuCaIa1zawo5XnSO/VoFXDC+3xQCL/c4E2VkUYzvA/xd0axie5dG3C9lEfdCkU
+         CZIs2otALPmkz1f46bOt3SqTNlQpj+FIyI7a++McrFlQzzQhsXip1lCVi9sb+lpGJa39
+         KlcsBKHPfAkDSl2ZK/LSj1N5ecL0u0GU/1MFZa3JzoSy9xxRMJqn8zVOuEVFwmlUX4aQ
+         pLnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=rkaKEddB9W8m9YmnP9LSKX9pvJGI8sfW8lhad5S/zkI=;
-        b=pPm/MNeU9jiYWkmPsMak1pEaJymai8NqgjQJVU7Z/NvzHbKS6iD8cd2aq5cnD9QsZB
-         UOXluSWd42hs+gl43mbIrj0fY0pTsBkEEqzfx1EPqxLyndwFcGFrdEtn5ROZlHKqpufN
-         nxrCQvdtKhLlUen3f7HG77WsUYUZapEunUnFfhydn+I8AgUo50EM7WR+CgUAoe0Use5R
-         ApX66dgBAMY6jnxt12jRY/DHIN0To2ECdwFfaMVURrZWFQcQaFtAyjnmbvTKWWDZxBot
-         o/gUFd4pEaUldttgq9uCmQkv4Kf9lXPVdXTtUJf0hmixcSYK2OQg7SC9SS745ZvisvgW
-         MKog==
-X-Gm-Message-State: AOAM531/QU50GF8Ue3n4NE9Cd+jNIjI3+Rdtsegts9vF8SC9hcDPwHiL
-        0J3QAmvFVt3w/Ip4Ff5qNaA=
-X-Google-Smtp-Source: ABdhPJy3xbzozbw5GiO+c79mZD6bOaMIMw7+vk0yff6hePUBPF2YXQ68FOeVi9KoyMlpm/NNRH/Bcg==
-X-Received: by 2002:a17:90a:b795:: with SMTP id m21mr17953049pjr.143.1628391794185;
-        Sat, 07 Aug 2021 20:03:14 -0700 (PDT)
-Received: from [192.168.1.71] (122-61-176-117-fibre.sparkbb.co.nz. [122.61.176.117])
-        by smtp.gmail.com with ESMTPSA id b12sm15909490pff.63.2021.08.07.20.03.11
+        bh=UY3UnF8swrE9a2YQJ/iktfOEYttWRMxMnEZWZ6UOTvU=;
+        b=sK3k9c4YSEunnPOuQL9lZKR0Lnvc7yDoKdShBpLIItF09nwNorOgJSKB3WWxDiOQdN
+         GhUB1K56vM5Pq66/Lv7grYfwTZfhwz6/2ZuL3UUy7u6sF/0eZbjuEMQMA3m7/NeaIq0X
+         DTRSRZ+YfDM2KVJbVWED+0+ObiVtTkA1XWe5Twl+JT7hL5u7XeDLmX1HbaUj78jWBb7V
+         zOCulor2j2HkE/FOI5mhl33IRxvG/yOhzNTApmx0I/xOFJzdXBeodX6jMxLvI6j9Lsse
+         01+G7jjg6wMtKzx+oeW3adoV4y0PptlL1aNTpJtUU8vSBgR+WHvrvLxNYEgVFn65TD6S
+         2tkA==
+X-Gm-Message-State: AOAM532kqFaOpzubpdpIBahm1stlGuSiwHykp0+7TWgi5rCWWnzVoF0Q
+        Gzx7D3YY01yT89okW2NBtzw=
+X-Google-Smtp-Source: ABdhPJySqNK9ruVEcqAwSALjZBb80nFzAtjavMcJiJqqbbtnkb37KZiuIHP/0lu5a/hEO3VQtQn9ug==
+X-Received: by 2002:a05:600c:2298:: with SMTP id 24mr10909721wmf.62.1628411195994;
+        Sun, 08 Aug 2021 01:26:35 -0700 (PDT)
+Received: from [10.8.0.10] ([195.53.121.100])
+        by smtp.gmail.com with ESMTPSA id o2sm13892518wmq.30.2021.08.08.01.26.34
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 07 Aug 2021 20:03:13 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        Kir Kolyshkin <kolyshkin@gmail.com>
-Subject: Re: [PATCH 15/32] capabilities.7: Minor tweaks to Kir's patch
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-References: <20210728202008.3158-1-alx.manpages@gmail.com>
- <20210728202008.3158-16-alx.manpages@gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <8f16bcb4-99c4-aeab-8f32-42c8b2be1016@gmail.com>
-Date:   Sun, 8 Aug 2021 05:03:09 +0200
+        Sun, 08 Aug 2021 01:26:35 -0700 (PDT)
+Subject: Re: [PATCH v2] ioctl_tty.2: Fix information about header include file
+To:     =?UTF-8?Q?Pali_Roh=c3=a1r?= <pali@kernel.org>
+Cc:     =?UTF-8?Q?Marek_Beh=c3=ban?= <kabel@kernel.org>,
+        libc-alpha@sourceware.org,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        linux-man@vger.kernel.org, Michael Kerrisk <mtk.manpages@gmail.com>
+References: <20210730105353.10424-1-pali@kernel.org>
+ <20210730130537.18863-1-pali@kernel.org>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Message-ID: <3d927d3c-67a1-bb48-b597-44c87b8f715a@gmail.com>
+Date:   Sun, 8 Aug 2021 10:26:33 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <20210728202008.3158-16-alx.manpages@gmail.com>
-Content-Type: text/plain; charset=utf-8
+In-Reply-To: <20210730130537.18863-1-pali@kernel.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-[CC += Kir]
+Hi Pali,
 
-Hi Alex,
+On 7/30/21 3:05 PM, Pali Rohár wrote:
+> Header file termios.h contains incompatible definitions for linux ioctl
+> calls. Correct definitions are exported by header file linux/termios.h but
+> this file conflicts with sys/ioctl.h header file (required for ioctl()
+> call). Therefore include direct asm header file asm/termbits.h which
+> contains compatible definitions and structures for ioctl calls.
 
-On 7/28/21 10:19 PM, Alejandro Colomar wrote:
-> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
-> ---
->  man7/capabilities.7 | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/man7/capabilities.7 b/man7/capabilities.7
-> index 2f9c9a61e..4d08545ed 100644
-> --- a/man7/capabilities.7
-> +++ b/man7/capabilities.7
-> @@ -353,8 +353,9 @@ Set arbitrary capabilities on a file.
->  .\" commit db2e718a47984b9d71ed890eb2ea36ecf150de18
->  Since Linux 5.12, this capability is
->  also needed to map uid 0 (as in
-> -.BR unshare\ -Ur ,
-> -.RB see unshare (1).
-> +.IR "unshare -Ur" ,
-> +see
-> +.BR unshare (1).
->  .TP
->  .B CAP_SETPCAP
->  If file capabilities are supported (i.e., since Linux 2.6.24):
-
-Good. But still a few other things to fix. See my patch below.
+No one screamed so far, so I was going to apply this one, but I just 
+noticed a minor formatting issue; see below.
 
 Thanks,
 
-Michael
+Alex
 
-diff --git a/man7/capabilities.7 b/man7/capabilities.7
-index 4d08545ed..88dc61e29 100644
---- a/man7/capabilities.7
-+++ b/man7/capabilities.7
-@@ -352,10 +352,10 @@ Set arbitrary capabilities on a file.
- .IP
- .\" commit db2e718a47984b9d71ed890eb2ea36ecf150de18
- Since Linux 5.12, this capability is
--also needed to map uid 0 (as in
--.IR "unshare -Ur" ,
-+also needed to map UID 0 (as in
-+.IR "unshare \-Ur" ;
- see
--.BR unshare (1).
-+.BR unshare (1)).
- .TP
- .B CAP_SETPCAP
- If file capabilities are supported (i.e., since Linux 2.6.24):
-diff --git a/man7/user_namespaces.7 b/man7/user_namespaces.7
-index 3378b6057..e35c950ca 100644
---- a/man7/user_namespaces.7
-+++ b/man7/user_namespaces.7
-@@ -578,8 +578,8 @@ The mapped user IDs (group IDs) must in turn have a mapping
- in the parent user namespace.
- .IP 4.
- .\" commit db2e718a47984b9d71ed890eb2ea36ecf150de18
--If a writing process is root (i.e. UID 0) trying to map host user ID 0,
--it must have
-+If a writing process is root (i.e., UID 0) trying to map host user ID 0,
-+it must have the
- .B CAP_SETFCAP
- capability (since Linux 5.12).
- .IP 5.
+> 
+> Signed-off-by: Pali Rohár <pali@kernel.org>
+> 
+> ---
+> Changes in v2:
+> * Reformat SYNOPSIS for 80 chars per line
+> ---
+>   man2/ioctl_tty.2 | 19 +++++++++++++++++--
+>   1 file changed, 17 insertions(+), 2 deletions(-)
+> 
+> diff --git a/man2/ioctl_tty.2 b/man2/ioctl_tty.2
+> index 771a9a470bf0..ecbae4f887c4 100644
+> --- a/man2/ioctl_tty.2
+> +++ b/man2/ioctl_tty.2
+> @@ -11,8 +11,10 @@ ioctl_tty \- ioctls for terminals and serial lines
+>   .SH SYNOPSIS
+>   .nf
+>   .B #include <sys/ioctl.h>
+> -.BR "#include <termios.h>" "      /* Definition of " CLOCAL ", and"
+> -.BR    "                             TC*" { FLUSH , ON , OFF "} constants */"
+> +.BR "#include <asm/termbits.h>" "   /* Definition of " "struct termios" ,
+> +.BR    "                               struct termios2" ", and"
+> +.BR    "                               Bnn" ", " BOTHER ", " CBAUD ", " CLOCAL ,
+> +.BR    "                               TC*" { FLUSH , ON , OFF "} and other constants */"
+>   .PP
+>   .BI "int ioctl(int " fd ", int " cmd ", ...);"
+>   .fi
+> @@ -31,6 +33,19 @@ makes for nonportable programs.
+>   Use the POSIX interface described in
+>   .BR termios (3)
+>   whenever possible.
+> +.PP
+> +Please note that
+> +.B struct termios
+> +from
+> +.B #include <asm/termbits.h>
+
+Instead, just (with no "#include"):
+
+.I <asm/termbits.h>
+
+See man-pages(7):
+    Formatting conventions (general)
+        [...]
+
+        Filenames  (whether  pathnames,  or  references  to  header
+        files) are always in italics (e.g., <stdio.h>),  except  in
+        the  SYNOPSIS  section,  where  included  files are in bold
+        (e.g., #include <stdio.h>).  When referring to  a  standard
+        header  file include, specify the header file surrounded by
+        angle brackets, in the usual C way (e.g., <stdio.h>).
 
 
+> +is different and incompatible with
+> +.B struct termios
+> +from
+> +.BR "#include <termios.h>" .
+
+ditto
+
+> +These ioctl calls require
+> +.B struct termios
+> +from
+> +.BR "#include <asm/termbits.h>" .
+
+ditto
+
+>   .SS Get and set terminal attributes
+>   .TP
+>   .B TCGETS
+> 
 
 
 -- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
