@@ -2,196 +2,224 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2238B3E3CE9
-	for <lists+linux-man@lfdr.de>; Sun,  8 Aug 2021 23:34:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B55403E3CF1
+	for <lists+linux-man@lfdr.de>; Mon,  9 Aug 2021 00:11:46 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232670AbhHHVek (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 8 Aug 2021 17:34:40 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43642 "EHLO
+        id S229903AbhHHWMD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 8 Aug 2021 18:12:03 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51572 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232674AbhHHVej (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 8 Aug 2021 17:34:39 -0400
-Received: from mail-pj1-x102e.google.com (mail-pj1-x102e.google.com [IPv6:2607:f8b0:4864:20::102e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 430B3C061760
-        for <linux-man@vger.kernel.org>; Sun,  8 Aug 2021 14:34:19 -0700 (PDT)
-Received: by mail-pj1-x102e.google.com with SMTP id j18-20020a17090aeb12b029017737e6c349so17565815pjz.0
-        for <linux-man@vger.kernel.org>; Sun, 08 Aug 2021 14:34:19 -0700 (PDT)
+        with ESMTP id S229662AbhHHWMD (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 8 Aug 2021 18:12:03 -0400
+Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com [IPv6:2607:f8b0:4864:20::102a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 96CCAC061760
+        for <linux-man@vger.kernel.org>; Sun,  8 Aug 2021 15:11:43 -0700 (PDT)
+Received: by mail-pj1-x102a.google.com with SMTP id u5-20020a17090ae005b029017842fe8f82so17818126pjy.0
+        for <linux-man@vger.kernel.org>; Sun, 08 Aug 2021 15:11:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=vJkWXpbr/7tmLno6JB3Dibyv+Wf11Uy3zwuNXaDUtbE=;
-        b=LbsKKGyiyJ7/ryJneVGID4T9ziNzZoZXnGJjIsDOHACrzMLv2z6laTgMV/DRMcydll
-         15uqZPXPgEifelWUrd1s7kwSAhxJmMojlxsTTnkrTbkOispGyjRiTjoPT+7ptK+QUMx3
-         G0WXUiGYn5rdPbY2DhbDExtDFjFjjhRKrGvQChtf0W8bBrb7a7cjDd3LsF9kIkexapUE
-         MbSs5Nh99+wr9HiVIxUcvlplg81qL5vHuJEufRg38L2xErNFnSEwQyDRC6sWrKRbw7kw
-         DZaudFFQ0MbfZsql5TbRIM5T99+9/JWl/GvXBVahUKRzOd/Rbn7ep/b3BIb8KVlKTepx
-         heaw==
+        bh=jcZdNQ77mjgfOvNNH+aefAL5pV7VR/nQ1H2/98iFf2k=;
+        b=GO9mzGHkphSu3/WbdBLEfdgaqpwsEmhkbZcE4hZgcMQLvG4s0onwDirS2AvvaV3N4C
+         5ZivVBYYqqJ3hWAjEZ24rfNqmEb7RNASBsLxEcw2F1QkgjxuLuCDVHKM02mX7sxoO5Ri
+         6kxA5o//JMF+ZZIjbQyDdwT4w5IYE9QPOIhKWyE4MAOez42vpLgJy79gFUFq9PRzI0yG
+         hNL1/vcNfCYFD2bQlKchj37etwsguU4rT3kQlLwih+TNi8LqlVm8PgprIIMpkxBTmdYW
+         1N+pqUTGhlFPOeyJ8xcpn0cgblpnZgoc3Lx6+NF3S3XlAkT1V3QPou/OH8P1Ae67aSlQ
+         NXww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=vJkWXpbr/7tmLno6JB3Dibyv+Wf11Uy3zwuNXaDUtbE=;
-        b=mTa+Yh/nXJWRRPJFTsAoDHuqBtQC35IDqoiE3Gf6HnQ5XS682KHX0aWglPu62EeuQr
-         pR9gjmRsvNNms+eTS+bM3BTJ/4vp6lBPtBqbbjzfyCgXevN2xv474GQWvyWIdOw7JJuk
-         ww0HQkpfABJWCgHcSPaMWXEyiHORdcho7vi9RLvHtK+EEGus9DSUL5Ruia2mfOAjxWlu
-         /peVsn2StQ8LMsBE0NIkAUpVuqwOLuXBrbx7sNnr4Ryi4xdlZ4LDrPIFjneufOolx0wo
-         gv0fmt6M8bxkwo31qLNwfZAJTlEayQDn1SxT47R+fOk1d4RNV/rBiyTYysOBvGsB3pO4
-         FOdw==
-X-Gm-Message-State: AOAM530HO+gfFGJrF7wX1OgmN4ocqdCdunatEhciRB2ajAgguK/l+JG2
-        7UMAsHSdP7lcCbHhBhzl+yAhJ0b9DYM=
-X-Google-Smtp-Source: ABdhPJx33fq9cfLpvW74hW/JmLWbQrjjPd3jlR+VYnQFKrW38ZAO7/5YjzpMTPKhIUNBk0P8v4+pVw==
-X-Received: by 2002:a17:902:dac9:b029:12c:c84a:ce2b with SMTP id q9-20020a170902dac9b029012cc84ace2bmr17808104plx.4.1628458458627;
-        Sun, 08 Aug 2021 14:34:18 -0700 (PDT)
+        bh=jcZdNQ77mjgfOvNNH+aefAL5pV7VR/nQ1H2/98iFf2k=;
+        b=a37YSbgiTUbF1iyNyQFzFHJx9ZuzS1aniOcZk/vZq6w9gigeCp6jUiZpPkcSe6FT7C
+         AUlHK2OD1IqaDrNGIebDNfdmtE8jz622kN3/J6G0Cuxr9M0iOjUrpAUGGgOBkdFOsg+W
+         YHAdKUsKRnMACD1OsPoSy3Uj4NWca8wSCUrRDC3NInHawZJmJXj5+FcPgL22SgOuqe2N
+         EOFDX4mBB5ibDfU2ZX2FE7WYrOv6YuSvBfaGBRLwSYVYDWBmmHoQP5CGxchZQyNnpPdS
+         C2SpBtJ8zURmaMIpzlBVtdFvBaS+jZVSZBUfzG5JT4MfkoT/f9cdTpOslBZC4voOkstS
+         cBWw==
+X-Gm-Message-State: AOAM530Hlu9QjCqhn3xUVN2nnDIf6urFleYkDzKGRj1Fn7TTpDYBVWjb
+        UvR/zF+nx8zBLFH7syVi29/zbQYwW6o=
+X-Google-Smtp-Source: ABdhPJzJphLQRhInDYR51/Vs6Szhdl45jyFKVgEV9hFvwRKjKEXy5H08WTqtEmc679ioz4navAdQPw==
+X-Received: by 2002:a63:4c03:: with SMTP id z3mr319857pga.130.1628460702749;
+        Sun, 08 Aug 2021 15:11:42 -0700 (PDT)
 Received: from [192.168.1.71] (122-61-176-117-fibre.sparkbb.co.nz. [122.61.176.117])
-        by smtp.gmail.com with ESMTPSA id a2sm4550096pgb.19.2021.08.08.14.34.16
+        by smtp.gmail.com with ESMTPSA id g11sm15789942pju.13.2021.08.08.15.11.39
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 08 Aug 2021 14:34:18 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH 00/32] Patches from others
+        Sun, 08 Aug 2021 15:11:41 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, "James O. D. Hunt" <jamesodhunt@gmail.com>,
+        linux-man@vger.kernel.org
+Subject: Re: [PATCH 10/23] getopt.3: Further clarification of optstring
 To:     Alejandro Colomar <alx.manpages@gmail.com>
-References: <20210728202008.3158-1-alx.manpages@gmail.com>
+References: <20210808084133.734274-1-alx.manpages@gmail.com>
+ <20210808084133.734274-11-alx.manpages@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <24704e97-8302-8d8a-43e7-8c4e23620db2@gmail.com>
-Date:   Sun, 8 Aug 2021 23:34:14 +0200
+Message-ID: <eb5b8342-f6b6-86a2-7d0d-f7729996b128@gmail.com>
+Date:   Mon, 9 Aug 2021 00:11:37 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <20210728202008.3158-1-alx.manpages@gmail.com>
+In-Reply-To: <20210808084133.734274-11-alx.manpages@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 7/28/21 10:19 PM, Alejandro Colomar wrote:
-> Hi Michael,
+Hello James and Alex,
+
+On 8/8/21 10:41 AM, Alejandro Colomar wrote:
+> From: "James O. D. Hunt" <jamesodhunt@gmail.com>
 > 
-> Here is a patch set including patches from others, patches of mine fixing
-> bug reports of others, tweaks to others' patches, and small patches of mine.
+> Explain that `optstring` cannot contain a semi-colon (`;`) character.
 > 
-> I resent in this patch set all the patches that I sent a few weeks ago,
-> so you can ignore any older threads of mine.
+> Also explain that `optstring` can include `+` as an option character,
+> possibly in addition to that character being used as the first character
+> in `optstring` to denote `POSIXLY_CORRECT` behaviour.
+> 
+> Signed-off-by: James O. D. Hunt <jamesodhunt@gmail.com>
+> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+> ---
+>  man3/getopt.3 | 10 +++++++++-
+>  1 file changed, 9 insertions(+), 1 deletion(-)
+> 
+> diff --git a/man3/getopt.3 b/man3/getopt.3
+> index ce4c28088..315224c64 100644
+> --- a/man3/getopt.3
+> +++ b/man3/getopt.3
+> @@ -130,7 +130,7 @@ A legitimate option character is any visible one byte
+>  .BR ascii (7)
+>  character (for which
+>  .BR isgraph (3)
+> -would return nonzero) that is not \(aq\-\(aq or \(aq:\(aq.
+> +would return nonzero) that is not \(aq\-\(aq, \(aq:\(aq  or \(aq;\(aq.
+>  If such a
+>  character is followed by a colon, the option requires an argument, so
+>  .BR getopt ()
+> @@ -166,6 +166,14 @@ If the first character of
+>  .B POSIXLY_CORRECT
+>  is set, then option processing stops as soon as a nonoption argument is
+>  encountered.
+> +If \(aq+\(aq is not the first character of
+> +.IR optstring ,
+> +it is treated as a normal option.
+> +If
+> +.B POSIXLY_CORRECT
+> +behaviour is required in this case
+> +.I optstring
+> +will contain two \(aq+\(aq symbols.
+>  If the first character of \fIoptstring\fP is \(aq\-\(aq, then
+>  each nonoption \fIargv\fP-element is handled as if it were the argument of
+>  an option with character code 1.  (This is used by programs that were
 
-Hi Alex,
+Thanks. The patch is good and I applied it
 
-I think I've now dealt with all of tese, except for two 
-that you reposted in a following series.
+@James: it would be helpful to explain in the commit
+message how you verified these details.
 
-Thanks for taking care of all of these patches!
+@Alex: do not be shy of asking people to improve there commit
+messages in this way :-).
+
+See my modified commit message below.
 
 Cheers,
 
 Michael
 
-> --
-> 
-> 
-> Alejandro Colomar (11):
->   readv.2: Minor tweaks to Will's patch
->   vdso.7: Remove outdated limitation for powerpc
->   vdso.7: Add y2038 compliant gettime for ppc/32
->   posixoptions.7: Fix legacy functions list (s/getcwd/getwd/)
->   printf.3: wfix
->   futex.2: Minor tweaks to Kurt's patch
->   capabilities.7: Minor tweaks to Kir's patch
->   seccomp_unotify.2: Minor tweaks to Rodrigo's patch
->   strstr.3: Add special case for empty needle
->   sigaction.2: Apply minor tweaks to Peter's patch
->   strlen.3, wcslen.3: Add recommendations for safer variants
-> 
-> Dan Robertson (1):
->   man2/fallocate.2: tfix documentation of shared blocks
-> 
-> Jakub Wilk (3):
->   seccomp_unotify.2: tfix
->   proc.5: tfix
->   scripts/bash_aliases: tfix
-> 
-> Kir Kolyshkin (3):
->   capabilities.7: tfix
->   user_namespaces.7: fix a ref
->   capabilities.7, user_namespaces.7: describe CAP_SETFCAP
-> 
-> Kurt Kanzenbach (1):
->   futex.2: Document FUTEX_LOCK_PI2
-> 
-> Peter Collingbourne (1):
->   sigaction.2: Document SA_EXPOSE_TAGBITS and the flag support detection
->     protocol
-> 
-> Richard Palethorpe (1):
->   wait.2: Add ESRCH for when pid == INT_MIN
-> 
-> Rodrigo Campos (1):
->   seccomp_unotify.2: Add doc for SECCOMP_ADDFD_FLAG_SEND
-> 
-> Sagar Patel (1):
->   tkill.2: tfix
-> 
-> Shawn Landden (1):
->   execve.2: Fix absolute/relative pathname
-> 
-> Thomas Voss (1):
->   Various pages: Consistently use '*argv[]'
-> 
-> Viet Than (1):
->   time.2: wfix regarding year-2038
-> 
-> Will Manley (1):
->   readv2: Note preadv2(..., RWF_NOWAIT) bug in BUGS section
-> 
-> kXuan (1):
->   recv.2: tfix
-> 
-> Štěpán Němec (2):
->   path_resolution.7: tfix
->   namespaces.7: fix confusion caused by text reorganization
-> 
-> наб (2):
->   ascii.7: add vertical rule to separate the two columns
->   pipe.7: also mention writev(2) in atomicity sexion
-> 
->  man2/bpf.2                |   2 +-
->  man2/copy_file_range.2    |   2 +-
->  man2/execve.2             |   9 ++-
->  man2/fallocate.2          |   2 +-
->  man2/futex.2              | 110 +++++++++++++++++++++----------
->  man2/membarrier.2         |   4 +-
->  man2/perf_event_open.2    |   2 +-
->  man2/readv.2              |  11 +++-
->  man2/recv.2               |   2 +-
->  man2/seccomp.2            |   2 +-
->  man2/seccomp_unotify.2    |  30 ++++++++-
->  man2/sigaction.2          | 133 ++++++++++++++++++++++++++++++++++++++
->  man2/time.2               |   2 +-
->  man2/tkill.2              |   2 +-
->  man2/wait.2               |   9 +++
->  man3/bsearch.3            |   2 +-
->  man3/getopt.3             |   2 +-
->  man3/getsubopt.3          |   2 +-
->  man3/printf.3             |   2 +-
->  man3/pthread_setname_np.3 |   2 +-
->  man3/strlen.3             |   6 ++
->  man3/strstr.3             |   8 +++
->  man3/wcslen.3             |   9 ++-
->  man3/wordexp.3            |   2 +-
->  man5/proc.5               |   2 +-
->  man7/ascii.7              |   2 +-
->  man7/capabilities.7       |   9 ++-
->  man7/fanotify.7           |   2 +-
->  man7/namespaces.7         |   4 +-
->  man7/path_resolution.7    |   2 +-
->  man7/pipe.7               |   2 +
->  man7/posixoptions.7       |   2 +-
->  man7/user_namespaces.7    |   8 ++-
->  man7/vdso.7               |  27 +-------
->  scripts/bash_aliases      |   2 +-
->  35 files changed, 330 insertions(+), 89 deletions(-)
-> 
+    getopt.3: Further clarification of optstring
+    
+    Explain that `optstring` cannot contain a semi-colon (`;`)
+    character.
+    [mtk: verfiried with a small test program; see also posix/getopt.c
+    in the glibc sources:
+    
+        if (temp == NULL || c == ':' || c == ';')
+          {
+            if (print_errors)
+              fprintf (stderr, _("%s: invalid option -- '%c'\n"), argv[0], c);
+            d->optopt = c;
+            return '?';
+          }
+    ]
+    
+    Also explain that `optstring` can include `+` as an option
+    character, possibly in addition to that character being used as
+    the first character in `optstring` to denote `POSIXLY_CORRECT`
+    behaviour.
+    [mtk: verified with a small test program.]
+    
+    Test program below. Example runs:
+    
+    $ ./a.out -+
+    opt = 43 (+); optind = 2
+    Got plus
+    $ ./a.out -';'
+    ./a.out: invalid option -- ';'
+    opt = 63 (?); optind = 2; optopt = 59 (;)
+    Unrecognized option (-;)
+    Usage: ./a.out [-p arg] [-x]
+    
+    Signed-off-by: James O. D. Hunt <jamesodhunt@gmail.com>
+    Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+    Signed-off-by: Michael Kerrisk <mtk.manpages@gmail.com>
+    
+    8x---8x---8x---8x---8x---8x---8x---8x---8x---8x---8x---
+    #include <ctype.h>
+    #include <sys/types.h>
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <unistd.h>
+    
+    #define printable(ch) (isprint((unsigned char) ch) ? ch : '#')
+    
+    static void             /* Print "usage" message and exit */
+    usageError(char *progName, char *msg, int opt)
+    {
+        if (msg != NULL && opt != 0)
+            fprintf(stderr, "%s (-%c)\n", msg, printable(opt));
+        fprintf(stderr, "Usage: %s [-p arg] [-x]\n", progName);
+        exit(EXIT_FAILURE);
+    }
+    
+    int
+    main(int argc, char *argv[])
+    {
+        int opt, xfnd;
+        char *pstr;
+    
+        xfnd = 0;
+        pstr = NULL;
+    
+        while ((opt = getopt(argc, argv, "p:x+;")) != -1) {
+            printf("opt =%3d (%c); optind = %d", opt, printable(opt), optind);
+            if (opt == '?' || opt == ':')
+                printf("; optopt =%3d (%c)", optopt, printable(optopt));
+            printf("\n");
+    
+            switch (opt) {
+            case 'p': pstr = optarg;                break;
+            case 'x': xfnd++;                       break;
+            case ';': printf("Got semicolon\n");    break;
+            case '+': printf("Got plus\n"); break;
+            case ':': usageError(argv[0], "Missing argument", optopt);
+            case '?': usageError(argv[0], "Unrecognized option", optopt);
+            default:
+                      printf("Unexpected case in switch()\n");
+                      exit(EXIT_FAILURE);
+            }
+        }
 
+        if (xfnd != 0)
+            printf("-x was specified (count=%d)\n", xfnd);
+        if (pstr != NULL)
+            printf("-p was specified with the value \"%s\"\n", pstr);
+        if (optind < argc)
+            printf("First nonoption argument is \"%s\" at argv[%d]\n",
+                    argv[optind], optind);
+        exit(EXIT_SUCCESS);
+    }
 
 -- 
 Michael Kerrisk
