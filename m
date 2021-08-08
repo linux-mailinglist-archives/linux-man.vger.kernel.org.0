@@ -2,65 +2,67 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 046863E37F8
-	for <lists+linux-man@lfdr.de>; Sun,  8 Aug 2021 04:22:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C142F3E37FA
+	for <lists+linux-man@lfdr.de>; Sun,  8 Aug 2021 04:25:28 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229974AbhHHCWx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 7 Aug 2021 22:22:53 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48620 "EHLO
+        id S229951AbhHHCZq (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 7 Aug 2021 22:25:46 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49220 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229882AbhHHCWx (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 7 Aug 2021 22:22:53 -0400
-Received: from mail-pl1-x62c.google.com (mail-pl1-x62c.google.com [IPv6:2607:f8b0:4864:20::62c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 78511C061760
-        for <linux-man@vger.kernel.org>; Sat,  7 Aug 2021 19:22:34 -0700 (PDT)
-Received: by mail-pl1-x62c.google.com with SMTP id d17so12553682plr.12
-        for <linux-man@vger.kernel.org>; Sat, 07 Aug 2021 19:22:34 -0700 (PDT)
+        with ESMTP id S229882AbhHHCZp (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 7 Aug 2021 22:25:45 -0400
+Received: from mail-pj1-x1030.google.com (mail-pj1-x1030.google.com [IPv6:2607:f8b0:4864:20::1030])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 511B6C061760
+        for <linux-man@vger.kernel.org>; Sat,  7 Aug 2021 19:25:26 -0700 (PDT)
+Received: by mail-pj1-x1030.google.com with SMTP id mq2-20020a17090b3802b0290178911d298bso996207pjb.1
+        for <linux-man@vger.kernel.org>; Sat, 07 Aug 2021 19:25:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=u8QmCXrj3GbGFpSq7ueLgeyCdeEOI2RF92JzCT+0z5Y=;
-        b=E+/OMmLA/ilYSeW/xjHqoZ424+264UdrBfxhUu5L9J0lNNQNTmw+W3VOyDll6RDpkn
-         LFrxw3HWbKis1JPAmLdgX1hpYP4jQXXasXeTO2ewme2P31+kQlsZYvXhyow8Hor9jaXB
-         fAGzn6vIvq0rqoQDyFtrpQYhBoDyaCVSlGe+h9J0pyPScsWAn1SlFQ2A6L/JOZYpgaee
-         9EnW1d8M//AI2uSElw9z4HxjLSg4/2cUlK4Wr3E/xOEGmsxRSKQLUy3HfPkBmTWurNX8
-         5EevtiYT36WGEli5HJ5+NQeVzTfLKZjLY2ynx9HEmkixK1V/jFyKqsFS4JwdAUyQ8CJW
-         p6sw==
+        bh=fqONjUnEGBChabuJoBPQhPppsF6IyFDSjgM30W40HMY=;
+        b=C8An1yLNwD0K/rDHsMOwFdbhXVXIxN2q/3rYGJ0qX+Snt+XrjtadeAq40/Ejv9AdBG
+         IeKz0RPY1+0WV/iU9RQwiG91CcpejhvTiXJhH779BzNWPPly5jQrXURWhLrN/oOr6sVT
+         X8CKcrKPbXvlI2UivFeYlY4pJoACoEPi7pvadrmU2WbvkLa5JFTvVuzJqqjH71uKUmT3
+         +pSvdhHOHvuKRRzEMT+ePm+/wJ8PY7qckTtz9OMj5UqLvITAJTbv84flQIKhdoYqQk1b
+         Z3plMwZpCRu3Dd8nX7QsIQqQVW5OradHUiSJj1qmXOyefMCtIqNzdIDn7nXX8Rjc0CBx
+         BmJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=u8QmCXrj3GbGFpSq7ueLgeyCdeEOI2RF92JzCT+0z5Y=;
-        b=Xa4A/cRxETba1QuEo1pwNEhLYHRFzRXch27RcWqIv+1Inkt0rLk3k1NLPTIvRcbFRE
-         LS6f1WYd38eFcpxkes22HlbstJIz4gA5scXkQhYrr30ulpzxECMn0NPGBsSgQSH+iTeY
-         lLHGT34LVELHlBaGcF+qYzWpr+TgMrP7tZs46whi1ha29sZ5xG2d2p9ajxi/BwaubKyW
-         5b50cdljaBIOCK+wqlWmO4j3UHJwOEPFTlO4RbcOp03srEmwgaT3rLYme/HwymH8dgK7
-         WMSQ1beziBJwggdnUFg7SVAqlNrDwwNzahuBgp2V6YuLTNQf3WE4HKSDU+0+C9tybVWy
-         JAUg==
-X-Gm-Message-State: AOAM532cL+2gyUuSxOfxg3lhR76/ZNvXin7+QNl3KKMQlwIh3BUZP6EW
-        kM5qQ5WNawJNauuTWcTd7Nk=
-X-Google-Smtp-Source: ABdhPJyTVM1aKCMIfrjQddF6Iq2a+PkxE6bvyxRIdl89LQLHb7+eGJOYO6XNxlRoB6mJ+VCFH6jluA==
-X-Received: by 2002:aa7:8b07:0:b029:2f7:d38e:ff1 with SMTP id f7-20020aa78b070000b02902f7d38e0ff1mr17836370pfd.72.1628389353914;
-        Sat, 07 Aug 2021 19:22:33 -0700 (PDT)
+        bh=fqONjUnEGBChabuJoBPQhPppsF6IyFDSjgM30W40HMY=;
+        b=ImkYachtHe9xM0ADibuc/08oDBTmaeAwm72mnmQTKeXGiTpz/B9YtcSY025jqJgWfj
+         Lgt1ISRfmW4EYkzkZu1e9UYuJmcRomgAd1BT9hx+WmFt5EfKxYOTWqjUFb03gjgMwEtJ
+         ieR58vh8dgnmROpgiQdQqskRmJ8FrAT4sz139qmcP8y+9A49dzcjUHh5Hde20yiNTm0w
+         YNW/NJkX2b0qxhNI1gYGBVs5Rwxj+L5av+Ah/DrS39hX13mo8ZrIJsIuIcejuUjdHYZJ
+         8kLecmeMmmSX6d6pDCSqORfhShL/Bnoda/PbDHQLO9HSxef4e7LPIwbcI/mNAjjnD0b2
+         dZZQ==
+X-Gm-Message-State: AOAM5305UOj2FIgLNcb5evZXb7KsvubgREmzZRnQB3QsVcjmypvypz6p
+        JJPATVwvYdJfsJYWMcc+c3A=
+X-Google-Smtp-Source: ABdhPJwS5+ghOwgUVzfO/AyJpelp5+5/0SdrjDTi/QHVIwL0EUBOnonZw2IECjaEMM5e15zBjM9GRw==
+X-Received: by 2002:aa7:800e:0:b029:3a9:e527:c13 with SMTP id j14-20020aa7800e0000b02903a9e5270c13mr12141677pfi.42.1628389525753;
+        Sat, 07 Aug 2021 19:25:25 -0700 (PDT)
 Received: from [192.168.1.71] (122-61-176-117-fibre.sparkbb.co.nz. [122.61.176.117])
-        by smtp.gmail.com with ESMTPSA id y23sm16730472pgf.38.2021.08.07.19.22.31
+        by smtp.gmail.com with ESMTPSA id b10sm15144796pfi.122.2021.08.07.19.25.23
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 07 Aug 2021 19:22:33 -0700 (PDT)
+        Sat, 07 Aug 2021 19:25:25 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
         Christophe Leroy <christophe.leroy@csgroup.eu>
 Subject: Re: [PATCH 04/32] vdso.7: Add y2038 compliant gettime for ppc/32
-To:     Alejandro Colomar <alx.manpages@gmail.com>
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
 References: <20210728202008.3158-1-alx.manpages@gmail.com>
  <20210728202008.3158-5-alx.manpages@gmail.com>
+ <3d1a8bda-d23f-7254-d919-f604cc57e4bd@gmail.com>
+ <a5302bde-b859-3a67-beba-12ebd0dec7d5@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <90325d9f-ca47-cecb-c883-4e097bd63213@gmail.com>
-Date:   Sun, 8 Aug 2021 04:22:29 +0200
+Message-ID: <94f2b9f2-535b-4765-5a19-6f611a1aaa41@gmail.com>
+Date:   Sun, 8 Aug 2021 04:25:21 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <20210728202008.3158-5-alx.manpages@gmail.com>
+In-Reply-To: <a5302bde-b859-3a67-beba-12ebd0dec7d5@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -70,48 +72,96 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Hi Alex,
 
-On 7/28/21 10:19 PM, Alejandro Colomar wrote:
-> Christophe Leroy via Bugzilla:
+On 8/8/21 3:01 AM, Alejandro Colomar (man-pages) wrote:
+> Hello Michael,
 > 
-> [
-> https://man7.org/linux/man-pages/man7/vdso.7.html (2021-03-22)
+> On 8/8/21 2:48 AM, Michael Kerrisk (man-pages) wrote:
+>> Hello Alex
+>>
+>> Again, let us add the bug in the commit message:
+>>
+>> https://bugzilla.kernel.org/show_bug.cgi?id=213421
 > 
-> In ppc32 functions section, the Y2038 compliant function
-> __kernel_clock_gettime64() is missing.
+> Sure.
 > 
-> It was added by commit d0e3fc69d00d
-> ("powerpc/vdso: Provide __kernel_clock_gettime64() on vdso32")
-> ]
+>>
+>> I have not yet applied this. See below.
+>>
+>> On 7/28/21 10:19 PM, Alejandro Colomar wrote:
+>>> Christophe Leroy via Bugzilla:
+>>>
+>>> [
+>>> https://man7.org/linux/man-pages/man7/vdso.7.html (2021-03-22)
+>>>
+>>> In ppc32 functions section, the Y2038 compliant function
+>>> __kernel_clock_gettime64() is missing.
+>>>
+>>> It was added by commit d0e3fc69d00d
+>>> ("powerpc/vdso: Provide __kernel_clock_gettime64() on vdso32")
+>>> ]
+>>>
+>>> .../linux$ git describe d0e3fc69d00d
+>>> v5.10-rc2-76-gd0e3fc69d00d
+>>>
+>>> Reported-by: Christophe Leroy <christophe.leroy@csgroup.eu>
+>>> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+>>> ---
+>>>   man7/vdso.7 | 1 +
+>>>   1 file changed, 1 insertion(+)
+>>>
+>>> diff --git a/man7/vdso.7 b/man7/vdso.7
+>>> index 1d527c38e..5fb22ab5e 100644
+>>> --- a/man7/vdso.7
+>>> +++ b/man7/vdso.7
+>>> @@ -371,6 +371,7 @@ symbol	version
+>>>   _
+>>>   __kernel_clock_getres	LINUX_2.6.15
+>>>   __kernel_clock_gettime	LINUX_2.6.15
+>>> +__kernel_clock_gettime64	LINUX_5.10
+>>
+>> Is it really 5.10? By contrast, I see
+>>
+>> $ git describe --contains d0e3fc69d00d
+>> v5.11-rc1~76^2~251
+>>
+>> And indeed the symbol __kernel_clock_gettime64
+>> does not seem to be present in the Linux 5.10 sources.
 > 
-> .../linux$ git describe d0e3fc69d00d
-> v5.10-rc2-76-gd0e3fc69d00d
-> 
-> Reported-by: Christophe Leroy <christophe.leroy@csgroup.eu>
-> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+> It seems I was wrong.  I forgot --contains!
+> It is 5.11.
 
-Patch applied. But see the follow-up mail.
+Okay. I applied the patch below.
 
-Thanks,
+Cheers,
 
 Michael
 
-> ---
->  man7/vdso.7 | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/man7/vdso.7 b/man7/vdso.7
-> index 1d527c38e..5fb22ab5e 100644
-> --- a/man7/vdso.7
-> +++ b/man7/vdso.7
-> @@ -371,6 +371,7 @@ symbol	version
->  _
->  __kernel_clock_getres	LINUX_2.6.15
->  __kernel_clock_gettime	LINUX_2.6.15
-> +__kernel_clock_gettime64	LINUX_5.10
->  __kernel_datapage_offset	LINUX_2.6.15
->  __kernel_get_syscall_map	LINUX_2.6.15
->  __kernel_get_tbfreq	LINUX_2.6.15
-> 
+commit ae5cc0dc572116c9f4125a1de52e6c613e6659f3 (HEAD -> master)
+Author: Michael Kerrisk <mtk.manpages@gmail.com>
+Date:   Sun Aug 8 04:22:49 2021 +0200
+
+    vdso.7: Minor tweak to Alejandro Colomar's patch
+    
+    The correct kernel version seems to 5.11, not 5.10:
+    
+    $ git describe --contains d0e3fc69d00d
+    v5.11-rc1~76^2~251
+    
+    Signed-off-by: Michael Kerrisk <mtk.manpages@gmail.com>
+
+diff --git a/man7/vdso.7 b/man7/vdso.7
+index 4a7ab3111..e706701f0 100644
+--- a/man7/vdso.7
++++ b/man7/vdso.7
+@@ -370,7 +370,7 @@ symbol      version
+ _
+ __kernel_clock_getres  LINUX_2.6.15
+ __kernel_clock_gettime LINUX_2.6.15
+-__kernel_clock_gettime64       LINUX_5.10
++__kernel_clock_gettime64       LINUX_5.11
+ __kernel_datapage_offset       LINUX_2.6.15
+ __kernel_get_syscall_map       LINUX_2.6.15
+ __kernel_get_tbfreq    LINUX_2.6.15
 
 
 -- 
