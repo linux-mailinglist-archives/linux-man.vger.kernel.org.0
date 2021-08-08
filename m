@@ -2,67 +2,69 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 3B8D73E398F
-	for <lists+linux-man@lfdr.de>; Sun,  8 Aug 2021 10:26:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 999473E3993
+	for <lists+linux-man@lfdr.de>; Sun,  8 Aug 2021 10:35:30 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231176AbhHHI05 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 8 Aug 2021 04:26:57 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42128 "EHLO
+        id S231202AbhHHIfs (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 8 Aug 2021 04:35:48 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44036 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230301AbhHHI05 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 8 Aug 2021 04:26:57 -0400
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com [IPv6:2a00:1450:4864:20::334])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7D3CEC061760
-        for <linux-man@vger.kernel.org>; Sun,  8 Aug 2021 01:26:37 -0700 (PDT)
-Received: by mail-wm1-x334.google.com with SMTP id d131-20020a1c1d890000b02902516717f562so9184455wmd.3
-        for <linux-man@vger.kernel.org>; Sun, 08 Aug 2021 01:26:37 -0700 (PDT)
+        with ESMTP id S230301AbhHHIfr (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 8 Aug 2021 04:35:47 -0400
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com [IPv6:2a00:1450:4864:20::32c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1B2FCC061760
+        for <linux-man@vger.kernel.org>; Sun,  8 Aug 2021 01:35:28 -0700 (PDT)
+Received: by mail-wm1-x32c.google.com with SMTP id n11so8439352wmd.2
+        for <linux-man@vger.kernel.org>; Sun, 08 Aug 2021 01:35:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=UY3UnF8swrE9a2YQJ/iktfOEYttWRMxMnEZWZ6UOTvU=;
-        b=QqBAl3qR6ODjL/yR2HPQdR68E9oPw7/z4682H4aI3xmeCFUVQWGPAzt1AT6Vo5MerX
-         YgHTgYNxyUniQZAuXIKykEvLZbaEh/S/8H0e7+ra7ilRN55dHTkqBOHeQoPgQ85mLOgy
-         tbe/QLwuCaIa1zawo5XnSO/VoFXDC+3xQCL/c4E2VkUYzvA/xd0axie5dG3C9lEfdCkU
-         CZIs2otALPmkz1f46bOt3SqTNlQpj+FIyI7a++McrFlQzzQhsXip1lCVi9sb+lpGJa39
-         KlcsBKHPfAkDSl2ZK/LSj1N5ecL0u0GU/1MFZa3JzoSy9xxRMJqn8zVOuEVFwmlUX4aQ
-         pLnA==
+        bh=D/ZrPi1ItHnTkaUKrOc3WhucxDob6ua0WymIJBsT9/o=;
+        b=X0+xtfjxiTalRUI0XHGILm36OALhddZj0uk+kg6lRwDTu/qhQugnhyH+h+/sbFCrow
+         b+QR2A5fJyyaL16eapYE/zztWUmHU5mgh04W82tRWYzOjih+LBMQ8vuPOtPKoRQee4+3
+         /BhbpmvvL22ztb9FNZZTW0q+bQj1x5X61bixWB2+v+XlxBVKw2qhga77hUl0aiVmhWTZ
+         EDeT9LnhyR4kNiBThvZY5SBPLYd8Q5iz94idNDkPmVZIc10QnjubUyCAIWUarZMRNK2M
+         +D/8A9a7LZmaf1FzSIXoSvcJ8O6HnaLIJfMEnm2SDqj47NxgJYXuUMqBjFMDyPVSBLFh
+         G3vQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=UY3UnF8swrE9a2YQJ/iktfOEYttWRMxMnEZWZ6UOTvU=;
-        b=sK3k9c4YSEunnPOuQL9lZKR0Lnvc7yDoKdShBpLIItF09nwNorOgJSKB3WWxDiOQdN
-         GhUB1K56vM5Pq66/Lv7grYfwTZfhwz6/2ZuL3UUy7u6sF/0eZbjuEMQMA3m7/NeaIq0X
-         DTRSRZ+YfDM2KVJbVWED+0+ObiVtTkA1XWe5Twl+JT7hL5u7XeDLmX1HbaUj78jWBb7V
-         zOCulor2j2HkE/FOI5mhl33IRxvG/yOhzNTApmx0I/xOFJzdXBeodX6jMxLvI6j9Lsse
-         01+G7jjg6wMtKzx+oeW3adoV4y0PptlL1aNTpJtUU8vSBgR+WHvrvLxNYEgVFn65TD6S
-         2tkA==
-X-Gm-Message-State: AOAM532kqFaOpzubpdpIBahm1stlGuSiwHykp0+7TWgi5rCWWnzVoF0Q
-        Gzx7D3YY01yT89okW2NBtzw=
-X-Google-Smtp-Source: ABdhPJySqNK9ruVEcqAwSALjZBb80nFzAtjavMcJiJqqbbtnkb37KZiuIHP/0lu5a/hEO3VQtQn9ug==
-X-Received: by 2002:a05:600c:2298:: with SMTP id 24mr10909721wmf.62.1628411195994;
-        Sun, 08 Aug 2021 01:26:35 -0700 (PDT)
+        bh=D/ZrPi1ItHnTkaUKrOc3WhucxDob6ua0WymIJBsT9/o=;
+        b=SyiSzRoNYwj8MevlirpYH3Ow7PFbZrW8CxIaGzWNBg4SxUeTC5rJmFIwI31AMTjG/w
+         dmWHMnSXnC7k7L8y4dVsT4I29T4XLdtgK3db0pDB2N0xgqjuFn2r9q7frHdJN1y/TDn1
+         Ot8XhHYIWzItJKfVMKa/jXZWCVcYbSonx+sWmsXFFcCZTQ0ZX7EpyjHRSsVQ/7pH5fDC
+         Fa8ULSBdCRsmXpvy5pj8tQ0/wqORW/dianibyBxvvJC/YAun+/TjK1qkfTabHo4kjwg4
+         lkaLiv209+8Ytm4RVzwC3rGMNuwZ2CqyJdjRDnJeudkLsFXyUlq8qEJ8cO9iCR3/3jVE
+         G6fA==
+X-Gm-Message-State: AOAM533a01NKtrYf9OmMtbwCpG8+F/Z4SsZ6tw5ZNgkfTH46S7a02VeF
+        JmOhWkO/Wnz54cchzuyc5IoM5n4LaeI=
+X-Google-Smtp-Source: ABdhPJy5QdUiglREBFuBO0sVVy5/S3nkAK3VAd5VAPD9R8cyjfxQY5F1Mq7Mw3Ph6EmpNoYkyzEYQQ==
+X-Received: by 2002:a1c:2547:: with SMTP id l68mr1429239wml.23.1628411726362;
+        Sun, 08 Aug 2021 01:35:26 -0700 (PDT)
 Received: from [10.8.0.10] ([195.53.121.100])
-        by smtp.gmail.com with ESMTPSA id o2sm13892518wmq.30.2021.08.08.01.26.34
+        by smtp.gmail.com with ESMTPSA id l41sm15146070wmp.23.2021.08.08.01.35.25
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 08 Aug 2021 01:26:35 -0700 (PDT)
-Subject: Re: [PATCH v2] ioctl_tty.2: Fix information about header include file
+        Sun, 08 Aug 2021 01:35:25 -0700 (PDT)
+Subject: Re: [PATCH v3] ioctl_tty.2: Add example how to get or set baudrate on
+ the serial port
 To:     =?UTF-8?Q?Pali_Roh=c3=a1r?= <pali@kernel.org>
 Cc:     =?UTF-8?Q?Marek_Beh=c3=ban?= <kabel@kernel.org>,
         libc-alpha@sourceware.org,
         "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        linux-man@vger.kernel.org, Michael Kerrisk <mtk.manpages@gmail.com>
-References: <20210730105353.10424-1-pali@kernel.org>
- <20210730130537.18863-1-pali@kernel.org>
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        linux-man@vger.kernel.org
+References: <20210730095333.6118-1-pali@kernel.org>
+ <20210801135146.14849-1-pali@kernel.org>
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <3d927d3c-67a1-bb48-b597-44c87b8f715a@gmail.com>
-Date:   Sun, 8 Aug 2021 10:26:33 +0200
+Message-ID: <54c8c04d-4f9b-1ab6-a3a5-c23b2be74a9d@gmail.com>
+Date:   Sun, 8 Aug 2021 10:35:24 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <20210730130537.18863-1-pali@kernel.org>
+In-Reply-To: <20210801135146.14849-1-pali@kernel.org>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
@@ -72,91 +74,67 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Hi Pali,
 
-On 7/30/21 3:05 PM, Pali Rohár wrote:
-> Header file termios.h contains incompatible definitions for linux ioctl
-> calls. Correct definitions are exported by header file linux/termios.h but
-> this file conflicts with sys/ioctl.h header file (required for ioctl()
-> call). Therefore include direct asm header file asm/termbits.h which
-> contains compatible definitions and structures for ioctl calls.
+On 8/1/21 3:51 PM, Pali Rohár wrote:
+> Signed-off-by: Pali Rohár <pali@kernel.org>
+> 
+> ---
+> Changes in v3:
+> * Check support for custom baudrate only based on BOTHER macro
+> * Use TCGETS/TCSETS/termios when TCGETS2/TCSETS2/termios2 is not available
+> 
+> Changes in v2:
+> * Use \e for backslash
+> * Use exit(EXIT_*) instead of return num
+> * Sort includes
+> * Add comment about possible fallback
+> ---
+> 
+> Hello Alejandro!
+> 
+> I found out that this stuff is more complicated as I originally thought.
+> And seems that additional documentation on this topic is needed...
+> 
+> For setting custom baudrate it is needed to set BOTHER flag in c_cflag
+> field and baudrate value itself in c_ospeed and c_ispeed fields.
+> 
+> So when BOTHER flag is not provided by <asm/termbits.h> then setting custom
+> baudrate is not possible, fields c_ospeed and c_ispeed do not exist (and
+> only some predefined Bnnn baudrate values are supported). This applies when
+> compiling application with older version of header files (prior support for
+> custom baudrate was introduced into header files).
+> 
+> First caveat: BOTHER constant is different for different architectures.
+> So it is not possible to provide fallback #ifndef..#define BOTHER.
+> 
+> And now the biggest issue: Some architectures have these c_ospeed and
+> c_ispeed fields in struct termios and some in struct termios2.
+> 
+> TCGETS/TCSETS ioctls use struct termios and TCGETS/TCSETS2 use
+> struct termios2.
+> 
+> Some architectures (e.g. amd64) provide both struct termios and struct
+> termios2, but c_ospeed and c_ispeed are only in struct termios2.
+> 
+> Some other architectures (e.g. alpha) provide both struct termios and struct
+> termios2 and both have c_ospeed and c_ispeed fields.
+> 
+> And some other architectures (e.g. powerpc) provide only struct termios
+> (no struct termios2) and it has c_ospeed and c_ispeed fields.
+> 
+> So basically to support all architectures it is needed to use
+> struct termios2 when TCGETS2/TCSETS2 is supported. Otherwise it is needed
+> to use struct termios with TCGETS/TCSETS (case for e.g. powerpc).
 
-No one screamed so far, so I was going to apply this one, but I just 
-noticed a minor formatting issue; see below.
+When you send v4, please include the above text (or something similar) 
+to the commit message.
 
 Thanks,
 
 Alex
 
 > 
-> Signed-off-by: Pali Rohár <pali@kernel.org>
-> 
+> I updated v3 patch to handle this logic.
 > ---
-> Changes in v2:
-> * Reformat SYNOPSIS for 80 chars per line
-> ---
->   man2/ioctl_tty.2 | 19 +++++++++++++++++--
->   1 file changed, 17 insertions(+), 2 deletions(-)
-> 
-> diff --git a/man2/ioctl_tty.2 b/man2/ioctl_tty.2
-> index 771a9a470bf0..ecbae4f887c4 100644
-> --- a/man2/ioctl_tty.2
-> +++ b/man2/ioctl_tty.2
-> @@ -11,8 +11,10 @@ ioctl_tty \- ioctls for terminals and serial lines
->   .SH SYNOPSIS
->   .nf
->   .B #include <sys/ioctl.h>
-> -.BR "#include <termios.h>" "      /* Definition of " CLOCAL ", and"
-> -.BR    "                             TC*" { FLUSH , ON , OFF "} constants */"
-> +.BR "#include <asm/termbits.h>" "   /* Definition of " "struct termios" ,
-> +.BR    "                               struct termios2" ", and"
-> +.BR    "                               Bnn" ", " BOTHER ", " CBAUD ", " CLOCAL ,
-> +.BR    "                               TC*" { FLUSH , ON , OFF "} and other constants */"
->   .PP
->   .BI "int ioctl(int " fd ", int " cmd ", ...);"
->   .fi
-> @@ -31,6 +33,19 @@ makes for nonportable programs.
->   Use the POSIX interface described in
->   .BR termios (3)
->   whenever possible.
-> +.PP
-> +Please note that
-> +.B struct termios
-> +from
-> +.B #include <asm/termbits.h>
-
-Instead, just (with no "#include"):
-
-.I <asm/termbits.h>
-
-See man-pages(7):
-    Formatting conventions (general)
-        [...]
-
-        Filenames  (whether  pathnames,  or  references  to  header
-        files) are always in italics (e.g., <stdio.h>),  except  in
-        the  SYNOPSIS  section,  where  included  files are in bold
-        (e.g., #include <stdio.h>).  When referring to  a  standard
-        header  file include, specify the header file surrounded by
-        angle brackets, in the usual C way (e.g., <stdio.h>).
-
-
-> +is different and incompatible with
-> +.B struct termios
-> +from
-> +.BR "#include <termios.h>" .
-
-ditto
-
-> +These ioctl calls require
-> +.B struct termios
-> +from
-> +.BR "#include <asm/termbits.h>" .
-
-ditto
-
->   .SS Get and set terminal attributes
->   .TP
->   .B TCGETS
-> 
 
 
 -- 
