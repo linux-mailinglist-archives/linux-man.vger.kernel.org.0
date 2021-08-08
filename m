@@ -2,66 +2,65 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8352F3E37B0
-	for <lists+linux-man@lfdr.de>; Sun,  8 Aug 2021 02:21:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1DA323E37BB
+	for <lists+linux-man@lfdr.de>; Sun,  8 Aug 2021 02:48:25 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229865AbhHHAVj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 7 Aug 2021 20:21:39 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50892 "EHLO
+        id S229951AbhHHAsl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 7 Aug 2021 20:48:41 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56638 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229797AbhHHAVj (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 7 Aug 2021 20:21:39 -0400
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com [IPv6:2a00:1450:4864:20::42a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E01AFC061760
-        for <linux-man@vger.kernel.org>; Sat,  7 Aug 2021 17:21:20 -0700 (PDT)
-Received: by mail-wr1-x42a.google.com with SMTP id q11so4096020wrr.9
-        for <linux-man@vger.kernel.org>; Sat, 07 Aug 2021 17:21:20 -0700 (PDT)
+        with ESMTP id S229865AbhHHAsl (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 7 Aug 2021 20:48:41 -0400
+Received: from mail-pl1-x62c.google.com (mail-pl1-x62c.google.com [IPv6:2607:f8b0:4864:20::62c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4E5F3C061760
+        for <linux-man@vger.kernel.org>; Sat,  7 Aug 2021 17:48:23 -0700 (PDT)
+Received: by mail-pl1-x62c.google.com with SMTP id z3so12401422plg.8
+        for <linux-man@vger.kernel.org>; Sat, 07 Aug 2021 17:48:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
+        h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=bRc5/fQ8TjxkpkMNBWVO1dbKuNE9MrEtCt52guKjMZ4=;
-        b=AND2F+SpDDwn3SteAquSCCDozv2cQigM+zJ0zkYN9epm81xM87feLSTkHtQozoG6iE
-         UHO+Viix7rmWJBCMljCtL7GmOhK+Mq+bOQkMaaokqbLYeKj9kSWMqAUmjHS601pfVCku
-         VkLt4oVrFpFUL4qkmjGtnyfLQ9L3bAYXMZPfay3m6A7j5b9uGrSVco1Gb3qUZ+8OnEdS
-         SNKerIfGOUqTl2KWOp/TMExedow0HJzBosFi2sFHgJp/FZUYRNRxTdGmxNdzS2VyiTXq
-         MwamTRcLAB+gt+Fh58dP3MvW//jyqVZgibs4PZxeBlzqO8FSzx1dsU39T7uu8vLijSoX
-         kuLw==
+        bh=Qt3IecEy68OBKRJjyO+xn+QQEhxwpkEMB1EwCIX7QBg=;
+        b=J5H26WPQVIINWglE5V4NT8qYRp3vEu+VRoVF8XPEgXQVRmBbtiB//yVXu2tUEyCPpM
+         9E3u0U6uEq9LzTyBUqmx0M/bPY94GCr7vJ6Z2Nnuq5tUoIzUe/YPmVat8cfqbuJPizqh
+         tN8f8QfrHOmFL02LHrjHruRM1bsHFxNHU2Hq4iRgpXk6ccR3gUoJLKK4G45PqA+RfHaY
+         uHsrOiYZx48o++eP6uY+awCGdeh9Pj1JugDDtT4yBxyx0SK6t3ctuzHOrzu4dAoWoTD8
+         7nghkSs8dYLhF55E8c6dHOBfk373U2UCbjmIQrulTkEAuTMaK2HSFqotw8KDExwoSkWs
+         /7RA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=bRc5/fQ8TjxkpkMNBWVO1dbKuNE9MrEtCt52guKjMZ4=;
-        b=kpwWwraiPI/UDWQLZN0zzr/ZFTZVaw87Pdul2T0qHV2VK8jZZ/arK2sL8pQFPp459h
-         UcX8qEfycHngK5sqZoEHu+gY0bviix6F4lPj24zhmpi634sj3YZQw3PrTOlPTzRdX0P4
-         Vv+ArXtGlKth2U73URIfjLRHs6uZjTs7UV5nZIVfR2fJV1PDflP2WrpC5RZqyGdz4HD8
-         E36jfi9GOxt6KeOcOwktKv1lLbokFniX2F3vYzeTwRniZ2wWEXSJPdUhnmsVABohIMM9
-         MPRnIHLcrcL8C7RUxh8myka8hcV4POYqb2lD+/7hTruB7fl2Hb1MIWJCNMVK+1a1LpqK
-         qKzQ==
-X-Gm-Message-State: AOAM533ptcfwtCpE3eeMvjE5pah4xJoje4FwAHBcb1BNPxEI57mnF3jd
-        fpOFmumsrZODso17EFzv9sc=
-X-Google-Smtp-Source: ABdhPJw6hFDhQvaoExe7QRU/DfY0pG+wheR3gDbTIoNuOyjrTCz6SYVSqxkJ00yNfMWS90OPClvFLQ==
-X-Received: by 2002:adf:dcd1:: with SMTP id x17mr17258997wrm.59.1628382078920;
-        Sat, 07 Aug 2021 17:21:18 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id b6sm17283061wrn.9.2021.08.07.17.21.18
+        bh=Qt3IecEy68OBKRJjyO+xn+QQEhxwpkEMB1EwCIX7QBg=;
+        b=UJQBaCFe2CtIWHEonpH6NOMD2BNswJErYYaw3BCCb062PCFergi6M9hLJQS1b3Ib/w
+         GRPRoWv2vJ6N+d9pnouJpDLdszoFr2Fk2urBbbKCDpZ0+HBw1oAZkxMSZ1G4y1snHaP9
+         wlX/8R/U7qUzzgWzmFB19ZwMluR/pXAXD4cddYRjLB3r9HpSk2Ls0O1ygMsJMUKifQrm
+         PuUJ/7Av6mQveVj6HyGhvN5H8Ic3elQ7ruzDPjO+3VKnftgpKZNXv1OKPHhuvlLaU5S0
+         wSQyFycFtLDNrr67fF9/O0UflAZOOlssOCEPI0/mT3FUfvdyzcJHQKly4/jQbKJKgFqD
+         6/fQ==
+X-Gm-Message-State: AOAM531jEGQgY7qgL+G9CHLE8bp2ppLLsi6zwNNaMfL0OZaGh0u6Hg5M
+        +mU4TeA0nlS8PM9ohLY2inSkXtZEkKg=
+X-Google-Smtp-Source: ABdhPJz22fMN312uto5NWVzMnI9o7NpJstwQU58ApgtydBLBzi6qlglfpG2j8VcwVYx55XhMLsSLlA==
+X-Received: by 2002:a17:90a:b002:: with SMTP id x2mr20516836pjq.100.1628383702635;
+        Sat, 07 Aug 2021 17:48:22 -0700 (PDT)
+Received: from [192.168.1.71] (122-61-176-117-fibre.sparkbb.co.nz. [122.61.176.117])
+        by smtp.gmail.com with ESMTPSA id t1sm17847823pgr.65.2021.08.07.17.48.19
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 07 Aug 2021 17:21:18 -0700 (PDT)
-Subject: Re: [PATCH 03/32] vdso.7: Remove outdated limitation for powerpc
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org,
+        Sat, 07 Aug 2021 17:48:22 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
         Christophe Leroy <christophe.leroy@csgroup.eu>
+Subject: Re: [PATCH 04/32] vdso.7: Add y2038 compliant gettime for ppc/32
+To:     Alejandro Colomar <alx.manpages@gmail.com>
 References: <20210728202008.3158-1-alx.manpages@gmail.com>
- <20210728202008.3158-4-alx.manpages@gmail.com>
- <bf4202a4-7d21-3424-1582-f72317e82fe3@gmail.com>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <ae667bed-0f9f-6917-893b-9311aa69ebfa@gmail.com>
-Date:   Sun, 8 Aug 2021 02:21:17 +0200
+ <20210728202008.3158-5-alx.manpages@gmail.com>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <3d1a8bda-d23f-7254-d919-f604cc57e4bd@gmail.com>
+Date:   Sun, 8 Aug 2021 02:48:15 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <bf4202a4-7d21-3424-1582-f72317e82fe3@gmail.com>
+In-Reply-To: <20210728202008.3158-5-alx.manpages@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -69,141 +68,66 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Michael,
+Hello Alex
 
-On 8/8/21 2:17 AM, Michael Kerrisk (man-pages) wrote:
-> Hello Alex,
-> 
-> On 7/28/21 10:19 PM, Alejandro Colomar wrote:
->> Christophe Leroy via Bugzilla:
-> 
-> For the commit message, it would be good to have a URL for 
-> the bug. (I could not find the bug.)
+Again, let us add the bug in the commit message:
 
-That's right.  <https://bugzilla.kernel.org/show_bug.cgi?id=213419>
+https://bugzilla.kernel.org/show_bug.cgi?id=213421
 
-> 
->> [
->> https://man7.org/linux/man-pages/man7/vdso.7.html
->> (as of today, flagged 2021-03-22)
->>
->> ppc/32 and ppc/64 sections both have the following note:
->>
->>        The CLOCK_REALTIME_COARSE and CLOCK_MONOTONIC_COARSE clocks
->>        are not supported by the __kernel_clock_getres and
->>        __kernel_clock_gettime interfaces; the kernel falls back to
->>        the real system call
->>
->> This note has been wrong from quite some time now,
->> since commit 654abc69ef2e
->> ("powerpc/vdso32: Add support for CLOCK_{REALTIME/MONOTONIC}_COARSE")
->> and commit 5c929885f1bb
->> ("powerpc/vdso64: Add support for CLOCK_{REALTIME/MONOTONIC}_COARSE")
->> ]
->>
->> Reported-by: Christophe Leroy <christophe.leroy@csgroup.eu>
->> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
-> 
-> In cases such as this, I prefer not to drop the historical info.
-> See below.
+I have not yet applied this. See below.
 
-And also right.
-
+On 7/28/21 10:19 PM, Alejandro Colomar wrote:
+> Christophe Leroy via Bugzilla:
 > 
->> ---
->>  man7/vdso.7 | 26 --------------------------
->>  1 file changed, 26 deletions(-)
->>
->> diff --git a/man7/vdso.7 b/man7/vdso.7
->> index ef6bef5bd..1d527c38e 100644
->> --- a/man7/vdso.7
->> +++ b/man7/vdso.7
->> @@ -385,19 +385,6 @@ __kernel_sync_dicache_p5	LINUX_2.6.15
->>  .in
->>  .ft P
->>  \}
->> -.PP
->> -The
->> -.B CLOCK_REALTIME_COARSE
->> -and
->> -.B CLOCK_MONOTONIC_COARSE
->> -clocks are
->> -.I not
->> -supported by the
->> -.I __kernel_clock_getres
->> -and
->> -.I __kernel_clock_gettime
->> -interfaces;
->> -the kernel falls back to the real system call.
->>  .SS ppc/64 functions
->>  .\" See linux/arch/powerpc/kernel/vdso64/vdso64.lds.S
->>  The table below lists the symbols exported by the vDSO.
->> @@ -423,19 +410,6 @@ __kernel_sync_dicache_p5	LINUX_2.6.15
->>  .in
->>  .ft P
->>  \}
->> -.PP
->> -The
->> -.B CLOCK_REALTIME_COARSE
->> -and
->> -.B CLOCK_MONOTONIC_COARSE
->> -clocks are
->> -.I not
->> -supported by the
->> -.I __kernel_clock_getres
->> -and
->> -.I __kernel_clock_gettime
->> -interfaces;
->> -the kernel falls back to the real system call.
->>  .SS riscv functions
->>  .\" See linux/arch/riscv/kernel/vdso/vdso.lds.S
->>  The table below lists the symbols exported by the vDSO.
+> [
+> https://man7.org/linux/man-pages/man7/vdso.7.html (2021-03-22)
 > 
-> I instead applied the patch below.
+> In ppc32 functions section, the Y2038 compliant function
+> __kernel_clock_gettime64() is missing.
 > 
-> Cheers,
+> It was added by commit d0e3fc69d00d
+> ("powerpc/vdso: Provide __kernel_clock_gettime64() on vdso32")
+> ]
 > 
-> Michael
+> .../linux$ git describe d0e3fc69d00d
+> v5.10-rc2-76-gd0e3fc69d00d
 > 
+> Reported-by: Christophe Leroy <christophe.leroy@csgroup.eu>
+> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+> ---
+>  man7/vdso.7 | 1 +
+>  1 file changed, 1 insertion(+)
 > 
 > diff --git a/man7/vdso.7 b/man7/vdso.7
-> index ef6bef5bd..39d6dc4ad 100644
+> index 1d527c38e..5fb22ab5e 100644
 > --- a/man7/vdso.7
 > +++ b/man7/vdso.7
-> @@ -386,7 +386,9 @@ __kernel_sync_dicache_p5    LINUX_2.6.15
->  .ft P
->  \}
->  .PP
-> -The
-> +In kernel versions before Linux 5.6,
-> +.\" commit 654abc69ef2e69712e6d4e8a6cb9292b97a4aa39
-> +the
->  .B CLOCK_REALTIME_COARSE
->  and
->  .B CLOCK_MONOTONIC_COARSE
-> @@ -424,7 +426,9 @@ __kernel_sync_dicache_p5    LINUX_2.6.15
->  .ft P
->  \}
->  .PP
-> -The
-> +In kernel versions before Linux 4.16,
-> +.\" commit 5c929885f1bb4b77f85b1769c49405a0e0f154a1
-> +the
+> @@ -371,6 +371,7 @@ symbol	version
+>  _
+>  __kernel_clock_getres	LINUX_2.6.15
+>  __kernel_clock_gettime	LINUX_2.6.15
+> +__kernel_clock_gettime64	LINUX_5.10
 
-Much better!
+Is it really 5.10? By contrast, I see
 
-Thanks,
+$ git describe --contains d0e3fc69d00d
+v5.11-rc1~76^2~251
 
-Alex
+And indeed the symbol __kernel_clock_gettime64
+does not seem to be present in the Linux 5.10 sources.
 
->  .B CLOCK_REALTIME_COARSE
->  and
->  .B CLOCK_MONOTONIC_COARSE
+Cheers,
+
+Michael
+
+
+>  __kernel_datapage_offset	LINUX_2.6.15
+>  __kernel_get_syscall_map	LINUX_2.6.15
+>  __kernel_get_tbfreq	LINUX_2.6.15
 > 
-> 
-> 
+
 
 -- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
