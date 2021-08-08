@@ -2,142 +2,143 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 999473E3993
-	for <lists+linux-man@lfdr.de>; Sun,  8 Aug 2021 10:35:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C3D073E3994
+	for <lists+linux-man@lfdr.de>; Sun,  8 Aug 2021 10:41:46 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231202AbhHHIfs (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 8 Aug 2021 04:35:48 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44036 "EHLO
+        id S230354AbhHHImD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 8 Aug 2021 04:42:03 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45366 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230301AbhHHIfr (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 8 Aug 2021 04:35:47 -0400
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com [IPv6:2a00:1450:4864:20::32c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1B2FCC061760
-        for <linux-man@vger.kernel.org>; Sun,  8 Aug 2021 01:35:28 -0700 (PDT)
-Received: by mail-wm1-x32c.google.com with SMTP id n11so8439352wmd.2
-        for <linux-man@vger.kernel.org>; Sun, 08 Aug 2021 01:35:28 -0700 (PDT)
+        with ESMTP id S230301AbhHHImD (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 8 Aug 2021 04:42:03 -0400
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com [IPv6:2a00:1450:4864:20::336])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C9970C061760
+        for <linux-man@vger.kernel.org>; Sun,  8 Aug 2021 01:41:44 -0700 (PDT)
+Received: by mail-wm1-x336.google.com with SMTP id o7-20020a05600c5107b0290257f956e02dso12159836wms.1
+        for <linux-man@vger.kernel.org>; Sun, 08 Aug 2021 01:41:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=D/ZrPi1ItHnTkaUKrOc3WhucxDob6ua0WymIJBsT9/o=;
-        b=X0+xtfjxiTalRUI0XHGILm36OALhddZj0uk+kg6lRwDTu/qhQugnhyH+h+/sbFCrow
-         b+QR2A5fJyyaL16eapYE/zztWUmHU5mgh04W82tRWYzOjih+LBMQ8vuPOtPKoRQee4+3
-         /BhbpmvvL22ztb9FNZZTW0q+bQj1x5X61bixWB2+v+XlxBVKw2qhga77hUl0aiVmhWTZ
-         EDeT9LnhyR4kNiBThvZY5SBPLYd8Q5iz94idNDkPmVZIc10QnjubUyCAIWUarZMRNK2M
-         +D/8A9a7LZmaf1FzSIXoSvcJ8O6HnaLIJfMEnm2SDqj47NxgJYXuUMqBjFMDyPVSBLFh
-         G3vQ==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=S9WupCrSFRURo8hx7Ei2/ks9HmuBezrSYPJgrQSnF7E=;
+        b=VoMFOY1cdQzLmW3yocxDTAhtBFmhIa1sp3mbePsP5GkGOLSz0z8XhFATx5x3V7lGCB
+         QxHKQkGZBhBVdTtZ0jsiMRrZoSDdqSK9JI5ZttH/Ne74VRZC/FXeAfyDA7HhQYDHmJ38
+         uHQOpqTr6siZReabrZtSKXYq4OHVd7lVVtv8Q0Ahn95N/aEuA7t6y8hKo3tqkMatRir9
+         usQlY0jxBm9EQEMSrRCQ/f2zwW+e+SmnTCbfBqViK1ZfRMBLzpyb3adIMRnS1RFM2gYh
+         rK7F32dZ0H/IK/9L6eFUgcRFddldlQn07uJt7213+zfRjqtJQHt+VRleVwpvVFz7n1dj
+         w5YQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=D/ZrPi1ItHnTkaUKrOc3WhucxDob6ua0WymIJBsT9/o=;
-        b=SyiSzRoNYwj8MevlirpYH3Ow7PFbZrW8CxIaGzWNBg4SxUeTC5rJmFIwI31AMTjG/w
-         dmWHMnSXnC7k7L8y4dVsT4I29T4XLdtgK3db0pDB2N0xgqjuFn2r9q7frHdJN1y/TDn1
-         Ot8XhHYIWzItJKfVMKa/jXZWCVcYbSonx+sWmsXFFcCZTQ0ZX7EpyjHRSsVQ/7pH5fDC
-         Fa8ULSBdCRsmXpvy5pj8tQ0/wqORW/dianibyBxvvJC/YAun+/TjK1qkfTabHo4kjwg4
-         lkaLiv209+8Ytm4RVzwC3rGMNuwZ2CqyJdjRDnJeudkLsFXyUlq8qEJ8cO9iCR3/3jVE
-         G6fA==
-X-Gm-Message-State: AOAM533a01NKtrYf9OmMtbwCpG8+F/Z4SsZ6tw5ZNgkfTH46S7a02VeF
-        JmOhWkO/Wnz54cchzuyc5IoM5n4LaeI=
-X-Google-Smtp-Source: ABdhPJy5QdUiglREBFuBO0sVVy5/S3nkAK3VAd5VAPD9R8cyjfxQY5F1Mq7Mw3Ph6EmpNoYkyzEYQQ==
-X-Received: by 2002:a1c:2547:: with SMTP id l68mr1429239wml.23.1628411726362;
-        Sun, 08 Aug 2021 01:35:26 -0700 (PDT)
-Received: from [10.8.0.10] ([195.53.121.100])
-        by smtp.gmail.com with ESMTPSA id l41sm15146070wmp.23.2021.08.08.01.35.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 08 Aug 2021 01:35:25 -0700 (PDT)
-Subject: Re: [PATCH v3] ioctl_tty.2: Add example how to get or set baudrate on
- the serial port
-To:     =?UTF-8?Q?Pali_Roh=c3=a1r?= <pali@kernel.org>
-Cc:     =?UTF-8?Q?Marek_Beh=c3=ban?= <kabel@kernel.org>,
-        libc-alpha@sourceware.org,
-        "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
+        bh=S9WupCrSFRURo8hx7Ei2/ks9HmuBezrSYPJgrQSnF7E=;
+        b=tkJKbAkD6vdWP5YaMo8arvxItgTGL5i610RoXNP5z9spshzji7jHsRqPcAwLsg/4qH
+         tZ4IKVNs225kwe9XsHT4B9kot2CVvsGb6rig8Lvx61yfSkP7lZLZccL4WjQ2y0690XLF
+         Pt+q3lPcHS/PwZAAEc6WYZs1pQvK+PP1H8Vdxxcsc6V2SBaIPw1xYimLr1T1IfGQp+gO
+         l6OU4rga+pUdtUOqk4pR3LfUp8aGgjs2/PtVwoteQTUna4FFj7jcGVtjrNjKGh2gTVU1
+         B3/attcXBs82G5qXLmpud7jciORa0SdQJ+3kMDnN1m0avrdiQ1VLy/p+m5J15BvqbUhj
+         TQqQ==
+X-Gm-Message-State: AOAM530nabjvtwD4ipvVmpBhZ/7o62fA4BOsicsjUU1fL7p/tssl85TN
+        CsjdN1XbZhY8cY/ERG2Sl80=
+X-Google-Smtp-Source: ABdhPJxUi8UwcvKPMmX04BXIWf+Vpx5nhXdwj9v54xaC2uDPmzRzHOO/OvfLDdEmlpnGFpr4XR/O3A==
+X-Received: by 2002:a1c:4e1a:: with SMTP id g26mr27631826wmh.52.1628412103405;
+        Sun, 08 Aug 2021 01:41:43 -0700 (PDT)
+Received: from sqli.sqli.com ([195.53.121.100])
+        by smtp.googlemail.com with ESMTPSA id h12sm15592004wrm.62.2021.08.08.01.41.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Aug 2021 01:41:43 -0700 (PDT)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org
-References: <20210730095333.6118-1-pali@kernel.org>
- <20210801135146.14849-1-pali@kernel.org>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <54c8c04d-4f9b-1ab6-a3a5-c23b2be74a9d@gmail.com>
-Date:   Sun, 8 Aug 2021 10:35:24 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
+Subject: [PATCH 00/23] More patches from others
+Date:   Sun,  8 Aug 2021 10:41:10 +0200
+Message-Id: <20210808084133.734274-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-In-Reply-To: <20210801135146.14849-1-pali@kernel.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Pali,
 
-On 8/1/21 3:51 PM, Pali Rohár wrote:
-> Signed-off-by: Pali Rohár <pali@kernel.org>
-> 
-> ---
-> Changes in v3:
-> * Check support for custom baudrate only based on BOTHER macro
-> * Use TCGETS/TCSETS/termios when TCGETS2/TCSETS2/termios2 is not available
-> 
-> Changes in v2:
-> * Use \e for backslash
-> * Use exit(EXIT_*) instead of return num
-> * Sort includes
-> * Add comment about possible fallback
-> ---
-> 
-> Hello Alejandro!
-> 
-> I found out that this stuff is more complicated as I originally thought.
-> And seems that additional documentation on this topic is needed...
-> 
-> For setting custom baudrate it is needed to set BOTHER flag in c_cflag
-> field and baudrate value itself in c_ospeed and c_ispeed fields.
-> 
-> So when BOTHER flag is not provided by <asm/termbits.h> then setting custom
-> baudrate is not possible, fields c_ospeed and c_ispeed do not exist (and
-> only some predefined Bnnn baudrate values are supported). This applies when
-> compiling application with older version of header files (prior support for
-> custom baudrate was introduced into header files).
-> 
-> First caveat: BOTHER constant is different for different architectures.
-> So it is not possible to provide fallback #ifndef..#define BOTHER.
-> 
-> And now the biggest issue: Some architectures have these c_ospeed and
-> c_ispeed fields in struct termios and some in struct termios2.
-> 
-> TCGETS/TCSETS ioctls use struct termios and TCGETS/TCSETS2 use
-> struct termios2.
-> 
-> Some architectures (e.g. amd64) provide both struct termios and struct
-> termios2, but c_ospeed and c_ispeed are only in struct termios2.
-> 
-> Some other architectures (e.g. alpha) provide both struct termios and struct
-> termios2 and both have c_ospeed and c_ispeed fields.
-> 
-> And some other architectures (e.g. powerpc) provide only struct termios
-> (no struct termios2) and it has c_ospeed and c_ispeed fields.
-> 
-> So basically to support all architectures it is needed to use
-> struct termios2 when TCGETS2/TCSETS2 is supported. Otherwise it is needed
-> to use struct termios with TCGETS/TCSETS (case for e.g. powerpc).
+Hello, Michael!
 
-When you send v4, please include the above text (or something similar) 
-to the commit message.
+Here's another patch set with patches from others,
+and a few small fixes of mine.
 
-Thanks,
+Cheers,
 
 Alex
 
-> 
-> I updated v3 patch to handle this logic.
-> ---
 
+
+Alejandro Colomar (7):
+  sigaction.2: Apply minor tweaks to Peter's patch
+  futex.2: Minor tweaks to Kurt's patch
+  getopt.3: Minor tweak to James's patch
+  termios.3: ffix
+  mount_setattr.2: Minor tweaks to Chirstian's patch
+  ldd.1: Fix example command
+  close_range.2: Glibc added a wrapper recently
+
+Christian Brauner (1):
+  mount_setattr.2: New manual page documenting the mount_setattr()
+    system call
+
+G. Branden Robinson (1):
+  man-pages.7: wfix
+
+James O. D. Hunt (1):
+  getopt.3: Further clarification of optstring
+
+Kurt Kanzenbach (1):
+  futex.2: Document FUTEX_LOCK_PI2
+
+Michael Weiß (1):
+  namespaces.7: ffix
+
+Mike Rapoport (1):
+  man2: new page describing memfd_secret() system call
+
+Pali Rohár (6):
+  termios.3: Document missing baudrate constants
+  termios.3: Use bold style for Bnn and EXTn macro constants
+  ioctl_tty.2: Document ioctls: TCGETS2, TCSETS2, TCSETSW2, TCSETSF2
+  ioctl_tty.2: Update DTR example
+  termios.3: Add information how to set baud rate to any other value
+  termios.3: SPARC architecture has 4 different Bnnn constants
+
+Peter Collingbourne (1):
+  sigaction.2: Document SA_EXPOSE_TAGBITS and the flag support detection
+    protocol
+
+Štěpán Němec (1):
+  unix.7: tfix
+
+наб (2):
+  pipe.7: also mention writev(2) in atomicity section
+  regex.3: wfix
+
+ man1/ldd.1           |    5 +-
+ man2/close_range.2   |    5 -
+ man2/futex.2         |  111 +++--
+ man2/ioctl_tty.2     |   32 +-
+ man2/memfd_secret.2  |  146 ++++++
+ man2/mount_setattr.2 | 1006 ++++++++++++++++++++++++++++++++++++++++++
+ man2/sigaction.2     |  133 ++++++
+ man3/getopt.3        |   10 +-
+ man3/regex.3         |    4 +-
+ man3/termios.3       |   74 +++-
+ man7/man-pages.7     |    2 +-
+ man7/namespaces.7    |    3 +-
+ man7/pipe.7          |    2 +
+ man7/unix.7          |    2 +-
+ 14 files changed, 1478 insertions(+), 57 deletions(-)
+ create mode 100644 man2/memfd_secret.2
+ create mode 100644 man2/mount_setattr.2
 
 -- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+2.32.0
+
