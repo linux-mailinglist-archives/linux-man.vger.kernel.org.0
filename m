@@ -2,68 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id EFB943E3CE6
-	for <lists+linux-man@lfdr.de>; Sun,  8 Aug 2021 23:30:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C411E3E3CE7
+	for <lists+linux-man@lfdr.de>; Sun,  8 Aug 2021 23:32:40 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230071AbhHHVbB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 8 Aug 2021 17:31:01 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42864 "EHLO
+        id S231599AbhHHVc6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 8 Aug 2021 17:32:58 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43284 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229977AbhHHVbA (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 8 Aug 2021 17:31:00 -0400
-Received: from mail-pj1-x102e.google.com (mail-pj1-x102e.google.com [IPv6:2607:f8b0:4864:20::102e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 740F0C061760
-        for <linux-man@vger.kernel.org>; Sun,  8 Aug 2021 14:30:40 -0700 (PDT)
-Received: by mail-pj1-x102e.google.com with SMTP id u13-20020a17090abb0db0290177e1d9b3f7so31434207pjr.1
-        for <linux-man@vger.kernel.org>; Sun, 08 Aug 2021 14:30:40 -0700 (PDT)
+        with ESMTP id S232563AbhHHVc6 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 8 Aug 2021 17:32:58 -0400
+Received: from mail-pj1-x1029.google.com (mail-pj1-x1029.google.com [IPv6:2607:f8b0:4864:20::1029])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 16EC9C061760
+        for <linux-man@vger.kernel.org>; Sun,  8 Aug 2021 14:32:38 -0700 (PDT)
+Received: by mail-pj1-x1029.google.com with SMTP id ca5so24833221pjb.5
+        for <linux-man@vger.kernel.org>; Sun, 08 Aug 2021 14:32:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=eIgKGn/RF5lWJrN+gzGfJ/ujGuBUJBCKuJi4vGpOmOk=;
-        b=pZsUaDUKvF+gU/s5whU/ijgVZ9moiTJRk6L2X9nY4OpqNb0ef+W4f5Jl/b36vhXRVy
-         BPswb5w+9oP8u8gOheNBwKAMdMRgQ/5YbYnmRrCRYSJZQ8fL+1n77vKpDSSPKIeGOCzM
-         5VHql4uGFCVlRHtV+lIJtH3b6Kq/fM/dBisM94sQ5alJ7j3mGzdbQe+wyZ/lkpZ/l1T7
-         VVHkyzcobDUlzb6/3q2Bloha7vWf5KkgWZvDjt2/kuIDDmUUe3UyeW4iwHUNbvWuAYXL
-         qGOtlgh0jELaEiLYzODGuV6fEjeTsEkMTga0lPglGG3OZ6bAMhULkRZ17qczurpw2kKT
-         X6hQ==
+        bh=8RDUWPac52gdIzU8rYfZbLeUKVCHJy7mHEzJIskgo0c=;
+        b=sg9jp6jLGiKfZlJT7eLaNWY0RMa8HujWWMM0xQLbHQDSJ98Nsavvoj5BQUvIe3vwbE
+         kU6lc8e5V9+SMCDVF9HS2zFnKVPSRSyCWzjDNhLnaT1h/xlpQp2Sdl9/UEF3ZbA317N0
+         SAxbVvn/I7Ek35pRbvgAbedvDICcJshIy3VS7CYHSgQMLU9evaMNLH6YqS7lr4fze2/m
+         aExn+8+F3rRds/qnng+Xrdmm0G+1FDHDvO98RWjHR3zfaz9bc/CsOVvWAU/4/PnfjYI8
+         ihF4onuwwLwL7kuNb2lqdzUnOQqK1EAsDNkfUXIpxqx9ohnyOlSAVNhH8m4Dn/Dbl+SB
+         y68w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=eIgKGn/RF5lWJrN+gzGfJ/ujGuBUJBCKuJi4vGpOmOk=;
-        b=AeE/aRZpZruUlO/mHruN0G4d2E0RfThhHEroqFvxIJpjUzDAd8XolH8hC5Hg6smcpQ
-         nbyQkWbrFJs51eoRqqr35HHSR/pSXoB3zKUQMyIovptoX0u4pyQj5728NFkgLPcOc5AM
-         sWPz6I2lGiht1HtbZCAW2u3OUlPWPcEC68CV4LjLq5o/gVf33cYKHNaz8IoARN0+pV65
-         b+0GRR//NI8d0fbTP9ktif0vxoExSnPcecUI64J7LZw7RqcbUOHGtb/QG2hKcf49qsrW
-         EjviEY5ODAjozTtAOBLDSA+elQq7fHLapiaoLVQrT5iJBfn++F0k482SZtBf2P1FfJ9d
-         e7JQ==
-X-Gm-Message-State: AOAM533LSpZQhVx25Xzh6G/JszNHSxghCUNZkSsj92/Cns6qahkg4pLG
-        W+8LjafKo5AMAT6GjZhtlExwHFNS1Vg=
-X-Google-Smtp-Source: ABdhPJwdXS5olnVUCye3zNtTTfQ3mT7SupYdd+eYkKUVu5/DYL1rieUY4+3lmc3eypwDqvLYsynstA==
-X-Received: by 2002:a63:134e:: with SMTP id 14mr1145890pgt.312.1628458239659;
-        Sun, 08 Aug 2021 14:30:39 -0700 (PDT)
+        bh=8RDUWPac52gdIzU8rYfZbLeUKVCHJy7mHEzJIskgo0c=;
+        b=P/MOHmKYorHL++OmfO2WTZFswolb5HKGux7Jy4SviDo1ti4Qv20K/nnxqcbC2oL5g4
+         1LdlBWJDIqbnUwyLMJ1lBcPp8asdpq95OUVYJGEx5+FKDzg9pEoA7YxQK2xFiqCvwXBq
+         gwm0baX/l9k2ycn5RHsOJIOT+6Y3VgEYGvJfdFupucrBOkedf2nUTNrAKXsLWj1ATTBF
+         DCRw1+b8u/ophMvkZMkomTfugfvm1EwnSX37jUhtl4qKFMZeG/nDsH0jojYaUIw8B8j/
+         sSvIN/YpHtyyIifubXO+9qJO4jLRpZPjoobu9TqDShdnd7P50gUHg3Zhc4l4ogjIrub9
+         L1lQ==
+X-Gm-Message-State: AOAM531YS5DbnCMeRhJ+D0Azh1l7o/ojkdhrC6OUy1UoH9fKq8Mv6N2u
+        We+f7dgMMsh8rHZnh3O8peruKE8zPrU=
+X-Google-Smtp-Source: ABdhPJwpVi/Mw/MsH3w3z5FLV50RvIU+B/UzmoVsmH3P0ghUVAsplVu+X2DYRYmV6f1qRsObiK0IaQ==
+X-Received: by 2002:a63:5144:: with SMTP id r4mr416915pgl.223.1628458357166;
+        Sun, 08 Aug 2021 14:32:37 -0700 (PDT)
 Received: from [192.168.1.71] (122-61-176-117-fibre.sparkbb.co.nz. [122.61.176.117])
-        by smtp.gmail.com with ESMTPSA id c14sm21079165pjr.3.2021.08.08.14.30.37
+        by smtp.gmail.com with ESMTPSA id l6sm17375048pff.74.2021.08.08.14.32.34
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 08 Aug 2021 14:30:39 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, Alejandro Colomar <alx.manpages@gmail.com>,
+        Sun, 08 Aug 2021 14:32:36 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, Peter Collingbourne <pcc@google.com>,
         linux-man@vger.kernel.org
-Subject: Re: [PATCH 13/23] ioctl_tty.2: Document ioctls: TCGETS2, TCSETS2,
- TCSETSW2, TCSETSF2
-To:     =?UTF-8?Q?Pali_Roh=c3=a1r?= <pali@kernel.org>
-References: <20210808084133.734274-1-alx.manpages@gmail.com>
- <20210808084133.734274-14-alx.manpages@gmail.com>
- <7a378d4c-36a5-be42-79fb-aeb1c160984c@gmail.com>
- <20210808211501.iokfmydpsrrshabg@pali>
+Subject: Re: [PATCH 28/32] sigaction.2: Document SA_EXPOSE_TAGBITS and the
+ flag support detection protocol
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+References: <20210728202008.3158-1-alx.manpages@gmail.com>
+ <20210728202008.3158-29-alx.manpages@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <62a83b1c-bb88-722a-87ab-7016d9ae16da@gmail.com>
-Date:   Sun, 8 Aug 2021 23:30:32 +0200
+Message-ID: <f6521001-be0a-5b55-a07e-4d86e656c346@gmail.com>
+Date:   Sun, 8 Aug 2021 23:32:32 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <20210808211501.iokfmydpsrrshabg@pali>
+In-Reply-To: <20210728202008.3158-29-alx.manpages@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -71,28 +69,161 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Pali,
+Dropped, because reposted in a later series from Alex.
 
->> The Linux man-pages generally try to maintain historical and 
->> version info (at least back as far as 2.6.0), so I applied
->> the patch below.
+
+On 7/28/21 10:20 PM, Alejandro Colomar wrote:
+> From: Peter Collingbourne <pcc@google.com>
 > 
-> Hello Michael! That is a good idea. Anyway, these ioctls were not added
-> for all architectures as for some they are not needed (when version 1
-> already contains everything what was introduced in version 2).
+> Signed-off-by: Peter Collingbourne <pcc@google.com>
+> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+> ---
+>  man2/sigaction.2 | 123 +++++++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 123 insertions(+)
 > 
-> I collected all details which I found and I know in this email
-> https://lore.kernel.org/linux-man/20210808210530.ykqrihpfmdabbdl2@pali/
-> and it is something which should be properly documented. But I do not
-> how to put these details into structured manpage...
+> diff --git a/man2/sigaction.2 b/man2/sigaction.2
+> index 57ad6418c..4bf6f095e 100644
+> --- a/man2/sigaction.2
+> +++ b/man2/sigaction.2
+> @@ -261,6 +261,44 @@ This flag is meaningful only when establishing a signal handler.
+>  .\" .I sa_sigaction
+>  .\" field was added in Linux 2.1.86.)
+>  .\"
+> +.TP
+> +.B SA_UNSUPPORTED
+> +Used to dynamically probe for flag bit support.
+> +.IP
+> +If an attempt to register a handler succeeds with this flag set in
+> +.I act->sa_flags
+> +alongside other flags that are potentially unsupported by the kernel,
+> +and an immediately subsequent
+> +.BR sigaction ()
+> +call specifying the same signal number n and with non-NULL
+> +.I oldact
+> +yields
+> +.B SA_UNSUPPORTED
+> +.I clear
+> +in
+> +.IR oldact->sa_flags ,
+> +then
+> +.I oldact->sa_flags
+> +may be used as a bitmask
+> +describing which of the potentially unsupported flags are,
+> +in fact, supported.
+> +See the section "Dynamically probing for flag bit support"
+> +below for more details.
+> +.TP
+> +.BR SA_EXPOSE_TAGBITS " (since Linux 5.11)"
+> +Normally, when delivering a signal,
+> +an architecture-specific set of tag bits are cleared from the
+> +.I si_addr
+> +field of
+> +.IR siginfo_t .
+> +If this flag is set,
+> +an architecture-specific subset of the tag bits will be preserved in
+> +.IR si_addr .
+> +.IP
+> +Programs that need to be compatible with Linux versions older than 5.11
+> +must use
+> +.B SA_UNSUPPORTED
+> +to probe for support.
+>  .SS The siginfo_t argument to a SA_SIGINFO handler
+>  When the
+>  .B SA_SIGINFO
+> @@ -846,6 +884,91 @@ Triggered by a
+>  .BR seccomp (2)
+>  filter rule.
+>  .RE
+> +.SS Dynamically probing for flag bit support
+> +The
+> +.BR sigaction ()
+> +call on Linux accepts unknown bits set in
+> +.I act->sa_flags
+> +without error.
+> +The behavior of the kernel starting with Linux 5.11 is that a second
+> +.BR sigaction ()
+> +will clear unknown bits from
+> +.IR oldact->sa_flags .
+> +However, historically, a second
+> +.BR sigaction ()
+> +call would typically leave those bits set in
+> +.IR oldact->sa_flags .
+> +.PP
+> +This means that support for new flags cannot be detected
+> +simply by testing for a flag in
+> +.IR sa_flags ,
+> +and a program must test that
+> +.B SA_UNSUPPORTED
+> +has been cleared before relying on the contents of
+> +.IR sa_flags .
+> +.PP
+> +Since the behavior of the signal handler cannot be guaranteed
+> +unless the check passes,
+> +it is wise to either block the affected signal
+> +while registering the handler and performing the check in this case,
+> +or where this is not possible,
+> +for example if the signal is synchronous, to issue the second
+> +.BR sigaction ()
+> +in the signal handler itself.
+> +.PP
+> +In kernels that do not support a specific flag,
+> +the kernel's behavior is as if the flag was not set,
+> +even if the flag was set in
+> +.IR act->sa_flags .
+> +.PP
+> +The flags
+> +.BR SA_NOCLDSTOP ,
+> +.BR SA_NOCLDWAIT ,
+> +.BR SA_SIGINFO ,
+> +.BR SA_ONSTACK ,
+> +.BR SA_RESTART ,
+> +.BR SA_NODEFER ,
+> +.BR SA_RESETHAND ,
+> +and, if defined by the architecture,
+> +.B SA_RESTORER
+> +may not be reliably probed for using this mechanism,
+> +because they were introduced before Linux 5.11.
+> +However, in general, programs may assume that these flags are supported,
+> +since they have all been supported since Linux 2.6,
+> +which was released in the year 2003.
+> +.PP
+> +The following example program exits with status 0 if
+> +.B SA_EXPOSE_TAGBITS
+> +is determined to be supported, and 1 otherwise.
+> +.PP
+> +.EX
+> +#include <signal.h>
+> +#include <stdio.h>
+> +#include <unistd.h>
+> +
+> +void handler(int signo, siginfo_t *info, void *context) {
+> +    struct sigaction oldact;
+> +    if (sigaction(SIGSEGV, 0, &oldact) == 0 &&
+> +        !(oldact.sa_flags & SA_UNSUPPORTED) &&
+> +        (oldact.sa_flags & SA_EXPOSE_TAGBITS)) {
+> +        _exit(0);
+> +    } else {
+> +        _exit(1);
+> +    }
+> +}
+> +
+> +int main(void) {
+> +    struct sigaction act = {0};
+> +    act.sa_flags = SA_SIGINFO | SA_UNSUPPORTED | SA_EXPOSE_TAGBITS;
+> +    act.sa_sigaction = handler;
+> +    if (sigaction(SIGSEGV, &act, 0) != 0) {
+> +        perror("sigaction");
+> +        return 1;
+> +    }
+> +
+> +    raise(SIGSEGV);
+> +}
+> +.EE
+>  .SH RETURN VALUE
+>  .BR sigaction ()
+>  returns 0 on success; on error, \-1 is returned, and
+> 
 
-It's not immediately obvious to me, either, how to do this.
-Perhaps you eventually have some more ideas, but in the meantime,
-thanks for the improvements so far.
-
-Cheers,
-
-Michael
 
 -- 
 Michael Kerrisk
