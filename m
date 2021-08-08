@@ -2,103 +2,110 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0565A3E399D
-	for <lists+linux-man@lfdr.de>; Sun,  8 Aug 2021 10:41:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CEF0B3E399E
+	for <lists+linux-man@lfdr.de>; Sun,  8 Aug 2021 10:41:57 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231308AbhHHImM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 8 Aug 2021 04:42:12 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45412 "EHLO
+        id S231344AbhHHImO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 8 Aug 2021 04:42:14 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45420 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231335AbhHHImM (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 8 Aug 2021 04:42:12 -0400
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com [IPv6:2a00:1450:4864:20::32a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 63B57C061760
-        for <linux-man@vger.kernel.org>; Sun,  8 Aug 2021 01:41:53 -0700 (PDT)
-Received: by mail-wm1-x32a.google.com with SMTP id k38-20020a05600c1ca6b029025af5e0f38bso12120365wms.5
-        for <linux-man@vger.kernel.org>; Sun, 08 Aug 2021 01:41:53 -0700 (PDT)
+        with ESMTP id S231335AbhHHImN (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 8 Aug 2021 04:42:13 -0400
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com [IPv6:2a00:1450:4864:20::431])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9CE88C061760
+        for <linux-man@vger.kernel.org>; Sun,  8 Aug 2021 01:41:54 -0700 (PDT)
+Received: by mail-wr1-x431.google.com with SMTP id h13so17103412wrp.1
+        for <linux-man@vger.kernel.org>; Sun, 08 Aug 2021 01:41:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=LoNyXOSUdgfh5qDer03pS1RGt4RAs28yASr/OxVrQUA=;
-        b=iiG/boQ+qU75QUKpDzpSrfU2wbOxLq/RrpNZBitBegutA2GxVBIONonK0kYCcsrWfv
-         T+VdF/VXTX+uXIrmH/Uiat/iJ9Sn2HDoZTAcsskMIiGZQVIUSgKHALy0EwaAYhyYEp/a
-         AlSDSLrJ+wbEgoisIIbx62c2saStwvLLE7z7C16vSQuMzzfCfJEw5c+h8mtUrNHtl5BJ
-         fzRs5HRn9QHaI0ZK6ChA37sntJjzG6v5wEtX+92XYtRJnGsJd6QVmuDL7jAi776b//V7
-         XpIJKa+A3lI3zGFSmWui84oUa25WYlqEw+gwSwkn4q4gx21e7xjbN/cuG4pVlq5qocKv
-         7IwA==
+        bh=WNedCv/IVBa/wyFHGsMPMeWY/HT7FIn7m9ZwZX2IAyM=;
+        b=Y5JgFZqE9Y+ZITBeGJaD1MKpBiXUJcC1KYF6KF8yhIWoN+HUbyAHj8aeb2c3jN4BnO
+         mdge6BjhYCGk24BmKC0Nnb6r/I1apidrVavDORxZ6NkcNGlIhEyc/OLDxEHXYwTvCm/U
+         y+a3XgT3rwGmaacdRh1tsI7inVtmGbQn7OYbnXbLFu5oUdp41hO/4ZXNRnBTthjysme2
+         GeLfnJSVIxlRTiRnUX1aZ9Z5RGdRqM7UdfEyL6nI+EpfQCinnpyzNAs6jK0b5Q3IQGrI
+         tUcQrQVKK+VCploetCDqLnumZDcnQ5WO8DUbSLuwgNu9dsBruSkxF/zUHFSB9pkjtUxr
+         eVRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=LoNyXOSUdgfh5qDer03pS1RGt4RAs28yASr/OxVrQUA=;
-        b=q9crfG7v/rqFplA4tRkce7Pv95SYCdWRNUaJhMEMj+SFSYmJJ4s2zjwhikmCn7Q6Y5
-         MR6FWa3ACQkWJaq5TlITsXIV5q3XyKrcVO/nxa/dOFr6h5Zrmf4h/GdEobQb/AvoJg3R
-         hOp6Qd1HsdGZGwpkzuVPU3ieOCWDuEt6sregr16uK7t6a0zwAPZpftrs5Bm4KsUwT7Ek
-         3y6dYp4T7zqgVDm+he0ehpM+t+wTZj0uWu3eztVzce6A0sOpdalrh+0PmQtYD65CYo6t
-         ljYpwhOkle9j3+L4KkLuAO2EXJrmY2c12/pcWXBkzkYIh3P8B0c6nYJAcvazdZzZpWjd
-         Fdtw==
-X-Gm-Message-State: AOAM532IIFCxs9S+A+JViDB366REpT7eyCmOYtG2dk9GCWMz6CUMpdf0
-        fBOyJqd+SWocmlxU4O5/3Cah6pCuc/Q=
-X-Google-Smtp-Source: ABdhPJyp22HPkjVFhaYpdq6oBXZ1NTYv02qmYpklsAPJb6fxjCwdNRLMFIVd3oJhjt+GVcHIrDQEAw==
-X-Received: by 2002:a1c:9a97:: with SMTP id c145mr28021322wme.42.1628412112111;
-        Sun, 08 Aug 2021 01:41:52 -0700 (PDT)
+        bh=WNedCv/IVBa/wyFHGsMPMeWY/HT7FIn7m9ZwZX2IAyM=;
+        b=WRSjfXDtEmuXtmXXbKTu78cEmPUAPA+LcXrcauiEuQ0VNukwpvVq+bw/OmAOjm2KPK
+         He8gd7mtKx+/L519xuXDy8FyNu0gWAi6kZN3tHIVJJTAhoLjBJUYIOUh0J9sSERAnn3M
+         am9UDd2pSPc1ChOEIE0HE1SC2cpjZEjT2Gg0l5aWV6WU/WREITYwF5rnxTVP49l5s2nV
+         mIeOjSsXOl9E2hmqFR6Uza5qHSXO9CYXhdozmQNw20BSnsgfzclbFWcFHF1fjAyW/DSA
+         AEGZnmgIeQKr7frC8MO/dRKr3H2ToUggbzPi+SWqGeoc5BQjYzL/heorG6FsPCul6+B6
+         RD6Q==
+X-Gm-Message-State: AOAM5337IKJBEvjT2FzXC8KNAY/BX5u7KUoeGb9b/Ortaz7vLhxQl504
+        vTDO9DDl0LVy1oNv4j35al0=
+X-Google-Smtp-Source: ABdhPJxj7jz1N+IIOavIDUqKsyf0WIQx9AY+05qG5hkOVRJvyCxjepotJApMaOiEYc2R2inphyfV9w==
+X-Received: by 2002:adf:d4c6:: with SMTP id w6mr19280934wrk.353.1628412113277;
+        Sun, 08 Aug 2021 01:41:53 -0700 (PDT)
 Received: from sqli.sqli.com ([195.53.121.100])
-        by smtp.googlemail.com with ESMTPSA id h12sm15592004wrm.62.2021.08.08.01.41.51
+        by smtp.googlemail.com with ESMTPSA id h12sm15592004wrm.62.2021.08.08.01.41.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Aug 2021 01:41:51 -0700 (PDT)
+        Sun, 08 Aug 2021 01:41:52 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
-Cc:     =?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>,
+Cc:     "James O. D. Hunt" <jamesodhunt@gmail.com>,
         linux-man@vger.kernel.org,
         Alejandro Colomar <alx.manpages@gmail.com>
-Subject: [PATCH 09/23] termios.3: Document missing baudrate constants
-Date:   Sun,  8 Aug 2021 10:41:19 +0200
-Message-Id: <20210808084133.734274-10-alx.manpages@gmail.com>
+Subject: [PATCH 10/23] getopt.3: Further clarification of optstring
+Date:   Sun,  8 Aug 2021 10:41:20 +0200
+Message-Id: <20210808084133.734274-11-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210808084133.734274-1-alx.manpages@gmail.com>
 References: <20210808084133.734274-1-alx.manpages@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From: Pali Rohár <pali@kernel.org>
+From: "James O. D. Hunt" <jamesodhunt@gmail.com>
 
-These baudrate macro constants are defined in bits/termios.h and are
-already supported.
+Explain that `optstring` cannot contain a semi-colon (`;`) character.
 
-Signed-off-by: Pali Rohár <pali@kernel.org>
+Also explain that `optstring` can include `+` as an option character,
+possibly in addition to that character being used as the first character
+in `optstring` to denote `POSIXLY_CORRECT` behaviour.
+
+Signed-off-by: James O. D. Hunt <jamesodhunt@gmail.com>
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man3/termios.3 | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ man3/getopt.3 | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/man3/termios.3 b/man3/termios.3
-index 797778680..01c209944 100644
---- a/man3/termios.3
-+++ b/man3/termios.3
-@@ -945,6 +945,18 @@ to by \fItermios_p\fP to \fIspeed\fP, which must be one of these constants:
- 	B57600
- 	B115200
- 	B230400
-+	B460800
-+	B500000
-+	B576000
-+	B921600
-+	B1000000
-+	B1152000
-+	B1500000
-+	B2000000
-+	B2500000
-+	B3000000
-+	B3500000
-+	B4000000
- .ft P
- .fi
- .PP
+diff --git a/man3/getopt.3 b/man3/getopt.3
+index ce4c28088..315224c64 100644
+--- a/man3/getopt.3
++++ b/man3/getopt.3
+@@ -130,7 +130,7 @@ A legitimate option character is any visible one byte
+ .BR ascii (7)
+ character (for which
+ .BR isgraph (3)
+-would return nonzero) that is not \(aq\-\(aq or \(aq:\(aq.
++would return nonzero) that is not \(aq\-\(aq, \(aq:\(aq  or \(aq;\(aq.
+ If such a
+ character is followed by a colon, the option requires an argument, so
+ .BR getopt ()
+@@ -166,6 +166,14 @@ If the first character of
+ .B POSIXLY_CORRECT
+ is set, then option processing stops as soon as a nonoption argument is
+ encountered.
++If \(aq+\(aq is not the first character of
++.IR optstring ,
++it is treated as a normal option.
++If
++.B POSIXLY_CORRECT
++behaviour is required in this case
++.I optstring
++will contain two \(aq+\(aq symbols.
+ If the first character of \fIoptstring\fP is \(aq\-\(aq, then
+ each nonoption \fIargv\fP-element is handled as if it were the argument of
+ an option with character code 1.  (This is used by programs that were
 -- 
 2.32.0
 
