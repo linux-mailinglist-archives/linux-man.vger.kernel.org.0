@@ -2,1026 +2,192 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A320A3E39AA
-	for <lists+linux-man@lfdr.de>; Sun,  8 Aug 2021 10:42:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C90A33E39A9
+	for <lists+linux-man@lfdr.de>; Sun,  8 Aug 2021 10:42:12 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230354AbhHHImb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 8 Aug 2021 04:42:31 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45484 "EHLO
+        id S231398AbhHHImZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 8 Aug 2021 04:42:25 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45486 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231378AbhHHIma (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 8 Aug 2021 04:42:30 -0400
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com [IPv6:2a00:1450:4864:20::42a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 45E07C061760
+        with ESMTP id S231378AbhHHImZ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 8 Aug 2021 04:42:25 -0400
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com [IPv6:2a00:1450:4864:20::333])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 96834C0613CF
         for <linux-man@vger.kernel.org>; Sun,  8 Aug 2021 01:42:06 -0700 (PDT)
-Received: by mail-wr1-x42a.google.com with SMTP id l14so136954wrw.4
+Received: by mail-wm1-x333.google.com with SMTP id h24-20020a1ccc180000b029022e0571d1a0so9217268wmb.5
         for <linux-man@vger.kernel.org>; Sun, 08 Aug 2021 01:42:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=8w/GPm7yB5Vcqg1H4HOcWIcH5WZcFVjraeBXPustTC0=;
-        b=GSCKzeR+EFFY3eJWGxpTfplA8yyKHgkcMvd88eEuDYYBd568p5CXSZ/GtBIaEqU1Lj
-         GwDVlREISpJNZY32Glj28EEkup1qAQG2Tq6xJ56Cu9BeXfr+CzFDWqwf5WlOyOpMiNoq
-         tIlq5AYYB2v7Da9vWkZ0pYlreUwGHe8hLHdmOKB2QuYebrUgNg316pgsQ+CIXIacj8Rb
-         RYy8YriPfwOmr0atp1Wfrq+iukZM6jDMdyinnI76uvIOTgOJDfhi6z7EZWonBq7kpS1a
-         69AXm6TZ1BSovQAF81J5SEivpMhrOBGJbwTgI/N8MIQto7fMPr+3td6Iy4C3VaUX+wNY
-         cRHQ==
+        bh=59hk+1JxQZdJCXTgyJRa2+SWqdvUPZvwZjL88c+p4KQ=;
+        b=TjvU5+WSfS7iU3ptOFZaKF0J51BsLXYwXiV0mZYhBs9MmncKAoUsQJ0B7eQN/HdzLr
+         BvlxG66YmRPzkYbGxrcMzKdsbydASd3YM30oPzLpct1Np1TxnhUF94cUhJ2kgxucSv1b
+         WHAM5JpdDGAZ5QTHs49vk4zX9qxdhcw+e9wXf7xgo+Cwh72BTlzFATD/mfaLz9fidhE5
+         H2wgMq8ku0vN8KO9sMS18wZBvIBX5s2JGL6PUbWMspSGtF4WsKpN02AzkdSMyrksmahV
+         i52eaxgseyDpTnHWAcpb1PX4Zvg5IzJ+frmuRhSrBOuEvvg8wydqaAw2beJzY92qhi2d
+         vxXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=8w/GPm7yB5Vcqg1H4HOcWIcH5WZcFVjraeBXPustTC0=;
-        b=Er2QLyrJqnT1WbeIa+1Q3nN9lAv4EPFYZGQnBuHhg0EmaNJ2HNsIV5btex5Ne2q3vM
-         iE9XblvssbaYgnzZpUMHyfvtxVxpChq1hMoPHlnC23zox4dhTEnCozRUb9vQgqS7vpvd
-         F+DQKJ8RkgN9DgHAJK5GRi988eyuY/ZwAhKhLDn77J1rOlaq2K95b6BiB/hwJ5ZAbOYI
-         DtStbgq59PmHLMjGucY5uz0ZkdWo5/Hp5kHK2wOkj38bsK7jTr8jMJ12VTZKUFDB4oYy
-         mN+YS0E7Xy4eW0BulmaPAcLWUHs2ho15ibQ2p3QxEMXDuKL19Moqggf9WE2AW4wUgEJe
-         jvRQ==
-X-Gm-Message-State: AOAM531ge1Uj8mhWzGtdL5XyzPuEeFcRDgbcU+RIaLBz1RKtGDz4Nf82
-        08ql78pTVQPwQaZDXCiJVK8=
-X-Google-Smtp-Source: ABdhPJwQxonZ7nbfX3J8HF/eTprwhnqpSI/LS9m2cCtruMCt9GaAKiPElnHQAz5vs1ylXNeRJPI0OQ==
-X-Received: by 2002:adf:dfc2:: with SMTP id q2mr19304906wrn.13.1628412124348;
-        Sun, 08 Aug 2021 01:42:04 -0700 (PDT)
+        bh=59hk+1JxQZdJCXTgyJRa2+SWqdvUPZvwZjL88c+p4KQ=;
+        b=ul5mUrXB3FIbE3UtM1zB9wx+BwiAm9ml8EC1UPLJG1tIR7W5955syk5g/TTwxJKcf6
+         C5o+5ZXdog8ZxyxNdAXY3N6xqj+2fM4WDOywxRwM5vFERoRYemzCBcIw/cpyxCC9QwBt
+         yJACJOO90EHDZm4DvhxCnVJoOzDXlP6aBgiFU/yPqRPwci8VIg71lVXp/Fv/AoEquQ8e
+         ce3jSEYlIDaEloKbNBgkFSsKeiIIvJtyIK2KFTuFca2AM9YroV4QFVlmJtn7rPkjTodS
+         Mk307bkhKl3/mHuK4DJDx8C2bBNsHKYW8Ik37n8rqsM7zxByXt+sW+oXh9WRIlIIioMk
+         K9Tw==
+X-Gm-Message-State: AOAM530ZE6dT8QfCU6O1fUA6Ev3wjk3C7Va1G/mzkkZX9vRTuj0tw/BY
+        VqG6UFSSoPWE0RCPcdypzAPtI/91TjU=
+X-Google-Smtp-Source: ABdhPJxwwJj0pSB5zv97HoZvPzWxv3x0KkVIUY3GaguvMKFNc065cDhLuY1fH/fpMSo9CYYmY9d+jA==
+X-Received: by 2002:a05:600c:2306:: with SMTP id 6mr11137590wmo.115.1628412125184;
+        Sun, 08 Aug 2021 01:42:05 -0700 (PDT)
 Received: from sqli.sqli.com ([195.53.121.100])
-        by smtp.googlemail.com with ESMTPSA id h12sm15592004wrm.62.2021.08.08.01.42.03
+        by smtp.googlemail.com with ESMTPSA id h12sm15592004wrm.62.2021.08.08.01.42.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Aug 2021 01:42:03 -0700 (PDT)
+        Sun, 08 Aug 2021 01:42:04 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org, Christian Brauner <brauner@kernel.org>
-Subject: [PATCH 21/23] mount_setattr.2: Minor tweaks to Chirstian's patch
-Date:   Sun,  8 Aug 2021 10:41:31 +0200
-Message-Id: <20210808084133.734274-22-alx.manpages@gmail.com>
+        linux-man@vger.kernel.org, EmanueleTorre <torreemanuele6@gmail.com>
+Subject: [PATCH 22/23] ldd.1: Fix example command
+Date:   Sun,  8 Aug 2021 10:41:32 +0200
+Message-Id: <20210808084133.734274-23-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210808084133.734274-1-alx.manpages@gmail.com>
 References: <20210808084133.734274-1-alx.manpages@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-- Fix SYNOPSIS to fit in 78 columns
+Emanuele Torre via linux-man@:
 
-  Also, we don't show when an include is included for a specific type,
-  unless that header is included _only_ for the type,
-  or there might be confusion (e.g., termios).
-  Instead, that type should be documented in system_data_types(7),
-  with a link page mount_attr-struct(3).
+[
+I was reading the man page for ldd(1)[1]; and I read this in the first
+paragraph of the DECRIPTION section:
 
-- Fix references to mount_setattr().  See man-pages(7):
+ ldd prints the shared objects (shared libraries) required by each
+ program or shared object specified on the command line.  An
+ example of its use and output (using sed(1) to trim leading white
+ space for readability in this page) is the following:
 
-       Any reference to the subject of the current manual page should be writ‐
-       ten with the name in bold followed by a pair of  parentheses  in  Roman
-       (normal)  font.   For  example, in the fcntl(2) man page, references to
-       the subject of the page would be written as:  fcntl().   The  preferred
-       way to write this in the source file is:
+     $ ldd /bin/ls | sed 's/^ */    /'
+         linux-vdso.so.1 (0x00007ffcc3563000)
+         libselinux.so.1 => /lib64/libselinux.so.1 (0x00007f87e5459000)
+         libcap.so.2 => /lib64/libcap.so.2 (0x00007f87e5254000)
+         libc.so.6 => /lib64/libc.so.6 (0x00007f87e4e92000)
+         libpcre.so.1 => /lib64/libpcre.so.1 (0x00007f87e4c22000)
+         libdl.so.2 => /lib64/libdl.so.2 (0x00007f87e4a1e000)
+         /lib64/ld-linux-x86-64.so.2 (0x00005574bf12e000)
+         libattr.so.1 => /lib64/libattr.so.1 (0x00007f87e4817000)
+         libpthread.so.0 => /lib64/libpthread.so.0 (0x00007f87e45fa000)
 
-           .BR fcntl ()
+This is a little confusing though since that sed(1) command does not
+seem to work. (and also potentially misleading for someone who is trying
+figure out how to parse ldd(1)'s output.)
 
-- Fix line breaks according to semantic newline rules (and add some commas)
-- Fix wrong usage of .IR when .RI should have been used
-- Fix formatting of variable part in FOO<number>:
-  - Make italic the variable part (as groff_man(7) recommends)
-  - Remove <>
-  - Use syntax recommended by G. Branden Robinson (groff)
+ldd(1) prepends a TAB character (0x09) to each line, not spaces:
 
-- Fix unnecessary uses of .BR or .IR when .B or .I would suffice
-- Fix formatting of punctuation
+ $ ldd /bin/ls | xxd | head -1
+ 00000000: 096c 696e 7578 2d76 6473 6f2e 736f 2e31  .linux-vdso.so.1
 
-  In some cases, it was in italics or bold, and it should always be in roman.
+I read ldd(1)'s source code[2] (it is part of glibc) and it seems to be
+a bash script that tries to use different rtld programs ( ld.so(8) )
+from an RTLDLIST.
 
-- Use uppercase to begin text, even in bullet points, since those were
-  multi-sentence.
+Those, on my system, are:
 
-- Simplify usage of .RS/.RE in combination with .IP
-- s/fat/FAT/ as fs(7) does
-- Slightly reword some sentences for consistency
-- Use Linux-specific for consistency with other pages (in VERSIONS)
-- EXAMPLES: Place the return type in a line of its own (as in other pages)
-- Fix alignment of code
-- Replace unnecessary use of the GNU extension ({}) by do {} while (0)
+ * /usr/lib/ld-linux.so.2
+ * /usr/lib64/ld-linux-x86-64.so.2
+ * /usr/libx32/ld-linux-x32.so.2
 
-  In that case, there was no return value (moreover, it's a noreturn).
+And they all seem to also be part of glibc.
 
-- Break complex declaration lines into a line for each variable
+I have tried to follow the git history of glibc to see when the switch
+from spaces to the TAB character occured, but, to me, it seems like
+glibc.git/elf/rtld.c has always used '\t'; at since
+6a76c115150318eae5d02eca76f2fc03be7bd029[3] (358th commit since glibc
+started using the git repository repository - Nov 18th 1995): before
+that commit there are not any results for `git grep '\\t'` in the elf
+directory and I did not investigate further.
 
-  The variables were being initialized, some to non-zero values,
-  so for clarity, a line for each one seems more appropriate.
+Still, at the time of that commit, glibc did not seem to have an ldd(1)
+utility.
 
-- Add const to pointers when possible
-- s/\\/\e/
-- Remove unmatched groff commands
+Perhaps the man page is old and its original author was using and
+documenting an ldd(1) utility that was not part of glibc when he was
+writing it.
 
-Cc: Christian Brauner <brauner@kernel.org>
+Anyhow, since I think that sed(1) command will not work on any system
+that uses, at least, the most recent version of glibc (because lld(1)
+and the ld.so(8) programs it depends on are all part of glibc), I think
+that that example should be changed to avoid confusions.
+
+The output format of ldd(1) does not seem to be clearly defined, so I
+think this would be a good option:
+
+ $ ldd /bin/ls | sed 's/^[[:space:]]*/    /'
+
+NB: ^\s* should also work on most GNU/Linux systems, but \s is
+    non-standard or documented so I don not suggest using it in the man
+    page.
+
+Another option could be to remove "the pipe to sed(1)" part and the note
+in parentheses that explains why it was used by the original author.
+
+Cheers.
+ emanuele6
+
+[1]: https://man7.org/linux/man-pages/man1/ldd.1.html
+[2]: https://sourceware.org/git/?p=glibc.git;a=blob;f=elf/ldd.bash.in;h=ba736464ac5e4a9390b1b6a39595035238250232;hb=5188a9d0265cc6f7235a8af1d31ab02e4a24853d
+[3]: https://sourceware.org/git/?p=glibc.git;a=commit;h=6a76c115150318eae5d02eca76f2fc03be7bd029
+
+///////
+
+ $ uname -a
+ Linux t420 5.10.54-1-lts #1 SMP Wed, 28 Jul 2021 15:05:20 +0000
+x86_64 GNU/Linux
+ $ pacman -Qo ldd
+ /usr/bin/ldd is owned by glibc 2.33-5
+ $ pacman -Qo /usr/share/man/man1/ldd.1.gz
+ /usr/share/man/man1/ldd.1.gz is owned by man-pages 5.12-2
+ $ pacman -Qo /usr/lib/ld-linux.so.2
+ /usr/lib/ld-linux.so.2 is owned by lib32-glibc 2.33-5
+ $ pacman -Qo /usr/lib64/ld-linux-x86-64.so.2
+ /usr/lib/ld-linux-x86-64.so.2 is owned by glibc 2.33-5
+ $ pacman -F /usr/libx32/ld-linux-x32.so.2 || echo not available on arch linux.
+ not available on arch linux.
+]
+
+Reported-by: EmanueleTorre <torreemanuele6@gmail.com>
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man2/mount_setattr.2 | 446 ++++++++++++++++++++++---------------------
- 1 file changed, 225 insertions(+), 221 deletions(-)
+ man1/ldd.1 | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/man2/mount_setattr.2 b/man2/mount_setattr.2
-index 16881d90d..70ab4592e 100644
---- a/man2/mount_setattr.2
-+++ b/man2/mount_setattr.2
-@@ -30,13 +30,13 @@ mount_setattr \- change mount properties of a mount or mount tree
- 
- .PP
- .BR "#include <linux/fcntl.h>" " /* Definition of " AT_* " constants */"
--.BR "#include <linux/mount.h>" " /* Definition of struct mount_attr and MOUNT_ATTR_* constants */"
-+.BR "#include <linux/mount.h>" " /* Definition of " MOUNT_ATTR_* " constants */"
- .BR "#include <sys/syscall.h>" " /* Definition of " SYS_* " constants */"
- .B #include <unistd.h>
- .PP
--.BI "int syscall(SYS_mount_setattr, int " dfd ", const char *" path \
--", unsigned int " flags \
--", struct mount_attr *" attr ", size_t " size );
-+.BI "int syscall(SYS_mount_setattr, int " dfd ", const char *" path ,
-+.BI "            unsigned int " flags ", struct mount_attr *" attr \
-+", size_t " size );
- .fi
- .PP
- .IR Note :
-@@ -46,13 +46,13 @@ necessitating the use of
- .BR syscall (2).
- .SH DESCRIPTION
- The
--.BR mount_setattr (2)
-+.BR mount_setattr ()
- system call changes the mount properties of a mount or entire mount tree.
- If
- .I path
- is a relative pathname,
--then it is interpreted relative to the directory referred to by the file
--descriptor
-+then it is interpreted relative to
-+the directory referred to by the file descriptor
- .IR dfd .
- If
- .I dfd
-@@ -60,24 +60,25 @@ is the special value
- .B AT_FDCWD
- then
- .I path
--is taken to be relative to the current working directory of the calling process.
-+is interpreted relative to
-+the current working directory of the calling process.
- If
- .I path
- is the empty string and
--.BR AT_EMPTY_PATH
-+.B AT_EMPTY_PATH
- is specified in
--.I flags
-+.IR flags ,
- then the mount properties of the mount identified by
- .I dfd
- are changed.
- .PP
- The
--.BR mount_setattr (2)
-+.BR mount_setattr ()
- system call uses an extensible structure
--.IR ( "struct mount_attr" )
-+.RI ( "struct mount_attr" )
- to allow for future extensions.
- Any non-flag extensions to
--.BR mount_setattr (2)
-+.BR mount_setattr ()
- will be implemented as new fields appended to the above structure,
- with a zero value in a new field resulting in the kernel behaving
- as though that extension field was not present.
-@@ -94,17 +95,18 @@ The
- argument should usually be specified as
- .IR "sizeof(struct mount_attr)" .
- However,
--if the caller does not intend to make use of features that got
--introduced after the initial version of
-+if the caller does not intend to make use of features that
-+got introduced after the initial version of
- .I struct mount_attr
--they are free to pass the size of the initial struct together with the larger
--struct.
--This allows the kernel to not copy later parts of the struct that aren't used
--anyway.
-+they are free to pass
-+the size of the initial struct together with the larger struct.
-+This allows the kernel to not copy later parts of the struct
-+that aren't used anyway.
- With each extension that changes the size of
- .I struct mount_attr
- the kernel will expose a define of the form
--.BR MOUNT_ATTR_SIZE_VER<number> .
-+.BI MOUNT_ATTR_SIZE_VER number\c
-+\&.
- For example the macro for the size of the initial version of
- .I struct mount_attr
- is
-@@ -118,7 +120,8 @@ The supported values are:
- .B AT_EMPTY_PATH
- If
- .I path
--is the empty string change the mount properties on
-+is the empty string,
-+change the mount properties on
- .I dfd
- itself.
- .TP
-@@ -134,7 +137,7 @@ Don't trigger automounts.
- The
- .I attr
- argument of
--.BR mount_setattr (2)
-+.BR mount_setattr ()
- is a structure of the following form:
+diff --git a/man1/ldd.1 b/man1/ldd.1
+index ed1ab3c05..8bb1410d5 100644
+--- a/man1/ldd.1
++++ b/man1/ldd.1
+@@ -23,14 +23,11 @@ ldd \- print shared object dependencies
+ prints the shared objects (shared libraries) required by each program or
+ shared object specified on the command line.
+ An example of its use and output
+-(using
+-.BR sed (1)
+-to trim leading white space for readability in this page)
+ is the following:
  .PP
  .in +4n
-@@ -152,18 +155,21 @@ The
- .I attr_set
- and
- .I attr_clr
--members are used to specify the mount properties that are supposed to be set or
--cleared for a mount or mount tree.
-+members are used to specify the mount properties that
-+are supposed to be set or cleared for a mount or mount tree.
- Flags set in
- .I attr_set
--enable a property on a mount or mount tree and flags set in
-+enable a property on a mount or mount tree,
-+and flags set in
- .I attr_clr
- remove a property from a mount or mount tree.
- .PP
--When changing mount properties the kernel will first clear the flags specified
-+When changing mount properties,
-+the kernel will first clear the flags specified
- in the
- .I attr_clr
--field and then set the flags specified in the
-+field,
-+and then set the flags specified in the
- .I attr_set
- field:
- .PP
-@@ -192,8 +198,8 @@ mnt->mnt_flags = current_mnt_flags;
- .in
- .PP
- The effect of this change will be a mount or mount tree that is read-only,
--blocks the execution of set-user-ID and set-group-ID binaries but does allow to
--execute programs and access to devices nodes.
-+blocks the execution of set-user-ID and set-group-ID binaries,
-+but does allow to execute programs and access to devices nodes.
- Multiple changes with the same set of flags requested
- in
- .I attr_clr
-@@ -210,7 +216,8 @@ fields:
- .B MOUNT_ATTR_RDONLY
- If set in
- .I attr_set
--makes the mount read-only and if set in
-+makes the mount read-only,
-+and if set in
- .I attr_clr
- removes the read-only setting if set on the mount.
- .TP
-@@ -227,46 +234,50 @@ and file capability restriction if set on this mount.
- .B MOUNT_ATTR_NODEV
- If set in
- .I attr_set
--prevents access to devices on this mount and if set in
-+prevents access to devices on this mount,
-+and if set in
- .I attr_clr
--removes the device access restriction if set on this mount.
-+removes the restriction that prevented accesing devices on this mount.
- .TP
--.BR MOUNT_ATTR_NOEXEC
-+.B MOUNT_ATTR_NOEXEC
- If set in
- .I attr_set
--prevents executing programs on this mount and if set in
-+prevents executing programs on this mount,
-+and if set in
- .I attr_clr
--removes the restriction to execute programs on this mount.
-+removes the restriction that prevented executing programs on this mount.
- .TP
--.BR MOUNT_ATTR_NOSYMFOLLOW
-+.B MOUNT_ATTR_NOSYMFOLLOW
- If set in
- .I attr_set
--prevents following symlinks on this mount and if set in
-+prevents following symlinks on this mount,
-+and if set in
- .I attr_clr
--removes the restriction to not follow symlinks on this mount.
-+removes the restriction that prevented following symlinks on this mount.
- .TP
- .B MOUNT_ATTR_NODIRATIME
- If set in
- .I attr_set
--prevents updating access time for directories on this mount and if set in
-+prevents updating access time for directories on this mount,
-+and if set in
- .I attr_clr
--removes access time restriction for directories.
-+removes the restriction that prevented updating access time for directories.
- Note that
--.BR MOUNT_ATTR_NODIRATIME
--can be combined with other access time settings and is implied
--by the noatime setting.
-+.B MOUNT_ATTR_NODIRATIME
-+can be combined with other access time settings
-+and is implied by the noatime setting.
- All other access time settings are mutually exclusive.
- .TP
- .BR MOUNT_ATTR__ATIME " - Changing access time settings
--In the new mount api the access time values are an enum starting from 0.
-+In the new mount API the access time values are an enum starting from 0.
- Even though they are an enum in contrast to the other mount flags such as
--.BR MOUNT_ATTR_NOEXEC
-+.BR MOUNT_ATTR_NOEXEC ,
- they are nonetheless passed in
- .I attr_set
- and
- .I attr_clr
- for consistency with
--.BR fsmount (2)
-+.BR fsmount (2),
- which introduced this behavior.
- .IP
- Note,
-@@ -281,68 +292,67 @@ in the
- .I attr_clr
- field.
- The kernel will verify that
--.BR MOUNT_ATTR__ATIME
-+.B MOUNT_ATTR__ATIME
- isn't partially set in
--.I attr_clr
-+.IR attr_clr ,
- and that
- .I attr_set
- doesn't have any access time bits set if
--.BR MOUNT_ATTR__ATIME
-+.B MOUNT_ATTR__ATIME
- isn't set in
- .IR attr_clr .
- .RS
- .TP
- .B MOUNT_ATTR_RELATIME
- When a file is accessed via this mount,
--update the file's last access time
--(atime)
--only if the current value of atime is less than or equal to the file's
--last modification time (mtime) or last status change time (ctime).
-+update the file's last access time (atime)
-+only if the current value of atime is less than or equal to
-+the file's last modification time (mtime) or last status change time (ctime).
- .IP
--To enable this access time setting on a mount or mount tree
--.BR MOUNT_ATTR_RELATIME
-+To enable this access time setting on a mount or mount tree,
-+.B MOUNT_ATTR_RELATIME
- must be set in
- .I attr_set
- and
--.BR MOUNT_ATTR__ATIME
-+.B MOUNT_ATTR__ATIME
- must be set in the
- .I attr_clr
- field.
- .TP
--.BR MOUNT_ATTR_NOATIME
-+.B MOUNT_ATTR_NOATIME
- Do not update access times for (all types of) files on this mount.
- .IP
--To enable this access time setting on a mount or mount tree
--.BR MOUNT_ATTR_NOATIME
-+To enable this access time setting on a mount or mount tree,
-+.B MOUNT_ATTR_NOATIME
- must be set in
- .I attr_set
- and
--.BR MOUNT_ATTR__ATIME
-+.B MOUNT_ATTR__ATIME
- must be set in the
- .I attr_clr
- field.
- .TP
--.BR MOUNT_ATTR_STRICTATIME
--Always update the last access time (atime) when files are accessed on this
--mount.
-+.B MOUNT_ATTR_STRICTATIME
-+Always update the last access time (atime)
-+when files are accessed on this mount.
- .IP
--To enable this access time setting on a mount or mount tree
--.BR MOUNT_ATTR_STRICTATIME
-+To enable this access time setting on a mount or mount tree,
-+.B MOUNT_ATTR_STRICTATIME
- must be set in
- .I attr_set
- and
--.BR MOUNT_ATTR__ATIME
-+.B MOUNT_ATTR__ATIME
- must be set in the
- .I attr_clr
- field.
- .RE
- .TP
--.BR MOUNT_ATTR_IDMAP
-+.B MOUNT_ATTR_IDMAP
- If set in
- .I attr_set
- creates an idmapped mount.
--Since it is not supported to change the idmapping of a mount after it has been
--idmapped,
-+Since it is not supported to
-+change the idmapping of a mount after it has been idmapped,
- it is invalid to specify
- .B MOUNT_ATTR_IDMAP
- in
-@@ -350,54 +360,51 @@ in
- The idmapping is taken from the user namespace specified in
- .I userns_fd
- and attached to the mount.
--More details can be found in subsequent paragraphs.
- .IP
--Creating an idmapped mount allows to change the ownership of all files located
--under a mount.
--Thus, idmapped mounts make it possible to change ownership in a temporary and
--localized way.
--It is a localized change because ownership changes are restricted to a specific
--mount.
-+Creating an idmapped mount allows to
-+change the ownership of all files located under a mount.
-+Thus, idmapped mounts make it possible to
-+change ownership in a temporary and localized way.
-+It is a localized change because
-+ownership changes are restricted to a specific mount.
- All other users and locations where the filesystem is exposed are unaffected.
--And it is a temporary change because ownership changes are tied to the lifetime
--of the mount.
-+And it is a temporary change because
-+ownership changes are tied to the lifetime of the mount.
- .IP
--Whenever callers interact with the filesystem through an idmapped mount the
--idmapping of the mount will be applied to user and group IDs associated with
--filesystem objects.
--This encompasses the user and group IDs associated with inodes and also
--the following
-+Whenever callers interact with the filesystem through an idmapped mount,
-+the idmapping of the mount will be applied to
-+user and group IDs associated with filesystem objects.
-+This encompasses the user and group IDs associated with inodes
-+and also the following
- .BR xattr (7)
- keys:
- .RS
--.RS
--.IP \(bu 2
--.IR security.capability
-+.IP \(bu
-+.IR security.capability ,
- whenever filesystem
- .BR capabilities (7)
- are stored or returned in the
- .I VFS_CAP_REVISION_3
--format which stores a rootid alongside the capabilities.
--.IP \(bu 2
-+format,
-+which stores a rootid alongside the capabilities.
-+.IP \(bu
- .I system.posix_acl_access
- and
--.I system.posix_acl_default
-+.IR system.posix_acl_default ,
- whenever user IDs or group IDs are stored in
--.BR ACL_USER
--and
--.BR ACL_GROUP
-+.B ACL_USER
-+or
-+.B ACL_GROUP
- entries.
- .RE
--.RE
- .IP
- The following conditions must be met in order to create an idmapped mount:
- .RS
--.RS
--.IP \(bu 2
-+.IP \(bu
- The caller must have
- .I CAP_SYS_ADMIN
- in the initial user namespace.
--.IP \(bu 2
-+.IP \(bu
- The filesystem must be mounted in the initial user namespace.
- .IP \(bu
- The underlying filesystem must support idmapped mounts.
-@@ -405,9 +412,9 @@ Currently
- .BR xfs (5),
- .BR ext4 (5)
- and
--.BR fat
--filesystems support idmapped mounts with more filesystems being actively worked
--on.
-+.B FAT
-+filesystems support idmapped mounts
-+with more filesystems being actively worked on.
- .IP \(bu
- The mount must not already be idmapped.
- This also implies that the idmapping of a mount cannot be altered.
-@@ -420,24 +427,24 @@ with the
- .I OPEN_TREE_CLONE
- flag and it must not already have been visible in the filesystem.
- .RE
--.RE
- .IP
- Idmappings can be created for user IDs, group IDs, and project IDs.
- An idmapping is essentially a mapping of a range of user or group IDs into
- another or the same range of user or group IDs.
--Idmappings are usually written as three numbers either separated by white space
--or a full stop.
--The first two numbers specify the starting user or group ID in each of the two
--user namespaces.
-+Idmappings are usually written as three numbers
-+either separated by white space or a full stop.
-+The first two numbers specify the starting user or group ID
-+in each of the two user namespaces.
- The third number specifies the range of the idmapping.
- For example, a mapping for user IDs such as 1000:1001:1 would indicate that
--user ID 1000 in the caller's user namespace is mapped to user ID 1001 in its
--ancestor user namespace.
--Since the map range is 1 only user ID 1000 is mapped.
-+user ID 1000 in the caller's user namespace is mapped to
-+user ID 1001 in its ancestor user namespace.
-+Since the map range is 1,
-+only user ID 1000 is mapped.
- It is possible to specify up to 340 idmappings for each idmapping type.
--If any user IDs or group IDs are not mapped all files owned by that unmapped
--user or group ID will appear as being owned by the overflow user ID or overflow
--group ID respectively.
-+If any user IDs or group IDs are not mapped,
-+all files owned by that unmapped user or group ID will appear as
-+being owned by the overflow user ID or overflow group ID respectively.
- Further details and instructions for setting up idmappings can be found in the
- .BR user_namespaces (7)
- man page.
-@@ -445,69 +452,70 @@ man page.
- In the common case the user namespace passed in
- .I userns_fd
- together with
--.BR MOUNT_ATTR_IDMAP
-+.B MOUNT_ATTR_IDMAP
- in
- .I attr_set
- to create an idmapped mount will be the user namespace of a container.
--In other scenarios it will be a dedicated user namespace associated with a
--user's login session as is the case for portable home directories in
-+In other scenarios it will be a dedicated user namespace associated with
-+a user's login session as is the case for portable home directories in
- .BR systemd-homed.service (8) ).
--It is also perfectly fine to create a dedicated user namespace for the sake of
--idmapping a mount.
-+It is also perfectly fine to create a dedicated user namespace
-+for the sake of idmapping a mount.
- .IP
--Idmapped mounts can be useful in the following and a variety of other
--scenarios:
-+Idmapped mounts can be useful in the following
-+and a variety of other scenarios:
- .RS
--.RS
--.IP \(bu 2
--sharing files between multiple users or multiple machines especially in
--complex scenarios.
-+.IP \(bu
-+Sharing files between multiple users or multiple machines,
-+especially in complex scenarios.
- For example,
- idmapped mounts are used to implement portable home directories in
- .BR systemd-homed.service (8)
--where they allow users to move their home directory to an external storage
--device and use it on multiple computers where they are assigned different user IDs
--and group IDs.
--This effectively makes it possible to assign random user IDs and group IDs at login time.
-+where they allow users to move their home directory
-+to an external storage device
-+and use it on multiple computers
-+where they are assigned different user IDs and group IDs.
-+This effectively makes it possible to
-+assign random user IDs and group IDs at login time.
- .IP \(bu
--sharing files from the host with unprivileged containers.
--This allows user to avoid having to change ownership permanently through
-+Sharing files from the host with unprivileged containers.
-+This allows a user to avoid having to change ownership permanently through
- .BR chown (2) .
- .IP \(bu
--idmapping a container's root filesystem.
--Users don't need to change ownership
--permanently through
-+Idmapping a container's root filesystem.
-+Users don't need to change ownership permanently through
- .BR chown (2) .
--Especially for large root filesystems using
-+Especially for large root filesystems, using
- .BR chown (2)
- can be prohibitively expensive.
- .IP \(bu
--sharing files between containers with non-overlapping
--idmappings.
-+Sharing files between containers with non-overlapping idmappings.
- .IP \(bu
--implementing discretionary access (DAC) permission checking for fileystems
--lacking a concept of ownership.
-+Implementing discretionary access (DAC) permission checking
-+for fileystems lacking a concept of ownership.
- .IP \(bu
--efficiently change ownership on a per-mount basis.
-+Efficiently change ownership on a per-mount basis.
- In contrast to
--.BR chown (2)
-+.BR chown (2),
- changing ownership of large sets of files is instantenous with idmapped mounts.
--This is especially useful when ownership of an entire root filesystem of a
--virtual machine or container is to be changed as we've mentioned above.
--With idmapped mounts a single
--.BR mount_setattr (2)
-+This is especially useful when ownership of
-+an entire root filesystem of a virtual machine or container
-+is to be changed as we've mentioned above.
-+With idmapped mounts,
-+a single
-+.BR mount_setattr ()
- system call will be sufficient to change the ownership of all files.
- .IP \(bu
--taking the current ownership into account.
--Idmappings specify precisely what a user or group ID is supposed to be
--mapped to.
-+Taking the current ownership into account.
-+Idmappings specify precisely
-+what a user or group ID is supposed to be mapped to.
- This contrasts with the
- .BR chown (2)
--system call which cannot by itself take the current ownership of the files it
--changes into account.
-+system call which cannot by itself
-+take the current ownership of the files it changes into account.
- It simply changes the ownership to the specified user ID and group ID.
- .IP \(bu
--locally and temporarily restricted ownership changes.
-+Locally and temporarily restricted ownership changes.
- Idmapped mounts allow to change ownership locally,
- restricting it to specific mounts,
- and temporarily as the ownership changes only apply as long as the mount exists.
-@@ -516,7 +524,6 @@ changing ownership via the
- .BR chown (2)
- system call changes the ownership globally and permanently.
- .RE
--.RE
- .PP
- The
- .I propagation
-@@ -538,13 +545,13 @@ will propagate to the other mount points that are members of the peer group.
- Propagation here means that the same mount or unmount will automatically occur
- under all of the other mount points in the peer group.
- Conversely,
--mount and unmount events that take place under peer mount points will propagate
--to this mount point.
-+mount and unmount events that take place under peer mount points
-+will propagate to this mount point.
- .TP
- .B MS_SLAVE
- Turn all mounts into dependent mounts.
--Mount and unmount events propagate into this mount point from a shared peer
--group.
-+Mount and unmount events propagate into this mount point
-+from a shared peer group.
- Mount and unmount events under this mount point do not propagate to any peer.
- .TP
- .B MS_UNBINDABLE
-@@ -558,7 +565,7 @@ when replicating that subtree to produce the target subtree.
- .PP
- .SH RETURN VALUE
- On success,
--.BR mount_setattr (2)
-+.BR mount_setattr ()
- returns zero.
- On error,
- \-1 is returned and
-@@ -576,8 +583,8 @@ is not a valid file descriptor.
- .TP
- .B EBUSY
- The caller tried to change the mount to
--.BR MOUNT_ATTR_RDONLY
--but the mount still has files open for writing.
-+.B MOUNT_ATTR_RDONLY
-+but the mount still holds files open for writing.
- .TP
- .B EINVAL
- The path specified via the
-@@ -585,7 +592,7 @@ The path specified via the
- and
- .I path
- arguments to
--.BR mount_setattr (2)
-+.BR mount_setattr ()
- isn't a mountpoint.
- .TP
- .B EINVAL
-@@ -612,11 +619,11 @@ field of
- .TP
- .B EINVAL
- More than one of
--.BR MS_SHARED,
--.BR MS_SLAVE,
--.BR MS_PRIVATE,
-+.BR MS_SHARED ,
-+.BR MS_SLAVE ,
-+.BR MS_PRIVATE ,
- or
--.BR MS_UNBINDABLE
-+.B MS_UNBINDABLE
- was set in
- .I propagation
- field of
-@@ -626,13 +633,13 @@ field of
- An access time setting was specified in the
- .I attr_set
- field without
--.BR MOUNT_ATTR__ATIME
-+.B MOUNT_ATTR__ATIME
- being set in the
- .I attr_clr
- field.
- .TP
- .B EINVAL
--.BR MOUNT_ATTR_IDMAP
-+.B MOUNT_ATTR_IDMAP
- was specified in
- .IR attr_clr .
- .TP
-@@ -645,8 +652,8 @@ which exceeds
- .B EINVAL
- A valid file descriptor value was specified in
- .I userns_fd
--but the file descriptor wasn't a namespace file descriptor or did not refer to
--a user namespace.
-+but the file descriptor wasn't a namespace file descriptor
-+or did not refer to a user namespace.
- .TP
- .B EINVAL
- The underlying filesystem does not support idmapped mounts.
-@@ -660,7 +667,7 @@ the mount is already visible in the filesystem.
- A partial access time setting was specified in
- .I attr_clr
- instead of
--.BR MOUNT_ATTR__ATIME
-+.B MOUNT_ATTR__ATIME
- being set.
- .TP
- .B EINVAL
-@@ -674,14 +681,14 @@ A pathname was empty or had a nonexistent component.
- .TP
- .B ENOMEM
- When changing mount propagation to
--.BR MS_SHARED
-+.B MS_SHARED
- a new peer group id needs to be allocated for all mounts without a peer group
- id set.
- Allocation of this peer group id has failed.
- .TP
- .B ENOSPC
- When changing mount propagation to
--.BR MS_SHARED
-+.B MS_SHARED
- a new peer group id needs to be allocated for all mounts without a peer group
- id set.
- Allocation of this peer group id can fail.
-@@ -690,25 +697,25 @@ id allocation implementation used.
- .TP
- .B EPERM
- One of the mounts had at least one of
--.BR MOUNT_ATTR_NOATIME,
--.BR MOUNT_ATTR_NODEV,
--.BR MOUNT_ATTR_NODIRATIME,
--.BR MOUNT_ATTR_NOEXEC,
--.BR MOUNT_ATTR_NOSUID,
-+.BR MOUNT_ATTR_NOATIME ,
-+.BR MOUNT_ATTR_NODEV ,
-+.BR MOUNT_ATTR_NODIRATIME ,
-+.BR MOUNT_ATTR_NOEXEC ,
-+.BR MOUNT_ATTR_NOSUID ,
- or
--.BR MOUNT_ATTR_RDONLY
-+.B MOUNT_ATTR_RDONLY
- set and the flag is locked.
- Mount attributes become locked on a mount if:
- .RS
--.IP \(bu 2
--a new mount or mount tree is created causing mount propagation across user
-+.IP \(bu
-+A new mount or mount tree is created causing mount propagation across user
- namespaces.
- The kernel will lock the aforementioned flags to protect these sensitive
- properties from being altered.
- .IP \(bu
--a new mount and user namespace pair is created.
-+A new mount and user namespace pair is created.
- This happens for example when specifying
--.BR CLONE_NEWUSER | CLONE_NEWNS
-+.B CLONE_NEWUSER | CLONE_NEWNS
- in
- .BR unshare (2),
- .BR clone (2),
-@@ -731,18 +738,18 @@ The caller does not have
- .I CAP_SYS_ADMIN
- in the initial user namespace.
- .SH VERSIONS
--.BR mount_setattr (2)
-+.BR mount_setattr ()
- first appeared in Linux 5.12.
- .\" commit 7d6beb71da3cc033649d641e1e608713b8220290
- .\" commit 2a1867219c7b27f928e2545782b86daaf9ad50bd
- .\" commit 9caccd41541a6f7d6279928d9f971f6642c361af
- .SH CONFORMING TO
--.BR mount_setattr (2)
--is Linux specific.
-+.BR mount_setattr ()
-+is Linux-specific.
- .SH NOTES
- .SS Extensibility
- In order to allow for future extensibility,
--.BR mount_setattr (2)
-+.BR mount_setattr ()
- along with other system calls such as
- .BR openat2 (2)
- and
-@@ -751,7 +758,7 @@ requires the user-space application to specify the size of the
- .I mount_attr
- structure that it is passing.
- By providing this information, it is possible for
--.BR mount_setattr (2)
-+.BR mount_setattr ()
- to provide both forwards- and backwards-compatibility, with
- .I size
- acting as an implicit version number.
-@@ -771,10 +778,9 @@ and let
- .I ksize
- be the size of the structure which the kernel supports,
- then there are three cases to consider:
--.RS
--.IP \(bu 2
-+.IP \(bu
- If
--.IR ksize
-+.I ksize
- equals
- .IR usize ,
- then there is no version mismatch and
-@@ -782,31 +788,32 @@ then there is no version mismatch and
- can be used verbatim.
- .IP \(bu
- If
--.IR ksize
-+.I ksize
- is larger than
- .IR usize ,
--then there are some extension fields that the kernel supports which the
--user-space application is unaware of.
-+then there are some extension fields that the kernel supports
-+which the user-space application is unaware of.
- Because a zero value in any added extension field signifies a no-op,
--the kernel treats all of the extension fields not provided by the user-space
--application as having zero values.
-+the kernel treats all of the extension fields
-+not provided by the user-space application
-+as having zero values.
- This provides backwards-compatibility.
- .IP \(bu
- If
--.IR ksize
-+.I ksize
- is smaller than
- .IR usize ,
- then there are some extension fields which the user-space application is aware
- of but which the kernel does not support.
- Because any extension field must have its zero values signify a no-op,
--the kernel can safely ignore the unsupported extension fields if they are
--all zero.
--If any unsupported extension fields are non-zero, then \-1 is returned and
-+the kernel can safely ignore the unsupported extension fields
-+if they are all zero.
-+If any unsupported extension fields are non-zero,
-+then \-1 is returned and
- .I errno
- is set to
- .BR E2BIG .
- This provides forwards-compatibility.
--.RE
- .PP
- Because the definition of
- .I struct mount_attr
-@@ -842,7 +849,7 @@ attr.attr_clr = MOUNT_ATTR_NODEV;
- .PP
- A user-space application that wishes to determine which extensions the running
- kernel supports can do so by conducting a binary search on
--.IR size
-+.I size
- with a structure which has every byte nonzero
- (to find the largest value which doesn't produce an error of
- .BR E2BIG ) .
-@@ -865,30 +872,26 @@ with a structure which has every byte nonzero
- #include <sys/syscall.h>
- #include <unistd.h>
- 
--static inline int mount_setattr(int dfd,
--                                const char *path,
--                                unsigned int flags,
--                                struct mount_attr *attr,
--                                size_t size)
-+static inline int
-+mount_setattr(int dfd, const char *path, unsigned int flags,
-+              struct mount_attr *attr, size_t size)
- {
--    return syscall(SYS_mount_setattr, dfd, path,
--                   flags, attr, size);
-+    return syscall(SYS_mount_setattr, dfd, path, flags, attr, size);
- }
- 
--static inline int open_tree(int dfd, const char *filename,
-+static inline int
-+open_tree(int dfd, const char *filename,
-                             unsigned int flags)
- {
-     return syscall(SYS_open_tree, dfd, filename, flags);
- }
- 
--static inline int move_mount(int from_dfd,
--                             const char *from_pathname,
--                             int to_dfd,
--                             const char *to_pathname,
--                             unsigned int flags)
-+static inline int
-+move_mount(int from_dfd, const char *from_pathname,
-+           int to_dfd, const char *to_pathname, unsigned int flags)
- {
--    return syscall(SYS_move_mount, from_dfd,
--                   from_pathname, to_dfd, to_pathname, flags);
-+    return syscall(SYS_move_mount, from_dfd, from_pathname,
-+                   to_dfd, to_pathname, flags);
- }
- 
- static const struct option longopts[] = {
-@@ -902,23 +905,25 @@ static const struct option longopts[] = {
-     { NULL,             0,                  NULL,   0 },
- };
- 
--#define exit_log(format, ...)                   \\
--    ({                                          \\
--        fprintf(stderr, format, ##__VA_ARGS__); \\
--        exit(EXIT_FAILURE);                     \\
--    })
-+#define exit_log(format, ...)  do           \e
-+{                                           \e
-+    fprintf(stderr, format, ##__VA_ARGS__); \e
-+    exit(EXIT_FAILURE);                     \e
-+} while (0)
- 
--int main(int argc, char *argv[])
-+int
-+main(int argc, char *argv[])
- {
--    int fd_userns = \-EBADF, index = 0;
-+    int fd_userns = \-EBADF;
-+    int index = 0;
-     bool recursive = false;
-     struct mount_attr *attr = &(struct mount_attr){};
-     const char *source, *target;
-     int fd_tree, new_argc, ret;
--    char *const *new_argv;
-+    const char *const *new_argv;
- 
-     while ((ret = getopt_long_only(argc, argv, "",
--                                  longopts, &index)) != \-1) {
-+                                   longopts, &index)) != \-1) {
-         switch (ret) {
-         case 'a':
-             fd_userns = open(optarg, O_RDONLY | O_CLOEXEC);
-@@ -985,7 +990,6 @@ int main(int argc, char *argv[])
-     exit(EXIT_SUCCESS);
- }
- .EE
--.fi
- .SH SEE ALSO
- .BR capabilities (7),
- .BR clone (2),
+ .EX
+-$ \fBldd /bin/ls | sed \(aqs/^ */    /\(aq\fP
++$ \fBldd /bin/ls\fP
+     linux\-vdso.so.1 (0x00007ffcc3563000)
+     libselinux.so.1 => /lib64/libselinux.so.1 (0x00007f87e5459000)
+     libcap.so.2 => /lib64/libcap.so.2 (0x00007f87e5254000)
 -- 
 2.32.0
 
