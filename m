@@ -2,67 +2,67 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0DB123E3CB7
-	for <lists+linux-man@lfdr.de>; Sun,  8 Aug 2021 22:32:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5A9793E3CBA
+	for <lists+linux-man@lfdr.de>; Sun,  8 Aug 2021 22:34:14 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230201AbhHHUcW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 8 Aug 2021 16:32:22 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58432 "EHLO
+        id S231608AbhHHUec (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 8 Aug 2021 16:34:32 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58912 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229977AbhHHUcW (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 8 Aug 2021 16:32:22 -0400
-Received: from mail-pj1-x1033.google.com (mail-pj1-x1033.google.com [IPv6:2607:f8b0:4864:20::1033])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E074AC061760
-        for <linux-man@vger.kernel.org>; Sun,  8 Aug 2021 13:32:01 -0700 (PDT)
-Received: by mail-pj1-x1033.google.com with SMTP id a8so24662297pjk.4
-        for <linux-man@vger.kernel.org>; Sun, 08 Aug 2021 13:32:01 -0700 (PDT)
+        with ESMTP id S229977AbhHHUea (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 8 Aug 2021 16:34:30 -0400
+Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com [IPv6:2607:f8b0:4864:20::102b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 91509C061760
+        for <linux-man@vger.kernel.org>; Sun,  8 Aug 2021 13:34:11 -0700 (PDT)
+Received: by mail-pj1-x102b.google.com with SMTP id pj14-20020a17090b4f4eb029017786cf98f9so26781430pjb.2
+        for <linux-man@vger.kernel.org>; Sun, 08 Aug 2021 13:34:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=vzTD15mb4wj/PKw7sKhNs+JMCE54AbWA05+Mvi23ojM=;
-        b=eDIOPLqLchkD34r795Zx7g5LZhVoA8nk0IJBSZ344PPH3+1eQF9gDaLP/BZx5UgxkQ
-         cqeZiPjb9JPAT8JcTy3ArrBzU0SSkz/o2TPkQ2wYCsJeuA622B85ekhMyfToOf85Q6UM
-         fHyvx2LnL5Ucbo8wj8bZdNq6v8STYdnlW7kfJrLrsutJ6k+8VXb260dGrBEZO6VEtkWN
-         mTPRT11yUhWm72m7Cm4FZO332NBZxLcdmlw4qsg5I+e4NZDK7nuN0u2ShZTtQUowwxcz
-         1ysyJHiBGI4jsHt/P8GElX4FrlLO4kCnbREBhTnGkCeBBx2WgT19fPkabF1zzxZX/Tqg
-         RHWw==
+        bh=Bc0PKiS6mkvkGWjpE+SN7gPyb199XI1/UwQy+RL6f/E=;
+        b=oHS0mayZaVgZugkCcA2vR4yj0P1kJBhWy6WVxvzbM25cjxxQ87VDX5ipH14p5W0T6N
+         uZDAyoLo26sULhOOOMOlRESCO/36EZvs1etaqmO2hluMqnPFpYzPjEOa55gifCWSFTzh
+         n3f6zmyQMX//nh9KWKUgRolJ0eR6M8WZWhf3cFemclFSG3XYx/XFoCpouoxTxiulm5Ql
+         Pj+ElNjZ92/dcsuF08Hs8qOExmNK6DQHpnj0zYzWhjcRaEDRXVL2R4H6JSF/jPypcRDc
+         N1kSfVqKk+IpJoq3rPJfgaIRssNVFJyDmKmCwOeso4FP9hadaxgSQ2bE8NIMhQ+9Zc7p
+         0ROg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=vzTD15mb4wj/PKw7sKhNs+JMCE54AbWA05+Mvi23ojM=;
-        b=NDoyf4mgEJ6iUWRdeA9IaJm1E+6YxD3KiYeeGXXCYv1Jc7v9zQnovVxHytSeyF8wYR
-         xwCVSJecIVPnaX2v56jPmS3sv54a34b9UUvus5rXziddBMQKBF233cl5N3R9V/aQcNVp
-         B6apOy6D4iWkY0hhiFOzU8kQW0YuU42mztq+EnxucHm6FfYpccc9HjJQcjms+y7R6XNU
-         uErS8XB9xgW/waWKGp0K15y1ogZD/wMsKD3QYFud0ZgA9my5Egf0wzxD9ep8DaxgW4Hc
-         fKB/B1ZM42nC3UVblqJYZ55zLCbpB/ridjEd/W0fVZxhE2JgNx9t0QnEx3uw64w9uP3f
-         yiiA==
-X-Gm-Message-State: AOAM531e+ckqAbShgWvZEXunZBfOIKykJ8vqNg+fLl91AxItDdITfMlV
-        XyqGiZdFXMIOaSpL57xVagHDZQIawAA=
-X-Google-Smtp-Source: ABdhPJzmGkmoSO5w7PQ+VTHyj5Nurvg8iuqZGY9NBe8GaJKbhdsDN+TcQMI/2zWmdUxgSNXhXcgObw==
-X-Received: by 2002:a17:902:e313:b029:12d:2a9:4bb7 with SMTP id q19-20020a170902e313b029012d02a94bb7mr7058137plc.45.1628454721283;
-        Sun, 08 Aug 2021 13:32:01 -0700 (PDT)
+        bh=Bc0PKiS6mkvkGWjpE+SN7gPyb199XI1/UwQy+RL6f/E=;
+        b=YFW9phaJ8eWNO9CF9LnN4uXt1bkKfz1DWbsgCH5mZEgla/i4hGE5z29SeQoDPMG11V
+         WNXpXoq+lvMZ/1FfukbVuP/D8WX9GEsTe1y7LTcozr5OskZju3MihHUoOqFWYE5xM1qU
+         ZC6wWN3Bk2oJyf6Pc4pCiMgmgcIf2VJiGS213Nl1vKYJmziXBVJu13cCJDw0hB2+hdia
+         teWU0oxKRmM1+7zWktT4apz99s3Qun5a+08iiOD/bzH57IX5wn5zu/lGhtbbO9yWgIUn
+         IFu/lgseuterONNbLATA60cRZlcRs6/b06gM/01G7QeJxSx3UgX7aSBXuqBzGpL+P4b/
+         G6eQ==
+X-Gm-Message-State: AOAM530m+aXgqPtLSSL4wdpORuV2/jsfmPeTbgGYfwkwQIapRqUbl2QU
+        Z8xlLCBzQOwx6Vml66ldunK/fTFbfRE=
+X-Google-Smtp-Source: ABdhPJyaI74FaYZGRN5AgNz5oqQX+uU1nOBIk9odeekF46SDrYrNNI6WWz6ZQ/LOlSk7sQ79UIIl9g==
+X-Received: by 2002:a62:150c:0:b029:3cc:e14:a533 with SMTP id 12-20020a62150c0000b02903cc0e14a533mr1966676pfv.80.1628454850907;
+        Sun, 08 Aug 2021 13:34:10 -0700 (PDT)
 Received: from [192.168.1.71] (122-61-176-117-fibre.sparkbb.co.nz. [122.61.176.117])
-        by smtp.gmail.com with ESMTPSA id d22sm19765796pgi.73.2021.08.08.13.31.58
+        by smtp.gmail.com with ESMTPSA id ls16sm15562540pjb.49.2021.08.08.13.34.08
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 08 Aug 2021 13:32:00 -0700 (PDT)
+        Sun, 08 Aug 2021 13:34:10 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com,
         =?UTF-8?Q?Pali_Roh=c3=a1r?= <pali@kernel.org>,
         linux-man@vger.kernel.org
-Subject: Re: [PATCH 12/23] termios.3: Use bold style for Bnn and EXTn macro
- constants
+Subject: Re: [PATCH 15/23] termios.3: Add information how to set baud rate to
+ any other value
 To:     Alejandro Colomar <alx.manpages@gmail.com>
 References: <20210808084133.734274-1-alx.manpages@gmail.com>
- <20210808084133.734274-13-alx.manpages@gmail.com>
+ <20210808084133.734274-16-alx.manpages@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <3a0c556e-9519-3a09-ca0b-2df15735d6ff@gmail.com>
-Date:   Sun, 8 Aug 2021 22:31:57 +0200
+Message-ID: <0f2f7286-0c6c-81f3-6585-4ddb24cfceb0@gmail.com>
+Date:   Sun, 8 Aug 2021 22:34:06 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <20210808084133.734274-13-alx.manpages@gmail.com>
+In-Reply-To: <20210808084133.734274-16-alx.manpages@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
@@ -78,37 +78,34 @@ On 8/8/21 10:41 AM, Alejandro Colomar wrote:
 > Signed-off-by: Pali Rohár <pali@kernel.org>
 > Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 
-Thanks. Patch applied.
+Patch applied.
 
-Cheers,
+Thanks,
 
 Michael
 
 > ---
->  man3/termios.3 | 10 ++++++++--
->  1 file changed, 8 insertions(+), 2 deletions(-)
+>  man3/termios.3 | 7 +++++++
+>  1 file changed, 7 insertions(+)
 > 
 > diff --git a/man3/termios.3 b/man3/termios.3
-> index 01c209944..b7cdec507 100644
+> index b7cdec507..7023025e7 100644
 > --- a/man3/termios.3
 > +++ b/man3/termios.3
-> @@ -1068,8 +1068,14 @@ and
->  are nonstandard, but available on the BSDs.
->  .SH NOTES
->  UNIX\ V7 and several later systems have a list of baud rates
-> -where after the fourteen values B0, ..., B9600 one finds the
-> -two constants EXTA, EXTB ("External A" and "External B").
-> +where after the fourteen values
-> +.BR B0 ,
-> +\&.\|.\|.\|,
-> +.B B9600
-> +one finds the two constants
-> +.BR EXTA ,
-> +.B EXTB
-> +("External A" and "External B").
->  Many systems extend the list with much higher baud rates.
+> @@ -968,6 +968,13 @@ Normally, this will disconnect the line.
+>  for the speeds beyond those defined in POSIX.1 (57600 and above).
+>  Thus, \fBB57600\fP & \fBCBAUDEX\fP is nonzero.
 >  .PP
->  The effect of a nonzero \fIduration\fP with
+> +Setting the baud rate to a value other than those defined by
+> +.B Bnnn
+> +constants is possible via the
+> +.B TCSETS2
+> +ioctl; see
+> +.BR ioctl_tty (2).
+> +.PP
+>  .BR cfgetispeed ()
+>  returns the input baud rate stored in the \fItermios\fP structure.
+>  .PP
 > 
 
 
