@@ -2,77 +2,114 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6FE3A3E4309
-	for <lists+linux-man@lfdr.de>; Mon,  9 Aug 2021 11:43:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 35E733E430A
+	for <lists+linux-man@lfdr.de>; Mon,  9 Aug 2021 11:43:28 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234443AbhHIJn1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 9 Aug 2021 05:43:27 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35934 "EHLO
+        id S234642AbhHIJnr (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 9 Aug 2021 05:43:47 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36020 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234365AbhHIJn0 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 9 Aug 2021 05:43:26 -0400
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com [IPv6:2a00:1450:4864:20::12b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AB69CC0613CF
-        for <linux-man@vger.kernel.org>; Mon,  9 Aug 2021 02:43:05 -0700 (PDT)
-Received: by mail-lf1-x12b.google.com with SMTP id c24so5842338lfi.11
-        for <linux-man@vger.kernel.org>; Mon, 09 Aug 2021 02:43:05 -0700 (PDT)
+        with ESMTP id S234365AbhHIJnq (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 9 Aug 2021 05:43:46 -0400
+Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com [IPv6:2607:f8b0:4864:20::102b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B3C86C0613CF
+        for <linux-man@vger.kernel.org>; Mon,  9 Aug 2021 02:43:25 -0700 (PDT)
+Received: by mail-pj1-x102b.google.com with SMTP id w13-20020a17090aea0db029017897a5f7bcso5605638pjy.5
+        for <linux-man@vger.kernel.org>; Mon, 09 Aug 2021 02:43:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kinvolk.io; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=PLHtBMhuadgOT9rKrvlkgxyLk/cf/fW/8V32G3Nu4J8=;
-        b=jd2dFpqyMmYyQqGw9ohpBtucgA7EYAjNTFC0pLHf8Y5h6uKCDkx6uRmG891cKJA/nu
-         xon0Y1JDwtkXw59d16E+edd32LdMtE7DWjpxBebOhSM5XFphZbL1cISWa5ANAH7WeOqf
-         9Ja1Pr/pZuhP9liQWOyzN0+S3OJ/zsdCAlrBA=
+        d=gmail.com; s=20161025;
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=l3gEIMHDS03nD+5+a61I02eUTgK5jP2vXRs4Q1n96bM=;
+        b=UeqJD+V8SGbAqRo84eOa1987E8tFx/GlEGMWw+UobpTk0qV/jJMDxTNrnNaAoNerw1
+         TjbvaSb3VyJD1Woho173TIDFKUQAZmdUzI2m3UZInyikVqrIrYCbal38mEwqPxghpOEc
+         EQbzCozBev6gGzym+mYnUUfoT28xGYfPBSm4IlaaLX7kTftsC4Klm2AgRxrcCT2IDBYq
+         20DtXU92c81b/iMfXTFDn4+JIz0aFaXlvbQou5d2+ZeEdbUDOSAevBVb3v6Y97mSzgII
+         8R0AxAnKXmnzXBS+yvyUUdBrQ0lu0oI/f6lReDCIlrNISSCfmtKxQ7+hhdNH7wEXSmJC
+         mbNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=PLHtBMhuadgOT9rKrvlkgxyLk/cf/fW/8V32G3Nu4J8=;
-        b=eYzDAAZUKPNEd8yUqaR0Dr4YMbEqsgbGQP/sepS0bT/BNW2FGl+eS5VzOB+sVzLvBO
-         gTTzbMYb1YFoKG1vZwF1l0gL/hdttrzMnSMQfN6Z5bu2lcHftxGHgSOlhGY6bXKws3J9
-         5GqDQ/iUGblY/XNqKCSisl3ukoVwr6vwaf9LPqELEQRoeScwJXXuy70CIV3Kf3gkMW3z
-         yv6GMxcYDqMkohiKKpqT6+LmYOoQmVgkc8lF/sPUN3rsv6nEr0blsjhn1gkpAWsiKZkt
-         umtd0zu9emMX5M99Q4B7os5hRQklq+xJSyaEQTtMph31Wv4SF6wdxMvzRyIxWwLRkQD/
-         UM5g==
-X-Gm-Message-State: AOAM532MBeDuDtR4DBWBORHGNCcVtAS0oOUlSufi3lx9x8yTcq+JDIs7
-        NSEx1MyT3YPwaHA9z1IfJz3hm0nHpekJTYrnOvP82A==
-X-Google-Smtp-Source: ABdhPJwIVSbHowfaVeWAcg23s+P5fod1x2uEPjKdAmusY8d/bnDh5Y6Vh/vk4aBIwWKEJQdkZQXSWu2IQBnrRb6Qm5I=
-X-Received: by 2002:a05:6512:169d:: with SMTP id bu29mr16931155lfb.160.1628502183956;
- Mon, 09 Aug 2021 02:43:03 -0700 (PDT)
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=l3gEIMHDS03nD+5+a61I02eUTgK5jP2vXRs4Q1n96bM=;
+        b=NkmhHY7sBA+ggHCuunUcytvWeniikoAnqfpAd5fcJVFn0EOJogYkBpRhb6fm2o07Ph
+         P+TaWn/HokGl/g3UJ14r8lQsypCA94HH8xxYMT+g9qJ49xsUP+aElegLDiw1m9LeXWmZ
+         CGZDP1qpj2cVhrcCMZtmALdhJ+WxPnCNDJbe0aIBQtCbLUBORRxmJBYJnnUui7kKvJnt
+         OCbD12t98Z1dr8c0HDe0SNZ2IfH+T4s3WIwtWuh0Iq9M0e2ltDilcoXq9PL6010vLcaU
+         Mk6khkpByM+Snpv4rdAVjfmMU5aFEv/UD9TjTnrY9K3YKiAmQ90luaBDte0fkRR58UyN
+         Gp6A==
+X-Gm-Message-State: AOAM532970+hk4VWWSjQb1FZBMtE0ddmyC+IhBqSI9C33FQO0lTb9ZMC
+        gpfYQSEcbvh7pXUtSdUlEAq8LIRT6ak=
+X-Google-Smtp-Source: ABdhPJwQ16q59EUYBEISn2ppMRAaVLqdG025EeRMo04MIuVPL2VaY63HtM0oBNVGyNqhoGtzmOGVPw==
+X-Received: by 2002:a17:90a:d910:: with SMTP id c16mr15840928pjv.154.1628502205036;
+        Mon, 09 Aug 2021 02:43:25 -0700 (PDT)
+Received: from [192.168.1.71] (122-61-176-117-fibre.sparkbb.co.nz. [122.61.176.117])
+        by smtp.gmail.com with ESMTPSA id j16sm20669299pfi.165.2021.08.09.02.43.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 09 Aug 2021 02:43:24 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: [PATCH] path_resolution.7: tfix + srcfix
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+References: <20210809091051.787551-1-alx.manpages@gmail.com>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <4dddf599-b7ab-3b8d-f5ef-5699736f86c1@gmail.com>
+Date:   Mon, 9 Aug 2021 11:43:20 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-References: <20210728202008.3158-1-alx.manpages@gmail.com> <20210728202008.3158-17-alx.manpages@gmail.com>
- <1a858a67-c3a7-2c1b-eec5-ff206b97f82e@gmail.com>
-In-Reply-To: <1a858a67-c3a7-2c1b-eec5-ff206b97f82e@gmail.com>
-From:   Rodrigo Campos <rodrigo@kinvolk.io>
-Date:   Mon, 9 Aug 2021 11:42:28 +0200
-Message-ID: <CACaBj2bHdm_G5A3wHqjNDtLOH3iG6OHSD-02EtT=HYXen7rW7g@mail.gmail.com>
-Subject: Re: [PATCH 16/32] seccomp_unotify.2: Add doc for SECCOMP_ADDFD_FLAG_SEND
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <20210809091051.787551-1-alx.manpages@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Sun, Aug 8, 2021 at 3:01 AM Michael Kerrisk (man-pages)
-<mtk.manpages@gmail.com> wrote:
->
-> Hello Rodrigo, Alex,
->
-> On 7/28/21 10:19 PM, Alejandro Colomar wrote:
-> > From: Rodrigo Campos <rodrigo@kinvolk.io>
-> >
-> > This flag was recently added to Linux 5.14 by a patch I wrote:
-> >       https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=0ae71c7720e3ae3aabd2e8a072d27f7bd173d25c
-> >
-> > This patch adds documentation for the flag, the error code that the flag
-> > added and explains in the caveat when it is useful.
->
-> Thanks for taking the time to write this patch!
->
-> Patch applied.
+Hi Alex,
 
-Thanks! It is great to verify that the explanation is indeed clear to
-others too! :)
+On 8/9/21 11:10 AM, Alejandro Colomar wrote:
+> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+> ---
+> 
+> Hi Michael,
+> 
+> Here are some minor tweaks to a recent patch of yours.
+> There was a typo, and I think the line breaks better at that point.
+> But you can omit the second change and just fix the typo if you prefer.
+> 
+> Cheers,
+> 
+> Alex
+
+Thanks. Patch applied.
+
+Cheers,
+
+Michael
+
+>  man7/path_resolution.7 | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/man7/path_resolution.7 b/man7/path_resolution.7
+> index 749f6900b..143f22826 100644
+> --- a/man7/path_resolution.7
+> +++ b/man7/path_resolution.7
+> @@ -179,8 +179,8 @@ flag set (though note that this also restricts bind mount traversal).
+>  If a pathname ends in a \(aq/\(aq, that forces resolution of the preceding
+>  component as in Step 2:
+>  the component preceding the slash either exists and resolves to a directory
+> -of it names a directory that is to be created immediately after the
+> -pathname is resolved.
+> +or it names a directory that is to be created
+> +immediately after the pathname is resolved.
+>  Otherwise, a trailing \(aq/\(aq is ignored.
+>  .SS Final symlink
+>  If the last component of a pathname is a symbolic link, then it
+> 
+
+
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
