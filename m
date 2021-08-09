@@ -2,65 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 92DC93E3D57
-	for <lists+linux-man@lfdr.de>; Mon,  9 Aug 2021 02:34:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9B14D3E3DDB
+	for <lists+linux-man@lfdr.de>; Mon,  9 Aug 2021 04:00:55 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229942AbhHIAew (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 8 Aug 2021 20:34:52 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54000 "EHLO
+        id S231459AbhHICBO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 8 Aug 2021 22:01:14 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44720 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229903AbhHIAev (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 8 Aug 2021 20:34:51 -0400
-Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com [IPv6:2607:f8b0:4864:20::102b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2B93DC061760
-        for <linux-man@vger.kernel.org>; Sun,  8 Aug 2021 17:34:31 -0700 (PDT)
-Received: by mail-pj1-x102b.google.com with SMTP id u5-20020a17090ae005b029017842fe8f82so18233822pjy.0
-        for <linux-man@vger.kernel.org>; Sun, 08 Aug 2021 17:34:31 -0700 (PDT)
+        with ESMTP id S229891AbhHICBN (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 8 Aug 2021 22:01:13 -0400
+Received: from mail-pj1-x1036.google.com (mail-pj1-x1036.google.com [IPv6:2607:f8b0:4864:20::1036])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4DD3FC061757
+        for <linux-man@vger.kernel.org>; Sun,  8 Aug 2021 19:00:54 -0700 (PDT)
+Received: by mail-pj1-x1036.google.com with SMTP id lw7-20020a17090b1807b029017881cc80b7so6022893pjb.3
+        for <linux-man@vger.kernel.org>; Sun, 08 Aug 2021 19:00:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=O7cSGypQgfftqoKftOsWtHP+fd9pJTi1Xkf7nzkkqJU=;
-        b=D1aYKSJOD5fC5ecE9oQcZry4cFbGl11wP5sHKu/8mKqjP247+F0pAfstCM90+pkgma
-         9q86oHA5shKO1mNp6I+BJvRU4VYsuB9FKC/KzzoFphISzMD/IuOu10QqM0PMnnC7YSJn
-         6wZ+QtbfePjI8CLXRGLG1YUX2aFi5cNwZgZMiodxfaFfZvlq+MxwqyRGOzmQOXCRFFwZ
-         1tAHcRbekbQkUXhZNBTCXWnXRK4dP2eIxBdJIyTozHp3b/PCdgdtCiARYQRLSTwdjcLm
-         1KVVIktdYjdIEmD+RynWPCBdHqzy9HILtxoPi3HJvT8wq0Te2rEl2xZ+jH3hUa2pCyQM
-         vbBw==
+        bh=MpfXmBzyFe5Je3QKye5Dt9qhgKHYZ8tCAc/sTL8R5+U=;
+        b=JHf7eWrU3bYly9bPiemICGyPtiSGbCFOpLzYxvrdBWHWsLx4OX7+buXcHUIRxCqa2l
+         9tWrHFh22dt0QZjjnx7iOhAtALI80Z4MHfXvs9uO8Jl0GPInT286EGlLEmwKvdzMUV72
+         YlEn7HYc18XbR9rfI5EmZvXBZOCmtKzsiOy9c7qIqyi42hWVBt1PoLgmjj8O3uYBTWVk
+         cW5GQzI0BVDoZ+MQEm4QMtQSt3aGrYneCZqqJIF6fK7OyMD25K53JGUYHBQoXJ5T2Fbj
+         gJ+3m9eZcS8AVbhNZ1oZGfKBvAa+jHEggorPdoERsAkcs+HUVccj0OtSj6lbiBk3iqtl
+         1fJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=O7cSGypQgfftqoKftOsWtHP+fd9pJTi1Xkf7nzkkqJU=;
-        b=mAGtAXm4BDzOrkWgbtaPS9KjMq93M6qUzm1IWV6D/fAt3gU2E6hjl7HUou1Iqxov+O
-         RO244WIeP4w/1KcfYZI4xWsX5Ydjgc7iMPcSbJy0YF4Be14CdxFhvLfQxb/CqbmFEZHG
-         OAW0QnfW8R2PbQ0c0TyZjS7AGzhQKNMUv3Bsc0q/KKr5/pOcDrXxWYPeSbcCjlEA8PMw
-         gNhZnmwLjWWdtqmabB/MptcTcZGnQEzb00/FigDtRMDDg8boKmi+PWwU3okE76XpVtbo
-         8yk+bYa+VviG8d9cY1lVIV1UucqpSSQS7KhIM04bGfcyQT8fPVlcpgn58zJH5B3FemJ7
-         cyJg==
-X-Gm-Message-State: AOAM530A4DbcV+rxnM5SvfL9plRTAvvQnG/DyxN+n8zBddbABwRHjSsx
-        9vd5qTMUEKrOkyoTWGmyhfI=
-X-Google-Smtp-Source: ABdhPJyvNiIFiKgUXvHwgMkJoPKY+YKy9k5pOcjYt/LkGnCQkefZVumqXkMOgp7y0Qj3E/rbDVL2OA==
-X-Received: by 2002:a17:902:c20c:b029:12c:ef04:faa3 with SMTP id 12-20020a170902c20cb029012cef04faa3mr12725056pll.44.1628469270570;
-        Sun, 08 Aug 2021 17:34:30 -0700 (PDT)
+        bh=MpfXmBzyFe5Je3QKye5Dt9qhgKHYZ8tCAc/sTL8R5+U=;
+        b=s4trx7IUN8yHeKOEyIZSmQwb7nje4hkErs/RmtG1IWe6WLWQ6E1OpyzK87MI7L2izL
+         lgOGHr+BGq/g0w+wGCwPKsPjGQx91p/+86pZSQAzniVHVj+Cu0FErY8Nwbi8jZpWRexk
+         iseQKVWLEcktx1xWbzaqN0jzIttOIleIjOPPLpW/9IiPmoEIPCRICugPYux4oD1js+e9
+         T0o3PPpnVfqP/OgbxTyePepF4nWUchCkxlunF3d8tbRqPgXKw+aQT+mrsqecqn2XrRbR
+         RERPNLYF92ayVoZBWwnlzJkoMU22ZqZfEYmV5CpUWapVLXYeO3/baT2gTJ2ucg04cIWB
+         u6HA==
+X-Gm-Message-State: AOAM532DZ+pRStYyf/o0LaUzkN8z309LVR1UwFPWqEEsqqC2KzcILMBK
+        l7ptM4VqEEJSxfAcPVX85aq0IdL9+CA=
+X-Google-Smtp-Source: ABdhPJw56ohG8cf8u6N8s0VgPB0ZFYPwVf340DKRRbs4246iJvpCYyWpDht1cEi3iPk03RSEjA8jNQ==
+X-Received: by 2002:a63:da0a:: with SMTP id c10mr54679pgh.255.1628474453395;
+        Sun, 08 Aug 2021 19:00:53 -0700 (PDT)
 Received: from [192.168.1.71] (122-61-176-117-fibre.sparkbb.co.nz. [122.61.176.117])
-        by smtp.gmail.com with ESMTPSA id j77sm14399891pfd.64.2021.08.08.17.34.28
+        by smtp.gmail.com with ESMTPSA id c21sm17663567pfo.193.2021.08.08.19.00.50
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 08 Aug 2021 17:34:30 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        Peter Collingbourne <pcc@google.com>
-Subject: Re: [PATCH 03/23] sigaction.2: Apply minor tweaks to Peter's patch
+        Sun, 08 Aug 2021 19:00:52 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, Mike Rapoport <rppt@linux.ibm.com>,
+        linux-man@vger.kernel.org
+Subject: Re: [PATCH 08/23] man2: new page describing memfd_secret() system
+ call
 To:     Alejandro Colomar <alx.manpages@gmail.com>
 References: <20210808084133.734274-1-alx.manpages@gmail.com>
- <20210808084133.734274-4-alx.manpages@gmail.com>
+ <20210808084133.734274-9-alx.manpages@gmail.com>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <767c4b00-be87-fda2-dd86-13d2433bbdc8@gmail.com>
-Date:   Mon, 9 Aug 2021 02:34:26 +0200
+Message-ID: <c59c067a-b152-2e23-3591-833d8349dcda@gmail.com>
+Date:   Mon, 9 Aug 2021 04:00:46 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <20210808084133.734274-4-alx.manpages@gmail.com>
+In-Reply-To: <20210808084133.734274-9-alx.manpages@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -68,216 +69,243 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Alex,
+Hi Mike and Alex,
+
+I think some more work is needed for this page. Mike, would
+you be willing to do some work on the points below please?
 
 On 8/8/21 10:41 AM, Alejandro Colomar wrote:
-> - Move example program to a new EXAMPLES section
-
-Not a big thing, but perhaps it would have been nicer to have 
-two patches, the first doing the pieces below, and the second
-doing the step above. That would enable me to more easily see
-what changes you made below. But, I am not sure; maybe that
-is more work than is justified...
-
-> - Invert logic in the handler to have the failure in the conditional path,
->   and the success out of any conditionals.
-> - Use NULL, EXIT_SUCCESS, and EXIT_FAILURE instead of magic numbers
-> - Separate declarations from code
-> - Put function return type on its own line
-> - Put function opening brace on its line
+> From: Mike Rapoport <rppt@linux.ibm.com>
 > 
-> Cc: Peter Collingbourne <pcc@google.com>
+> Signed-off-by: Mike Rapoport <rppt@linux.ibm.com>
 > Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 > ---
->  man2/sigaction.2 | 76 +++++++++++++++++++++++++++---------------------
->  1 file changed, 43 insertions(+), 33 deletions(-)
+>  man2/memfd_secret.2 | 146 ++++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 146 insertions(+)
+>  create mode 100644 man2/memfd_secret.2
 > 
-> diff --git a/man2/sigaction.2 b/man2/sigaction.2
-> index 4bf6f095e..18404dde1 100644
-> --- a/man2/sigaction.2
-> +++ b/man2/sigaction.2
-> @@ -936,39 +936,6 @@ because they were introduced before Linux 5.11.
->  However, in general, programs may assume that these flags are supported,
->  since they have all been supported since Linux 2.6,
->  which was released in the year 2003.
-> -.PP
-> -The following example program exits with status 0 if
-> -.B SA_EXPOSE_TAGBITS
-> -is determined to be supported, and 1 otherwise.
-> -.PP
-> -.EX
-> -#include <signal.h>
-> -#include <stdio.h>
-> -#include <unistd.h>
-> -
-> -void handler(int signo, siginfo_t *info, void *context) {
-> -    struct sigaction oldact;
-> -    if (sigaction(SIGSEGV, 0, &oldact) == 0 &&
-> -        !(oldact.sa_flags & SA_UNSUPPORTED) &&
-> -        (oldact.sa_flags & SA_EXPOSE_TAGBITS)) {
-> -        _exit(0);
-> -    } else {
-> -        _exit(1);
-> -    }
-> -}
-> -
-> -int main(void) {
-> -    struct sigaction act = {0};
-> -    act.sa_flags = SA_SIGINFO | SA_UNSUPPORTED | SA_EXPOSE_TAGBITS;
-> -    act.sa_sigaction = handler;
-> -    if (sigaction(SIGSEGV, &act, 0) != 0) {
-> -        perror("sigaction");
-> -        return 1;
-> -    }
-> -
-> -    raise(SIGSEGV);
-> -}
-> -.EE
->  .SH RETURN VALUE
->  .BR sigaction ()
->  returns 0 on success; on error, \-1 is returned, and
-> @@ -1174,6 +1141,49 @@ This bug was fixed in kernel 2.6.14.
->  .SH EXAMPLES
->  See
->  .BR mprotect (2).
+> diff --git a/man2/memfd_secret.2 b/man2/memfd_secret.2
+> new file mode 100644
+> index 000000000..466aa4236
+> --- /dev/null
+> +++ b/man2/memfd_secret.2
+> @@ -0,0 +1,146 @@
+> +.\" Copyright (c) 2021, IBM Corporation.
+> +.\" Written by Mike Rapoport <rppt@linux.ibm.com>
+> +.\"
+> +.\" Based on memfd_create(2) man page
+> +.\" Copyright (C) 2014 Michael Kerrisk <mtk.manpages@gmail.com>
+> +.\" and Copyright (C) 2014 David Herrmann <dh.herrmann@gmail.com>
+> +.\"
+> +.\" %%%LICENSE_START(GPLv2+)
+> +.\"
+> +.\" This program is free software; you can redistribute it and/or modify
+> +.\" it under the terms of the GNU General Public License as published by
+> +.\" the Free Software Foundation; either version 2 of the License, or
+> +.\" (at your option) any later version.
+> +.\"
+> +.\" This program is distributed in the hope that it will be useful,
+> +.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+> +.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+> +.\" GNU General Public License for more details.
+> +.\"
+> +.\" You should have received a copy of the GNU General Public
+> +.\" License along with this manual; if not, see
+> +.\" <http://www.gnu.org/licenses/>.
+> +.\" %%%LICENSE_END
+> +.\"
+> +.TH MEMFD_SECRET 2 2020-08-02 Linux "Linux Programmer's Manual"
+> +.SH NAME
+> +memfd_secret \- create an anonymous file to access secret memory regions
+> +.SH SYNOPSIS
+> +.nf
 > +.PP
-> +The following example program exits with status
-> +.B EXIT_SUCCESS
-> +if
-> +.B SA_EXPOSE_TAGBITS
-> +is determined to be supported, and
-> +.B EXIT_FAILURE
-> +otherwise.
+> +.BR "#include <sys/syscall.h>" "      /* Definition of " SYS_* " constants */"
+> +.B #include <unistd.h>
 > +.PP
-> +.EX
-> +#include <signal.h>
-> +#include <stdlib.h>
-> +#include <stdio.h>
-> +#include <unistd.h>
-> +
-> +void
-> +handler(int signo, siginfo_t *info, void *context)
-> +{
-> +    struct sigaction oldact;
-> +
-> +    if (sigaction(SIGSEGV, NULL, &oldact) != 0 ||
-> +        (oldact.sa_flags & SA_UNSUPPORTED) ||
-> +        !(oldact.sa_flags & SA_EXPOSE_TAGBITS)) {
-> +        _exit(EXIT_FAILURE);
-> +    }
-> +    _exit(EXIT_SUCCESS);
-> +}
-> +
-> +int
-> +main(void)
-> +{
-> +    struct sigaction act = {0};
-> +
-> +    act.sa_flags = SA_SIGINFO | SA_UNSUPPORTED | SA_EXPOSE_TAGBITS;
-> +    act.sa_sigaction = &handler;
-> +    if (sigaction(SIGSEGV, &act, NULL) != 0) {
-> +        perror("sigaction");
-> +        exit(EXIT_FAILURE);
-> +    }
-> +
-> +    raise(SIGSEGV);
-> +}
-> +.EE
->  .SH SEE ALSO
->  .BR kill (1),
->  .BR kill (2),
+> +.BI "int syscall(SYS_memfd_secret, unsigned int " flags );
+> +.fi
+> +.PP
+> +.IR Note :
+> +glibc provides no wrapper for
+> +.BR memfd_secret (),
+> +necessitating the use of
+> +.BR syscall (2).
+> +.SH DESCRIPTION
+> +.BR memfd_secret ()
+> +creates an anonymous file and returns a file descriptor that refers to it.
 
-All looks good. I also had some additional fixes (2 patches). See below.
+s/file/RAM-based file/
 
-Cheers,
+> +The file provides a way to create and access memory regions
+> +with stronger protection than usual RAM-based files and
+> +anonymous memory mappings.
+> +Once all references to the file are dropped, it is automatically released.
+
+"dropped" is not clear. Should it be something like:
+
+    Once all open references to the file are closed,
+
+> +The initial size of the file is set to 0.
+> +Following the call, the file size should be set using
+> +.BR ftruncate (2).
+> +.PP
+> +The memory areas backing the file created with
+> +.BR memfd_create(2)
+> +are visible only to the contexts that have access to the file descriptor.
+
+"contexts" is not clear here. Can you reword to explain what you mean?
+(processes, threads, something else?)
+
+> +These areas are removed from the kernel page tables
+
+s/These areas are/The memory region is/
+
+> +and only the page tables of the processes holding the file descriptor
+> +map the corresponding physical memory.
+
+Perhaps a sentence here such as:
+
+"(Thus, the pages in the region can't be accessed by the kernel itself,
+so that, for example, pointers to the region can't be passed to 
+system calls.)"
+
+> +.PP
+> +The following values may be bitwise ORed in
+> +.I flags
+> +to control the behavior of
+> +.BR memfd_secret (2):
+> +.TP
+> +.B FD_CLOEXEC
+> +Set the close-on-exec flag on the new file descriptor.
+
+s/.$/, which causes the region to be removed from the process on execve(2)./
+
+> +See the description of the
+> +.B O_CLOEXEC
+> +flag in
+> +.BR open (2)
+> +for reasons why this may be useful.
+
+Maybe the previous sentence is not necessary?
+
+> +.PP
+> +As its return value,
+> +.BR memfd_secret ()
+> +returns a new file descriptor that can be used to refer to an anonymous file.
+
+s/that can be used to refer/that refers/
+
+> +This file descriptor is opened for both reading and writing
+> +.RB ( O_RDWR )
+> +and
+> +.B O_LARGEFILE
+> +is set for the file descriptor.
+> +.PP
+> +With respect to
+> +.BR fork (2)
+> +and
+> +.BR execve (2),
+> +the usual semantics apply for the file descriptor created by
+> +.BR memfd_secret ().
+> +A copy of the file descriptor is inherited by the child produced by
+> +.BR fork (2)
+> +and refers to the same file.
+> +The file descriptor is preserved across
+> +.BR execve (2),
+> +unless the close-on-exec flag has been set.
+> +.PP
+> +The memory regions backed with
+> +.BR memfd_secret ()
+> +are locked in the same way as
+> +.BR mlock (2),
+
+I find the wording here just a little unclear
+
+How about:
+
+    The memory region is locked into memory in the same way as
+    with mlock(2), so that it will never be written into swap
+
+> +however the implementation will not try to> +populate the whole range during the
+> +.BR mmap (2)
+> +call.
+
+s/call./call that attaches the region into the process's address space;
+        instead, the pages are only actually allocated as they are
+        faulted in./
+
+> +The amount of memory allowed for memory mappings
+> +of the file descriptor obeys the same rules as
+> +.BR mlock (2)
+> +and cannot exceed
+> +.BR RLIMIT_MEMLOCK .
+> +.SH RETURN VALUE
+> +On success,
+> +.BR memfd_secret ()
+> +returns a new file descriptor.
+> +On error, \-1 is returned and
+> +.I errno
+> +is set to indicate the error.
+> +.SH ERRORS
+> +.TP
+> +.B EINVAL
+> +.I flags
+> +included unknown bits.
+> +.TP
+> +.B EMFILE
+> +The per-process limit on the number of open file descriptors has been reached.
+> +.TP
+> +.B EMFILE
+> +The system-wide limit on the total number of open files has been reached.
+> +.TP
+> +.B ENOMEM
+> +There was insufficient memory to create a new anonymous file.
+> +.TP
+> +.B ENOSYS
+> +.BR memfd_secret ()
+> +is not implemented on this architecture.
+> +.SH VERSIONS
+> +The
+> +.BR memfd_secret (2)
+> +system call first appeared in Linux 5.14.
+> +.SH CONFORMING TO
+> +The
+> +.BR memfd_secret (2)
+> +system call is Linux-specific.
+> +.SH SEE ALSO
+> +.BR fcntl (2),
+> +.BR ftruncate (2),
+> +.BR mlock (2),
+> +.BR mmap (2),
+> +.BR setrlimit (2)
+
+I feel like this page could benefit from a NOTES section
+that explains the rationale for the system call. This could
+note that the fact that the region is not accessible from the
+kernel removes a whole class of security attacks.
+
+Also, the NOTES section could mention the  "secretmem_enable"
+boot option, what its purpose is, what values it can have,
+and what is default behavior if this option is not specified.
+
+Also, is ti still the case that if this system call is used,
+then users can no longer hibernate their systems? If so,
+this really should be mentioned in NOTES!
+
+Also, in NOTES perhaps it is worth mentioning that the
+pages in the region can enter the cache (right?).
+
+Perhaps Jon's articles at https://lwn.net/Articles/865256/
+https://lwn.net/Articits/835342/ and https://lwn.net/Articles/812325/,
+as well as your own commit message
+(https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=1507f51255c9)
+may inspire some other ideas on details that should be included
+in NOTES.
+
+Thanks,
 
 Michael
-
-diff --git a/man2/sigaction.2 b/man2/sigaction.2
-index 5262b81c9..3225dc990 100644
---- a/man2/sigaction.2
-+++ b/man2/sigaction.2
-@@ -1161,9 +1161,9 @@ handler(int signo, siginfo_t *info, void *context)
- {
-     struct sigaction oldact;
- 
--    if (sigaction(SIGSEGV, NULL, &oldact) != 0 ||
--        (oldact.sa_flags & SA_UNSUPPORTED) ||
--        !(oldact.sa_flags & SA_EXPOSE_TAGBITS)) {
-+    if (sigaction(SIGSEGV, NULL, &oldact) == \-1 ||
-+            (oldact.sa_flags & SA_UNSUPPORTED) ||
-+            !(oldact.sa_flags & SA_EXPOSE_TAGBITS)) {
-         _exit(EXIT_FAILURE);
-     }
-     _exit(EXIT_SUCCESS);
-@@ -1172,11 +1172,11 @@ handler(int signo, siginfo_t *info, void *context)
- int
- main(void)
- {
--    struct sigaction act = {0};
-+    struct sigaction act = { 0 };
- 
-     act.sa_flags = SA_SIGINFO | SA_UNSUPPORTED | SA_EXPOSE_TAGBITS;
-     act.sa_sigaction = &handler;
--    if (sigaction(SIGSEGV, &act, NULL) != 0) {
-+    if (sigaction(SIGSEGV, &act, NULL) == \-1) {
-         perror("sigaction");
-         exit(EXIT_FAILURE);
-     }
-
-
-diff --git a/man2/sigaction.2 b/man2/sigaction.2
-index 18404dde1..5262b81c9 100644
---- a/man2/sigaction.2
-+++ b/man2/sigaction.2
-@@ -266,13 +266,13 @@ This flag is meaningful only when establishing a signal handler.
- Used to dynamically probe for flag bit support.
- .IP
- If an attempt to register a handler succeeds with this flag set in
--.I act->sa_flags
-+.I act\->sa_flags
- alongside other flags that are potentially unsupported by the kernel,
- and an immediately subsequent
- .BR sigaction ()
--call specifying the same signal number n and with non-NULL
-+call specifying the same signal number and with a non-NULL
- .I oldact
--yields
-+argument yields
- .B SA_UNSUPPORTED
- .I clear
- in
-@@ -888,16 +888,16 @@ filter rule.
- The
- .BR sigaction ()
- call on Linux accepts unknown bits set in
--.I act->sa_flags
-+.I act\->sa_flags
- without error.
- The behavior of the kernel starting with Linux 5.11 is that a second
- .BR sigaction ()
- will clear unknown bits from
--.IR oldact->sa_flags .
-+.IR oldact\->sa_flags .
- However, historically, a second
- .BR sigaction ()
- call would typically leave those bits set in
--.IR oldact->sa_flags .
-+.IR oldact\->sa_flags .
- .PP
- This means that support for new flags cannot be detected
- simply by testing for a flag in
-@@ -919,7 +919,7 @@ in the signal handler itself.
- In kernels that do not support a specific flag,
- the kernel's behavior is as if the flag was not set,
- even if the flag was set in
--.IR act->sa_flags .
-+.IR act\->sa_flags .
- .PP
- The flags
- .BR SA_NOCLDSTOP ,
-
-
 
 -- 
 Michael Kerrisk
