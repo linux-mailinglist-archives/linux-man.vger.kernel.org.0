@@ -2,197 +2,109 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8C9483E404B
-	for <lists+linux-man@lfdr.de>; Mon,  9 Aug 2021 08:40:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2B2E83E416B
+	for <lists+linux-man@lfdr.de>; Mon,  9 Aug 2021 10:14:38 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233256AbhHIGlM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 9 Aug 2021 02:41:12 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50356 "EHLO
+        id S233847AbhHIIO5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 9 Aug 2021 04:14:57 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43362 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233234AbhHIGlL (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 9 Aug 2021 02:41:11 -0400
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com [IPv6:2a00:1450:4864:20::32d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B807FC0613CF
-        for <linux-man@vger.kernel.org>; Sun,  8 Aug 2021 23:40:50 -0700 (PDT)
-Received: by mail-wm1-x32d.google.com with SMTP id f9-20020a05600c1549b029025b0f5d8c6cso13687431wmg.4
-        for <linux-man@vger.kernel.org>; Sun, 08 Aug 2021 23:40:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=v77ihKvNuwc9Y6JOU+qouViD22Bl9AyCxQMf4xy9dyw=;
-        b=ganxY3kOdffCHd8SVReRJyP/qLpFiXMG5xrXa1KC9WBwF/Hcjoz2E3LAB6qmCT7p7g
-         Fr5jr+VSGKD9qUky4p22UYVhaxa2PPkOovGr+ePubfvJMwf+3zv0u6rd4vBvD9skjlfl
-         tNEYbWUePrXqWBEUzYg1ciRIdV1qrm5JCiaP7Az1ZiXwSZTk8WynohvhW5mMgyg6x8ZP
-         3xO7kcc4pBB+2iYgIcn3xp9ToiodjUpGl+agdoiCvkHVg0VNpS2vmRD1ktMhWU92L3Eb
-         becIJsZjNAwy2SHquTmI9y+lUuhf8PwajDX2TbIuqivciNQgFEAKCrRGm872EDQoeLnF
-         MaXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=v77ihKvNuwc9Y6JOU+qouViD22Bl9AyCxQMf4xy9dyw=;
-        b=G39o2x+MMmS7kI2FlYT9I0ScGo2XsmUhbbk3VDXm69KGoPiWrT5UNo9gasdDaQX+0c
-         DIuYGuCNeVS+98ABRXEuXKs/e7rOZ6FA+QSu9/hlUeLAq57DfLr++NZSDXN0Ckon2KNp
-         P4X/HhaSTc4mgvha4YHa48GjL9Sgm+iSliYNRQtg/wXRNSRRacTSwqDkyvGZDDRZWS5M
-         K8dkHFZFSUaGV7Evot3B0KXczLo7vjZvAtpaKrbw3PM78+VjNazu8Qmv6KIUXXCfhQbU
-         rdDmLzLMpXjBemjUePAL6Jy5Ake+asaY9FH3QVz9lFr+4/WgNImBSgweb/fU+9ycpba5
-         d9nQ==
-X-Gm-Message-State: AOAM530rqTaVC6MFqJOJgK8xWu6aTCJH4A4JUBTQTCRd3JCfXJSdnk79
-        ORvcW5Ge3UHzdtwlnzM7dPsuE/85x/E=
-X-Google-Smtp-Source: ABdhPJzGnIo6ne1nY5iZVqkABkNADGtXQuoeiMGtpiRrfZDwoqNq6OIJZqSlzOILB3qnp1GD7wzjwQ==
-X-Received: by 2002:a05:600c:3795:: with SMTP id o21mr15068021wmr.90.1628491249391;
-        Sun, 08 Aug 2021 23:40:49 -0700 (PDT)
-Received: from [10.8.0.10] ([195.53.121.100])
-        by smtp.gmail.com with ESMTPSA id p14sm7329367wro.3.2021.08.08.23.40.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 08 Aug 2021 23:40:49 -0700 (PDT)
-Subject: Re: [PATCH 10/23] getopt.3: Further clarification of optstring
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     "James O. D. Hunt" <jamesodhunt@gmail.com>,
-        linux-man@vger.kernel.org
+        with ESMTP id S233846AbhHIIO4 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 9 Aug 2021 04:14:56 -0400
+Received: from galois.linutronix.de (Galois.linutronix.de [IPv6:2a0a:51c0:0:12e:550::1])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C1B58C0613CF
+        for <linux-man@vger.kernel.org>; Mon,  9 Aug 2021 01:14:36 -0700 (PDT)
+From:   Kurt Kanzenbach <kurt@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+        s=2020; t=1628496873;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=B9uprR1/T6YAEw/RTr1desPbAMqusdRIbae7UsTwax4=;
+        b=n6j1YyegvBmRwTX74CmPz+fLS1d40oDMTBvcdEfiFmzJKBdJPodS5lH7qsLMdNZegCLee2
+        ynKI847AjNjvB5Xyy5X2wNeyc8JpDjNYfM/mC3O5QNVauSkt5mnDZjkLhAZFVTC3iq7Tcd
+        /9GuidPGdJOM/mBQgM13Fm8o2LMSC3iTYm/VPn3lnngp/g8sqEsA7cUQNoBRqhXzq4t5U+
+        /O5luJb5H0U5JgBE4qq1U21c6WWbQjMzmqcKZF7773eF8GyWTzLsqV3y7cm625JHifTMLp
+        NAPE/LdjDvF3EvfdzKNJA6Wy/9p/Ae21VcQ1WoBG2dXi0U/1SaZGuMDHCUBgNA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+        s=2020e; t=1628496873;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=B9uprR1/T6YAEw/RTr1desPbAMqusdRIbae7UsTwax4=;
+        b=n+0N3i5xziaOKPdo9y20ppZl8zEEEWGKT9A9BhxU8WmOJS3R5SHjv8mItSz9/5RLIGkSm3
+        8oj56ASejIIYu5Aw==
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
+        Thomas Gleixner <tglx@linutronix.de>
+Subject: Re: [PATCH 06/23] futex.2: Document FUTEX_LOCK_PI2
+In-Reply-To: <8560b628-c57e-eff6-ee59-34ac12d2b74d@gmail.com>
 References: <20210808084133.734274-1-alx.manpages@gmail.com>
- <20210808084133.734274-11-alx.manpages@gmail.com>
- <eb5b8342-f6b6-86a2-7d0d-f7729996b128@gmail.com>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <d9ba887c-172a-ba33-1d1f-0f3e61fd08de@gmail.com>
-Date:   Mon, 9 Aug 2021 08:40:48 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
+ <20210808084133.734274-7-alx.manpages@gmail.com>
+ <8560b628-c57e-eff6-ee59-34ac12d2b74d@gmail.com>
+Date:   Mon, 09 Aug 2021 10:14:32 +0200
+Message-ID: <87wnovxcev.fsf@kurt>
 MIME-Version: 1.0
-In-Reply-To: <eb5b8342-f6b6-86a2-7d0d-f7729996b128@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; boundary="=-=-=";
+        micalg=pgp-sha512; protocol="application/pgp-signature"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+--=-=-=
+Content-Type: text/plain
+
 Hi Michael,
 
-On 8/9/21 12:11 AM, Michael Kerrisk (man-pages) wrote:
-> 
-> Thanks. The patch is good and I applied it
-> 
-> @James: it would be helpful to explain in the commit
-> message how you verified these details.
-> 
-> @Alex: do not be shy of asking people to improve there commit
-> messages in this way :-).
+On Mon Aug 09 2021, Michael Kerrisk (man-pages) wrote:
+>> +.IP
+>> +If
+>> +.I timeout
+>> +is not NULL, the structure it points to specifies
+>> +an absolute timeout.
+>> +If
+>> +.I timeout
+>> +is NULL, the operation can block indefinitely.
+>
+> The above is the same as FUTEX_LOCK_PI, right? So, it
+> probably doesn't need repeating.
+>
+> I've reworked this description to be:
+>
+>        FUTEX_LOCK_PI2 (since Linux 5.14)
+>               This operation is the same as FUTEX_LOCK_PI, except that
+>               the clock against which timeout is measured is selectable.
+>               By default, the (absolute) timeout specified in timeout is
+>               measured againt the CLOCK_MONOTONIC clock, but if the
+>               FUTEX_CLOCK_REALTIME flag is specified in futex_op, then
+>               the timeout is measured against the CLOCK_REALTIME clock.
+>
+> Is it okay?
 
-Yes, I should :-)
-
-
-> 
-> See my modified commit message below.
-> 
-> Cheers,
-> 
-> Michael
-> 
->      getopt.3: Further clarification of optstring
->      
->      Explain that `optstring` cannot contain a semi-colon (`;`)
->      character.
->      [mtk: verfiried with a small test program; see also posix/getopt.c
->      in the glibc sources:
->      
->          if (temp == NULL || c == ':' || c == ';')
->            {
->              if (print_errors)
->                fprintf (stderr, _("%s: invalid option -- '%c'\n"), argv[0], c);
->              d->optopt = c;
->              return '?';
->            }
->      ]
->      
->      Also explain that `optstring` can include `+` as an option
->      character, possibly in addition to that character being used as
->      the first character in `optstring` to denote `POSIXLY_CORRECT`
->      behaviour.
->      [mtk: verified with a small test program.]
->      
->      Test program below. Example runs:
->      
->      $ ./a.out -+
->      opt = 43 (+); optind = 2
->      Got plus
->      $ ./a.out -';'
->      ./a.out: invalid option -- ';'
->      opt = 63 (?); optind = 2; optopt = 59 (;)
->      Unrecognized option (-;)
->      Usage: ./a.out [-p arg] [-x]
->      
->      Signed-off-by: James O. D. Hunt <jamesodhunt@gmail.com>
->      Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
->      Signed-off-by: Michael Kerrisk <mtk.manpages@gmail.com>
->      
->      8x---8x---8x---8x---8x---8x---8x---8x---8x---8x---8x---
->      #include <ctype.h>
->      #include <sys/types.h>
->      #include <stdio.h>
->      #include <stdlib.h>
->      #include <unistd.h>
->      
->      #define printable(ch) (isprint((unsigned char) ch) ? ch : '#')
->      
->      static void             /* Print "usage" message and exit */
->      usageError(char *progName, char *msg, int opt)
->      {
->          if (msg != NULL && opt != 0)
->              fprintf(stderr, "%s (-%c)\n", msg, printable(opt));
->          fprintf(stderr, "Usage: %s [-p arg] [-x]\n", progName);
->          exit(EXIT_FAILURE);
->      }
->      
->      int
->      main(int argc, char *argv[])
->      {
->          int opt, xfnd;
->          char *pstr;
->      
->          xfnd = 0;
->          pstr = NULL;
->      
->          while ((opt = getopt(argc, argv, "p:x+;")) != -1) {
->              printf("opt =%3d (%c); optind = %d", opt, printable(opt), optind);
->              if (opt == '?' || opt == ':')
->                  printf("; optopt =%3d (%c)", optopt, printable(optopt));
->              printf("\n");
->      
->              switch (opt) {
->              case 'p': pstr = optarg;                break;
->              case 'x': xfnd++;                       break;
->              case ';': printf("Got semicolon\n");    break;
->              case '+': printf("Got plus\n"); break;
->              case ':': usageError(argv[0], "Missing argument", optopt);
->              case '?': usageError(argv[0], "Unrecognized option", optopt);
->              default:
->                        printf("Unexpected case in switch()\n");
->                        exit(EXIT_FAILURE);
->              }
->          }
-> 
->          if (xfnd != 0)
->              printf("-x was specified (count=%d)\n", xfnd);
->          if (pstr != NULL)
->              printf("-p was specified with the value \"%s\"\n", pstr);
->          if (optind < argc)
->              printf("First nonoption argument is \"%s\" at argv[%d]\n",
->                      argv[optind], optind);
->          exit(EXIT_SUCCESS);
->      }
-> 
-
-Nice!
+Sounds good.
 
 Thanks,
+Kurt
 
-Alex
+--=-=-=
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
 
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+iQJHBAEBCgAxFiEEooWgvezyxHPhdEojeSpbgcuY8KYFAmEQ4+gTHGt1cnRAbGlu
+dXRyb25peC5kZQAKCRB5KluBy5jwpiZBEADNakPMv8M5iTa76qi0c5uWr0n+vj+I
+b5Wd4tuMrwSix+eX4ZxobIZILXHUTOe9xoHCX+ERMLaSMEve/0NVMjMjuRNcDt1n
+94/WeWH+VSXnM+RiAkNMHMUsEY33WshQo/KMI6c12G5GW+MmkSXLFpk+8zRu1FOt
+4Dgew7EqYDjx0Ny0Tei/21JliIqZyuPsnLhHw3o/dFce1NPReodh99vi4Gn6guPz
+WfTdDS4Yc0gUV4DfrrGgAXBSKan2KuV3wZe/FY4sxRWmpOFGEOnSL8MH6jMbgDLI
+OQd5Czq+S0+nnBTHtB5vV3EviicR3w+oC//2pgy9B+24WkxIwnPQHyYJ8Q1RlwVB
+k/8stfCu7PrICv4NXqU0gdQfXkbQ1+i5Rx+hzIWkle/Hx+q+IIykkHqlnKms/kL0
+gz595s0854j4ofciLEPGDDJBVvNG4NGj65feETurX2sM0kJEX6ytOOb1wD8hUJAx
+T+At12ORfqNICxpJBUgF3GN0SZXyEartZhvdW9IwQAkCaXTlXbGNodquAJgc79ux
+sxqc9EuB4LZR4LwdMu0fFKE9b8CaMIyY19HBA4z/HW/jLQIPMVV/nGShYsQ6zS9X
+zp+2pjGUivRpEHcQyP/qy+yzYgjg0kntnaVBD3AZUn7mY+QHrzoRmFjgCbFbE4Lg
+Yek0vPmfah2b1g==
+=Ef05
+-----END PGP SIGNATURE-----
+--=-=-=--
