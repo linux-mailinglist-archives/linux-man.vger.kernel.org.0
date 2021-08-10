@@ -2,128 +2,108 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 89BAB3E862F
-	for <lists+linux-man@lfdr.de>; Wed, 11 Aug 2021 00:47:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 550683E86F0
+	for <lists+linux-man@lfdr.de>; Wed, 11 Aug 2021 02:03:42 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235138AbhHJWro (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 10 Aug 2021 18:47:44 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38658 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231380AbhHJWrn (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 10 Aug 2021 18:47:43 -0400
-Received: from mail-pj1-x1029.google.com (mail-pj1-x1029.google.com [IPv6:2607:f8b0:4864:20::1029])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 03151C061765;
-        Tue, 10 Aug 2021 15:47:21 -0700 (PDT)
-Received: by mail-pj1-x1029.google.com with SMTP id cp15-20020a17090afb8fb029017891959dcbso6571272pjb.2;
-        Tue, 10 Aug 2021 15:47:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=yIH0KUnZv7CbUNuLVwKk6Yjj2btfYGCd33gAi0qy9lk=;
-        b=ocbTw3+op+JN/IWY/wUmffxiA+QAfcrR9mImsaFZDuNkDLCwp+PxLcwflgxgjz3wst
-         ckQs+f9MjZuAzdFfR2VLgZ9+lgaITXcI66cBDksKJWBpJXQMUX4n9TPIaa/cdcPAKnOg
-         URRXWcuppxAnjw88ww3w7VnoRRrNWKDlrVb+9lRBe5NlySmaZq7x5SeYQgkDNHTEv/kH
-         XbISyjnk2ZcWk0jRK++PeGVZbGWzK/+B4gKpkfrcCi1Bjbatfeyqr73THSUUXjg+wr32
-         kCkFWKX8VbpzhZ7iLVQgxviwRSXY7AVu2bUTc4L4sLNmGnRZIUzOlk3GsxLayj2svRPP
-         msXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=yIH0KUnZv7CbUNuLVwKk6Yjj2btfYGCd33gAi0qy9lk=;
-        b=Yj1d/vjexaciN+AMlT27hv/0SeMCVBTkh6CSjwn55p4P6xXO5pZwmlTtoSpYzviBmv
-         p3fMMDInBTI/0GqWpXu+sZ7do5+9SxZ0AxpEUBI4hk3PbonqLcGD6Au5/rJ+YuC1nx6U
-         RQ8X6WhstXs3hoNI6vdDbfq4+ujazpOgHHF6i5jurusJNk+wzeFji2Zv54TXkEo7AwRv
-         hZSwpYE6c3HrxdjPrWPoQYk4z048kSpunBixbg6+sgE9LTD3j7gPiyrvxjGOTyksSAgg
-         Hj7UAubCtLgR0vHoToAIbdlLhCZe/O3PTrYakFeXYwP7kP651RmaE13ZlL4zVwO1W0xn
-         gM7Q==
-X-Gm-Message-State: AOAM531BdonvfkDfKIqzMJdtDzE1+StfOtl8DVJK1KYqNu88/7AogGjG
-        v6Tyst2b5D1AhvJ7RQ45Vqg=
-X-Google-Smtp-Source: ABdhPJwUU92PjtwHfiGs9aAvP9MCKxajQoXjy2XBtLRBugTZJRlm3qbIOI131sqrg4GwWhjhqmA6vw==
-X-Received: by 2002:aa7:8387:0:b029:395:a683:a0e6 with SMTP id u7-20020aa783870000b0290395a683a0e6mr31367561pfm.12.1628635640525;
-        Tue, 10 Aug 2021 15:47:20 -0700 (PDT)
-Received: from [192.168.1.71] (122-61-176-117-fibre.sparkbb.co.nz. [122.61.176.117])
-        by smtp.gmail.com with ESMTPSA id a20sm4208799pjh.46.2021.08.10.15.47.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Aug 2021 15:47:19 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+        id S235608AbhHKAED (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 10 Aug 2021 20:04:03 -0400
+Received: from mail.hallyn.com ([178.63.66.53]:55162 "EHLO mail.hallyn.com"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S234289AbhHKAED (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Tue, 10 Aug 2021 20:04:03 -0400
+X-Greylist: delayed 300 seconds by postgrey-1.27 at vger.kernel.org; Tue, 10 Aug 2021 20:04:02 EDT
+Received: by mail.hallyn.com (Postfix, from userid 1001)
+        id 92CAE472; Tue, 10 Aug 2021 18:58:38 -0500 (CDT)
+Date:   Tue, 10 Aug 2021 18:58:38 -0500
+From:   "Serge E. Hallyn" <serge@hallyn.com>
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     "Serge E. Hallyn" <serge@hallyn.com>,
+        linux-security-module <linux-security-module@vger.kernel.org>,
         lkml <linux-kernel@vger.kernel.org>,
-        linux-man <linux-man@vger.kernel.org>,
-        Christoph Hellwig <hch@infradead.org>
-Subject: Re: Questions re the new mount_setattr(2) manual page
-To:     Christian Brauner <christian.brauner@ubuntu.com>
-References: <b58e2537-03f4-6f6c-4e1b-8ddd989624cc@gmail.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <d5a8061a-3d8a-6353-5158-8feee0156c6b@gmail.com>
-Date:   Wed, 11 Aug 2021 00:47:14 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+        Alejandro Colomar <alx.manpages@gmail.com>,
+        Kir Kolyshkin <kolyshkin@gmail.com>,
+        linux-man <linux-man@vger.kernel.org>
+Subject: Re: Documenting the requirement of CAP_SETFCAP to map UID 0
+Message-ID: <20210810235838.GA4561@mail.hallyn.com>
+References: <14cbab6f-19f6-a28c-05d8-453ecca62180@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <b58e2537-03f4-6f6c-4e1b-8ddd989624cc@gmail.com>
 Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <14cbab6f-19f6-a28c-05d8-453ecca62180@gmail.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Christian,
+On Sun, Aug 08, 2021 at 11:09:30AM +0200, Michael Kerrisk (man-pages) wrote:
+> Hello Serge,
+> 
+> Your commit:
+> 
+> [[
+> commit db2e718a47984b9d71ed890eb2ea36ecf150de18
+> Author: Serge E. Hallyn <serge@hallyn.com>
+> Date:   Tue Apr 20 08:43:34 2021 -0500
+> 
+>     capabilities: require CAP_SETFCAP to map uid 0
+> ]]
+> 
+> added a new requirement when updating a UID map a user namespace
+> with a value of '0 0 *'.
+> 
+> Kir sent a patch to briefly document this change, but I think much more
+> should be written. I've attempted to do so. Could you tell me whether the
+> following text (to be added in user_namespaces(7)) is accurate please:
 
-Some further questions...
+Sorry for the delay - this did not go into my main mailbox.
 
-In ERRORS there is:
+The text looks good.  Thanks!
 
-       EINVAL The underlying filesystem is mounted in a user namespace.
-
-I don't understand this. What does it mean?
-
-Also, there is this:
-
-       ENOMEM When  changing  mount  propagation to MS_SHARED, a new peer
-              group ID needs to be allocated for  all  mounts  without  a
-              peer  group  ID  set.  Allocation of this peer group ID has
-              failed.
-
-       ENOSPC When changing mount propagation to MS_SHARED,  a  new  peer
-              group  ID  needs  to  be allocated for all mounts without a
-              peer group ID set.  Allocation of this peer  group  ID  can
-              fail.  Note that technically further error codes are possi‐
-              ble that are specific to the ID  allocation  implementation
-              used.
-
-What is the difference between these two error cases? (That is, in what 
-circumstances will one get ENOMEM vs ENOSPC and vice versa?)
-
-And then:
-
-       EPERM  One  of  the mounts had at least one of MOUNT_ATTR_NOATIME,
-              MOUNT_ATTR_NODEV, MOUNT_ATTR_NODIRATIME, MOUNT_ATTR_NOEXEC,
-              MOUNT_ATTR_NOSUID, or MOUNT_ATTR_RDONLY set and the flag is
-              locked.  Mount attributes become locked on a mount if:
-
-              •  A new mount or mount tree is created causing mount prop‐
-                 agation  across  user  namespaces.  The kernel will lock
-
-Propagation is done across mont points, not user namespaces.
-should "across user namespaces" be "to a mount namespace owned 
-by a different user namespace"? Or something else?
-
-                 the aforementioned  flags  to  protect  these  sensitive
-                 properties from being altered.
-
-              •  A  new  mount  and user namespace pair is created.  This
-                 happens for  example  when  specifying  CLONE_NEWUSER  |
-                 CLONE_NEWNS  in unshare(2), clone(2), or clone3(2).  The
-                 aforementioned flags become locked to protect user name‐
-                 spaces from altering sensitive mount properties.
-
-Again, this seems imprecise. Should it say something like:
-"... to prevent changes to sensitive mount properties in the new 
-mount namespace" ? Or perhaps you have a better wording.
-
-Thanks,
-
-Michael
+> [[
+>       In  order  for  a  process  to  write  to  the /proc/[pid]/uid_map
+>        (/proc/[pid]/gid_map) file, all of the following requirements must
+>        be met:
+> 
+>        [...]
+> 
+>        4. If  updating  /proc/[pid]/uid_map to create a mapping that maps
+>           UID 0 in the parent namespace, then one of the  following  must
+>           be true:
+> 
+>           *  if  writing process is in the parent user namespace, then it
+>              must have the CAP_SETFCAP capability in that user namespace;
+>              or
+> 
+>           *  if  the writing process is in the child user namespace, then
+>              the process that created the user namespace  must  have  had
+>              the CAP_SETFCAP capability when the namespace was created.
+> 
+>           This rule has been in place since Linux 5.12.  It eliminates an
+>           earlier security bug whereby a UID 0  process  that  lacks  the
+>           CAP_SETFCAP capability, which is needed to create a binary with
+>           namespaced file capabilities (as described in capabilities(7)),
+>           could  nevertheless  create  such  a  binary,  by the following
+>           steps:
+> 
+>           *  Create a new user namespace with the identity mapping (i.e.,
+>              UID  0 in the new user namespace maps to UID 0 in the parent
+>              namespace), so that UID 0 in both namespaces  is  equivalent
+>              to the same root user ID.
+> 
+>           *  Since  the  child process has the CAP_SETFCAP capability, it
+>              could create a binary with namespaced file capabilities that
+>              would  then  be  effective in the parent user namespace (be‐
+>              cause the root user IDs are the same in the two namespaces).
+> 
+>        [...]
+> ]]
+> 
+> Thanks,
+> 
+> Michael
+> 
+> -- 
+> Michael Kerrisk
+> Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+> Linux/UNIX System Programming Training: http://man7.org/training/
