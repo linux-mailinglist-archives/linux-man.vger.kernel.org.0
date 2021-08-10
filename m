@@ -2,125 +2,103 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6D6CA3E53AE
-	for <lists+linux-man@lfdr.de>; Tue, 10 Aug 2021 08:40:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 94A833E53B3
+	for <lists+linux-man@lfdr.de>; Tue, 10 Aug 2021 08:42:10 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S236694AbhHJGkx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 10 Aug 2021 02:40:53 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38556 "EHLO
+        id S236875AbhHJGma (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 10 Aug 2021 02:42:30 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38912 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S236737AbhHJGkx (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 10 Aug 2021 02:40:53 -0400
-Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com [IPv6:2607:f8b0:4864:20::32e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2417BC0613D3
-        for <linux-man@vger.kernel.org>; Mon,  9 Aug 2021 23:40:32 -0700 (PDT)
-Received: by mail-ot1-x32e.google.com with SMTP id h63-20020a9d14450000b02904ce97efee36so20931616oth.7
-        for <linux-man@vger.kernel.org>; Mon, 09 Aug 2021 23:40:32 -0700 (PDT)
+        with ESMTP id S236783AbhHJGm3 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 10 Aug 2021 02:42:29 -0400
+Received: from mail-pj1-x102e.google.com (mail-pj1-x102e.google.com [IPv6:2607:f8b0:4864:20::102e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C034BC0613D3
+        for <linux-man@vger.kernel.org>; Mon,  9 Aug 2021 23:42:07 -0700 (PDT)
+Received: by mail-pj1-x102e.google.com with SMTP id m24-20020a17090a7f98b0290178b1a81700so3849172pjl.4
+        for <linux-man@vger.kernel.org>; Mon, 09 Aug 2021 23:42:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=ir782Ge/A/lcNAyuDmw0f/wcpTpPgJa4BIfvTD5obkI=;
-        b=InP/+rDahvZc9Vgz58dyeYrMMG1z5TV42I/ZjYh5MJV8U1b8n7puF3dZx0DquV/UnM
-         29D3/QxMwAIOs+xoABY6r/bhRThj2vXMCOxad/NvHy5nUi3jHRf66OAVb0wOr60bIBkG
-         B8vUxRGsXSgZPyOO07lb2moDrp/UrN8OVqlSfJYRlaL420pRAXua2T8Ko+vO78N2h28P
-         rcIwmtIBshoZ4HyEMtuEoaeOIrUm3rLvzIMgIK2qkTW4GTczhYDAiFQSCtF4KuVub25s
-         WQO9t6NoTmJNv6TaDLF7QE+ni/+UEU41wreBp+HZ+my0KrUqoKKGr+dQqhQKwyR7jPAW
-         mNVg==
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=ctbtoDx1FeYPCDqUCcwgXr7JSzhDj9OksmINqavfGMY=;
+        b=N3bLxQoOMuhShr93sB7HhWZKCa2es1xO+FL4SWnnPwxV8msF4kJh3Y6XF3Oi5I3lBl
+         6LpYE4g2+IswLtEhDCxkHV8eZF4CrGnC85cafFiX8kR29HAa5asVF/gDdh1YvrQABKjn
+         2Tkm0NJYwFh1xUG9SatJdRBPKn4foPE8NAT5eGWlbJ2gmbn5xtOZb5ynB8LxZq9aC0cZ
+         YXaw6tkPvluykxUL8+RMgYgnTIm5YvqqA+q5kZMQiliWTeetPYnsq8AWHKWB2EAAr/GS
+         FBMsw737wNFpfwJv6YO8jVpyBLHB9e9QkyoJs0k89ij0YPr/6PIqnRGIFvjkVyq9EkwZ
+         YkKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=ir782Ge/A/lcNAyuDmw0f/wcpTpPgJa4BIfvTD5obkI=;
-        b=Uc7e6TMy7GGCkulaMCGyFaI+CK5eczY7lLHjE61QUS/Gl6TKb6wQgEAq3xKVHCLNbr
-         GZI+ePXOfKuWTTx/MQaNbnqOE3VCTmbm7DE+dkvEfbcUFgwmHZkjiez+Ly4EEyqBZbcr
-         a/njxybwKwCMRrbbYwQD/Dq9WAM56tgymCdUWILxZC9Ap2PZMaq1qGlIUGGSu5eZQoCt
-         5J0IgVOq725Ywzmc9DiD+YT1PB2OljG+OkWhGURzylghYY1ZgIR3yJkbTCKhYx5Qgg63
-         TaEvf5lvzgZAPuq8Leod/mzmVFHNwCblXsIJoTcCDjaVilAmTbpkTtw9esbFs92f1Kc0
-         g9zA==
-X-Gm-Message-State: AOAM531Xc2X28pMmPKay4UN1c88ocJYHGcBDPuurwbvYzlX+dO+ACga5
-        3mAdjWtzQ4zRLd22rNZIzYg65AGVp0zrzMRUwAE=
-X-Google-Smtp-Source: ABdhPJx1KxXs7dR02Uq1jcVVp5AW0svKrSZyJ8dBbesPEVtJh49rae/b4XFjtRKzVJ4qiHWdoe0J9slKRtwpw18zTUM=
-X-Received: by 2002:a9d:3a49:: with SMTP id j67mr21078790otc.114.1628577631447;
- Mon, 09 Aug 2021 23:40:31 -0700 (PDT)
-MIME-Version: 1.0
-References: <64D55817DE2A4D0E99757425D9883066@H270> <20210712160906.yfb4etzsylmzulox@jwilk.net>
- <F7B7DAEFD32949CD810BFC567ACA7B70@H270>
-In-Reply-To: <F7B7DAEFD32949CD810BFC567ACA7B70@H270>
-Reply-To: mtk.manpages@gmail.com
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=ctbtoDx1FeYPCDqUCcwgXr7JSzhDj9OksmINqavfGMY=;
+        b=UJ3dLV4zHGoDcIpd9Kyak3OvqybnRo3UkSWTqipqp1zeVtUDH1vFrGE6loIT9d42xA
+         hsqRE3v4ZmaGULMGx0ZTfuZU4ZIl+mgXejc2825crVxiwwRhNzdaSIXhjq0GMeC3K2iq
+         OqLL7UZ80/E6EQjvdNY9SzTWGTDdaybwu2a917HSaAQVw3IjO6pX5+a85o64IbKYj0k8
+         NgOWwOW23ixv3Y1w/g8PQJvlh5r3Sf7G+bFmwAa+WiUXX7pomn2UJ3rYS+s+5nt7toad
+         g4QewOk0g+Pf8o1ofwAdkRd51lFJ5ekHa4OhtsTGM8niM3miEafYiXQgzSJylCk5bHuf
+         qh0Q==
+X-Gm-Message-State: AOAM5308No1nuSZOav9BjZ06U2wjqoUGh6dq5WYO3s+xmRmYdudcIcNa
+        gv0vOHAursrXxJEklfyQNMTw42NS+0A=
+X-Google-Smtp-Source: ABdhPJzlFGisTZv0q29FMTAEUQxxi5tcvlqG5pN41yLIEukp5Qgm2XKNCh9o1d51C+sGHuo5dmSqKw==
+X-Received: by 2002:a17:90b:4c03:: with SMTP id na3mr3231906pjb.222.1628577727066;
+        Mon, 09 Aug 2021 23:42:07 -0700 (PDT)
+Received: from [192.168.1.71] (122-61-176-117-fibre.sparkbb.co.nz. [122.61.176.117])
+        by smtp.gmail.com with ESMTPSA id g26sm26273977pgb.45.2021.08.09.23.42.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 09 Aug 2021 23:42:06 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: [PATCH] wcstok.3: Fix type mismatch in the example
+To:     Jakub Wilk <jwilk@jwilk.net>
+References: <20210712164026.4204-1-jwilk@jwilk.net>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Tue, 10 Aug 2021 08:40:20 +0200
-Message-ID: <CAKgNAkgW_uS1cw++aMQhQGgWjUpxzAgoBxjQ8p-2zxP3Gy2AkQ@mail.gmail.com>
-Subject: Re: wcschr(3): add special case for NUL, as in strchr(3)
-To:     Stefan Kanthak <stefan.kanthak@nexgo.de>
-Cc:     Jakub Wilk <jwilk@jwilk.net>,
-        "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Message-ID: <eb9c0aee-1a1c-3a65-3512-fc2b9fe7c862@gmail.com>
+Date:   Tue, 10 Aug 2021 08:42:01 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
+MIME-Version: 1.0
+In-Reply-To: <20210712164026.4204-1-jwilk@jwilk.net>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Mon, 12 Jul 2021 at 20:44, Stefan Kanthak <stefan.kanthak@nexgo.de> wrote:
->
-> "Jakub Wilk" wrote:
->
-> >* Stefan Kanthak <stefan.kanthak@nexgo.de>, 2021-07-12, 11:37:
-> >>JFTR: to avoid any possible confusion of "null byte" alias NUL with the
-> >>"null pointer" alias NULL (C macro) or nullptr (C++), "null byte"
-> >>should be replaced with "NUL byte"!
-> >
-> > "NUL byte" looks like a typo for "NULL byte", so if anything, it makes
-> > the potential for confusion greater.
+Hello Jakub,
 
-Exactly my concern.
+On 7/12/21 6:40 PM, Jakub Wilk wrote:
+> Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
 
-> > Anyway, "null byte" is the preferred term in the man-pages style guide;
-> > see the "NULL, NUL, null pointer, and null character" subsection in
-> > man-pages(7).
+Thanks. Patch applied.
 
-Also, "null byte" is the term used in the C standard.
-
-> Despite the statement
->
-> | Avoid also the terms "zero byte" and "null character".
->
-> the heading of said subsection itself but says "null character" instead
-> of the preferred "null byte"!
-
-That's fixed now.
-
-> JFTR: the search function on <https://man7.org/linux/man-pages/index.html>
->       gives 21 matches for "zero byte", 46 matches for "null character",
-
-Sure, but that presumably is because of pages in other projects.
-(man7.org renders pages from 100+ projects.)
-
->       and 146 matches for "null byte", i.e. the preferred term is not used
->       in 1 of 3 cases.
->
-> And despite the statement
->
-> | The preferred term for the pointer is "null pointer" or simply
-> | "NULL"; avoid writing "NULL pointer".
->
-> plus a changelog entry (for version 3.56)
->
-> | Various pages
-> |    Michael Kerrisk
-> |        Global fix of "NULL pointer"
-> |            Change "NULL pointer" to "NULL" or null pointer".
-> |            POSIX uses the term "null pointer", not "NULL pointer".
->
-> 43 pages still contain "NULL pointer", while 197 pages say "null pointer".
->
-> There's plenty room for improvement!
-
-I agree, but I think the issue is mostly fixed in man-pages.
-
-Thanks,
+Cheers,
 
 Michael
+
+> ---
+>  man3/wcstok.3 | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/man3/wcstok.3 b/man3/wcstok.3
+> index 401411d98..af642ca46 100644
+> --- a/man3/wcstok.3
+> +++ b/man3/wcstok.3
+> @@ -108,9 +108,9 @@ The following code loops over the tokens contained in a wide-character string.
+>  wchar_t *wcs = ...;
+>  wchar_t *token;
+>  wchar_t *state;
+> -for (token = wcstok(wcs, " \et\en", &state);
+> +for (token = wcstok(wcs, L" \et\en", &state);
+>      token != NULL;
+> -    token = wcstok(NULL, " \et\en", &state)) {
+> +    token = wcstok(NULL, L" \et\en", &state)) {
+>      ...
+>  }
+>  .EE
+> 
+
 
 -- 
 Michael Kerrisk
