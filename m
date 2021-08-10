@@ -2,113 +2,125 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 022AB3E50F1
-	for <lists+linux-man@lfdr.de>; Tue, 10 Aug 2021 04:08:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6D6CA3E53AE
+	for <lists+linux-man@lfdr.de>; Tue, 10 Aug 2021 08:40:34 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S237494AbhHJCI1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 9 Aug 2021 22:08:27 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34522 "EHLO
+        id S236694AbhHJGkx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 10 Aug 2021 02:40:53 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38556 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S236131AbhHJCIY (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 9 Aug 2021 22:08:24 -0400
-Received: from mail-pj1-x1034.google.com (mail-pj1-x1034.google.com [IPv6:2607:f8b0:4864:20::1034])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6BAE6C0613D3;
-        Mon,  9 Aug 2021 19:08:03 -0700 (PDT)
-Received: by mail-pj1-x1034.google.com with SMTP id s22-20020a17090a1c16b0290177caeba067so2135148pjs.0;
-        Mon, 09 Aug 2021 19:08:03 -0700 (PDT)
+        with ESMTP id S236737AbhHJGkx (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 10 Aug 2021 02:40:53 -0400
+Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com [IPv6:2607:f8b0:4864:20::32e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2417BC0613D3
+        for <linux-man@vger.kernel.org>; Mon,  9 Aug 2021 23:40:32 -0700 (PDT)
+Received: by mail-ot1-x32e.google.com with SMTP id h63-20020a9d14450000b02904ce97efee36so20931616oth.7
+        for <linux-man@vger.kernel.org>; Mon, 09 Aug 2021 23:40:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=v7qOXxkhDcJDtLfYGjeWm7crxawwUhx3Jo2RHArHK7o=;
-        b=kZr2MFpJb+HrDAFlUE+B1DBa4v2e+sEelA93ZpD8k/EqGx6HDNZc0Ma/obngQAYFTs
-         9swosAEHpVF9VSA++7ZAysUPKcikf9ixUtoaQDd+/tbt1A1twrWcJJGE20d5AdgtMCvK
-         bUP1Yc6WuxCITOUUMIGV9s9tr+TW/4vzr+CDtLbKjo8M4zor8IoPerygOyUIVUfLkuyw
-         gsB61Xl6MnEDx7lpfzz/hcqVL5TQn45hEA9/tq66LzWQiW4fXPed5oSvUbckk3KanMR3
-         QXdPI1SPGEjFnZsU0v94wKaO8yztqh+Mayr8fU4kLD9CiA/9TD6rTmNhq6erYIzF6d/6
-         MN+Q==
+        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
+         :subject:to:cc;
+        bh=ir782Ge/A/lcNAyuDmw0f/wcpTpPgJa4BIfvTD5obkI=;
+        b=InP/+rDahvZc9Vgz58dyeYrMMG1z5TV42I/ZjYh5MJV8U1b8n7puF3dZx0DquV/UnM
+         29D3/QxMwAIOs+xoABY6r/bhRThj2vXMCOxad/NvHy5nUi3jHRf66OAVb0wOr60bIBkG
+         B8vUxRGsXSgZPyOO07lb2moDrp/UrN8OVqlSfJYRlaL420pRAXua2T8Ko+vO78N2h28P
+         rcIwmtIBshoZ4HyEMtuEoaeOIrUm3rLvzIMgIK2qkTW4GTczhYDAiFQSCtF4KuVub25s
+         WQO9t6NoTmJNv6TaDLF7QE+ni/+UEU41wreBp+HZ+my0KrUqoKKGr+dQqhQKwyR7jPAW
+         mNVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=v7qOXxkhDcJDtLfYGjeWm7crxawwUhx3Jo2RHArHK7o=;
-        b=Bh2KK5F7MALtyzWU4GBqWkpo/RGvWf66aeiaNoGEyikIIl0IozglJSGGYuRFQy9vGh
-         Zjota9a9eVsAwpMWX8ldtMz9ppw0llHRhiBSvGuyVyo8ykgJq2e2unywMfLag8hjG64t
-         TMVZq+5jwmwdXT6MUtwK/WuAfU5ippz2rSpdBlneMTQ9uIDwuI3HJXShlxmre1ZBMGet
-         Z1qjBmm63hVfBRd9rG6s9arswNLb1Dfa2/xdgT8TI6cBfwLlFNV//e5g2Av2tZugGjYb
-         DNQavZ+vi941lfam3LqgcjKTjw6xlyIzoLaXOt1EHQrad/O964klcIrT3k1Mks1BRlhD
-         3M0Q==
-X-Gm-Message-State: AOAM532R2Aj1ibXXArgpG3A5lR+xDzZNCMMuzDsGOQGAPHW4B+M+EP5Q
-        PNxihor3HygZbDxehEnIX5Af9QCBS7k=
-X-Google-Smtp-Source: ABdhPJzl24llLvq6TUgfoQq5igPpwr6oDqJYKMfP77TqoX9ynYvLNX1tbw0ygzuuKXn1CLZFMQvHaQ==
-X-Received: by 2002:a65:6a0c:: with SMTP id m12mr86484pgu.267.1628561282668;
-        Mon, 09 Aug 2021 19:08:02 -0700 (PDT)
-Received: from [192.168.1.71] (122-61-176-117-fibre.sparkbb.co.nz. [122.61.176.117])
-        by smtp.gmail.com with ESMTPSA id z1sm17392853pfg.18.2021.08.09.19.07.57
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Aug 2021 19:08:01 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, linux-api@vger.kernel.org,
-        Andy Lutomirski <luto@amacapital.net>,
-        Will Drewry <wad@chromium.org>,
-        Linus Torvalds <torvalds@linux-foundation.org>,
-        Al Viro <viro@zeniv.linux.org.uk>,
-        Kees Cook <keescook@chromium.org>, linux-man@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] seccomp.2: Clarify that bad system calls kill the thread
-To:     "Eric W. Biederman" <ebiederm@xmission.com>
-References: <87r1gkp9i7.fsf@disp2133> <202106292156.9458CF22@keescook>
- <87k0mbp0yc.fsf_-_@disp2133>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <1da46e75-fd67-e3e6-4db3-1d37dcae7f75@gmail.com>
-Date:   Tue, 10 Aug 2021 04:07:56 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
+         :from:date:message-id:subject:to:cc;
+        bh=ir782Ge/A/lcNAyuDmw0f/wcpTpPgJa4BIfvTD5obkI=;
+        b=Uc7e6TMy7GGCkulaMCGyFaI+CK5eczY7lLHjE61QUS/Gl6TKb6wQgEAq3xKVHCLNbr
+         GZI+ePXOfKuWTTx/MQaNbnqOE3VCTmbm7DE+dkvEfbcUFgwmHZkjiez+Ly4EEyqBZbcr
+         a/njxybwKwCMRrbbYwQD/Dq9WAM56tgymCdUWILxZC9Ap2PZMaq1qGlIUGGSu5eZQoCt
+         5J0IgVOq725Ywzmc9DiD+YT1PB2OljG+OkWhGURzylghYY1ZgIR3yJkbTCKhYx5Qgg63
+         TaEvf5lvzgZAPuq8Leod/mzmVFHNwCblXsIJoTcCDjaVilAmTbpkTtw9esbFs92f1Kc0
+         g9zA==
+X-Gm-Message-State: AOAM531Xc2X28pMmPKay4UN1c88ocJYHGcBDPuurwbvYzlX+dO+ACga5
+        3mAdjWtzQ4zRLd22rNZIzYg65AGVp0zrzMRUwAE=
+X-Google-Smtp-Source: ABdhPJx1KxXs7dR02Uq1jcVVp5AW0svKrSZyJ8dBbesPEVtJh49rae/b4XFjtRKzVJ4qiHWdoe0J9slKRtwpw18zTUM=
+X-Received: by 2002:a9d:3a49:: with SMTP id j67mr21078790otc.114.1628577631447;
+ Mon, 09 Aug 2021 23:40:31 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <87k0mbp0yc.fsf_-_@disp2133>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <64D55817DE2A4D0E99757425D9883066@H270> <20210712160906.yfb4etzsylmzulox@jwilk.net>
+ <F7B7DAEFD32949CD810BFC567ACA7B70@H270>
+In-Reply-To: <F7B7DAEFD32949CD810BFC567ACA7B70@H270>
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Tue, 10 Aug 2021 08:40:20 +0200
+Message-ID: <CAKgNAkgW_uS1cw++aMQhQGgWjUpxzAgoBxjQ8p-2zxP3Gy2AkQ@mail.gmail.com>
+Subject: Re: wcschr(3): add special case for NUL, as in strchr(3)
+To:     Stefan Kanthak <stefan.kanthak@nexgo.de>
+Cc:     Jakub Wilk <jwilk@jwilk.net>,
+        "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
+        linux-man <linux-man@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Eric,
+On Mon, 12 Jul 2021 at 20:44, Stefan Kanthak <stefan.kanthak@nexgo.de> wrote:
+>
+> "Jakub Wilk" wrote:
+>
+> >* Stefan Kanthak <stefan.kanthak@nexgo.de>, 2021-07-12, 11:37:
+> >>JFTR: to avoid any possible confusion of "null byte" alias NUL with the
+> >>"null pointer" alias NULL (C macro) or nullptr (C++), "null byte"
+> >>should be replaced with "NUL byte"!
+> >
+> > "NUL byte" looks like a typo for "NULL byte", so if anything, it makes
+> > the potential for confusion greater.
 
-On 6/30/21 10:11 PM, Eric W. Biederman wrote:
-> 
-> Signed-off-by: Eric W. Biederman <ebiederm@xmission.com>
+Exactly my concern.
 
-Thanks. Patch applied, with Kees' Ack.
+> > Anyway, "null byte" is the preferred term in the man-pages style guide;
+> > see the "NULL, NUL, null pointer, and null character" subsection in
+> > man-pages(7).
 
-Cheers,
+Also, "null byte" is the term used in the C standard.
+
+> Despite the statement
+>
+> | Avoid also the terms "zero byte" and "null character".
+>
+> the heading of said subsection itself but says "null character" instead
+> of the preferred "null byte"!
+
+That's fixed now.
+
+> JFTR: the search function on <https://man7.org/linux/man-pages/index.html>
+>       gives 21 matches for "zero byte", 46 matches for "null character",
+
+Sure, but that presumably is because of pages in other projects.
+(man7.org renders pages from 100+ projects.)
+
+>       and 146 matches for "null byte", i.e. the preferred term is not used
+>       in 1 of 3 cases.
+>
+> And despite the statement
+>
+> | The preferred term for the pointer is "null pointer" or simply
+> | "NULL"; avoid writing "NULL pointer".
+>
+> plus a changelog entry (for version 3.56)
+>
+> | Various pages
+> |    Michael Kerrisk
+> |        Global fix of "NULL pointer"
+> |            Change "NULL pointer" to "NULL" or null pointer".
+> |            POSIX uses the term "null pointer", not "NULL pointer".
+>
+> 43 pages still contain "NULL pointer", while 197 pages say "null pointer".
+>
+> There's plenty room for improvement!
+
+I agree, but I think the issue is mostly fixed in man-pages.
+
+Thanks,
 
 Michael
-
-
-> ---
->  man2/seccomp.2 | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/man2/seccomp.2 b/man2/seccomp.2
-> index a3421871f0f4..bde54c3e3e99 100644
-> --- a/man2/seccomp.2
-> +++ b/man2/seccomp.2
-> @@ -69,9 +69,10 @@ The only system calls that the calling thread is permitted to make are
->  .BR exit_group (2)),
->  and
->  .BR sigreturn (2).
-> -Other system calls result in the delivery of a
-> +Other system calls result in the termination of the calling thread,
-> +or termination of the entire process with the
->  .BR SIGKILL
-> -signal.
-> +signal when there is only one thread.
->  Strict secure computing mode is useful for number-crunching
->  applications that may need to execute untrusted byte code, perhaps
->  obtained by reading from a pipe or socket.
-> 
-
 
 -- 
 Michael Kerrisk
