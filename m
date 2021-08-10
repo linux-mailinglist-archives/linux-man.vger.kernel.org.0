@@ -2,138 +2,101 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E6E073E8370
-	for <lists+linux-man@lfdr.de>; Tue, 10 Aug 2021 21:11:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8DD193E83B9
+	for <lists+linux-man@lfdr.de>; Tue, 10 Aug 2021 21:30:31 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230351AbhHJTLy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 10 Aug 2021 15:11:54 -0400
-Received: from mail.kernel.org ([198.145.29.99]:38250 "EHLO mail.kernel.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S230295AbhHJTLx (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Tue, 10 Aug 2021 15:11:53 -0400
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 6818860FC4;
-        Tue, 10 Aug 2021 19:11:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1628622691;
-        bh=CSSjXc+ias6km71bXVLyaS8iBHWrBpJbYfwzxVj4v5E=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=HgoGvl3DD1zbWIMPTvKGMH6PoCQW3JBAk5w1MzhLWXgKsXa9by624ZGYeAICJsyC4
-         qPH9zdX+1+dt3KvbBdH8G+Egks7nrxpZLv7inqkUM9t37cINJZ+Plu9DTmrWo+kCR2
-         xJNOXke3AdQIG00NAzZI3Pd1Nvq7PNtp56az2KFGQKKbs2qOXZ9VtHyxXd85dIXJ9n
-         Svl5i1L2ED7sSsC6FyHAdHY02/NVBzBq2MgZvkDfdZBApftoieb6hX4Opu02HJKa8a
-         /Uk8ebogLP4KrRqBKRXe9K0jGibkZILNmoBcDQApYFuzdjpvRDR1l+IS8u0tVLcFQa
-         oxLbXGNPTf3uw==
-Received: by pali.im (Postfix)
-        id 2336F82D; Tue, 10 Aug 2021 21:11:29 +0200 (CEST)
-Date:   Tue, 10 Aug 2021 21:11:28 +0200
-From:   Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org
-Subject: Re: [PATCH 13/23] ioctl_tty.2: Document ioctls: TCGETS2, TCSETS2,
- TCSETSW2, TCSETSF2
-Message-ID: <20210810191128.qcn552brlrjdrqus@pali>
-References: <20210808084133.734274-1-alx.manpages@gmail.com>
- <20210808084133.734274-14-alx.manpages@gmail.com>
- <7a378d4c-36a5-be42-79fb-aeb1c160984c@gmail.com>
+        id S232140AbhHJTax (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 10 Aug 2021 15:30:53 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49988 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S231143AbhHJTaw (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 10 Aug 2021 15:30:52 -0400
+Received: from mail-pl1-x634.google.com (mail-pl1-x634.google.com [IPv6:2607:f8b0:4864:20::634])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7816FC0613C1;
+        Tue, 10 Aug 2021 12:30:30 -0700 (PDT)
+Received: by mail-pl1-x634.google.com with SMTP id u16so22686938ple.2;
+        Tue, 10 Aug 2021 12:30:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=w33uFdck5RcJX68cJm7DF6DgXYSeGQPNlroZpWjMPdg=;
+        b=Mt7jOMvJ8KhKvna7YJU5UpYTCdSg8COeycRVtaVDqVBRLXJFS0Nry6bmaPEb5EMR7D
+         Mj9oYz/5DTovkjn+FTFYwaZWedj4dU69eDgDx0gVsoS4yl1w6KC0S0ueU4ORCy250wh9
+         g1sYEEuhpTVyI4SZeSwLL0gpcZTPlqb9d4SoCUhBrsvcGgqBmd7DWbL4ZNP69nQsYNdQ
+         KcQb6Zm956ycZpqC0PKa3SsDdV07ikhPtwYsoxnXNKd+1RlBXoV9wnpG6wYsAQ2H63sL
+         m6WyYZQgWjEIgWE9bKQFGF8NJTvWz/oq5CN/IuI4+hLBvWgZYD71CREam1DIdMdiKhr1
+         d55g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=w33uFdck5RcJX68cJm7DF6DgXYSeGQPNlroZpWjMPdg=;
+        b=QNyqwmfTitXK0nJT5QrxbbZMKr1yhOXswPR59XbqoCDHfvNqll3F8Swfo9kmOwdt1I
+         NDzuR5PpE13CkuEHWKqg1rjdyQ2C5RaN8m3ExbofY9vT3PshvvcluCg3n3VmtaFRX+i6
+         dI/t5BnRWHO4wlCHS8l8/O9ErG4Nw1PcWtzrJty6liH28aV0t57hEO7RkOi3gj+YfBt+
+         el+9QzvkwGUo9YbR0ei9aOnHlosPViN7CZEfkNbBTBLKyFWF/ibfLbbvAUWIv9SXy756
+         cYzekg4hkUKYDRuKyh5Go6IBY3cg6lFpLkZjTByKywlPRv/wSdhGYexdEiqS7LWhZpIe
+         EWmQ==
+X-Gm-Message-State: AOAM532iAWNTxtaTJUaVuHhwkM+WeedZb7TQbtx5o6h4WBmNkx8j76K+
+        etYEeaEEdHQzvtK2Al+TykU=
+X-Google-Smtp-Source: ABdhPJxaLZ78gZAfuwIt1mmpNrhDC0M/DNLevy+vYOlJQIbOr6nqCMWVidL93ULMql2iRLqs0K+zaw==
+X-Received: by 2002:a63:8ac2:: with SMTP id y185mr45975pgd.179.1628623830094;
+        Tue, 10 Aug 2021 12:30:30 -0700 (PDT)
+Received: from [192.168.1.71] (122-61-176-117-fibre.sparkbb.co.nz. [122.61.176.117])
+        by smtp.gmail.com with ESMTPSA id q13sm3881455pjq.10.2021.08.10.12.30.25
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Aug 2021 12:30:29 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+        lkml <linux-kernel@vger.kernel.org>,
+        linux-man <linux-man@vger.kernel.org>,
+        Christoph Hellwig <hch@infradead.org>
+Subject: Re: Questions re the new mount_setattr(2) manual page
+To:     Christian Brauner <christian.brauner@ubuntu.com>
+References: <b58e2537-03f4-6f6c-4e1b-8ddd989624cc@gmail.com>
+ <b23122c0-893a-c1b4-0b2d-3a332af4151f@gmail.com>
+ <20210810141125.nxmvnwpyjxajvxl4@wittgenstein>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <40d5616a-7404-850e-bc73-09d0b513b94b@gmail.com>
+Date:   Tue, 10 Aug 2021 21:30:23 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
+In-Reply-To: <20210810141125.nxmvnwpyjxajvxl4@wittgenstein>
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <7a378d4c-36a5-be42-79fb-aeb1c160984c@gmail.com>
-User-Agent: NeoMutt/20180716
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Sunday 08 August 2021 22:56:55 Michael Kerrisk (man-pages) wrote:
-> Hello Pali and Alex,
+On 8/10/21 4:11 PM, Christian Brauner wrote:
+> On Tue, Aug 10, 2021 at 09:12:14AM +0200, Michael Kerrisk (man-pages) wrote:
+>> Hi Christian,
+>>
+>> One more question...
+>>
+>>>>       The propagation field is used to specify the propagation typ
+>>>>       of the mount or mount tree.  Mount propagation options are
+>>>>       mutually exclusive; that is, the propagation values behave
+>>>>       like an enum.  The supported mount propagation types are:
+>>
+>> The manual page text doesn't actually say it, but if the 'propagation'
+>> field is 0, then this means leave the propagation type unchanged, 
+>> right? This of course should be mentioned in the manual page.
 > 
-> On 8/8/21 10:41 AM, Alejandro Colomar wrote:
-> > From: Pali Rohár <pali@kernel.org>
-> > 
-> > Signed-off-by: Pali Rohár <pali@kernel.org>
-> > Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
-> > ---
-> >  man2/ioctl_tty.2 | 29 +++++++++++++++++++++++++++++
-> >  1 file changed, 29 insertions(+)
-> > 
-> > diff --git a/man2/ioctl_tty.2 b/man2/ioctl_tty.2
-> > index 46294e63f..967b5c4c7 100644
-> > --- a/man2/ioctl_tty.2
-> > +++ b/man2/ioctl_tty.2
-> > @@ -77,6 +77,35 @@ The following four ioctls are just like
-> >  .BR TCSETSW ,
-> >  .BR TCSETSF ,
-> >  except that they take a
-> > +.I "struct termios2\ *"
-> > +instead of a
-> > +.IR "struct termios\ *" .
-> > +If struct member
-> > +.B c_cflag
-> > +contains
-> > +.B BOTHER
-> > +then baudrate is stored in struct members
-> > +.B c_ispeed
-> > +and
-> > +.B c_ospeed
-> > +as integer values.
-> > +These ioctls are not supported on all architectures.
-> > +.RS
-> > +.TS
-> > +lb l.
-> > +TCGETS2	\fBstruct termios2 *\fPargp
-> > +TCSETS2	\fBconst struct termios2 *\fPargp
-> > +TCSETSW2	\fBconst struct termios2 *\fPargp
-> > +TCSETSF2	\fBconst struct termios2 *\fPargp
-> > +.TE
-> > +.RE
-> > +.PP
-> > +The following four ioctls are just like
-> > +.BR TCGETS ,
-> > +.BR TCSETS ,
-> > +.BR TCSETSW ,
-> > +.BR TCSETSF ,
-> > +except that they take a
-> >  .I "struct termio\ *"
-> >  instead of a
-> >  .IR "struct termios\ *" .
-> 
-> The Linux man-pages generally try to maintain historical and 
-> version info (at least back as far as 2.6.0), so I applied
-> the patch below.
-> 
-> Thanks,
-> 
-> Michael
-> 
-> commit 48a486dddefa20cddbc83610cf582acecf23e2b3 (HEAD -> master)
-> Author: Michael Kerrisk <mtk.manpages@gmail.com>
-> Date:   Sun Aug 8 22:54:29 2021 +0200
-> 
->     ioctl_tty.2: Note kernel version that added TCGETS2, TCSETS2, TCSETSW2, and TCSETSF2
->     
->     Signed-off-by: Michael Kerrisk <mtk.manpages@gmail.com>
-> 
-> diff --git a/man2/ioctl_tty.2 b/man2/ioctl_tty.2
-> index 9854cfd3f..1d9a6dee1 100644
-> --- a/man2/ioctl_tty.2
-> +++ b/man2/ioctl_tty.2
-> @@ -71,7 +71,10 @@ Equivalent to
->  Allow the output buffer to drain, discard pending input, and
->  set the current serial port settings.
->  .PP
-> -The following four ioctls are just like
-> +The following four ioctls, added in Linux 2.6.20,
-> +.\" commit 64bb6c5e1ddcd47c951740485026ef08975ee2e6
-> +.\" commit 592ee3a5e5e2a981ef2829a0380093006d045661
-> +are just like
->  .BR TCGETS ,
->  .BR TCSETS ,
->  .BR TCSETSW ,
+> Yes, if none of the documented values is set the propagation is unchanged.
 
-Hello Michael! Seems that you applied patches to your tree incorrectly.
-Now ioctl TCGETS2 is documented two times, looks like you have applied
-my commit two times.
+Thanks for the confirmation.
 
-Open 'man ./man2/ioctl_tty.2' and search for TCGETS2.
+Cheers,
+
+Michael
+
+
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
