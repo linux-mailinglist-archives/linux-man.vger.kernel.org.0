@@ -2,162 +2,146 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 3AA5B3E8E2B
-	for <lists+linux-man@lfdr.de>; Wed, 11 Aug 2021 12:10:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 03D5F3E8ED8
+	for <lists+linux-man@lfdr.de>; Wed, 11 Aug 2021 12:40:40 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S236966AbhHKKK4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 11 Aug 2021 06:10:56 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52218 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S236929AbhHKKKx (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 11 Aug 2021 06:10:53 -0400
-Received: from mail-pj1-x102f.google.com (mail-pj1-x102f.google.com [IPv6:2607:f8b0:4864:20::102f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B0657C0613D5;
-        Wed, 11 Aug 2021 03:10:29 -0700 (PDT)
-Received: by mail-pj1-x102f.google.com with SMTP id lw7-20020a17090b1807b029017881cc80b7so8751961pjb.3;
-        Wed, 11 Aug 2021 03:10:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=NMk4UsFt8BqkCANJdmDLYqpG8iW/sccOsuB7Ch5oLT0=;
-        b=LBUL67G89m36GRNm6NjUGnJ+ppLvHWhk5RB0XPG4MJRdzBkUAgyYgX1xQTRaXDU7Cd
-         fD4tLvulbyuzYBthoyZU+bG0OoVdlq7x+UGvmAPorimtL5gRqzq0w7Ov7a4AjZmV4ree
-         fyvMLQLlZQKvZZJPgICsgfx5AKNzCa5XR0zeMRnxu0kCzSYUi4rP/1H1rox59sto/bk3
-         4BFM5W6XQmGdd7wFwGgKolsytVWMJQCTFwF7zTJQ0LDH5CegAAf9xwx/IHjm21EDYRH1
-         9IZmhR9M7zN3xinGmm/TPd+YgAqHwshDfqr5XvGBU/dtcqHc8sW2cAjsOyVxtYjbYS0c
-         eOEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=NMk4UsFt8BqkCANJdmDLYqpG8iW/sccOsuB7Ch5oLT0=;
-        b=R1qAaPPofNG14XD5pdAJlUZUm1Ubyz+e5HnMqmCbOeugCcQQrbcDkKRIkNQDBNs5WK
-         FD8SLw2LBqrwCy4RaHfhygqyLG5D5rqRLyoo4x7RHkbtkUriFJ7AfmPU+cm5Q3C3cNjY
-         4LU11o3NfBT/K4pm0kTxor7x4syHc3+SSXE03dcRbjg+ywVnIMgoq+Rhmk649uRsSbiI
-         oTRR8+N7IVeAh4W9eHqtbqKiltmgvLCE/EEH7nK8cg+6eMsKwpRZKinMrQVc41TqI7Ww
-         8ZesSQcvg9dj4IkHUTFtPL1Qe5X2A2VDTM6IIWjH+bqAk4VJuurKWPnKacVX+5PPrJkm
-         HQ/Q==
-X-Gm-Message-State: AOAM530V2E/rP0DEZxSuF7BtW/fD6IyJTRtmvfb3TT77mGFfrud/1isI
-        5e0rP1FWTYWxGpWGmW5+c85Ri2u2dc0=
-X-Google-Smtp-Source: ABdhPJyWiQZ/JWz8WXT2uP9HNOM5m9NT2taQ0LBpy3soYoniqW5szlqVnDV0OTDH1uppwLvZ9tToUA==
-X-Received: by 2002:a17:90a:ae16:: with SMTP id t22mr25189960pjq.65.1628676629005;
-        Wed, 11 Aug 2021 03:10:29 -0700 (PDT)
-Received: from [192.168.1.71] (122-61-176-117-fibre.sparkbb.co.nz. [122.61.176.117])
-        by smtp.gmail.com with ESMTPSA id o20sm31795016pgv.80.2021.08.11.03.10.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 11 Aug 2021 03:10:28 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com,
-        linux-security-module <linux-security-module@vger.kernel.org>,
+        id S236946AbhHKKk7 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 11 Aug 2021 06:40:59 -0400
+Received: from mail.kernel.org ([198.145.29.99]:32790 "EHLO mail.kernel.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S236855AbhHKKk6 (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Wed, 11 Aug 2021 06:40:58 -0400
+Received: by mail.kernel.org (Postfix) with ESMTPSA id C33EB60560;
+        Wed, 11 Aug 2021 10:40:32 +0000 (UTC)
+Date:   Wed, 11 Aug 2021 12:40:30 +0200
+From:   Christian Brauner <christian.brauner@ubuntu.com>
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-fsdevel <linux-fsdevel@vger.kernel.org>,
         lkml <linux-kernel@vger.kernel.org>,
-        Alejandro Colomar <alx.manpages@gmail.com>,
-        Kir Kolyshkin <kolyshkin@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>
-Subject: Re: Documenting the requirement of CAP_SETFCAP to map UID 0
-To:     "Serge E. Hallyn" <serge@hallyn.com>
-References: <14cbab6f-19f6-a28c-05d8-453ecca62180@gmail.com>
- <20210810235838.GA4561@mail.hallyn.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <9ddba7a5-8776-45d0-4b28-1e009012eee9@gmail.com>
-Date:   Wed, 11 Aug 2021 12:10:22 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+        linux-man <linux-man@vger.kernel.org>,
+        Christoph Hellwig <hch@infradead.org>
+Subject: Re: Questions re the new mount_setattr(2) manual page
+Message-ID: <20210811104030.in6f25hw5h5cotti@wittgenstein>
+References: <b58e2537-03f4-6f6c-4e1b-8ddd989624cc@gmail.com>
+ <d5a8061a-3d8a-6353-5158-8feee0156c6b@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20210810235838.GA4561@mail.hallyn.com>
 Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <d5a8061a-3d8a-6353-5158-8feee0156c6b@gmail.com>
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Serge
-
-On 8/11/21 1:58 AM, Serge E. Hallyn wrote:
-> On Sun, Aug 08, 2021 at 11:09:30AM +0200, Michael Kerrisk (man-pages) wrote:
->> Hello Serge,
->>
-Hello Serge,
-
-
->> Your commit:
->>
->> [[
->> commit db2e718a47984b9d71ed890eb2ea36ecf150de18
->> Author: Serge E. Hallyn <serge@hallyn.com>
->> Date:   Tue Apr 20 08:43:34 2021 -0500
->>
->>     capabilities: require CAP_SETFCAP to map uid 0
->> ]]
->>
->> added a new requirement when updating a UID map a user namespace
->> with a value of '0 0 *'.
->>
->> Kir sent a patch to briefly document this change, but I think much more
->> should be written. I've attempted to do so. Could you tell me whether the
->> following text (to be added in user_namespaces(7)) is accurate please:
+On Wed, Aug 11, 2021 at 12:47:14AM +0200, Michael Kerrisk (man-pages) wrote:
+> Hi Christian,
 > 
-> Sorry for the delay - this did not go into my main mailbox.
+> Some further questions...
 > 
-> The text looks good.  Thanks!
+> In ERRORS there is:
+> 
+>        EINVAL The underlying filesystem is mounted in a user namespace.
+> 
+> I don't understand this. What does it mean?
 
-Thanks for checking it!
+The underlying filesystem has been mounted in a mount namespace that is
+owned by a non-initial user namespace (Think of sysfs, overlayfs etc.).
 
-Cheers,
+> 
+> Also, there is this:
+> 
+>        ENOMEM When  changing  mount  propagation to MS_SHARED, a new peer
+>               group ID needs to be allocated for  all  mounts  without  a
+>               peer  group  ID  set.  Allocation of this peer group ID has
+>               failed.
+> 
+>        ENOSPC When changing mount propagation to MS_SHARED,  a  new  peer
+>               group  ID  needs  to  be allocated for all mounts without a
+>               peer group ID set.  Allocation of this peer  group  ID  can
+>               fail.  Note that technically further error codes are possi‐
+>               ble that are specific to the ID  allocation  implementation
+>               used.
+> 
+> What is the difference between these two error cases? (That is, in what 
+> circumstances will one get ENOMEM vs ENOSPC and vice versa?)
 
-Michael
+I did really wonder whether to even include those errors and I regret
+having included them because they aren't worth a detailed discussion as
+I'd consider them kernel internal relevant errors rather than userspace
+relevant errors. In essence, peer group ids are allocated using the id
+infrastructure of the kernel. It can fail for two main reasons:
 
->> [[
->>       In  order  for  a  process  to  write  to  the /proc/[pid]/uid_map
->>        (/proc/[pid]/gid_map) file, all of the following requirements must
->>        be met:
->>
->>        [...]
->>
->>        4. If  updating  /proc/[pid]/uid_map to create a mapping that maps
->>           UID 0 in the parent namespace, then one of the  following  must
->>           be true:
->>
->>           *  if  writing process is in the parent user namespace, then it
->>              must have the CAP_SETFCAP capability in that user namespace;
->>              or
->>
->>           *  if  the writing process is in the child user namespace, then
->>              the process that created the user namespace  must  have  had
->>              the CAP_SETFCAP capability when the namespace was created.
->>
->>           This rule has been in place since Linux 5.12.  It eliminates an
->>           earlier security bug whereby a UID 0  process  that  lacks  the
->>           CAP_SETFCAP capability, which is needed to create a binary with
->>           namespaced file capabilities (as described in capabilities(7)),
->>           could  nevertheless  create  such  a  binary,  by the following
->>           steps:
->>
->>           *  Create a new user namespace with the identity mapping (i.e.,
->>              UID  0 in the new user namespace maps to UID 0 in the parent
->>              namespace), so that UID 0 in both namespaces  is  equivalent
->>              to the same root user ID.
->>
->>           *  Since  the  child process has the CAP_SETFCAP capability, it
->>              could create a binary with namespaced file capabilities that
->>              would  then  be  effective in the parent user namespace (be‐
->>              cause the root user IDs are the same in the two namespaces).
->>
->>        [...]
->> ]]
->>
->> Thanks,
->>
->> Michael
->>
->> -- 
->> Michael Kerrisk
->> Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
->> Linux/UNIX System Programming Training: http://man7.org/training/
+1. ENOMEM there's not enough memory to allocate the relevant internal
+   structures needed for the bitmap.
+2. ENOSPC we ran out of ids, i.e. someone has somehow managed to
+   allocate so many peer groups and managed to keep the kernel running
+   (???) that the ida has ran out of ids.
 
+Feel free to just drop those errors.
 
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+> 
+> And then:
+> 
+>        EPERM  One  of  the mounts had at least one of MOUNT_ATTR_NOATIME,
+>               MOUNT_ATTR_NODEV, MOUNT_ATTR_NODIRATIME, MOUNT_ATTR_NOEXEC,
+>               MOUNT_ATTR_NOSUID, or MOUNT_ATTR_RDONLY set and the flag is
+>               locked.  Mount attributes become locked on a mount if:
+> 
+>               •  A new mount or mount tree is created causing mount prop‐
+>                  agation  across  user  namespaces.  The kernel will lock
+> 
+> Propagation is done across mont points, not user namespaces.
+> should "across user namespaces" be "to a mount namespace owned 
+> by a different user namespace"? Or something else?
+
+That's really splitting hairs. Of course this means that we're
+propagating into a mount namespace that is owned by a different user
+namespace though "crossing user namespaces" might have been the better
+choice.
+
+> 
+>                  the aforementioned  flags  to  protect  these  sensitive
+>                  properties from being altered.
+> 
+>               •  A  new  mount  and user namespace pair is created.  This
+>                  happens for  example  when  specifying  CLONE_NEWUSER  |
+>                  CLONE_NEWNS  in unshare(2), clone(2), or clone3(2).  The
+>                  aforementioned flags become locked to protect user name‐
+>                  spaces from altering sensitive mount properties.
+> 
+> Again, this seems imprecise. Should it say something like:
+> "... to prevent changes to sensitive mount properties in the new 
+> mount namespace" ? Or perhaps you have a better wording.
+
+That's not imprecise. What you want to protect against is altering
+sensitive mount properties from within a user namespace irrespective of
+whether or not the user namespace actually owns the mount namespace,
+i.e. even if you own the mount namespace you shouldn't be able to alter
+those properties. I concede though that "protect" should've been
+"prevent".
+
+You could probably say:
+
+	A  new  mount  and user namespace pair is created.  This
+	happens for  example  when  specifying  CLONE_NEWUSER  |
+	CLONE_NEWNS  in unshare(2), clone(2), or clone3(2).
+	The aforementioned flags become locked in the new mount
+	namespace to prevent sensitive mount properties from being
+	altered.
+	Since the newly created mount namespace will be owned by the
+	newly created user namespace a caller privileged in the newly
+	created user namespace would be able to alter senstive
+	mount properties. For example, without locking the read-only
+	property for the mounts in the new mount namespace such a caller
+	would be able to remount them read-write.
+
+(Fwiw, in this scenario there's a bit of (moderately sane) strangeness.
+ A CLONE_NEWUSER | CLONE_NEWMNT will cause even stronger protection to
+ kick in. For all mounts not marked as expired MNT_LOCKED will be set
+ which means that a umount() on any such mount copied from the previous
+ mount namespace will yield EINVAL implying from userspace' perspective
+ it's not mounted - granted EINVAL is the ioctl() of multiplexing errnos
+ - whereas a remount to alter a locked flag will yield EPERM.)
+
+Christian
