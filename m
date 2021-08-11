@@ -2,60 +2,96 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0D21C3E9172
-	for <lists+linux-man@lfdr.de>; Wed, 11 Aug 2021 14:33:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 56CC13E9A1D
+	for <lists+linux-man@lfdr.de>; Wed, 11 Aug 2021 22:55:42 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230001AbhHKMdC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 11 Aug 2021 08:33:02 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56048 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229962AbhHKMc5 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 11 Aug 2021 08:32:57 -0400
-Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com [IPv6:2607:f8b0:4864:20::230])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 62F41C08EAC9
-        for <linux-man@vger.kernel.org>; Wed, 11 Aug 2021 05:31:07 -0700 (PDT)
-Received: by mail-oi1-x230.google.com with SMTP id w6so4247288oiv.11
-        for <linux-man@vger.kernel.org>; Wed, 11 Aug 2021 05:31:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:reply-to:from:date:message-id:subject:to;
-        bh=77BwqRII9XCweQU8IJul6unijI/BEL+vUJmVmCRLxH4=;
-        b=V2WNyYdLJoP6K8E9RJHda7LwABozwr3cIVvw6Vvde1lUvj7nEn1kwTUjYENmT632Mo
-         WIvrh1+vLbSYzoPuX6Jvs3ShmY85CXNRULiOryYERC5VxiduWi1eHXykl4rZM4plaPY9
-         v0bjHvKbPX4Dmx5VGMryZtevBJBtYqlBmyCVADyoJGpXTeFxDC0rBPdZ27wWjxlPHWYz
-         44e14rCDZLm5cj050Iix5aVHNgFsagqH3cnFq7JAXcrKgC2Fka4hZJKUHzp5yDGNsN2N
-         es2oehf9N517PT8Y97WToSGj6n+Bj5wnkCVHjnDVkM+in2erAaksScM3DAQFVo4RjSvJ
-         Sh7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to;
-        bh=77BwqRII9XCweQU8IJul6unijI/BEL+vUJmVmCRLxH4=;
-        b=fJc6so+oHtDPivrRcTfiVH7y3/E6IqCTufM2JrApRKfie546AKzI8PgZWSCL7knovZ
-         XmsDwBe816meG07J7koOnF3Ve6n8UCO5nYEJQ9q87NiUfxPEBCVoGlBvApbTjKieQ/Af
-         Fmr5h8/YIO2mGCRVRh/TCNGSNLphzjIqr9zeR451iBEnL5SC6jdzEpQAwe4BwycQHaJ3
-         0ZAwiTe1KzM4FYFmaYzPuM60m4jWQfBLtksJAwdwuocVFswS7Z5g8pkAQI9tCK8zRGbc
-         0bGUUuZOqYu0/3SQEpZ8Ds/pE03fYN2y9sRSl0x1PK1DCeXJHH7Owu9t0jCl48y/c2kv
-         zjiA==
-X-Gm-Message-State: AOAM531y75bdg+3UBYwE7Iv4PLUBzzZUOFpCYwM6CMSw4R8BwqTgoPIz
-        u6yCUhe699DXyDNqF4bOYECVxzC2WI3n9Wvln/8=
-X-Google-Smtp-Source: ABdhPJzKX4bddhdfg8RiiyHYBr+yLXTM9M8N23Wzjnw2ULmtvMc+zP5mUiQ+LhDoka/W+ZMFsKP6zQ+h+O0KVwFq6y0=
-X-Received: by 2002:a05:6808:1924:: with SMTP id bf36mr24193426oib.106.1628685066760;
- Wed, 11 Aug 2021 05:31:06 -0700 (PDT)
+        id S229655AbhHKU4E (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 11 Aug 2021 16:56:04 -0400
+Received: from mail-40131.protonmail.ch ([185.70.40.131]:25406 "EHLO
+        mail-40131.protonmail.ch" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S229589AbhHKU4E (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 11 Aug 2021 16:56:04 -0400
+Date:   Wed, 11 Aug 2021 20:55:37 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=spmail.info;
+        s=protonmail3; t=1628715338;
+        bh=EJ/Yn/mNvpMKPkHKhKeQkFmJre4Pi9TamJs1Em7IIwg=;
+        h=Date:To:From:Cc:Reply-To:Subject:In-Reply-To:References:From;
+        b=fOlO6NiZBvl7xw17pp75Db1IcUe8rjqve1vK9C/Lgl9SYfihHG3I3Dr6TjawjU3qT
+         kchljVwScc5Xkf+kNg9SFSOaCtlfrLKmIxK459tqi73mLXsgrHOQDdwPBSxbPUlaFA
+         VEpGyBmjO+gkcuVI4y8Ey9+sWfE0HYnfdiS6wp5zksamfPc8QreDUvzm4qHfcTNod1
+         ZPzaUW4J5eFWwKO0pqyHL0vsfEdO6YSNQbggVkvj4a3UKp5A4GCbjO2vkU/jWuQ5Xb
+         GYgHzeP0PGOlLciTqYjkaS+6878z84YaqPNHClnMwj0DVQbAeA0Yq+tZlUkiPHQKQr
+         25Jh7MLUZQNew==
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+From:   Sergey Petrakov <kr@spmail.info>
+Cc:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org
+Reply-To: Sergey Petrakov <kr@spmail.info>
+Subject: Re: [PATCH 07/32] printf.3: wfix
+Message-ID: <bZx77Wr724ZA6_R6yNtLRnnVtw6BkglNw8OOn8wgTeqUQkweplmlpNpywT_orgMA6BjKkQ7_XKS60BXG1uIqu35Ov9onsqt_bBsGR-l34Ac=@spmail.info>
+In-Reply-To: <6372ea2d-e10b-0f71-126e-201363b0c6f9@gmail.com>
+References: <20210728202008.3158-1-alx.manpages@gmail.com> <20210728202008.3158-8-alx.manpages@gmail.com> <78b9440a-1e5b-3f2f-65f7-e222dfa1e477@gmail.com> <557edcab-8036-9249-e7bb-cb4e3765f59d@gmail.com> <5d08063e-5109-3ea3-30d0-77af0c842029@gmail.com> <6372ea2d-e10b-0f71-126e-201363b0c6f9@gmail.com>
 MIME-Version: 1.0
-Received: by 2002:a05:6830:23a5:0:0:0:0 with HTTP; Wed, 11 Aug 2021 05:31:06
- -0700 (PDT)
-Reply-To: rihabmanyang07@yahoo.com
-From:   Rihab Manyang <ndourandiogou1@gmail.com>
-Date:   Wed, 11 Aug 2021 13:31:06 +0100
-Message-ID: <CAP5_mB5hsG9XL1on3vsap=m7kWJuxk1JNYnqREpDhZc=rXpfpQ@mail.gmail.com>
-Subject: hi
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: No, score=-1.2 required=10.0 tests=ALL_TRUSTED,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF shortcircuit=no
+        autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on
+        mailout.protonmail.ch
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
--- 
-How are you?I am miss.Rihab Manyang i will like to be your friend
-please write me back on my email for more details, Thanks.
+Hello Michael and Alex,
+
+On Sunday, August 8th, 2021 at 02:10, Michael Kerrisk (man-pages) <mtk.manp=
+ages@gmail.com> wrote:
+> Hello Alex,
+>
+> On 8/8/21 12:32 AM, Alejandro Colomar (man-pages) wrote:
+>
+> > On 8/8/21 12:20 AM, Alejandro Colomar (man-pages) wrote:
+> >
+> > > stdio (7)', and it's only a ffix.
+> >
+> > s/7/3/
+>
+> I dropped the original patch, and made ir
+>
+> .BR stdio (3)
+>
+> This is a case where it would have been good to ask the
+> proposer for a commit message explaining the motivation for
+> the original patch (when that patch was submitted).
+
+A few paragraphs at the beginning of the description section
+of printf(3) briefly describe the functions in the printf()
+family. In these paragraphs, a word in italics almost always
+represents a token of C source code:
+1) the identifier (format, stream, str, fd, size, ap) or the
+   type (va_list) of a parameter in the function declarations
+   at the top of the man page;
+2) the identifier (va_end, va_arg) for a function-like macro;
+3) the identifier (stdout) for the standard output stream.
+
+There is one exception to this rule - stdio. This word
+represents a library, not a token. It's not a big problem,
+of course, but I think that similar formatting of different
+things may be confusing.
+
+The original patch was an attempt to fix this issue. The final
+one (by Michael Kerrisk):
+
+-.I stdio
++.BR stdio (3)
+
+is a more suitable solution.
+
+I'm sorry that I didn't include this explanation in the
+initial email.
+
+--
+
+Regards,
+Sergey Petrakov
