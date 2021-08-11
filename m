@@ -2,100 +2,60 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6B7343E9034
-	for <lists+linux-man@lfdr.de>; Wed, 11 Aug 2021 14:12:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0D21C3E9172
+	for <lists+linux-man@lfdr.de>; Wed, 11 Aug 2021 14:33:01 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232496AbhHKMMi (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 11 Aug 2021 08:12:38 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52276 "EHLO
+        id S230001AbhHKMdC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 11 Aug 2021 08:33:02 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56048 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S237410AbhHKMMi (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 11 Aug 2021 08:12:38 -0400
-Received: from mail-io1-xd43.google.com (mail-io1-xd43.google.com [IPv6:2607:f8b0:4864:20::d43])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CCD85C061765
-        for <linux-man@vger.kernel.org>; Wed, 11 Aug 2021 05:12:14 -0700 (PDT)
-Received: by mail-io1-xd43.google.com with SMTP id s184so3339947ios.2
-        for <linux-man@vger.kernel.org>; Wed, 11 Aug 2021 05:12:14 -0700 (PDT)
+        with ESMTP id S229962AbhHKMc5 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 11 Aug 2021 08:32:57 -0400
+Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com [IPv6:2607:f8b0:4864:20::230])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 62F41C08EAC9
+        for <linux-man@vger.kernel.org>; Wed, 11 Aug 2021 05:31:07 -0700 (PDT)
+Received: by mail-oi1-x230.google.com with SMTP id w6so4247288oiv.11
+        for <linux-man@vger.kernel.org>; Wed, 11 Aug 2021 05:31:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=mime-version:reply-to:from:date:message-id:subject:to;
-        bh=rf85IIrYDoX56EbvJwzXLS38sc5yj7QH4axMImYh7js=;
-        b=fOTveZ8OENSuynasYQzF2Szndnwdo25p5PZSKJL8G2RvgYwOXw7nG30yn+TJyMDxDb
-         iRQjJ78GyCYqGz4/feYpR60x0nrvHQ9eYfqP8Wb7JJcQxuB+Pzo4tvTx1pw6mf6rArog
-         f924pJHxWgKA5oCcKTQIsoMsF2ZZoLJ5pIQHhkEbNeO2qpLcgpxycqgf3SKPrcFJvmCT
-         aDbYItOEdVheErAFUmdLe0nQIW01pdLG/sX+L+Bk0O9vOBMvGCr1uEeCeasdmAMJkEA/
-         eoGZkOnDxY/H52ISxM7Krx5yAb7DKFCikrs9a1Nrp9URt1zeOJN9ETfwFFkIsjzVDNd+
-         WADA==
+        bh=77BwqRII9XCweQU8IJul6unijI/BEL+vUJmVmCRLxH4=;
+        b=V2WNyYdLJoP6K8E9RJHda7LwABozwr3cIVvw6Vvde1lUvj7nEn1kwTUjYENmT632Mo
+         WIvrh1+vLbSYzoPuX6Jvs3ShmY85CXNRULiOryYERC5VxiduWi1eHXykl4rZM4plaPY9
+         v0bjHvKbPX4Dmx5VGMryZtevBJBtYqlBmyCVADyoJGpXTeFxDC0rBPdZ27wWjxlPHWYz
+         44e14rCDZLm5cj050Iix5aVHNgFsagqH3cnFq7JAXcrKgC2Fka4hZJKUHzp5yDGNsN2N
+         es2oehf9N517PT8Y97WToSGj6n+Bj5wnkCVHjnDVkM+in2erAaksScM3DAQFVo4RjSvJ
+         Sh7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:mime-version:reply-to:from:date:message-id
          :subject:to;
-        bh=rf85IIrYDoX56EbvJwzXLS38sc5yj7QH4axMImYh7js=;
-        b=qSDp2HWUXM+IxcSe04KokgskWA6v0I45Q7TmooutMrK+5MeMzCTFax3NoCawh2VkL6
-         fXkA+wqkF9MG/a/bNovgVs4IeA/EmhPxZZQXLPuJAg+ynAsDBsAzzeuSAJeCt35O5UOc
-         /9LWgIigTP+kk5DMh8YIEk63n7FeIYto71aSignIoDF7ehwmCvBlx2TJVhYDRFKsy0RI
-         GJ6yNon0nrLQj1u4wAHXdo2zHWxf73fUm3FQuZRToroS5FNpo0y92puO1CVcpo/ESlya
-         /69jMv26eBZWzIom1pRcX6v/vNUXjY0SIMpl0JhAvP5Lv4frHMuk3cfCIddtm2nXbHWW
-         bZKA==
-X-Gm-Message-State: AOAM533XM5RpQJ2korEIY3IotJ3trSSZUQCUwYx4W+p4JNv1rg1o+uUJ
-        QN+t7li5g4FnSyg9ePyeIzAPJuG6kbbOQOnziDo=
-X-Google-Smtp-Source: ABdhPJwWkATQ1H0AD8L8zUuYAzlVLn6aJevgIBd2XmwdfifSRTf77DJiEoZwT97jTA4OjB8JcxW1lPjdm9TUC147wUo=
-X-Received: by 2002:a05:6638:618:: with SMTP id g24mr31765261jar.94.1628683932979;
- Wed, 11 Aug 2021 05:12:12 -0700 (PDT)
+        bh=77BwqRII9XCweQU8IJul6unijI/BEL+vUJmVmCRLxH4=;
+        b=fJc6so+oHtDPivrRcTfiVH7y3/E6IqCTufM2JrApRKfie546AKzI8PgZWSCL7knovZ
+         XmsDwBe816meG07J7koOnF3Ve6n8UCO5nYEJQ9q87NiUfxPEBCVoGlBvApbTjKieQ/Af
+         Fmr5h8/YIO2mGCRVRh/TCNGSNLphzjIqr9zeR451iBEnL5SC6jdzEpQAwe4BwycQHaJ3
+         0ZAwiTe1KzM4FYFmaYzPuM60m4jWQfBLtksJAwdwuocVFswS7Z5g8pkAQI9tCK8zRGbc
+         0bGUUuZOqYu0/3SQEpZ8Ds/pE03fYN2y9sRSl0x1PK1DCeXJHH7Owu9t0jCl48y/c2kv
+         zjiA==
+X-Gm-Message-State: AOAM531y75bdg+3UBYwE7Iv4PLUBzzZUOFpCYwM6CMSw4R8BwqTgoPIz
+        u6yCUhe699DXyDNqF4bOYECVxzC2WI3n9Wvln/8=
+X-Google-Smtp-Source: ABdhPJzKX4bddhdfg8RiiyHYBr+yLXTM9M8N23Wzjnw2ULmtvMc+zP5mUiQ+LhDoka/W+ZMFsKP6zQ+h+O0KVwFq6y0=
+X-Received: by 2002:a05:6808:1924:: with SMTP id bf36mr24193426oib.106.1628685066760;
+ Wed, 11 Aug 2021 05:31:06 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 2002:a05:6602:d2:0:0:0:0 with HTTP; Wed, 11 Aug 2021 05:12:12
+Received: by 2002:a05:6830:23a5:0:0:0:0 with HTTP; Wed, 11 Aug 2021 05:31:06
  -0700 (PDT)
-Reply-To: mr.sawadogomichel1@gmail.com
-From:   "Mr.Sawadogo Michel" <mr.michaelmadada@gmail.com>
-Date:   Wed, 11 Aug 2021 05:12:12 -0700
-Message-ID: <CAOHp2QLCa_3AF51=n3=3q=OsaXo0xetpv4-v6Pot1d77pMMVMg@mail.gmail.com>
-Subject: Hello Dear Friend Your Urgent Response Is Needed
+Reply-To: rihabmanyang07@yahoo.com
+From:   Rihab Manyang <ndourandiogou1@gmail.com>
+Date:   Wed, 11 Aug 2021 13:31:06 +0100
+Message-ID: <CAP5_mB5hsG9XL1on3vsap=m7kWJuxk1JNYnqREpDhZc=rXpfpQ@mail.gmail.com>
+Subject: hi
 To:     undisclosed-recipients:;
 Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Dear Friend,
-
-My name is Mr.Sawadogo Michel. I have decided to seek a confidential
-co-operation  with you in the execution of the deal described
-here-under for our both  mutual benefit and I hope you will keep it a
-top secret because of the nature  of the transaction, During the
-course of our bank year auditing, I discovered  an unclaimed/abandoned
-fund, sum total of {US$19.3 Million United State  Dollars} in the bank
-account that belongs to a Saudi Arabia businessman Who unfortunately
-lost his life and entire family in a Motor Accident.
-
-Now our bank has been waiting for any of the relatives to come-up for
-the claim but nobody has done that. I personally has been unsuccessful
-in locating any of the relatives, now, I sincerely seek your consent
-to present you as the next of kin / Will Beneficiary to the deceased
-so that the proceeds of this account valued at {US$19.3 Million United
-State Dollars} can be paid to you, which we will share in these
-percentages ratio, 60% to me and 40% to you. All I request is your
-utmost sincere co-operation; trust and maximum confidentiality to
-achieve this project successfully. I have carefully mapped out the
-moralities for execution of this transaction under a legitimate
-arrangement to protect you from any breach of the law both in your
-country and here in Burkina Faso when the fund is being transferred to
-your bank account.
-
-I will have to provide all the relevant document that will be
-requested to indicate that you are the rightful beneficiary of this
-legacy and our bank will release the fund to you without any further
-delay, upon your consideration and acceptance of this offer, please
-send me the following information as stated below so we can proceed
-and get this fund transferred to your designated bank account
-immediately.
-
--Your Full Name:
--Your Contact Address:
--Your direct Mobile telephone Number:
--Your Date of Birth:
--Your occupation:
-
-I await your swift response and re-assurance.
-
-Best regards,
-Mr.Sawadogo Michel.
+-- 
+How are you?I am miss.Rihab Manyang i will like to be your friend
+please write me back on my email for more details, Thanks.
