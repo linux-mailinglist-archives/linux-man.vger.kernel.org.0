@@ -2,146 +2,100 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 03D5F3E8ED8
-	for <lists+linux-man@lfdr.de>; Wed, 11 Aug 2021 12:40:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6B7343E9034
+	for <lists+linux-man@lfdr.de>; Wed, 11 Aug 2021 14:12:17 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S236946AbhHKKk7 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 11 Aug 2021 06:40:59 -0400
-Received: from mail.kernel.org ([198.145.29.99]:32790 "EHLO mail.kernel.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S236855AbhHKKk6 (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Wed, 11 Aug 2021 06:40:58 -0400
-Received: by mail.kernel.org (Postfix) with ESMTPSA id C33EB60560;
-        Wed, 11 Aug 2021 10:40:32 +0000 (UTC)
-Date:   Wed, 11 Aug 2021 12:40:30 +0200
-From:   Christian Brauner <christian.brauner@ubuntu.com>
-To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-fsdevel <linux-fsdevel@vger.kernel.org>,
-        lkml <linux-kernel@vger.kernel.org>,
-        linux-man <linux-man@vger.kernel.org>,
-        Christoph Hellwig <hch@infradead.org>
-Subject: Re: Questions re the new mount_setattr(2) manual page
-Message-ID: <20210811104030.in6f25hw5h5cotti@wittgenstein>
-References: <b58e2537-03f4-6f6c-4e1b-8ddd989624cc@gmail.com>
- <d5a8061a-3d8a-6353-5158-8feee0156c6b@gmail.com>
+        id S232496AbhHKMMi (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 11 Aug 2021 08:12:38 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52276 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S237410AbhHKMMi (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 11 Aug 2021 08:12:38 -0400
+Received: from mail-io1-xd43.google.com (mail-io1-xd43.google.com [IPv6:2607:f8b0:4864:20::d43])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CCD85C061765
+        for <linux-man@vger.kernel.org>; Wed, 11 Aug 2021 05:12:14 -0700 (PDT)
+Received: by mail-io1-xd43.google.com with SMTP id s184so3339947ios.2
+        for <linux-man@vger.kernel.org>; Wed, 11 Aug 2021 05:12:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:reply-to:from:date:message-id:subject:to;
+        bh=rf85IIrYDoX56EbvJwzXLS38sc5yj7QH4axMImYh7js=;
+        b=fOTveZ8OENSuynasYQzF2Szndnwdo25p5PZSKJL8G2RvgYwOXw7nG30yn+TJyMDxDb
+         iRQjJ78GyCYqGz4/feYpR60x0nrvHQ9eYfqP8Wb7JJcQxuB+Pzo4tvTx1pw6mf6rArog
+         f924pJHxWgKA5oCcKTQIsoMsF2ZZoLJ5pIQHhkEbNeO2qpLcgpxycqgf3SKPrcFJvmCT
+         aDbYItOEdVheErAFUmdLe0nQIW01pdLG/sX+L+Bk0O9vOBMvGCr1uEeCeasdmAMJkEA/
+         eoGZkOnDxY/H52ISxM7Krx5yAb7DKFCikrs9a1Nrp9URt1zeOJN9ETfwFFkIsjzVDNd+
+         WADA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to;
+        bh=rf85IIrYDoX56EbvJwzXLS38sc5yj7QH4axMImYh7js=;
+        b=qSDp2HWUXM+IxcSe04KokgskWA6v0I45Q7TmooutMrK+5MeMzCTFax3NoCawh2VkL6
+         fXkA+wqkF9MG/a/bNovgVs4IeA/EmhPxZZQXLPuJAg+ynAsDBsAzzeuSAJeCt35O5UOc
+         /9LWgIigTP+kk5DMh8YIEk63n7FeIYto71aSignIoDF7ehwmCvBlx2TJVhYDRFKsy0RI
+         GJ6yNon0nrLQj1u4wAHXdo2zHWxf73fUm3FQuZRToroS5FNpo0y92puO1CVcpo/ESlya
+         /69jMv26eBZWzIom1pRcX6v/vNUXjY0SIMpl0JhAvP5Lv4frHMuk3cfCIddtm2nXbHWW
+         bZKA==
+X-Gm-Message-State: AOAM533XM5RpQJ2korEIY3IotJ3trSSZUQCUwYx4W+p4JNv1rg1o+uUJ
+        QN+t7li5g4FnSyg9ePyeIzAPJuG6kbbOQOnziDo=
+X-Google-Smtp-Source: ABdhPJwWkATQ1H0AD8L8zUuYAzlVLn6aJevgIBd2XmwdfifSRTf77DJiEoZwT97jTA4OjB8JcxW1lPjdm9TUC147wUo=
+X-Received: by 2002:a05:6638:618:: with SMTP id g24mr31765261jar.94.1628683932979;
+ Wed, 11 Aug 2021 05:12:12 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <d5a8061a-3d8a-6353-5158-8feee0156c6b@gmail.com>
+Received: by 2002:a05:6602:d2:0:0:0:0 with HTTP; Wed, 11 Aug 2021 05:12:12
+ -0700 (PDT)
+Reply-To: mr.sawadogomichel1@gmail.com
+From:   "Mr.Sawadogo Michel" <mr.michaelmadada@gmail.com>
+Date:   Wed, 11 Aug 2021 05:12:12 -0700
+Message-ID: <CAOHp2QLCa_3AF51=n3=3q=OsaXo0xetpv4-v6Pot1d77pMMVMg@mail.gmail.com>
+Subject: Hello Dear Friend Your Urgent Response Is Needed
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed, Aug 11, 2021 at 12:47:14AM +0200, Michael Kerrisk (man-pages) wrote:
-> Hi Christian,
-> 
-> Some further questions...
-> 
-> In ERRORS there is:
-> 
->        EINVAL The underlying filesystem is mounted in a user namespace.
-> 
-> I don't understand this. What does it mean?
+Hello Dear Friend,
 
-The underlying filesystem has been mounted in a mount namespace that is
-owned by a non-initial user namespace (Think of sysfs, overlayfs etc.).
+My name is Mr.Sawadogo Michel. I have decided to seek a confidential
+co-operation  with you in the execution of the deal described
+here-under for our both  mutual benefit and I hope you will keep it a
+top secret because of the nature  of the transaction, During the
+course of our bank year auditing, I discovered  an unclaimed/abandoned
+fund, sum total of {US$19.3 Million United State  Dollars} in the bank
+account that belongs to a Saudi Arabia businessman Who unfortunately
+lost his life and entire family in a Motor Accident.
 
-> 
-> Also, there is this:
-> 
->        ENOMEM When  changing  mount  propagation to MS_SHARED, a new peer
->               group ID needs to be allocated for  all  mounts  without  a
->               peer  group  ID  set.  Allocation of this peer group ID has
->               failed.
-> 
->        ENOSPC When changing mount propagation to MS_SHARED,  a  new  peer
->               group  ID  needs  to  be allocated for all mounts without a
->               peer group ID set.  Allocation of this peer  group  ID  can
->               fail.  Note that technically further error codes are possi‐
->               ble that are specific to the ID  allocation  implementation
->               used.
-> 
-> What is the difference between these two error cases? (That is, in what 
-> circumstances will one get ENOMEM vs ENOSPC and vice versa?)
+Now our bank has been waiting for any of the relatives to come-up for
+the claim but nobody has done that. I personally has been unsuccessful
+in locating any of the relatives, now, I sincerely seek your consent
+to present you as the next of kin / Will Beneficiary to the deceased
+so that the proceeds of this account valued at {US$19.3 Million United
+State Dollars} can be paid to you, which we will share in these
+percentages ratio, 60% to me and 40% to you. All I request is your
+utmost sincere co-operation; trust and maximum confidentiality to
+achieve this project successfully. I have carefully mapped out the
+moralities for execution of this transaction under a legitimate
+arrangement to protect you from any breach of the law both in your
+country and here in Burkina Faso when the fund is being transferred to
+your bank account.
 
-I did really wonder whether to even include those errors and I regret
-having included them because they aren't worth a detailed discussion as
-I'd consider them kernel internal relevant errors rather than userspace
-relevant errors. In essence, peer group ids are allocated using the id
-infrastructure of the kernel. It can fail for two main reasons:
+I will have to provide all the relevant document that will be
+requested to indicate that you are the rightful beneficiary of this
+legacy and our bank will release the fund to you without any further
+delay, upon your consideration and acceptance of this offer, please
+send me the following information as stated below so we can proceed
+and get this fund transferred to your designated bank account
+immediately.
 
-1. ENOMEM there's not enough memory to allocate the relevant internal
-   structures needed for the bitmap.
-2. ENOSPC we ran out of ids, i.e. someone has somehow managed to
-   allocate so many peer groups and managed to keep the kernel running
-   (???) that the ida has ran out of ids.
+-Your Full Name:
+-Your Contact Address:
+-Your direct Mobile telephone Number:
+-Your Date of Birth:
+-Your occupation:
 
-Feel free to just drop those errors.
+I await your swift response and re-assurance.
 
-> 
-> And then:
-> 
->        EPERM  One  of  the mounts had at least one of MOUNT_ATTR_NOATIME,
->               MOUNT_ATTR_NODEV, MOUNT_ATTR_NODIRATIME, MOUNT_ATTR_NOEXEC,
->               MOUNT_ATTR_NOSUID, or MOUNT_ATTR_RDONLY set and the flag is
->               locked.  Mount attributes become locked on a mount if:
-> 
->               •  A new mount or mount tree is created causing mount prop‐
->                  agation  across  user  namespaces.  The kernel will lock
-> 
-> Propagation is done across mont points, not user namespaces.
-> should "across user namespaces" be "to a mount namespace owned 
-> by a different user namespace"? Or something else?
-
-That's really splitting hairs. Of course this means that we're
-propagating into a mount namespace that is owned by a different user
-namespace though "crossing user namespaces" might have been the better
-choice.
-
-> 
->                  the aforementioned  flags  to  protect  these  sensitive
->                  properties from being altered.
-> 
->               •  A  new  mount  and user namespace pair is created.  This
->                  happens for  example  when  specifying  CLONE_NEWUSER  |
->                  CLONE_NEWNS  in unshare(2), clone(2), or clone3(2).  The
->                  aforementioned flags become locked to protect user name‐
->                  spaces from altering sensitive mount properties.
-> 
-> Again, this seems imprecise. Should it say something like:
-> "... to prevent changes to sensitive mount properties in the new 
-> mount namespace" ? Or perhaps you have a better wording.
-
-That's not imprecise. What you want to protect against is altering
-sensitive mount properties from within a user namespace irrespective of
-whether or not the user namespace actually owns the mount namespace,
-i.e. even if you own the mount namespace you shouldn't be able to alter
-those properties. I concede though that "protect" should've been
-"prevent".
-
-You could probably say:
-
-	A  new  mount  and user namespace pair is created.  This
-	happens for  example  when  specifying  CLONE_NEWUSER  |
-	CLONE_NEWNS  in unshare(2), clone(2), or clone3(2).
-	The aforementioned flags become locked in the new mount
-	namespace to prevent sensitive mount properties from being
-	altered.
-	Since the newly created mount namespace will be owned by the
-	newly created user namespace a caller privileged in the newly
-	created user namespace would be able to alter senstive
-	mount properties. For example, without locking the read-only
-	property for the mounts in the new mount namespace such a caller
-	would be able to remount them read-write.
-
-(Fwiw, in this scenario there's a bit of (moderately sane) strangeness.
- A CLONE_NEWUSER | CLONE_NEWMNT will cause even stronger protection to
- kick in. For all mounts not marked as expired MNT_LOCKED will be set
- which means that a umount() on any such mount copied from the previous
- mount namespace will yield EINVAL implying from userspace' perspective
- it's not mounted - granted EINVAL is the ioctl() of multiplexing errnos
- - whereas a remount to alter a locked flag will yield EPERM.)
-
-Christian
+Best regards,
+Mr.Sawadogo Michel.
