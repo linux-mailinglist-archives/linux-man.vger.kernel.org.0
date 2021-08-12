@@ -2,348 +2,253 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B87A73EA0AF
-	for <lists+linux-man@lfdr.de>; Thu, 12 Aug 2021 10:38:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B96753EA18E
+	for <lists+linux-man@lfdr.de>; Thu, 12 Aug 2021 11:08:19 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235368AbhHLIjB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 12 Aug 2021 04:39:01 -0400
-Received: from mail.kernel.org ([198.145.29.99]:38376 "EHLO mail.kernel.org"
+        id S235404AbhHLJIj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 12 Aug 2021 05:08:39 -0400
+Received: from mail.kernel.org ([198.145.29.99]:34220 "EHLO mail.kernel.org"
         rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S235350AbhHLIiz (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Thu, 12 Aug 2021 04:38:55 -0400
-Received: by mail.kernel.org (Postfix) with ESMTPSA id F36466103E;
-        Thu, 12 Aug 2021 08:38:28 +0000 (UTC)
-Date:   Thu, 12 Aug 2021 10:38:26 +0200
+        id S235131AbhHLJIf (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Thu, 12 Aug 2021 05:08:35 -0400
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 4CBB060FC4;
+        Thu, 12 Aug 2021 09:08:08 +0000 (UTC)
+Date:   Thu, 12 Aug 2021 11:08:05 +0200
 From:   Christian Brauner <christian.brauner@ubuntu.com>
 To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-fsdevel <linux-fsdevel@vger.kernel.org>,
         lkml <linux-kernel@vger.kernel.org>,
         linux-man <linux-man@vger.kernel.org>,
-        Christoph Hellwig <hch@infradead.org>,
-        "Eric W. Biederman" <ebiederm@xmission.com>
+        Christoph Hellwig <hch@infradead.org>
 Subject: Re: Questions re the new mount_setattr(2) manual page
-Message-ID: <20210812083826.bfuqiwjlshjdwdby@wittgenstein>
+Message-ID: <20210812090805.qkwjxnjitgaihlep@wittgenstein>
 References: <b58e2537-03f4-6f6c-4e1b-8ddd989624cc@gmail.com>
- <d5a8061a-3d8a-6353-5158-8feee0156c6b@gmail.com>
- <20210811104030.in6f25hw5h5cotti@wittgenstein>
- <2f640877-dd82-6827-dfd0-c7f8fd5acbbc@gmail.com>
+ <20210810143255.2tjdskubryir2prp@wittgenstein>
+ <95c7683e-957a-5a78-6b81-2cb8e756315c@gmail.com>
+ <20210811100711.i3wwoc3bhrf7bvle@wittgenstein>
+ <ea2e81b7-10e1-88f3-bfcb-e36afc5567d6@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <2f640877-dd82-6827-dfd0-c7f8fd5acbbc@gmail.com>
+In-Reply-To: <ea2e81b7-10e1-88f3-bfcb-e36afc5567d6@gmail.com>
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Thu, Aug 12, 2021 at 07:36:54AM +0200, Michael Kerrisk (man-pages) wrote:
-> [CC += Eric, in case he has a comment on the last piece]
+On Thu, Aug 12, 2021 at 07:36:24AM +0200, Michael Kerrisk (man-pages) wrote:
+> Hello Christian,
 > 
-> Hi Christian,
+> Thanks for the answers.
 > 
-> (A few questions below.)
+> A couple of small queries still below.
 > 
-> On 8/11/21 12:40 PM, Christian Brauner wrote:
-> > On Wed, Aug 11, 2021 at 12:47:14AM +0200, Michael Kerrisk (man-pages) wrote:
-> >> Hi Christian,
+> On 8/11/21 12:07 PM, Christian Brauner wrote:
+> > On Tue, Aug 10, 2021 at 11:06:52PM +0200, Michael Kerrisk (man-pages) wrote:
+> 
+> [...]
+> 
+> >>>>>       EINVAL The mount that is to be ID mapped is not a
+> >>>>>              detached/anonymous mount; that is, the mount is
+> >>>>
+> >>>> ???
+> >>>> What is a the distinction between "detached" and "anonymous"?
+> >>>> Or do you mean them to be synonymous? If so, then let's use
+> >>>> just one term, and I think "detached" is preferable.
+> >>>
+> >>> Yes, they are synonymous here. I list both because detached can
+> >>> potentially be confusing. A detached mount is a mount that has not been
+> >>> visible in the filesystem. But if you attached it an then unmount it
+> >>> right after and keep the fd for the mountpoint open it's a detached
+> >>> mount purely on a natural language level, I'd argue. But it's not a
+> >>> detached mount from the kernel's view anymore because it has been
+> >>> exposed in the filesystem and is thus not detached anymore.
+> >>> But I do prefer "detached" to "anonymous" and that confusion is very
+> >>> unlikely to occur.
 > >>
-> >> Some further questions...
+> >> Thanks. I made it "detached". Elsewhere, the page already explains
+> >> that a detached mount is one that:
 > >>
-> >> In ERRORS there is:
+> >>           must have been created by calling open_tree(2) with the
+> >>           OPEN_TREE_CLONE flag and it must not already have been
+> >>           visible in the filesystem.
 > >>
-> >>        EINVAL The underlying filesystem is mounted in a user namespace.
+> >> Which seems a fine explanation. 
 > >>
-> >> I don't understand this. What does it mean?
+> >> ????
+> >> But, just a thought... "visible in the filesystem" seems not quite accurate. 
+> >> What you really mean I guess is that it must not already have been
+> >> /visible in the filesystem hierarchy/previously mounted/something else/,
+> >> right?
+> 
+> I suppose that I should have clarified that my main problem was
+> that you were using the word "filesystem" in a way that I find
+> unconventional/ambiguous. I mean, I normally take the term
+> "filesystem" to be "a storage system for folding files".
+> Here, you are using "filesystem" to mean something else, what 
+> I might call like "the single directory hierarchy" or "the
+> filesystem hierarchy" or "the list of mount points".
+> 
+> > A detached mount is created via the OPEN_TREE_CLONE flag. It is a
+> > separate new mount so "previously mounted" is not applicable.
+> > A detached mount is _related_ to what the MS_BIND flag gives you with
+> > mount(2). However, they differ conceptually and technically. A MS_BIND
+> > mount(2) is always visible in the fileystem when mount(2) returns, i.e.
+> > it is discoverable by regular path-lookup starting within the
+> > filesystem.
 > > 
-> > The underlying filesystem has been mounted in a mount namespace that is
-> > owned by a non-initial user namespace (Think of sysfs, overlayfs etc.).
-> 
-> Thanks!
-> 
-> >> Also, there is this:
-> >>
-> >>        ENOMEM When  changing  mount  propagation to MS_SHARED, a new peer
-> >>               group ID needs to be allocated for  all  mounts  without  a
-> >>               peer  group  ID  set.  Allocation of this peer group ID has
-> >>               failed.
-> >>
-> >>        ENOSPC When changing mount propagation to MS_SHARED,  a  new  peer
-> >>               group  ID  needs  to  be allocated for all mounts without a
-> >>               peer group ID set.  Allocation of this peer  group  ID  can
-> >>               fail.  Note that technically further error codes are possi‐
-> >>               ble that are specific to the ID  allocation  implementation
-> >>               used.
-> >>
-> >> What is the difference between these two error cases? (That is, in what 
-> >> circumstances will one get ENOMEM vs ENOSPC and vice versa?)
+> > However, a detached mount can be seen as a split of MS_BIND into two
+> > distinct steps:
+> > 1. fd_tree = open_tree(OPEN_TREE_CLONE): create a new mount
+> > 2. move_mount(fd_tree, <somewhere>):     attach the mount to the filesystem
 > > 
-> > I did really wonder whether to even include those errors and I regret
-> > having included them because they aren't worth a detailed discussion as
-> > I'd consider them kernel internal relevant errors rather than userspace
-> > relevant errors. In essence, peer group ids are allocated using the id
-> > infrastructure of the kernel. It can fail for two main reasons:
+> > 1. and 2. together give you the equivalent of MS_BIND.
+> > In between 1. and 2. however the mount is detached. For the kernel
+> > "detached" means that an anonymous mount namespace is attached to it
+> > which doen't appear in proc and has a 0 sequence number (Technically,
+> > there's a bit of semantical argument to be made that "attached" and
+> > "detached" are ambiguous as they could also be taken to mean "does or
+> > does not have a parent mount". This ambiguity e.g. appears in
+> > do_move_mount(). That's why the kernel itself calls it an "anonymous
+> > mount". However, an OPEN_TREE_CLONE-detached mount of course doesn't
+> > have a parent mount so it works.).
 > > 
-> > 1. ENOMEM there's not enough memory to allocate the relevant internal
-> >    structures needed for the bitmap.
-> > 2. ENOSPC we ran out of ids, i.e. someone has somehow managed to
-> >    allocate so many peer groups and managed to keep the kernel running
-> >    (???) that the ida has ran out of ids.
+> > For userspace it's better to think of detached and attached in terms of
+> > visibility in the filesystem or in a mount namespace. That's more
+> > straightfoward, more relevant, and hits the target in 90% of the cases.
 > > 
-> > Feel free to just drop those errors.
-> 
-> Because they can at least theoretically be visible to user space, I
-> prefer to keep them. But I've reworked a bit:
-> 
->        ENOMEM When changing mount propagation to MS_SHARED, a new
->               peer group ID needs to be allocated for all mounts
->               without a peer group ID set.  This allocation failed
->               because there was not enough memory to allocate the
->               relevant internal structures.
-> 
->        ENOSPC When changing mount propagation to MS_SHARED, a new
->               peer group ID needs to be allocated for all mounts
->               without a peer group ID set.  This allocation failed
->               because the kernel has run out of IDs.
-> 
-> >> And then:
-> >>
-> >>        EPERM  One  of  the mounts had at least one of MOUNT_ATTR_NOATIME,
-> >>               MOUNT_ATTR_NODEV, MOUNT_ATTR_NODIRATIME, MOUNT_ATTR_NOEXEC,
-> >>               MOUNT_ATTR_NOSUID, or MOUNT_ATTR_RDONLY set and the flag is
-> >>               locked.  Mount attributes become locked on a mount if:
-> >>
-> >>               •  A new mount or mount tree is created causing mount prop‐
-> >>                  agation  across  user  namespaces.  The kernel will lock
-> >>
-> >> Propagation is done across mont points, not user namespaces.
-> >> should "across user namespaces" be "to a mount namespace owned 
-> >> by a different user namespace"? Or something else?
+> > However, the better and clearer picture is to say that a
+> > OPEN_TREE_CLONE-detached mount is a mount that has never been
+> > move_mount()ed. Which in turn can be defined as the detached mount has
+> > never been made visible in a mount namespace. Once that has happened the
+> > mount is irreversibly an attached mount.
 > > 
-> > That's really splitting hairs.
+> > I keep thinking that maybe we should just say "anonymous mount"
+> > everywhere. So changing the wording to:
 > 
-> To be clear, I'm not trying to split hairs :-). It's just that
-> I'm struggling a little to understand. (In particular, the notion
-> of locked mounts is one where my understanding is weak.) 
-> 
-> And think of it like this: I am the first line of defense for the
-> user-space reader. If I am having trouble to understand the text,
-> I wont be alone. And often, the problem is not so much that the
-> text is "wrong", it's that there's a difference in background
-> knowledge between what you know and what the reader (in this case
-> me) knows. Part of my task is to fill that gap, by adding info
-> that I think is necessary to the page (with the happy side
-> effect that I learn along the way.)
+> I'm not against the word "detached". To user space, I think it is a
+> little more meaningful than "anonymous". For the moment, I'll stay with
+> "detached", but if you insist on "anonymous", I'll probably change it.
 
-All very good points.
-I didn't mean to complain btw. Sorry that it seemed that way. :)
+No, sounds good.
 
 > 
-> > Of course this means that we're
-> > propagating into a mount namespace that is owned by a different user
-> > namespace though "crossing user namespaces" might have been the better
-> > choice.
+> > [...]
+> > EINVAL The mount that is to be ID mapped is not an anonymous mount;
+> > that is, the mount has already been visible in a mount namespace.
 > 
-> This is a perfect example of the point I make above. You say "of course",
-> but I don't have the background knowledge that you do :-). From my
-> perspective, I want to make sure that I understand your meaning, so
-> that that meaning can (IMHO) be made easier for the average reader
-> of the manual page.
+> I like that text *a lot* better! Thanks very much for suggesting
+> wordings. It makes my life much easier. 
 > 
-> >>                  the aforementioned  flags  to  protect  these  sensitive
-> >>                  properties from being altered.
-> >>
-> >>               •  A  new  mount  and user namespace pair is created.  This
-> >>                  happens for  example  when  specifying  CLONE_NEWUSER  |
-> >>                  CLONE_NEWNS  in unshare(2), clone(2), or clone3(2).  The
-> >>                  aforementioned flags become locked to protect user name‐
-> >>                  spaces from altering sensitive mount properties.
-> >>
-> >> Again, this seems imprecise. Should it say something like:
-> >> "... to prevent changes to sensitive mount properties in the new 
-> >> mount namespace" ? Or perhaps you have a better wording.
+> I've made the text:
+> 
+>        EINVAL The mount that is to be ID mapped is not a detached
+>               mount; that is, the mount has not previously been
+>               visible in a mount namespace.
+
+Sounds good.
+
+> 
+> > [...]
+> > The mount must be an anonymous mount; that is, it must have been
+> > created by calling open_tree(2) with the OPEN_TREE_CLONE flag and it
+> > must not already have been visible in a mount namespace, i.e. it must
+> > not have been attached to the filesystem hierarchy with syscalls such
+> > as move_mount() syscall.
+> 
+> And that too! I've made the text:
+> 
+>        •  The mount must be a detached mount; that is, it must have
+>           been created by calling open_tree(2) with the
+>           OPEN_TREE_CLONE flag and it must not already have been
+>           visible in a mount namespace.  (To put things another way:
+>           the mount must not have been attached to the filesystem
+>           hierarchy with a system call such as move_mount(2).)
+
+Sounds good.
+
+> 
+> > [...]
 > > 
-> > That's not imprecise. 
+> > (I'm using the formulation "with syscalls such as move_mount()" to
+> > future proof this. :)).
 > 
-> Okay -- poor choice of wording on my part:
+> Fair enough.
 > 
-> s/this seems imprecise/I'm having trouble understanding this/
-> 
-> > What you want to protect against is altering
-> > sensitive mount properties from within a user namespace irrespective of
-> > whether or not the user namespace actually owns the mount namespace,
-> > i.e. even if you own the mount namespace you shouldn't be able to alter
-> > those properties. I concede though that "protect" should've been
-> > "prevent".
-> 
-> Can I check my education here please. The point is this:
-> 
-> * The mount point was created in a mount NS that was owned by
->   a more privileged user NS (e.g., the initial user NS).
-> * A CLONE_NEWUSER|CLONE_NEWNS step occurs to create a new (user and) 
->   mount NS.
-> * In the new mount NS, the mounts become locked.
-> 
-> And, help me here: is it correct that the reason the properties
-> need to be locked is because they are shared between the mounts?
-
-Yes, basically.
-The new mount namespace contains a copy of all the mounts in the
-previous mount namespace. So they are separate mounts which you can best
-see when you do unshare --mount --propagation=private. An unmount in the
-new mount namespace won't affect the mount in the previous mount
-namespace. Which can only nicely work if they are separate mounts.
-Propagation relies (among other things) on the fact that mount
-namespaces have copies of the mounts.
-
-The copied mounts in the new mount namespace will have inherited all
-properties they had at the time when copy_namespaces() and specifically
-copy_mnt_ns() was called. Which calls into copy_tree() and ultimately
-into the appropriately named clone_mnt(). This is the low-level routine
-that is responsible for cloning the mounts including their mount
-properties.
-
-Some mount properties such as read-only, nodev, noexec, nosuid, atime -
-while arguably not per se security mechanisms - are used for protection
-or as security measures in userspace applications. The most obvious one
-might be the read-only property. One wouldn't want to expose a set of
-files as read-only only for someone else to trivially gain write access
-to them. An example of where that could happen is when creating a new
-mount namespaces and user namespace pair where the new mount namespace
-is owned by the new user namespace in which the caller is privileged and
-thus the caller would also able to alter the new mount namespace. So
-without locking flags all it would take to turn a read-only into a
-read-write mount is:
-unshare -U --map-root --propagation=private -- mount -o remount,rw /some/mnt
-locking such flags prevents that from happening.
-
-> 
-> > You could probably say:
+> >>>>>   EXAMPLES
+> >>>>
+> >>>> ???
+> >>>> Do you have a (preferably simple) example piece of code
+> >>>> somewhere for setting up an ID mapped mount?
+> >>
+> >> ????
+> >> I guess the best example is this:
+> >> https://github.com/brauner/mount-idmapped/
+> >> right?
 > > 
-> > 	A  new  mount  and user namespace pair is created.  This
-> > 	happens for  example  when  specifying  CLONE_NEWUSER  |
-> > 	CLONE_NEWNS  in unshare(2), clone(2), or clone3(2).
-> > 	The aforementioned flags become locked in the new mount
-> > 	namespace to prevent sensitive mount properties from being
-> > 	altered.
-> > 	Since the newly created mount namespace will be owned by the
-> > 	newly created user namespace a caller privileged in the newly
-> > 	created user namespace would be able to alter senstive
-> > 	mount properties. For example, without locking the read-only
-> > 	property for the mounts in the new mount namespace such a caller
-> > 	would be able to remount them read-write.
+> > Ah yes, sorry. I forgot to answer that yesterday. I sent you links via
+> > another medium but I repeat it here.
+> > There are two places. The link you have here is a private repo. But I've
+> > also merged a program alongside the fstests testsuite I merged:
+> > https://git.kernel.org/pub/scm/fs/xfs/xfstests-dev.git/tree/src/idmapped-mounts/mount-idmapped.c
+> > which should be nicer and has seen reviews by Amir and Christoph.
 > 
-> So, I've now made the text:
+> Thanks.
 > 
->        EPERM  One of the mounts had at least one of MOUNT_ATTR_NOATIME,
->               MOUNT_ATTR_NODEV, MOUNT_ATTR_NODIRATIME, MOUNT_ATTR_NOEXEC,
->               MOUNT_ATTR_NOSUID, or MOUNT_ATTR_RDONLY set and the flag is
->               locked.  Mount attributes become locked on a mount if:
+> [...]
 > 
->               •  A new mount or mount tree is created causing mount
->                  propagation across user namespaces (i.e., propagation to
->                  a mount namespace owned by a different user namespace).
->                  The kernel will lock the aforementioned flags to prevent
->                  these sensitive properties from being altered.
+> >>>>>           int fd_tree = open_tree(-EBADF, source,
+> >>>>>                        OPEN_TREE_CLONE | OPEN_TREE_CLOEXEC |
+> >>>>>                        AT_EMPTY_PATH | (recursive ? AT_RECURSIVE : 0));
+> >>>>
+> >>>> ???
+> >>>> What is the significance of -EBADF here? As far as I can tell, it
+> >>>> is not meaningful to open_tree()?
+> >>>
+> >>> I always pass -EBADF for similar reasons to [2]. Feel free to just use -1.
+> >>
+> >> ????
+> >> But here, both -EBADF and -1 seem to be wrong. This argument 
+> >> is a dirfd, and so should either be a file descriptor or the
+> >> value AT_FDCWD, right?
+> > 
+> > [1]: In this code "source" is expected to be absolute. If it's not
+> >      absolute we should fail. This can be achieved by passing -1/-EBADF,
+> >      afaict.
 > 
->               •  A new mount and user namespace pair is created.  This
->                  happens for example when specifying CLONE_NEWUSER |
->                  CLONE_NEWNS in unshare(2), clone(2), or clone3(2).  The
->                  aforementioned flags become locked in the new mount
->                  namespace to prevent sensitive mount properties from
->                  being altered.  Since the newly created mount namespace
->                  will be owned by the newly created user namespace, a
->                  calling process that is privileged in the new user
->                  namespace would—in the absence of such locking—be able
->                  to alter senstive mount properties (e.g., to remount a
->                  mount that was marked read-only as read-write in the new
->                  mount namespace).
+> D'oh! Okay. I hadn't considered that use case for an invalid dirfd.
+> (And now I've done some adjustments to openat(2),which contains a
+> rationale for the *at() functions.)
 > 
+> So, now I understand your purpose, but still the code is obscure,
+> since
+> 
+> * You use a magic value (-EBADF) rather than (say) -1.
+> * There's no explanation (comment about) of the fact that you want
+>   to prevent relative pathnames.
+> 
+> So, I've changed the code to use -1, not -EBADF, and I've added some
+> comments to explain that the intent is to prevent relative pathnames.
 > Okay?
 
 Sounds good.
 
 > 
-> > (Fwiw, in this scenario there's a bit of (moderately sane) strangeness.
-> >  A CLONE_NEWUSER | CLONE_NEWMNT will cause even stronger protection to
-> >  kick in. For all mounts not marked as expired MNT_LOCKED will be set
-> >  which means that a umount() on any such mount copied from the previous
-> >  mount namespace will yield EINVAL implying from userspace' perspective
-> >  it's not mounted - granted EINVAL is the ioctl() of multiplexing errnos
-> >  - whereas a remount to alter a locked flag will yield EPERM.)
-> 
-> Thanks for educating me! So, is that what we are seeing below?
-> 
-> $ sudo umount /mnt/m1
-> $ sudo mount -t tmpfs none /mnt/m1
-> $ sudo unshare -pf -Ur -m --mount-proc strace -o /tmp/log umount /mnt/m1
-> umount: /mnt/m1: not mounted.
-> $ grep ^umount /tmp/log
-> umount2("/mnt/m1", 0)                   = -1 EINVAL (Invalid argument)
-> 
-> The mount_namespaces(7) page has for a log time had this text:
-> 
->        *  Mounts that come as a single unit from a more privileged mount
->           namespace are locked together and may not be separated in a
->           less privileged mount namespace.  (The unshare(2) CLONE_NEWNS
->           operation brings across all of the mounts from the original
->           mount namespace as a single unit, and recursive mounts that
->           propagate between mount namespaces propagate as a single unit.)
-> 
-> I have had trouble understanding that. But maybe you just helped.
-> Is that text relevant to what you just wrote above? In particular,
-> I have trouble understanding what "separated" means. But, perhaps
+> But, there is still the meta question: what's the problem with using
+> a relative pathname?
 
-The text gives the "how" not the "why".
-Consider a more elaborate mount tree where e.g., you have bind-mounted a
-mount over a subdirectory of another mount:
-
-sudo mount -t tmpfs /mnt
-sudo mkdir /mnt/my-dir/
-sudo touch /mnt/my-dir/my-file
-sudo mount --bind /opt /mnt/my-dir
-
-The files underneath /mnt/my-dir are now hidden. Consider what would
-happen if one would allow to address those mounts separately. A user
-could then do:
-
-unshare -U --map-root --mount
-umount /mnt/my-dir
-cat /mnt/my-dir/my-file
-
-giving them access to what's in my-dir.
-
-Treating such mount trees as a unit in less privileged mount namespaces
-(cf. [1]) prevents that, i.e., prevents revealing files and directories
-that were overmounted.
-
-Treating such mounts as a unit is also relevant when e.g. bind-mounting
-a mount tree containing locked mounts. Sticking with the example above:
-
-unshare -U --map-root --mount
-
-# non-recursive bind-mount will fail
-mount --bind /mnt /tmp
-
-# recursive bind-mount will succeed
-mount --rbind /mnt /tmp
-
-The reason is again that the mount tree at /mnt is treated as a mount
-unit because it is locked. If one were to allow to non-recursively
-bind-mountng /mnt somewhere it would mean revealing what's underneath
-the mount at my-dir (This is in some sense the inverse of preventing a
-filesystem from being mounted that isn't fully visible, i.e. contains
-hidden or over-mounted mounts.).
-
-These semantics, in addition to being security relevant, also allow a
-more privileged mount namespace to create a restricted view of the
-filesystem hierarchy that can't be circumvented in a less privileged
-mount namespace (Otherwise pivot_root would have to be used which can
-also be used to guarantee a restriced view on the filesystem hierarchy
-especially when combined with a separate rootfs.).
+Nothing per se. Ok, you asked so it's your fault:
+When writing programs I like to never use relative paths with AT_FDCWD
+because. Because making assumptions about the current working directory
+of the calling process is just too easy to get wrong; especially when
+pivot_root() or chroot() are in play.
+My absolut preference (joke intended) is to open a well-known starting
+point with an absolute path to get a dirfd and then scope all future
+operations beneath that dirfd. This already works with old-style
+openat() and _very_ cautious programming but openat2() and its
+resolve-flag space have made this **chef's kiss**.
+If I can't operate based on a well-known dirfd I use absolute paths with
+a -EBADF dirfd passed to *at() functions.
 
 Christian
-
-[1]: I'll avoid jumping through the hoops of speaking about ownership
-     all the time now for the sake of brevity. Otherwise I'll still sit
-     here at lunchtime.
