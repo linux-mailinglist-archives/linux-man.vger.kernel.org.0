@@ -2,151 +2,118 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 85ECF3EAD2F
-	for <lists+linux-man@lfdr.de>; Fri, 13 Aug 2021 00:32:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 61D533EAD65
+	for <lists+linux-man@lfdr.de>; Fri, 13 Aug 2021 00:51:49 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S237504AbhHLWco (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 12 Aug 2021 18:32:44 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46894 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234716AbhHLWcn (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 12 Aug 2021 18:32:43 -0400
-Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com [IPv6:2607:f8b0:4864:20::102b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 361E3C061756;
-        Thu, 12 Aug 2021 15:32:18 -0700 (PDT)
-Received: by mail-pj1-x102b.google.com with SMTP id a8so12313503pjk.4;
-        Thu, 12 Aug 2021 15:32:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=zp/Nu1LAn/XaXn+xRvyj50vtQNNKFYSlvk+KUuxDY/s=;
-        b=V2n2+nFPhssWpCrvcty6gMGdM25fYZwPJZ7z59ttqSdVrsllum+d+YsA+kcJn0V2CS
-         llNmgS39mTtQcFlvqOSBlv04WRJ5xfbRQrZPNi9rwKbTLwJTwJHWjACM2qoH9MYg8S/7
-         QK9h0x2kkh65TtM27XnlBT7Dj9IZ3zwY+mxd4Pcxug9rmP9Nt1OgsgqSqdXMXTuK5YYB
-         V6mbgys4IQ1Otc14pXItEI+CTt+eeFQMyNdQCZtqGbUOgaF39A8wNbhhfBNfiwpUOpAN
-         x6Qc6LAzzN2qvFoyf7SaGIcysgYMBfb9oOmHwmpO1FxbgzFPUtV2+D/YlzirJ/zXov1x
-         4kSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=zp/Nu1LAn/XaXn+xRvyj50vtQNNKFYSlvk+KUuxDY/s=;
-        b=fFYOQkO+f2to6EPSAaBl2KpLz4ybwUh8V3Nm6MnrJ7acZoHw15/DGVXbPzhECTw15b
-         DAt+Zj5hytimS9ZXpt5qzGmy/NnKIgiO/whtGdHhQa5WhnI8DC79jjVAENi44FMJbspx
-         8d3n4b/cWO6m7KDPTyNxxYRSiZyD3rEyFgYDjwuoFkOHUlldWbgBmOunJ+5rv18O3Bn/
-         OxPYtKthswVEqvuBbYb/5bv/fpkneeDN/mFb3B94sYVqxOyMlE/asMkRwUlAWdN/51BL
-         QNTfzGCF4eriRQoOMVJACQCxUxKXtdvI8PWs7TD9aToi9L7l54Q/CyK99jyR/uyMyUx3
-         hWfw==
-X-Gm-Message-State: AOAM532NQ8L3yfxvOs0q0rG/2mtUHEqnq4/9orU1kE4kY4rCTi3K425T
-        jTdLomcoN4KyNaRznYuShH4=
-X-Google-Smtp-Source: ABdhPJwzjP00qTgEN2zu69i939n05bXEqD4vw4Ds+VJAT5xY0msyPJzmbTnPHmIeoAtA1cZ3rpjSAg==
-X-Received: by 2002:a62:fb0b:0:b029:3ca:1345:9fd8 with SMTP id x11-20020a62fb0b0000b02903ca13459fd8mr6170274pfm.14.1628807537598;
-        Thu, 12 Aug 2021 15:32:17 -0700 (PDT)
-Received: from [192.168.1.71] (122-61-176-117-fibre.sparkbb.co.nz. [122.61.176.117])
-        by smtp.gmail.com with ESMTPSA id x20sm4552303pfh.188.2021.08.12.15.32.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Aug 2021 15:32:16 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-fsdevel <linux-fsdevel@vger.kernel.org>,
-        lkml <linux-kernel@vger.kernel.org>,
-        linux-man <linux-man@vger.kernel.org>,
-        Christoph Hellwig <hch@infradead.org>
-Subject: Re: Questions re the new mount_setattr(2) manual page
-To:     Christian Brauner <christian.brauner@ubuntu.com>
-References: <b58e2537-03f4-6f6c-4e1b-8ddd989624cc@gmail.com>
- <20210810143255.2tjdskubryir2prp@wittgenstein>
- <95c7683e-957a-5a78-6b81-2cb8e756315c@gmail.com>
- <20210811100711.i3wwoc3bhrf7bvle@wittgenstein>
- <ea2e81b7-10e1-88f3-bfcb-e36afc5567d6@gmail.com>
- <20210812090805.qkwjxnjitgaihlep@wittgenstein>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <37a0c459-86f7-9686-4ae5-03316198d1cc@gmail.com>
-Date:   Fri, 13 Aug 2021 00:32:09 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+        id S237108AbhHLWwO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 12 Aug 2021 18:52:14 -0400
+Received: from smtp-out2.suse.de ([195.135.220.29]:33114 "EHLO
+        smtp-out2.suse.de" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S237013AbhHLWwN (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 12 Aug 2021 18:52:13 -0400
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+         key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+        (No client certificate requested)
+        by smtp-out2.suse.de (Postfix) with ESMTPS id BF9161FF3A;
+        Thu, 12 Aug 2021 22:51:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+        t=1628808704; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+         mime-version:mime-version:content-type:content-type:
+         content-transfer-encoding:content-transfer-encoding;
+        bh=yMjGWJMZOmKrtApgIYOF47KeiAV23NtZqDPvEm6p/Vg=;
+        b=x1aZ2a2MNTYNKQqb3nVJURHIBmZz6ETb5i8qeZ918cksrKYzDU3+XBfGMJGnclztqgu5C9
+        XrOY1E73GjXskk7mhzr2DVsPlbJ8KvIqz1onuDtFaDLvKR1R2HwP2uMKYYVqq1czVzjYW7
+        B4v7zDn3kRNtgZ6UoNy4Yy6UX6bss1o=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+        s=susede2_ed25519; t=1628808704;
+        h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+         mime-version:mime-version:content-type:content-type:
+         content-transfer-encoding:content-transfer-encoding;
+        bh=yMjGWJMZOmKrtApgIYOF47KeiAV23NtZqDPvEm6p/Vg=;
+        b=UvzNzAqGlEPHeyh94Ayh0+lzq3vP6L3LvSSN9Q7mT9g6AuNyQMNZEvTc9jfRIjQXCDLxoc
+        Phq7zs08nW9vlhCg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+         key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+        (No client certificate requested)
+        by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2EB6413C80;
+        Thu, 12 Aug 2021 22:51:42 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+        by imap2.suse-dmz.suse.de with ESMTPSA
+        id +LdzN/6lFWFuewAAMHmgww
+        (envelope-from <neilb@suse.de>); Thu, 12 Aug 2021 22:51:42 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-In-Reply-To: <20210812090805.qkwjxnjitgaihlep@wittgenstein>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+From:   NeilBrown <neilb@suse.de>
+Date:   Fri, 13 Aug 2021 08:46:47 +1000
+Subject: [PATCH man-pages] statx.2: Add STATX_MNT_ID
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+        Miklos Szeredi <mszeredi@redhat.com>,
+        Josef Bacik <josef@toxicpanda.com>
+Message-id: <162880868648.15074.7283929646453264436@noble.neil.brown.name>
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Christian,
 
-[...]
+Linux 5.8 adds STATX_MNT_ID and stx_mnt_id.
+Add description to statx.2
 
-Thanks for checking the various wordinfs.
+Signed-off-by: NeilBrown <neilb@suse.de>
+---
+ man2/statx.2 | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-[...]
+diff --git a/man2/statx.2 b/man2/statx.2
+index 9e3aeaa36fa3..c41ee45f9bc4 100644
+--- a/man2/statx.2
++++ b/man2/statx.2
+@@ -77,6 +77,7 @@ struct statx {
+        containing the filesystem where the file resides */
+     __u32 stx_dev_major;   /* Major ID */
+     __u32 stx_dev_minor;   /* Minor ID */
++    __u64 stx_mnt_id;      /* Mount ID */
+ };
+ .EE
+ .in
+@@ -258,6 +259,7 @@ STATX_SIZE	Want stx_size
+ STATX_BLOCKS	Want stx_blocks
+ STATX_BASIC_STATS	[All of the above]
+ STATX_BTIME	Want stx_btime
++STATX_MNT_ID	Want stx_mnt_id (since Linux 5.8)
+ STATX_ALL	[All currently available fields]
+ .TE
+ .in
+@@ -411,6 +413,13 @@ The device on which this file (inode) resides.
+ .IR stx_rdev_major " and "  stx_rdev_minor
+ The device that this file (inode) represents if the file is of block or
+ character device type.
++.TP
++.I stx_mnt_id
++.\" commit fa2fcf4f1df1559a0a4ee0f46915b496cc2ebf60
++The mount ID of the mount containing the file.  This is the same number repo=
+rted by
++.BR name_to_handle_at (2)
++and corresponds to the number in the first field in one of the records in
++.IR /proc/self/mountinfo .
+ .PP
+ For further information on the above fields, see
+ .BR inode (7).
+@@ -573,9 +582,11 @@ is Linux-specific.
+ .BR access (2),
+ .BR chmod (2),
+ .BR chown (2),
++.BR name_to_handle_at (2),
+ .BR readlink (2),
+ .BR stat (2),
+ .BR utime (2),
++.BR proc (5),
+ .BR capabilities (7),
+ .BR inode (7),
+ .BR symlink (7)
+--=20
+2.32.0
 
->>>>>>>           int fd_tree = open_tree(-EBADF, source,
->>>>>>>                        OPEN_TREE_CLONE | OPEN_TREE_CLOEXEC |
->>>>>>>                        AT_EMPTY_PATH | (recursive ? AT_RECURSIVE : 0));
->>>>>>
->>>>>> ???
->>>>>> What is the significance of -EBADF here? As far as I can tell, it
->>>>>> is not meaningful to open_tree()?
->>>>>
->>>>> I always pass -EBADF for similar reasons to [2]. Feel free to just use -1.
->>>>
->>>> ????
->>>> But here, both -EBADF and -1 seem to be wrong. This argument 
->>>> is a dirfd, and so should either be a file descriptor or the
->>>> value AT_FDCWD, right?
->>>
->>> [1]: In this code "source" is expected to be absolute. If it's not
->>>      absolute we should fail. This can be achieved by passing -1/-EBADF,
->>>      afaict.
->>
->> D'oh! Okay. I hadn't considered that use case for an invalid dirfd.
->> (And now I've done some adjustments to openat(2),which contains a
->> rationale for the *at() functions.)
->>
->> So, now I understand your purpose, but still the code is obscure,
->> since
->>
->> * You use a magic value (-EBADF) rather than (say) -1.
->> * There's no explanation (comment about) of the fact that you want
->>   to prevent relative pathnames.
->>
->> So, I've changed the code to use -1, not -EBADF, and I've added some
->> comments to explain that the intent is to prevent relative pathnames.
->> Okay?
-> 
-> Sounds good.
-> 
->>
->> But, there is still the meta question: what's the problem with using
->> a relative pathname?
-> 
-> Nothing per se. Ok, you asked so it's your fault:
-> When writing programs I like to never use relative paths with AT_FDCWD
-> because. Because making assumptions about the current working directory
-> of the calling process is just too easy to get wrong; especially when
-> pivot_root() or chroot() are in play.
-> My absolut preference (joke intended) is to open a well-known starting
-> point with an absolute path to get a dirfd and then scope all future
-> operations beneath that dirfd. This already works with old-style
-> openat() and _very_ cautious programming but openat2() and its
-> resolve-flag space have made this **chef's kiss**.
-> If I can't operate based on a well-known dirfd I use absolute paths with
-> a -EBADF dirfd passed to *at() functions.
-
-Thanks for the clarification. I've noted your rationale in a 
-comment in the manual page source so that future maintainers 
-will not be puzzled!
-
-Cheers,
-
-Michael
-
-
-
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
