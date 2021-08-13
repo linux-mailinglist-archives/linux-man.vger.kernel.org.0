@@ -2,451 +2,344 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id EA89F3EADE5
-	for <lists+linux-man@lfdr.de>; Fri, 13 Aug 2021 02:23:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 50C653EAE1D
+	for <lists+linux-man@lfdr.de>; Fri, 13 Aug 2021 03:25:09 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233065AbhHMAXi (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 12 Aug 2021 20:23:38 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43200 "EHLO
+        id S233641AbhHMBZe (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 12 Aug 2021 21:25:34 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56744 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231392AbhHMAXi (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 12 Aug 2021 20:23:38 -0400
-Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com [IPv6:2607:f8b0:4864:20::22c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2BFCDC061756;
-        Thu, 12 Aug 2021 17:23:12 -0700 (PDT)
-Received: by mail-oi1-x22c.google.com with SMTP id o185so13285724oih.13;
-        Thu, 12 Aug 2021 17:23:12 -0700 (PDT)
+        with ESMTP id S238143AbhHMBZd (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 12 Aug 2021 21:25:33 -0400
+Received: from mail-pj1-x1032.google.com (mail-pj1-x1032.google.com [IPv6:2607:f8b0:4864:20::1032])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EB295C061756;
+        Thu, 12 Aug 2021 18:25:07 -0700 (PDT)
+Received: by mail-pj1-x1032.google.com with SMTP id fa24-20020a17090af0d8b0290178bfa69d97so13703371pjb.0;
+        Thu, 12 Aug 2021 18:25:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=g6aNfvqNLuTnnvr1o1PF/KW4kI0g6a2rgjbPolDXgg4=;
-        b=Js11tXJvxKlET6qhbldP58bmdt7RwqQ7UFcZYRJJXjosudSHQhDJ3FLODiqt59LOyS
-         MnYWGUKVScynYHWCqj/p2CO9G7GxaBHSjGedqQeOHOkRSwuZ3+44Z6ngXDNaxrTbZ3Le
-         vyWZymM3MD5oqeuoiGa/ypYEHuv3YcYB/vQ9TQvYwwCU5WA72pCGjslxUcBqEGqCQ2dO
-         oPcvzFMdHYXXmAlcVPETItcg3ZBsCkgdY67eG8uEok8WqPoVTs4vX7N5TQfd6wrReNk/
-         KHWuYADhG30HgIug2PYZQ3iRqHO9JfILuAEFzv28nlj4sdsrtsUvxvVHoglULjQJFmIZ
-         /bPQ==
+        h=cc:subject:to:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=Ytp7j4tvDqB8JRsA43hK2XfyaSDtDGizfAgSYtOwnqQ=;
+        b=dcyNcuPYwGn99N/iOhVwFBCjxqRDa168WIlpvwIMgqjRyrh0JSG7GkyQ+3uJnZC244
+         Lzr22wtWMkN6Lr4IB2FQ820WE3i+9wmb4oRs6NBoK1NaNqqamWd1Syj4w4825YxSAnGa
+         CdNwDo1P+HbAcE/PPOeNMYmtS+NDfCT6shjs3DlkFfYSv+Qd74BbblMmEfJMiw2BS91M
+         nWKKdB+jc/efJRmDcryV6CnwsmubvMd2Ppho3A90Mwn3wEuy3W6bTTzZEHVOIzCEYGOE
+         LqoShVc6KPUABLuthriGq7eRHXr2V9t0cA1E0aqXoXxqKDkmg1hwhyIZLc+QPD6YDVft
+         xz8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=g6aNfvqNLuTnnvr1o1PF/KW4kI0g6a2rgjbPolDXgg4=;
-        b=NQvIL1esIp2bXX3+1QHMIohNiVhZYhzczbqaKG0Fyis15REeHiXCva62ErbMDmHaIG
-         waRjKxzUiBjcik4lcDQzvdalCrJsXTlXB8usapjCX8jjBvVx+yYw6kS/6V2aufaZUy0+
-         kzpSI6YoHtT739qc+kRfwRwbbb4oh3xE2W4jLfaosLA9UKHh24VzywCxoJNTduyH4y2R
-         YUJaidZDiZUBOsPk5k5rIehlzNyrzcNOO6EwtftnqZWQgi+IXPmaE9dF7gVmOFUK0Pp8
-         OrZs4i0QdFG/qjD2vFteokS+jLuE+PIvfntaOvWBOFf8KbCSdBhR5611KTLoj/nY86OX
-         mmAQ==
-X-Gm-Message-State: AOAM5312FxahZgWhY/EPSebeJ+zGeLWXnoApxDt6DENg5lKUAhnUsz35
-        5gjmAdISILB6nW1rKT/SXoK6QDdhe3fXm0JEm4U=
-X-Google-Smtp-Source: ABdhPJw6c1nUA4/6/7FT13alfZBxwI64ERG5aNB/Xw5TVpvEVADoZphvLMN2iIOij33J7frGHHzM6c1goR7OymI8Hco=
-X-Received: by 2002:a05:6808:250:: with SMTP id m16mr5390631oie.148.1628814191437;
- Thu, 12 Aug 2021 17:23:11 -0700 (PDT)
-MIME-Version: 1.0
-References: <159827188271.306468.16962617119460123110.stgit@warthog.procyon.org.uk>
- <159827191245.306468.4903071494263813779.stgit@warthog.procyon.org.uk> <ae623a81-50f5-3ccd-8eee-ea5604664a41@gmail.com>
-In-Reply-To: <ae623a81-50f5-3ccd-8eee-ea5604664a41@gmail.com>
-Reply-To: mtk.manpages@gmail.com
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Fri, 13 Aug 2021 02:23:00 +0200
-Message-ID: <CAKgNAkjsbPLgHN=YiVyTts6k3rexemjBQWeXEnXFh5zf4npDrw@mail.gmail.com>
-Subject: Re: [PATCH 5/5] Add manpage for fsconfig(2)
-To:     David Howells <dhowells@redhat.com>,
-        Alexander Viro <viro@zeniv.linux.org.uk>
-Cc:     "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=Ytp7j4tvDqB8JRsA43hK2XfyaSDtDGizfAgSYtOwnqQ=;
+        b=JDJUY/LwreqCEBH8TZrrR8DFfmDta218QM6Bg9bKoSZAg3XoD9KfLo6FxXAjjji1vJ
+         7vmRfdCt1Z5O18DktJ0CExnkO9lbHUBT4UUieduASe9Val5ZFk/2/9UlQyDgW1/3PdUH
+         HT3yeZPOhiuY0Mn7AIVzglrXYC8yRFasGpf5CijnTWfi2eST/ClAU5ACVUjKerecaoHR
+         CL1CzcSz1NSLxVFYHCRBlKvcRje+wbPK8Kb0yYEloLljuGpDwelrEYXdtQ/xEfek3FV/
+         d5CEuKRHZw65EffZEmfXtlHo5eJVN2RCq6AB8D8XCeointCB4L+H2bETF1gOzYAl2Bok
+         5wlg==
+X-Gm-Message-State: AOAM533vu7N/XG3U1iGuzBEy6tmZBptFNWLsmqaOM7aUFu3hkUvBbMO2
+        c+/BK5hP4lfasxHBqXZ946Q=
+X-Google-Smtp-Source: ABdhPJxnbn9PZ8ieYqblXX18DNWm5ZoR51uNZ62h39Iu+dJQQsLFUyRkQvfBTamHdjUo//Yo6+ZuPw==
+X-Received: by 2002:a63:464b:: with SMTP id v11mr6418350pgk.26.1628817907434;
+        Thu, 12 Aug 2021 18:25:07 -0700 (PDT)
+Received: from [192.168.1.71] (122-61-176-117-fibre.sparkbb.co.nz. [122.61.176.117])
+        by smtp.gmail.com with ESMTPSA id u13sm4135pfn.94.2021.08.12.18.25.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Aug 2021 18:25:06 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+        lkml <linux-kernel@vger.kernel.org>,
         linux-man <linux-man@vger.kernel.org>,
-        Linux API <linux-api@vger.kernel.org>,
-        lkml <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+        Christoph Hellwig <hch@infradead.org>,
+        "Eric W. Biederman" <ebiederm@xmission.com>
+Subject: Re: Questions re the new mount_setattr(2) manual page
+To:     Christian Brauner <christian.brauner@ubuntu.com>
+References: <b58e2537-03f4-6f6c-4e1b-8ddd989624cc@gmail.com>
+ <d5a8061a-3d8a-6353-5158-8feee0156c6b@gmail.com>
+ <20210811104030.in6f25hw5h5cotti@wittgenstein>
+ <2f640877-dd82-6827-dfd0-c7f8fd5acbbc@gmail.com>
+ <20210812083826.bfuqiwjlshjdwdby@wittgenstein>
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Message-ID: <a58d8751-8a9e-5543-fafc-227d3873a31e@gmail.com>
+Date:   Fri, 13 Aug 2021 03:25:01 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
+MIME-Version: 1.0
+In-Reply-To: <20210812083826.bfuqiwjlshjdwdby@wittgenstein>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello David,
+Hello Christian,
 
-As noted in another mail, I will ping on all of the mails, just to
-raise all the patches to the top of the inbox.
+On 8/12/21 10:38 AM, Christian Brauner wrote:
+> On Thu, Aug 12, 2021 at 07:36:54AM +0200, Michael Kerrisk (man-pages) wrote:
+>> [CC += Eric, in case he has a comment on the last piece]
+
+[...]
+
+>>> That's really splitting hairs.
+>>
+>> To be clear, I'm not trying to split hairs :-). It's just that
+>> I'm struggling a little to understand. (In particular, the notion
+>> of locked mounts is one where my understanding is weak.) 
+>>
+>> And think of it like this: I am the first line of defense for the
+>> user-space reader. If I am having trouble to understand the text,
+>> I wont be alone. And often, the problem is not so much that the
+>> text is "wrong", it's that there's a difference in background
+>> knowledge between what you know and what the reader (in this case
+>> me) knows. Part of my task is to fill that gap, by adding info
+>> that I think is necessary to the page (with the happy side
+>> effect that I learn along the way.)
+> 
+> All very good points.
+> I didn't mean to complain btw. Sorry that it seemed that way. :)
+
+No problem. I need to think more carefully about my words 
+sometimes in mails too :-)
+
+>>> Of course this means that we're
+>>> propagating into a mount namespace that is owned by a different user
+>>> namespace though "crossing user namespaces" might have been the better
+>>> choice.
+>>
+>> This is a perfect example of the point I make above. You say "of course",
+>> but I don't have the background knowledge that you do :-). From my
+>> perspective, I want to make sure that I understand your meaning, so
+>> that that meaning can (IMHO) be made easier for the average reader
+>> of the manual page.
+>>
+>>>>                  the aforementioned  flags  to  protect  these  sensitive
+>>>>                  properties from being altered.
+>>>>
+>>>>               •  A  new  mount  and user namespace pair is created.  This
+>>>>                  happens for  example  when  specifying  CLONE_NEWUSER  |
+>>>>                  CLONE_NEWNS  in unshare(2), clone(2), or clone3(2).  The
+>>>>                  aforementioned flags become locked to protect user name‐
+>>>>                  spaces from altering sensitive mount properties.
+>>>>
+>>>> Again, this seems imprecise. Should it say something like:
+>>>> "... to prevent changes to sensitive mount properties in the new 
+>>>> mount namespace" ? Or perhaps you have a better wording.
+>>>
+>>> That's not imprecise. 
+>>
+>> Okay -- poor choice of wording on my part:
+>>
+>> s/this seems imprecise/I'm having trouble understanding this/
+>>
+>>> What you want to protect against is altering
+>>> sensitive mount properties from within a user namespace irrespective of
+>>> whether or not the user namespace actually owns the mount namespace,
+>>> i.e. even if you own the mount namespace you shouldn't be able to alter
+>>> those properties. I concede though that "protect" should've been
+>>> "prevent".
+>>
+>> Can I check my education here please. The point is this:
+>>
+>> * The mount point was created in a mount NS that was owned by
+>>   a more privileged user NS (e.g., the initial user NS).
+>> * A CLONE_NEWUSER|CLONE_NEWNS step occurs to create a new (user and) 
+>>   mount NS.
+>> * In the new mount NS, the mounts become locked.
+>>
+>> And, help me here: is it correct that the reason the properties
+>> need to be locked is because they are shared between the mounts?
+> 
+> Yes, basically.
+
+Yes, but that last sentence of mine was wrong, wasn't it? The 
+properties are not actually shared between the mounts, right?
+(Earlier, I had done in experiment which misled e into thinking
+there was sharing, but now it looks to me like there is not.)
+
+> The new mount namespace contains a copy of all the mounts in the
+> previous mount namespace. So they are separate mounts which you can best
+> see when you do unshare --mount --propagation=private. An unmount in the
+> new mount namespace won't affect the mount in the previous mount
+> namespace. Which can only nicely work if they are separate mounts.
+> Propagation relies (among other things) on the fact that mount
+> namespaces have copies of the mounts.
+> 
+> The copied mounts in the new mount namespace will have inherited all
+> properties they had at the time when copy_namespaces() and specifically
+> copy_mnt_ns() was called. Which calls into copy_tree() and ultimately
+> into the appropriately named clone_mnt(). This is the low-level routine
+> that is responsible for cloning the mounts including their mount
+> properties.
+> 
+> Some mount properties such as read-only, nodev, noexec, nosuid, atime -
+> while arguably not per se security mechanisms - are used for protection
+> or as security measures in userspace applications. The most obvious one
+> might be the read-only property. One wouldn't want to expose a set of
+> files as read-only only for someone else to trivially gain write access
+> to them. An example of where that could happen is when creating a new
+> mount namespaces and user namespace pair where the new mount namespace
+> is owned by the new user namespace in which the caller is privileged and
+> thus the caller would also able to alter the new mount namespace. So
+> without locking flags all it would take to turn a read-only into a
+> read-write mount is:
+> unshare -U --map-root --propagation=private -- mount -o remount,rw /some/mnt
+> locking such flags prevents that from happening.
+
+Thanks for the detailed explanation; it's very helpful.
+
+>>> You could probably say:
+>>>
+>>> 	A  new  mount  and user namespace pair is created.  This
+>>> 	happens for  example  when  specifying  CLONE_NEWUSER  |
+>>> 	CLONE_NEWNS  in unshare(2), clone(2), or clone3(2).
+>>> 	The aforementioned flags become locked in the new mount
+>>> 	namespace to prevent sensitive mount properties from being
+>>> 	altered.
+>>> 	Since the newly created mount namespace will be owned by the
+>>> 	newly created user namespace a caller privileged in the newly
+>>> 	created user namespace would be able to alter senstive
+>>> 	mount properties. For example, without locking the read-only
+>>> 	property for the mounts in the new mount namespace such a caller
+>>> 	would be able to remount them read-write.
+>>
+>> So, I've now made the text:
+>>
+>>        EPERM  One of the mounts had at least one of MOUNT_ATTR_NOATIME,
+>>               MOUNT_ATTR_NODEV, MOUNT_ATTR_NODIRATIME, MOUNT_ATTR_NOEXEC,
+>>               MOUNT_ATTR_NOSUID, or MOUNT_ATTR_RDONLY set and the flag is
+>>               locked.  Mount attributes become locked on a mount if:
+>>
+>>               •  A new mount or mount tree is created causing mount
+>>                  propagation across user namespaces (i.e., propagation to
+>>                  a mount namespace owned by a different user namespace).
+>>                  The kernel will lock the aforementioned flags to prevent
+>>                  these sensitive properties from being altered.
+>>
+>>               •  A new mount and user namespace pair is created.  This
+>>                  happens for example when specifying CLONE_NEWUSER |
+>>                  CLONE_NEWNS in unshare(2), clone(2), or clone3(2).  The
+>>                  aforementioned flags become locked in the new mount
+>>                  namespace to prevent sensitive mount properties from
+>>                  being altered.  Since the newly created mount namespace
+>>                  will be owned by the newly created user namespace, a
+>>                  calling process that is privileged in the new user
+>>                  namespace would—in the absence of such locking—be able
+>>                  to alter senstive mount properties (e.g., to remount a
+>>                  mount that was marked read-only as read-write in the new
+>>                  mount namespace).
+>>
+>> Okay?
+> 
+> Sounds good.
+
+Okay.
+
+>>> (Fwiw, in this scenario there's a bit of (moderately sane) strangeness.
+>>>  A CLONE_NEWUSER | CLONE_NEWMNT will cause even stronger protection to
+>>>  kick in. For all mounts not marked as expired MNT_LOCKED will be set
+>>>  which means that a umount() on any such mount copied from the previous
+>>>  mount namespace will yield EINVAL implying from userspace' perspective
+>>>  it's not mounted - granted EINVAL is the ioctl() of multiplexing errnos
+>>>  - whereas a remount to alter a locked flag will yield EPERM.)
+>>
+>> Thanks for educating me! So, is that what we are seeing below?
+
+(Was your silence to the above question an implicit "yes"?)
+
+>> $ sudo umount /mnt/m1
+>> $ sudo mount -t tmpfs none /mnt/m1
+>> $ sudo unshare -pf -Ur -m --mount-proc strace -o /tmp/log umount /mnt/m1
+>> umount: /mnt/m1: not mounted.
+>> $ grep ^umount /tmp/log
+>> umount2("/mnt/m1", 0)                   = -1 EINVAL (Invalid argument)
+>>
+>> The mount_namespaces(7) page has for a log time had this text:
+>>
+>>        *  Mounts that come as a single unit from a more privileged mount
+>>           namespace are locked together and may not be separated in a
+>>           less privileged mount namespace.  (The unshare(2) CLONE_NEWNS
+>>           operation brings across all of the mounts from the original
+>>           mount namespace as a single unit, and recursive mounts that
+>>           propagate between mount namespaces propagate as a single unit.)
+>>
+>> I have had trouble understanding that. But maybe you just helped.
+>> Is that text relevant to what you just wrote above? In particular,
+>> I have trouble understanding what "separated" means. But, perhaps
+> 
+> The text gives the "how" not the "why".
+
+Yes, that's a big problem :-}.
+
+> Consider a more elaborate mount tree where e.g., you have bind-mounted a
+> mount over a subdirectory of another mount:
+> 
+> sudo mount -t tmpfs /mnt
+> sudo mkdir /mnt/my-dir/
+> sudo touch /mnt/my-dir/my-file
+> sudo mount --bind /opt /mnt/my-dir
+> 
+> The files underneath /mnt/my-dir are now hidden. Consider what would
+> happen if one would allow to address those mounts separately. A user
+> could then do:
+> 
+> unshare -U --map-root --mount
+> umount /mnt/my-dir
+> cat /mnt/my-dir/my-file
+> 
+> giving them access to what's in my-dir.
+> 
+> Treating such mount trees as a unit in less privileged mount namespaces
+> (cf. [1]) prevents that, i.e., prevents revealing files and directories
+> that were overmounted.
+
+Got it!
+ 
+> Treating such mounts as a unit is also relevant when e.g. bind-mounting
+> a mount tree containing locked mounts. Sticking with the example above:
+> 
+> unshare -U --map-root --mount
+> 
+> # non-recursive bind-mount will fail
+> mount --bind /mnt /tmp
+> 
+> # recursive bind-mount will succeed
+> mount --rbind /mnt /tmp
+> 
+> The reason is again that the mount tree at /mnt is treated as a mount
+> unit because it is locked. If one were to allow to non-recursively
+> bind-mountng /mnt somewhere it would mean revealing what's underneath
+> the mount at my-dir (This is in some sense the inverse of preventing a
+> filesystem from being mounted that isn't fully visible, i.e. contains
+> hidden or over-mounted mounts.).
+
+Got it!
+
+> These semantics, in addition to being security relevant, also allow a
+> more privileged mount namespace to create a restricted view of the
+> filesystem hierarchy that can't be circumvented in a less privileged
+> mount namespace (Otherwise pivot_root would have to be used which can
+> also be used to guarantee a restriced view on the filesystem hierarchy
+> especially when combined with a separate rootfs.).
+
+Okay.
+
+Christian, thanks for so generously taking the time to write this up.
+It really helped me a lot! I will do some work on the mount namespaces
+manual page, to cover at least part of what you said.
 
 Thanks,
 
 Michael
 
-
-On Thu, 27 Aug 2020 at 13:07, Michael Kerrisk (man-pages)
-<mtk.manpages@gmail.com> wrote:
->
-> Hello David,
->
-> On 8/24/20 2:25 PM, David Howells wrote:
-> > Add a manual page to document the fsconfig() system call.
-> >
-> > Signed-off-by: David Howells <dhowells@redhat.com>
-> > ---
-> >
-> >  man2/fsconfig.2 |  277 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
-> >  1 file changed, 277 insertions(+)
-> >  create mode 100644 man2/fsconfig.2
-> >
-> > diff --git a/man2/fsconfig.2 b/man2/fsconfig.2
-> > new file mode 100644
-> > index 000000000..da53d2fcb
-> > --- /dev/null
-> > +++ b/man2/fsconfig.2
-> > @@ -0,0 +1,277 @@
-> > +'\" t
-> > +.\" Copyright (c) 2020 David Howells <dhowells@redhat.com>
-> > +.\"
-> > +.\" %%%LICENSE_START(VERBATIM)
-> > +.\" Permission is granted to make and distribute verbatim copies of this
-> > +.\" manual provided the copyright notice and this permission notice are
-> > +.\" preserved on all copies.
-> > +.\"
-> > +.\" Permission is granted to copy and distribute modified versions of this
-> > +.\" manual under the conditions for verbatim copying, provided that the
-> > +.\" entire resulting derived work is distributed under the terms of a
-> > +.\" permission notice identical to this one.
-> > +.\"
-> > +.\" Since the Linux kernel and libraries are constantly changing, this
-> > +.\" manual page may be incorrect or out-of-date.  The author(s) assume no
-> > +.\" responsibility for errors or omissions, or for damages resulting from
-> > +.\" the use of the information contained herein.  The author(s) may not
-> > +.\" have taken the same level of care in the production of this manual,
-> > +.\" which is licensed free of charge, as they might when working
-> > +.\" professionally.
-> > +.\"
-> > +.\" Formatted or processed versions of this manual, if unaccompanied by
-> > +.\" the source, must acknowledge the copyright and authors of this work.
-> > +.\" %%%LICENSE_END
-> > +.\"
-> > +.TH FSCONFIG 2 2020-08-24 "Linux" "Linux Programmer's Manual"
-> > +.SH NAME
-> > +fsconfig \- Filesystem parameterisation
-> > +.SH SYNOPSIS
-> > +.nf
-> > +.B #include <sys/types.h>
-> > +.B #include <sys/mount.h>
-> > +.B #include <unistd.h>
-> > +.B #include <sys/mount.h>
-> > +.PP
-> > +.BI "int fsconfig(int *" fd ", unsigned int " cmd ", const char *" key ,
-> > +.br
-> > +.BI "             const void __user *" value ", int " aux ");"
-> > +.br
->
-> Please remove two instances of .br above
->
-> > +.BI
-> > +.fi
-> > +.PP
-> > +.IR Note :
-> > +There is no glibc wrapper for this system call.
-> > +.SH DESCRIPTION
-> > +.PP
-> > +.BR fsconfig ()
-> > +is used to supply parameters to and issue commands against a filesystem
-> > +configuration context as set up by
-> > +.BR fsopen (2)
-> > +or
-> > +.BR fspick (2).
-> > +The context is supplied attached to the file descriptor specified by
->
-> s/by/by the/
->
-> > +.I fd
-> > +argument.
-> > +.PP
-> > +The
-> > +.I cmd
-> > +argument indicates the command to be issued, where some of the commands simply
-> > +supply parameters to the context.  The meaning of
-> > +.IR key ", " value " and " aux
-> > +are command-dependent; unless required for the command, these should be set to
->
-> "should" or "must"? If not "must", why not? (It feels like an API design
-> error not to require these to be NULL/0 in cases where they are not used.)
->
-> > +NULL or 0.
-> > +.PP
-> > +The available commands are:
-> > +.TP
-> > +.B FSCONFIG_SET_FLAG
-> > +Set the parameter named by
-> > +.IR key
-> > +to true.  This may fail with error
->
-> s/with error/with the error/
-> (and multiple times below)
->
-> > +.B EINVAL
-> > +if the parameter requires an argument.
-> > +.TP
-> > +.B FSCONFIG_SET_STRING
-> > +Set the parameter named by
-> > +.I key
-> > +to a string.  This may fail with error
-> > +.B EINVAL
-> > +if the parser doesn't want a parameter here, wants a non-string or the string
-> > +cannot be interpreted appropriately.
-> > +.I value
-> > +points to a NUL-terminated string.
-> > +.TP
-> > +.B FSCONFIG_SET_BINARY
-> > +Set the parameter named by
-> > +.I key
-> > +to be a binary blob argument.  This may cause
-> > +.B EINVAL
-> > +to be returned if the filesystem parser isn't expecting a binary blob and it
-> > +can't be converted to something usable.
-> > +.I value
-> > +points to the data and
-> > +.I aux
-> > +indicates the size of the data.
-> > +.TP
-> > +.B FSCONFIG_SET_PATH
-> > +Set the parameter named by
-> > +.I key
-> > +to the object at the provided path.
-> > +.I value
-> > +should point to a NUL-terminated pathname string and aux may indicate
-> > +.B AT_FDCWD
-> > +or a file descriptor indicating a directory from which to begin a relative
-> > +path resolution.  This may fail with error
-> > +.B EINVAL
-> > +if the parameter isn't expecting a path; it may also fail if the path cannot
-> > +be resolved with the typcal errors for that
->
-> s/typcal/typical/
->
-> > +.RB "(" ENOENT ", " ENOTDIR ", " EPERM ", " EACCES ", etc.)."
-> > +.IP
-> > +Note that FSCONFIG_SET_STRING can be used instead, implying AT_FDCWD.
->
-> I don't understand the preceding sentence. Can you rewrite to supply more
-> detail? (E.g., "instead *of what*")
->
-> > +.TP
-> > +.B FSCONFIG_SET_PATH_EMPTY
-> > +As FSCONFIG_SET_PATH, but with
-> > +.B AT_EMPTY_PATH
-> > +applied to the pathwalk.
->
-> Can you please supply a bit more detail here, rather than just referring to
-> FSCONFIG_SET_PATH.
->
-> > +.TP
-> > +.B FSCONFIG_SET_FD
-> > +Set the parameter named by
-> > +.I key
-> > +to the file descriptor specified by
-> > +.IR aux .
-> > +This will fail with
-> > +.B EINVAL
-> > +if the parameter doesn't expect a file descriptor or
-> > +.B EBADF
-> > +if the file descriptor is invalid.
->
-> Can you mention some use cases for FSCONFIG_SET_FD here please?
->
-> > +.IP
-> > +Note that FSCONFIG_SET_STRING can be used instead with the file descriptor
-> > +passed as a decimal string.
-> > +.TP
-> > +.B FSCONFIG_CMD_CREATE
-> > +This command triggers the filesystem to take the parameters set in the context
-> > +and to try to create filesystem representation in the kernel.  If an existing
-> > +representation can be shared, the filesystem may do that instead if the
-> > +parameters permit.  This is intended for use with
-> > +.BR fsopen (2).
-> > +.TP
-> > +.B FSCONFIG_CMD_RECONFIGURE
-> > +This command causes the driver to alter the parameters of an already live
->
-> "the driver" seems like the wrong terminology here. The page never
-> mentioned "driver" before this point.) Is there something better?
->
-> > +filesystem instance according to the parameters stored in the context.  This
-> > +is intended for use with
-> > +.BR fspick (2),
-> > +but may also by used against the context created by
-> > +.BR fsopen()
-> > +after
-> > +.BR fsmount (2)
-> > +has been called on it.
->
-> s/it/that context/
->
-> > +
-> > +.\"________________________________________________________
->
-> Please remove above two lines.
->
-> > +.SH EXAMPLES
->
-> Please move the EXAMPLES section to just above SEE ALSO.
->
-> Are the following independent examples or all one big example?
-> Can you please add some explanatory text to make it clear?
->
-> > +.PP
-> > +.in +4n
-> > +.nf
-> > +fsconfig(sfd, FSCONFIG_SET_FLAG, "ro", NULL, 0);
-> > +
-> > +fsconfig(sfd, FSCONFIG_SET_STRING, "user_xattr", "false", 0);
-> > +
-> > +fsconfig(sfd, FSCONFIG_SET_BINARY, "ms_pac", pac_buffer, pac_size);
-> > +
-> > +fsconfig(sfd, FSCONFIG_SET_PATH, "journal", "/dev/sdd4", AT_FDCWD);
-> > +
-> > +dirfd = open("/dev/", O_PATH);
-> > +fsconfig(sfd, FSCONFIG_SET_PATH, "journal", "sdd4", dirfd);
-> > +
-> > +fd = open("/overlays/mine/", O_PATH);
-> > +fsconfig(sfd, FSCONFIG_SET_PATH_EMPTY, "lower_dir", "", fd);
-> > +
-> > +pipe(pipefds);
-> > +fsconfig(sfd, FSCONFIG_SET_FD, "fd", NULL, pipefds[1]);
-> > +.fi
-> > +.in
-> > +.PP
-> > +.SH RETURN VALUE
-> > +On success, the function returns 0.  On error, \-1 is returned, and
-> > +.I errno
-> > +is set appropriately.
-> > +.SH ERRORS
-> > +The error values given below result from filesystem type independent
-> > +errors.
-> > +Each filesystem type may have its own special errors and its
->
-> s/may/may additionally/
->
-> > +own special behavior.
-> > +See the Linux kernel source code for details.
-> > +.TP
-> > +.B EACCES
-> > +A component of a path was not searchable.
-> > +(See also
-> > +.BR path_resolution (7).)
-> > +.TP
-> > +.B EACCES
-> > +Mounting a read-only filesystem was attempted without specifying the
-> > +.RB ' ro '
-> > +parameter.
-> > +.TP
-> > +.B EACCES
-> > +A specified block device is located on a filesystem mounted with the
-> > +.B MS_NODEV
-> > +option.
-> > +.\" mtk: Probably: write permission is required for MS_BIND, with
-> > +.\" the error EPERM if not present; CAP_DAC_OVERRIDE is required.
-> > +.TP
-> > +.B EBADF
-> > +The file descriptor given by
-> > +.I fd
-> > +or possibly by
-> > +.I aux
-> > +(depending on the command) is invalid.
-> > +.TP
-> > +.B EBUSY
-> > +The context attached to
-> > +.I fd
-> > +is in the wrong state for the given command.
-> > +.TP
-> > +.B EBUSY
-> > +The filesystem representation cannot be reconfigured read-only because it still
-> > +holds files open for writing.
-> > +.TP
-> > +.B EFAULT
-> > +One of the pointer arguments points outside the accessible address space.
-> > +.TP
-> > +.B EINVAL
-> > +.I fd
-> > +does not refer to a filesystem configuration context.
-> > +.TP
-> > +.B EINVAL
-> > +One of the source parameters referred to an invalid superblock.
-> > +.TP
-> > +.B ELOOP
-> > +Too many links encountered during pathname resolution.
-> > +.TP
-> > +.B ENAMETOOLONG
-> > +A path name was longer than
-> > +.BR MAXPATHLEN .
-> > +.TP
-> > +.B ENOENT
-> > +A pathname was empty or had a nonexistent component.
-> > +.TP
-> > +.B ENOMEM
-> > +The kernel could not allocate sufficient memory to complete the call.
-> > +.TP
-> > +.B ENOTBLK
-> > +Once of the parameters does not refer to a block device (and a device was
->
-> s/Once/One/
->
-> > +required).
-> > +.TP
-> > +.B ENOTDIR
-> > +.IR pathname ,
->
-> But there is no argument "pathname" mentioned in this page!?
->
-> > +or a prefix of
-> > +.IR source ,
-> > +is not a directory.
->
-> But there is no argument "source" mentioned in this page!?
->
-> (Can you please review all of the errors listed in this section to
-> check that they apply to fsconfig().)
->
-> > +.TP
-> > +.B EOPNOTSUPP
-> > +The command given by
-> > +.I cmd
-> > +was not valid.
-> > +.TP
-> > +.B ENXIO
-> > +The major number of a block device parameter is out of range.
-> > +.TP
-> > +.B EPERM
-> > +The caller does not have the required privileges.
->
-> Please name the capability. Also, there was no mention of privileges in
-> the text above, so could you please add some text about why/when
-> privilege is needed.
->
-> > +.SH CONFORMING TO
-> > +These functions are Linux-specific and should not be used in programs intended
-> > +to be portable.
-> > +.SH VERSIONS
-> > +.BR fsconfig ()
-> > +was added to Linux in kernel 5.2.
-> > +.SH NOTES
-> > +Glibc does not (yet) provide a wrapper for the
-> > +.BR fsconfig ()
-> > +system call; call it using
-> > +.BR syscall (2).
-> > +.SH SEE ALSO
-> > +.BR mountpoint (1),
-> > +.BR fsmount (2),
-> > +.BR fsopen (2),
-> > +.BR fspick (2),
-> > +.BR mount_namespaces (7),
-> > +.BR path_resolution (7)
->
-> Thanks,
->
-> Michael
->
->
->
-> --
-> Michael Kerrisk
-> Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-> Linux/UNIX System Programming Training: http://man7.org/training/
-
+> Christian
+> 
+> [1]: I'll avoid jumping through the hoops of speaking about ownership
+>      all the time now for the sake of brevity. Otherwise I'll still sit
+>      here at lunchtime.
+> 
 
 
 -- 
