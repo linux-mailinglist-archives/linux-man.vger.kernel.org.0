@@ -2,195 +2,238 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6B46D3ECECF
-	for <lists+linux-man@lfdr.de>; Mon, 16 Aug 2021 08:49:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DE1773ED024
+	for <lists+linux-man@lfdr.de>; Mon, 16 Aug 2021 10:19:34 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233562AbhHPGuL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 16 Aug 2021 02:50:11 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42610 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233561AbhHPGuJ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 16 Aug 2021 02:50:09 -0400
-Received: from mail-pl1-x62e.google.com (mail-pl1-x62e.google.com [IPv6:2607:f8b0:4864:20::62e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E1D47C061764
-        for <linux-man@vger.kernel.org>; Sun, 15 Aug 2021 23:49:34 -0700 (PDT)
-Received: by mail-pl1-x62e.google.com with SMTP id a20so19747247plm.0
-        for <linux-man@vger.kernel.org>; Sun, 15 Aug 2021 23:49:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=sfTTVMX9/EjEDYoX+gNdMXvZ+Dt0Gb8F8tkQDS9xyic=;
-        b=ePeGY+vFiJMWNHZAafVe5Q0mZjn1kNlTGnfCSbxKglkVX+huj9NSRfPTbSKfIpWiKZ
-         k2aqxxE/pZVTxcHUGxxE47elgiswhxcScFShQsbL2LZk81+2M1OI3eg68k0A7stQ0s3u
-         8yEZMX7b8l3FhMkyxHgeaPEx7CMOzJcc5qdiYmjUv0mM47tvY9RXPGGdRk13yFpd+hJf
-         SEp5j980AQBcC+PBeJvd7TrGGEEw+TCXoXfn6XJFvXgwBiXZglELP3cITjgto0pWq9pv
-         3BscUPAld28GFXGOqtxQmZtPr5klu7OzsgfC9Z2e64AibZK6nJlKJZOn8Ta3kCn/2E+L
-         P0rg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=sfTTVMX9/EjEDYoX+gNdMXvZ+Dt0Gb8F8tkQDS9xyic=;
-        b=oWExJMOQ0u7Cu8qXOe7g8o1UNrfpPXzaXUUsrIH8B7rPOK2iYqYFVa1lAFTkd1KNCG
-         5FLLH/mnVZIX61eHcpr1ZoNziTgNpuSJuBz1y//fRHK+B6LzH43wRNq/21s1C/LBhwHI
-         lKRA43bj+Wlot/cCzxkoCbAFIyq9d1UoRVRwJqPB2mRDBWJ+6ECffV0KzvXXWm9/e3yA
-         6l/vgLbocQQzXBs3JoEGzsQnXVABi+bjkCKXDAlLOpavX/sZ5Otp5G/DG+TqEmDKITpN
-         /PEzEiWR4eRSpXNzhP3/PazQlRGxZiD5JXDP/lP9KkKEfPZYg49RQIsPXWRLGjjLAW3V
-         Rqcg==
-X-Gm-Message-State: AOAM530LME+20+wfcCi2BeNp//7KG50UVYK1pgF5ydPNymsaw5pmjtzO
-        yE7vF6Xf0yAKjv3bdL8MkzkkaRLlxTo=
-X-Google-Smtp-Source: ABdhPJwL8w9LPnWZgdbtMnJf2Srq8hObv875KvvX+xZW4nK6L9gmlnwrkZg2Y/mEndotYvUQGG3R8w==
-X-Received: by 2002:a17:90a:c305:: with SMTP id g5mr15525747pjt.79.1629096574077;
-        Sun, 15 Aug 2021 23:49:34 -0700 (PDT)
-Received: from [192.168.1.71] (122-61-176-117-fibre.sparkbb.co.nz. [122.61.176.117])
-        by smtp.gmail.com with ESMTPSA id g10sm10056951pfh.120.2021.08.15.23.49.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 15 Aug 2021 23:49:32 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, Mike Rapoport <rppt@kernel.org>,
+        id S234525AbhHPIUF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 16 Aug 2021 04:20:05 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([216.205.24.124]:52027 "EHLO
+        us-smtp-delivery-124.mimecast.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S231716AbhHPIUE (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 16 Aug 2021 04:20:04 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1629101973;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:
+         content-transfer-encoding:content-transfer-encoding;
+        bh=JJy1wTV0mXwECxuw+eS0iCkYTF/8HGBJnP6WAB8OQEQ=;
+        b=dv5XzXbXG/1RW0hiPjXhLsjO07Bcisa+BspUep9TFqWGupPoPzrEsV5Igg3vac95dcVYNS
+        DTnyOsNBTi4NsdpU5uodznPAqYP8XHlKsbVP/z9eQZssonRZe39ARMevmLQnc/vUwE/nqH
+        R/wrlu4gChv5agGKlsaGeNr8BbZa3k4=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-459-Qk4NXh_TM16hKZO6MpW73A-1; Mon, 16 Aug 2021 04:19:31 -0400
+X-MC-Unique: Qk4NXh_TM16hKZO6MpW73A-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 99229107ACF5;
+        Mon, 16 Aug 2021 08:19:29 +0000 (UTC)
+Received: from t480s.redhat.com (unknown [10.39.192.85])
+        by smtp.corp.redhat.com (Postfix) with ESMTP id 36C50620DE;
+        Mon, 16 Aug 2021 08:19:23 +0000 (UTC)
+From:   David Hildenbrand <david@redhat.com>
+To:     linux-man@vger.kernel.org
+Cc:     David Hildenbrand <david@redhat.com>,
+        Pankaj Gupta <pankaj.gupta@ionos.com>,
         Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org
-Subject: Re: [PATCH v3] man2: new page describing memfd_secret() system call
-To:     Mike Rapoport <rppt@linux.ibm.com>
-References: <20210815064648.300529-1-rppt@kernel.org>
- <097cea8d-70d1-3b9d-f02a-9a9cccae9f2d@gmail.com>
- <YRn1eWZ+1hlk2+Go@linux.ibm.com>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <59bb5863-2051-377a-7f2b-f802e9387881@gmail.com>
-Date:   Mon, 16 Aug 2021 08:49:26 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Michal Hocko <mhocko@suse.com>,
+        Oscar Salvador <osalvador@suse.de>,
+        Jann Horn <jannh@google.com>, Mike Rapoport <rppt@kernel.org>,
+        Linux API <linux-api@vger.kernel.org>, linux-mm@kvack.org
+Subject: [PATCH v2] madvise.2: Document MADV_POPULATE_READ and MADV_POPULATE_WRITE
+Date:   Mon, 16 Aug 2021 10:19:22 +0200
+Message-Id: <20210816081922.5155-1-david@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <YRn1eWZ+1hlk2+Go@linux.ibm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Mike,
+MADV_POPULATE_READ and MADV_POPULATE_WRITE have been merged into
+upstream Linux via commit 4ca9b3859dac ("mm/madvise: introduce
+MADV_POPULATE_(READ|WRITE) to prefault page tables"), part of v5.14-rc1.
 
-On 8/16/21 7:19 AM, Mike Rapoport wrote:
-> On Mon, Aug 16, 2021 at 02:29:33AM +0200, Michael Kerrisk (man-pages) wrote:
->> Hi Mike,
->>
->> Thanks for this update!
->>
->> On 8/15/21 8:46 AM, Mike Rapoport wrote:
->>> From: Mike Rapoport <rppt@linux.ibm.com>
->>>
->>> Signed-off-by: Mike Rapoport <rppt@linux.ibm.com>
->>> ---
->>> v3:
->>> * Incorporate Michael's feedback except the extensive NOTES section. 
->>
->> Hmmmm :-|
->>
->>> v2: https://lore.kernel.org/linux-api/20210729082900.1581359-1-rppt@kernel.org
->>> Address Alex's comments:
->>> * update synopsis to match new style for syscalls without a wrapper
->>> * drop note about absence of glibc wrapper
->>> * update formatting
->>>
->>> v1: https://lore.kernel.org/linux-api/20210727124140.1487079-1-rppt@kernel.org
->>>
->>>
->>>
->>>  man2/memfd_secret.2 | 154 ++++++++++++++++++++++++++++++++++++++++++++
->>>  1 file changed, 154 insertions(+)
->>>  create mode 100644 man2/memfd_secret.2
->>>
->>> diff --git a/man2/memfd_secret.2 b/man2/memfd_secret.2
->>> new file mode 100644
->>> index 000000000..188c547bf
->>> --- /dev/null
->>> +++ b/man2/memfd_secret.2
->>> @@ -0,0 +1,154 @@
->>> +.\" Copyright (c) 2021, IBM Corporation.
->>> +.\" Written by Mike Rapoport <rppt@linux.ibm.com>
->>> +.\"
->>> +.\" Based on memfd_create(2) man page
->>> +.\" Copyright (C) 2014 Michael Kerrisk <mtk.manpages@gmail.com>
->>> +.\" and Copyright (C) 2014 David Herrmann <dh.herrmann@gmail.com>
->>> +.\"
->>> +.\" %%%LICENSE_START(GPLv2+)
->>> +.\"
->>> +.\" This program is free software; you can redistribute it and/or modify
->>> +.\" it under the terms of the GNU General Public License as published by
->>> +.\" the Free Software Foundation; either version 2 of the License, or
->>> +.\" (at your option) any later version.
->>> +.\"
->>> +.\" This program is distributed in the hope that it will be useful,
->>> +.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
->>> +.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
->>> +.\" GNU General Public License for more details.
->>> +.\"
->>> +.\" You should have received a copy of the GNU General Public
->>> +.\" License along with this manual; if not, see
->>> +.\" <http://www.gnu.org/licenses/>.
->>> +.\" %%%LICENSE_END
->>> +.\"
->>> +.TH MEMFD_SECRET 2 2020-08-02 Linux "Linux Programmer's Manual"
->>> +.SH NAME
->>> +memfd_secret \- create an anonymous RAM-based file
->>> +to access secret memory regions
->>> +.SH SYNOPSIS
->>> +.nf
->>> +.PP
->>> +.BR "#include <sys/syscall.h>" "      /* Definition of " SYS_* " constants */"
->>> +.B #include <unistd.h>
->>> +.PP
->>> +.BI "int syscall(SYS_memfd_secret, unsigned int " flags );
->>> +.fi
->>> +.PP
->>> +.IR Note :
->>> +glibc provides no wrapper for
->>> +.BR memfd_secret (),
->>> +necessitating the use of
->>> +.BR syscall (2).
->>> +.SH DESCRIPTION
->>> +.BR memfd_secret ()
->>> +creates an anonymous file and returns a file descriptor that refers to it.
->>
->> I suggested:
->> s/anonymous/anonymous/ RAM-based/
->>
->> was there a reason not to do that?
->  
-> It seems I've just missed this one.
-> Would you like me to send v4 or you can update while applying?
+Further, commit eb2faa513c24 ("mm/madvise: report SIGBUS as -EFAULT for
+MADV_POPULATE_(READ|WRITE)"), part of v5.14-rc6, made sure that SIGBUS is
+converted to -EFAULT instead of -EINVAL.
 
-I've applied the patch, and added this edit. Thank you for 
-writing the page!
+Let's document the behavior and error conditions of these new madvise()
+options.
 
->>> +The file provides a way to create and access memory regions
->>> +with stronger protection than usual RAM-based files and
->>> +anonymous memory mappings.
-> 
-> ...
-> 
->>> +.SH SEE ALSO
->>> +.BR fcntl (2),
->>> +.BR ftruncate (2),
->>> +.BR mlock (2),
->>> +.BR mmap (2),
->>> +.BR setrlimit (2)
->> Thanks! The page looks much better, but sill, that NOTES section
->> that I proposed [1] would be really useful, I think. What are
->> the chances that you could put that together?
-> 
-> I will, hopefully I'll be able to find the time for this in the next few
-> weeks.
+Acked-by: Pankaj Gupta <pankaj.gupta@ionos.com>
+Cc: Alejandro Colomar <alx.manpages@gmail.com>
+Cc: Michael Kerrisk <mtk.manpages@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Jann Horn <jannh@google.com>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Linux API <linux-api@vger.kernel.org>
+Cc: linux-mm@kvack.org
+Signed-off-by: David Hildenbrand <david@redhat.com>
+---
 
-I'll be back :-).
+v1 -> v2:
+- Use semantic newlines in all cases
+- Add two missing "
+- Document -EFAULT handling
+- Rephrase some parts to make it more generic: VM_PFNMAP and VM_IO are only
+  examples for special mappings
 
-Cheers,
+---
+ man2/madvise.2 | 107 +++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 107 insertions(+)
 
-Michael
-
+diff --git a/man2/madvise.2 b/man2/madvise.2
+index f1f384c0c..f6cea9ad2 100644
+--- a/man2/madvise.2
++++ b/man2/madvise.2
+@@ -469,6 +469,72 @@ If a page is file-backed and dirty, it will be written back to the backing
+ storage.
+ The advice might be ignored for some pages in the range when it is not
+ applicable.
++.TP
++.BR MADV_POPULATE_READ " (since Linux 5.14)"
++Populate (prefault) page tables readable for the whole range without actually
++reading memory.
++Depending on the underlying mapping,
++map the shared zeropage,
++preallocate memory or read the underlying file;
++files with holes might or might not preallocate blocks.
++Do not generate
++.B SIGBUS
++when populating fails,
++return an error instead.
++.IP
++If
++.B MADV_POPULATE_READ
++succeeds,
++all page tables have been populated (prefaulted) readable once.
++If
++.B MADV_POPULATE_READ
++fails,
++some page tables might have been populated.
++.IP
++.B MADV_POPULATE_READ
++cannot be applied to mappings without read permissions
++and special mappings,
++for example,
++marked with the kernel-internal
++.B VM_PFNMAP
++and
++.BR VM_IO .
++.IP
++Note that with
++.BR MADV_POPULATE_READ ,
++the process can be killed at any moment when the system runs out of memory.
++.TP
++.BR MADV_POPULATE_WRITE " (since Linux 5.14)"
++Populate (prefault) page tables writable for the whole range without actually
++writing memory.
++Depending on the underlying mapping,
++preallocate memory or read the underlying file;
++files with holes will preallocate blocks.
++Do not generate
++.B SIGBUS
++when populating fails,
++return an error instead.
++.IP
++If
++.B MADV_POPULATE_WRITE
++succeeds,
++all page tables have been populated (prefaulted) writable once.
++If
++.B MADV_POPULATE_WRITE
++fails, some page tables might have been populated.
++.IP
++.B MADV_POPULATE_WRITE
++cannot be applied to mappings without write permissions
++and special mappings,
++for example,
++marked with the kernel-internal
++.B VM_PFNMAP
++and
++.BR VM_IO .
++.IP
++Note that with
++.BR MADV_POPULATE_WRITE ,
++the process can be killed at any moment when the system runs out of memory.
+ .SH RETURN VALUE
+ On success,
+ .BR madvise ()
+@@ -490,6 +556,17 @@ A kernel resource was temporarily unavailable.
+ .B EBADF
+ The map exists, but the area maps something that isn't a file.
+ .TP
++.B EFAULT
++.I advice
++is
++.B MADV_POPULATE_READ
++or
++.BR MADV_POPULATE_WRITE ,
++and populating (prefaulting) page tables failed because a
++.B SIGBUS
++would have been generated on actual memory access and the reason is not a
++HW poisoned page.
++.TP
+ .B EINVAL
+ .I addr
+ is not page-aligned or
+@@ -533,6 +610,18 @@ or
+ .BR VM_PFNMAP
+ ranges.
+ .TP
++.B EINVAL
++.I advice
++is
++.B MADV_POPULATE_READ
++or
++.BR MADV_POPULATE_WRITE ,
++but the specified address range includes ranges with insufficient permissions
++or incompatible mappings such as
++.B VM_IO
++or
++.BR VM_PFNMAP.
++.TP
+ .B EIO
+ (for
+ .BR MADV_WILLNEED )
+@@ -548,6 +637,15 @@ Not enough memory: paging in failed.
+ Addresses in the specified range are not currently
+ mapped, or are outside the address space of the process.
+ .TP
++.B ENOMEM
++.I advice
++is
++.B MADV_POPULATE_READ
++or
++.BR MADV_POPULATE_WRITE ,
++and populating (prefaulting) page tables failed because there was not enough
++memory.
++.TP
+ .B EPERM
+ .I advice
+ is
+@@ -555,6 +653,15 @@ is
+ but the caller does not have the
+ .B CAP_SYS_ADMIN
+ capability.
++.TP
++.B EHWPOISON
++.I advice
++is
++.B MADV_POPULATE_READ
++or
++.BR MADV_POPULATE_WRITE ,
++and populating (prefaulting) page tables failed because a HW poisoned page
++was encountered.
+ .SH VERSIONS
+ Since Linux 3.18,
+ .\" commit d3ac21cacc24790eb45d735769f35753f5b56ceb
 -- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+2.31.1
+
