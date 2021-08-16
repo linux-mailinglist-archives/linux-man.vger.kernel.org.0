@@ -2,144 +2,81 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 015953EE03F
-	for <lists+linux-man@lfdr.de>; Tue, 17 Aug 2021 01:14:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2E1F33EE079
+	for <lists+linux-man@lfdr.de>; Tue, 17 Aug 2021 01:31:29 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232692AbhHPXPG (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 16 Aug 2021 19:15:06 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45562 "EHLO
+        id S232795AbhHPXby convert rfc822-to-8bit (ORCPT
+        <rfc822;lists+linux-man@lfdr.de>); Mon, 16 Aug 2021 19:31:54 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49358 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232597AbhHPXPF (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 16 Aug 2021 19:15:05 -0400
-Received: from mail-ot1-x329.google.com (mail-ot1-x329.google.com [IPv6:2607:f8b0:4864:20::329])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AEFF5C061764
-        for <linux-man@vger.kernel.org>; Mon, 16 Aug 2021 16:14:33 -0700 (PDT)
-Received: by mail-ot1-x329.google.com with SMTP id f16-20020a056830205000b00519b99d3dcbso1922190otp.2
-        for <linux-man@vger.kernel.org>; Mon, 16 Aug 2021 16:14:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc:content-transfer-encoding;
-        bh=EHptxUIJBQBGq+Gs+W6WMyzbJV7L8FGfjoKbI+QNFQY=;
-        b=CoCvjucizPgW1wsWlAdOzh1g9R0wUCV96sXNxcqIdWtmkChd19bkoKoIIs9/VmHTDS
-         RvLdjBL3csMLMgGqvIs2VomduFdZUc+EQp9f+x34rIB4hjqVGTEtivrGlosVpSKftnYu
-         us7avygVs54zrjC+KxII+sl7PTKpWxxOG8zD/jfjJiDzVuOKSy+F15fG1bZ5v8bswlGB
-         nR3Z9Q85xJNLNTcgC+TNRJlggGH+ZnBRh9t0bVAiejoCuiSowxor/WqBhQgVOxoCJFpL
-         9JfAirvooSdexGQmdfhqPjgz9/jgASHv1WD511suio4/aL84cXQTohf6k4HhHR9/8pym
-         37/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc:content-transfer-encoding;
-        bh=EHptxUIJBQBGq+Gs+W6WMyzbJV7L8FGfjoKbI+QNFQY=;
-        b=l5QMgckdMtX3CNpr8MKcps9DUly1M8yEZt/U+2GpCA3vftfP7V+sVYDbfV9coszfJ9
-         3rRa+5wetGqAF+QXwo+zZf05hfdK/sBmMG3/toIsNYPzggdATErWI0vqqAwrEt7dWBMe
-         2re0ZwEo4WdSUarpAAG5PqBM9mMSKoKRgR7DDuP+ohyGH51iuWdwLNEp0o5Z+zOze20n
-         GzjQnFI51j1hCSpGNVWdd/sN5MK7vlOlqhjCPFLewegriYh8CgN2X3f3QWDxPFw5Jf/e
-         C5SmMUjJ0lTLHWfa4+37A2XJpZx/bwO/1kxHN+KRjHnTEzYHE1pCzEmV0UYwm8TQrkT/
-         BnXQ==
-X-Gm-Message-State: AOAM532heEtSZ6cPzl5Qt/ykfeGUl7mnmpf+gYww+uzf0jPxWd/QLTIv
-        zcD1e6to7tJLasP925+ZVxkSVVV4rGhzehlJ89amXsaYLqg=
-X-Google-Smtp-Source: ABdhPJz3F1NJ6oqRDXDUTe6HDD/AChaPRG1xEQFOpJWeywJThGMfQ+D+drXbnGRjqYQ+WP7R+mNSxCIX0pLyQzuGCEc=
-X-Received: by 2002:a9d:6a09:: with SMTP id g9mr394135otn.308.1629155672986;
- Mon, 16 Aug 2021 16:14:32 -0700 (PDT)
-MIME-Version: 1.0
-References: <Pine.BSM.4.64L.2108162130380.2192@herc.mirbsd.org>
-In-Reply-To: <Pine.BSM.4.64L.2108162130380.2192@herc.mirbsd.org>
-Reply-To: mtk.manpages@gmail.com
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Tue, 17 Aug 2021 01:14:21 +0200
-Message-ID: <CAKgNAkge=h68w=5Vd9g9i8-vZnrPuN+pyVd=NgTxq9DNLUu-aA@mail.gmail.com>
+        with ESMTP id S234821AbhHPXby (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 16 Aug 2021 19:31:54 -0400
+Received: from herc.mirbsd.org (herc.mirbsd.org [IPv6:2001:470:1f15:10c:202:b3ff:feb7:54e8])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id DD90DC061764
+        for <linux-man@vger.kernel.org>; Mon, 16 Aug 2021 16:31:18 -0700 (PDT)
+Received: from herc.mirbsd.org (tg@herc.mirbsd.org [192.168.0.82])
+        by herc.mirbsd.org (8.14.9/8.14.5) with ESMTP id 17GNSFjr027343
+        (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+        Mon, 16 Aug 2021 23:28:18 GMT
+Date:   Mon, 16 Aug 2021 23:28:15 +0000 (UTC)
+From:   Thorsten Glaser <tg@debian.org>
+X-X-Sender: tg@herc.mirbsd.org
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+cc:     linux-man <linux-man@vger.kernel.org>
 Subject: Re: request: calling conventions documentation
-To:     Thorsten Glaser <tg@debian.org>
-Cc:     linux-man <linux-man@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <CAKgNAkge=h68w=5Vd9g9i8-vZnrPuN+pyVd=NgTxq9DNLUu-aA@mail.gmail.com>
+Message-ID: <Pine.BSM.4.64L.2108162316580.2192@herc.mirbsd.org>
+References: <Pine.BSM.4.64L.2108162130380.2192@herc.mirbsd.org>
+ <CAKgNAkge=h68w=5Vd9g9i8-vZnrPuN+pyVd=NgTxq9DNLUu-aA@mail.gmail.com>
+Content-Language: de-DE-1901, en-GB
+X-Message-Flag: Your mailer is broken. Get an update at http://www.washington.edu/pine/getpine/pcpine.html for free.
+MIME-Version: 1.0
+Content-Type: TEXT/PLAIN; charset=utf-8
+Content-Transfer-Encoding: 8BIT
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Thomas,
+Michael Kerrisk (man-pages) dixit:
 
-On Mon, 16 Aug 2021 at 23:39, Thorsten Glaser <tg@debian.org> wrote:
->
-> Hi,
->
-> I hope I=E2=80=99m right here, I wasn=E2=80=99t sure whether Bugzilla is =
-also for
-> feature requests.
->
-> syscall(2) on my Debian systems has these wonderful tables for the
-> calling conventions on all kinds of CPU architectures. I often have
-> to debug various things in various libcs on various platforms for
-> various bugs =E2=98=BA and would love it if this information could someho=
-w
-> be extended by the relevant userspace calling conventions (so I can
-> read =E2=80=9Cforeign=E2=80=9D, i.e. not i8086/i386 Intel, assembly more =
-easily,
-> figure out the bugs in their {,sig}{set,long}jmp implementations,
-> write patches without extra digging, etc.
->
-> I=E2=80=99m aware that linux-man is probably more kernel-oriented and
-> conventions can differ by libcs (e.g. I=E2=80=99ve seen libcs that use
-> a regparm convention on i386), but the =E2=80=9Cstandard=E2=80=9D case sh=
-ould
-> be sufficiently on topic (especially as I think the vDSO would
-> also use these conventions).
->
-> Things like, what arguments go into which registers, which are
-> saved by who, etc.
+>So, the manual page already has the info below. And from your mail
+>above, it's not immediately clear to me what you would like to see
+>added. Could you provide a concrete example for a specific
+>architecture?
 
-So, the manual page already has the info below. And from your mail
-above, it's not immediately clear to me what you would like to see
-added. Could you provide a concrete example for a specific
-architecture?
+Sure. I’m using i386 as I’m the most familiar with it.
+
+
+>       Arch/ABI      arg1  arg2  arg3  arg4  arg5  arg6  arg7  Notes
+>       ──────────────────────────────────────────────────────────────
+>       i386          ebx   ecx   edx   esi   edi   ebp   -
+
+This is syscall args. It doesn’t say how userspace args are
+handled (not in registers by default, but the return value
+is in edx:eax normally), nor which registers are caller-saved
+(eax, ecx, edx) or callee-saved (ebx, ebp, esi, edi). Add the
+name of the stack pointer register (here esp) and you have
+additionally mapped out the entire basic register file.
+
+https://en.wikipedia.org/wiki/X86_calling_conventions#List_of_x86_calling_conventions
+(look at IA-32 / cdecl) has more information, I guess, but
+that’s the most important ones. (It’s also incorrect; many
+Unix systems only align the stack to 4 bytes, and 64-bit
+values are returned in EDX:EAX, not EAX:EDX, on either.)
+
+Some architectures have a more complex register file involving
+renaming on function call (IIRC sparc does this); this is
+something I’d also like to see mentioned. Anything more complex
+the user would still need to look up, but even having this much
+would enable really fast lookup of the basics that are surprisingly
+hard to track down for all architectures as there doesn’t seem to
+be a single place for this. (I recently had to fix something on
+sh4 and wished for it.)
 
 Thanks,
-
-Michael
-
-=3D=3D=3D
-       Arch/ABI      arg1  arg2  arg3  arg4  arg5  arg6  arg7  Notes
-       =E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80
-       alpha         a0    a1    a2    a3    a4    a5    -
-       arc           r0    r1    r2    r3    r4    r5    -
-       arm/OABI      r0    r1    r2    r3    r4    r5    r6
-       arm/EABI      r0    r1    r2    r3    r4    r5    r6
-       arm64         x0    x1    x2    x3    x4    x5    -
-       blackfin      R0    R1    R2    R3    R4    R5    -
-       i386          ebx   ecx   edx   esi   edi   ebp   -
-       ia64          out0  out1  out2  out3  out4  out5  -
-       m68k          d1    d2    d3    d4    d5    a0    -
-       microblaze    r5    r6    r7    r8    r9    r10   -
-       mips/o32      a0    a1    a2    a3    -     -     -     1
-       mips/n32,64   a0    a1    a2    a3    a4    a5    -
-       nios2         r4    r5    r6    r7    r8    r9    -
-       parisc        r26   r25   r24   r23   r22   r21   -
-       powerpc       r3    r4    r5    r6    r7    r8    r9
-       powerpc64     r3    r4    r5    r6    r7    r8    -
-       riscv         a0    a1    a2    a3    a4    a5    -
-       s390          r2    r3    r4    r5    r6    r7    -
-       s390x         r2    r3    r4    r5    r6    r7    -
-
-       superh        r4    r5    r6    r7    r0    r1    r2
-       sparc/32      o0    o1    o2    o3    o4    o5    -
-       sparc/64      o0    o1    o2    o3    o4    o5    -
-       tile          R00   R01   R02   R03   R04   R05   -
-       x86-64        rdi   rsi   rdx   r10   r8    r9    -
-       x32           rdi   rsi   rdx   r10   r8    r9    -
-       xtensa        a6    a3    a4    a5    a8    a9    -
-
-
-
---=20
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+//mirabilos
+-- 
+When he found out that the m68k port was in a pretty bad shape, he did
+not, like many before him, shrug and move on; instead, he took it upon
+himself to start compiling things, just so he could compile his shell.
+How's that for dedication. -- Wouter, about my Debian/m68k revival
