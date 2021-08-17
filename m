@@ -2,348 +2,153 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2ED983EF51D
-	for <lists+linux-man@lfdr.de>; Tue, 17 Aug 2021 23:42:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B2A883EF5AD
+	for <lists+linux-man@lfdr.de>; Wed, 18 Aug 2021 00:20:09 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230072AbhHQVnE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 17 Aug 2021 17:43:04 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43486 "EHLO
+        id S235845AbhHQWUm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 17 Aug 2021 18:20:42 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52244 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229883AbhHQVnE (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 17 Aug 2021 17:43:04 -0400
-Received: from mail-pj1-x1029.google.com (mail-pj1-x1029.google.com [IPv6:2607:f8b0:4864:20::1029])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 885DDC061764;
-        Tue, 17 Aug 2021 14:42:30 -0700 (PDT)
-Received: by mail-pj1-x1029.google.com with SMTP id w13-20020a17090aea0db029017897a5f7bcso935576pjy.5;
-        Tue, 17 Aug 2021 14:42:30 -0700 (PDT)
+        with ESMTP id S229729AbhHQWUl (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 17 Aug 2021 18:20:41 -0400
+Received: from mail-pj1-x102d.google.com (mail-pj1-x102d.google.com [IPv6:2607:f8b0:4864:20::102d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2B531C061764
+        for <linux-man@vger.kernel.org>; Tue, 17 Aug 2021 15:20:08 -0700 (PDT)
+Received: by mail-pj1-x102d.google.com with SMTP id 28-20020a17090a031cb0290178dcd8a4d1so4060347pje.0
+        for <linux-man@vger.kernel.org>; Tue, 17 Aug 2021 15:20:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=d+H0gXNKH3urURMSdySQgW8qNOqBtUMbrLmE7hYGHoA=;
-        b=ItcrMaINrM2S+C3s7hI47qjwnxgeDNYAzzVwQe4s3VQNW600GAMPbzH6WepeccL7+Y
-         HbYt0Sr4FCJTIMmlwG8TPBwiukxsEMhvGktbW84uo7HYHX853vqMc1Xx7ay7z8QD/RGa
-         rfFZKSeF1IZ8fK+RUFhMUZnD67gIieTcN9poeWMoUSvq05OezWweSEWJyBh5xe8jYErL
-         jpsYhoyB0JLnrLJ4Q7SZfLEu3mlIQKkUBW2qP+gOUBlsp26pnYVonkVPPXhd40T4PzTm
-         s/rwd4jbliQuwaeQjNSdCZplTa2dR7cfwl/hgY9i5PIiysl6WCEtkir96xfXBtwX3IT5
-         eD/w==
+        bh=tn3Gos6Y19+2YgecCdYQONoyYMMol3/Y/gXz1/9zNMY=;
+        b=pOOUl2PlT1lqq5WXH4ux9mdHm7UhRaP6vtlR3hc9oYqTRv0MxA4GWtKkIfmM2Wk06B
+         WvbnnrCWNEMa8WW9oeG/6f7+ZZORTcQHcBUFHYfn9wbudcWXGgRJVQzuQkj6ATjsaBYX
+         J9I6l3mZJm02EL2hagenBr7uZS3mC464/DaAPB5m/9gtkChB9UnAigsuzJJ6f1aPNQsv
+         AMi9t54T3RpdAbgKXWenGlLpGpDbxVTiVQ2eFEX16+kSAGqpAPb29mmMOkEmLCqOX5zd
+         FC8St46lUbsSRbVx6jnuIhwUYUV5cgTPjkBFojSYrWsiMFknbpvDcpxWa30UzOhShDNr
+         je8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=d+H0gXNKH3urURMSdySQgW8qNOqBtUMbrLmE7hYGHoA=;
-        b=RpQub52gs0rVNxhamOa8rUi8uXtFLVCMxsyJ+dGw3Os6z5epKJckaMy+RASQ3bKepJ
-         9Q9A3mKMTEN+np8Z7LyIs/QFC+YtNfCQCVAf4YSeqTbPS35PbwPnGFsAj5ogfSIe/pFi
-         vwGBvg/GjfbYgKoJ1zrnpIPjpIt7gGtHlXTnBNm0tGWy4p4M5SDi7fdNB04DuzRUQEgo
-         AeGjSRo1rnyLUjkrBTBYvbHA5U/bVptJo0pAnNl+XoqtJHbsAlLJoYkvxZTtt1i+ur1n
-         3a7Ju8pKhC4pysmrvMBFw1FArcBT9i1qgx2ok9lUiFXOVhy9kPZXSkD0eDaYzMdB5+mI
-         KWVA==
-X-Gm-Message-State: AOAM531gR4u7DchD0g/CdyXpa1HIWr5DEMRGPhXS+plxK3G9xcvkQu6R
-        jWpdjIXg3PqCThsMShlTYJw=
-X-Google-Smtp-Source: ABdhPJxIw5oKSYdNhmNUOXRnN1wOg8UQmF0W6l9JJUYULjiosNhFVgGg9Gg1tfs0F7PUe5wlqXcQMg==
-X-Received: by 2002:a17:90a:4285:: with SMTP id p5mr5717285pjg.162.1629236549972;
-        Tue, 17 Aug 2021 14:42:29 -0700 (PDT)
+        bh=tn3Gos6Y19+2YgecCdYQONoyYMMol3/Y/gXz1/9zNMY=;
+        b=clukRtBWS+EkarVWgmBZoprToEpJVx6CV44ofbR6gMxisxhSeoHHdOt0RewRkA14fU
+         krVKtkr76vqxVVGAEGU2OojExUGX2hlLaukEBnlnUhgRu0cp2UsJob1l+3xQz8X1iYIO
+         uWWXNv7eS4Gm6UF8Dogi474DKHdbsO+5biQDsMOJ0cciePhKWQJGNM8fmAEPmgfhcdQ6
+         90WAO1C4AqsAztOij3RpCeZDUFy+RFQVSyNIrTPfBetbaxtHt7276kJ+4zOyL3UHioCs
+         YCSCrvFmaxettFx1ELEfjiDQ43X1kLYJB3r7S5RKUdBrUtxbJgUxO70UH6PSYlvS8Ui/
+         upTg==
+X-Gm-Message-State: AOAM532M7CZi64mpVfJkLrX980uOa6OE73ONb4mU5RUzqut32SYdgSC/
+        45xGvqt8KpL8RIfTKTEAZb9REQ4gmRw=
+X-Google-Smtp-Source: ABdhPJxNxCkyc26bHEP5B+YRP7tuMF4n3yDLgG5z27SKiRaaKEfX2AVseP027CmRzTgud9802Hd2cg==
+X-Received: by 2002:a17:90a:d245:: with SMTP id o5mr5738858pjw.57.1629238807457;
+        Tue, 17 Aug 2021 15:20:07 -0700 (PDT)
 Received: from [192.168.1.71] (122-61-176-117-fibre.sparkbb.co.nz. [122.61.176.117])
-        by smtp.gmail.com with ESMTPSA id q1sm3597256pfs.143.2021.08.17.14.42.25
+        by smtp.gmail.com with ESMTPSA id r18sm4331823pgk.54.2021.08.17.15.20.05
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 17 Aug 2021 14:42:29 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, Pankaj Gupta <pankaj.gupta@ionos.com>,
-        Alejandro Colomar <alx.manpages@gmail.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Michal Hocko <mhocko@suse.com>,
-        Oscar Salvador <osalvador@suse.de>,
-        Jann Horn <jannh@google.com>, Mike Rapoport <rppt@kernel.org>,
-        Linux API <linux-api@vger.kernel.org>, linux-mm@kvack.org
-Subject: Re: [PATCH v2] madvise.2: Document MADV_POPULATE_READ and
- MADV_POPULATE_WRITE
-To:     David Hildenbrand <david@redhat.com>, linux-man@vger.kernel.org
-References: <20210816081922.5155-1-david@redhat.com>
+        Tue, 17 Aug 2021 15:20:06 -0700 (PDT)
+Cc:     mtk.manpages@gmail.com, linux-man <linux-man@vger.kernel.org>
+Subject: Re: Errors in man pages, here: shmop.2
+To:     Helge Kreutzmann <debian@helgefjell.de>
+References: <20210725170914.GA16816@Debian-50-lenny-64-minimal>
+ <CAKgNAkizm0xZ3vr=mGRDgMOBZwps2RSkQxfR3vP-6Z8x_6MEJw@mail.gmail.com>
+ <20210817135116.GD12220@Debian-50-lenny-64-minimal>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <d70ef542-051a-521f-807d-fa469b28e897@gmail.com>
-Date:   Tue, 17 Aug 2021 23:42:20 +0200
+Message-ID: <144bc32d-4519-918d-b41e-895275baa754@gmail.com>
+Date:   Wed, 18 Aug 2021 00:20:01 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <20210816081922.5155-1-david@redhat.com>
+In-Reply-To: <20210817135116.GD12220@Debian-50-lenny-64-minimal>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello David,
+Hello Helge,
 
-Thank you for writing this! Could you please take
-a look at the comments below and revise?
-
-On 8/16/21 10:19 AM, David Hildenbrand wrote:
-> MADV_POPULATE_READ and MADV_POPULATE_WRITE have been merged into
-> upstream Linux via commit 4ca9b3859dac ("mm/madvise: introduce
-> MADV_POPULATE_(READ|WRITE) to prefault page tables"), part of v5.14-rc1.
+On 8/17/21 3:51 PM, Helge Kreutzmann wrote:
+> Hello Michael,
+> On Mon, Jul 26, 2021 at 01:02:10AM +0200, Michael Kerrisk (man-pages) wrote:
+>>> Man page: shmop.2
+>>> Issue: file → files
+>>>
+>>> "The following header file is included by the \"reader\" and \"writer\" "
+>>> "programs."
+>>
+>> The existing text looks correct to me. Please let me know further
+>> details if you still think there's a problem after reviewing.
 > 
-> Further, commit eb2faa513c24 ("mm/madvise: report SIGBUS as -EFAULT for
-> MADV_POPULATE_(READ|WRITE)"), part of v5.14-rc6, made sure that SIGBUS is
-> converted to -EFAULT instead of -EINVAL.
+> Probably we do not understand the sentence correctly, so bear with me.
+> Currently, the man page reads as follows:
 > 
-> Let's document the behavior and error conditions of these new madvise()
-> options.
+>    Program source: svshm_string.h
+>        The following header file is included by the "reader" and "writer" programs.
 > 
-> Acked-by: Pankaj Gupta <pankaj.gupta@ionos.com>
-> Cc: Alejandro Colomar <alx.manpages@gmail.com>
-> Cc: Michael Kerrisk <mtk.manpages@gmail.com>
-> Cc: Andrew Morton <akpm@linux-foundation.org>
-> Cc: Michal Hocko <mhocko@suse.com>
-> Cc: Oscar Salvador <osalvador@suse.de>
-> Cc: Jann Horn <jannh@google.com>
-> Cc: Mike Rapoport <rppt@kernel.org>
-> Cc: Linux API <linux-api@vger.kernel.org>
-> Cc: linux-mm@kvack.org
-> Signed-off-by: David Hildenbrand <david@redhat.com>
-> ---
+>            #include <sys/types.h>
+>            #include <sys/ipc.h>
+>            #include <sys/shm.h>
+>            #include <sys/sem.h>
+>            #include <stdio.h>
+>            #include <stdlib.h>
+>            #include <string.h>
 > 
-> v1 -> v2:
-> - Use semantic newlines in all cases
-> - Add two missing "
-> - Document -EFAULT handling
-> - Rephrase some parts to make it more generic: VM_PFNMAP and VM_IO are only
->   examples for special mappings
+>            #define errExit(msg)    do { perror(msg); exit(EXIT_FAILURE); \
+>                                    } while (0)
 > 
-> ---
->  man2/madvise.2 | 107 +++++++++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 107 insertions(+)
+> The sentence in question seems to refer to the next paragraph, i.e.
+> the beginning of the program source. There 7 header files (from
+> types.h up to string.h) are mentioned. In the translation we also
+> replaced the full stop by a colon. Since there are 7 header files, we
+> assume that it needs to be plural.
 > 
-> diff --git a/man2/madvise.2 b/man2/madvise.2
-> index f1f384c0c..f6cea9ad2 100644
-> --- a/man2/madvise.2
-> +++ b/man2/madvise.2
-> @@ -469,6 +469,72 @@ If a page is file-backed and dirty, it will be written back to the backing
->  storage.
->  The advice might be ignored for some pages in the range when it is not
->  applicable.
-> +.TP
-> +.BR MADV_POPULATE_READ " (since Linux 5.14)"
-> +Populate (prefault) page tables readable for the whole range without actually
+> Now explaining this and reading it again, I think I understand the
+> sentence now (better). The header file is "svshm_string.h" and thus
+> singular. So logically (but it does not work in the overall formatting
+> of the man page), the first two lines above would need to be read in a
+> different order. 
+> 
+>        The following header file is included by the "reader" and "writer" programs.
+>    Program source: svshm_string.h
+> 
+> If this interpetation is correct, maybe the following change could be
+> made:
+> 
+>    Program source: svshm_string.h
+>        This header file is included by the "reader" and "writer" programs:
+>        ~~~~~~~~~~                                                       ~~
+> 
+> Once I've your confirmation, I'll align the translation.
 
-I have trouble to understand "Populate (prefault) page tables readable".
-Does it mean that it is just the page tables are being populated, and the
-PTEs are marked to indicate that the pages are readable? If yes, I
-think some rewording would help.
+Thanks for the clarification. I have applied the following patch.
 
-> +reading memory.
-
-I don't understand "without actually reading memory"? Do you mean,
-"without actually  faulting in the pages"; or something else?
-
-> +Depending on the underlying mapping,
-> +map the shared zeropage,
-> +preallocate memory or read the underlying file;
-> +files with holes might or might not preallocate blocks.
-> +Do not generate
-> +.B SIGBUS
-> +when populating fails,
-> +return an error instead.
-
-Better:
-
-[[
-If populating fails, a
-.B SIGBUS
-signal is not generated; instead, an error i returned.
-]]
-
-> +.IP
-> +If
-> +.B MADV_POPULATE_READ
-> +succeeds,
-> +all page tables have been populated (prefaulted) readable once.
-> +If
-> +.B MADV_POPULATE_READ
-> +fails,
-> +some page tables might have been populated.
-> +.IP
-> +.B MADV_POPULATE_READ
-> +cannot be applied to mappings without read permissions
-> +and special mappings,
-> +for example,
-> +marked with the kernel-internal
-
-s/marked/mappings marked/
-
-> +.B VM_PFNMAP
-> +and
-
-Just checking: should it be "and" or "or" here"?
-
-Looking at the EINVAL error below, I guess "or", and a better 
-wording would be:
-
-[[
-...for example, mappings marked with kernel-internal flags such as
-.B VMPPFNMAP
-or
-.BR BR_V_IO.
-]]
-
-> +.BR VM_IO .
-> +.IP
-> +Note that with
-> +.BR MADV_POPULATE_READ ,
-> +the process can be killed at any moment when the system runs out of memory.
-> +.TP
-> +.BR MADV_POPULATE_WRITE " (since Linux 5.14)"
-> +Populate (prefault) page tables writable for the whole range without actually
-
-I have trouble to understand "Populate (prefault) page tables writable".
-Does it mean that it is just the page tables are being populated, and the
-PTEs are marked to indicate that the pages are writable? If yes, I
-think some rewording would help.
-
-> +writing memory.
-
-I don't understand "without actually writing memory"? Do you mean,
-"without actually  faulting in the pages"; or something else?
-
-> +Depending on the underlying mapping,
-> +preallocate memory or read the underlying file;
-> +files with holes will preallocate blocks.
-> +Do not generate
-> +.B SIGBUS
-> +when populating fails,
-> +return an error instead.
-
-Better:
-
-[[
-If populating fails, a
-.B SIGBUS
-signal is not generated; instead, an error i returned.
-]]
-
-+.IP
-> +If
-> +.B MADV_POPULATE_WRITE
-> +succeeds,
-> +all page tables have been populated (prefaulted) writable once.
-> +If
-> +.B MADV_POPULATE_WRITE
-> +fails, some page tables might have been populated.
-> +.IP
-> +.B MADV_POPULATE_WRITE
-> +cannot be applied to mappings without write permissions
-> +and special mappings,
-> +for example,
-> +marked with the kernel-internal
-
-s/marked/mappings marked/
-
-> +.B VM_PFNMAP
-> +and
-
-Just checking: should it be "and" or "or" here"?
-
-Looking at the EINVAL error below, I guess "or", and a better 
-wording would be:
-
-[[
-...for example, mappings marked with kernel-internal flags such as
-.B VMPPFNMAP
-or
-.BR BR_V_IO.
-]]
-
-> +.BR VM_IO .
-> +.IP
-> +Note that with
-> +.BR MADV_POPULATE_WRITE ,
-> +the process can be killed at any moment when the system runs out of memory.
->  .SH RETURN VALUE
->  On success,
->  .BR madvise ()
-> @@ -490,6 +556,17 @@ A kernel resource was temporarily unavailable.
->  .B EBADF
->  The map exists, but the area maps something that isn't a file.
->  .TP
-> +.B EFAULT
-> +.I advice
-> +is
-> +.B MADV_POPULATE_READ
-> +or
-> +.BR MADV_POPULATE_WRITE ,
-> +and populating (prefaulting) page tables failed because a
-> +.B SIGBUS
-> +would have been generated on actual memory access and the reason is not a
-> +HW poisoned page.
-
-Maybe:
-s/.$/(see the description of MADV_HWPOISON in this page)./
-?
-
-> +.TP
->  .B EINVAL
->  .I addr
->  is not page-aligned or
-> @@ -533,6 +610,18 @@ or
->  .BR VM_PFNMAP
->  ranges.
->  .TP
-> +.B EINVAL
-> +.I advice
-> +is
-> +.B MADV_POPULATE_READ
-> +or
-> +.BR MADV_POPULATE_WRITE ,
-> +but the specified address range includes ranges with insufficient permissions
-> +or incompatible mappings such as
-> +.B VM_IO
-> +or
-> +.BR VM_PFNMAP.
-
-s/.BR VM_PFNMAP./.BR VM_PFNMAP ./
-
-> +.TP
->  .B EIO
->  (for
->  .BR MADV_WILLNEED )
-> @@ -548,6 +637,15 @@ Not enough memory: paging in failed.
->  Addresses in the specified range are not currently
->  mapped, or are outside the address space of the process.
->  .TP
-> +.B ENOMEM
-> +.I advice
-> +is
-> +.B MADV_POPULATE_READ
-> +or
-> +.BR MADV_POPULATE_WRITE ,
-> +and populating (prefaulting) page tables failed because there was not enough
-> +memory.
-> +.TP
->  .B EPERM
->  .I advice
->  is
-> @@ -555,6 +653,15 @@ is
->  but the caller does not have the
->  .B CAP_SYS_ADMIN
->  capability.
-> +.TP
-> +.B EHWPOISON
-> +.I advice
-> +is
-> +.B MADV_POPULATE_READ
-> +or
-> +.BR MADV_POPULATE_WRITE ,
-> +and populating (prefaulting) page tables failed because a HW poisoned page
-> +was encountered.
->  .SH VERSIONS
->  Since Linux 3.18,
->  .\" commit d3ac21cacc24790eb45d735769f35753f5b56ceb
-
-Thanks,
+Cheers,
 
 Michael
 
-
+diff --git a/man2/shmop.2 b/man2/shmop.2
+index c9bd92986..2cc49933c 100644
+--- a/man2/shmop.2
++++ b/man2/shmop.2
+@@ -324,10 +324,14 @@ Hello, world
+ .in
+ .\"
+ .SS Program source: svshm_string.h
+-The following header file is included by the "reader" and "writer" programs.
++The following header file is included by the "reader" and "writer" programs:
+ .PP
+ .in +4n
+ .EX
++/* svshm_string.h
++
++   Licensed under GNU General Public License v2 or later.
++*/
+ #include <sys/types.h>
+ #include <sys/ipc.h>
+ #include <sys/shm.h>
 
 -- 
 Michael Kerrisk
