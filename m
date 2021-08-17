@@ -2,33 +2,31 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A02343EED97
-	for <lists+linux-man@lfdr.de>; Tue, 17 Aug 2021 15:41:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B14913EEDBE
+	for <lists+linux-man@lfdr.de>; Tue, 17 Aug 2021 15:51:18 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S237642AbhHQNmU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 17 Aug 2021 09:42:20 -0400
-Received: from luckmann.name ([213.239.213.133]:49723 "EHLO
+        id S237588AbhHQNvu (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 17 Aug 2021 09:51:50 -0400
+Received: from luckmann.name ([213.239.213.133]:52477 "EHLO
         static.213-239-213-133.clients.your-server.de" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S239790AbhHQNmJ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 17 Aug 2021 09:42:09 -0400
+        by vger.kernel.org with ESMTP id S233288AbhHQNvu (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 17 Aug 2021 09:51:50 -0400
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000BD4002.00000000611BBC71.000031BE; Tue, 17 Aug 2021 15:41:05 +0200
-Date:   Tue, 17 Aug 2021 15:41:05 +0200
+  id 0000000000BD4001.00000000611BBED4.000032BB; Tue, 17 Aug 2021 15:51:16 +0200
+Date:   Tue, 17 Aug 2021 15:51:16 +0200
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Cc:     Jakub Wilk <jwilk@jwilk.net>, linux-man@vger.kernel.org
-Subject: Re: Errors in man pages, here: signal.2
-Message-ID: <20210817134104.GC12220@Debian-50-lenny-64-minimal>
-References: <20210725170929.GA16841@Debian-50-lenny-64-minimal>
- <CAKgNAki+-u-7MY8pD5WB95ss_0_f=2B4zk7HnckxNDD6mD=UDA@mail.gmail.com>
- <20210727190315.i55sv2pap6ffhkuv@jwilk.net>
- <fc7d02d0-7fd8-0ed9-d1a8-9156240b177a@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>
+Subject: Re: Errors in man pages, here: shmop.2
+Message-ID: <20210817135116.GD12220@Debian-50-lenny-64-minimal>
+References: <20210725170914.GA16816@Debian-50-lenny-64-minimal>
+ <CAKgNAkizm0xZ3vr=mGRDgMOBZwps2RSkQxfR3vP-6Z8x_6MEJw@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-12734-1629207665-0001-2"
+Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-12987-1629208276-0001-2"
 Content-Disposition: inline
-In-Reply-To: <fc7d02d0-7fd8-0ed9-d1a8-9156240b177a@gmail.com>
+In-Reply-To: <CAKgNAkizm0xZ3vr=mGRDgMOBZwps2RSkQxfR3vP-6Z8x_6MEJw@mail.gmail.com>
 X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
 X-homepage: http://www.helgefjell.de/debian
 User-Agent: Mutt/1.10.1 (2018-07-13)
@@ -39,49 +37,69 @@ X-Mailing-List: linux-man@vger.kernel.org
 This is a MIME-formatted message.  If you see this text it means that your
 E-mail software does not support MIME-formatted messages.
 
---=_luckmann.name-12734-1629207665-0001-2
-Content-Type: text/plain; charset=us-ascii
+--=_luckmann.name-12987-1629208276-0001-2
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
 Hello Michael,
-On Tue, Aug 10, 2021 at 03:46:23AM +0200, Michael Kerrisk (man-pages) wrote:
-> On 7/27/21 9:03 PM, Jakub Wilk wrote:
-> > * Michael Kerrisk <mtk.manpages@gmail.com>, 2021-07-25, 23:02:
-> >>> Man page: signal.2
-> >>> Issue: Such paragraphs shouldn't be no-wrap
-> >>>
-> >>> "B<WARNING>:\n"
-> >>> " the behavior of\n"
-> >>> "B<signal>()\n"
-> >>> "varies across UNIX versions,\n"
-> >>> "and has also varied historically across different versions of Linux.=
-\n"
-> >>> "B<Avoid its use>: use\n"
-> >>> "B<sigaction>(2)\n"
-> >>> "instead.\n"
-> >>> "See I<Portability> below.\n"
-> >>
-> >> I don't understand this report, and can't see a problem. Please=20
-> >> elaborate.
-> >=20
-> > I think the problem is that the spurious space before "the behavior" is=
-=20
-> > confusing po4a.
+On Mon, Jul 26, 2021 at 01:02:10AM +0200, Michael Kerrisk (man-pages) wrote:
+> > Man page: shmop.2
+> > Issue: file =E2=86=92 files
+> >
+> > "The following header file is included by the \"reader\" and \"writer\"=
+ "
+> > "programs."
 >=20
-> Thanks, Jakub. I fixed that.
+> The existing text looks correct to me. Please let me know further
+> details if you still think there's a problem after reviewing.
 
-Thanks for fixing.
+Probably we do not understand the sentence correctly, so bear with me.
+Currently, the man page reads as follows:
 
-I'm not sure if this is the cause, but there are lots of forced line
-breaks ("the \n") in this paragraph, which is quite unusual.
+   Program source: svshm_string.h
+       The following header file is included by the "reader" and "writer" p=
+rograms.
 
-I look at the next version on this again, and might come back, but for
-now consider this one fixed.
+           #include <sys/types.h>
+           #include <sys/ipc.h>
+           #include <sys/shm.h>
+           #include <sys/sem.h>
+           #include <stdio.h>
+           #include <stdlib.h>
+           #include <string.h>
+
+           #define errExit(msg)    do { perror(msg); exit(EXIT_FAILURE); \
+                                   } while (0)
+
+The sentence in question seems to refer to the next paragraph, i.e.
+the beginning of the program source. There 7 header files (from
+types.h up to string.h) are mentioned. In the translation we also
+replaced the full stop by a colon. Since there are 7 header files, we
+assume that it needs to be plural.
+
+Now explaining this and reading it again, I think I understand the
+sentence now (better). The header file is "svshm_string.h" and thus
+singular. So logically (but it does not work in the overall formatting
+of the man page), the first two lines above would need to be read in a
+different order.=20
+
+       The following header file is included by the "reader" and "writer" p=
+rograms.
+   Program source: svshm_string.h
+
+If this interpetation is correct, maybe the following change could be
+made:
+
+   Program source: svshm_string.h
+       This header file is included by the "reader" and "writer" programs:
+       ~~~~~~~~~~                                                       ~~
+
+Once I've your confirmation, I'll align the translation.
 
 Greetings
 
-            Helge
+          Helge
 
 --=20
       Dr. Helge Kreutzmann                     debian@helgefjell.de
@@ -89,25 +107,25 @@ Greetings
         64bit GNU powered                     gpg signed mail preferred
            Help keep free software "libre": http://www.ffii.de/
 
---=_luckmann.name-12734-1629207665-0001-2
+--=_luckmann.name-12987-1629208276-0001-2
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmEbvHAACgkQQbqlJmgq
-5nC9lRAAh29jnb59UwSqLcIntB7wvh5zPstVY3HOn5IME2EuBXE80P1xqWY0MBY9
-GOcKjZGAzu5xuy3mPekR6aNO/UR6kr640psemuXZcsXm7242eYUJTp6wcNIE3l4w
-1trr6397AXhHDfwgFVcXfuzQ3WGJlSqmwZwJ1IvCtAhKGmKfBhjEJbse06moXHZ+
-J6G3Ed0FXLGh62xhdIRuACpWVCTBXgl6fZji8nMJW1vT4VAzCcCden8R45D8FlLl
-Y+X8RHoHYa/98aoTeOh7m/Ew/KXBAEiP/q61IVVIs9eb1ABLQ4ho2rsW1odVPQC7
-BBrImD25qMjkYqk31nDuUqk1TTP++4Rg+Fj6qfc67fwMb+V9/Lwj0DnJibwGputY
-f5FePNG2Fyh5UYmFxm4g2YzF9+HIMVazlGiAGc8b1/d5yN3J1PD7aiFP0ppbLmuH
-iyl0m3PhFRQuSeCV2SW165ZQSrYltGRi95daHkE7dZlCPv55JOHdopW4Y9Y+P+ZP
-BlRJLQDUYS07reZt4hbQca6qCquffsZBbGW1bfyoNIJrYAAxQ6QF8ayeRNcu8Yk0
-nMw6+7nqD2rRTc2CtdD9oB03QPwDl4B++JtxfE9YXEmFEp1Ak/dn5pSZkkxqGhrz
-1hBfBPTydhhU0kv0QVgAH6ZOdganCNDgTktAVQQoZzcqMKYchY0=
-=b4ru
+iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmEbvs4ACgkQQbqlJmgq
+5nDlTBAAsUQlsutYQpXUWBXVRfeHXtHG8iC+TZMy+ENwj134Is+vWsnuO9Lr3e9G
+XnioeGSTCo4p2GmP/yxUYw9+FEDVm3UIAQ2CGQDpalYOdcqKTi8FOAHSYwujNV2i
+nypYvbOvZMqbBETPWwvsA/eVZDBSqW0VEOjY6XQHVnIpn7SlvGiktr9A80nQa4e5
+lGvTpsSGqSoBMFZr1JnKJuv1BXCAd91s6yJ19zbnHaYHIW8E9qtEaYmqavRQR+zH
+UAidIT1cGyjxeAGFD4qNNBcvZmVRoXkfs0n8NWjTTKkopGS2jOYX41O7aSosgBmJ
+nC2XWmvy3SwRbx+Nvq3fOYyDp8c3HlB3cYkAG+S4dbr+HXHIFJQYQld9duQhuwOf
+7vdSw7zd7DTSshMLOOLvRZ+0onAuhJkaT1vE7LyI5pi7vTO7FO9pplJ8MoZ8Yroc
+38zlypreZdSFDJEr052msfnt4ss8ZDuWoX14sXgo4ojv9EM3bnJB6dkiyyn5m5C+
+0edevxKXSbU+7JJsG28qNKZrBptgqyUGEYQ4DTYekfIEVTUxwWrx9SjvXF+sA7PF
+JwnzQbU2MaP26bNFRoXO6caCukbkkqharmYeBS3PRZ48I3JcKjdBaIKXSARs5r5T
+mjk0FrF5C2gtk1RkyEwsxPJ66PGhMBMyGqDWRfX44976l5rrp2w=
+=+dnT
 -----END PGP SIGNATURE-----
 
---=_luckmann.name-12734-1629207665-0001-2--
+--=_luckmann.name-12987-1629208276-0001-2--
