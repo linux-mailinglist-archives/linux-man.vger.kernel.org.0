@@ -2,72 +2,71 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8B03E3F0D0D
-	for <lists+linux-man@lfdr.de>; Wed, 18 Aug 2021 22:58:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C6ED93F0F5A
+	for <lists+linux-man@lfdr.de>; Thu, 19 Aug 2021 02:24:05 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233794AbhHRU67 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 18 Aug 2021 16:58:59 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56630 "EHLO
+        id S235705AbhHSAXg (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 18 Aug 2021 20:23:36 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46370 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233753AbhHRU67 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 18 Aug 2021 16:58:59 -0400
-Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com [IPv6:2607:f8b0:4864:20::102b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 34AABC061764;
-        Wed, 18 Aug 2021 13:58:24 -0700 (PDT)
-Received: by mail-pj1-x102b.google.com with SMTP id fa24-20020a17090af0d8b0290178bfa69d97so3332504pjb.0;
-        Wed, 18 Aug 2021 13:58:24 -0700 (PDT)
+        with ESMTP id S235068AbhHSAXT (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 18 Aug 2021 20:23:19 -0400
+Received: from mail-pl1-x62d.google.com (mail-pl1-x62d.google.com [IPv6:2607:f8b0:4864:20::62d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9905FC06179A;
+        Wed, 18 Aug 2021 17:22:44 -0700 (PDT)
+Received: by mail-pl1-x62d.google.com with SMTP id e15so2891454plh.8;
+        Wed, 18 Aug 2021 17:22:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
+        h=from:subject:to:cc:references:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=eqOo/6HQ3yqEsh3fgdKiKd/SoMq47M4f8HbYZUxUp64=;
-        b=uTqJEGsU3Kh/nFVcwOBLgzZcDftaXaoaXoL1X/nC0AJCQvXTYvw2ZxB9HJeoyPBLIl
-         R84XI176tCE3TKKPupcgfhlylMg/12mfGKf+KI7ifBcO0IK68JqMdknv4kM8yCVZ6LhZ
-         mR3hLEYC5j5GuWVEsw49mM3ZO9FESIgbiIRRm1U+1BcDjxXa991OQooGOzqbEAInU1EM
-         XDIHF0zlbZXEqDx02VgUXJ1uAM9rI6NLZXTvlXY6dJ3Nr6SQX7ir8+ht03z8S/gPSrbG
-         iFyE5mOGQ4GN11wWnnUBZyPCN4E0VJqpOMOYXoULWzAOxVbfj0PQTTBVfkCX6zYhJAXI
-         6bBQ==
+        bh=srgQrtHR6Q3yNNiUf/2UYIBAbFoMkt4HQER7V5Q0Jvk=;
+        b=i1heXBhCScGiqthuZUfuNdUuydrLc3JS+9rRLrC+lFYPi7ysv9yN61mw7hYmjg0fio
+         wMrmDXQWw8taDtMPCHwOHFxRNAJOdas630KSHwI5NAR5RUd6JJYVIz5rvZqUnDuEEvLF
+         rp/bs+ULl7Go02jYllRF/AsneIkIbLCfHpcT/3CdDfKZuq1cqb7sZf5GKRsB2RB5m2LP
+         6oJIoWON3RDAW+cLeJYJZRD1jOlIySoXh/3lMGsGN4z05SqC13OJl3B6maNWb/yrajaU
+         c3f+kwcStTvyvI1m5S6gHhhThXiPeTYlep3G5tnlmhabQO4d5TjN8SBAonDnJmWar02h
+         uiXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
+        h=x-gm-message-state:from:subject:to:cc:references:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=eqOo/6HQ3yqEsh3fgdKiKd/SoMq47M4f8HbYZUxUp64=;
-        b=lJAG/P3+CjyUX5j4Uh/ITCdMWJZENTyRJJVxykCWfHD8uxNlSw6iMbFYw/JpFpA150
-         /n0s3NPlWrM2lhsdlTkwAodpeXZ9Mto8HQ1SxU3CmrWcRGF3Z7lcumiNywnQGG5uZA6n
-         7I3Kb46gtLUpp2KriMW4VuULyFA0/6yWXx7qE+T+Yio7bpHgtH3LiBEI8VlQYL+VlXRB
-         msEXuq2fO4FR+wvbn1l7YiLszQL6vD1FClyIQSltVFJzZ4F1IbFVwORbJ185dLUOdLQQ
-         wTClCR0ke6+1xbKqmDMCMF3u+UcCT0hxspi3ycCt/DYXMjrHQ2djQl++nGtTXfxQqPXB
-         kepQ==
-X-Gm-Message-State: AOAM531iSMf76Pwy/v/N8lsstCkGjF2IGASwRPMCkj8YsVRgUVRkxXnX
-        dZL+prHi15t/yUShwuAo/Js=
-X-Google-Smtp-Source: ABdhPJwl/IKmfu2aNrkf75QS/Df1fV3xJdszoRbiJNETdwX6/g3h71/P/AFPN4obVLvRln+2tykVrg==
-X-Received: by 2002:a17:90a:c087:: with SMTP id o7mr11151357pjs.57.1629320303713;
-        Wed, 18 Aug 2021 13:58:23 -0700 (PDT)
+        bh=srgQrtHR6Q3yNNiUf/2UYIBAbFoMkt4HQER7V5Q0Jvk=;
+        b=fQ01VyCcvnA40hfW+9Xwpulv99ykTcg89Yt2YL6C0cK7Vo5YbbqojOBP1DgQF7Qk7V
+         PSBZvvpHgO1kd/+ENHH4P6vcX3U+ugsBy/GE/TSNLwqrf5bb9FYlveto05HaDCE2i6ed
+         PCBNrRbpEMzSiCUUEEtLn1jDgDRCHtc06GKbIARRFtcEXIObthczmEWoxPas8kY0A0An
+         nXXYSdKgoF5DXF3boqAyV8fGUEeeN2IZ2s/WU+Mcmy+QfGccAva4SeEaeUCd2NxrCNQZ
+         QDTL+GiB3iN6RDp1KjlhRLpANceKgnpw6NevDL7YPsf789D0gfbPItFWBq3eUmCp/3p+
+         +kjg==
+X-Gm-Message-State: AOAM532XE7B/xSbrUIzDYgcpssrrAJhdPp+2HAVBiP6TGg4uTUlJMNyN
+        CHt/xJsMrlDYG7MrWbPOOUY=
+X-Google-Smtp-Source: ABdhPJwbv+titpLTPGsMS3VWTPyw9SMBEsOSM1KGXn0PWgrd1FfnbG5EsxA65BRmdC+LSiH/7fEG9g==
+X-Received: by 2002:a17:90b:1d88:: with SMTP id pf8mr11778939pjb.152.1629332564125;
+        Wed, 18 Aug 2021 17:22:44 -0700 (PDT)
 Received: from [192.168.1.71] (122-61-176-117-fibre.sparkbb.co.nz. [122.61.176.117])
-        by smtp.gmail.com with ESMTPSA id 4sm667832pjb.21.2021.08.18.13.58.18
+        by smtp.gmail.com with ESMTPSA id j12sm942551pfj.54.2021.08.18.17.22.39
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 18 Aug 2021 13:58:23 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com, Pankaj Gupta <pankaj.gupta@ionos.com>,
-        Alejandro Colomar <alx.manpages@gmail.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Michal Hocko <mhocko@suse.com>,
-        Oscar Salvador <osalvador@suse.de>,
-        Jann Horn <jannh@google.com>, Mike Rapoport <rppt@kernel.org>,
-        Linux API <linux-api@vger.kernel.org>, linux-mm@kvack.org
-Subject: Re: [PATCH v2] madvise.2: Document MADV_POPULATE_READ and
- MADV_POPULATE_WRITE
-To:     David Hildenbrand <david@redhat.com>, linux-man@vger.kernel.org
-References: <20210816081922.5155-1-david@redhat.com>
- <d70ef542-051a-521f-807d-fa469b28e897@gmail.com>
- <70792f9c-ace1-6876-378b-5388f7948a60@redhat.com>
+        Wed, 18 Aug 2021 17:22:43 -0700 (PDT)
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <abec69cb-6db9-79ab-869e-907da573bfbc@gmail.com>
-Date:   Wed, 18 Aug 2021 22:58:13 +0200
+Subject: Re: [PATCHi, man-pages] mount_namespaces.7: More clearly explain
+ "locked mounts"
+To:     "Eric W. Biederman" <ebiederm@xmission.com>
+Cc:     mtk.manpages@gmail.com, linux-man <linux-man@vger.kernel.org>,
+        linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+        containers@lists.linux-foundation.org,
+        Alejandro Colomar <alx.manpages@gmail.com>,
+        Christian Brauner <christian.brauner@ubuntu.com>,
+        linux-kernel@vger.kernel.org, Christoph Hellwig <hch@infradead.org>
+References: <20210813220120.502058-1-mtk.manpages@gmail.com>
+ <87r1et1io8.fsf@disp2133> <56bbb8ed-8ecf-a0be-5253-350727ae1d24@gmail.com>
+ <874kboysqq.fsf@disp2133>
+Message-ID: <8efe7646-f066-443f-05dc-fbaa3907460d@gmail.com>
+Date:   Thu, 19 Aug 2021 02:22:35 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <70792f9c-ace1-6876-378b-5388f7948a60@redhat.com>
+In-Reply-To: <874kboysqq.fsf@disp2133>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -75,187 +74,253 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello David,
+Hello Eric,
 
-On 8/18/21 10:35 AM, David Hildenbrand wrote:
-> On 17.08.21 23:42, Michael Kerrisk (man-pages) wrote:
->> Hello David,
+Thank you for you response.
+
+On 8/17/21 5:51 PM, Eric W. Biederman wrote:
+> "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com> writes:
+> 
+>> Hi Eric,
 >>
->> Thank you for writing this! Could you please take
->> a look at the comments below and revise?
-> 
-> Hi Michael,
-> 
-> thanks for your valuable input. Your feedback will certainly make this 
-> easier to understand for people that are not heavily involved in MM work :)
-> 
-> [...]
-> 
->>>   man2/madvise.2 | 107 +++++++++++++++++++++++++++++++++++++++++++++++++
->>>   1 file changed, 107 insertions(+)
+>> Thanks for your feedback!
+>>
+>> On 8/16/21 6:03 PM, Eric W. Biederman wrote:
+>>> Michael Kerrisk <mtk.manpages@gmail.com> writes:
 >>>
->>> diff --git a/man2/madvise.2 b/man2/madvise.2
->>> index f1f384c0c..f6cea9ad2 100644
->>> --- a/man2/madvise.2
->>> +++ b/man2/madvise.2
->>> @@ -469,6 +469,72 @@ If a page is file-backed and dirty, it will be written back to the backing
->>>   storage.
->>>   The advice might be ignored for some pages in the range when it is not
->>>   applicable.
->>> +.TP
->>> +.BR MADV_POPULATE_READ " (since Linux 5.14)"
->>> +Populate (prefault) page tables readable for the whole range without actually
+>>>> For a long time, this manual page has had a brief discussion of
+>>>> "locked" mounts, without clearly saying what this concept is, or
+>>>> why it exists. Expand the discussion with an explanation of what
+>>>> locked mounts are, why mounts are locked, and some examples of the
+>>>> effect of locking.
+>>>>
+>>>> Thanks to Christian Brauner for a lot of help in understanding
+>>>> these details.
+>>>>
+>>>> Reported-by: Christian Brauner <christian.brauner@ubuntu.com>
+>>>> Signed-off-by: Michael Kerrisk <mtk.manpages@gmail.com>
+>>>> ---
+>>>>
+>>>> Hello Eric and others,
+>>>>
+>>>> After some quite helpful info from Chrstian Brauner, I've expanded
+>>>> the discussion of locked mounts (a concept I didn't really have a
+>>>> good grasp on) in the mount_namespaces(7) manual page. I would be
+>>>> grateful to receive review comments, acks, etc., on the patch below.
+>>>> Could you take a look please?
+>>>>
+>>>> Cheers,
+>>>>
+>>>> Michael
+>>>>
+>>>>  man7/mount_namespaces.7 | 73 +++++++++++++++++++++++++++++++++++++++++
+>>>>  1 file changed, 73 insertions(+)
+>>>>
+>>>> diff --git a/man7/mount_namespaces.7 b/man7/mount_namespaces.7
+>>>> index e3468bdb7..97427c9ea 100644
+>>>> --- a/man7/mount_namespaces.7
+>>>> +++ b/man7/mount_namespaces.7
+>>>> @@ -107,6 +107,62 @@ operation brings across all of the mounts from the original
+>>>>  mount namespace as a single unit,
+>>>>  and recursive mounts that propagate between
+>>>>  mount namespaces propagate as a single unit.)
+>>>> +.IP
+>>>> +In this context, "may not be separated" means that the mounts
+>>>> +are locked so that they may not be individually unmounted.
+>>>> +Consider the following example:
+>>>> +.IP
+>>>> +.RS
+>>>> +.in +4n
+>>>> +.EX
+>>>> +$ \fBsudo mkdir /mnt/dir\fP
+>>>> +$ \fBsudo sh \-c \(aqecho "aaaaaa" > /mnt/dir/a\(aq\fP
+>>>> +$ \fBsudo mount \-\-bind -o ro /some/path /mnt/dir\fP
+>>>> +$ \fBls /mnt/dir\fP   # Former contents of directory are invisible
+>>>
+>>> Do we want a more motivating example such as a /proc/sys?
+>>>
+>>> It has been common to mount over /proc files and directories that can be
+>>> written to by the global root so that users in a mount namespace may not
+>>> touch them.
 >>
->> I have trouble to understand "Populate (prefault) page tables readable".
->> Does it mean that it is just the page tables are being populated, and the
->> PTEs are marked to indicate that the pages are readable? If yes, I
->> think some rewording would help.
+>> Seems reasonable. But I want to check one thing. Can you please
+>> define "global root". I'm pretty sure I know what you mean, but
+>> I'd like to know your definition.
 > 
-> I actually tried phrasing it similar to our MAP_POPULATE documentation:
-> 	("Populate  (prefault)  page tables for a mapping.")
+> I mean uid 0 in the initial user namespace.
 
-Yeah, well that description is a bit thin too :-}.
+(Good. That's what I thought you meant. So far, that term is not 
+described in the manual pages. I just now added a definition of the 
+term to user_namespaces(7).)
 
-> We will prefault all pages, faulting them in.
->>
->>> +reading memory.
->>
->> I don't understand "without actually reading memory"? Do you mean,
->> "without actually  faulting in the pages"; or something else?
+> This uid owns most of files in /proc.
 > 
-> "Populate (prefault) page tables readable, faulting in all pages in the 
-> range just as if manually reading one byte of each page; however, avoid 
-> the actual memory access that would have been performed after handling 
-> the fault."
+> Container systems that don't want to use user namespaces frequently
+> mount over files in proc to prevent using some of the root privileges
+> that come simply by having uid 0.
 > 
-> Does that make it clearer? (avoiding eventually touching the page at all 
-> can be beneficial, especially when dealing with DAX memory where memory 
-> access might be expensive)
+> Another use is mounting over files on virtual filesystems like proc
+> to reduce the attack surface.
 
-That text is much better. But, what's still not clear to me then is the
-dfference between mmap(2) MAP_POPULATE, and MADV_POPULATE_READ and
-MADV_POPULATE_WRITE. What is the differnece, and in what situations 
-would one prefer one or the other approach? I think it would be helpful
-if the manual page said something about these details.
+Thanks for the background. I think for the moment I will go with 
+Christian's alternative suggestion (an example using /etc/shadow).
 
->>> +Depending on the underlying mapping,
->>> +map the shared zeropage,
->>> +preallocate memory or read the underlying file;
->>> +files with holes might or might not preallocate blocks.
->>> +Do not generate
->>> +.B SIGBUS
->>> +when populating fails,
->>> +return an error instead.
+> For reducing what the root user in a container can do, I think using user
+> namespaces and using a uid other than 0 in the initial user namespace.
+> 
+> 
+>>>> +.EE
+>>>> +.in
+>>>> +.RE
+>>>> +.IP
+>>>> +The above steps, performed in a more privileged user namespace,
+>>>> +have created a (read-only) bind mount that
+>>>> +obscures the contents of the directory
+>>>> +.IR /mnt/dir .
+>>>> +For security reasons, it should not be possible to unmount
+>>>> +that mount in a less privileged user namespace,
+>>>> +since that would reveal the contents of the directory
+>>>> +.IR /mnt/dir .
+>>>  > +.IP
+>>>> +Suppose we now create a new mount namespace
+>>>> +owned by a (new) subordinate user namespace.
+>>>> +The new mount namespace will inherit copies of all of the mounts
+>>>> +from the previous mount namespace.
+>>>> +However, those mounts will be locked because the new mount namespace
+>>>> +is owned by a less privileged user namespace.
+>>>> +Consequently, an attempt to unmount the mount fails:
+>>>> +.IP
+>>>> +.RS
+>>>> +.in +4n
+>>>> +.EX
+>>>> +$ \fBsudo unshare \-\-user \-\-map\-root\-user \-\-mount \e\fP
+>>>> +               \fBstrace \-o /tmp/log \e\fP
+>>>> +               \fBumount /mnt/dir\fP
+>>>> +umount: /mnt/dir: not mounted.
+>>>> +$ \fBgrep \(aq^umount\(aq /tmp/log\fP
+>>>> +umount2("/mnt/dir", 0)     = \-1 EINVAL (Invalid argument)
+>>>> +.EE
+>>>> +.in
+>>>> +.RE
+>>>> +.IP
+>>>> +The error message from
+>>>> +.BR mount (8)
+>>>> +is a little confusing, but the
+>>>> +.BR strace (1)
+>>>> +output reveals that the underlying
+>>>> +.BR umount2 (2)
+>>>> +system call failed with the error
+>>>> +.BR EINVAL ,
+>>>> +which is the error that the kernel returns to indicate that
+>>>> +the mount is locked.
+>>>
+>>> Do you want to mention that you can unmount the entire subtree?  Either
+>>> with pivot_root if it is locked to "/" or with
+>>> "umount -l /path/to/propagated/directory".
 >>
->> Better:
+>> Yes, I wondered about that, but hadn't got round to devising 
+>> the scenario. How about this:
 >>
 >> [[
->> If populating fails, a
->> .B SIGBUS
->> signal is not generated; instead, an error i returned.
+>>        *  Following on from the previous point, note that it is possible
+>>           to unmount an entire tree of mounts that propagated as a unit
+>                                  ^^^^^ subtree?
+
+Yes, probably better, to prevent misunderstandings. Changed (and in a few
+other places also).
+
+>>           into a mount namespace that is owned by a less privileged user
+>>           namespace, as illustrated in the following example.
+> 
+>>
+>>           First, we create new user and mount namespaces using
+>>           unshare(1).  In the new mount namespace, the propagation type
+>>           of all mounts is set to private.  We then create a shared bind
+>>           mount at /mnt, and a small hierarchy of mount points underneath
+>>           that mount point.
+>>
+>>               $ PS1='ns1# ' sudo unshare --user --map-root-user \
+>>                                      --mount --propagation private bash
+>>               ns1# echo $$        # We need the PID of this shell later
+>>               778501
+>>               ns1# mount --make-shared --bind /mnt /mnt
+>>               ns1# mkdir /mnt/x
+>>               ns1# mount --make-private -t tmpfs none /mnt/x
+>>               ns1# mkdir /mnt/x/y
+>>               ns1# mount --make-private -t tmpfs none /mnt/x/y
+>>               ns1# grep /mnt /proc/self/mountinfo | sed 's/ - .*//'
+>>               986 83 8:5 /mnt /mnt rw,relatime shared:344
+>>               989 986 0:56 / /mnt/x rw,relatime
+>>               990 989 0:57 / /mnt/x/y rw,relatime
+>>
+>>           Continuing in the same shell session, we then create a second
+>>           shell in a new mount namespace and a new subordinate (and thus
+>>           less privileged) user namespace and check the state of the
+>>           propagated mount points rooted at /mnt.
+>>
+>>               ns1# PS1='ns2# unshare --user --map-root-user \
+>>                                      --mount --propagation unchanged bash
+>>               ns2# grep /mnt /proc/self/mountinfo | sed 's/ - .*//'
+>>               1239 1204 8:5 /mnt /mnt rw,relatime master:344
+>>               1240 1239 0:56 / /mnt/x rw,relatime
+>>               1241 1240 0:57 / /mnt/x/y rw,relatime
+>>
+>>           Of note in the above output is that the propagation type of the
+>>           mount point /mnt has been reduced to slave, as explained near
+>>           the start of this subsection.  This means that submount events
+>>           will propagate from the master /mnt in "ns1", but propagation
+>>           will not occur in the opposite direction.
+>>
+>>           From a separate terminal window, we then use nsenter(1) to
+>>           enter the mount and user namespaces corresponding to "ns1".  In
+>>           that terminal window, we then recursively bind mount /mnt/x at
+>>           the location /mnt/ppp.
+>>
+>>               $ PS1='ns3# ' sudo nsenter -t 778501 --user --mount
+>>               ns3# mount --rbind --make-private /mnt/x /mnt/ppp
+>>               ns3# grep /mnt /proc/self/mountinfo | sed 's/ - .*//'
+>>               986 83 8:5 /mnt /mnt rw,relatime shared:344
+>>               989 986 0:56 / /mnt/x rw,relatime
+>>               990 989 0:57 / /mnt/x/y rw,relatime
+>>               1242 986 0:56 / /mnt/ppp rw,relatime
+>>               1243 1242 0:57 / /mnt/ppp/y rw,relatime shared:518
+>>
+>>           Because the propagation type of the parent mount, /mnt, was
+>>           shared, the recursive bind mount propagated a small tree of
+>>           mounts under the slave mount /mnt into "ns2", as can be
+>>           verified by executing the following command in that shell
+>>           session:
+>>
+>>               ns2# grep /mnt /proc/self/mountinfo | sed 's/ - .*//'
+>>               1239 1204 8:5 /mnt /mnt rw,relatime master:344
+>>               1240 1239 0:56 / /mnt/x rw,relatime
+>>               1241 1240 0:57 / /mnt/x/y rw,relatime
+>>               1244 1239 0:56 / /mnt/ppp rw,relatime
+>>               1245 1244 0:57 / /mnt/ppp/y rw,relatime master:518
+>>
+>>           While it is not possible to unmount a part of that propagated
+>>           subtree (/mnt/ppp/y), it is possible to unmount the entire
+>>           tree, as shown by the following commands:
+>>
+>>               ns2# umount /mnt/ppp/y
+>>               umount: /mnt/ppp/y: not mounted.
+>>               ns2# umount -l /mnt/ppp | sed 's/ - .*//'      # Succeeds...
+>>               ns2# grep /mnt /proc/self/mountinfo
+>>               1239 1204 8:5 /mnt /mnt rw,relatime master:344
+>>               1240 1239 0:56 / /mnt/x rw,relatime
+>>               1241 1240 0:57 / /mnt/x/y rw,relatime
 >> ]]
 >>
-> 
-> Sure, thanks.
-> 
->>> +.IP
->>> +If
->>> +.B MADV_POPULATE_READ
->>> +succeeds,
->>> +all page tables have been populated (prefaulted) readable once.
->>> +If
->>> +.B MADV_POPULATE_READ
->>> +fails,
->>> +some page tables might have been populated.
->>> +.IP
->>> +.B MADV_POPULATE_READ
->>> +cannot be applied to mappings without read permissions
->>> +and special mappings,
->>> +for example,
->>> +marked with the kernel-internal
->>
->> s/marked/mappings marked/
->>
->>> +.B VM_PFNMAP
->>> +and
->>
->> Just checking: should it be "and" or "or" here"?
->>
->> Looking at the EINVAL error below, I guess "or", and a better
->> wording would be:
->>
->> [[
->> ...for example, mappings marked with kernel-internal flags such as
->> .B VMPPFNMAP
->> or
->> .BR BR_V_IO.
->> ]]
-> 
-> Much better. Note that there might be more types of mappings that won't 
-> work (e.g., initially also secretmem IIRC).
-
-Ahh nice. Since there's about to be a memfd_secret() manual page, 
-I suggest adding also "or secret memory regions created using
-memfd_secret(2)".
-
->>> +.BR VM_IO .
->>> +.IP
->>> +Note that with
->>> +.BR MADV_POPULATE_READ ,
->>> +the process can be killed at any moment when the system runs out of memory.
->>> +.TP
->>> +.BR MADV_POPULATE_WRITE " (since Linux 5.14)"
->>> +Populate (prefault) page tables writable for the whole range without actually
->>
->> I have trouble to understand "Populate (prefault) page tables writable".
->> Does it mean that it is just the page tables are being populated, and the
->> PTEs are marked to indicate that the pages are writable? If yes, I
->> think some rewording would help.
->>
->>> +writing memory.
->>
->> I don't understand "without actually writing memory"? Do you mean,
->> "without actually  faulting in the pages"; or something else?
->>
-> 
-> Similar to the other wording:
-> 
-> "Populate (prefault) page tables writable, faulting in all pages in the 
-> range just as if manually writing one byte of each page; however, avoid 
-> the actual memory access that would have been performed after handling 
-> the fault."
-
-Much better, but see also my comments above re MADV_POPULATE_READ.
-
-[...]
-
->>> +.B EFAULT
->>> +.I advice
->>> +is
->>> +.B MADV_POPULATE_READ
->>> +or
->>> +.BR MADV_POPULATE_WRITE ,
->>> +and populating (prefaulting) page tables failed because a
->>> +.B SIGBUS
->>> +would have been generated on actual memory access and the reason is not a
->>> +HW poisoned page.
->>
->> Maybe:
->> s/.$/(see the description of MADV_HWPOISON in this page)./
 >> ?
->>
 > 
-> Sure, we can add that. But note that MADV_HWPOISON is just one of many 
-> ways to HWpoison a page.
+> Yes.
+> 
+> It is worth noting that in ns2 it is also possible to mount on top of
+> /mnt/ppp/y and umount from /mnt/ppp/y.
 
-Then maybe something like:
+Yes, good point. I've added some text, and an example for that case.
 
-"(HW poisoned pages can, for example, be created using the
-MADV_HWPOISON flag described elsewhere in this page.)"
-
-[...]
-
-Thanks,
+Cheers,
 
 Michael
 
