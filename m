@@ -2,172 +2,112 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0D76F3F5D8E
-	for <lists+linux-man@lfdr.de>; Tue, 24 Aug 2021 13:58:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 83D7D3F6B4C
+	for <lists+linux-man@lfdr.de>; Tue, 24 Aug 2021 23:40:38 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234787AbhHXL7a (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 24 Aug 2021 07:59:30 -0400
-Received: from 139-28-40-42.artus.net.pl ([139.28.40.42]:36944 "EHLO
-        tarta.nabijaczleweli.xyz" rhost-flags-OK-FAIL-OK-OK)
-        by vger.kernel.org with ESMTP id S236283AbhHXL7a (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 24 Aug 2021 07:59:30 -0400
-Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id B7F41360F14;
-        Tue, 24 Aug 2021 13:58:44 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=nabijaczleweli.xyz;
-        s=202006; t=1629806324;
-        bh=spg1C2bwcwZLApkTWQnjVVK+4yMzLwa+jhplrEOeRXk=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=XsuYUoLeQ4bRaN6aELg+xTa0ob67UeP/RSiBPuh8kRhmFB6aqtla1DJRgPUwwYclX
-         CiHP1JO9mP1dB7QVbjO/cClF2bT9tbTwlXA3+JX6hJjU7OdK5YvmJDP85BEdgyJhbJ
-         R4Gm0DPtbYLa7vpxgOkVggLM9+2Gp0rUrSTxjvkg63FtA63anIi9Tl6c6yP9vqcdH9
-         fb5EcAvsriK5PD0RUHIwyedC9EaXbZwhPZV3Bl7CmpOFw40PIuxdJqVDcg/vnLBe16
-         6TGMuoo/XPQdeknSsN4U6Xab/BIKQbjehjsW4Jgwm/BKhW/gTeawF0tddLC6xs83dj
-         E1afgNlYRBVsw==
-Date:   Tue, 24 Aug 2021 13:58:43 +0200
-From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc:     linux-man@vger.kernel.org,
-        Alejandro Colomar <alx.manpages@gmail.com>,
-        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Subject: Re: [PATCH 2/2] alloca.3: rewrite NOTES
-Message-ID: <20210824115843.p3zjacmu5bx4vrmu@tarta.nabijaczleweli.xyz>
-References: <ed9ad00910f264f8f9ecd266d398522077f4548f.1629752426.git.nabijaczleweli@nabijaczleweli.xyz>
- <c08c2bb9ccbbc097166f4815f8dea420e5fe1044.1629752426.git.nabijaczleweli@nabijaczleweli.xyz>
- <d2c606ce-468d-8545-30cc-d8dabeb48296@gmail.com>
- <20210824100444.kwl6jowo66zgqjps@localhost.localdomain>
+        id S234442AbhHXVlV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 24 Aug 2021 17:41:21 -0400
+Received: from mail.kernel.org ([198.145.29.99]:37442 "EHLO mail.kernel.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S231474AbhHXVlV (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Tue, 24 Aug 2021 17:41:21 -0400
+Received: by mail.kernel.org (Postfix) with ESMTPS id D732B6135F
+        for <linux-man@vger.kernel.org>; Tue, 24 Aug 2021 21:40:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1629841236;
+        bh=d5hDd7VxtOFE7ke920LCM0jf6Pei2ndOEVyuRbOFStE=;
+        h=From:To:Subject:Date:In-Reply-To:References:From;
+        b=LyL6y8dFZAwc8wqz/DJWXJvboPfz0CwE+lNsN+UUkT3PZKQrGTLaAuwtt9Y9zyYsK
+         VOOdZwkNTZ81H943YXQDDrqbEdSWCIwD7xPYLj8yEGZ7GkXwX+sN2JAow7X0wGt1uK
+         WNJqFUkaoE4v2LJy6XeBPTqspIJ4UjLCDhYTtOjTaDiWwmaO/nJFi9GhdvGRPC/3qo
+         F1FwnDQjkB0nvL1/kbPBy3Zr0NTfU7TxONsE0mHZ6xN9BC1Qsoo+w/wNGKa4vErA5+
+         JINHD6sWFNkoZBkglTJ5njT15larZIWArC3ii71aqzeJCOaywZvlAgFob9gUhZm7Py
+         KDen/HeJJRFoA==
+Received: by pdx-korg-bugzilla-2.web.codeaurora.org (Postfix, from userid 48)
+        id C976F60FF1; Tue, 24 Aug 2021 21:40:36 +0000 (UTC)
+From:   bugzilla-daemon@bugzilla.kernel.org
+To:     linux-man@vger.kernel.org
+Subject: [Bug 214163] hardcoded library paths in FILES section
+Date:   Tue, 24 Aug 2021 21:40:36 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Documentation
+X-Bugzilla-Component: man-pages
+X-Bugzilla-Version: unspecified
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: mtk.manpages@gmail.com
+X-Bugzilla-Status: RESOLVED
+X-Bugzilla-Resolution: CODE_FIX
+X-Bugzilla-Priority: P1
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: bug_status cc resolution
+Message-ID: <bug-214163-11311-raQHvXV5K5@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-214163-11311@https.bugzilla.kernel.org/>
+References: <bug-214163-11311@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="z4exa6y3ylfxeo5v"
-Content-Disposition: inline
-In-Reply-To: <20210824100444.kwl6jowo66zgqjps@localhost.localdomain>
-User-Agent: NeoMutt/20210205
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+https://bugzilla.kernel.org/show_bug.cgi?id=3D214163
 
---z4exa6y3ylfxeo5v
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Michael Kerrisk (mtk.manpages@gmail.com) changed:
 
-On Tue, Aug 24, 2021 at 08:04:46PM +1000, G. Branden Robinson wrote:
-> At 2021-08-24T11:50:57+0200, Michael Kerrisk (man-pages) wrote:
-> > On 8/23/21 11:01 PM, =D0=BD=D0=B0=D0=B1 wrote:
-> > > -option is given
-> > > -.BR and
-> > > -the header
-> > > -.I <alloca.h>
-> > > -is not included.
-> > > -Otherwise, (without an \-ansi or \-std=3Dc* option) the glibc versio=
-n of
-> > > -.I <stdlib.h>
-> > > -includes
-> > > +are specified, in which case
-> > >  .I <alloca.h>
-> > > -and that contains the lines:
-> > > +is required, lest an actual symbol dependency is emitted.
-> > (That last line seems like a useful addition!)
-> I agree, but I note that the verb should be in the subjunctive mood.
-Not a clue what this means, but the "is" should be "be", I do agree.
+           What    |Removed                     |Added
+----------------------------------------------------------------------------
+             Status|NEW                         |RESOLVED
+                 CC|                            |mtk.manpages@gmail.com
+         Resolution|---                         |CODE_FIX
 
-> Also, is the word "actual" doing any work here?
-Dunno; without standards conformance (-ansi, -std=3Dc*) alloca() is a
-magical identifier, in that, if you compile this:
--- >8 --
-extern void * alloca(unsigned long s);
-int main() {
-	alloca(20);
-	puts("200");
-}
--- >8 --
+--- Comment #1 from Michael Kerrisk (mtk.manpages@gmail.com) ---
+I have applied the patch below. I'll close this now. Please reopen, if you
+think something further is needed. Thanks for the report.
 
-You get
--- >8 --
-nabijaczleweli@tarta:~/uwu$ cc a.c -oa.o -c
-a.c:4:2: warning: implicit declaration of function 'puts' is invalid in C99=
- [-Wimplicit-function-declaration]
-        puts("200");
-        ^
-1 warning generated.
-nabijaczleweli@tarta:~/uwu$ readelf -s a.o
+Cheers,
 
-Symbol table '.symtab' contains 6 entries:
-   Num:    Value          Size Type    Bind   Vis      Ndx Name
-     0: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT  UND
-     1: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS a.c
-     2: 0000000000000000     0 SECTION LOCAL  DEFAULT    2
-     3: 0000000000000000     0 SECTION LOCAL  DEFAULT    4
-     4: 0000000000000000    33 FUNC    GLOBAL DEFAULT    2 main
-     5: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND puts
--- >8 --
-and if you drop the -c, it will link, run, and print "200".
+Michael
 
-If you do request standards conformance, however,
--- >8 --
-nabijaczleweli@tarta:~/uwu$ cc a.c -oa.o -c -std=3Dc18
-a.c:4:2: warning: implicit declaration of function 'puts' is invalid in C99=
- [-Wimplicit-function-declaration]
-        puts("200");
-        ^
-1 warning generated.
-nabijaczleweli@tarta:~/uwu$ readelf -s a.o
+diff --git a/man1/iconv.1 b/man1/iconv.1
+index 8207e1cea..826b7a754 100644
+--- a/man1/iconv.1
++++ b/man1/iconv.1
+@@ -174,6 +174,10 @@ Usual system default gconv module configuration file.
+ .TP
+ .I /usr/lib/gconv/gconv\-modules.cache
+ Usual system gconv module configuration cache.
++.PP
++Depending on the architecture,
++the above files may instead be located at directories with the path prefix
++.IR /usr/lib64 .
+ .SH CONFORMING TO
+ POSIX.1-2001.
+ .SH EXAMPLES
+diff --git a/man8/iconvconfig.8 b/man8/iconvconfig.8
+index d74132937..34725e4d5 100644
+--- a/man8/iconvconfig.8
++++ b/man8/iconvconfig.8
+@@ -96,6 +96,10 @@ Usual system default gconv module configuration file.
+ .TP
+ .I /usr/lib/gconv/gconv\-modules.cache
+ Usual system gconv module configuration cache.
++.PP
++Depending on the architecture,
++the above files may instead be located at directories with the path prefix
++.IR /usr/lib64 .
+ .SH SEE ALSO
+ .BR iconv (1),
+ .BR iconv (3)
 
-Symbol table '.symtab' contains 7 entries:
-   Num:    Value          Size Type    Bind   Vis      Ndx Name
-     0: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT  UND
-     1: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS a.c
-     2: 0000000000000000     0 SECTION LOCAL  DEFAULT    2
-     3: 0000000000000000     0 SECTION LOCAL  DEFAULT    4
-     4: 0000000000000000    35 FUNC    GLOBAL DEFAULT    2 main
-     5: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND alloca
-     6: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND puts
--- >8 --
-and, trivially,
--- >8 --
-nabijaczleweli@tarta:~/uwu$ cc a.c -oa -std=3Dc18
-a.c:4:2: warning: implicit declaration of function 'puts' is invalid in C99=
- [-Wimplicit-function-declaration]
-        puts("200");
-        ^
-1 warning generated.
-/bin/ld: /tmp/a-935faa.o: in function `main':
-a.c:(.text+0xa): undefined reference to `alloca'
-clang: error: linker command failed with exit code 1 (use -v to see invocat=
-ion)
--- >8 --
+--=20
+You may reply to this email to add a comment.
 
-C compilers are fully allowed to do magic, and this is some of this
-magic: unless in ISO mode, it's impossible to ODR-use alloca().
-
-> Thus:
-> [[
-> 	is required, lest a symbol dependency be emitted.
-> ]]
-Sure.
-
-Best,
-=D0=BD=D0=B0=D0=B1
-
---z4exa6y3ylfxeo5v
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmEk3vAACgkQvP0LAY0m
-WPGuZQ//SY+/B6WqVICRQDel1+nveet1ERRFgUhQu2fmwK+K6bNFxUq5TfTO+IOn
-zicskhLatMbLBYNPYRh3AsxHYWrjLbbc+cSdtdkM0ZQDgMHGZIMugcxqKs7FKMj/
-ps2/0ZkdEcnYmedIvXoreSpYsW5sZFzzF+7yngGKG9KGmK9Zi/yeLr8BmLWhFZn8
-irXbGTQOLjF2oHxqnr+YKTubo8VlAnK2kmNgIWjdNskqpWvelV+83yno9ABvaW2a
-HULPtTIl/tuszVatAiF4E3X7gMiSEObmxlH3mmOy/q8eLegOtOBUcpnWjlmu767V
-haHK4YBUaSZScFqesT7gyF6LWIkMMY4jx6i762aJCoUVZzuaYQ9Z+rkYJD2e5+e/
-BanGeAyZmZtF3l+1CaCTcHu1vGdCh2fthVGUKYms2t/Stu57y6QWmWbIS/8IBD8y
-XkZ4+bbYMS4dX9qBDCS0mmbCn63DD3QaxsBQ6LOZPL00WKIcLBAUNjJhslYLNUiD
-Av+vua3sgOAy2NZbziPE07LOK9TQWPtc0C7powzvbE6H4fQMdAcnTjRQwq6QXACa
-XTISiLCJCcC5PW9rL8T4icIICT/LQC0GMUkFk+QdcEEo0UpQtKU6dkgUxZyXovWO
-L4HHizfxFzBwbsXxtpgceMyBlYJCn7xlnYqogZ8E8XsWq1Hx9Ac=
-=RoVF
------END PGP SIGNATURE-----
-
---z4exa6y3ylfxeo5v--
+You are receiving this mail because:
+You are watching the assignee of the bug.=
