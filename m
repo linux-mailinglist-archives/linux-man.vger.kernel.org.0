@@ -2,112 +2,98 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 83D7D3F6B4C
-	for <lists+linux-man@lfdr.de>; Tue, 24 Aug 2021 23:40:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 509593F72E1
+	for <lists+linux-man@lfdr.de>; Wed, 25 Aug 2021 12:22:20 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234442AbhHXVlV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 24 Aug 2021 17:41:21 -0400
-Received: from mail.kernel.org ([198.145.29.99]:37442 "EHLO mail.kernel.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S231474AbhHXVlV (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Tue, 24 Aug 2021 17:41:21 -0400
-Received: by mail.kernel.org (Postfix) with ESMTPS id D732B6135F
-        for <linux-man@vger.kernel.org>; Tue, 24 Aug 2021 21:40:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1629841236;
-        bh=d5hDd7VxtOFE7ke920LCM0jf6Pei2ndOEVyuRbOFStE=;
-        h=From:To:Subject:Date:In-Reply-To:References:From;
-        b=LyL6y8dFZAwc8wqz/DJWXJvboPfz0CwE+lNsN+UUkT3PZKQrGTLaAuwtt9Y9zyYsK
-         VOOdZwkNTZ81H943YXQDDrqbEdSWCIwD7xPYLj8yEGZ7GkXwX+sN2JAow7X0wGt1uK
-         WNJqFUkaoE4v2LJy6XeBPTqspIJ4UjLCDhYTtOjTaDiWwmaO/nJFi9GhdvGRPC/3qo
-         F1FwnDQjkB0nvL1/kbPBy3Zr0NTfU7TxONsE0mHZ6xN9BC1Qsoo+w/wNGKa4vErA5+
-         JINHD6sWFNkoZBkglTJ5njT15larZIWArC3ii71aqzeJCOaywZvlAgFob9gUhZm7Py
-         KDen/HeJJRFoA==
-Received: by pdx-korg-bugzilla-2.web.codeaurora.org (Postfix, from userid 48)
-        id C976F60FF1; Tue, 24 Aug 2021 21:40:36 +0000 (UTC)
-From:   bugzilla-daemon@bugzilla.kernel.org
-To:     linux-man@vger.kernel.org
-Subject: [Bug 214163] hardcoded library paths in FILES section
-Date:   Tue, 24 Aug 2021 21:40:36 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: changed
-X-Bugzilla-Watch-Reason: AssignedTo
- documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Product: Documentation
-X-Bugzilla-Component: man-pages
-X-Bugzilla-Version: unspecified
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: normal
-X-Bugzilla-Who: mtk.manpages@gmail.com
-X-Bugzilla-Status: RESOLVED
-X-Bugzilla-Resolution: CODE_FIX
-X-Bugzilla-Priority: P1
-X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: bug_status cc resolution
-Message-ID: <bug-214163-11311-raQHvXV5K5@https.bugzilla.kernel.org/>
-In-Reply-To: <bug-214163-11311@https.bugzilla.kernel.org/>
-References: <bug-214163-11311@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
+        id S238303AbhHYKXD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 25 Aug 2021 06:23:03 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39734 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S237790AbhHYKW7 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 25 Aug 2021 06:22:59 -0400
+Received: from mail-il1-x129.google.com (mail-il1-x129.google.com [IPv6:2607:f8b0:4864:20::129])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 261F1C061757
+        for <linux-man@vger.kernel.org>; Wed, 25 Aug 2021 03:22:13 -0700 (PDT)
+Received: by mail-il1-x129.google.com with SMTP id v2so23381285ilg.12
+        for <linux-man@vger.kernel.org>; Wed, 25 Aug 2021 03:22:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:reply-to:from:date:message-id:subject:to;
+        bh=9Wuqrm39LeyBlccx/6hgr4ia7tek79/+NEnlDt85BqY=;
+        b=fgZkqhwu8FvLV7ryFdrkJda6ZANGs7S1o1PwgSjzuiZcosoGllNXuBJlqBRbadaNh8
+         tdwkoVVufBYfY2l3krCKb7XAfdie/glaenU9HB4Wo+i6GiEWILh/GPeGNK4N3IxBdeU4
+         6fuzDGhpDYbdv+M+zj9dioJuWZZFL3Vs6FYclLWEfnQsgqMa8cWA3ifXFgnRUcnR4Ofq
+         RrpC9fZeWLCX25t2HvkjdD1WSzsG5oGUbvdi5MNZAeoNUwSWmqAqdG7YHlKzsvhVXFJi
+         FrBR6wXVJkuz3F4uzIkzc8PR29x7rxErj4NkR2J27D6Stjw3kAwMzN59iBdY9kgaZtBJ
+         FqJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to;
+        bh=9Wuqrm39LeyBlccx/6hgr4ia7tek79/+NEnlDt85BqY=;
+        b=sMAsG3ERmJh56yZHA9+q+nPfiBirQP8W6ZJEr+T/XPwH+N6jFN8/Yl/PQdMvijMtrk
+         +IN0wJV8Z5baiO3agRCSW7QNUPEG9GgFtYAlnfl04kqaPQttzhUc0HiT9g4lwVC8R/3Q
+         zyNj7I1Ei/1WEBGmRrhw2wxLUyQEu/jQNyN6Ca8AS1ve6s/CSrrdJ0oKgnPQe+oDy2zP
+         XWJrvhW2W2rDpwf55903jj3PHf/5dUjAHoU+mhn8zYrfCu9WppbZKf8msEojM6GBrO5L
+         SkKu5/tQ8GTX4AoqKJEMLVcrQSy7eOMn1zGwr2e1NhOlBfdq/lJJiLlP5Tcb8qrZfZK+
+         x1Kw==
+X-Gm-Message-State: AOAM53052i4Q8D9ffJf0NQElZUwXYtbNjkGPGiqXs16R9uyV/55cyc4h
+        9t9w0wxoLmtmOuK+lDW8VrkStMG9g/EBCm382GM=
+X-Google-Smtp-Source: ABdhPJz/9YvGvXmaOREN1oOdB+XXd5k1DnGDxvqPECm5rPEwaRG2CgFYwAmnC+A1gLslzp0gFrkCHereWaiCxnD/MsU=
+X-Received: by 2002:a05:6e02:78d:: with SMTP id q13mr30454003ils.262.1629886932500;
+ Wed, 25 Aug 2021 03:22:12 -0700 (PDT)
 MIME-Version: 1.0
+Received: by 2002:a02:b711:0:0:0:0:0 with HTTP; Wed, 25 Aug 2021 03:22:11
+ -0700 (PDT)
+Reply-To: ansley@buttramassociates.net
+From:   "My Name Mrs. Ansley Hansen Hamdok" <ms.villion@gmail.com>
+Date:   Wed, 25 Aug 2021 10:22:11 +0000
+Message-ID: <CAEsvBcp8do6kgexhHcWVh70vSibfapAT9r=EFHTx2Gq+=akwOQ@mail.gmail.com>
+Subject: Please I need your responds My Name Mrs. Ansley Hansen Hamdok
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D214163
+Please I need your responds My Name Mrs. Ansley Hansen Hamdok
 
-Michael Kerrisk (mtk.manpages@gmail.com) changed:
+I am writing you base on your good profile. I am in search of a
+property to buy in your country; I intended to come over to your
+country for investment? I believe that I have to partner with a
+citizen to be safe in investing in your country. My name is Mrs.
+Merriam Hansen Hamdok, My late husband deals on Crude Oil with Federal
+Government of Sudan and we have a private Oil firm in Bentiu Oil zone
+town and Upper Nile city.
 
-           What    |Removed                     |Added
-----------------------------------------------------------------------------
-             Status|NEW                         |RESOLVED
-                 CC|                            |mtk.manpages@gmail.com
-         Resolution|---                         |CODE_FIX
+What I have experience physically, I don't wish to experience it again
+in my life due to the recent civil and Ethnic crises caused by our
+President Mr. Salva Kiir and the rebel leader Mr. Riek Machar, I have
+been Under United Nation refugee camp in Rue De Bass am west Africa,
+to save my life and that of my little daughter.
 
---- Comment #1 from Michael Kerrisk (mtk.manpages@gmail.com) ---
-I have applied the patch below. I'll close this now. Please reopen, if you
-think something further is needed. Thanks for the report.
 
-Cheers,
+I want to solicit for your partnership with trust to transfer and
+invest with my fund deposited at Bank by my late husband, I will
+disclose the Amount to you as we proceed. I need your help to move
+this fund to your country, because my life is no longer safe in
+Africa, since the rebels are looking for the families of all the oil
+business partners in the country, very scaring I wish you will
+understand my predicaments.
 
-Michael
+ But the truth is that I and my daughter was lucky to be part of the
+badge taken by UN KEEPING FORCE to Addis Ababa our Neighboring country
+where we took a flight to Abidjan Ivory Coast, We left Sudan and move
+to Addis Ababa our neighboring country with the few days ceasefire
+which was announced by United Nation Peace keeping Force., Because of
+face-to-face peace meeting accord coordinated by US Secretary of
+State, and United Nations in Ethiopia (Addis Ababa) between The
+sitting President Mr. Salva Kiir and the rebel leader Mr. Riek Machar
+to stop this war.
 
-diff --git a/man1/iconv.1 b/man1/iconv.1
-index 8207e1cea..826b7a754 100644
---- a/man1/iconv.1
-+++ b/man1/iconv.1
-@@ -174,6 +174,10 @@ Usual system default gconv module configuration file.
- .TP
- .I /usr/lib/gconv/gconv\-modules.cache
- Usual system gconv module configuration cache.
-+.PP
-+Depending on the architecture,
-+the above files may instead be located at directories with the path prefix
-+.IR /usr/lib64 .
- .SH CONFORMING TO
- POSIX.1-2001.
- .SH EXAMPLES
-diff --git a/man8/iconvconfig.8 b/man8/iconvconfig.8
-index d74132937..34725e4d5 100644
---- a/man8/iconvconfig.8
-+++ b/man8/iconvconfig.8
-@@ -96,6 +96,10 @@ Usual system default gconv module configuration file.
- .TP
- .I /usr/lib/gconv/gconv\-modules.cache
- Usual system gconv module configuration cache.
-+.PP
-+Depending on the architecture,
-+the above files may instead be located at directories with the path prefix
-+.IR /usr/lib64 .
- .SH SEE ALSO
- .BR iconv (1),
- .BR iconv (3)
+I will send you the document of the fund with other details for your
+acknowledgement and prove.
 
---=20
-You may reply to this email to add a comment.
 
-You are receiving this mail because:
-You are watching the assignee of the bug.=
+With love from
+Mrs. Merriam Hansen Hamdok
