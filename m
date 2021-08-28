@@ -2,157 +2,121 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E24FF3FA20D
-	for <lists+linux-man@lfdr.de>; Sat, 28 Aug 2021 02:08:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1B65D3FA218
+	for <lists+linux-man@lfdr.de>; Sat, 28 Aug 2021 02:17:56 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232720AbhH1AJh (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 27 Aug 2021 20:09:37 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40150 "EHLO
+        id S232790AbhH1ASl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 27 Aug 2021 20:18:41 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42142 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232748AbhH1AJh (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 27 Aug 2021 20:09:37 -0400
-Received: from mail-qv1-xf33.google.com (mail-qv1-xf33.google.com [IPv6:2607:f8b0:4864:20::f33])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8FAC6C0613D9
-        for <linux-man@vger.kernel.org>; Fri, 27 Aug 2021 17:08:47 -0700 (PDT)
-Received: by mail-qv1-xf33.google.com with SMTP id z2so4954234qvl.10
-        for <linux-man@vger.kernel.org>; Fri, 27 Aug 2021 17:08:47 -0700 (PDT)
+        with ESMTP id S232616AbhH1ASk (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 27 Aug 2021 20:18:40 -0400
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com [IPv6:2a00:1450:4864:20::434])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 24EE3C0617A8
+        for <linux-man@vger.kernel.org>; Fri, 27 Aug 2021 17:17:51 -0700 (PDT)
+Received: by mail-wr1-x434.google.com with SMTP id u9so12790006wrg.8
+        for <linux-man@vger.kernel.org>; Fri, 27 Aug 2021 17:17:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=fAINUSVDS1a4NKQfg+aM0nLVJqzvEwKRHBQG+ghpJcA=;
-        b=AEvAfgWsqzCtAC+Xo12twkfY/3m3z4vW8RXlNejg42jeUPKHhadV1U9wb2B94v6seo
-         GlusFcfmj1VeyEHGRurWQjmzcpK0k5H5Fe7CC68Q2hvY2WqbeAeY4zvVZIO+IHwELVQM
-         lrh9qNnEid6Zfd12jU8gxoR4P0GZzZ/sBFn0dH+zaaiCqHZ5hGhZTWAr8tMjlVdGa6zJ
-         rvCS1HZC0fGSMhlb9zCxoQfgcZtF7paMzH+uG8z7dA0g2lzCwmehhGER2FyfLBNW+QQV
-         dA0eqNCnhH6VqpIod7E9oqwK4tsc+IexTYsM+HFhqMq1HZ7OITQyAn6P+Sc4Yg8kuykO
-         Dnyw==
+        h=subject:from:to:cc:references:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=f5+uIv75v+7ZPSyvrBcLUj31d69A/pBWqE2NHmPHfoc=;
+        b=iDZSdc4wZkG0QpiROmmtPxKRFobhcoe06kFX5JKcx4yyXeUOjemDbCkwaFxxYx2JP+
+         Wr1aTthKB9nU2FzBe+U5hMiZQZdUXtn25iuvDBA8zv2LuOuP2weiHcjvNb4jl9Nk/jW7
+         j8FDeNFia+yoMNmVIgcUpMekSy6EIcLX8gUdGNZZibmjVCbX89bqkOrBqyTeHczzNXN5
+         +hshbOAEbXJavchWVSPsjOXOtjI+UbdrikBx1DgO8ikSUpMKp443cuDQJDrT7pVE+06I
+         O3Ho4yN6hVUI4OiwnnXgDxHAzCvQQPh5VC3JrrIK9djpBK/fsoQCUmC85etMHZfjlCRr
+         LIIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=fAINUSVDS1a4NKQfg+aM0nLVJqzvEwKRHBQG+ghpJcA=;
-        b=bjaqT0/WaZeVbDbYFeuB0HL/jr8jtGAS2Y5HGSFV+aEjoyNE+MrxKPzheWRkaFwekO
-         lwtH1Aar5ZII67vDiGLdWpHT+6zNwb5Y/xK2Y20GBoTQefjGgBCmc+GfzMl0RtZ95u2p
-         pvVx82vbgrmRwchhHRqHM6qbhyMTK0ljyL0Zc+X16kO/b06akK1x7FMx++2KIQ1iwSN6
-         VIW88eHh1soxL+RJuHLUiJP/88SvbAHfJEVxhXDHTHv6c45/XwJxUCobGOeCzGOjOorv
-         oCOBpySL3pAaTMXZ6o5jFJxoicOe91woDnNmF7133wC/tjyU2tnSitPYKYio0woQiadp
-         d+Yg==
-X-Gm-Message-State: AOAM533xwMnxx3FmxXYjWHxcons9C2zrbkRTHXSX9b1Cmcr8z+0o1rPW
-        VcBi5m60gvt4EciIa7BJ/VDo/UrS9F74zA==
-X-Google-Smtp-Source: ABdhPJwbMTeGHpkbWfWYvDkelaKeGkL38HpIaEYsmRPsULzO4uFsBmXqojNWMreOst/l3YjdPzQHRQ==
-X-Received: by 2002:a05:6214:250f:: with SMTP id gf15mr12561191qvb.2.1630109326667;
-        Fri, 27 Aug 2021 17:08:46 -0700 (PDT)
-Received: from [192.168.1.18] (c-73-152-9-216.hsd1.va.comcast.net. [73.152.9.216])
-        by smtp.gmail.com with ESMTPSA id x10sm4270835qto.41.2021.08.27.17.08.46
+        h=x-gm-message-state:subject:from:to:cc:references:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=f5+uIv75v+7ZPSyvrBcLUj31d69A/pBWqE2NHmPHfoc=;
+        b=l1c1nOvDRNlCVb+ZMUtN+1KWG93PPbnDKPo2l1Aeo7K1XObhclBoVlzOma7lS19cZl
+         yYTyX7x89p1ltN3ppjrvYNa4R98m26+TjbRQO8u2zCGGlJAUsDUJeKrN8cfhtX4KiPSz
+         vThQLk2mErejKGVQ8NcUL6HdXsRe3QwJZVeBfoB2Y86EmiHRuCzXUmD58QBD/zPVcukQ
+         DkGtcGAU2Dj1PX019TfDTJhCfnulAxrXTOfKrDQ36tteEnAw7oJi8rQgJZ0qJV3T0ZS6
+         A2WkTJtaGNtxS3erlIav0Mi0V99jQigbJa6hGukQdR3u4yXE12I83VLRau9prOe06eJ8
+         EuJg==
+X-Gm-Message-State: AOAM530IKxPS08cTFZXYss14/Rt6szV3VEvkKy7ClbRcQHuOazox3iuM
+        zdN15XtXKyHuF+5lt9bSc5k=
+X-Google-Smtp-Source: ABdhPJyMHdZR6+qQrN4TfQ2Zs0z+Fgc1VxfoV1hTKrMSXFktSv6Sd5UU9WBSC6xxOg8ax9Pwq3mPPw==
+X-Received: by 2002:adf:9e09:: with SMTP id u9mr5471410wre.306.1630109869781;
+        Fri, 27 Aug 2021 17:17:49 -0700 (PDT)
+Received: from [10.8.0.50] ([195.53.121.100])
+        by smtp.gmail.com with ESMTPSA id c24sm7705894wrb.57.2021.08.27.17.17.49
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 27 Aug 2021 17:08:46 -0700 (PDT)
+        Fri, 27 Aug 2021 17:17:49 -0700 (PDT)
 Subject: Re: Error in 'man operator'
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+To:     David Sletten <david.paul.sletten@gmail.com>
 Cc:     linux-man@vger.kernel.org, mtk.manpages@gmail.com
 References: <4cc4d818-58ad-529e-dd25-df3cb0fae66d@gmail.com>
  <71c78812-940e-8c15-c9ae-0dcde955232d@gmail.com>
  <40cbdcb1-1356-b749-ed53-61ed9dc2dd2e@gmail.com>
-From:   David Sletten <david.paul.sletten@gmail.com>
-Message-ID: <8aa463b6-98e0-f68a-a834-c08fb8c406e0@gmail.com>
-Date:   Fri, 27 Aug 2021 20:08:45 -0400
+Message-ID: <6666465a-ad5d-d8f7-92b1-35733f645961@gmail.com>
+Date:   Sat, 28 Aug 2021 02:17:48 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+ Thunderbird/78.13.0
 MIME-Version: 1.0
 In-Reply-To: <40cbdcb1-1356-b749-ed53-61ed9dc2dd2e@gmail.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
 Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-All right. I knew I wasn't on completely solid ground since I don't have 
-the standard. Thanks for checking.
+Hi David,
 
-On 8/27/21 8:01 PM, Alejandro Colomar (man-pages) wrote:
-> Hi David,
->
-> On 8/28/21 1:39 AM, Alejandro Colomar (man-pages) wrote:
->> Hi,
->>
->> On 8/27/21 8:11 PM, David Sletten wrote:
->>> Hi,
->>>
->>> I've run across what I believe is a minor error in the man page for 
->>> C operators (https://man7.org/linux/man-pages/man7/operator.7.html ).
->>>
->>> The man page lists casting in the 2nd row of the table:
->>>
->>>         Operator Associativity   Notes
->>>         () [] -> . ++ --                    left to right [1]
->>>         ! ~ ++ -- + - (type) * & sizeof     right to left [2]
->>>         * / %                               left to right
->>>
->>> However, in "C A Reference Manual" (5th ed.), table 7-3 on pg. 205 
->>> shows that all of the operators in row 2 above have a precedence of 
->>> 15 except for casts which have a precedence of 14. Consequently, the 
->>> man page should display casts as the (new) 3rd row in the table above.
->>>
->>> Thanks for your effort in maintaining this documentation.
->>>
->>
->> Reviewing the standard (C18), "C A Reference Manual" seems to be 
->> right.   Unary operators are mentioned in C18::6.5.3, and casts are 
->> in C18::6.5.4 (they are mentioned in order of precedence).
->>
->> I also noticed that we're missing compound literals in the first row. 
->> And we're also missing _Alignof() in the second row.
->> However, since all of those use parentheses (and braces),
->> there's no doubt in their precedence, so I'll ignore them for now.
->>
->> And for some reason they are in a different order from the one in the 
->> standard, which makes it a bit difficult to correlate what is in the 
->> manual page and what is in the standard, so I think reordering them 
->> inside the rows will also be an improvement.
->
-> There seems to be a note in the standard that implies that casts have 
-> effectively the same precedence as the unary operators (I don't know 
-> why they would have decided to define it in a separate major 
-> subsection; maybe it was easier to write the differences in that way).
->
-> See the standard: (Note 86 in C18::6.5):
->
->> 86)The syntax specifies the precedence of operators in the evaluation 
->> of an expression, which is the same as the order of themajor 
->> subclauses of this subclause, highest precedence first. Thus, for 
->> example, the expressions allowed as the operandsof the 
->> binary+operator (6.5.6) are those expressions defined in 6.5.1 
->> through 6.5.6.  The exceptions are cast expressions(6.5.4) as 
->> operands of unary operators (6.5.3), and an operand contained between 
->> any of the following pairs of operators:grouping 
->> parentheses()(6.5.1), subscripting brackets[](6.5.2.1), function-call 
->> parentheses()(6.5.2.2), and the conditionaloperator?:(6.5.15).Within 
->> each major subclause, the operators have the same precedence.  Left- 
->> or right-associativity is indicated in eachsubclause by the syntax 
->> for the expressions discussed therein
->
->
-> That makes sense, since the cast operator really is unary (it applies 
-> to a "unary expression") and since it and all of the so-called unary 
-> operators and right-to-left associativity, I can't imagine of an 
-> expression where that different precedence would matter.
->
+On 8/28/21 2:01 AM, Alejandro Colomar (man-pages) wrote:
 > I mean:
 > !(int)x
 > (int)!x
->
-> The precedence doesn't matter there, as they apply one after the 
-> other, right to left.
->
+> 
+> The precedence doesn't matter there, as they apply one after the other, 
+> right to left.
+> 
 > So, I'll keep casts in row 2.
->
-> Cheers,
->
-> Alex
->
--- 
-Have all good days!
-David Sletten
 
+Hmm, I just came up with some very stupid piece of code that can show 
+the different precedence between "unary operators" and "cast operators":
+
+sizeof(int)x;
+
+Which I hope no-one on earth would ever want to be valid C.
+
+If casts had the same precedence as unary operators, this would be:
+First, cast x to int, then apply sizeof to the resulting int (since 
+sizeof can be used without parentheses on non-types).
+
+But since sizeof has greater precedence than the cast, it would be:
+First, calculate sizeof(int), then... x?  Invalid expression!
+
+And luckily, the second thing happens, and the compiler yells:
+
+sizeof.c: In function ‘foo’:
+sizeof.c:3:20: error: expected ‘;’ before ‘x’
+     3 |  return sizeof(int)x;
+       |                    ^
+       |                    ;
+
+
+So I think this deserves a new row.
+
+Thanks!
+
+Alex
+
+> 
+> Cheers,
+> 
+> Alex
+> 
+
+
+-- 
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
