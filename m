@@ -2,105 +2,92 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 92DDA3FA59D
-	for <lists+linux-man@lfdr.de>; Sat, 28 Aug 2021 14:15:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 19C3D3FAB71
+	for <lists+linux-man@lfdr.de>; Sun, 29 Aug 2021 14:36:49 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234070AbhH1MQC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 28 Aug 2021 08:16:02 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58624 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233646AbhH1MQB (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 28 Aug 2021 08:16:01 -0400
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com [IPv6:2a00:1450:4864:20::42c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 47FCCC061756
-        for <linux-man@vger.kernel.org>; Sat, 28 Aug 2021 05:15:11 -0700 (PDT)
-Received: by mail-wr1-x42c.google.com with SMTP id d26so14768837wrc.0
-        for <linux-man@vger.kernel.org>; Sat, 28 Aug 2021 05:15:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=tC2uLa5vTPpcf5AydnmkFZT730LR1pXGxMreKMF3fK0=;
-        b=DmUesORkdppujx2Iny2PgJAgBjiq/uxcOGe5XQTCY35cp2sgylGXwLGPjKjNiGHj86
-         ZpHD5KBVnudnTRSMFzBYaFnmn0nCgVp+B+QUUFHztDFZgKSAs/y/UEgVv2Pg/v2jQs9P
-         UoIQ/+dCOMJBxUaWuC+vDp7Pfj53DOUvUK1xicQh9JBUsEDqlfneuGVw/gkPCpkLcj59
-         upbNqPlAXfsbJIanbQyxu9ZVJ8jWTPO5tYi3mLi12sDYkFtfF9UEQWZ4YZICwxXnkttY
-         XlWtChmtMHcO7Y4/lZHgq+sPd73q8ZbY00k936nmh/dBP58jykLcpR1Nw6HxRnjmN3eR
-         CmTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=tC2uLa5vTPpcf5AydnmkFZT730LR1pXGxMreKMF3fK0=;
-        b=HTpTK4ox+xZFbxKSVpFEQTaqrrziRaNOREdIzQ6yz/Hh5lwwcRxrdl5UqkqocgptEH
-         Wkv4pgcfyPFn1q4JLP67iVt1Gb0NpOJ4hOj3fo8+z0WIEg/IKsxlo3DWwE384WvmZ+JI
-         oozsWiJReE8HnnNa46vBCX/Cqk/90V68iU/mCOVRxdy2zL8C6AR0YjHSTfInJwuAWQNx
-         5k7OMv23QEfXgYivO+ZROZVDo/NU2TK6ajEJFEDx1dS5N46WMouIEvsfxQI7iMH+oWkL
-         RdDUKdUUW2+mMtFh/HiIN79FBLn4BlHKHzYMq8jZyw2/WGQPTSNzwetRyE24O4VVr3Zk
-         X7pg==
-X-Gm-Message-State: AOAM5330C1ciU8fFjpDwaAgxQgL8BV1Pcur0WQThOyz5ute0LihNNbtq
-        91bmrL14UXzt1GLCr96BeddhgZ3tHDc=
-X-Google-Smtp-Source: ABdhPJziytJndEqFkTn0iMSZ9DC2KcB0DHR7VuMqpMbgtaqnESxaMUOV6Ga6Ua/pvpJH8wkMO2734Q==
-X-Received: by 2002:a5d:4647:: with SMTP id j7mr16008182wrs.149.1630152909973;
-        Sat, 28 Aug 2021 05:15:09 -0700 (PDT)
-Received: from sqli.sqli.com ([195.53.121.100])
-        by smtp.googlemail.com with ESMTPSA id h15sm8119360wrb.22.2021.08.28.05.15.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 28 Aug 2021 05:15:09 -0700 (PDT)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     mtk.manpages@gmail.com
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org
-Subject: [PATCH 2/2] operator.7: Reorder symbols as in the standard (C11)
-Date:   Sat, 28 Aug 2021 14:11:08 +0200
-Message-Id: <20210828121106.999689-2-alx.manpages@gmail.com>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20210828121106.999689-1-alx.manpages@gmail.com>
-References: <20210828121106.999689-1-alx.manpages@gmail.com>
+        id S235250AbhH2MgB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 29 Aug 2021 08:36:01 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124]:46991 "EHLO
+        us-smtp-delivery-124.mimecast.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S235242AbhH2MgA (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 29 Aug 2021 08:36:00 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1630240508;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         content-transfer-encoding:content-transfer-encoding:
+         in-reply-to:in-reply-to:references:references;
+        bh=+SwzYTeiMWrqMBinDJupc6mGd3xRosngl05wMwuWfWw=;
+        b=T414L/TZvF1qqvoxeIxGSb1ve3dr3qKxkt8g7brJGDyD4k5jU7K4YGEuLOWX98H13GWspt
+        rNXn7dVcGUX7lU/Hik6HmiEQ/TzMOS9A9mM6r9s1LoEdQVcTfJZcsHSuYERfetWKO9qFva
+        hdMHdj3vMUfBHlp7KxerYKQ5xCiKv0s=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-100-1xGLWVx7Op2JkrESmm_4-Q-1; Sun, 29 Aug 2021 08:35:03 -0400
+X-MC-Unique: 1xGLWVx7Op2JkrESmm_4-Q-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DBBA31008062;
+        Sun, 29 Aug 2021 12:35:02 +0000 (UTC)
+Received: from oldenburg.str.redhat.com (unknown [10.39.194.140])
+        by smtp.corp.redhat.com (Postfix) with ESMTPS id 9EF74189C4;
+        Sun, 29 Aug 2021 12:35:01 +0000 (UTC)
+From:   Florian Weimer <fweimer@redhat.com>
+To:     Paul Eggert <eggert@cs.ucla.edu>
+Cc:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
+        mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Subject: Re: [PATCH] malloc_hook.3: modernize for glibc 2.34
+References: <20210810193708.10277-1-eggert@cs.ucla.edu>
+        <20210810193708.10277-2-eggert@cs.ucla.edu>
+        <6bb93825-0a24-75ad-9c56-9913f6e2978e@cs.ucla.edu>
+        <87b23795-ac94-9ba4-087a-8c75e3d30764@gmail.com>
+        <56b090e7-3b39-7a1d-5e59-1e836eb0cca4@cs.ucla.edu>
+Date:   Sun, 29 Aug 2021 14:34:59 +0200
+In-Reply-To: <56b090e7-3b39-7a1d-5e59-1e836eb0cca4@cs.ucla.edu> (Paul Eggert's
+        message of "Fri, 27 Aug 2021 16:34:38 -0700")
+Message-ID: <871r6cv37w.fsf@oldenburg.str.redhat.com>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/27.2 (gnu/linux)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This makes it easier to compare this page to the standard,
-to get more details about the rules between operators.
+* Paul Eggert:
 
-Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
----
- man7/operator.7 | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+> On 8/27/21 4:11 PM, Alejandro Colomar (man-pages) wrote:
+>
+>> All good until here.=C2=A0 (Maybe the glibc commit that removed this
+>> could go in the commit message, if you know it.)
+>
+> I don't know it, unfortunately.
+>
+>>>> =C2=A0 Programmers should instead preempt calls to the relevant functi=
+ons
+>>>> -by defining and exporting functions such as "malloc" and "free".
+>>>> +by defining and exporting
+>>>> +.BR malloc (),
+>>>> +.BR free (),
+>>>> +.BR realloc (),
+>>>> +and
+>>>> +.BR calloc ().
+>> Did this change with glibc 2.34?
+>
+> The glibc manual changed (it started documenting this stuff) but this
+> part of the implementation did not change.
 
-diff --git a/man7/operator.7 b/man7/operator.7
-index 22c107c7f..2770c5806 100644
---- a/man7/operator.7
-+++ b/man7/operator.7
-@@ -47,13 +47,13 @@ This manual page lists C operators and their precedence in evaluation.
- lb lb lb
- l l l.
- Operator	Associativity	Notes
--() [] \-> . ++ \-\-	left to right	[1]
--! \(ti ++ \-\- + \- * & sizeof	right to left	[2]
-+[] () . \-> ++ \-\-	left to right	[1]
-+++ \-\- & * + \- \(ti ! sizeof	right to left	[2]
- (type)	right to left
- * / %	left to right
- + \-	left to right
- << >>	left to right
--< <= > >=	left to right
-+< > <= >=	left to right
- == !=	left to right
- &	left to right
- \(ha	left to right
-@@ -61,7 +61,7 @@ Operator	Associativity	Notes
- &&	left to right
- ||	left to right
- ?:	right to left
--= += \-= *= /= %= <<= >>= &= \(ha= |=	right to left
-+= *= /= %= += \-= <<= >>= &= \(ha= |=	right to left
- ,	left to right
- .TE
- .PP
--- 
-2.33.0
+The documentation is somewhat older than 2.34 and was just minimally
+amended.  It's here:
+
+  Replacing malloc
+  <https://www.gnu.org/software/libc/manual/html_node/Replacing-malloc.html>
+
+In particular, it lists additional functions that may have to be
+interposed due to application use.
+
+Thanks,
+Florian
 
