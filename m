@@ -2,68 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id BB3CB3FB4B8
-	for <lists+linux-man@lfdr.de>; Mon, 30 Aug 2021 13:45:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2AED13FB9D7
+	for <lists+linux-man@lfdr.de>; Mon, 30 Aug 2021 18:09:39 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S236430AbhH3LqJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 30 Aug 2021 07:46:09 -0400
-Received: from smtpout3.3005.mail-out.ovh.net ([217.182.185.173]:41801 "EHLO
-        smtpout3.3005.mail-out.ovh.net" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S232579AbhH3LqI (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 30 Aug 2021 07:46:08 -0400
-X-Greylist: delayed 337 seconds by postgrey-1.27 at vger.kernel.org; Mon, 30 Aug 2021 07:46:08 EDT
-Received: from mxplan6.mail.ovh.net (unknown [10.108.16.193])
-        by mo3005.mail-out.ovh.net (Postfix) with ESMTPS id 2AD2213D962;
-        Mon, 30 Aug 2021 11:39:36 +0000 (UTC)
-Received: from jwilk.net (37.59.142.100) by DAG4EX2.mxp6.local (172.16.2.32)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.14; Mon, 30 Aug
- 2021 13:39:35 +0200
-Authentication-Results: garm.ovh; auth=pass (GARM-100R003d9fa24ac-896e-4efb-a589-1f99647cc97f,
-                    4B5A455AAF38AFF8B6079C5B004C246F56887262) smtp.auth=jwilk@jwilk.net
-X-OVh-ClientIp: 5.173.65.119
-Date:   Mon, 30 Aug 2021 13:39:34 +0200
-From:   Jakub Wilk <jwilk@jwilk.net>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-CC:     Dave Chupreev <cdn.dev@yandex.ru>, <linux-man@vger.kernel.org>,
-        Michael Kerrisk <mtk.manpages@gmail.com>
-Subject: Re: exit: Bug reporting
-Message-ID: <20210830113934.h3bu6oemxhun2jwc@jwilk.net>
-References: <268231613796665@mail.yandex.ru>
- <4c169a8f-4368-3423-1af1-e7f6ba7df8b9@gmail.com>
- <90ba66dc-8c1e-fea9-20f5-16ed65535d00@gmail.com>
+        id S237661AbhH3QKU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 30 Aug 2021 12:10:20 -0400
+Received: from mail.kernel.org ([198.145.29.99]:46118 "EHLO mail.kernel.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S237620AbhH3QKS (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Mon, 30 Aug 2021 12:10:18 -0400
+Received: by mail.kernel.org (Postfix) with ESMTPSA id E87FE60F5E;
+        Mon, 30 Aug 2021 16:09:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1630339765;
+        bh=XL12H4+Ff1iGzjELsw4cfuQbxWHGyRqZmGEYU6aGAJI=;
+        h=From:To:Cc:Subject:Date:From;
+        b=H+LhhANuEHqhp0I/T981sV2m6KiIOipN0BcI/ZeIXsS8dpbghnwMlg1KfktyuLgV4
+         +A8ZbUDWj06+H6tlGQRfLLmviKn3jtkGBKLeb9DybqnT2OB45fmO85zE6M4QjE+zN3
+         Jq+DtIGHZPOWE1iV4UhiOVgRCfQIKq+gv0YtUam+/CXhlE2WG6RbtCTkUFfJ17NZcl
+         HniG4Mj+1tsjrmrxJGNQhkvLAQk8ctH7qA/ZCnxs4xcite4bfMv5+j49rcIEc5j8P6
+         BRXiS/8oOs0yT9PtsrYW1nYjgrLS4YehgwGyE0sAjeH+2zIhxfWmVDzhM6cexxriVe
+         Q8RDIbaIqthlg==
+Received: by pali.im (Postfix)
+        id ADA787B8; Mon, 30 Aug 2021 18:09:22 +0200 (CEST)
+From:   =?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org,
+        =?UTF-8?q?Marek=20Beh=C3=BAn?= <kabel@kernel.org>
+Subject: [PATCH] ioctl_tty.2: TIOCGSID is equivalent to tcgetsid()
+Date:   Mon, 30 Aug 2021 18:08:57 +0200
+Message-Id: <20210830160857.25574-1-pali@kernel.org>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <90ba66dc-8c1e-fea9-20f5-16ed65535d00@gmail.com>
-User-Agent: NeoMutt/20180716
-X-Originating-IP: [37.59.142.100]
-X-ClientProxiedBy: DAG1EX2.mxp6.local (172.16.2.2) To DAG4EX2.mxp6.local
- (172.16.2.32)
-X-Ovh-Tracer-GUID: 880dcd25-ea31-4078-bc3f-6adb1ff85f6f
-X-Ovh-Tracer-Id: 14085007838449752032
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: 0
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvtddrudduledggeefucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucenucfjughrpeffhffvuffkfhggtggugfgjfghisehtkeertddtreejnecuhfhrohhmpeflrghkuhgsucghihhlkhcuoehjfihilhhksehjfihilhhkrdhnvghtqeenucggtffrrghtthgvrhhnpefhffdtueelvedvffefgfejveehudejgfeikeetudejieeuvdfghfduudegffeujeenucfkpheptddrtddrtddrtddpfeejrdehledrudegvddruddttdenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhhouggvpehsmhhtphdqohhuthdphhgvlhhopehmgihplhgrnheirdhmrghilhdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomhepjhifihhlkhesjhifihhlkhdrnhgvthdprhgtphhtthhopehmthhkrdhmrghnphgrghgvshesghhmrghilhdrtghomh
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-* Alejandro Colomar <alx.manpages@gmail.com>, 2021-02-20, 11:05:
->In the Linux kernel, there's only one system call, and it's called 
->exit (its entry point is sys_exit(), and can be called using 
->syscall(SYS_exit, ...) *but don't*), BUT it implements the 
->functionality of _exit() (as the standards call it; see above).
+Signed-off-by: Pali Rohár <pali@kernel.org>
+---
+ man2/ioctl_tty.2 | 3 +++
+ 1 file changed, 3 insertions(+)
 
-To clarify, that's how it used to be, but since 2002ish there's also 
-sys_exit_group, and glibc's _exit() uses that.
-
-BTW, the exit_group.2 man page could use an update (possibly by merging 
-it into exit.2): it says that the "system call is is equivalent to 
-_exit(2) except that it terminates not only the calling thread, but all 
-threads in the calling process’s thread group", which isn't helpful 
-these days.
-
+diff --git a/man2/ioctl_tty.2 b/man2/ioctl_tty.2
+index c7a8aad7b395..6ba18f337e8f 100644
+--- a/man2/ioctl_tty.2
++++ b/man2/ioctl_tty.2
+@@ -401,6 +401,9 @@ Set the foreground process group ID of this terminal.
+ Argument:
+ .BI "pid_t *" argp
+ .IP
++When successful, equivalent to
++.IR "*argp = tcgetsid(fd)" .
++.IP
+ Get the session ID of the given terminal.
+ This fails with the error
+ .B ENOTTY
 -- 
-Jakub Wilk
+2.20.1
+
