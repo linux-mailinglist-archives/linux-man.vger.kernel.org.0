@@ -2,117 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id AAC1A3FB202
-	for <lists+linux-man@lfdr.de>; Mon, 30 Aug 2021 09:38:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A16F93FB3F6
+	for <lists+linux-man@lfdr.de>; Mon, 30 Aug 2021 12:39:00 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234030AbhH3Hjc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 30 Aug 2021 03:39:32 -0400
-Received: from mail.kernel.org ([198.145.29.99]:36638 "EHLO mail.kernel.org"
+        id S236288AbhH3Kjw (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 30 Aug 2021 06:39:52 -0400
+Received: from mail.kernel.org ([198.145.29.99]:40026 "EHLO mail.kernel.org"
         rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S234037AbhH3Hjc (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Mon, 30 Aug 2021 03:39:32 -0400
-Received: by mail.kernel.org (Postfix) with ESMTPSA id B8B5A60FE6;
-        Mon, 30 Aug 2021 07:38:15 +0000 (UTC)
-Date:   Mon, 30 Aug 2021 09:38:01 +0200
-From:   Christian Brauner <christian.brauner@ubuntu.com>
-To:     Andrew Wock <ajwock@gmail.com>
-Cc:     linux-man@vger.kernel.org, alx.manpages@gmail.com,
-        mtk.manpages@gmail.com, christian@brauner.io,
-        linux-kernel@vger.kernel.org
-Subject: Re: [patch] clone.2: Add EACCES with CLONE_INTO_CGROUP + clone3 to
- ERRORS
-Message-ID: <20210830073801.tbbxhnw3dg5saxt7@wittgenstein>
-References: <CAACtx1b_v3nbv8EkAQ1f7ee=yt3ECm_a6kb1KNdBPZ5F20ndFw@mail.gmail.com>
+        id S236269AbhH3Kjw (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Mon, 30 Aug 2021 06:39:52 -0400
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 9B695610CC;
+        Mon, 30 Aug 2021 10:38:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1630319938;
+        bh=I+4eZrEOZGURUCVCncd4bZbW3ZpyMc9JSP7v6Rc7Pxs=;
+        h=Date:From:To:Subject:From;
+        b=HqR639eRqup1V9xkRFKrPfr5bKKzRtl/QxooSZJb1+3jAf2nAHV6unLsV1x6Oa7s8
+         le61bMjF8jBLMGQnM8dkqceDnnxbpK6VGos0Is3P1pJ5opj8KTmzWc2BJbKBLesrMB
+         BTgXbylxUj/CMjGvnxpr+PBGSR2NYMkznRRiQk/fu8CgkvHkfS+GKMfxv8wiO3UH0l
+         OUZOzUehWg4UOZeVsrRnyy35xQvBGgUTG6uYUc0L47KKSeWPAlnuJWCOV9VPab+1sz
+         6eFSIN7Gj4r/eh1iAT0CeWoEzwj2cSIhUKk3N3mEm3aczgRw9xXJGm1eAXn9qNzVv0
+         PIHsjb41DBbdw==
+Received: by pali.im (Postfix)
+        id 1DDB57B8; Mon, 30 Aug 2021 12:38:56 +0200 (CEST)
+Date:   Mon, 30 Aug 2021 12:38:55 +0200
+From:   Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>
+To:     Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org
+Subject: cfsetispeed and zero baudrate
+Message-ID: <20210830103855.kv2ykg34m3eorrel@pali>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAACtx1b_v3nbv8EkAQ1f7ee=yt3ECm_a6kb1KNdBPZ5F20ndFw@mail.gmail.com>
+User-Agent: NeoMutt/20180716
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Sun, Aug 29, 2021 at 03:57:06PM -0400, Andrew Wock wrote:
-> Resending because it's my first time mailing the lkml and I used html.
-> Reattempting w/ gmail's plaintext mode.  I apologise if this is
-> reaching you twice.
-> 
-> I noticed that clone3 can send the EACCES errno after I wrote a
-> program that used clone3 with the CLONE_INTO_CGROUP flag.  To me, it's
-> important to know what kind of failure occurred if the clone3 fails,
-> so I was glad that a unique errno is set for this case, but it wasn't
-> documented on the clone man page.
+Hello Alejandro!
 
-In essence, any error that could occur during regular fs-based migration
-at write-time can also occur during CLONE_INTO_CGROUP. The clone3()
-manpage just has the inverse of that above statement:
+Currently in cfsetispeed() documentation is written:
 
-"Note that all of the usual restrictions (described in cgroups(7)) on
-placing a process into a version 2 cgroup apply."
+  If the input baud rate is set to zero, the input baud rate will be
+  equal to the output baud rate.
 
-> 
-> I've attached a patch and a test program.
-> 
-> Test program is attached as clone3_doc.c.  Create
-> /sys/fs/cgroup/not-allowed as root, then run the program.  It should
-> set errno to EACCES.
+There is B0 constant which represents "zero baud rate". And also
+information that argument for cfsetispeed() (and also cfsetospeed())
+must be Bnnn constant.
 
-This is a manpage update, right? In that case it's not necessarily
-needed to Cc lkml aka linux-kernel@... itself.
+But above quote documents special handling, "zero" here is really
+integer 0 and not pre-defined constant B0.
 
-For the content:
-Acked-by: Christian Brauner <christian.brauner@ubuntu.com>
+I think that phrase "If the input baud rate is set to zero" could be
+confusing, as based on requirement to use Bnnn constants somebody could
+interpret that "zero" as B0.
 
-(I have no idea what patch format Michael will accept so I can't really
-ack that. :))
+What do you think, should be above documentation part extended to
+express that "zero" is really integer 0 and not constant B0?
 
-> 
-> Thanks,
-> Andrew Wock
-
-> #include <stdio.h>
-> #include <errno.h>
-> #include <stdlib.h>
-> #include <string.h>
-> #include <signal.h>
-> #include <fcntl.h>
-> 
-> #include <linux/sched.h>    /* Definition of struct clone_args */
-> #include <sched.h>          /* Definition of CLONE_* constants */
-> #include <sys/syscall.h>    /* Definition of SYS_* constants */
-> #include <unistd.h>
-> 
-> /*
->  * Preconditions:
->  * - /sys/fs/cgroup/not-allowed is a real cgroup.
->  * - You are not root and do not have write permissions to
->  *   /sys/fs/cgroup/not-allowed/cgroup.procs
->  */
-> int main() {
->   pid_t pid;
->   int fd;
->   struct clone_args cl_args = {0};
->   char *cgPath = "/sys/fs/cgroup/not-allowed";
-> 
->   fd = open(cgPath, O_RDONLY);
->   if (fd == -1) {
->     fprintf(stderr, "Could not open cgroup %s: %s\n", cgPath, strerror(errno));
->     exit(1);
->   }
-> 
->   cl_args.exit_signal = SIGCHLD;
->   cl_args.flags = CLONE_INTO_CGROUP;
->   cl_args.cgroup = fd;
->   pid = syscall(SYS_clone3, &cl_args, sizeof(cl_args));
->   if (pid == -1) {
->     if (errno == EACCES) {
->       printf("EACCES detected\n");
->       exit(0);
->     }
->     fprintf(stderr, "Could not clone into cgroup: %s\n", strerror(errno));
->   } else if (pid == 0) {
->     fprintf(stderr, "Are you root, or do you have write access to %s?\n", cgPath);
->   }
->   exit(1);
-> }
-
-
+Some references:
+* glibc really checks for integer 0:
+  https://sourceware.org/git/?p=glibc.git;a=blob;f=sysdeps/unix/sysv/linux/speed.c;h=daac5ecde1f3695b8cb178002e8756895406087b;hb=HEAD#l86
+* POSIX describes that it is integer 0:
+  https://pubs.opengroup.org/onlinepubs/9699919799/functions/tcsetattr.html
