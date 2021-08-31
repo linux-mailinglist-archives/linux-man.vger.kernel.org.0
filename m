@@ -2,136 +2,105 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0137D3FCD05
-	for <lists+linux-man@lfdr.de>; Tue, 31 Aug 2021 20:47:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0EE4D3FCE92
+	for <lists+linux-man@lfdr.de>; Tue, 31 Aug 2021 22:29:34 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231862AbhHaSmZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 31 Aug 2021 14:42:25 -0400
-Received: from frotz.zork.net ([69.164.197.204]:53162 "EHLO frotz.zork.net"
+        id S241086AbhHaUa2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 31 Aug 2021 16:30:28 -0400
+Received: from mail.kernel.org ([198.145.29.99]:51782 "EHLO mail.kernel.org"
         rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S229602AbhHaSmZ (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Tue, 31 Aug 2021 14:42:25 -0400
-X-Greylist: delayed 440 seconds by postgrey-1.27 at vger.kernel.org; Tue, 31 Aug 2021 14:42:25 EDT
-Received: by frotz.zork.net (Postfix, from userid 1008)
-        id E45DC11999; Tue, 31 Aug 2021 18:34:08 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 frotz.zork.net E45DC11999
-Date:   Tue, 31 Aug 2021 11:34:08 -0700
-From:   Seth David Schoen <schoen@loyalty.org>
-To:     linux-man@vger.kernel.org
-Cc:     netdev@vger.kernel.org, John Gilmore <gnu@toad.com>
-Subject: [PATCH v3] ip.7: Add "Special and reserved addresses" section
-Message-ID: <20210831183408.GI1796634@frotz.zork.net>
-Mail-Followup-To: Seth David Schoen <schoen@loyalty.org>,
-        linux-man@vger.kernel.org, netdev@vger.kernel.org,
-        John Gilmore <gnu@toad.com>
+        id S229887AbhHaUa2 (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Tue, 31 Aug 2021 16:30:28 -0400
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 53F6560F12;
+        Tue, 31 Aug 2021 20:29:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1630441772;
+        bh=/49yLmN1gyTtPsJh8OeF6z5DrQOtXl0mziiYG5w/lkU=;
+        h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+        b=nJt5uIl4JpyIeFPeT633K5k+ug1Gf7PuEwn6hVJSJVsCDhr+SVwaEvE3qfHLo1IM7
+         ZLxZrak6JW0ZtLDn3QNLHZSOFy0INHXdPYgN5/2GAQXPBXcoz+YrUKT0hMx62qbaBr
+         RGBlk3fMQJ5M1L5cOJuipcrrWmSIIiwE7KiavFlbHsh3pjfty+kHPblp4ODPf5xzCx
+         LyNpzI4R8ECVeh7AnGtTcZIEH93aTG7pQDwHdW5OSZVQ9TtAElxyJUISpCpPIhmVQn
+         IjnavCOD659vt5ZGDrxQAMjLtNqjvIahUQtFO395f80nvMq1U+7bwn0RcYGlTcLJ4A
+         zOYTt0upBlyjw==
+Received: by pali.im (Postfix)
+        id 0230DEF2; Tue, 31 Aug 2021 22:29:29 +0200 (CEST)
+From:   =?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+Cc:     =?UTF-8?q?Marek=20Beh=C3=BAn?= <kabel@kernel.org>,
+        libc-alpha@sourceware.org,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        linux-man@vger.kernel.org
+Subject: [PATCH v3] ioctl_tty.2: Fix information about header include file
+Date:   Tue, 31 Aug 2021 22:28:09 +0200
+Message-Id: <20210831202809.29819-1-pali@kernel.org>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <3d927d3c-67a1-bb48-b597-44c87b8f715a@gmail.com>
+References: <3d927d3c-67a1-bb48-b597-44c87b8f715a@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Add a new section with a more detailed description of the IPv4 addresses
-that have a special meaning in Internet standards, and how these affect
-Linux.
+Header file termios.h contains incompatible definitions for linux ioctl
+calls. Correct definitions are exported by header file linux/termios.h but
+this file conflicts with sys/ioctl.h header file (required for ioctl()
+call). Therefore include direct asm header file asm/termbits.h which
+contains compatible definitions and structures for ioctl calls.
 
-The occasion for this update is the inclusion of our patch in Linux 5.14,
-which changes Linux's subnet broadcast address behavior.
+Signed-off-by: Pali Rohár <pali@kernel.org>
 
-The divergences in Linux's behavior mentioned in this patch were
-introduced at
-
-unicast 240/4 (since 2.6.25):
-  commit 1e637c74b0f84eaca02b914c0b8c6f67276e9697
-  Author: Jan Engelhardt <jengelh@computergmbh.de>
-  Date:   Mon Jan 21 03:18:08 2008 -0800
-
-unicast 0/8 (since 5.3):
-  commit 96125bf9985a75db00496dd2bc9249b777d2b19b
-  Author: Dave Taht <dave.taht@gmail.com>
-  Date:   Sat Jun 22 10:07:34 2019 -0700
-
-unicast subnet lowest address (since 5.14):
-  commit 58fee5fc83658aaacf60246aeab738946a9ba516
-  Merge: 77091933e453 6101ca0384e3
-  Author: David S. Miller <davem@davemloft.net>
-  Date:   Mon May 17 13:47:58 2021 -0700
-
-Signed-off-by: Seth David Schoen <schoen@loyalty.org>
-Suggested-by: John Gilmore <gnu@toad.com>
 ---
- man7/ip.7 | 48 +++++++++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 45 insertions(+), 3 deletions(-)
+Changes in v3:
+* Use .I <file> instead of .B #include <file>
+* Use Bnnn instead of Bnn
 
-diff --git a/man7/ip.7 b/man7/ip.7
-index 7eee2811e..0c228a9c2 100644
---- a/man7/ip.7
-+++ b/man7/ip.7
-@@ -232,6 +232,7 @@ In particular, this means that you need to call
- on the number that is assigned to a port.
- All address/port manipulation
- functions in the standard library work in network byte order.
-+.SS Special and reserved addresses
+Changes in v2:
+* Reformat SYNOPSIS for 80 chars per line
+---
+ man2/ioctl_tty.2 | 19 +++++++++++++++++--
+ 1 file changed, 17 insertions(+), 2 deletions(-)
+
+diff --git a/man2/ioctl_tty.2 b/man2/ioctl_tty.2
+index 186011ee7c33..7d866867c6bd 100644
+--- a/man2/ioctl_tty.2
++++ b/man2/ioctl_tty.2
+@@ -11,8 +11,10 @@ ioctl_tty \- ioctls for terminals and serial lines
+ .SH SYNOPSIS
+ .nf
+ .B #include <sys/ioctl.h>
+-.BR "#include <termios.h>" "      /* Definition of " CLOCAL ", and"
+-.BR    "                             TC*" { FLUSH , ON , OFF "} constants */"
++.BR "#include <asm/termbits.h>" "   /* Definition of " "struct termios" ,
++.BR    "                               struct termios2" ", and"
++.BR    "                               Bnnn" ", " BOTHER ", " CBAUD ", " CLOCAL ,
++.BR    "                               TC*" { FLUSH , ON , OFF "} and other constants */"
  .PP
- There are several special addresses:
- .B INADDR_LOOPBACK
-@@ -239,12 +240,53 @@ There are several special addresses:
- always refers to the local host via the loopback device;
- .B INADDR_ANY
- (0.0.0.0)
--means any address for binding;
-+means any address for socket binding;
- .B INADDR_BROADCAST
- (255.255.255.255)
--means any host and has the same effect on bind as
-+has the same effect on socket binding as
- .B INADDR_ANY
--for historical reasons.
-+for historical reasons. A packet addressed to
-+.B INADDR_BROADCAST
-+through a socket which has
-+.B SO_BROADCAST
-+set will be broadcast to all hosts on the local network segment, as
-+long as the link is broadcast-capable.
+ .BI "int ioctl(int " fd ", int " cmd ", ...);"
+ .fi
+@@ -31,6 +33,19 @@ makes for nonportable programs.
+ Use the POSIX interface described in
+ .BR termios (3)
+ whenever possible.
 +.PP
-+Internet standards have also traditionally reserved various
-+addresses for particular uses. (Some reserved addresses are no longer
-+treated specially by Linux kernels, as described below.) The addresses
-+in the ranges 0.0.0.1 through 0.255.255.255 and 240.0.0.0 through
-+255.255.255.254 (0/8 and 240/4, in CIDR notation) are reserved globally.
-+All addresses from 127.0.0.1 through 127.255.255.254
-+are treated as loopback addresses akin to the standardized
-+local loopback address 127.0.0.1, while addresses in 224.0.0.0 through
-+239.255.255.255 (224/4) are dedicated to multicast use.
-+.PP
-+On any locally-attached IP subnet with a link type that supports
-+broadcasts, the highest-numbered address (e.g., the .255 address on a
-+subnet with netmask 255.255.255.0) is designated as a broadcast address.
-+This "broadcast address" cannot usefully be assigned to an interface, and
-+can only be addressed
-+with a socket on which the
-+.B SO_BROADCAST
-+option has been set.
-+Internet standards have historically also reserved the lowest-numbered
-+address (e.g., the .0 address on a subnet with netmask 255.255.255.0)
-+for broadcast, though they call it "obsolete" for this purpose.
-+.IP \(bu 2
-+Since Linux 2.6.25, 240/4 addresses (except 255.255.255.255) are treated
-+as ordinary unicast addresses, and can therefore be assigned to an interface.
-+.IP \(bu
-+Since Linux 5.3, this is also true for 0/8 addresses (except 0.0.0.0).
-+.IP \(bu
-+Since Linux 5.14, this is also true for the lowest address on a subnet
-+(e.g., the .0 address in a /24 network).
-+.PP
-+Operating systems that follow the traditional behaviors may not
-+interoperate with a system using these historically reserved addresses.
-+However, distant hosts will interoperate with the lowest address on a
-+subnet, as long as the local router and the host to which it is assigned
-+both treat it as a unicast address.
- .SS Socket options
- IP supports some protocol-specific socket options that can be set with
- .BR setsockopt (2)
++Please note that
++.B struct termios
++from
++.I <asm/termbits.h>
++is different and incompatible with
++.B struct termios
++from
++.IR <termios.h> .
++These ioctl calls require
++.B struct termios
++from
++.IR <asm/termbits.h> .
+ .SS Get and set terminal attributes
+ .TP
+ .B TCGETS
 -- 
-2.25.1
+2.20.1
 
