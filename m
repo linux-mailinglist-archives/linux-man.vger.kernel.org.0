@@ -2,65 +2,64 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 5A1B63FBFF3
+	by mail.lfdr.de (Postfix) with ESMTP id C66E23FBFF4
 	for <lists+linux-man@lfdr.de>; Tue, 31 Aug 2021 02:28:24 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232179AbhHaA0v (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 30 Aug 2021 20:26:51 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45616 "EHLO
+        id S232360AbhHaA1B (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 30 Aug 2021 20:27:01 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45658 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230523AbhHaA0u (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 30 Aug 2021 20:26:50 -0400
-Received: from mail-pf1-x433.google.com (mail-pf1-x433.google.com [IPv6:2607:f8b0:4864:20::433])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6A9D8C061575
-        for <linux-man@vger.kernel.org>; Mon, 30 Aug 2021 17:25:56 -0700 (PDT)
-Received: by mail-pf1-x433.google.com with SMTP id g14so13593275pfm.1
-        for <linux-man@vger.kernel.org>; Mon, 30 Aug 2021 17:25:56 -0700 (PDT)
+        with ESMTP id S230523AbhHaA1B (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 30 Aug 2021 20:27:01 -0400
+Received: from mail-pj1-x1036.google.com (mail-pj1-x1036.google.com [IPv6:2607:f8b0:4864:20::1036])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CC2E6C061575
+        for <linux-man@vger.kernel.org>; Mon, 30 Aug 2021 17:26:06 -0700 (PDT)
+Received: by mail-pj1-x1036.google.com with SMTP id j10-20020a17090a94ca00b00181f17b7ef7so712264pjw.2
+        for <linux-man@vger.kernel.org>; Mon, 30 Aug 2021 17:26:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=cc:subject:to:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=aN/O1jtOJRMg6qp27Gkj4caOcVBMOgj+ghGkyYVxDqc=;
-        b=vftkbwHicJLFjawUZFUG7fKADpFRvb+BxyHcXhNJpmuIIzWG04Y1r6Vn5tE7aw8k1F
-         1Lt6WOt76pY1kwALTXV7M/HxtlUYQQJPunxVp1uNkuRd5TuYg7QbE+sr6WEqWvHBmwUQ
-         VB0f0FzsEcmECIE4GaxX9L9o0C5AlqquNWNidfSffW/EpMQlVq8yL+wqe8NndUC3l3PA
-         BOW7JpSs1Owfpi8nJ1MYVTRligau4f5ssN7AQzXyioOhYG385q7shl1pUor4gCyZ5ikx
-         M5QZw5MQLTSXjwhN4FIVJpSj44pXAcIaOcflktnkn/A86mtXqVpvzDZVOzUEe5rC9yrb
-         39zA==
+        bh=UMB4jUN6l/ITelsTbKop/eJv24YlZ1jjp/4ZI9AjOF0=;
+        b=nmI+Awk2iqqtBmQHm5WRCywjjm0HaP54jDjn3H/fJB7XMycsrnOFW7N7ZsPc7xgNEE
+         AWNwBLX9zXR5p4Vj0/Dz3E+J0HggFIlSEq5neaE6P2kyWFlToW65KYK4H5ISzNClwTMd
+         l57DHVymV2PlCFixu5yrrNDwH/QtHr30FGGQR3YsmxaNNdP8BdPPXOInHyVe3msg/cbF
+         HUK8RKyGsMI7RirmmIyy+/Vgc6JOLY0wtLYHfZ5Fu5PvS3VDUr2o+OHuFlUSRZTwfRmL
+         soBqPJ/TI3U4BR9EEwpG1pui9qGMdJ0uvzLXdH7mvR8JawT8qTK48Tb2EHQ+0IZlq1cJ
+         /K2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:cc:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=aN/O1jtOJRMg6qp27Gkj4caOcVBMOgj+ghGkyYVxDqc=;
-        b=gs7639B1P9FGi8D7Tfu/mJUjSrq43GJ8V71aVBjWsB1IjEGx5JPKrQq5YFJBIjMaIP
-         +jpD919TMC2FqfHOReomtnzgVqFAxHTEsugOZnmHea6qkgkeT4LqfhLsmgiac02D9CBC
-         53N6h+tEZfzmowHXK0Yws+r0If784yjzZD9hnFNI3j6Z9di1mYvJFPjoD4y+N700An3k
-         jQQVGpPD/0iN2qb2L017LDrpccPDMtIYi0+Z1M8aswc/0bGF6KDYHH/fOwvCu0w0vUZw
-         wTRRw+9OVj8JoKIJNOflxUYHPKAn08McALpWQPwQB5UpLDo4qgGeGU4rFdrcAFB68FW7
-         n1uw==
-X-Gm-Message-State: AOAM533JUIizJFbHyFGQ+mchBnPf8qwl2ti+Gm+WF+MnpQqsqsmBbtpk
-        me3UxDBkzLyR3HvXP3Ug3P6nron8Fo0=
-X-Google-Smtp-Source: ABdhPJyXPGsKP1lr4gab1Pp6e7GiX3bg0bb52KlRw6Z6LEAcsdt5xDU/dP5u2PAm3ppHHfTkOsYt8g==
-X-Received: by 2002:aa7:984b:0:b0:404:fd28:1aca with SMTP id n11-20020aa7984b000000b00404fd281acamr882936pfq.34.1630369555514;
-        Mon, 30 Aug 2021 17:25:55 -0700 (PDT)
+        bh=UMB4jUN6l/ITelsTbKop/eJv24YlZ1jjp/4ZI9AjOF0=;
+        b=LVKgcb4H/oYYJzGzFTAO1kgmLHIJMpSO6vP8/SLvpSw1FfSEHQqcx+RGejEjblZ5+X
+         DO/LHS0o8djnp0DH+L50WCFx9QSyEKl4Mzde5IEAkWmuWJ4jsPeptsP/h3Q6aryD9yYf
+         KiGAbFTebBkrjFY7BFmPYfCV+KL03fUiHtW37q0QBtyz4G+z5mnL6H4piEeUAFrQYvyK
+         Ey6Hvcrb1UP0l9enoqvq63AWwWnnrFbrajNh1x2DIa/Q+hxv5vts60b/U7VDjxaTAZmg
+         I7Gs5kXi/qKRMss79AF9sXvGFq+bDOYAzx0JMX6yUDJpUqtxlnRRMDZmpXksoKxWaDDO
+         N9ZA==
+X-Gm-Message-State: AOAM531BkiBf1cEcoZqT/hhxHLlQj6ZoHFZ7+mtdTcMDtf/QR4Vy8nTz
+        2/3fWUVj8CaMx97e3Rf+Yg1d8FedsHE=
+X-Google-Smtp-Source: ABdhPJzeCE7gikXu1GCb9MkJy8QNeGnX9fWsIfH9pOScBT8n4kxG9xUe2xG6TLcD//fc2ccjsgcKhA==
+X-Received: by 2002:a17:90b:38d1:: with SMTP id nn17mr1970461pjb.37.1630369566132;
+        Mon, 30 Aug 2021 17:26:06 -0700 (PDT)
 Received: from [192.168.1.71] (122-61-176-117-fibre.sparkbb.co.nz. [122.61.176.117])
-        by smtp.gmail.com with ESMTPSA id 141sm18292379pgg.16.2021.08.30.17.25.52
+        by smtp.gmail.com with ESMTPSA id b7sm15800152pgs.64.2021.08.30.17.26.03
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 30 Aug 2021 17:25:54 -0700 (PDT)
+        Mon, 30 Aug 2021 17:26:05 -0700 (PDT)
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: [PATCH] termios.3: Clarify zero argument for cfsetispeed()
+Subject: Re: [PATCH] termios.3: Use bold style for B0
 To:     =?UTF-8?Q?Pali_Roh=c3=a1r?= <pali@kernel.org>,
         "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-References: <5dc2196a-9a2a-1b2e-e6ee-3539a62aad82@gmail.com>
- <20210830112552.18476-1-pali@kernel.org>
+References: <20210830112711.18542-1-pali@kernel.org>
 From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <234956c2-74e5-2ca4-d2f6-cfdbc0f244e7@gmail.com>
-Date:   Tue, 31 Aug 2021 02:25:48 +0200
+Message-ID: <554ff7f1-8c82-6a80-aa23-7ee664bbb1b6@gmail.com>
+Date:   Tue, 31 Aug 2021 02:26:02 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <20210830112552.18476-1-pali@kernel.org>
+In-Reply-To: <20210830112711.18542-1-pali@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
@@ -68,11 +67,9 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Pali,
+Hello Pali
 
-On 8/30/21 1:25 PM, Pali Rohár wrote:
-> Zero in this case refers to literal constant 0 and not symbolic constant B0.
-> 
+On 8/30/21 1:27 PM, Pali Rohár wrote:
 > Signed-off-by: Pali Rohár <pali@kernel.org>
 
 Thanks. Patch applied.
@@ -83,26 +80,24 @@ Michael
 
 
 > ---
->  man3/termios.3 | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
+>  man3/termios.3 | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
 > 
 > diff --git a/man3/termios.3 b/man3/termios.3
-> index c96a5c15ec87..f888c15d754c 100644
+> index f888c15d754c..ee0b8cad9c33 100644
 > --- a/man3/termios.3
 > +++ b/man3/termios.3
-> @@ -1017,7 +1017,11 @@ which must be specified as one of the
->  .BI B nnn
->  constants listed above for
->  .BR cfsetospeed ().
-> -If the input baud rate is set to zero, the input baud rate will be
-> +If the input baud rate is set to literal constant
-> +.B 0
-> +(not the symbolic constant
-> +.BR B0 ),
-> +the input baud rate will be
->  equal to the output baud rate.
->  .PP
->  .BR cfsetspeed ()
+> @@ -987,7 +987,9 @@ constant is defined prior to using it.
+>  The zero baud rate,
+>  .BR B0 ,
+>  is used to terminate the connection.
+> -If B0 is specified, the modem control lines shall no longer be asserted.
+> +If
+> +.B B0
+> +is specified, the modem control lines shall no longer be asserted.
+>  Normally, this will disconnect the line.
+>  .B CBAUDEX
+>  is a mask
 > 
 
 
