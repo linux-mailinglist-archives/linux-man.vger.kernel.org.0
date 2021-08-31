@@ -2,125 +2,101 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id F31313FC06F
-	for <lists+linux-man@lfdr.de>; Tue, 31 Aug 2021 03:19:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2BA4F3FC267
+	for <lists+linux-man@lfdr.de>; Tue, 31 Aug 2021 08:05:48 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231297AbhHaBUL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 30 Aug 2021 21:20:11 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57478 "EHLO
+        id S239509AbhHaGBS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 31 Aug 2021 02:01:18 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34934 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S239255AbhHaBUL (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 30 Aug 2021 21:20:11 -0400
-Received: from mail-pg1-x531.google.com (mail-pg1-x531.google.com [IPv6:2607:f8b0:4864:20::531])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B767DC061575
-        for <linux-man@vger.kernel.org>; Mon, 30 Aug 2021 18:19:16 -0700 (PDT)
-Received: by mail-pg1-x531.google.com with SMTP id c17so15223080pgc.0
-        for <linux-man@vger.kernel.org>; Mon, 30 Aug 2021 18:19:16 -0700 (PDT)
+        with ESMTP id S238470AbhHaGBP (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 31 Aug 2021 02:01:15 -0400
+Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com [IPv6:2607:f8b0:4864:20::234])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2FEE4C061575
+        for <linux-man@vger.kernel.org>; Mon, 30 Aug 2021 23:00:21 -0700 (PDT)
+Received: by mail-oi1-x234.google.com with SMTP id bi4so19262081oib.9
+        for <linux-man@vger.kernel.org>; Mon, 30 Aug 2021 23:00:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=cc:subject:to:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=w9XHuVv4zKDPq/ryVj/F+u4EA5dn7CVNQpRCaD+sXkc=;
-        b=ohkJK7J7DDvNI2wbGoKVRYnrPdK/p2JV+0MUUOKhhB70WJODANBJm7Sx8itRANW63I
-         PYbHgi3gvbxGIzyxhLCUEKv7sKJsrHqa429X5tkpP04//4Cdj+PCovXjzw+K5PbcLBjR
-         P2AA+t0lYXBrM2sEtrT8aDXBixrNYR4KY/noWerCdzMQ65j0olcx8tig3HI19NjumWLz
-         mB9wC0mwXgboJprGA+O3aah8R2SmPwZvEe1jxk32w+AH4OvB217Tv0H9s68AVgPfwlHz
-         b96LBGEuDO728EYJbKVxoZYnyNKh2uektC5JMV8jgTEzAOHIBseak/qwCfOcn0gX6tJC
-         /u3g==
+        h=mime-version:reply-to:from:date:message-id:subject:to:cc
+         :content-transfer-encoding;
+        bh=9mhA/4am/t9EmXtO3PUDQcLh6Lm4Xb9hvluO+PkfwGk=;
+        b=hsYtofw2NyEPtNVo4wWVI0apu55emI6i646ATI7I1AsOTjCiSfh/qC88ig2zx27Xu3
+         0nfU3NJi4QhY8fe+9KHb7NuE3m8t+Ghe3N8DPEp+HjLU11w0PFOvrvMvhiFqcr2RXEC1
+         Rz8a7fA5Yrs+GNqiurAUfgBZPkE2qLwMZ8uzdRRe3WFkGv96OWagIQ2X1+lsuSDivkoR
+         D9PLSpru7xsbakSUZbf0FBSZJzpEHJeKb3HemCcEdTXbblrfJInIz1PA7iZxYqp2paK4
+         esc7r3HAYGKgiwv62crbGgpH7VnCd7iVbrQ124l+/gOgsHeSqZNl5qvVLmhq77uEyFHC
+         2OcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:cc:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=w9XHuVv4zKDPq/ryVj/F+u4EA5dn7CVNQpRCaD+sXkc=;
-        b=q7btzGuATz9d1KieBTIMS5zO0BXLYa3KLb3GlXnLot4v9OVjJ193MFTVIH4zNuT6cs
-         0hPsY8NkqW9DAteOGtyV/BLs1nhRe/2R9Bc3p0krbL2hzZUIbYWeCK93iVkZXR4C9CfL
-         N+ct/intJMEEs4TY+q7LDu6CdS7bQACaWkGC5f5ecTMUMyBrqj/O1a258tFlpElmWmd/
-         gupzyHbyyUj2FE294/BO/Zf3wiUzJu4yGHsRIA9M/2o3SjcwHkcHtbwfRzA6o2rNd8pG
-         hHDwyA7+pqIDNC+v8DnlDBjALGR7+eT9ZFPPXuq+InsyfF1VLY4ZAgm4v0ii9E+QKPI3
-         EOOQ==
-X-Gm-Message-State: AOAM532i2d33Oai5h6v6jrkKrJWPJPooY3aOjU9XghfbjfmAXAHsCMBp
-        YtKbmhh1BUeOlDiP94VVswU=
-X-Google-Smtp-Source: ABdhPJxtdCAfx3MY+lNxsaHTz0e0PDZbQDDROVhmozi5CpyUhykhx4tu+76WBjAHGZuafWw+pRBkFA==
-X-Received: by 2002:a63:1e0e:: with SMTP id e14mr8641399pge.5.1630372756305;
-        Mon, 30 Aug 2021 18:19:16 -0700 (PDT)
-Received: from [192.168.1.71] (122-61-176-117-fibre.sparkbb.co.nz. [122.61.176.117])
-        by smtp.gmail.com with ESMTPSA id z3sm637253pjn.43.2021.08.30.18.19.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 30 Aug 2021 18:19:15 -0700 (PDT)
-Cc:     mtk.manpages@gmail.com
-Subject: Re: [[patch] 2/2] malloc_hook.3: modernize for glibc 2.34
-To:     Paul Eggert <eggert@cs.ucla.edu>, linux-man@vger.kernel.org,
-        alx.manpages@gmail.com
-References: <20210810193708.10277-1-eggert@cs.ucla.edu>
- <20210810193708.10277-2-eggert@cs.ucla.edu>
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Message-ID: <37d6bb42-5a83-6ef7-e17b-26fbd5a0e671@gmail.com>
-Date:   Tue, 31 Aug 2021 03:19:12 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to:cc:content-transfer-encoding;
+        bh=9mhA/4am/t9EmXtO3PUDQcLh6Lm4Xb9hvluO+PkfwGk=;
+        b=GX3tNb0QKc8HYRkRoohDWiJvjVNt3hQJEbGXAlzrwqXi0LiIq/IjOmVsTJbxxvjaK6
+         BfQwMeoTI8LH4nIsDdNw4eyxhSkc/PxLz2rFkvD+NBWhCPhsekQU1cMJGuvzyuGnPNmg
+         Ey7ag/XmLyZHYxa+1tc7kqAzUuMmMsqkzwomaDwyvPj7S9x0GogCzSGMVoINkS/PFHqO
+         MQw6rxDckUyWozyoyZk8pzxgZrXzsWv+fOw6+12qTv3tszN6AB8HDIDPdJNYIwEzlgDx
+         TUpLDkHh6tYeby/WwguaUJ6By99DrZzv8p5sGTGzVIrXAJbG7guCE0vi5KZv4p2sn2wx
+         85Vw==
+X-Gm-Message-State: AOAM532efa1+PoMIj3jqk8SGFB6pdjhlGiwFQRrg54GO0AFpWNeraNAK
+        1tKWpWbq0Tkp3YzFIgrbEC5vjKCcV78j6COKiClBDsYHD+8=
+X-Google-Smtp-Source: ABdhPJzBGmClvlGe8l8HyOZ9V7CUMt/Vz1Age/HNAmvHqgLz4Tk/8N5l1pucpTfD8D6r65CpQOn02R3hdEqIPNmcPSY=
+X-Received: by 2002:a05:6808:291:: with SMTP id z17mr2045218oic.177.1630389620563;
+ Mon, 30 Aug 2021 23:00:20 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20210810193708.10277-2-eggert@cs.ucla.edu>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Reply-To: mtk.manpages@gmail.com
+From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Date:   Tue, 31 Aug 2021 08:00:00 +0200
+Message-ID: <CAKgNAkjv2vVDU+z4ActGqo8gcZekCnZFRVESz_hhNjdPvbV96w@mail.gmail.com>
+Subject: Adding a realloc() usage note to the malloc(3) manual page
+To:     "libc-alpha@sourceware.org" <libc-alpha@sourceware.org>,
+        linux-man <linux-man@vger.kernel.org>
+Cc:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
+        Florian Weimer <fweimer@redhat.com>,
+        Paul Eggert <eggert@cs.ucla.edu>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Paul,
+Hello all,
 
-On 8/10/21 9:37 PM, Paul Eggert wrote:
-> ---
->  man3/malloc_hook.3 | 13 ++++++++++---
->  1 file changed, 10 insertions(+), 3 deletions(-)
+I plan to add a note on the correct usage of realloc() to the
+malloc(3) manual page. I would be happy to receive comments and
+improvements to the text below.
 
-Patch applied.
-
-Thanks you!
-
-Cheers,
+Thanks,
 
 Michael
 
-> diff --git a/man3/malloc_hook.3 b/man3/malloc_hook.3
-> index 6d944003b..7b76bbc9b 100644
-> --- a/man3/malloc_hook.3
-> +++ b/man3/malloc_hook.3
-> @@ -11,7 +11,7 @@
->  .SH NAME
->  __malloc_hook, __malloc_initialize_hook,
->  __memalign_hook, __free_hook, __realloc_hook,
-> -__after_morecore_hook \- malloc debugging variables
-> +__after_morecore_hook \- malloc debugging variables (DEPRECATED)
->  .SH SYNOPSIS
->  .nf
->  .B "#include <malloc.h>"
-> @@ -86,11 +86,18 @@ The use of these hook functions is not safe in multithreaded programs,
->  and they are now deprecated.
->  From glibc 2.24 onwards, the
->  .B __malloc_initialize_hook
-> -variable has been removed from the API.
-> +variable has been removed from the API,
-> +and from glibc 2.34 onwards, all
-> +the hook variables have been removed from the API.
->  .\" https://bugzilla.redhat.com/show_bug.cgi?id=450187
->  .\" http://sourceware.org/bugzilla/show_bug.cgi?id=9957
->  Programmers should instead preempt calls to the relevant functions
-> -by defining and exporting functions such as "malloc" and "free".
-> +by defining and exporting
-> +.BR malloc (),
-> +.BR free (),
-> +.BR realloc (),
-> +and
-> +.BR calloc ().
->  .SH EXAMPLES
->  Here is a short example of how to use these variables.
->  .PP
-> 
 
+   Correct usage of realloc() (and reallocarray())
+       Since, on the one hand, realloc() (and  reallocarray())  may  move
+       the block of memory, and on the other, it may return NULL on fail=E2=
+=80=90
+       ure and leave the memory contents and location unchanged,  correct
+       usage is something like the following:
 
--- 
+           void *ptr, *nptr;
+           ptr =3D malloc(origsize);
+           ...
+           /* In the following, we presume 'newsize' is not 0.
+              (If 'newsize' is zero, realloc() may return NULL,
+              and that is not an error.) */
+
+           nptr =3D realloc(ptr, newsize);
+           if (nptr =3D=3D NULL) {
+               /* Handle error; the block pointed to by 'ptr' is
+                  still usable. */
+           } else {
+               /* realloc() succeeded; update 'ptr' to point to
+                  the (possibly moved) block. */
+               ptr =3D nptr;
+           }
+
+       Similar remarks apply for reallocarray().
+--=20
 Michael Kerrisk
 Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
 Linux/UNIX System Programming Training: http://man7.org/training/
