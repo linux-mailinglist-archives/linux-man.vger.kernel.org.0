@@ -2,105 +2,211 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0EE4D3FCE92
-	for <lists+linux-man@lfdr.de>; Tue, 31 Aug 2021 22:29:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0DEE43FCE97
+	for <lists+linux-man@lfdr.de>; Tue, 31 Aug 2021 22:34:46 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S241086AbhHaUa2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 31 Aug 2021 16:30:28 -0400
-Received: from mail.kernel.org ([198.145.29.99]:51782 "EHLO mail.kernel.org"
+        id S232398AbhHaUff (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 31 Aug 2021 16:35:35 -0400
+Received: from mail.kernel.org ([198.145.29.99]:52988 "EHLO mail.kernel.org"
         rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S229887AbhHaUa2 (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Tue, 31 Aug 2021 16:30:28 -0400
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 53F6560F12;
-        Tue, 31 Aug 2021 20:29:32 +0000 (UTC)
+        id S230236AbhHaUfe (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Tue, 31 Aug 2021 16:35:34 -0400
+Received: by mail.kernel.org (Postfix) with ESMTPSA id D965460ED4;
+        Tue, 31 Aug 2021 20:34:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1630441772;
-        bh=/49yLmN1gyTtPsJh8OeF6z5DrQOtXl0mziiYG5w/lkU=;
-        h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-        b=nJt5uIl4JpyIeFPeT633K5k+ug1Gf7PuEwn6hVJSJVsCDhr+SVwaEvE3qfHLo1IM7
-         ZLxZrak6JW0ZtLDn3QNLHZSOFy0INHXdPYgN5/2GAQXPBXcoz+YrUKT0hMx62qbaBr
-         RGBlk3fMQJ5M1L5cOJuipcrrWmSIIiwE7KiavFlbHsh3pjfty+kHPblp4ODPf5xzCx
-         LyNpzI4R8ECVeh7AnGtTcZIEH93aTG7pQDwHdW5OSZVQ9TtAElxyJUISpCpPIhmVQn
-         IjnavCOD659vt5ZGDrxQAMjLtNqjvIahUQtFO395f80nvMq1U+7bwn0RcYGlTcLJ4A
-         zOYTt0upBlyjw==
+        s=k20201202; t=1630442079;
+        bh=Hs6AvUYcRKLv5l1Eda82z78tESyXenTwJsulChR5jvk=;
+        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+        b=t492BxrOg4KHe2ff+0Spmtx29SiHHGtl6jtEM/PF/NTH1ky06sNPOvMS9oRX802M4
+         1VkheeU3kC7F9+90toVyME+zpyHUeqCjOF/gEWUNG0ljSEUNA4WfsQIzUkMODuM5f0
+         i+9Td+hpMElaqlFpABT5pz2wBgS4BGTUZqUCz4GAsG9ZzQO6WmEXk1OvhYf3+yyP6h
+         8ZENBIYJ7tmgIqcdGNmt0D8RQOaUN7IrAsyKni7h5xSinPr5Vt/XMaZuk3i7iPifPR
+         fwiQggk+wH1zuy3DUMmOZ2xi39SpTmUAU+680BbyNOz1r20zDpbte30oBOSBjehSaJ
+         qSCTbhlPGts1g==
 Received: by pali.im (Postfix)
-        id 0230DEF2; Tue, 31 Aug 2021 22:29:29 +0200 (CEST)
-From:   =?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
+        id 810E5EF2; Tue, 31 Aug 2021 22:34:36 +0200 (CEST)
+Date:   Tue, 31 Aug 2021 22:34:36 +0200
+From:   Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>
+To:     linux-man@vger.kernel.org,
+        Alejandro Colomar <alx.manpages@gmail.com>,
         Michael Kerrisk <mtk.manpages@gmail.com>
-Cc:     =?UTF-8?q?Marek=20Beh=C3=BAn?= <kabel@kernel.org>,
+Cc:     Marek =?utf-8?B?QmVow7pu?= <kabel@kernel.org>,
         libc-alpha@sourceware.org,
-        "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        linux-man@vger.kernel.org
-Subject: [PATCH v3] ioctl_tty.2: Fix information about header include file
-Date:   Tue, 31 Aug 2021 22:28:09 +0200
-Message-Id: <20210831202809.29819-1-pali@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <3d927d3c-67a1-bb48-b597-44c87b8f715a@gmail.com>
-References: <3d927d3c-67a1-bb48-b597-44c87b8f715a@gmail.com>
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Subject: Re: [PATCH v4] ioctl_tty.2: Add example how to get or set baudrate
+ on the serial port
+Message-ID: <20210831203436.hy52aimer5hozb6r@pali>
+References: <20210730095333.6118-1-pali@kernel.org>
+ <20210810194928.16408-1-pali@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210810194928.16408-1-pali@kernel.org>
+User-Agent: NeoMutt/20180716
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Header file termios.h contains incompatible definitions for linux ioctl
-calls. Correct definitions are exported by header file linux/termios.h but
-this file conflicts with sys/ioctl.h header file (required for ioctl()
-call). Therefore include direct asm header file asm/termbits.h which
-contains compatible definitions and structures for ioctl calls.
+On Tuesday 10 August 2021 21:49:28 Pali Rohár wrote:
+> Setting custom baudrate for which is not defined Bnnn constant is possible
+> via BOTHER flag and then filling speed in c_ospeed and c_ispeed fields.
+> 
+> These two fields are either in struct termios or struct termios2. Former
+> belongs to TCGETS/TCSETS ioctls, latter to TCGETS2/TCSETS2 ioctls.
+> 
+> BOTHER flag with these two fields and new struct termios2 is not supported
+> by older versions of include header files.
+> 
+> Some architectures (e.g. amd64) provide both struct termios and struct
+> termios2, but c_ospeed and c_ispeed are only in struct termios2.
+> 
+> Some other architectures (e.g. alpha) provide both struct termios and struct
+> termios2 and both have c_ospeed and c_ispeed fields.
+> 
+> And some other architectures (e.g. powerpc) provide only struct termios
+> (no struct termios2) and it has c_ospeed and c_ispeed fields.
+> 
+> So basically to support all architectures it is needed to use
+> struct termios2 when TCGETS2/TCSETS2 is supported. Otherwise it is needed
+> to use struct termios with TCGETS/TCSETS (case for e.g. powerpc).
+> 
+> Setting input baudrate is done via IBSHIFT macro.
+> 
+> Signed-off-by: Pali Rohár <pali@kernel.org>
 
-Signed-off-by: Pali Rohár <pali@kernel.org>
+Hello! Do you have any comments on this patch?
 
----
-Changes in v3:
-* Use .I <file> instead of .B #include <file>
-* Use Bnnn instead of Bnn
-
-Changes in v2:
-* Reformat SYNOPSIS for 80 chars per line
----
- man2/ioctl_tty.2 | 19 +++++++++++++++++--
- 1 file changed, 17 insertions(+), 2 deletions(-)
-
-diff --git a/man2/ioctl_tty.2 b/man2/ioctl_tty.2
-index 186011ee7c33..7d866867c6bd 100644
---- a/man2/ioctl_tty.2
-+++ b/man2/ioctl_tty.2
-@@ -11,8 +11,10 @@ ioctl_tty \- ioctls for terminals and serial lines
- .SH SYNOPSIS
- .nf
- .B #include <sys/ioctl.h>
--.BR "#include <termios.h>" "      /* Definition of " CLOCAL ", and"
--.BR    "                             TC*" { FLUSH , ON , OFF "} constants */"
-+.BR "#include <asm/termbits.h>" "   /* Definition of " "struct termios" ,
-+.BR    "                               struct termios2" ", and"
-+.BR    "                               Bnnn" ", " BOTHER ", " CBAUD ", " CLOCAL ,
-+.BR    "                               TC*" { FLUSH , ON , OFF "} and other constants */"
- .PP
- .BI "int ioctl(int " fd ", int " cmd ", ...);"
- .fi
-@@ -31,6 +33,19 @@ makes for nonportable programs.
- Use the POSIX interface described in
- .BR termios (3)
- whenever possible.
-+.PP
-+Please note that
-+.B struct termios
-+from
-+.I <asm/termbits.h>
-+is different and incompatible with
-+.B struct termios
-+from
-+.IR <termios.h> .
-+These ioctl calls require
-+.B struct termios
-+from
-+.IR <asm/termbits.h> .
- .SS Get and set terminal attributes
- .TP
- .B TCGETS
--- 
-2.20.1
-
+> ---
+> Changes in v4:
+> * Add SPDX-License-Identifier
+> * Correctly process split baudrates (separate output and input) via IBSHIFT
+> * Update commit message
+> 
+> Changes in v3:
+> * Check support for custom baudrate only based on BOTHER macro
+> * Use TCGETS/TCSETS/termios when TCGETS2/TCSETS2/termios2 is not available
+> 
+> Changes in v2:
+> * Use \e for backslash
+> * Use exit(EXIT_*) instead of return num
+> * Sort includes
+> * Add comment about possible fallback
+> ---
+>  man2/ioctl_tty.2 | 100 +++++++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 100 insertions(+)
+> 
+> diff --git a/man2/ioctl_tty.2 b/man2/ioctl_tty.2
+> index abfdc1e21fe9..7b2b03ff6757 100644
+> --- a/man2/ioctl_tty.2
+> +++ b/man2/ioctl_tty.2
+> @@ -796,6 +796,106 @@ main(void)
+>      close(fd);
+>  }
+>  .EE
+> +.PP
+> +Get or set arbitrary baudrate on the serial port.
+> +.PP
+> +.EX
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+> +
+> +#include <asm/termbits.h>
+> +#include <fcntl.h>
+> +#include <stdio.h>
+> +#include <stdlib.h>
+> +#include <sys/ioctl.h>
+> +#include <sys/types.h>
+> +#include <unistd.h>
+> +
+> +int
+> +main(int argc, char *argv[])
+> +{
+> +#ifndef BOTHER
+> +    fprintf(stderr, "BOTHER is unsupported\en");
+> +    /* Program may fallback to TCGETS/TCSETS with Bnnn constants */
+> +    exit(EXIT_FAILURE);
+> +#else
+> +    /* Declare tio structure, its type depends on supported ioctl */
+> +#ifdef TCGETS2
+> +    struct termios2 tio;
+> +#else
+> +    struct termios tio;
+> +#endif
+> +    int fd, rc;
+> +
+> +    if (argc != 2 && argc != 3 && argc != 4) {
+> +        fprintf(stderr, "Usage: %s device [output [input] ]\en", argv[0]);
+> +        exit(EXIT_FAILURE);
+> +    }
+> +
+> +    fd = open(argv[1], O_RDWR | O_NONBLOCK | O_NOCTTY);
+> +    if (fd < 0) {
+> +        perror("open");
+> +        exit(EXIT_FAILURE);
+> +    }
+> +
+> +    /* Get the current serial port settings via supported ioctl */
+> +#ifdef TCGETS2
+> +    rc = ioctl(fd, TCGETS2, &tio);
+> +#else
+> +    rc = ioctl(fd, TCGETS, &tio);
+> +#endif
+> +    if (rc) {
+> +        perror("TCGETS");
+> +        close(fd);
+> +        exit(EXIT_FAILURE);
+> +    }
+> +
+> +    /* Change baud rate when more arguments were provided */
+> +    if (argc == 3 || argc == 4) {
+> +        /* Clear the current output baud rate and fill a new value */
+> +        tio.c_cflag &= ~CBAUD;
+> +        tio.c_cflag |= BOTHER;
+> +        tio.c_ospeed = atoi(argv[2]);
+> +
+> +        /* Clear the current input baud rate and fill a new value */
+> +        tio.c_cflag &= ~(CBAUD << IBSHIFT);
+> +        tio.c_cflag |= BOTHER << IBSHIFT;
+> +        /* When 4th argument is not provided reuse output baud rate */
+> +        tio.c_ispeed = (argc == 4) ? atoi(argv[3]) : atoi(argv[2]);
+> +
+> +        /* Set new serial port settings via supported ioctl */
+> +#ifdef TCSETS2
+> +        rc = ioctl(fd, TCSETS2, &tio);
+> +#else
+> +        rc = ioctl(fd, TCSETS, &tio);
+> +#endif
+> +        if (rc) {
+> +            perror("TCSETS");
+> +            close(fd);
+> +            exit(EXIT_FAILURE);
+> +        }
+> +
+> +        /* And get new values which were really configured */
+> +#ifdef TCGETS2
+> +        rc = ioctl(fd, TCGETS2, &tio);
+> +#else
+> +        rc = ioctl(fd, TCGETS, &tio);
+> +#endif
+> +        if (rc) {
+> +            perror("TCGETS");
+> +            close(fd);
+> +            exit(EXIT_FAILURE);
+> +        }
+> +    }
+> +
+> +    close(fd);
+> +
+> +    printf("output baud rate: %u\en", tio.c_ospeed);
+> +    printf("input baud rate: %u\en", tio.c_ispeed);
+> +
+> +    exit(EXIT_SUCCESS);
+> +#endif
+> +}
+> +.EE
+>  .SH SEE ALSO
+>  .BR ldattach (1),
+>  .BR ioctl (2),
+> -- 
+> 2.20.1
+> 
