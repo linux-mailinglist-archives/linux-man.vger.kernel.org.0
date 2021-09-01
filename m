@@ -2,211 +2,91 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0DEE43FCE97
-	for <lists+linux-man@lfdr.de>; Tue, 31 Aug 2021 22:34:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0AA663FE203
+	for <lists+linux-man@lfdr.de>; Wed,  1 Sep 2021 20:11:52 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232398AbhHaUff (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 31 Aug 2021 16:35:35 -0400
-Received: from mail.kernel.org ([198.145.29.99]:52988 "EHLO mail.kernel.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S230236AbhHaUfe (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Tue, 31 Aug 2021 16:35:34 -0400
-Received: by mail.kernel.org (Postfix) with ESMTPSA id D965460ED4;
-        Tue, 31 Aug 2021 20:34:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1630442079;
-        bh=Hs6AvUYcRKLv5l1Eda82z78tESyXenTwJsulChR5jvk=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=t492BxrOg4KHe2ff+0Spmtx29SiHHGtl6jtEM/PF/NTH1ky06sNPOvMS9oRX802M4
-         1VkheeU3kC7F9+90toVyME+zpyHUeqCjOF/gEWUNG0ljSEUNA4WfsQIzUkMODuM5f0
-         i+9Td+hpMElaqlFpABT5pz2wBgS4BGTUZqUCz4GAsG9ZzQO6WmEXk1OvhYf3+yyP6h
-         8ZENBIYJ7tmgIqcdGNmt0D8RQOaUN7IrAsyKni7h5xSinPr5Vt/XMaZuk3i7iPifPR
-         fwiQggk+wH1zuy3DUMmOZ2xi39SpTmUAU+680BbyNOz1r20zDpbte30oBOSBjehSaJ
-         qSCTbhlPGts1g==
-Received: by pali.im (Postfix)
-        id 810E5EF2; Tue, 31 Aug 2021 22:34:36 +0200 (CEST)
-Date:   Tue, 31 Aug 2021 22:34:36 +0200
-From:   Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>
-To:     linux-man@vger.kernel.org,
-        Alejandro Colomar <alx.manpages@gmail.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>
-Cc:     Marek =?utf-8?B?QmVow7pu?= <kabel@kernel.org>,
-        libc-alpha@sourceware.org,
-        "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Subject: Re: [PATCH v4] ioctl_tty.2: Add example how to get or set baudrate
- on the serial port
-Message-ID: <20210831203436.hy52aimer5hozb6r@pali>
-References: <20210730095333.6118-1-pali@kernel.org>
- <20210810194928.16408-1-pali@kernel.org>
+        id S1344407AbhIASMc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 1 Sep 2021 14:12:32 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53734 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1346812AbhIASMU (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Sep 2021 14:12:20 -0400
+Received: from mail-pl1-x62f.google.com (mail-pl1-x62f.google.com [IPv6:2607:f8b0:4864:20::62f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 70FA2C06121D
+        for <linux-man@vger.kernel.org>; Wed,  1 Sep 2021 11:11:22 -0700 (PDT)
+Received: by mail-pl1-x62f.google.com with SMTP id e7so157476plh.8
+        for <linux-man@vger.kernel.org>; Wed, 01 Sep 2021 11:11:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:from:date:message-id:subject:to;
+        bh=2joGkq8i8C5vglZO1FYNTlWqLyr4vSiCXKQYXBVnv4Q=;
+        b=LD3mpzy1s09M3e/Eheelu/QMtbN6lrYJQ+S1BsYhmG4zP9OQuKOeD1zHV2lZaK7Hdt
+         vXoBMumPRACuZhnwd8TYAFIvdImPe0Zn4DA41GnzHGsnpDZPE0wUFWVFNzgpxF6bh6D8
+         CVxTiiIN7w8BVpPirFLytZKK2cFqqV6q9qR8cw4XmdYYgGZs+MdnDeP+neEr/SbnLI2h
+         mwT6gqJ8+HvNCQei5Zu6b3U+/YcUOepEDfVn6t0IkNG5YzxTV8mH8IqZ4zEsqBchdgxI
+         E/zGH3KCiuS7UdfEMBVKPbpzhhPyh4quLRALvE4iCHtswqSZDgWUuzksodIw8OWwGR1Z
+         0RlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+        bh=2joGkq8i8C5vglZO1FYNTlWqLyr4vSiCXKQYXBVnv4Q=;
+        b=rE01zFVouaoiFgkfEtpcQss4Un0iUT4Q1Np5umjnBSMZxGWjshJO2jCHucR7Mjaad+
+         X69mn/BcPAGkOgsdxEcuhmny3OivQDvJq3xBosE2MFk1j3FrXthbk0JXBOFpqkmJL0pb
+         +g4sD8SoZWyu5c3MBBp1OqaAhOHi8d2JIs8/RTNFsqR83oWWxKLwnN+zEFWVivGM5u8t
+         MpS9dbDWvhGB1MPehjI7M0589TOReYwFa1+bJHdru8pVsjm7tDjeE2ACgse03l4fzY4n
+         QqJyfV0kXi1hKus3W/T4OgU/pDynIBbCEDSyGINbSLgtw5lXIVjze4Ht5kWXg/RLzt3L
+         I90Q==
+X-Gm-Message-State: AOAM5338oNfqrzZe2/sye9opZ0tc716KQXtYzBTyCW1foGRn61jYkFSk
+        hEhb2mnuGYn92UIMsLgK8vVnv1JLcRuDZVWl7Uz4J4AMdND3rg==
+X-Google-Smtp-Source: ABdhPJwbbBYGjUEQSS3Bb7EfYk34O3AVuG22pVIF78fkATQG8c+PQmeHgcc35+YrriS74Wl5STB8JbzOasp+8kCVBlk=
+X-Received: by 2002:a67:8c5:: with SMTP id 188mr1017695vsi.4.1630519870726;
+ Wed, 01 Sep 2021 11:11:10 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20210810194928.16408-1-pali@kernel.org>
-User-Agent: NeoMutt/20180716
+Received: by 2002:ab0:740d:0:0:0:0:0 with HTTP; Wed, 1 Sep 2021 11:11:10 -0700 (PDT)
+From:   CorisBank International <corisbankintlbf@gmail.com>
+Date:   Wed, 1 Sep 2021 11:11:10 -0700
+Message-ID: <CA+25hwzjLgVdtDXYWeuqFBTvAbpc4oxK0dW54s7tjGNyU_m0ow@mail.gmail.com>
+Subject: CORISBANK INTERNATIONAL OFFICIAL NOTIFICATION
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Tuesday 10 August 2021 21:49:28 Pali Rohár wrote:
-> Setting custom baudrate for which is not defined Bnnn constant is possible
-> via BOTHER flag and then filling speed in c_ospeed and c_ispeed fields.
-> 
-> These two fields are either in struct termios or struct termios2. Former
-> belongs to TCGETS/TCSETS ioctls, latter to TCGETS2/TCSETS2 ioctls.
-> 
-> BOTHER flag with these two fields and new struct termios2 is not supported
-> by older versions of include header files.
-> 
-> Some architectures (e.g. amd64) provide both struct termios and struct
-> termios2, but c_ospeed and c_ispeed are only in struct termios2.
-> 
-> Some other architectures (e.g. alpha) provide both struct termios and struct
-> termios2 and both have c_ospeed and c_ispeed fields.
-> 
-> And some other architectures (e.g. powerpc) provide only struct termios
-> (no struct termios2) and it has c_ospeed and c_ispeed fields.
-> 
-> So basically to support all architectures it is needed to use
-> struct termios2 when TCGETS2/TCSETS2 is supported. Otherwise it is needed
-> to use struct termios with TCGETS/TCSETS (case for e.g. powerpc).
-> 
-> Setting input baudrate is done via IBSHIFT macro.
-> 
-> Signed-off-by: Pali Rohár <pali@kernel.org>
+Att: Client
 
-Hello! Do you have any comments on this patch?
 
-> ---
-> Changes in v4:
-> * Add SPDX-License-Identifier
-> * Correctly process split baudrates (separate output and input) via IBSHIFT
-> * Update commit message
-> 
-> Changes in v3:
-> * Check support for custom baudrate only based on BOTHER macro
-> * Use TCGETS/TCSETS/termios when TCGETS2/TCSETS2/termios2 is not available
-> 
-> Changes in v2:
-> * Use \e for backslash
-> * Use exit(EXIT_*) instead of return num
-> * Sort includes
-> * Add comment about possible fallback
-> ---
->  man2/ioctl_tty.2 | 100 +++++++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 100 insertions(+)
-> 
-> diff --git a/man2/ioctl_tty.2 b/man2/ioctl_tty.2
-> index abfdc1e21fe9..7b2b03ff6757 100644
-> --- a/man2/ioctl_tty.2
-> +++ b/man2/ioctl_tty.2
-> @@ -796,6 +796,106 @@ main(void)
->      close(fd);
->  }
->  .EE
-> +.PP
-> +Get or set arbitrary baudrate on the serial port.
-> +.PP
-> +.EX
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +
-> +#include <asm/termbits.h>
-> +#include <fcntl.h>
-> +#include <stdio.h>
-> +#include <stdlib.h>
-> +#include <sys/ioctl.h>
-> +#include <sys/types.h>
-> +#include <unistd.h>
-> +
-> +int
-> +main(int argc, char *argv[])
-> +{
-> +#ifndef BOTHER
-> +    fprintf(stderr, "BOTHER is unsupported\en");
-> +    /* Program may fallback to TCGETS/TCSETS with Bnnn constants */
-> +    exit(EXIT_FAILURE);
-> +#else
-> +    /* Declare tio structure, its type depends on supported ioctl */
-> +#ifdef TCGETS2
-> +    struct termios2 tio;
-> +#else
-> +    struct termios tio;
-> +#endif
-> +    int fd, rc;
-> +
-> +    if (argc != 2 && argc != 3 && argc != 4) {
-> +        fprintf(stderr, "Usage: %s device [output [input] ]\en", argv[0]);
-> +        exit(EXIT_FAILURE);
-> +    }
-> +
-> +    fd = open(argv[1], O_RDWR | O_NONBLOCK | O_NOCTTY);
-> +    if (fd < 0) {
-> +        perror("open");
-> +        exit(EXIT_FAILURE);
-> +    }
-> +
-> +    /* Get the current serial port settings via supported ioctl */
-> +#ifdef TCGETS2
-> +    rc = ioctl(fd, TCGETS2, &tio);
-> +#else
-> +    rc = ioctl(fd, TCGETS, &tio);
-> +#endif
-> +    if (rc) {
-> +        perror("TCGETS");
-> +        close(fd);
-> +        exit(EXIT_FAILURE);
-> +    }
-> +
-> +    /* Change baud rate when more arguments were provided */
-> +    if (argc == 3 || argc == 4) {
-> +        /* Clear the current output baud rate and fill a new value */
-> +        tio.c_cflag &= ~CBAUD;
-> +        tio.c_cflag |= BOTHER;
-> +        tio.c_ospeed = atoi(argv[2]);
-> +
-> +        /* Clear the current input baud rate and fill a new value */
-> +        tio.c_cflag &= ~(CBAUD << IBSHIFT);
-> +        tio.c_cflag |= BOTHER << IBSHIFT;
-> +        /* When 4th argument is not provided reuse output baud rate */
-> +        tio.c_ispeed = (argc == 4) ? atoi(argv[3]) : atoi(argv[2]);
-> +
-> +        /* Set new serial port settings via supported ioctl */
-> +#ifdef TCSETS2
-> +        rc = ioctl(fd, TCSETS2, &tio);
-> +#else
-> +        rc = ioctl(fd, TCSETS, &tio);
-> +#endif
-> +        if (rc) {
-> +            perror("TCSETS");
-> +            close(fd);
-> +            exit(EXIT_FAILURE);
-> +        }
-> +
-> +        /* And get new values which were really configured */
-> +#ifdef TCGETS2
-> +        rc = ioctl(fd, TCGETS2, &tio);
-> +#else
-> +        rc = ioctl(fd, TCGETS, &tio);
-> +#endif
-> +        if (rc) {
-> +            perror("TCGETS");
-> +            close(fd);
-> +            exit(EXIT_FAILURE);
-> +        }
-> +    }
-> +
-> +    close(fd);
-> +
-> +    printf("output baud rate: %u\en", tio.c_ospeed);
-> +    printf("input baud rate: %u\en", tio.c_ispeed);
-> +
-> +    exit(EXIT_SUCCESS);
-> +#endif
-> +}
-> +.EE
->  .SH SEE ALSO
->  .BR ldattach (1),
->  .BR ioctl (2),
-> -- 
-> 2.20.1
-> 
+CORISBANK INTERNATIONAL URGENT NOTIFICATION
+
+Notification / Notification/ Notification
+
+Note, We are writing to inform you officially that Finally the Central
+Bank Financial Authority have approved to transfer your $8.2Million
+which was signed by late Mrs Rose Banneth the COVID.19 victim to
+transfer to you, Late Mrs Rose Banneth the France Lady contacted us to
+transfer her fund in our bank to you for Orphanage work before she
+died by the COVID.19
+and as it is now, you will receive your fund through our corresponding
+bank in Dubai [Emirate Investment Bank ] for security reason. Please
+you should reconfirm your details to receive the $8.2Million.
+
+Name, Country, Address, occupations, Age, Telephone number, account
+Details so that we can immediately forward to the World Bank to
+transfer the fund.
+You are advised to comply on timely manner to permit this esteem bank
+transfer your fund as scheduled.
+
+We look forward to serving you better
+Your Financial Comfort Is A Priority
+Thank you for choosing Corisbank International.
+
+Sincerely,
+
+----
+
+Mr Diakarya Ouattara
+Managing Director
+Bank Coris
+Burkina Faso
++226 556 163 37
+financial_bf_info@accountant.com
