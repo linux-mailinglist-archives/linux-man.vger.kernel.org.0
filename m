@@ -2,123 +2,84 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 525433FEA38
-	for <lists+linux-man@lfdr.de>; Thu,  2 Sep 2021 09:50:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CA50E3FF0A8
+	for <lists+linux-man@lfdr.de>; Thu,  2 Sep 2021 18:00:41 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233428AbhIBHvu (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 2 Sep 2021 03:51:50 -0400
-Received: from mail.kernel.org ([198.145.29.99]:49220 "EHLO mail.kernel.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S233360AbhIBHvt (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Thu, 2 Sep 2021 03:51:49 -0400
-Received: by mail.kernel.org (Postfix) with ESMTPSA id D6E46610CC;
-        Thu,  2 Sep 2021 07:50:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1630569051;
-        bh=0vZiLXPz8eQWLW+Zr+vTaOOLa+Ik4WZnPLAttqHHPCk=;
-        h=From:To:Cc:Subject:Date:From;
-        b=IxSk9fgSVuQloQ7lv1PWvUsHba6PFyR+XDffB8xWOyN3XU3NXUdjLSts6PUaPM202
-         GF4gPl4/E8u3bVM7hLXischch1P3lGk7IDEqn36ZVXvu4U8NWfd931GIL4hq+OhYUx
-         2RAMayhPUp51l5+df07Sg0TduJp+wW8o8/rXMr4EQphA0IpsiHlbcL5TXEJ1PNKHt7
-         8CkhWV16EKKcU+/AKKyEtWLwNXyoGUPebYtu7AmJNv2jZzna2nzKhy9E3ZQ9NjhbEe
-         2uE7JEBeR7v18nL8KgxMhX7GhFJO2flv2+R1jHt1ctUzbFLA3604kpzxvBBiW0/vyx
-         D9sOlc/Nh1TCg==
-From:   Mike Rapoport <rppt@kernel.org>
-To:     Michael Kerrisk <mtk.manpages@gmail.com>
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        Mike Rapoport <rppt@kernel.org>,
-        Mike Rapoport <rppt@linux.ibm.com>, linux-man@vger.kernel.org
-Subject: [PATCH] memfd_secret.2: add NOTES section ...
-Date:   Thu,  2 Sep 2021 10:50:45 +0300
-Message-Id: <20210902075045.1237905-1-rppt@kernel.org>
-X-Mailer: git-send-email 2.31.1
+        id S233953AbhIBQBg (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 2 Sep 2021 12:01:36 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40982 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S230088AbhIBQBg (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 2 Sep 2021 12:01:36 -0400
+Received: from mail-qv1-xf2c.google.com (mail-qv1-xf2c.google.com [IPv6:2607:f8b0:4864:20::f2c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 032B5C061575
+        for <linux-man@vger.kernel.org>; Thu,  2 Sep 2021 09:00:38 -0700 (PDT)
+Received: by mail-qv1-xf2c.google.com with SMTP id bn14so1420600qvb.12
+        for <linux-man@vger.kernel.org>; Thu, 02 Sep 2021 09:00:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=from:to:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=6sFfgMi6Xm3OQ8CQNyfKkk73oX3C1NA8jBxgCJmHQgg=;
+        b=GNvoOXrYHMRHVWlo2pT5puqRSfDY0qhRpL+TAcVfM/ABFvQ82ju2zNR/A0v0V5v5LF
+         gxh30ZEGibArzpBOq4K5NuQSrfqoiLHte0MAYr6ffgBRCney1iu+uhnoQA/V4RhjCUjn
+         foFP0gh3zYobrr2/QODMB93tyy8lRMyAicz3XyuqH6CfXN210EumEfvwUPuWldatuyA6
+         Flx2l7iI5YgAVqAzbfw+wz8XzNKnRC5seICExQlkQg8yrqbmdVLSb+qiWGKKcJT05DH6
+         gVavHyx2UAJmGAyN+E8abM7d/kNSBqDONoYn4Kf39IsCdq3Bxlf0Kci+FWFhwQiu4qob
+         +5Jw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=6sFfgMi6Xm3OQ8CQNyfKkk73oX3C1NA8jBxgCJmHQgg=;
+        b=jiJ3iT5uV0LcBnl+uIMG+CFFOzXdhXiXHe4lvV6iee8GQBhkUplppUexkT2XF93KkA
+         FkjYJ3pWf7BUAOjJjopbmXo7sC5E5Fo8YG0auZ/vcsv5M+QGIinM4DoQynj8cembrJcH
+         TfT00cJCQ0u1njSZVbLTn/brlqSyxda2/Deyr/KkMgFvSMaSyAu+wmyEFQTxh07YcM5J
+         Tj9vS6rTHwV+xCbulmL5jcU6y3mAMFcXY5upMuHceamtckOLxJRNQineh2dNaGL8VPam
+         S/JHw4C4x3NAcTajh3A96/aYqwMm7h2prz6OzbrZSQUUjWq9rl3S4NdvJMXMGg9R6ySz
+         pT6A==
+X-Gm-Message-State: AOAM530QwVENPl8Cuo8hv8ImaKzz+INcIJCYuJ13cew9WJM4cXKFzrRd
+        4TRbYdohcWO34oKxm6oEr1qXNCcTwlkj4A==
+X-Google-Smtp-Source: ABdhPJw+Ah6QWLUTDquseoOeKnWGpJWpNzNxyh5RhLDVqtXzDGbiqpm5qEaC32NMO7kPKneH7geVNA==
+X-Received: by 2002:a05:6214:38c:: with SMTP id l12mr3698237qvy.57.1630598436977;
+        Thu, 02 Sep 2021 09:00:36 -0700 (PDT)
+Received: from localhost.localdomain (pppoe-209-91-167-254.vianet.ca. [209.91.167.254])
+        by smtp.gmail.com with ESMTPSA id d12sm1274429qtq.61.2021.09.02.09.00.36
+        for <linux-man@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 02 Sep 2021 09:00:36 -0700 (PDT)
+From:   Trevor Woerner <twoerner@gmail.com>
+To:     linux-man@vger.kernel.org
+Subject: [PATCH] seccomp.2: fix path to syscall_64.tbl
+Date:   Thu,  2 Sep 2021 12:00:30 -0400
+Message-Id: <20210902160030.38515-1-twoerner@gmail.com>
+X-Mailer: git-send-email 2.30.0.rc0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From: Mike Rapoport <rppt@linux.ibm.com>
+The path to the syscall_64.tbl file was missing a directory.
 
-... that explains the rationale for the system call
-
-Signed-off-by: Mike Rapoport <rppt@linux.ibm.com>
+Signed-off-by: Trevor Woerner <twoerner@gmail.com>
 ---
- man2/memfd_secret.2 | 61 +++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 61 insertions(+)
+ man2/seccomp.2 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/man2/memfd_secret.2 b/man2/memfd_secret.2
-index f3380818e..869480b48 100644
---- a/man2/memfd_secret.2
-+++ b/man2/memfd_secret.2
-@@ -147,6 +147,67 @@ system call first appeared in Linux 5.14.
- The
- .BR memfd_secret ()
- system call is Linux-specific.
-+.SH NOTES
-+.PP
-+The
-+.BR memfd_secret ()
-+system call is designed to allow a user-space process
-+to create a range of memory that is inaccessible to anybody else -
-+kernel included.
-+There is no 100% guarantee that kernel won't be able to access
-+memory ranges backed by
-+.BR memfd_secret ()
-+in any circumstances, but nevertheless,
-+it is much harder to exfiltrate data from these regions.
-+.PP
-+The
-+.BR memfd_secret ()
-+provides the following protections:
-+.IP \(bu 3
-+Enhanced protection
-+(in conjunction with all the other in-kernel attack prevention systems)
-+against ROP attacks.
-+Absence of any in-kernel primitive for accessing memory backed by
-+.BR memfd_secret ()
-+means that one-gadget ROP attack
-+can't work to perform data exfiltration.
-+The attacker would need to find enough ROP gadgets
-+to reconstruct the missing page table entries,
-+which significantly increases difficulty of the attack,
-+especially when other protections like the kernel stack size limit
-+and address space layout randomization are in place.
-+.IP \(bu
-+Prevent cross-process userspace memory exposures.
-+Once a region for a
-+.BR memfd_secret ()
-+memory mapping is allocated,
-+the user can't accidentally pass it into the kernel
-+to be transmitted somewhere.
-+The memory pages in this region cannot be accessed via the direct map
-+and they are disallowed in get_user_pages.
-+.IP \(bu
-+Harden against exploited kernel flaws.
-+In order to access memory areas backed by
-+.BR memfd_secret(),
-+a kernel-side attack would need to
-+either walk the page tables and create new ones,
-+or spawn a new privileged userspace process to perform
-+secrets exfiltration using
-+.BR ptrace (2).
-+.PP
-+The way
-+.BR memfd_secret ()
-+allocates and locks the memory may impact overall system performance,
-+therefore the system call is disabled by default and only available
-+if the system administrator turned it on using
-+"secretmem.enable=y" kernel parameter.
-+.PP
-+To prevent potiential data leaks of memory regions backed by
-+.BR memfd_secret()
-+from a hybernation image,
-+hybernation is prevented when there are active
-+.BR memfd_secret ()
-+users.
- .SH SEE ALSO
- .BR fcntl (2),
- .BR ftruncate (2),
+diff --git a/man2/seccomp.2 b/man2/seccomp.2
+index 4b96b6d8a..3af693916 100644
+--- a/man2/seccomp.2
++++ b/man2/seccomp.2
+@@ -1059,7 +1059,7 @@ numbers on this architecture:
+ $ \fBuname \-m\fP
+ x86_64
+ $ \fBsyscall_nr() {
+-    cat /usr/src/linux/arch/x86/syscalls/syscall_64.tbl | \e
++    cat /usr/src/linux/arch/x86/entry/syscalls/syscall_64.tbl | \e
+     awk \(aq$2 != "x32" && $3 == "\(aq$1\(aq" { print $1 }\(aq
+ }\fP
+ .EE
 -- 
-2.31.1
+2.30.0.rc0
 
