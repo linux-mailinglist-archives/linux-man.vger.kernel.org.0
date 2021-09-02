@@ -2,67 +2,108 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 385343FE71B
-	for <lists+linux-man@lfdr.de>; Thu,  2 Sep 2021 03:23:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 719093FE89D
+	for <lists+linux-man@lfdr.de>; Thu,  2 Sep 2021 06:53:22 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232372AbhIBBYa convert rfc822-to-8bit (ORCPT
-        <rfc822;lists+linux-man@lfdr.de>); Wed, 1 Sep 2021 21:24:30 -0400
-Received: from zimbra.cs.ucla.edu ([131.179.128.68]:59318 "EHLO
-        zimbra.cs.ucla.edu" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229606AbhIBBYa (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Sep 2021 21:24:30 -0400
-Received: from localhost (localhost [127.0.0.1])
-        by zimbra.cs.ucla.edu (Postfix) with ESMTP id 56289160144;
-        Wed,  1 Sep 2021 18:23:32 -0700 (PDT)
-Received: from zimbra.cs.ucla.edu ([127.0.0.1])
-        by localhost (zimbra.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10032)
-        with ESMTP id qiMA3Z-7RiPJ; Wed,  1 Sep 2021 18:23:31 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-        by zimbra.cs.ucla.edu (Postfix) with ESMTP id 9FF53160157;
-        Wed,  1 Sep 2021 18:23:31 -0700 (PDT)
-X-Virus-Scanned: amavisd-new at zimbra.cs.ucla.edu
-Received: from zimbra.cs.ucla.edu ([127.0.0.1])
-        by localhost (zimbra.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10026)
-        with ESMTP id Fb867ZHxAFiQ; Wed,  1 Sep 2021 18:23:31 -0700 (PDT)
-Received: from [192.168.1.9] (cpe-172-91-119-151.socal.res.rr.com [172.91.119.151])
-        by zimbra.cs.ucla.edu (Postfix) with ESMTPSA id 728C2160144;
-        Wed,  1 Sep 2021 18:23:31 -0700 (PDT)
-To:     mtk.manpages@gmail.com
-Cc:     Florian Weimer <fweimer@redhat.com>,
-        "libc-alpha@sourceware.org" <libc-alpha@sourceware.org>,
-        linux-man <linux-man@vger.kernel.org>,
-        "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-References: <CAKgNAkjv2vVDU+z4ActGqo8gcZekCnZFRVESz_hhNjdPvbV96w@mail.gmail.com>
- <87lf4im6sf.fsf@oldenburg.str.redhat.com>
- <03f3b96f-1dd4-e9cb-2f24-7fc8ae7252bc@cs.ucla.edu>
- <CAKgNAki2zUjpw8BJDvmAN_8ZAMsBZx_dYn8RM4+KDefFbQq7UQ@mail.gmail.com>
-From:   Paul Eggert <eggert@cs.ucla.edu>
-Organization: UCLA Computer Science Department
-Subject: Re: Adding a realloc() usage note to the malloc(3) manual page
-Message-ID: <f89632f5-432f-9f7e-97e4-7de3595be0e8@cs.ucla.edu>
-Date:   Wed, 1 Sep 2021 18:23:31 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+        id S229469AbhIBEyR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 2 Sep 2021 00:54:17 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58010 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S229459AbhIBEyQ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 2 Sep 2021 00:54:16 -0400
+Received: from mail-il1-x12a.google.com (mail-il1-x12a.google.com [IPv6:2607:f8b0:4864:20::12a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DEBF9C061575
+        for <linux-man@vger.kernel.org>; Wed,  1 Sep 2021 21:53:18 -0700 (PDT)
+Received: by mail-il1-x12a.google.com with SMTP id h29so536169ila.2
+        for <linux-man@vger.kernel.org>; Wed, 01 Sep 2021 21:53:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=/BoT9B39iwTX7XFPoB6+ABsnZ9DPt9druBjrzwwFnAM=;
+        b=O2NqzlnN+SbP7TbewBHU3JMg8soa3b5EMVD1Aljk3tskHngVKZyDr4tBg1+zMyQ0lK
+         hK40xF//MtzCuA4BE/5huzF63lNhSvtdWg0qzasIW8p6TwGLpppkXwf5DiFNN0/RL8d7
+         GFAR34R8cEJ0aMKJwH8X+URPGDs0sGkMkiTD7lvdH3G9o59PL9N4UnO95XHlOu+YUgou
+         hxLCdNmbk9vhw7y+ENl+GiIWzw7pLlwK5fHc9if/yeNs4t3UG8KlHDXJafpP67iStMoL
+         nlT0Zd6D0B0NupjkRndsLKQ3BFhC6Zk8Ko18YPX7pHJZ9jy3hTAM3YD+QogJNZpmj/2u
+         1IHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=/BoT9B39iwTX7XFPoB6+ABsnZ9DPt9druBjrzwwFnAM=;
+        b=mHsmNNmncbBEDk4okc7nHaMNMHsWEaT2K6kjzAQlrXo3ElhY7R4fcXdkODiXOArc+g
+         /OK26t0XgRDnWzv9eruBszP33bwfp7Ns+IsejZfSRiOhXyz+6DAieUWshLPN4UG2hu/n
+         VdjSSw1RTvCwtlZTlByD9XxXq9c2UdR4lWwXY7IkmiY6PeeNVARtQn7z6m7PbGJLPghe
+         ceLWA+UWhqJ358rZIZlewfKcNBZK35ClkXBBGFpNMsX3zAw9oMtqHkpLb6CxZMbdeyk/
+         elEB2WFauVCVeL7ZlFk5Qko71bkz1XJKNT9tUQfcyPBK44Jv2BXabv/ochNvEYg0WelV
+         wZkg==
+X-Gm-Message-State: AOAM531mXvCu1vtsIq0xklMo7rAsOUaVRhv/zcQwON3fGtr7jMuvjsLM
+        ZyFF0Lafo3ir6ca+a/ItYeFdkUCzkoABxn9xk85S0Ym9t9M=
+X-Google-Smtp-Source: ABdhPJxKXiNnC6lmZC8rze1MuCMHj0KkMucN9HEfj6rkyZCjGXGwVwRdxcA2b7k2CsFUcH4/pFT52tRCEPQ4rbhcwzE=
+X-Received: by 2002:a05:6e02:10d0:: with SMTP id s16mr960306ilj.275.1630558398268;
+ Wed, 01 Sep 2021 21:53:18 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CAKgNAki2zUjpw8BJDvmAN_8ZAMsBZx_dYn8RM4+KDefFbQq7UQ@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8BIT
+References: <20210318160817.3586288-1-amir73il@gmail.com> <CAOQ4uxjxqavy=E7NAO-E3kCe_q4E087iXtTZgtvj4YLjLdzbmw@mail.gmail.com>
+In-Reply-To: <CAOQ4uxjxqavy=E7NAO-E3kCe_q4E087iXtTZgtvj4YLjLdzbmw@mail.gmail.com>
+From:   Amir Goldstein <amir73il@gmail.com>
+Date:   Thu, 2 Sep 2021 07:53:07 +0300
+Message-ID: <CAOQ4uxizCqTz5fy+7tSkO0-FeHW4ZzCagODcbQVX+6BPn+9gRQ@mail.gmail.com>
+Subject: Re: [PATCH 0/2] fanotify man page updates for v5.13
+To:     Michael Kerrisk <mtk.manpages@gmail.com>
+Cc:     Jan Kara <jack@suse.cz>,
+        Matthew Bobrowski <mbobrowski@mbobrowski.org>,
+        linux-man <linux-man@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 9/1/21 5:21 PM, Michael Kerrisk (man-pages) wrote:
-> Obviously, '*ptr' is invalid after a
-> successful realloc(). But why is 'ptr' invalid?
+On Tue, Jul 13, 2021 at 7:34 PM Amir Goldstein <amir73il@gmail.com> wrote:
+>
+> On Thu, Mar 18, 2021 at 6:08 PM Amir Goldstein <amir73il@gmail.com> wrote:
+> >
+> > Hi Michael,
+> >
+> > Following are updated for changes queued for v5.13 [1]:
+> > - Unprivileged fanotify listener
+> > - Configurable limits
+> >
+> > It is still pretty early in the development cycle, but I am posting
+> > them early for review.
+> >
+>
+> I Michael,
+>
+> This post was a long time ago so following up on it now.
+> FYI, the 2 patches are also available on
+> https://github.com/amir73il/man-pages/commits/fanotify_unpriv
+> along with another minor man page update.
+> I will post it separately soon.
+>
 
-The C standard says that once a program has freed a non-null pointer, 
-the program cannot look at the pointer's value any more. It can't copy 
-the value to another pointer, and it can't even test whether the value 
-is null. A debugging implementation can trap any use of the pointer's value.
+Hi Michael,
 
-This rule is not an issue for production uses of glibc realloc. However, 
-it could at least in theory affect debugging implementations like gcc 
--fsanitize=address, because the rule can help catch bugs in programs. 
-And I vaguely recall talk that a few non-glibc platforms (IBM i, 
-perhaps?) enforce the rule.
+Did you miss these updates for 5.13?
+
+Thanks,
+Amir.
+
+>
+> >
+> > [1] https://lore.kernel.org/linux-fsdevel/20210304112921.3996419-1-amir73il@gmail.com/
+> >
+> > Amir Goldstein (1):
+> >   fanotify_init.2, fanotify_mark.2, fanotify.7: Configurable limits
+> >
+> > Matthew Bobrowski (1):
+> >   fanotify_init.2, fanotify_mark.2: Document unprivileged listener
+> >
+> >  man2/fanotify_init.2 | 99 ++++++++++++++++++++++++++++++++++++--------
+> >  man2/fanotify_mark.2 | 14 ++++++-
+> >  man7/fanotify.7      | 35 +++++++++++++++-
+> >  3 files changed, 127 insertions(+), 21 deletions(-)
+> >
+> > --
+> > 2.25.1
+> >
