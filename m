@@ -2,78 +2,74 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6468840039F
-	for <lists+linux-man@lfdr.de>; Fri,  3 Sep 2021 18:42:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 85A4F400954
+	for <lists+linux-man@lfdr.de>; Sat,  4 Sep 2021 04:31:46 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1350131AbhICQng (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 3 Sep 2021 12:43:36 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41514 "EHLO
+        id S231389AbhIDCaM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 3 Sep 2021 22:30:12 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33186 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1350010AbhICQnf (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 3 Sep 2021 12:43:35 -0400
-Received: from mail-lf1-x141.google.com (mail-lf1-x141.google.com [IPv6:2a00:1450:4864:20::141])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9E3C2C061575
-        for <linux-man@vger.kernel.org>; Fri,  3 Sep 2021 09:42:35 -0700 (PDT)
-Received: by mail-lf1-x141.google.com with SMTP id y34so12868280lfa.8
-        for <linux-man@vger.kernel.org>; Fri, 03 Sep 2021 09:42:35 -0700 (PDT)
+        with ESMTP id S234937AbhIDCaL (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 3 Sep 2021 22:30:11 -0400
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com [IPv6:2a00:1450:4864:20::632])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BCB9EC061575
+        for <linux-man@vger.kernel.org>; Fri,  3 Sep 2021 19:29:10 -0700 (PDT)
+Received: by mail-ej1-x632.google.com with SMTP id i21so1656807ejd.2
+        for <linux-man@vger.kernel.org>; Fri, 03 Sep 2021 19:29:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:reply-to:from:date:message-id:subject:to
+        d=cs.unc.edu; s=google;
+        h=mime-version:from:date:message-id:subject:to:cc
          :content-transfer-encoding;
-        bh=tC9GDN6ljqcDVfhR/9765dsD9QBkgKBNgO71PfepPrQ=;
-        b=Bcp4yKA+owxBC2Ck1IYeQffWtCCP3tOdSbg9w69caYscX0L4f3SG8VfVnlrmIoYUrW
-         HMaJV78W0iHKbjTiL3fqi58vW7q/8BGd/Hb6xBCHD3NBtL11O0r24FiFu+dIdqhlc76N
-         SSmNO8jycuowhFGYnVaa7xO4gcwDOxOurm2pPNQpraKgxL1tptQa34GmGlvevVI95HjX
-         D6ccMEu86Z1+/swmExYC+KZazKE79pA0oAC4Wvh8Z1caaG9QdjMo7d3oDeU809MR9deZ
-         vdl3mXnW2lU3nq0UTCF/Q2/QReXffqBHsLZmnT9msI1eePaidoT8f7WDhzgriEyX8PSb
-         80NA==
+        bh=MrlN2AHnvuqoewEuf77VsbHFTuDPR9jtKRN0UKq0Zjs=;
+        b=e8+1yFjqHkpM/qKSl32qAdRQTfafdpmh6PxALkBFQGUB/a85UJCCpGrQKca+AvkM8p
+         /7++o/iFv4Lqc+5ojNPd3AzDJRjVTq1JTyn7RcVOZFMgOR+AFbXREpabhqfUvSiL9mrk
+         xdwQWE+deReWUV7x6m2BWMv6MJUilDg3GkDkc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to:content-transfer-encoding;
-        bh=tC9GDN6ljqcDVfhR/9765dsD9QBkgKBNgO71PfepPrQ=;
-        b=S8g0mZPaMPa3EXmGQ1QUWDLxZGVDoA0PH/NhCfOys1IoovEBE/8XEFw6M+5DF7qVxs
-         DOQ1nfzzlab9FH18tXRzcNWqsV7PiTIthAmZzLLLJc0GoVvF/qHn/vmR1IwtDtxMoqu8
-         yy0fD/woRDoTJsztURuKYg7gwoex8VY9X8vVi3uN2lY26bqRAvyI0i4K4lQnrRibNIXs
-         nDSD+3fivTrb9vf5tZc8yLwZXdHCWeIXbRAvHTuagrtJDVYkfo48qDPEI4QTYD7ydKZq
-         tG4M+cTSpbm7fbzCbSYk/DxoYr2WbOwiCXQYGWi5cwvdhnEZH9w3XRhcorph+AQyXbBb
-         XRpQ==
-X-Gm-Message-State: AOAM532Rvfw99q4JD10qMWRDTQpyOYVQN24F98+nPBDQo/VaYEl5tIA0
-        BOZEXtwV12mk7VrUQfwmOexRaTpIlVwGjDv31eQ=
-X-Google-Smtp-Source: ABdhPJwRiTFTbPgRHfBq8ekoX/pYmwIDoBT30xj8bU4cMNj4YHEaFSldV4Uz8xPwE2i67veWjkJaBHL/urP6czrPIPk=
-X-Received: by 2002:a05:6512:39d4:: with SMTP id k20mr3535591lfu.390.1630687353975;
- Fri, 03 Sep 2021 09:42:33 -0700 (PDT)
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc
+         :content-transfer-encoding;
+        bh=MrlN2AHnvuqoewEuf77VsbHFTuDPR9jtKRN0UKq0Zjs=;
+        b=ec6Mt04BZ40HhNr/JwEk+LGd1LPqkAoXyfHT7XIiiavgmCOR4UyPxvTpCcDnuP2ts6
+         4qWJcHekGbulZaoLXeIn4BojnOFEKcTC40frmvrJbvhIzB67tQChd7BCuVTPlwZNai7P
+         Kcqy0bm9lI7ykrOIJ3wDJ0Wd4fybmV2UIhPSYvMucJ3Y0wowa4qrX2YM/3h9QbVWwZVh
+         HMXFlqTpoDthq3fTchNfhTvc94QNEnGCDt6Bj9ix9Thdo15MmcJVuJhpgv6UbCWyF/3p
+         NemafV5b+rcHkAMjSaMj7GTYLJNXDkKdWZFbk67eGbyYJFZ2rW678jQTJfPRZEHU/kiZ
+         g+eg==
+X-Gm-Message-State: AOAM530UX8vVqBfL4hMRgcRj8xm+AWIl9U0oeRZmT3itqfHjr7z2tXyA
+        WO9d78uf223E8quO0Z2WUJvS2W9Zh9Q2gwMDwDDlRYo+6bXx4A==
+X-Google-Smtp-Source: ABdhPJxerY273HKvxeY0GVF3yPwk1xhThBh8PU/2A8wR4/Gf12eUvu/UOSO5xVGb2EYEi4tmJR8X65mGlX9ZxXjnbOc=
+X-Received: by 2002:a17:906:7154:: with SMTP id z20mr1992097ejj.547.1630722549134;
+ Fri, 03 Sep 2021 19:29:09 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 2002:a05:6520:2a4c:b0:135:9b4d:4dc6 with HTTP; Fri, 3 Sep 2021
- 09:42:33 -0700 (PDT)
-Reply-To: georgemike7031@gmail.com
-From:   george mike <barrimurphy1965@gmail.com>
-Date:   Fri, 3 Sep 2021 18:42:33 +0200
-Message-ID: <CAGZA+7qvKX2=1SJ_VMpbzyseJfz=f0ZK-DapWJE5yyHD2ArZPw@mail.gmail.com>
-Subject: 
-To:     undisclosed-recipients:;
+From:   Sagar Patel <sagarmp@cs.unc.edu>
+Date:   Fri, 3 Sep 2021 22:28:58 -0400
+Message-ID: <CAMGmevBaX-PAuNfN6fANjipxnMO9JmnKdjTxaRVWMM78zC3mCQ@mail.gmail.com>
+Subject: Meaning of "Signed-off-by"
+To:     linux-man@vger.kernel.org
+Cc:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
+        mtk.manpages@gmail.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hallo
+Hello,
 
-Mein Name ist George Mike, ich bin von Beruf Rechtsanwalt. Ich m=C3=B6chte
-dir anbieten
-der n=C3=A4chste Angeh=C3=B6rige meines Klienten. Sie erben die Summe von (=
-8,5
-Millionen US-Dollar)
-Dollar, die mein Mandant vor seinem Tod auf der Bank hinterlie=C3=9F.
+Does the man-pages project define the meaning of the "Signed-off-by"
+clause in a commit message? Per git-commit(1),
 
-Mein Mandant ist ein B=C3=BCrger Ihres Landes, der mit seiner Frau bei
-einem Autounfall gestorben ist
-und einziger Sohn. Ich habe Anspruch auf 50% des Gesamtfonds, w=C3=A4hrend
-50% dies tun werden
-sein f=C3=BCr dich.
-Bitte kontaktieren Sie meine private E-Mail hier f=C3=BCr weitere
-Details:georgemike70311@gmail.com
+> The meaning of a signoff depends on the project to which you're committin=
+g.
 
-Vielen Dank im Voraus,
-Herr George Mike
+But I couldn't find a reference to the meaning for man-pages. Is it
+the same as the linux kernel [1]?
+
+Since I couldn't find the meaning, I submitted a patch (which was
+subsequently accepted) without signing off on it. Sorry about that.
+
+[1]: https://github.com/torvalds/linux/blob/master/Documentation/process/su=
+bmitting-patches.rst#sign-your-work---the-developers-certificate-of-origin
+
+Thank you,
+=E2=80=94Sagar Patel
