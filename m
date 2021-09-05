@@ -2,76 +2,100 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 16D4D4011C0
-	for <lists+linux-man@lfdr.de>; Sun,  5 Sep 2021 23:21:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 93FCB4011DE
+	for <lists+linux-man@lfdr.de>; Mon,  6 Sep 2021 00:21:40 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231335AbhIEVWa (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 5 Sep 2021 17:22:30 -0400
-Received: from us-smtp-delivery-124.mimecast.com ([216.205.24.124]:23049 "EHLO
-        us-smtp-delivery-124.mimecast.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S229510AbhIEVW3 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 5 Sep 2021 17:22:29 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1630876884;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         in-reply-to:in-reply-to:references:references;
-        bh=OYL4Z8DJ2PdQhG9OG0g9AY3SOuzXWKbbrtf3X8xLoMA=;
-        b=g7pp789uLiD5r/UlRPOjjF1/b3flrhrPY9JzwSxwSAUDAZGD/fECne4BAlmOMEJ3SKUzl6
-        nXYXT1ADAzb7VBJjdD8yLDtGnL+LSwSE5oD9jF9lZ2Q5EZcyrH7/AztKtnIjS7HXAPmeul
-        LXeUMVMOy5uE47DrQrNgF+D1k0jE/7M=
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-143-q6l9956GM_umAu59U9i8aQ-1; Sun, 05 Sep 2021 17:21:23 -0400
-X-MC-Unique: q6l9956GM_umAu59U9i8aQ-1
-Received: by mail-qk1-f198.google.com with SMTP id h186-20020a3785c3000000b00425f37f792aso8789473qkd.22
-        for <linux-man@vger.kernel.org>; Sun, 05 Sep 2021 14:21:23 -0700 (PDT)
+        id S238331AbhIEVn4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 5 Sep 2021 17:43:56 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:32790 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S235179AbhIEVn4 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 5 Sep 2021 17:43:56 -0400
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com [IPv6:2a00:1450:4864:20::42d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 537B1C061575
+        for <linux-man@vger.kernel.org>; Sun,  5 Sep 2021 14:42:51 -0700 (PDT)
+Received: by mail-wr1-x42d.google.com with SMTP id b6so6830210wrh.10
+        for <linux-man@vger.kernel.org>; Sun, 05 Sep 2021 14:42:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=74CS0YCCUTu7qgilJBgn81o+yxg8BzZ5f2ep7aEzxMI=;
+        b=LNeNkqUhjg46n94v9x81CcXQs/nyvW8O+scFBq1Z1JPS/tsZP4RhFPVwFw3Q2uBSrK
+         IOrqMaqmxe7YISr56NAm7Jr1kLSIMO2lxNIQ+NnspiG1ZRKPL2p1TH2291W4Gt8kZ3mL
+         8/1J1HG7UWKdLX62C95PvcXXCArTCmLEL8SQ9inCdlyZqJZblPy5SrGfA3n/HR9dPZmP
+         MSVaJxZc/MQL+1NhNevjnhlruVe0BiMqbQdyr2Lu8QB1tBQWlkLiEj92JF/CZnWDiw5C
+         m1pHD+Y35Y323+3grcld2J3LnX0kS1UTePxZuS4SKlrrYffi1sehEi8+Si9yB18ot4v5
+         rWjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=OYL4Z8DJ2PdQhG9OG0g9AY3SOuzXWKbbrtf3X8xLoMA=;
-        b=tBl/0hSs195Gy0idb4mP8qvPHBfv5mkqzRIKV92VS5CiPYuflBCTFbULT8QJSefIxe
-         d9Jnlj5MluQXPN1sqQCaVRAda4Qfe2gdRtJ9bqBQeuPUjVKpMv1Yh4a3NLeiiqEGiW/2
-         WM0eHMtMoKoasigK7gbP+XZOG5oxeZDtnzNxmAsRo2n1bVQald/JgOcvuY79/NFNDP39
-         0x0VQocakyVRUvBBF6Jbd76EL5iUAG45Plxbo6jYqQMiyB8YhWGdWX+K8zMFC7RgZYQ3
-         nVoCIKNauFw9xrlrBl+f5L39vVn0JGHzsPoBp5pfYSGCp9Z5DF6vJoIdsuW2o5rAckw3
-         cJlA==
-X-Gm-Message-State: AOAM532DtkEBUsQI4gX6SnLtS6M+ztY4XiOzjXlPPCQgqM27+9ip3PfU
-        JWc8hGphbH6qYjAzrQ7xXIDAQoXwq+or0HD4wj/NPiRUUM7ADtboqm0+WyzJr1npCcKf2jzTv40
-        WLkR/ANDMl8Dj3LahR2kSiwpPsP6F9gM7EyBP
-X-Received: by 2002:a37:a56:: with SMTP id 83mr8524292qkk.22.1630876882771;
-        Sun, 05 Sep 2021 14:21:22 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJwX3zXxr1uidbTCtzDZ9CWu74mPM1yjU6h1Erbminr6q9kyfTsnGaSJtM5rbMdzA4HngpUwYkqAj4XpwKkVNA8=
-X-Received: by 2002:a37:a56:: with SMTP id 83mr8524280qkk.22.1630876882564;
- Sun, 05 Sep 2021 14:21:22 -0700 (PDT)
-MIME-Version: 1.0
-References: <20210905132542.245236-1-alx.manpages@gmail.com> <20210905132542.245236-4-alx.manpages@gmail.com>
-In-Reply-To: <20210905132542.245236-4-alx.manpages@gmail.com>
-From:   Richard Fontana <rfontana@redhat.com>
-Date:   Sun, 5 Sep 2021 17:21:11 -0400
-Message-ID: <CAC1cPGykb3KzE6OnP+KB2qxSZ_c3hDCxy4g73wGCw+xcOEm31A@mail.gmail.com>
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=74CS0YCCUTu7qgilJBgn81o+yxg8BzZ5f2ep7aEzxMI=;
+        b=dyDbcimwQX7XZvxzV7PU8Fitn8i0Pp8pgWFcQ5vJRAQ3DT7o4pH6wBQC1VB2BOR7s9
+         EfHLdA8cxBU3iG6hUIP+NLdgbdd1C0+KbypQWhQWFr07MPfyZTxVeZO6wW5hnC9qOe2I
+         y9J7+hewNCkypLZV4Kn0ngmPXIuXZ/oyvPa86KW7dX6TN7h7FG/3NSSIXCpkXFzz9XwR
+         NMGdN5YtFp8EawQEWC8GFtDoiJLo2pz6WiJUpNiqiJFyc+qf3Ee3yjMN9LojZmoQh5/Q
+         ixEGRYgiKtIcVEHALoDcerVeL+8eAhDfsVZ9QQsSC+UEQJTiCcC29TCfWW7Vsqj3mYvp
+         b7Og==
+X-Gm-Message-State: AOAM532JZwU9d6jdrx58Hw5C7yGEhufhML8i/4wqh8O1lqfe10nr2e+F
+        A9kS89qz5QD88048mT8XYpY=
+X-Google-Smtp-Source: ABdhPJyMzRXu6WTwEov+Xx9ijn1awgCJ6y3oMNq8BygaCCrt7rRT1p5+z1/eTwb58dRLzwlXu/iyHw==
+X-Received: by 2002:adf:e509:: with SMTP id j9mr9950325wrm.320.1630878169122;
+        Sun, 05 Sep 2021 14:42:49 -0700 (PDT)
+Received: from [10.8.0.18] ([195.53.121.100])
+        by smtp.gmail.com with ESMTPSA id 129sm5456363wmz.26.2021.09.05.14.42.47
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 05 Sep 2021 14:42:48 -0700 (PDT)
 Subject: Re: [RFC v3 3/9] Many pages: [GPL-2.0-or-later] Use SPDX markings
-To:     Alejandro Colomar <alx.manpages@gmail.com>
+To:     Richard Fontana <rfontana@redhat.com>
 Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
         Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
         Jilayne Lovejoy <opensource@jilayne.com>,
         Alexios Zavras <alexios.zavras@intel.com>
-Content-Type: text/plain; charset="UTF-8"
+References: <20210905132542.245236-1-alx.manpages@gmail.com>
+ <20210905132542.245236-4-alx.manpages@gmail.com>
+ <CAC1cPGykb3KzE6OnP+KB2qxSZ_c3hDCxy4g73wGCw+xcOEm31A@mail.gmail.com>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Message-ID: <bcbb9fe9-e6c5-7ac6-740c-271b92c0c52b@gmail.com>
+Date:   Sun, 5 Sep 2021 23:42:46 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
+MIME-Version: 1.0
+In-Reply-To: <CAC1cPGykb3KzE6OnP+KB2qxSZ_c3hDCxy4g73wGCw+xcOEm31A@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Sun, Sep 5, 2021 at 9:25 AM Alejandro Colomar <alx.manpages@gmail.com> wrote:
->
+Hello Richard,
 
-> -.\" The GNU General Public License's references to "object code"
-> -.\" and "executables" are to be interpreted as the output of any
-> -.\" document formatting or typesetting system, including
-> -.\" intermediate and printed output.
+On 9/5/21 11:21 PM, Richard Fontana wrote:
+> On Sun, Sep 5, 2021 at 9:25 AM Alejandro Colomar <alx.manpages@gmail.com> wrote:
+>>
+> 
+>> -.\" The GNU General Public License's references to "object code"
+>> -.\" and "executables" are to be interpreted as the output of any
+>> -.\" document formatting or typesetting system, including
+>> -.\" intermediate and printed output.
+> 
+> Shouldn't this statement be retained? It provides a useful gloss on
+> interpretation of the GPL.
 
-Shouldn't this statement be retained? It provides a useful gloss on
-interpretation of the GPL.
+Yes, it should.
+We could add a man-pages-object-code-note or something like that.
+I'll open a PR in the SPDX license-list-XML project for that.
 
-Richard
 
+Thanks,
+
+Alex
+
+
+-- 
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
