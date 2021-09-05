@@ -2,79 +2,76 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 910D440116A
-	for <lists+linux-man@lfdr.de>; Sun,  5 Sep 2021 21:47:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 16D4D4011C0
+	for <lists+linux-man@lfdr.de>; Sun,  5 Sep 2021 23:21:29 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232635AbhIETsZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 5 Sep 2021 15:48:25 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35402 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230024AbhIETsY (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 5 Sep 2021 15:48:24 -0400
-Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com [IPv6:2607:f8b0:4864:20::236])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E3462C061575
-        for <linux-man@vger.kernel.org>; Sun,  5 Sep 2021 12:47:20 -0700 (PDT)
-Received: by mail-oi1-x236.google.com with SMTP id h133so6236694oib.7
-        for <linux-man@vger.kernel.org>; Sun, 05 Sep 2021 12:47:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:references:in-reply-to:reply-to:from:date:message-id
-         :subject:to:cc;
-        bh=OY82BbKK3jdsdP5HiwQ9m6OO8eJjug7Fsy8nVpbaip0=;
-        b=qeQO+TjsUWo5aYGz6SXOrq8j+dvh5fSv7vU3TIaibMF3oZsQN0IkdY9KT5VKpREI0T
-         yZI+uRCyG6IjInCCb0G6YOdOTYd8JDHn9p0ltVHL77CJFUYhrFN5AsPWu1U4rPkThJev
-         gUH9q6cgnjj5H7pjaRw2YKZiKtVly3g/ypqlEaVz/IqLV5zxpwQu0DNybb3hciCWSYr1
-         15JEcgC8FGhPDH2PYhVKfNyy6PgWOxsjR5f6RPTV6Vu3SlpOOOZnFxDi58hR6Atm3nzC
-         pWzxpIcuDFmSmUKUnsEwnmzFR1PrRkJh4pF1qEG0GpoSrgdn4Mw/k25MG33Qc39Tp1nB
-         P8oA==
+        id S231335AbhIEVWa (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 5 Sep 2021 17:22:30 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([216.205.24.124]:23049 "EHLO
+        us-smtp-delivery-124.mimecast.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S229510AbhIEVW3 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 5 Sep 2021 17:22:29 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1630876884;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=OYL4Z8DJ2PdQhG9OG0g9AY3SOuzXWKbbrtf3X8xLoMA=;
+        b=g7pp789uLiD5r/UlRPOjjF1/b3flrhrPY9JzwSxwSAUDAZGD/fECne4BAlmOMEJ3SKUzl6
+        nXYXT1ADAzb7VBJjdD8yLDtGnL+LSwSE5oD9jF9lZ2Q5EZcyrH7/AztKtnIjS7HXAPmeul
+        LXeUMVMOy5uE47DrQrNgF+D1k0jE/7M=
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-143-q6l9956GM_umAu59U9i8aQ-1; Sun, 05 Sep 2021 17:21:23 -0400
+X-MC-Unique: q6l9956GM_umAu59U9i8aQ-1
+Received: by mail-qk1-f198.google.com with SMTP id h186-20020a3785c3000000b00425f37f792aso8789473qkd.22
+        for <linux-man@vger.kernel.org>; Sun, 05 Sep 2021 14:21:23 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
-         :from:date:message-id:subject:to:cc;
-        bh=OY82BbKK3jdsdP5HiwQ9m6OO8eJjug7Fsy8nVpbaip0=;
-        b=rmTNXqvZuuqO//OoAyNt0gNk+d7r5XJsl0V95XXGCCm0j1wJdEES5EVFKiS+YZS3jE
-         nYGa57ojFJQc7XIwCFsmpb8bvAvKqG9409ixxUFzPGXJeKLz0KEsx90LiaMwhPeDZ1js
-         UJrsknkqJ3Ks5/xEu0kQ1+Nzkp4TQC2Wyz8/9K8yCQQZnCV+N4itKv5BsD6LlBquulAy
-         PB0ULFUQ9xG5gcNU5JzUG+K7unhaZKHvmpWTEqpECyHBg16NJy2lW2aptTD/nobtEjKN
-         RHXg90TrXDlnefUJSDkXKKJVi/f1h4Y/N2YX1io5rC/d+oVRjkleS4TtyIzgFsZ8MVCe
-         WjrQ==
-X-Gm-Message-State: AOAM531jmdhQT771pFjg7rJPMRgM0kGJtmoFOcK4y5CO30ADpGox1UDH
-        nfPdC/CVITo4DlyS6D2f9xTS8fzKNCVcgHXYflQ=
-X-Google-Smtp-Source: ABdhPJxL0NUYT7cP9UarENV9Ip+enJDO0SvYHrVoboFsitolrZn657XjpnjSTjYe74R4j8k4pJ+7TYvNBG7Zh34aIf8=
-X-Received: by 2002:aca:42c2:: with SMTP id p185mr6195751oia.159.1630871239741;
- Sun, 05 Sep 2021 12:47:19 -0700 (PDT)
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=OYL4Z8DJ2PdQhG9OG0g9AY3SOuzXWKbbrtf3X8xLoMA=;
+        b=tBl/0hSs195Gy0idb4mP8qvPHBfv5mkqzRIKV92VS5CiPYuflBCTFbULT8QJSefIxe
+         d9Jnlj5MluQXPN1sqQCaVRAda4Qfe2gdRtJ9bqBQeuPUjVKpMv1Yh4a3NLeiiqEGiW/2
+         WM0eHMtMoKoasigK7gbP+XZOG5oxeZDtnzNxmAsRo2n1bVQald/JgOcvuY79/NFNDP39
+         0x0VQocakyVRUvBBF6Jbd76EL5iUAG45Plxbo6jYqQMiyB8YhWGdWX+K8zMFC7RgZYQ3
+         nVoCIKNauFw9xrlrBl+f5L39vVn0JGHzsPoBp5pfYSGCp9Z5DF6vJoIdsuW2o5rAckw3
+         cJlA==
+X-Gm-Message-State: AOAM532DtkEBUsQI4gX6SnLtS6M+ztY4XiOzjXlPPCQgqM27+9ip3PfU
+        JWc8hGphbH6qYjAzrQ7xXIDAQoXwq+or0HD4wj/NPiRUUM7ADtboqm0+WyzJr1npCcKf2jzTv40
+        WLkR/ANDMl8Dj3LahR2kSiwpPsP6F9gM7EyBP
+X-Received: by 2002:a37:a56:: with SMTP id 83mr8524292qkk.22.1630876882771;
+        Sun, 05 Sep 2021 14:21:22 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwX3zXxr1uidbTCtzDZ9CWu74mPM1yjU6h1Erbminr6q9kyfTsnGaSJtM5rbMdzA4HngpUwYkqAj4XpwKkVNA8=
+X-Received: by 2002:a37:a56:: with SMTP id 83mr8524280qkk.22.1630876882564;
+ Sun, 05 Sep 2021 14:21:22 -0700 (PDT)
 MIME-Version: 1.0
-References: <CAMGmevBaX-PAuNfN6fANjipxnMO9JmnKdjTxaRVWMM78zC3mCQ@mail.gmail.com>
-In-Reply-To: <CAMGmevBaX-PAuNfN6fANjipxnMO9JmnKdjTxaRVWMM78zC3mCQ@mail.gmail.com>
-Reply-To: mtk.manpages@gmail.com
-From:   "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Date:   Sun, 5 Sep 2021 21:47:08 +0200
-Message-ID: <CAKgNAkjDsKw1PgHhVZSVvtWuBQDyCrqhLq8HDWh9brLm4f0_Kw@mail.gmail.com>
-Subject: Re: Meaning of "Signed-off-by"
-To:     Sagar Patel <sagarmp@cs.unc.edu>
-Cc:     linux-man <linux-man@vger.kernel.org>,
-        "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+References: <20210905132542.245236-1-alx.manpages@gmail.com> <20210905132542.245236-4-alx.manpages@gmail.com>
+In-Reply-To: <20210905132542.245236-4-alx.manpages@gmail.com>
+From:   Richard Fontana <rfontana@redhat.com>
+Date:   Sun, 5 Sep 2021 17:21:11 -0400
+Message-ID: <CAC1cPGykb3KzE6OnP+KB2qxSZ_c3hDCxy4g73wGCw+xcOEm31A@mail.gmail.com>
+Subject: Re: [RFC v3 3/9] Many pages: [GPL-2.0-or-later] Use SPDX markings
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Jilayne Lovejoy <opensource@jilayne.com>,
+        Alexios Zavras <alexios.zavras@intel.com>
 Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Sagar
-
-On Sat, 4 Sept 2021 at 04:29, Sagar Patel <sagarmp@cs.unc.edu> wrote:
+On Sun, Sep 5, 2021 at 9:25 AM Alejandro Colomar <alx.manpages@gmail.com> wrote:
 >
-> Hello,
->
-> Does the man-pages project define the meaning of the "Signed-off-by"
-> clause in a commit message? Per git-commit(1),
->
-> > The meaning of a signoff depends on the project to which you're committing.
->
-> But I couldn't find a reference to the meaning for man-pages. Is it
-> the same as the linux kernel [1]?
 
-The intention is that the meaning should be the same as for the kernel.
+> -.\" The GNU General Public License's references to "object code"
+> -.\" and "executables" are to be interpreted as the output of any
+> -.\" document formatting or typesetting system, including
+> -.\" intermediate and printed output.
 
-Thanks,
+Shouldn't this statement be retained? It provides a useful gloss on
+interpretation of the GPL.
 
-Michael
+Richard
+
