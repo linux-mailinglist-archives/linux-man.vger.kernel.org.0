@@ -2,178 +2,206 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B45E74036D4
-	for <lists+linux-man@lfdr.de>; Wed,  8 Sep 2021 11:23:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E28B6403CC3
+	for <lists+linux-man@lfdr.de>; Wed,  8 Sep 2021 17:45:48 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1351415AbhIHJYT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 8 Sep 2021 05:24:19 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46112 "EHLO
+        id S1352110AbhIHPqz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 8 Sep 2021 11:46:55 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49312 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1351419AbhIHJYR (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 8 Sep 2021 05:24:17 -0400
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com [IPv6:2a00:1450:4864:20::430])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A39C7C061575
-        for <linux-man@vger.kernel.org>; Wed,  8 Sep 2021 02:23:09 -0700 (PDT)
-Received: by mail-wr1-x430.google.com with SMTP id q26so2205952wrc.7
-        for <linux-man@vger.kernel.org>; Wed, 08 Sep 2021 02:23:09 -0700 (PDT)
+        with ESMTP id S1349643AbhIHPqy (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 8 Sep 2021 11:46:54 -0400
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com [IPv6:2a00:1450:4864:20::432])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DDAFFC061575;
+        Wed,  8 Sep 2021 08:45:46 -0700 (PDT)
+Received: by mail-wr1-x432.google.com with SMTP id u9so3971627wrg.8;
+        Wed, 08 Sep 2021 08:45:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=fh+F8CROR/VGjtwnArq/oSSwBfX7MOCM+iT+UjFKOsQ=;
-        b=X5IZxsAjNhCpLNFWGkruA1U69Yz012X+5qavETg77Ely8C50Fbwdl3xt8F53herger
-         aa/Re1P/jAim/3x6+hOio3gGmYIkCRSHIQRI/UMo/zxxSyT/siPhK2nh/FK02T0C9lQt
-         bnrJxuKvsS90srDlAu5q0ht547E0IhQhWHsA/6ze8+fXCh6aJUrO/B8FvMNam3el+I4o
-         myLrGsbgqRL2lHgohnA866lMpEW/6o/KiR6BJIvzLfTFtVHIKJoArJjx+82690hu4Fuf
-         PNVHuK0YCK8pb2mWAzp3ALFLdQTI053AwqfgjWfdqJVpEgCrhYkLNTPDfdy0PknY9uuI
-         cq+A==
+        bh=02nKNTZz4THGLXDioBZTClADgZqVZV+M2gzGsJDR+PE=;
+        b=Hh3dGOKDFOKWaG7ja2vAuArKHueEeutQh+i5S5Tbr18Je8z5/ByM7hA7gnVm+rl+r3
+         jql33t2TnSVtaQS8ZJBmOtwFK+HCLpqxivoQJlD9iPfQh/huaZpVlxgjFDZBwS8FWNvt
+         mthWvFI6g37b83XkUmW0LMjGXk0zdvgmXCy5NusZ2m7ybvonx7nc2wJtttGuZRi4TW8A
+         jvSSJWcFGWmDIgUQpk7Sfm40pUJyrEsmk+QbIiPE4+GS8BkR4h+9q4FRAPeZ81nNdWbj
+         U+gB124Y2Ld0vjCY2JSkhTX5ce531jEsP6l0YK9GgNAqp29Y/1+UcOhM1SyDgwRN3Wnw
+         Yn5w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=fh+F8CROR/VGjtwnArq/oSSwBfX7MOCM+iT+UjFKOsQ=;
-        b=l6lUDUAHvGX8oWK7C2/aIcM5tGcbsr4uEV5UF9eSnZy0ITRCRK/91edNU12SWYgMhV
-         QjOni7vXfGcJ5tJW1JiSix+uKTPgMzxJSKSo3rMWrDTXxRDHrrPEoZ+8KTiFrKW4Rs7S
-         oeDQo1jMu/KXl3+FQmRrb4DQX5BIxNwPkQutFZnhM/MG6SCRS9E9LKV4BUvcvtwrRET0
-         zXvoDAJIUnYHZ05fGYndXS1kv8QNp0qQiegnyfauokNQl5+HL8YFq/l77Tww7xgnZwpc
-         q/7Fri1rDPCCsRfAgnIsMoiM0oYZ79cVrIsBQXDWAt3M9oKFLptcj6h0Ee8dfh/6DbB+
-         AG5w==
-X-Gm-Message-State: AOAM533j+uNAgNADpd4sYfyJ9WP2FPfJCDSRjCz6UaVCc8ded4DsVo9m
-        ZCFR2n7Q/hhC00jBJA5W5KE=
-X-Google-Smtp-Source: ABdhPJwL8+xrKJB6JaLucQg+6u6ELJSErm7zdiIAzXnjsu1o/WPc/pxVXKaguQxQVuQNLP0ehGqxDg==
-X-Received: by 2002:adf:eb02:: with SMTP id s2mr2937880wrn.294.1631092988271;
-        Wed, 08 Sep 2021 02:23:08 -0700 (PDT)
+        bh=02nKNTZz4THGLXDioBZTClADgZqVZV+M2gzGsJDR+PE=;
+        b=cKvZwXow7BC0ODhcphMrsUVS4WnVpn1yNp+weOHkda9AKmlY5NTQWuEFdjiWa65Gv+
+         tnl4QQ5ZzAi3LUpj4gG5HCbUvy3CtyjKlqnOHqq6e38hQOZ3IczzfF5lCCJyl1dzQjQo
+         p7hC9F//OqhFtb0LRMyHw1AdfWBAir3mbvf5jXDQzdvPf6fevPJb83MUUVRybfrDsmnQ
+         UBd/cV8rCV5l7rSVsHEEBLoOi00Dh9oa3LZlu8kTpe4zPSd7mGJdpyLlObzR+M4qXWVh
+         YT/j1IFMOxMCGNK72kUJ/wzIHfg9673OLOvs0cxPLQIF3PnD8txQ8bINDm/6tuxg5+k8
+         nKGA==
+X-Gm-Message-State: AOAM533rmOxwK0sitMQqyBH2qyCxxRT0bT5wjjntv+CjLcjBW1opYD4H
+        e2blMVmYmLp37C4LnRy2ffM=
+X-Google-Smtp-Source: ABdhPJwRnB8jrEG1KuMGkMPUZ7im6sfqUGdrBP9RjNNqkOFa7xd84in8VlDd5LMb8g4ESCuig0WdXA==
+X-Received: by 2002:a5d:6307:: with SMTP id i7mr4886037wru.395.1631115945512;
+        Wed, 08 Sep 2021 08:45:45 -0700 (PDT)
 Received: from [10.168.10.11] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id m12sm1532126wrq.29.2021.09.08.02.23.07
+        by smtp.gmail.com with ESMTPSA id a203sm1349853wmd.42.2021.09.08.08.45.44
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 08 Sep 2021 02:23:07 -0700 (PDT)
-Subject: Re: [RFC v3 1/9] LICENSES/GPL-1.0-or-later.txt, many pages: Use SPDX
- markings
-To:     Richard Fontana <rfontana@redhat.com>
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Jilayne Lovejoy <opensource@jilayne.com>,
-        Alexios Zavras <alexios.zavras@intel.com>
-References: <20210905132542.245236-1-alx.manpages@gmail.com>
- <20210905132542.245236-2-alx.manpages@gmail.com>
- <CAC1cPGy9hwwbSuGvsneg+ePar3rgiv7Oz3Gff4RALr+wdf-kZg@mail.gmail.com>
+        Wed, 08 Sep 2021 08:45:45 -0700 (PDT)
+Subject: Re: [PATCH] filename.7: new manual page
+To:     "Thaddeus H. Black" <thb@debian.org>
+Cc:     linux-man@vger.kernel.org,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        "Dr. Tobias Quathamer" <toddy@debian.org>,
+        linux-ext4@vger.kernel.org, debian-doc@lists.debian.org,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>
+References: <YTX+PEtj60O/TdMh@b-tk.org>
+ <a18a8f3d-78a7-15e5-7a6e-0f4740c84667@gmail.com> <YTjPHZEpjzn7Ufg/@b-tk.org>
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <074061d6-0973-f0a7-57ca-188e85e17f22@gmail.com>
-Date:   Wed, 8 Sep 2021 11:23:06 +0200
+Message-ID: <1543a191-66f9-3cb5-1903-277242e9204c@gmail.com>
+Date:   Wed, 8 Sep 2021 17:45:43 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.13.0
 MIME-Version: 1.0
-In-Reply-To: <CAC1cPGy9hwwbSuGvsneg+ePar3rgiv7Oz3Gff4RALr+wdf-kZg@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+In-Reply-To: <YTjPHZEpjzn7Ufg/@b-tk.org>
+Content-Type: text/plain; charset=windows-1252; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Richard,
+Hi Thaddeus,
 
-On 9/5/21 11:53 PM, Richard Fontana wrote:
-> On Sun, Sep 5, 2021 at 9:25 AM Alejandro Colomar <alx.manpages@gmail.com> wrote:
+On 9/8/21 4:56 PM, Thaddeus H. Black wrote:
+>> You could move sections into subsections of DESCRIPTION, and the current
+>> subsections into tagged paragraphs (.TP).
+> 
+> Question 1:  do you happen to know of a good example of an existing
+> manual page that already does this?  If you did, then I could follow the
+> example.  Otherwise, it might be tricky, for the existing subsections
+> already have tagged paragraphs and other structure within them.
+> Perhaps .RS/.RE could be used.  I am not sure.
+
+I don't know of a page that does this, and some of them are a bit 
+inconsistent, so I'd have to search through the source code of the pages 
+to find one that is a perfect example.  So I'll write/draw a schema here:
+
+You could do it like this:
+
+.TP
+	tag 1
+.PP
+		paragraph 1.1
+.IP
+		paragraph 1.2
+.IP
+		paragraph 1.3
+.RS
+.TP
+		tag 1.4
+.PP
+			paragraph 1.4.1
+.IP
+			paragraph 1.4.2
+.RS
+.TP
+			tag 1.4.3
+.PP
+				paragraph 1.4.3.1
+.IP
+				paragraph 1.4.3.2
+.IP
+				paragraph 1.4.3.3
+.RE
+.IP
+			paragraph 1.4.4
+.RE
+.IP
+		paragraph 1.5
+
+
+Was it helpful?
+
+Disclaimer:  I didn't test it; I'm talking from memory.
+Disclaimer 2: indentation is just to show results; obviously, don't 
+indent your input :)
+
+
+> 
+> I notice that bash(1) does not follow your advice but dash(1) does.
+> However, dash(1) has no subsubsections.  In any event, a manual
+> page *about* conventions, like filename(7), should *obey*
+> conventions.  I just need to figure out how to obey with good style
+> in this instance.
+> 
+> On the other hand, there is an alternative, though I do not say whether
+> it is a better alternative.  The alternative would be to avoid
+> subsubsections by using colons ':' in subsection titles, instead,
+> approximately as follows.
+> 
+>      NAME
+>      DESCRIPTION
+>          Legal filenames
+>          Legal filenames:  reserved characters
+>          Legal filenames:  reserved names
+>          Legal filenames:  long names
+>          Legal filenames:  non-UTF-8 names
+>          Conventional filenames
+>          Conventional filenames:  the POSIX Portable Filename Character Set
+>          Conventional filenames:  special semantics
+>          Conventional filenames:  the full stop to introduce a format extension
+>          Soft conventions
+>          Soft convention:  low line versus hyphen-minus
+>          Soft convention:  letter case
+>          Locales and Unicode
+>          Unconventional filenames
+>      CONFORMING TO
+>      SEE ALSO
+> 
+> Question 2:  within the constraints of established manual-page
+> conventions, which alternative would you and Branden advise?
+
+I think tagged paragraphs as subsubsections is much more common (and 
+logically organized).
+
+> 
+>>> +The format-extension convention is all but universally recognized.
 >>
->> To simplify understanding which license applies to each file,
->> let's use SPDX markings, which are simple, informative, and
->> commonly used in many projects.
->> Let's also follow REUSE <https://reuse.software/> conventions.
->>
->> I assime GPL-1.0-or-later is the closest thing to GPL_NOVERSION_ONELINE,
->> which I couldn't find anywhere.
+>> Non-native English speakers may have trouble understanding "all but". Maybe
+>> s/all but/not/?
 > 
-> That's pretty unlikely what any contributor to these files intended,
-> but maybe harmless. But the inclusion of the GPL version 1 text (the
-> logic of which I understand, given the desire to follow REUSE)
-> emphasizes the awkwardness. If this were my project, I'd probably just
-> recast these as GPL-2.0-or-later (which is generally understood to be
-> permissible). Socially, I think by the early years of the kernel, GPL
-> version 1 was largely forgotten, and "the GPL" had come to mean GPL
-> version 2, or in some contexts GPL version 2 and (for a long time)
-> hypothetical future versions of the GPL.
+> When a reviewer like you informs me that (for whatever reason) he or she
+> did not understand a sentence the first time he or she read it, this is
+> valuable feedback; for if the reviewer did not understand it the first
+> time, then other readers probably also will not understand it the first
+> time.  The sentence ought to be rewritten to make reading the sentence
+> twice unnecessary.
+> 
+> In the sentence in question, I did not mean "not" but rather "almost."
 
-Technically, we could update 1.0+ to 2.0+, since it's a subset of it.
-I didn't want to reduce rights artificially before knowing what 
-GPL_NOVERSION_ONELINE is.  But if the general understanding is that 
-authors wanted GPL 2, I'm fine with it.  I'll do that in a separate 
-commit for now (which will remove the 1.0+ license text and change the 
-identifiers), however, instead of amending.
+Then I got it very wrongly :).  I thought you meant more like "far from 
+being universally recognized".
+
+"almost" seems good to me.
+
 
 > 
-> One other thing:
-> 
->> -.\" Copyright 1995-2000 David Engel (david@ods.com)
->> -.\" Copyright 1995 Rickard E. Faith (faith@cs.unc.edu)
->> -.\" Copyright 2000 Ben Collins (bcollins@debian.org)
->> -.\"    Redone for GLibc 2.2
->> -.\" Copyright 2000 Jakub Jelinek (jakub@redhat.com)
->> -.\"    Corrected.
->> -.\" and Copyright (C) 2012, 2016, Michael Kerrisk <mtk.manpages@gmail.com>
->> -.\"
->> -.\" %%%LICENSE_START(GPL_NOVERSION_ONELINE)
->> -.\" Do not restrict distribution.
->> -.\" May be distributed under the GNU General Public License
->> -.\" %%%LICENSE_END
->> +.\" SPDX-FileCopyrightText: 1995-2000, David Engel <david@ods.com>
->> +.\" SPDX-FileCopyrightText: 1995, Rickard E. Faith <faith@cs.unc.edu>
->> +.\" SPDX-FileCopyrightText: 2000, Ben Collins <bcollins@debian.org>
->> +.\" SPDX-FileCopyrightText: 2000, Jakub Jelinek <jakub@redhat.com>
->> +.\" SPDX-FileCopyrightText: 2012, 2016, Michael Kerrisk <mtk.manpages@gmail.com>
-> 
-> I haven't followed what the kernel has been doing around use of SPDX
-> expressions in source files for a long time. Is it now routinely
-> replacing original copyright notices with these SPDX-FileCopyrightText
-> statements? Without permission from the authors, this feels
-> questionable to me, as (in theory) this could have some sort of
-> unexpected legal consequence or violate the expectations of the
-> authors. In at least some cases, the original copyright notice might
-> be a formally valid copyright notice under US law (or perhaps, less
-> likely I think, the law of some other jurisdiction) while the
-> transformed version wouldn't be. To be sure, it's unlikely to matter
-> for various reasons, but I just hope someone has thought about this.
+> Question 3:  in your opinion, would s/all but/almost/ make the sentence
+> more readable?  If not, then another option would be s/all but/nearly/.
 
-I'm not an expert in legal matters, and also don't know very much what 
-other projects have been doing about this.
-
-I reformatted some of the copyright lines in the following ways:
-
-- Transform () emails into <> for consistency.  Not a meaningful change.
-
-- Add commas and spaces for consistency.  Not a meaningful change.
-
-- Remove the "Copyright (c) " prefix, since I understand that 
-"SPDX-FileCopyrightText: " replaces it, I hope both semantically and 
-legally.  I hope this is not a meaningful change, but I'd like advise 
-from experts (that's why I CCd some SPDX people).
-
-- When dates were so specific to include the day, I simplified to only 
-the year.  That's slightly meaningful, maybe too much...  But I thought 
-that knowing the exact day a page was written isn't important 30 years 
-after.
-
-- I consciously removed text in a couple copyright of lines saying "All 
-rights reserved." when the license was GPL.  It was simply wrong.  The 
-GPL is already giving away rights, so they are not reserved.
+almost is good.
 
 > 
-> Ah, I also see that the SPDX speaks of SPDX-FileCopyrightText :
-> https://spdx.github.io/spdx-spec/appendix-IX-file-tags/
+> (For information, I have some time to work on the patch today but little
+> time during the following two or three weeks.  Therefore, if I am slow
+> to reply after today, this does not mean that I have forgotten!  If not
+> today, then I will deliver PATCH v2 some time on or before Sept. 28.)
 > 
-> But in the examples there, it looks like the hypothetical original
-> copyright notice is preserved and just gets "SPDX-FIleCopyrightText"
-> prepended. Here you're transforming the original copyright notice into
-> a "date, name" string.
-
-Well, it's mostly what a copyright notice was originally meant to be, I 
-think; copyright holder and date.  SPDX only formats it more consistently.
 
 Thanks,
 
 Alex
-
 
 -- 
 Alejandro Colomar
