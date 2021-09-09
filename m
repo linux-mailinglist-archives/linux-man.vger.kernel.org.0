@@ -2,40 +2,41 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 309A6403D51
-	for <lists+linux-man@lfdr.de>; Wed,  8 Sep 2021 18:07:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id BA3254043AD
+	for <lists+linux-man@lfdr.de>; Thu,  9 Sep 2021 04:37:43 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230238AbhIHQIt (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 8 Sep 2021 12:08:49 -0400
-Received: from THBLACKELECTRIC.COM ([207.244.97.128]:39468 "EHLO lsw.cs1local"
+        id S233908AbhIICiv (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 8 Sep 2021 22:38:51 -0400
+Received: from THBLACKELECTRIC.COM ([207.244.97.128]:39540 "EHLO lsw.cs1local"
         rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org with ESMTP
-        id S235639AbhIHQIq (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Wed, 8 Sep 2021 12:08:46 -0400
+        id S232144AbhIICiv (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Wed, 8 Sep 2021 22:38:51 -0400
 Received: from [72.29.63.102] (helo=localhost)
         by lsw.cs1local with esmtpsa (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
         (Exim 4.92)
         (envelope-from <thb@b-tk.org>)
-        id 1mO06o-0002b9-Nr; Wed, 08 Sep 2021 16:07:34 +0000
+        id 1mO9wa-0004ku-2A
+        for linux-man@vger.kernel.org; Thu, 09 Sep 2021 02:37:40 +0000
 Received: from thb by localhost with local (Exim 4.94.2)
         (envelope-from <thb@b-tk.org>)
-        id 1mNz01-0001TC-2C; Wed, 08 Sep 2021 14:56:29 +0000
-Date:   Wed, 8 Sep 2021 14:56:29 +0000
+        id 1mO9b2-0003Xb-2A; Thu, 09 Sep 2021 02:15:24 +0000
+Date:   Thu, 9 Sep 2021 02:15:24 +0000
 From:   "Thaddeus H. Black" <thb@debian.org>
 To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org,
         Michael Kerrisk <mtk.manpages@gmail.com>,
-        "Dr. Tobias Quathamer" <toddy@debian.org>,
-        linux-ext4@vger.kernel.org, debian-doc@lists.debian.org,
         "G. Branden Robinson" <g.branden.robinson@gmail.com>
 Subject: Re: [PATCH] filename.7: new manual page
-Message-ID: <YTjPHZEpjzn7Ufg/@b-tk.org>
+Message-ID: <YTluPPbquS6ZHmHL@b-tk.org>
 References: <YTX+PEtj60O/TdMh@b-tk.org>
  <a18a8f3d-78a7-15e5-7a6e-0f4740c84667@gmail.com>
+ <YTjPHZEpjzn7Ufg/@b-tk.org>
+ <1543a191-66f9-3cb5-1903-277242e9204c@gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="QaviqNKVsYSaVU58"
+        protocol="application/pgp-signature"; boundary="AkgOZjkHhA6RhS5o"
 Content-Disposition: inline
-In-Reply-To: <a18a8f3d-78a7-15e5-7a6e-0f4740c84667@gmail.com>
+In-Reply-To: <1543a191-66f9-3cb5-1903-277242e9204c@gmail.com>
 X-Spam_score: -0.8
 X-Spam_bar: /
 Precedence: bulk
@@ -43,115 +44,121 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---QaviqNKVsYSaVU58
+--AkgOZjkHhA6RhS5o
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-[To limit spam, I'll probably copy future emails only to Alejandro,
-Branden, Michael and the linux-man list.]
-
-Alejandro:
-
-I am collecting and applying your and Branden's edits.  Meanwhile,
-three questions and some comments occur.
-
-On Mon, Sep 06, 2021 at 04:21:09PM +0200, Alejandro Colomar (man-pages) wro=
+On Wed, Sep 08, 2021 at 05:45:43PM +0200, Alejandro Colomar (man-pages) wro=
 te:
-> See man-pages(7):
+> > Question 1:  do you happen to know of a good example of an existing
+> > manual page that already does this?  If you did, then I could follow the
+> > example.  Otherwise, it might be tricky, for the existing subsections
+> > already have tagged paragraphs and other structure within them.
+> > Perhaps .RS/.RE could be used.  I am not sure.
 >=20
->    Sections within a manual page
+> I don't know of a page that does this, and some of them are a bit
+> inconsistent, so I'd have to search through the source code of the pages =
+to
+> find one that is a perfect example.  So I'll write/draw a schema here:
 >=20
->               [...]             =20
->               DESCRIPTION
->               [...]             =20
-
-When in doubt, consistency is best.  Good point.
-
-> You could move sections into subsections of DESCRIPTION, and the current
-> subsections into tagged paragraphs (.TP).
-
-Question 1:  do you happen to know of a good example of an existing
-manual page that already does this?  If you did, then I could follow the
-example.  Otherwise, it might be tricky, for the existing subsections
-already have tagged paragraphs and other structure within them.
-Perhaps .RS/.RE could be used.  I am not sure.
-
-I notice that bash(1) does not follow your advice but dash(1) does.
-However, dash(1) has no subsubsections.  In any event, a manual
-page *about* conventions, like filename(7), should *obey*
-conventions.  I just need to figure out how to obey with good style
-in this instance.
-
-On the other hand, there is an alternative, though I do not say whether
-it is a better alternative.  The alternative would be to avoid
-subsubsections by using colons ':' in subsection titles, instead,
-approximately as follows.
-
-    NAME
-    DESCRIPTION
-        Legal filenames
-        Legal filenames:  reserved characters
-        Legal filenames:  reserved names
-        Legal filenames:  long names
-        Legal filenames:  non-UTF-8 names
-        Conventional filenames
-        Conventional filenames:  the POSIX Portable Filename Character Set
-        Conventional filenames:  special semantics
-        Conventional filenames:  the full stop to introduce a format extens=
-ion
-        Soft conventions
-        Soft convention:  low line versus hyphen-minus
-        Soft convention:  letter case
-        Locales and Unicode
-        Unconventional filenames
-    CONFORMING TO
-    SEE ALSO
-
-Question 2:  within the constraints of established manual-page
-conventions, which alternative would you and Branden advise?
-
-> > +The format-extension convention is all but universally recognized.
+> You could do it like this:
 >=20
-> Non-native English speakers may have trouble understanding "all but". May=
-be
-> s/all but/not/?
+> .TP
+> 	tag 1
+> .PP
+> 		paragraph 1.1
+> .IP
+> 		paragraph 1.2
+> .IP
+> 		paragraph 1.3
+> .RS
+> .TP
+> 		tag 1.4
+> .PP
+> 			paragraph 1.4.1
+> .IP
+> 			paragraph 1.4.2
+> .RS
+> .TP
+> 			tag 1.4.3
+> .PP
+> 				paragraph 1.4.3.1
+> .IP
+> 				paragraph 1.4.3.2
+> .IP
+> 				paragraph 1.4.3.3
+> .RE
+> .IP
+> 			paragraph 1.4.4
+> .RE
+> .IP
+> 		paragraph 1.5
+>=20
+>=20
+> Was it helpful?
 
-When a reviewer like you informs me that (for whatever reason) he or she
-did not understand a sentence the first time he or she read it, this is
-valuable feedback; for if the reviewer did not understand it the first
-time, then other readers probably also will not understand it the first
-time.  The sentence ought to be rewritten to make reading the sentence
-twice unnecessary.
+Yes but it does not do exactly what you want.  However, after some
+reading and experimentation, I find that the following does exactly what
+you want (if I correctly understand what you want).
 
-In the sentence in question, I did not mean "not" but rather "almost."
+    .\" The .SSS macro introduces a subsubsection
+    .\" as the .SS macro introduces a subsection.
+    .de1 SSS
+    .  if !r SSS_SN_ORIG .nr SSS_SN_ORIG \\n[SN]
+    .  nr SN (2 * \\n[SSS_SN_ORIG])
+    .  SS \&\\$*
+    .  nr SN (\\n[SSS_SN_ORIG])
+    ..
+    .TH ABC 7 1970-01-01 "Linux" "Linux Programmer's Manual"
+    .SH SECTION FOO
+    .PP
+    Foo flargh.
+    .SS Subsection bar
+    .PP
+    Bar blargh.
+    .SSS Subsubsection baz
+    .PP
+    Baz mnargh.
 
-Question 3:  in your opinion, would s/all but/almost/ make the sentence
-more readable?  If not, then another option would be s/all but/nearly/.
+Result:
 
-(For information, I have some time to work on the patch today but little
-time during the following two or three weeks.  Therefore, if I am slow
-to reply after today, this does not mean that I have forgotten!  If not
-today, then I will deliver PATCH v2 some time on or before Sept. 28.)
+    ABC(7)                 Linux Programmer's Manual                 ABC(7)
 
---QaviqNKVsYSaVU58
+    SECTION FOO
+           Foo flargh.
+
+       Subsection bar
+           Bar blargh.
+
+          Subsubsection baz
+           Baz mnargh.
+
+    Linux                          1970-01-01                        ABC(7)
+
+On the PDF output device, the result is similar, though the narrow
+offset (only 1.2en) between "Subsubsection baz" and "Baz mnargh" is
+slightly unappealing in the PDF.
+
+
+--AkgOZjkHhA6RhS5o
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEM1APDU+pwMhnuF4GcGMmQy2FIrwFAmE4zxcACgkQcGMmQy2F
-Iry/6g//XFoDlbv/YP2tjivBqT5tBhVRYn8hLCp2yzkba6gxL40JuzpfBt5pwhug
-rly47YBD5TrbFSxEJ2dpxxDj9HZxk99uUc9Oo4P8qZj5azIwiDnuKd1Fvxo41tTe
-QdqQnWBdsk/W+CrD2/yeN5M7lnNDpfUeYhvLvjj5k1gJx1Ao/fSpvGK+m0t38Nyu
-47Vx8Z8wkkbZc4CmJd9pDxaEY/xz8/8eUor4+msH2cK1mfxIeFM+0/U9S82D5NU6
-h339LQ849RZxmDllPkAIa2MRlSdiZTJeYeGif5zSjIWghA+Y3hhPOTemmt8S3oiY
-EAOKsAKsBxBcwApqP5Z8H7yMsntDVb8n54+NEjp93xFPDP5J0dzvqWC4V6VgO0gU
-4ADgGI5JdtnONInS10Uc5N8egsR2ibQZWK1J+oksbBToclHy7VCCOHT8qRoOjxsA
-LB4GDFEm5ARtEnfLesq09+mSdC3YR2BOS3ojvb1FWMbyL/Pt5M5SOvC4shgBWweX
-pLNFyOCsJO/uNzU411IiHuJL2G05ltwh8T2Yvcz8RurHVnRFVBqeaVipbRhKYHeg
-hLRWyWUIkFyJM6tOKUrm3esGQm2Tv7a/hUg4dY4x6OhRcj/YQzi3UAAoqP0oijRv
-82KnW0pvn7txwxPqMXxxZcKnnDLBQTqP3gTX8mJKI/P3w8GVqqc=
-=z95u
+iQIzBAABCAAdFiEEM1APDU+pwMhnuF4GcGMmQy2FIrwFAmE5bjgACgkQcGMmQy2F
+IrwovxAA0AJ6Z/I5jXu4N7WFbuLSi8bJv1+9fm83c2nnnDp/RqAUf8YegI3Lmpe8
+LY2dfew92eRWTcRUVOSwkcyAzYDlk/j+7DVe/nVpU8MFHahuJhOzXeUY/CHWyG2u
+GEN1zIg4Xwz2yy7xJiM6qnyWVQiKJ3awNio/lWERxA+KmJYgGwo75yOJeDWIRgAg
+pAe9Vu/bBv0XPvI+PrhyVu3aZZqzAUfQz11vHlOun+NyOmAgxDLKLNnoTcIJe0ZQ
+gk5udtwJHCcpvL3UhRI7uIJhpxftRKvz6es4re/uc9uTUC6ngzNagk9YadArBraS
+vuCXa4nRIWzpJ6IorPRL9aAMKkGhkudib82bGwRHlhqGoHFf7kG1bY3NSq3Mg27P
+azJuUiDwhOdL9eO/kqu2PXPrWw3y1vn1/Dpw4tMlXzI0gII0RitPjs3cW4xLE9qB
+miS2s+LSCs0at+CbToob8TrgMduXiJby66N+aYbA34uK5EqY7B9su30vssRB6te1
+yPxbdYrUBN2cQ6kGhCNCGiOVzhz8Vucq8vthaUGt9UpVX658lal8QJycg2v38wJR
+camPOqQ6Dl6brvHa2azL8ZlqeoS0Crk4EeRMdwz+s5C+z0oz8+JkUqTA0OMgPXPH
+587cKF+LlKsfUckg4591lVpVrmd1EADE95KLNrWgARsOzpDwWTo=
+=NHuR
 -----END PGP SIGNATURE-----
 
---QaviqNKVsYSaVU58--
+--AkgOZjkHhA6RhS5o--
