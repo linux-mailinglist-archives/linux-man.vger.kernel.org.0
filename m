@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A30C3407386
+	by mail.lfdr.de (Postfix) with ESMTP id 2FCE5407385
 	for <lists+linux-man@lfdr.de>; Sat, 11 Sep 2021 00:47:27 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232783AbhIJWsi (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 10 Sep 2021 18:48:38 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56842 "EHLO
+        id S231342AbhIJWsh (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 10 Sep 2021 18:48:37 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56844 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231225AbhIJWsf (ORCPT
+        with ESMTP id S231742AbhIJWsf (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Fri, 10 Sep 2021 18:48:35 -0400
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com [IPv6:2a00:1450:4864:20::32f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 75FAEC061756
-        for <linux-man@vger.kernel.org>; Fri, 10 Sep 2021 15:47:23 -0700 (PDT)
-Received: by mail-wm1-x32f.google.com with SMTP id n7-20020a05600c3b8700b002f8ca941d89so2353734wms.2
-        for <linux-man@vger.kernel.org>; Fri, 10 Sep 2021 15:47:23 -0700 (PDT)
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com [IPv6:2a00:1450:4864:20::336])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 28C63C061757
+        for <linux-man@vger.kernel.org>; Fri, 10 Sep 2021 15:47:24 -0700 (PDT)
+Received: by mail-wm1-x336.google.com with SMTP id c8-20020a7bc008000000b002e6e462e95fso2481501wmb.2
+        for <linux-man@vger.kernel.org>; Fri, 10 Sep 2021 15:47:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=3O6Rw1HI4DVxVeOXh+VsEVp5eVCs3RbEJhdpcu0eyTw=;
-        b=ctdmqY2lp6f1sFccH/k3Zb2HnpHmfw6HkhjECoYaznUIYXbrtQ4Gs99N/DDM+UAja3
-         1LuVB6vX+8HobIh6Jn3B5RLYdqfY0XckjShTJakQOQ+XCcSsBxbeqRX0eFBZvSnNei/x
-         Dzvo7nRg4BoQ6v8BjWT7sEMEnmqzdUZphppFjArjXVR+nk4ipNotVPR8o47b3x0VYHR0
-         0+9T6D0WbrakS/cgeJUHM72+2wWvWRKITjbubK6ctZ1JIAknh7blbLbK5/xYS0LDK9Yq
-         UT8nTOWsp9cnRxr1n6uaZJka1w3/u4mNLWM2SIxseGyR8Au/gyU1EFVCbSaODgVy+WbA
-         nUaA==
+        bh=Ex3h5MlwKZEaBA2bkMW7km+AO0otbH3dZ3zeaGuuRJ4=;
+        b=Qjzgw43WVrr4nhBexh/yLxOFG2610JCTNbAf4CO96PGFni0thVYgUCPHNzKd36xkOX
+         cnWnqEbBp3E+eCSrguC0YbPkc+CSlyO2pkMk3TVBv/R2D90jgF9JOeTAhfaZf9TzGRym
+         sphounx9R4HGLkMlEkzHKyOf1qaSCNe6jjzBsMPTxUjxReYRYVhiSjf6X+2XgghIwWkM
+         MPVyV3/AtyCvHNX9pQMnysUh3ZR88ojhg+zYpukeqCroDhQ5AOXr0VLJdwYzlLISprF6
+         1ZazZalHrB54qKMSjMINuwXQfpOv14Heq4wnI2VnWMEHKnE9w75J2M/XhEKMFd3mDFX9
+         jmeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=3O6Rw1HI4DVxVeOXh+VsEVp5eVCs3RbEJhdpcu0eyTw=;
-        b=ksUsM7H7HEbN6etz8RDUy2NdFnpujTIJl5el9r/Lrt8MZv2/ZXZB+K1XV8K2XhDY4n
-         7c6jtmwht1Bu1c+YQ7cRFOl6zrXPP7D2KycSUpp6q03bjmF2EqNwSeW8e5fo53iJ/tJd
-         yFiGjmPPfazrfzrrZWEbp5eklPTnp9EyFMGOsZslhiaZmvmZhLaFeZUrJsbwBpQPUG8g
-         tq5DcNv7M8BWJB7SaeFhelH0Sbzeo6rBViMIFHRzUjHzV+tPVGI5lcALYB0j3g141GnL
-         xSl9t5NalBmsBQGTsAqj4acdPAwAfDsEibYT3qS43lk/ZcqvOMfZV/WV9H84O0X/bKag
-         D36A==
-X-Gm-Message-State: AOAM5300YWvEkCIpQdGD1An41OCrEXhb5msneGvrlf2ydKkYgwgq1LSu
-        x8sUn6+L7e0GhaOhy9HecUo=
-X-Google-Smtp-Source: ABdhPJwh9OXe0Sh8Wu9ethSU5D6HSI7clcXf+WY3FyzWWgjgo8E1nWZCSDH5z7l7xS8e1Qtt+Be3Xw==
-X-Received: by 2002:a05:600c:3b17:: with SMTP id m23mr20579wms.41.1631314042074;
+        bh=Ex3h5MlwKZEaBA2bkMW7km+AO0otbH3dZ3zeaGuuRJ4=;
+        b=arM8769brVuc9bWj0/3FCAT0gxHcg3+fmVzqnlccp6yy//GI0vATsKwB5KaopTQe+P
+         aTDrGorwspJPnOkOK++tNVWS2f2OVIUwgFvKeP85vWy9xm+wMo7VIBuUByqiVd634uBq
+         q88ImNs1Pi6laO2d/l3OIojg8JFUFufd/Io5ciaKydubzL9FiTIweoQxhtWsiGwPjvfS
+         mzTk66u6MBcLsSbKPywkya2+6xNdtKkTXebZg2Wb/HuaTPtemE425tV5VEvBW3QIIWf6
+         8Ea62fV8q0+JIxsTsXqbwHfv2TBUsbbVJnVYZNHvQX9q7ZJ+L4ETNZV7iUsFNvEOZEXH
+         IwUA==
+X-Gm-Message-State: AOAM533cQYL8dF73U8Il/PXBjB0+Ojk06hWyTo1Jf0ETkr0F2QIT3Ji0
+        6U0B/jJWS1jWRU5T49zpXVsz+5+qYQ8=
+X-Google-Smtp-Source: ABdhPJwiYDtslxpSVXKd/019yHb1pOtsZmiI6ASJfjSaNsdsFYjTDni/CTxLGSvXn1GG3bRJqRDLQQ==
+X-Received: by 2002:a05:600c:2057:: with SMTP id p23mr21585wmg.25.1631314042792;
         Fri, 10 Sep 2021 15:47:22 -0700 (PDT)
 Received: from sqli.alejandro-colomar.es ([170.253.36.171])
-        by smtp.googlemail.com with ESMTPSA id k18sm15520wmi.25.2021.09.10.15.47.21
+        by smtp.googlemail.com with ESMTPSA id k18sm15520wmi.25.2021.09.10.15.47.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 10 Sep 2021 15:47:21 -0700 (PDT)
+        Fri, 10 Sep 2021 15:47:22 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
-Cc:     Mike Rapoport <rppt@linux.ibm.com>, linux-man@vger.kernel.org,
-        Alejandro Colomar <alx.manpages@gmail.com>
-Subject: [PATCH 02/15] memfd_secret.2: add NOTES section ...
-Date:   Sat, 11 Sep 2021 00:47:03 +0200
-Message-Id: <20210910224717.499502-3-alx.manpages@gmail.com>
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org, Mike Rapoport <rppt@kernel.org>
+Subject: [PATCH 03/15] memfd_secret.2: Minor tweaks to Mike's patch
+Date:   Sat, 11 Sep 2021 00:47:04 +0200
+Message-Id: <20210910224717.499502-4-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20210910224717.499502-1-alx.manpages@gmail.com>
 References: <20210910224717.499502-1-alx.manpages@gmail.com>
@@ -63,88 +63,50 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From: Mike Rapoport <rppt@linux.ibm.com>
-
-... that explains the rationale for the system call
-
-Signed-off-by: Mike Rapoport <rppt@linux.ibm.com>
+Cc: Mike Rapoport <rppt@kernel.org>
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man2/memfd_secret.2 | 61 +++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 61 insertions(+)
+ man2/memfd_secret.2 | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
 diff --git a/man2/memfd_secret.2 b/man2/memfd_secret.2
-index f3380818e..869480b48 100644
+index 869480b48..1b4e82954 100644
 --- a/man2/memfd_secret.2
 +++ b/man2/memfd_secret.2
-@@ -147,6 +147,67 @@ system call first appeared in Linux 5.14.
- The
+@@ -148,7 +148,6 @@ The
  .BR memfd_secret ()
  system call is Linux-specific.
-+.SH NOTES
-+.PP
-+The
-+.BR memfd_secret ()
-+system call is designed to allow a user-space process
-+to create a range of memory that is inaccessible to anybody else -
-+kernel included.
-+There is no 100% guarantee that kernel won't be able to access
-+memory ranges backed by
-+.BR memfd_secret ()
-+in any circumstances, but nevertheless,
-+it is much harder to exfiltrate data from these regions.
-+.PP
-+The
-+.BR memfd_secret ()
-+provides the following protections:
-+.IP \(bu 3
-+Enhanced protection
-+(in conjunction with all the other in-kernel attack prevention systems)
-+against ROP attacks.
-+Absence of any in-kernel primitive for accessing memory backed by
-+.BR memfd_secret ()
-+means that one-gadget ROP attack
-+can't work to perform data exfiltration.
-+The attacker would need to find enough ROP gadgets
-+to reconstruct the missing page table entries,
-+which significantly increases difficulty of the attack,
-+especially when other protections like the kernel stack size limit
-+and address space layout randomization are in place.
-+.IP \(bu
-+Prevent cross-process userspace memory exposures.
-+Once a region for a
-+.BR memfd_secret ()
-+memory mapping is allocated,
-+the user can't accidentally pass it into the kernel
-+to be transmitted somewhere.
-+The memory pages in this region cannot be accessed via the direct map
-+and they are disallowed in get_user_pages.
-+.IP \(bu
-+Harden against exploited kernel flaws.
-+In order to access memory areas backed by
-+.BR memfd_secret(),
-+a kernel-side attack would need to
-+either walk the page tables and create new ones,
-+or spawn a new privileged userspace process to perform
-+secrets exfiltration using
-+.BR ptrace (2).
-+.PP
-+The way
-+.BR memfd_secret ()
-+allocates and locks the memory may impact overall system performance,
-+therefore the system call is disabled by default and only available
-+if the system administrator turned it on using
-+"secretmem.enable=y" kernel parameter.
-+.PP
-+To prevent potiential data leaks of memory regions backed by
-+.BR memfd_secret()
-+from a hybernation image,
-+hybernation is prevented when there are active
-+.BR memfd_secret ()
-+users.
- .SH SEE ALSO
- .BR fcntl (2),
- .BR ftruncate (2),
+ .SH NOTES
+-.PP
+ The
+ .BR memfd_secret ()
+ system call is designed to allow a user-space process
+@@ -160,7 +159,6 @@ memory ranges backed by
+ in any circumstances, but nevertheless,
+ it is much harder to exfiltrate data from these regions.
+ .PP
+-The
+ .BR memfd_secret ()
+ provides the following protections:
+ .IP \(bu 3
+@@ -177,7 +175,7 @@ which significantly increases difficulty of the attack,
+ especially when other protections like the kernel stack size limit
+ and address space layout randomization are in place.
+ .IP \(bu
+-Prevent cross-process userspace memory exposures.
++Prevent cross-process user-space memory exposures.
+ Once a region for a
+ .BR memfd_secret ()
+ memory mapping is allocated,
+@@ -191,7 +189,7 @@ In order to access memory areas backed by
+ .BR memfd_secret(),
+ a kernel-side attack would need to
+ either walk the page tables and create new ones,
+-or spawn a new privileged userspace process to perform
++or spawn a new privileged user-space process to perform
+ secrets exfiltration using
+ .BR ptrace (2).
+ .PP
 -- 
 2.33.0
 
