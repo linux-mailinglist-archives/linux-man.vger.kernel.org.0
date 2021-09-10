@@ -2,111 +2,120 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0FF4040738C
+	by mail.lfdr.de (Postfix) with ESMTP id D495640738D
 	for <lists+linux-man@lfdr.de>; Sat, 11 Sep 2021 00:47:30 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232523AbhIJWsk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 10 Sep 2021 18:48:40 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56872 "EHLO
+        id S233121AbhIJWsl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 10 Sep 2021 18:48:41 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56874 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231225AbhIJWsk (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 10 Sep 2021 18:48:40 -0400
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com [IPv6:2a00:1450:4864:20::334])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9EEE7C061574
-        for <linux-man@vger.kernel.org>; Fri, 10 Sep 2021 15:47:28 -0700 (PDT)
-Received: by mail-wm1-x334.google.com with SMTP id n7-20020a05600c3b8700b002f8ca941d89so2353817wms.2
-        for <linux-man@vger.kernel.org>; Fri, 10 Sep 2021 15:47:28 -0700 (PDT)
+        with ESMTP id S231225AbhIJWsl (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 10 Sep 2021 18:48:41 -0400
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com [IPv6:2a00:1450:4864:20::42e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 44C23C061574
+        for <linux-man@vger.kernel.org>; Fri, 10 Sep 2021 15:47:29 -0700 (PDT)
+Received: by mail-wr1-x42e.google.com with SMTP id g16so4740252wrb.3
+        for <linux-man@vger.kernel.org>; Fri, 10 Sep 2021 15:47:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=UsiFWEDjPdcTpi6E/jYwFI1vhA2Ju7FYWk6tfuYFoGg=;
-        b=MnRy8ksgpVdrSS+6DrZqefpOitz9MadkRhHXqcXOXSILDooCNwEdUs/ovHRbpaVXQi
-         1NOJ/wh98mHvgEFYMQYalwTEFgss55iBKeXI+tQqXYj05IwOzvbk68IrufkQBRcWo3kZ
-         9p68dq8/SikqvXSwHsGbquvFftlLEZizqBXZ6tugNcGyhry1j5n/l6GQD93yIPyPCrIo
-         sP47dmcKh8OYXfIuN9EZI0n1MTrlnEQo6uHXbyxZ28knSfMeG8/y1B45WB4NMDI6Ri7e
-         JjhPOAwVnwguIyMvK8aAsQc7t7i86mRdD5EPRXjkZDoytRSYxmuwKYBfJlo44sMy6ULq
-         s7uQ==
+        bh=rhQA5dAbf15waWjPg4sWu6A/438CF0oRrmtv/64Wrbc=;
+        b=ZaJPJldfz+8jvnMuit5iS5CcUQueENfK0tfaUQy9nXQ4xxTkwbyqC5RyLDhIufkiB0
+         jYnXwPaJbw4v5Fvo0y71csHpg06Hkt7zPgAsOLZbJAfLxas/gmXjTMIf1+tqAYklkjFw
+         6F1HWCtG0uFE8Blbiqu31LqqkHZCy90w/vRRJ9VJqFZIqNDzue6Jtc8qTFaUojKBxw7f
+         rb6nKaioK6V7hIYePVWIJhNbCKymAq3pldlU0HM2r2V5AHeLefiOZylKhd9IEt90YX0B
+         8w4k4P2bAYfIN+M1OieWmcDtGzcsho5b3uNjNb7mJyI9A98e45XkIHM721jZHq+KnyRm
+         mPfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=UsiFWEDjPdcTpi6E/jYwFI1vhA2Ju7FYWk6tfuYFoGg=;
-        b=APKShT5H6ksRySePGpCj4EUmYlq+XE3i4jrNBQfoxAWGmNkQ5bPYFBtdzc/afDuvVS
-         +GrrgHGmVIKD0S/9HC0THOsMjKXjLRNjwY3rSizpGR2essdb/toJlWpLzmeEzDEqpYN2
-         JCALHWPQtmI4X468gMIMkDF4qEBrzhpHSdtLNCbmnnbq7L8j3BG9FqRZHxDfzwipju7h
-         Qqwdcw/br7mUMOUiASwkx81+PgxxAMH9g9g4UefWYNtkXhroS5a2YG0nVdh9RslFlJ7T
-         MXB3G8RS8IRbUDRo7FWPLa37IPWKo79Nm0j/UlpRPK/U3BpeExa799hffck3+kDiiGTZ
-         E6AA==
-X-Gm-Message-State: AOAM533cvHIXdz0EfDeidez5+AtLrS3JfB8H8pEYoQNvk9jAymgvhSOB
-        35N0rPTof9IiAqcJtkBZJ9E=
-X-Google-Smtp-Source: ABdhPJwT9XUh9O6zu7+IilpUJvazX6Pvjjo3BGtt2YQrAtpk/YGAQNB7JY7Yn0m2D3LSDOUeaS4SKg==
-X-Received: by 2002:a1c:ac07:: with SMTP id v7mr27223wme.160.1631314047284;
+        bh=rhQA5dAbf15waWjPg4sWu6A/438CF0oRrmtv/64Wrbc=;
+        b=FE457n5+cutl7q/l6iS7Y/yQ863aQpXX7mm2AmDoWWGhdtAdYXaj9KO4M4raNzHOJf
+         QqeLIKczofLM9+XNYk6o/hOUiuVWv6rGB1Rf8u3e6l8/vB8c5JxIYjpN5o8GFHPVro4H
+         hPNoeP6sVwakVgb4fv6uyHxoVbfDOVhmGUIEoCV8ppS5qQbazX4qSefw6pEKZnEmFrJZ
+         PsPe4Lm+R7o7dRQg0LKAHqr8tO5bPbWLCbHtx2NUz96Dn9PyhW6/zsx+60vbmpdYxP4h
+         qw0EPptfkschfJ8l54KaE8x7oWiiueF9l7D1FUqRvpVp6za3uSghnCat9cndM8gaTrT9
+         bNPg==
+X-Gm-Message-State: AOAM531FvAOQlYB6ikDSOmfDhih8ksyFDlZqMNxAmLpCxmbE8Q139YPv
+        LlyAAz/Zfv2Kwh5VGqi4og4=
+X-Google-Smtp-Source: ABdhPJyzHUU+MAkmcthbGTOg63xNYX8IX1S5BGIRvxIM2dZk2uvVQz54o3aq9h45nP0fHKhHckl8mQ==
+X-Received: by 2002:a5d:534c:: with SMTP id t12mr80020wrv.219.1631314047961;
         Fri, 10 Sep 2021 15:47:27 -0700 (PDT)
 Received: from sqli.alejandro-colomar.es ([170.253.36.171])
-        by smtp.googlemail.com with ESMTPSA id k18sm15520wmi.25.2021.09.10.15.47.26
+        by smtp.googlemail.com with ESMTPSA id k18sm15520wmi.25.2021.09.10.15.47.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 10 Sep 2021 15:47:26 -0700 (PDT)
+        Fri, 10 Sep 2021 15:47:27 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org, Andrew Wock <ajwock@gmail.com>,
-        Christian Brauner <christian.brauner@ubuntu.com>
-Subject: [PATCH 09/15] clone.2: ERRORS: Add EACCESS with CLONE_INTO_CGROUP + clone3
-Date:   Sat, 11 Sep 2021 00:47:10 +0200
-Message-Id: <20210910224717.499502-10-alx.manpages@gmail.com>
+Cc:     =?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>,
+        linux-man@vger.kernel.org,
+        Alejandro Colomar <alx.manpages@gmail.com>
+Subject: [PATCH 10/15] ioctl_tty.2: Fix information about header include file
+Date:   Sat, 11 Sep 2021 00:47:11 +0200
+Message-Id: <20210910224717.499502-11-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20210910224717.499502-1-alx.manpages@gmail.com>
 References: <20210910224717.499502-1-alx.manpages@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-[Andrew]:
-I noticed that clone3 can send the EACCES errno after I wrote a
-program that used clone3 with the CLONE_INTO_CGROUP flag.
-To me, it's important to know what kind of failure occurred if the
-clone3() fails, so I was glad that a unique errno is set for
-this case, but it wasn't documented on the clone man page.
+From: Pali Rohár <pali@kernel.org>
 
-[Christian]:
-In essence, any error that could occur during regular fs-based migration
-at write-time can also occur during CLONE_INTO_CGROUP. The clone3()
-manpage just has the inverse of that above statement:
+Header file termios.h contains incompatible definitions for linux ioctl
+calls. Correct definitions are exported by header file linux/termios.h but
+this file conflicts with sys/ioctl.h header file (required for ioctl()
+call). Therefore include direct asm header file asm/termbits.h which
+contains compatible definitions and structures for ioctl calls.
 
-"Note that all of the usual restrictions (described in cgroups(7)) on
-placing a process into a version 2 cgroup apply."
-
-Reported-by: Andrew Wock <ajwock@gmail.com>
-Acked-by: Christian Brauner <christian.brauner@ubuntu.com>
+Signed-off-by: Pali Rohár <pali@kernel.org>
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man2/clone.2 | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ man2/ioctl_tty.2 | 19 +++++++++++++++++--
+ 1 file changed, 17 insertions(+), 2 deletions(-)
 
-diff --git a/man2/clone.2 b/man2/clone.2
-index e381da165..90db92ad6 100644
---- a/man2/clone.2
-+++ b/man2/clone.2
-@@ -1209,6 +1209,16 @@ in the caller's context, no child process is created, and
- is set to indicate the error.
- .SH ERRORS
+diff --git a/man2/ioctl_tty.2 b/man2/ioctl_tty.2
+index d0a10a508..68b48a00b 100644
+--- a/man2/ioctl_tty.2
++++ b/man2/ioctl_tty.2
+@@ -11,8 +11,10 @@ ioctl_tty \- ioctls for terminals and serial lines
+ .SH SYNOPSIS
+ .nf
+ .B #include <sys/ioctl.h>
+-.BR "#include <termios.h>" "      /* Definition of " CLOCAL ", and"
+-.BR    "                             TC*" { FLUSH , ON , OFF "} constants */"
++.BR "#include <asm/termbits.h>" "   /* Definition of " "struct termios" ,
++.BR    "                               struct termios2" ", and"
++.BR    "                               Bnnn" ", " BOTHER ", " CBAUD ", " CLOCAL ,
++.BR    "                               TC*" { FLUSH , ON , OFF "} and other constants */"
+ .PP
+ .BI "int ioctl(int " fd ", int " cmd ", ...);"
+ .fi
+@@ -31,6 +33,19 @@ makes for nonportable programs.
+ Use the POSIX interface described in
+ .BR termios (3)
+ whenever possible.
++.PP
++Please note that
++.B struct termios
++from
++.I <asm/termbits.h>
++is different and incompatible with
++.B struct termios
++from
++.IR <termios.h> .
++These ioctl calls require
++.B struct termios
++from
++.IR <asm/termbits.h> .
+ .SS Get and set terminal attributes
  .TP
-+.BR EACCES " (" clone3 "() only)"
-+.B CLONE_INTO_CGROUP
-+was specified in
-+.IR cl_args.flags ,
-+but the restrictions (described in
-+.BR cgroups (7))
-+on placing the child process into the version 2 cgroup referred to by
-+.I cl_args.cgroup
-+are not met.
-+.TP
- .B EAGAIN
- Too many processes are already running; see
- .BR fork (2).
+ .B TCGETS
 -- 
 2.33.0
 
