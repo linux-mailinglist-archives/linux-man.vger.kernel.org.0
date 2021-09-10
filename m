@@ -2,86 +2,110 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 381D34068F3
-	for <lists+linux-man@lfdr.de>; Fri, 10 Sep 2021 11:17:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D39FB40696C
+	for <lists+linux-man@lfdr.de>; Fri, 10 Sep 2021 12:01:55 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231985AbhIJJSQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 10 Sep 2021 05:18:16 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43576 "EHLO
+        id S232227AbhIJKCn (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 10 Sep 2021 06:02:43 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53400 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231984AbhIJJSQ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 10 Sep 2021 05:18:16 -0400
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com [IPv6:2a00:1450:4864:20::636])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 83080C061574
-        for <linux-man@vger.kernel.org>; Fri, 10 Sep 2021 02:17:05 -0700 (PDT)
-Received: by mail-ej1-x636.google.com with SMTP id ho42so2862799ejc.9
-        for <linux-man@vger.kernel.org>; Fri, 10 Sep 2021 02:17:05 -0700 (PDT)
+        with ESMTP id S232187AbhIJKCl (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 10 Sep 2021 06:02:41 -0400
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com [IPv6:2a00:1450:4864:20::336])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4A965C061574
+        for <linux-man@vger.kernel.org>; Fri, 10 Sep 2021 03:01:30 -0700 (PDT)
+Received: by mail-wm1-x336.google.com with SMTP id u19-20020a7bc053000000b002f8d045b2caso962922wmc.1
+        for <linux-man@vger.kernel.org>; Fri, 10 Sep 2021 03:01:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=from:to:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=WT8J9/jNBlm4D8tZWorzysC0AVI+JfOK092kABeveSU=;
-        b=CmzxGrl6i9EXsimgGXHIJ88365faNDNWvn3tWv8QVeuuHVVOH+w3To7WGuqYBDiwQY
-         ggimZb1JezZykhVskKmaQNOWqqWoGPBr7p4kmGWkTZcuMAUD38HYKSTtOpn8BdGfg5u6
-         uusMdlrt7ykiQ6idSeOWGEz5bPqcEpWyfyAmHMZtnThBUkvDOn372QclSaIc9Kc3js3C
-         ouo+Sr+MwEWBSz485IZfL8jGCzyW05lXkku2sUsriRMfy0vJCkov/PpYLrWqyEsA4dMk
-         PZ8a/fhkSnf+SJ2a7Ob9Yc+eANhweHjGyf8YeMpyesKSeGjKfXeUlnYPM0r+TYsPexqB
-         4Whg==
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=tLvo2Xhw/8n2IvxxQtxqICekJILs7B5RZByhPrj5+1k=;
+        b=CEF7fkIJhizhSh2Bck1rAUdxsR+5SBXxn8U4pAb0lpm9jnAyssEb5kUYE7I+OxEVir
+         ShInOnvdcUR0fkAb3ueRMUo1fEi30XvZR9VDaDWFu1avqFFynUdju0eC4a5RCWK7SONQ
+         8PeRJDhL77UXxL8ngUYcn/Tborm2rBVVd/l/sFvqn1LfUCD9NFg85YOBL8gGimLUMzft
+         dpa3tUtWHBy+YU3UdWFr39x1tfcndnT7ouap4h7KY+YbW9q93IDIPuzhtvh99SghdfoI
+         GcFtD2uCbnHNPnWZQiRTZTMUwA/6gus6TkoEQgVercATPSQRgYCsiCNv1MlXfyCQ908C
+         fs6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:subject:date:message-id:mime-version
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=WT8J9/jNBlm4D8tZWorzysC0AVI+JfOK092kABeveSU=;
-        b=lKOjDYDCpxE8yE4xmBTAQyNCD89H/z2FDsXWMr0rUhdXUIRGPCX5FTZ6a7NZYGvSOn
-         AG0yMSdQGKDWpQ45oCpHddbmZj3Q/JWN64ocx1epMRlJ9i3rReNjNkGef5PU1ZUZ2hJR
-         V09j8wEnIyTdHS14h9Dt8QSezbcMBGR73WaoGhqZXLCccvYtH8i6EFoUHJwpuSZR8UJr
-         aTeiRxwSVOWXnVWAHzO7t/GsBS5Tonczx7UmGtbpPVCVfplguQcOHnxuKn4C+yVtmTbS
-         7uDq62LregS5KHH6z/3DBHOz//weux9XM1ilIOkh6A+2tCUXr4+y7G3jyM0/wye+/Cl5
-         9JoA==
-X-Gm-Message-State: AOAM532uDyGcBVJPFXET7urEqa5m7mi3EkXqfjnZ3IjrxHr0P1tIMDzC
-        KndP2WZscIlTm7Z4x6i+GADiD4gnO60=
-X-Google-Smtp-Source: ABdhPJwFLohRW9XKJGGS61JvgmT4BceBMQcNwEeMOYIE42OwvWWIO2MOTShZ/xDGNght0aTj70i44Q==
-X-Received: by 2002:a17:906:318c:: with SMTP id 12mr8462074ejy.28.1631265423704;
-        Fri, 10 Sep 2021 02:17:03 -0700 (PDT)
-Received: from localhost ([185.112.167.33])
-        by smtp.gmail.com with ESMTPSA id k6sm2341513edv.77.2021.09.10.02.17.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 10 Sep 2021 02:17:03 -0700 (PDT)
-From:   =?UTF-8?q?=C5=A0t=C4=9Bp=C3=A1n=20N=C4=9Bmec?= <stepnem@gmail.com>
-To:     linux-man@vger.kernel.org,
-        Alejandro Colomar <alx.manpages@gmail.com>,
+        bh=tLvo2Xhw/8n2IvxxQtxqICekJILs7B5RZByhPrj5+1k=;
+        b=4XujaHvlUvnrLktjDLjEYGy8I7bXbTlCrt6eQgDXGJhSNP2bdPMAFRZtJyUnVWo/nc
+         pSKqGV6JuP4CRrnsOESweRwhBXC60V0OlWERdqti7fg5h9ZTCMQBKloQP7oP0OfMqQk6
+         HyDt/0l8y0LdAfSg8mtnN1M6wo4Wxw9rVnh2UbaB6NSqGePN9RGSXMy5Wi1uW2d2kkkM
+         7bL5H1LhaznyI9RF9aUu3JIfFoq7nP3fZE8mtJ81EXRZDPlrU7q6Y/S7y6J6dIvHw6JU
+         6aes5xjh9MxG/mjyLGRx5xpUSTnMnLtznE/SKsXCdn/SCH1C0txzRwJc6D9oxJf78VHH
+         SSzg==
+X-Gm-Message-State: AOAM532QUPTFXD1PVqRryyNfZsy2zZSaNZopRyOARPW1BYSn3PVa15by
+        REzGW6lXA4mYVA9wkv/9x7o=
+X-Google-Smtp-Source: ABdhPJzufrNCHwSFTDo7L4XFlioUSd6pbTAHUm1XsoSnoEChGB7bylbfhsag/6T85A2fO8ojSl/PYQ==
+X-Received: by 2002:a7b:c843:: with SMTP id c3mr7424464wml.76.1631268088949;
+        Fri, 10 Sep 2021 03:01:28 -0700 (PDT)
+Received: from [10.168.10.11] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id d29sm4491351wrc.6.2021.09.10.03.01.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 10 Sep 2021 03:01:28 -0700 (PDT)
+Subject: Re: [PATCH] termios.3: CIBAUD and IBSHIFT are implemented on Linux,
+ just unsupported by glibc
+To:     =?UTF-8?Q?Pali_Roh=c3=a1r?= <pali@kernel.org>
+Cc:     =?UTF-8?Q?Marek_Beh=c3=ban?= <kabel@kernel.org>,
+        libc-alpha@sourceware.org, linux-man@vger.kernel.org,
         Michael Kerrisk <mtk.manpages@gmail.com>
-Subject: [PATCH] veth.4: tfix
-Date:   Fri, 10 Sep 2021 11:17:25 +0200
-Message-Id: <20210910091725.273261-1-stepnem@gmail.com>
-X-Mailer: git-send-email 2.33.0
+References: <20210902232900.2139-1-pali@kernel.org>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Message-ID: <aa9b2507-5524-1776-40a1-cb362b76ca92@gmail.com>
+Date:   Fri, 10 Sep 2021 12:01:27 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <20210902232900.2139-1-pali@kernel.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Signed-off-by: Štěpán Němec <stepnem@gmail.com>
----
- man4/veth.4 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Hi, Pali!
 
-diff --git a/man4/veth.4 b/man4/veth.4
-index b2d5a2fc7fe4..bd2acdcc4353 100644
---- a/man4/veth.4
-+++ b/man4/veth.4
-@@ -54,7 +54,7 @@ are the names assigned to the two connected end points.
- .PP
- Packets transmitted on one device in the pair are immediately received on
- the other device.
--When either devices is down the link state of the pair is down.
-+When either device is down the link state of the pair is down.
- .PP
- .B veth
- device pairs are useful for combining the network
+On 9/3/21 1:29 AM, Pali Rohár wrote:
+> Signed-off-by: Pali Rohár <pali@kernel.org>
 
-base-commit: ae6b221882ce71ba82fcdbe02419a225111502f0
+Sorry for the delay.  Patch applied!
+
+Thanks,
+
+Alex
+
+> ---
+>   man3/termios.3 | 7 ++++++-
+>   1 file changed, 6 insertions(+), 1 deletion(-)
+> 
+> diff --git a/man3/termios.3 b/man3/termios.3
+> index c11937458eac..d0630fe23040 100644
+> --- a/man3/termios.3
+> +++ b/man3/termios.3
+> @@ -348,7 +348,12 @@ bits.
+>   .B _BSD_SOURCE
+>   or
+>   .BR _SVID_SOURCE ]
+> -(Not implemented on Linux.)
+> +(Not implemented in glibc, supported on Linux via
+> +.BR TCGET *
+> +and
+> +.BR TCSET *
+> +ioctls; see
+> +.BR ioctl_tty (2))
+>   .TP
+>   .B CMSPAR
+>   (not in POSIX)
+> 
+
+
 -- 
-2.33.0
-
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
