@@ -2,139 +2,110 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 11EE8406D27
-	for <lists+linux-man@lfdr.de>; Fri, 10 Sep 2021 15:51:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C4B0940709E
+	for <lists+linux-man@lfdr.de>; Fri, 10 Sep 2021 19:39:53 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233564AbhIJNxG (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 10 Sep 2021 09:53:06 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48858 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233632AbhIJNxC (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 10 Sep 2021 09:53:02 -0400
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com [IPv6:2a00:1450:4864:20::32e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A9CB4C061574;
-        Fri, 10 Sep 2021 06:51:51 -0700 (PDT)
-Received: by mail-wm1-x32e.google.com with SMTP id u15-20020a05600c19cf00b002f6445b8f55so1472410wmq.0;
-        Fri, 10 Sep 2021 06:51:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=H6x5LRiOVF3GV6fj6cpEctTbkHJofu5J4FIfBf/F6uM=;
-        b=pJDFDi+eGBw+YaKT5EUQBFqa6A3hogyZeigvfjJDNWMqPanbj1XJDx3+gPpbZLcc4C
-         pzj7yfaXvEkWgCaM4bs0V1zxDvjh53jlh556/X5IfMc9CbH7tfiTWp+5NhBSqF83Nox4
-         sMH568WlGDA2PrTb6JHNFGiEQvrR64iL7YgvE37XAr6K7hERnEoTSjcYN36QUpuzlLsk
-         BJzLTGTM8v8Fujj4XKKa7vzli5WwbGEro+cHU2suzeAr291hVcEHGrd/k4Fl3rYrqoIm
-         twQn1Aic2a8jCts/ymCUwLh2li4UGKhLlRRW9+tP631xRKKq33QoMORlfqMnR/sLcRyy
-         qFlQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=H6x5LRiOVF3GV6fj6cpEctTbkHJofu5J4FIfBf/F6uM=;
-        b=eoFsR2xaNp2eOMhRWtbdjraGHGRqRjV8m4IEOiu54U2kv2u8FO6Wz8h+ecK6y7Rqvp
-         kM0rDDx2m3OJ8edh5Pw2zhpiTzMieflq7wqbp4Gl76h3kBqEOnDJgkht2XbunrIXk6Eg
-         5bRNf9fxARp6EcEtO+x89EsDTnhwH3cSd7waQV69CzKpdm0lKLhYWn3WBzrh8CuhxHh5
-         TLeKVvBgLGa/XS7bh7tB6wsLmNkFTjEM9GlJgJQptIRwhap8gvoewg0v0Ordfz4YoFOd
-         QJyKTx+e0YajOq4WyE9AsdfDu1gaqgFMIDqbQTVv5oYSqwvzWs5VLqjc7AZ3lDndUel9
-         12yQ==
-X-Gm-Message-State: AOAM530LvdPfYtuHUqL7bdGTs5CDDdEkjFKrj0dHqfw5yTspM3idqhYA
-        kCGj3lq4RZkIc3O8oBumuV4=
-X-Google-Smtp-Source: ABdhPJwhlnFxg5sxl8FddqKJTl7vBPJeFsnZSnCjI9NH5cSGVWLG2E5dne5PaukzXYPN+4xqOGQPIQ==
-X-Received: by 2002:a1c:f314:: with SMTP id q20mr8323150wmq.154.1631281910333;
-        Fri, 10 Sep 2021 06:51:50 -0700 (PDT)
-Received: from [10.168.10.11] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id c23sm4402923wmb.37.2021.09.10.06.51.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 10 Sep 2021 06:51:50 -0700 (PDT)
-Subject: Re: [PATCH] process_madvise.2: Add MADV_WILLNEED to process_madvise()
-To:     zhangkui <zhangkui@oppo.com>,
-        Suren Baghdasaryan <surenb@google.com>
-Cc:     linux-man <linux-man@vger.kernel.org>,
-        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        LKML <linux-kernel@vger.kernel.org>,
-        linux-mm <linux-mm@kvack.org>
-References: <20210805044411.18966-1-zhangkui@oppo.com>
- <CAJuCfpFC=LT70ug4iu+yrUvX9o81mMvP8rYrgEibD3YJmowwiQ@mail.gmail.com>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <4e28e934-84fe-005c-1035-c8954d6b90f5@gmail.com>
-Date:   Fri, 10 Sep 2021 15:51:49 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+        id S230489AbhIJRlD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 10 Sep 2021 13:41:03 -0400
+Received: from mail.kernel.org ([198.145.29.99]:32908 "EHLO mail.kernel.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S229664AbhIJRlC (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Fri, 10 Sep 2021 13:41:02 -0400
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 6A299611CB;
+        Fri, 10 Sep 2021 17:39:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1631295591;
+        bh=6wADZDRSdFrn9JbplpiL5iPDSltdFPx2MSjjoEqeRx8=;
+        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+        b=fCXenGHm4AcptZiMdjziCuE6rE2mNpz1FND/oSg2IMQ65FTwalMoKUXhoB/P2bLQD
+         J6Wz6v9Q9F7xbdmK5E4yzXDx4FctNymkKz+Cy9KPcH3dQU+ecAlmmMznnqtvHrcDnZ
+         nL7IJXHW6U8CedWKhnAoaRAsTSxVnaUKZVefHjnFIvvAl8p4uhuOzME+JEXMiwtOe8
+         2076zBVQjI1DOB5lnnag0CLLdf7y/r343YwSc+wGMrSyKanvWpi/67ILKsJySIQxh8
+         xV3s4b5zqKiEvjnvlicDm83AIgb9szgDHvuHTJhlSaUfoz7kHjg324xxYfHavZ03HR
+         gfH/4da911TWg==
+Received: by pali.im (Postfix)
+        id 2530D2828; Fri, 10 Sep 2021 19:39:49 +0200 (CEST)
+Date:   Fri, 10 Sep 2021 19:39:49 +0200
+From:   Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+Cc:     Marek =?utf-8?B?QmVow7pu?= <kabel@kernel.org>,
+        libc-alpha@sourceware.org,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        linux-man@vger.kernel.org
+Subject: Re: [PATCH v3] ioctl_tty.2: Fix information about header include file
+Message-ID: <20210910173949.bkyunodbtau2gg6j@pali>
+References: <3d927d3c-67a1-bb48-b597-44c87b8f715a@gmail.com>
+ <20210831202809.29819-1-pali@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <CAJuCfpFC=LT70ug4iu+yrUvX9o81mMvP8rYrgEibD3YJmowwiQ@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210831202809.29819-1-pali@kernel.org>
+User-Agent: NeoMutt/20180716
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Zhangkui and Suren,
-
-On 8/9/21 7:31 PM, Suren Baghdasaryan wrote:
-> On Wed, Aug 4, 2021 at 9:44 PM zhangkui <zhangkui@oppo.com> wrote:
->>
->> Add MADV_WILLNEED to process_madvise() for read-ahead swapped
->> out memory immediately when the app switches to forground.
->>
->> https://lore.kernel.org/patchwork/patch/1472006/
->>
->> Signed-off-by: zhangkui <zhangkui@oppo.com>
-
-Patch applied!
-
+On Tuesday 31 August 2021 22:28:09 Pali Rohár wrote:
+> Header file termios.h contains incompatible definitions for linux ioctl
+> calls. Correct definitions are exported by header file linux/termios.h but
+> this file conflicts with sys/ioctl.h header file (required for ioctl()
+> call). Therefore include direct asm header file asm/termbits.h which
+> contains compatible definitions and structures for ioctl calls.
 > 
-> Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+> Signed-off-by: Pali Rohár <pali@kernel.org>
+
+Hello Alejandro! Could you check also this patch?
+
+> ---
+> Changes in v3:
+> * Use .I <file> instead of .B #include <file>
+> * Use Bnnn instead of Bnn
 > 
-
-And tag added.
-
-Thank you both,
-
-Alex
-
->> ---
->>   man2/process_madvise.2 | 4 ++++
->>   1 file changed, 4 insertions(+)
->>
->> diff --git a/man2/process_madvise.2 b/man2/process_madvise.2
->> index a6c8724d4..caa8bc0b3 100644
->> --- a/man2/process_madvise.2
->> +++ b/man2/process_madvise.2
->> @@ -112,6 +112,10 @@ See
->>   .BR MADV_PAGEOUT
->>   See
->>   .BR madvise (2).
->> +.TP
->> +.BR MADV_WILLNEED
-
-This should have been:
-
-.B MADV_WILLNEED
-
-I fixed it myself, don't worry.
-And also the surrounding cases, which led to this.
-
->> +See
->> +.BR madvise (2).
->>   .PP
->>   The
->>   .I flags
->> --
->> 2.25.1
->>
->> ________________________________
->> OPPO
->>
->> 本电子邮件及其附件含有OPPO公司的保密信息，仅限于邮件指明的收件人使用（包含个人及群组）。禁止任何人在未经授权的情况下以任何形式使用。如果您错收了本邮件，请立即以电子邮件通知发件人并删除本邮件及其附件。
->>
->> This e-mail and its attachments contain confidential information from OPPO, which is intended only for the person or entity whose address is listed above. Any use of the information contained herein in any way (including, but not limited to, total or partial disclosure, reproduction, or dissemination) by persons other than the intended recipient(s) is prohibited. If you receive this e-mail in error, please notify the sender by phone or email immediately and delete it!
-
-
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+> Changes in v2:
+> * Reformat SYNOPSIS for 80 chars per line
+> ---
+>  man2/ioctl_tty.2 | 19 +++++++++++++++++--
+>  1 file changed, 17 insertions(+), 2 deletions(-)
+> 
+> diff --git a/man2/ioctl_tty.2 b/man2/ioctl_tty.2
+> index 186011ee7c33..7d866867c6bd 100644
+> --- a/man2/ioctl_tty.2
+> +++ b/man2/ioctl_tty.2
+> @@ -11,8 +11,10 @@ ioctl_tty \- ioctls for terminals and serial lines
+>  .SH SYNOPSIS
+>  .nf
+>  .B #include <sys/ioctl.h>
+> -.BR "#include <termios.h>" "      /* Definition of " CLOCAL ", and"
+> -.BR    "                             TC*" { FLUSH , ON , OFF "} constants */"
+> +.BR "#include <asm/termbits.h>" "   /* Definition of " "struct termios" ,
+> +.BR    "                               struct termios2" ", and"
+> +.BR    "                               Bnnn" ", " BOTHER ", " CBAUD ", " CLOCAL ,
+> +.BR    "                               TC*" { FLUSH , ON , OFF "} and other constants */"
+>  .PP
+>  .BI "int ioctl(int " fd ", int " cmd ", ...);"
+>  .fi
+> @@ -31,6 +33,19 @@ makes for nonportable programs.
+>  Use the POSIX interface described in
+>  .BR termios (3)
+>  whenever possible.
+> +.PP
+> +Please note that
+> +.B struct termios
+> +from
+> +.I <asm/termbits.h>
+> +is different and incompatible with
+> +.B struct termios
+> +from
+> +.IR <termios.h> .
+> +These ioctl calls require
+> +.B struct termios
+> +from
+> +.IR <asm/termbits.h> .
+>  .SS Get and set terminal attributes
+>  .TP
+>  .B TCGETS
+> -- 
+> 2.20.1
+> 
