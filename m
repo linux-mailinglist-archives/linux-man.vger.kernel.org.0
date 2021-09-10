@@ -2,140 +2,86 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6DB3740462A
-	for <lists+linux-man@lfdr.de>; Thu,  9 Sep 2021 09:29:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 381D34068F3
+	for <lists+linux-man@lfdr.de>; Fri, 10 Sep 2021 11:17:07 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1352530AbhIIHaR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 9 Sep 2021 03:30:17 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35034 "EHLO
+        id S231985AbhIJJSQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 10 Sep 2021 05:18:16 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43576 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1350551AbhIIHaQ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 9 Sep 2021 03:30:16 -0400
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com [IPv6:2a00:1450:4864:20::429])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D75DAC061575
-        for <linux-man@vger.kernel.org>; Thu,  9 Sep 2021 00:29:07 -0700 (PDT)
-Received: by mail-wr1-x429.google.com with SMTP id u16so1078785wrn.5
-        for <linux-man@vger.kernel.org>; Thu, 09 Sep 2021 00:29:07 -0700 (PDT)
+        with ESMTP id S231984AbhIJJSQ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 10 Sep 2021 05:18:16 -0400
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com [IPv6:2a00:1450:4864:20::636])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 83080C061574
+        for <linux-man@vger.kernel.org>; Fri, 10 Sep 2021 02:17:05 -0700 (PDT)
+Received: by mail-ej1-x636.google.com with SMTP id ho42so2862799ejc.9
+        for <linux-man@vger.kernel.org>; Fri, 10 Sep 2021 02:17:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=gdKxlbVo2+pJ8HwwhqI5Cm/0d5A7ov/Gc/DF+jBIYmM=;
-        b=Cj91Hdl2KbaLHHo8BOPDA+tuQn4tbuF35GKfyXD0jf7JD+amAUjI28f0okjKuxZ+VM
-         gKBUU6LgeISOPAyLUjauRNx+BckKbd73z8K+0lyhyhY3p7IAF2KgD3vfeo6m8nKtihUQ
-         D5ZKcWaP+IVH1rWfTowipChM1NRPeFGj8NaR9qrbclDs6cwBYN2AWKP7Vn8HOQsV0KZV
-         L6kM/3gddXOHYU0MftHB2rS0+1MujVnXCrByphgxv4cA66bQ7QorX2w0wjMtngol7ea0
-         ehFhYXDNBWeCADTQyZMQkDpRae5FBrNBHpSKB3zAbdelwfWJbt2CArzGRBiRpD3DHD/V
-         hXQQ==
+        h=from:to:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=WT8J9/jNBlm4D8tZWorzysC0AVI+JfOK092kABeveSU=;
+        b=CmzxGrl6i9EXsimgGXHIJ88365faNDNWvn3tWv8QVeuuHVVOH+w3To7WGuqYBDiwQY
+         ggimZb1JezZykhVskKmaQNOWqqWoGPBr7p4kmGWkTZcuMAUD38HYKSTtOpn8BdGfg5u6
+         uusMdlrt7ykiQ6idSeOWGEz5bPqcEpWyfyAmHMZtnThBUkvDOn372QclSaIc9Kc3js3C
+         ouo+Sr+MwEWBSz485IZfL8jGCzyW05lXkku2sUsriRMfy0vJCkov/PpYLrWqyEsA4dMk
+         PZ8a/fhkSnf+SJ2a7Ob9Yc+eANhweHjGyf8YeMpyesKSeGjKfXeUlnYPM0r+TYsPexqB
+         4Whg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=gdKxlbVo2+pJ8HwwhqI5Cm/0d5A7ov/Gc/DF+jBIYmM=;
-        b=qwUq4opQCNsPkVsmggFsC9Uly/esc6PhiHI0uNU9jaUQM/lZw1V9hqDzqhXI3x6jB9
-         1lsiz06rkipR35tivJsDFxJe/0A047ZgPh1kryo5V2CeDyYtAfDcHlk3BGhK71mDkvpX
-         GufdVd1MrADSwqkQB5QhDv6ZG9MbdCG2ew9WxjJ/KYJxP0zDjGBv8ZwDeZgTI5tTqc4G
-         8GiAk9HT3WaZaMNBylD0Tf2DFdub1rIGbwGoXWL81AsPT+SsMHWjRVLt5CBmArls4S1M
-         S2bbAhmzp4aHku+NU84aWff7SXb+JFiiyRdb8eFkXRC/wx6iIVlt/QNEymRZS7vdHobu
-         6Q4Q==
-X-Gm-Message-State: AOAM533J/Gwgb12nbY12iEX0YSeKVEPQwOperpi/Vi8vFLcHFEfyIt/0
-        0XyzV+VwOp1a7yJ9OIDBVy46JTgVrXs=
-X-Google-Smtp-Source: ABdhPJyGm/9RvetjDeegKa7pgjUdXs6xfpjENl9WX98mS6B21ihmwYm4k64eSQDevB7oC+WFgCJJzA==
-X-Received: by 2002:adf:d0cf:: with SMTP id z15mr1787371wrh.356.1631172546512;
-        Thu, 09 Sep 2021 00:29:06 -0700 (PDT)
-Received: from sqli.alejandro-colomar.es ([170.253.36.171])
-        by smtp.googlemail.com with ESMTPSA id g1sm950197wmk.2.2021.09.09.00.29.05
+        h=x-gm-message-state:from:to:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=WT8J9/jNBlm4D8tZWorzysC0AVI+JfOK092kABeveSU=;
+        b=lKOjDYDCpxE8yE4xmBTAQyNCD89H/z2FDsXWMr0rUhdXUIRGPCX5FTZ6a7NZYGvSOn
+         AG0yMSdQGKDWpQ45oCpHddbmZj3Q/JWN64ocx1epMRlJ9i3rReNjNkGef5PU1ZUZ2hJR
+         V09j8wEnIyTdHS14h9Dt8QSezbcMBGR73WaoGhqZXLCccvYtH8i6EFoUHJwpuSZR8UJr
+         aTeiRxwSVOWXnVWAHzO7t/GsBS5Tonczx7UmGtbpPVCVfplguQcOHnxuKn4C+yVtmTbS
+         7uDq62LregS5KHH6z/3DBHOz//weux9XM1ilIOkh6A+2tCUXr4+y7G3jyM0/wye+/Cl5
+         9JoA==
+X-Gm-Message-State: AOAM532uDyGcBVJPFXET7urEqa5m7mi3EkXqfjnZ3IjrxHr0P1tIMDzC
+        KndP2WZscIlTm7Z4x6i+GADiD4gnO60=
+X-Google-Smtp-Source: ABdhPJwFLohRW9XKJGGS61JvgmT4BceBMQcNwEeMOYIE42OwvWWIO2MOTShZ/xDGNght0aTj70i44Q==
+X-Received: by 2002:a17:906:318c:: with SMTP id 12mr8462074ejy.28.1631265423704;
+        Fri, 10 Sep 2021 02:17:03 -0700 (PDT)
+Received: from localhost ([185.112.167.33])
+        by smtp.gmail.com with ESMTPSA id k6sm2341513edv.77.2021.09.10.02.17.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Sep 2021 00:29:06 -0700 (PDT)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     "Thaddeus H . Black" <thb@debian.org>
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        "G . Branden Robinson" <g.branden.robinson@gmail.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-man@vger.kernel.org
-Subject: [PATCH] .P -> .PP
-Date:   Thu,  9 Sep 2021 09:28:53 +0200
-Message-Id: <20210909072853.423334-1-alx.manpages@gmail.com>
+        Fri, 10 Sep 2021 02:17:03 -0700 (PDT)
+From:   =?UTF-8?q?=C5=A0t=C4=9Bp=C3=A1n=20N=C4=9Bmec?= <stepnem@gmail.com>
+To:     linux-man@vger.kernel.org,
+        Alejandro Colomar <alx.manpages@gmail.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+Subject: [PATCH] veth.4: tfix
+Date:   Fri, 10 Sep 2021 11:17:25 +0200
+Message-Id: <20210910091725.273261-1-stepnem@gmail.com>
 X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20210909072442.423117-4-alx.manpages@gmail.com>
-References: <20210909072442.423117-4-alx.manpages@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-And another trivial one you can squash.
-
+Signed-off-by: Štěpán Němec <stepnem@gmail.com>
 ---
- man7/filename.7 | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ man4/veth.4 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/man7/filename.7 b/man7/filename.7
-index 0e42e39d4..d60fe08eb 100644
---- a/man7/filename.7
-+++ b/man7/filename.7
-@@ -141,10 +141,10 @@ termination of options processing [see
- but when reprocessing of shell-command text requires requotation and
- re-escape, the workarounds become an inconvenient, confusing, error-prone
- hassle.
--.P
-+.PP
- The use of conventional filenames averts the hassle.
- It also makes filenames more recognizable to experienced users.
--.P
-+.PP
- This section introduces broadly observed conventions for filenames.
- .TP
- .B The POSIX Portable Filename Character Set
-@@ -284,7 +284,7 @@ or
- Further filenaming conventions are softer.
- Though often observed, such softer conventions can be bent or broken
- without rendering filenames unconventional.
--.P
-+.PP
- This section introduces soft conventions for filenames.
- .TP
- .B Low line versus hyphen-minus
-@@ -409,7 +409,7 @@ Approximately, in brief, Unicode is a character set, UTF-8 is a
- byte-oriented scheme by which Unicode characters can be encoded, and ASCII
- is both a character set and a byte-oriented scheme that is a subset of both
- Unicode and UTF-8.]
--.P
-+.PP
- To suggest an exact noninternational filenaming rule, other than the
- .BR iswgraph (3)
- rule, for every locale would exceed the scope of this manual page; but
-@@ -421,7 +421,7 @@ exclude spaces, control characters, ASCII symbols (like\~\fB$\fR
- or\~\fB=\fR), and ASCII punctuators other than the three punctuators POSIX
- recommends, such filenames will not normally cause trouble for tools and,
- thus, may be regarded as conventional within the local context.
--.P
-+.PP
- The use of nonbreaking spaces like\~\fB\eu00A0\fR, \fB\eu2007\fR,
- \fB\eu202F\fR or\~\fB\euFEFF\fR in filenames is probably inadvisable for
- most locales, despite that
-@@ -447,9 +447,9 @@ You may have noticed the unconventionally-named
- .I lost+found
- directory lurking at a filesystem's root on your computer; and there are
- further examples, as well.
--.P
-+.PP
- There are many reasons to use unconventional filenames.
--.P
-+.PP
- It is hard to give a general rule, with respect to a particular context, as
- to which unconventional filenames are likely to cause practical troubles
- and which are not.
-@@ -514,7 +514,7 @@ POSIX.1-2008, SUSv4.
- .BR locale (7),
- .BR unicode (7),
- .BR utf-8 (7)
--.P
-+.PP
- info
- .B coreutils
- .\" The author, Thaddeus H. Black, thanks his wife Kristie, daughter Naomi
+diff --git a/man4/veth.4 b/man4/veth.4
+index b2d5a2fc7fe4..bd2acdcc4353 100644
+--- a/man4/veth.4
++++ b/man4/veth.4
+@@ -54,7 +54,7 @@ are the names assigned to the two connected end points.
+ .PP
+ Packets transmitted on one device in the pair are immediately received on
+ the other device.
+-When either devices is down the link state of the pair is down.
++When either device is down the link state of the pair is down.
+ .PP
+ .B veth
+ device pairs are useful for combining the network
+
+base-commit: ae6b221882ce71ba82fcdbe02419a225111502f0
 -- 
 2.33.0
 
