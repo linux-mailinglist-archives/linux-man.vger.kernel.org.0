@@ -2,133 +2,182 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 088F140739D
-	for <lists+linux-man@lfdr.de>; Sat, 11 Sep 2021 00:53:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id F2F9440793F
+	for <lists+linux-man@lfdr.de>; Sat, 11 Sep 2021 18:01:29 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232013AbhIJWyc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 10 Sep 2021 18:54:32 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58098 "EHLO
+        id S232310AbhIKQCl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 11 Sep 2021 12:02:41 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55666 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234718AbhIJWyS (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 10 Sep 2021 18:54:18 -0400
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com [IPv6:2a00:1450:4864:20::435])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2D1CEC061760
-        for <linux-man@vger.kernel.org>; Fri, 10 Sep 2021 15:53:06 -0700 (PDT)
-Received: by mail-wr1-x435.google.com with SMTP id z4so4711029wrr.6
-        for <linux-man@vger.kernel.org>; Fri, 10 Sep 2021 15:53:06 -0700 (PDT)
+        with ESMTP id S230489AbhIKQCl (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 11 Sep 2021 12:02:41 -0400
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com [IPv6:2a00:1450:4864:20::42e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 684B7C061574
+        for <linux-man@vger.kernel.org>; Sat, 11 Sep 2021 09:01:28 -0700 (PDT)
+Received: by mail-wr1-x42e.google.com with SMTP id n5so7323322wro.12
+        for <linux-man@vger.kernel.org>; Sat, 11 Sep 2021 09:01:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=JPN0ewIOI+KTTxV89qY8uRFe+F3KCg5DynsKRI3ylcs=;
-        b=DJyNI9e4F19pOvfBq9b9iPGDKHV2I7LhtehnTd3D2vkjoX2dKNVbs0H2kPTRKBr8H1
-         mPT7oyiex8XEIFrl8fWK39tbrLi7aFK/Ew5+Znv0lHAJ47rVS5fxaythXJtWUmwbJNDg
-         SnRiQoLMzWj48obibhuotohRVS/uUSuIdJrDdbRVNaDOudP00AaxcFu/3tf7ro5zHHYX
-         sbupEC3BfqW2Dz/SLo3IOtneUfq9A9m2cUz4LnlK/Zrrd9okK1hqDkN7X/XpXyrahk+b
-         ybpUQ836WhiAPzr8xWFjWITgWMdd0e9zjn7ob4Y6z3P5I2xtEGr/Wg6h1ShembwIwYkG
-         lkJQ==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=+64qaKY0sobE3hO1qD5lIzM73n/sNXj+J/SclAcR4cA=;
+        b=mcjTFW/KwC1ujBy93NeRMf1KjFh8mHnRxk9U3Q1dP2jQHcY+dEa8VQ1PP61SPNIGyZ
+         Dy/R4HOzX8Kqc9z3i7Afw2d6M3idHs1Jwa7DwwK7SisCLyxrHLw9a0eGNQHBLERYLEWX
+         djpheH4/lICOKDBlKPOADOxTwvJsOnXvAkbj9PGPaV3zaO7WxxpOKWJr3XScynFmmKnR
+         xwP/1V2SM8RzgOvKtmRkCnA8FARJkvGl28QFUMOnKy2O4AAL96VQEpDeQT2blu+Ayfar
+         +CtXnFj48oohvmJSkjgZAIGy8gIDgKdiZpcjWq9LgOx5aDidKwfRf4co1D8OXl8NH9MK
+         lN8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=JPN0ewIOI+KTTxV89qY8uRFe+F3KCg5DynsKRI3ylcs=;
-        b=MuV0CxJD+ttFFMnB5Bi4HZuHq8z2L0qG20U4DVPM4GX6cOcYDwalpJqwQvfhGNJW9A
-         kLnL19mjLvwULZ9IOn86/CPognLsTtyqz01IiCSiP2LnVQBh9qiwZSvKUdNvwnczHCsO
-         Kioz7cpGhdrsQS9mjSPlfcFlP9ZIJorsUVaXcB0ZSWRSbQLwdJYAOHzGJVIjKCMveR81
-         lvAcxOd7AEYD1FrVKFbM1z20v9g0KXOlwKJzg54UtTeUGQX4sMMe943Ko16uorSNTqnJ
-         LNmDjhS6IH36n4P846YLv3lDK1Ui5CiI7Zx/hMzMQdQ92izFQtF3c1EDdHMVxabykn+u
-         ZziQ==
-X-Gm-Message-State: AOAM531os/dyHoBL8gr5JKJXRewXag/QFnw7nK7uGRSaETwiuhxMaaNH
-        Wcav03DWL+O5KR/0cLV4U2A=
-X-Google-Smtp-Source: ABdhPJwyeUoMrLmRU2su5AEc3lAbKFF71YBLq1qn6RgYdkgeHOWAc0/UU9/qh+09oBoSyy1zGu+1mw==
-X-Received: by 2002:adf:e6c5:: with SMTP id y5mr118348wrm.198.1631314384843;
-        Fri, 10 Sep 2021 15:53:04 -0700 (PDT)
-Received: from [10.168.10.11] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id y4sm1299wmi.22.2021.09.10.15.53.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 10 Sep 2021 15:53:04 -0700 (PDT)
-Subject: Re: [PATCH 09/15] clone.2: ERRORS: Add EACCESS with CLONE_INTO_CGROUP
- + clone3
+        bh=+64qaKY0sobE3hO1qD5lIzM73n/sNXj+J/SclAcR4cA=;
+        b=n8mGu4NaLtVEIjoUine3HZDsDQP28r8sNAY+fXc4GNQ0tJOn39bRfkFGh7Sz0TRODG
+         mjr1Rfnj33tkWZJ05v+B9Oy4e8mTcCHYrTPW/6vBvWIAziz8kIBlVSBJwa6INbaqJzTL
+         1Or67UABJNewPNHTUs+9Dwr6JvvsWkTNl8NRSfqyMP5Hiv7nK2omNv69yBgQUwqQ6/CA
+         HGg5+PT+vif28+Rtz5JM4+SIsXDnn8+/JEZFaWiD5JXDQdRBXQw1eMroUECtPnGu8+Oq
+         MZbevKErTGghJPLl5hn7HaD+WYc0jrsq1VZufxOENRfPgIiVnGcgle6HnYMkgdg8TqhX
+         l7rQ==
+X-Gm-Message-State: AOAM532tRf8cSJBaaH/o9NT+Xgr3yPkU7uN3RuKQjg2IP6nDH6VdpYmW
+        pUiBCio7ik2CpFwvEnyLZUI=
+X-Google-Smtp-Source: ABdhPJwE4k4PBntDy9gvDe5KAaZBnlJg5EZTEyUXyRyyOrkKt3vz22StHonhL7i+RQ4H5olYvrDIYQ==
+X-Received: by 2002:a05:6000:18c2:: with SMTP id w2mr3638341wrq.282.1631376087013;
+        Sat, 11 Sep 2021 09:01:27 -0700 (PDT)
+Received: from sqli.sqli.com ([195.53.121.100])
+        by smtp.googlemail.com with ESMTPSA id i9sm1947313wmi.44.2021.09.11.09.01.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 11 Sep 2021 09:01:26 -0700 (PDT)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org, Andrew Wock <ajwock@gmail.com>,
-        Christian Brauner <christian.brauner@ubuntu.com>
-References: <20210910224717.499502-1-alx.manpages@gmail.com>
- <20210910224717.499502-10-alx.manpages@gmail.com>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <842a7681-1a2a-4dc8-3f23-f191f6541a39@gmail.com>
-Date:   Sat, 11 Sep 2021 00:53:03 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org
+Subject: [PATCH 00/45] Add LIBRARY section (based on FreeBSD manual pages)
+Date:   Sat, 11 Sep 2021 18:00:33 +0200
+Message-Id: <20210911160117.552617-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
-In-Reply-To: <20210910224717.499502-10-alx.manpages@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 Hi Michael,
 
-On 9/11/21 12:47 AM, Alejandro Colomar wrote:
-> [Andrew]:
-> I noticed that clone3 can send the EACCES errno after I wrote a
-> program that used clone3 with the CLONE_INTO_CGROUP flag.
-> To me, it's important to know what kind of failure occurred if the
-> clone3() fails, so I was glad that a unique errno is set for
-> this case, but it wasn't documented on the clone man page.
-> 
-> [Christian]:
-> In essence, any error that could occur during regular fs-based migration
-> at write-time can also occur during CLONE_INTO_CGROUP. The clone3()
-> manpage just has the inverse of that above statement:
-> 
-> "Note that all of the usual restrictions (described in cgroups(7)) on
-> placing a process into a version 2 cgroup apply."
-> 
-> Reported-by: Andrew Wock <ajwock@gmail.com>
-> Acked-by: Christian Brauner <christian.brauner@ubuntu.com>
-> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+Here's a first patch set adding a new LIBRARY section
+to man2 and man3 pages (I started with man2).
 
-I forgot to fix the author of the commit.  It should be Andrew, as he 
-provided the diff, eventhough I commited it.
+It is based on (mostly cloned from) FreeBSD's man pages,
+as I liked that section from them.
 
-Please fix that.
+It normalizes the information we had in comments in
+NOTES or SYNOPSIS or DESCRIPTION.
+Or in most pages we didn't even have it, as we assume that 'cc' already
+handles '-lc' by deafult.
 
-Thanks,
+Patch 20/45 was removed on purpose due to a mistake.
+
+Cheers,
 
 Alex
 
-> ---
->   man2/clone.2 | 10 ++++++++++
->   1 file changed, 10 insertions(+)
-> 
-> diff --git a/man2/clone.2 b/man2/clone.2
-> index e381da165..90db92ad6 100644
-> --- a/man2/clone.2
-> +++ b/man2/clone.2
-> @@ -1209,6 +1209,16 @@ in the caller's context, no child process is created, and
->   is set to indicate the error.
->   .SH ERRORS
->   .TP
-> +.BR EACCES " (" clone3 "() only)"
-> +.B CLONE_INTO_CGROUP
-> +was specified in
-> +.IR cl_args.flags ,
-> +but the restrictions (described in
-> +.BR cgroups (7))
-> +on placing the child process into the version 2 cgroup referred to by
-> +.I cl_args.cgroup
-> +are not met.
-> +.TP
->   .B EAGAIN
->   Too many processes are already running; see
->   .BR fork (2).
-> 
 
+
+
+
+Alejandro Colomar (45):
+  _exit.2: Add LIBRARY section
+  keyctl.2: Add LIBRARY section
+  gamma.3: Add LIBRARY section
+  request_key.2: Add LIBRARY section
+  write.2: Add LIBRARY section
+  wait4.2: Add LIBRARY section
+  wait.2: Add LIBRARY section
+  vmsplice.2: Add LIBRARY section
+  vm86.2: Add LIBRARY section
+  vhangup.2: Add LIBRARY section
+  vfork.2: Add LIBRARY section
+  utimensat.2: Add LIBRARY section
+  utime.2: Add LIBRARY section
+  ustat.2: Add LIBRARY section
+  userfaultfd.2: Add LIBRARY section
+  unshare.2: Add LIBRARY section
+  uname.2: Add LIBRARY section
+  umount.2: Add LIBRARY section
+  tkill.2: Add LIBRARY section
+  unlink.2: Add LIBRARY section
+  umask.2: Add LIBRARY section
+  truncate.2: Add LIBRARY section
+  timer_getoverrun.2: Add LIBRARY section
+  timerfd_create.2: Add LIBRARY section
+  timer_delete.2: Add LIBRARY section
+  timer_create.2: Add LIBRARY section
+  time.2: Add LIBRARY section
+  tee.2: Add LIBRARY section
+  syslog.2: Add LIBRARY section
+  sysinfo.2: Add LIBRARY section
+  syscall.2: Add LIBRARY section
+  sync_file_range.2: Add LIBRARY section
+  sync.2: Add LIBRARY section
+  symlink.2: Add LIBRARY section
+  swapon.2: Add LIBRARY section
+  subpage_prot.2: Add LIBRARY section
+  statx.2: Add LIBRARY section
+  stat.2: Add LIBRARY section
+  spu_run.2: Add LIBRARY section
+  spu_create.2: Add LIBRARY section
+  splice.2: Add LIBRARY section
+  socketpair.2: Add LIBRARY section
+  socketcall.2: Add LIBRARY section
+  sigwaitinfo.2: Add LIBRARY section
+
+ man2/_exit.2            |  3 +++
+ man2/keyctl.2           |  9 +++++++--
+ man2/request_key.2      | 18 ++++--------------
+ man2/sigwaitinfo.2      |  3 +++
+ man2/socketcall.2       |  3 +++
+ man2/socketpair.2       |  3 +++
+ man2/splice.2           |  3 +++
+ man2/spu_create.2       |  3 +++
+ man2/spu_run.2          |  3 +++
+ man2/stat.2             |  3 +++
+ man2/statx.2            |  3 +++
+ man2/subpage_prot.2     |  3 +++
+ man2/swapon.2           |  3 +++
+ man2/symlink.2          |  3 +++
+ man2/sync.2             |  3 +++
+ man2/sync_file_range.2  |  3 +++
+ man2/syscall.2          |  3 +++
+ man2/sysinfo.2          |  3 +++
+ man2/syslog.2           |  3 +++
+ man2/tee.2              |  3 +++
+ man2/time.2             |  3 +++
+ man2/timer_create.2     |  5 +++--
+ man2/timer_delete.2     |  5 +++--
+ man2/timer_getoverrun.2 |  5 +++--
+ man2/timer_settime.2    |  5 +++--
+ man2/timerfd_create.2   |  3 +++
+ man2/times.2            |  3 +++
+ man2/tkill.2            |  3 +++
+ man2/truncate.2         |  3 +++
+ man2/umask.2            |  3 +++
+ man2/umount.2           |  3 +++
+ man2/uname.2            |  3 +++
+ man2/unlink.2           |  3 +++
+ man2/unshare.2          |  3 +++
+ man2/userfaultfd.2      |  3 +++
+ man2/ustat.2            |  3 +++
+ man2/utime.2            |  3 +++
+ man2/utimensat.2        |  3 +++
+ man2/vfork.2            |  3 +++
+ man2/vhangup.2          |  3 +++
+ man2/vm86.2             |  3 +++
+ man2/vmsplice.2         |  3 +++
+ man2/wait.2             |  3 +++
+ man2/wait4.2            |  3 +++
+ man2/write.2            |  3 +++
+ man3/gamma.3            |  5 +++--
+ 46 files changed, 143 insertions(+), 26 deletions(-)
 
 -- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+2.33.0
+
