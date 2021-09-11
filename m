@@ -2,86 +2,122 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 284C940796C
-	for <lists+linux-man@lfdr.de>; Sat, 11 Sep 2021 18:02:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 322A6407A17
+	for <lists+linux-man@lfdr.de>; Sat, 11 Sep 2021 20:29:55 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230051AbhIKQDW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 11 Sep 2021 12:03:22 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55896 "EHLO
+        id S231866AbhIKSbG (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 11 Sep 2021 14:31:06 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59948 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233245AbhIKQDV (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 11 Sep 2021 12:03:21 -0400
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com [IPv6:2a00:1450:4864:20::430])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D9A5CC061574
-        for <linux-man@vger.kernel.org>; Sat, 11 Sep 2021 09:02:08 -0700 (PDT)
-Received: by mail-wr1-x430.google.com with SMTP id t8so2328246wrq.4
-        for <linux-man@vger.kernel.org>; Sat, 11 Sep 2021 09:02:08 -0700 (PDT)
+        with ESMTP id S231355AbhIKSbG (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 11 Sep 2021 14:31:06 -0400
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com [IPv6:2a00:1450:4864:20::632])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6DE9BC061574
+        for <linux-man@vger.kernel.org>; Sat, 11 Sep 2021 11:29:53 -0700 (PDT)
+Received: by mail-ej1-x632.google.com with SMTP id kt8so11252714ejb.13
+        for <linux-man@vger.kernel.org>; Sat, 11 Sep 2021 11:29:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=Ihsm+nUI+ibfCdv9Np1Y8GeBm6TVhuxVw1ATAl8Zr8w=;
-        b=o1PtTZCh3X30U7b0WgP+vJW5fqpGROJs6s9RFMr/lgaUY8FnaT29+Qzf7/MSMAk18c
-         fTgGFQP/kxrGJmvD9S8UyEkKL1KyQmNM/nPe9ms/0A6AuIaXnLZF2zIXkjOU4jX/UNDz
-         ruULlm99XaOePup8esDk5cddsNxFnkXKKizxzi8MqbDnF5asXb+aoD4i1mMbor/Empe1
-         0zHo6Bhf5NqJED7vPdvq/n7u9GmL2jiJ5CkJqBXyCboS639i0SuorD7Akua2JWK5GAat
-         n1U8LxSJMy9A60oK5BF5zLXue1bZPGysCs0XqsP0U7m6T2+3dyUlPD4pvv6/wih3ffZF
-         Jxnw==
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:content-transfer-encoding;
+        bh=NpuOadRHPU5dckyCu3HZw4fZbLpWcdNHvomJ5OU+J7s=;
+        b=HAkoXm5iKKLLOfhN873P5gFxbuVRNtbyjgRZGLiQZ/FdEiAu09e0p2nwOivbi4Enzx
+         SnpMew+jGAMpxpAX7UBoWXQEdhgiVNw66DFgI9W2A9ddalyNLikbrB5yNYoVZmij/8+w
+         QWVwfMJFd2rncMPVDXc1MBa5gSyBK4VGDvGhlJljExIbZUUGbSwgHUg4JzD76MjhsV49
+         TKorNn7uyJ3fipo7dxktui3Gpkgu+66XDT8exmR0enDIHnbxTRDyLsLGHJZnqH92Acut
+         ExJGamNcWE/h12uiSOxPeqDv5D2v5BMgYjLIchMEzPqy6y/eHoq0CSujR9/QUkUImZ8p
+         5G0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=Ihsm+nUI+ibfCdv9Np1Y8GeBm6TVhuxVw1ATAl8Zr8w=;
-        b=Kyq/kCE7a68eqpgMlDdEHxhPaTbtRl4o0/FvUYvy3Jmd0r9VuIRzfohc3MkN81b10l
-         xC9WdO2aoQucDsYTRrvbiL96u34Q5OGkTEd3gsaZEzLbEd28ffR3c9r5S3Rji8sEXSB6
-         pFFdRsytnc5TshuqGBpfltEB5Rewn35TPUTXdLeBPrmCB7iiG+Xa5oTH3D2Ak5skGT5d
-         fcOEOrPF8oH59S6BALBUoR4DycUn5xRWlbxFQgB9lxePQQqOeWpkD6kywgOQ7g/z2WOe
-         Z6UIKcWCDeQKMAbY/a2f0L0tuwPOQd2Lqli3r+72z94VMsebxHMbaawRE8Pn/4+Ymz+d
-         EdzA==
-X-Gm-Message-State: AOAM5316j1nF04IRLydKwTdg7aJzpmhQd1DfWm5Hp/sydleK2Ql7LXFE
-        imrmV3M2cBnC+UMmqRd7xGuW01ag2v0=
-X-Google-Smtp-Source: ABdhPJzAuwMbm34mXK0FX7wYIVbijCMvb0i6ULY1ySOVHDLElubI1BUt/GDqCSNlf4uSrpGkSfsKqQ==
-X-Received: by 2002:a5d:410b:: with SMTP id l11mr3814682wrp.76.1631376127564;
-        Sat, 11 Sep 2021 09:02:07 -0700 (PDT)
-Received: from sqli.sqli.com ([195.53.121.100])
-        by smtp.googlemail.com with ESMTPSA id i9sm1947313wmi.44.2021.09.11.09.02.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 11 Sep 2021 09:02:07 -0700 (PDT)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     mtk.manpages@gmail.com
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org
-Subject: [PATCH 45/45] sigwaitinfo.2: Add LIBRARY section
-Date:   Sat, 11 Sep 2021 18:01:17 +0200
-Message-Id: <20210911160117.552617-45-alx.manpages@gmail.com>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20210911160117.552617-1-alx.manpages@gmail.com>
-References: <20210911160117.552617-1-alx.manpages@gmail.com>
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=NpuOadRHPU5dckyCu3HZw4fZbLpWcdNHvomJ5OU+J7s=;
+        b=Ot30PoYcJF3uWVQlr59M8zto8BP3ATohk85VSorEVYkQw55agzCgxfi5APtQPWN6Hc
+         /kUO63twt2coStMwdTZD56YwwfGgofs2jagDS5jHiKPB2vlhcClS+rrduwMar3rwRKD0
+         ILGGIydgDWfhQGJYDh01zsG4KNG9ItzNkOHL3gXYiuJcr05lfjlthL46hO97gjMSExZ5
+         FJl4hWNo0a+Xl6wFb7+Ymg5aIm5Xs3oT+XVbvIqdrYV2dMtIlrv4VmNzaFw/jWmC/LK3
+         WLZMmWZbEAR30tgAGKP+Vb2omJvGalUMeFOcRvko5VvRWqwTUFaHUxWv39yD2UE6ulDh
+         mrpQ==
+X-Gm-Message-State: AOAM530EsomcdP1lPB/6RdPvofGMRXdRvEeRFwEXzO4I/Bq6D1ySXTF1
+        Ejqe5iHa8b8XpG6IdWtcqfN+pm1/Fs2M3t1/wRs=
+X-Google-Smtp-Source: ABdhPJwnrGF2t9ciedJ7QJH5e31cnA5QN9LRFBhLLEVtmbUv/FQzmmzgYgt9zNTLmOnJ+2NXcY6WKFYyXwJET0FXkCU=
+X-Received: by 2002:a17:906:688a:: with SMTP id n10mr3941274ejr.389.1631384990888;
+ Sat, 11 Sep 2021 11:29:50 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20210911160117.552617-1-alx.manpages@gmail.com>
+In-Reply-To: <20210911160117.552617-1-alx.manpages@gmail.com>
+From:   Eugene Syromyatnikov <evgsyr@gmail.com>
+Date:   Sat, 11 Sep 2021 20:29:48 +0200
+Message-ID: <CACGkJdtFKY+DTTcdNuSPDLn-DUXDfJYcFj9814v5yHpOwxnwfg@mail.gmail.com>
+Subject: Re: [PATCH 00/45] Add LIBRARY section (based on FreeBSD manual pages)
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     Michael Kerrisk-manpages <mtk.manpages@gmail.com>,
+        linux-man <linux-man@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
----
- man2/sigwaitinfo.2 | 3 +++
- 1 file changed, 3 insertions(+)
+On Sat, Sep 11, 2021 at 6:01 PM Alejandro Colomar
+<alx.manpages@gmail.com> wrote:
+> Alejandro Colomar (45):
+>   _exit.2: Add LIBRARY section
+>   keyctl.2: Add LIBRARY section
 
-diff --git a/man2/sigwaitinfo.2 b/man2/sigwaitinfo.2
-index 00bc50485..08f318769 100644
---- a/man2/sigwaitinfo.2
-+++ b/man2/sigwaitinfo.2
-@@ -26,6 +26,9 @@
- .SH NAME
- sigwaitinfo, sigtimedwait, rt_sigtimedwait \- synchronously wait
- for queued signals
-+.SH LIBRARY
-+Standard C library
-+.RI ( libc ", " -lc )
- .SH SYNOPSIS
- .nf
- .B #include <signal.h>
--- 
-2.33.0
+>   request_key.2: Add LIBRARY section
+>   write.2: Add LIBRARY section
+>   wait4.2: Add LIBRARY section
+>   wait.2: Add LIBRARY section
+>   vmsplice.2: Add LIBRARY section
+>   vm86.2: Add LIBRARY section
+>   vhangup.2: Add LIBRARY section
+>   vfork.2: Add LIBRARY section
+>   utimensat.2: Add LIBRARY section
+>   utime.2: Add LIBRARY section
+>   ustat.2: Add LIBRARY section
+>   userfaultfd.2: Add LIBRARY section
+>   unshare.2: Add LIBRARY section
+>   uname.2: Add LIBRARY section
+>   umount.2: Add LIBRARY section
+>   tkill.2: Add LIBRARY section
+>   unlink.2: Add LIBRARY section
+>   umask.2: Add LIBRARY section
+>   truncate.2: Add LIBRARY section
+>   timer_getoverrun.2: Add LIBRARY section
+>   timerfd_create.2: Add LIBRARY section
+>   timer_delete.2: Add LIBRARY section
+>   timer_create.2: Add LIBRARY section
+>   time.2: Add LIBRARY section
+>   tee.2: Add LIBRARY section
+>   syslog.2: Add LIBRARY section
+>   sysinfo.2: Add LIBRARY section
+>   syscall.2: Add LIBRARY section
+>   sync_file_range.2: Add LIBRARY section
+>   sync.2: Add LIBRARY section
+>   symlink.2: Add LIBRARY section
+>   swapon.2: Add LIBRARY section
+>   subpage_prot.2: Add LIBRARY section
+>   statx.2: Add LIBRARY section
+>   stat.2: Add LIBRARY section
+>   spu_run.2: Add LIBRARY section
+>   spu_create.2: Add LIBRARY section
+>   splice.2: Add LIBRARY section
+>   socketpair.2: Add LIBRARY section
+>   socketcall.2: Add LIBRARY section
+>   sigwaitinfo.2: Add LIBRARY section
 
+I'm not sure about these, my understanding is that the primary purpose
+of section 2 is syscalls, userspace-kernel interface, and not their
+libc wrappers.  Even intro(2) states that it is Linux-specific:
+=E2=80=9CSection  2  of the manual describes the Linux system calls.  A sys=
+tem
+call is an entry point into the Linux kernel.=E2=80=9D Tying it to libc fee=
+ls
+like a bit of a stretch, even though it is the exceedingly common
+interface for invoking them.
+
+--=20
+Eugene Syromyatnikov
+mailto:evgsyr@gmail.com
+xmpp:esyr@jabber.{ru|org}
