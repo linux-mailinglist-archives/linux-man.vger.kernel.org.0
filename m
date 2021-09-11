@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 5A389407943
+	by mail.lfdr.de (Postfix) with ESMTP id C7E62407944
 	for <lists+linux-man@lfdr.de>; Sat, 11 Sep 2021 18:01:34 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232881AbhIKQCq (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        id S232693AbhIKQCq (ORCPT <rfc822;lists+linux-man@lfdr.de>);
         Sat, 11 Sep 2021 12:02:46 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55692 "EHLO
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55694 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232693AbhIKQCp (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 11 Sep 2021 12:02:45 -0400
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com [IPv6:2a00:1450:4864:20::435])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 30B2CC061756
-        for <linux-man@vger.kernel.org>; Sat, 11 Sep 2021 09:01:32 -0700 (PDT)
-Received: by mail-wr1-x435.google.com with SMTP id q26so7347790wrc.7
-        for <linux-man@vger.kernel.org>; Sat, 11 Sep 2021 09:01:32 -0700 (PDT)
+        with ESMTP id S232708AbhIKQCq (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 11 Sep 2021 12:02:46 -0400
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com [IPv6:2a00:1450:4864:20::42b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6B520C061574
+        for <linux-man@vger.kernel.org>; Sat, 11 Sep 2021 09:01:33 -0700 (PDT)
+Received: by mail-wr1-x42b.google.com with SMTP id i23so7362870wrb.2
+        for <linux-man@vger.kernel.org>; Sat, 11 Sep 2021 09:01:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=YbzFyMWUWXw01FJ4CyujcRsOkWerw8hd3kgDfXzCckI=;
-        b=IcuH0Q8tusKA0zElm84VCQLNQubJltQ87rFuN5KQkQFsdX4i1BNa2q1fBABudG/5KE
-         IycvNRN9gAMzMGy5miRU2i5nEdYjCnR1lA1/SsE3HdSEvajEC4OGGh7jQRcdDttLpVUG
-         qvQuElptXXH3FAKAbBbOZX77bRpg8M+zOMSlP+LeZGtZK0AsO+/yEPxsq5f8QzsNBXNa
-         7FqPbKQJ0RW1jUFWByxgHOt+RuCrDomkC1vNI3Y/tcOJk+3ZqPesWVbqM6AU9UUPxxWO
-         +8C5DnUsktB8BatDbnI313ka6aLbxYOqP1+AlP7hXXS8IZwwUOCkwNpQ5isCS0mw0nky
-         hLUw==
+        bh=edupD3hEUai3dstHk9JYxKZbs4hvH8/JYT4vQ7kIQmE=;
+        b=KuvE5Yzi/Y7m18a/WQLXQiuN/bkjGd1SGXt29jqL99qXLIF8pLD3FrshNKxGmkIKNs
+         mABK8ltG5SpEebxZZjDB77Zh79r4Z8dDW8zM9eNbPTpiSTDE7i47ByJ1rfzvhbupoeZt
+         4DIWKi8HzsSpzFi3SgDFr7oZTIXruE5RLiiMufQ6AYbsrWDPaqajmJlx2im+IGbb0blK
+         d8xCdRej/bIcEovhAJoKyfbep+95rdNImSERbAYbmzR5O1VWE8VM6wD1hO8YUaAk1qg/
+         KHemEHNbqM37/olwHow1HR0su6c57RVrAhRGcmNTrpoQ8PdXi6hqxtDHWEz6zSKJF+ae
+         JEDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=YbzFyMWUWXw01FJ4CyujcRsOkWerw8hd3kgDfXzCckI=;
-        b=0PXl4Aw6cDYmEahHeNkw5x6BzojRqyCDtUXXO4EHDg89Yi1HZJwIasQibw9IrgiIsb
-         uNZK5BHfDpwAyCBM8bZLazTH72f3SZbBjKFjXMtL8jrDrpAaIJeNlTEOXhEjPq4onQTS
-         pAM6u8bmPV8hVs0uUtPs7cvu6EbND4GFcIZJD/Vh4pW4EyVSwfuCEOFhXSIlOZ5kS+aD
-         0f2eEGebmKv/zqMwsg7U8zzB+d5OqxREUdziuZzIV5Z8oMxKG587UdekkziF7OvpD28/
-         Osy9w6SZpxsBKgmMkEUzglAmWZOGTbMqfbAuHorKOjWqYunD3bk4onTH+BE+JjH1Pr9B
-         tPNw==
-X-Gm-Message-State: AOAM53200utj5dr5kjZ1UezBOXLjINn6a6Rl4asJpYPqVC0cO77gX1z+
-        /vDfrTGdE5tw5lW+zBI3yUU=
-X-Google-Smtp-Source: ABdhPJx1p560We5UE59HGenHco5OrfYjphAXZWQJI6VNmAJZ63HfRqfhqsTNlsatTlQLcJ6F33evPg==
-X-Received: by 2002:a05:6000:1a52:: with SMTP id t18mr3640441wry.21.1631376091098;
-        Sat, 11 Sep 2021 09:01:31 -0700 (PDT)
+        bh=edupD3hEUai3dstHk9JYxKZbs4hvH8/JYT4vQ7kIQmE=;
+        b=32MwebJozGvqRL1raWovu83biWm7k4ILZq4PqW6hHFeSIIM/LYrtgMGmAE7nDcTzmM
+         9T1IFA/pBn7rSfcUr4H9N7g+X3GIX9G8Db/pf0+AVNozQwBF56RNFJs9+f5YRtZYFVvb
+         /6BrYqYAaF+zcVM8pvlU0nwCMUH3SEky2EPVBYLlhUPW8ZnkG4sMHw9RyBysvVch+txS
+         mmWMvwTfsOyFxhXYLIfS9aLMg3dw62HRIncWLkir56ILBfZXtDuNvfXvrpi23RSTPby9
+         f+DB52cGWPBZ1vnI7JdG/IUEvD7WqhnVQvKQGrD/J91hhXej1MqNPsrJH/rms1xzX8aY
+         tfYA==
+X-Gm-Message-State: AOAM533sblyKSShAtjP5XL7NzSkumthjDTL4HIup2wLkFxtTU/ZEfTZt
+        t20KcasohzWzk88nR4ytUtoCa4A13Jg=
+X-Google-Smtp-Source: ABdhPJx9KasFmlrfteTHgZV5isnUbFQgReWYj7QfA/9xxI11n3wECWeapOZz7R3W3vRqkGOsilFz9w==
+X-Received: by 2002:adf:d209:: with SMTP id j9mr2908690wrh.97.1631376092084;
+        Sat, 11 Sep 2021 09:01:32 -0700 (PDT)
 Received: from sqli.sqli.com ([195.53.121.100])
-        by smtp.googlemail.com with ESMTPSA id i9sm1947313wmi.44.2021.09.11.09.01.30
+        by smtp.googlemail.com with ESMTPSA id i9sm1947313wmi.44.2021.09.11.09.01.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 11 Sep 2021 09:01:30 -0700 (PDT)
+        Sat, 11 Sep 2021 09:01:31 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org
-Subject: [PATCH 04/45] request_key.2: Add LIBRARY section
-Date:   Sat, 11 Sep 2021 18:00:37 +0200
-Message-Id: <20210911160117.552617-5-alx.manpages@gmail.com>
+Subject: [PATCH 05/45] write.2: Add LIBRARY section
+Date:   Sat, 11 Sep 2021 18:00:38 +0200
+Message-Id: <20210911160117.552617-6-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20210911160117.552617-1-alx.manpages@gmail.com>
 References: <20210911160117.552617-1-alx.manpages@gmail.com>
@@ -65,52 +65,23 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man2/request_key.2 | 18 ++++--------------
- 1 file changed, 4 insertions(+), 14 deletions(-)
+ man2/write.2 | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/man2/request_key.2 b/man2/request_key.2
-index 145aff506..e0d05525a 100644
---- a/man2/request_key.2
-+++ b/man2/request_key.2
-@@ -12,17 +12,17 @@
- .TH REQUEST_KEY 2 2021-08-27 Linux "Linux Key Management Calls"
+diff --git a/man2/write.2 b/man2/write.2
+index 1a2de2722..18936a2cf 100644
+--- a/man2/write.2
++++ b/man2/write.2
+@@ -39,6 +39,9 @@
+ .TH WRITE 2 2021-03-22 "Linux" "Linux Programmer's Manual"
  .SH NAME
- request_key \- request a key from the kernel's key management facility
+ write \- write to a file descriptor
 +.SH LIBRARY
-+Linux Key Management Utilities
-+.RI ( libkeyutils ", " -lkeyutils )
++Standard C library
++.RI ( libc ", " -lc )
  .SH SYNOPSIS
  .nf
- .B #include <keyutils.h>
- .PP
- .BI "key_serial_t request_key(const char *" type ", const char *" description ,
- .BI "                         const char *" callout_info ,
--.BI "                         key_serial_t " dest_keyring ");"
-+.BI "                         key_serial_t " dest_keyring );
- .fi
--.PP
--.IR Note :
--There is no glibc wrapper for this system call; see NOTES.
- .SH DESCRIPTION
- .BR request_key ()
- attempts to find a key of the given
-@@ -437,16 +437,6 @@ The ability to instantiate keys upon request was added
- in Linux 2.6.13.
- .SH CONFORMING TO
- This system call is a nonstandard Linux extension.
--.SH NOTES
--Glibc does not provide a wrapper for this system call.
--A wrapper is provided in the
--.IR libkeyutils
--library.
--(The accompanying package provides the
--.I <keyutils.h>
--header file.)
--When employing the wrapper in that library, link with
--.IR \-lkeyutils .
- .SH EXAMPLES
- The program below demonstrates the use of
- .BR request_key ().
+ .B #include <unistd.h>
 -- 
 2.33.0
 
