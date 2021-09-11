@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id BE26E40796A
-	for <lists+linux-man@lfdr.de>; Sat, 11 Sep 2021 18:02:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7E43240796B
+	for <lists+linux-man@lfdr.de>; Sat, 11 Sep 2021 18:02:09 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233252AbhIKQDU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 11 Sep 2021 12:03:20 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55884 "EHLO
+        id S233311AbhIKQDV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 11 Sep 2021 12:03:21 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55890 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233245AbhIKQDT (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 11 Sep 2021 12:03:19 -0400
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com [IPv6:2a00:1450:4864:20::435])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2F27AC061574
+        with ESMTP id S233280AbhIKQDU (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 11 Sep 2021 12:03:20 -0400
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com [IPv6:2a00:1450:4864:20::42c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EEFA9C061574
         for <linux-man@vger.kernel.org>; Sat, 11 Sep 2021 09:02:07 -0700 (PDT)
-Received: by mail-wr1-x435.google.com with SMTP id x6so7326169wrv.13
+Received: by mail-wr1-x42c.google.com with SMTP id q11so7343593wrr.9
         for <linux-man@vger.kernel.org>; Sat, 11 Sep 2021 09:02:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=Z4670zci1YSQe6FaWf13LSjLicKCfj8SrLnJ3bBJ8BY=;
-        b=FmU2KSL35S83z585Xjffaxnrt/xcTFHCgMiE9qvMJAUDyAa7mtHargFz607M1OsjtB
-         UgXx07+eZOIL9jC2bkNLnqtTAKdx/W8wcEnnWjTpaboTDZ+kQAuiS7e6xwer0cVX7dji
-         vpb8s8z8404VoMAqwjX6QcUIyziXuvo2XQlarf4nsOhHmoFYshlLXolqmLsLu9wCnf80
-         G5drlFV6K3AD1QmSwg7yYOv9tZ3bMevGleRr5CyIlZ7tYRJ65A+ryU5LELZpO26Mdwk7
-         dkduiwd+ZjTpL2CWcfuTYstaFZ+iXS2R6ESSvYlczWS0T6HToPt7uF2KAivugYlnc7PB
-         FRNA==
+        bh=4eDiJ7FDSQQg6Ff18D0QhR7IKJKrkrs5zXj/Uh32ScQ=;
+        b=O1QOy+hiQvvsdgiWB4zcAEUxZyVoAhydhtOUBg58tdT2q4BX0JpzatloGTqBcM63vH
+         TcZn/hjbVrM0VY3lWMlDr91aNipZTTnulncsQf1/reZnJ4gU0/BE+7IY7c6QpMUP8szm
+         wY0P4ztzn9IzegeNBGxDG/D8EIwy14/OBk7sTeZ65Ebou7ZcQpZkvj2Xh0ZOD9olvTmB
+         3kOoTGp8uVmJQffNuTERvZpnzfPtfUNHxiTwQTEavYwOkQGDZ1p6FWIUx0LzNB2AMcsb
+         yCLzhm9gVN4U7JJRt8O4YBVMZWkmhd28fXla+yhkxddjPb/qbuDYmuE/dRcXmpEkUUI6
+         BaZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=Z4670zci1YSQe6FaWf13LSjLicKCfj8SrLnJ3bBJ8BY=;
-        b=l/Irbk5M5t7evwvYNdn+9y7WaAQ7tIi1KmFlCXkEi/orYWC0iXgCnE8kothT/9j3dS
-         BcxQpP3FqGFtmbWI9c15+K3dU/1ig3HdBncojMyzjRFwV0LEtfgnFhhzBIpKhwzHoOsh
-         zouXrcTAozh+SGge++MdxQHbwO1wRbvB6seepmIy7Ko7JaFIvKYOKR4GW0Fwm0r+1J9/
-         0fCxkhSOEITM0X090DyLA3sULaqmaDBkLO4g6MjZ8HO04RpZvM3929a5DuRdO0cMtJuC
-         5wFia7NfhQ5D5N4uXxwA95KYME2CS7fiTYWFpsqTZNvQFXQDXMjtyn7N6AuJyPDw82AO
-         bcQw==
-X-Gm-Message-State: AOAM530CGDSOYtssUL9XHzmBL1gh+0MghVIRzUc7rsoJ4Nw1sC4e0rPe
-        Pokv4UJesMigxN7HyKdoPo2UkhLdk+o=
-X-Google-Smtp-Source: ABdhPJwYj+H3VpCk50CXx2rn7LlqY6qz1OBxuSwHERu9jBaeBxxbpOYnB3f1BF/fyc5dHodiXxTyPw==
-X-Received: by 2002:a05:6000:18c2:: with SMTP id w2mr3641622wrq.282.1631376125840;
-        Sat, 11 Sep 2021 09:02:05 -0700 (PDT)
+        bh=4eDiJ7FDSQQg6Ff18D0QhR7IKJKrkrs5zXj/Uh32ScQ=;
+        b=5DrmpelkKYCgKSTwKwS9aqQ6ZMIaDMCMUD96u0KoQ75gnltCpDE6xi3aWtBM8pX24s
+         PLR6qc/+EnyNpLhI0lIngIyL1rNPubHm2GefddxpTmJBkm3uLXyjwVcBq/lqkmZT98Ev
+         L9d2G/Nh3wUM58lUynErlkHtkq3WpdS4ZnwnPkW4qt1yNKcri8DJRg7JODq/MYZVeujO
+         bNaLknFmMcgzU9wfOCoYRRqN2HOK8dx1Ze+2OuCMiNB0vZefsfXd4hP8vCXPWCuCjZib
+         wFERq7ykhuTEhdCiPEDTuYmByv1M5lsHDHkc+S8BNhBih720FSa4BaUxmHWVGkf8SaSW
+         NdtA==
+X-Gm-Message-State: AOAM531JMkSqXTtR9HyX9kGbxpd3czosas8lJl+tFsUuxRWxRtwmFhxR
+        c2b2k5nmZubGEZSE3wijCbs=
+X-Google-Smtp-Source: ABdhPJwd4QfEw8CyegkyEYBjHt/3U1fqPtB4v1rK0HrbJpVZlFT4e2PIG9QPYj2lsjH5bpraymp//w==
+X-Received: by 2002:a5d:49c6:: with SMTP id t6mr2557463wrs.201.1631376126660;
+        Sat, 11 Sep 2021 09:02:06 -0700 (PDT)
 Received: from sqli.sqli.com ([195.53.121.100])
         by smtp.googlemail.com with ESMTPSA id i9sm1947313wmi.44.2021.09.11.09.02.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 11 Sep 2021 09:02:05 -0700 (PDT)
+        Sat, 11 Sep 2021 09:02:06 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org
-Subject: [PATCH 43/45] socketpair.2: Add LIBRARY section
-Date:   Sat, 11 Sep 2021 18:01:15 +0200
-Message-Id: <20210911160117.552617-43-alx.manpages@gmail.com>
+Subject: [PATCH 44/45] socketcall.2: Add LIBRARY section
+Date:   Sat, 11 Sep 2021 18:01:16 +0200
+Message-Id: <20210911160117.552617-44-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20210911160117.552617-1-alx.manpages@gmail.com>
 References: <20210911160117.552617-1-alx.manpages@gmail.com>
@@ -65,23 +65,23 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man2/socketpair.2 | 3 +++
+ man2/socketcall.2 | 3 +++
  1 file changed, 3 insertions(+)
 
-diff --git a/man2/socketpair.2 b/man2/socketpair.2
-index a799babda..c07c51fa2 100644
---- a/man2/socketpair.2
-+++ b/man2/socketpair.2
-@@ -42,6 +42,9 @@
- .TH SOCKETPAIR 2 2021-03-22 "Linux" "Linux Programmer's Manual"
+diff --git a/man2/socketcall.2 b/man2/socketcall.2
+index b39f61039..55bf75ba3 100644
+--- a/man2/socketcall.2
++++ b/man2/socketcall.2
+@@ -25,6 +25,9 @@
+ .TH SOCKETCALL 2 2021-03-22 "Linux" "Linux Programmer's Manual"
  .SH NAME
- socketpair \- create a pair of connected sockets
+ socketcall \- socket system calls
 +.SH LIBRARY
 +Standard C library
 +.RI ( libc ", " -lc )
  .SH SYNOPSIS
  .nf
- .B #include <sys/socket.h>
+ .BR "#include <linux/net.h>" "        /* Definition of " SYS_* " constants */"
 -- 
 2.33.0
 
