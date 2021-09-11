@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id AA277407940
-	for <lists+linux-man@lfdr.de>; Sat, 11 Sep 2021 18:01:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B15E2407941
+	for <lists+linux-man@lfdr.de>; Sat, 11 Sep 2021 18:01:31 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232333AbhIKQCm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 11 Sep 2021 12:02:42 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55672 "EHLO
+        id S232347AbhIKQCn (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 11 Sep 2021 12:02:43 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55678 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230489AbhIKQCm (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 11 Sep 2021 12:02:42 -0400
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com [IPv6:2a00:1450:4864:20::433])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 75B6AC061574
-        for <linux-man@vger.kernel.org>; Sat, 11 Sep 2021 09:01:29 -0700 (PDT)
-Received: by mail-wr1-x433.google.com with SMTP id x6so7324067wrv.13
-        for <linux-man@vger.kernel.org>; Sat, 11 Sep 2021 09:01:29 -0700 (PDT)
+        with ESMTP id S230489AbhIKQCn (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 11 Sep 2021 12:02:43 -0400
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com [IPv6:2a00:1450:4864:20::432])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 57587C061574
+        for <linux-man@vger.kernel.org>; Sat, 11 Sep 2021 09:01:30 -0700 (PDT)
+Received: by mail-wr1-x432.google.com with SMTP id w29so6596283wra.8
+        for <linux-man@vger.kernel.org>; Sat, 11 Sep 2021 09:01:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=eBbn/AZPM0ZAef88JfeHMs8L636bQ3E4uKaGDPPkOF8=;
-        b=h31vtyKuHwZVWejQwxHGzajhVS0Lbrx3klwFKfRWLtO511wVSBlcfRLF3xCdEjNROK
-         rfltEdEnFwXHsKS5M6hV4MgdWYRPY0hnAixbKtMaMQm8lp+PUGL0jDVqHWNE0s3vBLfO
-         5mwTCqFzjOdTIqIqPfGZ+EbSEyxgoU9ZK062rplYnfJaMEli7immQan3OnhuIsC2wXIB
-         m5fupxKA2RC50UNpMNQ4K101ZLmdKJqu8O8qiCf7vN4OH+mZgvjlO2imcKwYyYuuFy9I
-         EnGxCS3Jr18AQfVB8UixhqcU5ERPtoH2gttyyUot5EZZCHHlFHv5Qii9grfy1O7hTzyL
-         JOOw==
+        bh=bX5mY6iXq2runcN1CF/cJRSxpnJY+dCOo5T+jjnMx3w=;
+        b=OutGXp9uJavmbISYwp7iMBKHtB8+Cx/3jVxuH+oCMM4RAPVAhQfzltI0I2RbIazZZc
+         4QwDzLjpul4S7VXBXhjl6mBS6e9tehjsjX4pf63s2fK/8E/AxRHfcfcjOyqThVN077d/
+         TyFvb+OQJNWA0qw5fYKZwWVk06paH5zL7pL5H5QhtqVdxVAG7qE8ctVFWEMaYGRrdqJw
+         nwi070nwjccEqMuwg5w+LwxhNiuhKpHpo/TzXPlXhINxjqeiQKF5LV9olJ3U4V0a2zkX
+         7882OMhBuw5nZ7i1fvTXN6Q5yM19Iy2MQKqBnaTKoBA0/487GRcxY20bSjzSoABEV9Ej
+         axWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=eBbn/AZPM0ZAef88JfeHMs8L636bQ3E4uKaGDPPkOF8=;
-        b=H7/lKElBrw+9Kw0ANB+zQerPc1rEUaYE9lSMz4TOpDBqpaRyU2apDgcfPL5tVlly55
-         2f3flnlrAkTOcw1kXUxYYTtBNbgKTo4hwoL0OT3rPjRRSfgdB2D9ee3oi6bzC+HtL3ZK
-         /ZevArHAZ6n+NPnhrHXvvVxZGdrcYl8hRGzrLnRBZoBQxTabhUZ2i2Bnxg6gGpAIt1Bd
-         1H8i3O5vweWKq3PkqiqvBV1PfhRir4PMiOs5n/95U9UVSTy413wkKsoqo7lzOtwggY4Z
-         JR9xYiafMNBrpxPmZnYLxOxgyrrMXfzICNUM5iigpnmVngjQkGJyvmxGLCG0nC5XObzA
-         WLPQ==
-X-Gm-Message-State: AOAM53128X42A0UgoWTK+JnmHcjVvYXJgUIV/UCt+kxxST3WaiIWGYj4
-        L6Qg0AyyZtW7do/D+PvzCQ8=
-X-Google-Smtp-Source: ABdhPJwTDGm0Uw3ylB27zAqMznVFwWwFuxbN0QaN9TmoAFHun+dZN2HIVqE9+8mlbRQvpBOzM0tEGQ==
-X-Received: by 2002:a5d:410b:: with SMTP id l11mr3811229wrp.76.1631376088075;
-        Sat, 11 Sep 2021 09:01:28 -0700 (PDT)
+        bh=bX5mY6iXq2runcN1CF/cJRSxpnJY+dCOo5T+jjnMx3w=;
+        b=ZWFmOrKGbLI6jiZzLAj+bIwFPZ3JRyCbLh1knn0I8HI6x/PojGe7FzxrAurRSRCgHx
+         /031Zzpf34BcInOygKZUkP76VTkkyqXBbyUKaios+OvBxClGlVAzVv5c70yYee1RQXpv
+         vOQZHe20HML6rRzC/qxdlZb4Rfl9jQY39ko7hmuE9gPm2k1CTLxIUit4b8J8L+s7EDW2
+         wUys4uU8UCLDccUkRH1rJShm+5wMFKutrnGEhrAQ/yd31KOB2dhOsHbTWgBBrcJRR/Vn
+         0jFw0YCwEh7qSqRPFFM2+7kCTBP1cCRKLTJeWd+1PsBexfps+S3k6F8+g/j+S8HuxRwp
+         2hKw==
+X-Gm-Message-State: AOAM533vgQjduis3/BtFhOnLi/Bplw8SQlA0dZYYk7bp8pgJCoohbwne
+        /YGXwWUUtd8d/2FcE7PpYj5At8/X2Uk=
+X-Google-Smtp-Source: ABdhPJw+5XU3H2GKvogPyAS/Q6mQOaU8871rJ9injrSH8vsatB+LUkQevxdnGwGKJKB9lO6wTaR95g==
+X-Received: by 2002:adf:c18d:: with SMTP id x13mr3624495wre.83.1631376089030;
+        Sat, 11 Sep 2021 09:01:29 -0700 (PDT)
 Received: from sqli.sqli.com ([195.53.121.100])
-        by smtp.googlemail.com with ESMTPSA id i9sm1947313wmi.44.2021.09.11.09.01.27
+        by smtp.googlemail.com with ESMTPSA id i9sm1947313wmi.44.2021.09.11.09.01.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 11 Sep 2021 09:01:27 -0700 (PDT)
+        Sat, 11 Sep 2021 09:01:28 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org
-Subject: [PATCH 01/45] _exit.2: Add LIBRARY section
-Date:   Sat, 11 Sep 2021 18:00:34 +0200
-Message-Id: <20210911160117.552617-2-alx.manpages@gmail.com>
+Subject: [PATCH 02/45] keyctl.2: Add LIBRARY section
+Date:   Sat, 11 Sep 2021 18:00:35 +0200
+Message-Id: <20210911160117.552617-3-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20210911160117.552617-1-alx.manpages@gmail.com>
 References: <20210911160117.552617-1-alx.manpages@gmail.com>
@@ -65,23 +65,36 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man2/_exit.2 | 3 +++
- 1 file changed, 3 insertions(+)
+ man2/keyctl.2 | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/man2/_exit.2 b/man2/_exit.2
-index 4b3cfd7ac..9a0e9bdd5 100644
---- a/man2/_exit.2
-+++ b/man2/_exit.2
-@@ -29,6 +29,9 @@
- .TH _EXIT 2 2021-03-22 "Linux" "Linux Programmer's Manual"
+diff --git a/man2/keyctl.2 b/man2/keyctl.2
+index 4e3ca5dac..226ae2800 100644
+--- a/man2/keyctl.2
++++ b/man2/keyctl.2
+@@ -28,6 +28,13 @@
+ .TH KEYCTL 2 2021-08-27 Linux "Linux Key Management Calls"
  .SH NAME
- _exit, _Exit \- terminate the calling process
+ keyctl \- manipulate the kernel's key management facility
 +.SH LIBRARY
 +Standard C library
 +.RI ( libc ", " -lc )
++.PP
++Alternatively, Linux Key Management Utilities
++.RI ( libkeyutils ", " -lkeyutils );
++see NOTES.
  .SH SYNOPSIS
  .nf
- .B #include <unistd.h>
+ .BR "#include <linux/keyctl.h>" "     /* Definition of " KEY* " constants */"
+@@ -1958,8 +1965,6 @@ library.
+ (The accompanying package provides the
+ .I <keyutils.h>
+ header file.)
+-When employing the wrapper in that library, link with
+-.IR \-lkeyutils .
+ However, rather than using this system call directly,
+ you probably want to use the various library functions
+ mentioned in the descriptions of individual operations above.
 -- 
 2.33.0
 
