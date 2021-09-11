@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 9CBCC40795E
-	for <lists+linux-man@lfdr.de>; Sat, 11 Sep 2021 18:01:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 561C440795F
+	for <lists+linux-man@lfdr.de>; Sat, 11 Sep 2021 18:01:58 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230489AbhIKQDJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 11 Sep 2021 12:03:09 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55822 "EHLO
+        id S232333AbhIKQDK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 11 Sep 2021 12:03:10 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55828 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233089AbhIKQDJ (ORCPT
+        with ESMTP id S232310AbhIKQDJ (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Sat, 11 Sep 2021 12:03:09 -0400
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com [IPv6:2a00:1450:4864:20::42a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4FD9BC061574
-        for <linux-man@vger.kernel.org>; Sat, 11 Sep 2021 09:01:56 -0700 (PDT)
-Received: by mail-wr1-x42a.google.com with SMTP id q11so7343062wrr.9
-        for <linux-man@vger.kernel.org>; Sat, 11 Sep 2021 09:01:56 -0700 (PDT)
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com [IPv6:2a00:1450:4864:20::332])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2E635C061574
+        for <linux-man@vger.kernel.org>; Sat, 11 Sep 2021 09:01:57 -0700 (PDT)
+Received: by mail-wm1-x332.google.com with SMTP id j17-20020a05600c1c1100b002e754875260so3454376wms.4
+        for <linux-man@vger.kernel.org>; Sat, 11 Sep 2021 09:01:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=wC1oVvwTOEwQ+H3ALKxk2LLsVGFG+jk07/5/0+aaAIU=;
-        b=TXv4KipgTiJgGD1E7N+n1GDIkBTFlIDoRWCklXR/y/1QxzM9xc2Q/9a5cLQGQokdma
-         B73TqRRKcCGIHRlSXsv4rXdmlwLVMrda100MvgPaM9FafmFlPXwcAr6EkRZDXUaU9BwR
-         qkl2o4/ZtN+64uxh9Z43HlYZGpWsRKHc1FO9PtCeviEnEhKiuh+SKEGGCwHhcFUpW0qa
-         InGWqc9FUbzyYgrDo/ppoSf/+uixgnOKzccE7kzDf4ALgKcuBYH3PbTRCXCoUY/teGBe
-         sXEq+wWZyQyA2hgu4FS2HrVxUZ5lRemQoD7IThxB9mKYsr7qa+CVYZnk30zULWA5lDDM
-         Ocsg==
+        bh=T+YZAkMKVt2bQZNcRT5XU6zRLejevfgfGAPcN+UlZkk=;
+        b=OYRcD8cKkjVXrNlGU/895Jnd/zkLtXUvFevIVvOJJsWr7+6VymweggBiIPu7YhZepE
+         MW2d4TJjnPsFLLLTlfM78H0rpLQ+PkiyXd3VI8tqqh7K7f4u812nY/+PYDTKLltQ9Ph5
+         lpsONNr9ru06Ylcs9Hu7v1u+AQHVNNIgqKEcYfCxgFhZumaWleKaF1dxVU4a+zFe8Rbi
+         kmIMWas23cd6wlARPzHQU2DZOJwYvcEBygJWMLK/6Ixd2pIoWzFTeXsy5ELpTBnj3SPf
+         I8jp3exisEKq0wPutFkF3pma86rzF0Llw7o1ta+B1z39zeDVQyjrKObYFZFM7GxUfCOv
+         vNow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=wC1oVvwTOEwQ+H3ALKxk2LLsVGFG+jk07/5/0+aaAIU=;
-        b=fiQe9XDJDTodzW8NvhpmZvkcWROOc8J3wowuF27rzNFrwKSa/yIQIlCfy4g8FzRrFb
-         SAmvWgegADmg6GOf8OkxhwFECM0yu0Rqk5j442ToC8F0Ph6MHX7VrXhgtYH6m8Yc+tCP
-         sKagCLWNZr1QNLoPNUOw3F5wlPv9wL5UcFi/cdV24bThJl12uDvesbFbY6WUXRLEVB46
-         cRpKXOOuA6EamTq+USb5zHyzzFbicKu0EKgwcLTkOTPE1td+cVffZSZ+xQSNXX0N8UsT
-         ajEOBgI3llgDdD1NnAZD2hgKh1QxilPHGh8RCq7SvT3MsNAAuHqo64mfIPu8B9qlrgKy
-         0vXA==
-X-Gm-Message-State: AOAM530bbJIWHLuEuZBikMfmQ7T1S9CxvfjEA0YHfK3cQ+4W5lL90+90
-        yEpeGKOpiFSCgDvEgEkIjvI=
-X-Google-Smtp-Source: ABdhPJyKBalqQQ33iVU68m228NDLcwafWoII0ipnDnnQ7N2bsqx3M+GwkId8FUqduGtwiUlED15Zrw==
-X-Received: by 2002:a05:6000:1627:: with SMTP id v7mr3727887wrb.347.1631376114976;
-        Sat, 11 Sep 2021 09:01:54 -0700 (PDT)
+        bh=T+YZAkMKVt2bQZNcRT5XU6zRLejevfgfGAPcN+UlZkk=;
+        b=AvHuRTO9rH2/fgYBKSNnFmrF8CX51WSwaftLM/ARF2N62jHQ1tmudG/oVEg7hoUFsB
+         oQ5k8uLY4LKF6WNE7LhBegJeOABgly3tyCZtD/pGGM186asoWgxV7t3HQdF8GTiPqQCR
+         mDxWC/+/w43Rx5Sa4c56ZNJsLHnQPiI2dii7SGeFOvXaQnm28Z6+ZjT84BszHwsxZOjf
+         R9tA5XPdNlmiRr+sG14skg4RpARLZH5fqxBmz3eaYUCXxnMuleq5phElZpG96S+pxoam
+         7M1APRnawLnX+hSXq6BhbdLfloMS187Ix93C1y5Fj9gQik1N35wBWlGVk5Icb4wGKjYN
+         KNGQ==
+X-Gm-Message-State: AOAM532/voom9y1eUY+p67f/plXxg4Madcjo0BJrzXRMQLVJo2Eg3n/T
+        cEBOAJLdeLqW4T3KiRES4Bc=
+X-Google-Smtp-Source: ABdhPJzFONOIT13o0QsCnfR+qVea1MZvyyHnfBDRTJOGD4xSI+rCpm38NLC5pYkzJYBSeAaClAxWAQ==
+X-Received: by 2002:a7b:c35a:: with SMTP id l26mr3259444wmj.124.1631376115867;
+        Sat, 11 Sep 2021 09:01:55 -0700 (PDT)
 Received: from sqli.sqli.com ([195.53.121.100])
-        by smtp.googlemail.com with ESMTPSA id i9sm1947313wmi.44.2021.09.11.09.01.54
+        by smtp.googlemail.com with ESMTPSA id i9sm1947313wmi.44.2021.09.11.09.01.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 11 Sep 2021 09:01:54 -0700 (PDT)
+        Sat, 11 Sep 2021 09:01:55 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org
-Subject: [PATCH 31/45] sysinfo.2: Add LIBRARY section
-Date:   Sat, 11 Sep 2021 18:01:03 +0200
-Message-Id: <20210911160117.552617-31-alx.manpages@gmail.com>
+Subject: [PATCH 32/45] syscall.2: Add LIBRARY section
+Date:   Sat, 11 Sep 2021 18:01:04 +0200
+Message-Id: <20210911160117.552617-32-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20210911160117.552617-1-alx.manpages@gmail.com>
 References: <20210911160117.552617-1-alx.manpages@gmail.com>
@@ -65,23 +65,23 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man2/sysinfo.2 | 3 +++
+ man2/syscall.2 | 3 +++
  1 file changed, 3 insertions(+)
 
-diff --git a/man2/sysinfo.2 b/man2/sysinfo.2
-index a45211cd3..09e02bec2 100644
---- a/man2/sysinfo.2
-+++ b/man2/sysinfo.2
-@@ -35,6 +35,9 @@
- .TH SYSINFO 2 2021-03-22 "Linux" "Linux Programmer's Manual"
+diff --git a/man2/syscall.2 b/man2/syscall.2
+index abdf1c702..96a200ce9 100644
+--- a/man2/syscall.2
++++ b/man2/syscall.2
+@@ -42,6 +42,9 @@
+ .TH SYSCALL 2 2021-03-22 "Linux" "Linux Programmer's Manual"
  .SH NAME
- sysinfo \- return system information
+ syscall \- indirect system call
 +.SH LIBRARY
 +Standard C library
 +.RI ( libc ", " -lc )
  .SH SYNOPSIS
  .nf
- .B #include <sys/sysinfo.h>
+ .BR "#include <sys/syscall.h>" "      /* Definition of " SYS_* " constants */"
 -- 
 2.33.0
 
