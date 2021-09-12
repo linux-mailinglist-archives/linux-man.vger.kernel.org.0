@@ -2,150 +2,93 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B4627407DC5
-	for <lists+linux-man@lfdr.de>; Sun, 12 Sep 2021 16:20:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7217A407DD3
+	for <lists+linux-man@lfdr.de>; Sun, 12 Sep 2021 16:47:23 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229762AbhILOVu (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 12 Sep 2021 10:21:50 -0400
-Received: from THBLACKELECTRIC.COM ([207.244.97.128]:39870 "EHLO lsw.cs1local"
-        rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org with ESMTP
-        id S229653AbhILOVt (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Sun, 12 Sep 2021 10:21:49 -0400
-Received: from [72.29.63.102] (helo=localhost)
-        by lsw.cs1local with esmtpsa (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-        (Exim 4.92)
-        (envelope-from <thb@b-tk.org>)
-        id 1mPQLT-0005U1-6K
-        for linux-man@vger.kernel.org; Sun, 12 Sep 2021 14:20:35 +0000
-Received: from thb by localhost with local (Exim 4.94.2)
-        (envelope-from <thb@b-tk.org>)
-        id 1mPQLR-0001ZV-HR; Sun, 12 Sep 2021 14:20:33 +0000
-Date:   Sun, 12 Sep 2021 14:20:33 +0000
-From:   "Thaddeus H. Black" <thb@debian.org>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     "G . Branden Robinson" <g.branden.robinson@gmail.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-man@vger.kernel.org
-Subject: Re: [PATCH 3/3] Use subsections instead of sections
-Message-ID: <YT4MsXe46WlMa8i0@b-tk.org>
-References: <YTluPPbquS6ZHmHL@b-tk.org>
- <20210909072442.423117-4-alx.manpages@gmail.com>
+        id S231693AbhILOsg (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 12 Sep 2021 10:48:36 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39832 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S229653AbhILOsg (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 12 Sep 2021 10:48:36 -0400
+Received: from scc-mailout-kit-01.scc.kit.edu (scc-mailout-kit-01.scc.kit.edu [IPv6:2a00:1398:9:f712::810d:e751])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D18B8C061574
+        for <linux-man@vger.kernel.org>; Sun, 12 Sep 2021 07:47:21 -0700 (PDT)
+Received: from hekate.asta.kit.edu ([141.3.145.153] helo=hekate.usta.de)
+        by scc-mailout-kit-01.scc.kit.edu with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+        (envelope-from <schwarze@usta.de>)
+        id 1mPQlL-0004xD-CD; Sun, 12 Sep 2021 16:47:19 +0200
+Received: from donnerwolke.asta.kit.edu ([141.3.145.61] helo=donnerwolke.usta.de)
+        by hekate.usta.de with esmtp (Exim 4.92.2)
+        (envelope-from <schwarze@usta.de>)
+        id 1mPQlK-0006Mj-QT; Sun, 12 Sep 2021 16:47:18 +0200
+Received: from athene.asta.kit.edu ([141.3.145.60] helo=athene.usta.de)
+        by donnerwolke.usta.de with esmtp (Exim 4.84_2)
+        (envelope-from <schwarze@usta.de>)
+        id 1mPQlK-0005zc-N0; Sun, 12 Sep 2021 16:47:18 +0200
+Received: from localhost (athene.usta.de [local])
+        by athene.usta.de (OpenSMTPD) with ESMTPA id a506ba0b;
+        Sun, 12 Sep 2021 16:47:18 +0200 (CEST)
+Date:   Sun, 12 Sep 2021 16:47:18 +0200
+From:   Ingo Schwarze <schwarze@usta.de>
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Cc:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        linux-man@vger.kernel.org, groff@gnu.org
+Subject: Re: .B, .I disable hyphenation?
+Message-ID: <20210912144718.GC41870@athene.usta.de>
+References: <ebbf8dab-6fd0-2fb8-d29b-b7146f79398d@gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="sOfoR61+lFW0S12s"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20210909072442.423117-4-alx.manpages@gmail.com>
-X-Spam_score: -0.8
-X-Spam_bar: /
+In-Reply-To: <ebbf8dab-6fd0-2fb8-d29b-b7146f79398d@gmail.com>
+User-Agent: Mutt/1.12.2 (2019-09-21)
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Hi Alejandro,
 
---sOfoR61+lFW0S12s
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Alejandro Colomar (man-pages) wrote on Sun, Sep 12, 2021 at 02:56:39PM +0200:
 
-Alejandro:
+> Usually, when a manual page highlights a term, either in bold or 
+> italics, it usually is a special identifier (macro, function, command 
+> name or argument), for which hyphenation can hurt readability and even 
+> worse, turn it into a different valid identifier.
+> 
+> What about disabling hyphenation for .B and .I?
 
-I have applied all your patches but have one question.  Consider the
-following sample manual page, which uses the .TP subsubsectioning technique
-you have recommended.  In the sample, observe the difference between
-subsubsections 1a and 1b.
+I would welcome such a change.
 
-    FOO(7)                 Linux Programmer's Manual                 FOO(7)
+Needless to say, that is insufficient for getting it implemented.
+A change of that kind requires consensus, or at least an overwhelming
+majority, among groff developers.
 
-    NAME
-           foo - sample to illustrate manual-page markup
+> Are there any inconveniences in doing so that I can't see?
 
-    DESCRIPTION
-           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+I don't expect any downside at all.
 
-       Subsection 1
-           Sed at ante.
+For comparison, the mandoc implementation of man(1) globally disables
+any kind of automatic hyphenation, even in running text not containing
+any markup, even if documents explicitely request hyphenation, and
+provides no way to override that global choice, neither via
+compile-time nor via run-time configuration, options, or any other
+means.  I don't recall user complaints about the lack of hyphenation.
 
-           Subsubsection 1a
-                  Mauris  eleifend,  quam  a  vulputate  dictum, massa quam
-                  dapibus leo, eget vulputate  orci  purus  ut  lorem.   In
-                  fringilla mi in ligula.
+In technical documentation, i think the occasional confusion that
+automatic hyphenation may cause, and the occasional ugliness of
+output caused by automatic hyphenation, both outweigh the potential
+benefits that automatic hyphenation has in texts that are not
+technical documentation (yes, i did write an implementation of
+automatic hyphenation around 1984 or 1985 because i do see benefits
+of automatic hyphenation for some texts outside the domain of
+technical documentation).
 
-           Sss 1b Pellentesque  aliquam  quam  vel dolor.  Nunc adipiscing.
-                  Sed quam odio, tempus ac, aliquam  molestie,  varius  ac,
-                  tellus.
+The mandoc implementation of man(1) even goes some steps further.
+It globally disables line-breaking even at *existing* hyphens
+whenever the hyphen appears on (almost) *any* macro or request line,
+and also if the character on either side of the hyphen is not an
+ASCII letter.  Again, i do not recall complaints by users that they
+desire more line-breaking at existing hyphens.
 
-           Subsubsection 1c
-                  Vestibulum  ut nulla aliquam risus rutrum interdum.  Pel=
-=E2=80=90
-                  lentesque lorem.  Curabitur sit amet erat quis risus feu=
-=E2=80=90
-                  giat viverra.
-
-       Subsection 2
-           Pellentesque augue justo, sagittis et, lacinia at.
-
-    CONFORMING TO
-           Example.
-
-    Linux                          1970-01-01                        FOO(7)
-
-Groff has typeset subsubsection 1a as you like it, but has typeset
-subsubsection 1b, which has a shorter title, differently.  This is okay
-with me, but is it okay with you?
-
-[No such short title occurs in filename(7), but such a short title might
-occur in another, future manual page that emulated the technique.  This
-is why I ask.]
-
-Sample source follows.
-
----------------------------------------------------------------------------
-=2ETH FOO 7 1970-01-01 "Linux" "Linux Programmer's Manual"
-=2ESH NAME
-foo \- sample to illustrate manual-page markup
-=2ESH DESCRIPTION
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-=2ESS Subsection 1
-Sed at ante.
-=2ETP
-=2EB Subsubsection 1a
-Mauris eleifend, quam a vulputate dictum,
-massa quam dapibus leo,
-eget vulputate orci purus ut lorem.
-In fringilla mi in ligula.
-=2ETP
-=2EB Sss 1b
-Pellentesque aliquam quam vel dolor.
-Nunc adipiscing.
-Sed quam odio, tempus ac, aliquam molestie, varius ac, tellus.
-=2ETP
-=2EB Subsubsection 1c
-Vestibulum ut nulla aliquam risus rutrum interdum.
-Pellentesque lorem.
-Curabitur sit amet erat quis risus feugiat viverra.
-=2ESS Subsection 2
-Pellentesque augue justo, sagittis et, lacinia at.
-=2ESH CONFORMING TO
-Example.
-
---sOfoR61+lFW0S12s
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEM1APDU+pwMhnuF4GcGMmQy2FIrwFAmE+DKkACgkQcGMmQy2F
-Irz8qw/5AcWMTSiu2A2oBQmuiHLmoe3HiZczBQkugFCT/dOK+8RG0pdCS+yGzQty
-uAvkxRXvstiDcx0SN5an1A83H6K7VMkJpH0HATrtBmc6bPYgHX30F0/lnrNWhpGQ
-v5uq53G4tEaw5pXNgnA7B/9gbxrldUel9Sj7LxGIce+0AiT9tojKXoTVW5S9ovA8
-sd2nEzQ2t8T/FPl5jy4jJ7MM0MNOYXO0+ufOEdOE8uTBeUMJIbntmuPyHIEfhUnH
-N2eGJ9YivAQRfZnT+M6wjTXtpFHyB57PQJPDGBshpkZvwJVM7PHbPXzo/LdNSrMm
-xJLd3YEliQpdxTKVMEAIKYDfSecn9KEAt09J7V0o6z88WOG6d4sBinbbxIXkHDBa
-VLZEi52ObsxvNNIQPm15DetqC1noeiUMgQAHRqFDo4C70tHV+aZmQMizBIy0qvZc
-7M5lVBe4GTezx41oLJMvqEDRGSMQ/eUQm0+G4CnDcHKdAODs00Eqn3I6NwigBtGc
-FlWZEtGGxqnCUYvQh2kOYJi71Y5wII8sp/mwfZTwHGqOmwHsmrbTLDj7j8oBZgZp
-/wy8QxxZVhiBONLuNHPuhW1qh1oXYb5YX17KnwEvmcebwDMmewJuEbDf4N2EL0zJ
-ZqJSrjAQiziP3ahsR6AkVaYIawNKJ1g1uNwuqVq4KzIQY4ZC8dE=
-=f0yU
------END PGP SIGNATURE-----
-
---sOfoR61+lFW0S12s--
+Yours,
+  Ingo
