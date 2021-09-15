@@ -2,117 +2,172 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 68D6E40CD6A
-	for <lists+linux-man@lfdr.de>; Wed, 15 Sep 2021 21:49:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id BAF5440CDC4
+	for <lists+linux-man@lfdr.de>; Wed, 15 Sep 2021 22:14:00 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231652AbhIOTvR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 15 Sep 2021 15:51:17 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49562 "EHLO
+        id S231490AbhIOUPS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 15 Sep 2021 16:15:18 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55024 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229732AbhIOTvR (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 15 Sep 2021 15:51:17 -0400
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com [IPv6:2a00:1450:4864:20::32d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C248DC061574
-        for <linux-man@vger.kernel.org>; Wed, 15 Sep 2021 12:49:57 -0700 (PDT)
-Received: by mail-wm1-x32d.google.com with SMTP id 70so174593wme.5
-        for <linux-man@vger.kernel.org>; Wed, 15 Sep 2021 12:49:57 -0700 (PDT)
+        with ESMTP id S231487AbhIOUPS (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 15 Sep 2021 16:15:18 -0400
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com [IPv6:2a00:1450:4864:20::42b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1D08FC061574;
+        Wed, 15 Sep 2021 13:13:59 -0700 (PDT)
+Received: by mail-wr1-x42b.google.com with SMTP id i23so5791280wrb.2;
+        Wed, 15 Sep 2021 13:13:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=+PLOoqQr7OGbZBPBpylImc273vd9GiLrE00szh28tTY=;
-        b=LrMjG9UC3ZCUn3mdcbGQcakScwNGemIgAdVTq0EXy8P39m2liqk9KRDv+f2WPgw0W9
-         XjQGibpflNEfrPFBAdD+FVjJ/zfjKaUPQJmLm5IdFeqoD4RSFPrMFwzNgeZs8BUlP2uu
-         7PLmzug/R6ZkRBqOMUVpoa9RzEHVJM5tMhORotT4YyOFbsr2pH3Ei/oXiIfEdtpk8Scb
-         kO2JZcXFV2K1h/8NeHUKfDX/CxAkpq/Lj4yhGz7VLdp8U59DYsB3ooMBEGDuJBmujF9U
-         nAyxdFGMh4cenQz00tLcehbXZ2wyUbI+W5rQHmpavYs+KwJLQ0cr3ioAZ7QgaV4vU1fC
-         mwmg==
+        bh=53J8j8nEl3qE/yQYL0tzp4aajAMaMXHvF0XEENqUg7c=;
+        b=aluCyDBqVfKgVeHCLrpE/3qMA8CnVkhIkPH8Nj53N6/f6fYKtxj0/bBZ0YOXNm9OZ1
+         NJWzekn2L+65SZ5PPDAH7mEwzatFjlQ45i2y9S+E95GLrcu7gjaf/ggwXFYNp9ABEniv
+         F2aUiSAA9fU4Z4en/Xj46ZSUyRjNH4kOI9iGA7MDRlcq5SAeA14miG1M40XOq4Jgz7fo
+         pHDXoeQkejULBNOEc9EpOb7bAPGc2+R5mShVWJNBZGE6K4oeUeV1kqQ9qovhrg5EVmNM
+         38uZOtrMJraaDfQKnqwYs9TZsly3WxtTdZ2OlJwHBIOyeP9iLR5YBvyA5wuiDsh77e7N
+         Oy+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=+PLOoqQr7OGbZBPBpylImc273vd9GiLrE00szh28tTY=;
-        b=VQQugv8ySiiztxqi11WHI0M6lSB80T1WlQzM7nt1Wt6fy5Tvkj9DUC+0cF3bvezknT
-         oEbYh5eJ00VM4xSwwnyQ1YnpSgN3/VCSpFd5M9tdf89lVdijSqGJCVS54boMGo/ehbzz
-         QC21PSI659o62iV1/IF65YHuHQMdiFvaAWSLggdNIvjnbQX72pWj9J8qi0m8B6gF5QOl
-         kLgt3okF2h6UC0w95BNK+oYvwWTRdCQEHri1EbCT2onq64BV4vd7D8sLZPbEr7J2KxsX
-         r1/LWslKccfO8vqxqWAd+5qUFNOuE09kQh/ABeLGok8FFlTn6sUKIxpiHQGnO5bdnKYb
-         DuEw==
-X-Gm-Message-State: AOAM530oYE4hDt+GeI3bbz6efm0wVYp5Jnzf1ezPGPZVA5+3NK5+dV+p
-        nloRUQIJfRba8q9kgJkm1wU=
-X-Google-Smtp-Source: ABdhPJy2A6oO/F29zkzsa/E9UU5BPsC1wSBApsnqY1rlBNVfPwbp4gJzJkNORgPv90IGV9Nl9tIQgw==
-X-Received: by 2002:a1c:1cc:: with SMTP id 195mr6324748wmb.188.1631735396371;
-        Wed, 15 Sep 2021 12:49:56 -0700 (PDT)
+        bh=53J8j8nEl3qE/yQYL0tzp4aajAMaMXHvF0XEENqUg7c=;
+        b=Ngxn8yReDu9QA0n+zM3iJljCMZ/satlpEZAVcoikBaOP8y0rx6hrhr+uhhb9PobxC4
+         G2m85wsgIbGMTTa1eEWwySt7upIBd1UjKDZmeu87BO7UP+WGDFCmHS0rD/5gDU51cw1Y
+         X4vJQe+blBlBNPMgLNv60zLfhxLGq1QN6enJeM7gQtLc/V5cSKxQ5AG5O+TU5a/17hEn
+         5Jmg2tAFJnYxYnmTkqhbmkc+nzZ03mZX61bC+501wcKOAEz36eJqKypfIwj5KJAHcO2o
+         PKV9YvzH69CYNNKHR4Wcij36D+kkAQenCbfMBsjGO5UZ4IO+3hptlBW50c/m0guWZwmO
+         +dtw==
+X-Gm-Message-State: AOAM531Tzl5x0EMjwSR6hHlQt1ASVM82G3FTTJtjwXy5Rwe11xLI//pt
+        VRnKDhQJkpxDvYH0ZBCzGBilDKzItfQ=
+X-Google-Smtp-Source: ABdhPJwOtsDOJigK08UwIxF0TPj952ndiNEjS5LHxk7c34B8FfFmU9tdFSB0QwZlj4a8kGVeA3MHsA==
+X-Received: by 2002:a5d:4f91:: with SMTP id d17mr1984960wru.285.1631736837709;
+        Wed, 15 Sep 2021 13:13:57 -0700 (PDT)
 Received: from [10.8.0.26] ([195.53.121.100])
-        by smtp.gmail.com with ESMTPSA id a3sm890786wrt.28.2021.09.15.12.49.55
+        by smtp.gmail.com with ESMTPSA id g9sm5523866wmg.21.2021.09.15.13.13.56
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 15 Sep 2021 12:49:56 -0700 (PDT)
-Subject: Re: [PATCH v2 2/5] alloca.3: clarify origins in CONFORMING TO
-To:     =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc:     linux-man@vger.kernel.org,
-        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        "G. Branden Robinson" <g.branden.robinson@gmail.com>
-References: <ed9ad00910f264f8f9ecd266d398522077f4548f.1629752426.git.nabijaczleweli@nabijaczleweli.xyz>
- <cover.1631622750.git.nabijaczleweli@nabijaczleweli.xyz>
- <a14e365450f9a28840dc4f2ae93ddc1f135294b8.1631622750.git.nabijaczleweli@nabijaczleweli.xyz>
+        Wed, 15 Sep 2021 13:13:57 -0700 (PDT)
+Subject: Re: [patch] send.2: Add MSG_FASTOPEN flag
+To:     Wei Wang <weiwan@google.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+Cc:     netdev@vger.kernel.org, Yuchung Cheng <ycheng@google.com>,
+        Eric Dumazet <edumazet@google.com>, linux-man@vger.kernel.org
+References: <20210915173758.2608988-1-weiwan@google.com>
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <98968f7d-1de1-64ac-4e36-2fd6231f5197@gmail.com>
-Date:   Wed, 15 Sep 2021 21:49:55 +0200
+Message-ID: <4d9952e8-040b-1bde-51a4-9687d6adb320@gmail.com>
+Date:   Wed, 15 Sep 2021 22:13:55 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.13.0
 MIME-Version: 1.0
-In-Reply-To: <a14e365450f9a28840dc4f2ae93ddc1f135294b8.1631622750.git.nabijaczleweli@nabijaczleweli.xyz>
+In-Reply-To: <20210915173758.2608988-1-weiwan@google.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 9/14/21 2:41 PM, наб wrote:
-> alloca() is supported by PWB/UNIX[1] (V6) and UNIX/32V[2] (V7),
-> for the PDP-11 and VAX, respectively; the former trickles into
-> UNIX System III[3], and the latter into 3BSD[4] and later[5]
-> 
-> 1: https://ftp.okass.net/pub/mirror/minnie.tuhs.org/Distributions/USDL/spencer_pwb.tar.gz
->     sys/source/s4/util/alloca.s
-> 2: https://ftp.okass.net/pub/mirror/minnie.tuhs.org/Distributions/USDL/32V/32v_usr.tar.gz
->     usr/src/libc/sys/alloca.s
-> 3: https://vetusware.com/download/UNIX%20System%20III%20Source%20Code%20SYSIII/?id=11576
-> 4: https://ftp.okass.net/pub/mirror/minnie.tuhs.org/Distributions/UCB/
-> 5: https://archive.org/details/The_CSRG_Archives_CD-ROM_3_August_1998_Marshall_Kirk_McKusick
-> 
-> Signed-off-by: Ahelenia Ziemiańska <nabijaczleweli@nabijaczleweli.xyz>
+Hello, Wei!
 
-наб, patch applied!
+On 9/15/21 7:37 PM, Wei Wang wrote:
+> MSG_FASTOPEN flag is available since Linux 3.7. Add detailed description
+> in the manpage according to RFC7413.
+> 
+> Signed-off-by: Wei Wang <weiwan@google.com>
+> Reviewed-by: Yuchung Cheng <ycheng@google.com>
+> Reviewed-by: Eric Dumazet <edumazet@google.com>
+> ---
+>   man2/send.2 | 27 +++++++++++++++++++++++++++
+>   1 file changed, 27 insertions(+)
+> 
+> diff --git a/man2/send.2 b/man2/send.2
+> index fd28fed90..a40ae6214 100644
+> --- a/man2/send.2
+> +++ b/man2/send.2
+> @@ -252,6 +252,33 @@ data on sockets that support this notion (e.g., of type
+>   the underlying protocol must also support
+>   .I out-of-band
+>   data.
+> +.TP
+> +.BR MSG_FASTOPEN " (since Linux 3.7)"
+> +Attempts TCP Fast Open (RFC7413) and sends data in the SYN like a
+> +combination of
+> +.BR connect (2)
+> +and
+> +.BR write (2)
 
-Cheers,
+You should merge the comma with the above, to avoid an unwanted space:
+
+.BR write (2),
+
+> +, by performing an implicit
+> +.BR connect (2)
+> +operation. It blocks until the data is buffered and the handshake
+
+Please use semantic newlines.  See man-pages(7):
+
+    Use semantic newlines
+        In the source of a manual page,  new  sentences  should  be
+        started  on  new  lines, and long sentences should be split
+        into lines at clause breaks  (commas,  semicolons,  colons,
+        and  so on).  This convention, sometimes known as "semantic
+        newlines", makes it easier to see the  effect  of  patches,
+        which often operate at the level of individual sentences or
+        sentence clauses.
+
+
+This is especially important after a period, since groff(1) will usually 
+put 2 spaces after it, but if you hardcode it like above, it will only 
+print 1 space.
+
+
+> +has completed.
+> +For a non-blocking socket, it returns the number of bytes buffered
+> +and sent in the SYN packet. If the cookie is not available locally,
+> +it returns
+> +.B EINPROGRESS
+
+.BR EINPROGRESS ,
+
+> +, and sends a SYN with a Fast Open cookie request automatically.
+> +The caller needs to write the data again when the socket is connected.
+> +On errors, it returns the same errno as
+
+errno should be highlighted:
+
+.I errno
+
+Also, errno is set, not returned (as far as user space is concerned); so 
+something along the lines of "errno is set by connect(2)" or "it can 
+fail for the same reasons that connect(2) can".  Michael probably knows 
+if there's a typical wording for this in the current manual pages, to 
+add some consistency.
+
+BTW, should anything be added to the ERRORS section?
+
+> +.BR connect (2) > +if the handshake fails. This flag requires enabling TCP Fast Open
+> +client support on sysctl net.ipv4.tcp_fastopen.
+
+net.ipv4.tcp_fastopen should be highlighted:
+
+.IR net.ipv4.tcp_fastopen .
+
+> +
+
+Also from man-pages(7):
+
+    Formatting conventions (general)
+        Paragraphs should be separated by suitable markers (usually
+        either .PP or .IP).  Do not separate paragraphs using blank
+        lines, as this results in poor  rendering  in  some  output
+        formats (such as PostScript and PDF).
+
+
+Thanks!
 
 Alex
 
-> ---
->   man3/alloca.3 | 5 +----
->   1 file changed, 1 insertion(+), 4 deletions(-)
-> 
-> diff --git a/man3/alloca.3 b/man3/alloca.3
-> index 5bceeabe1..71348e609 100644
-> --- a/man3/alloca.3
-> +++ b/man3/alloca.3
-> @@ -84,11 +84,8 @@ T}	Thread safety	MT-Safe
->   .SH CONFORMING TO
->   This function is not in POSIX.1.
->   .PP
-> -There is evidence that the
->   .BR alloca ()
-> -function appeared in 32V, PWB, PWB.2, 3BSD, and 4BSD.
-> -There is a man page for it in 4.3BSD.
-> -Linux uses the GNU version.
-> +originates from PWB and 32V, and appears in all their derivatives.
->   .SH NOTES
->   The
->   .BR alloca ()
-> 
 
 
 -- 
