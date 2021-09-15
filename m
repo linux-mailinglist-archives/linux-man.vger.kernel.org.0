@@ -2,67 +2,67 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 562C540CD67
-	for <lists+linux-man@lfdr.de>; Wed, 15 Sep 2021 21:49:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 68D6E40CD6A
+	for <lists+linux-man@lfdr.de>; Wed, 15 Sep 2021 21:49:59 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230451AbhIOTui (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 15 Sep 2021 15:50:38 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49404 "EHLO
+        id S231652AbhIOTvR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 15 Sep 2021 15:51:17 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49562 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229732AbhIOTui (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 15 Sep 2021 15:50:38 -0400
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com [IPv6:2a00:1450:4864:20::329])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CCB69C061574
-        for <linux-man@vger.kernel.org>; Wed, 15 Sep 2021 12:49:18 -0700 (PDT)
-Received: by mail-wm1-x329.google.com with SMTP id d207-20020a1c1dd8000000b00307e2d1ec1aso2855492wmd.5
-        for <linux-man@vger.kernel.org>; Wed, 15 Sep 2021 12:49:18 -0700 (PDT)
+        with ESMTP id S229732AbhIOTvR (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 15 Sep 2021 15:51:17 -0400
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com [IPv6:2a00:1450:4864:20::32d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C248DC061574
+        for <linux-man@vger.kernel.org>; Wed, 15 Sep 2021 12:49:57 -0700 (PDT)
+Received: by mail-wm1-x32d.google.com with SMTP id 70so174593wme.5
+        for <linux-man@vger.kernel.org>; Wed, 15 Sep 2021 12:49:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=7bAq8XdHY8AJLBt9sJEiawQqZmV38Xug3ZCJXGdfiNg=;
-        b=p4kPfge60ERgNXFczqugrckdjmgxfLZfbCM2reaf4zWzmdfv0hEwCAeSTs+idNNCgH
-         P7TxwKzETLwHgh5DMgeSlbJ3Mng+RQg0KEnZnltYXRzaUbCv5ejSc8dL45ZbFtncc/bb
-         mPEaJLKqED+HDALkNzAI/0PUV1y/gNaX8Kwez21r5FtlMziGzjFRCzYgIODfsFp0XzJO
-         sShvjqZhndMigejCAY5jZu6w2J9QAm5jbzmHdvdxbOWWHU9acHaLr44WJxZfpmo/peuh
-         Tb0VmZd9Y87jPmoYlNE5Hs8lo2GNO/2E1VFrsmNhDC1/n6GvrXWjgRWNtWEduRwNbyOF
-         XuGQ==
+        bh=+PLOoqQr7OGbZBPBpylImc273vd9GiLrE00szh28tTY=;
+        b=LrMjG9UC3ZCUn3mdcbGQcakScwNGemIgAdVTq0EXy8P39m2liqk9KRDv+f2WPgw0W9
+         XjQGibpflNEfrPFBAdD+FVjJ/zfjKaUPQJmLm5IdFeqoD4RSFPrMFwzNgeZs8BUlP2uu
+         7PLmzug/R6ZkRBqOMUVpoa9RzEHVJM5tMhORotT4YyOFbsr2pH3Ei/oXiIfEdtpk8Scb
+         kO2JZcXFV2K1h/8NeHUKfDX/CxAkpq/Lj4yhGz7VLdp8U59DYsB3ooMBEGDuJBmujF9U
+         nAyxdFGMh4cenQz00tLcehbXZ2wyUbI+W5rQHmpavYs+KwJLQ0cr3ioAZ7QgaV4vU1fC
+         mwmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=7bAq8XdHY8AJLBt9sJEiawQqZmV38Xug3ZCJXGdfiNg=;
-        b=GGOEIGpzce03FbTIBZBSMwfpPvFAiCmvhvffi1zs6s+qoBI3l9rOvgWRBf0YrXxF/T
-         lrNrVYEbNzczuX5zKUHWWN6Clzza4qXXShOqNd1Y0MDvy//jcyYrquOwxfLglK0VkQXg
-         s+dsowYEzzW8vnIBAnXttX/zU1lCY6teuZ7mYQoeLN3gwti4f7FhD6PmfY687tWaGb/k
-         xzV8cw3HEGE6XV5KMG3PMQFovxjSQqtWl8w/bKAYRf8akJ5V+cSTUuxPX2fiBfI0yUtE
-         oqe5n5YubKUbxIoaR8c7dIrqr0V7WsveqSZcZqxKG2LIKMdV7d6xCE18ijW+chlbDVle
-         Z9Qw==
-X-Gm-Message-State: AOAM5317dv/UkYwho0mpNnmLrLhQo9D0GENhFAXAwRdrYuW6nrFC7L4F
-        TzJUIAMWaQwKwzBZdGyCB5k=
-X-Google-Smtp-Source: ABdhPJxlJPXX0cav5rNuVaoL2SnmtIFTApg5zD16xiGnC0bqOmDoVdLe2iDWZfEPMKEfsx3xvWFXxA==
-X-Received: by 2002:a1c:183:: with SMTP id 125mr1416714wmb.186.1631735357405;
-        Wed, 15 Sep 2021 12:49:17 -0700 (PDT)
+        bh=+PLOoqQr7OGbZBPBpylImc273vd9GiLrE00szh28tTY=;
+        b=VQQugv8ySiiztxqi11WHI0M6lSB80T1WlQzM7nt1Wt6fy5Tvkj9DUC+0cF3bvezknT
+         oEbYh5eJ00VM4xSwwnyQ1YnpSgN3/VCSpFd5M9tdf89lVdijSqGJCVS54boMGo/ehbzz
+         QC21PSI659o62iV1/IF65YHuHQMdiFvaAWSLggdNIvjnbQX72pWj9J8qi0m8B6gF5QOl
+         kLgt3okF2h6UC0w95BNK+oYvwWTRdCQEHri1EbCT2onq64BV4vd7D8sLZPbEr7J2KxsX
+         r1/LWslKccfO8vqxqWAd+5qUFNOuE09kQh/ABeLGok8FFlTn6sUKIxpiHQGnO5bdnKYb
+         DuEw==
+X-Gm-Message-State: AOAM530oYE4hDt+GeI3bbz6efm0wVYp5Jnzf1ezPGPZVA5+3NK5+dV+p
+        nloRUQIJfRba8q9kgJkm1wU=
+X-Google-Smtp-Source: ABdhPJy2A6oO/F29zkzsa/E9UU5BPsC1wSBApsnqY1rlBNVfPwbp4gJzJkNORgPv90IGV9Nl9tIQgw==
+X-Received: by 2002:a1c:1cc:: with SMTP id 195mr6324748wmb.188.1631735396371;
+        Wed, 15 Sep 2021 12:49:56 -0700 (PDT)
 Received: from [10.8.0.26] ([195.53.121.100])
-        by smtp.gmail.com with ESMTPSA id w14sm981069wro.8.2021.09.15.12.49.16
+        by smtp.gmail.com with ESMTPSA id a3sm890786wrt.28.2021.09.15.12.49.55
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 15 Sep 2021 12:49:17 -0700 (PDT)
-Subject: Re: [PATCH v2 1/5] strdup.3: drop mention of "the GNU GCC suite"
+        Wed, 15 Sep 2021 12:49:56 -0700 (PDT)
+Subject: Re: [PATCH v2 2/5] alloca.3: clarify origins in CONFORMING TO
 To:     =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
 Cc:     linux-man@vger.kernel.org,
         "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
         "G. Branden Robinson" <g.branden.robinson@gmail.com>
 References: <ed9ad00910f264f8f9ecd266d398522077f4548f.1629752426.git.nabijaczleweli@nabijaczleweli.xyz>
  <cover.1631622750.git.nabijaczleweli@nabijaczleweli.xyz>
- <89a40c652664dfc41425625d1ec5c15151e2e964.1631622750.git.nabijaczleweli@nabijaczleweli.xyz>
+ <a14e365450f9a28840dc4f2ae93ddc1f135294b8.1631622750.git.nabijaczleweli@nabijaczleweli.xyz>
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <3635eb02-a6eb-5f61-3987-5ee4ad2e393f@gmail.com>
-Date:   Wed, 15 Sep 2021 21:49:16 +0200
+Message-ID: <98968f7d-1de1-64ac-4e36-2fd6231f5197@gmail.com>
+Date:   Wed, 15 Sep 2021 21:49:55 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.13.0
 MIME-Version: 1.0
-In-Reply-To: <89a40c652664dfc41425625d1ec5c15151e2e964.1631622750.git.nabijaczleweli@nabijaczleweli.xyz>
+In-Reply-To: <a14e365450f9a28840dc4f2ae93ddc1f135294b8.1631622750.git.nabijaczleweli@nabijaczleweli.xyz>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
@@ -70,56 +70,48 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 9/14/21 2:40 PM, наб wrote:
-> str[n]dupa() are available on every modern compiler platform,
-> incl. Clang, ICC, &c.
+On 9/14/21 2:41 PM, наб wrote:
+> alloca() is supported by PWB/UNIX[1] (V6) and UNIX/32V[2] (V7),
+> for the PDP-11 and VAX, respectively; the former trickles into
+> UNIX System III[3], and the latter into 3BSD[4] and later[5]
 > 
-> By shortening the third paragraph, it now reads
->      strdupa() and strndupa() are similar,
->      but use alloca(3) to allocate the buffer.
-> pointing squarely to alloca(3), which is scary enough,
-> so drop the extraneous warning, too ‒ athis clearly points to
-
-(I fixed s/athis/this/)
-
-> "see alloca(3) for the limitations of that allocator".
-> 
-> Plus, it's not like malloc(3) doesn't have its problems, too,
-> but I don't see those being touted in the first paragraph;
-> reducing these to the bare minimum,
->     strdup() copies into malloc(3) and you can free it with free(3),
->     strndup() likewise, but up to n, and
->     str[n]dupa() use alloca(3) instead ‒ be wary of what alloca(3) does!
-> doesn't really make sense ‒ it's obvious that, ex definitione,
-> alloca(3) suffers from alloca(3) problems and input limits,
-> just like malloc(3) from the malloc(3) suite's.
+> 1: https://ftp.okass.net/pub/mirror/minnie.tuhs.org/Distributions/USDL/spencer_pwb.tar.gz
+>     sys/source/s4/util/alloca.s
+> 2: https://ftp.okass.net/pub/mirror/minnie.tuhs.org/Distributions/USDL/32V/32v_usr.tar.gz
+>     usr/src/libc/sys/alloca.s
+> 3: https://vetusware.com/download/UNIX%20System%20III%20Source%20Code%20SYSIII/?id=11576
+> 4: https://ftp.okass.net/pub/mirror/minnie.tuhs.org/Distributions/UCB/
+> 5: https://archive.org/details/The_CSRG_Archives_CD-ROM_3_August_1998_Marshall_Kirk_McKusick
 > 
 > Signed-off-by: Ahelenia Ziemiańska <nabijaczleweli@nabijaczleweli.xyz>
 
 наб, patch applied!
 
-Thanks,
+Cheers,
 
 Alex
 
 > ---
->   man3/strdup.3 | 3 ---
->   1 file changed, 3 deletions(-)
+>   man3/alloca.3 | 5 +----
+>   1 file changed, 1 insertion(+), 4 deletions(-)
 > 
-> diff --git a/man3/strdup.3 b/man3/strdup.3
-> index 1e1ac34de..963de7d48 100644
-> --- a/man3/strdup.3
-> +++ b/man3/strdup.3
-> @@ -99,9 +99,6 @@ and
->   are similar, but use
->   .BR alloca (3)
->   to allocate the buffer.
-> -They are available only when using the GNU
-> -GCC suite, and suffer from the same limitations described in
-> -.BR alloca (3).
->   .SH RETURN VALUE
->   On success, the
->   .BR strdup ()
+> diff --git a/man3/alloca.3 b/man3/alloca.3
+> index 5bceeabe1..71348e609 100644
+> --- a/man3/alloca.3
+> +++ b/man3/alloca.3
+> @@ -84,11 +84,8 @@ T}	Thread safety	MT-Safe
+>   .SH CONFORMING TO
+>   This function is not in POSIX.1.
+>   .PP
+> -There is evidence that the
+>   .BR alloca ()
+> -function appeared in 32V, PWB, PWB.2, 3BSD, and 4BSD.
+> -There is a man page for it in 4.3BSD.
+> -Linux uses the GNU version.
+> +originates from PWB and 32V, and appears in all their derivatives.
+>   .SH NOTES
+>   The
+>   .BR alloca ()
 > 
 
 
