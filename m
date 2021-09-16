@@ -2,113 +2,118 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id BC15B40DB6D
-	for <lists+linux-man@lfdr.de>; Thu, 16 Sep 2021 15:38:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2B48740EA3D
+	for <lists+linux-man@lfdr.de>; Thu, 16 Sep 2021 20:50:36 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S240219AbhIPNju (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 16 Sep 2021 09:39:50 -0400
-Received: from relay2-d.mail.gandi.net ([217.70.183.194]:39035 "EHLO
-        relay2-d.mail.gandi.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S240091AbhIPNjt (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 16 Sep 2021 09:39:49 -0400
-Received: (Authenticated sender: ralf@linux-mips.org)
-        by relay2-d.mail.gandi.net (Postfix) with ESMTPSA id CAA4240010;
-        Thu, 16 Sep 2021 13:38:25 +0000 (UTC)
-Date:   Thu, 16 Sep 2021 15:38:23 +0200
-From:   Ralf Baechle <ralf@linux-mips.org>
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     netdev@vger.kernel.org, linux-hams@vger.kernel.org,
-        Thomas Osterried <thomas@osterried.de>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-man@vger.kernel.org
-Subject: [PATCH v2] packet.7: Describe SOCK_PACKET netif name length issues
- and workarounds.
-Message-ID: <YUNIz64en4QslhL6@linux-mips.org>
+        id S243162AbhIPSvz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 16 Sep 2021 14:51:55 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50514 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S240627AbhIPSvo (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 16 Sep 2021 14:51:44 -0400
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com [IPv6:2a00:1450:4864:20::32f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B7321C1212EF;
+        Thu, 16 Sep 2021 10:37:38 -0700 (PDT)
+Received: by mail-wm1-x32f.google.com with SMTP id d207-20020a1c1dd8000000b00307e2d1ec1aso5102929wmd.5;
+        Thu, 16 Sep 2021 10:37:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=to:cc:from:subject:message-id:date:user-agent:mime-version
+         :content-language:content-transfer-encoding;
+        bh=LXlHga7X1jobUCyqmhbeMrEp+49gcHLgSpEksB7Pxg0=;
+        b=VerHIOar0tTR3Hf8dJ0Pxbt9aa3RHMbd/4dWR4+iY9/48de+sFyM/dDNLxzE5PZZV5
+         P9yB2TCFtilaAjyO1tw1VjOCyZrRyQpN7Y0izs+YTol5chtchmr0q2vqjbWJ4CIyO3ge
+         JxID+CWyR3b8SzDWugPPHENcFxWQa/wivCUV77LhTI6kdeAVpk2eNH921P7j8smRkpsP
+         jerk3ctTRnxio40i9SX/D8SG1THTb5mXb9czVG/CmBLLG88MV7pNrlqEDNPw/loMXOya
+         IdfofPxHRHesoT1XK1dP8gqdOcb965IoU8qctS/6+3chI1sJTrJqEBPFp5zX1jrpBGBP
+         c/EQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:to:cc:from:subject:message-id:date:user-agent
+         :mime-version:content-language:content-transfer-encoding;
+        bh=LXlHga7X1jobUCyqmhbeMrEp+49gcHLgSpEksB7Pxg0=;
+        b=Pk4HQIry49OWyNHqiqweoTdDEVxTeZtloI4RPoQyiJtX9MQ6ItR6ydX+aLYW8Ka9RP
+         vwc1xrB53m7hfN6l7FcGQTlGyzqrr3wzigjTOtvCB5fDqdB8CkTftOGKd8K0qOs02dlv
+         eE2nxBGCdAxcxzRCoxnjfuicelS8RSt/CJ4xYybBPDkfcnYFFha8vdv14JkTXoi5Evhn
+         Caz4oaGBLSPiLMQxdepccFsC4hOjWRsyHNRSJqzK+nXUYE4giAosRsBWQz65qBNKA/vS
+         oCqEeXpb6+HFX8+6BrSXGgHagio18dCTTkqf+mZu3wnhGG+WQ2KevHIGbjbbdgYaWbLp
+         u8Qg==
+X-Gm-Message-State: AOAM5304jhMx4wU4c9GQVmJCL+oHjxADpqZXJg5BOgYsVpSssfT3/bV2
+        gZJPDg3a/RyCWJEIMsGDeTQ8cIoenVk=
+X-Google-Smtp-Source: ABdhPJwEHyP1ZtMD9DrszdRWPlZk7JUpi+3/uH2wcBlw7O47WG7e27NTUK2mIMMCuFI196F7BDZOsQ==
+X-Received: by 2002:a1c:4486:: with SMTP id r128mr10996054wma.69.1631813857363;
+        Thu, 16 Sep 2021 10:37:37 -0700 (PDT)
+Received: from [10.8.0.26] ([195.53.121.100])
+        by smtp.gmail.com with ESMTPSA id f7sm8136477wmh.20.2021.09.16.10.37.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 16 Sep 2021 10:37:36 -0700 (PDT)
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        netdev@vger.kernel.org
+Cc:     linux-man <linux-man@vger.kernel.org>
+From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
+Subject: [BUG?] ipv6.7: SOCK_DGRAM can accept different protocols?
+Message-ID: <7e1d0cae-ebd0-d7b0-cfe3-80b38ea8fbfb@gmail.com>
+Date:   Thu, 16 Sep 2021 19:37:35 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Describe the issues with SOCK_PACKET possibly truncating network interface
-names in results, solutions and possible workarounds.
+Hi,
 
-While the issue is known for a long time it appears to have never been
-properly documented is has started to bite software antiques including
-the AX.25 userland badly since the introduction of Predictable Network
-Interface Names.  So let's document it.
+Reading a stackoverflow question 
+<https://stackoverflow.com/questions/51996808/do-we-need-to-specify-protocol-when-type-is-sock-dgram-or-sock-stream-in-soc> 
+it noted that, while ip(7) notes that protocol can be left as 0 for both 
+SOCK_STREAM and SOCK_DGRAM, ipv6(7) is misleading and seems to suggest 
+that protocol may be significant for SOCK_DGRAM (at least in the SYNOPSIS).
 
-Signed-off-by: Ralf Baechle <ralf@linux-mips.org>
----
- man7/packet.7 | 39 ++++++++++++++++++++++++++++++++++++---
- 1 file changed, 36 insertions(+), 3 deletions(-)
+I guess that's not true, and it can be left as 0, but since I don't 
+know, I'll ask.
 
-Changes in v2: Correct issues raised by Alejandro Colomar in review of v1.
+Thanks,
 
-diff --git a/man7/packet.7 b/man7/packet.7
-index 706efbb54..fa022bee8 100644
---- a/man7/packet.7
-+++ b/man7/packet.7
-@@ -616,10 +616,10 @@ is the device name as a null-terminated string, for example, eth0.
- .PP
- This structure is obsolete and should not be used in new code.
- .SH BUGS
-+.SS LLC header handling
- The IEEE 802.2/803.3 LLC handling could be considered as a bug.
- .PP
--Socket filters are not documented.
--.PP
-+.SS MSG_TRUNC issues
- The
- .B MSG_TRUNC
- .BR recvmsg (2)
-@@ -627,6 +627,38 @@ extension is an ugly hack and should be replaced by a control message.
- There is currently no way to get the original destination address of
- packets via
- .BR SOCK_DGRAM .
-+.PP
-+.SS spkt_device device name truncation
-+The
-+.I spkt_device
-+field of
-+.I sockaddr_pkt
-+has a size of 14 bytes which is less than the constant
-+.B IFNAMSIZ
-+defined in
-+.I <net/if.h>
-+which is 16 bytes and describes the system limit for a network interface name.
-+This means the names of network devices longer than 14 bytes will be truncated
-+to fit into
-+.IR spkt_device .
-+All these lengths include the terminating null byte (\(aq\e0\(aq)).
-+.PP
-+Issues from this with old code typically show up with very long interface
-+names used by the
-+.B Predictable Network Interface Names
-+feature enabled by default in many modern Linux distributions.
-+.PP
-+The preferred solution is to rewrite code to avoid
-+.BR SOCK_PACKET .
-+Possible user solutions are to disable
-+.B Predictable Network Interface Names
-+or to rename the interface to a name of at most 13 bytes, for example using
-+the
-+.BR ip (8)
-+tool.
-+.PP
-+.SS Documentation issues
-+Socket filters are not documented.
- .\" .SH CREDITS
- .\" This man page was written by Andi Kleen with help from Matthew Wilcox.
- .\" AF_PACKET in Linux 2.2 was implemented
-@@ -637,7 +669,8 @@ packets via
- .BR capabilities (7),
- .BR ip (7),
- .BR raw (7),
--.BR socket (7)
-+.BR socket (7),
-+.BR ip (8),
- .PP
- RFC\ 894 for the standard IP Ethernet encapsulation.
- RFC\ 1700 for the IEEE 802.3 IP encapsulation.
+Alex
+
+
+--
+
+IP(7)                Linux Programmer's Manual               IP(7)
+
+NAME
+        ip - Linux IPv4 protocol implementation
+
+SYNOPSIS
+        #include <sys/socket.h>
+        #include <netinet/in.h>
+        #include <netinet/ip.h> /* superset of previous */
+
+        tcp_socket = socket(AF_INET, SOCK_STREAM, 0);
+        udp_socket = socket(AF_INET, SOCK_DGRAM, 0);
+        raw_socket = socket(AF_INET, SOCK_RAW, protocol);
+
+
+--
+
+IPV6(7)              Linux Programmer's Manual             IPV6(7)
+
+NAME
+        ipv6 - Linux IPv6 protocol implementation
+
+SYNOPSIS
+        #include <sys/socket.h>
+        #include <netinet/in.h>
+
+        tcp6_socket = socket(AF_INET6, SOCK_STREAM, 0);
+        raw6_socket = socket(AF_INET6, SOCK_RAW, protocol);
+        udp6_socket = socket(AF_INET6, SOCK_DGRAM, protocol);
+
+
+-- 
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
