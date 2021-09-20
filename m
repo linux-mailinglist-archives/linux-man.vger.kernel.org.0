@@ -2,118 +2,122 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 7861B410D2E
-	for <lists+linux-man@lfdr.de>; Sun, 19 Sep 2021 21:46:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6E4CF411260
+	for <lists+linux-man@lfdr.de>; Mon, 20 Sep 2021 11:57:36 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231738AbhISTrs (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Sep 2021 15:47:48 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56958 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229575AbhISTrr (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Sep 2021 15:47:47 -0400
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com [IPv6:2a00:1450:4864:20::329])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 17293C061574
-        for <linux-man@vger.kernel.org>; Sun, 19 Sep 2021 12:46:22 -0700 (PDT)
-Received: by mail-wm1-x329.google.com with SMTP id y132so11478434wmc.1
-        for <linux-man@vger.kernel.org>; Sun, 19 Sep 2021 12:46:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=5VmmLxBPG2ZWw5TzJVyOWkm375Y6Eoc+CbFL6SzWCPY=;
-        b=nAZNL/UMjkWWLnC/bkHNvknOAKJjsrednouSKwZNoLcQZVIh4JtIHvBHDqbQAyZ5iw
-         yTm7MCKE5gJ/eFBwOtiDcd4PdvpjrD2taz/G7jqOAATcs/hoJwBfnbLO0lNOlilKfkYw
-         eqpRh/uxxFyPonX4IN6d3pbJDxu1erOIlfSr6b665SM8mIp9We3rw819+iqFfsz70nzr
-         ZE9YSfaHywyFzoDtzpxLI5rkm/XN4az5uDoluDB3FaUsDtYTqEUjVAsLXhi4i+sUxlk7
-         6lM+LbKLyra0E+M6gj6F40NAGhQ/0nhO8gqjzJ1dzqoNNMh6ydYI/QFG46T+z1GbIcJX
-         dkbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=5VmmLxBPG2ZWw5TzJVyOWkm375Y6Eoc+CbFL6SzWCPY=;
-        b=UGz97rZa9RwcD8xNtD+KDAuFOjoVwyTPbT/KMIJf+FEjHz/nxSb9sk+gZIp1MDnKol
-         8YY3EuPu0Tm1XJ9QV16sN7/oYDzEZfEvjEkl2XvXDuk7ypRoIYO8u7tWwh/CYwZ+ZT52
-         J5FTKYQXOZ9lSyjRZG+qunfLOoQOuOdbtfwmVzkWe6tM0iLW3C8AtHg92ZoZs3eYS7TS
-         HaXJHaCH0pRlQxcTdaJedoQuYMObGSxwgEZyzJ8rSkYCyZHUmu8g0nOCt+ckzv1HsB9C
-         MUeZK8pbSXM9l1w2D97Odk0jQnXq4hZiKKCO2YerOdaMjUtVy/GOGdedRfg1ynck8IRc
-         nMDA==
-X-Gm-Message-State: AOAM533D9sFa0G+Pj3IpMHntO6Wlw3NrPh2Za8V1BVwlk8hL5WzWGhc0
-        cnE5Hrvfl/G+6GRsR7leALukvV0aVaI=
-X-Google-Smtp-Source: ABdhPJwv+8gWBU4wdYtWoRRW1POOSufa4s5zgigwUbjYIK2fR005afHSgZ3xDnIXEbEvHZ6rCkcBHQ==
-X-Received: by 2002:a05:600c:4f95:: with SMTP id n21mr25649437wmq.22.1632080780606;
-        Sun, 19 Sep 2021 12:46:20 -0700 (PDT)
-Received: from [10.168.10.11] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id u13sm13763885wrt.41.2021.09.19.12.46.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 19 Sep 2021 12:46:20 -0700 (PDT)
-Subject: Re: [PATCH] listxattr.2: tfix
-To:     =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc:     linux-man@vger.kernel.org
-References: <20210919181236.kz5zeam2vxb7rkui@tarta.nabijaczleweli.xyz>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <a09da838-3def-81f3-728e-a4365e4cd5bc@gmail.com>
-Date:   Sun, 19 Sep 2021 21:46:19 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+        id S231931AbhITJ7B (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 20 Sep 2021 05:59:01 -0400
+Received: from wout4-smtp.messagingengine.com ([64.147.123.20]:50207 "EHLO
+        wout4-smtp.messagingengine.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S231929AbhITJ7A (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Sep 2021 05:59:00 -0400
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+        by mailout.west.internal (Postfix) with ESMTP id 20DA43202562;
+        Mon, 20 Sep 2021 05:57:33 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+  by compute1.internal (MEProxy); Mon, 20 Sep 2021 05:57:33 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canishe.com; h=
+        from:to:cc:subject:date:message-id:mime-version
+        :content-transfer-encoding; s=fm3; bh=fzxVNUji38DpJbP6LjRwH3G943
+        FyfuC6dm8NxaQ7CXA=; b=KpbGNuGooDlzxeMYo2QgK+Ds6KK5thKZRPtuRYXxtM
+        q2cJZIflym5vw1DFtN588N+EzO7aBbcrtbH6eWO7DpE59YQNkw+AKRiZUFak6HuA
+        FMfJs0gdVfYKuUoGhf3jeEiWxqQFhQ6/G3ojcd4CYWruWFvv5OkbJapBxkbEqPR5
+        5DiUHp/2tLX7dnr8yFCNWmmKC0P/ki/ZwhKsyEw0VB/uBsqjk5yAJ43c+l9kh66F
+        I5k51PNJ9iFlMwX8GT+L4OW0cSrrOl26cBgNjD89UkEY7/CBlfiChpn7r/lnWPGD
+        8l+GBTh3b1r1oa6AaQOrkv3PqPy0xGKfr6qUIytbn1iw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+        messagingengine.com; h=cc:content-transfer-encoding:date:from
+        :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
+        :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=fzxVNUji38DpJbP6L
+        jRwH3G943FyfuC6dm8NxaQ7CXA=; b=dicaiQtZZqj5Vcyazw643YzGUPFIynh0w
+        Jp/mczHJURDKpmbwzuBKFkRmlANCfWa8cpnTCWi7KDO0JsNy6eHB8gPo0bSXL1EN
+        HEy3jTL52LNps6bISoNdYhhds4h+uaJKgrMm6tdygQVawu22HyxI88snSc6iNKd4
+        mlspv1vmCyMtmM/FKzQgpuCY8ii0v2IuNRPA4fkQ248yGa6zYIung0Paf8XHEweJ
+        60my4ZK8rJJnXu0GBZFk++GHtvMaWlGSHgpoEW5jwbd0yUI+6e9q82FogIHF6noj
+        B3LISFfgwvkJjN3L39SpSuaIOV0jSUbTOQrum8CwNyEMaq93lJ6og==
+X-ME-Sender: <xms:DFtIYYfCo8zVoidJkO_c4yDftGi68IMH6WI7G6RpihKhjxnPinQQ-w>
+    <xme:DFtIYaM56fCg1dutIGMl3vHn75aljoc66UFbTwi5SoB4NiN4769W9_yLOCpQx2ks3
+    gfNi4YYVBW77YrZ0g>
+X-ME-Received: <xmr:DFtIYZhUupAA29C0GOUkkn5TUwLEx9fSjU1DBMifLhY-ydStGDfOA1ge87XuYx--GqlzmlJapx0Kadin7dadkbToa_4S_oBgRAz2wUQtOTegRkUx>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrudeivddgvddvucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhephffvufffkffoggfgsedtkeertdertddtnecuhfhrohhmpefirggvlhgrnhcu
+    ufhtvggvlhgvuceoghgsshestggrnhhishhhvgdrtghomheqnecuggftrfgrthhtvghrnh
+    epkedujefgkedtvddttdfgvdejteelheethedukeevheefveefgedthfdtfeetgfeunecu
+    vehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepghgsshestg
+    grnhhishhhvgdrtghomh
+X-ME-Proxy: <xmx:DFtIYd8AWhgbkjmSG79tGAv3diaTbQpAlTLEPTIK--mYvm-loNWDpg>
+    <xmx:DFtIYUt98qYqaWyE8Daa9pZ37yAWCVp5fk_o4OC7B5EgkyeNtyqjEw>
+    <xmx:DFtIYUFX2_3I-P4Ums-wd68pnwTqWHht7DyfeSyJvDwn_HnwXmh-qw>
+    <xmx:DFtIYWIgqLEfu87iSkRfrt9vKd9NG_xagN_y5_yD6721MI9G0TuSNQ>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 20 Sep 2021 05:57:31 -0400 (EDT)
+From:   Gaelan Steele <gbs@canishe.com>
+To:     Alexander Viro <viro@zeniv.linux.org.uk>
+Cc:     linux-man@vger.kernel.org,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-api@vger.kernel.org, Gaelan Steele <gbs@canishe.com>
+Subject: [PATCH 1/2] fs: move struct linux_dirent into headers
+Date:   Mon, 20 Sep 2021 10:56:48 +0100
+Message-Id: <20210920095649.28600-1-gbs@canishe.com>
+X-Mailer: git-send-email 2.30.1 (Apple Git-130)
 MIME-Version: 1.0
-In-Reply-To: <20210919181236.kz5zeam2vxb7rkui@tarta.nabijaczleweli.xyz>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi, наб!
+Move the definition of linux_dirent to include/linux/dirent.h,
+where the newer linux_dirent64 already lives. This is done in
+preparation for moving both of these struct definitions into uapi/
+so userspace code doesn't need to duplicate them.
 
-On 9/19/21 8:12 PM, наб wrote:
-> Signed-off-by: Ahelenia Ziemiańska <nabijaczleweli@nabijaczleweli.xyz>
+Signed-off-by: Gaelan Steele <gbs@canishe.com>
+---
+ fs/readdir.c           | 8 +-------
+ include/linux/dirent.h | 7 +++++++
+ 2 files changed, 8 insertions(+), 7 deletions(-)
 
-I applied a different patch, but thanks for the report!
-
-> ---
->   man2/listxattr.2 | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/man2/listxattr.2 b/man2/listxattr.2
-> index 18d008e04..cdd0ba7bb 100644
-> --- a/man2/listxattr.2
-> +++ b/man2/listxattr.2
-> @@ -167,7 +167,7 @@ As noted in
->   .BR xattr (7),
->   the VFS imposes a limit of 64\ kB on the size of the extended
->   attribute name list returned by
-> -.BR listxattr (7).
-> +.BR listxattr (2).
-
-+.BR listxattr ().
-
-
-See man-pages(7):
-
-        Any  reference  to  the  subject of the current manual page
-        should be written with the name in bold followed by a  pair
-        of parentheses in Roman (normal) font.  For example, in the
-        fcntl(2) man page, references to the subject  of  the  page
-        would  be  written as: fcntl().  The preferred way to write
-        this in the source file is:
-
-            .BR fcntl ()
-
-Cheers,
-
-Alex
-
-
->   If the total size of attribute names attached to a file exceeds this limit,
->   it is no longer possible to retrieve the list of attribute names.
->   .SH EXAMPLES
-> 
-
-
+diff --git a/fs/readdir.c b/fs/readdir.c
+index 09e8ed7d4161..51890aeafc53 100644
+--- a/fs/readdir.c
++++ b/fs/readdir.c
+@@ -202,14 +202,8 @@ SYSCALL_DEFINE3(old_readdir, unsigned int, fd,
+ 
+ /*
+  * New, all-improved, singing, dancing, iBCS2-compliant getdents()
+- * interface. 
++ * interface.
+  */
+-struct linux_dirent {
+-	unsigned long	d_ino;
+-	unsigned long	d_off;
+-	unsigned short	d_reclen;
+-	char		d_name[1];
+-};
+ 
+ struct getdents_callback {
+ 	struct dir_context ctx;
+diff --git a/include/linux/dirent.h b/include/linux/dirent.h
+index 99002220cd45..48e119dd3694 100644
+--- a/include/linux/dirent.h
++++ b/include/linux/dirent.h
+@@ -2,6 +2,13 @@
+ #ifndef _LINUX_DIRENT_H
+ #define _LINUX_DIRENT_H
+ 
++struct linux_dirent {
++	unsigned long	d_ino;
++	unsigned long	d_off;
++	unsigned short	d_reclen;
++	char		d_name[1];
++};
++
+ struct linux_dirent64 {
+ 	u64		d_ino;
+ 	s64		d_off;
 -- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+2.30.1 (Apple Git-130)
+
