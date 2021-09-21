@@ -2,96 +2,174 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 64F984134CB
-	for <lists+linux-man@lfdr.de>; Tue, 21 Sep 2021 15:48:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 630C9413608
+	for <lists+linux-man@lfdr.de>; Tue, 21 Sep 2021 17:20:38 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233099AbhIUNt5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 21 Sep 2021 09:49:57 -0400
-Received: from 139-28-40-42.artus.net.pl ([139.28.40.42]:60484 "EHLO
-        tarta.nabijaczleweli.xyz" rhost-flags-OK-FAIL-OK-OK)
-        by vger.kernel.org with ESMTP id S233404AbhIUNtx (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 21 Sep 2021 09:49:53 -0400
-Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id E2099360ECD;
-        Tue, 21 Sep 2021 15:46:41 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=nabijaczleweli.xyz;
-        s=202006; t=1632232001;
-        bh=SSoBl6DKpDBV0dNO9ascZ+ALAt4/8mGRdPeUa7HKqTs=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=TlrzdhqCzb8erJoeK9gcIitUsY5ihCS56ZZnG/mv0NKYxUyy61UDeiFNeMOfuJshQ
-         Y2p6wZCGZXmRy1lZkznc4HV3Sps1f+iLaOppFTjzE19u3BfIRmGMogQldplUQ+63sl
-         ymAEIEY2crPUfxY5R+UgEzeFWekWA/Xk6rbebuC50CrnOejgwy4WF12tfYgRcb8AiO
-         u9ggMykIzWAjUeq4V0gp5xSRW1XN9vv1jZdeBzVfJdSPwbTnajSBlNLNqz9PgceygX
-         aR+4WCDIZtQmK3Jl6+FYoysyFftiJGKxDFnX259L65AUC6DK+I9arTvDXdlYpE/tDS
-         D3bmelZZY9eAw==
-Date:   Tue, 21 Sep 2021 15:46:40 +0200
-From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
+        id S233932AbhIUPWF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 21 Sep 2021 11:22:05 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48356 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S231196AbhIUPWE (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 21 Sep 2021 11:22:04 -0400
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com [IPv6:2a00:1450:4864:20::42b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6944CC061574
+        for <linux-man@vger.kernel.org>; Tue, 21 Sep 2021 08:20:36 -0700 (PDT)
+Received: by mail-wr1-x42b.google.com with SMTP id w29so40329198wra.8
+        for <linux-man@vger.kernel.org>; Tue, 21 Sep 2021 08:20:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=A1UoJtpMpmWB8f164yILuz9GPyci8+4+Jgx379hmQH8=;
+        b=lC03ZKhwnjXoV8RfsH4naodAPItlmh/zS2ohHECm05F9xF0qkc3r+FzvOv6Apu4Bv/
+         EQsYhjv+HtskvFXyrtfo58Oz0NU1sdGzOvw8Y1whvG+8njHuU7pS4ekHJK2Xd6tv4DvZ
+         On6jw6UOs+zBG49hPQUYoxxAyQxKuEyvZhnrUP5MJCsoxbzUyOvBePKLufsN/v17h9ub
+         piwHtceHrPyjwtuQTiGSJA64A2XOrlkUXmNWV3JxKWax/vA5WHsHdPW+JhZv4Wc4TSLf
+         4zCOVHmT1bMJEb8WSqFW352Iv2+eoYXp0GVo1Wcc9GNlElQWqzyWXRUfzhE0nKI+KVJl
+         FDww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=A1UoJtpMpmWB8f164yILuz9GPyci8+4+Jgx379hmQH8=;
+        b=KZfYutj016yCvrDZpC49EZSZtsBXIKATdj366Cg081/4C4IPhEZis+J+AhLLOj439R
+         5f6mwGMpqUERncbzoELF8KLB9FqdSXR4iuOXcmhOk2k4mZSiF3yvPNRY1j6M9sFbLRBu
+         cI8CAkU88OCMcN/bTdCCfdNXdN+wH4HRBIKZQ37Ap9R0ZhrplofYtr5WLgc/Y3IQfbra
+         nJXUKws/gNk6ktev829HpFtiFY/DqJnaBd7g8AkzsvDJ5EkmQAZwvxIzy9WR+WpEKtUO
+         f0mRqnAB2I010JJTeVXGu0dsJT5v9SPGGX3BV3IDP1DW52gBKAPR+1zf9pHNBfWX/lRe
+         7cpg==
+X-Gm-Message-State: AOAM531OdnDVMFsgfJxo5/04CwokV7kKcZO841rSMwoMXm5sl6152TIK
+        8dV9CjlwPmgqY7fyJTu9eVS73B3YT7w=
+X-Google-Smtp-Source: ABdhPJy3jhYmRxj+J71Z9reyWmEcP/i2hy5/zXTGreaZSwv7rwxSmkSFTJmqns0Vh4h7NPVE/bPasQ==
+X-Received: by 2002:adf:dc85:: with SMTP id r5mr5639736wrj.37.1632237634987;
+        Tue, 21 Sep 2021 08:20:34 -0700 (PDT)
+Received: from [10.8.0.46] ([195.53.121.100])
+        by smtp.gmail.com with ESMTPSA id i203sm2748980wma.7.2021.09.21.08.20.34
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 21 Sep 2021 08:20:34 -0700 (PDT)
+Subject: Re: [PATCH 1/2] rpmatch.3: remove first-character-only FUD
+To:     =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
 Cc:     linux-man@vger.kernel.org
-Subject: [PATCH 2/2] rpmatch.3: clarify availability to glibc, Fx, and AIX
-Message-ID: <0d2a879becab0b3e5b23bd76f92626847e6d32f2.1632231952.git.nabijaczleweli@nabijaczleweli.xyz>
 References: <8f5f9b7d4f067a4a479fe400dee99120bf0a1abd.1632231952.git.nabijaczleweli@nabijaczleweli.xyz>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Message-ID: <be1eaa87-3fa3-2e1f-7e6c-80362adbb935@gmail.com>
+Date:   Tue, 21 Sep 2021 17:20:32 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="he52ezieshdzrb54"
-Content-Disposition: inline
 In-Reply-To: <8f5f9b7d4f067a4a479fe400dee99120bf0a1abd.1632231952.git.nabijaczleweli@nabijaczleweli.xyz>
-User-Agent: NeoMutt/20210205
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Hi, наб!
 
---he52ezieshdzrb54
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 9/21/21 3:46 PM, наб wrote:
+> It's plain not true; locales can and do provide longer matches
+> (Aramaic has a "አዎን" alternative, for example)
+> 
+> Signed-off-by: Ahelenia Ziemiańska <nabijaczleweli@nabijaczleweli.xyz>
 
-"On a few other systems" is misleading, implying that it's available on
-/this/ system; this is not strictly true, seeing as musl doesn't have it
+Are you sure?
 
-Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
----
- man3/rpmatch.3 | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+I just checked the glibc implementation, and it uses YESEXPR and NOEXPR 
+(instead of YESSTR and NOSTR, which would match complete strings).
 
-diff --git a/man3/rpmatch.3 b/man3/rpmatch.3
-index e0f92a20d..8719d4871 100644
---- a/man3/rpmatch.3
-+++ b/man3/rpmatch.3
-@@ -120,9 +120,8 @@ T}	Thread safety	MT-Safe locale
- .sp 1
- .SH CONFORMING TO
- .BR rpmatch ()
--is not required by any standard, but
--is available on a few other systems.
--.\" It is available on at least AIX 5.1 and FreeBSD 6.0.
-+is not required by any standard,
-+but available under the GNU C library, FreeBSD, and AIX.
- .SH EXAMPLES
- The following program displays the results when
- .BR rpmatch ()
---=20
-2.20.1
 
---he52ezieshdzrb54
-Content-Type: application/pgp-signature; name="signature.asc"
+// stdlib/rpmatch.c
+int
+rpmatch (const char *response)
+{
+   /* We cache the response patterns and compiled regexps here.  */
+   static const char *yesexpr, *noexpr;
+   static regex_t yesre, nore;
 
------BEGIN PGP SIGNATURE-----
+   return (try (response, YESEXPR, 1, 0, &yesexpr, &yesre) ?:
+	  try (response, NOEXPR, 0, -1, &noexpr, &nore));
+}
 
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmFJ4kAACgkQvP0LAY0m
-WPGHGxAAgkPQkKdcbeDhU673GAmrgMxLx08Jx3U8dIaeGP8lDo2PrZvsKlL8LqgZ
-c9Rj3V1jbnsaz8/JHbjWMiSDwpu5CGdC4zm+CBr1zGE/R1OueZZGfiBYVhrmUW22
-A9cpmT/0SXBKSmeWVFP2D22SYJ+2d/O359ctzIqMvdJz/J5ZIjZuosFeBFFeQgQJ
-9ScKCrONAA3IdB+T2ukxywlsPSuFxvYnkbyOgXvfSBCy2MwacSCdM+g9GTkc6r9z
-gjcdg3XwohA3Sf9JUBlnfelHeRYHwjNLYpcPLT5FddVrGXOpLkrgfUiVEsAQM/D7
-FjakQiSrFCw/Gg+zvCXr+cwtTipgvZWVmnOfvyPmiEqmRDLT0pOXiC15NnBnWQhQ
-NbS2yNLGhCfxlwODgzH8ca4gB2gkleph3KTWvIcY+5P93suDL3VZFPBDkLRUfp+v
-GwWn3laWlg8vp1PAnJNSW61llXrfFh6bi4qxUpIvn1KLvZZ7AgBOm1yk8FL7UQzQ
-f5kIRyQvUocmvNcIu3dlwkhqczGIe22NHJNMveD6OisHLmocFB9BjcdNRLr2NLjT
-9iqT0BBpZbHUKbMkkZFhTqopJazotoIELFSDENsIvKVD6DEcUmeth3jW40kI2qwe
-RLY+SDtzmuExAJUNj+eHQBubJ59WX9FGRNqb37ZhGuIpj7XFyKE=
-=VB+b
------END PGP SIGNATURE-----
 
---he52ezieshdzrb54--
+$ grep -rn define.*YESEXPR;
+locale/langinfo.h:570:#define YESEXPR			__YESEXPR
+
+
+$ grep -rn __YESEXPR;
+locale/langinfo.h:569:  __YESEXPR = _NL_ITEM (__LC_MESSAGES, 0), /* 
+Regex matching ``yes'' input.  */
+locale/langinfo.h:570:#define YESEXPR			__YESEXPR
+
+
+$ grep -rn 'define _NL_ITEM(';
+locale/langinfo.h:34:#define _NL_ITEM(category, index)	(((category) << 
+16) | (index))
+
+
+$ grep -rn LC_MESSAGES localedata/ | grep es_ES
+localedata/locales/es_ES@euro:37:category "i18n:2012";LC_MESSAGES
+localedata/locales/es_ES@euro:53:LC_MESSAGES
+localedata/locales/es_ES@euro:55:END LC_MESSAGES
+localedata/locales/es_ES:45:category "i18n:2012";LC_MESSAGES
+localedata/locales/es_ES:113:LC_MESSAGES
+localedata/locales/es_ES:118:END LC_MESSAGES
+
+
+$ sed -n '/^LC_MESSAGES/,/END LC_MESSAGES/p' localedata/locales/es_ES;
+LC_MESSAGES
+yesexpr "^[+1sSyY]"
+noexpr  "^[-0nN]"
+yesstr  "sí"
+nostr   "no"
+END LC_MESSAGES
+
+
+
+So, it seems to me that by using {yes,no}expr and not {yes,no}str, it is 
+limiting itself to the first letter, as the current BUGS section 
+specifies.  Right?
+
+Thanks,
+
+Alex
+
+
+> ---
+>   man3/rpmatch.3 | 15 ---------------
+>   1 file changed, 15 deletions(-)
+> 
+> diff --git a/man3/rpmatch.3 b/man3/rpmatch.3
+> index 846c492b7..e0f92a20d 100644
+> --- a/man3/rpmatch.3
+> +++ b/man3/rpmatch.3
+> @@ -123,21 +123,6 @@ T}	Thread safety	MT-Safe locale
+>   is not required by any standard, but
+>   is available on a few other systems.
+>   .\" It is available on at least AIX 5.1 and FreeBSD 6.0.
+> -.SH BUGS
+> -The
+> -.BR rpmatch ()
+> -implementation looks at only the first character
+> -of
+> -.IR response .
+> -As a consequence, "nyes" returns 0, and
+> -"ynever; not in a million years" returns 1.
+> -It would be preferable to accept input strings much more
+> -strictly, for example (using the extended regular
+> -expression notation described in
+> -.BR regex (7)):
+> -.B \(ha([yY]|yes|YES)$
+> -and
+> -.BR \(ha([nN]|no|NO)$ .
+>   .SH EXAMPLES
+>   The following program displays the results when
+>   .BR rpmatch ()
+> 
+
+
+-- 
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
