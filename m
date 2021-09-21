@@ -2,141 +2,105 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D04F9412D56
-	for <lists+linux-man@lfdr.de>; Tue, 21 Sep 2021 05:17:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1F55D4134C7
+	for <lists+linux-man@lfdr.de>; Tue, 21 Sep 2021 15:47:47 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230460AbhIUDTV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Sep 2021 23:19:21 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41402 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230473AbhIUC2n (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Sep 2021 22:28:43 -0400
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com [IPv6:2a00:1450:4864:20::42f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EF0C9C0F344E;
-        Mon, 20 Sep 2021 12:24:04 -0700 (PDT)
-Received: by mail-wr1-x42f.google.com with SMTP id x6so32694036wrv.13;
-        Mon, 20 Sep 2021 12:24:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=YmGPZteYFbIZ2nRx8xuxHgT2azyXIam+Snq0MYad3PA=;
-        b=lDqYhmdr3cu9apoGHWl+DD06++JvQoBI7Y96RPZRQRRr24BX9WG/CRIUEneowIlC80
-         sDExEbfY/bhH9xRbhIOHU9CeBqDY4YlwiDspiU/fS8AX7ka8GP13kZ1HEM6YZ3QTR1JC
-         FOv4mDAbafes0HqV2zPFUaMEKWTISbdYV06vOVj2UC1w/czxLbytcqCqFZQaIudbNCvY
-         kLATbbgVxfcNnTHBEEtO9hEzr6rvFMriRWPi26BXj7i0JcH2wF6ghBoRPQPGR0Eud47+
-         gRsEfYIH2DeC0RfJ3n9YgDvUFGf2so50viAHOuzVE6p6MmdMZJ4KyXx7NtPQSqdoaGgR
-         cwLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=YmGPZteYFbIZ2nRx8xuxHgT2azyXIam+Snq0MYad3PA=;
-        b=n9KjmFauCDypHl7ju3DZ6ZRVnEkqiwXEl6OlectJf34oQ54dliyCrbcX1DmXnzexZI
-         Z8Et0KMLsJah4ywmqWtAYctjHEOHAV9zXUTgZydiYysV9qoguWiI7NnE4H9CnV9gtbaU
-         gzR34PDVQiICYpbofv5BZ2g4oLZz1Yy2VbKnp8kirLurzfbwgfmV+hwq9ubHTqfKekmy
-         FO3yO0N1NuBdXfuVg9UK1PkYnc/IB4D9PK7YO0bnxaDU/kXih0zLF/CaSX5cWt+4WwGl
-         jF+DR/qFDplWdvuJPworUDDXqtWbDzgNJfOBtWoK3iRo2O71AIVWVAXihc6kFlk3c3tz
-         V6dg==
-X-Gm-Message-State: AOAM532pV/UILGt5eBJoYnNLHsyML+WFH1zDqt65lcafT0FqMFStNNHP
-        TWMeoEy+2QKky8d/m7tbzyU=
-X-Google-Smtp-Source: ABdhPJwkl/VpP9H9CGjqpJnO1QJGJyx9Xap8AwmiTR6DTQFg/rkuHzwEEdwOXyKb3JxbJsEWdQgRVA==
-X-Received: by 2002:a7b:cb49:: with SMTP id v9mr675793wmj.76.1632165843627;
-        Mon, 20 Sep 2021 12:24:03 -0700 (PDT)
-Received: from [10.8.0.102] ([195.53.121.100])
-        by smtp.gmail.com with ESMTPSA id w1sm425445wmc.19.2021.09.20.12.24.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 20 Sep 2021 12:24:03 -0700 (PDT)
-Subject: Re: [patch v2] send.2: Add MSG_FASTOPEN flag
-To:     Wei Wang <weiwan@google.com>, linux-man@vger.kernel.org,
-        Michael Kerrisk <mtk.manpages@gmail.com>
-Cc:     netdev@vger.kernel.org, Yuchung Cheng <ycheng@google.com>,
-        Eric Dumazet <edumazet@google.com>
-References: <20210917041606.167192-1-weiwan@google.com>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <082801bf-a641-1483-600a-cc46eb580afe@gmail.com>
-Date:   Mon, 20 Sep 2021 21:24:01 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+        id S233218AbhIUNtO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 21 Sep 2021 09:49:14 -0400
+Received: from 139-28-40-42.artus.net.pl ([139.28.40.42]:60472 "EHLO
+        tarta.nabijaczleweli.xyz" rhost-flags-OK-FAIL-OK-OK)
+        by vger.kernel.org with ESMTP id S233216AbhIUNtN (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 21 Sep 2021 09:49:13 -0400
+Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 26EAE360ECB;
+        Tue, 21 Sep 2021 15:46:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=nabijaczleweli.xyz;
+        s=202006; t=1632231981;
+        bh=ZX7ab8riUns1peWe62g7qDArh0XQV4VANrKUMzxBHAU=;
+        h=Date:From:To:Cc:Subject:From;
+        b=pmk5uf67R4SkerAeEkgtMpsFFUySlwygeg9B4A0aTZsiccRK+Cgw0zlAfNo95zyII
+         Q1yTIABZOzgSyElKyqU4Q5KjY72TXvYPdb1nKy/coVCc/iwngZ0gSFrSJvUUV8dTUZ
+         s4QvWWo9nC53My0zwkAT/xk1Ih/KxsGiW4nOk27YgRxxOf8p+KQ0AbqWdq/XUcUDgQ
+         jHXWyNIyMdPRkeuuFCfQPIxiITsZV4lpwn7s8G/nUt0PF2WDnSkIJ7jNPkvqVHn8QN
+         V1AztKnVatPvgpnQvVHECQsnPsE1xkwVe4sGDYlxFeuirNI6AsFpcGvp68kmlZIGvJ
+         I0wJu92ecA6jw==
+Date:   Tue, 21 Sep 2021 15:46:20 +0200
+From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org
+Subject: [PATCH 1/2] rpmatch.3: remove first-character-only FUD
+Message-ID: <8f5f9b7d4f067a4a479fe400dee99120bf0a1abd.1632231952.git.nabijaczleweli@nabijaczleweli.xyz>
 MIME-Version: 1.0
-In-Reply-To: <20210917041606.167192-1-weiwan@google.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="bhnqz7rkwqz57cpq"
+Content-Disposition: inline
+User-Agent: NeoMutt/20210205
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Wei,
 
-On 9/17/21 6:16 AM, Wei Wang wrote:
-> MSG_FASTOPEN flag is available since Linux 3.7. Add detailed description
-> in the manpage according to RFC7413.
-> 
-> Signed-off-by: Wei Wang <weiwan@google.com>
-> Reviewed-by: Yuchung Cheng <ycheng@google.com>
-> Reviewed-by: Eric Dumazet <edumazet@google.com>
+--bhnqz7rkwqz57cpq
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Patch applied!
+It's plain not true; locales can and do provide longer matches
+(Aramaic has a "=E1=8A=A0=E1=8B=8E=E1=8A=95" alternative, for example)
 
-Thanks (and to the reviewers too!),
+Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
+---
+ man3/rpmatch.3 | 15 ---------------
+ 1 file changed, 15 deletions(-)
 
-Alex
-
-> ---
-> Change in v2: corrected some format issues
-> 
->   man2/send.2 | 32 ++++++++++++++++++++++++++++++++
->   1 file changed, 32 insertions(+)
-> 
-> diff --git a/man2/send.2 b/man2/send.2
-> index fd28fed90..acaa05be9 100644
-> --- a/man2/send.2
-> +++ b/man2/send.2
-> @@ -252,6 +252,38 @@ data on sockets that support this notion (e.g., of type
->   the underlying protocol must also support
->   .I out-of-band
->   data.
-> +.TP
-> +.BR MSG_FASTOPEN " (since Linux 3.7)"
-> +Attempts TCP Fast Open (RFC7413) and sends data in the SYN like a
-> +combination of
-> +.BR connect (2)
-> +and
-> +.BR write (2),
-> +by performing an implicit
-> +.BR connect (2)
-> +operation.
-> +It blocks until the data is buffered and the handshake has completed.
-> +For a non-blocking socket,
-> +it returns the number of bytes buffered and sent in the SYN packet.
-> +If the cookie is not available locally,
-> +it returns
-> +.BR EINPROGRESS ,
-> +and sends a SYN with a Fast Open cookie request automatically.
-> +The caller needs to write the data again when the socket is connected.
-> +On errors,
-> +it sets the same
-> +.I errno
-> +as
-> +.BR connect (2)
-> +if the handshake fails.
-> +This flag requires enabling TCP Fast Open client support on sysctl
-> +.IR net.ipv4.tcp_fastopen .
-> +.IP
-> +Refer to
-> +.B TCP_FASTOPEN_CONNECT
-> +socket option in
-> +.BR tcp (7)
-> +for an alternative approach.
->   .SS sendmsg()
->   The definition of the
->   .I msghdr
-> 
+diff --git a/man3/rpmatch.3 b/man3/rpmatch.3
+index 846c492b7..e0f92a20d 100644
+--- a/man3/rpmatch.3
++++ b/man3/rpmatch.3
+@@ -123,21 +123,6 @@ T}	Thread safety	MT-Safe locale
+ is not required by any standard, but
+ is available on a few other systems.
+ .\" It is available on at least AIX 5.1 and FreeBSD 6.0.
+-.SH BUGS
+-The
+-.BR rpmatch ()
+-implementation looks at only the first character
+-of
+-.IR response .
+-As a consequence, "nyes" returns 0, and
+-"ynever; not in a million years" returns 1.
+-It would be preferable to accept input strings much more
+-strictly, for example (using the extended regular
+-expression notation described in
+-.BR regex (7)):
+-.B \(ha([yY]|yes|YES)$
+-and
+-.BR \(ha([nN]|no|NO)$ .
+ .SH EXAMPLES
+ The following program displays the results when
+ .BR rpmatch ()
+--=20
+2.20.1
 
 
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+--bhnqz7rkwqz57cpq
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmFJ4isACgkQvP0LAY0m
+WPF1Cw//YNaAaSqMSNEAm35P6JoD3lMuhG5vXlEGKv3Aq+0alOD0Ttn2B4F2nRWO
+s+LgokO05ks11uFZfP5trQY5yT3dNKCP5rVqCCyF46a0t7TV5lBnXsvMX1zuWhgG
+rehRxXW0iFiFXOJ0dGYCX+xPFLC/eIjElBggN5+bbPkLfDWaCVmi7Y8QeDOHEmZS
+iWGKAXMxm3QYgZbSMXU4RB26HXs95ZrvW5vE55QlyGF/S3lwV8FBFLXyUnFKvCXj
+0HuwlSSHnJvpWGJT0pKgxbv2GzGFDmvcrN0REnAs6OPlEn/1ikUf/+spkFbCAmyD
+0OOU7HIaKZNmJRVoW9cGtFXrs4RZOEbjxc80trIebUqDleu9qtIgac1hKwd3eczI
+/a45rpGuacWEYcVcesRropVKvgwxbpcYprDc12STJ9372jlntUieKZRu5F8i8Hbj
+o5mrBO2hNP+H5qu3mO+XJNWLSvuN5LSBY/EYWKbOJe8CHf/5hDGJmQ+03P0Z6ShK
+eRkBae8b8nFexCCeioFOCUlK2/Bx6KMt9Eo2CmQVmqP58Fh4SZVacO7Ns+weV0mc
+mfalcV0/sV4dmfkrf+jZm0JKKF0nkoIl+60r5EOOCVxEsS9lH7+H2fWQRAOwhDYt
+9Jo9O7irkMy6KYEZint5AIpMPHC8RJ3yVOCRz7TlzvA5JNaWk7s=
+=Hbuk
+-----END PGP SIGNATURE-----
+
+--bhnqz7rkwqz57cpq--
