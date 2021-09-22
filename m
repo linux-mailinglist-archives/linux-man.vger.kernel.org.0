@@ -2,81 +2,71 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2085A414CD5
-	for <lists+linux-man@lfdr.de>; Wed, 22 Sep 2021 17:17:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6198C4151DE
+	for <lists+linux-man@lfdr.de>; Wed, 22 Sep 2021 22:55:24 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S236304AbhIVPSd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 22 Sep 2021 11:18:33 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40748 "EHLO
+        id S237836AbhIVU4m (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 22 Sep 2021 16:56:42 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33992 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232318AbhIVPSc (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 22 Sep 2021 11:18:32 -0400
-Received: from mail-pg1-x531.google.com (mail-pg1-x531.google.com [IPv6:2607:f8b0:4864:20::531])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B850CC061574
-        for <linux-man@vger.kernel.org>; Wed, 22 Sep 2021 08:17:02 -0700 (PDT)
-Received: by mail-pg1-x531.google.com with SMTP id f129so3034423pgc.1
-        for <linux-man@vger.kernel.org>; Wed, 22 Sep 2021 08:17:02 -0700 (PDT)
+        with ESMTP id S237837AbhIVU4h (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 22 Sep 2021 16:56:37 -0400
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com [IPv6:2a00:1450:4864:20::12c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E2483C061766
+        for <linux-man@vger.kernel.org>; Wed, 22 Sep 2021 13:55:06 -0700 (PDT)
+Received: by mail-lf1-x12c.google.com with SMTP id u18so16608807lfd.12
+        for <linux-man@vger.kernel.org>; Wed, 22 Sep 2021 13:55:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=message-id:from:mime-version:content-transfer-encoding
-         :content-description:subject:to:date:reply-to;
-        bh=Wt0rp6hSHw87IpctewmjTmjDD8bXQVioQlu/LkhH7tc=;
-        b=fU2lR7Qdt++FC3IJSQIy+DrdAr8Ncmva/LgSV1TAVFU9qNWDyx91re0AqV8+nC0IPW
-         1aaNG9yQk9i8iqPXf8W+7NeGMitgXrcL7fuo0sE1MWuWfo4vA2IEJlC6/53HR8KWCfzp
-         KQ+iRqyP2LEtzQRPh2uKDCH1De9Fai4jOwgGffImRWWXwJt0Dni4G0bYqWeVWoXHaQyh
-         aFSMBqChpoPGrTBAYvcdH8JRTW7Ir/zlIh6YR0iIXnd/9phcjUF2O/oBb/Hz1aEQY7oG
-         8/+gfSVmCNAeusgcvh1vROv3627dMgZCQJkscmVS2EL+1TpKLNIwVt9QCjDXkhvvIUW/
-         nLUg==
+        h=mime-version:sender:from:date:message-id:subject:to;
+        bh=ijKrByR1/KtEp2Ut8Wj0vMi00kBZm/A/r1gPwOEYZIg=;
+        b=fr8lNb1tzuroNDnbJJtYWeXOCGZbssrkZvaRy8HVdYCeSSxS96vSwd3R2+r1vg3M6/
+         ex66FoD7Oi9BZ+eroN2ctcLno3UxJhL89X1t6yEsFayGc2q4Pz0zZQBaUGqcHr3s/S1+
+         lgIwwHuJ4O8SDnA5oR3zC/CFwa9fWO84703n6I2aQyNKP1VzeqgyNRTdZaVTG81gy6Vx
+         t6u58+esbUQxWBZY5IFD1w784RDrV2U7d72/V+RQAoF8LyHU+KHsqwJTuZK+RI9xoYHQ
+         hU/k+XKo5P60J+yjbN5r0LQMnBzU5qvJitpMdoh7dt6f9DChJ/lZbweVN/xESakomSrI
+         Tc/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:from:mime-version
-         :content-transfer-encoding:content-description:subject:to:date
-         :reply-to;
-        bh=Wt0rp6hSHw87IpctewmjTmjDD8bXQVioQlu/LkhH7tc=;
-        b=ifX1mAs0TScxOpp6gFFHhD4wyjl46XNzh/TKqXZ2t6h2/p0dTBKgULJIFVtJrwuljm
-         g0/7iM/FfSMcEYJfOE4hJ+CYSMAQ0if2TLJP+ZPpuBoZE4fHLmRnRDMWpoXqXGTmomPa
-         kHjXW4tfBhOEhpstewG2mf26wnFysHRIlS1PrBAUBCXx4saFiSJlGfGykP2AFFI5/YDb
-         7NTk7J58SD7h6kxsbMZ8JEBhsNLot7ajsg8ABAJrYU1u1bHU55xIhSjSGRlavrH5b8xP
-         dOU/XnH9Fwq1/qccqWWvaK5Hc5S0zNH/tODW8psG7ssxvMnfq+MLl5BqeR8OhRj22QUB
-         G+OA==
-X-Gm-Message-State: AOAM531O09brBPRBw8ZnKblQ9D31Dbu+hWhPLJo43SrYgy+nT3JExvVd
-        lbyTH8nV+LsuAM/nXxIQq70=
-X-Google-Smtp-Source: ABdhPJx5VIAfvWNg+ye4oW5mnSPoJZzGbJpifgmxe7ZzhBzcv6Nm4PgRpbV28VA+7ihcuZ6vYfUbGA==
-X-Received: by 2002:a63:a74e:: with SMTP id w14mr191478pgo.104.1632323822064;
-        Wed, 22 Sep 2021 08:17:02 -0700 (PDT)
-Received: from [192.168.43.220] ([106.197.211.176])
-        by smtp.gmail.com with ESMTPSA id n14sm3239374pgd.48.2021.09.22.08.16.56
-        (version=TLS1 cipher=AES128-SHA bits=128/128);
-        Wed, 22 Sep 2021 08:17:01 -0700 (PDT)
-Message-ID: <614b48ed.1c69fb81.56ab9.8406@mx.google.com>
-From:   goldfinanceplc@gmail.com
-X-Google-Original-From: <info@gmail.com>
-Content-Type: text/plain; charset="iso-8859-1"
+        h=x-gm-message-state:mime-version:sender:from:date:message-id:subject
+         :to;
+        bh=ijKrByR1/KtEp2Ut8Wj0vMi00kBZm/A/r1gPwOEYZIg=;
+        b=WFGxvIly7/Rv+FyF6oDS5hw7L2uhFDXCYZOPjP751nSZNhmF6Dlw9pPAXdvzMof6EM
+         cZVv6nuIIjoL9H8PTicLTeiK4oBmeFexMPVpw7pdw3F8dRBk52WkVXfCehDYQxc5hMDW
+         0L92u49u81gquIjdGQlBsTPTnITxxMrSNOHyB+gdRd1GBQlK4X/XnfFW1bhkUyOsCzfv
+         p8a23orXWIk25K3NmIreHKVQ0sdtJpnTwdqR3DZsWOvx8XCbOvzQhEQqes19OlwOismJ
+         bex7kHBCaqVGTn/NwW6BMWvE7Vfi7bLDSl5RRLG0MrUJn9LfRShskyHz7CMIAoR+qThd
+         GnNw==
+X-Gm-Message-State: AOAM532f8oG+iaTekN9uLCief660vwE+Azdriz4mn37P50MQe0+z8Xvo
+        LQN7sA/1fcG1ARGvJNZR/xLATH/HHwNrLHUgQg55rMIK9RU=
+X-Google-Smtp-Source: ABdhPJwYYn7ZwazUxB30/XTxKCOf4dlZaC6TfP1ljKsU4ZNb40cpLRsdAvw7sAb51nYQkeG7S6W5vU7Cgq+lC3FYxgE=
+X-Received: by 2002:a05:651c:1546:: with SMTP id y6mr1383813ljp.53.1632344095088;
+ Wed, 22 Sep 2021 13:54:55 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Description: Mail message body
-Subject: my subject
-To:     Recipients <info@gmail.com>
-Date:   Wed, 22 Sep 2021 20:46:49 +0530
-Reply-To: mrsmariaschaeffler28@gmail.com
+Sender: ratcliffijames58@gmail.com
+Received: by 2002:a05:6504:5067:0:0:0:0 with HTTP; Wed, 22 Sep 2021 13:54:54
+ -0700 (PDT)
+From:   Aisha Al-Qaddafi <aisha.gdaffi24@gmail.com>
+Date:   Wed, 22 Sep 2021 21:54:54 +0100
+X-Google-Sender-Auth: B3PIuwFz7UcaHNCffYC8akvbLEk
+Message-ID: <CAKVTYWSPSMf085dB7FkhkLr9XtoZHkjbvunoMard5qsSPn4ZOg@mail.gmail.com>
+Subject: My Dear Friend
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello,
-
-I'm Ms. Maria Elisabeth Schaeffler, a German business magnate,Investor and =
-philanthropist. I am the chairman of Schaeffler Group. 25 percent of my per=
-sonal wealth is spent on charity. And I also promised to give the rest of 2=
-5% away to individuals this year 2021. I have decided to donate 1,500,000.0=
-0 euros to you. If you are interested in my donation, contact me for more i=
-nformation.
-
-You can also read more about me using the link below
-
-https://en.wikipedia.org/wiki/Maria-Elisabeth_Schaeffler
-
-Greetings
-Managing Director Schaeffler Group
-Maria-Elisabeth_Schaeffler
-Email: mrsmariaschaeffler28@gmail.com
+Assalamu alaikum,
+I came across your e-mail contact prior to a private search while in
+need of your assistance. I am Aisha Al-Qaddafi, the only biological,
+Daughter of Former President of Libya Col. Muammar Al-Qaddafi. Am a
+single Mother and a Widow with three Children. I have investment funds
+worth Twenty Seven Million Five Hundred Thousand United State Dollar
+($27.500.000.00 ) and i need a trusted  investment Manager/Partner
+because of my current refugee status, however, I am interested in you
+for investment project assistance in your country. If you are willing
+to handle this project on my behalf kindly reply urgently to enable me
+to provide you more information about the investment
+funds.
+Best Regards
