@@ -2,100 +2,305 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 88BFD41714B
-	for <lists+linux-man@lfdr.de>; Fri, 24 Sep 2021 13:50:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 71BC2417D64
+	for <lists+linux-man@lfdr.de>; Sat, 25 Sep 2021 00:01:17 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1343723AbhIXLwM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 24 Sep 2021 07:52:12 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57958 "EHLO
+        id S1344356AbhIXWCu (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 24 Sep 2021 18:02:50 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58042 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1343721AbhIXLwL (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 24 Sep 2021 07:52:11 -0400
-Received: from mail-pg1-x535.google.com (mail-pg1-x535.google.com [IPv6:2607:f8b0:4864:20::535])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E8416C061574;
-        Fri, 24 Sep 2021 04:50:38 -0700 (PDT)
-Received: by mail-pg1-x535.google.com with SMTP id t1so9653180pgv.3;
-        Fri, 24 Sep 2021 04:50:38 -0700 (PDT)
+        with ESMTP id S1344321AbhIXWCt (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 24 Sep 2021 18:02:49 -0400
+Received: from mail-vk1-xa2c.google.com (mail-vk1-xa2c.google.com [IPv6:2607:f8b0:4864:20::a2c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0B44AC061613
+        for <linux-man@vger.kernel.org>; Fri, 24 Sep 2021 15:01:16 -0700 (PDT)
+Received: by mail-vk1-xa2c.google.com with SMTP id b67so4506766vkb.13
+        for <linux-man@vger.kernel.org>; Fri, 24 Sep 2021 15:01:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:from:mime-version:content-transfer-encoding
-         :content-description:subject:to:date:reply-to;
-        bh=6lUr3doIGsTIIAjskt/uD3x/MrGEOUPduVHAnB6V8GE=;
-        b=MclJZO/miVbKGfzyEdjSWV3PsQ9uIRKP85m4IaxV6Mh5jOJOzMUqAzuPWRuPK4odHC
-         ttaYArp7jpoxL9JGk/yPVQ+HeSFhBOfTIuv7UKID1TxTiwW5T1ZJGg/A44x/5Oh4pzt3
-         GLnfSIiLgBTkEglJj76mkiw5C9pAIfEkNjp0wKc7vjq2Lkx+bqYPK1wG7dH/TzIwUsZ3
-         UZngz2jPpF776vq58dGRZYongm8fkteYNqK2fJ2M+6mtU/yJ4+Uh3u2u9prVmwkHe0qr
-         Au4RAHU6Ql9hO+hXG5xxZTKVZpNugkg86AxsWp9cGi7hVEaPfJzeGOLXRh6EgNZb/6Nb
-         r5LQ==
+        d=google.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:content-transfer-encoding;
+        bh=70Ziw5c/h+Z1Js/UP9LzWd5OTChXBiQT9wwmlih1fBM=;
+        b=dk76utAdz2A0SLC2H2kLjsweX9e85nUeNFRzt5h00IflMYv1v/yjStScL3zOb/bwIY
+         isr2QyebRdZBWRckRpD2qUjVfusT3iUJ6S0pg0JYYCIHrUJ11/O3oAbnkZincXwG7hae
+         EPf3MrAWb6T8dG9InjAiLZ0Hej/PbZnEfFHFpteQiSp3yyzo2RIJ84pN3NUCkCa/CCI5
+         VKuNMwtlm1/BUXNi7zJ7CMksOj0PiPfG5BsGtGWS+f5b29xXpox0Whz5REJfQkVEyv9E
+         JFF4GK9QAzZ/pakCjGg8QXCRB2ziNRQv03RmReKLkgyLB7PMcRH3L7ELHoiNi6YR3Sou
+         khzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:from:mime-version
-         :content-transfer-encoding:content-description:subject:to:date
-         :reply-to;
-        bh=6lUr3doIGsTIIAjskt/uD3x/MrGEOUPduVHAnB6V8GE=;
-        b=oCTvGuofhTcaYr9ZOJLTn3QZ4/s7sHdxxfhpDnpjtMJZA+czh7hS9j+LbQHKjaXKC6
-         69qUSgcO4OKbxJRxEjPUjcyXTtenl3hMIOaCUIvyOoFK4vj3hjdTYq1FZr+s4Z3228wT
-         uJ8oALWRFyUO/fOCSPQq8Ew6/VW85AUoM8+Uc41nLCgvbZpNrk5/ISCn54anAiAz34ox
-         D1R/AOkpUZ+ID/vVV+OBtpOPY0YfOF/BeuNItvc/QvJjx1f90zASYpmhwihEIEEk+LSG
-         IbVljZZ6KzNBS4qpFrDlUXsj0bxNPxDrpiS8RK7ePGM90u4yUbc4gaTfKn/Pga+NwSAl
-         aDdw==
-X-Gm-Message-State: AOAM532EpgmE9EC3mn4VTqyNTiXXkUmot6dq4OP+Hu/9Om1S0P5CsMN2
-        3iLCUQEs5tV1/s4IgMfGJW6i0Nkp7iM=
-X-Google-Smtp-Source: ABdhPJyL4z0ZuPZ45c6d9Yzqcjxr0Fj3iYSCoYbzU51e9A94b1GtsVmS7T9ic96v/7VrU7af+ZFJRQ==
-X-Received: by 2002:a05:6a00:c8c:b0:447:bddb:c83 with SMTP id a12-20020a056a000c8c00b00447bddb0c83mr9672759pfv.1.1632484238529;
-        Fri, 24 Sep 2021 04:50:38 -0700 (PDT)
-Received: from [192.168.43.220] ([223.227.13.160])
-        by smtp.gmail.com with ESMTPSA id e15sm3495138pfc.134.2021.09.24.04.50.32
-        (version=TLS1 cipher=AES128-SHA bits=128/128);
-        Fri, 24 Sep 2021 04:50:38 -0700 (PDT)
-Message-ID: <614dbb8e.1c69fb81.c952.b816@mx.google.com>
-From:   goldfinanceplc@gmail.com
-X-Google-Original-From: <info@gmail.com>
-Content-Type: text/plain; charset="iso-8859-1"
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=70Ziw5c/h+Z1Js/UP9LzWd5OTChXBiQT9wwmlih1fBM=;
+        b=HXZLLY/CHXZRr5DowviFBHcB3szxLG1m4mKvk6PF0WD+VI3DJGF8x36mmdryr2Cwey
+         vjrHpy8MH36vZufOxb9RlD8okGRmnsugMmKf5TuYH+L1WapqK9kgYEHIwXvBGr+1ZcB+
+         SwGKbmoSkuhIhDzsVMkag2zPzg8jtLBnsE/9l8PgsVHymtwOVpKCWkyQNtIhGyKYqr8n
+         e+lHQd8oCMr/QamlSYxeKWl0NXCqmLJF9JjpbXzyD/lrPX3W+BcFS9VebkLCYESxFIUr
+         kN/elF8V+1pNJ6gU/NXu/tyn2KdJXSwfw1/1NIKwKkdL1p+Cs6SvbhXtONuwa1VKqwrQ
+         W4aA==
+X-Gm-Message-State: AOAM530yS4okAzgaqTJ+Uwvlef/Ir4lUHqo5HULrBNX9uGZ2RGR2GUHd
+        rZr9CToxJ09p9tbTzO+BoC7viNV4taLAaZYyyjxQOQ==
+X-Google-Smtp-Source: ABdhPJwT8P05hkmLUZQKWk3NEVKNCy5ZhwVV+yjVvlgRlzmvb6fe0izcsXRume/4YBhKkPGs5nxZ5z1lTQRO3fY4qk8=
+X-Received: by 2002:a1f:5d04:: with SMTP id r4mr10554940vkb.6.1632520874904;
+ Fri, 24 Sep 2021 15:01:14 -0700 (PDT)
 MIME-Version: 1.0
+References: <20210917041702.167622-1-weiwan@google.com> <c0617af0-fc29-5ac6-deb0-d0da3fcfc99d@gmail.com>
+In-Reply-To: <c0617af0-fc29-5ac6-deb0-d0da3fcfc99d@gmail.com>
+From:   Wei Wang <weiwan@google.com>
+Date:   Fri, 24 Sep 2021 15:01:03 -0700
+Message-ID: <CAEA6p_AoaQn=PmrtinzibzVwA1O2FZkda1coVGdzaJDY=g=ixw@mail.gmail.com>
+Subject: Re: [patch v2] tcp.7: Add description for TCP_FASTOPEN and
+ TCP_FASTOPEN_CONNECT options
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Cc:     netdev@vger.kernel.org, Yuchung Cheng <ycheng@google.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        linux-man@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Description: Mail message body
-Subject: my subject
-To:     Recipients <info@gmail.com>
-Date:   Fri, 24 Sep 2021 17:20:26 +0530
-Reply-To: verahollinkvan2885@gmail.com
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello My Dear Friend,
+On Mon, Sep 20, 2021 at 12:50 PM Alejandro Colomar (man-pages)
+<alx.manpages@gmail.com> wrote:
+>
+> Hello Wei,
+>
+> On 9/17/21 6:17 AM, Wei Wang wrote:
+> > TCP_FASTOPEN socket option was added by:
+> > commit 8336886f786fdacbc19b719c1f7ea91eb70706d4
+> > TCP_FASTOPEN_CONNECT socket option was added by the following patch
+> > series:
+> > commit 065263f40f0972d5f1cd294bb0242bd5aa5f06b2
+> > commit 25776aa943401662617437841b3d3ea4693ee98a
+> > commit 19f6d3f3c8422d65b5e3d2162e30ef07c6e21ea2
+> > commit 3979ad7e82dfe3fb94a51c3915e64ec64afa45c3
+> > Add detailed description for these 2 options.
+> > Also add descriptions for /proc entry tcp_fastopen and tcp_fastopen_key=
+.
+> >
+> > Signed-off-by: Wei Wang <weiwan@google.com>
+> > Reviewed-by: Yuchung Cheng <ycheng@google.com>
+>
+> Thanks for the patch (and the review, Yuchung)!
+>
+> Please see some comments below.
+>
+> Cheers,
+>
+> Alex
+>
+> > ---
+> > Change in v2: corrected some format issues
+> >
+> >   man7/tcp.7 | 110 ++++++++++++++++++++++++++++++++++++++++++++++++++++=
++
+> >   1 file changed, 110 insertions(+)
+> >
+> > diff --git a/man7/tcp.7 b/man7/tcp.7
+> > index 0a7c61a37..5a6fa7f50 100644
+> > --- a/man7/tcp.7
+> > +++ b/man7/tcp.7
+> > @@ -423,6 +423,28 @@ option.
+> >   .\" Since 2.4.0-test7
+> >   Enable RFC\ 2883 TCP Duplicate SACK support.
+> >   .TP
+> > +.IR tcp_fastopen  " (Bitmask; default: 0x1; since Linux 3.7)"
+> > +Enables RFC\ 7413 Fast Open support.
+> > +The flag is used as a bitmap with the following values:
+> > +.RS
+> > +.IP 0x1
+> > +Enables client side Fast Open support
+> > +.IP 0x2
+> > +Enables server side Fast Open support
+> > +.IP 0x4
+> > +Allows client side to transmit data in SYN without Fast Open option
+> > +.IP 0x200
+> > +Allows server side to accept SYN data without Fast Open option
+> > +.IP 0x400
+> > +Enables Fast Open on all listeners without
+> > +.B TCP_FASTOPEN
+> > +socket option
+> > +.RE
+> > +.TP
+> > +.IR tcp_fastopen_key " (since Linux 3.7)"
+> > +Set server side RFC\ 7413 Fast Open key to generate Fast Open cookie
+> > +when server side Fast Open support is enabled.
+> > +.TP
+> >   .IR tcp_ecn " (Integer; default: see below; since Linux 2.4)"
+> >   .\" Since 2.4.0-test7
+> >   Enable RFC\ 3168 Explicit Congestion Notification.
+> > @@ -1202,6 +1224,94 @@ Bound the size of the advertised window to this =
+value.
+> >   The kernel imposes a minimum size of SOCK_MIN_RCVBUF/2.
+> >   This option should not be used in code intended to be
+> >   portable.
+> > +.TP
+> > +.BR TCP_FASTOPEN " (since Linux 3.6)"
+> > +This option enables Fast Open (RFC\ 7413) on the listener socket.
+> > +The value specifies the maximum length of pending SYNs
+> > +(similar to the backlog argument in
+> > +.BR listen (2)).
+> > +Once enabled,
+> > +the listener socket grants the TCP Fast Open cookie on incoming
+> > +SYN with TCP Fast Open option.
+> > +.IP
+> > +More importantly it accepts the data in SYN with a valid Fast Open coo=
+kie
+> > +and responds SYN-ACK acknowledging both the data and the SYN sequence.
+> > +.BR accept (2)
+> > +returns a socket that is available for read and write when the handsha=
+ke
+> > +has not completed yet.
+> > +Thus the data exchange can commence before the handshake completes.
+> > +This option requires enabling the server-side support on sysctl
+> > +.IR net.ipv4.tcp_fastopen
+> > +(see above).
+> > +For TCP Fast Open client-side support,
+> > +see
+> > +.BR send (2)
+> > +.B MSG_FASTOPEN
+> > +or
+> > +.B TCP_FASTOPEN_CONNECT
+> > +below.
+> > +.TP
+> > +.BR TCP_FASTOPEN_CONNECT " (since Linux 4.11)"
+> > +This option enables an alternative way to perform Fast Open on the act=
+ive
+> > +side (client).
+> > +When this option is enabled,
+> > +.BR connect (2)
+> > +would behave differently depending if a Fast Open cookie is available =
+for
+> > +the destination.
+> > +.IP
+> > +If a cookie is not available (i.e. first contact to the destination),
+> > +.BR connect (2)
+> > +behaves as usual by sending a SYN immediately,
+> > +except the SYN would include an empty Fast Open cookie option to solic=
+it a
+> > +cookie.
+> > +.IP
+> > +If a cookie is available,
+> > +.BR connect (2)
+> > +would return 0 immediately but the SYN transmission is defered.
+> > +A subsequent
+> > +.BR write (2)
+> > +or
+> > +.BR sendmsg (2)
+> > +would trigger a SYN with data plus cookie in the Fast Open option.
+> > +In other words,
+> > +the actual connect operation is deferred until data is supplied.
+> > +.IP
+> > +.B Note:
+> > +While this option is designed for convenience,
+> > +enabling it does change the behaviors and might set new
+> > +.I errnos
+>
+> typo?
+>
+> errno values?
+>
+> > +of socket calls.
+>
+> The above is not very clear to me.
+>
+Will update.
 
-I am writing this mail to you with heavy tears in my eyes, and great sorrow=
- in my heart, My Name is Vera Hollin  Kvan, and I am contacting you from my=
- country India I want to tell you this because I don't have any other optio=
-n than to tell you as I was touched to open up to you, I married to Mr. Hol=
-lin Kvan who worked with Tunisia embassy in Madrid Spain for nine years bef=
-ore he died in the year 2005.We were married for eleven years without a chi=
-ld.
+> > +With cookie present,
+> > +.BR write (2)
+> > +/
+>
+> Does this mean an "or"?  If so, prefer the "or".
+>
+Yes. Ack.
 
-He died after a brief illness that lasted for only five days. Since his dea=
-th I decided not to remarry, When my late husband was alive he deposited th=
-e sum of $4,850,000,00USD (Four Million Eight hundred And fifty Thousand Do=
-llars) in a bank here in India New Delhi the capital city of India, Present=
-ly this money is still in bank.
+> > +.BR sendmsg (2)
+> > +must be called right after
+> > +.BR connect (2)
+> > +in order to send out SYN+data to complete 3WHS and establish connectio=
+n.
+> > +Calling
+> > +.BR read (2)
+> > +right after
+> > +.BR connect (2)
+> > +without
+> > +.BR write (2)
+> > +will cause the blocking socket to be blocked forever.
+>
+>
+> > +The application should use either
+> > +.B TCP_FASTOPEN_CONNECT
+> > +or
+> > +.BR send (2)
+>
+> This is not clear to me.  So TCP_FASTOPEN_CONNECT can use write(2) and
+> sendmsg(2) (mentioned above), and TCP_FASTOPEN can only use send(2)?  Or
+> what did you mean?
+>
 
-He made this money available for exportation of Gold from Madrid Spain mini=
-ng factory.Recently, My Doctor told me that I would not last for the period=
- of seven months due to cancer problem. The one that disturbs me most is my=
- stroke sickness.Having known my condition I decided to hand you over this =
-money to take care of the less-privileged people, you will utilize this mon=
-ey the way I am going to instruct herein.
+The application should either set TCP_FASTOPEN_CONNECT socket option
+before calling write() or sendmsg(), or call write() or sendmsg() with
+MSG_FASTOPEN flag directly, but not both at the same time.
 
-I want you to take 30 Percent of the total money for your personal use, Whi=
-le 70% of the money will go to charity, people in the street and helping th=
-e orphanage. I grew up as an Orphan and I don't have anybody as my family m=
-ember, just to ensure that the house of God is maintained also. Am doing th=
-is so that God will forgive my sins and accept my soul because these illnes=
-ses have suffered me so much. As soon as I receive your reply I shall give =
-you the contact of the bank here in Delhi India and I will also instruct th=
-e Bank Manager to issue you an authority letter that will prove you the pre=
-sent beneficiary of the money in the bank that is if you assure me that you=
- will act accordingly as I Stated herein.
+> > +with
+> > +.B MSG_FASTOPEN ,
+> > +instead of both on the same connection.
+>
+>  From "The application ...":
+> Does this have relation with the text just above it?  It appears to me
+> to be a more generic statement that both options shouldn't be mixed, so
+> maybe a new paragraph is more appropriate.
+>
 
-Hoping to receive your reply.
-From Vera Hollin kVan
+I think a new line does make sense, since this is a general statement
+for TCP_FASTOPEN_CONNECT option.
+
+> > +.IP
+> > +Here is the typical call flow with this new option:
+> > +  s =3D socket();
+> > +  setsockopt(s, IPPROTO_TCP, TCP_FASTOPEN_CONNECT, 1, ...);
+> > +  connect(s);
+> > +  write(s); // write() should always follow connect() in order to
+> > +            // trigger SYN to go out
+> > +  read(s)/write(s);
+> > +  ... > +  close(s);
+>
+> See man-pages(7):
+>
+>     Indentation of structure definitions, shell session  logs,  and
+>         so on
+>         When  structure  definitions, shell session logs, and so on
+>         are included in running  text,  indent  them  by  4  spaces
+>         (i.e.,  a  block  enclosed by .in +4n and .in), format them
+>         using the .EX and EE macros, and surround them  with  suit=E2=80=
+=90
+>         able paragraph markers (either .PP or .IP).  For example:
+>
+>                 .PP
+>                 .in +4n
+>                 .EX
+>                 int
+>                 main(int argc, char *argv[])
+>                 {
+>                     return 0;
+>                 }
+>                 .EE
+>                 .in
+>                 .PP
+>
+>
+
+Ack. Thanks.
+Will send out a new version with the above addressed.
+
+> >   .SS Sockets API
+> >   TCP provides limited support for out-of-band data,
+> >   in the form of (a single byte of) urgent data.
+> >
+>
+>
+> --
+> Alejandro Colomar
+> Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+> http://www.alejandro-colomar.es/
