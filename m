@@ -2,38 +2,38 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8E56841FBBF
-	for <lists+linux-man@lfdr.de>; Sat,  2 Oct 2021 14:18:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A266E41FBC0
+	for <lists+linux-man@lfdr.de>; Sat,  2 Oct 2021 14:18:57 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233095AbhJBMUf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 2 Oct 2021 08:20:35 -0400
-Received: from 139-28-40-42.artus.net.pl ([139.28.40.42]:42270 "EHLO
+        id S233110AbhJBMUm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 2 Oct 2021 08:20:42 -0400
+Received: from 139-28-40-42.artus.net.pl ([139.28.40.42]:42276 "EHLO
         tarta.nabijaczleweli.xyz" rhost-flags-OK-FAIL-OK-OK)
-        by vger.kernel.org with ESMTP id S233082AbhJBMUe (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 2 Oct 2021 08:20:34 -0400
+        by vger.kernel.org with ESMTP id S233082AbhJBMUm (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 2 Oct 2021 08:20:42 -0400
 Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 525ED3612AB;
-        Sat,  2 Oct 2021 14:18:45 +0200 (CEST)
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 86C153612AB;
+        Sat,  2 Oct 2021 14:18:55 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=nabijaczleweli.xyz;
-        s=202006; t=1633177125;
-        bh=2kSej/vjeoVDrQQXuopCjVzxpb6o6GR9LEF79EZqCOw=;
+        s=202006; t=1633177135;
+        bh=W6B4Lr5WWvx+7J9zbIkrh1kWiH+xotQA3e/TpFyzsbM=;
         h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=kamMbhe5r5bMUQen1owWxiTZgGIGhiVeQgXALp1QmuAbAq91okEEwPwsFxBR8lLVU
-         dBWNDIwKN5IPtCLkQrBjEPdNnq+ELpg6yN5eZL8VasMdGzs9JQaj103LBQrmKotemB
-         EvwZKBhFL2QQSe+YnpBj9eaI3NOoBCUcKnY239UBAhyjyKaAC5vqHGkKNv5aGlQ8hJ
-         sqHj4vBdUrXSQYWPASpLtB4RBrTOExygvhbXcxS6MmoVZT9+xhC1cA4mGaZXq6YGUN
-         ZCOfowosWLjJ937YLS3a6Y/Js/d5PYHJWIP9PyWlmWXsiVof11p7/qNya/j/3wln5d
-         BdME5nom3n5Gg==
-Date:   Sat, 2 Oct 2021 14:18:44 +0200
+        b=UtEzBF1vYKMAdMnSIYQ2V1nisgLWsBNvKHlJvrpXxQGJvw73MCM2Q40Sh9Fe0Bfir
+         IOCAc+ViCLNrHCkBZS6X9KZ5TQ0+bwvnX26tFvQVB27D/Rjlp9GFL12Eku76GF3FaE
+         TafyuUZA45wQUJ4qOErGSX1aW9/8WteJUGApjeM76zgZ3RVNIBsaAB9Rl8LlEumkAw
+         9mdaEBD92+7m5kr69d5RjfRSrz/7FTSqZ7hBzOQKz7zS0ZY0102hg8fVnWs425G6c2
+         xFMr54ZD+ZfI/ZW/mCcKCTwPMFL1H2lon2liM+SIIKMrMn9O665KJaEjF+qZsMhGnU
+         zR91sO27cKGOA==
+Date:   Sat, 2 Oct 2021 14:18:54 +0200
 From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
 To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org
-Subject: [PATCH v2 1/2] rpmatch.3: clarify first-character-only FUD
-Message-ID: <39075e7155b7e992b6af5b548258a46d831e025d.1633177011.git.nabijaczleweli@nabijaczleweli.xyz>
+Subject: [PATCH v2 2/2] rpmatch.3: clarify availability to glibc, Fx, and AIX
+Message-ID: <65b6fbe81776d9d92025b60b6bc242d9d44f0be3.1633177011.git.nabijaczleweli@nabijaczleweli.xyz>
 References: <8f5f9b7d4f067a4a479fe400dee99120bf0a1abd.1632231952.git.nabijaczleweli@nabijaczleweli.xyz>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="kw5hhzfxy3ubqr5b"
+        protocol="application/pgp-signature"; boundary="hbj6acriug7aq6bl"
 Content-Disposition: inline
 In-Reply-To: <8f5f9b7d4f067a4a479fe400dee99120bf0a1abd.1632231952.git.nabijaczleweli@nabijaczleweli.xyz>
 User-Agent: NeoMutt/20210205
@@ -42,83 +42,56 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---kw5hhzfxy3ubqr5b
+--hbj6acriug7aq6bl
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-It's plain not true as-written =E2=80=92 locales can and do provide longer =
-matches
-(Aramaic has a "=E1=8A=A0=E1=8B=8E=E1=8A=95" alternative, for example) =E2=
-=80=92 but it's important to
-note that (a) this may be an issue and (b) nonetheless this is the right
-way to process this
+"On a few other systems" is misleading, implying that it's available on
+/this/ system; this is not strictly true, seeing as musl doesn't have it
 
 Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
 ---
-This should resolve both the unnecessary FUD and the doubts it would
-raise, while preserving the note. I'm not sure I'd agree with C locale
-being the most important one (I'd put that burden on "the current one"),
-but it's mentioned here because English locales (and most other ones for
-YESEXPR/NOEXPR) derive from it.
-
- man3/rpmatch.3 | 20 ++++++++------------
- 1 file changed, 8 insertions(+), 12 deletions(-)
+ man3/rpmatch.3 | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
 diff --git a/man3/rpmatch.3 b/man3/rpmatch.3
-index 846c492b7..1f9732e3f 100644
+index 1f9732e3f..39e3926d7 100644
 --- a/man3/rpmatch.3
 +++ b/man3/rpmatch.3
-@@ -125,19 +125,15 @@ is available on a few other systems.
- .\" It is available on at least AIX 5.1 and FreeBSD 6.0.
+@@ -120,9 +120,8 @@ T}	Thread safety	MT-Safe locale
+ .sp 1
+ .SH CONFORMING TO
+ .BR rpmatch ()
+-is not required by any standard, but
+-is available on a few other systems.
+-.\" It is available on at least AIX 5.1 and FreeBSD 6.0.
++is not required by any standard,
++but available under the GNU C library, FreeBSD, and AIX.
  .SH BUGS
  The
--.BR rpmatch ()
--implementation looks at only the first character
--of
-+.BR YESEXPR " and " NOEXPR
-+of some locales (including "C") only inspect the first character of the
- .IR response .
--As a consequence, "nyes" returns 0, and
--"ynever; not in a million years" returns 1.
--It would be preferable to accept input strings much more
--strictly, for example (using the extended regular
--expression notation described in
--.BR regex (7)):
--.B \(ha([yY]|yes|YES)$
--and
--.BR \(ha([nN]|no|NO)$ .
-+This can mean that "yno" et al. resolve to
-+.BR 1 .
-+This is an unfortunate historical side-effect which should be fixed in time
-+with proper localisation, and should not deter from
-+.BR rpmatch ()
-+being the proper way to distinguish between binary answers.
- .SH EXAMPLES
- The following program displays the results when
- .BR rpmatch ()
+ .BR YESEXPR " and " NOEXPR
 --=20
 2.20.1
 
-
---kw5hhzfxy3ubqr5b
+--hbj6acriug7aq6bl
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmFYTiMACgkQvP0LAY0m
-WPFplQ//emcTgoDwco6uzvYbk9Qh1CGAnyCdAk5n9zSPhX4j/Ed1bxk7i9aMJB9k
-DzdrsrXj49SKjLLqYPvXkJy9LKh0iskWzkejPu8sKiJGK4GexlDnN0hZoaSAUYCv
-ByNqclgTsBOR3KyuVkvnwKrz9qsQoELzExOJp9o9JdvGc3yC6QniJ1iT7U1UWDRQ
-F9daMmHVpJC3YeAgqa0W6eYzv0z5ZOImSeivc4DjF/js/E3VTrjD+VKol0iAwVRO
-aVE3XDwOmKfSUl3wA3miCgfwZMDRcIKoFv1zTDB/1Y8LzoG0e1OZkGYxrtl0K3k3
-X1vbzPgI4Mk1wQh/qpAHL3Gh6Fukj6z+6DMLOfMq7eDFj4lUcM4y+BY13/dxK1Od
-z5Hf1RedlR8F45hLpO0p9dVlX/U6TVJ33OWEdPhNOlXpl9PnqUQUVBiu5hHZ0YK4
-y6L8SeZRhRCbRh7R9C4wSmda7zS4VQHOR0SNdnaMIvY9Pry/JxcFGwr6OhZ4MM/p
-D4mUQ7HKbUz75CT7tQG2OwNh+Q+p/gBW35BJKYuRzcHy8YacKmG8GHJ5hFJ62F6i
-3YaIJdlw+7fWrj1xquqHi0A1GDoQXJOpIrgrCpoOQNWpYNZW7NMp8omm38VcR0Ri
-5hN6nQRm0YeOpjvE6vPyKO8dTHDGVUb0Mn3KeSpWYSONb3BOirc=
-=zU6G
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmFYTi4ACgkQvP0LAY0m
+WPFz3g//VdjMSZNFTc8K5FIoEmX29S7/CdOyQ2E0MEf8pffq2+9I6iHyWgoIrSXr
+pNjIgP53Wb2jXZA/qHl/3aytLxNsOpKyH/hi5GQoPA3dl3A1OrfNV3GaO4LfI+nl
+VNbq5PjGUhhgXFjjh1HMWj5aPXCIsZ6Hzqz/oUUIcgMq8k9wnzRfvlWl5J5Swf3V
+GA3mxzzRx9aTgUyFniIYD4UoYOOUBWwsRRnNjTDJe+RBBBKoNUYk8BK5fqJ8yqJS
+I/oeAcq3M623YwvXigp+bKXGss2CIYif13DQ0qz4StY/RXnOljX5JjX8M1lSZTtp
+PtrSTE+Kbv6JVzk70UvxdyFcthrnfI91T2huZxqn+O4y1MAZkFzZTg8CMRkjGzuR
+nqYU8955Ne+RdfOixW+qB6hyrgGspNCx4ZrHCdymKP1rW0Civ7g0RCw2vI0OguQ2
+qLkJvdhR4UrgcZbM1wwmS63GdGy/Gr8Bi5/sHLvL+heqRyytCTRDWhqi617ltYGH
+07iXcph7LOthuVl+5NESkoU5GygnQVNrMYOYETc9Nvm4YmTXwPq7RisaipX/a5MD
+weR7AifwHnQPz6I6LyUC7hfPCKSF/mNKDQoNMfbJehZ5Lj193dcarozy1BttzIP9
+dR+emgVCu6u9WnTk83oQwoDu2UE6ujdOURYFbrrTrWQUliKVsDc=
+=iVVc
 -----END PGP SIGNATURE-----
 
---kw5hhzfxy3ubqr5b--
+--hbj6acriug7aq6bl--
