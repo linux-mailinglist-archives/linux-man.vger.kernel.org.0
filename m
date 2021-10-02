@@ -2,66 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B78F441FD7E
-	for <lists+linux-man@lfdr.de>; Sat,  2 Oct 2021 19:41:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E0CB641FD81
+	for <lists+linux-man@lfdr.de>; Sat,  2 Oct 2021 19:44:56 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233760AbhJBRnR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 2 Oct 2021 13:43:17 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50480 "EHLO
+        id S233608AbhJBRql (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 2 Oct 2021 13:46:41 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51246 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233756AbhJBRnQ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 2 Oct 2021 13:43:16 -0400
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com [IPv6:2a00:1450:4864:20::32c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B0594C0613EC;
-        Sat,  2 Oct 2021 10:41:30 -0700 (PDT)
-Received: by mail-wm1-x32c.google.com with SMTP id s24so9618266wmh.4;
-        Sat, 02 Oct 2021 10:41:30 -0700 (PDT)
+        with ESMTP id S232043AbhJBRql (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 2 Oct 2021 13:46:41 -0400
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com [IPv6:2a00:1450:4864:20::336])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2AB05C0613EC;
+        Sat,  2 Oct 2021 10:44:55 -0700 (PDT)
+Received: by mail-wm1-x336.google.com with SMTP id j10-20020a1c230a000000b0030d523b6693so3515629wmj.2;
+        Sat, 02 Oct 2021 10:44:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=8l7NTwnBa/qBZ75J/tfIMrDpdaYdy3USx9U0mSmwSsE=;
-        b=m9gXwL4N8j9exWtreTpmq6laTlbDwLo4jt9KdO/2S7CdufZHm2mSQ8Pp93k9xF+j8h
-         712hIwLlCwHDSJV+Vk0fc7X852mi/8piq6zgKkLZ3xm0S1hUFMGZks0/Z/PP18XR4EKi
-         oU/WADxB9akfgT4KPoTA90tSwFv3GUis+nx6EuEy4zsJd/sCveXyeeJ4SQLgKVi6l/vN
-         NSM3XzjUx4q0MQc55+BDCmvwYRciFs+SYi15ktibFh8RCqiGM4PqC+ro+W7+ii6Yp1J+
-         0JgiWFE2VU6eS/kv13+VtALMoZipASGohf/QFobojqy+aHwcKDeW1A0syTdMpQA8vwEL
-         Sz3w==
+        bh=TDptnlX5D3kk5KeBvQAiSIEzvz/mdqtpEDNI3MannFA=;
+        b=VDeyZH077ujEG5sD746uF68NcPvUo3IEzFO/BaQy6cARXZfZ+6lJcKZ0srd3VLI4K+
+         GUC5ZJVYIvAdKNIcPr9cRkCj5l6+6lYS7nQ0KfOljdguNymAEV2FAHYcm/5Kht4BaTVK
+         AB/qxs1cjIV4I5ylfpQgImgXbrVELD7Qj2AsdfH/2n1x2X0TJmrwvUprEdpBy8HyTxOx
+         I3H/3rCxnJjhH4osAcQ2H2G+Csm5A+YwcBGOAKcoxhXFdQsPWHdmQvUPiDgUvIsKNHT0
+         vSP4GZSTtCb9ylqoBA/EWXiamzXVaFAgo0edC9RAAekT379uc2H5oGvufld33FlqQg5f
+         L4DQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=8l7NTwnBa/qBZ75J/tfIMrDpdaYdy3USx9U0mSmwSsE=;
-        b=Z8weyv0B3meKrnPkYcKhgSnXv9w0oa81axjSB+XbfxRNqTqyyKVH1+MsleNWSy1oa/
-         c2SIeDFqEtP1hTD2wW17NFxGbxWKcVpe9ibSZpmf1EORog4f2mFcUKDEL+xBuglXY/wt
-         RMNMxsQOPVKb0n1Y7s5b0d6NsRvzEzn2QCG0gwVHM3Wmx/3cWbhqwmN8dHjHJ/+7RIzg
-         NH+rcco0v8+QsnjMZ04cQD07O9n29IdvG4Pv4tT5+/I3yJjZFi9B2fe5jRc6iGMYUTRw
-         Smy87s18ZK5KBb4UBrc8Ccx9X5rFJmdYwVidONNGacPOyfM/Pfs1Dh+kzHmGdFXKQ13B
-         bwhw==
-X-Gm-Message-State: AOAM530T5+xCLMXIM1W3XgvFmucWf3R4B2gDBj0GnZQMEfbW8t1/EqIc
-        jcYQwZD6dsPVobx6WXonY2nPxAiSzdk=
-X-Google-Smtp-Source: ABdhPJyyDm0ykUEc1iuiKCmRP6WI6dUaf3kX0L4tZcwQXwDRdeHFsy5u8CLm0LOdWNJ2qEEga954ig==
-X-Received: by 2002:a7b:c947:: with SMTP id i7mr10355988wml.179.1633196489380;
-        Sat, 02 Oct 2021 10:41:29 -0700 (PDT)
+        bh=TDptnlX5D3kk5KeBvQAiSIEzvz/mdqtpEDNI3MannFA=;
+        b=65p9NqvWoOCh5I11aouHnTLYCO/8F4GszhY0bzpWxDluC3b5mE/ZnCSDtn8yVJUTix
+         PUYeiQ//HU7wvRgp97EWIXj/6gmyHdCt5syyWNFvapya3atlqGsNHFegG0jDPgwj39KC
+         j4B5E3j+lnNGbOFX4CrgfeGvRk3L2IhtcaiR7FaSNZet4QjH92IrNxXZAtj9dMh8p0sd
+         5MfqW1GImyQ/YhgLm6UyluRECI460KG9gBsYEhA0FLBHsG+IpJYx6WnOvpaGJXfiw+vR
+         A/Kax+Eo4sl+yZ7H1ndoyzdgH+0bZmjoVN1ZMiiiC0443RnyaDO4T200P/kJ1Hik8RZt
+         i/IA==
+X-Gm-Message-State: AOAM531U79Ns9WTj8ngy4b91dKPKQcO4JAe8M5mDqjqMxV4agR15nP1Y
+        M1phvHV03Q1vwpqIhotmjd8=
+X-Google-Smtp-Source: ABdhPJwFBJNH+oKm6V02Fm9cyONB3sj9FfLlyZHD2MQVeVjjZ2I19mMWb7jYXJQbqyYlfKmxPZtZqQ==
+X-Received: by 2002:a7b:ce83:: with SMTP id q3mr10399372wmj.103.1633196693823;
+        Sat, 02 Oct 2021 10:44:53 -0700 (PDT)
 Received: from [10.8.0.30] ([195.53.121.100])
-        by smtp.gmail.com with ESMTPSA id l26sm11246921wmi.25.2021.10.02.10.41.28
+        by smtp.gmail.com with ESMTPSA id d24sm9094826wmb.35.2021.10.02.10.44.52
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 02 Oct 2021 10:41:29 -0700 (PDT)
-Subject: Re: [PATCH] fcntl.2: note that mandatory locking is fully deprecated
- as of v5.15
-To:     Jeff Layton <jlayton@kernel.org>
-Cc:     mtk.manpages@gmail.com, linux-fsdevel@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Jan Kara <jack@suse.cz>,
-        linux-man@vger.kernel.org
-References: <20211001121306.17339-1-jlayton@kernel.org>
+        Sat, 02 Oct 2021 10:44:53 -0700 (PDT)
+Subject: Re: [PATCH] unix.7: Add a description for ENFILE.
+To:     Kuniyuki Iwashima <kuniyu@amazon.co.jp>
+Cc:     Benjamin Herrenschmidt <benh@amazon.com>,
+        Kuniyuki Iwashima <kuni1840@gmail.com>,
+        linux-man@vger.kernel.org, netdev@vger.kernel.org,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+References: <20210929013841.1694-1-kuniyu@amazon.co.jp>
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <3a303b30-2f42-e76f-f9f5-74c188512955@gmail.com>
-Date:   Sat, 2 Oct 2021 19:41:27 +0200
+Message-ID: <206a26e5-0515-44b9-39cb-bc46013bfc6c@gmail.com>
+Date:   Sat, 2 Oct 2021 19:44:52 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.13.0
 MIME-Version: 1.0
-In-Reply-To: <20211001121306.17339-1-jlayton@kernel.org>
+In-Reply-To: <20210929013841.1694-1-kuniyu@amazon.co.jp>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -69,36 +69,48 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 10/1/21 2:13 PM, Jeff Layton wrote:
-> Cc: Jan Kara <jack@suse.cz>
-> Signed-off-by: Jeff Layton <jlayton@kernel.org>
-> ---
->   man2/fcntl.2 | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
+Hello Kuniyuki,
+
+On 9/29/21 3:38 AM, Kuniyuki Iwashima wrote:
+> When creating UNIX domain sockets, the kernel used to return -ENOMEM on
+> error where it should return -ENFILE.  The behaviour has been wrong since
+> 2.2.4 and fixed in the recent commit f4bd73b5a950 ("af_unix: Return errno
+> instead of NULL in unix_create1().").
 > 
-> diff --git a/man2/fcntl.2 b/man2/fcntl.2
-> index 7b5604e3a699..90e4c4a9f379 100644
-> --- a/man2/fcntl.2
-> +++ b/man2/fcntl.2
-> @@ -619,8 +619,8 @@ Because of these bugs,
->   and the fact that the feature is believed to be little used,
->   since Linux 4.5, mandatory locking has been made an optional feature,
->   governed by a configuration option
-> -.RB ( CONFIG_MANDATORY_FILE_LOCKING ).
-> -This is an initial step toward removing this feature completely.
-> +.RB ( CONFIG_MANDATORY_FILE_LOCKING ). This feature is no longer
-> +supported at all in Linux 5.15 and above.
+> Signed-off-by: Kuniyuki Iwashima <kuniyu@amazon.co.jp>
+> ---
+> Note to maintainers of man-pages, the commit is merged in the net tree [0]
+> but not in the Linus' tree yet.
+> 
+> [0]: https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git/commit/?id=f4bd73b5a950
 
-The same applies here.  Please use a newline after '.', as the previous 
-text did.
+Thanks!
 
-Thanks,
+The patch looks good to me, so could you ping back when this is merged 
+in Linus's tree?
+
+Cheers,
 
 Alex
 
->   .PP
->   By default, both traditional (process-associated) and open file description
->   record locks are advisory.
+> ---
+>   man7/unix.7 | 3 +++
+>   1 file changed, 3 insertions(+)
+> 
+> diff --git a/man7/unix.7 b/man7/unix.7
+> index 6d30b25cd..2dc96fea1 100644
+> --- a/man7/unix.7
+> +++ b/man7/unix.7
+> @@ -721,6 +721,9 @@ invalid state for the applied operation.
+>   called on an already connected socket or a target address was
+>   specified on a connected socket.
+>   .TP
+> +.B ENFILE
+> +The system-wide limit on the total number of open files has been reached.
+> +.TP
+>   .B ENOENT
+>   The pathname in the remote address specified to
+>   .BR connect (2)
 > 
 
 
