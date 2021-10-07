@@ -2,95 +2,107 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 1B123425C8F
-	for <lists+linux-man@lfdr.de>; Thu,  7 Oct 2021 21:46:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8B8A3425E7D
+	for <lists+linux-man@lfdr.de>; Thu,  7 Oct 2021 23:17:41 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233750AbhJGTs2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 7 Oct 2021 15:48:28 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47162 "EHLO
+        id S234065AbhJGVTe (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 7 Oct 2021 17:19:34 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39914 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S242128AbhJGTsU (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 7 Oct 2021 15:48:20 -0400
-Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com [IPv6:2607:f8b0:4864:20::636])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 96EA2C061570
-        for <linux-man@vger.kernel.org>; Thu,  7 Oct 2021 12:46:26 -0700 (PDT)
-Received: by mail-pl1-x636.google.com with SMTP id c4so4623365pls.6
-        for <linux-man@vger.kernel.org>; Thu, 07 Oct 2021 12:46:26 -0700 (PDT)
+        with ESMTP id S232200AbhJGVTe (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 7 Oct 2021 17:19:34 -0400
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com [IPv6:2a00:1450:4864:20::436])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C966BC061570
+        for <linux-man@vger.kernel.org>; Thu,  7 Oct 2021 14:17:39 -0700 (PDT)
+Received: by mail-wr1-x436.google.com with SMTP id u18so23157714wrg.5
+        for <linux-man@vger.kernel.org>; Thu, 07 Oct 2021 14:17:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=VfamF8Xw8zJXncTJSr8bwdKzt7MI7Wj8KizhjbmlHfo=;
-        b=dfDpSQX2HgsdCAfLaye4ILCnZ/m5afYMhGVwoEIurn4Ep1NIixABRGuqmRtIOTawoi
-         YE0n7+gZE6hFE8qtv3wcFzBdWXaHPfBncNEeuByV4Szp1cGad2oLENUn9vKomdlJmHMz
-         fbdwQXH/3AvsNzI+m+Ioyuj5VN5DmyzkwEuXMhQA4MFQw3ChyY5Z/rYpeOuIk2kPE2v7
-         O5IF6vqKMXe2jdFh2dSSTL/SuOPg8LTg8cXhCPTe2Vbq0RBz4HvX46WRxisDVC0XymVy
-         nOyDV53lJxHcCd8WJVhaxO+1xxyOlG8svq1Yt1h9Mjqb+X581Bch96JgcGOuuz3atLGk
-         qv2A==
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=0T8sKKnBv6+Y76yLpubZGMjzycIwVWGmKAhG8ixu8M0=;
+        b=E34Sf+39Mps7hBJbBOGDJ0lCwgs0TOChKCxZkYs5RPysu4vW1QiIagbcd4lIShj00q
+         W3tWlgquMV9XAer3gNMzLWobMhCUUDBpxi9Kot5w8Eq6FpmwywBFM23p7+rF2/aVZYiE
+         IKJPbuOjX7xXBx+00jFc+CqL9aqUC/GBSBsiyz1WCGR8eF0bq3SolwOLJDDAQOkj5UhH
+         Xr3J+D+B0IAG+SRHWjat+iDJjEJ5+DKUOkaoHT7X/WqmKLxpzZi86bfDACExV3dTRiKf
+         pgCGEw99+Q98PbkUC0jkXCIF3mQiC1FFiLeh9eVOj2MFZ6IXwNAWSancCYiyHhcsp8D5
+         8PFQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=VfamF8Xw8zJXncTJSr8bwdKzt7MI7Wj8KizhjbmlHfo=;
-        b=4jR6TLC7smAD4WFjtaloyS2O3dBI5Ut3i4/sEFU57RHnUsxUPtJ1IifaxcztyZre9i
-         Lb5zTbDiE3aBN/rshqfweiCtkanblDu2K0tpjoxV+O7JibiZ8651ggsGNsFevmmv6t9M
-         8ypcb+JqMtw/2yhQOESYKK6bNfyuSZcWQevDoQsbRhsLreWEwGvTOSeCwtGQEq23xQK/
-         V1NQRcUkPZ+CJecOITsxF+AOen6DvD1GPVL2n4iAakXM64RVQkHTQOGTmGoX1ZSqmbZ0
-         fgFRoPM7pfyHQMf1wYe+ow5AsGkGm6u2PZ85upP5l3GWXMK8cQnH8q41Kcf1ScnTSmfR
-         yeyg==
-X-Gm-Message-State: AOAM531K4k/Prmpg44Abu7qg8qHsYE5cwiV4gVV44UtO1GK3ICm79M1p
-        Gc76t8sQGvGZxwA3FEUSX3sYGg7JINi6U/RFtHY=
-X-Google-Smtp-Source: ABdhPJyfuBLDj7OuFf1cm22bkZZFoz7hPBmDVM3GfMJ2oreL0MBR7QpSCdTTtAqHhufrIiMtBaVidnLtsEvKKzM/zSY=
-X-Received: by 2002:a17:902:d707:b0:13d:bbe8:bcff with SMTP id
- w7-20020a170902d70700b0013dbbe8bcffmr5450605ply.75.1633635986099; Thu, 07 Oct
- 2021 12:46:26 -0700 (PDT)
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=0T8sKKnBv6+Y76yLpubZGMjzycIwVWGmKAhG8ixu8M0=;
+        b=2GSSOYrR3EGTbYyQx1fRnDI9xuh8X/LaXRuiCp8px0gqVNk410D4z4tp2KDjkU6Bvh
+         SeM8zfU7w+ZzOVqrQtQ0s9yfTGzLHzVv92L+zpZAyY3iO4wyycdJgCEpZruLKOQ3UCA+
+         4oSHjf6G/B45lQ4GK70Rug+wzqi+UipXcUiqdzsY1uQ9JsZnadmYt/fow7Oioea/uXmB
+         fTHflTyOI5dXMRioArYyguCuuM4+1S1arl5go9G7DA4uby4xrgKX8RXMa+pR1KNu9x0O
+         1FxoNU26EQz+QmkzY7R4Z2lmF29bgzE/5e/XPedBFrVTaZWWzH8+77FK1o0nl31MTMJ6
+         yqUg==
+X-Gm-Message-State: AOAM530OnJUQh6wYPJRRb03UMWPt1sZ5rhWezkwrgT5RGuqKnajoc5Sc
+        7e7Dox4Uirw+ERvYdRxWDDAUwIk/EYk=
+X-Google-Smtp-Source: ABdhPJzxIlY4Rm8I5IORsIGxCimnN0t/hqbD2zcbaNtD4t2WeSOxPKD0/EY8JV6HxdFg1XMh5/K4BQ==
+X-Received: by 2002:a5d:4eca:: with SMTP id s10mr1416400wrv.290.1633641458430;
+        Thu, 07 Oct 2021 14:17:38 -0700 (PDT)
+Received: from [10.8.0.18] ([195.53.121.100])
+        by smtp.gmail.com with ESMTPSA id z20sm463338wmi.42.2021.10.07.14.17.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 07 Oct 2021 14:17:37 -0700 (PDT)
+Subject: Re: Spelling Mistake msgctl Man Page
+To:     Jayprakash Ray <r.jay3283@gmail.com>
+Cc:     linux-man@vger.kernel.org, mtk.manpages@gmail.com
+References: <CALd6_3GMcr=nBo4YRmD63Urmy0=g52S5yd0CWzmHGhY3qTxySQ@mail.gmail.com>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Message-ID: <ed1df977-7d8d-d46f-0493-f77c8ae58cce@gmail.com>
+Date:   Thu, 7 Oct 2021 23:17:36 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-References: <20211007090914.8318-1-jwilk@jwilk.net>
-In-Reply-To: <20211007090914.8318-1-jwilk@jwilk.net>
-From:   Stefan Puiu <stefan.puiu@gmail.com>
-Date:   Thu, 7 Oct 2021 22:46:14 +0300
-Message-ID: <CACKs7VDW_yqqfk2rqqi1-up2gysAFCUcXRz2WmApp2kLpXjiTg@mail.gmail.com>
-Subject: Re: [PATCH] tzset.3: ffix
-To:     Jakub Wilk <jwilk@jwilk.net>
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
-        lnx-man <linux-man@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <CALd6_3GMcr=nBo4YRmD63Urmy0=g52S5yd0CWzmHGhY3qTxySQ@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Jakub and Alex,
+Hi Jayprakash,
 
-One quick question:
+On 10/7/21 4:42 PM, Jayprakash Ray wrote:
+> Hi Team,
+> If I am not mistaken, The highlighted text in the below image should be 
+> /*msqid_ds* . /
 
-On Thu, Oct 7, 2021 at 12:16 PM Jakub Wilk <jwilk@jwilk.net> wrote:
->
-> Use \- for minus sign
->
-> Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
-> ---
->  man3/tzset.3 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/man3/tzset.3 b/man3/tzset.3
-> index c80da53f8..694cd0ea9 100644
-> --- a/man3/tzset.3
-> +++ b/man3/tzset.3
-> @@ -111,7 +111,7 @@ There are no spaces in the specification.
->  The \fIstd\fP string specifies an abbreviation for the timezone and must be
->  three or more alphabetic characters.
->  When enclosed between the less-than (<) and greater-than (>) signs, the
-> -characters set is expanded to include the plus (+) sign, the minus (-)
-> +characters set is expanded to include the plus (+) sign, the minus (\-)
-
-Shouldn't this be 'character set'?
+Yep!  I fixed it with the following patch.
 
 Thanks,
-Stefan.
 
->  sign, and digits.
->  The \fIoffset\fP string immediately
->  follows \fIstd\fP and specifies the time value to be added to the local
-> --
-> 2.33.0
->
+Alex
+
+
+---
+     msgctl.2: tfix
+
+     Reported-by: Jayprakash Ray <r.jay3283@gmail.com>
+     Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+
+diff --git a/man2/msgctl.2 b/man2/msgctl.2
+index 72598dd4c..670a23399 100644
+--- a/man2/msgctl.2
++++ b/man2/msgctl.2
+@@ -73,7 +73,7 @@ struct msqid_ds {
+  .in
+  .PP
+  The fields of the
+-.I msgid_ds
++.I msqid_ds
+  structure are as follows:
+  .TP 11
+
+
+
+
+-- 
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
