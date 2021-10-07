@@ -2,68 +2,105 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id DCB39424FDD
-	for <lists+linux-man@lfdr.de>; Thu,  7 Oct 2021 11:15:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 23CBD425031
+	for <lists+linux-man@lfdr.de>; Thu,  7 Oct 2021 11:36:01 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S240509AbhJGJRm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 7 Oct 2021 05:17:42 -0400
-Received: from smtpout3.mo529.mail-out.ovh.net ([46.105.54.81]:57357 "EHLO
-        smtpout3.mo529.mail-out.ovh.net" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S240504AbhJGJRm (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 7 Oct 2021 05:17:42 -0400
-X-Greylist: delayed 388 seconds by postgrey-1.27 at vger.kernel.org; Thu, 07 Oct 2021 05:17:41 EDT
-Received: from mxplan6.mail.ovh.net (unknown [10.108.20.149])
-        by mo529.mail-out.ovh.net (Postfix) with ESMTPS id B06C1C2D8F54;
-        Thu,  7 Oct 2021 11:09:17 +0200 (CEST)
-Received: from jwilk.net (37.59.142.106) by DAG4EX2.mxp6.local (172.16.2.32)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.14; Thu, 7 Oct
- 2021 11:09:16 +0200
-Authentication-Results: garm.ovh; auth=pass (GARM-106R0069da50acc-498d-4a62-9c9b-61971c8b4976,
-                    3FBD16EB892736AF3B0553D918050AAA46B74386) smtp.auth=jwilk@jwilk.net
-X-OVh-ClientIp: 5.172.255.138
-From:   Jakub Wilk <jwilk@jwilk.net>
-To:     Michael Kerrisk <mtk.manpages@gmail.com>
-CC:     <linux-man@vger.kernel.org>
-Subject: [PATCH] tzset.3: ffix
-Date:   Thu, 7 Oct 2021 11:09:14 +0200
-Message-ID: <20211007090914.8318-1-jwilk@jwilk.net>
-X-Mailer: git-send-email 2.33.0
+        id S240600AbhJGJhx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 7 Oct 2021 05:37:53 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44100 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S240541AbhJGJhw (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 7 Oct 2021 05:37:52 -0400
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com [IPv6:2a00:1450:4864:20::42d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 45F2AC061746
+        for <linux-man@vger.kernel.org>; Thu,  7 Oct 2021 02:35:59 -0700 (PDT)
+Received: by mail-wr1-x42d.google.com with SMTP id e12so17106024wra.4
+        for <linux-man@vger.kernel.org>; Thu, 07 Oct 2021 02:35:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=sender:subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=mwoQcM5LVXvkREQWdaGwtg8PjCtzq1wX9wXNB9i2+z0=;
+        b=YMgHvuOHsJWdF6UvNSky2BGRDQv9AqFpnYeeDzxoGQ90DX9sRQT0MAN0zHmTV07DLZ
+         iLJolC2ImZ6VV3BmPcQ5yOAch/tW4U6sAPlPVyMWXLg8HPPB/zEM0tgFvX7W9D4im+c/
+         Scr1tfNteTnBY0UM/jIP2QHzjEA5jK3SaCVBhJPk+yxkdpVzxuJPtKVrtRezYVBQdWF0
+         a2pv6ohChLO8PXIHA6NO68js+1nr52WTyZan9Q0TyyHxqfBLdiQKsK82SEN6VhsF46sp
+         zdkVFgH5taBkwOExh4Yh7zPafli4vssln6Bw4m1Ave1YuiCMuhDcvJlAqqA++jYqpkIA
+         M7CQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:sender:subject:to:cc:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=mwoQcM5LVXvkREQWdaGwtg8PjCtzq1wX9wXNB9i2+z0=;
+        b=yld6EjaVqqlVLRKLdjM8cIqAmQTvY5fEd+XXg9EhNMRX7vw1/Mh3mDQZ/mX/ayum0k
+         kbjHWh0YAZ6t401C3tkRKQN5fauKUcNC/oVzUI+TBFAawr2V+1jBQ0KJta36HvJXtvDa
+         yOY6R/Kd0yKDFo61qPeZEFRZes3u9XS06d5wiBSX7bbVu6VQJSTiS+NIJ2JoljoDSgc6
+         sh0wO9ZMnTqtLWCGRfgwSes9qeEax6sCJrHi2s/tGdbWCmjLIld63i2pAl4xhw0OUMtA
+         UMXHhWOryAho7sAyajzmCZ2yTu0Iml5X8j5EtJ26SN6h5F38jTpE69H8uqmKbzTauiek
+         yLFw==
+X-Gm-Message-State: AOAM533Sbw2ieVIpx3eRaHm9R3j71iNkPjfkSyPZ+d8QUUZ+Jfgu/60x
+        IXrKMV9/UZSkgp56R2mjkd700QTYgO0=
+X-Google-Smtp-Source: ABdhPJz22vXq/E6BHbXIxd9ONv4XVZ0jJJ0UHkBuV6Tl818qHb1naDdfG6TDl8meRteGXVBBaNmoZA==
+X-Received: by 2002:a7b:c3cc:: with SMTP id t12mr15154529wmj.34.1633599357926;
+        Thu, 07 Oct 2021 02:35:57 -0700 (PDT)
+Received: from [10.8.0.18] ([195.53.121.100])
+        by smtp.gmail.com with ESMTPSA id z6sm12333653wmp.1.2021.10.07.02.35.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 07 Oct 2021 02:35:57 -0700 (PDT)
+Sender: Alejandro Colomar <alx.mailinglists@gmail.com>
+Subject: Re: [PATCH] tzset.3: ffix
+To:     Jakub Wilk <jwilk@jwilk.net>
+Cc:     linux-man@vger.kernel.org, Michael Kerrisk <mtk.manpages@gmail.com>
+References: <20211007090914.8318-1-jwilk@jwilk.net>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Message-ID: <9912ab07-b4ea-47f0-4b9e-1de93af95a55@gmail.com>
+Date:   Thu, 7 Oct 2021 11:35:56 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7BIT
-Content-Type:   text/plain; charset=US-ASCII
-X-Originating-IP: [37.59.142.106]
-X-ClientProxiedBy: DAG4EX2.mxp6.local (172.16.2.32) To DAG4EX2.mxp6.local
- (172.16.2.32)
-X-Ovh-Tracer-GUID: 9b04400b-7116-4da6-8338-733883e7974d
-X-Ovh-Tracer-Id: 13347824872957990877
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: 0
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvtddrudelkedguddvucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucenucfjughrpefhvffufffkofgggfgtihesthekredtredttdenucfhrhhomheplfgrkhhusgcuhghilhhkuceojhifihhlkhesjhifihhlkhdrnhgvtheqnecuggftrfgrthhtvghrnhepvdehjeejffejjedvkeehheejieelhffftdduteefheeukeeuiedvudehveehfefhnecukfhppedtrddtrddtrddtpdefjedrheelrddugedvrddutdeinecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmohguvgepshhmthhpqdhouhhtpdhhvghlohepmhigphhlrghniedrmhgrihhlrdhovhhhrdhnvghtpdhinhgvtheptddrtddrtddrtddpmhgrihhlfhhrohhmpehjfihilhhksehjfihilhhkrdhnvghtpdhrtghpthhtoheplhhinhhugidqmhgrnhesvhhgvghrrdhkvghrnhgvlhdrohhrgh
+In-Reply-To: <20211007090914.8318-1-jwilk@jwilk.net>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Use \- for minus sign
+Hello Jakub!
 
-Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
----
- man3/tzset.3 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On 10/7/21 11:09 AM, Jakub Wilk wrote:
+> Use \- for minus sign
+> 
+> Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
 
-diff --git a/man3/tzset.3 b/man3/tzset.3
-index c80da53f8..694cd0ea9 100644
---- a/man3/tzset.3
-+++ b/man3/tzset.3
-@@ -111,7 +111,7 @@ There are no spaces in the specification.
- The \fIstd\fP string specifies an abbreviation for the timezone and must be
- three or more alphabetic characters.
- When enclosed between the less-than (<) and greater-than (>) signs, the
--characters set is expanded to include the plus (+) sign, the minus (-)
-+characters set is expanded to include the plus (+) sign, the minus (\-)
- sign, and digits.
- The \fIoffset\fP string immediately
- follows \fIstd\fP and specifies the time value to be added to the local
+Patch applied!
+
+Thanks,
+
+Alex
+
+> ---
+>   man3/tzset.3 | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/man3/tzset.3 b/man3/tzset.3
+> index c80da53f8..694cd0ea9 100644
+> --- a/man3/tzset.3
+> +++ b/man3/tzset.3
+> @@ -111,7 +111,7 @@ There are no spaces in the specification.
+>   The \fIstd\fP string specifies an abbreviation for the timezone and must be
+>   three or more alphabetic characters.
+>   When enclosed between the less-than (<) and greater-than (>) signs, the
+> -characters set is expanded to include the plus (+) sign, the minus (-)
+> +characters set is expanded to include the plus (+) sign, the minus (\-)
+>   sign, and digits.
+>   The \fIoffset\fP string immediately
+>   follows \fIstd\fP and specifies the time value to be added to the local
+> 
+
+
 -- 
-2.33.0
-
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
