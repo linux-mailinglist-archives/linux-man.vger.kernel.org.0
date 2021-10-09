@@ -2,130 +2,93 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 46A0C427CD6
-	for <lists+linux-man@lfdr.de>; Sat,  9 Oct 2021 20:51:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id AE319427D3E
+	for <lists+linux-man@lfdr.de>; Sat,  9 Oct 2021 22:15:04 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230264AbhJISx2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 9 Oct 2021 14:53:28 -0400
-Received: from mail.kernel.org ([198.145.29.99]:51694 "EHLO mail.kernel.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S230240AbhJISx1 (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Sat, 9 Oct 2021 14:53:27 -0400
-Received: by mail.kernel.org (Postfix) with ESMTPS id 7A8EE61041
-        for <linux-man@vger.kernel.org>; Sat,  9 Oct 2021 18:51:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1633805490;
-        bh=db/lvH2hFRu6FRwfz5yV4FbXaR2AUQ6ov110dELteDc=;
-        h=From:To:Subject:Date:In-Reply-To:References:From;
-        b=X6QcVB8tSFeAx6kgaSOmIsuYOWBkfKRnqmzH1grk4PpU8s0Pf3V+5CaciN8/Uklgz
-         /1qv7gRGSXGFdkVsTI5XqBR0dWVnu+LfCBmp/8jkxTI9BmMagUVNoCeNErHEv1lgoA
-         8zWdVzMbJ7SjnGd76Cg+ADC65JQldcW3L/F+P6as4MUyfKZYosm9naXPNGx7en9KDb
-         m86ADq9vedpPLgokK1WhAy+S24K2pY9BtgOqvN9cv4qfVeXqoM5wqEKAn/mXzxC1tN
-         8L5rfYUQqqc7pitMJNnUOsXQ0j3L9yTT0IMBf+/AENWBGx/CarKmABZg9msVPoel9N
-         PfoZCm35P20dg==
-Received: by pdx-korg-bugzilla-2.web.codeaurora.org (Postfix, from userid 48)
-        id 73B7960FC4; Sat,  9 Oct 2021 18:51:30 +0000 (UTC)
-From:   bugzilla-daemon@bugzilla.kernel.org
-To:     linux-man@vger.kernel.org
-Subject: [Bug 214661] THREAD_SIZE on x86_64 is 4*PAGE_SIZE, not 2*PAGE_SIZE
-Date:   Sat, 09 Oct 2021 18:51:30 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: changed
-X-Bugzilla-Watch-Reason: AssignedTo
- documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Product: Documentation
-X-Bugzilla-Component: man-pages
-X-Bugzilla-Version: unspecified
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: normal
-X-Bugzilla-Who: alx.manpages@gmail.com
-X-Bugzilla-Status: NEW
-X-Bugzilla-Resolution: 
-X-Bugzilla-Priority: P1
-X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: 
-Message-ID: <bug-214661-11311-LCuPq2DS4r@https.bugzilla.kernel.org/>
-In-Reply-To: <bug-214661-11311@https.bugzilla.kernel.org/>
-References: <bug-214661-11311@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
+        id S230052AbhJIURA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 9 Oct 2021 16:17:00 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51008 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S229806AbhJIURA (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 9 Oct 2021 16:17:00 -0400
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com [IPv6:2a00:1450:4864:20::432])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id ACBDBC061570
+        for <linux-man@vger.kernel.org>; Sat,  9 Oct 2021 13:15:02 -0700 (PDT)
+Received: by mail-wr1-x432.google.com with SMTP id y3so7975780wrl.1
+        for <linux-man@vger.kernel.org>; Sat, 09 Oct 2021 13:15:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=jguk.org; s=google;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=hlvM/7A7UC3Q4kbswrHNibmJEtORmmh2gAsxGLI6BTs=;
+        b=h55KMg5b/0jPJsYuIRW3SdvtSZv0i8Z8JTar4Oka0+L/poR4H63ppT5TryKPokR7cK
+         t7q1l7WfCHkjI42f4CuS8xEBkpN2NG+XVHmRbivmOmt7WdLTurBORTZD/LIpTYOIPMbE
+         llxVZIQ0TG7hAgndVHGof6TwWm190Cn3RsTpBksmsRdXLZSbOa/47t4hJGA2WEQishxP
+         uUHtXt3SJEby78zhcBwuKCcJ44iCmp+8BbHN8FerD+FsXN9nOAZlzqKukGU7A+NjYtSY
+         JMaBH6KULBm3NLrEmKLxShM2A7P23odg9lVShc7EOczQDf3thAjl1Iy96lQNTTAOSJuF
+         hnQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=hlvM/7A7UC3Q4kbswrHNibmJEtORmmh2gAsxGLI6BTs=;
+        b=qJLPF/5JZW9MfVd68sO1yRsE6VuQ+x4dA9Trj3qxD+qaRMwOXVh1qoykK9zVS0+X4I
+         9+6/CNHi8Dn+1bgJsVBs/SeYbb0T7bQm+wHe5OUwLeDxu5ohR4/Zl/iEft4fzqIPXj+p
+         dNYyGk6S5nrpfDCoFbv7g3OgvZhxht4/dH4IX9otYw0Ox3jjoztEe/SC5kdoFlk6Xxu0
+         wky8lQpKUWIxlTdF6RZnGs0j2GzT31wT0do1eG1TCEAVo9uqxj34hoic4io8l0Y2zdZk
+         hWBxIv2zvT3S2OQTMxVKkg4reqz512AKWqYOH7j+Eg8fi3GIrt5fhHgKZFFyJkypNDIE
+         tOCg==
+X-Gm-Message-State: AOAM531ZNS7X5uF1dfepEh3sCbyluqVvgkzImOgk4dUdINrJU1LKNaR3
+        hy1eToAoQNkEQuMMVB92GYbkqDOuD6HwOQ==
+X-Google-Smtp-Source: ABdhPJygaS2Qadnkjlpb6Ghvrlep+JjCieprs6IXBnfaiYiqy5KfYycKe4WVB0vsa/7js4tGGe+ZSg==
+X-Received: by 2002:a05:600c:2193:: with SMTP id e19mr4843492wme.67.1633810501269;
+        Sat, 09 Oct 2021 13:15:01 -0700 (PDT)
+Received: from [192.168.0.12] (cpc87345-slou4-2-0-cust172.17-4.cable.virginm.net. [81.101.252.173])
+        by smtp.gmail.com with ESMTPSA id d16sm14995611wmb.2.2021.10.09.13.15.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 09 Oct 2021 13:15:00 -0700 (PDT)
+Subject: Re: should free() refer to posix_memalign?
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>
+References: <177c3be6-6bab-7e55-6fa5-fc0fc33ff3b2@jguk.org>
+ <3c8ceb24-dc7d-4f57-e532-f2abbb20da2d@gmail.com>
+ <bdd56782-05d4-d4b9-a9a7-81f8ee8749d9@jguk.org>
+ <6bfeeca4-66c7-6349-4009-e724c2eb2fd5@gmail.com>
+ <63fc78fe-ea5d-d351-0a2e-f05395e1cade@jguk.org>
+ <55349181-0ea8-0977-2d3a-a98688ff82de@gmail.com>
+From:   Jonny Grant <jg@jguk.org>
+Message-ID: <5be88935-1bde-58a0-e01a-40967c5c3041@jguk.org>
+Date:   Sat, 9 Oct 2021 21:15:00 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
+In-Reply-To: <55349181-0ea8-0977-2d3a-a98688ff82de@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-GB
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D214661
-
---- Comment #1 from Alejandro Colomar (man-pages) (alx.manpages@gmail.com) =
----
-CC +=3D LKML
-
-Hello,
-
-On 10/9/21 7:19 AM, bugzilla-daemon@bugzilla.kernel.org wrote:
-> https://bugzilla.kernel.org/show_bug.cgi?id=3D214661
->=20
->              Bug ID: 214661
->             Summary: THREAD_SIZE on x86_64 is 4*PAGE_SIZE, not 2*PAGE_SIZE
->             Product: Documentation
->             Version: unspecified
->            Hardware: All
->                  OS: Linux
->              Status: NEW
->            Severity: normal
->            Priority: P1
->           Component: man-pages
-
-This is incorrect.
-
-The internal kernel documentation is not part of the man-pages.
-I checked to see if the manual pages need an update, but I couldn't find=20
-anything about THREAD_SIZE:
-
-alx@sqli:~/src/linux/man-pages$ grep -rn THREAD_SIZE
-alx@sqli:~/src/linux/man-pages$
-
-I can't edit the component, so maybe you need to close the bug and open=20
-a new one in a different component.
-
-Anyway, thanks for the report!
-
-Alex
 
 
->            Assignee: documentation_man-pages@kernel-bugs.osdl.org
->            Reporter: me@ieevee.com
->          Regression: No
->=20
-> According to '/root/linux/arch/x86/include/asm/page_64_types.h', THREAD_S=
-IZE
-> on
-> x86_64 now is 4*PAGE_SIZE:
->=20
-> #ifdef CONFIG_KASAN
-> #define KASAN_STACK_ORDER 1
-> #else
-> #define KASAN_STACK_ORDER 0
-> #endif
->=20
-> #define THREAD_SIZE_ORDER       (2 + KASAN_STACK_ORDER)
-> #define THREAD_SIZE  (PAGE_SIZE << THREAD_SIZE_ORDER)
->=20
-> However, the Documentation/x86/kernel-stacks.rst shows that THREAD_SIZE on
-> x86_64 is 2*PAGE_SIZE:
->=20
-> Like all other architectures, x86_64 has a kernel stack for every
-> active thread.  These thread stacks are THREAD_SIZE (2*PAGE_SIZE) big.
->=20
-> I am not quite sure which is correct, Maybe the document needs an upgrade?
-> Thanks a lot for any reply.
->
+On 09/10/2021 19:39, Alejandro Colomar (man-pages) wrote:
+> Hi Jonny,
+> 
+> On 10/8/21 7:57 PM, Jonny Grant wrote:
+>> I noticed this page has a date  2021-03-22     for the 5.13 at the footer.
+> 
+> At each release (actualy, a couple of commits before the release), we run a script that, for each page, checks if a page has been modified during that release.
+> 
+> If it hasn't been modified, the page will keep its old page timestamp.
+> If it has been modified, it will be updated with a timestamp corresponding to the date of the to-be-released release.
+> 
+> So that date you're seeing is because malloc.3 hasn't been modified since version 5.11 (which was released on 2021-03-22).
+> 
+> See below some tree view of the history of man3/malloc.3 including releases to explain the above graphically.
 
---=20
-You may reply to this email to add a comment.
+Many thanks for the explanation Alex
 
-You are receiving this mail because:
-You are watching the assignee of the bug.=
+With kind regards
+Jonny
