@@ -2,103 +2,115 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B33BC428097
-	for <lists+linux-man@lfdr.de>; Sun, 10 Oct 2021 12:53:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1884B42809E
+	for <lists+linux-man@lfdr.de>; Sun, 10 Oct 2021 13:05:00 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231482AbhJJKzt (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 10 Oct 2021 06:55:49 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43280 "EHLO
+        id S231599AbhJJLGy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 10 Oct 2021 07:06:54 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45664 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231476AbhJJKzt (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 10 Oct 2021 06:55:49 -0400
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com [IPv6:2a00:1450:4864:20::42c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 23F08C061570
-        for <linux-man@vger.kernel.org>; Sun, 10 Oct 2021 03:53:51 -0700 (PDT)
-Received: by mail-wr1-x42c.google.com with SMTP id r7so45526807wrc.10
-        for <linux-man@vger.kernel.org>; Sun, 10 Oct 2021 03:53:51 -0700 (PDT)
+        with ESMTP id S231561AbhJJLGy (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 10 Oct 2021 07:06:54 -0400
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com [IPv6:2a00:1450:4864:20::42b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DC518C061570
+        for <linux-man@vger.kernel.org>; Sun, 10 Oct 2021 04:04:55 -0700 (PDT)
+Received: by mail-wr1-x42b.google.com with SMTP id k7so45455521wrd.13
+        for <linux-man@vger.kernel.org>; Sun, 10 Oct 2021 04:04:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:mime-version
+        d=scylladb-com.20210112.gappssmtp.com; s=20210112;
+        h=message-id:date:mime-version:user-agent:subject:content-language
+         :from:to:cc:references:organization:in-reply-to
          :content-transfer-encoding;
-        bh=9oTiHpy4U9hpuEoZ1bHLE3an0CPZV8uSlMFgo0TbpuU=;
-        b=WYkETbaCQqTFn0v1fH2Utk744kYZu0W4OvbukWcOBJxF67eCcexpbZZJfxNnFO4f38
-         PCJIKiaaz5efUXKAEn15UZ+/JXy2VnflY+IXoieSgfUN0HfVwtwTI6ln/R2StA3dQpf2
-         MkZeuGZIdtMo/iFYyJAXvlRxZun/r0IVgBhul6TrzenBoSQDdCwDZj2oR4biUX831JKC
-         ACF97WrBq/+PcmcVtoQqlt87owidsGndYfmGmBYVgpU9yCuCDRwm7FKwJumZHh871WHz
-         o1mWyqlEM142ZIDd3S94/jPgJbL+6ta+EFt9DnptkOSNr/qNdhxF9QPaEEH50h7Bf00e
-         JMjg==
+        bh=ycwZdkni0eKfrXP2FXBl27QWdKckuATYf0bGzvfXDXM=;
+        b=j+zkLd6EAbJVYO0ivUW0HE6e+oYXhnCGmTbxDh+XgA/MGql2qn+U5yya8jIDpwTK87
+         6rNd/Oe9cY0r5uLbtnEvc9PxzmI1tKhfNdenED9K9S0Rh30ro+l9/EYdNKLAYwhbb4/C
+         gAc8LzIXsXzh9oIJ8g4PgozfqztbB0GuJ0oPr2N+oxEezGONhqBWaFtvuSOZgWEx1n1G
+         h196lrumRltSAtxKRiTQfO9xfPe7o9oqZglMAMTm1KWHPLZ73BcB+qZux5hE4qtoDAvK
+         yKTrU+TSdiekl5cW9YMJa/nIDmDB6h+F00jOCpJ0OERZyllNLWQV3EiBBzRcHNpSZCdO
+         Op0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+         :content-language:from:to:cc:references:organization:in-reply-to
          :content-transfer-encoding;
-        bh=9oTiHpy4U9hpuEoZ1bHLE3an0CPZV8uSlMFgo0TbpuU=;
-        b=KgM3b3YCSctIVC/ERFdheLyKj8shundlQ1gUllrEjTw4h6mifOoRhWZ/8GOV4nBjta
-         B493siWgY4hdVaDyC/UuXezBbF7xDj01C6lAQwYNtKPZF5OUPNpFVHhPpPtEM5vZ/dk7
-         g342tHwSvSUiUkV+iWFNvOy48vpxkUgavKjbueXUGCrBk3cuoq32aNjVdMmQIaMZtyPR
-         axiEcRsYKGduBjvypQmDxXppvZ18atRyWkwdjEKF5W8RYPj0xNMe5joba1j3HOB14mPj
-         ME+x4PTnt5ls8I82MOrv4fZIVKgv5/o3YzaL3KcimyxvO60rG2t5e4dsc9s4znTyrM2o
-         gRlQ==
-X-Gm-Message-State: AOAM533TbYv3SGy2+y2q8lRTQZlpVXKEkXKS4imOqVBsS+sf31wbWIkv
-        i/UGIs8hrTOHx5du4THExLI=
-X-Google-Smtp-Source: ABdhPJzeYGQS5hPUV4z42ynNqaoBCVB51n8rIisfxlGX4uJ2DssnzxPpvdwvwZtBmfB9IW2PyUY+pQ==
-X-Received: by 2002:a1c:6a07:: with SMTP id f7mr13591709wmc.7.1633863229713;
-        Sun, 10 Oct 2021 03:53:49 -0700 (PDT)
-Received: from sqli.sqli.com ([195.53.121.100])
-        by smtp.googlemail.com with ESMTPSA id k6sm4890691wri.83.2021.10.10.03.53.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 10 Oct 2021 03:53:49 -0700 (PDT)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        libc-alpha@sourceware.org, Paul Eggert <eggert@cs.ucla.edu>
-Subject: [PATCH] ctime.3: mktime() may modify tm_hour due to tm_isdst
-Date:   Sun, 10 Oct 2021 12:52:46 +0200
-Message-Id: <20211010105245.53896-1-alx.manpages@gmail.com>
-X-Mailer: git-send-email 2.33.0
+        bh=ycwZdkni0eKfrXP2FXBl27QWdKckuATYf0bGzvfXDXM=;
+        b=vn+T/3Z0MwVUsP++OZCIEsQ6u4pXrhwVj1y4OHhZmeXkNyraonbKeixqC8b+G4KBIV
+         38lkRlXxvritdXeWQ/S5bMIxPCyBYBDCMmymnI/sGtCMK0nxDGoISMW6qEhcTp7oECx0
+         ItCXkg8lb4iQt1ygnXw7kAD+wdJihxLTRwC98IURMD6xDfFumRIScVHBoOEvHLA0Et1z
+         uEo85vGMTxMWTtSTec1+pMBZqWhVR0WknT/ZI6erMqrKOUem+NW3b1ikUi/Ym4x+rdpJ
+         JAeGmvz5O6Lii+ag4r3dwLzbknpVwCA877kjrjaE7wNJlLdxG/j8nBBIvtogFm2ao4QB
+         2T0Q==
+X-Gm-Message-State: AOAM533fgMEk9tSOcD2RkDATHfWCjQjXNlyEhQl9bDCa5G4+WzEnHOmY
+        gtbD8UGmgwDOgb0GEdN+8QuB9i2exyxULw==
+X-Google-Smtp-Source: ABdhPJyZibA51SXHMSK9SnCtEKORlSm/AIz/aFIymXWsIHhOnFkc93R49RTvl8zP5vnprbkEHZSSYQ==
+X-Received: by 2002:a1c:9a4d:: with SMTP id c74mr14374106wme.139.1633863894049;
+        Sun, 10 Oct 2021 04:04:54 -0700 (PDT)
+Received: from [10.0.0.1] (system.cloudius-systems.com. [199.203.229.89])
+        by smtp.gmail.com with ESMTPSA id t18sm4753914wrm.81.2021.10.10.04.04.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 10 Oct 2021 04:04:53 -0700 (PDT)
+Message-ID: <f8a6aac5-4b3d-24ee-da67-a16b9985bdf0@scylladb.com>
+Date:   Sun, 10 Oct 2021 14:04:52 +0300
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.1.0
+Subject: Re: [PATCH v1] perf_event_open.2: clarify and expand memory barrier
+ requirements
+Content-Language: en-US
+From:   Avi Kivity <avi@scylladb.com>
+To:     linux-man@vger.kernel.org
+Cc:     mingo@redhat.com
+References: <20210919173639.2100661-1-avi@scylladb.com>
+Organization: ScyllaDB
+In-Reply-To: <20210919173639.2100661-1-avi@scylladb.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-If the input DST value is the opposite of the one that mktime()
-uses, which comes from the current system timezone (see tzset(3)),
-mktime() will modify the hour (and if it's in a day limit, it may
-carry up to modify other fields) to normalize the time to the
-correct DST.
+Bump
 
-If a user wants to avoid this, it should use UTC time, which never
-has DST.  For that, setenv("TZ", "", 1); sets UTC time for the
-program.  After that, the program should specify that DST is not
-in effect, by setting tm_isdst to 0 (or let the system guess it
-with -1), since setting tm_isdst to a positive value will result
-in an error, (probably) due to mktime() considering that it is
-invalid to have DST enabled for UTC times.
-
-Cc: Paul Eggert <eggert@cs.ucla.edu>
-Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
----
- man3/ctime.3 | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/man3/ctime.3 b/man3/ctime.3
-index 0e2068a09..7a5714be8 100644
---- a/man3/ctime.3
-+++ b/man3/ctime.3
-@@ -260,6 +260,13 @@ normalized (so that, for example, 40 October is changed into 9 November);
- is set (regardless of its initial value)
- to a positive value or to 0, respectively,
- to indicate whether DST is or is not in effect at the specified time.
-+If the initial value of
-+.I tm_isdst
-+is inconsistent with the one set by
-+.BR mktime (),
-+.I tm_hour
-+(and possibly other fields)
-+will be modified to normalize the time to the correct DST.
- Calling
- .BR mktime ()
- also sets the external variable \fItzname\fP with
--- 
-2.33.0
-
+On 19/09/2021 20.36, Avi Kivity wrote:
+> perf_event_open(2) instructs the user to issue an rmb() after reading
+> data_head to ensure that user-space sees all writes to the memory
+> it reads. rmb() is a kernel-internal term that might not mean much
+> to the reader; and further it is too strict. It's enough to require
+> the weaker load-acquire fence. This is an industry standard term
+> that does not require the user to understand kernel terminology.
+>
+> In addition, require a store-release fence before writing data_tail.
+> This prevents the user's reads from being reordered with the kernel's
+> writes to the just-freed space. The documentation in <linux/perf_event.h>
+> also suggests doing this.
+>
+> Signed-off-by: Avi Kivity <avi@scylladb.com>
+> ---
+>   man2/perf_event_open.2 | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/man2/perf_event_open.2 b/man2/perf_event_open.2
+> index 81c1b10f2..db5ce746b 100644
+> --- a/man2/perf_event_open.2
+> +++ b/man2/perf_event_open.2
+> @@ -1837,18 +1837,19 @@ The value needs to be manually wrapped by the size of the mmap buffer
+>   before accessing the samples.
+>   .IP
+>   On SMP-capable platforms, after reading the
+>   .I data_head
+>   value,
+> -user space should issue an rmb().
+> +user space should issue a load-acquire fence.
+>   .TP
+>   .I data_tail
+>   When the mapping is
+>   .BR PROT_WRITE ,
+>   the
+>   .I data_tail
+>   value should be written by user space to reflect the last read data.
+> +Before writing, issue a store-release fence.
+>   In this case, the kernel will not overwrite unread data.
+>   .TP
+>   .IR data_offset " (since Linux 4.1)"
+>   .\" commit e8c6deac69629c0cb97c3d3272f8631ef17f8f0f
+>   Contains the offset of the location in the mmap buffer
