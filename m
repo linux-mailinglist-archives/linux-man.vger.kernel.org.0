@@ -2,66 +2,74 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id DCC664293CB
-	for <lists+linux-man@lfdr.de>; Mon, 11 Oct 2021 17:48:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id ACF4C429952
+	for <lists+linux-man@lfdr.de>; Tue, 12 Oct 2021 00:06:10 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S239137AbhJKPuz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 11 Oct 2021 11:50:55 -0400
-Received: from zimbra.cs.ucla.edu ([131.179.128.68]:49510 "EHLO
-        zimbra.cs.ucla.edu" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235795AbhJKPut (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 11 Oct 2021 11:50:49 -0400
-Received: from localhost (localhost [127.0.0.1])
-        by zimbra.cs.ucla.edu (Postfix) with ESMTP id 2D9301600C3;
-        Mon, 11 Oct 2021 08:40:29 -0700 (PDT)
-Received: from zimbra.cs.ucla.edu ([127.0.0.1])
-        by localhost (zimbra.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10032)
-        with ESMTP id DcWIn9wfH9Pl; Mon, 11 Oct 2021 08:40:28 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-        by zimbra.cs.ucla.edu (Postfix) with ESMTP id 8773D1600DD;
-        Mon, 11 Oct 2021 08:40:28 -0700 (PDT)
-X-Virus-Scanned: amavisd-new at zimbra.cs.ucla.edu
-Received: from zimbra.cs.ucla.edu ([127.0.0.1])
-        by localhost (zimbra.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10026)
-        with ESMTP id dlZPcayR6nGM; Mon, 11 Oct 2021 08:40:28 -0700 (PDT)
-Received: from [192.168.1.9] (cpe-172-91-119-151.socal.res.rr.com [172.91.119.151])
-        by zimbra.cs.ucla.edu (Postfix) with ESMTPSA id 5D00B1600C3;
-        Mon, 11 Oct 2021 08:40:28 -0700 (PDT)
-Subject: Re: [PATCH v2 2/2] timegm.3: Remove recommendation against use of
- timegm()
-To:     Alejandro Colomar <alx.manpages@gmail.com>, mtk.manpages@gmail.com,
-        linux-man@vger.kernel.org
-Cc:     libc-alpha@sourceware.org
-References: <a8e09a03-3eb2-d6c0-c662-e3db800fe2fc@gmail.com>
- <20211011111237.9414-2-alx.manpages@gmail.com>
-From:   Paul Eggert <eggert@cs.ucla.edu>
-Organization: UCLA Computer Science Department
-Message-ID: <15d7b96d-13d0-86c1-48f3-24a637ab8e30@cs.ucla.edu>
-Date:   Mon, 11 Oct 2021 08:40:28 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+        id S235494AbhJKWID (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 11 Oct 2021 18:08:03 -0400
+Received: from esa3.mentor.iphmx.com ([68.232.137.180]:61657 "EHLO
+        esa3.mentor.iphmx.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S235484AbhJKWIC (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 11 Oct 2021 18:08:02 -0400
+IronPort-SDR: U0o8ivc/fDwv2fHTF6iVbUrBJHiwFYtAStygWaBYpv8oBJOdyfzydtw11uuTs4OOcwwmuF2FDY
+ rvb0I5qehwz+6J76dJF0vv0lDzrGhd4f+3BbWJa4wUyPlK7gxtu8ip0B9f1ytiXspCtvIm1F1S
+ B6FbmYP1PAfQ286XTyaryEsvbxsU0dTfvcEID4PdI2N1EaUXUyg4uVkTmLbssa66mJAdboQJJS
+ pfO1ZLMYphRl+1OyAK/FYNy3qB0a/RpSLl6rn/MlXxdte948FASFolwuokKD6b4IXAkhyjbKDu
+ XzYpNoHIz+mvsEhVo6cHZfaG
+X-IronPort-AV: E=Sophos;i="5.85,365,1624348800"; 
+   d="scan'208";a="66911524"
+Received: from orw-gwy-02-in.mentorg.com ([192.94.38.167])
+  by esa3.mentor.iphmx.com with ESMTP; 11 Oct 2021 14:06:02 -0800
+IronPort-SDR: ESO+7lai8D0hY/a3Dy79/fed1noKqpH3UIBtwvJC3iCMH13Jt+MvH9Bq/0PVShPenW8FMHj4mv
+ sXTBKaFZI56KritK+NrUYSY3MKJ00LEjKUgQIf383pdUxjp3s3GfbymoC+Gm/BlSuHF7QBu5uu
+ y4h1bTTWeJBvXQ+NPoik86CQYoh0ThrO49cRvWsSNwpx8Q5mlbbwAVWlAUPUZv2VuZA/X2CAE1
+ VLDXfqA/fgdpPpjnm+2n/6DuL3ZCaL3VKHmXWtOz1BeBmdpOvns6klwfjUicIVEebLweltWkVR
+ S6M=
+Date:   Mon, 11 Oct 2021 22:05:55 +0000
+From:   Joseph Myers <joseph@codesourcery.com>
+X-X-Sender: jsm28@digraph.polyomino.org.uk
+To:     Paul Eggert <eggert@cs.ucla.edu>
+CC:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
+        <mtk.manpages@gmail.com>, <linux-man@vger.kernel.org>,
+        <libc-alpha@sourceware.org>
+Subject: Re: [PATCH] ctime.3: mktime() may modify tm_hour due to tm_isdst
+In-Reply-To: <6ccf0867-33fe-53f0-0bb9-bf25d09aabb6@cs.ucla.edu>
+Message-ID: <alpine.DEB.2.22.394.2110112204030.1524986@digraph.polyomino.org.uk>
+References: <20211010105245.53896-1-alx.manpages@gmail.com> <a8e09a03-3eb2-d6c0-c662-e3db800fe2fc@gmail.com> <6ccf0867-33fe-53f0-0bb9-bf25d09aabb6@cs.ucla.edu>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-In-Reply-To: <20211011111237.9414-2-alx.manpages@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed;
+        boundary="-1152306461-2123193157-1633989955=:1524986"
+X-Originating-IP: [137.202.0.90]
+X-ClientProxiedBy: svr-ies-mbx-01.mgc.mentorg.com (139.181.222.1) To
+ svr-ies-mbx-01.mgc.mentorg.com (139.181.222.1)
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 10/11/21 4:12 AM, Alejandro Colomar wrote:
+---1152306461-2123193157-1633989955=:1524986
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8BIT
 
-> time_t portable_timegm(struct tm *tm)
-> {
-> 	tm->tm_isdst = 0;
-> 	/*
-> 	 * If another thread modifies the timezone during the
-> 	 * execution of the line below, it will produce undefined
-> 	 * behavior.
-> 	 */
-> 	return mktime(tm) - timezone;
-> }
+On Mon, 11 Oct 2021, Paul Eggert wrote:
 
-This doesn't work for multiple reasons: it's not thread-safe, mktime 
-might set timezone even in a single-threaded app, and the subtraction 
-might overflow.
+> On 10/11/21 3:27 AM, Alejandro Colomar (man-pages) wrote:
+> > timegm(3) says that you should "avoid their use" because timegm(3) is a
+> > Linux and BSD extension, but its use can NOT be avoided (well, it can, but
+> > if not done very carefully, you are likely to introduce bugs due to
+> > setenv(3) not being thread-safe), so I'd remove that sentence from
+> > timegm(3).  I think it should be in POSIX.
+> 
+> No, NetBSD's mktime_z should be in POSIX, as it nicely generalizes both mktime
+> and timegm.
+
+Arguably ISO C (there's no obvious dependence on any concepts that are in 
+scope of POSIX but not of ISO C), but we're now past the deadline to 
+request document numbers for proposals to C23 (and while there's a 
+proposal to add timegm, there's no proposal to add functions using 
+explicit time zones).
+
+-- 
+Joseph S. Myers
+joseph@codesourcery.com
+---1152306461-2123193157-1633989955=:1524986--
