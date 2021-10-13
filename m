@@ -2,90 +2,71 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 602BC42B2BF
-	for <lists+linux-man@lfdr.de>; Wed, 13 Oct 2021 04:36:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DCC0442BBDA
+	for <lists+linux-man@lfdr.de>; Wed, 13 Oct 2021 11:43:56 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S236878AbhJMCio (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 12 Oct 2021 22:38:44 -0400
-Received: from mail.kernel.org ([198.145.29.99]:46428 "EHLO mail.kernel.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S236696AbhJMCio (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Tue, 12 Oct 2021 22:38:44 -0400
-Received: by mail.kernel.org (Postfix) with ESMTPS id D78A361040
-        for <linux-man@vger.kernel.org>; Wed, 13 Oct 2021 02:36:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1634092601;
-        bh=dxpGai/KUM3BDNHtMwc560mwGWcWkphQbkAf9A6bUo8=;
-        h=From:To:Subject:Date:From;
-        b=s92yAJ+D2OaT1FLVYYwaFt5EfkKP1fISKPS/k9NRJlNlXgJmYx96ux2xU24O7AaI5
-         45PwnghR2b1v7/0dX8oT4fFAeJ80RZNzoPqWsgx5Uiw0FViE/cXQbrgVsmErRmlkfY
-         p6nQxbYrnqV9nlyTFyRqt3Jz3MJX4bAbJvo6hKqMJ8p5TosaJ1gV/QdZTwgwo1FQos
-         kkwxdI2ZefW4dS9gvfRBAt+AxR27/HHpHAH4/hTKUa3kFOKuTTrnuU1rmpV5HGuA5X
-         Z+tJBA6qRnq4u06oWvWKSdw3UBSrgDy9AJJHHQAedHU2OoSw+4ZzuZz1LUR/zseX2X
-         sOzhvj9KeGKzA==
-Received: by pdx-korg-bugzilla-2.web.codeaurora.org (Postfix, from userid 48)
-        id D1462610CF; Wed, 13 Oct 2021 02:36:41 +0000 (UTC)
-From:   bugzilla-daemon@bugzilla.kernel.org
+        id S238388AbhJMJp4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 13 Oct 2021 05:45:56 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39716 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S237703AbhJMJp4 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 13 Oct 2021 05:45:56 -0400
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com [IPv6:2a00:1450:4864:20::42d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 28DC4C061570
+        for <linux-man@vger.kernel.org>; Wed, 13 Oct 2021 02:43:52 -0700 (PDT)
+Received: by mail-wr1-x42d.google.com with SMTP id e12so6258101wra.4
+        for <linux-man@vger.kernel.org>; Wed, 13 Oct 2021 02:43:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=to:from:subject:message-id:date:user-agent:mime-version
+         :content-transfer-encoding:content-language;
+        bh=e0Y90IFF8qnjRv9BJ8OePN7HyClV0ME2xLvcHc+niRU=;
+        b=IsirYX/0d1b2AZu0aldPQLuMyxmOBpyMO4iZMDse+BmNzhc8RYmWlDI6K6v4MGF92M
+         xNyfJBdpVYIu2SKaLNljpnC4i3S7dJuBnSQHnSqUR9mFMSswtfVxV5cNmIX5xg2vVwEZ
+         V6b9t2vFLXim7DlNvW9DPkTf/+xyDdTRWzi2bIuy1wLqtgrctB2i8+AqhqEKJhF1OVzk
+         Gz46ybeUsh08GpBJX1lLXMZX1tlnVG/HFVbO/DQFlfLV85NTkogKHCRMFChnnACdT0qj
+         xn5wNEqknjayKHMBGo4zcHbywzudYxefyT4PHjwdgAmHZCK2vsGixWPEGk1KbMj1Jc5K
+         A/Ag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:to:from:subject:message-id:date:user-agent
+         :mime-version:content-transfer-encoding:content-language;
+        bh=e0Y90IFF8qnjRv9BJ8OePN7HyClV0ME2xLvcHc+niRU=;
+        b=GMcW4GCCQpxt/+RMSrbGglX/kO5wxwItzvTH//vIoIPFg04/ny88oNaLC0SzPik4Ec
+         fVkkN4sdNvTBCz+x3JX+BqtaqypRVnvvmDW88ZvRdhk17fBzop/yAxWATaIHvYYwSM9b
+         nVPW48TInYEbtU975P1qmWR+o1OJyen9DGFKMuZJeLlNZHGsYfc4Dc2taF/EBqs8fwFZ
+         dmFWj1DdBMZs+1Y6zPMCcrdbKnKHfeKXMDSWPYd5+BMzWxfyEm9Kjo6XD8+DganNiqLe
+         FkAAButqcqTo1eIN8DbH+bqpq1fMlQiq9yOUn+Ay3XU+1bVl1x/SMv9J1qoahVCxdxUf
+         nPBQ==
+X-Gm-Message-State: AOAM533gwQGTLh9YlrQAXzHiMYeQ/kNi1tqE6BjJ5Mh5srhVpOOZKjaa
+        7BDvYi6o62RkU8y3lkw2WnUFe63f/Q4=
+X-Google-Smtp-Source: ABdhPJxrX8tb0FK7FbV+9C5s5BvqSCt+viShiFpDEGonfzbjhwDcmXOV42l4VgI3JwIB38VHW8zjWw==
+X-Received: by 2002:adf:a54f:: with SMTP id j15mr38039690wrb.218.1634118230627;
+        Wed, 13 Oct 2021 02:43:50 -0700 (PDT)
+Received: from [192.168.0.126] (cpc139384-aztw33-2-0-cust220.18-1.cable.virginm.net. [92.233.189.221])
+        by smtp.gmail.com with ESMTPSA id z79sm4848932wmc.17.2021.10.13.02.43.50
+        for <linux-man@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 13 Oct 2021 02:43:50 -0700 (PDT)
 To:     linux-man@vger.kernel.org
-Subject: [Bug 214705] New: execve(2) omits EACCES due to capabilities
-Date:   Wed, 13 Oct 2021 02:36:41 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: new
-X-Bugzilla-Watch-Reason: AssignedTo
- documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Product: Documentation
-X-Bugzilla-Component: man-pages
-X-Bugzilla-Version: unspecified
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: normal
-X-Bugzilla-Who: dspeyer@gmail.com
-X-Bugzilla-Status: NEW
-X-Bugzilla-Resolution: 
-X-Bugzilla-Priority: P1
-X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: bug_id short_desc product version rep_platform
- op_sys bug_status bug_severity priority component assigned_to reporter
- cf_regression
-Message-ID: <bug-214705-11311@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
+From:   20kdc <asdd2808@gmail.com>
+Subject: ipv6(7) is confusing about byte order
+Message-ID: <1a188546-e13c-3e63-026f-3bce1769e933@gmail.com>
+Date:   Wed, 13 Oct 2021 10:43:49 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D214705
+Hello, this is just a quick report:
 
-            Bug ID: 214705
-           Summary: execve(2) omits EACCES due to capabilities
-           Product: Documentation
-           Version: unspecified
-          Hardware: All
-                OS: Linux
-            Status: NEW
-          Severity: normal
-          Priority: P1
-         Component: man-pages
-          Assignee: documentation_man-pages@kernel-bugs.osdl.org
-          Reporter: dspeyer@gmail.com
-        Regression: No
+ipv6(7) is a bit confusing about the byte order in the sockaddr_in6 
+struct, particularly in regards to sin6_flowinfo, sin6_scope_id, and 
+other fields not in IPv4.
 
-The man page for execve lists only 4 reasons the syscall can fail with
-errno=3D=3DEACCES.  In fact, there is at least one more.  If the binary bei=
-ng
-executed has a setfattr'ed capability such as CAP_IPC_LOCK which is not
-supported in the caller's kernel namespace (docker container), execve will =
-fail
-with this error.
 
-I just spent a great deal of frustrating effort searching for a non-existent
-elf interpreter or mount-noexec issue because I trusted this man page.
-
---=20
-You may reply to this email to add a comment.
-
-You are receiving this mail because:
-You are watching the assignee of the bug.=
