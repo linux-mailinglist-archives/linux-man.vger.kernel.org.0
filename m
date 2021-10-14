@@ -2,58 +2,250 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2B34342C13B
-	for <lists+linux-man@lfdr.de>; Wed, 13 Oct 2021 15:18:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3CDD542D336
+	for <lists+linux-man@lfdr.de>; Thu, 14 Oct 2021 09:05:48 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229535AbhJMNU2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 13 Oct 2021 09:20:28 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33042 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231372AbhJMNU1 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 13 Oct 2021 09:20:27 -0400
-Received: from mail-qv1-xf2c.google.com (mail-qv1-xf2c.google.com [IPv6:2607:f8b0:4864:20::f2c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B214AC061570
-        for <linux-man@vger.kernel.org>; Wed, 13 Oct 2021 06:18:24 -0700 (PDT)
-Received: by mail-qv1-xf2c.google.com with SMTP id a16so1636905qvm.2
-        for <linux-man@vger.kernel.org>; Wed, 13 Oct 2021 06:18:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:reply-to:from:date:message-id:subject:to;
-        bh=al6XAYf3xgV7EvT9HypdOIqLT9itsltfAyMCMk7ObPU=;
-        b=VnXn3aVWTlUaKVVSbUHQ6QjOaJQtNpBod8NatQ4k40DHwEC5fOCrwRKOGNhHXLgnxs
-         m0PdRZC+IRlFGm8wFwel9qlaW5Kpvfro8JVeS1jRtwNNd4ivjZkaT7rMqEARZrbo5p9k
-         Vf8rTLSdeu4xXbV4GYyjtAAb7HnVGkPG0U4FecYW4lsEd+3Kdk/mCvMFylYRrqtESA6E
-         7oX1OQeyegzNXEW0PbkYekQXpuatbMvPFJAV6O0WOq3OoMmsCb6H3SIWxf/GpiWu/yPX
-         cfBC/wYWVJFDGabY9wN2hrqG4Q9PHQ9EaD+qJT7EQx6rnNdCwGELO2181qqjynhmF3bW
-         KcXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to;
-        bh=al6XAYf3xgV7EvT9HypdOIqLT9itsltfAyMCMk7ObPU=;
-        b=k/dt7Bv/XgQ8Hm+owc0S9nzh8Xflof8LwrR2aq0SylKPQcI9rvED7R+jeTEhoUeuEI
-         Q64a+SlGoaup9cO1MwD8TxMvZj+ik3PalCG2W489rtSkcNuuHdkOPiaIG5Sla3DGyqZh
-         pQ2mAsopO6B+LrdVLe7ZUwMv4SiwIhg7jTLfZ1X1mgVXfivGQ1tcsMkF0c7M36dSWSlH
-         HfU+h9T53NwN/5sh76Czq/7LhA0P39ET6K9al9X5VRAW9TmoDgOXMXeL6qMxgkyCXPzn
-         5goFBBu1Grga9iG0xioGPKZWmC11qP9S4+WK8FjOU/Ff6m+G1KeYLikxOeHwZfi2Ruh+
-         gm0Q==
-X-Gm-Message-State: AOAM533yhovf4SovZXWb1m/lbKvWalQXt4XX3BOw3FfwNAnw21qVK5Dm
-        f9r4Omty0JWu6EbV7eXuMZmr9SKhoq2xrYVUZ1Q=
-X-Google-Smtp-Source: ABdhPJyGWv6cOb2dHf69rNQf5077fiRhrryQwwigEgSnxVIYSl6+LWZQIecloiTWCk1FGI0gO2othc9jtOAT0zGzot4=
-X-Received: by 2002:ad4:5de9:: with SMTP id jn9mr36766686qvb.41.1634131103545;
- Wed, 13 Oct 2021 06:18:23 -0700 (PDT)
+        id S229984AbhJNHHv (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 14 Oct 2021 03:07:51 -0400
+Received: from pi.codeconstruct.com.au ([203.29.241.158]:38622 "EHLO
+        codeconstruct.com.au" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S229910AbhJNHHv (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 14 Oct 2021 03:07:51 -0400
+Received: by codeconstruct.com.au (Postfix, from userid 10000)
+        id EE4A920223; Thu, 14 Oct 2021 15:05:44 +0800 (AWST)
+From:   Jeremy Kerr <jk@codeconstruct.com.au>
+To:     linux-man@vger.kernel.org
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+Subject: [PATCH] mctp.7: Add man page for Linux MCTP support
+Date:   Thu, 14 Oct 2021 15:05:19 +0800
+Message-Id: <20211014070519.2037226-1-jk@codeconstruct.com.au>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Received: by 2002:a0c:8c44:0:0:0:0:0 with HTTP; Wed, 13 Oct 2021 06:18:22
- -0700 (PDT)
-Reply-To: ritagraham777@gmail.com
-From:   RITA GRAHAM <lucasedward1010@gmail.com>
-Date:   Wed, 13 Oct 2021 14:18:22 +0100
-Message-ID: <CAJ-y3pAy6kohgLwqvBquP9d5SEC+tZ3g6a+Z-uVfUHx_XpPjZg@mail.gmail.com>
-Subject: Hello!!
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Can We Do Business?
+This change adds a brief description for the new Management Component
+Transport Protocol (MCTP) support added to Linux as of bc49d8169.
+
+This is a fairly regular sockets-API implementation, so we're just
+describing the semantics of socket, bind, sendto and recvfrom for the
+new protocol.
+
+Signed-off-by: Jeremy Kerr <jk@codeconstruct.com.au>
+---
+ man7/address_families.7 |   7 ++
+ man7/mctp.7             | 181 ++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 188 insertions(+)
+ create mode 100644 man7/mctp.7
+
+diff --git a/man7/address_families.7 b/man7/address_families.7
+index 3e535e66d..3c8299e69 100644
+--- a/man7/address_families.7
++++ b/man7/address_families.7
+@@ -405,6 +405,13 @@ XDP (express data path) interface (since Linux 4.18).
+ See
+ .I Documentation/networking/af_xdp.rst
+ in the Linux kernel source tree for details.
++.TP
++.B AF_MCTP
++.\" commit: bc49d8169aa72295104f1558830c568efb946315
++MCTP (Management Component Transport Protocol) interface (since Linux 5.15),
++as defined by the DMTF specification DSP0236.
++For further information, see
++.BR mctp (7).
+ .SH SEE ALSO
+ .BR socket (2),
+ .BR socket (7)
+diff --git a/man7/mctp.7 b/man7/mctp.7
+new file mode 100644
+index 000000000..eb9b61cb9
+--- /dev/null
++++ b/man7/mctp.7
+@@ -0,0 +1,181 @@
++.\" Copyright (c) 2021 Jeremy Kerr <jk@codeconstruct.com.au>
++.\"
++.\" %%%LICENSE_START(GPLv2+_DOC_FULL)
++.\" This is free documentation; you can redistribute it and/or
++.\" modify it under the terms of the GNU General Public License as
++.\" published by the Free Software Foundation; either version 2 of
++.\" the License, or (at your option) any later version.
++.\"
++.\" The GNU General Public License's references to "object code"
++.\" and "executables" are to be interpreted as the output of any
++.\" document formatting or typesetting system, including
++.\" intermediate and printed output.
++.\"
++.\" This manual is distributed in the hope that it will be useful,
++.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
++.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++.\" GNU General Public License for more details.
++.\"
++.\" You should have received a copy of the GNU General Public
++.\" License along with this manual; if not, see
++.\" <http://www.gnu.org/licenses/>.
++.\" %%%LICENSE_END
++.\" commit: bc49d8169aa72295104f1558830c568efb946315
++.TH MCTP  7 2021-10-14 "Linux" "Linux Programmer's Manual"
++.SH NAME
++mctp \- Management Component Transport Protocol
++.SH SYNOPSIS
++.nf
++.B #include <sys/socket.h>
++.B #include <linux/mctp.h>
++.PP
++.B mctp_socket = socket(AF_MCTP, SOCK_DGRAM, 0);
++.fi
++.SH DESCRIPTION
++Linux implements the Management Component Transport Protocol (MCTP),
++specified by DMTF spec DSP0236, currently at version 1.
++This is a connectionless protocol, typically used between devices within a
++server system.  Message reliability and ordering are not guaranteed, but
++message boundaries are preserved.
++.PP
++The API for MCTP messaging uses a standard sockets interface, using the
++.BR sendto (2)
++and
++.BR recvfrom (2)
++classes of system calls to transfer messages.
++Messages may be fragmented into packets before transmission, and reassembled at
++the remote endpoint.
++This fragmentation and reassembly is transparent to userspace.
++.PP
++.SS Address format
++MCTP addresses (also referred to as EIDs, or Endpoint Identifiers) are
++single-byte values, typed as
++.BR mctp_eid_t .
++Packets between a local and remote endpoint are identified by the source
++and destination EIDs, plus a three-bit tag value.
++.PP
++Addressing data is passed in socket system calls through
++.B struct sockaddr\_mctp
++defined as:
++.PP
++.in +4n
++.EX
++typedef uint8_t        mctp_eid_t;
++
++struct mctp_addr {
++    mctp_eid_t         s_addr;
++};
++
++struct sockaddr_mctp {
++    unsigned short int smctp_family;  /* = AF_MCTP */
++    int                smctp_network; /* local network identifier */
++    struct mctp_addr   smctp_addr;    /* EID */
++    uint8_t            smctp_type;    /* message type byte */
++    uint8_t            smctp_tag;     /* tag value, including TO flag */
++};
++.EE
++.in
++.SS Sending messages
++Messages can be transmitted using the
++.BR sendto (2)
++and
++.BR sendmsg (2)
++system calls, by providing a
++.B struct sockaddr_mctp
++describing the addressing parameters.
++.PP
++.in +4n
++.EX
++struct sockaddr_mctp addr;
++ssize_t len;
++char *buf;
++
++/* set message destination */
++addr.smctp_family = AF_MCTP;
++addr.smctp_network = 0;
++addr.smctp_addr.s_addr = 8; /* remote EID */
++addr.smctp_tag = MCTP_TAG_OWNER;
++addr.smctp_type = MCTP_TYPE_ECHO; /* fictional message type */
++
++buf = "hello, world!"
++
++len = sendto(sd, buf, 13, 0,
++             (struct sockaddr_mctp *)&addr, sizeof(addr));
++.EE
++.in
++.PP
++Here, the sender owns the message tag; so
++.B MCTP_TAG_OWNER
++is used as the tag data.
++The kernel will allocate a specific tag value for this message.
++If no tag is available,
++.B sendto
++will return an error, with errno set to
++.BR EBUSY .
++This allocated tag remains associated with the socket, so that any replies to
++the sent message will be received by the same socket.
++.PP
++Sending a MCTP message requires the
++.B CAP_NET_RAW
++capability.
++.SS Receiving messages
++Messages can be received using the
++.BR recvfrom (2)
++and
++.BR recvmsg (2)
++system calls.
++.PP
++.in +4n
++.EX
++struct sockaddr_mctp addr;
++socklen_t addrlen;
++char buf[13];
++
++addrlen = sizeof(addr);
++
++len = recvfrom(sd, buf, sizeof(buf), 0,
++                (struct sockaddr_mctp *)&addr, &addrlen);
++.EE
++.in
++.PP
++In order to receive an incoming message, the receiver will need to either have
++previously sent a message to the same endpoint, or performed a
++.BR bind (2)
++to receive all messages of a certain type:
++.PP
++.in +4n
++.EX
++struct sockaddr_mctp addr;
++
++addr.smctp_family = AF_MCTP;
++addr.smctp_network = MCTP_NET_ANY;
++addr.smctp_addr.s_addr = MCTP_ADDR_ANY;
++addr.smctp_type = MCTP_TYPE_ECHO; /* our fictional 'echo' type */
++
++int rc = bind(sd, (struct sockaddr *)&addr, sizeof(addr));
++.EE
++.in
++.PP
++This call requires the
++.B CAP_NET_BIND_SERVICE
++capability, and will result in the socket receiving all messages sent to
++locally-assigned EIDs, for the specified message type.
++.PP
++After a
++.B recvfrom
++or
++.B recvmsg
++returns a success condition, the provided address argument will be populated
++with the sender's network and EID, as well as the tag value used for the
++message.
++Any reply to this message should pass the same address and tag value (with the
++TO bit cleared) to indicate that is is directed to the same remote endpoint.
++.SH SEE ALSO
++.BR socket (7)
++.PP
++The kernel source file
++.IR Documentation/networking/mctp.rst .
++.PP
++The DSP0236 specification, at
++.UR https://www.dmtf.org/standards/pmci
++.UE .
+-- 
+2.30.2
+
