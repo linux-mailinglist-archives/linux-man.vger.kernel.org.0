@@ -2,113 +2,236 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 49A8B42DB4E
-	for <lists+linux-man@lfdr.de>; Thu, 14 Oct 2021 16:18:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 99B0E42F7B2
+	for <lists+linux-man@lfdr.de>; Fri, 15 Oct 2021 18:08:51 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231783AbhJNOUe (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 14 Oct 2021 10:20:34 -0400
-Received: from mail.kernel.org ([198.145.29.99]:50368 "EHLO mail.kernel.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S231779AbhJNOUb (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Thu, 14 Oct 2021 10:20:31 -0400
-Received: by mail.kernel.org (Postfix) with ESMTPS id CF01161130
-        for <linux-man@vger.kernel.org>; Thu, 14 Oct 2021 14:18:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1634221105;
-        bh=h0eCMrlrLexKFOzbzK8+JqZjzHkNVxuO7Y6q7M1wSmE=;
-        h=From:To:Subject:Date:From;
-        b=Lg3Pg3ama0NaUycXzapFs894IkpUO9sTWeFDpX8govzSdR689BGxsy9FQp9N01FjU
-         BFAxruGkQeabXLfQI1S7I1DCN3Xp+yIrNCt3PVdgmvbbn1Q3V0KasGe5eF3eLf9EkV
-         IXRUAX93vaNwc2zCo5M0skN0Wb+OS4U2azv9EwSlNCIPnZ4P3kq3iMhKkufDdMSaD7
-         /K7F9O60VJ6X3VelmjvLDlXTplvtHx+9HQBabLIeyKPJTyXHE/nUD73ys/IzOvGHh/
-         Rw/FGdekj+RXZHFiAm6lzPrsuBTljyvBojKrJ/OrvovcS5lPYBD95DDIChxEapxvPg
-         V1ZBpUBt96GmQ==
-Received: by pdx-korg-bugzilla-2.web.codeaurora.org (Postfix, from userid 48)
-        id C945C60EE6; Thu, 14 Oct 2021 14:18:25 +0000 (UTC)
-From:   bugzilla-daemon@bugzilla.kernel.org
-To:     linux-man@vger.kernel.org
-Subject: [Bug 214721] New: initrd(4) man-page lacks information for kernel
- behaviour if linuxrc mounted an fs
-Date:   Thu, 14 Oct 2021 14:18:25 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: new
-X-Bugzilla-Watch-Reason: AssignedTo
- documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Product: Documentation
-X-Bugzilla-Component: man-pages
-X-Bugzilla-Version: unspecified
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: normal
-X-Bugzilla-Who: mishaparem@gmail.com
-X-Bugzilla-Status: NEW
-X-Bugzilla-Resolution: 
-X-Bugzilla-Priority: P1
-X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: bug_id short_desc product version rep_platform
- op_sys bug_status bug_severity priority component assigned_to reporter
- cf_regression
-Message-ID: <bug-214721-11311@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
+        id S241126AbhJOQK4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 15 Oct 2021 12:10:56 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50542 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S241123AbhJOQK4 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 15 Oct 2021 12:10:56 -0400
+Received: from mail-ua1-x92b.google.com (mail-ua1-x92b.google.com [IPv6:2607:f8b0:4864:20::92b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B81E2C061762
+        for <linux-man@vger.kernel.org>; Fri, 15 Oct 2021 09:08:49 -0700 (PDT)
+Received: by mail-ua1-x92b.google.com with SMTP id e2so18981774uax.7
+        for <linux-man@vger.kernel.org>; Fri, 15 Oct 2021 09:08:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=W/QqMDzHh53aqgUQsAFCEbvWMw4xb3zGnxTgFnVLaHY=;
+        b=avEwJ6czmdP44J5cY4NbKPfz+w2JUk0fF4KTTOQT+/W2ZypeoHXd1GWsf74Fjhbmcr
+         bvQsHPKvGYtGIaOFPCJxzSW4vmCiLt5xyHvNW1DqwrUMxpdwJh6uaxuBgaCWGTfl2/5/
+         L5aZYCLjkt/pl3O836bjCc+fQgt9dD0sJeHGjgTGLi8+zN9bkaDXAxUML1jpKZ5sGOTC
+         bqxMpF5zTv/mJkrw9xmDBzamrhCfoeBRAQt1x+WZdngYGyCemUYtCglL+/c/H+e16o6q
+         JJTOcbJ0eeXq0PO5t5RR1qtATg9ZX9AHVGXS3hqWtSmmfPrE+XZybxf3pzFPq9OYSxe3
+         e9lg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=W/QqMDzHh53aqgUQsAFCEbvWMw4xb3zGnxTgFnVLaHY=;
+        b=NZdhBcod0XRJuRPi1OCLHUew8AI0rSF7Cz0zBMTVqmMnWMG8xNzORYxDdUN1XWlmwW
+         SIJOpXmdS482hM4wlK0/WQ+GUllwmetLioCDUYQJZT6xrCUUyrIqZ4wv67O6jq8IpJFW
+         +VRLJ8BZVF8WGxovV/R1XJx1yXYtCtTP7jQj+yAV72xDjux1pbscJ5ALJe94uj5pA/Ja
+         TjlofqC77LQW6wJPCeuLPXxOcsKYNcM/X/jf9rrEBDWxs1zZeiiN8zge4UMcidSXwZhn
+         2dUdqTbN3CGAEZdezTDP7WbtAkzB447Syl+Dhc1VGTxQ6Y6K3roxTQP9LYh9dDoPnwTa
+         ulLg==
+X-Gm-Message-State: AOAM5320jQoxFj3pxilNe+fhngRhfNQUHxaBKYCBj392CdO/hkoforMZ
+        sklFZXfp4AzSG4pJIrLKnkm+l2ylhtVwRmBTGVCD+A==
+X-Google-Smtp-Source: ABdhPJwkjUXsiHNIoMmayekpggaXDFv9/MM+zPih+YHZ7w5sqG1Xsn6PTv0Qc2/UB34s0TKtFp8r1hMXlfa42RjJM88=
+X-Received: by 2002:a05:6102:1342:: with SMTP id j2mr14514063vsl.43.1634314128708;
+ Fri, 15 Oct 2021 09:08:48 -0700 (PDT)
 MIME-Version: 1.0
+References: <20210924235456.2413081-1-weiwan@google.com>
+In-Reply-To: <20210924235456.2413081-1-weiwan@google.com>
+From:   Wei Wang <weiwan@google.com>
+Date:   Fri, 15 Oct 2021 09:08:37 -0700
+Message-ID: <CAEA6p_CSbFFiEUQKy_n5dBd-oBWLq1L0CZYjECqBfjjkeQoSdg@mail.gmail.com>
+Subject: Re: [patch v3] tcp.7: Add description for TCP_FASTOPEN and
+ TCP_FASTOPEN_CONNECT options
+To:     Alejandro Colomar <alx.manpages@gmail.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        linux-man@vger.kernel.org
+Cc:     netdev@vger.kernel.org, Yuchung Cheng <ycheng@google.com>,
+        Neal Cardwell <ncardwell@google.com>,
+        Eric Dumazet <edumazet@google.com>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D214721
+On Fri, Sep 24, 2021 at 4:54 PM Wei Wang <weiwan@google.com> wrote:
+>
+> TCP_FASTOPEN socket option was added by:
+> commit 8336886f786fdacbc19b719c1f7ea91eb70706d4
+> TCP_FASTOPEN_CONNECT socket option was added by the following patch
+> series:
+> commit 065263f40f0972d5f1cd294bb0242bd5aa5f06b2
+> commit 25776aa943401662617437841b3d3ea4693ee98a
+> commit 19f6d3f3c8422d65b5e3d2162e30ef07c6e21ea2
+> commit 3979ad7e82dfe3fb94a51c3915e64ec64afa45c3
+> Add detailed description for these 2 options.
+> Also add descriptions for /proc entry tcp_fastopen and tcp_fastopen_key.
+>
+> Signed-off-by: Wei Wang <weiwan@google.com>
+> ---
 
-            Bug ID: 214721
-           Summary: initrd(4) man-page lacks information for kernel
-                    behaviour if linuxrc mounted an fs
-           Product: Documentation
-           Version: unspecified
-          Hardware: All
-                OS: Linux
-            Status: NEW
-          Severity: normal
-          Priority: P1
-         Component: man-pages
-          Assignee: documentation_man-pages@kernel-bugs.osdl.org
-          Reporter: mishaparem@gmail.com
-        Regression: No
+Hi Alex,
 
-Where:
-https://man7.org/linux/man-pages/man4/initrd.4.html
-Section: Boot-up operation
-Part: 6.
--AND-
-Section: NOTES
+Does this version look OK to you to apply?
+Let me know.
 
--OR-
-https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/man4/initr=
-d.4
-lines: 138-141
--AND-
-lines: 441-474
+Thanks.
+Wei
 
-What:
-initrd(4), Section Boot-up operation, part 6. (lines 138-141) says:
-"
-If /linuxrc is not executed or when /linuxrc terminates, the
-          normal root filesystem is mounted.  (If /linuxrc exits with
-          any filesystems mounted on the initial root filesystem, then
-          the behavior of the kernel is UNSPECIFIED.  See the NOTES
-          section for the current kernel behavior.)
-"
-However, the NOTES section (lines 441-474):
-Does NOT contain "current kernel behavior" if "/linuxrc exits with any
-filesystems mounted on the initial root filesystem".
-
-Proposed solution:
-Add a description of the current kernel behavior, when /linuxrc exits with =
-any
-filesystems mounted on the initial root filesystem.
-
---=20
-You may reply to this email to add a comment.
-
-You are receiving this mail because:
-You are watching the assignee of the bug.=
+>  man7/tcp.7 | 125 +++++++++++++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 125 insertions(+)
+>
+> diff --git a/man7/tcp.7 b/man7/tcp.7
+> index 0a7c61a37..bdd4a33ca 100644
+> --- a/man7/tcp.7
+> +++ b/man7/tcp.7
+> @@ -423,6 +423,28 @@ option.
+>  .\" Since 2.4.0-test7
+>  Enable RFC\ 2883 TCP Duplicate SACK support.
+>  .TP
+> +.IR tcp_fastopen  " (Bitmask; default: 0x1; since Linux 3.7)"
+> +Enables RFC\ 7413 Fast Open support.
+> +The flag is used as a bitmap with the following values:
+> +.RS
+> +.IP 0x1
+> +Enables client side Fast Open support
+> +.IP 0x2
+> +Enables server side Fast Open support
+> +.IP 0x4
+> +Allows client side to transmit data in SYN without Fast Open option
+> +.IP 0x200
+> +Allows server side to accept SYN data without Fast Open option
+> +.IP 0x400
+> +Enables Fast Open on all listeners without
+> +.B TCP_FASTOPEN
+> +socket option
+> +.RE
+> +.TP
+> +.IR tcp_fastopen_key " (since Linux 3.7)"
+> +Set server side RFC\ 7413 Fast Open key to generate Fast Open cookie
+> +when server side Fast Open support is enabled.
+> +.TP
+>  .IR tcp_ecn " (Integer; default: see below; since Linux 2.4)"
+>  .\" Since 2.4.0-test7
+>  Enable RFC\ 3168 Explicit Congestion Notification.
+> @@ -1202,6 +1224,109 @@ Bound the size of the advertised window to this value.
+>  The kernel imposes a minimum size of SOCK_MIN_RCVBUF/2.
+>  This option should not be used in code intended to be
+>  portable.
+> +.TP
+> +.BR TCP_FASTOPEN " (since Linux 3.6)"
+> +This option enables Fast Open (RFC\ 7413) on the listener socket.
+> +The value specifies the maximum length of pending SYNs
+> +(similar to the backlog argument in
+> +.BR listen (2)).
+> +Once enabled,
+> +the listener socket grants the TCP Fast Open cookie on incoming
+> +SYN with TCP Fast Open option.
+> +.IP
+> +More importantly it accepts the data in SYN with a valid Fast Open cookie
+> +and responds SYN-ACK acknowledging both the data and the SYN sequence.
+> +.BR accept (2)
+> +returns a socket that is available for read and write when the handshake
+> +has not completed yet.
+> +Thus the data exchange can commence before the handshake completes.
+> +This option requires enabling the server-side support on sysctl
+> +.IR net.ipv4.tcp_fastopen
+> +(see above).
+> +For TCP Fast Open client-side support,
+> +see
+> +.BR send (2)
+> +.B MSG_FASTOPEN
+> +or
+> +.B TCP_FASTOPEN_CONNECT
+> +below.
+> +.TP
+> +.BR TCP_FASTOPEN_CONNECT " (since Linux 4.11)"
+> +This option enables an alternative way to perform Fast Open on the active
+> +side (client).
+> +When this option is enabled,
+> +.BR connect (2)
+> +would behave differently depending on if a Fast Open cookie is available
+> +for the destination.
+> +.IP
+> +If a cookie is not available (i.e. first contact to the destination),
+> +.BR connect (2)
+> +behaves as usual by sending a SYN immediately,
+> +except the SYN would include an empty Fast Open cookie option to solicit a
+> +cookie.
+> +.IP
+> +If a cookie is available,
+> +.BR connect (2)
+> +would return 0 immediately but the SYN transmission is defered.
+> +A subsequent
+> +.BR write (2)
+> +or
+> +.BR sendmsg (2)
+> +would trigger a SYN with data plus cookie in the Fast Open option.
+> +In other words,
+> +the actual connect operation is deferred until data is supplied.
+> +.IP
+> +.B Note:
+> +While this option is designed for convenience,
+> +enabling it does change the behaviors and certain system calls might set
+> +different
+> +.I errno
+> +values.
+> +With cookie present,
+> +.BR write (2)
+> +or
+> +.BR sendmsg (2)
+> +must be called right after
+> +.BR connect (2)
+> +in order to send out SYN+data to complete 3WHS and establish connection.
+> +Calling
+> +.BR read (2)
+> +right after
+> +.BR connect (2)
+> +without
+> +.BR write (2)
+> +will cause the blocking socket to be blocked forever.
+> +.IP
+> +The application should  either set
+> +.B TCP_FASTOPEN_CONNECT
+> +socket option before
+> +.BR write (2)
+> +or
+> +.BR sendmsg (2)
+> +,
+> +or call
+> +.BR write (2)
+> +or
+> +.BR sendmsg (2)
+> +with
+> +.B MSG_FASTOPEN
+> +flag directly,
+> +instead of both on the same connection.
+> +.IP
+> +Here is the typical call flow with this new option:
+> +.IP
+> +.in +4n
+> +.EX
+> +s = socket();
+> +setsockopt(s, IPPROTO_TCP, TCP_FASTOPEN_CONNECT, 1, ...);
+> +connect(s);
+> +write(s); // write() should always follow connect() in order to trigger SYN to go out
+> +read(s)/write(s);
+> +...
+> +close(s);
+> +.EE
+> +.in
+> +.IP
+>  .SS Sockets API
+>  TCP provides limited support for out-of-band data,
+>  in the form of (a single byte of) urgent data.
+> --
+> 2.33.0.685.g46640cef36-goog
+>
