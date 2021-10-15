@@ -2,68 +2,67 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 5625D42FDAE
-	for <lists+linux-man@lfdr.de>; Fri, 15 Oct 2021 23:55:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0808B42FDCA
+	for <lists+linux-man@lfdr.de>; Sat, 16 Oct 2021 00:03:56 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S238674AbhJOV53 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 15 Oct 2021 17:57:29 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45598 "EHLO
+        id S243211AbhJOWFo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 15 Oct 2021 18:05:44 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47426 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229921AbhJOV52 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 15 Oct 2021 17:57:28 -0400
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com [IPv6:2a00:1450:4864:20::435])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BD63EC061570
-        for <linux-man@vger.kernel.org>; Fri, 15 Oct 2021 14:55:21 -0700 (PDT)
-Received: by mail-wr1-x435.google.com with SMTP id k7so28510911wrd.13
-        for <linux-man@vger.kernel.org>; Fri, 15 Oct 2021 14:55:21 -0700 (PDT)
+        with ESMTP id S235521AbhJOWFo (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 15 Oct 2021 18:05:44 -0400
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com [IPv6:2a00:1450:4864:20::429])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E9E1FC061570
+        for <linux-man@vger.kernel.org>; Fri, 15 Oct 2021 15:03:36 -0700 (PDT)
+Received: by mail-wr1-x429.google.com with SMTP id o20so28777314wro.3
+        for <linux-man@vger.kernel.org>; Fri, 15 Oct 2021 15:03:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=z1GK1t4EQF/MQ7VS+kzlTPLgCHx75ijcfnV4Bo0zSS8=;
-        b=YHVj5imS5bZG6Ap4YhqMAhYCNeWhnzBzjjEYP6wMiYpFz6p/sUMbrlnH6Mh2+wSGwc
-         tBpDg4/MtlQYja3vkeR8ZP3QWfRe8hYHu0OKRMFYn8qxFHImZTI56k3thYUJw/xv81NJ
-         tze4TEsveaHcN8qMuKjtJEsHcndf+TMzXZ+a5EpJCGYOjDPvB7scPsr6mT/2Sc1MiFah
-         wt4OA5ewCwjfpyeJSPHdrfdI9/lZSBGhzBJsEFsN4tK9Q319oxwmjXx80MqbmdBrVRcK
-         NwwSqI4L2XCEAg8Fs9D+n3TotqRIxchWwrZi6GgxdaHDPbhvml2PWUYiG+BRQht5y1Me
-         V7Lw==
+        bh=IBd88oDI8dEHLXfo7rpov0JJL9DY5R4kUIVwZxXFqWo=;
+        b=ECDu4NMTJyxi82Ydi/NjBOpgsFVo8d0/6wGMA9gfoIqeqbqpdGoUME6e5Znk7kr5gt
+         SQW1iJdYN0XsGPQBCncWsRw5IpQ8V8kFKXNSgVgzl8mRfn/PUomeY5bhC487w2cUbN1u
+         hME0v78iuI+jZZhg3GAatBUz1qJxvhMU6gtAIRbKIcmb0KZudiAqPveZFPeGt/h2V6Nf
+         vfeQPSwAjZnDIl13gOHCB4nQZc0+X0J0HcX4Hv0wI/wCj1jvRGMXSLZV+O9aC54NjY6Z
+         lz0RW9VhvcQuQQNEnO9JmCmaFPytERYkeDcNW+z4ga8o5s45+xavM8MxJNaDDYRUWws8
+         1KNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=z1GK1t4EQF/MQ7VS+kzlTPLgCHx75ijcfnV4Bo0zSS8=;
-        b=YM+190a9hy4G88Kb/WpHjT2AhAIZhHeK/Y+wN+8yJWE6a21bxrppjeCU4FVyIN8b1C
-         kqfoKyJkebmSLQBhxYgEK/xwdeZd18NFapLDdt3f81E1FKvW/k7t3bksWGoOkw212UzJ
-         6kCgIn1e5Y0OjgEL2MxEgqKZHp1nl64vg2IKgvIWrP5Mc6O4NPeg8npUd9VBpoxC5Wfo
-         wQ/nOXOowrsJr8jsJqG1Dxrd74USXIzOAayFewBukmR2LLN6Eq4jQ6yxHc0qjXdPsKry
-         bfJCJL73ur0HUlhBoperTUrhLR2u/va0uzH97pgxa8Wv5yL2EXkpMaJqt272qYxx6/7P
-         DAig==
-X-Gm-Message-State: AOAM532UOXCzsa0nGELL3CepLvGP1vsyKGqPga+NiGH2Fl3ghPCsROvJ
-        fyduGA3zen4gqh4Pl5VTxD0=
-X-Google-Smtp-Source: ABdhPJxN+KwNILWAm0FScXCx/pR6TofsE5feHcy7NLYtEzda/SYpKuWylTvGzp1VGWSO6z6H4E3grg==
-X-Received: by 2002:a5d:6e8d:: with SMTP id k13mr17555397wrz.295.1634334920422;
-        Fri, 15 Oct 2021 14:55:20 -0700 (PDT)
+        bh=IBd88oDI8dEHLXfo7rpov0JJL9DY5R4kUIVwZxXFqWo=;
+        b=cCFEuIu1Mwwkq4bA1U1Mt8Hs5L9j+gSNiJWaHEcwKetfKOQ3KDPiB7SDs/3w3R6Qi3
+         CPtG8vml1sMQNNKjnvEqfII+RSakV5EnYApvNTYI+5rE9HxmLMuPwwoWHW7wARZwUovM
+         Ftacojv3tdo3/q4kKlZotCVptK+eCHbYbVsl+kkZQek3gzYkH7HN2XBSp4/vdcAUW1Q7
+         3/FxXt0h0iwsKrso+S8eLM1iCSRPRx+EsDaBE6BEzGql/3sfBIMwVhje/rnvQwKx7dTS
+         4qoF99KpGgzHCQgksZtYjZLo3OOF5hJ3ZjkDSASFmUyI8J9CayXdvU3jdZwnUcl3/zT0
+         vvxw==
+X-Gm-Message-State: AOAM530S+xmw9NhFdaHpIYeUoi/xd4sI6AZYcJ/1PpuTKGcaRc2xwrcs
+        iURIk/25/1JIb7aFx9N5pky16sMgHVE=
+X-Google-Smtp-Source: ABdhPJwxQxnFGzOaiQedGbLnzFLCIVYsjHpbYll57iY3qMfb8ZTzZ1ZoMN3Te0OUKFOhHmDso8JEGA==
+X-Received: by 2002:adf:bc14:: with SMTP id s20mr17402307wrg.8.1634335415572;
+        Fri, 15 Oct 2021 15:03:35 -0700 (PDT)
 Received: from [10.168.10.11] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id h1sm5591244wmb.7.2021.10.15.14.55.19
+        by smtp.gmail.com with ESMTPSA id l20sm16497406wmq.42.2021.10.15.15.03.34
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 15 Oct 2021 14:55:20 -0700 (PDT)
-Subject: Re: [PATCH] ctime.3: mktime() may modify tm_hour due to tm_isdst
-To:     Joseph Myers <joseph@codesourcery.com>,
-        Paul Eggert <eggert@cs.ucla.edu>
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        libc-alpha@sourceware.org
-References: <20211010105245.53896-1-alx.manpages@gmail.com>
- <a8e09a03-3eb2-d6c0-c662-e3db800fe2fc@gmail.com>
- <6ccf0867-33fe-53f0-0bb9-bf25d09aabb6@cs.ucla.edu>
- <alpine.DEB.2.22.394.2110112204030.1524986@digraph.polyomino.org.uk>
+        Fri, 15 Oct 2021 15:03:35 -0700 (PDT)
+Subject: Re: [PATCH v2 2/2] timegm.3: Remove recommendation against use of
+ timegm()
+To:     Paul Eggert <eggert@cs.ucla.edu>
+Cc:     libc-alpha@sourceware.org, mtk.manpages@gmail.com,
+        linux-man@vger.kernel.org
+References: <a8e09a03-3eb2-d6c0-c662-e3db800fe2fc@gmail.com>
+ <20211011111237.9414-2-alx.manpages@gmail.com>
+ <15d7b96d-13d0-86c1-48f3-24a637ab8e30@cs.ucla.edu>
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <b84dbd5b-fc01-0d73-5ad1-a2735aa279e5@gmail.com>
-Date:   Fri, 15 Oct 2021 23:55:19 +0200
+Message-ID: <e46d9e6b-c2c8-66e3-6b18-f24ef718f59f@gmail.com>
+Date:   Sat, 16 Oct 2021 00:03:34 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.22.394.2110112204030.1524986@digraph.polyomino.org.uk>
+In-Reply-To: <15d7b96d-13d0-86c1-48f3-24a637ab8e30@cs.ucla.edu>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
@@ -71,44 +70,47 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Josepf and Paul,
+Hi Paul,
 
-On 10/12/21 12:05 AM, Joseph Myers wrote:
-> On Mon, 11 Oct 2021, Paul Eggert wrote:
+On 10/11/21 5:40 PM, Paul Eggert wrote:
+> On 10/11/21 4:12 AM, Alejandro Colomar wrote:
 > 
->> On 10/11/21 3:27 AM, Alejandro Colomar (man-pages) wrote:
->>> timegm(3) says that you should "avoid their use" because timegm(3) is a
->>> Linux and BSD extension, but its use can NOT be avoided (well, it can, but
->>> if not done very carefully, you are likely to introduce bugs due to
->>> setenv(3) not being thread-safe), so I'd remove that sentence from
->>> timegm(3).  I think it should be in POSIX.
->>
->> No, NetBSD's mktime_z should be in POSIX, as it nicely generalizes both mktime
->> and timegm.
-
-Hmm, I didn´t know that one either...  Yes, it seems a nicer interface 
-(and can be used to implement both mktime and timegm).
-
-I'd still remove the warning against timegm(3) in the man page, though.
-
+>> time_t portable_timegm(struct tm *tm)
+>> {
+>>     tm->tm_isdst = 0;
+>>     /*
+>>      * If another thread modifies the timezone during the
+>>      * execution of the line below, it will produce undefined
+>>      * behavior.
+>>      */
+>>     return mktime(tm) - timezone;
+>> }
 > 
-> Arguably ISO C (there's no obvious dependence on any concepts that are in
-> scope of POSIX but not of ISO C), but we're now past the deadline to
-> request document numbers for proposals to C23 (and while there's a
-> proposal to add timegm, there's no proposal to add functions using
-> explicit time zones).
-> 
+> This doesn't work for multiple reasons:
 
-Yes.
 
-On 10/11/21 5:37 PM, Paul Eggert wrote:
- > mktime_z should also be in glibc, but that's another story....
+> it's not thread-safe,
 
-BTW, I started implementing mktime_z(3) in my library, based mostly on 
-glibc's mktime(3) code.  When I have something working, I'll tell you in 
-case you want to pick it for glibc.
+Actually, since timegm(3) is implemented in terms of mktime(3), as far 
+as I could read from glibc code, the problem will be the same, I think. 
+  I don't understand why it wasn't the other way around; maybe it was 
+more complex internally...  But timegm(3) shouldn't need to depend on 
+environment variables.
 
-Cheers,
+> mktime might set timezone even in a single-threaded app,
+
+Yes, I should have called tzset() before the return line.
+
+> and the subtraction might overflow.
+
+Yup, casting to int64_t needed.  BTW, I had a look at mktime source 
+code, and it uses long, which might be 32 bits, and then there's a lot 
+of checking for overflow.  Wouldn't it be simpler to just implement 
+mktime(3) with int64_t internally?  Then, only at the return, cast it 
+implicitly to whatever time_t means, but int64_t would simplify the code 
+very much, I think.
+
+Thanks,
 
 Alex
 
