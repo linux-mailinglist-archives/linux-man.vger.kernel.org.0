@@ -2,80 +2,108 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E088D42FF69
-	for <lists+linux-man@lfdr.de>; Sat, 16 Oct 2021 02:20:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9654043041C
+	for <lists+linux-man@lfdr.de>; Sat, 16 Oct 2021 20:16:56 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S236329AbhJPAWm convert rfc822-to-8bit (ORCPT
-        <rfc822;lists+linux-man@lfdr.de>); Fri, 15 Oct 2021 20:22:42 -0400
-Received: from zimbra.cs.ucla.edu ([131.179.128.68]:47484 "EHLO
-        zimbra.cs.ucla.edu" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231881AbhJPAWl (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 15 Oct 2021 20:22:41 -0400
-Received: from localhost (localhost [127.0.0.1])
-        by zimbra.cs.ucla.edu (Postfix) with ESMTP id 4D0DE160106;
-        Fri, 15 Oct 2021 17:20:34 -0700 (PDT)
-Received: from zimbra.cs.ucla.edu ([127.0.0.1])
-        by localhost (zimbra.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10032)
-        with ESMTP id ih92w59bUxev; Fri, 15 Oct 2021 17:20:33 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-        by zimbra.cs.ucla.edu (Postfix) with ESMTP id 8FFC71600FD;
-        Fri, 15 Oct 2021 17:20:33 -0700 (PDT)
-X-Virus-Scanned: amavisd-new at zimbra.cs.ucla.edu
-Received: from zimbra.cs.ucla.edu ([127.0.0.1])
-        by localhost (zimbra.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10026)
-        with ESMTP id TeD0Dq0vb98d; Fri, 15 Oct 2021 17:20:33 -0700 (PDT)
-Received: from [192.168.1.9] (cpe-172-91-119-151.socal.res.rr.com [172.91.119.151])
-        by zimbra.cs.ucla.edu (Postfix) with ESMTPSA id 66EE91600EA;
-        Fri, 15 Oct 2021 17:20:33 -0700 (PDT)
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     libc-alpha@sourceware.org, mtk.manpages@gmail.com,
-        linux-man@vger.kernel.org
-References: <a8e09a03-3eb2-d6c0-c662-e3db800fe2fc@gmail.com>
- <20211011111237.9414-2-alx.manpages@gmail.com>
- <15d7b96d-13d0-86c1-48f3-24a637ab8e30@cs.ucla.edu>
- <e46d9e6b-c2c8-66e3-6b18-f24ef718f59f@gmail.com>
-From:   Paul Eggert <eggert@cs.ucla.edu>
-Organization: UCLA Computer Science Department
-Subject: Re: [PATCH v2 2/2] timegm.3: Remove recommendation against use of
- timegm()
-Message-ID: <38fa4e31-f70d-f3f3-e964-b4831b750271@cs.ucla.edu>
-Date:   Fri, 15 Oct 2021 17:20:33 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+        id S234397AbhJPSTD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 16 Oct 2021 14:19:03 -0400
+Received: from mail.kernel.org ([198.145.29.99]:53528 "EHLO mail.kernel.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S234320AbhJPSTD (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Sat, 16 Oct 2021 14:19:03 -0400
+Received: by mail.kernel.org (Postfix) with ESMTPS id 0563D61184
+        for <linux-man@vger.kernel.org>; Sat, 16 Oct 2021 18:16:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1634408215;
+        bh=GgFdCYPYmsbYzwMoUQfvStUfizU3sKPAHzOUCmcBDSk=;
+        h=From:To:Subject:Date:In-Reply-To:References:From;
+        b=pfpd3ysvILLO9FmqfQ40epIq/HjQIDFHaYQ0DH43sRnu008EANzMJdLvUuBjDq4KS
+         BrKoqKmeUCzjR8zarWkiu3E2VV4MwYw3aIfabUENtALGHmiVyAIgNTgo7gHg/fQrm1
+         QYQpN+K73gOXN5RD40yhMFSgot7N8TXRlHvzyk/8j9CX7qq2yO7ihv3K2IyQzbHuAc
+         QHh0co2XR0NQD001HaK9gvtix+VzFQ3hDmKOAimdf9DWSiUHzOpHDCUXh+00E5ffbo
+         jKEzCEjkpdqZvCRMPJSQvX5TcrKGytpBybrAUzylEMjysVt8QYc4cCd36cAOH3LcPa
+         w661t9EYPtXTQ==
+Received: by pdx-korg-bugzilla-2.web.codeaurora.org (Postfix, from userid 48)
+        id F3BCA60F9C; Sat, 16 Oct 2021 18:16:54 +0000 (UTC)
+From:   bugzilla-daemon@bugzilla.kernel.org
+To:     linux-man@vger.kernel.org
+Subject: [Bug 214705] execve(2) omits EACCES due to capabilities
+Date:   Sat, 16 Oct 2021 18:16:54 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Documentation
+X-Bugzilla-Component: man-pages
+X-Bugzilla-Version: unspecified
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: dspeyer@gmail.com
+X-Bugzilla-Status: NEW
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P1
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: 
+Message-ID: <bug-214705-11311-GMsuH1ZvcI@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-214705-11311@https.bugzilla.kernel.org/>
+References: <bug-214705-11311@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 MIME-Version: 1.0
-In-Reply-To: <e46d9e6b-c2c8-66e3-6b18-f24ef718f59f@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8BIT
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 10/15/21 3:03 PM, Alejandro Colomar (man-pages) wrote:
+https://bugzilla.kernel.org/show_bug.cgi?id=3D214705
 
-> Actually, since timegm(3) is implemented in terms of mktime(3), as far as I could read from glibc code, the problem will be the same, I think.
+--- Comment #2 from Daniel Speyer (dspeyer@gmail.com) ---
+dspeyer@dspeyerheim:~$ sudo docker run -it ubuntu /bin/bash
+root@8b839371814b:/# apt-get update > /dev/null
+root@8b839371814b:/# apt-get install libcap2-bin -y >/dev/null
+debconf: delaying package configuration, since apt-utils is not installed
+root@8b839371814b:/# setcap cap_ipc_lock=3D+eip  /usr/bin/ls
+root@8b839371814b:/# ls
+bash: /usr/bin/ls: Operation not permitted
 
-No, because another thread could setenv ("TZ", ...) between the time 
-that you call mktime and the time you look at the 'timezone' variable. 
-So even though mktime itself is thread-safe, the expression 'mktime(tm) 
-- timezone' is not.
+I've confirmed with a small c program that bash is passing on execve's
+error message correctly, but copy pasting the c program would be
+inconvenient right now.
 
-> But timegm(3) shouldn't need to depend on environment variables.
+On Fri, Oct 15, 2021 at 6:10 PM <bugzilla-daemon@bugzilla.kernel.org> wrote:
 
-It does depend, if leap seconds are involved.
+> https://bugzilla.kernel.org/show_bug.cgi?id=3D214705
+>
+> Alejandro Colomar (man-pages) (alx.manpages@gmail.com) changed:
+>
+>            What    |Removed                     |Added
+>
+> -------------------------------------------------------------------------=
+---
+>                  CC|                            |alx.manpages@gmail.com
+>
+> --- Comment #1 from Alejandro Colomar (man-pages) (alx.manpages@gmail.com)
+> ---
+> Hello Daniel,
+>
+> Tracking the paths that can lead to an error is difficult.  Could you
+> share the
+> results of your investigation?  I'd like to check it in the source code.
+>
+> Thanks,
+>
+> Alex
+>
+> --
+> You may reply to this email to add a comment.
+>
+> You are receiving this mail because:
+> You reported the bug.
 
->> and the subtraction might overflow.
-> 
-> Yup, casting to int64_t needed.
+--=20
+You may reply to this email to add a comment.
 
-That would help, but it still wouldn't suffice. It'd mishandle -1 
-returns, for example. Plus, we're better of not putting today's hardware 
-assumptions into code (suppose int is 64 bits in future machines?).
-
-> BTW, I had a look at mktime source 
-> code, and it uses long, which might be 32 bits, and then there's a lot 
-> of checking for overflow.
-
-mktime uses long_int, which is not necessarily 'long'. And no matter 
-what type you pick, it could overflow on some platform, even if it's an 
-only-hypothetical platform now.
+You are receiving this mail because:
+You are watching the assignee of the bug.=
