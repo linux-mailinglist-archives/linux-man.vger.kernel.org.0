@@ -2,113 +2,80 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 849CB42FDEE
-	for <lists+linux-man@lfdr.de>; Sat, 16 Oct 2021 00:12:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E088D42FF69
+	for <lists+linux-man@lfdr.de>; Sat, 16 Oct 2021 02:20:35 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S238736AbhJOWO0 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 15 Oct 2021 18:14:26 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49460 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S238728AbhJOWOT (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 15 Oct 2021 18:14:19 -0400
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com [IPv6:2a00:1450:4864:20::431])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AEA14C061570;
-        Fri, 15 Oct 2021 15:12:11 -0700 (PDT)
-Received: by mail-wr1-x431.google.com with SMTP id t2so28753115wrb.8;
-        Fri, 15 Oct 2021 15:12:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=5Zw4hHOyRi0nLRM8juyCHho35C6rylEb93NkGLQjKtk=;
-        b=CpaNiIj4t6zU70wY6P1PJpSopESDjMOAkejSkehdpBJg1WOVRHslUlXnYB+12L0gxJ
-         ghZki0iSEgEevMDwJ4ot1JoQdJHZFBjzHYTliD0cDAYOHeJ+TZ9Kvo3xyQg5CFI1BDV2
-         SaHBOMNXqEvoU4gulqULJCWMHjL0qNttN6vsA1sTgl3BYVqpes8sx2E79g6qo3XoESt4
-         UX9fpGTvtIjvHkCaqa7KYjzhdBk8ybfZqUraqVRt2WFDsKd2Oo8eu3By1vkBgBWtK0av
-         CN0Y6SGC9yq00dXY7RsirnIcpLDsTFq0g2+laUX3Aui9vrF6GGgyGsd/vsOPhp+ne2zG
-         N3Gw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=5Zw4hHOyRi0nLRM8juyCHho35C6rylEb93NkGLQjKtk=;
-        b=Rlc8TH46ie89TXVNuqfsiJeIf7OKN8BwxcUwPNWpO3plVFzbcl65xw6dOp7YMqcT4n
-         SVP2QqNclhjxfA/CKHHx7ZFtbyoOh6WmBOzeBLWB8rjlGy/NQGpvIpRsrJpfc7D/qX/l
-         KU+oE0gLJHGDp+79E0TrBFEFl1ApBHKMFRhy81lAjlQPtv6f1Kp7btyknjCaoUdqxbWO
-         7PINkxQDh4gfNEEtIgFlfZsx1STHizy/RwElAOQ9DfjSD7ryhOBbrXN3OddiQq0ZTQCR
-         b0ghzqwZq1UzmADBWqRxMdGMkCO+pdTVin48gJ459TzTeYNdh5hpulozvcfePGnMWUl0
-         NdOA==
-X-Gm-Message-State: AOAM5307RFD9CosPso/Dth2Nh7HvBM1l3nYw3upWYnEsoE9rO9LkCE7+
-        NI8mLku3sEcGdZYFVdaFB3U=
-X-Google-Smtp-Source: ABdhPJwFQCk6fViYQH3XJn1mNLyZuOQ9HIGUhWyUsc9anVzh0zcbDCeIe1MBe00rpt9powWjPcO7cw==
-X-Received: by 2002:a05:6000:1aca:: with SMTP id i10mr17972370wry.207.1634335930337;
-        Fri, 15 Oct 2021 15:12:10 -0700 (PDT)
-Received: from [10.168.10.11] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id e8sm8497159wrg.48.2021.10.15.15.12.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 15 Oct 2021 15:12:10 -0700 (PDT)
-Subject: Re: [patch v3] tcp.7: Add description for TCP_FASTOPEN and
- TCP_FASTOPEN_CONNECT options
-To:     Wei Wang <weiwan@google.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
+        id S236329AbhJPAWm convert rfc822-to-8bit (ORCPT
+        <rfc822;lists+linux-man@lfdr.de>); Fri, 15 Oct 2021 20:22:42 -0400
+Received: from zimbra.cs.ucla.edu ([131.179.128.68]:47484 "EHLO
+        zimbra.cs.ucla.edu" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S231881AbhJPAWl (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 15 Oct 2021 20:22:41 -0400
+Received: from localhost (localhost [127.0.0.1])
+        by zimbra.cs.ucla.edu (Postfix) with ESMTP id 4D0DE160106;
+        Fri, 15 Oct 2021 17:20:34 -0700 (PDT)
+Received: from zimbra.cs.ucla.edu ([127.0.0.1])
+        by localhost (zimbra.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10032)
+        with ESMTP id ih92w59bUxev; Fri, 15 Oct 2021 17:20:33 -0700 (PDT)
+Received: from localhost (localhost [127.0.0.1])
+        by zimbra.cs.ucla.edu (Postfix) with ESMTP id 8FFC71600FD;
+        Fri, 15 Oct 2021 17:20:33 -0700 (PDT)
+X-Virus-Scanned: amavisd-new at zimbra.cs.ucla.edu
+Received: from zimbra.cs.ucla.edu ([127.0.0.1])
+        by localhost (zimbra.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10026)
+        with ESMTP id TeD0Dq0vb98d; Fri, 15 Oct 2021 17:20:33 -0700 (PDT)
+Received: from [192.168.1.9] (cpe-172-91-119-151.socal.res.rr.com [172.91.119.151])
+        by zimbra.cs.ucla.edu (Postfix) with ESMTPSA id 66EE91600EA;
+        Fri, 15 Oct 2021 17:20:33 -0700 (PDT)
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Cc:     libc-alpha@sourceware.org, mtk.manpages@gmail.com,
         linux-man@vger.kernel.org
-Cc:     netdev@vger.kernel.org, Yuchung Cheng <ycheng@google.com>,
-        Neal Cardwell <ncardwell@google.com>,
-        Eric Dumazet <edumazet@google.com>
-References: <20210924235456.2413081-1-weiwan@google.com>
- <CAEA6p_CSbFFiEUQKy_n5dBd-oBWLq1L0CZYjECqBfjjkeQoSdg@mail.gmail.com>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <6c5ac9d3-9e9a-12aa-7dc8-d89553790e7b@gmail.com>
-Date:   Sat, 16 Oct 2021 00:12:08 +0200
+References: <a8e09a03-3eb2-d6c0-c662-e3db800fe2fc@gmail.com>
+ <20211011111237.9414-2-alx.manpages@gmail.com>
+ <15d7b96d-13d0-86c1-48f3-24a637ab8e30@cs.ucla.edu>
+ <e46d9e6b-c2c8-66e3-6b18-f24ef718f59f@gmail.com>
+From:   Paul Eggert <eggert@cs.ucla.edu>
+Organization: UCLA Computer Science Department
+Subject: Re: [PATCH v2 2/2] timegm.3: Remove recommendation against use of
+ timegm()
+Message-ID: <38fa4e31-f70d-f3f3-e964-b4831b750271@cs.ucla.edu>
+Date:   Fri, 15 Oct 2021 17:20:33 -0700
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-In-Reply-To: <CAEA6p_CSbFFiEUQKy_n5dBd-oBWLq1L0CZYjECqBfjjkeQoSdg@mail.gmail.com>
+In-Reply-To: <e46d9e6b-c2c8-66e3-6b18-f24ef718f59f@gmail.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8BIT
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Wei,
+On 10/15/21 3:03 PM, Alejandro Colomar (man-pages) wrote:
 
-On 10/15/21 6:08 PM, Wei Wang wrote:
-> On Fri, Sep 24, 2021 at 4:54 PM Wei Wang <weiwan@google.com> wrote:
->>
->> TCP_FASTOPEN socket option was added by:
->> commit 8336886f786fdacbc19b719c1f7ea91eb70706d4
->> TCP_FASTOPEN_CONNECT socket option was added by the following patch
->> series:
->> commit 065263f40f0972d5f1cd294bb0242bd5aa5f06b2
->> commit 25776aa943401662617437841b3d3ea4693ee98a
->> commit 19f6d3f3c8422d65b5e3d2162e30ef07c6e21ea2
->> commit 3979ad7e82dfe3fb94a51c3915e64ec64afa45c3
->> Add detailed description for these 2 options.
->> Also add descriptions for /proc entry tcp_fastopen and tcp_fastopen_key.
->>
->> Signed-off-by: Wei Wang <weiwan@google.com>
->> ---
+> Actually, since timegm(3) is implemented in terms of mktime(3), as far as I could read from glibc code, the problem will be the same, I think.
+
+No, because another thread could setenv ("TZ", ...) between the time 
+that you call mktime and the time you look at the 'timezone' variable. 
+So even though mktime itself is thread-safe, the expression 'mktime(tm) 
+- timezone' is not.
+
+> But timegm(3) shouldn't need to depend on environment variables.
+
+It does depend, if leap seconds are involved.
+
+>> and the subtraction might overflow.
 > 
-> Hi Alex,
-> 
-> Does this version look OK to you to apply?
-> Let me know.
+> Yup, casting to int64_t needed.
 
-Sorry, I missed that patch.
-Thanks for the ping!  I'll try to have a look at it ASAP.
+That would help, but it still wouldn't suffice. It'd mishandle -1 
+returns, for example. Plus, we're better of not putting today's hardware 
+assumptions into code (suppose int is 64 bits in future machines?).
 
-Thanks,
+> BTW, I had a look at mktime source 
+> code, and it uses long, which might be 32 bits, and then there's a lot 
+> of checking for overflow.
 
-Alex
-
-> 
-> Thanks.
-> Wei
-
-
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+mktime uses long_int, which is not necessarily 'long'. And no matter 
+what type you pick, it could overflow on some platform, even if it's an 
+only-hypothetical platform now.
