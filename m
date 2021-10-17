@@ -2,106 +2,134 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8A1EC430BDC
-	for <lists+linux-man@lfdr.de>; Sun, 17 Oct 2021 21:43:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 62AF4430BE2
+	for <lists+linux-man@lfdr.de>; Sun, 17 Oct 2021 21:53:52 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S238200AbhJQTpL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 17 Oct 2021 15:45:11 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51116 "EHLO
+        id S242720AbhJQT4B (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 17 Oct 2021 15:56:01 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53474 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235221AbhJQTpK (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 17 Oct 2021 15:45:10 -0400
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com [IPv6:2a00:1450:4864:20::42d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CFFBBC06161C
-        for <linux-man@vger.kernel.org>; Sun, 17 Oct 2021 12:43:00 -0700 (PDT)
-Received: by mail-wr1-x42d.google.com with SMTP id u18so37370891wrg.5
-        for <linux-man@vger.kernel.org>; Sun, 17 Oct 2021 12:43:00 -0700 (PDT)
+        with ESMTP id S238482AbhJQT4A (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 17 Oct 2021 15:56:00 -0400
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com [IPv6:2a00:1450:4864:20::42c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9E785C06161C
+        for <linux-man@vger.kernel.org>; Sun, 17 Oct 2021 12:53:50 -0700 (PDT)
+Received: by mail-wr1-x42c.google.com with SMTP id k7so37083590wrd.13
+        for <linux-man@vger.kernel.org>; Sun, 17 Oct 2021 12:53:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=nrbbz+XqEVX/XgXlN1KNgJCL6+YqZcR7Qho2Bw6CS6o=;
-        b=UCvQcjuyQgFCnetqQKzptIeHne2hEobktgsw0YsCJ1VjvApKaKMM4B5/3VO56fRxVU
-         44VTzkziWgcDrmQDBwnc/tts5aM50V5vvGM/3/iwixFIW7hBQHFEcaojXG2yFqZ9oB8x
-         IeglcS0TQ/Ch7XTCEAsVgLAzkSPu04bRFTsXRSPqisvEWCrqv3OaiYLcIRpb5AJ+aUlE
-         v/37XCviYlwNbpFJL4BTj9EzD5GQNmDS3AH+URLkcX2GDmZrJ6gJ/2KUZdmh3/OgCgMb
-         u0XYZBUXUJ1wdOUzJIu84RpK+C/rHeLZUFNR7UXkL72cUJW2kOW2ud0M6IEhUKzpkQlT
-         E5MA==
+        bh=+m8oiKVZo73toSIkhOKkvfUmC5sqDSXqJh1QykkmY1g=;
+        b=lFrGlXtwtP85vVKblSLcD3eNmUFbq7HIEoJUfFSZ+s9jQeBxmaqddt/wTGmgYosk9x
+         t665FVSKOGvMvLOhN01tZiVNHsgAc1c5SuJijEcRn3N6HpXYDCtPx/YBk453sHOMvNao
+         Kd8kIHDcO+hEPOjQ5ktF7aWjyzosdvWsC5rXveaXxs3ztnGQQLlk2GEF6Bs/XEyxOls/
+         fhE41wvjjmfCAmg7VbCLnVDs+HPv44MxMXjLBAxF7tFYCIIjmgEOBK8hMEiw+VP3/ev1
+         1f5leMEmNqeaiihIVUMYAkfD/8cJdF+iZFAvDDpvkqquzloPV11fm7zSc463Q9BQuFaS
+         FzfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=nrbbz+XqEVX/XgXlN1KNgJCL6+YqZcR7Qho2Bw6CS6o=;
-        b=vBSRB0g99oyh8W5zvi7MYOCE9Z2TeIus0TJI85aymf6WLofYuLwsJLcpzyAbLg/7zf
-         P+nq0lu7fJs5j40ko6dqLZuipKVwrWvgr9ei/oNwydFCpv/b5xSCTCB01emANdBE48I3
-         AiVK+XLh9fLx0k46wgkez2AHjpeUyKSz1mDY3NTq6GbtPLzBxx3R7f/4xQsmL7NpMzx8
-         JmHzP62xT04qd2KnGeFYFfmHd4b1dgTUk5aE/Mm6lDl3VnGFzAx8OsV8jCGShNq9/7ai
-         deHfAPzrH1rpbJQJQiEcppJASyAREFtoqsragcpO+3homCipCBunPqO4rTkRQ9lGJjoX
-         8ghA==
-X-Gm-Message-State: AOAM532QG3Oqga8FVPk/dWOKbVh1UhuajKFqq8em3ynmFUrB/2KZvYQJ
-        P429nXldaGVfOlXmhv1tCvqkEpUk4Xg=
-X-Google-Smtp-Source: ABdhPJyDd8dU7gILEHINsVzZAbxieeUqHuJLHScPfzs9tUr6WT6ZFMB7DiBrP9H0R/QotJtDpEpX2g==
-X-Received: by 2002:adf:ec46:: with SMTP id w6mr18007153wrn.240.1634499779426;
-        Sun, 17 Oct 2021 12:42:59 -0700 (PDT)
+        bh=+m8oiKVZo73toSIkhOKkvfUmC5sqDSXqJh1QykkmY1g=;
+        b=h5pZpKtKSN2IiyKV9NJIdajMagC8LFX6fwd6e1JPSooF/ovCTYdJ1Q2bJX2mVzrraG
+         jht+j6yIGjk+H8nsx775QaKiK87foc4UjdKoKu7jZF+d1u9HGZ3Q7agIL/IUwZSTJ53j
+         d5R6N0XOMI05qtA5jAzWv8c+zt94AYBmZ1e4JPnPtKaE2AtkBUrZ8OvMkcOa5F50/4Hv
+         CFwtvGBkKsER/aMs92hIPZTE9LLD1hX0og1K8TSiVOwal6VXGwAumG3dZacB0bJlIppw
+         TtN+BpmElzMBu9to+OrGaDq+70Ek0deo9v8X8wRZLqsLXg1giDANQgLq0Yr+PXTp/3Wj
+         PILg==
+X-Gm-Message-State: AOAM531l0JhBlHD/bIM0kLUths/GdYMCXc+VDvr02faYalIn5u0MY35C
+        6014po4FQVGDMUM2aVhl23r7nuuWHI0=
+X-Google-Smtp-Source: ABdhPJzR1UWrPvkV+1Yyw5Oc3zNXyAO6wbTqn2mc+UnRbgDWgB2I0mWJZ9tNSNGTIjqJRhMQ2sUqbA==
+X-Received: by 2002:adf:edcb:: with SMTP id v11mr21784608wro.118.1634500429315;
+        Sun, 17 Oct 2021 12:53:49 -0700 (PDT)
 Received: from [10.168.10.11] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id 133sm266215wmb.24.2021.10.17.12.42.58
+        by smtp.gmail.com with ESMTPSA id j15sm10650661wrr.8.2021.10.17.12.53.47
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 17 Oct 2021 12:42:59 -0700 (PDT)
-Subject: Re: [PATCH 16/23] man-pages.7: wfix
+        Sun, 17 Oct 2021 12:53:49 -0700 (PDT)
+Subject: Re: [PATCH 2/2] man-pages.7: Update non-breaking space advice.
 To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
 Cc:     linux-man@vger.kernel.org
-References: <20210808084133.734274-1-alx.manpages@gmail.com>
- <20210808084133.734274-17-alx.manpages@gmail.com>
+References: <20210731034458.6s76okhgjxw42mpx@localhost.localdomain>
+ <e097bf4a-7188-e810-7d3b-e4d1469397d3@gmail.com>
+ <20210801101221.poigrttumltcdenl@localhost.localdomain>
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <dbcef825-11f8-3fc0-8b75-fed4843c55be@gmail.com>
-Date:   Sun, 17 Oct 2021 21:42:58 +0200
+Message-ID: <5e11d17e-d3d0-8b88-dd1b-209a4b136e51@gmail.com>
+Date:   Sun, 17 Oct 2021 21:53:47 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
 MIME-Version: 1.0
-In-Reply-To: <20210808084133.734274-17-alx.manpages@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+In-Reply-To: <20210801101221.poigrttumltcdenl@localhost.localdomain>
+Content-Type: text/plain; charset=windows-1252; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Branden,
+Hey, Branden!
 
-On 8/8/21 10:41 AM, Alejandro Colomar wrote:
-> From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+On 8/1/21 12:12 PM, G. Branden Robinson wrote:
+> Hi, Alex!
 > 
-> Saw this while preparing the "switch to \~" change Alex invited.
+> At 2021-07-31T13:42:08+0200, Alejandro Colomar (man-pages) wrote:
+>> On 7/31/21 5:45 AM, G. Branden Robinson wrote:
+>>> * Advise usage of \~ escape instead of \SPACE; the former, a groff
+>>>     extension from circa 1990, has been supported by Heirloom
+>>>     Doctools troff since 2005 and by mandoc since 2019.  The
+>>>     advantage is that \~ is an _adjustable_ non-breaking space, so it
+>>>     will typeset non-jarringly both in .EX/.EE examples when filling
+>>>     is off, and in normal running text (which is filled).
+>>
+>> Thanks for the patch!
+> 
+> You're welcome!  I've found no use cases for "\ " in man pages.  \~ is
+> almost always what is desired.
+> 
+>>> * Say "non-breaking" instead of "nonbreaking".  These are the only
+>>>     occurrences of either in the man-pages tree, except in
+>>>     Changes.old, which uses "non-breaking".
+>>
+>> I'll do as usual and copy here an extract from man-pages(7) :) :
+>>
+>>     Hyphenation with multi, non, pre, re, sub, and so on
+> 
+> Ahhh, ha.  Yes.  This is an impedance mismatch between the house styles
+> of the Linux man-pages and groff, at least as applied specifically to
+> the word "non-?breaking", which sees frequent use in discussions of
+> typesetting. >
+>> BTW, this one also doesn't apply.  I think it is probably your mailer.
+>> Can you use git-send-email(1)?
+> 
+> Apparently not.  :(
+> 
+> $ git send-email
+> git: 'send-email' is not a git command. See 'git --help'.
+> $ git --help -a | grep send
+>     imap-send            Send a collection of patches from stdin to an IMAP folder
+>     send-email           Send a collection of patches as emails
+>     send-pack            Push objects over Git protocol to another repository
+> 
+> I did a web search and did not find any reports that NeoMutt does
+> violence to Git-formatted patches.  Perhaps it is GMail's fault?  (I use
+> its SMPTS server to send mail.)  Does someone on this list have
+> experience with this MUA and/or provider?  Is there a trick?
+> 
+> This would explain my Michael despaired of my patch submissions even
+> when I kept their scopes under control.
+> 
+> Regards,
+> Branden
+> 
 
-Ping.  You're still invited :-)
+Ping.
+
+Ahha! I found the original patch thread :)
 
 Cheers,
 
 Alex
-
-> 
-> Signed-off-by: G. Branden Robinson <g.branden.robinson@gmail.com>
-> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
-> ---
->   man7/man-pages.7 | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/man7/man-pages.7 b/man7/man-pages.7
-> index 6cb805343..3819dfd97 100644
-> --- a/man7/man-pages.7
-> +++ b/man7/man-pages.7
-> @@ -638,7 +638,7 @@ makes it easier to write tools that parse man page source files.)
->   .SS Use semantic newlines
->   In the source of a manual page,
->   new sentences should be started on new lines,
-> -and long sentences should split into lines at clause breaks
-> +and long sentences should be split into lines at clause breaks
->   (commas, semicolons, colons, and so on).
->   This convention, sometimes known as "semantic newlines",
->   makes it easier to see the effect of patches,
-> 
-
 
 -- 
 Alejandro Colomar
