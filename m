@@ -2,70 +2,67 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 622744310EC
-	for <lists+linux-man@lfdr.de>; Mon, 18 Oct 2021 08:59:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3A6EE431140
+	for <lists+linux-man@lfdr.de>; Mon, 18 Oct 2021 09:16:12 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229708AbhJRHBV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 18 Oct 2021 03:01:21 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57210 "EHLO
+        id S230380AbhJRHSV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 18 Oct 2021 03:18:21 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:32812 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229533AbhJRHBV (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 18 Oct 2021 03:01:21 -0400
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com [IPv6:2a00:1450:4864:20::336])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 67F77C06161C;
-        Sun, 17 Oct 2021 23:59:10 -0700 (PDT)
-Received: by mail-wm1-x336.google.com with SMTP id a140-20020a1c7f92000000b0030d8315b593so9312437wmd.5;
-        Sun, 17 Oct 2021 23:59:10 -0700 (PDT)
+        with ESMTP id S230370AbhJRHSV (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 18 Oct 2021 03:18:21 -0400
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com [IPv6:2a00:1450:4864:20::434])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 62CE1C06161C
+        for <linux-man@vger.kernel.org>; Mon, 18 Oct 2021 00:16:10 -0700 (PDT)
+Received: by mail-wr1-x434.google.com with SMTP id t2so39516163wrb.8
+        for <linux-man@vger.kernel.org>; Mon, 18 Oct 2021 00:16:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=KVBpzd/PFUoy31MyFPLSRZGeEhdCAvaKpYllKS2fhYY=;
-        b=Khl4/VXbsty4G12orNqpliHM02P75y42baoLHrB9hL//cI7tuGHwqrbI9JtkJvqepc
-         zqdxjmofsTM91G4lgfrKaWvMubX6P6jgahneZDYLJIenfWSIlePqGgfheoxSAoAcuNmS
-         rG4Yb7SBWPxkqJOjYsqhyLhf4dg5PGicmQ4r8t4Pa/1nIbSSf2cl1iAH7T2ekASlkigE
-         oORp7oqlLR7cUJ5DI2AaF5nWg3ZwJx93mI5VrHwarmm67hkEmnZnl54TALk9fiR/2xIz
-         f2DSF6ctjHFAJOsZ3IF+gv3ALhGVxwAS1aP0hiaRXbM/mNdflZeSm1/kLaaVgXlAx5JX
-         K1YQ==
+        bh=serlJXiYFgrO1HBH31f1QShZbKfYyAYSiqOElTMxA1g=;
+        b=WFpSIjKFRCYijE6F2mSjWxKytkQ7eq5GvlC8++5/hyoHXnjCLMjCNRf3NRYBJZZaoR
+         Hq1nFphoKAe4GMh6GbFKBUynmf9IoL3dR7Yqq6RVB4kSdnMlDVtZPUa6ylnq4mNmpnUG
+         uRvdvvpvO3CLi1JlnLA4pM6j+PHVGmHP80CqCTk59Ooh/yb95H/zj3fQZ5SGjyBoAn2H
+         U5DzUneZEuyhdJEPtiOCZOgewc7W+hiJj9ZqSZzRnLFe0M7DUy+kJEOQoo7g38NSNDHf
+         pCesXZHyZM59c9niFeFAM0lV6zAESTVBFIv/4lgfpclLqFZVmYIxazK7cTZEif0bor4M
+         Z2gQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=KVBpzd/PFUoy31MyFPLSRZGeEhdCAvaKpYllKS2fhYY=;
-        b=3j37ONoOPqBEBJF9pzOvyNCeu+k3o9HynmZS3IqetTacw7cJhkXeAphMOzGUMxG4ka
-         Xwj56tpeYmsAMKhC+O3bKzvhZyCorbwz2I6Hir35a16xyJy2XoVUQTiNbtdJ3fluBXEm
-         AA+giyH1jvfStEatqZbp2vTQEIYGcbF/eVvyT5pfFrpXv1IWE4xaPXDocjd6QOZN8Ahu
-         ZkU+RUThsZa3QUpkMQTtLAuge6eCKSEGvGINZHq5rY6negWw3tu41wtenEZbTpcFfEjG
-         gJit/bMqI7mUARH7ceSBFcbFYsCEWEks4866wQ4Ov4XFApfLcTLgnyWmuPVST4+oDCMY
-         8/mQ==
-X-Gm-Message-State: AOAM531a60wuXD7tKKabi2TquTaBsJEYUfF/1QhG5MEEUgJuNo19/u8W
-        Stf/Md0snq3TEv9cThgZySA/A2qMnNo=
-X-Google-Smtp-Source: ABdhPJyD6BFRi8HPp6d42zc7LfQjiQx6ZCcp4jeaTytbkJjGQsA9UUsm2BfClNfTniN8j/WbfPuNeg==
-X-Received: by 2002:a05:600c:a4b:: with SMTP id c11mr27858431wmq.97.1634540349058;
-        Sun, 17 Oct 2021 23:59:09 -0700 (PDT)
+        bh=serlJXiYFgrO1HBH31f1QShZbKfYyAYSiqOElTMxA1g=;
+        b=mQ0onmXAVG3uuynZ7VDx889iQlRCVVfY3dF76JauLU/CpPz8MrviNIJ3xlbWNpK5wQ
+         zQj3LtVjnctKT/3/bJxHS1RShBekZhTwORpWmLENrb9hX8Rd6xG2D7jUmZuCdEzrdI/i
+         9x2d7fOvW8TKKA5S+2CNnjBS13k7cucjfAzH5cbCi/cc82HKQZMHYNl+ht3TSFw3InPl
+         H/VRB/sbHzP3HvwH1GPfFy4dVGXYbopclEHwm2T4HNmY4WknkDc+AQmdUPM5R6wQmTiW
+         fMVnLRkhXt//uY7UZ2Pc2YUcDOK1tzvpfIiKU+8sguwNrVEmMpA08uJ1t3j9XToIeqnw
+         Cz3A==
+X-Gm-Message-State: AOAM531NsmM0HQ4f1oBK+YQi3gk7B90IDglMyW0EQFOpT6uMk8xzLasF
+        bha6AxTb79HWkyGcnBcRjlzIxPcQyoI=
+X-Google-Smtp-Source: ABdhPJyPqduJZU295xdnJOvgmENcvfP9HSN3dRigeqT9CdP+286HdmixAwNfuUkHQeiih6uogUZ7lQ==
+X-Received: by 2002:adf:ef4d:: with SMTP id c13mr33252343wrp.17.1634541368931;
+        Mon, 18 Oct 2021 00:16:08 -0700 (PDT)
 Received: from [10.168.10.11] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id w2sm11680126wrt.31.2021.10.17.23.59.08
+        by smtp.gmail.com with ESMTPSA id z135sm6823959wmc.45.2021.10.18.00.16.08
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 17 Oct 2021 23:59:08 -0700 (PDT)
+        Mon, 18 Oct 2021 00:16:08 -0700 (PDT)
 Subject: Re: [PATCH] mctp.7: Add man page for Linux MCTP support
-To:     Jeremy Kerr <jk@codeconstruct.com.au>
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-man@vger.kernel.org, Dwaipayan Ray <dwaipayanray1@gmail.com>,
-        Joe Perches <joe@perches.com>,
-        Andy Whitcroft <apw@canonical.com>,
-        Lukas Bulwahn <lukas.bulwahn@gmail.com>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        Jeremy Kerr <jk@codeconstruct.com.au>
+Cc:     Michael Kerrisk <mtk.manpages@gmail.com>, linux-man@vger.kernel.org
 References: <20211014070519.2037226-1-jk@codeconstruct.com.au>
  <97962dba-3787-2cd2-bc96-63b009ce9af8@gmail.com>
  <e6a15bfbb2337b78c9e1305956e71cebd7b4328f.camel@codeconstruct.com.au>
+ <20211018055719.i3rjz2brwqsygqrp@localhost.localdomain>
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <3946e062-8e97-78a2-b1db-2a7d92c4730b@gmail.com>
-Date:   Mon, 18 Oct 2021 08:59:07 +0200
+Message-ID: <c454d2ed-a097-7a42-5300-e4c9775da421@gmail.com>
+Date:   Mon, 18 Oct 2021 09:16:07 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
 MIME-Version: 1.0
-In-Reply-To: <e6a15bfbb2337b78c9e1305956e71cebd7b4328f.camel@codeconstruct.com.au>
+In-Reply-To: <20211018055719.i3rjz2brwqsygqrp@localhost.localdomain>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
@@ -73,92 +70,76 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-[CC += checkpatch.pl maintainers (see reason below)]
+Hi Branden,
 
-
-Hi Jeremy,
-
-On 10/18/21 7:05 AM, Jeremy Kerr wrote:
-> Hi Alex,
+On 10/18/21 7:57 AM, G. Branden Robinson wrote:
+> Hi Jeremy,
 > 
->> Thanks for the manual page!
-> 
-> And thanks for the review! In general, I've updated to suit your
-> comments, just a couple of queries inline.
-> 
->>> +.SH SYNOPSIS
->>> +.nf
->>> +.B #include <sys/socket.h>
->>> +.B #include <linux/mctp.h>
->>> +.PP
->>> +.B mctp_socket = socket(AF_MCTP, SOCK_DGRAM, 0);
+> At 2021-10-18T13:05:25+0800, Jeremy Kerr wrote:
+>>>> +Addressing data is passed in socket system calls through
+>>>> +.B struct sockaddr\_mctp
+>>>
+>>> That escape is unnecessary.  Did you see it in another page perhaps?
 >>
->> mctp_socket is a variable name.  See socket.7 for an example.
->> It should be in italics.
+>> I thought I'd seen some odd line-breaks at the underscore, but can't
+>> replicate that now. Will remove.
 > 
-> This was based on udp.7; want me to send a patch for that too?
-
-Sure. Thanks!
-
+> My groff experiments don't reveal _ or \_ as being permissible
+> break points[1].  However, the structure tag _could_ break like this:
 > 
->>> +Packets between a local and remote endpoint are identified by the
->>> source
->>> +and destination EIDs, plus a three-bit tag value.
->>> +.PP
->>> +Addressing data is passed in socket system calls through
->>> +.B struct sockaddr\_mctp
->>
->> That escape is unnecessary.  Did you see it in another page perhaps?
+> sock‐addr_mctp
 > 
-> I thought I'd seen some odd line-breaks at the underscore, but can't
-> replicate that now. Will remove.
+> In other words (if my UTF-8 gets mangled), after "sock".
 > 
->>> +typedef uint8_t        mctp_eid_t;
->>> +
->>> +struct mctp_addr {
->>> +    mctp_eid_t         s_addr;
->>> +};
->>> +
->>> +struct sockaddr_mctp {
->>> +    unsigned short int smctp_family;  /* = AF_MCTP */
->>
->> We only use 'int' in 'unsigned int', as the kernel does (or attempts
->> to do).  checkpatch.pl warns about 'unsigned short int', IIRC.
-> 
-> No, there are no warnings from checkpatch there; that's just copied from
-> the current kernel header.
+> To prevent that, you can prefix the word with the hyphenation control
+> escape sequence, "\%".  This escape sequence is extremely portable; it
+> dates back to 1970s AT&T troff.
 
-Huh!  That's weird; 'unsigned long int' does, so I expected the same 
-with 'short'.  Maybe a bug in checkpatch?
+Hmm, this is one of the few points we disagree, it seems :)
 
-
-WARNING:UNNECESSARY_INT: Prefer 'unsigned long' over 'unsigned long int' 
-as the int is unnecessary
-#42: FILE: /home/user/src/alx/test/unsigned_short_int.c:42:
-+	unsigned long int a;
-
-total: 0 errors, 1 warnings, 0 checks, 65 lines checked
-
+As I said previously, I think this uglyfies code too much, for something 
+that I think should be default (it is rarer to want break points at 
+highlighted words than not wanting them).  But, to try to confirm my 
+thoughts, I'll accept using this in the man-pages and see what happens 
+(maybe some day, a winter day it shall be, you'll wake up and see a cold 
+commit reaping them all :p)
 
 > 
-> However, I have just sent a separate patch to change that to
-> __kernel_sa_family_t. Should I use that here (keeping this an exact
-> match of the kernel header), or stick to the more familiar unsigned
-> short?
+> Further, if you wanted to prevent breaking between the "struct" keyword
+> and the structure tag, you could use a nonbreaking adjustable space
+> escape sequence, "\~".  While this was a groff innovation (about 30
+> years ago), it's been adopted by Heirloom Doctools troff and mandoc(1),
+> so it's pretty portable to systems likely to install the Linux
+> man-pages.
 
-
-I prefer 'unsigned short' for consistency with 'unsigned long'.
+Ah yes, I should have spotted that one :p
 
 > 
-> Cheers,
+> So we might write
 > 
-> 
-> Jeremy
-> 
+> .B struct\~\%sockaddr_mctp
 
-Cheers,
+Okay.
+
+> 
+> for instance in running text (that is, in sentences).  (When filling is
+> off, as in code examples and the synopses of most pages documenting C
+> interfaces, neither of these escape sequences is necessary; unfilled
+> lines are neither automatically hyphenated nor adjusted.)
+> 
+> Just a typographical FYI.  I know these issues sometimes frustrate
+> people.
+> 
+> Regards, > Branden
+
+Thanks!
 
 Alex
+
+> 
+> [1] I'm using groff's defaults.  It's possible to change the groff
+>      "hyphenation code" of any character, but few do so.
+> 
 
 
 -- 
