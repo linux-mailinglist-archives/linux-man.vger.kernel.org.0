@@ -2,67 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 3A6EE431140
-	for <lists+linux-man@lfdr.de>; Mon, 18 Oct 2021 09:16:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5AA5B43118D
+	for <lists+linux-man@lfdr.de>; Mon, 18 Oct 2021 09:46:34 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230380AbhJRHSV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 18 Oct 2021 03:18:21 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:32812 "EHLO
+        id S230458AbhJRHso (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 18 Oct 2021 03:48:44 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39574 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230370AbhJRHSV (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 18 Oct 2021 03:18:21 -0400
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com [IPv6:2a00:1450:4864:20::434])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 62CE1C06161C
-        for <linux-man@vger.kernel.org>; Mon, 18 Oct 2021 00:16:10 -0700 (PDT)
-Received: by mail-wr1-x434.google.com with SMTP id t2so39516163wrb.8
-        for <linux-man@vger.kernel.org>; Mon, 18 Oct 2021 00:16:10 -0700 (PDT)
+        with ESMTP id S229847AbhJRHsn (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 18 Oct 2021 03:48:43 -0400
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com [IPv6:2a00:1450:4864:20::433])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1A52DC06161C
+        for <linux-man@vger.kernel.org>; Mon, 18 Oct 2021 00:46:33 -0700 (PDT)
+Received: by mail-wr1-x433.google.com with SMTP id o20so39685545wro.3
+        for <linux-man@vger.kernel.org>; Mon, 18 Oct 2021 00:46:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=subject:to:cc:references:from:message-id:date:user-agent
+        h=subject:from:to:cc:references:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=serlJXiYFgrO1HBH31f1QShZbKfYyAYSiqOElTMxA1g=;
-        b=WFpSIjKFRCYijE6F2mSjWxKytkQ7eq5GvlC8++5/hyoHXnjCLMjCNRf3NRYBJZZaoR
-         Hq1nFphoKAe4GMh6GbFKBUynmf9IoL3dR7Yqq6RVB4kSdnMlDVtZPUa6ylnq4mNmpnUG
-         uRvdvvpvO3CLi1JlnLA4pM6j+PHVGmHP80CqCTk59Ooh/yb95H/zj3fQZ5SGjyBoAn2H
-         U5DzUneZEuyhdJEPtiOCZOgewc7W+hiJj9ZqSZzRnLFe0M7DUy+kJEOQoo7g38NSNDHf
-         pCesXZHyZM59c9niFeFAM0lV6zAESTVBFIv/4lgfpclLqFZVmYIxazK7cTZEif0bor4M
-         Z2gQ==
+        bh=rUmOQOcHcsx6MU0bBcebxbhIb6mFu/lfOUuzNsKXEQg=;
+        b=n31m8au1bN3dm0UuDIySdwJ+vgiXe8ExXMcCULBoWHZ9tvuchQpL1IMEqGTnEAAK44
+         o59ZLTdZAfdsgvAqB0Y+4y/1vti53S8pXSU/JuPoypzVrjDomGQSTpPYDRd7MTWNkQDq
+         RNDCk1jO6ZLssJY+DQPMEoYE17lhW1pDYl274Tiwk+R4zUwrgB7gGL8HYJN156tQTfZV
+         RO6neo6N7M6jsSQ3RLwHeMlfb4fO2GRtIttFdP0ksK027piBgAb4smwWbfPShVxWAFw0
+         XRqSlLZVv6Vy0cQaJWQmHy3b3HcZOAAT8T30ruS4CT/yapj4xatQ7d4MVkzGjpauYvOB
+         Niow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+        h=x-gm-message-state:subject:from:to:cc:references:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=serlJXiYFgrO1HBH31f1QShZbKfYyAYSiqOElTMxA1g=;
-        b=mQ0onmXAVG3uuynZ7VDx889iQlRCVVfY3dF76JauLU/CpPz8MrviNIJ3xlbWNpK5wQ
-         zQj3LtVjnctKT/3/bJxHS1RShBekZhTwORpWmLENrb9hX8Rd6xG2D7jUmZuCdEzrdI/i
-         9x2d7fOvW8TKKA5S+2CNnjBS13k7cucjfAzH5cbCi/cc82HKQZMHYNl+ht3TSFw3InPl
-         H/VRB/sbHzP3HvwH1GPfFy4dVGXYbopclEHwm2T4HNmY4WknkDc+AQmdUPM5R6wQmTiW
-         fMVnLRkhXt//uY7UZ2Pc2YUcDOK1tzvpfIiKU+8sguwNrVEmMpA08uJ1t3j9XToIeqnw
-         Cz3A==
-X-Gm-Message-State: AOAM531NsmM0HQ4f1oBK+YQi3gk7B90IDglMyW0EQFOpT6uMk8xzLasF
-        bha6AxTb79HWkyGcnBcRjlzIxPcQyoI=
-X-Google-Smtp-Source: ABdhPJyPqduJZU295xdnJOvgmENcvfP9HSN3dRigeqT9CdP+286HdmixAwNfuUkHQeiih6uogUZ7lQ==
-X-Received: by 2002:adf:ef4d:: with SMTP id c13mr33252343wrp.17.1634541368931;
-        Mon, 18 Oct 2021 00:16:08 -0700 (PDT)
+        bh=rUmOQOcHcsx6MU0bBcebxbhIb6mFu/lfOUuzNsKXEQg=;
+        b=eXrc9+iS7BS3EeanoDBv+jtgvU7I4jglkfAHxuYlmbNB3fWGnnIeZqHqQd0qqoQ25k
+         +67LgSbVtaBP3vMLuCoH01kpvV+d3m5RXMSgLxRU++c1HqzX38C1aH0j9YO3yHb3tUU8
+         6JmVBQMijNRVg678DOs1hgHo4RKC/N0OwrekCud/sDSmoDMoHNev/qcXqZKrmXGuKHjd
+         1ATQVu19/qfbPKg+Dz4+5lG55hDJ1b141KRa3nxPWTYEfUpfgkCsflAPUHsp2icSFYLr
+         OQyXwuZQ4g8G1eu+yl2VkUOSgMeBxEpSCL8qHZhtG0fofJmUSvzGFlzFfoyzhM/4BwCE
+         uDlQ==
+X-Gm-Message-State: AOAM532r15LNxuaTmh2rKzgTFcK/J2lxr46VMvMchmtFDfu8SLRvjv3S
+        IoPOBkbzmansTVq2JyuI/Zs=
+X-Google-Smtp-Source: ABdhPJzHNqPmBZbvKNBHGvM0sWW+HECoiynvi+72iu+SXc4y8pFbp5bVqFNJDLvUPU3TT3dJpMMr3w==
+X-Received: by 2002:adf:f04c:: with SMTP id t12mr14240074wro.7.1634543191757;
+        Mon, 18 Oct 2021 00:46:31 -0700 (PDT)
 Received: from [10.168.10.11] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id z135sm6823959wmc.45.2021.10.18.00.16.08
+        by smtp.gmail.com with ESMTPSA id u5sm11244975wmm.39.2021.10.18.00.46.31
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 18 Oct 2021 00:16:08 -0700 (PDT)
+        Mon, 18 Oct 2021 00:46:31 -0700 (PDT)
 Subject: Re: [PATCH] mctp.7: Add man page for Linux MCTP support
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        Jeremy Kerr <jk@codeconstruct.com.au>
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>, linux-man@vger.kernel.org
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+To:     Jeremy Kerr <jk@codeconstruct.com.au>
+Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
+        linux-man@vger.kernel.org,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>
 References: <20211014070519.2037226-1-jk@codeconstruct.com.au>
  <97962dba-3787-2cd2-bc96-63b009ce9af8@gmail.com>
- <e6a15bfbb2337b78c9e1305956e71cebd7b4328f.camel@codeconstruct.com.au>
- <20211018055719.i3rjz2brwqsygqrp@localhost.localdomain>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <c454d2ed-a097-7a42-5300-e4c9775da421@gmail.com>
-Date:   Mon, 18 Oct 2021 09:16:07 +0200
+Message-ID: <17f37b4b-824a-f68c-cdff-cc7bd252f136@gmail.com>
+Date:   Mon, 18 Oct 2021 09:46:30 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
 MIME-Version: 1.0
-In-Reply-To: <20211018055719.i3rjz2brwqsygqrp@localhost.localdomain>
+In-Reply-To: <97962dba-3787-2cd2-bc96-63b009ce9af8@gmail.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
@@ -70,76 +69,53 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Branden,
+Hello Jeremy,
 
-On 10/18/21 7:57 AM, G. Branden Robinson wrote:
-> Hi Jeremy,
-> 
-> At 2021-10-18T13:05:25+0800, Jeremy Kerr wrote:
->>>> +Addressing data is passed in socket system calls through
->>>> +.B struct sockaddr\_mctp
->>>
->>> That escape is unnecessary.  Did you see it in another page perhaps?
+On 10/17/21 8:49 PM, Alejandro Colomar (man-pages) wrote:
+>> +TO bit cleared) to indicate that is is directed to the same remote 
+>> endpoint.
+>> +.SH SEE ALSO
+>> +.BR socket (7)
+>> +.PP
+>> +The kernel source file
+>> +.IR Documentation/networking/mctp.rst .
+>> +.PP
+>> +The DSP0236 specification, at
+>> +.UR https://www.dmtf.org/standards/pmci
+>> +.UE .
 >>
->> I thought I'd seen some odd line-breaks at the underscore, but can't
->> replicate that now. Will remove.
 > 
-> My groff experiments don't reveal _ or \_ as being permissible
-> break points[1].  However, the structure tag _could_ break like this:
+> Please, use break points for both URIs above.  See the source code of 
+> uri.7, which has plenty of examples.
 > 
-> sock‐addr_mctp
-> 
-> In other words (if my UTF-8 gets mangled), after "sock".
-> 
-> To prevent that, you can prefix the word with the hyphenation control
-> escape sequence, "\%".  This escape sequence is extremely portable; it
-> dates back to 1970s AT&T troff.
+> See also "the Chicago Manual of Style" 
+> <https://libguides.lorainccc.edu/c.php?g=29361&p=183502> for guidelines 
+> on that.
 
-Hmm, this is one of the few points we disagree, it seems :)
+Please, don't read those.  As Branden and I discussed in another thread 
+today, we prefer not following that style.
 
-As I said previously, I think this uglyfies code too much, for something 
-that I think should be default (it is rarer to want break points at 
-highlighted words than not wanting them).  But, to try to confirm my 
-thoughts, I'll accept using this in the man-pages and see what happens 
-(maybe some day, a winter day it shall be, you'll wake up and see a cold 
-commit reaping them all :p)
+So instead of those sources, I'll just write it for you.
 
-> 
-> Further, if you wanted to prevent breaking between the "struct" keyword
-> and the structure tag, you could use a nonbreaking adjustable space
-> escape sequence, "\~".  While this was a groff innovation (about 30
-> years ago), it's been adopted by Heirloom Doctools troff and mandoc(1),
-> so it's pretty portable to systems likely to install the Linux
-> man-pages.
+.IR Documentation/\:networking/\:mctp.rst .
 
-Ah yes, I should have spotted that one :p
+.UR https://\:www.dmtf.org/\:standards/\:pmci
 
-> 
-> So we might write
-> 
-> .B struct\~\%sockaddr_mctp
 
-Okay.
+We could also break before dots, but since the names are short, I don't 
+think it's needed.  It could be:
 
-> 
-> for instance in running text (that is, in sentences).  (When filling is
-> off, as in code examples and the synopses of most pages documenting C
-> interfaces, neither of these escape sequences is necessary; unfilled
-> lines are neither automatically hyphenated nor adjusted.)
-> 
-> Just a typographical FYI.  I know these issues sometimes frustrate
-> people.
-> 
-> Regards, > Branden
+.IR Documentation/\:networking/\:mctp\:.rst .
 
-Thanks!
+.UR https://\:www\:.dmtf\:.org/\:standards/\:pmci
+
+If you are curious about the discussion we had about this, it's here:
+<https://lists.gnu.org/archive/html/groff/2021-10/msg00045.html>.
+
+
+Thanks,
 
 Alex
-
-> 
-> [1] I'm using groff's defaults.  It's possible to change the groff
->      "hyphenation code" of any character, but few do so.
-> 
 
 
 -- 
