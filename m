@@ -2,120 +2,88 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 5AA5B43118D
-	for <lists+linux-man@lfdr.de>; Mon, 18 Oct 2021 09:46:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 64EF743119E
+	for <lists+linux-man@lfdr.de>; Mon, 18 Oct 2021 09:53:58 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230458AbhJRHso (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 18 Oct 2021 03:48:44 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39574 "EHLO
+        id S229820AbhJRH4I (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 18 Oct 2021 03:56:08 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41234 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229847AbhJRHsn (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 18 Oct 2021 03:48:43 -0400
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com [IPv6:2a00:1450:4864:20::433])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1A52DC06161C
-        for <linux-man@vger.kernel.org>; Mon, 18 Oct 2021 00:46:33 -0700 (PDT)
-Received: by mail-wr1-x433.google.com with SMTP id o20so39685545wro.3
-        for <linux-man@vger.kernel.org>; Mon, 18 Oct 2021 00:46:33 -0700 (PDT)
+        with ESMTP id S230478AbhJRH4H (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 18 Oct 2021 03:56:07 -0400
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com [IPv6:2a00:1450:4864:20::436])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AFD6CC06161C
+        for <linux-man@vger.kernel.org>; Mon, 18 Oct 2021 00:53:56 -0700 (PDT)
+Received: by mail-wr1-x436.google.com with SMTP id e12so39646795wra.4
+        for <linux-man@vger.kernel.org>; Mon, 18 Oct 2021 00:53:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=subject:from:to:cc:references:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=rUmOQOcHcsx6MU0bBcebxbhIb6mFu/lfOUuzNsKXEQg=;
-        b=n31m8au1bN3dm0UuDIySdwJ+vgiXe8ExXMcCULBoWHZ9tvuchQpL1IMEqGTnEAAK44
-         o59ZLTdZAfdsgvAqB0Y+4y/1vti53S8pXSU/JuPoypzVrjDomGQSTpPYDRd7MTWNkQDq
-         RNDCk1jO6ZLssJY+DQPMEoYE17lhW1pDYl274Tiwk+R4zUwrgB7gGL8HYJN156tQTfZV
-         RO6neo6N7M6jsSQ3RLwHeMlfb4fO2GRtIttFdP0ksK027piBgAb4smwWbfPShVxWAFw0
-         XRqSlLZVv6Vy0cQaJWQmHy3b3HcZOAAT8T30ruS4CT/yapj4xatQ7d4MVkzGjpauYvOB
-         Niow==
+        bh=sHyJFZgYri4xb6+2VdrUT3dNLx0Fp9Te7TJ13aqsq2E=;
+        b=ZPw5paBI83vh4CLfzSP6VMdTR/nEewo+7aftby2Vtk4rpPmHtYqANmS3szb6vEeZCq
+         y7zC+bYQU/ll4QQCA5rTMq44C+1OOOAmTv7XJ8KX9kHeZFM849RSzG3d27q4ymCbAzsV
+         cqnTAlqZjb0OJK5xyXKvwWz5+e+WmtqpBH37s8GfH6UmlBrnJf9ILC2Ia5mzRm3h62Wu
+         F4cTach4OGm6Gdvab+PXoeJgjd+EFV5UVMHzj5JVjzXY1dL7YBYdNg5ksEV/bi9Vtr0O
+         LKIuWl1BzZ4vdTVYDQ48YaxeYJONyETDxRQfLfgpLOnw4OctXNHyBpMue3nG5uyQXSl9
+         Ge4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:subject:from:to:cc:references:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=rUmOQOcHcsx6MU0bBcebxbhIb6mFu/lfOUuzNsKXEQg=;
-        b=eXrc9+iS7BS3EeanoDBv+jtgvU7I4jglkfAHxuYlmbNB3fWGnnIeZqHqQd0qqoQ25k
-         +67LgSbVtaBP3vMLuCoH01kpvV+d3m5RXMSgLxRU++c1HqzX38C1aH0j9YO3yHb3tUU8
-         6JmVBQMijNRVg678DOs1hgHo4RKC/N0OwrekCud/sDSmoDMoHNev/qcXqZKrmXGuKHjd
-         1ATQVu19/qfbPKg+Dz4+5lG55hDJ1b141KRa3nxPWTYEfUpfgkCsflAPUHsp2icSFYLr
-         OQyXwuZQ4g8G1eu+yl2VkUOSgMeBxEpSCL8qHZhtG0fofJmUSvzGFlzFfoyzhM/4BwCE
-         uDlQ==
-X-Gm-Message-State: AOAM532r15LNxuaTmh2rKzgTFcK/J2lxr46VMvMchmtFDfu8SLRvjv3S
-        IoPOBkbzmansTVq2JyuI/Zs=
-X-Google-Smtp-Source: ABdhPJzHNqPmBZbvKNBHGvM0sWW+HECoiynvi+72iu+SXc4y8pFbp5bVqFNJDLvUPU3TT3dJpMMr3w==
-X-Received: by 2002:adf:f04c:: with SMTP id t12mr14240074wro.7.1634543191757;
-        Mon, 18 Oct 2021 00:46:31 -0700 (PDT)
+        bh=sHyJFZgYri4xb6+2VdrUT3dNLx0Fp9Te7TJ13aqsq2E=;
+        b=W20cc8lRUhA0aBLoZBWneetUXJ+b0VUjnajcn65qbnuZLR3pAbD3nYEdwqvo/ZPRrR
+         vi/OqoocxSOU3EjcspNqDP6FRJEUxJUc1lPaUMF5wT+DgVKZHwQdLnVxyc6jPA73lOxT
+         9kcdYYHdHzlKaTNOk13cPXbek8Hl8Iop0eezWWztQCQMgFWBq5YnXxO2SMmOoGYO5Jla
+         wsOkn3DRnUyMxTsr+23BYNcc7aMXJ+FYJL/wS2lNJh++Vf8lPCaW8afWb8U/E9dlQ+kk
+         uN6dNSwaNi7tONny2NvmU6ataJn0xSSZi8nlP99i5S6sN271ArGdwB4clRCtp1MQs8fw
+         lNgQ==
+X-Gm-Message-State: AOAM531cvSSl53XCJA02JlD1JmNCkErzRrAfNHbhrWm1eGLPUGVWYcG3
+        F1lv5w3YZNw9ZOGkH9gzxSk=
+X-Google-Smtp-Source: ABdhPJzykZdYEsCV640zWugDq2Ib93xkuCqHGQc3H2G9RBM7oBX3BiDesv+skOQhlqCt1K0uPH54BQ==
+X-Received: by 2002:adf:9c02:: with SMTP id f2mr34733911wrc.201.1634543635408;
+        Mon, 18 Oct 2021 00:53:55 -0700 (PDT)
 Received: from [10.168.10.11] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id u5sm11244975wmm.39.2021.10.18.00.46.31
+        by smtp.gmail.com with ESMTPSA id g2sm11659013wrq.62.2021.10.18.00.53.54
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 18 Oct 2021 00:46:31 -0700 (PDT)
+        Mon, 18 Oct 2021 00:53:55 -0700 (PDT)
 Subject: Re: [PATCH] mctp.7: Add man page for Linux MCTP support
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-To:     Jeremy Kerr <jk@codeconstruct.com.au>
+To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
 Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-man@vger.kernel.org,
-        "G. Branden Robinson" <g.branden.robinson@gmail.com>
+        linux-man@vger.kernel.org, Jeremy Kerr <jk@codeconstruct.com.au>
 References: <20211014070519.2037226-1-jk@codeconstruct.com.au>
  <97962dba-3787-2cd2-bc96-63b009ce9af8@gmail.com>
-Message-ID: <17f37b4b-824a-f68c-cdff-cc7bd252f136@gmail.com>
-Date:   Mon, 18 Oct 2021 09:46:30 +0200
+ <e6a15bfbb2337b78c9e1305956e71cebd7b4328f.camel@codeconstruct.com.au>
+ <20211018055719.i3rjz2brwqsygqrp@localhost.localdomain>
+ <c454d2ed-a097-7a42-5300-e4c9775da421@gmail.com>
+Message-ID: <8cd4544c-e174-173a-fbaa-5c23f7c3788e@gmail.com>
+Date:   Mon, 18 Oct 2021 09:53:54 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
 MIME-Version: 1.0
-In-Reply-To: <97962dba-3787-2cd2-bc96-63b009ce9af8@gmail.com>
+In-Reply-To: <c454d2ed-a097-7a42-5300-e4c9775da421@gmail.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Jeremy,
-
-On 10/17/21 8:49 PM, Alejandro Colomar (man-pages) wrote:
->> +TO bit cleared) to indicate that is is directed to the same remote 
->> endpoint.
->> +.SH SEE ALSO
->> +.BR socket (7)
->> +.PP
->> +The kernel source file
->> +.IR Documentation/networking/mctp.rst .
->> +.PP
->> +The DSP0236 specification, at
->> +.UR https://www.dmtf.org/standards/pmci
->> +.UE .
+On 10/18/21 9:16 AM, Alejandro Colomar (man-pages) wrote:
+>> So we might write
 >>
+>> .B struct\~\%sockaddr_mctp
 > 
-> Please, use break points for both URIs above.  See the source code of 
-> uri.7, which has plenty of examples.
-> 
-> See also "the Chicago Manual of Style" 
-> <https://libguides.lorainccc.edu/c.php?g=29361&p=183502> for guidelines 
-> on that.
+> Okay.
 
-Please, don't read those.  As Branden and I discussed in another thread 
-today, we prefer not following that style.
+Actually, wouldn't it be better to just write?:
 
-So instead of those sources, I'll just write it for you.
+.B \%struct\~sockaddr_mctp
 
-.IR Documentation/\:networking/\:mctp.rst .
-
-.UR https://\:www.dmtf.org/\:standards/\:pmci
-
-
-We could also break before dots, but since the names are short, I don't 
-think it's needed.  It could be:
-
-.IR Documentation/\:networking/\:mctp\:.rst .
-
-.UR https://\:www\:.dmtf\:.org/\:standards/\:pmci
-
-If you are curious about the discussion we had about this, it's here:
-<https://lists.gnu.org/archive/html/groff/2021-10/msg00045.html>.
-
-
-Thanks,
-
-Alex
+This way \% applies to the whole (even if it was unnecessary for 
+'struct\~').
 
 
 -- 
