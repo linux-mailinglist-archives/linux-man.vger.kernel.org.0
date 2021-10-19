@@ -2,797 +2,143 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 168EB432511
-	for <lists+linux-man@lfdr.de>; Mon, 18 Oct 2021 19:30:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 4DD1E433199
+	for <lists+linux-man@lfdr.de>; Tue, 19 Oct 2021 10:54:22 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232211AbhJRRc6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 18 Oct 2021 13:32:58 -0400
-Received: from THBLACKELECTRIC.COM ([207.244.97.128]:38010 "EHLO lsw.cs1local"
-        rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org with ESMTP
-        id S231969AbhJRRc6 (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Mon, 18 Oct 2021 13:32:58 -0400
-Received: from [72.29.63.102] (helo=localhost)
-        by lsw.cs1local with esmtpsa (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-        (Exim 4.92)
-        (envelope-from <thb@b-tk.org>)
-        id 1mcWTF-0002zF-MH
-        for linux-man@vger.kernel.org; Mon, 18 Oct 2021 17:30:46 +0000
-Received: from thb by localhost with local (Exim 4.94.2)
-        (envelope-from <thb@b-tk.org>)
-        id 1mcVZc-0001V9-P2; Mon, 18 Oct 2021 16:33:16 +0000
-Date:   Mon, 18 Oct 2021 16:33:16 +0000
-From:   "Thaddeus H. Black" <thb@debian.org>
-To:     linux-man@vger.kernel.org
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        id S234519AbhJSI4d (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 19 Oct 2021 04:56:33 -0400
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124]:55522 "EHLO
+        us-smtp-delivery-124.mimecast.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S229930AbhJSI4d (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 19 Oct 2021 04:56:33 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1634633660;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         content-transfer-encoding:content-transfer-encoding:
+         in-reply-to:in-reply-to:references:references;
+        bh=VIkH38z9CQwjIreJ/7smcTW6GItcEPn5j0D6u4J+ZS0=;
+        b=bLYRx4bjs266vcrfiZu5Yuc34smbQQBW5lNFtkhU7VFIQp4B9dnWjifgIOho8LcDqgMwHo
+        ommkfTMSxbpwofs7Mp5doxhEhkyeBYRfgZ6wshU6w/cxt+cLSahtJWumVzP/KdgaBscVT6
+        wUOLMloxzigsgD3JVjXxXbKsytDx4W4=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-6-nQd0VeR7NeGwR4dUuyxxZw-1; Tue, 19 Oct 2021 04:54:16 -0400
+X-MC-Unique: nQd0VeR7NeGwR4dUuyxxZw-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E16E018125CC;
+        Tue, 19 Oct 2021 08:54:14 +0000 (UTC)
+Received: from oldenburg.str.redhat.com (unknown [10.39.194.104])
+        by smtp.corp.redhat.com (Postfix) with ESMTPS id 71A8860C82;
+        Tue, 19 Oct 2021 08:54:13 +0000 (UTC)
+From:   Florian Weimer <fweimer@redhat.com>
+To:     "Thaddeus H. Black" <thb@debian.org>
+Cc:     linux-man@vger.kernel.org,
+        Alejandro Colomar <alx.manpages@gmail.com>,
         "G. Branden Robinson" <g.branden.robinson@gmail.com>,
         Michael Kerrisk <mtk.manpages@gmail.com>
-Subject: [PATCH v3] filename.7: new manual page
-Message-ID: <YW2hzL5vDfVZIAXY@b-tk.org>
-Reply-To: linux-man@vger.kernel.org, "Thaddeus H. Black" <thb@debian.org>,
-          Alejandro Colomar <alx.manpages@gmail.com>,
-          "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-          Michael Kerrisk <mtk.manpages@gmail.com>
-References: <YWysyI6/sZtbQBBb@b-tk.org>
+Subject: Re: [PATCH v3] filename.7: new manual page
+References: <YWysyI6/sZtbQBBb@b-tk.org> <YW2hzL5vDfVZIAXY@b-tk.org>
+Date:   Tue, 19 Oct 2021 10:54:11 +0200
+In-Reply-To: <YW2hzL5vDfVZIAXY@b-tk.org> (Thaddeus H. Black's message of "Mon,
+        18 Oct 2021 16:33:16 +0000")
+Message-ID: <87fssxgzt8.fsf@oldenburg.str.redhat.com>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/27.2 (gnu/linux)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="PHp3TfPU5SQaqWjs"
-Content-Disposition: inline
-In-Reply-To: <YWysyI6/sZtbQBBb@b-tk.org>
-X-Spam_score: 1.8
-X-Spam_bar: +
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+* Thaddeus H. Black:
 
---PHp3TfPU5SQaqWjs
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> +.TH FILENAME 7 2021-10-18 "Linux" "Linux Programmer's Manual"
+> +.SH NAME
+> +filename \- requirements and conventions for the naming of files
+> +.SH DESCRIPTION
+> +This manual page sets forth requirements for
+> +and delineates conventions regarding filenames
+> +on a Linux system,
+> +where a
+> +.I filename
+> +is either (as the word suggests) the name of a regular file
+> +or the name of another object held by the system's filesystem
+> +such as a directory, symbolic link, named pipe or device.
 
-Please find patch v3 below, via "git format-patch".
-(If the format is still wrong, or if there is some other way
-in which I should better support the team's work flow, kindly advise.)
+Maybe add: =E2=80=9CA pathname contains zero or more filenames.=E2=80=9D
 
----------------------------------------------------------------------------
-CHANGES IN v3
----------------------------------------------------------------------------
+> +.SS Legal filenames
+> +A filename on a Linux system can consist
+> +of almost any sequence of UTF-8 characters
+> +or, indeed, almost any sequence of bytes.
+> +The exceptions are as follows.
+> +.TP
+> +.B Reserved characters
+> +.RS
+> +The following characters are reserved.
+> +.TP
+> +.B /
+> +The solidus is reserved to separate pathname components
+> +as for example in
+> +.IR /usr/share/doc ,
+> +each component being itself a filename.
+> +For this reason, no filename may include a solidus.
+> +More precisely,
+> +no filename may include the byte that,
+> +in ASCII and UTF-8,
+> +exclusively represents the solidus.
 
-Thaddeus H. Black (3):
-  Polish prose under "Special semantics"
-  Polish and clarify prose under "Letter case"
-  Clarify the final paragraph under "Locales and Unicode"
+What does this mean?  I think only byte 0x2f is reserved.  The UTF-8
+comment is misleading.  A historic/overlong encoding of / in multiple
+UTF-8 bytes is *not* reserved.
 
----------------------------------------------------------------------------
-CHANGES IN v2
----------------------------------------------------------------------------
+> +.B \e0
+> +The null character is reserved for the filesystem to append
+> +to terminate a filename's representation in memory.
+> +For this reason, no filename may include a null character.
+> +More precisely,
+> +no filename may include the byte that,
+> +in ASCII and UTF-8,
+> +exclusively represents the null character.
 
-Hendrik Boom, G. Branden Robinson and Alejandro Colomar (1):
-  Write "uppercase" and "lowercase" rather than "capital" and "small"
+See above.
 
-Alejandro Colomar and G. Branden Robinson (2):
-  Use semantic newlines
-  Avoid \f, but rather use separate lines
+> +.B Reserved names
+> +.RS
+> +The following names are reserved.
+> +.TP
+> +.B .
+> +The filename consisting of a single full stop
+> +is reserved to represent the current directory.
+> +.TP
+> +.B ..
+> +The filename consisting of two full stops
+> +is reserved to represent the parent directory.
+> +.TP
+> +(empty)
+> +The empty filename,
+> +consisting of no bytes at all
+> +(except a terminating null byte),
+> +is not allowed.
 
-Alejandro Colomar (11):
-  Use subsections instead of sections
-  Use subsubsections instead of subsections
-  Remove unnecessary .P after .S[HS]
-  Use .PP rather than .P
-  Fix indentation of paragraph, which continues talking about \0
-  Mention FAT
-  For consistency, list "-" with "-name" and ".name"; s/a pair of/some/
-  Delete the redundant mention of "."
-  By s/all but/almost/, avoid double negation
-  Reference filesystems(5) under SEE ALSO
-  Under CONFORMING TO, write only, "POSIX.1=E2=80=902001 and later."
+This conflicts with the presentation of / as a separator in pathnames, I
+think: The pathname "/usr/" contains two empty filenames.
 
-G. Branden Robinson (3):
-  Write "letter case" rather than "capitalization"
-  Reference section-3 pages not under SEE ALSO but only in passing
-  Avoid \c
+> +.TP
+> +.B Long names
+> +.RS
+> +No filename may exceed\~255 bytes in length,
+> +or\~256 bytes after counting the terminating null byte.
 
-Thaddeus H. Black (2):
-  Reword subsubsect "Special semantics" to support Alejandro's change no. 7
-  Avoid beginning any subsect or subsubsect with specially formatted text
+This is not correct for Linux.  Despite the definition of NAME_MAX,
+filenames can be longer than 255 bytes.  NTFS and CIFS have a limit of
+255 UTF-16 characters, which translates to about 768 bytes in the UTF-8
+encoding used by Linux.
 
----------------------------------------------------------------------------
-GROFF SOURCE v3 (IN GIT'S PATCH FORMAT)
----------------------------------------------------------------------------
+Thanks,
+Florian
 
----
- man7/filename.7 | 660 ++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 660 insertions(+)
- create mode 100644 man7/filename.7
-
-diff --git a/man7/filename.7 b/man7/filename.7
-new file mode 100644
-index 000000000..9c53f8c7b
---- /dev/null
-+++ b/man7/filename.7
-@@ -0,0 +1,660 @@
-+.\" Copyright (C) 2021 Thaddeus H. Black <thb@debian.org>
-+.\"
-+.\" %%%LICENSE_START(VERBATIM)
-+.\" Permission is granted to make and distribute verbatim copies of this
-+.\" manual provided the copyright notice and this permission notice are
-+.\" preserved on all copies.
-+.\"
-+.\" Permission is granted to copy and distribute modified versions of this
-+.\" manual under the conditions for verbatim copying, provided that the
-+.\" entire resulting derived work is distributed under the terms of a
-+.\" permission notice identical to this one.
-+.\"
-+.\" Since the Linux kernel and libraries are constantly changing, this
-+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
-+.\" responsibility for errors or omissions, or for damages resulting from
-+.\" the use of the information contained herein.  The author(s) may not
-+.\" have taken the same level of care in the production of this manual,
-+.\" which is licensed free of charge, as they might when working
-+.\" professionally.
-+.\"
-+.\" Formatted or processed versions of this manual, if unaccompanied by
-+.\" the source, must acknowledge the copyright and authors of this work.
-+.\" %%%LICENSE_END
-+.\"
-+.\" 2021-10-18, Thaddeus H. Black <thb@debian.org>
-+.\"     Wrote the manual page's initial version.
-+.\"
-+.TH FILENAME 7 2021-10-18 "Linux" "Linux Programmer's Manual"
-+.SH NAME
-+filename \- requirements and conventions for the naming of files
-+.SH DESCRIPTION
-+This manual page sets forth requirements for
-+and delineates conventions regarding filenames
-+on a Linux system,
-+where a
-+.I filename
-+is either (as the word suggests) the name of a regular file
-+or the name of another object held by the system's filesystem
-+such as a directory, symbolic link, named pipe or device.
-+.SS Legal filenames
-+A filename on a Linux system can consist
-+of almost any sequence of UTF-8 characters
-+or, indeed, almost any sequence of bytes.
-+The exceptions are as follows.
-+.TP
-+.B Reserved characters
-+.RS
-+The following characters are reserved.
-+.TP
-+.B /
-+The solidus is reserved to separate pathname components
-+as for example in
-+.IR /usr/share/doc ,
-+each component being itself a filename.
-+For this reason, no filename may include a solidus.
-+More precisely,
-+no filename may include the byte that,
-+in ASCII and UTF-8,
-+exclusively represents the solidus.
-+.TP
-+.B \e0
-+The null character is reserved for the filesystem to append
-+to terminate a filename's representation in memory.
-+For this reason, no filename may include a null character.
-+More precisely,
-+no filename may include the byte that,
-+in ASCII and UTF-8,
-+exclusively represents the null character.
-+(When appended by the filesystem
-+to terminate a filename's representation in memory,
-+the byte in question is called the
-+.I terminating null
-+.IR byte .
-+Though familiar to\~C programmers,
-+the terminating null byte is usually invisible to users.)
-+.IP
-+Note
-+.RB that\~ \e0 ,
-+the null character (or null byte), differs from
-+.RB from\~ 0 ,
-+the printable digit-zero character.
-+The null character (or null byte)
-+is unprintable and registers in ASCII and UTF-8
-+as the eight-bit pattern\~0x00,
-+whereas the printable digit zero registers as\~0x30
-+[see the \(lqHex\(rq column in
-+.BR ascii (7)'s
-+character table].
-+Nothing prevents a filename from including a printable digit zero,
-+as for instance the filename
-+.I intel-m10-bmc.h
-+from the kernel's source does.
-+.RE
-+.TP
-+.B Reserved names
-+.RS
-+The following names are reserved.
-+.TP
-+.B .
-+The filename consisting of a single full stop
-+is reserved to represent the current directory.
-+.TP
-+.B ..
-+The filename consisting of two full stops
-+is reserved to represent the parent directory.
-+.TP
-+(empty)
-+The empty filename,
-+consisting of no bytes at all
-+(except a terminating null byte),
-+is not allowed.
-+.PP
-+The aforementioned current and parent directories are the current
-+.I working
-+directory and its parent except when
-+.RB the\~ .
-+.RB or\~ ..
-+occurs in the middle or at the end of a pathname,
-+in which case the current and parent directories
-+are taken relative to preceding pathname elements.
-+For example, if the current working directory were
-+.IR /home/jsmith ,
-+then
-+.I ../rjones
-+would mean
-+.I /home/rjones
-+but
-+.I foo/bar/../baz
-+would mean
-+.IR /home/jsmith/foo/baz ,
-+whereas
-+.I foo/bar/./baz
-+would mean
-+.IR /home/jsmith/foo/bar/baz .
-+.RE
-+.TP
-+.B Long names
-+.RS
-+No filename may exceed\~255 bytes in length,
-+or\~256 bytes after counting the terminating null byte.
-+.RB ( Reserved
-+.B characters
-+above explains the terminating null byte.)
-+.RE
-+.TP
-+.B Non-UTF-8 names
-+.RS
-+Filenames need not consist of valid UTF-8 characters
-+(although, except where a non-UTF-8 legacy encoding is in use,
-+most filenames do).
-+As long as the requirements
-+of the preceding subsubsections
-+are met,
-+any sequence of bytes can legally serve as a filename.
-+.RE
-+.SS Conventional filenames
-+Merely because a filename is legal
-+does not make its use advisable, though.
-+Some legal filenames cause practical troubles.
-+For example, the legal filenames
-+.IR m=3D3 ,
-+.IR \(tijsmith ,
-+.I \-v
-+and
-+.I My\~Document.txt
-+are susceptible to misinterpretation by a shell.
-+Workarounds typically exist,
-+chiefly via quotation, escape
-+and the explicit termination of options processing
-+[see
-+.BR sh (1)];
-+but when reprocessing of shell-command text
-+requires requotation and re-escape,
-+the workarounds become an inconvenient, confusing, error-prone hassle.
-+.PP
-+The use of conventional filenames averts the hassle.
-+It also makes filenames more recognizable to experienced users.
-+.PP
-+This subsection introduces broadly observed conventions for filenames.
-+.TP
-+.B The POSIX Portable Filename Character Set
-+.RS
-+In general contexts,
-+especially for international applications,
-+conventional filenames
-+are composed using the\~65 ASCII characters
-+of the POSIX Portable Filename Character Set.
-+The POSIX Portable Filename Character Set consists of the following.
-+.TP
-+.BR A \- Z
-+The\~26 uppercase or capital ASCII letters.
-+.TP
-+.BR a \- z
-+The\~26 lowercase or small ASCII letters.
-+.TP
-+.BR 0 \- 9
-+The ten ASCII digits.
-+.TP
-+.B . \_ \-
-+These three ASCII punctuators:  full stop; low line; hyphen-minus.
-+.PP
-+Special contexts often employ additional characters but,
-+in general contexts for international applications,
-+conventional filenames exclude characters other than the listed\~65.
-+(For noninternational applications, see
-+.B Locales and Unicode
-+below.)
-+.PP
-+Observe that the
-+.RB space\~ \(aq\0\(aq \~( \eu0020 )
-+is not listed despite being an ASCII character.
-+Filenames that include spaces
-+are often encountered for various reasons in certain contexts,
-+but such filenames are unconventional in general
-+and are inconvenient to use with tools.
-+Within filenames, the low
-+.RB line\~ \_
-+or
-+.RB hyphen-minus\~ \-
-+is conventionally employed as necessary instead of the space.
-+(See
-+.B Unconventional filenames
-+and, under
-+.B Soft
-+.BR conventions ,
-+also
-+.B Low line versus hyphen-minus
-+below.)
-+.PP
-+Incidentally, uppercase and lowercase letters
-+are normally distinct within filenames on a Linux system;
-+so, for example,
-+.I README
-+and
-+.I readme
-+name two different files.
-+(Exception:  the FAT filesystem on Linux is case-insensitive,
-+so uppercase and lowercase letters
-+are indistinct where FAT is in use.
-+For further observations regarding letter case, see
-+.B Letter case
-+under
-+.B Soft conventions
-+below.)
-+.RE
-+.TP
-+.B Special semantics
-+.RS
-+Besides the last subsubsection's POSIX convention,
-+some conventions derived from core utilities
-+are almost always respected, as well.
-+.TP
-+.B \-
-+The one-character name
-+consisting of a lone hyphen-minus
-+is sometimes understood by a shell
-+to refer to the previous working directory
-+and sometimes understood by tools
-+to refer to standard input or standard output.
-+Therefore, no conventional filename
-+consists of a lone hyphen-minus.
-+.TP
-+.BR \- name
-+A name (other than the just-mentioned one-character name)
-+that begins with a hyphen-minus
-+is usually interpreted by tools as a
-+command-line option rather than as a filename.
-+Therefore, no conventional filename
-+begins with a hyphen-minus.
-+.TP
-+.BR . name
-+Conventional filenames may indeed begin with the full stop.
-+To begin with the full stop is unexceptionable;
-+it does not generally cause trouble.
-+However, filenames that begin with the full stop
-+conventionally designate
-+.I hidden files
-+(or hidden directories, etc.),
-+a familiar example being the
-+.I .profile
-+typically found in a user's home directory.
-+Hidden files behave normally but, by default, are ignored by
-+.BR ls (1)
-+and certain other tools.
-+.RE
-+.TP
-+.B The full stop to introduce a format extension
-+.RS
-+Other than at a filename's beginning
-+(a case the last subsubsection has discussed),
-+the full stop is employed in filenames
-+for various further conventional purposes.
-+No single rule governs all conventional uses of the full stop.
-+.PP
-+However, except at a filename's beginning,
-+the most common conventional use of the full stop
-+is to append to a filename's stem
-+an extension to indicate the format of the file's contents.
-+An example is the filename
-+.IR UnicodeData.txt ,
-+in which
-+.I UnicodeData
-+is the stem and
-+.RI the\~ .txt
-+indicates that the file contains plain text.
-+Multiple format extensions are even appended to some filename stems,
-+as in
-+.I my-archive.tar.xz
-+for instance, which is the name of a tape archive
-+.I my-archive.tar
-+that, after archival, has subsequently been compressed by
-+.BR xz (1).
-+.PP
-+The format-extension convention is almost universally recognized.
-+Even nontechnical users are typically familiar with it.
-+However, many users employ full stops also
-+for various purposes unrelated to format extensions, as well;
-+and they do so often enough
-+that such unrelated usage can hardly be called unconventional.
-+Except at a filename's beginning,
-+convention supports free use of the full stop.
-+.PP
-+.I You
-+may reserve the full stop solely
-+to append format extensions if you wish,
-+of course.
-+Many users do.
-+.PP
-+.\" The next sentence has been corrected
-+.\" according to Charles Plessy's helpful advice
-+.\" [https://lists.debian.org/debian-devel/2021/08/msg00557.html].
-+(If your machine is configured as a desktop or laptop
-+rather than as a server,
-+then you can probably find a fairly comprehensive catalog
-+of conventional filename extensions,
-+identifying the format each extension implies,
-+on your machine in a file such as
-+.I /etc/mime.types
-+or
-+.IR /usr/share/mime/globs .)
-+.RE
-+.SS Soft conventions
-+Further filenaming conventions are softer.
-+Though often observed,
-+such softer conventions can be bent or broken
-+without rendering filenames unconventional.
-+.PP
-+This subsection introduces soft conventions for filenames.
-+.TP
-+.B Low line versus hyphen-minus
-+.RS
-+Whether to use the low
-+.RB line\~ \_
-+or the
-+.RB hyphen-minus\~ \-
-+in filenames is a matter of preference.
-+Except as stated above,
-+convention does not strongly prefer the one over the other.
-+.PP
-+If you would like advice, anyway, however,
-+then the kernel's source sets an example.
-+Most filenames in the kernel's source prefer the hyphen-minus.
-+You can do the same if you wish.
-+.PP
-+Even if you prefer the hyphen-minus, though,
-+some exceptions arise, as follows.
-+.IP \(bu
-+The contents of a program's source files usually designate various
-+.I entities
-+such as variables, functions, types and so forth.
-+In\~C and similar programming languages,
-+the hyphen-minus is a minus sign,
-+so the designations of entities must use the low line, instead.
-+Where a file is named after an entity the file introduces,
-+the filename should use low lines as the entity's designation does.
-+Examples include the file
-+.IR lock\_events.h ,
-+which introduces the entity
-+.IR lock\_events ,
-+in the kernel's source.
-+.IP \(bu
-+Where distinct separators with different semantics are required,
-+a filename can use the low line as an alternate separator.
-+Examples include the file
-+.IR coreutils\_8.30-3\_amd64.deb ,
-+which provides revision\~3 of the Debian binary package
-+that installs version\~8.30 of the GNU core utilities
-+for the amd64/x86-64 architecture.
-+.IP \(bu
-+Occasionally, the name of a file
-+that provides
-+private, internal, ephemeral, uninterfaceable or undocumented aspects
-+of an implementation
-+will
-+.I begin
-+with a low line to hint that the file
-+.RS
-+.IP +
-+does not require the user's or programmer's attention or
-+.IP +
-+is unsuitable for external agents to access directly.
-+.RE
-+.IP
-+Examples include the file
-+.\" On the author's PC using Groff's default output device,
-+.\" Groff typesets the next line's italicized low line inconsistently
-+.\" compared to the manual page's other italicized low lines.
-+.\" Presumably, Groff does this
-+.\" because the low line in question begins its word
-+.\" (though why Groff thinks beginning the word significant
-+.\" is unclear), but the inconsistency is slightly distracting.
-+.I \_sd-common.h
-+in systemd's source.
-+.IP \(bu
-+Sometimes, the low line
-+stands for an unspecified letter of the alphabet.
-+.PP
-+Otherwise,
-+despite that the low line and the hyphen-minus
-+are both conventional,
-+if you want advice:
-+prefer the hyphen-minus.
-+.RE
-+.TP
-+.B Letter case
-+.RS
-+A loosely observed convention
-+favors lowercase letters in filenames
-+where no reason to use uppercase exists.
-+Many exceptions occur, though, as for example the oft-encountered
-+.I Makefile
-+that instructs
-+.BR make (1)
-+how to build an executable program or other autogeneratable file.
-+.PP
-+The reason convention favors lowercase
-+is that the general use of lowercase
-+leaves uppercase to be employed for emphasis.
-+Where the default\~C (or C.UTF-8) locale is in use,
-+the uppercase ASCII letters
-+are collated before all the lowercase ones,
-+whereby
-+.BR ls (1)
-+lists filenames like
-+.I Makefile
-+and
-+.I README
-+before filenames like
-+.I a.out
-+and
-+.IR foo.c .
-+[If your locale causes
-+.BR ls (1)
-+to collate differently
-+when you would have preferred the just-described default collation,
-+then try
-+.B LC\_ALL=3DC ls
-+or
-+.B LC\_ALL=3DC.UTF-8 ls
-+to suppress the locale.
-+See
-+.BR locale (7).]
-+.PP
-+Despite the foregoing,
-+programming styles in languages like\~C++ and Python
-+occasionally uppercase some letters
-+in the names of types and of certain other entities.
-+Such styles can spill over to affect filenames.
-+For this among other reasons,
-+it is hard to state a comprehensive rule regarding letter casing.
-+.PP
-+Nevertheless, if in doubt,
-+prefer lowercase where no reason to use uppercase exists.
-+.RE
-+.SS Locales and Unicode
-+.\" If another subsubsection were added to the manual page,
-+.\" then this subsection might be demoted to a subsubsection and,
-+.\" if appropriate, grouped with the new subsubsection together
-+.\" under a new subsection entitled "Further considerations."
-+If your application is local rather than international,
-+then you can relax POSIX's aforementioned character-set convention
-+at your discretion
-+by including graphic Unicode characters;
-+specifically, by including non-ASCII Unicode characters for which
-+.BR iswgraph (3)
-+returns true
-+in your locale
-+or (if your system has it) in the C.UTF-8 locale.
-+[For the relationship between
-+.BR unicode (7),
-+.BR utf-8 (7)
-+and
-+.BR ascii (7),
-+see the respective manual pages.
-+Approximately, in brief,
-+Unicode is a character set,
-+UTF-8 is a byte-oriented scheme
-+by which Unicode characters can be encoded,
-+and ASCII is both a character set
-+and a byte-oriented scheme
-+that is a subset of both Unicode and UTF-8.]
-+.PP
-+To suggest an exact noninternational filenaming rule, other than the
-+.BR iswgraph (3)
-+rule, for every locale would exceed the scope of this manual page;
-+but approximately,
-+in a Japanese or French application for instance,
-+a filename might respectively
-+include kanji ideographs or accented Latin letters.
-+Filenames that include kanji ideographs or accented Latin letters
-+might be hard for international users to read or type,
-+but insofar as such filenames
-+exclude spaces, control characters, ASCII symbols
-+.RB (like\~ $
-+.RB or\~ =3D ),
-+and ASCII punctuators
-+other than the three punctuators POSIX recommends,
-+such filenames will not normally cause trouble for tools
-+and, thus, may be regarded as conventional within the local context.
-+.PP
-+The use of nonbreaking spaces
-+.RB like\~ \eu00A0 ,
-+.BR \eu2007 ,
-+.B \eu202F
-+.RB or\~ \euFEFF
-+in filenames is probably inadvisable for most locales, despite that
-+.BR iswgraph (3)
-+returns true.
-+[The use of ordinary, breaking spaces
-+.RB like\~ \eu0020
-+(the familiar ASCII space),
-+.BR \eu1680 ,
-+.B \eu2000
-+.RB through\~ \eu2006 ,
-+.BR \eu2008 ,
-+.BR \eu2009 ,
-+.BR \eu200A ,
-+.B \eu205F
-+.RB and\~ \eu3000
-+is probably also inadvisable, but
-+.BR iswgraph (3)
-+returns false for those, anyway.]
-+.PP
-+If calling
-+.BR iswgraph (3),
-+incidentally, see also
-+.BR mbrtowc (3)
-+and
-+.BR wcrtomb (3).
-+.SS Unconventional filenames
-+More than a few files on a typical Linux system,
-+occasionally even including standard files
-+employed by and/or automatically installed
-+by an operating-system distribution,
-+have unconventional filenames.
-+For example, on a Debian GNU/Linux system,
-+some names of files that supply software packages use the
-+.RB characters\~ +
-+.RB and\~ \(ti
-+which, though unconventional in general,
-+are normal and expected within that context.
-+For another example,
-+in the kernel's source, certain filenames use the
-+.RB character\~ ,
-+to separate a device's designator
-+from the name of the device's manufacturer.
-+You may have noticed the unconventionally-named
-+.I lost+found
-+directory lurking at a filesystem's root on your computer;
-+and there are further examples, as well.
-+.PP
-+There are many reasons to use unconventional filenames.
-+.PP
-+It is hard to give a general rule,
-+with respect to a particular context,
-+as to which unconventional filenames
-+are likely to cause practical troubles
-+and which are not.
-+If unsure, you can avoid troubles by adhering to convention;
-+but if you wish or need to depart from convention,
-+then the only suggestions this manual page would make are
-+.IP \(bu
-+that unconventional filenames not be used without context;
-+.IP \(bu
-+that unconventional filenames not be used without reason;
-+.IP \(bu
-+that, even where filenames are unconventional, the recommendations of
-+.B Special semantics
-+above still be followed if practicable;
-+.IP \(bu
-+that, where several unconventionally named files are collected,
-+the use of unconventional characters be systematic
-+(for example,
-+.IR 16:30.log ,
-+.IR 16:45.log ,
-+.I 17:00.log
-+and so on);
-+.IP \(bu
-+that, even if unconventional symbols or punctuators
-+are employed within filenames,
-+one think twice before
-+.I beginning
-+a filename with an unconventional symbol or punctuator;
-+specifically, before beginning a filename
-+with a nonalphanumeric ASCII character
-+other than the full stop or low line
-+(consider for example a filename that began with
-+.RB the\~ \(ti
-+.RB or\~ $
-+symbol, which a shell might misinterpret as it were a reference
-+to a home directory or shell parameter);
-+.IP \(bu
-+that, even if non-POSIX characters are used,
-+non-ASCII characters be avoided
-+to the extent to which the application is international;
-+.IP \(bu
-+that the shell's four standard globbing
-+.RB characters\~ *?[]
-+be avoided in most instances; and
-+.IP \(bu
-+even if none of the other suggestions is followed,
-+that control characters be avoided in any event,
-+.I control characters
-+being characters, including the
-+.RB tab\~ \et
-+and
-+.RB line-feed\~ \en
-+characters, for which
-+.BR iswcntrl (3)
-+returns true.
-+(Note that,
-+although the use of the space in filenames
-+contravenes POSIX and anyway annoys many Linux users,
-+the space is the sole nongraphic ASCII character
-+that, by definition, is not a control character.
-+Spaces in filenames are unconventional and perhaps inadvisable,
-+but they are hardly unusual;
-+whereas tabs and line feeds are,
-+for good reason,
-+practically never seen.)
-+.SH CONFORMING TO
-+POSIX.1-2001 and later.
-+.SH SEE ALSO
-+.BR ls (1),
-+.BR sh (1),
-+.BR ext4 (5),
-+.BR filesystems (5),
-+.BR ascii (7),
-+.BR locale (7),
-+.BR unicode (7),
-+.BR utf-8 (7)
-+.PP
-+info
-+.B coreutils
-+.\" The author, Thaddeus H. Black, thanks
-+.\" his wife Kristie, daughter Naomi and son George
-+.\" for their review and proofreading
-+.\" of various parts of this manual page; and also thanks
-+.\" Alejandro Colomar, G. Branden Robinson and Hendrik Boom
-+.\" for their subsequent inspection, discussion and revision.
---=20
-2.30.2
-
-
---PHp3TfPU5SQaqWjs
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEM1APDU+pwMhnuF4GcGMmQy2FIrwFAmFtocwACgkQcGMmQy2F
-IryaqhAAlfaF2WxhPgedFCUDjk5McDmN6/gYu55kyjJ8mKF5INaJfzyWARRDWEsJ
-4L4idLifSEHlQLMIXf+Tblj2j7sRuWKHyEGxHpJFANmIUFJpjhmJL/9tSN0aNTYO
-+Ob6qbaIuiyXi6y9VfhDv9qTRQjKr1KELMjuN79rpyan7wLY5rKTarTOGKjL6w84
-6NWmmrCtmgXu8boP6DaYO/f0QjstcxOVJVOSrAQbtX10B8Hxy4tMQGzkduI0Fwiu
-es3TSjWkjq7QVK/kWKBOAHl2PHQctEQ4H8HUV6PB4/IEj94XVQDrUknqMVLj3qpP
-8pVYy7JALUS3WSeVpjjH1KKtarLdkQcfC++/Ka2RWUOW1QkkAqcwur+vylEipCqm
-WSoEgU0UM4NeTbfEVoijk1N8zfaoKoJOCEWclB2+VvsZ+M2O0y88+Au45PmAaUzF
-xQ3MqLeu8P8frFRKomll8AUXzQYuD8kvON0FKVhgAp/iQsyOwSZeBvYkWs4fHDLJ
-beMRjYQzV6ECmrDHwqxTLKEUpSqm+4evc1rs8AoeOnLzvZ0zjD9fG8RxiJwr8Nxt
-PUt0qi58LQVd2BJX6I1FTUpBWITVqzna/rlhRr6CsmSj3wuzNBzg7bbxofnzn/Zz
-xeVanGgEB5CpgI8YwHPSPSXlLKXqia7tskr6CuTpDwuun52W44o=
-=a+U4
------END PGP SIGNATURE-----
-
---PHp3TfPU5SQaqWjs--
