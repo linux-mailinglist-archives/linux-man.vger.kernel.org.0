@@ -2,113 +2,164 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B68214334BF
-	for <lists+linux-man@lfdr.de>; Tue, 19 Oct 2021 13:32:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9DB3C433738
+	for <lists+linux-man@lfdr.de>; Tue, 19 Oct 2021 15:38:14 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230129AbhJSLes (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 19 Oct 2021 07:34:48 -0400
-Received: from THBLACKELECTRIC.COM ([207.244.97.128]:38064 "EHLO lsw.cs1local"
-        rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org with ESMTP
-        id S230097AbhJSLer (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Tue, 19 Oct 2021 07:34:47 -0400
-Received: from [72.29.63.102] (helo=localhost)
-        by lsw.cs1local with esmtpsa (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-        (Exim 4.92)
-        (envelope-from <thb@b-tk.org>)
-        id 1mcnM9-0005Jo-QN
-        for linux-man@vger.kernel.org; Tue, 19 Oct 2021 11:32:34 +0000
-Received: from thb by localhost with local (Exim 4.94.2)
-        (envelope-from <thb@b-tk.org>)
-        id 1mcmvq-0000qE-9s; Tue, 19 Oct 2021 11:05:22 +0000
-Date:   Tue, 19 Oct 2021 11:05:22 +0000
-From:   "Thaddeus H. Black" <thb@debian.org>
-To:     Florian Weimer <fweimer@redhat.com>
-Cc:     linux-man@vger.kernel.org,
-        Alejandro Colomar <alx.manpages@gmail.com>,
-        "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>
+        id S231616AbhJSNkZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 19 Oct 2021 09:40:25 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52904 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S231564AbhJSNkZ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 19 Oct 2021 09:40:25 -0400
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com [IPv6:2a00:1450:4864:20::333])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 92BA3C06161C
+        for <linux-man@vger.kernel.org>; Tue, 19 Oct 2021 06:38:12 -0700 (PDT)
+Received: by mail-wm1-x333.google.com with SMTP id n7-20020a05600c4f8700b00323023159e1so2756649wmq.2
+        for <linux-man@vger.kernel.org>; Tue, 19 Oct 2021 06:38:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=subject:to:references:cc:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=QKQCRJW7QnbFA6bmgSE1sQs+gnP0H5Aeu41owfo1DkU=;
+        b=p9GuTq83E/8JHSF0XmKps4FLiM0P4+xoKcXcMd7lUga+BdmiaErnWQzw+SRZ6yv/4s
+         syuAI0BRRdO4njJfAD6B5QalGoOyRx3O4pngVACLSHCiKEn8v03NvVHAi+98DehO2fy2
+         hctLH+IQJ8WRIWM0lrpIQZrMlv5X4KjaC9RaE1NhkJWCwvSqxDZb0hBxfUao9DWZ47vS
+         pXtb67sBex39P7uAhwKB2Cm7+E8900MubkcbbwogPQ7Z8um30u9B8CIWtvxSMgxsQd1f
+         AXdxnSV8nOGls4aMTQFj28VYSP3WCzA0KvO+kHp2Im6pKenpTviWFMy4ICksHrj9nFcq
+         EfAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:subject:to:references:cc:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=QKQCRJW7QnbFA6bmgSE1sQs+gnP0H5Aeu41owfo1DkU=;
+        b=2h3uHXi69s4Z0bIwhM0jxoLrCjBwYn+22Ie61yrzL9lxIGG/4vwXdH8qBDtwWBy3dT
+         9xVVs2Elh3krDQd5QJa2DfqyJ54wQ5JvUpR2KNfk/kHSSgQbSdcvBdduLKn2ATwewrUM
+         1fDssRxyuKdc4y+J8ta8gAfeesg7JtMB8L9ZKgL/IDfQ+BzDhNTKvU9MbMyR7FVa/Mvr
+         +ZTH2wgrfRgVowe+2PzgdYEw4Gj1vmcHcz4zf1kns4ns+TCk/bO86+Ma5yZ5SyrF3Lfp
+         eYD85g8850L7UW7oQhUA353UL1I+onspUTLflXyxODENJefJwQ51AmSkq5+c9iN00xk3
+         jYag==
+X-Gm-Message-State: AOAM530pienhO2krXAtAxYLJYtZ7hiR0pXi8IFy79zpJZ5w1qbIWFr2/
+        lBJbH8tRwcUWwQUdXp9mMY0=
+X-Google-Smtp-Source: ABdhPJxT6NKMa8R3TFkj8jbjLECFmLb1UNMx9/SELkcexbevuJPLEQVT3UEnMH5eeeN+/3/iYB4qIQ==
+X-Received: by 2002:a7b:c149:: with SMTP id z9mr6090060wmi.177.1634650691197;
+        Tue, 19 Oct 2021 06:38:11 -0700 (PDT)
+Received: from [10.8.0.138] ([195.53.121.100])
+        by smtp.gmail.com with ESMTPSA id p7sm14466958wrm.61.2021.10.19.06.38.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 19 Oct 2021 06:38:10 -0700 (PDT)
 Subject: Re: [PATCH v3] filename.7: new manual page
-Message-ID: <YW6mcn0uMW3FWUu6@b-tk.org>
-Reply-To: "Thaddeus H. Black" <thb@debian.org>, linux-man@vger.kernel.org,
-          Alejandro Colomar <alx.manpages@gmail.com>,
-          "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-          Michael Kerrisk <mtk.manpages@gmail.com>
-References: <YWysyI6/sZtbQBBb@b-tk.org>
- <YW2hzL5vDfVZIAXY@b-tk.org>
- <87fssxgzt8.fsf@oldenburg.str.redhat.com>
+To:     "Thaddeus H. Black" <thb@debian.org>
+References: <YWysyI6/sZtbQBBb@b-tk.org> <YW2hzL5vDfVZIAXY@b-tk.org>
+Cc:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        linux-man@vger.kernel.org, Michael Kerrisk <mtk.manpages@gmail.com>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Message-ID: <22573673-bf1e-0f64-7e95-6cf0a23c2015@gmail.com>
+Date:   Tue, 19 Oct 2021 15:38:09 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="WgDfcJ9DCFfdC4Lr"
-Content-Disposition: inline
-In-Reply-To: <87fssxgzt8.fsf@oldenburg.str.redhat.com>
-X-Spam_score: 1.8
-X-Spam_bar: +
+In-Reply-To: <YW2hzL5vDfVZIAXY@b-tk.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Hi Thaddeus,
 
---WgDfcJ9DCFfdC4Lr
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 10/18/21 6:33 PM, Thaddeus H. Black wrote:
+> Please find patch v3 below, via "git format-patch".
+> (If the format is still wrong, or if there is some other way
+> in which I should better support the team's work flow, kindly advise.)
 
-On Tue, Oct 19, 2021 at 10:54:11AM +0200, Florian Weimer wrote:
-> Maybe add: =E2=80=9CA pathname contains zero or more filenames.=E2=80=9D
+'git format-patch' is the preferred method :)
 
-Okay.
+What I missed here is the long (and great) commit message from v1, which 
+I'm going to save as the commit message.  Please, when you send v4, 
+include the original text.
 
-> What does this mean?  I think only byte 0x2f is reserved.  The UTF-8
-> comment is misleading.  A historic/overlong encoding of / in multiple
-> UTF-8 bytes is *not* reserved.
+Ephemeral stuff that should not go into the commit message (like 
+changelogs between versions of the patch), you can put it above, in a 
+"scissor patch" format (see git-format-patch(1) if necessary).
 
-I had not known that UTF-8 had an alternate encoding for any ASCII
-character.  Does it indeed have an alternate encoding?  If so, where
-can I learn more?
+Or if it's short/simple enough, below the '---' (and just above the 
+patch itself; it is actually ignored by git, unless it's so complex that 
+it is misinterpreted as part of the patch).  This method is what I 
+usually use, since it doesn't require specifying '--scissors', and I 
+usually only write normal text that can't be confused with the patch.  I 
+don't know if this is documented anywhere, but it's very useful.
 
-The new filename(7) manual page wishes to be correct but, otherwise,
-would like to inflict upon the reader as little difficult technical
-prose as it can.  The page wants to remain readable.  In this light, can
-you advise me how the page should speak to your point?
+Thanks,
 
-> This conflicts with the presentation of / as a separator in pathnames, I
-> think: The pathname "/usr/" contains two empty filenames.
+Alex
 
-I had not thought of that.  Good point.
+> 
+> ---------------------------------------------------------------------------
+> CHANGES IN v3
+> ---------------------------------------------------------------------------
+> 
+> Thaddeus H. Black (3):
+>    Polish prose under "Special semantics"
+>    Polish and clarify prose under "Letter case"
+>    Clarify the final paragraph under "Locales and Unicode"
+> 
+> ---------------------------------------------------------------------------
+> CHANGES IN v2
+> ---------------------------------------------------------------------------
+> 
+> Hendrik Boom, G. Branden Robinson and Alejandro Colomar (1):
+>    Write "uppercase" and "lowercase" rather than "capital" and "small"
+> 
+> Alejandro Colomar and G. Branden Robinson (2):
+>    Use semantic newlines
+>    Avoid \f, but rather use separate lines
+> 
+> Alejandro Colomar (11):
+>    Use subsections instead of sections
+>    Use subsubsections instead of subsections
+>    Remove unnecessary .P after .S[HS]
+>    Use .PP rather than .P
+>    Fix indentation of paragraph, which continues talking about \0
+>    Mention FAT
+>    For consistency, list "-" with "-name" and ".name"; s/a pair of/some/
+>    Delete the redundant mention of "."
+>    By s/all but/almost/, avoid double negation
+>    Reference filesystems(5) under SEE ALSO
+>    Under CONFORMING TO, write only, "POSIX.1‐2001 and later."
+> 
+> G. Branden Robinson (3):
+>    Write "letter case" rather than "capitalization"
+>    Reference section-3 pages not under SEE ALSO but only in passing
+>    Avoid \c
+> 
+> Thaddeus H. Black (2):
+>    Reword subsubsect "Special semantics" to support Alejandro's change no. 7
+>    Avoid beginning any subsect or subsubsect with specially formatted text
+> 
+> ---------------------------------------------------------------------------
+> GROFF SOURCE v3 (IN GIT'S PATCH FORMAT)
+> ---------------------------------------------------------------------------
+> 
+> ---
 
-Thus, the empty filename is not forbidden but rather is reserved.
+Here you can write your patch changelogs.
 
-> > +No filename may exceed\~255 bytes in length,
-> > +or\~256 bytes after counting the terminating null byte.
->=20
-> This is not correct for Linux.  Despite the definition of NAME_MAX,
-> filenames can be longer than 255 bytes.  NTFS and CIFS have a limit of
-> 255 UTF-16 characters, which translates to about 768 bytes in the UTF-8
-> encoding used by Linux.
+>   man7/filename.7 | 660 ++++++++++++++++++++++++++++++++++++++++++++++++
+>   1 file changed, 660 insertions(+)
+>   create mode 100644 man7/filename.7
+> 
+> diff --git a/man7/filename.7 b/man7/filename.7
+> new file mode 100644
+> index 000000000..9c53f8c7b
+> --- /dev/null
+> +++ b/man7/filename.7
+> @@ -0,0 +1,660 @@
+> +.\" Copyright (C) 2021 Thaddeus H. Black <thb@debian.org>
 
-I see.
 
-Your feedback is helpful and appreciated (especially since you are the
-first Fedora-class user to return a review).
-
---WgDfcJ9DCFfdC4Lr
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEM1APDU+pwMhnuF4GcGMmQy2FIrwFAmFupm0ACgkQcGMmQy2F
-IrwvIhAAx9tfs4QhSY/dvkfXkTCEXhEp0rYCw5Yr7RyO7P8RFqRjQP/Squ0S5JqP
-THp83U+x2QdG54EQEcuSdqFiYdHbSngzA0T6XvimgUlsK/QZtR4DcvfFacY+cnEv
-+y5+FrfqNYYl4BNl6+De8riuAFk1silY68I48+Pi/E2aXmP0xwO+InynGv/Q2Eiv
-EryMVnXhUSLiUaWmL0x0BeDwdAsGDieIrvNlghjrxcW7vzZk27eLnGW90+/pIAmH
-sH7XeYvBQ/uNSozG3fnbgpcr+yhCSD6tkH0CNIeWj+AY+MImBF3HDfenwRAH1/aw
-pGxEodylmPbaXYz18w1cD+eD5Sktl5oMqRqNdrl+SSZulWzvf/JjmpYG6rY+epga
-MGTtxteNe7gLipyg0Zk6LYLA2mSer7JgosIaCu8AYuiZOjZwKXNKISc6SnF26/0S
-SRaO9d0wxGo1IPEa8G2qTBRZVeZAKOmZEiWEX68IW1z7oA2HC/4KuxXrw6s/SaR3
-HHd2oWq3FiY/HiXKtV22ArX2wOKckNYF6rKY1TB2a8IcldTbUcDi6uOLDIBAhVxW
-ci+Rtv2S5ea1c7ckY3xaoeHPhPsrTJkhdjYkcSflR5ghP67Az4UAuRAGxMUu2+pM
-33RsDB5w2G/ZW7MXGctSadR16Zfi9u6n1a2KjwFDQw8Dw9lvft0=
-=5EWX
------END PGP SIGNATURE-----
-
---WgDfcJ9DCFfdC4Lr--
+-- 
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
