@@ -2,64 +2,67 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 9DB3C433738
-	for <lists+linux-man@lfdr.de>; Tue, 19 Oct 2021 15:38:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D33244337DA
+	for <lists+linux-man@lfdr.de>; Tue, 19 Oct 2021 15:55:23 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231616AbhJSNkZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 19 Oct 2021 09:40:25 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52904 "EHLO
+        id S233940AbhJSN5f (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 19 Oct 2021 09:57:35 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56982 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231564AbhJSNkZ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 19 Oct 2021 09:40:25 -0400
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com [IPv6:2a00:1450:4864:20::333])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 92BA3C06161C
-        for <linux-man@vger.kernel.org>; Tue, 19 Oct 2021 06:38:12 -0700 (PDT)
-Received: by mail-wm1-x333.google.com with SMTP id n7-20020a05600c4f8700b00323023159e1so2756649wmq.2
-        for <linux-man@vger.kernel.org>; Tue, 19 Oct 2021 06:38:12 -0700 (PDT)
+        with ESMTP id S231231AbhJSN5e (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 19 Oct 2021 09:57:34 -0400
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com [IPv6:2a00:1450:4864:20::335])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AC718C06161C
+        for <linux-man@vger.kernel.org>; Tue, 19 Oct 2021 06:55:21 -0700 (PDT)
+Received: by mail-wm1-x335.google.com with SMTP id 67-20020a1c1946000000b0030d4c90fa87so3121077wmz.2
+        for <linux-man@vger.kernel.org>; Tue, 19 Oct 2021 06:55:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=subject:to:references:cc:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=QKQCRJW7QnbFA6bmgSE1sQs+gnP0H5Aeu41owfo1DkU=;
-        b=p9GuTq83E/8JHSF0XmKps4FLiM0P4+xoKcXcMd7lUga+BdmiaErnWQzw+SRZ6yv/4s
-         syuAI0BRRdO4njJfAD6B5QalGoOyRx3O4pngVACLSHCiKEn8v03NvVHAi+98DehO2fy2
-         hctLH+IQJ8WRIWM0lrpIQZrMlv5X4KjaC9RaE1NhkJWCwvSqxDZb0hBxfUao9DWZ47vS
-         pXtb67sBex39P7uAhwKB2Cm7+E8900MubkcbbwogPQ7Z8um30u9B8CIWtvxSMgxsQd1f
-         AXdxnSV8nOGls4aMTQFj28VYSP3WCzA0KvO+kHp2Im6pKenpTviWFMy4ICksHrj9nFcq
-         EfAQ==
+        bh=Gy0XRpGqATSFR/ry1KYJ3qZz/4NRKJJKvUG7kvZd9gk=;
+        b=TouZGoZrDswXGBE6fJXZDnnvbMfY69I3bnMPra8yZJREZp1WaO3dQ2eyhyhta6ygHM
+         HvLUU999+hGwfetYgUcIC0x31byF9Iqckq3cznIxpfQ64JanvQy4es+pzYrbXGiW/Zeh
+         YyOKbRaIOL2TOWd/fhHsYU79g07CqPOKEXbuId/r5E4lgk42Zt6f9zFVvPwWZW05YTfQ
+         nln3Ax+aXVEeWttK1LjcA8GXCPxzOLP1lOJ/A6yWLNafvOlZC1YfZN5YqGwnptDQjAXf
+         Cx15pu6R3qJql4qHVi9sgwhxxeh9k/hfm/3Mi3AUUwQ3x2S7l0jTweok7Vv00Lg0Lndz
+         AXjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:subject:to:references:cc:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=QKQCRJW7QnbFA6bmgSE1sQs+gnP0H5Aeu41owfo1DkU=;
-        b=2h3uHXi69s4Z0bIwhM0jxoLrCjBwYn+22Ie61yrzL9lxIGG/4vwXdH8qBDtwWBy3dT
-         9xVVs2Elh3krDQd5QJa2DfqyJ54wQ5JvUpR2KNfk/kHSSgQbSdcvBdduLKn2ATwewrUM
-         1fDssRxyuKdc4y+J8ta8gAfeesg7JtMB8L9ZKgL/IDfQ+BzDhNTKvU9MbMyR7FVa/Mvr
-         +ZTH2wgrfRgVowe+2PzgdYEw4Gj1vmcHcz4zf1kns4ns+TCk/bO86+Ma5yZ5SyrF3Lfp
-         eYD85g8850L7UW7oQhUA353UL1I+onspUTLflXyxODENJefJwQ51AmSkq5+c9iN00xk3
-         jYag==
-X-Gm-Message-State: AOAM530pienhO2krXAtAxYLJYtZ7hiR0pXi8IFy79zpJZ5w1qbIWFr2/
-        lBJbH8tRwcUWwQUdXp9mMY0=
-X-Google-Smtp-Source: ABdhPJxT6NKMa8R3TFkj8jbjLECFmLb1UNMx9/SELkcexbevuJPLEQVT3UEnMH5eeeN+/3/iYB4qIQ==
-X-Received: by 2002:a7b:c149:: with SMTP id z9mr6090060wmi.177.1634650691197;
-        Tue, 19 Oct 2021 06:38:11 -0700 (PDT)
+        bh=Gy0XRpGqATSFR/ry1KYJ3qZz/4NRKJJKvUG7kvZd9gk=;
+        b=pcLPBLiuqU1Cz0wdbck4a1Fn/E2wbHd/XjTnkzhw6D9sDiQKwpaYjpHVWgAVsxLByu
+         0OJrbnyj8LmLkPgLBTiGyTa8pnF/1bogtdXksGeZnE+x+e7Buaaf/jCto1xfFNgijFVg
+         dTX4DEz1xGsMft4kKuliPSxVoqJ0LUAKdWopsTZHS/MqFmX6/6hcq2oMaJSC2bovuD8Z
+         KBgTXuCOI0XKRbb9xtMnNlOfrqQZ9RBaK+xBSM+tqmtMLc9st8m1EixuCcIW+i/KIIRB
+         U5cQPRUQ4fNFSSFGRFXBw3UbAGT68EdsllBJEAVqmqh/e0TIj/TA9tO2oIMZP/Be942h
+         yFzQ==
+X-Gm-Message-State: AOAM530k+Vfjphofzm7L+NZmEpVUP6/79StgSan38jXCpiF4Gwivsgex
+        B2X1myYTRFF15O7BAtyQ54o=
+X-Google-Smtp-Source: ABdhPJxmBx//fAYT3Sr1bNf17igGRpZEXthWv/5lyZn5PZtUCnEXOYjwRs7d+8zhYm0NqLDivizbIg==
+X-Received: by 2002:a7b:cbd1:: with SMTP id n17mr6261931wmi.113.1634651720338;
+        Tue, 19 Oct 2021 06:55:20 -0700 (PDT)
 Received: from [10.8.0.138] ([195.53.121.100])
-        by smtp.gmail.com with ESMTPSA id p7sm14466958wrm.61.2021.10.19.06.38.10
+        by smtp.gmail.com with ESMTPSA id u14sm10596861wrw.91.2021.10.19.06.55.19
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 19 Oct 2021 06:38:10 -0700 (PDT)
+        Tue, 19 Oct 2021 06:55:20 -0700 (PDT)
 Subject: Re: [PATCH v3] filename.7: new manual page
-To:     "Thaddeus H. Black" <thb@debian.org>
+To:     "Thaddeus H. Black" <thb@debian.org>,
+        Florian Weimer <fweimer@redhat.com>
 References: <YWysyI6/sZtbQBBb@b-tk.org> <YW2hzL5vDfVZIAXY@b-tk.org>
-Cc:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        linux-man@vger.kernel.org, Michael Kerrisk <mtk.manpages@gmail.com>
+ <87fssxgzt8.fsf@oldenburg.str.redhat.com> <YW6mcn0uMW3FWUu6@b-tk.org>
+Cc:     linux-man@vger.kernel.org,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <22573673-bf1e-0f64-7e95-6cf0a23c2015@gmail.com>
-Date:   Tue, 19 Oct 2021 15:38:09 +0200
+Message-ID: <588c7f7f-d9ff-ca0c-df37-ba3242952d12@gmail.com>
+Date:   Tue, 19 Oct 2021 15:55:18 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
 MIME-Version: 1.0
-In-Reply-To: <YW2hzL5vDfVZIAXY@b-tk.org>
+In-Reply-To: <YW6mcn0uMW3FWUu6@b-tk.org>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
@@ -67,97 +70,115 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Thaddeus,
+Hi, Florian!
 
-On 10/18/21 6:33 PM, Thaddeus H. Black wrote:
-> Please find patch v3 below, via "git format-patch".
-> (If the format is still wrong, or if there is some other way
-> in which I should better support the team's work flow, kindly advise.)
+On 10/19/21 1:05 PM, Thaddeus H. Black wrote:
+> On Tue, Oct 19, 2021 at 10:54:11AM +0200, Florian Weimer wrote:
+>> Maybe add: “A pathname contains zero or more filenames.”
+> 
+> Okay.
+> 
+>> What does this mean?  I think only byte 0x2f is reserved.  The UTF-8
+>> comment is misleading.  A historic/overlong encoding of / in multiple
+>> UTF-8 bytes is *not* reserved.
+> 
+> I had not known that UTF-8 had an alternate encoding for any ASCII
+> character.  Does it indeed have an alternate encoding?  If so, where
+> can I learn more?
+> 
+> The new filename(7) manual page wishes to be correct but, otherwise,
+> would like to inflict upon the reader as little difficult technical
+> prose as it can.  The page wants to remain readable.  In this light, can
+> you advise me how the page should speak to your point?
+> 
+>> This conflicts with the presentation of / as a separator in pathnames, I
+>> think: The pathname "/usr/" contains two empty filenames.
+> 
+> I had not thought of that.  Good point.
+> 
+> Thus, the empty filename is not forbidden but rather is reserved.
 
-'git format-patch' is the preferred method :)
+Not according to POSIX:
 
-What I missed here is the long (and great) commit message from v1, which 
-I'm going to save as the commit message.  Please, when you send v4, 
-include the original text.
+<https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap03.html#tag_03_271>
+[
+  3.271 Pathname
 
-Ephemeral stuff that should not go into the commit message (like 
-changelogs between versions of the patch), you can put it above, in a 
-"scissor patch" format (see git-format-patch(1) if necessary).
+A string that is used to identify a file. In the context of 
+POSIX.1-2017, a pathname may be limited to {PATH_MAX} bytes, including 
+the terminating null byte. It has optional beginning <slash> characters, 
+followed by zero or more filenames separated by <slash> characters. A 
+pathname can optionally contain one or more trailing <slash> characters. 
+Multiple successive <slash> characters are considered to be the same as 
+one <slash>, except for the case of exactly two leading <slash> characters.
 
-Or if it's short/simple enough, below the '---' (and just above the 
-patch itself; it is actually ignored by git, unless it's so complex that 
-it is misinterpreted as part of the patch).  This method is what I 
-usually use, since it doesn't require specifying '--scissors', and I 
-usually only write normal text that can't be confused with the patch.  I 
-don't know if this is documented anywhere, but it's very useful.
+Note:
+     If a pathname consists of only bytes corresponding to characters 
+from the portable filename character set (see Portable Filename 
+Character Set), <slash> characters, and a single terminating <NUL> 
+character, the pathname will be usable as a character string in all 
+supported locales; otherwise, the pathname might only be a string 
+(rather than a character string). Additionally, since the single-byte 
+encoding of the <slash> character is required to be the same across all 
+locales and to not occur within a multi-byte character, references to a 
+<slash> character within a pathname are well-defined even when the 
+pathname is not a character string. However, this property does not 
+necessarily hold for the remaining characters within the portable 
+filename character set.
 
-Thanks,
+     Pathname Resolution is defined in detail in Pathname Resolution.
+
+3.272 Pathname Component
+
+See Filename in Filename.
+]
+
+[
+  3.170 Filename
+
+A sequence of bytes consisting of 1 to {NAME_MAX} bytes used to name a 
+file. The bytes composing the name shall not contain the <NUL> or 
+<slash> characters. In the context of a pathname, each filename shall be 
+followed by a <slash> or a <NUL> character; elsewhere, a filename 
+followed by a <NUL> character forms a string (but not necessarily a 
+character string). The filenames dot and dot-dot have special meaning. A 
+filename is sometimes referred to as a "pathname component". See also 
+Pathname.
+
+Note:
+     Pathname Resolution is defined in detail in Pathname Resolution .
+]
+
+According to the above, there's no optionally-empty always-existing 
+initial filename in a pathname.  It's the initial slash that is 
+optional, and the first filename is the one that goes after the first 
+optional slash.  That's especially true in some systems such as Cygwin, 
+which has a special meaning for an initial '//'.
+
+Multiple successive non-initial slashes also don't have empty filenames 
+between them, but are a single token, equivalent to a single slash, 
+acording to POSIX.
+
+All of the above, AFAIK :)
+
+> 
+>>> +No filename may exceed\~255 bytes in length,
+>>> +or\~256 bytes after counting the terminating null byte.
+>>
+>> This is not correct for Linux.  Despite the definition of NAME_MAX,
+>> filenames can be longer than 255 bytes.  NTFS and CIFS have a limit of
+>> 255 UTF-16 characters, which translates to about 768 bytes in the UTF-8
+>> encoding used by Linux.
+> 
+> I see.
+> 
+> Your feedback is helpful and appreciated (especially since you are the
+> first Fedora-class user to return a review).
+> 
+
+Thank you both!
 
 Alex
-
-> 
-> ---------------------------------------------------------------------------
-> CHANGES IN v3
-> ---------------------------------------------------------------------------
-> 
-> Thaddeus H. Black (3):
->    Polish prose under "Special semantics"
->    Polish and clarify prose under "Letter case"
->    Clarify the final paragraph under "Locales and Unicode"
-> 
-> ---------------------------------------------------------------------------
-> CHANGES IN v2
-> ---------------------------------------------------------------------------
-> 
-> Hendrik Boom, G. Branden Robinson and Alejandro Colomar (1):
->    Write "uppercase" and "lowercase" rather than "capital" and "small"
-> 
-> Alejandro Colomar and G. Branden Robinson (2):
->    Use semantic newlines
->    Avoid \f, but rather use separate lines
-> 
-> Alejandro Colomar (11):
->    Use subsections instead of sections
->    Use subsubsections instead of subsections
->    Remove unnecessary .P after .S[HS]
->    Use .PP rather than .P
->    Fix indentation of paragraph, which continues talking about \0
->    Mention FAT
->    For consistency, list "-" with "-name" and ".name"; s/a pair of/some/
->    Delete the redundant mention of "."
->    By s/all but/almost/, avoid double negation
->    Reference filesystems(5) under SEE ALSO
->    Under CONFORMING TO, write only, "POSIX.1‐2001 and later."
-> 
-> G. Branden Robinson (3):
->    Write "letter case" rather than "capitalization"
->    Reference section-3 pages not under SEE ALSO but only in passing
->    Avoid \c
-> 
-> Thaddeus H. Black (2):
->    Reword subsubsect "Special semantics" to support Alejandro's change no. 7
->    Avoid beginning any subsect or subsubsect with specially formatted text
-> 
-> ---------------------------------------------------------------------------
-> GROFF SOURCE v3 (IN GIT'S PATCH FORMAT)
-> ---------------------------------------------------------------------------
-> 
-> ---
-
-Here you can write your patch changelogs.
-
->   man7/filename.7 | 660 ++++++++++++++++++++++++++++++++++++++++++++++++
->   1 file changed, 660 insertions(+)
->   create mode 100644 man7/filename.7
-> 
-> diff --git a/man7/filename.7 b/man7/filename.7
-> new file mode 100644
-> index 000000000..9c53f8c7b
-> --- /dev/null
-> +++ b/man7/filename.7
-> @@ -0,0 +1,660 @@
-> +.\" Copyright (C) 2021 Thaddeus H. Black <thb@debian.org>
-
 
 -- 
 Alejandro Colomar
