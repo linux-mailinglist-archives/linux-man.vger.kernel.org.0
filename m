@@ -2,103 +2,97 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0979F4346FD
-	for <lists+linux-man@lfdr.de>; Wed, 20 Oct 2021 10:33:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 36105435480
+	for <lists+linux-man@lfdr.de>; Wed, 20 Oct 2021 22:22:50 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229548AbhJTIfh (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 20 Oct 2021 04:35:37 -0400
-Received: from mail1.bemta25.messagelabs.com ([195.245.230.1]:15128 "EHLO
-        mail1.bemta25.messagelabs.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S229503AbhJTIfg (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 20 Oct 2021 04:35:36 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
-        s=170520fj; t=1634718802; i=@fujitsu.com;
-        bh=GGROfLux0qXReY9NjWVznHySY1qgDzAfRgDHMibvRw0=;
-        h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type;
-        b=lqIyc8qbmo6Pej0p0j7kegc46WtsYUsYj9xjrHIzzuPMF7G3iXBEGhijbSj9/Dbds
-         ksre2QCfXvULQQnhfPLocq7IbnGvhvW094GJaK2rfzK8DUJCIO/JxAILZaBPiNra3p
-         aoMs1Y+OB3FdMrcEtVbYScYOvJGPpi98xm9ULfKpduAlatDZGB8pJvy51BDUBElgap
-         RbxJXBwxB00LGogUifCjrv55euZv2aTLredhjLNeIZCBSK9WaquZDpVrSJlSxXE/LC
-         EzDh4sDRqmEyQF29dqLh4Yr8OqiotHYb8aLJhwNXg1bVT72pIJcMXqKTYgc+5YQGWx
-         2pErFydt3KwaA==
-Received: from [100.112.192.69] (using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256 bits))
-        by server-1.bemta.az-a.eu-west-1.aws.symcld.net id 60/CF-23860-254DF616; Wed, 20 Oct 2021 08:33:22 +0000
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFjrEIsWRWlGSWpSXmKPExsViZ8ORqBt4JT/
-  R4MBTHYs162ewOzB6fN4kF8AYxZqZl5RfkcCacWN+A0vBI9aKXTvbmRoY37N0MXJxCAlcYZSY
-  u/MUE4RzgEni5ZUjUJk9jBIvFk1k7mLk5GAT0JR41rkAzBYRkJdYs2cBI4jNLKAusXzSLyYQW
-  1jAQeLc86tgNouAqsTE/9PBangFPCTatr8Ei0sIKEhMefieGSIuKHFy5hMWiDkSEgdfvGCGqF
-  GUuNTxjRHCrpCYNasNqldN4uq5TcwTGPlnIWmfhaR9ASPTKkaLpKLM9IyS3MTMHF1DAwNdQ0M
-  jXUNLU11DU0O9xCrdRL3UUt3y1OISXSC3vFivuDI3OSdFLy+1ZBMjMCBTCg5P38HY/+aD3iFG
-  SQ4mJVFeaZf8RCG+pPyUyozE4oz4otKc1OJDjDIcHEoSvJsuAOUEi1LTUyvSMnOA0QGTluDgU
-  RLhfXgJKM1bXJCYW5yZDpE6xWjM8e7n4kXMHM2Tlm9nFmLJy89LlRLn1b0MVCoAUppRmgc3CB
-  a1lxhlpYR5GRkYGIR4ClKLcjNLUOVfMYpzMCoJ8xaDTOHJzCuB2/cK6BQmoFOuOueAnFKSiJC
-  SamASVebJqFuU42Ewm8lBpzum4mZ8L8fzTRkntVZLbb3V6Xjr/cz7XMsnujofvRk6me/Tcd/F
-  8VJzYm5skmqZ8kWMf/7WuizBm0Kb5bWPuTh3puR1hzYe7bZMK/8tFds2z8Ri6Ymr5/JMGJ1SF
-  0b+3dk16+BP2fDlcrnudzWFszbZXTTOSbDu+9V/gfX7SVGfGJbrre3p13hlpHUnFMz0uClw0t
-  qjfNUn7xdpV/KmrGHcwHBJ233LoaKuHNtfXBKWNt5F1kXHdLKuGf75avIj/ah55Ubrcz9/Hlh
-  3OLXlffrbJ1xy2xhN+mt/l+hsqeu+uPmMXnqZ0dSsP0Lrv4buyeiYfeTW5nvmrVe7964PyFVi
-  Kc5INNRiLipOBACbeGJBVQMAAA==
-X-Env-Sender: xuyang2018.jy@fujitsu.com
-X-Msg-Ref: server-11.tower-265.messagelabs.com!1634718801!128325!1
-X-Originating-IP: [62.60.8.97]
-X-SYMC-ESS-Client-Auth: outbound-route-from=pass
-X-StarScan-Received: 
-X-StarScan-Version: 9.81.4; banners=-,-,-
-X-VirusChecked: Checked
-Received: (qmail 13444 invoked from network); 20 Oct 2021 08:33:21 -0000
-Received: from unknown (HELO n03ukasimr01.n03.fujitsu.local) (62.60.8.97)
-  by server-11.tower-265.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384 encrypted SMTP; 20 Oct 2021 08:33:21 -0000
-Received: from n03ukasimr01.n03.fujitsu.local (localhost [127.0.0.1])
-        by n03ukasimr01.n03.fujitsu.local (Postfix) with ESMTP id 3C17710023B
-        for <linux-man@vger.kernel.org>; Wed, 20 Oct 2021 09:33:21 +0100 (BST)
-Received: from R01UKEXCASM126.r01.fujitsu.local (unknown [10.183.43.178])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by n03ukasimr01.n03.fujitsu.local (Postfix) with ESMTPS id 30B8710022F
-        for <linux-man@vger.kernel.org>; Wed, 20 Oct 2021 09:33:21 +0100 (BST)
-Received: from localhost.localdomain (10.167.220.84) by
- R01UKEXCASM126.r01.fujitsu.local (10.183.43.178) with Microsoft SMTP Server
- (TLS) id 15.0.1497.24; Wed, 20 Oct 2021 09:33:12 +0100
-From:   Yang Xu <xuyang2018.jy@fujitsu.com>
-To:     <linux-man@vger.kernel.org>
-CC:     Yang Xu <xuyang2018.jy@fujitsu.com>
-Subject: [PATCH] quotactl.2: Use correct limits for vfsv1 format
-Date:   Wed, 20 Oct 2021 16:33:14 +0800
-Message-ID: <1634718794-2120-1-git-send-email-xuyang2018.jy@fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
+        id S230020AbhJTUZD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 20 Oct 2021 16:25:03 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48784 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S229910AbhJTUZD (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 20 Oct 2021 16:25:03 -0400
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com [IPv6:2a00:1450:4864:20::42d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 79E89C06161C
+        for <linux-man@vger.kernel.org>; Wed, 20 Oct 2021 13:22:48 -0700 (PDT)
+Received: by mail-wr1-x42d.google.com with SMTP id g25so752473wrb.2
+        for <linux-man@vger.kernel.org>; Wed, 20 Oct 2021 13:22:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=Blp6IegFw8//t+HXQM+pQnCu/RTVPRKQg8ZRtk3zP6k=;
+        b=X3SzdWFooJD7U25R3cY6zoX2QNLbTVzT2yuNmRkglOAgtXEc1QuJvnvlAu0W+DX92h
+         wM3xDjnY58Gapqzb6BI7yhi8YCP72rFVAosG5LalxplpghNGCaKw0qlAKMJbIVp8rUwZ
+         WTG1DdBMfnbbo3RpiBb2nnZg1RBTpfgyiea24hwaqguMO0rvRsPeCrbR1AyRY2ztVWeq
+         ozoZMjBWxXEvxkAbDG3O8/+YwtEuyQ+DnKl37dtgEA1Qa7juMUhNny4Q3iRWkGawKB3Q
+         dhTv+mJbCn+m07V6BPjA2x1v3R3FMVM0b8gqMge9/2I7MhJP6qqwfLMFDxbz1nUYStJy
+         ltKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=Blp6IegFw8//t+HXQM+pQnCu/RTVPRKQg8ZRtk3zP6k=;
+        b=naerKM0BPB4YC6OeIResL9kCoTvmm4KmgS0Q0591LQ4zDBrSAFtn9FrthgBw/gWNgh
+         igSiLC7I2yQ+y7gyzDx8/gvsChVamJwIf5WsOglr9TX2yWJCruLaFR6fT4lVvz/Ah0lg
+         nglZvkOe4BA1ChCtPvSIa7tApSlux01qFT/En550id961kcg9B8Ojr8icWkMAkFwprcT
+         vyYsiE8Qe8Lu9TpL8vQi/t3RkUldmUe05uCDaO7ulWjTShCzwNyj8hfaa+PmBh51rHMR
+         ef3j4DiRAKiVd6sGkgbUPzKLwhhArDm03f4d2MEHy9YsNSLfUJIg/9bNFa+Z55wcdhDm
+         CiYg==
+X-Gm-Message-State: AOAM532m75hZ+toAyUYy9mpi/+i5apFRo+N7ijJZfGXRwqeFGgYVZ/FU
+        FKAhk+lZ3tm77B9AIqXRBIs=
+X-Google-Smtp-Source: ABdhPJxlRENGHJqRmqeHEmIzWf2DZjQc7FbL4duV4i+VDwJpVKcLtQjTEi1RKDHjdpiK+02D2zDRKw==
+X-Received: by 2002:adf:a1d4:: with SMTP id v20mr1809638wrv.168.1634761366959;
+        Wed, 20 Oct 2021 13:22:46 -0700 (PDT)
+Received: from sqli.sqli.com ([195.53.121.100])
+        by smtp.googlemail.com with ESMTPSA id n11sm2892949wrw.43.2021.10.20.13.22.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 20 Oct 2021 13:22:46 -0700 (PDT)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+To:     mtk.manpages@gmail.com
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org, Jens Gustedt <jens.gustedt@loria.fr>,
+        Glibc <libc-alpha@sourceware.org>
+Subject: [PATCH 1/2] ctime.3: Use VLA notation for [as]ctime_r() buffer
+Date:   Wed, 20 Oct 2021 22:22:40 +0200
+Message-Id: <20211020202241.171180-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD07.g08.fujitsu.local (10.167.33.80) To
- R01UKEXCASM126.r01.fujitsu.local (10.183.43.178)
-X-Virus-Scanned: ClamAV using ClamSMTP
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-According to kernel code and the following patch, the maximum quota limit setting
-should be 2^63 -1 instead of 2^64.
+As N2417 (part of C2x) suggests.  This syntax is very informative,
+and also, if used by library implementers, can improve static analysis.
 
-[1]https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit?id=7e08da5
+Since it is backwards compatible with pointer syntax, we can do this.
 
-Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
+Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+Cc: Jens Gustedt <jens.gustedt@loria.fr>
+Cc: Glibc <libc-alpha@sourceware.org>
 ---
- man2/quotactl.2 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ man3/ctime.3 | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/man2/quotactl.2 b/man2/quotactl.2
-index 46f77a8b1..5d2a673bd 100644
---- a/man2/quotactl.2
-+++ b/man2/quotactl.2
-@@ -109,7 +109,7 @@ and quota limits up to 2^42 bytes and 2^32 inodes.
- .TP
- .BR QFMT_VFS_V1
- A quota format that can handle 32-bit UIDs and GIDs
--and quota limits of 2^64 bytes and 2^64 inodes.
-+and quota limits of 2^63 - 1 bytes and 2^63 - 1 inodes.
- .RE
- .IP
- The
+diff --git a/man3/ctime.3 b/man3/ctime.3
+index 0e2068a09..0620741e9 100644
+--- a/man3/ctime.3
++++ b/man3/ctime.3
+@@ -41,10 +41,12 @@ localtime_r \- transform date and time to broken-down time or ASCII
+ .B #include <time.h>
+ .PP
+ .BI "char *asctime(const struct tm *" tm );
+-.BI "char *asctime_r(const struct tm *restrict " tm ", char *restrict " buf );
++.BI "char *asctime_r(const struct tm *restrict " tm ,
++.BI "                    char " buf "[static restrict 26]);"
+ .PP
+ .BI "char *ctime(const time_t *" timep );
+-.BI "char *ctime_r(const time_t *restrict " timep ", char *restrict " buf );
++.BI "char *ctime_r(const time_t *restrict " timep ,
++.BI "                    char " buf "[static restrict 26]);"
+ .PP
+ .BI "struct tm *gmtime(const time_t *" timep );
+ .BI "struct tm *gmtime_r(const time_t *restrict " timep ,
 -- 
-2.23.0
+2.33.0
 
