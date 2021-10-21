@@ -2,145 +2,113 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 309C0435DE0
-	for <lists+linux-man@lfdr.de>; Thu, 21 Oct 2021 11:27:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 31B6B435F1B
+	for <lists+linux-man@lfdr.de>; Thu, 21 Oct 2021 12:35:41 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231334AbhJUJ3o (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 21 Oct 2021 05:29:44 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53542 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231320AbhJUJ3n (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 21 Oct 2021 05:29:43 -0400
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com [IPv6:2a00:1450:4864:20::335])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 410ACC06161C
-        for <linux-man@vger.kernel.org>; Thu, 21 Oct 2021 02:27:28 -0700 (PDT)
-Received: by mail-wm1-x335.google.com with SMTP id m42so154wms.2
-        for <linux-man@vger.kernel.org>; Thu, 21 Oct 2021 02:27:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=subject:from:to:references:message-id:date:user-agent:mime-version
-         :in-reply-to:content-language:content-transfer-encoding;
-        bh=6wR5V8pJh9cSBVQR4mBDspIzXMgPxvbNjBpspLsBP8o=;
-        b=YAMpjHfTk2ptoYOsyx13glN3Kt+78I8xbFFdRBIWYP8YagUewJ1Cxln0kZDvBsNzuh
-         ELRh98DIREFfEknz/Pak5eaYNMkN86Plin8mbAkzohglhnsCuJqfNCa4DtDlkBFruvCm
-         EOwoQsLENvpU78ZgwzNgaalxAPSzt0sfKB1Epv2lCmZSupVOX/T47Scfmfc2dfdndEj9
-         018Zn65T0GuuAcoLArPTYQ1uxo4yLzgzwnOsRMFygE0WsyWhjEhZnh3BVCXHmjRwOdcd
-         poB4JJSZ5/mThuI3BTZWvU2uUzNjFSsCO5MiNIBB99u2KOPC/gz8Op4p+tXcPMldFowV
-         069Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:subject:from:to:references:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=6wR5V8pJh9cSBVQR4mBDspIzXMgPxvbNjBpspLsBP8o=;
-        b=F2KY5ECzkda3phckcdGCBLermvDWPbSaFoamV4qoQp3PACM/kzlK+rbdNeV7ZzDN0P
-         2BdWodWossKseyGrKqFsUwRzx7pydnXuki0m9rPhtLLfwTe73r4WPwCxkfB8HvZgshEw
-         vkqtSZBrrRYckwwaRtLVNvL/nq1TlvHBwYiGLa1lY4nZlc2DG0xjhIT1uvbdGzw0Lntr
-         zc8s5MDzHFZrd0yeZfdOY8h9w7bzRhql+DjvcM/sYvNWskvpZUECqZAJvNlwFAHmj10z
-         2cz7zK5kTmd9md/EATz+Ti8ACzPEcZQyG5K8+VbMG8O8gy7PErldHrzzIZKIIn0Egt2Y
-         a3Mg==
-X-Gm-Message-State: AOAM533/s9hXdEdd6YgLYNsqdHZhvodtr+qAZBS+DL6OekYr9kSUMT9z
-        Yy4ZB2dbK0fCcw98V8bjh880vhAEsoo=
-X-Google-Smtp-Source: ABdhPJzwIx1m8NnfpJ+iHtRN6xmQ48wEskSEeJxJc7/O0sU89lPUtcUQHSAe3HiOtDrTqOx6oi6k1g==
-X-Received: by 2002:a1c:9ad4:: with SMTP id c203mr5346024wme.41.1634808446890;
-        Thu, 21 Oct 2021 02:27:26 -0700 (PDT)
-Received: from [10.8.0.138] ([195.53.121.100])
-        by smtp.gmail.com with ESMTPSA id k17sm8391700wmj.0.2021.10.21.02.27.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 21 Oct 2021 02:27:26 -0700 (PDT)
-Subject: Re: [PATCH 1/2] ctime.3: Use VLA notation for [as]ctime_r() buffer
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-To:     =?UTF-8?B?SuKCkeKCmeKCmyBHdXN0ZWR0?= <jens.gustedt@inria.fr>,
-        linux-man <linux-man@vger.kernel.org>
-References: <20211020202241.171180-1-alx.manpages@gmail.com>
- <20211021092746.78bc82f8@inria.fr>
- <20c1e58b-ba2b-f9df-ab1f-f80725414cf5@gmail.com>
- <5782a3ea-9774-3acb-e365-1e4d03ed3358@gmail.com>
- <20211021110311.52541d69@inria.fr>
- <ec620c5e-0952-fe16-353c-0210d3bea6e8@gmail.com>
-Message-ID: <eebb99c0-dd12-152b-53fc-4ec1326fc29f@gmail.com>
-Date:   Thu, 21 Oct 2021 11:27:25 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+        id S229567AbhJUKhz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 21 Oct 2021 06:37:55 -0400
+Received: from mout01.posteo.de ([185.67.36.65]:45571 "EHLO mout01.posteo.de"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S230314AbhJUKhz (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Thu, 21 Oct 2021 06:37:55 -0400
+Received: from submission (posteo.de [89.146.220.130]) 
+        by mout01.posteo.de (Postfix) with ESMTPS id F0852240027
+        for <linux-man@vger.kernel.org>; Thu, 21 Oct 2021 12:35:37 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=posteo.net; s=2017;
+        t=1634812538; bh=LE1H+JeUY4Znz2OyxLGEJxFC+s3hIq1KoOrp0kijOoc=;
+        h=Subject:From:To:Cc:Date:From;
+        b=S04uGr7YPLoDtpk/35esxHMfQnaV88zIqi6Xy6nMPcbqm6Q4tFb+BsXitr0QNggcg
+         /u8CNW7cXWVH6s08Q2fSLTF9K0ODbGQOJk9lwffYwzfCvXm3PElt8BougI8hPmO/Rb
+         jZ50HcRzymGkTKp5SJ8D/LdWQ3sQjthOIlgzXofE4TIlub4YfARgmKpUrxe007cY4S
+         LEwg4xkkzVVtt7xQTZ+bMFhvzr1EyvnV4Wr7unnL4MZ3pzE3v/S1YcsuAEmh+NePfL
+         +IOOnQiaYbKIphObW9acEQ9pkqv3N877I40YS4mNjU0Jma0O0EaN9iyMtRBDVmV8v4
+         zFbW65a/8Vf/g==
+Received: from customer (localhost [127.0.0.1])
+        by submission (posteo.de) with ESMTPSA id 4HZkQc6nccz9rxR;
+        Thu, 21 Oct 2021 12:35:36 +0200 (CEST)
+Message-ID: <ea8a0ab6dcff61735daaadff4f8fef2992a082b1.camel@posteo.net>
+Subject: [PATCH] posix_memalign.3: drop obsolete requirement for
+ aligned_alloc() usage
+From:   John Scott <jscott@posteo.net>
+To:     linux-man@vger.kernel.org
+Cc:     alx.manpages@gmail.com, mtk.manpages@gmail.com
+Date:   Thu, 21 Oct 2021 10:35:29 +0000
+Content-Type: multipart/signed; micalg="pgp-sha256";
+        protocol="application/pgp-signature"; boundary="=-qY+2CDLwsw+MBUkUIvmp"
 MIME-Version: 1.0
-In-Reply-To: <ec620c5e-0952-fe16-353c-0210d3bea6e8@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Just forwarding a conversation to the list
 
-On 10/21/21 11:20 AM, Alejandro Colomar (man-pages) wrote:
-> Hello Jens,
-> 
-> On 10/21/21 11:03 AM, Jₑₙₛ Gustedt wrote:
->> Hello Alejandro,
->>
->> On Thu, 21 Oct 2021 10:27:48 +0200, Alejandro Colomar (man-pages) wrote:
->>
->>> I rethinked it a bit after seeing pipe(2) again.  I never understood
->>> why 'static' should be needed at all in an array parameter.  The
->>> standard could have also accepted [26] as requiring at least 26
->>> elements in the array, without requiring the use of static.
->>
->> That's just speculation. They didn't, so for the compiler the
->> expression can just be ignore.
-> 
-> Since static is not required to give a diagnostic, I don't see a real 
-> difference.  Both can be ignored.  But yes, that's speculating, and 
-> maybe I should probably propose to the committee having the same 
-> requirements for [26] as for [static 26] for C3X, and see what they come 
-> up with.
-> 
->> With what we have `static` conveys the
->> intent, and we should stick to that, I think.
-> 
-> Yes, maybe sticking to the standard will be better.
-> 
->>
->>> There
->>> may be reasons for that that I ignore, of course; maybe backwards
->>> compatibility.... But since the man-pages can present the same
->>> information without the static keyword, I'll edit my patches to just
->>> use [restrict 26], instead of [static restrict 26], which is more
->>> compact.
->>
->> For the man pages that may be ok, but I still prefer that the headers
->> in the man page convey exactly the same normative information as the
->> specification of the standard.
-> 
-> Okay.  That makes sense.
-> 
->>
->>> BTW, I just noticed that these emails were offlist.  If you want to
->>> keep them offlist, I'l do so, but we typically CC the list to have
->>> open discussions.  If you give me permission, I'll forward these
->>> emails to the mailing lists.
->>
->> Do as you feel, no problem with me. I just didn't want to "fall in
->> your back" on a public list for which I don't have an idea of their
->> actual dialogue culture.
-> 
-> Thanks!
-> It's a small list with 2 maintainers and just a handful of other typical 
-> contributors.  Typically, very nice compared to other lists, IMHO :)
-> 
-> And BTW, thanks also for your many StackOverflow contributions!  They 
-> have been very helpful to me :-)
-> 
->>
->> Thanks
->> Jₑₙₛ
->>
->>
-> 
-> 
+--=-qY+2CDLwsw+MBUkUIvmp
+Content-Type: multipart/mixed; boundary="=-1jIngc/iyjJiLz5Uw0FK"
 
 
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+--=-1jIngc/iyjJiLz5Uw0FK
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+A C11 defect report changed the description of aligned_alloc() so that
+it is no longer necessary for the allocation size to be a multiple of
+the alignment. Although this isn't yet reflected in the GNU C Library
+manual, I'm preparing a patch for them as well.
+
+Here is the DR:
+http://www.open-std.org/jtc1/sc22/wg14/www/docs/summary.htm#dr_460
+
+
+--=-1jIngc/iyjJiLz5Uw0FK
+Content-Description:
+Content-Disposition: inline;
+	filename*0=0001-posix_memalign.3-drop-obsolete-requirement-for-align.pat;
+	filename*1=ch
+Content-Type: text/x-patch;
+	name="0001-posix_memalign.3-drop-obsolete-requirement-for-align.patch";
+	charset="UTF-8"
+Content-Transfer-Encoding: base64
+
+RnJvbSA4OTU2MGJjOWFkODg3NTA0Y2Y1NTdkYjM1Nzk0NDFkMmQ4MzhhZmY2IE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBKb2huIFNjb3R0IDxqc2NvdHRAcG9zdGVvLm5ldD4KRGF0ZTog
+VGh1LCAyMSBPY3QgMjAyMSAwNDo1MzozOSAtMDQwMApTdWJqZWN0OiBbUEFUQ0hdIHBvc2l4X21l
+bWFsaWduLjM6IGRyb3Agb2Jzb2xldGUgcmVxdWlyZW1lbnQgZm9yCiBhbGlnbmVkX2FsbG9jKCkg
+dXNhZ2UKCkluIHRoZSBDMTEgc3RhbmRhcmQgYXMgcHVibGlzaGVkLCBpdCB3YXMgdW5kZWZpbmVk
+IGJlaGF2aW9yCmlmIHRoZSBhbGxvY2F0aW9uIHNpemUgd2FzIG5vdCBhIG11bHRpcGxlIG9mIHRo
+ZSBzeXN0ZW0KcGFnZSBzaXplLiBEZWZlY3QgUmVwb3J0IDQ2MCBjaGFuZ2VkIHRoZSByZWxldmFu
+dCBzZW50ZW5jZSBmcm9tCiJUaGUgdmFsdWUgb2YgYWxpZ25tZW50IHNoYWxsIGJlIGEgdmFsaWQg
+YWxpZ25tZW50IHN1cHBvcnRlZCBieSB0aGUKaW1wbGVtZW50YXRpb24gYW5kIHRoZSB2YWx1ZSBv
+ZiBzaXplIHNoYWxsIGJlIGFuIGludGVncmFsIG11bHRpcGxlIG9mCmFsaWdubWVudC4iIHRvCiJJ
+ZiB0aGUgdmFsdWUgb2YgYWxpZ25tZW50IGlzIG5vdCBhIHZhbGlkIGFsaWdubWVudCBzdXBwb3J0
+ZWQKYnkgdGhlIGltcGxlbWVudGF0aW9uIHRoZSBmdW5jdGlvbiBzaGFsbCBmYWlsIGJ5IHJldHVy
+bmluZyBhIG51bGwKcG9pbnRlciwiIGFuZCBoZW5jZSBkcm9wcGVkIHRoZSByZXF1aXJlbWVudC4K
+ClRoaXMgaXMgc3VwcG9ydGVkIGluIHByYWN0aWNlOyBpbiB0aGUgR05VIEMgTGlicmFyeSwgYWxp
+Z25lZF9hbGxvYygpCmlzIGltcGxlbWVudGVkIGFzIGFuIGFsaWFzIGZvciBtZW1hbGlnbigpLiBU
+aGUgR05VIEMgTGlicmFyeSBtYW51YWwKc3RpbGwgZG9jdW1lbnRzIHRoZSBvYnNvbGV0ZSByZXF1
+aXJlbWVudCBob3dldmVyLgotLS0KIG1hbjMvcG9zaXhfbWVtYWxpZ24uMyB8IDYgKy0tLS0tCiAx
+IGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDUgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0
+IGEvbWFuMy9wb3NpeF9tZW1hbGlnbi4zIGIvbWFuMy9wb3NpeF9tZW1hbGlnbi4zCmluZGV4IDkz
+MWVjMWMwNy4uOTM0ZmQyMmQxIDEwMDY0NAotLS0gYS9tYW4zL3Bvc2l4X21lbWFsaWduLjMKKysr
+IGIvbWFuMy9wb3NpeF9tZW1hbGlnbi4zCkBAIC0xMDQsMTEgKzEwNCw3IEBAIHdoaWNoIG11c3Qg
+YmUgYSBwb3dlciBvZiB0d28uCiBUaGUgZnVuY3Rpb24KIC5CUiBhbGlnbmVkX2FsbG9jICgpCiBp
+cyB0aGUgc2FtZSBhcwotLkJSIG1lbWFsaWduICgpLAotZXhjZXB0IGZvciB0aGUgYWRkZWQgcmVz
+dHJpY3Rpb24gdGhhdAotLkkgc2l6ZQotc2hvdWxkIGJlIGEgbXVsdGlwbGUgb2YKLS5JUiBhbGln
+bm1lbnQgLgorLkJSIG1lbWFsaWduICgpIC4KIC5QUAogVGhlIG9ic29sZXRlIGZ1bmN0aW9uCiAu
+QlIgdmFsbG9jICgpCi0tIAoyLjMzLjAKCg==
+
+
+--=-1jIngc/iyjJiLz5Uw0FK--
+
+--=-qY+2CDLwsw+MBUkUIvmp
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iIgEABYIADAWIQT287WtmxUhmhucNnhyvHFIwKstpwUCYXFCcRIcanNjb3R0QHBv
+c3Rlby5uZXQACgkQcrxxSMCrLaeLzgD+PV9cM4JAqBnXgKON/XJwa4EMj6bQw66p
+ewtgMNqQBDMBAMc18sAVFcaBVkfgbai5j4tetYsO8ENjtgHbHywJx8sD
+=Nhyi
+-----END PGP SIGNATURE-----
+
+--=-qY+2CDLwsw+MBUkUIvmp--
