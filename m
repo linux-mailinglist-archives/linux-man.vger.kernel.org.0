@@ -2,113 +2,140 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 31B6B435F1B
-	for <lists+linux-man@lfdr.de>; Thu, 21 Oct 2021 12:35:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A88324361C3
+	for <lists+linux-man@lfdr.de>; Thu, 21 Oct 2021 14:37:02 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229567AbhJUKhz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 21 Oct 2021 06:37:55 -0400
-Received: from mout01.posteo.de ([185.67.36.65]:45571 "EHLO mout01.posteo.de"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S230314AbhJUKhz (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Thu, 21 Oct 2021 06:37:55 -0400
-Received: from submission (posteo.de [89.146.220.130]) 
-        by mout01.posteo.de (Postfix) with ESMTPS id F0852240027
-        for <linux-man@vger.kernel.org>; Thu, 21 Oct 2021 12:35:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=posteo.net; s=2017;
-        t=1634812538; bh=LE1H+JeUY4Znz2OyxLGEJxFC+s3hIq1KoOrp0kijOoc=;
-        h=Subject:From:To:Cc:Date:From;
-        b=S04uGr7YPLoDtpk/35esxHMfQnaV88zIqi6Xy6nMPcbqm6Q4tFb+BsXitr0QNggcg
-         /u8CNW7cXWVH6s08Q2fSLTF9K0ODbGQOJk9lwffYwzfCvXm3PElt8BougI8hPmO/Rb
-         jZ50HcRzymGkTKp5SJ8D/LdWQ3sQjthOIlgzXofE4TIlub4YfARgmKpUrxe007cY4S
-         LEwg4xkkzVVtt7xQTZ+bMFhvzr1EyvnV4Wr7unnL4MZ3pzE3v/S1YcsuAEmh+NePfL
-         +IOOnQiaYbKIphObW9acEQ9pkqv3N877I40YS4mNjU0Jma0O0EaN9iyMtRBDVmV8v4
-         zFbW65a/8Vf/g==
-Received: from customer (localhost [127.0.0.1])
-        by submission (posteo.de) with ESMTPSA id 4HZkQc6nccz9rxR;
-        Thu, 21 Oct 2021 12:35:36 +0200 (CEST)
-Message-ID: <ea8a0ab6dcff61735daaadff4f8fef2992a082b1.camel@posteo.net>
-Subject: [PATCH] posix_memalign.3: drop obsolete requirement for
- aligned_alloc() usage
-From:   John Scott <jscott@posteo.net>
-To:     linux-man@vger.kernel.org
-Cc:     alx.manpages@gmail.com, mtk.manpages@gmail.com
-Date:   Thu, 21 Oct 2021 10:35:29 +0000
-Content-Type: multipart/signed; micalg="pgp-sha256";
-        protocol="application/pgp-signature"; boundary="=-qY+2CDLwsw+MBUkUIvmp"
+        id S230425AbhJUMjR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 21 Oct 2021 08:39:17 -0400
+Received: from THBLACKELECTRIC.COM ([207.244.97.128]:38398 "EHLO lsw.cs1local"
+        rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org with ESMTP
+        id S230190AbhJUMjR (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Thu, 21 Oct 2021 08:39:17 -0400
+Received: from [72.29.63.102] (helo=localhost)
+        by lsw.cs1local with esmtpsa (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+        (Exim 4.92)
+        (envelope-from <thb@b-tk.org>)
+        id 1mdXJc-0003Ky-Kr
+        for linux-man@vger.kernel.org; Thu, 21 Oct 2021 12:37:01 +0000
+Received: from thb by localhost with local (Exim 4.94.2)
+        (envelope-from <thb@b-tk.org>)
+        id 1mdX2B-000141-JM; Thu, 21 Oct 2021 12:18:59 +0000
+Date:   Thu, 21 Oct 2021 12:18:59 +0000
+From:   "Thaddeus H. Black" <thb@debian.org>
+To:     Florian Weimer <fweimer@redhat.com>
+Cc:     linux-man@vger.kernel.org,
+        Alejandro Colomar <alx.manpages@gmail.com>,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+Subject: Re: [PATCH v3] filename.7: new manual page
+Message-ID: <YXFas4WVwuROIDh+@b-tk.org>
+References: <YWysyI6/sZtbQBBb@b-tk.org>
+ <YW2hzL5vDfVZIAXY@b-tk.org>
+ <87fssxgzt8.fsf@oldenburg.str.redhat.com>
+ <YW6mcn0uMW3FWUu6@b-tk.org>
+ <87lf2oxgh9.fsf@oldenburg.str.redhat.com>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+        protocol="application/pgp-signature"; boundary="5trSh+SOwSNydqAs"
+Content-Disposition: inline
+In-Reply-To: <87lf2oxgh9.fsf@oldenburg.str.redhat.com>
+X-Spam_score: -0.8
+X-Spam_bar: /
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---=-qY+2CDLwsw+MBUkUIvmp
-Content-Type: multipart/mixed; boundary="=-1jIngc/iyjJiLz5Uw0FK"
-
-
---=-1jIngc/iyjJiLz5Uw0FK
-Content-Type: text/plain; charset="UTF-8"
+--5trSh+SOwSNydqAs
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-A C11 defect report changed the description of aligned_alloc() so that
-it is no longer necessary for the allocation size to be a multiple of
-the alignment. Although this isn't yet reflected in the GNU C Library
-manual, I'm preparing a patch for them as well.
+This long email asks for no one's close attention but Florian's.  Other
+readers can skim the email or skip it, at their discretion.
 
-Here is the DR:
-http://www.open-std.org/jtc1/sc22/wg14/www/docs/summary.htm#dr_460
+On Wed, Oct 20, 2021 at 10:12:02AM +0200, Florian Weimer wrote:
+> > > What does this mean?  I think only byte 0x2f is reserved.  The UTF-8
+> > > comment is misleading.  A historic/overlong encoding of / in multiple
+> > > UTF-8 bytes is *not* reserved.
+> >
+> > I had not known that UTF-8 had an alternate encoding for any ASCII
+> > character.  Does it indeed have an alternate encoding?  If so, where
+> > can I learn more?
+>=20
+> See the Security Considerations section in the RFC:
+>=20
+>   <https://datatracker.ietf.org/doc/html/rfc3629#section-10>
+>=20
+> Most file systems do not treat file names as UTF-8, so they do not
+> perform any validation.
+
+I see.  That RFC explains it well:  there exists no legal alternate
+encoding, but rather several illegal encodings that, were they not
+illegal, *would be* alternate encodings.  In the case of the solidus,
+the legal encoding is 2F but the illegal encodings are
+
+    C0 AF
+    E0 80 AF
+    F0 80 80 AF
+    F8 80 80 80 AF
+    FC 80 80 80 80 AF
+
+This problem has nothing to do with Unicode but is merely an artifact
+of UTF-8 -- and that's your point, isn't it?  Most filesystems do not
+care about UTF-8, so they do not perform any validation.
+
+In view of your advice, I should think about how to rewrite the relevant
+prose so that it is neither [i] confusing to inexperienced users
+nor [ii] inaccurate.
+
+Question:  the filename(7) manual page ought to emphasize the
+requirements of filesystems widely deployed for general-purpose use on
+standard Linux installations.  As far as I know, exactly three such
+filesystems exist:
+
+    * ext4;
+    * xfs;
+    * btrfs.
+
+Do any other such filesystems exist?
+
+Comments:
+
+1.  I have heard of reiserfs and reiser4 but have not heard of anyone
+that actually uses them since about 15 years ago.
+
+2.  There are also nfs, iso9660/joliet/rockridge, vfat, ntfs, cifs
+and a few others.  These are network-oriented, archive-oriented,
+special-purpose, foreign and/or compatibility-oriented filesystems.  If
+the filename(7) manual page mentions the requirements of such
+filesystems at all, it should mention them only briefly, in passing.
+Otherwise, the page would become too confusing and grow too long.
+(Also, I know too little about most of these extra filesystems to write
+about them.)
+
+3.  Happily, the three main filesystems -- ext4, xfs and btrfs -- all
+have similar filename requirements as far as I know.
 
 
---=-1jIngc/iyjJiLz5Uw0FK
-Content-Description:
-Content-Disposition: inline;
-	filename*0=0001-posix_memalign.3-drop-obsolete-requirement-for-align.pat;
-	filename*1=ch
-Content-Type: text/x-patch;
-	name="0001-posix_memalign.3-drop-obsolete-requirement-for-align.patch";
-	charset="UTF-8"
-Content-Transfer-Encoding: base64
-
-RnJvbSA4OTU2MGJjOWFkODg3NTA0Y2Y1NTdkYjM1Nzk0NDFkMmQ4MzhhZmY2IE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBKb2huIFNjb3R0IDxqc2NvdHRAcG9zdGVvLm5ldD4KRGF0ZTog
-VGh1LCAyMSBPY3QgMjAyMSAwNDo1MzozOSAtMDQwMApTdWJqZWN0OiBbUEFUQ0hdIHBvc2l4X21l
-bWFsaWduLjM6IGRyb3Agb2Jzb2xldGUgcmVxdWlyZW1lbnQgZm9yCiBhbGlnbmVkX2FsbG9jKCkg
-dXNhZ2UKCkluIHRoZSBDMTEgc3RhbmRhcmQgYXMgcHVibGlzaGVkLCBpdCB3YXMgdW5kZWZpbmVk
-IGJlaGF2aW9yCmlmIHRoZSBhbGxvY2F0aW9uIHNpemUgd2FzIG5vdCBhIG11bHRpcGxlIG9mIHRo
-ZSBzeXN0ZW0KcGFnZSBzaXplLiBEZWZlY3QgUmVwb3J0IDQ2MCBjaGFuZ2VkIHRoZSByZWxldmFu
-dCBzZW50ZW5jZSBmcm9tCiJUaGUgdmFsdWUgb2YgYWxpZ25tZW50IHNoYWxsIGJlIGEgdmFsaWQg
-YWxpZ25tZW50IHN1cHBvcnRlZCBieSB0aGUKaW1wbGVtZW50YXRpb24gYW5kIHRoZSB2YWx1ZSBv
-ZiBzaXplIHNoYWxsIGJlIGFuIGludGVncmFsIG11bHRpcGxlIG9mCmFsaWdubWVudC4iIHRvCiJJ
-ZiB0aGUgdmFsdWUgb2YgYWxpZ25tZW50IGlzIG5vdCBhIHZhbGlkIGFsaWdubWVudCBzdXBwb3J0
-ZWQKYnkgdGhlIGltcGxlbWVudGF0aW9uIHRoZSBmdW5jdGlvbiBzaGFsbCBmYWlsIGJ5IHJldHVy
-bmluZyBhIG51bGwKcG9pbnRlciwiIGFuZCBoZW5jZSBkcm9wcGVkIHRoZSByZXF1aXJlbWVudC4K
-ClRoaXMgaXMgc3VwcG9ydGVkIGluIHByYWN0aWNlOyBpbiB0aGUgR05VIEMgTGlicmFyeSwgYWxp
-Z25lZF9hbGxvYygpCmlzIGltcGxlbWVudGVkIGFzIGFuIGFsaWFzIGZvciBtZW1hbGlnbigpLiBU
-aGUgR05VIEMgTGlicmFyeSBtYW51YWwKc3RpbGwgZG9jdW1lbnRzIHRoZSBvYnNvbGV0ZSByZXF1
-aXJlbWVudCBob3dldmVyLgotLS0KIG1hbjMvcG9zaXhfbWVtYWxpZ24uMyB8IDYgKy0tLS0tCiAx
-IGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDUgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0
-IGEvbWFuMy9wb3NpeF9tZW1hbGlnbi4zIGIvbWFuMy9wb3NpeF9tZW1hbGlnbi4zCmluZGV4IDkz
-MWVjMWMwNy4uOTM0ZmQyMmQxIDEwMDY0NAotLS0gYS9tYW4zL3Bvc2l4X21lbWFsaWduLjMKKysr
-IGIvbWFuMy9wb3NpeF9tZW1hbGlnbi4zCkBAIC0xMDQsMTEgKzEwNCw3IEBAIHdoaWNoIG11c3Qg
-YmUgYSBwb3dlciBvZiB0d28uCiBUaGUgZnVuY3Rpb24KIC5CUiBhbGlnbmVkX2FsbG9jICgpCiBp
-cyB0aGUgc2FtZSBhcwotLkJSIG1lbWFsaWduICgpLAotZXhjZXB0IGZvciB0aGUgYWRkZWQgcmVz
-dHJpY3Rpb24gdGhhdAotLkkgc2l6ZQotc2hvdWxkIGJlIGEgbXVsdGlwbGUgb2YKLS5JUiBhbGln
-bm1lbnQgLgorLkJSIG1lbWFsaWduICgpIC4KIC5QUAogVGhlIG9ic29sZXRlIGZ1bmN0aW9uCiAu
-QlIgdmFsbG9jICgpCi0tIAoyLjMzLjAKCg==
-
-
---=-1jIngc/iyjJiLz5Uw0FK--
-
---=-qY+2CDLwsw+MBUkUIvmp
+--5trSh+SOwSNydqAs
 Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iIgEABYIADAWIQT287WtmxUhmhucNnhyvHFIwKstpwUCYXFCcRIcanNjb3R0QHBv
-c3Rlby5uZXQACgkQcrxxSMCrLaeLzgD+PV9cM4JAqBnXgKON/XJwa4EMj6bQw66p
-ewtgMNqQBDMBAMc18sAVFcaBVkfgbai5j4tetYsO8ENjtgHbHywJx8sD
-=Nhyi
+iQIzBAABCAAdFiEEM1APDU+pwMhnuF4GcGMmQy2FIrwFAmFxWq4ACgkQcGMmQy2F
+Irx1QQ/9FdwHOt49CMtTlNTC6kVo2wm5lHjEhfw/6RBIPhxiTpb2DE3hrv0L7wD3
+GPuXAJ3cnMd1J07zryij3TfzlaHqFEXlTWWRToRVUtK20P9B0IqaWLGPcPrs7sBf
+vNESclc3sleG+VfmCOBGevO2or9oUMcze6+8sFNNWNRXCK4qZJJRZQK7Z42+B7vi
+yo+JOykuYyti5HpkNs/O0FyyOZnWf47NeTomC3nFkgCIo32Ox34PGTDE4zXj8beO
+HOn+HFTzwdwQnEJZNcAqhKiCmjBqVXWnuomXeCYcjB1yPGS6l+SOukWVNC47uFIk
+bkQG//NrGmeLURKmj3Vh2f2YmEvrjovSX+P2e3PmyRa71CnekBC93F/qkYIcQnwx
+sAvMdTOzfVXDrAS3rcFZZWB5HFhnXs47HsQitu8fLoIAIRqqP85x6VSZjkyORCjx
+biD6q3x2xylXP3h4W9SPLlroUB1Yhz8govZOw7WlPfHwi3joQ5mgF89L2HPy4GGq
+bP3lanMIMGV30FNG1ndrQYmJ21EoAe3XDf6G+VSpmBGp0V4wNYQnPFYb94hJHPUK
+SyikZQF9A49N68tiIUpmgwWokz7oC2Y9OESoiCVK/mMPXFF+Kdb1pMhIg4Or3cx8
+yUU+9JdgJ+FuAaQbbV+c3IorTHCKqcK8zzTy/WTwmyzCMYo+1lI=
+=jdm2
 -----END PGP SIGNATURE-----
 
---=-qY+2CDLwsw+MBUkUIvmp--
+--5trSh+SOwSNydqAs--
