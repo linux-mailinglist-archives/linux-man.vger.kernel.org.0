@@ -2,92 +2,104 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 3F443436C5B
-	for <lists+linux-man@lfdr.de>; Thu, 21 Oct 2021 22:54:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C811B437A9D
+	for <lists+linux-man@lfdr.de>; Fri, 22 Oct 2021 18:09:36 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231206AbhJUU5L (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 21 Oct 2021 16:57:11 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44146 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230272AbhJUU5L (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 21 Oct 2021 16:57:11 -0400
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com [IPv6:2a00:1450:4864:20::333])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D1AB1C061764
-        for <linux-man@vger.kernel.org>; Thu, 21 Oct 2021 13:54:54 -0700 (PDT)
-Received: by mail-wm1-x333.google.com with SMTP id l38-20020a05600c1d2600b0030d80c3667aso743997wms.5
-        for <linux-man@vger.kernel.org>; Thu, 21 Oct 2021 13:54:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=jrBeERHKhBz2K13+x9SLDJrao42iilHC/ff7LmqnpPw=;
-        b=R2b2mXAxBqeeglcS7bhvu+YNhPnuXvjBMhTbX9JZGVV28EWIsdErnvxYbIICFFN/WD
-         3GmOgG3XTlF4K+HLDzxntVzMldHeIZoNXI/OtHBmpCHxUHMICzy0GaMW8fHENAtj8Q5e
-         l3iy5WW+dmB0Hbk6/aYNMQHszOuLuNyjEBnWGgtw93xlewkkk5RTNFzlsCDdMdBL8A7l
-         3X3soY10Yhno30UsUgQ7dGHunWD0CTWq22J5qjRMMUUcNjxCkHGpxr8Yz1dDlciY7hFo
-         sWezWxN8M+8Sb3nriFukgJXM/V4IkjBtb41xkKIIh2RzWbOtSnRgNbTcXCd+bzD9zu7p
-         BqVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=jrBeERHKhBz2K13+x9SLDJrao42iilHC/ff7LmqnpPw=;
-        b=HbzCMnsgwjSMzLbFcb+nxSXAyJeXwy0k+wTp2nYarYrcmyVSCZvdLBx84RKQOhQRXv
-         Yzwpruzh7K2Axl0bDlSM06odg983LKf9gRZIHryc5fWFnhX1NqysSWHJxvMXaXXeG2QI
-         DKB1MGP//KHz8MB6E/us0cuPq63R9Xsd2p1lUJyeeEtJzd5PLKoR1U6puZEMF3yYglfh
-         r1TaaMeIeKfODNk79cDaA0gcCTyd/CTaAfbOeLO00BaJIbZ9/A4IJdNjWem29NbWM6WO
-         7msekEBMp/oUGUPMJTWxl4f60HRuss3lEXqHdk4RGN02Tn/CWS8iB42MtSEp7CuJ7Uav
-         Oz6w==
-X-Gm-Message-State: AOAM532bhr5RrKQEw5GEtxXwPRxonpbmJEnWQrMj5DhgLby+h0trH2y6
-        stHsWn2aK8di0CxN5TOPaSw=
-X-Google-Smtp-Source: ABdhPJxvO336i2chUSc4fKdjRzjncK1IudthafHVNMxg4XQ7Omh9SkI0VCRQEcYuRCEriowRnx8Bxg==
-X-Received: by 2002:a05:600c:1989:: with SMTP id t9mr9201511wmq.48.1634849693331;
-        Thu, 21 Oct 2021 13:54:53 -0700 (PDT)
-Received: from [10.8.0.138] ([195.53.121.100])
-        by smtp.gmail.com with ESMTPSA id q7sm6005707wrs.73.2021.10.21.13.54.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 21 Oct 2021 13:54:52 -0700 (PDT)
-Subject: Re: AW: [PATCH 2/2] ctime.3, strftime.3, strptime.3, timegm.3: Add
- [[gnu::nonnull]] to <time.h> prototypes
-To:     Paul Eggert <eggert@cs.ucla.edu>, Walter Harms <wharms@bfs.de>,
-        Jens Gustedt <jens.gustedt@loria.fr>
-Cc:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
-        Glibc <libc-alpha@sourceware.org>,
-        "mtk.manpages@gmail.com" <mtk.manpages@gmail.com>
-References: <20211020202241.171180-1-alx.manpages@gmail.com>
- <20211020202241.171180-2-alx.manpages@gmail.com>
- <e42cc9f415ea4b069dd5cfdee04e3e87@bfs.de>
- <35ae1737-f167-e611-c5e0-26ed3e54618a@gmail.com>
- <d015464c-714d-771e-6829-c1032efab15d@cs.ucla.edu>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <e9f0dc6d-995f-b263-4b1e-3861dc678714@gmail.com>
-Date:   Thu, 21 Oct 2021 22:54:51 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+        id S232835AbhJVQLx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 22 Oct 2021 12:11:53 -0400
+Received: from mout.kundenserver.de ([212.227.126.134]:54013 "EHLO
+        mout.kundenserver.de" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S231453AbhJVQLw (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 22 Oct 2021 12:11:52 -0400
+Received: from localhost ([178.142.98.90]) by mrelayeu.kundenserver.de
+ (mreue012 [213.165.67.97]) with ESMTPSA (Nemesis) id
+ 1MYLqs-1m8W4s3Ack-00VOHe; Fri, 22 Oct 2021 18:09:32 +0200
+Date:   Fri, 22 Oct 2021 18:09:42 +0200
+From:   Tobias Stoeckmann <tobias@stoeckmann.org>
+To:     linux-man@vger.kernel.org
+Cc:     alx.manpages@gmail.com, mtk.manpages@gmail.com
+Subject: [patch] getgrouplist.3: Improve example code
+Message-ID: <20211022160942.3w3zh2mxehzrdkx7@localhost>
 MIME-Version: 1.0
-In-Reply-To: <d015464c-714d-771e-6829-c1032efab15d@cs.ucla.edu>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Provags-ID: V03:K1:X+/QYmOSoDYf0FUNscfQxHacd7AM1DIwLZbX/TdhbSOtH6SO59W
+ 8VMx2fIWHV1aE4L2CRTstqxO6TPRI2Hd1SEtKzksTQozsMCqHY9JyatlauTysvs/af1FaAH
+ 4TYk0Rq1XXI78G55SJHcBKTKy1iGK1z90Nei1npw9/ghEJmWRwUCgj7T2NC9VI3GGGNvoYH
+ 2kaRmqovUDQCwUd/4MMAw==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:iqaeEIFod3U=:HTVkqtaH90dbAKpRATdSEq
+ VI8mhqf3A31NRtlxFjCcNNNrpWKL36dBIvvmmkBSPjvWgTjcf1Eh7o3z7PCIBsOGssNatXJC4
+ FNKq9vG8i8PuIGjo0T3duv75iYC0jFzPZbu2WtgLrPhPAzRrwJ4PKn2XpAT8B1iw1+PXGpRnV
+ qPmp0jfb7PNvMeo5In8dVgtOzMAhom0xR9k2ka1GwaV7C0HG6yipjsax/Hs9BscXN9r4zKi2Y
+ FMM/aUiS0WGgbiS0r7Ev1G5xw6wjjcIeOS990bEYeVpmnSUNAvtZOjXyfRM9zWJR7AOXSeUvS
+ pgm0coqJLnE/1T7yTUXd/ZMprJ8C186d1d+s0a92PBKiKOiYFq5rDzZOca3a24MeThL6NmzG9
+ mXv7IohLDI326d0niMZA3+IWZYp0csGkK43+x92uudaMO4zpfl8vU9Vjzln4DPtRTpCe2ZN6j
+ iWDrNdRohp9hWQ9vpqs5h1HDsud/MYlr5EMFBiqMJk/vCPoCRsYEgZrFrbMEceXYnzRNwav9p
+ J5DBMJsxR/qwH1kW80hPS7SWpOcFIgp462T1eh5vtHHSCZVlZGX+AcsZlkvTR2pIpS1OmnaAB
+ g1xWb25TsmqYMgy8Bx92xsW8OQYm1KCPhH+lWqFtdwzHX9di5UkcZ9WyD7BZPLpH+OV9PuYRw
+ dMTc/b9Y7q4cjJXP7wQfGJT+RGqENdR7nehJBuW9k9yKk0OMVRqbi7dIHQAGNPDsAd/k=
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 10/21/21 7:40 PM, Paul Eggert wrote:
-> "f (...)" is hardwired into people's brains for function calls, and we 
-> shouldn't put anything between the "f" and the "(" to confuse this 
-> longstanding syntactic pattern. So this stuff should go at the start of 
-> the declaration, not after the identifier.
+The example code does not validate the supplied ngroup argument.
+On 32 bit systems this code can lead to heap overflows within
+getgrouplist call.
 
-Yup.
+Verify that ngroups really contains the amount of entries for
+which memory has been allocated.
 
-Thanks,
+While at it fixed a small typo ("to" was missing).
 
-Alex
+Signed-off-by: Tobias Stoeckmann <tobias@stoeckmann.org>
+---
+ man3/getgrouplist.3 | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-
+diff --git a/man3/getgrouplist.3 b/man3/getgrouplist.3
+index 1fe260b..da36cc7 100644
+--- a/man3/getgrouplist.3
++++ b/man3/getgrouplist.3
+@@ -97,7 +97,7 @@ groups, then
+ returns \-1.
+ In this case, the value returned in
+ .IR *ngroups
+-can be used to resize the buffer passed to a further call
++can be used to resize the buffer passed to a further call to
+ .BR getgrouplist ().
+ .SH VERSIONS
+ This function is present since glibc 2.2.4.
+@@ -152,6 +152,7 @@ ngroups = 3
+ .SS Program source
+ \&
+ .EX
++#include <stdint.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <grp.h>
+@@ -163,6 +164,7 @@ main(int argc, char *argv[])
+     int ngroups;
+     struct passwd *pw;
+     struct group *gr;
++    gid_t *groups;
+ 
+     if (argc != 3) {
+         fprintf(stderr, "Usage: %s <user> <ngroups>\en", argv[0]);
+@@ -171,7 +173,12 @@ main(int argc, char *argv[])
+ 
+     ngroups = atoi(argv[2]);
+ 
+-    gid_t *groups = malloc(sizeof(*groups) * ngroups);
++    if (ngroups < 0 || (size_t)ngroups > SIZE_MAX / sizeof(*groups)) {
++        fprintf(stderr, "ngroups invalid\en");
++        exit(EXIT_FAILURE);
++    }
++
++    groups = malloc(sizeof(*groups) * ngroups);
+     if (groups == NULL) {
+         perror("malloc");
+         exit(EXIT_FAILURE);
 -- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+2.33.1
+
