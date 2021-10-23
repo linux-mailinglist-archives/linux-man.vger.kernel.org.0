@@ -2,17 +2,17 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 96D60438141
+	by mail.lfdr.de (Postfix) with ESMTP id DFF72438142
 	for <lists+linux-man@lfdr.de>; Sat, 23 Oct 2021 03:21:24 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229925AbhJWBXi (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 22 Oct 2021 21:23:38 -0400
-Received: from mail.kernel.org ([198.145.29.99]:58130 "EHLO mail.kernel.org"
+        id S230230AbhJWBXk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 22 Oct 2021 21:23:40 -0400
+Received: from mail.kernel.org ([198.145.29.99]:58170 "EHLO mail.kernel.org"
         rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S229507AbhJWBXh (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Fri, 22 Oct 2021 21:23:37 -0400
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 0A12F61059;
-        Sat, 23 Oct 2021 01:21:18 +0000 (UTC)
+        id S229507AbhJWBXk (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Fri, 22 Oct 2021 21:23:40 -0400
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 8890361059;
+        Sat, 23 Oct 2021 01:21:21 +0000 (UTC)
 From:   Jarkko Sakkinen <jarkko.sakkinen@iki.fi>
 To:     Michael Kerrisk <mtk.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org, linux-sgx@vger.kernel.org,
@@ -20,9 +20,11 @@ Cc:     linux-man@vger.kernel.org, linux-sgx@vger.kernel.org,
         Reinette Chatre <reinette.chatre@intel.com>,
         Jarkko Sakkinen <jarkko@kernel.org>
 Subject: [PATCH v8] sgx.7: New page with overview of Software Guard eXtensions (SGX)
-Date:   Sat, 23 Oct 2021 04:21:13 +0300
-Message-Id: <20211023012114.16122-1-jarkko.sakkinen@iki.fi>
+Date:   Sat, 23 Oct 2021 04:21:14 +0300
+Message-Id: <20211023012114.16122-2-jarkko.sakkinen@iki.fi>
 X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20211023012114.16122-1-jarkko.sakkinen@iki.fi>
+References: <20211023012114.16122-1-jarkko.sakkinen@iki.fi>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
