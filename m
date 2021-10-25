@@ -2,241 +2,78 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id DFF72438142
-	for <lists+linux-man@lfdr.de>; Sat, 23 Oct 2021 03:21:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D2E5F439E85
+	for <lists+linux-man@lfdr.de>; Mon, 25 Oct 2021 20:28:56 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230230AbhJWBXk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 22 Oct 2021 21:23:40 -0400
-Received: from mail.kernel.org ([198.145.29.99]:58170 "EHLO mail.kernel.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S229507AbhJWBXk (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Fri, 22 Oct 2021 21:23:40 -0400
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 8890361059;
-        Sat, 23 Oct 2021 01:21:21 +0000 (UTC)
-From:   Jarkko Sakkinen <jarkko.sakkinen@iki.fi>
-To:     Michael Kerrisk <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org, linux-sgx@vger.kernel.org,
-        Dave Hansen <dave.hansen@linux.intel.com>,
-        Reinette Chatre <reinette.chatre@intel.com>,
-        Jarkko Sakkinen <jarkko@kernel.org>
-Subject: [PATCH v8] sgx.7: New page with overview of Software Guard eXtensions (SGX)
-Date:   Sat, 23 Oct 2021 04:21:14 +0300
-Message-Id: <20211023012114.16122-2-jarkko.sakkinen@iki.fi>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20211023012114.16122-1-jarkko.sakkinen@iki.fi>
-References: <20211023012114.16122-1-jarkko.sakkinen@iki.fi>
+        id S232932AbhJYSbS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 25 Oct 2021 14:31:18 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39720 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S230111AbhJYSbR (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 25 Oct 2021 14:31:17 -0400
+Received: from mail-ua1-x933.google.com (mail-ua1-x933.google.com [IPv6:2607:f8b0:4864:20::933])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3148EC061745
+        for <linux-man@vger.kernel.org>; Mon, 25 Oct 2021 11:28:55 -0700 (PDT)
+Received: by mail-ua1-x933.google.com with SMTP id k28so19781201uaa.10
+        for <linux-man@vger.kernel.org>; Mon, 25 Oct 2021 11:28:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=meklu-org.20210112.gappssmtp.com; s=20210112;
+        h=mime-version:from:date:message-id:subject:to:cc;
+        bh=8YTLaUKVN+GxjFa2Us3XpTMehWZdswarK8OwcrmfLtA=;
+        b=TwwwE9MH70A1N0nz2CQHbFbsrJ3nEJ4+Y9/V64UMo3LYQ+HogPkVOAWoEiCnwrk8rS
+         AOnlfmlUy772aX81mAGI+DmLHxisvYzDJ6EE7a8nntYUE4VG5ZrvxxYJmDyVJWyeu30u
+         TDX+sUMqE8BA7i6S4GLZGvNHlEJPfH6Kqy5dCj8J4J6XpH0l7GxEDRK0JVTbJrzP1Hn0
+         1WyVgi2PL6wctakUnCkdqRarldkjVBbV2bRsRfEzy3Lonc8bdEPZyZJJshvhzkBN07l3
+         qZ07CUy8mpP5EDoNuJqdgASWBGV0m5yEbGi+DhoGtnxMfin7xxVfx0Q3lT4ev9NewDs7
+         bFzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+        bh=8YTLaUKVN+GxjFa2Us3XpTMehWZdswarK8OwcrmfLtA=;
+        b=w8iQpoz4l78ZHVRKvq1gGyOEQVuy3nFGFNCjko7M/j5DXL6ej9KOXiKKPfWufi5ie7
+         8TQZ9sFElYzKAJP0Tk6UZy1k8hW1OWVhltARpQQNiba+hNTaDw2KVsi1C5nV++VShFs5
+         C38+cD+joC+O78cY5xTt8hEOmGa480Fw170uDFvNIJACZdMDTVUnfdQhb7CSsBvPKTuh
+         ooGZKbZxaJOwYLKlaFOv1EJ0Gfg7WplnGhpaAK5TyPZVu9CckuM6clrwqCRau4omEzNi
+         Ht3ZGlVFhCmQDMb2KLpIKTroYNiWHtqYCb6tCgwCQWRaCozadRYowiBTl2/pdNQUodyx
+         O0xQ==
+X-Gm-Message-State: AOAM532RDshLHntWMD1N0IvaSDuh9LTH7PHkHEo/WNM13td3+sPhX2BR
+        ZVJPG9HTo4ssm1sNZVjF/P/aNBehqa8ypkXUZxf7OXHXXRUYqACP
+X-Google-Smtp-Source: ABdhPJyv97Pi6xm1Nz/41R0mTiQrX11nKWGCZoIBuxO1IqxkyDwaG7ri/ZrH2fWchsWrw4L8vZAMZUkNnHNn1c7lLUg=
+X-Received: by 2002:a67:f752:: with SMTP id w18mr4174625vso.36.1635186534399;
+ Mon, 25 Oct 2021 11:28:54 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From:   Melker Narikka <meklu@meklu.org>
+Date:   Mon, 25 Oct 2021 21:28:43 +0300
+Message-ID: <CAFbsDtgjmDEHXfy2xB4zt4MM5uZtOWZcT42B1QoFGC-DJgHQNg@mail.gmail.com>
+Subject: [PATCH] clock_nanosleep.2: tfix CLOCK_BOOTTIME
+To:     linux-man@vger.kernel.org
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From: Jarkko Sakkinen <jarkko@kernel.org>
+From: Melker Narikka <meklu@meklu.org>
 
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+Signed-off-by: Melker Narikka <meklu@meklu.org>
 ---
-v8:
-* Fix errors reported for the previous version.
-v7:
-* Added more meat about the address space and API.
-* Reorganized the text to have focus more on developer to have a big
-  picture of kernel provided interfaces.
-v6:
-* Small fixes based on Dave's and Reinette's feedback.
-* Extended the "Permissions" section to cover mmap()
-v5:
-* Taking away hardware concepts and focusing more on the interface.
-v4:
-* Did a heavy edit trying to streamline the story a bit and focus on
-  stuff important to the user (e.g. lighten up x86 details).
-v3:
-* Overhaul based on Michael's comments. Most likely needs to be refined
-  in various places but this is at least a small step forward for sure.
-v2:
-* Fixed the semantic newlines convention and various style errors etc.
-  that were reported by Alenjandro and Michael.
-* SGX was merged to v5.
----
- man7/sgx.7 | 170 +++++++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 170 insertions(+)
- create mode 100644 man7/sgx.7
+ man2/clock_nanosleep.2 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/man7/sgx.7 b/man7/sgx.7
-new file mode 100644
-index 000000000..85afea912
---- /dev/null
-+++ b/man7/sgx.7
-@@ -0,0 +1,170 @@
-+.\" Copyright (C) 2021 Intel Corporation
-+.\"
-+.\" %%%LICENSE_START(VERBATIM)
-+.\" Permission is granted to make and distribute verbatim copies of this
-+.\" manual provided the copyright notice and this permission notice are
-+.\" preserved on all copies.
-+.\"
-+.\" Permission is granted to copy and distribute modified versions of this
-+.\" manual under the conditions for verbatim copying, provided that the
-+.\" entire resulting derived work is distributed under the terms of a
-+.\" permission notice identical to this one.
-+.\"
-+.\" Since the Linux kernel and libraries are constantly changing, this
-+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
-+.\" responsibility for errors or omissions, or for damages resulting from
-+.\" the use of the information contained herein.  The author(s) may not
-+.\" have taken the same level of care in the production of this manual,
-+.\" which is licensed free of charge, as they might when working
-+.\" professionally.
-+.\"
-+.\" Formatted or processed versions of this manual, if unaccompanied by
-+.\" the source, must acknowledge the copyright and authors of this work.
-+.\" %%%LICENSE_END
-+.\"
-+.TH SGX 7 2021\-02\-02 "Linux" "Linux Programmer's Manual"
-+.PP
-+sgx - overview of Software Guard eXtensions
-+.SH SYNOPSIS
-+.EX
-+.B #include <asm/sgx.h>
-+.PP
-+.IB enclave " = open(""/dev/sgx_enclave", " O_RDWR);"
-+.EE
-+.SH DESCRIPTION
-+Intel Software Guard eXtensions (SGX) allow applications to host
-+enclaves,
-+protected executable objects in memory.
-+.PP
-+Enclaves are blobs of executable code,
-+running inside a CPU enforced container,
-+which is mapped to the process address space.
-+They have a fixed set of entry points,
-+defined when the enclave is built with the ioctls,
-+provided by
-+.I /dev/sgx_enclave.
-+.PP
-+SGX is available only if the kernel was configured and built with the
-+.B CONFIG_X86_SGX
-+option.
-+You can verify that both the kernel and hardware have SGX enabled by
-+checking that "sgx" appears in the
-+.I flags
-+field in
-+.IR /proc/cpuinfo .
-+.PP
-+SGX must be enabled in BIOS.
-+If SGX appears to be unsupported,
-+ensure that SGX is enabled in the BIOS.
-+If a BIOS presents a choice between
-+.I Enabled
-+and
-+.I Software Enabled
-+modes for SGX,
-+choose
-+.I Enabled.
-+.PP
-+Enclaves are shared objects, meaning that
-+they can be shared with a
-+.BR cmsg (3),
-+and inherited in a fork.
-+.SS Address space
-+The address range for an enclave must be reserved with
-+.BR mmap (2).
-+This must happen before the enclave construction can begin,
-+because the enclave page addresses are fixed during its build time.
-+.PP
-+The CPU requires the size of the enclave to be power of two,
-+at least size of a one page,
-+and the base address to be naturally aligned with the size.
-+An appropriate address range can be found by an anonymous mapping:
-+.PP
-+.EX
-+void *area = mmap(NULL, size * 2, PROT_NONE, MAP_PRIVATE | MAP_ANONYMOUS,
-+                  -1, 0);
-+
-+/* Find the first address aligned to the size within the range. */
-+void *base = ((uint64_t)area + size - 1) & ~(size - 1);
-+.EE
-+.PP
-+.SS Ioctls
-+An enclave life-cycle is started by opening
-+.I /dev/sgx_enclave.
-+They are  managed with an
-+.BR ioctl (2)
-+interface,
-+.IR <asm/sgx.h>:
-+.TP
-+.IB SGX_IOC_ENCLAVE_CREATE
-+Create SGX Enclave Control Structure (SECS) for an enclave.
-+SECS is a hardware defined structure,
-+which contains the properties of an enclave,
-+such as its base address and size.
-+The ioctl argument has the type
-+.IR "struct\ *sgx_enclave_create" .
-+.TP
-+.IB SGX_IOC_ENCLAVE_ADD_PAGES
-+Populate a range of enclave pages with the page data provided by the caller.
-+The ioctl argument has the type
-+.IR "struct\ *sgx_enclave_add_pages" .
-+.TP
-+.IB SGX_IOC_ENCLAVE_INIT
-+Tell the CPU to prepare the enclave for use.
-+After a successful initialization,
-+no new pages can be added to the enclave.
-+The ioctl argument has the type
-+.IR "struct\ *sgx_enclave_init" .
-+.PP
-+The details of what these operations actually mean in the hardware level can be
-+found at the Intel Software Developers Manual.
-+.SS vDSO
-+A process can access an enclave by entering into its address space through
-+a set of entry points,
-+which must be defined during the construction process.
-+This requires a complex sequence of CPU instructions,
-+and kernel assisted exception handling.
-+For these reasons,
-+it is encapsulated into
-+a vDSO interface,
-+provided by
-+.BR vdso_sgx_enter_enclave_t ,
-+which is declared in
-+.IR <asm/sgx.h>.
-+.SS Permissions
-+In order to build an enclave, a process must be able to call
-+.IR mmap (2)
-+with
-+.IR PROT_EXEC
-+set,
-+because, as with any other type of executable,
-+the page table protections must be set appropriately.
-+Therefore,
-+.I /dev/sgx_enclave
-+must reside in a partition,
-+which is not mounted with
-+.B noexec
-+set in the mount options.
-+.PP
-+During the build process each enclave page is assigned protection bits,
-+as part of
-+.BR ioctl(SGX_IOC_ENCLAVE_ADD_PAGES).
-+These protections are also the maximum protections to which the page can be be mapped.
-+If
-+.BR mmap (2)
-+is called with higher protections than those defined during the build,
-+it will return
-+.B -EACCES.
-+If
-+.BR ioctl(SGX_IOC_ENCLAVE_ADD_PAGES)
-+is called after
-+.BR mmap (2)
-+with lower protections,
-+the caller receives
-+.BR SIGBUS,
-+once it accesses the page for the first time.
-+.SH VERSIONS
-+The SGX feature was added in Linux 5.11.
-+.SH SEE ALSO
-+.BR ioctl (2),
-+.BR mmap (2),
-+.BR mprotect (2)
+diff --git a/man2/clock_nanosleep.2 b/man2/clock_nanosleep.2
+index b8c4afc2c..1d607e1ce 100644
+--- a/man2/clock_nanosleep.2
++++ b/man2/clock_nanosleep.2
+@@ -90,7 +90,7 @@ since some unspecified point in the past that does
+not change after
+ system startup.
+ .\" On Linux this clock measures time since boot.
+ .TP
+-.BR CLOCK_BOOTIME " (since Linux 2.6.39)"
++.BR CLOCK_BOOTTIME " (since Linux 2.6.39)"
+ Identical to
+ .BR CLOCK_MONOTONIC ,
+ except that it also includes any time that the system is suspended.
 -- 
 2.32.0
-
