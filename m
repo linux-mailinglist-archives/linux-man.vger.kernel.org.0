@@ -2,77 +2,76 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id DD5C543C728
-	for <lists+linux-man@lfdr.de>; Wed, 27 Oct 2021 12:00:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id BB4AA43C771
+	for <lists+linux-man@lfdr.de>; Wed, 27 Oct 2021 12:15:02 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S241426AbhJ0KCW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 27 Oct 2021 06:02:22 -0400
-Received: from smtp-out1.suse.de ([195.135.220.28]:46128 "EHLO
-        smtp-out1.suse.de" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S238834AbhJ0KBo (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 27 Oct 2021 06:01:44 -0400
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
-        by smtp-out1.suse.de (Postfix) with ESMTP id BC2D1218B5;
-        Wed, 27 Oct 2021 09:59:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-        t=1635328757; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-         mime-version:mime-version:content-type:content-type:
-         in-reply-to:in-reply-to:references:references;
-        bh=WT7e0wyCVEq542DzT7JWyi2GGrYdNqmyij0vrtnVECw=;
-        b=Df+rRmGGaqqijPo26x3MoKMyMeqlJOsR60tKsLyzF5mHEzI+/UrE0tSgVSv+lQG4EcWT2m
-        9gDdPtiLrh8c8GhWxbeJhkSUfdcOzMCaBngZD/EzEHgKgHbl0qbAzOfPkMuc53HcWwK5t6
-        vtPjj8O20u4dWyl9+iZE2kVkjdWIxdA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-        s=susede2_ed25519; t=1635328757;
-        h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-         mime-version:mime-version:content-type:content-type:
-         in-reply-to:in-reply-to:references:references;
-        bh=WT7e0wyCVEq542DzT7JWyi2GGrYdNqmyij0vrtnVECw=;
-        b=62cvHK54letV3IrzkBbicft3/ZCgWkBvP8sNdBFStGEbINS0f9iFAJRRt28f9GzKYVLCwD
-        Mz3GpNiy4OqlZQAw==
-Received: from quack2.suse.cz (unknown [10.100.224.230])
-        by relay2.suse.de (Postfix) with ESMTP id A907CA3B8B;
-        Wed, 27 Oct 2021 09:59:17 +0000 (UTC)
-Received: by quack2.suse.cz (Postfix, from userid 1000)
-        id 8638A1F2C66; Wed, 27 Oct 2021 11:59:17 +0200 (CEST)
-Date:   Wed, 27 Oct 2021 11:59:17 +0200
-From:   Jan Kara <jack@suse.cz>
-To:     Matthew Bobrowski <repnop@google.com>
-Cc:     mtk.manpages@gmail.com, alx.manpages@gmail.com,
-        linux-man@vger.kernel.org, jack@suse.cz, amir73il@gmail.com
-Subject: Re: [PATCH 1/1] Document the new fanotify initialization flag
- FAN_REPORT_PIDFD
-Message-ID: <20211027095917.GC28650@quack2.suse.cz>
-References: <cover.1635135968.git.repnop@google.com>
- <6ea10a58db3446aabc729b1082611bdadb1ce4ed.1635135968.git.repnop@google.com>
+        id S239518AbhJ0KR1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 27 Oct 2021 06:17:27 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41690 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S235484AbhJ0KR0 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 27 Oct 2021 06:17:26 -0400
+Received: from mail-il1-x12b.google.com (mail-il1-x12b.google.com [IPv6:2607:f8b0:4864:20::12b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 33537C061570
+        for <linux-man@vger.kernel.org>; Wed, 27 Oct 2021 03:15:01 -0700 (PDT)
+Received: by mail-il1-x12b.google.com with SMTP id y17so2336472ilb.9
+        for <linux-man@vger.kernel.org>; Wed, 27 Oct 2021 03:15:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=Q7sC/2RymLry9N7xuoCPbvxHLOudqU/cgq9J1Rx1V4A=;
+        b=E8Daq4mwNI933g4OebxFMbgH8UY8QEwNdFRkqbvPpdjwFRpSAeRkDukUEV7dwMPN6N
+         1sKc0GlCkb19p5gNPS48l8UCN6YvQtpiZjM2trwk3DKt2A97s9BolajcTr2/t2x66tVU
+         zgjQRnLW1T1f+SrHcPuLPNrlj6uRppRH+Hri/qxqSDFkROBpOPS22KIpgffrBy/WqwJZ
+         SE7Txv3I5YIR26wx0b/IhfUM8SczCU1iWHwUq8m5bJk/TQEojeXd21ByrDWpPw3C0PGI
+         yO2y9FygKCR0dtey3/X1/ByuShytbSYrNNoa4wXapncqRmRz418fdPbz5A7e86FKm4wI
+         iocA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=Q7sC/2RymLry9N7xuoCPbvxHLOudqU/cgq9J1Rx1V4A=;
+        b=bUUf/vRQdPCmKdmSrs/5naS2C51s+TtjDeBECEXLcrCFRgdHD6Co75wAivikUpc6mj
+         AnxLqFfcU+5FlCZnGqtiCd5TNNaihxTptfo+5ZjnHX5BgefsptemGrmjOftSmtJtpUYJ
+         HSSywj2mOoxfaeT0vooI9EcMbAchFXAzfnpXX+eYxbtu+vn9XjoPyXde7FyUpjNT+fDi
+         2Z8qnxjJb5josiP+k5x/WZNtSV5O4GDwpW221m/DORyozBrjU6xb9tRkGLk2x/U2mT2H
+         /225TID1gKiTWjlIsEYTbRXmVSNY2ktnT2wOi8HXUnPIGF4j7g6wDbFicoAxopJYvt9I
+         AymQ==
+X-Gm-Message-State: AOAM531F4uR0baMQW7vFyZNnd3xJ8UJwWFJa+S6SICitZZZf/f08e/bE
+        KFzPxPzum/OvC1DmiR4ShunbPIeroCTJw1PCQTxEAXeDPyk=
+X-Google-Smtp-Source: ABdhPJxSVrNGlPAj3AR6PGb23YdoQLVTMxvknSQ7U5lorI3qBh0yOacWUdpe0rwayPNlCPTBBsk2tfoc2vPnFWiQdVU=
+X-Received: by 2002:a92:d3d1:: with SMTP id c17mr18019293ilh.319.1635329700595;
+ Wed, 27 Oct 2021 03:15:00 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <cover.1635135968.git.repnop@google.com> <6ea10a58db3446aabc729b1082611bdadb1ce4ed.1635135968.git.repnop@google.com>
 In-Reply-To: <6ea10a58db3446aabc729b1082611bdadb1ce4ed.1635135968.git.repnop@google.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+From:   Amir Goldstein <amir73il@gmail.com>
+Date:   Wed, 27 Oct 2021 13:14:49 +0300
+Message-ID: <CAOQ4uxiBJBqfH=eoA8sPven2tXzUmPftKJZCSpw=8f23SoAs0g@mail.gmail.com>
+Subject: Re: [PATCH 1/1] Document the new fanotify initialization flag FAN_REPORT_PIDFD
+To:     Matthew Bobrowski <repnop@google.com>
+Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man <linux-man@vger.kernel.org>, Jan Kara <jack@suse.cz>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed 27-10-21 20:28:27, Matthew Bobrowski wrote:
+On Wed, Oct 27, 2021 at 12:28 PM Matthew Bobrowski <repnop@google.com> wrote:
+>
 > This provides an explanation on the kind of additional information that can
 > be returned alongside the generic struct fanotify_event_metadata and in
 > what form this additional contextual information is delievered to a
 > listening application.
-> 
+>
 > Signed-off-by: Matthew Bobrowski <repnop@google.com>
-
-Looks good. Feel free to add:
-
-Reviewed-by: Jan Kara <jack@suse.cz>
-
-								Honza
-
 > ---
 >  man2/fanotify_init.2 | 54 +++++++++++++++++++++++++
 >  man7/fanotify.7      | 95 +++++++++++++++++++++++++++++++++++++++++++-
 >  2 files changed, 147 insertions(+), 2 deletions(-)
-> 
+>
 > diff --git a/man2/fanotify_init.2 b/man2/fanotify_init.2
 > index 0d83e817f..f65b4fa10 100644
 > --- a/man2/fanotify_init.2
@@ -109,10 +108,19 @@ Reviewed-by: Jan Kara <jack@suse.cz>
 > +and
 > +.BR FAN_EVENT_INFO_TYPE_DFID_NAME
 > +will likely precede the information object of type
+
+Please get rid of "likely to precede"
+
 > +.BR FAN_EVENT_INFO_TYPE_PIDFD
 > +for a single event within the read buffer.
 > +However, an event listener should never work with this information object
 > +ordering assumption and is encouraged to always check the information type
+
+"However" "encouraged" are too weak to my taste.
+
+An event listener should not assume any specific order for information records
+within an event and must always check the information type...
+
 > +set within the
 > +.IR fanotify_event_info_header
 > +of each information object.
@@ -186,6 +194,10 @@ Reviewed-by: Jan Kara <jack@suse.cz>
 > +    __u8 pad;
 > +    __u16 len;
 > +};
+
+This structure was just listed a few lines up.
+There is no need to re-list it here.
+
 > +
 > +struct fanotify_event_info_pidfd {
 > +        struct fanotify_event_info_header hdr;
@@ -232,40 +244,12 @@ Reviewed-by: Jan Kara <jack@suse.cz>
 > +.I fanotify_event_info_pidfd
 > +structure, which also includes
 > +.IR fanotify_event_info_header .
-> +.TP
-> +.I pidfd
-> +This is a file descriptor that refers to the process responsible for
-> +generating the event.
-> +This returned file descriptor is no different from one which could be
-> +obtained manually if
-> +.BR pidfd_open(2)
-> +were to be called on
-> +.IR fanotify_event_metadata.pid .
-> +In the instance that an error is encountered during pidfd creation for
-> +an event, one of two possible error types represented by a negative
-> +integer value may be returned in this
-> +.I pidfd
-> +field.
-> +In cases where the process responsible for generating the event has
-> +terminated prior to the event listener being able to read events from the
-> +notification queue a
-> +.BR FAN_NOPIDFD
-> +is returned.
-> +The pidfd allocation for an event is only performed at the time the events
-> +are read from the notification queue.
-> +All other possible pidfd creation failures are represented by
-> +.BR FAN_EPIDFD .
-> +Once the application has dealt with an event and the pidfd is no
-> +longer required, the pidfd should be closed via
-> +.BR close(2) .
-> +.PP
->  The following macros are provided to iterate over a buffer containing
->  fanotify event metadata returned by a
->  .BR read (2)
-> -- 
-> 2.33.0.1079.g6e70778dc9-goog
-> 
-> /M
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+
+It would be a shame if we needed to repeat the same text for every new info_type
+that we add. There should be no duplicate documentation of the
+fanotify_event_info_header fields. Perhaps we need to describe those fields
+before documenting fanotify_event_info_fid fields instead of inline in the
+documentation of hdr field.
+
+Thanks,
+Amir.
