@@ -2,118 +2,93 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 1D69943FC10
-	for <lists+linux-man@lfdr.de>; Fri, 29 Oct 2021 14:11:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D550843FDA4
+	for <lists+linux-man@lfdr.de>; Fri, 29 Oct 2021 15:55:33 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231418AbhJ2MOF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 29 Oct 2021 08:14:05 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41846 "EHLO
+        id S231579AbhJ2N5y (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 29 Oct 2021 09:57:54 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37496 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230273AbhJ2MOE (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 29 Oct 2021 08:14:04 -0400
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com [IPv6:2a00:1450:4864:20::330])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4A547C061570;
-        Fri, 29 Oct 2021 05:11:36 -0700 (PDT)
-Received: by mail-wm1-x330.google.com with SMTP id 67-20020a1c1946000000b0030d4c90fa87so7455680wmz.2;
-        Fri, 29 Oct 2021 05:11:36 -0700 (PDT)
+        with ESMTP id S230252AbhJ2N5x (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 29 Oct 2021 09:57:53 -0400
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com [IPv6:2a00:1450:4864:20::52a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EA3EAC061570;
+        Fri, 29 Oct 2021 06:55:24 -0700 (PDT)
+Received: by mail-ed1-x52a.google.com with SMTP id z20so39275904edc.13;
+        Fri, 29 Oct 2021 06:55:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=HSZ/wS+5z4Lb2RWX9+sbi4SMMJLj42BfRV1GKLp+s88=;
-        b=RXM00UK4x1arSoiXQiWcwF5KEcIbpdcYKYE2m/sReIg0wpGJxrhg8cnvYlljeYdR8h
-         uaF9GVaqoQbqEx5rKh5bggblYxm2fX/pkB0D//SbTne2XyYFw7nSr6gFpP/A27VSc8DM
-         QtHTZu1pMsPOA8Avo1G6cB0oTexJWg7u2aemRDbz2HFZtam7wcvk9krCPVdu5ArI+JK+
-         D2F48YmpWdZehtLkdDLmTWeWIGFkM4WuqA/4WMAJz+o6wKdh5hY2IcScv0AYFe7F1bvj
-         p+x/hYY6lihLjgJhf2Kh4wUsP9ULZrNNj25J5+EbK5IxP8J/yg8UUgeuFIFQR6OeNcv8
-         OqEw==
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:content-transfer-encoding;
+        bh=wPMpf/v+GQEdtJ4v0im5OPSlxsRrjiiCKA2oJgDao4c=;
+        b=TcEE3ljlQ7ZX7jl8JKB/DyhwlhXh+jJ9RZXHhCpSlz2fLplt/gjLeWj+ZwOIRfH+O9
+         UPOKgAxJbedT7IyseQ22kWoxkahx81vVOLJ/7NdkPp2lw+Uj5T1k/+zBVai2/PHd8/c5
+         cnu0Nf4JQHngvj2cW+zEBzqmVgq7e69f5GTzkPLIOLRnbsAeHxn3ytTMjDbydBv8yI8T
+         FHXZsOqfI9q0XrRu9KuI9diXrla6OzmebSgyaTLCtIVQSQ4u/6YS7LObFvAOLQ495uJt
+         b+drRq9V4P7n8BCO1dciX1w6sKbir9s+rJYSFraCDUHP9d0uXu0VyrP6PHfJrEL+lHOO
+         o9Ew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=HSZ/wS+5z4Lb2RWX9+sbi4SMMJLj42BfRV1GKLp+s88=;
-        b=LfMLyPb42Ta6sAnTCc00GU7LsXUOWBmtArrRMc51lCiwtW++Qwk5ioPgHXWT/Q8KJM
-         5iqEa404jmsR5kgGxtjYKe9VLPT/yEygCxmbM2lv3XVd3FR+CNevP1lnlRJ7Wg2FY9eh
-         aUM7z8xnHisJNzoVzdjaQH0QNfrIFvEGQPDoNzMg0zW/wNUEgGzaO300KuSNm6zL3cJe
-         CtH7f3rA8yvxBrDoNmLkwhOHOfm9V/YuBuHjobiyn486P60JxWWUW7PzHKNWbTxQt0M8
-         AeQzsh7V387/dfh8nJSwhx9/mmIsf1PvvbLvK/XmNP9VE6qTD3Y71ioWwPaWPP7I+sSm
-         phqw==
-X-Gm-Message-State: AOAM533lnOMVJZlwtA7suYDAQJDcoGUkupuO3k0ONwsHXK12WytYzO2e
-        SMpf5Y9GFaHVvbeLfuy+v2w=
-X-Google-Smtp-Source: ABdhPJwkgT1LA3yFqjAEejTlEVyuECkExjZtwXmhenxcw8+y+/CzYhY8eUQv0kN2auAe3zpmR41tbQ==
-X-Received: by 2002:a05:600c:da:: with SMTP id u26mr18516328wmm.161.1635509494936;
-        Fri, 29 Oct 2021 05:11:34 -0700 (PDT)
-Received: from [10.168.10.11] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id a134sm5272720wmd.9.2021.10.29.05.11.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 29 Oct 2021 05:11:34 -0700 (PDT)
-Message-ID: <865e5899-b991-918d-8bc6-ced65a67a566@gmail.com>
-Date:   Fri, 29 Oct 2021 14:11:33 +0200
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=wPMpf/v+GQEdtJ4v0im5OPSlxsRrjiiCKA2oJgDao4c=;
+        b=p2oJS9Z9ORVWi5gzwDVUNvCh3dTxpv7CRKpugRZrawJRfX+7YwQ74gJ/wv3FI3G+mY
+         PmneBC4uLMOlcgI+CcuiHzg/Ua3/0BtJSqu8EISNi0SpVklnhOlihmFV6uIYa06xYgCY
+         bUkjXAGHHmHg2UAi4VNwhA0d/whDAhCSor/9LInVxOwNfSzhRSz2eS0o29iHcEdG+hxx
+         6EjX5W/xCa4Ged2k8L2XKbjHltMI7lcEQ5iTQOjcGyeh8hvRGgnBnPZSNb5vLqQzzbbl
+         OwnhOkq6jf5II+ovfizCqePGHWk2azfq47nM/xLcUBJ39lxDPrhEMoOqzZ/0K40Cmho0
+         TYkg==
+X-Gm-Message-State: AOAM530L1N9UFg+CBXQhJJzMM2buzYal50ZbSYSJmh9eSXUHyNtUNrzd
+        L38VjXLpFBmNMLPprEAsbOqn+Hed/F4p0qlscDM+NZbDAHg=
+X-Google-Smtp-Source: ABdhPJw5CO+YTNZ3UDxLzowrvu0npcyZ/RKaL2AjURWYs/N7DR5ksO8lZVaC02wMPI5yJ286EWuFmxwTQ8xha1a7KQ8=
+X-Received: by 2002:a17:907:628f:: with SMTP id nd15mr14048416ejc.389.1635515723540;
+ Fri, 29 Oct 2021 06:55:23 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.2.1
-Subject: Re: Is getpass(3) really obsolete?
-Content-Language: en-US
-To:     =?UTF-8?B?w4Z2YXIgQXJuZmrDtnLDsCBCamFybWFzb24=?= <avarab@gmail.com>
-Cc:     Libc-alpha <libc-alpha@sourceware.org>,
-        linux-man <linux-man@vger.kernel.org>, git@vger.kernel.org,
-        "tech@openbsd.org" <tech@openbsd.org>,
-        Benoit Lecocq <benoit@openbsd.org>,
-        Klemens Nanni <kn@openbsd.org>
 References: <a0371f24-d8d3-07d9-83a3-00a4bf22c0f5@gmail.com>
- <73ac38a2-c287-4cc1-4e9c-0f9766ac4c0c@gmail.com>
- <211029.86r1c43uwj.gmgdl@evledraar.gmail.com>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-In-Reply-To: <211029.86r1c43uwj.gmgdl@evledraar.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+ <73ac38a2-c287-4cc1-4e9c-0f9766ac4c0c@gmail.com> <00d501d7ccbe$0169c340$043d49c0$@nexbridge.com>
+In-Reply-To: <00d501d7ccbe$0169c340$043d49c0$@nexbridge.com>
+From:   Eugene Syromyatnikov <evgsyr@gmail.com>
+Date:   Fri, 29 Oct 2021 15:55:07 +0200
+Message-ID: <CACGkJdsdK_mgEH_v73NnVwQ2RA6cHtuyP4p1nvKveTEYnRhSBw@mail.gmail.com>
+Subject: Re: Is getpass(3) really obsolete?
+To:     rsbecker@nexbridge.com
+Cc:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
+        Libc-alpha <libc-alpha@sourceware.org>,
+        linux-man <linux-man@vger.kernel.org>, git@vger.kernel.org,
+        tech@openbsd.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Ævar,
+On Fri, Oct 29, 2021 at 2:40 PM <rsbecker@nexbridge.com> wrote:
+> getpass() is obsolete in POSIX.2. However, some platforms still are on PO=
+SIX.1, so replacing it instead of providing a configure detection/switch fo=
+r it might cause issues.
 
-On 10/29/21 13:40, Ævar Arnfjörð Bjarmason wrote:
-> 
-> On Fri, Oct 29 2021, Alejandro Colomar (man-pages) wrote:
-> 
->> [Add a few CCs, since I mentioned them.]
-> 
-> [I'm not sure what the full context of this thread is, but just replying
-> from the POV of git@ being CC'd on this]
+POSIX.2 is not a newer POSIX version, but rather a book (=E2=80=9CShell and
+utilities=E2=80=9D) in pre-2001 standard revisions, and it has nothing to d=
+o
+with the system interfaces (that is POSIX.1).
+And the only mention of getpass() in POSIX (at least, since the 2001's
+edition) indeed seems to be [1], in the list of functions that have
+not been carried forward from XSH5, the 1997 revision of =E2=80=9CSystem
+Interfaces and Headers=E2=80=9D (that is, SUSv2)[2], where it is inherited
+from SUSv1[4] from XPG[5] and, as Alejandro already mentioned, marked
+as obsolete, per XPG3 to XPG4 migration guide[6]; the previous, 1988,
+version of POSIX[3] does not mention getpass() at all.
 
-The first message on this thread was mine from '10/29/21 13:15', so 
-you've read it all.
+[1] https://pubs.opengroup.org/onlinepubs/009695399/basedefs/xbd_chap01.htm=
+l
+[2] https://pubs.opengroup.org/onlinepubs/7908799/xsh/getpass.html
+[3] https://mirror.math.princeton.edu/pub/oldlinux/download/c953.pdf
+[4] https://pubs.opengroup.org/onlinepubs/9695969499/toc.pdf
+[5] https://bitsavers.computerhistory.org/pdf/xOpen/X_Open_Portability_Guid=
+e_1985/xpg_2_xopen_system_v_specification_2.pdf
+[6] http://archive.opengroup.org/publications/archive/CDROM/g501.pdf
 
-The broader context is that I was trying to make the deprecation notices 
-more consistent in the Linux manpages, by using the [[deprecated]] 
-attribute where appropriate.  While doing that, I found a few cases 
-where the deprecation/obsoletion is not so clear to me, such as this one 
-([as]ctime[_r](3) is another one, since it is deprecated by POSIX, but 
-not by the C standard, but I'll start a different thread with that; and 
-isascii(3) is another one, since the user of it should know if the 
-character set he's using is compatible with ascii, and in that case it's 
-perfectly valid, it's only a case of garbage in garbage out, IMO).
-
-> 
->> On 10/29/21 13:15, Alejandro Colomar wrote:
->>> Hi,
->>> As the manual pages says, SUSv2 marked it as LEGACY, and POSIX
->>> doesn't have it at all.  The manual page goes further and says "This
->>> function is obsolete. Do not use it." in its first lines.
->>> But, glibc doesn't seem to have deprecated this function at all.
->>> And it seems to be the most portable way to get a password, even if
->>> it's not in POSIX.
->>> BSDs have readpassphrase(3), but glibc doesn't, so unless you
->>> recommend
-[...]
-
-Cheers,
-
-Alex
-
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+--=20
+Eugene Syromyatnikov
+mailto:evgsyr@gmail.com
+xmpp:esyr@jabber.{ru|org}
