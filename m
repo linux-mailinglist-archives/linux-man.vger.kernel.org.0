@@ -2,89 +2,95 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C333044042A
-	for <lists+linux-man@lfdr.de>; Fri, 29 Oct 2021 22:33:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6D161440433
+	for <lists+linux-man@lfdr.de>; Fri, 29 Oct 2021 22:37:43 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230419AbhJ2UgN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 29 Oct 2021 16:36:13 -0400
-Received: from cloud.peff.net ([104.130.231.41]:49754 "EHLO cloud.peff.net"
+        id S229968AbhJ2UkL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 29 Oct 2021 16:40:11 -0400
+Received: from mail.kernel.org ([198.145.29.99]:51090 "EHLO mail.kernel.org"
         rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S230253AbhJ2UgM (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Fri, 29 Oct 2021 16:36:12 -0400
-X-Greylist: delayed 401 seconds by postgrey-1.27 at vger.kernel.org; Fri, 29 Oct 2021 16:36:12 EDT
-Received: (qmail 23718 invoked by uid 109); 29 Oct 2021 20:27:02 -0000
-Received: from Unknown (HELO peff.net) (10.0.1.2)
- by cloud.peff.net (qpsmtpd/0.94) with ESMTP; Fri, 29 Oct 2021 20:27:02 +0000
-Authentication-Results: cloud.peff.net; auth=none
-Received: (qmail 22572 invoked by uid 111); 29 Oct 2021 20:27:02 -0000
-Received: from coredump.intra.peff.net (HELO sigill.intra.peff.net) (10.0.0.2)
- by peff.net (qpsmtpd/0.94) with (TLS_AES_256_GCM_SHA384 encrypted) ESMTPS; Fri, 29 Oct 2021 16:27:02 -0400
-Authentication-Results: peff.net; auth=none
-Date:   Fri, 29 Oct 2021 16:27:01 -0400
-From:   Jeff King <peff@peff.net>
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     Libc-alpha <libc-alpha@sourceware.org>,
-        linux-man <linux-man@vger.kernel.org>, git@vger.kernel.org,
-        "tech@openbsd.org" <tech@openbsd.org>
-Subject: Re: Is getpass(3) really obsolete?
-Message-ID: <YXxZFaqHq9/aEQCO@coredump.intra.peff.net>
-References: <a0371f24-d8d3-07d9-83a3-00a4bf22c0f5@gmail.com>
- <73ac38a2-c287-4cc1-4e9c-0f9766ac4c0c@gmail.com>
+        id S229897AbhJ2UkL (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Fri, 29 Oct 2021 16:40:11 -0400
+Received: by mail.kernel.org (Postfix) with ESMTPS id 1DE2A6103E
+        for <linux-man@vger.kernel.org>; Fri, 29 Oct 2021 20:37:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1635539862;
+        bh=CML2rtnWB/ZxPTkjm4X8JwFvr1VD999iVctUxvAOENg=;
+        h=From:To:Subject:Date:From;
+        b=fsVHP1sAtZbUPjNGTt3SvmxO5xkwm3iI5XZGlb36BPsgxKeJzpKwiuYbZb3sUOweh
+         EYygBQ2lsHq7C3qFbgyIeAC4Kh4huJgb/JQ2vlowrlZN3nfW08cp40PR+IEQpvO8LE
+         Ux6gXyyC7ZXXDogs0vt8CaqzPDVy+tbSUOPSfUoh7+964YYzY7zqmkcdCcGpFhz39D
+         0MuRi8pvEwjwC8SmtG4ZhdMPQ7cgkZmL93UTkoT60ynNo7pzSIMXLfUIDuizsw9lO+
+         m/jhAvdVqhS6eVMFL4mMkSa7aDcDqytu2CqO6vAl1ST6lalrsBDGeaUAN7u34LXdOt
+         aJavZGoCC41uw==
+Received: by pdx-korg-bugzilla-2.web.codeaurora.org (Postfix, from userid 48)
+        id 17B5D60E90; Fri, 29 Oct 2021 20:37:42 +0000 (UTC)
+From:   bugzilla-daemon@bugzilla.kernel.org
+To:     linux-man@vger.kernel.org
+Subject: [Bug 214871] New: Man(3) system outdated
+Date:   Fri, 29 Oct 2021 20:37:41 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: new
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Documentation
+X-Bugzilla-Component: man-pages
+X-Bugzilla-Version: unspecified
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: mikekearney85@hotmail.com
+X-Bugzilla-Status: NEW
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P1
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: bug_id short_desc product version rep_platform
+ op_sys bug_status bug_severity priority component assigned_to reporter
+ cf_regression
+Message-ID: <bug-214871-11311@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <73ac38a2-c287-4cc1-4e9c-0f9766ac4c0c@gmail.com>
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Fri, Oct 29, 2021 at 01:28:56PM +0200, Alejandro Colomar (man-pages) wrote:
+https://bugzilla.kernel.org/show_bug.cgi?id=3D214871
 
-> > As a real example, git(1) uses getpass(3).
-> > <https://github.com/git/git/blob/master/compat/terminal.c>
+            Bug ID: 214871
+           Summary: Man(3) system outdated
+           Product: Documentation
+           Version: unspecified
+          Hardware: All
+                OS: Linux
+            Status: NEW
+          Severity: normal
+          Priority: P1
+         Component: man-pages
+          Assignee: documentation_man-pages@kernel-bugs.osdl.org
+          Reporter: mikekearney85@hotmail.com
+        Regression: No
 
-Sort of. It is the compile-time fallback of last resort. Most builds
-would use either termios with /dev/tty or a Windows-native equivalent.
+During my recent university work, I have noticed the man (3) page for system
+(https://man7.org/linux/man-pages/man3/system.3.html) states:
 
-You can see all the reasons we stopped using getpass() in the commit
-below.
+The system() library function uses fork(2) to create a child process that
+executes the shell command specified in command using execl(3) as follows:=
+=20
+execl("/bin/sh", "sh", "-c", command, (char *) NULL);
 
--- >8 --
-commit 21aeafceda2382d26bfa73a98ba45a937d65d77a
-Author: Jeff King <peff@peff.net>
-Date:   Sat Dec 10 05:41:01 2011 -0500
+On reading the source code for system, this caused me some confusion.
+Eventually I found a commit from 2018
+(https://sourceware.org/git/?p=3Dglibc.git;a=3Dcommitdiff;h=3D5fb7fc9635057=
+5c9adb1316833e48ca11553be49),
+in which fork and exec were replaced by posix_spawn. The explains why I cou=
+ld
+not aline the man page with the source code.
 
-    add generic terminal prompt function
-    
-    When we need to prompt the user for input interactively, we
-    want to access their terminal directly. We can't rely on
-    stdio because it may be connected to pipes or files, rather
-    than the terminal. Instead, we use "getpass()", because it
-    abstracts the idea of prompting and reading from the
-    terminal.  However, it has some problems:
-    
-      1. It never echoes the typed characters, which makes it OK
-         for passwords but annoying for other input (like usernames).
-    
-      2. Some implementations of getpass() have an extremely
-         small input buffer (e.g., Solaris 8 is reported to
-         support only 8 characters).
-    
-      3. Some implementations of getpass() will fall back to
-         reading from stdin (e.g., glibc). We explicitly don't
-         want this, because our stdin may be connected to a pipe
-         speaking a particular protocol, and reading will
-         disrupt the protocol flow (e.g., the remote-curl
-         helper).
-    
-      4. Some implementations of getpass() turn off signals, so
-         that hitting "^C" on the terminal does not break out of
-         the password prompt. This can be a mild annoyance.
-    
-    Instead, let's provide an abstract "git_terminal_prompt"
-    function that addresses these concerns. This patch includes
-    an implementation based on /dev/tty, enabled by setting
-    HAVE_DEV_TTY. The fallback is to use getpass() as before.
-    
-    Signed-off-by: Jeff King <peff@peff.net>
-    Signed-off-by: Junio C Hamano <gitster@pobox.com>
+--=20
+You may reply to this email to add a comment.
+
+You are receiving this mail because:
+You are watching the assignee of the bug.=
