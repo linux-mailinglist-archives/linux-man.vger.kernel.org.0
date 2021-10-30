@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8886B440BC4
-	for <lists+linux-man@lfdr.de>; Sat, 30 Oct 2021 23:32:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7B14D440BC6
+	for <lists+linux-man@lfdr.de>; Sat, 30 Oct 2021 23:32:17 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232109AbhJ3Vel (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 30 Oct 2021 17:34:41 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57768 "EHLO
+        id S232123AbhJ3Veo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 30 Oct 2021 17:34:44 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57776 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232054AbhJ3Veh (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 30 Oct 2021 17:34:37 -0400
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com [IPv6:2a00:1450:4864:20::434])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7921AC061570;
-        Sat, 30 Oct 2021 14:32:06 -0700 (PDT)
-Received: by mail-wr1-x434.google.com with SMTP id d27so4236786wrb.6;
-        Sat, 30 Oct 2021 14:32:06 -0700 (PDT)
+        with ESMTP id S232066AbhJ3Vei (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 30 Oct 2021 17:34:38 -0400
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com [IPv6:2a00:1450:4864:20::431])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 78DFDC061746;
+        Sat, 30 Oct 2021 14:32:07 -0700 (PDT)
+Received: by mail-wr1-x431.google.com with SMTP id p14so22161814wrd.10;
+        Sat, 30 Oct 2021 14:32:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=0Qo38nGzAOtZYXWdI7QrhvHBzDoFbfNIAcLf32qIAS0=;
-        b=WKnlE4BgU+RUV+ZadWXPYvK64/Bh5xfuJIB6RXK8g64v23GOT+HNxQu5iv2331vZrQ
-         CcfVgo/xEhBh08C5xoqZFVv+yPbKoPzt2/JzzNAx31AAZ6DOvzcC9ZybfstXHfoxxH06
-         CDxJZXBtxOkKI2wKVcsvHWJLQp3gaFgqEXGpfAsjqFcsvdSiMYSJwxxmvwvqMcr/aoMv
-         ertI0ho8j9RYIaQaloUYmyH85n7jaP1o0cgyuhTpRskYtTlRVYulSNcFyowU1LVCpBGN
-         KInB17vCqr+wTwRePmvhu5fj5T3MlUWKpWmYrPb61nIQBNa7kHrU5FYWmT6xK4HX6Fdp
-         zKZQ==
+        bh=Eox6PRsRpEY00CGOdl4cPybo4DywF53uifzQxdgpiLY=;
+        b=TzhhV0w/tJEKXZbRawpWyU3u4Qc/qElavXhRhPZr9/zNTnf5U55zZBeWg7lIZXgZed
+         lDLJLgfxctlC0yXOIDfvWgK7ExFFBFT5DI4mmvWKxE6YkttE0noajGx3+SwM7Xj6i0my
+         gqdissRCW//RQubgZA3D6YpwawWo55kvXN7XOgmpk58md0c1iu55hAwusHnkWirMdAhX
+         VVDJXIn+mxgNrzEBldotuJcpTD6C4VBE3NGBS2QEfiWw7Zve1t93jqxSTJijOZqV4C2X
+         F73eAu6AbJpxfdD6HQF/XJM7CLkyOF5BOirS30bs5mIl5o3T/PJTNEftDu992It6SBM1
+         gHHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=0Qo38nGzAOtZYXWdI7QrhvHBzDoFbfNIAcLf32qIAS0=;
-        b=u10AvbjAauky7c2YCw/LArWVSBig4biT4NDTLZ8fHFVsJeurDvHg/hjhximCgwNf2A
-         /3RtmIrZqsqdT+iuFBYcBRQdOTCUuVZJvCp9s9A1CDQbzoAW2+Lj8eDx16Lh+zT4m7dK
-         G+G63Ppu7DhP2UjFh1y+mNq/VBe81hoAXs2+mKq8ZQJPTPYwEXVybL5dpRKkaivKYGBf
-         G2jWA/96ajwTVuuH0V1rL//8TryN9jHJAJLJDmulhi+GvIzLlytwiz9DcYX/77isdmEB
-         Lsmf6Eq1F2ssOQa/NZHIIETV8FqPyKfoNdhaZt0+mqFRM7UDYixpirnGfsVlQn/lf/pq
-         ykIg==
-X-Gm-Message-State: AOAM533vwofFxsqklTc9RQZfY8j+EzYg1kwTJPlyRpnI9KYCzqwnNGpP
-        rdFzLyXELVmTYCNvXZnYnTV80kGa7D8=
-X-Google-Smtp-Source: ABdhPJwvK4aVBjcHC3Nx5wqTLjHmuD9i09b33vC1iRkHMr8+qS7B0Va5D8ZQY9u8RjKnFQqbLGx3Nw==
-X-Received: by 2002:a5d:4107:: with SMTP id l7mr7527111wrp.209.1635629525128;
-        Sat, 30 Oct 2021 14:32:05 -0700 (PDT)
+        bh=Eox6PRsRpEY00CGOdl4cPybo4DywF53uifzQxdgpiLY=;
+        b=DO2MuzHNrVSw8X+8UkW0fGWrWm8e9f5Ou0Se2ET6+v1G9LjMurACCYEYLYOHKu/v7V
+         43PGIsFoZxSbP9lHucRhA4kUuzubZFjrvMT7N6bTl8Cl737LfU/p8LN6JqObgn8cqVSk
+         u+NkGyUSxS6MpKj/412yrcLNdyzNr8mdirKQk7oitVcD8aUBKqMjSv2GKvn1wFKmSXFR
+         x2JonXDCNm28j1+IGO11+EUSjZLulLCr0UboW83yeEfPxSHsWvk9xhDuNmdNYiRgFsI3
+         hg3tJiFWupuJV9kN3TycspgHU1EeJa4U3dvjdqkzDQ0DE6kYfsGluZygFD6QDFHiwUip
+         +mQQ==
+X-Gm-Message-State: AOAM532ZJ8s8N0bPdrphqf9kwHAp8zhbI8khI1zCyvkCw/8zq7xMgirH
+        9qs0ueyH7jJzoTCKKPuBA3s=
+X-Google-Smtp-Source: ABdhPJwaVsBgeWGPZzo5ovQ9lNRDiAekg6xCVT06tElP5DFsquBt0bE9vWr6WIftzsfczCge8eUTNg==
+X-Received: by 2002:a5d:59a9:: with SMTP id p9mr26445538wrr.386.1635629526175;
+        Sat, 30 Oct 2021 14:32:06 -0700 (PDT)
 Received: from sqli.sqli.com ([195.53.121.100])
-        by smtp.googlemail.com with ESMTPSA id c79sm2948689wme.43.2021.10.30.14.32.04
+        by smtp.googlemail.com with ESMTPSA id c79sm2948689wme.43.2021.10.30.14.32.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 30 Oct 2021 14:32:04 -0700 (PDT)
+        Sat, 30 Oct 2021 14:32:05 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
 Cc:     git@vger.kernel.org, Alejandro Colomar <alx.manpages@gmail.com>,
         linux-kernel@vger.kernel.org, libc-alpha@sourceware.org
-Subject: [PATCH 11/22] ustat.2: SYNOPSIS: Mark as [[deprecated]]
-Date:   Sat, 30 Oct 2021 23:31:21 +0200
-Message-Id: <20211030213131.140429-12-alx.manpages@gmail.com>
+Subject: [PATCH 12/22] pthread_mutex_consistent.3: Mark *_np() old function as [[deprecated]]
+Date:   Sat, 30 Oct 2021 23:31:22 +0200
+Message-Id: <20211030213131.140429-13-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.33.1
 In-Reply-To: <20211030213131.140429-1-alx.manpages@gmail.com>
 References: <20211030213131.140429-1-alx.manpages@gmail.com>
@@ -63,26 +63,23 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Glibc 2.28 removed the wrapper for this syscall.
-
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man2/ustat.2 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ man3/pthread_mutex_consistent.3 | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/man2/ustat.2 b/man2/ustat.2
-index cb26ab23e..6079861ad 100644
---- a/man2/ustat.2
-+++ b/man2/ustat.2
-@@ -36,7 +36,7 @@ ustat \- get filesystem statistics
- .BR "#include <unistd.h>" "    /* libc[45] */"
- .BR "#include <ustat.h>" "     /* glibc2 */"
+diff --git a/man3/pthread_mutex_consistent.3 b/man3/pthread_mutex_consistent.3
+index c4963582b..ab280e961 100644
+--- a/man3/pthread_mutex_consistent.3
++++ b/man3/pthread_mutex_consistent.3
+@@ -85,6 +85,7 @@ glibc defined the following equivalent nonstandard function if
+ was defined:
  .PP
--.BI "int ustat(dev_t " dev ", struct ustat *" ubuf );
-+.BI "[[deprecated]] int ustat(dev_t " dev ", struct ustat *" ubuf );
+ .nf
++.B [[deprecated]]
+ .BI "int pthread_mutex_consistent_np(const pthread_mutex_t *" mutex );
  .fi
- .SH DESCRIPTION
- .BR ustat ()
+ .PP
 -- 
 2.33.1
 
