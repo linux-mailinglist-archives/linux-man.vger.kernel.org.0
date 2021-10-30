@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id BF3A0440BC8
-	for <lists+linux-man@lfdr.de>; Sat, 30 Oct 2021 23:32:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D3C8D440BD3
+	for <lists+linux-man@lfdr.de>; Sat, 30 Oct 2021 23:32:40 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232130AbhJ3Veq (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 30 Oct 2021 17:34:46 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57796 "EHLO
+        id S232428AbhJ3VfI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 30 Oct 2021 17:35:08 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57808 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232108AbhJ3Vel (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 30 Oct 2021 17:34:41 -0400
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com [IPv6:2a00:1450:4864:20::42e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A692EC061570;
-        Sat, 30 Oct 2021 14:32:10 -0700 (PDT)
-Received: by mail-wr1-x42e.google.com with SMTP id d27so4236889wrb.6;
-        Sat, 30 Oct 2021 14:32:10 -0700 (PDT)
+        with ESMTP id S232115AbhJ3Vem (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 30 Oct 2021 17:34:42 -0400
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com [IPv6:2a00:1450:4864:20::332])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C29A4C061766;
+        Sat, 30 Oct 2021 14:32:11 -0700 (PDT)
+Received: by mail-wm1-x332.google.com with SMTP id g13so2428165wmg.2;
+        Sat, 30 Oct 2021 14:32:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=vYdaFtsEIeuyG23vYPK+bPNi7FjwJK0AP2aMJiyBvqs=;
-        b=NxE8Dinjfx6rqH3dadEw3hlGBA4hWkJrp0o6KO2xBpe2eggW/Q2eZd3uK5cXJsyiTj
-         7DIzUxCXvrBK+g/9tM3eAalmFpldG/GxeZiPyIFavOF1kptjOzZROwwkRk82fWsrsY4M
-         cdG7zgErTIn9xiN2VbIxx93juVTdLMAiAh1E/OiC3VYKVnJD2U3gvTAXc8PNnjWDtZNJ
-         s2ndup2Iv9XyLC5tMc1/VzPByJV7miK1WtdtqHLoVLB19a/duF5ou+H6pgb3hJJ+sFsY
-         OM7dZkN9fm//xOyLulpBTrXDpfy+0o6JlJjD3+zngLRI0yQiiAhwXTsrUMHezYa57TJq
-         ZJqg==
+        bh=CftjFeIb9ryCOjZwQ+pnl19SuRn50Z4Eq7p/Os8Pkg8=;
+        b=eIINrlooyQE3Q4epd7qFWEkP9CbPTBsclQTj2uMrbOyiffBpUPa4huvUfOzMrH7gPO
+         lTyTtwF0mYdDwjinpBx8ONoGk4H7mQdpcY29q4qidv0ycAxxDN9s7xAweoqwIs7xTXRO
+         +2OlcCJonDPS5h1NLrTQBIeO4YIPqEzAgh8eTRO4AFdfJgixOMVXlfrKt+YJkytiw8QO
+         AeRmrpFkCHjQJ6drJDL4gGVnNJhRMcJleNjjvGhp8nYidWbKxZ3YuyIRJGxIiKhRY8rN
+         33lYa4wGisbt/WXr5PvyU6Zijt+AveICCoO4t2JKmVCva9b5hzZI9p4gwFZ3+1dLVQMO
+         +M0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=vYdaFtsEIeuyG23vYPK+bPNi7FjwJK0AP2aMJiyBvqs=;
-        b=nYGG4ntaV0u3NLNy0e8BFOPLesAbo2N67kjZvpB5SC6MVr8hrT1D3Kfy8AKSzq2Plb
-         P1WetrYtjZEsN20ChPVO4xNt8/XjDec0LcNaWbgmZaAPVuyLJpkKslJSKP39pJ0jqP9J
-         qFmkavXnKKiOtCL8h643LBzofYk8LZu1LYAVwrHIbdfK/qxfJeYV+Y0drlBS1ul1zsxe
-         cjjFlg/EpTqf5pP9zAjU6KfDRmGcxEAgR3OfOE6MP/3l4kVBcqYIq0XEgoJLuKYNtWKH
-         UpL/lw68YLAXsHuUAkPLUSyaAId9JXWEYrNqbuE2qSONi+hIVRqnZvebI8wHIuDgcwm4
-         OgPQ==
-X-Gm-Message-State: AOAM532pg50WKyvTWyrloF6vE62sB+j2yB426jifJfX6kXUnivFo2LXg
-        JRfcQmzL8+iepAuYUOpRdik=
-X-Google-Smtp-Source: ABdhPJzBQjW5H9jJXli9aE6+0JllUQGhLVjSRH5K2r6EgOb4Fmfr4jDcI4wJWvU03Uatq5ojIjMKsw==
-X-Received: by 2002:a5d:4a46:: with SMTP id v6mr24687410wrs.262.1635629529326;
-        Sat, 30 Oct 2021 14:32:09 -0700 (PDT)
+        bh=CftjFeIb9ryCOjZwQ+pnl19SuRn50Z4Eq7p/Os8Pkg8=;
+        b=w+67Gtxl8qmqD0OokGTnCcEAQy0kHkKXsxQRkTfE93eFvG2RUBzED6GYKRIxQjoEbB
+         fm1WXomaWfJJ5yBwAhnLXWe4zpdv8aDYs8dtiY0NgA7vsJr6suOlbxtj0a4/hQVrdGHx
+         oSG+Vrysb8NlAkNPcOygutr+TqnP8ksocEqhqasGFvdN+2xvtFn66FLidKsZ8SW/37cu
+         s9hTyyy5kuOcQ8jlEuu6FdvTLdLUEFwxJx1hdj3mnuNKvIY/5JNtiyM2afw4wo7wtxr8
+         qEr4L3bAhZitMtdR/Z3oyaX7zh97sP84znsjDQqVvDgEhuPj70RajDhq5JOkP2rRLu3b
+         Z5KA==
+X-Gm-Message-State: AOAM531N18QDmElLRHZ1TLGYkbp4i86Oc8SeCYgAoAgdY7lp9NAaq/2I
+        Jn6pkt9wAHcb8vku68S/5zc=
+X-Google-Smtp-Source: ABdhPJyL3rBnyp3uknTsXRG4d2bjrysL+b0VDWIugWweUrmvPnuC2Mlkva6Q86vJGqj/XhivSIFCRg==
+X-Received: by 2002:a1c:f609:: with SMTP id w9mr20120581wmc.24.1635629530369;
+        Sat, 30 Oct 2021 14:32:10 -0700 (PDT)
 Received: from sqli.sqli.com ([195.53.121.100])
-        by smtp.googlemail.com with ESMTPSA id c79sm2948689wme.43.2021.10.30.14.32.08
+        by smtp.googlemail.com with ESMTPSA id c79sm2948689wme.43.2021.10.30.14.32.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 30 Oct 2021 14:32:09 -0700 (PDT)
+        Sat, 30 Oct 2021 14:32:10 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
 Cc:     git@vger.kernel.org, Alejandro Colomar <alx.manpages@gmail.com>,
         linux-kernel@vger.kernel.org, libc-alpha@sourceware.org
-Subject: [PATCH 15/22] tkill.2: SYNOPSIS: Mark tkill() as [[deprecated]]
-Date:   Sat, 30 Oct 2021 23:31:25 +0200
-Message-Id: <20211030213131.140429-16-alx.manpages@gmail.com>
+Subject: [PATCH 16/22] sgetmask.2: SYNOPSIS: Mark as [[deprecated]]
+Date:   Sat, 30 Oct 2021 23:31:26 +0200
+Message-Id: <20211030213131.140429-17-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.33.1
 In-Reply-To: <20211030213131.140429-1-alx.manpages@gmail.com>
 References: <20211030213131.140429-1-alx.manpages@gmail.com>
@@ -63,26 +63,28 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-tkill(2) has been superseeded by tgkill(2).
+Use sigprocmask(2) instead.
 
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man2/tkill.2 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ man2/sgetmask.2 | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/man2/tkill.2 b/man2/tkill.2
-index 6e1afcd36..8a6c45380 100644
---- a/man2/tkill.2
-+++ b/man2/tkill.2
-@@ -35,7 +35,7 @@ tkill, tgkill \- send a signal to a thread
+diff --git a/man2/sgetmask.2 b/man2/sgetmask.2
+index 59b58ceaf..37452ec05 100644
+--- a/man2/sgetmask.2
++++ b/man2/sgetmask.2
+@@ -30,8 +30,8 @@ sgetmask, ssetmask \- manipulation of signal mask (obsolete)
  .BR "#include <sys/syscall.h>" "      /* Definition of " SYS_* " constants */"
  .B #include <unistd.h>
  .PP
--.BI "int syscall(SYS_tkill, pid_t " tid ", int " sig );
-+.BI "[[deprecated]] int syscall(SYS_tkill, pid_t " tid ", int " sig );
+-.B "long syscall(SYS_sgetmask, void);"
+-.BI "long syscall(SYS_ssetmask, long " newmask );
++.B [[deprecated]] long syscall(SYS_sgetmask, void);
++.BI "[[deprecated]] long syscall(SYS_ssetmask, long " newmask );
+ .fi
  .PP
- .B #include <signal.h>
- .PP
+ .IR Note :
 -- 
 2.33.1
 
