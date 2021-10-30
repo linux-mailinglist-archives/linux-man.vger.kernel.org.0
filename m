@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B1FFF440BCF
-	for <lists+linux-man@lfdr.de>; Sat, 30 Oct 2021 23:32:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6FBB3440BD7
+	for <lists+linux-man@lfdr.de>; Sat, 30 Oct 2021 23:32:57 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232145AbhJ3VfA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 30 Oct 2021 17:35:00 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57814 "EHLO
+        id S232208AbhJ3VfM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 30 Oct 2021 17:35:12 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57866 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232134AbhJ3Veq (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 30 Oct 2021 17:34:46 -0400
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com [IPv6:2a00:1450:4864:20::32c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E06BBC06120D;
-        Sat, 30 Oct 2021 14:32:14 -0700 (PDT)
-Received: by mail-wm1-x32c.google.com with SMTP id v127so10672255wme.5;
-        Sat, 30 Oct 2021 14:32:14 -0700 (PDT)
+        with ESMTP id S232229AbhJ3Vev (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 30 Oct 2021 17:34:51 -0400
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com [IPv6:2a00:1450:4864:20::336])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CEAC3C061220;
+        Sat, 30 Oct 2021 14:32:15 -0700 (PDT)
+Received: by mail-wm1-x336.google.com with SMTP id d72-20020a1c1d4b000000b00331140f3dc8so3411857wmd.1;
+        Sat, 30 Oct 2021 14:32:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=382NxPxQ4f0c/RCsxp4514OouxxfYKsL18p/orKtNYY=;
-        b=RApcvgBtb528hmH+h3Fno52vIcieLvVJMoIZ/1zqJ+WBOl0tobQVSbBnP1RHAni9q0
-         74+I/mrMZgttS6VQ2nUMmtc5Zngyh7Xo8y5k38mPv5AgQubYBPtovU04yhfAr+c/4r2o
-         TEqBcpxvs12ZolTb2YNsfnUjo97axdZJWbHJPmas1yASd4BMzltpf6kdyonoWT5HWtdl
-         fMljdZ+x7xfYliI4gQH5CNu3Juy4FfvtSk8LLN03LuQb7Nc0tt6iVqsThhw/7OH+GNA/
-         LfIIBH1L4peT8k2UrLRg3SADOIHxYTAgyy5b639nT/qtrky48RlIzdtKOpJEvId2muBP
-         ekBw==
+        bh=MfpBG6jZHkGiGTlmQ3BefyjOhq9+dLrYOFlICPqSfCs=;
+        b=FCOXM86daSB2xETbXdP4WFfHz03q+K7ECSZc0QOuWqAl7/n9lQsA/0ePCcLJd5ubpZ
+         Pq7g5BxEZZaR4dpdAM+ViiUwUQu7dpKHxqJ8b4wUj+kHYbSqGrQJFJnAq/P2CZ+8oKxr
+         vGX1sObH+9lAIpWQYJ9EGO4TUxJo6ywEEYRTp63VJes44K6/n9xrBW37Zm57cDf4DcKq
+         SuulWU8p8zmO7+3bk+InHth2yaJgxvsBDteu8aktz0xeXWi2jPnfl49LNIsUYQVU9Dtb
+         /rct4OpPdWTslMgDvvlMV+5TlMZc9UGv+cfu/hdlXYwlgU093xE7XDk0Sd9IiqQIc7A0
+         79SQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=382NxPxQ4f0c/RCsxp4514OouxxfYKsL18p/orKtNYY=;
-        b=z0YqRHfsckbdgKPn766R/2ZLFavKZBrAB2+QKPstJHgL0sKIM/JDOauvw0UIkSmVSJ
-         37Z77UOYrin91VJnvrr+fwBq7szpcnd4T7qhZE/mkDWKR9ZggYOXj3yd6XrM7qEwfuYH
-         aWb5sR7/jm6b93ch+PTlXqwJJPpKkGf5d/dyT2tNwCisKN065NcxWsJwaYigZo//sNZN
-         ry1ioP5RBQApxORhScBFvg4kR9IOClzqJLFk8t2NbZw5WSohxFe9XqBl5C5ZAWzLvorr
-         Os5aGVIleGRPcdd8ZQzdEOBPUakhFxuNt7j/h9rc13a633TbD0mI4u/rGyJg2O8s2NrI
-         WPnw==
-X-Gm-Message-State: AOAM533+FzD4vRvqFcD4AEfHawBEjyhN5lnFowWt3nBLRsCEcPcMYFVN
-        kp7+g6p93ljjEbKjlizCUjqty8G2qP0=
-X-Google-Smtp-Source: ABdhPJwSTN4puVGsWOuBa1aoxcOympFlW391yYdqO+H64YHfzuCLZ/wJq0pgfMWpUY70yNi96xE6gQ==
-X-Received: by 2002:a7b:c30c:: with SMTP id k12mr29245520wmj.38.1635629533489;
-        Sat, 30 Oct 2021 14:32:13 -0700 (PDT)
+        bh=MfpBG6jZHkGiGTlmQ3BefyjOhq9+dLrYOFlICPqSfCs=;
+        b=ytg9ztB17v5S99aPi/ZXUe41RIZK04iQsGZl7TQFGWHG/B5sqi/NChnkDzd7J9AAH2
+         xU1foa9yN5/einSl8jK0r3E8YAS6FyizWX8beSg2fwjpMNXFcb3crs5KoRBghluadrgF
+         qEVRqR+b0rmU9AGvk10paYf7lgwzHSZKP6IX/zRkv0jCOEXLmUv+CXbqh3sZxH5sHidM
+         MZGTWPeCe7a18Whiog4Q99JrhcYJdrJU2Zh1aXKgoNDHhWdRCpCRIJbOwXOhc+aHtGWW
+         OdAW3qp8TyqMqTp9CSoxge6rTtUCa86iEJaG1DavtF3//5UYF+eaOj+YsX2430kOy7a2
+         QC2g==
+X-Gm-Message-State: AOAM53087wmh7DC+AJuPls7WEtbCWXGsqFDF0y4Z/ccOErnzs2p6eFzX
+        /v8+T5V95FBzEAQNVtcGJ1E=
+X-Google-Smtp-Source: ABdhPJx7N1sEb3urPrxcy+YCJk2U6czS559baczXaQWLhkpOcEW0aLRdNGJ/vB9D5Z6fwTeJt0o0Uw==
+X-Received: by 2002:a05:600c:4108:: with SMTP id j8mr13723234wmi.139.1635629534488;
+        Sat, 30 Oct 2021 14:32:14 -0700 (PDT)
 Received: from sqli.sqli.com ([195.53.121.100])
-        by smtp.googlemail.com with ESMTPSA id c79sm2948689wme.43.2021.10.30.14.32.12
+        by smtp.googlemail.com with ESMTPSA id c79sm2948689wme.43.2021.10.30.14.32.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 30 Oct 2021 14:32:13 -0700 (PDT)
+        Sat, 30 Oct 2021 14:32:14 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
 Cc:     git@vger.kernel.org, Alejandro Colomar <alx.manpages@gmail.com>,
         linux-kernel@vger.kernel.org, libc-alpha@sourceware.org
-Subject: [PATCH 19/22] gettimeofday.2: SYNOPSIS: Mark as [[deprecated]]
-Date:   Sat, 30 Oct 2021 23:31:29 +0200
-Message-Id: <20211030213131.140429-20-alx.manpages@gmail.com>
+Subject: [PATCH 20/22] setpgid.2: SYNOPSIS: Mark BSD versions of getpgrp() and setpgrp() as [[deprecated]]
+Date:   Sat, 30 Oct 2021 23:31:30 +0200
+Message-Id: <20211030213131.140429-21-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.33.1
 In-Reply-To: <20211030213131.140429-1-alx.manpages@gmail.com>
 References: <20211030213131.140429-1-alx.manpages@gmail.com>
@@ -63,29 +63,31 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Use clock_gettime(2) instead.
+The BSD version of getpgrp(2) was superseeded by the POSIX one.
+The BSD version of setpgrp(2) was superseeded by the POSIX one.
 
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man2/gettimeofday.2 | 8 ++++----
+ man2/setpgid.2 | 8 ++++----
  1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/man2/gettimeofday.2 b/man2/gettimeofday.2
-index 8101e311d..f4b7189d7 100644
---- a/man2/gettimeofday.2
-+++ b/man2/gettimeofday.2
-@@ -44,10 +44,10 @@ gettimeofday, settimeofday \- get / set time
- .nf
- .B #include <sys/time.h>
+diff --git a/man2/setpgid.2 b/man2/setpgid.2
+index f3be0eef4..2f09b246e 100644
+--- a/man2/setpgid.2
++++ b/man2/setpgid.2
+@@ -55,11 +55,11 @@ setpgid, getpgid, setpgrp, getpgrp \- set/get process group
+ .BI "int setpgid(pid_t " pid ", pid_t " pgid );
+ .BI "pid_t getpgid(pid_t " pid );
  .PP
--.BI "int gettimeofday(struct timeval *restrict " tv ,
--.BI "                 struct timezone *restrict " tz );
--.BI "int settimeofday(const struct timeval *" tv ,
--.BI "                 const struct timezone *" tz );
-+.BI "[[deprecated]] int gettimeofday(struct timeval *restrict " tv ,
-+.BI "                                struct timezone *restrict " tz );
-+.BI "[[deprecated]] int settimeofday(const struct timeval *" tv ,
-+.BI "                                const struct timezone *" tz );
+-.BR "pid_t getpgrp(void);" "                 /* POSIX.1 version */"
+-.BI "pid_t getpgrp(pid_t " pid ");\fR            /* BSD version */"
++.BR "pid_t getpgrp(void);" "                            /* POSIX.1 version */"
++.BI "[[deprecated]] pid_t getpgrp(pid_t " pid ");\fR        /* BSD version */"
+ .PP
+-.BR "int setpgrp(void);" "                   /* System V version */"
+-.BI "int setpgrp(pid_t " pid ", pid_t " pgid ");\fR  /* BSD version */"
++.BR "int setpgrp(void);" "                              /* System V version */"
++.BI "[[deprecated]] int setpgrp(pid_t " pid ", pid_t " pgid ");\fR  /* BSD version */"
  .fi
  .PP
  .RS -4
