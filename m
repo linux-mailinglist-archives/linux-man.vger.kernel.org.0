@@ -2,110 +2,141 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 561604408B4
-	for <lists+linux-man@lfdr.de>; Sat, 30 Oct 2021 14:25:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 86F904409E6
+	for <lists+linux-man@lfdr.de>; Sat, 30 Oct 2021 17:17:28 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231856AbhJ3M1a (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 30 Oct 2021 08:27:30 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52460 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230320AbhJ3M13 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 30 Oct 2021 08:27:29 -0400
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com [IPv6:2a00:1450:4864:20::333])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8508EC061570;
-        Sat, 30 Oct 2021 05:24:59 -0700 (PDT)
-Received: by mail-wm1-x333.google.com with SMTP id b2-20020a1c8002000000b0032fb900951eso5638382wmd.4;
-        Sat, 30 Oct 2021 05:24:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=n5vtpGuLbWV3CAAtiuCfLxZukTrhBGK1wk/ITta9g68=;
-        b=gzovDBlSZzJIGhFopwqQi4MOl7H/Be364dnK/MhVgp3E07p8zSHQi/HfddUZ475DQ4
-         YTjJle/eQZsdObhoRM4h4ecjOoDgeKRb0SZn8BYphSr7ew7D7+m/a6lBtOAY/Z1VzDDV
-         k7jjWhMtwuKso5cMKWKBQoSwpqkdR+NJt5kaUichQyqRtcj/OkT/OnfGA8qZ7Fr+87kl
-         V5yyhJHhUOz3VyzDRbacdXg35fgwLhOIKtNpALfTJ2ZTdls7i5awhb846+MsjX7Vlz1S
-         ZAEickRTz7QVk43GVHDRDOIVtDeJqoZSoQnHF4bkB1MVa8KZo+M6vzPcg57Ej0zVlSF1
-         ZdHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=n5vtpGuLbWV3CAAtiuCfLxZukTrhBGK1wk/ITta9g68=;
-        b=re5Y3TYIFAXqMgV+6ZgA/iD7gpGo+MvYxGeG65SJI4Bt5W+8nRELFqhUUwC5LJGPbp
-         9EUm9gUuDnYZ0tMk5N2XBTdnoc7yGxAf8UUXOAukKqjizrtgVV3wGD3CxNE/TtlxSkCz
-         Ew4hbN60NG76pswWai4t+i7lz/kM2IKzi4EIjvIQGDa/e/wqq/cKg1zxOQwykg+LQLJN
-         bTm4jVQpNuWoY1hNrRCJKujmGwcnyeY1cunuCfn6n0eaPsPInTUfoeTiUy9rzGuz9di6
-         zeHWRbLaawCpfNZ8hNkfeEcmlm1/uazv5/kbN3plCK3GpxO6kkOuIAwSKiywlr+EIY9A
-         ovhg==
-X-Gm-Message-State: AOAM533vALYxlcMZWKOVV9Ahkzg4+lF0YEXKgJdtWJcLfs2CzzVjFd2q
-        a7+m7HCREtNoPyh27UqgV7o=
-X-Google-Smtp-Source: ABdhPJxLtTWS3HR1G33spvL37/GL3ZcmCM1ODBLKUtjZcBgixghvpKcNDllGvDYaCIGMqa0NKaJ2Cg==
-X-Received: by 2002:a1c:1c8:: with SMTP id 191mr3584110wmb.90.1635596698145;
-        Sat, 30 Oct 2021 05:24:58 -0700 (PDT)
-Received: from [10.8.0.130] ([195.53.121.100])
-        by smtp.gmail.com with ESMTPSA id n9sm7836834wmq.6.2021.10.30.05.24.57
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 30 Oct 2021 05:24:57 -0700 (PDT)
-Message-ID: <fd78c241-c51e-03c6-1e6b-641536245fbd@gmail.com>
-Date:   Sat, 30 Oct 2021 14:24:55 +0200
+        id S232006AbhJ3PT4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 30 Oct 2021 11:19:56 -0400
+Received: from mail.kernel.org ([198.145.29.99]:49984 "EHLO mail.kernel.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S231985AbhJ3PTv (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Sat, 30 Oct 2021 11:19:51 -0400
+Received: by mail.kernel.org (Postfix) with ESMTPS id CDB1861077
+        for <linux-man@vger.kernel.org>; Sat, 30 Oct 2021 15:17:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1635607040;
+        bh=tGmD9ff5YQmvO22FbXndpG47+39gjCUGo69qJs/8CKU=;
+        h=From:To:Subject:Date:In-Reply-To:References:From;
+        b=I35uHc7iSPGWwoS42KH8DE2CRbnDXMmU3luSSUCqpRS1sDA4AYvnDwZqLeHaer5sV
+         AqvVG9kmsevx/eIzJGaY8HyCHV+dPjL1r1JSlxzCdX5QctWOAKcOT2GNyvg06hsiDE
+         cVeXwD4uUl9P5TMPtga+ft1rt2leco2LeTMQWDgwmSBdktvUFmV3dLUtiNe3IL0dB9
+         Xna02MloZN6WmKIkt2LyromQw71H6IpkpDXGP4xNV+nNQW13cGqBYPKKuPxZ3J+AY2
+         yl0GbuX+zQj16e18PAj+sviXonR0JLYG6z6UDo7GEPciEovJVWhrOZwdTgk7FNu9Lc
+         O4uA+2F8awm/A==
+Received: by pdx-korg-bugzilla-2.web.codeaurora.org (Postfix, from userid 48)
+        id C992960F48; Sat, 30 Oct 2021 15:17:20 +0000 (UTC)
+From:   bugzilla-daemon@bugzilla.kernel.org
+To:     linux-man@vger.kernel.org
+Subject: [Bug 214873] man 2 fsync implies possibility to return early
+Date:   Sat, 30 Oct 2021 15:17:20 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Documentation
+X-Bugzilla-Component: man-pages
+X-Bugzilla-Version: unspecified
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: low
+X-Bugzilla-Who: axboe@kernel.dk
+X-Bugzilla-Status: NEW
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P1
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: 
+Message-ID: <bug-214873-11311-B46zflctE9@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-214873-11311@https.bugzilla.kernel.org/>
+References: <bug-214873-11311@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.2.1
-Subject: Re: Is getpass(3) really obsolete?
-Content-Language: en-US
-To:     Joseph Myers <joseph@codesourcery.com>
-Cc:     =?UTF-8?B?w4Z2YXIgQXJuZmrDtnLDsCBCamFybWFzb24=?= <avarab@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>,
-        Libc-alpha <libc-alpha@sourceware.org>,
-        "tech@openbsd.org" <tech@openbsd.org>,
-        Klemens Nanni <kn@openbsd.org>,
-        Benoit Lecocq <benoit@openbsd.org>, git@vger.kernel.org
-References: <a0371f24-d8d3-07d9-83a3-00a4bf22c0f5@gmail.com>
- <73ac38a2-c287-4cc1-4e9c-0f9766ac4c0c@gmail.com>
- <211029.86r1c43uwj.gmgdl@evledraar.gmail.com>
- <865e5899-b991-918d-8bc6-ced65a67a566@gmail.com>
- <alpine.DEB.2.22.394.2110291627330.1788146@digraph.polyomino.org.uk>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-In-Reply-To: <alpine.DEB.2.22.394.2110291627330.1788146@digraph.polyomino.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Joseph,
+https://bugzilla.kernel.org/show_bug.cgi?id=3D214873
 
-On 10/29/21 18:31, Joseph Myers wrote:
-> On Fri, 29 Oct 2021, Alejandro Colomar (man-pages) via Libc-alpha wrote:
-> 
->> The broader context is that I was trying to make the deprecation notices more
->> consistent in the Linux manpages, by using the [[deprecated]] attribute where
->> appropriate.  While doing that, I found a few cases where the
->> deprecation/obsoletion is not so clear to me, such as this one
->> ([as]ctime[_r](3) is another one, since it is deprecated by POSIX, but not by
->> the C standard, but I'll start a different thread with that; and isascii(3) is
-> 
-> See the discussion of deprecation starting with
-> <https://sourceware.org/pipermail/libc-alpha/2021-May/126356.html> (C2X
-> has also deprecated those functions).  The comments in that thread
-> supported marking the functions deprecated, but it needs someone to send a
-> patch and I don't know what breakage might result in applications using
-> those functions.
-> 
+--- Comment #2 from Jens Axboe (axboe@kernel.dk) ---
+On 10/30/21 6:05 AM, Alejandro Colomar (man-pages) wrote:
+> [CC +=3D LKML and a few kernel programmers]
+>=20
+> Hi,
+>=20
+> On 10/29/21 23:25, bugzilla-daemon@bugzilla.kernel.org wrote:
+>> https://bugzilla.kernel.org/show_bug.cgi?id=3D214873
+>>
+>>              Bug ID: 214873
+>>             Summary: man 2 fsync implies possibility to return early
+>>             Product: Documentation
+>>             Version: unspecified
+>>            Hardware: All
+>>                  OS: Linux
+>>              Status: NEW
+>>            Severity: low
+>>            Priority: P1
+>>           Component: man-pages
+>>            Assignee: documentation_man-pages@kernel-bugs.osdl.org
+>>            Reporter: sworddragon2@gmail.com
+>>          Regression: No
+>>
+>> The manpage for the fsync system call (
+>> https://man7.org/linux/man-pages/man2/fsync.2.html ) describes as flushi=
+ng
+>> the
+>> related caches to a storage device so that the information can even be
+>> retrieved after a crash/reboot. But then it does make the statement "The
+>> call
+>> blocks until the device reports that the transfer has completed." which
+>> causes
+>> now some interpretation: What happens if the device reports early comple=
+tion
+>> (e.g. via a bugged firmware) of the transfer while the kernel still sees
+>> unsent
+>> caches in its context? Does fsync() indeed return then as the last
+>> referenced
+>> sentence implies or does it continue to send the caches the kernel sees =
+to
+>> guarantee data integrity as good as possible as the previous documented =
+part
+>> might imply?
+>>
+>> I noticed this discrepancy when reporting a bug against dd (
+>> https://debbugs.gnu.org/cgi/bugreport.cgi?bug=3D51345 ) that causes dd to
+>> return
+>> early when it is used with its fsync capability while the kernel still s=
+ees
+>> caches and consulting the fsync() manpage made it not clear if such a
+>> theoretical possibility from the fsync() system call would be intended or
+>> not
+>> so eventually this part could be slighty enhanced.
+>>
+>=20
+> I don't know how fsync(2) works.  Could some kernel fs programmer please=
+=20
+> check if the text matches the implementation, and if that issue reported=
+=20
+> should be reworded in the manual page?
 
-Thanks.  The latest draft for C2x that I know of is N2596.  Is there any 
-newer draft that I can consult for these things?  I see many proposals, 
-but it's difficult to know which have been accepted and which not 
-without an actual recent draft of the standard.
+I don't know what the "see caches" mean in a few spots in the above
+text? In simplified terms, fsync will write out dirty data and then
+ensure that it is stable on media. The latter is your cache flush, if
+the underlying device is using some sort of writeback caching. When the
+flush is issued, there is no more dirty kernel cached data.
 
-Cheers,
+If the device doesn't honor a cache flush (eg "all writes previously
+acked are now stable"), then there's nothing the kernel can do about it.
+It would not even know. The only way to know is if a powercut comes in
+after a flush, and once power is restored, the media contains stale
+data.
 
-Alex
+There is no issue here. If your storage device is lying to you, buy
+better storage devices.
 
+--=20
+You may reply to this email to add a comment.
 
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+You are receiving this mail because:
+You are watching the assignee of the bug.=
