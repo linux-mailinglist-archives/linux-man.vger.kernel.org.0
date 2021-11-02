@@ -2,87 +2,116 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 330F8442B51
-	for <lists+linux-man@lfdr.de>; Tue,  2 Nov 2021 11:04:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 4ED22442B6C
+	for <lists+linux-man@lfdr.de>; Tue,  2 Nov 2021 11:12:36 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229770AbhKBKHI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 2 Nov 2021 06:07:08 -0400
-Received: from smtp-out2.suse.de ([195.135.220.29]:55756 "EHLO
-        smtp-out2.suse.de" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230000AbhKBKHH (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 2 Nov 2021 06:07:07 -0400
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
-        by smtp-out2.suse.de (Postfix) with ESMTP id 947531FD75;
-        Tue,  2 Nov 2021 10:04:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-        t=1635847471; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-         mime-version:mime-version:content-type:content-type:
-         in-reply-to:in-reply-to:references:references;
-        bh=6wDpBAF3+HpoFPA27leXlWriC+Q8usX83rOKODuLy5U=;
-        b=EFYcuX97Q5WBjFSeg1sa6TvTYq8+awdDfPb3J2bek7YmjbfW0KEd3vejD2nDL713ol7zxn
-        /3MI7Bq+5ztwS03TcDYzp70p78umwVfMtn/5osfTMRP8qnc7lg1M5OKOLRHOYQV4FlW1ZV
-        GDlr7QpjamlGKUkkg7P5wlgyIWp3dG4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-        s=susede2_ed25519; t=1635847471;
-        h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-         mime-version:mime-version:content-type:content-type:
-         in-reply-to:in-reply-to:references:references;
-        bh=6wDpBAF3+HpoFPA27leXlWriC+Q8usX83rOKODuLy5U=;
-        b=nNRBH8KKJj9fMHbYNLgK+9/+KO/SKLzP3WRubYMRQcaG9SAziGswON+DwPb/CVS13Ux+yH
-        XIMVLN35LFjQilCw==
-Received: from quack2.suse.cz (unknown [10.163.28.18])
-        by relay2.suse.de (Postfix) with ESMTP id 7DCE5A3B89;
-        Tue,  2 Nov 2021 10:04:31 +0000 (UTC)
-Received: by quack2.suse.cz (Postfix, from userid 1000)
-        id 41C2B1E0A2B; Tue,  2 Nov 2021 11:04:31 +0100 (CET)
-Date:   Tue, 2 Nov 2021 11:04:31 +0100
-From:   Jan Kara <jack@suse.cz>
-To:     Gabriel Krisman Bertazi <krisman@collabora.com>
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        Amir Goldstein <amir73il@gmail.com>, Jan Kara <jack@suse.cz>,
-        Matthew Bobrowski <repnop@google.com>
-Subject: Re: [PATCH v3] fanotify.7, fanotify_mark.2: Document FAN_FS_ERROR
-Message-ID: <20211102100431.GC12774@quack2.suse.cz>
-References: <20211101200445.399801-1-krisman@collabora.com>
+        id S229577AbhKBKPJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 2 Nov 2021 06:15:09 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39878 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S229505AbhKBKPJ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 2 Nov 2021 06:15:09 -0400
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com [IPv6:2a00:1450:4864:20::332])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4CCCBC061714
+        for <linux-man@vger.kernel.org>; Tue,  2 Nov 2021 03:12:34 -0700 (PDT)
+Received: by mail-wm1-x332.google.com with SMTP id v127so15102967wme.5
+        for <linux-man@vger.kernel.org>; Tue, 02 Nov 2021 03:12:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=message-id:date:mime-version:user-agent:subject:content-language:to
+         :cc:references:from:in-reply-to:content-transfer-encoding;
+        bh=qGqqfholKAc38kQxP6CCyWCsiKjXxZOpcKaR2gPU5yU=;
+        b=TAufhVu1udcqtY9tIHRZrHem3RaQ6IDjsrRSnTI09aO/WhY5cqqjcLFAraX7ZqCHdr
+         F4QpK0DMnn6an0h32cZ4vUG5xyD5vN+XaRxDI8loW57QllnXqPV8RTxXhlSrDZCFNPOa
+         XNwMyOwgH9fXbTe9OYdoP2hrPPicSSAlwsV+gSfVEE9/0m7uapfHAfGHRGJdfH5vYNdr
+         pBA7OSA/7UOwhusPF/qoVLqmEJz1D+kFAyIoloRc8EuoTVIOSAYR3QdVCJlb90OP5+ZI
+         0gHlviXH5WKuL+l95t7aKjgOKRIwJdfyB5MkylfiKbwhl8AlMPd05YSqpXY6iXELQSuF
+         Z81g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+         :content-language:to:cc:references:from:in-reply-to
+         :content-transfer-encoding;
+        bh=qGqqfholKAc38kQxP6CCyWCsiKjXxZOpcKaR2gPU5yU=;
+        b=oxfWCiufHKEhVn8wAhar8bsfMYI/r8zTQVU3HGs1GbuxkRfu5A3knzeKg8jyq0cmZm
+         d40ryG3vICV0dchm7kqBQ9ne6rylrw/ZARTj9lS26NmlquiKJZrkPel/hbmT95tlUVs8
+         x77WvtCM/Az1GUwvf3WMlg/igd2kYYXt7ZFfLJzRhXhIQCnQxrbzIkyJgx3M7khZtuRR
+         7PyLQXI9ZXR0P7GbTxeR64tbpIKbl7xKGyiAemN/K/Jq/RK8afcPonU4ParKK86dskhd
+         JBLvGcO+VFO82IuP86tUvIzn7J/SGnW9IvEB5i+6Tzg0DBfy63J7DL7w63ibZshX7j97
+         jcBw==
+X-Gm-Message-State: AOAM530R901tGzdWEsPRdFL0W5+eAvZjMF8IxsFhAR2nuA0NA7jRz6Pq
+        nhJTIhmswC6pEBf4jAYNnEFZ7kZdScE=
+X-Google-Smtp-Source: ABdhPJwU3YsPKY/JHw5RrFmMyjvId9lBHQbm8XYfHyXvh2pEo2tFAGMUoKtEPLug4BkH9XOUoM48+A==
+X-Received: by 2002:a1c:7e8e:: with SMTP id z136mr4637783wmc.51.1635847952926;
+        Tue, 02 Nov 2021 03:12:32 -0700 (PDT)
+Received: from [10.8.0.130] ([195.53.121.100])
+        by smtp.gmail.com with ESMTPSA id e18sm15011833wrs.48.2021.11.02.03.12.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 02 Nov 2021 03:12:32 -0700 (PDT)
+Message-ID: <12909faf-1d45-1eee-aa6c-c7704518dc59@gmail.com>
+Date:   Tue, 2 Nov 2021 11:12:31 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20211101200445.399801-1-krisman@collabora.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.2.1
+Subject: Re: [PATCH 1/1] Document the new fanotify initialization flag
+ FAN_REPORT_PIDFD
+Content-Language: en-US
+To:     Matthew Bobrowski <repnop@google.com>
+Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        linux-man <linux-man@vger.kernel.org>, Jan Kara <jack@suse.cz>,
+        Amir Goldstein <amir73il@gmail.com>
+References: <cover.1635135968.git.repnop@google.com>
+ <6ea10a58db3446aabc729b1082611bdadb1ce4ed.1635135968.git.repnop@google.com>
+ <CAOQ4uxiBJBqfH=eoA8sPven2tXzUmPftKJZCSpw=8f23SoAs0g@mail.gmail.com>
+ <YYBV2J4cDWbL6bLu@google.com>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+In-Reply-To: <YYBV2J4cDWbL6bLu@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Mon 01-11-21 17:04:45, Gabriel Krisman Bertazi wrote:
-> FAN_FS_ERROR is a new event for fanotify to report filesystem errors.
+Hi Matthew,
+
+On 11/1/21 22:02, Matthew Bobrowski wrote:
+> On Wed, Oct 27, 2021 at 01:14:49PM +0300, Amir Goldstein wrote:
+>> On Wed, Oct 27, 2021 at 12:28 PM Matthew Bobrowski <repnop@google.com> wrote:
+>>> +The
+>>> +.I fanotify_event_info_header
+>>> +structure also contains a
+>>> +.I len
+>>> +field.
+>>> +The value of the
+>>> +.I len
+>>> +field is the total size of the
+>>> +.I fanotify_event_info_pidfd
+>>> +structure, which also includes
+>>> +.IR fanotify_event_info_header .
+>>
+>> It would be a shame if we needed to repeat the same text for every new info_type
+>> that we add. There should be no duplicate documentation of the
+>> fanotify_event_info_header fields. Perhaps we need to describe those fields
+>> before documenting fanotify_event_info_fid fields instead of inline in the
+>> documentation of hdr field.
 > 
-> Cc: Amir Goldstein <amir73il@gmail.com>
-> Cc: Jan Kara <jack@suse.cz>
-> Cc: Matthew Bobrowski <repnop@google.com>
-> Signed-off-by: Gabriel Krisman Bertazi <krisman@collabora.com>
+> Right, I see where you're coming from and I do generally agree. If we
+> continue repeating the same pattern for each bonus event that is based
+> on fanotify_event_info_header, then we'll end up unnecessarily
+> polluting the documentation.
+> 
+> Would you like me to try shuffle things around in a patch that
+> precedes this one?
 
-Just one more comment besides what Amir already wrote:
+Sure.  Would you consider adding an entry to the system_data_types(7) 
+manual page documenting that type?
 
-> @@ -599,6 +646,30 @@ field.
->  In that case, the audit subsystem will log information about the access
->  decision to the audit logs.
->  .\"
-> +.SS Monitoring filesystems for errors
-> +A single FAN_FS_ERROR event is stored per filesystem at once.
-> +Extra error messages are suppressed and accounted for
-> +inside the current FAN_FS_ERROR event record,
-> +but details about the errors are lost.
-> +.PP
-> +Error types reported by FAN_FS_ERROR are generic errno values
-> +but not all kinds of errors types are reported by all filesystems.
-> +Refer to the filesystem documentation
-> +for additional information on the type of errors that are reported,
-> +and the meaning of those errors.
+Thanks,
 
-Hmm, I wish there was any filesystem documentation for this :). I think the
-only real source of this information is the kernel source code?
+Alex
 
-									Honza
+
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
