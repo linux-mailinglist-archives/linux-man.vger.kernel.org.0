@@ -2,113 +2,150 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E62F2442719
-	for <lists+linux-man@lfdr.de>; Tue,  2 Nov 2021 07:29:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 9B5D6442722
+	for <lists+linux-man@lfdr.de>; Tue,  2 Nov 2021 07:31:17 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229505AbhKBGbn (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 2 Nov 2021 02:31:43 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45096 "EHLO
+        id S229526AbhKBGdu (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 2 Nov 2021 02:33:50 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45574 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229497AbhKBGbm (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 2 Nov 2021 02:31:42 -0400
-Received: from mail-io1-xd2f.google.com (mail-io1-xd2f.google.com [IPv6:2607:f8b0:4864:20::d2f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5EB49C061714
-        for <linux-man@vger.kernel.org>; Mon,  1 Nov 2021 23:29:08 -0700 (PDT)
-Received: by mail-io1-xd2f.google.com with SMTP id g8so22988842iob.10
-        for <linux-man@vger.kernel.org>; Mon, 01 Nov 2021 23:29:08 -0700 (PDT)
+        with ESMTP id S229497AbhKBGds (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 2 Nov 2021 02:33:48 -0400
+Received: from mail-il1-x12f.google.com (mail-il1-x12f.google.com [IPv6:2607:f8b0:4864:20::12f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4A078C061714
+        for <linux-man@vger.kernel.org>; Mon,  1 Nov 2021 23:31:14 -0700 (PDT)
+Received: by mail-il1-x12f.google.com with SMTP id f10so16333925ilu.5
+        for <linux-man@vger.kernel.org>; Mon, 01 Nov 2021 23:31:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=mime-version:references:in-reply-to:from:date:message-id:subject:to
          :cc;
-        bh=Rrc03+ztBHkIngFzj98wsp6+PDduherEGHIvhZ3LEDw=;
-        b=TST+3cJh9V6vCTicVqBXYxabtFGzA1Jf98SX+dRzjpRWUoXD+kN6h5h32fJ57gL5Rv
-         NdFzGiWIJVI0KDUhqH6aWyYIPZR4f5y8zaNDjR6GPmP7xe7biLzj3Vhub67bnFbo1EGz
-         sz8lHG3sSubxrAQmHBilNpVoRvbhTCqN8mKRZT7P2FWedMdh144a+9XZP5ob5sj9Wmw2
-         66N1CULoi/hazcMT5Dixum2iuDDOc72HjoP8dRIR3J9kA9F1SqWqeNSx+l3mgt7JiO4h
-         zu8mCOboSEpwLQdkaJAhyddTkhh9KjQEZUi5i8bTMHkpZJ1nMGcT95zlUV19qyzIcHca
-         +tSg==
+        bh=cYpnuSXmxsPFVxVT73MqVPBtL7h7QyE08bBPaH5Dm/U=;
+        b=SS4Wzqr78yXF5ORGfFuUzyYtlFvPblLxGU68CFEmkoYRBd3mC1Lg/1ommzvmS3Ewk3
+         SlFqNxOzCwG3aWbO6hl3Tngr6Z0GScubjItrNtmqYmzUXNZ1sR+PmZ77i2Inope4nTKu
+         2rwhJWzwLxvug0cJdbrgI53i7ocLnLWh2bljAb7SnpI6vIYMut3JF87SsLW1BhSnVFDc
+         z7N/nZUA6HLFLUzSWsbrpEPrMkIqqZwivGegK/vBNvL40MMEzbJ/YjFAepvLiBE1LGXa
+         jL7gazpsukLIiT7kp2Q1AGrkCeaDh3AU0wUy30BFZK0xTQOMlxSjU0oZd+v3Tqm8URMk
+         kd+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:mime-version:references:in-reply-to:from:date
          :message-id:subject:to:cc;
-        bh=Rrc03+ztBHkIngFzj98wsp6+PDduherEGHIvhZ3LEDw=;
-        b=jUO76EofESWtYXrkQPBFo7I1mMGBaaj6Ws/MrMdwYzHRXceRAeXswn1R9QLUBFgCpv
-         Co6QoUczrL2xP9W9P7gX3srBtrRS/JGjpxqpWHFjoTYpYR4MqrO6LRkw+C7K2PJGeyXX
-         q4cFRQDHSwQW3iqU3xqKL6CG6fI5c2GYkjI+zvA2rJEji7KIvPCHSzlq3qbNbqvj8KeL
-         ZI+8jtogENYNvvTEjTodYqKjmQRxB3xbiPAe4fuGBfU1K5xbvgq8bjJu6xf/MHeXp3x9
-         8oxR/m7jDm9hAR2N0MzFFZKjaMpoNxmkBWaR83bZ923e61NykF9dVlYqF3N58YdyD53v
-         LeRQ==
-X-Gm-Message-State: AOAM531KRYj1LxsXOrkJ2ICIegnpCX9hlhPHrj4EYjKWNahtS9RAEPPo
-        QkwpR6egU6pAuT/ivkUT4wSB56OWzsgzSYGO3pw=
-X-Google-Smtp-Source: ABdhPJxnbgVBComgnAV7J0eMbB7lup1i/HrMBu0fqlMuowhl/zkutmWowEokR18sSmwwPieMisSZjB5mbe3gJxiwaNQ=
-X-Received: by 2002:a02:270c:: with SMTP id g12mr25334984jaa.75.1635834547744;
- Mon, 01 Nov 2021 23:29:07 -0700 (PDT)
+        bh=cYpnuSXmxsPFVxVT73MqVPBtL7h7QyE08bBPaH5Dm/U=;
+        b=PGLmxHPJDsR2nQaWFsNE2M6JM+2xKYoqOmrIM49KFyli74emz/geJnm9fkw8u1DkGY
+         t30+0sY4MkO4CyL1SJ5XJMPwbosU+Nu2rfWxHVnMORyPJ3pvdJn1rdTBP/lrZaouAhxF
+         X8MfsK0jHJwNCuDzx94jUGafhFPVwjQYoW4xIBoTFyHbccvayKu4iA+7TKSELh12K5zg
+         77H4BRbJxc4Ab4Gh5X9PvAeRFk97LBSLgezlEpQiwQCmiaq6LqP/fJe39weVG3fN0QF6
+         NHMEIDqlmvRHbss8q6I8s6TxMRh93FuCQQvsCQ9Ek5dgpAHCVocsZ3vd4RgihLBVjGyL
+         olnA==
+X-Gm-Message-State: AOAM533cQ2y2dXG7UunCHa/QIaKfA6psDF6Z3YbS+63MnbF7pCwVJ7dp
+        8Dy5iP69NW9Kg7DWDtAKkmSQbMVVNhksvVxQ9ACH4KzW
+X-Google-Smtp-Source: ABdhPJz8YIIlDisq/r0ax/vtzfAGZtDmttGDESWhcf8iUCNN2/Aq1pc0Sk1CUdhZI1ddUI2F1qRl+WSZDxOd0L5hYaU=
+X-Received: by 2002:a05:6e02:19ca:: with SMTP id r10mr24350136ill.319.1635834673673;
+ Mon, 01 Nov 2021 23:31:13 -0700 (PDT)
 MIME-Version: 1.0
-References: <20211101200445.399801-1-krisman@collabora.com>
-In-Reply-To: <20211101200445.399801-1-krisman@collabora.com>
+References: <cover.1635135968.git.repnop@google.com> <6ea10a58db3446aabc729b1082611bdadb1ce4ed.1635135968.git.repnop@google.com>
+ <CAOQ4uxiBJBqfH=eoA8sPven2tXzUmPftKJZCSpw=8f23SoAs0g@mail.gmail.com> <YYBV2J4cDWbL6bLu@google.com>
+In-Reply-To: <YYBV2J4cDWbL6bLu@google.com>
 From:   Amir Goldstein <amir73il@gmail.com>
-Date:   Tue, 2 Nov 2021 08:28:57 +0200
-Message-ID: <CAOQ4uxiR6xVOMtOn9zH-ZfDhTWrHX9jbqES3U7=8OMGca2W+Lw@mail.gmail.com>
-Subject: Re: [PATCH v3] fanotify.7, fanotify_mark.2: Document FAN_FS_ERROR
-To:     Gabriel Krisman Bertazi <krisman@collabora.com>
+Date:   Tue, 2 Nov 2021 08:31:02 +0200
+Message-ID: <CAOQ4uxiNNK5R2=azr3RJabhFJrzi5zdui8+yyHVXBAEJ4yyruw@mail.gmail.com>
+Subject: Re: [PATCH 1/1] Document the new fanotify initialization flag FAN_REPORT_PIDFD
+To:     Matthew Bobrowski <repnop@google.com>
 Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>, Jan Kara <jack@suse.cz>,
-        Matthew Bobrowski <repnop@google.com>
+        Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man <linux-man@vger.kernel.org>, Jan Kara <jack@suse.cz>
 Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Mon, Nov 1, 2021 at 10:04 PM Gabriel Krisman Bertazi
-<krisman@collabora.com> wrote:
+> > > @@ -188,6 +200,27 @@ struct fanotify_event_info_fid {
+> > >  .EE
+> > >  .in
+> > >  .PP
+> > > +In the instance that the fanotify group has been initialized with
+> > > +.BR FAN_REPORT_PIDFD ,
+> > > +the listening application should expect to receive a single
+> > > +information record object as detailed below alongside the generic
+> > > +.I fanotify_event_metadata structure:
+> > > +.PP
+> > > +.in +4n
+> > > +.EX
+> > > +struct fanotify_event_info_header {
+> > > +    __u8 info_type;
+> > > +    __u8 pad;
+> > > +    __u16 len;
+> > > +};
+> >
+> > This structure was just listed a few lines up.
+> > There is no need to re-list it here.
 >
-> FAN_FS_ERROR is a new event for fanotify to report filesystem errors.
+> ACK.
+>
+> > > +
+> > > +struct fanotify_event_info_pidfd {
+> > > +        struct fanotify_event_info_header hdr;
+> > > +        __s32 pidfd;
+> > > +};
+> > > +.EE
+> > > +.in
+> > > +.PP
+> > >  For performance reasons, it is recommended to use a large
+> > >  buffer size (for example, 4096 bytes),
+> > >  so that multiple events can be retrieved by a single
+> > > @@ -510,6 +543,64 @@ and the file handle is followed by a null terminated string that identifies the
+> > >  name of a directory entry in that directory, or '.' to identify the directory
+> > >  object itself.
+> > >  .PP
+> > > +The fields of the
+> > > +.I fanotify_event_info_pidfd
+> > > +structure are as follows:
+> > > +.TP
+> > > +.I hdr
+> > > +This is a structure of type
+> > > +.IR fanotify_event_info_header .
+> > > +Exactly like the one that is provided in a
+> > > +.I fanotify_event_info_fid
+> > > +structure, it is a generic header that contains information used to
+> > > +describe an additional information record object that is attached to
+> > > +an event.
+> > > +In the instance that
+> > > +.BR FAN_REPORT_PIDFD
+> > > +is supplied during fanotify group initialization, a single information
+> > > +record object is expected to be attached alongside the generic
+> > > +metadata event with its
+> > > +.I info_type
+> > > +field set to the value of
+> > > +.BR FAN_EVENT_INFO_TYPE_PIDFD .
+> > > +The
+> > > +.I fanotify_event_info_header
+> > > +structure also contains a
+> > > +.I len
+> > > +field.
+> > > +The value of the
+> > > +.I len
+> > > +field is the total size of the
+> > > +.I fanotify_event_info_pidfd
+> > > +structure, which also includes
+> > > +.IR fanotify_event_info_header .
+> >
+> > It would be a shame if we needed to repeat the same text for every new info_type
+> > that we add. There should be no duplicate documentation of the
+> > fanotify_event_info_header fields. Perhaps we need to describe those fields
+> > before documenting fanotify_event_info_fid fields instead of inline in the
+> > documentation of hdr field.
+>
+> Right, I see where you're coming from and I do generally agree. If we
+> continue repeating the same pattern for each bonus event that is based
+> on fanotify_event_info_header, then we'll end up unnecessarily
+> polluting the documentation.
+>
+> Would you like me to try shuffle things around in a patch that
+> precedes this one?
 >
 
-You need to be very explicit when posting to man pages that this is NOT
-upstream code yet.
-
-UAPIs can practically be changed until the .0 release, but it's fine to post
-man pages update for wider review before that as long as the review is properly
-labeled as such.
-
-> Cc: Amir Goldstein <amir73il@gmail.com>
-> Cc: Jan Kara <jack@suse.cz>
-> Cc: Matthew Bobrowski <repnop@google.com>
-> Signed-off-by: Gabriel Krisman Bertazi <krisman@collabora.com>
->
-> ---
-> Changes since v2:
->   (matthew)
->     - Grammar
->     - List filesystems that support the feature
->     - file system -> filesystem
-> Changes since v1:
-> (Matthew)
->   - Grammar fixes
->   - Don't use the term "submitted" for events sent to the listener
->   - Clarify the kind of information that is file system specific
->
-> To: Michael Kerrisk <mtk.manpages@gmail.com>
-> Cc: linux-man@vger.kernel.org
-> ---
->  man2/fanotify_mark.2 | 36 ++++++++++++++++++++++
->  man7/fanotify.7      | 71 ++++++++++++++++++++++++++++++++++++++++++++
->  2 files changed, 107 insertions(+)
->
-> diff --git a/man2/fanotify_mark.2 b/man2/fanotify_mark.2
-> index be3f72e040c0..d8560f788db8 100644
-> --- a/man2/fanotify_mark.2
-> +++ b/man2/fanotify_mark.2
-> @@ -214,6 +214,35 @@ Create an event when a marked file or directory itself is deleted.
->  An fanotify group that identifies filesystem objects by file handles
->  is required.
->  .TP
-> +.BR FAN_FS_ERROR " (since Linux 5.15)"
-
-That is a mistake.
-This code is aiming for 5.16.
-5.15 is already out the door.
+Yes, please do. Either prep patch or in same patch is fine by me.
 
 Thanks,
 Amir.
