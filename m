@@ -2,59 +2,59 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0096B44354C
+	by mail.lfdr.de (Postfix) with ESMTP id E550544354D
 	for <lists+linux-man@lfdr.de>; Tue,  2 Nov 2021 19:15:21 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234988AbhKBSRz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 2 Nov 2021 14:17:55 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37436 "EHLO
+        id S234990AbhKBSR4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 2 Nov 2021 14:17:56 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37442 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234975AbhKBSRy (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 2 Nov 2021 14:17:54 -0400
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com [IPv6:2a00:1450:4864:20::32c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8933AC061714
-        for <linux-man@vger.kernel.org>; Tue,  2 Nov 2021 11:15:19 -0700 (PDT)
-Received: by mail-wm1-x32c.google.com with SMTP id j128-20020a1c2386000000b003301a98dd62so2664768wmj.5
-        for <linux-man@vger.kernel.org>; Tue, 02 Nov 2021 11:15:19 -0700 (PDT)
+        with ESMTP id S234868AbhKBSRz (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 2 Nov 2021 14:17:55 -0400
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com [IPv6:2a00:1450:4864:20::42a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B880FC061714
+        for <linux-man@vger.kernel.org>; Tue,  2 Nov 2021 11:15:20 -0700 (PDT)
+Received: by mail-wr1-x42a.google.com with SMTP id t30so9822691wra.10
+        for <linux-man@vger.kernel.org>; Tue, 02 Nov 2021 11:15:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=wUo3Z6fdUK3GH299HO2EbtoQtaJ6xPkTjTXdW6Te2yE=;
-        b=T1elV/PDBFGxG+/16o0uC2+i3uhM2XBN0EeE2dI8VyvdhVLjnQtn+Q2mGRMpxjsDY+
-         cnqQjruHYXZPiFGBPXKISSw+fSTYFg5hQvcbyb+XcCNiIFBhL9o79gdyyzHweIPwI5Wi
-         CRZQw3waEt3gYj0/CMRFaoJEGjQEJGwSvrn1RiK1+VITZas+pGTlF8VtzhoXMVgfF5Ez
-         66BTsAQHkdgKEb4sqAZlqSWXaxkMrz1EeSY8jKdEPW1Jv3oH8fXo4symwD1xiYxknVyo
-         PDdoRJ8Du1PzjwfTTd+dPYHsCD1HC/Defohkqr+7Qji3i3FarKWbTUYMdcj66kuVG/uU
-         5GJA==
+        bh=aj/hV383Dus88FEA9UPcwdw+2IFhHMDiSw2T7aK8RNs=;
+        b=Y9oImU+2uq4EP8rY617LhSpCbqbM4SAd8MEjc8RMJFwg80AOCAvQf71j8pnFl3lFpY
+         FBoCZQPcgImycYgU+8OWuX8tfDxBhhJO6lNAZ9j2oCwa7Q9G8J9ROeLlj/Lj/p2Gg416
+         rTnCc77B+9zJUmNgL8LhQzeFPtUYoCDtyw5EpK+PhraVJ0VoltLk+8K/x5x9XhfvQXQl
+         +LRCPaVwjQNaHp+MD+2SNSmRZL2p0LMNXfEd0b6fxFpZwyTIjsmB1mf/U9nBjh+6uxad
+         D8ilNn75wWNCsGE03liuGzHwNgEUzlA8bbOZ7koeuOCi9FM7piT/b2aeijWOqVvRLhbJ
+         If6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=wUo3Z6fdUK3GH299HO2EbtoQtaJ6xPkTjTXdW6Te2yE=;
-        b=Hf8qXpo8K6quY8PaQjYkY+nIXx9w77F4QlFvP74iwOkponzibHZhakog58zGZphGpt
-         eb+0l4SmreqvkGmco3DjJj9WPlnTLYbzLNlKEpvIY8x199LUqhNXPURw6zbBYdgJ613C
-         DWTIv33+1lQdCh94U+CKGmY/K2qyZ5TKRVKWKtbGr8gCOuEawY8WXwJmKoptkpOO6C49
-         b7vfFXb7fauYGivf08TIiST/e25m22+efmk47uXs8TTZKRHiqJSzIWFHf7XEkANup/br
-         AT2GJ+95JcWGzK5jnN9+/77QG0Bpa3pSzuEfWnrk8JZcmsI58IrSTXrP+CsJ6zUA81C7
-         iO9g==
-X-Gm-Message-State: AOAM533Vapze7rEJDZ4RQZix09T3nWrPxz1dhq4ylagY8IDy0tXwA331
-        sE1aqQIdHm/V1DKpEC+QXqP61IzW77w=
-X-Google-Smtp-Source: ABdhPJwfUKH1CzXW1qKq86LH3qQ4T+NezlLoMO8VJNz3rqHKDLDkCOwLLasBTN84YFEkOnSGWZCJbQ==
-X-Received: by 2002:a1c:7515:: with SMTP id o21mr9498643wmc.99.1635876918152;
-        Tue, 02 Nov 2021 11:15:18 -0700 (PDT)
+        bh=aj/hV383Dus88FEA9UPcwdw+2IFhHMDiSw2T7aK8RNs=;
+        b=wtZ6SnG/1lbd1XB/LwBsXSqyHLsP9AuMiBShIwoKbYYdkmf7cqkAN6jAoogVNpX7jn
+         4KQXiEun2S9Y04hHQ2VqGK6hE5UwwxH6hAQ+bg6ID1+mjBjVgcqxtPAtsqzNpqmK8a5X
+         iOGisqodNZhjQnMHm2oNk9IwCF+09SJm5Bfr9cnI/ovqP0QGiYtLdwXFyQ9idWfisK5J
+         NMQi0RAMB+YAsz1KoVBPmuChdgiKybOrrqHIlDaF58ZK1CSOpldFZIfOtJe3DUJUXG49
+         nDFaPWOappiiS9DwgJRVMpWju5HYA4m5YHZC98EuF4k9Ndcz7anacaFuCbdNg60PyURv
+         o70g==
+X-Gm-Message-State: AOAM530IqzLYxx/GVw9/grXojFEmnOVJMvfRHhCOLgFxkhGpodX8tZqn
+        0NzaMiyBFgFEvYMJrgdygFWPidYQElA=
+X-Google-Smtp-Source: ABdhPJzgyAGEJsLT7/RCvJB5DAZHcTFFcA5XDCNVLk+Rk5XcvrsOgP91qBpNQDIF8t8I+UBDi5hkuQ==
+X-Received: by 2002:a05:6000:1a86:: with SMTP id f6mr95139wry.230.1635876919293;
+        Tue, 02 Nov 2021 11:15:19 -0700 (PDT)
 Received: from sqli.sqli.com ([195.53.121.100])
-        by smtp.googlemail.com with ESMTPSA id f18sm18467445wrg.3.2021.11.02.11.15.16
+        by smtp.googlemail.com with ESMTPSA id f18sm18467445wrg.3.2021.11.02.11.15.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 02 Nov 2021 11:15:17 -0700 (PDT)
+        Tue, 02 Nov 2021 11:15:18 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com,
         "G . Branden Robinson" <g.branden.robinson@gmail.com>
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org
-Subject: [RFC 16/37] div_t.3, system_data_types.7: Move text to a separate page
-Date:   Tue,  2 Nov 2021 19:14:33 +0100
-Message-Id: <20211102181454.280919-17-alx.manpages@gmail.com>
+Subject: [RFC 17/37] double_t.3, system_data_types.7: Move text to a separate page
+Date:   Tue,  2 Nov 2021 19:14:34 +0100
+Message-Id: <20211102181454.280919-18-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.33.1
 In-Reply-To: <20211102181454.280919-1-alx.manpages@gmail.com>
 References: <20211102181454.280919-1-alx.manpages@gmail.com>
@@ -66,69 +66,110 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man3/div_t.3             | 20 +++++++++++++++++++-
- man7/system_data_types.7 | 23 -----------------------
- 2 files changed, 19 insertions(+), 24 deletions(-)
+ man3/double_t.3          | 42 +++++++++++++++++++++++++++++++++++++++-
+ man7/system_data_types.7 | 42 ----------------------------------------
+ 2 files changed, 41 insertions(+), 43 deletions(-)
 
-diff --git a/man3/div_t.3 b/man3/div_t.3
-index db50c0f09..2b83a002d 100644
---- a/man3/div_t.3
-+++ b/man3/div_t.3
-@@ -1 +1,19 @@
+diff --git a/man3/double_t.3 b/man3/double_t.3
+index db50c0f09..0043fb38b 100644
+--- a/man3/double_t.3
++++ b/man3/double_t.3
+@@ -1 +1,41 @@
 -.so man7/system_data_types.7
-+.TH DIV_T 3 2021-11-02 Linux "Linux Programmer's Manual"
++.TH DOUBLE_T 3 2021-11-02 Linux "Linux Programmer's Manual"
 +.SH NAME
-+div_t \- quotient and remainder of an integer division
++double_t \- most efficient floating types
 +.SH SYNOPSIS
 +.nf
-+.B #include <stdlib.h>
++.B #include <math.h>
 +.PP
-+.B typedef struct {
-+.BR "    int quot;" " /* Quotient */"
-+.BR "    int rem;" "  /* Remainder */"
-+.B } div_t;
++.BR typedef " /* ... */ " double_t;
++.fi
 +.SH DESCRIPTION
-+It is the type of the value returned by the
-+.BR div (3)
-+function.
++The implementation's most efficient floating type at least as wide as
++.IR double .
++Its type depends on the value of the macro
++.B FLT_EVAL_METHOD
++(defined in
++.IR <float.h> ):
++.TP
++0
++.I double_t
++is
++.IR double .
++.TP
++1
++.I double_t
++is
++.IR double .
++.TP
++2
++.I double_t
++is
++.IR "long double" .
++.PP
++For other values of
++.BR FLT_EVAL_METHOD ,
++the type of
++.I double_t
++is implementation-defined.
 +.SH CONFORMING TO
 +C99 and later; POSIX.1-2001 and later.
 +.SH SEE ALSO
-+.BR div (3)
++.BR float_t (3)
 diff --git a/man7/system_data_types.7 b/man7/system_data_types.7
-index fe071fb1e..764027bbd 100644
+index 764027bbd..e847c2e64 100644
 --- a/man7/system_data_types.7
 +++ b/man7/system_data_types.7
-@@ -58,29 +58,6 @@ system_data_types \- overview of system data types
- .\"------------------------------------- clockid_t --------------------/
+@@ -59,48 +59,6 @@ system_data_types \- overview of system data types
  .\"------------------------------------- dev_t ------------------------/
  .\"------------------------------------- div_t ------------------------/
+ .\"------------------------------------- double_t ---------------------/
 -.TP
--.I div_t
+-.I double_t
 -.RS
 -.IR Include :
--.IR <stdlib.h> .
+-.IR <math.h> .
 -.PP
--.EX
--typedef struct {
--    int quot; /* Quotient */
--    int rem;  /* Remainder */
--} div_t;
--.EE
+-The implementation's most efficient floating type at least as wide as
+-.IR double .
+-Its type depends on the value of the macro
+-.B FLT_EVAL_METHOD
+-(defined in
+-.IR <float.h> ):
+-.TP
+-0
+-.I double_t
+-is
+-.IR double .
+-.TP
+-1
+-.I double_t
+-is
+-.IR double .
+-.TP
+-2
+-.I double_t
+-is
+-.IR "long double" .
 -.PP
--It is the type of the value returned by the
--.BR div (3)
--function.
+-For other values of
+-.BR FLT_EVAL_METHOD ,
+-the type of
+-.I double_t
+-is implementation-defined.
 -.PP
 -.IR "Conforming to" :
 -C99 and later; POSIX.1-2001 and later.
 -.PP
 -.IR "See also" :
--.BR div (3)
+-the
+-.I float_t
+-type in this page.
 -.RE
- .\"------------------------------------- double_t ---------------------/
+ .\"------------------------------------- fd_set -----------------------/
  .TP
- .I double_t
+ .I fd_set
 -- 
 2.33.1
 
