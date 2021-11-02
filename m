@@ -2,59 +2,59 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B4ED8443550
-	for <lists+linux-man@lfdr.de>; Tue,  2 Nov 2021 19:15:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id AE791443551
+	for <lists+linux-man@lfdr.de>; Tue,  2 Nov 2021 19:15:27 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234995AbhKBSSB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 2 Nov 2021 14:18:01 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37466 "EHLO
+        id S234996AbhKBSSC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 2 Nov 2021 14:18:02 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37470 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234868AbhKBSSA (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 2 Nov 2021 14:18:00 -0400
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com [IPv6:2a00:1450:4864:20::32b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6E450C061714
-        for <linux-man@vger.kernel.org>; Tue,  2 Nov 2021 11:15:25 -0700 (PDT)
-Received: by mail-wm1-x32b.google.com with SMTP id z200so50397wmc.1
-        for <linux-man@vger.kernel.org>; Tue, 02 Nov 2021 11:15:25 -0700 (PDT)
+        with ESMTP id S234868AbhKBSSB (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 2 Nov 2021 14:18:01 -0400
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com [IPv6:2a00:1450:4864:20::32c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7DD70C061714
+        for <linux-man@vger.kernel.org>; Tue,  2 Nov 2021 11:15:26 -0700 (PDT)
+Received: by mail-wm1-x32c.google.com with SMTP id y84-20020a1c7d57000000b00330cb84834fso2696895wmc.2
+        for <linux-man@vger.kernel.org>; Tue, 02 Nov 2021 11:15:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=TI42w8HMBw5Dmb1hs45y26EYMlaFoy+NNOXbw7d5Ifc=;
-        b=R4SE1pRCZopUDqdDtZhwaPTM2wroAavASxG4NEU1bTO55YukIv6ewZsEgrWtAGQ615
-         UdjYDkfN0LO1FscIl6bAf0/fqoBsRoNsQh0KzAfh1YCiSesguZXfMzfyprhqgud3/H8+
-         2rAYKWnM0Ci2WK2q5JtJ9HFrc4A+w3LQ3Pctp7aZk2RNA9ZQEIsWxIJARlsMKOce/hGm
-         MMn8K0Q7/v1XxoZXrjQyYWGtcGQWi9qaOgaQaPIMrENT2GYgdBAQ6W5BuVhW46jWE15U
-         DVJeEeIcnnFsbFZflyEBwNHcxPNLDBnjuRj5hptUtmvRwb1RYYaA1aZPt8BqaaB43kDh
-         gNcg==
+        bh=Orsi3hbpkLeVwEw4n4Mr/YLKjzxNiOr6vwzaXZAhWyA=;
+        b=KA30KFt1iXL4RFl8qVkD7kGx9lxS4RhRKAywufLJpnELq5W/scMZSJLb2R8zRUlLhO
+         vnNdU18o04fJrPcpM86xPVw65t3SQUnl7Mml5817LI+C4V2J+sZBbWNoNidgfSEz0H9Q
+         ++KU23aQLT4qH4bLOwhzj41dNcZsw/do0PKscvFMbH/rsMTu4aHXzRCaOz0Ldi/wQqYF
+         LMltLkWbodQNJN9jZ/UdfGuHY6skIJgQm+Bf2DDw5pjq1LIW6pGsC1c0MrxbTINdI0FB
+         yPQsWhF8rTiLwV5I0ROPMmaf5yFqv8MoKU3b/0QOkRGwCOOOxbw0r/TbzteeuRu1rde8
+         S7nQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=TI42w8HMBw5Dmb1hs45y26EYMlaFoy+NNOXbw7d5Ifc=;
-        b=jtkqyRTB/AHOkgQYkNiOrLptvVPsUsq/SCruH90hFR0CWWasF339t/zS+GavaeO/n6
-         +kpQ2qYlUEZSqYt6VvsRvfhG9Pem/v2Ll9tFOHnE5A6WpbjEXNIVXeRKBKoSIwa5KQi7
-         wkW73Ui/dztAeWUt+M/QuAJFNUjv3XDLUY9JaWHsdY0buiT5cx9um1khA/WbVZ/g4V2u
-         etX0qqqXwXkAGoT59pZG3qhd9zSfB3kA1Wm8DkTpfXpCqpS4bxKc3yiAuDqnAaqGivVb
-         mmlJLC4Uzo8ed1YQu1j5fxup4P3nduSELJzU7fPUJzQTdzu9hutMbBiJOO17crMLHql+
-         3vew==
-X-Gm-Message-State: AOAM530Wn+WKbDHrt1lhg7jeQufyc8/Xg2t7H+vU00r16yPpVEtSOdcK
-        oew6oe1bfzecDxYVZfXsJiE=
-X-Google-Smtp-Source: ABdhPJzf9DRUtDSYGm38tAZ+E64426ZLa3X737mtyRhtdCuRGkLg50Wb5HQPvSBXYxdpcc+nkUTobg==
-X-Received: by 2002:a7b:ca44:: with SMTP id m4mr8846915wml.100.1635876924110;
-        Tue, 02 Nov 2021 11:15:24 -0700 (PDT)
+        bh=Orsi3hbpkLeVwEw4n4Mr/YLKjzxNiOr6vwzaXZAhWyA=;
+        b=BwoLAKJdgxVgbTrd54lXYW3s3iqM3g04BvUbtIriVIIHGnk4+hc3z4yMB1ySx7iEqT
+         kGmOpLBICWFKUtyixg2hUU2O3V21lZ1qJFVavL9vgKrreKk35YgijpFAGY/4Z2tmQE9J
+         Vd+UU11itQV5HBmbpARIuB6x+9tnchwKOA3B3/d1MJnehNhS6NbTtBBDI6W7xmDJYdzZ
+         wjcBGNt1wS75RvCj4H2vTurBb1A4wAczKTgdUuaMyizpyO2oEKUIJbbteVKt9AG4zjQW
+         I3uuFd4riKrJzt3ZCyCS/MPl4p/n++hFHADurCQcswTNi3NBNbubo92PMptXwg2xydjk
+         9PKA==
+X-Gm-Message-State: AOAM530jUXT5ve6PYBRTALAoGC384rWEuxgPdynXNgu7zct2goK3r62m
+        SPlm0DtuB9nsCXgWtDy9KAeWvEiAlZY=
+X-Google-Smtp-Source: ABdhPJwihVvkJPaXTc+JXwg0ZRrP+AcdhH467Op8hxON6r8Lzhjva31dWIZivKscCD069ARdf21fiA==
+X-Received: by 2002:a1c:a592:: with SMTP id o140mr8806689wme.10.1635876925178;
+        Tue, 02 Nov 2021 11:15:25 -0700 (PDT)
 Received: from sqli.sqli.com ([195.53.121.100])
-        by smtp.googlemail.com with ESMTPSA id f18sm18467445wrg.3.2021.11.02.11.15.21
+        by smtp.googlemail.com with ESMTPSA id f18sm18467445wrg.3.2021.11.02.11.15.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 02 Nov 2021 11:15:22 -0700 (PDT)
+        Tue, 02 Nov 2021 11:15:24 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     mtk.manpages@gmail.com,
         "G . Branden Robinson" <g.branden.robinson@gmail.com>
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man@vger.kernel.org
-Subject: [RFC 20/37] fenv_t.3, system_data_types.7: Move text to a separate page
-Date:   Tue,  2 Nov 2021 19:14:37 +0100
-Message-Id: <20211102181454.280919-21-alx.manpages@gmail.com>
+Subject: [RFC 21/37] fenv_t.3, system_data_types.7: Move fexcept_t to fenv_t.3
+Date:   Tue,  2 Nov 2021 19:14:38 +0100
+Message-Id: <20211102181454.280919-22-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.33.1
 In-Reply-To: <20211102181454.280919-1-alx.manpages@gmail.com>
 References: <20211102181454.280919-1-alx.manpages@gmail.com>
@@ -66,49 +66,64 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
- man3/fenv_t.3            | 18 +++++++++++++++++-
+ man3/fenv_t.3            | 13 ++++++++++---
+ man3/fexcept_t.3         |  2 +-
  man7/system_data_types.7 | 16 ----------------
- 2 files changed, 17 insertions(+), 17 deletions(-)
+ 3 files changed, 11 insertions(+), 20 deletions(-)
 
 diff --git a/man3/fenv_t.3 b/man3/fenv_t.3
-index db50c0f09..757645742 100644
+index 757645742..d7c3b7492 100644
 --- a/man3/fenv_t.3
 +++ b/man3/fenv_t.3
-@@ -1 +1,17 @@
--.so man7/system_data_types.7
-+.TH FENV_T 3 2021-11-02 Linux "Linux Programmer's Manual"
-+.SH NAME
-+fenv_t \- floating-point environment
-+.SH SYNOPSIS
-+.nf
-+.B #include <fenv.h>
+@@ -1,15 +1,22 @@
+ .TH FENV_T 3 2021-11-02 Linux "Linux Programmer's Manual"
+ .SH NAME
+-fenv_t \- floating-point environment
++fenv_t, fexcept_t \- floating-point environment
+ .SH SYNOPSIS
+ .nf
+ .B #include <fenv.h>
+ .PP
+ .BR typedef " /* ... */ " fenv_t;
++.BR typedef " /* ... */ " fexcept_t;
+ .fi
+ .SH DESCRIPTION
+-This type represents the entire floating-point environment,
+-including control modes and status flags; for further details, see
++.I fenv_t
++represents the entire floating-point environment,
++including control modes and status flags.
 +.PP
-+.BR typedef " /* ... */ " fenv_t;
-+.fi
-+.SH DESCRIPTION
-+This type represents the entire floating-point environment,
-+including control modes and status flags; for further details, see
-+.BR fenv (3).
-+.SH CONFORMING TO
-+C99 and later; POSIX.1-2001 and later.
-+.SH SEE ALSO
-+.BR fenv (3)
++.I fexcept_t
++represents the floating-point status flags collectively.
++.PP
++For further details see
+ .BR fenv (3).
+ .SH CONFORMING TO
+ C99 and later; POSIX.1-2001 and later.
+diff --git a/man3/fexcept_t.3 b/man3/fexcept_t.3
+index db50c0f09..0e5e9dded 100644
+--- a/man3/fexcept_t.3
++++ b/man3/fexcept_t.3
+@@ -1 +1 @@
+-.so man7/system_data_types.7
++.so man3/fenv_t.3
 diff --git a/man7/system_data_types.7 b/man7/system_data_types.7
-index f004aef0d..1c76d8e7a 100644
+index 1c76d8e7a..90b6f743e 100644
 --- a/man7/system_data_types.7
 +++ b/man7/system_data_types.7
-@@ -61,22 +61,6 @@ system_data_types \- overview of system data types
- .\"------------------------------------- double_t ---------------------/
+@@ -62,22 +62,6 @@ system_data_types \- overview of system data types
  .\"------------------------------------- fd_set -----------------------/
  .\"------------------------------------- fenv_t -----------------------/
+ .\"------------------------------------- fexcept_t --------------------/
 -.TP
--.I fenv_t
+-.I fexcept_t
 -.RS
 -.IR Include :
 -.IR <fenv.h> .
 -.PP
--This type represents the entire floating-point environment,
--including control modes and status flags; for further details, see
+-This type represents the floating-point status flags collectively;
+-for further details see
 -.BR fenv (3).
 -.PP
 -.IR "Conforming to" :
@@ -117,9 +132,9 @@ index f004aef0d..1c76d8e7a 100644
 -.IR "See also" :
 -.BR fenv (3)
 -.RE
- .\"------------------------------------- fexcept_t --------------------/
+ .\"------------------------------------- FILE -------------------------/
  .TP
- .I fexcept_t
+ .I FILE
 -- 
 2.33.1
 
