@@ -2,150 +2,114 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 9B5D6442722
-	for <lists+linux-man@lfdr.de>; Tue,  2 Nov 2021 07:31:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0275F442AB3
+	for <lists+linux-man@lfdr.de>; Tue,  2 Nov 2021 10:48:13 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229526AbhKBGdu (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 2 Nov 2021 02:33:50 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45574 "EHLO
+        id S229577AbhKBJul (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 2 Nov 2021 05:50:41 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34300 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229497AbhKBGds (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 2 Nov 2021 02:33:48 -0400
-Received: from mail-il1-x12f.google.com (mail-il1-x12f.google.com [IPv6:2607:f8b0:4864:20::12f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4A078C061714
-        for <linux-man@vger.kernel.org>; Mon,  1 Nov 2021 23:31:14 -0700 (PDT)
-Received: by mail-il1-x12f.google.com with SMTP id f10so16333925ilu.5
-        for <linux-man@vger.kernel.org>; Mon, 01 Nov 2021 23:31:14 -0700 (PDT)
+        with ESMTP id S229720AbhKBJui (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 2 Nov 2021 05:50:38 -0400
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com [IPv6:2a00:1450:4864:20::42e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9D048C061714
+        for <linux-man@vger.kernel.org>; Tue,  2 Nov 2021 02:48:03 -0700 (PDT)
+Received: by mail-wr1-x42e.google.com with SMTP id r8so19472605wra.7
+        for <linux-man@vger.kernel.org>; Tue, 02 Nov 2021 02:48:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=cYpnuSXmxsPFVxVT73MqVPBtL7h7QyE08bBPaH5Dm/U=;
-        b=SS4Wzqr78yXF5ORGfFuUzyYtlFvPblLxGU68CFEmkoYRBd3mC1Lg/1ommzvmS3Ewk3
-         SlFqNxOzCwG3aWbO6hl3Tngr6Z0GScubjItrNtmqYmzUXNZ1sR+PmZ77i2Inope4nTKu
-         2rwhJWzwLxvug0cJdbrgI53i7ocLnLWh2bljAb7SnpI6vIYMut3JF87SsLW1BhSnVFDc
-         z7N/nZUA6HLFLUzSWsbrpEPrMkIqqZwivGegK/vBNvL40MMEzbJ/YjFAepvLiBE1LGXa
-         jL7gazpsukLIiT7kp2Q1AGrkCeaDh3AU0wUy30BFZK0xTQOMlxSjU0oZd+v3Tqm8URMk
-         kd+Q==
+        h=message-id:date:mime-version:user-agent:subject:content-language:to
+         :cc:references:from:in-reply-to:content-transfer-encoding;
+        bh=vOLs/Nz/HaAVb/5DeahOnBiOgUAnKoeELBuYISrsHNA=;
+        b=mAac64+L8e7r5KhRTXS30cdfDHzQ1Za5qoYTmlMV5ZYdC70fg4C41z0zW112Y0Q44y
+         xHd1dr09ScAdJC9atWF29GYAzPTa0LadfAKRJ8rKQ77j+gAIETEo6OcvVpvNoCJHfc7K
+         5F6i3C4/en/Xc59FGsfNltshkvVhkrFkPyDuQo8EfftwaTO14dcPAw2Dq6BKB+0LgRxR
+         iFSqvLF9borCZf8xoXHPnQ4kjSqAb+yYQCCxm+HfXpFMkrOn3hCnm30WSkysycU9X22h
+         ROlnvTEXTPD5IirGUpzAoGbchs6Ncw9Rnq4KxC0mF36N1p2N5gmiuJcLvToyU8GLhXBq
+         WYJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=cYpnuSXmxsPFVxVT73MqVPBtL7h7QyE08bBPaH5Dm/U=;
-        b=PGLmxHPJDsR2nQaWFsNE2M6JM+2xKYoqOmrIM49KFyli74emz/geJnm9fkw8u1DkGY
-         t30+0sY4MkO4CyL1SJ5XJMPwbosU+Nu2rfWxHVnMORyPJ3pvdJn1rdTBP/lrZaouAhxF
-         X8MfsK0jHJwNCuDzx94jUGafhFPVwjQYoW4xIBoTFyHbccvayKu4iA+7TKSELh12K5zg
-         77H4BRbJxc4Ab4Gh5X9PvAeRFk97LBSLgezlEpQiwQCmiaq6LqP/fJe39weVG3fN0QF6
-         NHMEIDqlmvRHbss8q6I8s6TxMRh93FuCQQvsCQ9Ek5dgpAHCVocsZ3vd4RgihLBVjGyL
-         olnA==
-X-Gm-Message-State: AOAM533cQ2y2dXG7UunCHa/QIaKfA6psDF6Z3YbS+63MnbF7pCwVJ7dp
-        8Dy5iP69NW9Kg7DWDtAKkmSQbMVVNhksvVxQ9ACH4KzW
-X-Google-Smtp-Source: ABdhPJz8YIIlDisq/r0ax/vtzfAGZtDmttGDESWhcf8iUCNN2/Aq1pc0Sk1CUdhZI1ddUI2F1qRl+WSZDxOd0L5hYaU=
-X-Received: by 2002:a05:6e02:19ca:: with SMTP id r10mr24350136ill.319.1635834673673;
- Mon, 01 Nov 2021 23:31:13 -0700 (PDT)
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+         :content-language:to:cc:references:from:in-reply-to
+         :content-transfer-encoding;
+        bh=vOLs/Nz/HaAVb/5DeahOnBiOgUAnKoeELBuYISrsHNA=;
+        b=sdWifTQrYxC1TJscNzxhmcIDLUW1dcDJRAHEvw3bmhvagzUG8/jVYXiKpggCH4e79a
+         1zDq6I/ULnHMHzZpmb8hkYJVsDTTI9xShsT/umlaMWxaamZL0r1b36bzqjqNgI6LPjbh
+         KEFQcJWDIuEanKFsflXtbFQhZZw+g0LxCkbCzzLH5ZZ4rP7AM5ziBvSQFEpcU+lYm0/Q
+         4l+z/3mBeSfrvKp3SOiUbyhgjl8TRA8I2Zq95MXZ+PiwY+twQPCU9il6YkRg5uv57KG8
+         XZlckoUwZLhXbKCBA9Lff2XOw+lWNpR/j0homAX9+sdVL5w9tV7j2bkxpU4chH41WPF7
+         efMA==
+X-Gm-Message-State: AOAM531ID+rhg6pn9erIMDgnEaG0tJDrogaLBAxN/dGf9es49mly2YnK
+        POkOhUm5sDz2pVCZX04G4U8=
+X-Google-Smtp-Source: ABdhPJwrHhTdWx4xx8ipfzF5QzxzTpm5PzHgTSXE2JryC7tzQrFsURRkBYfEG80q36zNaOOXEnYdDw==
+X-Received: by 2002:adf:a1d4:: with SMTP id v20mr3495062wrv.190.1635846482266;
+        Tue, 02 Nov 2021 02:48:02 -0700 (PDT)
+Received: from [10.8.0.130] ([195.53.121.100])
+        by smtp.gmail.com with ESMTPSA id u10sm20717533wrs.5.2021.11.02.02.48.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 02 Nov 2021 02:48:01 -0700 (PDT)
+Message-ID: <140ec48b-10ae-9762-133d-3a18a3a01236@gmail.com>
+Date:   Tue, 2 Nov 2021 10:48:00 +0100
 MIME-Version: 1.0
-References: <cover.1635135968.git.repnop@google.com> <6ea10a58db3446aabc729b1082611bdadb1ce4ed.1635135968.git.repnop@google.com>
- <CAOQ4uxiBJBqfH=eoA8sPven2tXzUmPftKJZCSpw=8f23SoAs0g@mail.gmail.com> <YYBV2J4cDWbL6bLu@google.com>
-In-Reply-To: <YYBV2J4cDWbL6bLu@google.com>
-From:   Amir Goldstein <amir73il@gmail.com>
-Date:   Tue, 2 Nov 2021 08:31:02 +0200
-Message-ID: <CAOQ4uxiNNK5R2=azr3RJabhFJrzi5zdui8+yyHVXBAEJ4yyruw@mail.gmail.com>
-Subject: Re: [PATCH 1/1] Document the new fanotify initialization flag FAN_REPORT_PIDFD
-To:     Matthew Bobrowski <repnop@google.com>
-Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>, Jan Kara <jack@suse.cz>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.2.1
+Subject: Re: [PATCH] quotactl.2: Use correct limits for vfsv1 format
+Content-Language: en-US
+To:     "xuyang2018.jy@fujitsu.com" <xuyang2018.jy@fujitsu.com>
+Cc:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
+        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+References: <1634718794-2120-1-git-send-email-xuyang2018.jy@fujitsu.com>
+ <617F60D7.2000605@fujitsu.com>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+In-Reply-To: <617F60D7.2000605@fujitsu.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-> > > @@ -188,6 +200,27 @@ struct fanotify_event_info_fid {
-> > >  .EE
-> > >  .in
-> > >  .PP
-> > > +In the instance that the fanotify group has been initialized with
-> > > +.BR FAN_REPORT_PIDFD ,
-> > > +the listening application should expect to receive a single
-> > > +information record object as detailed below alongside the generic
-> > > +.I fanotify_event_metadata structure:
-> > > +.PP
-> > > +.in +4n
-> > > +.EX
-> > > +struct fanotify_event_info_header {
-> > > +    __u8 info_type;
-> > > +    __u8 pad;
-> > > +    __u16 len;
-> > > +};
-> >
-> > This structure was just listed a few lines up.
-> > There is no need to re-list it here.
->
-> ACK.
->
-> > > +
-> > > +struct fanotify_event_info_pidfd {
-> > > +        struct fanotify_event_info_header hdr;
-> > > +        __s32 pidfd;
-> > > +};
-> > > +.EE
-> > > +.in
-> > > +.PP
-> > >  For performance reasons, it is recommended to use a large
-> > >  buffer size (for example, 4096 bytes),
-> > >  so that multiple events can be retrieved by a single
-> > > @@ -510,6 +543,64 @@ and the file handle is followed by a null terminated string that identifies the
-> > >  name of a directory entry in that directory, or '.' to identify the directory
-> > >  object itself.
-> > >  .PP
-> > > +The fields of the
-> > > +.I fanotify_event_info_pidfd
-> > > +structure are as follows:
-> > > +.TP
-> > > +.I hdr
-> > > +This is a structure of type
-> > > +.IR fanotify_event_info_header .
-> > > +Exactly like the one that is provided in a
-> > > +.I fanotify_event_info_fid
-> > > +structure, it is a generic header that contains information used to
-> > > +describe an additional information record object that is attached to
-> > > +an event.
-> > > +In the instance that
-> > > +.BR FAN_REPORT_PIDFD
-> > > +is supplied during fanotify group initialization, a single information
-> > > +record object is expected to be attached alongside the generic
-> > > +metadata event with its
-> > > +.I info_type
-> > > +field set to the value of
-> > > +.BR FAN_EVENT_INFO_TYPE_PIDFD .
-> > > +The
-> > > +.I fanotify_event_info_header
-> > > +structure also contains a
-> > > +.I len
-> > > +field.
-> > > +The value of the
-> > > +.I len
-> > > +field is the total size of the
-> > > +.I fanotify_event_info_pidfd
-> > > +structure, which also includes
-> > > +.IR fanotify_event_info_header .
-> >
-> > It would be a shame if we needed to repeat the same text for every new info_type
-> > that we add. There should be no duplicate documentation of the
-> > fanotify_event_info_header fields. Perhaps we need to describe those fields
-> > before documenting fanotify_event_info_fid fields instead of inline in the
-> > documentation of hdr field.
->
-> Right, I see where you're coming from and I do generally agree. If we
-> continue repeating the same pattern for each bonus event that is based
-> on fanotify_event_info_header, then we'll end up unnecessarily
-> polluting the documentation.
->
-> Would you like me to try shuffle things around in a patch that
-> precedes this one?
->
+Hi Yang,
 
-Yes, please do. Either prep patch or in same patch is fine by me.
+On 11/1/21 04:36, xuyang2018.jy@fujitsu.com wrote:
+> Hi Michael, Alejandro
+> 
+> Ping!
+> 
+> Best Regards
+> Yang Xu
+>> According to kernel code and the following patch, the maximum quota limit setting
+>> should be 2^63 -1 instead of 2^64.
+>>
+>> [1]https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit?id=7e08da5
+>>
+>> Signed-off-by: Yang Xu<xuyang2018.jy@fujitsu.com>
+
+Patch applied.
 
 Thanks,
-Amir.
+
+Alex
+
+>> ---
+>>    man2/quotactl.2 | 2 +-
+>>    1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/man2/quotactl.2 b/man2/quotactl.2
+>> index 46f77a8b1..5d2a673bd 100644
+>> --- a/man2/quotactl.2
+>> +++ b/man2/quotactl.2
+>> @@ -109,7 +109,7 @@ and quota limits up to 2^42 bytes and 2^32 inodes.
+>>    .TP
+>>    .BR QFMT_VFS_V1
+>>    A quota format that can handle 32-bit UIDs and GIDs
+>> -and quota limits of 2^64 bytes and 2^64 inodes.
+>> +and quota limits of 2^63 - 1 bytes and 2^63 - 1 inodes.
+>>    .RE
+>>    .IP
+>>    The
+
+
+-- 
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
