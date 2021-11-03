@@ -2,154 +2,124 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 083E1443561
-	for <lists+linux-man@lfdr.de>; Tue,  2 Nov 2021 19:15:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0B88F443EFE
+	for <lists+linux-man@lfdr.de>; Wed,  3 Nov 2021 10:08:28 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234845AbhKBSSV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 2 Nov 2021 14:18:21 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37562 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235057AbhKBSSS (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 2 Nov 2021 14:18:18 -0400
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com [IPv6:2a00:1450:4864:20::42b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 70326C061205
-        for <linux-man@vger.kernel.org>; Tue,  2 Nov 2021 11:15:43 -0700 (PDT)
-Received: by mail-wr1-x42b.google.com with SMTP id d13so34664204wrf.11
-        for <linux-man@vger.kernel.org>; Tue, 02 Nov 2021 11:15:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=KLTEBOX0/Yy/dHpu1WFc57p2Eoa+NHy7UNkdVferTXg=;
-        b=Y0diLfHVxRb2aOeCCx5LU0gW2cBEA9ijx24VKSznxFqg/elMfyEjAox+XLDNircUWD
-         fcQ8/b+IMw2frhC3Q3AVGebBjye4VpTIejvwUO1ucd5i1LCy9FUc+zVU9wby3DuMwsOh
-         aE68gsVo+rK4XGIAawjKBn9DIVQTx6XaeEq0w8eeXtZtRlMWF6VFInRFZ+VLiD1JpkE9
-         hfFr7frEhaUPVFag11DYX5rVhQET7a9227wouHPakCTl7JaryVd16R6I5OuXiadTtLxD
-         H8w4QXRe5bPMcq9vzclAY/aWJj2HG7kD5omGtl5c0ITfL43Rtcu+fOiuLrjnI/NkBBJS
-         K58w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=KLTEBOX0/Yy/dHpu1WFc57p2Eoa+NHy7UNkdVferTXg=;
-        b=wPs5xqDgfTPUg6omSRwIFny4CQTBN0RhsVxBxNdGcaVIgYpCP9HQ4i3U7aigxTt556
-         ZyqupajsDJu17cDLrAE4NYsR2k6avtG9pD7wNnn8qsTRbfDkrvjylmHSwdclbiUWnNWf
-         rxOzODzbxGrReZybfIFrmPtVIISl5R5h4m3VDZmHUCA6PMI57s0UWHFuqC7eh1OGkLJk
-         iQK7fn5Y1nzrAAxDIa43PiRAHjl29wlCMn+F/+Oa4Rr3DLzexT0e0E3BxmTTHy1XEYQv
-         wE200oqxhCkXtX94YqSwUtV02ELk+RI4qvWErbk8vGDUts0jDFCPJ9vk9lDA83HLAxce
-         8KRg==
-X-Gm-Message-State: AOAM532+tyBEEhAeImAFkBmSOYLswI2NpJ6gra9b7YZRGpGx2Jyeu4et
-        sPU45qDjdvZswHr307h9PNQ=
-X-Google-Smtp-Source: ABdhPJxE8/vwgbYyTDZQ/Cnb6ocOGwu4czmNfXr9ywT6PN0PbEiMEmXiC05m5eqmy7j+sg4+IR7D2w==
-X-Received: by 2002:a05:6000:2a4:: with SMTP id l4mr22907150wry.238.1635876942100;
-        Tue, 02 Nov 2021 11:15:42 -0700 (PDT)
-Received: from sqli.sqli.com ([195.53.121.100])
-        by smtp.googlemail.com with ESMTPSA id f18sm18467445wrg.3.2021.11.02.11.15.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 02 Nov 2021 11:15:41 -0700 (PDT)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     mtk.manpages@gmail.com,
-        "G . Branden Robinson" <g.branden.robinson@gmail.com>
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org
-Subject: [RFC 37/37] mode_t.3, system_data_types.7: Move text to a separate page
-Date:   Tue,  2 Nov 2021 19:14:54 +0100
-Message-Id: <20211102181454.280919-38-alx.manpages@gmail.com>
-X-Mailer: git-send-email 2.33.1
-In-Reply-To: <20211102181454.280919-1-alx.manpages@gmail.com>
-References: <20211102181454.280919-1-alx.manpages@gmail.com>
+        id S231760AbhKCJLD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 3 Nov 2021 05:11:03 -0400
+Received: from mail-to1can01hn2102.outbound.protection.outlook.com ([52.100.146.102]:15648
+        "EHLO CAN01-TO1-obe.outbound.protection.outlook.com"
+        rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org with ESMTP
+        id S231757AbhKCJLC (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Wed, 3 Nov 2021 05:11:02 -0400
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=nwIZctC2tBGM3J06vPQ0WwO+gWxYu16NQMQP2SXVAt9nZqopThTDTN/tVQHnepfuD6+KP7YlvXkbtNROLPUwjAYIc0Y0aSs1b9YEQhEp6QYfbnjep9VZB2blzDzHZepgfEJx0Y8dJu0Ogmp+QPVgOCOiYFrBPiUyiHMg6b44POSA9KhD6+b+EsFQb1mswuZnF+aM9fX9NjaNfndcn0gvsOaKVXb2ZvwIBF+/osfdKRnRBwRiSAnq0pIAMc/DvNI9xojgC9s3YYmWfRFrrrZOxobAp+tBa2yHi4fLv9CKdOt0Zshls0+G4G4BZX9Uc2FCCdRsi9GxzA/MZ0oOLw1PAw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=212ZulWPYaRwh8tlm90L/FjWvx0fFPQojApAl3Io5n0=;
+ b=XvN39HFBKTrPec4g1r+fRYyKooDa8/v+1Jqy3PLvuejkqN62mnt286yXeOV6v/1O3mrnYTLK4Csj1q2KBRNTQfVi4bvver0zJTIr+ZTPYfk5TgtqKF1k3x+ZxksdJsvkWkpZfSJi7FrWOcTJpao+pJSHDTi05cKFKWzQXEYTyrfd35eZ//OR3l3FXmleK+DWVu97cZCJP1ZdrLyD1qm0nNusu0gDVb0fkpxqFDFVukvYC9m5TefpS9vjvqdIah6cNrCgKEyl7/YT/hFiCqI2RKMhxITC0NoBiq7tPO3BsKZaPLhfWmglOx9/u9TbzWs9/p/UDPWw80BDREa0jbdimA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 64.18.73.25) smtp.rcpttodomain=gmail.com smtp.mailfrom=gaa.qc.ca;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=gaa.qc.ca;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gaa.qc.ca;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=212ZulWPYaRwh8tlm90L/FjWvx0fFPQojApAl3Io5n0=;
+ b=chO80MQ79ha+y4BwKaNPTCrsRD6fdVScVEtOeDRmNZTLC0SJbYm6VLi5YtDJurGyidrS8BjL5/pfixeQ4zAoMsrUJAt1cz2+uzJSLu3tOyFJIMCaDg9X3iW1+TkqkyuB1YKC7mREHS9rdAMBIvhcJn+i5YUr337eAcTCu/qytG4=
+Received: from MN2PR15CA0021.namprd15.prod.outlook.com (2603:10b6:208:1b4::34)
+ by YT1PR01MB3035.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:f::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.15; Wed, 3 Nov
+ 2021 09:08:24 +0000
+Received: from QB1CAN01FT020.eop-CAN01.prod.protection.outlook.com
+ (2603:10b6:208:1b4:cafe::79) by MN2PR15CA0021.outlook.office365.com
+ (2603:10b6:208:1b4::34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.11 via Frontend
+ Transport; Wed, 3 Nov 2021 09:08:24 +0000
+X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is 64.18.73.25)
+ smtp.mailfrom=gaa.qc.ca; gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=fail action=none header.from=gaa.qc.ca;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ gaa.qc.ca discourages use of 64.18.73.25 as permitted sender)
+Received: from hybride2.gaa.qc.ca (64.18.73.25) by
+ QB1CAN01FT020.mail.protection.outlook.com (10.152.120.64) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4669.10 via Frontend Transport; Wed, 3 Nov 2021 09:08:23 +0000
+Received: from GAAEXCH01.bacgaa.qc.ca (10.10.10.35) by GAAEXCH01.bacgaa.qc.ca
+ (10.10.10.35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Wed, 3 Nov 2021
+ 05:08:22 -0400
+Received: from User (132.145.220.75) by GAAEXCH01.bacgaa.qc.ca (10.10.10.35)
+ with Microsoft SMTP Server id 15.1.1979.3 via Frontend Transport; Wed, 3 Nov
+ 2021 05:08:08 -0400
+Reply-To: <ad.truman@outlook.com>
+From:   OP Financial Support <mail@gaa.qc.ca>
+To:     <claims@opfinance.fi>
+Subject: Your Email has been selected
+Date:   Wed, 3 Nov 2021 10:08:21 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="Windows-1251"
+Content-Transfer-Encoding: 7bit
+X-Priority: 3
+X-MSMail-Priority: Normal
+X-Mailer: Microsoft Outlook Express 6.00.2600.0000
+X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2600.0000
+Message-ID: <0be1f3d9-99cb-462c-ad37-27af4c57a1ab@GAAEXCH01.bacgaa.qc.ca>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 374313d6-f02b-42da-b64b-08d99ea97d59
+X-MS-TrafficTypeDiagnostic: YT1PR01MB3035:
+X-Microsoft-Antispam-PRVS: <YT1PR01MB3035EDB9785616518877DC09848C9@YT1PR01MB3035.CANPRD01.PROD.OUTLOOK.COM>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: =?windows-1251?Q?dRAjDAB+36MQiRn1nACmPgKDrGzqyjIYNjbGWbEOQkbDhoVYJu4PHOYb?=
+ =?windows-1251?Q?CSBSN7QAmNNDDL7RZmIdtErA1Jbrq4Sed+flcUi1+10CJ0wfYgZoQkCk?=
+ =?windows-1251?Q?slbneaMdDwC1L1l476EBqAdloostKS3lbPZ7JJpkB2EUflR9QpG+xdbI?=
+ =?windows-1251?Q?Q9hZDQpauarxaXRcvCzNs9fyxt886qvSm8qfKJ7JOetEg8/64PsinUYC?=
+ =?windows-1251?Q?+9Lc2xjrsQgNZJcs4Q0AtPRO/Wofg/PirmTerJfcA40Y0MzVzByM5ELG?=
+ =?windows-1251?Q?pTDQ5F7awZXPx4vzoKuzLg14hrPdI3WbsGctGJPTcQ4t4+IQr7SWplTU?=
+ =?windows-1251?Q?JO8TT6FHbK8ugq9ZR+npvmFgBhkr5BPxDvlz/2bgwe/Cs51rxYVQr9o0?=
+ =?windows-1251?Q?TdRT4gF+UMff+cn2gT2FiC61EtlqjzkadBiWTnG7MPT9v9/+3GcpP7JX?=
+ =?windows-1251?Q?jZr/cxWILjjlm/mkfCFs8YCGadBMrX1Qk7UNhYE+R3YdlQAKstpdAGG5?=
+ =?windows-1251?Q?iB9lnmlFXKAlZ2YOfMNw4Vt4LJG7E3BzwMmFvrs7/1CRwGtVyV8U1EU7?=
+ =?windows-1251?Q?fchPb47GvZk9gWVvTvREaI04BhC7ml+/2D2dPxyJFbraECdKKslwcioF?=
+ =?windows-1251?Q?Zg0hLA1qt7i5ZFv5TlMIegihYETguSofSLV9UN1z/i95kBfp4w+LMO+K?=
+ =?windows-1251?Q?xUjYATa1iuzEGgHt6D4A0P1g/oXBkx7s93jtj2TrxqoDOPKr7FY7G4Gk?=
+ =?windows-1251?Q?/OCkCeKpDrFe8RfxgUbxfAbauygrtTqF1KwC9SjXNZj5t+RPU6NiMfrz?=
+ =?windows-1251?Q?rb3NgapJVH92Nm9UALWuLnwAsYVFt1YsqQ06rUC98n2lPOck0uxMhJEi?=
+ =?windows-1251?Q?Z+cYxsOSB8XAz5RkOHBzqMv4UyAiB0Pp7a+bZinMDY1ZYjb/D+hMZgls?=
+ =?windows-1251?Q?2RRHvvwNMTrKjdX19bjtjaIhW4+Hi/39pzG180YH+jv4SGOT1xhuiQj7?=
+ =?windows-1251?Q?V25UAeJ/KuOMsPDMyUIRrsVT4f/GI5KH04ec5OueZWjJ1ZXRxOPjpBxJ?=
+ =?windows-1251?Q?IWnafg8YVz1mQWEiQ86xx/RABuCs8tVh0veJ0A=3D=3D?=
+X-Forefront-Antispam-Report: CIP:64.18.73.25;CTRY:CA;LANG:en;SCL:5;SRV:;IPV:NLI;SFV:SPM;H:hybride2.gaa.qc.ca;PTR:25-73-18-64.static.cogecodata.net;CAT:OSPM;SFS:(4636009)(36840700001)(186003)(31696002)(6666004)(5660300002)(2860700004)(9686003)(70586007)(356005)(6862004)(956004)(70206006)(336012)(508600001)(558084003)(26005)(8936002)(81166007)(32650700002)(36860700001)(31686004)(82310400003)(86362001)(83380400001)(8676002)(7416002)(7406005)(7366002)(316002)(2906002)(2700400008);DIR:OUT;SFP:1501;
+X-OriginatorOrg: gaa.qc.ca
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2021 09:08:23.8379
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 374313d6-f02b-42da-b64b-08d99ea97d59
+X-MS-Exchange-CrossTenant-Id: 03fd89ba-3971-4e81-b040-14292e746bc1
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=03fd89ba-3971-4e81-b040-14292e746bc1;Ip=[64.18.73.25];Helo=[hybride2.gaa.qc.ca]
+X-MS-Exchange-CrossTenant-AuthSource: QB1CAN01FT020.eop-CAN01.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: YT1PR01MB3035
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
----
- man3/mode_t.3            | 32 +++++++++++++++++++++++++++++++-
- man7/system_data_types.7 | 32 --------------------------------
- 2 files changed, 31 insertions(+), 33 deletions(-)
+Hello,
 
-diff --git a/man3/mode_t.3 b/man3/mode_t.3
-index db50c0f09..b2e5bf33d 100644
---- a/man3/mode_t.3
-+++ b/man3/mode_t.3
-@@ -1 +1,31 @@
--.so man7/system_data_types.7
-+.TH MODE_T 3 2021-11-02 Linux "Linux Programmer's Manual"
-+.SH NAME
-+mode_t \- file attributes
-+.SH SYNOPSIS
-+.nf
-+.B #include <sys/types.h>
-+.PP
-+.BR typedef " /* ... */ " mode_t;
-+.fi
-+.SH DESCRIPTION
-+Used for some file attributes (e.g., file mode).
-+According to POSIX,
-+it shall be an integer type.
-+.SH CONFORMING TO
-+POSIX.1-2001 and later.
-+.SH NOTES
-+The following headers also provide this type:
-+.IR <fcntl.h> ,
-+.IR <ndbm.h> ,
-+.IR <spawn.h> ,
-+.IR <sys/ipc.h> ,
-+.IR <sys/mman.h> ,
-+and
-+.IR <sys/stat.h> .
-+.PP
-+.SH SEE ALSO
-+.BR chmod (2),
-+.BR mkdir (2),
-+.BR open (2),
-+.BR umask (2),
-+.BR stat-struct (3)
-diff --git a/man7/system_data_types.7 b/man7/system_data_types.7
-index a39f7f269..f8971c6dd 100644
---- a/man7/system_data_types.7
-+++ b/man7/system_data_types.7
-@@ -138,38 +138,6 @@ types in this page.
- .\"------------------------------------- ldiv_t -----------------------/
- .\"------------------------------------- lldiv_t ----------------------/
- .\"------------------------------------- mode_t -----------------------/
--.TP
--.I mode_t
--.RS
--.IR Include :
--.IR <sys/types.h> .
--Alternatively,
--.IR <fcntl.h> ,
--.IR <ndbm.h> ,
--.IR <spawn.h> ,
--.IR <sys/ipc.h> ,
--.IR <sys/mman.h> ,
--or
--.IR <sys/stat.h> .
--.PP
--Used for some file attributes (e.g., file mode).
--According to POSIX,
--it shall be an integer type.
--.PP
--.IR "Conforming to" :
--POSIX.1-2001 and later.
--.PP
--.IR "See also" :
--.BR chmod (2),
--.BR mkdir (2),
--.BR open (2),
--.BR umask (2)
--.PP
--.IR "See also" :
--the
--.I stat
--structure in this page.
--.RE
- .\"------------------------------------- off64_t ----------------------/
- .TP
- .I off64_t
--- 
-2.33.1
+You have been selected to receive the sum of 1,000,000.00 Euros. Please provide the following details to proceed.
 
+Name:
+Residential address:
+Tel/Fax:
+Copy of Identification
+
+Sincerely,
+Ms. Addison Truman
+Group General Counsel
+OP Financial Group
