@@ -2,77 +2,117 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id EE9AF4462C5
-	for <lists+linux-man@lfdr.de>; Fri,  5 Nov 2021 12:34:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id BBDB94467AC
+	for <lists+linux-man@lfdr.de>; Fri,  5 Nov 2021 18:19:28 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229884AbhKELgz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 5 Nov 2021 07:36:55 -0400
-Received: from smtp-out1.suse.de ([195.135.220.28]:57718 "EHLO
-        smtp-out1.suse.de" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229785AbhKELgy (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 5 Nov 2021 07:36:54 -0400
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
-        by smtp-out1.suse.de (Postfix) with ESMTP id AA2D72171F;
-        Fri,  5 Nov 2021 11:34:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-        t=1636112054; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-         mime-version:mime-version:content-type:content-type:
-         in-reply-to:in-reply-to:references:references;
-        bh=7x8HuQOaXXyDEyKCGiQPpKxZCRB5SjZv0okZH+Lgdcc=;
-        b=xbI4NEU4VXaXBrXL73m3d8akuCXjoDU64gbtaVw3MjFMfeI2kcz2Rj4rwYZJavMb2dCpb+
-        Yh6L3cENdFSwhGiWN+BORRs8+C/rLBXqcWbYepSihTle9JpHqbSyQ5EqzYm9ze55yc8u78
-        pgT2ZJ8laHKO/MgIRHKYdDlNw2xY/f0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-        s=susede2_ed25519; t=1636112054;
-        h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-         mime-version:mime-version:content-type:content-type:
-         in-reply-to:in-reply-to:references:references;
-        bh=7x8HuQOaXXyDEyKCGiQPpKxZCRB5SjZv0okZH+Lgdcc=;
-        b=D1i+q6SFPr0uQPWJpY7bwaJLD+10+ZDv/Db+fXjgXprRnDWox7JX+EESSb4xIOqVHK3slm
-        tIMNMVZagYG+4PAg==
-Received: from quack2.suse.cz (unknown [10.163.28.18])
-        by relay2.suse.de (Postfix) with ESMTP id 9A18F2C14A;
-        Fri,  5 Nov 2021 11:34:14 +0000 (UTC)
-Received: by quack2.suse.cz (Postfix, from userid 1000)
-        id 7172C1E0BBA; Fri,  5 Nov 2021 12:34:14 +0100 (CET)
-Date:   Fri, 5 Nov 2021 12:34:14 +0100
-From:   Jan Kara <jack@suse.cz>
-To:     "xuyang2018.jy@fujitsu.com" <xuyang2018.jy@fujitsu.com>
-Cc:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
-        Jan Kara <jack@suse.cz>,
-        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
-        Eugene Syromyatnikov <evgsyr@gmail.com>
-Subject: Re: [PATCH] quotactl.2: Remove kernel version for Q_XQUOTARM ioctl
-Message-ID: <20211105113414.GB26497@quack2.suse.cz>
-References: <1634694386-2137-1-git-send-email-xuyang2018.jy@fujitsu.com>
- <617F6138.5040601@fujitsu.com>
- <61825419.1080502@fujitsu.com>
- <6182568B.30705@fujitsu.com>
- <3dfbc2c2-72d9-89f2-1c72-e54ab2f610e7@gmail.com>
- <6183302D.8080102@fujitsu.com>
- <20211104105308.GB10060@quack2.suse.cz>
- <e3dbb664-6745-e7d2-e414-268cea320df3@gmail.com>
- <61849F99.80502@fujitsu.com>
+        id S232825AbhKERWH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 5 Nov 2021 13:22:07 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38324 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S230369AbhKERWG (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 5 Nov 2021 13:22:06 -0400
+Received: from mail-ua1-x931.google.com (mail-ua1-x931.google.com [IPv6:2607:f8b0:4864:20::931])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1F580C061714
+        for <linux-man@vger.kernel.org>; Fri,  5 Nov 2021 10:19:27 -0700 (PDT)
+Received: by mail-ua1-x931.google.com with SMTP id az37so18350188uab.13
+        for <linux-man@vger.kernel.org>; Fri, 05 Nov 2021 10:19:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=j7e054TQxRkKePZRHPZZz/iNSezx3VyhNaeHe3JFl2M=;
+        b=LdK8LxByQTOLWBVrkBe6u7dVyQCQ45IhS5R06gyrw8ohKlumFT1O4JgjJdLS6WtVPx
+         k4VzKboyYmn1Ew9F2iYDddW4XzQninlCBniPW37bYHSqCFU74VzyjJ0P0d753EfbReyL
+         mLkh8z+7I3IHGd5ZCbQCc3NsJJ3Ali8DZpRxBqa1skLdSgrZfYKr+dqNK+NcTsEV6s2S
+         yLQVM0FL2XLaF+BVX6u+M0kmmZop042dJ7kq5LRrXkzBkTROvtV+Tn2cJUc6Sm6V6uA3
+         xbRXxwse9lCNAyh0UV0wS+BBMGf7OIdC+9m4/f+CyVNshAxOwuovjVb/JvWcEByaiGdu
+         9OlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=j7e054TQxRkKePZRHPZZz/iNSezx3VyhNaeHe3JFl2M=;
+        b=NLfWkSvWHohf8kxDIq7agQZr7+yLaI7bVqjjXVozHt2j1FvPptMD9xz9/aXdmldPqW
+         3MT82nA2d7L3JYejqmue8WfXy4UxVi47StfGkpC/pkSuGmMANWRYIW/YjxUIhsw5OscL
+         Pm6ph007YpfOEdjAuZGufNPdVQ+c6l7aw3WODh8O2A0Ma6m58QMRxAHl5V+t3LlwdX2Q
+         IIatiNI3lqL4M5dhRaxCyXEW8fBVvnofu1YHUeosuE0PVY5/Uz34lMA1MMB5QuA2arON
+         Pc/VpHWLhiGtDeFRizp+R4rTegAyNz7qyZpBGlgxIomKuDL9z9j09p56lZwDJsPYX9oV
+         CCaw==
+X-Gm-Message-State: AOAM530if+Ne3Aj70+R57gV3AmEbj4N0PrcnDJclQaFeOlzutveVFtm1
+        1D8gWylgiWlhSXh6fY5FSSfWWL1A4Z9Npyr71uwt6g==
+X-Google-Smtp-Source: ABdhPJyArVudCy9jJYcQJcDgH+JsX3zXk19/yUY1WztfAAeJ03CP9bpPgiHmL4gCP3Zf9Rxio93f+L2xs1ntUZ3FogY=
+X-Received: by 2002:a05:6102:481:: with SMTP id n1mr41880101vsa.18.1636132766138;
+ Fri, 05 Nov 2021 10:19:26 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <61849F99.80502@fujitsu.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+References: <20210924235456.2413081-1-weiwan@google.com> <CAEA6p_CSbFFiEUQKy_n5dBd-oBWLq1L0CZYjECqBfjjkeQoSdg@mail.gmail.com>
+ <6c5ac9d3-9e9a-12aa-7dc8-d89553790e7b@gmail.com>
+In-Reply-To: <6c5ac9d3-9e9a-12aa-7dc8-d89553790e7b@gmail.com>
+From:   Wei Wang <weiwan@google.com>
+Date:   Fri, 5 Nov 2021 10:19:15 -0700
+Message-ID: <CAEA6p_CXGaboJaO+LCM=c_tnf2P5oZZyXwJn1ybQDakWp+b=8g@mail.gmail.com>
+Subject: Re: [patch v3] tcp.7: Add description for TCP_FASTOPEN and
+ TCP_FASTOPEN_CONNECT options
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
+        linux-man@vger.kernel.org, netdev@vger.kernel.org,
+        Yuchung Cheng <ycheng@google.com>,
+        Neal Cardwell <ncardwell@google.com>,
+        Eric Dumazet <edumazet@google.com>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Fri 05-11-21 03:05:44, xuyang2018.jy@fujitsu.com wrote:
-> ps:I also increase ltp quotactl coverage to cover quotactl_fd syscall. I 
-> would appreciate it if you could review my ltp quotactl/quotactl_fd patchset
-> https://patchwork.ozlabs.org/project/ltp/list/?series=269166
+On Fri, Oct 15, 2021 at 3:12 PM Alejandro Colomar (man-pages)
+<alx.manpages@gmail.com> wrote:
+>
+> Hi Wei,
+>
+> On 10/15/21 6:08 PM, Wei Wang wrote:
+> > On Fri, Sep 24, 2021 at 4:54 PM Wei Wang <weiwan@google.com> wrote:
+> >>
+> >> TCP_FASTOPEN socket option was added by:
+> >> commit 8336886f786fdacbc19b719c1f7ea91eb70706d4
+> >> TCP_FASTOPEN_CONNECT socket option was added by the following patch
+> >> series:
+> >> commit 065263f40f0972d5f1cd294bb0242bd5aa5f06b2
+> >> commit 25776aa943401662617437841b3d3ea4693ee98a
+> >> commit 19f6d3f3c8422d65b5e3d2162e30ef07c6e21ea2
+> >> commit 3979ad7e82dfe3fb94a51c3915e64ec64afa45c3
+> >> Add detailed description for these 2 options.
+> >> Also add descriptions for /proc entry tcp_fastopen and tcp_fastopen_key.
+> >>
+> >> Signed-off-by: Wei Wang <weiwan@google.com>
+> >> ---
+> >
+> > Hi Alex,
+> >
+> > Does this version look OK to you to apply?
+> > Let me know.
+>
+> Sorry, I missed that patch.
+> Thanks for the ping!  I'll try to have a look at it ASAP.
+>
 
-From a quick look the patches look fine. Just one thing I've noticed - you
-seem to open "mntpoint/testfile" so that you have 'fd' to pass to
-quotactl_fd(). Why don't you just open "mntpoint" directly?
+Hi Alex,
 
-								Honza
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+I am not sure if this patch has been applied yet?
+If not, could you help take a look? Let me know if you'd like me to resend it.
+
+Thanks.
+Wei
+
+> Thanks,
+>
+> Alex
+>
+>
+> >
+> > Thanks.
+> > Wei
+>
+>
+> --
+> Alejandro Colomar
+> Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+> http://www.alejandro-colomar.es/
