@@ -2,117 +2,62 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id BBDB94467AC
-	for <lists+linux-man@lfdr.de>; Fri,  5 Nov 2021 18:19:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 5F1F9446E7F
+	for <lists+linux-man@lfdr.de>; Sat,  6 Nov 2021 16:03:39 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232825AbhKERWH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 5 Nov 2021 13:22:07 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38324 "EHLO
+        id S231374AbhKFPGT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 6 Nov 2021 11:06:19 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40194 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230369AbhKERWG (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 5 Nov 2021 13:22:06 -0400
-Received: from mail-ua1-x931.google.com (mail-ua1-x931.google.com [IPv6:2607:f8b0:4864:20::931])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1F580C061714
-        for <linux-man@vger.kernel.org>; Fri,  5 Nov 2021 10:19:27 -0700 (PDT)
-Received: by mail-ua1-x931.google.com with SMTP id az37so18350188uab.13
-        for <linux-man@vger.kernel.org>; Fri, 05 Nov 2021 10:19:27 -0700 (PDT)
+        with ESMTP id S230216AbhKFPGT (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 6 Nov 2021 11:06:19 -0400
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com [IPv6:2a00:1450:4864:20::52c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AA713C061570
+        for <linux-man@vger.kernel.org>; Sat,  6 Nov 2021 08:03:37 -0700 (PDT)
+Received: by mail-ed1-x52c.google.com with SMTP id w1so43875319edd.10
+        for <linux-man@vger.kernel.org>; Sat, 06 Nov 2021 08:03:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=j7e054TQxRkKePZRHPZZz/iNSezx3VyhNaeHe3JFl2M=;
-        b=LdK8LxByQTOLWBVrkBe6u7dVyQCQ45IhS5R06gyrw8ohKlumFT1O4JgjJdLS6WtVPx
-         k4VzKboyYmn1Ew9F2iYDddW4XzQninlCBniPW37bYHSqCFU74VzyjJ0P0d753EfbReyL
-         mLkh8z+7I3IHGd5ZCbQCc3NsJJ3Ali8DZpRxBqa1skLdSgrZfYKr+dqNK+NcTsEV6s2S
-         yLQVM0FL2XLaF+BVX6u+M0kmmZop042dJ7kq5LRrXkzBkTROvtV+Tn2cJUc6Sm6V6uA3
-         xbRXxwse9lCNAyh0UV0wS+BBMGf7OIdC+9m4/f+CyVNshAxOwuovjVb/JvWcEByaiGdu
-         9OlQ==
+        d=gmail.com; s=20210112;
+        h=mime-version:reply-to:from:date:message-id:subject:to;
+        bh=g1JsO3cMrUGOKJNF05eD8Ct7EMPQHXCZTkjwFoMHHAQ=;
+        b=h1SsjIbiQE19dxaIPxw1DH5SVhYRcNUge/KgypxZPAadvFmMMQGZOGaVB0iiXOR7GY
+         CIhsdIwJ8g4Nz4r71/Ea294l38TxWBXia6LaX2vbQurXuqX/78zj7ObwKGFSr1GcVHct
+         AD0zUFJ2odArVN1Cs7Kj6CAubH3AmH5gP+l5yjUiLGV+dwtZMWktUCcUc42oWsVgjSKs
+         y/NEhSAxJoCqvvELKStK8JPa6wEaXCLtEbRoAUxq4z1OsNy8/b4d7O5I/32vNsrYfSsw
+         KYYFp6b5GI8oXiC+aEyN8Rcjnjm4iZpc4aYCe41Gq/3SHphUBc383Y11TuIxldkBgCNH
+         gV5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=j7e054TQxRkKePZRHPZZz/iNSezx3VyhNaeHe3JFl2M=;
-        b=NLfWkSvWHohf8kxDIq7agQZr7+yLaI7bVqjjXVozHt2j1FvPptMD9xz9/aXdmldPqW
-         3MT82nA2d7L3JYejqmue8WfXy4UxVi47StfGkpC/pkSuGmMANWRYIW/YjxUIhsw5OscL
-         Pm6ph007YpfOEdjAuZGufNPdVQ+c6l7aw3WODh8O2A0Ma6m58QMRxAHl5V+t3LlwdX2Q
-         IIatiNI3lqL4M5dhRaxCyXEW8fBVvnofu1YHUeosuE0PVY5/Uz34lMA1MMB5QuA2arON
-         Pc/VpHWLhiGtDeFRizp+R4rTegAyNz7qyZpBGlgxIomKuDL9z9j09p56lZwDJsPYX9oV
-         CCaw==
-X-Gm-Message-State: AOAM530if+Ne3Aj70+R57gV3AmEbj4N0PrcnDJclQaFeOlzutveVFtm1
-        1D8gWylgiWlhSXh6fY5FSSfWWL1A4Z9Npyr71uwt6g==
-X-Google-Smtp-Source: ABdhPJyArVudCy9jJYcQJcDgH+JsX3zXk19/yUY1WztfAAeJ03CP9bpPgiHmL4gCP3Zf9Rxio93f+L2xs1ntUZ3FogY=
-X-Received: by 2002:a05:6102:481:: with SMTP id n1mr41880101vsa.18.1636132766138;
- Fri, 05 Nov 2021 10:19:26 -0700 (PDT)
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to;
+        bh=g1JsO3cMrUGOKJNF05eD8Ct7EMPQHXCZTkjwFoMHHAQ=;
+        b=o75rs33nxi46FT/W2vAdjxeawNvp+PHKN0D9k+ffEN+95fCG8t6NOaZ8xZg/K1hF+6
+         gbVJAkAjB4lTkFqL4DpTmfANqYI0/ZssqmgeA1hcn5XGjbhT8+lwjk4NpzvZHmXXROx0
+         95zY+KrFKn25mlADksttwZEfgQmvgK/JhCoEqNvSw7xdSY6/OQ9xgyzs4YhBcbIWHPaz
+         tKcdwBoW/CgjlkjpI8763duAK3EhY2J8vV2BM1EKwQs4TmypEgbXOJ8K9pFmkhwM11J9
+         FlDGvXaO8MFm2EiFzleeoq+qhw+lsSRU4fFHAL/ICWGMFLF5UXI/vPonjJK/4C+G9g0P
+         ydAw==
+X-Gm-Message-State: AOAM532iHdko/nqdpQNMR5rQaea1rc3uLixyUeGbYVlrtyRXo+pBZSl6
+        lkQ0qKoRJIJMkfhR9X2DXoNPf0AFgJP0uINMfHQ=
+X-Google-Smtp-Source: ABdhPJyq32C+nSmBTBJTqrvrkfHa7eZf6gSijMBUvYUW6LBnbaPLAiePiro8h4z6Z7WCWFcEyn+ZcaDWy1AXqFHOOFQ=
+X-Received: by 2002:a05:6402:2756:: with SMTP id z22mr50753346edd.88.1636211016341;
+ Sat, 06 Nov 2021 08:03:36 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210924235456.2413081-1-weiwan@google.com> <CAEA6p_CSbFFiEUQKy_n5dBd-oBWLq1L0CZYjECqBfjjkeQoSdg@mail.gmail.com>
- <6c5ac9d3-9e9a-12aa-7dc8-d89553790e7b@gmail.com>
-In-Reply-To: <6c5ac9d3-9e9a-12aa-7dc8-d89553790e7b@gmail.com>
-From:   Wei Wang <weiwan@google.com>
-Date:   Fri, 5 Nov 2021 10:19:15 -0700
-Message-ID: <CAEA6p_CXGaboJaO+LCM=c_tnf2P5oZZyXwJn1ybQDakWp+b=8g@mail.gmail.com>
-Subject: Re: [patch v3] tcp.7: Add description for TCP_FASTOPEN and
- TCP_FASTOPEN_CONNECT options
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-man@vger.kernel.org, netdev@vger.kernel.org,
-        Yuchung Cheng <ycheng@google.com>,
-        Neal Cardwell <ncardwell@google.com>,
-        Eric Dumazet <edumazet@google.com>
+Received: by 2002:a17:907:1c8b:0:0:0:0 with HTTP; Sat, 6 Nov 2021 08:03:35
+ -0700 (PDT)
+Reply-To: bikramjulian926@gmail.com
+From:   Julian Bikram <mw078820000@gmail.com>
+Date:   Sat, 6 Nov 2021 08:03:35 -0700
+Message-ID: <CAK78qtU=cPakMSx_GS2ZSj--+YfweF7o1cJi5zWdkkzEW-uKnA@mail.gmail.com>
+Subject: Please let me get your attention
+To:     undisclosed-recipients:;
 Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Fri, Oct 15, 2021 at 3:12 PM Alejandro Colomar (man-pages)
-<alx.manpages@gmail.com> wrote:
->
-> Hi Wei,
->
-> On 10/15/21 6:08 PM, Wei Wang wrote:
-> > On Fri, Sep 24, 2021 at 4:54 PM Wei Wang <weiwan@google.com> wrote:
-> >>
-> >> TCP_FASTOPEN socket option was added by:
-> >> commit 8336886f786fdacbc19b719c1f7ea91eb70706d4
-> >> TCP_FASTOPEN_CONNECT socket option was added by the following patch
-> >> series:
-> >> commit 065263f40f0972d5f1cd294bb0242bd5aa5f06b2
-> >> commit 25776aa943401662617437841b3d3ea4693ee98a
-> >> commit 19f6d3f3c8422d65b5e3d2162e30ef07c6e21ea2
-> >> commit 3979ad7e82dfe3fb94a51c3915e64ec64afa45c3
-> >> Add detailed description for these 2 options.
-> >> Also add descriptions for /proc entry tcp_fastopen and tcp_fastopen_key.
-> >>
-> >> Signed-off-by: Wei Wang <weiwan@google.com>
-> >> ---
-> >
-> > Hi Alex,
-> >
-> > Does this version look OK to you to apply?
-> > Let me know.
->
-> Sorry, I missed that patch.
-> Thanks for the ping!  I'll try to have a look at it ASAP.
->
+Please let me get your attention. If you can answer, I have a very
+important question, and I thank you for the discussion. Thanks in
+advance.
 
-Hi Alex,
-
-I am not sure if this patch has been applied yet?
-If not, could you help take a look? Let me know if you'd like me to resend it.
-
-Thanks.
-Wei
-
-> Thanks,
->
-> Alex
->
->
-> >
-> > Thanks.
-> > Wei
->
->
-> --
-> Alejandro Colomar
-> Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-> http://www.alejandro-colomar.es/
+Julian
