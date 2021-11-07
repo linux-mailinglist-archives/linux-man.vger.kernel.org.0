@@ -2,106 +2,84 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id CFF3044737D
-	for <lists+linux-man@lfdr.de>; Sun,  7 Nov 2021 16:21:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 1B0BC4476AC
+	for <lists+linux-man@lfdr.de>; Mon,  8 Nov 2021 00:24:38 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229955AbhKGPYd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 7 Nov 2021 10:24:33 -0500
-Received: from THBLACKELECTRIC.COM ([207.244.97.128]:40822 "EHLO lsw.cs1local"
-        rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org with ESMTP
-        id S229878AbhKGPYc (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Sun, 7 Nov 2021 10:24:32 -0500
-Received: from [72.29.63.102] (helo=debian)
-        by lsw.cs1local with esmtpsa (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-        (Exim 4.92)
-        (envelope-from <thb@b-tk.org>)
-        id 1mjjzQ-0002Xs-PU
-        for linux-man@vger.kernel.org; Sun, 07 Nov 2021 15:21:49 +0000
-Received: from thb by debian with local (Exim 4.94.2)
-        (envelope-from <thb@b-tk.org>)
-        id 1mjjHu-00035i-Ky; Sun, 07 Nov 2021 14:36:50 +0000
-Date:   Sun, 7 Nov 2021 14:36:50 +0000
-From:   "Thaddeus H. Black" <thb@debian.org>
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        linux-man@vger.kernel.org, Michael Kerrisk <mtk.manpages@gmail.com>
-Subject: Re: [PATCH v3] filename.7: new manual page
-Message-ID: <YYfkggpiE1D+HW9R@b-tk.org>
-References: <YWysyI6/sZtbQBBb@b-tk.org>
- <YW2hzL5vDfVZIAXY@b-tk.org>
- <22573673-bf1e-0f64-7e95-6cf0a23c2015@gmail.com>
+        id S236033AbhKGX1T (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 7 Nov 2021 18:27:19 -0500
+Received: from mail.kernel.org ([198.145.29.99]:46144 "EHLO mail.kernel.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S235164AbhKGX1T (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Sun, 7 Nov 2021 18:27:19 -0500
+Received: by mail.kernel.org (Postfix) with ESMTPS id 56D1E613A8
+        for <linux-man@vger.kernel.org>; Sun,  7 Nov 2021 23:24:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1636327475;
+        bh=ZDaFKguZ6R1sWnRdEJP7B6CiFaDf7DSoDfyIM9kSnmM=;
+        h=From:To:Subject:Date:In-Reply-To:References:From;
+        b=e22HmFh+fLBXHNAJjuLYm6fqav5VEg6orEJwvKCZt6BX9S9s7VcuwUQtjuzyd4Evb
+         q1w/vhe48z94b9ixzXVc6RFV4P5Rh1GZa4ADHP7Z59KXCsbeHTRXV2P3WgIufy62Y9
+         XDTwThbd965fFTmfVxLH7+xfRSUupPuAt4yT0zo94eLTdZAT5JBQMmitA/L7yK2t6Y
+         sqoII3pgtGni0uNxVY/LnM3Niv2R6qmUL18AIY/uadThpnKrGjML1ILjaXAdPYyCRj
+         oYwvuYlTsdxIOdQra+pEpyfUQE7/sIVvjr1B9PF8R0DpMo1u7fXuRXiX9xgPp7Ik4T
+         9x0JSKDLjTSLA==
+Received: by pdx-korg-bugzilla-2.web.codeaurora.org (Postfix, from userid 48)
+        id 4809E60FEE; Sun,  7 Nov 2021 23:24:35 +0000 (UTC)
+From:   bugzilla-daemon@bugzilla.kernel.org
+To:     linux-man@vger.kernel.org
+Subject: [Bug 214873] man 2 fsync implies possibility to return early
+Date:   Sun, 07 Nov 2021 23:24:34 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Documentation
+X-Bugzilla-Component: man-pages
+X-Bugzilla-Version: unspecified
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: low
+X-Bugzilla-Who: sworddragon2@gmail.com
+X-Bugzilla-Status: REOPENED
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P1
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: bug_status resolution
+Message-ID: <bug-214873-11311-jSILxSOx91@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-214873-11311@https.bugzilla.kernel.org/>
+References: <bug-214873-11311@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="CiD9xv/lYfQrLvVr"
-Content-Disposition: inline
-In-Reply-To: <22573673-bf1e-0f64-7e95-6cf0a23c2015@gmail.com>
-X-Spam_score: -0.7
-X-Spam_bar: /
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+https://bugzilla.kernel.org/show_bug.cgi?id=3D214873
 
---CiD9xv/lYfQrLvVr
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+sworddragon2@gmail.com changed:
 
-On Tue, Oct 19, 2021 at 03:38:09PM +0200, Alejandro Colomar (man-pages) wro=
-te:
-> 'git format-patch' is the preferred method :)
->=20
-> What I missed here is the long (and great) commit message from v1, which =
-I'm
-> going to save as the commit message.  Please, when you send v4, include t=
-he
-> original text.
+           What    |Removed                     |Added
+----------------------------------------------------------------------------
+             Status|RESOLVED                    |REOPENED
+         Resolution|INVALID                     |---
 
-Okay.
+--- Comment #5 from sworddragon2@gmail.com ---
+This ticket was closed pretty fast after comment #2 so I could not write
+comment #4 before closing this ticket and now it seems due to it being clos=
+ed
+it does not receive attention anymore. Thus I'm reopening this ticket so th=
+at
+comment #4 can be evaluated if this makes changes to the manpage valid.
 
-> Ephemeral stuff that should not go into the commit message (like changelo=
-gs
-> between versions of the patch), you can put it above, in a "scissor patch"
-> format (see git-format-patch(1) if necessary).
->=20
-> Or if it's short/simple enough, below the '---' (and just above the patch
-> itself; it is actually ignored by git, unless it's so complex that it is
-> misinterpreted as part of the patch).  This method is what I usually use,
-> since it doesn't require specifying '--scissors', and I usually only write
-> normal text that can't be confused with the patch.  I don't know if this =
-is
-> documented anywhere, but it's very useful.
+But if you think there is really nothing that needs to be changed feel free=
+ to
+close this ticket again as I then won't bother about it here anymore.
 
-In view of feedback, v4 requires substantial rewriting.  Rewritten text
-wants polishing.  Polishing takes time.
+--=20
+You may reply to this email to add a comment.
 
-In short, I haven't forgotten, but v4 is not yet ready.
-
-Note to other readers:  if any latecomers to the conversation wish to
-suggest further significant changes, now would be the time to suggest;
-for once the draft has been reassembled and repolished, it will be too
-late.  Nonsubscribers can find v3 at [1].
-
-    1: https://www.spinics.net/lists/linux-man/msg21267.html
-
---CiD9xv/lYfQrLvVr
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEM1APDU+pwMhnuF4GcGMmQy2FIrwFAmGH5H0ACgkQcGMmQy2F
-IrzSuA/+JvGsu/ylUxT7BswfQedk0il4di4X3Ic0Np+v874mzhzeK21KIuHePPT8
-LekhqnBF4FuBfWuQHTfqfI6oqlhUpgRNLZu5yNJtmx1EORu18WU38J7pwbHZSwCH
-Yr2tx7LKR0jk1jPgAxaBFiI4W1b3AF7MCAMn4OEG91aViAkGMcl42vTkyQmGAyGY
-NumoKAe+O5Y9mngGb6BVx3ItWd02SR4WLbne2FoavMBzUPXX4GUnrFKBxrwNtwIl
-s5UdfuhD+xN6og6HAFiOjnz8vKwdSEUAhDBkeHbs+J8TUKoLyn7euERndydDQd9e
-1YJEvrQS/RNaVmYLOR+4BZ4I3KbVluddKO8Q6sD9s50Tb3+kYBK3HbjRUny8Pqrd
-1oSuaOui1r0VIY6qDkmJEObDoltN+RaVPQHj/eloaKNW+1e3zgpg10i0vt9IYTCj
-m8KMCLTgn9UThipj/7WWFT+f82nch7W4ew3tEvUq5clr3okq0/UyRMzpNJHK98Df
-tnIz/iy+/0MEeGA09ghvj+tj/53ovH0dWInhwiGqbRmGp60VZk81SswBPu8IcBL2
-EdP6NOqnBjt3ns7qgvLoBNc22WWdRreSFqjDbOqo2PUEXhWym2yC2rWFMXAopmLg
-IBicgU986fFaqssB4GRBbqiR4NrqFvdot8NWtlVDvyUOS9bbLss=
-=VsZw
------END PGP SIGNATURE-----
-
---CiD9xv/lYfQrLvVr--
+You are receiving this mail because:
+You are watching the assignee of the bug.=
