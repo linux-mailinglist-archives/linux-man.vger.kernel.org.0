@@ -2,61 +2,79 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D18A1447B27
-	for <lists+linux-man@lfdr.de>; Mon,  8 Nov 2021 08:31:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 6B4BD447B85
+	for <lists+linux-man@lfdr.de>; Mon,  8 Nov 2021 09:05:34 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231250AbhKHHbN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 8 Nov 2021 02:31:13 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57740 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S237828AbhKHHan (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 8 Nov 2021 02:30:43 -0500
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com [IPv6:2a00:1450:4864:20::52f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8E829C061195
-        for <linux-man@vger.kernel.org>; Sun,  7 Nov 2021 23:27:34 -0800 (PST)
-Received: by mail-ed1-x52f.google.com with SMTP id v11so56039297edc.9
-        for <linux-man@vger.kernel.org>; Sun, 07 Nov 2021 23:27:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:reply-to:from:date:message-id:subject:to;
-        bh=gS+G2bXPLTc8QV9oSOsVFPfildfSifO+gabOlUjPn+8=;
-        b=lohGAXI96njXpZ5r6vgYlUkp2V68iRMzDV25uaLpmT1WmpX2h0YNNnPekuKOrJR7Hh
-         rCcmOUgGjsAkeHEvvQCkM6ux+TyqL0CqGbf0IPfL8V+eIKLF7r3X9QWFup/xVl2xV9qZ
-         NGc0LQ7JpvXhk+YTEHFaFd2QnuENE8mCWi0drmIQkANv1zf9DM6Bfjx/yF/A/b9RtJFU
-         CT2DuJeqJ7evq+rJKQgmUSCIg2GjkqvLZlnb0ekZ1/3u7apFf2k73Uqo2u8YZ8hKmOIw
-         ZGA3M8LZJFGSmW3P+nQyYMCLCtL13s+WCsnPOmCuuFd5xieMsN0vbLhindKIE3OfrP6U
-         BcYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to;
-        bh=gS+G2bXPLTc8QV9oSOsVFPfildfSifO+gabOlUjPn+8=;
-        b=oXN/hUZPmBSaZyJgvaDj7bPG8PWBRM9oMYMX4oYX1mNE4SGBJOsCBrGnBdMi1ke7oo
-         GSZ9i3wRIZJYHhFNLR5tvKGzWRQmBfYp0RqiDUrPoJtyQXQ6ZjHSXljk06ZdItfY6BZS
-         jBTJaGjO/cJBeHd6qoVndi/okLaseDuey5BHXgPQglQbfxJ4Cn29VKRNz6BHffDLvZE5
-         nSK+hIr3R1dpDoOpFBsyGJtCPTsx7zinWabSEc67AaljsbXLAsLjsK4jPvsmUzva8Kxl
-         UJTH4nAkWQikKUOU2LkcvzmbBDRb5Iz6GL7uX5uu/sJA8QR3cJpCBXBtvyLll8yrpQM3
-         xzDg==
-X-Gm-Message-State: AOAM532gzWP/dvGTNigITtVJk53uEUGNahViC05iBxLsH3Vp4rrALHrF
-        PlyyRe0XUe3j02oqyPWhMAXN50uB+XbMZogoxbjUAb8nfUw=
-X-Google-Smtp-Source: ABdhPJwiROS9SRRNMvDLES4YHo6uT5d60ZUwIiFmBNAm9OxEfLgMU9cee9PqVQWim0XNVifN/Rk5vWcyMQ7rvBndYNE=
-X-Received: by 2002:a05:6402:557:: with SMTP id i23mr66769092edx.176.1636356441798;
- Sun, 07 Nov 2021 23:27:21 -0800 (PST)
+        id S230265AbhKHIIR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 8 Nov 2021 03:08:17 -0500
+Received: from zimbra.cs.ucla.edu ([131.179.128.68]:59060 "EHLO
+        zimbra.cs.ucla.edu" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S234057AbhKHIIQ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 8 Nov 2021 03:08:16 -0500
+Received: from localhost (localhost [127.0.0.1])
+        by zimbra.cs.ucla.edu (Postfix) with ESMTP id 6EDA71600C4;
+        Mon,  8 Nov 2021 00:05:32 -0800 (PST)
+Received: from zimbra.cs.ucla.edu ([127.0.0.1])
+        by localhost (zimbra.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10032)
+        with ESMTP id r-NSlqfJD-Hs; Mon,  8 Nov 2021 00:05:31 -0800 (PST)
+Received: from localhost (localhost [127.0.0.1])
+        by zimbra.cs.ucla.edu (Postfix) with ESMTP id B23B51600FD;
+        Mon,  8 Nov 2021 00:05:31 -0800 (PST)
+X-Virus-Scanned: amavisd-new at zimbra.cs.ucla.edu
+Received: from zimbra.cs.ucla.edu ([127.0.0.1])
+        by localhost (zimbra.cs.ucla.edu [127.0.0.1]) (amavisd-new, port 10026)
+        with ESMTP id ePmSA2f5pJ75; Mon,  8 Nov 2021 00:05:31 -0800 (PST)
+Received: from [192.168.1.9] (cpe-172-91-119-151.socal.res.rr.com [172.91.119.151])
+        by zimbra.cs.ucla.edu (Postfix) with ESMTPSA id 810C61600C4;
+        Mon,  8 Nov 2021 00:05:31 -0800 (PST)
+Message-ID: <82810efd-eb98-0a1c-d9b7-602b51c1b5e7@cs.ucla.edu>
+Date:   Mon, 8 Nov 2021 00:05:31 -0800
 MIME-Version: 1.0
-Received: by 2002:a50:2501:0:0:0:0:0 with HTTP; Sun, 7 Nov 2021 23:27:21 -0800 (PST)
-Reply-To: mariaschaefler@gmx.com
-From:   Maria Schaefler <ziskoraa@gmail.com>
-Date:   Mon, 8 Nov 2021 07:27:21 +0000
-Message-ID: <CAJh0FjiFL7uihMBL6ckYO8FJ6tnzM+tBivU2c60yDbG14LZLeA@mail.gmail.com>
-Subject: MY HEART CHOOSE YOU.
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.2.1
+Subject: Re: [PATCH v2 2/2] timegm.3: Remove recommendation against use of
+ timegm()
+Content-Language: en-US
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Cc:     libc-alpha@sourceware.org, linux-man@vger.kernel.org,
+        Joseph Myers <joseph@codesourcery.com>
+References: <a8e09a03-3eb2-d6c0-c662-e3db800fe2fc@gmail.com>
+ <20211011111237.9414-2-alx.manpages@gmail.com>
+ <15d7b96d-13d0-86c1-48f3-24a637ab8e30@cs.ucla.edu>
+ <e46d9e6b-c2c8-66e3-6b18-f24ef718f59f@gmail.com>
+ <38fa4e31-f70d-f3f3-e964-b4831b750271@cs.ucla.edu>
+ <532c26f8-25e4-699a-49be-a3368a6ea84d@gmail.com>
+ <5cb8ec23-6e71-0619-3df4-b554942e66c6@cs.ucla.edu>
+ <73e53c80-6bdf-0d50-f359-f98e1490d79e@gmail.com>
+From:   Paul Eggert <eggert@cs.ucla.edu>
+Organization: UCLA Computer Science Department
+In-Reply-To: <73e53c80-6bdf-0d50-f359-f98e1490d79e@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Given my current state of health, I have decided to donate what I
-inherited from my late husband to you to help the poor and needy. I am
-Mrs Maria Schaefler,a 57years old dying woman. I was diagnosed for
-cancer about 2 years ago and I have few months to live according to
-medical experts. Email me for my directives
+On 11/4/21 17:47, Alejandro Colomar (man-pages) wrote:
+> Since C2X will add timegm(3), it's good news.
+
+Yes at that point we can remove or reword the portability warning.
+
+
+> the following restriction could be added without altering the behavior of any existing program:
+> 
+> [
+> If any of the fields of 'struct tm' would overflow 'int32_t', the behavior of timegm(3) is undefined.
+> ]
+
+No, timegm should not be documented to have a 32-bit limit on struct tm 
+components. It should be documented only to have an int limit on struct 
+tm components. I.e., the same as mktime, localtime, gmtime, etc.
+
+
+> It would simplify very much glibc code, by imposing small restrictions to the user. 
+
+The general glibc philosophy is to not impose arbitrary limits on the 
+user, even if the limits are "small restrictions". Occasionally limits 
+need to be imposed anyway for a good reason, but there's no good reason 
+here.
