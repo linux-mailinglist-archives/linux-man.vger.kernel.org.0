@@ -2,81 +2,59 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 1308B44CF6E
-	for <lists+linux-man@lfdr.de>; Thu, 11 Nov 2021 03:03:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 50C7F44D126
+	for <lists+linux-man@lfdr.de>; Thu, 11 Nov 2021 06:06:56 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233115AbhKKCGL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 10 Nov 2021 21:06:11 -0500
-Received: from pi.codeconstruct.com.au ([203.29.241.158]:48668 "EHLO
-        codeconstruct.com.au" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233192AbhKKCGK (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 10 Nov 2021 21:06:10 -0500
-Received: by codeconstruct.com.au (Postfix, from userid 10000)
-        id 6291A2022C; Thu, 11 Nov 2021 10:03:21 +0800 (AWST)
-From:   Jeremy Kerr <jk@codeconstruct.com.au>
-To:     linux-man@vger.kernel.org
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>
-Subject: [PATCH] man7: unify socket examples
-Date:   Thu, 11 Nov 2021 10:03:07 +0800
-Message-Id: <20211111020307.3542693-1-jk@codeconstruct.com.au>
-X-Mailer: git-send-email 2.30.2
+        id S229637AbhKKFJm convert rfc822-to-8bit (ORCPT
+        <rfc822;lists+linux-man@lfdr.de>); Thu, 11 Nov 2021 00:09:42 -0500
+Received: from host-200-90-157-143.netpc.ec ([200.90.157.143]:52590 "EHLO
+        mail.gruponetpc.com" rhost-flags-OK-FAIL-OK-OK) by vger.kernel.org
+        with ESMTP id S230001AbhKKFJl (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 11 Nov 2021 00:09:41 -0500
+Received: from localhost (localhost [127.0.0.1])
+        by mail.gruponetpc.com (Postfix) with ESMTP id 77349E0FE4C;
+        Wed, 10 Nov 2021 08:37:25 -0500 (-05)
+Received: from mail.gruponetpc.com ([127.0.0.1])
+        by localhost (mail.gruponetpc.com [127.0.0.1]) (amavisd-new, port 10032)
+        with ESMTP id 6r_0yefspWY6; Wed, 10 Nov 2021 08:37:24 -0500 (-05)
+Received: from localhost (localhost [127.0.0.1])
+        by mail.gruponetpc.com (Postfix) with ESMTP id B3DB7866F87;
+        Tue,  9 Nov 2021 22:22:06 -0500 (-05)
+X-Virus-Scanned: amavisd-new at gruponetpc.com
+Received: from mail.gruponetpc.com ([127.0.0.1])
+        by localhost (mail.gruponetpc.com [127.0.0.1]) (amavisd-new, port 10026)
+        with ESMTP id v--z8f5C8vnS; Tue,  9 Nov 2021 22:22:05 -0500 (-05)
+Received: from [192.168.0.108] (unknown [93.182.105.113])
+        by mail.gruponetpc.com (Postfix) with ESMTPSA id B75D1866AD6;
+        Tue,  9 Nov 2021 15:25:18 -0500 (-05)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 8BIT
+Content-Description: Mail message body
+Subject: donation
+To:     Recipients <ecouso@mail.gruponetpc.com>
+From:   ecouso@mail.gruponetpc.com
+Date:   Tue, 09 Nov 2021 20:24:48 +0000
+Reply-To: stefanopessina35@gmail.com
+Message-Id: <20211109202518.B75D1866AD6@mail.gruponetpc.com>
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-The udp, tcp and x25 man pages' synopses list the socket() example as
-all bold, but the socket varname should be italicised. This change
-unifies these with the example in socket.7
 
-Signed-off-by: Jeremy Kerr <jk@codeconstruct.com.au>
----
- man7/tcp.7 | 2 +-
- man7/udp.7 | 2 +-
- man7/x25.7 | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/man7/tcp.7 b/man7/tcp.7
-index 0a7c61a37..c08bc7dcc 100644
---- a/man7/tcp.7
-+++ b/man7/tcp.7
-@@ -102,7 +102,7 @@ tcp \- TCP protocol
- .B #include <netinet/in.h>
- .B #include <netinet/tcp.h>
- .PP
--.B tcp_socket = socket(AF_INET, SOCK_STREAM, 0);
-+.IB tcp_socket " = socket(AF_INET, SOCK_STREAM, 0);"
- .fi
- .SH DESCRIPTION
- This is an implementation of the TCP protocol defined in
-diff --git a/man7/udp.7 b/man7/udp.7
-index a66e475cc..cd0937c53 100644
---- a/man7/udp.7
-+++ b/man7/udp.7
-@@ -18,7 +18,7 @@ udp \- User Datagram Protocol for IPv4
- .B #include <netinet/in.h>
- .B #include <netinet/udp.h>
- .PP
--.B udp_socket = socket(AF_INET, SOCK_DGRAM, 0);
-+.IB udp_socket " = socket(AF_INET, SOCK_DGRAM, 0);"
- .fi
- .SH DESCRIPTION
- This is an implementation of the User Datagram Protocol
-diff --git a/man7/x25.7 b/man7/x25.7
-index 561ed0519..e07e5f7a7 100644
---- a/man7/x25.7
-+++ b/man7/x25.7
-@@ -17,7 +17,7 @@ x25 \- ITU-T X.25 / ISO-8208 protocol interface
- .B #include <sys/socket.h>
- .B #include <linux/x25.h>
- .PP
--.B x25_socket = socket(AF_X25, SOCK_SEQPACKET, 0);
-+.IB x25_socket " = socket(AF_X25, SOCK_SEQPACKET, 0);"
- .fi
- .SH DESCRIPTION
- X25 sockets provide an interface to the X.25 packet layer protocol.
--- 
-2.30.2
+Hallo,
+
+Ich bin STEFANO PESSINA. Ich bin ein italienisch-monegassischer Milliardär und stellvertretender Vorsitzender, Chief Executive Officer (CEO) und größter Einzelaktionär der Walgreens Boots Alliance. Au   fgrund dieser aktuellen Situation (Corona-Virus), die sich auf der ganzen Welt ausbreitet, spenden ich selbst und andere 19 italienische Milliardäre mehr als 45 Millionen US-Dollar, um das Coronavirus in Italien zu bekämpfen. Ich habe auch zugesagt, 1.500.000,00 € an Einzelpersonen, Kirchen und Waisenhäuser usw. zu spenden. Ich habe mich entschieden, Ihnen 1.500.000,00 € zu spenden, da Ihre E-Mail-Adresse zu den glücklichen Gewinnern gehört. Wenn Sie an meiner Spende interessiert sind, kontaktieren Sie mich für weitere Informationen. Du kannst auch über den untenstehenden Link mehr über mich lesen
+
+https://en.wikipedia.org/wiki/Stefano_Pessina
+
+Herzlicher Gruss
+Stellvertretender Vorsitzender und Geschäftsführer,
+Walgreens Boots-Allianz.
+Stefano Pessina
+
+E-Mail: stefanopessina35@gmail.com
+
+
 
