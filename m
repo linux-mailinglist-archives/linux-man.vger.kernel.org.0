@@ -2,91 +2,78 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2AB3C44BC16
-	for <lists+linux-man@lfdr.de>; Wed, 10 Nov 2021 08:22:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 8E18244BCA4
+	for <lists+linux-man@lfdr.de>; Wed, 10 Nov 2021 09:12:27 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229581AbhKJHZX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 10 Nov 2021 02:25:23 -0500
-Received: from albireo.enyo.de ([37.24.231.21]:35192 "EHLO albireo.enyo.de"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S229573AbhKJHZW (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Wed, 10 Nov 2021 02:25:22 -0500
-X-Greylist: delayed 360 seconds by postgrey-1.27 at vger.kernel.org; Wed, 10 Nov 2021 02:25:22 EST
-Received: from [172.17.203.2] (port=58127 helo=deneb.enyo.de)
-        by albireo.enyo.de ([172.17.140.2]) with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-        id 1mkhqR-0003m8-7L; Wed, 10 Nov 2021 07:16:31 +0000
-Received: from fw by deneb.enyo.de with local (Exim 4.94.2)
-        (envelope-from <fw@deneb.enyo.de>)
-        id 1mkhof-0006Xk-T2; Wed, 10 Nov 2021 08:14:41 +0100
-From:   Florian Weimer <fw@deneb.enyo.de>
+        id S229791AbhKJIPN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 10 Nov 2021 03:15:13 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([216.205.24.124]:32112 "EHLO
+        us-smtp-delivery-124.mimecast.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S229756AbhKJIPM (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 10 Nov 2021 03:15:12 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1636531945;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         content-transfer-encoding:content-transfer-encoding:
+         in-reply-to:in-reply-to:references:references;
+        bh=ajgSYkK+aY8QIF3EpLyEOypzk3LXVEzZ0seo+8rWyDk=;
+        b=AIc9ouo5S2Aeb1G2LqdZtQVPHSa5jdBtHQi5T8jmZHryvG2WRTPhE941BaDmTFWj903PyB
+        +8M5LgUxVWO6fpAmubxdSHL5f8ZeGxbHIrnVfgrV6zBdxi18WiTN3/DBUDNydMoOmma/yw
+        Vrqrkm+Jxp3N7twNs1AF2Nd8CODwRb4=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-409-mtzDI7AcPqSotM4tZBMPbg-1; Wed, 10 Nov 2021 03:12:23 -0500
+X-MC-Unique: mtzDI7AcPqSotM4tZBMPbg-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2DF9912C9BE;
+        Wed, 10 Nov 2021 08:12:02 +0000 (UTC)
+Received: from oldenburg.str.redhat.com (unknown [10.39.192.82])
+        by smtp.corp.redhat.com (Postfix) with ESMTPS id E4ACD60C17;
+        Wed, 10 Nov 2021 08:12:00 +0000 (UTC)
+From:   Florian Weimer <fweimer@redhat.com>
 To:     enh <enh@google.com>
-Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        linux-man@vger.kernel.org
-Subject: Re: [PATCH] pthread_kill.3: Update to match POSIX.
-References: <CAJgzZoojiRmTV_5sAXhqQciAKsQ_d+znT1OnxT0Rpa_-N_G5-Q@mail.gmail.com>
-        <87imnodbct.fsf@mid.deneb.enyo.de>
-        <CAJgzZoo+oSkwgCZ3CMUdP-t+Y4h4PkvJO-As15kjz0Ad+nx9fA@mail.gmail.com>
-        <877e44daom.fsf@mid.deneb.enyo.de>
-        <CAJgzZopuKoGFUq0GrB6ioFpLXzCY1iwGRddRRcAhzsNisjutuQ@mail.gmail.com>
-        <87woc4bv9c.fsf@mid.deneb.enyo.de>
-        <CAJgzZorosDN58Zp6TUDJbzY3fmR-rJeWbELtw_H3nzMyaWondg@mail.gmail.com>
-        <87imnobufy.fsf@mid.deneb.enyo.de>
-        <CAJgzZorB99W2PzjQ5ZU1nBiYb81Ubm=VvaF50BOm9sTFUHeE4A@mail.gmail.com>
-        <87r22c9ve8.fsf@mid.deneb.enyo.de>
-        <CAJgzZopvMb8KGyA5b6afWG83hw-cZgOdvOdPYb28iS+f5wDkmw@mail.gmail.com>
-        <87mud09uhr.fsf@mid.deneb.enyo.de>
-        <CAJgzZooj8VaF_P2YaqwEchR5LEKP_mS379r6GLrexkDen2jGtQ@mail.gmail.com>
-Date:   Wed, 10 Nov 2021 08:14:41 +0100
-In-Reply-To: <CAJgzZooj8VaF_P2YaqwEchR5LEKP_mS379r6GLrexkDen2jGtQ@mail.gmail.com>
-        (enh@google.com's message of "Tue, 9 Nov 2021 15:00:25 -0800")
-Message-ID: <87lf1wjxcu.fsf@mid.deneb.enyo.de>
+Cc:     linux-man <linux-man@vger.kernel.org>,
+        "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
+        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Subject: Re: [PATCH] pthread_atfork.3: wfix.
+References: <CAJgzZoqZ1yfFtP0Zbc+i5aGS1bn6VJu2dHaa9CJhJr2P7QfSiQ@mail.gmail.com>
+Date:   Wed, 10 Nov 2021 09:11:59 +0100
+In-Reply-To: <CAJgzZoqZ1yfFtP0Zbc+i5aGS1bn6VJu2dHaa9CJhJr2P7QfSiQ@mail.gmail.com>
+        (enh@google.com's message of "Tue, 9 Nov 2021 14:27:59 -0800")
+Message-ID: <874k8k8m5s.fsf@oldenburg.str.redhat.com>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/27.2 (gnu/linux)
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-> any comment from either of the maintainers?
->
-> i think what we currently have on this page is factually incorrect,
-> and this patch better matches reality.
+> diff --git a/man3/pthread_atfork.3 b/man3/pthread_atfork.3
+> index b727cb48e..3e61e797f 100644
+> --- a/man3/pthread_atfork.3
+> +++ b/man3/pthread_atfork.3
+> @@ -39,7 +39,7 @@ The
+>  .BR pthread_atfork ()
+>  function registers fork handlers that are to be executed when
+>  .BR fork (2)
+> -is called by this thread.
+> +is called by any thread in a process.
+>  The handlers are executed in the context of the thread that calls
+>  .BR fork (2).
+>  .PP
 
-One more data point:
+There's another confusing =E2=80=9Cthread=E2=80=9D reference further below:
+=E2=80=9Cpthread_atfork() may be called multiple times by a thread, to regi=
+ster
+multiple handlers for each phase.=E2=80=9D  I think that should be replaced=
+ by
+=E2=80=9Cprocess=E2=80=9D for clarity.
 
-As of glibc 2.34, pthread_kill in glibc cannot fail with ESRCH anymore
-(unless the kernel thread is terminated by a direct system call).  And
-the race that the signal could be sent to the wrong thread is gone.
+Thanks,
+Florian
 
-> On Tue, Nov 12, 2019 at 10:10 PM Florian Weimer <fw@deneb.enyo.de> wrote:
->>
->> * enh:
->>
->> > On Tue, Nov 12, 2019 at 9:51 PM Florian Weimer <fw@deneb.enyo.de> wrote:
->> >>
->> >> * enh:
->> >>
->> >> > no, because the C library has two choices when a thread exits:
->> >> >
->> >> > 1. unmap the thread.
->> >> >
->> >> > 2. keep the thread around for recycling.
->> >> >
->> >> > if you choose 1 (optimizing for space, like Android), your dereference
->> >> > is illegal.
->> >>
->> >> This choice is only available for threads in a detached state.  For
->> >> joinable threads, a conforming implementation cannot immediately
->> >> deallocate all data structures on thread termination.  Among other
->> >> things, it has to store the future return value of pthread_join
->> >> somewhere.
->> >
->> > ah, you're trying to say "signal 0 is potentially usable for a
->> > joinable thread that's waiting to be joined"? that's true, but i'm not
->> > sure how that's relevant to this patch. that wouldn't be an "invalid
->> > thread ID" until it's joined.
->>
->> Correct.  That's POSIX's argument why ESRCH wouldn't be valid to
->> return here.  It's still a forceful loss of information, and
->> particularly annoying since POSIX doesn't specify pthread_tryjoin.
->>
->> But I'm glad we've brought our discussion to a conclusion. 8-)
