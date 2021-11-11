@@ -2,78 +2,266 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8E18244BCA4
-	for <lists+linux-man@lfdr.de>; Wed, 10 Nov 2021 09:12:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 314D644CF47
+	for <lists+linux-man@lfdr.de>; Thu, 11 Nov 2021 02:53:29 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229791AbhKJIPN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 10 Nov 2021 03:15:13 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([216.205.24.124]:32112 "EHLO
-        us-smtp-delivery-124.mimecast.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S229756AbhKJIPM (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 10 Nov 2021 03:15:12 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1636531945;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         content-transfer-encoding:content-transfer-encoding:
-         in-reply-to:in-reply-to:references:references;
-        bh=ajgSYkK+aY8QIF3EpLyEOypzk3LXVEzZ0seo+8rWyDk=;
-        b=AIc9ouo5S2Aeb1G2LqdZtQVPHSa5jdBtHQi5T8jmZHryvG2WRTPhE941BaDmTFWj903PyB
-        +8M5LgUxVWO6fpAmubxdSHL5f8ZeGxbHIrnVfgrV6zBdxi18WiTN3/DBUDNydMoOmma/yw
-        Vrqrkm+Jxp3N7twNs1AF2Nd8CODwRb4=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-409-mtzDI7AcPqSotM4tZBMPbg-1; Wed, 10 Nov 2021 03:12:23 -0500
-X-MC-Unique: mtzDI7AcPqSotM4tZBMPbg-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
-        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-        (No client certificate requested)
-        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2DF9912C9BE;
-        Wed, 10 Nov 2021 08:12:02 +0000 (UTC)
-Received: from oldenburg.str.redhat.com (unknown [10.39.192.82])
-        by smtp.corp.redhat.com (Postfix) with ESMTPS id E4ACD60C17;
-        Wed, 10 Nov 2021 08:12:00 +0000 (UTC)
-From:   Florian Weimer <fweimer@redhat.com>
-To:     enh <enh@google.com>
-Cc:     linux-man <linux-man@vger.kernel.org>,
-        "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
-        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-Subject: Re: [PATCH] pthread_atfork.3: wfix.
-References: <CAJgzZoqZ1yfFtP0Zbc+i5aGS1bn6VJu2dHaa9CJhJr2P7QfSiQ@mail.gmail.com>
-Date:   Wed, 10 Nov 2021 09:11:59 +0100
-In-Reply-To: <CAJgzZoqZ1yfFtP0Zbc+i5aGS1bn6VJu2dHaa9CJhJr2P7QfSiQ@mail.gmail.com>
-        (enh@google.com's message of "Tue, 9 Nov 2021 14:27:59 -0800")
-Message-ID: <874k8k8m5s.fsf@oldenburg.str.redhat.com>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/27.2 (gnu/linux)
+        id S232955AbhKKB4Q (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 10 Nov 2021 20:56:16 -0500
+Received: from pi.codeconstruct.com.au ([203.29.241.158]:48502 "EHLO
+        codeconstruct.com.au" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S231254AbhKKB4P (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 10 Nov 2021 20:56:15 -0500
+Received: by codeconstruct.com.au (Postfix, from userid 10000)
+        id 1A8652022C; Thu, 11 Nov 2021 09:53:26 +0800 (AWST)
+From:   Jeremy Kerr <jk@codeconstruct.com.au>
+To:     linux-man@vger.kernel.org
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+Subject: [PATCH v2] mctp.7: Add man page for Linux MCTP support
+Date:   Thu, 11 Nov 2021 09:53:23 +0800
+Message-Id: <20211111015323.3542313-1-jk@codeconstruct.com.au>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-> diff --git a/man3/pthread_atfork.3 b/man3/pthread_atfork.3
-> index b727cb48e..3e61e797f 100644
-> --- a/man3/pthread_atfork.3
-> +++ b/man3/pthread_atfork.3
-> @@ -39,7 +39,7 @@ The
->  .BR pthread_atfork ()
->  function registers fork handlers that are to be executed when
->  .BR fork (2)
-> -is called by this thread.
-> +is called by any thread in a process.
->  The handlers are executed in the context of the thread that calls
->  .BR fork (2).
->  .PP
+This change adds a brief description for the new Management Component
+Transport Protocol (MCTP) support added to Linux as of bc49d8169.
 
-There's another confusing =E2=80=9Cthread=E2=80=9D reference further below:
-=E2=80=9Cpthread_atfork() may be called multiple times by a thread, to regi=
-ster
-multiple handlers for each phase.=E2=80=9D  I think that should be replaced=
- by
-=E2=80=9Cprocess=E2=80=9D for clarity.
+This is a fairly regular sockets-API implementation, so we're just
+describing the semantics of socket, bind, sendto and recvfrom for the
+new protocol.
 
-Thanks,
-Florian
+Signed-off-by: Jeremy Kerr <jk@codeconstruct.com.au>
+
+---
+v2:
+ - Fix synopsis variable formatting
+ - Semantic newlines
+ - remove unnecessary escape
+ - make custom constants more obvious
+ - Add URI breakpoints
+ - fix sockaddr_mctp misuse
+ - update to reflect upstream sockaddr_mctp types
+---
+ man7/address_families.7 |   7 ++
+ man7/mctp.7             | 187 ++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 194 insertions(+)
+ create mode 100644 man7/mctp.7
+
+diff --git a/man7/address_families.7 b/man7/address_families.7
+index 3e535e66d..3c8299e69 100644
+--- a/man7/address_families.7
++++ b/man7/address_families.7
+@@ -405,6 +405,13 @@ XDP (express data path) interface (since Linux 4.18).
+ See
+ .I Documentation/networking/af_xdp.rst
+ in the Linux kernel source tree for details.
++.TP
++.B AF_MCTP
++.\" commit: bc49d8169aa72295104f1558830c568efb946315
++MCTP (Management Component Transport Protocol) interface (since Linux 5.15),
++as defined by the DMTF specification DSP0236.
++For further information, see
++.BR mctp (7).
+ .SH SEE ALSO
+ .BR socket (2),
+ .BR socket (7)
+diff --git a/man7/mctp.7 b/man7/mctp.7
+new file mode 100644
+index 000000000..506826ed6
+--- /dev/null
++++ b/man7/mctp.7
+@@ -0,0 +1,187 @@
++.\" Copyright (c) 2021 Jeremy Kerr <jk@codeconstruct.com.au>
++.\"
++.\" %%%LICENSE_START(GPLv2+_DOC_FULL)
++.\" This is free documentation; you can redistribute it and/or
++.\" modify it under the terms of the GNU General Public License as
++.\" published by the Free Software Foundation; either version 2 of
++.\" the License, or (at your option) any later version.
++.\"
++.\" The GNU General Public License's references to "object code"
++.\" and "executables" are to be interpreted as the output of any
++.\" document formatting or typesetting system, including
++.\" intermediate and printed output.
++.\"
++.\" This manual is distributed in the hope that it will be useful,
++.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
++.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++.\" GNU General Public License for more details.
++.\"
++.\" You should have received a copy of the GNU General Public
++.\" License along with this manual; if not, see
++.\" <http://www.gnu.org/licenses/>.
++.\" %%%LICENSE_END
++.\" commit: bc49d8169aa72295104f1558830c568efb946315
++.TH MCTP  7 2021-10-14 "Linux" "Linux Programmer's Manual"
++.SH NAME
++mctp \- Management Component Transport Protocol
++.SH SYNOPSIS
++.nf
++.B #include <sys/socket.h>
++.B #include <linux/mctp.h>
++.PP
++.IB mctp_socket " = socket(AF_MCTP, SOCK_DGRAM, 0);"
++.fi
++.SH DESCRIPTION
++Linux implements the Management Component Transport Protocol (MCTP),
++specified by DMTF spec DSP0236, currently at version 1.
++This is a connectionless protocol, typically used between devices within a
++server system.
++Message reliability and ordering are not guaranteed, but message boundaries are
++preserved.
++.PP
++The API for MCTP messaging uses a standard sockets interface, using the
++.BR sendto (2)
++and
++.BR recvfrom (2)
++classes of system calls to transfer messages.
++Messages may be fragmented into packets before transmission, and reassembled at
++the remote endpoint.
++This fragmentation and reassembly is transparent to userspace.
++.PP
++.SS Address format
++MCTP addresses (also referred to as EIDs, or Endpoint Identifiers) are
++single-byte values, typed as
++.BR mctp_eid_t .
++Packets between a local and remote endpoint are identified by the source
++and destination EIDs, plus a three-bit tag value.
++.PP
++Addressing data is passed in socket system calls through
++.B struct sockaddr_mctp
++defined as:
++.PP
++.in +4n
++.EX
++typedef uint8_t        mctp_eid_t;
++
++struct mctp_addr {
++    mctp_eid_t         s_addr;
++};
++
++struct sockaddr_mctp {
++    unsigned short     smctp_family;  /* = AF_MCTP */
++    uint16_t           __smctp_pad0;  /* pad, must be zero */
++    int                smctp_network; /* local network identifier */
++    struct mctp_addr   smctp_addr;    /* EID */
++    uint8_t            smctp_type;    /* message type byte */
++    uint8_t            smctp_tag;     /* tag value, including TO flag */
++    uint8_t            __smctp_pad1;  /* pad, must be zero */
++};
++.EE
++.in
++.SS Sending messages
++Messages can be transmitted using the
++.BR sendto (2)
++and
++.BR sendmsg (2)
++system calls, by providing a
++.B struct sockaddr_mctp
++describing the addressing parameters.
++.PP
++.in +4n
++.EX
++struct sockaddr_mctp addr;
++ssize_t len;
++char *buf;
++
++/* unused fields must be zero */
++memset(&addr, 0, sizeof(addr));
++
++/* set message destination */
++addr.smctp_family = AF_MCTP;
++addr.smctp_network = 0;
++addr.smctp_addr.s_addr = 8; /* remote EID */
++addr.smctp_tag = MCTP_TAG_OWNER;
++addr.smctp_type = MYPROGRAM_MCTP_TYPE_ECHO; /* example type */
++
++buf = "hello, world!"
++
++len = sendto(sd, buf, 13, 0,
++             (struct sockaddr *)&addr, sizeof(addr));
++.EE
++.in
++.PP
++Here, the sender owns the message tag; so
++.B MCTP_TAG_OWNER
++is used as the tag data.
++The kernel will allocate a specific tag value for this message.
++If no tag is available,
++.BR sendto (2)
++will return an error, with errno set to
++.BR EBUSY .
++This allocated tag remains associated with the socket, so that any replies to
++the sent message will be received by the same socket.
++.PP
++Sending a MCTP message requires the
++.B CAP_NET_RAW
++capability.
++.SS Receiving messages
++Messages can be received using the
++.BR recvfrom (2)
++and
++.BR recvmsg (2)
++system calls.
++.PP
++.in +4n
++.EX
++struct sockaddr_mctp addr;
++socklen_t addrlen;
++char buf[13];
++
++addrlen = sizeof(addr);
++
++len = recvfrom(sd, buf, sizeof(buf), 0,
++               (struct sockaddr *)&addr, &addrlen);
++.EE
++.in
++.PP
++In order to receive an incoming message, the receiver will need to either have
++previously sent a message to the same endpoint, or performed a
++.BR bind (2)
++to receive all messages of a certain type:
++.PP
++.in +4n
++.EX
++struct sockaddr_mctp addr;
++
++addr.smctp_family = AF_MCTP;
++addr.smctp_network = MCTP_NET_ANY;
++addr.smctp_addr.s_addr = MCTP_ADDR_ANY;
++addr.smctp_type = MYPROGRAM_MCTP_TYPE_ECHO; /* our 'echo' type */
++
++int rc = bind(sd, (struct sockaddr *)&addr, sizeof(addr));
++.EE
++.in
++.PP
++This call requires the
++.B CAP_NET_BIND_SERVICE
++capability, and will result in the socket receiving all messages sent to
++locally-assigned EIDs, for the specified message type.
++.PP
++After a
++.BR recvfrom (2)
++or
++.BR recvmsg (2)
++returns a success condition, the provided address argument will be populated
++with the sender's network and EID, as well as the tag value used for the
++message.
++Any reply to this message should pass the same address and tag value (with the
++TO bit cleared) to indicate that is is directed to the same remote endpoint.
++.SH SEE ALSO
++.BR socket (7)
++.PP
++The kernel source file
++.IR Documentation/networking/mctp.rst .
++.PP
++The DSP0236 specification, at
++.UR https://www.dmtf.org\:/standards\:/pmci
++.UE .
+-- 
+2.30.2
 
