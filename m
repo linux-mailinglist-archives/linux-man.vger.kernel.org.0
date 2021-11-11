@@ -2,121 +2,207 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8E69D44DD4A
-	for <lists+linux-man@lfdr.de>; Thu, 11 Nov 2021 22:49:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id D942C44DDEF
+	for <lists+linux-man@lfdr.de>; Thu, 11 Nov 2021 23:43:10 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229868AbhKKVw2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 11 Nov 2021 16:52:28 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43424 "EHLO
+        id S229839AbhKKWp6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 11 Nov 2021 17:45:58 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55452 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234114AbhKKVw0 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 11 Nov 2021 16:52:26 -0500
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com [IPv6:2a00:1450:4864:20::336])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EFAEEC0613F5
-        for <linux-man@vger.kernel.org>; Thu, 11 Nov 2021 13:49:36 -0800 (PST)
-Received: by mail-wm1-x336.google.com with SMTP id y196so6176960wmc.3
-        for <linux-man@vger.kernel.org>; Thu, 11 Nov 2021 13:49:36 -0800 (PST)
+        with ESMTP id S229652AbhKKWp6 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 11 Nov 2021 17:45:58 -0500
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com [IPv6:2a00:1450:4864:20::232])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 83547C061766
+        for <linux-man@vger.kernel.org>; Thu, 11 Nov 2021 14:43:08 -0800 (PST)
+Received: by mail-lj1-x232.google.com with SMTP id v15so14927434ljc.0
+        for <linux-man@vger.kernel.org>; Thu, 11 Nov 2021 14:43:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=z9amOFyRryQ4nGgPfiO9GB+fagpFjh0v96g8tKrirZc=;
-        b=PezhTwH9PCUHFiCrp50HU4X0FN/cIKoyC43YsOppFuqSsmrsj9hISAyr9SZEk9UR92
-         HC/V8AtKzqQUl0OxVPUh2ME2KW/Rg+IyGa/c4NwyXzdkcs/5U5PwiIYxF7aiV2lU05M1
-         jtPPVXNRUa/pdoPHKk6UXfgq+e1KzqtnX58P30n1MpY7PE8SirGHYj/GjaGN8RkdCjyS
-         TMcPOngtvkJrZ/XiUXwucxqlPuKnjzwGNlKkjY1pOBOtpOZbgw4D1e8DYUXpRCyONgTD
-         rUn0i/G1R6/73J51QEMhm+htzfAiOWAfipUg1YLn1aqxTJg9nfLGwdIGQsTz42e46lnP
-         EFzA==
+        d=google.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:content-transfer-encoding;
+        bh=bx13emblazo+xK5eYlM9BYlYSFmIrgfGU+YBqA5JnTw=;
+        b=iccKJ7ZVzRLx0oedWDVEWlDi4fuLvxo2NMB/fQiddVcDMpdXhCjvCZCXNoZYuyuwxL
+         gZHytQ2JlM75c0R2CdvsqsCl4PL0xMYYjiEvK6shBPTFncGZGEiKTdNd5k+7+DqYyg0R
+         uzwvW3ponathYPshRgPHNRJJQFowJPY+26yYRAqO05ek9eRpYhlCkgGtgI5XHGQfBrOx
+         cuc0opWN6xGUHmyshCKJR6HG5Zl/IAIJAbwlr3lK6iFyH6bykGw29cqEcMr6H264WXgG
+         nRYgX0qep8NbeAD4U+618iro8vYMqhBe/24hh8R8Iom1vI3cW0ce+XGbD/WfgbopST+n
+         UBeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=z9amOFyRryQ4nGgPfiO9GB+fagpFjh0v96g8tKrirZc=;
-        b=1vmjese03N40KZaAqDH+abkQyQ2Mts6duNBp4OhdOz214+k94MCBqG5gcabfaC4Ocs
-         0l98Tm02AZc7CtOkpLNJdKIdMamm/ue7pYfrM1LCUmvN7OR/7FBiXX2dqxLYjs5+iiOu
-         2HlFc/D9s3Qmnefld5SI9aOdVVT0yKCR/s6jND33Vm7k2b1ityNfH80+D6TpPyjEcFNB
-         H4VXvMa5UAc0JGlcxtGO6rV6EX6K9nUHo/5OkgOgvNKjV4z/Cu1wqOBYdw1nfLN1yxxj
-         9nRHYHp5iCIyyg4ukr0l9A5BwsNdtsC4vQzESPbeXQ81a2BCt1X/rTlTV+DAtnbB0+fv
-         +uzg==
-X-Gm-Message-State: AOAM530+4na5OXqCtRUZ3g1iy/mq8fukKYdSEgZneQ8SNexQG3MROwVG
-        im6a+6ekx3vYyBBU5edqJLQ=
-X-Google-Smtp-Source: ABdhPJwsjLLUV/VTSu5oLltA4tgFYrhJMd4Vz72di4rD8EK/81UhkEYz9kAo8s/LzwaOZiPM0HS3dA==
-X-Received: by 2002:a05:600c:4108:: with SMTP id j8mr11634089wmi.139.1636667375610;
-        Thu, 11 Nov 2021 13:49:35 -0800 (PST)
-Received: from [10.168.10.170] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id l11sm3884915wrp.61.2021.11.11.13.49.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 11 Nov 2021 13:49:35 -0800 (PST)
-Message-ID: <9dcab95b-ec77-b82b-22cf-ce082af033fb@gmail.com>
-Date:   Thu, 11 Nov 2021 22:49:34 +0100
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=bx13emblazo+xK5eYlM9BYlYSFmIrgfGU+YBqA5JnTw=;
+        b=f31QSkFxfoNwiiz+wczrmmO4tpzoaDvsw5ElM1pVPwJYWMuzfVvoF8mzK8gAKKzAp9
+         3p9BrYXiI/+ZGzvDl9WkUgLag6TgKUGSuhoQDTV3cIC5RVHq5d/2dqxLNYVz9xrIxCam
+         4A71foPDJMmvNwcHC6y/jwqT4YVrgf+tmzPIHay9TeM9z5W5xqMDAg8qXmLUx8LgxYbD
+         x5QQn4bPLfYGrVbHR3K3iediqJHPPCDU6pIFziTfyzbt2TY/Q1DpLneBAbubykYZnn2x
+         EPobMOyJk73IEOinDXdGy31yzl4Be95YIqV16Kk9uXURyCHImxI+VC6WRYtaOdnixRvu
+         R9tA==
+X-Gm-Message-State: AOAM5300lDwAUzj0RvqhW/vb8vD3sVZAJ7ml0SbB23OXnarkTbnBih5P
+        zverMBumnM6AgDL29rKbiTqm3dhtgYjt7uYCud5zq6jnq9lqbAvh
+X-Google-Smtp-Source: ABdhPJweegJWoqUGgBLmvLiL5bBfWSZvKqPjYYFocQ4xKmTvXIS1oVMWMnOpuN8YEL2slCyAvI91ym/7yRgK7ZJjNhM=
+X-Received: by 2002:a05:651c:1043:: with SMTP id x3mr517382ljm.279.1636670586620;
+ Thu, 11 Nov 2021 14:43:06 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.0
+References: <CAJgzZoqZ1yfFtP0Zbc+i5aGS1bn6VJu2dHaa9CJhJr2P7QfSiQ@mail.gmail.com>
+ <874k8k8m5s.fsf@oldenburg.str.redhat.com> <9dcab95b-ec77-b82b-22cf-ce082af033fb@gmail.com>
+In-Reply-To: <9dcab95b-ec77-b82b-22cf-ce082af033fb@gmail.com>
+From:   enh <enh@google.com>
+Date:   Thu, 11 Nov 2021 14:42:55 -0800
+Message-ID: <CAJgzZoovvrPuvL43bbj39QvH3KLO7ZO800j76T=bea+iHrvqBQ@mail.gmail.com>
 Subject: Re: [PATCH] pthread_atfork.3: wfix.
-Content-Language: en-US
-To:     enh <enh@google.com>
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
 Cc:     linux-man <linux-man@vger.kernel.org>,
         "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
         Florian Weimer <fweimer@redhat.com>
-References: <CAJgzZoqZ1yfFtP0Zbc+i5aGS1bn6VJu2dHaa9CJhJr2P7QfSiQ@mail.gmail.com>
- <874k8k8m5s.fsf@oldenburg.str.redhat.com>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-In-Reply-To: <874k8k8m5s.fsf@oldenburg.str.redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi,
+done; sorry, i didn't realize Signed-off-by was for the original author too=
+!
 
-On 11/9/21 23:27, enh wrote:
- > Clarify that the pthread_atfork() callback list is a global, not
- > per-thread.
- >
- > The use of "this thread" implied to some readers that pthread_atfork()
- > maintained per-thread lists of callbacks. Given that the next sentence
- > already explains that the callbacks are run in the context of the thread
- > that calls fork(), I actually think it would be fine not to mention
- > threads at all in the earlier sentence, but for now I've gone with what
- > I think was intended to be written.
- > ---
- >   man3/pthread_atfork.3 | 2 +-
- >   1 file changed, 1 insertion(+), 1 deletion(-)
+Florian's comment made me read through the *whole* page now, so i've
+fixed a few more places that seemed a bit confusing too. v2 inlined
+here...
 
-Could you please sign your patch?
+From 92f3e61c8d61045448e6e94b9fb59817a5e07748 Mon Sep 17 00:00:00 2001
+From: Elliott Hughes <enh@google.com>
+Date: Tue, 9 Nov 2021 14:20:32 -0800
+Subject: [PATCH] pthread_atfork.3: wfix.
 
-<https://www.kernel.org/doc/html/latest/process/submitting-patches.html#developer-s-certificate-of-origin-1-1>
+Clarify that the pthread_atfork() callback list is a global, not
+per-thread.
 
-On 11/10/21 09:11, Florian Weimer wrote:
->> diff --git a/man3/pthread_atfork.3 b/man3/pthread_atfork.3
->> index b727cb48e..3e61e797f 100644
->> --- a/man3/pthread_atfork.3
->> +++ b/man3/pthread_atfork.3
->> @@ -39,7 +39,7 @@ The
->>   .BR pthread_atfork ()
->>   function registers fork handlers that are to be executed when
->>   .BR fork (2)
->> -is called by this thread.
->> +is called by any thread in a process.
->>   The handlers are executed in the context of the thread that calls
->>   .BR fork (2).
->>   .PP
-> 
-> There's another confusing “thread” reference further below:
-> “pthread_atfork() may be called multiple times by a thread, to register
-> multiple handlers for each phase.”  I think that should be replaced by
-> “process” for clarity.
+The use of "this thread" implied to some readers that pthread_atfork()
+maintained per-thread lists of callbacks. Given that the next sentence
+already explains that the callbacks are run in the context of the thread
+that calls fork(), I actually think it would be fine not to mention
+threads at all in the earlier sentence, but for now I've gone with what
+I think was intended to be written.
 
-Also, if you could also fix that line reported by Florian in the same 
-patch, it would be great.
+This patch also attempts to clarify other references to "thread",
+and fixes a trivial typo "form" instead of "fork".
 
-Thanks!
+Signed-off-by: Elliott Hughes <enh@google.com>
+---
+ man3/pthread_atfork.3 | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-Alex
+diff --git a/man3/pthread_atfork.3 b/man3/pthread_atfork.3
+index b727cb48e..12a1492b6 100644
+--- a/man3/pthread_atfork.3
++++ b/man3/pthread_atfork.3
+@@ -39,14 +39,14 @@ The
+ .BR pthread_atfork ()
+ function registers fork handlers that are to be executed when
+ .BR fork (2)
+-is called by this thread.
++is called by any thread in a process.
+ The handlers are executed in the context of the thread that calls
+ .BR fork (2).
+ .PP
+ Three kinds of handler can be registered:
+ .IP * 3
+ .IR prepare
+-specifies a handler that is executed before
++specifies a handler that is executed in the parent process before
+ .BR fork (2)
+ processing starts.
+ .IP *
+@@ -70,8 +70,8 @@ On success,
+ returns zero.
+ On error, it returns an error number.
+ .BR pthread_atfork ()
+-may be called multiple times by a thread,
+-to register multiple handlers for each phase.
++may be called multiple times by a process
++to register additional handlers.
+ The handlers for each phase are called in a specified order: the
+ .I prepare
+ handlers are called in reverse order of registration; the
+@@ -82,7 +82,7 @@ handlers are called in the order of registration.
+ .SH ERRORS
+ .TP
+ .B ENOMEM
+-Could not allocate memory to record the form handler entry.
++Could not allocate memory to record the fork handler list entry.
+ .SH CONFORMING TO
+ POSIX.1-2001, POSIX.1-2008.
+ .SH NOTES
+@@ -92,7 +92,7 @@ is called in a multithreaded process,
+ only the calling thread is duplicated in the child process.
+ The original intention of
+ .BR pthread_atfork ()
+-was to allow the calling thread to be returned to a consistent state.
++was to allow the child process to be returned to a consistent state.
+ For example, at the time of the call to
+ .BR fork (2),
+ other threads may have locked mutexes that are visible in the
+--=20
+2.34.0.rc1.387.gb447b232ab-goog
 
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; http://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+
+
+On Thu, Nov 11, 2021 at 1:49 PM Alejandro Colomar (man-pages)
+<alx.manpages@gmail.com> wrote:
+>
+> Hi,
+>
+> On 11/9/21 23:27, enh wrote:
+>  > Clarify that the pthread_atfork() callback list is a global, not
+>  > per-thread.
+>  >
+>  > The use of "this thread" implied to some readers that pthread_atfork()
+>  > maintained per-thread lists of callbacks. Given that the next sentence
+>  > already explains that the callbacks are run in the context of the thre=
+ad
+>  > that calls fork(), I actually think it would be fine not to mention
+>  > threads at all in the earlier sentence, but for now I've gone with wha=
+t
+>  > I think was intended to be written.
+>  > ---
+>  >   man3/pthread_atfork.3 | 2 +-
+>  >   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> Could you please sign your patch?
+>
+> <https://www.kernel.org/doc/html/latest/process/submitting-patches.html#d=
+eveloper-s-certificate-of-origin-1-1>
+>
+> On 11/10/21 09:11, Florian Weimer wrote:
+> >> diff --git a/man3/pthread_atfork.3 b/man3/pthread_atfork.3
+> >> index b727cb48e..3e61e797f 100644
+> >> --- a/man3/pthread_atfork.3
+> >> +++ b/man3/pthread_atfork.3
+> >> @@ -39,7 +39,7 @@ The
+> >>   .BR pthread_atfork ()
+> >>   function registers fork handlers that are to be executed when
+> >>   .BR fork (2)
+> >> -is called by this thread.
+> >> +is called by any thread in a process.
+> >>   The handlers are executed in the context of the thread that calls
+> >>   .BR fork (2).
+> >>   .PP
+> >
+> > There's another confusing =E2=80=9Cthread=E2=80=9D reference further be=
+low:
+> > =E2=80=9Cpthread_atfork() may be called multiple times by a thread, to =
+register
+> > multiple handlers for each phase.=E2=80=9D  I think that should be repl=
+aced by
+> > =E2=80=9Cprocess=E2=80=9D for clarity.
+>
+> Also, if you could also fix that line reported by Florian in the same
+> patch, it would be great.
+>
+> Thanks!
+>
+> Alex
+>
+> --
+> Alejandro Colomar
+> Linux man-pages comaintainer; http://www.kernel.org/doc/man-pages/
+> http://www.alejandro-colomar.es/
