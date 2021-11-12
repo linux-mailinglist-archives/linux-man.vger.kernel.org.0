@@ -2,207 +2,179 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D942C44DDEF
-	for <lists+linux-man@lfdr.de>; Thu, 11 Nov 2021 23:43:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 13CFF44DECB
+	for <lists+linux-man@lfdr.de>; Fri, 12 Nov 2021 01:01:57 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229839AbhKKWp6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 11 Nov 2021 17:45:58 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55452 "EHLO
+        id S234467AbhKLAEp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 11 Nov 2021 19:04:45 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44980 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229652AbhKKWp6 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 11 Nov 2021 17:45:58 -0500
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com [IPv6:2a00:1450:4864:20::232])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 83547C061766
-        for <linux-man@vger.kernel.org>; Thu, 11 Nov 2021 14:43:08 -0800 (PST)
-Received: by mail-lj1-x232.google.com with SMTP id v15so14927434ljc.0
-        for <linux-man@vger.kernel.org>; Thu, 11 Nov 2021 14:43:08 -0800 (PST)
+        with ESMTP id S234146AbhKLAEp (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 11 Nov 2021 19:04:45 -0500
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com [IPv6:2a00:1450:4864:20::229])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0840CC061766
+        for <linux-man@vger.kernel.org>; Thu, 11 Nov 2021 16:01:55 -0800 (PST)
+Received: by mail-lj1-x229.google.com with SMTP id 1so15139342ljv.2
+        for <linux-man@vger.kernel.org>; Thu, 11 Nov 2021 16:01:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=google.com; s=20210112;
         h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc:content-transfer-encoding;
-        bh=bx13emblazo+xK5eYlM9BYlYSFmIrgfGU+YBqA5JnTw=;
-        b=iccKJ7ZVzRLx0oedWDVEWlDi4fuLvxo2NMB/fQiddVcDMpdXhCjvCZCXNoZYuyuwxL
-         gZHytQ2JlM75c0R2CdvsqsCl4PL0xMYYjiEvK6shBPTFncGZGEiKTdNd5k+7+DqYyg0R
-         uzwvW3ponathYPshRgPHNRJJQFowJPY+26yYRAqO05ek9eRpYhlCkgGtgI5XHGQfBrOx
-         cuc0opWN6xGUHmyshCKJR6HG5Zl/IAIJAbwlr3lK6iFyH6bykGw29cqEcMr6H264WXgG
-         nRYgX0qep8NbeAD4U+618iro8vYMqhBe/24hh8R8Iom1vI3cW0ce+XGbD/WfgbopST+n
-         UBeQ==
+         :cc;
+        bh=ocJcdvC0yK2iJFmRoxI8hpz56z/bncq9spuvnzJsnOE=;
+        b=cHoUyy5DLdRwd0xVT/tG2DzWCq0iJbv9vQhFz6SnD193Qcqbxd6VecYMzpUPq/YwBk
+         jigdJEYoGPiavUaTuJ/boID6/BQHjb4aZFYHeuB8uD45/8JgVRtLF4TJEbAkAs+ovLmX
+         DFbEBtjvYNGrndvrGZLiY2LjxSUzZ+aeZct8K3nRE9AJY0Kifb5zhPaUEWggGdm+2cb9
+         yOGej1CR6XQR7WaOAuKjqoF0ALLdtjKPxKZE5VN2kfi6uJrc26Yao/PmYX8SB71gkBpy
+         4vuUnV/nRSxYfLfGyz3Cw2BxqyT0O42dano24obzORrQOYbLkaefbKgR1aAkQn7LP+lG
+         N+nA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc:content-transfer-encoding;
-        bh=bx13emblazo+xK5eYlM9BYlYSFmIrgfGU+YBqA5JnTw=;
-        b=f31QSkFxfoNwiiz+wczrmmO4tpzoaDvsw5ElM1pVPwJYWMuzfVvoF8mzK8gAKKzAp9
-         3p9BrYXiI/+ZGzvDl9WkUgLag6TgKUGSuhoQDTV3cIC5RVHq5d/2dqxLNYVz9xrIxCam
-         4A71foPDJMmvNwcHC6y/jwqT4YVrgf+tmzPIHay9TeM9z5W5xqMDAg8qXmLUx8LgxYbD
-         x5QQn4bPLfYGrVbHR3K3iediqJHPPCDU6pIFziTfyzbt2TY/Q1DpLneBAbubykYZnn2x
-         EPobMOyJk73IEOinDXdGy31yzl4Be95YIqV16Kk9uXURyCHImxI+VC6WRYtaOdnixRvu
-         R9tA==
-X-Gm-Message-State: AOAM5300lDwAUzj0RvqhW/vb8vD3sVZAJ7ml0SbB23OXnarkTbnBih5P
-        zverMBumnM6AgDL29rKbiTqm3dhtgYjt7uYCud5zq6jnq9lqbAvh
-X-Google-Smtp-Source: ABdhPJweegJWoqUGgBLmvLiL5bBfWSZvKqPjYYFocQ4xKmTvXIS1oVMWMnOpuN8YEL2slCyAvI91ym/7yRgK7ZJjNhM=
-X-Received: by 2002:a05:651c:1043:: with SMTP id x3mr517382ljm.279.1636670586620;
- Thu, 11 Nov 2021 14:43:06 -0800 (PST)
+         :message-id:subject:to:cc;
+        bh=ocJcdvC0yK2iJFmRoxI8hpz56z/bncq9spuvnzJsnOE=;
+        b=a2+z3WDE9R+dD4HguYaJrgN5jMg9PIDfJLMjpBTbwEA5v88vEKcpLYyYoOJZM4SCym
+         YuA19vB83HdAf8Q6MdS8zskZMZUNdy3wafEfeVPtKUaVHCl4xDy30zhpE1N2BblV3KXZ
+         bM0LfMqCiJrIfgJjokDJ/yxJyPFD0O1EDkXuQFcQwN1i8reYzyEiCNSavpG5hd4tszrQ
+         rrWUzacson2Rn9HbI80qwBHGZpWfwcoRMrN8B3C7NuaOAIXaGOEGGQKiMzFyOUThzN8Q
+         Y0rUzsQB7YLFoF7LMPGKnwY8OHJc8ZZ3XKw8zv72+vm51Lb7tQq8n84K48LXbIuDrGU8
+         nEZw==
+X-Gm-Message-State: AOAM532Jq02mdgF/6mg8tcuHAnAidUzEfOX57HEvG+Drtt4EUO3Y3bVM
+        KmrevcxTAwxQR170ncatIHNMAtOihadKhcpH8+pZ9en9NU0c6aRA
+X-Google-Smtp-Source: ABdhPJwouNx7uRK4jMRXskD8TAxfJAeg0JDUw1s6QTUgY/75kZm3RB++3hEcXXqvc+Dd04k4C1q/8X+BI/R8HYsfl4U=
+X-Received: by 2002:a2e:8554:: with SMTP id u20mr11338329ljj.70.1636675313078;
+ Thu, 11 Nov 2021 16:01:53 -0800 (PST)
 MIME-Version: 1.0
-References: <CAJgzZoqZ1yfFtP0Zbc+i5aGS1bn6VJu2dHaa9CJhJr2P7QfSiQ@mail.gmail.com>
- <874k8k8m5s.fsf@oldenburg.str.redhat.com> <9dcab95b-ec77-b82b-22cf-ce082af033fb@gmail.com>
-In-Reply-To: <9dcab95b-ec77-b82b-22cf-ce082af033fb@gmail.com>
+References: <CAJgzZoojiRmTV_5sAXhqQciAKsQ_d+znT1OnxT0Rpa_-N_G5-Q@mail.gmail.com>
+ <87imnodbct.fsf@mid.deneb.enyo.de> <CAJgzZoo+oSkwgCZ3CMUdP-t+Y4h4PkvJO-As15kjz0Ad+nx9fA@mail.gmail.com>
+ <877e44daom.fsf@mid.deneb.enyo.de> <CAJgzZopuKoGFUq0GrB6ioFpLXzCY1iwGRddRRcAhzsNisjutuQ@mail.gmail.com>
+ <87woc4bv9c.fsf@mid.deneb.enyo.de> <CAJgzZorosDN58Zp6TUDJbzY3fmR-rJeWbELtw_H3nzMyaWondg@mail.gmail.com>
+ <87imnobufy.fsf@mid.deneb.enyo.de> <CAJgzZorB99W2PzjQ5ZU1nBiYb81Ubm=VvaF50BOm9sTFUHeE4A@mail.gmail.com>
+ <87r22c9ve8.fsf@mid.deneb.enyo.de> <CAJgzZopvMb8KGyA5b6afWG83hw-cZgOdvOdPYb28iS+f5wDkmw@mail.gmail.com>
+ <87mud09uhr.fsf@mid.deneb.enyo.de> <CAJgzZooj8VaF_P2YaqwEchR5LEKP_mS379r6GLrexkDen2jGtQ@mail.gmail.com>
+ <87lf1wjxcu.fsf@mid.deneb.enyo.de>
+In-Reply-To: <87lf1wjxcu.fsf@mid.deneb.enyo.de>
 From:   enh <enh@google.com>
-Date:   Thu, 11 Nov 2021 14:42:55 -0800
-Message-ID: <CAJgzZoovvrPuvL43bbj39QvH3KLO7ZO800j76T=bea+iHrvqBQ@mail.gmail.com>
-Subject: Re: [PATCH] pthread_atfork.3: wfix.
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     linux-man <linux-man@vger.kernel.org>,
-        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        Florian Weimer <fweimer@redhat.com>
+Date:   Thu, 11 Nov 2021 16:01:41 -0800
+Message-ID: <CAJgzZooymW7fHnpCeVmhrAe-uue9zdssdP-QHeRtPN3MkVsnNA@mail.gmail.com>
+Subject: Re: [PATCH] pthread_kill.3: Update to match POSIX.
+To:     Florian Weimer <fw@deneb.enyo.de>
+Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        linux-man@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-done; sorry, i didn't realize Signed-off-by was for the original author too=
-!
+that was never the issue though ... well, okay, that's *an* issue, but
+not the one i'm most concerned about :-)
 
-Florian's comment made me read through the *whole* page now, so i've
-fixed a few more places that seemed a bit confusing too. v2 inlined
-here...
+the issue i'm trying to fix (and so maybe need to find even clearer
+wording for) is basically this:
 
-From 92f3e61c8d61045448e6e94b9fb59817a5e07748 Mon Sep 17 00:00:00 2001
-From: Elliott Hughes <enh@google.com>
-Date: Tue, 9 Nov 2021 14:20:32 -0800
-Subject: [PATCH] pthread_atfork.3: wfix.
+  * lots of people don't realize that pthread_t != pid_t
+  * they think that "the worst that can happen" when passing a
+no-longer valid pthread_t to these functions is ESRCH
+  * they don't realize that using pthread_kill(3) like this is just a
+use-after-free bug
 
-Clarify that the pthread_atfork() callback list is a global, not
-per-thread.
+i think one reason this persists is glibc's thread cache makes it
+harder to hit there. i don't actually know whether glibc's thread
+cache has an eviction policy at all? if it doesn't, that would indeed
+turn this use-after-free into "just" a question of whether you have
+the right pid_t or not. but assuming glibc's thread cache _does_ have
+an eviction policy, glibc's in the same boat as more svelte libcs
+(such as bionic and musl, plus the BSDs, and also Apple's anonymous
+libc) --- it just needs more threads.
 
-The use of "this thread" implied to some readers that pthread_atfork()
-maintained per-thread lists of callbacks. Given that the next sentence
-already explains that the callbacks are run in the context of the thread
-that calls fork(), I actually think it would be fine not to mention
-threads at all in the earlier sentence, but for now I've gone with what
-I think was intended to be written.
+this confusion causes bugs (and crashes) today, and it's only going to
+get worse as we get better tools for detecting UAF, such as Arm MTE,
+and it's really hard to get people to understand the problem when the
+man page is worded as it currently is (with a weak "can, for example"
+hidden in the NOTES section).
 
-This patch also attempts to clarify other references to "thread",
-and fixes a trivial typo "form" instead of "fork".
+if it really is the case that glibc has no eviction policy, then my
+suggestion will probably be that we come up with wording along the
+lines of "libc implementers face a choice here between the memory cost
+of never freeing [whatever man7 calls the TCB] or not being able to
+detect this temporal error; of all the libcs, only glibc chose the
+former".
 
-Signed-off-by: Elliott Hughes <enh@google.com>
----
- man3/pthread_atfork.3 | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+if nothing else that should at least answer the question "why can't
+you just be like glibc?" :-)
 
-diff --git a/man3/pthread_atfork.3 b/man3/pthread_atfork.3
-index b727cb48e..12a1492b6 100644
---- a/man3/pthread_atfork.3
-+++ b/man3/pthread_atfork.3
-@@ -39,14 +39,14 @@ The
- .BR pthread_atfork ()
- function registers fork handlers that are to be executed when
- .BR fork (2)
--is called by this thread.
-+is called by any thread in a process.
- The handlers are executed in the context of the thread that calls
- .BR fork (2).
- .PP
- Three kinds of handler can be registered:
- .IP * 3
- .IR prepare
--specifies a handler that is executed before
-+specifies a handler that is executed in the parent process before
- .BR fork (2)
- processing starts.
- .IP *
-@@ -70,8 +70,8 @@ On success,
- returns zero.
- On error, it returns an error number.
- .BR pthread_atfork ()
--may be called multiple times by a thread,
--to register multiple handlers for each phase.
-+may be called multiple times by a process
-+to register additional handlers.
- The handlers for each phase are called in a specified order: the
- .I prepare
- handlers are called in reverse order of registration; the
-@@ -82,7 +82,7 @@ handlers are called in the order of registration.
- .SH ERRORS
- .TP
- .B ENOMEM
--Could not allocate memory to record the form handler entry.
-+Could not allocate memory to record the fork handler list entry.
- .SH CONFORMING TO
- POSIX.1-2001, POSIX.1-2008.
- .SH NOTES
-@@ -92,7 +92,7 @@ is called in a multithreaded process,
- only the calling thread is duplicated in the child process.
- The original intention of
- .BR pthread_atfork ()
--was to allow the calling thread to be returned to a consistent state.
-+was to allow the child process to be returned to a consistent state.
- For example, at the time of the call to
- .BR fork (2),
- other threads may have locked mutexes that are visible in the
---=20
-2.34.0.rc1.387.gb447b232ab-goog
+the current text kind of sounds like "glibc has a great
+implementation, but POSIX doesn't require that, and everyone else
+sucks", but that's pretty misleading. (even if the glibc
+implementation is safe, which i'm not sure it is. it also seems like
+the "that's not a cache, that's a memory leak" implementation would
+preclude memory tagging for thread stacks, which would be another
+infelicity?)
+
+-*-
+
+this page is a bit weird in general... ESRCH isn't mentioned in
+ERRORS, but the sig == 0 case is called out in DESCRIPTION, but you
+need to read NOTES to find out that that's basically broken. and
+no-where on the page do we try to describe alternatives that _do_
+work. (happy to volunteer text along the lines of "you need to stash
+your thread's tid at a time when you *know* the pthread_t is valid,
+such as when the thread starts, and then you can use that with kill(2)
+and sig == 0 to do what you _thought_ pthread_kill(3) with sig == 0
+did, which still isn't 100% safe in light of pid wrapping, but is the
+best you can get if you refuse to actually keep track of your threads'
+lifetimes properly :-P ".)
+
+actually, even this would be quite a good improvement:
+
+        If sig is 0, then no signal is sent, but error checking is still
+-       performed.
++       performed. See NOTES for why this can't be used to detect
+whether another thread is still running.
 
 
-
-On Thu, Nov 11, 2021 at 1:49 PM Alejandro Colomar (man-pages)
-<alx.manpages@gmail.com> wrote:
+On Tue, Nov 9, 2021 at 11:16 PM Florian Weimer <fw@deneb.enyo.de> wrote:
 >
-> Hi,
->
-> On 11/9/21 23:27, enh wrote:
->  > Clarify that the pthread_atfork() callback list is a global, not
->  > per-thread.
->  >
->  > The use of "this thread" implied to some readers that pthread_atfork()
->  > maintained per-thread lists of callbacks. Given that the next sentence
->  > already explains that the callbacks are run in the context of the thre=
-ad
->  > that calls fork(), I actually think it would be fine not to mention
->  > threads at all in the earlier sentence, but for now I've gone with wha=
-t
->  > I think was intended to be written.
->  > ---
->  >   man3/pthread_atfork.3 | 2 +-
->  >   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> Could you please sign your patch?
->
-> <https://www.kernel.org/doc/html/latest/process/submitting-patches.html#d=
-eveloper-s-certificate-of-origin-1-1>
->
-> On 11/10/21 09:11, Florian Weimer wrote:
-> >> diff --git a/man3/pthread_atfork.3 b/man3/pthread_atfork.3
-> >> index b727cb48e..3e61e797f 100644
-> >> --- a/man3/pthread_atfork.3
-> >> +++ b/man3/pthread_atfork.3
-> >> @@ -39,7 +39,7 @@ The
-> >>   .BR pthread_atfork ()
-> >>   function registers fork handlers that are to be executed when
-> >>   .BR fork (2)
-> >> -is called by this thread.
-> >> +is called by any thread in a process.
-> >>   The handlers are executed in the context of the thread that calls
-> >>   .BR fork (2).
-> >>   .PP
+> > any comment from either of the maintainers?
 > >
-> > There's another confusing =E2=80=9Cthread=E2=80=9D reference further be=
-low:
-> > =E2=80=9Cpthread_atfork() may be called multiple times by a thread, to =
-register
-> > multiple handlers for each phase.=E2=80=9D  I think that should be repl=
-aced by
-> > =E2=80=9Cprocess=E2=80=9D for clarity.
+> > i think what we currently have on this page is factually incorrect,
+> > and this patch better matches reality.
 >
-> Also, if you could also fix that line reported by Florian in the same
-> patch, it would be great.
+> One more data point:
 >
-> Thanks!
+> As of glibc 2.34, pthread_kill in glibc cannot fail with ESRCH anymore
+> (unless the kernel thread is terminated by a direct system call).  And
+> the race that the signal could be sent to the wrong thread is gone.
 >
-> Alex
->
-> --
-> Alejandro Colomar
-> Linux man-pages comaintainer; http://www.kernel.org/doc/man-pages/
-> http://www.alejandro-colomar.es/
+> > On Tue, Nov 12, 2019 at 10:10 PM Florian Weimer <fw@deneb.enyo.de> wrote:
+> >>
+> >> * enh:
+> >>
+> >> > On Tue, Nov 12, 2019 at 9:51 PM Florian Weimer <fw@deneb.enyo.de> wrote:
+> >> >>
+> >> >> * enh:
+> >> >>
+> >> >> > no, because the C library has two choices when a thread exits:
+> >> >> >
+> >> >> > 1. unmap the thread.
+> >> >> >
+> >> >> > 2. keep the thread around for recycling.
+> >> >> >
+> >> >> > if you choose 1 (optimizing for space, like Android), your dereference
+> >> >> > is illegal.
+> >> >>
+> >> >> This choice is only available for threads in a detached state.  For
+> >> >> joinable threads, a conforming implementation cannot immediately
+> >> >> deallocate all data structures on thread termination.  Among other
+> >> >> things, it has to store the future return value of pthread_join
+> >> >> somewhere.
+> >> >
+> >> > ah, you're trying to say "signal 0 is potentially usable for a
+> >> > joinable thread that's waiting to be joined"? that's true, but i'm not
+> >> > sure how that's relevant to this patch. that wouldn't be an "invalid
+> >> > thread ID" until it's joined.
+> >>
+> >> Correct.  That's POSIX's argument why ESRCH wouldn't be valid to
+> >> return here.  It's still a forceful loss of information, and
+> >> particularly annoying since POSIX doesn't specify pthread_tryjoin.
+> >>
+> >> But I'm glad we've brought our discussion to a conclusion. 8-)
