@@ -2,141 +2,245 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C86C244ED6F
-	for <lists+linux-man@lfdr.de>; Fri, 12 Nov 2021 20:40:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B296D44ED89
+	for <lists+linux-man@lfdr.de>; Fri, 12 Nov 2021 20:50:12 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235408AbhKLTns (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 12 Nov 2021 14:43:48 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55966 "EHLO
+        id S235244AbhKLTxC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 12 Nov 2021 14:53:02 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58036 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235542AbhKLTns (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 12 Nov 2021 14:43:48 -0500
-Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com [IPv6:2607:f8b0:4864:20::102b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 48407C061766
-        for <linux-man@vger.kernel.org>; Fri, 12 Nov 2021 11:40:57 -0800 (PST)
-Received: by mail-pj1-x102b.google.com with SMTP id np6-20020a17090b4c4600b001a90b011e06so7227272pjb.5
-        for <linux-man@vger.kernel.org>; Fri, 12 Nov 2021 11:40:57 -0800 (PST)
+        with ESMTP id S230101AbhKLTxA (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 12 Nov 2021 14:53:00 -0500
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com [IPv6:2a00:1450:4864:20::329])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8C009C061766
+        for <linux-man@vger.kernel.org>; Fri, 12 Nov 2021 11:50:09 -0800 (PST)
+Received: by mail-wm1-x329.google.com with SMTP id 133so8696970wme.0
+        for <linux-man@vger.kernel.org>; Fri, 12 Nov 2021 11:50:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to:user-agent;
-        bh=ISeDpYtwAAuRJKwLwMRERO2q2cTr4Sqt6dOl3MEewB4=;
-        b=d4jjq5jHcuKOf4NFSPK93HDWN5/gqhKbYVBMMJsEsZwBzvMV5RB/RxG/BbYF/JEI85
-         EO/HW5T126uPqKe/5a5Hae6FLwmoFHM9WN9pujb5sqj/eD+IeNgiZbh6cybMb1rg9q5C
-         6GE42O9nTs8s30a03R3F5QMBkDG9Od875yH8zCdA+UImcr74HHrSbuvFSAtwni2WRjU4
-         JbmbjV/7D4v1H++GMQ7aADS3rYH5oho2CExYPtW1L2mSxKhhZiUdas6gnKT27yVjES55
-         Pn0XGqCNNSg1YU+Upsvhy1DSHzXLynbr6kYdMSxFFrcVcA6GRuSmGwP/Su6UxT41KgIg
-         OIAw==
+        h=message-id:date:mime-version:user-agent:subject:content-language:to
+         :cc:references:from:in-reply-to:content-transfer-encoding;
+        bh=YEwiDPLRJ1OmSJ6RwqNoy8P8lviIMXA54nA6pdt7VQE=;
+        b=BFPg/8WGJt8gPLEcox8flCs1GZ4rrZoTeGJnKoyJOtrlHJWfiTFx1MBTAxDEu8aMM8
+         rCl/o5KXFJfMC7BYsd3CtpCPaTMRoshVxnK9Vm10WZ3+0HncPqu31lkQAQNYtKugGZh/
+         OsQfg3SwEXqlImLIUoDZOY21s2caZr65zTA+SF4KaVympismxyHiDqWKT5ON07Nksg3o
+         oxKGAcQXVi3Gypn/JiSxG/wQ1IGPMF8zmmztZMddtlryIpDoVz9xk5vfFkuWSxHUBckm
+         uhUCDtpHz/qto7M5m8KowUxvVZ794LKoFmSm5rz3YMZZEJS3DirXrbE6Y42hIxar1M+G
+         PY7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=ISeDpYtwAAuRJKwLwMRERO2q2cTr4Sqt6dOl3MEewB4=;
-        b=ZNrzGiiJtYEyvR2BSe8FQb8uMN25IxwXCZNpzIHoji/2ZzlQN72xFxLm9OwXoqzEd3
-         QjvCTdhNYAPsV+rmnCiXHBZBHJki91TKCXJrhwAlKyQGV0f+woQWbKrgh9Q2rxcfK01N
-         XJCBomtx8aQRLmSHRn7Al7Xipg9gKCzbeGluhhxLMrGdjhUzAoF3zPxTYZJb5u/Y4vI7
-         GMXROBgzTFZyusAjHokW+KorU/qrhup459YtQ+haanUeGjWuySHk7JrvUZFA0cent/Mo
-         seZiosoVTDdGeRjlgcR+ZKQPjS167tg8Z52tjYWLHk22omcp9r2U0S4BUTdE6Qv+1HRl
-         P0bQ==
-X-Gm-Message-State: AOAM531HuvOTfTfzW4yKq/IU2aSev2xX0Tk8moqoPV7KNqrjAyYjqjif
-        PrZSmiBSwi0Ujz7knKGedhI=
-X-Google-Smtp-Source: ABdhPJwjd/zcNhUgQzSLILjvBz7J4jXDAewPMJ/CVy+8Z7R5X5jJ8q6B8HoyWSOcSoazOdPMB3luvQ==
-X-Received: by 2002:a17:90b:97:: with SMTP id bb23mr20939274pjb.201.1636746056854;
-        Fri, 12 Nov 2021 11:40:56 -0800 (PST)
-Received: from localhost.localdomain ([1.145.57.118])
-        by smtp.gmail.com with ESMTPSA id r8sm5320664pgs.50.2021.11.12.11.40.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 12 Nov 2021 11:40:56 -0800 (PST)
-Date:   Sat, 13 Nov 2021 06:40:52 +1100
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+         :content-language:to:cc:references:from:in-reply-to
+         :content-transfer-encoding;
+        bh=YEwiDPLRJ1OmSJ6RwqNoy8P8lviIMXA54nA6pdt7VQE=;
+        b=bvdnnHpW4464fuJ8BUbu0U14f7NC4rtinGqhJTHizNK/yWwCUlJg7J0VKhqOGOI41E
+         xJDezMMxqVsUqTSO7azxuu3w2J1j817T9WzHBG8baXIW6Q+vTO6zv4CP8NiSHsNdbIhX
+         mjpYe6nZY2Ltq+jv/iSVm5v7gph9R5QZ0x+ZLFYPRcSXCrbJVQHhm66UJvMxRogEmiYR
+         3Aj0XJny/MBVuErPbQbFoYuPLb+tRsAM8Q23f0xn93ba03RC4wH8ByuhX2KPHiEdRzYZ
+         7k35W/kpnec6QPDOnXQBf+WLGrFZLc1bh6irrprLt3MiVxER5jfa76lGNyBQMtUzx+lv
+         kJLQ==
+X-Gm-Message-State: AOAM533N8AWhQE0AMaiRSRL6akjlfdYYq37WCD4O0fmrhGa5+45k1h95
+        YCB534BouS+r2mCmVK7EFupWqYPK+LTSiw==
+X-Google-Smtp-Source: ABdhPJy2vs0E8aHfS6QYRqirbu1GTsuSthyR61eWtCmk7UOPj+G/ip5oTPUFYv+ESTkoB1Yu7IjkAg==
+X-Received: by 2002:a7b:c4c4:: with SMTP id g4mr19171818wmk.93.1636746608084;
+        Fri, 12 Nov 2021 11:50:08 -0800 (PST)
+Received: from [10.168.10.170] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id e8sm2976300wrr.26.2021.11.12.11.50.07
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 12 Nov 2021 11:50:07 -0800 (PST)
+Message-ID: <3fe7250d-eca3-663e-8ffe-11f67c08a879@gmail.com>
+Date:   Fri, 12 Nov 2021 20:50:06 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.0
+Subject: Re: [PATCH v2] mctp.7: Add man page for Linux MCTP support
+Content-Language: en-US
+To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
 Cc:     Jeremy Kerr <jk@codeconstruct.com.au>,
         Michael Kerrisk <mtk.manpages@gmail.com>,
         linux-man@vger.kernel.org
-Subject: Re: [PATCH v2] mctp.7: Add man page for Linux MCTP support
-Message-ID: <20211112194050.w675gtlnecpc2r3x@localhost.localdomain>
 References: <20211111015323.3542313-1-jk@codeconstruct.com.au>
  <76dd85f7-ab8a-1dcc-5b1a-5eb9a87d23bc@gmail.com>
- <d6c9edca79f9aedd4dd9e07e46a4587153f35149.camel@codeconstruct.com.au>
- <d0f4c857-db51-8482-d658-69f6ac25c73b@gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="7eruv6xbyixsgt2e"
-Content-Disposition: inline
-In-Reply-To: <d0f4c857-db51-8482-d658-69f6ac25c73b@gmail.com>
-User-Agent: NeoMutt/20180716
+ <20211112093536.hvifxgdtb2y6jzge@localhost.localdomain>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+In-Reply-To: <20211112093536.hvifxgdtb2y6jzge@localhost.localdomain>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---7eruv6xbyixsgt2e
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-Hi, Alex!
+On 11/12/21 10:35, G. Branden Robinson wrote:
+> Hi, Alex!
+> 
+> At 2021-11-11T22:38:43+0100, Alejandro Colomar (man-pages) wrote:
+>>> +Messages may be fragmented into packets before transmission, and reassembled at
+>>> +the remote endpoint.
+>>
+>> Break at the comma.
+> 
+> I use "/[;:,]." in vi(m) to help myself find these quickly (you can get
+> false positives in comments; a more sophisticated regex that one might
+> want to bind to a key can rule those out).  Breaking input lines after
+> commas, semicolons, and colons is considered good style by *roff
+> veterans going back to Kernighan in 1974[1].
+> 
+> "/[!?.][^\\]" is more important--it's an un-semantic-newline finder
+> (though again with some false positives).  Those have a real impact on
+> the resulting typography (due to inter-sentence spacing).
+> 
+>> Types should be in italics.
+>>
+>> Branden, I thought this was specified somewhere, but I can't find it.
+>> Do you know where it is?  Or maybe if your more up to date
+>> groff_man[_style](7) pages mention that?
+> 
+> Nope, apparently I never made a prescription in this area.  It's worth
+> making explicit note of, since it deviates from the "literal -> bold,
+> variable -> italics" mapping that people overgeneralize/overapply.
 
-At 2021-11-12T19:45:16+0100, Alejandro Colomar (man-pages) wrote:
-> man-pages(7) recommends breaking long lines at clause boundaries
-> (commas, semicolons, and so on), but somethimes clauses (if you don't
-> know the difference between phrases and clauses, which you don't need
-> to, basically clauses are made up of phrases)
+I'll save this for below as an argument.
 
-Slightly more formally, a clause is a grammatical unit containing a
-subject and a predicate: "allocation fails" is a near-minimal example.
-I wouldn't be surprised if caveats exist for "non-standard" speech, but
-man pages are written in a fairly formal register so the rule should
-apply reliably.  A moment's attention to clause boundaries can help one
-clarify or recast complex constructions to aid readability and accuracy.
+> 
+> So I'll queue this up for my next revision of groff_man_style(7).  Thank
+> you for catching it!
 
-> "the source and destination EIDs" is a single phrase, so it's a bit
-> weird to break the line in the middle of it.  I avoid breaking
-> phrases, which makes reading the source code a bit more difficult.
-> Hopefully, it will also make diffs easier to read in the future.
+It's a pleasure! :-}
 
-My only gripe about list-related phrase breaks, and it's a minor one, is
-that in English grammar they nearly always require a conjunction ("and",
-"or") somewhere, and no matter where I place it, it feels wrong, because
-it's neither an item of the list I'm itemizing, nor part of an item.
+> 
+>> groff_man(7) (groff 1.22.4):
+> [...]
+>>                Use italics for
+> [...]
+>>                for  names of works of software (including
+>>                commands and functions, but excluding names of op-
+>>                erating  systems or their kernels),
+> 
+> As an FYI, I'm feeling an urge to drop the foregoing item of advice.
+> Exceptions are often also made for names of software packages (both in
+> the loose sense and the technical one--who italicizes "TeX", for
+> example?); usage is so inconsistent that I despair of providing
+> comprehensible guidance.
 
-I mention this because I suspect there is a point of diminishing returns
-in our prescriptive advice, because English is an unwieldy beast that
-was not formally designed as any respectable system would be.
+Okay, I had to write about a different package recently, and I had some 
+doubts if I should or not, given current status quo.  If we completely 
+remove it, okay.  Maybe Michael will be more conservative, I don't know. 
+  But the status quo is already very screwed, since I seldom see that used.
 
-Forget killing baby Hitler--if I ever get a time machine, I'm going to
-go back and teach Shakespeare Haskell.
+I think there are a few pages that may make use of it, but I don't 
+remember which.  Please give me some time (maybe a month? I hope it 
+isn't too much) to come with feedback about usage of this in current 
+pages, before you remove it.
 
-> Also, we prevent some crazy programmers from relying on that padding
-> byte being actually padding and not something else, even if it "must"
-> be zero.  I've seen too much crazy stuff; programmers relying on
-> undefined behavior just because "we don't plan to move from C++17 to
-> C++20, so this is safe".
+> 
+> Now that groff man(7) has the 'MR' semantic macro for man page cross
+> references[2], most of the instances where people would fail to
+> italicize will be taken care of without the foregoing.
 
-+1.  One can almost see them producing a cowboy hat from an
-extradimensional space in their cubicle.  Strap in--the UB bronco is
-gonna start bucking.
+If only each package had its own manual page...  Not even in Debian...
 
-Regards,
-Branden
+> 
+>> Anyway, for you Jeremy, I have other pages to follow for consistency:
+>> For example, gettimeofday(2).
+>>
+>>> +Packets between a local and remote endpoint are identified by the source
+>>
+>> Break after "by" (or perhaps just before it).
+> 
+> Phrasal semantic newlines!  :D  This 180-proof Kernighan whiskey is a
+> stronger prescription than I would write (mainly because it requires
+> natural-language-aware grepping), but if your contributors don't rebel,
+> I think we will all ultimately see the benefits in diffs.
 
---7eruv6xbyixsgt2e
-Content-Type: application/pgp-signature; name="signature.asc"
+I feel an urge to add it to man-pages(7).  :-}
 
------BEGIN PGP SIGNATURE-----
+> 
+>> Something similar might be good for this page.  Maybe "trailing fields
+>> may be added in the future to this structure.  The structure should be
+>> zeroed before use, so that future fields are zeroed" or something like
+>> that (I'm not very inspired for the wording, sorry :), and then remove
+>> the pad field.
+> 
+> The idiom is `memset(mystructp, 0, sizeof(struct mystruct));`, isn't it?
 
-iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmGOwzgACgkQ0Z6cfXEm
-bc7zexAAgY5wZTbw8YqwcEJMs5KqGL6Kb0ShfBt7e5eJv7yQPEPrCvQCmzZ4fiIr
-KyJhHbp6yiAilw/HiNB0KhvRMxa+vSW2mQ7VzWMMyUbTpI7cptgDj/r5zGtUN+rw
-JIArlA7BjD/6M91kCQRvcPucGLFrkJKz9CvpygLxjq3+NQ3uKNu2hJcHD4NQmsHX
-UigRaPKT7SWdLR0WnyfswnvZEkx7ZjG/KnQ4JoPUen6boKLc7GVLumFuqCG9ASnL
-hrKqZjC99w2fMUuIZU/imN3nrgBghBZ0Ms59SXkFm/MpwA3ikvl9BSwqDb3qL8jC
-03bp+gAho05MfIeM7VGHalSdkx6yQ1ZjBjzi2GTQ8u5iToVYk+g88tOD92mzpQDi
-wt2BriZHk1quZo95yTr03NODL38rS75OCIUfRN2tHPuAab1OceIxKH6GjUX3lR/W
-uldrPzvmA+UC3T8CkQnfUr/2JQf3EO/BlfVtJ4HiLqPa3hwu/ZoaXwqmrA0dRYBV
-h5rNBljKsXp5Np1Sotr8xfTyt6NykqF9nWidmSFDRdtcLrhYyZuOj0/tuOUJ/XvO
-wVH3k2JSQ52wiJr8UqaXeQH/SP9Do+y+pYOi4ixWurpkPnCGZr0rzV2tK86aiK6y
-ph9I64tWMb3Ysyi0otZr3u712t/7vBEGp4Anu9a/sWi8JYlL5HU=
-=pvJu
------END PGP SIGNATURE-----
+Yes.
 
---7eruv6xbyixsgt2e--
+> If so, then maybe the point doesn't need to be made.
+
+Well, if someone doesn't know that idiom, it may leave the structure 
+with garbage padding, so I'd put some notice, even if it's very short.
+
+> 
+>> Only for Branden:  I just noticed a difference between man-pages(7)
+>> and groff_man(7) advise:  groff_man(7) advises to use italics for
+>> preprocessor constants, while man-pages(7) recommends bold:
+>>
+>> [
+>>         Special macros, which are usually in  uppercase,  are  in
+>>         bold (e.g., MAXINT).  Exception: don't boldface NULL.
+>> ]
+> 
+> That was a deliberate difference on my part, motivated partially by own
+> preference for reduction of what I regard as excessive use of bold in
+> man pages since the '90s, and partly due to precedent.  The 4.4BSD book
+> by McKusick, et al., for example, uses italicized small caps for some
+> things enumeration constants (like open(2) flags) and upright small caps
+> for others (like errno(3) values and signal names).  man(1) output to a
+> terminal just doesn't have enough typefaces to go around.
+> 
+> "If in any doubt, use bold" seems to have become the prevailing wisdom
+> in the 1990s due, as far as I can tell, to a historical accident
+> involving the (lack of) capability of VGA hardware and text mode console
+> drivers[3].  Some readers might remember the days when getting an X11
+> server working on your hardware was considered an achievement.
+> 
+>> I find it better with bold, since that differentiates variables from
+>> constants.
+> 
+> Would we then also bold constants that are C objects with the "const"
+> type qualifier rather than language literals emplaced by the
+> preprocessor?
+
+Yes!  The difference between "const" variables and macros is just 
+preprocessor, but they are all intended for very similar usage.
+
+> 
+> My intuition is that this distinction isn't worth making with a
+> typeface; the use of bold is not necessary to cue the user that they
+> should not redefine a symbol, since there are plenty of other things
+> set in italics that the user _also_ shouldn't (try to) redefine.
+> 
+> I'm certainly open to hammering out a reasoned basis for typeface
+> selections, though.  Much of current practice arose in an ad hoc way.
+
+Let me try to convince you.
+
+We have a mapping in our brains that says
+"literal -> bold, variable -> italics".
+If we extend that mapping,
+macros are replacements for literals,
+so we would use bold for them too.
+And "const"s are also mostly intended for the same use as macros,
+so bold goes for them too.
+
+Existing practice seems to have followed that
+(or maybe a parallel) reasoning.
+
+BTW, I noticed that the Linux man-pages are inconsistent with
+the mapping of literal -> bold,
+and tend to not highlight literals.
+I'll change that for future patches.
+
+Did I convince you? :)
+
+
+Cheers,
+Alex
+
+
+-- 
+Alejandro Colomar
+Linux man-pages comaintainer; http://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
