@@ -2,155 +2,291 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0EAA744E6F6
-	for <lists+linux-man@lfdr.de>; Fri, 12 Nov 2021 14:02:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0B98844ECC9
+	for <lists+linux-man@lfdr.de>; Fri, 12 Nov 2021 19:45:23 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234993AbhKLNFH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 12 Nov 2021 08:05:07 -0500
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124]:29499 "EHLO
-        us-smtp-delivery-124.mimecast.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S234942AbhKLNFH (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 12 Nov 2021 08:05:07 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1636722136;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         content-transfer-encoding:content-transfer-encoding:
-         in-reply-to:in-reply-to:references:references;
-        bh=dNDUcfVNfSeielBQqeok2efobfWEdSr0UdNGjCxiy3A=;
-        b=Duq1ksetdacEWc4HqO2wELAOS2CJl38EiCiCk3vkSmXoBbFCaV/vFVprMnO3ItEi1FNOzc
-        +Mpokq39/hyAdodw64WszLR9HK14LTcGx0MRJJrJaEfCSoC/2pLib9sWjGNFyMqMpeW0fW
-        QOHV3/y7YpvV/jw5In5NUHF93xJxKIM=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-424-32J0pyOSM3GUcy3Qqhx4Ng-1; Fri, 12 Nov 2021 08:02:13 -0500
-X-MC-Unique: 32J0pyOSM3GUcy3Qqhx4Ng-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
-        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-        (No client certificate requested)
-        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0B3061923762;
-        Fri, 12 Nov 2021 13:02:12 +0000 (UTC)
-Received: from oldenburg.str.redhat.com (unknown [10.39.192.82])
-        by smtp.corp.redhat.com (Postfix) with ESMTPS id DE5BB5C3E0;
-        Fri, 12 Nov 2021 13:02:10 +0000 (UTC)
-From:   Florian Weimer <fweimer@redhat.com>
-To:     enh <enh@google.com>
-Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        linux-man@vger.kernel.org
-Subject: Re: [PATCH] pthread_kill.3: Update to match POSIX.
-References: <CAJgzZoojiRmTV_5sAXhqQciAKsQ_d+znT1OnxT0Rpa_-N_G5-Q@mail.gmail.com>
-        <87imnodbct.fsf@mid.deneb.enyo.de>
-        <CAJgzZoo+oSkwgCZ3CMUdP-t+Y4h4PkvJO-As15kjz0Ad+nx9fA@mail.gmail.com>
-        <877e44daom.fsf@mid.deneb.enyo.de>
-        <CAJgzZopuKoGFUq0GrB6ioFpLXzCY1iwGRddRRcAhzsNisjutuQ@mail.gmail.com>
-        <87woc4bv9c.fsf@mid.deneb.enyo.de>
-        <CAJgzZorosDN58Zp6TUDJbzY3fmR-rJeWbELtw_H3nzMyaWondg@mail.gmail.com>
-        <87imnobufy.fsf@mid.deneb.enyo.de>
-        <CAJgzZorB99W2PzjQ5ZU1nBiYb81Ubm=VvaF50BOm9sTFUHeE4A@mail.gmail.com>
-        <87r22c9ve8.fsf@mid.deneb.enyo.de>
-        <CAJgzZopvMb8KGyA5b6afWG83hw-cZgOdvOdPYb28iS+f5wDkmw@mail.gmail.com>
-        <87mud09uhr.fsf@mid.deneb.enyo.de>
-        <CAJgzZooj8VaF_P2YaqwEchR5LEKP_mS379r6GLrexkDen2jGtQ@mail.gmail.com>
-        <87lf1wjxcu.fsf@mid.deneb.enyo.de>
-        <CAJgzZooymW7fHnpCeVmhrAe-uue9zdssdP-QHeRtPN3MkVsnNA@mail.gmail.com>
-Date:   Fri, 12 Nov 2021 14:02:09 +0100
-In-Reply-To: <CAJgzZooymW7fHnpCeVmhrAe-uue9zdssdP-QHeRtPN3MkVsnNA@mail.gmail.com>
-        (enh@google.com's message of "Thu, 11 Nov 2021 16:01:41 -0800")
-Message-ID: <875ysxsf1q.fsf@oldenburg.str.redhat.com>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/27.2 (gnu/linux)
+        id S235424AbhKLSsM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 12 Nov 2021 13:48:12 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43542 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S229892AbhKLSsL (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 12 Nov 2021 13:48:11 -0500
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com [IPv6:2a00:1450:4864:20::329])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3D422C061766
+        for <linux-man@vger.kernel.org>; Fri, 12 Nov 2021 10:45:20 -0800 (PST)
+Received: by mail-wm1-x329.google.com with SMTP id i12so7673385wmq.4
+        for <linux-man@vger.kernel.org>; Fri, 12 Nov 2021 10:45:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=message-id:date:mime-version:user-agent:subject:content-language:to
+         :cc:references:from:in-reply-to:content-transfer-encoding;
+        bh=3hjG1PKtC9nj4Fjxe9b6q0PMSy6Xi9B2yiUNYG8ljxQ=;
+        b=g4pIRM4Mb1I0jakSlMzw5SDA26roTwglo8ORzgpYL+Ys+VTuOq5rYWkj6MEaJseGmO
+         OXNh7fsmI9tfquae6KlR/YuouERgmfXtYqW1L7cSjzOePMPvL9d+2VhwHKtlRCe2CpvK
+         UOWDVCNzUW8hijGkvuy3zE2nDFMSWU4eAG9rOSfRFqC4zfcij8rHie6O3UiA12aD7zU3
+         Tjno02svR13SMpG4XNetrpBWrZPI9I+nlMgb1lq8A9Knae0QO4Pad47KichTzzSaO2pF
+         +zC1m80AVxMsq3BGQhpL2wFC2U1iFB8SFMGozeRhl67E+ly9e/ICErPMmT+8McFkjR1G
+         kuVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+         :content-language:to:cc:references:from:in-reply-to
+         :content-transfer-encoding;
+        bh=3hjG1PKtC9nj4Fjxe9b6q0PMSy6Xi9B2yiUNYG8ljxQ=;
+        b=e4eFAThFo5wV5IlTDMxcpNVgB22g6T1wnE6L/Fl/g/UAmqgi3WS92nWIo85wKD6UqH
+         rzArecUEPEc5cYFqoWtB8aK5UO+yNIe/u0nUYlbVMWw4NgCP9JDf/t22AKjyVe4iQvW7
+         X4F7pqCB+5fEjNVBwEeJKALoQpIzJ0z1YMDsxtZLTl7N8ln8wJh/z5N+7shzV6jF9AUs
+         zwHw3//4/fof9ScrlFo8L1kTHV8IeQ3FGiN53kDGJlOs73JReVDKRZ5fADbcedwBZtz0
+         dxPj1UEaqw2jqJR5pKZESzwpUQYFnT8du+yAytA57C77QPfUAKM5MetuYyUHIuJLs8SP
+         8Mmw==
+X-Gm-Message-State: AOAM530RCdlLsg0tR417xsPivCq2r/bJTCuJQuGPJQD8hmIF0cr4Nqld
+        nN7YBrasFWfiLOILyss9DQ4=
+X-Google-Smtp-Source: ABdhPJxhLp5RcHvBfj/cEaWoTimfgcfRQiVZwKprKX3R4pW43QR3jBYMj7zURQVhhOMqCIy+9Tn5lw==
+X-Received: by 2002:a05:600c:4fcc:: with SMTP id o12mr37883034wmq.110.1636742718633;
+        Fri, 12 Nov 2021 10:45:18 -0800 (PST)
+Received: from [10.168.10.170] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id 9sm8712256wry.0.2021.11.12.10.45.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 12 Nov 2021 10:45:18 -0800 (PST)
+Message-ID: <d0f4c857-db51-8482-d658-69f6ac25c73b@gmail.com>
+Date:   Fri, 12 Nov 2021 19:45:16 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.0
+Subject: Re: [PATCH v2] mctp.7: Add man page for Linux MCTP support
+Content-Language: en-US
+To:     Jeremy Kerr <jk@codeconstruct.com.au>
+Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        linux-man@vger.kernel.org
+References: <20211111015323.3542313-1-jk@codeconstruct.com.au>
+ <76dd85f7-ab8a-1dcc-5b1a-5eb9a87d23bc@gmail.com>
+ <d6c9edca79f9aedd4dd9e07e46a4587153f35149.camel@codeconstruct.com.au>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+In-Reply-To: <d6c9edca79f9aedd4dd9e07e46a4587153f35149.camel@codeconstruct.com.au>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-> the issue i'm trying to fix (and so maybe need to find even clearer
-> wording for) is basically this:
->
->   * lots of people don't realize that pthread_t !=3D pid_t
->   * they think that "the worst that can happen" when passing a
-> no-longer valid pthread_t to these functions is ESRCH
->   * they don't realize that using pthread_kill(3) like this is just a
-> use-after-free bug
+Hi Jeremy,
 
-Okay, this is just not about pthread_kill, though.  So man-pages-wise,
-pthread_kill may not be the right place to document it.
+On 11/12/21 02:12, Jeremy Kerr wrote:
+> Hi Alex,
+> 
+> Thanks for the review! I've updated in line with most of your comments,
+> and will send a v3 soon. However, I do have a couple of queries, mainly
+> for my own understanding:
 
-> i think one reason this persists is glibc's thread cache makes it
-> harder to hit there. i don't actually know whether glibc's thread
-> cache has an eviction policy at all?
+Sure.
 
-It's typically at least five entries deep, so it's pretty good at
-obscuring these issues.
+> 
+>>> +.SH SYNOPSIS
+>>> +.nf
+>>> +.B #include <sys/socket.h>
+>>> +.B #include <linux/mctp.h>
+>>
+>> I prefer alphabetic sorting of includes.
+> 
+> OK, does that take priority over the convention to list the header(s)
+> specific to this man page last?
 
-In glibc 2.34, the stack size is tunable, and it can be disabled (more
-or less) using
+I didn't even know there was such a convention, but if there is, yes, I 
+explicitly want to override it.
 
-  GLIBC_TUNABLES=3Dglibc.pthread.stack_cache_size=3D0
+Rationales:
 
-for typical distribution builds that do not disable tunables.  If you do
-that, you get a segmentation fault for such invalid pthread_kill calls.
+<https://google.github.io/styleguide/cppguide.html#Include_What_You_Use>
+<https://google.github.io/styleguide/cppguide.html#Names_and_Order_of_Includes>
+<https://stackoverflow.com/a/2763292/6872717>
+<https://stackoverflow.com/a/2762626/6872717>
 
-(The =E2=80=98more or less=E2=80=99 part refers to detached threads, where =
-the TCB
-lingers around after exit because it is tied to the thread stack in our
-current implementation.)
+Basically, alphabetic order avoids undeclared dependencies that can be 
+hidden in some specific orderings which "just work but if you reorder 
+them it breaks".  Of course, it can still hide some dependency, but it's 
+more unlikely.  It's a "this can be random order, but let's use 
+something more readable and consistent than random".
 
-> if it doesn't, that would indeed
-> turn this use-after-free into "just" a question of whether you have
-> the right pid_t or not. but assuming glibc's thread cache _does_ have
-> an eviction policy, glibc's in the same boat as more svelte libcs
-> (such as bionic and musl, plus the BSDs, and also Apple's anonymous
-> libc) --- it just needs more threads.
+Unless for some exception that I can't remember now, Google's style 
+guide applies to includes in the man-pages (or I intend it to be so).
 
-Right.
 
-> this confusion causes bugs (and crashes) today, and it's only going to
-> get worse as we get better tools for detecting UAF, such as Arm MTE,
-> and it's really hard to get people to understand the problem when the
-> man page is worded as it currently is (with a weak "can, for example"
-> hidden in the NOTES section).
+> 
+> In that case, we end up with:
+> 
+>      #include <linux/mctp.h>
+>      #include <sys/socket.h> /* Definition of socket() & SOCK_DGRAM */
 
-I helped to fixed an incorrect LTP test around precisely this, and the
-GLIBC_TUNABLES setting was helpful to show that there was indeed a
-use-after-free.  Maybe that can help you with your =E2=80=9Cjust like glibc=
-=E2=80=9D
-problems, too.
+Since <sys/socket.h> provides the prototype socket(), it's 
+<linux/mctp.h> that should specify why it's needed, so it should be
 
-glibc 2.35 (and glibc 2.34 post-release) also break pthread-kill-based
-probing loops to detect kernel thread exit.  An unjoined pthread_t can
-=E2=80=9Creceive=E2=80=9D signals even if the TID is no longer in use on th=
-e kernel
-side.
+       #include <linux/mctp.h>  /* Definition of AF_MCTP */
+       #include <sys/socket.h>
 
-> this page is a bit weird in general... ESRCH isn't mentioned in
-> ERRORS, but the sig =3D=3D 0 case is called out in DESCRIPTION, but you
-> need to read NOTES to find out that that's basically broken. and
-> no-where on the page do we try to describe alternatives that _do_
-> work. (happy to volunteer text along the lines of "you need to stash
-> your thread's tid at a time when you *know* the pthread_t is valid,
-> such as when the thread starts, and then you can use that with kill(2)
-> and sig =3D=3D 0 to do what you _thought_ pthread_kill(3) with sig =3D=3D=
- 0
-> did, which still isn't 100% safe in light of pid wrapping, but is the
-> best you can get if you refuse to actually keep track of your threads'
-> lifetimes properly :-P ".)
+Also, please use at least 2 spaces between code and comments (unless the 
+line goes close to the 78 column (right margin), in which case, reducing 
+that space is the most readable thing to do).
 
-I don't think that's good advice.  Any such use has TID race issues
-(even if you use tgkill).
+Rationale:
 
-> actually, even this would be quite a good improvement:
->
->         If sig is 0, then no signal is sent, but error checking is still
-> -       performed.
-> +       performed. See NOTES for why this can't be used to detect
-> whether another thread is still running.
+<https://google.github.io/styleguide/cppguide.html#Horizontal_Whitespace>
 
-That makes sense.  (And I need to fix the bug that we don't have enough
-error checking, now that we no longer try to send the signal.)
+That helps visually separate code from non-code.
 
-Thanks,
-Florian
+> 
+>>> +.PP
+>>> +The API for MCTP messaging uses a standard sockets interface, using the
+>>> +.BR sendto (2)
+>>> +and
+>>> +.BR recvfrom (2)
+>>> +classes of system calls to transfer messages.
+>>> +Messages may be fragmented into packets before transmission, and reassembled at
+>>> +the remote endpoint.
+>>
+>> Break at the comma.
+> 
+> Just this comma? or all of them? There's a couple of sentences right
+> before this one that would seem to have a similar style - if it's the
+> former, for my own learning here: what makes this one different?
 
+There are a few more that I missed, that's right:
+
+[
+ > +This is a connectionless protocol, typically used between devices 
+within a
+ > +server system.
+ > +Message reliability and ordering are not guaranteed, but message 
+boundaries are
+ > +preserved.
+]
+
+Those should also be broken at the comma.  Rationale: semantic newlines 
+(man-pages(7)).
+
+In the case of the following one, although you could break at it if you 
+want (maybe better for consistency), I won't enforce it too much, since 
+it is a couple of words and the line is already broken in a non-semantic 
+way due to the formatting.  So I don't care too much:
+
+[
+ > +The API for MCTP messaging uses a standard sockets interface, using the
+ > +.BR sendto (2)
+]
+
+As Branden said, you can use "/[;:,]." and "/[!?.][^\\]" to check the 
+correct use of semantic newlines.
+
+> 
+> [and you mean a line-break, right? or a break-point escape sequence?]
+
+Yes, line break.
+
+> 
+>>> +Packets between a local and remote endpoint are identified by the source
+>>
+>> Break after "by" (or perhaps just before it).
+> 
+> Same as the above, why is this?
+
+This is more or less for the same reasons as above, semantic newlines, 
+but it goes a bit deeper.  Branden and I discussed a few months ago 
+about my strong preference for semantic newlines not only in clause 
+boundaries but also phrase boundaries.
+
+man-pages(7) recommends breaking long lines at clause boundaries 
+(commas, semicolons, and so on), but somethimes clauses (if you don't 
+know the difference between phrases and clauses, which you don't need 
+to, basically clauses are made up of phrases) are too long, and you can 
+have a single clause that uses more than a single line.  In those cases, 
+the most sensible place to break the line is at the next level: phrase 
+boundaries.
+
+"the source and destination EIDs" is a single phrase, so it's a bit 
+weird to break the line in the middle of it.  I avoid breaking phrases, 
+which makes reading the source code a bit more difficult.  Hopefully, it 
+will also make diffs easier to read in the future.
+
+> 
+>>> +struct sockaddr_mctp {
+>>> +    unsigned short     smctp_family;  /* = AF_MCTP */
+>>> +    uint16_t           __smctp_pad0;  /* pad, must be zero */
+>>> +    int                smctp_network; /* local network identifier */
+>>> +    struct mctp_addr   smctp_addr;    /* EID */
+>>> +    uint8_t            smctp_type;    /* message type byte */
+>>> +    uint8_t            smctp_tag;     /* tag value, including TO flag */
+>>> +    uint8_t            __smctp_pad1;  /* pad, must be zero */
+>>
+>> Do we want to tie the implementation to this pad?
+> 
+> Yes. The pad will be there anyway, due to the natural alignment of the
+> struct. Since we want to be explicit about the padding (and require it
+> to be zeroed), I would strongly suggest keeping it documented.
+
+If there was padding in the middle of the struct, yes, it should 
+definitely be documented in the man page.
+
+> 
+> There is an 'extended' MCTP addressing struct, which encapsulates a
+> struct sockaddr_mctp. For us to be absolutely clear about the layout of
+> that structure, the explicit pad here makes that unambiguous.
+
+What I mean is, if in the future this structure will have additional 
+trailing fields, documenting this padding is unnecessary, since that may 
+vary.  Code should not rely on this structure having _only_ that 
+padding.  And if code handles any arbitrary extra stuff in this 
+structure, it will implicitly also handle that __smctp_pad1 field, so 
+there's no need to mention it.
+
+Example:
+
+struct sockaddr_mctp {
+     unsigned short     smctp_family;  /* = AF_MCTP */
+     uint16_t           __smctp_pad0;  /* pad, must be zero */
+     int                smctp_network; /* local network identifier */
+     struct mctp_addr   smctp_addr;    /* EID */
+     uint8_t            smctp_type;    /* message type byte */
+     uint8_t            smctp_tag;     /* tag value, including TO flag */
+     uint8_t            foo;           /* was __smctp_pad1 */
+     uint8_t            bar;           /* extra stuff */
+};
+
+Here I got rid of the pad, and even added an extra field.  Code should 
+be written to be compatible with this case, right?  If so, I don't see 
+any reason to document that padding field, IMHO.
+
+Also, we prevent some crazy programmers from relying on that padding 
+byte being actually padding and not something else, even if it "must" be 
+zero.  I've seen too much crazy stuff; programmers relying on undefined 
+behavior just because "we don't plan to move from C++17 to C++20, so 
+this is safe".
+
+> 
+> [unless, for man pages, we don't care about the ABI, only the API?]
+
+We care about the ABI.  Especially, if it's about a type that we control.
+
+In the case of ISO C or POSIX types, system_data_types(7) doesn't 
+document Linux-specific details, for portability reasons, but that's an 
+exception, not the rule.
+
+> 
+>> Future implementations of sockaddr_mctp are not going to use that
+>> byte for anything else?
+> 
+> They might, hence requiring zero at present.
+
+Okay, then code should be able to handle _any_ trailing fields, 
+including that padding, so documenting it is irrelevant, I think.  We 
+could say something like "trailing fields may be added to this 
+structure", and that already implies the current padding byte, doesn't it?
+
+
+Cheers,
+Alex
+
+
+-- 
+Alejandro Colomar
+Linux man-pages comaintainer; http://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
