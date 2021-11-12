@@ -2,106 +2,135 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 431F044EDDC
-	for <lists+linux-man@lfdr.de>; Fri, 12 Nov 2021 21:22:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 83DEC44EDEF
+	for <lists+linux-man@lfdr.de>; Fri, 12 Nov 2021 21:33:39 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230235AbhKLUZO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 12 Nov 2021 15:25:14 -0500
-Received: from mail.kernel.org ([198.145.29.99]:50464 "EHLO mail.kernel.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S235542AbhKLUZM (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Fri, 12 Nov 2021 15:25:12 -0500
-Received: by mail.kernel.org (Postfix) with ESMTPS id A11D860F46
-        for <linux-man@vger.kernel.org>; Fri, 12 Nov 2021 20:22:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1636748541;
-        bh=0vwpGR6obZvXnAkrQp5aQ5BQ3q82c4haCQPmj2eKcGg=;
-        h=From:To:Subject:Date:In-Reply-To:References:From;
-        b=TOHnbAZz9hq+qiSNg1EZ8zSii76if872ePIm6UsP29WWaPNZgzus/5qd0MZb7zABm
-         MhsDsRL6E07ynmVesoMKAWmRNkmUf3moEun2P7esKy1bZMyBWxMyg0H+ZB4EQjUBoh
-         uQHKQCtRYj4RQPGSfdQ71Vq+izLWaI4I/yqI5AOHVRRUJCtU+ylCuPz7eadTUWVBs9
-         ctOJ2cc8AA6Dj0YiaVzn35ysVjz9uj+9VeLgsxybgxN0wLGWnUO29odJeTXoHHzEvq
-         AyvWlC1cywk3Bh6SpDq5/5e3WWulmqtrJKa8kZ6zm9pwveoNWNjLRcTXVIrCXrsrmb
-         pgxxlJuY3Eftw==
-Received: by pdx-korg-bugzilla-2.web.codeaurora.org (Postfix, from userid 48)
-        id 985946112E; Fri, 12 Nov 2021 20:22:21 +0000 (UTC)
-From:   bugzilla-daemon@bugzilla.kernel.org
-To:     linux-man@vger.kernel.org
-Subject: [Bug 214873] man 2 fsync implies possibility to return early
-Date:   Fri, 12 Nov 2021 20:22:21 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: changed
-X-Bugzilla-Watch-Reason: AssignedTo
- documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Product: Documentation
-X-Bugzilla-Component: man-pages
-X-Bugzilla-Version: unspecified
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: low
-X-Bugzilla-Who: alx.manpages@gmail.com
-X-Bugzilla-Status: REOPENED
-X-Bugzilla-Resolution: 
-X-Bugzilla-Priority: P1
-X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: 
-Message-ID: <bug-214873-11311-kSZRltLWzy@https.bugzilla.kernel.org/>
-In-Reply-To: <bug-214873-11311@https.bugzilla.kernel.org/>
-References: <bug-214873-11311@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
+        id S231238AbhKLUg1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 12 Nov 2021 15:36:27 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39436 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S230235AbhKLUg1 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 12 Nov 2021 15:36:27 -0500
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com [IPv6:2a00:1450:4864:20::32d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 31E00C061766
+        for <linux-man@vger.kernel.org>; Fri, 12 Nov 2021 12:33:36 -0800 (PST)
+Received: by mail-wm1-x32d.google.com with SMTP id v127so8736336wme.5
+        for <linux-man@vger.kernel.org>; Fri, 12 Nov 2021 12:33:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=message-id:date:mime-version:user-agent:subject:content-language
+         :from:to:cc:references:in-reply-to:content-transfer-encoding;
+        bh=iQsySVY/Ei8b40H2egknM+boYwmoTI8fMtSHw7vQuEU=;
+        b=JsfoGj2BHAnd+ADVF2pJsexCEGzR1T0t8nr/YMkL0ow/vL7sYjXn/6N/tTQ+8T8qYG
+         a0uI83XxawnAiO4s+j9iCtqCVYOv69aNoe5vA8XXmJpUhU2zwi70v4QzVxvL81qprePt
+         JHUP0Y0XuioolQmN0knbZ3HnBKBX4E1uOa+m1OHY7NbT15hYfvYrrAS1SBPRDgz1odGX
+         mWeh26VN+fEY4EvD3ycymwUF6SmZx/WI3bdYFGvgWv8OjHBZE69P1ZC7wg6yZzo9jvH2
+         pDJtBNjndtaAIcJvH0Jhk2fsYpndWuzSE202vFflgeZowvJCsevliJLlr9UGn9BJRUKl
+         m/Cw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+         :content-language:from:to:cc:references:in-reply-to
+         :content-transfer-encoding;
+        bh=iQsySVY/Ei8b40H2egknM+boYwmoTI8fMtSHw7vQuEU=;
+        b=j0ogNx6sg4Fkk9vIl0bMpxl5wsLXcch820KBSleorbiFH8k9bxr/WCCtyblMjtkFIE
+         MIn3jOKDSijGsK3c8wfnna2y77iU1YXfAgZYantEBWx1n8cf/HTJ+5ctqFjUbG+wYj9K
+         BBSRWdv3rNVIXD6jnKkdiz1ncQUR8TTzSoHNxGIyr34ExVrcFMVQGVGPxD3BAfeUTm1z
+         0kPepssATvRfnJOpREgKfQgWIuzQar16jcvvHJhmBgJ+5Oeqc1T581pHYmfTlqu148HW
+         BtEMV3rNio07SO08NIy/oTb4aTOj0q8GT3RcB+2QMU3ic5a2UnWCMIiBAFry0JgGxJTG
+         YBmw==
+X-Gm-Message-State: AOAM532VRBqvecArFokpWhaEnk0nN64iLo7O5q1EK50P6wD7GD3A8Tcl
+        doKAJOKeRaX3I9d6Id2U4UlOKp19BvoIXg==
+X-Google-Smtp-Source: ABdhPJzLs8jaJ9EsFgexAf8YndRDVdjfE1SniUYrHsKV1wz2yFJTIkvKrkINVKRbtg1UaZDd5Lbneg==
+X-Received: by 2002:a7b:c4c4:: with SMTP id g4mr19441699wmk.93.1636749214774;
+        Fri, 12 Nov 2021 12:33:34 -0800 (PST)
+Received: from [10.168.10.170] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id n32sm14636300wms.1.2021.11.12.12.33.34
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 12 Nov 2021 12:33:34 -0800 (PST)
+Message-ID: <852cc9b0-992b-dade-ca38-bff4440ef9ed@gmail.com>
+Date:   Fri, 12 Nov 2021 21:33:33 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.0
+Subject: Ping^2: Re: [PATCH 2/2] man-pages.7: Update non-breaking space
+ advice.
+Content-Language: en-US
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc:     linux-man@vger.kernel.org
+References: <20210731034458.6s76okhgjxw42mpx@localhost.localdomain>
+ <e097bf4a-7188-e810-7d3b-e4d1469397d3@gmail.com>
+ <20210801101221.poigrttumltcdenl@localhost.localdomain>
+ <5e11d17e-d3d0-8b88-dd1b-209a4b136e51@gmail.com>
+In-Reply-To: <5e11d17e-d3d0-8b88-dd1b-209a4b136e51@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D214873
+Hi, Branden!
 
---- Comment #6 from Alejandro Colomar (man-pages) (alx.manpages@gmail.com) =
----
-[Add CCs]
+Ping^2
 
-Hi Jens,
+On 10/17/21 21:53, Alejandro Colomar (man-pages) wrote:
+> On 8/1/21 12:12 PM, G. Branden Robinson wrote:
+>> Hi, Alex!
+>>
+>> At 2021-07-31T13:42:08+0200, Alejandro Colomar (man-pages) wrote:
+>>> On 7/31/21 5:45 AM, G. Branden Robinson wrote:
+>>>> * Advise usage of \~ escape instead of \SPACE; the former, a groff
+>>>>     extension from circa 1990, has been supported by Heirloom
+>>>>     Doctools troff since 2005 and by mandoc since 2019.  The
+>>>>     advantage is that \~ is an _adjustable_ non-breaking space, so it
+>>>>     will typeset non-jarringly both in .EX/.EE examples when filling
+>>>>     is off, and in normal running text (which is filled).
+>>>
+>>> Thanks for the patch!
+>>
+>> You're welcome!  I've found no use cases for "\ " in man pages.  \~ is
+>> almost always what is desired.
+>>
+>>>> * Say "non-breaking" instead of "nonbreaking".  These are the only
+>>>>     occurrences of either in the man-pages tree, except in
+>>>>     Changes.old, which uses "non-breaking".
+>>>
+>>> I'll do as usual and copy here an extract from man-pages(7) :) :
+>>>
+>>>     Hyphenation with multi, non, pre, re, sub, and so on
+>>
+>> Ahhh, ha.  Yes.  This is an impedance mismatch between the house styles
+>> of the Linux man-pages and groff, at least as applied specifically to
+>> the word "non-?breaking", which sees frequent use in discussions of
+>> typesetting. >
+>>> BTW, this one also doesn't apply.  I think it is probably your mailer.
+>>> Can you use git-send-email(1)?
+>>
+>> Apparently not.  :(
+>>
+>> $ git send-email
+>> git: 'send-email' is not a git command. See 'git --help'.
+>> $ git --help -a | grep send
+>>     imap-send            Send a collection of patches from stdin to an 
+>> IMAP folder
+>>     send-email           Send a collection of patches as emails
+>>     send-pack            Push objects over Git protocol to another 
+>> repository
+>>
+>> I did a web search and did not find any reports that NeoMutt does
+>> violence to Git-formatted patches.  Perhaps it is GMail's fault?  (I use
+>> its SMPTS server to send mail.)  Does someone on this list have
+>> experience with this MUA and/or provider?  Is there a trick?
+>>
+>> This would explain my Michael despaired of my patch submissions even
+>> when I kept their scopes under control.
+>>
+>> Regards,
+>> Branden
+>>
 
-On 11/8/21 00:24, bugzilla-daemon@bugzilla.kernel.org wrote:
-> https://bugzilla.kernel.org/show_bug.cgi?id=3D214873
->=20
-> sworddragon2@gmail.com changed:
->=20
->             What    |Removed                     |Added
-> -------------------------------------------------------------------------=
----
->               Status|RESOLVED                    |REOPENED
->           Resolution|INVALID                     |---
->=20
-> --- Comment #5 from sworddragon2@gmail.com ---
-> This ticket was closed pretty fast after comment #2 so I could not write
-> comment #4 before closing this ticket and now it seems due to it being cl=
-osed
-> it does not receive attention anymore. Thus I'm reopening this ticket so =
-that
-> comment #4 can be evaluated if this makes changes to the manpage valid.
->=20
-> But if you think there is really nothing that needs to be changed feel fr=
-ee
-> to
-> close this ticket again as I then won't bother about it here anymore.
->=20
-
-That comment (and the previous) was directed to you, but since you're=20
-not CCd in this bugzilla issue, you didn't receive it.  Could you please=20
-have a look at it.
-
-I also CCd the same other emails as in my previous email, since some of=20
-them may want to have a look at it too.
-
-Thanks,
-Alex
-
---=20
-You may reply to this email to add a comment.
-
-You are receiving this mail because:
-You are watching the assignee of the bug.=
+-- 
+Alejandro Colomar
+Linux man-pages comaintainer; http://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
