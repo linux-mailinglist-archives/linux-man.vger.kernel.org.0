@@ -2,91 +2,97 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id CDBBE44EFCB
-	for <lists+linux-man@lfdr.de>; Fri, 12 Nov 2021 23:54:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B955544F00B
+	for <lists+linux-man@lfdr.de>; Sat, 13 Nov 2021 00:38:14 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232129AbhKLW5W (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 12 Nov 2021 17:57:22 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43448 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235329AbhKLW5T (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 12 Nov 2021 17:57:19 -0500
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com [IPv6:2a00:1450:4864:20::434])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 55A27C061203
-        for <linux-man@vger.kernel.org>; Fri, 12 Nov 2021 14:54:28 -0800 (PST)
-Received: by mail-wr1-x434.google.com with SMTP id r8so18018792wra.7
-        for <linux-man@vger.kernel.org>; Fri, 12 Nov 2021 14:54:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=AcT2HZpuYRRzARag2OUGgt68lNvZ7YMcso5GumzmPYQ=;
-        b=nNTj65opwPxFCkGCp9YQo46Q3TzxmKpRYdskW8TO4UIvrqz+CVNzzHgIE/rgk8LnjI
-         Uyxg9CCPkwZ1sVo3k/21KdEaMS8iynDxA8s0QBSk6aJY3nFK5poyvLqCc6nqHzewYQAb
-         nhT43dJGGtinWaRCPx2uEXpYsh9xULrHmvcS5jUHlJHeLpkFphTxxqC2SviYZqNV5CRm
-         OcAs4jBXUkEBSw1hutlnJrsuxCjQLWFUwFagi71NOqSo+XyNnzHV4/iz/byDVVgxIbMp
-         +sbCNsHGqi0ZGkkovUuY/myklfLAZtTLk3iqDknG7Nc+H1TfyXMDS7EoTsSMmUeWv3+h
-         IYow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=AcT2HZpuYRRzARag2OUGgt68lNvZ7YMcso5GumzmPYQ=;
-        b=nGqh34kV/xwJfHTex2oPfmaxF6T97MDdSMCplIRvJlub4OLaXg4ISJ2+gexYUrQ0pS
-         UpyiIXpvYuDGjoZl0ocmBdOk08iPwy+eoFyT5dtoETLNOIIb/4PQPgGcJHonAKiMLu5r
-         kXiiH1PLg8ilNX0Bs352qgMlUdiqlYTz/6CGi0n6iNF2RxjTXKRRIYxMKaBQiMszZETn
-         4y0jAFOqSDj/qDI84DZECMRhPX2he0+GmgRY5dkllFpzrs852UjrdaPbVY4crXvmyO6K
-         JKlqx2CtwGKBOVmFeTwohd2OdcKx2L6/SzqNNOrDUbjYtfVK0yfZ0j03t8f0z0CVpUeF
-         EXpQ==
-X-Gm-Message-State: AOAM531A3vHOSoZMN6u8XD23FHw9x7gWAC7vibGC+3GYvVXrbDxPnQ3h
-        yqEbQNSovbt/2c3VEjYTG7E=
-X-Google-Smtp-Source: ABdhPJxev9MlAFTK88ByS4Dfhzj7OsRZMDgZ/57TvZnoxvvwp/aLc8LH4KSoDfRWBF4HC+wLHRq6xQ==
-X-Received: by 2002:a5d:4575:: with SMTP id a21mr22031536wrc.193.1636757666915;
-        Fri, 12 Nov 2021 14:54:26 -0800 (PST)
-Received: from ady1.alejandro-colomar.es ([170.253.36.171])
-        by smtp.googlemail.com with ESMTPSA id u23sm7441980wru.21.2021.11.12.14.54.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 12 Nov 2021 14:54:26 -0800 (PST)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     "G . Branden Robinson" <g.branden.robinson@gmail.com>
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>, mtk.manpages@gmail.com,
-        linux-man@vger.kernel.org
-Subject: [RFC] man-pages.7: Add phrasal semantic newlines advise
-Date:   Fri, 12 Nov 2021 23:54:23 +0100
-Message-Id: <20211112225423.8361-1-alx.manpages@gmail.com>
-X-Mailer: git-send-email 2.33.1
+        id S231998AbhKLXlD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 12 Nov 2021 18:41:03 -0500
+Received: from mail.kernel.org ([198.145.29.99]:57902 "EHLO mail.kernel.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S229674AbhKLXlD (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Fri, 12 Nov 2021 18:41:03 -0500
+Received: by mail.kernel.org (Postfix) with ESMTPS id 0692C61054
+        for <linux-man@vger.kernel.org>; Fri, 12 Nov 2021 23:38:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1636760292;
+        bh=q9ixt0SxX/dJDE9uQQJ5ce/fUhU3/6+lrAu8NJH9i20=;
+        h=From:To:Subject:Date:In-Reply-To:References:From;
+        b=i5a25Ryiyulr2JjbCxouACdAaOmzkaDesI/VQLewa3bTcp9C4ecQy0lVMgDE4Y3Xk
+         XuUpnkmOEvvyh9g4ZUfvGlLZ2iIkTHFH4xhUPwBlERzBwoGCOCvZiLGtue1ik+iK+c
+         nVweuHeV5gLhDygfcBfgq1joNOeRPLJGPikGw53hZzE86tbHKozAMU+yc4vXykhQob
+         6mweyaT0aCkC95D9FBItmO7eY5kYvWdojsLUTWioybNyZ2WuaL5HoWVyH9etVyOivo
+         6Fm9COKYpLBC82S6KByB+tiKcQLHaI+5IrKj8C02XToh+d77ZANu7rRzRuS618kEpa
+         8YJIJDomqC1kQ==
+Received: by pdx-korg-bugzilla-2.web.codeaurora.org (Postfix, from userid 48)
+        id ED7826112D; Fri, 12 Nov 2021 23:38:11 +0000 (UTC)
+From:   bugzilla-daemon@bugzilla.kernel.org
+To:     linux-man@vger.kernel.org
+Subject: [Bug 214873] man 2 fsync implies possibility to return early
+Date:   Fri, 12 Nov 2021 23:38:11 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Documentation
+X-Bugzilla-Component: man-pages
+X-Bugzilla-Version: unspecified
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: low
+X-Bugzilla-Who: sworddragon2@gmail.com
+X-Bugzilla-Status: REOPENED
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P1
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: 
+Message-ID: <bug-214873-11311-spabRAKl3f@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-214873-11311@https.bugzilla.kernel.org/>
+References: <bug-214873-11311@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
----
- man7/man-pages.7 | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+https://bugzilla.kernel.org/show_bug.cgi?id=3D214873
 
-diff --git a/man7/man-pages.7 b/man7/man-pages.7
-index 23015b00a..b52a2260a 100644
---- a/man7/man-pages.7
-+++ b/man7/man-pages.7
-@@ -640,11 +640,13 @@ makes it easier to write tools that parse man page source files.)
- .SS Use semantic newlines
- In the source of a manual page,
- new sentences should be started on new lines,
--and long sentences should be split into lines at clause breaks
--(commas, semicolons, colons, and so on).
-+long sentences should be split into lines at clause breaks
-+(commas, semicolons, colons, and so on),
-+and long clauses should be split at phrase boundaries.
- This convention, sometimes known as "semantic newlines",
- makes it easier to see the effect of patches,
--which often operate at the level of individual sentences or sentence clauses.
-+which often operate at the level of
-+individual sentences, sentence clauses, or phrases.
- .\"
- .SS Formatting conventions (general)
- Paragraphs should be separated by suitable markers (usually either
--- 
-2.33.1
+--- Comment #8 from sworddragon2@gmail.com ---
+(In reply to Jens Axboe from comment #7)
+> The kernel will ensure that _all_ dirty cache is flushed out to the devic=
+e,
+> and then it will issue a flush command. That's all the kernel can do, and=
+ it
+> will not leave dirty data unwritten for that mapping when fsync(2) is
+> invoked.
 
+That is pretty clear and now I would say the mentioned sentence should be
+indeed being updated but...
+
+
+(In reply to Jens Axboe from comment #7)
+> The man page clearly states that the
+> call blocks until the device has told you that the data is stable.
+
+This would probably go better with an example: Userspace requests 600 MiB t=
+o be
+written to an external storage device. fsync(2) has been called, 500 MiB ha=
+ve
+been sent to the storage device and 100 MiB are still in the dirty kernel
+cached data. At this point due to a slight firmware-bug the device falsely
+signals the transfer has been completed (but might not reject further recei=
+ved
+data). The referenced sentence in the manpage strictly claims fsync(2) retu=
+rns
+here despite the kernel still having 100 MiB dirty kernel cached data while=
+ the
+part before claims the 100 MiB would also have been flushed - that is the
+conflict I'm claiming about here.
+
+--=20
+You may reply to this email to add a comment.
+
+You are receiving this mail because:
+You are watching the assignee of the bug.=
