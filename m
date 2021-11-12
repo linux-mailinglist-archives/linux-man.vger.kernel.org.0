@@ -2,291 +2,141 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0B98844ECC9
-	for <lists+linux-man@lfdr.de>; Fri, 12 Nov 2021 19:45:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id C86C244ED6F
+	for <lists+linux-man@lfdr.de>; Fri, 12 Nov 2021 20:40:58 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235424AbhKLSsM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 12 Nov 2021 13:48:12 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43542 "EHLO
+        id S235408AbhKLTns (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 12 Nov 2021 14:43:48 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55966 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229892AbhKLSsL (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 12 Nov 2021 13:48:11 -0500
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com [IPv6:2a00:1450:4864:20::329])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3D422C061766
-        for <linux-man@vger.kernel.org>; Fri, 12 Nov 2021 10:45:20 -0800 (PST)
-Received: by mail-wm1-x329.google.com with SMTP id i12so7673385wmq.4
-        for <linux-man@vger.kernel.org>; Fri, 12 Nov 2021 10:45:20 -0800 (PST)
+        with ESMTP id S235542AbhKLTns (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 12 Nov 2021 14:43:48 -0500
+Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com [IPv6:2607:f8b0:4864:20::102b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 48407C061766
+        for <linux-man@vger.kernel.org>; Fri, 12 Nov 2021 11:40:57 -0800 (PST)
+Received: by mail-pj1-x102b.google.com with SMTP id np6-20020a17090b4c4600b001a90b011e06so7227272pjb.5
+        for <linux-man@vger.kernel.org>; Fri, 12 Nov 2021 11:40:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=3hjG1PKtC9nj4Fjxe9b6q0PMSy6Xi9B2yiUNYG8ljxQ=;
-        b=g4pIRM4Mb1I0jakSlMzw5SDA26roTwglo8ORzgpYL+Ys+VTuOq5rYWkj6MEaJseGmO
-         OXNh7fsmI9tfquae6KlR/YuouERgmfXtYqW1L7cSjzOePMPvL9d+2VhwHKtlRCe2CpvK
-         UOWDVCNzUW8hijGkvuy3zE2nDFMSWU4eAG9rOSfRFqC4zfcij8rHie6O3UiA12aD7zU3
-         Tjno02svR13SMpG4XNetrpBWrZPI9I+nlMgb1lq8A9Knae0QO4Pad47KichTzzSaO2pF
-         +zC1m80AVxMsq3BGQhpL2wFC2U1iFB8SFMGozeRhl67E+ly9e/ICErPMmT+8McFkjR1G
-         kuVg==
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to:user-agent;
+        bh=ISeDpYtwAAuRJKwLwMRERO2q2cTr4Sqt6dOl3MEewB4=;
+        b=d4jjq5jHcuKOf4NFSPK93HDWN5/gqhKbYVBMMJsEsZwBzvMV5RB/RxG/BbYF/JEI85
+         EO/HW5T126uPqKe/5a5Hae6FLwmoFHM9WN9pujb5sqj/eD+IeNgiZbh6cybMb1rg9q5C
+         6GE42O9nTs8s30a03R3F5QMBkDG9Od875yH8zCdA+UImcr74HHrSbuvFSAtwni2WRjU4
+         JbmbjV/7D4v1H++GMQ7aADS3rYH5oho2CExYPtW1L2mSxKhhZiUdas6gnKT27yVjES55
+         Pn0XGqCNNSg1YU+Upsvhy1DSHzXLynbr6kYdMSxFFrcVcA6GRuSmGwP/Su6UxT41KgIg
+         OIAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=3hjG1PKtC9nj4Fjxe9b6q0PMSy6Xi9B2yiUNYG8ljxQ=;
-        b=e4eFAThFo5wV5IlTDMxcpNVgB22g6T1wnE6L/Fl/g/UAmqgi3WS92nWIo85wKD6UqH
-         rzArecUEPEc5cYFqoWtB8aK5UO+yNIe/u0nUYlbVMWw4NgCP9JDf/t22AKjyVe4iQvW7
-         X4F7pqCB+5fEjNVBwEeJKALoQpIzJ0z1YMDsxtZLTl7N8ln8wJh/z5N+7shzV6jF9AUs
-         zwHw3//4/fof9ScrlFo8L1kTHV8IeQ3FGiN53kDGJlOs73JReVDKRZ5fADbcedwBZtz0
-         dxPj1UEaqw2jqJR5pKZESzwpUQYFnT8du+yAytA57C77QPfUAKM5MetuYyUHIuJLs8SP
-         8Mmw==
-X-Gm-Message-State: AOAM530RCdlLsg0tR417xsPivCq2r/bJTCuJQuGPJQD8hmIF0cr4Nqld
-        nN7YBrasFWfiLOILyss9DQ4=
-X-Google-Smtp-Source: ABdhPJxhLp5RcHvBfj/cEaWoTimfgcfRQiVZwKprKX3R4pW43QR3jBYMj7zURQVhhOMqCIy+9Tn5lw==
-X-Received: by 2002:a05:600c:4fcc:: with SMTP id o12mr37883034wmq.110.1636742718633;
-        Fri, 12 Nov 2021 10:45:18 -0800 (PST)
-Received: from [10.168.10.170] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id 9sm8712256wry.0.2021.11.12.10.45.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 12 Nov 2021 10:45:18 -0800 (PST)
-Message-ID: <d0f4c857-db51-8482-d658-69f6ac25c73b@gmail.com>
-Date:   Fri, 12 Nov 2021 19:45:16 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.0
-Subject: Re: [PATCH v2] mctp.7: Add man page for Linux MCTP support
-Content-Language: en-US
-To:     Jeremy Kerr <jk@codeconstruct.com.au>
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
-        "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to:user-agent;
+        bh=ISeDpYtwAAuRJKwLwMRERO2q2cTr4Sqt6dOl3MEewB4=;
+        b=ZNrzGiiJtYEyvR2BSe8FQb8uMN25IxwXCZNpzIHoji/2ZzlQN72xFxLm9OwXoqzEd3
+         QjvCTdhNYAPsV+rmnCiXHBZBHJki91TKCXJrhwAlKyQGV0f+woQWbKrgh9Q2rxcfK01N
+         XJCBomtx8aQRLmSHRn7Al7Xipg9gKCzbeGluhhxLMrGdjhUzAoF3zPxTYZJb5u/Y4vI7
+         GMXROBgzTFZyusAjHokW+KorU/qrhup459YtQ+haanUeGjWuySHk7JrvUZFA0cent/Mo
+         seZiosoVTDdGeRjlgcR+ZKQPjS167tg8Z52tjYWLHk22omcp9r2U0S4BUTdE6Qv+1HRl
+         P0bQ==
+X-Gm-Message-State: AOAM531HuvOTfTfzW4yKq/IU2aSev2xX0Tk8moqoPV7KNqrjAyYjqjif
+        PrZSmiBSwi0Ujz7knKGedhI=
+X-Google-Smtp-Source: ABdhPJwjd/zcNhUgQzSLILjvBz7J4jXDAewPMJ/CVy+8Z7R5X5jJ8q6B8HoyWSOcSoazOdPMB3luvQ==
+X-Received: by 2002:a17:90b:97:: with SMTP id bb23mr20939274pjb.201.1636746056854;
+        Fri, 12 Nov 2021 11:40:56 -0800 (PST)
+Received: from localhost.localdomain ([1.145.57.118])
+        by smtp.gmail.com with ESMTPSA id r8sm5320664pgs.50.2021.11.12.11.40.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 12 Nov 2021 11:40:56 -0800 (PST)
+Date:   Sat, 13 Nov 2021 06:40:52 +1100
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Cc:     Jeremy Kerr <jk@codeconstruct.com.au>,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
         linux-man@vger.kernel.org
+Subject: Re: [PATCH v2] mctp.7: Add man page for Linux MCTP support
+Message-ID: <20211112194050.w675gtlnecpc2r3x@localhost.localdomain>
 References: <20211111015323.3542313-1-jk@codeconstruct.com.au>
  <76dd85f7-ab8a-1dcc-5b1a-5eb9a87d23bc@gmail.com>
  <d6c9edca79f9aedd4dd9e07e46a4587153f35149.camel@codeconstruct.com.au>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-In-Reply-To: <d6c9edca79f9aedd4dd9e07e46a4587153f35149.camel@codeconstruct.com.au>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+ <d0f4c857-db51-8482-d658-69f6ac25c73b@gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+        protocol="application/pgp-signature"; boundary="7eruv6xbyixsgt2e"
+Content-Disposition: inline
+In-Reply-To: <d0f4c857-db51-8482-d658-69f6ac25c73b@gmail.com>
+User-Agent: NeoMutt/20180716
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Jeremy,
 
-On 11/12/21 02:12, Jeremy Kerr wrote:
-> Hi Alex,
-> 
-> Thanks for the review! I've updated in line with most of your comments,
-> and will send a v3 soon. However, I do have a couple of queries, mainly
-> for my own understanding:
+--7eruv6xbyixsgt2e
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Sure.
+Hi, Alex!
 
-> 
->>> +.SH SYNOPSIS
->>> +.nf
->>> +.B #include <sys/socket.h>
->>> +.B #include <linux/mctp.h>
->>
->> I prefer alphabetic sorting of includes.
-> 
-> OK, does that take priority over the convention to list the header(s)
-> specific to this man page last?
+At 2021-11-12T19:45:16+0100, Alejandro Colomar (man-pages) wrote:
+> man-pages(7) recommends breaking long lines at clause boundaries
+> (commas, semicolons, and so on), but somethimes clauses (if you don't
+> know the difference between phrases and clauses, which you don't need
+> to, basically clauses are made up of phrases)
 
-I didn't even know there was such a convention, but if there is, yes, I 
-explicitly want to override it.
+Slightly more formally, a clause is a grammatical unit containing a
+subject and a predicate: "allocation fails" is a near-minimal example.
+I wouldn't be surprised if caveats exist for "non-standard" speech, but
+man pages are written in a fairly formal register so the rule should
+apply reliably.  A moment's attention to clause boundaries can help one
+clarify or recast complex constructions to aid readability and accuracy.
 
-Rationales:
+> "the source and destination EIDs" is a single phrase, so it's a bit
+> weird to break the line in the middle of it.  I avoid breaking
+> phrases, which makes reading the source code a bit more difficult.
+> Hopefully, it will also make diffs easier to read in the future.
 
-<https://google.github.io/styleguide/cppguide.html#Include_What_You_Use>
-<https://google.github.io/styleguide/cppguide.html#Names_and_Order_of_Includes>
-<https://stackoverflow.com/a/2763292/6872717>
-<https://stackoverflow.com/a/2762626/6872717>
+My only gripe about list-related phrase breaks, and it's a minor one, is
+that in English grammar they nearly always require a conjunction ("and",
+"or") somewhere, and no matter where I place it, it feels wrong, because
+it's neither an item of the list I'm itemizing, nor part of an item.
 
-Basically, alphabetic order avoids undeclared dependencies that can be 
-hidden in some specific orderings which "just work but if you reorder 
-them it breaks".  Of course, it can still hide some dependency, but it's 
-more unlikely.  It's a "this can be random order, but let's use 
-something more readable and consistent than random".
+I mention this because I suspect there is a point of diminishing returns
+in our prescriptive advice, because English is an unwieldy beast that
+was not formally designed as any respectable system would be.
 
-Unless for some exception that I can't remember now, Google's style 
-guide applies to includes in the man-pages (or I intend it to be so).
+Forget killing baby Hitler--if I ever get a time machine, I'm going to
+go back and teach Shakespeare Haskell.
 
+> Also, we prevent some crazy programmers from relying on that padding
+> byte being actually padding and not something else, even if it "must"
+> be zero.  I've seen too much crazy stuff; programmers relying on
+> undefined behavior just because "we don't plan to move from C++17 to
+> C++20, so this is safe".
 
-> 
-> In that case, we end up with:
-> 
->      #include <linux/mctp.h>
->      #include <sys/socket.h> /* Definition of socket() & SOCK_DGRAM */
++1.  One can almost see them producing a cowboy hat from an
+extradimensional space in their cubicle.  Strap in--the UB bronco is
+gonna start bucking.
 
-Since <sys/socket.h> provides the prototype socket(), it's 
-<linux/mctp.h> that should specify why it's needed, so it should be
+Regards,
+Branden
 
-       #include <linux/mctp.h>  /* Definition of AF_MCTP */
-       #include <sys/socket.h>
+--7eruv6xbyixsgt2e
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Also, please use at least 2 spaces between code and comments (unless the 
-line goes close to the 78 column (right margin), in which case, reducing 
-that space is the most readable thing to do).
+-----BEGIN PGP SIGNATURE-----
 
-Rationale:
+iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmGOwzgACgkQ0Z6cfXEm
+bc7zexAAgY5wZTbw8YqwcEJMs5KqGL6Kb0ShfBt7e5eJv7yQPEPrCvQCmzZ4fiIr
+KyJhHbp6yiAilw/HiNB0KhvRMxa+vSW2mQ7VzWMMyUbTpI7cptgDj/r5zGtUN+rw
+JIArlA7BjD/6M91kCQRvcPucGLFrkJKz9CvpygLxjq3+NQ3uKNu2hJcHD4NQmsHX
+UigRaPKT7SWdLR0WnyfswnvZEkx7ZjG/KnQ4JoPUen6boKLc7GVLumFuqCG9ASnL
+hrKqZjC99w2fMUuIZU/imN3nrgBghBZ0Ms59SXkFm/MpwA3ikvl9BSwqDb3qL8jC
+03bp+gAho05MfIeM7VGHalSdkx6yQ1ZjBjzi2GTQ8u5iToVYk+g88tOD92mzpQDi
+wt2BriZHk1quZo95yTr03NODL38rS75OCIUfRN2tHPuAab1OceIxKH6GjUX3lR/W
+uldrPzvmA+UC3T8CkQnfUr/2JQf3EO/BlfVtJ4HiLqPa3hwu/ZoaXwqmrA0dRYBV
+h5rNBljKsXp5Np1Sotr8xfTyt6NykqF9nWidmSFDRdtcLrhYyZuOj0/tuOUJ/XvO
+wVH3k2JSQ52wiJr8UqaXeQH/SP9Do+y+pYOi4ixWurpkPnCGZr0rzV2tK86aiK6y
+ph9I64tWMb3Ysyi0otZr3u712t/7vBEGp4Anu9a/sWi8JYlL5HU=
+=pvJu
+-----END PGP SIGNATURE-----
 
-<https://google.github.io/styleguide/cppguide.html#Horizontal_Whitespace>
-
-That helps visually separate code from non-code.
-
-> 
->>> +.PP
->>> +The API for MCTP messaging uses a standard sockets interface, using the
->>> +.BR sendto (2)
->>> +and
->>> +.BR recvfrom (2)
->>> +classes of system calls to transfer messages.
->>> +Messages may be fragmented into packets before transmission, and reassembled at
->>> +the remote endpoint.
->>
->> Break at the comma.
-> 
-> Just this comma? or all of them? There's a couple of sentences right
-> before this one that would seem to have a similar style - if it's the
-> former, for my own learning here: what makes this one different?
-
-There are a few more that I missed, that's right:
-
-[
- > +This is a connectionless protocol, typically used between devices 
-within a
- > +server system.
- > +Message reliability and ordering are not guaranteed, but message 
-boundaries are
- > +preserved.
-]
-
-Those should also be broken at the comma.  Rationale: semantic newlines 
-(man-pages(7)).
-
-In the case of the following one, although you could break at it if you 
-want (maybe better for consistency), I won't enforce it too much, since 
-it is a couple of words and the line is already broken in a non-semantic 
-way due to the formatting.  So I don't care too much:
-
-[
- > +The API for MCTP messaging uses a standard sockets interface, using the
- > +.BR sendto (2)
-]
-
-As Branden said, you can use "/[;:,]." and "/[!?.][^\\]" to check the 
-correct use of semantic newlines.
-
-> 
-> [and you mean a line-break, right? or a break-point escape sequence?]
-
-Yes, line break.
-
-> 
->>> +Packets between a local and remote endpoint are identified by the source
->>
->> Break after "by" (or perhaps just before it).
-> 
-> Same as the above, why is this?
-
-This is more or less for the same reasons as above, semantic newlines, 
-but it goes a bit deeper.  Branden and I discussed a few months ago 
-about my strong preference for semantic newlines not only in clause 
-boundaries but also phrase boundaries.
-
-man-pages(7) recommends breaking long lines at clause boundaries 
-(commas, semicolons, and so on), but somethimes clauses (if you don't 
-know the difference between phrases and clauses, which you don't need 
-to, basically clauses are made up of phrases) are too long, and you can 
-have a single clause that uses more than a single line.  In those cases, 
-the most sensible place to break the line is at the next level: phrase 
-boundaries.
-
-"the source and destination EIDs" is a single phrase, so it's a bit 
-weird to break the line in the middle of it.  I avoid breaking phrases, 
-which makes reading the source code a bit more difficult.  Hopefully, it 
-will also make diffs easier to read in the future.
-
-> 
->>> +struct sockaddr_mctp {
->>> +    unsigned short     smctp_family;  /* = AF_MCTP */
->>> +    uint16_t           __smctp_pad0;  /* pad, must be zero */
->>> +    int                smctp_network; /* local network identifier */
->>> +    struct mctp_addr   smctp_addr;    /* EID */
->>> +    uint8_t            smctp_type;    /* message type byte */
->>> +    uint8_t            smctp_tag;     /* tag value, including TO flag */
->>> +    uint8_t            __smctp_pad1;  /* pad, must be zero */
->>
->> Do we want to tie the implementation to this pad?
-> 
-> Yes. The pad will be there anyway, due to the natural alignment of the
-> struct. Since we want to be explicit about the padding (and require it
-> to be zeroed), I would strongly suggest keeping it documented.
-
-If there was padding in the middle of the struct, yes, it should 
-definitely be documented in the man page.
-
-> 
-> There is an 'extended' MCTP addressing struct, which encapsulates a
-> struct sockaddr_mctp. For us to be absolutely clear about the layout of
-> that structure, the explicit pad here makes that unambiguous.
-
-What I mean is, if in the future this structure will have additional 
-trailing fields, documenting this padding is unnecessary, since that may 
-vary.  Code should not rely on this structure having _only_ that 
-padding.  And if code handles any arbitrary extra stuff in this 
-structure, it will implicitly also handle that __smctp_pad1 field, so 
-there's no need to mention it.
-
-Example:
-
-struct sockaddr_mctp {
-     unsigned short     smctp_family;  /* = AF_MCTP */
-     uint16_t           __smctp_pad0;  /* pad, must be zero */
-     int                smctp_network; /* local network identifier */
-     struct mctp_addr   smctp_addr;    /* EID */
-     uint8_t            smctp_type;    /* message type byte */
-     uint8_t            smctp_tag;     /* tag value, including TO flag */
-     uint8_t            foo;           /* was __smctp_pad1 */
-     uint8_t            bar;           /* extra stuff */
-};
-
-Here I got rid of the pad, and even added an extra field.  Code should 
-be written to be compatible with this case, right?  If so, I don't see 
-any reason to document that padding field, IMHO.
-
-Also, we prevent some crazy programmers from relying on that padding 
-byte being actually padding and not something else, even if it "must" be 
-zero.  I've seen too much crazy stuff; programmers relying on undefined 
-behavior just because "we don't plan to move from C++17 to C++20, so 
-this is safe".
-
-> 
-> [unless, for man pages, we don't care about the ABI, only the API?]
-
-We care about the ABI.  Especially, if it's about a type that we control.
-
-In the case of ISO C or POSIX types, system_data_types(7) doesn't 
-document Linux-specific details, for portability reasons, but that's an 
-exception, not the rule.
-
-> 
->> Future implementations of sockaddr_mctp are not going to use that
->> byte for anything else?
-> 
-> They might, hence requiring zero at present.
-
-Okay, then code should be able to handle _any_ trailing fields, 
-including that padding, so documenting it is irrelevant, I think.  We 
-could say something like "trailing fields may be added to this 
-structure", and that already implies the current padding byte, doesn't it?
-
-
-Cheers,
-Alex
-
-
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; http://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+--7eruv6xbyixsgt2e--
