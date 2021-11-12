@@ -2,126 +2,91 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A0C6844EEE3
-	for <lists+linux-man@lfdr.de>; Fri, 12 Nov 2021 22:52:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id CDBBE44EFCB
+	for <lists+linux-man@lfdr.de>; Fri, 12 Nov 2021 23:54:34 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231776AbhKLVzO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 12 Nov 2021 16:55:14 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56800 "EHLO
+        id S232129AbhKLW5W (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 12 Nov 2021 17:57:22 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43448 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235838AbhKLVxN (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 12 Nov 2021 16:53:13 -0500
-Received: from mail-pf1-x433.google.com (mail-pf1-x433.google.com [IPv6:2607:f8b0:4864:20::433])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 94A5EC061766
-        for <linux-man@vger.kernel.org>; Fri, 12 Nov 2021 13:50:18 -0800 (PST)
-Received: by mail-pf1-x433.google.com with SMTP id n85so9562143pfd.10
-        for <linux-man@vger.kernel.org>; Fri, 12 Nov 2021 13:50:18 -0800 (PST)
+        with ESMTP id S235329AbhKLW5T (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 12 Nov 2021 17:57:19 -0500
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com [IPv6:2a00:1450:4864:20::434])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 55A27C061203
+        for <linux-man@vger.kernel.org>; Fri, 12 Nov 2021 14:54:28 -0800 (PST)
+Received: by mail-wr1-x434.google.com with SMTP id r8so18018792wra.7
+        for <linux-man@vger.kernel.org>; Fri, 12 Nov 2021 14:54:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=date:from:to:cc:subject:message-id:mime-version:content-disposition
-         :user-agent;
-        bh=FQiG6qgCgUHC6oXKdrzV8evigRmfswq2b0knuR4EaWY=;
-        b=WESWlBhTC1+BgarODqsu8jvUl3BrfhSfwdBtciyXnrtmWFcW5cTII7Dncqnnh07G2f
-         4pkvGsExgJZhKZ74chJl5/gnqPNsUDcoEXsuj4QR87fbqDddvoAkooHawf+YiIRSLdwh
-         aoaaEHEuy4aw20AhBsYJEiULQLaig+WG7U54PVlx7ITydfEsjRSoue3bcrgOf3FauENd
-         lj+GB/aL0MoYOypDhAS/cWkrKDHYTYnDrBPkMU9iWZrdO4QQk3ZjejYeXwS3KIPVtoL8
-         SRo/2JUTU3wyoSCmItKYD2avNi0s6Vqhv0owLpbkLsfBB9xRipujVgrTkoG8+ZRVBV9+
-         HmYw==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=AcT2HZpuYRRzARag2OUGgt68lNvZ7YMcso5GumzmPYQ=;
+        b=nNTj65opwPxFCkGCp9YQo46Q3TzxmKpRYdskW8TO4UIvrqz+CVNzzHgIE/rgk8LnjI
+         Uyxg9CCPkwZ1sVo3k/21KdEaMS8iynDxA8s0QBSk6aJY3nFK5poyvLqCc6nqHzewYQAb
+         nhT43dJGGtinWaRCPx2uEXpYsh9xULrHmvcS5jUHlJHeLpkFphTxxqC2SviYZqNV5CRm
+         OcAs4jBXUkEBSw1hutlnJrsuxCjQLWFUwFagi71NOqSo+XyNnzHV4/iz/byDVVgxIbMp
+         +sbCNsHGqi0ZGkkovUuY/myklfLAZtTLk3iqDknG7Nc+H1TfyXMDS7EoTsSMmUeWv3+h
+         IYow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
-         :content-disposition:user-agent;
-        bh=FQiG6qgCgUHC6oXKdrzV8evigRmfswq2b0knuR4EaWY=;
-        b=daEWeNv0DseoDHNulDBaNGLSHCsETHTux0/skkGsxbj0qYE33Dl33+zDLMIre0yTJQ
-         5kAfK6LVZPguU1jh7RgtepqEf5Gs18E/BrkQ7Z3heMA8TKPUbQ2Odu5QT99NDpfKztYy
-         jalhwnmYRNiDsHxSvHUbowq4+cLAr/lIsR4OdkMZuIrUAWpaXJk3rTilueZDvCnDBuEt
-         M+ayomuG3Nb6Fz3m6JicqPXW0Tjj9/Z9gvcUsSFyr0ByeNRfe4zjxqzLSfpwOTB6M0Bu
-         Qe65vSR2MPpp5sD4UpJ5Ze87PEk85SKFJEVy2YeDZ9EF8lkmEWze6pl/kEGQCOQLqLSn
-         gG0g==
-X-Gm-Message-State: AOAM530edPwO6Q7bowRxEPr9lKMhdyPKx8mG9/ycq90tcq+A1+XtKzUE
-        omMcBeQxW4v2P39K7yy2D3RmmMce1XQ=
-X-Google-Smtp-Source: ABdhPJx/NJcJdEeVOmCz40Al1PqAfuq8XpmaR+gjp6blLY/jIAee+mLjpZzPgLS/zzK0aK3n9PSVRA==
-X-Received: by 2002:a63:91c8:: with SMTP id l191mr11959927pge.404.1636753818148;
-        Fri, 12 Nov 2021 13:50:18 -0800 (PST)
-Received: from localhost.localdomain ([1.145.57.118])
-        by smtp.gmail.com with ESMTPSA id q13sm8065471pfk.22.2021.11.12.13.50.16
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=AcT2HZpuYRRzARag2OUGgt68lNvZ7YMcso5GumzmPYQ=;
+        b=nGqh34kV/xwJfHTex2oPfmaxF6T97MDdSMCplIRvJlub4OLaXg4ISJ2+gexYUrQ0pS
+         UpyiIXpvYuDGjoZl0ocmBdOk08iPwy+eoFyT5dtoETLNOIIb/4PQPgGcJHonAKiMLu5r
+         kXiiH1PLg8ilNX0Bs352qgMlUdiqlYTz/6CGi0n6iNF2RxjTXKRRIYxMKaBQiMszZETn
+         4y0jAFOqSDj/qDI84DZECMRhPX2he0+GmgRY5dkllFpzrs852UjrdaPbVY4crXvmyO6K
+         JKlqx2CtwGKBOVmFeTwohd2OdcKx2L6/SzqNNOrDUbjYtfVK0yfZ0j03t8f0z0CVpUeF
+         EXpQ==
+X-Gm-Message-State: AOAM531A3vHOSoZMN6u8XD23FHw9x7gWAC7vibGC+3GYvVXrbDxPnQ3h
+        yqEbQNSovbt/2c3VEjYTG7E=
+X-Google-Smtp-Source: ABdhPJxev9MlAFTK88ByS4Dfhzj7OsRZMDgZ/57TvZnoxvvwp/aLc8LH4KSoDfRWBF4HC+wLHRq6xQ==
+X-Received: by 2002:a5d:4575:: with SMTP id a21mr22031536wrc.193.1636757666915;
+        Fri, 12 Nov 2021 14:54:26 -0800 (PST)
+Received: from ady1.alejandro-colomar.es ([170.253.36.171])
+        by smtp.googlemail.com with ESMTPSA id u23sm7441980wru.21.2021.11.12.14.54.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 12 Nov 2021 13:50:17 -0800 (PST)
-Date:   Sat, 13 Nov 2021 08:50:14 +1100
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-Subject: [PATCH v2 redux] man-pages.7: Update nonbreaking space advice
-Message-ID: <20211112215010.u5s5mvvs3m2wyqar@localhost.localdomain>
+        Fri, 12 Nov 2021 14:54:26 -0800 (PST)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+To:     "G . Branden Robinson" <g.branden.robinson@gmail.com>
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>, mtk.manpages@gmail.com,
+        linux-man@vger.kernel.org
+Subject: [RFC] man-pages.7: Add phrasal semantic newlines advise
+Date:   Fri, 12 Nov 2021 23:54:23 +0100
+Message-Id: <20211112225423.8361-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.33.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="gisi7izwlpartocq"
-Content-Disposition: inline
-X-Mutt-PGP: OS
-User-Agent: NeoMutt/20180716
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-
---gisi7izwlpartocq
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-* Advise usage of \~ escape instead of \SPACE; the former, a groff
-  extension from circa 1990, has been supported by Heirloom Doctools
-  troff since 2005 and by mandoc since 2019.  The advantage is that
-  \~ is an _adjustable_ non-breaking space, so it will typeset
-  non-jarringly both in .EX/.EE examples when filling is off, and in
-  normal running text (which is filled).
-
-See linux-man@ list discussion at
-<https://lore.kernel.org/linux-man/\
-20210729115508.pt6btsqd7g5tuhg6@localhost.localdomain/> and follow-ups.
+Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
-v2:
- - Stop correcting "nonbreaking" to "non-breaking".
----
- man7/man-pages.7 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ man7/man-pages.7 | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
 diff --git a/man7/man-pages.7 b/man7/man-pages.7
-index 96c3deb20..23015b00a 100644
+index 23015b00a..b52a2260a 100644
 --- a/man7/man-pages.7
 +++ b/man7/man-pages.7
-@@ -689,7 +689,7 @@ If the command is short, then it can be included inline=
- in the text,
- in italic format, for example,
- .IR "man 7 man-pages" .
- In this case, it may be worth using nonbreaking spaces
--("\e\ ") at suitable places in the command.
-+(\e\(ti) at suitable places in the command.
- Command options should be written in italics (e.g.,
- .IR \-l ).
- .PP
---=20
-2.20.1
+@@ -640,11 +640,13 @@ makes it easier to write tools that parse man page source files.)
+ .SS Use semantic newlines
+ In the source of a manual page,
+ new sentences should be started on new lines,
+-and long sentences should be split into lines at clause breaks
+-(commas, semicolons, colons, and so on).
++long sentences should be split into lines at clause breaks
++(commas, semicolons, colons, and so on),
++and long clauses should be split at phrase boundaries.
+ This convention, sometimes known as "semantic newlines",
+ makes it easier to see the effect of patches,
+-which often operate at the level of individual sentences or sentence clauses.
++which often operate at the level of
++individual sentences, sentence clauses, or phrases.
+ .\"
+ .SS Formatting conventions (general)
+ Paragraphs should be separated by suitable markers (usually either
+-- 
+2.33.1
 
-
---gisi7izwlpartocq
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmGO4ZIACgkQ0Z6cfXEm
-bc69+w/+JtLuPvCTxnmSksPeHOKoVNvHjG9ledzBv49ufOm5aEBA8BxXd73Yq66N
-pyKvv+TMkIhmOwpj6j8fcthPr8gUU2g7sE+3PG7QSB6Pvonl1+Lk5omPzb0dEfd7
-5uxsQ2Z4ZAdFK8M1wQ1IM+gvGM10m84lXBxJKG9lwXmlRRldX2l58ZvVi04p1Qt6
-9M8t5LolTzSd8Gsp02szdZ7xgJjLErif0WE/DI4NfYlaJ24JI0zpS6e4U5ZspL0/
-G3QCde7Ot3GOqkOxzutZJoUL6EJyzs7mcnkRaJr7A/b94+KhKWPVbYj3WozEFGVv
-hTO9Hd/1TB+KU5EJJoXnQ7xmjdCbsMErt5J1+s/u3mKiNMe8VIvroJLhdIEfuFH9
-OCJhr6JUfjrD7nD2YN6uFblZvVCFYPWQOdTEjCdvMTv1YQqlc8C5zzvKx1mmzJiO
-qJ2W0CvCwQ+qbfBnrb2hjmWo50BmIpdFyf0VMq+zZSwA5rC0eT1l6wKsvT+iJbLH
-9SSItlQNYByVgIzOcNYwGTNgPWJ4A+Pe0CEoQ4/KyG0sLHXs2oxuUqnOD+1BRZuE
-jxAuw/97fB9pG5hurq/NTwpRCXrWQC3zTBxbKK2QUHUykzpjld/uVpn6zNgci2A6
-f4DBiRmlgY6l4vBI067gHBCgxop7XYydLUGGnYvsFf8F+oJ36dY=
-=mLaM
------END PGP SIGNATURE-----
-
---gisi7izwlpartocq--
