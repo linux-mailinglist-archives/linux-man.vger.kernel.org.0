@@ -2,130 +2,182 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id BC51244EE3F
-	for <lists+linux-man@lfdr.de>; Fri, 12 Nov 2021 21:59:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 5AC3744EE45
+	for <lists+linux-man@lfdr.de>; Fri, 12 Nov 2021 22:01:35 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235676AbhKLVCS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 12 Nov 2021 16:02:18 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45292 "EHLO
+        id S235576AbhKLVEY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 12 Nov 2021 16:04:24 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45764 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235576AbhKLVCR (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 12 Nov 2021 16:02:17 -0500
-Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com [IPv6:2607:f8b0:4864:20::102b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 48345C061766
-        for <linux-man@vger.kernel.org>; Fri, 12 Nov 2021 12:59:26 -0800 (PST)
-Received: by mail-pj1-x102b.google.com with SMTP id fv9-20020a17090b0e8900b001a6a5ab1392so8607741pjb.1
-        for <linux-man@vger.kernel.org>; Fri, 12 Nov 2021 12:59:26 -0800 (PST)
+        with ESMTP id S232902AbhKLVEX (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 12 Nov 2021 16:04:23 -0500
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com [IPv6:2a00:1450:4864:20::336])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A6C30C061766;
+        Fri, 12 Nov 2021 13:01:32 -0800 (PST)
+Received: by mail-wm1-x336.google.com with SMTP id 77-20020a1c0450000000b0033123de3425so10932040wme.0;
+        Fri, 12 Nov 2021 13:01:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=date:from:to:cc:subject:message-id:mime-version:content-disposition
-         :user-agent;
-        bh=QFq8cY7Q+U2AL5NPyKP49g14jKZkE31jqC1VjI/Sleg=;
-        b=Bf2oPpSiRP+NlZV9+sVhjSg+hapAQ2Cjs5FuhV/4DAmNgHD4iODy2y7mhffb4zTGAv
-         PwkZe9jscLj1ym9zJrf3EmwlJ0VZ4z65SodacRmGfOfTaf+xS76pHQHI6nRo9ATI9RUf
-         pLgmK5SHn1Tii0pdv3F+tZg3xERrMT72D1tVKonMd1UKhOV7sPK2VX41++2SFbfjVnS/
-         V7z87ePMtJHKemOMe3h2R8AVVISEX7u1FoKhCyHqpXYqli5C2eaanXU1HZxKkJz5Z4IP
-         4DsQxul2MzGD/zYf1ICKt6mDd9IGFdbYWB8Dp69cftMrUHBFRz6wAOn6lXsE5OJTc27R
-         MWSg==
+        h=message-id:date:mime-version:user-agent:subject:content-language:to
+         :cc:references:from:in-reply-to:content-transfer-encoding;
+        bh=B3e+13s4p3dhI8Zf6QqfqzgmLP21sUtb60eTfseb1RM=;
+        b=pVO9n6kHKfA/tQZdTAfy5MF2d/CmjtqXvWOhNlddj/wlSkaOl+8h44Psb3F0cFxIgV
+         6JVlgYaTrOF+iDSy9aCmVN9nrgwgyv9uJoBYkRPkV0vI9lLGiotjxynXXdGjhxnkPHmP
+         5F7eCsOU3p1rVmrTMB6sWdvQTOQ0aZGhHdyHEE4UxkqtCwWV/5BghiVLAsaQ0jOIxaCn
+         LhsLT1T0O7H4lOjR7hU1XMIJx4pxCyrpBXN16yiZN7bOhmoSt2rGshpst07ZtpYSNoKq
+         +NNYLEzj/fOtlHt5BzR3JzIh/9cfvgwWJ4HYpnKR6JjFmvBpDdtzUTKSrsYUaUkpO5BB
+         39Bg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
-         :content-disposition:user-agent;
-        bh=QFq8cY7Q+U2AL5NPyKP49g14jKZkE31jqC1VjI/Sleg=;
-        b=4yIWIwKKS1XDb1+8Zwe8LJdg/L6jjw9YKeEKwkPe7i9KGLZZYXvX3h1jK/Q/kaZ5DV
-         8DeWtPfAGRhh83OTFLVUQHIXuwJSaojv99H8luMMlJhbEprxjzKVGDQR690EL8GDX8W5
-         wnYhcqR2fT7dmNhUyCD6OTaYUv8vnONvfK16UtJNLp4Exnysujzq0Vp048KLm9lgfNSm
-         VN1e5vDo3iVyi1turjpjfiA73ZtmZmKmjwmhiJZ/bSlpJdqiBDuAtxRK79bKhn1W2Q8j
-         JsNkxN7nN3lydVR0OOLmDflmGk7IsuYiraEAs4vj3Ig/0whIf6yg4l7Ye9FOxiaL/ehv
-         BBUg==
-X-Gm-Message-State: AOAM532zrTNcgswybgbgekIOy9pbyVLvpByjRyENRmziij8AUBHiNu+M
-        gzFQdy+7IOOb2u9SFiVjvdB+hbWqYHY=
-X-Google-Smtp-Source: ABdhPJxtDFhC/z8sxW5X0fmymiyVKL5H6iPrT/+/gJn5QUjLIWn22j3tgXwfYXsxFBBdwXwhTkmVkg==
-X-Received: by 2002:a17:903:4043:b0:142:4f21:6976 with SMTP id n3-20020a170903404300b001424f216976mr11278227pla.62.1636750765878;
-        Fri, 12 Nov 2021 12:59:25 -0800 (PST)
-Received: from localhost.localdomain ([1.145.57.118])
-        by smtp.gmail.com with ESMTPSA id h3sm11697507pjz.43.2021.11.12.12.59.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 12 Nov 2021 12:59:25 -0800 (PST)
-Date:   Sat, 13 Nov 2021 07:59:22 +1100
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-Subject: [PATCH v2] man-pages.7: Update nonbreaking space advice.
-Message-ID: <20211112205918.ymmypbzajpyo6avf@localhost.localdomain>
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+         :content-language:to:cc:references:from:in-reply-to
+         :content-transfer-encoding;
+        bh=B3e+13s4p3dhI8Zf6QqfqzgmLP21sUtb60eTfseb1RM=;
+        b=QpVEAKr+z/bEK17GYQw40UsUFyjOIy+3sPXm4NMPu/aG3sZF36LSa5cRfNqm2wZ8/R
+         GsC7W0XUOhgLCVZAoW5OaT77E8iYYbjqOotpLOCdipN/ydOVJze93qEWaiAdZ/TlWhHn
+         HV4LYcB7j2Ej44jNByfuAXcT4uYrCzgsdQB94O1rukU09D+k0g5/KbcYiP0Qwx95h8V0
+         dGRPJJuBMiwXfxCGVDbmoqtVAhuvWpE+j3YTXedJLKCN7Vkrfv2rWIAAQnXWfQ5d1f4l
+         Fd1OpjifLqBUdVt3Y2Ieef+3PN6f5RD2jUcNVOZlqwWObDf+WhZfakgmPbUB19tgbS1z
+         50cg==
+X-Gm-Message-State: AOAM533bsFdJLAkb7pATFJXCGC6ZrJJ0HOpDd1Dl+dvzex1dgEetdJOH
+        b45CeqM9dPTjtfFcEdXi6VI=
+X-Google-Smtp-Source: ABdhPJyxSpGkAnhYPgRNQITd3yeWDvqC9pDE/arAD4iC++4J6Tpe6GShMf0YqEQbw7v0W6pxqfb4Aw==
+X-Received: by 2002:a05:600c:358a:: with SMTP id p10mr19821181wmq.180.1636750891230;
+        Fri, 12 Nov 2021 13:01:31 -0800 (PST)
+Received: from [10.168.10.170] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id t9sm7171558wrx.72.2021.11.12.13.01.30
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 12 Nov 2021 13:01:30 -0800 (PST)
+Message-ID: <ee12204f-0bfb-5b64-ef77-9217eb7dc456@gmail.com>
+Date:   Fri, 12 Nov 2021 22:01:29 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="h4sk3ifsqy74m3pk"
-Content-Disposition: inline
-X-Mutt-PGP: OS
-User-Agent: NeoMutt/20180716
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.0
+Subject: Re: netdevice.7 SIOCGIFFLAGS/SIOCSIFFLAGS
+Content-Language: en-US
+To:     Erik Flodin <erik@flodin.me>
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org,
+        Stefan Rompf <stefan@loplof.de>,
+        "David S. Miller" <davem@davemloft.net>,
+        John Dykstra <john.dykstra1@gmail.com>, netdev@vger.kernel.org,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <CAAMKmof+Y+qrro7Ohd9FSw1bf+-tLMPzaTba-tVniAMY0zwTOQ@mail.gmail.com>
+ <b0a534b3-9bdf-868e-1f28-8e32d31013a2@gmail.com>
+ <CAAMKmodhSsckMxH9jLKKwXN_B76RoLmDttbq5X9apE-eCo0hag@mail.gmail.com>
+ <1cde5a72-033e-05e7-be58-b1b2ef95c80f@gmail.com>
+ <CAAMKmoe8rUuoxFK2gKZL4um79gmtn-__-1ZDWuBgGTqfqPjZdw@mail.gmail.com>
+ <ec0d0a2d-235c-a71f-92bc-45e1156bff9e@gmail.com>
+ <CAAMKmocBEr05EfidF9CfqJQw4uj1YcYwmkJPR=c0eCCYgsAHwg@mail.gmail.com>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+In-Reply-To: <CAAMKmocBEr05EfidF9CfqJQw4uj1YcYwmkJPR=c0eCCYgsAHwg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Hi Erik,
 
---h4sk3ifsqy74m3pk
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 10/2/21 18:35, Erik Flodin wrote:
+> A bit more than a month has passed so here's a ping :)
+> 
+> // Erik
 
-Taking another crack at this...
+Thanks for the ping.
 
----
-v2:
- - Stop correcting "nonbreaking" to "non-breaking".
----
+alarm(3600 * 24 * 30);  // :)
 
-* Advise usage of \~ escape instead of \SPACE; the former, a groff
-  extension from circa 1990, has been supported by Heirloom Doctools
-  troff since 2005 and by mandoc since 2019.  The advantage is that
-  \~ is an _adjustable_ non-breaking space, so it will typeset
-  non-jarringly both in .EX/.EE examples when filling is off, and in
-  normal running text (which is filled).
+> 
+> On Fri, 30 Apr 2021 at 21:32, Alejandro Colomar (man-pages) 
+> <alx.manpages@gmail.com <mailto:alx.manpages@gmail.com>> wrote:
+> 
+>     [PING mtk, netdev@]
+>     [CC += linux-kernel]
+> 
+>     Hi Erik,
+> 
+>     On 4/29/21 9:45 PM, Erik Flodin wrote:
+>      > On Wed, 14 Apr 2021 at 21:56, Alejandro Colomar (man-pages)
+>      > <alx.manpages@gmail.com <mailto:alx.manpages@gmail.com>> wrote:
+>      >>
+>      >> [CC += netdev]
+>      >>
+>      >> Hi Erik,
+>      >>
+>      >> On 4/14/21 8:52 PM, Erik Flodin wrote:
+>      >>> Hi,
+>      >>>
+>      >>> On Fri, 19 Mar 2021 at 20:53, Alejandro Colomar (man-pages)
+>      >>> <alx.manpages@gmail.com <mailto:alx.manpages@gmail.com>> wrote:
+>      >>>> On 3/17/21 3:12 PM, Erik Flodin wrote:
+>      >>>>> The documentation for SIOCGIFFLAGS/SIOCSIFFLAGS in
+>     netdevice.7 lists
+>      >>>>> IFF_LOWER_UP, IFF_DORMANT and IFF_ECHO, but those can't be set in
+>      >>>>> ifr_flags as it is only a short and the flags start at 1<<16.
+>      >>>>>
+>      >>>>> See also
+>     https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=746e6ad23cd6fec2edce056e014a0eabeffa838c
+>     <https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=746e6ad23cd6fec2edce056e014a0eabeffa838c>
+>      >>>>>
+>      >>>>
+>      >>>> I don't know what's the history of that.
+>      >>>
+>      >>> Judging from commit message in the commit linked above it was
+>     added by
+>      >>> mistake. As noted the flags are accessible via netlink, just
+>     not via
+>      >>> SIOCGIFFLAGS.
+>      >>>
+>      >>> // Erik
+>      >>>
+>      >>
+>      >> I should have CCd netdev@ before.  Thanks for the update.  Let's
+>     see if
+>      >> anyone there can comment.
+>      >>
+>      >> Thanks,
+>      >>
+>      >> Alex
+>      >>
+> 
+>      > Hi again,
+>      >
+>      > Have there been any updates on this one?
+> 
+>     No, Noone from the kernel answered.  And I'm sorry, but I'm not sure
+>     what is going on in the code, so I don't want to close this here by just
+>     removing those flags from the manual page, because I worry that the
+>     actual code may be wrong or something.  So I prefer that when Michael
+>     has some time he can maybe review this and say something.  Ideally,
+>     someone from the kernel would also respond, but they haven't.  I've CCd
+>     the LKML; let's see if someone reads this and can help.
+> 
+>     Thanks,
+> 
+>     Alex
+> 
+>     P.S.:  Please, if we haven't responded in a month from now, ping us
+>     again.  Thanks again.
+> 
+>      >
+>      > // Erik
+>      >
+>      >>
+>      >> --
+>      >> Alejandro Colomar
+>      >> Linux man-pages comaintainer;
+>     https://www.kernel.org/doc/man-pages/
+>     <https://www.kernel.org/doc/man-pages/>
+>      >> http://www.alejandro-colomar.es/ <http://www.alejandro-colomar.es/>
+> 
+>     -- 
+>     Alejandro Colomar
+>     Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+>     <https://www.kernel.org/doc/man-pages/>
+>     http://www.alejandro-colomar.es/ <http://www.alejandro-colomar.es/>
+> 
 
-See linux-man@ list discussion at
-<https://lore.kernel.org/linux-man/\
-20210729115508.pt6btsqd7g5tuhg6@localhost.localdomain/> and follow-ups.
----
- man7/man-pages.7 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/man7/man-pages.7 b/man7/man-pages.7
-index 96c3deb20..23015b00a 100644
---- a/man7/man-pages.7
-+++ b/man7/man-pages.7
-@@ -689,7 +689,7 @@ If the command is short, then it can be included inline=
- in the text,
- in italic format, for example,
- .IR "man 7 man-pages" .
- In this case, it may be worth using nonbreaking spaces
--("\e\ ") at suitable places in the command.
-+(\e\(ti) at suitable places in the command.
- Command options should be written in italics (e.g.,
- .IR \-l ).
- .PP
---=20
-2.20.1
-
-
---h4sk3ifsqy74m3pk
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmGO1Z0ACgkQ0Z6cfXEm
-bc7mWA//dLpOG7ac786J5QsqVNCS8MGlqfYpnBqda/6hOS7uSROJ2aH9WTeHXY73
-ehXjgZOF9DFCwnBW6zZDThVg17/FEr87IKZMe6DKZC/426b16E9VWGuRfym0QQCO
-CJRVHD3Z1u99JAEKS9uiFoKSqOiT1kcfxUb/ooYLeh0oJA+FDlo6z6XkT6sw0Yt8
-pY5nkOGw6plIVvX5H30enaiRBK9HLV8muf3h80C2N6NGq11KmflfgDc7K89Fqj1o
-2yzqQhDA2XRswB7qtgnnmIwner5uiIewOj65cOZc15QNqHbhJkA+4d0ZKXqCTcxz
-HvFdlWMuIYjXvYvQ8D4oZMYCNQWaapg71IMZNPW5MMDasccHhB3HlKHRWgCxW6gT
-rUUj0kaO2hKEGbpFa+b20Je+2+hSBrSF2fCnPr7pE0OVBxSdimCHJZ5fcRIwbcZb
-qpyleYT6f4kTe9Gbgdb3aX2YypY7HJVf9OWiUEYSag+zbOwnsoGYdzcjTqTzSSYl
-pzYLIet2hv9W44gY8ztmOgEJpzvgMmm2iVdnwNYhtUDEop/mpaSCpwZQV/Fekr9e
-z0aSqiGBe/23V3h2LUXBTZcpl52pkf+gQTXB9HjQgFV7gqsqgan3bpRllOykaF7K
-oPoI4+xUX9+3OtX+jc0umiGXuSaLeVXYZMV4kXCpyZRDHSn0IBY=
-=IaaV
------END PGP SIGNATURE-----
-
---h4sk3ifsqy74m3pk--
+-- 
+Alejandro Colomar
+Linux man-pages comaintainer; http://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
