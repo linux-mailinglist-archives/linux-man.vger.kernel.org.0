@@ -2,135 +2,272 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B704144F03B
-	for <lists+linux-man@lfdr.de>; Sat, 13 Nov 2021 01:27:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 5661E44F2FB
+	for <lists+linux-man@lfdr.de>; Sat, 13 Nov 2021 13:05:10 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231618AbhKMA3w (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 12 Nov 2021 19:29:52 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35536 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231261AbhKMA3v (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 12 Nov 2021 19:29:51 -0500
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com [IPv6:2a00:1450:4864:20::432])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 46D0CC061766
-        for <linux-man@vger.kernel.org>; Fri, 12 Nov 2021 16:27:00 -0800 (PST)
-Received: by mail-wr1-x432.google.com with SMTP id d3so18340615wrh.8
-        for <linux-man@vger.kernel.org>; Fri, 12 Nov 2021 16:27:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=oF9LFgNYC29+0/s1wnUvZZ3w/vYynwx+4lY1XsVzzjY=;
-        b=iiyv3zvRNUEIO1MM5iQE8Pzvc41YDkIL4ckracM4w068Mf6kXUdB1FX9EXnKdkECgy
-         pBhHCKRMp5sGTecp5/5XBvlOfQ0vptV5aTPkOny46hWT7l2ks5Tgjgr6kwcTOJIe+rjq
-         iLU6TNe5meSmL3hRlGKlzvIwtT60dwhxsEvlvziKwYZBtsuECnOK9GFUfuc00uwWYHiB
-         mIVx3tx77z0lY3tqceC/Z0HKYFmGx0ZVDawH6rlaqD9eeDr9tpo7RO9o4e6okpim2zD3
-         DzlEatw7zx0fTjLH7g1Ka4LuviTp8p1rlpI4pN1b2NiHaFSfrctyj9riYY1qdT5bFy4u
-         J5BQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=oF9LFgNYC29+0/s1wnUvZZ3w/vYynwx+4lY1XsVzzjY=;
-        b=eUX7C3oXAYMa/1SBn7cBK4NdAoRbjlfISlYzFWLtJj1LM8ejA4h8KsbBBmLG4/TI1i
-         CkZQx7wwopKrDwXfSIGMR5/NNrkCdhN44x2ye6qiFp/JEfivFvyld2IXetWlEFlDc+pP
-         vDKvT/408tzpvJpgtHkzvSLNCJId77Mt47SSslxEHWYMpvpBVgkuWDmDlSvTu6fp7Mx7
-         sNYwJcHyEUb8RTQ5R+MmwWxyKY8wW1KzR5jq2brhiFb/e5na2t8kJP/Mqp6fSxCMRbOO
-         Eqr3ItaLE+dmLbwJ3p0NWUrpjgJdUQb+lV2to7SgRkvhO7mAtkjzs6a0d9h3NjzIT56m
-         6kdA==
-X-Gm-Message-State: AOAM5325oQqehBixuQt3L9N+Rz2pGjwrk99smAS1XVL2ViqenK8X0VRP
-        EmZc58w5B1fyTpOyfRtZoKtgrYZAoHkZ1Q==
-X-Google-Smtp-Source: ABdhPJyLZroZOWnr2FcDkBGriXIGXdKo4N3ZCDmSg7Qyns47XW24W/Lt0rG7T2jwyvIIUVsrLCu2RA==
-X-Received: by 2002:a5d:584e:: with SMTP id i14mr24367902wrf.386.1636763218755;
-        Fri, 12 Nov 2021 16:26:58 -0800 (PST)
-Received: from [10.168.10.170] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id v8sm7115850wrd.84.2021.11.12.16.26.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 12 Nov 2021 16:26:58 -0800 (PST)
-Message-ID: <f08d3323-0fc7-45ca-a484-8e236161a6a1@gmail.com>
-Date:   Sat, 13 Nov 2021 01:26:57 +0100
+        id S235634AbhKMMIA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 13 Nov 2021 07:08:00 -0500
+Received: from mx1.riseup.net ([198.252.153.129]:56744 "EHLO mx1.riseup.net"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S234466AbhKMMIA (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Sat, 13 Nov 2021 07:08:00 -0500
+Received: from fews2.riseup.net (fews2-pn.riseup.net [10.0.1.84])
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+         key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256
+         client-signature RSA-PSS (2048 bits) client-digest SHA256)
+        (Client CN "mail.riseup.net", Issuer "R3" (not verified))
+        by mx1.riseup.net (Postfix) with ESMTPS id 4Hrv7h4SxnzDrc1;
+        Sat, 13 Nov 2021 03:56:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=riseup.net; s=squak;
+        t=1636804608; bh=8WvDbOm8sFatstR2Xyl0aplExAza1JucZt3ybEEr/T0=;
+        h=Date:From:To:Cc:Subject:From;
+        b=PjiTnj1AIE5JXO+A3kzF15uYv1wp3KG3MZzf61t1Qo/MTAMAor8nzEmwhLI3lBfP7
+         lNg4ID3ZUsISf9zRl2aafja/Ho6EouvU0EW3hx8S9w0ZwnyMxiYQ6pfYw0gBj52Tsf
+         oZHG0Dm6YxpJQ1ASYHAo1NesejvbhlUIie28bHcE=
+X-Riseup-User-ID: FAE361914389BFE63D58A5A4DD30789E65F1CE7E03D56F3E623DA8291E33AA67
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+         by fews2.riseup.net (Postfix) with ESMTPSA id 4Hrv7f5xGJz1xmv;
+        Sat, 13 Nov 2021 03:56:46 -0800 (PST)
+Date:   Sat, 13 Nov 2021 11:56:56 +0000
+From:   Samanta Navarro <ferivoz@riseup.net>
+To:     linux-man@vger.kernel.org
+Cc:     alx.manpages@gmail.com, mtk.manpages@gmail.com
+Subject: [patch] pthread_cancel.3, pthread_cleanup_push_defer_np.3,
+ pthread_setcancelstate.3, pthread_testcancel.3, pthreads.7: tfix
+Message-ID: <20211113115656.5oomvy443gapjtx4@localhost>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.0
-Subject: Re: [PATCH v2 redux] man-pages.7: Update nonbreaking space advice
-Content-Language: en-US
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc:     linux-man@vger.kernel.org
-References: <20211112215010.u5s5mvvs3m2wyqar@localhost.localdomain>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-In-Reply-To: <20211112215010.u5s5mvvs3m2wyqar@localhost.localdomain>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi, Branden!
+Changed cancelability to cancellability.
 
-On 11/12/21 22:50, G. Branden Robinson wrote:
-> * Advise usage of \~ escape instead of \SPACE; the former, a groff
->    extension from circa 1990, has been supported by Heirloom Doctools
->    troff since 2005 and by mandoc since 2019.  The advantage is that
->    \~ is an _adjustable_ non-breaking space, so it will typeset
->    non-jarringly both in .EX/.EE examples when filling is off, and in
->    normal running text (which is filled).
-> 
-> See linux-man@ list discussion at
-> <https://lore.kernel.org/linux-man/\
-> 20210729115508.pt6btsqd7g5tuhg6@localhost.localdomain/> and follow-ups.
+Typo found with codespell.
 
-Patch applied!
-It was perfect this time (I added a signed-off-by line on your behalf; 
-you can add it automatically with `git commit -sm "foo"`, BTW).
-See below what I received.
-
-Cheers,
-Alex
-
+Signed-off-by: Samanta Navarro <ferivoz@riseup.net>
 ---
+ man3/pthread_cancel.3                | 10 +++++-----
+ man3/pthread_cleanup_push_defer_np.3 | 10 +++++-----
+ man3/pthread_setcancelstate.3        | 30 ++++++++++++++--------------
+ man3/pthread_testcancel.3            |  2 +-
+ man7/pthreads.7                      |  4 ++--
+ 5 files changed, 28 insertions(+), 28 deletions(-)
 
-$ git am -s patches/recv/*
-Applying: man-pages.7: Update nonbreaking space advice
-$ git commit --amend   # To add your Signed-off-by line
-$ git show
-commit 6351ebc3829d2411b8d6339bb3129f363fd713b7 (HEAD -> main)
-Author: G. Branden Robinson <g.branden.robinson@gmail.com>
-Date:   Sat Nov 13 08:50:14 2021 +1100
-
-     man-pages.7: Update nonbreaking space advice
-
-     * Advise usage of \~ escape instead of \SPACE; the former, a groff
-       extension from circa 1990, has been supported by Heirloom Doctools
-       troff since 2005 and by mandoc since 2019.  The advantage is that
-       \~ is an _adjustable_ non-breaking space, so it will typeset
-       non-jarringly both in .EX/.EE examples when filling is off, and in
-       normal running text (which is filled).
-
-     See linux-man@ list discussion at
-     <https://lore.kernel.org/linux-man/\
-     20210729115508.pt6btsqd7g5tuhg6@localhost.localdomain/> and follow-ups.
-
-     Signed-off-by: G. Branden Robinson <g.branden.robinson@gmail.com>
-     Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
-
-diff --git a/man7/man-pages.7 b/man7/man-pages.7
-index 96c3deb20..23015b00a 100644
---- a/man7/man-pages.7
-+++ b/man7/man-pages.7
-@@ -689,7 +689,7 @@ If the command is short, then it can be included 
-inline in the text,
-  in italic format, for example,
-  .IR "man 7 man-pages" .
-  In this case, it may be worth using nonbreaking spaces
--("\e\ ") at suitable places in the command.
-+(\e\(ti) at suitable places in the command.
-  Command options should be written in italics (e.g.,
-  .IR \-l ).
-  .PP
-
-
+diff --git a/man3/pthread_cancel.3 b/man3/pthread_cancel.3
+index 01b7cf0..9ea1d4a 100644
+--- a/man3/pthread_cancel.3
++++ b/man3/pthread_cancel.3
+@@ -42,12 +42,12 @@ function sends a cancellation request to the thread
+ Whether and when the target thread
+ reacts to the cancellation request depends on
+ two attributes that are under the control of that thread:
+-its cancelability
++its cancellability
+ .I state
+ and
+ .IR type .
+ .PP
+-A thread's cancelability state, determined by
++A thread's cancellability state, determined by
+ .BR pthread_setcancelstate (3),
+ can be
+ .I enabled
+@@ -57,7 +57,7 @@ If a thread has disabled cancellation,
+ then a cancellation request remains queued until the thread
+ enables cancellation.
+ If a thread has enabled cancellation,
+-then its cancelability type determines when cancellation occurs.
++then its cancellability type determines when cancellation occurs.
+ .PP
+ A thread's cancellation type, determined by
+ .BR pthread_setcanceltype (3),
+@@ -66,10 +66,10 @@ may be either
+ or
+ .IR deferred
+ (the default for new threads).
+-Asynchronous cancelability
++Asynchronous cancellability
+ means that the thread can be canceled at any time
+ (usually immediately, but the system does not guarantee this).
+-Deferred cancelability means that cancellation will be delayed until
++Deferred cancellability means that cancellation will be delayed until
+ the thread next calls a function that is a
+ .IR "cancellation point" .
+ A list of functions that are or may be cancellation points is provided in
+diff --git a/man3/pthread_cleanup_push_defer_np.3 b/man3/pthread_cleanup_push_defer_np.3
+index c5096d1..1daf210 100644
+--- a/man3/pthread_cleanup_push_defer_np.3
++++ b/man3/pthread_cleanup_push_defer_np.3
+@@ -26,7 +26,7 @@
+ .TH PTHREAD_CLEANUP_PUSH_DEFER_NP 3 2021-03-22 "Linux" "Linux Programmer's Manual"
+ .SH NAME
+ pthread_cleanup_push_defer_np, pthread_cleanup_pop_restore_np \- push and pop
+-thread cancellation clean-up handlers while saving cancelability type
++thread cancellation clean-up handlers while saving cancellability type
+ .SH SYNOPSIS
+ .nf
+ .B #include <pthread.h>
+@@ -60,11 +60,11 @@ Like
+ pushes
+ .I routine
+ onto the thread's stack of cancellation clean-up handlers.
+-In addition, it also saves the thread's current cancelability type,
+-and sets the cancelability type to "deferred" (see
++In addition, it also saves the thread's current cancellability type,
++and sets the cancellability type to "deferred" (see
+ .BR pthread_setcanceltype (3));
+ this ensures that cancellation clean-up will occur
+-even if the thread's cancelability type was "asynchronous"
++even if the thread's cancellability type was "asynchronous"
+ before the call.
+ .PP
+ Like
+@@ -72,7 +72,7 @@ Like
+ .BR pthread_cleanup_pop_restore_np ()
+ pops the top-most clean-up handler from the thread's
+ stack of cancellation clean-up handlers.
+-In addition, it restores the thread's cancelability
++In addition, it restores the thread's cancellability
+ type to its value at the time of the matching
+ .BR pthread_cleanup_push_defer_np ().
+ .PP
+diff --git a/man3/pthread_setcancelstate.3 b/man3/pthread_setcancelstate.3
+index 56e2acf..5ef6ce6 100644
+--- a/man3/pthread_setcancelstate.3
++++ b/man3/pthread_setcancelstate.3
+@@ -26,7 +26,7 @@
+ .TH PTHREAD_SETCANCELSTATE 3 2021-03-22 "Linux" "Linux Programmer's Manual"
+ .SH NAME
+ pthread_setcancelstate, pthread_setcanceltype \-
+-set cancelability state and type
++set cancellability state and type
+ .SH SYNOPSIS
+ .nf
+ .B #include <pthread.h>
+@@ -39,10 +39,10 @@ Compile and link with \fI\-pthread\fP.
+ .SH DESCRIPTION
+ The
+ .BR pthread_setcancelstate ()
+-sets the cancelability state of the calling thread to the value
++sets the cancellability state of the calling thread to the value
+ given in
+ .IR state .
+-The previous cancelability state of the thread is returned
++The previous cancellability state of the thread is returned
+ in the buffer pointed to by
+ .IR oldstate .
+ The
+@@ -51,22 +51,22 @@ argument must have one of the following values:
+ .TP
+ .B PTHREAD_CANCEL_ENABLE
+ The thread is cancelable.
+-This is the default cancelability state in all new threads,
++This is the default cancellability state in all new threads,
+ including the initial thread.
+-The thread's cancelability type determines when a cancelable thread
++The thread's cancellability type determines when a cancelable thread
+ will respond to a cancellation request.
+ .TP
+ .B PTHREAD_CANCEL_DISABLE
+ The thread is not cancelable.
+ If a cancellation request is received,
+-it is blocked until cancelability is enabled.
++it is blocked until cancellability is enabled.
+ .PP
+ The
+ .BR pthread_setcanceltype ()
+-sets the cancelability type of the calling thread to the value
++sets the cancellability type of the calling thread to the value
+ given in
+ .IR type .
+-The previous cancelability type of the thread is returned
++The previous cancellability type of the thread is returned
+ in the buffer pointed to by
+ .IR oldtype .
+ The
+@@ -77,7 +77,7 @@ argument must have one of the following values:
+ A cancellation request is deferred until the thread next calls
+ a function that is a cancellation point (see
+ .BR pthreads (7)).
+-This is the default cancelability type in all new threads,
++This is the default cancellability type in all new threads,
+ including the initial thread.
+ .IP
+ Even with deferred cancellation, a
+@@ -148,14 +148,14 @@ POSIX.1-2001, POSIX.1-2008.
+ For details of what happens when a thread is canceled, see
+ .BR pthread_cancel (3).
+ .PP
+-Briefly disabling cancelability is useful
++Briefly disabling cancellability is useful
+ if a thread performs some critical action
+ that must not be interrupted by a cancellation request.
+-Beware of disabling cancelability for long periods,
++Beware of disabling cancellability for long periods,
+ or around operations that may block for long periods,
+ since that will render the thread unresponsive to cancellation requests.
+-.SS Asynchronous cancelability
+-Setting the cancelability type to
++.SS Asynchronous cancellability
++Setting the cancellability type to
+ .B PTHREAD_CANCEL_ASYNCHRONOUS
+ is rarely useful.
+ Since the thread could be canceled at
+@@ -185,7 +185,7 @@ be async-cancel-safe.
+ In general, other library functions
+ can't be safely called from an asynchronously cancelable thread.
+ .PP
+-One of the few circumstances in which asynchronous cancelability is useful
++One of the few circumstances in which asynchronous cancellability is useful
+ is for cancellation of a thread that is in a pure compute-bound loop.
+ .SS Portability notes
+ The Linux threading implementations permit the
+@@ -193,7 +193,7 @@ The Linux threading implementations permit the
+ argument of
+ .BR pthread_setcancelstate ()
+ to be NULL, in which case the information about the previous
+-cancelability state is not returned to the caller.
++cancellability state is not returned to the caller.
+ Many other implementations also permit a NULL
+ .I oldstat
+ argument,
+diff --git a/man3/pthread_testcancel.3 b/man3/pthread_testcancel.3
+index 8dc2d61..88cfa94 100644
+--- a/man3/pthread_testcancel.3
++++ b/man3/pthread_testcancel.3
+@@ -41,7 +41,7 @@ creates a cancellation point within the calling thread,
+ so that a thread that is otherwise executing code that contains
+ no cancellation points will respond to a cancellation request.
+ .PP
+-If cancelability is disabled (using
++If cancellability is disabled (using
+ .BR pthread_setcancelstate (3)),
+ or no cancellation request is pending,
+ then a call to
+diff --git a/man7/pthreads.7 b/man7/pthreads.7
+index 6f4f6e7..1a347a7 100644
+--- a/man7/pthreads.7
++++ b/man7/pthreads.7
+@@ -242,7 +242,7 @@ wctomb()
+ .in
+ .SS Async-cancel-safe functions
+ An async-cancel-safe function is one that can be safely called
+-in an application where asynchronous cancelability is enabled (see
++in an application where asynchronous cancellability is enabled (see
+ .BR pthread_setcancelstate (3)).
+ .PP
+ Only the following functions are required to be async-cancel-safe by
+@@ -258,7 +258,7 @@ pthread_setcanceltype()
+ .SS Cancellation points
+ POSIX.1 specifies that certain functions must,
+ and certain other functions may, be cancellation points.
+-If a thread is cancelable, its cancelability type is deferred,
++If a thread is cancelable, its cancellability type is deferred,
+ and a cancellation request is pending for the thread,
+ then the thread is canceled when it calls a function
+ that is a cancellation point.
 -- 
-Alejandro Colomar
-Linux man-pages comaintainer; http://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+2.33.1
+
