@@ -2,59 +2,65 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 7BB4944F329
-	for <lists+linux-man@lfdr.de>; Sat, 13 Nov 2021 14:00:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id D12E144F774
+	for <lists+linux-man@lfdr.de>; Sun, 14 Nov 2021 11:49:25 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235742AbhKMNDJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 13 Nov 2021 08:03:09 -0500
-Received: from mx1.riseup.net ([198.252.153.129]:50162 "EHLO mx1.riseup.net"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S231555AbhKMNDJ (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Sat, 13 Nov 2021 08:03:09 -0500
-Received: from fews2.riseup.net (fews2-pn.riseup.net [10.0.1.84])
-        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-         key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256
-         client-signature RSA-PSS (2048 bits) client-digest SHA256)
-        (Client CN "mail.riseup.net", Issuer "R3" (not verified))
-        by mx1.riseup.net (Postfix) with ESMTPS id 4HrwXw63hXzF43h;
-        Sat, 13 Nov 2021 05:00:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=riseup.net; s=squak;
-        t=1636808416; bh=DDpVinDyAs44ZcjcG6SKcVltubCLhQbqJsvrNp3kfTQ=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=ZsoydFEwhAIP4q13ukABWN3fJcepZVyi3hdGp70uc1lhYShoR9kIcmM51yD2BYa+d
-         llSnlZbVI8fCe5kYuVUPz/bMkr+qtkfUsit1XM1/mD073lyKJ3t8sYYVe4FV8J6FJ1
-         RKr6cB1+BnVlGIADzscOZcP3sv9UIrFa6s7aCKZ4=
-X-Riseup-User-ID: 85A17303C4C963F6D93623BD7658E191C2CB03F9F7C9583ED72E595416F753D3
-Received: from [127.0.0.1] (localhost [127.0.0.1])
-         by fews2.riseup.net (Postfix) with ESMTPSA id 4HrwXt3kX8z1xmv;
-        Sat, 13 Nov 2021 05:00:14 -0800 (PST)
-Date:   Sat, 13 Nov 2021 13:00:24 +0000
-From:   Samanta Navarro <ferivoz@riseup.net>
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc:     linux-man@vger.kernel.org, alx.manpages@gmail.com,
-        mtk.manpages@gmail.com
-Subject: Re: [patch] pthread_cancel.3, pthread_cleanup_push_defer_np.3,
- pthread_setcancelstate.3, pthread_testcancel.3, pthreads.7: tfix
-Message-ID: <20211113130024.zka6elp7mmshsrlv@localhost>
-References: <20211113115656.5oomvy443gapjtx4@localhost>
- <20211113124015.tr5wdkrxzinn4qjf@localhost.localdomain>
+        id S231656AbhKNKwO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 14 Nov 2021 05:52:14 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56278 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S229563AbhKNKwO (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 14 Nov 2021 05:52:14 -0500
+Received: from mail-vk1-xa29.google.com (mail-vk1-xa29.google.com [IPv6:2607:f8b0:4864:20::a29])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C188FC061746
+        for <linux-man@vger.kernel.org>; Sun, 14 Nov 2021 02:49:19 -0800 (PST)
+Received: by mail-vk1-xa29.google.com with SMTP id u130so7517876vku.2
+        for <linux-man@vger.kernel.org>; Sun, 14 Nov 2021 02:49:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:reply-to:from:date:message-id:subject:to;
+        bh=1sS046mTuN4ovWs+GBCt57s1Zu/Cbyu4cI8TIMXwEkc=;
+        b=kaarVriPYXpZWRY4vz/kIeBVOyOYdv7CxPXOVMdyDw4EreALKMfu1dpSqOFrOP3WjX
+         p2R0/9A1rQqUFOE02LTMUWpzE0gB+XnY4k3r9hw+CEFUW0bW4kZWEEHPCFg+ifeAm147
+         QFQOgyR4awXFNd/F+iE7dWatzCO787oeW3b0E7B0jApIRALfAvM0AmmIMkMpu9pSFnr1
+         b82AI269VxRpWIjjNyjUjPiT4aKNbNHgIhlT1M0WdazOEUgu+rMgyZxLSUk85N5/g1bd
+         LJDsj5MbScaukZMJLU/0m/y7AScPFcS4QXqkMF3DjEriJj7inW/tNsYrQAy7FusoLynF
+         1NQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to;
+        bh=1sS046mTuN4ovWs+GBCt57s1Zu/Cbyu4cI8TIMXwEkc=;
+        b=Ec98v3Z63zgzNtGfMeB8KmE4g9SUz/Rln3tow1Zk2szjSjx1PFfkRdy4sZTxg8CnEA
+         PvcJlkdjdSzIUwXT16Jy0e/XEXRI8BFiWVwZRoZxGv6yBDqhBVvN1iIXpqOHbTzRyP/m
+         HOEFmr6y0LDduN5AQ9X2zc1nc5SzsjyadHpejuP99pW8vbJJ+9cPnyVYN3yV4Gf7D8g/
+         Z4CAQkMsNVp/yXlClAyYw/dlAnDw6yLjjwlXygLZP6d67xUfZrbcE2r7hpqwmMzG+0jQ
+         zfAZwQ+eYVdAP4lOLUn5Xa0cD5WCiRuAjplVbxbBQD5WDqkuTEx22Uo+ABNNWdZe31Up
+         78KQ==
+X-Gm-Message-State: AOAM5312yczp3TPjwgzYuhwgNiHAjqz2rvubDa7aR4O33WVmusYM+6WY
+        9y3sqcSwUXrNkobFBkUHFIKifSlnxNrQ06qzinM=
+X-Google-Smtp-Source: ABdhPJyFaJ6+Is+2i0/umcbgQgUVhJs4RxzC31COp7jTj3n7tt9qh2pSCBV5kCrOggr5ICEH+uRNJgfo7UYmCJX/8dw=
+X-Received: by 2002:a05:6122:920:: with SMTP id j32mr45091301vka.20.1636886958793;
+ Sun, 14 Nov 2021 02:49:18 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20211113124015.tr5wdkrxzinn4qjf@localhost.localdomain>
+Received: by 2002:a59:8e41:0:b0:246:9dba:f537 with HTTP; Sun, 14 Nov 2021
+ 02:49:18 -0800 (PST)
+Reply-To: confianzayrentabilidad@gmail.com
+From:   "Prof. Dr Diane" <dmitrybogdanv07@gmail.com>
+Date:   Sun, 14 Nov 2021 02:49:18 -0800
+Message-ID: <CAPi14yJGXQfcjyJ_pu7LCT5Nf-3AyPq0C2Ouun5Uo-HZPQeK0Q@mail.gmail.com>
+Subject: Greetings,
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Sat, Nov 13, 2021 at 11:40:17PM +1100, G. Branden Robinson wrote:
-> > Changed cancelability to cancellability.
-> This is a localization issue.  Words like 'travel' and 'cancel' usually
-> decline to forms with a doubled 'l' in Commonwealth English but retain
-> an unmodified stem in U.S. English.
+-- 
+I'm Prof. Dr Diane, please a huge amount of payment was made into your
+account. as soon as your respond is noted the payment confirmation
+slip will immediately send to you.  please do not hesitate to reply as
+soon as you receive this message. awaiting your urgent reply please.
 
-You are right. But e.g. pthread_cancel already contains cancellation.
-So I think that cancellability would be matching the already existing
-style. Or cancellation is also changed to cancelation.
-
-Sincerely,
-Samanta
+Best regards
+Prof. Dr Diane,
