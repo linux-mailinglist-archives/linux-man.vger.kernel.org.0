@@ -2,90 +2,113 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 97980454D49
-	for <lists+linux-man@lfdr.de>; Wed, 17 Nov 2021 19:37:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id C0F9B455412
+	for <lists+linux-man@lfdr.de>; Thu, 18 Nov 2021 06:08:29 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231389AbhKQSkK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 17 Nov 2021 13:40:10 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58064 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S240102AbhKQSkG (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 17 Nov 2021 13:40:06 -0500
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com [IPv6:2a00:1450:4864:20::32c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 426A2C061570
-        for <linux-man@vger.kernel.org>; Wed, 17 Nov 2021 10:37:07 -0800 (PST)
-Received: by mail-wm1-x32c.google.com with SMTP id 133so3143324wme.0
-        for <linux-man@vger.kernel.org>; Wed, 17 Nov 2021 10:37:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :references:cc:from:in-reply-to:content-transfer-encoding;
-        bh=9smjS/5B8ozZPzP54W7Qw3Cte4Tcp1Y61Oo7AIJTfB4=;
-        b=HWWJrZBMhWxoH0kU6eniIL9YBFavd0ybuueV819JiHTgmQGwkQrcCx5NIx5JgI9uFj
-         pBie3SEo5J1BlcsK+vXiBY5czFsHCG6eCsZhnPP8OWj999WLkm9vb2MmIvkfDlPeEA5J
-         2xZXNwWVLjM17F5aC0N+l9hR2slSKNL10okoiqsfJVz3nNgUjBimvTZaE4u4HiCTSzDV
-         xZpko4vdkxLCcswE1a/jf5dAFlP2fZEIh8bWz/mrD1qMhLIVXzQqZTij8eTF/Ys+iX2d
-         2qtEP8ZrN5/SEM/YsIgGwnuQaSKNpTII/zoV2co+CjLYJNy4nZYzlYdvrRpPTF1SRmaA
-         wyMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:references:cc:from:in-reply-to
-         :content-transfer-encoding;
-        bh=9smjS/5B8ozZPzP54W7Qw3Cte4Tcp1Y61Oo7AIJTfB4=;
-        b=kLDxzFBKZ+xNdvfm5St58d4p5icqZliHD5enuapDfNjpEmtCBxa0WAe1vKXeDrOoRf
-         +Q+0aUNA8pc7JD7t/YuWiWWrbYBscsDmolOdA5SCIDQcp4S6P9WnXAnmrJJPt++9K96j
-         l9v5g1gVOm/IwMQA/X9sWgApC/mVtlfCMbSxFPoUhCrscvxIn19AYgwOym+2ZNjP3dZ2
-         7oeas/Br5qF8eOZhPmVK8MfZTSUcRD1w/WHCKd5GHFD9SC4P1d/rRABjE3rcjO8aGaim
-         CkFL1OKWJUg+i/H1pwj5qiE9MGdzUdyczB5RYROKJaIPH8Abj2fJnSvGa6bZnMYe4Ki3
-         fkDg==
-X-Gm-Message-State: AOAM5338TnTIZj+ikz1N3lPFSwlMAI4vNQfEpVtGaKPhcYsabOn88aw/
-        jckK8GpXys2DOHCV/e3wfq8=
-X-Google-Smtp-Source: ABdhPJzowxPSPqbsVUwq2ZJh+UebBBsaQRsDkZGDns7DDeMj6WRNxEGLVTtSSsEBliC78a9TckIkUg==
-X-Received: by 2002:a05:600c:500b:: with SMTP id n11mr2242347wmr.38.1637174225896;
-        Wed, 17 Nov 2021 10:37:05 -0800 (PST)
-Received: from [10.168.10.170] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id r8sm930178wrz.43.2021.11.17.10.37.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 17 Nov 2021 10:37:05 -0800 (PST)
-Message-ID: <ef3ca0c4-66a4-825e-8871-d50d7806e419@gmail.com>
-Date:   Wed, 17 Nov 2021 19:37:03 +0100
+        id S243072AbhKRFLZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 18 Nov 2021 00:11:25 -0500
+Received: from pi.codeconstruct.com.au ([203.29.241.158]:52378 "EHLO
+        codeconstruct.com.au" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S242463AbhKRFLV (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 18 Nov 2021 00:11:21 -0500
+Received: from [172.16.67.241] (unknown [49.255.141.98])
+        by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 0F3D32012D;
+        Thu, 18 Nov 2021 13:08:19 +0800 (AWST)
+Message-ID: <833fa653b978889d929638e925bb187ba8886b4e.camel@codeconstruct.com.au>
+Subject: Re: [PATCH v2] mctp.7: Add man page for Linux MCTP support
+From:   Jeremy Kerr <jk@codeconstruct.com.au>
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        linux-man@vger.kernel.org
+Date:   Thu, 18 Nov 2021 13:08:18 +0800
+In-Reply-To: <d0f4c857-db51-8482-d658-69f6ac25c73b@gmail.com>
+References: <20211111015323.3542313-1-jk@codeconstruct.com.au>
+         <76dd85f7-ab8a-1dcc-5b1a-5eb9a87d23bc@gmail.com>
+         <d6c9edca79f9aedd4dd9e07e46a4587153f35149.camel@codeconstruct.com.au>
+         <d0f4c857-db51-8482-d658-69f6ac25c73b@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.38.3-1 
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.0
-Subject: Re: [patch] proc.5: update the obsolete column name in net section
-Content-Language: en-US
-To:     Maxim Petrov <mmrmaximuzz@gmail.com>
-References: <0624375d-9dc6-1cfe-fbda-a385f06df9a4@gmail.com>
-Cc:     linux-man@vger.kernel.org, Michael Kerrisk <mtk.manpages@gmail.com>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-In-Reply-To: <0624375d-9dc6-1cfe-fbda-a385f06df9a4@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Maxim,
+Hi Alex,
 
-On 11/16/21 21:48, Maxim Petrov wrote:
-> In the net section, 'rexmits' name is still used. Change it to 'retrnsmt' to
-> match the modern kernel and fix the column order in /proc/net/udp.
+> I didn't even know there was such a convention, but if there is, yes,
+> I explicitly want to override it.
 
-Could you please elaborate a bit on the commit message?
+OK, I'll update to suit.
 
-I don't know what the removed field was,
-and can't find anything in the kernel source code
-(it seems to predate git).
+> man-pages(7) recommends breaking long lines at clause boundaries
+> (commas, semicolons, and so on), but somethimes clauses (if you don't
+> know the difference between phrases and clauses, which you don't need
+> to, basically clauses are made up of phrases) are too long, and you
+> can have a single clause that uses more than a single line.  In those
+> cases, the most sensible place to break the line is at the next level:
+> phrase boundaries.
 
-Why did it change?
-When?
-How?
+OK, understood, thanks for that.
 
-Thanks,
-Alex
+> What I mean is, if in the future this structure will have additional 
+> trailing fields, documenting this padding is unnecessary, since that
+> may 
+> vary.  Code should not rely on this structure having _only_ that 
+> padding.  And if code handles any arbitrary extra stuff in this 
+> structure, it will implicitly also handle that __smctp_pad1 field, so
+> there's no need to mention it.
+> 
+> Example:
+> 
+> struct sockaddr_mctp {
+>      unsigned short     smctp_family;  /* = AF_MCTP */
+>      uint16_t           __smctp_pad0;  /* pad, must be zero */
+>      int                smctp_network; /* local network identifier */
+>      struct mctp_addr   smctp_addr;    /* EID */
+>      uint8_t            smctp_type;    /* message type byte */
+>      uint8_t            smctp_tag;     /* tag value, including TO flag */
+>      uint8_t            foo;           /* was __smctp_pad1 */
+>      uint8_t            bar;           /* extra stuff */
+> };
+> 
+> Here I got rid of the pad, and even added an extra field.
 
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; http://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+Right, but you've also broken the ABI if that previous padding byte
+wasn't explicitly present, and required to be zero. In that future ABI
+implementation, the kernel can't distinguish between 'foo' being properly
+initialised, and not just random stack garbage from an old-ABI caller.
+
+That's why we have the _pad1 field, and why we require it to be zero.
+Since that's enforced by the kernel, I'd rather have it documented,
+rather than users seeing their calls fail for "invisible" reasons, when
+a call's _pad1 happens to contain a non-zero byte due to not being
+initialised.
+
+> Code should be written to be compatible with this case, right?
+
+I'm not 100% clear on you mean by compatible there - you want to prevent
+the case where __smctp_pad1 is removed from the header, and that code is
+now referencing an invalid struct member?
+
+That's somewhat unavoidable, and also applies to _pad0; I'm not sure why
+_pad1 needs to be different.
+
+> Also, we prevent some crazy programmers from relying on that padding 
+> byte being actually padding and not something else, even if it "must"
+> be zero.
+
+Right, and the kernel's zero check helps to prevent that.
+
+> I've seen too much crazy stuff; programmers relying on
+> undefined behavior just because "we don't plan to move from C++17 to
+> C++20, so this is safe".
+
+... sure, but I don't think hiding implementation details will fix that.
+
+Regards,
+
+
+Jeremy
+
