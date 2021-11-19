@@ -2,144 +2,57 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A84C5456F8B
-	for <lists+linux-man@lfdr.de>; Fri, 19 Nov 2021 14:25:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id C24A6457885
+	for <lists+linux-man@lfdr.de>; Fri, 19 Nov 2021 23:08:46 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234340AbhKSN2t (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 19 Nov 2021 08:28:49 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44522 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229914AbhKSN2s (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 19 Nov 2021 08:28:48 -0500
-Received: from mail-ua1-x92b.google.com (mail-ua1-x92b.google.com [IPv6:2607:f8b0:4864:20::92b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 455D0C061574
-        for <linux-man@vger.kernel.org>; Fri, 19 Nov 2021 05:25:47 -0800 (PST)
-Received: by mail-ua1-x92b.google.com with SMTP id p37so21158567uae.8
-        for <linux-man@vger.kernel.org>; Fri, 19 Nov 2021 05:25:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:reply-to:from:date:message-id:subject:to
-         :content-transfer-encoding;
-        bh=xVusLmA5jUFqNrbv832+lb/HebD849i1Ux4N0nIzd+I=;
-        b=EdrD2p9gLTd5OhZqJZqFboQec3Ioty4T63U9EFuTr4sI63oJF8HtkwpST4pkEjzZfr
-         DxiGAONHOtHTttHBaprkjtizLgJPkHukmOf03incAws+mWHrDzubqMZnO9P3Fkc+4cjL
-         hG9utzPp7czxu+qY6gx4vdnhUyI7sy5Tx81s3GMhs09lJFel4ULZKUC0QiHC7L6ofDtN
-         mSdYydCYqvCw/tRQkqWOnlgaTnW0CXtg/hwiNiPghyfuX+fd1EKchjJ44Vht9fkB2unW
-         JBndT02qkOY8VlsSmZZtegVuH9ufNOA0he9N/bwH41TEWZuuXjNQDKDGrctuq8+A2Lo5
-         WNhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to:content-transfer-encoding;
-        bh=xVusLmA5jUFqNrbv832+lb/HebD849i1Ux4N0nIzd+I=;
-        b=kyi/QlK2LyIm+lBNsA/x5KsEjOXLUhYLIpXnEBD35Zd363coeCnkFq3f8JMj+Zjzek
-         ehDbwRch+CVIZp/Obh1uwFqaDHtOjdJHLqTnf9IUe0cx4wt2C+IPk6w/38/b4U5zgygS
-         OE4h/6spTPLs7yxSKMRc5umRw65GTLMVEjpmDABQm9KVB9N9TlCxYTVEf12JPKcpjfWh
-         89z+IK7JhdapLyE4LnEYp8owWyieI1LIFhiVsdqsBfHhFv8lg2gcMmWlcAd2mopEVOMc
-         V/XyVWF8vdWb04Fre8gHJWrDfoODSBySFU/HPei+wsMIdCM9MC+09uznlkIPDOseTgCI
-         zHoA==
-X-Gm-Message-State: AOAM532V86qz5+8yNl8ymO8k8fC+zChpX70sFoJLaN26O7EoikX2ds8l
-        eg9BULd4WpZz16NDTJGOpBWFgAx7rZPau9pjE+A=
-X-Google-Smtp-Source: ABdhPJzU2/AT2Y2vdHfdkS8+mDnqb+ik2M/TdXXrXRHHMeHkAcC52sMcn2nCpH55efn7/lzdAbuX9h8gbHjgxJEyyq4=
-X-Received: by 2002:ab0:6cea:: with SMTP id l10mr49199861uai.27.1637328346378;
- Fri, 19 Nov 2021 05:25:46 -0800 (PST)
+        id S232960AbhKSWLs (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 19 Nov 2021 17:11:48 -0500
+Received: from brightrain.aerifal.cx ([216.12.86.13]:60448 "EHLO
+        brightrain.aerifal.cx" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S230141AbhKSWLr (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 19 Nov 2021 17:11:47 -0500
+X-Greylist: delayed 914 seconds by postgrey-1.27 at vger.kernel.org; Fri, 19 Nov 2021 17:11:47 EST
+Date:   Fri, 19 Nov 2021 16:53:30 -0500
+From:   Rich Felker <dalias@libc.org>
+To:     linux-man@vger.kernel.org,
+        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     musl@lists.openwall.com
+Subject: getsubopt error behavior documentation in man page
+Message-ID: <20211119215327.GY7074@brightrain.aerifal.cx>
 MIME-Version: 1.0
-Received: by 2002:a9f:2472:0:0:0:0:0 with HTTP; Fri, 19 Nov 2021 05:25:46
- -0800 (PST)
-Reply-To: cristinacampeell@outlook.com
-From:   "Mrs. Cristina Campbell" <criistinacampbell@gmail.com>
-Date:   Fri, 19 Nov 2021 13:25:46 +0000
-Message-ID: <CANOGH=VZixAD6OCfe3MBWOCkOpeurNgQ_rEfL1KDT9Oz7JtAQg@mail.gmail.com>
-Subject: =?UTF-8?B?0KLRiyDQvNC+0LbQtdGI0Ywg0LzQvdC1INC/0L7QvNC+0YfRjD8=?=
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+User-Agent: Mutt/1.5.21 (2010-09-15)
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-0JTQvtGA0L7Qs9C+0Lkg0JLQvtC30LvRjtCx0LvQtdC90L3Ri9C5LA0KDQrQn9C+0LbQsNC70YPQ
-udGB0YLQsCwg0L/RgNC+0YfRgtC40YLQtSDRjdGC0L4g0LzQtdC00LvQtdC90L3QviDQuCDQstC9
-0LjQvNCw0YLQtdC70YzQvdC+LCDRgtCw0Log0LrQsNC6INGN0YLQviDQvNC+0LbQtdGCDQrQsdGL
-0YLRjCDQvtC00L3QviDQuNC3INGB0LDQvNGL0YUg0LLQsNC20L3Ri9GFINC/0LjRgdC10LwsINC6
-0L7RgtC+0YDRi9C1INCy0Ysg0LrQvtCz0LTQsC3Qu9C40LHQviDQv9C+0LvRg9GH0LDQu9C4LiDQ
-rw0K0LzQuNGB0YHQuNGBINCa0YDQuNGB0YLQuNC90LAg0JrRjdC80L/QsdC10LvQuywg0Y8g0LHR
-i9C70LAg0LfQsNC80YPQttC10Lwg0LfQsCDQv9C+0LrQvtC50L3Ri9C8INCt0LTQstCw0YDQtNC+
-0LwNCtCa0Y3QvNC/0LHQtdC70LvQvtC8LiDQntC9INGA0LDQsdC+0YLQsNC7INCyIFNoZWxsIFBl
-dHJvbGV1bSBEZXZlbG9wbWVudCBDb21wYW55INCyDQrQm9C+0L3QtNC+0L3QtSwg0LAg0YLQsNC6
-0LbQtSDQsdGL0Lsg0L7Qv9GL0YLQvdGL0Lkg0L/QvtC00YDRj9C00YfQuNC6INCyINGA0LXQs9C4
-0L7QvdC1INCS0L7RgdGC0L7Rh9C90L7QuSDQkNC30LjQuC4g0J7QvQ0K0YPQvNC10YAg0LIg0L/Q
-vtC90LXQtNC10LvRjNC90LjQuiwgMzEg0LjRjtC70Y8gMjAwMyDQsy4g0LIg0J/QsNGA0LjQttC1
-LiDQnNGLINC/0YDQvtC20LjQu9C4INGB0LXQvNGMINC70LXRgiDQsg0K0LHRgNCw0LrQtSwg0L3Q
-tSDQuNC80LXRjyDQtNC10YLQtdC5Lg0KDQrQmtC+0LPQtNCwINCy0Ysg0YfQuNGC0LDQtdGC0LUg
-0Y3RgtC+LCDRjyDQvdC1INGF0L7Rh9GDLCDRh9GC0L7QsdGLINCy0Ysg0LzQtdC90Y8g0LbQsNC7
-0LXQu9C4LCDQv9C+0YLQvtC80YMg0YfRgtC+LCDRjw0K0LLQtdGA0Y4sINGH0YLQviDQstGB0LUg
-0LrQvtCz0LTQsC3QvdC40LHRg9C00Ywg0YPQvNGA0YPRgi4g0JzQvdC1INC/0L7RgdGC0LDQstC4
-0LvQuCDQtNC40LDQs9C90L7QtyDRgNCw0Log0L/QuNGJ0LXQstC+0LTQsCwNCtC4INC80L7QuSDQ
-stGA0LDRhyDRgdC60LDQt9Cw0Lsg0LzQvdC1LCDRh9GC0L4g0Y8g0LTQvtC70LPQviDQvdC1INC/
-0YDQvtGC0Y/QvdGDINC40Lct0LfQsCDQvNC+0LjRhSDRgdC70L7QttC90YvRhQ0K0L/RgNC+0LHQ
-u9C10Lwg0YHQviDQt9C00L7RgNC+0LLRjNC10LwuIC4NCg0K0K8g0YXQvtGH0YMsINGH0YLQvtCx
-0Ysg0JHQvtCzINCx0YvQuyDQvNC40LvQvtGB0YLQuNCyINC60L4g0LzQvdC1INC4INC/0YDQuNC9
-0Y/QuyDQvNC+0Y4g0LTRg9GI0YMsINC/0L7RjdGC0L7QvNGDINGPDQrRgNC10YjQuNC7INC/0L7Q
-tNCw0LLQsNGC0Ywg0LzQuNC70L7RgdGC0YvQvdGOINCx0LvQsNCz0L7RgtCy0L7RgNC40YLQtdC7
-0YzQvdGL0Lwg0L7RgNCz0LDQvdC40LfQsNGG0LjRj9C8IC8g0YbQtdGA0LrQstGP0LwgLw0K0LHR
-g9C00LTQuNC50YHQutC40Lwg0YXRgNCw0LzQsNC8IC8g0LzQtdGH0LXRgtC4IC8g0LTQtdGC0Y/Q
-vCDQsdC10Lcg0LzQsNGC0LXRgNC4IC8g0LzQtdC90LXQtQ0K0L/RgNC40LLQuNC70LXQs9C40YDQ
-vtCy0LDQvdC90YvQvCDQuCDQstC00L7QstCw0LwsINC/0L7RgdC60L7Qu9GM0LrRgyDRjyDRhdC+
-0YfRgywg0YfRgtC+0LHRiyDRjdGC0L4g0LHRi9C70L4g0L7QtNC90LjQvCDQuNC3DQrQv9C+0YHQ
-u9C10LTQvdC40YUg0LTQvtCx0YDRi9GFINC00LXQuyDQryDQtNC10LvQsNGOINGN0YLQviDQvdCw
-INC30LXQvNC70LUsINC/0YDQtdC20LTQtSDRh9C10Lwg0YPQvNGA0YMuINCU0L4g0YHQuNGFINC/
-0L7RgA0K0Y8g0YDQsNC30LTQsNCy0LDQuyDQtNC10L3RjNCz0Lgg0L3QtdC60L7RgtC+0YDRi9C8
-INCx0LvQsNCz0L7RgtCy0L7RgNC40YLQtdC70YzQvdGL0Lwg0L7RgNCz0LDQvdC40LfQsNGG0LjR
-j9C8INCyDQrQqNC+0YLQu9Cw0L3QtNC40LgsINCj0Y3Qu9GM0YHQtSwg0J3QsNC/0LXQu9C1LCDQ
-pNC40L3Qu9GP0L3QtNC40Lgg0Lgg0JHRgNCw0LfQuNC70LjQuC4g0KLQtdC/0LXRgNGMLCDQutC+
-0LPQtNCwINC80L7QtQ0K0LfQtNC+0YDQvtCy0YzQtSDRgtCw0Log0YHQuNC70YzQvdC+INGD0YXR
-g9C00YjQuNC70L7RgdGMLCDRjyDQsdC+0LvRjNGI0LUg0L3QtSDQvNC+0LPRgyDRjdGC0L4g0LTQ
-tdC70LDRgtGMINGB0LDQvC4NCg0K0J7QtNC90LDQttC00Ysg0Y8g0L/QvtC/0YDQvtGB0LjQuyDR
-h9C70LXQvdC+0LIg0LzQvtC10Lkg0YHQtdC80YzQuCDQt9Cw0LrRgNGL0YLRjCDQvtC00LjQvSDQ
-uNC3INC80L7QuNGFINGB0YfQtdGC0L7QsiDQuA0K0L/QtdGA0LXQtNCw0YLRjCDQtNC10L3RjNCz
-0LgsINC60L7RgtC+0YDRi9C1INGDINC80LXQvdGPINGC0LDQvCDQtdGB0YLRjCwg0LHQu9Cw0LPQ
-vtGC0LLQvtGA0LjRgtC10LvRjNC90YvQvA0K0L7RgNCz0LDQvdC40LfQsNGG0LjRj9C8INCyINCQ
-0LLRgdGC0YDQuNC4LCDQo9C60YDQsNC40L3QtSwg0KDQvtGB0YHQuNC4LCDQk9C10YDQvNCw0L3Q
-uNC4LCDQmNGC0LDQu9C40Lgg0Lgg0KjQstC10LnRhtCw0YDQuNC4LA0K0L7QvdC4INC+0YLQutCw
-0LfQsNC70LjRgdGMINC4INC+0YHRgtCw0LLQuNC70Lgg0LTQtdC90YzQs9C4INC/0YDQuCDRgdC1
-0LHQtS4g0L3QtSDQtNC+0LLQtdGA0Y/RjiDQuNC8INCx0L7Qu9GM0YjQtSwg0YLQsNC6DQrQutCw
-0Log0L7QvdC4LCDQutCw0LbQtdGC0YHRjywg0L3QtSDQvtGB0L/QsNGA0LjQstCw0Y7RgiDRgtC+
-LCDRh9GC0L4g0Y8g0L7RgdGC0LDQstC40Lsg0LTQu9GPINC90LjRhS4g0J/QvtGB0LvQtdC00L3Q
-uNC1DQrQvNC+0Lgg0LTQtdC90YzQs9C4LCDQviDQutC+0YLQvtGA0YvRhSDQvdC40LrRgtC+INC9
-0LUg0LfQvdCw0LXRgiwgLSDRjdGC0L4g0L7Qs9GA0L7QvNC90YvQuSDQtNC10L3QtdC20L3Ri9C5
-INC00LXQv9C+0LfQuNGCDQrQsiA2INC80LjQu9C70LjQvtC90L7QsiDQtNC+0LvQu9Cw0YDQvtCy
-INCh0KjQkCwg0LrQvtGC0L7RgNGL0Lkg0YMg0LzQtdC90Y8g0LXRgdGC0Ywg0LIg0LHQsNC90LrQ
-tSDQsiDQotCw0LjQu9Cw0L3QtNC1LiDQrw0K0YXQvtGH0YMsINGH0YLQvtCx0Ysg0LLRiyDQuNGB
-0L/QvtC70YzQt9C+0LLQsNC70Lgg0Y3RgtC+0YIg0YTQvtC90LQg0LTQu9GPINCx0LvQsNCz0L7R
-gtCy0L7RgNC40YLQtdC70YzQvdGL0YUg0L/RgNC+0LPRgNCw0LzQvCDQuA0K0L/QvtC00LTQtdGA
-0LbQutC4INGH0LXQu9C+0LLQtdGH0LXRgdGC0LLQsCDQsiDQstCw0YjQtdC5INGB0YLRgNCw0L3Q
-tSwg0LXRgdC70Lgg0YLQvtC70YzQutC+INCy0Ysg0LHRg9C00LXRgtC1DQrQuNGB0LrRgNC10L3Q
-vdC40LzQuC4NCg0K0K8g0L/RgNC40L3Rj9C7INGN0YLQviDRgNC10YjQtdC90LjQtSwg0L/QvtGC
-0L7QvNGDINGH0YLQviDRgyDQvNC10L3RjyDQvdC10YIg0YDQtdCx0LXQvdC60LAsINC60L7RgtC+
-0YDRi9C5DQrRg9C90LDRgdC70LXQtNGD0LXRgiDRjdGC0Lgg0LTQtdC90YzQs9C4LCDRjyDQvdC1
-INCx0L7RjtGB0Ywg0YHQvNC10YDRgtC4LCDQv9C+0Y3RgtC+0LzRgyDRjyDQt9C90LDRjiwg0LrR
-g9C00LAg0Y8g0LjQtNGDLg0K0K8g0LfQvdCw0Y4sINGH0YLQviDQsdGD0LTRgyDQvdCwINC70L7Q
-vdC1INCT0L7RgdC/0L7QtNCwLiDQryDQv9C+0LvRg9GH0YMg0LLQsNGIINC+0YLQstC10YIuINCv
-INC00LDQvCDQstCw0LwNCtC60L7QvdGC0LDQutGC0L3Ri9C1INC00LDQvdC90YvQtSDQkdCw0L3Q
-utCwINC4INCy0YvQtNCw0Lwg0LLQsNC8INC/0LjRgdGM0LzQvi3RgNCw0LfRgNC10YjQtdC90LjQ
-tSwg0LrQvtGC0L7RgNC+0LUg0LTQsNGB0YINCtCy0LDQvCDQstC+0LfQvNC+0LbQvdC+0YHRgtGM
-INC60LDQuiDQv9C10YDQstC+0L3QsNGH0LDQu9GM0L3QvtC80YMg0LHQtdC90LXRhNC40YbQuNCw
-0YDRgyDRjdGC0L7Qs9C+INGE0L7QvdC00LAg0L3QtdC80LXQtNC70LXQvdC90L4NCtC90LDRh9Cw
-0YLRjCDRjdGC0YMg0LHQu9Cw0LPQvtGC0LLQvtGA0LjRgtC10LvRjNC90YPRjiDQv9GA0L7Qs9GA
-0LDQvNC80YMg0LIg0LLQsNGI0LXQuSDRgdGC0YDQsNC90LUuDQoNCtCi0L7Qu9GM0LrQviDQttC4
-0LfQvdGMLCDQv9GA0L7QttC40YLQsNGPINC00LvRjyDQtNGA0YPQs9C40YUsINGP0LLQu9GP0LXR
-gtGB0Y8g0LTQvtGB0YLQvtC50L3QvtC5INC20LjQt9C90YzRji4g0K8g0YXQvtGH0YMsDQrRh9GC
-0L7QsdGLINCy0Ysg0LLRgdC10LPQtNCwINC80L7Qu9C40LvQuNGB0Ywg0LfQsCDQvNC10L3Rjy4g
-0JvRjtCx0LDRjyDQt9Cw0LTQtdGA0LbQutCwINGBINCy0LDRiNC40Lwg0L7RgtCy0LXRgtC+0Lwg
-0LTQsNGB0YINCtC80L3QtSDQstC+0LfQvNC+0LbQvdC+0YHRgtGMINC90LDQudGC0Lgg0LTRgNGD
-0LPQvtCz0L4g0YfQtdC70L7QstC10LrQsCDQtNC70Y8g0Y3RgtC+0Lkg0LbQtSDRhtC10LvQuC4g
-0JXRgdC70Lgg0LLRiyDQvdC1DQrQt9Cw0LjQvdGC0LXRgNC10YHQvtCy0LDQvdGLLCDQv9C+0LbQ
-sNC70YPQudGB0YLQsCwg0L/RgNC+0YHRgtC40YLQtSDQvNC10L3RjyDQt9CwINGC0L4sINGH0YLQ
-viDRjyDRgdCy0Y/Qt9Cw0LvRgdGPINCS0YsNCtC80L7QttC10YLQtSDRgdCy0Y/Qt9Cw0YLRjNGB
-0Y8g0YHQviDQvNC90L7QuSDQuNC70Lgg0L7RgtCy0LXRgtC40YLRjCDQvdCwINC80L7QuSDQu9C4
-0YfQvdGL0Lkg0LDQtNGA0LXRgSDRjdC70LXQutGC0YDQvtC90L3QvtC5DQrQv9C+0YfRgtGLOiAo
-Y3Jpc3RpbmFjYW1wZWVsbEBvdXRsb29rLmNvbSkuDQoNCtCh0L/QsNGB0LjQsdC+LA0K0JjRgdC6
-0YDQtdC90L3QtSDQktCw0YgsDQrQnNC40YHRgdC40YEg0JrRgNC40YHRgtC40L3QsCDQmtGN0LzQ
-v9Cx0LXQu9C7DQrQrdC70LXQutGC0YDQvtC90L3QsNGPINC/0L7Rh9GC0LA7IGNyaXN0aW5hY2Ft
-cGVlbGxAb3V0bG9vay5jb20NCg==
+The getsubopt man page documents the return value on error as:
+
+    Otherwise, -1 is returned and *valuep is the entire name[=value]
+    string.
+
+without mentioning that this is a nonstandard extension. A couple
+times now this has been raised against musl libc, which does not
+support the extension, and we looked into supporting it, but it looks
+like it violates our criteria for not supporting extensions where
+historical implementations have conflicting behavior, which POSIX's
+APPLICATION USAGE notes claim:
+
+    The value of *valuep when getsubopt() returns -1 is unspecified.
+    Historical implementations provide various incompatible extensions
+    to allow an application to access the suboption text that was not
+    found in the keylistp array.
+
+Source: https://pubs.opengroup.org/onlinepubs/9699919799/functions/getsubopt.html
+
+It's also not entirely clear that presence of the extension conforms
+to the specified behavior.
+
+Perhaps the text could be amended to something like:
+
+    Otherwise, -1 is returned. In this case, the GNU C Library stores
+    a pointer to the entire name[=value] string in *valuep as an
+    extension; other implementations may differ in their behavior.
+
+Rich
