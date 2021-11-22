@@ -2,153 +2,111 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 614F1459327
-	for <lists+linux-man@lfdr.de>; Mon, 22 Nov 2021 17:35:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id C2771459334
+	for <lists+linux-man@lfdr.de>; Mon, 22 Nov 2021 17:37:30 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234203AbhKVQiM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 22 Nov 2021 11:38:12 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46724 "EHLO
+        id S240276AbhKVQke (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 22 Nov 2021 11:40:34 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47270 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230406AbhKVQiM (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 22 Nov 2021 11:38:12 -0500
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com [IPv6:2a00:1450:4864:20::32d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D843AC061574
-        for <linux-man@vger.kernel.org>; Mon, 22 Nov 2021 08:35:05 -0800 (PST)
-Received: by mail-wm1-x32d.google.com with SMTP id g191-20020a1c9dc8000000b0032fbf912885so316926wme.4
-        for <linux-man@vger.kernel.org>; Mon, 22 Nov 2021 08:35:05 -0800 (PST)
+        with ESMTP id S232071AbhKVQke (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 22 Nov 2021 11:40:34 -0500
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com [IPv6:2a00:1450:4864:20::330])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 50E3BC061574
+        for <linux-man@vger.kernel.org>; Mon, 22 Nov 2021 08:37:27 -0800 (PST)
+Received: by mail-wm1-x330.google.com with SMTP id o29so16018240wms.2
+        for <linux-man@vger.kernel.org>; Mon, 22 Nov 2021 08:37:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=message-id:date:mime-version:user-agent:subject:content-language:to
          :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=EjCSMQEbq5Or72k1+qO8XrN7GIcFw6Pi+ogsKXecr3E=;
-        b=RpVogSXcFos8zh7AQXaNk0VGJN7oUH06E/45NVOt7F0Yjy7BJME9lqPrqErwRlyAmA
-         rC8Q4XyRI+0/Zb/18J3bgK5rUlLO5cz/bHxmps0eipmPJkwqOv0FCvjWYZZorDVgv+Hw
-         KwF38MMCBJK8+jw+diWALaM42oiALjJZ/lPrEUM9u5IdsA3vyl9Ux0Qjg1lvaN3M9MZa
-         VtLEBI1yL3+uxj0LpAS8B6vDB1ABjX4UvbuxOqdV8O2kbiuWtRnywp/P3T92Vn/z/EhX
-         xyuIcEVLmQM/H8p53QpBFiiR2HS6NBTOt6mSLY5I0BoAnDUE+apfLGHMe9ryW+rvopDU
-         u8Vw==
+        bh=kMpaRt68LG4M7aee3kzWRwVd2iiz+R28H/6WeOqPKRc=;
+        b=LbaHHpUxkAtgiAJuI1Jb3/9DzivKUA0sTgex9lZBlcrtO00NXXrw86j1JzO4/x2Yz+
+         ebNTi0uvwMdLAnWbtOQosCRUxHUbM9isFbKwebamBgfr+R3ayYVfRHHb3ZX51vaCQD+P
+         WI9tT8hXoBAoofUwTL5nPBTrMoKhzhXk72l2bbg7bmBDUoCnxlMGGQUZowfaGzB/TYWx
+         chMx6h3gmtxMu0gHMe45LiPDnkjqitIrWwrqcXjy04NGEkoyzd1qiEk0PeBKu53xrCSD
+         EgwfH3VP26X+AZDQvF/K8SNgUWE1NsGlfyBZ0jromyfw5NF5d6h/LWiO3ky8oQ2PS70J
+         zi9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
          :content-language:to:cc:references:from:in-reply-to
          :content-transfer-encoding;
-        bh=EjCSMQEbq5Or72k1+qO8XrN7GIcFw6Pi+ogsKXecr3E=;
-        b=ocYCY0SGmM2Sz386Cjt+GHWzZlM7xc1ob8yLDF6O0M4zEGBHdGFCIJFVUOLCqPTQvj
-         U38BbWTlDVtKFVreoAyXIOfyeUqEwrjnOUM9YfnrENUHEPoSCqjjHPlsWUa3DCOcigKH
-         gv2/H3aUFQ38LJqKunY7Ubi/E5BpujK8A/6ouyPkUVinJ9cyf/DL+tG7yamGq9ZjzL10
-         H756VNG47tbaRuhvqZU2J2h65NiaS85wc73j56Hkvo5DcAhiXtm19QriD3imu6mVuAqP
-         4ZBNWE6IxtByvsY9WhozQy5NS1JgNOwozhUJHWyGN4aeBfcWk58gdTCWuwI2LeSivZRl
-         L1uQ==
-X-Gm-Message-State: AOAM530YxbFmjwmA2+sPcqD+FewrDO/UdEhyN2NRAaWDVk+C+AENcWy9
-        rR+N+Fe/FgrYNxtI+x9FFyQ=
-X-Google-Smtp-Source: ABdhPJwFbM2+oTPKXuPDI5yXS71aci16uYfvVLn9YB3QGlDskseGiTmyLhQ7WFZdYKFd6V62FiT2kQ==
-X-Received: by 2002:a7b:ce96:: with SMTP id q22mr31072602wmj.9.1637598904443;
-        Mon, 22 Nov 2021 08:35:04 -0800 (PST)
+        bh=kMpaRt68LG4M7aee3kzWRwVd2iiz+R28H/6WeOqPKRc=;
+        b=C+4MNOV/1lPQQtBL4Fv4qnfUkolRblRsBmxPm8Zq7lwhppxU1qfXL/ZqESZokAnE8w
+         5kDVT93ds+D3Cl3iPqtMNn5nl4u9YeY7+k7J5O7GjCpK9awFzwLe3Gp1b8r8TpXEzkaF
+         akmlKiAx1mjOJuD4NyE6o1ueyQhO9xO/MKaft3F3yt+F6zM8GD/7lduoYQyuuSr3XcP5
+         4rWSpVIE8L4jIIvC8BAmUkcgi4cEfJJOeZJHPpBJmwL/Tz0F3jzEsBlZglnyWFe9EEwp
+         TbE0NfTyQYQec341b+KnB8FkbMUrca5+Xb5dVzugb+F6U20fO0r5z2QwEHnK9je0rIF3
+         kd5A==
+X-Gm-Message-State: AOAM53302yF8msUxZiF3+V5LJChh6ZwlZCQEsyPrMeuSWvoWvsQcjnGb
+        SVHgIxZW3hiIIaoNKKxleASrMiumUbDuQw==
+X-Google-Smtp-Source: ABdhPJxbF1b+m1Wp3rjZyeGFo6KaYsx7T/K0GHjldGc+0GnI8BrmJ/sJpQTxvL+xl6UcOcuSQDpQOg==
+X-Received: by 2002:a7b:c08a:: with SMTP id r10mr30860897wmh.184.1637599045910;
+        Mon, 22 Nov 2021 08:37:25 -0800 (PST)
 Received: from [10.168.10.170] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id h3sm8674069wrv.69.2021.11.22.08.35.03
+        by smtp.gmail.com with ESMTPSA id z7sm21397177wmi.33.2021.11.22.08.37.25
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 22 Nov 2021 08:35:04 -0800 (PST)
-Message-ID: <b15e5482-c379-85e8-efcb-2da013634152@gmail.com>
-Date:   Mon, 22 Nov 2021 17:35:03 +0100
+        Mon, 22 Nov 2021 08:37:25 -0800 (PST)
+Message-ID: <4a08d1e1-4bed-2428-e29f-8b7cb37294b4@gmail.com>
+Date:   Mon, 22 Nov 2021 17:37:24 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.3.0
-Subject: Re: [PATCH v2] mctp.7: Add man page for Linux MCTP support
+Subject: Re: [PATCH] init_module.2: Add ETXTBSY error for finit_module
 Content-Language: en-US
-To:     Jeremy Kerr <jk@codeconstruct.com.au>
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
-        "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        linux-man@vger.kernel.org
-References: <20211111015323.3542313-1-jk@codeconstruct.com.au>
- <76dd85f7-ab8a-1dcc-5b1a-5eb9a87d23bc@gmail.com>
- <d6c9edca79f9aedd4dd9e07e46a4587153f35149.camel@codeconstruct.com.au>
- <d0f4c857-db51-8482-d658-69f6ac25c73b@gmail.com>
- <833fa653b978889d929638e925bb187ba8886b4e.camel@codeconstruct.com.au>
+To:     Yang Xu <xuyang2018.jy@fujitsu.com>
+Cc:     linux-man@vger.kernel.org, mtk.manpages@gmail.com
+References: <1637136967-13028-1-git-send-email-xuyang2018.jy@fujitsu.com>
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-In-Reply-To: <833fa653b978889d929638e925bb187ba8886b4e.camel@codeconstruct.com.au>
+In-Reply-To: <1637136967-13028-1-git-send-email-xuyang2018.jy@fujitsu.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Jeremy,
+Hi Yang,
 
-On 11/18/21 06:08, Jeremy Kerr wrote:
-> Hi Alex,
+On 11/17/21 09:16, Yang Xu wrote:
+> Since kernel commit[1], finit_module fails with ETXTBSY error if fd has write permission.
+> Since kernel commit[2], finit_module fails with EBADF error if fd doesn't have read permission.
 > 
->> I didn't even know there was such a convention, but if there is, yes,
->> I explicitly want to override it.
+> So we can use read-write permission to trigger ETXTBSY error all the time since linux 4.7.
 > 
-> OK, I'll update to suit.
+> [1]https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=39d637af
+> [2]https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=032146cd
 > 
->> man-pages(7) recommends breaking long lines at clause boundaries
->> (commas, semicolons, and so on), but somethimes clauses (if you don't
->> know the difference between phrases and clauses, which you don't need
->> to, basically clauses are made up of phrases) are too long, and you
->> can have a single clause that uses more than a single line.  In those
->> cases, the most sensible place to break the line is at the next level:
->> phrase boundaries.
+> Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
+> ---
+>   man2/init_module.2 | 7 +++++++
+>   1 file changed, 7 insertions(+)
 > 
-> OK, understood, thanks for that.
-> 
->> What I mean is, if in the future this structure will have additional
->> trailing fields, documenting this padding is unnecessary, since that
->> may
->> vary.  Code should not rely on this structure having _only_ that
->> padding.  And if code handles any arbitrary extra stuff in this
->> structure, it will implicitly also handle that __smctp_pad1 field, so
->> there's no need to mention it.
->>
->> Example:
->>
->> struct sockaddr_mctp {
->>       unsigned short     smctp_family;  /* = AF_MCTP */
->>       uint16_t           __smctp_pad0;  /* pad, must be zero */
->>       int                smctp_network; /* local network identifier */
->>       struct mctp_addr   smctp_addr;    /* EID */
->>       uint8_t            smctp_type;    /* message type byte */
->>       uint8_t            smctp_tag;     /* tag value, including TO flag */
->>       uint8_t            foo;           /* was __smctp_pad1 */
->>       uint8_t            bar;           /* extra stuff */
->> };
->>
->> Here I got rid of the pad, and even added an extra field.
-> 
-> Right, but you've also broken the ABI if that previous padding byte
-> wasn't explicitly present, and required to be zero.
+> diff --git a/man2/init_module.2 b/man2/init_module.2
+> index aac0c6631..2bcbaf4c3 100644
+> --- a/man2/init_module.2
+> +++ b/man2/init_module.2
+> @@ -242,6 +242,13 @@ is invalid.
+>   .B ENOEXEC
+>   .I fd
+>   does not refer to an open file.
+> +.TP
+> +.BR ETXTBSY " (since Linux 4.7)"
+> +.\" commit 39d637af5aa7577f655c58b9e55587566c63a0af
+> +The file referred to by
+> +.I fd
+> +is opened for read-write.
+> +.
 
-Ahh, that's why I require in such cases a memset(p, 0, sizeof(*p));
-That covers any undocumented padding; present or future.
+Please, remove that trailing '.'
 
-> In that future ABI
-> implementation, the kernel can't distinguish between 'foo' being properly
-> initialised, and not just random stack garbage from an old-ABI caller.
-> 
-> That's why we have the _pad1 field, and why we require it to be zero.
-> Since that's enforced by the kernel, I'd rather have it documented,
-> rather than users seeing their calls fail for "invisible" reasons, when
-> a call's _pad1 happens to contain a non-zero byte due to not being
-> initialised.
-> 
->> Code should be written to be compatible with this case, right?
-> 
-> I'm not 100% clear on you mean by compatible there - you want to prevent
-> the case where __smctp_pad1 is removed from the header, and that code is
-> now referencing an invalid struct member?
-> 
-> That's somewhat unavoidable, and also applies to _pad0; I'm not sure why
-> _pad1 needs to be different.
-
-I want that programmers zero the structure not by p->_pad0 = 0,
-but by bzero(3) or memset(3).  That's how it covers any ammount of padding.
-
-Nevertheless, I don't have a strong feeling about this, and if you 
-prefer to document the padding, I'm fine with that.
-
-Cheers!
+Thanks,
 Alex
 
+>   .PP
+>   In addition to the above errors, if the module's
+>   .I init
+> 
 
 -- 
 Alejandro Colomar
