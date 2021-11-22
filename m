@@ -2,118 +2,130 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8D3B7458D3E
-	for <lists+linux-man@lfdr.de>; Mon, 22 Nov 2021 12:19:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 4728A458D4A
+	for <lists+linux-man@lfdr.de>; Mon, 22 Nov 2021 12:23:23 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S237156AbhKVLW3 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 22 Nov 2021 06:22:29 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58946 "EHLO
+        id S238297AbhKVL02 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 22 Nov 2021 06:26:28 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59894 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232836AbhKVLWM (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 22 Nov 2021 06:22:12 -0500
-Received: from mail-pj1-x102d.google.com (mail-pj1-x102d.google.com [IPv6:2607:f8b0:4864:20::102d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 40CE4C061574
-        for <linux-man@vger.kernel.org>; Mon, 22 Nov 2021 03:19:06 -0800 (PST)
-Received: by mail-pj1-x102d.google.com with SMTP id h24so13585141pjq.2
-        for <linux-man@vger.kernel.org>; Mon, 22 Nov 2021 03:19:06 -0800 (PST)
+        with ESMTP id S234377AbhKVL01 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 22 Nov 2021 06:26:27 -0500
+Received: from mail-pf1-x435.google.com (mail-pf1-x435.google.com [IPv6:2607:f8b0:4864:20::435])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2E2F4C061574
+        for <linux-man@vger.kernel.org>; Mon, 22 Nov 2021 03:23:21 -0800 (PST)
+Received: by mail-pf1-x435.google.com with SMTP id n85so15758419pfd.10
+        for <linux-man@vger.kernel.org>; Mon, 22 Nov 2021 03:23:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=google.com; s=20210112;
         h=date:from:to:cc:subject:message-id:references:mime-version
          :content-disposition:in-reply-to;
-        bh=y46O4SRmmfgXBOU6GnJjTqQC+0ax37Bl+vxCa3CsUaE=;
-        b=sVNY4+0o9SLKKubYJwwRH4EvwSeU3BJIAEM5MJqWvIWO6nar9X3R+5ojAdvPD+bKGd
-         B6kccdHulhrHlJMMY8/EYnyLkicnVgKQXmBzXadRsxYg3NF0PNU0JYdXMnasW1sTOlfu
-         gP/n2LRIW/sZJNTIP2YPAU6PdlR021Vaa19cb9+BZARkQpGRKwpEzOkoQZrnBRC3wejv
-         idPgSFkDCCKz3m9pES/Vu8qwIWJQtOVhbVTSUxgNVez3PvWX6QhZSkLFJNCASbNFqrJP
-         QekPmpTlsVQvJ262TOqYL9F1SV30PEqR5mK0mSHN0CNaZeRUlQJdxCfOcq7DzGNk9RwZ
-         E18Q==
+        bh=R9k8AU4o80qIgSaC98aUtFPqmraIloOWVK7Uz8cEhWw=;
+        b=G90P04dgAOBVD1LW2UZJ9bsyjGob1GYAb1Aav4nohR7cUJR55DsG92GZbSqcvZWze+
+         EqOiYUwzt2X2uQ8oBBx+CLReLifVVN0pSkAg0vhxIBZ0b6xkTigkqTkAUC/W6hM65/cW
+         U9chKdk6Vo6jfIRtcmU/RSittmupl4EZhQZAAZdH/fEXWUfb07uYQzioYR2j3t7U9/ad
+         dg3Qyku1BksMh8k+oN+0T54ONTHuDjXrw0T8rO+PEy/K/YdWRGxKrgetvpuvjAYt4iEa
+         L0dLRT2r3QEAaEX8nYqRbC88/Qs22UHmUR5MO6Xx154U9OnigI/R6j8So15YwZQaLX2B
+         Bm3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:date:from:to:cc:subject:message-id:references
          :mime-version:content-disposition:in-reply-to;
-        bh=y46O4SRmmfgXBOU6GnJjTqQC+0ax37Bl+vxCa3CsUaE=;
-        b=WSG+jb5Hl8qFhcOA8uD4ffER0pt0DMPRTfzL8qbBB3hULFE43UtyBnfav4D13Pbqy1
-         q6cqTJT16cBGz2NfyGi68D5Fa2m46rgHOW0l1Fs5PN/TXCX21B8PAcbCjNa5cSpfY69m
-         7Ckqyc2Anma3igiEdOmn+0nXOQTP8OLmu/XT2Sq3lExfostLbYmlK2JwNRQdXQ4ksNck
-         YkPVLngXar0BZkJ7gLgiMPI+8NuicWvWPiKnvHhqjaxiByPBvvOj1Js9dNdhaaprvx3S
-         t2B9jIMi2AZEMJrEM1mIVdNxjoGA2nNzxHLXTRFMLVtRRSSKWlRSnh8FP5c9F6Y8GPIN
-         pzaA==
-X-Gm-Message-State: AOAM532jsZjWQ2r9xSkaDQR42DigCXq3Ogue9aGvIRKlHmzabs7Aa4zP
-        +Whx+22aGn/Cse+52NWOZIDlaw==
-X-Google-Smtp-Source: ABdhPJxxLQTp6a5e96PpVZ9XnY7dTfrkmTs47YDI8lwmFQiMf8MZv6qe2BSAmLbLaq781kGsqDg9nA==
-X-Received: by 2002:a17:90b:38c1:: with SMTP id nn1mr30916292pjb.91.1637579945570;
-        Mon, 22 Nov 2021 03:19:05 -0800 (PST)
+        bh=R9k8AU4o80qIgSaC98aUtFPqmraIloOWVK7Uz8cEhWw=;
+        b=7wQrX29nHBxd8zmpOYlB3rGFPd81crBcij44qTv6d5/vZdORYGJz1FGuH5u7a4jHQ/
+         OBzwTOUqU7lMz9Bh+dw8f4CbCPEn+deXxKYQurq5v+2Yp3f1uMH9zSTuJlpEHTSq2A1U
+         bkMM3G6CpohpotCl4WYOTvzOzC3oufxn88/gFZyAYHZyESmCPFs7jYoADw1lAxneiQ4g
+         ViliBLWO+4Yb4iCs76t2F+fzVcQrtMpmgM8iswGxeLvTVBEJg96HmtVhO403mdrFniji
+         TmFzV7za9cz3Oz+aIjZRk+CdtOtRuLJJGWDVhawLgbruRkm+yIYWCW1UoqbFjwFTMNsL
+         YOoQ==
+X-Gm-Message-State: AOAM532MMtITVxxS+iwdmjR4aBI2HkYY69BZGLiu9b6Idm64K/Q7nQcq
+        Zed0f/Zw+dyMPJKfL9Tgh+bsBw==
+X-Google-Smtp-Source: ABdhPJw9pp6r7fjGo8sK7WvWSNhND/DTfA/hgVGamk4qLd8kNE/cDizESinGnRWKEZT8CP7kWtc29w==
+X-Received: by 2002:a05:6a00:1145:b0:4a2:6a03:c592 with SMTP id b5-20020a056a00114500b004a26a03c592mr42140028pfm.65.1637580200491;
+        Mon, 22 Nov 2021 03:23:20 -0800 (PST)
 Received: from google.com ([2401:fa00:9:211:de12:dd5f:8d5c:4e51])
-        by smtp.gmail.com with ESMTPSA id l12sm8539914pfu.100.2021.11.22.03.19.02
+        by smtp.gmail.com with ESMTPSA id h3sm18123596pjz.43.2021.11.22.03.23.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 22 Nov 2021 03:19:04 -0800 (PST)
-Date:   Mon, 22 Nov 2021 22:18:53 +1100
+        Mon, 22 Nov 2021 03:23:20 -0800 (PST)
+Date:   Mon, 22 Nov 2021 22:23:10 +1100
 From:   Matthew Bobrowski <repnop@google.com>
 To:     Amir Goldstein <amir73il@gmail.com>
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>, Jan Kara <jack@suse.cz>,
-        Gabriel Krisman Bertazi <krisman@collabora.com>
-Subject: Re: [PATCH 0/1] fanotify: Document FAN_REPORT_PIDFD Feature
-Message-ID: <YZt8nVu1Ze4vHGdr@google.com>
+Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man <linux-man@vger.kernel.org>, Jan Kara <jack@suse.cz>
+Subject: Re: [PATCH 1/1] Document the new fanotify initialization flag
+ FAN_REPORT_PIDFD
+Message-ID: <YZt9nuSlWYQikaED@google.com>
 References: <cover.1635135968.git.repnop@google.com>
- <CAOQ4uxhUpnDVT6T-aGz2B_XUpRojJhVZG8Fw6XNegsWzXt+pDw@mail.gmail.com>
+ <6ea10a58db3446aabc729b1082611bdadb1ce4ed.1635135968.git.repnop@google.com>
+ <CAOQ4uxj4xxp8g6Y0u1XtQ6hBBM=nba2j9XjJKp=Lg3yRzUE-Yg@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAOQ4uxhUpnDVT6T-aGz2B_XUpRojJhVZG8Fw6XNegsWzXt+pDw@mail.gmail.com>
+In-Reply-To: <CAOQ4uxj4xxp8g6Y0u1XtQ6hBBM=nba2j9XjJKp=Lg3yRzUE-Yg@mail.gmail.com>
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Sat, Nov 20, 2021 at 12:36:26PM +0200, Amir Goldstein wrote:
+On Sat, Nov 20, 2021 at 02:19:38PM +0200, Amir Goldstein wrote:
 > On Wed, Oct 27, 2021 at 12:28 PM Matthew Bobrowski <repnop@google.com> wrote:
 > >
-> > Hi Michael,
+> > This provides an explanation on the kind of additional information that can
+> > be returned alongside the generic struct fanotify_event_metadata and in
+> > what form this additional contextual information is delievered to a
+> > listening application.
 > >
-> > This patch series documents the new FAN_REPORT_PIDFD feature that is
-> > available from v5.15.
+> > Signed-off-by: Matthew Bobrowski <repnop@google.com>
+> > ---
+> >  man2/fanotify_init.2 | 54 +++++++++++++++++++++++++
+> >  man7/fanotify.7      | 95 +++++++++++++++++++++++++++++++++++++++++++-
+> >  2 files changed, 147 insertions(+), 2 deletions(-)
 > >
-> > Note that this patch series is diffbased against the FANOTIFY_UNPRIV
-> > [0, 1] man page updates that are yet to be merged with upstream. That
-> > said, if you could please merge the FANOTIFY_UNPRIV updates first
-> > followed by the FAN_REPORT_PIDFD updates, that would be much
-> > appreciated.
-> >
-> > [0] https://lore.kernel.org/linux-man/20210318160817.3586288-1-amir73il@gmail.com/
-> > [1] https://github.com/amir73il/man-pages/commits/fanotify_unpriv
-> >
-> 
-> Alejandro,
-> 
-> Is there any changes of getting those long due 5.13 fanotify update
-> patches merged?
+> > diff --git a/man2/fanotify_init.2 b/man2/fanotify_init.2
+> > index 0d83e817f..f65b4fa10 100644
+> > --- a/man2/fanotify_init.2
+> > +++ b/man2/fanotify_init.2
+> > @@ -298,6 +298,60 @@ for additional details.
+> >  This is a synonym for
+> >  .RB ( FAN_REPORT_DIR_FID | FAN_REPORT_NAME ).
+> >  .PP
+> > +.TP
+> > +.B FAN_REPORT_PIDFD " (since Linux 5.15)"
 > 
 > Matthew,
 > 
-> For v2 please base your own fanotify_pidfd branch on top of fanotify_unpriv
-> (I just rebased it to master again) and provide a branch, that Gabriel
-> and I could
-> base the next man page updates on.
-> 
-> Currently, neither your fanotify_pidfd patch nor Gabriel's fan-fs-error patch
-> conflict with fanotify_unpriv changes, but fan-fs-error does have conflicts
-> with fanotify_pidfd.
+> For v2, please document commit id.
+> Please also consider including below cleanup patch
+> to document commit ids that we missed in v5.9 update.
 
 ACK.
 
-As per request, v2 of the FAN_REPORT_PIDFD documentation can be found
-here [0].
+PTAL [0]. BTW, the cleanup patch you referenced appears to be in your
+fanotify_unpriv [1] branch, and my fanotify_pidfd_v2 [2] is based off
+fanotify_unpriv, so we should be good here.
 
-The branch fanotify_pidfd_v2 is based off your fanotify_unpriv
-branch. I'd like to post through this series at some point tomorrow,
-so if you could PTAL in the interim, that'd be appreciated.
+> 
+> --- a/man2/fanotify_init.2
+> +++ b/man2/fanotify_init.2
+> @@ -213,6 +213,7 @@ See
+>  for additional details.
+>  .TP
+>  .BR FAN_REPORT_DIR_FID " (since Linux 5.9)"
+> +.\" commit 83b7a59896dd24015a34b7f00027f0ff3747972f
+>  Events for fanotify groups initialized with this flag will contain
+>  (see exceptions below) additional information about a directory object
+>  correlated to an event.
+> @@ -245,6 +246,7 @@ See
+>  for additional details.
+>  .TP
+>  .BR FAN_REPORT_NAME " (since Linux 5.9)"
+> +.\" commit 929943b38daf817f2e6d303ea04401651fc3bc05
+>  Events for fanotify groups initialized with this flag will contain additional
+>  information about the name of the directory entry correlated to an event.
+>  This flag must be provided in conjunction with the flag
 
-I've incorporated the explicit documentation of the
-fanotify_event_info_header structure, rather than duplicating field
-explanations of such a structure across each information record types
-as we had discussed.
-
-[0] https://github.com/matthewbobrowski/man-pages/tree/fanotify_pidfd_v2
+[0] https://github.com/matthewbobrowski/man-pages/commit/070c144b2f92acffa752ee10ea0c239ee5258b72
+[1] https://github.com/amir73il/man-pages/tree/fanotify_unpriv
+[2] https://github.com/matthewbobrowski/man-pages/tree/fanotify_pidfd_v2
 
 /M
