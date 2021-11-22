@@ -2,111 +2,145 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C2771459334
-	for <lists+linux-man@lfdr.de>; Mon, 22 Nov 2021 17:37:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E96EC459384
+	for <lists+linux-man@lfdr.de>; Mon, 22 Nov 2021 17:57:03 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S240276AbhKVQke (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 22 Nov 2021 11:40:34 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47270 "EHLO
+        id S230159AbhKVRAJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 22 Nov 2021 12:00:09 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51756 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232071AbhKVQke (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 22 Nov 2021 11:40:34 -0500
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com [IPv6:2a00:1450:4864:20::330])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 50E3BC061574
-        for <linux-man@vger.kernel.org>; Mon, 22 Nov 2021 08:37:27 -0800 (PST)
-Received: by mail-wm1-x330.google.com with SMTP id o29so16018240wms.2
-        for <linux-man@vger.kernel.org>; Mon, 22 Nov 2021 08:37:27 -0800 (PST)
+        with ESMTP id S229575AbhKVRAJ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 22 Nov 2021 12:00:09 -0500
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com [IPv6:2a00:1450:4864:20::32e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3F898C061574
+        for <linux-man@vger.kernel.org>; Mon, 22 Nov 2021 08:57:02 -0800 (PST)
+Received: by mail-wm1-x32e.google.com with SMTP id o19-20020a1c7513000000b0033a93202467so381022wmc.2
+        for <linux-man@vger.kernel.org>; Mon, 22 Nov 2021 08:57:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=message-id:date:mime-version:user-agent:subject:content-language:to
          :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=kMpaRt68LG4M7aee3kzWRwVd2iiz+R28H/6WeOqPKRc=;
-        b=LbaHHpUxkAtgiAJuI1Jb3/9DzivKUA0sTgex9lZBlcrtO00NXXrw86j1JzO4/x2Yz+
-         ebNTi0uvwMdLAnWbtOQosCRUxHUbM9isFbKwebamBgfr+R3ayYVfRHHb3ZX51vaCQD+P
-         WI9tT8hXoBAoofUwTL5nPBTrMoKhzhXk72l2bbg7bmBDUoCnxlMGGQUZowfaGzB/TYWx
-         chMx6h3gmtxMu0gHMe45LiPDnkjqitIrWwrqcXjy04NGEkoyzd1qiEk0PeBKu53xrCSD
-         EgwfH3VP26X+AZDQvF/K8SNgUWE1NsGlfyBZ0jromyfw5NF5d6h/LWiO3ky8oQ2PS70J
-         zi9Q==
+        bh=L2mZRg1AWlUwTOnAkyQVM9F84jJjbWOfpGkN+BnZCe8=;
+        b=mthroEFG6GLnDDgyLUmshRaH7r6t78krxhuYW9Fba3pOroLyAN1pvkfZv6cn2Gj/hA
+         2ZgcgNnwJy+CM14/v/xbHBUMo0NQ8Gj6VXkVtCDy/S5zneT/Cb+dfn+xmww0LVAqrs9g
+         i9XGzv2dy6I1UPGGS7GYZWfS42EP9G50rQH3BWSQbTt2gjmALnfd2f7Qw7ber1AMxrUJ
+         IOBQBAW1Nvl4iuSmcRPUGJw576EKHoAeSOYAIW/MRNgInCTNxZGCTOhtG2IDXBHsrQG5
+         WPLCI4GRMpYq+ZwAySB9cT0ivvKWlRYMLn66zDC3sAwRqVpw8zYzqK+S7AaJybWVLgOk
+         48Ng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
          :content-language:to:cc:references:from:in-reply-to
          :content-transfer-encoding;
-        bh=kMpaRt68LG4M7aee3kzWRwVd2iiz+R28H/6WeOqPKRc=;
-        b=C+4MNOV/1lPQQtBL4Fv4qnfUkolRblRsBmxPm8Zq7lwhppxU1qfXL/ZqESZokAnE8w
-         5kDVT93ds+D3Cl3iPqtMNn5nl4u9YeY7+k7J5O7GjCpK9awFzwLe3Gp1b8r8TpXEzkaF
-         akmlKiAx1mjOJuD4NyE6o1ueyQhO9xO/MKaft3F3yt+F6zM8GD/7lduoYQyuuSr3XcP5
-         4rWSpVIE8L4jIIvC8BAmUkcgi4cEfJJOeZJHPpBJmwL/Tz0F3jzEsBlZglnyWFe9EEwp
-         TbE0NfTyQYQec341b+KnB8FkbMUrca5+Xb5dVzugb+F6U20fO0r5z2QwEHnK9je0rIF3
-         kd5A==
-X-Gm-Message-State: AOAM53302yF8msUxZiF3+V5LJChh6ZwlZCQEsyPrMeuSWvoWvsQcjnGb
-        SVHgIxZW3hiIIaoNKKxleASrMiumUbDuQw==
-X-Google-Smtp-Source: ABdhPJxbF1b+m1Wp3rjZyeGFo6KaYsx7T/K0GHjldGc+0GnI8BrmJ/sJpQTxvL+xl6UcOcuSQDpQOg==
-X-Received: by 2002:a7b:c08a:: with SMTP id r10mr30860897wmh.184.1637599045910;
-        Mon, 22 Nov 2021 08:37:25 -0800 (PST)
+        bh=L2mZRg1AWlUwTOnAkyQVM9F84jJjbWOfpGkN+BnZCe8=;
+        b=DoHR2wzqt9kdMlLYifQ2g5ooEEJKle6F2zsIxzlvhJS4TxnSpB3Q6hK25xeSk81sho
+         onCW7dRleKqB3jLGrU9pIQFYwqTNTs2MQ7BRA6+P33NPeXKrosiW7/QLflKFKKHLzSD+
+         Gr8pw9HnhnP5VmW75D56Z/tSmOkEihUiVrjnX6dw3Io846Cy059fvZ4Up7txvVjJhzNe
+         +GX6RvZHrBvExucfSyxPAkT7hcr5YA6KzBn8bArlZZTFBpwPTaqe8uiLzdhknu8FRSIM
+         jaBC5u4zyESB5x4IE0j8e/F19rh4sQ3MNPhMrs0rQpFuMpI/TsLpETBetg2lMrZ/Me0O
+         l91A==
+X-Gm-Message-State: AOAM532ojb2vo7ZOcNvALzLbXEBH3eo0BHAk5bRWz8ONt4TkrhXhSVWS
+        2yx29b+hFJry7IAj59FqKN3YUFPGsqo/WA==
+X-Google-Smtp-Source: ABdhPJyU8sHDjkzMUgTLZ7EnVIzcOODGn4i/U6w6/mwOkXYikxEG3cLGbEfpucAxgkhZ9aJurUwMzw==
+X-Received: by 2002:a05:600c:3b8f:: with SMTP id n15mr31570229wms.180.1637600220863;
+        Mon, 22 Nov 2021 08:57:00 -0800 (PST)
 Received: from [10.168.10.170] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id z7sm21397177wmi.33.2021.11.22.08.37.25
+        by smtp.gmail.com with ESMTPSA id r8sm12080288wrz.43.2021.11.22.08.57.00
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 22 Nov 2021 08:37:25 -0800 (PST)
-Message-ID: <4a08d1e1-4bed-2428-e29f-8b7cb37294b4@gmail.com>
-Date:   Mon, 22 Nov 2021 17:37:24 +0100
+        Mon, 22 Nov 2021 08:57:00 -0800 (PST)
+Message-ID: <4c1659ad-dbaf-dccd-95bb-fe224c4c0912@gmail.com>
+Date:   Mon, 22 Nov 2021 17:56:59 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.3.0
-Subject: Re: [PATCH] init_module.2: Add ETXTBSY error for finit_module
+Subject: Re: [PATCH v2 0/4] fanotify man page updates for v5.13
 Content-Language: en-US
-To:     Yang Xu <xuyang2018.jy@fujitsu.com>
-Cc:     linux-man@vger.kernel.org, mtk.manpages@gmail.com
-References: <1637136967-13028-1-git-send-email-xuyang2018.jy@fujitsu.com>
+To:     Amir Goldstein <amir73il@gmail.com>,
+        Matthew Bobrowski <mbobrowski@mbobrowski.org>
+Cc:     Michael Kerrisk <mtk.manpages@gmail.com>, Jan Kara <jack@suse.cz>,
+        linux-man@vger.kernel.org
+References: <20211120171253.1385863-1-amir73il@gmail.com>
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-In-Reply-To: <1637136967-13028-1-git-send-email-xuyang2018.jy@fujitsu.com>
+In-Reply-To: <20211120171253.1385863-1-amir73il@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Yang,
+Hi Amir,
 
-On 11/17/21 09:16, Yang Xu wrote:
-> Since kernel commit[1], finit_module fails with ETXTBSY error if fd has write permission.
-> Since kernel commit[2], finit_module fails with EBADF error if fd doesn't have read permission.
+On 11/20/21 18:12, Amir Goldstein wrote:
+> Hi Alejandro,
 > 
-> So we can use read-write permission to trigger ETXTBSY error all the time since linux 4.7.
+> This is a re-post of updates for v5.13 that I posted last March [1].
 > 
-> [1]https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=39d637af
-> [2]https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=032146cd
+> Thanks,
+> Amir.
 > 
-> Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
-> ---
->   man2/init_module.2 | 7 +++++++
->   1 file changed, 7 insertions(+)
+> Changes since v1:
+> - Update comment regarding tmpfs
+> - Document kernel commits
 > 
-> diff --git a/man2/init_module.2 b/man2/init_module.2
-> index aac0c6631..2bcbaf4c3 100644
-> --- a/man2/init_module.2
-> +++ b/man2/init_module.2
-> @@ -242,6 +242,13 @@ is invalid.
->   .B ENOEXEC
->   .I fd
->   does not refer to an open file.
-> +.TP
-> +.BR ETXTBSY " (since Linux 4.7)"
-> +.\" commit 39d637af5aa7577f655c58b9e55587566c63a0af
-> +The file referred to by
-> +.I fd
-> +is opened for read-write.
-> +.
+> [1] https://lore.kernel.org/linux-man/20210318160817.3586288-1-amir73il@gmail.com/
+> 
+> Amir Goldstein (3):
+>    fanotify_init.2, fanotify_mark.2, fanotify.7: Configurable limits
+>    fanotify_mark.2: Update w.r.t tmpfs support
+>    fanotify_init.2: Document kernel commits
+> 
+> Matthew Bobrowski (1):
+>    fanotify_init.2, fanotify_mark.2: Document unprivileged listener
 
-Please, remove that trailing '.'
+Patch set applied.
+See some tweaks below.
 
-Thanks,
+Thanks!
 Alex
 
->   .PP
->   In addition to the above errors, if the module's
->   .I init
-> 
+---
+     fanotify_init.2: Minor tweaks to Matthew's patch
+
+     Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+     Cc: Matthew Bobrowski <mbobrowski@mbobrowski.org>
+     Cc: Amir Goldstein <amir73il@gmail.com>
+
+diff --git a/man2/fanotify_init.2 b/man2/fanotify_init.2
+index 7a1c21037..e463372f3 100644
+--- a/man2/fanotify_init.2
++++ b/man2/fanotify_init.2
+@@ -426,23 +426,23 @@ The user cannot request for an unlimited number of 
+marks by using
+  .BR FAN_UNLIMITED_MARKS .
+  .IP * 3
+  The user cannot request to use either notification classes
+-.BR FAN_CLASS_CONTENT
++.B FAN_CLASS_CONTENT
+  or
+  .BR FAN_CLASS_PRE_CONTENT .
+  This means that user cannot request permission events.
+  .IP * 3
+  The user is required to create a group that identifies filesystem 
+objects by
+  file handles, for example, by providing the
+-.BR FAN_REPORT_FID
++.B FAN_REPORT_FID
+  flag.
+  .IP * 3
+  The user is limited to only mark inodes.
+  The ability to mark a mount or filesystem via
+-.BR fanotify_mark()
++.BR fanotify_mark ()
+  through the use of
+-.BR FAN_MARK_MOUNT
++.B FAN_MARK_MOUNT
+  or
+-.BR FAN_MARK_FILESYSTEM
++.B FAN_MARK_FILESYSTEM
+  is not permitted.
+  .IP * 3
+  The event object in the event queue is limited in terms of the information
+
 
 -- 
 Alejandro Colomar
