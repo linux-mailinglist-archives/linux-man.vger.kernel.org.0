@@ -2,114 +2,143 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0BBDE459976
-	for <lists+linux-man@lfdr.de>; Tue, 23 Nov 2021 01:59:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 2B335459B70
+	for <lists+linux-man@lfdr.de>; Tue, 23 Nov 2021 06:15:50 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230076AbhKWBC4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 22 Nov 2021 20:02:56 -0500
-Received: from mail1.bemta26.messagelabs.com ([85.158.142.4]:33099 "EHLO
-        mail1.bemta26.messagelabs.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S229628AbhKWBCx (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 22 Nov 2021 20:02:53 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
-        s=170520fj; t=1637629185; i=@fujitsu.com;
-        bh=Y860SDuRKcHuZzQnx51J+gknwed1RuKVq3ANr8zgEIA=;
-        h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-         MIME-Version:Content-Type;
-        b=dovunajaHD4Z3nGfU6S9bnumviykoyT2roEA56sjBLxY5JQkKf2psjrDgr2L2InUu
-         /3vV0y4DeeyIpofqErmc3peOSuPOnpxmIGTusignRfMuOSIla7IOFkab80QfeyJ3My
-         CueqRovRtLKFR251mSRpItJGyzqkGnb3H5zPQTNo30dTBR7OwBcb3SEhkr53G6qM25
-         sqm6S2dxhCnXj1Q2qnGvdqjJVqQFipMxaKRbbByuD5D/brWy0uIwcQlUgUA05Smk4H
-         aHx0RPyHrYZLaOgBNMX/TYmm3YDaET6PLWemNHXQLD0hEWvN+Ob0WtNK9EkJW16hcr
-         Q8bRd6+r0VVgA==
-Received: from [100.113.1.75] (using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256 bits))
-        by server-4.bemta.az-a.eu-central-1.aws.symcld.net id 3B/CC-09980-00D3C916; Tue, 23 Nov 2021 00:59:44 +0000
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFnrCIsWRWlGSWpSXmKPExsViZ8MxSZfBdk6
-  iwZbLMhbTug+zWaxZP4Pd4tSEB+wOzB47Z91l9/i8SS6AKYo1My8pvyKBNePWpQ62glaOigvt
-  M1gbGP+ydTFycQgJbGGUmL5uFpSzgEliw961jBDOHkaJlrfTmLsYOTnYBDQlnnUuALNFBGQkF
-  u5oYgKxmQXiJdrnv2IFsYUFXCW+P/wLVsMioCqxcONEMJtXwEPi94YTLCC2hICCxJSH78HinA
-  K2Eh/fP2QDsYUEbCR62ncyQtQLSpyc+YQFYr6ExMEXL5ghehUlLnV8Y4SwKyRmzWpjgrDVJK6
-  e28Q8gVFwFpL2WUjaFzAyrWK0TCrKTM8oyU3MzNE1NDDQNTQ01gWSxgZ6iVW6iXqppbrJqXkl
-  RYlAWb3E8mK94src5JwUvbzUkk2MwABPKWRo2sH47tUHvUOMkhxMSqK8CwznJArxJeWnVGYkF
-  mfEF5XmpBYfYpTh4FCS4H2nCZQTLEpNT61Iy8wBRhtMWoKDR0mE95E1UJq3uCAxtzgzHSJ1il
-  GX43XLzx3MQix5+XmpUuK8D0GKBECKMkrz4EbAIv8So6yUMC8jAwODEE9BalFuZgmq/CtGcQ5
-  GJWHe1yBTeDLzSuA2vQI6ggnoiN49s0GOKElESEk1MM36cSznhmbZyYN73HNuGqarvF+8ZfX6
-  B8KV7ZFtE19yHq8q3PpeYPKq+5/3qp1U93hkK7LKYG2B0f9Ug5yIcoHZjx4pX3O8t8mV/UQ0j
-  xzfrJ9i2ybxL3/1KEanuC+U6cGT+h2bOR5tLd8/Odj+bWB2lNPSbRzzhQNPzpsVZvGFS0bR5Z
-  HFLa242ZufWqQaVkyYvNNNyuiYX51Ox/cOn3957vdMDlbk/t0SYLns9ikDnfalDR90T0xPleP
-  i/Z4oXOYd4bcid2/+X4a8TQ6my8o7IjZc/cNUUbMx2/8R3/Y0SZP/tk37KrecUUlVXGi+UfGU
-  kETPs+tFNbsCmiW6v7jf9Vjz/USTpf6k+1PfOyixFGckGmoxFxUnAgAJPVwodwMAAA==
-X-Env-Sender: xuyang2018.jy@fujitsu.com
-X-Msg-Ref: server-5.tower-226.messagelabs.com!1637629184!19574!1
-X-Originating-IP: [62.60.8.146]
-X-SYMC-ESS-Client-Auth: outbound-route-from=pass
-X-StarScan-Received: 
-X-StarScan-Version: 9.81.5; banners=-,-,-
-X-VirusChecked: Checked
-Received: (qmail 32679 invoked from network); 23 Nov 2021 00:59:44 -0000
-Received: from unknown (HELO n03ukasimr02.n03.fujitsu.local) (62.60.8.146)
-  by server-5.tower-226.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384 encrypted SMTP; 23 Nov 2021 00:59:44 -0000
-Received: from n03ukasimr02.n03.fujitsu.local (localhost [127.0.0.1])
-        by n03ukasimr02.n03.fujitsu.local (Postfix) with ESMTP id F234510045F;
-        Tue, 23 Nov 2021 00:59:43 +0000 (GMT)
-Received: from R01UKEXCASM126.r01.fujitsu.local (unknown [10.183.43.178])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by n03ukasimr02.n03.fujitsu.local (Postfix) with ESMTPS id E57A4100359;
-        Tue, 23 Nov 2021 00:59:43 +0000 (GMT)
-Received: from localhost.localdomain (10.167.220.84) by
- R01UKEXCASM126.r01.fujitsu.local (10.183.43.178) with Microsoft SMTP Server
- (TLS) id 15.0.1497.26; Tue, 23 Nov 2021 00:59:22 +0000
-From:   Yang Xu <xuyang2018.jy@fujitsu.com>
-To:     <alx.manpages@gmail.com>
-CC:     <linux-man@vger.kernel.org>, <mtk.manpages@gmail.com>,
-        Yang Xu <xuyang2018.jy@fujitsu.com>
-Subject: [PATCH v2] init_module.2: Add ETXTBSY error for finit_module
-Date:   Tue, 23 Nov 2021 08:59:09 +0800
-Message-ID: <1637629149-2255-1-git-send-email-xuyang2018.jy@fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <4a08d1e1-4bed-2428-e29f-8b7cb37294b4@gmail.com>
-References: <4a08d1e1-4bed-2428-e29f-8b7cb37294b4@gmail.com>
+        id S232579AbhKWFS4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 23 Nov 2021 00:18:56 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48812 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S229728AbhKWFS4 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 23 Nov 2021 00:18:56 -0500
+Received: from mail-pg1-x536.google.com (mail-pg1-x536.google.com [IPv6:2607:f8b0:4864:20::536])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E349DC061574
+        for <linux-man@vger.kernel.org>; Mon, 22 Nov 2021 21:15:48 -0800 (PST)
+Received: by mail-pg1-x536.google.com with SMTP id 71so1809647pgb.4
+        for <linux-man@vger.kernel.org>; Mon, 22 Nov 2021 21:15:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20210112;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=+T4XxeLu7pjV7fLbsuW2Ix/NTtSU7ulUVOw82suUtog=;
+        b=G8xAS14TPczKXZrLsD00nOPnEliRfAD18FhrnqISv/aZP7cjFyKQ+YYlS9JbmmSLmU
+         PTdi7aV0NuM3lAaYhy0c+qj7iJMbJEb/9g1rbgFVBkMDHvUOxTHXb56stSFdw8D5CLSM
+         zS8yzCAVwfWofJsu4Ht7oW2lSwtHZ159iTIeD9SQrqX7ekoUC5ssAYC27M+oNRTGInNL
+         LJvPeh1JJTIuKqlskaABuEMWLf4tvCMx/hp9JioRWfjjjRaxp8UcQ+hjsfBl7NDvZ6IH
+         swCaLy0o+I8VarZoOYIY2xj2wEfN1lKEwgUrSxi97Ho/YquJ8dY52EB92JVThMhAQr86
+         ataA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=+T4XxeLu7pjV7fLbsuW2Ix/NTtSU7ulUVOw82suUtog=;
+        b=wQeElqHPiiT7sO+LoDkqfCp4e3gCfUN/syVFR9rT4T00jTvrlEJ5ioN2OWy4HGgNas
+         R3FE8cVg8E8Wx3MB3zUhS/lWGJYBSdNG3irolQFvZO45olVsrUZ+X15ZnMMtg7JuVz3T
+         GfPcjdLoF+72b++Gfgv5DEEQKRYCGOzvcbeKsBJ0xbSmBBBlagHw7XsHoS8dhqfH27tx
+         bHB9GGGR+qgHzLgURJu+0cT4r4l1dg4xCJ04ej9VbQyk9iLhkMC7VnrVo4ZpnyWbHSCw
+         DCvJWmZUWG+3+Sn7J0QyVwfhqqHlQf68kzt0qoQKSYjQU3oCdtEFZEm5/5NcYfaQRGVW
+         25CA==
+X-Gm-Message-State: AOAM5324/bH3Lg1fRrqGpB40+hKJIxx2bn8ov+LAixildPdWsRWLOup/
+        4iPXp2ztzsgvy+GqTeWYoDNd3w==
+X-Google-Smtp-Source: ABdhPJzNpnVXMFlzBBnboBZO96eRh/7hOpmEsmbbKu/2CnT9ZHEIMcll5Mqy9TWSv2F47ZiZlZwXnw==
+X-Received: by 2002:aa7:84d7:0:b0:49f:aa6d:8745 with SMTP id x23-20020aa784d7000000b0049faa6d8745mr2930116pfn.50.1637644548209;
+        Mon, 22 Nov 2021 21:15:48 -0800 (PST)
+Received: from google.com ([2401:fa00:9:211:de12:dd5f:8d5c:4e51])
+        by smtp.gmail.com with ESMTPSA id z7sm11235703pfe.77.2021.11.22.21.15.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 22 Nov 2021 21:15:47 -0800 (PST)
+Date:   Tue, 23 Nov 2021 16:15:36 +1100
+From:   Matthew Bobrowski <repnop@google.com>
+To:     Amir Goldstein <amir73il@gmail.com>
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        linux-man <linux-man@vger.kernel.org>, Jan Kara <jack@suse.cz>,
+        Gabriel Krisman Bertazi <krisman@collabora.com>
+Subject: Re: [PATCH 0/1] fanotify: Document FAN_REPORT_PIDFD Feature
+Message-ID: <YZx4+NumHKWsuA7o@google.com>
+References: <cover.1635135968.git.repnop@google.com>
+ <CAOQ4uxhUpnDVT6T-aGz2B_XUpRojJhVZG8Fw6XNegsWzXt+pDw@mail.gmail.com>
+ <YZt8nVu1Ze4vHGdr@google.com>
+ <CAOQ4uxhFWAfodZ=upZmBXgGkoGRaGF1rk0V2nVgHc0dBxSEP7g@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD07.g08.fujitsu.local (10.167.33.80) To
- R01UKEXCASM126.r01.fujitsu.local (10.183.43.178)
-X-Virus-Scanned: ClamAV using ClamSMTP
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAOQ4uxhFWAfodZ=upZmBXgGkoGRaGF1rk0V2nVgHc0dBxSEP7g@mail.gmail.com>
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Since kernel commit[1], finit_module fails with ETXTBSY error if fd has write permission.
-Since kernel commit[2], finit_module fails with EBADF error if fd doesn't have read permission.
+On Mon, Nov 22, 2021 at 03:37:30PM +0200, Amir Goldstein wrote:
+> On Mon, Nov 22, 2021 at 1:19 PM Matthew Bobrowski <repnop@google.com> wrote:
+> >
+> > On Sat, Nov 20, 2021 at 12:36:26PM +0200, Amir Goldstein wrote:
+> > > On Wed, Oct 27, 2021 at 12:28 PM Matthew Bobrowski <repnop@google.com> wrote:
+> > > >
+> > > > Hi Michael,
+> > > >
+> > > > This patch series documents the new FAN_REPORT_PIDFD feature that is
+> > > > available from v5.15.
+> > > >
+> > > > Note that this patch series is diffbased against the FANOTIFY_UNPRIV
+> > > > [0, 1] man page updates that are yet to be merged with upstream. That
+> > > > said, if you could please merge the FANOTIFY_UNPRIV updates first
+> > > > followed by the FAN_REPORT_PIDFD updates, that would be much
+> > > > appreciated.
+> > > >
+> > > > [0] https://lore.kernel.org/linux-man/20210318160817.3586288-1-amir73il@gmail.com/
+> > > > [1] https://github.com/amir73il/man-pages/commits/fanotify_unpriv
+> > > >
+> > >
+> > > Alejandro,
+> > >
+> > > Is there any changes of getting those long due 5.13 fanotify update
+> > > patches merged?
+> > >
+> > > Matthew,
+> > >
+> > > For v2 please base your own fanotify_pidfd branch on top of fanotify_unpriv
+> > > (I just rebased it to master again) and provide a branch, that Gabriel
+> > > and I could
+> > > base the next man page updates on.
+> > >
+> > > Currently, neither your fanotify_pidfd patch nor Gabriel's fan-fs-error patch
+> > > conflict with fanotify_unpriv changes, but fan-fs-error does have conflicts
+> > > with fanotify_pidfd.
+> >
+> > ACK.
+> >
+> > As per request, v2 of the FAN_REPORT_PIDFD documentation can be found
+> > here [0].
+> >
+> > The branch fanotify_pidfd_v2 is based off your fanotify_unpriv
+> > branch. I'd like to post through this series at some point tomorrow,
+> > so if you could PTAL in the interim, that'd be appreciated.
+> >
+> > I've incorporated the explicit documentation of the
+> > fanotify_event_info_header structure, rather than duplicating field
+> > explanations of such a structure across each information record types
+> > as we had discussed.
+> >
+> > [0] https://github.com/matthewbobrowski/man-pages/tree/fanotify_pidfd_v2
+> >
+> 
+> Hi Mattew,
+> 
+> I'm basically fine with most of the text in the sections, but
+> the sections need some reordering IMO to make more sense.
+> High level, I think it should look something like:
 
-So we can use read-write permission to trigger ETXTBSY error all the time since linux 4.7.
+Right, I had thought that the ordering might need some work, thanks
+for pulling this up.
 
-[1]https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=39d637af
-[2]https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=032146cd
+> - "...the read buffer contains one or more struct fanotify_event_metadata..."
+> - Text about several optional information records in event
+> - Explain about fanotify_event_info_header and info_type
+> - List of fanotify_event_info_* that belong to specific info types
+> 
+> Commented in github.
 
-Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
----
- man2/init_module.2 | 6 ++++++
- 1 file changed, 6 insertions(+)
+OK, I think this will make more sense when I read through the comments
+on GitHub. I'll get around to this tonight/tomorrow.
 
-diff --git a/man2/init_module.2 b/man2/init_module.2
-index aac0c6631..77cd8c4a6 100644
---- a/man2/init_module.2
-+++ b/man2/init_module.2
-@@ -242,6 +242,12 @@ is invalid.
- .B ENOEXEC
- .I fd
- does not refer to an open file.
-+.TP
-+.BR ETXTBSY " (since Linux 4.7)"
-+.\" commit 39d637af5aa7577f655c58b9e55587566c63a0af
-+The file referred to by
-+.I fd
-+is opened for read-write.
- .PP
- In addition to the above errors, if the module's
- .I init
--- 
-2.23.0
-
+/M
