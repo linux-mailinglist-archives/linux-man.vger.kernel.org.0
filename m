@@ -2,68 +2,72 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id EF40645EF8B
-	for <lists+linux-man@lfdr.de>; Fri, 26 Nov 2021 15:04:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 14DC545F741
+	for <lists+linux-man@lfdr.de>; Sat, 27 Nov 2021 00:46:33 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233993AbhKZOHT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 26 Nov 2021 09:07:19 -0500
-Received: from 10.mo552.mail-out.ovh.net ([87.98.187.244]:33845 "EHLO
-        10.mo552.mail-out.ovh.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1353601AbhKZOFT (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 26 Nov 2021 09:05:19 -0500
-X-Greylist: delayed 4203 seconds by postgrey-1.27 at vger.kernel.org; Fri, 26 Nov 2021 09:05:18 EST
-Received: from mxplan6.mail.ovh.net (unknown [10.108.4.240])
-        by mo552.mail-out.ovh.net (Postfix) with ESMTPS id 7AF3D210E8;
-        Fri, 26 Nov 2021 12:43:28 +0000 (UTC)
-Received: from jwilk.net (37.59.142.103) by DAG4EX2.mxp6.local (172.16.2.32)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.20; Fri, 26 Nov
- 2021 13:43:27 +0100
-Authentication-Results: garm.ovh; auth=pass (GARM-103G00571b7843c-8e7b-42ba-a880-8cfbcd9ed963,
-                    CCE6078C6C5C0BEFF4033B362A984AD9811D4FE6) smtp.auth=jwilk@jwilk.net
-X-OVh-ClientIp: 5.172.255.93
-From:   Jakub Wilk <jwilk@jwilk.net>
-To:     Michael Kerrisk <mtk.manpages@gmail.com>
-CC:     <linux-man@vger.kernel.org>
-Subject: [PATCH 2/2] console_codes.4: tfix
-Date:   Fri, 26 Nov 2021 13:43:23 +0100
-Message-ID: <20211126124323.7496-2-jwilk@jwilk.net>
-X-Mailer: git-send-email 2.34.0
-In-Reply-To: <20211126124323.7496-1-jwilk@jwilk.net>
-References: <20211126124323.7496-1-jwilk@jwilk.net>
+        id S233798AbhKZXtp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 26 Nov 2021 18:49:45 -0500
+Received: from sv10103.xserver.jp ([183.181.83.104]:53746 "EHLO
+        sv10103.xserver.jp" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S234614AbhKZXrp (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 26 Nov 2021 18:47:45 -0500
+X-Greylist: delayed 579 seconds by postgrey-1.27 at vger.kernel.org; Fri, 26 Nov 2021 18:47:45 EST
+Received: from virusgw10001.xserver.jp (virusgw10001.xserver.jp [183.181.92.8])
+        by sv10103.xserver.jp (Postfix) with ESMTP id 2E5C8704194834
+        for <linux-man@vger.kernel.org>; Sat, 27 Nov 2021 08:34:51 +0900 (JST)
+Received: from sv10103.xserver.jp (183.181.83.104)
+ by virusgw10001.xserver.jp (F-Secure/fsigk_smtp/521/virusgw10001.xserver.jp);
+ Sat, 27 Nov 2021 08:34:51 +0900 (JST)
+X-Virus-Status: clean(F-Secure/fsigk_smtp/521/virusgw10001.xserver.jp)
+Received: by sv10103.xserver.jp (Postfix, from userid 20063)
+        id 2C774704194832; Sat, 27 Nov 2021 08:34:51 +0900 (JST)
+To:     linux-man@vger.kernel.org
+Subject: =?UTF-8?B?44GK5ZWP44GE5ZCI44KP44Gb44GC44KK44GM44Go44GG44GU44GW44GE44G+?=  =?UTF-8?B?44GX44Gf44CC?=
+Date:   Fri, 26 Nov 2021 23:34:51 +0000
+From:   =?UTF-8?B?5pel5pys44Os44Kv44K/44Oz44Kw44Or5qCq5byP5Lya56S+?= 
+        <info@nihon-rectangle.com>
+Reply-To: info@nihon-rectangle.com
+Message-ID: <5tTwiXRrlnxA6WKHHzS130q4hUp9pLKG8iAnGiNOTI@nihon-rectangle.com>
+X-Mailer: PHPMailer 6.5.0 (https://github.com/PHPMailer/PHPMailer)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7BIT
-Content-Type:   text/plain; charset=US-ASCII
-X-Originating-IP: [37.59.142.103]
-X-ClientProxiedBy: DAG3EX1.mxp6.local (172.16.2.21) To DAG4EX2.mxp6.local
- (172.16.2.32)
-X-Ovh-Tracer-GUID: eee2804c-04f5-45b2-94a4-8ba1bb1e7662
-X-Ovh-Tracer-Id: 15451850325674874845
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: 0
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvuddrhedvgdegvdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecunecujfgurhephffvufffkffojghfggfgtghisehtkeertdertddtnecuhfhrohhmpeflrghkuhgsucghihhlkhcuoehjfihilhhksehjfihilhhkrdhnvghtqeenucggtffrrghtthgvrhhnpeeulefftddufefggeehjeetgfevvdeljeehheegkedtkeetfeetgfffueetudffkeenucfkpheptddrtddrtddrtddpfeejrdehledrudegvddruddtfeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhhouggvpehsmhhtphhouhhtpdhhvghlohepmhigphhlrghniedrmhgrihhlrdhovhhhrdhnvghtpdhinhgvtheptddrtddrtddrtddpmhgrihhlfhhrohhmpehjfihilhhksehjfihilhhkrdhnvghtpdhrtghpthhtoheplhhinhhugidqmhgrnhesvhhgvghrrdhkvghrnhgvlhdrohhrgh
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
----
- man4/console_codes.4 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+----------------------------
+お問い合わせ内容
+----------------------------
 
-diff --git a/man4/console_codes.4 b/man4/console_codes.4
-index 24399925b..30cdd29c6 100644
---- a/man4/console_codes.4
-+++ b/man4/console_codes.4
-@@ -380,7 +380,7 @@ T}
- 90..97	T{
- set foreground to bright versions of 30..37
- T}
--100.107	T{
-+100..107	T{
- set background, same as 40..47 (bright not supported)
- T}
- .TE
--- 
-2.34.0
+お名前
+❤️ Alice want to meet you! Click Here: http://bit.do/fSGXu?hg6uh ❤️
+
+ふりがな
+3wrkg2a
+
+メールアドレス
+linux-man@vger.kernel.org
+
+御社名
+yhc1zn
+
+電話番号
+823873308091
+
+お問い合わせ内容
+fznxtb
+
+
+--------------------------------------------------------
+
+お問い合わせありがとうございました。
+折り返し担当者よりご連絡させていただきますので、
+しばらくお待ちください。
+
+_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+日本レクタングル株式会社
+TEL : 0463-20-9425
+https://www.nihon-rectangle.com
+_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
 
