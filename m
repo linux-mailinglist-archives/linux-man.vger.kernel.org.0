@@ -2,90 +2,59 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 9BAE04608FA
-	for <lists+linux-man@lfdr.de>; Sun, 28 Nov 2021 19:28:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 986ED460D3C
+	for <lists+linux-man@lfdr.de>; Mon, 29 Nov 2021 04:25:31 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231792AbhK1Sbg (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 28 Nov 2021 13:31:36 -0500
-Received: from 139-28-40-42.artus.net.pl ([139.28.40.42]:45400 "EHLO
-        tarta.nabijaczleweli.xyz" rhost-flags-OK-FAIL-OK-OK)
-        by vger.kernel.org with ESMTP id S234495AbhK1S3f (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 28 Nov 2021 13:29:35 -0500
-Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 1E5461238;
-        Sun, 28 Nov 2021 19:17:47 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-        s=202006; t=1638123467;
-        bh=w1cH4YOeGg2ftKNapkoDLr4MWywI3SXstEKfSEw6XrQ=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=rkMPbei2/S0HIHAQX0ndvqGnRQ0i5eqcPlnkKABXvMxdSpYsj0Zf035xH5knDKzWA
-         yA3FqhA4SXAEcjBVLhbeM42DNF/qYFU1fruu+qG0yNscMYJcg0z9lpLmUs8ILlhZRl
-         6LoUfpq3sSo+Y3Js39hpw/kVxI1zWlkmMvcuYfAi2p0Fs80Rc1w3eY+BQ9ttmEHYbF
-         eApN/e6/w1b93BnlL1qkPgGh0BDgneL3UW4WdrYGRfSN8aP4ZKuPisl8kmWjms1WJQ
-         ukOhPoZnubuGV2IKhWInzhvTc2AsM+0COaZ6EH2SClc8ZPncXrHb5zoQEG3s1xu9U8
-         3JpRqyVBlgvtg==
-Date:   Sun, 28 Nov 2021 19:17:46 +0100
-From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-Subject: [PATCH 4/4] system_data_types.7: note that struct timespec::tv_nsec
- being long long on x32 is an extension
-Message-ID: <12fabe90351668fa1582cb67b2c56d33d1e247aa.1638123425.git.nabijaczleweli@nabijaczleweli.xyz>
-References: <ec1dcc655184f6cdaae40ff8b7970b750434e4ef.1638123425.git.nabijaczleweli@nabijaczleweli.xyz>
+        id S1346209AbhK2D2o (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 28 Nov 2021 22:28:44 -0500
+Received: from mail.vallenar.cl ([200.54.241.89]:37218 "EHLO mail.vallenar.cl"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S234003AbhK2D0n (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Sun, 28 Nov 2021 22:26:43 -0500
+Received: from localhost (localhost [127.0.0.1])
+        by mail.vallenar.cl (Postfix) with ESMTP id 6C1981CEF901;
+        Sun, 28 Nov 2021 14:08:09 -0300 (-03)
+Received: from mail.vallenar.cl ([127.0.0.1])
+        by localhost (mail.vallenar.cl [127.0.0.1]) (amavisd-new, port 10032)
+        with ESMTP id RtAYX5tl0OlW; Sun, 28 Nov 2021 14:08:08 -0300 (-03)
+Received: from localhost (localhost [127.0.0.1])
+        by mail.vallenar.cl (Postfix) with ESMTP id 004261CC9CBC;
+        Sun, 28 Nov 2021 11:47:09 -0300 (-03)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.vallenar.cl 004261CC9CBC
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vallenar.cl;
+        s=EC098874-C7DE-11E7-B3B1-1A9A6030413E; t=1638110830;
+        bh=IQxUcKgLaEia+DMrVj9OEHbWOH8TffrzQMeZgAxYubI=;
+        h=MIME-Version:To:From:Date:Message-Id;
+        b=Tpl3BVIMUmmPfc8fq3bYoC1ABeAPFc115owg4IRN6pWD4eCbJ4Se3+LCo0KKT4B1J
+         OFXow2oy2kB2Idn29d1lueusIpDiBgdNCzY1isKrZLcWBDN0NS6hdcfGy2hCcznIHc
+         DtDnTHrd1pdUrLDD/yFioCNH4BEJEZL0eofWuZlp26sQE7Oq+6z4RbSzDucoLEzSgz
+         AN5T3R0y8ywiqp5ACoS7VTrXuypavJjneGpY8i7icPbpY57T4Ae1hD0srTmol9MJtO
+         7/9AgMcDEUSv5eUR3ge7GrAByqU25PKQRLcBaSWlv+Udjb0SZzE/4+MDX4sYkV1PsO
+         Ga5v0oNBYVSeg==
+X-Virus-Scanned: amavisd-new at vallenar.cl
+Received: from mail.vallenar.cl ([127.0.0.1])
+        by localhost (mail.vallenar.cl [127.0.0.1]) (amavisd-new, port 10026)
+        with ESMTP id Gifa6x87h-zr; Sun, 28 Nov 2021 11:47:09 -0300 (-03)
+Received: from [192.168.8.101] (unknown [105.0.3.102])
+        by mail.vallenar.cl (Postfix) with ESMTPSA id 34B4A1D08CA5;
+        Sun, 28 Nov 2021 11:21:38 -0300 (-03)
+Content-Type: text/plain; charset="iso-8859-1"
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="5fi6xhiq53q5vhft"
-Content-Disposition: inline
-In-Reply-To: <ec1dcc655184f6cdaae40ff8b7970b750434e4ef.1638123425.git.nabijaczleweli@nabijaczleweli.xyz>
-User-Agent: NeoMutt/20211029
+Content-Transfer-Encoding: quoted-printable
+Content-Description: Mail message body
+Subject: 2.000.000,00. Euro
+To:     Recipients <yperez@vallenar.cl>
+From:   "manuel franco" <yperez@vallenar.cl>
+Date:   Sun, 28 Nov 2021 16:29:08 +0200
+Reply-To: manuelfrancospende00@gmail.com
+Message-Id: <20211128142140.34B4A1D08CA5@mail.vallenar.cl>
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Sie haben eine Spende von 2.000.000,00. Euro
 
---5fi6xhiq53q5vhft
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
----
- man7/system_data_types.7 | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/man7/system_data_types.7 b/man7/system_data_types.7
-index 80679b180..10b3bd13c 100644
---- a/man7/system_data_types.7
-+++ b/man7/system_data_types.7
-@@ -1556,6 +1556,7 @@ Describes times in seconds and nanoseconds.
- .PP
- .IR "Conforming to" :
- C11 and later; POSIX.1-2001 and later.
-+The 64-bit tv_nsec on x32 is an extension.
- .PP
- .IR "See also" :
- .BR clock_gettime (2),
---=20
-2.30.2
-
---5fi6xhiq53q5vhft
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmGjx8kACgkQvP0LAY0m
-WPGAeg//UmdRctuYTlYz6lDaYjxJBQYeHAUlqUAjadvAnJKrsPZjimdO9iBJOTuC
-TSgFRGgeEKaH/XMJ4DwKqaHiEtISEcShSvMZyDgcKZoDbecrhQ7I8vfuhp6o6mHb
-13+YKhI4HD+q+PB2M1ZHtMsVOagJPUkzHBw8d4oo00MCrNe7LLWLxqo3/kIxCpfm
-MWlzGGCh6rNS8UqqDYwC7lmp3QGeRcoSgXUgiSqWUrWpMQeCE5RYmsX9Fabenm6U
-o0kfPKlrGKLIRQPzkGGIrwBxz87yRlnL1jrZ0QVeHPWn3+x5O519/OXnbhRELbHH
-G3ACb0c8ljP8cHmuDoM0o4rM3lym2vzCLQSQS/2WgwK60ZQyEbc4scAI4F7Tt0Lo
-pxNJEHWs6aq0kSHEqaHtOOJHcID8SF9uMxok9z3JsolGHDfLqys3iipQSqoETGJS
-I22kDWXFMQMdzUVF7DQaCPKf0AcQ63EQwXT89LVcgdkIskyqgkdD2qkhumo/iIgz
-V2YsBw3ue2kHoTCboaG+rtySnByXGV8Ro9we0ug2z/AnHWM+2toBrnRsekayZ4ax
-xpmwrMY2gzsuMnbpu2moqJ9hjJlmmHaCuSB82XehxlklzJe0JFfFpa1OaATVMvXQ
-IHzjhq27MFqNmxKUHpk9rlgLtkPbHeLaKe7H730kPpG3/aD6ojA=
-=0tSB
------END PGP SIGNATURE-----
-
---5fi6xhiq53q5vhft--
+Mein Name ist Manuel Franco aus den Vereinigten Staaten.
+Ich habe die Amerika-Lotterie im Wert von 768 Millionen US-Dollar gewonnen =
+und spende einen Teil davon an nur 5 gl=FCckliche Menschen und ein paar Wai=
+senh=E4user als Wohlwollen f=FCr die Menschheit.
