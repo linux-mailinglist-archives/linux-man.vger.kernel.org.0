@@ -2,59 +2,70 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 986ED460D3C
-	for <lists+linux-man@lfdr.de>; Mon, 29 Nov 2021 04:25:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id CD2264611B7
+	for <lists+linux-man@lfdr.de>; Mon, 29 Nov 2021 11:04:16 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1346209AbhK2D2o (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 28 Nov 2021 22:28:44 -0500
-Received: from mail.vallenar.cl ([200.54.241.89]:37218 "EHLO mail.vallenar.cl"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S234003AbhK2D0n (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Sun, 28 Nov 2021 22:26:43 -0500
-Received: from localhost (localhost [127.0.0.1])
-        by mail.vallenar.cl (Postfix) with ESMTP id 6C1981CEF901;
-        Sun, 28 Nov 2021 14:08:09 -0300 (-03)
-Received: from mail.vallenar.cl ([127.0.0.1])
-        by localhost (mail.vallenar.cl [127.0.0.1]) (amavisd-new, port 10032)
-        with ESMTP id RtAYX5tl0OlW; Sun, 28 Nov 2021 14:08:08 -0300 (-03)
-Received: from localhost (localhost [127.0.0.1])
-        by mail.vallenar.cl (Postfix) with ESMTP id 004261CC9CBC;
-        Sun, 28 Nov 2021 11:47:09 -0300 (-03)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.vallenar.cl 004261CC9CBC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vallenar.cl;
-        s=EC098874-C7DE-11E7-B3B1-1A9A6030413E; t=1638110830;
-        bh=IQxUcKgLaEia+DMrVj9OEHbWOH8TffrzQMeZgAxYubI=;
-        h=MIME-Version:To:From:Date:Message-Id;
-        b=Tpl3BVIMUmmPfc8fq3bYoC1ABeAPFc115owg4IRN6pWD4eCbJ4Se3+LCo0KKT4B1J
-         OFXow2oy2kB2Idn29d1lueusIpDiBgdNCzY1isKrZLcWBDN0NS6hdcfGy2hCcznIHc
-         DtDnTHrd1pdUrLDD/yFioCNH4BEJEZL0eofWuZlp26sQE7Oq+6z4RbSzDucoLEzSgz
-         AN5T3R0y8ywiqp5ACoS7VTrXuypavJjneGpY8i7icPbpY57T4Ae1hD0srTmol9MJtO
-         7/9AgMcDEUSv5eUR3ge7GrAByqU25PKQRLcBaSWlv+Udjb0SZzE/4+MDX4sYkV1PsO
-         Ga5v0oNBYVSeg==
-X-Virus-Scanned: amavisd-new at vallenar.cl
-Received: from mail.vallenar.cl ([127.0.0.1])
-        by localhost (mail.vallenar.cl [127.0.0.1]) (amavisd-new, port 10026)
-        with ESMTP id Gifa6x87h-zr; Sun, 28 Nov 2021 11:47:09 -0300 (-03)
-Received: from [192.168.8.101] (unknown [105.0.3.102])
-        by mail.vallenar.cl (Postfix) with ESMTPSA id 34B4A1D08CA5;
-        Sun, 28 Nov 2021 11:21:38 -0300 (-03)
-Content-Type: text/plain; charset="iso-8859-1"
+        id S236674AbhK2KHd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 29 Nov 2021 05:07:33 -0500
+Received: from 10.mo552.mail-out.ovh.net ([87.98.187.244]:48273 "EHLO
+        10.mo552.mail-out.ovh.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S237879AbhK2KFc (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 29 Nov 2021 05:05:32 -0500
+Received: from mxplan6.mail.ovh.net (unknown [10.108.16.17])
+        by mo552.mail-out.ovh.net (Postfix) with ESMTPS id 19EBE2150A;
+        Mon, 29 Nov 2021 09:45:10 +0000 (UTC)
+Received: from jwilk.net (37.59.142.103) by DAG4EX2.mxp6.local (172.16.2.32)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.20; Mon, 29 Nov
+ 2021 10:45:08 +0100
+Authentication-Results: garm.ovh; auth=pass (GARM-103G0050bbe3a1c-dfc5-4959-b2a8-a16b739240e0,
+                    22AE1DB7524C71559221E922DEF7A1245E6A5FD2) smtp.auth=jwilk@jwilk.net
+X-OVh-ClientIp: 5.172.255.29
+Date:   Mon, 29 Nov 2021 10:45:07 +0100
+From:   Jakub Wilk <jwilk@jwilk.net>
+To:     =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+CC:     Alejandro Colomar <alx.manpages@gmail.com>,
+        <linux-man@vger.kernel.org>
+Subject: Re: [PATCH 3/4] clock_getres.2, clock_nanosleep.2, io_getevents.2,
+ nanosleep.2, poll.2, sched_rr_get_interval.2, select.2, sigwaitinfo.2,
+ timer_settime.2, timerfd_create.2, utimensat.2, mq_receive.3, mq_send.3,
+ pthread_tryjoin_np.3, system_data_types.7: correct struct timespec::tv_nsec
+ type for x32
+Message-ID: <20211129094507.v3afmv442ttnyvbh@jwilk.net>
+References: <ec1dcc655184f6cdaae40ff8b7970b750434e4ef.1638123425.git.nabijaczleweli@nabijaczleweli.xyz>
+ <de0b63287590038675ef723e052ec1d765f7c59b.1638123425.git.nabijaczleweli@nabijaczleweli.xyz>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Description: Mail message body
-Subject: 2.000.000,00. Euro
-To:     Recipients <yperez@vallenar.cl>
-From:   "manuel franco" <yperez@vallenar.cl>
-Date:   Sun, 28 Nov 2021 16:29:08 +0200
-Reply-To: manuelfrancospende00@gmail.com
-Message-Id: <20211128142140.34B4A1D08CA5@mail.vallenar.cl>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <de0b63287590038675ef723e052ec1d765f7c59b.1638123425.git.nabijaczleweli@nabijaczleweli.xyz>
+X-Originating-IP: [37.59.142.103]
+X-ClientProxiedBy: DAG8EX1.mxp6.local (172.16.2.71) To DAG4EX2.mxp6.local
+ (172.16.2.32)
+X-Ovh-Tracer-GUID: ad6838e6-3169-472e-b186-fec045c90530
+X-Ovh-Tracer-Id: 11611687216419755997
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: 23
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvuddrheelgddtkecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecufghrlhcuvffnffculddvfedmnecujfgurhepfffhvffukfhfgggtugfgjghisehtkeertddttdejnecuhfhrohhmpeflrghkuhgsucghihhlkhcuoehjfihilhhksehjfihilhhkrdhnvghtqeenucggtffrrghtthgvrhhnpeelgfffvdetieeivedvieffveegleethfetheffffejtefgveeuvddvuedvtdejjeenucffohhmrghinhepshhouhhrtggvfigrrhgvrdhorhhgnecukfhppedtrddtrddtrddtpdefjedrheelrddugedvrddutdefnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmohguvgepshhmthhpohhuthdphhgvlhhopehmgihplhgrnheirdhmrghilhdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomhepjhifihhlkhesjhifihhlkhdrnhgvthdprhgtphhtthhopehlihhnuhigqdhmrghnsehvghgvrhdrkhgvrhhnvghlrdhorhhg
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Sie haben eine Spende von 2.000.000,00. Euro
+* наб <nabijaczleweli@nabijaczleweli.xyz>, 2021-11-28, 19:17:
+>This means, that the simplified
+>  struct timespec {
+>      time_t  tv_sec;  /* Seconds */
+>      long    tv_nsec; /* Nanoseconds [0 .. 999999999] */
+>  };
+>declaration is *invalid* for x32,
+>where struct timespec::tv_nsec is an int64_t (long long).
 
-Mein Name ist Manuel Franco aus den Vereinigten Staaten.
-Ich habe die Amerika-Lotterie im Wert von 768 Millionen US-Dollar gewonnen =
-und spende einen Teil davon an nur 5 gl=FCckliche Menschen und ein paar Wai=
-senh=E4user als Wohlwollen f=FCr die Menschheit.
+Indeed, it's a long standing bug in glibc (or in the kernel, depending 
+on your point of view):
+https://sourceware.org/bugzilla/show_bug.cgi?id=16437
+
+It's worth documenting, but IMHO this information should be in the BUGS 
+sections.
+
+-- 
+Jakub Wilk
