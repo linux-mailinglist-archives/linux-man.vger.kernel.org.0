@@ -2,70 +2,69 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2B75746160E
-	for <lists+linux-man@lfdr.de>; Mon, 29 Nov 2021 14:17:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E68C64616B8
+	for <lists+linux-man@lfdr.de>; Mon, 29 Nov 2021 14:37:51 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1377580AbhK2NUQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 29 Nov 2021 08:20:16 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50468 "EHLO
+        id S1343772AbhK2NlF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 29 Nov 2021 08:41:05 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55884 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1377659AbhK2NSQ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 29 Nov 2021 08:18:16 -0500
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com [IPv6:2a00:1450:4864:20::429])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9B11CC07E5E1
-        for <linux-man@vger.kernel.org>; Mon, 29 Nov 2021 03:59:40 -0800 (PST)
-Received: by mail-wr1-x429.google.com with SMTP id d24so36276964wra.0
-        for <linux-man@vger.kernel.org>; Mon, 29 Nov 2021 03:59:40 -0800 (PST)
+        with ESMTP id S234965AbhK2NjE (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 29 Nov 2021 08:39:04 -0500
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com [IPv6:2a00:1450:4864:20::32f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6F63DC09B124
+        for <linux-man@vger.kernel.org>; Mon, 29 Nov 2021 04:17:04 -0800 (PST)
+Received: by mail-wm1-x32f.google.com with SMTP id y196so14396165wmc.3
+        for <linux-man@vger.kernel.org>; Mon, 29 Nov 2021 04:17:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=message-id:date:mime-version:user-agent:subject:content-language:to
          :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=S5qxplcieWluZ5tDbY8jzCWQmw4S3RfBALJNG4Bx7so=;
-        b=APOtP+GNnkk5F50QhnLja97zV+zVolCy/WlJRO5BhdPsubKL4cUq/cTCpW+geGstRv
-         6aohAJ9UwhvPhv3IEV8/xiTIHNPJqicz5ZuMmCqR3RXu8UP9ZuZJBSJoaNuRiOOaDMc5
-         c1H33ibPvtpvL0FepHdpvw5NHUKu7ef+WjRGyzjAiDr0G0xR394qXyYWj31traJIQeqm
-         bOqrSRD5OHu1HGEUZxUkf6z8zSE2lK+UYVmWKXX3UbX7QB7faRg1WoWx2Yjg/FVx2o0e
-         XBfvLSh3mfAx6bzdqMU6dckAA4gDkY9RGcplMGpOAYUjG4+2leZrgG0WT76Rcu5fJAGg
-         RUCQ==
+        bh=vik/JiKKVg2zy7IqhKjH+1OjSbtZ1erCbJ46E6f8WUE=;
+        b=gtbQzYEo2xPFuYCmaBwpOywFqNIAjy8opuQS0W22fgNXMhsB0f/3M8fMmXpDnZn6qK
+         aNTdZyuX6oESK7BBN0k9z4luVTsJIgKBsr75p5cm9qt7XPxOmbzSHRcgLMqynSDr12zH
+         4hQ/eBFnO69emCmfmoHUvm4/O5zcXRsys6kucdf6ak6gK8NXLCNSzD4ccSjQLcKrZgeR
+         dRfv/nmy+kIJHTTFP4fthzjVFymp7GxT52grg6Wp0hShpttDT88hU/rfGzEzuvZ1tPvJ
+         YVFvt8CjGefsVy56u42umLjbUJpEcGNnW7/kasBqxCiE3b52qY7glfdHNJY9sgPW3JbR
+         fIJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
          :content-language:to:cc:references:from:in-reply-to
          :content-transfer-encoding;
-        bh=S5qxplcieWluZ5tDbY8jzCWQmw4S3RfBALJNG4Bx7so=;
-        b=bxTmXLNBI/GE2q9QgIBBLrKFk9zjjCFKrJUzmW8YWVMys9Ma7RYx6SAxKWKKO3T5Oe
-         UlE54yM7FQ3xnGjrK0UGsjZi8BnA4YSWbznVv3JrMG2c6U8v0o9MaD6MII2BKekgWqKD
-         NOawvv5jYlDZcrcdq2Lp5jc4opJK0z2B3Vit+PkJfnFGhm4YsEzb9FSjnUq+AO08mKRC
-         eF0lrJUjJoSbfSU9OBlJoo0vdvpaZVtFKIkLhqY3iHwN/MigeMDe9/xbNirSghmp28zf
-         E/tGrgLotui8/oQpJ+KJmm/uH+LrscrJK2fdXdRmIGVU8KVPWFy1BlZp8AEklEaXMFoE
-         1K7A==
-X-Gm-Message-State: AOAM532uSOeeBJXdNficrBLUpjCJ7p7CKOxtzZxPK5eb63lAbt/I3lGc
-        2BKbfJR3p3YixS4FZilDa+s=
-X-Google-Smtp-Source: ABdhPJwyUqpGDA1HJOp8H8Zxt5l+TKU8WmGnSfnWT7Hsn/ibtc6iG15h/ZrRbjMF1Vf2YQ3pykmm6w==
-X-Received: by 2002:a5d:5008:: with SMTP id e8mr27967806wrt.594.1638187178709;
-        Mon, 29 Nov 2021 03:59:38 -0800 (PST)
+        bh=vik/JiKKVg2zy7IqhKjH+1OjSbtZ1erCbJ46E6f8WUE=;
+        b=cN6Pc2eEtXn3ZWqb+bg974mKdRwynlSUlraW5LQRB0zaWoikacauHQOOIa/NNiBp76
+         DFs/wKP8UjDSXuNS688v7QI+WsrDvltnVeZWHwnkI97jaOboxXshESDm7OlomwYhSwqt
+         7/hYm7Hpf31drHq+UwdxQR1KiRDbAffUAaOLoXPQWPU+mnL2UdAqWNs8RPJ7xjKVZNyj
+         qLcsubfh+K2A7nVyPL+8SHCc6gCH0/O1ML7i5a7PveDjt1y38nRge1y0VGH1lNNQFOj4
+         8RJ9oRZFQXiTue+e8A2oEoGT2UCDHVLR1WfuQBShnvTNs6/C86BtB5hnegSui9DULAKJ
+         8QJw==
+X-Gm-Message-State: AOAM5322goVEIxvUGkQvmtNW5Tf16R5g6a1VvFWaCdLHR9m5dHPe/nsx
+        oQbgLx2iLreH+3NdyldR2KM=
+X-Google-Smtp-Source: ABdhPJx68pqJu5US9+yfzkinxS64e4jpWVCL0V8WkHWUSUNbf/1GbnSm0qs77Rcmq+c1EHzhyfBPvg==
+X-Received: by 2002:a1c:ed18:: with SMTP id l24mr37449252wmh.99.1638188223026;
+        Mon, 29 Nov 2021 04:17:03 -0800 (PST)
 Received: from [10.168.10.170] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id f15sm17914287wmg.30.2021.11.29.03.59.37
+        by smtp.gmail.com with ESMTPSA id v15sm13645818wro.35.2021.11.29.04.17.02
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 29 Nov 2021 03:59:38 -0800 (PST)
-Message-ID: <5e5296c5-793c-0daa-ff8b-6bbb4eed3e57@gmail.com>
-Date:   Mon, 29 Nov 2021 12:59:36 +0100
+        Mon, 29 Nov 2021 04:17:02 -0800 (PST)
+Message-ID: <b7e4c5f5-27ed-bf41-3f36-53919606d0f8@gmail.com>
+Date:   Mon, 29 Nov 2021 13:17:01 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.3.0
-Subject: Re: [patch] pthread_cancel.3, pthread_cleanup_push_defer_np.3,
- pthread_setcancelstate.3, pthread_testcancel.3, pthreads.7: tfix
+Subject: Re: [patch] futex.2, mount_setattr.2, proc.5, netlink.7, tcp.7: tfix
 Content-Language: en-US
 To:     Samanta Navarro <ferivoz@riseup.net>
-Cc:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        linux-man@vger.kernel.org, mtk.manpages@gmail.com
-References: <20211113115656.5oomvy443gapjtx4@localhost>
- <20211113124015.tr5wdkrxzinn4qjf@localhost.localdomain>
- <20211113130024.zka6elp7mmshsrlv@localhost>
- <eda92c0f-9175-7e2e-3b6d-4c510c60afc3@gmail.com>
- <20211124115858.47rtd2gr5l6mghyp@localhost>
+Cc:     linux-man@vger.kernel.org, mtk.manpages@gmail.com,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>
+References: <20211113115808.zzvid3gla4r33kc4@localhost>
+ <20211113124154.lazhqkb6qms7mpbo@localhost.localdomain>
+ <5f765ff0-59a2-7a54-873c-4632eed575d9@gmail.com>
+ <4751a894-0114-f34d-f5fb-69f398a17373@gmail.com>
+ <20211124115927.xiystsyk7epocm4m@localhost>
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-In-Reply-To: <20211124115858.47rtd2gr5l6mghyp@localhost>
+In-Reply-To: <20211124115927.xiystsyk7epocm4m@localhost>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 Precedence: bulk
@@ -74,736 +73,91 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Hi Samanta,
 
-On 11/24/21 12:58, Samanta Navarro wrote:
+On 11/24/21 12:59, Samanta Navarro wrote:
 > 
-> Changed cancellation to cancelation.
+> Typos found with codespell.
 > 
 > Signed-off-by: Samanta Navarro <ferivoz@riseup.net>
 
 Patch applied.
-Thanks!
+
+I had to manually remove the changes to futex.2, since that typo had 
+already been fixed a couple of months ago in my tree, so I also renamed 
+the subject.
+
+Thanks,
 
 Alex
 
 > ---
->   man3/error.3                         |  2 +-
->   man3/fopen.3                         |  2 +-
->   man3/getentropy.3                    |  4 +--
->   man3/pthread_cancel.3                | 52 ++++++++++++++--------------
->   man3/pthread_cleanup_push.3          | 16 ++++-----
->   man3/pthread_cleanup_push_defer_np.3 |  8 ++---
->   man3/pthread_kill_other_threads_np.3 |  2 +-
->   man3/pthread_setcancelstate.3        | 26 +++++++-------
->   man3/pthread_testcancel.3            |  8 ++---
->   man7/aio.7                           |  4 +--
->   man7/attributes.7                    | 42 +++++++++++-----------
->   man7/nptl.7                          |  2 +-
->   man7/pthreads.7                      | 28 +++++++--------
->   man7/signal-safety.7                 |  6 ++--
->   14 files changed, 101 insertions(+), 101 deletions(-)
+>   man2/futex.2         | 2 +-
+>   man2/mount_setattr.2 | 2 +-
+>   man5/proc.5          | 4 ++--
+>   man7/netlink.7       | 2 +-
+>   man7/tcp.7           | 2 +-
+>   5 files changed, 6 insertions(+), 6 deletions(-)
 > 
-> diff --git a/man3/error.3 b/man3/error.3
-> index 673fe8c..38d0434 100644
-> --- a/man3/error.3
-> +++ b/man3/error.3
-> @@ -149,7 +149,7 @@ used once, it should be safe enough) and, if
->   is set nonzero, the internal static variables (not exposed to users)
->   used to hold the last printed filename and line number are accessed
->   and modified without synchronization; the update is not atomic and it
-> -occurs before disabling cancellation, so it can be interrupted only after
-> +occurs before disabling cancelation, so it can be interrupted only after
->   one of the two variables is modified.
->   After that,
->   .BR error_at_line ()
-> diff --git a/man3/fopen.3 b/man3/fopen.3
-> index a1d7817..a16af1d 100644
-> --- a/man3/fopen.3
-> +++ b/man3/fopen.3
-> @@ -327,7 +327,7 @@ The GNU C library allows the following extensions for the string specified in
->   .BR c " (since glibc 2.3.3)"
->   Do not make the open operation,
->   or subsequent read and write operations,
-> -thread cancellation points.
-> +thread cancelation points.
->   This flag is ignored for
->   .BR fdopen ().
+> diff --git a/man2/futex.2 b/man2/futex.2
+> index 1dd77ac..7210030 100644
+> --- a/man2/futex.2
+> +++ b/man2/futex.2
+> @@ -1137,7 +1137,7 @@ except that the clock against which
+>   is measured is selectable.
+>   By default, the (absolute) timeout specified in
+>   .I timeout
+> -is measured againt the
+> +is measured against the
+>   .B CLOCK_MONOTONIC
+>   clock, but if the
+>   .B FUTEX_CLOCK_REALTIME
+> diff --git a/man5/proc.5 b/man5/proc.5
+> index c668462..3f16dcd 100644
+> --- a/man5/proc.5
+> +++ b/man5/proc.5
+> @@ -3068,7 +3068,7 @@ Further information about the zones can be found in
+>   .IR /proc/zoneinfo .
 >   .TP
-> diff --git a/man3/getentropy.3 b/man3/getentropy.3
-> index dca0a83..4853009 100644
-> --- a/man3/getentropy.3
-> +++ b/man3/getentropy.3
-> @@ -98,9 +98,9 @@ function is implemented using
->   .PP
->   Whereas the glibc wrapper makes
->   .BR getrandom (2)
-> -a cancellation point,
-> +a cancelation point,
->   .BR getentropy ()
-> -is not a cancellation point.
-> +is not a cancelation point.
->   .PP
->   .BR getentropy ()
->   is also declared in
-> diff --git a/man3/pthread_cancel.3 b/man3/pthread_cancel.3
-> index 01b7cf0..cf39098 100644
-> --- a/man3/pthread_cancel.3
-> +++ b/man3/pthread_cancel.3
-> @@ -25,7 +25,7 @@
->   .\"
->   .TH PTHREAD_CANCEL 3 2021-03-22 "Linux" "Linux Programmer's Manual"
->   .SH NAME
-> -pthread_cancel \- send a cancellation request to a thread
-> +pthread_cancel \- send a cancelation request to a thread
->   .SH SYNOPSIS
->   .nf
->   .B #include <pthread.h>
-> @@ -37,10 +37,10 @@ Compile and link with \fI\-pthread\fP.
->   .SH DESCRIPTION
->   The
->   .BR pthread_cancel ()
-> -function sends a cancellation request to the thread
-> +function sends a cancelation request to the thread
->   .IR thread .
->   Whether and when the target thread
-> -reacts to the cancellation request depends on
-> +reacts to the cancelation request depends on
->   two attributes that are under the control of that thread:
->   its cancelability
->   .I state
-> @@ -53,13 +53,13 @@ can be
->   .I enabled
->   (the default for new threads) or
->   .IR disabled .
-> -If a thread has disabled cancellation,
-> -then a cancellation request remains queued until the thread
-> -enables cancellation.
-> -If a thread has enabled cancellation,
-> -then its cancelability type determines when cancellation occurs.
-> +If a thread has disabled cancelation,
-> +then a cancelation request remains queued until the thread
-> +enables cancelation.
-> +If a thread has enabled cancelation,
-> +then its cancelability type determines when cancelation occurs.
->   .PP
-> -A thread's cancellation type, determined by
-> +A thread's cancelation type, determined by
->   .BR pthread_setcanceltype (3),
->   may be either
->   .IR asynchronous
-> @@ -69,13 +69,13 @@ or
->   Asynchronous cancelability
->   means that the thread can be canceled at any time
->   (usually immediately, but the system does not guarantee this).
-> -Deferred cancelability means that cancellation will be delayed until
-> +Deferred cancelability means that cancelation will be delayed until
->   the thread next calls a function that is a
-> -.IR "cancellation point" .
-> -A list of functions that are or may be cancellation points is provided in
-> +.IR "cancelation point" .
-> +A list of functions that are or may be cancelation points is provided in
->   .BR pthreads (7).
->   .PP
-> -When a cancellation requested is acted on, the following steps occur for
-> +When a cancelation requested is acted on, the following steps occur for
->   .IR thread
->   (in this order):
->   .IP 1. 3
-> @@ -98,7 +98,7 @@ The above steps happen asynchronously with respect to the
->   call;
->   the return status of
->   .BR pthread_cancel ()
-> -merely informs the caller whether the cancellation request
-> +merely informs the caller whether the cancelation request
->   was successfully queued.
->   .PP
->   After a canceled thread has terminated,
-> @@ -107,7 +107,7 @@ a join with that thread using
->   obtains
->   .B PTHREAD_CANCELED
->   as the thread's exit status.
-> -(Joining with a thread is the only way to know that cancellation
-> +(Joining with a thread is the only way to know that cancelation
->   has completed.)
->   .SH RETURN VALUE
->   On success,
-> @@ -142,7 +142,7 @@ T}	Thread safety	MT-Safe
->   .SH CONFORMING TO
->   POSIX.1-2001, POSIX.1-2008.
->   .SH NOTES
-> -On Linux, cancellation is implemented using signals.
-> +On Linux, cancelation is implemented using signals.
->   Under the NPTL threading implementation,
->   the first real-time signal (i.e., signal 32) is used for this purpose.
->   On LinuxThreads, the second real-time signal is used,
-> @@ -159,9 +159,9 @@ The following shell session shows what happens when we run the program:
->   .in +4n
->   .EX
->   $ ./a.out
-> -thread_func(): started; cancellation disabled
-> -main(): sending cancellation request
-> -thread_func(): about to enable cancellation
-> +thread_func(): started; cancelation disabled
-> +main(): sending cancelation request
-> +thread_func(): about to enable cancelation
->   main(): thread was canceled
->   .EE
->   .in
-> @@ -182,22 +182,22 @@ thread_func(void *ignored_argument)
->   {
->       int s;
->   
-> -    /* Disable cancellation for a while, so that we don\(aqt
-> -       immediately react to a cancellation request. */
-> +    /* Disable cancelation for a while, so that we don\(aqt
-> +       immediately react to a cancelation request. */
->   
->       s = pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, NULL);
->       if (s != 0)
->           handle_error_en(s, "pthread_setcancelstate");
->   
-> -    printf("thread_func(): started; cancellation disabled\en");
-> +    printf("thread_func(): started; cancelation disabled\en");
->       sleep(5);
-> -    printf("thread_func(): about to enable cancellation\en");
-> +    printf("thread_func(): about to enable cancelation\en");
->   
->       s = pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
->       if (s != 0)
->           handle_error_en(s, "pthread_setcancelstate");
->   
-> -    /* sleep() is a cancellation point. */
-> +    /* sleep() is a cancelation point. */
->   
->       sleep(1000);        /* Should get canceled while we sleep */
->   
-> @@ -214,7 +214,7 @@ main(void)
->       void *res;
->       int s;
->   
-> -    /* Start a thread and then send it a cancellation request. */
-> +    /* Start a thread and then send it a cancelation request. */
->   
->       s = pthread_create(&thr, NULL, &thread_func, NULL);
->       if (s != 0)
-> @@ -222,7 +222,7 @@ main(void)
->   
->       sleep(2);           /* Give thread a chance to get started */
->   
-> -    printf("main(): sending cancellation request\en");
-> +    printf("main(): sending cancelation request\en");
->       s = pthread_cancel(thr);
->       if (s != 0)
->           handle_error_en(s, "pthread_cancel");
-> diff --git a/man3/pthread_cleanup_push.3 b/man3/pthread_cleanup_push.3
-> index 7960315..0263248 100644
-> --- a/man3/pthread_cleanup_push.3
-> +++ b/man3/pthread_cleanup_push.3
-> @@ -26,7 +26,7 @@
->   .TH PTHREAD_CLEANUP_PUSH 3 2021-03-22 "Linux" "Linux Programmer's Manual"
->   .SH NAME
->   pthread_cleanup_push, pthread_cleanup_pop \- push and pop
-> -thread cancellation clean-up handlers
-> +thread cancelation clean-up handlers
->   .SH SYNOPSIS
->   .nf
->   .B #include <pthread.h>
-> @@ -38,7 +38,7 @@ Compile and link with \fI\-pthread\fP.
->   .fi
->   .SH DESCRIPTION
->   These functions manipulate the calling thread's stack of
-> -thread-cancellation clean-up handlers.
-> +thread-cancelation clean-up handlers.
->   A clean-up handler is a function that is automatically executed
->   when a thread is canceled (or in various other circumstances
->   described below);
-> @@ -63,7 +63,7 @@ and optionally executes it if
->   .I execute
->   is nonzero.
->   .PP
-> -A cancellation clean-up handler is popped from the stack
-> +A cancelation clean-up handler is popped from the stack
->   and executed in the following circumstances:
->   .IP 1. 3
->   When a thread is canceled,
-> @@ -180,13 +180,13 @@ This loop increments a global variable,
->   .IR cnt ,
->   once each second.
->   Depending on what command-line arguments are supplied,
-> -the main thread sends the other thread a cancellation request,
-> +the main thread sends the other thread a cancelation request,
->   or sets a global variable that causes the other thread
->   to exit its loop and terminate normally (by doing a
->   .IR return ).
->   .PP
->   In the following shell session,
-> -the main thread sends a cancellation request to the other thread:
-> +the main thread sends a cancelation request to the other thread:
+>   .I /proc/bus
+> -Contains subdirectories for installed busses.
+> +Contains subdirectories for installed buses.
+>   .TP
+>   .I /proc/bus/pccard
+>   Subdirectory for PCMCIA devices when
+> @@ -3079,7 +3079,7 @@ is set at kernel compilation time.
+>   .TP
+>   .I /proc/bus/pci
+>   Contains various bus subdirectories and pseudo-files containing
+> -information about PCI busses, installed devices, and device
+> +information about PCI buses, installed devices, and device
+>   drivers.
+>   Some of these files are not ASCII.
+>   .TP
+> diff --git a/man7/netlink.7 b/man7/netlink.7
+> index 6b04fea..2991ec7 100644
+> --- a/man7/netlink.7
+> +++ b/man7/netlink.7
+> @@ -191,7 +191,7 @@ structure,
+>   .B NLMSG_DONE
+>   message terminates a multipart message.
+>   Error messages get the
+> -original request appened, unless the user requests to cap the
+> +original request appended, unless the user requests to cap the
+>   error message, and get extra error data if requested.
 >   .PP
 >   .in +4n
->   .EX
-> @@ -201,7 +201,7 @@ Thread was canceled; cnt = 0
->   .in
->   .PP
->   From the above, we see that the thread was canceled,
-> -and that the cancellation clean-up handler was called
-> +and that the cancelation clean-up handler was called
->   and it reset the value of the global variable
->   .I cnt
->   to 0.
-> @@ -281,10 +281,10 @@ thread_start(void *arg)
->       curr = start = time(NULL);
->   
->       while (!done) {
-> -        pthread_testcancel();           /* A cancellation point */
-> +        pthread_testcancel();           /* A cancelation point */
->           if (curr < time(NULL)) {
->               curr = time(NULL);
-> -            printf("cnt = %d\en", cnt);  /* A cancellation point */
-> +            printf("cnt = %d\en", cnt);  /* A cancelation point */
->               cnt++;
->           }
->       }
-> diff --git a/man3/pthread_cleanup_push_defer_np.3 b/man3/pthread_cleanup_push_defer_np.3
-> index c5096d1..27ce08c 100644
-> --- a/man3/pthread_cleanup_push_defer_np.3
-> +++ b/man3/pthread_cleanup_push_defer_np.3
-> @@ -26,7 +26,7 @@
->   .TH PTHREAD_CLEANUP_PUSH_DEFER_NP 3 2021-03-22 "Linux" "Linux Programmer's Manual"
->   .SH NAME
->   pthread_cleanup_push_defer_np, pthread_cleanup_pop_restore_np \- push and pop
-> -thread cancellation clean-up handlers while saving cancelability type
-> +thread cancelation clean-up handlers while saving cancelability type
->   .SH SYNOPSIS
->   .nf
->   .B #include <pthread.h>
-> @@ -59,11 +59,11 @@ Like
->   .BR pthread_cleanup_push_defer_np ()
->   pushes
->   .I routine
-> -onto the thread's stack of cancellation clean-up handlers.
-> +onto the thread's stack of cancelation clean-up handlers.
->   In addition, it also saves the thread's current cancelability type,
->   and sets the cancelability type to "deferred" (see
->   .BR pthread_setcanceltype (3));
-> -this ensures that cancellation clean-up will occur
-> +this ensures that cancelation clean-up will occur
->   even if the thread's cancelability type was "asynchronous"
->   before the call.
->   .PP
-> @@ -71,7 +71,7 @@ Like
->   .BR pthread_cleanup_pop (3),
->   .BR pthread_cleanup_pop_restore_np ()
->   pops the top-most clean-up handler from the thread's
-> -stack of cancellation clean-up handlers.
-> +stack of cancelation clean-up handlers.
->   In addition, it restores the thread's cancelability
->   type to its value at the time of the matching
->   .BR pthread_cleanup_push_defer_np ().
-> diff --git a/man3/pthread_kill_other_threads_np.3 b/man3/pthread_kill_other_threads_np.3
-> index 031f289..ce490af 100644
-> --- a/man3/pthread_kill_other_threads_np.3
-> +++ b/man3/pthread_kill_other_threads_np.3
-> @@ -39,7 +39,7 @@ On that implementation,
->   calling this function causes the immediate termination of
->   all threads in the application,
->   except the calling thread.
-> -The cancellation state and cancellation type of the
-> +The cancelation state and cancelation type of the
->   to-be-terminated threads are ignored,
->   and the cleanup handlers are not called in those threads.
->   .\" .SH VERSIONS
-> diff --git a/man3/pthread_setcancelstate.3 b/man3/pthread_setcancelstate.3
-> index 56e2acf..e0c7463 100644
-> --- a/man3/pthread_setcancelstate.3
-> +++ b/man3/pthread_setcancelstate.3
-> @@ -54,11 +54,11 @@ The thread is cancelable.
->   This is the default cancelability state in all new threads,
->   including the initial thread.
->   The thread's cancelability type determines when a cancelable thread
-> -will respond to a cancellation request.
-> +will respond to a cancelation request.
->   .TP
->   .B PTHREAD_CANCEL_DISABLE
->   The thread is not cancelable.
-> -If a cancellation request is received,
-> +If a cancelation request is received,
->   it is blocked until cancelability is enabled.
->   .PP
->   The
-> @@ -74,21 +74,21 @@ The
->   argument must have one of the following values:
->   .TP
->   .B PTHREAD_CANCEL_DEFERRED
-> -A cancellation request is deferred until the thread next calls
-> -a function that is a cancellation point (see
-> +A cancelation request is deferred until the thread next calls
-> +a function that is a cancelation point (see
->   .BR pthreads (7)).
->   This is the default cancelability type in all new threads,
->   including the initial thread.
->   .IP
-> -Even with deferred cancellation, a
-> -cancellation point in an asynchronous signal handler may still
-> +Even with deferred cancelation, a
-> +cancelation point in an asynchronous signal handler may still
->   be acted upon and the effect is as if it was an asynchronous
-> -cancellation.
-> +cancelation.
->   .TP
->   .B PTHREAD_CANCEL_ASYNCHRONOUS
->   The thread can be canceled at any time.
->   (Typically,
-> -it will be canceled immediately upon receiving a cancellation request,
-> +it will be canceled immediately upon receiving a cancelation request,
->   but the system doesn't guarantee this.)
->   .PP
->   The set-and-get operation performed by each of these functions
-> @@ -150,10 +150,10 @@ For details of what happens when a thread is canceled, see
->   .PP
->   Briefly disabling cancelability is useful
->   if a thread performs some critical action
-> -that must not be interrupted by a cancellation request.
-> +that must not be interrupted by a cancelation request.
->   Beware of disabling cancelability for long periods,
->   or around operations that may block for long periods,
-> -since that will render the thread unresponsive to cancellation requests.
-> +since that will render the thread unresponsive to cancelation requests.
->   .SS Asynchronous cancelability
->   Setting the cancelability type to
->   .B PTHREAD_CANCEL_ASYNCHRONOUS
-> @@ -165,13 +165,13 @@ time, it cannot safely reserve resources (e.g., allocating memory with
->   acquire mutexes, semaphores, or locks, and so on.
->   Reserving resources is unsafe because the application has no way of
->   knowing what the state of these resources is when the thread is canceled;
-> -that is, did cancellation occur before the resources were reserved,
-> +that is, did cancelation occur before the resources were reserved,
->   while they were reserved, or after they were released?
->   Furthermore, some internal data structures
->   (e.g., the linked list of free blocks managed by the
->   .BR malloc (3)
->   family of functions) may be left in an inconsistent state
-> -if cancellation occurs in the middle of the function call.
-> +if cancelation occurs in the middle of the function call.
->   Consequently, clean-up handlers cease to be useful.
->   .PP
->   Functions that can be safely asynchronously canceled are called
-> @@ -186,7 +186,7 @@ In general, other library functions
->   can't be safely called from an asynchronously cancelable thread.
->   .PP
->   One of the few circumstances in which asynchronous cancelability is useful
-> -is for cancellation of a thread that is in a pure compute-bound loop.
-> +is for cancelation of a thread that is in a pure compute-bound loop.
->   .SS Portability notes
->   The Linux threading implementations permit the
->   .I oldstate
-> diff --git a/man3/pthread_testcancel.3 b/man3/pthread_testcancel.3
-> index 8dc2d61..42f34a2 100644
-> --- a/man3/pthread_testcancel.3
-> +++ b/man3/pthread_testcancel.3
-> @@ -25,7 +25,7 @@
->   .\"
->   .TH PTHREAD_TESTCANCEL 3 2021-03-22 "Linux" "Linux Programmer's Manual"
->   .SH NAME
-> -pthread_testcancel \- request delivery of any pending cancellation request
-> +pthread_testcancel \- request delivery of any pending cancelation request
->   .SH SYNOPSIS
->   .nf
->   .B #include <pthread.h>
-> @@ -37,13 +37,13 @@ Compile and link with \fI\-pthread\fP.
->   .SH DESCRIPTION
->   Calling
->   .BR pthread_testcancel ()
-> -creates a cancellation point within the calling thread,
-> +creates a cancelation point within the calling thread,
->   so that a thread that is otherwise executing code that contains
-> -no cancellation points will respond to a cancellation request.
-> +no cancelation points will respond to a cancelation request.
->   .PP
->   If cancelability is disabled (using
->   .BR pthread_setcancelstate (3)),
-> -or no cancellation request is pending,
-> +or no cancelation request is pending,
->   then a call to
->   .BR pthread_testcancel ()
->   has no effect.
-> diff --git a/man7/aio.7 b/man7/aio.7
-> index 72287be..959c354 100644
-> --- a/man7/aio.7
-> +++ b/man7/aio.7
-> @@ -209,7 +209,7 @@ the program retrieves their status using
->   The
->   .B SIGQUIT
->   signal (generated by typing control-\e) causes the program to request
-> -cancellation of each of the outstanding requests using
-> +cancelation of each of the outstanding requests using
->   .BR aio_cancel (3).
->   .PP
->   Here is an example of what we might see when running this program.
-> @@ -371,7 +371,7 @@ main(int argc, char *argv[])
->   
->               /* On receipt of SIGQUIT, attempt to cancel each of the
->                  outstanding I/O requests, and display status returned
-> -               from the cancellation requests. */
-> +               from the cancelation requests. */
->   
->               printf("got SIGQUIT; canceling I/O requests: \en");
->   
-> diff --git a/man7/attributes.7 b/man7/attributes.7
-> index 580ebfe..fdf91e1 100644
-> --- a/man7/attributes.7
-> +++ b/man7/attributes.7
-> @@ -85,7 +85,7 @@ safe for inlining.
->   .\" .I AC-Safe
->   .\" .I AC-Safe
->   .\" or Async-Cancel-Safe functions are safe to call when
-> -.\" asynchronous cancellation is enabled.
-> +.\" asynchronous cancelation is enabled.
->   .\" AC in AC-Safe stands for Asynchronous Cancellation.
->   .\"
->   .\" The POSIX standard defines only three functions to be AC-Safe, namely
-> @@ -99,10 +99,10 @@ safe for inlining.
->   .\" This documentation is provided for use
->   .\" by the GNU C Library developers.
->   .\"
-> -.\" Just like signal handlers, cancellation cleanup routines must configure
-> +.\" Just like signal handlers, cancelation cleanup routines must configure
->   .\" the floating point environment they require.
->   .\" The routines cannot assume a floating point environment,
-> -.\" particularly when asynchronous cancellation is enabled.
-> +.\" particularly when asynchronous cancelation is enabled.
->   .\" If the configuration of the floating point
->   .\" environment cannot be performed atomically then it is also possible that
->   .\" the environment encountered is internally inconsistent.
-> @@ -174,7 +174,7 @@ Other keywords that appear in safety notes are defined in subsequent sections.
->   .\" AS-Unsafe features in this section indicate the functions are never safe
->   .\" to call when asynchronous signals are enabled.
->   .\" AC-Unsafe features
-> -.\" indicate they are never safe to call when asynchronous cancellation is
-> +.\" indicate they are never safe to call when asynchronous cancelation is
->   .\" .\" enabled.
->   .\" There are no MT-Unsafe marks in this section.
->   .\" .TP
-> @@ -190,7 +190,7 @@ Other keywords that appear in safety notes are defined in subsequent sections.
->   .\" .I lock
->   .\" as an AC-Unsafe feature may, if canceled asynchronously,
->   .\" fail to release a lock that would have been released if their execution
-> -.\" had not been interrupted by asynchronous thread cancellation.
-> +.\" had not been interrupted by asynchronous thread cancelation.
->   .\" Once a lock is left taken,
->   .\" attempts to take that lock will block indefinitely.
->   .\" .TP
-> @@ -319,7 +319,7 @@ Other keywords that appear in safety notes are defined in subsequent sections.
->   .\" AS-Unsafe, because calling them in signal handlers may interfere with
->   .\" timers set in the interrupted code, and AC-Unsafe,
->   .\" because there is no safe way to guarantee an earlier timer
-> -.\" will be reset in case of asynchronous cancellation.
-> +.\" will be reset in case of asynchronous cancelation.
->   .\"
->   .\"
->   .SS Conditionally safe features
-> @@ -366,7 +366,7 @@ the function can then be safely called after other threads are started.
->   .\" .I init
->   .\" as an AS-Safety or AC-Unsafe feature should ensure
->   .\" the initialization is performed
-> -.\" before configuring signal handlers or enabling cancellation,
-> +.\" before configuring signal handlers or enabling cancelation,
->   .\" so that the AS-Safety and AC-Safety issues related with
->   .\" .I libc_once
->   .\" do not arise.
-> @@ -565,16 +565,16 @@ blocking that signal before the call and resetting its
->   handler afterwards is recommended.
->   .\"
->   .\" There is no safe way to guarantee the original signal handler is
-> -.\" restored in case of asynchronous cancellation,
-> +.\" restored in case of asynchronous cancelation,
->   .\" therefore so-marked functions are also AC-Unsafe.
->   .\"
-> -.\" .\" fixme: at least deferred cancellation should get it right, and would
-> +.\" .\" fixme: at least deferred cancelation should get it right, and would
->   .\" .\" obviate the restoring bit below, and the qualifier above.
->   .\"
->   .\" Besides the measures recommended to work around the
->   .\" MT-Safety and AS-Safety problem,
-> -.\" in order to avert the cancellation problem,
-> -.\" disabling asynchronous cancellation
-> +.\" in order to avert the cancelation problem,
-> +.\" disabling asynchronous cancelation
->   .\" .I and
->   .\" installing a cleanup handler to restore the signal to the desired state
->   .\" and to release the mutex are recommended.
-> @@ -616,13 +616,13 @@ even if referenced by different file descriptors.
->   .\" restore terminal settings to their original state,
->   .\" after temporarily changing them, but they may fail to do so if canceled.
->   .\"
-> -.\" .\" fixme: at least deferred cancellation should get it right, and would
-> +.\" .\" fixme: at least deferred cancelation should get it right, and would
->   .\" .\" obviate the restoring bit below, and the qualifier above.
->   .\"
->   .\" Besides the measures recommended to work around the
->   .\" MT-Safety and AS-Safety problem,
-> -.\" in order to avert the cancellation problem,
-> -.\" disabling asynchronous cancellation
-> +.\" in order to avert the cancelation problem,
-> +.\" disabling asynchronous cancelation
->   .\" .I and
->   .\" installing a cleanup handler to
->   .\" restore the terminal settings to the original state and to release the
-> @@ -733,7 +733,7 @@ which makes the former safe.
->   .\" Functions annotated with
->   .\" .I fd
->   .\" as an AC-Safety issue may leak file
-> -.\" descriptors if asynchronous thread cancellation interrupts their
-> +.\" descriptors if asynchronous thread cancelation interrupts their
->   .\" execution.
->   .\"
->   .\" Functions that allocate or deallocate file descriptors will generally be
-> @@ -755,7 +755,7 @@ which makes the former safe.
->   .\" reallocated by another thread or signal handler.
->   .\"
->   .\" Such leaks could be internally avoided, with some performance penalty,
-> -.\" by temporarily disabling asynchronous thread cancellation.
-> +.\" by temporarily disabling asynchronous thread cancelation.
->   .\" However,
->   .\" since callers of allocation or deallocation functions would have to do
->   .\" this themselves, to avoid the same sort of leak in their own layer,
-> @@ -768,26 +768,26 @@ which makes the former safe.
->   .\" However, cumulative effects of such leaks may pose a
->   .\" problem for some programs.
->   .\" If this is the case,
-> -.\" suspending asynchronous cancellation for the duration of calls
-> +.\" suspending asynchronous cancelation for the duration of calls
->   .\" to such functions is recommended.
->   .\" .TP
->   .\" .I mem
->   .\" Functions annotated with
->   .\" .I mem
->   .\" as an AC-Safety issue may leak
-> -.\" memory if asynchronous thread cancellation interrupts their execution.
-> +.\" memory if asynchronous thread cancelation interrupts their execution.
->   .\"
->   .\" The problem is similar to that of file descriptors: there is no atomic
->   .\" interface to allocate memory and store its address in the argument to a
->   .\" cleanup handler,
->   .\" or to release it and remove its address from that argument,
-> -.\" without at least temporarily disabling asynchronous cancellation,
-> +.\" without at least temporarily disabling asynchronous cancelation,
->   .\" which these functions do not do.
->   .\"
->   .\" This remark does not by itself cause a function to be regarded as
->   .\" generally AC-Unsafe.
->   .\" However, cumulative effects of such leaks may be
-> -.\" severe enough for some programs that disabling asynchronous cancellation
-> +.\" severe enough for some programs that disabling asynchronous cancelation
->   .\" for the duration of calls to such functions may be required.
->   .TP
->   .I cwd
-> @@ -796,7 +796,7 @@ Functions marked with
->   as an MT-Safety issue may temporarily
->   change the current working directory during their execution,
->   which may cause relative pathnames to be resolved in unexpected ways in
-> -other threads or within asynchronous signal or cancellation handlers.
-> +other threads or within asynchronous signal or cancelation handlers.
->   .IP
->   This is not enough of a reason to mark so-marked functions as MT-Unsafe,
->   .\" or AS-Unsafe,
-> diff --git a/man7/nptl.7 b/man7/nptl.7
-> index 0133c0a..ea17940 100644
-> --- a/man7/nptl.7
-> +++ b/man7/nptl.7
-> @@ -34,7 +34,7 @@ Linux systems.
->   .SS NPTL and signals
->   NPTL makes internal use of the first two real-time signals
->   (signal numbers 32 and 33).
-> -One of these signals is used to support thread cancellation and POSIX timers
-> +One of these signals is used to support thread cancelation and POSIX timers
->   (see
->   .BR timer_create (2));
->   the other is used as part of a mechanism that ensures all threads in
-> diff --git a/man7/pthreads.7 b/man7/pthreads.7
-> index 6f4f6e7..380aeb2 100644
-> --- a/man7/pthreads.7
-> +++ b/man7/pthreads.7
-> @@ -257,17 +257,17 @@ pthread_setcanceltype()
->   .in
->   .SS Cancellation points
->   POSIX.1 specifies that certain functions must,
-> -and certain other functions may, be cancellation points.
-> +and certain other functions may, be cancelation points.
->   If a thread is cancelable, its cancelability type is deferred,
-> -and a cancellation request is pending for the thread,
-> +and a cancelation request is pending for the thread,
->   then the thread is canceled when it calls a function
-> -that is a cancellation point.
-> +that is a cancelation point.
->   .PP
-> -The following functions are required to be cancellation points by
-> +The following functions are required to be cancelation points by
->   POSIX.1-2001 and/or POSIX.1-2008:
->   .PP
->   .\" FIXME
-> -.\" Document the list of all functions that are cancellation points in glibc
-> +.\" Document the list of all functions that are cancelation points in glibc
->   .in +4n
->   .EX
->   accept()
-> @@ -331,7 +331,7 @@ writev()
->   .EE
->   .in
->   .PP
-> -The following functions may be cancellation points according to
-> +The following functions may be cancelation points according to
->   POSIX.1-2001 and/or POSIX.1-2008:
->   .PP
->   .in +4n
-> @@ -567,23 +567,23 @@ wscanf()
->   .in
->   .PP
->   An implementation may also mark other functions
-> -not specified in the standard as cancellation points.
-> +not specified in the standard as cancelation points.
->   In particular, an implementation is likely to mark
-> -any nonstandard function that may block as a cancellation point.
-> +any nonstandard function that may block as a cancelation point.
->   (This includes most functions that can touch files.)
->   .PP
->   It should be noted that even if an application is not using
-> -asynchronous cancellation, that calling a function from the above list
-> +asynchronous cancelation, that calling a function from the above list
->   from an asynchronous signal handler may cause the equivalent of
-> -asynchronous cancellation.
-> +asynchronous cancelation.
->   The underlying user code may not expect
-> -asynchronous cancellation and the state of the user data may become
-> +asynchronous cancelation and the state of the user data may become
->   inconsistent.
->   Therefore signals should be used with caution when
-> -entering a region of deferred cancellation.
-> -.\" So, scanning "cancellation point" comments in the glibc 2.8 header
-> +entering a region of deferred cancelation.
-> +.\" So, scanning "cancelation point" comments in the glibc 2.8 header
->   .\" files, it looks as though at least the following nonstandard
-> -.\" functions are cancellation points:
-> +.\" functions are cancelation points:
->   .\" endnetgrent
->   .\" endspent
->   .\" epoll_pwait
-> diff --git a/man7/signal-safety.7 b/man7/signal-safety.7
-> index 9e8cd3f..b0108c8 100644
-> --- a/man7/signal-safety.7
-> +++ b/man7/signal-safety.7
-> @@ -322,9 +322,9 @@ is likely to remove
->   from the list of async-signal-safe functions.
->   .\"
->   .IP * 3
-> -Asynchronous signal handlers that call functions which are cancellation
-> -points and nest over regions of deferred cancellation may trigger
-> -cancellation whose behavior is as if asynchronous cancellation had
-> +Asynchronous signal handlers that call functions which are cancelation
-> +points and nest over regions of deferred cancelation may trigger
-> +cancelation whose behavior is as if asynchronous cancelation had
->   occurred and may cause application state to become inconsistent.
->   .\"
->   .SS errno
+> diff --git a/man7/tcp.7 b/man7/tcp.7
+> index 0a7c61a..8a871fc 100644
+> --- a/man7/tcp.7
+> +++ b/man7/tcp.7
+> @@ -1161,7 +1161,7 @@ This option takes an
+>   as an argument.
+>   When the value is greater than 0,
+>   it specifies the maximum amount of time in milliseconds that transmitted
+> -data may remain unacknowledged, or bufferred data may remain untransmitted
+> +data may remain unacknowledged, or buffered data may remain untransmitted
+>   (due to zero window size) before TCP will forcibly close the
+>   corresponding connection and return
+>   .B ETIMEDOUT
 > 
 
 -- 
