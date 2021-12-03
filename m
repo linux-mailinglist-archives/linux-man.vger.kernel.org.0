@@ -2,77 +2,85 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0B5F8464CDF
-	for <lists+linux-man@lfdr.de>; Wed,  1 Dec 2021 12:34:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 84D18467C87
+	for <lists+linux-man@lfdr.de>; Fri,  3 Dec 2021 18:28:16 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1348984AbhLALhm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 1 Dec 2021 06:37:42 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33534 "EHLO
+        id S1353065AbhLCRbj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 3 Dec 2021 12:31:39 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38486 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1348986AbhLALhg (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Dec 2021 06:37:36 -0500
-Received: from mail-pg1-x52c.google.com (mail-pg1-x52c.google.com [IPv6:2607:f8b0:4864:20::52c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CB876C0613F9
-        for <linux-man@vger.kernel.org>; Wed,  1 Dec 2021 03:34:10 -0800 (PST)
-Received: by mail-pg1-x52c.google.com with SMTP id s37so13599638pga.9
-        for <linux-man@vger.kernel.org>; Wed, 01 Dec 2021 03:34:10 -0800 (PST)
+        with ESMTP id S245736AbhLCRbj (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 3 Dec 2021 12:31:39 -0500
+Received: from mail-qk1-x734.google.com (mail-qk1-x734.google.com [IPv6:2607:f8b0:4864:20::734])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D8393C061751
+        for <linux-man@vger.kernel.org>; Fri,  3 Dec 2021 09:28:14 -0800 (PST)
+Received: by mail-qk1-x734.google.com with SMTP id g28so4143083qkk.9
+        for <linux-man@vger.kernel.org>; Fri, 03 Dec 2021 09:28:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:sender:from:date:message-id:subject:to;
-        bh=l4J9Z+m4hmgZbWtQHlC70w1zjUmiI7wjClCwm6dHAnY=;
-        b=nKE9e+4jEQRb21OhoYPSbxPLfJ2IuSmNXU0U6wmcP4ykCacrWpdbtE0jjuz/hSLLGi
-         3CHjeG+lFmWzoULwCsmlhVFgDEk5dLFaYb51pw7bXGjZ9H8t0j91dP9aL17MRQYkMPZK
-         Snvty/Yp8/ZrWZr2EuFXHqBxUdbU8X39ik45viERJ1Dn7qW8BPCFp2vlafV2okU0kn5j
-         QPTIDY8QJSy8zAVbK10d6+AY0lky+mrQRAAg0uS1DacQStzD/dQtt/uBz/RlGIdZCai/
-         BHep24kmiLdl1nvBvHYMFonu8NoJvJlErv7lbZlg2+2c277BpkzmDA4WwPZoxzlIf0Mh
-         Af5g==
+        d=usp.br; s=usp-google;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=0kCOdNa3N20oW9qOE/1m4RH+0lQkWbSnp4/c0K6GRhk=;
+        b=GyWjGARLmdItbmznZm22Zc3Ugyo7Hhu+G5Pmi8eAsltwYyxALenCLuynJ4pnmHnqBz
+         mCHnVnS4IFc7qDIcg086NSFRRbHiIurtON0Ruk4PFcBUcMICSPiUEDySNU2A20At4cV1
+         26uy5WLz5zmCvnSW7smX6OBsaYIE5E4k454ilxdwSJUrsZrBDK2XRCg1JyroYLEGXN2K
+         xoFSjVOwV72hQw6tsmMWASJ5w+7X0t1vMd3pOZ6bbEQTOEhv4IM9X8DIedPehck0uSls
+         J0YmDHRL9UJcNJHcNXCaMWPoeIhrfzar1tFDuwiWj48oFtTggG6Bbb7VYZDpeT56HnXA
+         NBhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:sender:from:date:message-id:subject
-         :to;
-        bh=l4J9Z+m4hmgZbWtQHlC70w1zjUmiI7wjClCwm6dHAnY=;
-        b=qswFRR8/vG6Mtw2IOTwFuLHSioo2N7MCg1LINPL5bwx4NJ6XtKn1PRr9NXZ6sBjZeQ
-         DMwltwIwOJKmTDqKZK+g0a8kP2Pq+X+x3fcefYrT+bkZ+CTyUHeLvpyaLxpX3CseiKTa
-         wSTn8aicFZI21//M9m3u3nQEXMUacDJMT3QmYs8pWsH15LPIziYx3Xnvhzd6DXkyNOZM
-         2BbJsVhMGEUYapX5e980LP+j6elmks95WhCEgSZO2eqHt89Vp5wyH3noKkblM//ZQuCb
-         Gr6vRc4n7U5831g3hNkNs7EcQAOPNzOAciNSKEwcwbVfm277o9v5dqK3L+km/qfj9lBE
-         Bn1A==
-X-Gm-Message-State: AOAM530dLLzm3yJTiMSlbAGGxn3Aj5BHEzT+rOZsDx4nhBBDY9yQG3lo
-        a1NNPLepfYr+lMxx8MT9OC5pvNill4a+gf4EKR2km23AMVA=
-X-Google-Smtp-Source: ABdhPJwK+H50pzFgfv5CJPfAwBzUdMqIKHh+Ckkuju2lG2knVlJrzqINPiiwPjc/Uz6xuSJez7Fkn5YZPcfa5CPpvro=
-X-Received: by 2002:a67:ef4d:: with SMTP id k13mr6266305vsr.4.1638358439020;
- Wed, 01 Dec 2021 03:33:59 -0800 (PST)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=0kCOdNa3N20oW9qOE/1m4RH+0lQkWbSnp4/c0K6GRhk=;
+        b=ps1AHKnBV9Aui7JfgzMbW4DD/sIzOFawcl0JRuQbrkaZ2fbZYEy9UCF8VsSzNb1T30
+         WOoZ54ZMlbQHNhF/8zsSCwgNqXqAEx5XvGEcfTUKp3N31XzgTA3HTNZnGPo8HYpo8a1p
+         0qYPgEs24eRNFapC6xMs3vG46YtW0mzrFu4shns/fnyAdZW6jBuuVrMa8o/ctDOH9gXU
+         zAqOxFeF+mtkv8XGLDjTm83N9oi6Go0JBtvIZzi6l60V91kTb207ebQ1p7+TiI71q/L2
+         CS4ktWFZrODoRKHkCNNatOjtiWFDWoimIdfi/oN0xzoyjc99iohGXOmbE+CSWeiWnk2k
+         Zicw==
+X-Gm-Message-State: AOAM532JJLkyyJnrGqlMj3LKaXCA2v5MvrDg8Iiz4AwYSam/B+gq3eqg
+        zqRiJRWdIr9koaeFdEHUGCCOH/vMj3NUd5rd
+X-Google-Smtp-Source: ABdhPJyIZp38CXqXaUAUwU10IrDfiiB4D0W8if0aUige2Y7RAVyOgcws2syFYOAKDYfP6DW0jFA5Og==
+X-Received: by 2002:a37:c20b:: with SMTP id i11mr19427715qkm.300.1638552493795;
+        Fri, 03 Dec 2021 09:28:13 -0800 (PST)
+Received: from mango.meuintelbras.local ([177.32.116.19])
+        by smtp.gmail.com with ESMTPSA id 9sm2307527qkm.5.2021.12.03.09.28.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 03 Dec 2021 09:28:13 -0800 (PST)
+From:   Matheus Tavares <matheus.bernardino@usp.br>
+To:     linux-man@vger.kernel.org
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+Subject: [PATCH] madvise.2: tfix
+Date:   Fri,  3 Dec 2021 14:28:07 -0300
+Message-Id: <3ec6befd53f36e2795c71f7d07501eb3067c226e.1638552486.git.matheus.bernardino@usp.br>
+X-Mailer: git-send-email 2.34.0
 MIME-Version: 1.0
-Sender: unitednationawardwinner@gmail.com
-Received: by 2002:ab0:6c55:0:0:0:0:0 with HTTP; Wed, 1 Dec 2021 03:33:58 -0800 (PST)
-From:   "Mrs. Orgil Baatar" <mrs.orgilbaatar21@gmail.com>
-Date:   Wed, 1 Dec 2021 03:33:58 -0800
-X-Google-Sender-Auth: uTQ_nfkzXaWGWaTWp1BSFqK3Ucs
-Message-ID: <CAJ4dHaSrD-X=xpfKNZV-hXSiMV6mNYrgy5vWCNkKm6iu5RQStg@mail.gmail.com>
-Subject: Your long awaited part payment of $2.5.000.00Usd
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Attention: Beneficiary, Your long awaited part payment of
-$2.5.000.00Usd (TWO MILLION FIVE Hundred Thousand United State
-Dollars) is ready for immediate release to you, and it was
-electronically credited into an ATM Visa Card for easy delivery.
+Add a missing period.
 
-Your new Payment Reference No.- 6363836,
-Pin Code No: 1787
-Your Certificate of Merit Payment No: 05872,
+Signed-off-by: Matheus Tavares <matheus.bernardino@usp.br>
+---
+ man2/madvise.2 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Your Names: |
-Address: |
+diff --git a/man2/madvise.2 b/man2/madvise.2
+index f1f384c0c..cdcc6cbfe 100644
+--- a/man2/madvise.2
++++ b/man2/madvise.2
+@@ -62,7 +62,7 @@ about the address range beginning at address
+ .I addr
+ and with size
+ .I length
+-bytes
++bytes.
+ In most cases,
+ the goal of such advice is to improve system or application performance.
+ .PP
+-- 
+2.34.0
 
-Person to Contact:MR KELLY HALL the Director of the International
-Audit unit ATM Payment Center,
-
-Email: uba-bf@e-ubabf.com
-TELEPHONE: +226 64865611 You can whatsApp the bank
-
-Regards.
-Mrs ORGIL BAATAR
