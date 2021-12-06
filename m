@@ -2,122 +2,167 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C5C2046AA77
-	for <lists+linux-man@lfdr.de>; Mon,  6 Dec 2021 22:30:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id C66C046AB2D
+	for <lists+linux-man@lfdr.de>; Mon,  6 Dec 2021 23:04:00 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1351729AbhLFVeG (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 6 Dec 2021 16:34:06 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34762 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1351736AbhLFVd5 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Dec 2021 16:33:57 -0500
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com [IPv6:2a00:1450:4864:20::433])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D6F80C061746
-        for <linux-man@vger.kernel.org>; Mon,  6 Dec 2021 13:30:26 -0800 (PST)
-Received: by mail-wr1-x433.google.com with SMTP id d24so25321527wra.0
-        for <linux-man@vger.kernel.org>; Mon, 06 Dec 2021 13:30:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=5vNh4i9C/TNbBiPsp2Xhguf+tR4I9znR/CM2Qn2ZiRk=;
-        b=ptkdS5bwAYnNXaSu4+8mDMbXgSSHfxxuBiHlKzrLbhj4b2dW7xzQa9hz1OwW5ND+iZ
-         JF/u6Tj0anhEaffW/sehvR+DDvfMpzik6yu4ICPQ5/5vvh5rJzHCnBa9Im2YNh9xyJFe
-         Xi++nL2QG2RsjDkuBRCu8/vyRxHrvaXnZFFhSzzkUvIBwIIH7ZHub9827rqHcBhfkEUD
-         ZCZ7kIuzsH+UQN/0bPrz1oCWP6ss6gq+UBDLZeVzl2RMZYUAYsqR9u5WHp8/IavY5xMh
-         pNjyOds4GQyZJSoLdNNvKoo9RAjqMNGy3Mi1U+sRE2oE/Ikm6yocp14Wm19jyEHqjbmz
-         X7rA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=5vNh4i9C/TNbBiPsp2Xhguf+tR4I9znR/CM2Qn2ZiRk=;
-        b=2QyZ3Z12PWVgejaOkE7+xX5YQsNVsSLDmcx5N/h19hhVsXsH57/LT19swXcyMOftWG
-         t1SWQ6XTgH1XWTccojpRAdaG0mJA2eFETSW8hWhVX9fPWhQ8PpxhnhlJq8sniq9sM+tj
-         Choq5Er5i6BM4Mbzq0KZDv2tXi01box4aOwSD2aishMbtch0kQopyMjnhaqGlztI5tGi
-         R0oVgitPpg+ijfI/94aQHCla3Wnj4Nvhw+CdhC091w8rM/xW5sICLxJe5RrFOUJNJrSK
-         pysReGQlmKob1xxSl+bfHZKLAzP8MZVZIDep9p2VUvn3Te+94gkcNBK13DjxG+nGIUks
-         wH7Q==
-X-Gm-Message-State: AOAM5304HdvMf66oQs4P5RRVrLDVlPKQEal0y+pJkc935Pzv++bH5n5Y
-        CYswIu0cUzeY+LqJ7/cHK6djPHNXUA0=
-X-Google-Smtp-Source: ABdhPJwAWyowtrn1tB54lZdJQKHZY9FjlTNuiDfLfviS2YBruABuOtQTMW11B+Fru6xAWvL3d7jZHw==
-X-Received: by 2002:adf:d22a:: with SMTP id k10mr47698300wrh.80.1638826225425;
-        Mon, 06 Dec 2021 13:30:25 -0800 (PST)
-Received: from [10.8.0.6] ([195.53.121.100])
-        by smtp.gmail.com with ESMTPSA id d15sm16511388wri.50.2021.12.06.13.30.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 06 Dec 2021 13:30:25 -0800 (PST)
-Message-ID: <a6f79435-1d9c-2c12-168b-035164a3b938@gmail.com>
-Date:   Mon, 6 Dec 2021 22:30:22 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-Subject: Re: [PATCH v2 3/4] system_data_types.7: correct struct
- timespec::tv_nsec type for x32
-Content-Language: en-US
-To:     =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+        id S1353033AbhLFWH1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 6 Dec 2021 17:07:27 -0500
+Received: from 139-28-40-42.artus.net.pl ([139.28.40.42]:45348 "EHLO
+        tarta.nabijaczleweli.xyz" rhost-flags-OK-FAIL-OK-OK)
+        by vger.kernel.org with ESMTP id S232710AbhLFWH1 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Dec 2021 17:07:27 -0500
+Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 71DEE1E4A;
+        Mon,  6 Dec 2021 23:03:52 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
+        s=202006; t=1638828232;
+        bh=OBqo1veQqXbXJb5QD+GLEJVmlTRfUG42Waxh33SVLrE=;
+        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+        b=EZJkkOeZAyFUEnfLofG9PGfLTmCMSURpSOsixniR/UjBtysr0B9/piUyG1zAKwCy/
+         KSGPR+Kx/kgNynCjIups5dc+bbZyL3dCRhXmsAoT6P5mCSNAw4ESuqPCo8XqzWiFwY
+         m7N6STiLD7FlXc/z31TanBKdL//0OkGv+T8odZRletJ2Equ5aFI/sIJYLYusKMwnlb
+         pnObUHKm5iE7tcsdywUK+k1kWPfxQuascHbvw2pRonXE8RKm944tpLfKdqsdK2tqwT
+         Q6qIeTa+TrGQZ19F5NMMQshykht0J45lz8vVpfjAGUo0hoF2M/xyluQq/QdsZomHiU
+         31OeRCQE01aag==
+Date:   Mon, 6 Dec 2021 23:03:51 +0100
+From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org,
         "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-References: <8d80e54b-6881-ee5e-0d14-305b510a28b1@gmail.com>
- <cover.1638821152.git.nabijaczleweli@nabijaczleweli.xyz>
- <8e968437b301aa7487e84cce21822b56072e9217.1638821152.git.nabijaczleweli@nabijaczleweli.xyz>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-In-Reply-To: <8e968437b301aa7487e84cce21822b56072e9217.1638821152.git.nabijaczleweli@nabijaczleweli.xyz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Subject: [PATCH v3 3/3] system_data_types.7: note struct timespec::tv_nsec
+ type for x32 and portability
+Message-ID: <8ce5f7ace7a64a499d08228c3aeef870310a78ca.1638827989.git.nabijaczleweli@nabijaczleweli.xyz>
+References: <a6f79435-1d9c-2c12-168b-035164a3b938@gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="a7bzfz3a5acs4xlf"
+Content-Disposition: inline
+In-Reply-To: <a6f79435-1d9c-2c12-168b-035164a3b938@gmail.com>
+User-Agent: NeoMutt/20211029
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi наб,
 
-On 12/6/21 21:12, наб wrote:
-> diff --git a/man7/system_data_types.7 b/man7/system_data_types.7
-> index 1e6a3f74c..80679b180 100644
-> --- a/man7/system_data_types.7
-> +++ b/man7/system_data_types.7
-> @@ -1544,7 +1544,11 @@ or
->   .EX
->   struct timespec {
->       time_t  tv_sec;  /* Seconds */
-> +#if !(__x86_64__ && __ILP32__ /* == x32 */)
->       long    tv_nsec; /* Nanoseconds [0 .. 999999999] */
-> +#else
-> +    long long tv_nsec;
-> +#endif
+--a7bzfz3a5acs4xlf
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I prefer showing there the (simple) POSIX definition, and then in Notes 
-add a message that glibc uses a different type on most systems. 
-Otherwise, we're loosing the information that non-glibc systems use long.
+There are three files that govern userspace struct timespec on glibc:
+1. bits/wordsize.h, defining:
+   (a) __WORDSIZE to 32 on ILP32 and 64 on LP64
+   (b) on x32: __SYSCALL_WORDSIZE to 64
+2. bits/timesize.h, defining
+   (a) __TIMESIZE to __WORDSIZE, except on x32 where it's 64
+3. bits/types/struct_timespec.h, declaring struct timespec as:
+     struct timespec
+     {
+      __time_t tv_sec;      /* Seconds.  */
+     #if __WORDSIZE =3D=3D 64 \
+      || (defined __SYSCALL_WORDSIZE && __SYSCALL_WORDSIZE =3D=3D 64) \
+      || __TIMESIZE =3D=3D 32
+      __syscall_slong_t tv_nsec;    /* Nanoseconds.  */
+     #else
+     # if __BYTE_ORDER =3D=3D __BIG_ENDIAN
+      int: 32;           /* Padding.  */
+      long int tv_nsec;  /* Nanoseconds.  */
+     # else
+      long int tv_nsec;  /* Nanoseconds.  */
+      int: 32;           /* Padding.  */
+     # endif
+     #endif
+     };
+   this has two side-effects: struct timespec
+   (a) is always sizeof=3D=3Dtime_t+8, and
+   (b) has tv_nsec as __syscall_slong_t
+       *and* !is_same<__syscall_slong_t, long>
+       if using LP64 syscalls on an ILP32 system, i.e. on x32.
 
-How about something like the following?:
+This means, that the simplified
+  struct timespec {
+      time_t  tv_sec;  /* Seconds */
+      long    tv_nsec; /* Nanoseconds [0 .. 999999999] */
+  };
+declaration is *invalid* for x32,
+where struct timespec::tv_nsec is an int64_t (long long).
 
-Notes: glibc uses long long instead of long for tv_nsec in some 
-architectures:
+Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
+---
+The reasoning is explained in the commit message,
+but I elucidated it in a more approachable way in the Notes,
+which also include the link from Jakub Wilk upthread.
 
-	#if !(__x86_64__ && __ILP32__ /* == x32 */)
-		long      tv_nsec;
-	#else
-		long long tv_nsec;
-	#endif
+Nevertheless, log2(10^(3*3) - 1) <=3D 31 is a good point!
+I also added this as a slight portability guide toward the end.
 
+This replaces 3/4 and 4/4.
 
-BTW, I don't understand why long long, if long can perfectly represent 0 
-.. 999999999.  If you know the rationale for such extension, it would be 
-a great addition to Notes too.
+ man7/system_data_types.7 | 30 ++++++++++++++++++++++++++++++
+ 1 file changed, 30 insertions(+)
 
-Thanks!
+diff --git a/man7/system_data_types.7 b/man7/system_data_types.7
+index 1e6a3f74c..cce17fc3e 100644
+--- a/man7/system_data_types.7
++++ b/man7/system_data_types.7
+@@ -1553,6 +1553,36 @@ Describes times in seconds and nanoseconds.
+ .IR "Conforming to" :
+ C11 and later; POSIX.1-2001 and later.
+ .PP
++.IR Notes :
++.I tv_nsec
++is the
++.I syscall
++long, though this affects only fringe architectures like X32,
++which is ILP32, but uses the LP64 AMD64 syscall ABI.
++.br
++In reality, the field ends up being defined as:
++.EX
++.in +4
++#if !(__x86_64__ && __ILP32__ /* =3D=3D x32 */)
++    long      tv_nsec;
++#else
++    long long tv_nsec;
++#endif
++.in
++.EE
++.PP
++This is a long-standing and long-enshrined
++.UR https://sourceware.org/bugzilla/show_bug.cgi?id=3D16437
++glibc bug
++.I #16437
++.UE ,
++an incompatible extension to the standards;
++however, as even a 32-bit
++.I long
++can hold the entire
++.I tv_nsec
++range, it's safe to forcibly down-cast it to the standard type.
++.PP
+ .IR "See also" :
+ .BR clock_gettime (2),
+ .BR clock_nanosleep (2),
+--=20
+2.30.2
 
-Alex
+--a7bzfz3a5acs4xlf
+Content-Type: application/pgp-signature; name="signature.asc"
 
->   };
->   .EE
->   .PP
-> 
+-----BEGIN PGP SIGNATURE-----
 
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmGuiMYACgkQvP0LAY0m
+WPFIphAAnfn6YDu6pf1nePCgGW9BG+9alrH8Qkh3CG3//d36o8TtrxpI6GfiYIrH
+4yco7wS7X0ec5sTG2aJlbDoKS8MBYz37vocV5t52x0JtrExHLyanTU6ze25nHddY
+q86C9V5t0vOtKQcDni3uRBl0nbR87gweE8MdjjQ6N1FJCZ89CXz5qNCEXSRZsc/U
++R0c58Bdqrt//rFlNlbNqqEy71NaTOpM7qQH3DHTo7chtt+MU0CTfwCNIS+g5d05
+9lnW2OD17LwdCsoCbPCsFoliYo1F+Qw8km80WmN/A9XePKI7QuHV0LN2R8yP9BPP
+SM7atlyEkTOw5Rda0/+Q+xdghyo8kaGDi8xMTrOGUIAA9P/0NladlltY4auk1CtX
+x9e3zvEKrHAnmkF5xZWMwpnFC4jTSw6EmDtIGyymc4ShBe5iVM/Ty3jTUpYRQhn7
+1JmCq022Qrh2Zgr2iGP5ZcVuxGfW/grOUISP9bkw0FvM4giYZvLbk7kDxKPBwzki
+Gy44kzDD9PmRwZJlaK+collBQIevvstFjKEeS5D24G5t/dI72/YMXtfKyi7rapUY
+TpwvHwWvHoKLKdjNa+U3P2hbGL5biKONDjEgzsU54HZYlAhT4NvPWOwtw93IiXyj
+AHAVD65C0JCJcNPEZhusZL06+IajYHCqToTslgvX1oYApyDnrIo=
+=vG4q
+-----END PGP SIGNATURE-----
 
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+--a7bzfz3a5acs4xlf--
