@@ -2,118 +2,125 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A19FC4680E2
-	for <lists+linux-man@lfdr.de>; Sat,  4 Dec 2021 00:46:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id CE56E46A580
+	for <lists+linux-man@lfdr.de>; Mon,  6 Dec 2021 20:18:33 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1354420AbhLCXuW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 3 Dec 2021 18:50:22 -0500
-Received: from 139-28-40-42.artus.net.pl ([139.28.40.42]:58010 "EHLO
-        tarta.nabijaczleweli.xyz" rhost-flags-OK-FAIL-OK-OK)
-        by vger.kernel.org with ESMTP id S1354388AbhLCXuW (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 3 Dec 2021 18:50:22 -0500
-Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 066FD1C2E;
-        Sat,  4 Dec 2021 00:46:52 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-        s=202006; t=1638575212;
-        bh=uChACdNgn+5MR86v+BBbZSg/8iyoGYd7bx14jkHf7j4=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=jkDMGkdRDPdoPK2sLpOPXrGPtOr906CwfiCJ1AQvSArCZja+BhoAuugD7kmH5ZKvU
-         sKJWE6VM3e8oxqzYC0kmO++08uzMAEc8LHwdd2ivI884xUjgoQRrlB+x5uJMUq7zlT
-         6v1Uxfp/nbxpwp2OytwA5URKvOf1h00PsxzWZwpr3wOyW36RhEa2NwdIyVWlEH+Dgm
-         t/PQ2HHtsE4DHY7L7ZGqnc5//Ut1RYcJt0wsVrmvbW/z1WmI5qzv3NXk8tLDu8hARX
-         yh0gacF7qx83eZnh1KihIofwoYlqdUjB2TE0KfsUHT/8nvrur0qx2TiGiTXVkpSh8Q
-         xlpYv0mRw9B0g==
-Date:   Sat, 4 Dec 2021 00:46:50 +0100
-From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-Subject: Re: [PATCH 3/4] clock_getres.2, clock_nanosleep.2, io_getevents.2,
- nanosleep.2, poll.2, sched_rr_get_interval.2, select.2, sigwaitinfo.2,
- timer_settime.2, timerfd_create.2, utimensat.2, mq_receive.3, mq_send.3,
- pthread_tryjoin_np.3, system_data_types.7: correct struct timespec::tv_nsec
- type for x32
-Message-ID: <20211203234650.advb5m3bh3labgp5@tarta.nabijaczleweli.xyz>
+        id S1348311AbhLFTWB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 6 Dec 2021 14:22:01 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59572 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S243909AbhLFTWA (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Dec 2021 14:22:00 -0500
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com [IPv6:2a00:1450:4864:20::331])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2CD46C061746
+        for <linux-man@vger.kernel.org>; Mon,  6 Dec 2021 11:18:31 -0800 (PST)
+Received: by mail-wm1-x331.google.com with SMTP id k37-20020a05600c1ca500b00330cb84834fso78615wms.2
+        for <linux-man@vger.kernel.org>; Mon, 06 Dec 2021 11:18:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=message-id:date:mime-version:user-agent:subject:content-language:to
+         :cc:references:from:in-reply-to:content-transfer-encoding;
+        bh=7qIyFatbHxYhbzm7vzosL3SUsip6uEdidJyOgA+rHkY=;
+        b=Y0GIq4Iy5/CbmRrR3Tu3Qw73Wz1TC0DB5hK25ZredmoxH54gWjcIcwYDcsvkhWoANC
+         YaYKQWOMHsNqiiKbzYrpbx5mjApZO1Mc1d1EUOsB38aoPj10IiPHvuXtdF3/VlDZyeEE
+         BNPch4hZsOqRvUPkymiWER4ZyoYDGOjqRdN2vzUMCCPgVIBCtCE08V8jTqDoXO0FkVg5
+         76uEtRMZnHh4husTtGAwbNz6MUc8jhQ/PQAYejvHdxLaNJWkNSW8QNmvGFZfgWDUezWk
+         zcJTj+1Lecloyh3zJc9GLwPs7B0xTaptab+jmAFwMJbpssEXZ4Z16C6k1HUnSj68jhZn
+         +mgw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+         :content-language:to:cc:references:from:in-reply-to
+         :content-transfer-encoding;
+        bh=7qIyFatbHxYhbzm7vzosL3SUsip6uEdidJyOgA+rHkY=;
+        b=wyoohFbrZ5B9PE9EwNLIzoIPSt8/rDCYUAgcHGtBg53XjBO2jeCsBhAk1T+RNrGT1r
+         /XLku/Wnpmo+oVo8ASSiIhw7Jrey9ogpesHpvn8DVIM41tkvAwgI84Kz+QlqrpNEGkkP
+         BKCbuPKjRHu3QdvlE2pbZG6DijQTg0U9tY7KcJFrKvZOVP2Zs4Q6Bg9R7fA7krCNlMsV
+         8PKfd2Bhtqt2AKgSJXxgdHSf/YtWVlcAKPuW43mo3unqVBJ9mgLhWEQUwOZ4QuKNCapg
+         EJAhSfVAuDVJf/0oprcAIOI6l3wXHsAXiRTFJQfsSOy5twAse6hifnkUa1v/7jfC80AU
+         J61A==
+X-Gm-Message-State: AOAM531W3b52cWJGlPzjuW7rmJqPrDkNo6HKexTI+P35FRFthapz1LX1
+        YkpANstiDL+pJEQWd1Nb/+4=
+X-Google-Smtp-Source: ABdhPJxDBJBn+FhsWCVtwGzGmguR9ZJmaLuFXtx5HJh06i9PjaI/JYzE+wxt12PJnxhYMPkzNpvbXg==
+X-Received: by 2002:a05:600c:4e02:: with SMTP id b2mr586938wmq.105.1638818309752;
+        Mon, 06 Dec 2021 11:18:29 -0800 (PST)
+Received: from [10.8.0.6] ([195.53.121.100])
+        by smtp.gmail.com with ESMTPSA id t17sm285486wmq.15.2021.12.06.11.18.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 06 Dec 2021 11:18:29 -0800 (PST)
+Message-ID: <8d80e54b-6881-ee5e-0d14-305b510a28b1@gmail.com>
+Date:   Mon, 6 Dec 2021 20:18:26 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.2
+Subject: Re: [PATCH 3/4] Many pages: correct struct timespec::tv_nsec type for
+ x32
+Content-Language: en-US
+To:     =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Cc:     linux-man@vger.kernel.org,
+        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
 References: <ec1dcc655184f6cdaae40ff8b7970b750434e4ef.1638123425.git.nabijaczleweli@nabijaczleweli.xyz>
  <de0b63287590038675ef723e052ec1d765f7c59b.1638123425.git.nabijaczleweli@nabijaczleweli.xyz>
  <c2b59b57-ed75-3530-3ac7-13c187700410@gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="lnhoz4tca4orgqij"
-Content-Disposition: inline
-In-Reply-To: <c2b59b57-ed75-3530-3ac7-13c187700410@gmail.com>
-User-Agent: NeoMutt/20211029
+ <20211203234650.advb5m3bh3labgp5@tarta.nabijaczleweli.xyz>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+In-Reply-To: <20211203234650.advb5m3bh3labgp5@tarta.nabijaczleweli.xyz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Hi, наб!
 
---lnhoz4tca4orgqij
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 12/4/21 00:46, наб wrote:
+>> But this would be a simpler commit if we only had one definition.
+> I was going to suggest it originally, but held up because, well,
+> before writing this patchset I didn't even know about
+> system_data_types.7, and it seemed that most other declarations are
+> in-line (which is sensible, I think, and in line with the common
+> use-case).
+> 
+>> Do you agree in changing the whole patch set in that (IMO simpler) way?
+> I mean, IMO in-line is better to use, but a struct this short and
+> relatively confusing when you actually unroll the types
+> makes sense to be banished.
+> 
+> So, just so we're clear on the direction of this before I re-write
+> a lot of these sections, do these (cherry-picking a few):
+>    clock_getres.2:
+>      The res and tp arguments are timespec(3) structures, as specified in
+>      <time.h>.
+>    mq_receive.3:
+>      This value is an absolute timeout in seconds and nanoseconds since
+> 	the Epoch, 1970-01-01 00:00:00 +0000 (UTC),
+> 	specified in struct timespec(3).
 
-Hi!
+I think I slighly prefer "in a timespec(3) structure" (the main two 
+reasons are: consistency with existing pages, and also compatibility 
+with a possible future change that I have in mind[1] of the link from 
+timespec(3) to timespec-struct(3), which would read better as 
+timespec-struct(3) structure rather than struct timespec-struct(3)), as 
+in the previous example.  However, I only slightly prefer that and don't 
+really care that much, and will leave the final decision up to you.
 
-On Mon, Nov 29, 2021 at 01:31:48PM +0100, Alejandro Colomar (man-pages) wro=
-te:
-> >     (a) is always sizeof=3D=3Dtime_t+8, and
-> >     (b) has tv_nsec as __syscall_slong_t
-> >         *and* !is_same<__syscall_slong_t, long>
-> >         if using ILP64 syscalls on an LP32 system, i.e. on x32.
-> I guess you meant LP64, not ILP64?
-> AFAIK, glibc doesn't support ILP64.
-Yes, good catch! Def. a typo.
+[1] 
+<https://lore.kernel.org/linux-man/20211102181454.280919-4-alx.manpages@gmail.com/>
 
-> But this would be a simpler commit if we only had one definition.
-I was going to suggest it originally, but held up because, well,
-before writing this patchset I didn't even know about
-system_data_types.7, and it seemed that most other declarations are
-in-line (which is sensible, I think, and in line with the common
-use-case).
+>    pthread_tryjoin_np.3:
+>      If the timeout expires before thread terminates, the call returns an
+> 	error.  The abstime argument is a struct timespec(3), specifying an
+> 	absolute time measured since the Epoch (see time(2)).
+>    + adding timespec(3) to the SEE ALSO sexions
+> Sound about right?
 
-> Do you agree in changing the whole patch set in that (IMO simpler) way?
-I mean, IMO in-line is better to use, but a struct this short and
-relatively confusing when you actually unroll the types
-makes sense to be banished.
+Yes, they sound great!
 
-So, just so we're clear on the direction of this before I re-write
-a lot of these sections, do these (cherry-picking a few):
-  clock_getres.2:
-    The res and tp arguments are timespec(3) structures, as specified in
-    <time.h>.
-  mq_receive.3:
-    This value is an absolute timeout in seconds and nanoseconds since
-	the Epoch, 1970-01-01 00:00:00 +0000 (UTC),
-	specified in struct timespec(3).
-  pthread_tryjoin_np.3:
-    If the timeout expires before thread terminates, the call returns an
-	error.  The abstime argument is a struct timespec(3), specifying an
-	absolute time measured since the Epoch (see time(2)).
-  + adding timespec(3) to the SEE ALSO sexions
-Sound about right?
+Cheers,
+Alex
 
-Best,
-=D0=BD=D0=B0=D0=B1
 
---lnhoz4tca4orgqij
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmGqrGgACgkQvP0LAY0m
-WPFsVQ//fvQnS3o0hBnQzc4NqMh+Ef6qwEecwkhC0YRadpEmVQWDY4RP4LPR8TDR
-VvcFr9dYD8Ga6BZwPFocwze1Iy7uPIWTPoLF4eMRQpVjIdoQ7NvME62Tw0qYiRDL
-s4ZL2/6E6w+nk0Gxxqr05Haq9y2GUfHbaEeD8EKaoHGQmTfDpUUJJSqhySdrosUb
-G9KFP1eXHInoWiueZey1ORXh4Uw4QXjNZe3bWfGBN9feaV0lViR5JOsrZcopmVc+
-ThjV/RCqg1/mwM4jlab4k/KZ++h7AKbSWsGsQSbglihVp7JKd0S2nEf0nvwvDMF8
-moPShBYYnriIcV5cajUz6OWH/bEG3cGXBepa4hbudaaaJKFvfSuVuc2+b6757lhU
-KLf4yz0kOEHlqml2QHjEvUaL0dEbhsNuXCsgonxYJqBWbSK1fyqp5I5CJUiCW7kN
-6a9EpisE/iF+AApHsOTwZKliWpOjFbmRl6yr1Biaj38GYIYKDPZ+RN6+K1bf4Ylo
-EycSFaUXnTBaIv4iw3DPWx7uoeNqFnJvFiJAbV1Lh3mbNrAspVzdYCdzG8dBdTKM
-HoR84rAkAWrDOdkg3nfB/UyjOimy8JgsuwUEncdPjEP33HHpcSMm/kJYNnBO7tDe
-UKB8qop/bl3q4zpk6enIYWeK10+rZb2drmL61KL9wRQtPMm6JdY=
-=ZrUN
------END PGP SIGNATURE-----
-
---lnhoz4tca4orgqij--
+-- 
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
