@@ -2,111 +2,82 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 693F546B9C5
-	for <lists+linux-man@lfdr.de>; Tue,  7 Dec 2021 12:05:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 09AD846C30A
+	for <lists+linux-man@lfdr.de>; Tue,  7 Dec 2021 19:44:08 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235543AbhLGLJZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 7 Dec 2021 06:09:25 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53378 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235453AbhLGLJZ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 7 Dec 2021 06:09:25 -0500
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com [IPv6:2a00:1450:4864:20::333])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E329AC061574
-        for <linux-man@vger.kernel.org>; Tue,  7 Dec 2021 03:05:54 -0800 (PST)
-Received: by mail-wm1-x333.google.com with SMTP id i12so10400899wmq.4
-        for <linux-man@vger.kernel.org>; Tue, 07 Dec 2021 03:05:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=cDbl0kgd6ssdl7bsZMgJOL1FGQDT0Ezvyi60557NXxE=;
-        b=Tz/zZAkPQReDzJM5Q8/7IfqXOJUi1NG64tXqwat4I4emTZl01mYZNqTiA4oP31lqT1
-         0e2wBkSk8hnxjuy08HHhbpYC557wpaGB0Nx9NL89+qJ0W+MZCsDscZZqfS4NIwQcL+LP
-         ZpiY19ClYW3xrd/xdjrxHcOzJqUlfvyKtLtcBet+KPwUr8GUmw5tiku1fmkM6CNyvyeJ
-         uU+SBvya8p0822gyaYPLsQwCZhpNo5fPC6HgHc7vRDBZR7ks30voHbyFhW3Xi8T7yIEE
-         TuVOFguy5lbJmPZM8SA/5A0dxl94oY0++97k11I2/lCBYaPR0G+/0E5C1VfM5J0223MD
-         0l5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=cDbl0kgd6ssdl7bsZMgJOL1FGQDT0Ezvyi60557NXxE=;
-        b=tJ4FCAWZ40D8YI1TOjmKM+7L0wYDd/W4GKDI5LNtbKRFcsPNZ94+zo3IMjccPCFSVB
-         ZUqtkqd4f4Rci19QMQ9HuXl5M/DmqfRgKSII2ygK8N4l7/7+wJOH1Z44B0fFVx46N+IU
-         gnhwKDIMuGAj0sfnWoQF81cmPiwN0hglekIjcky4LNXO8NHgXjU2IqMLdZPMw7wCRkWR
-         sqjt/6daRPHW30hbUlclAI4GdU4OmlndX2+6F773dZnf8ItuIsaPMS3gNgyLXA84opPS
-         FdMf758X7IbKB6SCyFSvQsaubY0+EY+++iFNQv6Em6kDC97HI11siE4bKQK6aGnF9O+6
-         DvjQ==
-X-Gm-Message-State: AOAM531jAbVvHOYcQ+5aaRiupQEotA2Y+8MvSs44zvELe4Kg3kDlVFTp
-        +eKAbHAxXEL6olz1FhgHSgBw21mgB54=
-X-Google-Smtp-Source: ABdhPJwNUFcfUHcYQHeoldCaEYxTsWrYZoa6QBt6iZxDSmzOVhAdnxhQGIqZnQuwYn4+15KMMUE1xA==
-X-Received: by 2002:a7b:cbd8:: with SMTP id n24mr5902686wmi.150.1638875153506;
-        Tue, 07 Dec 2021 03:05:53 -0800 (PST)
-Received: from [10.8.0.110] ([195.53.121.100])
-        by smtp.gmail.com with ESMTPSA id bg34sm2413786wmb.47.2021.12.07.03.05.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 07 Dec 2021 03:05:53 -0800 (PST)
-Message-ID: <6834024b-38d1-5c12-dcbf-a3e80488fd35@gmail.com>
-Date:   Tue, 7 Dec 2021 12:05:50 +0100
+        id S240665AbhLGSrg (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 7 Dec 2021 13:47:36 -0500
+Received: from esa3.mentor.iphmx.com ([68.232.137.180]:50633 "EHLO
+        esa3.mentor.iphmx.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S230001AbhLGSre (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 7 Dec 2021 13:47:34 -0500
+IronPort-SDR: KmEDRFIU+lZESwQybumotJS3k5nuKAPAc+4c0iixQn5hsZLjerfAIH3nauGe6Ki8VWIYkeZ6Y9
+ FW/Mcp/UBS+Xo74RPiGVF7PdnRAxEs+JEa8yBhvYdMs2x6QMtyfXZuxJ9UzNjvW2TPb8iE5lOJ
+ a7neWGz58atC8hZGwHSQnfmq1T0Bjx8vI6BtFAptiiixlQuTLA0rNlEXwiLYHw1QQNhp38beHE
+ fZbGWkDHifMBjyvu+U26aHd7mkpzqnQcT1iG6irAh5xlQaM1wcADOzlJ08dU5pirkHLzDiwm5+
+ ujo1vXDhS22RF9dpOIpeGPTp
+X-IronPort-AV: E=Sophos;i="5.87,295,1631606400"; 
+   d="scan'208";a="69247589"
+Received: from orw-gwy-02-in.mentorg.com ([192.94.38.167])
+  by esa3.mentor.iphmx.com with ESMTP; 07 Dec 2021 10:44:03 -0800
+IronPort-SDR: mn9eVMeLiyZ1P+Q7TRRREpdKP3XZYlZH0velsO2aAjgwhj0M8BywXD7OKq78Z7/qdNrtdGbLZ+
+ A2jaC2agRUrFBHH9scDaY1LtNI71+8kvb/HHCHY++EprJSPmJu0RsaM+qJ0ByaCogut1JRhmDC
+ esdHMqqZyuOHrYAJQWgvWN0SbC6I7lySxwQX5NEplvWKmzVEuOBJMtLVa3W2DwOAzvQbGOgEbu
+ dV9iyDIiKtF2Wqb7ZultPrZ7dH3/F6OAVNiTI0fPDWHyjSWnjl0HMSdxx7LRpwGwNd8EpZLrN6
+ K5M=
+Date:   Tue, 7 Dec 2021 18:43:56 +0000
+From:   Joseph Myers <joseph@codesourcery.com>
+X-X-Sender: jsm28@digraph.polyomino.org.uk
+To:     =?KOI8-R?B?zsHC?= <nabijaczleweli@nabijaczleweli.xyz>
+CC:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
+        <linux-man@vger.kernel.org>, Zack Weinberg <zack@owlfolio.org>,
+        <libc-alpha@sourceware.org>
+Subject: Re: [PATCH v3 3/3] system_data_types.7: note struct timespec::tv_nsec
+ type for x32 and portability
+In-Reply-To: <20211207014114.2ctce657cnnq4frv@tarta.nabijaczleweli.xyz>
+Message-ID: <alpine.DEB.2.22.394.2112071841360.426691@digraph.polyomino.org.uk>
+References: <a6f79435-1d9c-2c12-168b-035164a3b938@gmail.com> <8ce5f7ace7a64a499d08228c3aeef870310a78ca.1638827989.git.nabijaczleweli@nabijaczleweli.xyz> <539b8054-a29e-32c0-14f0-c772543b2bb3@gmail.com> <20211206233138.ahvjamiftceufvmj@tarta.nabijaczleweli.xyz>
+ <a55c07d0-960f-4dfe-90bf-4fee33976198@www.fastmail.com> <7c29781b-1030-44f9-b078-f5b09a14e321@gmail.com> <20211207014114.2ctce657cnnq4frv@tarta.nabijaczleweli.xyz>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-Subject: Re: [PATCH v2 3/4] system_data_types.7: correct struct
- timespec::tv_nsec type for x32
-Content-Language: en-US
-To:     Stefan Puiu <stefan.puiu@gmail.com>
-Cc:     =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>,
-        lnx-man <linux-man@vger.kernel.org>,
-        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
-References: <8d80e54b-6881-ee5e-0d14-305b510a28b1@gmail.com>
- <cover.1638821152.git.nabijaczleweli@nabijaczleweli.xyz>
- <8e968437b301aa7487e84cce21822b56072e9217.1638821152.git.nabijaczleweli@nabijaczleweli.xyz>
- <a6f79435-1d9c-2c12-168b-035164a3b938@gmail.com>
- <CACKs7VDHgVLAOPteGjTwo8FD_WGMcuiX7uxpGq0VnZTinkpeEQ@mail.gmail.com>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-In-Reply-To: <CACKs7VDHgVLAOPteGjTwo8FD_WGMcuiX7uxpGq0VnZTinkpeEQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed;
+        boundary="-1152306461-1623543596-1638902636=:426691"
+X-Originating-IP: [137.202.0.90]
+X-ClientProxiedBy: svr-ies-mbx-13.mgc.mentorg.com (139.181.222.13) To
+ svr-ies-mbx-01.mgc.mentorg.com (139.181.222.1)
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi, Stefan!
+---1152306461-1623543596-1638902636=:426691
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8BIT
 
-On 12/7/21 12:02, Stefan Puiu wrote:
->> Notes: glibc uses long long instead of long for tv_nsec in some
->> architectures:
->>
->>          #if !(__x86_64__ && __ILP32__ /* == x32 */)
->>                  long      tv_nsec;
->>          #else
->>                  long long tv_nsec;
->>          #endif
-> 
-> The #if condition is actually "we're not on x32", so maybe the comment
-> could say /* != x32 */? Otherwise it looks like the comment
-> contradicts the code; I know the comment is inside the paranthesis,
-> and the negation ('!') is outside, but the negation might be easy to
-> overlook.
-> 
-> Or maybe leave the x32 field size for a note? (E.g. something like
-> "This is true on almost all arches, but see NOTES", and then under
-> NOTES specify that "actually, on x32 tv_nsec is long long"). The #if
-> in the definition doesn't *exactly* match the code anyway.
+On Tue, 7 Dec 2021, наб via Libc-alpha wrote:
 
-In the latest version of the patch (unfortunately it's not tagged as 
-v4), we removed the negation to avoid that problem.
+> Looking through "timespec" on Aardvark for prior art reveals nothing,
+> except for a likely resolution to any proposal of this sort:
+> > Although we agree that it would have been better if these functions had
+> > been designed this way to begin with, we believe that making the change
+> > now will break existing, conforming code with no real benefit. 
 
-Thanks for reporting it :)
+Geoff Clare said (austin-group-l, Thu, 29 May 2014 16:20:22 +0100):
 
+  C11 requires tv_nsec to be type long, which means that if we change
+  it to be a new snseconds_t type in Issue 8, we would have to require
+  that snseconds_t is defined as long in order not to conflict with C11.
 
-Cheers,
-Alex
+and Rich Felker (Thu, 29 May 2014 13:08:59 -0400):
 
+  This is just a linux kernel bug which needs to be fixed. They have a
+  number of other such bugs in x32 too. It's possible to work around it
+  in userspace on the library side (we do this in musl libc) but it's a
+  bit costly/painful and glibc does not do so yet. There's an open bug
+  for it which I filed:
+
+and I don't see any other responses in that discussion.
 
 -- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+Joseph S. Myers
+joseph@codesourcery.com
+---1152306461-1623543596-1638902636=:426691--
