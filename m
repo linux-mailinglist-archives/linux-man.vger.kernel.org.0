@@ -2,97 +2,111 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 13B01470228
-	for <lists+linux-man@lfdr.de>; Fri, 10 Dec 2021 14:56:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 91978470E3E
+	for <lists+linux-man@lfdr.de>; Fri, 10 Dec 2021 23:54:35 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230205AbhLJOAS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 10 Dec 2021 09:00:18 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48360 "EHLO
+        id S243121AbhLJW6K (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 10 Dec 2021 17:58:10 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34656 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S238782AbhLJOAR (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 10 Dec 2021 09:00:17 -0500
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com [IPv6:2a00:1450:4864:20::431])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6C9DFC0617A1
-        for <linux-man@vger.kernel.org>; Fri, 10 Dec 2021 05:56:41 -0800 (PST)
-Received: by mail-wr1-x431.google.com with SMTP id a18so15068190wrn.6
-        for <linux-man@vger.kernel.org>; Fri, 10 Dec 2021 05:56:41 -0800 (PST)
+        with ESMTP id S233008AbhLJW6J (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 10 Dec 2021 17:58:09 -0500
+Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com [IPv6:2607:f8b0:4864:20::22e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3FB92C061746
+        for <linux-man@vger.kernel.org>; Fri, 10 Dec 2021 14:54:34 -0800 (PST)
+Received: by mail-oi1-x22e.google.com with SMTP id t23so15272183oiw.3
+        for <linux-man@vger.kernel.org>; Fri, 10 Dec 2021 14:54:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=TqdVHI1+0TRQwXF6ylUKiH5zwIFza/cw/svnvRur3aM=;
-        b=oLSi6bXHG0YqWLRVzlDYAZbaRpwCQi5n149N+K4pIeocs3fXfnFuBhMyQLduM0FrDs
-         yRQE3/qzwVZkE6yLx7P7ACxRbGnvTHHrOKKvFFg6loIKxsQaMPLzpf1bh7mXupyD3j9c
-         2I0AkyMVwsFWAIiaO2zRlxO3KNWBVmhkmCDu92A4mrEM/sZsycaDHfnu6p+GjkvRnOWl
-         KAgaKIAP6xf7kFTV1cIzL5Xn1qiFoJGwrzwzhEZfLflILqhl6DehQsAWxUPepinK5i7a
-         ekhEJWZvuG0tRRQXSKDjHVb2H8YmHFzR5mzvsLFAjfS/gJZV5BNlKysAPoCl/N0ccocU
-         vZaQ==
+        h=to:cc:from:subject:autocrypt:message-id:disposition-notification-to
+         :date:user-agent:mime-version:content-language
+         :content-transfer-encoding;
+        bh=G4xpccWtbxPqpe5ww+K16kMqIVpRWndgZckgCf7nZuk=;
+        b=eNt6SHDQbP4brFPFMgxKDehHBnvXQRhcHfg9xn9PTYcSa5dJXfCTczgnS8hYJJdcMp
+         7VWkvFIsE3nlc6OWOJ0gFzp95W38ge67bbSXcwHvjyqfxKSLq2csiyZb0i0AEMkVScdy
+         3Yg+FftraazHC5wc6Y3kvVTRuuF/OxzmHBcpAciD/Qw9B0F0PDKdGuhtnIzoNkBApQJk
+         75I5cfyxzM2W2zxca/pefjMvb6uVAsnzGLZDx6DwSgPSsEx8WTBi2KoXn0j1IC/JAlcK
+         kYkM6Kzu/6zOVWsXs9OQQ1G7dPlcwbXTg+rkIZR3xEz/pyNScGhLe2K9tN67biFHGxnP
+         v+VQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=TqdVHI1+0TRQwXF6ylUKiH5zwIFza/cw/svnvRur3aM=;
-        b=oCBd9RvEZ2XEq2yGbi4ySlxH6JoQ+aFGD8lNiThsLQ3jm5lkemdhe7GoSPpptsIHje
-         G/To8Kpz7uE0QbCagYlRTzSkycsdle3fil7qXtiobRv2+qmWnWK0CkLTqM+tm4/0D7Fl
-         3GXVNI9WFxdc4WOu9KuUNqb2YUvU44qLatneKd8lny1SiWYr+EWWEd4Z0uuAtXPiKemC
-         XAnAWtjf385+1EAcK7f2jp7reWcncmA9xFbKFosEEzZCZz2y/pfOJmvCsibas9OnXmld
-         HvXLZTtvWHu8dc08EzWezcS1Ry5Roqh0O7sItiwunu4bg1c/hFbLGHaBYaLROuPGbo3z
-         B5cg==
-X-Gm-Message-State: AOAM532ZX/FygzcinWZ7RaLcuRBmbWOmx9G+WfYTmHuA8FdjZ4xif1OD
-        Qr+pbJcQaNvqFt5uG9oc/rQ=
-X-Google-Smtp-Source: ABdhPJy1d1YaaT/Fg+fgVKQEcFIM2gYWisOHLMTX24E87gStFAPZU2bYOPZ6zsBHyCYotdgUulwQaw==
-X-Received: by 2002:a5d:54c5:: with SMTP id x5mr13499197wrv.607.1639144599944;
-        Fri, 10 Dec 2021 05:56:39 -0800 (PST)
-Received: from [10.8.0.98] ([195.53.121.100])
-        by smtp.gmail.com with ESMTPSA id w2sm2566795wrn.67.2021.12.10.05.56.38
+        h=x-gm-message-state:to:cc:from:subject:autocrypt:message-id
+         :disposition-notification-to:date:user-agent:mime-version
+         :content-language:content-transfer-encoding;
+        bh=G4xpccWtbxPqpe5ww+K16kMqIVpRWndgZckgCf7nZuk=;
+        b=Pn6kHQkfvnOlf6UqX+e4vg8bml8toiPIhJzzI/qHsqCXxD2E3T+7RD5QXZgMaPEPVl
+         Y/ISKmGTVO3VeXt2t7pr6PEoggJlUhwGt73rbHaj78OGM7/kNLRTkUBrfJ3RsY25qv2u
+         Nt0pij+RSxA6r2i5MJ7wVssNoMQ8Vlbcgl/bBTpNFE3RL41usBYJkSl4vvnvr4U1STRh
+         jKrJpsMyCfXyqDfymayo+a9HzVLnJ78/MX0rfwG3nbzuVg7cr1pvzn8QvyGG1+0YchZv
+         gbKvGFLkuUexkwjNNiT7A8ijvSrqEF2kJWhqP3S7jnqqOcZnLQqbttKkl8qqT1u3cGWs
+         6GTw==
+X-Gm-Message-State: AOAM533XooXt86Sh3cTlUaWyYUEFyBisQI3eSGZEbcddozYFzUqIqHtZ
+        QN6jpiHXn4cEERHoQ+QNGDEZhETWKBs2mAJ9
+X-Google-Smtp-Source: ABdhPJzsBqiBX4mup14INkyMM691yVmW6+hvyduO59Wuznsr8MSyBLC4UmKX5IryYj6bvPon82MYFg==
+X-Received: by 2002:aca:af42:: with SMTP id y63mr14839617oie.167.1639176873142;
+        Fri, 10 Dec 2021 14:54:33 -0800 (PST)
+Received: from [192.168.6.104] (66-76-46-195.nacdcmta02.com.sta.suddenlink.net. [66.76.46.195])
+        by smtp.gmail.com with ESMTPSA id a17sm1112139oiw.43.2021.12.10.14.54.32
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 10 Dec 2021 05:56:39 -0800 (PST)
-Message-ID: <e1b659e8-7efe-a6e2-6fdb-0ed4f4b29b7c@gmail.com>
-Date:   Fri, 10 Dec 2021 14:56:37 +0100
+        Fri, 10 Dec 2021 14:54:32 -0800 (PST)
+To:     alx.manpages@gmail.com, mtk.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org
+From:   "David C. Rankin" <drankinatty@gmail.com>
+Subject: man 8 usermod -e, --expiredate EXPIRE_DATE information incorrect
+ (can't be blank, must be -1 to clear)
+Autocrypt: addr=drankinatty@gmail.com; prefer-encrypt=mutual; keydata=
+ xsDiBEbFKlYRBACibVGPMBW9U+zOxDNRuQQDyBgBrbepywe57NN9SMRDN2AWyX/jhAzchyrS
+ Imk3xOQSUv3tjEX65cV3tA4hqsg8o9poMLwN/7/WUO7Gw8dyIGVptqVMHdrGktnZouaqGkg/
+ v86FYf7hgyzfYZUmHOdO2Un8RR6wFiXjKZDyhelh0wCgtHWt/Sn9x+Ia2WvaLcLKPCNZnKsD
+ /1GTwdYnL3mmMi1odttrtreXd7he7lMB/yC+IaO6DfEvl7ElR4h/S/34sjG+WciMJXTbGuOd
+ 2B58Ec/FhkD0OIMyz6G6fEgbmnC3zUoJdne94sGE/tA7CjaWIPjn14qCHVKIAIo3lZN44cHr
+ nCpdzB2Ao4V3HNc5pHMQv1ToB5dcA/9aJn99VdaWm3AXxFWRTFTm5HKk2WVoei0vYs4zdshd
+ OEa8ZjxahmPwIsyfdoV1S6o5Y1vRwp1v1eAvyIqMXJvJ8xSn2U40Tf1CaHMxx+ynBa+VOlxr
+ 1hvu8oGNGWHYu+zw5sZTn+lcDiQ6YVOU7UHlmHgy4kuCSQ0itbpRszrmvM1SRGF2aWQgQy4g
+ UmFua2luLCBKLkQuLFAuRS4gKEEgZmV3IGdvb2QgbGluZXMgb2YgY29kZS4uLikgPGRhdmlk
+ QHJhbmtpbmxhd2Zpcm0uY29tPsJgBBMRAgAgAhsDBgsJCAcDAgQVAggDBBYCAwECHgECF4AF
+ AkjTLBgACgkQZMpuZ8Cyrcj9pgCgi/w1TzzWBEM0Fk59evxBFCHegREAnj/T50dSxbNPf0Om
+ svvASItE/XDGzsFNBEbFKl0QCACKWJMwFsULm6+P+O7HapF6IvSkjjlKR+vPI9NqrLmhWpgF
+ QA0Hn6wuqaV3Ul+DFXZJRVqNj5tai9AkW5m7bZtmPdKa9YJN/zPF0XbSiTUwONWzZCUdlDGk
+ 8rh4Y5/2G3D7g0YxuFgkb0mqobHiX+2N3I5xcdQ4tXcxbYa4fV7vTNeeN9xAbQ17YRRDIsBO
+ hbmjdCdXEkzlSUqmcCpNmbaZEE7BAn7jQmvgc6b/U063ZJU8zLksKtNKt5it/Tb+okjbjdnC
+ mjV0xPZ1IqY5h0r1eldo3xYtK3rd/snwsibphHWNaXhUe1ANl2RhMtaRB0fXuumuFP1GJH+N
+ GetqhQgPAAMFB/4yXt6nBHPDRGBUUMeJXkcCmR71QlC9QyFtzwX51ns48pX6yG3P48AN03f0
+ n0JNGTYt4yuLG/9eDXET0oHXo3Zz/24Ga9HDcGlw3MYR6/0+uF8Chax/QqxdJiWWtVyxWCWh
+ ETmaiW+5LKUVC6wvNwaTcFOacy3Wuhfcj3d3hqHIf4k/9U3ImfxUP7lomJtDQS44iFMFS96t
+ rE6ySmBmxef0QYdLswzKzyj5f05QVK+qhmW+Ed/Izs7WBWLkLx2sFeaGU42SGoq/LgUb/SA8
+ boQ53Bxo+VS3zrEEPHjH69EKleJRaVRSY5ZuuOEcvbpnQkYbN0ewpvYy1d9uNhmiVD+gwkkE
+ GBECAAkFAkbFKl0CGwwACgkQZMpuZ8Cyrci7sgCeK1jWjhnbWWvpHWLbwlvIFwX4hNAAnAxJ
+ Mh45mdv1t+Ga2amaUUWixmPI
+Message-ID: <57850ad8-4ef5-af6c-fb64-f7c640c3b40d@gmail.com>
+Date:   Fri, 10 Dec 2021 16:54:32 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-Subject: Re: [PATCH v2 0/4] fanotify man page updates for v5.13
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-To:     Amir Goldstein <amir73il@gmail.com>
-Cc:     Matthew Bobrowski <mbobrowski@mbobrowski.org>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        Jan Kara <jack@suse.cz>, linux-man <linux-man@vger.kernel.org>,
-        Gabriel Krisman Bertazi <krisman@collabora.com>
-References: <20211120171253.1385863-1-amir73il@gmail.com>
- <4c1659ad-dbaf-dccd-95bb-fe224c4c0912@gmail.com>
- <CAOQ4uxhuBm6oMGNVmtsrgErbbrTcd72Xuib5Fv=yfySbpqFoKg@mail.gmail.com>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-In-Reply-To: <CAOQ4uxhuBm6oMGNVmtsrgErbbrTcd72Xuib5Fv=yfySbpqFoKg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi, Amir!
+Dear usermod man page maintainers,
 
-On 12/10/21 10:37, Amir Goldstein wrote:
-> On Mon, Nov 22, 2021 at 6:57 PM Alejandro Colomar (man-pages)
-> <alx.manpages@gmail.com> wrote:
->> Patch set applied.
->> See some tweaks below.
->>
-> 
-> I understand that the patches were applied to your github tree main branch [1]
+  There is an error in the description of the option for:
 
-Yes.
+-e, --expiredate EXPIRE_DATE
 
-> 
-> Should we regard that branch as the "next" branch and base our next
-> fanotify man page updates (i.e. FAN_REPORT_PIDFD) on top of it?
+  The man page states:
 
-And yes.
+An empty EXPIRE_DATE argument will disable the expiration of the account.
 
-Thanks,
-Alex
+  This is incorrect. The EXPIRE_DATE argument CANNOT be empty or it will take
+the LOGIN as the value for the EXPIRE_DATE.
+
+  Instead, the correct use is "-e -1" or "--expiredate -1" where "-1" (-one)
+is provided as the EXPIRE_DATE value.
+
+See, e.g.: https://stackoverflow.com/a/30769911/3422102
 
 -- 
-Alejandro Colomar
-Linux man-pages maintainer; https://www.kernel.org/doc/man-pages/
+David C. Rankin, J.D.,P.E.
