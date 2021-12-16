@@ -2,49 +2,85 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E0B26476AA0
-	for <lists+linux-man@lfdr.de>; Thu, 16 Dec 2021 07:52:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 4A9CA4770B8
+	for <lists+linux-man@lfdr.de>; Thu, 16 Dec 2021 12:42:53 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230062AbhLPGwM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 16 Dec 2021 01:52:12 -0500
-Received: from spd108.phy.lolipop.jp ([163.44.185.76]:49506 "EHLO
-        spd108.phy.lolipop.jp" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229459AbhLPGwM (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 16 Dec 2021 01:52:12 -0500
-X-Greylist: delayed 478 seconds by postgrey-1.27 at vger.kernel.org; Thu, 16 Dec 2021 01:52:12 EST
-Received: by spd108.phy.lolipop.jp (Postfix, from userid 995)
-        id 70B9B1C326E1D; Thu, 16 Dec 2021 15:44:13 +0900 (JST)
-To:     linux-man@vger.kernel.org
-Subject: =?UTF-8?B?5pyo5pu05rSl44Gu57WQ5ama55u46KuH5a6k44CA44Oe44Oq44OD44K444Kz?=  =?UTF-8?B?44Op44OgICJmZG9kcTFyIg==?=
-X-PHP-Originating-Script: 778591:class-phpmailer.php
-Date:   Thu, 16 Dec 2021 06:44:13 +0000
-From:   =?UTF-8?B?5pyo5pu05rSl44Gu57WQ5ama55u46KuH5a6k44CA44Oe44Oq44OD44K444Kz?=
-         =?UTF-8?B?44Op44Og?= <wordpress@marriage-column.com>
-Reply-To: info@ikumen.hungry.jp
-Message-ID: <e77f0f7202aed39256523b4ef913c9bb@marriage-column.com>
-X-Mailer: PHPMailer 5.2.22 (https://github.com/PHPMailer/PHPMailer)
+        id S233613AbhLPLmt (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 16 Dec 2021 06:42:49 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60292 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S233647AbhLPLmm (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 16 Dec 2021 06:42:42 -0500
+Received: from mail-qt1-x82e.google.com (mail-qt1-x82e.google.com [IPv6:2607:f8b0:4864:20::82e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 024B9C0613A5
+        for <linux-man@vger.kernel.org>; Thu, 16 Dec 2021 03:42:40 -0800 (PST)
+Received: by mail-qt1-x82e.google.com with SMTP id t34so25107003qtc.7
+        for <linux-man@vger.kernel.org>; Thu, 16 Dec 2021 03:42:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:reply-to:from:date:message-id:subject:to;
+        bh=xre5um49Rnqa1tZMCD58Cd6UlD4MleswKAp3tzt2gjo=;
+        b=XAiY5JQCbKhUV3kfV68NxknTY8076aQ+jZiIG+NNSnrj8SbWsLA5ZyVis9Hv7MDsX5
+         Wp1aJ8rEmDfQ1U3vhA+W5Q6fUW0sQxhqwaHiosPbQFbyYijHt4Icvm/T0vEK5/kKmBc+
+         QqELCOAj0es+5TzRQyWwGBhwQGehjbOewfhMN3/S4hQw7QoR6Y3+tDzh1TbUcqm1TT9t
+         NYT2/qpfB6ahTcpnyVYoBu/0br0EmuZ66fyA68h0ieuZcBkGcxPgfheRqd2GHCJMPyzP
+         6QgpFUXd/uCVTtz1/hZUUGudKd9Q0ZImcSJeB1tjd8lIsCPvJkt1eKVnbTcB60Kk9v0/
+         CoRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to;
+        bh=xre5um49Rnqa1tZMCD58Cd6UlD4MleswKAp3tzt2gjo=;
+        b=XHolDClJKDcFK+ON9pgzd6G5vauA10doYw67+MT+R4ldlk0l3narIBRTcwQLJHV8Pt
+         4PjfvLekq3WpK/LW4Fpg0OmVEeWuYOJN8Ea3wjSgDHIfp3bil3s/2ITKXA/J3E8V7OEw
+         VQev6RgDyIfmwoumWWN3EgI+E7RqTDlog6ntBlAejAOnIIXP9WOYjkvtHz67otriNzf+
+         i9ybqI65GsSsyGFzruJ2pVdC5SqGPGPkgkfBIAVZ0eVJoTGn31OQB7PliKO8KIpBEIPP
+         jc4HPHm5NDuSoMf882Yy9mDgEsGoR+AgcgkzenruqtrukGMXGFmoftaehiQtBhQXJwi9
+         nrHA==
+X-Gm-Message-State: AOAM532ex/EGbSSb6xXtupGJPQw7Xr8UUN1Y1q3VUnROLIW0NIW7fxdC
+        OZ3g7ZjoHNFAczn6hV1ymFfxl5MWmo40uQeoIk/QR7bLMRY=
+X-Google-Smtp-Source: ABdhPJxzAaV5DauAecsJzqBWmheSvDxk3ghiLfb6YRovClVg4kL4yUlGwYUFAnV+1q8jYrfo3AT6l8iJutzsg/2jTPA=
+X-Received: by 2002:a05:622a:1d4:: with SMTP id t20mr16497208qtw.84.1639654948506;
+ Thu, 16 Dec 2021 03:42:28 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Received: by 2002:a05:622a:199c:0:0:0:0 with HTTP; Thu, 16 Dec 2021 03:42:28
+ -0800 (PST)
+Reply-To: selviasantiago1@gmail.com
+From:   Selvia Santiago <mariamatinez119@gmail.com>
+Date:   Thu, 16 Dec 2021 11:42:28 +0000
+Message-ID: <CAONDhKOtxcgjB1YEPd0RXNOVbbQ8k-9k32v_cdFxEKFzk62kJg@mail.gmail.com>
+Subject: Urgent
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-お問い合わせいただきまして誠にありがとうございます。
-
-確認次第ご連絡をさせていただきます。
-
-＊＊＊
-差出人: ❤️ You have unread messages from Shannon (2)! Click Here: http://bit.do/fSTHz?sr9dy ❤️ <linux-man@vger.kernel.org>
-電話番号：605358534343
-お住まいの地域：prrzw6j0
-
-題名: fdodq1r
-
-メッセージ本文:
-vgwszt87
-
-
 -- 
-このメールは 木更津の結婚相談室　マリッジコラム (https://marriage-column.com) のお問い合わせフォームから送信されました
+Urgent
 
+I am Mrs. Selvia Santiago from Abidjan, Cote D'Ivoire, I am a widow
+suffering from long time illness (Cancer), there is funds I inherited
+from my late loving husband Mr. Santiago Carlos, the sum of (US$2.7
+Million Dollars) which he deposited in bank before his death, I need a
+honest and Faithful person that can use these funds for humanity work.
+
+I took this decision because I don't have any child that will inherit
+this money and I don't want a situation where this money will be used
+in an ungodly way. That is why I am taking this decision, and my
+doctor has confirmed to me that I have less than two weeks to live,
+having known my condition I decided to donate this fund to a charity
+or individual that will utilize this money to assist the poor and the
+needy in accordance to my instructions.
+
+I want you to use 70% of this funds for orphanages, school, church,
+widows, propagating the word and other humanity works,The remaining
+30% should be yours for your efforts as the new beneficiary.
+
+Please if you would be able to use these funds for humanity work
+kindly reply me. As soon as I have received your response, I will give
+you further directives on how you are to go about the claims of the
+said funds.
+
+Remain blessed.
+Mrs Selvia Santiago.
