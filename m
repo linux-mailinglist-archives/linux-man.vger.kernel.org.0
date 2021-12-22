@@ -2,122 +2,137 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 5871047CA75
-	for <lists+linux-man@lfdr.de>; Wed, 22 Dec 2021 01:39:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 8D09A47D65E
+	for <lists+linux-man@lfdr.de>; Wed, 22 Dec 2021 19:16:26 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235229AbhLVAjI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 21 Dec 2021 19:39:08 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45142 "EHLO
+        id S235800AbhLVSQZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 22 Dec 2021 13:16:25 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57176 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234160AbhLVAjH (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 21 Dec 2021 19:39:07 -0500
-Received: from ams.source.kernel.org (ams.source.kernel.org [IPv6:2604:1380:4601:e00::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7F8D8C061574;
-        Tue, 21 Dec 2021 16:39:07 -0800 (PST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by ams.source.kernel.org (Postfix) with ESMTPS id A7760B81A43;
-        Wed, 22 Dec 2021 00:39:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC794C36AE9;
-        Wed, 22 Dec 2021 00:39:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1640133544;
-        bh=M6gBu5PznHBo4KKDniMEoCRoA9ky61/ubPU1ZfzuUx4=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=J2UZF/cmZc3nWKebMY1bBUq2bhsVQ1yJ7OLihAQp3nYu1MbrMxtF2BWKzXWo4hjVS
-         Eg17zYny4ceStuWcWMNeYgbrQSXTgaCGx0aL9bn7CChUkLTp6ncCB94y76kHJxp+tL
-         VJPDB5wBj2JOzSOEn+Vk3eFd2Ajhns09CIgj8Mfw/CIoU+QCxUpxDxXa5aHw75jWYH
-         RlxaWZEk2NxkGKOq+GJrxUkFnxgj5VxkhH0h5Bid3hq1UgmndWWmHHN4j56FQ4jhqn
-         oJfIz13oU6V3Gt8c0uGoLs5xnh+Zxtkp1Rh3QU3k/tmeiyZGETNneKE6lCc4KnzBTN
-         Foc8yL/1mtRAw==
-Date:   Wed, 22 Dec 2021 02:39:02 +0200
-From:   Jarkko Sakkinen <jarkko@kernel.org>
-To:     Reinette Chatre <reinette.chatre@intel.com>
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-man@vger.kernel.org, linux-sgx@vger.kernel.org,
-        dave.hansen@linux.intel.com, nathaniel@profian.com
-Subject: Re: [PATCH v10] sgx.7: New page with overview of Software Guard
- eXtensions (SGX)
-Message-ID: <YcJzpqa9RNzg+Vim@iki.fi>
-References: <20211130175007.22903-1-jarkko@kernel.org>
- <8f84b8e8-b478-bb81-4aa8-536df882a144@intel.com>
- <e998dddb2efd158ac14dc3c5393efe882ca62d16.camel@kernel.org>
- <3af1d311-7ef8-1b67-fcae-5cd15be02606@intel.com>
+        with ESMTP id S233546AbhLVSQZ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 22 Dec 2021 13:16:25 -0500
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com [IPv6:2a00:1450:4864:20::42c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 15BD5C061574
+        for <linux-man@vger.kernel.org>; Wed, 22 Dec 2021 10:16:25 -0800 (PST)
+Received: by mail-wr1-x42c.google.com with SMTP id r17so6604004wrc.3
+        for <linux-man@vger.kernel.org>; Wed, 22 Dec 2021 10:16:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=b4OxtBi8ZX29rOXVdQhavC/nD0eh4IKYy5EF2sgHkKs=;
+        b=HlFXGBFZVImBqSvcH8R4o9KFI3Af0WtMPw0n7LsbzAp12YhZI1OGgpf8n7+/X6UXv/
+         3krrG+3JDtguWWve7Z5+npgwuj0/hc+GRAB4mOHj5g1JoHFjLD5AZ0+CNNSZ3K0/2vaZ
+         NA0HWibtBjH7AXVEbLnMMx4Kf8l5pumvyg1QlTctw68FG98HfZIMqjanGXOykiqT7ImN
+         uCRsRKyNUowPm2lWnUJn0S9PHvN3MinocUTbhczs7BQR/RdYXfZnCSB3nrgOqdtZIflw
+         Z1XlABvTD5Hh825wevqOXXgRjWgXgUaljfmYrdUFF+tG/P3wVZs6bq2N3AI3VFxVp5q0
+         EiBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=b4OxtBi8ZX29rOXVdQhavC/nD0eh4IKYy5EF2sgHkKs=;
+        b=4ATjYuhTzKxFWfXQ05FLa8SNuitJGhE7HPDS4N4Zp8dG6zJDi6LPvTG9VUtwdFrLri
+         dlcouihqki6XD8gPhw3rsRSBkSQlHgjij9sPGps9mzQRztSCFmwZQm4sC3xjk/wKMGnL
+         EEl8yBpyTv+V38Cz8suOOSBpcBXmt1OsrN4ZgER8bpJFf5FrcqnplzUgFZNqlZbfjC5T
+         GfHLJdvyRty6wMceKXazOzgs9qMUhfqnzNRHQWv5ax72V1410TVPxIEgL1WRp945aTh+
+         HY1md36KF4mEhRfcXSuC6oJy3FVgNIhDzz1JcH8AcHK5rWCrj37RcqZ+e+QeoVmwMQW3
+         YTMQ==
+X-Gm-Message-State: AOAM53153ESONfA8/S9Yo0/B5iCTPlq43BYQyjlyoKF+AtNG0yciBniv
+        qUrxXSnjv6odhQ6B3on5vgDv6Xend80=
+X-Google-Smtp-Source: ABdhPJyg+/I2MlyBvmaBqHrbJEJYD9NR8MzVhhHJx8FLFAX8/MTsczHGckBZ+zD1ZLJ1GXhPQW8igA==
+X-Received: by 2002:adf:bc89:: with SMTP id g9mr2779930wrh.578.1640196983707;
+        Wed, 22 Dec 2021 10:16:23 -0800 (PST)
+Received: from ady1.alejandro-colomar.es ([170.253.36.171])
+        by smtp.googlemail.com with ESMTPSA id c13sm2487001wrt.114.2021.12.22.10.16.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 22 Dec 2021 10:16:23 -0800 (PST)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+To:     linux-man@vger.kernel.org,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        Adhemerval Zanella <adhemerval.zanella@linaro.org>
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        libc-alpha@sourceware.org, Florian Weimer <fweimer@redhat.com>
+Subject: [PATCH] printf.3: Document %#m as strerrorname_np(errno)
+Date:   Wed, 22 Dec 2021 19:15:40 +0100
+Message-Id: <20211222181539.3262-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3af1d311-7ef8-1b67-fcae-5cd15be02606@intel.com>
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Mon, Dec 13, 2021 at 11:51:36AM -0800, Reinette Chatre wrote:
-> Hi Jarkko,
-> 
-> On 12/11/2021 7:19 AM, Jarkko Sakkinen wrote:
-> > On Wed, 2021-12-08 at 14:11 -0800, Reinette Chatre wrote:
-> > > On 11/30/2021 9:50 AM, Jarkko Sakkinen wrote:
-> 
-> ...
-> 
-> > > > +.SH SYNOPSIS
-> > > > +.EX
-> > > > +.B #include <asm/sgx.h>
-> > > > +.PP
-> > > > +.IB enclave " = open(""/dev/sgx_enclave", " O_RDWR);"
-> > > 
-> > > I view the man page output using "man -l man7/sgx.7" and when I do so
-> > > the above line is unbalanced: "enclave" and (unexpectedly) the comma are
-> > > underlined and the line is displayed with a single instance of a double
-> > > quote: enclave = open("/dev/sgx_enclave, O_RDWR);
-> > 
-> > After some trial and error, and looking at symlink.7, this seems to
-> > fix it:
-> > 
-> > -.IB enclave " = open(""/dev/sgx_enclave", " O_RDWR);"
-> > +.IB enclave " = open(""/dev/sgx_enclave"", O_RDWR);"
-> > 
-> > Does this fix for you?
-> 
-> Yes, thank you. When looking at your updated patch I see that only enclave
-> is underlined and the quotes are matching.
-> 
-> ...
-> 
-> > > > +is called with higher protections than those defined during the build,
-> > > > +it will return
-> > > > +.B -EACCES.
-> > > > +If
-> > > > +.BR ioctl(SGX_IOC_ENCLAVE_ADD_PAGES)
-> > > > +is called after
-> > > > +.BR mmap (2)
-> > > > +with lower protections,
-> > > > +the caller receives
-> > > > +.BR SIGBUS,
-> > > > +once it accesses the page for the first time.
-> > > > +.SH VERSIONS
-> > > > +The SGX feature was added in Linux 5.11.
-> > > 
-> > > This does not document the SGX_IOC_VEPC_REMOVE ioctl that was added in
-> > > v5.16. How do you envision additions to this page as new features are
-> > > added to the Linux support of SGX?
-> > 
-> > I started this before any of KVM stuff was in upstream. It'd be better
-> > to get the basic ioctl's done first. I cannot really give estimate for
-> > vepc at this point.
-> 
-> SGX_IOC_VEPC_REMOVE_ALL can be found in v5.16.
+Reported-by: Adhemerval Zanella <adhemerval.zanella@linaro.org>
+Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+Cc: libc-alpha@sourceware.org
+Cc: Florian Weimer <fweimer@redhat.com>
+Cc: Michael Kerrisk <mtk.manpages@gmail.com>
+---
 
-I'd get the basic API documentation ready first and continue to that after
-it is final.
+Hi Adhemerval and Michael,
 
-> > For future features (e.g. SGX2), the expectation is that the feature is
-> > supported by an associated man page update.
-> > 
-> 
-> ok, thank you.
-> 
-> Reinette
+First of all, happy new solar year! :)
 
-/Jarkko
+I added documentation for "%#m".  Could you confirm I got the
+glibc version correct, and also have a look at the changes?
+
+Thanks for the report!
+
+Cheers,
+Alex
+
+ man3/printf.3 | 23 ++++++++++++++++++++++-
+ 1 file changed, 22 insertions(+), 1 deletion(-)
+
+diff --git a/man3/printf.3 b/man3/printf.3
+index 4fa1f11f3..1e2bac4df 100644
+--- a/man3/printf.3
++++ b/man3/printf.3
+@@ -301,6 +301,17 @@ and
+ .B G
+ conversions, trailing zeros are not removed from the result as they would
+ otherwise be.
++For
++.BR m ,
++if
++.I errno
++contains a valid error code,
++the output of
++.I strerrorname_np(errno)
++is printed;
++otherwise, the value stored in
++.I errno
++is printed as a decimal number.
+ For other conversions, the result is undefined.
+ .TP
+ .B \&0
+@@ -853,7 +864,10 @@ any flags, a field width, or a precision.
+ .B m
+ (Glibc extension; supported by uClibc and musl.)
+ Print output of
+-.IR strerror(errno) .
++.I strerror(errno)
++(or
++.I strerrorname_np(errno)
++in the alternate form).
+ No argument is required.
+ .TP
+ .B %
+@@ -974,6 +988,13 @@ and conversion characters \fBa\fP and \fBA\fP.
+ .PP
+ glibc 2.2 adds the conversion character \fBF\fP with C99 semantics,
+ and the flag character \fBI\fP.
++.PP
++glibc 2.35 gives a meaning to the alternate form
++.RB ( # )
++of the
++.B m
++conversion specifier, that is
++.IR %#m .
+ .SH NOTES
+ Some programs imprudently rely on code such as the following
+ .PP
+-- 
+2.34.1
+
