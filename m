@@ -2,69 +2,82 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A7AE3481B34
-	for <lists+linux-man@lfdr.de>; Thu, 30 Dec 2021 10:43:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 959574822D3
+	for <lists+linux-man@lfdr.de>; Fri, 31 Dec 2021 09:36:35 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S238298AbhL3JnF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 30 Dec 2021 04:43:05 -0500
-Received: from mail.loongson.cn ([114.242.206.163]:47884 "EHLO loongson.cn"
-        rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org with ESMTP
-        id S234584AbhL3JnF (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Thu, 30 Dec 2021 04:43:05 -0500
-Received: from localhost.localdomain (unknown [111.9.175.10])
-        by mail.loongson.cn (Coremail) with SMTP id AQAAf9BxnN0cf81hAWEFAA--.1871S2;
-        Thu, 30 Dec 2021 17:42:57 +0800 (CST)
-From:   Huang Pei <huangpei@loongson.cn>
-To:     Michael Kerrisk <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-Subject: [PATCH] encrypt.3: encrypt/encrypt_r, not crypt/crypt_r were deleted from 2.28
-Date:   Thu, 30 Dec 2021 17:42:51 +0800
-Message-Id: <20211230094251.538-1-huangpei@loongson.cn>
-X-Mailer: git-send-email 2.20.1
+        id S230180AbhLaIge (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 31 Dec 2021 03:36:34 -0500
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124]:44426 "EHLO
+        us-smtp-delivery-124.mimecast.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S230135AbhLaIge (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 31 Dec 2021 03:36:34 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1640939793;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:
+         content-transfer-encoding:content-transfer-encoding;
+        bh=EtCrnY+9kzxFvWuDhWR9MXvZFoYeOJDy4XloUE7zhPA=;
+        b=Nzz5iKbAPxsVsRlD8l75NJV0p+I/1St8/Yiavz6u361wzPTNO6eOQ8jvSNQxrNAm3cFDcX
+        UQouFHss3daJfkdkIEDFm8/WXd7Y93j5zaQhb8gxxKGwewLrE1BFv0rtyalDlLcc6NoBYB
+        /kWhuBgchY28ylJCIuPRyYNmRawtyIs=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-331-WeFGkrk7MFeH_Kjhnu3rTQ-1; Fri, 31 Dec 2021 03:36:30 -0500
+X-MC-Unique: WeFGkrk7MFeH_Kjhnu3rTQ-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 180072F50;
+        Fri, 31 Dec 2021 08:36:29 +0000 (UTC)
+Received: from dev64.localdomain.com (unknown [10.64.242.56])
+        by smtp.corp.redhat.com (Postfix) with ESMTP id AADDB7A229;
+        Fri, 31 Dec 2021 08:36:25 +0000 (UTC)
+From:   Masatake YAMATO <yamato@redhat.com>
+To:     linux-man@vger.kernel.org
+Cc:     alx.manpages@gmail.com, mtk.manpages@gmail.com,
+        Masatake YAMATO <yamato@redhat.com>
+Subject: [PATCH] ioctl_tty.2: Update the section number of ldattach
+Date:   Fri, 31 Dec 2021 17:36:07 +0900
+Message-Id: <20211231083607.2491246-1-yamato@redhat.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: AQAAf9BxnN0cf81hAWEFAA--.1871S2
-X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
-        VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUU5t7k0a2IF6w1UM7kC6x804xWl14x267AK
-        xVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGw
-        A2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26F1j
-        6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1l84ACjcxK6I8E87Iv67AKxV
-        W0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAa
-        Y2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4
-        A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCF04k2
-        0xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI
-        8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jrv_JF1lIxkGc2Ij64vIr41l
-        IxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIx
-        AIcVCF04k26cxKx2IYs7xG6rWUJVWrZr1UMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvE
-        x4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU8v_M3UUUUU==
-X-CM-SenderInfo: xkxd0whshlqz5rrqw2lrqou0/
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-See sysdeps/unix/sysv/linux/riscv/rv{32,64}/libcrypt.abilist from
-glibc
+The man page for ldattach was added to util-linux(-ng?)
+as a part of the section 8, not the section 1.
 
-Signed-off-by: Huang Pei <huangpei@loongson.cn>
+    commit 1e8d11c459ae93a4d8d7976a8530ae5198206a26
+    Author: Tilman Schmidt <tilman@imap.cc>
+    Date:   Mon Mar 10 14:20:26 2008 +0100
+
+	ldattach: new command
+
+	Add an ldattach(8) utility program similar to the one in OpenBSD.
+
+	Signed-off-by: Tilman Schmidt <tilman@imap.cc>
+
+Signed-off-by: Masatake YAMATO <yamato@redhat.com>
 ---
- man3/encrypt.3 | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ man2/ioctl_tty.2 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/man3/encrypt.3 b/man3/encrypt.3
-index b4be7f3e0..b7df15777 100644
---- a/man3/encrypt.3
-+++ b/man3/encrypt.3
-@@ -124,8 +124,8 @@ The function is not provided.
- .SH VERSIONS
- Because they employ the DES block cipher,
- which is no longer considered secure,
--.BR crypt (),
--.BR crypt_r (),
-+.BR encrypt (),
-+.BR encrypt_r (),
- .BR setkey (),
- and
- .BR setkey_r ()
+diff --git a/man2/ioctl_tty.2 b/man2/ioctl_tty.2
+index 186011ee7..c54eb1a19 100644
+--- a/man2/ioctl_tty.2
++++ b/man2/ioctl_tty.2
+@@ -756,7 +756,7 @@ main(void)
+ }
+ .EE
+ .SH SEE ALSO
+-.BR ldattach (1),
++.BR ldattach (8),
+ .BR ioctl (2),
+ .BR ioctl_console (2),
+ .BR termios (3),
 -- 
-2.20.1
+2.33.1
 
