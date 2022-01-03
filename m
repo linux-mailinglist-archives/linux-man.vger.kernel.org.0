@@ -2,118 +2,89 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E2B8348358D
-	for <lists+linux-man@lfdr.de>; Mon,  3 Jan 2022 18:27:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 47B80483637
+	for <lists+linux-man@lfdr.de>; Mon,  3 Jan 2022 18:35:28 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235252AbiACR1j (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 3 Jan 2022 12:27:39 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52720 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235245AbiACR1j (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 3 Jan 2022 12:27:39 -0500
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com [IPv6:2a00:1450:4864:20::433])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 260A3C061761
-        for <linux-man@vger.kernel.org>; Mon,  3 Jan 2022 09:27:39 -0800 (PST)
-Received: by mail-wr1-x433.google.com with SMTP id s1so71282530wrg.1
-        for <linux-man@vger.kernel.org>; Mon, 03 Jan 2022 09:27:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=gjU05MLZjkWGofdIClwBwdvgDX+QARLe7k/neH1yYU4=;
-        b=dgUbnvsnvfpfgh14DYJTbofK/4np8g/4svIQxFxW2HcqpHsixQnstZWjdWMsVWER1G
-         es2dJflTnMlrwrRPhUfwDfyROKsbVJh3x19K/QFLdz8PxrAu2CRr5gZ7hc7idp047UfS
-         awFEDNyqCt7oL1xg+9h7AbdPXG81lQPsylE6+QYULgSMDGZ9cA9PVqYrN4GXD2T/g4fA
-         kCa2Fo3ZU+BcDJVuPK1oVHMH/oYTNHXNK6rCoxWm8T4iRPmxw48Yc5Cb5sLCQINZRAxX
-         tD0soSVY+A7epvGBeDm8R3V2piHPWkK/lMsD06nDBXBJ4rbwOSld1/yy4+unmxqvRi0z
-         5APA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=gjU05MLZjkWGofdIClwBwdvgDX+QARLe7k/neH1yYU4=;
-        b=x4BSAWCbkWtS5Y4l1rNg7F94tiwdwejo2B3sXiW0GXV5VkbljDNNKq+DCyFISPPwTS
-         Ravlks97/HGlnYOFZsoCWkebnvNvVHH0kXXK3JhHR4CFQh0ubGcPhGC74582ttjV18+t
-         7ugiWVmRhAPgUU27Yo2TAaG1PYUnIT6WBSSIeWi9KtvD8qwDfRp/6kJw44M8YADMNvso
-         JnPdiO7LXQ8q2gjEKTv7PE2o0rMfr4ADo9zYW4pH/kphs/hozG7iXkz+vMuBpGOZymIR
-         U7S8IRyuXFp7e2oEDYicOIEEc6Z5Rle4I3U5I4o6hNYC/XB206V0Wht/I1UN23m56p9C
-         BIVA==
-X-Gm-Message-State: AOAM531rthb605mP+ZJZO2n3GQ8U3P78rdB7yDVGJAHjWEXj230Boi4H
-        CsQgKHxi9q7VUjLlo7D00wUakN/jNvI=
-X-Google-Smtp-Source: ABdhPJzF6iFCnI69o23leRd3XuBI2JuPhlb3naIrB6jCCDgiZ94OUNzldfdN5WypBPyLKg1uFZ6R4A==
-X-Received: by 2002:a5d:64cc:: with SMTP id f12mr39302360wri.145.1641230857768;
-        Mon, 03 Jan 2022 09:27:37 -0800 (PST)
-Received: from [10.168.10.170] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id q8sm35241290wrx.59.2022.01.03.09.27.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 03 Jan 2022 09:27:37 -0800 (PST)
-Message-ID: <90821738-61de-7993-8382-718d1caf8bbf@gmail.com>
-Date:   Mon, 3 Jan 2022 18:27:36 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.4.1
-Subject: Re: [PATCH v2 2/4] tee.2: use proper types in example
-Content-Language: en-US
-To:     =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+        id S230207AbiACRf1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 3 Jan 2022 12:35:27 -0500
+Received: from 139-28-40-42.artus.net.pl ([139.28.40.42]:56892 "EHLO
+        tarta.nabijaczleweli.xyz" rhost-flags-OK-FAIL-OK-OK)
+        by vger.kernel.org with ESMTP id S230076AbiACRf1 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 3 Jan 2022 12:35:27 -0500
+Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id D3B05BE0;
+        Mon,  3 Jan 2022 18:35:24 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
+        s=202006; t=1641231324;
+        bh=pwvtMcTanu/9v19+o3Sv5cG0Gcotd4v/G7fO6EVaBGI=;
+        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+        b=EXA2CrQAP2fTZOelsTT2Zn2v7+bj/k+6HwQ+6L2/FiZ6ApBD1cqC9S1rvZhpdjjD0
+         7hkMsF7t7clr2Vs+RMXzUW9iAvL2fju7h+RqviTVyavtBFJ8gcuSZJa//zazzSFFyE
+         2Fi8x4lnFG1n4/T7C1TIgpZM00oBg+fUqoBExnCu6EOqHMbvSno0imuWFF/nzi80E4
+         DiPDGaPARvZnbntvpEMo8dNZjGMb1IXTFcqdu3ccpA6rgI+hvGWKb6pfLDnlpobBTd
+         x4yXirGavufSHBP176kgnfhz79xOrCKHbvFSt7blHqj2/SBmzmStYMKA/sosYKld98
+         KAH8HJWc6mnUA==
+Date:   Mon, 3 Jan 2022 18:35:23 +0100
+From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org
+Subject: Re: [PATCH v2 2/4] tee.2: use proper types in example
+Message-ID: <20220103173523.jge6gyisl43khm4n@tarta.nabijaczleweli.xyz>
 References: <c9779348-f3f4-b621-4f09-e6f4c0d2cfc6@gmail.com>
  <be236ff0a523fb44c3b88cd9d26c1c1255714725.1641229121.git.nabijaczleweli@nabijaczleweli.xyz>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-In-Reply-To: <be236ff0a523fb44c3b88cd9d26c1c1255714725.1641229121.git.nabijaczleweli@nabijaczleweli.xyz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+ <90821738-61de-7993-8382-718d1caf8bbf@gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="ak62zxr4zvkeir4r"
+Content-Disposition: inline
+In-Reply-To: <90821738-61de-7993-8382-718d1caf8bbf@gmail.com>
+User-Agent: NeoMutt/20211029
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 1/3/22 18:03, наб wrote:
-> Signed-off-by: Ahelenia Ziemiańska <nabijaczleweli@nabijaczleweli.xyz>
-> ---
-> The difference is, realistically, negligible, but it does make the code
-> look like it came from the 4.3BSD era.
 
-:-)
+--ak62zxr4zvkeir4r
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> 
-> Comments applied. 1/4 not re-sent since you applied it.
+On Mon, Jan 03, 2022 at 06:27:36PM +0100, Alejandro Colomar (man-pages) wro=
+te:
+> On 1/3/22 18:03, =D0=BD=D0=B0=D0=B1 wrote:
+> > diff --git a/man2/tee.2 b/man2/tee.2
+> > index 14a927c93..9d83ee982 100644
+> > --- a/man2/tee.2
+> > +++ b/man2/tee.2
+> > @@ -183,7 +183,6 @@ main(int argc, char *argv[])
+> >            */
+> >           len =3D tee(STDIN_FILENO, STDOUT_FILENO,
+> >                     INT_MAX, SPLICE_F_NONBLOCK);
+> > -
+> I removed this change, since I guessed it was a rebase mistake.
+Not really, I left it in deliberately, for consistency:
+neither fd=3D nor slen=3D have a blank line after.
 
-I applied all of v2, and another one to remove an unnecessary 'else'.
+=D0=BD=D0=B0=D0=B1
 
-Cheers,
+--ak62zxr4zvkeir4r
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Alex
+-----BEGIN PGP SIGNATURE-----
 
-> 
->   man2/tee.2 | 3 +--
->   1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/man2/tee.2 b/man2/tee.2
-> index 14a927c93..9d83ee982 100644
-> --- a/man2/tee.2
-> +++ b/man2/tee.2
-> @@ -164,7 +164,7 @@ int
->   main(int argc, char *argv[])
->   {
->       int fd;
-> -    int len, slen;
-> +    ssize_t len, slen;
->   
->       if (argc != 2) {
->           fprintf(stderr, "Usage: %s <file>\en", argv[0]);
-> @@ -183,7 +183,6 @@ main(int argc, char *argv[])
->            */
->           len = tee(STDIN_FILENO, STDOUT_FILENO,
->                     INT_MAX, SPLICE_F_NONBLOCK);
-> -
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmHTM9kACgkQvP0LAY0m
+WPEmuA/8DepKuCtkpkoiCTWTkEj0jea9oGOuKr9unROYzfPweyzczEuJemGrD0E8
+qGoindUcpg8LJ1JPUMkd1ORsOj4JlmBaFldmgL7reFg2ghD8LbiEYrxy5t7J4HTB
+18wWoQbXKWsopmCM92//hD1PmWd9Aq6wKDzBQC1aUqhB9AW+ucPRYy10a+HXjxEi
+EFthtYSbUy1MvzxACQJVAh9CJV9RflltM/S8ycDwuFKF8VdyJJR91z9gamsMrxBT
+7tSgF0fcC7Tw9xvYyRqm28Dv2+ioCmvg+5jKFW6D2/9zw060sDiCUO0g7CxxioXM
+Ef+Epg0aRqkUAWUmmOW+gWYlCqQ1/StHVR0q0U4DQsvDNBFso4cWdA7XAG0+ye6Y
+C67E5pVzcVFb6un4vSVqnUaWsICCd5FD0NQrDVR8bca5u89kupjIf6fL51Ac2Rwt
+IQ4DiI+OsCmnAtgW6ZwABFrB8lVEVEPCO41DYhP3dGi2aeBqEv5wwLngE/N/BdlT
+dB6MIQ3dvA+NN0n+rlrnCu4e+WGIurYgs0M22MuHQSpB6o5l9D/MMLPl1TtlAMb5
+Ybqsucq100LJcyTHoXh/K/SxxtAdx10rJTg7+fUsqqylc5W99KG9dk5h8ejfPzfg
+g9SD2TOXZDta7UdPxoN1ZCQ09aRZJLh1BqcE2idKkM1HDkhg3aI=
+=Nh3v
+-----END PGP SIGNATURE-----
 
-I removed this change, since I guessed it was a rebase mistake.
-
->           if (len < 0) {
->               if (errno == EAGAIN)
->                   continue;
-
--- 
-Alejandro Colomar
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+--ak62zxr4zvkeir4r--
