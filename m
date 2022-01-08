@@ -2,130 +2,101 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B66AE4880E6
-	for <lists+linux-man@lfdr.de>; Sat,  8 Jan 2022 03:25:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 8C96E4882B1
+	for <lists+linux-man@lfdr.de>; Sat,  8 Jan 2022 10:06:28 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233328AbiAHCZX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 7 Jan 2022 21:25:23 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36676 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230392AbiAHCZX (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 7 Jan 2022 21:25:23 -0500
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com [IPv6:2a00:1450:4864:20::32f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1CFBEC061574
-        for <linux-man@vger.kernel.org>; Fri,  7 Jan 2022 18:25:23 -0800 (PST)
-Received: by mail-wm1-x32f.google.com with SMTP id c126-20020a1c9a84000000b00346f9ebee43so3814792wme.4
-        for <linux-man@vger.kernel.org>; Fri, 07 Jan 2022 18:25:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=MTKn4/3UQx01HT66b9UTrBp1h2t75TD+TVQZ5COosX8=;
-        b=jVEfS/grQkAFrQDYIbIwnaBf/7PJ1OAdibqmV45fwuzXmpZnJ50W/dj2yTywlKn+ON
-         2yhfi9VwILe3mKX+fqtlIsaEPFnaTyM85B9FkxTnVBKuyz1ec7s4NsbApcpVbdwjoAfA
-         r3XDaYwwCBg/wr+UEhOg2HfWL/3xkA0PJa8ysEljqFSM5k0VS4OJ5k2oDBbcsL5ZyN4s
-         rllY3TkR5pElZUqnIwd6t55to3iR9UvaO3JqO64Sg/hbIgYw7D2B4eC+qNiHqj8m3RLM
-         frJIEiyxgGDpQ7UCuGV4WhkQQPkaqL0OsIosKPg0SwzkMJDA5oXuxcIWldhiDDOh5etS
-         6i5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=MTKn4/3UQx01HT66b9UTrBp1h2t75TD+TVQZ5COosX8=;
-        b=58xwrJRamGUkrcrvAm7+TaQAuwA3Qp7a7fVxUoj+46rrZJBmKZWWlIN3iY5o8IKdHI
-         lb+yisppSGLBvU1CHXlaoCuGLW94W9jNg7/Dykn+VYItvmHejfaVDScroZNBmcB0sjoR
-         cmGpievQ1ExlmFRqXnhIqn9R3WTeSjFxOVWR2qTVsh4S8TqtA8yMVxpO0MUDEjiFEsXd
-         wwKwBh6gkN+pIEmzRNC6koETKg4UkvO6nakhgctS/QhZo9XhFxDSyreGISEc6V1V4IK+
-         oHvrxGfsI5xtkSJOv9poSAOhQOTrYu3TNb7xHzy8h8vkdouWorpIo4oBPdbA82DBUvdA
-         VQ5g==
-X-Gm-Message-State: AOAM530UjfxqnFKzNPZdYaiiUNUlSGMSnXIUjZBOhW4ZfQxU9O6xYswh
-        gOjLQqLOxVzzVRs1BvxJLqM=
-X-Google-Smtp-Source: ABdhPJwy3p4RnUO3d4sKCBcjQbYS7lABKaqs1zAt/UKwVO0nf0oQjdKiFD6XAFS9ljH55I+ow9qxdA==
-X-Received: by 2002:a7b:c190:: with SMTP id y16mr12464554wmi.35.1641608721655;
-        Fri, 07 Jan 2022 18:25:21 -0800 (PST)
-Received: from [10.168.10.170] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id z6sm200596wmp.9.2022.01.07.18.25.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 07 Jan 2022 18:25:21 -0800 (PST)
-Message-ID: <b4622fe8-ec81-654f-fa32-bf2efa0459ea@gmail.com>
-Date:   Sat, 8 Jan 2022 03:25:20 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.4.1
-Subject: Re: [PATCH 9/9] malloc_info.3: Use intptr_t to store pointers
-Content-Language: en-US
-To:     Stephen Kitt <steve@sk2.org>,
-        Michael Kerrisk <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
+        id S233963AbiAHJG1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 8 Jan 2022 04:06:27 -0500
+Received: from 3.mo560.mail-out.ovh.net ([46.105.58.226]:58827 "EHLO
+        3.mo560.mail-out.ovh.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S231402AbiAHJG1 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 8 Jan 2022 04:06:27 -0500
+Received: from player791.ha.ovh.net (unknown [10.109.156.220])
+        by mo560.mail-out.ovh.net (Postfix) with ESMTP id B034423211
+        for <linux-man@vger.kernel.org>; Sat,  8 Jan 2022 09:06:25 +0000 (UTC)
+Received: from sk2.org (82-65-25-201.subs.proxad.net [82.65.25.201])
+        (Authenticated sender: steve@sk2.org)
+        by player791.ha.ovh.net (Postfix) with ESMTPSA id DC9BD2605A5CC;
+        Sat,  8 Jan 2022 09:06:21 +0000 (UTC)
+Authentication-Results: garm.ovh; auth=pass (GARM-100R003e6b047b0-80fb-4b5a-9196-92b4543fb41c,
+                    E73EBA98AEB195A144C17DE4F959AB65BE9739A6) smtp.auth=steve@sk2.org
+X-OVh-ClientIp: 82.65.25.201
+Date:   Sat, 8 Jan 2022 10:06:09 +0100
+From:   Stephen Kitt <steve@sk2.org>
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org, Michael Kerrisk <mtk.manpages@gmail.com>
+Subject: Re: [PATCH 3/9] inet.3: Switch to _DEFAULT_SOURCE in the example
+Message-ID: <20220108100609.026b3cc9@heffalump.sk2.org>
+In-Reply-To: <92e9abea-7be0-c22d-d407-05a12e250af4@gmail.com>
 References: <20220107164621.275794-1-steve@sk2.org>
- <20220107164621.275794-9-steve@sk2.org>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-In-Reply-To: <20220107164621.275794-9-steve@sk2.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+        <20220107164621.275794-3-steve@sk2.org>
+        <92e9abea-7be0-c22d-d407-05a12e250af4@gmail.com>
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+MIME-Version: 1.0
+Content-Type: multipart/signed; boundary="Sig_/.B=KFyD6KL.j.d2kWrjWABP";
+ protocol="application/pgp-signature"; micalg=pgp-sha512
+X-Ovh-Tracer-Id: 6057622974917674630
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvuddrudegfedguddthecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeffhffvuffkjghfofggtgesghdtreerredtjeenucfhrhhomhepufhtvghphhgvnhcumfhithhtuceoshhtvghvvgesshhkvddrohhrgheqnecuggftrfgrthhtvghrnhepveelvdeufedvieevffdtueegkeevteehffdtffetleehjeekjeejudffieduteeknecukfhppedtrddtrddtrddtpdekvddrieehrddvhedrvddtudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhhouggvpehsmhhtphhouhhtpdhhvghlohepphhlrgihvghrjeeluddrhhgrrdhovhhhrdhnvghtpdhinhgvtheptddrtddrtddrtddpmhgrihhlfhhrohhmpehsthgvvhgvsehskhdvrdhorhhgpdhrtghpthhtoheplhhinhhugidqmhgrnhesvhhgvghrrdhkvghrnhgvlhdrohhrgh
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Stephen,
+--Sig_/.B=KFyD6KL.j.d2kWrjWABP
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On 1/7/22 17:46, Stephen Kitt wrote:
-> int isn't large enough to store pointers on all platforms, use
-> intptr_t instead.
+Hi Alex,
 
-Well, since the pointer came from a previous 'int', there should be no 
-problem.  But since the C language (or even POSIX) is very permissive 
-about what a conforming implementation can do with pointers, and it only 
-guarantees conversions to/from [u]intptr_t, I'd take this patch for 
-correctness.  However...
+On Sat, 8 Jan 2022 02:26:51 +0100, "Alejandro Colomar (man-pages)"
+<alx.manpages@gmail.com> wrote:
+> On 1/7/22 17:46, Stephen Kitt wrote:
+> > _BSD_SOURCE has been obsolete for long enough that it seems reasonable
+> > to update the example program to use _DEFAULT_SOURCE instead. >
+> > Signed-off-by: Stephen Kitt <steve@sk2.org> =20
+>=20
+> Deprecated, yes; obsolete, almost but not yet.
+>=20
+> glibc 2.17 is still supported in CentOS 7, IIRC, and _BSD_SOURCE was=20
+> deprecated since glibc 2.20 (see feature_test_macros(7)).
+>=20
+> However, since this is an example program, which should mainly teach how=
+=20
+> to write new code, I'm inclined to use the non-deprecated version.
 
-I still don't like at all the fact that compilers require an explicit 
-cast.  Casts are dangerous.  Period.  I haven't seen a place where casts 
-are good, except when you explicitly want to rely on undefined behavior 
-(which I've found very useful in a few cases).  It should be clear to 
-the compiler that we're doing the right thing, since we declared the 
-variable to be 'intptr_t', which is by itself very rare.  Requiring a 
-cast adds no clarity, while it does increase the chances of a bug.
+My reasoning here is that, from a distribution perspective, man-pages=E2=80=
+=99s main
+branch describes the future. CentOS 7 carries glibc 2.17, but it also carri=
+es
+an old version of man-pages, which (hopefully) accurately describes the
+environment there. Many example programs in man pages don=E2=80=99t build o=
+n older
+distributions ;-).
 
-I'd like to know your opinion.  I think I'll remove the cast, even if 
-compilers are going to give a warning for implicitly converting from 
-pointer to integer (intptr_t).  I'd say patch the compiler, not the code.
+Regards,
 
-Thanks,
+Stephen
 
-Alex
+--Sig_/.B=KFyD6KL.j.d2kWrjWABP
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
 
-> 
-> Signed-off-by: Stephen Kitt <steve@sk2.org>
-> ---
->   man3/malloc_info.3 | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/man3/malloc_info.3 b/man3/malloc_info.3
-> index a5b8d34f9..3baa891fd 100644
-> --- a/man3/malloc_info.3
-> +++ b/man3/malloc_info.3
-> @@ -198,7 +198,7 @@ static int numThreads, numBlocks;
->   static void *
->   thread_func(void *arg)
->   {
-> -    int tn = (int) arg;
-> +    intptr_t tn = (intptr_t) arg;
->   
->       /* The multiplier \(aq(2 + tn)\(aq ensures that each thread (including
->          the main thread) allocates a different amount of memory. */
-> @@ -237,7 +237,7 @@ main(int argc, char *argv[])
->   
->       /* Create threads that allocate different amounts of memory. */
->   
-> -    for (int tn = 0; tn < numThreads; tn++) {
-> +    for (intptr_t tn = 0; tn < numThreads; tn++) {
->           errno = pthread_create(&thr[tn], NULL, thread_func,
->                                  (void *) tn);
->           if (errno != 0)
+-----BEGIN PGP SIGNATURE-----
 
--- 
-Alejandro Colomar
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+iQIzBAEBCgAdFiEEnPVX/hPLkMoq7x0ggNMC9Yhtg5wFAmHZVAEACgkQgNMC9Yht
+g5x6GA/+JMDRtBBQF7z7We1k2881E4Kc29bmUEuIlo0wFf9Beha7OwZU2PTpnbOY
+PkP5d/r/u1idZfadzEfstE1tZz4aB/3jcN+JY6LDEpcF0PBGJNAb/wUdhXF6ElLd
+zSqeNqFS+WESpYuPRqBntGxriXoEP3GY2gCZjXVJBq1qr/vlRUWr4qUORJXrJr73
+SyfGtSR8IF77ObTC9CxG/C5CMiuBaRd6suzR1nx/eOjNA4OExtNVGOioYe+6vAFw
+r8uuu28ZFUoxStsRQ3Thxw68egdn7T0Fwct7vL0WA0CKwUIwmDOY5GdfErDIZJX2
+BNTLqqHnJKSGbT4A5zgjSfRTqWzBN5TurLxPmSU/+gSs0woTZFvCSa8EIOni7HqA
+zbDw1mzWu7WwZCLg5zh6zlChiHvw9wkG2degwtkyS3YhCF6SCjZuDGQV9nOUtjNO
+SNf6yO1S5+YkDePbXGTPzAJdNeEhKDIA9XuA9qjAb5HHSmpyIngdnvZ5ZOADpBOh
+3UVdP3Q0N1ShcDGDxl7ONrSXrWM9rX+2Y+KdYgRg7+jIxRmdg+1pRFAx1qvQnyeH
++JQFxsuMWRtsk0BpqRmo8PSE0noxgxKWYkSjD3f9EdxgTW/GBWwDRA3coDrL7Rq6
+UkWkUiTf+pa7dIDMv5hfqBla0H76UUl4hYS8bkz118F3HcQ6Q0c=
+=MuCL
+-----END PGP SIGNATURE-----
+
+--Sig_/.B=KFyD6KL.j.d2kWrjWABP--
