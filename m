@@ -2,82 +2,125 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 4317B4880C9
-	for <lists+linux-man@lfdr.de>; Sat,  8 Jan 2022 03:02:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 7B8594880CB
+	for <lists+linux-man@lfdr.de>; Sat,  8 Jan 2022 03:04:22 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233233AbiAHCCt (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 7 Jan 2022 21:02:49 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59996 "EHLO
+        id S233235AbiAHCEW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 7 Jan 2022 21:04:22 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60326 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229912AbiAHCCs (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 7 Jan 2022 21:02:48 -0500
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com [IPv6:2a00:1450:4864:20::331])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 66D44C061574
-        for <linux-man@vger.kernel.org>; Fri,  7 Jan 2022 18:02:48 -0800 (PST)
-Received: by mail-wm1-x331.google.com with SMTP id c66so5055217wma.5
-        for <linux-man@vger.kernel.org>; Fri, 07 Jan 2022 18:02:48 -0800 (PST)
+        with ESMTP id S229912AbiAHCEV (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 7 Jan 2022 21:04:21 -0500
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com [IPv6:2a00:1450:4864:20::436])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 519F5C061574
+        for <linux-man@vger.kernel.org>; Fri,  7 Jan 2022 18:04:21 -0800 (PST)
+Received: by mail-wr1-x436.google.com with SMTP id t28so7579901wrb.4
+        for <linux-man@vger.kernel.org>; Fri, 07 Jan 2022 18:04:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=message-id:date:mime-version:user-agent:subject:content-language:to
          :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=M4UjftC/AFH7EiP6hXBVPeupbQSB5ZuMFUT7g3GSf2I=;
-        b=esdg2Eo/EA6SOLt7yQm7Vinh9cD46WqCGqsSVKvu2F1MIgpezbJBirf0oN4MEU6spj
-         e8AiCs4xocn+J1E//t+t9CldCpQD227nG9I3IDOwEszbUiC+oKjKhQ9BfGZ5U8dbVbhH
-         xE6GShDc7DuEe+UuSF8QFi7UKVrtXjf3k19fcJuBJHCfudEHdSGZeEpO60NQuZPnNnQv
-         oT09M2tO1Kc9pCjtdMAOyptzHVLl6neCkc2Jw4rmqe/rOOIF5jiD0AG8B06HcIhUEy+C
-         tJ2IoSoV0mfSo97mUHKGPTCuPEb7KxTXR/BmN7dLyHbvVer9VutjdDLnaZgCwJ0vAikB
-         kqVA==
+        bh=vx3HZiOGdmt17Wp6AzfB7Eg4tSEeFsWdaUIXjFi5j3Y=;
+        b=gZEzDtnamucu09m/6PlbpOZQUS/KSJxWSRLV6+zdE4/Ptkq/AqjkUFLn5211QpBt4g
+         BrxrvkJ6TwX+1iw2q0Qfe16+cKFhUscHjSBVkSpsdtj/VEhLQH0s+MBK29P+PXDHzbkM
+         NYdaQEddRwzdLaT/TUBxhshWyTyEHDuOGbWo9zFKQGk0O4kGr21SS9Xhgl/xN2k3/Bp7
+         rv2yHYTKDsHGeoGNBZSKTVA8tFoh10WxVypj7PqxthJocCBMA4JmbuCgFgVTLx0yVUCd
+         odM7+EQr8DlhoyqlRAU9NNQgcNxyWtZwW9wxKUYJJO59GL4IGWyhY5mtA3lgMBVKeTwV
+         Rd6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
          :content-language:to:cc:references:from:in-reply-to
          :content-transfer-encoding;
-        bh=M4UjftC/AFH7EiP6hXBVPeupbQSB5ZuMFUT7g3GSf2I=;
-        b=uDSBHOMnXFauixritQVpvmFjgEBivS08sl9z9Xf80woOLlnH8lGGY0H1VBEuazBI31
-         J8fVSRPZcHyo/fvyOIlHCW+2c9fhTwp12LNLOjjpBaRZQOtnPE3XWymOcNE1mkYnN/io
-         eCdsmRcFAVy0Wpfh3DHZW8ueUU9KhFD59Uyx4b5444TTt/ORAh20LuPB3gsO2uEgKjW2
-         nDaV4bU3IRPKBXkTrxVORBbnzbR60XmY/AkrsWQNSBAfkrCIoemgIRsp2C50cb772JWa
-         8xqNJ5g+r7e2uZwVUNCQAor65XiaGJLRDPK/YK29gaQPLCmgXm/UD3JGELlq5nrKFMJl
-         QXDA==
-X-Gm-Message-State: AOAM533MxYthIUERmILVGh9bCM9wMjXKXwMyjRthbf497kdMvWE7yE0a
-        LVfaMiZYivi8s+osKuMSoV9VYtM+kBI=
-X-Google-Smtp-Source: ABdhPJxQz5h7yG+lyO0sCxpTMDC4GYMpwaK4adVvkXbAOq0utz0rcuYt/jQvwEUZ2lfWIFlirCYzFA==
-X-Received: by 2002:a05:600c:1d08:: with SMTP id l8mr13106031wms.44.1641607367023;
-        Fri, 07 Jan 2022 18:02:47 -0800 (PST)
+        bh=vx3HZiOGdmt17Wp6AzfB7Eg4tSEeFsWdaUIXjFi5j3Y=;
+        b=dkFSm3wSfppVGVI3h2EnLlveP4pYgQCDYYjoQNKaes8mW1LokWIU/U0IsW3N74nAKE
+         YmnX9rJXq6sILEMAQbijX7RlBX5SFmob3j9AqGiXH+eTgRyHya4keopixXPABwbot7/e
+         HXeNECr9NtHFn7lsZxWTZryuWC0OEH6ehPazmnpD4cszFkMnFwcauj23OunazIQzu7kF
+         83Wpfn3dOGIEfvqqx81FWUUnk8U/+nzAhh9X9HxhDVWFE92G0/9ELBFmfTW62FpVBv/u
+         J8oI3q1/zz2IUJotydlAH9gAID0ap+tgrRtmum5Ddysmeco6kCgSx2NjhWv3QSsve9k0
+         kNOQ==
+X-Gm-Message-State: AOAM533XCTSyADkM9rTEG5HS+HYhorTil1svd6nZjCUNb8ITn6KSlwA6
+        UknjWfKLYisW9joyYpOqd22cqxAiUno=
+X-Google-Smtp-Source: ABdhPJzNnppgn9jBKsV8/sFT2EFu0PLkk0d02CUCa9gwy7O+UyfWmjKMS9dC980LdEDNeqXFQTfwNA==
+X-Received: by 2002:a05:6000:188f:: with SMTP id a15mr57026217wri.153.1641607459933;
+        Fri, 07 Jan 2022 18:04:19 -0800 (PST)
 Received: from [10.168.10.170] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id g1sm289294wri.103.2022.01.07.18.02.46
+        by smtp.gmail.com with ESMTPSA id k31sm163598wms.21.2022.01.07.18.04.19
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 07 Jan 2022 18:02:46 -0800 (PST)
-Message-ID: <15d314ae-7c9c-31c7-d914-1a3d2947d6ae@gmail.com>
-Date:   Sat, 8 Jan 2022 03:02:45 +0100
+        Fri, 07 Jan 2022 18:04:19 -0800 (PST)
+Message-ID: <e980398d-0a21-45e4-73c5-6727e4f552a2@gmail.com>
+Date:   Sat, 8 Jan 2022 03:04:18 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.4.1
-Subject: Re: [PATCH 1/9] Add a target to check example programs
+Subject: Re: [PATCH 8/9] strtok.3: Enable example analysis, fix declaration
 Content-Language: en-US
 To:     Stephen Kitt <steve@sk2.org>
 Cc:     linux-man@vger.kernel.org, Michael Kerrisk <mtk.manpages@gmail.com>
 References: <20220107164621.275794-1-steve@sk2.org>
+ <20220107164621.275794-8-steve@sk2.org>
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-In-Reply-To: <20220107164621.275794-1-steve@sk2.org>
+In-Reply-To: <20220107164621.275794-8-steve@sk2.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Hi Stephen,
+
 On 1/7/22 17:46, Stephen Kitt wrote:
-> The compiled code isn't linked to avoid having to handle
-> library requirements (e.g. -ldl).
+>      for (int j = 1, str1 = argv[1]; ...
+> 
+> declares two variables of type int, j and str1; the pre-existing
+> char * str1 isn't used. This causes compiler warnings. Declaring j
+> outside the loop fixes everything.
+> 
+> To enable automated source extraction, separate the text following the
+> code.
+> 
+> Signed-off-by: Stephen Kitt <steve@sk2.org>
 
-BTW, I plan to add that information so that you will be able to parse it 
-easily in a script.  See 
-<https://lore.kernel.org/linux-man/20210911160117.552617-1-alx.manpages@gmail.com/> 
-and <https://github.com/alejandro-colomar/man-pages/tree/library>
+Since these are two completely unrelated things, I'd prefer 2 patches.
+If you resend this one without the subsection heading, I'll apply it.
 
-Cheers,
+Thanks,
 
 Alex
+
+> ---
+>   man3/strtok.3 | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/man3/strtok.3 b/man3/strtok.3
+> index aec914094..19d5d9204 100644
+> --- a/man3/strtok.3
+> +++ b/man3/strtok.3
+> @@ -255,6 +255,7 @@ main(int argc, char *argv[])
+>   {
+>       char *str1, *str2, *token, *subtoken;
+>       char *saveptr1, *saveptr2;
+> +    int j;
+>   
+>       if (argc != 4) {
+>           fprintf(stderr, "Usage: %s string delim subdelim\en",
+> @@ -262,7 +263,7 @@ main(int argc, char *argv[])
+>           exit(EXIT_FAILURE);
+>       }
+>   
+> -    for (int j = 1, str1 = argv[1]; ; j++, str1 = NULL) {
+> +    for (j = 1, str1 = argv[1]; ; j++, str1 = NULL) {
+>           token = strtok_r(str1, argv[2], &saveptr1);
+>           if (token == NULL)
+>               break;
+> @@ -280,6 +281,7 @@ main(int argc, char *argv[])
+>   }
+>   .EE
+>   .PP
+> +.SS Further examples
+>   Another example program using
+>   .BR strtok ()
+>   can be found in
 
 -- 
 Alejandro Colomar
