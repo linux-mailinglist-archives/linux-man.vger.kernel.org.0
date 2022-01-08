@@ -2,65 +2,65 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6FE1F4880A5
-	for <lists+linux-man@lfdr.de>; Sat,  8 Jan 2022 02:41:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id F34C34880C5
+	for <lists+linux-man@lfdr.de>; Sat,  8 Jan 2022 02:59:17 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233083AbiAHBlN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 7 Jan 2022 20:41:13 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55238 "EHLO
+        id S233227AbiAHB7R (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 7 Jan 2022 20:59:17 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59216 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233081AbiAHBlN (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 7 Jan 2022 20:41:13 -0500
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com [IPv6:2a00:1450:4864:20::42f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E5E58C061574
-        for <linux-man@vger.kernel.org>; Fri,  7 Jan 2022 17:41:12 -0800 (PST)
-Received: by mail-wr1-x42f.google.com with SMTP id k18so14218626wrg.11
-        for <linux-man@vger.kernel.org>; Fri, 07 Jan 2022 17:41:12 -0800 (PST)
+        with ESMTP id S229912AbiAHB7Q (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 7 Jan 2022 20:59:16 -0500
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com [IPv6:2a00:1450:4864:20::433])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 33EE7C061574
+        for <linux-man@vger.kernel.org>; Fri,  7 Jan 2022 17:59:16 -0800 (PST)
+Received: by mail-wr1-x433.google.com with SMTP id o3so14290443wrh.10
+        for <linux-man@vger.kernel.org>; Fri, 07 Jan 2022 17:59:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=message-id:date:mime-version:user-agent:subject:content-language:to
          :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=SgcT3mvCOM4O3p9I9+SWGMv+m7c490Dux0ZdQxqYqi4=;
-        b=crP/YZrXmJZMIbwe3cpQwmYxKB11ILgt6vgFYZBgQS4OdkdVp21YozGD3yb3De1mXP
-         ZqUHJREFo2IxakjUeTS4Tra2qxbaunTCezSOoFbiG3NU9QL/7nJFi5Ffieh5dalvayMR
-         eKv/52CioniAn+baLQj5iJso94o2QsPbCJE/tImMCpZop01kheqlJ+DqxmTIFWwLz15D
-         z1yEg2He9Zz9XJGsu3g1q9OuYzrPZWJXPCNTzlKdJlDrvmiD8f8/a/EbLWs+cj8DNzK6
-         LPJCV+wLiK2pF+N3CGv8qj6FlALRzYK/mY0msNwhhIpf2LWPy2KkGUvZR86Yr3ym7Jo0
-         9AtQ==
+        bh=F/UEoLruH0CPjf7FfFMbc72cBckwElHdJMtRpUimQns=;
+        b=nOGohP3dArEpibuu6yYW3lTcU9605JxAIzZjQPw5w06v7IazY17hNw75Su3+uw2f+f
+         ThSIAf0dYtMwySYQ5xNrU/4sCHWwc4NHBVXZGNZuoENYyDOyBWvvF20OKu6jvrZfpFRb
+         FHPXj5ckYewjRD0hSI6q7w5Mj2qD95p6R89A7jqnvp5rgpVsKSz3JP+vB9lsB0cfYzri
+         fF9vuIHnz+rEQlEvhT7vP1TfTsPIFtL//YFtf93ZbG99CUN5IJ5O1MVfMCCa9rz7+kZ4
+         PRm5Q9cJ2TgOcJZOndd1Px/+koetVD5eDlPR/Y4cm1N5ZvDSo5XrBT90QkvEU1W2Ov9u
+         PZ+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
          :content-language:to:cc:references:from:in-reply-to
          :content-transfer-encoding;
-        bh=SgcT3mvCOM4O3p9I9+SWGMv+m7c490Dux0ZdQxqYqi4=;
-        b=OxkHUl0rAHunkkKUlDk1dOAV1lazDqXxm29/WvkvyfQqEMPjRywmvP1QtUJfnFmCpr
-         fWJXwpekzum7/lxBQHvsBu5v1pFbPFeqF1NzCHLCtoC84nDGxngyyAIzl/a73ufVV5Vw
-         yUcQhOcTQRsrBdcOBh8Wn3XNgttuqmASjAM0AzLFicWietuEue93KiPRYDO2SAAM1fpF
-         NoN5tXL7LB6ln5e+VhDGwZ8c44njHvb2TLt93GG9f0+kRQc0PEH3xAeIht7XOpNF/kUx
-         efW+YsJS0ctlU7MpNAqeATqsWS/LKZo211o8jS/PLtcnu2NgUQ3WTpNC/qB/huMYVpso
-         zf3A==
-X-Gm-Message-State: AOAM5323KKej1u4f8SWRLnKp+EBa1VoNvSiu+PGAUNfWnti1A4i81d2g
-        bBSgK/yzFjYGuuH5q9wsx9E=
-X-Google-Smtp-Source: ABdhPJxfPvWE9wDQ+X1SXA8aqhzswPtpZds8uc56rPDnVNv7miJWrjUb0xih83uBbvrabVP3fgAhLg==
-X-Received: by 2002:a05:6000:118a:: with SMTP id g10mr54307041wrx.533.1641606071558;
-        Fri, 07 Jan 2022 17:41:11 -0800 (PST)
+        bh=F/UEoLruH0CPjf7FfFMbc72cBckwElHdJMtRpUimQns=;
+        b=8Ha7n1985sxxXS+btAELWRrEEBb7U5aPliOfkl7ZdGsTMph8dgB81RHU0IfgUMcQdv
+         /34ZDCZDtTN2xPHcMIuGIsdkDEIGpSBPmq9ISd+SeQ/SES3P9rYUvVJ4aJSqRzn0dF4F
+         w3mSj1so3BQaayBmGJCKvae+/m0lLtWMtpKCzt06/HpV0xLziOyVRG7aiFrf2ZUakBbt
+         f4FgjWOy/CvIVuY6ikOUQnI0h9hNquAtkUvr0B+qBoYfTWZ8vhHMGCCBF8LWQiVFEZ7U
+         xC4TgUrHkITSaLUXZpJpiY3Lc+qoC7+o1d2avcN1MUnZh1EpavoS/wumTxBi1Hl/xvnV
+         3Y9A==
+X-Gm-Message-State: AOAM5317QycSEeanE3QNqSgXww2p2sQZGK8xoOxVgsPBiWrNBv6WewLW
+        e5YPZ1G0PsEQIdsHDvEvtAQ=
+X-Google-Smtp-Source: ABdhPJwz3xQZZeKEK+5LhkWHzjlOOavTaj4xv+N5kdTifrWjs+hZe+pSlNkzx0wEXs2TGHnG780eiw==
+X-Received: by 2002:a5d:55c5:: with SMTP id i5mr54904664wrw.445.1641607153672;
+        Fri, 07 Jan 2022 17:59:13 -0800 (PST)
 Received: from [10.168.10.170] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id p11sm302370wru.99.2022.01.07.17.41.10
+        by smtp.gmail.com with ESMTPSA id g12sm299324wrd.71.2022.01.07.17.59.13
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 07 Jan 2022 17:41:11 -0800 (PST)
-Message-ID: <ee6f8448-4a84-3a94-d6d0-e9eabc3705a1@gmail.com>
-Date:   Sat, 8 Jan 2022 02:41:10 +0100
+        Fri, 07 Jan 2022 17:59:13 -0800 (PST)
+Message-ID: <c520d866-0b71-d756-58f6-f54be3560974@gmail.com>
+Date:   Sat, 8 Jan 2022 02:59:12 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.4.1
-Subject: Re: [PATCH 6/9] newlocale.3: Use LC_GLOBAL_LOCALE, not ..._HANDLE
+Subject: Re: [PATCH 7/9] pkeys.7: Update the example to match glibc
 Content-Language: en-US
 To:     Stephen Kitt <steve@sk2.org>
 Cc:     linux-man@vger.kernel.org, Michael Kerrisk <mtk.manpages@gmail.com>
 References: <20220107164621.275794-1-steve@sk2.org>
- <20220107164621.275794-6-steve@sk2.org>
+ <20220107164621.275794-7-steve@sk2.org>
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-In-Reply-To: <20220107164621.275794-6-steve@sk2.org>
+In-Reply-To: <20220107164621.275794-7-steve@sk2.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 Precedence: bulk
@@ -70,37 +70,123 @@ X-Mailing-List: linux-man@vger.kernel.org
 Hi Stephen,
 
 On 1/7/22 17:46, Stephen Kitt wrote:
+> glibc 2.27 introduced support for the pkeys functions, but the glibc
+> versions don't match those declared in the example. Update the example
+> to match glibc, and avoid declaring the functions if glibc is new
+> enough. >
 > Signed-off-by: Stephen Kitt <steve@sk2.org>
-> ---
->   man3/newlocale.3 | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/man3/newlocale.3 b/man3/newlocale.3
-> index b5960c4c4..dc9406ede 100644
-> --- a/man3/newlocale.3
-> +++ b/man3/newlocale.3
-> @@ -360,7 +360,7 @@ main(int argc, char *argv[])
->   
->       /* Free the locale object. */
->   
-> -    uselocale(LC_GLOBAL_HANDLE);    /* So \(aqloc\(aq is no longer in use */
-> +    uselocale(LC_GLOBAL_LOCALE);    /* So \(aqloc\(aq is no longer in use */
 
-Why?  Not saying it's wrong, but I'd like a bit more of an explanation, 
-since I don't know what this does, and would like to be able to check 
-the correctness by just looking at the patch, without having to read 
-whole man pages. :)
 
-What was wrong, and in what sense does this patch fix it?
+There are a few problems with the prototypes.
+
+
+alx@ady1:~/src/gnu/glibc$ grep_glibc_prototype wrpkru
+alx@ady1:~/src/gnu/glibc$ grep -rn define.wrpkru
+alx@ady1:~/src/gnu/glibc$ grep_glibc_prototype pkey_set
+60:int pkey_set (int __key, unsigned int __access_rights) __THROW;
+alx@ady1:~/src/gnu/glibc$ grep_glibc_prototype pkey_mprotect
+72:int pkey_mprotect (void *__addr, size_t __len, int __prot, int 
+__pkey) __THROW;
+alx@ady1:~/src/gnu/glibc$ grep_glibc_prototype pkey_alloc
+56:int pkey_alloc (unsigned int __flags, unsigned int __access_rights) 
+__THROW;
+alx@ady1:~/src/gnu/glibc$ grep_glibc_prototype pkey_free
+68:int pkey_free (int __key) __THROW;
+
+
+As you see above, I couldn't find wrpkru().  Are you sure it exists in 
+glibc?
+
+pkey_mprotect(3) uses 'int' instead of 'unsigned long'.  Would you mind 
+fixind that one too?
+
+pkey_set(3) uses 'unsigned int' instead of 'unsigned long'.  Please fix 
+that one.
+
+pkey_free(3) uses 'int' instead of 'unsigned long'.  Would you mind 
+fixing that one too?
+
+BTW, I need to modify grep_glibc_prototype() so that it always prints 
+the file name, even if only one file is passed to grep (adding /dev/null 
+to the file list).
+
+
+A part from that, I prefer EXAMPLES to be as simple as possible, so I'd 
+do 2 patches.  One to match the definitions to the glibc ones, and then 
+one commit removing old code, assuming glibc is new enough.  Would you 
+mind sending a subsequent patch to remove everything under #if ... #endif?
+
 
 Thanks,
 
 Alex
 
-
->       freelocale(loc);
+> ---
+>   man7/pkeys.7 | 13 ++++++++-----
+>   1 file changed, 8 insertions(+), 5 deletions(-)
+> 
+> diff --git a/man7/pkeys.7 b/man7/pkeys.7
+> index 73ddcdc43..480ff21d4 100644
+> --- a/man7/pkeys.7
+> +++ b/man7/pkeys.7
+> @@ -186,8 +186,10 @@ Segmentation fault (core dumped)
+>   #include <unistd.h>
+>   #include <sys/syscall.h>
+>   #include <stdio.h>
+> +#include <stdlib.h>
+>   #include <sys/mman.h>
 >   
->       exit(EXIT_SUCCESS);
+> +#if __GLIBC__ < 2 || (__GLIBC__ == 2 && __GLIBC_MINOR__ < 27)
+>   static inline void
+>   wrpkru(unsigned int pkru)
+>   {
+> @@ -200,7 +202,7 @@ wrpkru(unsigned int pkru)
+>   }
+>   
+>   int
+> -pkey_set(int pkey, unsigned long rights, unsigned long flags)
+> +pkey_set(int pkey, unsigned long rights)
+>   {
+>       unsigned int pkru = (rights << (2 * pkey));
+>       return wrpkru(pkru);
+> @@ -214,9 +216,9 @@ pkey_mprotect(void *ptr, size_t size, unsigned long orig_prot,
+>   }
+>   
+>   int
+> -pkey_alloc(void)
+> +pkey_alloc(unsigned int flags, unsigned int rights)
+>   {
+> -    return syscall(SYS_pkey_alloc, 0, 0);
+> +    return syscall(SYS_pkey_alloc, flags, rights);
+>   }
+>   
+>   int
+> @@ -224,6 +226,7 @@ pkey_free(unsigned long pkey)
+>   {
+>       return syscall(SYS_pkey_free, pkey);
+>   }
+> +#endif
+>   
+>   #define errExit(msg)    do { perror(msg); exit(EXIT_FAILURE); \e
+>                              } while (0)
+> @@ -252,7 +255,7 @@ main(void)
+>       /*
+>        * Allocate a protection key:
+>        */
+> -    pkey = pkey_alloc();
+> +    pkey = pkey_alloc(0, 0);
+>       if (pkey == \-1)
+>           errExit("pkey_alloc");
+>   
+> @@ -260,7 +263,7 @@ main(void)
+>        * Disable access to any memory with "pkey" set,
+>        * even though there is none right now.
+>        */
+> -    status = pkey_set(pkey, PKEY_DISABLE_ACCESS, 0);
+> +    status = pkey_set(pkey, PKEY_DISABLE_ACCESS);
+>       if (status)
+>           errExit("pkey_set");
+>   
 
 -- 
 Alejandro Colomar
