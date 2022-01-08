@@ -2,83 +2,94 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0CA45488596
-	for <lists+linux-man@lfdr.de>; Sat,  8 Jan 2022 20:27:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B781A488590
+	for <lists+linux-man@lfdr.de>; Sat,  8 Jan 2022 20:20:55 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232428AbiAHT1i (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 8 Jan 2022 14:27:38 -0500
-Received: from omta002.cacentral1.a.cloudfilter.net ([3.97.99.33]:51956 "EHLO
-        omta002.cacentral1.a.cloudfilter.net" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S232135AbiAHT1h (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 8 Jan 2022 14:27:37 -0500
-X-Greylist: delayed 428 seconds by postgrey-1.27 at vger.kernel.org; Sat, 08 Jan 2022 14:27:37 EST
-Received: from shw-obgw-4002a.ext.cloudfilter.net ([10.228.9.250])
-        by cmsmtp with ESMTP
-        id 64tQngWQKyr5H6HGPnGAiq; Sat, 08 Jan 2022 19:20:29 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=shaw.ca; s=s20180605;
-        t=1641669629; bh=+B3Hvo2sswnlQc9VfmqeDffCSwvyI4LDvFJ++jHE3YI=;
-        h=To:Subject:Date:From:Cc:In-Reply-To:References;
-        b=fhTSbrQGc9+DxalJffbpDxIO/NXOe+se8pZAC0M2r816Ni0mTFqX3lgt00wG7h8TG
-         qSXVgTgXO2Src4A+e7jYUFggarXbyxf22MnBkeiscD7eTG5V3GQ5hilICj1AnBiFbQ
-         j+AfCHHyd1xgvuyLGCUqUg9GME3A08Wx12VgciARqMvV3Edz+AHjV7Iij4AlhVC2Pp
-         HutRdKoWE0OCGazKQ2UIf0YCD5dUv2EokxWhxa591MRKWVwz+DclW82IiHbPD6/u2y
-         TtgEJc0zXykdV8ZOomtrftlapS2INIrjGAuazfxdwgFftZhHVxXWmkInO5PVxsHYeM
-         T2zCcDMTvzYYg==
-Received: from kylheku.com ([70.79.182.7])
-        by cmsmtp with ESMTPA
-        id 6HGJnpdNCa4s16HGJnPOec; Sat, 08 Jan 2022 19:20:29 +0000
-Authentication-Results: ; auth=pass (PLAIN) smtp.auth=kkylheku@shaw.ca
-X-Authority-Analysis: v=2.4 cv=S9vKfagP c=1 sm=1 tr=0 ts=61d9e3fd
- a=pMSlDXUwMa7SJ1EIez8PdQ==:117 a=pMSlDXUwMa7SJ1EIez8PdQ==:17
- a=IkcTkHD0fZMA:10 a=SMorJkV_YP8A:10 a=DghFqjY3_ZEA:10
- a=UkEQIE5X_eFDPzLVPE0A:9 a=QEXdDO2ut3YA:10
-Received: from www-data by kylheku.com with local (Exim 4.72)
-        (envelope-from <729-670-0061@kylheku.com>)
-        id 1n6HGJ-0002uW-1D; Sat, 08 Jan 2022 11:20:23 -0800
-To:     mirabilos <tg@debian.org>
-Subject: Re: make-rc: A parallel (as in make(1)) alternative to sysv-rc
-X-PHP-Originating-Script: 501:rcmail.php
+        id S230409AbiAHTUz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 8 Jan 2022 14:20:55 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58914 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S230345AbiAHTUy (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 8 Jan 2022 14:20:54 -0500
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com [IPv6:2a00:1450:4864:20::42e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 59422C06173F
+        for <linux-man@vger.kernel.org>; Sat,  8 Jan 2022 11:20:54 -0800 (PST)
+Received: by mail-wr1-x42e.google.com with SMTP id h10so7981796wrb.1
+        for <linux-man@vger.kernel.org>; Sat, 08 Jan 2022 11:20:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=message-id:date:mime-version:user-agent:subject:content-language:to
+         :cc:references:from:in-reply-to:content-transfer-encoding;
+        bh=UQMkMSZYqJ1qslX8JveeHHUUgb1mSqqwGURmPZdHqdo=;
+        b=D9kH3nNrb/pUZIsXMP+RyXIlv1shmEpd7vE4FHJZ0fHhjyIy21uNJ6F5WRrHNU2HqF
+         EXSJEhZF5fpC4xduZc+vpm2m9WbTKGyL5JJ9mo+4e5Cm6VR/hfI5VAJLcekFAs1LOBsy
+         LfsHy3/pm16Kn0cck8JyoRzJvWnLw2iwBuq5Fk2haauELgAz+ueXikJ9+cdhOjEbb1HW
+         CZI52CMzuLc8c0aync43QGW8IW8Emow07EUkiIF2dkSxTz+8N1XSqWf9748SRd528N7x
+         vgr9V2xsl7gCVFUaxYZXqzUXwO57T3i8r7MRHzp4o/FW3ZBcfQLhKpTZdiPt+vliaG4E
+         xPtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+         :content-language:to:cc:references:from:in-reply-to
+         :content-transfer-encoding;
+        bh=UQMkMSZYqJ1qslX8JveeHHUUgb1mSqqwGURmPZdHqdo=;
+        b=x7M/lZg21gOQ2Bg80ARW09Q/9vuw1vZVxK4sFvEuDkaGp4kCGgbXDnG2ZKi0l+QzSW
+         MBxWzk51mvjr2zoo6xVUHo51N7b/Okx30j2Lnf9kKHME8hghQ70EkZtX0aSYHCm6WG6A
+         FUEBA54PZH3QakBDYn0X57cHSTKhZ7CGPIfOBYqxuPu8MEgzKUbzr7e4HN1TjPJ0XarL
+         1ykO+W/9XCHEcK6V5Hu9+CXgiC4HKxCJ7CJkQBeJyWTGSS6pqjOdXS6YKo+raVZDBIjY
+         uA09bvL6SbC1HJfCeGwreo/ph3wdaHXoOeQDcxjy1ovkYTtzByvSTLLbrn2+2N7494Uz
+         PwGg==
+X-Gm-Message-State: AOAM532ZUkYuOn+Lr4uMnn1DYwv4qCqhn+rNhVoDruxJdJkb0j4kT3HH
+        VlpAgPF49lHNLg84WfG0pV4=
+X-Google-Smtp-Source: ABdhPJzNj8dxxrUm4mAvUt69kOTY605rb5LTns8zqJ2oq9ZHqkzzl8FnAjr0Es3qIZiRt5j680pL2A==
+X-Received: by 2002:adf:c10e:: with SMTP id r14mr59739956wre.558.1641669652868;
+        Sat, 08 Jan 2022 11:20:52 -0800 (PST)
+Received: from [10.168.10.170] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id l4sm2322116wrm.62.2022.01.08.11.20.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 08 Jan 2022 11:20:52 -0800 (PST)
+Message-ID: <952e79b8-24fc-f635-c903-d709858a9127@gmail.com>
+Date:   Sat, 8 Jan 2022 20:20:51 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: quoted-printable
-Date:   Sat, 08 Jan 2022 11:20:23 -0800
-From:   "Kaz Kylheku (gmake)" <729-670-0061@kylheku.com>
-Cc:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
-        Randy Westlund <rwestlun@gmail.com>,
-        Ian Jackson <iwj@debian.org>,
-        "Vincenzo (KatolaZ) Nicosia" <katolaz@freaknet.org>,
-        linux-man <linux-man@vger.kernel.org>,
-        Alejandro Colomar <colomar.6.4.3@gmail.com>,
-        Debian Ecosystem Init Diversity Team 
-        <debian-init-diversity@chiark.greenend.org.uk>,
-        help make <help-make@gnu.org>,
-        Adam Borowski <kilobyte@debian.org>, Benda Xu <orv@debian.org>,
-        "Devuan (Debian is Not GNOME)" <dng@lists.dyne.org>,
-        Mark Hindley <leepen@debian.org>
-In-Reply-To: <a43e9876-fd68-7e64-d916-3e67bfca71f@tarent.de>
-References: <3a34ccac-1d2b-7f5a-f0fa-6ba22dd1680f@gmail.com>
- <a43e9876-fd68-7e64-d916-3e67bfca71f@tarent.de>
-Message-ID: <9ff6d1c146e5ef78264ff925a7c004dc@mail.kylheku.com>
-X-Sender: 729-670-0061@kylheku.com
-User-Agent: Roundcube Webmail/0.9.2
-X-CMAE-Envelope: MS4xfNL0uHKVwdmayA2fCguPWeQT+h9BOxYivVgk5+R6IubtGOjagdCg0dB71wRuBNcHrUfvL1OTS71sXVZup+com4qaF9hJjlQ+fE2gTTGZ6JPDtNiDkG3H
- tgTAnYy/1K5qmou5AsL8xS1nMPmBAYQngNHDtfqpC+h48JYCOoqKfiyUB32Mflg5UwaJOVcOFXQH/K0CynRl4A0SvGyQ2jVzn7daiCiiMvQDR875cLWBXecX
- 7RCeV+d+7ALRlI2yYXT3/r66cPEIsm0W3RGW44utgVfW9b9uV0KfUvMNqHduQPZlbqY/2wnAqLjTMvfCeCc7hNuJbpDWR2h4CiOLfrSuhxwtfd5hMvByHYXJ
- pvl+/i9e3xd58980CUHz5TCFsw4j1+1b90h6x8bKOvs1bOOUKJRibvHjnACehFLsanAjqIsh+qPB77zFV4GVk+AQLzpk2iq1C/UAdiBtGtFma22x0jvqgJAY
- dbgnQPUYTIEEhYXh2Prjx5egqA/L/ofa8VVNyFGQ+DRIycp0h7JYhKvrORkfc4dwDEfdRnR5NcOxAV3WF5ZAksiDP3UCj6AsvWhsyQ==
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.4.1
+Subject: Re: [PATCH 7/9] pkeys.7: Update the example to match glibc
+Content-Language: en-US
+To:     Stephen Kitt <steve@sk2.org>
+Cc:     linux-man@vger.kernel.org, Michael Kerrisk <mtk.manpages@gmail.com>
+References: <20220107164621.275794-1-steve@sk2.org>
+ <20220107164621.275794-7-steve@sk2.org>
+ <c520d866-0b71-d756-58f6-f54be3560974@gmail.com>
+ <20220108151857.4d4454f7@heffalump.sk2.org>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+In-Reply-To: <20220108151857.4d4454f7@heffalump.sk2.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 2022-01-08 03:43, mirabilos wrote:
-> Bah. How often do you boot a unix?
+Hi Stephen,
 
-Boot time optimization is very important in some embedded applications.
+On 1/8/22 15:18, Stephen Kitt wrote:
+>> A part from that, I prefer EXAMPLES to be as simple as possible, so I'd
+>> do 2 patches.  One to match the definitions to the glibc ones, and then
+>> one commit removing old code, assuming glibc is new enough.  Would you
+>> mind sending a subsequent patch to remove everything under #if ... #endif?
+> 
+> Right, will do!
 
-A powered-up device is expected to come into service ASAP basically.
+If you know those functions enough and would like to send new pages for 
+them, that'd be great, but maybe too much to ask.  The simplest thing 
+would be enough, and if someone cares enough to add more info, we can 
+add it later.
 
-Some devices are powered up every time whatever they are embedded into
-is powered up, and have to provide some important function to that
-host environment.
 
+Thanks,
+
+Alex
+
+-- 
+Alejandro Colomar
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
