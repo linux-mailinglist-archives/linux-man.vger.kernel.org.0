@@ -2,65 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 7B8594880CB
-	for <lists+linux-man@lfdr.de>; Sat,  8 Jan 2022 03:04:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B66AE4880E6
+	for <lists+linux-man@lfdr.de>; Sat,  8 Jan 2022 03:25:25 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233235AbiAHCEW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 7 Jan 2022 21:04:22 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60326 "EHLO
+        id S233328AbiAHCZX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 7 Jan 2022 21:25:23 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36676 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229912AbiAHCEV (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 7 Jan 2022 21:04:21 -0500
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com [IPv6:2a00:1450:4864:20::436])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 519F5C061574
-        for <linux-man@vger.kernel.org>; Fri,  7 Jan 2022 18:04:21 -0800 (PST)
-Received: by mail-wr1-x436.google.com with SMTP id t28so7579901wrb.4
-        for <linux-man@vger.kernel.org>; Fri, 07 Jan 2022 18:04:21 -0800 (PST)
+        with ESMTP id S230392AbiAHCZX (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 7 Jan 2022 21:25:23 -0500
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com [IPv6:2a00:1450:4864:20::32f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1CFBEC061574
+        for <linux-man@vger.kernel.org>; Fri,  7 Jan 2022 18:25:23 -0800 (PST)
+Received: by mail-wm1-x32f.google.com with SMTP id c126-20020a1c9a84000000b00346f9ebee43so3814792wme.4
+        for <linux-man@vger.kernel.org>; Fri, 07 Jan 2022 18:25:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=message-id:date:mime-version:user-agent:subject:content-language:to
          :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=vx3HZiOGdmt17Wp6AzfB7Eg4tSEeFsWdaUIXjFi5j3Y=;
-        b=gZEzDtnamucu09m/6PlbpOZQUS/KSJxWSRLV6+zdE4/Ptkq/AqjkUFLn5211QpBt4g
-         BrxrvkJ6TwX+1iw2q0Qfe16+cKFhUscHjSBVkSpsdtj/VEhLQH0s+MBK29P+PXDHzbkM
-         NYdaQEddRwzdLaT/TUBxhshWyTyEHDuOGbWo9zFKQGk0O4kGr21SS9Xhgl/xN2k3/Bp7
-         rv2yHYTKDsHGeoGNBZSKTVA8tFoh10WxVypj7PqxthJocCBMA4JmbuCgFgVTLx0yVUCd
-         odM7+EQr8DlhoyqlRAU9NNQgcNxyWtZwW9wxKUYJJO59GL4IGWyhY5mtA3lgMBVKeTwV
-         Rd6A==
+        bh=MTKn4/3UQx01HT66b9UTrBp1h2t75TD+TVQZ5COosX8=;
+        b=jVEfS/grQkAFrQDYIbIwnaBf/7PJ1OAdibqmV45fwuzXmpZnJ50W/dj2yTywlKn+ON
+         2yhfi9VwILe3mKX+fqtlIsaEPFnaTyM85B9FkxTnVBKuyz1ec7s4NsbApcpVbdwjoAfA
+         r3XDaYwwCBg/wr+UEhOg2HfWL/3xkA0PJa8ysEljqFSM5k0VS4OJ5k2oDBbcsL5ZyN4s
+         rllY3TkR5pElZUqnIwd6t55to3iR9UvaO3JqO64Sg/hbIgYw7D2B4eC+qNiHqj8m3RLM
+         frJIEiyxgGDpQ7UCuGV4WhkQQPkaqL0OsIosKPg0SwzkMJDA5oXuxcIWldhiDDOh5etS
+         6i5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
          :content-language:to:cc:references:from:in-reply-to
          :content-transfer-encoding;
-        bh=vx3HZiOGdmt17Wp6AzfB7Eg4tSEeFsWdaUIXjFi5j3Y=;
-        b=dkFSm3wSfppVGVI3h2EnLlveP4pYgQCDYYjoQNKaes8mW1LokWIU/U0IsW3N74nAKE
-         YmnX9rJXq6sILEMAQbijX7RlBX5SFmob3j9AqGiXH+eTgRyHya4keopixXPABwbot7/e
-         HXeNECr9NtHFn7lsZxWTZryuWC0OEH6ehPazmnpD4cszFkMnFwcauj23OunazIQzu7kF
-         83Wpfn3dOGIEfvqqx81FWUUnk8U/+nzAhh9X9HxhDVWFE92G0/9ELBFmfTW62FpVBv/u
-         J8oI3q1/zz2IUJotydlAH9gAID0ap+tgrRtmum5Ddysmeco6kCgSx2NjhWv3QSsve9k0
-         kNOQ==
-X-Gm-Message-State: AOAM533XCTSyADkM9rTEG5HS+HYhorTil1svd6nZjCUNb8ITn6KSlwA6
-        UknjWfKLYisW9joyYpOqd22cqxAiUno=
-X-Google-Smtp-Source: ABdhPJzNnppgn9jBKsV8/sFT2EFu0PLkk0d02CUCa9gwy7O+UyfWmjKMS9dC980LdEDNeqXFQTfwNA==
-X-Received: by 2002:a05:6000:188f:: with SMTP id a15mr57026217wri.153.1641607459933;
-        Fri, 07 Jan 2022 18:04:19 -0800 (PST)
+        bh=MTKn4/3UQx01HT66b9UTrBp1h2t75TD+TVQZ5COosX8=;
+        b=58xwrJRamGUkrcrvAm7+TaQAuwA3Qp7a7fVxUoj+46rrZJBmKZWWlIN3iY5o8IKdHI
+         lb+yisppSGLBvU1CHXlaoCuGLW94W9jNg7/Dykn+VYItvmHejfaVDScroZNBmcB0sjoR
+         cmGpievQ1ExlmFRqXnhIqn9R3WTeSjFxOVWR2qTVsh4S8TqtA8yMVxpO0MUDEjiFEsXd
+         wwKwBh6gkN+pIEmzRNC6koETKg4UkvO6nakhgctS/QhZo9XhFxDSyreGISEc6V1V4IK+
+         oHvrxGfsI5xtkSJOv9poSAOhQOTrYu3TNb7xHzy8h8vkdouWorpIo4oBPdbA82DBUvdA
+         VQ5g==
+X-Gm-Message-State: AOAM530UjfxqnFKzNPZdYaiiUNUlSGMSnXIUjZBOhW4ZfQxU9O6xYswh
+        gOjLQqLOxVzzVRs1BvxJLqM=
+X-Google-Smtp-Source: ABdhPJwy3p4RnUO3d4sKCBcjQbYS7lABKaqs1zAt/UKwVO0nf0oQjdKiFD6XAFS9ljH55I+ow9qxdA==
+X-Received: by 2002:a7b:c190:: with SMTP id y16mr12464554wmi.35.1641608721655;
+        Fri, 07 Jan 2022 18:25:21 -0800 (PST)
 Received: from [10.168.10.170] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id k31sm163598wms.21.2022.01.07.18.04.19
+        by smtp.gmail.com with ESMTPSA id z6sm200596wmp.9.2022.01.07.18.25.20
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 07 Jan 2022 18:04:19 -0800 (PST)
-Message-ID: <e980398d-0a21-45e4-73c5-6727e4f552a2@gmail.com>
-Date:   Sat, 8 Jan 2022 03:04:18 +0100
+        Fri, 07 Jan 2022 18:25:21 -0800 (PST)
+Message-ID: <b4622fe8-ec81-654f-fa32-bf2efa0459ea@gmail.com>
+Date:   Sat, 8 Jan 2022 03:25:20 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.4.1
-Subject: Re: [PATCH 8/9] strtok.3: Enable example analysis, fix declaration
+Subject: Re: [PATCH 9/9] malloc_info.3: Use intptr_t to store pointers
 Content-Language: en-US
-To:     Stephen Kitt <steve@sk2.org>
-Cc:     linux-man@vger.kernel.org, Michael Kerrisk <mtk.manpages@gmail.com>
+To:     Stephen Kitt <steve@sk2.org>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org
 References: <20220107164621.275794-1-steve@sk2.org>
- <20220107164621.275794-8-steve@sk2.org>
+ <20220107164621.275794-9-steve@sk2.org>
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-In-Reply-To: <20220107164621.275794-8-steve@sk2.org>
+In-Reply-To: <20220107164621.275794-9-steve@sk2.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 Precedence: bulk
@@ -70,57 +71,59 @@ X-Mailing-List: linux-man@vger.kernel.org
 Hi Stephen,
 
 On 1/7/22 17:46, Stephen Kitt wrote:
->      for (int j = 1, str1 = argv[1]; ...
-> 
-> declares two variables of type int, j and str1; the pre-existing
-> char * str1 isn't used. This causes compiler warnings. Declaring j
-> outside the loop fixes everything.
-> 
-> To enable automated source extraction, separate the text following the
-> code.
-> 
-> Signed-off-by: Stephen Kitt <steve@sk2.org>
+> int isn't large enough to store pointers on all platforms, use
+> intptr_t instead.
 
-Since these are two completely unrelated things, I'd prefer 2 patches.
-If you resend this one without the subsection heading, I'll apply it.
+Well, since the pointer came from a previous 'int', there should be no 
+problem.  But since the C language (or even POSIX) is very permissive 
+about what a conforming implementation can do with pointers, and it only 
+guarantees conversions to/from [u]intptr_t, I'd take this patch for 
+correctness.  However...
+
+I still don't like at all the fact that compilers require an explicit 
+cast.  Casts are dangerous.  Period.  I haven't seen a place where casts 
+are good, except when you explicitly want to rely on undefined behavior 
+(which I've found very useful in a few cases).  It should be clear to 
+the compiler that we're doing the right thing, since we declared the 
+variable to be 'intptr_t', which is by itself very rare.  Requiring a 
+cast adds no clarity, while it does increase the chances of a bug.
+
+I'd like to know your opinion.  I think I'll remove the cast, even if 
+compilers are going to give a warning for implicitly converting from 
+pointer to integer (intptr_t).  I'd say patch the compiler, not the code.
 
 Thanks,
 
 Alex
 
-> ---
->   man3/strtok.3 | 4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
 > 
-> diff --git a/man3/strtok.3 b/man3/strtok.3
-> index aec914094..19d5d9204 100644
-> --- a/man3/strtok.3
-> +++ b/man3/strtok.3
-> @@ -255,6 +255,7 @@ main(int argc, char *argv[])
+> Signed-off-by: Stephen Kitt <steve@sk2.org>
+> ---
+>   man3/malloc_info.3 | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/man3/malloc_info.3 b/man3/malloc_info.3
+> index a5b8d34f9..3baa891fd 100644
+> --- a/man3/malloc_info.3
+> +++ b/man3/malloc_info.3
+> @@ -198,7 +198,7 @@ static int numThreads, numBlocks;
+>   static void *
+>   thread_func(void *arg)
 >   {
->       char *str1, *str2, *token, *subtoken;
->       char *saveptr1, *saveptr2;
-> +    int j;
+> -    int tn = (int) arg;
+> +    intptr_t tn = (intptr_t) arg;
 >   
->       if (argc != 4) {
->           fprintf(stderr, "Usage: %s string delim subdelim\en",
-> @@ -262,7 +263,7 @@ main(int argc, char *argv[])
->           exit(EXIT_FAILURE);
->       }
+>       /* The multiplier \(aq(2 + tn)\(aq ensures that each thread (including
+>          the main thread) allocates a different amount of memory. */
+> @@ -237,7 +237,7 @@ main(int argc, char *argv[])
 >   
-> -    for (int j = 1, str1 = argv[1]; ; j++, str1 = NULL) {
-> +    for (j = 1, str1 = argv[1]; ; j++, str1 = NULL) {
->           token = strtok_r(str1, argv[2], &saveptr1);
->           if (token == NULL)
->               break;
-> @@ -280,6 +281,7 @@ main(int argc, char *argv[])
->   }
->   .EE
->   .PP
-> +.SS Further examples
->   Another example program using
->   .BR strtok ()
->   can be found in
+>       /* Create threads that allocate different amounts of memory. */
+>   
+> -    for (int tn = 0; tn < numThreads; tn++) {
+> +    for (intptr_t tn = 0; tn < numThreads; tn++) {
+>           errno = pthread_create(&thr[tn], NULL, thread_func,
+>                                  (void *) tn);
+>           if (errno != 0)
 
 -- 
 Alejandro Colomar
