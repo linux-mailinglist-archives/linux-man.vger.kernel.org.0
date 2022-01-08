@@ -2,84 +2,96 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 1323448830F
-	for <lists+linux-man@lfdr.de>; Sat,  8 Jan 2022 11:37:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 5DB6C48834D
+	for <lists+linux-man@lfdr.de>; Sat,  8 Jan 2022 12:50:43 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233889AbiAHKhl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 8 Jan 2022 05:37:41 -0500
-Received: from smtpout3.mo529.mail-out.ovh.net ([46.105.54.81]:42465 "EHLO
-        smtpout3.mo529.mail-out.ovh.net" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S231232AbiAHKhl (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 8 Jan 2022 05:37:41 -0500
-X-Greylist: delayed 417 seconds by postgrey-1.27 at vger.kernel.org; Sat, 08 Jan 2022 05:37:41 EST
-Received: from mxplan6.mail.ovh.net (unknown [10.108.4.25])
-        by mo529.mail-out.ovh.net (Postfix) with ESMTPS id 5C680D660F9C;
-        Sat,  8 Jan 2022 11:30:43 +0100 (CET)
-Received: from jwilk.net (37.59.142.102) by DAG4EX2.mxp6.local (172.16.2.32)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Sat, 8 Jan
- 2022 11:30:42 +0100
-Authentication-Results: garm.ovh; auth=pass (GARM-102R004d2590d78-4c28-4c20-9539-7aba2a2342d0,
-                    E7C9DD8F7688E169D1A2B9DCE47DE5C662CA2690) smtp.auth=jwilk@jwilk.net
-X-OVh-ClientIp: 5.172.255.2
-Date:   Sat, 8 Jan 2022 11:30:41 +0100
-From:   Jakub Wilk <jwilk@jwilk.net>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-CC:     Stephen Kitt <steve@sk2.org>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        <linux-man@vger.kernel.org>
-Subject: Re: [PATCH 9/9] malloc_info.3: Use intptr_t to store pointers
-Message-ID: <20220108103041.ui4uiqfpdrn5mt33@jwilk.net>
-References: <20220107164621.275794-1-steve@sk2.org>
- <20220107164621.275794-9-steve@sk2.org>
- <b4622fe8-ec81-654f-fa32-bf2efa0459ea@gmail.com>
+        id S231636AbiAHLum convert rfc822-to-8bit (ORCPT
+        <rfc822;lists+linux-man@lfdr.de>); Sat, 8 Jan 2022 06:50:42 -0500
+Received: from lixid.tarent.de ([193.107.123.118]:45893 "EHLO mail.lixid.net"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S233445AbiAHLum (ORCPT <rfc822;linux-man@vger.kernel.org>);
+        Sat, 8 Jan 2022 06:50:42 -0500
+X-Greylist: delayed 438 seconds by postgrey-1.27 at vger.kernel.org; Sat, 08 Jan 2022 06:50:41 EST
+Received: from localhost (localhost [127.0.0.1])
+        by mail.lixid.net (MTA) with ESMTP id D7E8114111B;
+        Sat,  8 Jan 2022 12:43:21 +0100 (CET)
+Received: from mail.lixid.net ([127.0.0.1])
+        by localhost (mail.lixid.net [127.0.0.1]) (MFA, port 10024) with LMTP
+        id EVrcMO9gqzi1; Sat,  8 Jan 2022 12:43:16 +0100 (CET)
+Received: from tglase-nb.lan.tarent.de (vpn-172-34-0-14.dynamic.tarent.de [172.34.0.14])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        by mail.lixid.net (MTA) with ESMTPS id DD1181410A6;
+        Sat,  8 Jan 2022 12:43:15 +0100 (CET)
+Received: by tglase-nb.lan.tarent.de (Postfix, from userid 1000)
+        id 49F6F1CE19B; Sat,  8 Jan 2022 12:43:15 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+        by tglase-nb.lan.tarent.de (Postfix) with ESMTP id 46BDF1C327D;
+        Sat,  8 Jan 2022 12:43:15 +0100 (CET)
+Date:   Sat, 8 Jan 2022 12:43:15 +0100 (CET)
+From:   mirabilos <tg@debian.org>
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+cc:     Debian Ecosystem Init Diversity Team 
+        <debian-init-diversity@chiark.greenend.org.uk>,
+        Ian Jackson <iwj@debian.org>, Benda Xu <orv@debian.org>,
+        Adam Borowski <kilobyte@debian.org>,
+        "Vincenzo (KatolaZ) Nicosia" <katolaz@freaknet.org>,
+        Mark Hindley <leepen@debian.org>,
+        Mark Hindley <leepen@debian.org>,
+        "Devuan (Debian is Not GNOME)" <dng@lists.dyne.org>,
+        Randy Westlund <rwestlun@gmail.com>,
+        linux-man <linux-man@vger.kernel.org>,
+        help make <help-make@gnu.org>,
+        Alejandro Colomar <colomar.6.4.3@gmail.com>
+Subject: Re: make-rc: A parallel (as in make(1)) alternative to sysv-rc
+In-Reply-To: <3a34ccac-1d2b-7f5a-f0fa-6ba22dd1680f@gmail.com>
+Message-ID: <a43e9876-fd68-7e64-d916-3e67bfca71f@tarent.de>
+References: <3a34ccac-1d2b-7f5a-f0fa-6ba22dd1680f@gmail.com>
+Content-Language: de-DE-1901
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <b4622fe8-ec81-654f-fa32-bf2efa0459ea@gmail.com>
-X-Originating-IP: [37.59.142.102]
-X-ClientProxiedBy: DAG6EX2.mxp6.local (172.16.2.52) To DAG4EX2.mxp6.local
- (172.16.2.32)
-X-Ovh-Tracer-GUID: dd848994-69de-438c-8dbb-436893a45ebd
-X-Ovh-Tracer-Id: 7481323406921160672
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: 0
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvuddrudeggedgudegucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucenucfjughrpeffhffvuffkfhggtggugfgjihesthekredttddtjeenucfhrhhomheplfgrkhhusgcuhghilhhkuceojhifihhlkhesjhifihhlkhdrnhgvtheqnecuggftrfgrthhtvghrnhepledvleekteevfeehtdevffevteeileekfeejheetffdtvefffeejhefhffegkedvnecukfhppedtrddtrddtrddtpdefjedrheelrddugedvrddutddvnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmohguvgepshhmthhpohhuthdphhgvlhhopehmgihplhgrnheirdhmrghilhdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomhepjhifihhlkhesjhifihhlkhdrnhgvthdprhgtphhtthhopehlihhnuhigqdhmrghnsehvghgvrhdrkhgvrhhnvghlrdhorhhg
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-For the record, this is what you get when you compile the original code 
-on a 64-bit architecture:
+On Wed, 5 Jan 2022, Alejandro Colomar (man-pages) wrote:
 
-    $ gcc -Wall -pthread malloc_info-example.c
-    malloc_info-example.c: In function 'thread_func':
-    malloc_info-example.c:16:14: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
-       16 |     int tn = (int) arg;
-          |              ^
-    malloc_info-example.c: In function 'main':
-    malloc_info-example.c:57:32: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
-       57 |                                (void *) tn);
-          |                                ^
+> Most of you I added you to this email because I found you on the maintainers
+> list for the Debian sysv-rc package (now dead for a long time).
+> I also CCd Devuan, since I hope you'll be interested in this little project of
+> mine.
 
-* Alejandro Colomar <alx.manpages@gmail.com>, 2022-01-08, 03:25:
->On 1/7/22 17:46, Stephen Kitt wrote:
->>int isn't large enough to store pointers on all platforms, use 
->>intptr_t instead.
->
->Well, since the pointer came from a previous 'int', there should be no 
->problem.  But since the C language (or even POSIX) is very permissive 
->about what a conforming implementation can do with pointers, and it 
->only guarantees conversions to/from [u]intptr_t, I'd take this patch 
->for correctness.  However...
+Not really. I invested a significant amount of effort to revert sysv-rc
+to sequential booting because the parallel one invites huge amounts of
+trouble, bugs, and breaks any hope of debugging that.
 
-The standards guarantee that void* → intptr_t → void* round-trips, 
-but that's not what this code does.
+> So, last friday (yes, that's New Year's Eve), I was reading something, and got
+> this idea... the main valid claim for systemd is that it blows away
+> competition in terms of performance?  Full parallelization?  Knows about
 
-The example converts int → void* → int. Changing int to intptr_t makes 
-the compiler warnings go away, but I don't think it improves correctness 
-in any way.
+Bah. How often do you boot a unix?
 
+And in practice, shitdown times are MUCH more important than boot times.
+Need to quickly turn off the laptop because the battery is dying or the
+train is arriving or the cat’s vomited all over something. Enter those
+90-second delays (often multiple) of shitstemd ☹ sysvinit/sysv-rc shuts
+down in good time.
+
+> $ ls -lh $(realpath $(which systemd make bash sh 2>/dev/null))
+
+Hey! mksh is there, too! (And /bin/lksh is even linked statically, which
+is another performance benefit.)
+
+> So, if the problem is that the rc scripts don't run parallel and don't know
+
+No, the problem is that they do, by default, even in sysv-rc.
+
+bye,
+//mirabilos
 -- 
-Jakub Wilk
+«MyISAM tables -will- get corrupted eventually. This is a fact of life. »
+“mysql is about as much database as ms access” – “MSSQL at least descends
+from a database” “it's a rebranded SyBase” “MySQL however was born from a
+flatfile and went downhill from there” – “at least jetDB doesn’t claim to
+be a database”	(#nosec)    ‣‣‣ Please let MySQL and MariaDB finally die!
