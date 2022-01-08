@@ -2,96 +2,137 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 5DB6C48834D
-	for <lists+linux-man@lfdr.de>; Sat,  8 Jan 2022 12:50:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 36DB54883EF
+	for <lists+linux-man@lfdr.de>; Sat,  8 Jan 2022 15:19:27 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231636AbiAHLum convert rfc822-to-8bit (ORCPT
-        <rfc822;lists+linux-man@lfdr.de>); Sat, 8 Jan 2022 06:50:42 -0500
-Received: from lixid.tarent.de ([193.107.123.118]:45893 "EHLO mail.lixid.net"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S233445AbiAHLum (ORCPT <rfc822;linux-man@vger.kernel.org>);
-        Sat, 8 Jan 2022 06:50:42 -0500
-X-Greylist: delayed 438 seconds by postgrey-1.27 at vger.kernel.org; Sat, 08 Jan 2022 06:50:41 EST
-Received: from localhost (localhost [127.0.0.1])
-        by mail.lixid.net (MTA) with ESMTP id D7E8114111B;
-        Sat,  8 Jan 2022 12:43:21 +0100 (CET)
-Received: from mail.lixid.net ([127.0.0.1])
-        by localhost (mail.lixid.net [127.0.0.1]) (MFA, port 10024) with LMTP
-        id EVrcMO9gqzi1; Sat,  8 Jan 2022 12:43:16 +0100 (CET)
-Received: from tglase-nb.lan.tarent.de (vpn-172-34-0-14.dynamic.tarent.de [172.34.0.14])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by mail.lixid.net (MTA) with ESMTPS id DD1181410A6;
-        Sat,  8 Jan 2022 12:43:15 +0100 (CET)
-Received: by tglase-nb.lan.tarent.de (Postfix, from userid 1000)
-        id 49F6F1CE19B; Sat,  8 Jan 2022 12:43:15 +0100 (CET)
-Received: from localhost (localhost [127.0.0.1])
-        by tglase-nb.lan.tarent.de (Postfix) with ESMTP id 46BDF1C327D;
-        Sat,  8 Jan 2022 12:43:15 +0100 (CET)
-Date:   Sat, 8 Jan 2022 12:43:15 +0100 (CET)
-From:   mirabilos <tg@debian.org>
+        id S234397AbiAHOTZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 8 Jan 2022 09:19:25 -0500
+Received: from 7.mo576.mail-out.ovh.net ([46.105.50.32]:34565 "EHLO
+        7.mo576.mail-out.ovh.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S229667AbiAHOTX (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 8 Jan 2022 09:19:23 -0500
+X-Greylist: delayed 77178 seconds by postgrey-1.27 at vger.kernel.org; Sat, 08 Jan 2022 09:19:22 EST
+Received: from player714.ha.ovh.net (unknown [10.109.138.54])
+        by mo576.mail-out.ovh.net (Postfix) with ESMTP id 6008822D75
+        for <linux-man@vger.kernel.org>; Sat,  8 Jan 2022 14:19:21 +0000 (UTC)
+Received: from sk2.org (82-65-25-201.subs.proxad.net [82.65.25.201])
+        (Authenticated sender: steve@sk2.org)
+        by player714.ha.ovh.net (Postfix) with ESMTPSA id E5881260BB0AE;
+        Sat,  8 Jan 2022 14:19:17 +0000 (UTC)
+Authentication-Results: garm.ovh; auth=pass (GARM-104R00536c5881a-9b3f-44ee-9154-afdd7f527c61,
+                    E73EBA98AEB195A144C17DE4F959AB65BE9739A6) smtp.auth=steve@sk2.org
+X-OVh-ClientIp: 82.65.25.201
+Date:   Sat, 8 Jan 2022 15:18:57 +0100
+From:   Stephen Kitt <steve@sk2.org>
 To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-cc:     Debian Ecosystem Init Diversity Team 
-        <debian-init-diversity@chiark.greenend.org.uk>,
-        Ian Jackson <iwj@debian.org>, Benda Xu <orv@debian.org>,
-        Adam Borowski <kilobyte@debian.org>,
-        "Vincenzo (KatolaZ) Nicosia" <katolaz@freaknet.org>,
-        Mark Hindley <leepen@debian.org>,
-        Mark Hindley <leepen@debian.org>,
-        "Devuan (Debian is Not GNOME)" <dng@lists.dyne.org>,
-        Randy Westlund <rwestlun@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>,
-        help make <help-make@gnu.org>,
-        Alejandro Colomar <colomar.6.4.3@gmail.com>
-Subject: Re: make-rc: A parallel (as in make(1)) alternative to sysv-rc
-In-Reply-To: <3a34ccac-1d2b-7f5a-f0fa-6ba22dd1680f@gmail.com>
-Message-ID: <a43e9876-fd68-7e64-d916-3e67bfca71f@tarent.de>
-References: <3a34ccac-1d2b-7f5a-f0fa-6ba22dd1680f@gmail.com>
-Content-Language: de-DE-1901
+Cc:     linux-man@vger.kernel.org, Michael Kerrisk <mtk.manpages@gmail.com>
+Subject: Re: [PATCH 7/9] pkeys.7: Update the example to match glibc
+Message-ID: <20220108151857.4d4454f7@heffalump.sk2.org>
+In-Reply-To: <c520d866-0b71-d756-58f6-f54be3560974@gmail.com>
+References: <20220107164621.275794-1-steve@sk2.org>
+        <20220107164621.275794-7-steve@sk2.org>
+        <c520d866-0b71-d756-58f6-f54be3560974@gmail.com>
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+Content-Type: multipart/signed; boundary="Sig_/bvbNqCOjF/GkPCOpW2yznVO";
+ protocol="application/pgp-signature"; micalg=pgp-sha512
+X-Ovh-Tracer-Id: 11342597138248730246
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvuddrudeghedgfeejucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepfffhvffukfgjfhfogggtsehgtderreertdejnecuhfhrohhmpefuthgvphhhvghnucfmihhtthcuoehsthgvvhgvsehskhdvrdhorhhgqeenucggtffrrghtthgvrhhnpeevledvueefvdeivefftdeugeekveethefftdffteelheejkeejjeduffeiudetkeenucfkpheptddrtddrtddrtddpkedvrdeihedrvdehrddvtddunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmohguvgepshhmthhpohhuthdphhgvlhhopehplhgrhigvrhejudegrdhhrgdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomhepshhtvghvvgesshhkvddrohhrghdprhgtphhtthhopehlihhnuhigqdhmrghnsehvghgvrhdrkhgvrhhnvghlrdhorhhg
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed, 5 Jan 2022, Alejandro Colomar (man-pages) wrote:
+--Sig_/bvbNqCOjF/GkPCOpW2yznVO
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-> Most of you I added you to this email because I found you on the maintainers
-> list for the Debian sysv-rc package (now dead for a long time).
-> I also CCd Devuan, since I hope you'll be interested in this little project of
-> mine.
+Hi Alex,
 
-Not really. I invested a significant amount of effort to revert sysv-rc
-to sequential booting because the parallel one invites huge amounts of
-trouble, bugs, and breaks any hope of debugging that.
+On Sat, 8 Jan 2022 02:59:12 +0100, "Alejandro Colomar (man-pages)"
+<alx.manpages@gmail.com> wrote:
+> On 1/7/22 17:46, Stephen Kitt wrote:
+> > glibc 2.27 introduced support for the pkeys functions, but the glibc
+> > versions don't match those declared in the example. Update the example
+> > to match glibc, and avoid declaring the functions if glibc is new
+> > enough. >
+> > Signed-off-by: Stephen Kitt <steve@sk2.org> =20
+>=20
+>=20
+> There are a few problems with the prototypes.
+>=20
+>=20
+> alx@ady1:~/src/gnu/glibc$ grep_glibc_prototype wrpkru
+> alx@ady1:~/src/gnu/glibc$ grep -rn define.wrpkru
+> alx@ady1:~/src/gnu/glibc$ grep_glibc_prototype pkey_set
+> 60:int pkey_set (int __key, unsigned int __access_rights) __THROW;
+> alx@ady1:~/src/gnu/glibc$ grep_glibc_prototype pkey_mprotect
+> 72:int pkey_mprotect (void *__addr, size_t __len, int __prot, int=20
+> __pkey) __THROW;
+> alx@ady1:~/src/gnu/glibc$ grep_glibc_prototype pkey_alloc
+> 56:int pkey_alloc (unsigned int __flags, unsigned int __access_rights)=20
+> __THROW;
+> alx@ady1:~/src/gnu/glibc$ grep_glibc_prototype pkey_free
+> 68:int pkey_free (int __key) __THROW;
+>=20
+>=20
+> As you see above, I couldn't find wrpkru().  Are you sure it exists in=20
+> glibc?
 
-> So, last friday (yes, that's New Year's Eve), I was reading something, and got
-> this idea... the main valid claim for systemd is that it blows away
-> competition in terms of performance?  Full parallelization?  Knows about
+It doesn=E2=80=99t exist in glibc(), but if we use the glibc version of pke=
+y_set(),
+it=E2=80=99s not needed in the example. In glibc, the equivalent function is
+pkey_write(), but that=E2=80=99s an implementation detail, it=E2=80=99s not=
+ part of the API.
 
-Bah. How often do you boot a unix?
+> pkey_mprotect(3) uses 'int' instead of 'unsigned long'.  Would you mind=20
+> fixind that one too?
+>=20
+> pkey_set(3) uses 'unsigned int' instead of 'unsigned long'.  Please fix=20
+> that one.
+>=20
+> pkey_free(3) uses 'int' instead of 'unsigned long'.  Would you mind=20
+> fixing that one too?
 
-And in practice, shitdown times are MUCH more important than boot times.
-Need to quickly turn off the laptop because the battery is dying or the
-train is arriving or the cat’s vomited all over something. Enter those
-90-second delays (often multiple) of shitstemd ☹ sysvinit/sysv-rc shuts
-down in good time.
+Right, I=E2=80=99ll take care of all that.
 
-> $ ls -lh $(realpath $(which systemd make bash sh 2>/dev/null))
+> BTW, I need to modify grep_glibc_prototype() so that it always prints=20
+> the file name, even if only one file is passed to grep (adding /dev/null=
+=20
+> to the file list).
+>=20
+>=20
+> A part from that, I prefer EXAMPLES to be as simple as possible, so I'd=20
+> do 2 patches.  One to match the definitions to the glibc ones, and then=20
+> one commit removing old code, assuming glibc is new enough.  Would you=20
+> mind sending a subsequent patch to remove everything under #if ... #endif?
 
-Hey! mksh is there, too! (And /bin/lksh is even linked statically, which
-is another performance benefit.)
+Right, will do!
 
-> So, if the problem is that the rc scripts don't run parallel and don't know
+Regards,
 
-No, the problem is that they do, by default, even in sysv-rc.
+Stephen
 
-bye,
-//mirabilos
--- 
-«MyISAM tables -will- get corrupted eventually. This is a fact of life. »
-“mysql is about as much database as ms access” – “MSSQL at least descends
-from a database” “it's a rebranded SyBase” “MySQL however was born from a
-flatfile and went downhill from there” – “at least jetDB doesn’t claim to
-be a database”	(#nosec)    ‣‣‣ Please let MySQL and MariaDB finally die!
+--Sig_/bvbNqCOjF/GkPCOpW2yznVO
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEnPVX/hPLkMoq7x0ggNMC9Yhtg5wFAmHZnVEACgkQgNMC9Yht
+g5z3AA//X8ddqC/XliL5nwd5PFR3MwAaswkCO5T8urJkmqpMcw/A8Fm3TJCDHhqd
+Tnsu74G+PHw7ZPqUbZpWelgGQvIqbcep0EZ4T7q7xUfO5lEtPcyTcBfEJk+AW3PF
+CVA+QmGFQqC83I8hXULEN+LHQzHUnhpPTvSmW5woSzAxQFAOW+94KhSaj+6ynwuG
+5X2GqAVsne53toYuZjLTEfIDgwj0erj84zMh90RKWPzsrlKnflh/dLpcXxrYi173
+XoyS/ovYviuopJdwYAAwa1bbRwZ5xrjMsESQYWDQgY0BpyHQjbE93acSwE5ThgmR
+HP8D4lw+ceg55oYba3w1QPFV6MQ4r7TFR57vMO2M1NcO3LMGbLGZMaJbfNe5p6w8
+7jCgbq54fZmyf/DHDxwhWqn3B/uLmzqcgTNxlO4Daf5eE+HoQKxGt+RqVkv7so+l
+ALPcrdF7XqYnYQW1gj6ScNdRnfqaHK8f3efzTR2VD9N7kLYTru9wVviBU/l3F9Gc
+CIUZpFnbs2fdUJPtL+KieKJu9AvLnlDIxjIbHjSaMIIbKS/hJ2MdP2c8Os0IVW1+
+UucifvxzC9bQQ73P6oldw3P3GPRmBuzGY883JZethp6zXhYet9H/u0khE1VvmIQE
+pwavqNy80AofBK6DaC+h6Ekel8cg1cu0YDveZJKjWb/6ubbdsQ4=
+=GHuq
+-----END PGP SIGNATURE-----
+
+--Sig_/bvbNqCOjF/GkPCOpW2yznVO--
