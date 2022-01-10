@@ -2,104 +2,129 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 24EB5489EE8
-	for <lists+linux-man@lfdr.de>; Mon, 10 Jan 2022 19:13:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 4E9AF489F8A
+	for <lists+linux-man@lfdr.de>; Mon, 10 Jan 2022 19:49:53 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S238855AbiAJSNw (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 10 Jan 2022 13:13:52 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57794 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S238832AbiAJSNv (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 10 Jan 2022 13:13:51 -0500
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com [IPv6:2a00:1450:4864:20::32f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 421D9C06173F
-        for <linux-man@vger.kernel.org>; Mon, 10 Jan 2022 10:13:51 -0800 (PST)
-Received: by mail-wm1-x32f.google.com with SMTP id w26so3502148wmi.0
-        for <linux-man@vger.kernel.org>; Mon, 10 Jan 2022 10:13:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=ypmop1/MF0zLOarzcvjTFrgYuvcxzN4x/kVZCXvZL8Y=;
-        b=XvIN9VgMqXqWGSdtuhvVrR5ErOJSf8YT2icTMkWnl57cNw7l8nCCI53/AC9QUoZkp2
-         aFQUZyrQijcgxMkW4vOfUXIwcBzIQ8u2RYhPhEDM+kl3tyE/r/MjMqtEW7zX1GUkj+DM
-         IDSFg/9RL/nKrFO1GwkoEVLWw2ymrKfTK7xcg+akiR7IlUbFnurxvkKe0KVBIKGvcJlP
-         bYuajF2qbnHzlI/+nroirrcPc9A4BkmoW/HQs0+68tSRI24MMmZ+HJ86/SqZZqybjxCq
-         n/cHtDiThBC7OrA8Df/hzkh9x+AwywiYsYjDE8ESm0MtSmb+uTo2DbGUd54oTAaD41rt
-         sQKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=ypmop1/MF0zLOarzcvjTFrgYuvcxzN4x/kVZCXvZL8Y=;
-        b=02CW96nBRrzGbpraGGD2xdr8CiydPl4n/dvE6htqd/L7kO+cWvH5CebLPHHmOn1amj
-         5fR/J0yzM81jiWgyPEkzoO95iWMM+I0rR7p/piq5is2Mt6IIpNucXjnnFRsFBKd+t1Ci
-         M4K1JnFWkXLFc5VD+BTC96V+Pb3yDpKLFhvql1nFjIpM9UXdqOl/EU0mMxTyWiFhalT7
-         nXxMLe1NpNuTojs7Mscbz+jZVGSX3YcEYQOwfuBKEOqTCkDlC2yZsNNP+NYkh/GZvXWs
-         UnXws+OcsJnUeAv2SvW1kNxTpbChl7auPv4XScqzP3omzQfhemCApgBXMu9/IMjqkQI8
-         /xPg==
-X-Gm-Message-State: AOAM531ddyJyfl0dx3H/4KRqyXX6Ae0hEUqLjA1GlYQgw3o7vNzLT4MZ
-        rc6FPLOhxJMyblD0kLebynVp9nnfBmI=
-X-Google-Smtp-Source: ABdhPJySCAPsU4OzVdODmQfRQ24vFzvXruO6EHNQofMD5rBwqYptgczFeBu57Bkyn3pmXH56n0TqDg==
-X-Received: by 2002:a05:600c:1e17:: with SMTP id ay23mr17081648wmb.77.1641838429808;
-        Mon, 10 Jan 2022 10:13:49 -0800 (PST)
-Received: from [10.168.10.170] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id l6sm1511394wmq.22.2022.01.10.10.13.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 10 Jan 2022 10:13:49 -0800 (PST)
-Message-ID: <738c0961-b640-cad3-524e-79f7903aacdc@gmail.com>
-Date:   Mon, 10 Jan 2022 19:13:48 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.4.1
-Subject: Re: [PATCH] pkeys.7: ffix
-Content-Language: en-US
-To:     =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+        id S240275AbiAJStw (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 10 Jan 2022 13:49:52 -0500
+Received: from 139-28-40-42.artus.net.pl ([139.28.40.42]:36188 "EHLO
+        tarta.nabijaczleweli.xyz" rhost-flags-OK-FAIL-OK-OK)
+        by vger.kernel.org with ESMTP id S239913AbiAJStw (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 10 Jan 2022 13:49:52 -0500
+Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 364E4239A;
+        Mon, 10 Jan 2022 19:49:46 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
+        s=202006; t=1641840586;
+        bh=8JmYtGjT97gz8puSyF7BS2CtHNQ/GZjU1v/JahCtGys=;
+        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+        b=OG30cSoxZFhc/POaflPbM3W2DIbDxJ/79t1BxM+fv1sF62r38+GPBDQnBEk7vyAt9
+         OuIObCQHsRNoHUa/MLLuV3WwIVWgEkNINV/h6DkOc37c8O3fTWPE58XKlD+9NHtUBw
+         h74QgVC5xRapE9jTth7eR0KYTxkbWgZIlZ6omTE8TT4XIgA1ZYRYBod9LtloeyZuB5
+         4uxctN5VmrsAQrZKERBy1zacmePiWHmO60mYzNjm3ZqPAsm385Tn3fkkpQ4W32iYDt
+         DIEzFPewm0ubfRWLa4XXi9QAnYj/lc5W/63NfXJb/CmdkIyPguJqJwGoGc6O0NYHzX
+         xwkHLKWY1lyuA==
+Date:   Mon, 10 Jan 2022 19:49:45 +0100
+From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org
+Subject: Re: [PATCH] pkeys.7: ffix
+Message-ID: <20220110184945.x74zfpgt7enrrqta@tarta.nabijaczleweli.xyz>
 References: <20220109162131.oi7qv4shvk2swsa2@tarta.nabijaczleweli.xyz>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-In-Reply-To: <20220109162131.oi7qv4shvk2swsa2@tarta.nabijaczleweli.xyz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+ <738c0961-b640-cad3-524e-79f7903aacdc@gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="4f4ulkbye6ypi6vt"
+Content-Disposition: inline
+In-Reply-To: <738c0961-b640-cad3-524e-79f7903aacdc@gmail.com>
+User-Agent: NeoMutt/20211029
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi наб,
 
-On 1/9/22 17:21, наб wrote:
-> Signed-off-by: Ahelenia Ziemiańska <nabijaczleweli@nabijaczleweli.xyz>
-> ---
->   man7/pkeys.7 | 4 +---
->   1 file changed, 1 insertion(+), 3 deletions(-)
-> 
-> diff --git a/man7/pkeys.7 b/man7/pkeys.7
-> index 73ddcdc43..0fff6493f 100644
-> --- a/man7/pkeys.7
-> +++ b/man7/pkeys.7
-> @@ -42,9 +42,7 @@ to change the contents of a register in order to remove write
->   access, or all access to a tagged page.
->   .PP
->   Protection keys work in conjunction with the existing
-> -.BR PROT_READ /
-> -.BR PROT_WRITE /
-> -.BR PROT_EXEC
-> +.BR PROT_READ / PROT_WRITE / PROT_EXEC
+--4f4ulkbye6ypi6vt
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-It's not that your formatting seems worse to me in this case.
+Hi!
 
-However, since we already have some kind of norm of writing each 
-identifier on its own line, I'll keep it like that for consistency.
-That consistency also helps write scripts to find some patterns.
+On Mon, Jan 10, 2022 at 07:13:48PM +0100, Alejandro Colomar (man-pages) wro=
+te:
+> On 1/9/22 17:21, =D0=BD=D0=B0=D0=B1 wrote:
+> > Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.=
+xyz>
+> > ---
+> >   man7/pkeys.7 | 4 +---
+> >   1 file changed, 1 insertion(+), 3 deletions(-)
+> >=20
+> > diff --git a/man7/pkeys.7 b/man7/pkeys.7
+> > index 73ddcdc43..0fff6493f 100644
+> > --- a/man7/pkeys.7
+> > +++ b/man7/pkeys.7
+> > @@ -42,9 +42,7 @@ to change the contents of a register in order to remo=
+ve write
+> >   access, or all access to a tagged page.
+> >   .PP
+> >   Protection keys work in conjunction with the existing
+> > -.BR PROT_READ /
+> > -.BR PROT_WRITE /
+> > -.BR PROT_EXEC
+> > +.BR PROT_READ / PROT_WRITE / PROT_EXEC
+>=20
+> It's not that your formatting seems worse to me in this case.
+>=20
+> However, since we already have some kind of norm of writing each identifi=
+er
+> on its own line, I'll keep it like that for consistency.
+> That consistency also helps write scripts to find some patterns.
+The problem with that is, of course, that it looks, uh, Not Good
+(and that's already quite generous).
+Hardly a good use of a typesetting language.
 
-But I'm open to discussion, if you want.
+There's two ways to go about this, both keeping one symbol per line
+(which, I do agree, is quite nice; the scriptability concern is somewhat
+ misplaced, IMO, given man(7)-imposed limitations, but.).
 
-Thanks,
+1. Keeping the current /-based flow:
+     Protection keys work in conjunction with the existing
+     .BR PROT_READ / \
+     PROT_WRITE / \
+     PROT_EXEC
+     permissions passed to system calls such as
+   (This sets as my original patch: "isting [P_R]/[P_W]/[P_E] permiss".)
 
-Alex
+2. Reorienting as a list:
+     Protection keys work in conjunction with the existing
+     .BR PROT_READ ,
+     .BR PROT_WRITE ", and"
+     .BR PROT_EXEC
+     permissions passed to system calls such as
+   (Which sets as "existing [P_R], [P_W], and [P_E] permissions".)
 
--- 
-Alejandro Colomar
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+IMO, 2 reads better. Thoughts?
+
+=D0=BD=D0=B0=D0=B1
+
+--4f4ulkbye6ypi6vt
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmHcf8YACgkQvP0LAY0m
+WPFpyg/9ETbqgGxBVdGCEDY8J13mOKVK5EYMBI74HnOyUT5n4Q1BUGBmx//nCuwo
+MZF+FkKx+dm/sB7ahRuSayOcFTcJ8XRWvdxDkpZLrrLG0HsAeI3+S7AWcsaiSf/b
+UrteSaHngUwuUI0m7dXyhx3qDWv0JO7hl8oYCeu8VI9IQyEL7ldTYONXv3ns6LGd
+4yFT04TSGNbsvIxYclQJUiTR/QBO2zQEKTng96XAj0PBPAfgSTbuC8R8pH8Kzzl2
+ZfP+N3E3gTzoucrY9VOxQInBWAHNh07UT7LiyN0F3Oa0I0DSdeZOIVHTSSWksS8T
+tjwiTPrGGkBMP8z2r8fOWTjHPMclHBUCZ6yTp8qhjuyOqA5fVNH6Yd1kuMhj4Yno
+z+TX7IWHrLQ5RVN2lKbHUB//6FBOWq1n2JRT/yajNGv/hGoFTYAxvbkKU+UG5FRd
+AHir9GH6fQiRXj1Qy0xmJf4PXb76PdJHolgewrLG6U4xueqXVdjQz5u8MQJxH2mj
+TD6XRVbHzwO1aip3tsZ27t9qQ01K/eGgYvld+8e2VFsQ3zXnXtazShkCjlhyBmzt
+/PacE2B2HJzAKHVksehaF/+iaMNvn9dLCpGFbtBWyPkPkVUvCg9qrDpiUzqkNuUE
+OOYHU+Got5i7ngq1jW7N6jKzSJmYD6KnYmqjQsD6BMnaxVyEIw8=
+=MiLQ
+-----END PGP SIGNATURE-----
+
+--4f4ulkbye6ypi6vt--
