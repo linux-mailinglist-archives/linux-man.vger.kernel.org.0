@@ -2,38 +2,38 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id CA12348B5AA
-	for <lists+linux-man@lfdr.de>; Tue, 11 Jan 2022 19:27:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id A6D0548B5AE
+	for <lists+linux-man@lfdr.de>; Tue, 11 Jan 2022 19:28:32 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1344784AbiAKS1r (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 11 Jan 2022 13:27:47 -0500
-Received: from 139-28-40-42.artus.net.pl ([139.28.40.42]:55476 "EHLO
+        id S241941AbiAKS2b (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 11 Jan 2022 13:28:31 -0500
+Received: from 139-28-40-42.artus.net.pl ([139.28.40.42]:55490 "EHLO
         tarta.nabijaczleweli.xyz" rhost-flags-OK-FAIL-OK-OK)
-        by vger.kernel.org with ESMTP id S241941AbiAKS1r (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 11 Jan 2022 13:27:47 -0500
+        by vger.kernel.org with ESMTP id S1344939AbiAKS2a (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 11 Jan 2022 13:28:30 -0500
 Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 8401D1F64;
-        Tue, 11 Jan 2022 19:27:43 +0100 (CET)
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 64F67250C;
+        Tue, 11 Jan 2022 19:28:28 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-        s=202006; t=1641925663;
-        bh=W/4VSnZqNLQLAxmMuGtMl8aYpiyf/u/b4TdR/caK5fM=;
+        s=202006; t=1641925708;
+        bh=WLSyOoxinJbJV5+yXaO/bjaF1QeQNhLILrhBYQf/yJg=;
         h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=M4xaCzSx1PCY54aMNr/FaPdchRH7krZtWLGA0sX1yto4sPncUhvRKZwXxRvxei6RW
-         vV/e8pvuOAHAzfrr8IVEaSDRWZr7jjvXavqpJgy7dMmq0q0gdS83SM9iEIEjXVhPDr
-         23Ztsyv7ucU8NXd1eyEfKquUi/i2lPIVlJtZmCnSZSO0ytOGAHXmWnu/FqTgmpS4Ej
-         ad90TJbAqGdMppTQs54wKACNhiOCqPhtn4tIUD3T603Jaq9ngoV2vX66BTA3ckQk5J
-         7FIXJD1gIO0QrTbDAqOGLMpZ9nzKFbA9q53evnN/51+5oVEuP6QoNbHHytV9Q20LVQ
-         M/HyyI+tm/9Uw==
-Date:   Tue, 11 Jan 2022 19:27:42 +0100
+        b=A60Zg44r3Q/0TfujDsfPrTNoEETXwk1jyEc4DeOeZwu3n4R17L5VUfY8RvPojn1Kk
+         04k5wbPSJCj23Z80xAdgR6sqtApCfGBHR/fQT/9E40oRJvsdTSUi4aOCc1cTT7ZzdB
+         80dPRuXhRq7vlfS61EKdAbq2GhFdiZVLbGRs3DYLI0K8u/lhtNXBBakMBsYIZirUvH
+         tntabDS4tL6knCl/Yg96vSMKI4OPBbXsSXLwr68hlpcoqEWq1ozuFSvzMdn1jF6YgA
+         ntKH25mBzZUWHG9zhSCRW5kpTXHtUMvpaMomJl8zfepGYrlfY0cVkQfaaUwRTLTbJ/
+         J8gLa4o6H2iKg==
+Date:   Tue, 11 Jan 2022 19:28:27 +0100
 From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
 To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org
-Subject: [PATCH v2 1/2] pkeys.7: wfix
-Message-ID: <cca0611edc27083e28da425ca6082e0c31ba6064.1641925582.git.nabijaczleweli@nabijaczleweli.xyz>
+Subject: [PATCH v2 2/2] glob.3: srcfix
+Message-ID: <d88ca9bcc8d1b28b33fe7a7ff76ffd64212a405d.1641925582.git.nabijaczleweli@nabijaczleweli.xyz>
 References: <3d369402-6b11-9648-8b97-6fb22f92f925@gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="m7mi4k6e4i6pe2ek"
+        protocol="application/pgp-signature"; boundary="3t2gycu7jxv7iipg"
 Content-Disposition: inline
 In-Reply-To: <3d369402-6b11-9648-8b97-6fb22f92f925@gmail.com>
 User-Agent: NeoMutt/20211029
@@ -42,55 +42,57 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---m7mi4k6e4i6pe2ek
+--3t2gycu7jxv7iipg
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
+For consistency: this is the only non-false-positive for ", and",
+which now reads:
+  $ git grep '", and"'
+  man2/ioctl_tty.2:.BR "#include <termios.h>" "      /* Definition of " CLO=
+CAL ", and"
+
 Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
 ---
- man7/pkeys.7 | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ man3/glob.3 | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/man7/pkeys.7 b/man7/pkeys.7
-index 73ddcdc43..9c2356f65 100644
---- a/man7/pkeys.7
-+++ b/man7/pkeys.7
-@@ -42,8 +42,9 @@ to change the contents of a register in order to remove w=
-rite
- access, or all access to a tagged page.
- .PP
- Protection keys work in conjunction with the existing
--.BR PROT_READ /
--.BR PROT_WRITE /
-+.BR PROT_READ ,
-+.BR PROT_WRITE ,
+diff --git a/man3/glob.3 b/man3/glob.3
+index 82fb16948..50516d600 100644
+--- a/man3/glob.3
++++ b/man3/glob.3
+@@ -147,7 +147,8 @@ Use alternative functions
+ .IR pglob\->gl_closedir ,
+ .IR pglob\->gl_readdir ,
+ .IR pglob\->gl_opendir ,
+-.IR pglob\->gl_lstat ", and"
++.IR pglob\->gl_lstat ,
 +and
- .BR PROT_EXEC
- permissions passed to system calls such as
- .BR mprotect (2)
+ .I pglob\->gl_stat
+ for filesystem access instead of the normal library
+ functions.
 --=20
 2.30.2
 
-
---m7mi4k6e4i6pe2ek
+--3t2gycu7jxv7iipg
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmHdzB0ACgkQvP0LAY0m
-WPGNchAAoTi/btEBMRd247C31bO6JhUg8bPOWHuK151eOm0KtHYZL2jTDZbHblQ5
-tNb1pmv0O8TqQDlzuVTCqCnMKPZvDY5YrANY6zXfGG7tDfA5SrwZh2k4VClWbDQD
-wgeRpwRtp4uXb6Bw2FpvZhe0O//Cczbf6MgwnDFfU6kd1LcAGuNmyF99SmrWSVWO
-gbWw+wbqBk3164NXLz2cTJ/irKfgc/oGRA7jIN4frje7N9Ho3IbTWmu+gCy8/HX/
-MfJgrl017Vt/Z+SYO2JiepFskH47Q1sTeZLZqb8BVsSLzR0CMGqBQfzXyMCsENT+
-Qc/fsOIRlJ77NbFI2Z9ex/ermMDRRMYgc9iOd7k7XzaeqbSN1QprnbvBt7xiL+bT
-UAPPN01OIPoCZfYhQIMSkA6G8sxBz2zl5l+bXwYS6kBR54jJ9noORADF+1mDI3iO
-RoyzPb0wguHK8H67DWgb2jGKxLEHXNP6sgL1w3Kyp7h0wB0s4XMixMXPFECih+R/
-UCUMFu2yyAaajY8obxKDnPP1csLpLyQFIqv1X3ZKpiJhwS1yXivF5FpEyA85mQUs
-f076DyQw70gRq6Wf1o1LKMVYcciVGOdOX/SDoizBbCFVmOkknWhksYGaU7L/cKPl
-14cLIjlpqr0T/hh4hwjkeAb4GVhRAtrepVDMa1WdgP32W9kMa7c=
-=4/CX
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmHdzEoACgkQvP0LAY0m
+WPGa1Q//T7Z2vUvuoOUF2SfGVwCYAgErHiwa94XuBw57z033kgZhTlKTZAKi/O+P
+KStoDvSQUJCXYVsgW1E/qo4ScjP+R8P84WnhX+5kWDmaTLqCYyt1LJb6kPQTth08
+9VXIHiE1b92B8Acc6f/QSVgand7KeKmpeOcNQILEjG0ZsDdqWubpLNSPBwoGzbAV
+1mTLLGyt//4QS/lFP2hp88xhbkYuRWJgOcai5CGxHPLarf0AUoK2J8YoCn2bkMMn
+2bCNOLgNb8OoiJ714Thp3TAHDHW+u0bLxu2c638u9c5zof4IuMbBfOQhEfmPprx1
+lCffNYjdlUSVWJo6cayAj7acL1QNFLXCRIVsaK8zbV5ZYo0QZAAGBHMWJtAQ2bIf
+7Be2hGVahbFl/DtNVJF0FjKgYw9vJIQBsr5/Q/L16uBpTm2gB4r60+oUQ1VAH/nu
+WziND1BgZ3F8TQtQb3J3zVx2Q0GbQzbaEkrGYhaDOVZRIGBdG7Zpkk19ZjKaCQKS
+rCxQAtBGCDqjiaKeBSFdQO3PuJHe5T3LJ3AaBahSFbXV6KyvYpMIG1+vCP+PZTRv
+0kk7dI1w/6H24m/nsR0kv/JtIehuAzrIOkt4NmtYYn2Q8fLcpDdLFs7jZYa8679h
+lGjV63Su5b66tFAakMKzJ9f32cVPsj0OanIz4Foa52Qmmfuq3gg=
+=U21W
 -----END PGP SIGNATURE-----
 
---m7mi4k6e4i6pe2ek--
+--3t2gycu7jxv7iipg--
