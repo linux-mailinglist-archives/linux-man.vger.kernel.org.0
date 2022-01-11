@@ -2,97 +2,104 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A6D0548B5AE
-	for <lists+linux-man@lfdr.de>; Tue, 11 Jan 2022 19:28:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 54BCE48B5B0
+	for <lists+linux-man@lfdr.de>; Tue, 11 Jan 2022 19:31:19 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S241941AbiAKS2b (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 11 Jan 2022 13:28:31 -0500
-Received: from 139-28-40-42.artus.net.pl ([139.28.40.42]:55490 "EHLO
-        tarta.nabijaczleweli.xyz" rhost-flags-OK-FAIL-OK-OK)
-        by vger.kernel.org with ESMTP id S1344939AbiAKS2a (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 11 Jan 2022 13:28:30 -0500
-Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 64F67250C;
-        Tue, 11 Jan 2022 19:28:28 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-        s=202006; t=1641925708;
-        bh=WLSyOoxinJbJV5+yXaO/bjaF1QeQNhLILrhBYQf/yJg=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=A60Zg44r3Q/0TfujDsfPrTNoEETXwk1jyEc4DeOeZwu3n4R17L5VUfY8RvPojn1Kk
-         04k5wbPSJCj23Z80xAdgR6sqtApCfGBHR/fQT/9E40oRJvsdTSUi4aOCc1cTT7ZzdB
-         80dPRuXhRq7vlfS61EKdAbq2GhFdiZVLbGRs3DYLI0K8u/lhtNXBBakMBsYIZirUvH
-         tntabDS4tL6knCl/Yg96vSMKI4OPBbXsSXLwr68hlpcoqEWq1ozuFSvzMdn1jF6YgA
-         ntKH25mBzZUWHG9zhSCRW5kpTXHtUMvpaMomJl8zfepGYrlfY0cVkQfaaUwRTLTbJ/
-         J8gLa4o6H2iKg==
-Date:   Tue, 11 Jan 2022 19:28:27 +0100
-From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-Subject: [PATCH v2 2/2] glob.3: srcfix
-Message-ID: <d88ca9bcc8d1b28b33fe7a7ff76ffd64212a405d.1641925582.git.nabijaczleweli@nabijaczleweli.xyz>
-References: <3d369402-6b11-9648-8b97-6fb22f92f925@gmail.com>
+        id S1344947AbiAKSbS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 11 Jan 2022 13:31:18 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57638 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S242661AbiAKSbR (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 11 Jan 2022 13:31:17 -0500
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com [IPv6:2a00:1450:4864:20::32f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B8660C06173F
+        for <linux-man@vger.kernel.org>; Tue, 11 Jan 2022 10:31:16 -0800 (PST)
+Received: by mail-wm1-x32f.google.com with SMTP id n19-20020a7bc5d3000000b003466ef16375so2012785wmk.1
+        for <linux-man@vger.kernel.org>; Tue, 11 Jan 2022 10:31:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=message-id:date:mime-version:user-agent:subject:content-language:to
+         :cc:references:from:in-reply-to:content-transfer-encoding;
+        bh=nJyU8cAINs2YRGitmJaEyfaEjZ1tRzsz8PrQkLKaORk=;
+        b=OM6up9vaEUXPuFhE7v/v7hrEuL9uNwaXAmY3aFg3WF51diHqjtc55EeAmSXpHLbYlV
+         zmcM+7IwPcH9k8/jH6RSB5UstSID3//Fed8tfIxVnIBHnFa+nZXig8Cz69Z7R5QRT+g+
+         n2e9PVMrQxx6tKai8wU8xsUxfW7/+l2DYDSEj9nk/LuC+RSrmWVhaqCONec0P1OPS1g+
+         1J4YzDsX/HfBZyUuwoDNBnz1zlKc1nfVOkDMhb8Gh9FetckLs+HUrN9dXeG+1z0f8YxL
+         VAuC67UtHRcId7FSF7g4S4lCjpS72A9E80gnfno78XZnZ+T54Hfvxf617ebtxsh3+k/n
+         G3Cw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+         :content-language:to:cc:references:from:in-reply-to
+         :content-transfer-encoding;
+        bh=nJyU8cAINs2YRGitmJaEyfaEjZ1tRzsz8PrQkLKaORk=;
+        b=mAAP3j7y5ydv0jWKPlPSatyXd6Fq4S3mA/bGUAn3tppVTbvvpWRau0ZnbiSfDD4fi4
+         VTaVH4icnR+zAjJ5ATeLq049XNMdn+xR0FLNYVuSxQAl+0gDEoUobDKz7i22BUWk+A2v
+         uQbEME+tlCXR/olIVyxMKq8UeRHw2Bl5y0UtrXJHodpxrZt7R7dJSrDlZi2aiCzBuu2q
+         Rp6IlvqVNYQynug1XZ/4t3vne/4nKZGyh0X7mH3A83hEKyQ6dfxgjMKj922JQ4dud9b1
+         ekemwEwQ6eo6zfHSOOfnPhf6mIG6PrBUEjAl4OPnM9zU+Nzl58l43tat9Yxpya72UIuI
+         mOjw==
+X-Gm-Message-State: AOAM532jQnBHwixDKDvbyav//XsRqlV8tkGAKucYYK50MP8UHthFi7XK
+        YuUIRCms856Ovzj7+E4rqG8qe3spDrM=
+X-Google-Smtp-Source: ABdhPJzvFac4Zqhxy4xmgat/pesJ6brVUW+Dp15NlZvJ/4CzKaJHtSB7NQlXv6yhO8YywOCcMnfI+g==
+X-Received: by 2002:a1c:a58f:: with SMTP id o137mr3543048wme.165.1641925875331;
+        Tue, 11 Jan 2022 10:31:15 -0800 (PST)
+Received: from [10.168.10.170] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id m7sm2276978wmi.13.2022.01.11.10.31.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 11 Jan 2022 10:31:14 -0800 (PST)
+Message-ID: <160f7e9a-9d24-6cc7-fb9f-04527da0ca79@gmail.com>
+Date:   Tue, 11 Jan 2022 19:31:13 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="3t2gycu7jxv7iipg"
-Content-Disposition: inline
-In-Reply-To: <3d369402-6b11-9648-8b97-6fb22f92f925@gmail.com>
-User-Agent: NeoMutt/20211029
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.4.1
+Subject: Re: [PATCH v2 1/2] pkeys.7: wfix
+Content-Language: en-US
+To:     =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Cc:     linux-man@vger.kernel.org
+References: <3d369402-6b11-9648-8b97-6fb22f92f925@gmail.com>
+ <cca0611edc27083e28da425ca6082e0c31ba6064.1641925582.git.nabijaczleweli@nabijaczleweli.xyz>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+In-Reply-To: <cca0611edc27083e28da425ca6082e0c31ba6064.1641925582.git.nabijaczleweli@nabijaczleweli.xyz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---3t2gycu7jxv7iipg
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-For consistency: this is the only non-false-positive for ", and",
-which now reads:
-  $ git grep '", and"'
-  man2/ioctl_tty.2:.BR "#include <termios.h>" "      /* Definition of " CLO=
-CAL ", and"
+On 1/11/22 19:27, наб wrote:
+> Signed-off-by: Ahelenia Ziemiańska <nabijaczleweli@nabijaczleweli.xyz>
 
-Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
----
- man3/glob.3 | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Patch applied.
 
-diff --git a/man3/glob.3 b/man3/glob.3
-index 82fb16948..50516d600 100644
---- a/man3/glob.3
-+++ b/man3/glob.3
-@@ -147,7 +147,8 @@ Use alternative functions
- .IR pglob\->gl_closedir ,
- .IR pglob\->gl_readdir ,
- .IR pglob\->gl_opendir ,
--.IR pglob\->gl_lstat ", and"
-+.IR pglob\->gl_lstat ,
-+and
- .I pglob\->gl_stat
- for filesystem access instead of the normal library
- functions.
---=20
-2.30.2
+Thanks!
 
---3t2gycu7jxv7iipg
-Content-Type: application/pgp-signature; name="signature.asc"
+Alex
 
------BEGIN PGP SIGNATURE-----
+> ---
+>   man7/pkeys.7 | 5 +++--
+>   1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/man7/pkeys.7 b/man7/pkeys.7
+> index 73ddcdc43..9c2356f65 100644
+> --- a/man7/pkeys.7
+> +++ b/man7/pkeys.7
+> @@ -42,8 +42,9 @@ to change the contents of a register in order to remove write
+>   access, or all access to a tagged page.
+>   .PP
+>   Protection keys work in conjunction with the existing
+> -.BR PROT_READ /
+> -.BR PROT_WRITE /
+> +.BR PROT_READ ,
+> +.BR PROT_WRITE ,
+> +and
+>   .BR PROT_EXEC
+>   permissions passed to system calls such as
+>   .BR mprotect (2)
 
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmHdzEoACgkQvP0LAY0m
-WPGa1Q//T7Z2vUvuoOUF2SfGVwCYAgErHiwa94XuBw57z033kgZhTlKTZAKi/O+P
-KStoDvSQUJCXYVsgW1E/qo4ScjP+R8P84WnhX+5kWDmaTLqCYyt1LJb6kPQTth08
-9VXIHiE1b92B8Acc6f/QSVgand7KeKmpeOcNQILEjG0ZsDdqWubpLNSPBwoGzbAV
-1mTLLGyt//4QS/lFP2hp88xhbkYuRWJgOcai5CGxHPLarf0AUoK2J8YoCn2bkMMn
-2bCNOLgNb8OoiJ714Thp3TAHDHW+u0bLxu2c638u9c5zof4IuMbBfOQhEfmPprx1
-lCffNYjdlUSVWJo6cayAj7acL1QNFLXCRIVsaK8zbV5ZYo0QZAAGBHMWJtAQ2bIf
-7Be2hGVahbFl/DtNVJF0FjKgYw9vJIQBsr5/Q/L16uBpTm2gB4r60+oUQ1VAH/nu
-WziND1BgZ3F8TQtQb3J3zVx2Q0GbQzbaEkrGYhaDOVZRIGBdG7Zpkk19ZjKaCQKS
-rCxQAtBGCDqjiaKeBSFdQO3PuJHe5T3LJ3AaBahSFbXV6KyvYpMIG1+vCP+PZTRv
-0kk7dI1w/6H24m/nsR0kv/JtIehuAzrIOkt4NmtYYn2Q8fLcpDdLFs7jZYa8679h
-lGjV63Su5b66tFAakMKzJ9f32cVPsj0OanIz4Foa52Qmmfuq3gg=
-=U21W
------END PGP SIGNATURE-----
-
---3t2gycu7jxv7iipg--
+-- 
+Alejandro Colomar
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
