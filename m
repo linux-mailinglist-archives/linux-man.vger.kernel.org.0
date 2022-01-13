@@ -2,108 +2,152 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 5CF8148B611
-	for <lists+linux-man@lfdr.de>; Tue, 11 Jan 2022 19:47:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0EFEF48D06D
+	for <lists+linux-man@lfdr.de>; Thu, 13 Jan 2022 03:28:09 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1350153AbiAKSrL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 11 Jan 2022 13:47:11 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33232 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1350136AbiAKSrJ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 11 Jan 2022 13:47:09 -0500
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com [IPv6:2a00:1450:4864:20::42b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 94572C061756
-        for <linux-man@vger.kernel.org>; Tue, 11 Jan 2022 10:47:08 -0800 (PST)
-Received: by mail-wr1-x42b.google.com with SMTP id s1so34740357wra.6
-        for <linux-man@vger.kernel.org>; Tue, 11 Jan 2022 10:47:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=aUBCx2YOeqy7kpTPPUHkX8lonEJVq50AwYHuIG/7kwU=;
-        b=nlXQt4mwj5Vap2+4dG2Lx7AxkWDbvu7Q6qF5lNmiGiVAKMEoQmqmm6xNf/PaFeT2mN
-         VmjUlP+WaBnxuKy9K+WuEyBj+NipFSOTBXWfSsvhLc3hj7/hLmbKnkfKp3pdrBYa6NmQ
-         0MHw0+llxgF5ncrDuZ8j19WeO0pmxEdXzOKGTZ1GJCfXf4V+lUilJaauA1kwEuFVdI5D
-         5viRznaBPpZ9YQw8JC5io1Y28awKF6Ko4YSJeqlZNyBLDgPmyMHOW5Bzp4msNYWuwbCN
-         0UQVuTBeTqWTuHuqQBLVDc3GvgIP2anKcoa2HTFM9yt3c5hz6iAdEGe/kKoRqcN6+rd2
-         mfeg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=aUBCx2YOeqy7kpTPPUHkX8lonEJVq50AwYHuIG/7kwU=;
-        b=vmnx0DZqbl/PvmV7/V/i8hfJvfr/AlodubHgK9NkVxh/wh2gdkm+TDSEz9bTTNAo5h
-         5rGpT3FL3uNGFv/wbmLA99Ps/JJfN5Gf/pryI/nX4ncax5PBLMsJnvbkBgkLkW692kdp
-         WfElu6PE0b/IZljf5yInPNSvEVfZ7HdpP2yOT9AcOG0jazUjo9JVr3tqGwIagk6zxfUF
-         Alqddh5d3kY+WtgriUZ7KgZQiAP4YmJ1vAHrgqODLBbQ5UImgGlRaB+b0kGHuzD97QBw
-         uu7RgffOGMy/IJeQh7Yv46WMOhifhA7fJTi0aDSTqmHYTN/niIczwJImNew/S2R78xSM
-         IWMA==
-X-Gm-Message-State: AOAM533Up5z6igSrJdKkEGMj4FIrtkMxQdgmQTh6aR9MD9UYDFY4myKL
-        ZIcGm8KWPsgAoRkC9FTH6P6Eo7yBGiQ=
-X-Google-Smtp-Source: ABdhPJyYG7kG/IQ5Cmwb/LkkJE5SJSGkrHrBJtvIctF/rxHrXFn3Jf5z7FOUYFA7YEDa/WdzV75pPw==
-X-Received: by 2002:adf:ebcb:: with SMTP id v11mr5014611wrn.133.1641926827279;
-        Tue, 11 Jan 2022 10:47:07 -0800 (PST)
-Received: from [10.168.10.170] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id z4sm2295638wmf.44.2022.01.11.10.47.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 11 Jan 2022 10:47:06 -0800 (PST)
-Message-ID: <b78cb317-4ef3-4fdf-0bc0-1d55dd8f0ff7@gmail.com>
-Date:   Tue, 11 Jan 2022 19:47:06 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.4.1
-Subject: Re: [PATCH v2 2/2] glob.3: srcfix
-Content-Language: en-US
-To:     =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+        id S231690AbiAMC2G (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 12 Jan 2022 21:28:06 -0500
+Received: from 139-28-40-42.artus.net.pl ([139.28.40.42]:49284 "EHLO
+        tarta.nabijaczleweli.xyz" rhost-flags-OK-FAIL-OK-OK)
+        by vger.kernel.org with ESMTP id S231593AbiAMC2D (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 12 Jan 2022 21:28:03 -0500
+Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 01EC521C8;
+        Thu, 13 Jan 2022 03:27:56 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
+        s=202006; t=1642040877;
+        bh=VFzvc7k+xOeBGzjeBY6NRzNxz+Na4tFhpEJV/9dD9vc=;
+        h=Date:From:To:Cc:Subject:From;
+        b=aLZSx3pMYl/0yNlbfjge7AV/ySNmDv0AT9mMXZOkZ2Gyo9GtHhLXV1AW6/9W7ZHCM
+         TNxo6iFzkkiG/nKihmYf8t7QjrAgjz5zkUHmVoWcQfsOOE29PzfuoAQcSbs1L5xs/P
+         DwF/G2Bj5WNx153D8biTDJFmzm8FWrcCRNiVsZre051Yxo20y0OR9ZlbvvO4y0tjh1
+         CONb5m8QpraDb78cfK7DP6y9LbL76YAWwSR97VF8QcED4P8vsaotLBx86L4ldM995g
+         kd/QqU7hTXxdZlCY/OGDh39+bAB+4SiA0Wff/uEzTdIpPNLa2GLRe/uD2py1GiobXg
+         s39FyVIf4/MfA==
+Date:   Thu, 13 Jan 2022 03:27:55 +0100
+From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org
-References: <3d369402-6b11-9648-8b97-6fb22f92f925@gmail.com>
- <d88ca9bcc8d1b28b33fe7a7ff76ffd64212a405d.1641925582.git.nabijaczleweli@nabijaczleweli.xyz>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-In-Reply-To: <d88ca9bcc8d1b28b33fe7a7ff76ffd64212a405d.1641925582.git.nabijaczleweli@nabijaczleweli.xyz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Subject: [PATCH] epoll_ctl.2: replace input flag footnotes with a list section
+Message-ID: <20220113022755.qs32mcusuuca6dv3@tarta.nabijaczleweli.xyz>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="bl3evnlbzktf3a76"
+Content-Disposition: inline
+User-Agent: NeoMutt/20211029
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi наб,
 
-On 1/11/22 19:28, наб wrote:
-> For consistency: this is the only non-false-positive for ", and",
-> which now reads:
->    $ git grep '", and"'
->    man2/ioctl_tty.2:.BR "#include <termios.h>" "      /* Definition of " CLOCAL ", and"
-> 
-> Signed-off-by: Ahelenia Ziemiańska <nabijaczleweli@nabijaczleweli.xyz>
+--bl3evnlbzktf3a76
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-:-)
-Applied!
+This is shorter, clearly separates the events from the flags,
+and more consistent (cf. EPOLLEXCLUSIVE which has a different message
+than the rest)
 
-Cheers,
+Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
+---
+ man2/epoll_ctl.2 | 33 +++------------------------------
+ 1 file changed, 3 insertions(+), 30 deletions(-)
 
-Alex
+diff --git a/man2/epoll_ctl.2 b/man2/epoll_ctl.2
+index ec31cac72..c9f9649a5 100644
+--- a/man2/epoll_ctl.2
++++ b/man2/epoll_ctl.2
+@@ -156,6 +156,9 @@ Note that when reading from a channel such as a pipe or=
+ a stream socket,
+ this event merely indicates that the peer closed its end of the channel.
+ Subsequent reads from the channel will return 0 (end of file)
+ only after all outstanding data in the channel has been consumed.
++.PP
++And one of the following input flags, which are never returned by
++.BR epoll_wait (2):
+ .TP
+ .B EPOLLET
+ Requests edge-triggered notification for the associated file descriptor.
+@@ -166,13 +169,6 @@ See
+ .BR epoll (7)
+ for more detailed information about edge-triggered and
+ level-triggered notification.
+-.IP
+-This flag is an input flag for the
+-.I event.events
+-field when calling
+-.BR epoll_ctl ();
+-it is never returned by
+-.BR epoll_wait (2).
+ .TP
+ .BR EPOLLONESHOT " (since Linux 2.6.2)"
+ Requests one-shot notification for the associated file descriptor.
+@@ -187,13 +183,6 @@ The user must call
+ with
+ .B EPOLL_CTL_MOD
+ to rearm the file descriptor with a new event mask.
+-.IP
+-This flag is an input flag for the
+-.I event.events
+-field when calling
+-.BR epoll_ctl ();
+-it is never returned by
+-.BR epoll_wait (2).
+ .TP
+ .BR EPOLLWAKEUP " (since Linux 3.5)"
+ .\" commit 4d7e30d98939a0340022ccd49325a3d70f7e0238
+@@ -222,13 +211,6 @@ or the clearing of
+ for the event file descriptor with
+ .BR EPOLL_CTL_MOD .
+ See also BUGS.
+-.IP
+-This flag is an input flag for the
+-.I event.events
+-field when calling
+-.BR epoll_ctl ();
+-it is never returned by
+-.BR epoll_wait (2).
+ .TP
+ .BR EPOLLEXCLUSIVE " (since Linux 4.5)"
+ Sets an exclusive wakeup mode for the epoll file descriptor that is being
+@@ -299,15 +281,6 @@ and specifies the target file descriptor
+ as an epoll instance will likewise fail.
+ The error in all of these cases is
+ .BR EINVAL .
+-.IP
+-The
+-.BR EPOLLEXCLUSIVE
+-flag is an input flag for the
+-.I event.events
+-field when calling
+-.BR epoll_ctl ();
+-it is never returned by
+-.BR epoll_wait (2).
+ .SH RETURN VALUE
+ When successful,
+ .BR epoll_ctl ()
+--=20
+2.30.2
 
-> ---
->   man3/glob.3 | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/man3/glob.3 b/man3/glob.3
-> index 82fb16948..50516d600 100644
-> --- a/man3/glob.3
-> +++ b/man3/glob.3
-> @@ -147,7 +147,8 @@ Use alternative functions
->   .IR pglob\->gl_closedir ,
->   .IR pglob\->gl_readdir ,
->   .IR pglob\->gl_opendir ,
-> -.IR pglob\->gl_lstat ", and"
-> +.IR pglob\->gl_lstat ,
-> +and
->   .I pglob\->gl_stat
->   for filesystem access instead of the normal library
->   functions.
+--bl3evnlbzktf3a76
+Content-Type: application/pgp-signature; name="signature.asc"
 
--- 
-Alejandro Colomar
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmHfjisACgkQvP0LAY0m
+WPFVtw/9F4KrabUObq8j/DPFdpesPM7yi8tMJibMjwZp6YrSalVvIO0nyKFF5DZG
+Jx2YcfLmarrYuh9BPg5kGCCF5IIftwc5KXsQ67BfV68/yemYD6etSKoD2StYkiXU
+02rApp+y7MinV5joR8Jv8wS118RUfVUqhTFExxrHKkvF2NtkBN6U5K+tVw1s/ka6
+bQVlc1XUewslubIJb/zASxmh/hrCt4al10YUE+En/i8LKnsNRCGmVwFKjqEiQgtN
+RYrl5qJoAW5yHAxD5yWu2hIYCv/fvrPm/txfKaXsfqOsKrxwgMbPKTR/G+3hSlnG
+E5MMuDT0CquaM94YZSzBYOY+4I+aDseTC6qxXMjpgwt1KFiF2d93jxbmxiBUY+u3
+mQHYFaQBr84mAv4sTcQRVZJaHtDKeTNG3e9UejcZsZSzRURDs1//HsNiWNTMy5vD
+rcB9wzmq5j0NI2blYZo5lKiI1n4vOlOED12aYGYdFeO2en6pDOwvGDNqfoK9QHaF
+V+1mHANStLM8YqGEBbFKnaJUZ0gZrFGtKjdTC86+1+Vbh9EDIPL4an/FRcjkZkDq
+lb9ttvnqVIIszU1iM/BMzRvNGnfs6isovrV/Hcw4pH4RuTIZcbsehImbsDCubCyN
+76Dzv104C/WNKt1spUNQPo+lJg9++RZpBSN2F5iPjMz3tq2lAic=
+=cLzS
+-----END PGP SIGNATURE-----
+
+--bl3evnlbzktf3a76--
