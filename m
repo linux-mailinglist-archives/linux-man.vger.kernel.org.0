@@ -2,181 +2,83 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id CF23E48DF11
-	for <lists+linux-man@lfdr.de>; Thu, 13 Jan 2022 21:37:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 91D3048E06F
+	for <lists+linux-man@lfdr.de>; Thu, 13 Jan 2022 23:38:58 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234115AbiAMUhE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 13 Jan 2022 15:37:04 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35206 "EHLO
+        id S238029AbiAMWi4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 13 Jan 2022 17:38:56 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34350 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230515AbiAMUhE (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 13 Jan 2022 15:37:04 -0500
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com [IPv6:2a00:1450:4864:20::435])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D259DC061574
-        for <linux-man@vger.kernel.org>; Thu, 13 Jan 2022 12:37:03 -0800 (PST)
-Received: by mail-wr1-x435.google.com with SMTP id a5so12286803wrh.5
-        for <linux-man@vger.kernel.org>; Thu, 13 Jan 2022 12:37:03 -0800 (PST)
+        with ESMTP id S238014AbiAMWiz (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 13 Jan 2022 17:38:55 -0500
+Received: from mail-pg1-x543.google.com (mail-pg1-x543.google.com [IPv6:2607:f8b0:4864:20::543])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B47A0C06173E
+        for <linux-man@vger.kernel.org>; Thu, 13 Jan 2022 14:38:55 -0800 (PST)
+Received: by mail-pg1-x543.google.com with SMTP id h23so1158337pgk.11
+        for <linux-man@vger.kernel.org>; Thu, 13 Jan 2022 14:38:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=sEqvGhqJO2ofchKY3oAlQLBCJBJ6OeXPz+1YshtBPmc=;
-        b=OGNLEewBhEC85W20CxpMIJbpIoksFL5agXHgXMlrl8CE0W8wOBow2R32jcLM4ghskt
-         QrhtsK/n7jnPyubdWBMli73TzYe6KOxDgInk+IUOkNeVCFHqfaOfwugHEKEYI1aESPKW
-         ihFEhMBa3MuKZCtTKRbJabmrW7y3/LJDZdriIe4zq+PQU9j0aSaeXg2w5zABt/fH4Iyo
-         LPsJ5R3iQoTZnKmlW5bC0c6gZkRe5qBVA586tnR5r6G/naCyUvT0tXIbbGy+iZOhhRZ/
-         AZe+nfo6hD/74yvK7TK4xUvX2Q05hTuZlKYtu5ALcAbT53YU+0uAT4IN+bBwn+sJ6gcg
-         lKmg==
+        h=mime-version:reply-to:from:date:message-id:subject:to;
+        bh=YbEI3Q/NEjCtDTVCV1jkA7nYNYBH/Wfa2wk3IkVyJko=;
+        b=TZSnmiKfh8lQHyoHB+yllzvEmA18to6wFnOGKYs0poMgePC/IzPQirrR4ktwaDnvqN
+         6MtgeXCy1yK/vlfiGBEgBcEWSdlaZhy13ZGg8bropI5LiWLT69uDg3RLIG4RAEnMei/e
+         OLsKu4ckBojbKLqXja5eQdc78QuplSbLUeUuR4YwQsmoJKPsmqAxP6kAsKKrhO2uloGx
+         jgBW3DLRyjuJTQuba5a1bywPT+79uteTY7MRR7+lTs5pNJAoJHK8njIEoPRz5bJHtGc4
+         HFHciKQwdRnv9OQdv5RacscrcPdsiz56D1dXGcQrq4Bp8NviqIrfWkgUqnbc+T36lHWO
+         JWDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=sEqvGhqJO2ofchKY3oAlQLBCJBJ6OeXPz+1YshtBPmc=;
-        b=KZj+KGKSR8UE7hvuAHnv8ML1PYvDRAfXiV1oWgmLCf0I+8E6EHGxNCh8kuBPPuv3eQ
-         QE3XobEvVJcBPB8GfYM1r79CDN+hEz2oPfTrADy6o71ClqFR3IkiuZvA9hITMFktDTIS
-         w4J5WqCHA4as7yPi8tYmdm6b+L1GkSyoBdf6WKLuDed6qScOiHhwd+EmbBFtWdIeZuUm
-         bmHNbaJjmFqd5nf5SYIwrIUFfezFUxnswhbhNl3wzqc6urzdKz4Q6EljWLQBDKM0VXwV
-         nxrgpUAd4FJwO3dQWfo4e0SJyd297TCqR+9cx14uYa3LLP3mQOItLvNinapk0EV/Eu4O
-         QtPw==
-X-Gm-Message-State: AOAM531ZjE56ryV3bPEWWxcogVuhGpfEGmOmhLPoO7/ASjFZ/7tz7zss
-        eCgVGqhsWsSmojJvtTsxk0Ig+JcQtAc=
-X-Google-Smtp-Source: ABdhPJyGqKcmlLubjppfWsbzA+rRDpAeYrknyMGI4toXzWZ0ckvYC8HSRI/wQdTGIuKdhDLlCLeiwQ==
-X-Received: by 2002:a05:6000:1845:: with SMTP id c5mr5400719wri.499.1642106221898;
-        Thu, 13 Jan 2022 12:37:01 -0800 (PST)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id w12sm3982840wrm.36.2022.01.13.12.37.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 13 Jan 2022 12:37:01 -0800 (PST)
-Message-ID: <8c62c971-273a-23cf-dce9-325608c97de0@gmail.com>
-Date:   Thu, 13 Jan 2022 21:37:00 +0100
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to;
+        bh=YbEI3Q/NEjCtDTVCV1jkA7nYNYBH/Wfa2wk3IkVyJko=;
+        b=JdhWzdqyuSr9DXxY5gk5+FMptPZ0g9sS66XpGYeJm11DnfjUmpKH8nErjOjfJNF0v5
+         54JsH4uQc6zXODTjWH/vXb8LEEr7K+xJqt1crHwEsUb4aY+QQzV2s32KejsYWgTRKeon
+         IzIPIW1uHKyazOCosute1O7MCWlpmIhAo/gzWfhlPNyyYxQJGGxg3wzZHfOyOYjQaSiL
+         eRl9er57eomI/3Z5UABKAKGSkiurtKXfXkt8xgiaHVEP1FeCxaBeDGNW46y6pikqbz68
+         F5HRV06QKBbDPSF9dUkdlvXPNaIOyWwuDo2oG0ZprZhVIl9zH9JfU5DXx1Qmo+Tg6lOS
+         mcwQ==
+X-Gm-Message-State: AOAM533GLh9BoT9adia5WVdMvtOxqUUL9j1NHIHrz9J94JRdca9XXZFy
+        HLIEG/y0b0K87QEeZD9gnutwrNUr6FEkiLVOtJY=
+X-Google-Smtp-Source: ABdhPJxV+CDcXMAaoBlObNCE+WkBdJZDSsiMXXJxSU4qLOl+5GP7wjtV5hGVQqePL03Cw94D/ZrqizECvr4TNYXN3v8=
+X-Received: by 2002:a05:6a00:26c5:b0:4bd:4ad6:9c71 with SMTP id
+ p5-20020a056a0026c500b004bd4ad69c71mr6167765pfw.45.1642113535225; Thu, 13 Jan
+ 2022 14:38:55 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH v2] epoll_ctl.2: replace input flag footnotes with a list
- section
-Content-Language: en-US
-To:     =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc:     linux-man@vger.kernel.org
-References: <dcfa6694-fa4e-11c9-b146-e9d2e4b5cd3f@gmail.com>
- <20220113151410.wdioekjeinssfybz@tarta.nabijaczleweli.xyz>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-In-Reply-To: <20220113151410.wdioekjeinssfybz@tarta.nabijaczleweli.xyz>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Received: by 2002:a05:6a10:f38c:0:0:0:0 with HTTP; Thu, 13 Jan 2022 14:38:54
+ -0800 (PST)
+Reply-To: mchristophdaniel@gmail.com
+From:   Marcus Galois <marcus.galois@gmail.com>
+Date:   Thu, 13 Jan 2022 23:38:54 +0100
+Message-ID: <CANqBaXWLwHBNoawbz2tGySxar8jn5q2OzEiG-GjWCyVh=aJu6w@mail.gmail.com>
+Subject: Good News Finally.
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 1/13/22 16:14, наб wrote:
-> This is shorter, clearly separates the events from the flags,
-> and more consistent (cf. EPOLLEXCLUSIVE which has a different message
-> than the rest)
-> 
-> Signed-off-by: Ahelenia Ziemiańska <nabijaczleweli@nabijaczleweli.xyz>
-> ---
-> You're right, and in the 3am curse I missed that I specified >=1
-> instead of >=0. Rewrote that as you suggested: one sentence at the top,
-> and two lists with short headings referencing it.
+Hello friend.
 
+You might find it so difficult to remember me, though it is indeed a
+very long time, I am much delighted to contact you again after a long
+period of time, I remember you despite circumstances that made things
+not worked out as we projected then. I want to inform you that the
+transaction we're doing together then finally worked out and I decided
+to contact you and to let you know because of your tremendous effort
+to make things work out then.
 
-Patch applied, наб.
+Meanwhile I must inform you that I'm presently in Caribbean Island for
+numerous business negotiation with some partners. with my sincere
+heart i have decided to compensate you with USD$900,000 for your
+dedication then on our transaction, you tried so much that period and
+I appreciated your effort. I wrote a cheque/check on your name, as
+soon as you receive it, you let me know.
 
-Thanks,
+Contact my secretary now on his email: mchristophdaniel@gmail.com
+Name: Mr. Christoph Daniel
 
-Alex
+You are to forward to him your Name........ Address.......,Phone
+number......for shipment/dispatch of the cheque/Check to you
 
-> 
->  man2/epoll_ctl.2 | 39 +++++++--------------------------------
->  1 file changed, 7 insertions(+), 32 deletions(-)
-> 
-> diff --git a/man2/epoll_ctl.2 b/man2/epoll_ctl.2
-> index ec31cac72..de6bcfb33 100644
-> --- a/man2/epoll_ctl.2
-> +++ b/man2/epoll_ctl.2
-> @@ -106,8 +106,11 @@ The
->  .I events
->  member of the
->  .I epoll_event
-> -structure is a bit mask composed by ORing together zero or more of
-> -the following available event types:
-> +structure is a bit mask composed by ORing together zero or more event types,
-> +returned by
-> +.BR epoll_wait (2),
-> +and input flags, which affect its behaviour, but aren't returned.
-> +The available event types are:
->  .TP
->  .B EPOLLIN
->  The associated file is available for
-> @@ -156,6 +159,8 @@ Note that when reading from a channel such as a pipe or a stream socket,
->  this event merely indicates that the peer closed its end of the channel.
->  Subsequent reads from the channel will return 0 (end of file)
->  only after all outstanding data in the channel has been consumed.
-> +.PP
-> +And the available input flags are:
->  .TP
->  .B EPOLLET
->  Requests edge-triggered notification for the associated file descriptor.
-> @@ -166,13 +171,6 @@ See
->  .BR epoll (7)
->  for more detailed information about edge-triggered and
->  level-triggered notification.
-> -.IP
-> -This flag is an input flag for the
-> -.I event.events
-> -field when calling
-> -.BR epoll_ctl ();
-> -it is never returned by
-> -.BR epoll_wait (2).
->  .TP
->  .BR EPOLLONESHOT " (since Linux 2.6.2)"
->  Requests one-shot notification for the associated file descriptor.
-> @@ -187,13 +185,6 @@ The user must call
->  with
->  .B EPOLL_CTL_MOD
->  to rearm the file descriptor with a new event mask.
-> -.IP
-> -This flag is an input flag for the
-> -.I event.events
-> -field when calling
-> -.BR epoll_ctl ();
-> -it is never returned by
-> -.BR epoll_wait (2).
->  .TP
->  .BR EPOLLWAKEUP " (since Linux 3.5)"
->  .\" commit 4d7e30d98939a0340022ccd49325a3d70f7e0238
-> @@ -222,13 +213,6 @@ or the clearing of
->  for the event file descriptor with
->  .BR EPOLL_CTL_MOD .
->  See also BUGS.
-> -.IP
-> -This flag is an input flag for the
-> -.I event.events
-> -field when calling
-> -.BR epoll_ctl ();
-> -it is never returned by
-> -.BR epoll_wait (2).
->  .TP
->  .BR EPOLLEXCLUSIVE " (since Linux 4.5)"
->  Sets an exclusive wakeup mode for the epoll file descriptor that is being
-> @@ -299,15 +283,6 @@ and specifies the target file descriptor
->  as an epoll instance will likewise fail.
->  The error in all of these cases is
->  .BR EINVAL .
-> -.IP
-> -The
-> -.BR EPOLLEXCLUSIVE
-> -flag is an input flag for the
-> -.I event.events
-> -field when calling
-> -.BR epoll_ctl ();
-> -it is never returned by
-> -.BR epoll_wait (2).
->  .SH RETURN VALUE
->  When successful,
->  .BR epoll_ctl ()
-
--- 
-Alejandro Colomar
-Linux man-pages maintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+Regards,
+Mr. Marcus Galois
