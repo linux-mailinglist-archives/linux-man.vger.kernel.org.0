@@ -2,107 +2,86 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B5A66493EC4
-	for <lists+linux-man@lfdr.de>; Wed, 19 Jan 2022 18:05:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id DEDB9494036
+	for <lists+linux-man@lfdr.de>; Wed, 19 Jan 2022 19:53:44 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1356278AbiASRFg (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 19 Jan 2022 12:05:36 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53016 "EHLO
+        id S1356925AbiASSxZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 19 Jan 2022 13:53:25 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49808 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S243725AbiASRFg (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 19 Jan 2022 12:05:36 -0500
-Received: from mail-qt1-x82f.google.com (mail-qt1-x82f.google.com [IPv6:2607:f8b0:4864:20::82f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 54715C061574;
-        Wed, 19 Jan 2022 09:05:36 -0800 (PST)
-Received: by mail-qt1-x82f.google.com with SMTP id v7so2588810qtw.13;
-        Wed, 19 Jan 2022 09:05:36 -0800 (PST)
+        with ESMTP id S230509AbiASSxZ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 19 Jan 2022 13:53:25 -0500
+Received: from mail-ua1-x92c.google.com (mail-ua1-x92c.google.com [IPv6:2607:f8b0:4864:20::92c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E1AA1C061574
+        for <linux-man@vger.kernel.org>; Wed, 19 Jan 2022 10:53:24 -0800 (PST)
+Received: by mail-ua1-x92c.google.com with SMTP id c36so6250539uae.13
+        for <linux-man@vger.kernel.org>; Wed, 19 Jan 2022 10:53:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=xNn75qzGd+nXVzzF0p1+GWTBBuJh8tB0QC9sPPOPoXA=;
-        b=IUYiImLFgLU78AOUTXR831cGaiyP81q9NSSOZZ2cipZINeZmQ7JFs2NrHUtNbsGInd
-         H72z4Zvwto68QC257DI0lH2u/K3EraaRqvvA3mNGoePTEcF914PBsKhegWksOIpyXqik
-         fibHVhqhymWh3xVp37VLMJnjrDfUURNLDt8AjRGEEWMASo8lqK7k2RmQZL/IObhdg6u8
-         0Iw63nmaJbYM3dArTVMzacz/A27IOh4xyJ+9Lg5tKxWRz9rXnnojzoIl3v+nfVXgXfyH
-         /sg8hLcUt/mdwTF+6pd01gU60sUN0OFiPFlSiqlgaCNajcEHo6MZkRwWQDc5VHVRAvKg
-         MKyQ==
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=t741u0pOjAq/0E4DoOzRCde26eoSVwttQ66wHoIjuPg=;
+        b=fLm4zEh5kDISfU9N+8a5+bTxmNidEpen7iBfgod9Nd2oahfkC3e/V66QukFEtXnw/m
+         r9cVLDD25KhMikuDyb5PXetAExGODF14ls93IDokzUPSlpnvb1a3laI3KBLmhWw2hU6S
+         dRIxRjXX3djCt0ei3o+D0Ywno0oaw2WN5uQF55l+yBSTrukc8edtcq1juw7koEg2KCa7
+         W6/mO2F/uILJ4TjMHkAx8GsZSwuXrRyaDe7u3vryCzh5HEc1aNvwFBjiAZLrEWxaUTTq
+         XxqVYqec+Wk8j7gm94ih8V6Pec+u2/lGrZvBjRfJZvheoA7PA+89Ws9eceN56uHFAlD1
+         MdZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=xNn75qzGd+nXVzzF0p1+GWTBBuJh8tB0QC9sPPOPoXA=;
-        b=pKFmM9O1uoVFN9mksdqPieT6lMmQU6SIsE3gINsI8gk6DvvFvvqCbpqp2zp+Xo07Eb
-         Q66HXm3+cyNAEtsYYVwNjszXigiqEEmnJb8CRt0U2AGZUXei2oEfH8JDpRRJ5A7KIjv9
-         71513NLALg4y3cc2TN3gJF70SoxteJAUipcYzop6Afe1KA0SznHg2ITZHtXgHItKHUqG
-         YxOPiycyTK+M3n4yOXknp+7YCkz6Hu/w0WRXP1G+67UOXxTQjRBadRahTtmGwkIRg4tR
-         OAXIuiOqcLE+5FNV+nsojkGp2s4Z7eR6szcfLL98tL0omC79FimkB+4ZNlbb3B0QsuRv
-         k2dQ==
-X-Gm-Message-State: AOAM533AzacmdpodiXhMXOkFbgUtDjnvdQOzvAuhk2NvIN8Y59Su7O9M
-        9IDvOIghlU9vLYPyxboGWYos9Ed36wk=
-X-Google-Smtp-Source: ABdhPJy47q2V1IyLH6u81sprn0wRz8eHrH45ho8G02+/oBKHeAgc+IZMpN6H2VYHLkeCgYbpB45mDQ==
-X-Received: by 2002:a05:622a:343:: with SMTP id r3mr1255030qtw.443.1642611935363;
-        Wed, 19 Jan 2022 09:05:35 -0800 (PST)
-Received: from vps.qemfd.net (vps.qemfd.net. [173.230.130.29])
-        by smtp.gmail.com with ESMTPSA id z2sm7521qtj.62.2022.01.19.09.05.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 19 Jan 2022 09:05:34 -0800 (PST)
-Received: from schwarzgerat.orthanc (schwarzgerat.danknet [192.168.128.2])
-        by vps.qemfd.net (Postfix) with ESMTP id 575F82B2D5;
-        Wed, 19 Jan 2022 12:05:34 -0500 (EST)
-Received: by schwarzgerat.orthanc (Postfix, from userid 1000)
-        id 4C92460032B; Wed, 19 Jan 2022 12:05:34 -0500 (EST)
-Date:   Wed, 19 Jan 2022 12:05:34 -0500
-From:   nick black <dankamongmen@gmail.com>
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-kernel@vger.kernel.org
-Subject: Re: [patch] console_codes.4: ffix
-Message-ID: <YehE3p7es9/4wBuM@schwarzgerat.orthanc>
-References: <YeEc2pYvKEckcAmv@schwarzgerat.orthanc>
- <98d87c52-da33-9ee4-b9df-253c8ae8e093@gmail.com>
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=t741u0pOjAq/0E4DoOzRCde26eoSVwttQ66wHoIjuPg=;
+        b=iJ13GEO9jmxM6efndEkKCjAZUQ8Gxh0vO0FW7u/jIqmRyes9KSbs6MaIFNLw3/3Q5b
+         KxHXagczKenfgfhTns0tEBBhGKNtFpCdEFGfM0Vbn4oJu5biVwmFI/o0ohNHy8RL5Sev
+         BYH6SlsQ8gAr3f5mrnT+qVXHr4IIyewYT6HhI1ukM21Zs2jUi19KBjQxtT1a2vQXTJye
+         S251y4KUiMGG5LgVDWRaEjsTHnsZQ2oGcr2Th1KFwUKZocGCCx0nfOwetdG4y3JWSUDe
+         KmRP58NTMQoKxIYDQt1NdgXMFDEmt+/OupY5io6AkRLQv76F+fKsSZoaazbffRQuPz3t
+         zM/A==
+X-Gm-Message-State: AOAM532j3xMznRtve8f/9S39/IZYANl1xN0MQZJxEi+pnxSP10ONtBWP
+        fKbRHZJQBc9OLsVRp396PcPfL8J+m/BI8b0R8WIbTM9h3Fo=
+X-Google-Smtp-Source: ABdhPJw5HEY5QbT3r29l41rFJzDt+7N7TKFdjnrkx2ITIKDZhm/5/6IM78dqWK+TD+ZNyu7+y2AA42IjHhprrbwEgAg=
+X-Received: by 2002:a67:e3a7:: with SMTP id j7mr12539899vsm.81.1642618404155;
+ Wed, 19 Jan 2022 10:53:24 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <98d87c52-da33-9ee4-b9df-253c8ae8e093@gmail.com>
+References: <CAEKt+7MZuL3-=6HSaM_JjGougVXcsDq=JN0OUXAfTQpT8LDKtg@mail.gmail.com>
+In-Reply-To: <CAEKt+7MZuL3-=6HSaM_JjGougVXcsDq=JN0OUXAfTQpT8LDKtg@mail.gmail.com>
+From:   Stefan Rohrbacher <stefan.rohrbacher97@gmail.com>
+Date:   Wed, 19 Jan 2022 19:53:13 +0100
+Message-ID: <CAEKt+7P4ViB13mUmZJ1r5CnWeH_N8HGu6-Rj+HR2p684a3SjDg@mail.gmail.com>
+Subject: Fwd: getline() manpage typo
+To:     mtk.manpages@gmail.com, alx.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Alejandro Colomar (man-pages) left as an exercise for the reader:
-> As I understand it, it's there because CSI is not a CSI-prefixed sequence
-> (i.e., you have to first document CSI itself, and then in a different list
-> you can document sequences prefixed by CSI).
-> So I'd say it belongs there.
+To whom it may concern
 
-except this is literally in the table named "ESC- but not
-CSI-sequences". and it's not, by itself, a sequence. and it's
-detailed in the "ECMA-48 CSI Sequences" section below.
+Dear Sir or Madam,
 
-so it is documented, near where it's relevant. IMHO.
+I am writing to you because I believe I have found a typo in the
+manpage for the getline() function provided by stdio.h.
+I am using version 5.12 on Fedora 35 but it is also present in the
+current version 5.13.
+The typo is  located in the "EXAMPLES" section at the bottom, there
+the variable "nread" in line 10 is of type "ssize_t" and I believe it
+is supposed to be of type "size_t":
 
-if we're going to keep it, we ought add OSC to this section by
-the same reasoning. i can do that and send a fresh patch, or you
-can do it to my patch, or we can do with what i have.
+       [...]
+       int
+       main(int argc, char *argv[])
+       {
+           FILE *stream;
+           char *line = NULL;
+           size_t len = 0;
+           ssize_t nread; <-- supposed typo here!
 
-> Maybe it should go into a separate subsection called "Operating system
-> commands"?
+       [...]
 
-well, there are only these few, and they are "ESC- but not CSI
-sequences". i don't honestly think the average reader cares
-whether something is a CSI or an OSC or linux-specific control
-sequence, especially since there's really no user-relevant
-reason as to why one is in any given group. but i can go ahead
-and break this section out if you'd like.
+Thank you for your time.
 
-put another way, some people might read the man page wanting to
-know "how do i change a color". i can't imagine anyone ever
-wanting to know "what are the various OSC-prefixed commands?"
-that said, i'm happy to introduce the substructure if it gets
-the formatting fixed =].
+yours sincerely,
 
--- 
-nick black -=- https://www.nick-black.com
-to make an apple pie from scratch,
-you need first invent a universe.
+Stefan Rohrbacher
