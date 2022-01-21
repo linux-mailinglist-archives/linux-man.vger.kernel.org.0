@@ -2,131 +2,112 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D07C44940D9
-	for <lists+linux-man@lfdr.de>; Wed, 19 Jan 2022 20:28:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0F914495F1A
+	for <lists+linux-man@lfdr.de>; Fri, 21 Jan 2022 13:40:15 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S240660AbiAST2L (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 19 Jan 2022 14:28:11 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57758 "EHLO
+        id S1380394AbiAUMkN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 21 Jan 2022 07:40:13 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47452 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S240773AbiAST2G (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 19 Jan 2022 14:28:06 -0500
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com [IPv6:2a00:1450:4864:20::32d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 77598C061574
-        for <linux-man@vger.kernel.org>; Wed, 19 Jan 2022 11:28:06 -0800 (PST)
-Received: by mail-wm1-x32d.google.com with SMTP id e9-20020a05600c4e4900b0034d23cae3f0so7790569wmq.2
-        for <linux-man@vger.kernel.org>; Wed, 19 Jan 2022 11:28:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=jHO91BdMq4cLy85xJ1vFE4vjvR1iPbDSzojLCMSCrRg=;
-        b=DR7F4w5/WGsjwFlqC+WuGHFmC5iCrBWbItpXTc5gToTXPqVDKSkA4VZVU37JCSMJwN
-         apeLer+LkrloaSAtRDEqhYGEN36A0wYM3W4W+5Glr4LPy24AKyL19FmoEM5JDlGBZ12M
-         PvkZbBjgvcYZhGg/mPd6PaTM2mWVIuF5RSO/2Yhw/YPuCo0FuF3afhdJ3GK4w2ym9HLV
-         Llqvm7B2GXDo/493hTp7R6RmPpB3YglKbz7zjImPRPjA+/TUgMsWj1Jt06miNH6eGoVS
-         ZD4VbPP00wI1ZPxP1sIRqKM46KmF+zRSS0V1zCsJwsjctaXi/tNkkMl7r6YAKoMNkzyx
-         eHuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=jHO91BdMq4cLy85xJ1vFE4vjvR1iPbDSzojLCMSCrRg=;
-        b=1hvFXe/nfZtpyee23eaaGjgnT5O/oYIHOG88Buo8gqHurHDArhLmjSvedXcBEojEQa
-         DMaZ+qP5g2NpOHjFcnqPd9MacZrxKO37cOSmfTwGg4p2rK0ia2o0yKCzGe75fibQZzCg
-         ge62NhDz7K9T4ojpglvQw81cW0vZu26SG/pw/AyjeYM3UwoVLgLOX2WAVwp+s8cmF39B
-         RwoBE21UP8f1EktnirnDibCgG7E9gfRgXcUjSftbPZQNeUi0PgVrwi+/0kQ2Ty8CzfQD
-         9VVYxUCwa8faYh6rbMpeeK/F9usx5bVzKJ7RUhY7sT2eYuQuI65z4ZrR5XBZL1kpHnN5
-         ec+g==
-X-Gm-Message-State: AOAM530FmPnujzjW3IRktOgXRe70ur3Od8gH1lN/+QNY0u1Jzx2OHkEd
-        ZV9zKIy2EhQDFpeswmmrdCU=
-X-Google-Smtp-Source: ABdhPJxo7agopvVSN7HnZOrCbr1cyOtzXzOAU0QTqfuy7jkSCdk5epbNviRy6c3bFSa2ABkocgfQ0g==
-X-Received: by 2002:a05:600c:1c0c:: with SMTP id j12mr5043893wms.116.1642620485033;
-        Wed, 19 Jan 2022 11:28:05 -0800 (PST)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id i6sm413837wma.22.2022.01.19.11.28.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 19 Jan 2022 11:28:04 -0800 (PST)
-Message-ID: <6c7390fc-bdef-24df-7974-83d68d840c11@gmail.com>
-Date:   Wed, 19 Jan 2022 20:28:03 +0100
+        with ESMTP id S1380393AbiAUMkL (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 21 Jan 2022 07:40:11 -0500
+Received: from ams.source.kernel.org (ams.source.kernel.org [IPv6:2604:1380:4601:e00::1])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5E335C06173F
+        for <linux-man@vger.kernel.org>; Fri, 21 Jan 2022 04:40:11 -0800 (PST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        by ams.source.kernel.org (Postfix) with ESMTPS id D9557B81ED3
+        for <linux-man@vger.kernel.org>; Fri, 21 Jan 2022 12:40:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 6BC81C340E5
+        for <linux-man@vger.kernel.org>; Fri, 21 Jan 2022 12:40:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1642768808;
+        bh=RSvZaDl1qxWjiLIAvuF7+4cG8IZqxuFSDxgTLY8vfBA=;
+        h=From:To:Subject:Date:From;
+        b=fzzSB5Ufz5rBfk42zkDNFrSXyJwv7ysyhCMp01c8rG0baamsIR9HQ9JAYXddhdi9p
+         nr8NhVWNYBtyo9q/KYucVzczK7HA52L9n5Ef+QZ6LbfYULq3KBxTP4LjsCTzxogS9L
+         7VlG7veoW2NO7VlmWlIAhr2ShkXMTBJtmZCpHQv5ZtLkW8D0LGcZVDQ/uErLBX6FDk
+         17NzSohNwyVQiH75pbK7ear+9l7iCZguG+XDI61CrLaveHRFBjsJlV0nCOKdzwHKC0
+         XCvyHcF6kJZCCalOiZ0TS9yJYRdKDwhCXfhi1oCvBQFGkV1prdWhTsuQfWGm9PAmqo
+         6JUPLgAsIZoyA==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
+        id 54AEFCC13B2; Fri, 21 Jan 2022 12:40:08 +0000 (UTC)
+From:   bugzilla-daemon@bugzilla.kernel.org
+To:     linux-man@vger.kernel.org
+Subject: [Bug 215514] New: Documentation: meaning of device number / ID in
+ `stat` and `stat()`
+Date:   Fri, 21 Jan 2022 12:40:08 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: new
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Documentation
+X-Bugzilla-Component: man-pages
+X-Bugzilla-Version: unspecified
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: jwagner@computing.dcu.ie
+X-Bugzilla-Status: NEW
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P1
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: bug_id short_desc product version rep_platform
+ op_sys bug_status bug_severity priority component assigned_to reporter
+ cf_regression
+Message-ID: <bug-215514-11311@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: Fwd: getline() manpage typo
-Content-Language: en-US
-To:     Stefan Rohrbacher <stefan.rohrbacher97@gmail.com>
-Cc:     linux-man@vger.kernel.org, mtk.manpages@gmail.com
-References: <CAEKt+7MZuL3-=6HSaM_JjGougVXcsDq=JN0OUXAfTQpT8LDKtg@mail.gmail.com>
- <CAEKt+7P4ViB13mUmZJ1r5CnWeH_N8HGu6-Rj+HR2p684a3SjDg@mail.gmail.com>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-In-Reply-To: <CAEKt+7P4ViB13mUmZJ1r5CnWeH_N8HGu6-Rj+HR2p684a3SjDg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Stefan,
+https://bugzilla.kernel.org/show_bug.cgi?id=3D215514
 
-On 1/19/22 19:53, Stefan Rohrbacher wrote:
-> To whom it may concern
-> 
-> Dear Sir or Madam,
-> 
-> I am writing to you because I believe I have found a typo in the
-> manpage for the getline() function provided by stdio.h.
-> I am using version 5.12 on Fedora 35 but it is also present in the
-> current version 5.13.
-> The typo is  located in the "EXAMPLES" section at the bottom, there
-> the variable "nread" in line 10 is of type "ssize_t" and I believe it
-> is supposed to be of type "size_t":
-> 
->        [...]
->        int
->        main(int argc, char *argv[])
->        {
->            FILE *stream;
->            char *line = NULL;
->            size_t len = 0;
->            ssize_t nread; <-- supposed typo here!
-> 
->        [...]
+            Bug ID: 215514
+           Summary: Documentation: meaning of device number / ID in `stat`
+                    and `stat()`
+           Product: Documentation
+           Version: unspecified
+          Hardware: All
+                OS: Linux
+            Status: NEW
+          Severity: normal
+          Priority: P1
+         Component: man-pages
+          Assignee: documentation_man-pages@kernel-bugs.osdl.org
+          Reporter: jwagner@computing.dcu.ie
+        Regression: No
 
-I'm not sure why you believe this.  The prototype for getline(3) is:
+The man page `man 2 stat` for `stat()` gives the impression that `stat.st_d=
+ev`
+is always composed of major and minor of an existing block device. However,
+filesystems such as `btrfs` allocate new device number not (clearly) relate=
+d to
+the underlying device(s). The description of `st_dev` needs to be updated.
 
-       ssize_t getline(char **restrict lineptr, size_t *restrict n,
-                       FILE *restrict stream);
+Similarly, a clarification would be useful in `man 1 stat` either directly =
+in
+the description of the `%d` and `%D` formats or after the formats table.
 
-which uses 'ssize_t'.  Or checking the glibc sources:
+My system: openSUSE Leap 15.3
 
-alx@ady2:~/src/gnu/glibc$ grep_glibc_prototype getline
-libio/stdio.h:621:
-extern __ssize_t getline (char **__restrict __lineptr,
-                          size_t *__restrict __n,
-                          FILE *__restrict __stream) __wur;
+Checked in current man pages as of 2022-01-21:
+* https://man7.org/linux/man-pages/man2/stat.2.html
+* https://man7.org/linux/man-pages/man1/stat.1.html
 
-So, if we assign the result of getline(3) to a variable, it should be of
-type 'ssize_t'.  After that, we use the variable as input to fwrite(3),
-which uses 'size_t', but using that type would be incorrect, since we
-would be transforming the error code into a huge positive value, which
-would be wrong.  And since non-error 'ssize_t' values are always valid
-'size_t' values, there's no problem in passing a 'ssize_t' to a 'size_t'
-(after doing the proper error checking).
+Related:
+* https://github.com/util-linux/util-linux/issues/1562 (closed, wrong place)
 
-In general, avoid using unsigned types for things that are not bitfields
-(or need modular arithmetic).  Using mistakenly 'ssize_t' instead of
-'size_t' is usually not dangerous.  Doing the reverse, using mistakenly
-'size_t' instead of 'ssize_t' is _very_ dangerous.  This also applies to
-other types with signed and unsigned counterparts.
+Breadcrumbs:
+* https://github.com/util-linux/util-linux/issues/1563 (closed, wrong place)
 
-Anyway, thanks for reporting potential bugs!
+--=20
+You may reply to this email to add a comment.
 
-Cheers,
-
-Alex
-
--- 
-Alejandro Colomar
-Linux man-pages maintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+You are receiving this mail because:
+You are watching the assignee of the bug.=
