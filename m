@@ -2,112 +2,120 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0F914495F1A
-	for <lists+linux-man@lfdr.de>; Fri, 21 Jan 2022 13:40:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 72A8C4968E7
+	for <lists+linux-man@lfdr.de>; Sat, 22 Jan 2022 01:53:12 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1380394AbiAUMkN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 21 Jan 2022 07:40:13 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47452 "EHLO
+        id S231127AbiAVAxK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 21 Jan 2022 19:53:10 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43778 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1380393AbiAUMkL (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 21 Jan 2022 07:40:11 -0500
-Received: from ams.source.kernel.org (ams.source.kernel.org [IPv6:2604:1380:4601:e00::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5E335C06173F
-        for <linux-man@vger.kernel.org>; Fri, 21 Jan 2022 04:40:11 -0800 (PST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by ams.source.kernel.org (Postfix) with ESMTPS id D9557B81ED3
-        for <linux-man@vger.kernel.org>; Fri, 21 Jan 2022 12:40:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 6BC81C340E5
-        for <linux-man@vger.kernel.org>; Fri, 21 Jan 2022 12:40:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1642768808;
-        bh=RSvZaDl1qxWjiLIAvuF7+4cG8IZqxuFSDxgTLY8vfBA=;
-        h=From:To:Subject:Date:From;
-        b=fzzSB5Ufz5rBfk42zkDNFrSXyJwv7ysyhCMp01c8rG0baamsIR9HQ9JAYXddhdi9p
-         nr8NhVWNYBtyo9q/KYucVzczK7HA52L9n5Ef+QZ6LbfYULq3KBxTP4LjsCTzxogS9L
-         7VlG7veoW2NO7VlmWlIAhr2ShkXMTBJtmZCpHQv5ZtLkW8D0LGcZVDQ/uErLBX6FDk
-         17NzSohNwyVQiH75pbK7ear+9l7iCZguG+XDI61CrLaveHRFBjsJlV0nCOKdzwHKC0
-         XCvyHcF6kJZCCalOiZ0TS9yJYRdKDwhCXfhi1oCvBQFGkV1prdWhTsuQfWGm9PAmqo
-         6JUPLgAsIZoyA==
-Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
-        id 54AEFCC13B2; Fri, 21 Jan 2022 12:40:08 +0000 (UTC)
-From:   bugzilla-daemon@bugzilla.kernel.org
+        with ESMTP id S229457AbiAVAxJ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 21 Jan 2022 19:53:09 -0500
+Received: from mail-pf1-x42f.google.com (mail-pf1-x42f.google.com [IPv6:2607:f8b0:4864:20::42f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3B043C06173B
+        for <linux-man@vger.kernel.org>; Fri, 21 Jan 2022 16:53:09 -0800 (PST)
+Received: by mail-pf1-x42f.google.com with SMTP id w190so4147858pfw.7
+        for <linux-man@vger.kernel.org>; Fri, 21 Jan 2022 16:53:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=LdPvQM7xyzmxL1NnMK3xGr17DUtxTPoVjaUbZSyOSk0=;
+        b=lvJ2iiD9cEHl9Df174bAVpqfqA/drH4Zl92OhmIlH9wTVVqMpt7ombWHUWNauq6jL4
+         irnTn/mq//AGL7VqzrtZanH1C0nO325W0VrEQ4O6A7LJQ5MtDNsHezKqTi1ZVMrzjfbU
+         79F4GkPiBoiy0mwhJsYl2FAg+KiVmIx0QZnXt0q5nUHIbDYu5ZX0eXVQsTUmh+UlrOuL
+         eFeMwi8zYvoh+Kbxid+60O30rXYtQCQTP/3tB4f0clDSKkoVWwsOSrKSTJ9HzsNuczSY
+         seUMagE07cwSHgIAJNkn1uBkpXHXoqbJbjdh2DvqN9cRFQmbhUowKFnGoSWz0qgV6c+m
+         9x7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=LdPvQM7xyzmxL1NnMK3xGr17DUtxTPoVjaUbZSyOSk0=;
+        b=Ks4zv2ZuodnXIatl1eDoWSOBLW4HId9RPHRE+4jnw0NXpckU9orDmZ1WPmbW7s6Lkx
+         TfwzGHk+4JiLOEgI33EDAR3DttHPJdzCMRsZ7MKrYHe8fhSZvvHU1aicD2LDKuVLaxDT
+         MEvS7y5qn79i2JPckL6aj3cAyy3zpIFO7gQdMHX3ykuMKUlZ0Ynu2GBaUV7BHesqTLl/
+         Z8CDKX2XI1fTIN/wrMbc1EgWUwlx+z7/Vz1WAhVTsQQVstbDJiQI0jgpFHVX4nCwQ6An
+         G35GlyDf3ZxzMosXOnqVQuwi58RGkkuStyystRcXR3kHpbe8FDXVPVr7NdY2wD0ON6ax
+         oUkQ==
+X-Gm-Message-State: AOAM532SkUP35hUUGq/qsuyQhXrm5VLdqMnsFddhu/7GPDgaUX0O1nQL
+        vL1zUvGH3WuhUEmhEPjydOW4UNeq3uE=
+X-Google-Smtp-Source: ABdhPJy7vZq7SIzFeCOHiyB71r7WYbNnDiTZgmitJbwkmAxNLfjSnSNekJKtnS+r58Ievx5ndLBHHQ==
+X-Received: by 2002:a05:6a00:168b:b0:4a8:d88:9cd with SMTP id k11-20020a056a00168b00b004a80d8809cdmr5859317pfc.11.1642812787972;
+        Fri, 21 Jan 2022 16:53:07 -0800 (PST)
+Received: from kir-rhat.lan (c-76-104-243-248.hsd1.wa.comcast.net. [76.104.243.248])
+        by smtp.gmail.com with ESMTPSA id y13sm408658pgi.8.2022.01.21.16.53.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 21 Jan 2022 16:53:07 -0800 (PST)
+From:   Kir Kolyshkin <kolyshkin@gmail.com>
 To:     linux-man@vger.kernel.org
-Subject: [Bug 215514] New: Documentation: meaning of device number / ID in
- `stat` and `stat()`
-Date:   Fri, 21 Jan 2022 12:40:08 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: new
-X-Bugzilla-Watch-Reason: AssignedTo
- documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Product: Documentation
-X-Bugzilla-Component: man-pages
-X-Bugzilla-Version: unspecified
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: normal
-X-Bugzilla-Who: jwagner@computing.dcu.ie
-X-Bugzilla-Status: NEW
-X-Bugzilla-Resolution: 
-X-Bugzilla-Priority: P1
-X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: bug_id short_desc product version rep_platform
- op_sys bug_status bug_severity priority component assigned_to reporter
- cf_regression
-Message-ID: <bug-215514-11311@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
+Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
+        Kir Kolyshkin <kolyshkin@gmail.com>,
+        Aleksa Sarai <cyphar@cyphar.com>,
+        David Herrmann <dh.herrmann@gmail.com>
+Subject: [PATCH] fcntl.2: document F_GET_SEALS on tmpfs peculiarity
+Date:   Fri, 21 Jan 2022 16:52:51 -0800
+Message-Id: <20220122005251.1441343-1-kolyshkin@gmail.com>
+X-Mailer: git-send-email 2.33.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D215514
+Currently, from the description of file sealing it can be deduced that
+unless the fd is a memfd, all sealing operations fail with EINVAL.
 
-            Bug ID: 215514
-           Summary: Documentation: meaning of device number / ID in `stat`
-                    and `stat()`
-           Product: Documentation
-           Version: unspecified
-          Hardware: All
-                OS: Linux
-            Status: NEW
-          Severity: normal
-          Priority: P1
-         Component: man-pages
-          Assignee: documentation_man-pages@kernel-bugs.osdl.org
-          Reporter: jwagner@computing.dcu.ie
-        Regression: No
+Apparently, it's not true for tmpfs or hugetlbfs -- F_GET_SEALS returns
+1 (F_SEAL_SEAL) for an fd opened on these filesystems (probably because
+those are used to back memfd files).
 
-The man page `man 2 stat` for `stat()` gives the impression that `stat.st_d=
-ev`
-is always composed of major and minor of an existing block device. However,
-filesystems such as `btrfs` allocate new device number not (clearly) relate=
-d to
-the underlying device(s). The description of `st_dev` needs to be updated.
+Fix the description to mention that peculiarity. Not knowing this can
+result in incorrect code logic (see [1], where the code mistook a
+descriptor of a file opened on on tmpfs for a memfd).
 
-Similarly, a clarification would be useful in `man 1 stat` either directly =
-in
-the description of the `%d` and `%D` formats or after the formats table.
+While at it, clarify that fcntl does not actually return EINVAL, but
+sets errno to it (as it is usually said elsewhere).
 
-My system: openSUSE Leap 15.3
+[1] https://github.com/opencontainers/runc/pull/3342
 
-Checked in current man pages as of 2022-01-21:
-* https://man7.org/linux/man-pages/man2/stat.2.html
-* https://man7.org/linux/man-pages/man1/stat.1.html
+Cc: Aleksa Sarai <cyphar@cyphar.com>
+Cc: David Herrmann <dh.herrmann@gmail.com>
+Signed-off-by: Kir Kolyshkin <kolyshkin@gmail.com>
+---
+ man2/fcntl.2 | 17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
 
-Related:
-* https://github.com/util-linux/util-linux/issues/1562 (closed, wrong place)
+diff --git a/man2/fcntl.2 b/man2/fcntl.2
+index 7b5604e3a..f951b05ff 100644
+--- a/man2/fcntl.2
++++ b/man2/fcntl.2
+@@ -1402,10 +1402,23 @@ file seals can be applied only to a file descriptor returned by
+ (if the
+ .B MFD_ALLOW_SEALING
+ was employed).
+-On other filesystems, all
++On all other filesystems, except
++.BR tmpfs (5)
++and
++.BR hugetlbfs ,
++all
+ .BR fcntl ()
+-operations that operate on seals will return
++operations that operate on seals will fail with
++.I errno
++set to
+ .BR EINVAL .
++For a descriptor from a file on
++.BR tmpfs (5)
++or
++.BR hugetlbfs ,
++.B F_GET_SEALS
++returns
++.BR F_SEAL_SEAL .
+ .PP
+ Seals are a property of an inode.
+ Thus, all open file descriptors referring to the same inode share
+-- 
+2.33.1
 
-Breadcrumbs:
-* https://github.com/util-linux/util-linux/issues/1563 (closed, wrong place)
-
---=20
-You may reply to this email to add a comment.
-
-You are receiving this mail because:
-You are watching the assignee of the bug.=
