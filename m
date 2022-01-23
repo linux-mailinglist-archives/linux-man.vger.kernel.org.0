@@ -2,37 +2,37 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 7E2CF496E4F
-	for <lists+linux-man@lfdr.de>; Sun, 23 Jan 2022 00:53:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id D0987496F3B
+	for <lists+linux-man@lfdr.de>; Sun, 23 Jan 2022 01:20:32 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231800AbiAVXxB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 22 Jan 2022 18:53:01 -0500
-Received: from 139-28-40-42.artus.net.pl ([139.28.40.42]:39246 "EHLO
+        id S229468AbiAWAUb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 22 Jan 2022 19:20:31 -0500
+Received: from 139-28-40-42.artus.net.pl ([139.28.40.42]:39616 "EHLO
         tarta.nabijaczleweli.xyz" rhost-flags-OK-FAIL-OK-OK)
-        by vger.kernel.org with ESMTP id S231288AbiAVXxB (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 22 Jan 2022 18:53:01 -0500
+        by vger.kernel.org with ESMTP id S235756AbiAWATe (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 22 Jan 2022 19:19:34 -0500
 Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 83DC32C70;
-        Sun, 23 Jan 2022 00:52:55 +0100 (CET)
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 95C1527DA;
+        Sun, 23 Jan 2022 01:19:32 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-        s=202006; t=1642895575;
-        bh=SidHPwHVugwoJ4faoHWM7OgtoJ79PHuCPn5CXPfhRKk=;
+        s=202006; t=1642897172;
+        bh=swy/XvkcIccb6rrVfojnuiX77l3lEUdVLAPFjYh/lRQ=;
         h=Date:From:To:Cc:Subject:From;
-        b=YorLnEQnAMBLjJG6PZSg/onA23USbCj/O5DfNPFwO68MMf+Wkar0IwvsdrKWEaRPz
-         l35/AroYXfgMZm+JzaVfCpO1Uy+m/feqOhPZsGBiMQJETikBl5WjgMabizcbbPjb6+
-         1UMQ0G6mAeZOj15iUSxcyUOIgDopYxuaoxCkr6sdpoyRUrOL+H/upPUA8WwzYQ6E7l
-         mM1LCbfs19GRTaUzpOlwV/r/Zi/05z6soWbYKSJ8OxYSIrUQsNt5N1BwMDabYXkkn0
-         xaOorxkHxbbfwAgiT05VKIw+tWDvKC6Qcrcs4xepvTXyAsIhlQ+qCYjQNuwaqvGaNm
-         w9aMSDo+Z44Qg==
-Date:   Sun, 23 Jan 2022 00:52:54 +0100
+        b=l05I7E1J5QHhx6VwCiwYV6+wayDlQxGc45tktc7D38fclxpfmLPGO3W4gsX9iHgxn
+         5D9XoUjvY1mkqHMrUoEfd3uS9UXHoPp76TEP6BLwgooe26FDlCQfAtAsCfendgefkO
+         6O1G7t0I6hvg3/pR9SmRlIztDpNG2a+lSH5s+q52zE40yHU/skFjBcQiXt0GVveb8s
+         CFEdn1yVaVXUU12kdJBBZE/LkVeF3z/fVCI7f/2/TdUn7Ksd9GyBPpGBiQZugv/UoM
+         0RxlsVslcKNey/BZ8dZvpBGD9jINTRsSiLPrqLjq1IDg+5jkEjIMzG8NmKsVq+SwLS
+         4irt83Ufc+XGw==
+Date:   Sun, 23 Jan 2022 01:19:31 +0100
 From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
 To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org
-Subject: [PATCH] strsep.3: tfix
-Message-ID: <20220122235254.fkte4vesy3f5peke@tarta.nabijaczleweli.xyz>
+Subject: [PATCH] strtok.3: fix \t literal instead of \et in example
+Message-ID: <20220123001931.tstdtcvgpjrkc7us@tarta.nabijaczleweli.xyz>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="qksaeq42uiclsox2"
+        protocol="application/pgp-signature"; boundary="t7h47uv6azzngweq"
 Content-Disposition: inline
 User-Agent: NeoMutt/20211029
 Precedence: bulk
@@ -40,50 +40,51 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---qksaeq42uiclsox2
+--t7h47uv6azzngweq
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
 Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
 ---
- man3/strsep.3 | 2 +-
+ man3/strtok.3 | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/man3/strsep.3 b/man3/strsep.3
-index 131963158..fb5f7fd1a 100644
---- a/man3/strsep.3
-+++ b/man3/strsep.3
-@@ -61,7 +61,7 @@ function returns NULL
- and does nothing else.
- Otherwise, this function finds the first token
- in the string
--.IR *stringp ,
-+.I *stringp
- that is delimited by one of the bytes in the string
- .IR delim .
- This token is terminated by overwriting the delimiter
+diff --git a/man3/strtok.3 b/man3/strtok.3
+index aec914094..84a25effa 100644
+--- a/man3/strtok.3
++++ b/man3/strtok.3
+@@ -272,7 +272,7 @@ main(int argc, char *argv[])
+             subtoken =3D strtok_r(str2, argv[3], &saveptr2);
+             if (subtoken =3D=3D NULL)
+                 break;
+-            printf("\t \-\-> %s\en", subtoken);
++            printf("\et \-\-> %s\en", subtoken);
+         }
+     }
+=20
 --=20
 2.30.2
 
---qksaeq42uiclsox2
+
+--t7h47uv6azzngweq
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmHsmNYACgkQvP0LAY0m
-WPGlrA/+N2WjeAL0rSkZmPIeVlfC+GWM4VDcymMxKnkgqJ7fIfc39YpDuEbaWXwH
-sjSr591HdWKgoB9e6ByFjOYaQ3VoA1TOwE3StEkoOb4Nu4edmoPDfSo06T0v7o8u
-81maak8CGfr5SXp5Njw/UZSwXDZM5NdTiaz290MrhfDCbf2QKXQRXWTaaQHAyCsc
-/llQaiVK5JgqwEiAwLCZZQOpKJoRixgKcisb1CKa6D69gxR603GLuJ6nZUDSMer0
-ai7i6nifekTRCmmUpfkS8hgnY4Jrf7wdpZmgO6NHgMz5Q0uqHLrSiLGo89QJ75IE
-fd+15/HvJzEnTm2NoSdJoUX4S9eS9v4bDfEtauPwRbaZp4qH47+cLMt9cAmeD69i
-48taBarfqA+rJPeovS1Mf/KmkfE0hJZrYomKGfAFTCrDyCdi3hXi8IgRTkkeRfge
-xkNiMSnRex8GBNfhe0To6WwJ3gYFKTXZYa1o1x5zmOSy3DxkXzhvhY2wZKSWOM9Q
-GeK71BHI0x5KcZgTk+SingkE8rU+HvUnO/CF3doQZQIAVtmHDPSVUD2VmkboXY5X
-oOprU7VbYKbC/BI9puk+hL4EjnjWNgtrJUwhp9USjbagw2fJtt/hfgERIlkcJe8U
-FV3doW9vz69OZHai60t5DrlGQPfcWtzgWTqOD52VAtI4mR/BJZk=
-=AfGs
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmHsnxMACgkQvP0LAY0m
+WPGyVg/8DQg8y1MzXtV5R7V/Ols6Pg/W3yy1NsHNSt9ST3d3+gBPjaZUSVOn8B7x
+yP3cvoJUQCHitn7vgcYyWz09g3VxgGSq+XWnXt9Ovu+CBYnqRXmpwysWD4UEnY7/
+h5WEdVnxhNLj0CvsSIg8rXVfunlnuQtQHcTvnN8bMPNQRUmUZFvPgifecxFPXSWP
+REyzMUZtMoU7s07JCq6aYqReI2wmiWfED6t+0WSg0p8WkKwmwy3eALubL8CYNrML
+M+RD0HWYJLPNje8fdlZZQwpExx+7blCphrMmWeDdx/GSNRZNam2GeR6g3ac/OP5s
+PV86h2L3s1cdp8JEsD6DpL48wwQ3pszllATipr1o/CmDsEf2tj7d3NOBZDbSMF8c
+39ltgHfOWgn7CGG8ZYblM2NeaP8zBql+ox7XcIjDzZJ+gDT+4WbiG4/9QQkSGGqk
+kwG6yFKJBF/wqgIslkV0TaszniwgTkXNREaaTMBejG1KJQBZ50nbAJ1NmSFxTdht
+X97RIgmWtoujEeDAvrM9LDpyiyZ7MT9Kuquy0aUZw1K13tCvBE5X7Y6dlJM6mXgg
+a4LBIbgcLeZBfcwKhUjVGZZGBHnIrdPGn/sxyyhanNlvzFEhd9Wud5BNycXaiiwS
+613xoDJVF6qkoxYEjftsaw16Uu5yneE/jr24Trammljq0E84HO8=
+=jdDb
 -----END PGP SIGNATURE-----
 
---qksaeq42uiclsox2--
+--t7h47uv6azzngweq--
