@@ -2,72 +2,99 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C787149ACFC
-	for <lists+linux-man@lfdr.de>; Tue, 25 Jan 2022 08:07:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id CDAE949B7B8
+	for <lists+linux-man@lfdr.de>; Tue, 25 Jan 2022 16:36:30 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1352078AbiAYHFt (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 25 Jan 2022 02:05:49 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46276 "EHLO
+        id S233913AbiAYPfS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 25 Jan 2022 10:35:18 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51832 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1353446AbiAYHDr (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 25 Jan 2022 02:03:47 -0500
-Received: from mail-yb1-xb32.google.com (mail-yb1-xb32.google.com [IPv6:2607:f8b0:4864:20::b32])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EFC38C02B76A
-        for <linux-man@vger.kernel.org>; Mon, 24 Jan 2022 21:41:52 -0800 (PST)
-Received: by mail-yb1-xb32.google.com with SMTP id c6so58373053ybk.3
-        for <linux-man@vger.kernel.org>; Mon, 24 Jan 2022 21:41:52 -0800 (PST)
+        with ESMTP id S239300AbiAYPde (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 25 Jan 2022 10:33:34 -0500
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com [IPv6:2a00:1450:4864:20::531])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4EFF3C06176E
+        for <linux-man@vger.kernel.org>; Tue, 25 Jan 2022 07:22:54 -0800 (PST)
+Received: by mail-ed1-x531.google.com with SMTP id u18so49744393edt.6
+        for <linux-man@vger.kernel.org>; Tue, 25 Jan 2022 07:22:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=mime-version:reply-to:from:date:message-id:subject:to;
-        bh=KeMi8W+p20zdR41YZoRj2EapY7imNsLYkAgQIQsIzqY=;
-        b=omchJdYJcVvbnbx3iWDsqNfzfvgFxRY5UV8d5JFHFd0Qxp4Fs99oOTWbnsLJvmkGLO
-         KJ9h0aIZipzZCxLYUC1EbKJQXjsTnrYD4skWPu5L6KEa7WwksJ/DgfAKn2I//FvNz16e
-         yvRSMjBJIkfJOiN7QosmIFzfX6t0OymUxXq/kzoldmt5Tk4SMXy3poAlzZfnj4tLqkCO
-         r1uVZjBjIcfKcTHUm4yIRwmNGijXGA0OAhFYRol/6hiAAZJ37V1K6a3bLM+XpGdFXGos
-         hPiIHyT9XSW8aiVFGjIdHRgRcnWLHkX21ZW87GvspRwlXlL9xuI6dXFZXWxBZnRTJWgA
-         Bk5w==
+        h=mime-version:from:date:message-id:subject:to:cc;
+        bh=20XwJjQNGGefUix8XbrMuW56obNoG2yHLHBAMNVKwUw=;
+        b=l/MNtqz1yfB03F6P35OAbvJnokbRZYT801dYchseR4O0lu3uPDTE3h6vSNc8jIycGH
+         EsI6JvJ8NvpzEl9CuPBP2kIiQtBUg1YVQsZ6aeZOYtWufjVSh9mLDzfiLWqjjRU4+ob9
+         83GUnS0pLexczY4qHwQcIwE4WnHHZZWmDo6qh4DmaanDZFNwqlBz+uw5txMsNmfONAHR
+         N4jF7Urdw+gfeS7eDmU7iNLSt4BPdTOm6D0oRdgdZALqn2CgIqjRAlt+AJMdsoFY6oLS
+         s8EqKYK5Jpk9LG+soHtemIuoNTv/XdcqX9XLCk9EQn98mVXJq6V8zw3G3TBMmLBKkHIX
+         8weg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to;
-        bh=KeMi8W+p20zdR41YZoRj2EapY7imNsLYkAgQIQsIzqY=;
-        b=pvUHGO0To42YdYyae//hbY3gIKQyVyWxZKmuqFaApz2npUTY4IS3lMadfX+pVLPSK1
-         ZbSC/3nw71/WqgS4oRddt7RU3u596nas6UGrLb00ACjMlZugqKSbK4JKUGlfA2Dck9XF
-         qJYSC9J2u4LADMZR6Cy8rxrbAXVnZ/pTelOumCf7DMNbUBH+jPK6WDUOssgylfuNtQ7Z
-         8RbS8erkR4+Gb28JfOuAajrXQqt7i6RenokHVn3XF/Lun+GLfvRJ1HZNy/NegucwW1MA
-         YW4Svkbpa3YpF0QeNGgWmTjUPGpLBLv0gMxW95CbPU1tnISJLVyA6DWvbph5rYY6G6hR
-         ebSg==
-X-Gm-Message-State: AOAM531gwk7DJ2df4bHv6td/qyTlYkNeIDqeZhaIomeVR/x+bRw60Q3B
-        LKNM8JxrH/qqeBCgo9jWtGX3cx+lKE6f97UHh1wnkoGu2nw=
-X-Google-Smtp-Source: ABdhPJwywiwyTtOCXfovmJIEM7Vqt+PFDzMW3tzxRj90P3fJDPhIlV2jOd/vI9WPw47eCab8Z7S4n4qldrLRD5Ly+Sc=
-X-Received: by 2002:a25:d783:: with SMTP id o125mr27594671ybg.710.1643089301256;
- Mon, 24 Jan 2022 21:41:41 -0800 (PST)
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+        bh=20XwJjQNGGefUix8XbrMuW56obNoG2yHLHBAMNVKwUw=;
+        b=zxXHRuMceft3rpEdu1qdXPvBR+Hw8+0QmKHxVva1rLBwOZwEoRGYrmatM1S+4MXOVa
+         4wzhUblkpeY6nB8xxgn+CqU6CjukFiGNSg1P0cMzr3CNZgCvp0yLOqpLzu6JJhD7GsMK
+         7iAULzOVzR0Mk6QlU+nGP4Jcmo5QbsyKWBmQSNh6IzhqFxceXyGB6bEkJrY1fEFE/Cju
+         JvScFz7v/3EwafK1nuOqa7XIE9AMFOVhZBM0rrJpd4QzVxvL+BdmtdjA1oDdbIB8EPt6
+         ilI+hMUD0IPGK0K1fL5y915IQWFHGgfJu7Jxfz9HruewCwiPiwYAdVZmYQ8+xSKStHt5
+         SLaA==
+X-Gm-Message-State: AOAM5312QcBfekK2nkBbvS4muejrQtEb8zNRyLyfY8uPi+vstdVwElZY
+        9jPVWvbwhTvoMf6Pj8+cq3MhuqlfehNoIqbFOMBkaF6S/9lr4Q==
+X-Google-Smtp-Source: ABdhPJxzHbIvSs/iVU1+86tjk3hKVPbiNLDyvbky2MoHi2IBTjJXBdZ/Qd5fUITe1ist6RhxHApDTyD0rJADWRH/Mbg=
+X-Received: by 2002:a50:9e6c:: with SMTP id z99mr21052519ede.71.1643124172837;
+ Tue, 25 Jan 2022 07:22:52 -0800 (PST)
 MIME-Version: 1.0
-Received: by 2002:a05:7000:ad9d:0:0:0:0 with HTTP; Mon, 24 Jan 2022 21:41:40
- -0800 (PST)
-Reply-To: danielseyba@yahoo.com
-From:   Seyba Daniel <mrssuzaramaling19@gmail.com>
-Date:   Tue, 25 Jan 2022 06:41:40 +0100
-Message-ID: <CAKN-9XgQjuMspSnu-F01fv+Bgr6eZEygpsR3pZ-5cF=m78av-Q@mail.gmail.com>
-Subject: Hello,
-To:     undisclosed-recipients:;
+From:   Grzegorz Szpetkowski <gszpetkowski@gmail.com>
+Date:   Tue, 25 Jan 2022 16:22:17 +0100
+Message-ID: <CAMW=dumhWDu6LdhaQCJMskA4yNRBtOHs4iyrG6TP7xRv28AVWA@mail.gmail.com>
+Subject: [PATCH] packet.7: add description of zero protocol for socket
+To:     linux-man@vger.kernel.org
+Cc:     alx.manpages@gmail.com, mtk.manpages@gmail.com
 Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello,
+Dear Maintainers,
 
-I am so sorry contacting you in this means especially when we have never
-met before. I urgently seek your service to represent me in investing in
-your region / country and you will be rewarded for your service without
-affecting your present job with very little time invested in it.
+According to packet(7), whenever raw packet is created by socket(),
+it's immediately running, meaning that internal packet_rcv() handler
+will be triggered and socket buffer will begin allocation of sk_buff
+until sk_rcvbuf limit is reached.
 
-My interest is in buying real estate, private schools or companies with
-potentials for rapid growth in long terms.
+However, by examination of kernel's internal handler packet_create()
+it looks that kernel handles case of zero protocol in a special
+manner.
+When packet_create() is called with arg protocol = 0,
+__register_prot_hook is not executed, meaning running state is still 0
+and most notably, packet handler is not added to kernel list (vide
+dev_add_pack).
 
-So please confirm interest by responding back.
+I found this behavior invaluable for solving a subtle issue. When
+process creates raw packet socket to listen for (let's say) all
+protocols, but limited to a single network interface, then while this
+interface can set by bind, it may to be too late due to preemption
+(e.g. if real-time scheduling is used) and/or high-rate of packets on
+other interfaces, meaning that undesired packets (any count) may be
+pulled into the socket buffer.
 
-My dearest regards
+The proposed patch to define behavior when protocol is to zero with socket().
+Please review.
 
-Seyba Daniel
+Signed-off-by: Grzegorz Szpetkowski gszpetkowski@gmail.com
+
+diff --git a/man7/packet.7 b/man7/packet.7
+index 706efbb54..461444c43 100644
+--- a/man7/packet.7
++++ b/man7/packet.7
+@@ -47,6 +47,9 @@ is set to
+ then all protocols are received.
+ All incoming packets of that protocol type will be passed to the packet
+ socket before they are passed to the protocols implemented in the kernel.
++When protocol is set to zero, then no packets are received until
++.BR bind (2)
++specifies allowed protocol or to receive all protocols.
+ .PP
+ In order to create a packet socket, a process must have the
+ .B CAP_NET_RAW
+
+Thanks,
+Grzegorz
