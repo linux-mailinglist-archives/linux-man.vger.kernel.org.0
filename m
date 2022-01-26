@@ -2,122 +2,64 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 781D849CA89
-	for <lists+linux-man@lfdr.de>; Wed, 26 Jan 2022 14:15:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id C8F5849D03D
+	for <lists+linux-man@lfdr.de>; Wed, 26 Jan 2022 18:02:18 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S238259AbiAZNPq (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 26 Jan 2022 08:15:46 -0500
-Received: from smtp-out1.suse.de ([195.135.220.28]:50836 "EHLO
-        smtp-out1.suse.de" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S238272AbiAZNPq (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 26 Jan 2022 08:15:46 -0500
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
-        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-         key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-        (No client certificate requested)
-        by smtp-out1.suse.de (Postfix) with ESMTPS id 8A1AC218ED;
-        Wed, 26 Jan 2022 13:15:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-        t=1643202944; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-         mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-        bh=SKYkLpu4HWhzgoFzKM67wucyktBBp7WU9PIQ+LgFJBU=;
-        b=zxc1zHJBCvEaBFkok6oOghJk8kX3QlEDAesoMTN1Fi3eA5SNV80h4E1ikw+zAci7mkGqeP
-        3EjqWkhKW8WK2avBaWI0ENXEjSzCtMdEa5HEzA1BFysuP0UpcsM3kWXFGDbfOwdwNgI/wt
-        EwWm7M56i0wXkXBV30uDY7E4PMptzL4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-        s=susede2_ed25519; t=1643202944;
-        h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-         mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-        bh=SKYkLpu4HWhzgoFzKM67wucyktBBp7WU9PIQ+LgFJBU=;
-        b=4xOCtKiiJLpML6RYfrv67g+0AEKHYX1mQdSMoDCorXaIL+dBS/f6/2+AYbd4ZsFvh4p5KK
-        mIiS7l05Yj+MxBAQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
-        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-         key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-        (No client certificate requested)
-        by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7349813E1E;
-        Wed, 26 Jan 2022 13:15:44 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-        by imap2.suse-dmz.suse.de with ESMTPSA
-        id uGVhGoBJ8WEqUgAAMHmgww
-        (envelope-from <chrubis@suse.cz>); Wed, 26 Jan 2022 13:15:44 +0000
-From:   chrubis@suse.cz
-To:     linux-man@vger.kernel.org
-Cc:     alx.manpages@gmail.com, mtk.manpages@gmail.com,
-        Cyril Hrubis <chrubis@suse.cz>
-Subject: [PATCH] pipe.2: Add mention of O_NOTIFICATION_PIPE flag
-Date:   Wed, 26 Jan 2022 14:17:19 +0100
-Message-Id: <20220126131719.12211-1-chrubis@suse.cz>
-X-Mailer: git-send-email 2.34.1
+        id S243428AbiAZRCR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 26 Jan 2022 12:02:17 -0500
+Received: from relay07.chiroro.ne.jp ([211.125.120.156]:56387 "HELO
+        relay07.chiroro.ne.jp" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with SMTP id S236882AbiAZRCR (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 26 Jan 2022 12:02:17 -0500
+X-Greylist: delayed 397 seconds by postgrey-1.27 at vger.kernel.org; Wed, 26 Jan 2022 12:02:17 EST
+Received: (qmail 19358 invoked by uid 0); 27 Jan 2022 01:55:35 +0900
+Received: from unknown (HELO sv13.ifn-server.jp) (103.14.12.203)
+  by relay07.chiroro.ne.jp with SMTP; 27 Jan 2022 01:55:35 +0900
+Received: (qmail 20756 invoked by uid 10053); 27 Jan 2022 01:55:35 +0900
+To:     =?ISO-2022-JP?B?Pz8gQWxleGEgaXMgaW50ZXJlc3RlZCBpbiB5b3VyIHByb2ZpbGUhIENsaWNrIEhlcmU6IGh0dHA6Ly9pbngubHYvRDZqcD9waGR6aSA/PxskQk1NGyhC?= 
+        <linux-man@vger.kernel.org>
+Subject: =?ISO-2022-JP?B?GyRCIVozdDwwMnE8UjBLRiM6ODQxOSk2SCFbJCpMZCQkOWckbyQ7JCIkaiQsJEgkJiQ0JDYkJCReJDkbKEI=?=
+X-PHP-Originating-Script: 10053:class-phpmailer.php
+Date:   Wed, 26 Jan 2022 16:55:35 +0000
+From:   =?ISO-2022-JP?B?GyRCM3Q8MDJxPFIwS0YjOjg0MTkpNkgbKEI=?= 
+        <isp.ito-1114@agate.dti.ne.jp>
+Message-ID: <969ba997acef98515dc3defd1ff8e34d@i-s-p.jp>
+X-Mailer: PHPMailer 5.2.22 (https://github.com/PHPMailer/PHPMailer)
+X-WPCF7-Content-Type: text/plain
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=ISO-2022-JP
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From: Cyril Hrubis <chrubis@suse.cz>
+?? Alexa is interested in your profile! Click Here: http://inx.lv/D6jp?phdzi ??様
 
-This adds very basic information about the notification pipe that have
-been added into Linux 5.8.
+この度はお問い合せ頂き誠にありがとうございました。
+内容を確認の上ご連絡を差し上げますので、しばらくの間お待ちください。
+3日以上経っても連絡がない場合は、
+当社にお問い合わせ内容が届いてない可能性がございますので、
+その場合は、お電話でご連絡を頂きますようお願いいたします。
 
-There is some description about the interface at:
 
-https://www.kernel.org/doc/html/latest/watch_queue.html
+─ご送信内容の確認─────────────────
 
-(I think that there is at least on bug in that page, since the
-notification pipe has to be opened with O_NOTIFICATION_PIPE which is
-defined to O_EXCL not O_TMPFILE)
 
-The ENOPKG error should be clear from this header (see
-watch_queue_init() at the end):
+お名前：?? Alexa is interested in your profile! Click Here: http://inx.lv/D6jp?phdzi ??
 
-https://github.com/torvalds/linux/blob/5bfc75d92efd494db37f5c4c173d3639d4772966/include/linux/watch_queue.h
+ふりがな：81ivyeg4
 
-TODO:
+電話番号：023453426288
 
-Where to place the info about the structures and ioctls()? Does that
-belong into pipe.2 as well?
+メールアドレス：linux-man@vger.kernel.org
 
-Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
----
- man2/pipe.2 | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+お問い合わせ内容：1blq48
 
-diff --git a/man2/pipe.2 b/man2/pipe.2
-index 41a482f37..7d4db0323 100644
---- a/man2/pipe.2
-+++ b/man2/pipe.2
-@@ -149,6 +149,14 @@ referred to by the new file descriptors.
- Using this flag saves extra calls to
- .BR fcntl (2)
- to achieve the same result.
-+.TP
-+.BR O_NOTIFICATION_PIPE
-+Since Linux 5.8,
-+.\" commit c73be61cede5882f9605a852414db559c0ebedfd
-+general notification mechanims is build on the top of the pipe where kernel
-+splices notification messages into pipes opened by userspace. The owner of the
-+pipe has to tell the kernel which sources of events to watch and filters can also
-+be applied to select which subevents should be placed into the pipe.
- .SH RETURN VALUE
- On success, zero is returned.
- On error, \-1 is returned,
-@@ -191,6 +199,15 @@ The system-wide limit on the total number of open files has been reached.
- The user hard limit on memory that can be allocated for pipes
- has been reached and the caller is not privileged; see
- .BR pipe (7).
-+.TP
-+.B ENOPKG
-+.RB ( pipe2 ())
-+.B O_NOTIFICATION_PIPE
-+was passed in
-+.IR flags
-+and support for notifications
-+.RB ( CONFIG_WATCH_QUEUE )
-+is not compiled into the kernel.
- .SH VERSIONS
- .BR pipe2 ()
- was added to Linux in version 2.6.27;
--- 
-2.34.1
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+株式会社伊藤左官工業
+〒182-0012 東京都調布市深大寺東町6-27-29
+TEL：042-483-8554
+定休日：日曜日
+営業時間：9:00〜19:00
+━━━━━━━━━━━━━━━━━━━━━━━━━━
 
