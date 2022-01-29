@@ -2,63 +2,93 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 668374A2B96
-	for <lists+linux-man@lfdr.de>; Sat, 29 Jan 2022 05:25:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 9C6444A317B
+	for <lists+linux-man@lfdr.de>; Sat, 29 Jan 2022 20:10:25 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1352359AbiA2EZS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 28 Jan 2022 23:25:18 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33806 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230242AbiA2EZR (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 28 Jan 2022 23:25:17 -0500
-Received: from mail-il1-x135.google.com (mail-il1-x135.google.com [IPv6:2607:f8b0:4864:20::135])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EC772C061714
-        for <linux-man@vger.kernel.org>; Fri, 28 Jan 2022 20:25:16 -0800 (PST)
-Received: by mail-il1-x135.google.com with SMTP id 15so7122599ilg.8
-        for <linux-man@vger.kernel.org>; Fri, 28 Jan 2022 20:25:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:from:date:message-id:subject:to;
-        bh=L3colsMztaW5XG57xqkph6usOHkRgpAkZ38vVUzLouc=;
-        b=lYpIy507n+I0w9QKEq4aqWRP6spPRgathJGq39PxdJ17mZWYClMfzVBjIvbZ1dcs2u
-         woZ9Ky5FC+MxFs6wyUNAvgJOf3BbBfe/XG7kl+WRN7crhm0EoQkqHsGaqTiSzU8M6Zdy
-         3cK5jJumPtyNmCOXfgE8j+VjliVGOy0tvibDLtsGWNYYl9JwBBbfVdOOmEJfIi5H2dkT
-         KUItzomAK3JqY+rpe0uzp/byOPAammcJW4oL/k+1r3dzunAWG6THQjRH6+B1o0VqoQ0M
-         2HSyIRbQTIIrkRkiJYhGCtdU1NzsdsEzClFk93fyGLQNua4KcBIEBEACuuabKU4y4TOG
-         Zp7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
-        bh=L3colsMztaW5XG57xqkph6usOHkRgpAkZ38vVUzLouc=;
-        b=XFsYcAhTUHXeIxp5W1RS7ViKXNe5CqLn+bSp/EfzKBh+g/J/UcKwEIPbWawv+aKfGL
-         BOs7+bISjk6qPpat/s8JEl/CUAz/RFTd8Mdr6CMXxaRrbQHrQu6qxESiNAmQH2/aTZ9a
-         pZ5K9GGJchRmi6WbAEgIll+M6sXF65JhhrUlMEdpYhR4l7YGQ7d96B8RgwQfXf9K2Seo
-         eGiEFVxC3w/NKEqp6uuBdWbZxDToP9TqjcnhxzF9HtPrh4BxojsHjzaDN6qyc6UAuF8p
-         c9iVwW9E7WmwERcL6y4EImWZx4Wt8UpaPgK4PH1Jft1Swtnllabr5CSEeJjmRcEcc7JI
-         HBLQ==
-X-Gm-Message-State: AOAM531XzfodsMOXCpDYbbg3NRnT4FmGJqPDPipWos2FqdFsHOY9Y/c/
-        oIwqG70mlAkkolP8yAubT6qM4M16SglhW0FeAR5BkOtJ
-X-Google-Smtp-Source: ABdhPJyfEsNpfo/THtCcwOqmWy1yi9r6IQF3kd0aVMIUwEDGCHmDO0cwPAa/ywUrsSqVDK2WmSFSBPOdKORXeOCBbi4=
-X-Received: by 2002:a92:d78e:: with SMTP id d14mr7873118iln.222.1643430316395;
- Fri, 28 Jan 2022 20:25:16 -0800 (PST)
+        id S242081AbiA2TKY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 29 Jan 2022 14:10:24 -0500
+Received: from 139-28-40-42.artus.net.pl ([139.28.40.42]:51740 "EHLO
+        tarta.nabijaczleweli.xyz" rhost-flags-OK-FAIL-OK-OK)
+        by vger.kernel.org with ESMTP id S230301AbiA2TKX (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 29 Jan 2022 14:10:23 -0500
+Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 6FC7C3C08;
+        Sat, 29 Jan 2022 20:10:17 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
+        s=202006; t=1643483417;
+        bh=WHuDmC22kquvQZ2BYZxjvJv/wu8TIt/9I41OIYzMDwg=;
+        h=Date:From:To:Cc:Subject:From;
+        b=J+dc78xQjTPxzRaC1yU9WAH+sKXaQqn3wL+kT1kXzF2FyIC6KSbaaUqDs9RXz8HNW
+         LhH9dkGbGWB0NIPscGrVoV4LklOi+qH7ycGV9bwR1BYe1D15hmKeVUpWyRc6Odq0ei
+         e4K/v5GLPvZp76V8iHxQxk6yvyV5DKO7UT9PwrAk/X9rpiUKAoLuUULKbhuYeRGrT8
+         COtB2cfSARHQKU/snJWlElyZ1xscvJgJ0ibvZGTIcDJLbwfpUN9Efd1b2/9Akja/uw
+         4HGN1GA+96HupU8or+oppsuJ0u6tDakj/2KV8zGop/44XRDBYZBPJEZ24JnKBG9Kpt
+         DWJDpwc8YHnGw==
+Date:   Sat, 29 Jan 2022 20:10:16 +0100
+From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org
+Subject: [PATCH 1/2] time.7: tfix
+Message-ID: <ddac5f5b40345ba565428378e9dcecdf840e23f7.1643483384.git.nabijaczleweli@nabijaczleweli.xyz>
 MIME-Version: 1.0
-From:   Lao Shaw <laoshaw21@gmail.com>
-Date:   Fri, 28 Jan 2022 22:25:05 -0600
-Message-ID: <CABQ1peNegXXk9Lha0EA=pbgWdgjtKcf+RYj2UkN15qJ6VvqF2Q@mail.gmail.com>
-Subject: man string vs man string.h
-To:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="ritq4ozgmsmc5457"
+Content-Disposition: inline
+User-Agent: NeoMutt/20211029
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Under linux `man string` is ISO C at /usr/include/string.h, `man
-string.h` is for Posix manpages.
 
-unlike `man stdio` for ISO C, in particular, `man string` does not
-have APIs like `memcpy, memcmp` etc, which is in /usr/include/string.h
+--ritq4ozgmsmc5457
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-What am I missing?
+"HZ" is the constant, and has nothing to do with the 50Hz PAL/60Hz NTSC
+field/mains frequencies
 
-Thanks,
-Shaw
+Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
+---
+ man7/time.7 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/man7/time.7 b/man7/time.7
+index 830da7ea8..95573796c 100644
+--- a/man7/time.7
++++ b/man7/time.7
+@@ -92,7 +92,7 @@ configuration parameter and can be 100, 250 (the default)=
+ or 1000,
+ yielding a jiffies value of, respectively, 0.01, 0.004, or 0.001 seconds.
+ Since kernel 2.6.20, a further frequency is available:
+ 300, a number that divides evenly for the common video
+-frame rates (PAL, 25 HZ; NTSC, 30 HZ).
++frame rates (PAL, 25Hz; NTSC, 30Hz).
+ .PP
+ The
+ .BR times (2)
+--=20
+2.30.2
+
+
+--ritq4ozgmsmc5457
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmH1kRcACgkQvP0LAY0m
+WPFc1w//XBTsuJPEDx3bbVcxX7bdDbYBqd4vY/WAn+G6ouFqtQaqn8PjfejCXvbn
+NZuZo7A/5bsi0NVGuYucTwgJBr9sZQmyM1VBVTel9jRKbpEAE+Y3GPcW3IeUeS0O
+4IB3STRS/kd7XEPf37SWLxw35mkB+uGYbdaD3BP2/VA0Z+ajPH5YsNB6K88aZOmt
+fAG79BNyI5RWTa4YNG9GbJKxzkKXe6jG2hnyegY/a4NwQDLf6wP21lJu9xmsi03s
+8p0qlMMTq0N8jrajgwaCix4vtEsu9C/6UwmVRoeBKQWwtoi0Eci6dRanes2tVOqz
+iiaI9jpwCvnhKsolutDJcHsmPwlS23W7DwY6u7t5Qj6C0wiHPScYvGzSCEJW8HJy
+9gMMNlp2/9IxYvI0sCtXXI6Fx8j3bSXn3RgnvoR2B5wr5nEUPlu8UyYXPyEgBVQs
+YBlPwZwpVg4G5Q3kvm651qMsdn+9liIGJRbroXAv7T2OSbaXuZNDIVN0uJuNV3Hp
+T9nqzWBzRx9R0QIK+KnjpNjeEiMvUXFFm9pMZ7/NQUovSpx6fM+qqYgqdz7l+0Tn
+TrfSNtcaUq+DH5a7hJqfr5UHhoBvKy52ayjhms/A6gKGU50+Ja+IBSng4OyFnBSv
+ap6AwygjLWvlmtnDKl4xRl9Mg42jwpREmsfxXOjW3oCak/xGAYM=
+=J8d2
+-----END PGP SIGNATURE-----
+
+--ritq4ozgmsmc5457--
