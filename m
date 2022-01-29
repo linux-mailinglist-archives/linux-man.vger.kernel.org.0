@@ -2,51 +2,50 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 9C6444A317B
-	for <lists+linux-man@lfdr.de>; Sat, 29 Jan 2022 20:10:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 799414A317C
+	for <lists+linux-man@lfdr.de>; Sat, 29 Jan 2022 20:10:29 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S242081AbiA2TKY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 29 Jan 2022 14:10:24 -0500
-Received: from 139-28-40-42.artus.net.pl ([139.28.40.42]:51740 "EHLO
+        id S1343954AbiA2TK2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 29 Jan 2022 14:10:28 -0500
+Received: from 139-28-40-42.artus.net.pl ([139.28.40.42]:51746 "EHLO
         tarta.nabijaczleweli.xyz" rhost-flags-OK-FAIL-OK-OK)
-        by vger.kernel.org with ESMTP id S230301AbiA2TKX (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 29 Jan 2022 14:10:23 -0500
+        by vger.kernel.org with ESMTP id S230301AbiA2TK2 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 29 Jan 2022 14:10:28 -0500
 Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 6FC7C3C08;
-        Sat, 29 Jan 2022 20:10:17 +0100 (CET)
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 7AA923C8C;
+        Sat, 29 Jan 2022 20:10:26 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-        s=202006; t=1643483417;
-        bh=WHuDmC22kquvQZ2BYZxjvJv/wu8TIt/9I41OIYzMDwg=;
-        h=Date:From:To:Cc:Subject:From;
-        b=J+dc78xQjTPxzRaC1yU9WAH+sKXaQqn3wL+kT1kXzF2FyIC6KSbaaUqDs9RXz8HNW
-         LhH9dkGbGWB0NIPscGrVoV4LklOi+qH7ycGV9bwR1BYe1D15hmKeVUpWyRc6Odq0ei
-         e4K/v5GLPvZp76V8iHxQxk6yvyV5DKO7UT9PwrAk/X9rpiUKAoLuUULKbhuYeRGrT8
-         COtB2cfSARHQKU/snJWlElyZ1xscvJgJ0ibvZGTIcDJLbwfpUN9Efd1b2/9Akja/uw
-         4HGN1GA+96HupU8or+oppsuJ0u6tDakj/2KV8zGop/44XRDBYZBPJEZ24JnKBG9Kpt
-         DWJDpwc8YHnGw==
-Date:   Sat, 29 Jan 2022 20:10:16 +0100
+        s=202006; t=1643483426;
+        bh=5EXDgBF+HbfCXMHN8FP9QvUyx1/6VrTUwSoF1S2jVxQ=;
+        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+        b=ozQKku9M8mv6Nw5I7xdCLo2YGWk6ilMYh10WI4euZ0aYsMQuPNUPQ+frs0JuJsO6w
+         OWJUE/R2vYvJ8M04pGlVOeiEewk0c8jZxYY0BsMk+d66smPnmWR7ESg4D7n10MM+Kp
+         EI4QX8sf/ZPivgI2HX5UDUf3Bwn2RdkwVK7EoS9LlLS6fZmIBafs51VORipTEW7oCg
+         1EUYl7XyMrf6Ag735AxVRumwMprEFlk+PIxtNz0jDUNpONGybT0b0HEopV+6v7/me+
+         WyeNn1sDSC65BX+n1tYTy5NmGxJd8izLnTq0Hgc9/LpxWj7NDmvOc/PYdTBkM8IUJe
+         u7Wv0Yn2wKjaw==
+Date:   Sat, 29 Jan 2022 20:10:25 +0100
 From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
 To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org
-Subject: [PATCH 1/2] time.7: tfix
-Message-ID: <ddac5f5b40345ba565428378e9dcecdf840e23f7.1643483384.git.nabijaczleweli@nabijaczleweli.xyz>
+Subject: [PATCH 2/2] time.7: tfix
+Message-ID: <7f3f4747384d31517a9e423cc368b99c79c1fda2.1643483384.git.nabijaczleweli@nabijaczleweli.xyz>
+References: <ddac5f5b40345ba565428378e9dcecdf840e23f7.1643483384.git.nabijaczleweli@nabijaczleweli.xyz>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="ritq4ozgmsmc5457"
+        protocol="application/pgp-signature"; boundary="yf4jbwyenyognxsa"
 Content-Disposition: inline
+In-Reply-To: <ddac5f5b40345ba565428378e9dcecdf840e23f7.1643483384.git.nabijaczleweli@nabijaczleweli.xyz>
 User-Agent: NeoMutt/20211029
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---ritq4ozgmsmc5457
+--yf4jbwyenyognxsa
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-
-"HZ" is the constant, and has nothing to do with the 50Hz PAL/60Hz NTSC
-field/mains frequencies
 
 Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
 ---
@@ -54,41 +53,39 @@ Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/man7/time.7 b/man7/time.7
-index 830da7ea8..95573796c 100644
+index 95573796c..72395ee5b 100644
 --- a/man7/time.7
 +++ b/man7/time.7
-@@ -92,7 +92,7 @@ configuration parameter and can be 100, 250 (the default)=
- or 1000,
- yielding a jiffies value of, respectively, 0.01, 0.004, or 0.001 seconds.
- Since kernel 2.6.20, a further frequency is available:
- 300, a number that divides evenly for the common video
--frame rates (PAL, 25 HZ; NTSC, 30 HZ).
-+frame rates (PAL, 25Hz; NTSC, 30Hz).
+@@ -132,7 +132,7 @@ or looking at the "resolution" entries in
+ .IR /proc/timer_list .
  .PP
- The
- .BR times (2)
+ HRTs are not supported on all hardware architectures.
+-(Support is provided on x86, arm, and powerpc, among others.)
++(Support is provided on x86, ARM, and PowerPC, among others.)
+ .SS The Epoch
+ UNIX systems represent time in seconds since the
+ .IR Epoch ,
 --=20
 2.30.2
 
-
---ritq4ozgmsmc5457
+--yf4jbwyenyognxsa
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmH1kRcACgkQvP0LAY0m
-WPFc1w//XBTsuJPEDx3bbVcxX7bdDbYBqd4vY/WAn+G6ouFqtQaqn8PjfejCXvbn
-NZuZo7A/5bsi0NVGuYucTwgJBr9sZQmyM1VBVTel9jRKbpEAE+Y3GPcW3IeUeS0O
-4IB3STRS/kd7XEPf37SWLxw35mkB+uGYbdaD3BP2/VA0Z+ajPH5YsNB6K88aZOmt
-fAG79BNyI5RWTa4YNG9GbJKxzkKXe6jG2hnyegY/a4NwQDLf6wP21lJu9xmsi03s
-8p0qlMMTq0N8jrajgwaCix4vtEsu9C/6UwmVRoeBKQWwtoi0Eci6dRanes2tVOqz
-iiaI9jpwCvnhKsolutDJcHsmPwlS23W7DwY6u7t5Qj6C0wiHPScYvGzSCEJW8HJy
-9gMMNlp2/9IxYvI0sCtXXI6Fx8j3bSXn3RgnvoR2B5wr5nEUPlu8UyYXPyEgBVQs
-YBlPwZwpVg4G5Q3kvm651qMsdn+9liIGJRbroXAv7T2OSbaXuZNDIVN0uJuNV3Hp
-T9nqzWBzRx9R0QIK+KnjpNjeEiMvUXFFm9pMZ7/NQUovSpx6fM+qqYgqdz7l+0Tn
-TrfSNtcaUq+DH5a7hJqfr5UHhoBvKy52ayjhms/A6gKGU50+Ja+IBSng4OyFnBSv
-ap6AwygjLWvlmtnDKl4xRl9Mg42jwpREmsfxXOjW3oCak/xGAYM=
-=J8d2
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmH1kSEACgkQvP0LAY0m
+WPEVEQ//SpECmqg0gwIV8KKxbcWw+4x0ORXNiae5jpMu4Es3sv4lq9u0USFEOEOY
+pBoI16zbBALnZ+ShpWRMgD9FgQkMKolueE/3aFrjPjvRGYsnwQfdBpbO3MqhV9ns
+T77NbNbb0ST7bkYxDBo8tH52DNq6MGYflLC4nzynzsiMpOyKK/4LMtQycF+ORYrW
+dbW6YeH9Qp+4dpIsBLBo7Kz9gIZQaZWq06GY9bEeoWq5S1G/FLaK+7UmW6NnC3KQ
+wnfFsIJUpPiCo2Ffx1CywIA1a39EdOs1ykBoh6mUjhWuNwBeFn0CrZ5zH5BDe198
+igpo6bXFLbWCgDHI+WrP/ksX74IIgM8SiDNbV1/DJa0bIgtVZv0+JtuxLoXTblV1
+0e1YlYNs/iX6h+ArNzvTzkHeHroUc8O/H/2Pv8N+G9LJmUTXtqU099s+J3auM14i
+m4095lF8AEuDjQwRRgMwFhzPi+Ji2snNVnP36es1YbiT8wVjEIkU7GYIfB7mFj8P
+BF/6eU+BC1JFu37PmtX/nV8LU+0Yw5ulIl55IAn+9V21ddVkx50P7qb+c0XVrHvw
+Y3wnIIxfWYSHhK41VQwDFjT0/rJBJktznNIFuiSFjeUNZJap3pcJoL5w0d6Bi7wT
+h3svJRfwiRpCUXgsJAu0jI6v3S1prHRN9FKLqWy7KRHG/bfYkSo=
+=JDjc
 -----END PGP SIGNATURE-----
 
---ritq4ozgmsmc5457--
+--yf4jbwyenyognxsa--
