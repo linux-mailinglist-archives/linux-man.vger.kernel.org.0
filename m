@@ -2,122 +2,90 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2D85A4A5166
-	for <lists+linux-man@lfdr.de>; Mon, 31 Jan 2022 22:23:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id C6DE44A51A3
+	for <lists+linux-man@lfdr.de>; Mon, 31 Jan 2022 22:39:23 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1380825AbiAaVXa (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 31 Jan 2022 16:23:30 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48172 "EHLO
+        id S1381160AbiAaVjV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 31 Jan 2022 16:39:21 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51534 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1379577AbiAaVXa (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 31 Jan 2022 16:23:30 -0500
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com [IPv6:2a00:1450:4864:20::32b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B1518C06173B
-        for <linux-man@vger.kernel.org>; Mon, 31 Jan 2022 13:23:29 -0800 (PST)
-Received: by mail-wm1-x32b.google.com with SMTP id l129-20020a1c2587000000b0035394fedf14so230586wml.5
-        for <linux-man@vger.kernel.org>; Mon, 31 Jan 2022 13:23:29 -0800 (PST)
+        with ESMTP id S1381163AbiAaViY (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 31 Jan 2022 16:38:24 -0500
+Received: from mail-oi1-x244.google.com (mail-oi1-x244.google.com [IPv6:2607:f8b0:4864:20::244])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5C64DC06175D
+        for <linux-man@vger.kernel.org>; Mon, 31 Jan 2022 13:38:10 -0800 (PST)
+Received: by mail-oi1-x244.google.com with SMTP id r27so7223482oiw.4
+        for <linux-man@vger.kernel.org>; Mon, 31 Jan 2022 13:38:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=M5ux8fQq0SfM+RqGZHrwHMRK8RrOqK3JmqgPfHTiCEU=;
-        b=NR+4VT/Jd9lr/ynJXyHaD5t2jav2Hd+Na9OCZVoRsLHwuukd/igvRaXaHPSoUYCksE
-         lM/uGMTwVSvPfxjOijeOcugyybJAm/GyVszQTm5pUqFmaiYIlt09krfW26kbLzrh+B17
-         eZNk7P0j/qebZpkopQnLGfW56kj94xCrA+5/YOXMclWECSSfvyXVRAuVsUm96s4zk4Ro
-         lMoep6AfC3NuE+7CzttEzKX81aZ1IziAVMsoIojnSGIg3ogiDXoogqS+8+i2sYX8zhVS
-         de0vf5JIgtPwaPQ512pMZ0O8cquqfMB4J6ImmwLUTyjNQaTAr8lXotyPipCC7PRWhoP/
-         6c6g==
+        h=mime-version:reply-to:from:date:message-id:subject:to;
+        bh=RcCyF58LaRxi/j1nHAT0ApLeXmQ9s66f3iMVqhPacvY=;
+        b=dEuqzCa7Zlz6s4mRGbRbRWXXanD59qsT+xmKk7tBbCVL8shmNgt9pnuL3r3GZQALql
+         Y63DqHUGCnZO0yzAtzp7ZNS2CuC8pMKUMaMtNqE3s9gB45FDt9/C7CdeYDqwmv7HZJbj
+         h6fZit5aG7dGp8FvXKTscfcGshyIKAGZl/Y4NFvWe+GDkg5MDDBzPsbgzyvzZ7B1mfX4
+         ltlQ0tRJrdsWlCdvxMPpvS+PhwNDM1Zp7MYHnfnHzWMTP4bbhrhxbQSB0Xw9LPR0gSp/
+         L2Vas/DZH4ZiZyplfhihUfOHaOD2GjtH1tg3ZI6lVgxDcwRnl8d4U3qCI5tj+07J/ZXk
+         SzvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=M5ux8fQq0SfM+RqGZHrwHMRK8RrOqK3JmqgPfHTiCEU=;
-        b=Dzfz58xRyfyIasjQBQfLzEJaE21Sa5r9nxY6JHNC5kX1qLFIAa9XCWiD09/vNFIhHY
-         oA9oM9rB5q2vuBXRQKOvYyQh6Rj6Z6olo54L2kafzuxpQ4Wl9VqtSXPW5YanPe9sqjcj
-         4O+42LcA9JZ49ivLixMODuqiP3g07dfDLyNb7t6L4fL7uPjJztS1poR2H0UQ2BAXDLzL
-         SwAOQpwTIWJ4wBExslRHRYdNTjqCMnq/lReqeztC4FQOr4UGepMSCyrVEE4mE2j3LKOl
-         seyNeoVsM0+cW+nVpDl8L857Zvc25kNEPE2xIwM7UtHxxht5zqU1LUlgDbAJiWbMVRy+
-         x3DQ==
-X-Gm-Message-State: AOAM533np8jkzd87bj6E1Jsuvc+gb/F/mGJvLoNzFtT1CXYetFmkTcFa
-        zmfHm3SSmKL/pzl4xHc57IDS/5AjaJk=
-X-Google-Smtp-Source: ABdhPJwOUA1hF/Jvgr1bZdLCzToZvLziP6hm0IFDeuOHZmGFGbOEoTatRkZNb5tiFEdjTdBcJt5MuQ==
-X-Received: by 2002:a7b:c20d:: with SMTP id x13mr27851934wmi.47.1643664208165;
-        Mon, 31 Jan 2022 13:23:28 -0800 (PST)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id n15sm374581wmr.26.2022.01.31.13.23.27
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 Jan 2022 13:23:27 -0800 (PST)
-Message-ID: <5cfb23b8-de77-3eec-92d0-da29fededf4c@gmail.com>
-Date:   Mon, 31 Jan 2022 22:23:26 +0100
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to;
+        bh=RcCyF58LaRxi/j1nHAT0ApLeXmQ9s66f3iMVqhPacvY=;
+        b=D/Ua8I1r1G7pjI70C4rClXfpV6ulSlVloz9p+HVFruSCu1svgBdpGHeTW3JvtqpAdN
+         HqPG0GKX6ni8rADSYp55HpFhX4A+hXNQnFdKo4hPilWbyFt6RlX77a9T/m0chTdRyFr5
+         1otDXwEPm141wVNMnF+MQwef9W1O9p5evOaCldNYXS8p/IbtyiKogAXER56Hj3P/LJKw
+         teOxFi6zJCLjyzX8cDarvhFI7MwbsbsFnJtDhV7oYGzvwTdw+X2zL82je97K0OAkjj4s
+         2nuMDEp1zSQQMiC3M1khYY2dpcYuWUwBqlI7IXAT8hnLv/C9I75VfgRLjaLM9wenHiFL
+         YTnw==
+X-Gm-Message-State: AOAM533rpYq9e572u3GVAPvUqeFIoxUNGsgdkGVt0DsLz1iFSrsZx6Qc
+        edhXtNTnQFlWaGn3w3iF422bk9rL2Vn/nTahrvY=
+X-Google-Smtp-Source: ABdhPJzjG4nHBnpm1YeRsvfpKVsM6nmNJIeFJaztEJrNHMe+iyJctx1iGavTAT23A2IhS4j6LtYbunRiUquAn1xj08o=
+X-Received: by 2002:a54:4490:: with SMTP id v16mr14818764oiv.157.1643665089421;
+ Mon, 31 Jan 2022 13:38:09 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.1
-Subject: Re: SA_ONSTACK: man page and glibc reference manual in conflict
-Content-Language: en-US
-To:     GNU C Library <libc-alpha@sourceware.org>,
-        Ivan Zuboff <anotherdiskmag@gmail.com>
-Cc:     linux-man@vger.kernel.org, mtk.manpages@gmail.com
-References: <CAL-cVegvPvu6kZgn5x=6gimzuSTfCErKzTL+8+1UgQxM3fiNQQ@mail.gmail.com>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-In-Reply-To: <CAL-cVegvPvu6kZgn5x=6gimzuSTfCErKzTL+8+1UgQxM3fiNQQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Received: by 2002:a4a:c30d:0:0:0:0:0 with HTTP; Mon, 31 Jan 2022 13:38:09
+ -0800 (PST)
+Reply-To: westerunion909@gmail.com
+From:   "Antonia Lloyd." <anthonylloydatmxxx04@gmail.com>
+Date:   Mon, 31 Jan 2022 13:38:09 -0800
+Message-ID: <CAExPwBBpihjV-rv_-+hYqb1WD3wpSWx81B_Q3ES15U3TXSPsyw@mail.gmail.com>
+Subject: Dear Email ID Owner.(USD$4000 IMF COMPENSATION FUND TO PICK UP TODAY).
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi all,
+Dear Email ID Owner.
 
-On 1/31/22 10:29, Ivan Zuboff wrote:
-> Hello!
-> 
-> Man page says:
-> SA_ONSTACK
->               Call the signal handler on an alternate signal stack
->               provided by sigaltstack(2).  *If an alternate stack is not
->               available, the default stack will be used.*  This flag is
->               meaningful only when establishing a signal handler.
-> https://man7.org/linux/man-pages/man2/sigaction.2.html
-> 
-> glibc reference manual says:
-> Macro: int SA_ONSTACK
-> If this flag is set for a particular signal number, the system uses
-> the signal stack when delivering that kind of signal. See Signal
-> Stack. *If a signal with this flag arrives and you have not set a
-> signal stack, the system terminates the program with SIGILL.*
-> https://www.gnu.org/software/libc/manual/html_node/Flags-for-Sigaction.html
-> 
-> As far as I understand, statements in *stars* are in conflict. glibc
-> documentation says that "While the glibc manual remains the canonical
-> source for API descriptions, the man-pages are an excellent
-> reference.", so I decided to mail you supposing that man page is
-> incorrect in this regard.
-> https://www.gnu.org/software/libc/documentation.html
-> 
-> Please correct me if I'm wrong. Also, sorry for my bad English, this
-> is not my native language.
-> 
-> Best regards,
-> Ivan
+The IMF is compensating all the email address that was funds as one of
+the ward win Victims and your email address and your name is among the
+listed one of approved to pay the sum of $3.6 million U.S Dollars. We
+have concluded to effect your own payment through Western Union Money
+Transfer for easy pick-up of those funds in good condition,$4000 twice
+daily,till the $3.6 million is completely transferred to you.We now
+need your information where we will be sending the funds,such
+as;Receiver name(Your full Name)address and phone number.Contact
+Western Union agent with this Email: ( westerunion995@gmail.com  ) for
+your payment fund.
 
-I received this bug report on linux-man@.  The report is about a text
-that predates git in the man-pages.  Could you please confirm the bug,
-and check if anything else needs to be fixed too?
+Ms.Maria Zatto
+E-mail:westerunion995@gmail.com
+Telephone: +229 682 97 169
 
-Thanks,
+Contact Ms.Maria,immediately you get this mail through western union
+email address above to enable her speed-up.your payment and release
+the $4000 dollars MTCN today for you to pick up the payment OK.
 
-Alex
+You are expected to provide us with the details as prescribed below to
+enable safe and easy release of your funds today.
 
-Ivan:  Thanks for the report!  In non-trivial cases such as this one,
-it's useful to CC the glibc mailing list, since they probably know more
-than I about details such as this one. ;)
+(1)Your Full name:
+(2)Your Phone number:
+(3)Your Country:
+(4)Your Age:
 
-Cheers,
-
-Alex
-
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+Thank you,
+Dr.Antonia Lloyd.
+Contact Dir.Western Union Money Transfer,
+Cotonou-Benin Republic.
