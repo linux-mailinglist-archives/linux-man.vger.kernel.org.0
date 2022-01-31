@@ -2,79 +2,75 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8DEBF4A412B
-	for <lists+linux-man@lfdr.de>; Mon, 31 Jan 2022 12:03:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 84A024A4E6A
+	for <lists+linux-man@lfdr.de>; Mon, 31 Jan 2022 19:32:29 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1358801AbiAaLCf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 31 Jan 2022 06:02:35 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43186 "EHLO
+        id S1356506AbiAaScV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 31 Jan 2022 13:32:21 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36990 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1358493AbiAaLBj (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 31 Jan 2022 06:01:39 -0500
-Received: from mail-il1-x143.google.com (mail-il1-x143.google.com [IPv6:2607:f8b0:4864:20::143])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8C5FFC0613A8
-        for <linux-man@vger.kernel.org>; Mon, 31 Jan 2022 03:00:08 -0800 (PST)
-Received: by mail-il1-x143.google.com with SMTP id s1so11017827ilj.7
-        for <linux-man@vger.kernel.org>; Mon, 31 Jan 2022 03:00:08 -0800 (PST)
+        with ESMTP id S1356481AbiAaScU (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 31 Jan 2022 13:32:20 -0500
+Received: from mail-vs1-xe35.google.com (mail-vs1-xe35.google.com [IPv6:2607:f8b0:4864:20::e35])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1E463C061714
+        for <linux-man@vger.kernel.org>; Mon, 31 Jan 2022 10:32:20 -0800 (PST)
+Received: by mail-vs1-xe35.google.com with SMTP id t20so13016739vsq.12
+        for <linux-man@vger.kernel.org>; Mon, 31 Jan 2022 10:32:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=mime-version:reply-to:sender:from:date:message-id:subject:to
-         :content-transfer-encoding;
-        bh=FANIUiWvB3mdY3zLX2DODg2pUIL5eGT5wlydl6jYk40=;
-        b=Ozk//2swZ4n+9EW8l8AJE1MTLlpoaCXK3xzfpPFLIseBsOa2jBlUIXPufJKZWOZJb1
-         LZYSIA+qJrwb7cNfMphudC5bBa0wGV8S3gL6kVVbqGkOdt0B4XP1yUbpKkdrSgOk4SCw
-         v1C0S0LKRkjJnU7f896SEI1wlEalwFx9Rgq5irerJa96uqZolG/hVsfTboEhp5Wo262X
-         Bw5DjIfp6f3BMZuUcN/21CQmX+e0cBVKV6O17yhSY33CkiO9iN1/rQChZ0P/9curfp6q
-         4Ae69srjWBiOD2IQLksGh38ZmWapdFwCTJxNZE6Fdwc1T0xvGWym84r63rPu354BmJN+
-         Mxew==
+        h=mime-version:from:date:message-id:subject:to:cc;
+        bh=R75ZXmczzQwrPH+qU+z8TxbMUrSiHclmP4Fq8LKsWmU=;
+        b=JkQf8w8YDlOAlYHZdefDB8+qYxIlUIZttLaWBG/jnZA8NbO1OmV7MKvsUTNhWNLjPs
+         TJza2J9AV5EGjWqWKoeVqMncY/eh4ZuheuB1Fk5JPUsQmswXXsg6p3vMB/h8t5iWfKSm
+         o/kOq9NDk2cyEN/Xik1EstZ1mlDOhdfaALUuOGp96RFgcGoPcuCqjWFkaJEqaRMoE16D
+         Ai5OmG3PCCbiwivR5W+SorwHXOeePIsYZcYMpxvUlhJy7JPlYh7hcsx1abjny8IZ7pNH
+         wGR0SUPPOHxtkrnJBkPOGdIFOL0XoUiO67UKt+mPFUU+7zioJpWKDzBHfnxvzqp5b4Vx
+         3Fjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:reply-to:sender:from:date
-         :message-id:subject:to:content-transfer-encoding;
-        bh=FANIUiWvB3mdY3zLX2DODg2pUIL5eGT5wlydl6jYk40=;
-        b=QsZApmDxcHoQhuwZ7PI0mBHXNz9BtGNmP8KMGBizcK2WcelcI9kpyzykmrYCmF6z3F
-         0FtOyWXrrSYDYXBi6V5TevvIMiNOkoamM/i5XMeLg9faVIhvO2VPuivrQoi+MbViEQoH
-         Ph0TmwbKHLSGR44W0lI1OS/bUCUr7anzrkdpa4sKrIAlvbwonM//wU2wmPdh0HO9qbGm
-         I+n4MbhVbqYTDhHAZjGORb7A6OvSy+gXqA9yD6e2ZGYk71sG+UmlvOKZw7NXJKYbcwXT
-         upzUMIgUaqvY7KVqkIcniCnIc2NNeLv1t4FI7g81gbNlBM7J2POyWrzWirm7CqRlytT8
-         cj8A==
-X-Gm-Message-State: AOAM531g0idh81esG8GzJds4kMfSo5hiAUmw0zo17XHS4Lc8gyc+GNMp
-        2oxFw34xq9Gbw3nHqZQDOJBVWmQQppmCCxN8lek=
-X-Google-Smtp-Source: ABdhPJwTER/p0YcvOwwJid91RzPvkEw8DmHtUlVRny5nV0kksgWcR6ScIqwhpLtpjii0MFHZVgmhnLw6wJn43CXNw30=
-X-Received: by 2002:a92:ca4f:: with SMTP id q15mr10723189ilo.181.1643626807913;
- Mon, 31 Jan 2022 03:00:07 -0800 (PST)
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+        bh=R75ZXmczzQwrPH+qU+z8TxbMUrSiHclmP4Fq8LKsWmU=;
+        b=yhicxTQ8AhlFNI8RlPQCUwdMN+qraB1TPASs1iBst/6xk7TdAr1nvcxjQji6cWZOyF
+         RVVri7qTMgsDQWGUfAl2qWjQ1ZBePVhv+r+JOZBqe2/SgBy1E/K5dy01P4wzjH4VKRvg
+         zHeKShvt7F8nFm+w5S7zwTJNgqQTW44Td8c1uXJS0ECIpsdETgtkPvBX++sc0C/oG4K1
+         30dI6Ou2sbKQU35k4GZkiJaG10GVrrqKUr7Hi74ycm2c8Y2haqQo3bjSl7uweCxjdvNJ
+         7W8fSQB7gNlG+nrG5Nr8m5+aimKiHS6+yCvOEV/5Q6f31Oth/sdPBdThD0EkQf1jB0mY
+         jAMA==
+X-Gm-Message-State: AOAM531GJFPksqXnLqc5Jqlrxz4WdXRb6TF+R63wfeL2iGbjwNjXZIDX
+        AQH4UgQgjo0bV+WcI2/0P951d2ycChNmyd+34Uo=
+X-Google-Smtp-Source: ABdhPJzM1S3WHGBjCYT6WHe0Pnt+mTu7ZPLToT2ZwBwMJmuCF88K9uV1OmZlDxAPx8qQFuZ/a0AHsD9xKZ89z4DaOXI=
+X-Received: by 2002:a67:ed14:: with SMTP id l20mr8047171vsp.7.1643653939213;
+ Mon, 31 Jan 2022 10:32:19 -0800 (PST)
 MIME-Version: 1.0
-Reply-To: daniellakyle60@gmail.com
-Sender: drdanielmorris11111@gmail.com
-Received: by 2002:a05:6638:1248:0:0:0:0 with HTTP; Mon, 31 Jan 2022 03:00:07
- -0800 (PST)
-From:   Mrs daniell akyle <daniellakyle60@gmail.com>
-Date:   Mon, 31 Jan 2022 12:00:07 +0100
-X-Google-Sender-Auth: juhwXopT4FowK4J6T8rApuMl0w4
-Message-ID: <CAKFcj-OsHQc6b32Puiy4zbkpRh0TFP-Vu0BdoENoHiCXtxRwQQ@mail.gmail.com>
-Subject: Ahoj
-To:     undisclosed-recipients:;
+From:   Mathnerd314 <mathnerd314.gph@gmail.com>
+Date:   Mon, 31 Jan 2022 11:32:08 -0700
+Message-ID: <CADVL9rE70DK+gWn-pbHXy6a+5sdkHzFg_xJ9phhQkRapTUJ_zg@mail.gmail.com>
+Subject: EINTR for fsync(2)
+To:     mtk.manpages@gmail.com, alx.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Pozdravy
-Jmenuji se pan=C3=AD Daniella Kyleov=C3=A1, je mi 58 let
-Filip=C3=ADny. V sou=C4=8Dasn=C3=A9 dob=C4=9B jsem hospitalizov=C3=A1n na F=
-ilip=C3=ADn=C3=A1ch, kde jsem
-podstupuje l=C3=A9=C4=8Dbu akutn=C3=ADho karcinomu j=C3=ADcnu. jsem um=C3=
-=ADraj=C3=ADc=C3=AD,
-vdova, kter=C3=A1 se rozhodla darovat =C4=8D=C3=A1st sv=C3=A9ho majetku spo=
-lehliv=C3=A9 osob=C4=9B
-kter=C3=A1 tyto pen=C3=ADze pou=C5=BEije na pomoc chud=C3=BDm a m=C3=A9n=C4=
-=9B privilegovan=C3=BDm. Chci
-poskytnout dar ve v=C3=BD=C5=A1i 3 700 000 =C2=A3 na sirotky nebo charitati=
-vn=C3=AD organizace
-ve va=C5=A1=C3=AD oblasti. Zvl=C3=A1dne=C5=A1 to? Pokud jste ochotni tuto n=
-ab=C3=ADdku p=C5=99ijmout
-a ud=C4=9Blejte p=C5=99esn=C4=9B tak, jak v=C3=A1m =C5=99=C3=ADk=C3=A1m, pa=
-k se mi vra=C5=A5te pro dal=C5=A1=C3=AD vysv=C4=9Btlen=C3=AD.
-pozdravy
-Pan=C3=AD Daniella Kyleov=C3=A1
+Hi,
+
+The POSIX standard says fsync(2) can return EINTR:
+https://pubs.opengroup.org/onlinepubs/9699919799/
+
+The man page does not:
+https://man7.org/linux/man-pages/man2/fsync.2.html
+
+I think fsync can be interrupted by a signal on Linux, so this should
+just be an oversight in the man page.
+
+At least, fsync on fuse seems be able to return EINTR:
+https://github.com/torvalds/linux/blob/5367cf1c3ad02f7f14d79733814302a96cc97b96/fs/fuse/dev.c#L114
+
+Actually there seem to be numerous error codes that can be returned
+from all filesystem calls on fuse: ENOTCONN, ENOMEM, etc. But EINTR is
+at least documented in the POSIX standard, whereas these others seem
+really rare. But for full correctness I suppose these should be
+documented as well. It would be quite an undertaking.
+
+-- Mathnerd314 (pseudonym)
