@@ -2,23 +2,22 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 1EE444AD295
-	for <lists+linux-man@lfdr.de>; Tue,  8 Feb 2022 08:58:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B94BA4AD703
+	for <lists+linux-man@lfdr.de>; Tue,  8 Feb 2022 12:31:58 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231454AbiBHH55 convert rfc822-to-8bit (ORCPT
-        <rfc822;lists+linux-man@lfdr.de>); Tue, 8 Feb 2022 02:57:57 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42464 "EHLO
+        id S1359436AbiBHLba convert rfc822-to-8bit (ORCPT
+        <rfc822;lists+linux-man@lfdr.de>); Tue, 8 Feb 2022 06:31:30 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50596 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232985AbiBHH55 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 8 Feb 2022 02:57:57 -0500
-X-Greylist: delayed 24174 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Mon, 07 Feb 2022 23:57:54 PST
+        with ESMTP id S1356060AbiBHKGi (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 8 Feb 2022 05:06:38 -0500
 Received: from cuchulainn.net1noc.com (mail.kilcurry.org [80.249.249.243])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CF4E3C0401F4
-        for <linux-man@vger.kernel.org>; Mon,  7 Feb 2022 23:57:54 -0800 (PST)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 17AACC03FEC0
+        for <linux-man@vger.kernel.org>; Tue,  8 Feb 2022 02:06:35 -0800 (PST)
 Received: from [103.125.191.231] (Unknown [103.125.191.231])
         by cuchulainn.net1noc.com with ESMTPA
-        ; Tue, 8 Feb 2022 01:54:58 +0000
-Message-ID: <0AF9919B-ED51-43EE-898B-2A950EE74455@cuchulainn.net1noc.com>
+        ; Tue, 8 Feb 2022 02:53:05 +0000
+Message-ID: <E0941FE1-6514-467B-9DFA-D6AA5401D7AA@cuchulainn.net1noc.com>
 Content-Type: text/plain; charset="iso-8859-1"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8BIT
@@ -26,14 +25,14 @@ Content-Description: Mail message body
 Subject: MGMT/CRSO
 To:     Recipients <thad.mclammy@investigationweb.org>
 From:   "Thad McClammy" <thad.mclammy@investigationweb.org>
-Date:   Mon, 07 Feb 2022 17:54:51 -0800
+Date:   Mon, 07 Feb 2022 18:52:58 -0800
 Reply-To: thad.mcclammy@investigationweb.org
 X-Spam-Status: Yes, score=6.9 required=5.0 tests=BAYES_50,KHOP_HELO_FCRDNS,
         RCVD_IN_PSBL,RCVD_IN_VALIDITY_RPBL,SPF_FAIL,SPF_HELO_NONE,
         TO_EQ_FM_DOM_SPF_FAIL,TO_EQ_FM_SPF_FAIL,T_SCC_BODY_TEXT_LINE,
         YOU_INHERIT autolearn=no autolearn_force=no version=3.4.6
 X-Spam-Report: *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
-        *      [score: 0.5070]
+        *      [score: 0.5021]
         *  2.7 RCVD_IN_PSBL RBL: Received via a relay in PSBL
         *      [80.249.249.243 listed in psbl.surriel.com]
         *  1.3 RCVD_IN_VALIDITY_RPBL RBL: Relay in Validity RPBL,
@@ -42,11 +41,11 @@ X-Spam-Report: *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
         *  0.0 SPF_HELO_NONE SPF: HELO does not publish an SPF Record
         *  0.0 SPF_FAIL SPF: sender does not match SPF record (fail)
         *      [SPF failed: Please see http://www.openspf.org/Why?s=mfrom;id=thad.mclammy%40investigationweb.org;ip=80.249.249.243;r=lindbergh.monkeyblade.net]
-        * -0.0 T_SCC_BODY_TEXT_LINE No description available.
         *  2.0 YOU_INHERIT Discussing your inheritance
-        *  0.0 TO_EQ_FM_SPF_FAIL To == From and external SPF failed
+        * -0.0 T_SCC_BODY_TEXT_LINE No description available.
         *  0.0 TO_EQ_FM_DOM_SPF_FAIL To domain == From domain and external SPF
         *       failed
+        *  0.0 TO_EQ_FM_SPF_FAIL To == From and external SPF failed
         *  0.1 KHOP_HELO_FCRDNS Relay HELO differs from its IP's reverse DNS
 X-Spam-Level: ******
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
