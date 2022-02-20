@@ -2,67 +2,54 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 6FD2D4BAB53
-	for <lists+linux-man@lfdr.de>; Thu, 17 Feb 2022 21:55:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id F03234BD12B
+	for <lists+linux-man@lfdr.de>; Sun, 20 Feb 2022 21:06:02 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S240895AbiBQUza (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 17 Feb 2022 15:55:30 -0500
-Received: from mxb-00190b01.gslb.pphosted.com ([23.128.96.19]:41172 "EHLO
+        id S238202AbiBTUFI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 20 Feb 2022 15:05:08 -0500
+Received: from mxb-00190b01.gslb.pphosted.com ([23.128.96.19]:42154 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S240200AbiBQUz3 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 17 Feb 2022 15:55:29 -0500
-Received: from ams.source.kernel.org (ams.source.kernel.org [IPv6:2604:1380:4601:e00::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 25334606E5
-        for <linux-man@vger.kernel.org>; Thu, 17 Feb 2022 12:55:13 -0800 (PST)
+        with ESMTP id S234114AbiBTUFI (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 20 Feb 2022 15:05:08 -0500
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A2C3D4B869;
+        Sun, 20 Feb 2022 12:04:46 -0800 (PST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
         (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
         (No client certificate requested)
-        by ams.source.kernel.org (Postfix) with ESMTPS id C22F1B824C4
-        for <linux-man@vger.kernel.org>; Thu, 17 Feb 2022 20:55:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 69E4CC340EC
-        for <linux-man@vger.kernel.org>; Thu, 17 Feb 2022 20:55:10 +0000 (UTC)
+        by ams.source.kernel.org (Postfix) with ESMTPS id 5CD26B80DBF;
+        Sun, 20 Feb 2022 20:04:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82C81C340F0;
+        Sun, 20 Feb 2022 20:04:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1645131310;
-        bh=H05k0QgALK4NeM0dpVg2tTElNKgonEHvji4Pcgnpz2s=;
-        h=From:To:Subject:Date:In-Reply-To:References:From;
-        b=AXDwPsaumOQA/xDM3i8IuPWkXC8oSgK+dcbugnVlYHYGiuBnfREMEe6K8b6RhjsZ2
-         q6aP88XSMmq+X3u2JGyeqWhN1O0Ql/pOmqeQBL0144l3BsiZMXugQRkffFVEYK9KE0
-         ammEOvL0PKoyLXvaU5C91lH3bjWziRab1sYEQPbXYNNNr/w5MtAOJAPTmS8H9Uc5yB
-         Sbd9DhfvTpGsqnX1D5ahgyrZfOxSX3xNcseTXAArF3tVqXP5cZugNSB2SGGUcyERsS
-         /7T1p6xc6IS0ET+ONCrseKts5CLRoU6S1VJWC8ZKKwYUpVA6IpHAWv4YoOPzIRBTOT
-         0zGmRE9J0TUzQ==
-Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
-        id 4FAE2CC13AF; Thu, 17 Feb 2022 20:55:10 +0000 (UTC)
-From:   bugzilla-daemon@kernel.org
-To:     linux-man@vger.kernel.org
-Subject: [Bug 215613] uri.7: DESCRIPTION: Usage: No description of the 'unix'
- URI scheme
-Date:   Thu, 17 Feb 2022 20:55:09 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: changed
-X-Bugzilla-Watch-Reason: AssignedTo
- documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Product: Documentation
-X-Bugzilla-Component: man-pages
-X-Bugzilla-Version: unspecified
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: normal
-X-Bugzilla-Who: t.piekarski@deloquencia.de
-X-Bugzilla-Status: NEW
-X-Bugzilla-Resolution: 
-X-Bugzilla-Priority: P1
-X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: cc
-Message-ID: <bug-215613-11311-scIof60VEp@https.bugzilla.kernel.org/>
-In-Reply-To: <bug-215613-11311@https.bugzilla.kernel.org/>
-References: <bug-215613-11311@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
+        s=k20201202; t=1645387484;
+        bh=OChxHZfNI+1N07VreIQzaoVdtEd8W6WVSjom4udJg9M=;
+        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+        b=H40wTH7ieQmU6lagNgWWmC0gB6ok09qIsMUJNQV2EufOpaAnoFIR9v9yh2mREdY32
+         2h8OuzIFOeKy0bnPzd8/Ef2BvanKWyP/hKfz5akaWal9k8GhppriHlIjoryLclpuH7
+         P95i49+YZ0efu9CUaY9YZCu8bDufU67BDFLQYD5NGevUW70AOIMZdnJt16f016BDS9
+         w76Vyqst6GLVELzzZAh34wePuwt3+oaDehm8yyy4+vnAWeke/CufVrIemRnQzY8qOa
+         gxhMzMTNCy4154rqjyBgVUTsKuVrdqpMaeHoIQDdYUIvN60hcZBYqOGQ85drx2hBlO
+         YQMTT0rbYyYtw==
+Date:   Sun, 20 Feb 2022 21:05:23 +0100
+From:   Jarkko Sakkinen <jarkko@kernel.org>
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org, linux-sgx@vger.kernel.org,
+        Dave Hansen <dave.hansen@linux.intel.com>,
+        nathaniel@profian.com, Michael Kerrisk <mtk.manpages@gmail.com>,
+        Reinette Chatre <reinette.chatre@intel.com>
+Subject: Re: [PATCH v11] sgx.7: New page with overview of Software Guard
+ eXtensions (SGX)
+Message-ID: <YhKfA87I0BbkLg+m@iki.fi>
+References: <20211211153320.17438-1-jarkko@kernel.org>
+ <c58f3951-282c-ef66-fc62-844da06c5af4@gmail.com>
+ <YfNElmmBbkw1Xpfy@iki.fi>
+ <0bdb594e-7c3d-e05a-0d40-eff92b4cd252@gmail.com>
 MIME-Version: 1.0
-X-Spam-Status: No, score=-7.2 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <0bdb594e-7c3d-e05a-0d40-eff92b4cd252@gmail.com>
+X-Spam-Status: No, score=-7.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
         DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
         SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
         autolearn_force=no version=3.4.6
@@ -72,41 +59,35 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D215613
+On Wed, Feb 09, 2022 at 09:19:54PM +0100, Alejandro Colomar (man-pages) wrote:
+> Hi Jarkko,
+> 
+> On 1/28/22 02:19, Jarkko Sakkinen wrote:
+> > On Fri, Dec 17, 2021 at 02:50:56AM +0100, Alejandro Colomar (man-pages) wrote:
+> >> Hi Jarkko,
+> >>
+> >> Please see some comments below.
+> >>
+> >> Thanks,
+> >> Alex
+> > 
+> > Thank you. I've addressed all the comments below. However, I feel that
+> > /dev/sgx_provision is not properly documented at all. I also think that
+> > Reinette's argument for v10 was fair that "remove VEPC" ioctl that QEMU
+> > uses should not be left out from the initial patch set.
+> > 
+> > I'm implementing user space that doest attestation, so I rather write a
+> > proper description of the attestation, once it is working, rather than add
+> > to the number of review rounds.
+> 
+> Fair enough.  Please send an v12 with those comments addressed, and I'll
+> merge it!  (if you miss anything, we'll fix it later, don't worry)
 
-Thomas Piekarski (t.piekarski@deloquencia.de) changed:
+It took me two weeks to do the remote attestation implementation for Enarx
+project [*] but I needed to do it before continuing with the man page. I'll
+continue with this some time next week. It's not exactly directly attached
+to kernel API but I think it is good to bring some context on that.
 
-           What    |Removed                     |Added
-----------------------------------------------------------------------------
-                 CC|                            |t.piekarski@deloquencia.de
+[*] https://github.com/enarx/enarx/pull/1329
 
---- Comment #1 from Thomas Piekarski (t.piekarski@deloquencia.de) ---
-I took a look into it and I have been unable to find any RFC for Unix domain
-socket URI schema for comparing if it is the same like file URI schema.=20
-
-The IANA is not listing it [1].
-The W3C is not listing it [2].
-The RFC for Uniform Resource Locators [3] is not mentioning it nor does the=
- RFC
-for file [4]. Well later was just a shot :-)
-
-Maybe it is due to its nature for being used for inter-process communicatio=
-n,
-but from where such schema similar to internet schemas derive from?
-
-The form is the same, but do unix://localhost/var/some-socket.sock accept s=
-uch
-a form with localhost inside like file does? And do they behave the same in
-regards of file permissions?
-
----
-[1]: https://www.iana.org/assignments/uri-schemes/uri-schemes.xhtml
-[2]: https://www.w3.org/wiki/UriSchemes
-[3]: https://www.w3.org/Addressing/rfc1738.txt
-[4]: https://www.rfc-editor.org/rfc/rfc8089.html
-
---=20
-You may reply to this email to add a comment.
-
-You are receiving this mail because:
-You are watching the assignee of the bug.=
+BR, Jarkko
