@@ -2,92 +2,118 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id F03234BD12B
-	for <lists+linux-man@lfdr.de>; Sun, 20 Feb 2022 21:06:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id CFD274C31FB
+	for <lists+linux-man@lfdr.de>; Thu, 24 Feb 2022 17:51:19 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S238202AbiBTUFI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 20 Feb 2022 15:05:08 -0500
-Received: from mxb-00190b01.gslb.pphosted.com ([23.128.96.19]:42154 "EHLO
+        id S231127AbiBXQu0 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 24 Feb 2022 11:50:26 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41172 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234114AbiBTUFI (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 20 Feb 2022 15:05:08 -0500
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A2C3D4B869;
-        Sun, 20 Feb 2022 12:04:46 -0800 (PST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by ams.source.kernel.org (Postfix) with ESMTPS id 5CD26B80DBF;
-        Sun, 20 Feb 2022 20:04:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82C81C340F0;
-        Sun, 20 Feb 2022 20:04:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1645387484;
-        bh=OChxHZfNI+1N07VreIQzaoVdtEd8W6WVSjom4udJg9M=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=H40wTH7ieQmU6lagNgWWmC0gB6ok09qIsMUJNQV2EufOpaAnoFIR9v9yh2mREdY32
-         2h8OuzIFOeKy0bnPzd8/Ef2BvanKWyP/hKfz5akaWal9k8GhppriHlIjoryLclpuH7
-         P95i49+YZ0efu9CUaY9YZCu8bDufU67BDFLQYD5NGevUW70AOIMZdnJt16f016BDS9
-         w76Vyqst6GLVELzzZAh34wePuwt3+oaDehm8yyy4+vnAWeke/CufVrIemRnQzY8qOa
-         gxhMzMTNCy4154rqjyBgVUTsKuVrdqpMaeHoIQDdYUIvN60hcZBYqOGQ85drx2hBlO
-         YQMTT0rbYyYtw==
-Date:   Sun, 20 Feb 2022 21:05:23 +0100
-From:   Jarkko Sakkinen <jarkko@kernel.org>
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org, linux-sgx@vger.kernel.org,
-        Dave Hansen <dave.hansen@linux.intel.com>,
-        nathaniel@profian.com, Michael Kerrisk <mtk.manpages@gmail.com>,
-        Reinette Chatre <reinette.chatre@intel.com>
-Subject: Re: [PATCH v11] sgx.7: New page with overview of Software Guard
- eXtensions (SGX)
-Message-ID: <YhKfA87I0BbkLg+m@iki.fi>
-References: <20211211153320.17438-1-jarkko@kernel.org>
- <c58f3951-282c-ef66-fc62-844da06c5af4@gmail.com>
- <YfNElmmBbkw1Xpfy@iki.fi>
- <0bdb594e-7c3d-e05a-0d40-eff92b4cd252@gmail.com>
+        with ESMTP id S231124AbiBXQtn (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 24 Feb 2022 11:49:43 -0500
+Received: from mail-il1-x131.google.com (mail-il1-x131.google.com [IPv6:2607:f8b0:4864:20::131])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A85D61B30B2
+        for <linux-man@vger.kernel.org>; Thu, 24 Feb 2022 08:49:07 -0800 (PST)
+Received: by mail-il1-x131.google.com with SMTP id q4so2232143ilt.0
+        for <linux-man@vger.kernel.org>; Thu, 24 Feb 2022 08:49:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:sender:from:date:message-id:subject:to
+         :content-transfer-encoding;
+        bh=1WmTiruYcLYjgfCVpwaSh4JcERuBX8rKufTgiQZnbQI=;
+        b=m+6Am5etB5+aaU7SxU4uRdVvvNpwqDNnePJdqPMD/iaVl3HzdHKk5znodTtIHZCSzI
+         VGTa6/S3tv05kHN1fvWXolzRgKeLfUGwUAVfjzfLslV5mloXKxk5JTrL0pBq7VYVJ+cx
+         KIDAUbXTZCV8x5WatbRjlM3sSZXjjm8acIRFyVWECo7yvv62xcqW0I2QrsomAtM6TdHs
+         ldSClEzFwXIOr1gre7kvRN7r7o6ktiDaaq4nh+jVQ5VwTimg0qsD7oU64ukPWJVpIvYm
+         57Q1gkF6SwFhmbTIXRauwcTAyaJ8sSM2nkOouF+U/qhEe69UnYoJDk2TRnYKUWpz1a1i
+         8l1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:sender:from:date:message-id:subject
+         :to:content-transfer-encoding;
+        bh=1WmTiruYcLYjgfCVpwaSh4JcERuBX8rKufTgiQZnbQI=;
+        b=4FQe1phi4wbzMSn6fpEWcTVcyk2GtNmZ904zbljWM462zUgaz2E6R8+TtwJyXwnr3x
+         rZllc2NQUoosRKhDYRiMco/YjEn2NmySws7MKirpfgAtgRbV9jfUWOflA7YePZa4xKQU
+         71qpTG4g0zY4gPNmA/+FypNmMULKkws0euIVO68IO/wLWFKvrH1VotRHJgxSYGaon1K+
+         dRwrFtLahZWCqdVT2dsWthJr4+CSMraNDvpPgRdUaVd7cj85CHAWaIggTTNlt9VL6P7s
+         vMJUalUAB3e8nUMm/hpcYBgpVKP0pmddsauTyislLmOchbVcZpy9JoIm3g5mA74SsMoJ
+         misg==
+X-Gm-Message-State: AOAM5318kTCBSSIbspToYyP1/kGF959faEb+u8tRs2DMUsUFXS5x+PM2
+        PJJhmcnCjuwwi5BSMiao0fWLr9YCmrHZnFe0VKs=
+X-Google-Smtp-Source: ABdhPJwHaItEL+gOJtdHobPBK10F8qOvIKCij1pGixJGYTtblYtMwjbNLN+VkV7BiRaleC7eDUpL5dSyJIdq3AMX/FQ=
+X-Received: by 2002:a05:6e02:184e:b0:2c2:76e6:bbcc with SMTP id
+ b14-20020a056e02184e00b002c276e6bbccmr3034339ilv.318.1645721346426; Thu, 24
+ Feb 2022 08:49:06 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <0bdb594e-7c3d-e05a-0d40-eff92b4cd252@gmail.com>
-X-Spam-Status: No, score=-7.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
-        autolearn_force=no version=3.4.6
+Sender: aishagaddafii331@gmail.com
+Received: by 2002:a05:6e02:2195:0:0:0:0 with HTTP; Thu, 24 Feb 2022 08:49:05
+ -0800 (PST)
+From:   Aisha Gaddafi <aishagaddagfi@gmail.com>
+Date:   Thu, 24 Feb 2022 17:49:05 +0100
+X-Google-Sender-Auth: wbmh3mlB4OZfTbkAyDcWomDln7I
+Message-ID: <CAMrsXqO4-rD-f0HBx6TWd5VU7pmYZeuPNcbL40U_E7+M0CfWXg@mail.gmail.com>
+Subject: Greetings Sir/Madam.
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: Yes, score=6.1 required=5.0 tests=BAYES_50,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
+        FREEMAIL_FROM,FREEMAIL_REPLY,LOTS_OF_MONEY,MILLION_HUNDRED,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+        UNDISC_MONEY,URG_BIZ autolearn=no autolearn_force=no version=3.4.6
+X-Spam-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
+        *      https://www.dnswl.org/, no trust
+        *      [2607:f8b0:4864:20:0:0:0:131 listed in]
+        [list.dnswl.org]
+        *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
+        *      [score: 0.5023]
+        * -0.0 SPF_PASS SPF: sender matches SPF record
+        *  0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
+        *      provider
+        *      [aishagaddafii331[at]gmail.com]
+        *  0.0 SPF_HELO_NONE SPF: HELO does not publish an SPF Record
+        *  0.2 FREEMAIL_ENVFROM_END_DIGIT Envelope-from freemail username ends
+        *       in digit
+        *      [aishagaddafii331[at]gmail.com]
+        *  0.2 MILLION_HUNDRED BODY: Million "One to Nine" Hundred
+        * -0.1 DKIM_VALID_EF Message has a valid DKIM or DK signature from
+        *      envelope-from domain
+        * -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+        *      author's domain
+        * -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+        *  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+        *       valid
+        *  0.0 LOTS_OF_MONEY Huge... sums of money
+        * -0.0 T_SCC_BODY_TEXT_LINE No description available.
+        *  0.6 URG_BIZ Contains urgent matter
+        *  1.0 FREEMAIL_REPLY From and body contain different freemails
+        *  3.5 UNDISC_MONEY Undisclosed recipients + money/fraud signs
+X-Spam-Level: ******
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed, Feb 09, 2022 at 09:19:54PM +0100, Alejandro Colomar (man-pages) wrote:
-> Hi Jarkko,
-> 
-> On 1/28/22 02:19, Jarkko Sakkinen wrote:
-> > On Fri, Dec 17, 2021 at 02:50:56AM +0100, Alejandro Colomar (man-pages) wrote:
-> >> Hi Jarkko,
-> >>
-> >> Please see some comments below.
-> >>
-> >> Thanks,
-> >> Alex
-> > 
-> > Thank you. I've addressed all the comments below. However, I feel that
-> > /dev/sgx_provision is not properly documented at all. I also think that
-> > Reinette's argument for v10 was fair that "remove VEPC" ioctl that QEMU
-> > uses should not be left out from the initial patch set.
-> > 
-> > I'm implementing user space that doest attestation, so I rather write a
-> > proper description of the attestation, once it is working, rather than add
-> > to the number of review rounds.
-> 
-> Fair enough.  Please send an v12 with those comments addressed, and I'll
-> merge it!  (if you miss anything, we'll fix it later, don't worry)
+--=20
+Greetings Sir/Madam.
 
-It took me two weeks to do the remote attestation implementation for Enarx
-project [*] but I needed to do it before continuing with the man page. I'll
-continue with this some time next week. It's not exactly directly attached
-to kernel API but I think it is good to bring some context on that.
-
-[*] https://github.com/enarx/enarx/pull/1329
-
-BR, Jarkko
+I want to invest in your country
+May i use this medium to open a mutual communication with you, and
+seeking your acceptance towards investing in your country under your
+management as my partner, My name is Aisha Gaddafi , i am a Widow and
+single Mother with three Children, the only biological Daughter of
+late Libyan President (Late Colonel Muammar Gaddafi) and presently i
+am under political asylum protection by the  Government of this
+nation.
+I have funds worth =E2=80=9CTwenty Seven Million Five Hundred Thousand Unit=
+ed
+State Dollars=E2=80=9D -$27.500.000.00 US Dollars which i want to entrust o=
+n
+you for investment project in your country. If you are willing to
+handle this project on my behalf, kindly reply urgent to enable me
+provide you more details to start the transfer process.
+I shall appreciate your urgent response through my email address
+below: madamgadafiaisha@gmail.com
+Thanks
+Yours Truly Aisha
