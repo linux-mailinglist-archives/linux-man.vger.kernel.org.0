@@ -2,53 +2,53 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id D0E164C33F5
-	for <lists+linux-man@lfdr.de>; Thu, 24 Feb 2022 18:47:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 83FC14C36F4
+	for <lists+linux-man@lfdr.de>; Thu, 24 Feb 2022 21:43:15 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229778AbiBXRqw (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 24 Feb 2022 12:46:52 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57114 "EHLO
+        id S232574AbiBXUnn (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 24 Feb 2022 15:43:43 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35048 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232173AbiBXRqw (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 24 Feb 2022 12:46:52 -0500
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com [IPv6:2a00:1450:4864:20::434])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B2A3227DF2D
-        for <linux-man@vger.kernel.org>; Thu, 24 Feb 2022 09:46:20 -0800 (PST)
-Received: by mail-wr1-x434.google.com with SMTP id j22so786202wrb.13
-        for <linux-man@vger.kernel.org>; Thu, 24 Feb 2022 09:46:20 -0800 (PST)
+        with ESMTP id S231537AbiBXUnn (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 24 Feb 2022 15:43:43 -0500
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com [IPv6:2a00:1450:4864:20::430])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 061DF1A273F
+        for <linux-man@vger.kernel.org>; Thu, 24 Feb 2022 12:43:12 -0800 (PST)
+Received: by mail-wr1-x430.google.com with SMTP id s13so1460503wrb.6
+        for <linux-man@vger.kernel.org>; Thu, 24 Feb 2022 12:43:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=message-id:from:mime-version:content-transfer-encoding
          :content-description:subject:to:date:reply-to;
         bh=ixHVzoz696qN1Cmrg9x1bmR8vdWLOLbXCVjc9DtTLhI=;
-        b=HLgzX/vmTD9WQkAjpxQXaOdAf6G8RuKZK7p90aQe6BZmxifa9v4VgDTaT8k6k0wX3h
-         YUrHFnGYWTlKbk+2fVafKRIBrA0OsNOGTyRyl4s3NKf8c3NwSgF0G2lAcOhQRxjrIL49
-         LO2FkWsiANtPAugKg770lpx/oR+VFff2mkeAjFFXSEDyUeWoV9gkmYjQowi3BZi8Qftz
-         69VId7UtcRPmtuZyYl1AJ2K1jMtlBd+zGuJs5/Sh827xFHfAuNCaf8gDFd8B9KX/70ll
-         kKYgfUb3LzaBKkxjfmd/HwBkDj8j7ZAebmLmj0IUZGZwZsz/WKE5+YTXbb6Ny2JcqoLn
-         MLCw==
+        b=bnjp04KxGT//7s6zfiCfS296X5ePmRq5J5mfZP3a5sTPPSXYKR1aUlyghao7HeV2IR
+         EeTWfxuHHEKykXrm9AVrv6nWiTdSm/3krC9n03fgiP00bi9UKonxHRBV51CJdCcGGMMu
+         eouNQjPo8HQXgElul4E/nyKtNB+BznJamF9Fj4wBLYpspF63EM9wCzNe/RHJgLwyxNFm
+         XRIDx8yxSi9Iq6p5D7y87Zg+rafaBQVd1u232dGq/1jf9jb5bO5NliHaWM/tfjeHpp90
+         ge26PzXVZIdpswpy54pxUnSTcioxmBp9zQg77wgBw4DTz7GYQxH0Bic8CNVyqKV5q73/
+         NRaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:message-id:from:mime-version
          :content-transfer-encoding:content-description:subject:to:date
          :reply-to;
         bh=ixHVzoz696qN1Cmrg9x1bmR8vdWLOLbXCVjc9DtTLhI=;
-        b=0SDIesLigkQBWlhzRdfaZYlGt/uwEsNGGMfoLIjWVOy8Nqq/Tp86bepUhj56GJfxsY
-         oUwTe8OKpK+YHTfe4Amv0a4Ct+rZGwWjglxU9hTGfYle+kfSjtdAb4CBqQCTSrfdr6Cl
-         BxeXYpVTfPwamKXJhtJPUojzsu3k60pPsHrcVxKv9UxtopZq2OQBinJsULGFCQ5W1/wv
-         YQF6rUYnKvPgmpjwLjDWfoGWalqZL3BJBD+wfPSRP0Hry2I3/n0pV0KaR8Sh3gzSIL/B
-         uH4zw7/BTIMjSvD8yJSirUZulqEZiKA2MIJMomTUc4f3+Htd7PnpNZ81mm/K2rnNSaZu
-         xu/g==
-X-Gm-Message-State: AOAM5327S3b8skS1RDPaalqLgUNMdJp3k2L/jhPZ4Ag8YxoRdxN4fE2x
-        WfqNdd787zY5vdxlvNaL02o=
-X-Google-Smtp-Source: ABdhPJxxYF4au86F2tevtMxuwOwpjUaPfpY3vjvRhormuUlsj3wHdvdtKQd9e7ltMhlnJDGr/+VOMg==
-X-Received: by 2002:adf:d1ca:0:b0:1ea:939c:6d6c with SMTP id b10-20020adfd1ca000000b001ea939c6d6cmr3079004wrd.567.1645724779322;
-        Thu, 24 Feb 2022 09:46:19 -0800 (PST)
+        b=yV7u1SdeGlneFCIeNU3topX31AR+r9ct3hJazS01OBI0b/uUpU9y3Oy4KiPYK5e7bb
+         2O0acUCKjVHjOVVwqpJdvYxjFqMNW/E6gD/Ith6GNd7dqjx7m/icKCTwWF0I5k9CdCxF
+         2LEb12gjcrWRDGlB5kLczx+hp/qTxg3K3+WyXp63xNm3Ysm2SIADAxAcOhLbbOsVwuon
+         C+Z7IEh6tTSfE7+dvS9lvrB7Obs1xLHwhYqmSPTW1ECRrgCwdNSnMZE76WB/BQ515YUN
+         tv/KZKSKWi3s6KU3gl4oKI/vnKwq/JWtkCMIuEAqwIbmrpFGjvlJFHmA6ChLOxX+7VLB
+         HFGg==
+X-Gm-Message-State: AOAM53229TT0ynZ9EmccVtwwNHPq/I8BYvToR0KdemC0Xqz0AjSOGRhB
+        cM5bId7vdn8ueN6qmfjYxBM=
+X-Google-Smtp-Source: ABdhPJwml5CNtNqyhj35JeH9QHNXxRtjKuTkbVyb1lHBNZ1/m7seRPwi8mb/5mh+h3lUtpCDYfSmZQ==
+X-Received: by 2002:adf:fe0f:0:b0:1e2:f9dc:6ed with SMTP id n15-20020adffe0f000000b001e2f9dc06edmr3661941wrr.530.1645735390622;
+        Thu, 24 Feb 2022 12:43:10 -0800 (PST)
 Received: from [192.168.0.133] ([5.193.8.34])
-        by smtp.gmail.com with ESMTPSA id z5-20020a05600c0a0500b0037fa93193a8sm15035wmp.44.2022.02.24.09.46.15
+        by smtp.gmail.com with ESMTPSA id bg42-20020a05600c3caa00b00380deeaae72sm10164937wmb.1.2022.02.24.12.43.06
         (version=TLS1 cipher=AES128-SHA bits=128/128);
-        Thu, 24 Feb 2022 09:46:18 -0800 (PST)
-Message-ID: <6217c46a.1c69fb81.66f83.00d9@mx.google.com>
+        Thu, 24 Feb 2022 12:43:09 -0800 (PST)
+Message-ID: <6217eddd.1c69fb81.a142b.71b9@mx.google.com>
 From:   Mrs Maria Elisabeth Schaeffler <freedonation48@gmail.com>
 X-Google-Original-From: Mrs Maria Elisabeth Schaeffler
 Content-Type: text/plain; charset="iso-8859-1"
@@ -57,7 +57,7 @@ Content-Transfer-Encoding: quoted-printable
 Content-Description: Mail message body
 Subject: Spende
 To:     Recipients <Mrs@vger.kernel.org>
-Date:   Thu, 24 Feb 2022 21:46:07 +0400
+Date:   Fri, 25 Feb 2022 00:42:58 +0400
 Reply-To: mariaeisaeth001@gmail.com
 X-Spam-Status: No, score=2.2 required=5.0 tests=BAYES_50,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
