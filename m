@@ -2,118 +2,102 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id BBCD34D06D7
-	for <lists+linux-man@lfdr.de>; Mon,  7 Mar 2022 19:48:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E2D374D1C2F
+	for <lists+linux-man@lfdr.de>; Tue,  8 Mar 2022 16:45:29 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S239995AbiCGSs7 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 7 Mar 2022 13:48:59 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49640 "EHLO
+        id S1347951AbiCHPqY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 8 Mar 2022 10:46:24 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36218 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234052AbiCGSs6 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 7 Mar 2022 13:48:58 -0500
-Received: from mail-pl1-x62d.google.com (mail-pl1-x62d.google.com [IPv6:2607:f8b0:4864:20::62d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3BE0F4706E
-        for <linux-man@vger.kernel.org>; Mon,  7 Mar 2022 10:48:04 -0800 (PST)
-Received: by mail-pl1-x62d.google.com with SMTP id z11so14752287pla.7
-        for <linux-man@vger.kernel.org>; Mon, 07 Mar 2022 10:48:04 -0800 (PST)
+        with ESMTP id S1347950AbiCHPqX (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 8 Mar 2022 10:46:23 -0500
+Received: from mail-pf1-x429.google.com (mail-pf1-x429.google.com [IPv6:2607:f8b0:4864:20::429])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4C6684EF6F
+        for <linux-man@vger.kernel.org>; Tue,  8 Mar 2022 07:45:27 -0800 (PST)
+Received: by mail-pf1-x429.google.com with SMTP id g19so6102481pfc.9
+        for <linux-man@vger.kernel.org>; Tue, 08 Mar 2022 07:45:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=1VPetEhBFpYgmT7fkOGehkDdiG0qEpXsSfsQPV85SyQ=;
-        b=HoACzcaZI8fjsqREe4rkRK101fOmdA7uTxdRymbk5iXWzBLqA5n3USQvrmjF0FJi3o
-         lOcpZ39H1QI7XvHH2apjSAd5lD0aBFNBqoitpn7hsxFb+b45I88G7z7pcPdA3ylQHQoG
-         4qgrG6AUEcVbLCp+E8KzwKMGWzTznfl7bO9IwUWtAFmC+sVHsDeEHf5cYOoeV7qLLJD/
-         VuGKQDiQXoWkZmynHyq8Utzyy/dHrW6tK04/m7b//K5gjUTW9aJe+umJ05J4Ouli7B6/
-         ix2MmY+hwWgk5WQguBxmGMTAyWuo3P5FaDCY4r0IFbqU+aMdTKAHDD7QVeiy3ZXVguB2
-         pTFw==
+        h=mime-version:reply-to:from:date:message-id:subject:to;
+        bh=k7AOAbDgvMyKgPJXBhJ5AA2H0t0VxU8xNnG33U+1f0g=;
+        b=BFg08DKD+r20Uw3/tJo1ReZr7/OL7Ksb89ZhTNZxqPO9xXtx2+wU1i1MgWoxIuBxnQ
+         fH670SvqdgTDjgbH/t0xh70ytQxPlaeJLwM/9IsUF723V/uPBxZrUCPZFf2tahI3bxo2
+         4pFO395yEJiuho0Hx/nBdz/oJDUlwEiQvSfQCQQPRPyv5V2bYcof86JuhiVMkHqOrQCe
+         4DKHqkfYI4h9j5msstMLccS3gP9xG8Qol4K62clJmnXPeQZDqorV37hF94xIg5CRxH4N
+         LTnz7vjt+YHbogwFgpvsVNv2lpNhrBI8nx05zANHZYOFUUHaXHIHqSjcslH/f1o5BCCM
+         6dDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=1VPetEhBFpYgmT7fkOGehkDdiG0qEpXsSfsQPV85SyQ=;
-        b=JYiQDOfqD/Nx5GJ0q8/fuiRcvaG5vIy396AdM58o3eFSicwy/XDgR+71XQw1mKa7Kq
-         0gGqGy42PmrdegAzWbnq4EclgCoTSgQNfK9K3a5t58qCoOmBy7hQe5wfwRsfFiZqeJEk
-         EldpjV+mJbwX1vq/HZ7HzFConGUmpYddsElA+QTsNbKAkioQhuh6HY4u/tAda/Xk7DTe
-         Q7NVTAXSK9G4QRWcGcEKeE90XKNmk/6COBx5txL5aKCEzG27Gjw0cuQRnR84Fl2HKMiL
-         /0f4b9sMsyXOKqA1Js3ApzCV21bwhE7vwoQxrJlzJLBeMKkMaOy7V3Jl3ALA0mf0E5Rz
-         acqQ==
-X-Gm-Message-State: AOAM532JrWUYxHV0a4M2Tndv4l9kDq/BWn/EclzD0Rgvhsr8QoRZOEgb
-        mkhzNG15nFZd39npk9iVKuNKPZdQWXw=
-X-Google-Smtp-Source: ABdhPJyL650SlAZuc3wIti84mVOF7Xve/dVFuUtzc/KPk1ZQ+2XLZTxQyyQXbloMgCp/jZCILRNTyw==
-X-Received: by 2002:a17:90a:a591:b0:1bc:8015:4c9e with SMTP id b17-20020a17090aa59100b001bc80154c9emr371973pjq.154.1646678883312;
-        Mon, 07 Mar 2022 10:48:03 -0800 (PST)
-Received: from sc2-hs2-b1628.eng.vmware.com ([66.170.99.1])
-        by smtp.gmail.com with ESMTPSA id c18-20020a056a000ad200b004f0f9696578sm18624749pfl.141.2022.03.07.10.48.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Mar 2022 10:48:02 -0800 (PST)
-From:   Nadav Amit <nadav.amit@gmail.com>
-X-Google-Original-From: Nadav Amit
-To:     linux-man@vger.kernel.org
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        "Michael Kerrisk )" <mtk.manpages@gmail.com>,
-        Peter Xu <peterx@redhat.com>,
-        David Hildenbrand <david@redhat.com>,
-        Nadav Amit <namit@vmware.com>
-Subject: [PATCH 2/2] userfaultfd.2: fix userfaultfd_demo output
-Date:   Mon,  7 Mar 2022 18:48:52 +0000
-Message-Id: <20220307184852.20351-2-namit@vmware.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220307184852.20351-1-namit@vmware.com>
-References: <20220307184852.20351-1-namit@vmware.com>
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to;
+        bh=k7AOAbDgvMyKgPJXBhJ5AA2H0t0VxU8xNnG33U+1f0g=;
+        b=v8O+qZRLHABPrtFG/Qk6p9/Xdlyjuuu4oSaGxY0RziNiNV0uA+l1QsZl+czLNW0b5Z
+         EfeMmS4+/JpeJ06CvYYrXWEBwkhF6p+RDa3ZZbVUNHIiLNKcjn1ZIazmoMjGU+PY8i5U
+         6ZglAqN93dkDmPryfccTBHjWmmob74gMxke0l737ptPM0QtwurJGys/v50bkVi52SRiW
+         LBktR4540z0MlpWoJ6iMTVS4iADXdBk7ymBslCQuuhhZ45K4I29HsMBUG2VPD344FFpm
+         rC3Z1zA/4bMwcd4LDhP15hY19L/jnuEg9dRMGzLxIpDUSUNM49Zyh5DPh2XaBxa63YGS
+         WBqA==
+X-Gm-Message-State: AOAM530XGD6M9GL38fDYGA8HiNz4P2pvEle6ma8RcEVrlp5rT5dOgS8t
+        4anX9N/deNB4NCbkRttarpLhBKZGh4wH1h7MXD4=
+X-Google-Smtp-Source: ABdhPJzUSInok2tGIsJdAn8CeDK1EuUq4CgHeZ+VKMnxt3KuN6Uw8YGBK2pmgBPuXl9bz9L+EBxj0jodUy+aDgseiak=
+X-Received: by 2002:a05:6a00:22c3:b0:4f7:7cb:26b0 with SMTP id
+ f3-20020a056a0022c300b004f707cb26b0mr9934091pfj.47.1646754326739; Tue, 08 Mar
+ 2022 07:45:26 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
-        SPF_HELO_NONE,T_SCC_BODY_TEXT_LINE autolearn=ham autolearn_force=no
-        version=3.4.6
+Received: by 2002:ac4:9b91:0:b0:4a2:82a2:ea2e with HTTP; Tue, 8 Mar 2022
+ 07:45:25 -0800 (PST)
+Reply-To: selfridgeslimiteduk@aol.com
+From:   "Selfridges & Co. Limited" <infoselfridgesco.shop@gmail.com>
+Date:   Tue, 8 Mar 2022 07:45:25 -0800
+Message-ID: <CA+kTW-VOvmprWpuwaeBtTfQreRKgKQsZVnipU7P8TabYcc1UAw@mail.gmail.com>
+Subject: Product Inquiry
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
+X-Spam-Status: Yes, score=5.2 required=5.0 tests=BAYES_50,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,FREEMAIL_REPLYTO,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+        UNDISC_FREEM autolearn=no autolearn_force=no version=3.4.6
+X-Spam-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
+        *      https://www.dnswl.org/, no trust
+        *      [2607:f8b0:4864:20:0:0:0:429 listed in]
+        [list.dnswl.org]
+        *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
+        *      [score: 0.5000]
+        * -0.0 SPF_PASS SPF: sender matches SPF record
+        *  0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
+        *      provider
+        *      [infoselfridgesco.shop[at]gmail.com]
+        *  0.0 SPF_HELO_NONE SPF: HELO does not publish an SPF Record
+        * -0.1 DKIM_VALID_EF Message has a valid DKIM or DK signature from
+        *      envelope-from domain
+        * -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+        * -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+        *      author's domain
+        *  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+        *       valid
+        * -0.0 T_SCC_BODY_TEXT_LINE No description available.
+        *  3.6 UNDISC_FREEM Undisclosed recipients + freemail reply-to
+        *  1.0 FREEMAIL_REPLYTO Reply-To/From or Reply-To/body contain
+        *      different freemails
+X-Spam-Level: *****
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From: Nadav Amit <namit@vmware.com>
+ We are looking to buy your products and partner with your company, can you
+ please send us your Catalog or your website to learn more about your
+ products or prices list by email and if we can make some order with you and
+ start a long-term partnership.
 
-A bug in the kernel caused in recent version a different output (masked
-offset). Update the output of the demo program accordingly.
+Can your company supply us? and give us more information about the
+ possibility to become one of your regular Wholesale? Our Payment terms are
+ by swift within 30 days net.
 
-Signed-off-by: Nadav Amit <namit@vmware.com>
----
- man2/userfaultfd.2 | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/man2/userfaultfd.2 b/man2/userfaultfd.2
-index cee7c01d2..779ff8817 100644
---- a/man2/userfaultfd.2
-+++ b/man2/userfaultfd.2
-@@ -648,7 +648,7 @@ Address returned by mmap() = 0x7fd30106c000
- 
- fault_handler_thread():
-     poll() returns: nready = 1; POLLIN = 1; POLLERR = 0
--    UFFD_EVENT_PAGEFAULT event: flags = 0; address = 7fd30106c00f
-+    UFFD_EVENT_PAGEFAULT event: flags = 0; address = 7fd30106c000
-         (uffdio_copy.copy returned 4096)
- Read address 0x7fd30106c00f in main(): A
- Read address 0x7fd30106c40f in main(): A
-@@ -657,7 +657,7 @@ Read address 0x7fd30106cc0f in main(): A
- 
- fault_handler_thread():
-     poll() returns: nready = 1; POLLIN = 1; POLLERR = 0
--    UFFD_EVENT_PAGEFAULT event: flags = 0; address = 7fd30106d00f
-+    UFFD_EVENT_PAGEFAULT event: flags = 0; address = 7fd30106d000
-         (uffdio_copy.copy returned 4096)
- Read address 0x7fd30106d00f in main(): B
- Read address 0x7fd30106d40f in main(): B
-@@ -666,7 +666,7 @@ Read address 0x7fd30106dc0f in main(): B
- 
- fault_handler_thread():
-     poll() returns: nready = 1; POLLIN = 1; POLLERR = 0
--    UFFD_EVENT_PAGEFAULT event: flags = 0; address = 7fd30106e00f
-+    UFFD_EVENT_PAGEFAULT event: flags = 0; address = 7fd30106e000
-         (uffdio_copy.copy returned 4096)
- Read address 0x7fd30106e00f in main(): C
- Read address 0x7fd30106e40f in main(): C
--- 
-2.25.1
-
+ Best regards.
+ Waiting for your response.
+Sebastian Manes
+ buying and merchandising director
+ Selfridges & Co. Limited
+ www.selfridges.com
