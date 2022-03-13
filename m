@@ -2,28 +2,28 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id CFB3D4D752D
-	for <lists+linux-man@lfdr.de>; Sun, 13 Mar 2022 13:39:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 055524D752B
+	for <lists+linux-man@lfdr.de>; Sun, 13 Mar 2022 13:39:25 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233629AbiCMMkc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 13 Mar 2022 08:40:32 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37432 "EHLO
+        id S233628AbiCMMka (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 13 Mar 2022 08:40:30 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37298 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233639AbiCMMkb (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 13 Mar 2022 08:40:31 -0400
+        with ESMTP id S230181AbiCMMk3 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 13 Mar 2022 08:40:29 -0400
 Received: from static.213-239-213-133.clients.your-server.de (luckmann.name [213.239.213.133])
-        by lindbergh.monkeyblade.net (Postfix) with UTF8SMTPS id 0576E2AC7D
-        for <linux-man@vger.kernel.org>; Sun, 13 Mar 2022 05:39:22 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with UTF8SMTPS id EA0E62AE02
+        for <linux-man@vger.kernel.org>; Sun, 13 Mar 2022 05:39:20 -0700 (PDT)
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E54169.00000000622DE4CB.0000569F; Sun, 13 Mar 2022 13:34:19 +0100
+  id 0000000000E54054.00000000622DE4CB.00005688; Sun, 13 Mar 2022 13:34:19 +0100
 Date:   Sun, 13 Mar 2022 13:34:19 +0100
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     mario.blaettermann@gmail.com, linux-man@vger.kernel.org
 Subject: Issue in man page mount_namespaces.7
-Message-ID: <20220313123419.GA22160@Debian-50-lenny-64-minimal>
+Message-ID: <20220313123419.GA22137@Debian-50-lenny-64-minimal>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
@@ -42,14 +42,7 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Without further ado, the following was found:
 
-Issue:    mount point I<B> → mount I<B>
+Issue:    Documentation/filesystems/sharedsubtree.txt → Documentation/filesystems/sharedsubtree.rst
 
-"Here, I<B> is the destination mount, and I<b> is a subdirectory path under "
-"the mount point I<B>.  The propagation type of the resulting mount, I<B/b>, "
-"follows the same rules as for a bind mount, where the propagation type of "
-"the source mount is considered always to be private."
-
-"Here, I<A> is a mount on I<B/b>, where I<B> is the parent mount and I<b> is "
-"a subdirectory path under the mount point I<B>.  If B<B> is shared, then all "
-"most-recently-mounted mounts at I<b> on mounts that receive propagation from "
-"mount I<B> and do not have submounts under them are unmounted."
+"For further details, see I<Documentation/filesystems/sharedsubtree.txt> in "
+"the kernel source tree."
