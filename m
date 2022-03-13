@@ -2,28 +2,28 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id B5C8F4D752F
-	for <lists+linux-man@lfdr.de>; Sun, 13 Mar 2022 13:39:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id D96574D752C
+	for <lists+linux-man@lfdr.de>; Sun, 13 Mar 2022 13:39:25 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233639AbiCMMkc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 13 Mar 2022 08:40:32 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37434 "EHLO
+        id S233650AbiCMMkb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 13 Mar 2022 08:40:31 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37372 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230181AbiCMMkb (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 13 Mar 2022 08:40:31 -0400
+        with ESMTP id S233629AbiCMMka (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 13 Mar 2022 08:40:30 -0400
 Received: from static.213-239-213-133.clients.your-server.de (luckmann.name [213.239.213.133])
-        by lindbergh.monkeyblade.net (Postfix) with UTF8SMTPS id 05A612AE02
+        by lindbergh.monkeyblade.net (Postfix) with UTF8SMTPS id 5E0D32AE01
         for <linux-man@vger.kernel.org>; Sun, 13 Mar 2022 05:39:22 -0700 (PDT)
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E5417F.00000000622DE4CC.000056D3; Sun, 13 Mar 2022 13:34:20 +0100
+  id 0000000000E54189.00000000622DE4CC.0000570D; Sun, 13 Mar 2022 13:34:20 +0100
 Date:   Sun, 13 Mar 2022 13:34:20 +0100
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     mario.blaettermann@gmail.com, linux-man@vger.kernel.org
 Subject: Issue in man page mount_namespaces.7
-Message-ID: <20220313123420.GA22210@Debian-50-lenny-64-minimal>
+Message-ID: <20220313123420.GA22269@Debian-50-lenny-64-minimal>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
@@ -42,11 +42,10 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Without further ado, the following was found:
 
-Issue:    performed. → performed).
+Issue:    Documentation/filesystems/sharedsubtree.txt → Documentation/filesystems/sharedsubtree.rst
 
-"Above, we see that the mount with ID 273 is a slave whose master is the peer "
-"group 105.  The mount point for that master is unreachable, and so a "
-"I<propagate_from> tag is displayed, indicating that the closest dominant "
-"peer group (i.e., the nearest reachable mount in the slave chain)  is the "
-"peer group with the ID 102 (corresponding to the I</mnt> mount point before "
-"the B<chroot>(1)  was performed."
+"For a discussion of propagation types when moving mounts (B<MS_MOVE>)  and "
+"creating bind mounts (B<MS_BIND>), see I<Documentation/filesystems/"
+"sharedsubtree.txt>."
+
+"I<Documentation/filesystems/sharedsubtree.txt> in the kernel source tree."
