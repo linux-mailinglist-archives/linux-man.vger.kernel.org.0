@@ -2,28 +2,28 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 019804D753C
-	for <lists+linux-man@lfdr.de>; Sun, 13 Mar 2022 13:39:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 224024D753A
+	for <lists+linux-man@lfdr.de>; Sun, 13 Mar 2022 13:39:32 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233802AbiCMMki (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 13 Mar 2022 08:40:38 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38080 "EHLO
+        id S233801AbiCMMkh (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 13 Mar 2022 08:40:37 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38076 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233804AbiCMMkh (ORCPT
+        with ESMTP id S233802AbiCMMkh (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Sun, 13 Mar 2022 08:40:37 -0400
 Received: from static.213-239-213-133.clients.your-server.de (luckmann.name [213.239.213.133])
-        by lindbergh.monkeyblade.net (Postfix) with UTF8SMTPS id 9253A2AE16
+        by lindbergh.monkeyblade.net (Postfix) with UTF8SMTPS id 8C4422AE01
         for <linux-man@vger.kernel.org>; Sun, 13 Mar 2022 05:39:28 -0700 (PDT)
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E541B7.00000000622DE4D2.00005852; Sun, 13 Mar 2022 13:34:26 +0100
+  id 0000000000E541B5.00000000622DE4D2.0000583B; Sun, 13 Mar 2022 13:34:26 +0100
 Date:   Sun, 13 Mar 2022 13:34:26 +0100
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Issue in man page uts_namespaces.7
-Message-ID: <20220313123426.GA22595@Debian-50-lenny-64-minimal>
+Subject: Issue in man page user_namespaces.7
+Message-ID: <20220313123426.GA22572@Debian-50-lenny-64-minimal>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
@@ -42,9 +42,13 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Without further ado, the following was found:
 
-Issue:   domain → domain name
+Issue:    Text missing? in order to drop → in order to drop privileges?
 
-"When a process creates a new UTS namespace using B<clone>(2)  or "
-"B<unshare>(2)  with the B<CLONE_NEWUTS> flag, the hostname and domain of the "
-"new UTS namespace are copied from the corresponding values in the caller's "
-"UTS namespace."
+"/* Linux 3.19 made a change in the handling of setgroups(2) and the\n"
+"   \\(aqgid_map\\(aq file to address a security issue. The issue allowed\n"
+"   *unprivileged* users to employ user namespaces in order to drop\n"
+"   The upshot of the 3.19 changes is that in order to update the\n"
+"   \\(aqgid_maps\\(aq file, use of the setgroups() system call in this\n"
+"   user namespace must first be disabled by writing \"deny\" to one of\n"
+"   the /proc/PID/setgroups files for this namespace.  That is the\n"
+"   purpose of the following function. */\n"
