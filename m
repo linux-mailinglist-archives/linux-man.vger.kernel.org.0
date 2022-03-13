@@ -2,79 +2,119 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id AA7984D5D42
-	for <lists+linux-man@lfdr.de>; Fri, 11 Mar 2022 09:26:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 837EF4D7527
+	for <lists+linux-man@lfdr.de>; Sun, 13 Mar 2022 13:39:08 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229474AbiCKI16 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 11 Mar 2022 03:27:58 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41086 "EHLO
+        id S231381AbiCMMkN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 13 Mar 2022 08:40:13 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36126 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229658AbiCKI15 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 11 Mar 2022 03:27:57 -0500
-X-Greylist: delayed 50299 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Fri, 11 Mar 2022 00:26:53 PST
-Received: from palmdale.lirum.at (palmdale.lirum.at [88.99.186.141])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EF4BC1B8FE8
-        for <linux-man@vger.kernel.org>; Fri, 11 Mar 2022 00:26:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-        d=quelltextlich.at; s=20150713mail; h=Content-Type:MIME-Version:Message-ID:
-        Subject:To:From:Date:Sender:Reply-To:Cc:Content-Transfer-Encoding:Content-ID:
-        Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-        :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
-        List-Subscribe:List-Post:List-Owner:List-Archive;
-        bh=gIKZ9ho0XVvyi53VxzBh1dJjW3DhN6n6OkiEyL15Lb0=; b=Qyl0yUGoyXJDFzXhe50hMCsG+J
-        9DVUALj1wzmDP6Ut3QnUlHqlXps3mWOKiuqHV0wlf7RfaLxDPM1tFD7mkND/vEZKHHquTcJg2OI4E
-        zCvgQFaK+3ZAO0WfgRgN+qmS5Q7Pz5SbIau9lJcV7M6niHsZncIBkWtNaC7oYcDRy22hqQ5QQmZOk
-        ykYTCV+MpXbMdSdwd3ehmwjkBPtJ/SALruxFLQykrv4vgk+PYaKjywlFdgbSU6GlwrnEVcebLmIJ7
-        JUWcJ4qt5iTUvbEb9gKZAiAUUX/9xVquKEjgMP2rVFB/JLx7JfvES32GBr4dWTQw+9He4P07flSH/
-        k7SYAwbA==;
-Authentication-Results: palmdale.lirum.at;
-        iprev=fail smtp.remote-ip=192.168.231.18
-Received: from [192.168.231.18] (helo=localhost)
-        by palmdale.lirum.at with esmtp (Exim 4.92)
-        (envelope-from <christian@quelltextlich.at>)
-        id 1nSabq-0004tl-V9; Fri, 11 Mar 2022 08:26:51 +0000
-Date:   Fri, 11 Mar 2022 09:26:50 +0100
-From:   Christian Aistleitner <christian@quelltextlich.at>
-To:     linux-man@vger.kernel.org, alx.manpages@gmail.com,
-        mtk.manpages@gmail.com
-Subject: [PATCH] nscd.conf.5: Add debug level description
-Message-ID: <20220311082650.GA22399@lirum.at>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+        with ESMTP id S230181AbiCMMkM (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 13 Mar 2022 08:40:12 -0400
+X-Greylist: delayed 302 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Sun, 13 Mar 2022 05:39:04 PDT
+Received: from static.213-239-213-133.clients.your-server.de (luckmann.name [213.239.213.133])
+        by lindbergh.monkeyblade.net (Postfix) with UTF8SMTPS id 49C182AC7D
+        for <linux-man@vger.kernel.org>; Sun, 13 Mar 2022 05:39:03 -0700 (PDT)
+Received: from localhost (localhost [127.0.0.1])
+  (uid 502)
+  by static.213-239-213-133.clients.your-server.de with local
+  id 0000000000E54049.00000000622DE4B7.00005665; Sun, 13 Mar 2022 13:33:59 +0100
+Date:   Sun, 13 Mar 2022 13:33:59 +0100
+From:   Helge Kreutzmann <debian@helgefjell.de>
+To:     mtk.manpages@gmail.com
+Cc:     mario.blaettermann@gmail.com, linux-man@vger.kernel.org
+Subject: Errors in man pages of linuxmanpages
+Message-ID: <20220313123359.GA22031@Debian-50-lenny-64-minimal>
+Mime-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-22117-1647174839-0001-2"
 Content-Disposition: inline
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
-        T_SCC_BODY_TEXT_LINE autolearn=ham autolearn_force=no version=3.4.6
+X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
+X-homepage: http://www.helgefjell.de/debian
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Spam-Status: No, score=2.0 required=5.0 tests=BAYES_20,CK_HELO_GENERIC,
+        HELO_DYNAMIC_IPADDR,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+        URIBL_SBL_A autolearn=no autolearn_force=no version=3.4.6
+X-Spam-Level: **
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-With only the default debug level documented, neither the possible
-range of the debug levels nor their purpose was apparent. This made it
-hard to use debug levels. So we add a short description of them.
+This is a MIME-formatted message.  If you see this text it means that your
+E-mail software does not support MIME-formatted messages.
 
-Signed-off-by: Christian Aistleitner <christian@quelltextlich.at>
----
- man5/nscd.conf.5 | 4 ++++
- 1 file changed, 4 insertions(+)
+--=_luckmann.name-22117-1647174839-0001-2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/man5/nscd.conf.5 b/man5/nscd.conf.5
-index 7356bf7..c84d79a 100644
---- a/man5/nscd.conf.5
-+++ b/man5/nscd.conf.5
-@@ -47,6 +47,10 @@ Specifies name of the file to which debug info should be written.
- .I value
- .RS
- Sets the desired debug level.
-+0 hides debug info.
-+1 shows general debug info.
-+2 additionally shows data in cache dumps.
-+3 (and above) shows all debug info.
- The default is 0.
- .RE
- .PP
--- 
-1.8.1.5
+Dear Linux man pages maintainer(s),
+the manpage-l10n project maintains a large number of translations of
+man pages both from a large variety of sources (including linux
+manpages) as well for a large variety of target languages.
 
+During their work translators notice different possible issues in the
+original (english) man pages. Sometimes this is a straightforward
+typo, sometimes a hard to read sentence, sometimes this is a
+convention not held up and sometimes we simply do not understand the
+original.
+
+We use several distributions as sources and update regularly (at
+least every 2 month). This means we are fairly recent (some
+distributions like archlinux also update frequently) but might miss
+the latest upstream version once in a while, so the error might be
+already fixed. We apologize and ask you to close the issue immediately
+if this should be the case, but given the huge volume of projects and
+the very limited number of volunteers we are not able to double check
+each and every issue.
+
+Secondly we translators see the manpages in the neutral po format,
+i.e. converted and harmonized, but not the original source (be it man,
+groff, xml or other). So we cannot provide a true patch (where
+possible), but only an approximation which you need to convert into
+your source format.
+
+Finally the issues I'm reporting have accumulated over time and are
+not always discovered by me, so sometimes my description of the
+problem my be a bit limited - do not hesitate to ask so we can clarify
+them.
+
+I'm now reporting the errors for your project. If future reports
+should use another channel, please let me know.
+
+The following mails will contain the individual reports (one per
+issue) without this header.
+
+Greetings
+
+       Helge
+
+--=20
+      Dr. Helge Kreutzmann                     debian@helgefjell.de
+           Dipl.-Phys.                   http://www.helgefjell.de/debian.php
+        64bit GNU powered                     gpg signed mail preferred
+           Help keep free software "libre": http://www.ffii.de/
+
+--=_luckmann.name-22117-1647174839-0001-2
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmIt5LIACgkQQbqlJmgq
+5nBAtA//SQPfZhPMJ63aw0Obaq1XGeOnRSyeZUchJ/01wdy0qgE5iL8EpfBqV6xE
+0x8LelJhFMdHTwBG0Lt60VCfCiyHteKlkJUXcKzNuz5qnMxfbgxEsE3/QZTnsL5o
+uR9Ndio8bF58YaAk23ew0XKikm/IiEbnT2Gmz/0vXQH8Mpdlbz7fiQ0IoBmwMo+g
+kkZhoLQb2jFgIVvQbL2yW/uiMNn95uo1DM+MtUxqgzqUKCij3WPncakAEMIbCUED
+bxwdzf89jkEBtd+UMlGN3htvKksNNraSh/b5lLBg/3n0/PVAAEGAInr8LEiJDXxu
+Li8ab222VnEZAfQ5d2SaPPXPEX8tc+Gfs0abL+KNwpEd5Fl+BaZx1CVfNaWYD99r
+//0x+cevPOqSFui5qAL3/3xRXOujQUfYL0bo9RYMplVwY5MmM8kKdvk69co8Ydzr
+HpW9tYl4LuF4Cl+lZukzVqQrli/FCKEAHyw7UtGAmrXUn39XRWl98XHT24h9UllJ
+UX3Vq93lnK+usgUaWBSOWBpaqpSS+UsEO7lHUQLjF8FFAru/Qi/pWuUw1dAsXOVM
+A4DCqKruDEv+ZEH/eUmXqj87972atBtdyWQ9eSei7yj/VyjKrZSg190oaa1fS5rk
+QR2VIEiG/Wf//C7q2kdVerxFJPzLs34XVozbFTE22W5pKj5pUms=
+=O535
+-----END PGP SIGNATURE-----
+
+--=_luckmann.name-22117-1647174839-0001-2--
