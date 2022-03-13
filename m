@@ -2,32 +2,32 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 22E524D7543
+	by mail.lfdr.de (Postfix) with ESMTP id E5D4A4D7544
 	for <lists+linux-man@lfdr.de>; Sun, 13 Mar 2022 13:39:38 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233830AbiCMMkn (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 13 Mar 2022 08:40:43 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38746 "EHLO
+        id S233818AbiCMMko (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 13 Mar 2022 08:40:44 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38940 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233839AbiCMMkm (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 13 Mar 2022 08:40:42 -0400
+        with ESMTP id S233831AbiCMMko (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 13 Mar 2022 08:40:44 -0400
 Received: from static.213-239-213-133.clients.your-server.de (luckmann.name [213.239.213.133])
-        by lindbergh.monkeyblade.net (Postfix) with UTF8SMTPS id B4C182AE3A
-        for <linux-man@vger.kernel.org>; Sun, 13 Mar 2022 05:39:34 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with UTF8SMTPS id 43C0A2AE16
+        for <linux-man@vger.kernel.org>; Sun, 13 Mar 2022 05:39:37 -0700 (PDT)
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E541BE.00000000622DE4D4.000058AE; Sun, 13 Mar 2022 13:34:28 +0100
+  id 0000000000E541C2.00000000622DE4D4.000058DC; Sun, 13 Mar 2022 13:34:28 +0100
 Date:   Sun, 13 Mar 2022 13:34:28 +0100
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Issue in man page filesystems.5
-Message-ID: <20220313123428.GA22687@Debian-50-lenny-64-minimal>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Subject: Issue in man page keyrings.7
+Message-ID: <20220313123428.GA22733@Debian-50-lenny-64-minimal>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
 X-homepage: http://www.helgefjell.de/debian
 User-Agent: Mutt/1.10.1 (2018-07-13)
@@ -42,8 +42,10 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Without further ado, the following was found:
 
-Issue:    Reviewer says that ReiserFS, XFS, ext4 and Btrfs are faster
+Issue:    Possession → POSESSION
 
-"is the high performance disk filesystem used by Linux for fixed disks as "
-"well as removable media.  The second extended filesystem was designed as an "
-"extension of the extended filesystem (B<ext>).  See B<ext2>(5)."
+"Much as files do, each key has an owning user ID, an owning group ID, and a "
+"security label.  Each key also has a set of permissions, though there are "
+"more than for a normal UNIX file, and there is an additional category"
+"\\(empossessor\\(embeyond the usual user, group, and other (see "
+"I<Possession>, below)."
