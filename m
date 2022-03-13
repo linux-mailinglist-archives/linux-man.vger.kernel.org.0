@@ -2,28 +2,28 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 9E4C34D753B
-	for <lists+linux-man@lfdr.de>; Sun, 13 Mar 2022 13:39:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 135EE4D7537
+	for <lists+linux-man@lfdr.de>; Sun, 13 Mar 2022 13:39:31 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233804AbiCMMki (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 13 Mar 2022 08:40:38 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38082 "EHLO
+        id S233772AbiCMMkg (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 13 Mar 2022 08:40:36 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37796 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233806AbiCMMkh (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 13 Mar 2022 08:40:37 -0400
+        with ESMTP id S233780AbiCMMke (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 13 Mar 2022 08:40:34 -0400
 Received: from static.213-239-213-133.clients.your-server.de (luckmann.name [213.239.213.133])
-        by lindbergh.monkeyblade.net (Postfix) with UTF8SMTPS id 929D72AE1A
-        for <linux-man@vger.kernel.org>; Sun, 13 Mar 2022 05:39:28 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with UTF8SMTPS id F41002AE02
+        for <linux-man@vger.kernel.org>; Sun, 13 Mar 2022 05:39:26 -0700 (PDT)
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E541B1.00000000622DE4D1.0000580D; Sun, 13 Mar 2022 13:34:25 +0100
+  id 0000000000E541AF.00000000622DE4D1.000057F6; Sun, 13 Mar 2022 13:34:25 +0100
 Date:   Sun, 13 Mar 2022 13:34:25 +0100
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     mtk.manpages@gmail.com
 Cc:     mario.blaettermann@gmail.com, linux-man@vger.kernel.org
 Subject: Issue in man page user_namespaces.7
-Message-ID: <20220313123425.GA22526@Debian-50-lenny-64-minimal>
+Message-ID: <20220313123425.GA22503@Debian-50-lenny-64-minimal>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
@@ -42,12 +42,6 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Without further ado, the following was found:
 
-Issue 1:  The same is also of other → The same is true also for other
-Issue 2:  Missing full stop at the end
+Issue:   /proc/[pid]/setgroups → I</proc/[PID]/setgroups>
 
-"In order to determine permissions when an unprivileged process accesses a "
-"file, the process credentials (UID, GID) and the file credentials are in "
-"effect mapped back to what they would be in the initial user namespace and "
-"then compared to determine the permissions that the process has on the "
-"file.  The same is also of other objects that employ the credentials plus "
-"permissions mask accessibility model, such as System V IPC objects"
+"The /proc/[pid]/setgroups file"
