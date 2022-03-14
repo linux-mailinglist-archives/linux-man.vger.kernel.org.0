@@ -2,336 +2,248 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 291764D866D
-	for <lists+linux-man@lfdr.de>; Mon, 14 Mar 2022 15:05:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 7B1084D8B44
+	for <lists+linux-man@lfdr.de>; Mon, 14 Mar 2022 19:03:08 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235381AbiCNOHE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 14 Mar 2022 10:07:04 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36368 "EHLO
+        id S238787AbiCNSEP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 14 Mar 2022 14:04:15 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37448 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S242120AbiCNOHD (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 14 Mar 2022 10:07:03 -0400
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com [IPv6:2a00:1450:4864:20::431])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6A82F641B
-        for <linux-man@vger.kernel.org>; Mon, 14 Mar 2022 07:05:52 -0700 (PDT)
-Received: by mail-wr1-x431.google.com with SMTP id k24so24165836wrd.7
-        for <linux-man@vger.kernel.org>; Mon, 14 Mar 2022 07:05:52 -0700 (PDT)
+        with ESMTP id S242511AbiCNSEM (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 14 Mar 2022 14:04:12 -0400
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com [IPv6:2a00:1450:4864:20::42f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2291422BDE
+        for <linux-man@vger.kernel.org>; Mon, 14 Mar 2022 11:03:01 -0700 (PDT)
+Received: by mail-wr1-x42f.google.com with SMTP id x15so25248753wru.13
+        for <linux-man@vger.kernel.org>; Mon, 14 Mar 2022 11:03:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=B8m6bNWZRwtvJr5kG3MXYw9ABOi6Tpij1rzgzfHA53Q=;
-        b=EJMneMaIxOgkfKXBgZ9AwYHxg8OCEwUoI8wjViFc9pHm9n9mXxwyZVV6+lEznTjBSS
-         9bxVTFgjEJkrROg95uqAu6Bg2A2qMTrVrC9WVfv0BQ0SlYQR6JAxWkqDYBZX3wSLf+SM
-         hwLLDQ/goTTHzabq89LMOtJDoKEZq4CLTw/11KK1cXmwG+FbD+85a82Nv9mOrWosR4Ez
-         wAlfZ9+w9HYRvca8uQ+hCNDV0rFQ3fR26bSfit3aMwn/36P20Fwebho4IcJra1xIOyWu
-         TXTwdzbuRZk05UrBiat0rY2dAfyRmSc02ZszJDaRAw8lq3MbCpPHpOiic+CMN4tghhwS
-         wm6g==
+        h=sender:message-id:date:mime-version:user-agent:subject
+         :content-language:to:cc:references:from:in-reply-to;
+        bh=x4PoJa25yA6cvJ7x3rtX0XTEw89I0DuBun472TgC/IY=;
+        b=KlR/Lk4V3+oqB563MB5j+VpE4FoivgoBQWlPlR2YR0Xq20Mo88kks1Vp9IwxY1nEPf
+         ERcp3n76dC0yBkZ2twZNB+l5Vz7bIqOrmMY65WmgXEJ5W/EtXk960LfurfWWuPYh4c0r
+         mts+TktaSWXvX2XkrdK65udHW8/GuNfacDF9zbPk1POTxQDpj8bUXdqvDcovM3MZjFg8
+         w7DFBgdeOScCKUkZo7T3gZuZIm+ab++vG9ioSXTFyMKILPbKLnFXkc0qP9A1uCrkX0R3
+         8yZcpYuxL99LAo9bqzDwFyzyrLeA3i/zieuLTUDjP4Upq0S3JjobWZaiDnSUw0spn59r
+         0aIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=B8m6bNWZRwtvJr5kG3MXYw9ABOi6Tpij1rzgzfHA53Q=;
-        b=qsPM0P1MtssS9naSjxo6je0/PwMh3G3saFikWPqhCfJc4HRIZdizOL2ToJ98hPqzm6
-         FrZkbHEETtDZZ3Ta/0WtujQUac7ujefpQRrJJpV7vWY8HOm2Lj+58oOOo7jM5B1dFl2s
-         /LI1N0rCcAlREvsDuX1YwC/XNMxB/HFGZMGw3WWX8iS1PSfBEG7692XPtk4jLaKzAFE0
-         +smTMz0gU+atE8nvyjjV3rrcEEkEwzyJNIsAHwFx7Kt5tvbj6BXZ5YkFdLsUmNCbxSHe
-         qtkAgHY0aFPbGz4stO3SaDPHOrvhJWHiLBZ3suaLAnjY7qqytsl0MYDbPCtikl4nYnmp
-         J14Q==
-X-Gm-Message-State: AOAM533LTxXgmZAGN18GsYeV3uhrpS7AupDbKlYZvf76kX1O5sVjlkqa
-        QbIeoDWumFBqWA8sn5g7+MdsPCO894kAEmwi
-X-Google-Smtp-Source: ABdhPJwuLoLDSueN1p5a/LfJi9QRWeONzOxeyniDepcyMrhZyE4AmJw2ECysa33Gid9Kf0nWEMnoYQ==
-X-Received: by 2002:adf:eb86:0:b0:1e6:8c92:af6b with SMTP id t6-20020adfeb86000000b001e68c92af6bmr16472029wrn.116.1647266751279;
-        Mon, 14 Mar 2022 07:05:51 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id r2-20020a5d6942000000b001f0485057c4sm14028809wrw.74.2022.03.14.07.05.50
+        h=x-gm-message-state:sender:message-id:date:mime-version:user-agent
+         :subject:content-language:to:cc:references:from:in-reply-to;
+        bh=x4PoJa25yA6cvJ7x3rtX0XTEw89I0DuBun472TgC/IY=;
+        b=AWjU8LoN7Qn3YhnZhi+Gk3ED3bXP/VusrqlYrd5dH3Ku2llHPqZp/wy8zFSxv0uagS
+         IgNq8k1I0O+MsPZe+p1HoV+HFZiKSpB618VB9jpjnsIxstn6gZ8eYxDNDixHGOmfgSVA
+         j35qEW1cNTDE7RDqIlLojH84JQ6FV5jna+LckU2JnrS5y8FU2qqi9IUPRFe4IeASFbzv
+         mEoaMUPUb/mHxveACDs1XNPmsIxQp8ZT2TdbWBunzaB4qBOTTo5HqcINJ2qUhICRgCzT
+         r1NORK2udeAVjOZ/PKqA2fecbydY+svQlk8G2rYmWaAOxH4BaHOIIFW1tEo6XmOORSHP
+         L1Wg==
+X-Gm-Message-State: AOAM532Zfp7cz5X1P0Lh+FulSx9NfpXfs3HrFA13HaTVmYj2uWZCkcdV
+        AEbKcthZLHqKrlBnkSG2zRo=
+X-Google-Smtp-Source: ABdhPJy+ZWy610150AF2GDZAc1hrwOFHszpTwZnf6XtTa6MBjMq+MA6rECnPoiHQp7Ta4ZnT9smh9w==
+X-Received: by 2002:adf:fecf:0:b0:1f0:62e0:bcd8 with SMTP id q15-20020adffecf000000b001f062e0bcd8mr17730542wrs.61.1647280979503;
+        Mon, 14 Mar 2022 11:02:59 -0700 (PDT)
+Received: from [192.168.1.9] (95-44-90-175-dynamic.agg2.lod.rsl-rtd.eircom.net. [95.44.90.175])
+        by smtp.googlemail.com with ESMTPSA id 9-20020a05600c268900b00381394d74a1sm201251wmt.9.2022.03.14.11.02.57
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Mar 2022 07:05:50 -0700 (PDT)
-Message-ID: <2678e0e8-0057-7b63-a3a0-9f49b57f0cf4@gmail.com>
-Date:   Mon, 14 Mar 2022 15:05:49 +0100
+        Mon, 14 Mar 2022 11:02:58 -0700 (PDT)
+Sender: =?UTF-8?Q?P=C3=A1draig_Brady?= <pixelbeat@gmail.com>
+Content-Type: multipart/mixed; boundary="------------6a03pnqnPZoUdtQyfDpDjTL3"
+Message-ID: <4a4ad936-bb1c-328c-dd43-95f4abbb905c@draigBrady.com>
+Date:   Mon, 14 Mar 2022 18:02:56 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Subject: Re: [patch] Add docs on mount namespace rootfs access and pid
- namespace pid mapping
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:97.0) Gecko/20100101
+ Thunderbird/97.0
+Subject: Re: [PATCH] fix descriptions for AT_NO_AUTOMOUNT
 Content-Language: en-US
-To:     Craig Ringer <craig.ringer@enterprisedb.com>,
-        linux-man@vger.kernel.org
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
-        "G. Branden Robinson" <g.branden.robinson@gmail.com>
-References: <CAGRY4nx5R6d5iH1SUZHEuJO+M67h1p1zLNQB_6F6X5GGBKFYeg@mail.gmail.com>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-In-Reply-To: <CAGRY4nx5R6d5iH1SUZHEuJO+M67h1p1zLNQB_6F6X5GGBKFYeg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-        autolearn=ham autolearn_force=no version=3.4.6
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
+        Andreas Schwab <schwab@linux-m68k.org>,
+        Paul Eggert <eggert@cs.ucla.edu>,
+        "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
+Cc:     Gnulib bugs <bug-gnulib@gnu.org>, Coreutils <coreutils@gnu.org>,
+        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        Ian Kent <raven@themaw.net>,
+        David Howells <dhowells@redhat.com>,
+        Al Viro <viro@zeniv.linux.org.uk>,
+        Colin Walters <walters@redhat.com>,
+        Ondrej Holy <oholy@redhat.com>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Neil Brown <neilb@suse.com>
+References: <ed3ac15c-9e92-73b7-b7f9-8281488e8778@draigBrady.com>
+ <3a4c9f63-0203-a810-6113-5c77a16e3690@cs.ucla.edu>
+ <95140173-2913-e377-5824-8a569ac78b5b@draigBrady.com>
+ <5c608ef7-f279-6afc-37f5-6a50442a3143@cs.ucla.edu>
+ <bdd68a31-ef3a-f022-bc72-c051690cee59@draigBrady.com>
+ <6645f678-4293-4692-8472-eee0bacee63f@cs.ucla.edu>
+ <670898ee-3b1c-97cd-290c-b6d91bfdaa07@draigBrady.com>
+ <5612cf59-a6da-6974-6a97-e406a4f4d557@cs.ucla.edu> <87bkyemetm.fsf@igel.home>
+ <9293ccdd-ca30-81b3-2042-c91327da6b28@draigBrady.com>
+ <dad1522f-21ee-620e-8fcf-b290bbb9aba5@gmail.com>
+From:   =?UTF-8?Q?P=c3=a1draig_Brady?= <P@draigBrady.com>
+In-Reply-To: <dad1522f-21ee-620e-8fcf-b290bbb9aba5@gmail.com>
+X-Spam-Status: No, score=-1.5 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_EF,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+        HEADER_FROM_DIFFERENT_DOMAINS,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
+        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=no
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Craig,
+This is a multi-part message in MIME format.
+--------------6a03pnqnPZoUdtQyfDpDjTL3
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 3/14/22 07:10, Craig Ringer wrote:
-> The attached 4-patch series adds information to the mount namespaces
-> and pid namespaces documentation to help users discover how to access
-> important related information.
+On 14/03/2022 13:24, Alejandro Colomar (man-pages) wrote:
+> [Added a few CCs from the relevant kernel commits]
 > 
-> 1. Elaborate on /proc/[pid]/root and x-ref it
-> 2. Mention /proc/$pid/status NSpid in pid_namespaces
-> 3. Mention pid namespaces /proc/[pid]/root/proc
-> 4. Additional namespaces related x-refs
+> Hi Pádraig,
 > 
-> 1): Mention /proc/[pid]/root in mount_namespaces(7) to help people
-> discover how to access the file system tree seen by a process in
-> another mount namespace. In the proc (5) entry for it, warn about the
-> possibly-confusing semantics of readlink() vs following the path in
-> the vfs layer.
+> On 3/10/22 14:46, Pádraig Brady wrote:
+>> On 10/03/2022 07:44, Andreas Schwab wrote:
+>>> On Mär 09 2022, Paul Eggert wrote:
+>>>
+>>>> I audited gnulib's uses of fstatat and found one fishy one that doesn't
+>>>> use AT_NO_AUTOMOUNT, namely, in fts.c where the follow-symlink branch
+>>>> uses
+>>>> 'stat' whereas the no-follow-symlink branch uses fstatat without
+>>>> AT_NO_AUTOMOUNT. I installed the first patch to cause it be
+>>>> consistent in
+>>>> using AT_NO_AUTOMOUNT, which is also consistent with what glibc does
+>>>
+>>> ??? In glibc, stat is the same as fstatat(,,,0).
+>>
+>> Indeed. It looks like the man page for fstatat is out of date.
+>> After looking at the kernel code, it seems that:
+>>    fstatat() did _not_ imply AT_NO_AUTOMOUNT from 2.6.38 -> 4.11
+>>      I'm not sure it even honored the AT_NO_AUTOMOUNT flag before 4.11
+>>    fstatat() did imply AT_NO_AUTOMOUNT since 4.11
+>>
+>> The attached patch clarifies this is the fstatat and statx man pages.
+>>
+>> sorry for the confusion,
+>> Pádraig
 > 
->   Adding because I found it difficult to figure out how to access the
-> file system seen by another process in a disjoint chroot in a
-> non-ancestor mount namespace.
-> 
-> 2): Mention the /proc/[pid]/status NSpid field and related fields in
-> pid_namespaces (7) to help people discover how to map process IDs
-> between a parent namespace and any child namespace(s) the process is
-> in.
-> 
->   Adding because I found it difficult to discover how to map pids
-> between namespaces.
-> 
-> 3): Mention how /proc/[pid]/root/proc behaves when [pid] is in a
-> different pid namespace. It's useful to know that you can see another
-> process's view of procfs via its /proc/[pid]/root link.
-> 
-> 4): Some minor cross-references and see-alsos that would've helped me
-> during unrelated past efforts.
-
-PATCH 1/4:
-
-> Subject: [PATCH v1 1/4] Elaborate on /proc/[pid]/root and x-ref it
-
-Please mention the modified page(s) in the Subject line.
-See <https://www.kernel.org/doc/man-pages/patches.html>.
-
-Also, per the same documentation, please send the patches inline (or
-inline + attached if your mailer is likely to break the patches) if you
-can, since it's easier for us to review and work with them.
-
-> 
-> Mention /proc/[pid]/{root,cwd,exe,fds} in mount_namespaces (7)
-> to help users understand how to access the file system tree of
-> a process in different mount namespace and possibly-disjoint
-> chroot.
-> 
-> In proc (5) provide a little more detail on how links like
-> /proc/[pid]/root behave when read with readlink (2) vs when
-> resolved via kernel vfs layer path lookup. It can be quite confusing
-> that "readlink /proc/$pid/root" prints "/" so
-> "ls $(readlink /proc/$pid/root)" has the same result as "ls /" but
-> "ls /proc/$pid/root/" actually lists the target pid's root.
-> 
-> Signed-off-by: Craig Ringer <craig.ringer@2ndquadrant.com>
 > ---
->  man5/proc.5             | 29 ++++++++++++++++++++++++++++-
->  man7/mount_namespaces.7 | 14 ++++++++++++++
->  2 files changed, 42 insertions(+), 1 deletion(-)
 > 
-> diff --git a/man5/proc.5 b/man5/proc.5
-> index c6684620e..2eed160e2 100644
-> --- a/man5/proc.5
-> +++ b/man5/proc.5
-> @@ -658,6 +658,12 @@ are not available if the main thread has already terminated
->  (typically by calling
->  .BR pthread_exit (3)).
->  .IP
-> +If the process is in a chroot and/or a different mount namespace, reading the
-
-Please use semantic newlines
-(i.e., break after that comma, instead of just before col 80).
-See man-pages(7):
-
-STYLE GUIDE
-       [...]
-   Use semantic newlines
-       In the source of a manual page, new sentences  should  be
-       started on new lines, long sentences should be split into
-       lines  at  clause breaks (commas, semicolons, colons, and
-       so on), and long clauses should be split at phrase bound‐
-       aries.  This convention,  sometimes  known  as  "semantic
-       newlines",  makes it easier to see the effect of patches,
-       which often operate at the level of individual sentences,
-       clauses, or phrases.
-
-> +symlink path will return the executable path relative to the process's root.
-> +Opening the path within the kernel vfs layer will yield the actual executable
-> +contents even if  the path does may not exist within the currently active mount
-> +namespace.
-> +.IP
->  Permission to dereference or read
->  .RB ( readlink (2))
->  this symbolic link is governed by a ptrace access mode
-> @@ -1830,7 +1836,8 @@ and
->  .IP
->  Note however that this file is not merely a symbolic link.
->  It provides the same view of the filesystem (including namespaces and the
-> -set of per-process mounts) as the process itself.
-> +set of per-process mounts) as the process itself
-> +if dereferenced via the kernel vfs layer.
->  An example illustrates this point.
->  In one terminal, we start a shell in new user and mount namespaces,
->  and in that shell we create some new mounts:
-> @@ -1866,6 +1873,26 @@ sh2# \fBls /usr | wc \-l\fP                  # /usr in initial NS
->  .EE
->  .in
->  .IP
-> +If the target process is in a different mount namespace
-> +and has a different root, following the
-> +.B /proc/[pid]/root
-> +link directly will resolve paths relative to the target
-> +process's root. But
-> +.BR readlink (2)
-> +will return the root path as seen from within the target process's mount
-> +namespace. Tools that canonicalize paths or resolve symbolic links in
-
-Always start sentences after '.' in a new line.
-That's already covered by "semantic newlines" (see above),
-but it's especially important in this case because
-groff(1) prints (at least) 2 spaces after '.' normally,
-but if you write it this way it doesn't.
-
-BTW, Branden,
-I CCd you because I didn't find this documented in groff(7),
-or at least I couldn't find it.
-I tried /\.[^ [a-z]] and also keywords like period, point or dot,
-but no luck.
-Is it documented anywhere?
-
-> +user-space will not be able to see the target process's root. So
-> +.B ls $(realpath /proc/[pid]/root)
-
-Commands should use italics (.I) instead of bold (.B).
-See man-pages(7):
-
-[
-STYLE GUIDE
-       [...]
-   Formatting conventions (general)
-       [...]
-       Complete commands should, if long, be written as  an  in‐
-       dented  line  on  their own, with a blank line before and
-       after the command, for example
-
-           man 7 man-pages
-
-       If the command is short, then it can be  included  inline
-       in  the  text,  in italic format, for example, man 7 man-
-       pages.  In this case, it may be worth  using  nonbreaking
-       spaces  (\~)  at suitable places in the command.  Command
-       options should be written in italics (e.g., -l).
-]
-
-Variable text inside running italics should be in roman.
-So instead of writing [pid], you should use:
-.IR "ls $(realpath /proc/" pid /root)
-
-See groff_man_style(7):
-
-[
-Description
-       [...]
-   Font style macros
-       [...]
-       .I [text]
-              Set text in italics.  If the macro is given no ar‐
-              guments, the text of the next input line is set in
-              italics.
-
-              Use italics for file and path names, for  environ‐
-              ment  variables, for C data types, for enumeration
-              or  preprocessor  constants  in  C,  for  variable
-              (user-determined) portions of syntax synopses, for
-              the first occurrence (only) of a technical concept
-              being  introduced,  for  names  of journals and of
-              literary works longer than an  article,  and  any‐
-              where  a  parameter  requiring  replacement by the
-              user is encountered.  An exception involves  vari‐
-              able  text  in a context that is already marked up
-              in italics, such as file or path names with  vari‐
-              able components; in such cases, follow the conven‐
-              tion  of  mathematical typography: set the file or
-              path name in italics as usual but  use  roman  for
-              the  variable  part  (see  .IR and .RI below), and
-              italics again in running roman text when referring
-              to the variable material.
-]
-
-> +will expand to
-> +.B ls /
-> +and print the root of the invoking shell, but
-> +.B ls /proc/[pid]/root/
-> +will list the contents of
-> +.B /
-> +as seen by [pid]. See
-
-In this case, use:
-.IR pid .
-
-Se rationale above.
-
-> +.BR mount_namespaces (7)
-> +for details.
-> +.IP
->  .\" The following was still true as at kernel 2.6.13
->  In a multithreaded process, the contents of the
->  .I /proc/[pid]/root
-
-BTW, I now realize that the manual page is currently incorrectly
-formatted according to what I just said above.
-So, please don't fix that in your patch,
-so that the whole page is consistent with itself,
-and I'll fix the whole page after your patch
-(and some other pages that seem to the same problem). :)
-
-> diff --git a/man7/mount_namespaces.7 b/man7/mount_namespaces.7
-> index 7725b341f..98bfd864c 100644
-> --- a/man7/mount_namespaces.7
-> +++ b/man7/mount_namespaces.7
-> @@ -75,6 +75,20 @@ and
->  in either mount namespace will not (by default) affect the
->  mount list seen in the other namespace
->  (but see the following discussion of shared subtrees).
-> +.PP
-> +The pseudo-symlinks
-> +.IR /proc/[pid]/exe ,
-> +.IR /proc/[pid]/root ,
-> +.IR /proc/[pid]/fds ,
-> +and
-> +.IR /proc/[pid]/cwd
-> +provide views into the mount namespace of
-> +.IR [pid]
-> +from outside that namespace.
-> +These links provide a way to access the mount namespace seen by another process
-> +- even if its root is disjoint from the current process's root. See
-> +.BR proc (5)
-> +for details and caveats.
->  .\"
->  .SH SHARED SUBTREES
->  After the implementation of mount namespaces was completed,
-> -- 
-> 2.34.1
+>> Subject: [PATCH] fix descriptions for AT_NO_AUTOMOUNT
+>>
+>> Don't mention AT_NO_AUTOMOUNT for fstatat.2
+>> as it's implied since v4.11-rc7-14-gdeccf497d804
 > 
+> Even though it's implied, since code may pass it,
+> and especially code written based on the old manual page,
+> it would be good to keep the paragraph in fstatat.2,
+> even if the text is replaced by something like
+> "Before Linux x.xx, this flag was ignored.
+> After Linux y.yy, this flag is implied."
+> 
+> Does it make sense to you?
 
-Thanks!
+Yes good point.
+I went through the git history and the summary is fstatat()
+honored the flag since 2.6.38,
+ignored the flag since 3.1,
+implied the flag since 4.11,
 
-Alex
+I'll add that info to fstatat(2), and the details to the commit message.
 
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+>> Don't mention commit v4.13-9318-g42f461482178 as it was reverted
+> 
+> Please also mention v4.15-rc1-50-g5d38f049cee1 as the commit in which it
+> was reverted.
+> Since it was present in some kernel releases, we might want to mention
+> it in the manual page?
+
+Well since the flag for fstatat() doesn't change anything since 3.1
+it's probably best not to mention this old, short lived, and very specific info.
+
+>> Mention that stat(), lstat(), and fstatat()
+>> imply AT_NO_AUTOMOUNT, on the statx.2 man page
+> 
+> Please sign the patch with "Signed-off-by: ..."
+> <https://www.kernel.org/doc/man-pages/patches.html>
+
+Done in the attached.
+
+thanks!
+Pádraig
+
+--------------6a03pnqnPZoUdtQyfDpDjTL3
+Content-Type: text/x-patch; charset=UTF-8;
+ name="man-fix-AT_NO_AUTOMOUNT-2.diff"
+Content-Disposition: attachment; filename="man-fix-AT_NO_AUTOMOUNT-2.diff"
+Content-Transfer-Encoding: base64
+
+RnJvbSBmNDUzNjdkNDk0ZDllOTdmYThhMThkOGU0NzdlMWZhY2YyNTk2ODhjIE1vbiBTZXAg
+MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiA9P1VURi04P3E/UD1DMz1BMWRyYWlnPTIwQnJhZHk/
+PSA8UEBkcmFpZ0JyYWR5LmNvbT4KRGF0ZTogVGh1LCAxMCBNYXIgMjAyMiAxMzozNzoxMSAr
+MDAwMApTdWJqZWN0OiBbUEFUQ0hdIGZpeCBkZXNjcmlwdGlvbnMgZm9yIEFUX05PX0FVVE9N
+T1VOVApNSU1FLVZlcnNpb246IDEuMApDb250ZW50LVR5cGU6IHRleHQvcGxhaW47IGNoYXJz
+ZXQ9VVRGLTgKQ29udGVudC1UcmFuc2Zlci1FbmNvZGluZzogOGJpdAoKZnN0YXRhdCguLi4s
+IEFUX05PX0FVVE9NT1VOVCkgaGFzIGhhZCB0aGUgZm9sbG93aW5nIGhpc3RvcnkgaW4gTGlu
+dXg6CiAgdjIuNi4zNy03MzE0LWc2ZjQ1YjY1NjcyYzgKICAgIGFkZCBBVF9OT19BVVRPTU9V
+TlQgYW5kIGZzdGF0YXQgaG9ub3JzIGl0CiAgdjMuMS1yYzctNjgtZ2I2YzgwNjlkMzU3Nwog
+ICAgaWdub3JlIEFUX05PX0FVVE9NT1VOVCBzaW5jZSBkZWZhdWx0IG9wZXJhdGlvbiBub3cg
+bGVzcyBlYWdlcmx5IG1vdW50cwogIHY0LjEwLTExMjU1LWdhNTI4ZDM1ZThiZmMKICAgIGFk
+ZHMgc3RhdHggd2hpY2ggcmVpbnN0YXRlZCAyLjYuMzggYmVoYXZpb3IgZm9yIGZzdGF0YXQg
+KG5vdCByZWxlYXNlZCkKICB2NC4xMS1yYzctMTQtZ2RlY2NmNDk3ZDgwNAogICAgYWRqdXN0
+IGZzdGF0YXQgc28gdGhhdCBBVF9OT19BVVRPTU9VTlQgYWx3YXlzIHNwZWNpZmllZCAodG8g
+c3RhdHgpCgoqIG1hbjIvc3RhdC4yOgpBZGp1c3QgQVRfTk9fQVVUT01PVU5UIGRlc2NyaXB0
+aW9uIGZvciBmc3RhdGF0LjIgYXMgcGVyIHRoZSBhYm92ZSwKdG8gaW5kaWNhdGUgQVRfTk9f
+QVVUT01PVU5UIHNob3VsZCBiZSBhdm9pZGVkIHdpdGggZnN0YXRhdCgpIHNpbmNlCml0J3Mg
+aWdub3JlZCBzaW5jZSAzLjEgYW5kIGltcGxpZWQgc2luY2UgNC4xMS4KCkRvbid0IG1lbnRp
+b24gY29tbWl0IHY0LjEzLTkzMTgtZzQyZjQ2MTQ4MjE3OCBhcyBpdCB3YXMgcmV2ZXJ0ZWQs
+CmFuZCBtb290IGFueXdheSBzaW5jZSB3ZSBjYW4ndCBhZGp1c3QgQVRfTk9fQVVUT01PVU5U
+IHNpbmNlIDMuMS4KCiogbWFuMi9zdGF0eC4yOgpNZW50aW9uIHRoYXQgc3RhdCgpLCBsc3Rh
+dCgpLCBhbmQgZnN0YXRhdCgpIGltcGx5IEFUX05PX0FVVE9NT1VOVC4KClNpZ25lZC1vZmYt
+Ynk6IFDDoWRyYWlnIEJyYWR5IDxQQGRyYWlnQnJhZHkuY29tPgotLS0KIG1hbjIvc3RhdC4y
+ICB8IDMxICsrKy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KIG1hbjIvc3RhdHguMiB8
+IDE4ICsrKysrKysrKysrKysrKy0tLQogMiBmaWxlcyBjaGFuZ2VkLCAxOCBpbnNlcnRpb25z
+KCspLCAzMSBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9tYW4yL3N0YXQuMiBiL21hbjIv
+c3RhdC4yCmluZGV4IDAxNmMxZjQ3ZC4uOTAwMGIyY2E2IDEwMDY0NAotLS0gYS9tYW4yL3N0
+YXQuMgorKysgYi9tYW4yL3N0YXQuMgpAQCAtMzE5LDM0ICszMTksOSBAQCB0byBvYnRhaW4g
+aXRzIGRlZmluaXRpb24uCiAuVFAKIC5CUiBBVF9OT19BVVRPTU9VTlQgIiAoc2luY2UgTGlu
+dXggMi42LjM4KSIKIERvbid0IGF1dG9tb3VudCB0aGUgdGVybWluYWwgKCJiYXNlbmFtZSIp
+IGNvbXBvbmVudCBvZgotLkkgcGF0aG5hbWUKLWlmIGl0IGlzIGEgZGlyZWN0b3J5IHRoYXQg
+aXMgYW4gYXV0b21vdW50IHBvaW50LgotVGhpcyBhbGxvd3MgdGhlIGNhbGxlciB0byBnYXRo
+ZXIgYXR0cmlidXRlcyBvZiBhbiBhdXRvbW91bnQgcG9pbnQKLShyYXRoZXIgdGhhbiB0aGUg
+bG9jYXRpb24gaXQgd291bGQgbW91bnQpLgotU2luY2UgTGludXggNC4xNCwKLS5cIiBjb21t
+aXQgNDJmNDYxNDgyMTc4NjVhNTQ1ZTEyOTYxMjA3NWYzZDgyOGEyYzRlNAotYWxzbyBkb24n
+dCBpbnN0YW50aWF0ZSBhIG5vbmV4aXN0ZW50IG5hbWUgaW4gYW4KLW9uLWRlbWFuZCBkaXJl
+Y3Rvcnkgc3VjaCBhcyB1c2VkIGZvciBhdXRvbW91bnRlciBpbmRpcmVjdCBtYXBzLgotVGhp
+cwotZmxhZyBoYXMgbm8gZWZmZWN0IGlmIHRoZSBtb3VudCBwb2ludCBoYXMgYWxyZWFkeSBi
+ZWVuIG1vdW50ZWQgb3Zlci4KLS5JUAotQm90aAotLkJSIHN0YXQgKCkKLWFuZAotLkJSIGxz
+dGF0ICgpCi1hY3QgYXMgdGhvdWdoCi0uQiBBVF9OT19BVVRPTU9VTlQKLXdhcyBzZXQuCi0u
+SVAKLVRoZQotLkIgQVRfTk9fQVVUT01PVU5UCi1jYW4gYmUgdXNlZCBpbiB0b29scyB0aGF0
+IHNjYW4gZGlyZWN0b3JpZXMKLXRvIHByZXZlbnQgbWFzcy1hdXRvbW91bnRpbmcgb2YgYSBk
+aXJlY3Rvcnkgb2YgYXV0b21vdW50IHBvaW50cy4KLS5JUAotVGhpcyBmbGFnIGlzIExpbnV4
+LXNwZWNpZmljOyBkZWZpbmUKLS5CIF9HTlVfU09VUkNFCi0uXCIgQmVmb3JlIGdsaWJjIDIu
+MTYsIGRlZmluaW5nIF9BVEZJTEVfU09VUkNFIHN1ZmZpY2VkCi10byBvYnRhaW4gaXRzIGRl
+ZmluaXRpb24uCisuSSBwYXRobmFtZS4KK1NpbmNlIExpbnV4IDMuMSB0aGlzIGZsYWcgaXMg
+aWdub3JlZC4KK1NpbmNlIExpbnV4IDQuMTEgdGhpcyBmbGFnIGlzIGltcGxpZWQuCiAuVFAK
+IC5CIEFUX1NZTUxJTktfTk9GT0xMT1cKIElmCmRpZmYgLS1naXQgYS9tYW4yL3N0YXR4LjIg
+Yi9tYW4yL3N0YXR4LjIKaW5kZXggMDRiM2U1MDc1Li5kNGU2Mzg3NTYgMTAwNjQ0Ci0tLSBh
+L21hbjIvc3RhdHguMgorKysgYi9tYW4yL3N0YXR4LjIKQEAgLTE5NSwxMSArMTk1LDIzIEBA
+IERvbid0IGF1dG9tb3VudCB0aGUgdGVybWluYWwgKCJiYXNlbmFtZSIpIGNvbXBvbmVudCBv
+ZgogaWYgaXQgaXMgYSBkaXJlY3RvcnkgdGhhdCBpcyBhbiBhdXRvbW91bnQgcG9pbnQuCiBU
+aGlzIGFsbG93cyB0aGUgY2FsbGVyIHRvIGdhdGhlciBhdHRyaWJ1dGVzIG9mIGFuIGF1dG9t
+b3VudCBwb2ludAogKHJhdGhlciB0aGFuIHRoZSBsb2NhdGlvbiBpdCB3b3VsZCBtb3VudCku
+Ci1UaGlzIGZsYWcgY2FuIGJlIHVzZWQgaW4gdG9vbHMgdGhhdCBzY2FuIGRpcmVjdG9yaWVz
+Ci10byBwcmV2ZW50IG1hc3MtYXV0b21vdW50aW5nIG9mIGEgZGlyZWN0b3J5IG9mIGF1dG9t
+b3VudCBwb2ludHMuCitUaGlzCitmbGFnIGhhcyBubyBlZmZlY3QgaWYgdGhlIG1vdW50IHBv
+aW50IGhhcyBhbHJlYWR5IGJlZW4gbW91bnRlZCBvdmVyLgorLklQCiBUaGUKIC5CIEFUX05P
+X0FVVE9NT1VOVAotZmxhZyBoYXMgbm8gZWZmZWN0IGlmIHRoZSBtb3VudCBwb2ludCBoYXMg
+YWxyZWFkeSBiZWVuIG1vdW50ZWQgb3Zlci4KK2ZsYWcgY2FuIGJlIHVzZWQgaW4gdG9vbHMg
+dGhhdCBzY2FuIGRpcmVjdG9yaWVzCit0byBwcmV2ZW50IG1hc3MtYXV0b21vdW50aW5nIG9m
+IGEgZGlyZWN0b3J5IG9mIGF1dG9tb3VudCBwb2ludHMuCisuSVAKK0FsbCBvZgorLkJSIHN0
+YXQgKCkgLAorLkJSIGxzdGF0ICgpICwKK2FuZAorLkJSIGZzdGF0YXQgKCkKK2FjdCBhcyB0
+aG91Z2gKKy5CIEFUX05PX0FVVE9NT1VOVAord2FzIHNldC4KKy5JUAogVGhpcyBmbGFnIGlz
+IExpbnV4LXNwZWNpZmljOyBkZWZpbmUKIC5CIF9HTlVfU09VUkNFCiAuXCIgQmVmb3JlIGds
+aWJjIDIuMTYsIGRlZmluaW5nIF9BVEZJTEVfU09VUkNFIHN1ZmZpY2VkCi0tIAoyLjMxLjEK
+Cg==
+
+--------------6a03pnqnPZoUdtQyfDpDjTL3--
