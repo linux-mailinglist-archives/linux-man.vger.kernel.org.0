@@ -2,248 +2,320 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id CFD464D78F7
-	for <lists+linux-man@lfdr.de>; Mon, 14 Mar 2022 01:53:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 88AC74D7AAD
+	for <lists+linux-man@lfdr.de>; Mon, 14 Mar 2022 07:10:54 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234979AbiCNAyP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 13 Mar 2022 20:54:15 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47100 "EHLO
+        id S236361AbiCNGMA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 14 Mar 2022 02:12:00 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33252 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235341AbiCNAyN (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 13 Mar 2022 20:54:13 -0400
-Received: from mail-pl1-x62b.google.com (mail-pl1-x62b.google.com [IPv6:2607:f8b0:4864:20::62b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 85A84632F
-        for <linux-man@vger.kernel.org>; Sun, 13 Mar 2022 17:53:04 -0700 (PDT)
-Received: by mail-pl1-x62b.google.com with SMTP id n15so12223927plh.2
-        for <linux-man@vger.kernel.org>; Sun, 13 Mar 2022 17:53:04 -0700 (PDT)
+        with ESMTP id S236362AbiCNGMA (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 14 Mar 2022 02:12:00 -0400
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com [IPv6:2a00:1450:4864:20::42a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1DF7D193E5
+        for <linux-man@vger.kernel.org>; Sun, 13 Mar 2022 23:10:50 -0700 (PDT)
+Received: by mail-wr1-x42a.google.com with SMTP id i8so22124582wrr.8
+        for <linux-man@vger.kernel.org>; Sun, 13 Mar 2022 23:10:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to:user-agent;
-        bh=vMvwT61tfPYZpoZcessHKJIoU0x/JSEBdy4WW/hEB3c=;
-        b=PUuGoxtxH5MyK9u5SV+WlfRbd8Vso+rD+AHrn8NBCVYajoaLdHDwcbMbUgO2IYA3aZ
-         AA3RXfsWRUAT5WiMSd+Gf9uyiKfG3AGJWTwEq0s0yCpZ1sIZ2LVBR61ehmKx5GtKTXE0
-         dEOn+FqXGCWsxcmZak9lF5ZozbEFOFWkh1Zu9v9gOuiWuX40Uu1qiGJbfpXRyJUtYxz/
-         cfZFJwPImsMW+Oxdr1fX9OxmF7UhcF5EhJs40FH1Ofdmt8u9FU9XD0wr7qVAbtGlXzh8
-         7bVzMirz+pDZWxR67SacLRysLYDSCz57dpoTVAlxWLvSxOOr99K4towdsDsfQg0eBWdQ
-         xiHg==
+        d=enterprisedb.com; s=google;
+        h=mime-version:from:date:message-id:subject:to:cc;
+        bh=71578wL1YtZyzXM2p4JleSep31MXQcK4mBmKRAYb6XA=;
+        b=VAqzbjzhDCKrYaF70IL/6FnnPILHulAxLxooVa4SJhOQ5jmi+H/LSVpv19KFg+vZzj
+         shCzPFAuczsQXx/p2VhSmNF6MfTo+PnB2Vn8anGY6FgYSv6ooakwGQps0qxNcTslp6Iy
+         DbtVfc9nmAbOqYI5gLJil850aM6SFqqQOpvx3DuN+gixzYwlStjYzJUVpZd87uN8H9ja
+         CgiaQ6/QfPNfnM1U/Pa52fA0sa6+7K8i9eHjfHF6PxTPnolXRKo7iTPpSMpzRTCDbc+d
+         EStXC7ysbTrNL1Rk2oOQ3DGWfTzEQU6LwF3WjMppu6tcfDaEgCyGi7U1aH1TF2tXj15w
+         +KYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=vMvwT61tfPYZpoZcessHKJIoU0x/JSEBdy4WW/hEB3c=;
-        b=vbDa/u+041RhiVs3+Ra3zy0IHKhRQoAruVxGzRBo2QX7Anyza6iChA22ShhwGL3plu
-         2YXc09VJR2qSnC7Yq5C/e8gZUS+qq5SQ+x84kTuc2m1s5PW+ThPu4jtVqILgLVf8yJkx
-         k/eEtEfuaDjoQMVnalnlWD+NWlsfruwtHX6oXAWUdbTUsjOQ8HpSken9e3KVB4WxDjFr
-         Z6qefZP5l5GeU24OselGKqXSI+1bWT8EWcbHalvXW511KyYE9zZMV1tw5usEHJpNJqow
-         OPQQ7jIjBMiJwpC7g6eTmryNm7/KeV9A80CCBkGfoUF0PRWP/t4K/RtG2Wp+OUr8WtPd
-         1QPA==
-X-Gm-Message-State: AOAM5315n3coipmwdNx9DlYICHwk7WxpZ7UMSMKkmO8amAp70hP+ZKGj
-        t9HuHBzRM5HqXY3YS8bDQQc=
-X-Google-Smtp-Source: ABdhPJxTnzK19DCz8aafcibIqaKDD5vNIPZJYWgg9z46LmucaHGJSjXBlcNf8lfrFaI2J0wExSGiTw==
-X-Received: by 2002:a17:902:e844:b0:151:f805:30ee with SMTP id t4-20020a170902e84400b00151f80530eemr20931576plg.33.1647219183912;
-        Sun, 13 Mar 2022 17:53:03 -0700 (PDT)
-Received: from localhost.localdomain ([1.145.18.125])
-        by smtp.gmail.com with ESMTPSA id w204-20020a627bd5000000b004f6f70163e8sm17096343pfc.31.2022.03.13.17.53.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Mar 2022 17:53:03 -0700 (PDT)
-Date:   Mon, 14 Mar 2022 11:52:59 +1100
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     Helge Kreutzmann <debian@helgefjell.de>
-Cc:     mtk.manpages@gmail.com, mario.blaettermann@gmail.com,
-        linux-man@vger.kernel.org
-Subject: Re: Issue in man page ascii.7.po
-Message-ID: <20220314005258.fxidkcogt7epsvci@localhost.localdomain>
-References: <20220313123422.GA22388@Debian-50-lenny-64-minimal>
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+        bh=71578wL1YtZyzXM2p4JleSep31MXQcK4mBmKRAYb6XA=;
+        b=SxP+6Lxn5zktM64eQTCS2Y5vyyQ46r4gGnWFrnOGD9U30/6vnbXd/zda3JmF1wTyQO
+         x5+2OPB8Rzy8SAQBNjFDoDxBG5JvqGDG7NCM3zICqqz3tjE+9n3MmfGWEtaa07MwSKUY
+         RvcBbgTYbSg4wbSv70CR6HRfwll6xja1jS4yfU9NtWDKjuJS8qZQp8fv30R3VVDTQ9xu
+         DuJd/eVkz4cR3kKpY0RKnTpSpVbYAQBOhm9+knrPZtPr5ExOtzsXzhaxz+HY6PUsGv4q
+         qp35mnDsmMBL29VOXaSgm3uiYHQa7XKbDxn7sCQyfp+6E4Hi0oCzA+RHqynpLd6qm7uf
+         GfMg==
+X-Gm-Message-State: AOAM5333ZXeacd9g1ISHy8EHrLwJkNB9yTbmeeTc9kHX4NI5O4e2Eguk
+        U+zPWGqLkUEtS5kGFM8LiWxGlJKmets9O0Yc6TQ5nJMdHzqtY5S5PvRKLHt0kqmBrWA197JJ/Kr
+        DZQo3nc5PvBu4zFwWX19aB8dqJBYZHST6bNi52OQaIr84LMcT5+/XeMBRaTUetKylk/+yhr23qW
+        EN4+qsINsdtsRrOwYv7yMe56lqOFOAfKIYW44VzSluYsNSFHTH0jYSXhM=
+X-Google-Smtp-Source: ABdhPJxHSwnSN0keoc3d368aein33U+Jmt17X+Aif44ICRxpC+j9jtqp65NopBVsqN39oLdN5ZelXLxBwJe3XLV6iN4=
+X-Received: by 2002:a05:6000:15cb:b0:1f1:e26a:feae with SMTP id
+ y11-20020a05600015cb00b001f1e26afeaemr15013807wry.295.1647238248379; Sun, 13
+ Mar 2022 23:10:48 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="mj7r5vhaf7f6oxro"
-Content-Disposition: inline
-In-Reply-To: <20220313123422.GA22388@Debian-50-lenny-64-minimal>
-User-Agent: NeoMutt/20180716
+From:   Craig Ringer <craig.ringer@enterprisedb.com>
+Date:   Mon, 14 Mar 2022 14:10:12 +0800
+Message-ID: <CAGRY4nx5R6d5iH1SUZHEuJO+M67h1p1zLNQB_6F6X5GGBKFYeg@mail.gmail.com>
+Subject: [patch] Add docs on mount namespace rootfs access and pid namespace
+ pid mapping
+To:     linux-man@vger.kernel.org
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+Content-Type: multipart/mixed; boundary="000000000000a85e1305da278a59"
+X-CLOUD-SEC-AV-Info: enterprisedb,google_mail,monitor
+X-CLOUD-SEC-AV-Sent: true
+X-Gm-Spam: 0
+X-Gm-Phishy: 0
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-        autolearn=ham autolearn_force=no version=3.4.6
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
+        SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+--000000000000a85e1305da278a59
+Content-Type: text/plain; charset="UTF-8"
 
---mj7r5vhaf7f6oxro
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+The attached 4-patch series adds information to the mount namespaces
+and pid namespaces documentation to help users discover how to access
+important related information.
 
-Hi Helge,
+1. Elaborate on /proc/[pid]/root and x-ref it
+2. Mention /proc/$pid/status NSpid in pid_namespaces
+3. Mention pid namespaces /proc/[pid]/root/proc
+4. Additional namespaces related x-refs
 
-At 2022-03-13T13:34:22+0100, Helge Kreutzmann wrote:
-> Without further ado, the following was found:
->=20
-> Issue:    In the right table, please add \& markup for end of sentence ch=
-aracters (? ! .) to get proper formatting in other locales. Thanks!
+1): Mention /proc/[pid]/root in mount_namespaces(7) to help people
+discover how to access the file system tree seen by a process in
+another mount namespace. In the proc (5) entry for it, warn about the
+possibly-confusing semantics of readlink() vs following the path in
+the vfs layer.
 
-Specifically, what happens is that if the additional inter-sentence
-space amount (set with the `ss` request) is not the same as the
-inter-word space amount, the columnation of this "table" (not a tbl(1)
-table) gets thrown off.
+  Adding because I found it difficult to figure out how to access the
+file system seen by another process in a disjoint chroot in a
+non-ancestor mount namespace.
 
-This is an area that has seen significant clarification in the groff
-Texinfo manual and other documentation since the 1.22.4 release, so I
-ask the reader's indulgence while I quote it.
+2): Mention the /proc/[pid]/status NSpid field and related fields in
+pid_namespaces (7) to help people discover how to map process IDs
+between a parent namespace and any child namespace(s) the process is
+in.
 
- -- Request: .ss word-space-size [additional-sentence-space-size]
- -- Register: \n[.ss]
- -- Register: \n[.sss]
-     Set the sizes of spaces between words and sentences.(1)  (*note
-     Manipulating Filling and Adjustment-Footnote-1::) Their units are
-     twelfths of the space width of the current font.  Initially both
-     the WORD-SPACE-SIZE and ADDITIONAL-SENTENCE-SPACE-SIZE are 12.
-     Negative values are not permitted.  The request is ignored if there
-     are no arguments.
+  Adding because I found it difficult to discover how to map pids
+between namespaces.
 
-     The first argument, the inter-word space size, is a minimum; if an
-     output line undergoes adjustment, such spaces may increase in
-     width.
+3): Mention how /proc/[pid]/root/proc behaves when [pid] is in a
+different pid namespace. It's useful to know that you can see another
+process's view of procfs via its /proc/[pid]/root link.
 
-     The optional second argument sets the amount of additional space
-     separating sentences on the same output line.  If omitted, this
-     amount is set to WORD-SPACE-SIZE.
+4): Some minor cross-references and see-alsos that would've helped me
+during unrelated past efforts.
 
-     The read-only registers '.ss' and '.sss' hold the values of minimal
-     inter-word space and additional inter-sentence space, respectively.
-     These parameters are associated with the environment (*note
-     Environments::), and rounded down to the nearest multiple of 12 on
-     terminal output devices.
+--000000000000a85e1305da278a59
+Content-Type: text/x-patch; charset="US-ASCII"; 
+	name="v1-0001-Elaborate-on-proc-pid-root-and-x-ref-it.patch"
+Content-Disposition: attachment; 
+	filename="v1-0001-Elaborate-on-proc-pid-root-and-x-ref-it.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_l0qb3jcw0>
+X-Attachment-Id: f_l0qb3jcw0
 
-     Additional inter-sentence spacing is used only if the output line
-     is not full when the end of a sentence occurs in the input.  If a
-     sentence ends at the end of an input line, then both an inter-word
-     space and an inter-sentence space are added to the output; if two
-     spaces follow the end of a sentence in the middle of an input line,
-     then the second space becomes an inter-sentence space in the
-     output.  Additional inter-sentence space is not adjusted, but the
-     inter-word space that always precedes it may be.  Further input
-     spaces after the second, if present, are adjusted as normal.
-[...]
-   (1) *Note Filling:: and *note Sentences:: for the definitions of word
-and sentence boundaries, respectively.
+RnJvbSBmOTljNjhmMTUzNWRlYTRmMWQ5MjZkNWE5MWIxYjc3MjU1Nzc0M2RlIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBDcmFpZyBSaW5nZXIgPGNyYWlnLnJpbmdlckAybmRxdWFkcmFu
+dC5jb20+CkRhdGU6IE1vbiwgMTQgTWFyIDIwMjIgMTM6MzU6MzggKzA4MDAKU3ViamVjdDogW1BB
+VENIIHYxIDEvNF0gRWxhYm9yYXRlIG9uIC9wcm9jL1twaWRdL3Jvb3QgYW5kIHgtcmVmIGl0CgpN
+ZW50aW9uIC9wcm9jL1twaWRdL3tyb290LGN3ZCxleGUsZmRzfSBpbiBtb3VudF9uYW1lc3BhY2Vz
+ICg3KQp0byBoZWxwIHVzZXJzIHVuZGVyc3RhbmQgaG93IHRvIGFjY2VzcyB0aGUgZmlsZSBzeXN0
+ZW0gdHJlZSBvZgphIHByb2Nlc3MgaW4gZGlmZmVyZW50IG1vdW50IG5hbWVzcGFjZSBhbmQgcG9z
+c2libHktZGlzam9pbnQKY2hyb290LgoKSW4gcHJvYyAoNSkgcHJvdmlkZSBhIGxpdHRsZSBtb3Jl
+IGRldGFpbCBvbiBob3cgbGlua3MgbGlrZQovcHJvYy9bcGlkXS9yb290IGJlaGF2ZSB3aGVuIHJl
+YWQgd2l0aCByZWFkbGluayAoMikgdnMgd2hlbgpyZXNvbHZlZCB2aWEga2VybmVsIHZmcyBsYXll
+ciBwYXRoIGxvb2t1cC4gSXQgY2FuIGJlIHF1aXRlIGNvbmZ1c2luZwp0aGF0ICJyZWFkbGluayAv
+cHJvYy8kcGlkL3Jvb3QiIHByaW50cyAiLyIgc28KImxzICQocmVhZGxpbmsgL3Byb2MvJHBpZC9y
+b290KSIgaGFzIHRoZSBzYW1lIHJlc3VsdCBhcyAibHMgLyIgYnV0CiJscyAvcHJvYy8kcGlkL3Jv
+b3QvIiBhY3R1YWxseSBsaXN0cyB0aGUgdGFyZ2V0IHBpZCdzIHJvb3QuCgpTaWduZWQtb2ZmLWJ5
+OiBDcmFpZyBSaW5nZXIgPGNyYWlnLnJpbmdlckAybmRxdWFkcmFudC5jb20+Ci0tLQogbWFuNS9w
+cm9jLjUgICAgICAgICAgICAgfCAyOSArKysrKysrKysrKysrKysrKysrKysrKysrKysrLQogbWFu
+Ny9tb3VudF9uYW1lc3BhY2VzLjcgfCAxNCArKysrKysrKysrKysrKwogMiBmaWxlcyBjaGFuZ2Vk
+LCA0MiBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvbWFuNS9wcm9j
+LjUgYi9tYW41L3Byb2MuNQppbmRleCBjNjY4NDYyMGUuLjJlZWQxNjBlMiAxMDA2NDQKLS0tIGEv
+bWFuNS9wcm9jLjUKKysrIGIvbWFuNS9wcm9jLjUKQEAgLTY1OCw2ICs2NTgsMTIgQEAgYXJlIG5v
+dCBhdmFpbGFibGUgaWYgdGhlIG1haW4gdGhyZWFkIGhhcyBhbHJlYWR5IHRlcm1pbmF0ZWQKICh0
+eXBpY2FsbHkgYnkgY2FsbGluZwogLkJSIHB0aHJlYWRfZXhpdCAoMykpLgogLklQCitJZiB0aGUg
+cHJvY2VzcyBpcyBpbiBhIGNocm9vdCBhbmQvb3IgYSBkaWZmZXJlbnQgbW91bnQgbmFtZXNwYWNl
+LCByZWFkaW5nIHRoZQorc3ltbGluayBwYXRoIHdpbGwgcmV0dXJuIHRoZSBleGVjdXRhYmxlIHBh
+dGggcmVsYXRpdmUgdG8gdGhlIHByb2Nlc3MncyByb290LgorT3BlbmluZyB0aGUgcGF0aCB3aXRo
+aW4gdGhlIGtlcm5lbCB2ZnMgbGF5ZXIgd2lsbCB5aWVsZCB0aGUgYWN0dWFsIGV4ZWN1dGFibGUK
+K2NvbnRlbnRzIGV2ZW4gaWYgIHRoZSBwYXRoIGRvZXMgbWF5IG5vdCBleGlzdCB3aXRoaW4gdGhl
+IGN1cnJlbnRseSBhY3RpdmUgbW91bnQKK25hbWVzcGFjZS4KKy5JUAogUGVybWlzc2lvbiB0byBk
+ZXJlZmVyZW5jZSBvciByZWFkCiAuUkIgKCByZWFkbGluayAoMikpCiB0aGlzIHN5bWJvbGljIGxp
+bmsgaXMgZ292ZXJuZWQgYnkgYSBwdHJhY2UgYWNjZXNzIG1vZGUKQEAgLTE4MzAsNyArMTgzNiw4
+IEBAIGFuZAogLklQCiBOb3RlIGhvd2V2ZXIgdGhhdCB0aGlzIGZpbGUgaXMgbm90IG1lcmVseSBh
+IHN5bWJvbGljIGxpbmsuCiBJdCBwcm92aWRlcyB0aGUgc2FtZSB2aWV3IG9mIHRoZSBmaWxlc3lz
+dGVtIChpbmNsdWRpbmcgbmFtZXNwYWNlcyBhbmQgdGhlCi1zZXQgb2YgcGVyLXByb2Nlc3MgbW91
+bnRzKSBhcyB0aGUgcHJvY2VzcyBpdHNlbGYuCitzZXQgb2YgcGVyLXByb2Nlc3MgbW91bnRzKSBh
+cyB0aGUgcHJvY2VzcyBpdHNlbGYKK2lmIGRlcmVmZXJlbmNlZCB2aWEgdGhlIGtlcm5lbCB2ZnMg
+bGF5ZXIuCiBBbiBleGFtcGxlIGlsbHVzdHJhdGVzIHRoaXMgcG9pbnQuCiBJbiBvbmUgdGVybWlu
+YWwsIHdlIHN0YXJ0IGEgc2hlbGwgaW4gbmV3IHVzZXIgYW5kIG1vdW50IG5hbWVzcGFjZXMsCiBh
+bmQgaW4gdGhhdCBzaGVsbCB3ZSBjcmVhdGUgc29tZSBuZXcgbW91bnRzOgpAQCAtMTg2Niw2ICsx
+ODczLDI2IEBAIHNoMiMgXGZCbHMgL3VzciB8IHdjIFwtbFxmUCAgICAgICAgICAgICAgICAgICMg
+L3VzciBpbiBpbml0aWFsIE5TCiAuRUUKIC5pbgogLklQCitJZiB0aGUgdGFyZ2V0IHByb2Nlc3Mg
+aXMgaW4gYSBkaWZmZXJlbnQgbW91bnQgbmFtZXNwYWNlCithbmQgaGFzIGEgZGlmZmVyZW50IHJv
+b3QsIGZvbGxvd2luZyB0aGUKKy5CIC9wcm9jL1twaWRdL3Jvb3QKK2xpbmsgZGlyZWN0bHkgd2ls
+bCByZXNvbHZlIHBhdGhzIHJlbGF0aXZlIHRvIHRoZSB0YXJnZXQKK3Byb2Nlc3MncyByb290LiBC
+dXQKKy5CUiByZWFkbGluayAoMikKK3dpbGwgcmV0dXJuIHRoZSByb290IHBhdGggYXMgc2VlbiBm
+cm9tIHdpdGhpbiB0aGUgdGFyZ2V0IHByb2Nlc3MncyBtb3VudAorbmFtZXNwYWNlLiBUb29scyB0
+aGF0IGNhbm9uaWNhbGl6ZSBwYXRocyBvciByZXNvbHZlIHN5bWJvbGljIGxpbmtzIGluCit1c2Vy
+LXNwYWNlIHdpbGwgbm90IGJlIGFibGUgdG8gc2VlIHRoZSB0YXJnZXQgcHJvY2VzcydzIHJvb3Qu
+IFNvCisuQiBscyAkKHJlYWxwYXRoIC9wcm9jL1twaWRdL3Jvb3QpCit3aWxsIGV4cGFuZCB0bwor
+LkIgbHMgLworYW5kIHByaW50IHRoZSByb290IG9mIHRoZSBpbnZva2luZyBzaGVsbCwgYnV0Cisu
+QiBscyAvcHJvYy9bcGlkXS9yb290Lword2lsbCBsaXN0IHRoZSBjb250ZW50cyBvZgorLkIgLwor
+YXMgc2VlbiBieSBbcGlkXS4gU2VlCisuQlIgbW91bnRfbmFtZXNwYWNlcyAoNykKK2ZvciBkZXRh
+aWxzLgorLklQCiAuXCIgVGhlIGZvbGxvd2luZyB3YXMgc3RpbGwgdHJ1ZSBhcyBhdCBrZXJuZWwg
+Mi42LjEzCiBJbiBhIG11bHRpdGhyZWFkZWQgcHJvY2VzcywgdGhlIGNvbnRlbnRzIG9mIHRoZQog
+LkkgL3Byb2MvW3BpZF0vcm9vdApkaWZmIC0tZ2l0IGEvbWFuNy9tb3VudF9uYW1lc3BhY2VzLjcg
+Yi9tYW43L21vdW50X25hbWVzcGFjZXMuNwppbmRleCA3NzI1YjM0MWYuLjk4YmZkODY0YyAxMDA2
+NDQKLS0tIGEvbWFuNy9tb3VudF9uYW1lc3BhY2VzLjcKKysrIGIvbWFuNy9tb3VudF9uYW1lc3Bh
+Y2VzLjcKQEAgLTc1LDYgKzc1LDIwIEBAIGFuZAogaW4gZWl0aGVyIG1vdW50IG5hbWVzcGFjZSB3
+aWxsIG5vdCAoYnkgZGVmYXVsdCkgYWZmZWN0IHRoZQogbW91bnQgbGlzdCBzZWVuIGluIHRoZSBv
+dGhlciBuYW1lc3BhY2UKIChidXQgc2VlIHRoZSBmb2xsb3dpbmcgZGlzY3Vzc2lvbiBvZiBzaGFy
+ZWQgc3VidHJlZXMpLgorLlBQCitUaGUgcHNldWRvLXN5bWxpbmtzCisuSVIgL3Byb2MvW3BpZF0v
+ZXhlICwKKy5JUiAvcHJvYy9bcGlkXS9yb290ICwKKy5JUiAvcHJvYy9bcGlkXS9mZHMgLAorYW5k
+CisuSVIgL3Byb2MvW3BpZF0vY3dkCitwcm92aWRlIHZpZXdzIGludG8gdGhlIG1vdW50IG5hbWVz
+cGFjZSBvZgorLklSIFtwaWRdCitmcm9tIG91dHNpZGUgdGhhdCBuYW1lc3BhY2UuCitUaGVzZSBs
+aW5rcyBwcm92aWRlIGEgd2F5IHRvIGFjY2VzcyB0aGUgbW91bnQgbmFtZXNwYWNlIHNlZW4gYnkg
+YW5vdGhlciBwcm9jZXNzCistIGV2ZW4gaWYgaXRzIHJvb3QgaXMgZGlzam9pbnQgZnJvbSB0aGUg
+Y3VycmVudCBwcm9jZXNzJ3Mgcm9vdC4gU2VlCisuQlIgcHJvYyAoNSkKK2ZvciBkZXRhaWxzIGFu
+ZCBjYXZlYXRzLgogLlwiCiAuU0ggU0hBUkVEIFNVQlRSRUVTCiBBZnRlciB0aGUgaW1wbGVtZW50
+YXRpb24gb2YgbW91bnQgbmFtZXNwYWNlcyB3YXMgY29tcGxldGVkLAotLSAKMi4zNC4xCgo=
+--000000000000a85e1305da278a59
+Content-Type: text/x-patch; charset="US-ASCII"; 
+	name="v1-0002-Mention-proc-pid-status-NSpid-in-pid_namespaces.patch"
+Content-Disposition: attachment; 
+	filename="v1-0002-Mention-proc-pid-status-NSpid-in-pid_namespaces.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_l0qb3jd31>
+X-Attachment-Id: f_l0qb3jd31
 
-> "   2 3 4 5 6 7       30 40 50 60 70 80 90 100 110 120\n"
-> " -------------      ---------------------------------\n"
-> "0:   0 @ P \\` p     0:    (  2  E<lt>  F  P  Z  d   n   x\n"
-> "1: ! 1 A Q a q     1:    )  3  =3D  G  Q  [  e   o   y\n"
-> "2: \" 2 B R b r     2:    *  4  E<gt>  H  R  \\e  f   p   z\n"
-> "3: # 3 C S c s     3: !  +  5  ?  I  S  ]  g   q   {\n"
-> "4: $ 4 D T d t     4: \"  ,  6  @  J  T  \\(ha  h   r   |\n"
-> "5: % 5 E U e u     5: #  -  7  A  K  U  _  i   s   }\n"
-> "6: & 6 F V f v     6: $  .  8  B  L  V  \\`  j   t   \\(ti\n"
-> "7: \\(aq 7 G W g w     7: %  /  9  C  M  W  a  k   u  DEL\n"
-> "8: ( 8 H X h x     8: &  0  :  D  N  X  b  l   v\n"
-> "9: ) 9 I Y i y     9: \\(aq  1  ;  E  O  Y  c  m   w\n"
-> "A: * : J Z j z\n"
-> "B: + ; K [ k {\n"
-> "C: , E<lt> L \\e l |\n"
-> "D: - =3D M ] m }\n"
-> "E: . E<gt> N \\(ha n \\(ti\n"
-> "F: / ? O _ o DEL\n"
+RnJvbSA0ZGQ5ZDQ2NGM2ZTM0Yzc1ZTk0NTY3NDViNmNmNzFmZDAzNjBkYjQ0IE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBDcmFpZyBSaW5nZXIgPGNyYWlnLnJpbmdlckAybmRxdWFkcmFu
+dC5jb20+CkRhdGU6IE1vbiwgMTQgTWFyIDIwMjIgMTM6NDk6MTkgKzA4MDAKU3ViamVjdDogW1BB
+VENIIHYxIDIvNF0gTWVudGlvbiAvcHJvYy8kcGlkL3N0YXR1cyBOU3BpZCBpbiBwaWRfbmFtZXNw
+YWNlcwoKVGhlIHBpZF9uYW1lc3BhY2VzICg3KSBkb2N1bWVudGF0aW9uIGRpZCBub3QgZXhwbGFp
+biBob3cgdG8gbWFwCmEgcHJvY2VzcyBJRCBmcm9tIGEgcGFyZW50IG5hbWVzcGFjZSB0byB0aGUg
+Y29ycmVzcG9uZGluZyBwaWQgaW4KYSBjaGlsZCBuYW1lc3BhY2UuCgpNZW50aW9uIHRoZSAvcHJv
+Yy8kcGlkL3N0YXR1cyBOU3BpZCBmaWVsZCBhbmQgcmVsYXRlZCBmaWVsZHMKaW4gcGlkX25hbWVz
+cGFjZXMgKDcpIGFuZCBhZGQgYSBjcm9zcy1yZWZlcmVuY2UgdG8gdGhlIGRldGFpbHMKaW4gcHJv
+YyAoNSkuCgpTaWduZWQtb2ZmLWJ5OiBDcmFpZyBSaW5nZXIgPGNyYWlnLnJpbmdlckAybmRxdWFk
+cmFudC5jb20+Ci0tLQogbWFuNS9wcm9jLjUgICAgICAgICAgIHwgIDQgKysrLQogbWFuNy9waWRf
+bmFtZXNwYWNlcy43IHwgMjAgKysrKysrKysrKysrKysrKysrKysKIDIgZmlsZXMgY2hhbmdlZCwg
+MjMgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL21hbjUvcHJvYy41
+IGIvbWFuNS9wcm9jLjUKaW5kZXggMmVlZDE2MGUyLi41MTgwYjRiMzAgMTAwNjQ0Ci0tLSBhL21h
+bjUvcHJvYy41CisrKyBiL21hbjUvcHJvYy41CkBAIC0yNjAyLDcgKzI2MDIsOSBAQCBmb2xsb3dl
+ZCBieSB0aGUgdmFsdWUgaW4gc3VjY2Vzc2l2ZWx5IG5lc3RlZCBpbm5lciBuYW1lc3BhY2VzLgog
+LklSIE5TcGlkCiBUaHJlYWQgSUQgaW4gZWFjaCBvZiB0aGUgUElEIG5hbWVzcGFjZXMgb2Ygd2hp
+Y2gKIC5JIFtwaWRdCi1pcyBhIG1lbWJlci4KK2lzIGEgbWVtYmVyLiBUaGlzIGZpZWxkIHByb3Zp
+ZGVzIGEgbWFwcGluZyBiZXR3ZWVuIHBhcmVudCBhbmQgY2hpbGQgcGlkcworZm9yIHByb2Nlc3Nl
+cyBpbiBuZXN0ZWQKKy5CUiBwaWRfbmFtZXNwYWNlcyAoNykuCiBUaGUgZmllbGRzIGFyZSBvcmRl
+cmVkIGFzIGZvcgogLklSIE5TdGdpZCAuCiAoU2luY2UgTGludXggNC4xLikKZGlmZiAtLWdpdCBh
+L21hbjcvcGlkX25hbWVzcGFjZXMuNyBiL21hbjcvcGlkX25hbWVzcGFjZXMuNwppbmRleCBmOTli
+OWFiYmMuLmY3NGI3ZmNjZCAxMDA2NDQKLS0tIGEvbWFuNy9waWRfbmFtZXNwYWNlcy43CisrKyBi
+L21hbjcvcGlkX25hbWVzcGFjZXMuNwpAQCAtMzU1LDYgKzM1NSwxNCBAQCB5aWVsZHMgdGhlIHBy
+b2Nlc3MgSUQgb2YgdGhlIGNhbGxlciBpbiB0aGUgUElEIG5hbWVzcGFjZSBvZiB0aGUgcHJvY2Zz
+IG1vdW50CiAoaS5lLiwgdGhlIFBJRCBuYW1lc3BhY2Ugb2YgdGhlIHByb2Nlc3MgdGhhdCBtb3Vu
+dGVkIHRoZSBwcm9jZnMpLgogVGhpcyBjYW4gYmUgdXNlZnVsIGZvciBpbnRyb3NwZWN0aW9uIHB1
+cnBvc2VzLAogd2hlbiBhIHByb2Nlc3Mgd2FudHMgdG8gZGlzY292ZXIgaXRzIFBJRCBpbiBvdGhl
+ciBuYW1lc3BhY2VzLgorLlBQCitFdmVyeSBwcm9jZXNzIGhhcyBhIG1hcHBpbmcgb2YgcGFyZW50
+LXRvLWNoaWxkIHByb2Nlc3MgSURzIGluCit0aGUKKy5CIE5TcGlkCitmaWVsZCBvZiBpdHMKKy5C
+IC9wcm9jLyRjaGlsZHBpZC9zdGF0dXMKK2ZpbGUuIE9ubHkgcGlkcyB2aXNpYmxlIGluIHRoZSBw
+aWQgbmFtZXNwYWNlIHRoZSBwcm9jZnMgaXMgbW91bnRlZCB3aXRoIGFuZCBhbnkKK2NoaWxkIG5h
+bWVzcGFjZXMgd2lsbCBiZSBzaG93bi4KIC5cIgogLlwiID09PT09PT09PT09PT09PT09PT09PT09
+PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQogLlwiCkBAIC0zNzksNiArMzg3
+LDE4IEBAIGNhcGFiaWxpdHkgaW5zaWRlIHRoZSB1c2VyIG5hbWVzcGFjZSB0aGF0IG93bnMgdGhl
+IFBJRCBuYW1lc3BhY2UuCiBUaGlzIG1ha2VzIGl0IHBvc3NpYmxlIHRvIGRldGVybWluZSB0aGUg
+UElEIHRoYXQgaXMgYWxsb2NhdGVkCiB0byB0aGUgbmV4dCBwcm9jZXNzIHRoYXQgaXMgY3JlYXRl
+ZCBpbnNpZGUgdGhpcyBQSUQgbmFtZXNwYWNlLgogLlwiCisuVFAKKy5CUiAvcHJvYy8kcGlkL3N0
+YXR1cworVGhlCisuQiBOU3RnaWQsIE5TcGlkLCBOU3BnaWQgYW5kIE5Tc2lkCisuTlMKK2ZpZWxk
+cyBvZiB0aGlzIGZpbGUgbWFwIHRoZSBwcm9jZXNzIElEIGFuZCBvdGhlciBwaWQtbmFtZXNwYWNl
+ZCBhdHRyaWJ1dGVzIG9mCisuQlIgJHBpZAorYmV0d2VlbiB0aGUgY3VycmVudCBwaWQgbmFtZXNw
+YWNlIGFueSBhbnkgY2hpbGQgbmFtZXNwYWNlcwordGhlIHByb2Nlc3MgaXMgYSBtZW1iZXIgb2Yu
+IFNlZQorLkJSIHByb2MgKDUpCitmb3IgZGV0YWlscy4KKy5cIgogLlwiID09PT09PT09PT09PT09
+PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQogLlwiCiAuU1Mg
+TWlzY2VsbGFuZW91cwotLSAKMi4zNC4xCgo=
+--000000000000a85e1305da278a59
+Content-Type: text/x-patch; charset="US-ASCII"; 
+	name="v1-0003-Mention-pid-namespaces-proc-pid-root-proc.patch"
+Content-Disposition: attachment; 
+	filename="v1-0003-Mention-pid-namespaces-proc-pid-root-proc.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_l0qb3jdb2>
+X-Attachment-Id: f_l0qb3jdb2
 
-The piece of ascii(7) quoted above renders as expected if none of the
-groff localization macro files are loaded, and if the user/administrator
-has not changed the additional inter-sentence space amount in "troffrc"
-or "man.local"--but doing so is supported.  A common preference, and one
-shared by the Czech, German, French, Italian[1], and Swedish groff
-localization files, is to set additional inter-sentence space to zero
-with `.ss 12 0`.
+RnJvbSBhMmNiYThmNTQ0MTY3ZmRhZWZhYTk5MzZjMjEyMjZhMzcwNGQ2YjczIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBDcmFpZyBSaW5nZXIgPGNyYWlnLnJpbmdlckAybmRxdWFkcmFu
+dC5jb20+CkRhdGU6IE1vbiwgMTQgTWFyIDIwMjIgMTM6MzU6MzggKzA4MDAKU3ViamVjdDogW1BB
+VENIIHYxIDMvNF0gTWVudGlvbiBwaWQgbmFtZXNwYWNlcyAvcHJvYy9bcGlkXS9yb290L3Byb2MK
+CkFkZCBhIG5vdGUgaW4gcGlkX25hbWVzcGFjZXMgKDcpIHRvIGV4cGxhaW4gdGhhdAovcHJvYy8k
+cGlkL3Jvb3QvcHJvYyBjYW4gYmUgdXNlZCB0byBzZWUgdGhlIHByb2NmcwpzZWVuIGJ5ICRwaWQg
+d2l0aGluIGl0cyBwaWQgbmFtZXNwYWNlLgoKU2lnbmVkLW9mZi1ieTogQ3JhaWcgUmluZ2VyIDxj
+cmFpZy5yaW5nZXJAMm5kcXVhZHJhbnQuY29tPgotLS0KIG1hbjUvcHJvYy41ICAgICAgICAgICB8
+ICA4ICsrKysrKysrCiBtYW43L3BpZF9uYW1lc3BhY2VzLjcgfCAxMCArKysrKysrKysrCiAyIGZp
+bGVzIGNoYW5nZWQsIDE4IGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9tYW41L3Byb2MuNSBi
+L21hbjUvcHJvYy41CmluZGV4IDUxODBiNGIzMC4uODc0NDVmZDU1IDEwMDY0NAotLS0gYS9tYW41
+L3Byb2MuNQorKysgYi9tYW41L3Byb2MuNQpAQCAtMTg5Myw2ICsxODkzLDE0IEBAIGFzIHNlZW4g
+YnkgW3BpZF0uIFNlZQogLkJSIG1vdW50X25hbWVzcGFjZXMgKDcpCiBmb3IgZGV0YWlscy4KIC5J
+UAorSWYgdGhlIHRhcmdldCBwcm9jZXNzIGlzIGluIGEgZGlmZmVyZW50IHBpZCBuYW1lc3BhY2Ug
+YW5kIGhhcworLkIgL3Byb2MKK21vdW50ZWQgd2l0aGluIGEgbW91bnQgbmFtZXNwYWNlLAorLkIg
+L3Byb2MvW3BpZF0vcm9vdC9wcm9jCit3aWxsIGNvbnRhaW4gdGhlIHByb2NmcyB0cmVlIGFzIHNl
+ZW4gYnkgW3BpZF0uIFNlZQorLkJSIHBpZF9uYW1lc3BhY2VzICg3KQorZm9yIGRldGFpbHMuCisu
+SVAKIC5cIiBUaGUgZm9sbG93aW5nIHdhcyBzdGlsbCB0cnVlIGFzIGF0IGtlcm5lbCAyLjYuMTMK
+IEluIGEgbXVsdGl0aHJlYWRlZCBwcm9jZXNzLCB0aGUgY29udGVudHMgb2YgdGhlCiAuSSAvcHJv
+Yy9bcGlkXS9yb290CmRpZmYgLS1naXQgYS9tYW43L3BpZF9uYW1lc3BhY2VzLjcgYi9tYW43L3Bp
+ZF9uYW1lc3BhY2VzLjcKaW5kZXggZjc0YjdmY2NkLi41MmE0MGY1NDQgMTAwNjQ0Ci0tLSBhL21h
+bjcvcGlkX25hbWVzcGFjZXMuNworKysgYi9tYW43L3BpZF9uYW1lc3BhY2VzLjcKQEAgLTM1Niw2
+ICszNTYsMTYgQEAgeWllbGRzIHRoZSBwcm9jZXNzIElEIG9mIHRoZSBjYWxsZXIgaW4gdGhlIFBJ
+RCBuYW1lc3BhY2Ugb2YgdGhlIHByb2NmcyBtb3VudAogVGhpcyBjYW4gYmUgdXNlZnVsIGZvciBp
+bnRyb3NwZWN0aW9uIHB1cnBvc2VzLAogd2hlbiBhIHByb2Nlc3Mgd2FudHMgdG8gZGlzY292ZXIg
+aXRzIFBJRCBpbiBvdGhlciBuYW1lc3BhY2VzLgogLlBQCitQcm9jZXNzZXMgaW4gcGFyZW50IG1v
+dW50IG5hbWVzcGFjZXMgY2FuIHNlZSBhIGNoaWxkIHByb2Nlc3MncyB2aWV3CitvZiBpdHMgbmFt
+ZXNwYWNlIGluCisuQiAvcHJvYy8kY2hpbGRwaWQvcm9vdC9wcm9jCitpZiB0aGUgY2hpbGQgcHJv
+Y2VzcyBwcm9jZXNzIGhhcworLkIgL3Byb2MKK21vdW50ZWQgd2l0aGluIHRoZSBjaGlsZCBuYW1l
+c3BhY2UuCitTZWUKKy5CUiBwcm9jICg1KQorZm9yIGRldGFpbHMuCisuUFAKIEV2ZXJ5IHByb2Nl
+c3MgaGFzIGEgbWFwcGluZyBvZiBwYXJlbnQtdG8tY2hpbGQgcHJvY2VzcyBJRHMgaW4KIHRoZQog
+LkIgTlNwaWQKLS0gCjIuMzQuMQoK
+--000000000000a85e1305da278a59
+Content-Type: text/x-patch; charset="US-ASCII"; 
+	name="v1-0004-Additional-namespaces-related-x-refs.patch"
+Content-Disposition: attachment; 
+	filename="v1-0004-Additional-namespaces-related-x-refs.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_l0qb3jdj3>
+X-Attachment-Id: f_l0qb3jdj3
 
-Here is the result.
-
-   Tables                                          =E2=94=82
-       For convenience, below are more compact tables in hex and
-       decimal.
-
-          2 3 4 5 6 7       30 40 50 60 70 80 90 100 110 120
-        -------------      ---------------------------------
-       0:   0 @ P ` p     0:    (  2  <  F  P  Z  d   n   x
-       1: ! 1 A Q a q     1:    )  3  =3D  G  Q  [  e   o   y
-       2: " 2 B R b r     2:    *  4  >  H  R  \  f   p   z
-       3: # 3 C S c s     3: ! +  5  ? I  S  ]  g   q   {
-       4: $ 4 D T d t     4: "  ,  6  @  J  T  ^  h   r   |
-       5: % 5 E U e u     5: #  -  7  A  K  U  _  i   s   }
-       6: & 6 F V f v     6: $  . 8  B  L  V  `  j   t   ~
-       7: ' 7 G W g w     7: %  /  9  C  M  W  a  k   u  DEL
-       8: ( 8 H X h x     8: &  0  :  D  N  X  b  l   v
-       9: ) 9 I Y i y     9: '  1  ;  E  O  Y  c  m   w
-       A: * : J Z j z
-       B: + ; K [ k {
-       C: , < L \ l |
-       D: - =3D M ] m }
-       E: . > N ^ n ~
-       F: / ? O _ o DEL
-
-(Yes, there is a stray pipe symbol on the same line as the subsection
-heading.[2])
-
-I've confirmed that Helge's solution works.  In principle, it is fragile
-to locales that have other sentence-ending characters, but I know of no
-such locales--none are extant in groff, pending, or requested.
-Therefore I'm +1 on this.
-
-Perhaps better changes would be to (1) have the Linux man-pages start
-using groff's EX/EE macros for this and (2) change groff's EX/EE macros
-to start doing what everyone already thinks they do, and shut off
-additional inter-sentence space (temporarily).  These would be
-supplemental to the existing proposed fix.  Having the additional `\&`
-escape sequences will cause no harm, and might be salutary examples.
-
-I noticed just last night that the iso-8859*(7) man pages have a much
-worse problem; they use raw 8-bit characters in the input, which leads
-to UTF-8 mojibake and/or confusing and incorrect character names for the
-glyphs that appear when you render one ISO 8859 encoding's page on
-another.  (man-db man(1) hides this problem, possibly by using its
-manconv(1) utility--but man pages should be written so that troff -man
-works.)  The correct thing to do is use groff special character escape
-sequences; these _name_ the desired glyph and are more robust to
-character encoding conversions (albeit requiring use of preconv(1)).
-
-Anyone have thoughts on any of the above?
-
-Regards,
-Branden
-
-[1] forthcoming in groff 1.23
-[2] This appears to be because the preceding tbl(1) table is too wide
-    for 78 columns.  I'll have a look and see if I can tweak it.  Or
-    this may be a tbl(1) bug; several have been fixed over the past
-    couple of years[3].
-[3] https://savannah.gnu.org/bugs/index.php?go_report=3DApply&group=3Dgroff=
-&func=3D&set=3Dcustom&msort=3D0&report_id=3D101&advsrch=3D0&status_id=3D3&r=
-esolution_id=3D1&submitted_by=3D0&assigned_to=3D0&category_id=3D109&bug_gro=
-up_id=3D0&severity=3D0&summary=3D&details=3D&sumORdet=3D0&history_search=3D=
-0&history_field=3D0&history_event=3Dmodified&history_date_dayfd=3D14&histor=
-y_date_monthfd=3D3&history_date_yearfd=3D2022&chunksz=3D50&spamscore=3D5&bo=
-xoptionwanted=3D1#options
-
---mj7r5vhaf7f6oxro
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmIukdwACgkQ0Z6cfXEm
-bc4DoA//XRQK6V/ka/SSHD96ATkY2wLi1nlqnUpcd7DUt9UAmPiDzKA06r/Q+Vd9
-tXGR1bDj7QV31odkoyK68y/ZSMTTh/VfW0pK0Fj1phOMmPSBudBykxlUtDWQORud
-lALD9fy1yttevOFtbDxUa5A1o2/j3LOEK1ST31GlRylBuNAk+7FnoFQJSAjLOYQJ
-3xq+V7jGeEmAUksPLlL5rtSf43p8kUQHu+4T2706PD4EbrcqWF/ggrQBn8vh7HXm
-cNZMKJ0AmRgnRO+l4tr1Y3QAG6YhAl51Grg8jYDK8fGfTUUijLEvZCGdXDNnJDQh
-7gcB5ySu2DVT2Wyzjwri0kXfv8pzWLZcsF1MVXPtb9ZOYgu0Vy24LdojaVeQhx0X
-jUT2sJe8sUM76wpKrU2PTa5XdTbwvx8LfLu/0MCRCWl6mL/akYGzCmnEGMFgyLKJ
-zzsImMorng2Dzyzt+oz5cur1FoheLmW5dqQmG2OICGNNo/zKjrby3cqN6FTF/IWg
-jElQbUnbTzmCgBkl3y39yLalWt+brvvZHHamvDNj9ISkW4SqO9YwXCfjiH9zcvvU
-sBz4GNoncByXPq94/WAAsce9xXz8gH/b1P89LjXDKuTrWb18GoNfb5pDShRjmCTq
-EyZN2LRrtcvnU2jsFlWHCijTFVmfRAW/zTwbV8D+AlxjAW2WsVc=
-=PnkN
------END PGP SIGNATURE-----
-
---mj7r5vhaf7f6oxro--
+RnJvbSAzMzYxMTNiYzBkMmVhNjZkNDRhOWYxZmI3ZGVlMDZiMDRlMWNiOGRhIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBDcmFpZyBSaW5nZXIgPGNyYWlnLnJpbmdlckAybmRxdWFkcmFu
+dC5jb20+CkRhdGU6IE1vbiwgMTQgTWFyIDIwMjIgMTM6NTI6MjggKzA4MDAKU3ViamVjdDogW1BB
+VENIIHYxIDQvNF0gQWRkaXRpb25hbCBuYW1lc3BhY2VzIHJlbGF0ZWQgeC1yZWZzCgpTaWduZWQt
+b2ZmLWJ5OiBDcmFpZyBSaW5nZXIgPGNyYWlnLnJpbmdlckAybmRxdWFkcmFudC5jb20+Ci0tLQog
+bWFuNS9wcm9jLjUgICAgICAgICAgICAgfCA5ICsrKysrKysrKwogbWFuNy9tb3VudF9uYW1lc3Bh
+Y2VzLjcgfCAxICsKIG1hbjcvcGlkX25hbWVzcGFjZXMuNyAgIHwgMiArKwogMyBmaWxlcyBjaGFu
+Z2VkLCAxMiBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvbWFuNS9wcm9jLjUgYi9tYW41L3By
+b2MuNQppbmRleCA4NzQ0NWZkNTUuLmRiYzA2NDk5NiAxMDA2NDQKLS0tIGEvbWFuNS9wcm9jLjUK
+KysrIGIvbWFuNS9wcm9jLjUKQEAgLTE1MzksNiArMTUzOSwxMCBAQCBwcm9jZXNzJ3MgbW91bnQg
+bmFtZXNwYWNlIChzZWUKIFRoZSBmb3JtYXQgb2YgdGhpcyBmaWxlIGlzIGRvY3VtZW50ZWQgaW4K
+IC5CUiBmc3RhYiAoNSkuCiAuSVAKKy5CUiAvcHJvYy9bcGlkXS9tb3VudGluZm8KK3Byb3ZpZGVz
+IG1vcmUgZGV0YWlsIHRoYW4KKy5CUiAvcHJvYy9bcGlkXS9tb3VudHMgIi4iCisuSVAKIFNpbmNl
+IGtlcm5lbCB2ZXJzaW9uIDIuNi4xNSwgdGhpcyBmaWxlIGlzIHBvbGxhYmxlOgogYWZ0ZXIgb3Bl
+bmluZyB0aGUgZmlsZSBmb3IgcmVhZGluZywgYSBjaGFuZ2UgaW4gdGhpcyBmaWxlCiAoaS5lLiwg
+YSBmaWxlc3lzdGVtIG1vdW50IG9yIHVubW91bnQpIGNhdXNlcwpAQCAtMjA5OSw2ICsyMTAzLDEx
+IEBAIFRoaXMgaXMgdXNlZCBieQogSXQgaXMgZGVmaW5lZCBpbiB0aGUga2VybmVsIHNvdXJjZSBm
+aWxlCiAuSVIgZnMvcHJvYy9hcnJheS5jICIuIgogLklQCitUaGUgbmV3ZXIKKy5CIC9wcm9jL1tw
+aWRdL3N0YXR1cworcHJvdmlkZXMgbW9yZSBkZXRhaWxzIGFuZCBpcyBlYXNpZXIgdG8gdXNlIHRo
+YW4KKy5CIC9wcm9jL1twaWRdL3N0YXQgIi4iCisuSVAKIFRoZSBmaWVsZHMsIGluIG9yZGVyLCB3
+aXRoIHRoZWlyIHByb3BlcgogLkJSIHNjYW5mICgzKQogZm9ybWF0IHNwZWNpZmllcnMsIGFyZSBs
+aXN0ZWQgYmVsb3cuCmRpZmYgLS1naXQgYS9tYW43L21vdW50X25hbWVzcGFjZXMuNyBiL21hbjcv
+bW91bnRfbmFtZXNwYWNlcy43CmluZGV4IDk4YmZkODY0Yy4uZDIwNmQ0YmMxIDEwMDY0NAotLS0g
+YS9tYW43L21vdW50X25hbWVzcGFjZXMuNworKysgYi9tYW43L21vdW50X25hbWVzcGFjZXMuNwpA
+QCAtMTM0NCw2ICsxMzQ0LDcgQEAgU2VlCiAuQlIgcGl2b3Rfcm9vdCAoMikuCiAuU0ggU0VFIEFM
+U08KIC5CUiB1bnNoYXJlICgxKSwKKy5CUiBuc2VudGVyICgxKSwKIC5CUiBjbG9uZSAoMiksCiAu
+QlIgbW91bnQgKDIpLAogLkJSIG1vdW50X3NldGF0dHIgKDIpLApkaWZmIC0tZ2l0IGEvbWFuNy9w
+aWRfbmFtZXNwYWNlcy43IGIvbWFuNy9waWRfbmFtZXNwYWNlcy43CmluZGV4IDUyYTQwZjU0NC4u
+ZjIwMmZlZWRjIDEwMDY0NAotLS0gYS9tYW43L3BpZF9uYW1lc3BhY2VzLjcKKysrIGIvbWFuNy9w
+aWRfbmFtZXNwYWNlcy43CkBAIC00MzYsMyArNDM2LDUgQEAgU2VlCiAuQlIgbmFtZXNwYWNlcyAo
+NyksCiAuQlIgdXNlcl9uYW1lc3BhY2VzICg3KSwKIC5CUiBzd2l0Y2hfcm9vdCAoOCkKKy5CUiBu
+c2VudGVyICgxKQorLkJSIHVuc2hhcmUoMSkKLS0gCjIuMzQuMQoK
+--000000000000a85e1305da278a59--
