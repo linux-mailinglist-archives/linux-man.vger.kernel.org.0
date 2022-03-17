@@ -2,70 +2,74 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 6E3BA4DCFDF
-	for <lists+linux-man@lfdr.de>; Thu, 17 Mar 2022 22:03:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E47294DD041
+	for <lists+linux-man@lfdr.de>; Thu, 17 Mar 2022 22:34:44 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229980AbiCQVEU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 17 Mar 2022 17:04:20 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34700 "EHLO
+        id S230311AbiCQVgA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 17 Mar 2022 17:36:00 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55820 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229966AbiCQVET (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 17 Mar 2022 17:04:19 -0400
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com [IPv6:2a00:1450:4864:20::334])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 18F6239141;
-        Thu, 17 Mar 2022 14:03:02 -0700 (PDT)
-Received: by mail-wm1-x334.google.com with SMTP id bg31-20020a05600c3c9f00b00381590dbb33so3811729wmb.3;
-        Thu, 17 Mar 2022 14:03:02 -0700 (PDT)
+        with ESMTP id S230232AbiCQVf7 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 17 Mar 2022 17:35:59 -0400
+Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com [IPv6:2607:f8b0:4864:20::102a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 775371AE62D
+        for <linux-man@vger.kernel.org>; Thu, 17 Mar 2022 14:34:42 -0700 (PDT)
+Received: by mail-pj1-x102a.google.com with SMTP id o68-20020a17090a0a4a00b001c686a48263so1729418pjo.1
+        for <linux-man@vger.kernel.org>; Thu, 17 Mar 2022 14:34:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=sWH98ePusS475I2YzPAj3+F+ANc8EoUJlmN7RbnIJpg=;
-        b=WTUveGQ4vnKmfY2iG6powMUX4vafmrzDKbZzR6eX4C6YRScgRbWi0o3CpXnzIAuejm
-         rLAvTO7oT1s8kPXUE3USxOU7Zvs5jU27f7XmWfYzV92NGbUYxBDQMES3cKdKF3ao9k3H
-         XOzC7gwPLfJEfvj0ERNn1MMab1Ipr3KvJF9V7ZUEZoh9H5UI+C91F3xhbM5YvwB1T8Hj
-         XoEz9gS7SFy2se/i1uqbPsU37ZdjvXtW/grkdADlILHe7GMMt51hux1DD2VTF7ahQXXl
-         ZKB3uy1JRVnvKZt5BINxzbKNqe4gsRKWEuyTQkQHdWtTvDce6xIiiOXUXrc8DLawAwd8
-         XcMg==
+        d=google.com; s=20210112;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=5S6dVhkWAZf2dxqyt5ewkbBphe4+GzQf8csGtwvhQhc=;
+        b=FsJpNkeOEKBNKzNf5bOgVE3qElvLd8vrecxaRsWDu1fg/uBA/9AAWAzdXfpOWsIMtL
+         5YEKGoxWYUTMHhq/CoV2nc6W0JZ/c9Wbf/7f08PIc/uLreqhRWZ9jowcvKyPASWzDpLQ
+         uY/RDU2OvZyWk7IYcFUXRLoRkJrr/Tl7ZOvM6wUtFbsZI3iPXFTSo5QFwpwibKCqzHrf
+         VUG9vLU9eZPx7Ezfr0PahausZd7ybGxJ5VRn0Pz+w6ZL2gqEWpbo8RlyIrWE1WuJgFG/
+         K/u5RJU6w5ROZKZGeH2qgPQdJYvUtwPX2HkNL+zKL6K5a0QOeoLqekkmmk0u0spRB73k
+         S7sw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=sWH98ePusS475I2YzPAj3+F+ANc8EoUJlmN7RbnIJpg=;
-        b=Bl8Hbg2mTqh+6ePsyw6xIvRovZiiu3IBA+g42My8Q1UJWa6cXrtDXMVAaiKgoaP962
-         DzvGtkGdo5dWi4XNhxavM0NkQa5CYJgDyp1KY3DKQ547QnslcRG4nxFFVWHqwksHMGnB
-         lco0IDopAVC8qwIhbwWaYocKmLkKfaXBzGTq04HJM0R2JwcM2+Ugg/9v4vPRKpcevZlO
-         fxmAqggvtec+KKb3NC1w7iINHyKhjJx0QRzO/X81hlEx+PCBD/if10Xu92LU32OmYGd/
-         KkBxdSRgZKzYRMdzBc3BwiPVNu1+Jia7agFGyWj1LLlvTyvHPAt353Vr0JY4SzDW+VNV
-         2Gwg==
-X-Gm-Message-State: AOAM531ya0/zAnKHVxkYTr9qd5NiLbCNcz+X+kbplyswqosz0sJFbEEW
-        aFi0P8Guse3lh7TVQfbVnes=
-X-Google-Smtp-Source: ABdhPJwjAPc3j2I0qZweqm2xtyZgAsjXy1JlQLeuhzU9G50LDOw14+eNFsX7sH7K8XUSBjfPnpt9Tw==
-X-Received: by 2002:a7b:c341:0:b0:37b:ed90:7dad with SMTP id l1-20020a7bc341000000b0037bed907dadmr5499035wmj.138.1647550980565;
-        Thu, 17 Mar 2022 14:03:00 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id 189-20020a1c02c6000000b0038c57df82aasm5314242wmc.20.2022.03.17.14.02.59
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 17 Mar 2022 14:03:00 -0700 (PDT)
-Message-ID: <bebd3a92-0828-9e7e-d6b0-51b75e45a124@gmail.com>
-Date:   Thu, 17 Mar 2022 22:02:59 +0100
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=5S6dVhkWAZf2dxqyt5ewkbBphe4+GzQf8csGtwvhQhc=;
+        b=GKJCNXglzV9aO129DABGE0EL38MmY+ipIspF6qVy7d/sSjXlpeJyR9OrT8+FRqvdqa
+         vW5rNPW3M6/VZv/eP3ZDyMVmGx0GnqgNDr856JlSMGp2CO5FkqJWZawdBXz/1LKU93Dq
+         o/RymjjeT8HYPCmqBoO9M2vmQkMRoji1fajpNN8Ni4Fm0AGyMwOZ3bswlFbrwjg/+rVy
+         oiFIacZsUbhmtu3I+ma+FQ6RfKoEGhZAvalfG75tuEv0+v3GK/Kj+NlpVjM21Uf/Xdx5
+         kKeVQktiOy4EA6dRD4yVwgAwNk3Pii529H/cePOkoVXo+VVA2zqNU/86w5j3WJyV/HNr
+         nTmQ==
+X-Gm-Message-State: AOAM531XgmYjNRhtn6l8/tRnc82hgbF4vZn4PyMqXLxsaZPDwXe/UmEI
+        lQdo3kyvLxQUBGZ39ku6rGnQBw==
+X-Google-Smtp-Source: ABdhPJzscIC5m5VbA/IjQUAMu0iv9bpmxfk2Jhm3zYYwxEFgZLGjMOwJaGe3Y678NOJylK2MPjWw5Q==
+X-Received: by 2002:a17:90a:19d2:b0:1be:d815:477f with SMTP id 18-20020a17090a19d200b001bed815477fmr7784621pjj.23.1647552881617;
+        Thu, 17 Mar 2022 14:34:41 -0700 (PDT)
+Received: from google.com ([2401:fa00:9:211:15ac:a3e9:6f84:adfb])
+        by smtp.gmail.com with ESMTPSA id m11-20020a17090a3f8b00b001bc299e0aefsm10213242pjc.56.2022.03.17.14.34.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Mar 2022 14:34:41 -0700 (PDT)
+Date:   Fri, 18 Mar 2022 08:34:30 +1100
+From:   Matthew Bobrowski <repnop@google.com>
+To:     Amir Goldstein <amir73il@gmail.com>
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        linux-man <linux-man@vger.kernel.org>, Jan Kara <jack@suse.cz>,
+        Gabriel Krisman Bertazi <krisman@collabora.com>
+Subject: Re: [PATCH 0/1] fanotify: Document FAN_REPORT_PIDFD Feature
+Message-ID: <YjOpZlqLgbkzUQvx@google.com>
+References: <cover.1635135968.git.repnop@google.com>
+ <CAOQ4uxhUpnDVT6T-aGz2B_XUpRojJhVZG8Fw6XNegsWzXt+pDw@mail.gmail.com>
+ <YZt8nVu1Ze4vHGdr@google.com>
+ <CAOQ4uxhFWAfodZ=upZmBXgGkoGRaGF1rk0V2nVgHc0dBxSEP7g@mail.gmail.com>
+ <YZx4+NumHKWsuA7o@google.com>
+ <CAOQ4uxhmX9sgfgqFamcPRhwGnSi++mScgSOnTNL4JrhkOV3EKQ@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Subject: Re: [PATCH] madvise.2: update EINVAL return info
-Content-Language: en-US
-To:     Charan Teja Reddy <quic_charante@quicinc.com>
-Cc:     linux-man@vger.kernel.org, linux-kernel@vger.kernel.org,
-        minchan@kernel.org, nadav.amit@gmail.com, mtk.manpages@gmail.com
-References: <1647442320-7261-1-git-send-email-quic_charante@quicinc.com>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-In-Reply-To: <1647442320-7261-1-git-send-email-quic_charante@quicinc.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAOQ4uxhmX9sgfgqFamcPRhwGnSi++mScgSOnTNL4JrhkOV3EKQ@mail.gmail.com>
+X-Spam-Status: No, score=-17.6 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+        ENV_AND_HDR_SPF_MATCH,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+        T_SCC_BODY_TEXT_LINE,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL
         autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -73,49 +77,100 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hellp Charan,
+Hey Amir,
 
-On 3/16/22 15:52, Charan Teja Reddy wrote:
-> MADV_COLD and MADV_PAGEOUT advises on an address range which includes
-> locked, Huge TLB pages or VM_PFNMAP pages can return EINVAL. Update the
-> man pages accordingly.
+On Thu, Mar 17, 2022 at 12:09:45PM +0200, Amir Goldstein wrote:
+> On Tue, Nov 23, 2021 at 7:15 AM Matthew Bobrowski <repnop@google.com> wrote:
+> >
+> > On Mon, Nov 22, 2021 at 03:37:30PM +0200, Amir Goldstein wrote:
+> > > On Mon, Nov 22, 2021 at 1:19 PM Matthew Bobrowski <repnop@google.com> wrote:
+> > > >
+> > > > On Sat, Nov 20, 2021 at 12:36:26PM +0200, Amir Goldstein wrote:
+> > > > > On Wed, Oct 27, 2021 at 12:28 PM Matthew Bobrowski <repnop@google.com> wrote:
+> > > > > >
+> > > > > > Hi Michael,
+> > > > > >
+> > > > > > This patch series documents the new FAN_REPORT_PIDFD feature that is
+> > > > > > available from v5.15.
+> > > > > >
+> > > > > > Note that this patch series is diffbased against the FANOTIFY_UNPRIV
+> > > > > > [0, 1] man page updates that are yet to be merged with upstream. That
+> > > > > > said, if you could please merge the FANOTIFY_UNPRIV updates first
+> > > > > > followed by the FAN_REPORT_PIDFD updates, that would be much
+> > > > > > appreciated.
+> > > > > >
+> > > > > > [0] https://lore.kernel.org/linux-man/20210318160817.3586288-1-amir73il@gmail.com/
+> > > > > > [1] https://github.com/amir73il/man-pages/commits/fanotify_unpriv
+> > > > > >
+> > > > >
+> > > > > Alejandro,
+> > > > >
+> > > > > Is there any changes of getting those long due 5.13 fanotify update
+> > > > > patches merged?
+> > > > >
+> > > > > Matthew,
+> > > > >
+> > > > > For v2 please base your own fanotify_pidfd branch on top of fanotify_unpriv
+> > > > > (I just rebased it to master again) and provide a branch, that Gabriel
+> > > > > and I could
+> > > > > base the next man page updates on.
+> > > > >
+> > > > > Currently, neither your fanotify_pidfd patch nor Gabriel's fan-fs-error patch
+> > > > > conflict with fanotify_unpriv changes, but fan-fs-error does have conflicts
+> > > > > with fanotify_pidfd.
+> > > >
+> > > > ACK.
+> > > >
+> > > > As per request, v2 of the FAN_REPORT_PIDFD documentation can be found
+> > > > here [0].
+> > > >
+> > > > The branch fanotify_pidfd_v2 is based off your fanotify_unpriv
+> > > > branch. I'd like to post through this series at some point tomorrow,
+> > > > so if you could PTAL in the interim, that'd be appreciated.
+> > > >
+> > > > I've incorporated the explicit documentation of the
+> > > > fanotify_event_info_header structure, rather than duplicating field
+> > > > explanations of such a structure across each information record types
+> > > > as we had discussed.
+> > > >
+> > > > [0] https://github.com/matthewbobrowski/man-pages/tree/fanotify_pidfd_v2
+> > > >
+> > >
+> > > Hi Mattew,
+> > >
+> > > I'm basically fine with most of the text in the sections, but
+> > > the sections need some reordering IMO to make more sense.
+> > > High level, I think it should look something like:
+> >
+> > Right, I had thought that the ordering might need some work, thanks
+> > for pulling this up.
+> >
+> > > - "...the read buffer contains one or more struct fanotify_event_metadata..."
+> > > - Text about several optional information records in event
+> > > - Explain about fanotify_event_info_header and info_type
+> > > - List of fanotify_event_info_* that belong to specific info types
+> > >
+> > > Commented in github.
+> >
+> > OK, I think this will make more sense when I read through the comments
+> > on GitHub. I'll get around to this tonight/tomorrow.
+> >
 > 
-> Reported-by: Nadav Amit <nadav.amit@gmail.com>
-> Signed-off-by: Charan Teja Reddy <quic_charante@quicinc.com>
-
-Patch applied.
-
-Thanks,
-
-Alex
-
-> ---
->  man2/madvise.2 | 10 ++++++++++
->  1 file changed, 10 insertions(+)
+> Hi Matthew,
 > 
-> diff --git a/man2/madvise.2 b/man2/madvise.2
-> index f1f384c..ab98a87 100644
-> --- a/man2/madvise.2
-> +++ b/man2/madvise.2
-> @@ -505,6 +505,16 @@ is not a valid.
->  .B EINVAL
->  .I advice
->  is
-> +.BR MADV_COLD
-> +or
-> +.BR MADV_PAGEOUT
-> +and the specified address range includes locked, Huge TLB pages, or
-> +.B VM_PFNMAP
-> +pages.
-> +.TP
-> +.B EINVAL
-> +.I advice
-> +is
->  .B MADV_DONTNEED
->  or
->  .BR MADV_REMOVE
+> Did you ever get the chance to work on those edits?
+> If you do not have time for this please let us know so that somebody can
+> pick up this work and unclog the queue of man-page updates sitting on top
+> of your branch:
+> 
+> https://github.com/amir73il/man-pages/commits/fan-fs-error
+> https://github.com/amir73il/man-pages/commits/fan_rename
 
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+I've been on parental leave for the last couple of months so I haven't
+really had a chance to wrap the pending man-pages updates up. Now that
+I'm back, I'll get the refactoring completed and sent through for
+review.
+
+Sorry about the delay on this.
+
+/M
