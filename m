@@ -2,74 +2,65 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id E47294DD041
-	for <lists+linux-man@lfdr.de>; Thu, 17 Mar 2022 22:34:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id AA1974DD259
+	for <lists+linux-man@lfdr.de>; Fri, 18 Mar 2022 02:18:01 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230311AbiCQVgA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 17 Mar 2022 17:36:00 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55820 "EHLO
+        id S231443AbiCRBTQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 17 Mar 2022 21:19:16 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52544 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230232AbiCQVf7 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 17 Mar 2022 17:35:59 -0400
-Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com [IPv6:2607:f8b0:4864:20::102a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 775371AE62D
-        for <linux-man@vger.kernel.org>; Thu, 17 Mar 2022 14:34:42 -0700 (PDT)
-Received: by mail-pj1-x102a.google.com with SMTP id o68-20020a17090a0a4a00b001c686a48263so1729418pjo.1
-        for <linux-man@vger.kernel.org>; Thu, 17 Mar 2022 14:34:42 -0700 (PDT)
+        with ESMTP id S231440AbiCRBTP (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 17 Mar 2022 21:19:15 -0400
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com [IPv6:2a00:1450:4864:20::434])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D88D44B439
+        for <linux-man@vger.kernel.org>; Thu, 17 Mar 2022 18:17:57 -0700 (PDT)
+Received: by mail-wr1-x434.google.com with SMTP id j17so9856973wrc.0
+        for <linux-man@vger.kernel.org>; Thu, 17 Mar 2022 18:17:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20210112;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=5S6dVhkWAZf2dxqyt5ewkbBphe4+GzQf8csGtwvhQhc=;
-        b=FsJpNkeOEKBNKzNf5bOgVE3qElvLd8vrecxaRsWDu1fg/uBA/9AAWAzdXfpOWsIMtL
-         5YEKGoxWYUTMHhq/CoV2nc6W0JZ/c9Wbf/7f08PIc/uLreqhRWZ9jowcvKyPASWzDpLQ
-         uY/RDU2OvZyWk7IYcFUXRLoRkJrr/Tl7ZOvM6wUtFbsZI3iPXFTSo5QFwpwibKCqzHrf
-         VUG9vLU9eZPx7Ezfr0PahausZd7ybGxJ5VRn0Pz+w6ZL2gqEWpbo8RlyIrWE1WuJgFG/
-         K/u5RJU6w5ROZKZGeH2qgPQdJYvUtwPX2HkNL+zKL6K5a0QOeoLqekkmmk0u0spRB73k
-         S7sw==
+        d=gmail.com; s=20210112;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=kIob4LFaoLlx8+700bZpjjyR8OP5xTd41nK4QpM5wZw=;
+        b=DB6Y/Ogk3NwbTc4+eDuuDrvVl6zrGlRhSr5/3zSl7TgR8y3XUSMsMUaNIZjeJ5DTSR
+         P0TYTL2dMnmwUFfsxm3SLc5BWrHGgAIRKILak4CSF4fD0/pFRAeqtORvz9wU24I8KicT
+         mwWJWSbv/m2JWb7PWrgwvu2+PJuOurgP7Q4+YXnww2veXLamep2wyxbDeqoJxEWqbXsU
+         BjreJfLkHIlClv6OH6ccgDddRUpbAMEg/hvf3ZauPai/LuN8D4ui6wXbtjkJanisckrr
+         +eekzxFtj//sPDP45z8cM4+ypDKe2Ol4iprboLBR35tGDXknGEC/umIOb52S6nXmv5Ep
+         ahhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=5S6dVhkWAZf2dxqyt5ewkbBphe4+GzQf8csGtwvhQhc=;
-        b=GKJCNXglzV9aO129DABGE0EL38MmY+ipIspF6qVy7d/sSjXlpeJyR9OrT8+FRqvdqa
-         vW5rNPW3M6/VZv/eP3ZDyMVmGx0GnqgNDr856JlSMGp2CO5FkqJWZawdBXz/1LKU93Dq
-         o/RymjjeT8HYPCmqBoO9M2vmQkMRoji1fajpNN8Ni4Fm0AGyMwOZ3bswlFbrwjg/+rVy
-         oiFIacZsUbhmtu3I+ma+FQ6RfKoEGhZAvalfG75tuEv0+v3GK/Kj+NlpVjM21Uf/Xdx5
-         kKeVQktiOy4EA6dRD4yVwgAwNk3Pii529H/cePOkoVXo+VVA2zqNU/86w5j3WJyV/HNr
-         nTmQ==
-X-Gm-Message-State: AOAM531XgmYjNRhtn6l8/tRnc82hgbF4vZn4PyMqXLxsaZPDwXe/UmEI
-        lQdo3kyvLxQUBGZ39ku6rGnQBw==
-X-Google-Smtp-Source: ABdhPJzscIC5m5VbA/IjQUAMu0iv9bpmxfk2Jhm3zYYwxEFgZLGjMOwJaGe3Y678NOJylK2MPjWw5Q==
-X-Received: by 2002:a17:90a:19d2:b0:1be:d815:477f with SMTP id 18-20020a17090a19d200b001bed815477fmr7784621pjj.23.1647552881617;
-        Thu, 17 Mar 2022 14:34:41 -0700 (PDT)
-Received: from google.com ([2401:fa00:9:211:15ac:a3e9:6f84:adfb])
-        by smtp.gmail.com with ESMTPSA id m11-20020a17090a3f8b00b001bc299e0aefsm10213242pjc.56.2022.03.17.14.34.38
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=kIob4LFaoLlx8+700bZpjjyR8OP5xTd41nK4QpM5wZw=;
+        b=B6VwY33fOP8BgB6uHnJygj4X9ClNr07OLVpkI9om4ZzPWBbLApQPHViQ/lx75VtB6Z
+         I6OFeCqHn/uiPHm+GPfOyn7+kMY7x8hxQQY8RACHDMg/dqU4cM5yw48THg11pa528Akx
+         /Xq3o8GA7wEKg8UY7zMTBmhjZJv/o5HEjCYskR8hZruT81kcC4NvCK1ON++Eg224nnr1
+         Pb6quu1VMFUy67sr7GlwqrFk5w01bLKJVnSoacLawPo6++aUmOlTGOraBoclbt1h7hve
+         WAyI9BAWmbeMd6xEuCmuh/t53aO1Y+BTs3TdHakDUcKqT5OqmBGVcgo6Va0ltdHYhYCg
+         eQeA==
+X-Gm-Message-State: AOAM530uDvZ3MXRKmrn4BUwXeZ3LgFv2QgcPkXFZohiIecZP171MEf8Q
+        FBhMcYngJp10Jnv8n2XwNJea9WIy9g2Ur67Y
+X-Google-Smtp-Source: ABdhPJwc3uNlGp5LGF4mBHchgGkF+iP8nCuGGTOQOG9t5h+/M37IKND4vO0kGKrMlnnIiihBmsSWgg==
+X-Received: by 2002:adf:fc43:0:b0:203:d867:9fe5 with SMTP id e3-20020adffc43000000b00203d8679fe5mr6178151wrs.272.1647566276309;
+        Thu, 17 Mar 2022 18:17:56 -0700 (PDT)
+Received: from localhost.localdomain ([170.253.36.171])
+        by smtp.googlemail.com with ESMTPSA id i10-20020a5d584a000000b00203e8019f2dsm2979513wrf.61.2022.03.17.18.17.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Mar 2022 14:34:41 -0700 (PDT)
-Date:   Fri, 18 Mar 2022 08:34:30 +1100
-From:   Matthew Bobrowski <repnop@google.com>
-To:     Amir Goldstein <amir73il@gmail.com>
+        Thu, 17 Mar 2022 18:17:56 -0700 (PDT)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+To:     Michael Kerrisk <mtk.manpages@gmail.com>,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>, Jan Kara <jack@suse.cz>,
-        Gabriel Krisman Bertazi <krisman@collabora.com>
-Subject: Re: [PATCH 0/1] fanotify: Document FAN_REPORT_PIDFD Feature
-Message-ID: <YjOpZlqLgbkzUQvx@google.com>
-References: <cover.1635135968.git.repnop@google.com>
- <CAOQ4uxhUpnDVT6T-aGz2B_XUpRojJhVZG8Fw6XNegsWzXt+pDw@mail.gmail.com>
- <YZt8nVu1Ze4vHGdr@google.com>
- <CAOQ4uxhFWAfodZ=upZmBXgGkoGRaGF1rk0V2nVgHc0dBxSEP7g@mail.gmail.com>
- <YZx4+NumHKWsuA7o@google.com>
- <CAOQ4uxhmX9sgfgqFamcPRhwGnSi++mScgSOnTNL4JrhkOV3EKQ@mail.gmail.com>
+        linux-man@vger.kernel.org
+Subject: [PATCH] Makefile, etc/groff/tmac/deadly.tmac: Add lint and lint-groff targets
+Date:   Fri, 18 Mar 2022 02:17:53 +0100
+Message-Id: <20220318011753.96759-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAOQ4uxhmX9sgfgqFamcPRhwGnSi++mScgSOnTNL4JrhkOV3EKQ@mail.gmail.com>
-X-Spam-Status: No, score=-17.6 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-        ENV_AND_HDR_SPF_MATCH,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
-        T_SCC_BODY_TEXT_LINE,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
         autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -77,100 +68,171 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hey Amir,
+'lint' is a metatarget that triggers all lint-* targets (currently
+that is just 'lint-groff').
+'lint-groff' is a target that runs groff -rCHECKSTYLE to check
+manual pages' groff(7) correctness.
 
-On Thu, Mar 17, 2022 at 12:09:45PM +0200, Amir Goldstein wrote:
-> On Tue, Nov 23, 2021 at 7:15 AM Matthew Bobrowski <repnop@google.com> wrote:
-> >
-> > On Mon, Nov 22, 2021 at 03:37:30PM +0200, Amir Goldstein wrote:
-> > > On Mon, Nov 22, 2021 at 1:19 PM Matthew Bobrowski <repnop@google.com> wrote:
-> > > >
-> > > > On Sat, Nov 20, 2021 at 12:36:26PM +0200, Amir Goldstein wrote:
-> > > > > On Wed, Oct 27, 2021 at 12:28 PM Matthew Bobrowski <repnop@google.com> wrote:
-> > > > > >
-> > > > > > Hi Michael,
-> > > > > >
-> > > > > > This patch series documents the new FAN_REPORT_PIDFD feature that is
-> > > > > > available from v5.15.
-> > > > > >
-> > > > > > Note that this patch series is diffbased against the FANOTIFY_UNPRIV
-> > > > > > [0, 1] man page updates that are yet to be merged with upstream. That
-> > > > > > said, if you could please merge the FANOTIFY_UNPRIV updates first
-> > > > > > followed by the FAN_REPORT_PIDFD updates, that would be much
-> > > > > > appreciated.
-> > > > > >
-> > > > > > [0] https://lore.kernel.org/linux-man/20210318160817.3586288-1-amir73il@gmail.com/
-> > > > > > [1] https://github.com/amir73il/man-pages/commits/fanotify_unpriv
-> > > > > >
-> > > > >
-> > > > > Alejandro,
-> > > > >
-> > > > > Is there any changes of getting those long due 5.13 fanotify update
-> > > > > patches merged?
-> > > > >
-> > > > > Matthew,
-> > > > >
-> > > > > For v2 please base your own fanotify_pidfd branch on top of fanotify_unpriv
-> > > > > (I just rebased it to master again) and provide a branch, that Gabriel
-> > > > > and I could
-> > > > > base the next man page updates on.
-> > > > >
-> > > > > Currently, neither your fanotify_pidfd patch nor Gabriel's fan-fs-error patch
-> > > > > conflict with fanotify_unpriv changes, but fan-fs-error does have conflicts
-> > > > > with fanotify_pidfd.
-> > > >
-> > > > ACK.
-> > > >
-> > > > As per request, v2 of the FAN_REPORT_PIDFD documentation can be found
-> > > > here [0].
-> > > >
-> > > > The branch fanotify_pidfd_v2 is based off your fanotify_unpriv
-> > > > branch. I'd like to post through this series at some point tomorrow,
-> > > > so if you could PTAL in the interim, that'd be appreciated.
-> > > >
-> > > > I've incorporated the explicit documentation of the
-> > > > fanotify_event_info_header structure, rather than duplicating field
-> > > > explanations of such a structure across each information record types
-> > > > as we had discussed.
-> > > >
-> > > > [0] https://github.com/matthewbobrowski/man-pages/tree/fanotify_pidfd_v2
-> > > >
-> > >
-> > > Hi Mattew,
-> > >
-> > > I'm basically fine with most of the text in the sections, but
-> > > the sections need some reordering IMO to make more sense.
-> > > High level, I think it should look something like:
-> >
-> > Right, I had thought that the ordering might need some work, thanks
-> > for pulling this up.
-> >
-> > > - "...the read buffer contains one or more struct fanotify_event_metadata..."
-> > > - Text about several optional information records in event
-> > > - Explain about fanotify_event_info_header and info_type
-> > > - List of fanotify_event_info_* that belong to specific info types
-> > >
-> > > Commented in github.
-> >
-> > OK, I think this will make more sense when I read through the comments
-> > on GitHub. I'll get around to this tonight/tomorrow.
-> >
-> 
-> Hi Matthew,
-> 
-> Did you ever get the chance to work on those edits?
-> If you do not have time for this please let us know so that somebody can
-> pick up this work and unclog the queue of man-page updates sitting on top
-> of your branch:
-> 
-> https://github.com/amir73il/man-pages/commits/fan-fs-error
-> https://github.com/amir73il/man-pages/commits/fan_rename
+etc/groff/tmac/deadly.tmac is a file written by Branden, to make
+make groff(1) abort when it finds a style problem, which then
+causes make(1) to also abort.
 
-I've been on parental leave for the last couple of months so I haven't
-really had a chance to wrap the pending man-pages updates up. Now that
-I'm back, I'll get the refactoring completed and sent through for
-review.
+CC: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+---
 
-Sorry about the delay on this.
+Hi Branden and Michael!
 
-/M
+I'm delighted to add to the man-pages a make(1) target to run Branden's
+brand new (pun not intended :)) groff(1) linter.
+
+Please have a look at it, and feel free to comment.  As I expected,
+one of the first pages linted had problems (and I am surprised for good
+that it didn't abort right in the first page):
+
+	INSTALL	tmp/lint/
+	INSTALL	tmp/lint/man0/
+	LINT (groff)	tmp/lint/man0/sysexits.h.0.lint.groff.touch
+	INSTALL	tmp/lint/man1/
+	LINT (groff)	tmp/lint/man1/getent.1.lint.groff.touch
+	LINT (groff)	tmp/lint/man1/iconv.1.lint.groff.touch
+	LINT (groff)	tmp/lint/man1/intro.1.lint.groff.touch
+	an.tmac:man1/intro.1:72: style: blank line in input
+	found style problems; aborting
+	make: *** [Makefile:244: tmp/lint/man1/intro.1.lint.groff.touch] Error 1
+
+I may start cleaning all of those one day.  Now that we have some tool
+that finds those for us, that day may be sooner than later.
+
+Branden, I'm curious to learn how/if you're using it in your own Makefile
+in groff(1).
+
+BTW, don't feel pressured by my premature usage of your unreleased feature
+to consider not changing it too much to avoid breaking this build system.
+I assume that it may change it the future when you release and will adapt
+if necessary.
+
+Cheers,
+
+Alex
+
+
+ Makefile                   | 54 +++++++++++++++++++++++++++++++++-----
+ etc/groff/tmac/deadly.tmac |  7 +++++
+ 2 files changed, 55 insertions(+), 6 deletions(-)
+ create mode 100644 etc/groff/tmac/deadly.tmac
+
+diff --git a/Makefile b/Makefile
+index f68066bec..7316b4582 100644
+--- a/Makefile
++++ b/Makefile
+@@ -29,15 +29,19 @@ MAKEFLAGS += --no-print-directory
+ MAKEFLAGS += --warn-undefined-variables
+ 
+ 
++srcdir := .
+ builddir := tmp
++LINTDIR := $(builddir)/lint
+ htmlbuilddir := $(builddir)/html
+ HTOPTS :=
+ 
+ DESTDIR :=
+ prefix := /usr/local
++SYSCONFDIR := $(srcdir)/etc
++TMACDIR := $(SYSCONFDIR)/groff/tmac
+ datarootdir := $(prefix)/share
+ docdir := $(datarootdir)/doc
+-MANDIR := $(CURDIR)
++MANDIR := $(srcdir)
+ mandir := $(datarootdir)/man
+ MAN0DIR := $(MANDIR)/man0
+ MAN1DIR := $(MANDIR)/man1
+@@ -71,12 +75,23 @@ htmldir := $(docdir)
+ htmldir_ := $(htmldir)/man
+ htmlext := .html
+ 
+-INSTALL := install
++TMACFILES            := $(sort $(shell find $(TMACDIR) -not -type d))
++TMACNAMES            := $(basename $(notdir $(TMACFILES)))
++GROFF_CHECKSTYLE_LVL := 3
++DEFAULT_GROFFFLAGS   := -man
++DEFAULT_GROFFFLAGS   += -M $(TMACDIR)
++DEFAULT_GROFFFLAGS   += $(foreach x,$(TMACNAMES),-m $(x))
++DEFAULT_GROFFFLAGS   += -rCHECKSTYLE=$(GROFF_CHECKSTYLE_LVL)
++EXTRA_GROFFFLAGS     :=
++GROFFFLAGS           := $(DEFAULT_GROFFFLAGS) $(EXTRA_GROFFFLAGS)
++
++INSTALL      := install
+ INSTALL_DATA := $(INSTALL) -m 644
+-INSTALL_DIR := $(INSTALL) -m 755 -d
+-RM := rm
+-RMDIR := rmdir --ignore-fail-on-non-empty
+-MAN2HTML := man2html
++INSTALL_DIR  := $(INSTALL) -m 755 -d
++RM           := rm
++RMDIR        := rmdir --ignore-fail-on-non-empty
++GROFF        := groff
++MAN2HTML     := man2html
+ 
+ MAN_SECTIONS := 0 1 2 3 4 5 6 7 8
+ 
+@@ -132,9 +147,11 @@ _man5pages := $(filter %$(man5ext),$(_manpages))
+ _man6pages := $(filter %$(man6ext),$(_manpages))
+ _man7pages := $(filter %$(man7ext),$(_manpages))
+ _man8pages := $(filter %$(man8ext),$(_manpages))
++LINT_groff := $(patsubst $(MANDIR)/%,$(LINTDIR)/%.lint.groff.touch,$(MANPAGES))
+ 
+ MANDIRS   := $(sort $(shell find $(MANDIR)/man? -type d))
+ HTMLDIRS  := $(patsubst $(MANDIR)/%,$(htmlbuilddir)/%/.,$(MANDIRS))
++LINTDIRS  := $(patsubst $(MANDIR)/%,$(LINTDIR)/%/.,$(MANDIRS))
+ _htmldirs := $(patsubst $(htmlbuilddir)/%,$(DESTDIR)$(htmldir_)/%,$(HTMLDIRS))
+ _mandirs  := $(patsubst $(MANDIR)/%,$(DESTDIR)$(mandir)/%/.,$(MANDIRS))
+ _man0dir  := $(filter %man0/.,$(_mandirs))
+@@ -216,6 +233,31 @@ uninstall-man: $(_mandir_rmdir) $(uninstall_manX)
+ 	@:
+ 
+ 
++########################################################################
++# lint
++
++linters := groff
++lint    := $(foreach x,$(linters),lint-$(x))
++
++$(LINT_groff): $(LINTDIR)/%.lint.groff.touch: $(MANDIR)/% | $$(@D)/.
++	$(info LINT (groff)	$@)
++	$(GROFF) $(GROFFFLAGS) -z $<
++	touch $@
++
++$(LINTDIRS): %/.: | $$(dir %). $(LINTDIR)/.
++
++.PHONY: lint-groff
++lint-groff: $(LINT_groff) | lintdirs
++	@:
++
++lintdirs: $(LINTDIRS)
++	@:
++
++.PHONY: lint
++lint: $(lint)
++	@:
++
++
+ ########################################################################
+ # html
+ 
+diff --git a/etc/groff/tmac/deadly.tmac b/etc/groff/tmac/deadly.tmac
+new file mode 100644
+index 000000000..b87cb6a3d
+--- /dev/null
++++ b/etc/groff/tmac/deadly.tmac
+@@ -0,0 +1,7 @@
++.am an-style-warn
++.	ds LANDMINE\"
++..
++.de end-of-input-macro
++.	if d LANDMINE .ab found style problems; aborting
++..
++.em end-of-input-macro
+-- 
+2.35.1
+
