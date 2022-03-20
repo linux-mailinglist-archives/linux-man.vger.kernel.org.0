@@ -2,173 +2,275 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 63F284E1D75
-	for <lists+linux-man@lfdr.de>; Sun, 20 Mar 2022 19:49:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 70B954E1DBD
+	for <lists+linux-man@lfdr.de>; Sun, 20 Mar 2022 21:34:55 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1343519AbiCTSvK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 20 Mar 2022 14:51:10 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34358 "EHLO
+        id S240512AbiCTUgP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 20 Mar 2022 16:36:15 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53544 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S240513AbiCTSvJ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 20 Mar 2022 14:51:09 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 10AE245AE0
-        for <linux-man@vger.kernel.org>; Sun, 20 Mar 2022 11:49:45 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id 817AC61211
-        for <linux-man@vger.kernel.org>; Sun, 20 Mar 2022 18:49:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id E19D5C36AE5
-        for <linux-man@vger.kernel.org>; Sun, 20 Mar 2022 18:49:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1647802184;
-        bh=/OJj+TLwnOu13VAhY+fRvcY3kL2EmQ6hpY2zbSBwGrA=;
-        h=From:To:Subject:Date:In-Reply-To:References:From;
-        b=MeYHomg/wIyxtWb4xujh1Exdkvz0pmi6ScfH5tzMq6h2kOCTUp2tZ/kR3SGl1halj
-         wR+wGdoqJthIRilruYWBcAz1PS70eC+7SnUs94JOIqaUTLeBr5NkapQGiZsNKtglqR
-         ma/EhCFyz85hwhXquiJQztrVgHhjSDJPcAk+e7ZUAE8SIQWsjSSg4zSwRryKPrt+jf
-         dTCEoE4G8xCBOV36Q2RX4cXNmkRI8Wn0o4Da2AvYb6ftoJ6bXlQmGARWOqk9/NeQM9
-         9FUT6zcuRk45UqoTCSmJk+qx6CcQXLu9Z55W+YqgoZhHfSzxRCXTOa0CEu+2+bgVGN
-         0EW8NeEGyc31A==
-Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
-        id CB2EFCC13AD; Sun, 20 Mar 2022 18:49:44 +0000 (UTC)
-From:   bugzilla-daemon@kernel.org
-To:     linux-man@vger.kernel.org
-Subject: [Bug 215704] Trouble locating documentation related to disk read
- timeout /sys/block/*/device/timeout OR /sys/devices/**/timeout
-Date:   Sun, 20 Mar 2022 18:49:44 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: changed
-X-Bugzilla-Watch-Reason: AssignedTo
- documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Product: Documentation
-X-Bugzilla-Component: man-pages
-X-Bugzilla-Version: unspecified
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: enhancement
-X-Bugzilla-Who: mjevans1983@gmail.com
-X-Bugzilla-Status: NEW
-X-Bugzilla-Resolution: 
-X-Bugzilla-Priority: P1
-X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: 
-Message-ID: <bug-215704-11311-rdqfz4QSjj@https.bugzilla.kernel.org/>
-In-Reply-To: <bug-215704-11311@https.bugzilla.kernel.org/>
-References: <bug-215704-11311@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
+        with ESMTP id S233463AbiCTUgP (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 20 Mar 2022 16:36:15 -0400
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com [IPv6:2a00:1450:4864:20::432])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1EA40527DA
+        for <linux-man@vger.kernel.org>; Sun, 20 Mar 2022 13:34:51 -0700 (PDT)
+Received: by mail-wr1-x432.google.com with SMTP id t11so18327808wrm.5
+        for <linux-man@vger.kernel.org>; Sun, 20 Mar 2022 13:34:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=message-id:date:mime-version:user-agent:content-language:to:from
+         :subject:content-transfer-encoding;
+        bh=tmTyTwz597UECWZVFBAlU/8gq1y8CqqpcBO4zXm82Ok=;
+        b=ncXuuC8D4Q5+45x1j4RL82/UQTu7IWLGaD6jEVuTnOfygRDNVkw3FoIJolxF8Y0Al9
+         lVy6QQFvytRUR1PZvT518OM4G+VwkSlsFDdSfAb9U1kiBibuO3Qfbdfg0KcyyzmSNUMM
+         D+ub4qKZRGEtp3Qu8buCuKw3VLaAqswu1Uy6LRG9MIrxydGRG4kZ6wNWgREu+m2aAgkY
+         d2BfJEMECaueQRc7yrtZG4227LBwIDn4C1CwDb9hcWNZVG/3nHHBmdbMse23lhu9PiHo
+         KyW9bJdWg4PTkUwNuDgdK88IsDuqihS66D5oBpPaO23kYc/0LWDMoYwFOfs4XaLtwNIc
+         DThw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:message-id:date:mime-version:user-agent
+         :content-language:to:from:subject:content-transfer-encoding;
+        bh=tmTyTwz597UECWZVFBAlU/8gq1y8CqqpcBO4zXm82Ok=;
+        b=zs4DQbcHETBqxvwgNY1Bkw0RrPnMqftELjKQiWtriqSt3i9hx2KX7neUUa2jFdDAlT
+         pwzrqaUTvwH1awQenmZiIj/tFTL9fdnODJFhCTsno/EKY+BPUc7osJ645VBt39l/s/dV
+         qmMd80WkHlrhdwG6mLGPYIz7FG7YOIed23w6ZCcTBeWA3ez6nelKQ82YLWdkbcYsXP3T
+         +YNAQYo3mZfXigS2RatZkaSXBCbS9+rSUZIaeAzeo6HyRJaYoowOs4Ib/Lf4Nu9dHOGi
+         tskomE/06+YzhzHn6e41x8lFzduVPH5zTvLDc/KcyIhNIv81CAvU0rX/uPvLHmhsEoxP
+         VBCg==
+X-Gm-Message-State: AOAM533hNf3NpIzT9Z0dQw4owudxfH4I570lWK+wTOKJky3LH44E1mHy
+        jX37E/4z8apo90/FUtfnK8/kygxocLQlX6Ry
+X-Google-Smtp-Source: ABdhPJxdyOjSnJaLCp3OSKLelASTcQ10ZxavjMMbCf+nxpwJbNZg6wkrBin7pz1meRX1mmYy7ci/kg==
+X-Received: by 2002:a5d:5704:0:b0:203:f9bb:b969 with SMTP id a4-20020a5d5704000000b00203f9bbb969mr8844145wrv.459.1647808489589;
+        Sun, 20 Mar 2022 13:34:49 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id i15-20020adffdcf000000b00203efad1d89sm12295144wrs.9.2022.03.20.13.34.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 20 Mar 2022 13:34:49 -0700 (PDT)
+Message-ID: <e4ea99a0-b65c-467f-047d-2cb466df86e7@gmail.com>
+Date:   Sun, 20 Mar 2022 21:34:47 +0100
 MIME-Version: 1.0
-X-Spam-Status: No, score=-8.0 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
-        autolearn_force=no version=3.4.6
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Content-Language: en-US
+To:     Stephen Kitt <steve@sk2.org>,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
+        linux-man <linux-man@vger.kernel.org>,
+        Ingo Schwarze <schwarze@usta.de>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Subject: Exctracting source code from EXAMPLES
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D215704
+Gidday!
 
---- Comment #1 from Michael Evans (mjevans1983@gmail.com) ---
-I should add some context.  I want the kernel ata / sd layers to handle
-unresponsive devices so that, ideally, some kind of 'this path is slow, but=
- you
-can keep waiting' message is given to upper layers.  New commands should be
-soft-failed with a busy state or something similar that conveys the status =
-of
-'stalled' without 'error' (so far).  I would also hope that any such stall =
-is
-handled as a barrier for the device, and any other outstanding requests ret=
-ried
-unless they too are returned with errors.
+I have ready some code to extract source code from EXAMPLES in man-pages.
+For that, I set up some convention:
 
-Somehow events, such as the dmesg entry that follows, correlate to enough
-errors to 'fault' the device and knock it out of the pool (during a repair
-scrub).
+Enclose the code (including the enclosing .EX/.EE in a pair of comments
+with a very precise formatting:
 
-Thus I was looking for a Documentation file that covered the timeout
-configuration file and gave guidance on if or how it should be tuned in
-relation to other aspects of the disks.
+[[
+...
+.\" SRC BEGIN (program_name.c)
+.EX
+#include <stdio.h>
 
-The disk with these responses is a Seagate Exos X16 (ST16000NM001G-2KK103)
-Firmware SN03 believed to be ATA ACS-4, 4k sector, CMR.  No errors (no pend=
-ing
-/ remapped sectors, no logged sectors failed).
+int main(void)
+{
+	printf("Hello, world!");
+}
+.EE
+.\" SRC END
+...
+]]
 
-[ 1362.163151] ata3.00: exception Emask 0x10 SAct 0x60000000 SErr 0x280100
-action 0x6 frozen
-[ 1362.163184] ata3.00: irq_stat 0x08000000, interface fatal error
-[ 1362.163200] ata3: SError: { UnrecovData 10B8B BadCRC }
-[ 1362.163216] ata3.00: failed command: READ FPDMA QUEUED
-[ 1362.163230] ata3.00: cmd 60/c0:e8:28:48:d2/03:00:d9:03:00/40 tag 29 ncq =
-dma
-491520 in
-                        res 40/00:f0:e8:4b:d2/00:00:d9:03:00/40 Emask 0x10 =
-(ATA
-bus error)
-[ 1362.163272] ata3.00: status: { DRDY }
-[ 1362.163283] ata3.00: failed command: READ FPDMA QUEUED
-[ 1362.163297] ata3.00: cmd 60/40:f0:e8:4b:d2/00:00:d9:03:00/40 tag 30 ncq =
-dma
-32768 in
-                        res 40/00:f0:e8:4b:d2/00:00:d9:03:00/40 Emask 0x10 =
-(ATA
-bus error)
-[ 1362.163338] ata3.00: status: { DRDY }
-[ 1362.163350] ata3: hard resetting link
-[ 1362.476057] ata3: SATA link up 6.0 Gbps (SStatus 133 SControl 300)
-[ 1362.506459] ata3.00: ACPI cmd ef/10:06:00:00:00:00 (SET FEATURES) succee=
-ded
-[ 1362.506465] ata3.00: ACPI cmd f5/00:00:00:00:00:00 (SECURITY FREEZE LOCK)
-filtered out
-[ 1362.506467] ata3.00: ACPI cmd b1/c1:00:00:00:00:00 (DEVICE CONFIGURATION
-OVERLAY) filtered out
-[ 1362.564800] ata3.00: ACPI cmd ef/10:06:00:00:00:00 (SET FEATURES) succee=
-ded
-[ 1362.564815] ata3.00: ACPI cmd f5/00:00:00:00:00:00 (SECURITY FREEZE LOCK)
-filtered out
-[ 1362.564817] ata3.00: ACPI cmd b1/c1:00:00:00:00:00 (DEVICE CONFIGURATION
-OVERLAY) filtered out
-[ 1362.603044] ata3.00: configured for UDMA/133
-[ 1362.603061] sd 2:0:0:0: [sdc] tag#29 FAILED Result: hostbyte=3DDID_OK
-driverbyte=3DDRIVER_OK cmd_age=3D0s
-[ 1362.603065] sd 2:0:0:0: [sdc] tag#29 Sense Key : Illegal Request [curren=
-t]=20
-[ 1362.603067] sd 2:0:0:0: [sdc] tag#29 Add. Sense: Unaligned write command
-[ 1362.603070] sd 2:0:0:0: [sdc] tag#29 CDB: Read(16) 88 00 00 00 00 03 d9 =
-d2
-48 28 00 00 03 c0 00 00
-[ 1362.603071] I/O error, dev sdc, sector 16539338792 op 0x0:(READ) flags 0=
-x700
-phys_seg 15 prio class 0
-[ 1362.603129] zio pool=3DREDACTED vdev=3D/dev/disk/by-partlabel/REDACTED e=
-rror=3D5
-type=3D1 offset=3D... size=3D491520 flags=3D40080cb0
-[ 1362.603239] sd 2:0:0:0: [sdc] tag#30 FAILED Result: hostbyte=3DDID_OK
-driverbyte=3DDRIVER_OK cmd_age=3D0s
-[ 1362.603276] sd 2:0:0:0: [sdc] tag#30 Sense Key : Illegal Request [curren=
-t]=20
-[ 1362.603332] sd 2:0:0:0: [sdc] tag#30 Add. Sense: Unaligned write command
-[ 1362.603337] sd 2:0:0:0: [sdc] tag#30 CDB: Read(16) 88 00 00 00 00 03 d9 =
-d2
-4b e8 00 00 00 40 00 00
-[ 1362.603389] I/O error, dev sdc, sector 16539339752 op 0x0:(READ) flags 0=
-x700
-phys_seg 1 prio class 0
-[ 1362.603738] zio pool=3DREDACTED vdev=3D/dev/disk/by-partlabel/REDACTED e=
-rror=3D5
-type=3D1 offset=3D... size=3D32768 flags=3D1808b0
-[ 1362.604011] ata3: EH complete
+There can be multiple programs in a single page, with the only
+restriction that each of them has to have a different program_name
+(there can be collisions within different manual pages, but not within
+the same manual page)
 
-FAULTED     17     0     0  too many errors  (repairing)
+The Makefile will create a directory for each manal page, where the
+different programs will be created with the name specified in the
+comment (that's why it has to be different from others in the same page
+only).
 
---=20
-You may reply to this email to add a comment.
+Please, check that you like what you see, and comment if not (or if yes
+too :).
 
-You are receiving this mail because:
-You are watching the assignee of the bug.=
+I tested it with membarrier.2, and it produced a correct .c file.
+The next step will be to add targets to lint and compile the produced
+files, to check their correctness.
+
+I hope this will make our lives much easier maintaining manual pages :-)
+
+
+Cheers,
+
+Alex
+
+
+
+diff --git a/Makefile b/Makefile
+index 03ebde18c..05a1b5950 100644
+--- a/Makefile
++++ b/Makefile
+@@ -30,19 +30,20 @@ MAKEFLAGS += --no-print-directory
+ MAKEFLAGS += --warn-undefined-variables
+
+
+-srcdir := .
++srcdir   := .
+ builddir := tmp
+-LINTDIR := $(builddir)/lint
+-HTMLDIR := $(builddir)/html
++LINTDIR  := $(builddir)/lint
++HTMLDIR  := $(builddir)/html
++SRCDIR   := $(builddir)/src
+
+ DESTDIR :=
+-prefix := /usr/local
+-SYSCONFDIR := $(srcdir)/etc
+-TMACDIR := $(SYSCONFDIR)/groff/tmac
++prefix  := /usr/local
++SYSCONFDIR  := $(srcdir)/etc
++TMACDIR     := $(SYSCONFDIR)/groff/tmac
+ datarootdir := $(prefix)/share
+-docdir := $(datarootdir)/doc
+-MANDIR := $(srcdir)
+-mandir := $(datarootdir)/man
++docdir  := $(datarootdir)/doc
++MANDIR  := $(srcdir)
++mandir  := $(datarootdir)/man
+ MAN0DIR := $(MANDIR)/man0
+ MAN1DIR := $(MANDIR)/man1
+ MAN2DIR := $(MANDIR)/man2
+@@ -61,7 +62,7 @@ man5dir := $(mandir)/man5
+ man6dir := $(mandir)/man6
+ man7dir := $(mandir)/man7
+ man8dir := $(mandir)/man8
+-manext := \.[0-9]
++manext  := \.[0-9]
+ man0ext := .0
+ man1ext := .1
+ man2ext := .2
+@@ -71,9 +72,9 @@ man5ext := .5
+ man6ext := .6
+ man7ext := .7
+ man8ext := .8
+-htmldir := $(docdir)
++htmldir  := $(docdir)
+ htmldir_ := $(htmldir)/man
+-htmlext := .html
++htmlext  := .html
+
+ TMACFILES            := $(sort $(shell find $(TMACDIR) -not -type d))
+ TMACNAMES            := $(basename $(notdir $(TMACFILES)))
+@@ -99,9 +100,11 @@ MAN2HTMLFLAGS         := $(DEFAULT_MAN2HTMLFLAGS)
+$(EXTRA_MAN2HTMLFLAGS)
+ INSTALL      := install
+ INSTALL_DATA := $(INSTALL) -m 644
+ INSTALL_DIR  := $(INSTALL) -m 755 -d
++MKDIR        := mkdir -p
+ RM           := rm
+ RMDIR        := rmdir --ignore-fail-on-non-empty
+ GROFF        := groff
++MAN          := man
+ MANDOC       := mandoc
+ MAN2HTML     := man2html
+
+@@ -161,12 +164,14 @@ _man5pages := $(filter %$(man5ext),$(_manpages))
+ _man6pages := $(filter %$(man6ext),$(_manpages))
+ _man7pages := $(filter %$(man7ext),$(_manpages))
+ _man8pages := $(filter %$(man8ext),$(_manpages))
+-LINT_groff := $(patsubst
+$(MANDIR)/%,$(LINTDIR)/%.lint.groff.touch,$(LINTPAGES))
+-LINT_mandoc:= $(patsubst
+$(MANDIR)/%,$(LINTDIR)/%.lint.mandoc.touch,$(LINTPAGES))
++LINT_groff :=$(patsubst
+$(MANDIR)/%,$(LINTDIR)/%.lint.groff.touch,$(LINTPAGES))
++LINT_mandoc:=$(patsubst
+$(MANDIR)/%,$(LINTDIR)/%.lint.mandoc.touch,$(LINTPAGES))
++SRCPAGEDIRS:=$(patsubst $(MANDIR)/%,$(SRCDIR)/%,$(LINTPAGES))
+
+ MANDIRS   := $(sort $(shell find $(MANDIR)/man? -type d))
+ HTMLDIRS  := $(patsubst $(MANDIR)/%,$(HTMLDIR)/%/.,$(MANDIRS))
+ LINTDIRS  := $(patsubst $(MANDIR)/%,$(LINTDIR)/%/.,$(MANDIRS))
++SRCDIRS   := $(patsubst $(MANDIR)/%,$(SRCDIR)/%/.,$(MANDIRS))
+ _htmldirs := $(patsubst $(HTMLDIR)/%,$(DESTDIR)$(htmldir_)/%,$(HTMLDIRS))
+ _mandirs  := $(patsubst $(MANDIR)/%,$(DESTDIR)$(mandir)/%/.,$(MANDIRS))
+ _man0dir  := $(filter %man0/.,$(_mandirs))
+@@ -248,6 +253,37 @@ uninstall-man: $(_mandir_rmdir) $(uninstall_manX)
+        @:
+
+
++########################################################################
++# src
++
++$(SRCPAGEDIRS): $(SRCDIR)/%: $(MANDIR)/% | $$(@D)/.
++       $(info MKDIR    $@ $<)
++       $(RM) -rf $@
++       $(MKDIR) $@.tmp
++       <$< \
++       sed -n 's/\.\\" SRC BEGIN (\(.*.c\))/\1/p' \
++       | while read f; do \
++               <$< \
++               sed -n \
++                       -e '/^\.TH/,/^\.SH/{/^\.SH/!p}' \
++                       -e '/^\.SH EXAMPLES/p' \
++                       -e "/^\... SRC BEGIN ($$f)$$/,/^\... SRC END$$/p" \
++               | $(MAN) -P cat -l - \
++               | sed '/^[^ ]/d' \
++               >$@.tmp/$$f; \
++       done \
++       || exit $$?
++       mv -T $@.tmp $@
++
++.PHONY: build-src src
++build-src src: $(SRCPAGEDIRS) | builddirs-src
++       @:
++
++.PHONY: builddirs-src
++builddirs-src: $(SRCDIRS)
++       @:
++
++
+ ########################################################################
+ # lint
+
+diff --git a/man2/membarrier.2 b/man2/membarrier.2
+index b2e3e035e..a46283dd7 100644
+--- a/man2/membarrier.2
++++ b/man2/membarrier.2
+@@ -319,6 +319,7 @@ following code (x86) can be transformed using
+ .BR membarrier ():
+ .PP
+ .in +4n
++.\" SRC BEGIN (membarrier.c)
+ .EX
+ #include <stdlib.h>
+
+@@ -365,6 +366,7 @@ main(int argc, char *argv[])
+     exit(EXIT_SUCCESS);
+ }
+ .EE
++.\" SRC END
+ .in
+ .PP
+ The code above transformed to use
+
+
+-- 
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
