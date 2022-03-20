@@ -2,70 +2,69 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id D49BE4E1D05
-	for <lists+linux-man@lfdr.de>; Sun, 20 Mar 2022 18:07:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 160154E1D0D
+	for <lists+linux-man@lfdr.de>; Sun, 20 Mar 2022 18:18:05 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235400AbiCTRIs (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 20 Mar 2022 13:08:48 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39956 "EHLO
+        id S245670AbiCTRTZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 20 Mar 2022 13:19:25 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45108 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S245672AbiCTRIr (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 20 Mar 2022 13:08:47 -0400
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com [IPv6:2a00:1450:4864:20::42a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AC1EA54F80
-        for <linux-man@vger.kernel.org>; Sun, 20 Mar 2022 10:07:23 -0700 (PDT)
-Received: by mail-wr1-x42a.google.com with SMTP id m30so8098072wrb.1
-        for <linux-man@vger.kernel.org>; Sun, 20 Mar 2022 10:07:23 -0700 (PDT)
+        with ESMTP id S242321AbiCTRTY (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 20 Mar 2022 13:19:24 -0400
+Received: from mail-pg1-x535.google.com (mail-pg1-x535.google.com [IPv6:2607:f8b0:4864:20::535])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5ED2E2DD9
+        for <linux-man@vger.kernel.org>; Sun, 20 Mar 2022 10:18:00 -0700 (PDT)
+Received: by mail-pg1-x535.google.com with SMTP id 6so8748515pgg.0
+        for <linux-man@vger.kernel.org>; Sun, 20 Mar 2022 10:18:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=lP6wPL7WT42VxQNKDZvTf98xRxEmMEb4OIBCLnhAbng=;
-        b=C9eG88a3BkJjOJyHXdxQyxqzliiO8TwOtiTB7Z0XOVzmqXzT1207qapScEBxUpe/mg
-         m9snjVNMhGWcrlzZ7lZVXuckGtqL7YTAuP0ChxJSbglCZG4qocP+odIIescUmfW4Y9mq
-         Y8f1jDSkeMgjbawKk9q+CjMOJOM6wcOJChOk6oWXOnYf4MCwG4IUtLvcrh62xrK5thqk
-         J0H0sv279leizG6iun/6VwJ61hY5hCaDI4nx/hAfwtaBZcuh3JM+xFkVMNOtPXfjKncl
-         prDXCZmy9ImacsnkZ26N9qGQ2Vb4UpgReIzMJuvNwAWIN7tVlnDtJsDDgCfBIfdGshT7
-         pFxQ==
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to:user-agent;
+        bh=/S6vr//EZLMm3kjhBWAR+NmOOb9Yrw0sgxLyNCaAUVI=;
+        b=BEfiXQXJNDesLTBOm2sjke3xwoXU3fdo7DnPqvZ9LBE7O6XUW5bc1OuOiWkQvYMEP9
+         bGTIuOsDEoNw49LAik7Mp+5EGr49thB8GxOZ9n0zMhizJ8TUfpiD1RgmTDNY23RgwOPJ
+         QZczVd6HLaew6sJzQWHvncsn9w9F1dEj/e79vIOo85bakJMIEmY+WaLahD+g/fTrJY3U
+         23Mqhkwvjyr+ppNKlS6s/j7HL3+WcDS6joeslc4SbaLaiSEP16e2xtGhKfubXY03N6xf
+         sgSdkhJbaYMB4MsPDlf2BTa2jbH7De+RfaKFSYzhMyPS4VIxNXF5Cr6KFGek8tDy3/zF
+         hjyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=lP6wPL7WT42VxQNKDZvTf98xRxEmMEb4OIBCLnhAbng=;
-        b=J1ju/lURA94Z/XhF9g4cOrYQqq3JYiVnBu/V6+8tib+f4jq1/xabYEeMPBCwTo71LT
-         DoYH0eeVMg/KtykBlZJY74sLVTq/rr/bcpI0AGg/CZ/D8NwRqszF7zEi6IHnSFKR/LL4
-         QlZzfO2A9bWO/q4s+w7hZdugOQ1vLJYxACnXNnAb4J4ScUbWs4WPlRnQX1w+uCpQeqb4
-         YC/gMxLrzL6v2bZpBWV9PoBMV4Rek+Yt21fKnMtiV0i5hd9/pngfx/fbnToj/Swpsi7X
-         JioRldup0T8JDS+F2R1CRkMhjGLD2Aa3foxRVJ6a3v45zr+Pntf4RfxgKARq9mzF2FSs
-         5KQQ==
-X-Gm-Message-State: AOAM5310Ge7hGgQCqrPqFqoGjUFWYxMZrzUZZn6lLU3jfkBUJA5p0eR0
-        EQsh3aJ0RPmiRrl5OTrjE86f/R3Dyn4szsIk
-X-Google-Smtp-Source: ABdhPJydvJJ3kDhWeaTKMV0738GNun7LjIX0Ku/Z3KjDZIxc3pdbbg4wXDAD74roxjqFQiaP6nvq1g==
-X-Received: by 2002:a05:6000:18cd:b0:203:e960:d775 with SMTP id w13-20020a05600018cd00b00203e960d775mr13959333wrq.226.1647796042089;
-        Sun, 20 Mar 2022 10:07:22 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id v20-20020a7bcb54000000b0037fa63db8aasm15469739wmj.5.2022.03.20.10.07.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 20 Mar 2022 10:07:21 -0700 (PDT)
-Message-ID: <3cd16323-a9da-cbbf-85b2-6be9d22ea847@gmail.com>
-Date:   Sun, 20 Mar 2022 18:07:20 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to:user-agent;
+        bh=/S6vr//EZLMm3kjhBWAR+NmOOb9Yrw0sgxLyNCaAUVI=;
+        b=Jgw25nS7B2YVtm2MBJ36J3UhA7zssziJhPlKQatW1A6tsvogz3ql1qY4sHjNzJ0yuM
+         W3xz2ziSWuEYHAKAMSJd0QPiK6LcyYJiLcEERREn/OBRxzSRSR0KoDhZ0prLjdSCHLCm
+         c7RkUkFaBjzFNgXd+uCcjnWzinWJxMJMXOaoXFPHvzTQeO45VijCe3WDFdtke90EZl+c
+         MKIxoVl50xkyJv3FxwY60P8yAghheVI1YFgnFIOJZnyPZeK2ZqaijP4EE38JukdZeiWS
+         GbeqWICEZ0aZyi3oTFlgttdKHbxoXJQyIEbkTKyIZ0h+6ZVOaDB3L0d4PUPCmenJhgpZ
+         GV/A==
+X-Gm-Message-State: AOAM533kWob16ELrFZ2shk86t8hURuo7qVUgTvLXPJNphirxmObyTZ3Q
+        Xsvwx79IAozxlN/t3xaB2KnN5QB7cmJ8qA==
+X-Google-Smtp-Source: ABdhPJy/2N8/Mx8vij8HgsC3b4HhhYiNokREJY0zHIO3eu3XZMzDDc3rYCWdhqz6xCz4SwIGZDVyiw==
+X-Received: by 2002:a63:6942:0:b0:380:153e:63f9 with SMTP id e63-20020a636942000000b00380153e63f9mr15620410pgc.212.1647796679777;
+        Sun, 20 Mar 2022 10:17:59 -0700 (PDT)
+Received: from localhost.localdomain ([1.145.30.29])
+        by smtp.gmail.com with ESMTPSA id z23-20020aa79597000000b004fa3634907csm13242895pfj.72.2022.03.20.10.17.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 20 Mar 2022 10:17:59 -0700 (PDT)
+Date:   Mon, 21 Mar 2022 04:17:55 +1100
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To:     Ingo Schwarze <schwarze@usta.de>
+Cc:     alx.manpages@gmail.com, linux-man@vger.kernel.org,
+        mtk.manpages@gmail.com, groff@gnu.org
 Subject: Re: Review incorrect man-pages commit
-Content-Language: en-US
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc:     groff@gnu.org, linux-man <linux-man@vger.kernel.org>,
-        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>, tz@iana.org
+Message-ID: <20220320171754.omftwyr6drmtdmes@localhost.localdomain>
 References: <9e2a2f6d-d086-4570-2d22-f218fdb0e686@gmail.com>
  <20220320105236.zsjiafuru5hjk2uw@localhost.localdomain>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-In-Reply-To: <20220320105236.zsjiafuru5hjk2uw@localhost.localdomain>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+ <YjcS6F8/0zOZVAVL@asta-kit.de>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+        protocol="application/pgp-signature"; boundary="gvbt54ev5p6j3rdg"
+Content-Disposition: inline
+In-Reply-To: <YjcS6F8/0zOZVAVL@asta-kit.de>
+User-Agent: NeoMutt/20180716
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
         autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -74,152 +73,112 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi, Branden!
 
-On 3/20/22 11:52, G. Branden Robinson wrote:
-> 
-> Sure!  The punctuation does get a bit bewildering.
-> 
-[...]
+--gvbt54ev5p6j3rdg
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Thanks for the great explanation!
+Hi Ingo,
 
-> 
-> Now, for the part people actually care about, which is how to fix it:
-> take the escape character off of that `.
-> 
-> You thus want
-> 
-> +to "\fI[a\('a\(`a\(:a\(^a]\fP", that is,
+At 2022-03-20T12:41:28+0100, Ingo Schwarze wrote:
+> G. Branden Robinson wrote on Sun, Mar 20, 2022 at 09:52:37PM +1100:
+> > If you wanted to write this without using any aliases,
+> > you could adopt groff syntax.
+> >=20
+> > +to "\fI[a\[a aa]\[a ga]\[a ad]\[a a^]\fP", that is,
+>=20
+> While that is arguably neat, please be aware that it is significantly
+> less portable even when considering modern formatting software only.
+> For example, consider this:
+>=20
+>    $ mandoc -Wall=20
+>   =3D=3D\fI[a\[a aa]\[a ga]\[a ad]\[a a^]]\fP=3D=3D  <enter> <Ctrl-D>
+>   mandoc: <stdin>:1:29: WARNING: invalid escape sequence: \[a a^]
+>   mandoc: <stdin>:1:22: WARNING: invalid escape sequence: \[a ad]
+>   mandoc: <stdin>:1:15: WARNING: invalid escape sequence: \[a ga]
+>   mandoc: <stdin>:1:8: WARNING: invalid escape sequence: \[a aa]
+>   [...]
+>   =3D=3D[a]=3D=3D
+>   [...]
+>=20
+> Arguably, not supporting the groff multi-argument form of \[]
+> character escape sequences might be a defect in mandoc, but for
+> now, that's how things are, so if you go that way, you have to
+> accept that some (even modern) formatters will drop the accented
+> characters from the output.
 
-I applied a patch with this.
+You have to be prepared for the characters to be dropped in any case,
+since they might get rendered on an output device that is limited to
+ASCII, or (I suppose less likely?) using KOI8-R...or ISO Latin-2, which
+lacks code points for any letters combined with a grave accent.
 
-> 
-> If you wanted to write this without using any aliases, you could adopt
-> groff syntax.
-> 
-> +to "\fI[a\[a aa]\[a ga]\[a ad]\[a a^]\fP", that is,
+> That flexibility is precisely what makes the feature somewhat hard
+> to implement (though not impossible).  Admittedly, for typeset output,
+> any accent can be placed on any character, and for UTF-8 and HTML
+> output, zero-width combining Unicode codepoints can be used, but for
+> arbitrary output modes, the formatter would still have to contain
+> a complete table of all character-accent combinations to map them
+> to combined glyphs available in the output mode - and users would
+> probably have to accept that some combinations can't be rendered
+> in some output modes.  All that is less than ideal in manual pages,
+> where portability generally trumps typographic elegance.
 
-I'm going to hold this for later, so that we decide globally how to
-format all pages, and not just this one.  I prefer global consistency here.
+It might be wise for the page to include a disclaimer that some of its
+glyphs might not render.
 
-> 
-> I don't know if people regard that as more or less impenetrable.  It is
-> more _flexible_, and admits usage of diacritics/combining characters not
-> envisioned by AT&T troff or ISO Latin-1.  groff supports a baker's
-> dozen.  They are in a table titled "Accents" in groff_char(7) (1.22.4).
-> 
->> diff --git a/man8/zic.8 b/man8/zic.8
->> index 940d6e814..aeca0e726 100644
->> --- a/man8/zic.8
->> +++ b/man8/zic.8
->> @@ -293,7 +293,7 @@ nor
->>  .q + .
->>  To allow for future extensions,
->>  an unquoted name should not contain characters from the set
->> -.q !$%&'()*,/:;<=>?@[\e]^`{|}\(ti .
->> +.q !$%&'()*,/:;<=>?@[\e]^\`{|}\(ti .
-> 
-> You didn't proffer any complaints about the foregoing, so I assume it
-> was just for context (to include the whole commit, maybe). 
+> > +.q !$%&\[aq]()*,/:;<=3D>?@[\[rs]]\[ha]\`{|}\[ti] .
+>=20
+> I agree that nothing much is wrong with using the \[] variable
+> length character escape syntax in manual pages nowadays from
+> the point of view of portability.  Then again, i'm not convinced
+> that \[aq] is more readable than \(aq.  Why would it be?
 
-Yep
+We get used to delimiters being paired.  :)
 
-> Nevertheless I think it can be further improved.
-> 
-> That neutral apostrophe and caret/circumflex should be changed as well,
-> to ensure that they don't render as a directional closing (right) single
-> quote, ’ U+2019 and modifier letter circumflex ˆ U+02C6.  This advice is
-> also in groff 1.22.4's groff_man(7) page.
-> 
-> +.q !$%&\(aq()*,/:;<=>?@[\e]\(ha\`{|}\(ti .
-> 
-> Moreover, as partly noted in our discussion about double quotes in macro
-> arguments, there were no special characters for the double quote or
-> neutral apostrophe in Unix troff.  Since we're not getting 50 years of
-> backward compatibility anyway, for the Linux man-pages project I
-> recommend going ahead and using groff-style escape sequences for these.
-> 
-> +.q !$%&\[aq]()*,/:;<=>?@[\[rs]]\[ha]\`{|}\[ti] .
-> 
-> Are you willing to settle for 30 years of backward compatibility?  ;-)
+I regret Ossanna's choice of a parenthesis here.
 
-I do :)
+> Quite to the contrary, in the other example above, you wrote:
+>=20
+>   ... \[a a^]\fP
+>=20
+> forgetting the trailing square bracket; it should have been:
+>=20
+>   ... \[a a^]]\fP
+>=20
+> So my impression is the \[] syntax introduces additional opportunities
+> for markup bugs, if there is any difference to \( at all.
 
-However, I'm not going to fix this page, according to MAINTAINER_NOTES:
+I would attribute that more to my haste in trying to get the email done
+to watch a movie, as well as my reliably and severely attenuated
+proofreading powers _before_ something I've written becomes irrevocably
+public.  Nothing humbles me more than my first draft.  Or first six...
 
-$ cat MAINTAINER_NOTES
-Externally generated pages
-==========================
+> The rest of your message beautifully explains what is going on.
 
-A few pages come from external sources. Fixes to the pages should really
-go to the upstream source.
+Thanks!
 
-tzfile(5), zdump(8), and zic(8) come from the tz project
-(https://www.iana.org/time-zones).
+Regards,
+Branden
 
-bpf-helpers(7) is autogenerated from the kernel sources using scripts.
-See man-pages commit 53666f6c30451cde022f65d35a8d448f5a7132ba for
-details.
+--gvbt54ev5p6j3rdg
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
 
+iQIzBAEBCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmI3YbAACgkQ0Z6cfXEm
+bc7ssg/8CNOXZXpq6VUHxrJbAdDd5UI0kL/IOBLa+dBFx32Vx+VWhfvTbbW2NTdU
++0ORXKZTYLhwZfOtBOZgsncRvmDYIjqzPKM1AfzLI+OE6w/EAZcnUJ19jjQlnKlR
+VII7qNixpFrAULcpakiQY731Ykwc6HAtStgGLaOxlVZUMc/AETkRAD0Fm9mo00JP
+aNv6deFil9OnBaAazBz0sulGLBKH4smnoOrgCyTEL29osX9JUhzaZp1s/5TWLG0l
+JuGaVYZnIJ+NnpOUzjng4cBhQlHI9KGQ7S4BUBTphIheNLcADjkWkTWgO46GINIp
+ADQt9eyb08Lye6tppv7zfkUBoaFSedhPH2hLPZBvxO0SZmPqlhnLCzxDm7O5fn+W
+KhzV6W8V/EwjNsB0I34kGBi9XCBYUVidfN8FB/ZJMxN77DIaWefmMJuL4+F+fEi1
+TZ1jtv21nsjHeGh3cPywRbEns5v2ymh4tyAVj6jdBku98fMk2NBL8Vl4WUN5w5wk
+bEJe0MyixnDcufN8RyiyjDiwfR2Zm6yT1V53GysEyERG6c5GPfKMU0TAfesrNQPK
+7btqaWB6kHu3IE7St0eY9gt3IzabO7j7ADxopMGuWf4+v02qH5MCrbV4wtUry9Uj
+elH2xic0GH/99I/zcTgGMVnyNU3jSfz9Ukc4EqjjkQxohGgu+5I=
+=AkZv
+-----END PGP SIGNATURE-----
 
-So now I wonder why this commit was written in the first place, since it
-breaks one page, and fixes another that shouldn't be fixed.
-I CCd the tz mailing list in case they want to fix the upstream page
-(which I couldn't find, BTW).
-
-
-> 
-> In my opinion it is more helpful in dense contexts like this to have the
-> paired delimiters [ ] to demarcate the glyph identifier then to achieve
-> portability to systems that don't support identifiers you need anyway.
-
-Yes, I agree with that.
-
-> 
-> (I note that `q` is a page-local macro and therefore bad style for
-> portability reasons.  That said, I have been _sorely_ tempted to add a
-> `Q` macro for this precise purpose to groff man(7).  I have hopes that
-> it would give people something to reach for besides bold and italics for
-> every damn thing.)
-> 
-> Most--I hope all--of the above is discussed comprehensively in the
-> current version of groff_char(7)[2], which I have rewritten completely
-> since groff 1.22.4 and substantially modified even since the last Linux
-> man-pages snapshot at
-> <https://man7.org/linux/man-pages/man7/groff_char.7.html>.  I now know
-> the answers to many questions of the form "why the **** is {groff,troff}
-> this way?", and have endeavored to share them.  The "History" section is
-> completely new.
-> 
-> Regards,
-> Branden
-> 
-> [1] groff's own man pages are not without sin in this regard.  I have
->     cleaned them up a lot since 1.22.4, but a few adventurous stragglers
->     remain that define and use page-local macros pervasively.  All are
->     on the long side.
-> 
-> [2] https://git.savannah.gnu.org/cgit/groff.git/tree/man/groff_char.7.man
-> 
->     I recommend that for source perusal only; do not try to render it
->     with man-db man(1) or groff 1.22.4, because groff 1.23.0 will be
->     adding a new macro, `MR`, for man page cross references[3] and its
->     own pages have already been ported to use it.  (This is where I
->     flagellate myself for not having a groff 1.23.0-rc2 out yet. :( )
-> 
-> [3] https://git.savannah.gnu.org/cgit/groff.git/tree/NEWS#n165
-
-I like your references usually containing other references themselves.
-It's funny :-)
-
-Cheers,
-
-Alex
-
-
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+--gvbt54ev5p6j3rdg--
