@@ -2,179 +2,189 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 00D544E1DF8
-	for <lists+linux-man@lfdr.de>; Sun, 20 Mar 2022 22:26:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 5CBEA4E1E11
+	for <lists+linux-man@lfdr.de>; Sun, 20 Mar 2022 22:55:56 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234488AbiCTV1m (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 20 Mar 2022 17:27:42 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46994 "EHLO
+        id S244578AbiCTV5R (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 20 Mar 2022 17:57:17 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36846 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1343740AbiCTV1l (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 20 Mar 2022 17:27:41 -0400
-Received: from scc-mailout-kit-02.scc.kit.edu (scc-mailout-kit-02.scc.kit.edu [IPv6:2a00:1398:9:f712::810d:e752])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5AF2E18A3E9
-        for <linux-man@vger.kernel.org>; Sun, 20 Mar 2022 14:26:16 -0700 (PDT)
-Received: from hekate.asta.kit.edu ([2a00:1398:5:f401::77])
-        by scc-mailout-kit-02.scc.kit.edu with esmtps (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-        (envelope-from <schwarze@usta.de>)
-        id 1nW342-00C48d-7h; Sun, 20 Mar 2022 22:26:14 +0100
-Received: from login-1.asta.kit.edu ([2a00:1398:5:f400::72])
-        by hekate.asta.kit.edu with esmtp (Exim 4.94.2)
-        (envelope-from <schwarze@usta.de>)
-        id 1nW341-003mkz-EK; Sun, 20 Mar 2022 22:26:13 +0100
-Received: from schwarze by login-1.asta.kit.edu with local (Exim 4.92)
-        (envelope-from <schwarze@usta.de>)
-        id 1nW341-0008FK-Qp; Sun, 20 Mar 2022 22:26:13 +0100
-Date:   Sun, 20 Mar 2022 22:26:13 +0100
-From:   Ingo Schwarze <schwarze@usta.de>
-To:     alx.manpages@gmail.com
+        with ESMTP id S1343771AbiCTV5R (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 20 Mar 2022 17:57:17 -0400
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com [IPv6:2a00:1450:4864:20::42f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 13A1852E32
+        for <linux-man@vger.kernel.org>; Sun, 20 Mar 2022 14:55:52 -0700 (PDT)
+Received: by mail-wr1-x42f.google.com with SMTP id d7so18452002wrb.7
+        for <linux-man@vger.kernel.org>; Sun, 20 Mar 2022 14:55:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=message-id:date:mime-version:user-agent:subject:content-language:to
+         :cc:references:from:in-reply-to:content-transfer-encoding;
+        bh=AkEXIpwei2tOXYt21lV3NR8v751DulgZOYbuFtUZyVI=;
+        b=Q67ZJLJRZzNRhQi7RJG2vSgwiOC0CVHEW9jFgODpBVm2ujtILVQ742IskiqvMs46rt
+         Ar16K/otQmrP8viQ+AaTH1TLwWydqpcig5rn4wq6Xxq7+eU2+AwXl0RnXyan4CgadKO2
+         ZgLJdoWQC8i35Tnv9eNcplKWItI4higv2+iI2hqBIeBVoZcao4DyYIB4HjioS7GX76v8
+         Vi6OZk+w7/ITJvMMEtoVjsDj23ak9KfhsBLqX8Pm+sfsrxmatpTNGWIKwuEFG9HI8kYy
+         +7cQD/zTIc51CuHxWw13RLtKxdP7CrDdit5ZzGNdxszXGkpx5A7yrsGzzLiOW/NhmlG0
+         o9HA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+         :content-language:to:cc:references:from:in-reply-to
+         :content-transfer-encoding;
+        bh=AkEXIpwei2tOXYt21lV3NR8v751DulgZOYbuFtUZyVI=;
+        b=X/lQUIGoah7W5TBPhcb0xIwOBZYVTyBP5nkqSsW5C4qt4TKiWo3OHlwIQ2Hq/NZf+Q
+         nc5li3vcwOSKv3p72RWPzGxoPG9Vvyjzf35g4K9PygdgOp1C9gxE5KhRecC5kCZxTyr9
+         xO9GyXedydj01GravLshey0C2M9PvXlQJawsat580ZbQzygF3VN49at6gih/uqIhtDvK
+         Be/jVGOSv+ZYeTsiNkiMFxdR1u4Sx3lE4VGJsBifNHjOr0Lhu3mAOFyxwl9Z8+I55/9c
+         k/zcYHeFSxE6UgYXUnBNU73J4f4rgBX/J9dJ43eRx4z9V+xWa39LcfLbQ9ce1PL466+Z
+         /t7Q==
+X-Gm-Message-State: AOAM533XGyZu6IAligG906EXpWDD0QNDJpTGh1+95IqWLtQLv+57cWhu
+        teazESflClSqstM0688wlTw=
+X-Google-Smtp-Source: ABdhPJwMHPC0/TmQEJoS/emMqfJ2X+Tkdyc63j8ORWc9b+zKGCG4hyYcUlzZldS9fBJBa5RRt9xnsg==
+X-Received: by 2002:a5d:4a45:0:b0:1f0:5e70:1088 with SMTP id v5-20020a5d4a45000000b001f05e701088mr15780903wrs.258.1647813350493;
+        Sun, 20 Mar 2022 14:55:50 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id l11-20020a5d674b000000b0020402c09067sm4320778wrw.50.2022.03.20.14.55.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 20 Mar 2022 14:55:50 -0700 (PDT)
+Message-ID: <7559214e-bef1-f52d-a716-19ea31ee149b@gmail.com>
+Date:   Sun, 20 Mar 2022 22:55:48 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Subject: Re: Exctracting source code from EXAMPLES
+Content-Language: en-US
+To:     Ingo Schwarze <schwarze@usta.de>
 Cc:     steve@sk2.org, g.branden.robinson@gmail.com,
         mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Exctracting source code from EXAMPLES
-Message-ID: <Yjeb9VPXl0+ITuIr@asta-kit.de>
 References: <e4ea99a0-b65c-467f-047d-2cb466df86e7@gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e4ea99a0-b65c-467f-047d-2cb466df86e7@gmail.com>
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED,
-        SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=ham
-        autolearn_force=no version=3.4.6
+ <Yjeb9VPXl0+ITuIr@asta-kit.de>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+In-Reply-To: <Yjeb9VPXl0+ITuIr@asta-kit.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Alex,
+Hi Ingo,
 
-Alejandro Colomar (man-pages) wrote on Sun, Mar 20, 2022 at 09:34:47PM +0100:
+On 3/20/22 22:26, Ingo Schwarze wrote:
+> Hi Alex,
+> 
+> Alejandro Colomar (man-pages) wrote on Sun, Mar 20, 2022 at 09:34:47PM +0100:
+> 
+>> I have ready some code to extract source code from EXAMPLES in man-pages.
+> 
+> Frankly, i don't see the point at all.
+> 
+> Manual Pages are not HOWTO documents that mindless users are supposed
+> to copy from verbatim without understanding what they see.  Instead,
+> the are supposed to be read with your brain switched on and the reader
+> is supposed to *apply* what they learnt, not copy it.
 
-> I have ready some code to extract source code from EXAMPLES in man-pages.
+This feature is not supposed to be used by manual page readers (users),
+but by manual page editors.
 
-Frankly, i don't see the point at all.
+I wanted to do this a long time ago for a few reasons:
 
-Manual Pages are not HOWTO documents that mindless users are supposed
-to copy from verbatim without understanding what they see.  Instead,
-the are supposed to be read with your brain switched on and the reader
-is supposed to *apply* what they learnt, not copy it.
+- I know some manual pages are incorrect in some minor ways, which I'd
+like to fix.  For example, the includes in some examples are incorrect,
+typically with more than needed.  Reading 100s of pages carefully to fix
+them would be impossible.  And having slightly incorrect examples in the
+manual pages is something I would really like to avoid.  We have
+received reports of programs having added headers because the manual
+page said they had to add them, but they were really not needed.
 
-> .\" SRC BEGIN (program_name.c)
+- Some times, incorrect patches accidentally break the manual page
+formatting (for example, "\n" instead of "\en").  If the patch is simple
+enough that I may not care enough to render the manual page to check its
+correctness, and I don't realize the small detail, I may apply a patch
+that breaks an example program very badly.  Having a magic button that
+checks that the code at least compiles would greatly reduce those bugs.
 
-Ugly as hell.  I would very strongly object to have anything
-like that added to any manual pages i maintain.  When people add
-comments in order to convey syntax and semantics to a machine,
-that is a sure sign that the design of whatever it is intended
-to achieve was totally botched.
+- When reviewing an incoming patch, instead of me having to read through
+it and after some time then replying "hey, please render your manual
+pages before sending patches to see that your code doesn't produce what
+you thought", I can just run `make build-src && make lint-src`, and if
+it fails, I can tell the contributor: "run `make build-src && make
+lint-src`, and you'll notice that your program contains some serious
+problems.  Rerun until you are happy with it.  If you can't figure out
+how to fix something, you can ask.".
 
-> The next step will be to add targets to lint and compile the produced
-> files, to check their correctness.
+It's kind of a man-pages static analyzer.  Having it passing is not a
+measure of how good a manual page is, but having it break is an
+indicator that the manual page may actually have some problems.
 
-If any code snippet from an EXAMPLES section does compile, i would
-argue that it is severely ill-designed as it obviously contains lots
-of needless fluff that distracts from the point the example is
-actually trying to demonstrate.  It ought to be stripped down to
-what really matters, to become shorter, more readable, and more
-to the point.
+> 
+>> .\" SRC BEGIN (program_name.c)
+> 
+> Ugly as hell.  I would very strongly object to have anything
+> like that added to any manual pages i maintain.  When people add
+> comments in order to convey syntax and semantics to a machine,
+> that is a sure sign that the design of whatever it is intended
+> to achieve was totally botched.
 
-Here are a few EXAMPLES sections (in formatted form for readability)
-that demonstate how EXAMPLES sections should look like:
+I first thought of some way to achieve this without markers, but the
+regex would be very unreliable with current manual pages.  If we
+standardize them a bit more, these markers might be made unnecessary,
+but I'm not sure about that.
 
-  EXAMPLES  /* from chroot(2) */
-     The following example changes the root directory to newroot,
-     sets the current directory to the new root, and drops some
-     setuid privileges.  There may be other privileges which need to
-     be dropped as well.
+> 
+>> The next step will be to add targets to lint and compile the produced
+>> files, to check their correctness.
+> 
+> If any code snippet from an EXAMPLES section does compile, i would
+> argue that it is severely ill-designed as it obviously contains lots
+> of needless fluff that distracts from the point the example is
+> actually trying to demonstrate.  It ought to be stripped down to
+> what really matters, to become shorter, more readable, and more
+> to the point.
 
-           #include <err.h>
-           #include <unistd.h>
+In this project, there are examples as the ones you point below, but
+they are usually embedded in the text.  In the EXAMPLES section we
+usually have full programs, which are normally minimal working programs
+that demonstrate the functions described.  I don't think they have much
+noise.  I've sometimes used them myself, and I like them, because I have
+something working from which I can test stuff.  Sometimes it's quite
+hard to translate man-pages text into a running program, and having a
+working example program helps disambiguate the text (at least in my
+brain it works like that).
 
-           if (chroot(newroot) != 0 || chdir("/") != 0)
-                   err(1, "%s", newroot);
-           setresuid(getuid(), getuid(), getuid());
+> 
+> Here are a few EXAMPLES sections (in formatted form for readability)
+> that demonstate how EXAMPLES sections should look like:
+> 
+>   EXAMPLES  /* from chroot(2) */
+>      The following example changes the root directory to newroot,
+>      sets the current directory to the new root, and drops some
+>      setuid privileges.  There may be other privileges which need to
+>      be dropped as well.
+> 
+>            #include <err.h>
+>            #include <unistd.h>
+> 
+>            if (chroot(newroot) != 0 || chdir("/") != 0)
+>                    err(1, "%s", newroot);
+>            setresuid(getuid(), getuid(), getuid());
+> 
+[...]
+> 
+> Yours,
+>   Ingo
 
-  EXAMPLES  /* from write(2) */
-     A typical loop allowing partial writes looks like this:
+Cheers,
 
-     const char *buf;
-     size_t bsz, off;
-     ssize_t nw;
-     int d;
+Alex
 
-     for (off = 0; off < bsz; off += nw)
-             if ((nw = write(d, buf + off, bsz - off)) == 0 || nw == -1)
-                     err(1, "write");
-
-  EXAMPLES  /* from BIO_s_fd(3) */
-     This is a file descriptor BIO version of "Hello World":
-
-           BIO *out;
-           out = BIO_new_fd(fileno(stdout), BIO_NOCLOSE);
-           BIO_printf(out, "Hello World\n");
-           BIO_free(out);
-
-  EXAMPLES  /* from MB_CUR_MAX(3) */
-     Size a buffer in a portable way to hold one single multibyte character:
-
-           char     buf[MB_LEN_MAX];
-           wchar_t  wchar;  /* input value */
-
-           if (wctomb(buf, wchar) == -1)
-                   /* error */
-
-     Switch between code handling the ascii(7) and UTF-8 character
-     encodings in an OpenBSD-specific way (not portable):
-
-           if (MB_CUR_MAX == 1) {
-                   /* Code to handle ASCII-encoded single-byte strings. */
-           } else {
-                   /* Code to handle UTF-8-encoded multibyte strings. */
-           }
-
-  EXAMPLES  /* from malloc(3) */
-     If malloc() must be used with multiplication, be sure to test for
-     overflow:
-
-           size_t num, size;
-           ...
-
-           /* Check for size_t overflow */
-           if (size && num > SIZE_MAX / size)
-                   errc(1, EOVERFLOW, "overflow");
-
-           if ((p = malloc(num * size)) == NULL)
-                   err(1, NULL);
-
-     The above test is not sufficient in all cases.  For example,
-     multiplying ints requires a different set of checks:
-
-           int num, size;
-           ...
-
-           /* Avoid invalid requests */
-           if (size < 0 || num < 0)
-                   errc(1, EOVERFLOW, "overflow");
-
-           /* Check for signed int overflow */
-           if (size && num > INT_MAX / size)
-                   errc(1, EOVERFLOW, "overflow");
-
-           if ((p = malloc(num * size)) == NULL)
-                   err(1, NULL);
-
-     Assuming the implementation checks for integer overflow as
-     OpenBSD does, it is much easier to use calloc(), reallocarray(),
-     or recallocarray().
-
-     The above examples could be simplified to:
-
-           if ((p = reallocarray(NULL, num, size)) == NULL)
-                   err(1, NULL);
-
-     or at the cost of initialization:
-
-           if ((p = calloc(num, size)) == NULL)
-                   err(1, NULL);
-
-Yours,
-  Ingo
+-- 
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
