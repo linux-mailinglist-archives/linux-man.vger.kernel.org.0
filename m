@@ -2,139 +2,173 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 4B93D4E1D61
-	for <lists+linux-man@lfdr.de>; Sun, 20 Mar 2022 19:15:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 63F284E1D75
+	for <lists+linux-man@lfdr.de>; Sun, 20 Mar 2022 19:49:48 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1343509AbiCTSQe (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 20 Mar 2022 14:16:34 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39816 "EHLO
+        id S1343519AbiCTSvK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 20 Mar 2022 14:51:10 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34358 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1343505AbiCTSQ3 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 20 Mar 2022 14:16:29 -0400
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com [IPv6:2a00:1450:4864:20::32c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DD8B7527EC;
-        Sun, 20 Mar 2022 11:15:05 -0700 (PDT)
-Received: by mail-wm1-x32c.google.com with SMTP id n35so5768846wms.5;
-        Sun, 20 Mar 2022 11:15:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=hBX2k7bP0JuTGs4Va/cZqoPnNWMc+mP7VB6dwkEnym8=;
-        b=a7edImwHxElUp+nxiHhoczI85uybUug2XQbZiUj8jMu6GG9oZjIyONWdpgH98fh0W2
-         wg7cBnyT85R9tRkGV5SQm3qjxZkdTdKD6FPHX50zQXHVP9ZsMiXplcHGGSkIicsGE6fD
-         sX7DW+Psq/1IeC/wWv2uw+kMKaLkeygDVvBk7d/4hn0GGTcmvjGwyc8exMaRmZngbYFw
-         0uQWQddLDXWQh34kd4kf/BBJmPkJKMTkQOAX6OSwsR2tzDfbi1dg4I6+EuEa82Xczkk3
-         tyb2MIR2ooKbgL8fTjyxm6bWeha43bgPtKiXwS22r7cPQZ+5fvrANHu8IY33Q5wqXVwv
-         JIDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=hBX2k7bP0JuTGs4Va/cZqoPnNWMc+mP7VB6dwkEnym8=;
-        b=HxPyogpQUkS+jCJi291GdsEq+gcicRQh8zOZ6HlvcMbZhEXjpBTxawt69MonkwKJxa
-         gJ98yLg79SwpTdE13xf+fbREvewC1lLOLZcpC8ctNoX5pIB6IJ5cNDyn5zVfnB0DNt6T
-         WN3hoDtzZGsqgznPNhQfkqYGgc+TUIZ5q8ycEsEvHU7KXIUCIf1ikwD7SkgVUSByP151
-         gihy7WfIIQl9+3YeEH2SQn394WIv6LLAbRJYV/IacJx2T1C1Dka1c8ddJeDd4drRTS8C
-         fT0LyBB4vzFTXekQLON4iu1gQxgkWkNNS10GN7JVLJgbwIam6M2O9tgbljUvAEG/RmsT
-         rpdw==
-X-Gm-Message-State: AOAM53266yFL7qhHOjs9MBkLEccEH1akWL7MmOxph4fGdpBxWJcJHpST
-        i4M8JtPDJTXBuuj5q6lFzda3cBPFiZB6Auq+
-X-Google-Smtp-Source: ABdhPJyveFwD1BJnTecZ7BvTG+hVgQovZ0eEhZCc0YsQ1xX+FrRyk5mGeQO6lFVJvUIYkVDodWGjZg==
-X-Received: by 2002:a05:600c:4e0d:b0:38c:a6da:adec with SMTP id b13-20020a05600c4e0d00b0038ca6daadecmr946252wmq.145.1647800104485;
-        Sun, 20 Mar 2022 11:15:04 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id a18-20020a05600c349200b0038ca453a887sm1598598wmq.19.2022.03.20.11.15.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 20 Mar 2022 11:15:04 -0700 (PDT)
-Message-ID: <fd0b3fea-4b40-ffba-442f-00908a5335a9@gmail.com>
-Date:   Sun, 20 Mar 2022 19:15:02 +0100
+        with ESMTP id S240513AbiCTSvJ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 20 Mar 2022 14:51:09 -0400
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 10AE245AE0
+        for <linux-man@vger.kernel.org>; Sun, 20 Mar 2022 11:49:45 -0700 (PDT)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id 817AC61211
+        for <linux-man@vger.kernel.org>; Sun, 20 Mar 2022 18:49:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E19D5C36AE5
+        for <linux-man@vger.kernel.org>; Sun, 20 Mar 2022 18:49:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1647802184;
+        bh=/OJj+TLwnOu13VAhY+fRvcY3kL2EmQ6hpY2zbSBwGrA=;
+        h=From:To:Subject:Date:In-Reply-To:References:From;
+        b=MeYHomg/wIyxtWb4xujh1Exdkvz0pmi6ScfH5tzMq6h2kOCTUp2tZ/kR3SGl1halj
+         wR+wGdoqJthIRilruYWBcAz1PS70eC+7SnUs94JOIqaUTLeBr5NkapQGiZsNKtglqR
+         ma/EhCFyz85hwhXquiJQztrVgHhjSDJPcAk+e7ZUAE8SIQWsjSSg4zSwRryKPrt+jf
+         dTCEoE4G8xCBOV36Q2RX4cXNmkRI8Wn0o4Da2AvYb6ftoJ6bXlQmGARWOqk9/NeQM9
+         9FUT6zcuRk45UqoTCSmJk+qx6CcQXLu9Z55W+YqgoZhHfSzxRCXTOa0CEu+2+bgVGN
+         0EW8NeEGyc31A==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
+        id CB2EFCC13AD; Sun, 20 Mar 2022 18:49:44 +0000 (UTC)
+From:   bugzilla-daemon@kernel.org
+To:     linux-man@vger.kernel.org
+Subject: [Bug 215704] Trouble locating documentation related to disk read
+ timeout /sys/block/*/device/timeout OR /sys/devices/**/timeout
+Date:   Sun, 20 Mar 2022 18:49:44 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Documentation
+X-Bugzilla-Component: man-pages
+X-Bugzilla-Version: unspecified
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: enhancement
+X-Bugzilla-Who: mjevans1983@gmail.com
+X-Bugzilla-Status: NEW
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P1
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: 
+Message-ID: <bug-215704-11311-rdqfz4QSjj@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-215704-11311@https.bugzilla.kernel.org/>
+References: <bug-215704-11311@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Subject: Re: [patch] console_codes.4: ffix
-Content-Language: en-US
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc:     nick black <dankamongmen@gmail.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-kernel@vger.kernel.org, linux-man@vger.kernel.org
-References: <YeEc2pYvKEckcAmv@schwarzgerat.orthanc>
- <CAN4uE+p-uKzHNYry2YhCMfEFBQ2jUqpDAGx=+eha01w-L4fAjg@mail.gmail.com>
- <20220320160217.gws42lklp6ishzub@localhost.localdomain>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-In-Reply-To: <20220320160217.gws42lklp6ishzub@localhost.localdomain>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-        autolearn=ham autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-8.0 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi, nick, and Branden!
+https://bugzilla.kernel.org/show_bug.cgi?id=3D215704
 
-On 3/20/22 17:02, G. Branden Robinson wrote:
-> Hi Nick,
-> 
-> Alex has been waiting on me for a review of this patch.  I took longer
-> than I should have because I thought he was expecting a technical
-> evaluation of the accuracy of the sequences documented.[1]  Now I see it
-> was just a matter of man(7) and tbl(1) syntactical and style review.
+--- Comment #1 from Michael Evans (mjevans1983@gmail.com) ---
+I should add some context.  I want the kernel ata / sd layers to handle
+unresponsive devices so that, ideally, some kind of 'this path is slow, but=
+ you
+can keep waiting' message is given to upper layers.  New commands should be
+soft-failed with a busy state or something similar that conveys the status =
+of
+'stalled' without 'error' (so far).  I would also hope that any such stall =
+is
+handled as a barrier for the device, and any other outstanding requests ret=
+ried
+unless they too are returned with errors.
 
-No, you were originally right.  I did mean both, but especially
-"a technical evaluation of the accuracy of the sequences documented".
-You did it anyway, so thanks! :)
+Somehow events, such as the dmesg entry that follows, correlate to enough
+errors to 'fault' the device and knock it out of the pool (during a repair
+scrub).
 
-> 
-> Easy bits first.
-> 
->> Remove CSI prefix from the list of non-CSI escapes.
-> 
-> +1
-> 
->> End all items of said list with periods, matching other sections of
->> the page.
-> 
-> +1
-> 
->> Fix up the busted OSC command list (reset palette and set palette).
-> 
->>  ESC ]  OSC     T{
->> -(Should be: Operating system command)
->> -ESC ] P \fInrrggbb\fP: set palette, with parameter
->> -given in 7 hexadecimal digits after the final P :-(.
->> -Here \fIn\fP is the color (0\(en15), and \fIrrggbb\fP indicates
->> +Operating System Command prefix.
->> +T}
->> +ESC ] R                Reset palette.
->> +ESC ] P                T{
->> +Set palette, with parameter given in 7 hexadecimal digits \fInrrggbb\fP after
->> +the final P. Here \fIn\fP is the color (0\(en15), and \fIrrggbb\fP indicates
->>  the red/green/blue values (0\(en255).
->> -ESC ] R: reset palette
->>  T}
-> 
-> Yes, this was majorly hosed up, syntactically.  What you have is good
-> repair to obvious damage.  +1.
-> 
-> I have some suggestions for further improvement, but please don't gate
-> the patch application on these.
-[...]
+Thus I was looking for a Documentation file that covered the timeout
+configuration file and gave guidance on if or how it should be tuned in
+relation to other aspects of the disks.
 
-Okay, thanks!
+The disk with these responses is a Seagate Exos X16 (ST16000NM001G-2KK103)
+Firmware SN03 believed to be ATA ACS-4, 4k sector, CMR.  No errors (no pend=
+ing
+/ remapped sectors, no logged sectors failed).
 
-nick, can you please resend the patch?  I've lost the original email.
+[ 1362.163151] ata3.00: exception Emask 0x10 SAct 0x60000000 SErr 0x280100
+action 0x6 frozen
+[ 1362.163184] ata3.00: irq_stat 0x08000000, interface fatal error
+[ 1362.163200] ata3: SError: { UnrecovData 10B8B BadCRC }
+[ 1362.163216] ata3.00: failed command: READ FPDMA QUEUED
+[ 1362.163230] ata3.00: cmd 60/c0:e8:28:48:d2/03:00:d9:03:00/40 tag 29 ncq =
+dma
+491520 in
+                        res 40/00:f0:e8:4b:d2/00:00:d9:03:00/40 Emask 0x10 =
+(ATA
+bus error)
+[ 1362.163272] ata3.00: status: { DRDY }
+[ 1362.163283] ata3.00: failed command: READ FPDMA QUEUED
+[ 1362.163297] ata3.00: cmd 60/40:f0:e8:4b:d2/00:00:d9:03:00/40 tag 30 ncq =
+dma
+32768 in
+                        res 40/00:f0:e8:4b:d2/00:00:d9:03:00/40 Emask 0x10 =
+(ATA
+bus error)
+[ 1362.163338] ata3.00: status: { DRDY }
+[ 1362.163350] ata3: hard resetting link
+[ 1362.476057] ata3: SATA link up 6.0 Gbps (SStatus 133 SControl 300)
+[ 1362.506459] ata3.00: ACPI cmd ef/10:06:00:00:00:00 (SET FEATURES) succee=
+ded
+[ 1362.506465] ata3.00: ACPI cmd f5/00:00:00:00:00:00 (SECURITY FREEZE LOCK)
+filtered out
+[ 1362.506467] ata3.00: ACPI cmd b1/c1:00:00:00:00:00 (DEVICE CONFIGURATION
+OVERLAY) filtered out
+[ 1362.564800] ata3.00: ACPI cmd ef/10:06:00:00:00:00 (SET FEATURES) succee=
+ded
+[ 1362.564815] ata3.00: ACPI cmd f5/00:00:00:00:00:00 (SECURITY FREEZE LOCK)
+filtered out
+[ 1362.564817] ata3.00: ACPI cmd b1/c1:00:00:00:00:00 (DEVICE CONFIGURATION
+OVERLAY) filtered out
+[ 1362.603044] ata3.00: configured for UDMA/133
+[ 1362.603061] sd 2:0:0:0: [sdc] tag#29 FAILED Result: hostbyte=3DDID_OK
+driverbyte=3DDRIVER_OK cmd_age=3D0s
+[ 1362.603065] sd 2:0:0:0: [sdc] tag#29 Sense Key : Illegal Request [curren=
+t]=20
+[ 1362.603067] sd 2:0:0:0: [sdc] tag#29 Add. Sense: Unaligned write command
+[ 1362.603070] sd 2:0:0:0: [sdc] tag#29 CDB: Read(16) 88 00 00 00 00 03 d9 =
+d2
+48 28 00 00 03 c0 00 00
+[ 1362.603071] I/O error, dev sdc, sector 16539338792 op 0x0:(READ) flags 0=
+x700
+phys_seg 15 prio class 0
+[ 1362.603129] zio pool=3DREDACTED vdev=3D/dev/disk/by-partlabel/REDACTED e=
+rror=3D5
+type=3D1 offset=3D... size=3D491520 flags=3D40080cb0
+[ 1362.603239] sd 2:0:0:0: [sdc] tag#30 FAILED Result: hostbyte=3DDID_OK
+driverbyte=3DDRIVER_OK cmd_age=3D0s
+[ 1362.603276] sd 2:0:0:0: [sdc] tag#30 Sense Key : Illegal Request [curren=
+t]=20
+[ 1362.603332] sd 2:0:0:0: [sdc] tag#30 Add. Sense: Unaligned write command
+[ 1362.603337] sd 2:0:0:0: [sdc] tag#30 CDB: Read(16) 88 00 00 00 00 03 d9 =
+d2
+4b e8 00 00 00 40 00 00
+[ 1362.603389] I/O error, dev sdc, sector 16539339752 op 0x0:(READ) flags 0=
+x700
+phys_seg 1 prio class 0
+[ 1362.603738] zio pool=3DREDACTED vdev=3D/dev/disk/by-partlabel/REDACTED e=
+rror=3D5
+type=3D1 offset=3D... size=3D32768 flags=3D1808b0
+[ 1362.604011] ata3: EH complete
 
-Cheers,
+FAULTED     17     0     0  too many errors  (repairing)
 
-Alex
+--=20
+You may reply to this email to add a comment.
 
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+You are receiving this mail because:
+You are watching the assignee of the bug.=
