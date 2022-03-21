@@ -2,165 +2,152 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 800974E1E92
-	for <lists+linux-man@lfdr.de>; Mon, 21 Mar 2022 02:07:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id A886F4E207A
+	for <lists+linux-man@lfdr.de>; Mon, 21 Mar 2022 07:11:05 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1343892AbiCUBJF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 20 Mar 2022 21:09:05 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42154 "EHLO
+        id S234584AbiCUGM1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 21 Mar 2022 02:12:27 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37798 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232714AbiCUBJF (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 20 Mar 2022 21:09:05 -0400
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com [IPv6:2a00:1450:4864:20::329])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C0D4C17A2E8
-        for <linux-man@vger.kernel.org>; Sun, 20 Mar 2022 18:07:40 -0700 (PDT)
-Received: by mail-wm1-x329.google.com with SMTP id r190-20020a1c2bc7000000b0038a1013241dso7620844wmr.1
-        for <linux-man@vger.kernel.org>; Sun, 20 Mar 2022 18:07:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language
-         :from:to:cc:references:in-reply-to:content-transfer-encoding;
-        bh=R5zcGcSOUY7Fj/HEQJLFHuvthslegfbkYOXEIdNXqCI=;
-        b=SXbxz0YCVR7IJiTwzWPGZhHUjwf+ULggsHUv5yoLWq8+1hQv8M5jCdBbqNlTxZUjfo
-         f8zO1mhVqu7tdVMEqlYqI4aDtdHdRoEJhGwF8UdH6kvgKEEuc0c7H9SEu1+GGOOr6Z2T
-         hwf8POQF91P8KaUiH3gF2EejYdr6Icq4lmP4JgI3Aza2lZ2Wp6Nh1TOjPSZzNmze47fQ
-         fM3dCfRcDBFA24RzreZALtbW+QFamGEdjUfEHKi9dbQ76MqoVkSijElYEXfsvWjM123c
-         6PllIGNWP8qKEHeXTv+8jqBR8GeTIMTB5Lx4SBKDB3e+fXpzunXYKn5a9rKCaM3CMNwa
-         Pw7g==
+        with ESMTP id S231917AbiCUGM0 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 21 Mar 2022 02:12:26 -0400
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 1A28663534
+        for <linux-man@vger.kernel.org>; Sun, 20 Mar 2022 23:11:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1647843061;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=odBINnMgIi0tgmQ8mhF4tk+Kj1bfTM5xyu8TMVAPo04=;
+        b=EEa2t43UlJJwmSsqsZPJE2aNesaVAZPow2LY+joXafBkOtZ2RLoe8r1yrCbYjOd875o2Pi
+        nvSww03Olxmz9HCR1z1Hhw2kk+RcEli2HdINtfzzZcO4iheI9QQ9wQfY6zTw01RiaAI+Hc
+        DhOdk+BiRoa3/YpSqtwg0rmaM3s4G2g=
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
+ [209.85.216.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-203-XuQU9pWeOGaimTIkO1EgMA-1; Mon, 21 Mar 2022 02:10:59 -0400
+X-MC-Unique: XuQU9pWeOGaimTIkO1EgMA-1
+Received: by mail-pj1-f70.google.com with SMTP id mq8-20020a17090b380800b001c6f8962e95so1313156pjb.1
+        for <linux-man@vger.kernel.org>; Sun, 20 Mar 2022 23:10:59 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:from:to:cc:references:in-reply-to
-         :content-transfer-encoding;
-        bh=R5zcGcSOUY7Fj/HEQJLFHuvthslegfbkYOXEIdNXqCI=;
-        b=7o2NReOcwK8xHGHs+Mo2dVZcbFg+hLStRKzswyxPkfhfkYPVh52rlSEwEiA2SR8BWN
-         myXAuK2Z8C39JBoPIW42ILgXm5wYi74Qg3IEainQxXcgRQYSAd2gmgZYJYd0zyqk2qYC
-         uSe5JzO1nL1oGwiSrJoB71eeT/zHnunmBwx08CIrncR+bYI6dnLiruPamG5AvMNhfNIy
-         Ncvf6RaLYS8NCufhKVvkibn+37my/O7IuVsnwQZNcCN6b3zNVUsNpTMTVE+B1lUDOzqu
-         TmrEoM2D8fBtu4qwKCfSMBddfn579sBNgORs6CRJvweL0eOG1XRXaTIvOQ/DOCJv/Kf9
-         wGqA==
-X-Gm-Message-State: AOAM53389b7fGAUhTtk0Jn9d19xDuioFUrxnOGl8jOxawJs9IunUWXqj
-        NYqiWV0C+cLm0FGlsVf7U5w=
-X-Google-Smtp-Source: ABdhPJyPE5eduONhCR7g4y0J8xMrzG3YD5NMkxdLXqLbX8FKNhLpRlNPZxt9h8QxvkriVAv0McD5fw==
-X-Received: by 2002:a05:600c:1913:b0:389:f643:28a5 with SMTP id j19-20020a05600c191300b00389f64328a5mr17487866wmq.182.1647824859203;
-        Sun, 20 Mar 2022 18:07:39 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id c5-20020a5d63c5000000b002040822b680sm5044709wrw.81.2022.03.20.18.07.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 20 Mar 2022 18:07:38 -0700 (PDT)
-Message-ID: <3a0be8dc-088e-facc-977b-49b0179c5668@gmail.com>
-Date:   Mon, 21 Mar 2022 02:07:37 +0100
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=odBINnMgIi0tgmQ8mhF4tk+Kj1bfTM5xyu8TMVAPo04=;
+        b=onACQnKBEGv/IhX4gOxuD131WktdQirwpcfcONOiwEwKCpwunRGaCmf40RA4NUMVAL
+         DuR1s2BYnsRu85wZMyNWoEx5Z2SdHRGRW5xyHux3H8DdDcNCHZYHZqHjpNvbNTDFksgD
+         pp2UJihMv7XMurRJ5EE+HMoQZcf1v/XkX842A48LvHMptPxaC/agwlpl4CyF7jdT2KdC
+         2d7rhTi59Y6cl6FvJjEmG4NmMhKOs1ENi2I/KgRsrxfm4lauaxrwcxzcAj+aU9tBoOe1
+         txx4bAOg8cfH2hf4O0lHFBTWwHeMxO36jbZXL8hHSiq4wXIv3HGIZ3w6qoHqEsmceyZz
+         U4rg==
+X-Gm-Message-State: AOAM532l4hB7hUAE0egzFgSsB7K5lfjFn4FSVErmXK+QnWjpLFw/saqD
+        6/SNc2+eZ/wSRiLJ9z+T8xYqsBZWOGWhpDprB/hg6V3xeSOtdQy6n9s8lwlp/PreHS5DpvMDlzZ
+        eKahuQUverQgnq3SI3kQZ
+X-Received: by 2002:a17:903:3014:b0:153:a200:fb5 with SMTP id o20-20020a170903301400b00153a2000fb5mr11234654pla.25.1647843058485;
+        Sun, 20 Mar 2022 23:10:58 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJy4nBZxz0/jlFlP6K79zZR1DPic/SPTE+MsIPT9iiUjWK0KlRkg2Czy6k20MK9pMR111MHYeg==
+X-Received: by 2002:a17:903:3014:b0:153:a200:fb5 with SMTP id o20-20020a170903301400b00153a2000fb5mr11234637pla.25.1647843058174;
+        Sun, 20 Mar 2022 23:10:58 -0700 (PDT)
+Received: from xz-m1.local ([191.101.132.87])
+        by smtp.gmail.com with ESMTPSA id m123-20020a633f81000000b0038256b22e74sm4753853pga.82.2022.03.20.23.10.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 20 Mar 2022 23:10:57 -0700 (PDT)
+Date:   Mon, 21 Mar 2022 14:10:52 +0800
+From:   Peter Xu <peterx@redhat.com>
+To:     Ian Abbott <abbotti@mev.co.uk>
+Cc:     linux-man@vger.kernel.org,
+        Alejandro Colomar <alx.manpages@gmail.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        linux-kernel@vger.kernel.org,
+        Axel Rasmussen <axelrasmussen@google.com>
+Subject: Re: [PATCH] ioctl_userfaultfd.2: Corrections for returned .ioctls
+ members
+Message-ID: <YjgW7L77+Y2fylcR@xz-m1.local>
+References: <20220318191343.72812-1-abbotti@mev.co.uk>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Subject: Re: Exctracting source code from EXAMPLES
-Content-Language: en-US
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-To:     Stephen Kitt <steve@sk2.org>
-Cc:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>,
-        Ingo Schwarze <schwarze@usta.de>
-References: <e4ea99a0-b65c-467f-047d-2cb466df86e7@gmail.com>
- <20220320232702.351b5832@heffalump.sk2.org>
- <6c13326a-4c9d-0acb-b64e-07b18a01b502@gmail.com>
-In-Reply-To: <6c13326a-4c9d-0acb-b64e-07b18a01b502@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-        autolearn=ham autolearn_force=no version=3.4.6
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20220318191343.72812-1-abbotti@mev.co.uk>
+X-Spam-Status: No, score=-3.0 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
+        RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,
+        T_SCC_BODY_TEXT_LINE autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Stephen,
+On Fri, Mar 18, 2022 at 07:13:43PM +0000, Ian Abbott wrote:
+> Support for the `UFFDIO_WRITEPROTECT` operation is not indicated in the
+> `ioctls` member of `struct uffdio_api`.  It is indicated in the `ioctls`
+> member of `struct uffdio_register` along with indications of support for
+> the `UFFDIO_COPY`, `UFFDIO_WAKE` and `UFFDIO_ZEROPAGE` operations (and
+> also the `UFFDIO_CONTINUE` operation supported since Linux 5.13 but
+> that is not documented by this man page yet.)
 
-On 3/21/22 01:02, Alejandro Colomar (man-pages) wrote:
-> I like the idea of autogenerating and including a makefile, which allows
-> listing the example programs in the process.  In my current makefile, I
-> need to run make build-src before any further actions on those files,
-> since I don't know them at the time of setting variables.
+I thought it should have landed but indeed it's not.  Copying Axel.
+
 > 
-> I may take some bits from here.
+> Fixes: f559fa36a678 ("ioctl_userfaultfd.2: Add write-protect mode docs")
+> Signed-off-by: Ian Abbott <abbotti@mev.co.uk>
 
-Well, I managed to get everything within the Makefile, with some complex
-variable definition; no autogenerated makefiles, and no included
-makefiles.  It makes the makefile a bit slow, however, by adding a fixed
-initialization overhead:  `make clean` goes from 0.11 s to 1.96 s in my
-computer.  2 s is not too much for complex operations, but it's a bit
-nasty when you just want to clean, or you just changed one page.  But I
-guess any solution will have a similar fixed overhead (or it will be
-fast, but will require a separate step such as `make build-src`).
+The patch looks correct to me, thanks for fixing it.
 
-But the result is quite neat and simple, compared to other options:
+Acked-by: Peter Xu <peterx@redhat.com>
 
-
-+SRCPAGEDIRS:=$(patsubst $(MANDIR)/%,$(SRCDIR)/%.d,$(LINTPAGES))
-+UNITS_c    := $(patsubst $(MANDIR)/%,$(SRCDIR)/%,$(shell \
-+               find $(MANDIR)/man?/ -type f \
-+               | grep '$(manext)$$' \
-+               | while read m; do \
-+                       <$$m \
-+                       sed -n "s,^\.\\"'"'" SRC BEGIN
-(\(.*.c\))$$,$$m.d\1,p";\
-+               done))
-
-
-
-
-+########################################################################
-+# src
-+
-+$(SRCPAGEDIRS): $(SRCDIR)/%.d: $(MANDIR)/% | $$(@D)/.
-+       $(info MKDIR    $@)
-+       $(MKDIR) $@
-+
-+$(UNITS_c): $$(@D)
-+       $(info SED      $@)
-+       <$(patsubst $(SRCDIR)/%.d,$(MANDIR)/%,$<) \
-+       sed -n \
-+               -e '/^\.TH/,/^\.SH/{/^\.SH/!p}' \
-+               -e '/^\.SH EXAMPLES/p' \
-+               -e "/^\... SRC BEGIN ($(@F))$$/,/^\... SRC END$$/p" \
-+       | $(MAN) -P cat -l - \
-+       | sed '/^[^ ]/d' \
-+       | sed 's/^       //' \
-+       >$@ \
-+       || exit $$?
-+
-+$(SRCDIRS): %/.: | $$(dir %). $(SRCDIR)/.
-+
-+.PHONY: build-src src
-+build-src src: $(UNITS_c) | builddirs-src
-+       @:
-+
-+.PHONY: builddirs-src
-+builddirs-src: $(SRCDIRS)
-+       @:
-+
-+
-
-
-Those two biggie snippets embedded into the Makefile
-are similar in essence to the 2 helper scripts you use.
-The benefit of embedding them in the Makefile is that I have full
-control of it, and can use variables directly from the Makefile.
-Also less files :).
-And even though it's slower,
-I prefer it over having to run `make build-src` manually.
-
-
-I've updated my 'lint' branch.
-
-Cheers,
-
-Alex
+> ---
+>  man2/ioctl_userfaultfd.2 | 27 ++++++++++++++++++++-------
+>  1 file changed, 20 insertions(+), 7 deletions(-)
+> 
+> diff --git a/man2/ioctl_userfaultfd.2 b/man2/ioctl_userfaultfd.2
+> index 504f61d4b..e930af520 100644
+> --- a/man2/ioctl_userfaultfd.2
+> +++ b/man2/ioctl_userfaultfd.2
+> @@ -235,11 +235,6 @@ operation is supported.
+>  The
+>  .B UFFDIO_UNREGISTER
+>  operation is supported.
+> -.TP
+> -.B 1 << _UFFDIO_WRITEPROTECT
+> -The
+> -.B UFFDIO_WRITEPROTECT
+> -operation is supported.
+>  .PP
+>  This
+>  .BR ioctl (2)
+> @@ -333,8 +328,26 @@ If the operation is successful, the kernel modifies the
+>  bit-mask field to indicate which
+>  .BR ioctl (2)
+>  operations are available for the specified range.
+> -This returned bit mask is as for
+> -.BR UFFDIO_API .
+> +This returned bit mask can contain the following bits:
+> +.TP
+> +.B 1 << _UFFDIO_COPY
+> +The
+> +.B UFFDIO_COPY
+> +operation is supported.
+> +.TP
+> +.B 1 << _UFFDIO_WAKE
+> +The
+> +.B UFFDIO_WAKE
+> +operation is supported.
+> +.TP
+> +.B 1 << _UFFDIO_WRITEPROTECT
+> +The
+> +.B UFFDIO_WRITEPROTECT
+> +.TP
+> +.B 1 << _UFFDIO_ZEROPAGE
+> +The
+> +.B UFFDIO_ZEROPAGE
+> +operation is supported.
+>  .PP
+>  This
+>  .BR ioctl (2)
+> -- 
 
 -- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+Peter Xu
+
