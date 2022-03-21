@@ -2,59 +2,60 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id DD5074E1E59
-	for <lists+linux-man@lfdr.de>; Mon, 21 Mar 2022 01:02:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 800974E1E92
+	for <lists+linux-man@lfdr.de>; Mon, 21 Mar 2022 02:07:44 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S244529AbiCUADm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 20 Mar 2022 20:03:42 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51572 "EHLO
+        id S1343892AbiCUBJF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 20 Mar 2022 21:09:05 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42154 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S236339AbiCUADm (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 20 Mar 2022 20:03:42 -0400
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com [IPv6:2a00:1450:4864:20::42c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8C124180231
-        for <linux-man@vger.kernel.org>; Sun, 20 Mar 2022 17:02:17 -0700 (PDT)
-Received: by mail-wr1-x42c.google.com with SMTP id m30so8826931wrb.1
-        for <linux-man@vger.kernel.org>; Sun, 20 Mar 2022 17:02:17 -0700 (PDT)
+        with ESMTP id S232714AbiCUBJF (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 20 Mar 2022 21:09:05 -0400
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com [IPv6:2a00:1450:4864:20::329])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C0D4C17A2E8
+        for <linux-man@vger.kernel.org>; Sun, 20 Mar 2022 18:07:40 -0700 (PDT)
+Received: by mail-wm1-x329.google.com with SMTP id r190-20020a1c2bc7000000b0038a1013241dso7620844wmr.1
+        for <linux-man@vger.kernel.org>; Sun, 20 Mar 2022 18:07:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=qp93df9DkRI0vkLmO7nuDOu534s7nmZIJ4V2epyImGQ=;
-        b=p6+NW7kPHFmKGrOMdpMA+EAvRKmP4tsE2WyPHvDDrlhTOFkvXNjmEBqGMmwIwpwks/
-         bdrxpeX8m7rpPT8tanZnEigVL8suSzEdwStQYJsMjb82d7TQ/eVMxAfo9jxAgUV34rlg
-         4LY2ge/O3PHohrr4o8JVz7ZK70W1mxXuuh3O1rAYvrWUloEgvzbN4ByEyw597GHyUGOp
-         1BDHk5dimIl6SJO/PPC9pVioaUzmvD6N+lj36L05RC5IgB2bDIwseMrSIkcSv2lyaJab
-         wcOho0PfZHoLHfW9swf7QSzPgcOrF4CsVRuFosxfK6EfyD38UXxUKqPCx4HZl+2h81Qm
-         KGtA==
+        h=message-id:date:mime-version:user-agent:subject:content-language
+         :from:to:cc:references:in-reply-to:content-transfer-encoding;
+        bh=R5zcGcSOUY7Fj/HEQJLFHuvthslegfbkYOXEIdNXqCI=;
+        b=SXbxz0YCVR7IJiTwzWPGZhHUjwf+ULggsHUv5yoLWq8+1hQv8M5jCdBbqNlTxZUjfo
+         f8zO1mhVqu7tdVMEqlYqI4aDtdHdRoEJhGwF8UdH6kvgKEEuc0c7H9SEu1+GGOOr6Z2T
+         hwf8POQF91P8KaUiH3gF2EejYdr6Icq4lmP4JgI3Aza2lZ2Wp6Nh1TOjPSZzNmze47fQ
+         fM3dCfRcDBFA24RzreZALtbW+QFamGEdjUfEHKi9dbQ76MqoVkSijElYEXfsvWjM123c
+         6PllIGNWP8qKEHeXTv+8jqBR8GeTIMTB5Lx4SBKDB3e+fXpzunXYKn5a9rKCaM3CMNwa
+         Pw7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
+         :content-language:from:to:cc:references:in-reply-to
          :content-transfer-encoding;
-        bh=qp93df9DkRI0vkLmO7nuDOu534s7nmZIJ4V2epyImGQ=;
-        b=OnVKD5Tbok/mcn3hThAafXN4MozT3KeDKkQN8BQANlpSOIjS6GN64/U3ysLY3ADm3g
-         P0Pw4yzlmtMRhZJZl1d0dDyDeqgWSOml7W7i57vmsfrbtbzW9QW9eux92qOA4GWr2F9F
-         890s3PPJEWM/ozCDTkKg3a5imZSA1TStVE912Y0yTpYVFzZP73Wyzg96rGSack8x7qBj
-         47s+sMCDg78bY3hINO14ZzOrWStJ8YasTB2tiwf9ehMSfWnykHDXdNQgdTq2fh/uTZ7d
-         nOT8SVv0HYpJQ10MRBbCHx6+Zg18QW8hjxVhLEPiRkRcJxNxcBIgOB0vZnC/ctU0+LSr
-         ahsA==
-X-Gm-Message-State: AOAM530pa/bN2Y972qgSPs7Nbb7F+RtjxdOueKtzHEMQIYInk7mmxZE0
-        5dIJSrRkDz9dv5t8hpizMN9PnUYYgHV3i4o7
-X-Google-Smtp-Source: ABdhPJxYKaD5tzGwXOxctEIRMw5KXCEFbtsYnYJpjCEbTYLnjmi1CnS5cHmIr1CKjcA7nS4ieM5pHQ==
-X-Received: by 2002:adf:e343:0:b0:1f0:7a2:99f2 with SMTP id n3-20020adfe343000000b001f007a299f2mr17071615wrj.96.1647820935961;
-        Sun, 20 Mar 2022 17:02:15 -0700 (PDT)
+        bh=R5zcGcSOUY7Fj/HEQJLFHuvthslegfbkYOXEIdNXqCI=;
+        b=7o2NReOcwK8xHGHs+Mo2dVZcbFg+hLStRKzswyxPkfhfkYPVh52rlSEwEiA2SR8BWN
+         myXAuK2Z8C39JBoPIW42ILgXm5wYi74Qg3IEainQxXcgRQYSAd2gmgZYJYd0zyqk2qYC
+         uSe5JzO1nL1oGwiSrJoB71eeT/zHnunmBwx08CIrncR+bYI6dnLiruPamG5AvMNhfNIy
+         Ncvf6RaLYS8NCufhKVvkibn+37my/O7IuVsnwQZNcCN6b3zNVUsNpTMTVE+B1lUDOzqu
+         TmrEoM2D8fBtu4qwKCfSMBddfn579sBNgORs6CRJvweL0eOG1XRXaTIvOQ/DOCJv/Kf9
+         wGqA==
+X-Gm-Message-State: AOAM53389b7fGAUhTtk0Jn9d19xDuioFUrxnOGl8jOxawJs9IunUWXqj
+        NYqiWV0C+cLm0FGlsVf7U5w=
+X-Google-Smtp-Source: ABdhPJyPE5eduONhCR7g4y0J8xMrzG3YD5NMkxdLXqLbX8FKNhLpRlNPZxt9h8QxvkriVAv0McD5fw==
+X-Received: by 2002:a05:600c:1913:b0:389:f643:28a5 with SMTP id j19-20020a05600c191300b00389f64328a5mr17487866wmq.182.1647824859203;
+        Sun, 20 Mar 2022 18:07:39 -0700 (PDT)
 Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id ay24-20020a05600c1e1800b00389a420e1ecsm12519467wmb.37.2022.03.20.17.02.14
+        by smtp.gmail.com with ESMTPSA id c5-20020a5d63c5000000b002040822b680sm5044709wrw.81.2022.03.20.18.07.38
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 20 Mar 2022 17:02:15 -0700 (PDT)
-Message-ID: <6c13326a-4c9d-0acb-b64e-07b18a01b502@gmail.com>
-Date:   Mon, 21 Mar 2022 01:02:14 +0100
+        Sun, 20 Mar 2022 18:07:38 -0700 (PDT)
+Message-ID: <3a0be8dc-088e-facc-977b-49b0179c5668@gmail.com>
+Date:   Mon, 21 Mar 2022 02:07:37 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.6.2
 Subject: Re: Exctracting source code from EXAMPLES
 Content-Language: en-US
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
 To:     Stephen Kitt <steve@sk2.org>
 Cc:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
         "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
@@ -62,10 +63,10 @@ Cc:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
         Ingo Schwarze <schwarze@usta.de>
 References: <e4ea99a0-b65c-467f-047d-2cb466df86e7@gmail.com>
  <20220320232702.351b5832@heffalump.sk2.org>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-In-Reply-To: <20220320232702.351b5832@heffalump.sk2.org>
+ <6c13326a-4c9d-0acb-b64e-07b18a01b502@gmail.com>
+In-Reply-To: <6c13326a-4c9d-0acb-b64e-07b18a01b502@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
@@ -76,92 +77,84 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Stephen!
+Hi Stephen,
 
-On 3/20/22 23:27, Stephen Kitt wrote:
-> Hi Alex,
+On 3/21/22 01:02, Alejandro Colomar (man-pages) wrote:
+> I like the idea of autogenerating and including a makefile, which allows
+> listing the example programs in the process.  In my current makefile, I
+> need to run make build-src before any further actions on those files,
+> since I don't know them at the time of setting variables.
 > 
-> On Sun, 20 Mar 2022 21:34:47 +0100, "Alejandro Colomar (man-pages)" 
-> I’ve been working on something similar, slightly further along (the linting
-> targets work).
+> I may take some bits from here.
 
-I've been adding code for linting this evening too.  Currently I'm
-compiling and linking the programs extracted.  I only did it with
-membarrier.2 for now, and I've already fixed a line.
+Well, I managed to get everything within the Makefile, with some complex
+variable definition; no autogenerated makefiles, and no included
+makefiles.  It makes the makefile a bit slow, however, by adding a fixed
+initialization overhead:  `make clean` goes from 0.11 s to 1.96 s in my
+computer.  2 s is not too much for complex operations, but it's a bit
+nasty when you just want to clean, or you just changed one page.  But I
+guess any solution will have a similar fixed overhead (or it will be
+fast, but will require a separate step such as `make build-src`).
 
-I also plan to add some static analyzers too, such as iwyu(1),
-clang-tidy(1), or checkpatch.pl and some others.
-
-You could check my 'lint' branch here:
-<http://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/log/?h=lint>
-
-Compare that with what you have, and we can develop some mix of both.
-
-With what I have, you need to run:
-
-make build-src && make build-ld
-
-> The extraction scripts could do with some improvement, but the
-> Makefile changes are small:
+But the result is quite neat and simple, compared to other options:
 
 
++SRCPAGEDIRS:=$(patsubst $(MANDIR)/%,$(SRCDIR)/%.d,$(LINTPAGES))
++UNITS_c    := $(patsubst $(MANDIR)/%,$(SRCDIR)/%,$(shell \
++               find $(MANDIR)/man?/ -type f \
++               | grep '$(manext)$$' \
++               | while read m; do \
++                       <$$m \
++                       sed -n "s,^\.\\"'"'" SRC BEGIN
+(\(.*.c\))$$,$$m.d\1,p";\
++               done))
 
-> 
-> # Check that example programs include in man pages really build
-> Makefile.examples: $(MANPAGES)
-> 	scripts/list-example-files $^ > $@
-> 
-> include Makefile.examples
-> 
-> # Sources are listed as well as objects to ensure we update all source files
-> # CPPFLAGS and TARGET_ARCH are defined to avoid warnings
-> .PHONY: check-example-programs
-> check-example-programs: CFLAGS = -Wall
-> check-example-programs: CPPFLAGS =
-> check-example-programs: TARGET_ARCH =
-> check-example-programs: $(EXAMPLE_SRCS) $(EXAMPLE_OBJS)
-> 
-> .PHONY: clean-example-programs
-> clean-example-programs:
-> 	rm -f $(EXAMPLE_SRCS) $(EXAMPLE_OBJS)
-> 
-> 
-> scripts/list-example-files builds a separate Makefile to extract all the
-> programs, which ends up looking like
-> 
-> /home/steve/man-pages/man1/memusage.c: /home/steve/man-pages/man1/memusage.1
-> 	scripts/extract-example-files $<
-> 
-> /home/steve/man-pages/man1/prog.c /home/steve/man-pages/man1/libdemo.c: /home/steve/man-pages/man1/sprof.1
-> 	scripts/extract-example-files $<
 
-I like the idea of autogenerating and including a makefile, which allows
-listing the example programs in the process.  In my current makefile, I
-need to run make build-src before any further actions on those files,
-since I don't know them at the time of setting variables.
 
-I may take some bits from here.
 
-> 
-> 
-> The scripts are attached. The patterns used to identify source code are close
-> to those already present: .EX/.EE introduced by “Program source” (in which
-> case the source code is extracted to a C file named after the man page) or by
-> a
-> 
-> \." Example file
-> 
-> comment which can optionally name the file.
++########################################################################
++# src
++
++$(SRCPAGEDIRS): $(SRCDIR)/%.d: $(MANDIR)/% | $$(@D)/.
++       $(info MKDIR    $@)
++       $(MKDIR) $@
++
++$(UNITS_c): $$(@D)
++       $(info SED      $@)
++       <$(patsubst $(SRCDIR)/%.d,$(MANDIR)/%,$<) \
++       sed -n \
++               -e '/^\.TH/,/^\.SH/{/^\.SH/!p}' \
++               -e '/^\.SH EXAMPLES/p' \
++               -e "/^\... SRC BEGIN ($(@F))$$/,/^\... SRC END$$/p" \
++       | $(MAN) -P cat -l - \
++       | sed '/^[^ ]/d' \
++       | sed 's/^       //' \
++       >$@ \
++       || exit $$?
++
++$(SRCDIRS): %/.: | $$(dir %). $(SRCDIR)/.
++
++.PHONY: build-src src
++build-src src: $(UNITS_c) | builddirs-src
++       @:
++
++.PHONY: builddirs-src
++builddirs-src: $(SRCDIRS)
++       @:
++
++
 
-Those scripts seem a bit messy, due to the problem of not having a
-standardized comment.  Are they reliable?  Or are there false negatives
-or positives?
 
-> 
-> This has identified some more man pages which need fixes to their example
-> code, I’ll send patches tomorrow.
+Those two biggie snippets embedded into the Makefile
+are similar in essence to the 2 helper scripts you use.
+The benefit of embedding them in the Makefile is that I have full
+control of it, and can use variables directly from the Makefile.
+Also less files :).
+And even though it's slower,
+I prefer it over having to run `make build-src` manually.
 
-Okay.
+
+I've updated my 'lint' branch.
 
 Cheers,
 
