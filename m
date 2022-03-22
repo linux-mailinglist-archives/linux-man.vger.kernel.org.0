@@ -2,389 +2,102 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 212714E445D
-	for <lists+linux-man@lfdr.de>; Tue, 22 Mar 2022 17:39:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 80CA84E448C
+	for <lists+linux-man@lfdr.de>; Tue, 22 Mar 2022 17:51:50 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S239172AbiCVQlQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 22 Mar 2022 12:41:16 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44804 "EHLO
+        id S236522AbiCVQxN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 22 Mar 2022 12:53:13 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53004 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S239171AbiCVQlQ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 22 Mar 2022 12:41:16 -0400
-Received: from mail-yb1-xb49.google.com (mail-yb1-xb49.google.com [IPv6:2607:f8b0:4864:20::b49])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3B0195DA72
-        for <linux-man@vger.kernel.org>; Tue, 22 Mar 2022 09:39:48 -0700 (PDT)
-Received: by mail-yb1-xb49.google.com with SMTP id x11-20020a5b0f0b000000b0062277953037so14781922ybr.21
-        for <linux-man@vger.kernel.org>; Tue, 22 Mar 2022 09:39:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20210112;
-        h=date:message-id:mime-version:subject:from:to:cc;
-        bh=glY7LGDPCM25y+XbPq+POO1HsxgAlNCphRe/8HqyL+Q=;
-        b=fLOMxDkbkAw8OxToVulHaPlTSEDnbye3Jw7uOlqRTsOgKI0kajSg2Lk5VHGkOtcrq0
-         26+j2/Sz1TowWjzP0ld76hLfdjOwJTkDDZvwJzryewJz/59ktD/g8Hcc/SaPABRe1HQv
-         k65ocJ00udPPcXZxhN8MQS7t99zMHVD2aXuEvrd6lOIeO8Nw1NACsGbSUz7UP8AI9OCU
-         SCjNlZmNgq3iWSknAmZfoR/UO78Vzgo/WBaloQYvz93hO0MHlZHdbkqWjECqJOFyCkE7
-         Gk23n2t03iIWol1Q6/vYBUYk3Zd8sAKPVdT/L6RDdxXEFnL0JRGfYzHBqsZzJFnNVR7t
-         nJGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
-        bh=glY7LGDPCM25y+XbPq+POO1HsxgAlNCphRe/8HqyL+Q=;
-        b=gDCu8NnhHF+mrwdeQtD+AYjSY/LhNYV/EORwbQ6JNe2lVVBhmaCK/QYs/XkExiWngP
-         2Qz17imBpKAJhl1KhalVG39jW41ms9bSjY+cU6XTV6t9Fxa1rXV+qdANUBm83xrqtt/c
-         CeMYqxuBHeAAA4nkM3qCWs33D/gEZcwJTAzZm0Ib1CQJIWwcc/0hNvGStYcd22JrfBOG
-         yZQENb/I5vm6axCuUdgWvmoP5MXQXdKCYi29ZKI5gh9F4S2GTMOijh2/9v8hLcoz8Zs6
-         weELh34LNFPYFtt/bk9M7F/gXXjc5yQEfA03rTXxMUijFBEPBm5919DbWnr5ynxv6aJr
-         bxrg==
-X-Gm-Message-State: AOAM532//Ddcj2fatmFR5H1M1UT0+uS1dv9Z9FFqV1StzewZMrUNrGwg
-        T6r4lozUfLbO/6YIMgQ5ECfEad7R94+vh7ffjbBp
-X-Google-Smtp-Source: ABdhPJzp+ZMbK3Vma/ovpf1hnlzQ5Doq7pv46l6RTTf2zuMM6G461HHoXoaLdSC328O+IIs5Y61WOu54RCXWcPtGpj+b
-X-Received: from ajr0.svl.corp.google.com ([2620:15c:2cd:203:123f:9f6d:add4:8fce])
- (user=axelrasmussen job=sendgmr) by 2002:a5b:848:0:b0:633:716f:1fb0 with SMTP
- id v8-20020a5b0848000000b00633716f1fb0mr25788968ybq.522.1647967187423; Tue,
- 22 Mar 2022 09:39:47 -0700 (PDT)
-Date:   Tue, 22 Mar 2022 09:39:44 -0700
-Message-Id: <20220322163944.631042-1-axelrasmussen@google.com>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.35.1.894.gb6a874cedc-goog
-Subject: [PATCH v3] ioctl_userfaultfd.2, userfaultfd.2: add minor fault mode
-From:   Axel Rasmussen <axelrasmussen@google.com>
-To:     Alejandro Colomar <alx.manpages@gmail.com>,
-        Andrea Arcangeli <aarcange@redhat.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Hugh Dickins <hughd@google.com>,
+        with ESMTP id S234897AbiCVQxN (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 22 Mar 2022 12:53:13 -0400
+X-Greylist: delayed 307 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Tue, 22 Mar 2022 09:51:45 PDT
+Received: from smtp100.iad3b.emailsrvr.com (smtp100.iad3b.emailsrvr.com [146.20.161.100])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AD8FA85671
+        for <linux-man@vger.kernel.org>; Tue, 22 Mar 2022 09:51:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mev.co.uk;
+        s=20190130-41we5z8j; t=1647967597;
+        bh=lnsLWwckfIuoyYKT/hgu3JJEBeyOBkDTPZJpLBT8C+M=;
+        h=Date:Subject:To:From:From;
+        b=VfkvClOTCUq3Y1LKtHgC4E6ndJy4fmzCaCgCH56GUyrbJ+u5nXxvKscgPqxprqSCt
+         ZBjl4rXcAod+m1dubh/q2szhAOmvxm8PMT9q1qSY/2YpN2N6cOL2KAxLkTn3g1dAI/
+         nd5KDMF7YPeyz0auBfRoz70NLn0U4jSGWNassPAY=
+X-Auth-ID: abbotti@mev.co.uk
+Received: by smtp13.relay.iad3b.emailsrvr.com (Authenticated sender: abbotti-AT-mev.co.uk) with ESMTPSA id BA7D16016B;
+        Tue, 22 Mar 2022 12:46:36 -0400 (EDT)
+Message-ID: <e62cb512-c17e-b470-a547-23c0f75e9220@mev.co.uk>
+Date:   Tue, 22 Mar 2022 16:46:35 +0000
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Subject: Re: [PATCH] ioctl_userfaultfd.2: Corrections for returned .ioctls
+ members
+Content-Language: en-GB
+To:     Axel Rasmussen <axelrasmussen@google.com>,
+        "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Cc:     Peter Xu <peterx@redhat.com>, linux-man@vger.kernel.org,
         Michael Kerrisk <mtk.manpages@gmail.com>,
-        Mike Kravetz <mike.kravetz@oracle.com>,
-        Peter Xu <peterx@redhat.com>
-Cc:     linux-kernel@vger.kernel.org, linux-man@vger.kernel.org,
-        linux-mm@kvack.org, Axel Rasmussen <axelrasmussen@google.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: No, score=-9.6 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
-        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,USER_IN_DEF_DKIM_WL
-        autolearn=ham autolearn_force=no version=3.4.6
+        LKML <linux-kernel@vger.kernel.org>
+References: <20220318191343.72812-1-abbotti@mev.co.uk>
+ <YjgW7L77+Y2fylcR@xz-m1.local>
+ <a2380fac-d173-50e3-963a-d7fc22b2da5d@gmail.com>
+ <CAJHvVch=vO6gwyn+swyeHEQ4mUccL6T+Vt3G9akeEjXZ6XKM-A@mail.gmail.com>
+ <CAJHvVchqALH-0Y8LgkqAFnwbfEjkheNTKhpSeUMY2d+bU44tGg@mail.gmail.com>
+From:   Ian Abbott <abbotti@mev.co.uk>
+Organization: MEV Ltd.
+In-Reply-To: <CAJHvVchqALH-0Y8LgkqAFnwbfEjkheNTKhpSeUMY2d+bU44tGg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Classification-ID: 675f08a2-e9f2-4e2a-979d-0e3ef20eac7e-1-1
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
+        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=unavailable
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Userfaultfd minor fault mode is supported starting from Linux 5.13.
+On 22/03/2022 16:36, Axel Rasmussen wrote:
+> On Tue, Mar 22, 2022 at 9:23 AM Axel Rasmussen <axelrasmussen@google.com> wrote:
+>>
+>> On Tue, Mar 22, 2022 at 5:32 AM Alejandro Colomar (man-pages)
+>> <alx.manpages@gmail.com> wrote:
+>>>
+>>> Hi Ian and Peter,
+>>>
+>>> On 3/21/22 07:10, Peter Xu wrote:
+>>>> On Fri, Mar 18, 2022 at 07:13:43PM +0000, Ian Abbott wrote:
+>>>>> Support for the `UFFDIO_WRITEPROTECT` operation is not indicated in the
+>>>>> `ioctls` member of `struct uffdio_api`.  It is indicated in the `ioctls`
+>>>>> member of `struct uffdio_register` along with indications of support for
+>>>>> the `UFFDIO_COPY`, `UFFDIO_WAKE` and `UFFDIO_ZEROPAGE` operations (and
+>>>>> also the `UFFDIO_CONTINUE` operation supported since Linux 5.13 but
+>>>>> that is not documented by this man page yet.)
+>>>>
+>>>> I thought it should have landed but indeed it's not.  Copying Axel.
+>>
+>> Ah, I mistakenly thought it got merged, but there were a few remaining
+>> issues Alejandro wanted addressed first. I'll send a v3 of it later
+>> today.
+>>
+>> For what it's worth, as part of adding minor fault handling, we pretty
+>> significantly change the ioctl field's behavior, and I rewrote a lot
+>> of the documentation around it. So, it may conflict with this patch.
+>> :/ Sorry about that.
+> 
+> Heh, I spoke too soon. My patch doesn't touch this after all, I think
+> the patches don't conflict. :) It's been a while since I looked at
+> it...
 
-This commit adds a description of the new mode, as well as the new ioctl
-used to resolve such faults. The two go hand-in-hand: one can't resolve
-a minor fault without continue, and continue can't be used to resolve
-any other kind of fault.
+I guess the section (in my patch) that indicates supported ioctls in 
+`struct uffdio_register` would still need tweaking to mention 
+`UFFDIO_CONTINUE` though, so either one of the patches will need to 
+change or another little patch will be needed.
 
-This patch covers just the hugetlbfs implementation (in 5.13). Support
-for shmem is forthcoming, but as it has not yet made it into a kernel
-release candidate, it will be added in a future commit.
-
-Reviewed-by: Peter Xu <peterx@redhat.com>
-Signed-off-by: Axel Rasmussen <axelrasmussen@google.com>
----
- man2/ioctl_userfaultfd.2 | 135 ++++++++++++++++++++++++++++++++++++---
- man2/userfaultfd.2       |  79 +++++++++++++++++++----
- 2 files changed, 192 insertions(+), 22 deletions(-)
-
-diff --git a/man2/ioctl_userfaultfd.2 b/man2/ioctl_userfaultfd.2
-index 504f61d4b..d213a0a43 100644
---- a/man2/ioctl_userfaultfd.2
-+++ b/man2/ioctl_userfaultfd.2
-@@ -214,6 +214,11 @@ memory accesses to the regions registered with userfaultfd.
- If this feature bit is set,
- .I uffd_msg.pagefault.feat.ptid
- will be set to the faulted thread ID for each page-fault message.
-+.TP
-+.BR UFFD_FEATURE_MINOR_HUGETLBFS " (since Linux 5.13)"
-+If this feature bit is set,
-+the kernel supports registering userfaultfd ranges
-+in minor mode on hugetlbfs-backed memory areas.
- .PP
- The returned
- .I ioctls
-@@ -240,6 +245,11 @@ operation is supported.
- The
- .B UFFDIO_WRITEPROTECT
- operation is supported.
-+.TP
-+.B 1 << _UFFDIO_CONTINUE
-+The
-+.B UFFDIO_CONTINUE
-+operation is supported.
- .PP
- This
- .BR ioctl (2)
-@@ -278,14 +288,8 @@ by the current kernel version.
- (Since Linux 4.3.)
- Register a memory address range with the userfaultfd object.
- The pages in the range must be "compatible".
--.PP
--Up to Linux kernel 4.11,
--only private anonymous ranges are compatible for registering with
--.BR UFFDIO_REGISTER .
--.PP
--Since Linux 4.11,
--hugetlbfs and shared memory ranges are also compatible with
--.BR UFFDIO_REGISTER .
-+Please refer to the list of register modes below
-+for the compatible memory backends for each mode.
- .PP
- The
- .I argp
-@@ -324,9 +328,20 @@ the specified range:
- .TP
- .B UFFDIO_REGISTER_MODE_MISSING
- Track page faults on missing pages.
-+Since Linux 4.3,
-+only private anonymous ranges are compatible.
-+Since Linux 4.11,
-+hugetlbfs and shared memory ranges are also compatible.
- .TP
- .B UFFDIO_REGISTER_MODE_WP
- Track page faults on write-protected pages.
-+Since Linux 5.7,
-+only private anonymous ranges are compatible.
-+.TP
-+.B UFFDIO_REGISTER_MODE_MINOR
-+Track minor page faults.
-+Since Linux 5.13,
-+only hugetlbfs ranges are compatible.
- .PP
- If the operation is successful, the kernel modifies the
- .I ioctls
-@@ -735,6 +750,110 @@ or not registered with userfaultfd write-protect mode.
- .TP
- .B EFAULT
- Encountered a generic fault during processing.
-+.\"
-+.SS UFFDIO_CONTINUE
-+(Since Linux 5.13.)
-+Resolve a minor page fault
-+by installing page table entries
-+for existing pages in the page cache.
-+.PP
-+The
-+.I argp
-+argument is a pointer to a
-+.I uffdio_continue
-+structure as shown below:
-+.PP
-+.in +4n
-+.EX
-+struct uffdio_continue {
-+    struct uffdio_range range; /* Range to install PTEs for and continue */
-+    __u64 mode;                /* Flags controlling the behavior of continue */
-+    __s64 mapped;              /* Number of bytes mapped, or negated error */
-+};
-+.EE
-+.in
-+.PP
-+The following value may be bitwise ORed in
-+.IR mode
-+to change the behavior of the
-+.B UFFDIO_CONTINUE
-+operation:
-+.TP
-+.B UFFDIO_CONTINUE_MODE_DONTWAKE
-+Do not wake up the thread that waits for page-fault resolution.
-+.PP
-+The
-+.I mapped
-+field is used by the kernel
-+to return the number of bytes that were actually mapped,
-+or an error in the same manner as
-+.BR UFFDIO_COPY .
-+If the value returned in the
-+.I mapped
-+field doesn't match the value that was specified in
-+.IR range.len ,
-+the operation fails with the error
-+.BR EAGAIN .
-+The
-+.I mapped
-+field is output-only;
-+it is not read by the
-+.B UFFDIO_CONTINUE
-+operation.
-+.PP
-+This
-+.BR ioctl (2)
-+operation returns 0 on success.
-+In this case,
-+the entire area was mapped.
-+On error, \-1 is returned and
-+.I errno
-+is set to indicate the error.
-+Possible errors include:
-+.TP
-+.B EAGAIN
-+The number of bytes mapped
-+(i.e., the value returned in the
-+.I mapped
-+field)
-+does not equal the value that was specified in the
-+.I range.len
-+field.
-+.TP
-+.B EINVAL
-+Either
-+.I range.start
-+or
-+.I range.len
-+was not a multiple of the system page size; or
-+.I range.len
-+was zero; or the range specified was invalid.
-+.TP
-+.B EINVAL
-+An invalid bit was specified in the
-+.IR mode
-+field.
-+.TP
-+.B EEXIST
-+One or more pages were already mapped in the given range.
-+.TP
-+.B ENOENT
-+The faulting process has changed its virtual memory layout simultaneously with
-+an outstanding
-+.B UFFDIO_CONTINUE
-+operation.
-+.TP
-+.B ENOMEM
-+Allocating memory needed to setup the page table mappings failed.
-+.TP
-+.B EFAULT
-+No existing page could be found in the page cache for the given range.
-+.TP
-+.BR ESRCH
-+The faulting process has exited at the time of a
-+.B UFFDIO_CONTINUE
-+operation.
-+.\"
- .SH RETURN VALUE
- See descriptions of the individual operations, above.
- .SH ERRORS
-diff --git a/man2/userfaultfd.2 b/man2/userfaultfd.2
-index cee7c01d2..458e05faa 100644
---- a/man2/userfaultfd.2
-+++ b/man2/userfaultfd.2
-@@ -82,7 +82,7 @@ all memory ranges that were registered with the object are unregistered
- and unread events are flushed.
- .\"
- .PP
--Userfaultfd supports two modes of registration:
-+Userfaultfd supports three modes of registration:
- .TP
- .BR UFFDIO_REGISTER_MODE_MISSING " (since 4.10)"
- When registered with
-@@ -96,6 +96,18 @@ or an
- .B UFFDIO_ZEROPAGE
- ioctl.
- .TP
-+.BR UFFDIO_REGISTER_MODE_MINOR " (since 5.13)"
-+When registered with
-+.B UFFDIO_REGISTER_MODE_MINOR
-+mode, user-space will receive a page-fault notification
-+when a minor page fault occurs.
-+That is, when a backing page is in the page cache, but
-+page table entries don't yet exist.
-+The faulted thread will be stopped from execution
-+until the page fault is resolved from user-space by an
-+.B UFFDIO_CONTINUE
-+ioctl.
-+.TP
- .BR UFFDIO_REGISTER_MODE_WP " (since 5.7)"
- When registered with
- .B UFFDIO_REGISTER_MODE_WP
-@@ -216,9 +228,10 @@ a page fault occurring in the requested memory range, and satisfying
- the mode defined at the registration time, will be forwarded by the kernel to
- the user-space application.
- The application can then use the
--.B UFFDIO_COPY
-+.B UFFDIO_COPY ,
-+.B UFFDIO_ZEROPAGE ,
- or
--.B UFFDIO_ZEROPAGE
-+.B UFFDIO_CONTINUE
- .BR ioctl (2)
- operations to resolve the page fault.
- .PP
-@@ -322,6 +335,43 @@ should have the flag
- cleared upon the faulted page or range.
- .PP
- Write-protect mode supports only private anonymous memory.
-+.\"
-+.SS Userfaultfd minor fault mode (since 5.13)
-+Since Linux 5.13, userfaultfd supports minor fault mode.
-+In this mode, fault messages are produced not for major faults (where the
-+page was missing), but rather for minor faults, where a page exists in the page
-+cache, but the page table entries are not yet present.
-+The user needs to first check availability of this feature using
-+.B UFFDIO_API
-+ioctl against the feature bit
-+.B UFFD_FEATURE_MINOR_HUGETLBFS
-+before using this feature.
-+.PP
-+To register with userfaultfd minor fault mode, the user needs to initiate the
-+.B UFFDIO_REGISTER
-+ioctl with mode
-+.B UFFD_REGISTER_MODE_MINOR
-+set.
-+.PP
-+When a minor fault occurs, user-space will receive a page-fault notification
-+whose
-+.I uffd_msg.pagefault.flags
-+will have the
-+.B UFFD_PAGEFAULT_FLAG_MINOR
-+flag set.
-+.PP
-+To resolve a minor page fault, the handler should decide whether or not the
-+existing page contents need to be modified first.
-+If so, this should be done in-place via a second, non-userfaultfd-registered
-+mapping to the same backing page (e.g., by mapping the hugetlbfs file twice).
-+Once the page is considered "up to date", the fault can be resolved by
-+initiating an
-+.B UFFDIO_CONTINUE
-+ioctl, which installs the page table entries and (by default) wakes up the
-+faulting thread(s).
-+.PP
-+Minor fault mode supports only hugetlbfs-backed memory.
-+.\"
- .SS Reading from the userfaultfd structure
- Each
- .BR read (2)
-@@ -460,19 +510,20 @@ For
- the following flag may appear:
- .RS
- .TP
--.B UFFD_PAGEFAULT_FLAG_WRITE
--If the address is in a range that was registered with the
--.B UFFDIO_REGISTER_MODE_MISSING
--flag (see
--.BR ioctl_userfaultfd (2))
--and this flag is set, this a write fault;
--otherwise it is a read fault.
-+.B UFFD_PAGEFAULT_FLAG_WP
-+If this flag is set, then the fault was a write-protect fault.
-+.TP
-+.B UFFD_PAGEFAULT_FLAG_MINOR
-+If this flag is set, then the fault was a minor fault.
- .TP
-+.B UFFD_PAGEFAULT_FLAG_WRITE
-+If this flag is set, then the fault was a write fault.
-+.PP
-+If neither
- .B UFFD_PAGEFAULT_FLAG_WP
--If the address is in a range that was registered with the
--.B UFFDIO_REGISTER_MODE_WP
--flag, when this bit is set, it means it is a write-protect fault.
--Otherwise it is a page-missing fault.
-+nor
-+.B UFFD_PAGEFAULT_FLAG_MINOR
-+are set, then the fault was a missing fault.
- .RE
- .TP
- .I pagefault.feat.pid
 -- 
-2.35.1.894.gb6a874cedc-goog
-
+-=( Ian Abbott <abbotti@mev.co.uk> || MEV Ltd. is a company  )=-
+-=( registered in England & Wales.  Regd. number: 02862268.  )=-
+-=( Regd. addr.: S11 & 12 Building 67, Europa Business Park, )=-
+-=( Bird Hall Lane, STOCKPORT, SK3 0XA, UK. || www.mev.co.uk )=-
