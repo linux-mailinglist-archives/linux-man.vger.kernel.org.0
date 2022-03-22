@@ -2,94 +2,170 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 2F7F44E3F0C
-	for <lists+linux-man@lfdr.de>; Tue, 22 Mar 2022 14:02:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id D69404E442A
+	for <lists+linux-man@lfdr.de>; Tue, 22 Mar 2022 17:24:16 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235161AbiCVNDT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 22 Mar 2022 09:03:19 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43048 "EHLO
+        id S236171AbiCVQZm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 22 Mar 2022 12:25:42 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56474 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235158AbiCVNDS (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 22 Mar 2022 09:03:18 -0400
-Received: from mail-qt1-x834.google.com (mail-qt1-x834.google.com [IPv6:2607:f8b0:4864:20::834])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B11A076E1F;
-        Tue, 22 Mar 2022 06:01:50 -0700 (PDT)
-Received: by mail-qt1-x834.google.com with SMTP id b18so4533985qtk.13;
-        Tue, 22 Mar 2022 06:01:50 -0700 (PDT)
+        with ESMTP id S236057AbiCVQZm (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 22 Mar 2022 12:25:42 -0400
+Received: from mail-il1-x129.google.com (mail-il1-x129.google.com [IPv6:2607:f8b0:4864:20::129])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DB4741A3A1
+        for <linux-man@vger.kernel.org>; Tue, 22 Mar 2022 09:24:14 -0700 (PDT)
+Received: by mail-il1-x129.google.com with SMTP id e18so3851497ilr.2
+        for <linux-man@vger.kernel.org>; Tue, 22 Mar 2022 09:24:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=is2ofUDOuXA6bsKi4vpINE5E6h7MsI9LhgGJ4eXJ3Ws=;
-        b=NJkyt54bHF3/ZG0kSxL2LY/nzNg0WCs/L3IPxfKBEKjfhGOzkqLL0AFcJ88GXVu6sG
-         g6Mqy75+rbXQ7iR/CFNNXRgbFIumy8aBl+wUag0BzO3LeInLcqkOBzJBxt5uFkCH4s+j
-         QDNsWvk8xUdDIiywmWKd5txhjhsCTqGtjOfwuNPz+FwyRopMJBAem/onu7SjczlgJ/mE
-         QKGJuXuBzA5GbW9LBdMBYmB5Msqepq+xwCyA4akD19TiNWpOIE7eEflvOMv/tpYnRMz7
-         FtKwvwFaTig3+qIWci/3ZAxpiICVLwaY1DOFDOit9naCiuwUvabWy6XQSssYjXiXZ//e
-         Dziw==
+        d=google.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=tOeOIvGimB6HO5RmhYqpUb1uM8S1rPxVjA+0/EvkfKw=;
+        b=owyVl78YQ+Y63SYzSiKlBjJPFLxA83xdtqRuFwvnVTP8gVWYD6/0kckErOApwJSGzZ
+         5bw28tJizVDvr8Es1fnQPR1Bm61VpXmAv6e4oq6LmXqc1ubrpiIr+PEIis+26PJt9Lf3
+         s7RhXD4WDFERhJM39t/BaUkdOwB9xBSxf9Nuqa85xxVoaKMSiggRA1OOA/WWASTihzep
+         22kneOF0rEr+sFjkeQWy3axpf7XQmCf/R2X865T5cAf5zUxjMwvt7VFDnn2ciM12v6a+
+         TIheepShD3J9LTsVwOS455jrqv3UQ/vcKTmC5SFbzQixITy2gYFq3Go0zzzY6C5vTbig
+         Anjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=is2ofUDOuXA6bsKi4vpINE5E6h7MsI9LhgGJ4eXJ3Ws=;
-        b=e56XB0YGpjIy82IrhDG5NvMG874xbwHLsdu/9A9pAdF5OUlClFZOmveNmL4NoKNDRN
-         eCQty6P1zcep+Y+3grNnmXam4ZzKsj7ZMD0t8xSVVzW0jVGiuVBobpABtl90D+0wUvr1
-         yGUKYFeevOopRrFl+dTIG1ZwCuH93BabF6QCmST0Z74C7xLvYQNusvGF/aYkarThk8yL
-         xSwJ5otG1UO4zJivfczj7ldYkV/tBkyrAfg+A0aGF35VCyc3MbRRIt68Xz4xsUS74har
-         6sB5vWUt061ak5sjnTacE6EecFOHlSehVFtOi4DA6GoVqDN37vLso4ryXvg6lJe45g6x
-         BtgQ==
-X-Gm-Message-State: AOAM532iAVH2h3qPQYyiLd24sG+Jm4chyY5sFCqYlAGRvHvNWuwRi+J6
-        tsQ3bK9CEfaI9pOwl5aoQGA=
-X-Google-Smtp-Source: ABdhPJzmmC+0uRIWzXxtpvkscY7F3KMR8n2Wlxx8/PvigyuxIr24VzEORpylIhx7QMw/arMMR8o79Q==
-X-Received: by 2002:ac8:5ac3:0:b0:2e1:e117:b2ed with SMTP id d3-20020ac85ac3000000b002e1e117b2edmr19719378qtd.541.1647954109450;
-        Tue, 22 Mar 2022 06:01:49 -0700 (PDT)
-Received: from vps.qemfd.net (vps.qemfd.net. [173.230.130.29])
-        by smtp.gmail.com with ESMTPSA id k6-20020a378806000000b0064915d9584fsm8988748qkd.8.2022.03.22.06.01.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Mar 2022 06:01:48 -0700 (PDT)
-Received: from schwarzgerat.orthanc (schwarzgerat.danknet [192.168.128.2])
-        by vps.qemfd.net (Postfix) with ESMTP id 405D02B525;
-        Tue, 22 Mar 2022 09:01:48 -0400 (EDT)
-Received: by schwarzgerat.orthanc (Postfix, from userid 1000)
-        id 3C5BC6002D6; Tue, 22 Mar 2022 09:01:48 -0400 (EDT)
-Date:   Tue, 22 Mar 2022 09:01:48 -0400
-From:   nick black <dankamongmen@gmail.com>
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-kernel@vger.kernel.org, linux-man@vger.kernel.org
-Subject: Re: [patch] console_codes.4: ffix
-Message-ID: <YjnIvPaZBAaE6jmH@schwarzgerat.orthanc>
-References: <YeEc2pYvKEckcAmv@schwarzgerat.orthanc>
- <CAN4uE+p-uKzHNYry2YhCMfEFBQ2jUqpDAGx=+eha01w-L4fAjg@mail.gmail.com>
- <20220320160217.gws42lklp6ishzub@localhost.localdomain>
- <fd0b3fea-4b40-ffba-442f-00908a5335a9@gmail.com>
- <Yjg3jXCAsjQVHJAi@schwarzgerat.orthanc>
- <809c40c4-068b-8296-57d9-024e6623362d@gmail.com>
- <YjnHmiYL50SqHCW/@schwarzgerat.orthanc>
- <456bc9a8-cb58-c9ef-b1b3-3671ac34a2dc@gmail.com>
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=tOeOIvGimB6HO5RmhYqpUb1uM8S1rPxVjA+0/EvkfKw=;
+        b=XoSKub1XTp6Um+4718uQJXecwwhBV8bCaxFcyON4cFnivPKHV+5rgDcLlcGp8VlY1q
+         qXCX5VWKXC2nTwYFQdEPH7I/Bqiyfnvr3XGFxGoozblS0nsUIZ3xLoovFZ9uJlSydi8q
+         bW5c9Vb2ABLY3eT0OWWv3TW1YdQfi+UPguV/0ZFfkoWxB/6/MVCnW7h510HRDrgpArwA
+         d3NpEgv9SjLfIzvvqY2aqUqbNojZ1lIVExYJ/hOXA5ukUY8+vLnbxZr0hnb61/k2ZHlB
+         xccHDgz7q4l5mjbJI8k+cctUWvgR+Hy6/DLEaHSfNIj5LO3RwdLlxK3wZhXn0BlJz0cy
+         bKbg==
+X-Gm-Message-State: AOAM532CWQq8YZGwo+gm+L+uUqwxuq+MfJKoQ44yTIHGGNujyxjAvoHg
+        ob5GWWQuckQmcpluq25q4SFNzJ2i7vrorasyfK2Ltw==
+X-Google-Smtp-Source: ABdhPJyhriwKRUl/v7OIFOTFmrToxKZ8KiV8cyTOgLM6GNRCif1UqxhqJZUginQD8NuQ5qhFsMQPaaJxGp9YcECPw8A=
+X-Received: by 2002:a05:6e02:1a82:b0:2c8:1ce0:6f64 with SMTP id
+ k2-20020a056e021a8200b002c81ce06f64mr6453658ilv.239.1647966254082; Tue, 22
+ Mar 2022 09:24:14 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <456bc9a8-cb58-c9ef-b1b3-3671ac34a2dc@gmail.com>
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-        autolearn=ham autolearn_force=no version=3.4.6
+References: <20220318191343.72812-1-abbotti@mev.co.uk> <YjgW7L77+Y2fylcR@xz-m1.local>
+ <a2380fac-d173-50e3-963a-d7fc22b2da5d@gmail.com>
+In-Reply-To: <a2380fac-d173-50e3-963a-d7fc22b2da5d@gmail.com>
+From:   Axel Rasmussen <axelrasmussen@google.com>
+Date:   Tue, 22 Mar 2022 09:23:38 -0700
+Message-ID: <CAJHvVch=vO6gwyn+swyeHEQ4mUccL6T+Vt3G9akeEjXZ6XKM-A@mail.gmail.com>
+Subject: Re: [PATCH] ioctl_userfaultfd.2: Corrections for returned .ioctls members
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Cc:     Peter Xu <peterx@redhat.com>, Ian Abbott <abbotti@mev.co.uk>,
+        linux-man@vger.kernel.org,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        LKML <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+X-Spam-Status: No, score=-17.6 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+        ENV_AND_HDR_SPF_MATCH,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+        T_SCC_BODY_TEXT_LINE,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL
+        autolearn=unavailable autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Alejandro Colomar (man-pages) left as an exercise for the reader:
-> If it repeats, I'll try to investigate the reason.
+On Tue, Mar 22, 2022 at 5:32 AM Alejandro Colomar (man-pages)
+<alx.manpages@gmail.com> wrote:
+>
+> Hi Ian and Peter,
+>
+> On 3/21/22 07:10, Peter Xu wrote:
+> > On Fri, Mar 18, 2022 at 07:13:43PM +0000, Ian Abbott wrote:
+> >> Support for the `UFFDIO_WRITEPROTECT` operation is not indicated in the
+> >> `ioctls` member of `struct uffdio_api`.  It is indicated in the `ioctls`
+> >> member of `struct uffdio_register` along with indications of support for
+> >> the `UFFDIO_COPY`, `UFFDIO_WAKE` and `UFFDIO_ZEROPAGE` operations (and
+> >> also the `UFFDIO_CONTINUE` operation supported since Linux 5.13 but
+> >> that is not documented by this man page yet.)
+> >
+> > I thought it should have landed but indeed it's not.  Copying Axel.
 
-or i can just make sure i'm sending the expected format--it
-ought not be beyond my powers =]. thanks for bringing this to my
-attention.
+Ah, I mistakenly thought it got merged, but there were a few remaining
+issues Alejandro wanted addressed first. I'll send a v3 of it later
+today.
 
--- 
-nick black -=- https://www.nick-black.com
-to make an apple pie from scratch,
-you need first invent a universe.
+For what it's worth, as part of adding minor fault handling, we pretty
+significantly change the ioctl field's behavior, and I rewrote a lot
+of the documentation around it. So, it may conflict with this patch.
+:/ Sorry about that.
+
+> >
+> >>
+> >> Fixes: f559fa36a678 ("ioctl_userfaultfd.2: Add write-protect mode docs")
+> >> Signed-off-by: Ian Abbott <abbotti@mev.co.uk>
+>
+> Patch applied.
+>
+> >
+> > The patch looks correct to me, thanks for fixing it.
+> >
+> > Acked-by: Peter Xu <peterx@redhat.com>
+>
+> And tag appended.
+>
+> Thank you both!
+>
+> Alex
+>
+> >
+> >> ---
+> >>   man2/ioctl_userfaultfd.2 | 27 ++++++++++++++++++++-------
+> >>   1 file changed, 20 insertions(+), 7 deletions(-)
+> >>
+> >> diff --git a/man2/ioctl_userfaultfd.2 b/man2/ioctl_userfaultfd.2
+> >> index 504f61d4b..e930af520 100644
+> >> --- a/man2/ioctl_userfaultfd.2
+> >> +++ b/man2/ioctl_userfaultfd.2
+> >> @@ -235,11 +235,6 @@ operation is supported.
+> >>   The
+> >>   .B UFFDIO_UNREGISTER
+> >>   operation is supported.
+> >> -.TP
+> >> -.B 1 << _UFFDIO_WRITEPROTECT
+> >> -The
+> >> -.B UFFDIO_WRITEPROTECT
+> >> -operation is supported.
+> >>   .PP
+> >>   This
+> >>   .BR ioctl (2)
+> >> @@ -333,8 +328,26 @@ If the operation is successful, the kernel modifies the
+> >>   bit-mask field to indicate which
+> >>   .BR ioctl (2)
+> >>   operations are available for the specified range.
+> >> -This returned bit mask is as for
+> >> -.BR UFFDIO_API .
+> >> +This returned bit mask can contain the following bits:
+> >> +.TP
+> >> +.B 1 << _UFFDIO_COPY
+> >> +The
+> >> +.B UFFDIO_COPY
+> >> +operation is supported.
+> >> +.TP
+> >> +.B 1 << _UFFDIO_WAKE
+> >> +The
+> >> +.B UFFDIO_WAKE
+> >> +operation is supported.
+> >> +.TP
+> >> +.B 1 << _UFFDIO_WRITEPROTECT
+> >> +The
+> >> +.B UFFDIO_WRITEPROTECT
+> >> +.TP
+> >> +.B 1 << _UFFDIO_ZEROPAGE
+> >> +The
+> >> +.B UFFDIO_ZEROPAGE
+> >> +operation is supported.
+> >>   .PP
+> >>   This
+> >>   .BR ioctl (2)
+> >> --
+> >
+>
+> --
+> Alejandro Colomar
+> Linux man-pages comaintainer; http://www.kernel.org/doc/man-pages/
+> http://www.alejandro-colomar.es/
