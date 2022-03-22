@@ -2,63 +2,64 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 55D504E3F03
-	for <lists+linux-man@lfdr.de>; Tue, 22 Mar 2022 14:00:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 2F7F44E3F0C
+	for <lists+linux-man@lfdr.de>; Tue, 22 Mar 2022 14:02:02 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232775AbiCVNBV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 22 Mar 2022 09:01:21 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35346 "EHLO
+        id S235161AbiCVNDT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 22 Mar 2022 09:03:19 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43048 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235125AbiCVNBQ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 22 Mar 2022 09:01:16 -0400
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com [IPv6:2a00:1450:4864:20::331])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5CD4285BC4;
-        Tue, 22 Mar 2022 05:59:48 -0700 (PDT)
-Received: by mail-wm1-x331.google.com with SMTP id bi13-20020a05600c3d8d00b0038c2c33d8f3so2319962wmb.4;
-        Tue, 22 Mar 2022 05:59:48 -0700 (PDT)
+        with ESMTP id S235158AbiCVNDS (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 22 Mar 2022 09:03:18 -0400
+Received: from mail-qt1-x834.google.com (mail-qt1-x834.google.com [IPv6:2607:f8b0:4864:20::834])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B11A076E1F;
+        Tue, 22 Mar 2022 06:01:50 -0700 (PDT)
+Received: by mail-qt1-x834.google.com with SMTP id b18so4533985qtk.13;
+        Tue, 22 Mar 2022 06:01:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=qO/1Rt3njaG7Cco/tf6+2tDr5ALwB1QCxifmvtUKji4=;
-        b=UqxL2xUbVS1QuLy5m+nvhpsu4YOvbeZnNHuSXt2w861LqKPdoD3VUd9ULsyiZde43T
-         LjLRlM6kRG4U804KLzY/F4e+2ZdLhhEiSfJLARkecUXObwAA2RofhR+UIin1hoNEfkQI
-         yJgrZ+1xWphWQVdhwGkESDqgG6Uw7B75KzlHFgCsu5M21chFC3WPiqDW4RiIEQDCWupz
-         Zv8GTRE/wwaQ5lGIdzVgJvUZEwsiNaSJGzTA1GkJQ06K9UWV8ldRPsoz9WslixCEL6Ve
-         /fIlnVkhgoXpaz8zUWqDCVIFSoMDdlXi6GAyDGggxZ3s93WiZ6erEa7UCZ6lF5Tz0Gol
-         K1dQ==
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=is2ofUDOuXA6bsKi4vpINE5E6h7MsI9LhgGJ4eXJ3Ws=;
+        b=NJkyt54bHF3/ZG0kSxL2LY/nzNg0WCs/L3IPxfKBEKjfhGOzkqLL0AFcJ88GXVu6sG
+         g6Mqy75+rbXQ7iR/CFNNXRgbFIumy8aBl+wUag0BzO3LeInLcqkOBzJBxt5uFkCH4s+j
+         QDNsWvk8xUdDIiywmWKd5txhjhsCTqGtjOfwuNPz+FwyRopMJBAem/onu7SjczlgJ/mE
+         QKGJuXuBzA5GbW9LBdMBYmB5Msqepq+xwCyA4akD19TiNWpOIE7eEflvOMv/tpYnRMz7
+         FtKwvwFaTig3+qIWci/3ZAxpiICVLwaY1DOFDOit9naCiuwUvabWy6XQSssYjXiXZ//e
+         Dziw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=qO/1Rt3njaG7Cco/tf6+2tDr5ALwB1QCxifmvtUKji4=;
-        b=oPb5P9gb6XL1WCYmJMTziVopUhuvorh7xQfonvMO60eOmqm+Zes20ogurZSSsgoKZr
-         PfbIs7lSXhO5NubSNIgv5bcU9+9TVlP726R3GTfpBbFXmcAgMIrtYj2cs/ae9Z4XxW1o
-         b21bAQbSQpPYEYkcYgy3Xghrv6rzn7tWDwwhs8YmaJ5k3ECnzHpq8xygjBeyzpp+wA9k
-         6+CqnMO3bUb1P+Tw05oEX+7P5RLHBNMYvJ/vxmMuTXq3fnagFRGQ6l660GeKzdjPRyON
-         Vc5iGCoEI+DWvrXCgpVY9Z3YMqslYr0btFF36vsZrP9KrydRc8Gn6OWohJ4vsnPrOt8C
-         L1uA==
-X-Gm-Message-State: AOAM530uWkl3tJXAxxHcQVJzFskUHm0IZOBf/67aHXE4SAvr6G56XzQK
-        Om9Q3eyO3qPZzHMUvdZLSBk=
-X-Google-Smtp-Source: ABdhPJwn51IFuKX1TYbQ/ZSHl3GYWfbHAG3LmMAgE9tK5a+XKZsSVlicmx2Pr/Uz5jTvjAJO0giNpQ==
-X-Received: by 2002:adf:dc92:0:b0:203:f998:7f10 with SMTP id r18-20020adfdc92000000b00203f9987f10mr15660124wrj.567.1647953986596;
-        Tue, 22 Mar 2022 05:59:46 -0700 (PDT)
-Received: from [10.168.10.170] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id g6-20020adfd1e6000000b0020581602ddesm6054wrd.67.2022.03.22.05.59.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Mar 2022 05:59:46 -0700 (PDT)
-Message-ID: <456bc9a8-cb58-c9ef-b1b3-3671ac34a2dc@gmail.com>
-Date:   Tue, 22 Mar 2022 13:59:45 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [patch] console_codes.4: ffix
-Content-Language: en-US
-To:     nick black <dankamongmen@gmail.com>
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=is2ofUDOuXA6bsKi4vpINE5E6h7MsI9LhgGJ4eXJ3Ws=;
+        b=e56XB0YGpjIy82IrhDG5NvMG874xbwHLsdu/9A9pAdF5OUlClFZOmveNmL4NoKNDRN
+         eCQty6P1zcep+Y+3grNnmXam4ZzKsj7ZMD0t8xSVVzW0jVGiuVBobpABtl90D+0wUvr1
+         yGUKYFeevOopRrFl+dTIG1ZwCuH93BabF6QCmST0Z74C7xLvYQNusvGF/aYkarThk8yL
+         xSwJ5otG1UO4zJivfczj7ldYkV/tBkyrAfg+A0aGF35VCyc3MbRRIt68Xz4xsUS74har
+         6sB5vWUt061ak5sjnTacE6EecFOHlSehVFtOi4DA6GoVqDN37vLso4ryXvg6lJe45g6x
+         BtgQ==
+X-Gm-Message-State: AOAM532iAVH2h3qPQYyiLd24sG+Jm4chyY5sFCqYlAGRvHvNWuwRi+J6
+        tsQ3bK9CEfaI9pOwl5aoQGA=
+X-Google-Smtp-Source: ABdhPJzmmC+0uRIWzXxtpvkscY7F3KMR8n2Wlxx8/PvigyuxIr24VzEORpylIhx7QMw/arMMR8o79Q==
+X-Received: by 2002:ac8:5ac3:0:b0:2e1:e117:b2ed with SMTP id d3-20020ac85ac3000000b002e1e117b2edmr19719378qtd.541.1647954109450;
+        Tue, 22 Mar 2022 06:01:49 -0700 (PDT)
+Received: from vps.qemfd.net (vps.qemfd.net. [173.230.130.29])
+        by smtp.gmail.com with ESMTPSA id k6-20020a378806000000b0064915d9584fsm8988748qkd.8.2022.03.22.06.01.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Mar 2022 06:01:48 -0700 (PDT)
+Received: from schwarzgerat.orthanc (schwarzgerat.danknet [192.168.128.2])
+        by vps.qemfd.net (Postfix) with ESMTP id 405D02B525;
+        Tue, 22 Mar 2022 09:01:48 -0400 (EDT)
+Received: by schwarzgerat.orthanc (Postfix, from userid 1000)
+        id 3C5BC6002D6; Tue, 22 Mar 2022 09:01:48 -0400 (EDT)
+Date:   Tue, 22 Mar 2022 09:01:48 -0400
+From:   nick black <dankamongmen@gmail.com>
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
 Cc:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
         Michael Kerrisk <mtk.manpages@gmail.com>,
         linux-kernel@vger.kernel.org, linux-man@vger.kernel.org
+Subject: Re: [patch] console_codes.4: ffix
+Message-ID: <YjnIvPaZBAaE6jmH@schwarzgerat.orthanc>
 References: <YeEc2pYvKEckcAmv@schwarzgerat.orthanc>
  <CAN4uE+p-uKzHNYry2YhCMfEFBQ2jUqpDAGx=+eha01w-L4fAjg@mail.gmail.com>
  <20220320160217.gws42lklp6ishzub@localhost.localdomain>
@@ -66,12 +67,13 @@ References: <YeEc2pYvKEckcAmv@schwarzgerat.orthanc>
  <Yjg3jXCAsjQVHJAi@schwarzgerat.orthanc>
  <809c40c4-068b-8296-57d9-024e6623362d@gmail.com>
  <YjnHmiYL50SqHCW/@schwarzgerat.orthanc>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-In-Reply-To: <YjnHmiYL50SqHCW/@schwarzgerat.orthanc>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ <456bc9a8-cb58-c9ef-b1b3-3671ac34a2dc@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <456bc9a8-cb58-c9ef-b1b3-3671ac34a2dc@gmail.com>
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
         autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -80,35 +82,14 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 3/22/22 13:56, nick black wrote:
-> Alejandro Colomar (man-pages) left as an exercise for the reader:
->> Patch applied.
->> However, it's weird:  I had to apply the following to your patch before
->> applying it with `git am`:
->>
->> /^diff --git/s, man4, a/man4,
->> /^diff --git/s, man4, b/man4,
->> /^--- man4/s, man4, a/man4,
->> /^+++ man4/s, man4, b/man4,
->>
->> I'm curious, how did you generate the patch?
-> 
-> i bounced this out from ~/Mail/sent, and have no idea how i
-> originally created it, sorry =\. i'm assuming git email-send?
-> 
+Alejandro Colomar (man-pages) left as an exercise for the reader:
+> If it repeats, I'll try to investigate the reason.
 
-Yeah, I guessed that you used git format-patch && git send-email, 
-especially since there's a git version at the end of the patch.  The 
-weird thing is that git always (AFAIK) writes (and needs) those a/ and 
-b/ prefixes, so... I don't know.
-
-If it repeats, I'll try to investigate the reason.
-
-Thanks!
-
-Alex
+or i can just make sure i'm sending the expected format--it
+ought not be beyond my powers =]. thanks for bringing this to my
+attention.
 
 -- 
-Alejandro Colomar
-Linux man-pages comaintainer; http://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+nick black -=- https://www.nick-black.com
+to make an apple pie from scratch,
+you need first invent a universe.
