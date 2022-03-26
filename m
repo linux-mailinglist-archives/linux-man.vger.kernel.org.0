@@ -2,69 +2,110 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 863594E7E62
-	for <lists+linux-man@lfdr.de>; Sat, 26 Mar 2022 02:14:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 94FC54E7EDB
+	for <lists+linux-man@lfdr.de>; Sat, 26 Mar 2022 05:19:48 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229977AbiCZBPm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 25 Mar 2022 21:15:42 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41374 "EHLO
+        id S231153AbiCZEVQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 26 Mar 2022 00:21:16 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50330 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229747AbiCZBPm (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 25 Mar 2022 21:15:42 -0400
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com [IPv6:2a00:1450:4864:20::134])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 53D0F4706C
-        for <linux-man@vger.kernel.org>; Fri, 25 Mar 2022 18:14:06 -0700 (PDT)
-Received: by mail-lf1-x134.google.com with SMTP id e16so15977565lfc.13
-        for <linux-man@vger.kernel.org>; Fri, 25 Mar 2022 18:14:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:reply-to:from:date:message-id:subject:to;
-        bh=WJHAKJ+oIxXvJZu1DBiESyzYbqwQrfIWZU8TIVkfoIg=;
-        b=U38Qkr6VJ72H5EQSrtpwOjTyuukKZVQUn2jsn4pGSJbJTyLWPCHIeP91nO0ZWuorXm
-         lRnp2Ixx42X1rm4+umX0qYdTmesE4tA51YKnG7syvfpKDKfe1erAm4mbe5uZiMyPwIEd
-         /BYW8SU3HmCwkPghkqyPuoPm0gvYMG7CjKDWdCIdiejm0ugZc4SbW1UVP7B7pEdcSc8g
-         TPSgQN7Rw+LU0HrpuxismpKjfAMKth7tKmapU/j85QZRM8TkCOMfMDrAVO/MaR+nnp5z
-         RI8p+VVbB7h8MytIB4Pqn1XCtVJdrv3tUalEGhYFMSFn3XLYfbRogfoBvSLAQcjZDKC6
-         E+3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to;
-        bh=WJHAKJ+oIxXvJZu1DBiESyzYbqwQrfIWZU8TIVkfoIg=;
-        b=VjxLFAn0/FflVSxaoSlwrhXCESSS9+XfNNgiz/uEkN+cbVzZ2KLxQxUI60gwilWLP8
-         yoDjRJghRv0M4tRX5qlmgOC3QfTcgwCHByQpQBnQ1FjnHretHI9gswDCzwDfI7mHXM/Y
-         EI3xLoWbOPxAQrGFdmqoT3DEhmUqTs43YfAWv93F9ukWig9uggN91/LQAMDdqt4ua0CH
-         SXgvjmYgAmICgQ7y16IVD05wDhSzA7xNl7m1bIjx65hQMWYIAxiaCgGZzxDYWyTrLvA7
-         blX6932dXhKpSJ/4ntkFm5DCw7sLz7setHnLslB777i6OJNgZvsCEkueOrQlpGav1cE1
-         Ws8w==
-X-Gm-Message-State: AOAM530n9+++SjeSsXAC8S+Tw7q/K9NUNXompGR8W8kn05V6vCpdXbIi
-        j19UkOxF/O4b5E7M4nVqWYguH+VctBkog8QTy6A=
-X-Google-Smtp-Source: ABdhPJwUF+IvOHHRqgig0b9oMXcUL5J3XbYMOhwKxNNZomsew0GPdD1Dy1JjQbJ8rxY3e151rkYFulZ/529SKLJmJ2k=
-X-Received: by 2002:a05:6512:a89:b0:44a:3936:3a22 with SMTP id
- m9-20020a0565120a8900b0044a39363a22mr10084032lfu.364.1648257244320; Fri, 25
- Mar 2022 18:14:04 -0700 (PDT)
+        with ESMTP id S229686AbiCZEVP (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 26 Mar 2022 00:21:15 -0400
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2197723F3F9;
+        Fri, 25 Mar 2022 21:19:38 -0700 (PDT)
+Received: from cwcc.thunk.org (pool-108-7-220-252.bstnma.fios.verizon.net [108.7.220.252])
+        (authenticated bits=0)
+        (User authenticated as tytso@ATHENA.MIT.EDU)
+        by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 22Q4JAos018812
+        (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+        Sat, 26 Mar 2022 00:19:11 -0400
+Received: by cwcc.thunk.org (Postfix, from userid 15806)
+        id D60DD15C0038; Sat, 26 Mar 2022 00:19:10 -0400 (EDT)
+Date:   Sat, 26 Mar 2022 00:19:10 -0400
+From:   "Theodore Ts'o" <tytso@mit.edu>
+To:     Karel Zak <kzak@redhat.com>
+Cc:     Greg KH <gregkh@linuxfoundation.org>,
+        Miklos Szeredi <miklos@szeredi.hu>,
+        Christian Brauner <brauner@kernel.org>,
+        Miklos Szeredi <mszeredi@redhat.com>,
+        linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Linux API <linux-api@vger.kernel.org>,
+        linux-man <linux-man@vger.kernel.org>,
+        LSM <linux-security-module@vger.kernel.org>,
+        Ian Kent <raven@themaw.net>,
+        David Howells <dhowells@redhat.com>,
+        Linus Torvalds <torvalds@linux-foundation.org>,
+        Al Viro <viro@zeniv.linux.org.uk>,
+        Christian Brauner <christian@brauner.io>,
+        Amir Goldstein <amir73il@gmail.com>,
+        James Bottomley <James.Bottomley@hansenpartnership.com>
+Subject: Re: [RFC PATCH] getvalues(2) prototype
+Message-ID: <Yj6UPi6SDc7wMtCA@mit.edu>
+References: <20220322192712.709170-1-mszeredi@redhat.com>
+ <20220323114215.pfrxy2b6vsvqig6a@wittgenstein>
+ <CAJfpegsCKEx41KA1S2QJ9gX9BEBG4_d8igA0DT66GFH2ZanspA@mail.gmail.com>
+ <YjudB7XARLlRtBiR@mit.edu>
+ <CAJfpegtiRx6jRFUuPeXDxwJpBhYn0ekKkwYbGowUehGZkqVmAw@mail.gmail.com>
+ <20220325084646.7g6oto2ce3vou54x@ws.net.home>
+ <Yj2DPRusMAzV/N5U@kroah.com>
+ <20220325092553.rncxqrjslv6e4c7v@ws.net.home>
 MIME-Version: 1.0
-Received: by 2002:ab3:6591:0:0:0:0:0 with HTTP; Fri, 25 Mar 2022 18:14:03
- -0700 (PDT)
-Reply-To: mr.hambrook.jeremy@gmail.com
-From:   "Mr Hambrook P. Jeremy" <bafalikiaklesso@gmail.com>
-Date:   Sat, 26 Mar 2022 01:14:03 +0000
-Message-ID: <CACoqBR7wWcst8LtUywvcuC7CXFZPZVdhxvPxytxmuiCRt-3t2g@mail.gmail.com>
-Subject: BHTR
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: No, score=4.6 required=5.0 tests=BAYES_20,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,FREEMAIL_REPLYTO,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_HK_NAME_FM_MR_MRS,
-        T_SCC_BODY_TEXT_LINE,UNDISC_FREEM autolearn=no autolearn_force=no
-        version=3.4.6
-X-Spam-Level: ****
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220325092553.rncxqrjslv6e4c7v@ws.net.home>
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED,
+        SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi my friend, I am Hambrook P. Jeremy, Please did you receive my
-previous mail message? Please reply urgently for it is Very Important;
-Hambrook P. Jeremy.
+On Fri, Mar 25, 2022 at 10:25:53AM +0100, Karel Zak wrote:
+> 
+> Right, the speed of ps(1) or lsof(1) is not important. IMHO the current
+> discussion about getvalues() goes in wrong direction :-)
+> 
+> I guess the primary motivation is not to replace open+read+close, but
+> provide to userspace something usable to get information from mount
+> table, because the current /proc/#/mountinfo and notification by
+> poll() is horrible.
+
+I think that's because the getvalues(2) prototype *only* optimizes
+away open+read+close, and doesn't do a *thing* with respect to
+/proc/<pid>/mountinfo.
+
+> Don't forget that the previous attempt was fsinfo() from David Howells
+> (unfortunately, it was too complex and rejected by Linus).
+
+fsinfo() tried to do a lot more than solving the /proc/<pid>/mountinfo
+problem; perhaps that was the cause of the complexity.
+
+Ignoring the notification problem (which I suspect we could solve with
+an extension of fsnotify), if the goal is to find a cleaner way to
+fetch information about a process's mount namespace and the mounts in
+that namespace, why not trying to export that information via sysfs?
+Information about devices are just as complex, after all.
+
+We could make mount namespaces to be their own first class object, so
+there would be an entry in /proc/<pid> which returns the mount
+namespace id used by a particular process.  Similarly, let each
+mounted file system be its own first class object.  Information about
+each mount namespace would be in /sys/mnt_ns, and information about
+each mounted file system would be in /sys/superblock.  Then in
+/sys/mnt_ns there would be a directory for each (superblock,
+mountpoint) pair.
+
+Given how quickly programs like lsof can open tens of thousands of
+small files, and typically there are't that many mounted file systems
+in a particular mount namespace, performance really shouldn't be a
+problem.
+
+If it works well enough for other kernel objects that are accessed via
+sysfs, and fsinfo() is way to complex, why don't we try a pattern
+which has worked and is "native" to Linux?
+
+					- Ted
+
