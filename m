@@ -2,50 +2,68 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 646464EA5AF
-	for <lists+linux-man@lfdr.de>; Tue, 29 Mar 2022 05:04:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8D2F94EABD0
+	for <lists+linux-man@lfdr.de>; Tue, 29 Mar 2022 13:02:54 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230329AbiC2DEF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 28 Mar 2022 23:04:05 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34716 "EHLO
+        id S233042AbiC2LEd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 29 Mar 2022 07:04:33 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49880 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230106AbiC2DEE (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 28 Mar 2022 23:04:04 -0400
-X-Greylist: delayed 4202 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Mon, 28 Mar 2022 20:02:21 PDT
-Received: from 3.mo548.mail-out.ovh.net (3.mo548.mail-out.ovh.net [188.165.32.156])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9372D1FE55C
-        for <linux-man@vger.kernel.org>; Mon, 28 Mar 2022 20:02:19 -0700 (PDT)
-Received: from mxplan6.mail.ovh.net (unknown [10.109.138.132])
-        by mo548.mail-out.ovh.net (Postfix) with ESMTPS id A72481FD71;
-        Mon, 28 Mar 2022 22:16:00 +0000 (UTC)
-Received: from jwilk.net (37.59.142.97) by DAG4EX2.mxp6.local (172.16.2.32)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Tue, 29 Mar
- 2022 00:15:59 +0200
-Authentication-Results: garm.ovh; auth=pass (GARM-97G0024ee6fcfd-c1cf-4feb-b050-59dcba8eb2c1,
-                    5BC8941282AD13F27FBCCA502C4619D7E7050EA5) smtp.auth=jwilk@jwilk.net
-X-OVh-ClientIp: 5.172.255.167
-Date:   Tue, 29 Mar 2022 00:15:57 +0200
-From:   Jakub Wilk <jwilk@jwilk.net>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-CC:     Michael Kerrisk <mtk.manpages@gmail.com>,
-        <linux-man@vger.kernel.org>, NGINX Unit <unit@nginx.org>
-Subject: Re: [PATCH] uri.7: The term URL is deprecated, in favor of URI
-Message-ID: <20220328221557.njqx4jtbvrgv44lc@jwilk.net>
-References: <20220328182707.6935-1-alx.manpages@gmail.com>
+        with ESMTP id S231437AbiC2LEb (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 29 Mar 2022 07:04:31 -0400
+Received: from ams.source.kernel.org (ams.source.kernel.org [IPv6:2604:1380:4601:e00::1])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CF82F23D459
+        for <linux-man@vger.kernel.org>; Tue, 29 Mar 2022 04:02:47 -0700 (PDT)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        by ams.source.kernel.org (Postfix) with ESMTPS id 7A9EFB81658
+        for <linux-man@vger.kernel.org>; Tue, 29 Mar 2022 11:02:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 35526C3410F
+        for <linux-man@vger.kernel.org>; Tue, 29 Mar 2022 11:02:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1648551765;
+        bh=rUWf1tJbkN3GV4spNEjA6xie2fufe6YwIyWsXoGBvYQ=;
+        h=From:To:Subject:Date:From;
+        b=PingbQc+p1qdblX1PkjOdlHZ25i1G4m5L3++MBTt0KlfYiiQfWxvJDkc5qBwoctJC
+         kohIbXER2jlZOXNVHKRWrfjYlf4M2yMplC4rxf4Rq5zKmFrC8mjp48bfj6Zd0qAUmC
+         md3y/1Ufw5A8ddDmuct9+MDrx5BgVK9f9oto9+tzElm1QidwHnRLdwHRSvINwGZcG7
+         QzwAQrc4GlWyoJaMNhbLr82SdH0iXdPDkjQ2vhJ5bSsbgMoroFsRL/TQtu1eU+zzre
+         9h8UxjzuS4X0wPNcUQWlC0k5VY3oYQMxxgKvKIub9oLCmZTF6tfeKVwn0g4/K55vGG
+         DiLoNSSGs9JaA==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
+        id 204ADCAC6E2; Tue, 29 Mar 2022 11:02:45 +0000 (UTC)
+From:   bugzilla-daemon@kernel.org
+To:     linux-man@vger.kernel.org
+Subject: [Bug 215769] New: man 2 vfork() does not document corner case when
+ PID == 1
+Date:   Tue, 29 Mar 2022 11:02:44 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: new
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Documentation
+X-Bugzilla-Component: man-pages
+X-Bugzilla-Version: unspecified
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: socketpair@gmail.com
+X-Bugzilla-Status: NEW
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P1
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: bug_id short_desc product version rep_platform
+ op_sys bug_status bug_severity priority component assigned_to reporter
+ cf_regression
+Message-ID: <bug-215769-11311@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20220328182707.6935-1-alx.manpages@gmail.com>
-X-Originating-IP: [37.59.142.97]
-X-ClientProxiedBy: DAG5EX1.mxp6.local (172.16.2.41) To DAG4EX2.mxp6.local
- (172.16.2.32)
-X-Ovh-Tracer-GUID: 01571bea-53bb-4889-bbf3-0fccbc9268ad
-X-Ovh-Tracer-Id: 3719973295064078304
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvvddrudehkedgtdejucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepfffhvffukfhfgggtuggjihesthdtredttddtvdenucfhrhhomheplfgrkhhusgcuhghilhhkuceojhifihhlkhesjhifihhlkhdrnhgvtheqnecuggftrfgrthhtvghrnhepteelvdefhfegieehkeegudejtdefieduuedutddugfegfefhieeivdetvdfgfefhnecuffhomhgrihhnpeifhhgrthifghdrohhrghenucfkpheptddrtddrtddrtddpfeejrdehledrudegvddrleejnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmohguvgepshhmthhpohhuthdphhgvlhhopehmgihplhgrnheirdhmrghilhdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomhepjhifihhlkhesjhifihhlkhdrnhgvthdpnhgspghrtghpthhtohepuddprhgtphhtthhopehunhhithesnhhgihhngidrohhrgh
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE,
+X-Spam-Status: No, score=-7.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
         SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -54,27 +72,37 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-* Alejandro Colomar <alx.manpages@gmail.com>, 2022-03-28, 20:27:
->See RFCs 4395 (obsoleted by 7595) and 7595.
->
->So, since URI and URL have been used as synonims
+https://bugzilla.kernel.org/show_bug.cgi?id=3D215769
 
-s/synonim/synonym/ (here and elsewhere)
+            Bug ID: 215769
+           Summary: man 2 vfork() does not document corner case when PID
+                    =3D=3D 1
+           Product: Documentation
+           Version: unspecified
+          Hardware: All
+                OS: Linux
+            Status: NEW
+          Severity: normal
+          Priority: P1
+         Component: man-pages
+          Assignee: documentation_man-pages@kernel-bugs.osdl.org
+          Reporter: socketpair@gmail.com
+        Regression: No
 
->the RFCs seem to have explicitly avoided URL, and now use URI as the 
->only term, which still means what it meant (so now URL is just a 
->synonim for URI).
+If a process has PID=3D1 (for example in pid namespace), calling vfork() al=
+ways
+returns EINVAL. (https://bugs.python.org/issue47151).
 
-No, as far as RFCs are concerned, URLs are a proper subset of URIs; they 
-are not synonyms.
+Please add this informtion in "RETURN VALUE" section or just in somewhere e=
+lse
+in the manpage.
 
->This commit replaces (almost all) occurences of URL by URI, except when 
->it is referring to the old term itself.  Keep some legacy info just for 
->readers to understand this.
+Actually, it may be a bug in Linux kernel, I don't know. Possibly because t=
+he
+init process must not be suspended ?
 
-I'm not sure this is a step in the right direction. As a data point, in 
-contrast to IETF, WHATWG standardized on the term "URL":
-https://url.spec.whatwg.org/#goals
+--=20
+You may reply to this email to add a comment.
 
--- 
-Jakub Wilk
+You are receiving this mail because:
+You are watching the assignee of the bug.=
