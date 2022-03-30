@@ -2,127 +2,186 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 427AB4EB1C1
-	for <lists+linux-man@lfdr.de>; Tue, 29 Mar 2022 18:23:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 408A24EB787
+	for <lists+linux-man@lfdr.de>; Wed, 30 Mar 2022 02:48:42 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S239126AbiC2QZf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 29 Mar 2022 12:25:35 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49694 "EHLO
+        id S231342AbiC3AuX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 29 Mar 2022 20:50:23 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60574 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S238850AbiC2QZc (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 29 Mar 2022 12:25:32 -0400
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com [IPv6:2a00:1450:4864:20::431])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 26F291F1619
-        for <linux-man@vger.kernel.org>; Tue, 29 Mar 2022 09:23:47 -0700 (PDT)
-Received: by mail-wr1-x431.google.com with SMTP id h4so25574053wrc.13
-        for <linux-man@vger.kernel.org>; Tue, 29 Mar 2022 09:23:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=Qc9f8f8J4R4HGXXCWak5Mic4E3ZPMVPxY5GxBWY//xg=;
-        b=YgBMISP0ad6xYhDLmcKpl/qqe111+VvDsSl1eWafQB1CkhSA1Rvg5uf8Q4JUZTIpbQ
-         Ws5fh2coqaHxn9KvVlwTpv7j7IVLDV0RFdqc1g5SEAjtSb02ZWF5wk/XKAxuXlzf2Sgz
-         kFX0tqnWU02uYnUsiOThvVg942IkGYjpRqW8La5tAeLzek5vROx2ScvQUOjmJvCpMg4K
-         N6dQLutCXQmsk63CgJ4RFFAvUEpAiT18V9w5zqQq+4DYxeGhRbWvtQgmb8Ycqrihy0iF
-         4513pxd55Xoujy8i084BC3RFZ7mVvH2MAVvqZxurXYBxDtJgRkkc4a0SmolAX0+2lY9n
-         1FJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=Qc9f8f8J4R4HGXXCWak5Mic4E3ZPMVPxY5GxBWY//xg=;
-        b=PwlzVISg/vPH0fu88YLaT/Y6tA9QpqQroN/nrsbTZitDW8n/XtMkZungChwZrGrcX/
-         QsI1hb2XS48Jyo1Ddob7VVlvCkNyUjDpfDz9Vfn8LhJyxwQtNOdGi+jaCvWe5jT60c+r
-         vW6pCS8nd67wBgylGWCo0MbDGJ9f/RBsmB/mWojtemC8C5iOUzy5YqBAtm/6YWflYDil
-         6Nf+yNs0sQ4wm8jcrfin3lf1jiK4nMMS6qjfJBZLJ1PB7hxnN/Gpe5g1M47LjBJhzxxB
-         ywwSUoUdiqr7PTZhQbcJuT9vyYFyKSKWCokT3sPCV5zeA5SqbZcFVVtpQE8rvqY+bH3e
-         p4eA==
-X-Gm-Message-State: AOAM533C9gvH2+X1rprWHd4VUGp15R06txYfksSWNmoI6HuV4+SMHFVb
-        zoK1uBMbucdIaSwqV40GI+o=
-X-Google-Smtp-Source: ABdhPJw3dvm2P28AJ/iYlEnzIPkbCI5OV4ORi5d/n32M0+cKhJSCtQWPUgTZZs0OqU7i7PeVE1IVzw==
-X-Received: by 2002:a05:6000:186d:b0:204:110a:d832 with SMTP id d13-20020a056000186d00b00204110ad832mr32273753wri.47.1648571025468;
-        Tue, 29 Mar 2022 09:23:45 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id v15-20020a056000144f00b002057eac999fsm15692115wrx.76.2022.03.29.09.23.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 29 Mar 2022 09:23:44 -0700 (PDT)
-Message-ID: <36b89bec-1def-e87c-5477-c87f2f0e48e9@gmail.com>
-Date:   Tue, 29 Mar 2022 18:23:43 +0200
+        with ESMTP id S241498AbiC3AuW (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 29 Mar 2022 20:50:22 -0400
+Received: from ams.source.kernel.org (ams.source.kernel.org [IPv6:2604:1380:4601:e00::1])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 512386167
+        for <linux-man@vger.kernel.org>; Tue, 29 Mar 2022 17:48:32 -0700 (PDT)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        by ams.source.kernel.org (Postfix) with ESMTPS id 5692CB8197B
+        for <linux-man@vger.kernel.org>; Wed, 30 Mar 2022 00:48:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id EE4A6C34110
+        for <linux-man@vger.kernel.org>; Wed, 30 Mar 2022 00:48:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1648601308;
+        bh=1tlPw/1e5mbrcN/VWINMVB5r+VYUvRHCCiEFkcXkDmE=;
+        h=From:To:Subject:Date:In-Reply-To:References:From;
+        b=JGJnIiQhHYr0bbEADxgtVgdsB+X6C8xOXA4yOatcgJEr0AHLyqoPVVVgrYb23oken
+         eq4yyAUFOm7dY3avHzhsz8uxuGLGWZQ9H3sulkmaA9kelR1lnvCl/ZO3ur8DC32D8j
+         aWCpIvBuxJgONyHAb0ARAnJX8QuFSLd/0tai64CSKW1NGfHdGamy1scOo6IPGA1pgR
+         cwWJMebRKK774a8ViW9ECPw3/39U60jx5eyFarMu8NINb3D0XlzkZwbLqrf65J/lRL
+         FyuXoiSvGHHZKe1P1bkK2T8etrP9VXpgS6nfRhR0c+xVacARJXYwRwyBEfes6S7ueJ
+         PNBDfST1eK22Q==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
+        id D9870CC13AD; Wed, 30 Mar 2022 00:48:27 +0000 (UTC)
+From:   bugzilla-daemon@kernel.org
+To:     linux-man@vger.kernel.org
+Subject: [Bug 215769] man 2 vfork() does not document corner case when PID ==
+ 1
+Date:   Wed, 30 Mar 2022 00:48:27 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Documentation
+X-Bugzilla-Component: man-pages
+X-Bugzilla-Version: unspecified
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: alx.manpages@gmail.com
+X-Bugzilla-Status: NEW
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P1
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: 
+Message-ID: <bug-215769-11311-MvvLL9azed@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-215769-11311@https.bugzilla.kernel.org/>
+References: <bug-215769-11311@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [PATCH] uri.7: The term URL is deprecated, in favor of URI
-Content-Language: en-US
-To:     Jakub Wilk <jwilk@jwilk.net>
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-man@vger.kernel.org, NGINX Unit <unit@nginx.org>
-References: <20220328182707.6935-1-alx.manpages@gmail.com>
- <20220328221557.njqx4jtbvrgv44lc@jwilk.net>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-In-Reply-To: <20220328221557.njqx4jtbvrgv44lc@jwilk.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-        autolearn=ham autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-7.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Jakub!
+https://bugzilla.kernel.org/show_bug.cgi?id=3D215769
 
-On 3/29/22 00:15, Jakub Wilk wrote:
-> * Alejandro Colomar <alx.manpages@gmail.com>, 2022-03-28, 20:27:
->> See RFCs 4395 (obsoleted by 7595) and 7595.
->>
->> So, since URI and URL have been used as synonims
-> 
-> s/synonim/synonym/ (here and elsewhere)
+--- Comment #1 from Alejandro Colomar (man-pages) (alx.manpages@gmail.com) =
+---
+Hello =D0=9A=D0=BE=D1=80=D0=B5=D0=BD=D0=B1=D0=B5=D1=80=D0=B3 =D0=9C=D0=B0=
+=D1=80=D0=BA,
 
-Oops.  I always doubt when writing words with two y/i in them.
-I should run
-	dict -m synonim
-or
-	echo synonim synonym | spell
-before typing! :)
+On 3/29/22 13:02, bugzilla-daemon@kernel.org wrote:
+> https://bugzilla.kernel.org/show_bug.cgi?id=3D215769
+>=20
+>             Bug ID: 215769
+>            Summary: man 2 vfork() does not document corner case when PID
+>                     =3D=3D 1
+>            Product: Documentation
+>            Version: unspecified
+>           Hardware: All
+>                 OS: Linux
+>             Status: NEW
+>           Severity: normal
+>           Priority: P1
+>          Component: man-pages
+>           Assignee: documentation_man-pages@kernel-bugs.osdl.org
+>           Reporter: socketpair@gmail.com
+>         Regression: No
+>=20
+> If a process has PID=3D1 (for example in pid namespace), calling vfork() =
+always
+> returns EINVAL. (https://bugs.python.org/issue47151).
+>=20
+> Please add this informtion in "RETURN VALUE" section or just in somewhere
+> else
+> in the manpage.
+>=20
+> Actually, it may be a bug in Linux kernel, I don't know. Possibly because=
+ the
+> init process must not be suspended ?
 
-> 
->> the RFCs seem to have explicitly avoided URL, and now use URI as the
->> only term, which still means what it meant (so now URL is just a
->> synonim for URI).
-> 
-> No, as far as RFCs are concerned, URLs are a proper subset of URIs; they
-> are not synonyms.
+Sorry, but I couldn't reproduce it.  Could you please run the following
+test program in the same system that you're experiencing the bug?
 
-Hmmm, now I've read a few more RFCs, and it seems you're right.
+I run it on Debian Sid with kernel 5.16 and glibc 2.33:
 
-> 
->> This commit replaces (almost all) occurences of URL by URI, except
->> when it is referring to the old term itself.  Keep some legacy info
->> just for readers to understand this.
-> 
-> I'm not sure this is a step in the right direction. As a data point, in
-> contrast to IETF, WHATWG standardized on the term "URL":
-> https://url.spec.whatwg.org/#goals
+$ uname -a
+Linux ADY-debian-11 5.16.0-5-amd64 #1 SMP PREEMPT Debian 5.16.14-1
+(2022-03-15) x86_64 GNU/Linux
+$ /lib/x86_64-linux-gnu/libc.so.6 | head -n1
+GNU C Library (Debian GLIBC 2.33-7) release release version 2.33.
 
-As you say, it's not.  I'm now more confused than I was before, so I
-will revert this change.
 
-If you feel like you could update the page, since you seem to know more
-than me in this regard, that would be great.
 
-Thanks for the review!
+$ cat vfork.c
+#define _GNU_SOURCE
+#include <err.h>
+#include <sched.h>
+#include <signal.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 
+int main(void)
+{
+        pid_t pid;
+
+        if (unshare(CLONE_NEWPID | CLONE_NEWNS) =3D=3D -1)
+                err(EXIT_FAILURE, "unshare(2)");
+        if (signal(SIGCHLD, SIG_IGN) =3D=3D SIG_ERR)
+                err(EXIT_FAILURE, "sigaction(2)");
+        pid =3D fork();
+        switch (pid) {
+        case 0:
+                break;
+        case -1:
+                err(EXIT_FAILURE, "fork(2)");
+        default:
+                errx(EXIT_SUCCESS, "Parent exiting normally.");
+        }
+        if (getpid() !=3D 1)
+                errx(EXIT_FAILURE, "Child is not PID 1.");
+        /* I'm not sure if I need to ignore it again, but just in case. */
+        if (signal(SIGCHLD, SIG_IGN) =3D=3D SIG_ERR)
+                err(EXIT_FAILURE, "sigaction(2)");
+        pid =3D vfork();
+        switch (pid) {
+        case 0:
+                errx(EXIT_SUCCESS, "Grandchild exiting normally.");
+        case -1:
+                /* If we got here, the report is confirmed. */
+                err(EXIT_FAILURE, "vfork(2)");
+        default:
+                errx(EXIT_SUCCESS, "Child exiting normally.");
+        }
+}
+$ cc -Wall -Wextra vfork.c
+$ sudo ./a.out
+a.out: Parent exiting normally.
+a.out: Grandchild exiting normally.
+a.out: Child exiting normally.
+$
+
+
+If you can confirm the bug with this program, please send your system
+details (most importantly, kernel and libc versions).
+
+
+Thanks,
 
 Alex
 
+--=20
+You may reply to this email to add a comment.
 
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+You are receiving this mail because:
+You are watching the assignee of the bug.=
