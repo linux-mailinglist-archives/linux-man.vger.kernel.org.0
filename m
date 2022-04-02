@@ -2,68 +2,77 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id E6D974F067D
-	for <lists+linux-man@lfdr.de>; Sat,  2 Apr 2022 23:44:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id F1C854F067E
+	for <lists+linux-man@lfdr.de>; Sat,  2 Apr 2022 23:48:58 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1345087AbiDBVq2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 2 Apr 2022 17:46:28 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46676 "EHLO
+        id S229873AbiDBVus (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 2 Apr 2022 17:50:48 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36014 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233887AbiDBVq1 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 2 Apr 2022 17:46:27 -0400
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com [IPv6:2a00:1450:4864:20::32f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E9EE9224
-        for <linux-man@vger.kernel.org>; Sat,  2 Apr 2022 14:44:34 -0700 (PDT)
-Received: by mail-wm1-x32f.google.com with SMTP id n35so3669790wms.5
-        for <linux-man@vger.kernel.org>; Sat, 02 Apr 2022 14:44:34 -0700 (PDT)
+        with ESMTP id S1345098AbiDBVur (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 2 Apr 2022 17:50:47 -0400
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com [IPv6:2a00:1450:4864:20::430])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C5445140AA;
+        Sat,  2 Apr 2022 14:48:54 -0700 (PDT)
+Received: by mail-wr1-x430.google.com with SMTP id d29so2933795wra.10;
+        Sat, 02 Apr 2022 14:48:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=message-id:date:mime-version:user-agent:subject:content-language:to
          :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=llPTe6rzJSdXGM9mWbVrgKZiAKW5XHY9l5Z/ytIht1U=;
-        b=o7RnqZUfmjhr2C0XNL4b51FxafCMLbKqBAqh99xKUynodsjoEkv6G1s9nhdUMXsJHA
-         AXSYulWZJDDzqyjzkl+gJeFh8Z7Igy0jLdbDN77ygmm2NvvWeedDrSmAC/m1sWrr64ov
-         i6+hmUs/PZShcTVjXYLx9cK5jke2IjMSDhOpr3OXFjJcH25gzfdS/fPcXaUGDqsddYDK
-         M7qqcY7Fxb8FfI7t39hxpuOn8otpW0+HOUZczhzv5UgTVe3ZBnZQ8KKlJALmWqFZOx2y
-         +/JJl+yhnLcRgXzrTBHshsO37lENAzr/eMKboRfIROMoLKyDe54tB8bOhayYpy+c9KqO
-         AFyw==
+        bh=us6aSVa3J8Fz7ggtoxcbQ4SWfzc0yNq+6rwiUrC9dBk=;
+        b=FRQmTwiC8OS41y5Pt5IJbdlzekXrE20q+difrm7MNa718iKxjy81n+c4Rg1RKgFq1V
+         UNEYuLkNA7UlAzZ79SQMGfCRc6F3/9tbyFB0jR7xEd7JgF73CZMosSbAR9x7xyLVNDZY
+         iYPuOVamVxtaHQOwqtNG3d/k//bS8S4QASczFZKwahefDJTMwVlaDN2e3AuOc9lJdTH+
+         4fd6seJJguJnHNKsgn5Lw0F2cwKB4yFxZ4F2nLSm++ATArRAXHm65rWN0/7bTaOpjgzZ
+         MU5oTfA+i3zN+E2cdZUEfIV/ybpV/4NHOfwghm52XqZVuT8uJr7EsbuiktDgjGVKCzOz
+         Yesg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
          :content-language:to:cc:references:from:in-reply-to
          :content-transfer-encoding;
-        bh=llPTe6rzJSdXGM9mWbVrgKZiAKW5XHY9l5Z/ytIht1U=;
-        b=ehvSIr2j9RyiLSvr93OGHfWXnzA7lqyEA6Glfz29wYqaa3II6GKy8kS1kF8yAH02ll
-         vOHBL9sR47DthPC4OpeN2CWmC5YOCWCigZng5q82vWJukdQM+IVbdp9uv4zq3QQAWAFW
-         D/RWII9pMc6B6x2k5SUWu3qPi/HlkoJ32EUQpcVK/2XqIB7R7H9HilNCsLudYQbk6rcZ
-         LjRdi6zMmtaYZZ6ZuIwIOH9Fftx7crT8wFikf1y0gofd6Z7sQiXZfwVhTp0AyZgkjDPo
-         QlPdKrL1W6492XfuM1/gmP5xMuumg5oEEybEram7SUUbyOljPPTZcrC88dh8T/KH28dl
-         jx9Q==
-X-Gm-Message-State: AOAM532SPqqH5MLJl9CDRO7xcpSpyOibCxelracnVkspfFK3/OTR3oYg
-        Te5wXntwXO1eL2apQ1M9Pis=
-X-Google-Smtp-Source: ABdhPJz0ODp2iNTBgpu+2NwkCHZJkE2kDoSHQdplrCKySvU1T0Lg97kglXRIqsTq0EK6FYxIbgPVCw==
-X-Received: by 2002:a05:600c:4f0f:b0:38c:c8f5:73e7 with SMTP id l15-20020a05600c4f0f00b0038cc8f573e7mr13419575wmq.201.1648935873536;
-        Sat, 02 Apr 2022 14:44:33 -0700 (PDT)
+        bh=us6aSVa3J8Fz7ggtoxcbQ4SWfzc0yNq+6rwiUrC9dBk=;
+        b=4OCCjzOlD0/PXFCUN4Lh65aFEQaJi4zW1N13H5ycnJKdxy8l13fcy0mmiG+H3uhgDg
+         3HCImUZ/srLW6aZAN3hnqKQGhkizo3U/2RGvMGNht27WT+vqXAMH0uqIdqc+n+MGOVmL
+         H824lG80rsixzGvSLwl1MFXBHsVybbZnYU0j7JNNooCAZe2a7gWBgVAYRkebv9s1Y4KQ
+         i5SEMI7/IrBDx8WZG2hMxSJJcKUAnA424bNCTlregzSkaJ2RUqc4GD01nmB8MeCHoAdV
+         syZbTpJza4gm6bwlC+ynERegQuDZjgRFz6+yjT8b+S0HBmCb31hpkmXuFhIdW4Gcco3Q
+         OG2Q==
+X-Gm-Message-State: AOAM531kNCVg0+lejRNwVoe4j2pmoFJ19tXbBWxHAhOx7qWu9A3nrPpT
+        AdmzQ/+muhC+W3J7w0hNRWU=
+X-Google-Smtp-Source: ABdhPJwtLky+OmeRw3EQtHVZFNNp8l429KkJLvaIuy7XhOkWnQObkFWvBDI21i1UMECswI5jk0iffg==
+X-Received: by 2002:a5d:660e:0:b0:203:eda6:e983 with SMTP id n14-20020a5d660e000000b00203eda6e983mr12070443wru.544.1648936133424;
+        Sat, 02 Apr 2022 14:48:53 -0700 (PDT)
 Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id f13-20020a05600c4e8d00b0038c949ef0d5sm6055148wmq.8.2022.04.02.14.44.32
+        by smtp.gmail.com with ESMTPSA id k129-20020a1ca187000000b0038e6e789f08sm704877wme.39.2022.04.02.14.48.52
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 02 Apr 2022 14:44:33 -0700 (PDT)
-Message-ID: <68fdbeb9-e3ce-580b-8b0c-64760e366fe5@gmail.com>
-Date:   Sat, 2 Apr 2022 23:44:32 +0200
+        Sat, 02 Apr 2022 14:48:53 -0700 (PDT)
+Message-ID: <cb85e759-d272-e165-beee-b0d1c8f87405@gmail.com>
+Date:   Sat, 2 Apr 2022 23:48:51 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.7.0
-Subject: Re: [patch] Add docs on mount namespace rootfs access and pid
- namespace pid mapping
+Subject: Re: [PATCH v2] ioctl_userfaultfd.2, userfaultfd.2: add minor fault
+ mode
 Content-Language: en-US
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc:     Craig Ringer <craig.ringer@enterprisedb.com>,
-        linux-man@vger.kernel.org, Michael Kerrisk <mtk.manpages@gmail.com>
-References: <CAGRY4nx5R6d5iH1SUZHEuJO+M67h1p1zLNQB_6F6X5GGBKFYeg@mail.gmail.com>
- <2678e0e8-0057-7b63-a3a0-9f49b57f0cf4@gmail.com>
- <20220320145304.nus44y4hsh6fohbk@localhost.localdomain>
+To:     Axel Rasmussen <axelrasmussen@google.com>
+Cc:     Mike Rapoport <rppt@kernel.org>,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        Andrea Arcangeli <aarcange@redhat.com>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Hugh Dickins <hughd@google.com>,
+        Mike Kravetz <mike.kravetz@oracle.com>,
+        Peter Xu <peterx@redhat.com>,
+        LKML <linux-kernel@vger.kernel.org>, linux-man@vger.kernel.org,
+        Linux MM <linux-mm@kvack.org>
+References: <20210604195622.1249588-1-axelrasmussen@google.com>
+ <CAJHvVcjzi-7Wvrho1LqWiQC2WNbtg0XGf6-JBRcDZS1=banbVA@mail.gmail.com>
+ <YQfVRuV2Ab2rlKVI@kernel.org>
+ <1add2552-ea36-12a2-b3b1-6e97f6f84e00@gmail.com>
+ <CAJHvVcggpJ7hE8VbhL09mT0=eJ5C+iH1poi_-V2v_dMLjSbVnQ@mail.gmail.com>
 From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-In-Reply-To: <20220320145304.nus44y4hsh6fohbk@localhost.localdomain>
+In-Reply-To: <CAJHvVcggpJ7hE8VbhL09mT0=eJ5C+iH1poi_-V2v_dMLjSbVnQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
@@ -76,90 +85,42 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi, Branden!
+Hi Axel,
 
-On 3/20/22 15:53, G. Branden Robinson wrote:
-> Hi, Alex!
-> 
-> At 2022-03-14T15:05:49+0100, Alejandro Colomar (man-pages) wrote:
->> Always start sentences after '.' in a new line.
->> That's already covered by "semantic newlines" (see above),
->> but it's especially important in this case because
->> groff(1) prints (at least) 2 spaces after '.' normally,
->> but if you write it this way it doesn't.
+On 3/22/22 17:31, Axel Rasmussen wrote:
+> On Mon, Aug 2, 2021 at 5:21 AM Alejandro Colomar (man-pages)
+> <alx.manpages@gmail.com> wrote:
+>>>>> +mode, user-space will receive a page-fault notification
 >>
->> BTW, Branden,
->> I CCd you because I didn't find this documented in groff(7),
->> or at least I couldn't find it.
->> I tried /\.[^ [a-z]] and also keywords like period, point or dot,
->> but no luck.
->> Is it documented anywhere?
+>> s/user-space/user space/
+>>
+>> See the following extract from man-pages(7):
+>>
+>>     Preferred terms
+>>         The  following  table  lists some preferred terms to use in
+>>         man pages, mainly to ensure consistency across pages.
+>>
+>>         Term                 Avoid using              Notes
+>>         ─────────────────────────────────────────────────────────────
+>>         [...]
+>>         user space           userspace
+>>
+>> However, when user space is used as an adjective, per the usual English
+>> rules, we write "user-space".  Example: "a user-space program".
 > 
-> It used to be one of those things everybody just "knew" about writing in
-> *roff--back when people hung on Brian Kernighan's every word[1]--but
-> over the years the knowledge has atrophied.
+> 100% agreed that "user space" is more correct, but this man page
+> already has many instances of "user-space" in it. I'd suggest we
+> either fix all of them, or just follow the existing convention within
+> this page.
+> 
+> How about, leaving this as-is for this patch, to keep the diff tidy,
+> and I can send a follow-up patch to fix all the instances of this in
+> this page?
+> 
 
-Okay.
-> 
-> The groff 1.22.4 Texinfo manual has the following.  I believe this
-> material is adapted from Eric Allman's paper "Writing Papers with NROFF
-> using -me".
-> 
-> [[
-> 3 Tutorial for Macro Users
-> **************************
-> 
-[...]
-> 
->    * End each sentence with two spaces - or better, start each sentence
->      on a new line.  'gtroff' recognizes characters that usually end a
->      sentence, and inserts sentence space accordingly.
+Sure.  Sorry for the delay.
 
-Ahh, that paragraph is what I was looking for.
-
-[...]
-> 
->        •      Set your text editor’s line length to 72 characters or
->               fewer; see the subsections below.  This limit, combined
->               with the previous advice regarding breaking around
->               punctuation, makes it less common that an input line will
->               wrap in your text editor, and thus will help you perceive
->               excessively long constructions in your text.  Recall that
->               natural languages originate in speech, not writing, and
->               that punctuation is correlated with pauses for breathing
->               and changes in prosody.
-
-That last line should be reminded more often :)
-
-[...]
-> This point about beginning sentences only on new input lines _is_
-> missing from groff_man_style(7).  As noted in the groff 1.22.4 NEWS
-> file:
-> 
-> o ... groff_man(7) has been expanded and largely rewritten ... to be
->   more helpful and accessible to man page writers who may never read any
->   other groff documentation.
-> 
-> groff_man_style(7) is now fulfilling this role, since a quick reference
-> for experienced man page writers remains desirable.  (I avoid letting
-> the two drift out of sync by generating both from an m4 master
-> document.)
-> 
-> I've been dithering over writing a new introductory section just for
-> groff_man_style(7) to present an example of a partial man page and use
-> it to explain typesetting terms that are inescapable even in the reduced
-> domain of man pages: breaking, filling, adjustment, hyphenation, and the
-> notorious matter of supplementary inter-sentence space.
-> 
-> As you will have observed, when I write in a hurry, I write a lot.  The
-> foregoing notional material needs to be written well, and that means
-> taking the time to cook the fat off.
-
-I'll try to find some time to read the whole pages...
-
-Thank you very much for your (very) detailed responses! :-)
-
-Cheers,
+Thanks,
 
 Alex
 
