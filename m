@@ -2,66 +2,70 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 89C924F06A1
-	for <lists+linux-man@lfdr.de>; Sun,  3 Apr 2022 01:05:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A1FB74F06AB
+	for <lists+linux-man@lfdr.de>; Sun,  3 Apr 2022 01:25:27 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230094AbiDBXHL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 2 Apr 2022 19:07:11 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36618 "EHLO
+        id S230236AbiDBX1R (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 2 Apr 2022 19:27:17 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45476 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230072AbiDBXHL (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 2 Apr 2022 19:07:11 -0400
-Received: from mail-pg1-x52c.google.com (mail-pg1-x52c.google.com [IPv6:2607:f8b0:4864:20::52c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8B8CCD62
-        for <linux-man@vger.kernel.org>; Sat,  2 Apr 2022 16:05:18 -0700 (PDT)
-Received: by mail-pg1-x52c.google.com with SMTP id c11so5230950pgu.11
-        for <linux-man@vger.kernel.org>; Sat, 02 Apr 2022 16:05:18 -0700 (PDT)
+        with ESMTP id S230079AbiDBX1R (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 2 Apr 2022 19:27:17 -0400
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com [IPv6:2a00:1450:4864:20::433])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2203CDFD3
+        for <linux-man@vger.kernel.org>; Sat,  2 Apr 2022 16:25:24 -0700 (PDT)
+Received: by mail-wr1-x433.google.com with SMTP id r13so9173540wrr.9
+        for <linux-man@vger.kernel.org>; Sat, 02 Apr 2022 16:25:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=date:from:to:cc:subject:message-id:in-reply-to:references
-         :organization:mime-version:content-transfer-encoding;
-        bh=fIYNCuhzT34V+UpV/VdvsE9mtZE7A6r6Cr7uJJOqDJA=;
-        b=kT1H/g28qTSTcP4Nc9BHpGzKV017VZJSGU4kaMBmbLDqLn6cQR7Y+LMUy8VdEgcTHh
-         fjwFARBvNCgQnHKL/RHB5ENmceFIQNPWm6/NbPI0AmohXW2KlJMSkeKM0rG43zMXzt4h
-         EGwVwEN9zvkyNfaGJrEC6SCTTzCMHaCfl/BEtl9voTwec4F0A3MM0jEWXkiBO/SP3Lu4
-         BIUSUVRdL8qbFxgTBWz7G2fSAbEtu8sBg61uJv68u4/WrhaxfkEGzBwJzwqNPxZhf9ME
-         teByBjZDKxNkROWxn6/9Km0YSfvDyrd8dUYgPfhgNnc3o8w+9OCvV0JaU7oTD25KqWME
-         obHQ==
+        h=message-id:date:mime-version:user-agent:subject:content-language:to
+         :cc:references:from:in-reply-to:content-transfer-encoding;
+        bh=MUMfBTzbwpJK59fMubC+5803zBL/Q8+SibJVwkRXd9c=;
+        b=K7yANhHG2hy4MlRhXNJficDZSGQeETHMJwqKO5OVCcEKo1h1D1hKgBGTApLM/NQndz
+         +G7PQByZAjkOeXwU9Z32Obx9AiupEvn15aY8U9JxwlJLhD422W7+tZSyoEey/4R2S/N9
+         mgZ8JZwHetZN8DctUSHFk5Ee5YnY803Peu/c3VP4U3bawS6h1oxyahjTKrvbEtdrzw6g
+         04dHSXWrRWKuRD/ajNfCsxcUxY8ADli49rbp+qxLLz3xeIMl1YZ8wVxGyKHDdGYL2v5i
+         cKge9+vqcEHo+h6jaas+xbliFPLUG0TDKato44tzcdVvDFiDJHH2dHzX9tXz5Fz9+JHJ
+         cFtA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
-         :references:organization:mime-version:content-transfer-encoding;
-        bh=fIYNCuhzT34V+UpV/VdvsE9mtZE7A6r6Cr7uJJOqDJA=;
-        b=IxKtxChIAUTkiaLeB4VyIW3Rv3lwjXSJP4htlQL3tAW4VKQl5mlIP5b2ldj2z9z5ms
-         tVufJhGslab6GhxzoVPj99aMdzvaR8+IpkBHuthCQ1BFM8jumOV8OW8nw8R+uQrjYBBh
-         6kvplKqxngxEMmsQK32MDsSUqYXhlJwIIYhVPc08cLgBdCzBynyTCnuqctKpZ657wnCh
-         kphhj6KlXN7wYotjpYgsfaTvygaTpuLqYgcd2c1E8DvaHDvvPWbZHAWxe8fYSpDWW53H
-         BM6mdCxPDaCABfv7lObpWzgjK1ljprdJ5KStOF7DNpeQngZ3cij4AQE+/WFMcXnCVxJF
-         kwOw==
-X-Gm-Message-State: AOAM533p2b6xJ+gfCOo7xmeP8cweORo7Dz37zRy2AL5FUz3V/BRR48PU
-        vSYeyqRTcDHPfzWWu5WenmM=
-X-Google-Smtp-Source: ABdhPJxwHbtikHzGInxN2ZIhY5ul3wQskorslpLPxgPd1aou99/6lRyzLUuOCPqUjSyzJrngrlq6Vg==
-X-Received: by 2002:a05:6a00:1a10:b0:4fc:d6c5:f3ed with SMTP id g16-20020a056a001a1000b004fcd6c5f3edmr25070725pfv.85.1648940717986;
-        Sat, 02 Apr 2022 16:05:17 -0700 (PDT)
-Received: from optimus ([2405:204:90a8:f924:668e:8e0d:eb54:9060])
-        by smtp.gmail.com with ESMTPSA id oo16-20020a17090b1c9000b001b89e05e2b2sm6349557pjb.34.2022.04.02.16.05.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 02 Apr 2022 16:05:17 -0700 (PDT)
-Date:   Sun, 3 Apr 2022 04:35:08 +0530
-From:   Avinash Sonawane <rootkea@gmail.com>
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Functions missing from missing_pages.html
-Message-ID: <20220403043508.42c59a5e@optimus>
-In-Reply-To: <1148e5eb-a308-eb57-e8ad-dcbf5709eb72@gmail.com>
-References: <20220331220454.6474e671@optimus>
-        <1148e5eb-a308-eb57-e8ad-dcbf5709eb72@gmail.com>
-Organization: Hacker's Den
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+         :content-language:to:cc:references:from:in-reply-to
+         :content-transfer-encoding;
+        bh=MUMfBTzbwpJK59fMubC+5803zBL/Q8+SibJVwkRXd9c=;
+        b=COSxSeSd1C18vQZJ1O7Ry3ev8Mibl2A9XL3ayg5p97wwKYXMvTVC6JQMQKPpxVYcQg
+         nsxxEuJ6JPtO5l/s6akAc/wchGiltO8yDj0/i9jO11FPF12yipNKOuV9/3dSE2KToLcb
+         AUrwrUDhwhbVdQOfUvnIfSZPRM6gZwRx+r/6Bbeuz8FoRNQXn3CotWLWBXYRjAOjC2zA
+         t1Dv7ZZRcCvlyCbtVcuucpE6SPopZV8IUaUz3qmWe6wGVrYQ55AasSpQlQylAEfkoiEI
+         SD6hsy8ed+uNvR8NkEaopkufmvlyxAoQA69cqZhS3TijvyofNavxjkpn+E6NnlkHgH75
+         hL5w==
+X-Gm-Message-State: AOAM533x6NeiuYxbOrE8YaQDdDvyNRZbbpFS2/feOjoHze438lb+VlFD
+        KFEmqkbVnX9w/3xRjefZ8XPAPPm+FMJqYQ==
+X-Google-Smtp-Source: ABdhPJzNQ1yoEtSzn+AuU2PZN0FOrXzJCjG+0inXYz+01IMakuQgWFpt88SEgvt2zwc7qmBDjpNRrA==
+X-Received: by 2002:a5d:522f:0:b0:206:918:b653 with SMTP id i15-20020a5d522f000000b002060918b653mr2622881wra.342.1648941922619;
+        Sat, 02 Apr 2022 16:25:22 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id d14-20020a056000186e00b0020405198faasm6275273wri.52.2022.04.02.16.25.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 02 Apr 2022 16:25:22 -0700 (PDT)
+Message-ID: <496f2fe7-2f9f-4e67-f2fe-0996668a1245@gmail.com>
+Date:   Sun, 3 Apr 2022 01:25:20 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Subject: Re: Functions missing from missing_pages.html
+Content-Language: en-US
+To:     Avinash Sonawane <rootkea@gmail.com>
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+References: <20220331220454.6474e671@optimus>
+ <1148e5eb-a308-eb57-e8ad-dcbf5709eb72@gmail.com>
+ <20220403043508.42c59a5e@optimus>
+From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+In-Reply-To: <20220403043508.42c59a5e@optimus>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
         autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -70,19 +74,37 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Sat, 2 Apr 2022 23:24:02 +0200
-"Alejandro Colomar (man-pages)" <alx.manpages@gmail.com> wrote:
- 
-> Fixed with the patch below.
+Hi Avinash,
 
-Cool!
+On 4/3/22 01:05, Avinash Sonawane wrote:
+> On Sat, 2 Apr 2022 23:24:02 +0200
+> "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com> wrote:
+>  
+>> Fixed with the patch below.
+> 
+> Cool!
+> 
+> Is the webpage https://www.kernel.org/doc/man-pages/missing_pages.html
+> generated from undocumented(3) manpage or does it also need to be
+> updated separately?
+> 
+> I still can't see the changes reflected on that webpage...
 
-Is the webpage https://www.kernel.org/doc/man-pages/missing_pages.html
-generated from undocumented(3) manpage or does it also need to be
-updated separately?
+Thanks for reminding me that.  I imagined it was autogenerated, but it's
+not.  I'll fix the source code for the website too.
 
-I still can't see the changes reflected on that webpage...
+However, don't expect to see it updated online until the next release.
 
-Regards,
-Avinash Sonawane (rootKea)
-https://www.rootkea.me
+Thanks,
+
+Alex
+
+> 
+> Regards,
+> Avinash Sonawane (rootKea)
+> https://www.rootkea.me
+
+-- 
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
