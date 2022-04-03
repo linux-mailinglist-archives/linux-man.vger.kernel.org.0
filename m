@@ -2,109 +2,70 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id A1FB74F06AB
-	for <lists+linux-man@lfdr.de>; Sun,  3 Apr 2022 01:25:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 69CD24F06FC
+	for <lists+linux-man@lfdr.de>; Sun,  3 Apr 2022 05:06:33 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230236AbiDBX1R (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 2 Apr 2022 19:27:17 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45476 "EHLO
+        id S231696AbiDCDIX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 2 Apr 2022 23:08:23 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53198 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230079AbiDBX1R (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 2 Apr 2022 19:27:17 -0400
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com [IPv6:2a00:1450:4864:20::433])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2203CDFD3
-        for <linux-man@vger.kernel.org>; Sat,  2 Apr 2022 16:25:24 -0700 (PDT)
-Received: by mail-wr1-x433.google.com with SMTP id r13so9173540wrr.9
-        for <linux-man@vger.kernel.org>; Sat, 02 Apr 2022 16:25:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=MUMfBTzbwpJK59fMubC+5803zBL/Q8+SibJVwkRXd9c=;
-        b=K7yANhHG2hy4MlRhXNJficDZSGQeETHMJwqKO5OVCcEKo1h1D1hKgBGTApLM/NQndz
-         +G7PQByZAjkOeXwU9Z32Obx9AiupEvn15aY8U9JxwlJLhD422W7+tZSyoEey/4R2S/N9
-         mgZ8JZwHetZN8DctUSHFk5Ee5YnY803Peu/c3VP4U3bawS6h1oxyahjTKrvbEtdrzw6g
-         04dHSXWrRWKuRD/ajNfCsxcUxY8ADli49rbp+qxLLz3xeIMl1YZ8wVxGyKHDdGYL2v5i
-         cKge9+vqcEHo+h6jaas+xbliFPLUG0TDKato44tzcdVvDFiDJHH2dHzX9tXz5Fz9+JHJ
-         cFtA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=MUMfBTzbwpJK59fMubC+5803zBL/Q8+SibJVwkRXd9c=;
-        b=COSxSeSd1C18vQZJ1O7Ry3ev8Mibl2A9XL3ayg5p97wwKYXMvTVC6JQMQKPpxVYcQg
-         nsxxEuJ6JPtO5l/s6akAc/wchGiltO8yDj0/i9jO11FPF12yipNKOuV9/3dSE2KToLcb
-         AUrwrUDhwhbVdQOfUvnIfSZPRM6gZwRx+r/6Bbeuz8FoRNQXn3CotWLWBXYRjAOjC2zA
-         t1Dv7ZZRcCvlyCbtVcuucpE6SPopZV8IUaUz3qmWe6wGVrYQ55AasSpQlQylAEfkoiEI
-         SD6hsy8ed+uNvR8NkEaopkufmvlyxAoQA69cqZhS3TijvyofNavxjkpn+E6NnlkHgH75
-         hL5w==
-X-Gm-Message-State: AOAM533x6NeiuYxbOrE8YaQDdDvyNRZbbpFS2/feOjoHze438lb+VlFD
-        KFEmqkbVnX9w/3xRjefZ8XPAPPm+FMJqYQ==
-X-Google-Smtp-Source: ABdhPJzNQ1yoEtSzn+AuU2PZN0FOrXzJCjG+0inXYz+01IMakuQgWFpt88SEgvt2zwc7qmBDjpNRrA==
-X-Received: by 2002:a5d:522f:0:b0:206:918:b653 with SMTP id i15-20020a5d522f000000b002060918b653mr2622881wra.342.1648941922619;
-        Sat, 02 Apr 2022 16:25:22 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id d14-20020a056000186e00b0020405198faasm6275273wri.52.2022.04.02.16.25.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 02 Apr 2022 16:25:22 -0700 (PDT)
-Message-ID: <496f2fe7-2f9f-4e67-f2fe-0996668a1245@gmail.com>
-Date:   Sun, 3 Apr 2022 01:25:20 +0200
+        with ESMTP id S233042AbiDCDIT (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 2 Apr 2022 23:08:19 -0400
+X-Greylist: delayed 361 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Sat, 02 Apr 2022 20:06:24 PDT
+Received: from mta-out-01.alice.it (mta-out-01.alice.it [217.169.118.7])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 153FA38DAC
+        for <linux-man@vger.kernel.org>; Sat,  2 Apr 2022 20:06:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alice.it; s=20211207; t=1648955184; 
+        bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+        h=Reply-To:From:To:Date:Message-ID:MIME-Version;
+        b=K+kscFZWs0xPDLn5qPmO7Pfu7ZfabIV8qPfFAWKwtaX5shmbCN3i0Clod5L/+7Jln1GGAx+G0r3IOqIrrbxaUnWO2WKZSq/8RL9yvb+kW+iG8ZtAvkk9XU3VBXK9VaSokcNrbjdRaoAg1WFy+0cXswfXtfK8D8N7zmSLKpzQZpZcju08q+Ecoqudow7MxKrMQZQVWgvPwb54mW6Gexes8SvvOKgvbqpkTtIJ7qfV69vKexBy110y5C9VDv7PWaR0X/q7mr1rytvO+4vLvQFcS8r5qi9xp+BRqXBVDsw63lD+6MewK//NmbmvT2nQmiwoXq9BKFM8kZozzPbF+zmx7A==
+X-RazorGate-Vade: gggruggvucftvghtrhhoucdtuddrgedvvddrudeiledgiedvucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuvffgnffgvefqoffkvfetnffktedpqfgfvfenuceurghilhhouhhtmecufedtudenucfgmhhpthihuchsuhgsjhgvtghtucdluddtmdengfhmphhthicusghougihucdlhedtmdenucfjughrpehrhffvfffkggestddtfedttddttdenucfhrhhomhephggvuchhrghvvgcurghnuchofhhfvghruchtohcuihhnvhgvshhtuchinhcuhihouhhrucgtohhunhhtrhihuchunhguvghrucgruchjohhinhhtuchvvghnthhurhgvuchprghrthhnvghrshhhihhpuchplhgvrghsvgcurhgvphhlhicufhhorhcumhhorhgvucguvghtrghilhhsuceofhgpphgvnhhnrgesrghlihgtvgdrihhtqeenucggtffrrghtthgvrhhnpeehjeetgefhleetiedtkeelfffgjeeugeegleekueffgfegtdekkeeifedvvdffteenucfkphepudejiedrvddvjedrvdegvddrudeltdenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhephhgvlhhopegrlhhitggvrdhithdpihhnvghtpedujeeirddvvdejrddvgedvrdduledtpdhmrghilhhfrhhomhepfhgpphgvnhhnrgesrghlihgtvgdrihhtpdhnsggprhgtphhtthhopedupdhrtghpthhtoheplhhinhhugidqmhgrnhesvhhgvghrrdhkvghrnhgvlhdrohhrgh
+X-RazorGate-Vade-Verdict: clean 60
+X-RazorGate-Vade-Classification: clean
+Received: from alice.it (176.227.242.190) by mta-out-01.alice.it (5.8.807.04) (authenticated as f_penna@alice.it)
+        id 6244775000E19D67 for linux-man@vger.kernel.org; Sun, 3 Apr 2022 05:00:21 +0200
+Reply-To: dougfield20@inbox.lv
+From:   We have an offer to invest in your country under a
+         joint venture partnership please reply for more
+         details <f_penna@alice.it>
+To:     linux-man@vger.kernel.org
+Date:   02 Apr 2022 20:00:20 -0700
+Message-ID: <20220402200020.817F6CA0707A41BE@alice.it>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: Functions missing from missing_pages.html
-Content-Language: en-US
-To:     Avinash Sonawane <rootkea@gmail.com>
-Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
-References: <20220331220454.6474e671@optimus>
- <1148e5eb-a308-eb57-e8ad-dcbf5709eb72@gmail.com>
- <20220403043508.42c59a5e@optimus>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-In-Reply-To: <20220403043508.42c59a5e@optimus>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-        autolearn=ham autolearn_force=no version=3.4.6
+X-Spam-Status: Yes, score=5.7 required=5.0 tests=BAYES_50,BODY_EMPTY,
+        DKIM_INVALID,DKIM_SIGNED,EMPTY_MESSAGE,FREEMAIL_FROM,FREEMAIL_REPLYTO,
+        FREEMAIL_REPLYTO_END_DIGIT,MISSING_SUBJECT,RCVD_IN_DNSWL_LOW,
+        RCVD_IN_MSPIKE_BL,RCVD_IN_MSPIKE_L3,SPF_HELO_NONE,SPF_PASS
+        autolearn=no autolearn_force=no version=3.4.6
+X-Spam-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at https://www.dnswl.org/,
+        *       low trust
+        *      [217.169.118.7 listed in list.dnswl.org]
+        *  0.0 RCVD_IN_MSPIKE_L3 RBL: Low reputation (-3)
+        *      [217.169.118.7 listed in bl.mailspike.net]
+        *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
+        *      [score: 0.5220]
+        *  0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
+        *      provider
+        *      [f_penna[at]alice.it]
+        * -0.0 SPF_PASS SPF: sender matches SPF record
+        *  0.2 FREEMAIL_REPLYTO_END_DIGIT Reply-To freemail username ends in
+        *      digit
+        *      [dougfield20[at]inbox.lv]
+        *  0.0 SPF_HELO_NONE SPF: HELO does not publish an SPF Record
+        *  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+        *       valid
+        *  2.3 EMPTY_MESSAGE Message appears to have no textual parts and no
+        *      Subject: text
+        *  1.8 MISSING_SUBJECT Missing Subject: header
+        *  0.1 DKIM_INVALID DKIM or DK signature exists, but is not valid
+        *  0.0 RCVD_IN_MSPIKE_BL Mailspike blacklisted
+        *  0.0 BODY_EMPTY No body text in message
+        *  1.0 FREEMAIL_REPLYTO Reply-To/From or Reply-To/body contain
+        *      different freemails
+X-Spam-Level: *****
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Avinash,
-
-On 4/3/22 01:05, Avinash Sonawane wrote:
-> On Sat, 2 Apr 2022 23:24:02 +0200
-> "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com> wrote:
->  
->> Fixed with the patch below.
-> 
-> Cool!
-> 
-> Is the webpage https://www.kernel.org/doc/man-pages/missing_pages.html
-> generated from undocumented(3) manpage or does it also need to be
-> updated separately?
-> 
-> I still can't see the changes reflected on that webpage...
-
-Thanks for reminding me that.  I imagined it was autogenerated, but it's
-not.  I'll fix the source code for the website too.
-
-However, don't expect to see it updated online until the next release.
-
-Thanks,
-
-Alex
-
-> 
-> Regards,
-> Avinash Sonawane (rootKea)
-> https://www.rootkea.me
-
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
