@@ -2,108 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 101BF4F69F6
-	for <lists+linux-man@lfdr.de>; Wed,  6 Apr 2022 21:31:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 313C24F6B94
+	for <lists+linux-man@lfdr.de>; Wed,  6 Apr 2022 22:48:13 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231811AbiDFTdE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 6 Apr 2022 15:33:04 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51234 "EHLO
+        id S231949AbiDFUuH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 6 Apr 2022 16:50:07 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49494 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232089AbiDFTcu (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 6 Apr 2022 15:32:50 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C4AEA197FA3
-        for <linux-man@vger.kernel.org>; Wed,  6 Apr 2022 10:13:10 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id 5432561800
-        for <linux-man@vger.kernel.org>; Wed,  6 Apr 2022 17:13:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id B1A68C385A9
-        for <linux-man@vger.kernel.org>; Wed,  6 Apr 2022 17:13:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1649265189;
-        bh=W0Wo/Rv0yja6piKJhJ3/aO37/4jZG+qRGKgpQaRFoBE=;
-        h=From:To:Subject:Date:In-Reply-To:References:From;
-        b=mM4ebsP0EhL29HNl6wOoKNyounTS8e1bNINWvz/ipXpGjLMMuqNgBqDs0mWjjQhjC
-         52ig0MRxRqjGSwPyW/46rtLF08mKh4Wgy2wDlnd60Ne5ATX9NiCcm6PnpUcdAwLUpf
-         bsFWDBMui9XYMigaJ4YxmEmBp1zSMH/N3R0eBMzwUeiqt8ftvrhsoRFQYxD1inh8Hb
-         8d+efsEW6AQlockw5O/kmR/OtrjcbhM1ToEvPznBlr9fCBxbYdsLhhpQq8nLIVZkmC
-         057Ta7jjEvgAcJHk3weT+wNXzMtrGYPi21nxJILSpQI9jvhj1t9bi79T8vRjksTDD4
-         NERmO/LPGBZzQ==
-Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
-        id 88EE1C05FD4; Wed,  6 Apr 2022 17:13:09 +0000 (UTC)
-From:   bugzilla-daemon@kernel.org
+        with ESMTP id S231225AbiDFUtt (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 6 Apr 2022 16:49:49 -0400
+X-Greylist: delayed 472 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Wed, 06 Apr 2022 12:05:13 PDT
+Received: from mta.ah102.secure.ne.jp (ah102.secure.ne.jp [150.60.197.10])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8001431E1ED
+        for <linux-man@vger.kernel.org>; Wed,  6 Apr 2022 12:05:13 -0700 (PDT)
+Received: by mta.ah102.secure.ne.jp (Postfix, from userid 10049)
+        id D09DE187E74; Thu,  7 Apr 2022 03:57:19 +0900 (JST)
 To:     linux-man@vger.kernel.org
-Subject: [Bug 215769] man 2 vfork() does not document corner case when PID ==
- 1
-Date:   Wed, 06 Apr 2022 17:13:09 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: changed
-X-Bugzilla-Watch-Reason: AssignedTo
- documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Product: Documentation
-X-Bugzilla-Component: man-pages
-X-Bugzilla-Version: unspecified
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: normal
-X-Bugzilla-Who: fweimer@redhat.com
-X-Bugzilla-Status: NEW
-X-Bugzilla-Resolution: 
-X-Bugzilla-Priority: P1
-X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: cc
-Message-ID: <bug-215769-11311-TdK8U3qCW2@https.bugzilla.kernel.org/>
-In-Reply-To: <bug-215769-11311@https.bugzilla.kernel.org/>
-References: <bug-215769-11311@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
+Subject: =?ISO-2022-JP?B?GyRCJCpMZCQkOWckbyQ7JCIkaiQsJEgkJiQ0JDYkJCReJDkhIxsoQg==?=
+X-PHP-Originating-Script: 10049:class-phpmailer.php
+Date:   Wed, 6 Apr 2022 18:57:19 +0000
+From:   =?ISO-2022-JP?B?GyRCRkE7MzMkTiYxP0F3M3Q8MDJxPFIbKEI=?= 
+        <info@t-kairiku.co.jp>
+Reply-To: info@t-kairiku.co.jp
+Message-ID: <adeb51cc26c69a88721d0a850ff5ccd4@www.t-kairiku.co.jp>
+X-Mailer: PHPMailer 5.2.22 (https://github.com/PHPMailer/PHPMailer)
 MIME-Version: 1.0
-X-Spam-Status: No, score=-7.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
-        autolearn_force=no version=3.4.6
+Content-Type: text/plain; charset=ISO-2022-JP
+X-Spam-Status: Yes, score=5.9 required=5.0 tests=BAYES_50,
+        HEADER_FROM_DIFFERENT_DOMAINS,KHOP_HELO_FCRDNS,PHP_ORIG_SCRIPT,
+        SHORT_SHORTNER,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+        autolearn=no autolearn_force=no version=3.4.6
+X-Spam-Report: *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
+        *      [score: 0.5035]
+        *  0.0 SPF_HELO_NONE SPF: HELO does not publish an SPF Record
+        *  0.2 HEADER_FROM_DIFFERENT_DOMAINS From and EnvelopeFrom 2nd level
+        *      mail domains are different
+        *  0.0 SPF_NONE SPF: sender does not publish an SPF Record
+        * -0.0 T_SCC_BODY_TEXT_LINE No description available.
+        *  2.5 PHP_ORIG_SCRIPT Sent by bot & other signs
+        *  2.0 SHORT_SHORTNER Short body with little more than a link to a
+        *      shortener
+        *  0.3 KHOP_HELO_FCRDNS Relay HELO differs from its IP's reverse DNS
+X-Spam-Level: *****
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D215769
+お問い合わせありがとうございます。
+以下の内容で受け付けました。
 
-Florian Weimer (fweimer@redhat.com) changed:
+差出人: ? Regina is interested in you! More info: https://urlzs.com/s83UV?7bp43 ? <linux-man@vger.kernel.org>
+題名: qj3uil35
 
-           What    |Removed                     |Added
-----------------------------------------------------------------------------
-                 CC|                            |fweimer@redhat.com
+メッセージ本文:
+n2zdpxh
 
---- Comment #11 from Florian Weimer (fweimer@redhat.com) ---
-(In reply to brauner from comment #10)
-> glibc does vfork() via inline assembly massaging. There's probably
-> atfork handlers and a bunch of other stuff involved so it's difficult to
-> do a remote diagnosis.
+-- 
+このメールは 徳山海陸運送株式会社 (http://www.t-kairiku.co.jp/) のお問い合わせフォームから送信されました
 
-glibc does not run fork handlers for vfork.
-
-> (And note that calling anything other than execve() or _exit() after
-> vfork() is basically undefined behavior.)
-
-Historically, glibc supports calling malloc after vfork, so that applicatio=
-ns
-can implement their own form of close_range by reading /proc/self/fd.
-
-I wonder if we need to handle CLONE_NEWTIME in posix_spawn in some way. Sur=
-ely
-that clone(CLONE_VM | CLONE_VFORK | SIGCHLD) call should fail as well if vf=
-ork
-is blocked after CLONE_NEWTIME, so CLONE_NEWTIME probably breaks posix_spaw=
-n.
-
---=20
-You may reply to this email to add a comment.
-
-You are receiving this mail because:
-You are watching the assignee of the bug.=
