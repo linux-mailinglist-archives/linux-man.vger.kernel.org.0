@@ -2,65 +2,90 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 319E14FA618
-	for <lists+linux-man@lfdr.de>; Sat,  9 Apr 2022 10:57:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 088C84FC0F8
+	for <lists+linux-man@lfdr.de>; Mon, 11 Apr 2022 17:36:50 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229653AbiDII75 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 9 Apr 2022 04:59:57 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58904 "EHLO
+        id S1348066AbiDKPi6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 11 Apr 2022 11:38:58 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57996 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235914AbiDII74 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 9 Apr 2022 04:59:56 -0400
-X-Greylist: delayed 983 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Sat, 09 Apr 2022 01:57:49 PDT
-Received: from smtpout2.mo529.mail-out.ovh.net (smtpout2.mo529.mail-out.ovh.net [79.137.123.220])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1651B237C9
-        for <linux-man@vger.kernel.org>; Sat,  9 Apr 2022 01:57:48 -0700 (PDT)
-Received: from mxplan6.mail.ovh.net (unknown [10.108.1.93])
-        by mo529.mail-out.ovh.net (Postfix) with ESMTPS id 5BDC0F4AC6EE;
-        Sat,  9 Apr 2022 10:41:23 +0200 (CEST)
-Received: from jwilk.net (37.59.142.98) by DAG4EX2.mxp6.local (172.16.2.32)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Sat, 9 Apr
- 2022 10:41:22 +0200
-Authentication-Results: garm.ovh; auth=pass (GARM-98R002d1d5f7dd-1258-4741-a901-2024e0cba229,
-                    5AACF716698E0919AC83C39C7FE0199B80E7AB69) smtp.auth=jwilk@jwilk.net
-X-OVh-ClientIp: 5.172.255.113
-Date:   Sat, 9 Apr 2022 10:41:20 +0200
-From:   Jakub Wilk <jwilk@jwilk.net>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-CC:     Michael Kerrisk <mtk.manpages@gmail.com>,
-        <linux-man@vger.kernel.org>, NGINX Unit <unit@nginx.org>
-Subject: Re: [PATCH] uri.7: The term URL is deprecated, in favor of URI
-Message-ID: <20220409084120.knmtrvd5jgqene7k@jwilk.net>
-References: <20220328182707.6935-1-alx.manpages@gmail.com>
- <20220328221557.njqx4jtbvrgv44lc@jwilk.net>
- <36b89bec-1def-e87c-5477-c87f2f0e48e9@gmail.com>
+        with ESMTP id S1348070AbiDKPi5 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 11 Apr 2022 11:38:57 -0400
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 758883A714
+        for <linux-man@vger.kernel.org>; Mon, 11 Apr 2022 08:36:40 -0700 (PDT)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id 12574610F4
+        for <linux-man@vger.kernel.org>; Mon, 11 Apr 2022 15:36:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 72252C385A3
+        for <linux-man@vger.kernel.org>; Mon, 11 Apr 2022 15:36:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1649691399;
+        bh=jMGrzrgRbMtlA1dYyNIYRVVghQuyP5u2wRW6MHRrEgo=;
+        h=From:To:Subject:Date:In-Reply-To:References:From;
+        b=J2gray/G3E2nBFOcLx7nnobvlh2xMLULuyfOLOGofS7D+s/xI14CoO60SN38otGjG
+         QkyJk5uA8BRH8uEK1v490lA4pk8Z7mk8S4vh/vdCNKy4d0ddZNfAlYEaqEwrrWrcLf
+         gSVsXVLfSw7mudSn2b4EtWvMjBgdvOhdKpa/Do9i8OpZw0DBNbhSop2fNFiNoTCqBO
+         kSDm8Lux2v0c7gSP7Nq4zjjUATPOUONNKazPAz0xt7JSHtcOm+l0cztrByHgYWIvrL
+         ATkiCF9U5rLQN4Xbvuj6hk04dRNMeVtA1qgylHSxVTh1rHfZefB7/eE426Hb1oyNtt
+         ZP6RolQsMC5fw==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
+        id 57D68CC13AD; Mon, 11 Apr 2022 15:36:39 +0000 (UTC)
+From:   bugzilla-daemon@kernel.org
+To:     linux-man@vger.kernel.org
+Subject: [Bug 215769] vfork() returns EINVAL after unshare(CLONE_NEWTIME)
+Date:   Mon, 11 Apr 2022 15:36:38 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Other
+X-Bugzilla-Component: Other
+X-Bugzilla-Version: 2.5
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: fweimer@redhat.com
+X-Bugzilla-Status: NEW
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P1
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: 
+Message-ID: <bug-215769-11311-u8W1lJeFSU@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-215769-11311@https.bugzilla.kernel.org/>
+References: <bug-215769-11311@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"; format=flowed
-Content-Disposition: inline
-In-Reply-To: <36b89bec-1def-e87c-5477-c87f2f0e48e9@gmail.com>
-X-Originating-IP: [37.59.142.98]
-X-ClientProxiedBy: DAG8EX1.mxp6.local (172.16.2.71) To DAG4EX2.mxp6.local
- (172.16.2.32)
-X-Ovh-Tracer-GUID: 873cecc4-f72c-4b1b-ab1f-52a905721307
-X-Ovh-Tracer-Id: 5094415604472010720
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvvddrudekuddgudeffecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeffhffvuffkfhggtggujghisehttdertddttddvnecuhfhrohhmpeflrghkuhgsucghihhlkhcuoehjfihilhhksehjfihilhhkrdhnvghtqeenucggtffrrghtthgvrhhnpeelffduueelheevhfdvjeejfeduvdfhuedvjedttdehgedugfetgefgudfgjeffudenucfkpheptddrtddrtddrtddpfeejrdehledrudegvddrleeknecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmohguvgepshhmthhpohhuthdphhgvlhhopehmgihplhgrnheirdhmrghilhdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomhepjhifihhlkhesjhifihhlkhdrnhgvthdpnhgspghrtghpthhtohepuddprhgtphhtthhopehunhhithesnhhgihhngidrohhrgh
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE,
-        RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
-        T_SCC_BODY_TEXT_LINE autolearn=ham autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-7.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-* Alejandro Colomar <alx.manpages@gmail.com>, 2022-03-29, 18:23:
->If you feel like you could update the page, since you seem to know more 
->than me in this regard, that would be great.
+https://bugzilla.kernel.org/show_bug.cgi?id=3D215769
 
-Don't count on me for that. Sorry!
+--- Comment #14 from Florian Weimer (fweimer@redhat.com) ---
+I think the fundamental issue is that a time namespace needs a new data seg=
+ment
+for the vDSO, to store the changed office. So fully shared virtual memory j=
+ust
+is not possible with CLONE_NEWTIME, which is why vfork will not work in this
+situation.
 
--- 
-Jakub Wilk
+Maybe the effect of CLONE_NEWTIME should have been deferred to the next exe=
+cve?
+
+--=20
+You may reply to this email to add a comment.
+
+You are receiving this mail because:
+You are watching the assignee of the bug.=
