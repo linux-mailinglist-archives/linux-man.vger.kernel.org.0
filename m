@@ -2,434 +2,301 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 48CC64FE954
-	for <lists+linux-man@lfdr.de>; Tue, 12 Apr 2022 22:10:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 19D2A4FEA3F
+	for <lists+linux-man@lfdr.de>; Wed, 13 Apr 2022 01:16:21 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232766AbiDLUL4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 12 Apr 2022 16:11:56 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41036 "EHLO
+        id S229437AbiDLXSb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 12 Apr 2022 19:18:31 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51036 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232707AbiDLULs (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 12 Apr 2022 16:11:48 -0400
-Received: from mail-io1-xd36.google.com (mail-io1-xd36.google.com [IPv6:2607:f8b0:4864:20::d36])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 61375A27E9
-        for <linux-man@vger.kernel.org>; Tue, 12 Apr 2022 13:06:05 -0700 (PDT)
-Received: by mail-io1-xd36.google.com with SMTP id g21so23513360iom.13
-        for <linux-man@vger.kernel.org>; Tue, 12 Apr 2022 13:06:05 -0700 (PDT)
+        with ESMTP id S229508AbiDLXS1 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 12 Apr 2022 19:18:27 -0400
+Received: from mail-pj1-x1036.google.com (mail-pj1-x1036.google.com [IPv6:2607:f8b0:4864:20::1036])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4582BBF510
+        for <linux-man@vger.kernel.org>; Tue, 12 Apr 2022 16:14:48 -0700 (PDT)
+Received: by mail-pj1-x1036.google.com with SMTP id bg24so200706pjb.1
+        for <linux-man@vger.kernel.org>; Tue, 12 Apr 2022 16:14:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=google.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=jDie0cHXEVZ1CQFcE6OjZwMu1GMQ+1k6NOBNMk+4KFE=;
-        b=gJlgEhx9Af7sHJeilYxdeA7Co9OYBzPUZ2vZVqaFGx0B6MaYRAuoe3cB2sJoWw85o6
-         i8dCbzYcpEtHHb3K4SINbaOcE0WtASyznwUejlns9b/G/shHmrBTJN+4U3mGo3rixb+N
-         mjkl20VkMlEFbBK2ZqhveWz1e9O51yoP4Jbt8F1dcYxSkUE4/yUXlWtd72XygiEw3Zf6
-         ezkYOoVkM8sfSG6ZEvXGF+0MYWtpV63DnIW35FQp83Z8y32ge0f4559/21hoVWk4g50U
-         NrR04m9xLMC4M4nyu2t6RuCNVmarpGzFKKHSoHwWNTMUs4nCxQtpS3xCRs1BVER5Frxu
-         xRPg==
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=Tdn9Lqlen1kexBRYzAQDW8IklEVG9B8rDYGLMPdNLo4=;
+        b=Vdn0AThpCZw0z/QtTAdiRrYHZQRvuehvVtYlvD7oGenZYmxt0PCiXloxd8/b1RgJId
+         EPtcrl+xwSQFojajz6LFEIupH0Kw0+rU+W/js9OxAbz1q9r5KslcatOB5Vsl//L642i3
+         T2RSc8YBKR1+MuodcJzVZnA9HeHXKVD3DD3iOUT3WpRBocWn5XYz8NkvxlSU6/4gbwar
+         RFJFyjEP5hkegbChVz8emfM+OR+aHBV3Nx1gs4twFZzLo3ztQMlYFH/v1fAUcn4SuBYE
+         RTL9om/cUIt+u2fCrauYRFsOchNZUoEIEOE3m/8nWA3SGYYZFzyXBCYiA7aDKUr1zjAh
+         g+Mw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=jDie0cHXEVZ1CQFcE6OjZwMu1GMQ+1k6NOBNMk+4KFE=;
-        b=E4V7IJyiJucweGGKjd550tOIu7nr5ldL7smtyTGxd1Tl8R16IHfWa1xLJwvDNxIG3s
-         +kruRgIoVRgmG6FqtVh3vKE+ArCig7pJv9ZAMhfuDw38pP6xGH73xcAOCOfOJiQHzFYX
-         69mPhTxnxegeyePm64YK3Ipa/ywgYLCPtL9QM4osPk8TWKFdYMOGxx/45UghGBIoYqNh
-         iR3LovPSjyWPxmyb9IDzeXx+h0PTRdGug/ekTLqAWk0A5RhBUdrEhazuo6lghZdfHEJB
-         CGVFhA5t2X5PVtq3stqyKXX9u/pnQaCQDOk3spoB43NUpnwoYbvyarBc/+2RPBfSrBEL
-         0QmA==
-X-Gm-Message-State: AOAM531Byfc4Yd5EDKTqwGk6vGnIryUnnfRA8pPRSRJPpk0yJ7fTP9Bp
-        wOnHHAmatfipUrDy5Svik+RL6sVMnudXMWHujw8dNg==
-X-Google-Smtp-Source: ABdhPJxCvGyBsz/aSd5oFPWDIGTUifUq6LRnowGmfmGnnVd9x88qEzuL5pDeIuUSxbd/ngmc0or8My/M2KWYzmBYv+I=
-X-Received: by 2002:a05:6602:168b:b0:646:3bbb:7db4 with SMTP id
- s11-20020a056602168b00b006463bbb7db4mr16329108iow.134.1649793957452; Tue, 12
- Apr 2022 13:05:57 -0700 (PDT)
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=Tdn9Lqlen1kexBRYzAQDW8IklEVG9B8rDYGLMPdNLo4=;
+        b=mH6Cql4L/PBO+prRQvqV+C6EkNw5JbfeoRNFHQXD9jc6YTar1q7RjcNWR35DB8lXnL
+         6B6uClNKYvmEtpHRGdrLw5IXN39BfQmzv0/NbmlyQ/qMwsEfno/kZ4KMq5ZR+G5a9K/U
+         igN8qSe9UuvQdz8abwGmgjbo8NdMami55vMDwRzImCjUKoPWQHK7y+GkfGEH0Hu7rbe3
+         2RuIJzjNZv6hGvS88fdtEsm7hXtDjBToBMFpfhJIerZtiXrJHcpRbCVdbB2dKooBtgbY
+         3Cipd+LUJyWEX4tKNvUr7KH8Gt+6qEoPPgzrLYvU7yokJqctmy/RQl2Qb/PclePxF8mE
+         IgGg==
+X-Gm-Message-State: AOAM532WC73O+jkfbM7vVgj2SjpbKSSDEkfWAlkmhWetad/hnQqZDuYZ
+        UlMXdUCsGtGZ1KpxjbAlLM7eNkIQEy7idw==
+X-Google-Smtp-Source: ABdhPJySZV+OIurg9YZsVKyQphd02SWo7JROrDiQqDXaVpHVLhN2cRetpyOznJFfPC1nYFtRhwfTDQ==
+X-Received: by 2002:a17:90b:4c08:b0:1cb:9c94:94f9 with SMTP id na8-20020a17090b4c0800b001cb9c9494f9mr7552530pjb.74.1649805287482;
+        Tue, 12 Apr 2022 16:14:47 -0700 (PDT)
+Received: from google.com ([2401:fa00:9:211:7ffa:5afe:e07f:12e1])
+        by smtp.gmail.com with ESMTPSA id e14-20020a62aa0e000000b00505c05545f8sm8232066pff.108.2022.04.12.16.14.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 12 Apr 2022 16:14:46 -0700 (PDT)
+Date:   Wed, 13 Apr 2022 09:14:36 +1000
+From:   Matthew Bobrowski <repnop@google.com>
+To:     Gabriel Krisman Bertazi <krisman@collabora.com>
+Cc:     amir73il@gmail.com, jack@suse.cz, linux-man@vger.kernel.org,
+        mtk.manpages@gmail.com
+Subject: Re: [PATCH v4] fanotify.7, fanotify_mark.2: Document FAN_FS_ERROR
+Message-ID: <YlYHjTvlr3W66TA2@google.com>
+References: <YlDCh1OEVxSgu2L9@google.com>
+ <CAOQ4uxjpwZs8Jg-cZ5yWqUis=FA=+g+ycjdBchz0kzKBhs6HxQ@mail.gmail.com>
+ <YlSzOaBTLA+LqOhU@google.com>
+ <87bkx7xj3q.fsf@collabora.com>
+ <YlTKQWTwWY45g9Ws@google.com>
+ <87lewacf0r.fsf_-_@collabora.com>
 MIME-Version: 1.0
-References: <20220412195631.282237-1-axelrasmussen@google.com>
-In-Reply-To: <20220412195631.282237-1-axelrasmussen@google.com>
-From:   Axel Rasmussen <axelrasmussen@google.com>
-Date:   Tue, 12 Apr 2022 13:05:21 -0700
-Message-ID: <CAJHvVchQ0a51+vh3Oran+Zhru1rj3nzBiFEYH2SuisSP_eyO5g@mail.gmail.com>
-Subject: Re: [PATCH v4] ioctl_userfaultfd.2, userfaultfd.2: add minor fault mode
-To:     Alejandro Colomar <alx.manpages@gmail.com>,
-        Andrea Arcangeli <aarcange@redhat.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Hugh Dickins <hughd@google.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        Mike Kravetz <mike.kravetz@oracle.com>,
-        Peter Xu <peterx@redhat.com>
-Cc:     LKML <linux-kernel@vger.kernel.org>, linux-man@vger.kernel.org,
-        Linux MM <linux-mm@kvack.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87lewacf0r.fsf_-_@collabora.com>
 X-Spam-Status: No, score=-17.6 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
         DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
         ENV_AND_HDR_SPF_MATCH,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
         T_SCC_BODY_TEXT_LINE,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL
-        autolearn=unavailable autolearn_force=no version=3.4.6
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Whoops, I ought to have removed this part of the commit message, since
-I updated the commit to mention shmem as well:
+On Tue, Apr 12, 2022 at 02:50:28PM -0400, Gabriel Krisman Bertazi wrote:
+> 
+> FAN_FS_ERROR is a new event for fanotify to report filesystem errors.
+> This documents how to use the feature and specific caveats.
+> 
+> Signed-off-by: Gabriel Krisman Bertazi <krisman@collabora.com>
+>
+> + Michael, linux-man
+> 
+> Matthew,
+> 
+> as discussed, this is rebased on top of the PIDFD documentation: commit
+> 207080c7f7f5 ("fanotify: Document FAN_REPORT_PIDFD Feature").
 
-"This patch covers just the hugetlbfs implementation (in 5.13). Support
-for shmem is forthcoming, but as it has not yet made it into a kernel
-release candidate, it will be added in a future commit."
+Mostly looks OK. I've left a couple suggestions that I think could be
+adopted.
 
-On Tue, Apr 12, 2022 at 12:56 PM Axel Rasmussen
-<axelrasmussen@google.com> wrote:
->
-> Userfaultfd minor fault mode is supported starting from Linux 5.13.
->
-> This commit adds a description of the new mode, as well as the new ioctl
-> used to resolve such faults. The two go hand-in-hand: one can't resolve
-> a minor fault without continue, and continue can't be used to resolve
-> any other kind of fault.
->
-> This patch covers just the hugetlbfs implementation (in 5.13). Support
-> for shmem is forthcoming, but as it has not yet made it into a kernel
-> release candidate, it will be added in a future commit.
->
-> v1->v2:
-> - Some spelling / phrasing improvements
-> v2->v3:
-> - Improved line wrapping in man2/ioctl_userfaultfd.2
-> v3->v4:
-> - Rebased onto http://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/ main
-> - Mentioned minor fault shmem support
-> - Improved line wrapping in man2/userfaultfd.2
->
-> Reviewed-by: Peter Xu <peterx@redhat.com>
-> Signed-off-by: Axel Rasmussen <axelrasmussen@google.com>
+> Changes since v3:
+>  (Matthew)
+>  - Rewording and fixes from github)
+>  (amir)
+>  - 5.15 -> 5.16
+> 
+> Changes since v2:
+>   (matthew)
+>     - Grammar
+>     - List filesystems that support the feature
+>     - file system -> filesystem
+> Changes since v1:
+> (Matthew)
+>   - Grammar fixes
+>   - Don't use the term "submitted" for events sent to the listener
+>   - Clarify the kind of information that is file system specific
+> 
 > ---
->  man2/ioctl_userfaultfd.2 | 142 ++++++++++++++++++++++++++++++++++++---
->  man2/userfaultfd.2       |  95 ++++++++++++++++++++++----
->  2 files changed, 215 insertions(+), 22 deletions(-)
->
-> diff --git a/man2/ioctl_userfaultfd.2 b/man2/ioctl_userfaultfd.2
-> index 15a681164c..d0cb0c9c8e 100644
-> --- a/man2/ioctl_userfaultfd.2
-> +++ b/man2/ioctl_userfaultfd.2
-> @@ -197,6 +197,16 @@ memory accesses to the regions registered with userfaultfd.
->  If this feature bit is set,
->  .I uffd_msg.pagefault.feat.ptid
->  will be set to the faulted thread ID for each page-fault message.
-> +.TP
-> +.BR UFFD_FEATURE_MINOR_HUGETLBFS " (since Linux 5.13)"
-> +If this feature bit is set,
-> +the kernel supports registering userfaultfd ranges
-> +in minor mode on hugetlbfs-backed memory areas.
-> +.TP
-> +.BR UFFD_FEATURE_MINOR_SHMEM " (since Linux 5.14)"
-> +If this feature bit is set,
-> +the kernel supports registering userfaultfd ranges
-> +in minor mode on shmem-backed memory areas.
->  .PP
->  The returned
->  .I ioctls
-> @@ -256,14 +266,8 @@ by the current kernel version.
->  (Since Linux 4.3.)
->  Register a memory address range with the userfaultfd object.
->  The pages in the range must be "compatible".
-> -.PP
-> -Up to Linux kernel 4.11,
-> -only private anonymous ranges are compatible for registering with
-> -.BR UFFDIO_REGISTER .
-> -.PP
-> -Since Linux 4.11,
-> -hugetlbfs and shared memory ranges are also compatible with
-> -.BR UFFDIO_REGISTER .
-> +Please refer to the list of register modes below
-> +for the compatible memory backends for each mode.
->  .PP
->  The
->  .I argp
-> @@ -302,9 +306,22 @@ the specified range:
+>  man2/fanotify_mark.2 | 28 +++++++++++++++++++
+>  man7/fanotify.7      | 64 ++++++++++++++++++++++++++++++++++++++++++++
+>  2 files changed, 92 insertions(+)
+> 
+> diff --git a/man2/fanotify_mark.2 b/man2/fanotify_mark.2
+> index 9a45cbb77893..8f9bb863980b 100644
+> --- a/man2/fanotify_mark.2
+> +++ b/man2/fanotify_mark.2
+> @@ -203,6 +203,27 @@ Create an event when a marked file or directory itself is deleted.
+>  An fanotify group that identifies filesystem objects by file handles
+>  is required.
 >  .TP
->  .B UFFDIO_REGISTER_MODE_MISSING
->  Track page faults on missing pages.
-> +Since Linux 4.3,
-> +only private anonymous ranges are compatible.
-> +Since Linux 4.11,
-> +hugetlbfs and shared memory ranges are also compatible.
->  .TP
->  .B UFFDIO_REGISTER_MODE_WP
->  Track page faults on write-protected pages.
-> +Since Linux 5.7,
-> +only private anonymous ranges are compatible.
+> +.BR FAN_FS_ERROR " (since Linux 5.16)"
+> +.\" commit 9709bd548f11a092d124698118013f66e1740f9b
+> +Create an event when a filesystem error is detected.
+> +An fanotify group that identifies filesystem objects by file handles
+> +is required.
+> +.IP
+> +An additional information record of type
+> +.BR FAN_EVENT_INFO_TYPE_ERROR
+> +is returned for each event in the read buffer.
+> +.IP
+
+I'd update this to:
+
+Create an event when a filesystem error is detected.
+An additional information record of type
+.B FAN_EVENT_INFO_TYPE_ERROR
+is returned for each event in the read buffer.
+An fanotify group that identifies filesystem objects by file handles
+is required.
+
+> +Events of such type are dependent on support
+> +from the underlying filesystem.
+> +At the time of this writing,
+
+At the time of writing,
+
+> +only the
+> +.B ext4
+> +filesystem supports this feature.
+> +.IP
+> +See
+> +.BR fanotify (7)
+> +for additional details.
 > +.TP
-> +.B UFFDIO_REGISTER_MODE_MINOR
-> +Track minor page faults.
-> +Since Linux 5.13,
-> +only hugetlbfs ranges are compatible.
-> +Since Linux 5.14,
-> +compatiblity with shmem ranges was added.
->  .PP
->  If the operation is successful, the kernel modifies the
->  .I ioctls
-> @@ -331,6 +348,11 @@ The
->  The
->  .B UFFDIO_ZEROPAGE
->  operation is supported.
-> +.TP
-> +.B 1 << _UFFDIO_CONTINUE
-> +The
-> +.B UFFDIO_CONTINUE
-> +operation is supported.
->  .PP
->  This
->  .BR ioctl (2)
-> @@ -731,6 +753,110 @@ or not registered with userfaultfd write-protect mode.
+>  .BR FAN_MOVED_FROM " (since Linux 5.1)"
+>  .\" commit 235328d1fa4251c6dcb32351219bb553a58838d2
+>  Create an event when a file or directory has been moved from a marked
+> @@ -391,6 +412,13 @@ and mask contains a flag for permission events
+>  or
+>  .BR FAN_ACCESS_PERM ).
 >  .TP
->  .B EFAULT
->  Encountered a generic fault during processing.
-> +.\"
-> +.SS UFFDIO_CONTINUE
-> +(Since Linux 5.13.)
-> +Resolve a minor page fault
-> +by installing page table entries
-> +for existing pages in the page cache.
-> +.PP
-> +The
-> +.I argp
-> +argument is a pointer to a
-> +.I uffdio_continue
-> +structure as shown below:
+> +.B EINVAL
+> +The group was initialized without
+> +.B FAN_REPORT_FID
+> +but one or more events in
+> +.I mask
+> +require it.
+> +.TP
+
+I'd update this to:
+
+The fanotify group was initialized without
+.BR FAN_REPORT_FID .
+One or more event types specified in the
+.I mask
+require it.
+
+>  .B ENODEV
+>  The filesystem object indicated by
+>  .I pathname
+> diff --git a/man7/fanotify.7 b/man7/fanotify.7
+> index 57dd2b040380..59c928cf233f 100644
+> --- a/man7/fanotify.7
+> +++ b/man7/fanotify.7
+> @@ -217,6 +217,25 @@ struct fanotify_event_info_pidfd {
+>  .EE
+>  .in
+>  .PP
+> +In case of a
+> +.B FAN_FS_ERROR
+> +event,
+> +an additional record describing the error that occurred
+                ^
+		information
+
+> +is returned alongside the generic
+> +.I fanotify_event_metadata
+> +structure within the read buffer.
+> +This structure is defined as follows:
 > +.PP
 > +.in +4n
 > +.EX
-> +struct uffdio_continue {
-> +    struct uffdio_range range; /* Range to install PTEs for and continue */
-> +    __u64 mode;                /* Flags controlling the behavior of continue */
-> +    __s64 mapped;              /* Number of bytes mapped, or negated error */
+> +struct fanotify_event_info_error {
+> +    struct fanotify_event_info_header hdr;
+> +    __s32 error;
+> +    __u32 error_count;
 > +};
 > +.EE
 > +.in
 > +.PP
-> +The following value may be bitwise ORed in
-> +.IR mode
-> +to change the behavior of the
-> +.B UFFDIO_CONTINUE
-> +operation:
-> +.TP
-> +.B UFFDIO_CONTINUE_MODE_DONTWAKE
-> +Do not wake up the thread that waits for page-fault resolution.
-> +.PP
-> +The
-> +.I mapped
-> +field is used by the kernel
-> +to return the number of bytes that were actually mapped,
-> +or an error in the same manner as
-> +.BR UFFDIO_COPY .
-> +If the value returned in the
-> +.I mapped
-> +field doesn't match the value that was specified in
-> +.IR range.len ,
-> +the operation fails with the error
-> +.BR EAGAIN .
-> +The
-> +.I mapped
-> +field is output-only;
-> +it is not read by the
-> +.B UFFDIO_CONTINUE
-> +operation.
-> +.PP
-> +This
-> +.BR ioctl (2)
-> +operation returns 0 on success.
-> +In this case,
-> +the entire area was mapped.
-> +On error, \-1 is returned and
-> +.I errno
-> +is set to indicate the error.
-> +Possible errors include:
-> +.TP
-> +.B EAGAIN
-> +The number of bytes mapped
-> +(i.e., the value returned in the
-> +.I mapped
-> +field)
-> +does not equal the value that was specified in the
-> +.I range.len
-> +field.
-> +.TP
-> +.B EINVAL
-> +Either
-> +.I range.start
-> +or
-> +.I range.len
-> +was not a multiple of the system page size; or
-> +.I range.len
-> +was zero; or the range specified was invalid.
-> +.TP
-> +.B EINVAL
-> +An invalid bit was specified in the
-> +.IR mode
-> +field.
-> +.TP
-> +.B EEXIST
-> +One or more pages were already mapped in the given range.
-> +.TP
-> +.B ENOENT
-> +The faulting process has changed its virtual memory layout simultaneously with
-> +an outstanding
-> +.B UFFDIO_CONTINUE
-> +operation.
-> +.TP
-> +.B ENOMEM
-> +Allocating memory needed to setup the page table mappings failed.
-> +.TP
-> +.B EFAULT
-> +No existing page could be found in the page cache for the given range.
-> +.TP
-> +.BR ESRCH
-> +The faulting process has exited at the time of a
-> +.B UFFDIO_CONTINUE
-> +operation.
-> +.\"
->  .SH RETURN VALUE
->  See descriptions of the individual operations, above.
->  .SH ERRORS
-> diff --git a/man2/userfaultfd.2 b/man2/userfaultfd.2
-> index 41741b4d88..f8dc4766b1 100644
-> --- a/man2/userfaultfd.2
-> +++ b/man2/userfaultfd.2
-> @@ -65,7 +65,7 @@ all memory ranges that were registered with the object are unregistered
->  and unread events are flushed.
->  .\"
->  .PP
-> -Userfaultfd supports two modes of registration:
-> +Userfaultfd supports three modes of registration:
+>  All information records contain a nested structure of type
+>  .IR fanotify_event_info_header .
+>  This structure holds meta-information about the information record
+> @@ -358,6 +377,9 @@ A child file or directory was deleted in a watched parent.
+>  .B FAN_DELETE_SELF
+>  A watched file or directory was deleted.
 >  .TP
->  .BR UFFDIO_REGISTER_MODE_MISSING " (since 4.10)"
->  When registered with
-> @@ -79,6 +79,18 @@ or an
->  .B UFFDIO_ZEROPAGE
->  ioctl.
->  .TP
-> +.BR UFFDIO_REGISTER_MODE_MINOR " (since 5.13)"
-> +When registered with
-> +.B UFFDIO_REGISTER_MODE_MINOR
-> +mode, user-space will receive a page-fault notification
-> +when a minor page fault occurs.
-> +That is, when a backing page is in the page cache, but
-> +page table entries don't yet exist.
-> +The faulted thread will be stopped from execution
-> +until the page fault is resolved from user-space by an
-> +.B UFFDIO_CONTINUE
-> +ioctl.
+> +.B FAN_FS_ERROR
+> +A filesystem error was detected.
 > +.TP
->  .BR UFFDIO_REGISTER_MODE_WP " (since 5.7)"
->  When registered with
->  .B UFFDIO_REGISTER_MODE_WP
-> @@ -199,9 +211,10 @@ a page fault occurring in the requested memory range, and satisfying
->  the mode defined at the registration time, will be forwarded by the kernel to
->  the user-space application.
->  The application can then use the
-> -.B UFFDIO_COPY
-> +.B UFFDIO_COPY ,
-> +.B UFFDIO_ZEROPAGE ,
->  or
-> -.B UFFDIO_ZEROPAGE
-> +.B UFFDIO_CONTINUE
->  .BR ioctl (2)
->  operations to resolve the page fault.
+>  .B FAN_MOVED_FROM
+>  A file or directory has been moved from a watched parent directory.
+>  .TP
+> @@ -630,6 +652,25 @@ Once the event listener has dealt with an event and the pidfd is no
+>  longer required, the pidfd should be closed via
+>  .BR close(2) .
 >  .PP
-> @@ -305,6 +318,59 @@ should have the flag
->  cleared upon the faulted page or range.
->  .PP
->  Write-protect mode supports only private anonymous memory.
-> +.\"
-> +.SS Userfaultfd minor fault mode (since 5.13)
-> +Since Linux 5.13,
-> +userfaultfd supports minor fault mode.
-> +In this mode,
-> +fault messages are produced not for major faults
-> +(where the page was missing),
-> +but rather for minor faults,
-> +where a page exists in the page cache,
-> +but the page table entries are not yet present.
-> +The user needs to first check availability of this feature using the
-> +.B UFFDIO_API
-> +ioctl with the appropriate feature bits set before using this feature:
-> +.B UFFD_FEATURE_MINOR_HUGETLBFS
-> +since Linux 5.13,
-> +or
-> +.B UFFD_FEATURE_MINOR_SHMEM
-> +since Linux 5.14.
+> +The fields of the
+> +.I fanotify_event_info_error
+> +structure are as follows:
+> +.TP
+> +.I hdr
+> +This is a structure of type
+> +.IR fanotify_event_info_header .
+> +The
+> +.I info_type
+> +field is set to
+> +.BR FAN_EVENT_INFO_TYPE_ERROR .
+> +.TP
+> +.I error
+> +Identifies the type of error that occurred.
+> +.TP
+> +.I error_count
+> +This is a counter of the number of errors suppressed
+> +since the last error was read.
 > +.PP
-> +To register with userfaultfd minor fault mode,
-> +the user needs to initiate the
-> +.B UFFDIO_REGISTER
-> +ioctl with mode
-> +.B UFFD_REGISTER_MODE_MINOR
-> +set.
-> +.PP
-> +When a minor fault occurs,
-> +user-space will receive a page-fault notification
-> +whose
-> +.I uffd_msg.pagefault.flags
-> +will have the
-> +.B UFFD_PAGEFAULT_FLAG_MINOR
-> +flag set.
-> +.PP
-> +To resolve a minor page fault,
-> +the handler should decide whether or not
-> +the existing page contents need to be modified first.
-> +If so,
-> +this should be done in-place via a second,
-> +non-userfaultfd-registered mapping
-> +to the same backing page
-> +(e.g., by mapping the shmem or hugetlbfs file twice).
-> +Once the page is considered "up to date",
-> +the fault can be resolved by initiating an
-> +.B UFFDIO_CONTINUE
-> +ioctl,
-> +which installs the page table entries and
-> +(by default)
-> +wakes up the faulting thread(s).
-> +.PP
-> +Minor fault mode supports only hugetlbfs-backed (since Linux 5.13)
-> +and shmem-backed (since Linux 5.14) memory.
-> +.\"
->  .SS Reading from the userfaultfd structure
->  Each
+>  The following macros are provided to iterate over a buffer containing
+>  fanotify event metadata returned by a
 >  .BR read (2)
-> @@ -443,19 +509,20 @@ For
->  the following flag may appear:
->  .RS
->  .TP
-> -.B UFFD_PAGEFAULT_FLAG_WRITE
-> -If the address is in a range that was registered with the
-> -.B UFFDIO_REGISTER_MODE_MISSING
-> -flag (see
-> -.BR ioctl_userfaultfd (2))
-> -and this flag is set, this a write fault;
-> -otherwise it is a read fault.
-> +.B UFFD_PAGEFAULT_FLAG_WP
-> +If this flag is set, then the fault was a write-protect fault.
-> +.TP
-> +.B UFFD_PAGEFAULT_FLAG_MINOR
-> +If this flag is set, then the fault was a minor fault.
->  .TP
-> +.B UFFD_PAGEFAULT_FLAG_WRITE
-> +If this flag is set, then the fault was a write fault.
+> @@ -719,6 +760,29 @@ field.
+>  In that case, the audit subsystem will log information about the access
+>  decision to the audit logs.
+>  .\"
+> +.SS Monitoring filesystems for errors
+> +A single FAN_FS_ERROR event is stored per filesystem at once.
+
+This is just for my understanding. So, it isn't until the event
+listener reads and clears the FAN_FS_ERROR event from the event queue
+that you're able to receive subsequent filesystem errors for
+potentially different objects on the same filesystem. Based on this,
+it sounds like if there were to be two separate objects on the same
+filesystem that experienced some kind of error at the same time, then
+only one of those errors encoded in FAN_FS_ERROR would be returned?
+
+> +Extra error messages are suppressed and accounted for
+> +in the
+> +.I error_count
+> +field of the existing FAN_FS_ERROR event record,
+> +but details about the errors are lost.
 > +.PP
-> +If neither
->  .B UFFD_PAGEFAULT_FLAG_WP
-> -If the address is in a range that was registered with the
-> -.B UFFDIO_REGISTER_MODE_WP
-> -flag, when this bit is set, it means it is a write-protect fault.
-> -Otherwise it is a page-missing fault.
-> +nor
-> +.B UFFD_PAGEFAULT_FLAG_MINOR
-> +are set, then the fault was a missing fault.
->  .RE
->  .TP
->  .I pagefault.feat.pid
-> --
-> 2.35.1.1178.g4f1659d476-goog
->
+> +Errors types reported by FAN_FS_ERROR are generic errno values
+
+I'd update this to:
+
+Errors reported by FAN_FS_ERROR ...
+
+> +but not all kinds of errors types are reported by all filesystems.
+                        ^
+			s/errors/error
+
+> +.PP
+> +Errors not directly related to a file (i.e. super block corruption)
+> +are reported with an invalid
+> +.IR file_handle .
+> +For these errors, the
+> +.I file_handle
+> +will have the field
+> +.I handle_type
+> +set to
+> +.BR FILEID_INVALID ,
+> +and the handle buffer size set to
+> +.BR 0 .
+> +.\"
+>  .SS Closing the fanotify file descriptor
+>  When all file descriptors referring to the fanotify notification group are
+>  closed, the fanotify group is released and its resources
+
+/M
