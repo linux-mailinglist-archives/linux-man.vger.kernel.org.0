@@ -2,100 +2,105 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 27722501D30
-	for <lists+linux-man@lfdr.de>; Thu, 14 Apr 2022 23:12:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 55469501D95
+	for <lists+linux-man@lfdr.de>; Thu, 14 Apr 2022 23:39:47 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1346796AbiDNVMc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 14 Apr 2022 17:12:32 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36272 "EHLO
+        id S237753AbiDNVmH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 14 Apr 2022 17:42:07 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59526 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234903AbiDNVMb (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 14 Apr 2022 17:12:31 -0400
-X-Greylist: delayed 370 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Thu, 14 Apr 2022 14:10:04 PDT
-Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 9BC30483B1
-        for <linux-man@vger.kernel.org>; Thu, 14 Apr 2022 14:10:02 -0700 (PDT)
-Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 2C1DEAB4;
-        Thu, 14 Apr 2022 23:03:48 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-        s=202006; t=1649970228;
-        bh=vSLUqs19Yp/LdyEumn0r6NkwHxa3DeNGJey5RMVWSfc=;
-        h=Date:From:To:Cc:Subject:From;
-        b=D/jNj6w/Pdh9k3Raclnh7SxfmbmAIeUbctgcuA5rVxG0i2mW79O8BSy0o9OC/tFQ3
-         8SQNkZ2SlNv32c0CvxDbGPgSHFnR0XCDNOkfjRtfBYyOmuKHZr2HOsmNlmR5hk+Kic
-         3JjgH8CBRU0R2yMJ6ECyaVHn2CilhG6+f4dJp0TOpbqruDBzWditNkmVwXfBrY2q5L
-         8KUL3ey5LPQkVgCHLDYR3TR30oTPV4kxx8VfdQhQQilN44SuOeRFd/tI9FrAnPkejL
-         7+E4AvYsAEKfM5Sjsx9VaQE4Jjv/YfMoF0K/EYNUW8czjz4eztrFAO4t7SYNLsVQ/x
-         fM2XszB110vRw==
-Date:   Thu, 14 Apr 2022 23:03:47 +0200
-From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-Subject: [PATCH] timerfd_create.2: tfix
-Message-ID: <20220414210347.kzf5b6poiwijtaem@tarta.nabijaczleweli.xyz>
+        with ESMTP id S1344358AbiDNVmF (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 14 Apr 2022 17:42:05 -0400
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com [IPv6:2a00:1450:4864:20::32f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B73381EED0
+        for <linux-man@vger.kernel.org>; Thu, 14 Apr 2022 14:39:39 -0700 (PDT)
+Received: by mail-wm1-x32f.google.com with SMTP id l62-20020a1c2541000000b0038e4570af2fso4025272wml.5
+        for <linux-man@vger.kernel.org>; Thu, 14 Apr 2022 14:39:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=message-id:date:mime-version:user-agent:subject:content-language:to
+         :cc:references:from:in-reply-to:content-transfer-encoding;
+        bh=fz1pvsnPl1KveVk6x/lxyYfUNWyL+qzeYmNy8OPZeWA=;
+        b=G+6RpY+v9IqSuuwL0ON4gXmG7lIRC8uLNYlEU/ylRqOwNS3csYsyBi66n+o9T3tWkv
+         8gYPvgaQ1zafoqgsxFe2ZWfNaW1QQsX/+JBjTDbMR370GNV+JHUQMZB/Tk9yJQ8DibAn
+         +b2hyS4+NjK7gGkMxf3f/DI0kjvwW+E1ezXkZ68RW/dGmMNJh1uVADmtqd11z2G69L7B
+         s6+vdhSl0CqQnRocY1lULISeCrHPgvMc9KgMabNp6gR+kyoqrD9VWkE+UHNcKbjG//PW
+         wJl042y2pVCKHvF4imu34zov5lwI5qT9wT4V5VnU9nxu2A2Q2VCLH7nJV2crv9M39NQV
+         rd9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+         :content-language:to:cc:references:from:in-reply-to
+         :content-transfer-encoding;
+        bh=fz1pvsnPl1KveVk6x/lxyYfUNWyL+qzeYmNy8OPZeWA=;
+        b=oKBNMyuhusM5zYOFQ2R7KwBZoHx1AN3OwD8WrNSDe/Lb+iIx5IgWUEGqV917pD1cDl
+         Zl0EDFx9citOSJdel5z0YhHUsuLq8k1iPCzRz04kwPTlcQR0KecrIv6T4yaqgceMxoMr
+         Wu4c5CfUvFDjVy6AxN0f8w2Wtf5Zi7CTgcMTI8piF5lVMZ8tXDkeitgW25o74BHbPjbi
+         9So87hTpjkpSqCMPzl2oZ+hKDeQj/TpDbwIndUme5R2RlfRsx8/MI8gAjY7OuqUlMUWu
+         VtVWWU4YQa9cZdO3rs+N5WmWGBl48UVaM3ElfObmr00uS90vdMvCvx7VK1YReqZ8Cwr5
+         qU1A==
+X-Gm-Message-State: AOAM5329jlemG9+a6BijWPbLDCSRxg/Aix7ZzDu7Tr9n0VD+GqYczmKQ
+        QGU8MFxqHyVz+FaRHQVq30peGK3gx0lX8tR0
+X-Google-Smtp-Source: ABdhPJzjl8JZLZMKSCoC6QqSlDuJewQIg3JjDjZu3/yps1IwBjaB+2JaLTLNSDeQlABzdLghqT+fFw==
+X-Received: by 2002:a05:600c:1d9d:b0:38e:c8e0:209f with SMTP id p29-20020a05600c1d9d00b0038ec8e0209fmr461135wms.43.1649972378135;
+        Thu, 14 Apr 2022 14:39:38 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id z5-20020a05600c0a0500b0037fa93193a8sm3590217wmp.44.2022.04.14.14.39.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 14 Apr 2022 14:39:37 -0700 (PDT)
+Message-ID: <30abb3ec-7a81-5325-4953-7d62b3703fba@gmail.com>
+Date:   Thu, 14 Apr 2022 23:39:36 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="rb57k2hwq3nl2n55"
-Content-Disposition: inline
-User-Agent: NeoMutt/20220408
-X-Spam-Status: No, score=4.1 required=5.0 tests=BAYES_50,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FROM_SUSPICIOUS_NTLD,
-        FROM_SUSPICIOUS_NTLD_FP,PDS_OTHER_BAD_TLD,PDS_RDNS_DYNAMIC_FP,
-        RDNS_DYNAMIC,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=no
-        autolearn_force=no version=3.4.6
-X-Spam-Level: ****
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Subject: Re: [PATCH] timerfd_create.2: tfix
+Content-Language: en-US
+To:     =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Cc:     linux-man@vger.kernel.org
+References: <20220414210347.kzf5b6poiwijtaem@tarta.nabijaczleweli.xyz>
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <20220414210347.kzf5b6poiwijtaem@tarta.nabijaczleweli.xyz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-4.6 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Hi наб!
 
---rb57k2hwq3nl2n55
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 4/14/22 23:03, наб wrote:
+> Signed-off-by: Ahelenia Ziemiańska <nabijaczleweli@nabijaczleweli.xyz>
+> ---
+>   man2/timerfd_create.2 | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/man2/timerfd_create.2 b/man2/timerfd_create.2
+> index 65fdfcc45..fc905ee6e 100644
+> --- a/man2/timerfd_create.2
+> +++ b/man2/timerfd_create.2
+> @@ -471,7 +471,7 @@ is not a valid file descriptor.
+>   .IR old_value ,
+>   or
+>   .I curr_value
+> -is not valid a pointer.
+> +is not a valid pointer.
 
-Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
----
- man2/timerfd_create.2 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Wow, I read the patch, and I could see that there was a visual 
+difference between the lines, but both read the same correct phrase. 
+Dyslexia?  Maybe  :O
 
-diff --git a/man2/timerfd_create.2 b/man2/timerfd_create.2
-index 65fdfcc45..fc905ee6e 100644
---- a/man2/timerfd_create.2
-+++ b/man2/timerfd_create.2
-@@ -471,7 +471,7 @@ is not a valid file descriptor.
- .IR old_value ,
- or
- .I curr_value
--is not valid a pointer.
-+is not a valid pointer.
- .TP
- .B EINVAL
- .I fd
---=20
-2.30.2
+Patch applied!
 
---rb57k2hwq3nl2n55
-Content-Type: application/pgp-signature; name="signature.asc"
+Cheers,
 
------BEGIN PGP SIGNATURE-----
+Alex
 
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmJYjDIACgkQvP0LAY0m
-WPHPHBAAhtj4Jy8Hkaf2i8cVAHzsLgcGKQBIMbcQgSqQ6kxiR1y3GlPHaPADHrvI
-/XAaPE+UfaoEHlfJ00NHNGBZmUeAW+O4Vi7iKQbcmFj5tKCrkmbmtgCl3+BxJaPa
-qxkuJOwb/Kyx6Y1GQJNdoUFcLMI/zT2TQBK2Gt179i0JZ4XC1i00mNohcK70UMrL
-rmNaLiopoo6JtovDQ6fs7gEc3SkLb8vNR4UQYyPRDFi8NLq9SoHDS628SKwjNNS2
-ZuTLQYMsg6qIaLmKsbBIPTbkrSLn6XBkbUWgJ7fhXxKS/RMoBlt9wMK1SUTE7sbi
-vuBwkuzotT2QnI73BGm5nOLtY5Lp09XDJTc0zbnPSA8txZFFj4NYYatOvLLrcJ53
-w7OgWLWBHrN7st465lRmVhTIRO/jcdcKGr7rfTbfVCVX9vHIq1nZ9CvmpKJgRy+n
-ppgENaSs7jBVzR35++jGgXNiYmoCHWSLI+BjSrCgvrD28CatLiA6CJJJToi7pimV
-QM4URsqDt+CfzJTbjB2BhQSiuzDQBD9lqPK8i4Yp3TcloslvN47f2yGGxFbjcEsg
-2G2/h+kTx6jShGM+e8kTEy9/LpEyI1fcKpIdScS82wFN5RtUnoD3BqIFHf57xcFo
-s7+tTANX3fcIpUYLsWt2647sJY2V866ZzrSygi+TUAzSWP+LUek=
-=U2kD
------END PGP SIGNATURE-----
-
---rb57k2hwq3nl2n55--
+>   .TP
+>   .B EINVAL
+>   .I fd
