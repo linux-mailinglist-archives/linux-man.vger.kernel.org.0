@@ -2,36 +2,48 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 90BF0501C82
-	for <lists+linux-man@lfdr.de>; Thu, 14 Apr 2022 22:18:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 27722501D30
+	for <lists+linux-man@lfdr.de>; Thu, 14 Apr 2022 23:12:39 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S244433AbiDNUUV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 14 Apr 2022 16:20:21 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33402 "EHLO
+        id S1346796AbiDNVMc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 14 Apr 2022 17:12:32 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36272 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S240555AbiDNUUV (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 14 Apr 2022 16:20:21 -0400
-X-Greylist: delayed 538 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Thu, 14 Apr 2022 13:17:55 PDT
-Received: from www.altair-tokyo.co.jp (altair-tokyo.co.jp [52.199.83.211])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 36C75EB0A0
-        for <linux-man@vger.kernel.org>; Thu, 14 Apr 2022 13:17:55 -0700 (PDT)
-Received: by www.altair-tokyo.co.jp (Postfix, from userid 10000)
-        id 0BA53119230C; Fri, 15 Apr 2022 05:08:56 +0900 (JST)
-To:     linux-man@vger.kernel.org
-Subject: =?UTF-8?B?44CQ5qCq5byP5Lya56S+44Ki44Or44K/44Kk44Or44CR44GK5ZWP44GE5ZCI?=  =?UTF-8?B?44KP44Gb5pyJ6Zuj44GG44GU44GW44GE44G+44GZ44CC?=
-X-PHP-Originating-Script: 10000:class-phpmailer.php
-Date:   Thu, 14 Apr 2022 20:08:55 +0000
-From:   =?UTF-8?B?5qCq5byP5Lya56S+44Ki44Or44K/44Kk44Or?= 
-        <info@altair-tokyo.co.jp>
-Reply-To: info@altair-tokyo.co.jp
-Message-ID: <2279b6aca5288a395411eacae172389b@www.altair-tokyo.co.jp>
-X-Mailer: PHPMailer 5.2.22 (https://github.com/PHPMailer/PHPMailer)
+        with ESMTP id S234903AbiDNVMb (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 14 Apr 2022 17:12:31 -0400
+X-Greylist: delayed 370 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Thu, 14 Apr 2022 14:10:04 PDT
+Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 9BC30483B1
+        for <linux-man@vger.kernel.org>; Thu, 14 Apr 2022 14:10:02 -0700 (PDT)
+Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 2C1DEAB4;
+        Thu, 14 Apr 2022 23:03:48 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
+        s=202006; t=1649970228;
+        bh=vSLUqs19Yp/LdyEumn0r6NkwHxa3DeNGJey5RMVWSfc=;
+        h=Date:From:To:Cc:Subject:From;
+        b=D/jNj6w/Pdh9k3Raclnh7SxfmbmAIeUbctgcuA5rVxG0i2mW79O8BSy0o9OC/tFQ3
+         8SQNkZ2SlNv32c0CvxDbGPgSHFnR0XCDNOkfjRtfBYyOmuKHZr2HOsmNlmR5hk+Kic
+         3JjgH8CBRU0R2yMJ6ECyaVHn2CilhG6+f4dJp0TOpbqruDBzWditNkmVwXfBrY2q5L
+         8KUL3ey5LPQkVgCHLDYR3TR30oTPV4kxx8VfdQhQQilN44SuOeRFd/tI9FrAnPkejL
+         7+E4AvYsAEKfM5Sjsx9VaQE4Jjv/YfMoF0K/EYNUW8czjz4eztrFAO4t7SYNLsVQ/x
+         fM2XszB110vRw==
+Date:   Thu, 14 Apr 2022 23:03:47 +0200
+From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org
+Subject: [PATCH] timerfd_create.2: tfix
+Message-ID: <20220414210347.kzf5b6poiwijtaem@tarta.nabijaczleweli.xyz>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=4.9 required=5.0 tests=BAYES_99,BAYES_999,
-        RCVD_IN_VALIDITY_RPBL,SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE
-        autolearn=no autolearn_force=no version=3.4.6
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="rb57k2hwq3nl2n55"
+Content-Disposition: inline
+User-Agent: NeoMutt/20220408
+X-Spam-Status: No, score=4.1 required=5.0 tests=BAYES_50,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FROM_SUSPICIOUS_NTLD,
+        FROM_SUSPICIOUS_NTLD_FP,PDS_OTHER_BAD_TLD,PDS_RDNS_DYNAMIC_FP,
+        RDNS_DYNAMIC,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=no
+        autolearn_force=no version=3.4.6
 X-Spam-Level: ****
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -39,37 +51,51 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-このメールは自動送信をされています。
 
-🔥 Have you ever tried this sex game before? GIVE IT A TRY: https://cutt.us/DYVx7?92 🔥 様
+--rb57k2hwq3nl2n55
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-この度はお問い合わせいただきまして、誠に有難うございました。
-お仕事の依頼、求人、その他のお問い合わせにつきましては、
-3営業日以内に改めてご連絡させていただきます。
-今しばらくお待ちください。
+Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
+---
+ man2/timerfd_create.2 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-パートナー募集のお問い合わせにつきましては、
-作品データをお送りいただけましたら制作部にて回覧させていただき、
-お仕事をお願いする際は、制作部の者より個別にご連絡させていただきます。
+diff --git a/man2/timerfd_create.2 b/man2/timerfd_create.2
+index 65fdfcc45..fc905ee6e 100644
+--- a/man2/timerfd_create.2
++++ b/man2/timerfd_create.2
+@@ -471,7 +471,7 @@ is not a valid file descriptor.
+ .IR old_value ,
+ or
+ .I curr_value
+-is not valid a pointer.
++is not a valid pointer.
+ .TP
+ .B EINVAL
+ .I fd
+--=20
+2.30.2
 
-【お問い合わせ内容】
-------------------------------------------
-お問い合わせの種類 : その他
-お名前（漢字） : 🔥 Have you ever tried this sex game before? GIVE IT A TRY: https://cutt.us/DYVx7?92 🔥
-お名前（フリガナ） : 🔥 Have you ever tried this sex game before? GIVE IT A TRY: https://cutt.us/DYVx7?92 🔥
-会社名 : vpjllam
-電話番号（半角） : 789579206882
-メールアドレス : linux-man@vger.kernel.org
-お問い合わせ内容 : 
-w4dcrliz
-------------------------------------------
-以上、何卒よろしくお願い致します。
+--rb57k2hwq3nl2n55
+Content-Type: application/pgp-signature; name="signature.asc"
 
-＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
-株式会社アルタイル
-〒150-0001
-東京都渋谷区神宮前6-31-15
+-----BEGIN PGP SIGNATURE-----
 
-http://www.altair-tokyo.co.jp/
-＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmJYjDIACgkQvP0LAY0m
+WPHPHBAAhtj4Jy8Hkaf2i8cVAHzsLgcGKQBIMbcQgSqQ6kxiR1y3GlPHaPADHrvI
+/XAaPE+UfaoEHlfJ00NHNGBZmUeAW+O4Vi7iKQbcmFj5tKCrkmbmtgCl3+BxJaPa
+qxkuJOwb/Kyx6Y1GQJNdoUFcLMI/zT2TQBK2Gt179i0JZ4XC1i00mNohcK70UMrL
+rmNaLiopoo6JtovDQ6fs7gEc3SkLb8vNR4UQYyPRDFi8NLq9SoHDS628SKwjNNS2
+ZuTLQYMsg6qIaLmKsbBIPTbkrSLn6XBkbUWgJ7fhXxKS/RMoBlt9wMK1SUTE7sbi
+vuBwkuzotT2QnI73BGm5nOLtY5Lp09XDJTc0zbnPSA8txZFFj4NYYatOvLLrcJ53
+w7OgWLWBHrN7st465lRmVhTIRO/jcdcKGr7rfTbfVCVX9vHIq1nZ9CvmpKJgRy+n
+ppgENaSs7jBVzR35++jGgXNiYmoCHWSLI+BjSrCgvrD28CatLiA6CJJJToi7pimV
+QM4URsqDt+CfzJTbjB2BhQSiuzDQBD9lqPK8i4Yp3TcloslvN47f2yGGxFbjcEsg
+2G2/h+kTx6jShGM+e8kTEy9/LpEyI1fcKpIdScS82wFN5RtUnoD3BqIFHf57xcFo
+s7+tTANX3fcIpUYLsWt2647sJY2V866ZzrSygi+TUAzSWP+LUek=
+=U2kD
+-----END PGP SIGNATURE-----
 
+--rb57k2hwq3nl2n55--
