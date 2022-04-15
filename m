@@ -2,59 +2,62 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id A9575502E67
-	for <lists+linux-man@lfdr.de>; Fri, 15 Apr 2022 19:48:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DE291503402
+	for <lists+linux-man@lfdr.de>; Sat, 16 Apr 2022 07:49:01 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S245596AbiDORvC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 15 Apr 2022 13:51:02 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45710 "EHLO
+        id S233189AbiDOXda (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 15 Apr 2022 19:33:30 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58882 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S237028AbiDORu7 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 15 Apr 2022 13:50:59 -0400
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com [IPv6:2a00:1450:4864:20::629])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 212EABCB40
-        for <linux-man@vger.kernel.org>; Fri, 15 Apr 2022 10:48:31 -0700 (PDT)
-Received: by mail-ej1-x629.google.com with SMTP id t11so16409879eju.13
-        for <linux-man@vger.kernel.org>; Fri, 15 Apr 2022 10:48:31 -0700 (PDT)
+        with ESMTP id S1356556AbiDOXdY (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 15 Apr 2022 19:33:24 -0400
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com [IPv6:2a00:1450:4864:20::431])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7437A4EF69
+        for <linux-man@vger.kernel.org>; Fri, 15 Apr 2022 16:30:54 -0700 (PDT)
+Received: by mail-wr1-x431.google.com with SMTP id g18so12117654wrb.10
+        for <linux-man@vger.kernel.org>; Fri, 15 Apr 2022 16:30:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=date:from:to:cc:subject:message-id:mime-version;
-        bh=5J4H663GBPtanaEi718/e4gk8u5sOVJExIPpkhGpkBw=;
-        b=mhk2FL8Ph4Y20FkYfS3z0imQxQ8+QcIKnbyFwhK0QhSBHR7dv4yYw1KRGgwgNWUztD
-         buMQczyrRCWmaCE08FoOe0O0JbP7wWmZZtpJumzLakPnrnQLTjcek26zMvl17LbhWTue
-         faRB8cODCVJsQetnGyVWbPrTdG+lbaYCtge5TsDywY2/VfjU1wummsDK89OfCZt9HpiC
-         SH6kUXEbhUi4/WbgvV+CjkTsXKtoklV/FvnOayCBsZdXELEDzXV5D97YAb0kKyR6Vu4p
-         DsLKA7UoouFjJplsaswogePG56w9p5wF9Yx3YPwfXViy9XHaah1ACiisS0YW0ok5YOez
-         DKiw==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=WKZ1lD7amZQ43PEKfQN08kS4ubsRVEOTz/DeTkKkuvI=;
+        b=Z/hh02Sj30Kety/xWV/iGxqfdMlkaRIJZwshgHp3Ly1uAk+rRviEdlifzZLK55FOrK
+         9lfy+PF5tPZFKF1Cap4HFwVGyUQPi8m3HE4rMVRTj2MfjJqh8rOfkxO8hbza0sjUlaC/
+         wUfCIAmddG8otuLLzuAMqH2Er03Edl/vNsBuqrXmPnHLhUc9pgpYlez9kc0hJ9ajS5Gy
+         K/FuxK3WwRMwYXJ7I7RUbTUU/kTAUvctTAKLF0kGVfJfLzxNpDmQ2baIGKe2dOuZNq7m
+         438tt0b5042XoqcLUQUzhuZgXgtvlZWWKh9pncJT3V2t444tkD6pfkeewkR+ZyS+0M6d
+         WANQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version;
-        bh=5J4H663GBPtanaEi718/e4gk8u5sOVJExIPpkhGpkBw=;
-        b=BhxW0xo0PoJyYHVaBhlGGyeNad5zp2om6jPylE19xr2kPq5q9H7izQ+nhKO9sCDtq6
-         8r42C3QqAwg8gEVhkJlH6NTD3LXoUE0tSHPptwvq2xoPe/c5fu7eSqhe5sWjSDI4bjlA
-         XbVs2Lk1XfKWwotw5bAkSuqjBfqtRyyCUde876auYcADyzQZtVNfbjL3JAVKHmDT56nI
-         jOIe7Z+IixF3yXnOk3v9r0gGvcxVVkRV0KHU2gonF3jEJkP51CcsATKsLxeijuyXGGLF
-         Xf0p65Ag17wA68Aqwglle/9BjFKUcbQVh/GHtnXcjgjUhHyCJ6TbBZPyfcvAEju7yrFc
-         Tchw==
-X-Gm-Message-State: AOAM530++hIAfyKC5hOfjOsE5fGp+rl3eXgdJQAqrGCoFBJeFhIRfXvQ
-        GkeuTd6DLypZ+w5ihABwZak=
-X-Google-Smtp-Source: ABdhPJwzjAn2naZl46b70uOvxM27hI5B7nRrgv2McoeCX3AtDEXnMpRJwAsd9m+7W8P46OOHkm5IYQ==
-X-Received: by 2002:a17:907:2bf4:b0:6e8:93d4:46e9 with SMTP id gv52-20020a1709072bf400b006e893d446e9mr178200ejc.69.1650044909471;
-        Fri, 15 Apr 2022 10:48:29 -0700 (PDT)
-Received: from PC ([91.187.59.126])
-        by smtp.gmail.com with ESMTPSA id n15-20020a1709062bcf00b006ee82143cfbsm1093662ejg.51.2022.04.15.10.48.28
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=WKZ1lD7amZQ43PEKfQN08kS4ubsRVEOTz/DeTkKkuvI=;
+        b=TvIC7yO0YjSlsCcGLojxh8d1GxjNFMsZVB/yIxVQu+x+VyKdSAFz1b2nkj3lMmrrdx
+         d4wiVtH0sJeUh8Cd8B/2TCAtdg+4x/z1wX70jRC3FP5sn+U8jiqYu8vBGOakYObCIjwr
+         HoIoU9XiL2MLYjl4yYDHbO+tg0atUcfjymb35Gh8ZQefipwJ1X5fF/cboP83a+tj6moZ
+         l6fKgbrpYgrjUpOJ9/9SWw0JDP3iE8fhhzWcB995YFPwueqwtwKr3Ox8ncEPg8SMFp+v
+         NVTCSsRbdJ2oUxMoTipggFSBAUaU1EvP3aEcyCudjEX7Siq5OLwW76zU/s0pV+AyPpw9
+         ui1w==
+X-Gm-Message-State: AOAM53103VgqFRxaJliTMpmxzBIaTigVB0pvDFNQneErbljGUfCXr+ow
+        zKrzLmCUK01pDaJ9klm9HNKvfYpnUE6FZovp
+X-Google-Smtp-Source: ABdhPJztMuVjyOmb91fdetucxb/2S3YQNrXGtfi7eoL1DDx9CV+Sw+ABjfN+YAdcK0YfERx+6UX7tg==
+X-Received: by 2002:a05:6000:2c8:b0:204:f83:ba35 with SMTP id o8-20020a05600002c800b002040f83ba35mr804184wry.539.1650065452769;
+        Fri, 15 Apr 2022 16:30:52 -0700 (PDT)
+Received: from asus5775.alejandro-colomar.es ([170.253.36.171])
+        by smtp.googlemail.com with ESMTPSA id q14-20020a1cf30e000000b0038986a18ec8sm5995473wmq.46.2022.04.15.16.30.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 15 Apr 2022 10:48:29 -0700 (PDT)
-Date:   Fri, 15 Apr 2022 19:48:19 +0200
-From:   meator <meator.dev@gmail.com>
-To:     mtk.manpages@gmail.com, alx.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org
-Subject: Request for clarification of O_PATH in open(2)
-Message-ID: <20220415194819.5cb80c4b@PC>
-X-Mailer: Claws Mail 3.18.0 (GTK+ 2.24.33; x86_64-unknown-linux-gnu)
+        Fri, 15 Apr 2022 16:30:52 -0700 (PDT)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+To:     mtk.manpages@gmail.com, nab <nabijaczleweli@nabijaczleweli.xyz>,
+        "G . Branden Robinson" <g.branden.robinson@gmail.com>
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org
+Subject: [RFC 0/3] Prepare the Makefile and scripts/ for releasing
+Date:   Sat, 16 Apr 2022 01:30:45 +0200
+Message-Id: <20220415233048.70477-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/5Gh7HbzG7Vt8rjCOyIzJYQ3";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+Content-Transfer-Encoding: 8bit
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
@@ -65,57 +68,52 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
---Sig_/5Gh7HbzG7Vt8rjCOyIzJYQ3
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
 
-Hello. I was reading open(2) and I have noticed an interesting statement: "=
-The argument flags must include one of the following access modes: O_RDONLY=
-, O_WRONLY, or O_RDWR." Must one of these flags be specified when O_PATH is=
- in use?
-O_PATH description says that "Opening a file or directory with the O_PATH f=
-lag requires no permissions on the object itself (but does require execute =
-permission on the directories in the path prefix)." I think that this can b=
-e a little bit ambiguous. When I first read it, I have thought that this se=
-ntence talks about filesystem permissions required on the file, not the acc=
-ess modes.
-O_PATH description states that: "When O_PATH is specified in flags, flag bi=
-ts other than O_CLOEXEC, O_DIRECTORY, and O_NOFOLLOW are ignored." One coul=
-d think that you must specify an access mode, but it will be ignored.
-The O_PATH description actually mentions the O_RDONLY flag, but it compares=
- the difference of opening a file with O_PATH and opening it with (only) O_=
-RDONLY, it doesn't mention the need of O_RDONLY flag when opening a file wi=
-th O_PATH.
-The only part of the manpage that clearly states that using access modes wi=
-th O_PATH is not mandatory is the code sample included in the O_PATH descri=
-ption, which calls open("some_prog", O_PATH); (but this code sample covers =
-another aspect of O_PATH).
+Hi!
 
-Maybe I'm just dumb and I misread some of the text, but I think this can be=
- ambiguous. I would have sent a patch fixing this, but I'm not a native Eng=
-lish speaker and I don't actually know how open() works, so I don't want to=
- make a mistake when modifying its manpage.
+I'm preparing the Makefile and scripts to be able to release
+without hidden scripts, just from the repository.  I put in the
+Makefile everything that can be done incrementally (or at least
+idempotently, since tar(1) doesn't really allow incrementally
+creating an archive, unlike ar(1)), and in scripts what can't
+(i.e., the COLOPHON generation).
 
-Thanks in advance,
-Meator
+I tried to follow conventions (from GNU and others) as much as
+possible.
 
---Sig_/5Gh7HbzG7Vt8rjCOyIzJYQ3
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
+The COLOPHON format was kept as I see it in existing pages in my
+system, with one difference: until now, the URI in the COLOPHON
+wasn't being enclosed in <> (the script didn't use .UR/.UE).
+I fixed that.
 
------BEGIN PGP SIGNATURE-----
+Now one can generate DISTFILES (.tar, .tar.gz, and .tar.xz files)
+simply with the following commands.  The version number is taken
+from git.
 
-iQGzBAEBCAAdFiEEew9YpeDxouoRV4pzGhTLNGTL5b8FAmJZr+MACgkQGhTLNGTL
-5b+VDgv/ZkJhes+Qvdj3qzGEc2a68ltU3Vc7tl3lgRvy3AI36daqSWYYB9dXDzAi
-nQFqZlMZ/BAralyvZUPSENVNlcC5pPN0wFiXH+qPLRdKrmRpt/hc04kRdon+ltll
-LsR4hbxt8MbYJx1fx/NP85jU/ekRyFlygJf8H2WmdtTCBURbblk2Mbkvdb44TuoL
-Fy/vVvBK3Dnv73nK77JDmWVz8xJEaWT5lpMR0QFbVZSOSepzmHrWFXbJDYEGW+Ty
-FCScFcOJRHHq4FDXlhqDU/8H44SVV9ZxXhM+efYlDXUBjXh9yTj9sMjVqKnbe3tg
-ciPHgnmgseMntWurQjD7ldrT1BuKz/H0iAwbWWov8x3mPVE2qPSbXY7u8sKhlfgH
-CWDgZdA1TN1L4Qw8jKOBWC9j6e0OmAY1pPXUeAFETUwMf1FX70SbL/PvD11OIpq3
-IEn40pJ/tKH99haImJ+iFDbKvzonWyDJ1NeV1yQWuvrPTYZZ8LHcoMT1InYTwsRo
-mBsg9pf9
-=LGFk
------END PGP SIGNATURE-----
+	./scripts/append_COLOPHON.sh
+	make dist-gz
 
---Sig_/5Gh7HbzG7Vt8rjCOyIzJYQ3--
+Of course, the generation of the COLOPHON is not a dependency for
+the generation of the tarballs, but it's likely that both commands
+will be run together.
+
+
+Cheers,
+
+Alex
+
+
+Alejandro Colomar (3):
+  scripts/remove_COLOPHON.sh: Allow passing directories to the script
+  scripts/append_COLOPHON.sh: Add script to append the COLOPHON section
+  Makefile: dist: Add target to create distribution archives
+
+ Makefile                   | 49 ++++++++++++++++++++++++++++++++++++++
+ scripts/append_COLOPHON.sh | 38 +++++++++++++++++++++++++++++
+ scripts/remove_COLOPHON.sh |  6 ++---
+ 3 files changed, 90 insertions(+), 3 deletions(-)
+ create mode 100755 scripts/append_COLOPHON.sh
+
+-- 
+2.30.2
+
