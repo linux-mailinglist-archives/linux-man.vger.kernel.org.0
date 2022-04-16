@@ -2,81 +2,106 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 1B5CF503322
-	for <lists+linux-man@lfdr.de>; Sat, 16 Apr 2022 07:48:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id EA79C5034E6
+	for <lists+linux-man@lfdr.de>; Sat, 16 Apr 2022 09:51:57 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231303AbiDOXfm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 15 Apr 2022 19:35:42 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36262 "EHLO
+        id S230247AbiDPHw4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 16 Apr 2022 03:52:56 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43464 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231160AbiDOXfl (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 15 Apr 2022 19:35:41 -0400
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com [IPv6:2a00:1450:4864:20::436])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3A5C77665D
-        for <linux-man@vger.kernel.org>; Fri, 15 Apr 2022 16:33:12 -0700 (PDT)
-Received: by mail-wr1-x436.google.com with SMTP id t1so12151201wra.4
-        for <linux-man@vger.kernel.org>; Fri, 15 Apr 2022 16:33:12 -0700 (PDT)
+        with ESMTP id S230266AbiDPHw3 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 16 Apr 2022 03:52:29 -0400
+Received: from mail-pg1-x542.google.com (mail-pg1-x542.google.com [IPv6:2607:f8b0:4864:20::542])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 50B98232
+        for <linux-man@vger.kernel.org>; Sat, 16 Apr 2022 00:49:39 -0700 (PDT)
+Received: by mail-pg1-x542.google.com with SMTP id k14so10113948pga.0
+        for <linux-man@vger.kernel.org>; Sat, 16 Apr 2022 00:49:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=T7QowAv9X3Olr58ufmnUQQ6AR+tvvFtbjVIYW6Nmj20=;
-        b=ewCCg8YKZ37EfplxBdZn2iifMH6WWwPtZdl2WuDShULHXqX7HESXyimbOTu85y1agA
-         2lgaHIGWnxAIhkrKwVQEP5mrfjpMxHrMDUoSXUXmiCULBwBWz7a0+39Pj0ikabpvUYqs
-         4884xgdZco+D+UXazwzOjdjBUHi0b90rBLwCSHDBUQlF/CAha9zS1GJEnjxybXN5KLls
-         biAGuGaHnh36x0htIj4sHWMLFkTEjQfUdvmVQdIRl9P1GRjw+KjiG0Ypwnmq4od43Cqa
-         8u27qZ1deZEYW07zm7bMq50+qbr0tW0bwcGriLpSjQWwtZTbM3k0fhUIuAn/WxT0qtZp
-         iGHQ==
+        h=mime-version:reply-to:from:date:message-id:subject:to;
+        bh=KeMi8W+p20zdR41YZoRj2EapY7imNsLYkAgQIQsIzqY=;
+        b=bJd2DIgtyK+bZCVQpMa9XLiI7bVnFQgVFeGzbZ6bXamjrEFIUCNaIDR9YpvR5iTRQC
+         EoRjHn2hxdGgHpTmUXoJLhLdkz8kw8CpdMkf+RjOM2yxgJf0M2w5tnzpw0NiczM9cGQm
+         aTRY2J48j2+AVBVM6ZplapTERLwB7sqpQHn0KTPy+GATyEE1HlWbU25nZewZyTln9PiO
+         eb2iuPe3VcoLkYjZ6tmC44EeIcF1BzRiek/y+/+gg720T1wEvd/5m2iOgdTIUS3isI5Z
+         q2z1OdX/gYACU6OexrbNcXzEKBC+MKUq0Bm7V68HpmeyS3D5tFhEEP1iOfnkPKJo7x6w
+         XtNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=T7QowAv9X3Olr58ufmnUQQ6AR+tvvFtbjVIYW6Nmj20=;
-        b=nUA2OaiTCH58cp7piqJAmwUkoNXqHxxdOXR/VMEvzSsbPadEHVA0ijgomamfRl5Q/R
-         ArBVogfX4LDORq25O1EaV3QplZYGsTNWz7MNJfm7P2ZhUgYGcFJgt+ypwB9T2jupfT2U
-         pfs8GcDVwpBREyxqTK7uhoUsQBtu4wz0KAKvenFUzYrnZmwptr9zL40Pa26DzqOG96L5
-         SnuheztICRmSijuhncSAx9joR7L0w9QbyLa6bUrDddEQ2oFnaqv1y8sMthTbzaQ7lwGD
-         KX2yAiFGni1IADYSW4xPa7tRtgcowXP9XuvDI81rhi2OS9PF0hJayDCpPN3LUWJWFeMU
-         jurQ==
-X-Gm-Message-State: AOAM5300RYzwMLwbo0rtjE7sa3gJDyf4+pO2g2GKPqZTB9QIQLr5misG
-        /1wX2YqZde6Zj0a2z/VNKwc=
-X-Google-Smtp-Source: ABdhPJz0qdrqGAGU15Whg4GjhatYM83VZV7FKFPPzNDWhChPbkspcWg6iW/x8BDm7ks+WAFm5u7LWQ==
-X-Received: by 2002:a5d:59a4:0:b0:207:b394:bc49 with SMTP id p4-20020a5d59a4000000b00207b394bc49mr808667wrr.93.1650065590887;
-        Fri, 15 Apr 2022 16:33:10 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id v8-20020a1cf708000000b0034d7b5f2da0sm6121076wmh.33.2022.04.15.16.33.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 15 Apr 2022 16:33:10 -0700 (PDT)
-Message-ID: <abd2a499-cd4e-4ca4-3217-fd4012ed9b29@gmail.com>
-Date:   Sat, 16 Apr 2022 01:33:09 +0200
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to;
+        bh=KeMi8W+p20zdR41YZoRj2EapY7imNsLYkAgQIQsIzqY=;
+        b=2AcyEmezTEPijPdgFxoNmg198U8zG9VRnAZkMeiPB+CRfY8TuyN3EN7Dw7292xdpC5
+         diadH9yoYvaMVcQcx/ftE4rp4r4FYxMuFp/fnOa8JOvBHu4HHFgNsqhPjQhEzTFz5Hd1
+         xH6VYcb30B7g64Jj4TsA1qvVBMRvXG6bIxvrQ6WhSsblnLDJPk9OSjtglp2nGyTEGkkz
+         hqHdCp126EITNorgUqSxzMCTV/nrryi04Ssw6HDlbOWCUncOt1AJtVI4ppMwl5rxX8jV
+         h/ydUitsOyW+M0fEaDvZoafxtsJBM3WLBdRQe2SjDcm+W9LUlX3+wQUPKmDwfmzqT155
+         fFlA==
+X-Gm-Message-State: AOAM531FP7/tEB9TjEd8ovfoAeB1dpEvXMx5HeXhjg0nDtNZmFsDHK2X
+        qTKZFb2zE+boh4KrJP08+Bx/qdB4IEDkChuOQ7vOvdWa3/I=
+X-Google-Smtp-Source: ABdhPJzPQ782jxaaybf4v05kBQtFRTzv0MMrux20NcZ4Q10XmGrK6dnUIabFDBNBmBOv8fFyQY5zqzYAgf4Cnc3KaCc=
+X-Received: by 2002:a92:508:0:b0:2cb:ebd8:a76b with SMTP id
+ q8-20020a920508000000b002cbebd8a76bmr1009500ile.156.1650095366830; Sat, 16
+ Apr 2022 00:49:26 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [RFC 0/3] Prepare the Makefile and scripts/ for releasing
-Content-Language: en-US
-To:     mtk.manpages@gmail.com, nab <nabijaczleweli@nabijaczleweli.xyz>,
-        "G . Branden Robinson" <g.branden.robinson@gmail.com>
-Cc:     linux-man@vger.kernel.org
-References: <20220415233048.70477-1-alx.manpages@gmail.com>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20220415233048.70477-1-alx.manpages@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Spam-Status: No, score=-6.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-        autolearn=ham autolearn_force=no version=3.4.6
+Received: by 2002:a05:6638:1309:0:0:0:0 with HTTP; Sat, 16 Apr 2022 00:49:26
+ -0700 (PDT)
+Reply-To: daniel.seyba@yahoo.com
+From:   Seyba Daniel <royhalton13@gmail.com>
+Date:   Sat, 16 Apr 2022 09:49:26 +0200
+Message-ID: <CALSxb2w9zQYotuLcRSCPns53ksvT9UrEMVx-1Cp1f8RE7er3cA@mail.gmail.com>
+Subject: Hello,
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
+X-Spam-Status: Yes, score=5.5 required=5.0 tests=BAYES_50,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
+        FREEMAIL_FROM,FREEMAIL_REPLYTO,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,
+        SPF_PASS,T_SCC_BODY_TEXT_LINE,UNDISC_FREEM autolearn=no
+        autolearn_force=no version=3.4.6
+X-Spam-Report: *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
+        *      [score: 0.5000]
+        * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
+        *      https://www.dnswl.org/, no trust
+        *      [2607:f8b0:4864:20:0:0:0:542 listed in]
+        [list.dnswl.org]
+        * -0.0 SPF_PASS SPF: sender matches SPF record
+        *  0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
+        *      provider
+        *      [royhalton13[at]gmail.com]
+        *  0.2 FREEMAIL_ENVFROM_END_DIGIT Envelope-from freemail username ends
+        *       in digit
+        *      [royhalton13[at]gmail.com]
+        *  0.0 SPF_HELO_NONE SPF: HELO does not publish an SPF Record
+        * -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+        *  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+        *       valid
+        * -0.1 DKIM_VALID_EF Message has a valid DKIM or DK signature from
+        *      envelope-from domain
+        * -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+        *      author's domain
+        * -0.0 T_SCC_BODY_TEXT_LINE No description available.
+        *  3.7 UNDISC_FREEM Undisclosed recipients + freemail reply-to
+        *  1.0 FREEMAIL_REPLYTO Reply-To/From or Reply-To/body contain
+        *      different freemails
+X-Spam-Level: *****
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Hello,
 
+I am so sorry contacting you in this means especially when we have never
+met before. I urgently seek your service to represent me in investing in
+your region / country and you will be rewarded for your service without
+affecting your present job with very little time invested in it.
 
-On 4/16/22 01:30, Alejandro Colomar wrote:
-> 	./scripts/append_COLOPHON.sh
-> 	make dist-gz
+My interest is in buying real estate, private schools or companies with
+potentials for rapid growth in long terms.
 
-I meant s/dist-gz/dist/
+So please confirm interest by responding back.
+
+My dearest regards
+
+Seyba Daniel
