@@ -2,82 +2,92 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 4C85C5037D3
-	for <lists+linux-man@lfdr.de>; Sat, 16 Apr 2022 20:21:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9FF5C5037D4
+	for <lists+linux-man@lfdr.de>; Sat, 16 Apr 2022 20:21:22 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230302AbiDPSXq (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 16 Apr 2022 14:23:46 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60004 "EHLO
+        id S232747AbiDPSXt (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 16 Apr 2022 14:23:49 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60326 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232746AbiDPSXp (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 16 Apr 2022 14:23:45 -0400
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com [IPv6:2a00:1450:4864:20::42b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CCE377E582
-        for <linux-man@vger.kernel.org>; Sat, 16 Apr 2022 11:21:11 -0700 (PDT)
-Received: by mail-wr1-x42b.google.com with SMTP id q3so13475043wrj.7
-        for <linux-man@vger.kernel.org>; Sat, 16 Apr 2022 11:21:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=215VwteWtqqgiTtyAA01w8+X4fUc3TXzAqchJbtX12A=;
-        b=lO494CzBDd5P7D7fXKObH5drj8ByzOSZVljLL5/O5npUYtr9C+4ZDQEpuJhTaSLA25
-         e1AqxheMYmsIb8DqJtY+pKu6eQ9VJ3+Om1kMJjASXZAHBUDjl+7OyzA/LLSAQ/qbQOzu
-         jscRonRquvRuJCSj98D+L69RYDVlhb7npNWZ7eK2w+F4kH8EFNC2PU+N5E27e/bAfvac
-         UfHOXJF7lsgHJEWf1rAVX2VpHiUDtdDp7bABTcjXHoEHSw69znloPEMqZOg80th1k4mU
-         3ENdW4tDsegflIURRWnmyBpLDG30l/WN2uX9GqFdPDYy57Wqq3iUDfEBK4LweFpLjvo4
-         GFAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=215VwteWtqqgiTtyAA01w8+X4fUc3TXzAqchJbtX12A=;
-        b=GViDEr3B3AdY5i0H0woAiVDYVU2iLyIvkexqwfo9FXYoPlzel/QVILCOBHIrfonHxk
-         CjjVihIJePhMRBerSAPXqD8jiHyVik33FC9X+UI+MlXCtMbE1mLi00hZX0NjmCF7XGqC
-         XjXq0qVrcHYH/y95ii4U+m7EASRZ6Xd+KZNx7a7cgcV7PFUj0iOFrO0fnlP+KPVeYiZt
-         YEHzH1/UG8ZL2CdM91qEPMv9Pdectm/4Ml0TNxzUz6WTuo2t7u9uqPjy8B6aQxe7IxLF
-         h0ZIyqWAihCKDA90clG1pc5FP3rr7gnmOUUGIVPUv64M7tNNOdbyh91YTZFHH5SFVhZG
-         5NWg==
-X-Gm-Message-State: AOAM530gYIHYiEGtP+0LaPgF3QmajeIX7qNdcuIQ6NWGj+f9fRvdIGtd
-        SVd5LK8kjIsCaPC9afwSd40CM1Cv4jU7AA==
-X-Google-Smtp-Source: ABdhPJxJyaupuI7m2FxKCJFjUSEL7vRIaULxf8PgaU/X2r2MAPpFleAhKQqPlGQ7nQTX00b5oEisrw==
-X-Received: by 2002:a5d:4e49:0:b0:20a:850c:2f77 with SMTP id r9-20020a5d4e49000000b0020a850c2f77mr3114711wrt.246.1650133270191;
-        Sat, 16 Apr 2022 11:21:10 -0700 (PDT)
-Received: from asus5775.alejandro-colomar.es ([170.253.36.171])
-        by smtp.googlemail.com with ESMTPSA id o8-20020a5d6488000000b002051f1028f6sm7450585wri.111.2022.04.16.11.21.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 16 Apr 2022 11:21:09 -0700 (PDT)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     bugzilla-daemon@kernel.org, linux-man@vger.kernel.org
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        Avinash Sonawane <rootkea@gmail.com>,
-        glibc <libc-alpha@sourceware.org>, GCC <gcc@gcc.gnu.org>
-Subject: [PATCH] [Bug 215844] scanf.3: Clarify ll and L modifiers
-Date:   Sat, 16 Apr 2022 20:19:43 +0200
-Message-Id: <20220416181942.5464-1-alx.manpages@gmail.com>
-X-Mailer: git-send-email 2.30.2
+        with ESMTP id S232746AbiDPSXt (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 16 Apr 2022 14:23:49 -0400
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EB5777DE23
+        for <linux-man@vger.kernel.org>; Sat, 16 Apr 2022 11:21:15 -0700 (PDT)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id 6AE4660FCD
+        for <linux-man@vger.kernel.org>; Sat, 16 Apr 2022 18:21:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id CC2C0C385AB
+        for <linux-man@vger.kernel.org>; Sat, 16 Apr 2022 18:21:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1650133274;
+        bh=pgoriLhJIsMhbTPb6fQnYj57dXMHxXdcHPRkY785DkQ=;
+        h=From:To:Subject:Date:In-Reply-To:References:From;
+        b=bE/eH0rWGQPCKuXd3boHwqIap84cZYDLWO1v0bTqveGnYOkQwzMG6lPfKRo0Oxj4I
+         T431ElP5+0V2D+0EvDgOQqgby8BRXTRNZ+78CV2RdVK8Z5JGP34SDDtxXNx50lLcIm
+         JW25lQM6VzGUl5hncpiK5DwZZGrA2VEwEM2iZ7NmMbTnP3FvOZNFrgiNV+wTXOtoou
+         2RH8kewoIa92QpgrG49rEZAbqp9xWxJoYS2J7z+1e+DRk9Xf11nBQ4yKeo/F2OztKc
+         +IqFn03LajtvlWW+IiLVdr7r+yu8GigTAJ/xXiCV+roylkotVL+UstrjbXYRea1yjE
+         28CZV7ZdH3Pkw==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
+        id B0FB5CC13AF; Sat, 16 Apr 2022 18:21:14 +0000 (UTC)
+From:   bugzilla-daemon@kernel.org
+To:     linux-man@vger.kernel.org
+Subject: [Bug 215844] scanf manpage incorrectly says that ll (ell-ell) is
+ equivalent to L
+Date:   Sat, 16 Apr 2022 18:21:14 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Documentation
+X-Bugzilla-Component: man-pages
+X-Bugzilla-Version: unspecified
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: alx.manpages@gmail.com
+X-Bugzilla-Status: NEW
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P1
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: 
+Message-ID: <bug-215844-11311-kEOo0ds2R1@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-215844-11311@https.bugzilla.kernel.org/>
+References: <bug-215844-11311@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-        autolearn=ham autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-7.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+https://bugzilla.kernel.org/show_bug.cgi?id=3D215844
+
+--- Comment #1 from Alejandro Colomar (man-pages) (alx.manpages@gmail.com) =
+---
 Relevant documents:
 
 POSIX:
 <https://pubs.opengroup.org/onlinepubs/9699919799/functions/fscanf.html>
 
 glibc:
-<https://www.gnu.org/software/libc/manual/html_mono/libc.html#Numeric-Input-Conversions>
+<https://www.gnu.org/software/libc/manual/html_mono/libc.html#Numeric-Input=
+-Conversions>
 
 ISO C2x:
-<http://www.open-std.org/JTC1/SC22/WG14/www/docs/n2731.pdf#subsubsection.7.21.6.2>
+<http://www.open-std.org/JTC1/SC22/WG14/www/docs/n2731.pdf#subsubsection.7.=
+21.6.2>
 
 Still, from the documentation linked above, it seems to me that
 "%Ln" is supported as a glibc extension, and doesn't fall into
@@ -86,7 +96,7 @@ shown in the bugzilla report.  I didn't modify the documentation
 regarding %n, and recommend investigating a possible GCC bug.
 
 Reported-by: Avinash Sonawane <rootkea@gmail.com>
-Link: bugzilla <https://bugzilla.kernel.org/show_bug.cgi?id=215844>
+Link: bugzilla <https://bugzilla.kernel.org/show_bug.cgi?id=3D215844>
 Cc: glibc <libc-alpha@sourceware.org>
 Cc: GCC <gcc@gcc.gnu.org>
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
@@ -144,7 +154,8 @@ index 55058f3d2..199c8a19a 100644
  \fBd\fP, \fBi\fP, \fBo\fP, \fBu\fP, or \fBx\fP
  and the next pointer is a pointer to
  .IR "long long" .
-@@ -683,17 +700,17 @@ floating-point conversion specifier (and is unaffected by
+@@ -683,17 +700,17 @@ floating-point conversion specifier (and is unaffecte=
+d by
  etc.).
  .SH BUGS
  All functions are fully C89 conformant, but provide the
@@ -166,6 +177,9 @@ index 55058f3d2..199c8a19a 100644
  .PP
  Some combinations of the type modifiers and conversion
  specifiers defined by ANSI C do not make sense
--- 
-2.30.2
 
+--=20
+You may reply to this email to add a comment.
+
+You are receiving this mail because:
+You are watching the assignee of the bug.=
