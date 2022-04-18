@@ -2,43 +2,43 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 95DC550488E
-	for <lists+linux-man@lfdr.de>; Sun, 17 Apr 2022 19:05:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 30694504B59
+	for <lists+linux-man@lfdr.de>; Mon, 18 Apr 2022 05:32:25 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233839AbiDQRHz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 17 Apr 2022 13:07:55 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54004 "EHLO
+        id S236060AbiDRDez (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 17 Apr 2022 23:34:55 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58388 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231211AbiDQRHy (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 17 Apr 2022 13:07:54 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F1B7DE92
-        for <linux-man@vger.kernel.org>; Sun, 17 Apr 2022 10:05:17 -0700 (PDT)
+        with ESMTP id S229449AbiDRDey (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 17 Apr 2022 23:34:54 -0400
+Received: from ams.source.kernel.org (ams.source.kernel.org [IPv6:2604:1380:4601:e00::1])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1533217E20
+        for <linux-man@vger.kernel.org>; Sun, 17 Apr 2022 20:32:17 -0700 (PDT)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
         (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
         (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id 8904B61281
-        for <linux-man@vger.kernel.org>; Sun, 17 Apr 2022 17:05:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id DC676C385AB
-        for <linux-man@vger.kernel.org>; Sun, 17 Apr 2022 17:05:16 +0000 (UTC)
+        by ams.source.kernel.org (Postfix) with ESMTPS id C74B2B80D99
+        for <linux-man@vger.kernel.org>; Mon, 18 Apr 2022 03:32:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 73F6CC385AB
+        for <linux-man@vger.kernel.org>; Mon, 18 Apr 2022 03:32:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1650215116;
-        bh=OJhiEsGqqIweV5P+VpkhRCz+N0J3EDD7z+Wbc0uH1Pg=;
-        h=From:To:Subject:Date:From;
-        b=M4+nPpgXkgfogacUzeY0y9Y/eou/FXlOUQACEr2hQIctQSH6+4ATB0igFcFRPAIs8
-         xyrFU7U7J+2fxHHQykvbW3Mp6uuuJxZyeKGsA0vhufMOJMiOyyT6gZZhIa5LdFEHig
-         jnaU2oo3ffM3ny9fZXbO9jMpGYM0zVmHA0i476kA029BHxR13aiQ6QzfeEZVwk7wJP
-         KNTLnOvv9tH3bzUj7XFazQ/X5Lc//fuUcRPcExRwfgYmhsaFrJkc95GeoUsU0HfxoF
-         GQaAfuGXyE6I+uAes1rm01nMZPKb03TeI5lueqBPQQT19wpk1LC1oGhM3S0fFZG/cR
-         +hGoa/DqDxl7w==
+        s=k20201202; t=1650252734;
+        bh=xsG/idi+PRrRlyJXGUquNNjX95Fx8eHV+zZrdbzzCuA=;
+        h=From:To:Subject:Date:In-Reply-To:References:From;
+        b=P1RZ0NW14H8oa95ofUZ0Jgdyk1SxWfn1nqo2osZoDWQIfmZ5OPiFScmQCRIeUJnRI
+         n46v/vkvpq8ZbShELMTTGq0e6994cKeB/Ul7TAaYM8wg2PwVJowWDpGWWopodMK1Ld
+         PhjzGVBz8dJoCqjjvimitKOqUrtcJp5Nosllsn5Fk8/HQlNzsTUhnQ/ZSYRcmzoYKw
+         tewyoI05dUn9CVjVt5YTtItq42K6s94oj2TFAeavRE6NDjKmESDZwxbiW/naoTCpch
+         xGJun7Hb/3EEesGdr9GGiD8OkP3p/hi16x20t+oagRQH5KOQvMGDbBg9Jwjw66hYRv
+         9oxOM+RT3foXQ==
 Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
-        id BFC56C05FCE; Sun, 17 Apr 2022 17:05:16 +0000 (UTC)
+        id 58E04CAC6E2; Mon, 18 Apr 2022 03:32:14 +0000 (UTC)
 From:   bugzilla-daemon@kernel.org
 To:     linux-man@vger.kernel.org
-Subject: [Bug 215848] New: fopen(3): Incorrect good practice suggestion
-Date:   Sun, 17 Apr 2022 17:05:16 +0000
+Subject: [Bug 215848] fopen(3): Incorrect good practice suggestion
+Date:   Mon, 18 Apr 2022 03:32:14 +0000
 X-Bugzilla-Reason: None
-X-Bugzilla-Type: new
+X-Bugzilla-Type: changed
 X-Bugzilla-Watch-Reason: AssignedTo
  documentation_man-pages@kernel-bugs.osdl.org
 X-Bugzilla-Product: Documentation
@@ -52,10 +52,10 @@ X-Bugzilla-Resolution:
 X-Bugzilla-Priority: P1
 X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
 X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: bug_id short_desc product version rep_platform
- op_sys bug_status bug_severity priority component assigned_to reporter
- cf_regression
-Message-ID: <bug-215848-11311@https.bugzilla.kernel.org/>
+X-Bugzilla-Changed-Fields: 
+Message-ID: <bug-215848-11311-MPyqzJirxa@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-215848-11311@https.bugzilla.kernel.org/>
+References: <bug-215848-11311@https.bugzilla.kernel.org/>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-Bugzilla-URL: https://bugzilla.kernel.org/
@@ -73,47 +73,32 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 https://bugzilla.kernel.org/show_bug.cgi?id=3D215848
 
-            Bug ID: 215848
-           Summary: fopen(3): Incorrect good practice suggestion
-           Product: Documentation
-           Version: unspecified
-          Hardware: All
-                OS: Linux
-            Status: NEW
-          Severity: normal
-          Priority: P1
-         Component: man-pages
-          Assignee: documentation_man-pages@kernel-bugs.osdl.org
-          Reporter: rootkea@gmail.com
-        Regression: No
+--- Comment #1 from Avinash Sonawane (rootkea@gmail.com) ---
+I think we should only mention using `fseek` as a good practice between read
+and write operations since:
+a. fflush can't be used on input stream i.e. if last operation was read whi=
+le
+fseek() can be used between read-write or write-read.
 
-Hello!
+b. fsetpos needs fgetpos to be called first. So let's drop `fgetpos+fsetpos`
+from the good practice suggestion
 
-From fopen(3):
-"Therefore it is good practice (and indeed sometimes necessary under Linux)=
- to
-put an fseek(3) or fgetpos(3) operation between write and read operations on
-such a stream."
-
-I am not sure about the origin of this good practice but fgetpos(3) seems
-wrong. It has to be fsetpos(3) if I'm reading the C standard and POSIX[0]
-correctly.
-
-BTW, calling fsetpos(3) will require a call to fgetpos(3) first. So why is =
-it
-being advised as a good practice to call two functions (`fgetpos` and then
-`fsetpos`)? Maybe just i) mention fseek(3) only OR ii) mention fseek(3) and
-fflush(3) (instead of fsetpos(3))?
-
-[0]
-https://pubs.opengroup.org/onlinepubs/9699919799.2018edition/functions/fope=
-n.html
+So I suggest this small change:
+diff --git a/man3/fopen.3 b/man3/fopen.3
+index a1d781706..fb289a537 100644
+--- a/man3/fopen.3
++++ b/man3/fopen.3
+@@ -138,8 +138,6 @@ result of writes other than the most recent.)
+ Therefore it is good practice (and indeed sometimes necessary
+ under Linux) to put an
+ .BR fseek (3)
+-or
+-.BR fgetpos (3)
+ operation between write and read operations on such a stream.
+ This operation may be an apparent no-op
+ (as in \fIfseek(..., 0L, SEEK_CUR)\fP
 
 Thanks!
-
-Regards,
-Avinash Sonawane (rootKea)
-https://www.rootkea.me
 
 --=20
 You may reply to this email to add a comment.
