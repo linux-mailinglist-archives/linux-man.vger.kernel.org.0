@@ -2,139 +2,271 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 6768150709D
-	for <lists+linux-man@lfdr.de>; Tue, 19 Apr 2022 16:34:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 71483507606
+	for <lists+linux-man@lfdr.de>; Tue, 19 Apr 2022 19:06:12 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232753AbiDSOeL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 19 Apr 2022 10:34:11 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50556 "EHLO
+        id S1355343AbiDSRI2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 19 Apr 2022 13:08:28 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56274 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231671AbiDSOeK (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 19 Apr 2022 10:34:10 -0400
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com [IPv6:2a00:1450:4864:20::62f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CD77611140
-        for <linux-man@vger.kernel.org>; Tue, 19 Apr 2022 07:31:27 -0700 (PDT)
-Received: by mail-ej1-x62f.google.com with SMTP id u15so33287893ejf.11
-        for <linux-man@vger.kernel.org>; Tue, 19 Apr 2022 07:31:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:reply-to:from:date:message-id:subject:to
-         :content-transfer-encoding;
-        bh=cvfYEjF7QKOIf/caSAhp4YLSCOj7kiNo1L7dgNRsEag=;
-        b=qRZULRW9TsJkF9GE2unY/y8BG1Rc84Io9SnQ9uq8nWDhjhPGBGZqX6zOaQH/v1PCSb
-         dhLF4hTRvuYVubFWqtExsQq8oK53Zo344WvI32xu0pAj0DGWlIgVNMYzvJjNoCd5Y9FJ
-         M8ffjSKC56kb/cI6wt0brhm9prqTKdvm30Cz58nOPPXFixgJvmCbuFs1XBKYwjr4GIX+
-         kGIFedKZfgQYK6CIKgQFTGA9dSQQrn+l57e4rWVeztb3zRW3EW18kpfpxy46GSOjAUnL
-         EeSj5PWgrzauTI3+sZ3L+svLtrkfRbJhnqpdevfhtvMHstNACZ2XMBigKhY4HumLcSr/
-         U1yQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to:content-transfer-encoding;
-        bh=cvfYEjF7QKOIf/caSAhp4YLSCOj7kiNo1L7dgNRsEag=;
-        b=nCAOFSx/5Q9SXRalL75PPo+e7PQZBRs/R6MgUiQ/N6nrTD3MEyAZMFTlbNuGXdT/zU
-         kgVpUsgAbVMEazDNzxJDByX88MI92+XdaKGNPUP+3N62B+mNG/qPlNtJql3arcbBezz6
-         CbOETWu14FjNZSqVBTsRWfCSBtYggPMNfv/lqMXr8IVmZlxKFJKYQU//o1fYaG2YrCGd
-         YpQ841FUPrqH9mOqUdMiccsZ0oyzWKx0hpxRgta3xOt3kWCuAj+y2DVdIUtPa7erfOkB
-         /Gh1cCCcI9jiP4XS8VuRrCkrysJF8k4URec0w9yjY8EZ3E+KAYCf0mARTjY3z8j03lRk
-         ojdg==
-X-Gm-Message-State: AOAM532LgDN4Rae5fpHDxb6SQIAsJ8IpTg7KkvqmrCX+UwGqucPRXwaw
-        WhQ9thE4KpA71HEM1F4uBEa8RpignGo2/cv0JihMVbhLfAQmGQ==
-X-Google-Smtp-Source: ABdhPJzAHJMcNXv5Yj4ArkaH3UuNl9XlNLjARD3SYP6Xu7wMdduBrR6boKOP5UsBj6kqbgyNjmLERqPR1dQut5X3nWE=
-X-Received: by 2002:a17:906:d555:b0:6da:ac8c:f66b with SMTP id
- cr21-20020a170906d55500b006daac8cf66bmr13629952ejc.107.1650378675962; Tue, 19
- Apr 2022 07:31:15 -0700 (PDT)
+        with ESMTP id S1355736AbiDSRIK (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 19 Apr 2022 13:08:10 -0400
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DFB0E17AB3
+        for <linux-man@vger.kernel.org>; Tue, 19 Apr 2022 10:05:21 -0700 (PDT)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+        by smtp-out1.suse.de (Postfix) with ESMTP id 2FD72210EC;
+        Tue, 19 Apr 2022 17:05:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+        t=1650387920; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+         mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=oTMzLuNAGNIC09l7Rjada8XJKYwDWj6CDJ/4AhtwFKo=;
+        b=CNBSyAz+eerjNQeEfA1kzicxqRYawbQI0xHK2Qct+TAsibXrvZ4Gnb08LQut0Uzlntgfsz
+        xI+ypGZHB59QELMaXqook30yt+LcyJfvp8CWJ2d1Sqa/Y1dA0trA8lQvrLUCT6zLls/LVL
+        lE/5OMHSJgJfEgXypIsvbe5lXSllUUg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+        s=susede2_ed25519; t=1650387920;
+        h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+         mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=oTMzLuNAGNIC09l7Rjada8XJKYwDWj6CDJ/4AhtwFKo=;
+        b=jBhQ9gzUIHHoBi9QkPhtI2Inj0DpjCXo1mqF/Mq7CNQzeXnU6dxvJw0EmHWXiXJA5zyIJh
+        WbxgmRy75PXGZXDA==
+Received: from quack3.suse.cz (unknown [10.100.224.230])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        by relay2.suse.de (Postfix) with ESMTPS id 0AD332C141;
+        Tue, 19 Apr 2022 17:05:20 +0000 (UTC)
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+        id A6362A0620; Tue, 19 Apr 2022 19:05:19 +0200 (CEST)
+Date:   Tue, 19 Apr 2022 19:05:19 +0200
+From:   Jan Kara <jack@suse.cz>
+To:     Gabriel Krisman Bertazi <krisman@collabora.com>
+Cc:     repnop@google.com, mtk.manpages@gmail.com,
+        Amir Goldstein <amir73il@gmail.com>, Jan Kara <jack@suse.cz>,
+        linux-man@vger.kernel.org
+Subject: Re: [PATCH v5] fanotify.7, fanotify_mark.2: Document FAN_FS_ERROR
+Message-ID: <20220419170519.v4e2u4iijbqskuqw@quack3.lan>
+References: <20220418163933.256771-1-krisman@collabora.com>
 MIME-Version: 1.0
-Received: by 2002:a54:2103:0:0:0:0:0 with HTTP; Tue, 19 Apr 2022 07:31:15
- -0700 (PDT)
-Reply-To: uchennailobitenone@gmail.com
-From:   uchenna <okeyyoyopa@gmail.com>
-Date:   Tue, 19 Apr 2022 16:31:15 +0200
-Message-ID: <CAHTws=JhfhV2p4QrXFhxgPWfvpPM6WdJqRDsrw_aFOU8_mD1ow@mail.gmail.com>
-Subject: 
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: Yes, score=7.2 required=5.0 tests=BAYES_50,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,FREEMAIL_REPLYTO,
-        HK_RANDOM_ENVFROM,HK_RANDOM_FROM,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,
-        SPF_PASS,T_SCC_BODY_TEXT_LINE,UNDISC_FREEM autolearn=no
-        autolearn_force=no version=3.4.6
-X-Spam-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
-        *      https://www.dnswl.org/, no trust
-        *      [2a00:1450:4864:20:0:0:0:62f listed in]
-        [list.dnswl.org]
-        *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
-        *      [score: 0.5000]
-        *  1.0 HK_RANDOM_ENVFROM Envelope sender username looks random
-        *  1.0 HK_RANDOM_FROM From username looks random
-        * -0.0 SPF_PASS SPF: sender matches SPF record
-        *  0.0 SPF_HELO_NONE SPF: HELO does not publish an SPF Record
-        *  0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-        *      provider
-        *      [okeyyoyopa[at]gmail.com]
-        *  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-        *       valid
-        * -0.1 DKIM_VALID_EF Message has a valid DKIM or DK signature from
-        *      envelope-from domain
-        * -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-        *      author's domain
-        * -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-        * -0.0 T_SCC_BODY_TEXT_LINE No description available.
-        *  3.6 UNDISC_FREEM Undisclosed recipients + freemail reply-to
-        *  1.0 FREEMAIL_REPLYTO Reply-To/From or Reply-To/body contain
-        *      different freemails
-X-Spam-Level: *******
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220418163933.256771-1-krisman@collabora.com>
+X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+        SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham autolearn_force=no
+        version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Gratulacje!
+On Mon 18-04-22 12:39:33, Gabriel Krisman Bertazi wrote:
+> FAN_FS_ERROR is a new event for fanotify to report filesystem errors
+> that might lead to some corruption.
+> This documents how to use the feature and specific caveats.
+> 
+> To: Michael Kerrisk <mtk.manpages@gmail.com>
+> Cc: Amir Goldstein <amir73il@gmail.com>
+> Cc: Jan Kara <jack@suse.cz>
+> Cc: Matthew Bobrowski <repnop@google.com>
+> Cc: linux-man@vger.kernel.org
+> Reviewed-by: Amir Goldstein <amir73il@gmail.com>
+> Signed-off-by: Gabriel Krisman Bertazi <krisman@collabora.com>
 
-Organizacja Narod=C3=B3w Zjednoczonych dosz=C5=82a do wniosku, =C5=BCe z po=
-moc=C4=85 nowo
-wybranego prezydenta z powodu Covid-19 (koronawirusa) zostanie
-wyp=C5=82acona kwota sze=C5=9Bciu milion=C3=B3w dolar=C3=B3w (6.000.000 dol=
-ar=C3=B3w)
-szcz=C4=99=C5=9Bliwym beneficjentom na ca=C5=82ym =C5=9Bwiecie. r=C3=B3=C5=
-=BCne kraje i globalne
-zagro=C5=BCenie dla tak wielu istnie=C5=84 ludzkich.
+Looks good to me. Feel free to add:
 
- Organizacja Narod=C3=B3w Zjednoczonych zleci=C5=82a szwajcarskiemu bankowi
-=C5=9Bwiatowemu uwolnienie p=C5=82atno=C5=9Bci funduszu kompensacyjnego we =
-wsp=C3=B3=C5=82pracy
-z bankiem IBE w Wielkiej Brytanii.
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-P=C5=82atno=C5=9B=C4=87 zostanie przekazana na kart=C4=99 bankomatow=C4=85 =
-Visa i wys=C5=82ana do
-szcz=C4=99=C5=9Bliwego beneficjenta, kt=C3=B3ry z=C5=82o=C5=BCy wniosek za =
-po=C5=9Brednictwem banku
-IBE w Wielkiej Brytanii za po=C5=9Brednictwem dyplomatycznej firmy
-kurierskiej znajduj=C4=85cej si=C4=99 w pobli=C5=BCu kraju beneficjenta.
+								Honza
 
-S=C4=85 to informacje wymagane przez kierownictwo Zjednoczonego Kr=C3=B3les=
-twa,
-aby przekaza=C4=87 wyp=C5=82at=C4=99 funduszu kompensacyjnego do progu kraj=
-u
-beneficjenta.
-
-1. Twoje imi=C4=99 i nazwisko:
-2. Adres domowy:
-3. Miasto:
-4. Kraj:
-5. Zaw=C3=B3d:
-6. P=C5=82e=C4=87:
-7. Stan cywilny:
-8. Wiek:
-9. Paszport / dow=C3=B3d osobisty / prawo jazdy
-10. Numer telefonu:
-Skontaktuj si=C4=99 z naszym identyfikatorem e-mail agenta:
-nazwa solomo brandy
-
-ADRES EMIL (solomonbrandyfiveone@gmail.com ) dla Twojej p=C5=82atno=C5=9Bci=
- bez zw=C5=82oki,
-
-Pozdrowienia
-Pani Mary J. Robertson.
+> 
+> ---
+> Matthew,
+> 
+> as discussed this is rebased on top of the PIDFD documentation: commit
+> 207080c7f7f5 ("fanotify: Document FAN_REPORT_PIDFD Feature")
+> 
+> changes since v4:
+>  (Matthew)
+>  - Grammar fixes
+>  - Reword sections
+>  (Jan)
+>  - Explain fs error only apply to some errors
+>  (Amir)
+>  - Clarify what supported by ext4 means.
+> 
+> Changes since v3:
+>  (Matthew)
+>  - Rewording and fixes from github)
+>  (amir)
+>  - 5.15 -> 5.16
+> 
+> Changes since v2:
+>   (matthew)
+>     - Grammar
+>     - List filesystems that support the feature
+>     - file system -> filesystem
+> Changes since v1:
+> (Matthew)
+>   - Grammar fixes
+>   - Don't use the term "submitted" for events sent to the listener
+>   - Clarify the kind of information that is file system specific
+> ---
+>  man2/fanotify_mark.2 | 31 +++++++++++++++++++++
+>  man7/fanotify.7      | 64 ++++++++++++++++++++++++++++++++++++++++++++
+>  2 files changed, 95 insertions(+)
+> 
+> diff --git a/man2/fanotify_mark.2 b/man2/fanotify_mark.2
+> index 9a45cbb77893..0bdee67850fb 100644
+> --- a/man2/fanotify_mark.2
+> +++ b/man2/fanotify_mark.2
+> @@ -203,6 +203,30 @@ Create an event when a marked file or directory itself is deleted.
+>  An fanotify group that identifies filesystem objects by file handles
+>  is required.
+>  .TP
+> +.BR FAN_FS_ERROR " (since Linux 5.16)"
+> +.\" commit 9709bd548f11a092d124698118013f66e1740f9b
+> +Create an event when a filesystem error
+> +leading to inconsisted filesystem metadata
+> +is detected.
+> +An additional information record of type
+> +.B FAN_EVENT_INFO_TYPE_ERROR
+> +is returned for each event in the read buffer.
+> +An fanotify group that identifies filesystem objects by file handles
+> +is required.
+> +.IP
+> +Events of such type are dependent on support
+> +from the underlying filesystem.
+> +At the time of writing,
+> +only the
+> +.B ext4
+> +filesystem reports
+> +.B FAN_FS_ERROR
+> +events.
+> +.IP
+> +See
+> +.BR fanotify (7)
+> +for additional details.
+> +.TP
+>  .BR FAN_MOVED_FROM " (since Linux 5.1)"
+>  .\" commit 235328d1fa4251c6dcb32351219bb553a58838d2
+>  Create an event when a file or directory has been moved from a marked
+> @@ -391,6 +415,13 @@ and mask contains a flag for permission events
+>  or
+>  .BR FAN_ACCESS_PERM ).
+>  .TP
+> +.B EINVAL
+> +The group was initialized without
+> +.B FAN_REPORT_FID
+> +but one or more event types specified in the
+> +.I mask
+> +require it.
+> +.TP
+>  .B ENODEV
+>  The filesystem object indicated by
+>  .I pathname
+> diff --git a/man7/fanotify.7 b/man7/fanotify.7
+> index 57dd2b040380..3dc4113a551c 100644
+> --- a/man7/fanotify.7
+> +++ b/man7/fanotify.7
+> @@ -217,6 +217,25 @@ struct fanotify_event_info_pidfd {
+>  .EE
+>  .in
+>  .PP
+> +In case of a
+> +.B FAN_FS_ERROR
+> +event,
+> +an additional information record describing the error that occurred
+> +is returned alongside the generic
+> +.I fanotify_event_metadata
+> +structure within the read buffer.
+> +This structure is defined as follows:
+> +.PP
+> +.in +4n
+> +.EX
+> +struct fanotify_event_info_error {
+> +    struct fanotify_event_info_header hdr;
+> +    __s32 error;
+> +    __u32 error_count;
+> +};
+> +.EE
+> +.in
+> +.PP
+>  All information records contain a nested structure of type
+>  .IR fanotify_event_info_header .
+>  This structure holds meta-information about the information record
+> @@ -358,6 +377,9 @@ A child file or directory was deleted in a watched parent.
+>  .B FAN_DELETE_SELF
+>  A watched file or directory was deleted.
+>  .TP
+> +.B FAN_FS_ERROR
+> +A filesystem error was detected.
+> +.TP
+>  .B FAN_MOVED_FROM
+>  A file or directory has been moved from a watched parent directory.
+>  .TP
+> @@ -630,6 +652,25 @@ Once the event listener has dealt with an event and the pidfd is no
+>  longer required, the pidfd should be closed via
+>  .BR close(2) .
+>  .PP
+> +The fields of the
+> +.I fanotify_event_info_error
+> +structure are as follows:
+> +.TP
+> +.I hdr
+> +This is a structure of type
+> +.IR fanotify_event_info_header .
+> +The
+> +.I info_type
+> +field is set to
+> +.BR FAN_EVENT_INFO_TYPE_ERROR .
+> +.TP
+> +.I error
+> +Identifies the type of error that occurred.
+> +.TP
+> +.I error_count
+> +This is a counter of the number of errors suppressed
+> +since the last error was read.
+> +.PP
+>  The following macros are provided to iterate over a buffer containing
+>  fanotify event metadata returned by a
+>  .BR read (2)
+> @@ -719,6 +760,29 @@ field.
+>  In that case, the audit subsystem will log information about the access
+>  decision to the audit logs.
+>  .\"
+> +.SS Monitoring filesystems for errors
+> +A single FAN_FS_ERROR event is stored per filesystem at once.
+> +Extra error messages are suppressed and accounted for
+> +in the
+> +.I error_count
+> +field of the existing FAN_FS_ERROR event record,
+> +but details about the errors are lost.
+> +.PP
+> +Errors reported by FAN_FS_ERROR are generic errno values
+> +but not all kinds of error types are reported by all filesystems.
+> +.PP
+> +Errors not directly related to a file (i.e. super block corruption)
+> +are reported with an invalid
+> +.IR file_handle .
+> +For these errors, the
+> +.I file_handle
+> +will have the field
+> +.I handle_type
+> +set to
+> +.BR FILEID_INVALID ,
+> +and the handle buffer size set to
+> +.BR 0 .
+> +.\"
+>  .SS Closing the fanotify file descriptor
+>  When all file descriptors referring to the fanotify notification group are
+>  closed, the fanotify group is released and its resources
+> -- 
+> 2.35.1
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
