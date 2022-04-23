@@ -2,79 +2,98 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 6591950CCA3
-	for <lists+linux-man@lfdr.de>; Sat, 23 Apr 2022 19:37:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 82DC450CD0F
+	for <lists+linux-man@lfdr.de>; Sat, 23 Apr 2022 20:57:22 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S236625AbiDWRkS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 23 Apr 2022 13:40:18 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42206 "EHLO
+        id S236811AbiDWTAQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 23 Apr 2022 15:00:16 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54388 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S236599AbiDWRkS (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 23 Apr 2022 13:40:18 -0400
-Received: from mail-vs1-xe35.google.com (mail-vs1-xe35.google.com [IPv6:2607:f8b0:4864:20::e35])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D1E791C82C7
-        for <linux-man@vger.kernel.org>; Sat, 23 Apr 2022 10:37:20 -0700 (PDT)
-Received: by mail-vs1-xe35.google.com with SMTP id j16so10482610vsv.2
-        for <linux-man@vger.kernel.org>; Sat, 23 Apr 2022 10:37:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=binghamton.edu; s=google;
-        h=mime-version:from:date:message-id:subject:to:cc;
-        bh=v0bbefsDW2ZUB5t4njTxvF0bxpj47Ftv49vC0daTDBc=;
-        b=gL0ro4VhAa5BhMRB+BoQVlw6OlE8Sq6QmBlT4yeeJ5CRrxW3MTZilQ0kFeTfrjLqjl
-         TxeZr0f8P5y95fGDkVJ2W561rNhElPpVLnZ8BUYRL+ZPL+EU1m34ZwHtSLRtice3bQq9
-         E/c2hrkWHGb8vUZyFuUBS2MVNy95HBVdFGt6k=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
-        bh=v0bbefsDW2ZUB5t4njTxvF0bxpj47Ftv49vC0daTDBc=;
-        b=GtVebz6jn7GxDZCMgJdM/jXecpohIojw/bbSIGVi9MdWYHD55JEfr66qJF/WCgNxkX
-         DKckbjkGrezQsNW7rBrCgJTVcAzfWXkrHPJwyS2k8WcFvXFfIFIM2qhBYLzWV76i1v8f
-         UZxXgZKvE+6yd3FgRkIAAYfCjjMiet3tEJOkNea0IipGUlLaJd0S4LXQEuVADbikz9rN
-         2KyDBtjiURZLKrmXE/CgfzgJYE25P/BEntbi3G2Wy1USZ+C8EJlHfvLztTfBQ2h2Ufqf
-         doqlzlAhIfDV30g8SQFHd6XEN28oWtv9HHkuuZeyQqAn1FKkuXzVldqVVNGhcEbLI6SC
-         bXsQ==
-X-Gm-Message-State: AOAM5337yY38tJLA6OX5xqjcW+oXwboYzdxuzQ+FzKr89W+fhw3zGPD4
-        D+k3LpxZuGrxOAJsSzrVWPwU60tdCK8wuRfXn/xQiYy5iv3TFA==
-X-Google-Smtp-Source: ABdhPJyqpTHC1+TTdt2Kho7Z7lO1DgdxEMydfUyUZbuoGnG2kN+pBq/ncLBp8FqWpHPpUzOSfKsNs3fzmSu9DMZAm0M=
-X-Received: by 2002:a05:6102:3746:b0:32c:bc05:7191 with SMTP id
- u6-20020a056102374600b0032cbc057191mr466360vst.59.1650735439955; Sat, 23 Apr
- 2022 10:37:19 -0700 (PDT)
+        with ESMTP id S236807AbiDWTAP (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 23 Apr 2022 15:00:15 -0400
+X-Greylist: delayed 2243 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Sat, 23 Apr 2022 11:57:17 PDT
+Received: from 4.mo548.mail-out.ovh.net (4.mo548.mail-out.ovh.net [188.165.42.229])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4756934B8E
+        for <linux-man@vger.kernel.org>; Sat, 23 Apr 2022 11:57:17 -0700 (PDT)
+Received: from mxplan6.mail.ovh.net (unknown [10.109.143.158])
+        by mo548.mail-out.ovh.net (Postfix) with ESMTPS id F020320488;
+        Sat, 23 Apr 2022 18:19:52 +0000 (UTC)
+Received: from jwilk.net (37.59.142.98) by DAG4EX2.mxp6.local (172.16.2.32)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Sat, 23 Apr
+ 2022 20:19:49 +0200
+Authentication-Results: garm.ovh; auth=pass (GARM-98R00255ffa520-df4e-41e2-9059-214f41c0f1f1,
+                    35B33E8D66C8857E3C3D12EC12469B3A7E67ED19) smtp.auth=jwilk@jwilk.net
+X-OVh-ClientIp: 5.172.255.221
+From:   Jakub Wilk <jwilk@jwilk.net>
+To:     Michael Kerrisk <mtk.manpages@gmail.com>
+CC:     <linux-man@vger.kernel.org>
+Subject: [PATCH] statx.2: Add #define _GNU_SOURCE to synopsis
+Date:   Sat, 23 Apr 2022 20:19:42 +0200
+Message-ID: <20220423181942.4733-1-jwilk@jwilk.net>
+X-Mailer: git-send-email 2.36.0
 MIME-Version: 1.0
-From:   Zerksis D Umrigar <umrigar@binghamton.edu>
-Date:   Sat, 23 Apr 2022 13:37:09 -0400
-Message-ID: <CADg6VD5bioFr+vi78QrNM-x36QEFPmj6B6fnD9pbUps9qp8apg@mail.gmail.com>
-Subject: mq_open() and O_CLOEXEC
-To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
-        SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-        version=3.4.6
+Content-Transfer-Encoding: 7BIT
+Content-Type:   text/plain; charset=US-ASCII
+X-Originating-IP: [37.59.142.98]
+X-ClientProxiedBy: DAG5EX1.mxp6.local (172.16.2.41) To DAG4EX2.mxp6.local
+ (172.16.2.32)
+X-Ovh-Tracer-GUID: 9d4e69c7-6c23-4d5b-bb6b-11a216495373
+X-Ovh-Tracer-Id: 4848124999572707293
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: 0
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvfedrtdeigdduvdegucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucenucfjughrpefhvfevufffkffoggfgtghisehtkeertdertddtnecuhfhrohhmpeflrghkuhgsucghihhlkhcuoehjfihilhhksehjfihilhhkrdhnvghtqeenucggtffrrghtthgvrhhnpeefhfetfffhffehtedufedvfeehfffgudeljeehieetiefhfeffjeevleejveehieenucfkpheptddrtddrtddrtddpfeejrdehledrudegvddrleeknecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmohguvgepshhmthhpohhuthdphhgvlhhopehmgihplhgrnheirdhmrghilhdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomhepjhifihhlkhesjhifihhlkhdrnhgvthdpnhgspghrtghpthhtohepuddprhgtphhtthhopehlihhnuhigqdhmrghnsehvghgvrhdrkhgvrhhnvghlrdhorhhg
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE,
+        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-The mq_open(3) man page seems to have standard boilerplate for O_CLOEXEC:
+The original text hinted that you need _GNU_SOURCE only for a few of the
+AT_* constants; but actually you need it to get the statx() declaration.
 
-       O_CLOEXEC (since Linux 2.6.26)
-              Set  the  close-on-exec  flag  for the message queue descriptor.
-              See open(2) for a discussion of why this flag is useful.
+Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
+---
+ man2/statx.2 | 10 +---------
+ 1 file changed, 1 insertion(+), 9 deletions(-)
 
-This implies that message queues remain open across an exec when this
-flag is not specified.
+diff --git a/man2/statx.2 b/man2/statx.2
+index 04b3e5075..ca2cb75a2 100644
+--- a/man2/statx.2
++++ b/man2/statx.2
+@@ -32,6 +32,7 @@
+ statx \- get file status (extended)
+ .SH SYNOPSIS
+ .nf
++.BR "#define _GNU_SOURCE          " "/* See feature_test_macros(7) */"
+ .BR "#include <fcntl.h>           " "/* Definition of " AT_* " constants */"
+ .B #include <sys/stat.h>
+ .PP
+@@ -183,11 +184,6 @@ If
+ is
+ .BR AT_FDCWD ,
+ the call operates on the current working directory.
+-.IP
+-This flag is Linux-specific; define
+-.B _GNU_SOURCE
+-.\" Before glibc 2.16, defining _ATFILE_SOURCE sufficed
+-to obtain its definition.
+ .TP
+ .BR AT_NO_AUTOMOUNT
+ Don't automount the terminal ("basename") component of
+@@ -200,10 +196,6 @@ to prevent mass-automounting of a directory of automount points.
+ The
+ .B AT_NO_AUTOMOUNT
+ flag has no effect if the mount point has already been mounted over.
+-This flag is Linux-specific; define
+-.B _GNU_SOURCE
+-.\" Before glibc 2.16, defining _ATFILE_SOURCE sufficed
+-to obtain its definition.
+ .TP
+ .B AT_SYMLINK_NOFOLLOW
+ If
+-- 
+2.36.0
 
-However, this is contradicted by mq_overview(7) which states:
-
-       The  close-on-exec  flag (see open(2)) is automatically set on the file
-       descriptor returned by mq_open(2).
-
-I suggest that the O_CLOEXEC be removed from mq_open(3) or be replaced
-by something like: "O_CLOEXEC: this flag has no effect since the
-close-on-exec  flag is automatically set on the file descriptor
-returned by mq_open(2)".
-Thanks
--zerksis
-======
