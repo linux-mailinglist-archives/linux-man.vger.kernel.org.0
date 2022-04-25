@@ -2,126 +2,95 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 177BB50D672
-	for <lists+linux-man@lfdr.de>; Mon, 25 Apr 2022 03:04:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1AF2050E52F
+	for <lists+linux-man@lfdr.de>; Mon, 25 Apr 2022 18:08:12 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235178AbiDYBHJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 24 Apr 2022 21:07:09 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60252 "EHLO
+        id S240914AbiDYQLK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 25 Apr 2022 12:11:10 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58610 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230410AbiDYBHI (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 24 Apr 2022 21:07:08 -0400
-Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id F076872446
-        for <linux-man@vger.kernel.org>; Sun, 24 Apr 2022 18:04:00 -0700 (PDT)
-Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 0DCA2A7E;
-        Mon, 25 Apr 2022 03:03:52 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-        s=202006; t=1650848632;
-        bh=rXN6Ba37iWw5qKrrTNeqQvhhpBzCiy3LmRxNsSBGtrE=;
-        h=Date:From:To:Cc:Subject:From;
-        b=PoFm6FgJFxNMYgNcg/LGyYRD7wypq351VQzg+gaaRrDs4wbI3nRXFp/aQb6RYIJ/k
-         fU0k6tPSuoa74am4sqIodQJUFQgOvyax/ERAQdosKyBdIms/D6BIY8klYBAHuhxz26
-         pD7DGxyft9EwoeWPQ1FcSO8Aj0FCOECYuFq8BKZfABb3wph12yaKVTybTf2gapl7RN
-         qM9rxSCnDIwOC/GTjV3QYzL4xDO/MLPHoxL8dWlBgEAygOkvEix0MJUhK5gxthf6ek
-         Y5kqD6LahQUpzq5H1vFwb0nbM1L/p8BDx11SaPEQjV9ZPqL1eHCew8+1rm7ovHLrAH
-         jo5tZ2VJbG4ag==
-Date:   Mon, 25 Apr 2022 03:03:50 +0200
-From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-Subject: [PATCH] umask.2: S_I* are B
-Message-ID: <20220425010350.pfrni7crp75oq3a5@tarta.nabijaczleweli.xyz>
+        with ESMTP id S236274AbiDYQLK (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 25 Apr 2022 12:11:10 -0400
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com [IPv6:2a00:1450:4864:20::434])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 04EF13E5E4
+        for <linux-man@vger.kernel.org>; Mon, 25 Apr 2022 09:08:06 -0700 (PDT)
+Received: by mail-wr1-x434.google.com with SMTP id j15so8330095wrb.2
+        for <linux-man@vger.kernel.org>; Mon, 25 Apr 2022 09:08:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloudflare.com; s=google;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=qEHXX8+RUJZBVxgjCy0bUHqIpHBMNJwp3wfItFFaoao=;
+        b=OMwe9keaN5waMrugXFNZe7JuqVXI7C7FVI22g9O1uN+an1F9AtO8872/KbLH0b4Mwj
+         sVNWlE8sEP2GqvgT6LPrTeJ4RY7AGUywqkgSoHfnEI9f11ldv828bXzO5szlYruJoBwG
+         3FZBTE2ju31/0dxUP4XKR4RzVey+xwZMX0wnA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=qEHXX8+RUJZBVxgjCy0bUHqIpHBMNJwp3wfItFFaoao=;
+        b=O0aUIsT25apRxyJjMLiA2xoH7zr6D8tNhQz7DSZWVnUgPAPUEy3jK8XUZ6QTMxfOEe
+         /gEhV/EJNzMuT7Uapd2McCsoxrp3qAWONzs00pgY+Wd7S+1kUiBfgh1YC332hg5kv0En
+         AFBAUyCoOI/x2XPz6avPSPerMpu99IiQ3A8H959ZoqmjboLVLTi3h6RNmf7umY+9KxTh
+         yKJVIMiEbVdMPgOFZ9QFGDRKXWyvmbuzEpqc+19mYu5w2IwjwIEpEDmLsoTt6WCNB5cT
+         WhnhwjPtyRlV99lH/NQjDNLhLKUgtwsOF+saL4J2di5h8XCykHTOHvs4XFfFnj7os4Ne
+         eTlg==
+X-Gm-Message-State: AOAM5327dc1IzyXVs58G+XWg/GvoJXG0j0aUrVGV+B59PFCCcL9w2Dh5
+        GSGFH9uoG/sY0LfMEDkvuGWc6pfQnNosSPKp
+X-Google-Smtp-Source: ABdhPJxWYaU7QfE4XR/kDVbeZLwoXKRrOcvCSMIUxoAgmQwe9rU9q3uvjP5SKl8cctXI19coBTJWxQ==
+X-Received: by 2002:adf:d0d0:0:b0:20a:d93f:e252 with SMTP id z16-20020adfd0d0000000b0020ad93fe252mr5747929wrh.78.1650902884395;
+        Mon, 25 Apr 2022 09:08:04 -0700 (PDT)
+Received: from cloudflare.com (79.184.126.143.ipv4.supernova.orange.pl. [79.184.126.143])
+        by smtp.gmail.com with ESMTPSA id m1-20020a1ca301000000b003929c4bf250sm12126281wme.13.2022.04.25.09.08.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 25 Apr 2022 09:08:03 -0700 (PDT)
+From:   Jakub Sitnicki <jakub@cloudflare.com>
+To:     linux-man@vger.kernel.org
+Cc:     bpf@vger.kernel.org, Alejandro Colomar <alx.manpages@gmail.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        Alexei Starovoitov <ast@kernel.org>,
+        Daniel Borkmann <daniel@iogearbox.net>,
+        Andrii Nakryiko <andrii@kernel.org>
+Subject: [PATCH] bpf.2: Note that unused fields and padding in bpf_attr must be zero
+Date:   Mon, 25 Apr 2022 18:08:03 +0200
+Message-Id: <20220425160803.114851-1-jakub@cloudflare.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="blenc4mg2ynvqyok"
-Content-Disposition: inline
-User-Agent: NeoMutt/20220415
-X-Spam-Status: No, score=1.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FROM_SUSPICIOUS_NTLD,
-        FROM_SUSPICIOUS_NTLD_FP,PDS_OTHER_BAD_TLD,RDNS_DYNAMIC,SPF_HELO_NONE,
-        SPF_PASS autolearn=no autolearn_force=no version=3.4.6
-X-Spam-Level: *
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
+        SPF_HELO_NONE,SPF_NONE autolearn=unavailable autolearn_force=no
+        version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+In a discussion regarding a potential backward incompatible change [1],
+Andrii Nakryiko points out that unused bytes of bpf_attr should be
+zero. Add this bit of information to the bpf(2) man page.
 
---blenc4mg2ynvqyok
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+[1] https://lore.kernel.org/bpf/CAEf4BzbT4vQBnZzdD00SuPCDkeb4Cm=F6PLUoO_3X93UQD5hbQ@mail.gmail.com/
 
-This is more consistent with the other pages and, more importantly,
-fixes the atrocious "I[S_IWGRP] I[|] I[S_IWOTH]" highlighting in the
-first hunk
-
-Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
+Signed-off-by: Jakub Sitnicki <jakub@cloudflare.com>
 ---
- man2/umask.2 | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ man2/bpf.2 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/man2/umask.2 b/man2/umask.2
-index 8a11c50e9..ef1a6decf 100644
---- a/man2/umask.2
-+++ b/man2/umask.2
-@@ -85,7 +85,7 @@ are described in
- .BR inode (7).
- .PP
- The typical default value for the process umask is
--.I S_IWGRP\ |\ S_IWOTH
-+.BR S_IWGRP " | " S_IWOTH
- (octal 022).
- In the usual case where the
- .I mode
-@@ -95,7 +95,7 @@ is specified as:
- .PP
- .in +4n
- .EX
--S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH
-+.BR S_IRUSR " | " S_IWUSR " | " S_IRGRP " | " S_IWGRP " | " S_IROTH " | " =
-S_IWOTH
- .EE
- .in
- .PP
-@@ -104,11 +104,11 @@ resulting file will be:
- .PP
- .in +4n
- .EX
--S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH
-+.BR S_IRUSR " | " S_IWUSR " | " S_IRGRP " | " S_IROTH
- .EE
- .in
- .PP
--(because 0666 & \(ti022 =3D 0644; i.e., rw\-r\-\-r\-\-).
-+(because 0666 & \(ti022 =3D 0644; i.e. rw\-r\-\-r\-\-).
- .SH RETURN VALUE
- This system call always succeeds and the previous value of the mask
- is returned.
---=20
-2.30.2
+diff --git a/man2/bpf.2 b/man2/bpf.2
+index 2d257eaa6..ee57226ee 100644
+--- a/man2/bpf.2
++++ b/man2/bpf.2
+@@ -142,7 +142,7 @@ provided via
+ .IR attr ,
+ which is a pointer to a union of type
+ .I bpf_attr
+-(see below).
++(see below). The unused fields and padding must be zeroed out before the call.
+ The
+ .I size
+ argument is the size of the union pointed to by
+-- 
+2.35.1
 
---blenc4mg2ynvqyok
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmJl83YACgkQvP0LAY0m
-WPG/mw/+Lk/zUM+dpUgWhcAWZDwgsywI+/5U0jloq1da7kLqIJosljyreQyXd5fp
-U9Hobm6sdNoRVWyofnB1o4lA+fTtloCUgflEbcB0PHlH7Wg2FN2m2C77qUvQuNJF
-kKU+BHgdUfIt/a8LxodG6v0V+uF9nVuTDjHKHk+Zl5moqfS2W07UlvEA/7YDAE5F
-zpsLLP46msPXhOCYrzM6bvy9AFGqlRlfuThl4VfzHCqqsZv4OafEmGiceht/hkQE
-uXL1Qsd4uRcx1b/XGBYOiIp8eALP2QAW796uMv/pEptkxbhFM9BWKUEUVJPsEpix
-6orgq1qkQXlxRLfb8gAwRzenTz438j/8F+nMLKMPgPOtfM2qZy9sv4iaA6IymHYH
-9IXW+ljKCkso1qVyNY9vbgOCVLZozx/A3hc4xpya4Rr2HY0M4brA6RRrS5DX7EGu
-LJ+y9a16ymf8jt9oLla1tfI7okVEZNV4GUqKUDM2/sNV98SoBXstYycz6LLyFOHh
-0AgkfIRTBWq4xB9ZF1Akq/wXZ5p36vvAQA57rjEX7wOcIaeQ7k4fgrYPD81da3/j
-ORaNpSitd81RAtEZnOCE36qWglXb3BnMADU7yeW84dUGXS1q6H870elHzjCd9ROz
-z1Zn2UGofaQlILQfDOqPleMluNAOXPsZxBvfDuAODnc/yv6m+hE=
-=j8+B
------END PGP SIGNATURE-----
-
---blenc4mg2ynvqyok--
