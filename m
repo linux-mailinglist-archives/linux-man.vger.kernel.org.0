@@ -2,63 +2,91 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 19EDC50F315
-	for <lists+linux-man@lfdr.de>; Tue, 26 Apr 2022 09:53:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7198650F92C
+	for <lists+linux-man@lfdr.de>; Tue, 26 Apr 2022 11:58:01 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S243227AbiDZHzy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 26 Apr 2022 03:55:54 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59628 "EHLO
+        id S1347458AbiDZJu4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 26 Apr 2022 05:50:56 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41006 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1344506AbiDZHzq (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 26 Apr 2022 03:55:46 -0400
-X-Greylist: delayed 505 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Tue, 26 Apr 2022 00:52:39 PDT
-Received: from mail.slidebizcompany.com (mail.slidebizcompany.com [135.125.235.171])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C81141178
-        for <linux-man@vger.kernel.org>; Tue, 26 Apr 2022 00:52:39 -0700 (PDT)
-Received: by mail.slidebizcompany.com (Postfix, from userid 1002)
-        id 5DA85A2175; Tue, 26 Apr 2022 07:42:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=slidebizcompany.com;
-        s=mail; t=1650959008;
-        bh=f01OOv7iZ6eKP39nAJoyJ+/Cmpugf6hkYKbYNn4lotU=;
-        h=Date:From:To:Subject:From;
-        b=xWEccHO5naXCGGLkKxy5BfHkoI68pLCCJd2ilFWodTuZiJl46+wuypUhkDFj+62kb
-         lqa1Mtnox+7JTd+7u+pQbsPMoMPlZ1KMUMuji79XJnuq6Ar6y0CfaNnocz28rmxjV3
-         s4OWUN+YrMIryyCHo/65rPzy/5YMRHWwK4Sp64HQxWc0HjA3TdxnX4pn5uK0Ri2MEC
-         mAPIjoYhhkdwgBmyFvlbi9ZXXkf2RX+yiFY9AUU/hh8yAGXVVIiW60tHjnrX41TGCR
-         IGLHYoEJELGNNAZiY35egW7R0kXGBb9tsYyXFODecXYwJGPGY9v3QOifIvwxMBw5wJ
-         83kRABbBcJuLg==
-Received: by mail.slidebizcompany.com for <linux-man@vger.kernel.org>; Tue, 26 Apr 2022 07:41:11 GMT
-Message-ID: <20220426064500-0.1.z.865l.0.k2543jr48e@slidebizcompany.com>
-Date:   Tue, 26 Apr 2022 07:41:11 GMT
-From:   "Miguel Garcia" <miguel.garcia@slidebizcompany.com>
-To:     <linux-man@vger.kernel.org>
-Subject: Servicio de la flota
-X-Mailer: mail.slidebizcompany.com
+        with ESMTP id S1347854AbiDZJuZ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 26 Apr 2022 05:50:25 -0400
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com [IPv6:2a00:1450:4864:20::636])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7442010DD
+        for <linux-man@vger.kernel.org>; Tue, 26 Apr 2022 02:06:57 -0700 (PDT)
+Received: by mail-ej1-x636.google.com with SMTP id y3so14322297ejo.12
+        for <linux-man@vger.kernel.org>; Tue, 26 Apr 2022 02:06:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloudflare.com; s=google;
+        h=references:user-agent:from:to:cc:subject:date:in-reply-to
+         :message-id:mime-version;
+        bh=y8cxzUPeA/1NTAqf+0bELgQgo6NleXzy7R+kj9eBCJI=;
+        b=ielBkO36gl89DCP+MYZspSFloUWilnrjBruJ3vz61LAw8kNiQSjQo/4QD5fVEi1Zk6
+         Ug1EE5IJsBFEexhG2DL+lpE/+iyQQBQs/pUw0U6Afff27cBGavIHAcN676uUpR/Ib/If
+         VlKzsD2etkR0XS9gXCLc0GSi+qg1BSh5T3+xM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:references:user-agent:from:to:cc:subject:date
+         :in-reply-to:message-id:mime-version;
+        bh=y8cxzUPeA/1NTAqf+0bELgQgo6NleXzy7R+kj9eBCJI=;
+        b=plRXRMwnRlLLsCjX86B7jCQn5bBK9+3a7EaPyUrohg8CfENIBzHQqrJl6jPXtTt/cZ
+         3B7mAIhxhbjLoNd4MoCKPr3z+3HCYc2nJRD4sPecqA1Yyx7cgJvM+p+QnfOiHNOhkUTx
+         JxC2iAzXMkMKCbIcXG1Iu/Ur4x4UCG62/0bSxnqyjOgvAtVCOglWfpWHi9BJBBPbKk1n
+         UItFe33EKi5n7pKkSB0ScZhm8wks5+iTmsZ8B6vuKGxICRfMXeZeRgZlsUWWP5AHgqpE
+         9bfNRajuEs9Wl21Miz0M3UUYuOHmQwLao61i+sg3Of6EQvENnNaBWn54EkjYXDETDG0J
+         2RkA==
+X-Gm-Message-State: AOAM531aYonmDDzem4snkPOLC37rCrtrtdVReIqBZ1GXyR8eQ5bjbsY2
+        I7UxWT1SXf1mlwhmhfSYQkD0Pw==
+X-Google-Smtp-Source: ABdhPJy+jKKaj7TJ4z9PfEJpfFFYHuylNp+uJPNooZZcAUZOdhg6ZYZAdPRrunqaGRIme0cEdQGu5g==
+X-Received: by 2002:a17:907:3e11:b0:6ef:78e3:8d9b with SMTP id hp17-20020a1709073e1100b006ef78e38d9bmr20390515ejc.373.1650964016074;
+        Tue, 26 Apr 2022 02:06:56 -0700 (PDT)
+Received: from cloudflare.com (79.184.126.143.ipv4.supernova.orange.pl. [79.184.126.143])
+        by smtp.gmail.com with ESMTPSA id b89-20020a509f62000000b00425e21479fdsm3110541edf.19.2022.04.26.02.06.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 26 Apr 2022 02:06:55 -0700 (PDT)
+References: <20220425160803.114851-1-jakub@cloudflare.com>
+ <31702ffb-380f-69f9-ab87-3aec5b22537c@gmail.com>
+User-agent: mu4e 1.6.10; emacs 27.2
+From:   Jakub Sitnicki <jakub@cloudflare.com>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org, bpf@vger.kernel.org,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        Alexei Starovoitov <ast@kernel.org>,
+        Daniel Borkmann <daniel@iogearbox.net>,
+        Andrii Nakryiko <andrii@kernel.org>
+Subject: Re: [PATCH] bpf.2: Note that unused fields and padding in bpf_attr
+ must be zero
+Date:   Tue, 26 Apr 2022 11:05:53 +0200
+In-reply-to: <31702ffb-380f-69f9-ab87-3aec5b22537c@gmail.com>
+Message-ID: <87h76g6wnl.fsf@cloudflare.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: No, score=1.8 required=5.0 tests=BAYES_80,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
-        autolearn=no autolearn_force=no version=3.4.6
-X-Spam-Level: *
+Content-Type: text/plain
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
+        SPF_HELO_NONE,SPF_NONE autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Buenos d=C3=ADas:
+On Mon, Apr 25, 2022 at 11:01 PM +02, Alejandro Colomar wrote:
 
-Le escribo para hablarle sobre una de las mejores herramientas GPS en el =
-mercado.
+[...]
 
-La herramienta, que me gustar=C3=ADa presentarle brevemente, dispone de m=
-uchas funciones =C3=BAtiles para su trabajo, que optimizan los procesos d=
-e transporte y le ayudan a realizar tareas de campo de manera m=C3=A1s ef=
-iciente.
+>> diff --git a/man2/bpf.2 b/man2/bpf.2
+>> index 2d257eaa6..ee57226ee 100644
+>> --- a/man2/bpf.2
+>> +++ b/man2/bpf.2
+>> @@ -142,7 +142,7 @@ provided via
+>>   .IR attr ,
+>>   which is a pointer to a union of type
+>>   .I bpf_attr
+>> -(see below).
+>> +(see below). The unused fields and padding must be zeroed out before the call.
+>
+> But I changed it to add a separate line, instead of continuation in the same
+> one.
+>
 
-=C2=BFQuiere conocer los detalles?
-
-
-Atentamente,
-Miguel Garcia
+Thanks for the fixup, Alex. I will keep it in mind for the next time.
