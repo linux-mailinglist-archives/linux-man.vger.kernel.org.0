@@ -2,91 +2,120 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 7198650F92C
-	for <lists+linux-man@lfdr.de>; Tue, 26 Apr 2022 11:58:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 367BA510B32
+	for <lists+linux-man@lfdr.de>; Tue, 26 Apr 2022 23:23:38 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1347458AbiDZJu4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 26 Apr 2022 05:50:56 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41006 "EHLO
+        id S1355383AbiDZV0n (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 26 Apr 2022 17:26:43 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41312 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1347854AbiDZJuZ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 26 Apr 2022 05:50:25 -0400
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com [IPv6:2a00:1450:4864:20::636])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7442010DD
-        for <linux-man@vger.kernel.org>; Tue, 26 Apr 2022 02:06:57 -0700 (PDT)
-Received: by mail-ej1-x636.google.com with SMTP id y3so14322297ejo.12
-        for <linux-man@vger.kernel.org>; Tue, 26 Apr 2022 02:06:57 -0700 (PDT)
+        with ESMTP id S244408AbiDZV0m (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 26 Apr 2022 17:26:42 -0400
+Received: from mail-pj1-x1035.google.com (mail-pj1-x1035.google.com [IPv6:2607:f8b0:4864:20::1035])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 76C5F1606B8
+        for <linux-man@vger.kernel.org>; Tue, 26 Apr 2022 14:23:33 -0700 (PDT)
+Received: by mail-pj1-x1035.google.com with SMTP id p6so4313568pjm.1
+        for <linux-man@vger.kernel.org>; Tue, 26 Apr 2022 14:23:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloudflare.com; s=google;
-        h=references:user-agent:from:to:cc:subject:date:in-reply-to
-         :message-id:mime-version;
-        bh=y8cxzUPeA/1NTAqf+0bELgQgo6NleXzy7R+kj9eBCJI=;
-        b=ielBkO36gl89DCP+MYZspSFloUWilnrjBruJ3vz61LAw8kNiQSjQo/4QD5fVEi1Zk6
-         Ug1EE5IJsBFEexhG2DL+lpE/+iyQQBQs/pUw0U6Afff27cBGavIHAcN676uUpR/Ib/If
-         VlKzsD2etkR0XS9gXCLc0GSi+qg1BSh5T3+xM=
+        d=google.com; s=20210112;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=WJLY0XN6FkCshQvS/hNq+pLYeChxaykb2ZPoWWnEF8M=;
+        b=fX+RxwO0mtG75jbW0q313JlZ3qUl8nW+lN2qi9J4p4hly9Nepa0hmCng+3fMdfIKwI
+         25pUmY0MuJbMs++KjgP1OylwH0g+STDINI/c+t7++TwKRgPzDoYm3ot3Qt/e82nT6LOa
+         VSGrFdRFEmMsjEv41Q/4ep2lqSf4mGj2L907EiEddONIMTZR6l9/kaZSy7/RsLx6JKC8
+         JST9NZNbmI2S05E713GmO3EV8Eix094//lI+Drdu0rNttkmD8QM4A3i/nPI68MXEplrl
+         KL+8YEEVqLj3iL5uvHT5459alERkkWviwZ1LZ/77nEmmjhBKzQFkn4ZPibM/0Lp1a6qJ
+         Wl2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:references:user-agent:from:to:cc:subject:date
-         :in-reply-to:message-id:mime-version;
-        bh=y8cxzUPeA/1NTAqf+0bELgQgo6NleXzy7R+kj9eBCJI=;
-        b=plRXRMwnRlLLsCjX86B7jCQn5bBK9+3a7EaPyUrohg8CfENIBzHQqrJl6jPXtTt/cZ
-         3B7mAIhxhbjLoNd4MoCKPr3z+3HCYc2nJRD4sPecqA1Yyx7cgJvM+p+QnfOiHNOhkUTx
-         JxC2iAzXMkMKCbIcXG1Iu/Ur4x4UCG62/0bSxnqyjOgvAtVCOglWfpWHi9BJBBPbKk1n
-         UItFe33EKi5n7pKkSB0ScZhm8wks5+iTmsZ8B6vuKGxICRfMXeZeRgZlsUWWP5AHgqpE
-         9bfNRajuEs9Wl21Miz0M3UUYuOHmQwLao61i+sg3Of6EQvENnNaBWn54EkjYXDETDG0J
-         2RkA==
-X-Gm-Message-State: AOAM531aYonmDDzem4snkPOLC37rCrtrtdVReIqBZ1GXyR8eQ5bjbsY2
-        I7UxWT1SXf1mlwhmhfSYQkD0Pw==
-X-Google-Smtp-Source: ABdhPJy+jKKaj7TJ4z9PfEJpfFFYHuylNp+uJPNooZZcAUZOdhg6ZYZAdPRrunqaGRIme0cEdQGu5g==
-X-Received: by 2002:a17:907:3e11:b0:6ef:78e3:8d9b with SMTP id hp17-20020a1709073e1100b006ef78e38d9bmr20390515ejc.373.1650964016074;
-        Tue, 26 Apr 2022 02:06:56 -0700 (PDT)
-Received: from cloudflare.com (79.184.126.143.ipv4.supernova.orange.pl. [79.184.126.143])
-        by smtp.gmail.com with ESMTPSA id b89-20020a509f62000000b00425e21479fdsm3110541edf.19.2022.04.26.02.06.55
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=WJLY0XN6FkCshQvS/hNq+pLYeChxaykb2ZPoWWnEF8M=;
+        b=fBY33ZE+bgAbRegg17yh8Qi6eJEWMbT0eEWc1XPlx5gOeyqz7/bj8NZY4mStO1bIou
+         0joZUdmT1FbeKl+JsrXQSZrl9mB10T5ixSabY6mUK7whYyqLQ6lNLOOZUC43lquzAqtq
+         885aexfMx2c3xQLKtmhtrQ2w41OdNZmgUOyzppiKjYC3Hnlbi7cEJLbk1x2QCFbocw0k
+         8HiXzdHGdKsfpDm6b0AhAgLw12g9WZ76nNXH2r8JqadkjmcIhJgs/3Akt21KgR9lfxrN
+         jcHk3Y1hrw5U3tvZWJGWi/PPZpDxQEwhdp+shnTE5DAHd0g5DbNr6Ee/GH4ZWdkeKORI
+         eEMA==
+X-Gm-Message-State: AOAM532nqGcMi/JMdIAsSu2NmIXJD8hw/Yw4UIehpe4Ph1ANxVS70f7h
+        wPxfKQC+g1wcBKJUAGhUCxpJuQ==
+X-Google-Smtp-Source: ABdhPJzcvUk1COwz4gmr2Op6ZmuzbV2/HYlVRvcaEsMjGZrVVtXair93gnNcmx7KLojovfuutCMTdw==
+X-Received: by 2002:a17:90b:3e84:b0:1d2:c015:2182 with SMTP id rj4-20020a17090b3e8400b001d2c0152182mr29025320pjb.232.1651008212771;
+        Tue, 26 Apr 2022 14:23:32 -0700 (PDT)
+Received: from google.com ([2401:fa00:9:211:f90a:c515:128d:eea1])
+        by smtp.gmail.com with ESMTPSA id h1-20020a62de01000000b0050d52b40040sm4360717pfg.65.2022.04.26.14.23.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 26 Apr 2022 02:06:55 -0700 (PDT)
-References: <20220425160803.114851-1-jakub@cloudflare.com>
- <31702ffb-380f-69f9-ab87-3aec5b22537c@gmail.com>
-User-agent: mu4e 1.6.10; emacs 27.2
-From:   Jakub Sitnicki <jakub@cloudflare.com>
+        Tue, 26 Apr 2022 14:23:32 -0700 (PDT)
+Date:   Wed, 27 Apr 2022 07:23:22 +1000
+From:   Matthew Bobrowski <repnop@google.com>
 To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org, bpf@vger.kernel.org,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        Alexei Starovoitov <ast@kernel.org>,
-        Daniel Borkmann <daniel@iogearbox.net>,
-        Andrii Nakryiko <andrii@kernel.org>
-Subject: Re: [PATCH] bpf.2: Note that unused fields and padding in bpf_attr
- must be zero
-Date:   Tue, 26 Apr 2022 11:05:53 +0200
-In-reply-to: <31702ffb-380f-69f9-ab87-3aec5b22537c@gmail.com>
-Message-ID: <87h76g6wnl.fsf@cloudflare.com>
+Cc:     linux-man@vger.kernel.org, jack@suse.cz, amir73il@gmail.com,
+        mtk.manpages@gmail.com
+Subject: Re: [PATCH v3] fanotify: Document FAN_REPORT_PIDFD Feature
+Message-ID: <YmhiypE19qp8Ere4@google.com>
+References: <9ab0575162eada7a3f73de71c06e1031b9e51bbe.1649718997.git.repnop@google.com>
+ <f40ff271-a18e-9833-f858-9abf3bb19cd2@gmail.com>
+ <YldfdNebVVzwqxw9@google.com>
+ <59a8d8b5-fc96-812f-c3b1-d1dca66dca3a@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
-        SPF_HELO_NONE,SPF_NONE autolearn=ham autolearn_force=no version=3.4.6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <59a8d8b5-fc96-812f-c3b1-d1dca66dca3a@gmail.com>
+X-Spam-Status: No, score=-17.6 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+        ENV_AND_HDR_SPF_MATCH,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+        USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Mon, Apr 25, 2022 at 11:01 PM +02, Alejandro Colomar wrote:
+On Mon, Apr 25, 2022 at 10:18:43PM +0200, Alejandro Colomar wrote:
+> Hi Matthew,
+> 
+> On 4/14/22 01:40, Matthew Bobrowski wrote:
+> > Haha, I created this patch using one of Amir's branches, as he
+> > performed a rebase and handled some conflicts. It must've preserved
+> > the display name "Amir Goldstein" in the "From:" header...
+> 
+> :)
+> 
+> > 
+> > On Wed, Apr 13, 2022 at 08:24:21PM +0200, Alejandro Colomar wrote:
+> > > Hi Amir!
+> > > 
+> > > On 4/12/22 01:17, Amir Goldstein wrote:
+> > > > Update the fanotify API documentation to include details on the new
+> > > > FAN_REPORT_PIDFD feature. This patch also includes a generic section
+> > > > describing the concept of information records which are supported by
+> > > > the fanotify API.
+> > > > 
+> > > > Signed-off-by: Matthew Bobrowski <repnop@google.com>
+> > > > Reviewed-by: Jan Kara <jack@suse.cz>
+> > > > Reviewed-by: Amir Goldstein <amir73il@gmail.com>
+> > > 
+> > > Thanks for the patch.  Please see some comments below.
+> > 
+> > Thanks for the review, I'll update and send through a follow up patch
+> > shortly. I left a question on your comment about the use of semantic
+> > newlines. I wasn't sure whether that comment was a general rule that
+> > is to be applied across this entire patch (in which it definitely can,
+> > I just wasn't aware of the rule prior to you explicitly pointing it
+> > out), or whether there was a specific example you were referring to in
+> > the code block directly above your comment.
+> 
+> General rule to be applied across the entire patch, if you do the favour.  I
+> just mentioned it at a point where it is clear that it could be applied, to
+> give some context.
 
-[...]
+Fair enough.
 
->> diff --git a/man2/bpf.2 b/man2/bpf.2
->> index 2d257eaa6..ee57226ee 100644
->> --- a/man2/bpf.2
->> +++ b/man2/bpf.2
->> @@ -142,7 +142,7 @@ provided via
->>   .IR attr ,
->>   which is a pointer to a union of type
->>   .I bpf_attr
->> -(see below).
->> +(see below). The unused fields and padding must be zeroed out before the call.
->
-> But I changed it to add a separate line, instead of continuation in the same
-> one.
->
+I've posted through an updated patch here [0] which I believe has
+addressed all the feedback from this round of review.
 
-Thanks for the fixup, Alex. I will keep it in mind for the next time.
+[0] https://lore.kernel.org/linux-man/1af583adb1f368c51f1976db7bf3a27530cdc06f.1650408011.git.repnop@google.com/
+
+/M
