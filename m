@@ -2,70 +2,67 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 367BA510B32
-	for <lists+linux-man@lfdr.de>; Tue, 26 Apr 2022 23:23:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D257C511435
+	for <lists+linux-man@lfdr.de>; Wed, 27 Apr 2022 11:16:49 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1355383AbiDZV0n (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 26 Apr 2022 17:26:43 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41312 "EHLO
+        id S229565AbiD0JT6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 27 Apr 2022 05:19:58 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59234 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S244408AbiDZV0m (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 26 Apr 2022 17:26:42 -0400
-Received: from mail-pj1-x1035.google.com (mail-pj1-x1035.google.com [IPv6:2607:f8b0:4864:20::1035])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 76C5F1606B8
-        for <linux-man@vger.kernel.org>; Tue, 26 Apr 2022 14:23:33 -0700 (PDT)
-Received: by mail-pj1-x1035.google.com with SMTP id p6so4313568pjm.1
-        for <linux-man@vger.kernel.org>; Tue, 26 Apr 2022 14:23:33 -0700 (PDT)
+        with ESMTP id S234378AbiD0JTo (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 27 Apr 2022 05:19:44 -0400
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com [IPv6:2a00:1450:4864:20::634])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BD8CE270C8E
+        for <linux-man@vger.kernel.org>; Wed, 27 Apr 2022 02:16:07 -0700 (PDT)
+Received: by mail-ej1-x634.google.com with SMTP id i19so2092568eja.11
+        for <linux-man@vger.kernel.org>; Wed, 27 Apr 2022 02:16:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20210112;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=WJLY0XN6FkCshQvS/hNq+pLYeChxaykb2ZPoWWnEF8M=;
-        b=fX+RxwO0mtG75jbW0q313JlZ3qUl8nW+lN2qi9J4p4hly9Nepa0hmCng+3fMdfIKwI
-         25pUmY0MuJbMs++KjgP1OylwH0g+STDINI/c+t7++TwKRgPzDoYm3ot3Qt/e82nT6LOa
-         VSGrFdRFEmMsjEv41Q/4ep2lqSf4mGj2L907EiEddONIMTZR6l9/kaZSy7/RsLx6JKC8
-         JST9NZNbmI2S05E713GmO3EV8Eix094//lI+Drdu0rNttkmD8QM4A3i/nPI68MXEplrl
-         KL+8YEEVqLj3iL5uvHT5459alERkkWviwZ1LZ/77nEmmjhBKzQFkn4ZPibM/0Lp1a6qJ
-         Wl2A==
+        d=gmail.com; s=20210112;
+        h=from:message-id:date:mime-version:user-agent:to:content-language:cc
+         :subject:content-transfer-encoding;
+        bh=BM8hJ0buKmprmESjrfsdBGumG7NavpQsunAOJURd6KE=;
+        b=nwng9ejxOiik2sISKjSPvUHKg7CtliKszXALIfRAK/NwrJCXYZ2COasstjcP6IJRvU
+         2BH5lEs9x2K+UFbC/k1uFKS/tBuWJ7NsAyriiZ34LdI78eu8KO952/bNEMwc3bqFLUeH
+         lFNWYW24CB8l8MhjhUbeSgX4t8GaTqcmDsTey8V5gve9u6VtivhcBzRpwpMP9/e1zpBR
+         dzFWhI0JjwEzyF9e029tZSnDhu4KurXf+UBNolX0qh/o2L4XrqvRXsfE8TelChHZaq/9
+         fcluthQt8oMQtiUQDOaiibnxEsSE3hBYan+p4eBBhXprYrnGEmQexPZI1Zeh6/+mnF/w
+         I05w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=WJLY0XN6FkCshQvS/hNq+pLYeChxaykb2ZPoWWnEF8M=;
-        b=fBY33ZE+bgAbRegg17yh8Qi6eJEWMbT0eEWc1XPlx5gOeyqz7/bj8NZY4mStO1bIou
-         0joZUdmT1FbeKl+JsrXQSZrl9mB10T5ixSabY6mUK7whYyqLQ6lNLOOZUC43lquzAqtq
-         885aexfMx2c3xQLKtmhtrQ2w41OdNZmgUOyzppiKjYC3Hnlbi7cEJLbk1x2QCFbocw0k
-         8HiXzdHGdKsfpDm6b0AhAgLw12g9WZ76nNXH2r8JqadkjmcIhJgs/3Akt21KgR9lfxrN
-         jcHk3Y1hrw5U3tvZWJGWi/PPZpDxQEwhdp+shnTE5DAHd0g5DbNr6Ee/GH4ZWdkeKORI
-         eEMA==
-X-Gm-Message-State: AOAM532nqGcMi/JMdIAsSu2NmIXJD8hw/Yw4UIehpe4Ph1ANxVS70f7h
-        wPxfKQC+g1wcBKJUAGhUCxpJuQ==
-X-Google-Smtp-Source: ABdhPJzcvUk1COwz4gmr2Op6ZmuzbV2/HYlVRvcaEsMjGZrVVtXair93gnNcmx7KLojovfuutCMTdw==
-X-Received: by 2002:a17:90b:3e84:b0:1d2:c015:2182 with SMTP id rj4-20020a17090b3e8400b001d2c0152182mr29025320pjb.232.1651008212771;
-        Tue, 26 Apr 2022 14:23:32 -0700 (PDT)
-Received: from google.com ([2401:fa00:9:211:f90a:c515:128d:eea1])
-        by smtp.gmail.com with ESMTPSA id h1-20020a62de01000000b0050d52b40040sm4360717pfg.65.2022.04.26.14.23.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 26 Apr 2022 14:23:32 -0700 (PDT)
-Date:   Wed, 27 Apr 2022 07:23:22 +1000
-From:   Matthew Bobrowski <repnop@google.com>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org, jack@suse.cz, amir73il@gmail.com,
-        mtk.manpages@gmail.com
-Subject: Re: [PATCH v3] fanotify: Document FAN_REPORT_PIDFD Feature
-Message-ID: <YmhiypE19qp8Ere4@google.com>
-References: <9ab0575162eada7a3f73de71c06e1031b9e51bbe.1649718997.git.repnop@google.com>
- <f40ff271-a18e-9833-f858-9abf3bb19cd2@gmail.com>
- <YldfdNebVVzwqxw9@google.com>
- <59a8d8b5-fc96-812f-c3b1-d1dca66dca3a@gmail.com>
+        h=x-gm-message-state:from:message-id:date:mime-version:user-agent:to
+         :content-language:cc:subject:content-transfer-encoding;
+        bh=BM8hJ0buKmprmESjrfsdBGumG7NavpQsunAOJURd6KE=;
+        b=exO0T9yB2L8SMjh3cmp0HyZ0Z3c32cglwkPsyGJKPfpC6ELG2r3JzBFpfelCU7we8P
+         kSxTAqPjU7RjIxKJgzomwtFD/floPK3ZmQ3ux5g2Iw1K/DK8P3cmte3Tlr5b1XsA3D3e
+         2llGrmQJ7zOeYlw5go6BRVHRhfd22LvMq9fQxcR4sQjFOu/kAWclPLiMDb8b9NC1kv8w
+         d7y0n2/9hjNdprSmiBoGbXP0Leqwl6u/G5Aj5izQFXBhhg/Dk79Li2N+D1/6PL4uHIba
+         K+CLbIriQ6ItpP77GJa96knASRRadgNRjav48iGq0GZYhMp7XdePHOL4jThPGqVJ/lA1
+         eGkA==
+X-Gm-Message-State: AOAM5311U3NBH759RHvtbz9Y1380OTUkWL3e7/NLDHfb12oEWsIYGtsd
+        XIAaIun/K6TWvgM2muU1p9GqzZkufHo=
+X-Google-Smtp-Source: ABdhPJxqiUQ/lOUUxViHz15i9yqql0XZBe3QFMwFvJf9+L5LW5UjPvHUf+2Tae80UDtSpeOQLhyrVA==
+X-Received: by 2002:a17:907:d8a:b0:6f3:8f30:d2b3 with SMTP id go10-20020a1709070d8a00b006f38f30d2b3mr14678686ejc.37.1651050936309;
+        Wed, 27 Apr 2022 02:15:36 -0700 (PDT)
+Received: from [192.168.0.199] (pd9515a0d.dip0.t-ipconnect.de. [217.81.90.13])
+        by smtp.gmail.com with ESMTPSA id d6-20020a170906304600b006ef5da1b1besm6352667ejd.221.2022.04.27.02.15.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 27 Apr 2022 02:15:35 -0700 (PDT)
+From:   "Dr. Wolfgang Armbruster" <dr.w.e.armbruster@gmail.com>
+X-Google-Original-From: "Dr. Wolfgang Armbruster" <Dr.W.E.Armbruster@Gmail.Com>
+Message-ID: <c6f78359-c187-d132-7d1b-05ffe131c39e@Gmail.Com>
+Date:   Wed, 27 Apr 2022 11:15:34 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <59a8d8b5-fc96-812f-c3b1-d1dca66dca3a@gmail.com>
-X-Spam-Status: No, score=-17.6 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-        ENV_AND_HDR_SPF_MATCH,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
-        USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=ham
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.4.0
+To:     mtk.manpages@gmail.com, alx.manpages@gmail.com
+Content-Language: de-DE
+Cc:     linux-man@vger.kernel.org
+Subject: (same) errors in ceil.3, floor.3, rint.3, and round.3
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -73,49 +70,51 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Mon, Apr 25, 2022 at 10:18:43PM +0200, Alejandro Colomar wrote:
-> Hi Matthew,
-> 
-> On 4/14/22 01:40, Matthew Bobrowski wrote:
-> > Haha, I created this patch using one of Amir's branches, as he
-> > performed a rebase and handled some conflicts. It must've preserved
-> > the display name "Amir Goldstein" in the "From:" header...
-> 
-> :)
-> 
-> > 
-> > On Wed, Apr 13, 2022 at 08:24:21PM +0200, Alejandro Colomar wrote:
-> > > Hi Amir!
-> > > 
-> > > On 4/12/22 01:17, Amir Goldstein wrote:
-> > > > Update the fanotify API documentation to include details on the new
-> > > > FAN_REPORT_PIDFD feature. This patch also includes a generic section
-> > > > describing the concept of information records which are supported by
-> > > > the fanotify API.
-> > > > 
-> > > > Signed-off-by: Matthew Bobrowski <repnop@google.com>
-> > > > Reviewed-by: Jan Kara <jack@suse.cz>
-> > > > Reviewed-by: Amir Goldstein <amir73il@gmail.com>
-> > > 
-> > > Thanks for the patch.  Please see some comments below.
-> > 
-> > Thanks for the review, I'll update and send through a follow up patch
-> > shortly. I left a question on your comment about the use of semantic
-> > newlines. I wasn't sure whether that comment was a general rule that
-> > is to be applied across this entire patch (in which it definitely can,
-> > I just wasn't aware of the rule prior to you explicitly pointing it
-> > out), or whether there was a specific example you were referring to in
-> > the code block directly above your comment.
-> 
-> General rule to be applied across the entire patch, if you do the favour.  I
-> just mentioned it at a point where it is clear that it could be applied, to
-> give some context.
+Hello Mr. Kerrisk, hello Mr. Colomar,
 
-Fair enough.
+There are the same errors in ceil.3, floor.3, rint.3, and round.3
+within the "NOTES"-section, e.g. floor.3, lines 111 - 115:
 
-I've posted through an updated patch here [0] which I believe has
-addressed all the feedback from this round of review.
+...
+(More precisely, overflow can happen only when the maximum value
+of the exponent is smaller than the number of mantissa bits.
+For the IEEE-754 standard 32-bit and 64-bit floating-point numbers
+the maximum value of the exponent is 128 (respectively, 1024),
+and the number of mantissa bits is 24 (respectively, 53).)
+...
 
-[0] https://lore.kernel.org/linux-man/1af583adb1f368c51f1976db7bf3a27530cdc06f.1650408011.git.repnop@google.com/
 
-/M
+1) According to IEEE 754 - 2008 , section 3.3, table 3.2
+https://irem.univ-reunion.fr/IMG/pdf/ieee-754-2008.pdf
+the value of emax is described as
+emax = +127 / +1023
+
+Section "Basic and interchange formats" at
+https://en.wikipedia.org/wiki/IEEE_754
+states the same values.
+
+Thus, I suggest: line 114
+
+the maximum value of the exponent is 127 (respectively, 1023),
+
+
+
+2) To be more precise at line 115, I suggest:
+
+and the number of mantissa bits including the implicit bit is 24 
+(respectively, 53)
+
+
+
+I'm using OpenSUSE 15.3
+but the text is identical to the online man-page
+https://man7.org/linux/man-pages/man3/floor.3.html
+and I just cloned
+git clone https://git.kernel.org/pub/scm/docs/man-pages/man-pages
+the actual man-pages.
+
+
+Yours,
+
+Dr. Wolfgang Armbruster
+
