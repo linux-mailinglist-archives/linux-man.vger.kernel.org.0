@@ -2,274 +2,578 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 0AC45515DE2
-	for <lists+linux-man@lfdr.de>; Sat, 30 Apr 2022 15:52:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5D8E551842E
+	for <lists+linux-man@lfdr.de>; Tue,  3 May 2022 14:23:36 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S239521AbiD3Nzb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 30 Apr 2022 09:55:31 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39404 "EHLO
+        id S234581AbiECM1F (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 3 May 2022 08:27:05 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38202 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S242217AbiD3Nz3 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 30 Apr 2022 09:55:29 -0400
-Received: from JPN01-TYC-obe.outbound.protection.outlook.com (mail-tycjpn01on2094.outbound.protection.outlook.com [40.107.114.94])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B34A566F8D;
-        Sat, 30 Apr 2022 06:52:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KghrvQLNxii+iamwaWTbjeLd9v/9zKihCISJA+idyi/1y1bR3qJiRBUOHAQ/oMbZ+8am3/t4Jn7HOKyBk2bnRSxJQ0sXZvaYbOoNyeTwO39vpg50zSyGOdReHsb/2IaX/YmexLy5wV5yo8Lo8Ymvge91mGeqUhCw5mLvCBt+dzqgTatJkAiU6zrobVZoiMgcrWtov9joX4QENEeAWMw+2RI84N33os94vpD4159cJCtyvCxUP9y2kEwXEDqZtMsP9FOgq/8bmmqmu47qCyDBqKdeo8a1tnP/pCy0WIUZTM6gnA7hcKxeI2PDwBCMiFsPIAAfvTs5F6k74+mEymymCA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=znMOr2UdiYf9gJM+5XymrfVPvk8Y0cGGp54ZuT9/7b0=;
- b=Zir4eW09ZPBuTPxf/+tZCk27OZVIKUHX+Gl4m2Ub4WDpoMqdUOlMfx6EmlrL0IB+RUlnaj7s3rTKUx3E8/BcmMiEDLS2vRjlaRJXb8qhbvVeRigV0hVeHgxSLD1y5nwpfD+WBDc/x5FcOoHkB5pzY4hjR+NtngKFEkU2QwxlnNNj3dZp18fCGvAvvU6TvowUYAO1RkJnetezh9NO4A0P666jCf+42vjm0pyZCQleAilM9UMwC2DSeS9SvJzNj9TyYNV246hZrx9cl0F6icujhYQBUiuu7v2BC6TZP/CtcDCpifIoihOtSUkXD6nx057/kTQVpRRUVUzSsV07kQABTA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=zenithal.me; dmarc=pass action=none header.from=zenithal.me;
- dkim=pass header.d=zenithal.me; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zenithal.me;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=znMOr2UdiYf9gJM+5XymrfVPvk8Y0cGGp54ZuT9/7b0=;
- b=PBhhYaDb0eF3k404rRcE/0juTtbtfa67E7xz44CJ3Cc1AKiBm7VENKgoToVgbiyinEsu08WhWf/DCyKrhK72gGsaMp0Kx/xo6avQfaEJsZNr44PIS0uCdPMS67s31B27lM5/22fdLGX/YsuLGpGYwppvs2SUaLNL4uMkdwt370s=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=zenithal.me;
-Received: from TYCP286MB1393.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:c0::6) by
- OSZP286MB1559.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:1b4::10) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5206.14; Sat, 30 Apr 2022 13:52:03 +0000
-Received: from TYCP286MB1393.JPNP286.PROD.OUTLOOK.COM
- ([fe80::bd99:5c83:e2dc:a8f7]) by TYCP286MB1393.JPNP286.PROD.OUTLOOK.COM
- ([fe80::bd99:5c83:e2dc:a8f7%6]) with mapi id 15.20.5206.012; Sat, 30 Apr 2022
- 13:52:03 +0000
-Date:   Sat, 30 Apr 2022 21:51:56 +0800
-From:   "Hongren (Zenithal) Zheng" <i@zenithal.me>
-To:     Palmer Dabbelt <palmer@dabbelt.com>,
-        Paul Walmsley <paul.walmsley@sifive.com>,
-        Albert Ou <aou@eecs.berkeley.edu>
-Cc:     Atish Patra <atishp@rivosinc.com>,
-        Anup Patel <anup@brainfault.org>,
-        Eric Biederman <ebiederm@xmission.com>,
-        Kees Cook <keescook@chromium.org>, linux-mm@kvack.org,
-        linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
-        linux-api@vger.kernel.org,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-man@vger.kernel.org, Jiatai He <jiatai2021@iscas.ac.cn>
-Subject: [PATCH 3/3] RISC-V: HWCAP: parse Bitmanip/Scalar Crypto HWCAP from DT
-Message-ID: <Ym0+/JZ7zAGtSP8B@Sun>
-References: <Ym0+Erz5DEnB78vu@Sun>
+        with ESMTP id S233052AbiECM1D (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 3 May 2022 08:27:03 -0400
+Received: from mail-ed1-x541.google.com (mail-ed1-x541.google.com [IPv6:2a00:1450:4864:20::541])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2C07E1D329
+        for <linux-man@vger.kernel.org>; Tue,  3 May 2022 05:23:28 -0700 (PDT)
+Received: by mail-ed1-x541.google.com with SMTP id p18so19629889edr.7
+        for <linux-man@vger.kernel.org>; Tue, 03 May 2022 05:23:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=szeredi.hu; s=google;
+        h=date:from:to:cc:subject:message-id:mime-version:content-disposition;
+        bh=TE1k+xyihTMSWkSGzrDneVkAum46sMwYkJNJnhAJ764=;
+        b=XyhJnktM7U2LlMZ7TisGrY3ZYOKepHADKspM0LQsbvVOn0BWP5LLxykI4JI7RZisns
+         SdTvPSppnRAC9XndqSQl4Grl1zEqP6CWD5NgcATdrh044EoAzu1MBRGdAzdBmcdfKzPW
+         BMbJ27IvW+Zc2Es3sW4c07lOWRYCbgyOY4VoQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
+         :content-disposition;
+        bh=TE1k+xyihTMSWkSGzrDneVkAum46sMwYkJNJnhAJ764=;
+        b=WWlegNZ7m74yXjTOSWBwRvtZg27yhgL8tvFfRreO4Utn64WOzeYXx2mgGFtAJNYEau
+         b1QfgYR11n7Q7ILb7hUEfV91Phjq0KhU7G5O//ZmnIdA8YyQxrVxC1fyuXYWazwA/Swo
+         sESpcRlKDN1WkJrBl7UPL8FKrRRM0ZwJLilTAPbbyqMxnr4rfUcL4JabjMxjAZPfxg4w
+         PBEvN0/WMGaU5TaABRnroxhEHcBCpAxSEpUCFEJ/C/XMhDcSnQxthhmtu2wxSB7XGaEW
+         WJs0/iKwrfzOrqFPhj61xSKv8K12pfYx/ZiwGgrEACx1Z2Q2CQxqs9w9JmlvptyJa3bT
+         Ki1w==
+X-Gm-Message-State: AOAM5308ADqjcf0PaLP17U5qAJw6hta5l5AbhTnhln27cyvCuEfivviV
+        9G5gqjQFjbwcM5gOfSEulhNEUQ==
+X-Google-Smtp-Source: ABdhPJyidd0sNK3Dvs85E/mvMVYwF6knm8hinBxEIIcMNfcF+DOmOJKgvd2JlTGJ/5dOeoGxnT8HpA==
+X-Received: by 2002:a50:c014:0:b0:41d:5ee9:f354 with SMTP id r20-20020a50c014000000b0041d5ee9f354mr17536367edb.257.1651580606617;
+        Tue, 03 May 2022 05:23:26 -0700 (PDT)
+Received: from miu.piliscsaba.redhat.com (catv-178-48-189-3.catv.fixed.vodafone.hu. [178.48.189.3])
+        by smtp.gmail.com with ESMTPSA id p14-20020a056402154e00b0042617ba63a8sm7742405edx.50.2022.05.03.05.23.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 May 2022 05:23:25 -0700 (PDT)
+Date:   Tue, 3 May 2022 14:23:23 +0200
+From:   Miklos Szeredi <miklos@szeredi.hu>
+To:     linux-fsdevel@vger.kernel.org
+Cc:     Dave Chinner <david@fromorbit.com>, Theodore Ts'o <tytso@mit.edu>,
+        Karel Zak <kzak@redhat.com>,
+        Greg KH <gregkh@linuxfoundation.org>,
+        Christian Brauner <brauner@kernel.org>,
+        linux-kernel@vger.kernel.org,
+        Linux API <linux-api@vger.kernel.org>,
+        linux-man <linux-man@vger.kernel.org>,
+        LSM <linux-security-module@vger.kernel.org>,
+        Ian Kent <raven@themaw.net>,
+        David Howells <dhowells@redhat.com>,
+        Linus Torvalds <torvalds@linux-foundation.org>,
+        Al Viro <viro@zeniv.linux.org.uk>,
+        Christian Brauner <christian@brauner.io>,
+        Amir Goldstein <amir73il@gmail.com>,
+        James Bottomley <James.Bottomley@hansenpartnership.com>
+Subject: [RFC PATCH] getting misc stats/attributes via xattr API
+Message-ID: <YnEeuw6fd1A8usjj@miu.piliscsaba.redhat.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <Ym0+Erz5DEnB78vu@Sun>
-X-Operating-System: Linux Sun 5.15.26
-X-Mailer: Mutt 2.2.1 (2022-02-19)
-X-ClientProxiedBy: BY3PR10CA0020.namprd10.prod.outlook.com
- (2603:10b6:a03:255::25) To TYCP286MB1393.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:c0::6)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4ce7e4b6-3c7e-492b-1c0d-08da2ab09aec
-X-MS-TrafficTypeDiagnostic: OSZP286MB1559:EE_
-X-Microsoft-Antispam-PRVS: <OSZP286MB1559D0F1AE9514966C10ECF4BCFF9@OSZP286MB1559.JPNP286.PROD.OUTLOOK.COM>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: u1PWH6LI3AUJ/ISh+zr1YIz1iTFTSbX8Frrba6ldIv64XendKguQI2jlSIVi6UXojBz6Hfuku4bnw61+Cl1hXkRX68/SWU60OtuHbXSFqnRHiirrSD5nKDIh/hGdQ8ANDZNDq719o3GiWvekTpdk2AHqfK6bIFZbAW8SflPj1WpkNPGG55GL929iesvIkzGSzq5xtyIoa90/0DmoUwhcA/FFqMBuM5A1pjrcBnept1QKReuj8rT36ToX10OJ/aAQ2GGaM4SBk6uBlt8UboKWuxI8qnBtJSIVVYi2GozB40bUpgBAKXIPtCwNNtQ8vc+qlP3FkwfG3dLY9GeyyIv/5zhEky81xgljU3ArtwnxwFFMjss1GgztC4H0P4Z2SCoilboXgCsm4o3+baM1rKpCAb9ytyjD4c6gDLlCq8GvcIISkEiruOQ0pzwDgfNQlGJf4zJHqE1cAnjSZNlCrRSknyTSA6J7SLDFLy3qUbtXGBOzzGsmWEa65/Dhnq7Guonziqgu0vFvCfSGX9JMgZsa1Zhm+ppIXAbFBL0eghzhRkEcU5RvzvVGYWEefbtXl4VqWuJ9bpG6I4P67bxKPouAPtK4gkKTFYfdq5IJzzAPvtVE9WQdtB296J0lc5R2fa7DCwCfMNzJ9DCZvxWQKuYtGKvRiMBJlyKXXANYGPceRIgpwyEd6V4095fp6tfh96Xw
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCP286MB1393.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230001)(7916004)(136003)(396003)(366004)(39830400003)(346002)(376002)(6486002)(6666004)(6512007)(86362001)(52116002)(33716001)(6506007)(9686003)(508600001)(110136005)(186003)(38100700002)(83380400001)(786003)(54906003)(316002)(8936002)(5660300002)(7416002)(2906002)(4326008)(66946007)(66556008)(66476007)(8676002)(49092004);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?gf7EKPLrinSb73O2QJcwrxYqnGDKSUkYPWq+s8e4KNDSENcwT/ZnqM/hGxV4?=
- =?us-ascii?Q?yU2dAbds7GLUxJG4ZNm7veAsMDABMu9Yv2aXmXx4wg/Ix4mZYPFDUpNwlnAp?=
- =?us-ascii?Q?BsU1C7DBZH9f1WEbIzlDjJEU9KLRpUKnwL95zLg8W8E9HpfuPK2rGTorxz75?=
- =?us-ascii?Q?gFQAdfyjcD1yCl3jh0ddo1+ZxT4Q2mpsKDNWi79q10FGBvkNgOsQV3csOuJ/?=
- =?us-ascii?Q?HZJU308PLjjWj19WFWK72Gpp/zP1acJU8Mc9tU2zaP89Ui3J9HIh+4WeXeuG?=
- =?us-ascii?Q?wJXynt2W9phtIUjmdSARZO2YZnr/Qtvr1X2uF6OLp05viWPBd5akkIuIpXdv?=
- =?us-ascii?Q?JXpN8a8UbrkKtXqdwB2rPWXsU5/KIC70h0YQ7ffr7HtXMMsTRVU0TwLFPqdv?=
- =?us-ascii?Q?thiOZ27HCSelyESK+2SbCkhuv1HPTKbZD/YxbbzKz7yncjxm9mvackMfnT/4?=
- =?us-ascii?Q?ellkvBji4tmlkHx0Uf49/zbb2dOUQXuwnppRWALcEGdcuUjwDBQkbOCQDHhM?=
- =?us-ascii?Q?NJyVP/phafZV4mwkxIjfZ22mSuOy5JA6p95tIXaOsTMCdn5WPZvgAdkhHlHS?=
- =?us-ascii?Q?qk2fQ7fkhJZKfVA3bWGVvF9X9atDZ/xQSFWiNVNtLb6RgMQaCK6+PCynDnB7?=
- =?us-ascii?Q?RNPmiqME2CEESLqBcF0+2NM2x9EdigWl4iMm2aimbDlswPNlh2P6IHDaGyPU?=
- =?us-ascii?Q?4YNgt42mpBPHhlHho3TIwAroeWkP2c7tDmogVMsOnvXY8lFQParNompZq7nZ?=
- =?us-ascii?Q?R9VYve2Wzq8LGFy68+JsBTOXTBhuc4Y5nCO6NhL/GLiTXppIc4lYtae0Jxlp?=
- =?us-ascii?Q?Skp4P6+gYxqmpUzCoCrepdX60yUMjycVARW/h6DGG/0he0q8LVqmPSgvSyAt?=
- =?us-ascii?Q?IFDM34sBNf5ayy4gYSmkRGpaZFusIRGizTMmqsPtpQP+tBQNzUIxQAz3h6ty?=
- =?us-ascii?Q?16Pyqo1GRnmmc8jG8ZbVnj/qj/zw1kQQrJ2hijkOhW4xi1E+JLuoG12gLhgE?=
- =?us-ascii?Q?qZAz5/Fd6J9/UFr8WI6fQ8o4qLWBUwDQvCcpXtfb3L0dlXpbvXzDClFOsGzd?=
- =?us-ascii?Q?DMPmaGuzcfih0FxKvvzsqUgITv43tnRSPnNhtSbyBOjv+uwzYiwybtubTZ4n?=
- =?us-ascii?Q?+UToLpXD8P/FKnoUGD6HpnJf6JF06qaUJiwY3aPu40Nc9j9ErV/zSG3YSATA?=
- =?us-ascii?Q?1h+02Dr95vbyD0wCSBICB2GPFdniFST8kDLv7x3f03sKmBlfYQ4YAHH2QznL?=
- =?us-ascii?Q?UI6VqhZboW1gV27LB+8Jlbjh2c1ZnUhPw/GkC0GDrgV2LDNjg0uHQTQXgLWg?=
- =?us-ascii?Q?rvfqhOFCzIR6wqknQ8ljYp1VAwGt2JJZNLQHLpG9SeLB0Jtb0YBhEJsQzHgW?=
- =?us-ascii?Q?H/KY5Zbq/cOqeEMsseAVLMoMnKJgBlt82VWT/xuowLfVPvV2dny6ZILOBfar?=
- =?us-ascii?Q?7izLl/5KooWzdtS8RSmKK0wdDZIL3PnsXIC0650bhyQK37bOG9/vdkA/Qm6D?=
- =?us-ascii?Q?2FfwhtgQG1gGUXSDKm+wHEA9sJ4fsyuEjq7tbeDfEPA9qBjbmrjRxpnN3u0f?=
- =?us-ascii?Q?CXXz2xggvjMqbeG6eqeZ5JGDy84XT2OHaXNWTukmDGxDAzfB4X3Lr7VI2Q1+?=
- =?us-ascii?Q?dfJN+CH+JJalDxHanCAxjSc10az6xI4cL6j3hd4wsFqp55/4GHbn3Y6EIOTW?=
- =?us-ascii?Q?wMwnYaEQiRuO8m1rXEqwiCPHMte/asmEPN9C5Ibw5xy4rf2he1nG9pVUhSzJ?=
- =?us-ascii?Q?Ew4JFuLO0w=3D=3D?=
-X-OriginatorOrg: zenithal.me
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4ce7e4b6-3c7e-492b-1c0d-08da2ab09aec
-X-MS-Exchange-CrossTenant-AuthSource: TYCP286MB1393.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2022 13:52:03.0777
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 436d481c-43b1-4418-8d7f-84c1e4887cf0
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Xy6yQLp3Bo4yJ0lX8uAuHMm+YJ6ZyvWLEpEcSeLS9sT7dBZqs3MI2buGGCDbXqFC
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSZP286MB1559
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
-        RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS autolearn=ham
-        autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-1.7 required=5.0 tests=BAYES_00,DKIM_INVALID,
+        DKIM_SIGNED,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+        T_SCC_BODY_TEXT_LINE autolearn=no autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-One viable way to detect Zb/Zk HWCAP is from the DT binding.
-No matter how the "M" mode things change, this way can
-always be an auxiliary way to detect it.
+This is a simplification of the getvalues(2) prototype and moving it to the
+getxattr(2) interface, as suggested by Dave.
 
-Note that QEMU currently has "zba/zbb/zbc/zbs" in their device tree
-riscv,isa
+The patch itself just adds the possibility to retrieve a single line of
+/proc/$$/mountinfo (which was the basic requirement from which the fsinfo
+patchset grew out of).
 
-This also fixes the isa2hwcap way as using unsigned char
-for long extension is not viable. Note that the tolower function
-ensures functionality. For other no-hwcap extension (e.g. h, s, u),
-or ("|") with 0 has no effect on hwcap.
+But this should be able to serve Amir's per-sb iostats, as well as a host of
+other cases where some statistic needs to be retrieved from some object.  Note:
+a filesystem object often represents other kinds of objects (such as processes
+in /proc) so this is not limited to fs attributes.
 
-Tested-by: Jiatai He <jiatai2021@iscas.ac.cn>
-Signed-off-by: Hongren (Zenithal) Zheng <i@zenithal.me>
+This also opens up the interface to setting attributes via setxattr(2).
+
+After some pondering I made the namespace so:
+
+: - root
+bar - an attribute
+foo: - a folder (can contain attributes and/or folders)
+
+The contents of a folder is represented by a null separated list of names.
+
+Examples:
+
+$ getfattr -etext -n ":" .
+# file: .
+:="mnt:\000mntns:"
+
+$ getfattr -etext -n ":mnt:" .
+# file: .
+:mnt:="info"
+
+$ getfattr -etext -n ":mnt:info" .
+# file: .
+:mnt:info="21 1 254:0 / / rw,relatime - ext4 /dev/root rw\012"
+
+$ getfattr -etext -n ":mntns:" .
+# file: .
+:mntns:="21:\00022:\00024:\00025:\00023:\00026:\00027:\00028:\00029:\00030:\00031:"
+
+$ getfattr -etext -n ":mntns:28:" .
+# file: .
+:mntns:28:="info"
+
+Comments?
+
+Thanks,
+Miklos
+
 ---
- arch/riscv/include/asm/elf.h   |  2 ++
- arch/riscv/include/asm/hwcap.h |  2 ++
- arch/riscv/kernel/cpufeature.c | 46 ++++++++++++++++++++++++++--------
- 3 files changed, 40 insertions(+), 10 deletions(-)
+ fs/Makefile            |    2 
+ fs/mount.h             |    8 +
+ fs/namespace.c         |   15 ++-
+ fs/pnode.h             |    2 
+ fs/proc_namespace.c    |   15 ++-
+ fs/values.c            |  242 +++++++++++++++++++++++++++++++++++++++++++++++++
+ fs/xattr.c             |   16 ++-
+ include/linux/values.h |   11 ++
+ 8 files changed, 295 insertions(+), 16 deletions(-)
 
-diff --git a/arch/riscv/include/asm/elf.h b/arch/riscv/include/asm/elf.h
-index f53c40026c7a..c6a4d8d2a241 100644
---- a/arch/riscv/include/asm/elf.h
-+++ b/arch/riscv/include/asm/elf.h
-@@ -51,7 +51,9 @@
-  * but it's not easy, and we've already done it here.
-  */
- #define ELF_HWCAP	(elf_hwcap)
-+#define ELF_HWCAP2	(elf_hwcap2)
- extern unsigned long elf_hwcap;
-+extern unsigned long elf_hwcap2;
+--- a/fs/Makefile
++++ b/fs/Makefile
+@@ -16,7 +16,7 @@ obj-y :=	open.o read_write.o file_table.
+ 		pnode.o splice.o sync.o utimes.o d_path.o \
+ 		stack.o fs_struct.o statfs.o fs_pin.o nsfs.o \
+ 		fs_types.o fs_context.o fs_parser.o fsopen.o init.o \
+-		kernel_read_file.o remap_range.o
++		kernel_read_file.o remap_range.o values.o
  
- /*
-  * This yields a string that ld.so will use to load implementation
-diff --git a/arch/riscv/include/asm/hwcap.h b/arch/riscv/include/asm/hwcap.h
-index 199eda39e0b8..357b0481f1d0 100644
---- a/arch/riscv/include/asm/hwcap.h
-+++ b/arch/riscv/include/asm/hwcap.h
-@@ -17,12 +17,14 @@
-  * instruction set this cpu supports.
-  */
- #define ELF_HWCAP		(elf_hwcap)
-+#define ELF_HWCAP2		(elf_hwcap2)
+ ifeq ($(CONFIG_BLOCK),y)
+ obj-y +=	buffer.o direct-io.o mpage.o
+--- a/fs/mount.h
++++ b/fs/mount.h
+@@ -148,3 +148,11 @@ static inline bool is_anon_ns(struct mnt
+ }
  
- enum {
- 	CAP_HWCAP = 1,
- };
- 
- extern unsigned long elf_hwcap;
-+extern unsigned long elf_hwcap2;
- 
- #define RISCV_ISA_EXT_a		('a' - 'a')
- #define RISCV_ISA_EXT_c		('c' - 'a')
-diff --git a/arch/riscv/kernel/cpufeature.c b/arch/riscv/kernel/cpufeature.c
-index 10f9daf3734e..f3a033bb51f5 100644
---- a/arch/riscv/kernel/cpufeature.c
-+++ b/arch/riscv/kernel/cpufeature.c
-@@ -17,6 +17,7 @@
- #define NUM_ALPHA_EXTS ('z' - 'a' + 1)
- 
- unsigned long elf_hwcap __read_mostly;
-+unsigned long elf_hwcap2 __read_mostly;
- 
- /* Host ISA bitmap */
- static DECLARE_BITMAP(riscv_isa, RISCV_ISA_EXT_MAX) __read_mostly;
-@@ -68,21 +69,39 @@ void __init riscv_fill_hwcap(void)
- 	const char *isa;
- 	char print_str[NUM_ALPHA_EXTS + 1];
- 	int i, j;
--	static unsigned long isa2hwcap[256] = {0};
-+	static unsigned long isa2hwcap[RISCV_ISA_EXT_MAX] = {0};
- 
--	isa2hwcap['i'] = isa2hwcap['I'] = COMPAT_HWCAP_ISA_I;
--	isa2hwcap['m'] = isa2hwcap['M'] = COMPAT_HWCAP_ISA_M;
--	isa2hwcap['a'] = isa2hwcap['A'] = COMPAT_HWCAP_ISA_A;
--	isa2hwcap['f'] = isa2hwcap['F'] = COMPAT_HWCAP_ISA_F;
--	isa2hwcap['d'] = isa2hwcap['D'] = COMPAT_HWCAP_ISA_D;
--	isa2hwcap['c'] = isa2hwcap['C'] = COMPAT_HWCAP_ISA_C;
-+	/* HWCAP */
-+	isa2hwcap[RISCV_ISA_EXT_i] = COMPAT_HWCAP_ISA_I;
-+	isa2hwcap[RISCV_ISA_EXT_m] = COMPAT_HWCAP_ISA_M;
-+	isa2hwcap[RISCV_ISA_EXT_a] = COMPAT_HWCAP_ISA_A;
-+	isa2hwcap[RISCV_ISA_EXT_f] = COMPAT_HWCAP_ISA_F;
-+	isa2hwcap[RISCV_ISA_EXT_d] = COMPAT_HWCAP_ISA_D;
-+	isa2hwcap[RISCV_ISA_EXT_c] = COMPAT_HWCAP_ISA_C;
-+	/* HWCAP2 */
-+	isa2hwcap[RISCV_ISA_EXT_ZBA  ] = COMPAT_HWCAP2_ISA_ZBA;
-+	isa2hwcap[RISCV_ISA_EXT_ZBB  ] = COMPAT_HWCAP2_ISA_ZBB;
-+	isa2hwcap[RISCV_ISA_EXT_ZBC  ] = COMPAT_HWCAP2_ISA_ZBC;
-+	isa2hwcap[RISCV_ISA_EXT_ZBS  ] = COMPAT_HWCAP2_ISA_ZBS;
-+	isa2hwcap[RISCV_ISA_EXT_ZBKB ] = COMPAT_HWCAP2_ISA_ZBKB;
-+	isa2hwcap[RISCV_ISA_EXT_ZBKC ] = COMPAT_HWCAP2_ISA_ZBKC;
-+	isa2hwcap[RISCV_ISA_EXT_ZBKX ] = COMPAT_HWCAP2_ISA_ZBKX;
-+	isa2hwcap[RISCV_ISA_EXT_ZKNE ] = COMPAT_HWCAP2_ISA_ZKND;
-+	isa2hwcap[RISCV_ISA_EXT_ZKND ] = COMPAT_HWCAP2_ISA_ZKNE;
-+	isa2hwcap[RISCV_ISA_EXT_ZKNH ] = COMPAT_HWCAP2_ISA_ZKNH;
-+	isa2hwcap[RISCV_ISA_EXT_ZKSED] = COMPAT_HWCAP2_ISA_ZKSED;
-+	isa2hwcap[RISCV_ISA_EXT_ZKSH ] = COMPAT_HWCAP2_ISA_ZKSH;
-+	isa2hwcap[RISCV_ISA_EXT_ZKR  ] = COMPAT_HWCAP2_ISA_ZKR;
-+	isa2hwcap[RISCV_ISA_EXT_ZKT  ] = COMPAT_HWCAP2_ISA_ZKT;
- 
- 	elf_hwcap = 0;
-+	elf_hwcap2 = 0;
- 
- 	bitmap_zero(riscv_isa, RISCV_ISA_EXT_MAX);
- 
- 	for_each_of_cpu_node(node) {
- 		unsigned long this_hwcap = 0;
-+		unsigned long this_hwcap2 = 0;
- 		DECLARE_BITMAP(this_isa, RISCV_ISA_EXT_MAX);
- 		const char *temp;
- 
-@@ -181,15 +200,17 @@ void __init riscv_fill_hwcap(void)
- #define SET_ISA_EXT_MAP(name, bit)						\
- 			do {							\
- 				if ((ext_end - ext == sizeof(name) - 1) &&	\
--				     !memcmp(ext, name, sizeof(name) - 1))	\
-+				     !memcmp(ext, name, sizeof(name) - 1)) {	\
-+					this_hwcap2 |= isa2hwcap[bit];		\
- 					set_bit(bit, this_isa);			\
-+				}						\
- 			} while (false)						\
- 
- 			if (unlikely(ext_err))
- 				continue;
- 			if (!ext_long) {
--				this_hwcap |= isa2hwcap[(unsigned char)(*ext)];
--				set_bit(*ext - 'a', this_isa);
-+				this_hwcap |= isa2hwcap[tolower(*ext) - 'a'];
-+				set_bit(tolower(*ext) - 'a', this_isa);
- 			} else {
- 				SET_ISA_EXT_MAP("sscofpmf", RISCV_ISA_EXT_SSCOFPMF);
- 				SET_ISA_EXT_MAP("zba"     , RISCV_ISA_EXT_ZBA     );
-@@ -239,6 +260,11 @@ void __init riscv_fill_hwcap(void)
- 		else
- 			elf_hwcap = this_hwcap;
- 
-+		if (elf_hwcap2)
-+			elf_hwcap2 &= this_hwcap2;
-+		else
-+			elf_hwcap2 = this_hwcap2;
+ extern void mnt_cursor_del(struct mnt_namespace *ns, struct mount *cursor);
 +
- 		if (bitmap_weight(riscv_isa, RISCV_ISA_EXT_MAX))
- 			bitmap_and(riscv_isa, riscv_isa, this_isa, RISCV_ISA_EXT_MAX);
- 		else
--- 
-2.35.1
-
++struct mount *mnt_list_next(struct mnt_namespace *ns, struct list_head *p);
++extern void namespace_lock_read(void);
++extern void namespace_unlock_read(void);
++extern int show_mountinfo_root(struct seq_file *m, struct vfsmount *mnt,
++			       struct path *root);
++extern bool is_path_reachable(struct mount *, struct dentry *,
++			      const struct path *root);
+--- a/fs/namespace.c
++++ b/fs/namespace.c
+@@ -1332,9 +1332,7 @@ struct vfsmount *mnt_clone_internal(cons
+ 	return &p->mnt;
+ }
+ 
+-#ifdef CONFIG_PROC_FS
+-static struct mount *mnt_list_next(struct mnt_namespace *ns,
+-				   struct list_head *p)
++struct mount *mnt_list_next(struct mnt_namespace *ns, struct list_head *p)
+ {
+ 	struct mount *mnt, *ret = NULL;
+ 
+@@ -1351,6 +1349,7 @@ static struct mount *mnt_list_next(struc
+ 	return ret;
+ }
+ 
++#ifdef CONFIG_PROC_FS
+ /* iterator; we want it to have access to namespace_sem, thus here... */
+ static void *m_start(struct seq_file *m, loff_t *pos)
+ {
+@@ -1507,6 +1506,16 @@ static inline void namespace_lock(void)
+ 	down_write(&namespace_sem);
+ }
+ 
++void namespace_lock_read(void)
++{
++	down_read(&namespace_sem);
++}
++
++void namespace_unlock_read(void)
++{
++	up_read(&namespace_sem);
++}
++
+ enum umount_tree_flags {
+ 	UMOUNT_SYNC = 1,
+ 	UMOUNT_PROPAGATE = 2,
+--- a/fs/pnode.h
++++ b/fs/pnode.h
+@@ -50,7 +50,5 @@ void mnt_set_mountpoint(struct mount *,
+ void mnt_change_mountpoint(struct mount *parent, struct mountpoint *mp,
+ 			   struct mount *mnt);
+ struct mount *copy_tree(struct mount *, struct dentry *, int);
+-bool is_path_reachable(struct mount *, struct dentry *,
+-			 const struct path *root);
+ int count_mounts(struct mnt_namespace *ns, struct mount *mnt);
+ #endif /* _LINUX_PNODE_H */
+--- a/fs/proc_namespace.c
++++ b/fs/proc_namespace.c
+@@ -132,9 +132,9 @@ static int show_vfsmnt(struct seq_file *
+ 	return err;
+ }
+ 
+-static int show_mountinfo(struct seq_file *m, struct vfsmount *mnt)
++int show_mountinfo_root(struct seq_file *m, struct vfsmount *mnt,
++			struct path *root)
+ {
+-	struct proc_mounts *p = m->private;
+ 	struct mount *r = real_mount(mnt);
+ 	struct super_block *sb = mnt->mnt_sb;
+ 	struct path mnt_path = { .dentry = mnt->mnt_root, .mnt = mnt };
+@@ -152,7 +152,7 @@ static int show_mountinfo(struct seq_fil
+ 	seq_putc(m, ' ');
+ 
+ 	/* mountpoints outside of chroot jail will give SEQ_SKIP on this */
+-	err = seq_path_root(m, &mnt_path, &p->root, " \t\n\\");
++	err = seq_path_root(m, &mnt_path, root, " \t\n\\");
+ 	if (err)
+ 		goto out;
+ 
+@@ -164,7 +164,7 @@ static int show_mountinfo(struct seq_fil
+ 		seq_printf(m, " shared:%i", r->mnt_group_id);
+ 	if (IS_MNT_SLAVE(r)) {
+ 		int master = r->mnt_master->mnt_group_id;
+-		int dom = get_dominating_id(r, &p->root);
++		int dom = get_dominating_id(r, root);
+ 		seq_printf(m, " master:%i", master);
+ 		if (dom && dom != master)
+ 			seq_printf(m, " propagate_from:%i", dom);
+@@ -194,6 +194,13 @@ static int show_mountinfo(struct seq_fil
+ 	return err;
+ }
+ 
++static int show_mountinfo(struct seq_file *m, struct vfsmount *mnt)
++{
++	struct proc_mounts *p = m->private;
++
++	return show_mountinfo_root(m, mnt, &p->root);
++}
++
+ static int show_vfsstat(struct seq_file *m, struct vfsmount *mnt)
+ {
+ 	struct proc_mounts *p = m->private;
+--- /dev/null
++++ b/fs/values.c
+@@ -0,0 +1,242 @@
++#include <linux/values.h>
++#include <linux/fs_struct.h>
++#include <linux/seq_file.h>
++#include <linux/nsproxy.h>
++#include "../lib/kstrtox.h"
++#include "mount.h"
++
++struct val_string {
++	const char *str;
++	size_t len;
++};
++
++struct val_iter {
++	struct val_string name;
++	struct seq_file seq;
++	int error;
++};
++
++struct val_desc {
++	struct val_string name;
++	union {
++		u64 idx;
++		int (*get)(struct val_iter *vi, const struct path *path);
++	};
++};
++
++#define VAL_STRING(x) { .str = x, .len = sizeof(x) - 1 }
++#define VD_NAME(x) .name = VAL_STRING(x)
++
++static int val_err(struct val_iter *vi, int err)
++{
++	vi->error = err;
++	return 0;
++}
++
++static int val_end_seq(struct val_iter *vi)
++{
++	if (vi->seq.count == vi->seq.size)
++		return -EOVERFLOW;
++
++	return 0;
++}
++
++static inline void val_string_skip(struct val_string *s, size_t count)
++{
++	WARN_ON(s->len < count);
++	s->str += count;
++	s->len -= count;
++}
++
++static bool val_string_prefix(const struct val_string *p,
++			      const struct val_string *s)
++{
++	return s->len >= p->len && !memcmp(s->str, p->str, p->len);
++}
++
++static struct val_desc *val_lookup(struct val_iter *vi, struct val_desc *vd)
++{
++	for (; vd->name.len; vd++) {
++		if (val_string_prefix(&vd->name, &vi->name)) {
++			val_string_skip(&vi->name, vd->name.len);
++			break;
++		}
++	}
++	return vd;
++}
++
++static int val_get_group(struct val_iter *vi, struct val_desc *vd)
++{
++	for (; vd->name.len; vd++)
++		seq_write(&vi->seq, vd->name.str, vd->name.len + 1);
++
++	return val_end_seq(vi);
++}
++
++enum {
++	VAL_MNT_INFO,
++};
++
++static struct val_desc val_mnt_group[] = {
++	{ VD_NAME("info"),		.idx = VAL_MNT_INFO		},
++	{ }
++};
++
++static int val_mnt_show(struct val_iter *vi, struct vfsmount *mnt)
++{
++	struct val_desc *vd = val_lookup(vi, val_mnt_group);
++	struct path root;
++
++	if (!vd->name.str)
++		return val_err(vi, -ENOENT);
++
++	switch(vd->idx) {
++	case VAL_MNT_INFO:
++		get_fs_root(current->fs, &root);
++		show_mountinfo_root(&vi->seq, mnt, &root);
++		path_put(&root);
++		break;
++	}
++
++	return 0;
++}
++
++static int val_mnt_get(struct val_iter *vi, const struct path *path)
++{
++	int err;
++
++	if (!vi->name.len)
++		return val_get_group(vi, val_mnt_group);
++
++	namespace_lock_read();
++	err = val_mnt_show(vi, path->mnt);
++	namespace_unlock_read();
++
++	return err;
++}
++
++/* called with namespace_sem held for read */
++static struct vfsmount *mnt_lookup_by_id(struct mnt_namespace *ns,
++					 struct path *root, int id)
++{
++	struct mount *m;
++
++	for (m = mnt_list_next(ns, &ns->list); m; m = mnt_list_next(ns, &m->mnt_list)) {
++		if (m->mnt_id == id) {
++			if (is_path_reachable(m, m->mnt.mnt_root, root))
++				return mntget(&m->mnt);
++			else
++				return NULL;
++		}
++	}
++	return NULL;
++}
++
++static void seq_mnt_list(struct seq_file *seq, struct mnt_namespace *ns,
++			 struct path *root)
++{
++	struct mount *m;
++
++	namespace_lock_read();
++	for (m = mnt_list_next(ns, &ns->list); m; m = mnt_list_next(ns, &m->mnt_list)) {
++		if (is_path_reachable(m, m->mnt.mnt_root, root)) {
++			seq_printf(seq, "%i:", m->mnt_id);
++			seq_putc(seq, '\0');
++		}
++	}
++	namespace_unlock_read();
++}
++
++static int val_mntns_get(struct val_iter *vi, const struct path *path)
++{
++	struct mnt_namespace *mnt_ns = current->nsproxy->mnt_ns;
++	struct vfsmount *mnt;
++	struct path root;
++	unsigned long long mnt_id;
++	unsigned int end;
++	int err;
++
++	if (!vi->name.len) {
++		get_fs_root(current->fs, &root);
++		seq_mnt_list(&vi->seq, mnt_ns, &root);
++		path_put(&root);
++		return val_end_seq(vi);
++	}
++
++	end = _parse_integer(vi->name.str, 10, &mnt_id);
++	if (end & KSTRTOX_OVERFLOW)
++		return val_err(vi, -ENOENT);
++	if (vi->name.str[end] != VAL_SEP)
++		return val_err(vi, -ENOENT);
++	val_string_skip(&vi->name, end + 1);
++
++	namespace_lock_read();
++	get_fs_root(current->fs, &root);
++	mnt = mnt_lookup_by_id(mnt_ns, &root, mnt_id);
++	path_put(&root);
++	if (!mnt) {
++		namespace_unlock_read();
++		return val_err(vi, -ENOENT);
++	}
++	if (vi->name.len)
++		err = val_mnt_show(vi, mnt);
++	else
++		err = val_get_group(vi, val_mnt_group);
++
++	namespace_unlock_read();
++	mntput(mnt);
++
++	return err;
++}
++
++
++
++static struct val_desc val_toplevel_group[] = {
++	{ VD_NAME("mnt:"),	.get = val_mnt_get,	},
++	{ VD_NAME("mntns:"),	.get = val_mntns_get,	},
++	{ },
++};
++
++static int getvalues(struct val_iter *vi, const struct path *path)
++{
++	struct val_desc *vd;
++	int err;
++
++	if (!vi->name.len)
++		return val_get_group(vi, val_toplevel_group);
++
++	vd = val_lookup(vi, val_toplevel_group);
++	if (!vd->name.len)
++		err = val_err(vi, -ENOENT);
++	else
++		err = vd->get(vi, path);
++
++	return err ?: vi->error;
++}
++
++ssize_t val_getxattr(struct path *path, const char *name, size_t namelen,
++		     void __user *value, size_t size)
++{
++	int err;
++	char val[1024];
++	struct val_iter vi = {
++		.name = { .str = name, .len = namelen },
++		.seq = { .buf = val, .size = min(sizeof(val), size) },
++	};
++
++	if (!size)
++		return sizeof(val);
++
++	val_string_skip(&vi.name, 1);
++
++	err = getvalues(&vi, path);
++	if (err < 0)
++		return err;
++
++	WARN_ON(vi.seq.count > size);
++	if (copy_to_user(value, vi.seq.buf, vi.seq.count))
++		return -EFAULT;
++
++	return vi.seq.count;
++}
++
+--- a/fs/xattr.c
++++ b/fs/xattr.c
+@@ -22,6 +22,7 @@
+ #include <linux/audit.h>
+ #include <linux/vmalloc.h>
+ #include <linux/posix_acl_xattr.h>
++#include <linux/values.h>
+ 
+ #include <linux/uaccess.h>
+ 
+@@ -643,12 +644,13 @@ SYSCALL_DEFINE5(fsetxattr, int, fd, cons
+  * Extended attribute GET operations
+  */
+ static ssize_t
+-getxattr(struct user_namespace *mnt_userns, struct dentry *d,
+-	 const char __user *name, void __user *value, size_t size)
++getxattr(struct path *path, const char __user *name,
++	 void __user *value, size_t size)
+ {
+ 	ssize_t error;
+ 	void *kvalue = NULL;
+ 	char kname[XATTR_NAME_MAX + 1];
++	struct user_namespace *mnt_userns = mnt_user_ns(path->mnt);
+ 
+ 	error = strncpy_from_user(kname, name, sizeof(kname));
+ 	if (error == 0 || error == sizeof(kname))
+@@ -656,6 +658,9 @@ getxattr(struct user_namespace *mnt_user
+ 	if (error < 0)
+ 		return error;
+ 
++	if (kname[0] == VAL_SEP)
++		return val_getxattr(path, kname, error, value, size);
++
+ 	if (size) {
+ 		if (size > XATTR_SIZE_MAX)
+ 			size = XATTR_SIZE_MAX;
+@@ -664,7 +669,7 @@ getxattr(struct user_namespace *mnt_user
+ 			return -ENOMEM;
+ 	}
+ 
+-	error = vfs_getxattr(mnt_userns, d, kname, kvalue, size);
++	error = vfs_getxattr(mnt_userns, path->dentry, kname, kvalue, size);
+ 	if (error > 0) {
+ 		if ((strcmp(kname, XATTR_NAME_POSIX_ACL_ACCESS) == 0) ||
+ 		    (strcmp(kname, XATTR_NAME_POSIX_ACL_DEFAULT) == 0))
+@@ -693,7 +698,7 @@ static ssize_t path_getxattr(const char
+ 	error = user_path_at(AT_FDCWD, pathname, lookup_flags, &path);
+ 	if (error)
+ 		return error;
+-	error = getxattr(mnt_user_ns(path.mnt), path.dentry, name, value, size);
++	error = getxattr(&path, name, value, size);
+ 	path_put(&path);
+ 	if (retry_estale(error, lookup_flags)) {
+ 		lookup_flags |= LOOKUP_REVAL;
+@@ -723,8 +728,7 @@ SYSCALL_DEFINE4(fgetxattr, int, fd, cons
+ 	if (!f.file)
+ 		return error;
+ 	audit_file(f.file);
+-	error = getxattr(file_mnt_user_ns(f.file), f.file->f_path.dentry,
+-			 name, value, size);
++	error = getxattr(&f.file->f_path, name, value, size);
+ 	fdput(f);
+ 	return error;
+ }
+--- /dev/null
++++ b/include/linux/values.h
+@@ -0,0 +1,11 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++
++#include <linux/types.h>
++
++#define VAL_SEP ':'
++
++struct path;
++
++ssize_t val_getxattr(struct path *path, const char *name, size_t namelen,
++		     void __user *value, size_t size);
++
