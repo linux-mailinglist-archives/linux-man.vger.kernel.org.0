@@ -2,141 +2,100 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id E7AE351A21B
-	for <lists+linux-man@lfdr.de>; Wed,  4 May 2022 16:22:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3337451B43E
+	for <lists+linux-man@lfdr.de>; Thu,  5 May 2022 02:09:10 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S239066AbiEDO00 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 4 May 2022 10:26:26 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41260 "EHLO
+        id S232954AbiEEAGe (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 4 May 2022 20:06:34 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41624 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S238025AbiEDO0Z (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 4 May 2022 10:26:25 -0400
-Received: from mail-qv1-xf2b.google.com (mail-qv1-xf2b.google.com [IPv6:2607:f8b0:4864:20::f2b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9999A2019D;
-        Wed,  4 May 2022 07:22:49 -0700 (PDT)
-Received: by mail-qv1-xf2b.google.com with SMTP id jt15so930600qvb.8;
-        Wed, 04 May 2022 07:22:49 -0700 (PDT)
+        with ESMTP id S1350979AbiEDX6x (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 4 May 2022 19:58:53 -0400
+Received: from mail-ot1-x344.google.com (mail-ot1-x344.google.com [IPv6:2607:f8b0:4864:20::344])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EF168506DB
+        for <linux-man@vger.kernel.org>; Wed,  4 May 2022 16:54:12 -0700 (PDT)
+Received: by mail-ot1-x344.google.com with SMTP id z5-20020a9d62c5000000b00606041d11f1so1954279otk.2
+        for <linux-man@vger.kernel.org>; Wed, 04 May 2022 16:54:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=JOJe8EFexHCJl/2Bc6RO8FsgtVtMHIZENqTmuqDEE2I=;
-        b=R+I1KpWncwM37jcDvaWaBIuoT9NF2QuLZPr3IjIF3/+9wYNZpMUCmWM4I8X+wd0R+j
-         4jCa+JKhojklqTV34Vg8ws3Oj4dt2uZ3xeqEHypoOH7pgSfZiWXKgAtZrCNR8OV5iOr9
-         N7Z9D3bLQTIAL14ZgAhrx9teDv5uV/2WjOwbkygKqUE6TcMQeMUXn1WQtyfO4RP0psnV
-         pTyNZ8JD/FOYiPBRQW9RN9KF0Q7I6RcCX8WLgk5BMVpfM/StWJDN+IIJXZKLDNqbHRJx
-         9mj1bVojs2UukUKW8UG5Xm5x0UKWCBJUxqN2XI2jMIuU0oaHoqazZWigbqbZ6h2kF7HO
-         u8CA==
+        h=mime-version:reply-to:from:date:message-id:subject:to;
+        bh=ampHH5WJLIBWSsxWwzVjbk5pO9UBFxn81pZ6QIDzZtY=;
+        b=Dn1MT8x7p4Rbn+pctwVkt7IgIdUxT0LRLjox/JaF9ttsZ2N8sUUglHFRxQa3sl75aK
+         h1U1JpCoOjPff8rV+LL0edQuBh+YvYlTbZ4zx127Qa80qMcS49J0d2nS2s7mVVadwp/M
+         vGp6wV8qQhR9tMRiQjyWHIJslgvG4HigF7p24aLxixJ1l99K68kLikab9Y0HgtSpkDYW
+         0+riuhXlj9dAnGs04evyYz4sFXKtm0FlJKiBI2Dtbo7ebvKr6E7XJkxgxzCXhReMwL1D
+         yv9OUeo9KjH+/RIlVXefhsYivAQRdlwo604eWoXrrvRFVxcSgXwgPis+UtVhyLpBWx3z
+         WyWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=JOJe8EFexHCJl/2Bc6RO8FsgtVtMHIZENqTmuqDEE2I=;
-        b=TrHsyD4Ex1gOrU53MOICf+G9y9zhcO0bChKTomw5a+cNtgNZTkzfMmaleA754KI8CU
-         W+7HTW92QUzltdD9SztzV6K0LDD34MYF2v6CgD0jw5oah3eRfJyZSATGuEKCczY3X6ak
-         SlfAzsJhW/HIngoWbatqeYD/oiVs7P1AcNc/luB+NrxxcSwfeA9fQZ72GjV1SQO4ngIy
-         eMamI+HldtmeTfVlqORWuafRjqbs+EpWiW0QRIbt6pa0QMTyPPbI7VB7oLXdOBQ0jA/g
-         Zvt/z9KhyqsEAIOcgV/ComeWKR0n11jG57praE3qi+EFDHTOuf6PjiMdr/DPIBsUushQ
-         adHQ==
-X-Gm-Message-State: AOAM531snmsNWPQRxsxwWcVcwOAlef24Qm0xTmPRGH9t2bcWUSUcPeI2
-        VuNIXi6O2jN618dTJrTaakiT1LrOZKS+SL3fvzs=
-X-Google-Smtp-Source: ABdhPJwSLcDDkqI8PXeUJie+v61GcNmYEMGXjvyoA5jowaY5/ifSkN39Q1mNINDyd/sv/G2PmFUQ5nrtxbNGknZIn08=
-X-Received: by 2002:a05:6214:1cc4:b0:435:35c3:f0f1 with SMTP id
- g4-20020a0562141cc400b0043535c3f0f1mr17657763qvd.0.1651674168694; Wed, 04 May
- 2022 07:22:48 -0700 (PDT)
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to;
+        bh=ampHH5WJLIBWSsxWwzVjbk5pO9UBFxn81pZ6QIDzZtY=;
+        b=7kBu/rr6yTM2f7s6iiZ1aHrpIh3RTL9wIqUDIKo1xl45tmu0+GW0jJPJdSf+f20VMi
+         QoV5xmX+H8ImFuIi/j+ua/axgN14dwoY+ow1v2BoPtLQNJlLsSzYEC8XPOAifXKI7MwX
+         xyqPKmgxFRzeiDp9VqxlvAzqvpSStEHbNBeFdy2AvK+q/tRTmM5FxYtFoM0QN0tb1+sw
+         jnUKktXV7DLmPvUz2Ub0uHoaw6HKX9jRqJgYi7O5wqfpDso5aLZIi4OnCfnSjhykuXon
+         438pYkZlUpcXfDlXm9jeupAlOgrqKTm3V0WRgm66qCvzXU+juCCbsCO3dJC/MCk/lV2I
+         2nnQ==
+X-Gm-Message-State: AOAM530E3LizfxTHDtX/7ENmSAEZSYoUY5B6S+Nh3DfFykZ/N9kmcIt0
+        OJL9fBsBUh1UgWfj9WQs5KI6Hm8jmIFjFx+euJErl0U8xOWmAA==
+X-Google-Smtp-Source: ABdhPJyXbFHNtxfp8+qt+M9kuv/iG7XfFeFFPd7I4/fmpdxuycMtmf6dIJw5ghtZAT2CwgvAVE/kUl0HxsirxLIU8v0=
+X-Received: by 2002:a9d:6b16:0:b0:605:e0eb:d3d6 with SMTP id
+ g22-20020a9d6b16000000b00605e0ebd3d6mr8263208otp.213.1651708440302; Wed, 04
+ May 2022 16:54:00 -0700 (PDT)
 MIME-Version: 1.0
-References: <YnEeuw6fd1A8usjj@miu.piliscsaba.redhat.com> <20220503224305.GF1360180@dread.disaster.area>
- <CAJfpegt_p2Tg+Tr34PtKSXvTyTJdTTwALMPRVE8KK2NmNVZhEg@mail.gmail.com>
-In-Reply-To: <CAJfpegt_p2Tg+Tr34PtKSXvTyTJdTTwALMPRVE8KK2NmNVZhEg@mail.gmail.com>
-From:   Amir Goldstein <amir73il@gmail.com>
-Date:   Wed, 4 May 2022 17:22:37 +0300
-Message-ID: <CAOQ4uxhALMgZeFHpPhu8oshrBzBjHcV-vTpFO=b-MeQ3OsQ6Ug@mail.gmail.com>
-Subject: Re: [RFC PATCH] getting misc stats/attributes via xattr API
-To:     Miklos Szeredi <miklos@szeredi.hu>
-Cc:     Dave Chinner <david@fromorbit.com>,
-        linux-fsdevel <linux-fsdevel@vger.kernel.org>,
-        "Theodore Ts'o" <tytso@mit.edu>, Karel Zak <kzak@redhat.com>,
-        Greg KH <gregkh@linuxfoundation.org>,
-        Christian Brauner <brauner@kernel.org>,
-        linux-kernel <linux-kernel@vger.kernel.org>,
-        Linux API <linux-api@vger.kernel.org>,
-        linux-man <linux-man@vger.kernel.org>,
-        LSM <linux-security-module@vger.kernel.org>,
-        Ian Kent <raven@themaw.net>,
-        David Howells <dhowells@redhat.com>,
-        Linus Torvalds <torvalds@linux-foundation.org>,
-        Al Viro <viro@zeniv.linux.org.uk>,
-        Christian Brauner <christian@brauner.io>,
-        James Bottomley <James.Bottomley@hansenpartnership.com>
+Received: by 2002:a05:6802:1a9:0:0:0:0 with HTTP; Wed, 4 May 2022 16:53:59
+ -0700 (PDT)
+Reply-To: ortegainvestmmentforrealinvest@gmail.com
+From:   Info <joybhector64@gmail.com>
+Date:   Thu, 5 May 2022 05:23:59 +0530
+Message-ID: <CAP7KLYgH9LcKHS-KgR0zObHAgC6Fr3D+dOJSbDKurTc_12+iFw@mail.gmail.com>
+Subject: 
+To:     undisclosed-recipients:;
 Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-        autolearn=ham autolearn_force=no version=3.4.6
+X-Spam-Status: Yes, score=5.3 required=5.0 tests=BAYES_50,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
+        FREEMAIL_FROM,FREEMAIL_REPLYTO,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,
+        SPF_PASS,T_SCC_BODY_TEXT_LINE,UNDISC_FREEM autolearn=no
+        autolearn_force=no version=3.4.6
+X-Spam-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
+        *      https://www.dnswl.org/, no trust
+        *      [2607:f8b0:4864:20:0:0:0:344 listed in]
+        [list.dnswl.org]
+        *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
+        *      [score: 0.5000]
+        *  0.0 SPF_HELO_NONE SPF: HELO does not publish an SPF Record
+        *  0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
+        *      provider
+        *      [joybhector64[at]gmail.com]
+        * -0.0 SPF_PASS SPF: sender matches SPF record
+        *  0.2 FREEMAIL_ENVFROM_END_DIGIT Envelope-from freemail username ends
+        *       in digit
+        *      [joybhector64[at]gmail.com]
+        * -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+        *      author's domain
+        * -0.1 DKIM_VALID_EF Message has a valid DKIM or DK signature from
+        *      envelope-from domain
+        * -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+        *  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+        *       valid
+        * -0.0 T_SCC_BODY_TEXT_LINE No description available.
+        *  3.5 UNDISC_FREEM Undisclosed recipients + freemail reply-to
+        *  1.0 FREEMAIL_REPLYTO Reply-To/From or Reply-To/body contain
+        *      different freemails
+X-Spam-Level: *****
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed, May 4, 2022 at 10:18 AM Miklos Szeredi <miklos@szeredi.hu> wrote:
->
-> On Wed, 4 May 2022 at 00:43, Dave Chinner <david@fromorbit.com> wrote:
->
-> > "values" is a very generic name - probably should end up being
-> > something more descriptive of the functionality is provides,
-> > especially if the header file is going to be dumped in
-> > include/linux/. I don't really have a good suggestion at the moment,
-> > though.
->
-> The obvious ones are stat and attr, which are taken already.   Info is
-> probably too generic as well.
->
-> Ideas are welcome.
+-- 
+I am an investor. I came from the USA and I have many investments all
+over the world.
 
-I was thinking of "properties".
-
->
-> >
-> > ....
-> >
-> > > +
-> > > +enum {
-> > > +     VAL_MNT_INFO,
-> > > +};
-> > > +
-> > > +static struct val_desc val_mnt_group[] = {
-> > > +     { VD_NAME("info"),              .idx = VAL_MNT_INFO             },
-> > > +     { }
-> > > +};
-> > ....
-> > > +
-> > > +
-> > > +static struct val_desc val_toplevel_group[] = {
-> > > +     { VD_NAME("mnt:"),      .get = val_mnt_get,     },
-> > > +     { VD_NAME("mntns:"),    .get = val_mntns_get,   },
-> > > +     { },
-> > > +};
-> >
-> > I know this is an early POC, my main question is how do you
-> > envisiage this table driven structure being extended down from just
-> > the mount into the filesystem so we can expose filesystem specific
-> > information that isn't covered by generic interfaces like statx?
->
-> I was thinking of adding a i_op callback.   The details are a bit
-> fuzzy, since the vfs and the fs would have to work together when
-> listing the attributes and possibly also when retrieving the attribute
-> itself (think mount options).
->
-
-No, please do not think mount options :)
-Please think of an interface that does not mix vfs and fs properties.
-
-Sure, with mount(2) you can mix fs and vfs options, but with the new interface
-they should be clearly separated for set and get if possible.
-
-":mnt:info" key to get the effective mount options (as in /proc/$$/mountinfo)
-does not contradict that, because it can be read only.
-
-Thanks,
-Amir.
+I want you to partner with me to invest in your country I am into many
+investment such as real Estate or buying of properties i can also
+invest money in any of existing business with equity royalty or by %
+percentage so on,
+Warm regards
