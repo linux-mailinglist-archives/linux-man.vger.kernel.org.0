@@ -2,58 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id A091D5197EF
-	for <lists+linux-man@lfdr.de>; Wed,  4 May 2022 09:18:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E7AE351A21B
+	for <lists+linux-man@lfdr.de>; Wed,  4 May 2022 16:22:53 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1345275AbiEDHV6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 4 May 2022 03:21:58 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43490 "EHLO
+        id S239066AbiEDO00 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 4 May 2022 10:26:26 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41260 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1345267AbiEDHV4 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 4 May 2022 03:21:56 -0400
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com [IPv6:2a00:1450:4864:20::535])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3AAF71CFC7
-        for <linux-man@vger.kernel.org>; Wed,  4 May 2022 00:18:16 -0700 (PDT)
-Received: by mail-ed1-x535.google.com with SMTP id g20so689160edw.6
-        for <linux-man@vger.kernel.org>; Wed, 04 May 2022 00:18:16 -0700 (PDT)
+        with ESMTP id S238025AbiEDO0Z (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 4 May 2022 10:26:25 -0400
+Received: from mail-qv1-xf2b.google.com (mail-qv1-xf2b.google.com [IPv6:2607:f8b0:4864:20::f2b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9999A2019D;
+        Wed,  4 May 2022 07:22:49 -0700 (PDT)
+Received: by mail-qv1-xf2b.google.com with SMTP id jt15so930600qvb.8;
+        Wed, 04 May 2022 07:22:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=szeredi.hu; s=google;
+        d=gmail.com; s=20210112;
         h=mime-version:references:in-reply-to:from:date:message-id:subject:to
          :cc;
-        bh=HeDEBC07UgqxsnebnTXHGSAnBgMOF2dSI/K4/ycdir4=;
-        b=YU5OMd73Si+5Q7eezRvTwdPDhF0jXaVTuwFWRU724SKGGloQXdlPG0YIbvGIPIvCEh
-         dbB6OBn/F3ingQg0jfPVD96Mzywvz5BjjGP6iFXZu+DCNmDCBkwsDrGygbU0vRiTBlSB
-         lz1a0yhiew8HtumOPuAlYiBHyLzRep6vC6wrk=
+        bh=JOJe8EFexHCJl/2Bc6RO8FsgtVtMHIZENqTmuqDEE2I=;
+        b=R+I1KpWncwM37jcDvaWaBIuoT9NF2QuLZPr3IjIF3/+9wYNZpMUCmWM4I8X+wd0R+j
+         4jCa+JKhojklqTV34Vg8ws3Oj4dt2uZ3xeqEHypoOH7pgSfZiWXKgAtZrCNR8OV5iOr9
+         N7Z9D3bLQTIAL14ZgAhrx9teDv5uV/2WjOwbkygKqUE6TcMQeMUXn1WQtyfO4RP0psnV
+         pTyNZ8JD/FOYiPBRQW9RN9KF0Q7I6RcCX8WLgk5BMVpfM/StWJDN+IIJXZKLDNqbHRJx
+         9mj1bVojs2UukUKW8UG5Xm5x0UKWCBJUxqN2XI2jMIuU0oaHoqazZWigbqbZ6h2kF7HO
+         u8CA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:mime-version:references:in-reply-to:from:date
          :message-id:subject:to:cc;
-        bh=HeDEBC07UgqxsnebnTXHGSAnBgMOF2dSI/K4/ycdir4=;
-        b=evwPaJutwIUP4HUsytPawPH0cM/Rm9hl1m/SBR9kYMQ7/PSLireiBcjoPGzLzfRgV9
-         91y9v/KtnSnN42Geku23DVGvAiigJK1PQq1S1hjaRx1gyPCZJmlGZDoOxu7bBFqJn+oN
-         LcrQSsiy8l3xnswaKitILG64xjErW5L6UTV5+GZ+DVILUSrOgTps0/r0CgkPihkS2O+j
-         Y92MtyZtYMOOP+D0Dzu2/JJP0ogccUEAX1kXu/+7sFIYwBwc0aW3OecXgDl3Y7nlGBe7
-         /GrFbi3tBE4Z8UrltfeMgttvvXfluotcX6CisgkQDaPLpeiEBNQY/zez+fCY4XIWvqZt
-         wXRA==
-X-Gm-Message-State: AOAM530to6mFRb21iJDUYvk1fwQassTxBBMTZLbi0Ls2pDgkh1R3fTpG
-        5Z8mtBnH2wcl2BSDqmstfOEhp3wYsk0Ksnda+mBbVA==
-X-Google-Smtp-Source: ABdhPJzPGISWNzSmwrZpgSCpom5e+dKvg459tFdiZ6LU4rFalV9aIdDy7O0Kq0ESHKyLyirLYCZEKqYQh1xQDoPwch4=
-X-Received: by 2002:a50:9346:0:b0:425:e4c0:ab4b with SMTP id
- n6-20020a509346000000b00425e4c0ab4bmr21853531eda.154.1651648694663; Wed, 04
- May 2022 00:18:14 -0700 (PDT)
+        bh=JOJe8EFexHCJl/2Bc6RO8FsgtVtMHIZENqTmuqDEE2I=;
+        b=TrHsyD4Ex1gOrU53MOICf+G9y9zhcO0bChKTomw5a+cNtgNZTkzfMmaleA754KI8CU
+         W+7HTW92QUzltdD9SztzV6K0LDD34MYF2v6CgD0jw5oah3eRfJyZSATGuEKCczY3X6ak
+         SlfAzsJhW/HIngoWbatqeYD/oiVs7P1AcNc/luB+NrxxcSwfeA9fQZ72GjV1SQO4ngIy
+         eMamI+HldtmeTfVlqORWuafRjqbs+EpWiW0QRIbt6pa0QMTyPPbI7VB7oLXdOBQ0jA/g
+         Zvt/z9KhyqsEAIOcgV/ComeWKR0n11jG57praE3qi+EFDHTOuf6PjiMdr/DPIBsUushQ
+         adHQ==
+X-Gm-Message-State: AOAM531snmsNWPQRxsxwWcVcwOAlef24Qm0xTmPRGH9t2bcWUSUcPeI2
+        VuNIXi6O2jN618dTJrTaakiT1LrOZKS+SL3fvzs=
+X-Google-Smtp-Source: ABdhPJwSLcDDkqI8PXeUJie+v61GcNmYEMGXjvyoA5jowaY5/ifSkN39Q1mNINDyd/sv/G2PmFUQ5nrtxbNGknZIn08=
+X-Received: by 2002:a05:6214:1cc4:b0:435:35c3:f0f1 with SMTP id
+ g4-20020a0562141cc400b0043535c3f0f1mr17657763qvd.0.1651674168694; Wed, 04 May
+ 2022 07:22:48 -0700 (PDT)
 MIME-Version: 1.0
 References: <YnEeuw6fd1A8usjj@miu.piliscsaba.redhat.com> <20220503224305.GF1360180@dread.disaster.area>
-In-Reply-To: <20220503224305.GF1360180@dread.disaster.area>
-From:   Miklos Szeredi <miklos@szeredi.hu>
-Date:   Wed, 4 May 2022 09:18:03 +0200
-Message-ID: <CAJfpegt_p2Tg+Tr34PtKSXvTyTJdTTwALMPRVE8KK2NmNVZhEg@mail.gmail.com>
+ <CAJfpegt_p2Tg+Tr34PtKSXvTyTJdTTwALMPRVE8KK2NmNVZhEg@mail.gmail.com>
+In-Reply-To: <CAJfpegt_p2Tg+Tr34PtKSXvTyTJdTTwALMPRVE8KK2NmNVZhEg@mail.gmail.com>
+From:   Amir Goldstein <amir73il@gmail.com>
+Date:   Wed, 4 May 2022 17:22:37 +0300
+Message-ID: <CAOQ4uxhALMgZeFHpPhu8oshrBzBjHcV-vTpFO=b-MeQ3OsQ6Ug@mail.gmail.com>
 Subject: Re: [RFC PATCH] getting misc stats/attributes via xattr API
-To:     Dave Chinner <david@fromorbit.com>
-Cc:     linux-fsdevel@vger.kernel.org, "Theodore Ts'o" <tytso@mit.edu>,
-        Karel Zak <kzak@redhat.com>,
+To:     Miklos Szeredi <miklos@szeredi.hu>
+Cc:     Dave Chinner <david@fromorbit.com>,
+        linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+        "Theodore Ts'o" <tytso@mit.edu>, Karel Zak <kzak@redhat.com>,
         Greg KH <gregkh@linuxfoundation.org>,
         Christian Brauner <brauner@kernel.org>,
-        linux-kernel@vger.kernel.org,
+        linux-kernel <linux-kernel@vger.kernel.org>,
         Linux API <linux-api@vger.kernel.org>,
         linux-man <linux-man@vger.kernel.org>,
         LSM <linux-security-module@vger.kernel.org>,
@@ -62,61 +67,76 @@ Cc:     linux-fsdevel@vger.kernel.org, "Theodore Ts'o" <tytso@mit.edu>,
         Linus Torvalds <torvalds@linux-foundation.org>,
         Al Viro <viro@zeniv.linux.org.uk>,
         Christian Brauner <christian@brauner.io>,
-        Amir Goldstein <amir73il@gmail.com>,
         James Bottomley <James.Bottomley@hansenpartnership.com>
 Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: No, score=-1.7 required=5.0 tests=BAYES_00,DKIM_INVALID,
-        DKIM_SIGNED,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
-        T_SCC_BODY_TEXT_LINE autolearn=no autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed, 4 May 2022 at 00:43, Dave Chinner <david@fromorbit.com> wrote:
+On Wed, May 4, 2022 at 10:18 AM Miklos Szeredi <miklos@szeredi.hu> wrote:
+>
+> On Wed, 4 May 2022 at 00:43, Dave Chinner <david@fromorbit.com> wrote:
+>
+> > "values" is a very generic name - probably should end up being
+> > something more descriptive of the functionality is provides,
+> > especially if the header file is going to be dumped in
+> > include/linux/. I don't really have a good suggestion at the moment,
+> > though.
+>
+> The obvious ones are stat and attr, which are taken already.   Info is
+> probably too generic as well.
+>
+> Ideas are welcome.
 
-> "values" is a very generic name - probably should end up being
-> something more descriptive of the functionality is provides,
-> especially if the header file is going to be dumped in
-> include/linux/. I don't really have a good suggestion at the moment,
-> though.
-
-The obvious ones are stat and attr, which are taken already.   Info is
-probably too generic as well.
-
-Ideas are welcome.
+I was thinking of "properties".
 
 >
-> ....
+> >
+> > ....
+> >
+> > > +
+> > > +enum {
+> > > +     VAL_MNT_INFO,
+> > > +};
+> > > +
+> > > +static struct val_desc val_mnt_group[] = {
+> > > +     { VD_NAME("info"),              .idx = VAL_MNT_INFO             },
+> > > +     { }
+> > > +};
+> > ....
+> > > +
+> > > +
+> > > +static struct val_desc val_toplevel_group[] = {
+> > > +     { VD_NAME("mnt:"),      .get = val_mnt_get,     },
+> > > +     { VD_NAME("mntns:"),    .get = val_mntns_get,   },
+> > > +     { },
+> > > +};
+> >
+> > I know this is an early POC, my main question is how do you
+> > envisiage this table driven structure being extended down from just
+> > the mount into the filesystem so we can expose filesystem specific
+> > information that isn't covered by generic interfaces like statx?
 >
-> > +
-> > +enum {
-> > +     VAL_MNT_INFO,
-> > +};
-> > +
-> > +static struct val_desc val_mnt_group[] = {
-> > +     { VD_NAME("info"),              .idx = VAL_MNT_INFO             },
-> > +     { }
-> > +};
-> ....
-> > +
-> > +
-> > +static struct val_desc val_toplevel_group[] = {
-> > +     { VD_NAME("mnt:"),      .get = val_mnt_get,     },
-> > +     { VD_NAME("mntns:"),    .get = val_mntns_get,   },
-> > +     { },
-> > +};
+> I was thinking of adding a i_op callback.   The details are a bit
+> fuzzy, since the vfs and the fs would have to work together when
+> listing the attributes and possibly also when retrieving the attribute
+> itself (think mount options).
 >
-> I know this is an early POC, my main question is how do you
-> envisiage this table driven structure being extended down from just
-> the mount into the filesystem so we can expose filesystem specific
-> information that isn't covered by generic interfaces like statx?
 
-I was thinking of adding a i_op callback.   The details are a bit
-fuzzy, since the vfs and the fs would have to work together when
-listing the attributes and possibly also when retrieving the attribute
-itself (think mount options).
+No, please do not think mount options :)
+Please think of an interface that does not mix vfs and fs properties.
+
+Sure, with mount(2) you can mix fs and vfs options, but with the new interface
+they should be clearly separated for set and get if possible.
+
+":mnt:info" key to get the effective mount options (as in /proc/$$/mountinfo)
+does not contradict that, because it can be read only.
 
 Thanks,
-Miklos
+Amir.
