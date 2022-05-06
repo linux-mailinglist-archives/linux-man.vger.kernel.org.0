@@ -2,133 +2,88 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id D12CC51CD67
-	for <lists+linux-man@lfdr.de>; Fri,  6 May 2022 02:07:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 268A351D873
+	for <lists+linux-man@lfdr.de>; Fri,  6 May 2022 15:03:59 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1387238AbiEFAKx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 5 May 2022 20:10:53 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46776 "EHLO
+        id S1349647AbiEFNHj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 6 May 2022 09:07:39 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60482 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S241593AbiEFAKw (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 5 May 2022 20:10:52 -0400
-Received: from mail-qv1-xf2d.google.com (mail-qv1-xf2d.google.com [IPv6:2607:f8b0:4864:20::f2d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3688A4EDED;
-        Thu,  5 May 2022 17:07:11 -0700 (PDT)
-Received: by mail-qv1-xf2d.google.com with SMTP id p3so2832403qvi.7;
-        Thu, 05 May 2022 17:07:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=0bydLn+MaadsEKy9TI70LzBq8Pin31TT5BFRic3vn7g=;
-        b=kBDdht1mILQDR5YeRdYRciPLf6mSNjR+h0e4piIWG2v8aN4VZaGlo+qap7nOYmeaGx
-         ykor7T6KQ9snP0rfDQPcX3sgVerXCx6FC9d88f3omuuFO3fMdZcld1G8nCw/Akc3Gk66
-         +Qu5kDjJC6m2a14JBY4fOGHv0/fp27PK4YtfLLbObBYnvpqI8YJ16ej6DR96SbijW0HR
-         dooiWGfHSDM94Ejq0KDN6sUCbFZ2lTi/X8tHyPUEpKdha+Q/KHe9K6CqgiaCtQi2X4OO
-         Sz5YpmJMwt6PVDzlhGB4MI4AjRuGDD0jzgiSEmDxrsiqBlapkhAsLKWedHm/4m+kM8fk
-         NFHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=0bydLn+MaadsEKy9TI70LzBq8Pin31TT5BFRic3vn7g=;
-        b=IBEgNahNw/9d6uFQBP3bI8e6AKjU+F+RSve1amoDcTVE41GejnOVH+OxPdCGZ4bVB7
-         EkindYrBERxCMXZ4Es3gNqnMl1k4pU8nF2GQ8fylf3k1dAikUHBVnzyxdyDUgiOQg/e0
-         rkPSWCaUtDue8oeRFQh3807NFKoD0njz/ZJEEv0KNFI5mb2+t78kBLvzsmFnlcWetVJN
-         /o6M9GhjHLTPCNmVX6GgWf0PWiqkaNnYORqPo9St252yseOXt0NqLR3Dsjuffa5prA6D
-         fWvLbxuWSNVwMDVI4wnOSh29HCOkrSvMk/fEk4ZINc1cVo5DApPcC+OLXMp8vSgLNYIj
-         Akbw==
-X-Gm-Message-State: AOAM531gmSWVRafE+L2n76R/mKxQalMo4g0VRnTlK2GTQxsWDRHdTOnC
-        HI4JxJpE+9RuiT43uvJjxGL2Iloe6P1OGlXc0hs=
-X-Google-Smtp-Source: ABdhPJyaDpmUFa8693GGOZKoshTrgqWPC/GVkZGfl0YdqcEiBmM9HArJu/b29zQy+tTX4iGxH14Qy7qgeQaSVDLphTM=
-X-Received: by 2002:a05:6214:2409:b0:432:bf34:362f with SMTP id
- fv9-20020a056214240900b00432bf34362fmr485516qvb.66.1651795630327; Thu, 05 May
- 2022 17:07:10 -0700 (PDT)
-MIME-Version: 1.0
-References: <YnEeuw6fd1A8usjj@miu.piliscsaba.redhat.com> <YnRf5CNN2yNKVu0B@mit.edu>
-In-Reply-To: <YnRf5CNN2yNKVu0B@mit.edu>
-From:   Amir Goldstein <amir73il@gmail.com>
-Date:   Fri, 6 May 2022 03:06:59 +0300
-Message-ID: <CAOQ4uxjXMMLBex0exsWYuA14QMc_0tPenx_bC2AynShUoGZzEw@mail.gmail.com>
-Subject: Re: [RFC PATCH] getting misc stats/attributes via xattr API
-To:     tytso <tytso@mit.edu>
-Cc:     Miklos Szeredi <miklos@szeredi.hu>,
-        linux-fsdevel <linux-fsdevel@vger.kernel.org>,
-        Dave Chinner <david@fromorbit.com>,
-        Karel Zak <kzak@redhat.com>,
-        Greg KH <gregkh@linuxfoundation.org>,
-        Christian Brauner <brauner@kernel.org>,
-        linux-kernel <linux-kernel@vger.kernel.org>,
-        Linux API <linux-api@vger.kernel.org>,
-        linux-man <linux-man@vger.kernel.org>,
-        LSM <linux-security-module@vger.kernel.org>,
-        Ian Kent <raven@themaw.net>,
-        David Howells <dhowells@redhat.com>,
-        Linus Torvalds <torvalds@linux-foundation.org>,
-        Al Viro <viro@zeniv.linux.org.uk>,
-        Christian Brauner <christian@brauner.io>,
-        James Bottomley <James.Bottomley@hansenpartnership.com>
+        with ESMTP id S237119AbiEFNHi (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 6 May 2022 09:07:38 -0400
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 14C7F5DA4F
+        for <linux-man@vger.kernel.org>; Fri,  6 May 2022 06:03:55 -0700 (PDT)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id 48A1762032
+        for <linux-man@vger.kernel.org>; Fri,  6 May 2022 13:03:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A89BAC385A8
+        for <linux-man@vger.kernel.org>; Fri,  6 May 2022 13:03:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1651842234;
+        bh=wrAMVlyJK127n9fH48AlFl1LIVHE7dE3FlioRwrDF/o=;
+        h=From:To:Subject:Date:In-Reply-To:References:From;
+        b=mwnRmGOvnzbOUNVVnJ6BvKTdEy9ArZW/TtiHjkTfF6fAe0/Lu8q++gLn0Uz2fkjIl
+         hAdFXwnkB8hx6aJ1Ua3PJTX18m5gj1o465ytX8DTNAgDK9yi5oRYEP9mrrdDFJeVPm
+         9X1NhPX1xAwqUE9+9FneI3CQJ5mGQxzvsyO1RWzydcOH0We6bIBlrgGjIseAOkN2w1
+         aTa1MfkCLP1WfgK6ufh+Cx8RR/iFIrSM63zZdB27TK8I30jckuiuGEq36cV3GplYV+
+         wwjJpPPVYqKfkTDyKEo98TMRWRNtv2ELMLe+sSXjls7YSkZDgGMYaJOOmbPSBhDGq+
+         WeU7Sv2mZ+7YA==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
+        id 924FBCAC6E2; Fri,  6 May 2022 13:03:54 +0000 (UTC)
+From:   bugzilla-daemon@kernel.org
+To:     linux-man@vger.kernel.org
+Subject: [Bug 89451] Running Chrubuntu, 14.04 LTS, messages on startup.
+Date:   Fri, 06 May 2022 13:03:54 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Documentation
+X-Bugzilla-Component: man-pages
+X-Bugzilla-Version: unspecified
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: hamdan@digitalbrolly.com
+X-Bugzilla-Status: RESOLVED
+X-Bugzilla-Resolution: INVALID
+X-Bugzilla-Priority: P1
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: cc
+Message-ID: <bug-89451-11311-cF6NB24d4N@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-89451-11311@https.bugzilla.kernel.org/>
+References: <bug-89451-11311@https.bugzilla.kernel.org/>
 Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-        autolearn=ham autolearn_force=no version=3.4.6
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
+MIME-Version: 1.0
+X-Spam-Status: No, score=-7.7 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Fri, May 6, 2022 at 2:38 AM tytso <tytso@mit.edu> wrote:
->
-> On Tue, May 03, 2022 at 02:23:23PM +0200, Miklos Szeredi wrote:
-> >
-> > : - root
-> > bar - an attribute
-> > foo: - a folder (can contain attributes and/or folders)
-> >
-> > The contents of a folder is represented by a null separated list of names.
-> >
-> > Examples:
-> >
-> > $ getfattr -etext -n ":" .
-> > # file: .
-> > :="mnt:\000mntns:"
->
-> In your example, does it matter what "." is?  It looks like in some
-> cases, it makes no difference at all, and in other cases, like this,
-> '.' *does* matter:
+https://bugzilla.kernel.org/show_bug.cgi?id=3D89451
 
-It does. If "." was a directory in /proc/ or in ext4 it might have had
-more entries.
+hamdan@digitalbrolly.com (hamdan@digitalbrolly.com) changed:
 
->
-> > $ getfattr -etext -n ":mnt:info" .
-> > # file: .
-> > :mnt:info="21 1 254:0 / / rw,relatime - ext4 /dev/root rw\012"
->
-> Is that right?
->
-> > $ getfattr -etext -n ":mntns:" .
-> > # file: .
-> > :mntns:="21:\00022:\00024:\00025:\00023:\00026:\00027:\00028:\00029:\00030:\00031:"
->
-> What is this returning?  All possible mount name spaces?  Or all of
-> the mount spaces where '.' happens to exist?
+           What    |Removed                     |Added
+----------------------------------------------------------------------------
+                 CC|                            |hamdan@digitalbrolly.com
 
-This confused me too.
-It is not returning the mount namespaces, it is returning all the mount ids
-in the mount namespace of ".".
-":mntns:mounts:" might have been a better choice of key.
+--- Comment #3 from hamdan@digitalbrolly.com (hamdan@digitalbrolly.com) ---
+https://mindqsystems.com/trainings/selenium-live-project/
 
-Thanks,
-Amir.
+--=20
+You may reply to this email to add a comment.
 
->
-> Also, using the null character means that we can't really use shell
-> scripts calling getfattr.  I understand that the problem is that in
-> some cases, you might want to return a pathname, and NULL is the only
-> character which is guaranteed not to show up in a pathname.  However,
-> it makes parsing the returned value in a shell script exciting.
->
->                                          - Ted
+You are receiving this mail because:
+You are watching the assignee of the bug.=
