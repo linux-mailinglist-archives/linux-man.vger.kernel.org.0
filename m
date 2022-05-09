@@ -2,90 +2,95 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 4CD6E51F9D3
-	for <lists+linux-man@lfdr.de>; Mon,  9 May 2022 12:26:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0A98451FAB1
+	for <lists+linux-man@lfdr.de>; Mon,  9 May 2022 13:01:37 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230062AbiEIK2U (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 9 May 2022 06:28:20 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48342 "EHLO
+        id S230359AbiEILDn (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 9 May 2022 07:03:43 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48396 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232498AbiEIK2M (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 9 May 2022 06:28:12 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 623B422DA0A
-        for <linux-man@vger.kernel.org>; Mon,  9 May 2022 03:23:38 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id A6EE560F71
-        for <linux-man@vger.kernel.org>; Mon,  9 May 2022 10:23:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 11B18C385B1
-        for <linux-man@vger.kernel.org>; Mon,  9 May 2022 10:23:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1652091814;
-        bh=PQz0mTJuU2eUS/AoFGjYEnfxZs/2uexO9f+CaUnXhKU=;
-        h=From:To:Subject:Date:In-Reply-To:References:From;
-        b=lgUbLwdEf46YM60/8tl6clhNMhwn6f06kuFbhXgV9OUmtU8mi/5x71j2a1FPgAUn+
-         CyA3RZ2gh4BWt8NTPQNNWhVxS66q927FALQyn0WwMvE8hYwfCKG120Pp5gWtQojpO5
-         PwrrEyHHMfa15ris5VIN9IbOcs+fMP8NGeiP/nrGLRlyCXkr9BuH6BWDKvRTxX/zk6
-         IBwDtZ1hdYzaBHbYQxj7gS1HsK+7mNhS6RlLtHLD7gsROzvduyv84K3QgEg17DEsSw
-         U261yirR8/EMBtz/pSDnMi4OwFNQbRUX8tPOFv6ZtzXvnfVmDi/KOgNTeDJLaYUOEM
-         DxlJ8u4xhOTfA==
-Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
-        id EE167CC13B0; Mon,  9 May 2022 10:23:33 +0000 (UTC)
-From:   bugzilla-daemon@kernel.org
-To:     linux-man@vger.kernel.org
-Subject: [Bug 215769] vfork() returns EINVAL after unshare(CLONE_NEWTIME)
-Date:   Mon, 09 May 2022 10:23:33 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: changed
-X-Bugzilla-Watch-Reason: AssignedTo
- documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Product: Other
-X-Bugzilla-Component: Other
-X-Bugzilla-Version: 2.5
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: normal
-X-Bugzilla-Who: brauner@kernel.org
-X-Bugzilla-Status: NEW
-X-Bugzilla-Resolution: 
-X-Bugzilla-Priority: P1
-X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: cc
-Message-ID: <bug-215769-11311-SbZ1Yhk6kh@https.bugzilla.kernel.org/>
-In-Reply-To: <bug-215769-11311@https.bugzilla.kernel.org/>
-References: <bug-215769-11311@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
+        with ESMTP id S231358AbiEILDd (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 9 May 2022 07:03:33 -0400
+Received: from mail-yb1-xb2c.google.com (mail-yb1-xb2c.google.com [IPv6:2607:f8b0:4864:20::b2c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5124721935D
+        for <linux-man@vger.kernel.org>; Mon,  9 May 2022 03:59:29 -0700 (PDT)
+Received: by mail-yb1-xb2c.google.com with SMTP id v59so24164991ybi.12
+        for <linux-man@vger.kernel.org>; Mon, 09 May 2022 03:59:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:from:date:message-id:subject:to:cc;
+        bh=hAkT81cOqAy6bL0lOviE6SemT4D5DwE4XS6wFg9X6qU=;
+        b=QWj7cRsDrztrIbN53U9/BHkyK27xguXjONBBZjvLbr1/6QTcjWg4iIG6BpkpdTArna
+         Nb9WKOfiBelC7aMLAbvTaJ9Gv4CO95/EqQ6yduxhSWfNV7b4ujC14Fi9Vwa8eVq0NYmd
+         3UHWNuKFACOqb8ddsDFS21jOWQ1AHoO2WvTmNB3+mqCuIUHvNtTuCynjoDqfNF7Ty7mL
+         ptAIl3yj2BNQ6Pjl6RQZVXCo5y+yjKzoOmhTNcEMURlk5Vamw1hbpmTod+W33vccMIZb
+         m0G+5gyAMcOylJg/6ArRxJSl8PCo827fqlaCohNjl4iRpLMXrZz9p1MvgQtKCsqSyjLF
+         fTqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+        bh=hAkT81cOqAy6bL0lOviE6SemT4D5DwE4XS6wFg9X6qU=;
+        b=YD6grwgGn3nMB6+ickhCJcUsULw9EsyQyfdK18di6Zi5pOS2jSpCYuOWFe927L5Q//
+         gm8k7LiaLGoyeJFZtJCQR2TFHk+aPvothVkbyMc7WXfR0XwDNjSb1830V3w+VCvHQ324
+         Q6hRnhgh8bvGXVUm8TlHrxABLyyCueWhWxWUt6mPWdtDIjZs+BU68gLeVmP198ahVW9S
+         oXr0ZgCvLx0eG+WqkrV03cI0dFyn44hv8lgjmtaMizIqguN2xurbKX6LoD+GjfHxaJn0
+         RiUsTRKVt4ViZQQzGtD4tku9taCbwxrT5yagytdJj5Uv4mYdOZZLG+Pl/iF1Ks+IDozu
+         v3Dg==
+X-Gm-Message-State: AOAM531F9Eg279+qYPPCXW0CYOKAhFa+sh3CPj3vG9+wMg+5zk4OjMUt
+        wQoyxAG1L+l7De0ChbhBaf0NfpH1t+L6pyfQPx5SvO4v2Gk=
+X-Google-Smtp-Source: ABdhPJxuCEa7daqihn9aTycG4DqMX648EsU8R6Zgf1p6Yj7FbvD0oLeJjUR3MctJcHnZywZ4tchCF5V/PeYJvgyWu3U=
+X-Received: by 2002:a25:2a11:0:b0:645:896e:3bc5 with SMTP id
+ q17-20020a252a11000000b00645896e3bc5mr12337200ybq.411.1652093968463; Mon, 09
+ May 2022 03:59:28 -0700 (PDT)
 MIME-Version: 1.0
-X-Spam-Status: No, score=-7.7 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
-        autolearn_force=no version=3.4.6
+From:   Tom Levy <tomlevy93@gmail.com>
+Date:   Mon, 9 May 2022 22:59:02 +1200
+Message-ID: <CAMtU5-i2HzCOqNfvOOrD9mKzmYPNxJPs6524=LcqqAY94EWtAA@mail.gmail.com>
+Subject: [PATCH] clock_nanosleep.2: tfix
+To:     linux-man@vger.kernel.org
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>
+Content-Type: multipart/mixed; boundary="00000000000020748805de921a33"
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
+        FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+        T_SCC_BODY_TEXT_LINE autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D215769
+--00000000000020748805de921a33
+Content-Type: text/plain; charset="UTF-8"
 
-Christian Brauner (brauner@kernel.org) changed:
+Hi,
 
-           What    |Removed                     |Added
-----------------------------------------------------------------------------
-                 CC|                            |brauner@kernel.org
+I've attached a small patch to fix a spelling mistake (CLOCK_BOOTIME
+=> CLOCK_BOO*TT*IME).
 
---- Comment #15 from Christian Brauner (brauner@kernel.org) ---
-I missed a bunch of messages here. Apparently they weren't sent out as mail=
-s. I
-only saw the replies from Alejandro.
+Cheers,
+Tom
 
---=20
-You may reply to this email to add a comment.
+--00000000000020748805de921a33
+Content-Type: text/x-patch; charset="US-ASCII"; name="0001-clock_nanosleep.2-tfix.patch"
+Content-Disposition: attachment; 
+	filename="0001-clock_nanosleep.2-tfix.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_l2ylwu2b0>
+X-Attachment-Id: f_l2ylwu2b0
 
-You are receiving this mail because:
-You are watching the assignee of the bug.=
+RnJvbSA4N2QzZWIzNjQ0MjMyYmMyOWZmY2YwNzYwN2QxMzI0NzI1NGY1YmJmIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBUb20gTGV2eSA8dG9tbGV2eTkzQGdtYWlsLmNvbT4KRGF0ZTog
+TW9uLCA5IE1heSAyMDIyIDA5OjMwOjE1ICswMDAwClN1YmplY3Q6IFtQQVRDSF0gY2xvY2tfbmFu
+b3NsZWVwLjI6IHRmaXgKCi0tLQogbWFuMi9jbG9ja19uYW5vc2xlZXAuMiB8IDIgKy0KIDEgZmls
+ZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL21h
+bjIvY2xvY2tfbmFub3NsZWVwLjIgYi9tYW4yL2Nsb2NrX25hbm9zbGVlcC4yCmluZGV4IGI4YzRh
+ZmMyYy4uMWQ2MDdlMWNlIDEwMDY0NAotLS0gYS9tYW4yL2Nsb2NrX25hbm9zbGVlcC4yCisrKyBi
+L21hbjIvY2xvY2tfbmFub3NsZWVwLjIKQEAgLTkwLDcgKzkwLDcgQEAgc2luY2Ugc29tZSB1bnNw
+ZWNpZmllZCBwb2ludCBpbiB0aGUgcGFzdCB0aGF0IGRvZXMgbm90IGNoYW5nZSBhZnRlcgogc3lz
+dGVtIHN0YXJ0dXAuCiAuXCIgT24gTGludXggdGhpcyBjbG9jayBtZWFzdXJlcyB0aW1lIHNpbmNl
+IGJvb3QuCiAuVFAKLS5CUiBDTE9DS19CT09USU1FICIgKHNpbmNlIExpbnV4IDIuNi4zOSkiCisu
+QlIgQ0xPQ0tfQk9PVFRJTUUgIiAoc2luY2UgTGludXggMi42LjM5KSIKIElkZW50aWNhbCB0bwog
+LkJSIENMT0NLX01PTk9UT05JQyAsCiBleGNlcHQgdGhhdCBpdCBhbHNvIGluY2x1ZGVzIGFueSB0
+aW1lIHRoYXQgdGhlIHN5c3RlbSBpcyBzdXNwZW5kZWQuCi0tIAoyLjIwLjEKCg==
+--00000000000020748805de921a33--
