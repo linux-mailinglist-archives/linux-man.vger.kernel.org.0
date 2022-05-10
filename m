@@ -2,93 +2,106 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 439C652207A
-	for <lists+linux-man@lfdr.de>; Tue, 10 May 2022 17:59:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 476515226A2
+	for <lists+linux-man@lfdr.de>; Wed, 11 May 2022 00:08:41 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1346991AbiEJQD3 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 10 May 2022 12:03:29 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57460 "EHLO
+        id S231318AbiEJWIi (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 10 May 2022 18:08:38 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60588 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1346995AbiEJQBB (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 10 May 2022 12:01:01 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B358B3CA52;
-        Tue, 10 May 2022 08:53:40 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id 4284961673;
-        Tue, 10 May 2022 15:53:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C17F4C385A6;
-        Tue, 10 May 2022 15:53:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1652198019;
-        bh=9pgUcC73MMhE3nPFiSsB/Zp0JFryDLtpwGsW8VKXMIc=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=u7AzoJ/Wk3+3/R2dR6hL3nO2cRTFVkpejdusu1cWWqVxNKpzc9Vy/meXirezGrwZi
-         J0ZEbm2n4fxpjjgMY/pmT/vd2Mfu9pcKIxWKj95uWzWf40AodLu8S0c6nIM19gJ0Tw
-         kSXcRleqg5eBZ5f/7ks7y1nufYS4P6+8qpjb9XOe0fmD6kocBMMPPBx+gDCifjtF1z
-         2Zp/8QdJFjY+q9EAns9A3uZUD9ZctwxPKJN+UbTg8PKs6esQzU2pPpusSbNwm8Am3L
-         tgGo6JPSNRMoETWilBHweh5lLCuzXFJFNFzTyG3qS4ZYm5/zyhCRYffXVvbjjgP0Br
-         uc7+JMwnO6kow==
-Date:   Tue, 10 May 2022 17:53:32 +0200
-From:   Christian Brauner <brauner@kernel.org>
-To:     Miklos Szeredi <miklos@szeredi.hu>
-Cc:     linux-fsdevel@vger.kernel.org, Dave Chinner <david@fromorbit.com>,
-        Theodore Ts'o <tytso@mit.edu>, Karel Zak <kzak@redhat.com>,
-        Greg KH <gregkh@linuxfoundation.org>,
-        linux-kernel@vger.kernel.org,
-        Linux API <linux-api@vger.kernel.org>,
-        linux-man <linux-man@vger.kernel.org>,
-        LSM <linux-security-module@vger.kernel.org>,
-        Ian Kent <raven@themaw.net>,
-        David Howells <dhowells@redhat.com>,
-        Linus Torvalds <torvalds@linux-foundation.org>,
-        Al Viro <viro@zeniv.linux.org.uk>,
-        Christian Brauner <christian@brauner.io>,
-        Amir Goldstein <amir73il@gmail.com>,
-        James Bottomley <James.Bottomley@hansenpartnership.com>
-Subject: Re: [RFC PATCH] getting misc stats/attributes via xattr API
-Message-ID: <20220510155332.3zm5nycl7nmuxgdx@wittgenstein>
-References: <YnEeuw6fd1A8usjj@miu.piliscsaba.redhat.com>
- <20220509124815.vb7d2xj5idhb2wq6@wittgenstein>
- <CAJfpegveWaS5pR3O1c_7qLnaEDWwa8oi26x2v_CwDXB_sir1tg@mail.gmail.com>
- <20220510115316.acr6gl5ayqszada6@wittgenstein>
- <CAJfpegtVgyumJiFM_ujjuRTjg07vwOd4h9AT+mbh+n1Qn-LqqA@mail.gmail.com>
- <20220510141932.lth3bryefbl6ykny@wittgenstein>
- <CAJfpegt94fP-_eDAk=_C=24ahCtjQ4vhh8Xg+SrZbwPHs1waLA@mail.gmail.com>
- <20220510153050.cgbt3wezbvf2jfnb@wittgenstein>
- <CAJfpegu8d2VQ+WjfmUJ6g7YBPJsYUABt0jG5ByVh-dMt_waV8A@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CAJfpegu8d2VQ+WjfmUJ6g7YBPJsYUABt0jG5ByVh-dMt_waV8A@mail.gmail.com>
-X-Spam-Status: No, score=-7.7 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
-        autolearn_force=no version=3.4.6
+        with ESMTP id S229555AbiEJWIh (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 10 May 2022 18:08:37 -0400
+Received: from mail-yw1-x114a.google.com (mail-yw1-x114a.google.com [IPv6:2607:f8b0:4864:20::114a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B0374289BD9
+        for <linux-man@vger.kernel.org>; Tue, 10 May 2022 15:08:32 -0700 (PDT)
+Received: by mail-yw1-x114a.google.com with SMTP id 00721157ae682-2f7ee6bc6ddso1419207b3.1
+        for <linux-man@vger.kernel.org>; Tue, 10 May 2022 15:08:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20210112;
+        h=date:message-id:mime-version:subject:from:to:cc;
+        bh=JWC2PZHKNFawO2x48GB1VyvLoaWEXS6rD1yXRgPdoQM=;
+        b=fBo6l56jHQ4ENf3fT3PwlDLxVbrP9aSDc1tiemmqaEY3bu/WpF4/NrjAWBcKOSMjsc
+         KgneZXMGo4OHXocQxi4UkudKEU5UzDm+7s07cI+gZvDvth3Xs/r3RZ17OI00AOjm66RH
+         urxrySjbwQ7XXgH8j7YPQrz0AlYTOChN91s0PyY8C2LGplUZqdlufMyx6w7XcvZVzwFR
+         +79SHzmR+8cslYw+nCW78WT47IumQGo5Fyx0Ea3KvRkQfvNtm7zB88Y9R50SOgDfZynO
+         6JuG3XJ7W6rmipfAjjeUtwmAO7+UL9PYdqr/F1clhfoxmaWJEIIvRjZMPJF2ctbv66zE
+         MFbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
+        bh=JWC2PZHKNFawO2x48GB1VyvLoaWEXS6rD1yXRgPdoQM=;
+        b=rzAnLBMmmOE4TRk+BdIx4SDjL4tporEvHqZ3uiEf5n+lRrkBeXA+GBsQJzqtvLqw/J
+         Xt9JLEotFaWGyDfATEUNNgZU8EKqChUm0cze6wTpYK2oAQIZq1svT0/RuqPCiAOa1WRk
+         Wxkl+HjjXU+K+RM4KJeUmNENzQja7sLX4N42Qr74GtMf8RrQ+ILRwc+7AqHLwHw9eb5O
+         ONx3k+Dl9vpf9XwF7Spb1shWZz87npKA+F2197PJWlxj4N1p7YIl+wG4Qtg3HdVJffdD
+         6NqXUn9G7uUyV6KZ/YyfZIGTkKLvhqU53Q7ojk2UCouPDBk9fVWDtp1lv3Od5DOo9B+u
+         NNHw==
+X-Gm-Message-State: AOAM531/Ndj3SR6Dsva559a53dDUVXwxYXf+hUWa0rUCv1ZptADuJKgF
+        JhRsl8y+e6K1fOWpapDZHpqLQ+b4A9KIyd/B2sZWkudTs/zOFCQIYwocChZCQavKmfhRFy/oDjt
+        soIwWVI4fmKzguzNeIuahNxiDsBMZ8evdR3Rc8dl+kQGxqntCYIdObVa1VDvWGUU=
+X-Google-Smtp-Source: ABdhPJyHQ+uSFEoayZcmJImdKHyKKtfhXpzDJXD50nLJLFuh2IJPArE8JJ0bOFcJ9I9vGVVdKkfwYX746w==
+X-Received: from tbodt.mtv.corp.google.com ([2620:0:1000:5011:d21c:6d0:4aa2:ba60])
+ (user=tbodt job=sendgmr) by 2002:a25:dd42:0:b0:64a:d0b8:d498 with SMTP id
+ u63-20020a25dd42000000b0064ad0b8d498mr12620793ybg.536.1652220511756; Tue, 10
+ May 2022 15:08:31 -0700 (PDT)
+Date:   Tue, 10 May 2022 15:08:21 -0700
+Message-Id: <20220510220821.1481801-1-tbodt@google.com>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.36.0.512.ge40c2bad7a-goog
+Subject: [PATCH] getpriority: Only getpriority translation the priority values
+From:   Theodore Dubois <tbodt@google.com>
+To:     linux-man@vger.kernel.org, mtk.manpages@gmail.com,
+        alx.manpages@gmail.com
+Cc:     Theodore Dubois <tbodt@google.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Spam-Status: No, score=-9.6 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
+        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,USER_IN_DEF_DKIM_WL
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Tue, May 10, 2022 at 05:47:13PM +0200, Miklos Szeredi wrote:
-> On Tue, 10 May 2022 at 17:30, Christian Brauner <brauner@kernel.org> wrote:
-> 
-> > But now we're in the process of extending the *xattr() calls to operate
-> > on mounts and filesystems so an additional getfsattr() (or another name)
-> > is not fragmentation imho. And I definitely don't think this would
-> > qualify as "crazy".
-> 
-> In that spirit st_dev does not belong in struct stat, because that is
-> the property of the block device, not the inode.
-> 
-> But I feel we are going round in circles, lets please not get hung up
-> on this issue.  Linus will have the final word on which variant (if
-> either) is going to go in.
+The translation is needed to avoid returning a negative number from a
+successful syscall, and this requirement doesn't apply to setpriority.
+See the implementation of getpriority in kernel/sys.c.
 
-Well yes, I'm obviously not going to be d*ck about it and go around
-NAKing it just because I didn't get my favorite name but I at least
-want to register my strong opposition to the current "unification"
-approach loud and clear. :)
+Signed-off-by: Theodore Dubois <tbodt@google.com>
+---
+ man2/getpriority.2 | 17 ++++-------------
+ 1 file changed, 4 insertions(+), 13 deletions(-)
+
+diff --git man2/getpriority.2 man2/getpriority.2
+index 3e1be3e6c..24c1b7f11 100644
+--- man2/getpriority.2
++++ man2/getpriority.2
+@@ -206,20 +206,11 @@ All BSD-like systems (SunOS 4.1.3, Ultrix 4.2,
+ manner as Linux 2.6.12 and later.
+ .\"
+ .SS C library/kernel differences
+-Within the kernel, nice values are actually represented
+-using the range 40..1
+-(since negative numbers are error codes) and these are the values
+-employed by the
+-.BR setpriority ()
+-and
+-.BR getpriority ()
+-system calls.
+-The glibc wrapper functions for these system calls handle the
+-translations between the user-land and kernel representations
+-of the nice value according to the formula
++The getpriority system call returns nice values translated to the range 40..1,
++since a negative return value would be interpreted as an error.
++The glibc wrapper function for getpriority translates the value back according to the formula
+ .IR "unice\ =\ 20\ \-\ knice" .
+-(Thus, the kernel's 40..1 range corresponds to the
+-range \-20..19 as seen by user space.)
++(Thus, the 40..1 range returned by the kernel corresponds to the range \-20..19 as seen by user space.)
+ .SH BUGS
+ According to POSIX, the nice value is a per-process setting.
+ However, under the current Linux/NPTL implementation of POSIX threads,
+-- 
+2.36.0.512.ge40c2bad7a-goog
+
