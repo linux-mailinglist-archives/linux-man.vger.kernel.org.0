@@ -2,52 +2,53 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id E07EB520F66
-	for <lists+linux-man@lfdr.de>; Tue, 10 May 2022 10:06:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 79CF0520F72
+	for <lists+linux-man@lfdr.de>; Tue, 10 May 2022 10:08:20 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S237529AbiEJIKc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 10 May 2022 04:10:32 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37160 "EHLO
+        id S237846AbiEJIMN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 10 May 2022 04:12:13 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43846 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S237504AbiEJIKb (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 10 May 2022 04:10:31 -0400
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com [IPv6:2a00:1450:4864:20::62b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E07F34EDD1
-        for <linux-man@vger.kernel.org>; Tue, 10 May 2022 01:06:30 -0700 (PDT)
-Received: by mail-ej1-x62b.google.com with SMTP id bv19so31321333ejb.6
-        for <linux-man@vger.kernel.org>; Tue, 10 May 2022 01:06:30 -0700 (PDT)
+        with ESMTP id S237825AbiEJIMG (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 10 May 2022 04:12:06 -0400
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com [IPv6:2a00:1450:4864:20::635])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6C491259F91
+        for <linux-man@vger.kernel.org>; Tue, 10 May 2022 01:08:08 -0700 (PDT)
+Received: by mail-ej1-x635.google.com with SMTP id l18so31285340ejc.7
+        for <linux-man@vger.kernel.org>; Tue, 10 May 2022 01:08:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=szeredi.hu; s=google;
         h=mime-version:references:in-reply-to:from:date:message-id:subject:to
          :cc;
-        bh=7tI2Ml7ymhbWng6Ez1TG6evxVbSct1ixRwoWt6dfoEI=;
-        b=oOtcyxbZmxrFKBqSMFucrSkIORwsCB93eB0KfRaZL/Ssg7HjwooAEun4ESX1HaypIV
-         sGJtZpHRV3J2QlxJP18LmXH/tBA6RmH0h240ugbELvxEDH4OpX1uBZPuiAw6GS63Et6Q
-         8ds5+bFHu9ehHJK2ihuUN4MDVDqC+5TMjxprI=
+        bh=2QFdBMdYEEbUASs02np96D58mKsmERHZc9+DIqJWP78=;
+        b=qQi+i9ZAoniWPdwG3ylmPUcac2wf8Zd0T/w/nS4IkCX0SkHWtsVxLcPNyUCNNYVzbs
+         SKLrVJtsuHZOxJf9utf3nZ1kAxJ0Y5h6Rt6gPKKyU3j5RzI862zM7fBWXwNd3l4lr+p6
+         dD3XO8aDg4AuxFjyL4NW7QgH+gJ4zt0+d9rh8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:mime-version:references:in-reply-to:from:date
          :message-id:subject:to:cc;
-        bh=7tI2Ml7ymhbWng6Ez1TG6evxVbSct1ixRwoWt6dfoEI=;
-        b=Q/ZYS+Hl6W9aPHJSuh3c8UYMctkOwDcv1/i6GTsiOQk5BL8mzingVSbB/dYx5aGCcG
-         J7Wlvyd8JDn7VFKJnpXx9uDUCQTReY1Hu+OIGm6d0izuWFKxK6j/ISlxlrG7TvmX/B0e
-         MsSpEok5qTxHjX3O38q/jvkIsqC4/EyUTo6LLM0822zK48sFZvAtV4W7JMnVKbpZ4SR7
-         5rPRzlIQMp81DZkozMG4u7TRIWv5gpect2xgSVIuSbWBogf/o5uSIyNt2ooQ/mRfGnBg
-         leYJ/LikoLY4TDcq7fkEtKw3wmNK6xNd822XfNxQ9wW/nGigozau2ORydFUP1c7RZPpn
-         0oig==
-X-Gm-Message-State: AOAM530BWLweVbF4o+xEnKYPHu6byzVEvD9dJFrL0Bfa0YHrMVqo55Qs
-        eaphOZLhtkHsZWHTDMMtzru3WP82ow5WMu5tr9iwPg==
-X-Google-Smtp-Source: ABdhPJyaRY4zF9W3N5Owubw7wkii9tMo2zI4ulE85zYHRZIlQZtO1rU1FeijvcrIuKANKfUiFH8XX2WkOoqwrAZjOn8=
-X-Received: by 2002:a17:907:62aa:b0:6e0:f208:b869 with SMTP id
- nd42-20020a17090762aa00b006e0f208b869mr18501699ejc.270.1652169989025; Tue, 10
- May 2022 01:06:29 -0700 (PDT)
+        bh=2QFdBMdYEEbUASs02np96D58mKsmERHZc9+DIqJWP78=;
+        b=R8g7rPsGJtgzphA+7qCAZAuOakWjYkeamusycfQ4jVahRkyvJCYea5mx4iYV1o4/xR
+         Ln6iwwtKCnZMCAO0iLlYT5445wm0h/tgfnODhPWYybhrjHx9irZeSfQiodc5ccpzveZv
+         zX9TGPMMou4Zq+XRv+7NbT1Yq0Px0JyV8gkD3X86oBsBj8ukzbS4ggHuhTbx+oMK0ivg
+         ZarO6eGRM9Sf9c7MBoD9XyEZ/Kwc+XBojPWvN1hju7AIZlsIguk8Nh5QOqy4qldUgEMS
+         UT5C59pjJQ7KLTO7bffsfI8Jien4QgmorDh+zGnPdj0PzmnrZQB8BOaWNu5ChAyNBGoI
+         N3Sg==
+X-Gm-Message-State: AOAM530ZRPpLcoq4IwYReLHOFE4PfixhJh5uuMDXVt0IwssCeths6hkT
+        r/c0Y7pbBRh9HiflSPsWo0BbMeB0w4Nm49Qdfd8Facgps+FGoA==
+X-Google-Smtp-Source: ABdhPJwEHlw4XhbiZIuNB+ukHQw6ZcScwA3a5E2Bw5WzA5tKVBIbFK+IK2Sb7JbU5SORV2GvNdQ+pEESwl6nGdb3zws=
+X-Received: by 2002:a17:906:b48:b0:6f5:132c:1a17 with SMTP id
+ v8-20020a1709060b4800b006f5132c1a17mr18555378ejg.748.1652170086987; Tue, 10
+ May 2022 01:08:06 -0700 (PDT)
 MIME-Version: 1.0
 References: <YnEeuw6fd1A8usjj@miu.piliscsaba.redhat.com> <20220509124815.vb7d2xj5idhb2wq6@wittgenstein>
- <CAJfpegveWaS5pR3O1c_7qLnaEDWwa8oi26x2v_CwDXB_sir1tg@mail.gmail.com> <8ab7f51cf18ba62e3f5bfdf5d9933895413f4806.camel@themaw.net>
-In-Reply-To: <8ab7f51cf18ba62e3f5bfdf5d9933895413f4806.camel@themaw.net>
+ <CAJfpegveWaS5pR3O1c_7qLnaEDWwa8oi26x2v_CwDXB_sir1tg@mail.gmail.com>
+ <8ab7f51cf18ba62e3f5bfdf5d9933895413f4806.camel@themaw.net> <CAJfpegv3MCHMzur9R+K+yZC3Z_Wmbq3=pQwuQ=+kQSrihg0c9g@mail.gmail.com>
+In-Reply-To: <CAJfpegv3MCHMzur9R+K+yZC3Z_Wmbq3=pQwuQ=+kQSrihg0c9g@mail.gmail.com>
 From:   Miklos Szeredi <miklos@szeredi.hu>
-Date:   Tue, 10 May 2022 10:06:17 +0200
-Message-ID: <CAJfpegv3MCHMzur9R+K+yZC3Z_Wmbq3=pQwuQ=+kQSrihg0c9g@mail.gmail.com>
+Date:   Tue, 10 May 2022 10:07:55 +0200
+Message-ID: <CAJfpegutUQOTa71NTy_iaz5Kus2ma16ALqrHtvV2+cQ0tFiaxA@mail.gmail.com>
 Subject: Re: [RFC PATCH] getting misc stats/attributes via xattr API
 To:     Ian Kent <raven@themaw.net>
 Cc:     Christian Brauner <brauner@kernel.org>,
@@ -75,54 +76,59 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Tue, 10 May 2022 at 06:27, Ian Kent <raven@themaw.net> wrote:
-
-> > Was there ever a test patch for systemd using fsinfo(2)?  I think
-> > not.
+On Tue, 10 May 2022 at 10:06, Miklos Szeredi <miklos@szeredi.hu> wrote:
 >
-> Mmm ... I'm hurt you didn't pay any attention to what I did on this
-> during the original fsinfo() discussions.
-
-I can't find anything related to this in my mailbox.  Maybe you
-mentioned it at some point, but I have not been involved with the
-actual systemd changes.  So not meant to belittle your work at all.
-
-> > Until systemd people start to reengineer the mount handing to allow
-> > for retrieving a single mount instead of the complete mount table we
-> > will never know where the performance bottleneck lies.
+> On Tue, 10 May 2022 at 06:27, Ian Kent <raven@themaw.net> wrote:
 >
-> We didn't need the systemd people to do this only review and contribute
-> to the pr for the change and eventually merge it.
+> > > Was there ever a test patch for systemd using fsinfo(2)?  I think
+> > > not.
+> >
+> > Mmm ... I'm hurt you didn't pay any attention to what I did on this
+> > during the original fsinfo() discussions.
 >
-> What I did on this showed that using fsinfo() allone about halved the
-> CPU overhead (from around 4 processes using about 80%) and once the
-> mount notifications was added too it went down to well under 10% per
-> process. The problem here was systemd is quite good at servicing events
-> and reducing event processing overhead meant more events would then be
-> processed. Utilizing the mount notifications queueing was the key to
-> improving this and that was what I was about to work on at the end.
+> I can't find anything related to this in my mailbox.  Maybe you
+> mentioned it at some point, but I have not been involved with the
+> actual systemd changes.  So not meant to belittle your work at all.
 >
-> But everything stopped before the work was complete.
+> > > Until systemd people start to reengineer the mount handing to allow
+> > > for retrieving a single mount instead of the complete mount table we
+> > > will never know where the performance bottleneck lies.
+> >
+> > We didn't need the systemd people to do this only review and contribute
+> > to the pr for the change and eventually merge it.
+> >
+> > What I did on this showed that using fsinfo() allone about halved the
+> > CPU overhead (from around 4 processes using about 80%) and once the
+> > mount notifications was added too it went down to well under 10% per
+> > process. The problem here was systemd is quite good at servicing events
+> > and reducing event processing overhead meant more events would then be
+> > processed. Utilizing the mount notifications queueing was the key to
+> > improving this and that was what I was about to work on at the end.
+> >
+> > But everything stopped before the work was complete.
+> >
+> > As I said above it's been a long time since I looked at the systemd
+> > work and it definitely was a WIP so "what you see is what you get"
+> > at https://github.com/raven-au/systemd/commits/. It looks like the
+> > place to look to get some idea of what was being done is branch
+> > notifications-devel or notifications-rfc-pr. Also note that this
+> > uses the libmount fsinfo() infrastrucure that was done by Karal Zak
+> > (and a tiny bit by me) at the time.
 >
-> As I said above it's been a long time since I looked at the systemd
-> work and it definitely was a WIP so "what you see is what you get"
-> at https://github.com/raven-au/systemd/commits/. It looks like the
-> place to look to get some idea of what was being done is branch
-> notifications-devel or notifications-rfc-pr. Also note that this
-> uses the libmount fsinfo() infrastrucure that was done by Karal Zak
-> (and a tiny bit by me) at the time.
+> Looks great as a first step.
+>
+> What do you mean by "Utilizing the mount notifications queueing"?
+>
+> Do you mean batching of notifications?   I think that's a very
+> important issue: processing each individual notifcation may not make
+> sense when there are lots of them.  For example, doing ceate
+> mount+remote mount in a loop a million times will result in two
 
-Looks great as a first step.
+s/remote/remove/
 
-What do you mean by "Utilizing the mount notifications queueing"?
-
-Do you mean batching of notifications?   I think that's a very
-important issue: processing each individual notifcation may not make
-sense when there are lots of them.  For example, doing ceate
-mount+remote mount in a loop a million times will result in two
-million notification messages (with high likelyhood of queue
-overflow), but in the end the mount table will end up being the
-same...
-
-Thanks,
-Miklos
+> million notification messages (with high likelyhood of queue
+> overflow), but in the end the mount table will end up being the
+> same...
+>
+> Thanks,
+> Miklos
