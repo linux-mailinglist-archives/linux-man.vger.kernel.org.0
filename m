@@ -2,106 +2,127 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 476515226A2
-	for <lists+linux-man@lfdr.de>; Wed, 11 May 2022 00:08:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1C2AB522759
+	for <lists+linux-man@lfdr.de>; Wed, 11 May 2022 01:04:57 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231318AbiEJWIi (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 10 May 2022 18:08:38 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60588 "EHLO
+        id S237700AbiEJXEz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 10 May 2022 19:04:55 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37954 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229555AbiEJWIh (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 10 May 2022 18:08:37 -0400
-Received: from mail-yw1-x114a.google.com (mail-yw1-x114a.google.com [IPv6:2607:f8b0:4864:20::114a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B0374289BD9
-        for <linux-man@vger.kernel.org>; Tue, 10 May 2022 15:08:32 -0700 (PDT)
-Received: by mail-yw1-x114a.google.com with SMTP id 00721157ae682-2f7ee6bc6ddso1419207b3.1
-        for <linux-man@vger.kernel.org>; Tue, 10 May 2022 15:08:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20210112;
-        h=date:message-id:mime-version:subject:from:to:cc;
-        bh=JWC2PZHKNFawO2x48GB1VyvLoaWEXS6rD1yXRgPdoQM=;
-        b=fBo6l56jHQ4ENf3fT3PwlDLxVbrP9aSDc1tiemmqaEY3bu/WpF4/NrjAWBcKOSMjsc
-         KgneZXMGo4OHXocQxi4UkudKEU5UzDm+7s07cI+gZvDvth3Xs/r3RZ17OI00AOjm66RH
-         urxrySjbwQ7XXgH8j7YPQrz0AlYTOChN91s0PyY8C2LGplUZqdlufMyx6w7XcvZVzwFR
-         +79SHzmR+8cslYw+nCW78WT47IumQGo5Fyx0Ea3KvRkQfvNtm7zB88Y9R50SOgDfZynO
-         6JuG3XJ7W6rmipfAjjeUtwmAO7+UL9PYdqr/F1clhfoxmaWJEIIvRjZMPJF2ctbv66zE
-         MFbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
-        bh=JWC2PZHKNFawO2x48GB1VyvLoaWEXS6rD1yXRgPdoQM=;
-        b=rzAnLBMmmOE4TRk+BdIx4SDjL4tporEvHqZ3uiEf5n+lRrkBeXA+GBsQJzqtvLqw/J
-         Xt9JLEotFaWGyDfATEUNNgZU8EKqChUm0cze6wTpYK2oAQIZq1svT0/RuqPCiAOa1WRk
-         Wxkl+HjjXU+K+RM4KJeUmNENzQja7sLX4N42Qr74GtMf8RrQ+ILRwc+7AqHLwHw9eb5O
-         ONx3k+Dl9vpf9XwF7Spb1shWZz87npKA+F2197PJWlxj4N1p7YIl+wG4Qtg3HdVJffdD
-         6NqXUn9G7uUyV6KZ/YyfZIGTkKLvhqU53Q7ojk2UCouPDBk9fVWDtp1lv3Od5DOo9B+u
-         NNHw==
-X-Gm-Message-State: AOAM531/Ndj3SR6Dsva559a53dDUVXwxYXf+hUWa0rUCv1ZptADuJKgF
-        JhRsl8y+e6K1fOWpapDZHpqLQ+b4A9KIyd/B2sZWkudTs/zOFCQIYwocChZCQavKmfhRFy/oDjt
-        soIwWVI4fmKzguzNeIuahNxiDsBMZ8evdR3Rc8dl+kQGxqntCYIdObVa1VDvWGUU=
-X-Google-Smtp-Source: ABdhPJyHQ+uSFEoayZcmJImdKHyKKtfhXpzDJXD50nLJLFuh2IJPArE8JJ0bOFcJ9I9vGVVdKkfwYX746w==
-X-Received: from tbodt.mtv.corp.google.com ([2620:0:1000:5011:d21c:6d0:4aa2:ba60])
- (user=tbodt job=sendgmr) by 2002:a25:dd42:0:b0:64a:d0b8:d498 with SMTP id
- u63-20020a25dd42000000b0064ad0b8d498mr12620793ybg.536.1652220511756; Tue, 10
- May 2022 15:08:31 -0700 (PDT)
-Date:   Tue, 10 May 2022 15:08:21 -0700
-Message-Id: <20220510220821.1481801-1-tbodt@google.com>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.36.0.512.ge40c2bad7a-goog
-Subject: [PATCH] getpriority: Only getpriority translation the priority values
-From:   Theodore Dubois <tbodt@google.com>
-To:     linux-man@vger.kernel.org, mtk.manpages@gmail.com,
-        alx.manpages@gmail.com
-Cc:     Theodore Dubois <tbodt@google.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: No, score=-9.6 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
-        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,USER_IN_DEF_DKIM_WL
-        autolearn=ham autolearn_force=no version=3.4.6
+        with ESMTP id S230470AbiEJXEy (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 10 May 2022 19:04:54 -0400
+Received: from mail105.syd.optusnet.com.au (mail105.syd.optusnet.com.au [211.29.132.249])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 072442734DA;
+        Tue, 10 May 2022 16:04:53 -0700 (PDT)
+Received: from dread.disaster.area (pa49-181-2-147.pa.nsw.optusnet.com.au [49.181.2.147])
+        by mail105.syd.optusnet.com.au (Postfix) with ESMTPS id 44A9110E68F9;
+        Wed, 11 May 2022 09:04:49 +1000 (AEST)
+Received: from dave by dread.disaster.area with local (Exim 4.92.3)
+        (envelope-from <david@fromorbit.com>)
+        id 1noYuN-00AT9W-Ck; Wed, 11 May 2022 09:04:47 +1000
+Date:   Wed, 11 May 2022 09:04:47 +1000
+From:   Dave Chinner <david@fromorbit.com>
+To:     Florian Weimer <fweimer@redhat.com>
+Cc:     Christian Brauner <brauner@kernel.org>,
+        Miklos Szeredi <miklos@szeredi.hu>,
+        linux-fsdevel@vger.kernel.org, Theodore Ts'o <tytso@mit.edu>,
+        Karel Zak <kzak@redhat.com>,
+        Greg KH <gregkh@linuxfoundation.org>,
+        linux-kernel@vger.kernel.org,
+        Linux API <linux-api@vger.kernel.org>,
+        linux-man <linux-man@vger.kernel.org>,
+        LSM <linux-security-module@vger.kernel.org>,
+        Ian Kent <raven@themaw.net>,
+        David Howells <dhowells@redhat.com>,
+        Linus Torvalds <torvalds@linux-foundation.org>,
+        Al Viro <viro@zeniv.linux.org.uk>,
+        Christian Brauner <christian@brauner.io>,
+        Amir Goldstein <amir73il@gmail.com>,
+        James Bottomley <James.Bottomley@hansenpartnership.com>
+Subject: Re: [RFC PATCH] getting misc stats/attributes via xattr API
+Message-ID: <20220510230447.GC2306852@dread.disaster.area>
+References: <YnEeuw6fd1A8usjj@miu.piliscsaba.redhat.com>
+ <20220509124815.vb7d2xj5idhb2wq6@wittgenstein>
+ <20220510005533.GA2306852@dread.disaster.area>
+ <87bkw5d098.fsf@oldenburg.str.redhat.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87bkw5d098.fsf@oldenburg.str.redhat.com>
+X-Optus-CM-Score: 0
+X-Optus-CM-Analysis: v=2.4 cv=e9dl9Yl/ c=1 sm=1 tr=0 ts=627aef94
+        a=ivVLWpVy4j68lT4lJFbQgw==:117 a=ivVLWpVy4j68lT4lJFbQgw==:17
+        a=kj9zAlcOel0A:10 a=oZkIemNP1mAA:10 a=7-415B0cAAAA:8
+        a=DeMPlFUAyss6Xeq_UakA:9 a=CjuIK1q_8ugA:10 a=biEYGPWJfzWAr4FL6Ov7:22
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE,
+        SPF_HELO_PASS,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-The translation is needed to avoid returning a negative number from a
-successful syscall, and this requirement doesn't apply to setpriority.
-See the implementation of getpriority in kernel/sys.c.
+On Tue, May 10, 2022 at 02:45:39PM +0200, Florian Weimer wrote:
+> * Dave Chinner:
+> 
+> > IOWs, what Linux really needs is a listxattr2() syscall that works
+> > the same way that getdents/XFS_IOC_ATTRLIST_BY_HANDLE work. With the
+> > list function returning value sizes and being able to iterate
+> > effectively, every problem that listxattr() causes goes away.
+> 
+> getdents has issues of its own because it's unspecified what happens if
+> the list of entries is modified during iteration.  Few file systems add
+> another tree just to guarantee stable iteration.
 
-Signed-off-by: Theodore Dubois <tbodt@google.com>
----
- man2/getpriority.2 | 17 ++++-------------
- 1 file changed, 4 insertions(+), 13 deletions(-)
+The filesystem I care about (XFS) guarantees stable iteration and
+stable seekdir/telldir cookies. It's not that hard to do, but it
+requires the filesystem designer to understand that this is a
+necessary feature before they start designing the on-disk directory
+format and lookup algorithms....
 
-diff --git man2/getpriority.2 man2/getpriority.2
-index 3e1be3e6c..24c1b7f11 100644
---- man2/getpriority.2
-+++ man2/getpriority.2
-@@ -206,20 +206,11 @@ All BSD-like systems (SunOS 4.1.3, Ultrix 4.2,
- manner as Linux 2.6.12 and later.
- .\"
- .SS C library/kernel differences
--Within the kernel, nice values are actually represented
--using the range 40..1
--(since negative numbers are error codes) and these are the values
--employed by the
--.BR setpriority ()
--and
--.BR getpriority ()
--system calls.
--The glibc wrapper functions for these system calls handle the
--translations between the user-land and kernel representations
--of the nice value according to the formula
-+The getpriority system call returns nice values translated to the range 40..1,
-+since a negative return value would be interpreted as an error.
-+The glibc wrapper function for getpriority translates the value back according to the formula
- .IR "unice\ =\ 20\ \-\ knice" .
--(Thus, the kernel's 40..1 range corresponds to the
--range \-20..19 as seen by user space.)
-+(Thus, the 40..1 range returned by the kernel corresponds to the range \-20..19 as seen by user space.)
- .SH BUGS
- According to POSIX, the nice value is a per-process setting.
- However, under the current Linux/NPTL implementation of POSIX threads,
+> Maybe that's different for xattrs because they are supposed to be small
+> and can just be snapshotted with a full copy?
+
+It's different for xattrs because we directly control the API
+specification for XFS_IOC_ATTRLIST_BY_HANDLE, not POSIX. We can
+define the behaviour however we want. Stable iteration is what
+listing keys needs.
+
+The cursor is defined as 16 bytes of opaque data, enabling us to
+encoded exactly where in the hashed name btree index we have
+traversed to:
+
+/*
+ * Kernel-internal version of the attrlist cursor.
+ */
+struct xfs_attrlist_cursor_kern {
+        __u32   hashval;        /* hash value of next entry to add */
+        __u32   blkno;          /* block containing entry (suggestion) */
+        __u32   offset;         /* offset in list of equal-hashvals */
+        __u16   pad1;           /* padding to match user-level */
+        __u8    pad2;           /* padding to match user-level */
+        __u8    initted;        /* T/F: cursor has been initialized */
+};
+
+Hence we have all the information in the cursor we need to reset the
+btree traversal index to the exact entry we finished at (even in the
+presence of hash collisions in the index). Hence removal of the
+entry the cursor points to isn't a problem for us, we just move to
+the next highest sequential hash index in the btree and start again
+from there.
+
+Of course, if this is how we define listxattr2() behaviour (or maybe
+we should call it "list_keys()" to make it clear we are treating
+this as a key/value store instead of xattrs) then each filesystem
+can put what it needs in that cursor to guarantee it can restart key
+iteration correctly if the entry the cursor points to has been
+removed.  We can also make the cursor larger if necessary for other
+filesystems to store the information they need.
+
+Cheers,
+
+Dave.
 -- 
-2.36.0.512.ge40c2bad7a-goog
-
+Dave Chinner
+david@fromorbit.com
