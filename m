@@ -2,104 +2,140 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id BA4D2522B2E
-	for <lists+linux-man@lfdr.de>; Wed, 11 May 2022 06:39:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5623C522EDA
+	for <lists+linux-man@lfdr.de>; Wed, 11 May 2022 10:58:59 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S238445AbiEKEja (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 11 May 2022 00:39:30 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43038 "EHLO
+        id S236995AbiEKI65 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 11 May 2022 04:58:57 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39214 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S238259AbiEKEj0 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 11 May 2022 00:39:26 -0400
-Received: from mail-oa1-x31.google.com (mail-oa1-x31.google.com [IPv6:2001:4860:4864:20::31])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 68E7A14CB69
-        for <linux-man@vger.kernel.org>; Tue, 10 May 2022 21:39:23 -0700 (PDT)
-Received: by mail-oa1-x31.google.com with SMTP id 586e51a60fabf-ee1e7362caso1460654fac.10
-        for <linux-man@vger.kernel.org>; Tue, 10 May 2022 21:39:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:from:date:message-id:subject:to;
-        bh=s3Cdswvtyrq8qHVwuRB9YRoTAIoD9G/2//h6WeFZHzo=;
-        b=nrkBIDyCffFbQz5WNhQU88q5l+bx8m1CoLNL/nRcxBFZRgp3B2RwRJzpJi69hjmFPQ
-         Eotn36CVTQor8sTwq84btYhQQ+OsypTpYdHIfGkC/Ekjg8a9U0HkQq0T/gbcQg5/if4Y
-         i1yzcJYhTRMm8ny1NIiOYUNRazrfloxlCC/1XVxW2+TG0ItQpx2/G3cXjgMuOALgO1Rc
-         auxKHXwS3ghK6vFFIfR8essc70JXfRi2oIpi3YT/VLqISCMTaVWCOI/Xf0rWfpfTmlnw
-         XgqCFC8jOuHD5AjsEtox3h0b9tzcHlVM0fA1RrJyDFubK9aS707t1BYf/K43qSc4slo4
-         wrQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
-        bh=s3Cdswvtyrq8qHVwuRB9YRoTAIoD9G/2//h6WeFZHzo=;
-        b=reIuJfBj54faCGLIhS+EB0kCDbEwoTXKOGIc0u8qdF36beO2durIzNsEGu0Tc98jKe
-         ftBdM97d3xcK9iFjHsHegDJzVxYvp1BGL6D8yNhz3EeQzmW1Jcj4rClyLf3h2CIFxf+R
-         Istgp1+2bxPaZnqjmiUpuShVJxj8GaI83jT+hhXRIfurdzD/qnSpDR2WOEs0Amlgkv6W
-         VPxRwELIl5TkMXqEd3D+YxpK2AJ2bXeE88ZEz1ISx+/U20b7/B4Tc9Wr22wKLgsDG0EA
-         gy7TWdZqIFTyvoBpxj2Lv2KZpAz9YkaZkPtX4RYVRuGfUxPuoo7AQitEJZ3mnmMc90MC
-         qxGQ==
-X-Gm-Message-State: AOAM533FJuTrV0X/Jn3UYytMehS6GsgwoL18MU/DXX0H/os+JzpV9pWl
-        Zreqr7Z02hPLEIetVpk0UygpWM3blPtVR67JVwGY2NQJbKWQVQ==
-X-Google-Smtp-Source: ABdhPJwbKHmbnZDflMHBZCcp2YbZAAZvFdPcM4owWeuPIkoxodmwIZJ+Xpgi08ylB1RFXLrw63SQRxJzumbwJKMTxhs=
-X-Received: by 2002:a17:90b:1007:b0:1dc:9862:68af with SMTP id
- gm7-20020a17090b100700b001dc986268afmr3261389pjb.205.1652243951499; Tue, 10
- May 2022 21:39:11 -0700 (PDT)
+        with ESMTP id S235786AbiEKI6w (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 11 May 2022 04:58:52 -0400
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 8F24E12FC37
+        for <linux-man@vger.kernel.org>; Wed, 11 May 2022 01:58:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1652259528;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=+Zc2Huyl9u354IxnbxBuQkxC8HSnVrj0E9v/FWkHr5U=;
+        b=KIimfw/atWY4mPM9dFhwD6RVpn5A+BWgjkWjjLL49OemNlEeBrehpNmtbJNNM6inlDalqB
+        qclAIs7IW32JFitCCZ6WOcabXM+9L6yKliwgPWpgsxN4n84CQfiLshhagJpu/WkhCh1xQo
+        esT77h3eE6FwmKMnh2Uvgls7xN6PWmA=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-494-koZ8mR_ePsmDMcgIYEqBfg-1; Wed, 11 May 2022 04:58:43 -0400
+X-MC-Unique: koZ8mR_ePsmDMcgIYEqBfg-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AFE50185A7B2;
+        Wed, 11 May 2022 08:58:42 +0000 (UTC)
+Received: from ws.net.home (unknown [10.36.112.12])
+        by smtp.corp.redhat.com (Postfix) with ESMTPS id 117071121314;
+        Wed, 11 May 2022 08:58:39 +0000 (UTC)
+Date:   Wed, 11 May 2022 10:58:37 +0200
+From:   Karel Zak <kzak@redhat.com>
+To:     Dave Chinner <david@fromorbit.com>
+Cc:     Christian Brauner <brauner@kernel.org>,
+        Miklos Szeredi <miklos@szeredi.hu>,
+        linux-fsdevel@vger.kernel.org, Theodore Ts'o <tytso@mit.edu>,
+        Greg KH <gregkh@linuxfoundation.org>,
+        linux-kernel@vger.kernel.org,
+        Linux API <linux-api@vger.kernel.org>,
+        linux-man <linux-man@vger.kernel.org>,
+        LSM <linux-security-module@vger.kernel.org>,
+        Ian Kent <raven@themaw.net>,
+        David Howells <dhowells@redhat.com>,
+        Linus Torvalds <torvalds@linux-foundation.org>,
+        Al Viro <viro@zeniv.linux.org.uk>,
+        Christian Brauner <christian@brauner.io>,
+        Amir Goldstein <amir73il@gmail.com>,
+        James Bottomley <James.Bottomley@hansenpartnership.com>
+Subject: Re: [RFC PATCH] getting misc stats/attributes via xattr API
+Message-ID: <20220511085837.xkxo5c5fevtgaekz@ws.net.home>
+References: <YnEeuw6fd1A8usjj@miu.piliscsaba.redhat.com>
+ <20220509124815.vb7d2xj5idhb2wq6@wittgenstein>
+ <20220510123512.h6jjqgowex6gnjh5@ws.net.home>
+ <20220510232552.GD2306852@dread.disaster.area>
 MIME-Version: 1.0
-Received: by 2002:a05:6a10:319:0:0:0:0 with HTTP; Tue, 10 May 2022 21:39:10
- -0700 (PDT)
-From:   Private Mail <privatemail1961@gmail.com>
-Date:   Tue, 10 May 2022 21:39:10 -0700
-Message-ID: <CANjAOAiiVcSrSv31FjThCVmeppS54UVvGVj3SRSvMfxOB+T8DA@mail.gmail.com>
-Subject: Have you had this? It is for your Benefit
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: No, score=4.3 required=5.0 tests=ADVANCE_FEE_4_NEW_MONEY,
-        BAYES_50,DEAR_BENEFICIARY,DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,
-        DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,FREEMAIL_REPLY,
-        LOTS_OF_MONEY,MONEY_FRAUD_5,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
-        T_SCC_BODY_TEXT_LINE,UNDISC_MONEY autolearn=no autolearn_force=no
-        version=3.4.6
-X-Spam-Level: ****
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220510232552.GD2306852@dread.disaster.area>
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Spam-Status: No, score=-3.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,
+        SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+        autolearn=unavailable autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Our Ref: BG/WA0151/2022
+On Wed, May 11, 2022 at 09:25:52AM +1000, Dave Chinner wrote:
+> > I'd love something like:
+> > 
+> > ssize_t sz;
+> > fsinfo_query query[] = {
+> >     { .request = FSINFO_MOUNT_PATH },
+> >     { .request = FSINFO_PROPAGATION },
+> >     { .request = FSINFO_CHILDREN_IDS },
+> > };
+> > 
+> > sz = fsinfo(dfd, "", AT_EMPTY_PATH,
+> >                 &query, ARRAY_SIZE(query),
+> >                 buf, sizeof(buf));
+> > 
+> > for (p = buf; p < buf + sz; ) {
+> > {
+> >     fsinfo_entry *e = (struct fsinfo_entry) p;
+> >     char *data = p + sizeof(struct fsinfo_entry);
+> > 
+> >     switch(e->request) {
+> >     case FSINFO_MOUNT_PATH:
+> >         printf("mountpoint %s\n", data);
+> >         break;
+> >     case FSINFO_PROPAGATION:
+> >         printf("propagation %x\n", (uintptr_t) data);
+> >         break;
+> >     case FSINFO_CHILDREN_IDS:
+> >         fsinfo_child *x = (fsinfo_child *) data;
+> >         for (i = 0; i < e->count; i++) {
+> >             printf("child: %d\n", x[i].mnt_id);
+> >         }
+> >         break;
+> >     ...
+> >     }
+> > 
+> >     p += sizeof(struct fsinfo_entry) + e->len;
+> > }
+> 
+> That's pretty much what a multi-xattr get operation looks like.
+> It's a bit more more intricate in the setup of the request/return
+> buffer, but otherwise the structure of the code is the same.
+> 
+> I just don't see why we need special purpose interfaces like this
+> for key/value information when small tweaks to the existing
+> generic key/value interfaces can provide exactly the same
+> functionality....
 
-Dear Beneficiary
+I don't say we need a new interface ;-) I'd be happy with whatever as
+long as:
 
-Subject: An Estate of US$15.8 Million
+  * minimal strings parsing (wish than a requirement)
+  * one syscall returns multiple key/value
+  * can address mount table entries by ID
+  * can ask for list of children (submounts)
+  * extensible
 
-Blount and Griffin Genealogical Investigators specializes in probate
-research to locate missing heirs and beneficiaries to estates in the
-United Kingdom and Europe.
+if this will be possible with xattr (listxattr2(), or so) when great.
 
-We can also help you find wills, obtain copies of certificates, help
-you to administer an estate, as well as calculating how an estate,
-intestacy or trust should be distributed.
+  Karel
 
-You may be entitled to a large pay out for an inheritance in Europe
-worth US$15.8 million. We have discovered an estate belonging to the
-late Depositor has remained unclaimed since he died in 2011 and we
-have strong reasons to believe you are the closest living relative to
-the deceased we can find.
+-- 
+ Karel Zak  <kzak@redhat.com>
+ http://karelzak.blogspot.com
 
-You may unknowingly be the heir of this person who died without
-leaving a will (intestate). We will conduct a probate research to
-prove your entitlement, and can submit a claim on your behalf all at
-no risk to yourselves.
-
-Our service fee of 10% will be paid to us after you have received the estate.
-
-The estate transfer process should take just a matter of days as we
-have the mechanism and expertise to get this done very quickly. This
-message may come to you as a shock, however we hope to work with you
-to transfer the estate to you as quickly as possible.
-
-Feel free to email our senior case worker Mr. Malcolm Casey on email:
-malcolmcasey68@yahoo.com for further discussions.
-
-With warm regards,
-
-Mr. Blount W. Gort, CEO.
-Blount and Griffin Associates Inc
