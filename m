@@ -2,72 +2,121 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id BB6EA524F90
-	for <lists+linux-man@lfdr.de>; Thu, 12 May 2022 16:12:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6393B525488
+	for <lists+linux-man@lfdr.de>; Thu, 12 May 2022 20:15:29 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1344506AbiELOM0 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 12 May 2022 10:12:26 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57584 "EHLO
+        id S1357529AbiELSP2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 12 May 2022 14:15:28 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59602 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233678AbiELOMY (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 12 May 2022 10:12:24 -0400
-Received: from mail.pekanbaru.go.id (mail.pekanbaru.go.id [103.131.245.194])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F38A46129C
-        for <linux-man@vger.kernel.org>; Thu, 12 May 2022 07:12:23 -0700 (PDT)
-Received: from localhost (localhost.localdomain [127.0.0.1])
-        by mail.pekanbaru.go.id (Postfix) with ESMTP id A64A498AE21;
-        Thu, 12 May 2022 10:45:50 +0700 (WIB)
-Received: from mail.pekanbaru.go.id ([127.0.0.1])
-        by localhost (mail.pekanbaru.go.id [127.0.0.1]) (amavisd-new, port 10032)
-        with ESMTP id ruhyUcLyNqtc; Thu, 12 May 2022 10:45:50 +0700 (WIB)
-Received: from localhost (localhost.localdomain [127.0.0.1])
-        by mail.pekanbaru.go.id (Postfix) with ESMTP id 1FFA396C991;
-        Thu, 12 May 2022 10:45:47 +0700 (WIB)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.pekanbaru.go.id 1FFA396C991
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pekanbaru.go.id;
-        s=EA5C5C9E-4206-11EC-835B-1ADACEA726A0; t=1652327147;
-        bh=WgQd2bW8hb2KeIDNbeIeW1Bb4lp6m29iibMhAQT/egc=;
-        h=MIME-Version:To:From:Date:Message-Id;
-        b=wisJ84Wt1ecPKw/DZwHn4xeovTihhNrZgOHhgtosV6M1RDxcvUXVnwur3Ih61OJm7
-         uFo3BjMNKxqN6oxQF2Vz6SE+BCt2+9Z7QHGBMGMAqlTOokGFRR7dZ+FKqsaik1/PjS
-         iLGHVUxgkUZvS/OyETu79bVfK6JItk0wvqhDoLpOM/AJ9kiHKc6wTGtvJUfL5WW2O1
-         oYDe6hhNXKQA4N9lqSUJSWRi93dCfqVPqVbe6evHlXFMqcN5XIdI7gdEmZlI0cVOXp
-         KWKX9PGz6Xz2z3/mxL5IwJ2UkzvbNjnEDnqHCwvypj2CMfJrU4RXhhK+CXwicYUjkt
-         /n4fWxFVDjcLA==
-X-Virus-Scanned: amavisd-new at mail.pekanbaru.go.id
-Received: from mail.pekanbaru.go.id ([127.0.0.1])
-        by localhost (mail.pekanbaru.go.id [127.0.0.1]) (amavisd-new, port 10026)
-        with ESMTP id xq4lvLwUjZtN; Thu, 12 May 2022 10:45:47 +0700 (WIB)
-Received: from [192.168.15.101] (unknown [41.79.219.176])
-        by mail.pekanbaru.go.id (Postfix) with ESMTPSA id DE6A296E515;
-        Thu, 12 May 2022 10:45:36 +0700 (WIB)
-Content-Type: text/plain; charset="iso-8859-1"
-MIME-Version: 1.0
+        with ESMTP id S1357509AbiELSPZ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 12 May 2022 14:15:25 -0400
+Received: from ams.source.kernel.org (ams.source.kernel.org [IPv6:2604:1380:4601:e00::1])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2972D270193
+        for <linux-man@vger.kernel.org>; Thu, 12 May 2022 11:15:22 -0700 (PDT)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        by ams.source.kernel.org (Postfix) with ESMTPS id D48FEB82AA1
+        for <linux-man@vger.kernel.org>; Thu, 12 May 2022 18:15:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 93607C385B8
+        for <linux-man@vger.kernel.org>; Thu, 12 May 2022 18:15:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1652379319;
+        bh=nzn7rY3Ir9kIr0xuv6SM0wlyNq/7/HKsNVBRSVfkSqk=;
+        h=From:To:Subject:Date:From;
+        b=o5rjI3PtU2q+yMaqSh0c6OnPFHnSyoFCVVj79i2jds44uVKgCgTjn4UvgSN967Yz9
+         XL3Lqv0jDugEjN8Ouk8ER/gnT2yrHEngb/kYP2PxXqZAsx4d+Z/Hk1u3EBh5Q0YO+u
+         92zEAcVmYw96DM+keK381RdlqcndOefrBFr7odgB9vMV0+ZQp2KEghIIY7tdkUsAKp
+         7TP6FzvxT8+8AkMuVJDcoVthTmhkvHBd4RIyC3dTz0jaggz4K8g94i7IRkFkom0soT
+         liyTPCQ3eAR5K7Kdv2yfTg5+YDybEGb+YdMbCCs2Gq+Hkk53nD2vDqkHyca10A6LP2
+         ZQoH8icAoLUGA==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
+        id 73849C05FD2; Thu, 12 May 2022 18:15:19 +0000 (UTC)
+From:   bugzilla-daemon@kernel.org
+To:     linux-man@vger.kernel.org
+Subject: [Bug 215971] New: dd(1p) manpage contains empty ASCII to EBDIC
+ tables
+Date:   Thu, 12 May 2022 18:15:19 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: new
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Documentation
+X-Bugzilla-Component: man-pages
+X-Bugzilla-Version: unspecified
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: ben@bvnf.space
+X-Bugzilla-Status: NEW
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P1
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: bug_id short_desc product version rep_platform
+ op_sys bug_status bug_severity priority component assigned_to reporter
+ cf_regression
+Message-ID: <bug-215971-11311@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Description: Mail message body
-Subject: Awaiting your response 
-To:     Recipients <waterproject@pekanbaru.go.id>
-From:   waterproject@pekanbaru.go.id
-Date:   Thu, 12 May 2022 04:45:28 +0100
-Reply-To: test@hostnextdoor.com
-Message-Id: <20220512034536.DE6A296E515@mail.pekanbaru.go.id>
-X-Spam-Status: No, score=2.1 required=5.0 tests=BAYES_50,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_BL_SPAMCOP_NET,
-        RCVD_IN_SBL,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=no
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
+MIME-Version: 1.0
+X-Spam-Status: No, score=-7.7 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
         autolearn_force=no version=3.4.6
-X-Spam-Level: **
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi =
+https://bugzilla.kernel.org/show_bug.cgi?id=3D215971
+
+            Bug ID: 215971
+           Summary: dd(1p) manpage contains empty ASCII to EBDIC tables
+           Product: Documentation
+           Version: unspecified
+          Hardware: All
+                OS: Linux
+            Status: NEW
+          Severity: normal
+          Priority: P1
+         Component: man-pages
+          Assignee: documentation_man-pages@kernel-bugs.osdl.org
+          Reporter: ben@bvnf.space
+        Regression: No
+
+The POSIX standard includes at the end of the `OPERANDS` section tables
+displaying "the octal number character values used for the ascii and ebcdic
+conversions (first table) and for the ibm conversion (second table)."
+https://pubs.opengroup.org/onlinepubs/9699919799/utilities/dd.html#tagtcjh_=
+25
 
 
-Did you get my previous email? I have attempted over 3 times to open up com=
-munication with you. Please acknowledge if you receive this email. =
+In the above HTML edition of POSIX.1-2018, these tables are images, but are
+generated from troff source. In the man-pages-posix converted manpage `dd(1=
+p)`,
+the tables are empty; only the titles are present:
 
+```
+...
+.ce 1
+\fBTable 4-7: ASCII to EBCDIC Conversion\fR
+.bp
+.sp
+.ce 1
+\fBTable 4-8: ASCII to IBM EBCDIC Conversion\fR
+.SH STDIN
+...
+```
 
-Regards
-Morten Friis
+Perhaps the tables could be preprocessed with `tbl` and included in the
+manpages?
+
+--=20
+You may reply to this email to add a comment.
+
+You are receiving this mail because:
+You are watching the assignee of the bug.=
