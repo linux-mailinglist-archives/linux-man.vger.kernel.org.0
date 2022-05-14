@@ -2,63 +2,65 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 1237A527165
-	for <lists+linux-man@lfdr.de>; Sat, 14 May 2022 15:52:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CD2AB5271DD
+	for <lists+linux-man@lfdr.de>; Sat, 14 May 2022 16:20:23 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232747AbiENNwA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 14 May 2022 09:52:00 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46802 "EHLO
+        id S233050AbiENOUW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 14 May 2022 10:20:22 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60794 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232692AbiENNvv (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 14 May 2022 09:51:51 -0400
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com [IPv6:2a00:1450:4864:20::430])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id ADBB831538
-        for <linux-man@vger.kernel.org>; Sat, 14 May 2022 06:51:48 -0700 (PDT)
-Received: by mail-wr1-x430.google.com with SMTP id i5so14707152wrc.13
-        for <linux-man@vger.kernel.org>; Sat, 14 May 2022 06:51:47 -0700 (PDT)
+        with ESMTP id S229828AbiENOUV (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 14 May 2022 10:20:21 -0400
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com [IPv6:2a00:1450:4864:20::331])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5A1F229C
+        for <linux-man@vger.kernel.org>; Sat, 14 May 2022 07:20:20 -0700 (PDT)
+Received: by mail-wm1-x331.google.com with SMTP id l38-20020a05600c1d2600b00395b809dfbaso5894000wms.2
+        for <linux-man@vger.kernel.org>; Sat, 14 May 2022 07:20:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :references:from:in-reply-to:content-transfer-encoding;
-        bh=eLf70r9Kw+lThfy3DWkUZwgDVTnuYJs6jre5MFu6RKo=;
-        b=Fn3s2r1p1RFsnw0d+t6/8NdqNTeqPveY8AsCTgPy5u5WdMLAPQhNO2E4/N/rd6xn+h
-         N+dPPuo1WUOprbLLZ7Xz38c7WtAxARH/tmxVZ2RD1xO41L/0lXf98DhaT6T+pgDUUua6
-         autoYQ8gvZcTkouAEXndagN4FiJq/6324oZC9BtSY2WzRsa0guQJmmnvaN3sNy/gCXGU
-         OWf2wXw7W+TGnBtN1Pm/nGOZrz3F+k3HXZbibJku4VuRbpqFbPSmyPmwux0H3icIB5rx
-         PSmT8yA4aLym4rAUFnZ2CqfDCdicuJj8bM8S/oljB4vKh4SPh10/dbzHjHm1eRXaYxsy
-         7FKw==
+         :references:cc:from:in-reply-to:content-transfer-encoding;
+        bh=hB3KS+8MhBzhr1E8nYA3DQk3HGtYhyxeaZj563V9rE8=;
+        b=StKXwLFyaYtiP+rQjGa6z2iukxQW0VaTPV+V2AR0hwD6L3Pxpmp+zHPF6KuEx3/QKS
+         7Izwd67kxnYd3H4IxygzZbdz6AKKVd+ISTnaB30EGupBPSqnaUMRd9bTCTOd9J9rC7qz
+         q2YljGntMyVyoVEXYx6qZVbqYMHLF0IfOrI+8t5GTluvUSTJV2A4dNQJCbkA4UDJoHO2
+         nF5VCRAeLFLzB7lN8S+1Natox+ufQbp7VD61ljb4/BVrDwmf/1LLaGZlUPVqljw72sLF
+         bAbe3S6HWKVCNoT6MQtnkOf6T9xG0Np+u09RV0oDPVlwkVDUc1vdTMX8IERJSCKthaMM
+         MbTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:references:from:in-reply-to
+         :content-language:to:references:cc:from:in-reply-to
          :content-transfer-encoding;
-        bh=eLf70r9Kw+lThfy3DWkUZwgDVTnuYJs6jre5MFu6RKo=;
-        b=YUlTYQMNl+Ad9YdDMaXklZ3A+ShukLjqz1s9IytxKd+OTFGnBAhGCt4mvxTv4SHmyZ
-         +WYH+eWSL+yN3431mguX0/QvelA7hV/tc7mFAO7xeZqQfnDtwuQT6PFKb/Ej/M15n+9R
-         RUO4bOsXoamboypYR5TgsH6tyz0ZTpKFj+vyo2/uKApgEXJYMpaxZtOlwIAVgZj6srJu
-         yWEZWAbgmYiLjJCtoueYtedplQd3F5C5TNeUSXYCle3a0ZHA1nUVAAXCopa5E6QaCg/Q
-         A4u5hSFIpeGK8hq0OuIxwi4l0t2rqqVpLL5K/H1ScPMfAhYwzwcp2Yf/+R9jChCK/DfC
-         qIqw==
-X-Gm-Message-State: AOAM532XDxkQFv3ygejHFBTtoWHHNuAqDlTLckb4mujk8AkP8Np0JgoZ
-        VG84cTRUefAB0e4YtmtlzmYx8SRyvXs=
-X-Google-Smtp-Source: ABdhPJyhk/eCpWhkmXGmZ3fXNryD3vwu1WtfORW6UXfcpgk7L7jwlCt3EQvhGj0wNXZRaqX5CE3Wrg==
-X-Received: by 2002:a05:6000:1ac7:b0:20c:6c81:c8e5 with SMTP id i7-20020a0560001ac700b0020c6c81c8e5mr7976899wry.580.1652536306530;
-        Sat, 14 May 2022 06:51:46 -0700 (PDT)
+        bh=hB3KS+8MhBzhr1E8nYA3DQk3HGtYhyxeaZj563V9rE8=;
+        b=3+Quz7n4h5zk0Fcrpy06IJjttMX53tKOOnpmPTu39RMSPY3KzKyiJeZscjRaLhtwQd
+         fYZBccXpNKbxO+9X0yFS9mfgac+zzNAZtCCXZNbqCwMbLYyR5SwzTxSUo+pprPf47tdk
+         aZ0RuVtUVRCbLIpeSvy1BUzbmS9mVowm0Ch2dTEozfa0vGbcXz5DZJUSKocnfvJl8kVw
+         pWS0G647dRpd660Q+PFQq+h8M5vG/tzNX+oHnSCpzXQJHc8hDxpMBOO3HtuH43ZIhYZL
+         uecyYlUDAFdVmX1IkcJlnG7JrM7XrLlefUzPxz1y6miwknkmypqET57IgnMoMN2zWd3p
+         TE7Q==
+X-Gm-Message-State: AOAM532X4ohb1oDVcp1u6E+fIZsWK2AqdjFPy3EH37Cf3BzBsgLvXel5
+        up+uB8BC62n0QMZL8z2rWyw=
+X-Google-Smtp-Source: ABdhPJwZrZVFAizgGfsu3Eti4E02vIEdWLvxD/vAEywbhqXc6riHsd+Nwk0md2JSZZi4w1lEJocRZg==
+X-Received: by 2002:a7b:c199:0:b0:394:26d0:a6a9 with SMTP id y25-20020a7bc199000000b0039426d0a6a9mr19551749wmi.116.1652538018988;
+        Sat, 14 May 2022 07:20:18 -0700 (PDT)
 Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id i7-20020adfa507000000b0020d012692dbsm1128914wrb.18.2022.05.14.06.51.45
+        by smtp.gmail.com with ESMTPSA id n4-20020a5d5984000000b0020c77f36b13sm4886324wri.100.2022.05.14.07.20.18
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 14 May 2022 06:51:46 -0700 (PDT)
-Message-ID: <062e284d-59c7-33ee-565b-5be160e3ba27@gmail.com>
-Date:   Sat, 14 May 2022 15:51:45 +0200
+        Sat, 14 May 2022 07:20:18 -0700 (PDT)
+Message-ID: <1fb620af-88dc-b21b-9b2c-e45ba7035138@gmail.com>
+Date:   Sat, 14 May 2022 16:20:17 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.8.1
-Subject: Re: [PATCH] clock_nanosleep.2: tfix
+Subject: Re: [PATCH] getpriority: Only getpriority translation the priority
+ values
 Content-Language: en-US
-To:     Tom Levy <tomlevy93@gmail.com>, linux-man@vger.kernel.org
-References: <CAMtU5-i2HzCOqNfvOOrD9mKzmYPNxJPs6524=LcqqAY94EWtAA@mail.gmail.com>
+To:     Theodore Dubois <tbodt@google.com>
+References: <20220510220821.1481801-1-tbodt@google.com>
+Cc:     linux-man@vger.kernel.org, mtk.manpages@gmail.com
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <CAMtU5-i2HzCOqNfvOOrD9mKzmYPNxJPs6524=LcqqAY94EWtAA@mail.gmail.com>
+In-Reply-To: <20220510220821.1481801-1-tbodt@google.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Spam-Status: No, score=-2.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
@@ -71,22 +73,51 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Tom,
+On 5/11/22 00:08, Theodore Dubois wrote:
+> The translation is needed to avoid returning a negative number from a
+> successful syscall, and this requirement doesn't apply to setpriority.
+> See the implementation of getpriority in kernel/sys.c.
 
-On 5/9/22 12:59, Tom Levy wrote:
-> Hi,
-> 
-> I've attached a small patch to fix a spelling mistake (CLOCK_BOOTIME
-> => CLOCK_BOO*TT*IME).
+Confirmed.  See:
 
-This has already been fixed recently.  See 
-<http://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/commit/man2/clock_nanosleep.2?id=09f28a311617143990a577571016141a19d632fe>.
+$ grepc -tf getpriority kernel/
+./kernel/sys.c:274:
+SYSCALL_DEFINE2(getpriority, int, which, int, who)
+{
+	...
+			niceval = nice_to_rlimit(task_nice(p));
+			if (niceval > retval)
+				retval = niceval;
+	...
 
-Anyway, thanks for reporting!
+	return retval;
+}
+$ grepc -tf setpriority kernel/
+./kernel/sys.c:204:
+SYSCALL_DEFINE3(setpriority, int, which, int, who, int, niceval)
+{
+	...
+	if (niceval < MIN_NICE)
+		niceval = MIN_NICE;
+	if (niceval > MAX_NICE)
+		niceval = MAX_NICE;
 
-Cheers,
+	...
+}
+$ grepc -tm M.._NICE
+./include/linux/sched/prio.h:5:
+#define MAX_NICE	19
 
-Alex
+
+./include/linux/sched/prio.h:6:
+#define MIN_NICE	-20
+$ grepc -tf nice_to_rlimit
+./include/linux/sched/prio.h:32:
+static inline long nice_to_rlimit(long nice)
+{
+	return (MAX_NICE - nice + 1);
+}
+
 
 -- 
 Alejandro Colomar
