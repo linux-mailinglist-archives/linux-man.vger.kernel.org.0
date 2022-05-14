@@ -2,124 +2,95 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id CD2AB5271DD
-	for <lists+linux-man@lfdr.de>; Sat, 14 May 2022 16:20:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 53A2B5271FB
+	for <lists+linux-man@lfdr.de>; Sat, 14 May 2022 16:30:24 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233050AbiENOUW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 14 May 2022 10:20:22 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60794 "EHLO
+        id S233296AbiENOaX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 14 May 2022 10:30:23 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48398 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229828AbiENOUV (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 14 May 2022 10:20:21 -0400
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com [IPv6:2a00:1450:4864:20::331])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5A1F229C
-        for <linux-man@vger.kernel.org>; Sat, 14 May 2022 07:20:20 -0700 (PDT)
-Received: by mail-wm1-x331.google.com with SMTP id l38-20020a05600c1d2600b00395b809dfbaso5894000wms.2
-        for <linux-man@vger.kernel.org>; Sat, 14 May 2022 07:20:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :references:cc:from:in-reply-to:content-transfer-encoding;
-        bh=hB3KS+8MhBzhr1E8nYA3DQk3HGtYhyxeaZj563V9rE8=;
-        b=StKXwLFyaYtiP+rQjGa6z2iukxQW0VaTPV+V2AR0hwD6L3Pxpmp+zHPF6KuEx3/QKS
-         7Izwd67kxnYd3H4IxygzZbdz6AKKVd+ISTnaB30EGupBPSqnaUMRd9bTCTOd9J9rC7qz
-         q2YljGntMyVyoVEXYx6qZVbqYMHLF0IfOrI+8t5GTluvUSTJV2A4dNQJCbkA4UDJoHO2
-         nF5VCRAeLFLzB7lN8S+1Natox+ufQbp7VD61ljb4/BVrDwmf/1LLaGZlUPVqljw72sLF
-         bAbe3S6HWKVCNoT6MQtnkOf6T9xG0Np+u09RV0oDPVlwkVDUc1vdTMX8IERJSCKthaMM
-         MbTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:references:cc:from:in-reply-to
-         :content-transfer-encoding;
-        bh=hB3KS+8MhBzhr1E8nYA3DQk3HGtYhyxeaZj563V9rE8=;
-        b=3+Quz7n4h5zk0Fcrpy06IJjttMX53tKOOnpmPTu39RMSPY3KzKyiJeZscjRaLhtwQd
-         fYZBccXpNKbxO+9X0yFS9mfgac+zzNAZtCCXZNbqCwMbLYyR5SwzTxSUo+pprPf47tdk
-         aZ0RuVtUVRCbLIpeSvy1BUzbmS9mVowm0Ch2dTEozfa0vGbcXz5DZJUSKocnfvJl8kVw
-         pWS0G647dRpd660Q+PFQq+h8M5vG/tzNX+oHnSCpzXQJHc8hDxpMBOO3HtuH43ZIhYZL
-         uecyYlUDAFdVmX1IkcJlnG7JrM7XrLlefUzPxz1y6miwknkmypqET57IgnMoMN2zWd3p
-         TE7Q==
-X-Gm-Message-State: AOAM532X4ohb1oDVcp1u6E+fIZsWK2AqdjFPy3EH37Cf3BzBsgLvXel5
-        up+uB8BC62n0QMZL8z2rWyw=
-X-Google-Smtp-Source: ABdhPJwZrZVFAizgGfsu3Eti4E02vIEdWLvxD/vAEywbhqXc6riHsd+Nwk0md2JSZZi4w1lEJocRZg==
-X-Received: by 2002:a7b:c199:0:b0:394:26d0:a6a9 with SMTP id y25-20020a7bc199000000b0039426d0a6a9mr19551749wmi.116.1652538018988;
-        Sat, 14 May 2022 07:20:18 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id n4-20020a5d5984000000b0020c77f36b13sm4886324wri.100.2022.05.14.07.20.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 14 May 2022 07:20:18 -0700 (PDT)
-Message-ID: <1fb620af-88dc-b21b-9b2c-e45ba7035138@gmail.com>
-Date:   Sat, 14 May 2022 16:20:17 +0200
+        with ESMTP id S232930AbiENOaW (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 14 May 2022 10:30:22 -0400
+Received: from ams.source.kernel.org (ams.source.kernel.org [IPv6:2604:1380:4601:e00::1])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5D43E17590
+        for <linux-man@vger.kernel.org>; Sat, 14 May 2022 07:30:21 -0700 (PDT)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        by ams.source.kernel.org (Postfix) with ESMTPS id 28226B808BC
+        for <linux-man@vger.kernel.org>; Sat, 14 May 2022 14:30:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C1F24C34116
+        for <linux-man@vger.kernel.org>; Sat, 14 May 2022 14:30:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1652538618;
+        bh=sIxIS7U3dxaJwfsvLtYfidtmQ2XwJUJEe0WepWmqJ9w=;
+        h=From:To:Subject:Date:In-Reply-To:References:From;
+        b=E7S/8mDcMZsMLpcoULeRPENauLse7XImJjg3JpYILeTpLVpvn9Y1D+Ux5Co17FV/k
+         5JaZlqOph6W5b9/CewSXERKDJjuKw5dknPAaOtasV7x++gRWrTzxi4KdwOi0NNf5bz
+         4dqZqKKRSoQRm0oiFMU1Z2E+wpbx6rzlxlyp/0vk5p7oQu3cuz8/rdxkF1o4tNh7Jq
+         X300deHysZS0BcPeYOO6S+bnT8r9CbF/K+Q+GjfTsX6qDL53tel4zjtwnvWVlvjubD
+         WZAPJROV5V9/ENGug/YiMo0Y8sZ+PZ7jryls4s7DByq4mEYxl6mlDFZahq4FsDn5Rk
+         +TP/hc0EZJgqg==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
+        id A601CCC13B3; Sat, 14 May 2022 14:30:18 +0000 (UTC)
+From:   bugzilla-daemon@kernel.org
+To:     linux-man@vger.kernel.org
+Subject: [Bug 215738] uri.7: CONFORMING TO: Refers to obsolete IETF RFC 2396
+Date:   Sat, 14 May 2022 14:30:18 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Documentation
+X-Bugzilla-Component: man-pages
+X-Bugzilla-Version: unspecified
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: sowani@gmail.com
+X-Bugzilla-Status: NEW
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P1
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: cc attachments.created
+Message-ID: <bug-215738-11311-M04fzoad6j@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-215738-11311@https.bugzilla.kernel.org/>
+References: <bug-215738-11311@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.1
-Subject: Re: [PATCH] getpriority: Only getpriority translation the priority
- values
-Content-Language: en-US
-To:     Theodore Dubois <tbodt@google.com>
-References: <20220510220821.1481801-1-tbodt@google.com>
-Cc:     linux-man@vger.kernel.org, mtk.manpages@gmail.com
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20220510220821.1481801-1-tbodt@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Spam-Status: No, score=-2.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-        autolearn=ham autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-7.7 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 5/11/22 00:08, Theodore Dubois wrote:
-> The translation is needed to avoid returning a negative number from a
-> successful syscall, and this requirement doesn't apply to setpriority.
-> See the implementation of getpriority in kernel/sys.c.
+https://bugzilla.kernel.org/show_bug.cgi?id=3D215738
 
-Confirmed.  See:
+sowani@gmail.com changed:
 
-$ grepc -tf getpriority kernel/
-./kernel/sys.c:274:
-SYSCALL_DEFINE2(getpriority, int, which, int, who)
-{
-	...
-			niceval = nice_to_rlimit(task_nice(p));
-			if (niceval > retval)
-				retval = niceval;
-	...
+           What    |Removed                     |Added
+----------------------------------------------------------------------------
+                 CC|                            |sowani@gmail.com
 
-	return retval;
-}
-$ grepc -tf setpriority kernel/
-./kernel/sys.c:204:
-SYSCALL_DEFINE3(setpriority, int, which, int, who, int, niceval)
-{
-	...
-	if (niceval < MIN_NICE)
-		niceval = MIN_NICE;
-	if (niceval > MAX_NICE)
-		niceval = MAX_NICE;
+--- Comment #2 from sowani@gmail.com ---
+Created attachment 300956
+  --> https://bugzilla.kernel.org/attachment.cgi?id=3D300956&action=3Dedit
+Suggested patch to update uri(7) man page.
 
-	...
-}
-$ grepc -tm M.._NICE
-./include/linux/sched/prio.h:5:
-#define MAX_NICE	19
+The "CONFORMING TO" section of uri(7) man page is updated with following
+changes:
+1. reference to rfc2396 has been removed
+2. references to rfc6874 and rfc8820 have been added.
 
+--=20
+You may reply to this email to add a comment.
 
-./include/linux/sched/prio.h:6:
-#define MIN_NICE	-20
-$ grepc -tf nice_to_rlimit
-./include/linux/sched/prio.h:32:
-static inline long nice_to_rlimit(long nice)
-{
-	return (MAX_NICE - nice + 1);
-}
-
-
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+You are receiving this mail because:
+You are watching the assignee of the bug.=
