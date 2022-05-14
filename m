@@ -2,96 +2,94 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 6A47E527368
-	for <lists+linux-man@lfdr.de>; Sat, 14 May 2022 20:07:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 616CA527378
+	for <lists+linux-man@lfdr.de>; Sat, 14 May 2022 20:43:43 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229538AbiENSH0 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 14 May 2022 14:07:26 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58740 "EHLO
+        id S230421AbiENSnl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 14 May 2022 14:43:41 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51356 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232202AbiENSHW (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 14 May 2022 14:07:22 -0400
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0F2DCE01F
-        for <linux-man@vger.kernel.org>; Sat, 14 May 2022 11:07:20 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by ams.source.kernel.org (Postfix) with ESMTPS id 7A670B80AF5
-        for <linux-man@vger.kernel.org>; Sat, 14 May 2022 18:07:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 2918DC34116
-        for <linux-man@vger.kernel.org>; Sat, 14 May 2022 18:07:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1652551638;
-        bh=/m7xBgsiPbWeDYOYboZc3rDiRYDtr3igqK+lcf1M0ro=;
-        h=From:To:Subject:Date:In-Reply-To:References:From;
-        b=XyC6MX5cBL7zrVGd5YQSo8kbkd3/2HE/G6DOiieOVUV+qwXltoNTzE7JaSVqgFwvW
-         +MQKXEFsG9B6pffilP0vVVrzahtLE8x/G9ye5x7K9Wtx651QNyKfBuiBvTqWNLUm7a
-         +n5K5uj2471s7bW+fKOKq2e5E1YCLzUuadtpArMdjbZCJQ8SJCZxdveTZDr52ULEtT
-         fNtv7VaNyrlVD8hByK8jEhS8E6tWXjtB29Rgk73X1sT4cFQBnCrQG6cA1ehfMFnsxb
-         ujMOmyXohBliU4bPFPswAgnsC5m9dsDQLvM2pvT5iK2eu7cilJYwOGLCyv3fJXwiBP
-         1TNgxrg0pBP7w==
-Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
-        id 0CE71C05FD5; Sat, 14 May 2022 18:07:18 +0000 (UTC)
-From:   bugzilla-daemon@kernel.org
-To:     linux-man@vger.kernel.org
-Subject: [Bug 215971] dd(1p) manpage contains empty ASCII to EBDIC tables
-Date:   Sat, 14 May 2022 18:07:17 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: changed
-X-Bugzilla-Watch-Reason: AssignedTo
- documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Product: Documentation
-X-Bugzilla-Component: man-pages
-X-Bugzilla-Version: unspecified
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: normal
-X-Bugzilla-Who: ben@bvnf.space
-X-Bugzilla-Status: NEW
-X-Bugzilla-Resolution: 
-X-Bugzilla-Priority: P1
-X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: 
-Message-ID: <bug-215971-11311-EhOlyX5jCc@https.bugzilla.kernel.org/>
-In-Reply-To: <bug-215971-11311@https.bugzilla.kernel.org/>
-References: <bug-215971-11311@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
+        with ESMTP id S229657AbiENSnk (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 14 May 2022 14:43:40 -0400
+Received: from mail-pg1-x535.google.com (mail-pg1-x535.google.com [IPv6:2607:f8b0:4864:20::535])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3691E3EF2C;
+        Sat, 14 May 2022 11:43:40 -0700 (PDT)
+Received: by mail-pg1-x535.google.com with SMTP id r71so10103934pgr.0;
+        Sat, 14 May 2022 11:43:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=7lx6vOYyf/crCZ2L/bBJ5ogj6IQFuyGmUGDTzppCneM=;
+        b=Diok/QJ9CYtdsD4iN25YHWFeZ5/JMFVIoRNIvm7dutWIkd6Dmi9kQ0hOnaOh7oH8RE
+         dTwzlB3oKQLuT/vuaSppU6M1KHVttfZHnTkK+oTHuB6eFKhYBSdtnB9mrM/acEl11Nr6
+         q3RuILhdTnL4QxZK8u77AlyAFZu8b/1R7IwRrtoHJp3KA/c57/lMXGdhmOQMZPR494Ok
+         kOmh5qDePiBm8Xzbv1azv3uaCrzHqwYEBJ5CRC+2ddbcS4nl3HZZMcQ8/YZI2+MfjgFI
+         83yrdg7sA6zh3pAhn0zyEy8D8U94ZwJDE/Z7XTffdBYZxkVPd2Kdw42pq1RUJGIl3ctH
+         i+1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=7lx6vOYyf/crCZ2L/bBJ5ogj6IQFuyGmUGDTzppCneM=;
+        b=lFrgvCFyVR9LZFZZWxHG/Azq+i+AZybkPLt4XI55DXbgVpLNu7H8xWXsb8Eum8FNJj
+         QKDGFTOTu1E5DyhuUsWZiFBWgZ7wgCqhLAJMM3ZF4N8gskTM6OYEqOfu5qYS+p1LI4XX
+         UCWntyDiWjg2+4CpqOhIlaHE5GOcMZu8E1T02rXGhG9wPzWTuRXVs6VG+Ie3+u6qxVos
+         xLDpfAwp8MHYIQAyA9yrzOOht/MVJTka1xrgVBhF/7gSuaY5qmTtU+TDRIhHffd+dvcS
+         9lKDdBcMH4LYZ1j+4Oq7WMDE1awQyL0kmaFxNUpJbJep0wlHsxDnldrzuCR3T8coXvPV
+         rpHA==
+X-Gm-Message-State: AOAM531SrqKjc1OpN+dN8e9hRQ6PLOFx5yqxLGp4ssinQroWBBHPCYo7
+        fP3nxFYSGyoSFaDM6UhgfzPVOYHzkLB98r9WZ8Y=
+X-Google-Smtp-Source: ABdhPJwUkBSB8aML+dFZPk9K127fWzYRH0CquLnNwG5N5T76NJe7Ik0CMsh8n23XbPqIhhHMgfwIReZFRGl1pD6PB/s=
+X-Received: by 2002:a63:eb16:0:b0:3c6:77a1:5be with SMTP id
+ t22-20020a63eb16000000b003c677a105bemr8971232pgh.127.1652553819754; Sat, 14
+ May 2022 11:43:39 -0700 (PDT)
 MIME-Version: 1.0
-X-Spam-Status: No, score=-7.7 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
-        autolearn_force=no version=3.4.6
+References: <20220510220821.1481801-1-tbodt@google.com> <0fc70bd3-5883-47e4-1814-6ed6c756a400@gmail.com>
+In-Reply-To: <0fc70bd3-5883-47e4-1814-6ed6c756a400@gmail.com>
+From:   =?UTF-8?Q?Martin_=C3=85gren?= <martin.agren@gmail.com>
+Date:   Sat, 14 May 2022 20:43:28 +0200
+Message-ID: <CAN0heSper1O2ZdFq6RE=7znC0o+sFEsd8CBR3ckFtSoZu7Bzfw@mail.gmail.com>
+Subject: Re: [PATCH] getpriority: Only getpriority translation the priority values
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     Theodore Dubois <tbodt@google.com>, linux-man@vger.kernel.org,
+        mtk.manpages@gmail.com, Git Mailing List <git@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D215971
+On Sat, 14 May 2022 at 17:11, Alejandro Colomar <alx.manpages@gmail.com> wrote:
+>
+> BTW, I had to manually edit the patch.
+> It's the second time I see this (I can't find the other one), your patch
+> didn't apply for the following reason: the a/ and b/ prefixes in the
+> file paths are missing.  Did you use git-format-patch(1) to produce the
+> patch?  Can you reproduce this?
+>
+> I CCd the git mailing list in case they know what's going on.
 
---- Comment #4 from Ben Fuller (ben@bvnf.space) ---
-https://bugzilla.kernel.org/show_bug.cgi?id=3D215971
+Sounds like `git format-patch --no-prefix` at play. Or more likely, that
+the `diff.noprefix` config is on. I don't think it can be cancelled out
+by a `--no-no-prefix`, unfortunately. If a script is involved in running
+`git format-patch`, maybe it's not too tedious to make it do
 
-On Sat, May 14, 2022 at 15:12:48 +0000, bugzilla-daemon@kernel.org wrote:
-> --- Comment #3 from Alejandro Colomar (man-pages) (alx.manpages@gmail.com)
-> ---
-> I guess maybe Michael Kerrisk has the sources; I don't.
-> <https://www.kernel.org/doc/man-pages/maintaining.html>
+  git -c diff.noprefix=no format-patch ...
 
-According to the Austin group, (see Q6:
-https://www.opengroup.org/austin/papers/posix_faq.html)
-Michael Kerrisk has some nroff pages, but I don't know if that's
-referring to the ones generated from HTML. Michael, is there any
-possibility of obtaining the roff sources of these tables?
+to cancel the config. (If that config really does want to be on, that
+is.)
 
-Ben
+That said, something like
 
---=20
-You may reply to this email to add a comment.
+  git am -p0 ...
 
-You are receiving this mail because:
-You are watching the assignee of the bug.=
+should help on the receiving side, by way of skipping fewer path
+components when applying the patch.
+
+Martin
