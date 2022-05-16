@@ -2,85 +2,62 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 85045527BFF
-	for <lists+linux-man@lfdr.de>; Mon, 16 May 2022 04:35:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6A237527F4C
+	for <lists+linux-man@lfdr.de>; Mon, 16 May 2022 10:09:56 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S237914AbiEPCfZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 15 May 2022 22:35:25 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43858 "EHLO
+        id S240684AbiEPIJy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 16 May 2022 04:09:54 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40626 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229881AbiEPCfZ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 15 May 2022 22:35:25 -0400
-Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C6805F5BF
-        for <linux-man@vger.kernel.org>; Sun, 15 May 2022 19:35:22 -0700 (PDT)
-Received: by mail-qt1-f169.google.com with SMTP id t16so11197878qtr.9
-        for <linux-man@vger.kernel.org>; Sun, 15 May 2022 19:35:22 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=pQG/wxJHrFCtZzyT//DFS68PeenXkIBHvqUHNfOYKjQ=;
-        b=UmLt7lcyurpg83D4HeIb0dMfR1C0NhLk5V8KkqJUkuDeE/54842q1nUdUC83wqrGER
-         C6ddVQH8rzCI9iQQQIlAXRXN8SJUjNPKBplzgK3yPVPasDgz+XY5P+0ZoMIEWwibIu6R
-         0Bd/N+S8VGNU+toZ/Dv2Kf06dpv7z3GkLTNriIxXyt4MU6ryd8f2NBJ0zcQXM8/qKS54
-         76ih6caiIkZAmay0PL2oKtNp+qaNz0+e3mKNwXvO5p6TrHlvfaGG2atttdzagjDuXktg
-         2pmnKTjTkt9eiJhJIpeGcZqxyV3sTJpJT1ug3xIv9tncKN6cbeT0fYb1GFOS8v7QhgAR
-         yXAg==
-X-Gm-Message-State: AOAM533rti+fIL+rgKDDXL22HI8JcDLlz4eUt32gZEjRqUdxy+8hF8Nj
-        gxx8ddGkViaJsV3w7uV/s88=
-X-Google-Smtp-Source: ABdhPJw9j60WYVmPaTXId5cT6OavlQ09G8eCCHjC0soo2FLIOjFjNE5FGeCyZEp+EKXDFg+nL49z3Q==
-X-Received: by 2002:ac8:7e94:0:b0:2f3:ce2b:c320 with SMTP id w20-20020ac87e94000000b002f3ce2bc320mr13628772qtj.670.1652668521702;
-        Sun, 15 May 2022 19:35:21 -0700 (PDT)
-Received: from localhost.localdomain ([2601:184:417f:5c0a:6c29:c8dc:83d5:5968])
-        by smtp.gmail.com with ESMTPSA id d23-20020a05620a205700b0069fc13ce1ffsm5116183qka.48.2022.05.15.19.35.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 May 2022 19:35:21 -0700 (PDT)
-From:   David Ward <david.ward@gatech.edu>
-To:     Michael Kerrisk <mtk.manpages@gmail.com>
-Cc:     David Ward <david.ward@gatech.edu>,
-        Michael Welsh Duggan <mwd@cert.org>,
-        Nadav Har'El <nyh@math.technion.ac.il>,
-        linux-man@vger.kernel.org
-Subject: [PATCH] poll.2: Set fd to its bitwise complement to ignore
-Date:   Sun, 15 May 2022 22:33:44 -0400
-Message-Id: <20220516023344.803-1-david.ward@gatech.edu>
-X-Mailer: git-send-email 2.35.1.windows.2
+        with ESMTP id S235893AbiEPIJx (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 16 May 2022 04:09:53 -0400
+Received: from mail.slidebizcompany.com (mail.slidebizcompany.com [135.125.235.171])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D0BB0344F3
+        for <linux-man@vger.kernel.org>; Mon, 16 May 2022 01:09:52 -0700 (PDT)
+Received: by mail.slidebizcompany.com (Postfix, from userid 1002)
+        id 414A9A33D4; Mon, 16 May 2022 08:06:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=slidebizcompany.com;
+        s=mail; t=1652688469;
+        bh=f01OOv7iZ6eKP39nAJoyJ+/Cmpugf6hkYKbYNn4lotU=;
+        h=Date:From:To:Subject:From;
+        b=L5kGnvjAB89LVwF9wmjKBRU8iDzkdwNylOrEP6Hel6/EckkfhVYxQCKoIucEk00J8
+         pLdi9whZQZanxBSMMrCHF3uZ8/1jcBKcRDVriI2MJ268pwzaznIrZGJnNh/i/1v+1t
+         UGEUA0FJPDS3NvVJC2v/GR2IATpl8HTM/+NGd4kdQ+cLMWDPtv2zfH8m9TFD+CRE8s
+         lzTVztlTMFFss/n1hDGD6y2UrhLTpYAzQKbZ6Moa0y/pza0tvJf/5k8JTzLXToHvTL
+         aHGVJh9mqGz/Ky9/z6GJEh4NuuHKu5KQbihCzEQe2RPNlwplqTfEdxjZuRi6Bi65Pg
+         +lRHnE+D4Cb4w==
+Received: by mail.slidebizcompany.com for <linux-man@vger.kernel.org>; Mon, 16 May 2022 08:05:40 GMT
+Message-ID: <20220516064501-0.1.1c.gpmm.0.sq95zai93n@slidebizcompany.com>
+Date:   Mon, 16 May 2022 08:05:40 GMT
+From:   "Miguel Garcia" <miguel.garcia@slidebizcompany.com>
+To:     <linux-man@vger.kernel.org>
+Subject: Servicio de la flota
+X-Mailer: mail.slidebizcompany.com
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-1.4 required=5.0 tests=BAYES_00,
-        FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
-        RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
-        SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=no autolearn_force=no
-        version=3.4.6
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: No, score=2.8 required=5.0 tests=BAYES_95,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+        T_SCC_BODY_TEXT_LINE autolearn=no autolearn_force=no version=3.4.6
+X-Spam-Level: **
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Unlike negating the fd, this works even for fd 0. It is a better fix for
-https://bugzilla.kernel.org/show_bug.cgi?id=79411.
+Buenos d=C3=ADas:
 
-Signed-off-by: David Ward <david.ward@gatech.edu>
----
- man2/poll.2 | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+Le escribo para hablarle sobre una de las mejores herramientas GPS en el =
+mercado.
 
-diff --git a/man2/poll.2 b/man2/poll.2
-index 205468f3e..cd65bc6e8 100644
---- a/man2/poll.2
-+++ b/man2/poll.2
-@@ -83,10 +83,9 @@ field returns zero.
- (This provides an easy way of ignoring a
- file descriptor for a single
- .BR poll ()
--call: simply negate the
-+call: simply set the
- .I fd
--field.
--Note, however, that this technique can't be used to ignore file descriptor 0.)
-+field to its bitwise complement.)
- .PP
- The field
- .I events
+La herramienta, que me gustar=C3=ADa presentarle brevemente, dispone de m=
+uchas funciones =C3=BAtiles para su trabajo, que optimizan los procesos d=
+e transporte y le ayudan a realizar tareas de campo de manera m=C3=A1s ef=
+iciente.
+
+=C2=BFQuiere conocer los detalles?
+
+
+Atentamente,
+Miguel Garcia
