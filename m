@@ -2,96 +2,85 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 5ABC8527427
-	for <lists+linux-man@lfdr.de>; Sat, 14 May 2022 23:18:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 85045527BFF
+	for <lists+linux-man@lfdr.de>; Mon, 16 May 2022 04:35:26 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230027AbiENVSL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 14 May 2022 17:18:11 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46330 "EHLO
+        id S237914AbiEPCfZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 15 May 2022 22:35:25 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43858 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229928AbiENVSK (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 14 May 2022 17:18:10 -0400
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com [IPv6:2a00:1450:4864:20::431])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5324B36317;
-        Sat, 14 May 2022 14:18:09 -0700 (PDT)
-Received: by mail-wr1-x431.google.com with SMTP id v12so15730155wrv.10;
-        Sat, 14 May 2022 14:18:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=Xz8M/g9Zq/f5gutiLmOIYKicxnP4dy22Nv9/bTXZfwI=;
-        b=Kp4EgbssYe/DHbaxBt3wQi4G6ajHHWdIMvZ9UhNMWLcW4TUBFlAZjM8XvJJDOK0QPE
-         iDPQeb/3A79nMLOH2NN8zps43H8pS4ztj+EpUhdl+a2FPqmM4kRjmWLXIb4kRHq11YO/
-         nEH43y4JZn+Fb/mmno82t+NrEtmmVpQYOzbd8VwSsdR1LNrK+TgngHUm10SaDfccVjxC
-         omFNSkRHjGIONlbgkhIec0nQMI6FAJM3+N7tfD59BXwqxgvGEqeNh9sOOZR93pboC0xC
-         NpIN8PyiUegoZeMibdwdPEYwfnTWqe56TtB4Ax6BshZ5vW/ZEv4hbXGFiL6JtlKe7q8Q
-         HHxA==
+        with ESMTP id S229881AbiEPCfZ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 15 May 2022 22:35:25 -0400
+Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C6805F5BF
+        for <linux-man@vger.kernel.org>; Sun, 15 May 2022 19:35:22 -0700 (PDT)
+Received: by mail-qt1-f169.google.com with SMTP id t16so11197878qtr.9
+        for <linux-man@vger.kernel.org>; Sun, 15 May 2022 19:35:22 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=Xz8M/g9Zq/f5gutiLmOIYKicxnP4dy22Nv9/bTXZfwI=;
-        b=rzixSwgVp+Lg+a4d6PLeykMWuY5XCF9vi6fAGcgjs83czBWPnbjbb591uAh6edBKpQ
-         p4hB8mqPsjtlfGUaVEsjjLaxbDfzIOvHZS9+b3FaWCEQ+ec04uBHs43VUfkjaHtPShYH
-         A7BG0TphIIqUcGhNhthhMudR6Y3nlWz9f9KFGOSIhYdFVY96nUd6TRZ3QyZ86vyy0Ukd
-         +r0dBODjgB7pRhUmX3WBeikv35EkUDJ9OVBcEiqqcOWOPhBRF3sCOYggoryQFk3mbijA
-         ams8eskgQfOoUpqfg1PRFf1Rozi/hpPRD/4FNnehGcxe3dw3DM3gWv2aLLIJQCWJXNFK
-         Xz4w==
-X-Gm-Message-State: AOAM532dSveHw9meqG7JcVbaSH830FjLWsl7rJx8k0EBFh0iV1CnTPN5
-        N8mquAMgJZUFkTxPPxoJ+08=
-X-Google-Smtp-Source: ABdhPJyb5C7FhZbR5jiW6Cdych8bvBSS7+RZcbSLxcM+Hfb8IolgR8fKweS3eC6Un3EOofBwWcqTfQ==
-X-Received: by 2002:a5d:4561:0:b0:20d:3a3:c111 with SMTP id a1-20020a5d4561000000b0020d03a3c111mr1294772wrc.609.1652563087713;
-        Sat, 14 May 2022 14:18:07 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id f2-20020adfb602000000b0020c5253d906sm5414129wre.82.2022.05.14.14.18.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 14 May 2022 14:18:07 -0700 (PDT)
-Message-ID: <385751ee-416e-c2d4-849a-270092a06010@gmail.com>
-Date:   Sat, 14 May 2022 23:18:05 +0200
+        bh=pQG/wxJHrFCtZzyT//DFS68PeenXkIBHvqUHNfOYKjQ=;
+        b=UmLt7lcyurpg83D4HeIb0dMfR1C0NhLk5V8KkqJUkuDeE/54842q1nUdUC83wqrGER
+         C6ddVQH8rzCI9iQQQIlAXRXN8SJUjNPKBplzgK3yPVPasDgz+XY5P+0ZoMIEWwibIu6R
+         0Bd/N+S8VGNU+toZ/Dv2Kf06dpv7z3GkLTNriIxXyt4MU6ryd8f2NBJ0zcQXM8/qKS54
+         76ih6caiIkZAmay0PL2oKtNp+qaNz0+e3mKNwXvO5p6TrHlvfaGG2atttdzagjDuXktg
+         2pmnKTjTkt9eiJhJIpeGcZqxyV3sTJpJT1ug3xIv9tncKN6cbeT0fYb1GFOS8v7QhgAR
+         yXAg==
+X-Gm-Message-State: AOAM533rti+fIL+rgKDDXL22HI8JcDLlz4eUt32gZEjRqUdxy+8hF8Nj
+        gxx8ddGkViaJsV3w7uV/s88=
+X-Google-Smtp-Source: ABdhPJw9j60WYVmPaTXId5cT6OavlQ09G8eCCHjC0soo2FLIOjFjNE5FGeCyZEp+EKXDFg+nL49z3Q==
+X-Received: by 2002:ac8:7e94:0:b0:2f3:ce2b:c320 with SMTP id w20-20020ac87e94000000b002f3ce2bc320mr13628772qtj.670.1652668521702;
+        Sun, 15 May 2022 19:35:21 -0700 (PDT)
+Received: from localhost.localdomain ([2601:184:417f:5c0a:6c29:c8dc:83d5:5968])
+        by smtp.gmail.com with ESMTPSA id d23-20020a05620a205700b0069fc13ce1ffsm5116183qka.48.2022.05.15.19.35.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 May 2022 19:35:21 -0700 (PDT)
+From:   David Ward <david.ward@gatech.edu>
+To:     Michael Kerrisk <mtk.manpages@gmail.com>
+Cc:     David Ward <david.ward@gatech.edu>,
+        Michael Welsh Duggan <mwd@cert.org>,
+        Nadav Har'El <nyh@math.technion.ac.il>,
+        linux-man@vger.kernel.org
+Subject: [PATCH] poll.2: Set fd to its bitwise complement to ignore
+Date:   Sun, 15 May 2022 22:33:44 -0400
+Message-Id: <20220516023344.803-1-david.ward@gatech.edu>
+X-Mailer: git-send-email 2.35.1.windows.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.1
-Subject: Re: [PATCH] getpriority: Only getpriority translation the priority
- values
-Content-Language: en-US
-To:     =?UTF-8?Q?Martin_=c3=85gren?= <martin.agren@gmail.com>
-Cc:     Theodore Dubois <tbodt@google.com>, linux-man@vger.kernel.org,
-        mtk.manpages@gmail.com, Git Mailing List <git@vger.kernel.org>
-References: <20220510220821.1481801-1-tbodt@google.com>
- <0fc70bd3-5883-47e4-1814-6ed6c756a400@gmail.com>
- <CAN0heSper1O2ZdFq6RE=7znC0o+sFEsd8CBR3ckFtSoZu7Bzfw@mail.gmail.com>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <CAN0heSper1O2ZdFq6RE=7znC0o+sFEsd8CBR3ckFtSoZu7Bzfw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-2.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-        autolearn=ham autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-1.4 required=5.0 tests=BAYES_00,
+        FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+        RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
+        SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=no autolearn_force=no
+        version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Martin,
+Unlike negating the fd, this works even for fd 0. It is a better fix for
+https://bugzilla.kernel.org/show_bug.cgi?id=79411.
 
-On 5/14/22 20:43, Martin Ågren wrote:
-> That said, something like
-> 
->    git am -p0 ...
-> 
-> should help on the receiving side, by way of skipping fewer path
-> components when applying the patch.
+Signed-off-by: David Ward <david.ward@gatech.edu>
+---
+ man2/poll.2 | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-That works for me.
-Thanks!
-
-Alex
-
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+diff --git a/man2/poll.2 b/man2/poll.2
+index 205468f3e..cd65bc6e8 100644
+--- a/man2/poll.2
++++ b/man2/poll.2
+@@ -83,10 +83,9 @@ field returns zero.
+ (This provides an easy way of ignoring a
+ file descriptor for a single
+ .BR poll ()
+-call: simply negate the
++call: simply set the
+ .I fd
+-field.
+-Note, however, that this technique can't be used to ignore file descriptor 0.)
++field to its bitwise complement.)
+ .PP
+ The field
+ .I events
