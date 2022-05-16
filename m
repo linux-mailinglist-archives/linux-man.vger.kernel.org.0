@@ -2,110 +2,115 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id C1B4C529056
-	for <lists+linux-man@lfdr.de>; Mon, 16 May 2022 22:44:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C76D3529354
+	for <lists+linux-man@lfdr.de>; Tue, 17 May 2022 00:05:07 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229546AbiEPUIT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 16 May 2022 16:08:19 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41248 "EHLO
+        id S1346352AbiEPWFG (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 16 May 2022 18:05:06 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53840 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1348906AbiEPT7D (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 16 May 2022 15:59:03 -0400
-Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 64984DF11
-        for <linux-man@vger.kernel.org>; Mon, 16 May 2022 12:51:48 -0700 (PDT)
-Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id B4089248;
-        Mon, 16 May 2022 21:51:44 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-        s=202006; t=1652730704;
-        bh=5s3HN5OjAD5cCSxhpQFKMPPtGKK9LyxRE1aCc1JctaU=;
-        h=Date:From:To:Cc:Subject:From;
-        b=PoQJ26rqn5zlsFFM14D4ekvFt5NvAwVZ/ZyLmZ9Rnmgd/i8DDtL/at3CKQp+hn5As
-         5kzY41l5pmLusCl8yo4YePtxNKcI78cuklOQvaAA+f3Ffx52NBzWBM/VcGXoQzzkZ7
-         zFbIFpC5L8FGWgIEyiBFWjNzX3NnZu6V5bDQhizgOOB8Ivhu3ZJu2XVduqXvwjcQW5
-         mYaUjNb8pl18wDcyp2Ta773wLQH02yTbJ/ObiT5wheM7tg+VppRmZwGSyZlh2fXA9f
-         ji/VqajuoIkfZHklsPHrNmezCmOPMmS5cGZf6nC3uqwYveM5jJ8itcshxot4OE44x7
-         I8Ga6KbWx/Wog==
-Date:   Mon, 16 May 2022 21:51:43 +0200
-From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-Subject: [PATCH] fseek.3: mention seek-past-the-end semantics, defer to
- lseek(2)
-Message-ID: <20220516195143.kry7o63pmjyiyhpk@tarta.nabijaczleweli.xyz>
+        with ESMTP id S238440AbiEPWFF (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 16 May 2022 18:05:05 -0400
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com [IPv6:2a00:1450:4864:20::42a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 579582C65C
+        for <linux-man@vger.kernel.org>; Mon, 16 May 2022 15:05:03 -0700 (PDT)
+Received: by mail-wr1-x42a.google.com with SMTP id h14so2598784wrc.6
+        for <linux-man@vger.kernel.org>; Mon, 16 May 2022 15:05:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=message-id:date:mime-version:user-agent:subject:content-language:to
+         :cc:references:from:in-reply-to:content-transfer-encoding;
+        bh=LFrsuot8HXshiNNo4sQDRp8BkV3yr6rBqE+a++tl7L8=;
+        b=p7ojG7xW6taGlGF4vCN7Sgfmk1unw24VhywTRhfa4VnLcyPEEcRQTv8b/nLNkgTLDL
+         iajZv1oWqSlL//h5E+YWyD4UnOcabkCfDxpfDIvbiEsDjo71Aa957RgjWg+cq10sk17H
+         aAlLZxCAMacntZLnd21fMPCaIdMqLuyjJz/oJKfXrC27w5utPYk5b+mUm6eD9CBq7BK2
+         tmn5hZygQmUbiIPGsnHEgdeEYcroz7Bc2z8dnXBbAM+KoD6JWm14O+ibZ20uA0Bb5APz
+         /BLt3sMSr23WXN0ZjAxh7KjzP8z1DqJSLcIxuQw3xEmAti+47xgBC7yzj9gfBlrfXPMv
+         pqzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+         :content-language:to:cc:references:from:in-reply-to
+         :content-transfer-encoding;
+        bh=LFrsuot8HXshiNNo4sQDRp8BkV3yr6rBqE+a++tl7L8=;
+        b=ShHU3sXtztmVIC9pCFmVK9V9rzqBuVMB43OXRK2Dmj1nF2zPpZW/LT2Y6EsFOE/WU4
+         7ZoTzjKvIpXITsBOgLWanjWXqYX8Xg71/3dDWXKjBWCfSKDbZmrcZxW8pjJiQMnZ62RH
+         dFXvAcp7iio/mj74SM+m0pJdefUKl/fBmMHX+u0fLpUrvJiglZYEIsq5sH0A9X8PLtOp
+         61AJT5YTOKRKmtkmKoSOBbUQNkCUTzujG5n7RJRK5xyqeO7BmctRDJM/DgbnVzFfQvHX
+         0TG7/GYlher74tkZpzR4eEAqB1xp5JenDJQUX4+9R7iyV0bEG+xF2G00WxbwhOZYD/2P
+         SJsA==
+X-Gm-Message-State: AOAM531y7r2zJz8us2+jk1LQ7o6jmzF02KIzBwnlWUKsgxxk/XfTNsYa
+        HSkeob2a9slguPPdm9t649lOhiArdLA=
+X-Google-Smtp-Source: ABdhPJx7dv4Mo8rEehUzCytym84l4o7BFfoQ9jLceGEvec+XZd5e9j3Z3mxH3b+RpdDQYt12yHtIIw==
+X-Received: by 2002:a05:6000:18a2:b0:20c:6d0d:10b0 with SMTP id b2-20020a05600018a200b0020c6d0d10b0mr15977037wri.345.1652738701781;
+        Mon, 16 May 2022 15:05:01 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id e15-20020adfa74f000000b0020c5253d8e5sm10076872wrd.49.2022.05.16.15.05.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 16 May 2022 15:05:01 -0700 (PDT)
+Message-ID: <bac1b13f-eb36-c150-aa01-81c04a4063bd@gmail.com>
+Date:   Tue, 17 May 2022 00:04:59 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="ynefui55jbiidjrc"
-Content-Disposition: inline
-User-Agent: NeoMutt/20220429
-X-Spam-Status: No, score=3.3 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FROM_SUSPICIOUS_NTLD,
-        FROM_SUSPICIOUS_NTLD_FP,PDS_OTHER_BAD_TLD,RDNS_DYNAMIC,SPF_HELO_NONE,
-        SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=no autolearn_force=no
-        version=3.4.6
-X-Spam-Level: ***
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.1
+Subject: Re: [PATCH] fseek.3: mention seek-past-the-end semantics, defer to
+ lseek(2)
+Content-Language: en-US
+To:     =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Cc:     linux-man@vger.kernel.org
+References: <20220516195143.kry7o63pmjyiyhpk@tarta.nabijaczleweli.xyz>
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <20220516195143.kry7o63pmjyiyhpk@tarta.nabijaczleweli.xyz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-2.5 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+On 5/16/22 21:51, наб wrote:
+> If the user is unfamiliar with seeking semantics, they may sensibly
+> assume that seeking past the end is invalid
+> 
+> Reported-in: https://twitter.com/eatijr/status/1526264195808911361
+> Signed-off-by: Ahelenia Ziemiańska <nabijaczleweli@nabijaczleweli.xyz>
 
---ynefui55jbiidjrc
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Patch applied, наб.
 
-If the user is unfamiliar with seeking semantics, they may sensibly
-assume that seeking past the end is invalid
+Thanks,
 
-Reported-in: https://twitter.com/eatijr/status/1526264195808911361
-Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
----
- man3/fseek.3 | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Alex
 
-diff --git a/man3/fseek.3 b/man3/fseek.3
-index 01bd34c5b..c19303421 100644
---- a/man3/fseek.3
-+++ b/man3/fseek.3
-@@ -118,6 +118,14 @@ On some non-UNIX systems, an
- .I fpos_t
- object may be a complex object and these routines may be the only way to
- portably reposition a text stream.
-+.PP
-+If the stream refers to a regular file
-+and the resulting stream offset is beyond the size of the file,
-+subsequent writes will extend the file with a hole, up to the offset,
-+before committing any data.
-+See
-+.BR lseek (2)
-+for details on file seeking semantics.
- .SH RETURN VALUE
- The
- .BR rewind ()
---=20
-2.30.2
+> ---
+>   man3/fseek.3 | 8 ++++++++
+>   1 file changed, 8 insertions(+)
+> 
+> diff --git a/man3/fseek.3 b/man3/fseek.3
+> index 01bd34c5b..c19303421 100644
+> --- a/man3/fseek.3
+> +++ b/man3/fseek.3
+> @@ -118,6 +118,14 @@ On some non-UNIX systems, an
+>   .I fpos_t
+>   object may be a complex object and these routines may be the only way to
+>   portably reposition a text stream.
+> +.PP
+> +If the stream refers to a regular file
+> +and the resulting stream offset is beyond the size of the file,
+> +subsequent writes will extend the file with a hole, up to the offset,
+> +before committing any data.
+> +See
+> +.BR lseek (2)
+> +for details on file seeking semantics.
+>   .SH RETURN VALUE
+>   The
+>   .BR rewind ()
 
---ynefui55jbiidjrc
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmKCq08ACgkQvP0LAY0m
-WPGyqA//VLytEVtqFOybl6Q/5oQidwav2/ZEePARRW/t+Lpuqlah+94+oNlHG4rC
-5dtQ3PY2I8d4bcvCwmO67VuPpPRXQJ79u5ZeZWr4xuH7iOvR/SPs2SteT4EqZDWg
-/IA1mk8cB7LoixwLVHNBnnToZq/NXLYeJWJEXxUGfPgyQzlyTABW2Wg6lp4LP0Zj
-qpeeH+loK1p4YnCanjvB8TCHnJxPNCf6rC7K4QTiQVre7VwnTNOumOn/TLUT8rHh
-G+KTxSCjCb8+ULCVq0RXo5wknA4+eUsHTRwMrlpfQyHJFkCQDD7JcmKrLZvpstOk
-BuIqM1DeMdi23D4dClX+Lyi7E6qAdo65n7z/lPCng4EjaqJ1UmcIBzuKtcHkFyYx
-CSSFs9+v5c9wwcSVHRHyuzNwKZGJ/Fq46bEVUeQSamcaaNnUitIQ+XrTS1gd5cCG
-dftPwTU5NIAiUcihx9H8t3Qti8CNbryFxyFnSkd6T9uQrAP6OjPJ5HUw6QVl1g0g
-4L7WpNl2mTjfWY1dZ5yIzjomo+rZkQepuCiIhCgn9DcwgxRdnGYUoJgn+vQfxFqc
-lqhk206L6Xt8CE9tM7iSVbYeYN6C+QEkodVtzUa8ymQK9Kbwm6JBbjDtmiQD5ABB
-McpJcL94IvVBDUWXSbsfJZpJerfao8uiTcAifXsPz3CWuCzbw0M=
-=6KMG
------END PGP SIGNATURE-----
-
---ynefui55jbiidjrc--
+-- 
+Alejandro Colomar
+Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
+http://www.alejandro-colomar.es/
