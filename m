@@ -2,70 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id C76D3529354
-	for <lists+linux-man@lfdr.de>; Tue, 17 May 2022 00:05:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 76ECF52A8CD
+	for <lists+linux-man@lfdr.de>; Tue, 17 May 2022 19:03:10 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1346352AbiEPWFG (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 16 May 2022 18:05:06 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53840 "EHLO
+        id S1351290AbiEQRDC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 17 May 2022 13:03:02 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48108 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S238440AbiEPWFF (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 16 May 2022 18:05:05 -0400
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com [IPv6:2a00:1450:4864:20::42a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 579582C65C
-        for <linux-man@vger.kernel.org>; Mon, 16 May 2022 15:05:03 -0700 (PDT)
-Received: by mail-wr1-x42a.google.com with SMTP id h14so2598784wrc.6
-        for <linux-man@vger.kernel.org>; Mon, 16 May 2022 15:05:03 -0700 (PDT)
+        with ESMTP id S1351288AbiEQRDB (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 17 May 2022 13:03:01 -0400
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com [IPv6:2a00:1450:4864:20::12f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1D27C1261C
+        for <linux-man@vger.kernel.org>; Tue, 17 May 2022 10:02:59 -0700 (PDT)
+Received: by mail-lf1-x12f.google.com with SMTP id u23so32437849lfc.1
+        for <linux-man@vger.kernel.org>; Tue, 17 May 2022 10:02:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=LFrsuot8HXshiNNo4sQDRp8BkV3yr6rBqE+a++tl7L8=;
-        b=p7ojG7xW6taGlGF4vCN7Sgfmk1unw24VhywTRhfa4VnLcyPEEcRQTv8b/nLNkgTLDL
-         iajZv1oWqSlL//h5E+YWyD4UnOcabkCfDxpfDIvbiEsDjo71Aa957RgjWg+cq10sk17H
-         aAlLZxCAMacntZLnd21fMPCaIdMqLuyjJz/oJKfXrC27w5utPYk5b+mUm6eD9CBq7BK2
-         tmn5hZygQmUbiIPGsnHEgdeEYcroz7Bc2z8dnXBbAM+KoD6JWm14O+ibZ20uA0Bb5APz
-         /BLt3sMSr23WXN0ZjAxh7KjzP8z1DqJSLcIxuQw3xEmAti+47xgBC7yzj9gfBlrfXPMv
-         pqzg==
+        d=google.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:content-transfer-encoding;
+        bh=5L6SOo5F/HUI2kufRUrMQPP8m5oy+oLLd7gQZE9ie9E=;
+        b=I+y869zvanpaVT6RTyQMvYSlTLIuJp4diOojEYCBJ/IGYZiG6lEvp7B9PivC5nUnJ7
+         F5Qj0NtOEZnpvxdaBJ+U1YyBhfV2sBA+/xC9s2LdYejKWg/6ODyKNpZSsOll8QGwSHuT
+         331LdvmxapQQRziBmTyu5bIrD6zwJ8aNkJ2BmsqLTVFTBoX0CyAlEYQ8Wc7nmJe3viUn
+         Dq2lm9yljnTgdjvSgmixXH5BTrIepy9nPRj3SbitNeLKbFaP6JpnQ9MGE1YnnISBxHmE
+         vcTvczgwmP7ojkc/yuPVUEwz+qAk4f/1GaFO4kQ6RbMdscGz5o6AoHPAHSglXYaQqXRf
+         wZuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=LFrsuot8HXshiNNo4sQDRp8BkV3yr6rBqE+a++tl7L8=;
-        b=ShHU3sXtztmVIC9pCFmVK9V9rzqBuVMB43OXRK2Dmj1nF2zPpZW/LT2Y6EsFOE/WU4
-         7ZoTzjKvIpXITsBOgLWanjWXqYX8Xg71/3dDWXKjBWCfSKDbZmrcZxW8pjJiQMnZ62RH
-         dFXvAcp7iio/mj74SM+m0pJdefUKl/fBmMHX+u0fLpUrvJiglZYEIsq5sH0A9X8PLtOp
-         61AJT5YTOKRKmtkmKoSOBbUQNkCUTzujG5n7RJRK5xyqeO7BmctRDJM/DgbnVzFfQvHX
-         0TG7/GYlher74tkZpzR4eEAqB1xp5JenDJQUX4+9R7iyV0bEG+xF2G00WxbwhOZYD/2P
-         SJsA==
-X-Gm-Message-State: AOAM531y7r2zJz8us2+jk1LQ7o6jmzF02KIzBwnlWUKsgxxk/XfTNsYa
-        HSkeob2a9slguPPdm9t649lOhiArdLA=
-X-Google-Smtp-Source: ABdhPJx7dv4Mo8rEehUzCytym84l4o7BFfoQ9jLceGEvec+XZd5e9j3Z3mxH3b+RpdDQYt12yHtIIw==
-X-Received: by 2002:a05:6000:18a2:b0:20c:6d0d:10b0 with SMTP id b2-20020a05600018a200b0020c6d0d10b0mr15977037wri.345.1652738701781;
-        Mon, 16 May 2022 15:05:01 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id e15-20020adfa74f000000b0020c5253d8e5sm10076872wrd.49.2022.05.16.15.05.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 May 2022 15:05:01 -0700 (PDT)
-Message-ID: <bac1b13f-eb36-c150-aa01-81c04a4063bd@gmail.com>
-Date:   Tue, 17 May 2022 00:04:59 +0200
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=5L6SOo5F/HUI2kufRUrMQPP8m5oy+oLLd7gQZE9ie9E=;
+        b=1yvPu4mELmTWAhwlF3H+n/mC/pLE9G6pWNe0vW/53muxx8vZ9MK0oUZF0jEjNPWrWL
+         MnTFIQzM6ERi7mIfbW58Y2eh7jtIdcQST32zUh07EM8xqUEkndaSD22QbnhJSTno5Zz6
+         neCoL6aNyuwKCiJHg0AZpWKK5zeAWvDFPYpt8NP8H3aHrSoY+hb3FqL5S2EPJeY9zz6P
+         Ms6YQDa5mTEFyz4aVW/icEgfJKuypZ+3ZbqDga0qmM+bfbRDxjgk1VwJm2XgMtAycxRa
+         r/+J0hfjDEmczlW1++FIAX6OthSPa7S84R6J03g6ZWgzpAEdnFAZ5dE3/8cQVLKCezC5
+         r00g==
+X-Gm-Message-State: AOAM531IUfe1U6di0LtAalsPdNhs9+c/LMTyZoCFBhbp8SAzofUtO6oR
+        /3AdYqvoKHXA5wVldeznvz1ehgOBEnl1mh4ULpuAhw==
+X-Google-Smtp-Source: ABdhPJxVM0XyAy75+pxbdy9VCAvEO9Bg6qqAFJkiVvlMFZCJsnrNEM7MvYfEj0USuQjhDC0u59fUCrjayh4ni6ICops=
+X-Received: by 2002:a19:4303:0:b0:473:f5fb:27b2 with SMTP id
+ q3-20020a194303000000b00473f5fb27b2mr17399323lfa.626.1652806977127; Tue, 17
+ May 2022 10:02:57 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.1
-Subject: Re: [PATCH] fseek.3: mention seek-past-the-end semantics, defer to
- lseek(2)
-Content-Language: en-US
-To:     =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc:     linux-man@vger.kernel.org
-References: <20220516195143.kry7o63pmjyiyhpk@tarta.nabijaczleweli.xyz>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20220516195143.kry7o63pmjyiyhpk@tarta.nabijaczleweli.xyz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-2.5 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+References: <20220510220821.1481801-1-tbodt@google.com> <0fc70bd3-5883-47e4-1814-6ed6c756a400@gmail.com>
+ <CAN0heSper1O2ZdFq6RE=7znC0o+sFEsd8CBR3ckFtSoZu7Bzfw@mail.gmail.com>
+In-Reply-To: <CAN0heSper1O2ZdFq6RE=7znC0o+sFEsd8CBR3ckFtSoZu7Bzfw@mail.gmail.com>
+From:   Theodore Dubois <tbodt@google.com>
+Date:   Tue, 17 May 2022 10:02:36 -0700
+Message-ID: <CAN3rvwBWBPLB+Pm14S5Nb9LOV6ajhT8qMbwi5bBm1pK_8AgN5g@mail.gmail.com>
+Subject: Re: [PATCH] getpriority: Only getpriority translation the priority values
+To:     =?UTF-8?Q?Martin_=C3=85gren?= <martin.agren@gmail.com>
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org, mtk.manpages@gmail.com,
+        Git Mailing List <git@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: No, score=-17.6 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+        ENV_AND_HDR_SPF_MATCH,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+        T_SCC_BODY_TEXT_LINE,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL
         autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -73,44 +69,40 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 5/16/22 21:51, наб wrote:
-> If the user is unfamiliar with seeking semantics, they may sensibly
-> assume that seeking past the end is invalid
-> 
-> Reported-in: https://twitter.com/eatijr/status/1526264195808911361
-> Signed-off-by: Ahelenia Ziemiańska <nabijaczleweli@nabijaczleweli.xyz>
+Yep, I have diff.noprefix on.
 
-Patch applied, наб.
+~Theodore
 
-Thanks,
-
-Alex
-
-> ---
->   man3/fseek.3 | 8 ++++++++
->   1 file changed, 8 insertions(+)
-> 
-> diff --git a/man3/fseek.3 b/man3/fseek.3
-> index 01bd34c5b..c19303421 100644
-> --- a/man3/fseek.3
-> +++ b/man3/fseek.3
-> @@ -118,6 +118,14 @@ On some non-UNIX systems, an
->   .I fpos_t
->   object may be a complex object and these routines may be the only way to
->   portably reposition a text stream.
-> +.PP
-> +If the stream refers to a regular file
-> +and the resulting stream offset is beyond the size of the file,
-> +subsequent writes will extend the file with a hole, up to the offset,
-> +before committing any data.
-> +See
-> +.BR lseek (2)
-> +for details on file seeking semantics.
->   .SH RETURN VALUE
->   The
->   .BR rewind ()
-
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+On Sat, May 14, 2022 at 11:43 AM Martin =C3=85gren <martin.agren@gmail.com>=
+ wrote:
+>
+> On Sat, 14 May 2022 at 17:11, Alejandro Colomar <alx.manpages@gmail.com> =
+wrote:
+> >
+> > BTW, I had to manually edit the patch.
+> > It's the second time I see this (I can't find the other one), your patc=
+h
+> > didn't apply for the following reason: the a/ and b/ prefixes in the
+> > file paths are missing.  Did you use git-format-patch(1) to produce the
+> > patch?  Can you reproduce this?
+> >
+> > I CCd the git mailing list in case they know what's going on.
+>
+> Sounds like `git format-patch --no-prefix` at play. Or more likely, that
+> the `diff.noprefix` config is on. I don't think it can be cancelled out
+> by a `--no-no-prefix`, unfortunately. If a script is involved in running
+> `git format-patch`, maybe it's not too tedious to make it do
+>
+>   git -c diff.noprefix=3Dno format-patch ...
+>
+> to cancel the config. (If that config really does want to be on, that
+> is.)
+>
+> That said, something like
+>
+>   git am -p0 ...
+>
+> should help on the receiving side, by way of skipping fewer path
+> components when applying the patch.
+>
+> Martin
