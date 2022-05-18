@@ -2,167 +2,92 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id E2D1652B859
-	for <lists+linux-man@lfdr.de>; Wed, 18 May 2022 13:13:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3A2C652C6FB
+	for <lists+linux-man@lfdr.de>; Thu, 19 May 2022 00:57:41 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235298AbiERLEo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 18 May 2022 07:04:44 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50006 "EHLO
+        id S231360AbiERW5W (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 18 May 2022 18:57:22 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46664 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235304AbiERLEn (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 18 May 2022 07:04:43 -0400
-Received: from JPN01-OS0-obe.outbound.protection.outlook.com (mail-os0jpn01on2114.outbound.protection.outlook.com [40.107.113.114])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6D83216ABDD;
-        Wed, 18 May 2022 04:04:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=izU8IUb8RmRdlu0kL+Xq0WL1RELk/9qmQ5IjM4jdU+PxXxK8kVbGVkaKLpws7+i3PZ9R7fjGsryOYVLi6BvIa4CEs0RaT7duN2lsoLjji8W9JVfaJiKZWt3/4+E+D8081fjICuptD7GILpzxWKuKSMUBlK7fuNUHtVCZXMV7FgIB5RPAbYUzjBF1HsUfAB/8QYi0qLzkAIl7Mzd6tZ2kgXKjmnYseAcV0Enw2ZCIVna3gHUEgKtrETd7DlkKzPjsd1fAQLJxOIxI3nCbx1PM6fAx9QTGUKAtXoss0vvIAf4yFE2yRBZStkZVBg6nkzPYsV3ojEUMtQvIHNbkQSeFnQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LEaHsqfqObyBkblmt9uCLYqzE4u1hAboEcNfbSZIZCs=;
- b=hJee2v8xIMkcoqd1RdrtSckwwj4KryYYNTuOLa/YHCoCmMRokM84dQNxVUxbLVtb2r6aOKyfUO0DklonK6BfJeHifyqIiQF3KDQJKfXOtJCEkZ/gD2aw01s6daUmhVpqJD/en1LWG7FaYFObgTbAG4Hj/nS0Q/Wek9Apjg5JsjT3MoPu8THbJoI3zX+ZLzXHjDVFGpBA+KEs2NMbeFxdP+o9yflKUSRPAmzPqp6YXEfVn3Mj8yadVtxO3cjDb5rh3XQ/1l/WCc7iqkV2JdNRaq3EbPqg5J8KUpDEsCwb+Y20EMQRzTpzfTcfDMDYNnY9T1voQuEKLb9MpKsCila3kQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=zenithal.me; dmarc=pass action=none header.from=zenithal.me;
- dkim=pass header.d=zenithal.me; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zenithal.me;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LEaHsqfqObyBkblmt9uCLYqzE4u1hAboEcNfbSZIZCs=;
- b=eeqK5q0mPbokWtCX4MDgr0eVs6xH+Y2t49TOj5Q+3d7kob4YGhISXDbPIiq5EyfKX/RIRKs3uUDE0t+hzzTikZsgbvvPIHD0uGRkkKqjcAUiIYsZ755uYKZkqX8qQvA/wTQ3sxnLF1bKeabp5Q4kyv+rOgf09w8WBDRO1ZqCnLY=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=zenithal.me;
-Received: from TYCP286MB1393.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:c0::6) by
- OSZP286MB0696.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:f7::7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5250.17; Wed, 18 May 2022 11:04:35 +0000
-Received: from TYCP286MB1393.JPNP286.PROD.OUTLOOK.COM
- ([fe80::bd99:5c83:e2dc:a8f7]) by TYCP286MB1393.JPNP286.PROD.OUTLOOK.COM
- ([fe80::bd99:5c83:e2dc:a8f7%7]) with mapi id 15.20.5273.015; Wed, 18 May 2022
- 11:04:35 +0000
-Date:   Wed, 18 May 2022 19:04:28 +0800
-From:   Zenithal <i@zenithal.me>
-To:     Conor.Dooley@microchip.com
-Cc:     palmer@rivosinc.com, paul.walmsley@sifive.com,
-        aou@eecs.berkeley.edu, heiko@sntech.de, atishp@rivosinc.com,
-        anup@brainfault.org, ebiederm@xmission.com, keescook@chromium.org,
-        linux-mm@kvack.org, linux-riscv@lists.infradead.org,
-        linux-kernel@vger.kernel.org, linux-api@vger.kernel.org,
-        mtk.manpages@gmail.com, linux-man@vger.kernel.org,
-        jiatai2021@iscas.ac.cn
-Subject: Re: [PATCH -next v2 1/3] RISC-V: add Bitmanip/Scalar Crypto parsing
- from DT
-Message-ID: <YoTSvFe56tLy3M+u@Sun>
-References: <YoS6qRhxGuwHmK7q@Sun>
- <YoS7bT1B/+JrEn05@Sun>
- <3e3891ad-2d31-99a0-bb65-1e6643ff6b96@microchip.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3e3891ad-2d31-99a0-bb65-1e6643ff6b96@microchip.com>
-X-Operating-System: Linux Sun 5.15.26 
-X-Mailer: Mutt 2.2.1 (2022-02-19)
-X-ClientProxiedBy: BYAPR02CA0032.namprd02.prod.outlook.com
- (2603:10b6:a02:ee::45) To TYCP286MB1393.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:c0::6)
+        with ESMTP id S231296AbiERW5U (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 18 May 2022 18:57:20 -0400
+Received: from mail-oo1-xc36.google.com (mail-oo1-xc36.google.com [IPv6:2607:f8b0:4864:20::c36])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9D1058AE5E
+        for <linux-man@vger.kernel.org>; Wed, 18 May 2022 15:57:07 -0700 (PDT)
+Received: by mail-oo1-xc36.google.com with SMTP id f2-20020a4a8f42000000b0035e74942d42so679724ool.13
+        for <linux-man@vger.kernel.org>; Wed, 18 May 2022 15:57:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:reply-to:from:date:message-id:subject:to;
+        bh=mZ3wqB4NmL7z6lpFr/h15h1rYqsZKafJnUpMVahbEPg=;
+        b=ovbcf3BPb/ZrA/FpQ+ZjErGDIEZ9sF3fYOxqsE4Z0xdiTlYY9UY36hS3ty6MLllddq
+         FdZzNc2PcFHW5cwKZ0FlQqx6F8uTY06Ab/cmT+eL89dkm6I4fHT5v6DDGzwY+fqIjM8b
+         RjeYQt93Ckr4p0lPVWY342OwWKznH6xDl4nV36uj7bwrBPcHFh3ePzF5GNEmu/mQBhIV
+         GwWDekgJIDWSV60014hyLdzt2NtjUStY8MI6SiwBWMH8LEBnRGkE0W6Db0zUE9IYWmDQ
+         Ifd6nbhkESdcIbQrjo3sdEfmdPtb1VAIHCw/LAZv1DOtvQwqLYnhML4dVDmuoYeMmVFn
+         q7TQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to;
+        bh=mZ3wqB4NmL7z6lpFr/h15h1rYqsZKafJnUpMVahbEPg=;
+        b=FDs7jhp1JDyx96TKpd9Z3wtCyO5pm+M+Z/aEd6mJV68O6Umm0am766I9tbJdCg6ja1
+         7vtiYKcUTte6L2wb5mBCSAp+Dn3wZ456fo07yM6ipZrJvXKJXm4LDG9zfieyjA5XvNuv
+         divRhhwMil93i/AjpQke7n2blyg5zKtitBJVcif8/y7pUe1y94yK0tIcmegqGaBOh0DB
+         WlSjhY2DKo8mHJaQQiADmj5QkheDHaSrqGA0a5KPW+q3XoGwjCvQPI5kYm6FL3gB2mfv
+         hC7ba+v7RrrT4oSWF1+XYDyuZm+pWiDreESayTp/RlrZQ/hRB5NjyCE8w48PCEtnm3iM
+         3WGg==
+X-Gm-Message-State: AOAM533wOrToufHd74CpJTQbMnGX/LbcagdpcLYbUngCUTayMZ43rL3V
+        7CiBnU6ztSL4uYt5dcKGI0UPxhCzhFYB/xkBF9mu9JwH52rw1rmTFRuK5sMg
+X-Google-Smtp-Source: ABdhPJyyLDAg+sVdsLTxwEXiZ5avjedwK/uWMP/Y3UWcChEjwDE+iXuY4kOycHY8vIqM/rcV0hLTcVdg0IN0RAQYgBc=
+X-Received: by 2002:a5b:f87:0:b0:64a:9aa6:e181 with SMTP id
+ q7-20020a5b0f87000000b0064a9aa6e181mr1852277ybh.157.1652914614913; Wed, 18
+ May 2022 15:56:54 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 3057cf4d-1eaf-43fe-5b1e-08da38be315d
-X-MS-TrafficTypeDiagnostic: OSZP286MB0696:EE_
-X-Microsoft-Antispam-PRVS: <OSZP286MB069676F96C9A9E834DA0CC8CBCD19@OSZP286MB0696.JPNP286.PROD.OUTLOOK.COM>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: piOdhhpUrAqP8TFomMlZ2gPW1OZ6NLQvfJpP9tSjf7cCT6lz66fdqScx3LhqWpY6OemQTJH+aWPvy4JnZbr4smIVs9zBtaFfvRUjCRtquGU0uoFASCk8JtvjOjRNRl7G3Fj0pLxxPvzhi1GKIkOsD9RAOV/NgBM9e9Q9awnl+81F6+cJR1RCNzNqyIYAOwnQIQ+DitxfBafRe1aPfgf13IhQnigVzvU4grSX8lua7EJbjFKeDjEIBCdO2WSt3FmHev1xAqpvafW57/fkNcaArwECkgVeA+9N6zCSmSPlieEmHVyndMD7UdteXWRYQUlSw6HULxF4aU+LRA2/2nbXPyBzrtmprsBO7rnsLQecBVajh9mjoiOdUTD+Wq1CCqMtYaUQDmRejuiwRA0IF+rpqmN1qGBHRz/hEBR+FKrlqRt7ZfguVf2gNyK/Ta9DlLjg0pbBO+aj9ZRxBheLo8siNRdhsIFDbNO4F/R8Wgw4oNozcWAzsJRwdI9wRZAygNuEoO96lzTpnzauiC193TWLD7ZdJHNvsIFw+kxae8hB8BVacG0rCSj3vL/yPrEnU3Fgbmg37fPW317HOEIghaaA7jykQzjGj6o4GCrlfDl9IDGzcaTFPf4+Dqc5B7CCxfuk7SN8Kd+JyKeLi/dUFvUjRSWVQ9t1f3LfPxDxgtX25gM/KGajmtUQOZLJZKe+eERNKTZqsmmULmxPtRaKjczXYQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCP286MB1393.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230001)(7916004)(346002)(39830400003)(136003)(396003)(376002)(366004)(66556008)(6486002)(5660300002)(508600001)(6506007)(9686003)(52116002)(53546011)(6512007)(7416002)(8936002)(6666004)(8676002)(2906002)(83380400001)(33716001)(86362001)(6916009)(4326008)(66476007)(786003)(316002)(41300700001)(41320700001)(186003)(38100700002)(66946007)(49092004)(67856001);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?MqsGa+pjCsXq6IlaqZZg/MCQr56q+M4+A0cpGaKeK4LBRjAF5TQLwAF0QaFZ?=
- =?us-ascii?Q?TAOCBFvb13GyP/otpylUXOgqJ+BnVcWtcx5cmgRMkIwd8M0ywTDTfZaZKi9O?=
- =?us-ascii?Q?q1LQUykokF+h0jPJWtcxL6u04FhGRcKEUqHLGGRuTQsuEg2oDWrW4evbo21R?=
- =?us-ascii?Q?HaMtBHvMF9aOyVqzStYqeWG7LWtJCP5iTQ+ae7vsCzhK3UWi837NUB40wv5Q?=
- =?us-ascii?Q?cVHzfRzzjcxDzKl/rFMZ9y2IoziWtP2UXPHesEWTHtV9K7ps4oy6bGrRlb27?=
- =?us-ascii?Q?NyhIxvcM0+zPakUCR6LeUu8Pu9RoQhmrb1Mp4+nIavXAaI8friugWVGqldTZ?=
- =?us-ascii?Q?FE/1yYtBCx/Xx8Pr7VJ1RzWzgG/TqKvLlkx8NUKoE4/prfFD526qLVxJbknk?=
- =?us-ascii?Q?qw3al43wKfbBkYrLq+VvE9rs3UtWIA5CaoeBwB7oh448FJKZt1fImiojYjzn?=
- =?us-ascii?Q?qKU4Q3BKqxjBO0oUPIl6mAG8zPXkINtRf/RR8V8hMvJ3oc0qNsQtI0S1tEdi?=
- =?us-ascii?Q?4n7Zwn54ISXPrWyXXKWXX1Bz0D9ZSuDszb+p/UK+ci8vd8WmVeWWEGFxqqAu?=
- =?us-ascii?Q?9AD1a+3psK+mYIcSXcRHPgH6b8C8fbLJYVfvpM64VswWPzZ3Gm+gDek34jvO?=
- =?us-ascii?Q?02zo+RnybaUD13iMgYZKwkzCcCPCazJQRSx1ocMQYUrNI8gHI/ALTxMGH/6Y?=
- =?us-ascii?Q?vyn55d5NM3KJgMLpFRmX043zmwiZK/BSZRtKItDtEIdmIJsaLJBJ1tBbSzEY?=
- =?us-ascii?Q?ZKtEpNs7G+o/OSAg7e19JP2a7peJ5uxEEi2TNSmNCMGoAtH5p1WJLPCXr2pV?=
- =?us-ascii?Q?QHJbH2wH4fwhY5mPdUkU4hgU1V7m3VQvERXKQc7ErhJd8+Cxiq4yYcds+12Z?=
- =?us-ascii?Q?SLT2mLu6NsBpq15IqhdYLggUplexvcVf80B972KCgEbFa/btSApyy90JHEmM?=
- =?us-ascii?Q?eqmKjDcwK7FDLzs7Pqi6uvWELMMXhpxIrj4ZHrXOPG9mASSivb0MquBd2N1a?=
- =?us-ascii?Q?CPeYwEYSgu1dke7R//KT1pgEHqvvW8Wp1JDLAVAq4NM408yxFzteOw52PPTB?=
- =?us-ascii?Q?/YJeBpn5GANErDF+XN+1CqCf4rqbLTEzH4Us+vax6SqXj8/+JvmW7Owme6gm?=
- =?us-ascii?Q?idRbxUIpFoXueK5LlHJydJsbLqLqk8IPajElft4etoevdOf2Lfjx8FrXkGh8?=
- =?us-ascii?Q?BV3IxQq6/n1PmxW3EKSJLmb2hbsBoLn2xCszqX8UCjlF9WxiCxhHwd2kH1GU?=
- =?us-ascii?Q?1ODKtKMw4td17JbCodSuYLh+0Ce0PcPejv8W8yMoLk5p0Ivb0lYsNjbLbeIK?=
- =?us-ascii?Q?2pCquEWQJ/nV3xE0FDDcD4ahScjkIzgbViGNr3vq5cj5YG0CZEjsJDhY+Hrj?=
- =?us-ascii?Q?L7tH2h0fcHbuE6KlflW8XLM0qGfprx52Onq0+4GyXXKCq3zQ7RnaSapelHwd?=
- =?us-ascii?Q?E7V9ZJ5jRjzow6FRwnZrPs8MTvxKkxzDO/YtEJ1maUwOXgNoKecc3T5BpI0Z?=
- =?us-ascii?Q?pEn6l2cXYacQzyEFLZ+FG3Aizk8rzu+EDxHXc6vvERZYsb21Mkq2auA3RYhx?=
- =?us-ascii?Q?ZZV/MZGJ0pxEwYVsKg0Wq7cBoT4gShyE7ub6z0qzshjZNCEWUu2/LDoPPS75?=
- =?us-ascii?Q?OPWqVzQMKC4eUXzVF2lChMndNnklT6E46OXjSUYJb9/2bmyfUyN3mu06UrOy?=
- =?us-ascii?Q?AysC1d9JBLzamZ08b8JG7wHWqIfPcFhhoZ2jm+pvVP43pDJBeQP+caNAnR8M?=
- =?us-ascii?Q?u2ZvOklFXg=3D=3D?=
-X-OriginatorOrg: zenithal.me
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3057cf4d-1eaf-43fe-5b1e-08da38be315d
-X-MS-Exchange-CrossTenant-AuthSource: TYCP286MB1393.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2022 11:04:35.1208
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 436d481c-43b1-4418-8d7f-84c1e4887cf0
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Q8snQcHzQVOXuuUTGOIia6WS1SJVLzRQ6x6jMweHB3Fc6v+SrfD9ltBIXUHFjCfH
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSZP286MB0696
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
-        RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE
-        autolearn=ham autolearn_force=no version=3.4.6
+Received: by 2002:a05:7000:7143:0:0:0:0 with HTTP; Wed, 18 May 2022 15:56:53
+ -0700 (PDT)
+Reply-To: tonywenn@asia.com
+From:   Tony Wen <weboutloock4@gmail.com>
+Date:   Thu, 19 May 2022 06:56:53 +0800
+Message-ID: <CAE2_YrD=5bo8j9+ah-xptEBBV-HEC4=Gb0SRHf996phiopc3WQ@mail.gmail.com>
+Subject: engage
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
+X-Spam-Status: Yes, score=5.2 required=5.0 tests=BAYES_50,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
+        FREEMAIL_FROM,FREEMAIL_REPLYTO,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,
+        SPF_PASS,T_SCC_BODY_TEXT_LINE,UNDISC_FREEM autolearn=no
+        autolearn_force=no version=3.4.6
+X-Spam-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
+        *      https://www.dnswl.org/, no trust
+        *      [2607:f8b0:4864:20:0:0:0:c36 listed in]
+        [list.dnswl.org]
+        *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
+        *      [score: 0.4582]
+        *  0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
+        *      provider
+        *      [weboutloock4[at]gmail.com]
+        * -0.0 SPF_PASS SPF: sender matches SPF record
+        *  0.2 FREEMAIL_ENVFROM_END_DIGIT Envelope-from freemail username ends
+        *       in digit
+        *      [weboutloock4[at]gmail.com]
+        *  0.0 SPF_HELO_NONE SPF: HELO does not publish an SPF Record
+        * -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+        *      author's domain
+        * -0.1 DKIM_VALID_EF Message has a valid DKIM or DK signature from
+        *      envelope-from domain
+        * -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+        *  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+        *       valid
+        * -0.0 T_SCC_BODY_TEXT_LINE No description available.
+        *  3.4 UNDISC_FREEM Undisclosed recipients + freemail reply-to
+        *  1.0 FREEMAIL_REPLYTO Reply-To/From or Reply-To/body contain
+        *      different freemails
+X-Spam-Level: *****
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed, May 18, 2022 at 09:50:18AM +0000, Conor.Dooley@microchip.com wrote:
-> On 18/05/2022 10:25, Hongren (Zenithal) Zheng wrote:
-> > EXTERNAL EMAIL: Do not click links or open attachments unless you know the content is safe
-> > 
-> > This commit parses Zb/Zk related string from DT and
-> > output them in cpuinfo
-> 
-> Similarly here, the typical "this patch" comment.
-
-Will fix in the next version.
-
-> 
-> > 
-> > One thing worth noting is that if DT provides zk,
-> > all zbkb, zbkc, zbkx and zkn, zkr, zkt would be enabled.
-> > 
-> > Note that zk is a valid extension name and the current
-> > DT binding spec allows this.
-> > 
-> > This commit also changes the logical id of
-> 
-> "also" makes it sound like this a separate change?
-> If so, split it into another patch.
-
-No, adding Zba naturally changes the logical id.
-I think it would be strange the first patch appends Zba
-then the second patch moves Zba to the beginning of the list
-
-> 
-> > existing multi-letter extensions and adds a statement
-> > that instead of logical id compatibility, the order
-> > is needed.
-> > 
-> > There currently lacks a mechanism to merge them when
-> > producing cpuinfo. Namely if you provide a riscv,isa
-> > "rv64imafdc_zk_zks", the cpuinfo output would be
-> > "rv64imafdc_zbkb_zbkc_zbkx_zknd_zkne_zknh_zkr_zksed
-> > _zksh_zkt"
-> > 
-> > Tested-by: Jiatai He <jiatai2021@iscas.ac.cn>
-> > Signed-off-by: Hongren (Zenithal) Zheng <i@zenithal.me>
+Can I engage your services?
