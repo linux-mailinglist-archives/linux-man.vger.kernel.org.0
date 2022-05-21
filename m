@@ -2,65 +2,69 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id B3E1752FE22
-	for <lists+linux-man@lfdr.de>; Sat, 21 May 2022 18:36:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 14B8D52FE85
+	for <lists+linux-man@lfdr.de>; Sat, 21 May 2022 19:17:34 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229561AbiEUQg3 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 21 May 2022 12:36:29 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52906 "EHLO
+        id S1344050AbiEURRb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 21 May 2022 13:17:31 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41942 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230071AbiEUQg1 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 21 May 2022 12:36:27 -0400
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com [IPv6:2a00:1450:4864:20::42c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5D0462DA96
-        for <linux-man@vger.kernel.org>; Sat, 21 May 2022 09:36:26 -0700 (PDT)
-Received: by mail-wr1-x42c.google.com with SMTP id f2so15223278wrc.0
-        for <linux-man@vger.kernel.org>; Sat, 21 May 2022 09:36:26 -0700 (PDT)
+        with ESMTP id S1344022AbiEURRb (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 21 May 2022 13:17:31 -0400
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com [IPv6:2a00:1450:4864:20::431])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1BBCE6A419
+        for <linux-man@vger.kernel.org>; Sat, 21 May 2022 10:17:30 -0700 (PDT)
+Received: by mail-wr1-x431.google.com with SMTP id h5so14145381wrb.11
+        for <linux-man@vger.kernel.org>; Sat, 21 May 2022 10:17:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=message-id:date:mime-version:user-agent:subject:content-language:to
          :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=SWjWreOJO4ujoGoHWOK8vvNLeQ4Bpehj6GOuqfBDPwQ=;
-        b=iinqxVMMDJRfqmxE0wlYJlOINXlojizBROsW2FM6uVGOE0jfV7c+2fjehU9p2heGor
-         9gvPl33JX5fduYXqUy6sVN4UrzKBKsXvpGd3F9IpFiuKLdIX31jT5lJjYsgN6haUgyuM
-         5X6kXVUYn7Rxq2f1ec+3la74q+TXNMXiTCfT2b6jouVRtAPUEqcXCXZoMAy8SljrRHSC
-         RRkDtdUnJMW2vF+8M/ObbxCXuyLf4O+SLKmb5yme1vuAsfJI2l/bKweQGf51xhYb/LLO
-         6kFEZHgnXqX9/zPor5AGdaDB9ZZgXmvVo1x1wPhpvGpR/JqrYglWi9CJgCskspIof7Zh
-         DEjQ==
+        bh=lo6F78ArRGNczwJR+gJVqHFNirERpK6lldBXVRWeGV0=;
+        b=YsQyvdniQ+YOO+91qZxw7YhpsZkXomEHgMqZ3sjbaJEOn5VgTw6+Zzp0msqm9VgJDp
+         N3DwpWqQddRLwCBsmlqpKNlltF5LfiLuuW2S33HeSlR/KiJ6P1BM8fOSdW71f/Odh95Y
+         nkiofGrDQisnsxJfkF9FCYjk2INVR631huo4OLzsPBrYs2hI/nnGv/O89bAjMORL8F9p
+         84CrCEYP3ZTEs45G2NEMrFjg5GWHmG5+dlowc1xjPdWZvcPUHLTcArcm33jfjLHuGMvt
+         2dDm4rddCqIgk/b6ektIKRRAodpA7P16sIPkhTLmIMM6u705Snu91JXw9oqmcCZ2MmGt
+         Sxsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
          :content-language:to:cc:references:from:in-reply-to
          :content-transfer-encoding;
-        bh=SWjWreOJO4ujoGoHWOK8vvNLeQ4Bpehj6GOuqfBDPwQ=;
-        b=1JATjJIFJx8iO33Z4C16j37OEAGabOlvND79pQfaEq9jyMym/kTUXdAymvKaubTSFX
-         hcDOyzk7c3UKOiY2AFKmAQo4gCFdYg+UVlPyB8qU4ig+yx/+bjE6hmhiwJIu1bXATdwJ
-         1KoXs0hsuBs+Zm1Cogn07+xfPekqv4MtPi+dhhwEjrS2r2RIaNrXzttK1N4erqeoA7wv
-         9IIJcmdyR6j/ZNELNwOviDmlQsnimnCQb7iY/s6UWiLCVJIjTozDHnFPTNjLBTpVFaAo
-         bEMkWN69xZvk6eP7v0fa6N4lMZum8aVtIPg0Iakr9/+YgYh078qKA+UPA1xT5/gKBaP0
-         SNPg==
-X-Gm-Message-State: AOAM531GdscQhF0tXzbjaQVCx9R5FfGhkSexf6gSbAea2Px3rZ7Hco5U
-        vdDMyppLsRfQfxGWClRAqmY=
-X-Google-Smtp-Source: ABdhPJzERiv9MvSv+D8iz9yo0JMVk1h2K7efVgfTOfNg1zakrBntIk8yx1vjKG2rEKGCxNj9UvhV3g==
-X-Received: by 2002:a5d:48c1:0:b0:20c:52e9:6c5b with SMTP id p1-20020a5d48c1000000b0020c52e96c5bmr12151818wrs.233.1653150984887;
-        Sat, 21 May 2022 09:36:24 -0700 (PDT)
+        bh=lo6F78ArRGNczwJR+gJVqHFNirERpK6lldBXVRWeGV0=;
+        b=p2f+N0j6lQJ9edzE7UOA4U5X0Tgdc8XTnrDnit+RaaXTJq88dpE/Q0JvFThEj8LEIY
+         7Ot6jJLI/pDtVbv5BUAA0CEsV4wiuYJRjdvHJ2HF91UnRGZ3OASkvxvwK+VTTqpMKzf4
+         4mGj3GMRYUf+8NBQupVBGcA/FTNHYoSx+cjNB7wiPZ3HQdOIJRGoWRvaGZOL9hnMra/l
+         5j4yzZ7005dbWTtr6Z42XdxtA3bc+TQ90IdL8BHcYtQo/FWTB2gwOXHBAtjp2CyO6d8L
+         lp5JCjHBj/RndrG38KCTB8CeLBQ042TYD1niH2VEhqxAhl3w4VNKoVRUU36IIFXnxRKu
+         8t6w==
+X-Gm-Message-State: AOAM5337CVjwFXCn8MoqDV+RJH8yLpV/RFmXRrpSvkjkzXOAeQfRG78a
+        Zne0cOuRQGfoebsrY8Pt9XdyhRVlRuM=
+X-Google-Smtp-Source: ABdhPJyZsjoCwapCiEXQGQaLj3Y8e//zGPtgfBogHEpSpFVmuZY6ikBTPzfP9oISm8M5MNfBn8xydw==
+X-Received: by 2002:a5d:618d:0:b0:20d:1294:468f with SMTP id j13-20020a5d618d000000b0020d1294468fmr12844203wru.289.1653153448716;
+        Sat, 21 May 2022 10:17:28 -0700 (PDT)
 Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id e8-20020adfa448000000b0020c5253d8e5sm5591726wra.49.2022.05.21.09.36.23
+        by smtp.gmail.com with ESMTPSA id t11-20020adfba4b000000b0020c6fa5a797sm5627759wrg.91.2022.05.21.10.17.27
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 21 May 2022 09:36:24 -0700 (PDT)
-Message-ID: <da6caa45-590a-ed28-905d-741d8e8b27e5@gmail.com>
-Date:   Sat, 21 May 2022 18:36:23 +0200
+        Sat, 21 May 2022 10:17:28 -0700 (PDT)
+Message-ID: <dec8510b-dc1f-63df-0acb-24783872c579@gmail.com>
+Date:   Sat, 21 May 2022 19:17:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.9.0
-Subject: Re: [RFC] Various pages: srcfix. Replace .PD 0 with .TQ.
+Subject: Re: [PATCH] printf.3: Document 'l' length modifier for a, A, e, E, f,
+ F, g, and G
 Content-Language: en-US
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To:     Vincent Lefevre <vincent@vinc17.net>
 Cc:     linux-man@vger.kernel.org
-References: <20220521150040.45966-1-alx.manpages@gmail.com>
- <20220521152824.knp272wwl7qzpjmg@illithid>
+References: <20220520141040.1136383-1-vincent@vinc17.net>
+ <ca8d1d17-4bde-6728-fa15-8655f3e14c3c@gmail.com>
+ <20220520161121.GA1112518@zira.vinc17.org>
+ <f5fef324-4883-197e-1e3d-e3b5b36ceaf9@gmail.com>
+ <20220520173043.GC1112518@zira.vinc17.org>
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20220521152824.knp272wwl7qzpjmg@illithid>
+In-Reply-To: <20220520173043.GC1112518@zira.vinc17.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Spam-Status: No, score=-3.3 required=5.0 tests=BAYES_00,DKIM_SIGNED,
@@ -73,44 +77,43 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Branden,
+Hi Vincent,
 
-On 5/21/22 17:28, G. Branden Robinson wrote:
-> I am uncertain about this change.  I like the idea of getting rid of
-> `PD` calls, but I think there in value in having `TQ` possess semantics
-> of "here is another tag that is related to the previous one after a TP
-> call".
+On 5/20/22 19:30, Vincent Lefevre wrote:
+> Signed-off-by: Vincent Lefevre <vincent@vinc17.net>
 
-Agree.  I prefer to keep the meaning of TQ as a continuation of TP.
+Patch applied!
 
-> You are (ab)using TQ here to avoid inter-paragraph space.  As I noted in
-> a message of a few minutes ago on the groff mailing list[1], it might be
-> better to wait for what settles out of a discussion of the `BL` /`EL`
-> macro pair I have (not yet formally) proposed for a post-1.23.0 groff
-> man(7) extension.
-
-I tend to agree with the necessity for a list macro, and I never liked 
-lists written as
-
-.TP
-item1
-.TQ
-item2
-.TQ
-item3
-
-Because that looks like an abuse of tagged paragraph macros, where they 
-completely lost their original meaning (there aren't even paragraphs in 
-that list!).  And yet we have that code in the Linux man-pages.
-
-I like your idea of BL/EL[1].  Will wait for your release :)
-
-Regards,
+Thanks,
 
 Alex
 
-
-[1]: <https://git.savannah.gnu.org/cgit/groff.git/tree/man/groff.7.man#n225>
+> ---
+>   man3/printf.3 | 11 +++++++++++
+>   1 file changed, 11 insertions(+)
+> 
+> diff --git a/man3/printf.3 b/man3/printf.3
+> index 4fa1f11f3..a231d626c 100644
+> --- a/man3/printf.3
+> +++ b/man3/printf.3
+> @@ -503,6 +503,17 @@ argument, or a following
+>   conversion corresponds to a pointer to
+>   .I wchar_t
+>   argument.
+> +On a following
+> +.BR a ,
+> +.BR A ,
+> +.BR e ,
+> +.BR E ,
+> +.BR f ,
+> +.BR F ,
+> +.BR g ,
+> +or
+> +.B G
+> +conversion, this length modifier is ignored (C99; not in SUSv2).
+>   .TP
+>   .B ll
+>   (ell-ell).
 
 -- 
 Alejandro Colomar
