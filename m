@@ -2,61 +2,61 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 0AC6752F953
-	for <lists+linux-man@lfdr.de>; Sat, 21 May 2022 08:40:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 478AD52FD7B
+	for <lists+linux-man@lfdr.de>; Sat, 21 May 2022 17:02:30 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235940AbiEUGki (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 21 May 2022 02:40:38 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45148 "EHLO
+        id S235681AbiEUPC1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 21 May 2022 11:02:27 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51002 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230493AbiEUGkh (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 21 May 2022 02:40:37 -0400
-Received: from mail-qk1-x72f.google.com (mail-qk1-x72f.google.com [IPv6:2607:f8b0:4864:20::72f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2CCCC15BAFE
-        for <linux-man@vger.kernel.org>; Fri, 20 May 2022 23:40:36 -0700 (PDT)
-Received: by mail-qk1-x72f.google.com with SMTP id j6so9368772qkp.9
-        for <linux-man@vger.kernel.org>; Fri, 20 May 2022 23:40:36 -0700 (PDT)
+        with ESMTP id S232481AbiEUPCZ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 21 May 2022 11:02:25 -0400
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com [IPv6:2a00:1450:4864:20::42c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B897B2DD4E
+        for <linux-man@vger.kernel.org>; Sat, 21 May 2022 08:02:23 -0700 (PDT)
+Received: by mail-wr1-x42c.google.com with SMTP id h14so14990432wrc.6
+        for <linux-man@vger.kernel.org>; Sat, 21 May 2022 08:02:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=J1kOx2zab3bqM5JYLX3sopoRcplT5iCrgSDVWy5fdd8=;
-        b=oadUw4E5jzPv7zw6T/dy6Am+ahBd/wK0VB8EgCQNFn5yl1TPfBTpw4BpW3M885N1lr
-         KHg7CDdVRB7T2XItymk4GHIHjqwUluhTWXEmXFHz5opLEWT13FQRm2IxHXlJi0Qr6psq
-         dJDCZ3EBtlo+l93vqGUjoMko6vxYyOMDbSA8X/X2XvVkPewf40prhq6ySJZL3bYKDgm1
-         s4N3pM6n5R0bf820sKisCX3FocZoTiKBrPJ48yTWTCaY/ttNZI3V6OsQ/g12z0vI4fTt
-         0RIXjJoDh7y8BhAe9PBC/0jg6+L6sy6DhxK3bjh9sRzhyzbwL4ILl1PjGe4eca95FRwm
-         GSYg==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=VFqJse3kniUi5ZE801Oh4EBY9q1yuVAR+RMegDkH4gg=;
+        b=NWd/uEb6AmxT3ouzt+opEk4/IRN94DhpeXn/CEM16pfMrH3etPAkYhaW/A6/p0/GcR
+         Qz75EmXbc9NbmRp5swOfCRaV8hQtIQs7yIjqFPYvh8GY+EUxlW8dlPa77zmfcPNFc0OZ
+         h4anLoDZLLBdDaqzqy6Gk9yp+0yL/RuiZORXS6u4yNG1hE3qYgKUsgppHCFj+p35h2jG
+         74IfCOnsdJDxE2nd9PJLlAhDYu2D0DPJDT1Ou4u0Ogc5eNJZHb4bZH2KKo1wQdPhyadt
+         xeigEttfzg9/T9x/fKGAEKOcQ9Yh2n9/3VapAzpb7a8k7nRVA+k6l0wvFC7cx4yePi8C
+         gK7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=J1kOx2zab3bqM5JYLX3sopoRcplT5iCrgSDVWy5fdd8=;
-        b=VHtdsCToaP2bYqz4svGSUsG4Eac/PV232tN74U3jEMZOp2QmbTVZstUH8w5qP14NS2
-         PqVBZczWWCzfHXSL3DBWtN7pF93L83jV+k30mH2j5jnx1AzPonlJYjW/nVKy3rBDFS8o
-         LR3zm+RGaEWDPEld2senWjP+By8oxs9meKYkOxeQTPU4Wx9fDTZX7xCPTqu+nxkCu0wy
-         bPKsY9wtwbSc4jrWcq75YPx0u+4itrz7kjsTA2f/yQfGZCpFr0i6RD1G1l0nfoCDbByZ
-         V2hORCwvDbCjlI8XSYAG3AlITOct7opS92evsToFELhnKzXry/NfejohV9w4+kJRtE8n
-         VWHg==
-X-Gm-Message-State: AOAM530K3UVgkYc2riJzVVcmkn9ETNSRVDluWPlU39lMwNoV6JXfVmTQ
-        RcWV1XayLYm3iqvpwAX70X7+s9rO47uSxeFEgamNdO/S
-X-Google-Smtp-Source: ABdhPJyMjcM0us9T84kKdmiu2fuoAIkeRO9XXvZaaySur1uizIPtndyoG/r+9KTlpYF12uVIYa6aez+hUZ+AfOWDWFQ=
-X-Received: by 2002:a37:8846:0:b0:6a0:f6f1:a015 with SMTP id
- k67-20020a378846000000b006a0f6f1a015mr8586482qkd.386.1653115235234; Fri, 20
- May 2022 23:40:35 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=VFqJse3kniUi5ZE801Oh4EBY9q1yuVAR+RMegDkH4gg=;
+        b=8HPlcvz0U4yaGYxw8wceE4i9QwGgElR09jQepR2yjQilPCaT8LRPRjGaDXLdhjG182
+         6Q80vNqxQn8cAnJUvPjOsW2R9oyc90ClQ90xt3Z0QIMQWATWI9ZvfmodGIklU15Xyyk/
+         vX/SgZpb3v7vXCRCMlJgeLTZBISZnczTQepVRcy2qsm8ryj3pl2ZIOgQKcbg8+QwAfhb
+         yJfizFCLcIU8QP1YO9AEOfAtmtKDvlNVbdboadlxB/QLdPf1fpXyBXTzJNBcTEqpfiX/
+         W+kOBZcor4XHUDc6J8bjCLdlbeHHweYECgXDhsEQRHiGkvETHtjqhg3kEFNiitfoTwGC
+         p9dw==
+X-Gm-Message-State: AOAM530NZPKpP2dIfCTzWcCq48XL2lCQmCsGRmEcQ9646fg0eJlNmzSz
+        URl+iLtY8jBlwMF8lUUeYgbz/qK2Yws=
+X-Google-Smtp-Source: ABdhPJy2rqdCGbyaxQPJiYIMoArqtRUMUy9ndbX3LVsgtg+KSf6FSzymE0VR2XJJnevaceuIjwIbmA==
+X-Received: by 2002:adf:dc8d:0:b0:20d:bfd:2018 with SMTP id r13-20020adfdc8d000000b0020d0bfd2018mr12310927wrj.540.1653145342339;
+        Sat, 21 May 2022 08:02:22 -0700 (PDT)
+Received: from asus5775.alejandro-colomar.es ([170.253.36.171])
+        by smtp.googlemail.com with ESMTPSA id s9-20020a7bc389000000b0039482d95ab7sm4428653wmj.24.2022.05.21.08.02.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 21 May 2022 08:02:21 -0700 (PDT)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+To:     linux-man@vger.kernel.org,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>
+Subject: [RFC] Various pages: srcfix.  Replace .PD 0 with .TQ.
+Date:   Sat, 21 May 2022 17:00:41 +0200
+Message-Id: <20220521150040.45966-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
-References: <20220520180935.37796-1-krisman@collabora.com>
-In-Reply-To: <20220520180935.37796-1-krisman@collabora.com>
-From:   Amir Goldstein <amir73il@gmail.com>
-Date:   Sat, 21 May 2022 09:40:23 +0300
-Message-ID: <CAOQ4uxjd-xKz1=Z+165s4hX0aiBsbui2_+JAqaGr0AT0z5+scg@mail.gmail.com>
-Subject: Re: [PATCH RESEND v5] fanotify.7, fanotify_mark.2: Document FAN_FS_ERROR
-To:     Gabriel Krisman Bertazi <krisman@collabora.com>,
-        Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>, Jan Kara <jack@suse.cz>,
-        Matthew Bobrowski <repnop@google.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
@@ -67,223 +67,173 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-[adding correct address of Alejandro]
+Cc: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+---
 
-On Fri, May 20, 2022 at 9:09 PM Gabriel Krisman Bertazi
-<krisman@collabora.com> wrote:
->
-> FAN_FS_ERROR is a new event for fanotify to report filesystem errors
-> that might lead to some corruption.
-> This documents how to use the feature and specific caveats.
->
-> Reviewed-by: Jan Kara <jack@suse.cz>
-> Reviewed-by: Amir Goldstein <amir73il@gmail.com>
-> Reviewed-by: Matthew Bobrowski <repnop@google.com>
-> Signed-off-by: Gabriel Krisman Bertazi <krisman@collabora.com>
->
-> ---
-> as discussed this is rebased on top of the PIDFD documentation: commit
-> 207080c7f7f5 ("fanotify: Document FAN_REPORT_PIDFD Feature")
+Hi Branden,
 
-Which commit is that? From my tree?
-Anyway, I see that Matthew has posted v4 since and Alejandro followed with v5.
-
-Pushed v5 to fanotify_pidfd branch in my tree [1]
-and this patch of yours (applies with no conflicts) to branch
-fan-fs-error in my tree.
-
-I also pushed branches fanotify_target_fid and fan_rename with a minor
-update to include ENOTDIR error that was added in v5.18-rc7 and v5.17.9.
-
-Matthew, the ENOTDIR change is minor so I kept your Reviewed-by.
-Please ACK.
+Could you please review this Linux man-pages patch?
+If you like it, I'll apply the same changes to all of the pages.
 
 Thanks,
-Amir.
 
-[1] https://github.com/amir73il/man-pages
+Alex
 
+ man2/bpf.2   | 60 ++++++++++++++++++++++++----------------------------
+ man2/fcntl.2 | 12 +++++------
+ 2 files changed, 33 insertions(+), 39 deletions(-)
 
+diff --git a/man2/bpf.2 b/man2/bpf.2
+index 8ae3eae80..155f20e3a 100644
+--- a/man2/bpf.2
++++ b/man2/bpf.2
+@@ -1075,16 +1075,14 @@ However they may not store kernel pointers within
+ the maps and are presently limited to the following helper functions:
+ .\" [Linux 5.6] mtk: The list of available functions is, I think, governed
+ .\" by the check in net/core/filter.c::bpf_base_func_proto().
+-.IP * 3
+-get_random
+-.PD 0
+-.IP *
+-get_smp_processor_id
+-.IP *
+-tail_call
+-.IP *
+-ktime_get_ns
+-.PD 1
++.TP
++* get_random
++.TQ
++* get_smp_processor_id
++.TQ
++* tail_call
++.TQ
++* ktime_get_ns
+ .PP
+ Unprivileged access may be blocked by writing the value 1 to the file
+ .IR /proc/sys/kernel/unprivileged_bpf_disabled .
+@@ -1148,40 +1146,38 @@ The JIT compiler for eBPF is currently
+ .\" and by checking the documentation for bpf_jit_enable in
+ .\" Documentation/sysctl/net.txt
+ available for the following architectures:
+-.IP * 3
+-x86-64 (since Linux 3.18; cBPF since Linux 3.0);
++.TP
++* x86-64 (since Linux 3.18; cBPF since Linux 3.0);
+ .\" commit 0a14842f5a3c0e88a1e59fac5c3025db39721f74
+-.PD 0
+-.IP *
+-ARM32 (since Linux 3.18; cBPF since Linux 3.4);
++.TQ
++* ARM32 (since Linux 3.18; cBPF since Linux 3.4);
+ .\" commit ddecdfcea0ae891f782ae853771c867ab51024c2
+-.IP *
+-SPARC 32 (since Linux 3.18; cBPF since Linux 3.5);
++.TQ
++* SPARC 32 (since Linux 3.18; cBPF since Linux 3.5);
+ .\" commit 2809a2087cc44b55e4377d7b9be3f7f5d2569091
+-.IP *
+-ARM-64 (since Linux 3.18);
++.TQ
++* ARM-64 (since Linux 3.18);
+ .\" commit e54bcde3d69d40023ae77727213d14f920eb264a
+-.IP *
+-s390 (since Linux 4.1; cBPF since Linux 3.7);
++.TQ
++* s390 (since Linux 4.1; cBPF since Linux 3.7);
+ .\" commit c10302efe569bfd646b4c22df29577a4595b4580
+-.IP *
+-PowerPC 64 (since Linux 4.8; cBPF since Linux 3.1);
++.TQ
++* PowerPC 64 (since Linux 4.8; cBPF since Linux 3.1);
+ .\" commit 0ca87f05ba8bdc6791c14878464efc901ad71e99
+ .\" commit 156d0e290e969caba25f1851c52417c14d141b24
+-.IP *
+-SPARC 64 (since Linux 4.12);
++.TQ
++* SPARC 64 (since Linux 4.12);
+ .\" commit 7a12b5031c6b947cc13918237ae652b536243b76
+-.IP *
+-x86-32 (since Linux 4.18);
++.TQ
++* x86-32 (since Linux 4.18);
+ .\" commit 03f5781be2c7b7e728d724ac70ba10799cc710d7
+-.IP *
+-MIPS 64 (since Linux 4.18; cBPF since Linux 3.16);
++.TQ
++* MIPS 64 (since Linux 4.18; cBPF since Linux 3.16);
+ .\" commit c6610de353da5ca6eee5b8960e838a87a90ead0c
+ .\" commit f381bf6d82f032b7410185b35d000ea370ac706b
+-.IP *
+-riscv (since Linux 5.1).
++.TQ
++* riscv (since Linux 5.1).
+ .\" commit 2353ecc6f91fd15b893fa01bf85a1c7a823ee4f2
+-.PD
+ .SH EXAMPLES
+ .\" [[FIXME]] SRC BEGIN (bpf.c)
+ .EX
+diff --git a/man2/fcntl.2 b/man2/fcntl.2
+index e01a02d86..0b4ae51fe 100644
+--- a/man2/fcntl.2
++++ b/man2/fcntl.2
+@@ -1209,7 +1209,6 @@ which is a bit mask specified by ORing together zero or more of
+ the following bits:
+ .PP
+ .RS
+-.PD 0
+ .TP
+ .B DN_ACCESS
+ A file was accessed
+@@ -1217,7 +1216,7 @@ A file was accessed
+ .BR pread (2),
+ .BR readv (2),
+ and similar)
+-.TP
++.TQ
+ .B DN_MODIFY
+ A file was modified
+ .RB ( write (2),
+@@ -1226,7 +1225,7 @@ A file was modified
+ .BR truncate (2),
+ .BR ftruncate (2),
+ and similar).
+-.TP
++.TQ
+ .B DN_CREATE
+ A file was created
+ .RB ( open (2),
+@@ -1237,18 +1236,18 @@ A file was created
+ .BR symlink (2),
+ .BR rename (2)
+ into this directory).
+-.TP
++.TQ
+ .B DN_DELETE
+ A file was unlinked
+ .RB ( unlink (2),
+ .BR rename (2)
+ to another directory,
+ .BR rmdir (2)).
+-.TP
++.TQ
+ .B DN_RENAME
+ A file was renamed within this directory
+ .RB ( rename (2)).
+-.TP
++.TQ
+ .B DN_ATTRIB
+ The attributes of a file were changed
+ .RB ( chown (2),
+@@ -1256,7 +1255,6 @@ The attributes of a file were changed
+ .BR utime (2),
+ .BR utimensat (2),
+ and similar).
+-.PD
+ .RE
+ .IP
+ (In order to obtain these definitions, the
+-- 
+2.36.1
 
->
-> changes since v5:
->  (matthew)
->  - typo fix
->
-> changes since v4:
->  (Matthew)
->  - Grammar fixes
->  - Reword sections
->  (Jan)
->  - Explain fs error only apply to some errors
->  (Amir)
->  - Clarify what supported by ext4 means.
->
-> Changes since v3:
->  (Matthew)
->  - Rewording and fixes from github)
->  (amir)
->  - 5.15 -> 5.16
->
-> Changes since v2:
->   (matthew)
->     - Grammar
->     - List filesystems that support the feature
->     - file system -> filesystem
-> Changes since v1:
-> (Matthew)
->   - Grammar fixes
->   - Don't use the term "submitted" for events sent to the listener
->   - Clarify the kind of information that is file system specific
-> ---
->  man2/fanotify_mark.2 | 30 +++++++++++++++++++++
->  man7/fanotify.7      | 64 ++++++++++++++++++++++++++++++++++++++++++++
->  2 files changed, 94 insertions(+)
->
-> diff --git a/man2/fanotify_mark.2 b/man2/fanotify_mark.2
-> index 9a45cbb77893..3dc538b7f84b 100644
-> --- a/man2/fanotify_mark.2
-> +++ b/man2/fanotify_mark.2
-> @@ -203,6 +203,29 @@ Create an event when a marked file or directory itself is deleted.
->  An fanotify group that identifies filesystem objects by file handles
->  is required.
->  .TP
-> +.BR FAN_FS_ERROR " (since Linux 5.16)"
-> +.\" commit 9709bd548f11a092d124698118013f66e1740f9b
-> +Create an event when a filesystem error
-> +leading to inconsistent filesystem metadata is detected.
-> +An additional information record of type
-> +.B FAN_EVENT_INFO_TYPE_ERROR
-> +is returned for each event in the read buffer.
-> +An fanotify group that identifies filesystem objects by file handles
-> +is required.
-> +.IP
-> +Events of such type are dependent on support
-> +from the underlying filesystem.
-> +At the time of writing,
-> +only the
-> +.B ext4
-> +filesystem reports
-> +.B FAN_FS_ERROR
-> +events.
-> +.IP
-> +See
-> +.BR fanotify (7)
-> +for additional details.
-> +.TP
->  .BR FAN_MOVED_FROM " (since Linux 5.1)"
->  .\" commit 235328d1fa4251c6dcb32351219bb553a58838d2
->  Create an event when a file or directory has been moved from a marked
-> @@ -391,6 +414,13 @@ and mask contains a flag for permission events
->  or
->  .BR FAN_ACCESS_PERM ).
->  .TP
-> +.B EINVAL
-> +The group was initialized without
-> +.B FAN_REPORT_FID
-> +but one or more event types specified in the
-> +.I mask
-> +require it.
-> +.TP
->  .B ENODEV
->  The filesystem object indicated by
->  .I pathname
-> diff --git a/man7/fanotify.7 b/man7/fanotify.7
-> index 57dd2b040380..3dc4113a551c 100644
-> --- a/man7/fanotify.7
-> +++ b/man7/fanotify.7
-> @@ -217,6 +217,25 @@ struct fanotify_event_info_pidfd {
->  .EE
->  .in
->  .PP
-> +In case of a
-> +.B FAN_FS_ERROR
-> +event,
-> +an additional information record describing the error that occurred
-> +is returned alongside the generic
-> +.I fanotify_event_metadata
-> +structure within the read buffer.
-> +This structure is defined as follows:
-> +.PP
-> +.in +4n
-> +.EX
-> +struct fanotify_event_info_error {
-> +    struct fanotify_event_info_header hdr;
-> +    __s32 error;
-> +    __u32 error_count;
-> +};
-> +.EE
-> +.in
-> +.PP
->  All information records contain a nested structure of type
->  .IR fanotify_event_info_header .
->  This structure holds meta-information about the information record
-> @@ -358,6 +377,9 @@ A child file or directory was deleted in a watched parent.
->  .B FAN_DELETE_SELF
->  A watched file or directory was deleted.
->  .TP
-> +.B FAN_FS_ERROR
-> +A filesystem error was detected.
-> +.TP
->  .B FAN_MOVED_FROM
->  A file or directory has been moved from a watched parent directory.
->  .TP
-> @@ -630,6 +652,25 @@ Once the event listener has dealt with an event and the pidfd is no
->  longer required, the pidfd should be closed via
->  .BR close(2) .
->  .PP
-> +The fields of the
-> +.I fanotify_event_info_error
-> +structure are as follows:
-> +.TP
-> +.I hdr
-> +This is a structure of type
-> +.IR fanotify_event_info_header .
-> +The
-> +.I info_type
-> +field is set to
-> +.BR FAN_EVENT_INFO_TYPE_ERROR .
-> +.TP
-> +.I error
-> +Identifies the type of error that occurred.
-> +.TP
-> +.I error_count
-> +This is a counter of the number of errors suppressed
-> +since the last error was read.
-> +.PP
->  The following macros are provided to iterate over a buffer containing
->  fanotify event metadata returned by a
->  .BR read (2)
-> @@ -719,6 +760,29 @@ field.
->  In that case, the audit subsystem will log information about the access
->  decision to the audit logs.
->  .\"
-> +.SS Monitoring filesystems for errors
-> +A single FAN_FS_ERROR event is stored per filesystem at once.
-> +Extra error messages are suppressed and accounted for
-> +in the
-> +.I error_count
-> +field of the existing FAN_FS_ERROR event record,
-> +but details about the errors are lost.
-> +.PP
-> +Errors reported by FAN_FS_ERROR are generic errno values
-> +but not all kinds of error types are reported by all filesystems.
-> +.PP
-> +Errors not directly related to a file (i.e. super block corruption)
-> +are reported with an invalid
-> +.IR file_handle .
-> +For these errors, the
-> +.I file_handle
-> +will have the field
-> +.I handle_type
-> +set to
-> +.BR FILEID_INVALID ,
-> +and the handle buffer size set to
-> +.BR 0 .
-> +.\"
->  .SS Closing the fanotify file descriptor
->  When all file descriptors referring to the fanotify notification group are
->  closed, the fanotify group is released and its resources
-> --
-> 2.36.1
->
