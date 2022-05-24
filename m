@@ -2,65 +2,70 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id EE1765322D6
-	for <lists+linux-man@lfdr.de>; Tue, 24 May 2022 08:07:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3435C5322D9
+	for <lists+linux-man@lfdr.de>; Tue, 24 May 2022 08:08:25 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234359AbiEXGHC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 24 May 2022 02:07:02 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40988 "EHLO
+        id S234708AbiEXGIY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 24 May 2022 02:08:24 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43568 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232516AbiEXGHB (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 24 May 2022 02:07:01 -0400
-Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com [IPv6:2607:f8b0:4864:20::636])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2C21D63503
-        for <linux-man@vger.kernel.org>; Mon, 23 May 2022 23:07:00 -0700 (PDT)
-Received: by mail-pl1-x636.google.com with SMTP id a13so4481211plh.6
-        for <linux-man@vger.kernel.org>; Mon, 23 May 2022 23:07:00 -0700 (PDT)
+        with ESMTP id S232516AbiEXGIX (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 24 May 2022 02:08:23 -0400
+Received: from mail-qv1-xf29.google.com (mail-qv1-xf29.google.com [IPv6:2607:f8b0:4864:20::f29])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F1E416A07A
+        for <linux-man@vger.kernel.org>; Mon, 23 May 2022 23:08:21 -0700 (PDT)
+Received: by mail-qv1-xf29.google.com with SMTP id v5so13623647qvs.10
+        for <linux-man@vger.kernel.org>; Mon, 23 May 2022 23:08:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=google.com; s=20210112;
         h=date:from:to:cc:subject:message-id:references:mime-version
          :content-disposition:in-reply-to;
-        bh=yaievRWDEMj8VBtDoF7PE9azYR1cZsx1direHRF5BKU=;
-        b=teRX5AFdNbnMQGexW4BMVj6sLPLbcKm/WUNFshCkQYXhvWjPrkyL5MEGXTk9hxhBNq
-         LlFLgc3eBFINeiwc5oGtik5kfidbFdU6uv6pQ8YhJTOJ7TpsH5HOZ8Yq9Q3jmLHuhZw5
-         /58zQ/yLpYxUqi7LfovuPIbA019H2zMkChHQcL6mshkoxGo5vtsjwvKBiAkJA6oIMExY
-         NRFjPcbMXkEkxdktdx65+saSDxKRGLUsCj7rUi6iSerzjnRo14vpBCD6AUp/ERsRhDrH
-         Hvr15qzEe2xOJkVC8rduIr/mIY9HHNB1WaDC0rDu7jTbuzSxJjDy61OyJVydRvXWvYyI
-         Ja1w==
+        bh=w3zV7+KMEHm30lej+bncDZdL2Egb0TsZPw2LdqwasmE=;
+        b=fRYu9JSrDH8FttIxkswsH8poVxBMVmCY+ynUHPWEekRkPUyMllAna4e1R5nmKV6hvW
+         xMV/rhOmPHqSSA/UzfB214ow4YbuMDAGF/ihXMsrdFkFOghwILta7l++1XrmJnNXqvQF
+         546SrgwdiCQWnw+u5L4WRO6KyS4SB1a/iyhtmlSW432YkmTG+2z1TVGD7OdCLP6BP7mp
+         5OFoi7Lfx1GObAmIjQi6rbKNYevAbr6+oKkq0HTah3oU+aRISeGStBHntox8VCwzEjwS
+         DDE3gxly7dhlLXpa/Z+NQOsogepfc8Pp55lDhkB2FnNtTX3rK4jPGiq9L5d0MiO5Xo6m
+         Uo4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:date:from:to:cc:subject:message-id:references
          :mime-version:content-disposition:in-reply-to;
-        bh=yaievRWDEMj8VBtDoF7PE9azYR1cZsx1direHRF5BKU=;
-        b=7M77jWHEaxd9HMUL43rxAqgPTWnMKeKAUSe/3vLAWi1naLgypi05A6l6XqMl9kEWn4
-         dZs8qc9n1ZmjlD856g8ljgzNhKqK85QeHrA5V141G0Dl8CTtrBFwgM/juF9uBjL86QbO
-         8eb4xzo16j9naMp+guDJef21yLX564hXnnJ59TjmJenBSjr6IhC7knmEXQhOJQpXHJdO
-         v4buASJo9TDSKQ++BfCHzMMeDBh2PqFwj87lLvVeTdvXjbo18xI3sZ8P62UKKmrDGYMd
-         5eDEUbImezirEi4l35q6ZwQxTIjgSUKqEd+kU/+xqvIPy8SBwePmVqc/RHB6+OB6V6yH
-         OHgQ==
-X-Gm-Message-State: AOAM533+R8+I6bLX03fQ0uj6i1eL8FL3bzkWegQs5LLfAjavOeh7K1SP
-        851EjolghOJxYp0RyI06SU2joQ==
-X-Google-Smtp-Source: ABdhPJw+JdH2YugWnxvlZRf7JrAou+3/U1mmag+br4JTJvsDcFGn+Rv3/8IZvmEsDSyNlaUttIbEYA==
-X-Received: by 2002:a17:90b:4c48:b0:1e0:74b:324e with SMTP id np8-20020a17090b4c4800b001e0074b324emr2952963pjb.134.1653372419509;
-        Mon, 23 May 2022 23:06:59 -0700 (PDT)
+        bh=w3zV7+KMEHm30lej+bncDZdL2Egb0TsZPw2LdqwasmE=;
+        b=TM+gVzkzHDqnCzCLculxSQItTQlsShOVnR/3QSscdQW9BdQzjz51Ei+yY6dp8kYrB0
+         g6DT2WyBTpCiTy6IuNDKwQEcL2Y/ZENG0FlJNtEuSbV01vLJ26y5CRo43HJZVPRNTttE
+         pVu00ZoB9zlpx3c1U7uD9WHJb96GXESajRZUUSDszSxWPKMJg+dVWXykokQl/FG3Frdj
+         35CEZgDWnGzKypeE1kko6WEWPWQdz2a10uCjwJ2XQJFjCZg8fTFEpgk4JrSm84lD4+gt
+         qUrcJXreXAcm7KACgtZKvxAaD/96Y3sMxW7P60FPvdrCEqwEF72RYf7Jnh8Nh+U9/39J
+         JWTA==
+X-Gm-Message-State: AOAM533IKsrZ+eNWUMNcKCvteUfGHntfmnLweD3LdY0Cf4nc7xMol9Q+
+        +reTopyOXtJ8goxADS6cZD0FP4UzYKWnMg==
+X-Google-Smtp-Source: ABdhPJwkBf0iclcGK8iACb3cOrkTeFiigx8dfziJEjhozjKW96+rDc+n9wadOQfx61TjiDDznLkQ5g==
+X-Received: by 2002:a17:902:c409:b0:161:b135:87c9 with SMTP id k9-20020a170902c40900b00161b13587c9mr26407856plk.94.1653372490793;
+        Mon, 23 May 2022 23:08:10 -0700 (PDT)
 Received: from google.com ([2401:fa00:9:211:7819:7a08:e8dd:fe8f])
-        by smtp.gmail.com with ESMTPSA id v17-20020a17090ad59100b001deb92de665sm731335pju.46.2022.05.23.23.06.57
+        by smtp.gmail.com with ESMTPSA id d10-20020a17090a2a4a00b001ded49491basm1268679pjg.2.2022.05.23.23.08.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 May 2022 23:06:59 -0700 (PDT)
-Date:   Tue, 24 May 2022 16:06:48 +1000
+        Mon, 23 May 2022 23:08:10 -0700 (PDT)
+Date:   Tue, 24 May 2022 16:07:59 +1000
 From:   Matthew Bobrowski <repnop@google.com>
 To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     mtk.manpages@gmail.com, jack@suse.cz, amir73il@gmail.com,
-        linux-man@vger.kernel.org
-Subject: Re: [PATCH v4] fanotify: Document FAN_REPORT_PIDFD Feature
-Message-ID: <Yox1+Kef8XeQ80Oz@google.com>
-References: <1af583adb1f368c51f1976db7bf3a27530cdc06f.1650408011.git.repnop@google.com>
- <60295764-e14c-9570-8ed3-3975c913e72c@gmail.com>
- <Yoxv32sx3OYo4pLh@google.com>
+Cc:     Amir Goldstein <amir73il@gmail.com>,
+        Gabriel Krisman Bertazi <krisman@collabora.com>,
+        linux-man <linux-man@vger.kernel.org>, Jan Kara <jack@suse.cz>
+Subject: Re: [PATCH RESEND v5] fanotify.7, fanotify_mark.2: Document
+ FAN_FS_ERROR
+Message-ID: <Yox2P0x41l797my5@google.com>
+References: <20220520180935.37796-1-krisman@collabora.com>
+ <CAOQ4uxjd-xKz1=Z+165s4hX0aiBsbui2_+JAqaGr0AT0z5+scg@mail.gmail.com>
+ <77ebe2f4-461a-4c3c-d53e-7a4c1f94e506@gmail.com>
+ <CAOQ4uxjuVjDZN6+mvCV6Yk1=bn_oYVVxpS=Q6bn5=uQOSDv9wg@mail.gmail.com>
+ <e8daa69c-8f07-6fe7-8e63-96e23f8deec6@gmail.com>
+ <YowBsihg5Zwo6CfS@google.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <Yoxv32sx3OYo4pLh@google.com>
+In-Reply-To: <YowBsihg5Zwo6CfS@google.com>
 X-Spam-Status: No, score=-17.6 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
         DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
         ENV_AND_HDR_SPF_MATCH,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
@@ -72,57 +77,36 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Tue, May 24, 2022 at 03:40:47PM +1000, Matthew Bobrowski wrote:
-> On Sat, May 14, 2022 at 03:12:33PM +0200, Alejandro Colomar wrote:
-> > Hi Matthew,
+On Mon, May 23, 2022 at 09:50:42PM +0000, Matthew Bobrowski wrote:
+> On Sun, May 22, 2022 at 11:37:25PM +0200, Alejandro Colomar wrote:
+> > Hi Amir,
 > > 
-> > On 4/20/22 00:43, Matthew Bobrowski wrote:
-> > > Update the fanotify API documentation to include details on the new
-> > > FAN_REPORT_PIDFD feature. This patch also includes a generic section
-> > > describing the concept of information records which are supported by
-> > > the fanotify API.
+> > On 5/22/22 18:12, Amir Goldstein wrote:
+> > > It is applied on top of:
 > > > 
-> > > Signed-off-by: Matthew Bobrowski <repnop@google.com>
-> > > Reviewed-by: Jan Kara <jack@suse.cz>
-> > > Reviewed-by: Amir Goldstein <amir73il@gmail.com>
-> > > ---
+> > > https://lore.kernel.org/linux-man/20220514131346.10171-1-alx.manpages@gmail.com/T/#u
+> > 
+> > Okay, I see that other one is pending some rewording, so I'll hold this one.
+> > 
 > > > 
-> > > Changes in v4:
+> > > We have a rather long backlog of man page updates pending merge
+> > > from Matthew, Gabriel and myself.
+> > > We need to merge them by order.
+> > > The entire stack is available in [BRANCHES] on my github tree [1].
 > > > 
-> > > * Applied style and grammatical suggestions by Alejandro Colomar
-> > >    [0]. This includes the use of Oxford-style commas and semantic
-> > >    newlines.
+> > > Let me summarize it for you again:
 > > 
-> > I've further edited the patch a bit (only whitespace) regarding semantic
-> > newlines.  I'll send it as a reply to this patch in a moment.
+> > Thanks.  I'll write here what I know about the, just to be sure I didn't
+> > miss anything.  If you need anything from me, please tell me.
 > > 
-> > Apart from that, I couldn't understand a paragraph.  See below.
-> > > +This is a process file descriptor that refers to the process
-> > > +responsible for generating the event.
-> > > +The returned process file descriptor is no different from one which
-> > > +could be obtained manually if
-> > > +.BR pidfd_open (2)
-> > > +were to be called on
-> > > +.IR fanotify_event_metadata.pid .
-> > 
-> > 
-> > > +In the instance that an error is encountered during pidfd creation for
-> > > +one of two possible error types represented by a negative integer
-> > > +value may be returned in this
-> > > +.I pidfd
-> > > +field.
-> > 
-> > I couldn't understand the paragraph above.  Could you maybe rephrase it a
-> > bit?  Maybe add some commas?
+> > > 
+> > > FAN_REPORT_PIDFD v5.15 [fanotify_pidfd]
+> >
+> > Pending a rewording of a paragraph.
 > 
-> I had a read through it and if we drop "for" from that sentence and
-> add a comma after "creation", then I think this sentence reads
-> perfectly fine. Having said that, is it necessarsy for me to resend
-> version 6 (with your semantic newline modifications in addition to
-> this minor rephrase), or are you OK with just amending these changes
-> when applying the patch?
+> Right, I'll get around to this at some point today.
 
-v6 has been posted [0], which incorporates this change. PTAL.
+v6 has been posted [0], PTAL.
 
 [0] https://lore.kernel.org/linux-man/83b96ea91e5da1bdc092b34ab92bd5d1db4dbee0.1653371709.git.repnop@google.com/T/#u
 
