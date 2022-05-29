@@ -2,58 +2,106 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 4AF275362E4
-	for <lists+linux-man@lfdr.de>; Fri, 27 May 2022 14:44:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 096205370B4
+	for <lists+linux-man@lfdr.de>; Sun, 29 May 2022 13:14:57 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1353126AbiE0MoV convert rfc822-to-8bit (ORCPT
-        <rfc822;lists+linux-man@lfdr.de>); Fri, 27 May 2022 08:44:21 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59992 "EHLO
+        id S229930AbiE2LOz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 29 May 2022 07:14:55 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50070 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1352867AbiE0MoM (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 27 May 2022 08:44:12 -0400
-X-Greylist: delayed 5495 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Fri, 27 May 2022 05:41:59 PDT
-Received: from mail.composit.net (mail.composit.net [195.49.185.119])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 0C51240A07
-        for <linux-man@vger.kernel.org>; Fri, 27 May 2022 05:41:59 -0700 (PDT)
-Received: from mail.composit.net (localhost.localdomain [127.0.0.1])
-        by mail.composit.net (Proxmox) with ESMTP id 7D418397B08;
-        Fri, 27 May 2022 14:06:36 +0300 (MSK)
-Received: from mail.composit.net (mail.industrial-flow.com [192.168.101.14])
-        by mail.composit.net (Proxmox) with SMTP id 5881C38B67C;
-        Fri, 27 May 2022 14:06:36 +0300 (MSK)
-Received: from [192.168.1.105] (Unknown [197.234.219.23])
-        by mail.composit.net with ESMTPSA
-        (version=TLSv1 cipher=DHE-RSA-AES256-SHA bits=256)
-        ; Fri, 27 May 2022 14:06:37 +0300
-Message-ID: <5F9DD171-70F6-493E-BE50-952D5EC8BCD6@mail.composit.net>
-Content-Type: text/plain; charset="iso-8859-1"
+        with ESMTP id S229993AbiE2LOy (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 29 May 2022 07:14:54 -0400
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 921C5986C8
+        for <linux-man@vger.kernel.org>; Sun, 29 May 2022 04:14:53 -0700 (PDT)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id C20DA60EF1
+        for <linux-man@vger.kernel.org>; Sun, 29 May 2022 11:14:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 199E5C385B8
+        for <linux-man@vger.kernel.org>; Sun, 29 May 2022 11:14:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1653822892;
+        bh=sbiILAykPopVo6iRws7aouGOLYDv2g2pyMl8tnkmQcA=;
+        h=From:To:Subject:Date:In-Reply-To:References:From;
+        b=KXanVk2k3tlPdFzhq/25nQMinLHCZARu2+hjiQ5LaqT8cP9BaNN51TIdX23dQP2Ba
+         +gk1BaVihLTIhOb4gSRmduaXFauMe6HlolWmiAaITZrSaWbcM/RsuuymjbsESeMDSW
+         m3nBWLLGpGjw9W8bCIFeFNxqxoGOdEqvoGOzCkAaqT83zs0Ug3btt9fXWrCKZPQmMr
+         e4oEKtxMp8NuxYr6h92+TEO3ZpgQmet7CGBH3ZVRVgP2DXVr0l3YTbLWKkDXXP888s
+         BlRoeeFnDbRTypHh7AgV3gQllCJgGQvfnh2VUinlu+C2r5/axXyIZ/IUPDtdk4iV7j
+         zupOd7ALAQ2QQ==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
+        id 0844BC05FD5; Sun, 29 May 2022 11:14:52 +0000 (UTC)
+From:   bugzilla-daemon@kernel.org
+To:     linux-man@vger.kernel.org
+Subject: [Bug 121891] Canadian Call's $@$@$@$@**@185587O92847+@***++ 7 ++++
+ E.p.s.o.n. p.r.i.n.t.e.r c.u.s.t.o.m.e.r S.u.p.p.o.rt p.h.o.n.e n.u.m.b.e.r
+ u.s.a. C.a.l.l.pdf
+Date:   Sun, 29 May 2022 11:14:51 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Documentation
+X-Bugzilla-Component: man-pages
+X-Bugzilla-Version: unspecified
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: kaleabernathy@gmail.com
+X-Bugzilla-Status: RESOLVED
+X-Bugzilla-Resolution: INVALID
+X-Bugzilla-Priority: P1
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: cc
+Message-ID: <bug-121891-11311-yXK3cTWWl9@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-121891-11311@https.bugzilla.kernel.org/>
+References: <bug-121891-11311@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8BIT
-Content-Description: Mail message body
-Subject: Greetings From Ukraine.  
-To:     Recipients <heiss@dnet.it>
-From:   "Kostiantyn Chichkov" <heiss@dnet.it>
-Date:   Fri, 27 May 2022 12:06:18 +0100
-Reply-To: kostiantync@online.ee
-X-Spam-Status: No, score=3.7 required=5.0 tests=BAYES_50,RCVD_IN_SBL,
-        RCVD_IN_SORBS_WEB,RCVD_IN_VALIDITY_RPBL,SPF_HELO_NONE,SPF_NONE,
-        T_SCC_BODY_TEXT_LINE autolearn=no autolearn_force=no version=3.4.6
-X-Spam-Level: ***
+X-Spam-Status: No, score=-7.8 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,GAPPY_SUBJECT,
+        RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Good Morning,
+https://bugzilla.kernel.org/show_bug.cgi?id=3D121891
 
-We are Kostiantyn Chychkov and Maryna Chudnovska from Ukraine, we need your service, we have gone through your profile and we will like to work with you on an important service that needs urgent attention due to the ongoing war in our country. Kindly acknowledge this inquiry as soon as possible for a detailed discussion about the service.
+kaleabernathy@gmail.com changed:
 
-Thank you.
+           What    |Removed                     |Added
+----------------------------------------------------------------------------
+                 CC|                            |kaleabernathy@gmail.com
 
-Yours expectantly,
+--- Comment #1 from kaleabernathy@gmail.com ---
+There is an evident copy and paste problem in the files gpmc.c (version 3.1=
+4)
+and omap-gpmc.c, as noted in the summary (version 4.6).
 
-Kostiantyn Chichkov & Ms. Maryna Chudnovska,
-From Ukraine.
+The versions between these haven't been examined, although the problem is v=
+ery
+certainly there.
 
+GPMC_CONFIG4_WEEXTRADELAY is a constant that is declared but never utilized.
 
+GPMC_CONFIG4_OEEXTRADELAY is used instead where it should be.
+
+In version 3.14, the incorrect line is located at
+arch/arm/mach-omap2/gpmc.c:275.
+
+The incorrect line is located in drivers/memory/omap-gpmc.c:379 in 4.6
+https://cupcake-2048.com
+
+--=20
+You may reply to this email to add a comment.
+
+You are receiving this mail because:
+You are watching the assignee of the bug.=
