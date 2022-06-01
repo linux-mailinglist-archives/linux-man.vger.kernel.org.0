@@ -2,62 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 689D4539EFD
-	for <lists+linux-man@lfdr.de>; Wed,  1 Jun 2022 10:06:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A90F653ADE4
+	for <lists+linux-man@lfdr.de>; Wed,  1 Jun 2022 22:49:59 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234295AbiFAIGb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 1 Jun 2022 04:06:31 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46446 "EHLO
+        id S230015AbiFAUpx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 1 Jun 2022 16:45:53 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44704 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1350507AbiFAIG3 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Jun 2022 04:06:29 -0400
-Received: from mail.slidebizcompany.com (mail.slidebizcompany.com [135.125.235.171])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B43044704F
-        for <linux-man@vger.kernel.org>; Wed,  1 Jun 2022 01:06:27 -0700 (PDT)
-Received: by mail.slidebizcompany.com (Postfix, from userid 1002)
-        id DAE21A3472; Wed,  1 Jun 2022 08:06:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=slidebizcompany.com;
-        s=mail; t=1654070785;
-        bh=f01OOv7iZ6eKP39nAJoyJ+/Cmpugf6hkYKbYNn4lotU=;
-        h=Date:From:To:Subject:From;
-        b=spFGc5fuemEIYQiSPaA5zDr8LSSkU60HwfXE8TtMdfmgmj4eEW/GN3aSDnoR5+NPb
-         T6fbaS0hTXRWIJZvkCta94vYzUFrUAYTpw5kGQxK8PfAzG6C2RhsFf6JLmBmhNmOob
-         7ljF4NHrGCU5WqQ3Lxc+62wdIQMdWv9+bmWV8gpe3rqSL63KlLW+iO/La01+tp9H9H
-         LoB6Bcd3aueAq8mDvNWN4Az+DXJ0rUJhrMYq2tRsNRizIwnxykNevKOnAI2Ne8lbYe
-         7Kkvrvx/2lulQ4v0bsAqoUtjEQV3qgNRu7af0nltWb1ezAyyJgMVGv+GhhHlHGs4Le
-         0cFP9xSNgs0yQ==
-Received: by mail.slidebizcompany.com for <linux-man@vger.kernel.org>; Wed,  1 Jun 2022 08:06:12 GMT
-Message-ID: <20220601064500-0.1.1o.p7g2.0.20kda7a1j9@slidebizcompany.com>
-Date:   Wed,  1 Jun 2022 08:06:12 GMT
-From:   "Miguel Garcia" <miguel.garcia@slidebizcompany.com>
-To:     <linux-man@vger.kernel.org>
-Subject: Servicio de la flota
-X-Mailer: mail.slidebizcompany.com
+        with ESMTP id S230095AbiFAUpT (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Jun 2022 16:45:19 -0400
+Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com [IPv6:2001:4860:4864:20::2f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 12AB9115A46
+        for <linux-man@vger.kernel.org>; Wed,  1 Jun 2022 13:31:44 -0700 (PDT)
+Received: by mail-oa1-x2f.google.com with SMTP id 586e51a60fabf-e656032735so4313040fac.0
+        for <linux-man@vger.kernel.org>; Wed, 01 Jun 2022 13:31:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:reply-to:from:date:message-id:subject:to;
+        bh=Gk4nfCem3ECRa7Gml0J0mN/3RZoOAdfGaQAqyHPKtiI=;
+        b=HLFKV03IvnCnmYNulbqEkPjTK3riUL87h2wHAPtiQ15M9iY6Q8e992KMQxJwLdk6f+
+         yc6asPWVRklcz8AY8oqwyi19SO9Z3FXfSKl8KIcHwdn2diZ16fcVN3Noj9XYHhxCnXOp
+         L86c6aBumcYcai1ti0jT0anzEO5LqUJSpP7KiFxQXIe3O9qnWY7viJfSABa1ly9ubc5O
+         7xqU4M/fQQEbpLLu8u6cCuAo0xRfp/5LoTJYIMP5ne/O4VXGwgI3hKlV02ue3fdzqvYA
+         6IABKhDngCz8ZKTuipfv5GZ/7HEqJFbM8x/u/85qQFiKTPs+Mb3XRU84XoMrlsTu1Zr+
+         PsMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to;
+        bh=Gk4nfCem3ECRa7Gml0J0mN/3RZoOAdfGaQAqyHPKtiI=;
+        b=MtHJAnc2yb5nnKwmzY1VqedQCnWg+MR4jHH1BZqXgMJKA/1c0Llg/TMkxZL9pmHABq
+         WZxNgVl3faUlZQzKLBqRLWLDP/I92qm0co3JeVSdH3qtsSTSFj5DYT66B9n81QRMrsSC
+         OUQlUiI7UvKXu09pVUyDDYznLQ1I+N/3GjwFWJsW5kUWDnKQ33ZtHkdQ3jAofQG+icPe
+         Dw7sD2iHEar8Skc1IJvnS7QNiZtKCEYC1kgJv5sFtp2D76q9oDM/rbfunfmgSQQS8Bqz
+         DbCSelytqROD4oLEldI7fFKMB5zdcTXh5WyqOYirEOAi4aBPWxVAFBs729OYMS9hu7fb
+         edjw==
+X-Gm-Message-State: AOAM5312mCAOLk4Gf15ffAGZ6xL64YDQMd38AM97aOXyEKT3juuTqg02
+        KXLteMMnSzoIrp/TtpMht56zul+/1opDjjxh9O7GmVHqhMM=
+X-Google-Smtp-Source: ABdhPJzieEZsH3sz7p7h/CGCrygaKC3twss2VqEDgMRTw52PjXyF0yZxDsfC/Wcw+CTWK4gcBihtpQQBph7O0cnThRw=
+X-Received: by 2002:a05:6870:308:b0:f1:ddfe:8ac5 with SMTP id
+ m8-20020a056870030800b000f1ddfe8ac5mr16670934oaf.237.1654111051378; Wed, 01
+ Jun 2022 12:17:31 -0700 (PDT)
 MIME-Version: 1.0
+Received: by 2002:a05:6358:3601:b0:a3:2139:251d with HTTP; Wed, 1 Jun 2022
+ 12:17:30 -0700 (PDT)
+Reply-To: johnwinery@online.ee
+From:   johnwinery <alicejohnson8974@gmail.com>
+Date:   Wed, 1 Jun 2022 12:17:30 -0700
+Message-ID: <CAFqHCSSUC0MpbjYK8d-GCxOG4b6Qbk2uH3+xQDZte6cPBsxLGA@mail.gmail.com>
+Subject: 
+To:     undisclosed-recipients:;
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: No, score=2.8 required=5.0 tests=BAYES_95,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
-        T_SCC_BODY_TEXT_LINE autolearn=no autolearn_force=no version=3.4.6
-X-Spam-Level: **
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
+        FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+        T_SCC_BODY_TEXT_LINE autolearn=unavailable autolearn_force=no
+        version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Buenos d=C3=ADas:
-
-Le escribo para hablarle sobre una de las mejores herramientas GPS en el =
-mercado.
-
-La herramienta, que me gustar=C3=ADa presentarle brevemente, dispone de m=
-uchas funciones =C3=BAtiles para su trabajo, que optimizan los procesos d=
-e transporte y le ayudan a realizar tareas de campo de manera m=C3=A1s ef=
-iciente.
-
-=C2=BFQuiere conocer los detalles?
-
-
-Atentamente,
-Miguel Garcia
+Greeting ,I had written an earlier mail to you but without response
