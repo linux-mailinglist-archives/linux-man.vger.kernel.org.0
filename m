@@ -2,66 +2,69 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id A90F653ADE4
-	for <lists+linux-man@lfdr.de>; Wed,  1 Jun 2022 22:49:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0F91E53B287
+	for <lists+linux-man@lfdr.de>; Thu,  2 Jun 2022 06:23:15 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230015AbiFAUpx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 1 Jun 2022 16:45:53 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44704 "EHLO
+        id S229753AbiFBEWy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 2 Jun 2022 00:22:54 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48540 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230095AbiFAUpT (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Jun 2022 16:45:19 -0400
-Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com [IPv6:2001:4860:4864:20::2f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 12AB9115A46
-        for <linux-man@vger.kernel.org>; Wed,  1 Jun 2022 13:31:44 -0700 (PDT)
-Received: by mail-oa1-x2f.google.com with SMTP id 586e51a60fabf-e656032735so4313040fac.0
-        for <linux-man@vger.kernel.org>; Wed, 01 Jun 2022 13:31:44 -0700 (PDT)
+        with ESMTP id S229660AbiFBEWx (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 2 Jun 2022 00:22:53 -0400
+Received: from mail-ot1-x32a.google.com (mail-ot1-x32a.google.com [IPv6:2607:f8b0:4864:20::32a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D8C8B13CC9
+        for <linux-man@vger.kernel.org>; Wed,  1 Jun 2022 21:22:50 -0700 (PDT)
+Received: by mail-ot1-x32a.google.com with SMTP id t22-20020a0568301e3600b0060b333f7a1eso2691451otr.0
+        for <linux-man@vger.kernel.org>; Wed, 01 Jun 2022 21:22:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=mime-version:reply-to:from:date:message-id:subject:to;
-        bh=Gk4nfCem3ECRa7Gml0J0mN/3RZoOAdfGaQAqyHPKtiI=;
-        b=HLFKV03IvnCnmYNulbqEkPjTK3riUL87h2wHAPtiQ15M9iY6Q8e992KMQxJwLdk6f+
-         yc6asPWVRklcz8AY8oqwyi19SO9Z3FXfSKl8KIcHwdn2diZ16fcVN3Noj9XYHhxCnXOp
-         L86c6aBumcYcai1ti0jT0anzEO5LqUJSpP7KiFxQXIe3O9qnWY7viJfSABa1ly9ubc5O
-         7xqU4M/fQQEbpLLu8u6cCuAo0xRfp/5LoTJYIMP5ne/O4VXGwgI3hKlV02ue3fdzqvYA
-         6IABKhDngCz8ZKTuipfv5GZ/7HEqJFbM8x/u/85qQFiKTPs+Mb3XRU84XoMrlsTu1Zr+
-         PsMA==
+        h=mime-version:from:date:message-id:subject:to:cc;
+        bh=4uS/jhtVhxW14XX96pWClMn6NOZWkiOHoJGEPF2/5do=;
+        b=Ip4bGkeaoOm7fGKgt37lKfeFdXVzsAXn398n8d4aR16CJAH+DxPqYWsZIeeD90p/+B
+         /YxYo1UJ0WltvU4ACFxfyq/fRw3tqAXbnvUyI31AWQ68Z0k02vx+nTnxRV+g3ZfZinNx
+         9eJkwsPAjFvyFJajSLwtzYYMa2No0sShhAfK+gg2OQP4iDaO4Mj0DkhFQSocz3irjEC9
+         er2Om1rX1hk8PW/BT7v6wLCFDBWBr5Yd1Ui+1rjC/e0GRRvr+AM+yPU2LwCfJ5pvI8Tw
+         0LxpKuCa3eFf4IZaxfg1j3ZF9kPs2YwslDI5sVCBhF/Woknl8kv+iFbjG714xm7AAUs0
+         v4OA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to;
-        bh=Gk4nfCem3ECRa7Gml0J0mN/3RZoOAdfGaQAqyHPKtiI=;
-        b=MtHJAnc2yb5nnKwmzY1VqedQCnWg+MR4jHH1BZqXgMJKA/1c0Llg/TMkxZL9pmHABq
-         WZxNgVl3faUlZQzKLBqRLWLDP/I92qm0co3JeVSdH3qtsSTSFj5DYT66B9n81QRMrsSC
-         OUQlUiI7UvKXu09pVUyDDYznLQ1I+N/3GjwFWJsW5kUWDnKQ33ZtHkdQ3jAofQG+icPe
-         Dw7sD2iHEar8Skc1IJvnS7QNiZtKCEYC1kgJv5sFtp2D76q9oDM/rbfunfmgSQQS8Bqz
-         DbCSelytqROD4oLEldI7fFKMB5zdcTXh5WyqOYirEOAi4aBPWxVAFBs729OYMS9hu7fb
-         edjw==
-X-Gm-Message-State: AOAM5312mCAOLk4Gf15ffAGZ6xL64YDQMd38AM97aOXyEKT3juuTqg02
-        KXLteMMnSzoIrp/TtpMht56zul+/1opDjjxh9O7GmVHqhMM=
-X-Google-Smtp-Source: ABdhPJzieEZsH3sz7p7h/CGCrygaKC3twss2VqEDgMRTw52PjXyF0yZxDsfC/Wcw+CTWK4gcBihtpQQBph7O0cnThRw=
-X-Received: by 2002:a05:6870:308:b0:f1:ddfe:8ac5 with SMTP id
- m8-20020a056870030800b000f1ddfe8ac5mr16670934oaf.237.1654111051378; Wed, 01
- Jun 2022 12:17:31 -0700 (PDT)
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+        bh=4uS/jhtVhxW14XX96pWClMn6NOZWkiOHoJGEPF2/5do=;
+        b=kgRuNy1n550ehox0/EuyXkmbTQrh2RQyL2/kg7xIU7uxsr/2gT5pSUCVFJ1N0IeFru
+         g6jeL3UjppE2AXhISEAGnmizbNcz8v7GbgQw08i74HcAfOXZ8ScaWpmqxz7eW7VMrTOu
+         F0Z66HatJDpuDh+yad/7Rz3b0KynFLv9fTG8s6GHj8Af1WYCHSUOgYnPhbnKJqPP1k6V
+         272VML4eZhwFh5TW7oTAVwIe3WSbLep8o+L+T2OqJzV0rR58A3ecjbFo4dmB4Kdn8BZk
+         /bL2xqqhEdalitWa4W/JAqPlMdd95wr/YS1y0sSe38T3VeZFxzfn180jFQSbiI+Fb7Ne
+         SM9Q==
+X-Gm-Message-State: AOAM530OcbUi3VRNE8VxQYTqLN3NwByA03MHfZAYUizvDaWYhctoW49J
+        /OF8gDbKLFJN6PR83Zn7trQi6WY/vGacgJKP+BE=
+X-Google-Smtp-Source: ABdhPJx6YQOhDY+fIT327BTR7ZyVSLKyxC8AnPh2Ra+LM8HMsgrGxHITIxsMx3EQwFSpEVUCqNYNHbb40s3oSHdusWA=
+X-Received: by 2002:a9d:6ac8:0:b0:60b:cce:eff0 with SMTP id
+ m8-20020a9d6ac8000000b0060b0cceeff0mr1322422otq.75.1654143770247; Wed, 01 Jun
+ 2022 21:22:50 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 2002:a05:6358:3601:b0:a3:2139:251d with HTTP; Wed, 1 Jun 2022
- 12:17:30 -0700 (PDT)
-Reply-To: johnwinery@online.ee
-From:   johnwinery <alicejohnson8974@gmail.com>
-Date:   Wed, 1 Jun 2022 12:17:30 -0700
-Message-ID: <CAFqHCSSUC0MpbjYK8d-GCxOG4b6Qbk2uH3+xQDZte6cPBsxLGA@mail.gmail.com>
-Subject: 
-To:     undisclosed-recipients:;
+From:   "Joseph C. Sible" <josephcsible@gmail.com>
+Date:   Thu, 2 Jun 2022 00:22:33 -0400
+Message-ID: <CABpewhHabbxi=+h+pXbSBnwmbkpaZvCo5Vm3vujMg4UvxhtmkA@mail.gmail.com>
+Subject: close_range.2: misleading what CLOSE_RANGE_UNSHARE unshares
+To:     Michael Kerrisk-manpages <mtk.manpages@gmail.com>,
+        alx.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
-        FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
-        T_SCC_BODY_TEXT_LINE autolearn=unavailable autolearn_force=no
-        version=3.4.6
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Greeting ,I had written an earlier mail to you but without response
+The DESCRIPTION section of close_range.2 makes it sound like
+CLOSE_RANGE_UNSHARE will only unshare the file descriptors that you
+specified for it to close, but unsharing actually operates at the
+granularity of the file descriptor table, so any FDs that remained
+open as well as any opened in the future will be unshared too.
+
+Joseph C. Sible
