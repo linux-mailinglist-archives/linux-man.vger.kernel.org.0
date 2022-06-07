@@ -2,167 +2,148 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id E5BA554015C
-	for <lists+linux-man@lfdr.de>; Tue,  7 Jun 2022 16:29:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1FB74540277
+	for <lists+linux-man@lfdr.de>; Tue,  7 Jun 2022 17:32:11 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S242419AbiFGO3i (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 7 Jun 2022 10:29:38 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50484 "EHLO
+        id S245385AbiFGPcJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 7 Jun 2022 11:32:09 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51194 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S243249AbiFGO3g (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 7 Jun 2022 10:29:36 -0400
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 6B36ED106
-        for <linux-man@vger.kernel.org>; Tue,  7 Jun 2022 07:29:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1654612173;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         in-reply-to:in-reply-to:references:references;
-        bh=078p92joI4C+jrApfyKMAeUaLesvmK2FFW/zipqqI/I=;
-        b=acNleaqZrrCWCZgtfcH+9o87QUy/F8RcTWaVDG5TnnHdoiv22TJL1Kr9jQZewS7AKQvczX
-        OQoZ33JQgHjPQKTLvEoAYiI+iTEN4nTf8Qh2LHHpe0oGvoMhRiBSuhC9dYcETjOZBqPRts
-        7JIYWXkbrmmwgKzQsgPpKAuVFC0Ov6I=
-Received: from mail-il1-f198.google.com (mail-il1-f198.google.com
- [209.85.166.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-526-btR41oSkNxWg36yGVMrA4A-1; Tue, 07 Jun 2022 10:29:31 -0400
-X-MC-Unique: btR41oSkNxWg36yGVMrA4A-1
-Received: by mail-il1-f198.google.com with SMTP id w7-20020a056e021c8700b002d3bc8e95cbso13876625ill.3
-        for <linux-man@vger.kernel.org>; Tue, 07 Jun 2022 07:29:31 -0700 (PDT)
+        with ESMTP id S1344112AbiFGPcA (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 7 Jun 2022 11:32:00 -0400
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com [IPv6:2a00:1450:4864:20::52e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 658A6F551C;
+        Tue,  7 Jun 2022 08:31:57 -0700 (PDT)
+Received: by mail-ed1-x52e.google.com with SMTP id v25so23515011eda.6;
+        Tue, 07 Jun 2022 08:31:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20210112;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=w0Hdg77AgoPG+P9TsvX0MGr6YMoh94u++wV7R/8mG6Q=;
+        b=UrlZfICkRAZGfTAxgXamkUF1euwIXz/dlpvevt15u/GXuGmNhmXjx+8+VHEyd1fe8z
+         Weg+hLtYIdvErfuTKGZe9T861PjQQqTb5yTkMVKRy2mRPzGshG+AtZSIJjfwnG8Hn7NF
+         0t7ik+wYMi689h3lZ70iLHInepJesqv/anMj7Nze/F7nNvBynY0INZ61KE008DZagKul
+         VtQ0A8MdGAjp/YefQZiN6B0tvOBfKQEgEwczSwGPRe3hhwXHFq4J1M+xIlrdmIPMyL5I
+         zoYW8xs+KCy0qqsfPUO6lRVGof3loBpEaijhmdt86A39468D5vZIz/HW+vAldcF9cjwe
+         JX8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=078p92joI4C+jrApfyKMAeUaLesvmK2FFW/zipqqI/I=;
-        b=hwU3DKJ5kypZcUvefVPRwykQRwjpr/AIkvnkMZo71tBPkjQTm3V8fcs15zPPz1nXd8
-         IUFopb5yQ0dh5bvUhl4MmfCnvKPkbO3P81iwlr7cc4n+zlAi2D+98PSR8JdxdAJ1ANrh
-         72fNCtI1ec3lG0Yqjj9gqXvGwUZFGkbjMxFf2g5V9m8oax2/MlfXYTT6nDtfNGBS/ZaG
-         aecaUE2zAY0+HIjH55wJRJDY7biJfc2uZgji+eOYBcwG6NSYT6O2xf7Q8vSmX23ONBzF
-         WIWdPCOUj4c4pgkQvbT1eKeBT++BLbqq41mcDVFvCYcgJaINI53qwVEUlAL06k7TQeu8
-         AUGg==
-X-Gm-Message-State: AOAM5325q94EUNgk3ZuP66yFsfCzq4KiC08QUeX7krJoHjIEOvCa21Ix
-        7PMYsVFH/EpJBDFCQlloD40VEnmtWY0oqFQNAYdY/cL3sSnA2rlKyFtKr5AUzNLU4zsf5KC4CGB
-        1sTe/w3mT+/tzj0Y/MIm+
-X-Received: by 2002:a05:6638:381c:b0:331:b4c2:1f93 with SMTP id i28-20020a056638381c00b00331b4c21f93mr5272248jav.185.1654612170942;
-        Tue, 07 Jun 2022 07:29:30 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyvs4vKor4xKPMnbq0kfsecY1iqju7nZECfbqt77cV6cWSGDmpNcGcHzZK1FIyVpUIIki+8/A==
-X-Received: by 2002:a05:6638:381c:b0:331:b4c2:1f93 with SMTP id i28-20020a056638381c00b00331b4c21f93mr5272227jav.185.1654612170587;
-        Tue, 07 Jun 2022 07:29:30 -0700 (PDT)
-Received: from xz-m1.local (cpec09435e3e0ee-cmc09435e3e0ec.cpe.net.cable.rogers.com. [99.241.198.116])
-        by smtp.gmail.com with ESMTPSA id j8-20020a056638052800b0032e70c4e12fsm4381292jar.28.2022.06.07.07.29.29
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=w0Hdg77AgoPG+P9TsvX0MGr6YMoh94u++wV7R/8mG6Q=;
+        b=lAOSNdcFH0mdIO35+CBZO3bWJ8cR/cWl1DEVQvmBO/F7ol9GiSZOx2Kj7NDi/HI2Zp
+         Jtn/LG7kJOul1/Beuwe+5G0ZwNL1WGA+nVEfGM5BedNicYWwlSR0ByHaTu9sG78suATO
+         ypH7kGJMIwJDFYZeC4iwCE+tmHLfMFT2XnO75yJvsCpXfAn1Pg3yBn2uXPk8NkTgvcCN
+         ZtNy3IgOFdQFiPnSqV51vQgifdc+RPwotz/NXy3YNsIXVfHw5VIukltWJ4qKx1OvTiRg
+         b4l0eequIe1H1jL19uawr4NaObpRHMvOIKOjhviru7F1j+KqY0hu5ThYUvEpeD1VVjMO
+         /jyQ==
+X-Gm-Message-State: AOAM5304QAxzT4OROE68R7YorXXOy+a9ZoDiV9ETelW7GeUbDHlzlW9s
+        t+vXyhVt7fh29fiMTly1+cxhd/SsgQ8=
+X-Google-Smtp-Source: ABdhPJw5O8Mix5sJdiw5XuZUUJ6C5dUvQIiC5WMe0/YwVvV1sO2SkEmWjUN8DtVmS9GesJcUxvlSug==
+X-Received: by 2002:a05:6402:1341:b0:42a:f7cb:44dc with SMTP id y1-20020a056402134100b0042af7cb44dcmr34808302edw.165.1654615915837;
+        Tue, 07 Jun 2022 08:31:55 -0700 (PDT)
+Received: from debianHome.localdomain (dynamic-077-008-054-039.77.8.pool.telefonica.de. [77.8.54.39])
+        by smtp.gmail.com with ESMTPSA id jg36-20020a170907972400b00701eb600df8sm8143445ejc.169.2022.06.07.08.31.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 07 Jun 2022 07:29:29 -0700 (PDT)
-Date:   Tue, 7 Jun 2022 10:29:28 -0400
-From:   Peter Xu <peterx@redhat.com>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        Tue, 07 Jun 2022 08:31:55 -0700 (PDT)
+From:   =?UTF-8?q?Christian=20G=C3=B6ttsche?= <cgzones@googlemail.com>
+To:     selinux@vger.kernel.org
+Cc:     Miklos Szeredi <mszeredi@redhat.com>, linux-api@vger.kernel.org,
         linux-man@vger.kernel.org,
-        Axel Rasmussen <axelrasmussen@google.com>
-Subject: Re: [PATCH v2 0/2] userfaultfd.2: Update to latest
-Message-ID: <Yp9gyFRKJoiQmiyU@xz-m1.local>
-References: <20220603173736.62581-1-peterx@redhat.com>
- <7acfdeb8-5dd3-dfe2-5717-b64006281a8f@gmail.com>
- <Yp5YGMFJWLtthc8U@xz-m1.local>
- <20220606213323.xtfx7qpab6dwdqpk@illithid>
- <848979ee-6c5b-5e74-1b45-586303b57a25@gmail.com>
+        Alexander Viro <viro@zeniv.linux.org.uk>,
+        linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [RFC PATCH] f*xattr: allow O_PATH descriptors
+Date:   Tue,  7 Jun 2022 17:31:39 +0200
+Message-Id: <20220607153139.35588-1-cgzones@googlemail.com>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <848979ee-6c5b-5e74-1b45-586303b57a25@gmail.com>
-X-Spam-Status: No, score=-3.3 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
-        SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=ham
-        autolearn_force=no version=3.4.6
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi, Alex & all,
+From: Miklos Szeredi <mszeredi@redhat.com>
 
-On Tue, Jun 07, 2022 at 11:08:42AM +0200, Alejandro Colomar wrote:
-> Hi, Peter and Branden!
-> 
-> On 6/6/22 23:33, G. Branden Robinson wrote:
-> > [CC list trimmed since this is solely about English and *roff]
-> > 
-> > At 2022-06-06T15:40:08-0400, Peter Xu wrote:
-> > > > I think the patch below would improve a little bit the wording (and
-> > > > newlines).  I still have a bit of trouble understanding "When a
-> > > > kernel-originated fault was triggered on the registered range with
-> > > > this userfaultfd".  Did you maybe mean "range registered" instead of
-> > > > "registered range"?
-> > > 
-> > > Since I'm not a native speaker I don't immediately see the difference
-> > > between the two.
-> > 
-> > Short answer: I think your existing wording is acceptable.
-> > 
-> > As a native speaker (but not a trained linguist) I think I can speak to
-> > the subject: both forms are equivalent in this application.  In standard
-> > English, adjectives usually precede the nouns they modify.
-> [...]
-> 
-> But in this case,
-> 
-> "When a kernel-originated fault was triggered on the registered range with
-> this userfaultfd"
-> 
-> "registered" is not acting as an adjective, but as a verb.
+Support file descriptors obtained via O_PATH for extended attribute
+operations.
 
-I wanted to use it as an adjective, but after you questioned this one I'm
-not sure any more on my English school knowledges. :)
+Extended attributes are for example used by SELinux for the security
+context of file objects. To avoid time-of-check-time-of-use issues while
+setting those contexts it is advisable to pin the file in question and
+operate on a file descriptor instead of the path name. This can be
+emulated in userspace via /proc/self/fd/NN [1] but requires a procfs,
+which might not be mounted e.g. inside of chroots, see[2].
 
-> Maybe Peter was confused by that; I didn't consider that option.  I'm
-> actually surprised that you were, Branden, but I guess it was just a
-> neuron going crazy, as mine with \c the other day :p
-> 
-> 
-> > 
-> > > It's always challenging for me to grasp how you prefer the newlines
-> > > are made, but anyway below changes looks good to me.
-> 
-> Sorry, Peter.  I'll take that into account, and try to help as much as I
-> can.
+[1]: https://github.com/SELinuxProject/selinux/commit/7e979b56fd2cee28f647376a7233d2ac2d12ca50
+[2]: https://github.com/SELinuxProject/selinux/commit/de285252a1801397306032e070793889c9466845
 
-You're greatly helpful start from the beginning, and I just hope you can
-still bare with me. :-)
+Original patch by Miklos Szeredi <mszeredi@redhat.com>
+https://patchwork.kernel.org/project/linux-fsdevel/patch/20200505095915.11275-6-mszeredi@redhat.com/
 
-> Apart from what Branden has already added to this thread, the
-> following man-pages commit has some more details, quoted from B. W.
-> Kernighan, and may help you understand what I want:
-> 
-> <https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/man7/man-pages.7?h=alx/main&id=6ff6f43d68164f99a8c3fb66f4525d145571310c>
-> 
-> I have a long-standing discussion with Branden regarding how much should I
-> push for semantic newlines.  The origin of using semantic newlines is only
-> to simplify diffs (and it does that very well), but for some reason, my
-> brain reads the text better too when organized that way, as opposed to
-> normal prose-like text flow.  There I seem to disagree with Branden, who
-> prefers to read my emails as if they were a book.  Maybe I need semantic
-> newlines to understand the text better, because there are a lot of technical
-> terms that I don't know, and having less load on my brain (because I don't
-> need to calculate phrase boundaries) makes it easier; it's especially useful
-> when text is under development, where it may have mistakes that make it even
-> more difficult to read.
-> 
-> But, just do what you can.  I'll try to do the rest, and ask you if I don't
-> understand something.
+> While this carries a minute risk of someone relying on the property of
+> xattr syscalls rejecting O_PATH descriptors, it saves the trouble of
+> introducing another set of syscalls.
+>
+> Only file->f_path and file->f_inode are accessed in these functions.
+>
+> Current versions return EBADF, hence easy to detect the presense of
+> this feature and fall back in case it's missing.
 
-Yes IMHO that'll be the best way to go with the rest of the community too,
-because afaict not all community developers will be able to quickly get
-used to the rules on man page repository - you're working with a bunch of
-people using in most cases C compilers which has a much looser syntax!
+CC: linux-api@vger.kernel.org
+CC: linux-man@vger.kernel.org
+Signed-off-by: Christian Göttsche <cgzones@googlemail.com>
+---
+ fs/xattr.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-It'll be great if you could help tune the bits after the content being
-contributed by others as long as the modified version has the correct
-meanings.  Not sure whether it'll have scaling problem but hopefully the
-man pages won't be updated drastically so it won't overload you so easily.
-
-Thanks again for all the helps,
-
+diff --git a/fs/xattr.c b/fs/xattr.c
+index e8dd03e4561e..16360ac4eb1b 100644
+--- a/fs/xattr.c
++++ b/fs/xattr.c
+@@ -656,7 +656,7 @@ SYSCALL_DEFINE5(lsetxattr, const char __user *, pathname,
+ SYSCALL_DEFINE5(fsetxattr, int, fd, const char __user *, name,
+ 		const void __user *,value, size_t, size, int, flags)
+ {
+-	struct fd f = fdget(fd);
++	struct fd f = fdget_raw(fd);
+ 	int error = -EBADF;
+ 
+ 	if (!f.file)
+@@ -768,7 +768,7 @@ SYSCALL_DEFINE4(lgetxattr, const char __user *, pathname,
+ SYSCALL_DEFINE4(fgetxattr, int, fd, const char __user *, name,
+ 		void __user *, value, size_t, size)
+ {
+-	struct fd f = fdget(fd);
++	struct fd f = fdget_raw(fd);
+ 	ssize_t error = -EBADF;
+ 
+ 	if (!f.file)
+@@ -844,7 +844,7 @@ SYSCALL_DEFINE3(llistxattr, const char __user *, pathname, char __user *, list,
+ 
+ SYSCALL_DEFINE3(flistxattr, int, fd, char __user *, list, size_t, size)
+ {
+-	struct fd f = fdget(fd);
++	struct fd f = fdget_raw(fd);
+ 	ssize_t error = -EBADF;
+ 
+ 	if (!f.file)
+@@ -910,7 +910,7 @@ SYSCALL_DEFINE2(lremovexattr, const char __user *, pathname,
+ 
+ SYSCALL_DEFINE2(fremovexattr, int, fd, const char __user *, name)
+ {
+-	struct fd f = fdget(fd);
++	struct fd f = fdget_raw(fd);
+ 	int error = -EBADF;
+ 
+ 	if (!f.file)
 -- 
-Peter Xu
+2.36.1
 
