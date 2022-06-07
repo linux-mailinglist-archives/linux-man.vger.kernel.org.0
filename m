@@ -2,148 +2,137 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 1FB74540277
-	for <lists+linux-man@lfdr.de>; Tue,  7 Jun 2022 17:32:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 33D47540336
+	for <lists+linux-man@lfdr.de>; Tue,  7 Jun 2022 17:59:12 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S245385AbiFGPcJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 7 Jun 2022 11:32:09 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51194 "EHLO
+        id S1344630AbiFGP7K (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 7 Jun 2022 11:59:10 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46844 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1344112AbiFGPcA (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 7 Jun 2022 11:32:00 -0400
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com [IPv6:2a00:1450:4864:20::52e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 658A6F551C;
-        Tue,  7 Jun 2022 08:31:57 -0700 (PDT)
-Received: by mail-ed1-x52e.google.com with SMTP id v25so23515011eda.6;
-        Tue, 07 Jun 2022 08:31:57 -0700 (PDT)
+        with ESMTP id S1344634AbiFGP7H (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 7 Jun 2022 11:59:07 -0400
+Received: from mail-vs1-xe43.google.com (mail-vs1-xe43.google.com [IPv6:2607:f8b0:4864:20::e43])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8CE2F63508
+        for <linux-man@vger.kernel.org>; Tue,  7 Jun 2022 08:59:03 -0700 (PDT)
+Received: by mail-vs1-xe43.google.com with SMTP id o14so791673vsv.2
+        for <linux-man@vger.kernel.org>; Tue, 07 Jun 2022 08:59:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:mime-version
+        d=gmail.com; s=20210112;
+        h=mime-version:sender:from:date:message-id:subject:to
          :content-transfer-encoding;
-        bh=w0Hdg77AgoPG+P9TsvX0MGr6YMoh94u++wV7R/8mG6Q=;
-        b=UrlZfICkRAZGfTAxgXamkUF1euwIXz/dlpvevt15u/GXuGmNhmXjx+8+VHEyd1fe8z
-         Weg+hLtYIdvErfuTKGZe9T861PjQQqTb5yTkMVKRy2mRPzGshG+AtZSIJjfwnG8Hn7NF
-         0t7ik+wYMi689h3lZ70iLHInepJesqv/anMj7Nze/F7nNvBynY0INZ61KE008DZagKul
-         VtQ0A8MdGAjp/YefQZiN6B0tvOBfKQEgEwczSwGPRe3hhwXHFq4J1M+xIlrdmIPMyL5I
-         zoYW8xs+KCy0qqsfPUO6lRVGof3loBpEaijhmdt86A39468D5vZIz/HW+vAldcF9cjwe
-         JX8w==
+        bh=94FE0xqKYNBQJ8bbUNfhKNNPOc38KM25jE5hqWXLeJ4=;
+        b=ikUXGsjnj9SbF/QxJIMEM2S9J+i3/5cToGY/TJYeDdtMkhIlQr+ICSTUciHz1/1zDC
+         efC2YYmdPxdbG2lfjepyiZ3aT3iKURi9+aP6Ge9AJBmP1OLxMSjCoH/kfSFPm39YLwdr
+         A3K1nNuKWsBxuBEgqCKqYa+9m1metfwKvTnmkJzjkUjJAUDwZPIaPWgd6VsbS0kPrKA6
+         U4VhM/SaJz7M5aablSRtl7lY/SGMFkUOq5KHCk26hdw4d1jecogrPdFKWleftbTbiDGN
+         Qcu4OHBLYYfOIU75/hrCOLyNzvqENO2ZTio4shfgiLZL44/1ONdmrNBy1XS+O+e4uvO6
+         09wA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=w0Hdg77AgoPG+P9TsvX0MGr6YMoh94u++wV7R/8mG6Q=;
-        b=lAOSNdcFH0mdIO35+CBZO3bWJ8cR/cWl1DEVQvmBO/F7ol9GiSZOx2Kj7NDi/HI2Zp
-         Jtn/LG7kJOul1/Beuwe+5G0ZwNL1WGA+nVEfGM5BedNicYWwlSR0ByHaTu9sG78suATO
-         ypH7kGJMIwJDFYZeC4iwCE+tmHLfMFT2XnO75yJvsCpXfAn1Pg3yBn2uXPk8NkTgvcCN
-         ZtNy3IgOFdQFiPnSqV51vQgifdc+RPwotz/NXy3YNsIXVfHw5VIukltWJ4qKx1OvTiRg
-         b4l0eequIe1H1jL19uawr4NaObpRHMvOIKOjhviru7F1j+KqY0hu5ThYUvEpeD1VVjMO
-         /jyQ==
-X-Gm-Message-State: AOAM5304QAxzT4OROE68R7YorXXOy+a9ZoDiV9ETelW7GeUbDHlzlW9s
-        t+vXyhVt7fh29fiMTly1+cxhd/SsgQ8=
-X-Google-Smtp-Source: ABdhPJw5O8Mix5sJdiw5XuZUUJ6C5dUvQIiC5WMe0/YwVvV1sO2SkEmWjUN8DtVmS9GesJcUxvlSug==
-X-Received: by 2002:a05:6402:1341:b0:42a:f7cb:44dc with SMTP id y1-20020a056402134100b0042af7cb44dcmr34808302edw.165.1654615915837;
-        Tue, 07 Jun 2022 08:31:55 -0700 (PDT)
-Received: from debianHome.localdomain (dynamic-077-008-054-039.77.8.pool.telefonica.de. [77.8.54.39])
-        by smtp.gmail.com with ESMTPSA id jg36-20020a170907972400b00701eb600df8sm8143445ejc.169.2022.06.07.08.31.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 07 Jun 2022 08:31:55 -0700 (PDT)
-From:   =?UTF-8?q?Christian=20G=C3=B6ttsche?= <cgzones@googlemail.com>
-To:     selinux@vger.kernel.org
-Cc:     Miklos Szeredi <mszeredi@redhat.com>, linux-api@vger.kernel.org,
-        linux-man@vger.kernel.org,
-        Alexander Viro <viro@zeniv.linux.org.uk>,
-        linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [RFC PATCH] f*xattr: allow O_PATH descriptors
-Date:   Tue,  7 Jun 2022 17:31:39 +0200
-Message-Id: <20220607153139.35588-1-cgzones@googlemail.com>
-X-Mailer: git-send-email 2.36.1
+        h=x-gm-message-state:mime-version:sender:from:date:message-id:subject
+         :to:content-transfer-encoding;
+        bh=94FE0xqKYNBQJ8bbUNfhKNNPOc38KM25jE5hqWXLeJ4=;
+        b=usk2uCWwhB9bhgvYDZhcBtvHzoVsRE5biJJXf7LhBRIZVVXF26HkvlIGn5mMdnz2a3
+         CmUC882NOiy4YoBuPoeUnjmVVQ6VWdt35iSSD1NHsN/YXmuheN0m19Co44YZS8VsOwpa
+         T9gZbLMruHjr4j1dZ71w9cvNeR1lL9w9+c2H22vEX4ef5V+FaZgHA8o83jIOa6t5O24e
+         p3HRT8hsT6qq0LKtMJ8LIFk6ZYnqq6rMcjoGNo2OwTW2G82oIIBUlt+FADJ3hWPK2ywj
+         Fk7akoSdau9nJo1whozKlKHbJ71z+rzFlSZbexu5IgUS9413V0voU25vzisVbAHTIokC
+         2DAg==
+X-Gm-Message-State: AOAM530xWgWRSsXupU2W5mGBvz1oWaVDUF8Tv/CNbkzH+fVRZ+xuaYHM
+        s7r3bcjEiLIVqkYKo9cJAXLAF5McnxRl4dZhT4U=
+X-Google-Smtp-Source: ABdhPJyk6JgS/KMTOxybULzEEGetc+trkH458lXl7Yfjwe18PvxYC/LzrqXNT7iKFWYfdift/BmXWE0auwNW4wk9CSE=
+X-Received: by 2002:a67:f102:0:b0:34b:9de8:5ef3 with SMTP id
+ n2-20020a67f102000000b0034b9de85ef3mr9296995vsk.43.1654617542637; Tue, 07 Jun
+ 2022 08:59:02 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-        autolearn=ham autolearn_force=no version=3.4.6
+Sender: donnamcines@gmail.com
+Received: by 2002:a59:1d43:0:b0:2c9:df44:bbb7 with HTTP; Tue, 7 Jun 2022
+ 08:59:02 -0700 (PDT)
+From:   Dina Mckenna <dinamckenna1894@gmail.com>
+Date:   Tue, 7 Jun 2022 15:59:02 +0000
+X-Google-Sender-Auth: zL92RgowyNCQiUjEfZ32xsVhT6c
+Message-ID: <CADM2P8m3_jXEyLR+ygsvo3RwotZH7PgLe3MY40XBaHOEXBCauA@mail.gmail.com>
+Subject: Please need your urgent assistance,
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: Yes, score=7.0 required=5.0 tests=ADVANCE_FEE_5_NEW_MONEY,
+        BAYES_95,DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+        FREEMAIL_FROM,LOTS_OF_MONEY,MONEY_FRAUD_8,RCVD_IN_DNSWL_NONE,
+        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,UNDISC_MONEY,URG_BIZ
+        autolearn=no autolearn_force=no version=3.4.6
+X-Spam-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
+        *      https://www.dnswl.org/, no trust
+        *      [2607:f8b0:4864:20:0:0:0:e43 listed in]
+        [list.dnswl.org]
+        *  3.0 BAYES_95 BODY: Bayes spam probability is 95 to 99%
+        *      [score: 0.9772]
+        * -0.0 SPF_PASS SPF: sender matches SPF record
+        *  0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
+        *      provider
+        *      [donnamcines[at]gmail.com]
+        *  0.0 SPF_HELO_NONE SPF: HELO does not publish an SPF Record
+        * -0.1 DKIM_VALID_EF Message has a valid DKIM or DK signature from
+        *      envelope-from domain
+        * -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+        *      author's domain
+        * -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+        *  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+        *       valid
+        *  0.0 LOTS_OF_MONEY Huge... sums of money
+        * -0.0 T_SCC_BODY_TEXT_LINE No description available.
+        *  0.6 URG_BIZ Contains urgent matter
+        *  0.0 MONEY_FRAUD_8 Lots of money and very many fraud phrases
+        *  3.0 ADVANCE_FEE_5_NEW_MONEY Advance Fee fraud and lots of money
+        *  0.6 UNDISC_MONEY Undisclosed recipients + money/fraud signs
+X-Spam-Level: ******
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From: Miklos Szeredi <mszeredi@redhat.com>
+Hello my dear.,
 
-Support file descriptors obtained via O_PATH for extended attribute
-operations.
+ I sent this mail praying it will get to you in a good condition of
+health, since I myself are in a very critical health condition in
+which I sleep every night without knowing if I may be alive to see the
+next day. I bring peace and love to you.. It is by the grace of God, I
+had no choice than to do what is lawful and right in the sight of God
+for eternal life and in the sight of man, for witness of God=E2=80=99s merc=
+y
+and glory upon my life. I am Mrs. Dina Howley Mckenna, a widow. I am
+suffering from a long time brain tumor, It has defiled all forms of
+medical treatment, and right now I have about a few months to leave,
+according to medical experts. The situation has gotten complicated
+recently with my inability to hear proper, am communicating with you
+with the help of the chief nurse herein the hospital, from all
+indication my conditions is really deteriorating and it is quite
+obvious that, according to my doctors they have advised me that I may
+not live too long, Because this illness has gotten to a very bad
+stage. I plead that you will not expose or betray this trust and
+confidence that I am about to repose on you for the mutual benefit of
+the orphans and the less privilege. I have some funds I inherited from
+my late husband, the sum of ($ 11,000,000.00, Eleven Million Dollars).
+Having known my condition, I decided to donate this fund to you
+believing that you will utilize it the way i am going to instruct
+herein. I need you to assist me and reclaim this money and use it for
+Charity works therein your country  for orphanages and gives justice
+and help to the poor, needy and widows says The Lord." Jeremiah
+22:15-16.=E2=80=9C and also build schools for less privilege that will be
+named after my late husband if possible and to promote the word of God
+and the effort that the house of God is maintained. I do not want a
+situation where this money will be used in an ungodly manner. That's
+why I'm taking this decision. I'm not afraid of death, so I know where
+I'm going. I accept this decision because I do not have any child who
+will inherit this money after I die.. Please I want your sincerely and
+urgent answer to know if you will be able to execute this project for
+the glory of God, and I will give you more information on how the fund
+will be transferred to your bank account. May the grace, peace, love
+and the truth in the Word of God be with you and all those that you
+love and care for..
 
-Extended attributes are for example used by SELinux for the security
-context of file objects. To avoid time-of-check-time-of-use issues while
-setting those contexts it is advisable to pin the file in question and
-operate on a file descriptor instead of the path name. This can be
-emulated in userspace via /proc/self/fd/NN [1] but requires a procfs,
-which might not be mounted e.g. inside of chroots, see[2].
+I'm waiting for your immediate reply..
 
-[1]: https://github.com/SELinuxProject/selinux/commit/7e979b56fd2cee28f647376a7233d2ac2d12ca50
-[2]: https://github.com/SELinuxProject/selinux/commit/de285252a1801397306032e070793889c9466845
-
-Original patch by Miklos Szeredi <mszeredi@redhat.com>
-https://patchwork.kernel.org/project/linux-fsdevel/patch/20200505095915.11275-6-mszeredi@redhat.com/
-
-> While this carries a minute risk of someone relying on the property of
-> xattr syscalls rejecting O_PATH descriptors, it saves the trouble of
-> introducing another set of syscalls.
->
-> Only file->f_path and file->f_inode are accessed in these functions.
->
-> Current versions return EBADF, hence easy to detect the presense of
-> this feature and fall back in case it's missing.
-
-CC: linux-api@vger.kernel.org
-CC: linux-man@vger.kernel.org
-Signed-off-by: Christian Göttsche <cgzones@googlemail.com>
----
- fs/xattr.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/fs/xattr.c b/fs/xattr.c
-index e8dd03e4561e..16360ac4eb1b 100644
---- a/fs/xattr.c
-+++ b/fs/xattr.c
-@@ -656,7 +656,7 @@ SYSCALL_DEFINE5(lsetxattr, const char __user *, pathname,
- SYSCALL_DEFINE5(fsetxattr, int, fd, const char __user *, name,
- 		const void __user *,value, size_t, size, int, flags)
- {
--	struct fd f = fdget(fd);
-+	struct fd f = fdget_raw(fd);
- 	int error = -EBADF;
- 
- 	if (!f.file)
-@@ -768,7 +768,7 @@ SYSCALL_DEFINE4(lgetxattr, const char __user *, pathname,
- SYSCALL_DEFINE4(fgetxattr, int, fd, const char __user *, name,
- 		void __user *, value, size_t, size)
- {
--	struct fd f = fdget(fd);
-+	struct fd f = fdget_raw(fd);
- 	ssize_t error = -EBADF;
- 
- 	if (!f.file)
-@@ -844,7 +844,7 @@ SYSCALL_DEFINE3(llistxattr, const char __user *, pathname, char __user *, list,
- 
- SYSCALL_DEFINE3(flistxattr, int, fd, char __user *, list, size_t, size)
- {
--	struct fd f = fdget(fd);
-+	struct fd f = fdget_raw(fd);
- 	ssize_t error = -EBADF;
- 
- 	if (!f.file)
-@@ -910,7 +910,7 @@ SYSCALL_DEFINE2(lremovexattr, const char __user *, pathname,
- 
- SYSCALL_DEFINE2(fremovexattr, int, fd, const char __user *, name)
- {
--	struct fd f = fdget(fd);
-+	struct fd f = fdget_raw(fd);
- 	int error = -EBADF;
- 
- 	if (!f.file)
--- 
-2.36.1
-
+May God Bless you.,
+Mrs. Dina Howley Mckenna..
