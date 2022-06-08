@@ -2,144 +2,98 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 91B49542CE1
-	for <lists+linux-man@lfdr.de>; Wed,  8 Jun 2022 12:15:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id EA9C9542F2E
+	for <lists+linux-man@lfdr.de>; Wed,  8 Jun 2022 13:27:57 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S236402AbiFHKPB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 8 Jun 2022 06:15:01 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42266 "EHLO
+        id S238203AbiFHL1h (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 8 Jun 2022 07:27:37 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45684 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S236646AbiFHKNd (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 8 Jun 2022 06:13:33 -0400
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 7A7E223CCD1
-        for <linux-man@vger.kernel.org>; Wed,  8 Jun 2022 03:01:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1654682484;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         content-transfer-encoding:content-transfer-encoding:
-         in-reply-to:in-reply-to:references:references;
-        bh=ai4/mydlubhazG9HxtBQLY4E30VOz2EnC8iG9kxiMxs=;
-        b=dJ59hfQwmkQz4iMio1KXSTAyr23rGILhDE4XNkPlmxggdjnvMmJkKBRbq/kTim4WIf+Q+B
-        0Y4Ve8gfL2pJ5JjGWDtb5L96h7PnS8eHmeGg4+3tHLesCXlMXroskx/iCpdraP5x11cnqB
-        jUoZZhbCbG5qHse1MYyPeSKsTaMN7jo=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-93-GaNxms8tNaWRRFsAl5lRQg-1; Wed, 08 Jun 2022 06:01:23 -0400
-X-MC-Unique: GaNxms8tNaWRRFsAl5lRQg-1
-Received: by mail-wm1-f69.google.com with SMTP id k15-20020a7bc40f000000b0039c4b7f7d09so3952934wmi.8
-        for <linux-man@vger.kernel.org>; Wed, 08 Jun 2022 03:01:22 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:organization:in-reply-to
-         :content-transfer-encoding;
-        bh=ai4/mydlubhazG9HxtBQLY4E30VOz2EnC8iG9kxiMxs=;
-        b=aINns4u7aVKThIIXhSofdPDn77cv38xUr4Bc44VSukG6DzwJml0VgZCLbz9faN99xJ
-         cFE8Qea2/yAieFB7BXVe7O6kOqh1GzdphLSZyIoEZg5PESBjnG/tSKNz/OV+sRfTxw25
-         0GKFj2SWoYXf1hoYb7Um88EY2aCtb9znlWIABvbRTb31gbiFIvieDUhNBBUaJ4RvMj7c
-         4Oec4WxGrB4KHUG9N5nClChISFARDhIqHeQRnVIFwRBAAjVkoM9JKSrFbsebeO6uRvvJ
-         NnDFMeJczEnutD5b+E/h064tlKI+wbA4rrOe2tCduMm5vliyZ+I7hTdMfOauKnxYOn0t
-         R7Jw==
-X-Gm-Message-State: AOAM530ksZD4ENl21yj5H53GjjATJMXzuqy4ENwnNEcDbfelL6qsLngm
-        O0Jcu5o9JEmfjnBwiC8C7O9PpA5iosJLpBN9uxaz6cpB4MqEPG77XFv9xhS8mUwhmnBVn8bpZHk
-        l7ipXdNh3H5+Jupa6QtMW
-X-Received: by 2002:a5d:4a88:0:b0:214:1e17:9993 with SMTP id o8-20020a5d4a88000000b002141e179993mr24761285wrq.608.1654682481948;
-        Wed, 08 Jun 2022 03:01:21 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJysi/9XcEhit9yrKvTNQL+Bv3N4jejT5qmtSTyLw314oAP9isZR9sDt1dTMA3rnHaZnwdXN1Q==
-X-Received: by 2002:a5d:4a88:0:b0:214:1e17:9993 with SMTP id o8-20020a5d4a88000000b002141e179993mr24761258wrq.608.1654682481700;
-        Wed, 08 Jun 2022 03:01:21 -0700 (PDT)
-Received: from ?IPV6:2003:cb:c705:ad00:db2:4c6:8f3a:2ec4? (p200300cbc705ad000db204c68f3a2ec4.dip0.t-ipconnect.de. [2003:cb:c705:ad00:db2:4c6:8f3a:2ec4])
-        by smtp.gmail.com with ESMTPSA id r21-20020a05600c425500b0039c41686421sm15579014wmm.17.2022.06.08.03.01.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 08 Jun 2022 03:01:10 -0700 (PDT)
-Message-ID: <9915bba2-ca15-aa4d-eab7-686cd991cd62@redhat.com>
-Date:   Wed, 8 Jun 2022 12:00:54 +0200
+        with ESMTP id S238209AbiFHL1f (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 8 Jun 2022 07:27:35 -0400
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 98C541673D1;
+        Wed,  8 Jun 2022 04:27:34 -0700 (PDT)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id 35337615B3;
+        Wed,  8 Jun 2022 11:27:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F0B3C34116;
+        Wed,  8 Jun 2022 11:27:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1654687653;
+        bh=mw/8TTzcVjw2Heammx4s/Kl/78h76VgQk6zFg4QLP4w=;
+        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+        b=WlFAibnCvGU1+f/+rCYQSyeyXOW0jQAf3vYCJG3DfXUYZInQ2s6gx5FLhQCF/Y/K2
+         XqQPblVMpU4oDHt6uMyraFdx8J77OTimMxURh0L93rSDmYWaayZbHkgNbl+FZZQ5np
+         V10Un2CYmhO52QU3XYCdDD30hf25xyC8HQca5jqlIEh++sUqua1biWtWQnSbzA9F8c
+         3D9BP2yb6WSxk5Qvpsos2Zy/oVoOESAQ4xhogmLsi43jDtEZwP8G/9evFnl4qtf8gD
+         1KMcIQqvj/LCWtDip4MIkSxumkP3WCj2sP7RQxZ2BmcaJSs+YEGerBBIqkx3YPl2F1
+         J0yiCCDxbJdpA==
+Date:   Wed, 8 Jun 2022 13:27:28 +0200
+From:   Christian Brauner <brauner@kernel.org>
+To:     Christian =?utf-8?B?R8O2dHRzY2hl?= <cgzones@googlemail.com>
+Cc:     selinux@vger.kernel.org, Miklos Szeredi <mszeredi@redhat.com>,
+        linux-api@vger.kernel.org, linux-man@vger.kernel.org,
+        Alexander Viro <viro@zeniv.linux.org.uk>,
+        linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH] f*xattr: allow O_PATH descriptors
+Message-ID: <20220608112728.b4xrdppxqmyqmtwf@wittgenstein>
+References: <20220607153139.35588-1-cgzones@googlemail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
-Subject: Re: man-pages maintainership (was: Re: [PATCH v2] madvise.2: Clarify
- addr/length and update hugetlb support)
-Content-Language: en-US
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-man@vger.kernel.org,
-        Axel Rasmussen <axelrasmussen@google.com>,
-        Peter Xu <peterx@redhat.com>, linux-mm@kvack.org,
-        Linus Torvalds <torvalds@linux-foundation.org>,
-        Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
-        Mike Kravetz <mike.kravetz@oracle.com>
-References: <20220526180950.13916-1-mike.kravetz@oracle.com>
- <4ee30efe-4975-66ef-a05c-c5baa7242e98@redhat.com>
- <fef84382-8fd5-92f6-5625-60852c32ea72@gmail.com>
- <1257e092-79af-3624-2f6a-fb5fd69e5c18@gmail.com>
- <7eb14472-d269-ecc6-1ef4-6ea81949efb1@redhat.com>
- <b961003a-0e32-cc6b-9f87-66ae21d37f35@gmail.com>
-From:   David Hildenbrand <david@redhat.com>
-Organization: Red Hat
-In-Reply-To: <b961003a-0e32-cc6b-9f87-66ae21d37f35@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-4.5 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
-        autolearn=ham autolearn_force=no version=3.4.6
+In-Reply-To: <20220607153139.35588-1-cgzones@googlemail.com>
+X-Spam-Status: No, score=-8.3 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 07.06.22 11:37, Alejandro Colomar wrote:
-> Hi David,
+On Tue, Jun 07, 2022 at 05:31:39PM +0200, Christian Göttsche wrote:
+> From: Miklos Szeredi <mszeredi@redhat.com>
 > 
-> On 6/7/22 09:44, David Hildenbrand wrote:
->> Ah, that explains things. The man-page info page [1] was/is still
->> pointing at that git tree, that's why I wondered what happened.
+> Support file descriptors obtained via O_PATH for extended attribute
+> operations.
 > 
-> Yup.  BTW, that reminds me I need to ask how to update that website. 
-> Now that everything goes back to normal, I don't need to; but still 
-> should know how to.
+> Extended attributes are for example used by SELinux for the security
+> context of file objects. To avoid time-of-check-time-of-use issues while
+> setting those contexts it is advisable to pin the file in question and
+> operate on a file descriptor instead of the path name. This can be
+> emulated in userspace via /proc/self/fd/NN [1] but requires a procfs,
+> which might not be mounted e.g. inside of chroots, see[2].
 > 
->>>> I'm not very concerned about this, since in essence, a fork of the
->>>> manual pages is still very well maintained on my server, and free for
->>>> anyone interested in reading up-to-date pages.  And since I do this on a
->>>> hobby basis (my company doesn't pay me to do this at all), I don't care
->>>> at all about not having released in almost a year now.  That's more of a
->>>> problem for distros and companies, which need releases.  For
->>
->> Heh, including me ;)
+> [1]: https://github.com/SELinuxProject/selinux/commit/7e979b56fd2cee28f647376a7233d2ac2d12ca50
+> [2]: https://github.com/SELinuxProject/selinux/commit/de285252a1801397306032e070793889c9466845
 > 
-> Which part of that text includes you?  "interested in reading up-to-date 
-> pages"?  Or "need releases"?  Or both?  :-)
-
-A little bit of everything. Obviously, I'm interested in up-to-date man
-pages for Red Hat Linux users :)
-
->>
->>>
->>> BTW, I just released a signed git tag in my repo, to make it a bit more
->>> secure to know that you're getting my manual pages, and not some MITM
->>> fake stuff.
->>>
->>> <http://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/tag/?h=man-pages-5.19-rc1>
->>>
->>> My PGP key is signed by mtk.  Only trust it if it has his signature.
->>> I'm attaching it in this email, so that it can be found in the list (I'm
->>> having some issue with the keyserver).
->>
->> I can spot it on the official git tree [2] as well, essentially via
->> alx/main. Nice.
+> Original patch by Miklos Szeredi <mszeredi@redhat.com>
+> https://patchwork.kernel.org/project/linux-fsdevel/patch/20200505095915.11275-6-mszeredi@redhat.com/
 > 
-> Yes, and soon in master. :)
-> Still far from a release, however; I need help with that.
+> > While this carries a minute risk of someone relying on the property of
+> > xattr syscalls rejecting O_PATH descriptors, it saves the trouble of
+> > introducing another set of syscalls.
+> >
+> > Only file->f_path and file->f_inode are accessed in these functions.
+> >
+> > Current versions return EBADF, hence easy to detect the presense of
+> > this feature and fall back in case it's missing.
+> 
+> CC: linux-api@vger.kernel.org
+> CC: linux-man@vger.kernel.org
+> Signed-off-by: Christian Göttsche <cgzones@googlemail.com>
+> ---
 
-What kind of help would you be needing?
+I'd be somewhat fine with getxattr and listxattr but I'm worried that
+setxattr/removexattr waters down O_PATH semantics even more. I don't
+want O_PATH fds to be useable for operations which are semantically
+equivalent to a write.
 
--- 
-Thanks,
-
-David / dhildenb
-
+In sensitive environments such as service management/container runtimes
+we often send O_PATH fds around precisely because it is restricted what
+they can be used for. I'd prefer to not to plug at this string.
