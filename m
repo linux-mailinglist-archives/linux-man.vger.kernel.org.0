@@ -2,137 +2,216 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 807CF54375F
-	for <lists+linux-man@lfdr.de>; Wed,  8 Jun 2022 17:31:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6C9235439F4
+	for <lists+linux-man@lfdr.de>; Wed,  8 Jun 2022 19:09:17 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S244123AbiFHPaz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 8 Jun 2022 11:30:55 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43970 "EHLO
+        id S229862AbiFHRGl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 8 Jun 2022 13:06:41 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48940 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S245346AbiFHP3E (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 8 Jun 2022 11:29:04 -0400
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com [IPv6:2a00:1450:4864:20::330])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E93D941603
-        for <linux-man@vger.kernel.org>; Wed,  8 Jun 2022 08:25:59 -0700 (PDT)
-Received: by mail-wm1-x330.google.com with SMTP id m32-20020a05600c3b2000b0039756bb41f2so11262054wms.3
-        for <linux-man@vger.kernel.org>; Wed, 08 Jun 2022 08:25:59 -0700 (PDT)
+        with ESMTP id S229713AbiFHRBt (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 8 Jun 2022 13:01:49 -0400
+Received: from mail-pg1-x532.google.com (mail-pg1-x532.google.com [IPv6:2607:f8b0:4864:20::532])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B0AD63DBE81
+        for <linux-man@vger.kernel.org>; Wed,  8 Jun 2022 09:52:59 -0700 (PDT)
+Received: by mail-pg1-x532.google.com with SMTP id f65so9240778pgc.7
+        for <linux-man@vger.kernel.org>; Wed, 08 Jun 2022 09:52:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to;
-        bh=QOLgghDp6iWuD99al1PCvkIL03x2wez5UG5pBe4tffY=;
-        b=ONHZ/D2xk8j7LtKsr8NcpHRMAuI4DM8DxrdJacWjOLiUpvfiiLKgGT7vgWL0PWFq7a
-         X8zYVmTp9uUJ+a8GxaV2JxvBgjnjjfMmrvvv+ENWYX+JB1QMpnnWpzMHgheo30ZV2WIY
-         KXwvaa5arXX7O/Jz9+A+BVahDahvu3RSAI56BwpqQaf7MqudmrzdzA72fgkT+8w/VzTY
-         h5hXhCq1uCDjNfOcAD/NH6dPSgNn5LgKIe32Xz9iSNSqAu3G3QNvzShg7O53oCJo7HX8
-         5pKD3OB8Z6fO5/JNXpkCaDUWu6OgQByZlnme/putzNLgp/tnlRZfFLfSaO2DVwDjUbsr
-         QpIQ==
+        d=dilger-ca.20210112.gappssmtp.com; s=20210112;
+        h=from:message-id:mime-version:subject:date:in-reply-to:cc:to
+         :references;
+        bh=fnPN3qV01P3JmXHU8gW5ko0hf6xSVYre2n0YUp+eUSM=;
+        b=iMN/bMnLY5zPHxO3z021Ssj9b09dXulhc9izzTBvxBYD/4i+JJizkdR+Cn3b+Thmkl
+         JEo/Si6S074JQ57IsXq+Zgx53XhA81/+D7bDP98wny13GU0ThZ2YCiSvjdSRMKo70pbi
+         9jfcv76OV2UMkJ4ttFAnYSAS8ujK4mqqBoL6465yPREa2H36m9ekaf0YuAdfjgVdPnAd
+         k07og7lBaEIOUOQMLU0vZ89P8wyLRvg2OVz3PbWzqgYnRfLW47VdfoPL4nk8rrk2PV+I
+         8Tk85greJtZabPE5TABw/ZOauNycrmuh68RIEDgmrN6MLDywh+l1Erz6Dkxeff1Q63MZ
+         gBgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to;
-        bh=QOLgghDp6iWuD99al1PCvkIL03x2wez5UG5pBe4tffY=;
-        b=apfJuVBnYMvHudFEhSw9j+lPJ7GtoXdrQ1buIlJd0m6nv42H7lmexU0K5o3/GxOyYp
-         kYbkW4XS6OQi2zkw27qmnyLzxR9/jCJd3jA1PZjzxPuw2HjsDLXI2ZsgD1ZNthb9XOer
-         /is8JBc+GIN34SleSoLKy5xC0xUcD+dnrnyoW909V+4DSMjAKCu5QsELzVbUuDNsua46
-         j09KHVGxhNlnAf+dsiyXRPL9nUbhdQAq0Up4ufTsEo6vhk+pbEM6a1GLkS4ZEmvEsA+R
-         pmXOYmytdEh8B9d0A346j5m1jwB7D8BlQ17ToUEk+VbjMhohFsshsX2yU3OvQerrAVIb
-         Cdng==
-X-Gm-Message-State: AOAM530OubCF0aHES9By8TfuWgIaziNoDRr3/sTAvtTZwQUu2z2TdhVo
-        nVW2cjqLJq/C8PQs/IYgFlo=
-X-Google-Smtp-Source: ABdhPJyl9BwzGu2utNgul2MJVvyHyXde2oZfxzGJngkwrfGXIgREz5i6m7w1CnN4EFgTl0ivsG06DQ==
-X-Received: by 2002:a05:600c:350f:b0:397:7204:ce8e with SMTP id h15-20020a05600c350f00b003977204ce8emr65032973wmq.0.1654701958236;
-        Wed, 08 Jun 2022 08:25:58 -0700 (PDT)
-Received: from [192.168.157.138] ([62.77.182.180])
-        by smtp.gmail.com with ESMTPSA id d14-20020a5d6dce000000b0020c5253d927sm21828852wrz.115.2022.06.08.08.25.57
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 08 Jun 2022 08:25:57 -0700 (PDT)
-Message-ID: <06913835-a182-b7bc-d147-6740f5eb1eed@gmail.com>
-Date:   Wed, 8 Jun 2022 17:28:53 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Subject: Re: [PATCH 0/4] mount_setattr.2: updates
-Content-Language: en-US
-To:     Christian Brauner <brauner@kernel.org>, linux-man@vger.kernel.org
-Cc:     Christoph Hellwig <hch@infradead.org>,
-        Aleksa Sarai <cyphar@cyphar.com>
-References: <20220607133820.1721352-1-brauner@kernel.org>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20220607133820.1721352-1-brauner@kernel.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------Pt0ls0v0oG2vlp5WhyXXG97H"
-X-Spam-Status: No, score=-3.3 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-        autolearn=ham autolearn_force=no version=3.4.6
+        h=x-gm-message-state:from:message-id:mime-version:subject:date
+         :in-reply-to:cc:to:references;
+        bh=fnPN3qV01P3JmXHU8gW5ko0hf6xSVYre2n0YUp+eUSM=;
+        b=GU+Rl75zB3kCZWxsDudlMs/cpmiKcqxgv8eI9UzpbX06iUs9FqQjnSh2f3QzbfKmyi
+         PkGt+GchSIYJT6iLbVaEUhaZ8OObrRi7fPGlPBOwGm/oC831ZSC5drHi7+oBI9fiBkZ1
+         cWEnSQnjYYGxFBuovgA9RMPQAvHLA56mU5nFmsfO+HnHMQFSd8YNrzNO+0AWe6ax3dyy
+         LVqUBc9ReyUYNWGO66I/b1/8rlQwAxmbTSJEbF7TI3O0rqwpPI5AkcIFfx9LNjIC/egP
+         CVrVlv1qTpVvPsF81QAgPXLNEZJ8YqaQQ1xtZK5trwgt4TfJBUFQmVmOwbTGTICeYPHM
+         eXaw==
+X-Gm-Message-State: AOAM5334CP9HB2JuSguEhh+j3LMH//UVlL9JykdlGRvridnu9SgDHTAx
+        7GZkeKJf0/R39tv2QE4pSi+qMg==
+X-Google-Smtp-Source: ABdhPJyYOxJT4qNu/PrIgO1lgsUudJcnOLVnOnGhyamodZr6ktOlCvuznkFn470anfKLLkzQiqt1dQ==
+X-Received: by 2002:a05:6a00:1811:b0:51b:fec8:be7b with SMTP id y17-20020a056a00181100b0051bfec8be7bmr21576391pfa.22.1654707179152;
+        Wed, 08 Jun 2022 09:52:59 -0700 (PDT)
+Received: from cabot.adilger.int (S01061cabc081bf83.cg.shawcable.net. [70.77.221.9])
+        by smtp.gmail.com with ESMTPSA id a14-20020aa794ae000000b0050dc7628146sm15230078pfl.32.2022.06.08.09.52.57
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 08 Jun 2022 09:52:58 -0700 (PDT)
+From:   Andreas Dilger <adilger@dilger.ca>
+Message-Id: <08A11E25-0208-4B4F-8759-75C1841E7017@dilger.ca>
+Content-Type: multipart/signed;
+ boundary="Apple-Mail=_5498CD26-7CAB-44EA-B8BC-C75BC8DD9F40";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
+Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
+Subject: Re: [RFC PATCH] f*xattr: allow O_PATH descriptors
+Date:   Wed, 8 Jun 2022 10:53:11 -0600
+In-Reply-To: <20220607153139.35588-1-cgzones@googlemail.com>
+Cc:     selinux@vger.kernel.org, Miklos Szeredi <mszeredi@redhat.com>,
+        linux-api@vger.kernel.org, linux-man@vger.kernel.org,
+        Alexander Viro <viro@zeniv.linux.org.uk>,
+        linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+To:     =?utf-8?Q?Christian_G=C3=B6ttsche?= <cgzones@googlemail.com>
+References: <20220607153139.35588-1-cgzones@googlemail.com>
+X-Mailer: Apple Mail (2.3273)
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+        T_SCC_BODY_TEXT_LINE autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------Pt0ls0v0oG2vlp5WhyXXG97H
-Content-Type: multipart/mixed; boundary="------------RNM4cNbeOo4Zz9LKsAcvYYjM";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Christian Brauner <brauner@kernel.org>, linux-man@vger.kernel.org
-Cc: Christoph Hellwig <hch@infradead.org>, Aleksa Sarai <cyphar@cyphar.com>
-Message-ID: <06913835-a182-b7bc-d147-6740f5eb1eed@gmail.com>
-Subject: Re: [PATCH 0/4] mount_setattr.2: updates
-References: <20220607133820.1721352-1-brauner@kernel.org>
-In-Reply-To: <20220607133820.1721352-1-brauner@kernel.org>
 
---------------RNM4cNbeOo4Zz9LKsAcvYYjM
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+--Apple-Mail=_5498CD26-7CAB-44EA-B8BC-C75BC8DD9F40
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=utf-8
 
-T24gNi83LzIyIDE1OjM4LCBDaHJpc3RpYW4gQnJhdW5lciB3cm90ZToNCj4gRnJvbTogIkNo
-cmlzdGlhbiBCcmF1bmVyIChNaWNyb3NvZnQpIiA8YnJhdW5lckBrZXJuZWwub3JnPg0KPiAN
-Cj4gSGV5IGV2ZXJ5b25lLA0KPiANCj4gSGVyZSdzIGEgc2V0IG9mIHVwZGF0ZXMgZm9yIHRo
-ZSBtb3VudF9zZXRhdHRyLjIgbWFuIHBhZ2UuDQo+IEkgd291bGQgcmVhbGx5IGFwcHJlY2lh
-dGUgaXQgaWYgZ3JvZmYgc3ludGF4IGNvdWxkIGJlIGZpeGVkIHVwIGJ5DQo+IG1haW50YWlu
-ZXJzLiBJIHRyaWVkIG15IGJlc3QgdG8gcmVtZW1iZXIgdGhlIGd1aWRlbGluZXMgdGhvdWdo
-LiA6KQ0KPiANCj4gVGhhbmtzIQ0KPiBDaHJpc3RpYW4NCj4gDQo+IENocmlzdGlhbiBCcmF1
-bmVyICg0KToNCj4gICAgbW91bnRfc2V0YXR0ci4yOiBhZGQgYW5kIGV4cGxhaW4gbWlzc2lu
-ZyBFQlVTWSBlcnJvcg0KPiAgICBtb3VudF9zZXRhdHRyLjI6IHVwZGF0ZSBjb25kaXRpb25z
-IHRvIGNyZWF0ZSBJRC1tYXBwZWQgbW91bnRzDQo+ICAgIG1vdW50X3NldGF0dHIuMjogdXBk
-YXRlIGxpc3Qgb2Ygc3VwcG9ydGVkIGZpbGVzeXN0ZW1zDQo+ICAgIG1vdW50X3NldGF0dHIu
-MjogZmZpeA0KDQpCVFcsIGZvciBuZXh0IHRpbWUsIGl0IHdvdWxkIGhlbHAgaWYgeW91IHB1
-dCB0aGUgcGVvcGxlIHRoYXQgYXJlIENDZCBpbiANCnRoZSB0aHJlYWQgYWxzbyBpbiB0aGUg
-cGF0Y2hlcyBhcyAiQ2M6IC4uLiIuICBUaGF0IHdvdWxkIGhlbHAgYSBsb3QhDQoNCkNoZWVy
-cywNCg0KQWxleA0KDQo+IA0KPiAgIG1hbjIvbW91bnRfc2V0YXR0ci4yIHwgNjQgKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKystLS0tLS0tLS0NCj4gICAxIGZpbGUgY2hh
-bmdlZCwgNTIgaW5zZXJ0aW9ucygrKSwgMTIgZGVsZXRpb25zKC0pDQo+IA0KPiANCj4gYmFz
-ZS1jb21taXQ6IGFlNmIyMjE4ODJjZTcxYmE4MmZjZGJlMDI0MTlhMjI1MTExNTAyZjANCg0K
-DQotLSANCkFsZWphbmRybyBDb2xvbWFyDQpMaW51eCBtYW4tcGFnZXMgY29tYWludGFpbmVy
-OyBodHRwOi8vd3d3Lmtlcm5lbC5vcmcvZG9jL21hbi1wYWdlcy8NCmh0dHA6Ly93d3cuYWxl
-amFuZHJvLWNvbG9tYXIuZXMvDQo=
+On Jun 7, 2022, at 9:31 AM, Christian G=C3=B6ttsche =
+<cgzones@googlemail.com> wrote:
+>=20
+> From: Miklos Szeredi <mszeredi@redhat.com>
+>=20
+> Support file descriptors obtained via O_PATH for extended attribute
+> operations.
+>=20
+> Extended attributes are for example used by SELinux for the security
+> context of file objects. To avoid time-of-check-time-of-use issues =
+while
+> setting those contexts it is advisable to pin the file in question and
+> operate on a file descriptor instead of the path name. This can be
+> emulated in userspace via /proc/self/fd/NN [1] but requires a procfs,
+> which might not be mounted e.g. inside of chroots, see[2].
 
---------------RNM4cNbeOo4Zz9LKsAcvYYjM--
+Will this allow get/set xattrs directly on symlinks?  That is one =
+problem
+that we have with some of the xattrs that are inherited on symlinks, but
+there is no way to change them.  Allowing setxattr directly on a symlink
+would be very useful.
 
---------------Pt0ls0v0oG2vlp5WhyXXG97H
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+Cheers, Andreas
+
+> [1]: =
+https://github.com/SELinuxProject/selinux/commit/7e979b56fd2cee28f647376a7=
+233d2ac2d12ca50
+> [2]: =
+https://github.com/SELinuxProject/selinux/commit/de285252a1801397306032e07=
+0793889c9466845
+>=20
+> Original patch by Miklos Szeredi <mszeredi@redhat.com>
+> =
+https://patchwork.kernel.org/project/linux-fsdevel/patch/20200505095915.11=
+275-6-mszeredi@redhat.com/
+>=20
+>> While this carries a minute risk of someone relying on the property =
+of
+>> xattr syscalls rejecting O_PATH descriptors, it saves the trouble of
+>> introducing another set of syscalls.
+>>=20
+>> Only file->f_path and file->f_inode are accessed in these functions.
+>>=20
+>> Current versions return EBADF, hence easy to detect the presense of
+>> this feature and fall back in case it's missing.
+>=20
+> CC: linux-api@vger.kernel.org
+> CC: linux-man@vger.kernel.org
+> Signed-off-by: Christian G=C3=B6ttsche <cgzones@googlemail.com>
+> ---
+> fs/xattr.c | 8 ++++----
+> 1 file changed, 4 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/fs/xattr.c b/fs/xattr.c
+> index e8dd03e4561e..16360ac4eb1b 100644
+> --- a/fs/xattr.c
+> +++ b/fs/xattr.c
+> @@ -656,7 +656,7 @@ SYSCALL_DEFINE5(lsetxattr, const char __user *, =
+pathname,
+> SYSCALL_DEFINE5(fsetxattr, int, fd, const char __user *, name,
+> 		const void __user *,value, size_t, size, int, flags)
+> {
+> -	struct fd f =3D fdget(fd);
+> +	struct fd f =3D fdget_raw(fd);
+> 	int error =3D -EBADF;
+>=20
+> 	if (!f.file)
+> @@ -768,7 +768,7 @@ SYSCALL_DEFINE4(lgetxattr, const char __user *, =
+pathname,
+> SYSCALL_DEFINE4(fgetxattr, int, fd, const char __user *, name,
+> 		void __user *, value, size_t, size)
+> {
+> -	struct fd f =3D fdget(fd);
+> +	struct fd f =3D fdget_raw(fd);
+> 	ssize_t error =3D -EBADF;
+>=20
+> 	if (!f.file)
+> @@ -844,7 +844,7 @@ SYSCALL_DEFINE3(llistxattr, const char __user *, =
+pathname, char __user *, list,
+>=20
+> SYSCALL_DEFINE3(flistxattr, int, fd, char __user *, list, size_t, =
+size)
+> {
+> -	struct fd f =3D fdget(fd);
+> +	struct fd f =3D fdget_raw(fd);
+> 	ssize_t error =3D -EBADF;
+>=20
+> 	if (!f.file)
+> @@ -910,7 +910,7 @@ SYSCALL_DEFINE2(lremovexattr, const char __user *, =
+pathname,
+>=20
+> SYSCALL_DEFINE2(fremovexattr, int, fd, const char __user *, name)
+> {
+> -	struct fd f =3D fdget(fd);
+> +	struct fd f =3D fdget_raw(fd);
+> 	int error =3D -EBADF;
+>=20
+> 	if (!f.file)
+> --
+> 2.36.1
+>=20
+
+
+Cheers, Andreas
+
+
+
+
+
+
+--Apple-Mail=_5498CD26-7CAB-44EA-B8BC-C75BC8DD9F40
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename=signature.asc
+Content-Type: application/pgp-signature;
+	name=signature.asc
+Content-Description: Message signed with OpenPGP
 
 -----BEGIN PGP SIGNATURE-----
+Comment: GPGTools - http://gpgtools.org
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmKgwDUACgkQnowa+77/
-2zJ/6xAAkLTU9Ul2UAmHew+KRpY030BvFPBamBvVs0sN/PIHc5wfmO7cTYghuTGb
-/e8ivgrj82yC5RJJkjLHmCdfVw96LJUMF7lndYn8xJU0yOSkTvmwfD8zuF/eaH/y
-VLLu04Vb9v0tVFDUZ2Z64HSCiJ8jX7NacFtUIICKod3JTZxvsgU8SjkjsyWzdbUb
-G3AaP0jmTgg8goNdh0QHbJiBbQO/x+VvXGlCPCPm3j6S1vHiN/xsCJzqx3mLXnSJ
-NiT/aKOyN1eXrC7gSU9oB6xMqsWJPmDMoZUQY+iccPCgSrLOE60njq/QKF+ku2x9
-R6bIbvn88FE6Epy5/lx9JVxRlqqh1dwmK7ECr5S+BJv4n/SLzQiLXSZTkaab2DhD
-Ig6VbcrnX0iCWwvefMMCATjh1O2Oq3EQ8mQiEl40o2C3KJQy9uW6BO988A2Sbjkc
-UaOXNyuLIYz0Rq8yesOmGCY9FELwKo4xg0/DXUblOUuyeH+0h4Fbem3Q+K93TCjV
-HJ2Q8ptekWW0WbX3M+yDXc/r01ig+KhftPI+GWu7fFGwSFEOX9vp7BwUQS+Pr/vT
-jRBMdNCrvlm5Vpl2CWnSSQAA2XSPHwBGznGyRW0IiIAsRlCTnkxYLhUCXQjRM6iM
-K7frZdpy966AXk7C0fx6PbOGszKKy4E1iA4QYdwX6rRtPn1HykA=
-=nZaz
+iQIzBAEBCAAdFiEEDb73u6ZejP5ZMprvcqXauRfMH+AFAmKg0/cACgkQcqXauRfM
+H+Cr1A/9GWZGOg+kt6I+09zL5KisPWOXiA1uxzaae5CcnznwYr60ZJQz2Hn7NEnR
+PfvHoyl1GS01x19rtV7TFszbjtwmiPvhh+zfjhLYzEUFnou3QTJhgVFcIzKqDnMJ
+t366qvA7dIcnGxqVPCWNepIELFOv2na8+AO6S/q6MeeTTS2P3KmqhWOsvioe1N+H
+93NN+vCPCIjs0pDM22V4GJ9BP4adrJZRUG0UGIForSpgjyNpGn2KVXtmM9gntYS5
+gCv6vm6VQpcTIkJrwXI8nebI2MrsG752HZT3H5E5byGzoY6XUPnFuIdRurifeR/m
+mjA+ZrqTycEbGbULpZ6/W+mYCpi/64d/voYqF9akMgqoaj5CGT/IpKpdgZKDsfR6
+qsbZeuvkBnzGqlgZcKlN8ArFnx56SonH+H/LgDGKoQEi+LlGkXTBw+YT262tQAZU
+8OVwDUIGCi98pq+ZCr2mlCUu/p3aOeKZbjJXxbPlSkjZy7RFdqPFdmO5wmlcCsUu
+chzNHpo3cUpGwbesF++ArwboJV3/ffKwo7+9UxzIb+qJGPKcfSaB3Xbrjj3igOKy
+tjG2jLlpfvN8lxHMY036peNmFXH6Ok95a8Zd8vZDaZxhrbT6J0gb3wyZ/NgDkeTJ
+0DlIrUibeXEH4VHzGlkuYiwmN1HlOhynJ2SB9afRYw6WgoAvcX8=
+=76kK
 -----END PGP SIGNATURE-----
 
---------------Pt0ls0v0oG2vlp5WhyXXG97H--
+--Apple-Mail=_5498CD26-7CAB-44EA-B8BC-C75BC8DD9F40--
