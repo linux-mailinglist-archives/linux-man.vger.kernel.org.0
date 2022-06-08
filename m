@@ -2,142 +2,160 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 6C7225430B2
-	for <lists+linux-man@lfdr.de>; Wed,  8 Jun 2022 14:49:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id F15975435CD
+	for <lists+linux-man@lfdr.de>; Wed,  8 Jun 2022 17:00:49 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S239548AbiFHMsX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 8 Jun 2022 08:48:23 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34176 "EHLO
+        id S242217AbiFHPAm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 8 Jun 2022 11:00:42 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:32994 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S239514AbiFHMsT (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 8 Jun 2022 08:48:19 -0400
-Received: from ams.source.kernel.org (ams.source.kernel.org [IPv6:2604:1380:4601:e00::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2AB2692D0C;
-        Wed,  8 Jun 2022 05:48:17 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by ams.source.kernel.org (Postfix) with ESMTPS id CF7B4B8276C;
-        Wed,  8 Jun 2022 12:48:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D66FC34116;
-        Wed,  8 Jun 2022 12:48:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1654692494;
-        bh=kL7aqTzSrEHcf3xZnL9DdRnwdBZsFUKtW/2ujP1VUbA=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=t+UPSSFw+vgYMzwwfmzMdDix74pc+PpAiHwFtFPbm0Rmj5nt+c93ofl1Absuy8yre
-         2rVzdZOxFIttdCCnGT4hEBVVtOVHP281fHSOQCtzoiy2GxMTKLGW9dqw9eUJ8DRfoI
-         59Xc/ltMZWoqXp5QV75udZRKq1gDkWO7ore0oaD9pXJ9cLK2oG4OzhE2jP4/CTyf1J
-         BPJtzBgsFnYlWlZoKRPO3ZXpHq3PJ/Wn1kqdoqFnzSiQ/x0naJwOERiFExY+Eo/Hsb
-         0Z7orm0A5tvTn2jhiZUJusrIEYY21CSypQxJxVEtR60fAyBy4zofy73/IwZczAMKPK
-         Tan82+dxllvFw==
-Date:   Wed, 8 Jun 2022 14:48:08 +0200
-From:   Christian Brauner <brauner@kernel.org>
-To:     Amir Goldstein <amir73il@gmail.com>
-Cc:     Christian =?utf-8?B?R8O2dHRzY2hl?= <cgzones@googlemail.com>,
-        selinux@vger.kernel.org, Miklos Szeredi <mszeredi@redhat.com>,
-        Linux API <linux-api@vger.kernel.org>,
-        linux-man <linux-man@vger.kernel.org>,
-        Alexander Viro <viro@zeniv.linux.org.uk>,
-        linux-fsdevel <linux-fsdevel@vger.kernel.org>,
-        linux-kernel <linux-kernel@vger.kernel.org>
-Subject: Re: [RFC PATCH] f*xattr: allow O_PATH descriptors
-Message-ID: <20220608124808.uylo5lntzfgxxmns@wittgenstein>
-References: <20220607153139.35588-1-cgzones@googlemail.com>
- <20220608112728.b4xrdppxqmyqmtwf@wittgenstein>
- <CAOQ4uxipD6khNUYuZT80WUa0KOMdyyP0ia55uhmeRCLj4NBicg@mail.gmail.com>
+        with ESMTP id S244201AbiFHO7V (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 8 Jun 2022 10:59:21 -0400
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 276853E3E95
+        for <linux-man@vger.kernel.org>; Wed,  8 Jun 2022 07:55:31 -0700 (PDT)
+Received: by mail-wr1-f53.google.com with SMTP id q15so20666132wrc.11
+        for <linux-man@vger.kernel.org>; Wed, 08 Jun 2022 07:55:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=message-id:date:mime-version:user-agent:subject:content-language:to
+         :cc:references:from:in-reply-to;
+        bh=7b77RB5p9VODmNgSKLypgI/Y/+Qm4WvZC9CEZmjKpHI=;
+        b=EdxNxBqo2+4bK1wiHBWklflwdWrBdRztDhKpoM2CZirUll2ebp+5WFO1TXzKh+4rZY
+         dZlpxgFAmu8wi8F/SkyLGoUEqqni8HyqhUJ9mGOi3qx607Fway9FJtdWDn6W1nQR3i/t
+         ygmPlTawlw6dCMRKFHmzqlS7q620sE6lCdvaE42ULFZGDBiT860gxqPgOVEE4YJpiqn0
+         CsFDazAFnnhqHKWTi6T1BFEpcl/S3/Fuf/MPSZk1INCbiyQmPVoSIhhOuzoYWR7IhHlD
+         X9SKxm7qoRkGHh5t4WG8T6sw9TTpE1+3Ma5yPIvifgRR588HPR8C/Rmj9SowhZXXOTVk
+         2LSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+         :content-language:to:cc:references:from:in-reply-to;
+        bh=7b77RB5p9VODmNgSKLypgI/Y/+Qm4WvZC9CEZmjKpHI=;
+        b=IBhwFYd9yzkiMqRpj12UFVjbrzsChGAIeupRftvlrkPZBt3KtI7wUKe/FoA1HtW+aU
+         S/eteJoTBh/IUg4mcJV7KC1KwGx6wINEQ0CnOyGZmtf9vnAA3HmvvG7ig7pk38tRKZfi
+         V+QfCNVbp6+uu6yp69nSbXsP8NZLfIEGBdS9feAQ8FtA2rfdWV4DbxyUZmbGspN0GASY
+         CZYH3DR6/fcwqr4alAhXprlUYjmmiZzNf/xr05gc0MiJq8Bpj5fYp7NhjGjsLfVyRWdk
+         VdIcgh4uSKehGS5y5J1X50VSOqhUrYRXfc7fjIHeurVGc0f9aItcx6BqwiACREsnFKo9
+         p8bQ==
+X-Gm-Message-State: AOAM532+fLDnwGN24wT6XOCnOjljM0yC9mYCHjTvCO5mTTQ1C/tlZzJw
+        GoYd72DD1LGIYWFQkNVHbJo=
+X-Google-Smtp-Source: ABdhPJwJpjz1JwLZwkxfWLFZExMvud1NG06B6TOJGIqlXIi4DjDXDcca+qiuIc0oqGaJcGP+ufwhSg==
+X-Received: by 2002:adf:eacb:0:b0:217:dd5:445f with SMTP id o11-20020adfeacb000000b002170dd5445fmr20781498wrn.359.1654699989558;
+        Wed, 08 Jun 2022 07:53:09 -0700 (PDT)
+Received: from [192.168.157.138] ([62.77.182.180])
+        by smtp.gmail.com with ESMTPSA id a7-20020a7bc1c7000000b0039c5497deccsm9237134wmj.1.2022.06.08.07.53.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 08 Jun 2022 07:53:08 -0700 (PDT)
+Message-ID: <d3320423-4318-713c-663c-92946249bc41@gmail.com>
+Date:   Wed, 8 Jun 2022 16:55:56 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAOQ4uxipD6khNUYuZT80WUa0KOMdyyP0ia55uhmeRCLj4NBicg@mail.gmail.com>
-X-Spam-Status: No, score=-8.3 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
-        autolearn_force=no version=3.4.6
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+Subject: Re: [PATCH v2] pipe.2: Add mention of O_NOTIFICATION_PIPE flag
+Content-Language: en-US
+To:     chrubis@suse.cz, linux-man@vger.kernel.org
+Cc:     David Howells <dhowells@redhat.com>
+References: <20220608124645.12622-1-chrubis@suse.cz>
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <20220608124645.12622-1-chrubis@suse.cz>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------XXdO0jYEayq6srZOFRBwciSz"
+X-Spam-Status: No, score=-3.3 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,
+        T_SCC_BODY_TEXT_LINE autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed, Jun 08, 2022 at 03:28:52PM +0300, Amir Goldstein wrote:
-> On Wed, Jun 8, 2022 at 2:57 PM Christian Brauner <brauner@kernel.org> wrote:
-> >
-> > On Tue, Jun 07, 2022 at 05:31:39PM +0200, Christian Göttsche wrote:
-> > > From: Miklos Szeredi <mszeredi@redhat.com>
-> > >
-> > > Support file descriptors obtained via O_PATH for extended attribute
-> > > operations.
-> > >
-> > > Extended attributes are for example used by SELinux for the security
-> > > context of file objects. To avoid time-of-check-time-of-use issues while
-> > > setting those contexts it is advisable to pin the file in question and
-> > > operate on a file descriptor instead of the path name. This can be
-> > > emulated in userspace via /proc/self/fd/NN [1] but requires a procfs,
-> > > which might not be mounted e.g. inside of chroots, see[2].
-> > >
-> > > [1]: https://github.com/SELinuxProject/selinux/commit/7e979b56fd2cee28f647376a7233d2ac2d12ca50
-> > > [2]: https://github.com/SELinuxProject/selinux/commit/de285252a1801397306032e070793889c9466845
-> > >
-> > > Original patch by Miklos Szeredi <mszeredi@redhat.com>
-> > > https://patchwork.kernel.org/project/linux-fsdevel/patch/20200505095915.11275-6-mszeredi@redhat.com/
-> > >
-> > > > While this carries a minute risk of someone relying on the property of
-> > > > xattr syscalls rejecting O_PATH descriptors, it saves the trouble of
-> > > > introducing another set of syscalls.
-> > > >
-> > > > Only file->f_path and file->f_inode are accessed in these functions.
-> > > >
-> > > > Current versions return EBADF, hence easy to detect the presense of
-> > > > this feature and fall back in case it's missing.
-> > >
-> > > CC: linux-api@vger.kernel.org
-> > > CC: linux-man@vger.kernel.org
-> > > Signed-off-by: Christian Göttsche <cgzones@googlemail.com>
-> > > ---
-> >
-> > I'd be somewhat fine with getxattr and listxattr but I'm worried that
-> > setxattr/removexattr waters down O_PATH semantics even more. I don't
-> > want O_PATH fds to be useable for operations which are semantically
-> > equivalent to a write.
-> 
-> It is not really semantically equivalent to a write if it works on a
-> O_RDONLY fd already.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------XXdO0jYEayq6srZOFRBwciSz
+Content-Type: multipart/mixed; boundary="------------b0AcYd2Ls6yxi74ovAgFAoQQ";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: chrubis@suse.cz, linux-man@vger.kernel.org
+Cc: David Howells <dhowells@redhat.com>
+Message-ID: <d3320423-4318-713c-663c-92946249bc41@gmail.com>
+Subject: Re: [PATCH v2] pipe.2: Add mention of O_NOTIFICATION_PIPE flag
+References: <20220608124645.12622-1-chrubis@suse.cz>
+In-Reply-To: <20220608124645.12622-1-chrubis@suse.cz>
 
-The fact that it works on a O_RDONLY fd has always been weird. And is
-probably a bug. If you look at xattr_permission() you can see that it
-checks for MAY_WRITE for set operations... setxattr() writes to disk for
-real filesystems. I don't know how much closer to a write this can get.
+--------------b0AcYd2Ls6yxi74ovAgFAoQQ
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-In general, one semantic aberration doesn't justify piling another one
-on top.
+SGkgQ3lyaWwsDQoNCk9uIDYvOC8yMiAxNDo0NiwgY2hydWJpc0BzdXNlLmN6IHdyb3RlOg0K
+PiBGcm9tOiBDeXJpbCBIcnViaXMgPGNocnViaXNAc3VzZS5jej4NCj4gDQo+IFRoaXMgYWRk
+cyB2ZXJ5IGJhc2ljIGluZm9ybWF0aW9uIGFib3V0IHRoZSBub3RpZmljYXRpb24gcGlwZSB0
+aGF0IGhhdmUNCj4gYmVlbiBhZGRlZCBpbnRvIExpbnV4IDUuOC4NCj4gDQo+IFRoZXJlIGlz
+IHNvbWUgZGVzY3JpcHRpb24gYWJvdXQgdGhlIGludGVyZmFjZSBhdDoNCj4gDQo+IGh0dHBz
+Oi8vd3d3Lmtlcm5lbC5vcmcvZG9jL2h0bWwvbGF0ZXN0L2NvcmUtYXBpL3dhdGNoX3F1ZXVl
+Lmh0bWwNCj4gDQo+IChJIHRoaW5rIHRoYXQgdGhlcmUgaXMgYXQgbGVhc3Qgb24gYnVnIGlu
+IHRoYXQgcGFnZSwgc2luY2UgdGhlDQo+IG5vdGlmaWNhdGlvbiBwaXBlIGhhcyB0byBiZSBv
+cGVuZWQgd2l0aCBPX05PVElGSUNBVElPTl9QSVBFIHdoaWNoIGlzDQo+IGRlZmluZWQgdG8g
+T19FWENMIG5vdCBPX1RNUEZJTEUpDQo+IA0KPiBUaGUgRU5PUEtHIGVycm9yIHNob3VsZCBi
+ZSBjbGVhciBmcm9tIHRoaXMgaGVhZGVyIChzZWUNCj4gd2F0Y2hfcXVldWVfaW5pdCgpIGF0
+IHRoZSBlbmQpOg0KPiANCj4gaHR0cHM6Ly9naXRodWIuY29tL3RvcnZhbGRzL2xpbnV4L2Js
+b2IvNWJmYzc1ZDkyZWZkNDk0ZGIzN2Y1YzRjMTczZDM2MzlkNDc3Mjk2Ni9pbmNsdWRlL2xp
+bnV4L3dhdGNoX3F1ZXVlLmgNCj4gDQo+IFNpZ25lZC1vZmYtYnk6IEN5cmlsIEhydWJpcyA8
+Y2hydWJpc0BzdXNlLmN6Pg0KDQpUaGFua3MgZm9yIHRoZSBwYXRjaC4gIEFwcGxpZWQuDQoN
+CkNoZWVycywNCg0KQWxleA0KDQo+IC0tLQ0KPiAgIG1hbjIvcGlwZS4yIHwgMTggKysrKysr
+KysrKysrKysrKysrDQo+ICAgMSBmaWxlIGNoYW5nZWQsIDE4IGluc2VydGlvbnMoKykNCj4g
+DQo+IGRpZmYgLS1naXQgYS9tYW4yL3BpcGUuMiBiL21hbjIvcGlwZS4yDQo+IGluZGV4IDQx
+YTQ4MmYzNy4uYmQwMWI4ZGEwIDEwMDY0NA0KPiAtLS0gYS9tYW4yL3BpcGUuMg0KPiArKysg
+Yi9tYW4yL3BpcGUuMg0KPiBAQCAtMTQ5LDYgKzE0OSwxNSBAQCByZWZlcnJlZCB0byBieSB0
+aGUgbmV3IGZpbGUgZGVzY3JpcHRvcnMuDQo+ICAgVXNpbmcgdGhpcyBmbGFnIHNhdmVzIGV4
+dHJhIGNhbGxzIHRvDQo+ICAgLkJSIGZjbnRsICgyKQ0KPiAgIHRvIGFjaGlldmUgdGhlIHNh
+bWUgcmVzdWx0Lg0KPiArLlRQDQo+ICsuQiBPX05PVElGSUNBVElPTl9QSVBFDQo+ICtTaW5j
+ZSBMaW51eCA1LjgsDQo+ICsuXCIgY29tbWl0IGM3M2JlNjFjZWRlNTg4MmY5NjA1YTg1MjQx
+NGRiNTU5YzBlYmVkZmQNCj4gK2dlbmVyYWwgbm90aWZpY2F0aW9uIG1lY2hhbmlzbSBpcyBi
+dWlsdCBvbiB0aGUgdG9wIG9mIHRoZSBwaXBlIHdoZXJlIGtlcm5lbA0KPiArc3BsaWNlcyBu
+b3RpZmljYXRpb24gbWVzc2FnZXMgaW50byBwaXBlcyBvcGVuZWQgYnkgdXNlciBzcGFjZS4N
+Cj4gK1RoZSBvd25lciBvZiB0aGUgcGlwZSBoYXMgdG8gdGVsbCB0aGUga2VybmVsIHdoaWNo
+IHNvdXJjZXMgb2YgZXZlbnRzIHRvIHdhdGNoDQo+ICthbmQgZmlsdGVycyBjYW4gYWxzbyBi
+ZSBhcHBsaWVkIHRvIHNlbGVjdCB3aGljaCBzdWJldmVudHMgc2hvdWxkIGJlIHBsYWNlZCBp
+bnRvDQo+ICt0aGUgcGlwZS4NCj4gICAuU0ggUkVUVVJOIFZBTFVFDQo+ICAgT24gc3VjY2Vz
+cywgemVybyBpcyByZXR1cm5lZC4NCj4gICBPbiBlcnJvciwgXC0xIGlzIHJldHVybmVkLA0K
+PiBAQCAtMTkxLDYgKzIwMCwxNSBAQCBUaGUgc3lzdGVtLXdpZGUgbGltaXQgb24gdGhlIHRv
+dGFsIG51bWJlciBvZiBvcGVuIGZpbGVzIGhhcyBiZWVuIHJlYWNoZWQuDQo+ICAgVGhlIHVz
+ZXIgaGFyZCBsaW1pdCBvbiBtZW1vcnkgdGhhdCBjYW4gYmUgYWxsb2NhdGVkIGZvciBwaXBl
+cw0KPiAgIGhhcyBiZWVuIHJlYWNoZWQgYW5kIHRoZSBjYWxsZXIgaXMgbm90IHByaXZpbGVn
+ZWQ7IHNlZQ0KPiAgIC5CUiBwaXBlICg3KS4NCj4gKy5UUA0KPiArLkIgRU5PUEtHDQo+ICsu
+UkIgKCBwaXBlMiAoKSkNCj4gKy5CIE9fTk9USUZJQ0FUSU9OX1BJUEUNCj4gK3dhcyBwYXNz
+ZWQgaW4NCj4gKy5JIGZsYWdzDQo+ICthbmQgc3VwcG9ydCBmb3Igbm90aWZpY2F0aW9ucw0K
+PiArLlJCICggQ09ORklHX1dBVENIX1FVRVVFICkNCj4gK2lzIG5vdCBjb21waWxlZCBpbnRv
+IHRoZSBrZXJuZWwuDQo+ICAgLlNIIFZFUlNJT05TDQo+ICAgLkJSIHBpcGUyICgpDQo+ICAg
+d2FzIGFkZGVkIHRvIExpbnV4IGluIHZlcnNpb24gMi42LjI3Ow0KDQoNCi0tIA0KQWxlamFu
+ZHJvIENvbG9tYXINCkxpbnV4IG1hbi1wYWdlcyBjb21haW50YWluZXI7IGh0dHA6Ly93d3cu
+a2VybmVsLm9yZy9kb2MvbWFuLXBhZ2VzLw0KaHR0cDovL3d3dy5hbGVqYW5kcm8tY29sb21h
+ci5lcy8NCg==
 
-(And one thing that speaks for O_RDONLY is at least that it actually
-opens the file wheres O_PATH doesn't.)
+--------------b0AcYd2Ls6yxi74ovAgFAoQQ--
 
-> 
-> >
-> > In sensitive environments such as service management/container runtimes
-> > we often send O_PATH fds around precisely because it is restricted what
-> > they can be used for. I'd prefer to not to plug at this string.
-> 
-> But unless I am mistaken, path_setxattr() and syscall_fsetxattr()
-> are almost identical w.r.t permission checks and everything else.
-> 
-> So this change introduces nothing new that a user in said environment
-> cannot already accomplish with setxattr().
-> 
-> Besides, as the commit message said, doing setxattr() on an O_PATH
-> fd is already possible with setxattr("/proc/self/$fd"), so whatever security
-> hole you are trying to prevent is already wide open.
+--------------XXdO0jYEayq6srZOFRBwciSz
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-That is very much a something that we're trying to restrict for this
-exact reason and is one of the main motivator for upgrade mask in
-openat2(). If I want to send a O_PATH around I want it to not be
-upgradable. Aleksa is working on upgrade masks with openat2() (see [1]
-and part of the original patchset in [2]. O_PATH semantics don't need to
-become weird.
+-----BEGIN PGP SIGNATURE-----
 
-[1]: https://lore.kernel.org/all/20220526130355.fo6gzbst455fxywy@senku
-[2]: https://patchwork.ozlabs.org/project/linuxppc-dev/patch/20190728010207.9781-8-cyphar@cyphar.com
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmKguHwACgkQnowa+77/
+2zJLvxAAoFD41HXtwgRHSbpFQpfYB7fRjVmSjawN7ZijY23MU5d0fJhf0xeQKCkB
+R+0sD0ZvlkvRWkv28yZBrmExKhNM08I/+GMSHhdpRX0PvQqnBG3HPo4xkJYgdz5g
+QfzAS/fS/v3ADqbJ1ErHiPM8zrrvIPEje8FA0iRfucCVEtYuPN3In+YVHMkbkxR/
+tL3mnE+HmFjzA4qgwFCjUcYZav6YJMAAuwS2J5O0J+yRJ62kI33bhmIK/u6WtW+T
+nR5/mpcGjfGcTrZHZ9EGF/i5eejq3z5FUqjkrPc1ZDZlwse0mgLzTzBWPmReWnG7
+C1HNUj4M0d08PAd1AvKkt6koFyl04IFXQsKhZLURNtx1XsXaEFuftmSsz8gNaX17
+AtwIUMMeZMLCK31gEB4gPR4eC5IhhJobFMVAOWh9fokiFOVlvDP5Zn3vDii62u8B
+CEGeZoBqvCtEG6t6wutLbgV7CURiybsi5nGU/kaKlBqEsSbOF6gcqYIXCVJ+jKu/
+MdZLmg7t7JjTygj5rCmd++tHR9NdLwDIvE8OoX70+/SLS6kEzODibzrT8gFPdNpo
+nReAYudkzzmN5EvNhZoCb7L/7mpht2hh3bzbv+o43+KB6m7CWSRT3OtUWjQIt5qE
+G8O2KwFvH+GCSUE1+YoakIfCr9ZnS9N24md+zAdim+UsK9UUycU=
+=wDmd
+-----END PGP SIGNATURE-----
+
+--------------XXdO0jYEayq6srZOFRBwciSz--
