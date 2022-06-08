@@ -2,141 +2,127 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 73291543057
-	for <lists+linux-man@lfdr.de>; Wed,  8 Jun 2022 14:30:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7A9445430AB
+	for <lists+linux-man@lfdr.de>; Wed,  8 Jun 2022 14:44:58 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S238797AbiFHM3K (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 8 Jun 2022 08:29:10 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55248 "EHLO
+        id S239480AbiFHMoy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 8 Jun 2022 08:44:54 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49144 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S238771AbiFHM3G (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 8 Jun 2022 08:29:06 -0400
-Received: from mail-vk1-xa35.google.com (mail-vk1-xa35.google.com [IPv6:2607:f8b0:4864:20::a35])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D95A2197633;
-        Wed,  8 Jun 2022 05:29:04 -0700 (PDT)
-Received: by mail-vk1-xa35.google.com with SMTP id b81so8929394vkf.1;
-        Wed, 08 Jun 2022 05:29:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc:content-transfer-encoding;
-        bh=f4V/IVq1SDeom2vqT5N+sNfIDOM6t2OTeeKHOwD8dgU=;
-        b=pVjO1TAswW7Hhn2+lFzvRdcMwOw+WmK2bljOQKFQ+RAOtqLXCZ0F17V3HRHhYkFi9w
-         MyIKoR2lZP3t1HsfLpIrB+Wcd2O8uON+0fA/fWHpqQIVFpxWkQR45PEusG15UdjyxVJ5
-         9NAno4FgTzlwGxa3SKjPPeyNA7ZeAV4KLuDQavEHZIY5aqjPcv+wP0FuziBHxy+DVsSu
-         ee0GH/81eTRUCUcalKp2ZboUIDhm2b7bKAD9WJbziuGlDQLvGa3OqLFNX+MdhiqFNp9x
-         49Evmr88+qwbBSMfikgfmDDkuaMzSBR7yFSEcBKsTUHX/3SLmLnMyhW6eYr8Ts/2MjPx
-         QPmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc:content-transfer-encoding;
-        bh=f4V/IVq1SDeom2vqT5N+sNfIDOM6t2OTeeKHOwD8dgU=;
-        b=BqHQMiECIei0LdGNv9bKplAkZ+6LCx7URkCdxv49usmButOURVngTjk1e6oQN4wSBr
-         qdvTkSLpHXzd5JESfYpXBnAGLk1ajDKh3BtiNEg2IjW85rzet2T5OwB/pm6fbdzpAR3N
-         tmcLmF6mkbDxiuIQqmAT7QT6qPz2GKSH/37x5KSnS/J5avx2VgY+H552dzvszwAzJO8p
-         jyfUVyDHBVr/dmocqmBu1mmSNT89JyBcHhMwP4SV3KwN1QMXzJ7ZLLWlhdbOTsCkeqjr
-         jdqx9rulSbZmEIjOYK/ktqgwBWAY+Rz46m39sELQRP/S6LCslFcEKb4wzTHBzsryE4gc
-         8RHw==
-X-Gm-Message-State: AOAM533KqNOLCQqR8gIPwM9FDj5Q8druLYZREqosu8QSxdTDB9wKIA8X
-        Ii4Z+AoJ9cbN+zvIfZwFISURWAbO1UyFdPEeHgc=
-X-Google-Smtp-Source: ABdhPJz+JRSH7Idqz2ZYYyaHo9knqc1AnXrfwLvNptq2n0uw8RR6U3EXffp2wvgixb9A4ygoHKoQfkN8+4owOPQWuU8=
-X-Received: by 2002:a05:6122:2205:b0:321:230a:53e1 with SMTP id
- bb5-20020a056122220500b00321230a53e1mr18619635vkb.25.1654691343974; Wed, 08
- Jun 2022 05:29:03 -0700 (PDT)
+        with ESMTP id S239409AbiFHMow (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 8 Jun 2022 08:44:52 -0400
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8E6AB1451D8
+        for <linux-man@vger.kernel.org>; Wed,  8 Jun 2022 05:44:51 -0700 (PDT)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+         key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+        (No client certificate requested)
+        by smtp-out1.suse.de (Postfix) with ESMTPS id 2B7AF21C87;
+        Wed,  8 Jun 2022 12:44:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+        t=1654692290; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+         mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+        bh=R3EDJX/EEDho5gUvUXpR5EANkrVpNKpbrK7jS4T3j4I=;
+        b=0H0xnXM5kherXr6G4X5UqD4hG6ZxJm6rovbvuHtjbUl2/whKa8F+ouBMZM0Bl+T2KXSoUK
+        4yTOfcu/0FoAtLq3C7Ezv00NcjUAvId9lwzo7hx0rnK3O8r1h/HVXLhJ9BOghq1Rm6llxQ
+        Jz8BD3CUklBI05sKQG12gvbExiyIJIs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+        s=susede2_ed25519; t=1654692290;
+        h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+         mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+        bh=R3EDJX/EEDho5gUvUXpR5EANkrVpNKpbrK7jS4T3j4I=;
+        b=JCornp+eskGO+80eGvYVO46jI1KwBWZu94d//1kIp8XF+o7NhjGs+WZSE2mL4YITsfMqsw
+        aAu/OoBYiXwWblBg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+         key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+        (No client certificate requested)
+        by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 151F313AD9;
+        Wed,  8 Jun 2022 12:44:50 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+        by imap2.suse-dmz.suse.de with ESMTPSA
+        id loPsA8KZoGINRQAAMHmgww
+        (envelope-from <chrubis@suse.cz>); Wed, 08 Jun 2022 12:44:50 +0000
+From:   chrubis@suse.cz
+To:     linux-man@vger.kernel.org
+Cc:     alx.manpages@gmail.com, mtk.manpages@gmail.com,
+        Cyril Hrubis <chrubis@suse.cz>
+Subject: [PATCH v2] pipe.2: Add mention of O_NOTIFICATION_PIPE flag
+Date:   Wed,  8 Jun 2022 14:46:45 +0200
+Message-Id: <20220608124645.12622-1-chrubis@suse.cz>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-References: <20220607153139.35588-1-cgzones@googlemail.com> <20220608112728.b4xrdppxqmyqmtwf@wittgenstein>
-In-Reply-To: <20220608112728.b4xrdppxqmyqmtwf@wittgenstein>
-From:   Amir Goldstein <amir73il@gmail.com>
-Date:   Wed, 8 Jun 2022 15:28:52 +0300
-Message-ID: <CAOQ4uxipD6khNUYuZT80WUa0KOMdyyP0ia55uhmeRCLj4NBicg@mail.gmail.com>
-Subject: Re: [RFC PATCH] f*xattr: allow O_PATH descriptors
-To:     Christian Brauner <brauner@kernel.org>
-Cc:     =?UTF-8?Q?Christian_G=C3=B6ttsche?= <cgzones@googlemail.com>,
-        selinux@vger.kernel.org, Miklos Szeredi <mszeredi@redhat.com>,
-        Linux API <linux-api@vger.kernel.org>,
-        linux-man <linux-man@vger.kernel.org>,
-        Alexander Viro <viro@zeniv.linux.org.uk>,
-        linux-fsdevel <linux-fsdevel@vger.kernel.org>,
-        linux-kernel <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-        autolearn=ham autolearn_force=no version=3.4.6
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+        SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham autolearn_force=no
+        version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed, Jun 8, 2022 at 2:57 PM Christian Brauner <brauner@kernel.org> wrote=
-:
->
-> On Tue, Jun 07, 2022 at 05:31:39PM +0200, Christian G=C3=B6ttsche wrote:
-> > From: Miklos Szeredi <mszeredi@redhat.com>
-> >
-> > Support file descriptors obtained via O_PATH for extended attribute
-> > operations.
-> >
-> > Extended attributes are for example used by SELinux for the security
-> > context of file objects. To avoid time-of-check-time-of-use issues whil=
-e
-> > setting those contexts it is advisable to pin the file in question and
-> > operate on a file descriptor instead of the path name. This can be
-> > emulated in userspace via /proc/self/fd/NN [1] but requires a procfs,
-> > which might not be mounted e.g. inside of chroots, see[2].
-> >
-> > [1]: https://github.com/SELinuxProject/selinux/commit/7e979b56fd2cee28f=
-647376a7233d2ac2d12ca50
-> > [2]: https://github.com/SELinuxProject/selinux/commit/de285252a18013973=
-06032e070793889c9466845
-> >
-> > Original patch by Miklos Szeredi <mszeredi@redhat.com>
-> > https://patchwork.kernel.org/project/linux-fsdevel/patch/20200505095915=
-.11275-6-mszeredi@redhat.com/
-> >
-> > > While this carries a minute risk of someone relying on the property o=
-f
-> > > xattr syscalls rejecting O_PATH descriptors, it saves the trouble of
-> > > introducing another set of syscalls.
-> > >
-> > > Only file->f_path and file->f_inode are accessed in these functions.
-> > >
-> > > Current versions return EBADF, hence easy to detect the presense of
-> > > this feature and fall back in case it's missing.
-> >
-> > CC: linux-api@vger.kernel.org
-> > CC: linux-man@vger.kernel.org
-> > Signed-off-by: Christian G=C3=B6ttsche <cgzones@googlemail.com>
-> > ---
->
-> I'd be somewhat fine with getxattr and listxattr but I'm worried that
-> setxattr/removexattr waters down O_PATH semantics even more. I don't
-> want O_PATH fds to be useable for operations which are semantically
-> equivalent to a write.
+From: Cyril Hrubis <chrubis@suse.cz>
 
-It is not really semantically equivalent to a write if it works on a
-O_RDONLY fd already.
+This adds very basic information about the notification pipe that have
+been added into Linux 5.8.
 
->
-> In sensitive environments such as service management/container runtimes
-> we often send O_PATH fds around precisely because it is restricted what
-> they can be used for. I'd prefer to not to plug at this string.
+There is some description about the interface at:
 
-But unless I am mistaken, path_setxattr() and syscall_fsetxattr()
-are almost identical w.r.t permission checks and everything else.
+https://www.kernel.org/doc/html/latest/core-api/watch_queue.html
 
-So this change introduces nothing new that a user in said environment
-cannot already accomplish with setxattr().
+(I think that there is at least on bug in that page, since the
+notification pipe has to be opened with O_NOTIFICATION_PIPE which is
+defined to O_EXCL not O_TMPFILE)
 
-Besides, as the commit message said, doing setxattr() on an O_PATH
-fd is already possible with setxattr("/proc/self/$fd"), so whatever securit=
-y
-hole you are trying to prevent is already wide open.
+The ENOPKG error should be clear from this header (see
+watch_queue_init() at the end):
 
-In effect, I think containing setxattr() can only be accomplished with LSM.
+https://github.com/torvalds/linux/blob/5bfc75d92efd494db37f5c4c173d3639d4772966/include/linux/watch_queue.h
 
-Thanks,
-Amir.
+Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
+---
+ man2/pipe.2 | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
+
+diff --git a/man2/pipe.2 b/man2/pipe.2
+index 41a482f37..bd01b8da0 100644
+--- a/man2/pipe.2
++++ b/man2/pipe.2
+@@ -149,6 +149,15 @@ referred to by the new file descriptors.
+ Using this flag saves extra calls to
+ .BR fcntl (2)
+ to achieve the same result.
++.TP
++.B O_NOTIFICATION_PIPE
++Since Linux 5.8,
++.\" commit c73be61cede5882f9605a852414db559c0ebedfd
++general notification mechanism is built on the top of the pipe where kernel
++splices notification messages into pipes opened by user space.
++The owner of the pipe has to tell the kernel which sources of events to watch
++and filters can also be applied to select which subevents should be placed into
++the pipe.
+ .SH RETURN VALUE
+ On success, zero is returned.
+ On error, \-1 is returned,
+@@ -191,6 +200,15 @@ The system-wide limit on the total number of open files has been reached.
+ The user hard limit on memory that can be allocated for pipes
+ has been reached and the caller is not privileged; see
+ .BR pipe (7).
++.TP
++.B ENOPKG
++.RB ( pipe2 ())
++.B O_NOTIFICATION_PIPE
++was passed in
++.I flags
++and support for notifications
++.RB ( CONFIG_WATCH_QUEUE )
++is not compiled into the kernel.
+ .SH VERSIONS
+ .BR pipe2 ()
+ was added to Linux in version 2.6.27;
+-- 
+2.35.1
+
