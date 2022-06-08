@@ -2,54 +2,68 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id CD304541D0A
-	for <lists+linux-man@lfdr.de>; Wed,  8 Jun 2022 00:07:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 96C27542753
+	for <lists+linux-man@lfdr.de>; Wed,  8 Jun 2022 09:03:12 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1379499AbiFGWHl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 7 Jun 2022 18:07:41 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40092 "EHLO
+        id S232316AbiFHG4s (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 8 Jun 2022 02:56:48 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55428 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1383814AbiFGWGd (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 7 Jun 2022 18:06:33 -0400
-X-Greylist: delayed 721 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Tue, 07 Jun 2022 12:17:45 PDT
-Received: from h1.fbrelay.privateemail.com (h1.fbrelay.privateemail.com [131.153.2.42])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0D3A0CFE03
-        for <linux-man@vger.kernel.org>; Tue,  7 Jun 2022 12:17:44 -0700 (PDT)
-Received: from MTA-11-3.privateemail.com (mta-11-1.privateemail.com [198.54.118.201])
-        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-         key-exchange X25519 server-signature RSA-PSS (2048 bits))
-        (No client certificate requested)
-        by h1.fbrelay.privateemail.com (Postfix) with ESMTPS id 3015A1803763
-        for <linux-man@vger.kernel.org>; Tue,  7 Jun 2022 15:05:43 -0400 (EDT)
-Received: from mta-11.privateemail.com (localhost [127.0.0.1])
-        by mta-11.privateemail.com (Postfix) with ESMTP id C4A2D18000AC;
-        Tue,  7 Jun 2022 15:05:40 -0400 (EDT)
-Received: from warhead.local (unknown [10.20.151.191])
-        by mta-11.privateemail.com (Postfix) with ESMTPA id 913A118000A3;
-        Tue,  7 Jun 2022 15:05:36 -0400 (EDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=mebeim.net; s=default;
-        t=1654628740; bh=wpEEAvUo27xgEaZgl7yEQSMrYgWkp4fJBwSioHurTMA=;
-        h=From:To:Cc:Subject:Date:From;
-        b=xT9gDANMnez4lzrlGfME1d0s2sAzEwwrQGql4z1tCb4zTd66axSbMpQdKlxtvNXe2
-         F7mBNCjH40wUw5OFz7shkfdCUxsPn+I8m6SZYbT2qK549v+9h6xEbAmzhyPy9Q3ADM
-         IwaK/xa4P3FkzA2yD4a3P/MEqwFhD05vYcQhkLxjqRVEsTt408cYBLePfjwNmLIrF2
-         /28mWnri6QPiTFO/srH07eQWj99dd8T2f6wSz7m7IUpyhrPbHcfrec71N1ujqw+0A1
-         p0Pbtcb77fpC4jLpezGiEAJefsEogRr/ggQrJ7nF2DsuJ7/fqT0w94+nPZBHIWJckF
-         T4Pae9qRbA1Ng==
-From:   Marco Bonelli <marco@mebeim.net>
-To:     linux-man@vger.kernel.org
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        Marco Bonelli <marco@mebeim.net>
-Subject: [PATCH] proc.5: Document bit 57 for /proc/[pid]/pagemap
-Date:   Tue,  7 Jun 2022 21:04:38 +0200
-Message-Id: <20220607190437.219724-1-marco@mebeim.net>
-X-Mailer: git-send-email 2.30.2
+        with ESMTP id S241477AbiFHGI0 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 8 Jun 2022 02:08:26 -0400
+Received: from mail-vs1-f51.google.com (mail-vs1-f51.google.com [209.85.217.51])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5B279417CD3;
+        Tue,  7 Jun 2022 22:14:49 -0700 (PDT)
+Received: by mail-vs1-f51.google.com with SMTP id q14so18642885vsr.12;
+        Tue, 07 Jun 2022 22:14:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:content-transfer-encoding;
+        bh=QBGwtKpyTYcwHawGkkLJIlVc8uYMzI2DXbLnehmXfbE=;
+        b=SB0WOTvPTBDL580CNJpBSrVLBNq9/eKKCK8hLOT6KVBVv0TrGp2zn/JM1IUJQw6u9G
+         eK8IYj3exswHjhWEXQrSbAZHl8f5WSnJ6kfjSaI8FwZM4nJ8zOM+lwXCPaFkazROYF+R
+         hyhMO1E8boquWtsici45GjRKvi9pPRiAar2Ozft3hQec274g2MwkIgoEJD1Y9bByBJJf
+         FVbLqu7oDS75iva6nVklYe4zTkwweuUxGq+mWeccpUXcr+xwOEKkmVfMcRpVbOkClACN
+         5gYHGH9BHx2AY9PLsi+YeDZSFKy2I3p+HojZR8U2QLhLQ78UHqRbK+044hBz3mbTDBrB
+         A1fg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=QBGwtKpyTYcwHawGkkLJIlVc8uYMzI2DXbLnehmXfbE=;
+        b=vfjEH6tL6pGAbJyASqQG5WbS/Ag5XyyI7q5UeULH5sX9JE0sFjtJkH9jsoIvlVZCKh
+         H+K2jVlrn7AyYTinmHpl1EZpYMQgp9uI1eBE27mVvnvxVIZTkoyZKE6RBKzcKNYQoW0Q
+         oBgxAsW+4AAH9KMwdFAUpD+ScMS9DzPBCxnZYpNPLwUberHgU6Kj9hPw5kwCBWJoWCIw
+         +MitgL7bwvT5yNNL+dIURoo+PHs75qmfUfbQlIotq7jixvPiAZ6GJMeJCuzVDdAgeBor
+         AJ0wHreZEFFc+4vJCbFqxzYQ4OryTTPyjp5/OCo7mjzW5rROBydLilIYQXd/0n91pWos
+         xTOg==
+X-Gm-Message-State: AOAM533uNSVOURNrmncryBxkn+g5cM8iCM2gyDhiRe/AUR4SO+fJPohb
+        rdrkaIb68yT7TAMIeUrSeY8PmYuLprHG+MbxwYA=
+X-Google-Smtp-Source: ABdhPJzt4gBGzWHwFbcparAl2vI/ut9cXMxIMjE1fE+uM8+vrXAB9MlTphllB1wBrc+bU0jzx0MMIHnKz47kUKFMKSQ=
+X-Received: by 2002:a67:70c4:0:b0:349:d442:f287 with SMTP id
+ l187-20020a6770c4000000b00349d442f287mr15008426vsc.2.1654665199165; Tue, 07
+ Jun 2022 22:13:19 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: ClamAV using ClamSMTP
+References: <20220607153139.35588-1-cgzones@googlemail.com>
+In-Reply-To: <20220607153139.35588-1-cgzones@googlemail.com>
+From:   Amir Goldstein <amir73il@gmail.com>
+Date:   Wed, 8 Jun 2022 08:13:07 +0300
+Message-ID: <CAOQ4uxhu3urLps09B8zxnJPJpQXO7g67mEv3yoPRKBeZRdJb7g@mail.gmail.com>
+Subject: Re: [RFC PATCH] f*xattr: allow O_PATH descriptors
+To:     =?UTF-8?Q?Christian_G=C3=B6ttsche?= <cgzones@googlemail.com>
+Cc:     selinux@vger.kernel.org, Miklos Szeredi <mszeredi@redhat.com>,
+        Linux API <linux-api@vger.kernel.org>,
+        linux-man <linux-man@vger.kernel.org>,
+        Alexander Viro <viro@zeniv.linux.org.uk>,
+        linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+        linux-kernel <linux-kernel@vger.kernel.org>,
+        Alejandro Colomar <alx.manpages@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,
         T_SCC_BODY_TEXT_LINE autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -57,34 +71,115 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Bit 57 was introduced in Linux v5.14 to reflect the userfaultfd
-write-protect bit (commit fb8e37f35a2fe1f983ac21850e856e2c7498d469).
+On Wed, Jun 8, 2022 at 5:23 AM Christian G=C3=B6ttsche
+<cgzones@googlemail.com> wrote:
+>
+> From: Miklos Szeredi <mszeredi@redhat.com>
+>
+> Support file descriptors obtained via O_PATH for extended attribute
+> operations.
+>
+> Extended attributes are for example used by SELinux for the security
+> context of file objects. To avoid time-of-check-time-of-use issues while
+> setting those contexts it is advisable to pin the file in question and
+> operate on a file descriptor instead of the path name. This can be
+> emulated in userspace via /proc/self/fd/NN [1] but requires a procfs,
+> which might not be mounted e.g. inside of chroots, see[2].
+>
+> [1]: https://github.com/SELinuxProject/selinux/commit/7e979b56fd2cee28f64=
+7376a7233d2ac2d12ca50
+> [2]: https://github.com/SELinuxProject/selinux/commit/de285252a1801397306=
+032e070793889c9466845
+>
+> Original patch by Miklos Szeredi <mszeredi@redhat.com>
+> https://patchwork.kernel.org/project/linux-fsdevel/patch/20200505095915.1=
+1275-6-mszeredi@redhat.com/
+>
+> > While this carries a minute risk of someone relying on the property of
+> > xattr syscalls rejecting O_PATH descriptors, it saves the trouble of
+> > introducing another set of syscalls.
 
-Signed-off-by: Marco Bonelli <marco@mebeim.net>
----
- man5/proc.5 | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+The bitter irony is that we now want to add another set of syscalls ;-)
 
-diff --git a/man5/proc.5 b/man5/proc.5
-index c668462..c4b4858 100644
---- a/man5/proc.5
-+++ b/man5/proc.5
-@@ -1761,10 +1761,14 @@ If set, the page is in swap space
- 61 (since Linux 3.5)
- The page is a file-mapped page or a shared anonymous page.
- .TP
--60\(en57 (since Linux 3.11)
-+60\(en58 (since Linux 3.11)
- Zero
- .\" Not quite true; see commit 541c237c0923f567c9c4cabb8a81635baadc713f
- .TP
-+57 (since Linux 5.14)
-+If set, the page is write-protected through
-+.BR userfaultfd (2).
-+.TP
- 56 (since Linux 4.2)
- .\" commit 77bb499bb60f4b79cca7d139c8041662860fcf87
- .\" commit 83b4b0bb635eee2b8e075062e4e008d1bc110ed7
--- 
-2.30.2
+https://lore.kernel.org/linux-fsdevel/CAOQ4uxiqG-w8s+zRqk945UtJcE4u0zjPhSs=
+=3DMSYJ0jMLLjUTFg@mail.gmail.com/
 
+> >
+> > Only file->f_path and file->f_inode are accessed in these functions.
+> >
+> > Current versions return EBADF, hence easy to detect the presense of
+> > this feature and fall back in case it's missing.
+>
+> CC: linux-api@vger.kernel.org
+> CC: linux-man@vger.kernel.org
+> Signed-off-by: Christian G=C3=B6ttsche <cgzones@googlemail.com>
+
+I think it is important to inspect this with consistency of the UAPI in min=
+d.
+What I see is that fchdir(), fcntl(), fstat(), fstatat() already accept O_P=
+ATH
+so surely they behave the same w.r.t old kernels and EBADF.
+Those could all be better documented in their man pages.
+
+w.r.t permission checks, this is no different than what *xattr() variants
+already provide.
+
+Therefore, I see no reason to object to this UAPI change.
+
+You may add:
+Reviewed-by: Amir Goldstein <amir73il@gmail.com>
+
+Thanks,
+Amir.
+
+> ---
+>  fs/xattr.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+>
+> diff --git a/fs/xattr.c b/fs/xattr.c
+> index e8dd03e4561e..16360ac4eb1b 100644
+> --- a/fs/xattr.c
+> +++ b/fs/xattr.c
+> @@ -656,7 +656,7 @@ SYSCALL_DEFINE5(lsetxattr, const char __user *, pathn=
+ame,
+>  SYSCALL_DEFINE5(fsetxattr, int, fd, const char __user *, name,
+>                 const void __user *,value, size_t, size, int, flags)
+>  {
+> -       struct fd f =3D fdget(fd);
+> +       struct fd f =3D fdget_raw(fd);
+>         int error =3D -EBADF;
+>
+>         if (!f.file)
+> @@ -768,7 +768,7 @@ SYSCALL_DEFINE4(lgetxattr, const char __user *, pathn=
+ame,
+>  SYSCALL_DEFINE4(fgetxattr, int, fd, const char __user *, name,
+>                 void __user *, value, size_t, size)
+>  {
+> -       struct fd f =3D fdget(fd);
+> +       struct fd f =3D fdget_raw(fd);
+>         ssize_t error =3D -EBADF;
+>
+>         if (!f.file)
+> @@ -844,7 +844,7 @@ SYSCALL_DEFINE3(llistxattr, const char __user *, path=
+name, char __user *, list,
+>
+>  SYSCALL_DEFINE3(flistxattr, int, fd, char __user *, list, size_t, size)
+>  {
+> -       struct fd f =3D fdget(fd);
+> +       struct fd f =3D fdget_raw(fd);
+>         ssize_t error =3D -EBADF;
+>
+>         if (!f.file)
+> @@ -910,7 +910,7 @@ SYSCALL_DEFINE2(lremovexattr, const char __user *, pa=
+thname,
+>
+>  SYSCALL_DEFINE2(fremovexattr, int, fd, const char __user *, name)
+>  {
+> -       struct fd f =3D fdget(fd);
+> +       struct fd f =3D fdget_raw(fd);
+>         int error =3D -EBADF;
+>
+>         if (!f.file)
+> --
+> 2.36.1
+>
