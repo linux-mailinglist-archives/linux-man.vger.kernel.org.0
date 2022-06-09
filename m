@@ -2,140 +2,139 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 3C802544569
-	for <lists+linux-man@lfdr.de>; Thu,  9 Jun 2022 10:13:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3D449544623
+	for <lists+linux-man@lfdr.de>; Thu,  9 Jun 2022 10:40:46 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S236014AbiFIINS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 9 Jun 2022 04:13:18 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54448 "EHLO
+        id S241842AbiFIIjT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 9 Jun 2022 04:39:19 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37206 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232688AbiFIINR (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 9 Jun 2022 04:13:17 -0400
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com [IPv6:2a00:1450:4864:20::62b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 43FB45EDF3
-        for <linux-man@vger.kernel.org>; Thu,  9 Jun 2022 01:13:16 -0700 (PDT)
-Received: by mail-ej1-x62b.google.com with SMTP id bg6so26112008ejb.0
-        for <linux-man@vger.kernel.org>; Thu, 09 Jun 2022 01:13:16 -0700 (PDT)
+        with ESMTP id S241841AbiFIIi5 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 9 Jun 2022 04:38:57 -0400
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com [IPv6:2a00:1450:4864:20::42e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7435EDFE
+        for <linux-man@vger.kernel.org>; Thu,  9 Jun 2022 01:38:56 -0700 (PDT)
+Received: by mail-wr1-x42e.google.com with SMTP id k16so31383646wrg.7
+        for <linux-man@vger.kernel.org>; Thu, 09 Jun 2022 01:38:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=mime-version:sender:from:date:message-id:subject:to
-         :content-transfer-encoding;
-        bh=0XYuJwlWcPhF5wKwZj6AX0M1ehVlcZ8wjqHIDg46ZGY=;
-        b=EV/DomxXS21W3StJ7TvuHijfw2cs47/ctB2bRMZrMuFXc5UMH7tKjjR9uSqrRQX3Nb
-         Yw282h93xRrPEcW3j3LPkFdGcq2+qHJLpKPx/AP5xFXNfBXStWZ1svCG/BFbXhHdb8GS
-         Ycbvm8piP9LqsEXyaatybKn7hGXqnzl0pJHzvrwjwxl4XUMeRVYhgLw7YiwdR5G/wlWn
-         kgT+x7mL1Fr0URTg+AGyKVtVS/dZsG4j4OvPT7yjNDla4nF/HZdtsH8jEYgizwEjx+Qf
-         c1PcU1eyPBc92HP1qOHccRZEMPmUeAQXn9nKp4dnwAnFg8mKncGAVaz/3+2x4miK0nSh
-         XSyA==
+        h=message-id:date:mime-version:user-agent:subject:content-language:to
+         :cc:references:from:in-reply-to;
+        bh=RCQRjKMvmXXnxBt/CXfUtN1HPXgoaNtuulNV535nNVo=;
+        b=c3gc7KMV/clm1nD7i6mpkbZlXzceZdWPKm3iKR5+Ri1KoG5zx4/urupwRbQeU0fmiY
+         40BOrtXchR+qhFxXqLSQSgHkxb+KkigPOJJAoDkbEuZFlad8oxLqmqMBHMDIIZkmCUJx
+         zEqKUXNAH9GF18tn+APPqeU4T7uKEGsqJjWrDITwSCGNFSHAqbvmwn2NSWxa7pxCucox
+         6TPadBVVwJoojvmA3maFto1paMgnl91lQLZhcCXfh65/XnnThgn4CCtMsXVF8CN3UOjF
+         Bu1d1IvJsKsQjj1NfXjARvNL40ZmRLPiovVjVhurH0r31xj7YcPMU0oSULYyqsJIX1pD
+         hCAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:sender:from:date:message-id:subject
-         :to:content-transfer-encoding;
-        bh=0XYuJwlWcPhF5wKwZj6AX0M1ehVlcZ8wjqHIDg46ZGY=;
-        b=M4AUGQ/qOCICKox840vVju1uxZrN+pzmXfP+V9CmSipHij+RDOBgFb/TBkEn56RKO2
-         l9UTAba7VTk6aq7RVRFb53+yFaSdSUKaQ3k1mwSfHG8guK3MaFQb2ohykbxB0wqs/VD0
-         +qtxxEkqJCVNFLO5hTyF+Tf+GAagrb9UTX62pen18viHEEoXV4m3dWcSQFsvka8mdGXj
-         3u6zcTImiptKq6cnHh9yNlgVjrBmf5YlN0VQwhDRGW0+MxRRv996e6no5nKjq2IzSN4Y
-         3Dr1x91PyKV+qWyvHRoHacvBaTQVaLVYljd178iX8cqBwr7MACO57a1abc4qXt21mjP3
-         /wtA==
-X-Gm-Message-State: AOAM532XNBtkEj41D78lETqnrONYeAt6HNphIMMweur91ZFRT9fY2yZz
-        swiwKNwg0bYj6WI36koWzR3gKzDVQYn2XeRqYSM=
-X-Google-Smtp-Source: ABdhPJx52pSKtX9UrbCcV85SCVRZ2WwxB7gUs5FO1FCc4sV0ha9ILIDbtBg9ouBgsGiWfGceFdlLaF6Gol/LNuFeVtU=
-X-Received: by 2002:a17:906:1d1:b0:711:f5fa:4114 with SMTP id
- 17-20020a17090601d100b00711f5fa4114mr6011996ejj.228.1654762394663; Thu, 09
- Jun 2022 01:13:14 -0700 (PDT)
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+         :content-language:to:cc:references:from:in-reply-to;
+        bh=RCQRjKMvmXXnxBt/CXfUtN1HPXgoaNtuulNV535nNVo=;
+        b=VDepTsWltlZ/EOyZvZsy98W9/P/28KSO5qK+aTkFymQQL0i1qWLKVTiQEsyERlcpmI
+         o6fxrQyUyBp23S1ZfQcV3NspBWupShEOnolToyTGUQbyoQm9Z/mkkEmKLbWuRgq2bfxK
+         Opc6MGvyxig57w1n4k+/yJdceAXlC40MEgVEB72ZPjawwuLgL75Q9ud9nloCY7UaZlHs
+         ADuGVXnBlJMORD4VoOM3YUihmU1DWcIiY8Np6m2mINnSIdGXCi79UI6oAoAAdwii8t4Z
+         ge3qBLubLxl1yuxoCC73RjirbC6QNjZn6txgNgDu7qUd7XGtWejMxqSPLbYv9eMeO30x
+         zmMg==
+X-Gm-Message-State: AOAM53034miakXZeVW3RGcD3BSnbhvLwxXNNiSj9KzGJraRT7+2q/f1t
+        5cz83ZX70wzY3h3TIsErnBQ=
+X-Google-Smtp-Source: ABdhPJz075k4N+DKdbnBI4J1//QjYzyMXa8PGSleLw6nSM4iXRJQwGqUBFNfwXVV40oepJNdjkbtBQ==
+X-Received: by 2002:adf:d1ec:0:b0:210:2c68:a06d with SMTP id g12-20020adfd1ec000000b002102c68a06dmr37163819wrd.37.1654763934954;
+        Thu, 09 Jun 2022 01:38:54 -0700 (PDT)
+Received: from [192.168.42.187] ([31.221.238.245])
+        by smtp.gmail.com with ESMTPSA id d14-20020a5d6dce000000b0020c5253d927sm23886474wrz.115.2022.06.09.01.38.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 09 Jun 2022 01:38:54 -0700 (PDT)
+Message-ID: <a2009ae6-7f51-f7c5-e108-f0c89a17a963@gmail.com>
+Date:   Thu, 9 Jun 2022 10:41:41 +0200
 MIME-Version: 1.0
-Sender: wizguy687@gmail.com
-Received: by 2002:a17:907:970e:0:0:0:0 with HTTP; Thu, 9 Jun 2022 01:13:13
- -0700 (PDT)
-From:   Dina Mckenna <dinamckenna1894@gmail.com>
-Date:   Thu, 9 Jun 2022 08:13:13 +0000
-X-Google-Sender-Auth: TlLqc5Vp0z6MsN3wlkxkKM4cuC8
-Message-ID: <CAGNBjBecnha7R_Do+BG9ePEJ7bPMd2isSsGL34J5Q-vtQG48tg@mail.gmail.com>
-Subject: Please need your urgent assistance,
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: Yes, score=5.7 required=5.0 tests=ADVANCE_FEE_5_NEW_MONEY,
-        BAYES_60,DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-        FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,LOTS_OF_MONEY,MONEY_FRAUD_8,
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+Subject: Re: sorting "See also" cross-references? (was: [PATCH] ioctl_pipe.2:
+ Add.)
+Content-Language: en-US
+To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc:     chrubis@suse.cz, linux-man@vger.kernel.org,
+        David Howells <dhowells@redhat.com>
+References: <20220608124710.12647-1-chrubis@suse.cz>
+ <8f521c29-3822-0e04-9f67-9b832edd2d50@gmail.com>
+ <20220608202602.d7hppyzgfv5hx6qc@illithid>
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <20220608202602.d7hppyzgfv5hx6qc@illithid>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------CbYR0gvngUKRFWO3v0MLXNu6"
+X-Spam-Status: No, score=-3.3 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-        UNDISC_MONEY,URG_BIZ autolearn=no autolearn_force=no version=3.4.6
-X-Spam-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
-        *      https://www.dnswl.org/, no trust
-        *      [2a00:1450:4864:20:0:0:0:62b listed in]
-        [list.dnswl.org]
-        *  1.5 BAYES_60 BODY: Bayes spam probability is 60 to 80%
-        *      [score: 0.7067]
-        * -0.0 SPF_PASS SPF: sender matches SPF record
-        *  0.2 FREEMAIL_ENVFROM_END_DIGIT Envelope-from freemail username ends
-        *       in digit
-        *      [wizguy687[at]gmail.com]
-        *  0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-        *      provider
-        *      [dinamckenna1894[at]gmail.com]
-        *  0.0 SPF_HELO_NONE SPF: HELO does not publish an SPF Record
-        * -0.1 DKIM_VALID_EF Message has a valid DKIM or DK signature from
-        *      envelope-from domain
-        * -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-        *      author's domain
-        * -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-        *  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-        *       valid
-        *  0.0 LOTS_OF_MONEY Huge... sums of money
-        * -0.0 T_SCC_BODY_TEXT_LINE No description available.
-        *  0.6 URG_BIZ Contains urgent matter
-        *  0.0 MONEY_FRAUD_8 Lots of money and very many fraud phrases
-        *  3.0 ADVANCE_FEE_5_NEW_MONEY Advance Fee fraud and lots of money
-        *  0.6 UNDISC_MONEY Undisclosed recipients + money/fraud signs
-X-Spam-Level: *****
+        URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello my dear,
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------CbYR0gvngUKRFWO3v0MLXNu6
+Content-Type: multipart/mixed; boundary="------------kgRHTU6RfPHkEqZl9rcTiUUP";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: chrubis@suse.cz, linux-man@vger.kernel.org,
+ David Howells <dhowells@redhat.com>
+Message-ID: <a2009ae6-7f51-f7c5-e108-f0c89a17a963@gmail.com>
+Subject: Re: sorting "See also" cross-references? (was: [PATCH] ioctl_pipe.2:
+ Add.)
+References: <20220608124710.12647-1-chrubis@suse.cz>
+ <8f521c29-3822-0e04-9f67-9b832edd2d50@gmail.com>
+ <20220608202602.d7hppyzgfv5hx6qc@illithid>
+In-Reply-To: <20220608202602.d7hppyzgfv5hx6qc@illithid>
 
- I sent this mail praying it will get to you in a good condition of
-health, since I myself are in a very critical health condition in
-which I sleep every night without knowing if I may be alive to see the
-next day. I bring peace and love to you.. It is by the grace of God, I
-had no choice than to do what is lawful and right in the sight of God
-for eternal life and in the sight of man, for witness of God=E2=80=99s merc=
-y
-and glory upon my life. I am Mrs. Dina Howley. Mckenna, a widow. I am
-suffering from a long time brain tumor, It has defiled all forms of
-medical treatment, and right now I have about a few months to leave,
-according to medical experts. The situation has gotten complicated
-recently with my inability to hear proper, am communicating with you
-with the help of the chief nurse herein the hospital, from all
-indication my conditions is really deteriorating and it is quite
-obvious that, according to my doctors they have advised me that I may
-not live too long, Because this illness has gotten to a very bad
-stage. I plead that you will not expose or betray this trust and
-confidence that I am about to repose on you for the mutual benefit of
-the orphans and the less privilege. I have some funds I inherited from
-my late husband, the sum of ($ 11,000,000.00, Eleven Million Dollars).
-Having known my condition, I decided to donate this fund to you
-believing that you will utilize it the way i am going to instruct
-herein. I need you to assist me and reclaim this money and use it for
-Charity works therein your country  for orphanages and gives justice
-and help to the poor, needy and widows says The Lord." Jeremiah
-22:15-16.=E2=80=9C and also build schools for less privilege that will be
-named after my late husband if possible and to promote the word of God
-and the effort that the house of God is maintained. I do not want a
-situation where this money will be used in an ungodly manner. That's
-why I'm taking this decision. I'm not afraid of death, so I know where
-I'm going. I accept this decision because I do not have any child who
-will inherit this money after I die.. Please I want your sincerely and
-urgent answer to know if you will be able to execute this project for
-the glory of God, and I will give you more information on how the fund
-will be transferred to your bank account. May the grace, peace, love
-and the truth in the Word of God be with you and all those that you
-love and care for.
+--------------kgRHTU6RfPHkEqZl9rcTiUUP
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-I'm waiting for your immediate reply.
+SGkgQnJhbmRlbiENCg0KT24gNi84LzIyIDIyOjI2LCBHLiBCcmFuZGVuIFJvYmluc29uIHdy
+b3RlOg0KPiBIaSBBbGV4IQ0KPiANCj4gQXQgMjAyMi0wNi0wOFQxNzoxMjoxOSswMjAwLCBB
+bGVqYW5kcm8gQ29sb21hciB3cm90ZToNCj4+PiArLlNIIFNFRSBBTFNPDQo+Pj4gKy5CUiBw
+aXBlICgyKSwNCj4+PiArLkJSIGlvY3RsICgyKQ0KPj4NCj4+IHwgc29ydA0KPiANClsuLi5d
+DQo+IEluIHRoZSBncm9mZiBtYW4gcGFnZXMsIEkgdHJ5IHRvIG9yZGVyIHRoZXNlIGNyb3Nz
+IHJlZmVyZW5jZXMgaW4gYQ0KPiBjb25zaWRlcmVkIHdheSwgc3RhcnRpbmcgd2l0aCB0aGUg
+cGFnZSB0aGF0IEkgY29uc2lkZXIgbW9zdCAiaW1wb3J0YW50Ig0KPiBvciBsaWtlbHkgdG8g
+ZnJ1aXRmdWxseSBmb2xsb3cgdXAgdGhlIHRvcGljIGZvciB0aGUgcmVhZGVyLiAgVGhhdCBz
+b3J0DQo+IG9mIGp1ZGdtZW50IGlzIHN1YmplY3RpdmUsIG9mIGNvdXJzZSwgYnV0IHdpdGgg
+YSB3ZWxsIGN1cmF0ZWQgbWFuIHBhZ2UNCj4gY29ycHVzLCBJIHRoaW5rIGl0J3MgbGlrZWx5
+IG1vcmUgdXNlZnVsIHRoYW4gYSBtZWNoYW5pY2FsIHNvcnQuDQo+IA0KTWFrZXMgc2Vuc2Uu
+ICBNb3N0IHBhZ2VzIGhhdmUgbGV4aWNvZ3JhcGhpYyBvcmRlciwgYnV0IGltcG9ydGFuY2Ug
+b3JkZXIgDQpzZWVtcyBhbiBpbXByb3ZlbWVudC4NCg0KQ2hlZXJzLA0KDQpBbGV4DQoNCg0K
+LS0gDQpBbGVqYW5kcm8gQ29sb21hcg0KTGludXggbWFuLXBhZ2VzIGNvbWFpbnRhaW5lcjsg
+aHR0cDovL3d3dy5rZXJuZWwub3JnL2RvYy9tYW4tcGFnZXMvDQpodHRwOi8vd3d3LmFsZWph
+bmRyby1jb2xvbWFyLmVzLw0K
 
-May God Bless you,
-Mrs. Dina Howley. Mckenna.
+--------------kgRHTU6RfPHkEqZl9rcTiUUP--
+
+--------------CbYR0gvngUKRFWO3v0MLXNu6
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmKhskUACgkQnowa+77/
+2zJBlA//UTpDEswBIuESVCUPYfBMFi9SYVn5YKkipFGkhRT4/bqdXuBCJKsmkU5N
+/ZZcX7nTGGTXeA3Dw4zlTsVPUVC0ITSLsmjG9ll16ecaTk/1yGllz3fNNEVJdSXS
+OwRaau54oSRbmNKYe4Xqk8At5zoA1+ykR8/2LuCdr1lo/5yo/OogRKP1v1LPPNO/
+EB6bvsbYWVx6vRyyEqvCQ20BHNO+SD29QaX/iR+Ee3ZfQJJ3FXP7Nq09HCcVSA0N
+H0DlKWWJOpRr7UDDsA99W4LoPHfJE9QYgMa1ITNoEjOD56frBXlou7ChLxDwtPOG
+kYJnrd947U//arp8Kk19IYJtoKyX1Tlzyfmxqx1/PtiqabhbIMa91FHj2aRndzbR
+7xm9mOrzg7QL/dTrj3dOgKaCmywJzAhph+ZXZmar0/Yg73HkaTqm63xr7eOyY1lC
+XfV/hLA+i6dfXa6pXa24by/B03mBRJI2NAnz4qgtjRTP5+rypgSic9eaDM0vQy4j
+X+i6guBanxixZnsY40z9gNXH/Ki/xKacqUQ+z0Oi90OsIbXLEfve4iq/RCCJicjD
+OkHCa9YlweHyVy+X1DkHnlDlRkDAywpLr3ap66q6o0J5tsmE6vsb6yiF4CN7Qgej
+/OrXMy0y7L5o2a9KVSp9BSBNfUUEVJYYgF1nRbL+Myd5ZHCks8Y=
+=NhF+
+-----END PGP SIGNATURE-----
+
+--------------CbYR0gvngUKRFWO3v0MLXNu6--
