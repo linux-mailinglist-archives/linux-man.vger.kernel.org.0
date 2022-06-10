@@ -2,105 +2,134 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id B4E1454680A
-	for <lists+linux-man@lfdr.de>; Fri, 10 Jun 2022 16:07:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 85B03546869
+	for <lists+linux-man@lfdr.de>; Fri, 10 Jun 2022 16:35:03 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S236440AbiFJOHv (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 10 Jun 2022 10:07:51 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46206 "EHLO
+        id S1344318AbiFJOfA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 10 Jun 2022 10:35:00 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35776 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233100AbiFJOHr (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 10 Jun 2022 10:07:47 -0400
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 5CF4914002
-        for <linux-man@vger.kernel.org>; Fri, 10 Jun 2022 07:07:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1654870063;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         in-reply-to:in-reply-to:references:references;
-        bh=oNWs5ba0CLyEfWmFHDLU3/iqRFtVDYZm9ObGN+wkIio=;
-        b=MArrfUV5pPL9Z4FD3ZCm/6R8WS8TWYcdxkyNxh91ZrvOuvbgujwzjsAkM3ednsvWY4TeGl
-        Qr+zpivrKAgCD6MtMHvporx8qB6Z5m0ssCyBEH+7nYlWJE0VJwjM61HxJwkRei5B4ov0qr
-        fbzZCriVK8NdqsvIFcyKjlOsNLBjGuM=
-Received: from mail-il1-f199.google.com (mail-il1-f199.google.com
- [209.85.166.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-330-oUjFEGKcNDCTv8ysAhv2Jg-1; Fri, 10 Jun 2022 10:07:39 -0400
-X-MC-Unique: oUjFEGKcNDCTv8ysAhv2Jg-1
-Received: by mail-il1-f199.google.com with SMTP id a2-20020a923302000000b002d1ad5053feso19658022ilf.17
-        for <linux-man@vger.kernel.org>; Fri, 10 Jun 2022 07:07:39 -0700 (PDT)
+        with ESMTP id S1349508AbiFJOef (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 10 Jun 2022 10:34:35 -0400
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com [IPv6:2a00:1450:4864:20::42a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3649113C4FF
+        for <linux-man@vger.kernel.org>; Fri, 10 Jun 2022 07:34:30 -0700 (PDT)
+Received: by mail-wr1-x42a.google.com with SMTP id c21so3692833wrb.1
+        for <linux-man@vger.kernel.org>; Fri, 10 Jun 2022 07:34:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=message-id:date:mime-version:user-agent:subject:content-language:to
+         :cc:references:from:in-reply-to;
+        bh=1qVmiI/sVOQm5Cblk9a94hc/nd7Dwuw7ti7CY3XfDSA=;
+        b=hWytBfiy/mSiWPwmE/2KR1Tda5Wfj3w2C5KUmrJRVz23G+wabwyH0udhEfxZ07vnMu
+         /2qUwpN1B+8OkkWleEqxFEc+JqLIgtUyjCt1/50QlZy06MQWXTclFU7SJX0ssIcNhb05
+         gejxGBGwMO6NkQ6srA4Gfjr9kr/qg9TiZXxnrJ290yrfH2JBDxAKW0tiDzCFMdp/ulZT
+         /9CfVq8SrNsHOqxupLWUc5RF3o68k0TTsOAoCvcQwaiVJsRhBTpdxkYRlm4bXt0MlQK6
+         1N+Kl92TpLO+GJTl02nFR1VSl7XgNPDMuIbMux/4fMpP+oLOs1T7I/Ln4clVAgT0KRU5
+         TmRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=oNWs5ba0CLyEfWmFHDLU3/iqRFtVDYZm9ObGN+wkIio=;
-        b=OfVu91W+FBO2hU0drnqYp4X7NSjuexMAJqqnNlaKeUcgbX5VxAEE5WZP2231brN6or
-         pBeFIH30OUSQwX9PK/YPyFQcoXwoVa70DOjk3/gUGsLUraV+mkrhSTUJk+k5lsP07ljX
-         NbyGZPEOkclszaI8umErhUwjYurStxxJXdS4j9o1nw/clAKvedUfufFZ+FILHF5+L7qs
-         FOKXQGOmR2PJgY6MDYIygov7GyOWohuT4zWZel4EP1I2cq0U42SIY5XuX+WCxFpboq9+
-         DThPYvP+OH9qqpKMGZv+E/UT6c1Z10g4H9l8mfWrz3ZfuCTkHdl7bX/LYIMMa7szsvB9
-         KT4g==
-X-Gm-Message-State: AOAM533ez/QKzBppTIzCZ803QJ/9v4t5u2y2mrj1P9KEsupOlMaOhjjl
-        YBUwRXDlx/avZF3bUFOxIt39B42vyTD6ah2YFPBiqen8HfsP3xcowivODkAMBNGmk/EYUKEY/IF
-        Uff62ilLgO2LtfdX69sd+
-X-Received: by 2002:a05:6602:2c4e:b0:657:4115:d9e4 with SMTP id x14-20020a0566022c4e00b006574115d9e4mr21355240iov.91.1654870058565;
-        Fri, 10 Jun 2022 07:07:38 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyMFFunRERzGiq8cz3wTUgp7F/czzSi8M9ZBzNlgWaxFjk7nMaRfaCnEPN6A2pA3Dj+kWcZEQ==
-X-Received: by 2002:a05:6602:2c4e:b0:657:4115:d9e4 with SMTP id x14-20020a0566022c4e00b006574115d9e4mr21355223iov.91.1654870058281;
-        Fri, 10 Jun 2022 07:07:38 -0700 (PDT)
-Received: from xz-m1.local (cpec09435e3e0ee-cmc09435e3e0ec.cpe.net.cable.rogers.com. [99.241.198.116])
-        by smtp.gmail.com with ESMTPSA id t14-20020a5e990e000000b006695b8bb8d3sm6147359ioj.12.2022.06.10.07.07.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 10 Jun 2022 07:07:37 -0700 (PDT)
-Date:   Fri, 10 Jun 2022 10:07:36 -0400
-From:   Peter Xu <peterx@redhat.com>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     David Hildenbrand <david@redhat.com>,
-        Mike Kravetz <mike.kravetz@oracle.com>,
-        linux-man@vger.kernel.org, linux-mm@kvack.org,
-        Axel Rasmussen <axelrasmussen@google.com>,
-        "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Subject: Re: [PATCH v3] madvise.2: Clarify addr/length and update hugetlb
- support
-Message-ID: <YqNQKMNXMvxH8+aE@xz-m1.local>
-References: <20220608234517.117295-1-mike.kravetz@oracle.com>
- <a711288d-f070-e980-034a-3faee480e689@gmail.com>
- <3cf768b3-4d09-de13-7975-ebb74a68752e@oracle.com>
- <YqJUZcol6c7HL6Dt@xz-m1.local>
- <05301a1a-6020-aa52-d539-c2e0ba147181@redhat.com>
- <12971f94-d329-5db2-c1d9-3fdad23f3840@gmail.com>
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+         :content-language:to:cc:references:from:in-reply-to;
+        bh=1qVmiI/sVOQm5Cblk9a94hc/nd7Dwuw7ti7CY3XfDSA=;
+        b=2LlSb9R+D3+d80S/PuXjUCHN8ahU7mJ3Y84u5pM9kKO7Qg/dG4BCqA/emFvXh6Ez7x
+         0wHHvZvW6TH3yKEtUFSrawy+NxHYHGUDZ7bMfUitc75spQk8MIl+cCkW3txlmCoXLGjV
+         O3DQiU06F587o/Q9keBOlE1rstbKWHwyNuNvfvZOPye93Dx465bPmneUU6EOXhyuCdGx
+         9SVt1gut7yATDbqsAYfmil1dxm99WwF52VqpKByAEi1HDua5Q4PRT0o4fhvEAgIYHzVQ
+         OTGXcdOoZ0A3kepzZ4HfhdMJu+BGhiZP5mRKS8NS3BZnDYVe+TEHKpSOL0sDxLIfMrvP
+         CAzA==
+X-Gm-Message-State: AOAM533GyNWVCvvm7vvF0UI7hHDLQndlp/7g0SZDJdcoCk6TijCjB1lb
+        ZpXWgP0viwEjOmK9MBXkKo0=
+X-Google-Smtp-Source: ABdhPJywKYtzpjPSIhwBPDHFTjjqnfNrLMtBOyGeax2XT18++NUWD8Iu9zkC6Mk4bd9a0aCEeHzQXQ==
+X-Received: by 2002:adf:fe52:0:b0:210:12ab:76e6 with SMTP id m18-20020adffe52000000b0021012ab76e6mr44757286wrs.120.1654871668619;
+        Fri, 10 Jun 2022 07:34:28 -0700 (PDT)
+Received: from [192.168.42.187] ([77.107.214.69])
+        by smtp.gmail.com with ESMTPSA id 24-20020a05600c22d800b003973435c517sm3195979wmg.0.2022.06.10.07.34.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 10 Jun 2022 07:34:27 -0700 (PDT)
+Message-ID: <75b9d903-74ce-9bbc-45d9-4e890cefeff2@gmail.com>
+Date:   Fri, 10 Jun 2022 16:37:18 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <12971f94-d329-5db2-c1d9-3fdad23f3840@gmail.com>
-X-Spam-Status: No, score=-3.3 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
-        SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=ham
-        autolearn_force=no version=3.4.6
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+Subject: Re: [PATCH] man-pages.7: STYLE GUIDE: Mention UNIX for Beginners
+Content-Language: en-US
+To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc:     linux-man@vger.kernel.org, Peter Xu <peterx@redhat.com>
+References: <20220610105141.16649-1-alx.manpages@gmail.com>
+ <20220610122111.2k5jkzgo2k5odpbf@illithid>
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <20220610122111.2k5jkzgo2k5odpbf@illithid>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------0g1MW7uPV7Rgw1QyJE3hF1Zh"
+X-Spam-Status: No, score=-3.3 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+        URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Fri, Jun 10, 2022 at 11:38:53AM +0200, Alejandro Colomar wrote:
-> It's not perfect, and currently it doesn't detect semantic newline problems,
-> I think, but I guess it could be improved in the future.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------0g1MW7uPV7Rgw1QyJE3hF1Zh
+Content-Type: multipart/mixed; boundary="------------FHXNqedYS9WV78bvlaGCdFa9";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: linux-man@vger.kernel.org, Peter Xu <peterx@redhat.com>
+Message-ID: <75b9d903-74ce-9bbc-45d9-4e890cefeff2@gmail.com>
+Subject: Re: [PATCH] man-pages.7: STYLE GUIDE: Mention UNIX for Beginners
+References: <20220610105141.16649-1-alx.manpages@gmail.com>
+ <20220610122111.2k5jkzgo2k5odpbf@illithid>
+In-Reply-To: <20220610122111.2k5jkzgo2k5odpbf@illithid>
 
-Semantic newlines can be challenging as IIUC it's not deterministic?
+--------------FHXNqedYS9WV78bvlaGCdFa9
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-I mean, I had a feeling that some paragraph could have multiple valid ways
-to do the layout and newlines without violating the rule.  IMHO that could
-be a challenging part for contributors.
+SGkgQnJhbmRlbiENCg0KT24gNi8xMC8yMiAxNDoyMSwgRy4gQnJhbmRlbiBSb2JpbnNvbiB3
+cm90ZToNCj4gQXQgMjAyMi0wNi0xMFQxMjo1MTo0MSswMjAwLCBBbGVqYW5kcm8gQ29sb21h
+ciB3cm90ZToNCj4+ICthbHNvIGNvbnRhaW5zIGFuIGludGVyZXN0aW5nIHNlY3Rpb24gb24g
+IkhpbnRzIGZvciBQcmVwYXJpbmcgRG9jdW1lbnRzIi4NCj4gDQo+IEkgd291bGQgdXNlIHJl
+YWwgKHR5cG9ncmFwaGVyJ3MpIHF1b3RhdGlvbiBtYXJrcyB0byBjaXRlIHRoZSBzZWN0aW9u
+DQo+IHRpdGxlLCBhbmQgc2luY2UgeW91IGFyZSBkb2luZyBzbywgdGhhdCdzIHdoYXQgdGhl
+IHNlY3Rpb24gX2lzXyBldmVuDQo+IG1vcmUgdGhhbiB3aGF0IGl0J3MgX29uXy4NCj4gDQo+
+IFRodXMsDQo+IA0KPiBhbHNvIGNvbnRhaW5zIGFuIGludGVyZXN0aW5nIHNlY3Rpb24sDQo+
+IFxbbHFdSGludHMgZm9yIFByZXBhcmluZyBEb2N1bWVudHNcW3JxXS4NCj4gDQo+IEkgd291
+bGQgYWxzbyBmaW5kIGEgbW9yZSBzcGVjaWZpYyBhZGplY3RpdmUgdGhhbg0KPiAiaW50ZXJl
+c3RpbmciLS0iaGVscGZ1bCIsICJub3Rld29ydGh5IiwgImV4ZW1wbGFyeSIgYXJlIGFsbA0K
+PiBwb3NzaWJpbGl0aWVzLg0KDQpTdXJlISBUaGFua3MuDQoNCkJUVywgaXMgdGhlIFsybmQg
+ZWQuLCBCV0tdIHRoaW5neSBjb3JyZWN0PyAgSSBkaWQgaXQgZnJvbSBtZW1vcnkuDQoNCkNo
+ZWVycywNCg0KQWxleA0KDQo+IA0KPiBSZWdhcmRzLA0KPiBCcmFuZGVuDQoNCg0KLS0gDQpB
+bGVqYW5kcm8gQ29sb21hcg0KTGludXggbWFuLXBhZ2VzIGNvbWFpbnRhaW5lcjsgaHR0cDov
+L3d3dy5rZXJuZWwub3JnL2RvYy9tYW4tcGFnZXMvDQpodHRwOi8vd3d3LmFsZWphbmRyby1j
+b2xvbWFyLmVzLw0K
 
-(Or maybe the rule was deterministic but I didn't really fully digest it..)
+--------------FHXNqedYS9WV78bvlaGCdFa9--
 
-But the tool (even without the newline detections) looks promising and
-helpful.
+--------------0g1MW7uPV7Rgw1QyJE3hF1Zh
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-Thanks,
+-----BEGIN PGP SIGNATURE-----
 
--- 
-Peter Xu
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmKjVx4ACgkQnowa+77/
+2zJAdhAAg1cVx6Pu7MnY6vNmSRMg5vkRlFdncXNRW/YPMQRgIMOnY0vDXg06ZgtL
+Vv2NIceaVKgKm4/U1/xEDaJY7G2VblIBnUSjOJaMVx99DD1nxrwjmoB44331qRzs
+X+DIIHiE/SvrpwXy2UYv5+PWkwUhc7UFSVvl8l46QBYzykhx6ZHXnx0jxbLQRg6x
+ipSxhhRCIVlDcIIElowoVW9lnlpJ6CX+E8GsPyfMgG72LMJl9ho6o1tsAMIUOkat
+AWZvpfigURhrR+TrUa/dYKr2pwntvJdszHgwVIRHGXNzz41/bWz8SGKtmA3ik2gx
+mv7pndZmEs6Fs4lX5+dLMDhcIUgoutx697PzIyNT3pT3xFBjvG42N9m5PMuWmzbD
+T2ItKqptn0W/spsM25dr+vgo26q9G3Q6pXNHxmoOAE9LwcExri17/UJ/H/Ew6M4e
+9u/1lX03EPkoBinXT6abtzluaK4Jy1HY9C60vaQFOHd8b5TuxvJXZEcnQlIxw0Nv
+EQJ0+1vSOXZ4MyxQc5BbXW46fKmRvsa2kY/STgWQwonz8lj7XeZa9VQDcD5tYotC
+2Yxfq+LVG8FOQc8xnRaEvIymqWt3eYOBXcRj45i2a9MTELX+qa3kwdpaHaxOvgML
+wjW1rT9RJwn1kEAOe1zqRrj9UZhqdzv8NVIB0IEF4Jr5iROgv4E=
+=L61D
+-----END PGP SIGNATURE-----
 
+--------------0g1MW7uPV7Rgw1QyJE3hF1Zh--
