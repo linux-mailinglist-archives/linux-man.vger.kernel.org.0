@@ -2,43 +2,43 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id E5CBA549E20
-	for <lists+linux-man@lfdr.de>; Mon, 13 Jun 2022 21:53:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 87620549E22
+	for <lists+linux-man@lfdr.de>; Mon, 13 Jun 2022 21:53:52 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1344563AbiFMTxB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 13 Jun 2022 15:53:01 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57098 "EHLO
+        id S244172AbiFMTxu (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 13 Jun 2022 15:53:50 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58282 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1344627AbiFMTws (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 13 Jun 2022 15:52:48 -0400
-Received: from ams.source.kernel.org (ams.source.kernel.org [IPv6:2604:1380:4601:e00::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8E31D3CA61
-        for <linux-man@vger.kernel.org>; Mon, 13 Jun 2022 11:23:38 -0700 (PDT)
+        with ESMTP id S1350947AbiFMTxc (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 13 Jun 2022 15:53:32 -0400
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1268213DF1
+        for <linux-man@vger.kernel.org>; Mon, 13 Jun 2022 11:24:22 -0700 (PDT)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
         (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
         (No client certificate requested)
-        by ams.source.kernel.org (Postfix) with ESMTPS id 2A5E5B81250
-        for <linux-man@vger.kernel.org>; Mon, 13 Jun 2022 18:23:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id CE6C6C3411C
-        for <linux-man@vger.kernel.org>; Mon, 13 Jun 2022 18:23:35 +0000 (UTC)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id AC4D26125D
+        for <linux-man@vger.kernel.org>; Mon, 13 Jun 2022 18:24:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 1A247C385A5
+        for <linux-man@vger.kernel.org>; Mon, 13 Jun 2022 18:24:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1655144615;
-        bh=vkOL4adYkAVw6rBYt/WaLFIumg8UxOTvDh14+L5ZUA0=;
-        h=From:To:Subject:Date:From;
-        b=U/SCIucVcy4Gob4C0dpXRZ2bKlqskZC63a83n0LBIXbGU8wnaiKRuDiwax2sbb4B9
-         Uqrc5f+EB+fyAtIj0+MlYZ5h+ej8DM/SwkdN9/jFtZ34GTFMrnOyARYvo3lPdBslfv
-         zmF/eE+ZEOnH29GnJfJto2z/Zx/JlkfIruBYn5APt24yDYSMxg3kixwi+vQtyRGl3O
-         NB+YaAVDG/xY5BUYcayYgE5MKCAdp1HyujOeV+2aZ9RajuddtBwoE0PIY64SlF1tFg
-         uGfQ7KMBxs8t25bU0sGjcEZGArPbU1bE5Y52hPOcysDrZb65HSIZkJ39YdpiVlXDRo
-         fBsG0AypCEAuw==
+        s=k20201202; t=1655144661;
+        bh=E6Yzla0VkTEhMEGYN5imKGThaMTpIZJ7NLlnMNET1qk=;
+        h=From:To:Subject:Date:In-Reply-To:References:From;
+        b=aE2hW4BW15oPtt5I4z8pSxuYutnk25HFE83i/kumOV6sHTOQb9Vn/aUxBPEIbyNs1
+         1P8K808Zql1MTGttWZTt9rDCr+r0eo8Hg6ukr9E8Uy77fiD56SWmgvzacZTjukY8DX
+         hyjRqA8v1Dx/9J2aExAP5glhZxIcS7cFw+c9KcOjQxPx3+k519scE4by2iDuP2gu8S
+         lUhQSY7Qzut+lUQYgpSY3u7YQ1L0+TUtcDIpCthXc2C7Q8hK3lZKjxDq0dpNFMjFkx
+         KtTSPQ8ftLACxPLWZoKUDdOMlKSNslSgoZ1JnXDYu2JJduWmd860b44xmpL+Av+q35
+         6zZKuvA2LeVaw==
 Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
-        id B99D7CBF854; Mon, 13 Jun 2022 18:23:35 +0000 (UTC)
+        id 063A1CC13B3; Mon, 13 Jun 2022 18:24:21 +0000 (UTC)
 From:   bugzilla-daemon@kernel.org
 To:     linux-man@vger.kernel.org
-Subject: [Bug 216121] New: Links
-Date:   Mon, 13 Jun 2022 18:23:35 +0000
+Subject: [Bug 216121] Links
+Date:   Mon, 13 Jun 2022 18:24:20 +0000
 X-Bugzilla-Reason: None
-X-Bugzilla-Type: new
+X-Bugzilla-Type: changed
 X-Bugzilla-Watch-Reason: AssignedTo
  documentation_man-pages@kernel-bugs.osdl.org
 X-Bugzilla-Product: Documentation
@@ -52,10 +52,10 @@ X-Bugzilla-Resolution:
 X-Bugzilla-Priority: P1
 X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
 X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: bug_id short_desc product version rep_platform
- op_sys bug_status bug_severity priority component assigned_to reporter
- cf_regression
-Message-ID: <bug-216121-11311@https.bugzilla.kernel.org/>
+X-Bugzilla-Changed-Fields: bug_file_loc
+Message-ID: <bug-216121-11311-4VWC6sFOqP@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-216121-11311@https.bugzilla.kernel.org/>
+References: <bug-216121-11311@https.bugzilla.kernel.org/>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-Bugzilla-URL: https://bugzilla.kernel.org/
@@ -73,26 +73,14 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 https://bugzilla.kernel.org/show_bug.cgi?id=3D216121
 
-            Bug ID: 216121
-           Summary: Links
-           Product: Documentation
-           Version: unspecified
-          Hardware: All
-                OS: Linux
-            Status: NEW
-          Severity: normal
-          Priority: P1
-         Component: man-pages
-          Assignee: documentation_man-pages@kernel-bugs.osdl.org
-          Reporter: locutor99@gmail.com
-        Regression: No
+locutor99 (locutor99@gmail.com) changed:
 
-Test
-Spanish voice over from
-https://www.locutortv.com/
-https://www.locutortv.es/
-https://www.amorypoesia.es/
-https://www.locutortv.es/index_voiceoversspanish.htm
+           What    |Removed                     |Added
+----------------------------------------------------------------------------
+                URL|                            |https://www.locutortv.es/do
+                   |                            |blaje-en-ingles-doblaje-voz
+                   |                            |-doblaje-espanol-doblaje-fr
+                   |                            |ances/
 
 --=20
 You may reply to this email to add a comment.
