@@ -2,124 +2,147 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 3C04D547B92
-	for <lists+linux-man@lfdr.de>; Sun, 12 Jun 2022 20:47:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 378EC549DEE
+	for <lists+linux-man@lfdr.de>; Mon, 13 Jun 2022 21:44:13 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230357AbiFLSrm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 12 Jun 2022 14:47:42 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49662 "EHLO
+        id S238656AbiFMToL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 13 Jun 2022 15:44:11 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49472 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231961AbiFLSrl (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 12 Jun 2022 14:47:41 -0400
-Received: from JPN01-OS0-obe.outbound.protection.outlook.com (mail-os0jpn01on2109.outbound.protection.outlook.com [40.107.113.109])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F0DD519C02;
-        Sun, 12 Jun 2022 11:47:39 -0700 (PDT)
+        with ESMTP id S238885AbiFMTn6 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 13 Jun 2022 15:43:58 -0400
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com [205.220.177.32])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A88277983A
+        for <linux-man@vger.kernel.org>; Mon, 13 Jun 2022 11:14:24 -0700 (PDT)
+Received: from pps.filterd (m0246630.ppops.net [127.0.0.1])
+        by mx0b-00069f02.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25DHn97O017861;
+        Mon, 13 Jun 2022 18:14:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=from : to : cc :
+ subject : date : message-id : content-transfer-encoding : content-type :
+ mime-version; s=corp-2021-07-09;
+ bh=XSkdrm/wN9LKAU3s2RFaf2PquG5LUc993pRR5IHKgYE=;
+ b=vsaUoOyrk+Ldmbsyd0rjuBtGdriIs1yabSycjfe0SFTalCaVjJkz5roEPWVwh+nftURt
+ wAjG+/Aq+3wfWQKE9xgYlsuUNLPtXrXjMNWHCRbKiFEmqd1IrLIjttns6IKSwrvlyos0
+ okyt/PyhrYVaQ0hylCpk1Kz1TMgyxL+Nwwo8264Hvo6TZr9Zw/4gZ3wjd2NWtb4hM5j2
+ PwuNPcdCeX8ofpAQG152BJWY7o8YwYgpLsVQa3dY7oV7d2XZSssMZHxPfqLgo1nUSVgS
+ 2e4E3lq/M56PwQRs09eN217pyq+kGcKZXTew5UmeKuT2GmlsG7bvcLK2Vl0axKSKZ21/ Kw== 
+Received: from iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta03.appoci.oracle.com [130.35.103.27])
+        by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3gmhfcktk3-1
+        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+        Mon, 13 Jun 2022 18:14:08 +0000
+Received: from pps.filterd (iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+        by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (8.16.1.2/8.16.1.2) with SMTP id 25DI6FU6014720;
+        Mon, 13 Jun 2022 18:14:08 GMT
+Received: from nam11-co1-obe.outbound.protection.outlook.com (mail-co1nam11lp2171.outbound.protection.outlook.com [104.47.56.171])
+        by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com with ESMTP id 3gpa7bg65q-1
+        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+        Mon, 13 Jun 2022 18:14:07 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gMzlntGMPL99Yg3zC5mhC2/aHUzh3kiHVA4RBHEhcxezpezKv2/Qnsi8lopP7+J1v+YOib2GbaDD87XC6miuejYCRZYOrHcE/xmh5BvRr5j/P+TwekEa5tP0UmQ/Sf0k8kRgoP0+mYzA9wQPko43edcHqU8HksjuD2ZKE6znRs/WR9aY2urkmjjEGEbBG5uWewe6th03sL7czX885Et5z0vg9rPAdWq8w7x1STtjLj3zu/7F7cAA0i78jhHmPrvr/CNGsUg5+kK7VdyupE55KSbQ8pDGvKlwJ1x4wTMeadSMVRW1js0mzZJLpoBuJZVoq0Ji3S9M0OFlkLfV7IREbA==
+ b=oY20hrS5S+djNfklDEOsHanadB2fcmhA7MyKoTVUnttjZalEhkzGfBbXYwlBhSU5NwOHoVlsWgWan8V50laGvGd6UKb4ZBjXxKkiWnGruI6G8HZQxE6jDl0PS8Nc9gd3mcHDe1e6JXVspBHVhB+6W4M4bfOz3uNcQiWH1vwN8m2Tft25KQZ1uZ8i4rox93gZ8TLUK9LTuj07rlYQNzHu52y/9wMKdpoNV4tTR1ogXZ0wp586drr4Z2B78SNmZwiNQoPx3gKgjheeQyDjogY7HLyg3Psy4sFx5NtYmFdT7nl+65i/oJBI0VC4iq75Hv8Sgn5owoSpVfuMalkqvIEwqw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FAS/WqgaLI5ZDulXxSzgiEpfhXEF7f3M4bAAqAArLk4=;
- b=EssuTSkJ7Sbo5Mq/2DKsHKMJll6ZKftLJr4Xa0ju50iMNbi2sgYL/1CAsOdlsohihgQk/HujfZseAFOSi8eWsh+vMbEXC1yvfAYaeRFAT+EIKIVojNxFfIWNWgiNROGCOpTZjX4Bug29SWm47Fqqv3HG6vbi8Ir86pJ0OvtVgDDpBRybhybkYKOgeoQMPSzgZ/OvScgcCc0qejvXSHOm2SynAa/u0rblJdO4AOM9o59LWs2dogFunNQKR5HjsOvvuBuQuVkVmylwui64JmarTtOWfvzof/S2KS1IhEL3PbtHLPy42cY28vNDdQoHtlfWseUFyLh1FSHFBNVCrHbsOQ==
+ bh=XSkdrm/wN9LKAU3s2RFaf2PquG5LUc993pRR5IHKgYE=;
+ b=RzY82QFlFs9/NrI7ajUwlxNa/MUIp9gP7LiiPB1hjKJ+K3C9fu+HoT/22Qc+Zs0fGfg/dvxgnBOn+ejCwWgeC+pnCBHpa/CBe0Nj6G/JPZuhXmcb30D32+cdny9wGskc5/FuA8Uj7FyjdVGZI8l2yQWXoMLDRmp91j/6s+1+AfNYs5/aJTaxEcR9P1ZNZstfEROl/RHvBWcIzdoawJOBOT7JHGMdROuSNGX069y+rwGvawXx1gtB0zMWG+qPBtgwsVb3qwsDOoNIu8Sf/egulok9Km1wu9mjENLFGcfdHhlUISLZfBdFy/CO4kU8f7K8cG0xSlz+qd+ayexZH5a3Ig==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=zenithal.me; dmarc=pass action=none header.from=zenithal.me;
- dkim=pass header.d=zenithal.me; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zenithal.me;
- s=selector1;
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FAS/WqgaLI5ZDulXxSzgiEpfhXEF7f3M4bAAqAArLk4=;
- b=Wo+gLqyNyDnddzH82pYitoOtU4RTo6dxLnEBqreKdbfU0ftIRxSeGC0WQEWuDbYHeLRK1xbzOSNDJE3jRWl60HD+CocLcCuDzx2UYlrURpk5+L4mEYECV2IE80yuSehgK4S8QownyTfsO4H4LIZlkyCZOP7cpn2QFyVn6JD8gZQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=zenithal.me;
-Received: from TYCP286MB1393.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:c0::6) by
- OSZP286MB1063.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:111::12) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5332.13; Sun, 12 Jun 2022 18:47:38 +0000
-Received: from TYCP286MB1393.JPNP286.PROD.OUTLOOK.COM
- ([fe80::a162:2f17:bb41:c95]) by TYCP286MB1393.JPNP286.PROD.OUTLOOK.COM
- ([fe80::a162:2f17:bb41:c95%9]) with mapi id 15.20.5332.020; Sun, 12 Jun 2022
- 18:47:37 +0000
-Date:   Mon, 13 Jun 2022 02:47:31 +0800
-From:   "Hongren (Zenithal) Zheng" <i@zenithal.me>
-To:     Palmer Dabbelt <palmer@rivosinc.com>,
-        Paul Walmsley <paul.walmsley@sifive.com>,
-        Albert Ou <aou@eecs.berkeley.edu>
-Cc:     Atish Patra <atishp@rivosinc.com>,
-        Anup Patel <anup@brainfault.org>,
-        Eric Biederman <ebiederm@xmission.com>,
-        Kees Cook <keescook@chromium.org>, linux-mm@kvack.org,
-        linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
-        linux-api@vger.kernel.org,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-man@vger.kernel.org, Jiatai He <jiatai2021@iscas.ac.cn>,
-        Heiko Stuebner <heiko@sntech.de>, Conor.Dooley@microchip.com
-Subject: [PATCH v3 3/3] RISC-V: HWCAP: parse Bitmanip/Scalar Crypto HWCAP
- from DT
-Message-ID: <YqY0w6SeebuNP1vS@Sun>
-References: <YqYz+xDsXr/tNaNu@Sun>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <YqYz+xDsXr/tNaNu@Sun>
-X-Operating-System: Linux Sun 5.15.26
-X-Mailer: Mutt 2.2.1 (2022-02-19)
-X-ClientProxiedBy: SJ0PR03CA0156.namprd03.prod.outlook.com
- (2603:10b6:a03:338::11) To TYCP286MB1393.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:c0::6)
+ bh=XSkdrm/wN9LKAU3s2RFaf2PquG5LUc993pRR5IHKgYE=;
+ b=XG3lwkSgl4dzimWm+wKvl5qoQq8a7GDARuSkhkMBfEwCEkbRKY3FPTNiTTL5hFKsyNDVIeLRbn2bIb2dswIHK6fjxpWn2PeNmhnqhdjODJyx+Xok42BooG8qOXHpu0QVu6pdz6Nx0oLl0b117RKGdd3hkYfk7Ik01RTQTHQNhPM=
+Received: from BY5PR10MB4196.namprd10.prod.outlook.com (2603:10b6:a03:20d::23)
+ by SJ0PR10MB4720.namprd10.prod.outlook.com (2603:10b6:a03:2d7::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5332.12; Mon, 13 Jun
+ 2022 18:09:03 +0000
+Received: from BY5PR10MB4196.namprd10.prod.outlook.com
+ ([fe80::2125:9bb7:bfeb:81f9]) by BY5PR10MB4196.namprd10.prod.outlook.com
+ ([fe80::2125:9bb7:bfeb:81f9%8]) with mapi id 15.20.5332.022; Mon, 13 Jun 2022
+ 18:09:03 +0000
+From:   Mike Kravetz <mike.kravetz@oracle.com>
+To:     linux-man@vger.kernel.org, linux-mm@kvack.org
+Cc:     David Hildenbrand <david@redhat.com>,
+        Muchun Song <songmuchun@bytedance.com>,
+        Naoya Horiguchi <naoya.horiguchi@linux.dev>,
+        Axel Rasmussen <axelrasmussen@google.com>,
+        Dave Hansen <dave.hansen@intel.com>,
+        Michal Hocko <mhocko@suse.com>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Mike Kravetz <mike.kravetz@oracle.com>
+Subject: [PATCH] hugetlbfs: zero partial pages during fallocate hole punch
+Date:   Mon, 13 Jun 2022 11:08:58 -0700
+Message-Id: <20220613180858.15933-1-mike.kravetz@oracle.com>
+X-Mailer: git-send-email 2.35.3
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MW4PR03CA0125.namprd03.prod.outlook.com
+ (2603:10b6:303:8c::10) To BY5PR10MB4196.namprd10.prod.outlook.com
+ (2603:10b6:a03:20d::23)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 70804b8b-6f2e-46d5-0ba6-08da4ca4058f
-X-MS-TrafficTypeDiagnostic: OSZP286MB1063:EE_
-X-Microsoft-Antispam-PRVS: <OSZP286MB106301FB23EAE60E4901FD0DBCA89@OSZP286MB1063.JPNP286.PROD.OUTLOOK.COM>
+X-MS-Office365-Filtering-Correlation-Id: 735363a6-54c0-4223-9267-08da4d67cc2d
+X-MS-TrafficTypeDiagnostic: SJ0PR10MB4720:EE_
+X-Microsoft-Antispam-PRVS: <SJ0PR10MB4720F66CE359CF5153868474E2AB9@SJ0PR10MB4720.namprd10.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: R6PZ0JP2buPdkCz77PUD6lOj1JoirIAMX11tQfZ3FUOZ2gDgX9X6vwAuoRacsbaa9aRa/7lldFd2OdSQ4a7wrJpx/Y4utCihd+iMb7U6rlOsT5nw77gg2W5slHX/N2ydX+bNCacAI31kT6LXavtkOHJLi/9uJHpcgdblzN+IvkuiaCek9/jOVs7VX1rW9C/bo4s4T5crDsMHhVHbqxdfZ2tcozNcMsfhoBDTR4WvT48VHArjsMuPks/+EpJv6dJ4o+o+ui2vzhYpm0y3UNxIuujwyDsLpcV2B6LLzgstLEmXxRGHe/Xfz3vKXneWyNtU/mFTOgKXJH7ABCQAj9tF0MLW+Xy9vYOEm2gE+p+dqU9jbyKd0jVd1HdJ48a0P8J/w9q+IgL2eqOcocx7rP3DBKm1QXfS02ksy1bMN6pR/RaUXPzV/I7fPEAuzWltnzB5FU8aDcQO62kPuTOV94vDb6p7faz9nDSQtCP2g8Y6MVxG6wT4iXDtaG0bRJDrsdWYnadp0cG1zA0vZKQjupplcxrRJKVEAUdXFPThRYnpZ7GMbyxkRVydQu2R/jqOeGp5efuoZn+yG221T/x6yK8b05JiVp+Yvw9M/rtnignphorqUXawtgEZ3/Lj9gvkPmbaG/E++ygWiAnJpSB+/PUGa4l27PwwRtGdNWhFrW57sM0hVsUjULcnERk4d8T+8Oo4
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCP286MB1393.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230016)(7916004)(136003)(39830400003)(366004)(346002)(396003)(41300700001)(41320700001)(6506007)(52116002)(9686003)(6512007)(6666004)(786003)(316002)(110136005)(54906003)(66946007)(66556008)(66476007)(33716001)(6486002)(86362001)(508600001)(38100700002)(186003)(83380400001)(8676002)(4326008)(2906002)(7416002)(5660300002)(8936002)(49092004);DIR:OUT;SFP:1102;
+X-Microsoft-Antispam-Message-Info: +MliPzweLudMxgbfYKMbiSzcnWpLysRKYbxWsrIRDLdjajtEK1zpC8Vn2/93UBIu8u4yKDHIgfrHAWwoU7igyHskzQM/k4AekBvKjC9Qij1ARlOA73Vw0uaIz+FDXzOHMFGfnD+UeAR4pZeZG3rBD7zh6tuS/U4DcUHAwvtU0pt+ZF4QWniZGYc2PchyzkyhknwtXaki7PsCUMzHTLmruXOKQCCQZzXW1REVn20YmtxOdvgzMGi3GKAOsQD17qrXOYO0TISSC74C2ZiYrAAb8rclbWYCtCbPS+YWgvpBtgeTJRrULr4DNqAeABD3mswWPZMUhpMFZ15UVOUhjzztLkOJaR+Wwx2HoBf6hWwR2kOj+DbfdReUkLrcsOSVarz5iW7BaRx8Vu1JDpZk2hveHV4WQ9GwuydcqZXUWCi26/+AYWN9qC4SY+9dRpIkwyJ/yn9w2HRqanJ6UWarjFqYxsNq3vycz9XT05hmjUiMV4IdyF/Ko+QdH6I/z5Sn5jp+0J6DK/g71hXWx7+3NGzMgdPnkaC+8n/0IEcz/2En7/dZv7K7cP2iYBnudFe6duHiW9oUtDbhyPb5HhL7o979SlRNunWl2yNNH9S/UfsRjq/SIYzH8TsREXpM6RZFZX0wkh/dlgLGL/WUOpOGuZ9eFYaZmNahim+gRoDIzXkwqkqB1T7ArxKo+L0cWQK4xD5H0y13x4ViDMB50gPvMaomUL+1krcKFbPBW78dwzkCaWJPoqyJFq18cBDconnXOFoWoC+Ipkni2EndJr41IGdgng==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BY5PR10MB4196.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(366004)(6486002)(508600001)(316002)(966005)(66946007)(54906003)(6512007)(26005)(5660300002)(44832011)(107886003)(2616005)(66476007)(4326008)(8676002)(66556008)(2906002)(86362001)(36756003)(8936002)(186003)(1076003)(6506007)(6666004)(38100700002)(83380400001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Dw5oQjvfr2A0p1uBKG+AVBGhi6O/MDHhztqN14loJH17sf42qVvPECXtOLxD?=
- =?us-ascii?Q?bXBDQFMBOnrvZ/IO0BglTRzMIxr6ovYc2JXqgCENug7crq5l/EdYK/twCnPO?=
- =?us-ascii?Q?j6Kt/RvKpfEt/LWtJ7YqDYRZYvImor2JLqRpKAAokzG0zgxzWoo3zdZokywd?=
- =?us-ascii?Q?LDGxUYPIJXQ2p0A8yW9HhSOQl1oLiNYNFLhaiACxOjpBx89cnl+GcCKPqp8h?=
- =?us-ascii?Q?hzBTZQVOpOsR6cKCCydmg//EToqhAaSGLS5Tkm9pBN94X/fG4O51Hrv5DH0L?=
- =?us-ascii?Q?EJlB+MkxxhWpHUBreiD4ZH3bcp0Ji6nyDK+hMDl2YnKmihmCDvrzJcDy2QNL?=
- =?us-ascii?Q?fb1hGuPsPyR5FWqh3JU+35VToFveRnWIi9ZVzG7K8/6HGQNzG4IQWUvMfrX/?=
- =?us-ascii?Q?iaesEXxH83yCZiq7A14Tw8oMcQXQNuhfTt2U/1xrbBv8C4ZYuY8HYtu3sHks?=
- =?us-ascii?Q?c1i0RLUFw315qPj5rPkGrCve81qJl0Mpc27rgHyeRdyRWReBrufRbLkp9Mi5?=
- =?us-ascii?Q?tRLTGcxNoFnVeeEtJbLlNZJvHNr8wnGSoKHDYrG7yr1r8c9OsFciBGQTP6S2?=
- =?us-ascii?Q?OIAbmhskYKWyfqNToTxN7QOeYUJ9HmkkJ9mRJcRA9Q2S85J2PLa52HDA60YE?=
- =?us-ascii?Q?4TblfG9/bGAeJzVEH0yf45dvHKSN4wthQkFm3rsinPU6bPsograBMNdNEA0G?=
- =?us-ascii?Q?ugFjXGppW0CbPfo0UuklCssqVtWKjVlMH0g7fyiuRLTPhNlJlCLSvQ88VAN8?=
- =?us-ascii?Q?0ruPrkKAOLoW18hs9PPu7f237aTImqN/vuDKjiSQPZryaQMr70FsH6k7MW8l?=
- =?us-ascii?Q?k9mwg+Wogk036CNX67VTnPlCvYnFIzY8u/WmVc5OkXhc0q3gTEaPNJSlXE0B?=
- =?us-ascii?Q?FrKjp5uTBz9Et2exeFs/lCwAcR+ms8tJyuNHGD3Gft5e9E9/IyXshD1IMUbJ?=
- =?us-ascii?Q?DdtIdZfhD0YAyKeJ7laD9lJhCZgVYzZsQ2Uzxza0TKWZ9E6tcGqwQOXueu1B?=
- =?us-ascii?Q?IjaCAiDfR5jWI4BdZX8se470SJZeaVMYtyrm2U87K2y+fiC2n3Pe7KyrmCKS?=
- =?us-ascii?Q?Wrx7vxuX9oFjmSBWiWpVayO6BbVKm85Lsfvp2xAXER2taQOQRnzyiAkxTOQo?=
- =?us-ascii?Q?tEX7zUMJytHObd72tl4P/ehllHWJ+CF/BhQjWzBLULovHXx1t72KDDm/uN6X?=
- =?us-ascii?Q?MUOpCi05xTutTPxL6mrriRG0q8oXHAi3LF5+VLa8tlEPT6OBdcg4g18o0xsV?=
- =?us-ascii?Q?x+WG0xZYzfV31G0HM98DsIIRSwlVU4ObBfU6MCfAveQ63a1/rnfilp0C3ZQR?=
- =?us-ascii?Q?qQlxlHQ5C/7flZ4GgP1e5eh6QadswmQI8OMOtfk22jMJ5cCSvX53KfPr8o/P?=
- =?us-ascii?Q?vYlo4X85RNrQ7lU14mYHW5kXJD868VUpBlqTNIcf7ngJBNHetwCHXHaHCI/A?=
- =?us-ascii?Q?O6IPTidoQMadOxP869oE5Ci74wrAWQ+6bqzB7xJOkVB/WK+R+yG6Nu1Fpq+u?=
- =?us-ascii?Q?PtYBAho88qCMIcW+Npm3Zp2LvJTOTYjqdMV7CfgjYh6r9+pXRAIiRlIrK6Gm?=
- =?us-ascii?Q?r/TRbYbd6S09dXPjypTiHxIL7/7vHe7gke/Of5+fgHC7wCwB7p/sZZkf6iHc?=
- =?us-ascii?Q?kYVjIZiQSVH3PnckD/2k1sCCnc3GewTIUiVTKzejiiMqAXksCM2e+iWrwwJj?=
- =?us-ascii?Q?4NhwZElGiCHQr5emdF/aEfqFOSWIN4Zj5b0d3T86W9LdoSEDeXZTKVUVJ/cP?=
- =?us-ascii?Q?qX0PzxC3dQ=3D=3D?=
-X-OriginatorOrg: zenithal.me
-X-MS-Exchange-CrossTenant-Network-Message-Id: 70804b8b-6f2e-46d5-0ba6-08da4ca4058f
-X-MS-Exchange-CrossTenant-AuthSource: TYCP286MB1393.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?yFmMznbMx9WTZRasc0t/98Lv5C10nyP/BMD4bUKV0l4ZHJuEhQIj9teno7PM?=
+ =?us-ascii?Q?+QTpIBpxqcOpJ+oGpAGXfnvzLu8xkWNtxbBlFkHrOe8kmqmDlpEE8oidfY0S?=
+ =?us-ascii?Q?hoF3e+irUIFQmOs+nMZtHJVWK5qbrq359i+ozyvb6MLzhUu7zic2SayL9HKG?=
+ =?us-ascii?Q?npY0MBB4VwCGFVgd+5hiTuVAZBQvJDnAlIWEqrCTFZhLN5UZjYu5dMlRMhEw?=
+ =?us-ascii?Q?/5k8lpIUrhCZ+MrnqeWmAojPwRGMoYEdt4LYj6FIdQVfYHyihB+8ObuF1LdL?=
+ =?us-ascii?Q?zDhp6vGELVeprogZQcqgFo5Yat86SprZ3auIqfSIjKRvLdrsVmpnFzvvZMAD?=
+ =?us-ascii?Q?5mvfnPr66WhBTpbqPF9zfj8ZzczTtwzLMbAkn5VgJpzHnKKI7ALzF2rYa+vg?=
+ =?us-ascii?Q?Ek0YR8JRk9IirEYiLwyD7PuppHqTDNl5QBrNeHFF7VTyzRFez6zIjJ3VnLIh?=
+ =?us-ascii?Q?NKcZYsrN7vxx+gKLYh0V/Pvgjx9aRLWd7lTZo7/jdCdTrvjC/q9Epp3bP9gZ?=
+ =?us-ascii?Q?sjOVRDoyrCJEkNtfS2ECg5z+LyeOWbe5di9W9R930KIdYzWkLvEXH7ezEqkB?=
+ =?us-ascii?Q?w6PS/E51yvkM6BNupgbQN2HzrQo+txmLDotOPyGjWxDoOqoY9OhdazAQTShi?=
+ =?us-ascii?Q?8i477QqP6vtcov6THv63ecgoHBhqWI8Cdm9xykeN5XQN4+xSSZ00Yp0wHdaz?=
+ =?us-ascii?Q?mt7PAnyedFjDtHZFnH5V5podCOGgfYm7UhIug5zw+Jjcdax9I/riqwJg/Gal?=
+ =?us-ascii?Q?9G12fKmZt7GpEhouHykOMYEsTWja7cilKMwPWERW0b1N4GZfkuIu7X5SkyoT?=
+ =?us-ascii?Q?5MaK8QX3E7M6AGKPEoaz+vEiCNJjAE8BBQ2Nr5VAK/Ac/EfkI3vKaATBqGVF?=
+ =?us-ascii?Q?lMxVjVoRDCAgFdFPEjxWfmuguoaxFV7PbZQtibnsAmvdaw3vGA6Y9eH555Ih?=
+ =?us-ascii?Q?3+MFra+COigaBgeLs2K32AMa0uNub/lmnx58eatwoD2J7Zz1bfxiJyFCYu60?=
+ =?us-ascii?Q?fdNTrz/LArK9XBnMy8Un6Z8aNt9XB0x2Toxo5ltuQ5YSwT3Azm4hrosemzbZ?=
+ =?us-ascii?Q?uaC6JpKTBNvdJXYV3BzUmr88j3XA2EbNb786E/cnMn7zDTHuH93LCCRnWfV3?=
+ =?us-ascii?Q?Lx78O5f6bZSS+SXE2Fizx3Rryk9UPM2VUAEY5k2APYUEEHWcqFKLW7I63L7i?=
+ =?us-ascii?Q?YWMRHBK82xa4pPaShSdUhTBMLRg4wy3OWXp7mrvgoQwBQ2dZRIiKyTaKVhPE?=
+ =?us-ascii?Q?jpdPPv5YVvOdMlWtfagkwZC58ohEAiSFN0XkPkeTPB9ukScQjSq3+As+Ohbu?=
+ =?us-ascii?Q?5jLOY0Wt9aU3AeNojS4uF174npVtz4tl6U2PB75FGoYiQqqa+L1Mxs7rlEGC?=
+ =?us-ascii?Q?obwLsJjd9B7uagcBzVJEW+9BxZT1rB0NyCviXJzLSBkQ6Tc2K27syYY0auJ7?=
+ =?us-ascii?Q?uRTRa2JvBWVGADzGq0nzjX5vBk6JMqgo+eQ3q0+WkJTpOQuV+WqdbF1jHEop?=
+ =?us-ascii?Q?I+Z8omaf1cUYBdHzkmybW7xZf8Ici0lf0IpfQqSRu518KretWvODGCD8UioL?=
+ =?us-ascii?Q?ytLY1TYoTH86XbcEag+FKnXFLPNS6M3IQ+ZlbLMOHB6qwbi8Ui/1MEAQ/L0Q?=
+ =?us-ascii?Q?P2EmwIdQZ9jXUxiTidmZjq1gCqwvR6BG33BP80CH/onYIS7Vwl/ooonsGQuu?=
+ =?us-ascii?Q?6fzmDuUbJK9UsiRfp74nYEJMFIVp4kQbpdv3rxsvMDC1jKfLN9nwJuXiqR1c?=
+ =?us-ascii?Q?j3jZop7f+r3znX2Nptwq6vDdnFO5Nhc=3D?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 735363a6-54c0-4223-9267-08da4d67cc2d
+X-MS-Exchange-CrossTenant-AuthSource: BY5PR10MB4196.namprd10.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2022 18:47:37.8892
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jun 2022 18:09:03.0261
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 436d481c-43b1-4418-8d7f-84c1e4887cf0
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Wsdr9D1IPhQ+ZYmfVBfl0DOxotLJF5v4MekOgUv+erehpNEEjIeU5us9IkctBaDO
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSZP286MB1063
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
-        RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE
+X-MS-Exchange-CrossTenant-UserPrincipalName: PO8VLO/nIC2qJUt/4i0yGrsVDPGmKOhF57+C08sxIIUjiOIIE9LmccoPn0AfidJRqgrowiSAFtNsr8JqdiY4/g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR10MB4720
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.517,18.0.874
+ definitions=2022-06-13_07:2022-06-13,2022-06-13 signatures=0
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0 phishscore=0 bulkscore=0
+ adultscore=0 spamscore=0 mlxlogscore=999 mlxscore=0 suspectscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2204290000
+ definitions=main-2206130077
+X-Proofpoint-ORIG-GUID: eHCaD4Q8xjUl-4QwcYXNb8JVuAR-vu2S
+X-Proofpoint-GUID: eHCaD4Q8xjUl-4QwcYXNb8JVuAR-vu2S
+X-Spam-Status: No, score=-2.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,
+        RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
         autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -127,152 +150,138 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-One viable way to detect Zb/Zk HWCAP is from the DT binding.
-No matter how the "M" mode things change, this way can
-always be an auxiliary way to detect it.
+hugetlbfs fallocate support was originally added with commit 70c3547e36f5
+("hugetlbfs: add hugetlbfs_fallocate()").  Initial support only operated
+on whole hugetlb pages.  This makes sense for populating files as other
+interfaces such as mmap and truncate require hugetlb page size alignment.
+Only operating on whole hugetlb pages for the hole punch case was a
+simplification and there was no compelling use case to zero partial pages.
 
-Note that QEMU currently has "zba/zbb/zbc/zbs" in their device tree
-riscv,isa
+In a recent discussion[1] it was assumed that hugetlbfs hole punch would
+zero partial hugetlb pages as that is in line with the man page
+description saying 'partial filesystem  blocks  are  zeroed'.  However,
+the hugetlbfs hole punch code actually does this:
 
-This also fixes the isa2hwcap way as using unsigned char
-for long extension is not viable. Note that the tolower function
-ensures functionality. For other no-hwcap extension (e.g. h, s, u),
-or ("|") with 0 has no effect on hwcap.
+        hole_start = round_up(offset, hpage_size);
+        hole_end = round_down(offset + len, hpage_size);
 
-Tested-by: Jiatai He <jiatai2021@iscas.ac.cn>
-Signed-off-by: Hongren (Zenithal) Zheng <i@zenithal.me>
+Modify code to zero partial hugetlb pages in hole punch range.  It is
+possible that application code could note a change in behavior.  However,
+that would imply the code is passing in an unaligned range and expecting
+only whole pages be removed.  This is unlikely as the fallocate
+documentation states the opposite.
+
+The current hugetlbfs fallocate hole punch behavior is tested with the
+libhugetlbfs test fallocate_align[2].  This test will be updated to
+validate partial page zeroing.
+
+[1] https://lore.kernel.org/linux-mm/20571829-9d3d-0b48-817c-b6b15565f651@redhat.com/
+[2] https://github.com/libhugetlbfs/libhugetlbfs/blob/master/tests/fallocate_align.c
+
+Signed-off-by: Mike Kravetz <mike.kravetz@oracle.com>
 ---
- arch/riscv/include/asm/elf.h   |  2 ++
- arch/riscv/include/asm/hwcap.h |  2 ++
- arch/riscv/kernel/cpufeature.c | 48 ++++++++++++++++++++++++++--------
- 3 files changed, 41 insertions(+), 11 deletions(-)
+ fs/hugetlbfs/inode.c | 68 ++++++++++++++++++++++++++++++++++----------
+ 1 file changed, 53 insertions(+), 15 deletions(-)
 
-diff --git a/arch/riscv/include/asm/elf.h b/arch/riscv/include/asm/elf.h
-index 14fc7342490b..cbf70c5ac1a4 100644
---- a/arch/riscv/include/asm/elf.h
-+++ b/arch/riscv/include/asm/elf.h
-@@ -65,7 +65,9 @@ extern bool compat_elf_check_arch(Elf32_Ehdr *hdr);
-  * but it's not easy, and we've already done it here.
-  */
- #define ELF_HWCAP	(elf_hwcap)
-+#define ELF_HWCAP2	(elf_hwcap2)
- extern unsigned long elf_hwcap;
-+extern unsigned long elf_hwcap2;
+diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
+index eca1d0fabd7e..b0d0947a7e9b 100644
+--- a/fs/hugetlbfs/inode.c
++++ b/fs/hugetlbfs/inode.c
+@@ -584,41 +584,79 @@ static void hugetlb_vmtruncate(struct inode *inode, loff_t offset)
+ 	remove_inode_hugepages(inode, offset, LLONG_MAX);
+ }
  
- /*
-  * This yields a string that ld.so will use to load implementation
-diff --git a/arch/riscv/include/asm/hwcap.h b/arch/riscv/include/asm/hwcap.h
-index 02c454a12683..ef0349c5d303 100644
---- a/arch/riscv/include/asm/hwcap.h
-+++ b/arch/riscv/include/asm/hwcap.h
-@@ -17,12 +17,14 @@
-  * instruction set this cpu supports.
-  */
- #define ELF_HWCAP		(elf_hwcap)
-+#define ELF_HWCAP2		(elf_hwcap2)
- 
- enum {
- 	CAP_HWCAP = 1,
- };
- 
- extern unsigned long elf_hwcap;
-+extern unsigned long elf_hwcap2;
- 
- #define RISCV_ISA_EXT_a		('a' - 'a')
- #define RISCV_ISA_EXT_c		('c' - 'a')
-diff --git a/arch/riscv/kernel/cpufeature.c b/arch/riscv/kernel/cpufeature.c
-index 0c2638365ec2..40a5ab3962f0 100644
---- a/arch/riscv/kernel/cpufeature.c
-+++ b/arch/riscv/kernel/cpufeature.c
-@@ -23,6 +23,7 @@
- #define NUM_ALPHA_EXTS ('z' - 'a' + 1)
- 
- unsigned long elf_hwcap __read_mostly;
-+unsigned long elf_hwcap2 __read_mostly;
- 
- /* Host ISA bitmap */
- static DECLARE_BITMAP(riscv_isa, RISCV_ISA_EXT_MAX) __read_mostly;
-@@ -74,21 +75,39 @@ void __init riscv_fill_hwcap(void)
- 	const char *isa;
- 	char print_str[NUM_ALPHA_EXTS + 1];
- 	int i, j;
--	static unsigned long isa2hwcap[256] = {0};
--
--	isa2hwcap['i'] = isa2hwcap['I'] = COMPAT_HWCAP_ISA_I;
--	isa2hwcap['m'] = isa2hwcap['M'] = COMPAT_HWCAP_ISA_M;
--	isa2hwcap['a'] = isa2hwcap['A'] = COMPAT_HWCAP_ISA_A;
--	isa2hwcap['f'] = isa2hwcap['F'] = COMPAT_HWCAP_ISA_F;
--	isa2hwcap['d'] = isa2hwcap['D'] = COMPAT_HWCAP_ISA_D;
--	isa2hwcap['c'] = isa2hwcap['C'] = COMPAT_HWCAP_ISA_C;
-+	static unsigned long isa2hwcap[RISCV_ISA_EXT_MAX] = {0};
++static void hugetlbfs_zero_partial_page(struct hstate *h,
++					struct address_space *mapping,
++					unsigned long start,
++					unsigned long end)
++{
++	pgoff_t idx = start >> huge_page_shift(h);
++	struct page *page;
 +
-+	/* HWCAP */
-+	isa2hwcap[RISCV_ISA_EXT_i] = COMPAT_HWCAP_ISA_I;
-+	isa2hwcap[RISCV_ISA_EXT_m] = COMPAT_HWCAP_ISA_M;
-+	isa2hwcap[RISCV_ISA_EXT_a] = COMPAT_HWCAP_ISA_A;
-+	isa2hwcap[RISCV_ISA_EXT_f] = COMPAT_HWCAP_ISA_F;
-+	isa2hwcap[RISCV_ISA_EXT_d] = COMPAT_HWCAP_ISA_D;
-+	isa2hwcap[RISCV_ISA_EXT_c] = COMPAT_HWCAP_ISA_C;
-+	/* HWCAP2 */
-+	isa2hwcap[RISCV_ISA_EXT_ZBA] = COMPAT_HWCAP2_ISA_ZBA;
-+	isa2hwcap[RISCV_ISA_EXT_ZBB] = COMPAT_HWCAP2_ISA_ZBB;
-+	isa2hwcap[RISCV_ISA_EXT_ZBC] = COMPAT_HWCAP2_ISA_ZBC;
-+	isa2hwcap[RISCV_ISA_EXT_ZBS] = COMPAT_HWCAP2_ISA_ZBS;
-+	isa2hwcap[RISCV_ISA_EXT_ZBKB] = COMPAT_HWCAP2_ISA_ZBKB;
-+	isa2hwcap[RISCV_ISA_EXT_ZBKC] = COMPAT_HWCAP2_ISA_ZBKC;
-+	isa2hwcap[RISCV_ISA_EXT_ZBKX] = COMPAT_HWCAP2_ISA_ZBKX;
-+	isa2hwcap[RISCV_ISA_EXT_ZKNE] = COMPAT_HWCAP2_ISA_ZKND;
-+	isa2hwcap[RISCV_ISA_EXT_ZKND] = COMPAT_HWCAP2_ISA_ZKNE;
-+	isa2hwcap[RISCV_ISA_EXT_ZKNH] = COMPAT_HWCAP2_ISA_ZKNH;
-+	isa2hwcap[RISCV_ISA_EXT_ZKSED] = COMPAT_HWCAP2_ISA_ZKSED;
-+	isa2hwcap[RISCV_ISA_EXT_ZKSH] = COMPAT_HWCAP2_ISA_ZKSH;
-+	isa2hwcap[RISCV_ISA_EXT_ZKR] = COMPAT_HWCAP2_ISA_ZKR;
-+	isa2hwcap[RISCV_ISA_EXT_ZKT] = COMPAT_HWCAP2_ISA_ZKT;
- 
- 	elf_hwcap = 0;
-+	elf_hwcap2 = 0;
- 
- 	bitmap_zero(riscv_isa, RISCV_ISA_EXT_MAX);
- 
- 	for_each_of_cpu_node(node) {
- 		unsigned long this_hwcap = 0;
-+		unsigned long this_hwcap2 = 0;
- 		DECLARE_BITMAP(this_isa, RISCV_ISA_EXT_MAX);
- 		const char *temp;
- 
-@@ -187,15 +206,17 @@ void __init riscv_fill_hwcap(void)
- #define SET_ISA_EXT_MAP(name, bit)						\
- 			do {							\
- 				if ((ext_end - ext == sizeof(name) - 1) &&	\
--				     !memcmp(ext, name, sizeof(name) - 1))	\
-+				     !memcmp(ext, name, sizeof(name) - 1)) {	\
-+					this_hwcap2 |= isa2hwcap[bit];		\
- 					set_bit(bit, this_isa);			\
-+				}						\
- 			} while (false)						\
- 
- 			if (unlikely(ext_err))
- 				continue;
- 			if (!ext_long) {
--				this_hwcap |= isa2hwcap[(unsigned char)(*ext)];
--				set_bit(*ext - 'a', this_isa);
-+				this_hwcap |= isa2hwcap[tolower(*ext) - 'a'];
-+				set_bit(tolower(*ext) - 'a', this_isa);
- 			} else {
- 				SET_ISA_EXT_MAP("sscofpmf", RISCV_ISA_EXT_SSCOFPMF);
- 				SET_ISA_EXT_MAP("svpbmt", RISCV_ISA_EXT_SVPBMT);
-@@ -246,6 +267,11 @@ void __init riscv_fill_hwcap(void)
- 		else
- 			elf_hwcap = this_hwcap;
- 
-+		if (elf_hwcap2)
-+			elf_hwcap2 &= this_hwcap2;
-+		else
-+			elf_hwcap2 = this_hwcap2;
++	page = find_lock_page(mapping, idx);
++	if (!page)
++		return;
 +
- 		if (bitmap_empty(riscv_isa, RISCV_ISA_EXT_MAX))
- 			bitmap_copy(riscv_isa, this_isa, RISCV_ISA_EXT_MAX);
- 		else
++	start = start & ~huge_page_mask(h);
++	end = end & ~huge_page_mask(h);
++	if (!end)
++		end = huge_page_size(h);
++
++	zero_user_segment(page, (unsigned int)start, (unsigned int)end);
++
++	unlock_page(page);
++	put_page(page);
++}
++
+ static long hugetlbfs_punch_hole(struct inode *inode, loff_t offset, loff_t len)
+ {
++	struct hugetlbfs_inode_info *info = HUGETLBFS_I(inode);
++	struct address_space *mapping = inode->i_mapping;
+ 	struct hstate *h = hstate_inode(inode);
+ 	loff_t hpage_size = huge_page_size(h);
+ 	loff_t hole_start, hole_end;
+ 
+ 	/*
+-	 * For hole punch round up the beginning offset of the hole and
+-	 * round down the end.
++	 * hole_start and hole_end indicate the full pages within the hole.
+ 	 */
+ 	hole_start = round_up(offset, hpage_size);
+ 	hole_end = round_down(offset + len, hpage_size);
+ 
+-	if (hole_end > hole_start) {
+-		struct address_space *mapping = inode->i_mapping;
+-		struct hugetlbfs_inode_info *info = HUGETLBFS_I(inode);
++	inode_lock(inode);
+ 
+-		inode_lock(inode);
++	/* protected by i_rwsem */
++	if (info->seals & (F_SEAL_WRITE | F_SEAL_FUTURE_WRITE)) {
++		inode_unlock(inode);
++		return -EPERM;
++	}
+ 
+-		/* protected by i_rwsem */
+-		if (info->seals & (F_SEAL_WRITE | F_SEAL_FUTURE_WRITE)) {
+-			inode_unlock(inode);
+-			return -EPERM;
+-		}
++	i_mmap_lock_write(mapping);
++
++	/* If range starts before first full page, zero partial page. */
++	if (offset < hole_start)
++		hugetlbfs_zero_partial_page(h, mapping,
++				offset, min(offset + len, hole_start));
+ 
+-		i_mmap_lock_write(mapping);
++	/* Unmap users of full pages in the hole. */
++	if (hole_end > hole_start) {
+ 		if (!RB_EMPTY_ROOT(&mapping->i_mmap.rb_root))
+ 			hugetlb_vmdelete_list(&mapping->i_mmap,
+ 					      hole_start >> PAGE_SHIFT,
+ 					      hole_end >> PAGE_SHIFT, 0);
+-		i_mmap_unlock_write(mapping);
+-		remove_inode_hugepages(inode, hole_start, hole_end);
+-		inode_unlock(inode);
+ 	}
+ 
++	/* If range extends beyond last full page, zero partial page. */
++	if ((offset + len) > hole_end && (offset + len) > hole_start)
++		hugetlbfs_zero_partial_page(h, mapping,
++				hole_end, offset + len);
++
++	i_mmap_unlock_write(mapping);
++
++	/* Remove full pages from the file. */
++	if (hole_end > hole_start)
++		remove_inode_hugepages(inode, hole_start, hole_end);
++
++	inode_unlock(inode);
++
+ 	return 0;
+ }
+ 
 -- 
-2.35.1
+2.35.3
 
