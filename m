@@ -2,47 +2,65 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id D741454A7A1
-	for <lists+linux-man@lfdr.de>; Tue, 14 Jun 2022 05:45:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E4B2554AE1E
+	for <lists+linux-man@lfdr.de>; Tue, 14 Jun 2022 12:18:02 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S237259AbiFNDpq (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 13 Jun 2022 23:45:46 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41934 "EHLO
+        id S232479AbiFNKRn (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 14 Jun 2022 06:17:43 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34506 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231129AbiFNDpp (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 13 Jun 2022 23:45:45 -0400
+        with ESMTP id S232213AbiFNKRm (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 14 Jun 2022 06:17:42 -0400
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 45A2038BD2;
-        Mon, 13 Jun 2022 20:45:44 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5B374403EC
+        for <linux-man@vger.kernel.org>; Tue, 14 Jun 2022 03:17:41 -0700 (PDT)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
         (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
         (No client certificate requested)
-        by ams.source.kernel.org (Postfix) with ESMTPS id C9A9DB8171F;
-        Tue, 14 Jun 2022 03:45:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3557BC3411B;
-        Tue, 14 Jun 2022 03:45:41 +0000 (UTC)
+        by ams.source.kernel.org (Postfix) with ESMTPS id 21790B817E0
+        for <linux-man@vger.kernel.org>; Tue, 14 Jun 2022 10:17:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C4B37C341C0
+        for <linux-man@vger.kernel.org>; Tue, 14 Jun 2022 10:17:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1655178341;
-        bh=E43p/1kIrr7HyaK7jk6FV/lC1nEfSk6tb8CtzMzfw/8=;
-        h=From:To:Cc:Subject:Date:From;
-        b=r/om+l2Z077ToQOFTNDRjZnjM0v/5agF/NWPdnHMVt9LPw/3AhwK1eybmAhewWfX8
-         xuKgUCTGpauyuBrcEOqxqZnE9RKs6O0wzIVoQPUExZXDRJcINW0Vz7KqMhWClDu/rZ
-         MYC3vMJ9PPNHRfuTXbeCQZDxubmxi6laVxU0G11AfHVvrdRgS4XKcBICd02dYi/3+2
-         sg7iVQ4RF335gqk5nKLY6DP2U65wphOWQOEbfcEqtmF5LcYP1vQA3HNs9kKXjDRkK2
-         uhys1pXgWN5DalxrnaHqXRTYc6eml/S5KDaUZ9thFUun+P+QMboDHdI97axO4ufdGV
-         cTtlbSeqI074g==
-From:   Eric Biggers <ebiggers@kernel.org>
+        s=k20201202; t=1655201858;
+        bh=w0OcvyP0YIsCfZQ+h7DslrenLK1M+Xr6QaExK0+8lR0=;
+        h=From:To:Subject:Date:In-Reply-To:References:From;
+        b=ifhMhXhWRA3OEs48qTJtEPimQfYeVSmefe+UIq1IMPzudyWgx1SO2emBIOoXo/JJC
+         YyCjL++9NCP06L0Hxw0xIsZVQx23/0uXhPhdLeej+a51ekj6y6ekasP0D0I6aHFPiQ
+         tz+E8cW0+TReJlivOSZ2Fj+p5/3BQ5GiEE7p5xhEQ/5f9D8V3yCiMv8VVl6B5SzjRD
+         r+00Y9mk9hBe1C5wyYl1JkDckYODGAClxAjbNOv3NuCTEyo0ZXTQa7e4VgWHk5kZms
+         PdsaHX1JtTIPBolnGhNw8GaaTLOXR59JVFP1126QSJAhIzKirbGqhIE68+XxN+Afmq
+         +ilz2YkLjIAuw==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
+        id AF424C05FD5; Tue, 14 Jun 2022 10:17:38 +0000 (UTC)
+From:   bugzilla-daemon@kernel.org
 To:     linux-man@vger.kernel.org
-Cc:     linux-fsdevel@vger.kernel.org,
-        Miklos Szeredi <mszeredi@redhat.com>,
-        David Howells <dhowells@redhat.com>,
-        Christoph Hellwig <hch@lst.de>
-Subject: [man-pages PATCH] statx.2: correctly document STATX_ALL
-Date:   Mon, 13 Jun 2022 20:44:59 -0700
-Message-Id: <20220614034459.79889-1-ebiggers@kernel.org>
-X-Mailer: git-send-email 2.36.1
+Subject: [Bug 216121] Links
+Date:   Tue, 14 Jun 2022 10:17:38 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Other
+X-Bugzilla-Component: Spam
+X-Bugzilla-Version: 2.5
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: aros@gmx.com
+X-Bugzilla-Status: NEW
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P1
+X-Bugzilla-Assigned-To: other_spam@kernel-bugs.kernel.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: component version assigned_to product
+Message-ID: <bug-216121-11311-FXQEEyWzhl@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-216121-11311@https.bugzilla.kernel.org/>
+References: <bug-216121-11311@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 X-Spam-Status: No, score=-8.3 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
         DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
         SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
@@ -53,34 +71,20 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From: Eric Biggers <ebiggers@google.com>
+https://bugzilla.kernel.org/show_bug.cgi?id=3D216121
 
-Since kernel commit 581701b7efd6 ("uapi: deprecate STATX_ALL"),
-STATX_ALL is deprecated.  It doesn't include STATX_MNT_ID, and it won't
-include any future flags.  Update the man page accordingly.
+Artem S. Tashkinov (aros@gmx.com) changed:
 
-Signed-off-by: Eric Biggers <ebiggers@google.com>
----
- man2/statx.2 | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+           What    |Removed                     |Added
+----------------------------------------------------------------------------
+          Component|man-pages                   |Spam
+            Version|unspecified                 |2.5
+           Assignee|documentation_man-pages@ker |other_spam@kernel-bugs.kern
+                   |nel-bugs.osdl.org           |el.org
+            Product|Documentation               |Other
 
-diff --git a/man2/statx.2 b/man2/statx.2
-index a8620be6f..561e64f7b 100644
---- a/man2/statx.2
-+++ b/man2/statx.2
-@@ -244,8 +244,9 @@ STATX_SIZE	Want stx_size
- STATX_BLOCKS	Want stx_blocks
- STATX_BASIC_STATS	[All of the above]
- STATX_BTIME	Want stx_btime
-+STATX_ALL	The same as STATX_BASIC_STATS | STATX_BTIME.
-+         	This is deprecated and should not be used.
- STATX_MNT_ID	Want stx_mnt_id (since Linux 5.8)
--STATX_ALL	[All currently available fields]
- .TE
- .in
- .PP
+--=20
+You may reply to this email to add a comment.
 
-base-commit: 756761bf7f23e6fd679d708a1c2d1e94547f4fce
--- 
-2.36.1
-
+You are receiving this mail because:
+You are watching the assignee of the bug.=
