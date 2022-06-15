@@ -2,109 +2,127 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id AC2DE54C2CB
-	for <lists+linux-man@lfdr.de>; Wed, 15 Jun 2022 09:42:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id F0D4954C564
+	for <lists+linux-man@lfdr.de>; Wed, 15 Jun 2022 12:04:46 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S238448AbiFOHmK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 15 Jun 2022 03:42:10 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49616 "EHLO
+        id S1347207AbiFOKEp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 15 Jun 2022 06:04:45 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48900 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1346900AbiFOHmJ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 15 Jun 2022 03:42:09 -0400
-X-Greylist: delayed 382 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Wed, 15 Jun 2022 00:42:06 PDT
-Received: from smtp-8faa.mail.infomaniak.ch (smtp-8faa.mail.infomaniak.ch [IPv6:2001:1600:4:17::8faa])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E6DE73A1A2
-        for <linux-man@vger.kernel.org>; Wed, 15 Jun 2022 00:42:06 -0700 (PDT)
-Received: from smtp-3-0001.mail.infomaniak.ch (unknown [10.4.36.108])
-        by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4LNHCf1vHczMqPJN;
-        Wed, 15 Jun 2022 09:35:42 +0200 (CEST)
-Received: from ns3096276.ip-94-23-54.eu (unknown [23.97.221.149])
-        by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4LNHCd60yRzln2Gl;
-        Wed, 15 Jun 2022 09:35:41 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=digikod.net;
-        s=20191114; t=1655278542;
-        bh=PNXMw7X/b5rpwW17cONp59+cX+lfHxQ87NYoqqGAlgo=;
-        h=Date:To:Cc:References:From:Subject:In-Reply-To:From;
-        b=v11LT/z3oBlKWDPivjl/IWokR8leGlsTdqbZeuVCpTVONp9fNuMVM2AqmW2CRIFch
-         cXpv7+OQAYy5uCdE0D62BzYMZs2J/Iumhv8Sw7GpvU7Y05w+yLku8fBf0EfK3Eb/gz
-         VaYoMUczOdi3ilVCX/nC7CJSB+viIxjc2nBbLEWo=
-Message-ID: <ec159458-a863-3852-babd-aa758f9b6849@digikod.net>
-Date:   Wed, 15 Jun 2022 09:35:41 +0200
+        with ESMTP id S1346631AbiFOKEl (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 15 Jun 2022 06:04:41 -0400
+Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 2CACC3BA79
+        for <linux-man@vger.kernel.org>; Wed, 15 Jun 2022 03:04:38 -0700 (PDT)
+Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 432F621F8;
+        Wed, 15 Jun 2022 12:04:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
+        s=202205; t=1655287476;
+        bh=hAwWhe3bMFt95HzmGgyagHDm9744DfpA08BxUxP9ULk=;
+        h=Date:From:To:Cc:Subject:From;
+        b=PliEefLL6GWy0DR5HwOohIbCNTCBIxzT+jKw9NHJ8PVOCvTyPYNgCzdCMumwSny/0
+         DZdw+EHp6HYE0JVUvOMNbYsb3Twvbhkj68uYNqPCj8L0tqEM9VNK5X2UuiDrDcHCkW
+         +pU1sR90DWU59isQ08nDbHboYki/RWGhunzAmv4adVQrOeWA8BGjgp1zxiXmuN/p3a
+         2Dlk1SYHQxmdqZCymmFN3wFc/2gjfwm+7txor/9Ku5/ZkdTiexQfru344cJIY32Lm+
+         1FdiOJgOkNd5zYGBE81g1I6eeDMMBAf92xxtYb4sCR0EDkRArurviHx00X7QjrK25E
+         73qOX0+KvteZOJ7EtTjd6FnBY+QbRCVCECqLJ3pM4Vh2rQKCYg5Vg8EBzXwblVKmmY
+         /vP+/Kr9XnGIGEGe+1pGIpJ/sEDX1feYVLu7QRFatFnfc0FPM4ufQ6LPeXcgERwYUc
+         OpvrshjbeFQlZbWZQesBwERW3SVs2HI43/j+aVzakT32xaylC0NGnFos92dbLkUIh/
+         q7m9dydDCo05n6xRhZD+umpJjiE8GHVcK5lofZa8z+5Lc5rb/gC4i+Jnv/bErpfVvl
+         d39WHIJ2bGumNISi7lSC6GD8NIX19Ww+BTP+wGt90DzJ34uR2AnipVog2WGXf1qQhr
+         j8RY9Mke3DEhR1WAgYo6CFPs=
+Date:   Wed, 15 Jun 2022 12:04:35 +0200
+From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org
+Subject: [PATCH 1/2] uname.2: fix standard reference wording
+Message-ID: <4a27c7c7295739005855299b23d1ab20b11e0110.1655287466.git.nabijaczleweli@nabijaczleweli.xyz>
 MIME-Version: 1.0
-User-Agent: 
-Content-Language: en-US
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     linux-man <linux-man@vger.kernel.org>, landlock@lists.linux.dev
-References: <20220523161245.2451265-1-mic@digikod.net>
- <165342401733.5255.6026414404497432650.pr-tracker-bot@kernel.org>
- <71967548-c0d6-2997-4058-20bad59e7084@gmail.com>
-From:   =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>
-Subject: Re: [GIT PULL] Landlock changes for v5.19
-In-Reply-To: <71967548-c0d6-2997-4058-20bad59e7084@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
-        T_SCC_BODY_TEXT_LINE autolearn=ham autolearn_force=no version=3.4.6
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="fb45hwkymbcpm7qh"
+Content-Disposition: inline
+User-Agent: NeoMutt/20220429
+X-Spam-Status: No, score=3.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FROM_SUSPICIOUS_NTLD,
+        FROM_SUSPICIOUS_NTLD_FP,PDS_OTHER_BAD_TLD,RDNS_DYNAMIC,SPF_HELO_NONE,
+        SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=no autolearn_force=no
+        version=3.4.6
+X-Spam-Level: ***
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Alex,
 
-On 03/06/2022 18:35, Alejandro Colomar wrote:
-> Hi Mickaël,
-> 
-> On 5/24/22 22:26, pr-tracker-bot@kernel.org wrote:
->> The pull request you sent on Mon, 23 May 2022 18:12:45 +0200:
->>
->>> git://git.kernel.org/pub/scm/linux/kernel/git/mic/linux.git 
->>> tags/landlock-5.19-rc1
->>
->> has been merged into torvalds/linux.git:
->> https://git.kernel.org/torvalds/c/cb44e4f061e16be65b8a16505e121490c66d30d0 
->>
->>
-> 
-> Do we need any update in the manual page?  Is this already covered by 
-> patches that I applied from you?
+--fb45hwkymbcpm7qh
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Yes, this new release brings some changes and the man pages need update.
+Issue 6:
+    IEEE Std 1003.1-2001/Cor 2-2004, item XBD/TC2/D6/27 is applied,
+changing the description of nodename within the utsname structure from
+``an implementation-defined communications network'' to
+``the communications network to which this node is attached, if any''.
 
-Documentation fixes:
-* Fix landlock_add_rule(2) documentation: 
-https://git.kernel.org/torvalds/c/a13e248ff90e81e9322406c0e618cf2168702f4e
-* Reduce the maximum number of layers to 16: 
-https://git.kernel.org/torvalds/c/75c542d6c6cc48720376862d5496d51509160dfd
+Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
+---
+ man2/uname.2 | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-New features:
-* Add support for file reparenting with LANDLOCK_ACCESS_FS_REFER: 
-https://git.kernel.org/torvalds/c/b91c3e4ea756b12b7d992529226edce1cfd854d7
-* Document LANDLOCK_ACCESS_FS_REFER and ABI versioning: 
-https://git.kernel.org/torvalds/c/6f59abfae35fbbe688ff790ff9638576956d760c
+diff --git a/man2/uname.2 b/man2/uname.2
+index 94c9c951a..b43f5d8d6 100644
+--- a/man2/uname.2
++++ b/man2/uname.2
+@@ -29,8 +29,8 @@ struct is defined in
+ .EX
+ struct utsname {
+     char sysname[];    /* Operating system name (e.g., "Linux") */
+-    char nodename[];   /* Name within "some implementation\-defined
+-                          network" */
++    char nodename[];   /* Name within communications network
++                          to which the node is attached, if any */
+     char release[];    /* Operating system release
+                           (e.g., "2.6.28") */
+     char version[];    /* Operating system version */
+@@ -73,9 +73,10 @@ So, four of the fields of the struct are meaningful.
+ On the other hand, the field
+ .I nodename
+ is meaningless:
+-it gives the name of the present machine in some undefined
+-network, but typically machines are in more than one network
+-and have several names.
++it gives the name of the present machine in some "the" network
++to which it's attached,
++but typically machines are in more than one network
++and have several names by which they're reachable.
+ Moreover, the kernel has no way of knowing
+ about such things, so it has to be told what to answer here.
+ The same holds for the additional
+--=20
+2.30.2
 
-Documentation improvements:
-* Document good practices about filesystem policies: 
-https://git.kernel.org/torvalds/c/09340cf4135f942d56742b36aaa3c37738aba000
-* Explain how to support Landlock: 
-https://git.kernel.org/torvalds/c/5e469829baa1b1320e843adf3631edef1d6d2cf2
 
-For a complete overview: 
-https://git.kernel.org/torvalds/c/cb44e4f061e16be65b8a16505e121490c66d30d0
+--fb45hwkymbcpm7qh
+Content-Type: application/pgp-signature; name="signature.asc"
 
-It would be easier to have a way to easily/automatically synchronize the 
-kernel documentation and the man pages.
+-----BEGIN PGP SIGNATURE-----
 
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmKprrIACgkQvP0LAY0m
+WPFwgg/+LV34XJReUItSxcxdlU4LNS6frCwyYl8XdR4VZd+DQJuU9gL+yQIpg5Zy
+V//t3JhFqmtB/18pT03sacwJyhfKWdSneElOBXgCArajgYbC7hCJwbdyimBPQHHP
+kAic+bVugSLT2NdIGysQ90yycb0ysoflrP1quur7vNkpSLEw2Z6Hundcm/jWGxIo
+qAwuNjJN9k4ceSzu4S6Gfd7/tYnh6nQ2wRI1qXRZrfQpP3IXsziNIuegeZZqSrMx
+NxXNtDbsUJUHRbYEXH5kDp9MHtt9R3K1ynfDxGqffQQJaRAXB+VPFfhnh/OEHPmw
+EBYfvLFspWu0cnDoucNK3tPFQxQxUYZmtHOaHcIiIk+pRzuLJpZSf082sJiE1Lz7
+1GrfiQ/roSvFhhqydCb+tyAD2YV1AE81UR6Z1FX4Z2kbsvEZR68EKOP3Pr5lA/TK
+j3I4sbaajTam+q+S3Qd52i1/iXwIaWgxzZ4rgiHEQCKDNkggZQoyESAtODPguZwX
+GRMht8KnCAdWBM2D8WmArrdVF6ZoSUMJMsz8uWK7PQfbl5l5MfWP8Jv5BEeIZMRh
+Yc+fEUL/DR/iAycMIaSxnrwnUdCehxFxfNuStGN1iy2FHX6xcEb0sMf2OS0kpEyK
+KbryPAUaHcHMxR3Iea7TzuoSZgPyJP+BELdWnX9gFlfo52d+8/M=
+=wCC9
+-----END PGP SIGNATURE-----
 
-> 
-> The latest one I have applied from you regarding landlock is 
-> <http://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/commit/?id=38454e3fcd7876dcd3441f4bb86246b9f3b8f9da>. 
-> 
-> 
-> 
-> Cheers,
-> 
-> Alex
-> 
+--fb45hwkymbcpm7qh--
