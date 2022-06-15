@@ -2,53 +2,54 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id F0D4954C564
-	for <lists+linux-man@lfdr.de>; Wed, 15 Jun 2022 12:04:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3F8BD54C578
+	for <lists+linux-man@lfdr.de>; Wed, 15 Jun 2022 12:08:38 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1347207AbiFOKEp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 15 Jun 2022 06:04:45 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48900 "EHLO
+        id S1346820AbiFOKIg (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 15 Jun 2022 06:08:36 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53426 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1346631AbiFOKEl (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 15 Jun 2022 06:04:41 -0400
+        with ESMTP id S1347470AbiFOKId (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 15 Jun 2022 06:08:33 -0400
 Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 2CACC3BA79
-        for <linux-man@vger.kernel.org>; Wed, 15 Jun 2022 03:04:38 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 3900A2F00C
+        for <linux-man@vger.kernel.org>; Wed, 15 Jun 2022 03:08:32 -0700 (PDT)
 Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 432F621F8;
-        Wed, 15 Jun 2022 12:04:36 +0200 (CEST)
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 762502362;
+        Wed, 15 Jun 2022 12:08:31 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-        s=202205; t=1655287476;
-        bh=hAwWhe3bMFt95HzmGgyagHDm9744DfpA08BxUxP9ULk=;
-        h=Date:From:To:Cc:Subject:From;
-        b=PliEefLL6GWy0DR5HwOohIbCNTCBIxzT+jKw9NHJ8PVOCvTyPYNgCzdCMumwSny/0
-         DZdw+EHp6HYE0JVUvOMNbYsb3Twvbhkj68uYNqPCj8L0tqEM9VNK5X2UuiDrDcHCkW
-         +pU1sR90DWU59isQ08nDbHboYki/RWGhunzAmv4adVQrOeWA8BGjgp1zxiXmuN/p3a
-         2Dlk1SYHQxmdqZCymmFN3wFc/2gjfwm+7txor/9Ku5/ZkdTiexQfru344cJIY32Lm+
-         1FdiOJgOkNd5zYGBE81g1I6eeDMMBAf92xxtYb4sCR0EDkRArurviHx00X7QjrK25E
-         73qOX0+KvteZOJ7EtTjd6FnBY+QbRCVCECqLJ3pM4Vh2rQKCYg5Vg8EBzXwblVKmmY
-         /vP+/Kr9XnGIGEGe+1pGIpJ/sEDX1feYVLu7QRFatFnfc0FPM4ufQ6LPeXcgERwYUc
-         OpvrshjbeFQlZbWZQesBwERW3SVs2HI43/j+aVzakT32xaylC0NGnFos92dbLkUIh/
-         q7m9dydDCo05n6xRhZD+umpJjiE8GHVcK5lofZa8z+5Lc5rb/gC4i+Jnv/bErpfVvl
-         d39WHIJ2bGumNISi7lSC6GD8NIX19Ww+BTP+wGt90DzJ34uR2AnipVog2WGXf1qQhr
-         j8RY9Mke3DEhR1WAgYo6CFPs=
-Date:   Wed, 15 Jun 2022 12:04:35 +0200
+        s=202205; t=1655287711;
+        bh=rYzJRaLMLicSkj5e9LJCCABRUvx6VCT22Edujj75UCU=;
+        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+        b=KH6YmGE0+64M8gI0WYgtLu0vRL27csoSblXpJzoQP9Bv5wQtudGqxtxfX457RJ1X0
+         ba5XbNmlKRj86Gr0ZDbvd28NRhoGDUKgpJJIpF+0tYP7EYK1FdQTjeNn7VB2k4K3PR
+         bsppiWhoDGnsZoX5VOP1x6PLlc/yWe1nUwFbkxwt25edQIzJBGC5CBzJ58S/n+Wynu
+         qJExvB55j+YWtifNEjyDgh9KIrAzr2jaL/STe6qv1WDC0E3rNCVaiR/GLqvr/Vycap
+         oZrBZcaA8H3ZjLyOTRdR59sdIGudUPZkdu+2Qw7H9v7EcP9VcLJh/+CxHlGniEy9jx
+         R73CIT+MTSXhjvBwn4U8m2hCb5OmYAzHpb00PqQGeOg9LbIWgvL8PAg1kCQGfTMdZ0
+         gFvF2vwTkXEtevE7o/wcqazAusy3cpHHPblcXYehP2Bcu9o94ZV0F8mjnTA2mYnUIV
+         wDANssurO5NIpD/Kv6FxUhqeu9oGD/r7VNdMXWE0bz497GsApBDi6/+1wjV7cx+jIa
+         dnJkW5w33YoMF/2YlNLzPrFZqeKZOfEHNtdK9NFE4iM3rKhwZX1i910+XIivae+cW7
+         egXdyrYnmfuFuIP5pCBYFx3QqIwiyQ21F5ukUlBwOE1XxJ48h/t/UAekikxWLPWQ9/
+         YpJdRLel6XKk8WuabTeCMWlA=
+Date:   Wed, 15 Jun 2022 12:08:30 +0200
 From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
 To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org
-Subject: [PATCH 1/2] uname.2: fix standard reference wording
-Message-ID: <4a27c7c7295739005855299b23d1ab20b11e0110.1655287466.git.nabijaczleweli@nabijaczleweli.xyz>
+Subject: [PATCH 2/2] uname.2: deweirdify
+Message-ID: <132c675935023339e0f98559a479866ee3dd3ec0.1655287466.git.nabijaczleweli@nabijaczleweli.xyz>
+References: <4a27c7c7295739005855299b23d1ab20b11e0110.1655287466.git.nabijaczleweli@nabijaczleweli.xyz>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="fb45hwkymbcpm7qh"
+        protocol="application/pgp-signature"; boundary="imepa5h3ou46hsws"
 Content-Disposition: inline
+In-Reply-To: <4a27c7c7295739005855299b23d1ab20b11e0110.1655287466.git.nabijaczleweli@nabijaczleweli.xyz>
 User-Agent: NeoMutt/20220429
-X-Spam-Status: No, score=3.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=1.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FROM_SUSPICIOUS_NTLD,
-        FROM_SUSPICIOUS_NTLD_FP,PDS_OTHER_BAD_TLD,RDNS_DYNAMIC,SPF_HELO_NONE,
-        SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=no autolearn_force=no
-        version=3.4.6
-X-Spam-Level: ***
+        PDS_OTHER_BAD_TLD,RDNS_DYNAMIC,SPF_HELO_NONE,SPF_PASS,
+        T_SCC_BODY_TEXT_LINE autolearn=no autolearn_force=no version=3.4.6
+X-Spam-Level: *
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
@@ -56,73 +57,151 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---fb45hwkymbcpm7qh
+--imepa5h3ou46hsws
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Issue 6:
-    IEEE Std 1003.1-2001/Cor 2-2004, item XBD/TC2/D6/27 is applied,
-changing the description of nodename within the utsname structure from
-``an implementation-defined communications network'' to
-``the communications network to which this node is attached, if any''.
+The NOTES were not only weirdly reductionist, but also highly
+opinionated in the wrong direction.
+
+Yes, it's a syscall in SysIII; not in 4.4BSD.
+Well, in general, it exists in 4.4BSD for obvious conformace reasons.
+No, it doesn't "know" (and if it does, that's not relevant),
+historically and practically this is the broad CPU/machine type
+(compare SunOS 3 mach =3D> SysVr4 uname -p (=3D> SunOS 5 =3D> NetBSD),
+ which is the actual CPU model (usually)).
+Everywhere, ex def., the nodename is what the BSD calls the hostname.
+"No standard" also speaks of sethostname(), so.
+Historical precedent (i.e. all implementations, save *maybe* for weirdo
+XENIX, who cares about weirdo XENIX) defines the hostname to be uname -n
+(indeed, SVr3 uname -S sets /both/ nodename /and/ sysname!
+ that's not relevant here;
+ SunOS gets it from the network (unless configured manually)).
+Someone clearly cited SysVr4's "Internet hostnames" comment w/o credit;
+fix that.
+8-byte truncation is really quite secondary here (indeed, that's what
+ SysVr4 does for pre-SysVr4 uname() callers that haven't been rebuilt.
+ you will never encounter it).
+The hostname is not meaningless, obviously??
+Also fix machine to say "hardware type", like the standard;
+"hardware identifier" would be hostid. I wrote six seething pages about
+hostid, and machine is /not/ hostid.
 
 Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
 ---
- man2/uname.2 | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+Here's a preprint of uname history (3.3 pages):
+  https://twitter.com/nabijaczleweli/status/1537013517257265152
+and the 6 scathing pages:
+  https://twitter.com/nabijaczleweli/status/1531611680639225863
+
+ man2/uname.2 | 49 ++++++++++++-------------------------------------
+ 1 file changed, 12 insertions(+), 37 deletions(-)
 
 diff --git a/man2/uname.2 b/man2/uname.2
-index 94c9c951a..b43f5d8d6 100644
+index b43f5d8d6..b0da6270b 100644
 --- a/man2/uname.2
 +++ b/man2/uname.2
-@@ -29,8 +29,8 @@ struct is defined in
- .EX
- struct utsname {
-     char sysname[];    /* Operating system name (e.g., "Linux") */
--    char nodename[];   /* Name within "some implementation\-defined
--                          network" */
-+    char nodename[];   /* Name within communications network
-+                          to which the node is attached, if any */
+@@ -34,7 +34,7 @@ struct utsname {
      char release[];    /* Operating system release
                            (e.g., "2.6.28") */
      char version[];    /* Operating system version */
-@@ -73,9 +73,10 @@ So, four of the fields of the struct are meaningful.
- On the other hand, the field
+-    char machine[];    /* Hardware identifier */
++    char machine[];    /* Hardware type identifier */
+ #ifdef _GNU_SOURCE
+     char domainname[]; /* NIS or YP domain name */
+ #endif
+@@ -57,49 +57,23 @@ is set to indicate the error.
+ .I buf
+ is not valid.
+ .SH CONFORMING TO
+-POSIX.1-2001, POSIX.1-2008, SVr4.
+-There is no
+-.BR uname ()
+-call in 4.3BSD.
++POSIX.1-2001, POSIX.1-2008, SVr4, 4.4BSD.
+ .PP
+ The
+ .I domainname
+ member (the NIS or YP domain name) is a GNU extension.
+ .SH NOTES
+-This is a system call, and the operating system presumably knows
+-its name, release, and version.
+-It also knows what hardware it runs on.
+-So, four of the fields of the struct are meaningful.
+-On the other hand, the field
++The kernel has the name, release, version, and supported machine type buil=
+t in.
++Conversely, the
  .I nodename
- is meaningless:
--it gives the name of the present machine in some undefined
--network, but typically machines are in more than one network
--and have several names.
-+it gives the name of the present machine in some "the" network
-+to which it's attached,
-+but typically machines are in more than one network
-+and have several names by which they're reachable.
- Moreover, the kernel has no way of knowing
- about such things, so it has to be told what to answer here.
- The same holds for the additional
+-is meaningless:
+-it gives the name of the present machine in some "the" network
+-to which it's attached,
+-but typically machines are in more than one network
+-and have several names by which they're reachable.
+-Moreover, the kernel has no way of knowing
+-about such things, so it has to be told what to answer here.
+-The same holds for the additional
++field is configured by the administrator to match the network
++(this is what the BSD historically calls the "hostname",
++and is set via
++.BR sethostname (2)).
++Similarly, the
+ .I domainname
+-field.
+-.PP
+-To this end, Linux uses the system calls
+-.BR sethostname (2)
+-and
++field is set via
+ .BR setdomainname (2).
+-Note that there is no standard that says that the hostname set by
+-.BR sethostname (2)
+-is the same string as the
+-.I nodename
+-field of the struct returned by
+-.BR uname ()
+-(indeed, some systems allow a 256-byte hostname and an 8-byte nodename),
+-but this is true on Linux.
+-The same holds for
+-.BR setdomainname (2)
+-and the
+-.I domainname
+-field.
+ .PP
+ The length of the fields in the struct varies.
+ Some operating systems
+@@ -114,7 +88,8 @@ or
+ .BR _UTSNAME_LENGTH .
+ Clearly, it is a bad
+ idea to use any of these constants; just use sizeof(...).
+-Often 257 is chosen in order to have room for an internet hostname.
++SVr4 uses 257, "to support Internet hostnames"
++\(em this is the largest value likely to be encountered in the wild.
+ .PP
+ Part of the utsname information is also accessible via
+ .IR /proc/sys/kernel/ { ostype ,
 --=20
 2.30.2
 
-
---fb45hwkymbcpm7qh
+--imepa5h3ou46hsws
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmKprrIACgkQvP0LAY0m
-WPFwgg/+LV34XJReUItSxcxdlU4LNS6frCwyYl8XdR4VZd+DQJuU9gL+yQIpg5Zy
-V//t3JhFqmtB/18pT03sacwJyhfKWdSneElOBXgCArajgYbC7hCJwbdyimBPQHHP
-kAic+bVugSLT2NdIGysQ90yycb0ysoflrP1quur7vNkpSLEw2Z6Hundcm/jWGxIo
-qAwuNjJN9k4ceSzu4S6Gfd7/tYnh6nQ2wRI1qXRZrfQpP3IXsziNIuegeZZqSrMx
-NxXNtDbsUJUHRbYEXH5kDp9MHtt9R3K1ynfDxGqffQQJaRAXB+VPFfhnh/OEHPmw
-EBYfvLFspWu0cnDoucNK3tPFQxQxUYZmtHOaHcIiIk+pRzuLJpZSf082sJiE1Lz7
-1GrfiQ/roSvFhhqydCb+tyAD2YV1AE81UR6Z1FX4Z2kbsvEZR68EKOP3Pr5lA/TK
-j3I4sbaajTam+q+S3Qd52i1/iXwIaWgxzZ4rgiHEQCKDNkggZQoyESAtODPguZwX
-GRMht8KnCAdWBM2D8WmArrdVF6ZoSUMJMsz8uWK7PQfbl5l5MfWP8Jv5BEeIZMRh
-Yc+fEUL/DR/iAycMIaSxnrwnUdCehxFxfNuStGN1iy2FHX6xcEb0sMf2OS0kpEyK
-KbryPAUaHcHMxR3Iea7TzuoSZgPyJP+BELdWnX9gFlfo52d+8/M=
-=wCC9
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmKpr50ACgkQvP0LAY0m
+WPH5FA/+JFPWEd6eZ3z8WgAqnrPwMWSwiyrehETYI5cFtkWPeFS5hT72GCMswMuZ
+hNP0tOdXy2uCX8ADYb3sJrX1hrIWL+yEcGUb7OcyTkGVwcSG6GG5+qEM87kltKWL
+hexi9TGCNbsun8QtYNzS73uEbf0ffV3VWT4Ug8t/rr6VHqge3Jskv3q2zrqhuURU
+xrTOuo8xYdnkPD6mF2SmGbia2+gxxCpwrMKToqV6bkkgj5/5Q2T8qHdYtXG0al0W
+VfZsGbPzAGBJ7FYToh6yYzNLhDDuW+xkt2w6zDQ5O86e9ksChZMqCeu7sxlzPZxe
+MCt6jq3dTau/79SKbunqKIX7o8WM06sd+tyFYLVQDacyuwkfgV32mYVyNk6FX0SK
+H4Nyf7Sr9KpmFEJtQLwZEC1M4hFk4WV6iIMouyta8Qbsh+rKBRtthMrbCN5xbFEF
+D/7cv37i45PJgAzloZBmy0kBZ2s3IfU5VRy1RHXLawbH2DbzTXsYTbhsG6huBiit
+7QJeSPlbQVOgf9pEeHFkeJhp77tPAYAfvSL6+7wFpHhgFQ9OnErKplcpf4shAHNv
+zvmDVsPEFh6cID6tyW2rhM/mDS5rW0tc2z4CujBD/Uc4oMG5ZOh9xYDYPV+IWX46
+guWi7lktpQmj43se3nIfZHSgcy1b6cXnULA2HfT4GQN1m0u4z1A=
+=VfwH
 -----END PGP SIGNATURE-----
 
---fb45hwkymbcpm7qh--
+--imepa5h3ou46hsws--
