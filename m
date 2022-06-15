@@ -2,139 +2,153 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 9F45054CC42
-	for <lists+linux-man@lfdr.de>; Wed, 15 Jun 2022 17:12:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 716F754CD27
+	for <lists+linux-man@lfdr.de>; Wed, 15 Jun 2022 17:36:51 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S236237AbiFOPMw (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 15 Jun 2022 11:12:52 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33456 "EHLO
+        id S1351500AbiFOPgs (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 15 Jun 2022 11:36:48 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:32884 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S239055AbiFOPMw (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 15 Jun 2022 11:12:52 -0400
-Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id CE6FFA461
-        for <linux-man@vger.kernel.org>; Wed, 15 Jun 2022 08:12:50 -0700 (PDT)
-Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 7C18B2652;
-        Wed, 15 Jun 2022 17:12:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-        s=202205; t=1655305969;
-        bh=kczXS3sEkabxuF5zqlHMPMfYit7ATW+VPFQ4xV/oEkI=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=VbDxy6fZh5Rzzykt1bbWXYWTUnCscHwK6x38S7ND4qLdeIYkRVe3hyC8JZtfAgw2v
-         POiq1I1yB59+oxpzoHIYDP0+jJnG0LOPiukKgkg+imFOATTOSwbMQ5udCjmMmQWH91
-         b17z5oXBBnPEUruli99aGqF/ai1ddJA6U1e2qAC7GrV0DBr7+Dy1D8umiQ6yw19Uw/
-         i8m3xAVHauvcAOr/GYQSILbHD/XoI+3umjehg2rkYwqBVwmDol4hX6Ym/fzVQmB1UH
-         PvC5+1clXOpK3BewHU0OB0gWqOnUVVP3REBkCv5ththYmzYd7fveAHLUE73JN8FMZS
-         ZTXyOWSWpsCiklCL+r8/UB/fjGHdJAm4lxa1tsueRw8DApgxLQkYCIjoIwrpBRNgZu
-         rRvSGvuQMW+48ENZTNCxo5SmgGnwsafmlonii3lQWFZy0EbPSUMeHa49ns9WnyuDdx
-         HbGo5D8Sl3MrvnmYO5F1oRuH27cl0VMoJaaJ90kBmC3QGmCjar7dO/5sRbTCp2e4rj
-         GFl/Lk8m/uHs7bHiXS6DJZwvpzIDJwinFgsshwNnIUCuq+p7XUHD/7txoHMLjbYezA
-         HZoHpOu5c1TRFGyVpzwQwepbAQIdXHv+7e9UZrl2D9gqYYyfotjLN/XtvxzA3t9GDU
-         2k68217nTO53IMUfOuxCRZ00=
-Date:   Wed, 15 Jun 2022 17:12:48 +0200
-From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-To:     Stefan Puiu <stefan.puiu@gmail.com>
-Cc:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
-        lnx-man <linux-man@vger.kernel.org>
-Subject: Re: [PATCH 1/2] uname.2: fix standard reference wording
-Message-ID: <20220615151248.galayhoy34rheez5@tarta.nabijaczleweli.xyz>
-References: <4a27c7c7295739005855299b23d1ab20b11e0110.1655287466.git.nabijaczleweli@nabijaczleweli.xyz>
- <CACKs7VAdedMNLhx0NWvayt3GzDVYVuoKp1mEt8kGH_=YMYCaXw@mail.gmail.com>
+        with ESMTP id S1347275AbiFOPgr (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 15 Jun 2022 11:36:47 -0400
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com [IPv6:2a00:1450:4864:20::331])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 05ACE27CD2
+        for <linux-man@vger.kernel.org>; Wed, 15 Jun 2022 08:36:47 -0700 (PDT)
+Received: by mail-wm1-x331.google.com with SMTP id r123-20020a1c2b81000000b0039c1439c33cso1333496wmr.5
+        for <linux-man@vger.kernel.org>; Wed, 15 Jun 2022 08:36:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=message-id:date:mime-version:user-agent:subject:content-language:to
+         :cc:references:from:in-reply-to;
+        bh=1zlo78UBzGlUGC3JVTOZm3fTI5X308ul1uGNlkh0BIA=;
+        b=gAdFkODHndOm73X+TGj3A0drKT59DulESyrpZb22vFxmPTrgTi6b7chayovPjHhdSG
+         +zI2JHXPCUadgds4L833aJZ6UMRuk0RDTl+aALR0uK82zS6rTfCUTB5e1W38+bzYsfuJ
+         bkOGfwGiCxUHqUTD10fPZiBuCLp3vxn4J8TVAI8Q1f2Yetiw+ReEG2ViuYxlzIJyPOb0
+         fglND+amthlWCZ6J4lwlFCWus2iKbHd2ZSWJ1YiXtzXza1NPSwq0n48splD1yhn1Ca56
+         MXU/uXqABwkjk/vcOPpevjFGD+T+LW+jcOJaAiRwYAbMxmvyKu6OYR7LR8/uzC3KTSgy
+         I+5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+         :content-language:to:cc:references:from:in-reply-to;
+        bh=1zlo78UBzGlUGC3JVTOZm3fTI5X308ul1uGNlkh0BIA=;
+        b=nPTSGfuSe58bMKRC6x0HAW7LSm+/IwsCiHCFenrhsrX7JTib3Bxw0RQbZ6KrFMSgJI
+         SvgiF3B9LAVxtkwrptY7v38kiktckmrdlF3+lHzHdlKz0Ztm+LRXb4EDJYinS2ud1Le5
+         HkTtUlWYPj9TR62/iLOo8weTCqwSNuAT0pyKUxSoDiqYc7gKlfsHT4NDTvhJ8aBZGl6s
+         ZiNcafnZ3dGJUSVlYOnpkLqkEX9ZxzLTD4BbUjB3WoCj8we/PZ0rrNQU6Yziu5vkpx5y
+         ilJKAXaKCW62JoeGjXg2b7N//khUD7b/a+JzREb+ZpTopxBUHofZ76z1AlijWiFU++F5
+         eVqA==
+X-Gm-Message-State: AOAM5326SVeJ6sIs3yplm7NRXWnqccUdy82nXZGoGHjRlz8Iwi1x0tRx
+        OndVT+igW9N699iRjiwMHwOcyJwFx+M=
+X-Google-Smtp-Source: ABdhPJzzt63+MxaP1u8uygMgIc5ueIMymezkUY8M5Zt6r68+5wSqIDnvIuX4J0dJm+/t4RfcncUB9g==
+X-Received: by 2002:a7b:c404:0:b0:39c:4389:5834 with SMTP id k4-20020a7bc404000000b0039c43895834mr10672893wmi.70.1655307405388;
+        Wed, 15 Jun 2022 08:36:45 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id l9-20020a5d4809000000b00219e8d28fb1sm15082828wrq.57.2022.06.15.08.36.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 15 Jun 2022 08:36:44 -0700 (PDT)
+Message-ID: <4246201e-0ee5-1019-4c5b-79b9d2d4cbc5@gmail.com>
+Date:   Wed, 15 Jun 2022 17:36:34 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="hlboj3ztsmpn7uaa"
-Content-Disposition: inline
-In-Reply-To: <CACKs7VAdedMNLhx0NWvayt3GzDVYVuoKp1mEt8kGH_=YMYCaXw@mail.gmail.com>
-User-Agent: NeoMutt/20220429
-X-Spam-Status: No, score=1.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FROM_SUSPICIOUS_NTLD,
-        PDS_OTHER_BAD_TLD,RDNS_DYNAMIC,SPF_HELO_NONE,SPF_PASS,
-        T_SCC_BODY_TEXT_LINE autolearn=no autolearn_force=no version=3.4.6
-X-Spam-Level: *
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+Subject: Re: [PATCH 1/2] uname.2: fix standard reference wording
+Content-Language: en-US
+To:     =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Cc:     linux-man@vger.kernel.org
+References: <4a27c7c7295739005855299b23d1ab20b11e0110.1655287466.git.nabijaczleweli@nabijaczleweli.xyz>
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <4a27c7c7295739005855299b23d1ab20b11e0110.1655287466.git.nabijaczleweli@nabijaczleweli.xyz>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------VrJUclV3UJFz0VhKjQuwFacG"
+X-Spam-Status: No, score=-3.3 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------VrJUclV3UJFz0VhKjQuwFacG
+Content-Type: multipart/mixed; boundary="------------fqI92Zisl7Wf2NVYfvN5JPRN";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Cc: linux-man@vger.kernel.org
+Message-ID: <4246201e-0ee5-1019-4c5b-79b9d2d4cbc5@gmail.com>
+Subject: Re: [PATCH 1/2] uname.2: fix standard reference wording
+References: <4a27c7c7295739005855299b23d1ab20b11e0110.1655287466.git.nabijaczleweli@nabijaczleweli.xyz>
+In-Reply-To: <4a27c7c7295739005855299b23d1ab20b11e0110.1655287466.git.nabijaczleweli@nabijaczleweli.xyz>
 
---hlboj3ztsmpn7uaa
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+--------------fqI92Zisl7Wf2NVYfvN5JPRN
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Hi!
+SGkg0L3QsNCxLA0KDQpPbiA2LzE1LzIyIDEyOjA0LCDQvdCw0LEgd3JvdGU6DQo+IElzc3Vl
+IDY6DQo+ICAgICAgSUVFRSBTdGQgMTAwMy4xLTIwMDEvQ29yIDItMjAwNCwgaXRlbSBYQkQv
+VEMyL0Q2LzI3IGlzIGFwcGxpZWQsDQo+IGNoYW5naW5nIHRoZSBkZXNjcmlwdGlvbiBvZiBu
+b2RlbmFtZSB3aXRoaW4gdGhlIHV0c25hbWUgc3RydWN0dXJlIGZyb20NCj4gYGBhbiBpbXBs
+ZW1lbnRhdGlvbi1kZWZpbmVkIGNvbW11bmljYXRpb25zIG5ldHdvcmsnJyB0bw0KPiBgYHRo
+ZSBjb21tdW5pY2F0aW9ucyBuZXR3b3JrIHRvIHdoaWNoIHRoaXMgbm9kZSBpcyBhdHRhY2hl
+ZCwgaWYgYW55JycuDQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBBaGVsZW5pYSBaaWVtaWHFhHNr
+YSA8bmFiaWphY3psZXdlbGlAbmFiaWphY3psZXdlbGkueHl6Pg0KPiAtLS0NCj4gICBtYW4y
+L3VuYW1lLjIgfCAxMSArKysrKystLS0tLQ0KPiAgIDEgZmlsZSBjaGFuZ2VkLCA2IGluc2Vy
+dGlvbnMoKyksIDUgZGVsZXRpb25zKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvbWFuMi91bmFt
+ZS4yIGIvbWFuMi91bmFtZS4yDQo+IGluZGV4IDk0YzljOTUxYS4uYjQzZjVkOGQ2IDEwMDY0
+NA0KPiAtLS0gYS9tYW4yL3VuYW1lLjINCj4gKysrIGIvbWFuMi91bmFtZS4yDQo+IEBAIC0y
+OSw4ICsyOSw4IEBAIHN0cnVjdCBpcyBkZWZpbmVkIGluDQo+ICAgLkVYDQo+ICAgc3RydWN0
+IHV0c25hbWUgew0KPiAgICAgICBjaGFyIHN5c25hbWVbXTsgICAgLyogT3BlcmF0aW5nIHN5
+c3RlbSBuYW1lIChlLmcuLCAiTGludXgiKSAqLw0KPiAtICAgIGNoYXIgbm9kZW5hbWVbXTsg
+ICAvKiBOYW1lIHdpdGhpbiAic29tZSBpbXBsZW1lbnRhdGlvblwtZGVmaW5lZA0KPiAtICAg
+ICAgICAgICAgICAgICAgICAgICAgICBuZXR3b3JrIiAqLw0KPiArICAgIGNoYXIgbm9kZW5h
+bWVbXTsgICAvKiBOYW1lIHdpdGhpbiBjb21tdW5pY2F0aW9ucyBuZXR3b3JrDQo+ICsgICAg
+ICAgICAgICAgICAgICAgICAgICAgIHRvIHdoaWNoIHRoZSBub2RlIGlzIGF0dGFjaGVkLCBp
+ZiBhbnkgKi8NCj4gICAgICAgY2hhciByZWxlYXNlW107ICAgIC8qIE9wZXJhdGluZyBzeXN0
+ZW0gcmVsZWFzZQ0KPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKGUuZy4sICIyLjYu
+MjgiKSAqLw0KPiAgICAgICBjaGFyIHZlcnNpb25bXTsgICAgLyogT3BlcmF0aW5nIHN5c3Rl
+bSB2ZXJzaW9uICovDQo+IEBAIC03Myw5ICs3MywxMCBAQCBTbywgZm91ciBvZiB0aGUgZmll
+bGRzIG9mIHRoZSBzdHJ1Y3QgYXJlIG1lYW5pbmdmdWwuDQo+ICAgT24gdGhlIG90aGVyIGhh
+bmQsIHRoZSBmaWVsZA0KPiAgIC5JIG5vZGVuYW1lDQo+ICAgaXMgbWVhbmluZ2xlc3M6DQo+
+IC1pdCBnaXZlcyB0aGUgbmFtZSBvZiB0aGUgcHJlc2VudCBtYWNoaW5lIGluIHNvbWUgdW5k
+ZWZpbmVkDQo+IC1uZXR3b3JrLCBidXQgdHlwaWNhbGx5IG1hY2hpbmVzIGFyZSBpbiBtb3Jl
+IHRoYW4gb25lIG5ldHdvcmsNCj4gLWFuZCBoYXZlIHNldmVyYWwgbmFtZXMuDQo+ICtpdCBn
+aXZlcyB0aGUgbmFtZSBvZiB0aGUgcHJlc2VudCBtYWNoaW5lIGluIHNvbWUgInRoZSIgbmV0
+d29yaw0KDQpUaGF0IHJlYWRzIGEgYml0IHdlaXJkLiAgSXMgaXQgYSB0eXBvLCBvciBpcyBp
+dCBpbnRlbmRlZD8NCg0KUmVnYXJkcywNCg0KQWxleA0KDQo+ICt0byB3aGljaCBpdCdzIGF0
+dGFjaGVkLA0KPiArYnV0IHR5cGljYWxseSBtYWNoaW5lcyBhcmUgaW4gbW9yZSB0aGFuIG9u
+ZSBuZXR3b3JrDQo+ICthbmQgaGF2ZSBzZXZlcmFsIG5hbWVzIGJ5IHdoaWNoIHRoZXkncmUg
+cmVhY2hhYmxlLg0KPiAgIE1vcmVvdmVyLCB0aGUga2VybmVsIGhhcyBubyB3YXkgb2Yga25v
+d2luZw0KPiAgIGFib3V0IHN1Y2ggdGhpbmdzLCBzbyBpdCBoYXMgdG8gYmUgdG9sZCB3aGF0
+IHRvIGFuc3dlciBoZXJlLg0KPiAgIFRoZSBzYW1lIGhvbGRzIGZvciB0aGUgYWRkaXRpb25h
+bA0KDQotLSANCkFsZWphbmRybyBDb2xvbWFyDQo8aHR0cDovL3d3dy5hbGVqYW5kcm8tY29s
+b21hci5lcy8+DQo=
 
-On Wed, Jun 15, 2022 at 02:58:27PM +0300, Stefan Puiu wrote:
-> On Wed, Jun 15, 2022 at 1:15 PM =D0=BD=D0=B0=D0=B1 <nabijaczleweli@nabija=
-czleweli.xyz> wrote:
-> > @@ -73,9 +73,10 @@ So, four of the fields of the struct are meaningful.
-> >  On the other hand, the field
-> >  .I nodename
-> >  is meaningless:
-> > -it gives the name of the present machine in some undefined
-> > -network, but typically machines are in more than one network
-> > -and have several names.
-> > +it gives the name of the present machine in some "the" network
->=20
-> Maybe "in one network" sounds better here?
+--------------fqI92Zisl7Wf2NVYfvN5JPRN--
 
-Typo! This was supposed to be "some network". I've updated this locally
-but 2/2 replaces this line, so not resending (yet).
-
-> > +to which it's attached,
-> > +but typically machines are in more than one network
-> > +and have several names by which they're reachable.
->=20
-> I'm not sure the use case of many networks and many names is typical,
-> though it is common. Maybe we can rephrase this to "Note the machine
-> might sit in more than one network and have several names"?
-
-It's 100% the case on all systems; your machine is reachable as both
-$(uname -n) and localhost (and, likely, $(uname -n).your.FQDN, and
-probably localhost6).
-
-localhost (and localhost6) is routed through a different network
-(obviously your LAN isn't 127/8;
- the addressof localhost =3D=3D addressof $(uname -n) 4.2BSDism
- has died with 4.3BSD)
-and /through a different NIC/
-(the lo prefix dates back to at least 4.2BSD).
-
-Also: a machine may only have one name (well, ex def., but also because
-what other nomenclatural facility beside uname -n is there? you could
-make the case for SVr3 uname -S that also wrote to sysname,
-but that's an abuse, and forbidden by the standard).
-That it's /reachable/ by multiple names doesn't change its utsname.
-
-I still think that as a small wording-fixup diff this diff stands,
-and the larger rewrite in 2/2 avoids this issue completely:
-> Conversely, the nodename field is configured by the administrator to
-> match the network (this is what the BSD historically calls the
-> "hostname", and is set via sethostname(2)).
-
-Best,
-=D0=BD=D0=B0=D0=B1
-
---hlboj3ztsmpn7uaa
-Content-Type: application/pgp-signature; name="signature.asc"
+--------------VrJUclV3UJFz0VhKjQuwFacG
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmKp9vAACgkQvP0LAY0m
-WPHweg//XJMZ1+IVF5BWhVZqWpOogCyUMwOfHLI4BfAfA1hCQDOkrpjk7opjiSWT
-DuYZ/DBIgnuSiaQFdByunQi6Ri1YpulYM2XGqJlZZwJyRQcrlYRSXxWiywNTuadj
-OrMSFbj00yPKlKqTd4OsOTZXxMnoV5a/ncKU0toiTzEEFbP2K17Te4xyi+xNMB84
-knyTWuzv5yWnCfwJU5rMrWnexOGacbzj3f7gUyPDlSZpw4W7YTD8yGK660WaVomt
-0UT3aVPVl18lDTjP61D32hKSA/7aPS+/x2xYn9jcTBSt5v7v5Tqi64eKgjb5AFux
-5fx3WOkTpO4Yg93QGOTAx5gN2+RXUOdSfXBFXuDb2rNHSkKTKZDJiT4LtQ6U8l0U
-mmASClMg8ToiRuTdOkjipZOQD9Z6Mk58O3mrwDMuJ6fGNQ6lcXCA0vgXvO+s9RT2
-+9BfyfDh6fJ92KP0n9L5Aq/5YMVzdBbZFF4u5drKH6V6GAucQ8WfRWJCMNYU2n8D
-0z+dhPHFhoR+WZdcsLch+dVT0NxZtF9bM1d4nwYU9EoFTAeMfxzeHdpBLPHzrBvJ
-kDUBCJG42za1j5cAauQddQApOXn2CQgqTpDCV15GcuJty31A21d+u28CjqJBXXIc
-JO2kDDcGJzkqnnmy6Utx/SG27kAaEMI93MsU2rlhShOviWUePZ0=
-=CiWA
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmKp/IIACgkQnowa+77/
+2zLS+A/8DEKdvxdF2Uz6ziGh+BwL6zSM0hJ6hNH13ky6uAUQVSyx2LTmNIuKg6Jo
+DO9THSfVczyf4VvjsGFLJU7yzX/KCCqksuOnLtELS+P6jQ5ijWSEiI6Up/iyTBvv
+CXLdoFyWTZGFed6YbJO7t/K7mxAvLBSg//quI0F9eAHQg6n4mRsUwZcwsGCGMOWA
+Al1Rc8Lt9JTh59oRWZ/dJnoOXokNKLXu3+hV7xwCAE1I7pm9CiOWYfyvB1/4oKXs
+4e9j8UW3CbFMRwR2951L/vgoET541/iFfcpeKwcjL4oJvzBM9DdWejwj+XLyQnPt
+OdpdQI+0fYcRQ3PXaOeLMfuQkNBwWqXUpLZCBqWSXefSIy16EhaIjUu/Hvs1WzH+
+g0JBCrU/utDOXaGfEZW2J79S/tbJ6UQny5gd1ggpCw1VzQmSYPzmoABjFa1b42Qp
+98qXFEUFj+iKIukmz+6jncmm8Tcl0YAxh8gNgSrIeg3FK2UYMVlOslY+ztDYSmVW
+/10ee9wMc8DOUCHf2bde00vH+31CMzjvz7PQXppby3H9jMVXiYL4VcqpUYOTdFRl
+2/w1eAb6zgd2Y9dD1CkJanEabY40fJyWUOkPt6PWVNB+qMeRKqifcTm83AJpf1Of
+hCDnOyUvpW/MpBbOfAJdz0axlcprUDCucIz874PJu/0pLIS6P28=
+=8fYE
 -----END PGP SIGNATURE-----
 
---hlboj3ztsmpn7uaa--
+--------------VrJUclV3UJFz0VhKjQuwFacG--
