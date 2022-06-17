@@ -2,60 +2,59 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 8B82354F80A
-	for <lists+linux-man@lfdr.de>; Fri, 17 Jun 2022 15:00:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 72C6154F835
+	for <lists+linux-man@lfdr.de>; Fri, 17 Jun 2022 15:12:22 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1382194AbiFQNAj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 17 Jun 2022 09:00:39 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48902 "EHLO
+        id S1381696AbiFQNMF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 17 Jun 2022 09:12:05 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58268 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1381848AbiFQNAi (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 17 Jun 2022 09:00:38 -0400
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com [IPv6:2a00:1450:4864:20::434])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7196B562DC
-        for <linux-man@vger.kernel.org>; Fri, 17 Jun 2022 06:00:37 -0700 (PDT)
-Received: by mail-wr1-x434.google.com with SMTP id i10so1932783wrc.0
-        for <linux-man@vger.kernel.org>; Fri, 17 Jun 2022 06:00:37 -0700 (PDT)
+        with ESMTP id S235591AbiFQNMF (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 17 Jun 2022 09:12:05 -0400
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com [IPv6:2a00:1450:4864:20::42b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 94C3F4F9C3
+        for <linux-man@vger.kernel.org>; Fri, 17 Jun 2022 06:12:04 -0700 (PDT)
+Received: by mail-wr1-x42b.google.com with SMTP id q9so5717345wrd.8
+        for <linux-man@vger.kernel.org>; Fri, 17 Jun 2022 06:12:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=1LA+qrDsxYttyWToavlhYqpiDVCJulf4mEjXjT7TEiI=;
-        b=XpQKQ8o7uX4Gb+sjXC9HW48nL7uqQyptFXymuliZUHvGf9UlcdrL42ubQYnB5K+dNM
-         dcOr48wNbYezLOeJ4aGJ0ugWucs6HDJTDdZ5Ni1Xu8onSAu1dpJNe6XmLQ/RF3+EtMjH
-         Z7FAManMpCGEk3KUjTPmnPqgohLMa+lkAtiYA+FLuycOSjMcpVYgz7knzm5aDsO9yAJL
-         78QRZoN+OUTT5RY8SlNPFESGOunjp80yJP2acewPNox2JEVPWoq/8pdCi3ORd76qLhdy
-         AEWpH1RTQ3Y7Hzbb4EplgVuwgd6u8GjCvcimIHSSLKVAf6f4W5hcncObPhYXvAKvdFRs
-         p/aA==
+        bh=HJXn6SHTsKbr9gaPmoq1SM62uMLzZHYD+iGtBZ+2ElI=;
+        b=cfwY645gZA6yIpQE9dF/nLD+JByZa8jxfTcd3ulNQZFAeAOieY9p0d11sA2F8lfNT7
+         EqeDtBQH2NMsBoz6B17MGQVh/nNFKEMtqJZIJ3oiVVAOB4c9gg6q+hl9hkprjSyNZ+T1
+         7rx0erbGDcS5JJqhU4eNYKGhmAYsWsl+YhFJ2HVYNfRtzw80iOJYTLCANQjuJiA0aSrU
+         iOSH7vqvUh+EMNppZvwUk7QEEd1GPdojVZXVAC+XMViSk187CgXHgYI8B8IcvXw98hou
+         TTlgzKFiZylPZNuRh29/GuobJKPe9CMZ+CDdx+aL/0cMpFgQXY/nvj1x3IAI0Wj7KMBU
+         hJZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=1LA+qrDsxYttyWToavlhYqpiDVCJulf4mEjXjT7TEiI=;
-        b=Ucdb/g7nfIPR6pL10YhUJrkPYdixSM1vZLljZpHJ8kmy/9WtqyWpyv8dCGYp1jbJA8
-         6AVb0qaxNZ9iWsgRxLnjnskYLZwoc/JVKv2wMTmY2EHvH65L6GVpmzR36hTagSVLuHls
-         WhoSfAYrp/JgW0f3K0RTx6rRoclKaiGK/DmlYuB1VmPLXjFAlhAVjXiPJpF26lJokKLE
-         37wlFZzLTtWUUc2RbXDVCVW2Ud3Y1Kec5p/z/ULH2NEqBq2H3kIqFC8iZvgZPCDCUGai
-         3AMm+yl5sWmI800SYChSpIPjN4qeG9uyhBbGh3Co7PUNemZ5/rjgclUuSYNw03ULziMW
-         nHsw==
-X-Gm-Message-State: AJIora99cNsSfYltiBkvWvyMdE2hyUkrzrN7wyEbSVZBmdOxWTMbTMvk
-        acmE0E7qEWaw+xRS/EneTUA=
-X-Google-Smtp-Source: AGRyM1sBpJvpirOqFI0EVVPd1i/je5mQp6Aj3eZfCI/7ECMWe0AjPsOSFMOgzCGy0ADevqBJh2SF4Q==
-X-Received: by 2002:a5d:560b:0:b0:218:5ba8:88e5 with SMTP id l11-20020a5d560b000000b002185ba888e5mr9568990wrv.100.1655470835824;
-        Fri, 17 Jun 2022 06:00:35 -0700 (PDT)
+        bh=HJXn6SHTsKbr9gaPmoq1SM62uMLzZHYD+iGtBZ+2ElI=;
+        b=ek3XwUeYMqgZZwva04cOAfATLow2B3BgB8JEKFs/zqVRQ2yAwStMCHmWQSdXjUtvt5
+         3kCw5jiwgvTKb9fa0PsXNc5Pmr7xftkvvrPg6Yeqid8OoJjERkfOfZZPbbqV4kzl7H/A
+         pymPpH9G0QtUK3nTvt6if487+d1OWyC0ek3kqOC4xPAtrCymt373DHRijnmXVuF/wtlz
+         Xk9/sfy4+VuBz9fYNHdXsCWiGeYTzUbmfxdVT03DB75hxJfe3nm2H/lkEYdkaaZNBcLd
+         GmqJUZU3OL8njUOMA9RLUuI4plZaMz6uryP9NHe10raFbdyhG1j8Eq7YKelqicUCmpVF
+         UVCA==
+X-Gm-Message-State: AJIora9AfY3PWcMzYXkqvbI1Jp5qmMh8QWlDEOsG2MXTFD7X7rb198sq
+        Pzxw1i1QyYnhd30/1MbivcY=
+X-Google-Smtp-Source: AGRyM1s0q4wyfzobeInPAE6j2darVDN0BltzGxzmmUTN7EzawSQESsQVeYELcgN0lXD5ez9rZGSA7g==
+X-Received: by 2002:adf:f5ce:0:b0:21b:832c:80dd with SMTP id k14-20020adff5ce000000b0021b832c80ddmr312130wrp.235.1655471522928;
+        Fri, 17 Jun 2022 06:12:02 -0700 (PDT)
 Received: from localhost.localdomain ([77.137.66.49])
-        by smtp.gmail.com with ESMTPSA id n125-20020a1c2783000000b003974cb37a94sm9055438wmn.22.2022.06.17.06.00.34
+        by smtp.gmail.com with ESMTPSA id l18-20020adfe592000000b002102af52a2csm5812954wrm.9.2022.06.17.06.12.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Jun 2022 06:00:35 -0700 (PDT)
+        Fri, 17 Jun 2022 06:12:02 -0700 (PDT)
 From:   Amir Goldstein <amir73il@gmail.com>
 To:     Alejandro Colomar <alx.manpages@gmail.com>
 Cc:     Michael Kerrisk <mtk.manpages@gmail.com>, Jan Kara <jack@suse.cz>,
         Matthew Bobrowski <repnop@google.com>,
-        linux-man@vger.kernel.org,
-        Gabriel Krisman Bertazi <krisman@collabora.com>
-Subject: [PATCH v6] fanotify.7, fanotify_mark.2: Document FAN_FS_ERROR
-Date:   Fri, 17 Jun 2022 16:00:14 +0300
-Message-Id: <20220617130014.1660717-1-amir73il@gmail.com>
+        linux-man@vger.kernel.org
+Subject: [PATCH 0/2] fanotify man page updates for v5.17
+Date:   Fri, 17 Jun 2022 16:11:56 +0300
+Message-Id: <20220617131158.1661235-1-amir73il@gmail.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -69,182 +68,43 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From: Gabriel Krisman Bertazi <krisman@collabora.com>
-
-FAN_FS_ERROR is a new event for fanotify to report filesystem errors
-that might lead to some corruption.
-This documents how to use the feature and specific caveats.
-
-Reviewed-by: Jan Kara <jack@suse.cz>
-Reviewed-by: Amir Goldstein <amir73il@gmail.com>
-Reviewed-by: Matthew Bobrowski <repnop@google.com>
-Signed-off-by: Gabriel Krisman Bertazi <krisman@collabora.com>
----
-
 Hi Alex,
 
-Posting v6 of Gabriel's patch with minor fixes per your request.
-Rebased on top of upstream.
+These two complementary APIs, FAN_REPORT_TARGET_FID (fanotify_init)
+and FAN_RENAME (fanotify_mark) were merged to kernel v5.17.
 
-Thanks,
-Amir.
+Note that we used the fact that this is new API to fix a glitch that
+exists in the old APIs - it is possble to request CREATE/DELETE/MOVE
+events for a non-directrory, but those event can only be generated on
+a directory.
 
+When the new flags are used, ENOTDIR will be returned in such cases
+and this change is reflected in the man pages updates.
 
- man2/fanotify_mark.2 | 30 +++++++++++++++++++
- man7/fanotify.7      | 71 ++++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 101 insertions(+)
+However, we noticed this opportunity a bit late and the ENOTDIR change
+was merged last minute to v5.18 and then backported to v5.17.9:
+ceaf69f8eadc ("fanotify: do not allow setting dirent events in mask of
+non-dir").
 
-diff --git a/man2/fanotify_mark.2 b/man2/fanotify_mark.2
-index 9a45cbb77..3dc538b7f 100644
---- a/man2/fanotify_mark.2
-+++ b/man2/fanotify_mark.2
-@@ -203,6 +203,29 @@ Create an event when a marked file or directory itself is deleted.
- An fanotify group that identifies filesystem objects by file handles
- is required.
- .TP
-+.BR FAN_FS_ERROR " (since Linux 5.16)"
-+.\" commit 9709bd548f11a092d124698118013f66e1740f9b
-+Create an event when a filesystem error
-+leading to inconsistent filesystem metadata is detected.
-+An additional information record of type
-+.B FAN_EVENT_INFO_TYPE_ERROR
-+is returned for each event in the read buffer.
-+An fanotify group that identifies filesystem objects by file handles
-+is required.
-+.IP
-+Events of such type are dependent on support
-+from the underlying filesystem.
-+At the time of writing,
-+only the
-+.B ext4
-+filesystem reports
-+.B FAN_FS_ERROR
-+events.
-+.IP
-+See
-+.BR fanotify (7)
-+for additional details.
-+.TP
- .BR FAN_MOVED_FROM " (since Linux 5.1)"
- .\" commit 235328d1fa4251c6dcb32351219bb553a58838d2
- Create an event when a file or directory has been moved from a marked
-@@ -391,6 +414,13 @@ and mask contains a flag for permission events
- or
- .BR FAN_ACCESS_PERM ).
- .TP
-+.B EINVAL
-+The group was initialized without
-+.B FAN_REPORT_FID
-+but one or more event types specified in the
-+.I mask
-+require it.
-+.TP
- .B ENODEV
- The filesystem object indicated by
- .I pathname
-diff --git a/man7/fanotify.7 b/man7/fanotify.7
-index a0dc0dfba..f4d391603 100644
---- a/man7/fanotify.7
-+++ b/man7/fanotify.7
-@@ -228,6 +228,25 @@ struct fanotify_event_info_pidfd {
- .EE
- .in
- .PP
-+In case of a
-+.B FAN_FS_ERROR
-+event,
-+an additional information record describing the error that occurred
-+is returned alongside the generic
-+.I fanotify_event_metadata
-+structure within the read buffer.
-+This structure is defined as follows:
-+.PP
-+.in +4n
-+.EX
-+struct fanotify_event_info_error {
-+    struct fanotify_event_info_header hdr;
-+    __s32 error;
-+    __u32 error_count;
-+};
-+.EE
-+.in
-+.PP
- All information records contain a nested structure of type
- .IR fanotify_event_info_header .
- This structure holds meta-information about the information record
-@@ -369,6 +388,9 @@ A child file or directory was deleted in a watched parent.
- .B FAN_DELETE_SELF
- A watched file or directory was deleted.
- .TP
-+.B FAN_FS_ERROR
-+A filesystem error was detected.
-+.TP
- .B FAN_MOVED_FROM
- A file or directory has been moved from a watched parent directory.
- .TP
-@@ -643,6 +665,25 @@ and the pidfd is no longer required,
- the pidfd should be closed via
- .BR close (2).
- .PP
-+The fields of the
-+.I fanotify_event_info_error
-+structure are as follows:
-+.TP
-+.I hdr
-+This is a structure of type
-+.IR fanotify_event_info_header .
-+The
-+.I info_type
-+field is set to
-+.BR FAN_EVENT_INFO_TYPE_ERROR .
-+.TP
-+.I error
-+Identifies the type of error that occurred.
-+.TP
-+.I error_count
-+This is a counter of the number of errors suppressed
-+since the last error was read.
-+.PP
- The following macros are provided to iterate over a buffer containing
- fanotify event metadata returned by a
- .BR read (2)
-@@ -732,6 +773,36 @@ field.
- In that case, the audit subsystem will log information about the access
- decision to the audit logs.
- .\"
-+.SS Monitoring filesystems for errors
-+A single
-+.B FAN_FS_ERROR
-+event is stored per filesystem at once.
-+Extra error messages are suppressed and accounted for in the
-+.I error_count
-+field of the existing
-+.B FAN_FS_ERROR
-+event record,
-+but details about the errors are lost.
-+.PP
-+Errors reported by
-+.B FAN_FS_ERROR
-+are generic
-+.I errno
-+values,
-+but not all kinds of error types are reported by all filesystems.
-+.PP
-+Errors not directly related to a file (i.e. super block corruption)
-+are reported with an invalid
-+.IR file_handle .
-+For these errors, the
-+.I file_handle
-+will have the field
-+.I handle_type
-+set to
-+.BR FILEID_INVALID ,
-+and the handle buffer size set to
-+.BR 0 .
-+.\"
- .SS Closing the fanotify file descriptor
- When all file descriptors referring to the fanotify notification group are
- closed, the fanotify group is released and its resources
+I did not mention this course of events in the man page, because it
+seemed too much irrelevant information for end user, but am mentioning
+it here for full disclosure in case somebody thinks this information is
+relevant.
+
+These patches apply on top of fan-fs-error branch in my tree [1]
+which you have already reviewed, but have not yet applied.
+
+[1] https://github.com/amir73il/man-pages/commits/fan-fs-error
+
+Amir Goldstein (2):
+  fanotify.7, fanotify_init.2: Document FAN_REPORT_TARGET_FID
+  fanotify.7, fanotify_init.2, fanotify_mark.2: Document FAN_RENAME
+
+ man2/fanotify_init.2 | 53 +++++++++++++++++++++++++++++++++++++++++---
+ man2/fanotify_mark.2 | 23 +++++++++++++++++++
+ man7/fanotify.7      | 31 ++++++++++++++------------
+ 3 files changed, 90 insertions(+), 17 deletions(-)
+
 -- 
 2.25.1
 
