@@ -2,76 +2,65 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 20C0A54F7D1
-	for <lists+linux-man@lfdr.de>; Fri, 17 Jun 2022 14:50:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8B82354F80A
+	for <lists+linux-man@lfdr.de>; Fri, 17 Jun 2022 15:00:40 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232578AbiFQMuA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 17 Jun 2022 08:50:00 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39966 "EHLO
+        id S1382194AbiFQNAj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 17 Jun 2022 09:00:39 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48902 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232477AbiFQMt7 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 17 Jun 2022 08:49:59 -0400
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com [IPv6:2a00:1450:4864:20::430])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6077837A84
-        for <linux-man@vger.kernel.org>; Fri, 17 Jun 2022 05:49:58 -0700 (PDT)
-Received: by mail-wr1-x430.google.com with SMTP id v14so5650602wra.5
-        for <linux-man@vger.kernel.org>; Fri, 17 Jun 2022 05:49:58 -0700 (PDT)
+        with ESMTP id S1381848AbiFQNAi (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 17 Jun 2022 09:00:38 -0400
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com [IPv6:2a00:1450:4864:20::434])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7196B562DC
+        for <linux-man@vger.kernel.org>; Fri, 17 Jun 2022 06:00:37 -0700 (PDT)
+Received: by mail-wr1-x434.google.com with SMTP id i10so1932783wrc.0
+        for <linux-man@vger.kernel.org>; Fri, 17 Jun 2022 06:00:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to;
-        bh=xob88ur9YQQQ4o4RFrKKIVL4inaiOHmGTXv3QDRhqBo=;
-        b=ApuDr1pYthbQUvFrsiRKLgmvVoGtfFp/xXfqC5fn7JHNTtDx8KHSu8H5lT8M9tNiD2
-         uvmw4xdq5Sng0jbURoyW75QqxZLGGeAqxdueyqctgLzscl2hb54denCh2eF9CRPAPvLU
-         /+Qk89i7Kcsol0EsR0Ney0bZ+F8q6QmSAQIR7Ym14jHaWEJU7zJXPsj3iGKqpbMb8pP9
-         9+1sZXbMi58K96g1Ez2bFc/EAXAcYiaJjtbI2wIACfVwRD4iGDTSlaHNvEsVti0DyRHU
-         bO19srHnO9TnG05W7i6ZLREvEUwdsnK7tidUkQ7CVZ4hJArTR0F2FIH3RHDDiLmpWabO
-         U4ew==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=1LA+qrDsxYttyWToavlhYqpiDVCJulf4mEjXjT7TEiI=;
+        b=XpQKQ8o7uX4Gb+sjXC9HW48nL7uqQyptFXymuliZUHvGf9UlcdrL42ubQYnB5K+dNM
+         dcOr48wNbYezLOeJ4aGJ0ugWucs6HDJTDdZ5Ni1Xu8onSAu1dpJNe6XmLQ/RF3+EtMjH
+         Z7FAManMpCGEk3KUjTPmnPqgohLMa+lkAtiYA+FLuycOSjMcpVYgz7knzm5aDsO9yAJL
+         78QRZoN+OUTT5RY8SlNPFESGOunjp80yJP2acewPNox2JEVPWoq/8pdCi3ORd76qLhdy
+         AEWpH1RTQ3Y7Hzbb4EplgVuwgd6u8GjCvcimIHSSLKVAf6f4W5hcncObPhYXvAKvdFRs
+         p/aA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to;
-        bh=xob88ur9YQQQ4o4RFrKKIVL4inaiOHmGTXv3QDRhqBo=;
-        b=f70au7Z4SaYRnMH3YruAaiC7LuxNBlkLH5wKLDFsmyHKpE0FrKDn970aNCfxAm+DG8
-         78SnTANuTarPxD71tGTEUhCgVee6QtrTlP4BzY1AlLkSLjbw9ss5FtB0o0zF7BW8YL8c
-         3x5OepuGLGnidrNGXDJ5I8z/0aa3cRTE/H1zsR6mc4Lwild/WoIR23m2wVh+xOC9yJ0l
-         tg2xRgmH1wUc61H7bnuzEp6w7wRTuFfVE2DoWc6J04gl/KrdgpGkyFeO0dL4blTs0Pdg
-         Ougd7lZKSJN9wFUDucGKxXQpXQKzGeLoWsPyd3sMKK0j5LFZI/tzlo3irgM3fyOcgXGB
-         TUKw==
-X-Gm-Message-State: AJIora+Pkmk4LQWfJqGZg1Czt7RhBs3vElhhs9z0b6vTNtN+vblMY4n9
-        VePFbv5rYE7U4Tsp41B9Zdg=
-X-Google-Smtp-Source: AGRyM1twjk9D8aMR8iq7VlSixsIID3Z1P8tSuZGhqb9Dd5aNSnqDjALtjswdP3l3Yf56Ic3LooNvlA==
-X-Received: by 2002:a5d:678d:0:b0:210:2f33:4399 with SMTP id v13-20020a5d678d000000b002102f334399mr9261971wru.599.1655470196965;
-        Fri, 17 Jun 2022 05:49:56 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id t2-20020adfdc02000000b0020c5253d8fcsm5478622wri.72.2022.06.17.05.49.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 17 Jun 2022 05:49:56 -0700 (PDT)
-Message-ID: <a230e164-9d35-6333-7b3d-1e81a6eb77a9@gmail.com>
-Date:   Fri, 17 Jun 2022 14:49:46 +0200
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=1LA+qrDsxYttyWToavlhYqpiDVCJulf4mEjXjT7TEiI=;
+        b=Ucdb/g7nfIPR6pL10YhUJrkPYdixSM1vZLljZpHJ8kmy/9WtqyWpyv8dCGYp1jbJA8
+         6AVb0qaxNZ9iWsgRxLnjnskYLZwoc/JVKv2wMTmY2EHvH65L6GVpmzR36hTagSVLuHls
+         WhoSfAYrp/JgW0f3K0RTx6rRoclKaiGK/DmlYuB1VmPLXjFAlhAVjXiPJpF26lJokKLE
+         37wlFZzLTtWUUc2RbXDVCVW2Ud3Y1Kec5p/z/ULH2NEqBq2H3kIqFC8iZvgZPCDCUGai
+         3AMm+yl5sWmI800SYChSpIPjN4qeG9uyhBbGh3Co7PUNemZ5/rjgclUuSYNw03ULziMW
+         nHsw==
+X-Gm-Message-State: AJIora99cNsSfYltiBkvWvyMdE2hyUkrzrN7wyEbSVZBmdOxWTMbTMvk
+        acmE0E7qEWaw+xRS/EneTUA=
+X-Google-Smtp-Source: AGRyM1sBpJvpirOqFI0EVVPd1i/je5mQp6Aj3eZfCI/7ECMWe0AjPsOSFMOgzCGy0ADevqBJh2SF4Q==
+X-Received: by 2002:a5d:560b:0:b0:218:5ba8:88e5 with SMTP id l11-20020a5d560b000000b002185ba888e5mr9568990wrv.100.1655470835824;
+        Fri, 17 Jun 2022 06:00:35 -0700 (PDT)
+Received: from localhost.localdomain ([77.137.66.49])
+        by smtp.gmail.com with ESMTPSA id n125-20020a1c2783000000b003974cb37a94sm9055438wmn.22.2022.06.17.06.00.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 17 Jun 2022 06:00:35 -0700 (PDT)
+From:   Amir Goldstein <amir73il@gmail.com>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     Michael Kerrisk <mtk.manpages@gmail.com>, Jan Kara <jack@suse.cz>,
+        Matthew Bobrowski <repnop@google.com>,
+        linux-man@vger.kernel.org,
+        Gabriel Krisman Bertazi <krisman@collabora.com>
+Subject: [PATCH v6] fanotify.7, fanotify_mark.2: Document FAN_FS_ERROR
+Date:   Fri, 17 Jun 2022 16:00:14 +0300
+Message-Id: <20220617130014.1660717-1-amir73il@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Subject: Re: [PATCH RESEND v5] fanotify.7, fanotify_mark.2: Document
- FAN_FS_ERROR
-Content-Language: en-US
-To:     Amir Goldstein <amir73il@gmail.com>
-Cc:     Gabriel Krisman Bertazi <krisman@collabora.com>,
-        linux-man <linux-man@vger.kernel.org>, Jan Kara <jack@suse.cz>,
-        Matthew Bobrowski <repnop@google.com>
-References: <20220520180935.37796-1-krisman@collabora.com>
- <CAOQ4uxjd-xKz1=Z+165s4hX0aiBsbui2_+JAqaGr0AT0z5+scg@mail.gmail.com>
- <77ebe2f4-461a-4c3c-d53e-7a4c1f94e506@gmail.com>
- <CAOQ4uxjuVjDZN6+mvCV6Yk1=bn_oYVVxpS=Q6bn5=uQOSDv9wg@mail.gmail.com>
- <e8daa69c-8f07-6fe7-8e63-96e23f8deec6@gmail.com>
- <CAOQ4uxi7VrG8Pow=jqokXC3s5Y3bR7vqUnDwpwRNpiJfZmq8yw@mail.gmail.com>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <CAOQ4uxi7VrG8Pow=jqokXC3s5Y3bR7vqUnDwpwRNpiJfZmq8yw@mail.gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------5q5ClvpEymD9P1HJaM9RrYIY"
-X-Spam-Status: No, score=-4.3 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
         autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -80,86 +69,182 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------5q5ClvpEymD9P1HJaM9RrYIY
-Content-Type: multipart/mixed; boundary="------------eJj8G1CV8pkCuO0Eqwcmd2Br";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Amir Goldstein <amir73il@gmail.com>
-Cc: Gabriel Krisman Bertazi <krisman@collabora.com>,
- linux-man <linux-man@vger.kernel.org>, Jan Kara <jack@suse.cz>,
- Matthew Bobrowski <repnop@google.com>
-Message-ID: <a230e164-9d35-6333-7b3d-1e81a6eb77a9@gmail.com>
-Subject: Re: [PATCH RESEND v5] fanotify.7, fanotify_mark.2: Document
- FAN_FS_ERROR
-References: <20220520180935.37796-1-krisman@collabora.com>
- <CAOQ4uxjd-xKz1=Z+165s4hX0aiBsbui2_+JAqaGr0AT0z5+scg@mail.gmail.com>
- <77ebe2f4-461a-4c3c-d53e-7a4c1f94e506@gmail.com>
- <CAOQ4uxjuVjDZN6+mvCV6Yk1=bn_oYVVxpS=Q6bn5=uQOSDv9wg@mail.gmail.com>
- <e8daa69c-8f07-6fe7-8e63-96e23f8deec6@gmail.com>
- <CAOQ4uxi7VrG8Pow=jqokXC3s5Y3bR7vqUnDwpwRNpiJfZmq8yw@mail.gmail.com>
-In-Reply-To: <CAOQ4uxi7VrG8Pow=jqokXC3s5Y3bR7vqUnDwpwRNpiJfZmq8yw@mail.gmail.com>
+From: Gabriel Krisman Bertazi <krisman@collabora.com>
 
---------------eJj8G1CV8pkCuO0Eqwcmd2Br
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+FAN_FS_ERROR is a new event for fanotify to report filesystem errors
+that might lead to some corruption.
+This documents how to use the feature and specific caveats.
 
-SGksIEFtaXIhDQoNCk9uIDYvMTcvMjIgMTQ6MzcsIEFtaXIgR29sZHN0ZWluIHdyb3RlOg0K
-PiBJIHNlZSB5b3UgZmluYWxseSBtYW5hZ2VkIHRvIGZsb3cgdGhpcyBpbnRvIGtlcm5lbC5v
-cmcgcmVwby4gWWF5ISA6KQ0KDQo6KQ0KDQo+Pj4gRkFOX0ZTX0VSUk9SIHY1LjE2IFtmYW4t
-ZnMtZXJyb3JdDQo+Pg0KPj4gVGhpcyBvbmUuICBMb29rcyBnb29kIHRvIG1lLg0KPj4NCj4g
-DQo+IFJlYmFzZWQgb24gdG9wIG9mIHVwc3RyZWFtLCBmaXhlZCB0aGUgZmV3IG1pbm9yIG5p
-dHMNCj4geW91IHBvaW50ZWQgb3V0IGFuZCBwdXNoIHRvOg0KPiANCj4gaHR0cHM6Ly9naXRo
-dWIuY29tL2FtaXI3M2lsL21hbi1wYWdlcy9jb21taXRzL2Zhbi1mcy1lcnJvcg0KPiANCj4g
-Q2FuIHlvdSBwbGVhc2UgYXBwbHk/DQoNCkNvdWxkIHlvdSBwbGVhc2Ugc2VuZCBpdCBhcyBh
-IHBhdGNoIHNldCB0byB0aGUgbGlzdD8NClRoYXQgaGVscHMgYXZvaWRpbmcgZXJyb3JzIGZy
-b20gbXkgc2lkZS4NCg0KPj4+IEFuZCBJIGhhdmUgbW9yZSBjaGFuZ2VzIGZvciB1cGNvbWlu
-ZyB2NS4xOS4uLiA+DQo+IA0KPiBJIGhhdmUgYSBxdWVzdGlvbiBmb3IgeW91IHJlZ2FyZGlu
-ZyBuZXcgVUFQSSwgc3VjaCBhcw0KPiBGQU5fTUFSS19FVklDVEFCTEUgdGhhdCBnb3QgbWVy
-Z2VkIHRvIHY1LjE5LXJjMS4NCj4gDQo+IE9mdGVuLCBNaWNoYWVsIHdvdWxkIG5vdCB3YW50
-IHRvIG1lcmdlIFVBUEkgY2hhbmdlcyB0bw0KPiBtYW4gcGFnZXMgYmVmb3JlIC4wIHJlbGVh
-c2UsIGJlY2F1c2UgVUFQSSBjaGFuZ2VzIGNvdWxkDQo+IGJlIHJldmVydGVkIGJlZm9yZSBm
-aW5hbCByZWxlYXNlICh3aGljaCBoYXBwZW5lZCBmb3IgZmFub3RpZnkpLg0KDQpUaGF0IG1h
-a2VzIHNlbnNlLg0KDQo+IEkgc3RpbGwgd2FudCB0byBwb3N0IHRob3NlIG1hbiBwYWdlIHBh
-dGNoZXMgZm9yIHJldmlldyBlYXJseSwNCg0KVGhhdCBhbHNvIG1ha2VzIHNlbnNlLg0KDQo+
-IGJ1dCBkb24ndCB3YW50IHRvIG1lc3MgdXAgeW91ciBwYXRjaCByZXZpZXcgcHJvY2Vzcy4g
-Pg0KPiBJIGd1ZXNzIGlmIEkgcG9zdCB0aGVtIGFzIFtSRkNdIGl0IHdpbGwgYmUgYSBnb29k
-IHNpZ24gZm9yIHlvdSBub3QNCj4gdG8gbWVyZ2UgdGhlbSB1bnRpbCB0aGUgLjAgcmVsZWFz
-ZT8NCj4gU2hvdWxkIEkgc2ltcGx5IHVzZSB0aGUgc3ViamVjdCAiRmFub3RpZnkgdXBkYXRl
-ZCBmb3IgdjUuMTkiPw0KDQpbUkZDXSBzZWVtcyBnb29kIHRvIG1lIGZvciB0aGF0IHB1cnBv
-c2UgKEkgYWxzbyB1c2UgaXQgZm9yIHBhdGNoZXMgdGhhdCANCnNob3VsZG4ndCBiZSBhcHBs
-aWVkKS4gIElmIHlvdSB3YW50IHRvIG1ha2Ugc3VyZSBJIGRvbid0IGFwcGx5IGl0IGJ5IA0K
-YWNjaWRlbnQgKHdoaWNoIG1heSBoYXBwZW4pLCB5b3UgY2FuIGFsc28gYWRkIGEgbGluZSBp
-biB0aGUgZW1haWwgbm90aW5nIA0KdGhhdCwgYnV0IG5vcm1hbGx5LCBSRkMgc2hvdWxkIGJl
-IGVub3VnaC4NCg0KPiANCj4gRG8geW91IGhhdmUgYSBkaWZmZXJlbnQgdmlldyBvbiB0aGUg
-bWF0dGVyPw0KPiBEb24ndCBjYXJlIGF0IGFsbD8gOy0pDQoNCkhlaCA6KQ0KDQpJIHdvbmRl
-ciBzb21ldGltZXMgaWYgSSdtIGJlZWluZyB0b28gbXVjaCBzdHJpY3Qgd2l0aCBjb250cmli
-dXRvcnMuICBJIA0KdGhpbmsgSSdtIHVzdWFsbHkgYmVpbmcgbW9yZSBzdHJpY3QgdGhhbiBN
-aWNoYWVsIHdhcy4NCg0KQ2hlZXJzLA0KDQpBbGV4DQoNCi0tIA0KQWxlamFuZHJvIENvbG9t
-YXINCjxodHRwOi8vd3d3LmFsZWphbmRyby1jb2xvbWFyLmVzLz4NCg==
+Reviewed-by: Jan Kara <jack@suse.cz>
+Reviewed-by: Amir Goldstein <amir73il@gmail.com>
+Reviewed-by: Matthew Bobrowski <repnop@google.com>
+Signed-off-by: Gabriel Krisman Bertazi <krisman@collabora.com>
+---
 
---------------eJj8G1CV8pkCuO0Eqwcmd2Br--
+Hi Alex,
 
---------------5q5ClvpEymD9P1HJaM9RrYIY
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+Posting v6 of Gabriel's patch with minor fixes per your request.
+Rebased on top of upstream.
 
------BEGIN PGP SIGNATURE-----
+Thanks,
+Amir.
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmKseGoACgkQnowa+77/
-2zJYpA/+IcQIixHvT603oG1IW+hbI2cfrmXr2AIRg2Bw+TdztVHR1Uqti1QmhRGi
-IFekos7q8p3Kh6Qj/Gl66m+Ta41+1fuKzuSD+/+MF5FxDPxckr9o6j8eCxxMEpXh
-QExxUn1RhUPeAvi69ehiTnSc5vfSznfrKjxbG4hUc1mtnhP7HnvKo2IIzG/uB0BH
-shAwcI4oXoSNT6l4IjohES1r8EFe9fc14C4fh/cTiwOVYIaoyBT8erlCTuXw7BNX
-Ih9W6BOMwb5tkO50nkq5XqjK6VsUnEFyBKWtPwqhXg1ViIXhUYVz3xHTfvHeOBgN
-Y/yJZyBn7kRdxgsnYVmvFB8VweJ8TYAlfmlfGsR4fSbb3dxm0vZxpMxvGh0NouJi
-ezTYh7MBKlhy4NoJVd2N2jWVDqEsfDNuRQyoQrLGjeJHOvU11xLoDvTPDpBYO+iM
-uUqpElV5oBUdx3pYEU4J88KWgTTvT1NX0d0Rf244f+zfU5M9w4voYT9JlDXEuTY4
-Ja12vuBniQJYHTfBN4fz6dXp19gyQswGCNKYNBGft6XAETTowo/wJPw5TDjn/DKp
-FTF+v7DoYWukYxqb1uCouWD0jQQASiiFi14308V2Xf+F8l4CgkVNZgMj0Ie74Jbs
-FOXPOs0cNeExZfz8Cg3Wl4JQxFxAxSY/yOO8KixFWQ/Wb352s/s=
-=XIPz
------END PGP SIGNATURE-----
 
---------------5q5ClvpEymD9P1HJaM9RrYIY--
+ man2/fanotify_mark.2 | 30 +++++++++++++++++++
+ man7/fanotify.7      | 71 ++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 101 insertions(+)
+
+diff --git a/man2/fanotify_mark.2 b/man2/fanotify_mark.2
+index 9a45cbb77..3dc538b7f 100644
+--- a/man2/fanotify_mark.2
++++ b/man2/fanotify_mark.2
+@@ -203,6 +203,29 @@ Create an event when a marked file or directory itself is deleted.
+ An fanotify group that identifies filesystem objects by file handles
+ is required.
+ .TP
++.BR FAN_FS_ERROR " (since Linux 5.16)"
++.\" commit 9709bd548f11a092d124698118013f66e1740f9b
++Create an event when a filesystem error
++leading to inconsistent filesystem metadata is detected.
++An additional information record of type
++.B FAN_EVENT_INFO_TYPE_ERROR
++is returned for each event in the read buffer.
++An fanotify group that identifies filesystem objects by file handles
++is required.
++.IP
++Events of such type are dependent on support
++from the underlying filesystem.
++At the time of writing,
++only the
++.B ext4
++filesystem reports
++.B FAN_FS_ERROR
++events.
++.IP
++See
++.BR fanotify (7)
++for additional details.
++.TP
+ .BR FAN_MOVED_FROM " (since Linux 5.1)"
+ .\" commit 235328d1fa4251c6dcb32351219bb553a58838d2
+ Create an event when a file or directory has been moved from a marked
+@@ -391,6 +414,13 @@ and mask contains a flag for permission events
+ or
+ .BR FAN_ACCESS_PERM ).
+ .TP
++.B EINVAL
++The group was initialized without
++.B FAN_REPORT_FID
++but one or more event types specified in the
++.I mask
++require it.
++.TP
+ .B ENODEV
+ The filesystem object indicated by
+ .I pathname
+diff --git a/man7/fanotify.7 b/man7/fanotify.7
+index a0dc0dfba..f4d391603 100644
+--- a/man7/fanotify.7
++++ b/man7/fanotify.7
+@@ -228,6 +228,25 @@ struct fanotify_event_info_pidfd {
+ .EE
+ .in
+ .PP
++In case of a
++.B FAN_FS_ERROR
++event,
++an additional information record describing the error that occurred
++is returned alongside the generic
++.I fanotify_event_metadata
++structure within the read buffer.
++This structure is defined as follows:
++.PP
++.in +4n
++.EX
++struct fanotify_event_info_error {
++    struct fanotify_event_info_header hdr;
++    __s32 error;
++    __u32 error_count;
++};
++.EE
++.in
++.PP
+ All information records contain a nested structure of type
+ .IR fanotify_event_info_header .
+ This structure holds meta-information about the information record
+@@ -369,6 +388,9 @@ A child file or directory was deleted in a watched parent.
+ .B FAN_DELETE_SELF
+ A watched file or directory was deleted.
+ .TP
++.B FAN_FS_ERROR
++A filesystem error was detected.
++.TP
+ .B FAN_MOVED_FROM
+ A file or directory has been moved from a watched parent directory.
+ .TP
+@@ -643,6 +665,25 @@ and the pidfd is no longer required,
+ the pidfd should be closed via
+ .BR close (2).
+ .PP
++The fields of the
++.I fanotify_event_info_error
++structure are as follows:
++.TP
++.I hdr
++This is a structure of type
++.IR fanotify_event_info_header .
++The
++.I info_type
++field is set to
++.BR FAN_EVENT_INFO_TYPE_ERROR .
++.TP
++.I error
++Identifies the type of error that occurred.
++.TP
++.I error_count
++This is a counter of the number of errors suppressed
++since the last error was read.
++.PP
+ The following macros are provided to iterate over a buffer containing
+ fanotify event metadata returned by a
+ .BR read (2)
+@@ -732,6 +773,36 @@ field.
+ In that case, the audit subsystem will log information about the access
+ decision to the audit logs.
+ .\"
++.SS Monitoring filesystems for errors
++A single
++.B FAN_FS_ERROR
++event is stored per filesystem at once.
++Extra error messages are suppressed and accounted for in the
++.I error_count
++field of the existing
++.B FAN_FS_ERROR
++event record,
++but details about the errors are lost.
++.PP
++Errors reported by
++.B FAN_FS_ERROR
++are generic
++.I errno
++values,
++but not all kinds of error types are reported by all filesystems.
++.PP
++Errors not directly related to a file (i.e. super block corruption)
++are reported with an invalid
++.IR file_handle .
++For these errors, the
++.I file_handle
++will have the field
++.I handle_type
++set to
++.BR FILEID_INVALID ,
++and the handle buffer size set to
++.BR 0 .
++.\"
+ .SS Closing the fanotify file descriptor
+ When all file descriptors referring to the fanotify notification group are
+ closed, the fanotify group is released and its resources
+-- 
+2.25.1
+
