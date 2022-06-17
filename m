@@ -2,81 +2,138 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 516B054F76E
-	for <lists+linux-man@lfdr.de>; Fri, 17 Jun 2022 14:23:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A491C54F7B3
+	for <lists+linux-man@lfdr.de>; Fri, 17 Jun 2022 14:38:02 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S236185AbiFQMXf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 17 Jun 2022 08:23:35 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48496 "EHLO
+        id S1382118AbiFQMiA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 17 Jun 2022 08:38:00 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59218 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1382256AbiFQMXe (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 17 Jun 2022 08:23:34 -0400
-Received: from h3.fbrelay.privateemail.com (h3.fbrelay.privateemail.com [131.153.2.44])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 23384377FC
-        for <linux-man@vger.kernel.org>; Fri, 17 Jun 2022 05:23:34 -0700 (PDT)
-Received: from MTA-12-3.privateemail.com (mta-12-1.privateemail.com [198.54.122.106])
-        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-         key-exchange X25519 server-signature RSA-PSS (2048 bits))
-        (No client certificate requested)
-        by h3.fbrelay.privateemail.com (Postfix) with ESMTPS id 2F6E2180126C
-        for <linux-man@vger.kernel.org>; Fri, 17 Jun 2022 08:23:33 -0400 (EDT)
-Received: from mta-12.privateemail.com (localhost [127.0.0.1])
-        by mta-12.privateemail.com (Postfix) with ESMTP id 1C83518000A3;
-        Fri, 17 Jun 2022 08:23:32 -0400 (EDT)
-Received: from warhead.local (unknown [10.20.151.173])
-        by mta-12.privateemail.com (Postfix) with ESMTPA id B36C718000A0;
-        Fri, 17 Jun 2022 08:23:27 -0400 (EDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=mebeim.net; s=default;
-        t=1655468612; bh=fiEyDEv222sn9MMnpwxa5nRC9Rbn7/MTLxWpg0JR2GU=;
-        h=From:To:Cc:Subject:Date:From;
-        b=0JDp82BfJqVq4LSW40n7o6QzzVznsY1Zw6jBBPhe+Yy3cfsP5vk8QE3jKfh/3/gTL
-         rohBh2yThmnmwQdhdUs7JgB/w0B80qGuMn20f++TOm0PHoec89Eg5NywWy+00y3Sze
-         dncwL+PR9Pb6PdpCfpdZjUqOEHLYqG8fZxItVm2tYK/HX8EWrNDRWKv9WFbhrhOUIg
-         fTj7bYqK9UNjPsVc9DMzCcMn3xt2q13z/dJ3QwYn8Q7xt4ydtrzAWElx2s1iIJTOCG
-         JficLO/Ba3QZfP1kcsB7IN7RsSvrJoQcQE1yUvC+omf913+jAlCpcXh2ONwul7M2n3
-         PY8wRONJCgY9A==
-From:   Marco Bonelli <marco@mebeim.net>
-To:     linux-man@vger.kernel.org
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        Marco Bonelli <marco@mebeim.net>
-Subject: [PATCH] proc.5: Document KPF_PGTABLE for /proc/kpageflags
-Date:   Fri, 17 Jun 2022 14:22:44 +0200
-Message-Id: <20220617122244.3402528-1-marco@mebeim.net>
-X-Mailer: git-send-email 2.30.2
+        with ESMTP id S1381579AbiFQMh7 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 17 Jun 2022 08:37:59 -0400
+Received: from mail-vs1-xe34.google.com (mail-vs1-xe34.google.com [IPv6:2607:f8b0:4864:20::e34])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A1609BE16
+        for <linux-man@vger.kernel.org>; Fri, 17 Jun 2022 05:37:57 -0700 (PDT)
+Received: by mail-vs1-xe34.google.com with SMTP id q14so3931695vsr.12
+        for <linux-man@vger.kernel.org>; Fri, 17 Jun 2022 05:37:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=oErcA1nIF2LOMyz1T3TfKFnsVbE8SfZ84NWuztWAuBs=;
+        b=QjndiuxVOrEgmi2N1dOd2Ev4hPFry6/UAm+DiwHp5HSJbEHk0deC5ISSP7ArB+xcSz
+         LBFNC9jpJm+EyM3PUUOl1bjXMl/TxbR5zUDMqJz7qeApKnFnynSmGbKqBdrdNIQ1doan
+         xhsw0atroeJPKYitJ9tuYjyAWSR7PjU1lBYHxrdCQ+Kk+dvenKZiQKpvZnv0gbws7wCU
+         rnhAES0v1r8PjFOjDdWkmHijVXFzw4nT1T5UMKnYKNGXIPrDildISdYODW93Dc+8vFnD
+         DL5Vl0eOeM1QCf4k45yOsqktBc0gPFAmBAokYa0r2sKqOQi9TeB6IJNccqAd8UUEk2de
+         Wy9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=oErcA1nIF2LOMyz1T3TfKFnsVbE8SfZ84NWuztWAuBs=;
+        b=QeyRj5pRIVR8gdxwaDFYL193F7xLB4y3W57P49j/jowGlPDcp0FUxbmsaSYqeibQb7
+         03JM5QBRHBJ/kc72tjDlVt5WRrB5MonptH3U65WWk5Q5NztxzMGhfvPnBRUP1uz1LDA1
+         cEIaudXg5HAcJfSK9X4fseO1mFPy6msQQdFkC09kctDVunHn32TBkrUTSSFU170yRcvD
+         GyDEHKWNhp+Vq0NMdEtSpytHWsKPc33S1XHEo96UikO0cotWqGp+Ueh/pW4A5POsTaBB
+         uzylI/TlJa7YRk0+Cr/FwanuO8UDbSMHKdzJtWTxoWO8tEb7cHkYxJznsZsQT9QwxFQi
+         XOiQ==
+X-Gm-Message-State: AJIora/2K4mIfawGwwQ2egl96M2kaiyq7Q+z3Ns8o6fgx0Q18ciGYNNo
+        Y/zgGDxNFiFHLNQAhfUvZ6qg+b39XFcEp1AujeI=
+X-Google-Smtp-Source: AGRyM1sUuXA9RAFKQYSXSwLowLe/i+m7WJLYweCXoaeV2krH56uDTdpH81VI10ng2gQNmz1KLpC/O4evLGSb4RZnFvk=
+X-Received: by 2002:a67:d28f:0:b0:34b:9225:6fda with SMTP id
+ z15-20020a67d28f000000b0034b92256fdamr4576803vsi.72.1655469476769; Fri, 17
+ Jun 2022 05:37:56 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: ClamAV using ClamSMTP
+References: <20220520180935.37796-1-krisman@collabora.com> <CAOQ4uxjd-xKz1=Z+165s4hX0aiBsbui2_+JAqaGr0AT0z5+scg@mail.gmail.com>
+ <77ebe2f4-461a-4c3c-d53e-7a4c1f94e506@gmail.com> <CAOQ4uxjuVjDZN6+mvCV6Yk1=bn_oYVVxpS=Q6bn5=uQOSDv9wg@mail.gmail.com>
+ <e8daa69c-8f07-6fe7-8e63-96e23f8deec6@gmail.com>
+In-Reply-To: <e8daa69c-8f07-6fe7-8e63-96e23f8deec6@gmail.com>
+From:   Amir Goldstein <amir73il@gmail.com>
+Date:   Fri, 17 Jun 2022 15:37:45 +0300
+Message-ID: <CAOQ4uxi7VrG8Pow=jqokXC3s5Y3bR7vqUnDwpwRNpiJfZmq8yw@mail.gmail.com>
+Subject: Re: [PATCH RESEND v5] fanotify.7, fanotify_mark.2: Document FAN_FS_ERROR
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     Gabriel Krisman Bertazi <krisman@collabora.com>,
+        linux-man <linux-man@vger.kernel.org>, Jan Kara <jack@suse.cz>,
+        Matthew Bobrowski <repnop@google.com>
+Content-Type: text/plain; charset="UTF-8"
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
-        T_SCC_BODY_TEXT_LINE autolearn=ham autolearn_force=no version=3.4.6
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-KPG_PGTABLE (bit 26) was introduced in Linux v4.18 (commit
-1d40a5ea01d53251c23c7be541d3f4a656cfc537).
+Hi Alex,
 
-Signed-off-by: Marco Bonelli <marco@mebeim.net>
----
- man5/proc.5 | 2 ++
- 1 file changed, 2 insertions(+)
+Getting back to the fanotify man page backlog...
 
-diff --git a/man5/proc.5 b/man5/proc.5
-index 7ceb6d5..1115101 100644
---- a/man5/proc.5
-+++ b/man5/proc.5
-@@ -3358,6 +3358,8 @@ The bits are as follows:
- .\" KPF_ZERO_PAGE: commit 56873f43abdcd574b25105867a990f067747b2f4
-     25 - KPF_IDLE           (since Linux 4.3)
- .\" KPF_IDLE: commit f074a8f49eb87cde95ac9d040ad5e7ea4f029738
-+    26 - KPF_PGTABLE        (since Linux 4.18)
-+.\" KPF_PGTABLE: commit 1d40a5ea01d53251c23c7be541d3f4a656cfc537
- .IP
- For further details on the meanings of these bits,
- see the kernel source file
--- 
-2.30.2
+>
+> >
+> > We have a rather long backlog of man page updates pending merge
+> > from Matthew, Gabriel and myself.
+> > We need to merge them by order.
+> > The entire stack is available in [BRANCHES] on my github tree [1].
+> >
+> > Let me summarize it for you again:
+>
+> Thanks.  I'll write here what I know about the, just to be sure I didn't
+> miss anything.  If you need anything from me, please tell me.
+>
+> >
+> > FAN_REPORT_PIDFD v5.15 [fanotify_pidfd]
 
+I see you finally managed to flow this into kernel.org repo. Yay! :)
+
+>
+> Pending a rewording of a paragraph.
+>
+> > FAN_FS_ERROR v5.16 [fan-fs-error]
+>
+> This one.  Looks good to me.
+>
+
+Rebased on top of upstream, fixed the few minor nits
+you pointed out and push to:
+
+https://github.com/amir73il/man-pages/commits/fan-fs-error
+
+Can you please apply?
+
+> > FAN_REPORT_TARGET_FID v5.17 [fanotify_target_fid]
+>
+> I don't see this one in my mbox or linux-man@.
+> I assume it's not yet ready?
+>
+> > FAN_RENAME v5.17 [fan_rename]
+>
+> I don't see this either.  I assume it's not ready either.
+>
+
+And now I can finally proceed to post these :)
+
+> >
+> > And I have more changes for upcoming v5.19... >
+
+I have a question for you regarding new UAPI, such as
+FAN_MARK_EVICTABLE that got merged to v5.19-rc1.
+
+Often, Michael would not want to merge UAPI changes to
+man pages before .0 release, because UAPI changes could
+be reverted before final release (which happened for fanotify).
+I still want to post those man page patches for review early,
+but don't want to mess up your patch review process.
+
+I guess if I post them as [RFC] it will be a good sign for you not
+to merge them until the .0 release?
+Should I simply use the subject "Fanotify updated for v5.19"?
+
+Do you have a different view on the matter?
+Don't care at all? ;-)
+
+Thanks,
+Amir.
