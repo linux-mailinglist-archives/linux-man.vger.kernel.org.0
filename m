@@ -2,65 +2,69 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 23CDD55061F
-	for <lists+linux-man@lfdr.de>; Sat, 18 Jun 2022 18:39:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7A5EE550739
+	for <lists+linux-man@lfdr.de>; Sun, 19 Jun 2022 00:03:35 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233209AbiFRQjN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 18 Jun 2022 12:39:13 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50466 "EHLO
+        id S231538AbiFRWCc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 18 Jun 2022 18:02:32 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57022 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231359AbiFRQjM (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 18 Jun 2022 12:39:12 -0400
-Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com [IPv6:2607:f8b0:4864:20::22e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7F657FD05
-        for <linux-man@vger.kernel.org>; Sat, 18 Jun 2022 09:39:11 -0700 (PDT)
-Received: by mail-oi1-x22e.google.com with SMTP id w16so8904597oie.5
-        for <linux-man@vger.kernel.org>; Sat, 18 Jun 2022 09:39:11 -0700 (PDT)
+        with ESMTP id S231245AbiFRWC3 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 18 Jun 2022 18:02:29 -0400
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com [IPv6:2a00:1450:4864:20::430])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 442CC12617
+        for <linux-man@vger.kernel.org>; Sat, 18 Jun 2022 15:02:28 -0700 (PDT)
+Received: by mail-wr1-x430.google.com with SMTP id v14so9842382wra.5
+        for <linux-man@vger.kernel.org>; Sat, 18 Jun 2022 15:02:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=TrVq32/VGKQOQyQxXlXGyJUX8XWGWTm1bNY7yOk2PQE=;
-        b=eKK44ecgEvUXsbB/LTTimjufqtV6DcCAoMupt5Xo0B2ETgdJGeSAbUxNIUk1kh0JHt
-         N4TJNAvMSZgVW6RJkUD4Y2TorCOj4/RfjD88st+Upu3ejuPfgczFPN6aFlVCb8Vbeviv
-         dZAdTPp7BzpZHxYDtSUX31Mu9I6+bsnBafT7S+OkO6C/lnGSJD6Zf189roLvbIfu19r2
-         h+1A2k54uHz21+KSchTxiq5B+eUKo7Sntje9Y7ohHw8nh8oek6FaFoaTdfn2f8n1mmDV
-         mdsGTLRenkBXVA49fVNsJtQjgjOXyfYxcjvJl7Pbk/NK/39nXbRs0gpT3zOrIv5I1ZuR
-         X7kQ==
+        h=message-id:date:mime-version:user-agent:subject:content-language:to
+         :cc:references:from:in-reply-to;
+        bh=HXDcc7xvTC7mNGCuGT3dj9jkAQ3mTsRKjqJSeiYL1bs=;
+        b=iXhsp5e+9omK+p68zFSi3BOmnzDTde/a9klxBhWAGBp7xFImZpGUtbkgDz/+h/YSIm
+         eCoWeKiEC/IBwVeJnjxkj7FISavc7W7yNCr5BBygp1SYyn8ZssZ7QKkk8Ewbcwd8cu/W
+         Kz6IiCPUMp4th180sn2v9TCYBgte625PWWQxjsYw/rGGucwrfsBvWK2xJRzKA+4plWYK
+         gne6usCSt8FhIcB+R3iawgUscyVuOVxHOlOzSxMmHYf9eap8NziJ9VL9zCcD0JYHCOpR
+         lAYng6d2+bGlOMectfTJO+2EmkFVbKqgWMTK7AWXvyhBS5FhoW30jF4eLDZZ5A5+bz1R
+         UsIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=TrVq32/VGKQOQyQxXlXGyJUX8XWGWTm1bNY7yOk2PQE=;
-        b=cHbkU/XNrS4rhbhThr5REsRX3vX08NlSwXKPl1a/3RxEcLKfnofDjRbOReln/Rq2cM
-         QGn5r0H3scn0CaRkAbkTf1HCs4eirkAh8a/xV922BI9GpOnyy+VZkdbnKMm6yKtmMlm/
-         dvevU0giwDxKRV3y9fqhGhPHO//5zGmtfcR3LvN3bUFcsZ+VvaapA/1Tfwsz13NpBeLJ
-         QZF1L5ZHWgkdvea4r+U6dGynqwLriVaMrRZb5UjF9udyyMV4ApRK+6SWavuXPbnOshjx
-         DAHLDcYzCCbERPNZpuU1Jdpz8narW6FWVsOVSWrLrJwOcUSd85YwGk8PoxlIT6e9GE2K
-         I51A==
-X-Gm-Message-State: AJIora++DRS2klsvmmIPcX5XKKJJPhlliDvIjQh+cYCkJu7xQfWl/Pi3
-        xMct9VHPzPqMCNcvFDtzYMCSSas+ocU=
-X-Google-Smtp-Source: AGRyM1sCgKWzi/xdtuCBNK20Ou0LC6uctRWnXFQB9CwfWDDIgCM7TMdLgEgImYrb2cOBEDgFpVMXog==
-X-Received: by 2002:aca:c004:0:b0:32f:2601:b1a6 with SMTP id q4-20020acac004000000b0032f2601b1a6mr8283209oif.130.1655570350828;
-        Sat, 18 Jun 2022 09:39:10 -0700 (PDT)
-Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id n22-20020a056870349600b000f5e89a9c60sm4261790oah.3.2022.06.18.09.39.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 18 Jun 2022 09:39:10 -0700 (PDT)
-Date:   Sat, 18 Jun 2022 11:39:08 -0500
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org, Michael Kerrisk <mtk.manpages@gmail.com>
-Subject: Re: manual pages for types
-Message-ID: <20220618163908.rjpvhqqih5yiflks@illithid>
-References: <761bb12f-31e0-369d-8315-d2e1545505c7@gmail.com>
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+         :content-language:to:cc:references:from:in-reply-to;
+        bh=HXDcc7xvTC7mNGCuGT3dj9jkAQ3mTsRKjqJSeiYL1bs=;
+        b=ZprhbY8/hvynuLHcan7sqv6bM+/IIqKSBmWUwYyUqU2gDd/LTpEQElTGAqD3lDTohD
+         XdjSIAjsEqiCH76pNSoQsYxFs6a1XFUkWG8oEIjDkn6reLw2T7VRvEc77T6Xt2g0N7yj
+         NwvmOuQKUfwOOX+oPl0aCfu4/Qd7zwk9mRCdUe2xCuGgNGKJ/C3i1K6D21B/c2Xy/HgN
+         ZP2rvK+qhVGsZMqL1Mxn7CCiL7ebBRK3ap7+Q/hi5RTOMO6AWhbb0yhBktqLM198/sQP
+         N7fT/5CNH40GAaN/CvOYJRD1qX5ub8mnI0b7Xcr9rRId+b+elPlah9z4MeT8m3aapLbe
+         f3bA==
+X-Gm-Message-State: AJIora/7wbGICgM8opP5BzOFN/1JZ5eKJcnEZjO5ar3EnTrILXFyxNG+
+        mPQkHic+vzSjTeU7aeVDhC0=
+X-Google-Smtp-Source: AGRyM1tnhgVBUjwLvxjU6JsO6nMxBAPbZPL9nwfblg9j5hAPyC05plOw9H6anUwH1NLiGEDOXQ6qWA==
+X-Received: by 2002:a5d:42c5:0:b0:21b:821c:aa02 with SMTP id t5-20020a5d42c5000000b0021b821caa02mr7193239wrr.454.1655589746609;
+        Sat, 18 Jun 2022 15:02:26 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id w3-20020adfec43000000b0021b89c07b6asm990549wrn.108.2022.06.18.15.02.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 18 Jun 2022 15:02:25 -0700 (PDT)
+Message-ID: <968bb78d-4b92-298f-3fa7-b156982d3110@gmail.com>
+Date:   Sun, 19 Jun 2022 00:02:16 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+Subject: Re: manual pages for types
+Content-Language: en-US
+To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc:     linux-man@vger.kernel.org, Michael Kerrisk <mtk.manpages@gmail.com>
+References: <761bb12f-31e0-369d-8315-d2e1545505c7@gmail.com>
+ <20220618163908.rjpvhqqih5yiflks@illithid>
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <20220618163908.rjpvhqqih5yiflks@illithid>
 Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="muri3yb7h6rtrvt5"
-Content-Disposition: inline
-In-Reply-To: <761bb12f-31e0-369d-8315-d2e1545505c7@gmail.com>
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+ protocol="application/pgp-signature";
+ boundary="------------suIaxkigAxynRNO6KYwHS1cN"
+X-Spam-Status: No, score=-3.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
         autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -69,133 +73,180 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------suIaxkigAxynRNO6KYwHS1cN
+Content-Type: multipart/mixed; boundary="------------0CUbg5v0TOnHvnlAvSAzNJmS";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: linux-man@vger.kernel.org, Michael Kerrisk <mtk.manpages@gmail.com>
+Message-ID: <968bb78d-4b92-298f-3fa7-b156982d3110@gmail.com>
+Subject: Re: manual pages for types
+References: <761bb12f-31e0-369d-8315-d2e1545505c7@gmail.com>
+ <20220618163908.rjpvhqqih5yiflks@illithid>
+In-Reply-To: <20220618163908.rjpvhqqih5yiflks@illithid>
 
---muri3yb7h6rtrvt5
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+--------------0CUbg5v0TOnHvnlAvSAzNJmS
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Hi Alex,
+SGkgQnJhbmRlbiwNCg0KT24gNi8xOC8yMiAxODozOSwgRy4gQnJhbmRlbiBSb2JpbnNvbiB3
+cm90ZToNCg0KPiBJIHRoaW5rIHdlJ3JlIGJ1bXBpbmcgaW50byAoMSkgaW5oZXJlbnQgbGlt
+aXRhdGlvbnMgb2YgbWFudWFsDQo+IHNlY3Rpb25pbmc7ICgyKSB0aGUgZ3Jvd2luZyBkaXZl
+cnNpdHkgb2YgaW1wbGVtZW50YXRpb24gbGFuZ3VhZ2VzIHVzZWQNCj4gaW4gKm5peCBkZXZl
+bG9wbWVudDsgYW5kICgzKSBsb25nLXN0YW5kaW5nIHByYWN0aWNlcyBvZiBpbmNvbXBsZXRl
+DQo+IGxpYnJhcnkgZG9jdW1lbnRhdGlvbi4NCj4gDQo+IFBvaW50cyAoMSkgYW5kICgyKSBh
+cmUgY291cGxlZC4gIEEgUGVybCBwcm9ncmFtbWVyIG9mdGVuIGRvZXNuJ3QgbmVlZCB0bw0K
+PiBzZWUgbWFudWFsIHBhZ2VzIGFib3V0IEMgbGlicmFyaWVzLCBzbyB0aGUgcHJhY3RpY2Vz
+IG9mIChBKSBwcmVmaXhpbmcNCj4gUGVybC1yZWxhdGVkIG1hbiBwYWdlcyB3aXRoIGEgInBl
+cmwiIHByZWZpeCBpbiB0aGVpciBuYW1lcyBhbmQgKEIpDQo+IHB1dHRpbmcgdGhvc2UgbWFu
+IHBhZ2VzIGluIGEgYmVzcG9rZSBzZWN0aW9uIGNhbGxlZCAiM3BlcmwiIGhhdmUgYXJpc2Vu
+Lg0KPiANCj4gTmVpdGhlciBpcyBhIHdvbmRlcmZ1bCBzb2x1dGlvbiBiZWNhdXNlLCBhcyB5
+b3Ugbm90ZSwgdGhleSBjYW4gcmVxdWlyZQ0KPiBtb3JlIHR5cGluZy4gIEkgdGhlcmVmb3Jl
+IGhhdmUgc29tZSBtaWxkIHJlc2VydmF0aW9ucyBhYm91dCBhIGRpZmZlcmVudCwNCj4gbmV3
+IHNlY3Rpb24gc3VmZml4IGNhbGxlZCAidHlwZSIuICBDIGlzbid0IHRoZSBvbmx5IGxhbmd1
+YWdlIHRoYXQgaGFzDQo+IHR5cGVzLiAgU28gSSB0aGluayB0aGlzIHByYWN0aWNlIHB1c2hl
+cyBhIHByb2JsZW0gdG8gdGhlIGZ1dHVyZSwgd2hlcmUNCj4gYWRkcmVzc2luZyBpdCB2aWEg
+dGhlIHNhbWUgbWVhbnMgd2lsbCBiZWNvbWUgX21vcmVfIGN1bWJlcnNvbWUuICBJbWFnaW5l
+DQo+IGEgZnV0dXJlIHdoZXJlIHdlIGhhdmUgc2VjdGlvbiBzdWZmaXhlcyAicGVybHR5cGVz
+IiBhbmQgInB5dGhvbnR5cGVzIi4NCj4gDQo+IFRoZXNlIHByb2JsZW1zIGFyZW4ndCBhcyBi
+YWQgYXMgdGhleSBjb3VsZCBiZSBiZWNhdXNlIGZhY3RvciAoMykgcmlkZXMNCj4gdG8gdGhl
+IHJlc2N1ZS4gIEZhY2VkIHdpdGggYSBkaWZmaWN1bHR5IGluIHBsYWNpbmcgZG9jdW1lbnRh
+dGlvbg0KPiBzZW5zaWJseSwgZmFzdC1tb3ZpbmcgZGV2ZWxvcGVycyBtYWtlIHRoZSBkZWNp
+c2lvbiBlaXRoZXIgdG8gbm90IHdyaXRlDQo+IGRvY3VtZW50YXRpb24gaW4gbWFudWFsIHBh
+Z2UgZm9ybWF0LCBvciBub3QgdG8gd3JpdGUgaXQgYXQgYWxsLg0KPiANCj4gSW4gYSBmYW50
+YXN5IHdvcmxkLCBhbGJlaXQgb25lIHdoZXJlIEknbSBjdXJpb3VzbHkgY29uZmluZWQgdG8g
+dGhlIEMNCj4gbGFuZ3VhZ2UsDQoNCk9oLCB3aGF0IGEgd29uZGVyZnVsIGZhbnRhc3kgd29y
+bGQhICA6RA0KDQo+IEkgd291bGQgZG9jdW1lbnQgdGhlIGRhdGEgdHlwZXMgYW5kIGdsb2Jh
+bCBub24tZnVuY3Rpb24gc3ltYm9scw0KDQpZb3Ugd2VyZSByZWFkaW5nIG15IG1pbmQsIHdl
+cmUgeW91Pw0KDQpOb3QgdGhhdCBJIHBsYW4gdG8gZG8gaXQgc29vbiAoZmlyc3QgY29tZSB0
+aGUgdHlwZXMsIGFuZCB0aGF0IG1heSB0YWtlIA0KbWFueSwgbWFueSB5ZWFycyksIGJ1dCBJ
+IGRvIGhhdmUgYSBsb25nc3RhbmRpbmcgd2lzaCBvZiBkb2N1bWVudGluZyBhbGwgDQpzeW1i
+b2xzLiAgSSdkIGxpa2UgdG8gYmUgYWJsZSB0byBkbyB0aGluZ3Mgc3VjaCBhcyBgbWFuIElP
+Vl9NQVhgLiAgSSANCnN0aWxsIGRvbid0IGtub3cgaG93IHRvIGltcGxlbWVudCB0aGF0LCBi
+dXQgZG9jdW1lbnRpbmcgaGVhZGVycyBpbiANCnNlY3Rpb24gMCBhbmQgdGhlbiBhZGRpbmcg
+bGluayBwYWdlcyB3aXRoIHRoZSBuYW1lcyBvZiB0aGUgbWFjcm9zIA0KZGVmaW5lZCBpbiB0
+aGVtIGlzIG9uZSBvZiB0aGUgaWRlYXMuICBJJ2xsIGJlIGFjY2VwdGluZyBzdWdnZXN0aW9u
+cywgaWYgDQp5b3Ugd2lzaCB0byBwcm9wb3NlIHRoZW0uDQoNCj4gZXhwb3NlZCBieSBhIGxp
+YnJhcnkgaW50ZXJmYWNlIGluIGEgbWFuIHBhZ2UgbmFtZWQgZm9yIGl0cw0KPiBoZWFkZXIg
+ZmlsZS4gIEkgd291bGQgYWxzbyBpbmNsdWRlIHRoZXJlIGEgbGlzdCBvZiBmdW5jdGlvbnMg
+ZXhwb3NlZCBieQ0KPiB0aGUgbGlicmFyeSwgcG9zc2libHkgd2l0aCBzb21lIHN5bm9wdGlj
+IGluZm9ybWF0aW9uLg0KDQpJIGhhdmUgYSBjb25mbGljdCB3aXRoIHRoYXQuICBJIGxpa2Ug
+dGhlIGlkZWEgb2YgaGF2aW5nIGFsbCBvZiB0aGUgDQpmdW5jdGlvbnMgZGVmaW5lZCBieSBh
+IGhlYWRlciBsaXN0ZWQgKG5vdCBkb2N1bWVudGVkKSB0b2dldGhlciwgc28gdGhhdCANCml0
+IG1heSBoZWxwIGRpc2NvdmVyIHNpbWlsYXIgZnVuY3Rpb25zIGJldHRlciBzdWl0ZWQgZm9y
+IGEgc3BlY2lmaWMgam9iLCANCnRoYXQgb25lIG1pZ2h0IG5vdCBoYXZlIGtub3duIG90aGVy
+d2lzZS4NCg0KQnV0IEkgZG9uJ3QgbGlrZSB0aGUgaWRlYSBvZiBkdXBsaWNhdGluZyBkb2N1
+bWVudGF0aW9uLCBpbmNsdWRpbmcgdGhlIA0Kc3lub3BzaXMsIGJlY2F1c2UgdGhhdCB3aWxs
+IG1lYW4gbW9yZSBtYWludGVuYW5jZSBjb3N0cy4gIFNlZSB0aGF0IEkndmUgDQpiZWVuIGNs
+ZWFuaW5nIGRlZmluaXRpb25zIG9mIHR5cGVzIGluIGZ1bmN0aW9uIHBhZ2VzIGFmdGVyIGhh
+dmluZyB0aGVtIA0KZG9jdW1lbnRlZCBpbiB0eXBlIHBhZ2VzOg0KDQo8aHR0cHM6Ly9naXQu
+a2VybmVsLm9yZy9wdWIvc2NtL2RvY3MvbWFuLXBhZ2VzL21hbi1wYWdlcy5naXQvY29tbWl0
+Lz9pZD1jYjMzNjYxNjk1MzE1MTBiY2M3ZDQ0NWUxNWRmNjgzOTYyOTFhMDVkPg0KPGh0dHBz
+Oi8vZ2l0Lmtlcm5lbC5vcmcvcHViL3NjbS9kb2NzL21hbi1wYWdlcy9tYW4tcGFnZXMuZ2l0
+L2NvbW1pdC8/aWQ9NmM4MDlkZjc3YjM1OWJiM2E5ZTA2ZjMyNTQ3ZTBhZWQxNTU0MDhiZT4N
+Cg0KUGFnZXMgbGlrZSBzdHJpbmcoMykgd29yayBsaWtlIGEgU0VFIEFMU08sIGFuZCB3ZSBh
+bHJlYWR5IGhhdmUgU0VFIEFMU08uIA0KICBJJ3ZlIGFsc28gY29uc2lkZXJlZCBoYXZpbmcg
+aW5jbHVkZXMgd2l0aCB0aGUgcHJvdG90eXBlcywgd2hpY2ggY291bGQgDQpiZSBpbmNsdWRl
+ZCBmcm9tIHZhcmlvdXMgcGFnZXMsIGJ1dCB0aGF0J3Mgc29tZXRoaW5nIEknbSB3aWxsaW5n
+IHRvIGRvLCANCmJlY2F1c2UgaGF2aW5nIHN0YW5kYWxvbmUgcGFnZXMgaXMgYWxzbyBtdWNo
+IGVhc2llciB0byBoYW5kbGUuDQoNCj4gDQo+IHN0ZGlvKDMpIGFuZCBuY3Vyc2VzKDMpIGFy
+ZSBwcmV0dHkgZ29vZCBleGFtcGxlcyBvZiBob3cgdG8gZG8gdGhpcywNCj4gdGhvdWdoIGlu
+IG15IG9waW5pb24gbmVpdGhlciBvZiB0aGVtIGRvZXMgZW5vdWdoIHRvIGhlbHAgdGhlIHBy
+b2dyYW1tZXINCj4gb3JnYW5pemUgdGhlIGxhcmdlIG51bWJlciBvZiBwcm92aWRlZCBmdW5j
+dGlvbnMgaW4gdGhlaXIgYnJhaW4uDQo+IChuY3Vyc2VzIGhhcyBjYXRlZ29yaWNhbCBwYWdl
+cywgYnV0IHVuZm9ydHVuYXRlbHkgZG9lc24ndCBtYWtlIHRoZW0NCj4gdmlzaWJsZSB1bnRp
+bCB5b3UgdmlzaXQgdGhlbSwgYW5kIGl0cyBBUEksIGxhcmdlbHkgZm9yIGhpc3RvcmljYWwN
+Cj4gcmVhc29ucywgaGFzIG11bHRpcGxlIG9ydGhvZ29uYWwgYXhlcy0tc29tZXRpbWVzIHlv
+dSBuZWVkIGEgInciIHByZWZpeA0KPiBmb3Igd2luZG93IGFkZHJlc3NpbmcsIGFuZCBzb21l
+dGltZXMgeW91IG5lZWQgYSAidyIgaW5maXggb3Igc3VmZml4IHRvDQo+IGluZGljYXRlIHRo
+ZSB1c2Ugb2YgYSB3aWRlIGNoYXJhY3RlciB0eXBlIGluIHRoZSBhcmd1bWVudCBsaXN0LikN
+Cg0KQmFzaWNhbGx5IHRoZSBzYW1lIHByb2JsZW1zIGFzIFNFRSBBTFNPLiAgWW91IGRvbid0
+IGtub3cgd2hhdCB0aGV5J3JlIA0KYWJvdXQsIHVudGlsIGl0J3MgdG9vIGxhdGUgOikNCg0K
+PiANCj4gTmV2ZXJ0aGVsZXNzLCBJIGRvbid0IHRoaW5rIG1vdmluZyB0aGluZ3MgdG8gIjN0
+eXBlIiBpcyBhIGNob2ljZSB0aGF0IGl0DQo+IHdpbGwgYmUgcGFpbmZ1bCB0byB1bndpbmQg
+bGF0ZXIgKHNob3VsZCB0aGUgbmVlZCBhcmlzZSkgaW4gdGVybXMgb2YgdXNlcg0KPiBleHBl
+cmllbmNlLiAgTW9zdCBwZW9wbGUgd29uJ3Qgd2FudCB0byBtZXNzIHdpdGggdHlwaW5nICJb
+LXNdIDN0eXBlIg0KPiBiZWZvcmUgdGhlIHBhZ2UgbmFtZSB0aGV5IHdhbnQsIHNvIHRoZXkg
+d29uJ3QuICBUaGV5IHRoZXJlZm9yZSB3b24ndA0KPiBkZXZlbG9wIGEgaGFiaXQgdGhleSBo
+YXZlIHRvIGJlIHRyYWluZWQgb3V0IG9mIGxhdGVyLiAgV2hlcmUgIjN0eXBlIiBjYW4NCj4g
+ZG8gdGhlIG1vc3QgZ29vZCBpcyBwcm9iYWJseSBpbiB0aGUgbWFudWFsIHNlY3Rpb24gc2Vh
+cmNoIG9yZGVyLg0KPiANCj4gU28gZXZlbiBpZiBpdCdzIG5vdCBhbiBvcHRpbWFsIHNvbHV0
+aW9uLCBpdCBjYW4gc3RpbGwgYmUgYSBnb29kIGlkZWEuDQo+IEknZCBqdWRnZSBpdCBsaWtl
+IHRoaXM6IGRvZXMgdGhlIGNoYW5nZSBicmluZyBvcmRlciB0byBjaGFvcyBieQ0KPiBpbXBy
+b3ZpbmcgdG9waWNhbCBjb3ZlcmFnZSBhbmQvb3IgZGlzY292ZXJhYmlsaXR5PyAgRG9lcyBp
+dCBpbXBvc2UNCj4gdGVjaG5pY2FsIGRlYnQ/DQoNCkkndmUgYWxyZWFkeSBkb25lIGl0Og0K
+DQo8aHR0cHM6Ly9naXQua2VybmVsLm9yZy9wdWIvc2NtL2RvY3MvbWFuLXBhZ2VzL21hbi1w
+YWdlcy5naXQvY29tbWl0Lz9pZD0xNzhlYWYzN2UyZTk3MWNhZTg4YmQ0ZDNmMTI0ZWRlMGFm
+YmIxMDE1Pg0KDQpJIHRoaW5rIGl0IHdhcyBhIGdvb2QgbW92ZS4NCg0KPiANCj4gSSB3b3Vs
+ZCBhc2sgdGhhdCB5b3Ugbm90IHB1dCAidHlwZSIgaW4gZnVsbCBjYXBpdGFscy4gIDstKQ0K
+DQpEaWRuJ3QuDQoNCj4gDQo+IEluIHRoZSBhYnN0cmFjdCB0aGVyZSBpcyBubyBwcm9ibGVt
+IHdpdGggaGF2aW5nIGFsbCBvZiB0aGVzZSBwYWdlcyBpbg0KPiBtYW4zIHVwc3RyZWFtLCBp
+ZiB5b3UgYWltIHRvIHJlZmxlY3QgdGhlIHNlY3Rpb24gc3VmZml4ZXMgaW4gdGhlIGZpbGUN
+Cj4gbmFtZXMuICBUaGVyZSB3aWxsIGJlIG5vIG5hbWUgY29sbGlzaW9ucy4NCg0KSSB3YXMg
+dGhpbmtpbmcgbW9yZSBhYm91dCBoYXZpbmcgdGhlbSBiZXR0ZXIgb3JnYW5pemVkLiAgSSBw
+cmVmZXIgaGF2aW5nIA0KbWFueSBkaXJzIHdpdGggZmV3IGZpbGVzLCByYXRoZXIgdGhhbiB1
+bnJlYWRhYmxlIGxzKDEpIG91dHB1dC4NCg0KSXQncyBhbHdheXMgZWFzaWVyIHRvIG1lcmdl
+IGRpcnMgcmF0aGVyIHRoYW4gc3BsaXQgZGlycywgYWx0aG91Z2ggaW4gDQp0aGlzIGNhc2Us
+IGl0J3MgcHJldHR5IG11Y2ggdGhlIHNhbWUgZGlmZmljdWx0eSAobG93KS4NCg0KPiANCj4g
+SGlzdG9yaWNhbGx5IHRoZXJlIGhhdmUgYmVlbiBwcm9ibGVtcyB3aXRoIGZpbGUgc3lzdGVt
+IHBlcmZvcm1hbmNlIHdoZW4NCj4gZGlyZWN0b3JpZXMgYWNjdW11bGF0ZSBhIGxvdCBvZiBl
+bnRyaWVzLiAgQXMgZmFyIGFzIEkga25vdyB0aGlzIGlzbid0IGENCj4gcHJvYmxlbSBvbiBh
+bnkgbW9kZXJuLCBjb21tb25seS11c2VkIGZpbGUgc3lzdGVtLiAgRnVydGhlciwgbXkgR2l0
+DQo+IGNoZWNrb3V0IHNheXMgdGhhdCB0aGUgTGludXggbWFuLXBhZ2VzIHByb2plY3QgaGFz
+IG9ubHkgYWJvdXQgMSw3MDANCj4gZmlsZXMgaW4gdGhlIG1hbjMgZGlyZWN0b3J5LiAgVGhl
+IHBlcmZvcm1hbmNlIHByb2JsZW1zIEkndmUgaGVhcmQgYWJvdXQNCj4gYXJpc2Ugd2hlbiB0
+aGUgbnVtYmVyIG9mIGRpcmVudHMgaXMgZ3JlYXRlciBieSBhbiBvcmRlciBvZiBtYWduaXR1
+ZGUgb3INCj4gbW9yZS4gIE5vIG1hdHRlciBob3cgZGlsaWdlbnQgeW91IGFyZSBhcyBhIHRl
+Y2huaWNhbCB3cml0ZXIsIGl0J3MgZ29pbmcNCj4gdG8gYmUgaGFyZCB0byBzd2VsbCB0aGUg
+bWFuLXBhZ2VzIGNvcnB1cyB0byB0aGF0IGRlZ3JlZS4gIDopDQo+IA0KPiBJZiBkaXN0cmli
+dXRvcnMgbmVlZCB0byBjaGFuZ2UgdGhlIGFycmFuZ2VtZW50IHRvIHN1aXQgdGhlaXIgcGVy
+Zm9ybWFuY2UNCj4gcmVxdWlyZW1lbnRzLCB0aGV5IGFyZSBiZXR0ZXIgcGxhY2VkIHRvIGRv
+IHNvLiAgSXQgaXMgYSBjaG9pY2UgdGhhdCBoYXMNCj4gbW9zdCBvZiBpdHMgaW1wYWN0IGF0
+IHJ1biB0aW1lIGFueXdheSwgYW5kIGRpc3RyaWJ1dGlvbiBwYWNrYWdpbmcNCj4gc3lzdGVt
+cyBhcmUgd2VsbCBwcmFjdGljZWQgYXQgcmVhcnJhbmdpbmcgdGhlaXIgdXBzdHJlYW1zJyAi
+bWFrZQ0KPiBpbnN0YWxsIiByZXN1bHRzLg0KDQpBY3R1YWxseSwgSSd2ZSBiZWVuIHdvcmtp
+bmcgaGFyZCBvbiBwcm92aWRpbmcgYSB2ZXJ5IGZsZXhpYmxlIE1ha2VmaWxlIA0KdGhhdCBz
+aG91bGQgd29yayB1bm1vZGlmaWVkIGZvciBhcyBtYW55IGRpc3RyaWJ1dG9ycyBhcyBwb3Nz
+aWJsZS4gDQpUaGF0J3Mgd2h5IEkgY29uc2lkZXJlZCB0aGF0IGhhdmluZyB0aGUgTWFrZWZp
+bGUgaW5zdGFsbCBpbnRvIHNlcGFyYXRlIA0KZGlycywgYW5kIGxldCB0aGUgZGlzdHJpYnV0
+b3IgbWVyZ2UgdGhlbSBsYXRlciwgY291bGQgYmUgYSBnb29kIGlkZWEuDQoNCkJ1dCBzaW5j
+ZSB0aGUgc21hbGxlc3QgZGlmZiBmb3IgdGhlIE1ha2VmaWxlIHdhcyB0byB1c2UgYSBzaW5n
+bGUgb25lLCBJIA0KZGlkIHRoYXQgZm9yIG5vdy4NCg0KPiANCj4gRm9yIGRldmVsb3BtZW50
+IGFuZCBtYWludGVuYW5jZSBvZiB0aGUgbWFuIHBhZ2VzIHRoZW1zZWx2ZXMsIEkgdGhpbmsN
+Cj4gcmV0YWluaW5nIHRoZSBleGlzdGluZyBkaXJlY3Rvcnkgc3RydWN0dXJlIGhhcyB0aGUg
+dmlydHVlcyBvZiBrZWVwaW5nDQo+IHRoaW5ncyBzaW1wbGVyIGFuZCBub3QgY29uZnVzaW5n
+IG5ldyBjb250cmlidXRvcnMgd2l0aCBhbiBvcmdhbml6YXRpb25hbA0KPiBkaXN0aW5jdGlv
+biB0aGF0IGRvZXNuJ3QgY29tbXVuaWNhdGUgYW55IG5ldyBpbmZvcm1hdGlvbi4NCg0KSSB0
+aGluayBpdCBpcyBlYXNpZXIgd2l0aCBvbmUgZGlyLCBidXQgZm9yIGFub3RoZXIgcmVhc29u
+OiAgbGVzcyANCnR5cGluZy9iZXR0ZXIgYXV0b2NvbXBsZXRlLg0KDQo+IA0KPiBUaGVzZSBh
+cmUganVzdCBteSBvcGluaW9ucy0tSSdtIG5vdCBhbiBvcmFjbGUuDQo+IA0KDQpJIHRlbmQg
+dG8gbGlrZSB5b3VyIG9waW5pb25zLiAgSSdsbCBrZWVwIGFza2luZyB5b3VyIE9yYWNsZSA7
+KS4NCg0KQ2hlZXJzLA0KDQpBbGV4DQoNCi0tIA0KQWxlamFuZHJvIENvbG9tYXINCjxodHRw
+Oi8vd3d3LmFsZWphbmRyby1jb2xvbWFyLmVzLz4NCg==
 
-At 2022-06-09T10:57:07+0200, Alejandro Colomar wrote:
-> I guess you remember the discussion a few months ago about pages of
-> the form statx-struct(3).
+--------------0CUbg5v0TOnHvnlAvSAzNJmS--
 
-I do!
-
-> I'm still not convinced by that, because it means more typing, and
-> because it breaks with existing practice.  libbsd for example just
-> puts timespec(3) in the global 3 section, with no -struct.  Also, some
-> other UNIX systems don't put -struct, but move the pages to 3TYPE, a
-> subsection of 3.  I think I like that way most, and that also fixes
-> the concerns that Michael had about shadowing other more important
-> pages, because we can just tell man-db to specify that 3TYPE should be
-> one of the last things to check.  What do you think about it?
-
-I think we're bumping into (1) inherent limitations of manual
-sectioning; (2) the growing diversity of implementation languages used
-in *nix development; and (3) long-standing practices of incomplete
-library documentation.
-
-Points (1) and (2) are coupled.  A Perl programmer often doesn't need to
-see manual pages about C libraries, so the practices of (A) prefixing
-Perl-related man pages with a "perl" prefix in their names and (B)
-putting those man pages in a bespoke section called "3perl" have arisen.
-
-Neither is a wonderful solution because, as you note, they can require
-more typing.  I therefore have some mild reservations about a different,
-new section suffix called "type".  C isn't the only language that has
-types.  So I think this practice pushes a problem to the future, where
-addressing it via the same means will become _more_ cumbersome.  Imagine
-a future where we have section suffixes "perltypes" and "pythontypes".
-
-These problems aren't as bad as they could be because factor (3) rides
-to the rescue.  Faced with a difficulty in placing documentation
-sensibly, fast-moving developers make the decision either to not write
-documentation in manual page format, or not to write it at all.
-
-In a fantasy world, albeit one where I'm curiously confined to the C
-language, I would document the data types and global non-function
-symbols exposed by a library interface in a man page named for its
-header file.  I would also include there a list of functions exposed by
-the library, possibly with some synoptic information.
-
-stdio(3) and ncurses(3) are pretty good examples of how to do this,
-though in my opinion neither of them does enough to help the programmer
-organize the large number of provided functions in their brain.
-(ncurses has categorical pages, but unfortunately doesn't make them
-visible until you visit them, and its API, largely for historical
-reasons, has multiple orthogonal axes--sometimes you need a "w" prefix
-for window addressing, and sometimes you need a "w" infix or suffix to
-indicate the use of a wide character type in the argument list.)
-
-Nevertheless, I don't think moving things to "3type" is a choice that it
-will be painful to unwind later (should the need arise) in terms of user
-experience.  Most people won't want to mess with typing "[-s] 3type"
-before the page name they want, so they won't.  They therefore won't
-develop a habit they have to be trained out of later.  Where "3type" can
-do the most good is probably in the manual section search order.
-
-So even if it's not an optimal solution, it can still be a good idea.
-I'd judge it like this: does the change bring order to chaos by
-improving topical coverage and/or discoverability?  Does it impose
-technical debt?
-
-> I think I'm going to move all type pages to 3TYPE.  Also, I don't know
-> if I should use a separate directory for that or use man3 and just
-> change the extension.  What would you do?  I see that debian just puts
-> everything in man? and then only changes the file extension, but there
-> are other systems that also change dirs, right?  What should we do
-> upstream?
-
-I would ask that you not put "type" in full capitals.  ;-)
-
-In the abstract there is no problem with having all of these pages in
-man3 upstream, if you aim to reflect the section suffixes in the file
-names.  There will be no name collisions.
-
-Historically there have been problems with file system performance when
-directories accumulate a lot of entries.  As far as I know this isn't a
-problem on any modern, commonly-used file system.  Further, my Git
-checkout says that the Linux man-pages project has only about 1,700
-files in the man3 directory.  The performance problems I've heard about
-arise when the number of dirents is greater by an order of magnitude or
-more.  No matter how diligent you are as a technical writer, it's going
-to be hard to swell the man-pages corpus to that degree.  :)
-
-If distributors need to change the arrangement to suit their performance
-requirements, they are better placed to do so.  It is a choice that has
-most of its impact at run time anyway, and distribution packaging
-systems are well practiced at rearranging their upstreams' "make
-install" results.
-
-For development and maintenance of the man pages themselves, I think
-retaining the existing directory structure has the virtues of keeping
-things simpler and not confusing new contributors with an organizational
-distinction that doesn't communicate any new information.
-
-These are just my opinions--I'm not an oracle.
-
-Regards,
-Branden
-
---muri3yb7h6rtrvt5
-Content-Type: application/pgp-signature; name="signature.asc"
+--------------suIaxkigAxynRNO6KYwHS1cN
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmKt/6QACgkQ0Z6cfXEm
-bc5F6g/+L6W9A7L4gNH9FLY7Q/ki3ZdHESo1IPcdg64gyq6e0G+a5W+Nzf0DPLNL
-orHQek4OaNvgHAHDWD7XggVI0lSKRrYj/pF1GLRIZfWesy0DY9IDkE4PA7tHvsY/
-8koG3gnIHhD9QZDUzl+O2R3vyGBF1tjaywlO6sxoD9O0X1M36loul/J9TgCgVshu
-ssIodSDxchn6diHweRRC7XYYPdD4dnfuUBU40BtuEhcZqW0g6O378pTY1otmw0lu
-uH/ERxkqj50fWhE9AjOQCp8FvRWFMCqjhohghy/IsL4FxUgpyG55RsN4aFU958VF
-vYkbxw+Bpj6bRRyafe1R1my1ZdcrE+hK36gHT1NEqObPqJ+vGL0a6OmwwYPHrjcq
-Z9TxEW4IAdECsTFhXCnhH7xado+IICITdfOoDDVTTATGnEz3hPY2kWMrx754EkAH
-J/pNDunSqzOszUIDLCvNEQildJJ4PmurdbPtHzVoPKv51nHi6KSFz1pUmWgziR7c
-HCoIhH08lkDk82pDZdZFYqDNeoIkx/outcQWdYXo9ebqmFNk+K7YPx7sV5n1OJ79
-3eKUulloeoWSEJtNF4iu+nD9/vbqGU3Tx5de0UutFPTT+z6uukxGWA9JAvzNeHGY
-qOdr8RonPmYZ8wuZA3ISfByPtMOINIz+BBOUrbjjP/7kjBcWyCM=
-=UeV5
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmKuS2kACgkQnowa+77/
+2zIgCg/7B4qQG13RVydtrFbSl/01sFgSjFagcv9RIbF9UqxNQAqCs9eeCHWscYar
+xT2HbmYoy/EjtTskjsZSPZK5k4YuqNb56kaBG8/XibModeRXc8y28k96yyEjD/S4
+TDspljRPj433t8G++P2OAPRDvQBmIS6Dg0O5Ru2MsLwVK0QbDA3khm0Fl2NC7R6h
++62a8++CQ89nl3WqaQab6m3sFk2xctKud49nCW0XcfYxhz+bjKgvrj9sevsXFI9F
+xBtl0prb2s25FPdy5dDV8uBK6FdDrk0KZUHFRtGoXnhBQ7+QzE54hoLeG5PJ4ccE
+FNCobW8hF3tqxFGn02N1wbu+zxma1jR3RPYhrXuUtdk77nbzm9KF7IYdPB+MCNxM
+dCmbneCtBOX6CY1JZIROruXo27CjfisOnFQ2w5mb/FjHzqgDDIpOSNOmG3g8ruZQ
+gWHIKj9EYFjp6VDUVq1W8wnBPdNvskC/8fGtQzdwUwxRz2v213ObIeP8ywC9Qgfg
+TOYxbypRq4jhjjDZeNskHlronphGiAFWTqovyIHqtwdtQW4qBV82pYlEVIjT6Fjx
+E34ILkezsk0gQL7/0J6Pw3IuKvoT60U03zDoxxYeOYGkNGdLj7Qk/4u2XofROtNA
+rAP6v1H4VPxXbYhdTUhZfFvqx6oJ5Pr/PPOVlYqEIhC2qNKzBaU=
+=jcqY
 -----END PGP SIGNATURE-----
 
---muri3yb7h6rtrvt5--
+--------------suIaxkigAxynRNO6KYwHS1cN--
