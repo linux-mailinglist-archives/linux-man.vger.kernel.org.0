@@ -2,207 +2,327 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 6A082550D14
-	for <lists+linux-man@lfdr.de>; Sun, 19 Jun 2022 23:18:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id EA4E6550D6A
+	for <lists+linux-man@lfdr.de>; Mon, 20 Jun 2022 00:24:18 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231928AbiFSVSA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Jun 2022 17:18:00 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53804 "EHLO
+        id S234072AbiFSWYA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Jun 2022 18:24:00 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48480 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229716AbiFSVR6 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Jun 2022 17:17:58 -0400
-X-Greylist: delayed 668 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Sun, 19 Jun 2022 14:17:55 PDT
-Received: from scc-mailout-kit-02.scc.kit.edu (scc-mailout-kit-02.scc.kit.edu [IPv6:2a00:1398:9:f712::810d:e752])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5F4902BD
-        for <linux-man@vger.kernel.org>; Sun, 19 Jun 2022 14:17:54 -0700 (PDT)
-Received: from hekate.asta.kit.edu ([2a00:1398:5:f401::77])
-        by scc-mailout-kit-02.scc.kit.edu with esmtps (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-        (envelope-from <schwarze@usta.de>)
-        id 1o3280-0048o3-4B; Sun, 19 Jun 2022 23:06:40 +0200
-Received: from login-1.asta.kit.edu ([2a00:1398:5:f400::72])
-        by hekate.asta.kit.edu with esmtp (Exim 4.94.2)
-        (envelope-from <schwarze@usta.de>)
-        id 1o327z-005zVu-8J; Sun, 19 Jun 2022 23:06:39 +0200
-Received: from schwarze by login-1.asta.kit.edu with local (Exim 4.92)
-        (envelope-from <schwarze@usta.de>)
-        id 1o327z-0008Jg-L0; Sun, 19 Jun 2022 23:06:39 +0200
-Date:   Sun, 19 Jun 2022 23:06:39 +0200
-From:   Ingo Schwarze <schwarze@usta.de>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-Subject: Re: Linux man-pages Makefile portability
-Message-ID: <Yq+P39bpy2QEeaSd@asta-kit.de>
-References: <d8646de0-e4f0-3d4b-e763-92355162a405@gmail.com>
+        with ESMTP id S229965AbiFSWX7 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Jun 2022 18:23:59 -0400
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com [IPv6:2a00:1450:4864:20::42c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 133F065C0
+        for <linux-man@vger.kernel.org>; Sun, 19 Jun 2022 15:23:57 -0700 (PDT)
+Received: by mail-wr1-x42c.google.com with SMTP id m1so4500627wrb.2
+        for <linux-man@vger.kernel.org>; Sun, 19 Jun 2022 15:23:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=message-id:date:mime-version:user-agent:content-language:to:cc
+         :references:from:subject:in-reply-to;
+        bh=5zcw0oDPUX8dUsMHJsVONUDgiJ1WweYupPqhU/CpU1k=;
+        b=BfcmGFQi2l3+Ol/71S3B9CSLNHc5lLIw9iEGoAfaJWg1TNy14gXQUzmo65lMJlgOpb
+         wnhD2X1yVpWxOsAxxPKVny1DJkMSphOyPy4Xd025Dnkwm+FNE8Yqnl/9y/uK5hkmIupL
+         yFWPNttTJs6357x8NAwz13ysLH3Vat2f8goOW500FD6nd4qb6tPamYGcR/INENLcZic0
+         gqFV4iSYD5SA/fLm3sLAEYtFTd7Nls+EsG49a19V+Btvs2borc+CeCbKvXpJTkLyUnFt
+         OKpEEB06epqJ4nFwhL3nZqVlEzUsFQe29jNJ1uqpeGSEOkSvcWhs9D6xn65itE6unAXD
+         1zXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:message-id:date:mime-version:user-agent
+         :content-language:to:cc:references:from:subject:in-reply-to;
+        bh=5zcw0oDPUX8dUsMHJsVONUDgiJ1WweYupPqhU/CpU1k=;
+        b=cbNYAkhoTvWL9xrONBqbUfVsSaWZbdfuFsm+FCPPiJVe3tAeZl63elqEE9lUzItvHf
+         Nu5KFdsvZt/YxAXGRzkOmOdRrRJRj0cpFAsPUcKcaarqDu6/kdL/8T4aIBXomVsKR6U0
+         xDEcHqp9rI9ZXK64R2vK/6R/TpBTliwTa4mTqJokBmDh89FdnI4g/Zjki+AbGseJJTDl
+         zcGZ3VTDTnNu2z414/7hsHBSivWpcuJQypm1ElFtVWvQKBghxIvZNP3i2Y1RX9Tuwjje
+         cZ3FVcLVMNcd7fsKyQeT2dNCOEIpKDPxREfRcNwtBQSGCii90N8Hs7nYU8CZfwalqZjw
+         5JRA==
+X-Gm-Message-State: AJIora+QD/8V8VddRk7sl/WtUcIPEDIT4Nhj54fwTP1xi6ry2HbgMmQc
+        Oj/0KVdRpcld0IhRGmqDs2NK2T4D3kU=
+X-Google-Smtp-Source: AGRyM1vMwgNq2nEZro1BKFrsn5GtGUM+5qpHgadYvvQpADKhudwe06XTnaRK/47k0W2IM6PmuzkT9Q==
+X-Received: by 2002:a05:6000:192:b0:21a:3c91:df05 with SMTP id p18-20020a056000019200b0021a3c91df05mr15449957wrx.655.1655677435017;
+        Sun, 19 Jun 2022 15:23:55 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id m188-20020a1c26c5000000b0039c4945c753sm16539361wmm.39.2022.06.19.15.23.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 19 Jun 2022 15:23:54 -0700 (PDT)
+Message-ID: <8b9daa0e-6f08-dd55-5772-51f5052ed8bb@gmail.com>
+Date:   Mon, 20 Jun 2022 00:23:45 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d8646de0-e4f0-3d4b-e763-92355162a405@gmail.com>
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED,
-        SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=ham
-        autolearn_force=no version=3.4.6
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+Content-Language: en-US
+To:     Ingo Schwarze <schwarze@usta.de>
+Cc:     linux-man@vger.kernel.org
+References: <d8646de0-e4f0-3d4b-e763-92355162a405@gmail.com>
+ <Yq+P39bpy2QEeaSd@asta-kit.de>
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+Subject: Re: Linux man-pages Makefile portability
+In-Reply-To: <Yq+P39bpy2QEeaSd@asta-kit.de>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------3klFJvqSVq30kjbW5aHxyNPX"
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Alejandro,
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------3klFJvqSVq30kjbW5aHxyNPX
+Content-Type: multipart/mixed; boundary="------------EA0J1fDxTKObnn51HO7njcnv";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: Ingo Schwarze <schwarze@usta.de>
+Cc: linux-man@vger.kernel.org
+Message-ID: <8b9daa0e-6f08-dd55-5772-51f5052ed8bb@gmail.com>
+Subject: Re: Linux man-pages Makefile portability
+References: <d8646de0-e4f0-3d4b-e763-92355162a405@gmail.com>
+ <Yq+P39bpy2QEeaSd@asta-kit.de>
+In-Reply-To: <Yq+P39bpy2QEeaSd@asta-kit.de>
 
-Alejandro Colomar wrote on Sun, Jun 19, 2022 at 07:52:33PM +0200:
+--------------EA0J1fDxTKObnn51HO7njcnv
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-> Would you mind checking if the current Makefile works on your OpenBSD?
-> I think it depends on gmake(1),
+SGkgSW5nbywNCg0KT24gNi8xOS8yMiAyMzowNiwgSW5nbyBTY2h3YXJ6ZSB3cm90ZToNCj4g
+SGkgQWxlamFuZHJvLA0KPiANCj4gQWxlamFuZHJvIENvbG9tYXIgd3JvdGUgb24gU3VuLCBK
+dW4gMTksIDIwMjIgYXQgMDc6NTI6MzNQTSArMDIwMDoNCj4gDQo+PiBXb3VsZCB5b3UgbWlu
+ZCBjaGVja2luZyBpZiB0aGUgY3VycmVudCBNYWtlZmlsZSB3b3JrcyBvbiB5b3VyIE9wZW5C
+U0Q/DQo+PiBJIHRoaW5rIGl0IGRlcGVuZHMgb24gZ21ha2UoMSksDQo+IA0KPiBBZnRlciBk
+b2luZw0KPiANCj4gICAgICQgZ2l0IGNsb25lIGh0dHBzOi8vZ2l0Lmtlcm5lbC5vcmcvcHVi
+L3NjbS9kb2NzL21hbi1wYWdlcy9tYW4tcGFnZXMuZ2l0Lw0KPiAgICAgJCBjZCBtYW4tcGFn
+ZXMNCg0KVGhhbmtzIGZvciB0cnlpbmchDQoNCj4gDQo+IGkgaGF2ZSBhIGhhcmQgdGltZSBm
+aW5kaW5nIGFueSB0YXJnZXRzIGluIHRoZSAuL01ha2VmaWxlIHRoYXQgaSBjb3VsZA0KPiBw
+b3NzaWJseSBydW4gZm9yIHRlc3RpbmcuLi4NCg0KU29ycnksIEkgbmVlZCB0byBkb2N1bWVu
+dCB0aGUgdGFyZ2V0cy4NCg0KPiANCj4gSSdtIGNlcnRhaW5seSBub3QgZ29pbmcgdG8gcnVu
+IHRhcmdldHMgbGlrZSAiYWxsIiBvciAiaW5zdGFsbCIuDQoNClRoZSBvbmx5IGludGVyZXN0
+aW5nIHRhcmdldHMgZm9yIHVzZXJzIGFyZSAnZGlzdCcsICdpbnN0YWxsJywgYW5kIA0KdW5p
+bnN0YWxsJy4gIFlvdSBjb3VsZCB0ZXN0IHRoZSBpbnN0YWxsIHRhcmdldCB3aXRoIERFU1RE
+SVI9L3RtcC9zb21lZGlyDQoNCllvdSBkb24ndCBldmVuIG5lZWQgdG8gYmUgcm9vdCB0byB0
+ZXN0IHRoYXQgaW4gL3RtcC4NCg0KPGh0dHBzOi8vd3d3LmdudS5vcmcvcHJlcC9zdGFuZGFy
+ZHMvaHRtbF9ub2RlL0RFU1RESVIuaHRtbD4NCg0KDQo+IEkgZG9uJ3QgdGhpbmsgdGVzdGlu
+ZyB0aGUgImRpc3QiIHRhcmdldCBtYWtlcyBtdWNoIHNlbnNlIGJlY2F1c2UNCj4gbm9ib2R5
+IGlzIGdvaW5nIHRvIGJ1aWxkIHlvdXIgZGlzdHJpYnV0aW9uIHRhcmJhbGxzIG9uIE9wZW5C
+U0QuDQoNCk1ha2VzIHNlbnNlLg0KDQo+IEknbSBub3QgaW50ZXJlc3RlZCBpbiB0ZXN0aW5n
+IHRoZSAic3JjIiBncm91cCBvZiB0YXJnZXRzOw0KPiBpIHRoaW5rIHdlIGRpc2N1c3NlZCBp
+biB0aGUgcGFzdCB0aGF0IGkgZGlzbGlrZSB0aGF0IHdob2xlIGlkZWEuDQoNCkkgcmVtZW1i
+ZXIuDQoNCj4gDQo+IFRoZSBodG1sIHRhcmdldCBjb3VsZCBwb3RlbnRpYWxseSBiZSBpbnRl
+cmVzdGluZywgYnV0DQo+ICAgIGh0dHBzOi8vc2F2YW5uYWgubm9uZ251Lm9yZy9wcm9qZWN0
+cy9tYW4yaHRtbC8NCj4gYW5kIHRoZSByZXBvIGxpbmtlZCB0byBmcm9tIHRoZXJlLA0KPiAg
+ICBodHRwczovL2N2cy5zYXZhbm5haC5ub25nbnUub3JnL3ZpZXd2Yy9tYW4yaHRtbC8NCj4g
+Z2l2ZXMgbWUgdGhlIGltcHJlc3Npb24gdGhpcyBpcyBhYmFuZG9ud2FyZSB0aGF0IGRpZCBu
+b3QgcmVjZWl2ZQ0KPiBhbnkgbWFpbnRlbmFuY2UgaW4gMTkgeWVhcnMuDQoNCkkgdXNlZCB0
+aGF0IGJlY2F1c2UgdGhlIGFyY2hhaWMgTWFrZWZpbGUgcHJlc2VudCBpbiB0aGUgdHJlZSB3
+aGVuIEkgDQpqb2luZWQgd2FzIHVzaW5nIGl0IChhbmQgSSBkaWRuJ3Qga25vdyBhbnkgb3Ro
+ZXIgdG9vbHMpOg0KDQo8aHR0cHM6Ly9naXQua2VybmVsLm9yZy9wdWIvc2NtL2RvY3MvbWFu
+LXBhZ2VzL21hbi1wYWdlcy5naXQvdHJlZS9NYWtlZmlsZT9pZD1iMzJhNjkzNTU5MjExOGNl
+NGFjZmRkZjk1ZTUyZmNhOGZiZDNhZGVkPg0KDQpCdXQgdGhhdCBNYWtlZmlsZSB3YXMgY2xl
+YXJseSB1bnVzZWQgc2luY2Ugbm8tb25lIGtub3dzLg0KDQpJZiB5b3Uga25vdyBhIGJldHRl
+ciB0b29sLCBJIGNvdWxkIHN0YXJ0IHVzaW5nIGl0LiAgTWF5YmUgSSBjb3VsZCB1c2UgDQpn
+cm9mZigxKSBkaXJlY3RseSwgd2l0aCBncm9odG1sKDEpLg0KDQo+ICBCZXNpZGVzLCBhbiBP
+cGVuQlNEIHBvcnQgZG9lcyBub3QNCj4gY3VycmVudGx5IGV4aXN0IGFuZCBpIGRvbid0IGZl
+ZWwgbGlrZSBjcmVhdGluZyBvbmUganVzdCBmb3IgdGVzdGluZy4NCj4gDQo+IFRoZSBvbmx5
+IHJlbWFpbmluZyB0YXJnZXQgaSBjYW4gcmVhZGlseSBzZWUgdGhhdCBtaWdodCBiZSBmaXQg
+Zm9yDQo+IHRlc3RpbmcgaXMgImxpbnQiLCB3aGljaCBkb2VzIHNlZW0gcXVpdGUgaW50ZXJl
+c3RpbmcgaW5kZWVkLg0KDQpUaGFua3MgOi0pDQoNCj4gDQo+IEJ1dCBsb29rIGF0IHRoaXM6
+DQo+IA0KPiAgICAgJCBtYWtlIGxpbnQNCj4gICAgICQNCj4gDQo+IEl0IGRvZXMgYWJzb2x1
+dGVseSBub3RoaW5nLg0KPiANCj4gUnVubmluZyAibWFrZSAtZCBnMSBsaW50IiB0byBzaG93
+IHRoZSBpbnB1dCBncmFwaCB0ZWxscyBtZSB0aGVyZQ0KPiBpcyBhIHJ1bGUNCj4gDQo+ICAg
+IGxpbnQ6DQo+ICAgIAlAOg0KPiANCj4gc28gaSdtIG5vdCBzdXJwcmlzZWQgaXQgZG9lcyBu
+b3RoaW5nLg0KPiANCj4gTmV4dCwgaSB0cmllZA0KPiANCj4gICAgICQgbWFrZSBsaW50LW1h
+bmRvYw0KPiAgICBtYWtlOiBkb24ndCBrbm93IGhvdyB0byBtYWtlIGxpbnQtbWFuZG9jDQo+
+ICAgIFN0b3AgaW4gL2NvL21hbi1wYWdlcw0KPiANCj4gVGhlIHRhcmdldCBzaW1wbHkgZG9l
+c24ndCBleGlzdC4NCg0KSSBndWVzcyBpdCdzIGR1ZSB0byB0aGUgdXNlIG9mICQoZm9yZWFj
+aCApLiAgSSBndWVzcyBpdCdzIGEgR05VIA0KZXh0ZW5zaW9uIGFuZCBtYWtlKDFQT1NJWCkg
+aWdub3JlcyB0aGF0IGNyZWF0aW5nIGFuIGVtcHR5IHN0cmluZy4gIFNpbmNlIA0KdGhlIE1h
+a2VmaWxlIHVzZXMgYSBsb3Qgb2YgZnVuY3Rpb25zWzFdLCBJIGd1ZXNzIGl0J3Mgbm90IGVh
+c3kgdG8gbWFrZSANCml0IHBvcnRhYmxlLg0KDQpUaGUgbGludCBwYXJ0IGlzIG1vc3RseSBp
+bXBsZW1lbnRlZCBiZXR3ZWVuIGxpbmVzIDQzMiBhbmQgNDg2Lg0KDQpbMV06ICBhZGRzdWZm
+aXgsIHdpbGRjYXJkLCBmb3JlYWNoLCBmaWx0ZXIsIHBhdHN1YnN0LCBzb3J0LCBzaGVsbCwg
+DQpiYXNlbmFtZSwgbm90ZGlyLCBpbmZvLiAgTm90IHN1cmUgaG93IG1hbnkgb2YgdGhvc2Ug
+YXJlIHN1cHBvcnRlZCBieSANCnlvdXIgbWFrZSgxKTsgbWF5YmUgbm9uZT8NCg0KPiANCj4g
+TXkgaW1wcmVzc2lvbiBpcyB5b3VyIE1ha2VmaWxlIGlzIGZ1bGwgb2YgUE9TSVggdmlvbGF0
+aW9ucyBhbmQNCj4gdXR0ZXJseSBub24tcG9ydGFibGUgYW5kIGdtYWtlKDEpLW9ubHkuICBC
+dXQgdGhhdCdzIHByb2JhYmx5IE9LLg0KPiBJIG1lYW4sIHRoZSBwdXJwb3NlIG9mIHlvdXIg
+cHJvamVjdCBpcyB0byBkb2N1bWVudCBwYXJ0cyBvZiBMaW51eC4NCj4gU28gcmVxdWlyaW5n
+IGEgdG9vbCB0aGF0IGFsbW9zdCBhbGwgTGludXggdXNlcnMgaGF2ZSByZWFkaWx5DQo+IGF2
+YWlsYWJsZSBhbmQgdGhhdCB1c2VycyBvZiBvdGhlciBzeXN0ZW1zIGNhbiBpbnN0YWxsIGl0
+IHRoZXkNCj4gd2FudCB0byBkb2VzIG5vdCBzZWVtIHVucmVhc29uYWJsZSB0byBtZS4NCg0K
+WWVhaCwgSSBndWVzcyB0aGF0IGl0J3MgZmluZSwgc2luY2UgdGhlIGV4dGVuc2lvbnMgYXJl
+IHVzZWZ1bCwgYW5kIHRoZXkgDQphcmUgdmlydHVhbGx5IGV2ZXJ5d2hlcmUgaW4gTGludXgu
+DQoNCkkgd2FzIHdvbmRlcmluZyBpZiBJIGNvdWxkIG1ha2UgaXQgcG9ydGFibGUgd2l0aCBs
+aXR0bGUgY2hhbmdlcywgYnV0IGl0IA0Kc2VlbXMgbm90LCBhbmQgbm90IHdvcnRoIGV2ZW4g
+dHJ5aW5nLg0KDQo+ICAoSXQncyBhIGNvbXBsZXRlbHkNCj4gZGlmZmVyZW50IHN0b3J5IGZv
+ciBhIHByb2plY3QgbGlrZSBHTlUgdHJvZmYgdGhhdCBpcyBhYm91dCB0aGUNCj4gb3Bwb3Np
+dGUgb2YgTGludXggb25seSBhbmQgdGhhdCBiYXNpY2FsbHkgYWxsIFVOSVggc3lzdGVtcyB3
+YW50DQo+IHRvIGJlIGFibGUgdG8gdXNlIGluIHByb2R1Y3Rpb24uKQ0KDQpZZXMsIGFsdGhv
+dWdoIHRoZXkgY291bGQgZGVmaW5pdGVseSBzaW1wbGlmeSB0aGUgYnVpbGQgc3lzdGVtIGEg
+bGl0dGxlIA0KYml0LiAgSXQncyBvbmUgb2YgdGhlIG1vc3QgY29tcGxleCBidWlsZHMgSSd2
+ZSBldmVyIHNlZW4uDQoNCj4gDQo+IElmIGkgdXNlIEdOVSBtYWtlIGluc3RlYWQgb2Ygb3Vy
+IG5hdGl2ZSBtYWtlLCBpIGRvIGdldCBvdXRwdXQNCj4gdGhhdCBtaWdodCBiZSBwb3RlbnRp
+YWxseSBtZWFuaW5nZnVsLCBldmVuIG9uIE9wZW5CU0QtY3VycmVudDoNCj4gDQo+ICAgICAk
+IGdtYWtlIGxpbnQtbWFuZG9jDQo+ICAgIElOU1RBTEwgdG1wL2xpbnQvDQo+ICAgIElOU1RB
+TEwgdG1wL2xpbnQvbWFuMC8NCj4gICAgTElOVCAobWFuZG9jKSAgIHRtcC9saW50L21hbjAv
+c3lzZXhpdHMuaC4wLmxpbnQubWFuZG9jLnRvdWNoDQo+ICAgIElOU1RBTEwgdG1wL2xpbnQv
+bWFuMS8NCj4gICAgTElOVCAobWFuZG9jKSAgIHRtcC9saW50L21hbjEvZ2V0ZW50LjEubGlu
+dC5tYW5kb2MudG91Y2gNCj4gICAgTElOVCAobWFuZG9jKSAgIHRtcC9saW50L21hbjEvaWNv
+bnYuMS5saW50Lm1hbmRvYy50b3VjaA0KPiAgICBMSU5UIChtYW5kb2MpICAgdG1wL2xpbnQv
+bWFuMS9pbnRyby4xLmxpbnQubWFuZG9jLnRvdWNoDQo+ICAgIExJTlQgKG1hbmRvYykgICB0
+bXAvbGludC9tYW4xL2xkZC4xLmxpbnQubWFuZG9jLnRvdWNoDQo+ICAgIExJTlQgKG1hbmRv
+YykgICB0bXAvbGludC9tYW4xL2xvY2FsZS4xLmxpbnQubWFuZG9jLnRvdWNoDQo+ICAgIExJ
+TlQgKG1hbmRvYykgICB0bXAvbGludC9tYW4xL2xvY2FsZWRlZi4xLmxpbnQubWFuZG9jLnRv
+dWNoDQo+ICAgIExJTlQgKG1hbmRvYykgICB0bXAvbGludC9tYW4xL21lbXVzYWdlLjEubGlu
+dC5tYW5kb2MudG91Y2gNCj4gICAgbWFuZG9jOiBtYW4xL21lbXVzYWdlLjE6MTg3OjI6IFdB
+Uk5JTkc6IGVtcHR5IGJsb2NrOiBVUg0KPiAgICBnbWFrZTogKioqIFtNYWtlZmlsZTo0Njg6
+IHRtcC9saW50L21hbjEvbWVtdXNhZ2UuMS5saW50Lm1hbmRvYy50b3VjaF0gRXJyb3IgMg0K
+PiANCj4gVGhhdCBtYWtlcyBzZW5zZSB0byBtZSBnaXZlbiB0aGF0IGkgYWxzbyBnZXQNCj4g
+DQo+ICAgICAkIG1hbmRvYyAtVCBsaW50IG1hbjEvbWVtdXNhZ2UuMQ0KPiAgICBtYW5kb2M6
+IG1hbjEvbWVtdXNhZ2UuMToxODc6MjogV0FSTklORzogZW1wdHkgYmxvY2s6IFVSDQo+IA0K
+PiB3aGVuIHJ1bm5pbmcgdGhlIG1hbmRvYyBsaW50ZXIgbWFudWFsbHkuDQo+IA0KPj4gYnV0
+IEknZCBsaWtlIHRvIHN0YXRlIHRoYXQgaW4gdGhlIGRlcGVuZGVuY2llcw0KPiANCj4gVGhh
+dCBzb3VuZHMgcmVhc29uYWJsZSB0byBtZS4NCj4gDQo+PiAod2hpY2ggSSBuZWVkIHRvIHdy
+aXRlIGluIGEgbmV3IElOU1RBTEwgZmlsZSkuDQo+IA0KPiBZZXMsIGkgdGhpbmsgaWYgeW91
+IHdhbnQgcGVvcGxlIHRvIHRlc3QgYW5kIHVzZSB0aGF0IE1ha2VmaWxlLA0KPiB0aGVuIGRv
+Y3VtZW50YXRpbmcgaW4gc29tZSB3YXkgd2hhdCBpdCBpcyBzdXBwb3NlZCB0byBkbyBhbmQN
+Cj4gaG93IGl0IGlzIHN1cHBvc2VkIHRvIGJlIHVzZWQgd291bGQgbWFrZSBzZW5zZS4gIFNv
+cnJ5IGlmIGkgc29tZWhvdw0KPiBtaXNzZWQgdGhlIGRvY3VtZW50YXRpb24sIGkgbG9va2Vk
+IGF0IFJFQURNRSBhbmQgTUFJTlRBSU5FUl9OT1RFUw0KPiB0byBubyBhdmFpbC4NCg0KTm8s
+IHlvdSBkaWRuJ3QuICBJIGV4cGVjdGVkIGF1dG9jb21wbGV0ZSB0byBoZWxwLCBhbmQgdGFy
+Z2V0cyB0byBiZSANCm9idmlvdXMgaW4gd2hhdCB0aGV5IG1lYW4gKGFzIEkgZm9sbG93ZWQg
+R05VIGNvbnZlbnRpb25zIGFzIGNsb3NlIGFzIA0KcG9zc2libGUgc28gdGhhdCB0aGV5IHdv
+dWxkIGJlIGludHVpdGl2ZSksIGJ1dCBpZiB5b3VyIG1ha2UgZG9lc24ndCANCnVuZGVyc3Rh
+bmQgbXkgTWFrZWZpbGUsIGF1dG9jb21wbGV0ZSBpcyBvYnZpb3VzbHkgbm90IGdvaW5nIHRv
+IGhlbHAuDQoNClNvcnJ5IDovDQoNCj4gDQo+IA0KPiBCeSB0aGUgd2F5LCB0aGlzIHN1cnBy
+aXNlZCBtZSBpbiB0aGUgUkVBRE1FIGZpbGU6DQo+IA0KPiAgICBDb25zaWRlciB1c2luZyBt
+dWx0aXBsZSB0aHJlYWRzIChhdCBsZWFzdCAyKSB3aGVuIGluc3RhbGxpbmcNCj4gICAgdGhl
+c2UgbWFuIHBhZ2VzLCBhcyB0aGUgTWFrZWZpbGUgaXMgb3B0aW1pemVkIGZvciBtdWx0aXBs
+ZSB0aHJlYWRzOg0KPiAgICAibWFrZSAtaiBpbnN0YWxsIi4NCj4gDQo+IEkgZGlkIG5vdCBk
+byBtZWFzdXJlbWVudHMsIGJ1dCBhcmUgeW91IHN1cmUgdGhpcyBpcyBzYW5lIGFkdmljZT8N
+Cj4gRm9yIGFuIGluc3RhbGxhdGlvbiBwcm9jZWR1cmUsIGkgd291bGQgaGF2ZSBleHBlY3Rl
+ZCBleGVjdXRpb24NCj4gc3BlZWQgdG8gYmUgbGltaXRlZCBieSBkaXNrIEkvTyBhbmQgaSB3
+b3VsZCBoYXZlIGV4cGVjdGVkIENQVQ0KPiBjb25zdW1wdGlvbiB0byBiZSBuZWdsaWdpYmxl
+LiAgRGlkIHlvdSBkbyBtZWFzdXJlbWVudHMgdG8gY29uZmlybQ0KPiB0aGUgcmVsZXZhbmNl
+IG9mIHRoaXMgYWR2aWNlPw0KDQpZZXMsIEkgZGlkOg0KDQpbDQokIHN1ZG8gbWFrZSB1bmlu
+c3RhbGwgPi9kZXYvbnVsbA0KJCB0aW1lIHN1ZG8gbWFrZSBpbnN0YWxsID4vZGV2L251bGwN
+Cg0KcmVhbAkwbTcuNzIycw0KdXNlcgkwbTAuMDA0cw0Kc3lzCTBtMC4wMDRzDQokIHN1ZG8g
+bWFrZSB1bmluc3RhbGwgPi9kZXYvbnVsbA0KJCB0aW1lIHN1ZG8gbWFrZSAtajIgaW5zdGFs
+bCA+L2Rldi9udWxsDQoNCnJlYWwJMG00LjYzNHMNCnVzZXIJMG0wLjAwNXMNCnN5cwkwbTAu
+MDA0cw0KJCBzdWRvIG1ha2UgdW5pbnN0YWxsID4vZGV2L251bGwNCiQgdGltZSBzdWRvIG1h
+a2UgLWogaW5zdGFsbCA+L2Rldi9udWxsDQoNCnJlYWwJMG0zLjE3MHMNCnVzZXIJMG0wLjAw
+MHMNCnN5cwkwbTAuMDA5cw0KJCB0b3VjaCBtYW4yL21lbWJhcnJpZXIuMg0KJCB0aW1lIHN1
+ZG8gbWFrZSBpbnN0YWxsID4vZGV2L251bGwNCg0KcmVhbAkwbTEuNzY2cw0KdXNlcgkwbTAu
+MDA1cw0Kc3lzCTBtMC4wMDRzDQokIHRvdWNoIG1hbjIvbWVtYmFycmllci4yDQokIHRpbWUg
+c3VkbyBtYWtlIC1qMiBpbnN0YWxsID4vZGV2L251bGwNCg0KcmVhbAkwbTEuNzM1cw0KdXNl
+cgkwbTAuMDA0cw0Kc3lzCTBtMC4wMDRzDQokIHRvdWNoIG1hbjIvbWVtYmFycmllci4yDQok
+IHRpbWUgc3VkbyBtYWtlIC1qIGluc3RhbGwgPi9kZXYvbnVsbA0KDQpyZWFsCTBtMS43Mzdz
+DQp1c2VyCTBtMC4wMDFzDQpzeXMJMG0wLjAwOHMNCl0NCg0KWW91IGNhbiBzZWUgdGhhdCBq
+dXN0IGZvciB0aGUgJChzaGVsbCAuLi4pIGFuZCBhbGwgdGhlIHRleHQgZnVuY3Rpb25zIA0K
+dGhhdCBwcm9jZXNzIHRoZSBmaWxlbmFtZXMgdG8gYmUgaW5zdGFsbGVkIGl0IGlzIHRha2lu
+ZyBhbG1vc3QgMS43IHMsIA0KZXZlbiBpZiBpdCBvbmx5IG5lZWRzIHRvIHVwZGF0ZSBhIHNp
+bmdsZSBwYWdlLiAgVGhhdCdzIGEgbG90LCBidXQgaXQgaGFzIA0KaXQncyBhZHZhbnRhZ2Vz
+IChnZW5lcmF0aW5nIHRoZSBmaWxlIGxpc3Qgb24tdGhlLWZseTsgbm8gLi9jb25maWd1cmUp
+Lg0KDQpUaGVuLCB0aGUgYWN0dWFsIGluc3RhbGxhdGlvbiBvZiB0aGUgfjIuNWsgcGFnZXMg
+KG1vc3Qgb2YgdGhlbSBhcmUgbGluayANCnBhZ2VzKSwgdGFrZXMgYW5vdGhlciAxLjQgcyBp
+biBtdWx0aS1wcm9jZXNzIG1vZGUsIGFuZCA2IHMgaW4gDQpzaW5nbGUtcHJvY2VzcyBtb2Rl
+IChzbyBhdCBsZWFzdCA0LjYgcyB0aGF0IGFyZSBub3QgSS9PKS4gIE1heWJlIGl0J3MgDQpt
+YWtlKDEpIHRoYXQgaGFzIGEgaGFyZCB0aW1lIHRyYXZlcnNpbmcgdGhlIHRyZWUuLi4gSSBk
+b24ndCBrbm93IHdoZXJlIA0KdGhlIGJvdHRsZW5lY2sgaXMsIGJ1dCBpdCdzIGNsZWFybHkg
+dGhlcmUuDQoNCj4gDQo+IEZpbmFsbHksIGkgZG9uJ3QgdGhpbmsgaXQgaXMgcGFydGljdWxh
+cmx5IGdvb2Qgc3R5bGUgdGhhdCAibWFrZSBhbGwiDQo+IGltcGxpZXMgIm1ha2UgaW5zdGFs
+bCIsIGV2ZW4gaWYgaXQgaXMgY2xlYXJseSBkb2N1bWVudGVkLCB3aGljaCBpdCBpcy4NCg0K
+SSBjb21wbGV0ZWx5IGFncmVlLiAgVGhhdCBwcmVkYXRlcyBtZSwgYW5kIEkgd2FudGVkIHRv
+IGNoYW5nZSBpdCBmb3IgYSANCmxvbmcgdGltZSwgYnV0IEkgd2FzIHdvcnJpZWQgdGhhdCBJ
+IG1pZ2h0IGJlIGJyZWFraW5nIG90aGVycycgc3R1ZmYuDQoNCkJ1dCwgc2luY2UgeW91IGNh
+bGxlZCBpdCwgSSBmZWVsIHN1cHBvcnRlZCB0byByZW1vdmUgdGhhdCBiZWhhdmlvci4NCg0K
+PiBUaGF0IHNlZW1zIHZlcnkgdW51c3VhbCBhbmQgbm90IGF0IGFsbCB3aGF0IHBlb3BsZSB3
+b3VsZCBleHBlY3QuDQo+IFVzdWFsbHksICJtYWtlIGFsbCIgZG9lcyBzcGVjaWZpY2FsbHkg
+Km5vdCogbW9kaWZ5IHRoZSBwcm9kdWN0aW9uDQo+IHBhcnRzIG9mIHRoZSBzeXN0ZW0gYnV0
+IG9ubHkgKmJ1aWxkcyogdGhlIHNvZnR3YXJlIHN1Y2ggdGhhdCBpdCBjYW4NCj4gbGF0ZXIg
+YmUgaW5zdGFsbGVkIHdpdGggYSBzZXBhcmF0ZSBjb21tYW5kLiAgQXJndWFibHksIGhhdmlu
+ZyAibWFrZSBhbGwiDQo+IGltcGx5ICJtYWtlIHVuaW5zdGFsbCIgaXMgZXZlbiB3b3JzZS4g
+IEkgZG9uJ3QgdGhpbmsgYW55Ym9keSB3b3VsZA0KPiBleHBlY3QgdGhhdCBydW5uaW5nICJt
+YWtlIGFsbCIgd291bGQgYXR0ZW1wdCB0byBkZWxldGUgc3R1ZmYgZnJvbQ0KPiB0aGVpciBw
+cm9kdWN0aW9uIHN5c3RlbSENCg0KSSBndWVzcyB0aGF0IHRoZSBNYWtlZmlsZSBiZWZvcmUg
+SSB0b3VjaGVkIGlzIHdhcyBzbyBiYXNpYyB0aGF0IHlvdSANCmNvdWxkIG9ubHkgdW5pbnN0
+YWxsIGV2ZXJ5dGhpbmcgb3IgaW5zdGFsbCBldmVyeXRoaW5nLCB3aG9ldmVyIHdyb3RlIA0K
+dGhhdCBpbiB0aGUgTWFrZWZpbGUgd2FudGVkIHRvIGp1c3QgdHlwZSB0aG9zZSB0d28gd2l0
+aCBqdXN0IG9uZSBjb21tYW5kOg0KDQo8aHR0cHM6Ly9naXQua2VybmVsLm9yZy9wdWIvc2Nt
+L2RvY3MvbWFuLXBhZ2VzL21hbi1wYWdlcy5naXQvdHJlZS9NYWtlZmlsZT9pZD1iMzJhNjkz
+NTU5MjExOGNlNGFjZmRkZjk1ZTUyZmNhOGZiZDNhZGVkPg0KDQpCdXQgdGhhdCBNYWtlZmls
+ZSBoYWQgb25lIGdvb2QgdGhpbmc6IGl0IHdhcyB2ZXJ5IHJlYWRhYmxlLCBlc3BlY2lhbGx5
+IA0KY29tcGFyZWQgdG8gbWluZTsgYnV0IGl0IHdhcyBubyBtb3JlIHRoYW4gYSBjb3VwbGUg
+b2Ygc2goMSkgc2NyaXB0cyANCmVtYmVkZGVkIGluIGl0Lg0KDQo+IA0KPj4gTWF5YmUsIGlm
+IGl0J3Mgbm90IHRvbyBoYXJkLCB3ZSBjYW4gdHdlYWsgdGhlIE1ha2VmaWxlIHRvIG1ha2Ug
+aXQNCj4+IHdvcmsgd2l0aCBtYWtlKDFQT1NJWCkuDQo+IA0KPiBJIHNlZSBsb3RzIGFuZCBs
+b3RzIG9mIHN5bnRheCBpbiB0aGUgTWFrZWZpbGUgd2hlcmUgaSBkb24ndCBldmVuDQo+IGtu
+b3cgd2hhdCBpdCBtZWFucy4gIEkgdGhpbmsgaWYgeW91IHdhbnQgdG8gbWFrZSBpdCBQT1NJ
+WCBjb21wYXRpYmxlLA0KPiB0aGF0IHdvdWxkIGxpa2VseSBhbW91bnQgdG8gdGhyb3dpbmcg
+aXQgYWxsIGF3YXkgYW5kIHN0YXJ0aW5nIG92ZXINCj4gd2l0aCBhIGNvbXBsZXRlIHJld3Jp
+dGUgZnJvbSBzY3JhdGNoLiAgSXQgZG9lc24ndCBsb29rIGxpa2UgdGhlcmUgaXMNCj4gbXVj
+aCB5b3Ugd291bGQgYmUgYWJsZSB0byBrZWVwLg0KDQpOYWgsIEkgdGhpbmsgSSdsbCBrZWVw
+IGl0LiAgQWx0aG91Z2ggaWYgSSdtIHNob3duIGEgc2ltcGxlciBQT1NJWCANCk1ha2VmaWxl
+IHRoYXQgYWNoaWV2ZXMgdGhlIHNhbWUgYmVoYXZpb3IsIEknZCBjb25zaWRlciBpdC4NCg0K
+PiANCj4gDQo+IFRoZXJlIGlzIHlldCBhbm90aGVyIHJlYXNvbiB3aHkgaSBkb24ndCBjb25z
+aWRlciBpdCBhIHNlcmlvdXMNCj4gaXNzdWUgaWYgdGhlIE1ha2VmaWxlIGlzIGZvciBHTlUg
+bWFrZSgxKSBvbmx5LiAgSXQgaXMgbm90IGEgcmFyZQ0KPiBvY2N1cmVuY2UgdGhhdCBpIHVz
+ZSB5b3VyIHdvcmsgLSBpIGhhdmUgcmVwZWF0ZWRseSBsb29rZWQgYXQgaXQNCj4gd2hlbiB3
+b3JraW5nIG9uIHN0dWZmIGluIE9wZW5CU0QgdG8gZmluZCBvdXQgaG93IExpbnV4IGRlZmlu
+ZXMNCj4gc29tZSBmZWF0dXJlcyBmb3IgY29tcGFyaXNvbi4NCg0KVGhhbmtzISAgSSBkbyBj
+aGVjayB5b3VycyB0b28gOikNCg0KQlRXLCBkaWQgeW91IGNoZWNrIHRoZSBjaGFuZ2VzIHRv
+IHF1ZXVlLjM/ICBJIGd1ZXNzIHlvdSBjb3VsZCBpbXByb3ZlIA0KeW91cnMgaW4gYSBzaW1p
+bGFyIG1hbm5lci4NCg0KPGh0dHBzOi8vbGludXgtbWFuLXBhZ2VzLmJsb2dzcG90LmNvbS8y
+MDIwLzExL21hbi1wYWdlcy01MDktaXMtcmVsZWFzZWQuaHRtbD4NCg0KQWxzbywgaWYgeW91
+IGhhdmUgYmVlbiBmb2xsb3dpbmcgdGhlIGFkZGl0aW9uIG9mIHBhZ2VzIGFib3V0IHR5cGVz
+LCBhbmQgDQp3b3VsZCBsaWtlIHRvIGNvbW1lbnQsIHlvdSdsbCBiZSB3ZWxjb21lIQ0KDQo8
+aHR0cHM6Ly9naXQua2VybmVsLm9yZy9wdWIvc2NtL2RvY3MvbWFuLXBhZ2VzL21hbi1wYWdl
+cy5naXQvY29tbWl0Lz9pZD0xNzhlYWYzN2UyZTk3MWNhZTg4YmQ0ZDNmMTI0ZWRlMGFmYmIx
+MDE1Pg0KDQo+ICBCdXQgaSBuZXZlciBldmVuIG5vdGljZWQgdGhlcmUNCj4gaXMgYSBNYWtl
+ZmlsZSBpbiB5b3VyIGRpc3RyaWJ1dGlvbi4NCg0KSGVoIQ0KDQo+ICBDb21tYW5kcyBsaWtl
+DQo+IA0KPiAgICAgJCBtYW4gLU0gL2NvL21hbi1wYWdlcyBvcGVuDQo+IA0KPiB3b3JrIHBl
+cmZlY3RseSBmaW5lIG9uIG15IHN5c3RlbSB0byB2aWV3IHRoZSBMaW51eCBvcGVuKDIpIG1h
+bnVhbCwNCj4gbmljZWx5IGZvcm1hdHRlZCwgd2l0aCBubyBuZWVkIGZvciBpbnN0YWxsYXRp
+b24gb3IgYSBNYWtlZmlsZS4NCj4gRXZlbiB3aGVuIGkgcHV0IHVwIGEgY29weSBhdA0KPiAN
+Cj4gICAgaHR0cHM6Ly9tYW4uYnNkLmx2L0xpbnV4LTUuMTMvb3Blbg0KDQpIb3cgZG8geW91
+IGdlbmVyYXRlIHlvdXIgSFRNTCBwYWdlcz8gIG1hbmRvYygxKT8gIFRoZXkgYXJlIG5pY2Uu
+DQoNCj4gDQo+IGp1c3QgY29weWluZyB0aGUgZWlnaHQgbWFuKiBkaXJlY3RvcmllcyBhbmQg
+cnVubmluZyB0aGUgbWFrZXdoYXRpcyg4KQ0KPiBjb21tYW5kIGRpc3RyaWJ1dGVkIHdpdGgg
+bWFuZG9jIGlzIGNvbXBsZXRlbHkgc3VmZmljaWVudCwgbm8gZnVydGhlcg0KPiBzdGVwcyBh
+cmUgbmVlZGVkIGZvciBpbnN0YWxsYXRpb24sIG5vdCBldmVuIG9uIHRoZSBwcm9kdWN0aW9u
+IHdlYg0KPiBzZXJ2ZXIuDQo+IA0KPiBJdCBzZWVtcyBsaWtlbHkgdG8gbWUgdGhhdCBvdGhl
+ciBub24tTGludXggdXNlcnMgaW50ZXJlc3RlZCBpbiB5b3VyDQo+IHdvcmsgZG9uJ3QgbmVl
+ZCB0aGUgTWFrZWZpbGUgZWl0aGVyLg0KDQpNYWtlcyBzZW5zZS4gIEknbSBoYXBweSB0aGF0
+IEkgZGlkbid0IGJyZWFrIGFueXRoaW5nIGJ5IG1ha2luZyBoZWF2eSB1c2UgDQpvZiBHTlUg
+ZXh0ZW5zaW9ucy4NCg0KDQpDaGVlcnMsDQpBbGV4DQoNCi0tIA0KQWxlamFuZHJvIENvbG9t
+YXINCjxodHRwOi8vd3d3LmFsZWphbmRyby1jb2xvbWFyLmVzLz4NCg==
 
-After doing
+--------------EA0J1fDxTKObnn51HO7njcnv--
 
-   $ git clone https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/
-   $ cd man-pages
+--------------3klFJvqSVq30kjbW5aHxyNPX
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-i have a hard time finding any targets in the ./Makefile that i could
-possibly run for testing...
+-----BEGIN PGP SIGNATURE-----
 
-I'm certainly not going to run targets like "all" or "install".
-I don't think testing the "dist" target makes much sense because
-nobody is going to build your distribution tarballs on OpenBSD.
-I'm not interested in testing the "src" group of targets;
-i think we discussed in the past that i dislike that whole idea.
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmKvofEACgkQnowa+77/
+2zL3rw/7BOltZGzQeBo9LOqen34k2F9AIVu/8Kp61C5CdpgL887N7V1HKGw82pv5
+XGufIJ0eFoJk9IrZwFXeTI7IdOxcRx265YaIwQmUMtBmbPflii6CsjEvcX8AuQWZ
+55U8e0KLmROvNAPfriCVVfS4oIZMqO1dYGav9t86yaY+JiAekjvq9eXLPv3F0b9j
+y53xn8kA6V1vtxCkwCmyxBj+i+vyZeqqFoaR7yeEOXWM6TE6lQIYdcxNiwyswU2L
+YPtfb2bEJyxMYJdvQz9a/fosn97y8XLpCZ7GiYRvEap0/ZBQLj8OHWuAOMOJ0Alx
+gjhZu8DUbTjtcTEqvLwkP/wnzbrgCikaTK/Ky9dpG/dt36R9P68HLJOLCZDOmyZF
+cy2exSiNzHgnHw6fCe/LlI3/5ljCLSjRNRbeeM03+ZDgzl+vMsUm8uA4iVGcmsW7
+3avmqmx/oKnMihkBjIiQURUuciw160oLaLIO8qxOUhlGNglCZgYpaTWsbwVXmGnI
+i9URuTJEigEMoY21o+WOTjzCSR3VNRxoSeQZUXA94eC2SYRVeOH8OEjKJM73mPSv
+sFJpNxmCFGecaiEyCZUP+c5HG8XtqYCGgi+Etd5vx8hk2JrcPOlLzxYIz17wcwKN
+zUXE4O8TPi0lK9M98MFmKJHlpek7RpzofLTD1en6AInIGgP3ris=
+=S6XF
+-----END PGP SIGNATURE-----
 
-The html target could potentially be interesting, but
-  https://savannah.nongnu.org/projects/man2html/
-and the repo linked to from there,
-  https://cvs.savannah.nongnu.org/viewvc/man2html/
-gives me the impression this is abandonware that did not receive
-any maintenance in 19 years.  Besides, an OpenBSD port does not
-currently exist and i don't feel like creating one just for testing.
-
-The only remaining target i can readily see that might be fit for
-testing is "lint", which does seem quite interesting indeed.
-
-But look at this:
-
-   $ make lint
-   $
-
-It does absolutely nothing.
-
-Running "make -d g1 lint" to show the input graph tells me there
-is a rule
-
-  lint:
-  	@:
-
-so i'm not surprised it does nothing.
-
-Next, i tried
-
-   $ make lint-mandoc
-  make: don't know how to make lint-mandoc
-  Stop in /co/man-pages
-
-The target simply doesn't exist.
-
-My impression is your Makefile is full of POSIX violations and
-utterly non-portable and gmake(1)-only.  But that's probably OK.
-I mean, the purpose of your project is to document parts of Linux.
-So requiring a tool that almost all Linux users have readily
-available and that users of other systems can install it they
-want to does not seem unreasonable to me.  (It's a completely
-different story for a project like GNU troff that is about the
-opposite of Linux only and that basically all UNIX systems want
-to be able to use in production.)
-
-If i use GNU make instead of our native make, i do get output
-that might be potentially meaningful, even on OpenBSD-current:
-
-   $ gmake lint-mandoc
-  INSTALL tmp/lint/
-  INSTALL tmp/lint/man0/
-  LINT (mandoc)   tmp/lint/man0/sysexits.h.0.lint.mandoc.touch
-  INSTALL tmp/lint/man1/
-  LINT (mandoc)   tmp/lint/man1/getent.1.lint.mandoc.touch
-  LINT (mandoc)   tmp/lint/man1/iconv.1.lint.mandoc.touch
-  LINT (mandoc)   tmp/lint/man1/intro.1.lint.mandoc.touch
-  LINT (mandoc)   tmp/lint/man1/ldd.1.lint.mandoc.touch
-  LINT (mandoc)   tmp/lint/man1/locale.1.lint.mandoc.touch
-  LINT (mandoc)   tmp/lint/man1/localedef.1.lint.mandoc.touch
-  LINT (mandoc)   tmp/lint/man1/memusage.1.lint.mandoc.touch
-  mandoc: man1/memusage.1:187:2: WARNING: empty block: UR
-  gmake: *** [Makefile:468: tmp/lint/man1/memusage.1.lint.mandoc.touch] Error 2
-
-That makes sense to me given that i also get
-
-   $ mandoc -T lint man1/memusage.1                               
-  mandoc: man1/memusage.1:187:2: WARNING: empty block: UR
-
-when running the mandoc linter manually.
-
-> but I'd like to state that in the dependencies
-
-That sounds reasonable to me.
-
-> (which I need to write in a new INSTALL file).
-
-Yes, i think if you want people to test and use that Makefile,
-then documentating in some way what it is supposed to do and
-how it is supposed to be used would make sense.  Sorry if i somehow
-missed the documentation, i looked at README and MAINTAINER_NOTES
-to no avail.
-
-
-By the way, this surprised me in the README file:
-
-  Consider using multiple threads (at least 2) when installing
-  these man pages, as the Makefile is optimized for multiple threads:
-  "make -j install".
-
-I did not do measurements, but are you sure this is sane advice?
-For an installation procedure, i would have expected execution
-speed to be limited by disk I/O and i would have expected CPU
-consumption to be negligible.  Did you do measurements to confirm
-the relevance of this advice?
-
-Finally, i don't think it is particularly good style that "make all"
-implies "make install", even if it is clearly documented, which it is.
-That seems very unusual and not at all what people would expect.
-Usually, "make all" does specifically *not* modify the production
-parts of the system but only *builds* the software such that it can
-later be installed with a separate command.  Arguably, having "make all"
-imply "make uninstall" is even worse.  I don't think anybody would
-expect that running "make all" would attempt to delete stuff from
-their production system!
-
-> Maybe, if it's not too hard, we can tweak the Makefile to make it
-> work with make(1POSIX).
-
-I see lots and lots of syntax in the Makefile where i don't even
-know what it means.  I think if you want to make it POSIX compatible,
-that would likely amount to throwing it all away and starting over
-with a complete rewrite from scratch.  It doesn't look like there is
-much you would be able to keep.
-
-
-There is yet another reason why i don't consider it a serious
-issue if the Makefile is for GNU make(1) only.  It is not a rare
-occurence that i use your work - i have repeatedly looked at it
-when working on stuff in OpenBSD to find out how Linux defines
-some features for comparison.  But i never even noticed there
-is a Makefile in your distribution.  Commands like
-
-   $ man -M /co/man-pages open
-
-work perfectly fine on my system to view the Linux open(2) manual,
-nicely formatted, with no need for installation or a Makefile.
-Even when i put up a copy at
-
-  https://man.bsd.lv/Linux-5.13/open
-
-just copying the eight man* directories and running the makewhatis(8)
-command distributed with mandoc is completely sufficient, no further
-steps are needed for installation, not even on the production web
-server.
-
-It seems likely to me that other non-Linux users interested in your
-work don't need the Makefile either.
-
-Yours,
-  Ingo
+--------------3klFJvqSVq30kjbW5aHxyNPX--
