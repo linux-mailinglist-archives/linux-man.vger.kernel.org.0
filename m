@@ -2,121 +2,107 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id C04935520BD
-	for <lists+linux-man@lfdr.de>; Mon, 20 Jun 2022 17:27:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D0EDB552EC3
+	for <lists+linux-man@lfdr.de>; Tue, 21 Jun 2022 11:41:29 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234214AbiFTP0U (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 20 Jun 2022 11:26:20 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53184 "EHLO
+        id S1349284AbiFUJkU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 21 Jun 2022 05:40:20 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52444 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S244432AbiFTPZ6 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 20 Jun 2022 11:25:58 -0400
-Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 245CDB16
-        for <linux-man@vger.kernel.org>; Mon, 20 Jun 2022 08:25:19 -0700 (PDT)
-Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 58E573020;
-        Mon, 20 Jun 2022 17:25:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-        s=202205; t=1655738718;
-        bh=MTh8nzbdWkkjG3gws2rAJjDQgowEufQqwtNlvfZuXQY=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=qVxzjVSxGhX3se2GJoiG13yIvZeoNrBb+5Wj97vVbGL7EkHaqWQTuiMYF76TKP6Fy
-         zsTPabxUF64p5fIOYsbuOQ6R5oU8XVzBLSQNAKdXU+hIirI6WX8lR+7gsIaUTvCHjk
-         fqJcWzKzLvAcCmf2E5R0tqgexQHvkFzAgRd5AsG4Qxw5GhrxDMX+3NysL+C066Zn17
-         UvMMYLlLl+HO2gMr/II6ZE2KJJamGY8+IuCajY5S4jlbc6xL+4N9Kgf+R3PrqyHUlJ
-         9o4fTuC0Oo/4x3buhGQo0f5cOM09w84RWDEfdDiuZxhlPOXTd/qSZG2BpqiNinHFyw
-         sNq+hWf0YuHBFy/XLRCaaKNo1W4Q2wNPQ1sL5E1IDaa1N/F1X4a6YV0ixKb0zdf0k+
-         3XE8W86Zeq0UYXch0hICMiqKsDElhLoSp1rSqFLEnLhgHqYkdCtRJafrQ29kN4y/9S
-         i/iWE893tJ0CSj8U78BGZacF30tCS+rKsmz8SwQjcXC3Zlju4cLnhOQ1nSFjUhCL+T
-         2uyKqOz6XSBn0xyYJBGabsDF2wSe3H0/PyjS7q4kF4I9J8qGHO/5IWGVteTH+H4c5p
-         Rec1z0141V6wsIqEloSz+5FzIQ8X/1cTxv8+rZ68aa2bkf1OBmiWbRuQXfFWgtnwm7
-         k6vHlGNKWkRfFebN490+KQAs=
-Date:   Mon, 20 Jun 2022 17:25:17 +0200
-From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-Subject: [PATCH v3] environ.7: align PWD with the standard
-Message-ID: <20220620152517.lxhja4s6qeyljgah@tarta.nabijaczleweli.xyz>
-References: <20220619233934.25egwny37dzt7q3i@tarta.nabijaczleweli.xyz>
+        with ESMTP id S1349371AbiFUJkI (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 21 Jun 2022 05:40:08 -0400
+Received: from mail-yb1-xb34.google.com (mail-yb1-xb34.google.com [IPv6:2607:f8b0:4864:20::b34])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 23D1027CE2
+        for <linux-man@vger.kernel.org>; Tue, 21 Jun 2022 02:39:56 -0700 (PDT)
+Received: by mail-yb1-xb34.google.com with SMTP id w6so23509260ybl.4
+        for <linux-man@vger.kernel.org>; Tue, 21 Jun 2022 02:39:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:reply-to:from:date:message-id:subject:to;
+        bh=/0bRExIb6Mv4sy5raFRmeQINC+UUx7zEZcUUOWWOPJg=;
+        b=NKhg6kSkfnglJlsPDVUWhCY3Iibudx7OhZC5CePFgeNekYJKNrcmU8wB8gkktmjPqY
+         f0o4DET3nwW7oGb1WQAmWVCm6yLISrVrQXMY/9qoCppMNLX7K/jA/JZ+JMs1mNT38j+N
+         qSlM2vTiSOIkQo5cZ6oY4dkMVda7fWn0vzKRT295Q67AStI8u0BTanvw38uSxo4IMvFm
+         mtbeFJOQugEk6bmbrSLJZHxNWvSEoU0AT9TQz59V3jAGDZbWiI6U0Fx8UlroTYMr9wGQ
+         +xC78kHT5AZK7k/f6wmWhdDj3ThC5Cy20ctCKCcYvb/idPExEpgvQXB/UX/ziCu3vO07
+         Q2/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to;
+        bh=/0bRExIb6Mv4sy5raFRmeQINC+UUx7zEZcUUOWWOPJg=;
+        b=CWX6Q9AuWJbrVyxhOVwZU/o6aIREs4/MZxFPF1YbbET3OlsYayXmV1sqBS/6h0Kljk
+         GKXsi/qJKAipNbAy4Q5xplpitZ6tASa3IpSslFve5WN1trokudObuVTyjfEj79CKkPTx
+         YSwh6sRMN972HItuNllmhLHz4XYGUXfBnLW8AeaQyILl4szkMWFVD15uWSMLzceB6672
+         KWZ5ZLCf2bTv/9ttlHTb3J1OCfSMqGEjto9QNfPzB7V2QgEkT1+9MaTfto3qoCKvPltp
+         GSmpnOsWSpkWrL5twt3amoBwIdCoxVUpfOeJC6kQGYBByQhL+5aMaHkqv463V2Cgauv+
+         /mEg==
+X-Gm-Message-State: AJIora8n0dA/1dPaJSUSqVNwngRLdjGuqrKTirjt86OTtpDrpZxGoZBl
+        RjvyKRdOBTbYZOA/sD2dEmkdL5Q1C/RX16MBLtfrrpuJD9t6BWNK
+X-Google-Smtp-Source: AGRyM1sTF/SvvxCyraPE52znD36ZX02jNmxmam87lP8bWzXT3yTfChS1a9JgJI9LjBXh9tpS4qLO5E/t+5efudcEruY=
+X-Received: by 2002:a0d:d7c7:0:b0:317:bfe8:4f2 with SMTP id
+ z190-20020a0dd7c7000000b00317bfe804f2mr12417910ywd.276.1655804384555; Tue, 21
+ Jun 2022 02:39:44 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="32xm7sl6y6ftt2cr"
-Content-Disposition: inline
-In-Reply-To: <20220619233934.25egwny37dzt7q3i@tarta.nabijaczleweli.xyz>
-User-Agent: NeoMutt/20220429
-X-Spam-Status: No, score=1.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FROM_SUSPICIOUS_NTLD,
-        PDS_OTHER_BAD_TLD,RDNS_DYNAMIC,SPF_HELO_NONE,SPF_PASS,
-        T_SCC_BODY_TEXT_LINE autolearn=no autolearn_force=no version=3.4.6
-X-Spam-Level: *
+Received: by 2002:a05:7010:e10a:b0:2d9:e631:94d0 with HTTP; Tue, 21 Jun 2022
+ 02:39:44 -0700 (PDT)
+Reply-To: dimitryedik@gmail.com
+From:   Dimitry Edik <lsbthdwrds@gmail.com>
+Date:   Tue, 21 Jun 2022 02:39:44 -0700
+Message-ID: <CAGrL05aBO8rbFuij24J-APa+Luis69gEjhj35iv_GZfkHCVYDQ@mail.gmail.com>
+Subject: Dear Partner,
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
+X-Spam-Status: Yes, score=7.8 required=5.0 tests=BAYES_50,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,FREEMAIL_REPLYTO,
+        LOTS_OF_MONEY,MONEY_FREEMAIL_REPTO,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,
+        SPF_PASS,T_MONEY_PERCENT,T_SCC_BODY_TEXT_LINE,UNDISC_FREEM,
+        UNDISC_MONEY autolearn=no autolearn_force=no version=3.4.6
+X-Spam-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
+        *      https://www.dnswl.org/, no trust
+        *      [2607:f8b0:4864:20:0:0:0:b34 listed in]
+        [list.dnswl.org]
+        *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
+        *      [score: 0.5000]
+        *  0.0 SPF_HELO_NONE SPF: HELO does not publish an SPF Record
+        *  0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
+        *      provider
+        *      [lsbthdwrds[at]gmail.com]
+        * -0.0 SPF_PASS SPF: sender matches SPF record
+        * -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+        *      author's domain
+        * -0.1 DKIM_VALID_EF Message has a valid DKIM or DK signature from
+        *      envelope-from domain
+        *  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+        *       valid
+        * -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+        *  0.0 LOTS_OF_MONEY Huge... sums of money
+        * -0.0 T_SCC_BODY_TEXT_LINE No description available.
+        *  2.2 UNDISC_FREEM Undisclosed recipients + freemail reply-to
+        *  1.0 FREEMAIL_REPLYTO Reply-To/From or Reply-To/body contain
+        *      different freemails
+        *  2.0 MONEY_FREEMAIL_REPTO Lots of money from someone using free
+        *      email?
+        *  0.0 T_MONEY_PERCENT X% of a lot of money for you
+        *  2.0 UNDISC_MONEY Undisclosed recipients + money/fraud signs
+X-Spam-Level: *******
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Hello Dear,
 
---32xm7sl6y6ftt2cr
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+My Name is Dimitry Edik from Russia A special assistance to my Russia
+boss who deals in oil import and export He was killed by the Ukraine
+soldiers at the border side. He supplied
+oil to the Philippines company and he was paid over 90 per cent of the
+transaction and the remaining $18.6 Million dollars have been paid into a
+Taiwan bank in the Philippines..i want a partner that will assist me
+with the claims. Is a (DEAL ) 40% for you and 60% for me
+I have all information for the claims.
+Kindly read and reply to me back is 100 per cent risk-free
 
-Issue 7, 8.3:
-    PWD
-    This variable shall represent an absolute pathname of the current
-    working directory. It shall not contain any components that are dot
-    or dot-dot. The value is set by the cd utility, and by the sh
-    utility during initialization.
-
-Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
----
-Amateurishly, I wrote that in in my MUA and forgot to re-add it for v2.
-Fixed.
-
- man7/environ.7 | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
-
-diff --git a/man7/environ.7 b/man7/environ.7
-index 019c5a25a..24446c709 100644
---- a/man7/environ.7
-+++ b/man7/environ.7
-@@ -158,8 +158,12 @@ used by
- to find manual pages, and so on.
- .TP
- .B PWD
--The current working directory.
--Set by some shells.
-+Absolute path to the current working directory;
-+required to be partially canonical (no
-+.I .\&
-+or
-+.I ..\&
-+components).
- .TP
- .B SHELL
- The absolute pathname of the user's login shell.
---=20
-2.30.2
-
---32xm7sl6y6ftt2cr
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmKwkVwACgkQvP0LAY0m
-WPGPlA//bSfKx7GKaKZiO4fRQTaQCK6x0R0x0tGeQHQ8jyAaG2v0XO43tUJBlRw3
-mKPrE60uMXMWgMUIDK/iDd5g69AJEadzkUpFyKo6k74AXlJnPvqCgA2VqGhQD9uw
-/4prtLgqGbABGDwuujnQFO9xG89OA+tf0dIEgsf5XreDSXAfZN20aXFwCmLkIkJY
-0T4SKr6gqwHw2k2GabiHW5qiCxIOZr5UMbPA0M3f9p0RCiXZNoJDWSOG2eImXjIP
-pf/5TL3SdCq4hgfxgNQ1q2bQw7yKxUUPEHWNtpGXMlGR9NS/IFk11kkyE2GnsG7O
-nqCjRWXn8G6O6oNY6A6Iz1On9i6D1xolVAfC6BtQAP7sAX6N86Gisni/1XcoYTlO
-R6qMaeH76RpnkhE5nbpHyNdZGKHpiRmuxJGx0Yy4wxfUTC3sZxsSCht7GvptPjuH
-DRt3ayIg1jBsiUkRJJJ+1URMoC6mKTtMrA4uQgC7tC7Bfla4LoNMYEGWBfCcPsnz
-D+PbBVtJzKgH0I3RC4fzZ0ZDfNlAC1znjSKxpb5d4D1pwlI/iwRiCthGLoiVMjsc
-+TUfBM70dGDWZ1sdZdYjESINwaoLbEDbDEt3isNWZF8satc/z5BR1JEL8vVmgBJl
-HIyKnRLuyEvDYkSjjnOUnrudyi+9poQosSTPF0Ykc/pDXXespjU=
-=dIdl
------END PGP SIGNATURE-----
-
---32xm7sl6y6ftt2cr--
+Yours Sincerely
+Dimitry Edik
