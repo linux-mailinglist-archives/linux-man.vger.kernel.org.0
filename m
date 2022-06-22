@@ -2,73 +2,97 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 52ECD554E5B
-	for <lists+linux-man@lfdr.de>; Wed, 22 Jun 2022 17:04:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 84BAC55516C
+	for <lists+linux-man@lfdr.de>; Wed, 22 Jun 2022 18:42:17 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1359026AbiFVPEF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 22 Jun 2022 11:04:05 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36790 "EHLO
+        id S230376AbiFVQmC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 22 Jun 2022 12:42:02 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44856 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1358879AbiFVPEA (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 22 Jun 2022 11:04:00 -0400
-Received: from mail-oa1-x34.google.com (mail-oa1-x34.google.com [IPv6:2001:4860:4864:20::34])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 79BD73EA8F
-        for <linux-man@vger.kernel.org>; Wed, 22 Jun 2022 08:03:52 -0700 (PDT)
-Received: by mail-oa1-x34.google.com with SMTP id 586e51a60fabf-101bb9275bcso17871388fac.8
-        for <linux-man@vger.kernel.org>; Wed, 22 Jun 2022 08:03:52 -0700 (PDT)
+        with ESMTP id S1357542AbiFVQmB (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 22 Jun 2022 12:42:01 -0400
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com [IPv6:2a00:1450:4864:20::433])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9C62337039
+        for <linux-man@vger.kernel.org>; Wed, 22 Jun 2022 09:42:00 -0700 (PDT)
+Received: by mail-wr1-x433.google.com with SMTP id o8so24247195wro.3
+        for <linux-man@vger.kernel.org>; Wed, 22 Jun 2022 09:42:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=mime-version:reply-to:from:date:message-id:subject:to;
-        bh=vhZEVnaGNBjosB86GDUW8b2wHjB/+QU31bPXl36TqFE=;
-        b=lmXhPRDXrnlbYClAFJkfHZYdowqXsf1nTuDLZnU/Y1W/T6TJ8ApbIv950i47frAtN/
-         OtndHJQoWJG+weygm2GuosJduERMEzUHLtTF4oGKopzqXa+c5O1ob2p5JuwuGNaCZz0D
-         0k2iO6ZG6gpeVsjTt5A+NLMvCH8qDkpG8Ex3xIMBpunG6BNJWrlCGLJYo7boJK6pvBIx
-         W4x550ST0gVpK9sdxwL58OfMVVl7H7xG/39bSvJCxipLUGbdwSBY6WRzvY6hd28wfB/N
-         vDKUfqITg8PxsgA4g6gEDGmS0K0dBg3KSntFmGDvcmLKkvSy/F4e+TYysqkO/txSQBCJ
-         afFQ==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=6yaS4lHJc3/9gt/sDuoAY5eqmKkR0uTEpGNXIlLiAyQ=;
+        b=pxIeAvQqKZirrw6mGZwfsX0pjURN6426YBxHc/e186iSL2eEB7evqfh2kH+J7tXhjW
+         WxTKuNbZwmYDezn4Gd+Y1V11HHTxcMLDQy+ywL7RaEaNMar8vtLUohxyU4fvmPgWq2/l
+         /D86klK9L732YuEW+Fe1Pe8Ev8vQa3XwaGfTDX18j5d/3dk6IaX8z+vWd1yz8XzDqndj
+         AYwpsdx4rsR5CFqaoSONAzy6ftG7Qjfi+6wuzMKiShGcN+xr25dXsPP+CufJF/c4RO4u
+         jJq28JdovCZD0NhffLRj/CD4nmVHlMQ2D98F5k0PCgFFCkuxEcaYSM/GiY18Yc/xWKZF
+         P5dw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to;
-        bh=vhZEVnaGNBjosB86GDUW8b2wHjB/+QU31bPXl36TqFE=;
-        b=JN9C7z1y38NZnucD0RyjOzJXr7c3jyzTR1ccVhcuLzpTLe2lx4h1aCZVVxi4x5oqQ2
-         EpkmYBLEBZCHDdX2/O+LgkxOD/2qTzPUCgw+a86kRRLyEz7oNxdZ1sVzqZAFusKBySQy
-         2WxUpTDVL8C0bOcM6bO0CjxgRkmNM4+Vjk8C+N5rfq2h2vJ8qOaXE2+riX3tM1GtMEjq
-         QJn8f0Uhd50AHX+IJi2R1fpUMiwZ6cTcPQQn0kqxQ8KqU5qTUV2kCNevrQGYVfkaiLL2
-         zIq6YUbC+MAiC1r7veZc6XraCTJCEZzvwev2QtjXKRJcPjDzVM1BfLQK9B0xNGIsZ0qu
-         5Qvg==
-X-Gm-Message-State: AJIora96PXeyLb/Xp6ETrgLbl0ssUr00LF/v5wV3yzVBvBeOt+w/9lhb
-        A2uFQ+jkcdvonWStHCCVxiz9gfzARqUyqOGTKWugw0wct9cp9uTp
-X-Google-Smtp-Source: AGRyM1ulxotWsDV/SS5wzW6q4zt5LXu3F658bS4StYWI/FgPuIBqBz38zqk7aydOTm9FXxU+wDfnf428k+eRTEG/aD8=
-X-Received: by 2002:a17:90b:1988:b0:1ec:f52d:90d4 with SMTP id
- mv8-20020a17090b198800b001ecf52d90d4mr1796737pjb.70.1655910220864; Wed, 22
- Jun 2022 08:03:40 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=6yaS4lHJc3/9gt/sDuoAY5eqmKkR0uTEpGNXIlLiAyQ=;
+        b=VMGvuWZ5WMcdDqCxBKLY3GnEVw0ju7KUl9FJwhB+k3QXHLHPJ8aM7ies3sly3kEux6
+         LSFpg6ucCOt+QpkUO1cO7DJu+2BqSUCUtx7OhvewPb2tQfOkdwWB4epc4kjXaRNVB4V8
+         Oi/RMSH1K+hyy1Mz39RiuDRguD+dnJure07f6+Ssumw6u4xsfb1tTMTui+MoJm+L/5vC
+         kunyieA4tfEI1MSFKjGAbkvU71v9On1/jl7F8MPuaAbUe/3nYGMuKHD3Ehlzqge8EWKV
+         7Bwepj4aY/FYeIWxFc5jgILuCmmWABYjsTX7a2CSg6EpuTZ4R0u/BJsccA4IuQjTBCXv
+         OYSQ==
+X-Gm-Message-State: AJIora+QHM/DSiiDTPMgP41tDdiGUME26Dp1G6UDB+7AQ41EJ0wvwMwQ
+        /8jzfykSiogHD23NmC0zw4U=
+X-Google-Smtp-Source: AGRyM1spwPoZyG/LZvSuQqWZ1CLHMxUCirwWTod29mzuYFPxkDqtvEkeh8aAUD04EnEemYA9ob1xkA==
+X-Received: by 2002:adf:ead2:0:b0:21a:7603:7371 with SMTP id o18-20020adfead2000000b0021a76037371mr4087982wrn.560.1655916118939;
+        Wed, 22 Jun 2022 09:41:58 -0700 (PDT)
+Received: from localhost.localdomain ([77.137.66.49])
+        by smtp.gmail.com with ESMTPSA id o12-20020a05600c4fcc00b0039751bb8c62sm26934236wmq.24.2022.06.22.09.41.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 22 Jun 2022 09:41:58 -0700 (PDT)
+From:   Amir Goldstein <amir73il@gmail.com>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     Michael Kerrisk <mtk.manpages@gmail.com>, Jan Kara <jack@suse.cz>,
+        Matthew Bobrowski <repnop@google.com>,
+        linux-man@vger.kernel.org
+Subject: [PATCH v2 0/2] fanotify man page updates for v5.17
+Date:   Wed, 22 Jun 2022 19:41:51 +0300
+Message-Id: <20220622164153.2188751-1-amir73il@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Received: by 2002:a17:903:2308:b0:16a:1b3f:f74b with HTTP; Wed, 22 Jun 2022
- 08:03:40 -0700 (PDT)
-Reply-To: sales0212@asonmedsystemsinc.com
-From:   Prasad Ronni <lerwickfinance7@gmail.com>
-Date:   Wed, 22 Jun 2022 16:03:40 +0100
-Message-ID: <CAFkto5vTxj70kORZJZdwOGowXjsZ399eo6DJj=8T==7paSuHTw@mail.gmail.com>
-Subject: Service Needed.
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: No, score=0.0 required=5.0 tests=BAYES_20,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
-        FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
-        T_SCC_BODY_TEXT_LINE autolearn=unavailable autolearn_force=no
-        version=3.4.6
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Hi Alex,
+
+These two complementary APIs, FAN_REPORT_TARGET_FID (fanotify_init)
+and FAN_RENAME (fanotify_mark) were merged to kernel v5.17.
+
+v2 addresses the few comments you had on v1.
+
+Thanks,
+Amir
+
+Changes since v1:
+- Rebased on master
+- Mention the fix commit of ENOTDIR change in commit message
+- Break long line
+- Consistent order of FAN_MOVE,FAN_RENAME in man pages
+
+Amir Goldstein (2):
+  fanotify.7, fanotify_init.2: Document FAN_REPORT_TARGET_FID
+  fanotify.7, fanotify_init.2, fanotify_mark.2: Document FAN_RENAME
+
+ man2/fanotify_init.2 | 55 ++++++++++++++++++++++++++++++++++++++++----
+ man2/fanotify_mark.2 | 24 +++++++++++++++++++
+ man7/fanotify.7      | 31 ++++++++++++++-----------
+ 3 files changed, 92 insertions(+), 18 deletions(-)
+
 -- 
-Hi,
+2.25.1
 
-Are you currently open to work as our executive company representative
-on contractual basis working remotely? If yes, we will be happy to
-share more details. Looking forward to your response.
-
-Regards,
