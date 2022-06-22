@@ -2,59 +2,59 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 297E155516B
-	for <lists+linux-man@lfdr.de>; Wed, 22 Jun 2022 18:42:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id AA8E055516A
+	for <lists+linux-man@lfdr.de>; Wed, 22 Jun 2022 18:42:16 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S236904AbiFVQmE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 22 Jun 2022 12:42:04 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44874 "EHLO
+        id S1357544AbiFVQmH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 22 Jun 2022 12:42:07 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44904 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1357542AbiFVQmC (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 22 Jun 2022 12:42:02 -0400
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com [IPv6:2a00:1450:4864:20::433])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DB565377FB
-        for <linux-man@vger.kernel.org>; Wed, 22 Jun 2022 09:42:01 -0700 (PDT)
-Received: by mail-wr1-x433.google.com with SMTP id k22so17789233wrd.6
-        for <linux-man@vger.kernel.org>; Wed, 22 Jun 2022 09:42:01 -0700 (PDT)
+        with ESMTP id S1357542AbiFVQmG (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 22 Jun 2022 12:42:06 -0400
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com [IPv6:2a00:1450:4864:20::429])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 57A9D377F3
+        for <linux-man@vger.kernel.org>; Wed, 22 Jun 2022 09:42:03 -0700 (PDT)
+Received: by mail-wr1-x429.google.com with SMTP id g27so17571893wrb.10
+        for <linux-man@vger.kernel.org>; Wed, 22 Jun 2022 09:42:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=i5Wo2vrRNTfZwUb+MdFUsb+MCNwlW1IyeDZXIUDWqVw=;
-        b=GE0ZSXr+X3ZwY9tPK3Pvj4SOT529bPCXvMeVQkHXhVcjujYk4uHqxBryFYb1Lwuwoc
-         n3KQU8z+bg0RK/Fs4OKRnzeTAFfR71S2LF3hMW+EAvnHXWYuYebqURNbPs3qF7F9ZUq4
-         beRcQcgJbh9O29PuT8MWe5yEptH8je3ceoY9VS6+6Ukn6GCzK9wMSnQ1dENS7nBAzgzx
-         XlStlKktMBRV/GAhNgFO4+EjrZOcxjApsRfxVH9SB4G3TZnPYBbQnVHPvP3pwukLSwrF
-         Mjd4rs11fvTzsrZoGhBzsWT5B8mYqm/uWB6gdaQf3vQGtA5uU4s4VcNhJEzwSGB0hgWl
-         rx+A==
+        bh=xv+pt2/QO73a+cDslRoWPKm+lH0dhZ5Se7BEBeTpzAI=;
+        b=UjCq6EHRHmLei1fDbnecI9zIkU8sRHogsr96PwWuM++Qg0eC2i7foAA873DaP390k4
+         +0qUL0v3zYECBrPRf8NDDwuVxCRcK3OyearbVGnoFpw++5q7qO3YFWN5rjYKh/OWcEtM
+         KkCVjUocmY1wHzgz/wNHpl0cdHHXMKoKgrxes6B7rHt1JIRXyW+bLC4tx0t4vuE6ySPS
+         tNttpJF7RQ4HPdzVyztw5agqe2tB6W1cwNSzy+p7Of5uwSDDQK0MygMpc396amX40QEv
+         OuwI2ksYqwvqdWxuOFlA95jv1nnQqL61sUOs8Nohj4T5zUd/oZtOSCFME994Xj1JUcOr
+         j/qw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=i5Wo2vrRNTfZwUb+MdFUsb+MCNwlW1IyeDZXIUDWqVw=;
-        b=bHjeWg8exF3nETV1MLJooSBILCsHGAvE9zMv7j4dgHyJd89kPKFKTua1/JZpSzHgpS
-         z3eAphYCNEnoy8UOEaAM1hj6K5bb3S6zW+U+ISkf0HQ6Hm6s0CGRE8tRDvbXNKn64GM+
-         D8DcseLuYoqGm0DKyzpYNXio4rciaJAshcfnoyLUiI+OuZb325biIAD/kzFH0R3t7dtz
-         4UIWv5zJsSsB+wXc1hCLZR5NtiDJtIJu/KXCnat4Fp8Yu98BVdM1w7W2NHYC/TyJEF9Y
-         OcZJk3MQ6yaWHbSByCyjJXnhpMQfhhLk7Fcina1tP8NX5cSs1ypeulNlVdRkBhVzzagZ
-         TZVA==
-X-Gm-Message-State: AJIora+jFOuwK+DsnLLkJLGjTjHQGNTk03nsqm7jxvi+D+49Zdti96nN
-        MQOmZRpMW5gqxUkcnwYbAJ8=
-X-Google-Smtp-Source: AGRyM1sIGYFJLZonPtTEzrw2ZLuv1xVWN7exq/na3iP2Ys+PsuKZbXDHokSWyC5xcl+C4BlNdGUa9w==
-X-Received: by 2002:a05:6000:1f81:b0:21b:a1b5:776 with SMTP id bw1-20020a0560001f8100b0021ba1b50776mr3401996wrb.201.1655916120411;
-        Wed, 22 Jun 2022 09:42:00 -0700 (PDT)
+        bh=xv+pt2/QO73a+cDslRoWPKm+lH0dhZ5Se7BEBeTpzAI=;
+        b=JbFjVUrb2nTtu9KiZWVlyMbn8bwMtWHXL/qx1UXv5HBjCJPtlmu9cdAGp4RxPVMxbs
+         xRe8E87jAicTds8SxeA7mnuGysKYONmGVXzZbIPUruICdnabaWaMu71qj1EDq5p8W6HM
+         0EVmIzvCtJtxLh38nQZNe3RGSxmLtAL8kLgs0KI9D7Emg/fR4u+5ENtnNhHaISsFu6Wp
+         RxiGyZ/MWtHbmVbzE93g8X5y5nsI61TIGQqo239k0LmgHkOo8QWBayYq0cLmkwab3uaY
+         jnaI1IcAVw6oExSBRIL+lVnJJr7ZK2ZwchnV1G8k7a3JVOS2U8/wSjineIa16tkNS3dG
+         ysoQ==
+X-Gm-Message-State: AJIora+cMChbKTH/x9Yl9X+XrbOkTvds/KjAjZtzB/+IZ2CL3LNdMTQK
+        VQpV7uIPjLcLfFvRoxl1QE8=
+X-Google-Smtp-Source: AGRyM1sePC0rd5trdFtLC+AitjQkSH0FtzjWI9z0uD0mBtdUwHU+2xBeieIn2ng5TppbplA0y+cwyQ==
+X-Received: by 2002:a5d:5f05:0:b0:21b:8ca0:6d3d with SMTP id cl5-20020a5d5f05000000b0021b8ca06d3dmr4256828wrb.382.1655916121783;
+        Wed, 22 Jun 2022 09:42:01 -0700 (PDT)
 Received: from localhost.localdomain ([77.137.66.49])
-        by smtp.gmail.com with ESMTPSA id o12-20020a05600c4fcc00b0039751bb8c62sm26934236wmq.24.2022.06.22.09.41.59
+        by smtp.gmail.com with ESMTPSA id o12-20020a05600c4fcc00b0039751bb8c62sm26934236wmq.24.2022.06.22.09.42.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Jun 2022 09:41:59 -0700 (PDT)
+        Wed, 22 Jun 2022 09:42:01 -0700 (PDT)
 From:   Amir Goldstein <amir73il@gmail.com>
 To:     Alejandro Colomar <alx.manpages@gmail.com>
 Cc:     Michael Kerrisk <mtk.manpages@gmail.com>, Jan Kara <jack@suse.cz>,
         Matthew Bobrowski <repnop@google.com>,
         linux-man@vger.kernel.org
-Subject: [PATCH v2 1/2] fanotify.7, fanotify_init.2: Document FAN_REPORT_TARGET_FID
-Date:   Wed, 22 Jun 2022 19:41:52 +0300
-Message-Id: <20220622164153.2188751-2-amir73il@gmail.com>
+Subject: [PATCH v2 2/2] fanotify.7, fanotify_init.2, fanotify_mark.2: Document FAN_RENAME
+Date:   Wed, 22 Jun 2022 19:41:53 +0300
+Message-Id: <20220622164153.2188751-3-amir73il@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220622164153.2188751-1-amir73il@gmail.com>
 References: <20220622164153.2188751-1-amir73il@gmail.com>
@@ -70,158 +70,133 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-FAN_REPORT_TARGET_FID adds an information record about the child
-to directory entry modification events (create/delete/move).
+FAN_RENAME is a new event type that includes information about
+both old and new directory entries.
 
-This flag also adds sanity checks that directory modification events
-(create,delete,moved) cannot be set in mask of a non-dir inode mark.
-
-Note that while FAN_REPORT_TARGET_FID was merged to v5.17, the sanity
-checks resulting in ENOTDIR were merged as fix commit ceaf69f8eadc
-("fanotify: do not allow setting dirent events in mask of non-dir")
-to v5.18 and backported to v5.17.9.
+It is a successor of the two separate FAN_MOVED_TO/FROM events,
+but those event types are still supported.
 
 Reviewed-by: Matthew Bobrowski <repnop@google.com>
 Signed-off-by: Amir Goldstein <amir73il@gmail.com>
 ---
- man2/fanotify_init.2 | 40 +++++++++++++++++++++++++++++++++++++---
- man2/fanotify_mark.2 |  8 ++++++++
- man7/fanotify.7      | 27 +++++++++++++--------------
- 3 files changed, 58 insertions(+), 17 deletions(-)
+ man2/fanotify_init.2 | 25 +++++++++++++++++++------
+ man2/fanotify_mark.2 | 16 ++++++++++++++++
+ man7/fanotify.7      |  6 +++++-
+ 3 files changed, 40 insertions(+), 7 deletions(-)
 
 diff --git a/man2/fanotify_init.2 b/man2/fanotify_init.2
-index 9abec5fca..ac4d3a305 100644
+index ac4d3a305..810f3fc73 100644
 --- a/man2/fanotify_init.2
 +++ b/man2/fanotify_init.2
-@@ -182,9 +182,11 @@ and
- .BR FAN_MOVE_SELF .
- All the events above require an fanotify group that identifies filesystem
- objects by file handles.
--Note that for the directory entry modification events the reported file handle
--identifies the modified directory and not the created/deleted/moved child
--object.
-+Note that without the flag
-+.BR FAN_REPORT_TARGET_FID ,
-+for the directory entry modification events,
-+there is an inforamtion record that identifies the modified directory
-+and not the created/deleted/moved child object.
- The use of
- .B FAN_CLASS_CONTENT
- or
-@@ -282,6 +284,38 @@ for additional details.
- .B FAN_REPORT_DFID_NAME
- This is a synonym for
- .RB ( FAN_REPORT_DIR_FID | FAN_REPORT_NAME ).
-+.TP
-+.BR FAN_REPORT_TARGET_FID " (since Linux 5.17)"
-+.\" commit d61fd650e9d206a71fda789f02a1ced4b19944c4
-+Events for fanotify groups initialized with this flag
-+will contain additional information about the child
-+correlated with directory entry modification events.
-+This flag must be provided in conjunction with the flags
-+.BR FAN_REPORT_FID ,
-+.B FAN_REPORT_DIR_FID
+@@ -173,8 +173,9 @@ Additionally, it may be used for applications monitoring a directory or a
+ filesystem that are interested in the directory entry modification events
+ .BR FAN_CREATE ,
+ .BR FAN_DELETE ,
+-and
+ .BR FAN_MOVE ,
 +and
-+.BR FAN_REPORT_NAME .
-+or else the error
-+.B EINVAL
-+will be returned.
-+For the directory entry modification events
-+.BR FAN_CREATE ,
-+.BR FAN_DELETE ,
++.BR FAN_RENAME ,
+ or in events such as
+ .BR FAN_ATTRIB ,
+ .BR FAN_DELETE_SELF ,
+@@ -257,6 +258,15 @@ For the directory entry modification events
+ and
+ .BR FAN_MOVE ,
+ the reported name is that of the created/deleted/moved directory entry.
++The event
++.B FAN_RENAME
++may contain two information records.
++One of type
++.B FAN_EVENT_INFO_TYPE_OLD_DFID_NAME
++identifying the old directory entry,
++and another of type
++.B FAN_EVENT_INFO_TYPE_NEW_DFID_NAME
++identifying the new directory entry.
+ For other events that occur on a directory object, the reported file handle
+ is that of the directory object itself and the reported name is '.'.
+ For other events that occur on a non-directory object, the reported file handle
+@@ -301,14 +311,17 @@ will be returned.
+ For the directory entry modification events
+ .BR FAN_CREATE ,
+ .BR FAN_DELETE ,
+-and
+ .BR FAN_MOVE ,
 +and
-+.BR FAN_MOVE ,
-+an additional record of type
-+.BR FAN_EVENT_INFO_TYPE_FID ,
-+is reported in addition to the information record of type
-+.B FAN_EVENT_INFO_TYPE_DFID
-+or
-+.BR FAN_EVENT_INFO_TYPE_DFID_NAME .
-+The additional record includes a file handle
-+that identifies the filesystem child object
-+that the directory entry is referring to.
-+.TP
-+.B FAN_REPORT_DFID_NAME_TARGET
-+This is a synonym for
-+.RB ( FAN_REPORT_DFID_NAME | FAN_REPORT_FID | FAN_REPORT_TARGET_FID ).
- .PP
- .TP
- .BR FAN_REPORT_PIDFD " (since Linux 5.15)"
++.BR FAN_RENAME ,
+ an additional record of type
+ .BR FAN_EVENT_INFO_TYPE_FID ,
+-is reported in addition to the information record of type
+-.B FAN_EVENT_INFO_TYPE_DFID
+-or
+-.BR FAN_EVENT_INFO_TYPE_DFID_NAME .
++is reported in addition to the information records of type
++.BR FAN_EVENT_INFO_TYPE_DFID ,
++.BR FAN_EVENT_INFO_TYPE_DFID_NAME ,
++.BR FAN_EVENT_INFO_TYPE_OLD_DFID_NAME ,
++and
++.BR FAN_EVENT_INFO_TYPE_NEW_DFID_NAME .
+ The additional record includes a file handle
+ that identifies the filesystem child object
+ that the directory entry is referring to.
 diff --git a/man2/fanotify_mark.2 b/man2/fanotify_mark.2
-index 3dc538b7f..eeaddd173 100644
+index eeaddd173..66c704c19 100644
 --- a/man2/fanotify_mark.2
 +++ b/man2/fanotify_mark.2
-@@ -472,6 +472,14 @@ and
+@@ -240,6 +240,19 @@ directory.
+ An fanotify group that identifies filesystem objects by file handles
+ is required.
+ .TP
++.BR FAN_RENAME " (since Linux 5.17)"
++.\" commit 8cc3b1ccd930fe6971e1527f0c4f1bdc8cb56026
++This event contains the same information provided by events
++.B FAN_MOVED_FROM
++and
++.BR FAN_MOVED_TO ,
++however is represented by a single event with up to two information records.
++An fanotify group that identifies filesystem objects by file handles
++is required.
++If the filesystem object to be marked is not a directory, the error
++.B ENOTDIR
++shall be raised.
++.TP
+ .BR FAN_MOVE_SELF " (since Linux 5.1)"
+ .\" commit 235328d1fa4251c6dcb32351219bb553a58838d2
+ Create an event when a marked file or directory itself has been moved.
+@@ -472,6 +485,9 @@ and
  and
  .I pathname
  do not specify a directory.
-+For an fanotify group that was initialized with flag
-+.BR FAN_REPORT_TARGET_FID ,
-+this error will also be returned
-+when trying to set directory entry modification events
-+(e.g.,
-+.BR FAN_CREATE ,
-+.BR FAN_DELETE )
++This error will also be returned when trying to set the event
++.B FAN_RENAME
 +in the mask of a non directory inode mark.
- .TP
- .B EOPNOTSUPP
- The object indicated by
+ For an fanotify group that was initialized with flag
+ .BR FAN_REPORT_TARGET_FID ,
+ this error will also be returned
 diff --git a/man7/fanotify.7 b/man7/fanotify.7
-index f4d391603..5f2c01408 100644
+index 5f2c01408..47e104b1b 100644
 --- a/man7/fanotify.7
 +++ b/man7/fanotify.7
-@@ -171,14 +171,14 @@ alongside the generic
- structure.
- For example,
- if a notification group is initialized with
--.B FAN_REPORT_FID
-+.B FAN_REPORT_TARGET_FID
- and
- .BR FAN_REPORT_PIDFD ,
--then an event listener should also expect to receive both
-+then an event listener should expect to receive up to two
- .I fanotify_event_info_fid
--and
-+information records and one
- .I fanotify_event_info_pidfd
--structures alongside the generic
-+information record alongside the generic
- .I fanotify_event_metadata
- structure.
- Importantly,
-@@ -552,7 +552,15 @@ identifying a parent directory object, and one with
- .I info_type
- field value of
- .BR FAN_EVENT_INFO_TYPE_FID ,
--identifying a non-directory object.
-+identifying a child object.
-+Note that for the directory entry modification events
-+.BR FAN_CREATE ,
-+.BR FAN_DELETE ,
-+and
-+.BR FAN_MOVE ,
-+an information record identifying the created/deleted/moved child object
-+is reported only if an fanotify group was initialized with the flag
-+.BR FAN_REPORT_TARGET_FID.
+@@ -391,6 +391,9 @@ A watched file or directory was deleted.
+ .B FAN_FS_ERROR
+ A filesystem error was detected.
  .TP
- .I fsid
- This is a unique identifier of the filesystem containing the object
-@@ -572,15 +580,6 @@ filesystem as returned by
- It can be used to uniquely identify a file on a filesystem and can be
- passed as an argument to
- .BR open_by_handle_at (2).
--Note that for the directory entry modification events
--.BR FAN_CREATE ,
--.BR FAN_DELETE ,
++.B FAN_RENAME
++A file or directory has been moved to or from a watched parent directory.
++.TP
+ .B FAN_MOVED_FROM
+ A file or directory has been moved from a watched parent directory.
+ .TP
+@@ -556,8 +559,9 @@ identifying a child object.
+ Note that for the directory entry modification events
+ .BR FAN_CREATE ,
+ .BR FAN_DELETE ,
 -and
--.BR FAN_MOVE ,
--the
--.I file_handle
--identifies the modified directory and not the created/deleted/moved child
--object.
- If the value of
- .I info_type
- field is
+ .BR FAN_MOVE ,
++and
++.BR FAN_RENAME ,
+ an information record identifying the created/deleted/moved child object
+ is reported only if an fanotify group was initialized with the flag
+ .BR FAN_REPORT_TARGET_FID.
 -- 
 2.25.1
 
