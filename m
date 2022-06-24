@@ -2,53 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 294B1558512
-	for <lists+linux-man@lfdr.de>; Thu, 23 Jun 2022 19:54:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 06C75558D47
+	for <lists+linux-man@lfdr.de>; Fri, 24 Jun 2022 04:43:04 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235291AbiFWRyB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 23 Jun 2022 13:54:01 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41328 "EHLO
+        id S229572AbiFXCnC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 23 Jun 2022 22:43:02 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60894 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235511AbiFWRws (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 23 Jun 2022 13:52:48 -0400
+        with ESMTP id S229968AbiFXCnA (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 23 Jun 2022 22:43:00 -0400
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8A95156C00;
-        Thu, 23 Jun 2022 10:13:37 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B74BF10E3
+        for <linux-man@vger.kernel.org>; Thu, 23 Jun 2022 19:42:57 -0700 (PDT)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
         (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
         (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id 20AA061DB9;
-        Thu, 23 Jun 2022 17:13:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00482C3411B;
-        Thu, 23 Jun 2022 17:13:35 +0000 (UTC)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id 311F762048
+        for <linux-man@vger.kernel.org>; Fri, 24 Jun 2022 02:42:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 65F7DC341CC
+        for <linux-man@vger.kernel.org>; Fri, 24 Jun 2022 02:42:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1656004416;
-        bh=rMClqc3zvDXfYMCOvdBp6CeRJmIcRkGT8/7yt5f5Kj4=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=hy8Xfb3CaW83gPTXBez87TKF6HsLY6Vgm+L3dfAfuvodGOX+OUOmbQ/Ghk1w6n2+M
-         2DV+2gMkStrDZHG0tUAgHCir1JmtSae//xHrbJSV2gG+wwa4uN1WE2Ew04+yShP6x+
-         Wo8Q7FH6WA50N/wiz6O1C6ye8ptPWUlTYD6uObRVS2xQ/Ze/MF5VWCHOxq6jfKo6l0
-         mCqmrUBFwatWgjD3iv0rzwXH1Z/HLaoZYGH27u8U6kOqNS9YP0NtGaBshrq51xY8/4
-         F7Nj+Vat3OIy1SzwGsAmMrhnN50t3L35HZyEIHe3J5ItFl3WXqp5QqxgJxdZ26l/2R
-         70TYqohWcia9w==
-Date:   Thu, 23 Jun 2022 10:13:34 -0700
-From:   Eric Biggers <ebiggers@kernel.org>
-To:     Andreas Dilger <adilger@dilger.ca>
-Cc:     "Darrick J. Wong" <djwong@kernel.org>,
-        linux-fsdevel@vger.kernel.org, linux-man@vger.kernel.org,
-        linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
-        linux-xfs@vger.kernel.org, linux-api@vger.kernel.org,
-        linux-fscrypt@vger.kernel.org, linux-block@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Keith Busch <kbusch@kernel.org>
-Subject: Re: [man-pages RFC PATCH] statx.2, open.2: document STATX_DIOALIGN
-Message-ID: <YrSfPmaWCTOfmQ8H@sol.localdomain>
-References: <20220616202141.125079-1-ebiggers@kernel.org>
- <YrSOm2murB4Bc1RQ@magnolia>
- <622BA3BB-03EA-4271-8A2E-2ADAFB574155@dilger.ca>
+        s=k20201202; t=1656038576;
+        bh=FJrOVUcNU4CP0dwYoRRC1mcg1HPdxPQ5d7Bps68hbfI=;
+        h=From:To:Subject:Date:From;
+        b=eucVxrxSNpl13WC2vEcRqEzJaAG/dnf7eJTcZJTavT0F/4qzs2JAi/ACSzjKQoU6O
+         oofqbXKeNqU1LvEk92xgbuUfbXguKqkUWMsZww4gBnkkg26IHerh4/kMcM3ZARe1F9
+         ZprY4v7N+9E4Ox/JXno5hWRVsuWV0s1ZQVQNCroXR9BYItAkp9w2uvrmYjes3xko9R
+         FQVvHfdn36YpImszlf4DMhL3MqWQcxYrPnCqnr7NS4ec4n/lZWcy5vwg8fwm8Sfa7S
+         GgiHmDJrql2rgJ+pwo5vptbdNQebDcckFlS1/GzH4Y5RYv0/muniBpIB2lyYYcMVIJ
+         lz5GCbTECmIqw==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
+        id 4E569C05FD5; Fri, 24 Jun 2022 02:42:56 +0000 (UTC)
+From:   bugzilla-daemon@kernel.org
+To:     linux-man@vger.kernel.org
+Subject: [Bug 216168] New: updwtmp(3) doesn't mention need for _GNU_SOURCE
+ for updwtmpx
+Date:   Fri, 24 Jun 2022 02:42:55 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: new
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Documentation
+X-Bugzilla-Component: man-pages
+X-Bugzilla-Version: unspecified
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: sam@gentoo.org
+X-Bugzilla-Status: NEW
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P1
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: bug_id short_desc product version rep_platform
+ op_sys bug_status bug_severity priority component assigned_to reporter
+ cf_regression
+Message-ID: <bug-216168-11311@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <622BA3BB-03EA-4271-8A2E-2ADAFB574155@dilger.ca>
 X-Spam-Status: No, score=-7.7 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
         DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
         SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
@@ -59,41 +72,80 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Thu, Jun 23, 2022 at 10:27:19AM -0600, Andreas Dilger wrote:
-> On Jun 23, 2022, at 10:02 AM, Darrick J. Wong <djwong@kernel.org> wrote:
-> > 
-> > On Thu, Jun 16, 2022 at 01:21:41PM -0700, Eric Biggers wrote:
-> >> From: Eric Biggers <ebiggers@google.com>
-> >> 
-> >> @@ -244,8 +249,11 @@ STATX_SIZE	Want stx_size
-> >> STATX_BLOCKS	Want stx_blocks
-> >> STATX_BASIC_STATS	[All of the above]
-> >> STATX_BTIME	Want stx_btime
-> >> +STATX_ALL	The same as STATX_BASIC_STATS | STATX_BTIME.
-> >> +         	This is deprecated and should not be used.
-> > 
-> > STATX_ALL is deprecated??  I was under the impression that _ALL meant
-> > all the known bits for that kernel release, but...
-> 
-> For userspace STATX_ALL doesn't make sense, and it isn't used by the kernel.
-> 
-> Firstly, that would be a compile-time value for an application, so it
-> may be incorrect for the kernel the code is actually run on (either too
-> many or too few bits could be set).
-> 
-> Secondly, it isn't really useful for an app to request "all attributes"
-> if it doesn't know what they all mean, as that potentially adds useless
-> overhead.  Better for it to explicitly request the attributes that it
-> needs.  If that is fewer than the kernel could return it is irrelevant,
-> since the app would ignore them anyway.
-> 
-> The kernel will already ignore and mask attributes that *it* doesn't
-> understand, so requesting more is fine and STATX_ALL doesn't help this.
-> 
+https://bugzilla.kernel.org/show_bug.cgi?id=3D216168
 
-What Andreas said.  Note, this discussion really should be happening on my
-standalone patch that fixes the documentation for STATX_ALL:
-https://lore.kernel.org/r/20220614034459.79889-1-ebiggers@kernel.org.  I folded
-it into this RFC one only so that it applies cleanly without a prerequisite.
+            Bug ID: 216168
+           Summary: updwtmp(3) doesn't mention need for _GNU_SOURCE for
+                    updwtmpx
+           Product: Documentation
+           Version: unspecified
+          Hardware: All
+                OS: Linux
+            Status: NEW
+          Severity: normal
+          Priority: P1
+         Component: man-pages
+          Assignee: documentation_man-pages@kernel-bugs.osdl.org
+          Reporter: sam@gentoo.org
+        Regression: No
 
-- Eric
+I think utmpxh's updwtmpx might need _GNU_SOURCE to be defined to be usable?
+
+Noticed when investigating a warning when building gdm 42.0:
+```
+../gdm-42.0/daemon/gdm-session-record.c:200:9: error: implicit declaration =
+of
+function =E2=80=98updwtmpx=E2=80=99; did you mean =E2=80=98updwtmp=E2=80=99?
+[-Werror=3Dimplicit-function-declaration]
+updwtmpx (GDM_NEW_SESSION_RECORDS_FILE, &session_record);
+```
+
+... but:
+```
+#if defined(HAVE_UTMPX_H)
+#include <utmpx.h>
+#endif
+
+#if defined(HAVE_UTMP_H)
+#include <utmp.h>
+#endif
+```
+
+And config.h, set by Meson, contains HAVE_UTMPX_H, HAVE_UTMP_H, HAVE_UPDWTM=
+P,
+HAVE_UPDWTMPX.
+
+From looking at glibc-2.35's /usr/include/utmpx.h, I think it might need
+_GNU_SOURCE? It's guarded by __USE_GNU within glibc headers:
+```
+[..]
+#ifdef __USE_GNU
+/* Change name of the utmpx file to be examined.
+
+   This function is not part of POSIX and therefore no official
+   cancellation point.  But due to similarity with an POSIX interface
+   or due to the implementation it is a cancellation point and
+   therefore not marked with __THROW.  */
+extern int utmpxname (const char *__file);
+[...]
+/* Append entry UTMP to the wtmpx-like file WTMPX_FILE.
+
+   This function is not part of POSIX and therefore no official
+   cancellation point.  But due to similarity with an POSIX interface
+   or due to the implementation it is a cancellation point and
+   therefore not marked with __THROW.  */
+extern void updwtmpx (const char *__wtmpx_file,
+                      const struct utmpx *__utmpx);
+[...]
+```
+
+Aside: a friend points out that NetBSD needs NETBSD_SOURCE defined for it t=
+oo:
+https://github.com/NetBSD/src/blob/6c9d506c6146a69f3807ce59b4c063792ef32829=
+/include/utmpx.h#L143.
+
+--=20
+You may reply to this email to add a comment.
+
+You are receiving this mail because:
+You are watching the assignee of the bug.=
