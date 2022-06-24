@@ -2,44 +2,44 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 06C75558D47
-	for <lists+linux-man@lfdr.de>; Fri, 24 Jun 2022 04:43:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 45758558D5D
+	for <lists+linux-man@lfdr.de>; Fri, 24 Jun 2022 04:46:03 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229572AbiFXCnC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 23 Jun 2022 22:43:02 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60894 "EHLO
+        id S230151AbiFXCqC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 23 Jun 2022 22:46:02 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35338 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229968AbiFXCnA (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 23 Jun 2022 22:43:00 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B74BF10E3
-        for <linux-man@vger.kernel.org>; Thu, 23 Jun 2022 19:42:57 -0700 (PDT)
+        with ESMTP id S230244AbiFXCqB (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 23 Jun 2022 22:46:01 -0400
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AD3B456C10
+        for <linux-man@vger.kernel.org>; Thu, 23 Jun 2022 19:46:00 -0700 (PDT)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
         (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
         (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id 311F762048
-        for <linux-man@vger.kernel.org>; Fri, 24 Jun 2022 02:42:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 65F7DC341CC
-        for <linux-man@vger.kernel.org>; Fri, 24 Jun 2022 02:42:56 +0000 (UTC)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id 4A91362039
+        for <linux-man@vger.kernel.org>; Fri, 24 Jun 2022 02:46:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 745BBC341CC
+        for <linux-man@vger.kernel.org>; Fri, 24 Jun 2022 02:45:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1656038576;
-        bh=FJrOVUcNU4CP0dwYoRRC1mcg1HPdxPQ5d7Bps68hbfI=;
-        h=From:To:Subject:Date:From;
-        b=eucVxrxSNpl13WC2vEcRqEzJaAG/dnf7eJTcZJTavT0F/4qzs2JAi/ACSzjKQoU6O
-         oofqbXKeNqU1LvEk92xgbuUfbXguKqkUWMsZww4gBnkkg26IHerh4/kMcM3ZARe1F9
-         ZprY4v7N+9E4Ox/JXno5hWRVsuWV0s1ZQVQNCroXR9BYItAkp9w2uvrmYjes3xko9R
-         FQVvHfdn36YpImszlf4DMhL3MqWQcxYrPnCqnr7NS4ec4n/lZWcy5vwg8fwm8Sfa7S
-         GgiHmDJrql2rgJ+pwo5vptbdNQebDcckFlS1/GzH4Y5RYv0/muniBpIB2lyYYcMVIJ
-         lz5GCbTECmIqw==
+        s=k20201202; t=1656038759;
+        bh=Q81eTarnL6uV1hJsf6wp4gn1rGt0Q1p9mTsuUc8DQ38=;
+        h=From:To:Subject:Date:In-Reply-To:References:From;
+        b=kIPxQj2tE4fBRK8whrm3ZFC6Jgk2OSY3sXm+Ihx4cZqSFo1LF2UjKuhJK1rBVBHUp
+         PQVh7OTSjbP9QhLrKb1A3NJnKO4fLqRRfDx59WDj26sNPlpp+/quD5SjkrQzhsDbKb
+         H2ZoGeZTVCWCH2Sa+6FkDwUocdO0BjrlDkHXlYq2oMJkEoNjLWoSdE4v9ahfMzIT9t
+         SH6LLl4dk5JNghP3NtvUcH57vez7MVgU0B0QDELYaB2wEmNFQpGJV+g2mweY69DtDs
+         xsLbFabjld8+jQAdoeK8FcCQ6Tr0szv/ky+Tcon26rw0MiRpEqweUi5gimggT6Qrb5
+         4RjkznC7UpAXQ==
 Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
-        id 4E569C05FD5; Fri, 24 Jun 2022 02:42:56 +0000 (UTC)
+        id 5BF70CC13B4; Fri, 24 Jun 2022 02:45:59 +0000 (UTC)
 From:   bugzilla-daemon@kernel.org
 To:     linux-man@vger.kernel.org
-Subject: [Bug 216168] New: updwtmp(3) doesn't mention need for _GNU_SOURCE
- for updwtmpx
-Date:   Fri, 24 Jun 2022 02:42:55 +0000
+Subject: [Bug 216168] updwtmp(3) doesn't mention need for _GNU_SOURCE for
+ updwtmpx
+Date:   Fri, 24 Jun 2022 02:45:59 +0000
 X-Bugzilla-Reason: None
-X-Bugzilla-Type: new
+X-Bugzilla-Type: changed
 X-Bugzilla-Watch-Reason: AssignedTo
  documentation_man-pages@kernel-bugs.osdl.org
 X-Bugzilla-Product: Documentation
@@ -53,10 +53,10 @@ X-Bugzilla-Resolution:
 X-Bugzilla-Priority: P1
 X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
 X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: bug_id short_desc product version rep_platform
- op_sys bug_status bug_severity priority component assigned_to reporter
- cf_regression
-Message-ID: <bug-216168-11311@https.bugzilla.kernel.org/>
+X-Bugzilla-Changed-Fields: 
+Message-ID: <bug-216168-11311-GNhAd6w8Tj@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-216168-11311@https.bugzilla.kernel.org/>
+References: <bug-216168-11311@https.bugzilla.kernel.org/>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-Bugzilla-URL: https://bugzilla.kernel.org/
@@ -74,75 +74,9 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 https://bugzilla.kernel.org/show_bug.cgi?id=3D216168
 
-            Bug ID: 216168
-           Summary: updwtmp(3) doesn't mention need for _GNU_SOURCE for
-                    updwtmpx
-           Product: Documentation
-           Version: unspecified
-          Hardware: All
-                OS: Linux
-            Status: NEW
-          Severity: normal
-          Priority: P1
-         Component: man-pages
-          Assignee: documentation_man-pages@kernel-bugs.osdl.org
-          Reporter: sam@gentoo.org
-        Regression: No
-
-I think utmpxh's updwtmpx might need _GNU_SOURCE to be defined to be usable?
-
-Noticed when investigating a warning when building gdm 42.0:
-```
-../gdm-42.0/daemon/gdm-session-record.c:200:9: error: implicit declaration =
-of
-function =E2=80=98updwtmpx=E2=80=99; did you mean =E2=80=98updwtmp=E2=80=99?
-[-Werror=3Dimplicit-function-declaration]
-updwtmpx (GDM_NEW_SESSION_RECORDS_FILE, &session_record);
-```
-
-... but:
-```
-#if defined(HAVE_UTMPX_H)
-#include <utmpx.h>
-#endif
-
-#if defined(HAVE_UTMP_H)
-#include <utmp.h>
-#endif
-```
-
-And config.h, set by Meson, contains HAVE_UTMPX_H, HAVE_UTMP_H, HAVE_UPDWTM=
-P,
-HAVE_UPDWTMPX.
-
-From looking at glibc-2.35's /usr/include/utmpx.h, I think it might need
-_GNU_SOURCE? It's guarded by __USE_GNU within glibc headers:
-```
-[..]
-#ifdef __USE_GNU
-/* Change name of the utmpx file to be examined.
-
-   This function is not part of POSIX and therefore no official
-   cancellation point.  But due to similarity with an POSIX interface
-   or due to the implementation it is a cancellation point and
-   therefore not marked with __THROW.  */
-extern int utmpxname (const char *__file);
-[...]
-/* Append entry UTMP to the wtmpx-like file WTMPX_FILE.
-
-   This function is not part of POSIX and therefore no official
-   cancellation point.  But due to similarity with an POSIX interface
-   or due to the implementation it is a cancellation point and
-   therefore not marked with __THROW.  */
-extern void updwtmpx (const char *__wtmpx_file,
-                      const struct utmpx *__utmpx);
-[...]
-```
-
-Aside: a friend points out that NetBSD needs NETBSD_SOURCE defined for it t=
-oo:
-https://github.com/NetBSD/src/blob/6c9d506c6146a69f3807ce59b4c063792ef32829=
-/include/utmpx.h#L143.
+--- Comment #1 from Sam James (sam@gentoo.org) ---
+FWIW, Gnulib indeed (as the man page hints) that it is a glibc extension:
+https://www.gnu.org/software/gnulib/manual/gnulib.html#updwtmpx.
 
 --=20
 You may reply to this email to add a comment.
