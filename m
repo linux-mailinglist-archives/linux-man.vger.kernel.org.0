@@ -2,88 +2,209 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 446205590E0
-	for <lists+linux-man@lfdr.de>; Fri, 24 Jun 2022 07:14:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 05C1B559CEF
+	for <lists+linux-man@lfdr.de>; Fri, 24 Jun 2022 17:02:48 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229960AbiFXFJi (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 24 Jun 2022 01:09:38 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37848 "EHLO
+        id S232742AbiFXPBi (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 24 Jun 2022 11:01:38 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43930 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229728AbiFXFJi (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 24 Jun 2022 01:09:38 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DDF602BB0C
-        for <linux-man@vger.kernel.org>; Thu, 23 Jun 2022 22:09:36 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id 73EFF61827
-        for <linux-man@vger.kernel.org>; Fri, 24 Jun 2022 05:09:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id A8760C341C8
-        for <linux-man@vger.kernel.org>; Fri, 24 Jun 2022 05:09:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1656047375;
-        bh=gMbtLiz5tpwkpLNyTLVOQoMWaFtCZlft0KVqwhHmbEs=;
-        h=From:To:Subject:Date:In-Reply-To:References:From;
-        b=cYJm7jbFWcTrw0Bx4jqGVbLJMAI9AqgCNZ3tjbBALaLgzkpLXvn1AKCsjOIhqY8ef
-         F0c6vqeIvqV45TtRkOWnuQzk0LrQJCBSSe1/3BqFprzkstsWcG6XQetU3S/7V7mJGL
-         lqaM5OgbEfLX/vmUgGiNrUaoYn15JrF+R8GfeSSz6IjzzVg6zUKdUpNAD1b1vfgr5k
-         xLwBmA3+RKlM/vxFqs6UiOOaVUEkhYOu16fHDLzhTKMDsG4NmiljFxKGqHjKQ8hmlz
-         XwcBm0CASYRick6Yf5JL7xvz+mOBgN4+6m2PHWD3BQBK30oltuRMSs+ICheyivMh4T
-         Rj7K5WgbsRvYQ==
-Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
-        id 9312ECC13B4; Fri, 24 Jun 2022 05:09:35 +0000 (UTC)
-From:   bugzilla-daemon@kernel.org
-To:     linux-man@vger.kernel.org
-Subject: [Bug 216168] updwtmp(3) doesn't mention need for _GNU_SOURCE for
- updwtmpx
-Date:   Fri, 24 Jun 2022 05:09:35 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: changed
-X-Bugzilla-Watch-Reason: AssignedTo
- documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Product: Documentation
-X-Bugzilla-Component: man-pages
-X-Bugzilla-Version: unspecified
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: normal
-X-Bugzilla-Who: sam@gentoo.org
-X-Bugzilla-Status: NEW
-X-Bugzilla-Resolution: 
-X-Bugzilla-Priority: P1
-X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: 
-Message-ID: <bug-216168-11311-sZkuiBlSp2@https.bugzilla.kernel.org/>
-In-Reply-To: <bug-216168-11311@https.bugzilla.kernel.org/>
-References: <bug-216168-11311@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
+        with ESMTP id S232322AbiFXPBY (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 24 Jun 2022 11:01:24 -0400
+Received: from mail-il1-x134.google.com (mail-il1-x134.google.com [IPv6:2607:f8b0:4864:20::134])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BC8D868C4D
+        for <linux-man@vger.kernel.org>; Fri, 24 Jun 2022 07:59:30 -0700 (PDT)
+Received: by mail-il1-x134.google.com with SMTP id p14so1673076ile.1
+        for <linux-man@vger.kernel.org>; Fri, 24 Jun 2022 07:59:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20210112;
+        h=mime-version:from:date:message-id:subject:to:cc;
+        bh=ZDlBfdTQJ59S0mnkXBZT+5fiJZD0voNEVfzr7u7G0HM=;
+        b=auW9LeyvyFn0YId0v6BthP/AAB0NgyYQfVjpMW3zbCSWvuSVcDAY1W+x33VM636REZ
+         RzW7teLKgJfPUPNbHTnHXZSAvJMj22f7NB0e/+9CYmU2jNpmwmqlTa4t9e9CrJ/bZXeJ
+         Xn17i70eSqqMUIRWtfjkL7gqUEszCEZhMa5H+k+nTbRaZeBm1qpeM24GTbMcvCVK/rV1
+         1LjPF1kgswEna6nQuZ1eJ9mQBQUzeSajcSXK19tcEFVGwk336w+sepONqOWexcVhJJS1
+         yh9rw5oCElaTi5NlWTBAH6vPYb+UrgiDUCOWYL5Pu3N1ttpBr2tptvgrg6Cz1UxWml5U
+         sI8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+        bh=ZDlBfdTQJ59S0mnkXBZT+5fiJZD0voNEVfzr7u7G0HM=;
+        b=6QJyIpAaGQCmG88LqheGa86XVfVqlp6IdWpIjRSxG61CHsf/0+yxbmdkPU5TPNObEj
+         KEXYZbtYQfm7wZq4dJJuHANCsVUUjZotw95uEPXHMvvEu5W2Hd1WC85FNcvc2nSzmDKZ
+         1s/KMo2aVpkhgzndBlJgpps3XQjWBoQlYSKPpBY2uP0yLnIiYDu5/ah3ACOGzJ0OP61g
+         vbTLWWqGFfT/Rpa1UzdAd1IEMq9hFN/WSwLpg/TW18ce/Iuyl8Df0ySeW3Qzb2fuUTSg
+         kL4ctC7Qi/GcngelxdPJKJqfCdo9gSA1kDXzZWeJIzZlhd0DT7/6dowJjL0oa9UJmNsk
+         Q2MQ==
+X-Gm-Message-State: AJIora+qhyRjHkbl6VMwo7KQ31ypqqXBX3EluVUfzmaG/PPA2z5cLNMd
+        du+g1TMQPX3JMRwRNu7p4HUIx0M5uEvRfavTd0t1HNxjYHR2pw==
+X-Google-Smtp-Source: AGRyM1v4XKuPQwla0X4BCHknchBUFlLJV+HnKxIRq8LOCngHNDZhyQu/8Lmx7GpkApRMO6JiF6FP+NoZooGcyXMSTHQ=
+X-Received: by 2002:a05:6e02:20c9:b0:2d9:4742:9411 with SMTP id
+ 9-20020a056e0220c900b002d947429411mr7406233ilq.302.1656082769299; Fri, 24 Jun
+ 2022 07:59:29 -0700 (PDT)
 MIME-Version: 1.0
-X-Spam-Status: No, score=-7.7 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
-        autolearn_force=no version=3.4.6
+From:   Jesse Rosenstock <jmr@google.com>
+Date:   Fri, 24 Jun 2022 16:59:17 +0200
+Message-ID: <CAMZQ0rLCM_7-pabFTZNkheXZ+N6+YaLBDjJCGM3U+FYRaCBgfA@mail.gmail.com>
+Subject: [PATCH] fallocate.2, getdents.2, rcmd.3, capabilities.7,
+ feature_test_macros.7, ip.7, pipe.7, socket.7, tcp.7: wfix
+To:     linux-man@vger.kernel.org
+Cc:     alx.manpages@gmail.com, mtk.manpages@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+X-Spam-Status: No, score=-17.1 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
+        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,USER_IN_DEF_DKIM_WL,
+        USER_IN_DEF_SPF_WL autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D216168
+Rewrite potentially ambiguous "only since" to something more explicit,
+such as "support was added in".
 
---- Comment #2 from Sam James (sam@gentoo.org) ---
-Sent patch to ML: https://marc.info/?l=3Dlinux-man&m=3D165603977710424&w=3D=
-2.
+A continuation of:
+https://lore.kernel.org/linux-man/a06413f0-c87d-f80e-cb3a-e27258fbcd59@gmail.com/T/#t
 
-Suppose the commit message should be more detailed but I'll wait for someon=
-e to
-tell me if this is even right first :)
+Signed-off-by: Jesse Rosenstock <jmr@google.com>
+---
+ man2/fallocate.2           | 2 +-
+ man2/getdents.2            | 4 ++--
+ man3/rcmd.3                | 2 +-
+ man7/capabilities.7        | 2 +-
+ man7/feature_test_macros.7 | 2 +-
+ man7/ip.7                  | 2 +-
+ man7/pipe.7                | 2 +-
+ man7/socket.7              | 4 ++--
+ man7/tcp.7                 | 4 ++--
+ 9 files changed, 12 insertions(+), 12 deletions(-)
 
---=20
-You may reply to this email to add a comment.
-
-You are receiving this mail because:
-You are watching the assignee of the bug.=
+diff --git a/man2/fallocate.2 b/man2/fallocate.2
+index b4cb3516f..0a15a2f47 100644
+--- a/man2/fallocate.2
++++ b/man2/fallocate.2
+@@ -470,7 +470,7 @@ is available on Linux since kernel 2.6.23.
+ Support is provided by glibc since version 2.10.
+ The
+ .BR FALLOC_FL_*
+-flags are defined in glibc headers only since version 2.18.
++flags were added to glibc headers in version 2.18.
+ .\" See http://sourceware.org/bugzilla/show_bug.cgi?id=14964
+ .SH CONFORMING TO
+ .BR fallocate ()
+diff --git a/man2/getdents.2 b/man2/getdents.2
+index 8201c3310..3cb3efc49 100644
+--- a/man2/getdents.2
++++ b/man2/getdents.2
+@@ -91,8 +91,8 @@ struct linux_dirent {
+                          offsetof(struct linux_dirent, d_name)) */
+     /*
+     char           pad;       // Zero padding byte
+-    char           d_type;    // File type (only since Linux
+-                              // 2.6.4); offset is (d_reclen \- 1)
++    char           d_type;    // File type (added in Linux 2.6.4);
++                              // offset is (d_reclen \- 1)
+     */
+ }
+ .EE
+diff --git a/man3/rcmd.3 b/man3/rcmd.3
+index b2f06c01d..46460d3e6 100644
+--- a/man3/rcmd.3
++++ b/man3/rcmd.3
+@@ -315,7 +315,7 @@ and are not present on as wide a range of systems.
+ .BR iruserok ()
+ and
+ .BR iruserok_af ()
+-are declared in glibc headers only since version 2.12.
++are were missing from glibc headers before version 2.12.
+ .\" Bug filed 25 Nov 2007:
+ .\" http://sources.redhat.com/bugzilla/show_bug.cgi?id=5399
+ .SH SEE ALSO
+diff --git a/man7/capabilities.7 b/man7/capabilities.7
+index c65524496..e818fa9e2 100644
+--- a/man7/capabilities.7
++++ b/man7/capabilities.7
+@@ -1218,7 +1218,7 @@ denotes a file capability set
+ Note the following details relating to the above capability
+ transformation rules:
+ .IP * 3
+-The ambient capability set is present only since Linux 4.3.
++The ambient capability set was added in Linux 4.3.
+ When determining the transformation of the ambient set during
+ .BR execve (2),
+ a privileged file is one that has capabilities or
+diff --git a/man7/feature_test_macros.7 b/man7/feature_test_macros.7
+index 77362ed23..8fbd26c82 100644
+--- a/man7/feature_test_macros.7
++++ b/man7/feature_test_macros.7
+@@ -237,7 +237,7 @@ definitions for POSIX.2-1992.
+ .IP \(bu
+ The value 199309L or greater additionally exposes
+ definitions for POSIX.1b (real-time extensions).
+-.\" 199506L functionality is available only since glibc 2.1
++.\" 199506L functionality was added in glibc 2.1
+ .IP \(bu
+ The value 199506L or greater additionally exposes
+ definitions for POSIX.1c (threads).
+diff --git a/man7/ip.7 b/man7/ip.7
+index 7eee2811e..e60b773a7 100644
+--- a/man7/ip.7
++++ b/man7/ip.7
+@@ -301,7 +301,7 @@ group, or 0 to indicate any interface.
+ .IP
+ The
+ .I ip_mreqn
+-structure is available only since Linux 2.2.
++structure was added in Linux 2.2.
+ For compatibility, the old
+ .I ip_mreq
+ structure (present since Linux 1.2) is still supported;
+diff --git a/man7/pipe.7 b/man7/pipe.7
+index bf93cafbf..b704bbee0 100644
+--- a/man7/pipe.7
++++ b/man7/pipe.7
+@@ -331,7 +331,7 @@ The target for delivery of signals must be set using the
+ command.
+ On Linux,
+ .B O_ASYNC
+-is supported for pipes and FIFOs only since kernel 2.6.
++supported for pipes and FIFOs was added in kernel 2.6.
+ .SS Portability notes
+ On some systems (but not Linux), pipes are bidirectional:
+ data can be transmitted in both directions between the pipe ends.
+diff --git a/man7/socket.7 b/man7/socket.7
+index 67736214a..15b763543 100644
+--- a/man7/socket.7
++++ b/man7/socket.7
+@@ -781,9 +781,9 @@ is not changeable on Linux
+ .RB ( setsockopt (2)
+ fails with the error
+ .BR ENOPROTOOPT ).
++Support for changing
+ .B SO_RCVLOWAT
+-is changeable
+-only since Linux 2.4.
++was added in Linux 2.4.
+ .IP
+ Before Linux 2.6.28
+ .\" Tested on kernel 2.6.14 -- mtk, 30 Nov 05
+diff --git a/man7/tcp.7 b/man7/tcp.7
+index 0a7c61a37..4aaaeb6be 100644
+--- a/man7/tcp.7
++++ b/man7/tcp.7
+@@ -1046,9 +1046,9 @@ As currently implemented, there is a 200
+millisecond ceiling on the time
+ for which output is corked by
+ .BR TCP_CORK .
+ If this ceiling is reached, then queued data is automatically transmitted.
+-This option can be combined with
++Support for combining this option with
+ .B TCP_NODELAY
+-only since Linux 2.5.71.
++was added in Linux 2.5.71.
+ This option should not be used in code intended to be portable.
+ .TP
+ .BR TCP_DEFER_ACCEPT " (since Linux 2.4)"
+-- 
+2.37.0.rc0.104.g0611611a94-goog
