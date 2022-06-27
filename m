@@ -2,63 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id E223055B2A4
-	for <lists+linux-man@lfdr.de>; Sun, 26 Jun 2022 17:48:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C120755C856
+	for <lists+linux-man@lfdr.de>; Tue, 28 Jun 2022 14:55:23 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231388AbiFZPbv (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 26 Jun 2022 11:31:51 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50270 "EHLO
+        id S233232AbiF0LDo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 27 Jun 2022 07:03:44 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58532 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229531AbiFZPbv (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 26 Jun 2022 11:31:51 -0400
-Received: from mail-vs1-xe2d.google.com (mail-vs1-xe2d.google.com [IPv6:2607:f8b0:4864:20::e2d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E4FA4FD21
-        for <linux-man@vger.kernel.org>; Sun, 26 Jun 2022 08:31:49 -0700 (PDT)
-Received: by mail-vs1-xe2d.google.com with SMTP id 63so6780625vsv.10
-        for <linux-man@vger.kernel.org>; Sun, 26 Jun 2022 08:31:49 -0700 (PDT)
+        with ESMTP id S232983AbiF0LDo (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 27 Jun 2022 07:03:44 -0400
+Received: from mail-il1-x135.google.com (mail-il1-x135.google.com [IPv6:2607:f8b0:4864:20::135])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id ECA846397
+        for <linux-man@vger.kernel.org>; Mon, 27 Jun 2022 04:03:42 -0700 (PDT)
+Received: by mail-il1-x135.google.com with SMTP id n14so5734085ilt.10
+        for <linux-man@vger.kernel.org>; Mon, 27 Jun 2022 04:03:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
+        d=google.com; s=20210112;
         h=mime-version:references:in-reply-to:from:date:message-id:subject:to
          :cc;
-        bh=4649cVEtolAb61xjzDjMXIK/T1Xdfg0mJ70t7xMMPLU=;
-        b=WOfxZr194j1uVISxuiGpb7jSQRCDuN34ESKS7KlXhG0wIdsyMPKBDYSbEuDB51rAwf
-         +w7zpOj/oJckzPagnZf7I/g0vQHRgL7XrnTJ4kTKXTU257RyEcumn0iyKrjt4BF1mfZq
-         qao5DQe1AMUt2SFIZ9dHukj+N8nRmoh04dZcHtCZpo+EOyyuSqadOkQ5CA9YUwUbOmv6
-         mpb0ytZYYAvtPq/7K92+HKopIgal482sn32beqNTE+g2W1/0QOtq5Ipb1kKlhZUdST+9
-         MMN55f+GKoVmUHatMwrGAmP41zzcoWXALSWvXk/N2j+NHaUAaOQRnk55jePNDR9xvHVM
-         6Gbw==
+        bh=tkd2ODdUDK7Ri3oqoz6B17hSm9QvI+8yi45dsVKHhi4=;
+        b=CJuDG1eKoXvzkFrZ7PS7e0JogkwSvTrJccA45bX5c7rzM3iBSu8Ya/o3oi3BOiQsh5
+         XYCTUuQI8dFgeISjqASFLEOa0MTrN9bE0OFoCWr6/ggr8tE5TfbOqC4WB2uHAgyNzBKN
+         DeBS2d3R5yLKaBPFYYvhZyWNFo4ZQtETmD+d2gujsBoLYx4MPP8N+Qo92jPdJag9pouS
+         is2sITMXH5gE2HKxVo5u0u4iFvCsdOYgZmIMLPDPCvkf/qBCx+a4dcpsfqNJarKs3NYp
+         S+uEMcAsfVCIBcYgyt8PaeL5xOsxNvOfRy2OFFUzHKWSqaUGFiEiqPHNlwgAfJpPNrpQ
+         J8eA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:mime-version:references:in-reply-to:from:date
          :message-id:subject:to:cc;
-        bh=4649cVEtolAb61xjzDjMXIK/T1Xdfg0mJ70t7xMMPLU=;
-        b=IL44rX6tSx4zGQGmwvjnojbdbK7N81e/92Ad7fnKt2j4T7Ac4HhzgUVAc6dVZPWd9g
-         xPc5cS3cG03IbxZqi1gAg4iUiyYkode/DiWZE6LpCQBnMJp1r9sKkvqA68D1S4gsG5SP
-         3MVky71bu6oL0pttPWA4PoGtMueJ1UTM+MeL+EaJZx0g5H6KHrTB4Hs2vSTylKemmXYb
-         qtUFzdXBIOIjJMAOTRS/qbfvbBbYfzYI+X5z+HztwztZea51nBWFfbmT95KWZzD54qA+
-         7zHC1qPLOwjE7p/OEtrM5AcED4g0v25iKk9UuuDImLKcejRLXgNSPVQSHkcaiGBmc3tM
-         asfQ==
-X-Gm-Message-State: AJIora88Yx5HjmUbSiEWd8mh3sTJk5JilaJ+gIZ0OvttYnkryemaFIGD
-        V7TuVZocflNjmScNPpcCSgIAviM5gySSM8xQTk8=
-X-Google-Smtp-Source: AGRyM1ukd5H3oAClgAcgKKN+hxMSEsTy0RnTfLVOpvLvAzFPVKcZMfkg9BLieOCX8NaQz3Z5GQTb8u2/gtOInCNClW0=
-X-Received: by 2002:a67:c113:0:b0:354:3ef9:3f79 with SMTP id
- d19-20020a67c113000000b003543ef93f79mr2968580vsj.3.1656257509024; Sun, 26 Jun
- 2022 08:31:49 -0700 (PDT)
+        bh=tkd2ODdUDK7Ri3oqoz6B17hSm9QvI+8yi45dsVKHhi4=;
+        b=VRFtygiMmKw9mT4D/XuTIlF4MCBJBqfCDgwQ82rbQy7gagTDp5m2sPUW3mW80k2n2u
+         HdWxxokHBOzFdLSRlfpbxpyunFaPtKj+N+iRkWGi7GAFq86Y/Z1B6OdkyGuSqYp3CrsY
+         fBJScPA/mniZkFxKxuc4vB61sQHRwqJDkZS3PexKuQVojy84Ggp2abIv+Kyvh5DcAQl3
+         Jyg1/1jinKfaGxNre3q+J7OJsnjxS36b4B9B+A0EjmDy8qaOOfjFy4kmYIZRYj73l4Rk
+         UVsXK5c9hoF+qJfeAwTEAc6wLDPUbE67+bdCywKda5KrcG01N7PmtLIyERkvZ5khHkb5
+         hygg==
+X-Gm-Message-State: AJIora/cabzdGVeKV5ww7CRJTXtsSRXZ5v/VadJP0twuwc3nfVbhiJcZ
+        D7GaetTh39XC5rwsfLvQVo6Z89d8W97uMllCbN5kVuSZ8d4hBw==
+X-Google-Smtp-Source: AGRyM1uXG/wyaTmUutrIueear2t26F2c6M4IMgC8FUWCBsShmBQV1CgyzhrAmSm6e6DugfbVAtkvGC+AgbWaGkkYPpI=
+X-Received: by 2002:a05:6e02:20c9:b0:2d9:4742:9411 with SMTP id
+ 9-20020a056e0220c900b002d947429411mr6769348ilq.302.1656327822215; Mon, 27 Jun
+ 2022 04:03:42 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220622164153.2188751-1-amir73il@gmail.com> <20220622164153.2188751-2-amir73il@gmail.com>
-In-Reply-To: <20220622164153.2188751-2-amir73il@gmail.com>
-From:   Amir Goldstein <amir73il@gmail.com>
-Date:   Sun, 26 Jun 2022 18:31:37 +0300
-Message-ID: <CAOQ4uxjYnK4phEuyotFCwCcdjx4sAJsZtaNabCxAgfUBe9+V5g@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] fanotify.7, fanotify_init.2: Document FAN_REPORT_TARGET_FID
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>, Jan Kara <jack@suse.cz>,
-        Matthew Bobrowski <repnop@google.com>,
-        linux-man <linux-man@vger.kernel.org>
+References: <CAMZQ0rLCM_7-pabFTZNkheXZ+N6+YaLBDjJCGM3U+FYRaCBgfA@mail.gmail.com>
+ <CACKs7VCQWcbK6+vPm1DGUOOG28yR9sgYE366DAT3y5hAAMMfBQ@mail.gmail.com>
+In-Reply-To: <CACKs7VCQWcbK6+vPm1DGUOOG28yR9sgYE366DAT3y5hAAMMfBQ@mail.gmail.com>
+From:   Jesse Rosenstock <jrosenstock@google.com>
+Date:   Mon, 27 Jun 2022 13:03:30 +0200
+Message-ID: <CAMZQ0rKF-5tHkt2QCse0xEoETFYtHEXu1GVaMjcnBJfc3mxi4g@mail.gmail.com>
+Subject: Re: [PATCH] fallocate.2, getdents.2, rcmd.3, capabilities.7,
+ feature_test_macros.7, ip.7, pipe.7, socket.7, tcp.7: wfix
+To:     Stefan Puiu <stefan.puiu@gmail.com>
+Cc:     lnx-man <linux-man@vger.kernel.org>,
+        Alejandro Colomar <alx.manpages@gmail.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+X-Spam-Status: No, score=-17.6 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+        ENV_AND_HDR_SPF_MATCH,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+        T_SCC_BODY_TEXT_LINE,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL
         autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -66,157 +69,190 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed, Jun 22, 2022 at 7:41 PM Amir Goldstein <amir73il@gmail.com> wrote:
+On Sat, Jun 25, 2022 at 11:18 AM Stefan Puiu <stefan.puiu@gmail.com> wrote:
+> On Fri, Jun 24, 2022 at 6:19 PM Jesse Rosenstock <jmr@google.com> wrote:
+> > diff --git a/man3/rcmd.3 b/man3/rcmd.3
+> > index b2f06c01d..46460d3e6 100644
+> > --- a/man3/rcmd.3
+> > +++ b/man3/rcmd.3
+> > @@ -315,7 +315,7 @@ and are not present on as wide a range of systems.
+> >  .BR iruserok ()
+> >  and
+> >  .BR iruserok_af ()
+> > -are declared in glibc headers only since version 2.12.
+> > +are were missing from glibc headers before version 2.12.
 >
-> FAN_REPORT_TARGET_FID adds an information record about the child
-> to directory entry modification events (create/delete/move).
+> were missing? Or maybe, to be consistent with the rest of the patch,
+> you could say "were added in glibc headers in version 2.12"?
+
+This one is in the "BUGS" section, which is why it's worded differently.
+
+I don't want to say it's a bug that it was added; the bug is that it
+was missing.
+
+I've fixed the typo though.
+
+> > diff --git a/man7/pipe.7 b/man7/pipe.7
+> > index bf93cafbf..b704bbee0 100644
+> > --- a/man7/pipe.7
+> > +++ b/man7/pipe.7
+> > @@ -331,7 +331,7 @@ The target for delivery of signals must be set using the
+> >  command.
+> >  On Linux,
+> >  .B O_ASYNC
+> > -is supported for pipes and FIFOs only since kernel 2.6.
+> > +supported for pipes and FIFOs was added in kernel 2.6.
 >
-> This flag also adds sanity checks that directory modification events
-> (create,delete,moved) cannot be set in mask of a non-dir inode mark.
->
-> Note that while FAN_REPORT_TARGET_FID was merged to v5.17, the sanity
-> checks resulting in ENOTDIR were merged as fix commit ceaf69f8eadc
-> ("fanotify: do not allow setting dirent events in mask of non-dir")
-> to v5.18 and backported to v5.17.9.
->
-> Reviewed-by: Matthew Bobrowski <repnop@google.com>
-> Signed-off-by: Amir Goldstein <amir73il@gmail.com>
-> ---
->  man2/fanotify_init.2 | 40 +++++++++++++++++++++++++++++++++++++---
->  man2/fanotify_mark.2 |  8 ++++++++
->  man7/fanotify.7      | 27 +++++++++++++--------------
->  3 files changed, 58 insertions(+), 17 deletions(-)
->
-> diff --git a/man2/fanotify_init.2 b/man2/fanotify_init.2
-> index 9abec5fca..ac4d3a305 100644
-> --- a/man2/fanotify_init.2
-> +++ b/man2/fanotify_init.2
-> @@ -182,9 +182,11 @@ and
->  .BR FAN_MOVE_SELF .
->  All the events above require an fanotify group that identifies filesystem
->  objects by file handles.
-> -Note that for the directory entry modification events the reported file handle
-> -identifies the modified directory and not the created/deleted/moved child
-> -object.
-> +Note that without the flag
-> +.BR FAN_REPORT_TARGET_FID ,
-> +for the directory entry modification events,
-> +there is an inforamtion record that identifies the modified directory
-> +and not the created/deleted/moved child object.
->  The use of
->  .B FAN_CLASS_CONTENT
->  or
-> @@ -282,6 +284,38 @@ for additional details.
->  .B FAN_REPORT_DFID_NAME
->  This is a synonym for
->  .RB ( FAN_REPORT_DIR_FID | FAN_REPORT_NAME ).
-> +.TP
-> +.BR FAN_REPORT_TARGET_FID " (since Linux 5.17)"
-> +.\" commit d61fd650e9d206a71fda789f02a1ced4b19944c4
-> +Events for fanotify groups initialized with this flag
-> +will contain additional information about the child
-> +correlated with directory entry modification events.
-> +This flag must be provided in conjunction with the flags
-> +.BR FAN_REPORT_FID ,
-> +.B FAN_REPORT_DIR_FID
-> +and
-> +.BR FAN_REPORT_NAME .
-> +or else the error
-> +.B EINVAL
-> +will be returned.
-> +For the directory entry modification events
-> +.BR FAN_CREATE ,
-> +.BR FAN_DELETE ,
-> +and
-> +.BR FAN_MOVE ,
-> +an additional record of type
-> +.BR FAN_EVENT_INFO_TYPE_FID ,
-> +is reported in addition to the information record of type
-> +.B FAN_EVENT_INFO_TYPE_DFID
-> +or
-> +.BR FAN_EVENT_INFO_TYPE_DFID_NAME .
-> +The additional record includes a file handle
-> +that identifies the filesystem child object
-> +that the directory entry is referring to.
-> +.TP
-> +.B FAN_REPORT_DFID_NAME_TARGET
-> +This is a synonym for
-> +.RB ( FAN_REPORT_DFID_NAME | FAN_REPORT_FID | FAN_REPORT_TARGET_FID ).
->  .PP
->  .TP
->  .BR FAN_REPORT_PIDFD " (since Linux 5.15)"
-> diff --git a/man2/fanotify_mark.2 b/man2/fanotify_mark.2
-> index 3dc538b7f..eeaddd173 100644
-> --- a/man2/fanotify_mark.2
-> +++ b/man2/fanotify_mark.2
-> @@ -472,6 +472,14 @@ and
->  and
->  .I pathname
->  do not specify a directory.
-> +For an fanotify group that was initialized with flag
-> +.BR FAN_REPORT_TARGET_FID ,
-> +this error will also be returned
-> +when trying to set directory entry modification events
-> +(e.g.,
-> +.BR FAN_CREATE ,
-> +.BR FAN_DELETE )
-> +in the mask of a non directory inode mark.
+> "support for pipes"?
 
-Alex,
+Fixed, sorry about that.
 
-I hope the reviewers won't mind, but because we are adding more
-reasons of ENOTDIR
-later on, I think this section would look better with every ENOTDIR
-reason in a paragraph
-of its own, like this:
+--------------------------
 
-.TP
-.B ENOTDIR
-.I flags
-contains
-.BR FAN_MARK_ONLYDIR ,
-and
-.I dirfd
-and
-.I pathname
-do not specify a directory.
-.TP
-.B ENOTDIR
-The fanotify group was initialized with flag
-.BR FAN_REPORT_TARGET_FID ,
-.I mask
-contains directory entry modification events
-(e.g.,
-.BR FAN_CREATE ,
-.BR FAN_DELETE ) ,
-and
-.I dirfd
-and
-.I pathname
-do not specify a directory.
-.TP
+Rewrite potentially ambiguous "only since" to something more explicit,
+such as "support was added in".
 
-The end result [1] after the following FAN_RENAME patch looks like this:
+A continuation of:
+https://lore.kernel.org/linux-man/a06413f0-c87d-f80e-cb3a-e27258fbcd59@gmail.com/T/#t
 
-       ENOTDIR
-              flags contains FAN_MARK_ONLYDIR, and dirfd and pathname
-do not specify a directory.
+Signed-off-by: Jesse Rosenstock <jmr@google.com>
+---
+ man2/fallocate.2           | 2 +-
+ man2/getdents.2            | 4 ++--
+ man3/rcmd.3                | 2 +-
+ man7/capabilities.7        | 2 +-
+ man7/feature_test_macros.7 | 2 +-
+ man7/ip.7                  | 2 +-
+ man7/pipe.7                | 2 +-
+ man7/socket.7              | 4 ++--
+ man7/tcp.7                 | 4 ++--
+ 9 files changed, 12 insertions(+), 12 deletions(-)
 
-       ENOTDIR
-              mask contains FAN_RENAME, and dirfd and pathname do not
-specify a directory.
-
-       ENOTDIR
-              The fanotify group was initialized with flag
-FAN_REPORT_TARGET_FID, mask contains
-              directory entry modification events (e.g., FAN_CREATE,
-FAN_DELETE), and dirfd and
-              pathname do not  specify  a directory.
-
-BTW, I could not figure out what causes the line break after ENOTDIR.
-Other errors look similarly formatted and don't have this line break.
-
-Thanks,
-Amir.
-
-[1] https://github.com/amir73il/man-pages/commits/fan_rename
+diff --git a/man2/fallocate.2 b/man2/fallocate.2
+index b4cb3516f..0a15a2f47 100644
+--- a/man2/fallocate.2
++++ b/man2/fallocate.2
+@@ -470,7 +470,7 @@ is available on Linux since kernel 2.6.23.
+ Support is provided by glibc since version 2.10.
+ The
+ .BR FALLOC_FL_*
+-flags are defined in glibc headers only since version 2.18.
++flags were added to glibc headers in version 2.18.
+ .\" See http://sourceware.org/bugzilla/show_bug.cgi?id=14964
+ .SH CONFORMING TO
+ .BR fallocate ()
+diff --git a/man2/getdents.2 b/man2/getdents.2
+index 8201c3310..3cb3efc49 100644
+--- a/man2/getdents.2
++++ b/man2/getdents.2
+@@ -91,8 +91,8 @@ struct linux_dirent {
+                          offsetof(struct linux_dirent, d_name)) */
+     /*
+     char           pad;       // Zero padding byte
+-    char           d_type;    // File type (only since Linux
+-                              // 2.6.4); offset is (d_reclen \- 1)
++    char           d_type;    // File type (added in Linux 2.6.4);
++                              // offset is (d_reclen \- 1)
+     */
+ }
+ .EE
+diff --git a/man3/rcmd.3 b/man3/rcmd.3
+index b2f06c01d..60b54b5d2 100644
+--- a/man3/rcmd.3
++++ b/man3/rcmd.3
+@@ -315,7 +315,7 @@ and are not present on as wide a range of systems.
+ .BR iruserok ()
+ and
+ .BR iruserok_af ()
+-are declared in glibc headers only since version 2.12.
++were missing from glibc headers before version 2.12.
+ .\" Bug filed 25 Nov 2007:
+ .\" http://sources.redhat.com/bugzilla/show_bug.cgi?id=5399
+ .SH SEE ALSO
+diff --git a/man7/capabilities.7 b/man7/capabilities.7
+index c65524496..e818fa9e2 100644
+--- a/man7/capabilities.7
++++ b/man7/capabilities.7
+@@ -1218,7 +1218,7 @@ denotes a file capability set
+ Note the following details relating to the above capability
+ transformation rules:
+ .IP * 3
+-The ambient capability set is present only since Linux 4.3.
++The ambient capability set was added in Linux 4.3.
+ When determining the transformation of the ambient set during
+ .BR execve (2),
+ a privileged file is one that has capabilities or
+diff --git a/man7/feature_test_macros.7 b/man7/feature_test_macros.7
+index 77362ed23..8fbd26c82 100644
+--- a/man7/feature_test_macros.7
++++ b/man7/feature_test_macros.7
+@@ -237,7 +237,7 @@ definitions for POSIX.2-1992.
+ .IP \(bu
+ The value 199309L or greater additionally exposes
+ definitions for POSIX.1b (real-time extensions).
+-.\" 199506L functionality is available only since glibc 2.1
++.\" 199506L functionality was added in glibc 2.1
+ .IP \(bu
+ The value 199506L or greater additionally exposes
+ definitions for POSIX.1c (threads).
+diff --git a/man7/ip.7 b/man7/ip.7
+index 7eee2811e..e60b773a7 100644
+--- a/man7/ip.7
++++ b/man7/ip.7
+@@ -301,7 +301,7 @@ group, or 0 to indicate any interface.
+ .IP
+ The
+ .I ip_mreqn
+-structure is available only since Linux 2.2.
++structure was added in Linux 2.2.
+ For compatibility, the old
+ .I ip_mreq
+ structure (present since Linux 1.2) is still supported;
+diff --git a/man7/pipe.7 b/man7/pipe.7
+index bf93cafbf..59b35177c 100644
+--- a/man7/pipe.7
++++ b/man7/pipe.7
+@@ -331,7 +331,7 @@ The target for delivery of signals must be set using the
+ command.
+ On Linux,
+ .B O_ASYNC
+-is supported for pipes and FIFOs only since kernel 2.6.
++support for pipes and FIFOs was added in kernel 2.6.
+ .SS Portability notes
+ On some systems (but not Linux), pipes are bidirectional:
+ data can be transmitted in both directions between the pipe ends.
+diff --git a/man7/socket.7 b/man7/socket.7
+index 67736214a..15b763543 100644
+--- a/man7/socket.7
++++ b/man7/socket.7
+@@ -781,9 +781,9 @@ is not changeable on Linux
+ .RB ( setsockopt (2)
+ fails with the error
+ .BR ENOPROTOOPT ).
++Support for changing
+ .B SO_RCVLOWAT
+-is changeable
+-only since Linux 2.4.
++was added in Linux 2.4.
+ .IP
+ Before Linux 2.6.28
+ .\" Tested on kernel 2.6.14 -- mtk, 30 Nov 05
+diff --git a/man7/tcp.7 b/man7/tcp.7
+index 0a7c61a37..4aaaeb6be 100644
+--- a/man7/tcp.7
++++ b/man7/tcp.7
+@@ -1046,9 +1046,9 @@ As currently implemented, there is a 200
+millisecond ceiling on the time
+ for which output is corked by
+ .BR TCP_CORK .
+ If this ceiling is reached, then queued data is automatically transmitted.
+-This option can be combined with
++Support for combining this option with
+ .B TCP_NODELAY
+-only since Linux 2.5.71.
++was added in Linux 2.5.71.
+ This option should not be used in code intended to be portable.
+ .TP
+ .BR TCP_DEFER_ACCEPT " (since Linux 2.4)"
+-- 
+2.37.0.rc0.161.g10f37bed90-goog
