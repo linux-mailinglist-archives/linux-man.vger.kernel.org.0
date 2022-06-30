@@ -2,204 +2,107 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id A8A7556201E
-	for <lists+linux-man@lfdr.de>; Thu, 30 Jun 2022 18:19:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9288E56229A
+	for <lists+linux-man@lfdr.de>; Thu, 30 Jun 2022 21:06:46 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235216AbiF3QTn (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 30 Jun 2022 12:19:43 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56694 "EHLO
+        id S232653AbiF3TGU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 30 Jun 2022 15:06:20 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43834 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234838AbiF3QTm (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 30 Jun 2022 12:19:42 -0400
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A77D52A952;
-        Thu, 30 Jun 2022 09:19:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1656605981; x=1688141981;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=fgM/54ZXQKpk683NG0oxyEiA/HVkWHaOlQQsGEExwhw=;
-  b=JC00SXcC0OlNDLZK9VVlR+eWXrvchUafNxeiy2bwhrR8aQiUPAue+o5i
-   6tKZGj8Mh+F17MjOo+UmzaqtIC8J/yFAdqa5ffm9PM8S7rVXBlT/gsngG
-   hXNp+8ngcPh3CHeogjvLwzzUA5BGw3YxTroCyaFjVrRVFYb8Y/lWL/rrA
-   k+4cwYlJWLvGUhGpkXBxGQP2mCvuiEPv6ssP0BP1EIueunpXu8knUS4jI
-   w3ELKCbTJ9AI63Fuc4Yrt2H7LY6rqjqbDBwR2V6TvGjStEl/KanFh5sVG
-   mA85ekTTU4JljMJbIU6KA+7XZ406J9StDgssFxqAl1pTxHHqjznzVAXm7
-   A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10394"; a="307904034"
-X-IronPort-AV: E=Sophos;i="5.92,234,1650956400"; 
-   d="scan'208";a="307904034"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
-  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Jun 2022 09:17:33 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.92,234,1650956400"; 
-   d="scan'208";a="768173739"
-Received: from orsmsx602.amr.corp.intel.com ([10.22.229.15])
-  by orsmga005.jf.intel.com with ESMTP; 30 Jun 2022 09:17:32 -0700
-Received: from orsmsx608.amr.corp.intel.com (10.22.229.21) by
- ORSMSX602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.27; Thu, 30 Jun 2022 09:17:31 -0700
-Received: from orsmsx607.amr.corp.intel.com (10.22.229.20) by
- ORSMSX608.amr.corp.intel.com (10.22.229.21) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.27; Thu, 30 Jun 2022 09:17:31 -0700
-Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
- orsmsx607.amr.corp.intel.com (10.22.229.20) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.27 via Frontend Transport; Thu, 30 Jun 2022 09:17:31 -0700
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com (104.47.70.107)
- by edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2308.27; Thu, 30 Jun 2022 09:17:30 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ec/zfnkz+y1ItmiATwPXSC0jGQ1UdRgT8crDjSy+Dh1XkdBtUV0D4s/32eZMPI9F7ZjBBbS1bVWr4EpefzAi5MsXqmGu0FlL3rpClp2meNnsX0dZOpTcaqFGqIi1xnIf8wUvccjbOK/SIcSRtd+Bsj6jdBKRMoDy5Lqbx6ljktyxec6shfFVp/kG1/Q+My01ipSZyOG6fORXNBO47jxypELYLwMGgqrre6k7IV4nhHhH9hTyiGWnZ8OBqxmMwfGRbZ5Shg+aP+rYsnopQ13dZuWlvv0+1IqzneXFlNqYHRF22sDgd8tJcKZHfOQhrLshLXe5dxDOtjs15k6pX+whig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=o00cJvfhmviS6+XsIsMZefk959Zy5Ck9naKmAEF0+J4=;
- b=JN2+3jhGGKhAjHGjr17Ph/2AKAMMojrenwL7qM+pAorj/WiSB6i1+D3jxctsvHLMT0CHeqs+V2xEg/f7bH9mwvlTPJrZxLjmJ5M5vr3GNCuhttDuX/LTYPsjXRjdXWdcsFjmqduvngZY5ttTMNWfT0RvhIFjBUAyt1ydyXPKJtL9gjzTM4g4PtvlICScO/SUdYH/Uh5nrM6xtQf2RUL6h+vTfaZdwBRzvKVWwJNlRBTcozs9FFhF1hRGDH5g1vZWnYaGcVqKnWBVyIQEX6uWagLe/mTpReXKQEOScu07mM4dVp1uUQaMbIKzPH8X1eIAzNFgHxb9sWQBRlt37xSn4w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH0PR11MB4855.namprd11.prod.outlook.com (2603:10b6:510:41::12)
- by BYAPR11MB3701.namprd11.prod.outlook.com (2603:10b6:a03:fc::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5373.18; Thu, 30 Jun
- 2022 16:17:29 +0000
-Received: from PH0PR11MB4855.namprd11.prod.outlook.com
- ([fe80::95a9:2d1d:b36e:4319]) by PH0PR11MB4855.namprd11.prod.outlook.com
- ([fe80::95a9:2d1d:b36e:4319%5]) with mapi id 15.20.5395.015; Thu, 30 Jun 2022
- 16:17:29 +0000
-Message-ID: <71c0b3b3-f9a7-378d-89bb-3035a7b0b494@intel.com>
-Date:   Thu, 30 Jun 2022 09:17:26 -0700
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Subject: Re: [PATCH v2 1/1] Documentation/x86: Add the AMX enabling example
-Content-Language: en-CA
-To:     "Luck, Tony" <tony.luck@intel.com>,
-        "Hansen, Dave" <dave.hansen@intel.com>,
-        "Brown, Len" <len.brown@intel.com>,
-        "Wysocki, Rafael J" <rafael.j.wysocki@intel.com>,
-        "Chatre, Reinette" <reinette.chatre@intel.com>,
-        "Williams, Dan J" <dan.j.williams@intel.com>
-CC:     "corbet@lwn.net" <corbet@lwn.net>,
-        "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-        "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <20220629224235.20589-1-chang.seok.bae@intel.com>
- <20220629224235.20589-2-chang.seok.bae@intel.com>
- <f01bb09a504240059a79a94c24ba4eba@intel.com>
- <5c67d453-a162-b61d-4a27-c854f1ef3587@intel.com>
- <66c4d3ce4c6f47d29bbb951739555eb0@intel.com>
-From:   "Chang S. Bae" <chang.seok.bae@intel.com>
-In-Reply-To: <66c4d3ce4c6f47d29bbb951739555eb0@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PH7PR13CA0010.namprd13.prod.outlook.com
- (2603:10b6:510:174::20) To PH0PR11MB4855.namprd11.prod.outlook.com
- (2603:10b6:510:41::12)
+        with ESMTP id S236719AbiF3TGT (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 30 Jun 2022 15:06:19 -0400
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com [IPv6:2a00:1450:4864:20::42d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B92E63F880
+        for <linux-man@vger.kernel.org>; Thu, 30 Jun 2022 12:06:17 -0700 (PDT)
+Received: by mail-wr1-x42d.google.com with SMTP id k7so4177975wrc.12
+        for <linux-man@vger.kernel.org>; Thu, 30 Jun 2022 12:06:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=Yp9AncGJgXtCcbBTuEEa/XU5M/9Q7wme01CcaLIQ1Jk=;
+        b=E+wK/+K6J/BKTqwiryMHRpIzUxU502R4lVqqiMABLq3Brq07mhfAV/NMAY8ylbhHmM
+         iFqqmItdoJ8RE17S7a46YWfuvzoi6UQG8mNVEbazTcIOs9K8f5GzJZ+mrJFEmc//agrF
+         F5d/U7zmZ+LgHmLGZekuB+4uzDOvSjE89YpQcDt+NlL86H/Ik8xJdAE2sZzIBnT8Tk2n
+         BcstVC8z+0rEcBv4fxc64CvR2LHdrmql8OXxP9yPuBdExQffScMEUbkJdy9YDf3zMr48
+         LGh0v4QkB8LCOPK5TW29wL1y+q1f2NTT4cqyZjWazEV6G0v9MLI1befkjlruTCVuZUs3
+         R9vQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=Yp9AncGJgXtCcbBTuEEa/XU5M/9Q7wme01CcaLIQ1Jk=;
+        b=yESBho39Q+TBV3LDvY3bxBBbTuBxbINX7JV4aFQTzAYkfRRbsJ8j9UW4aONX4oyeEe
+         ccgNSzTnStiOx9e5AhLao5GWiO1AdHiBTzOBGspEuW5HLzs0UqmENcKiFS69nb/Mjzzp
+         5yWrG9/ayPJouU0jx6SVgQ66pUpmQ/Rdx36GRkOZM/z7oNfjORe+FlMqeEEr1mkpjluW
+         Z916YLdFz1DmFSsGPshr+TKx8ehvydKeuXZfBHsmOmgnFkJ3VvXe+IX6IVdOf0p7lq7E
+         Glp0AiJAF99fewk1CrZAEVDtaFLU88pyIjSqfherZVJh79nlPCocF0ey178bvbWXjEEG
+         gTVQ==
+X-Gm-Message-State: AJIora9s0/iku4vGBjacaGZM9rW0kWp1QSe7MTcQc4gsK7SNRfqWEg/n
+        cRmyBuo9+RhNIuML/MOFyOs=
+X-Google-Smtp-Source: AGRyM1tLljg9JuVrG6Sx6cfss1eRKUHyq+ThzuQzO2SVMqYFWsCHqlQHpeL0ZyVL6JDhPAi3fELjWw==
+X-Received: by 2002:a05:6000:15c6:b0:21b:ccda:fc69 with SMTP id y6-20020a05600015c600b0021bccdafc69mr9978368wry.411.1656615976254;
+        Thu, 30 Jun 2022 12:06:16 -0700 (PDT)
+Received: from localhost.localdomain ([5.29.8.191])
+        by smtp.gmail.com with ESMTPSA id z21-20020a1c4c15000000b0039c871d3191sm7825220wmf.3.2022.06.30.12.06.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 30 Jun 2022 12:06:15 -0700 (PDT)
+From:   Amir Goldstein <amir73il@gmail.com>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     Michael Kerrisk <mtk.manpages@gmail.com>, Jan Kara <jack@suse.cz>,
+        Matthew Bobrowski <repnop@google.com>,
+        linux-man@vger.kernel.org
+Subject: [PATCH v3 0/2] fanotify man page updates for v5.17
+Date:   Thu, 30 Jun 2022 22:06:08 +0300
+Message-Id: <20220630190610.3043428-1-amir73il@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a8dbc0d6-9494-46e8-dab3-08da5ab4073c
-X-MS-TrafficTypeDiagnostic: BYAPR11MB3701:EE_
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: eOP6SNITqChLopePHtSXTTOl9YZAf8q7enZtz7vnihfgT58HklGdqKDAiMNtYJ6TJnOiQ/yGgUpduZVtJzI9NRvBU64Ay3zCpxt9m0lZ7Qlf6YIwXFVxeVcxZR9o+p8CCRpLXQC+4uAP61/KALcblCYkHYmOOrvAzEcV9tyTE5mftSCCqt1ZG1+RPyAnxICoT7WjxFsY+vuy4VURqfEiBV4Cjw6I5fglOHgzNGsYaswEmrhM3L5Ksx0Bp4KX+x1y9Sj5bTFPo0xTixcY+pjX9yGLnTqfKoLd+ht5nG+2e23lpyfwpdVZ8lhXy0XmjcSiPTcEtbnu3awH8+Ir1nuIyzp2/g2eacP87CNbjiOHzBLryitqKXKCvDHLDjPBNSFJhs7g+aRvmQVWjHAsRPicZPeQna/ToO+ruOsGVghBAo620KzIlj1akcOWa9q3LEP8n2UCNWmUtAEQG2bKBZIr4tgadXUBS2DHOjlE7A84iDOeWq7j0sbwLjCPYGiWyJeTIUvEwIMwbgFrMCl582jUXbCZqdVEdfKzUvrtUhGuZSz79OP6O98If4fb5Nsfs1zO8+AnwUZLuWlRt/44Wsjjcy0pMBsnaRBH1VYNj3/zlUBxbfvm5t4xjJAENbJvFAe5fBCGtgm/93SgSbQjt51PYKk1W40dvK4zFDtpW8RiRRDl/8w/L8Ms6JVOEZAm1x11ngMWMfyEuN/QDYOYKmFuCxAQ1sB1cRvSw/NRo648UsAsjTC5sohYkVlo6ku149Wsbw9Lnt7em9QUGwRDEvuvNuitJo+jLy9t5264TH4bgZl6ZATVHTh724kCPJqdzkIDlQaT2mHZ+2Nvfsvj2iG+OlJEaLS3hZYZLxu9Q+6ZoPbDEhrp+KfwJiNqsWMuLR6H
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR11MB4855.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(136003)(376002)(39860400002)(346002)(366004)(396003)(26005)(921005)(31696002)(186003)(5660300002)(110136005)(82960400001)(54906003)(53546011)(6666004)(83380400001)(38100700002)(86362001)(2906002)(316002)(6486002)(478600001)(6506007)(66946007)(31686004)(4326008)(66476007)(41300700001)(4744005)(8676002)(2616005)(6512007)(36756003)(8936002)(66556008)(6636002)(43740500002)(45980500001);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R2M1Y24rWm1SK1VqdzllUC9mRU1VcFpnZFNZbXBkekk2eXVwdDVGV2RUUHY1?=
- =?utf-8?B?d3l6QkdIRWhsdEM2RUJKOVU0c2VFSjIwQWQ3VHB4K1ZLaFpucVVNVExLWGpz?=
- =?utf-8?B?RlNNZlFzNGg3a05uSm5obDdWeXBZWHhZYmVsTm90RDVoemQ2MnlOWW1pNzdW?=
- =?utf-8?B?NHNIWGhVd0tYZW1PejdxcG1tY25HT2dJZi9rZTlnbDNDT2Nickh2emphRVox?=
- =?utf-8?B?TGVhQ1hibzF4aVRsYnpPV3Z0RDlLWmNpc25ta0xUNzEyWmROQzBrYy9QWjNx?=
- =?utf-8?B?WDlGUGs1dHJOWk5wcFNvMG4zd1VSRnpnSTg4ZjhERWR2dFlUNG8rYzF0K0ww?=
- =?utf-8?B?Y0xRenZ1OUtLVXA3cTJKSTN1dmVsQjdDK3JUbDJTNVBkS0o2MHZGZmlkZnhJ?=
- =?utf-8?B?YjV6bmxBMlRsdW5QVTJnV1d5c2FGRk9yTzZOeG1nb2dUL3FqellWUTdjT3FQ?=
- =?utf-8?B?alUrcndoMURYNmV3OGpqQTRXUmdJcFNVVXNYQjhHdUczaW9ZQmlrZmk4QjZR?=
- =?utf-8?B?TFVRWGFmQ2pYK2RWSTJ3SWs5T1BmdVY1UkpHeGYxa2FDQWRtTVNGd1NtUkx0?=
- =?utf-8?B?QzZpcXBFOVBpcjNNUzV2SGZXcXc4Z250SHdoOTg4Q0NYbzRzODMyanVoUFdY?=
- =?utf-8?B?WE5TTG1EQjZmTXY2aGkxYkR1Nmp3YklIdUZBb3dKYisxT0RaY1Z6K1BIOWdu?=
- =?utf-8?B?Ykphdzc1MWNKL1FtcmtqS1RhblV0L3dYTEdacTloZXlacXJzZXIyU2hyZ2N6?=
- =?utf-8?B?dW83ZnBxcWFZd0xNQ2xmQVZ5aXNVTUYyWXhZdlRyWXZicnRwbWFCci9vSmtP?=
- =?utf-8?B?Y2R4N2NZL3REVHBKS0Z5RDkxQWtkcFlpc3NuNzFVSHBjMVpRajVpb05XbmFz?=
- =?utf-8?B?c1FLRHRJUll2VUNyeHd6VXBpaVhCeWxHMGRra3BjOWttenkxN0RGN2FraFd3?=
- =?utf-8?B?QWFpanpxd3llMGw5UkZJVmxwSG9YTmVEVkN4YkVqdVV3NE1zakVISUpjSDhu?=
- =?utf-8?B?Mk5RVTZUM2ZtNnpnSEx2b2RsUXZPMWVocStOampaQkFvb2tYS2N5T3QxeFZ1?=
- =?utf-8?B?NmtLNUs4Wml4ME1PMU0yOVEwRldGK0tuMjJmQ3MwWExkRkVxY3ZnSTRXMFhr?=
- =?utf-8?B?UTVQK2RtQzE0UngzMExTaFdtTGk2WERLdnFyZzljajYzTTdSMjFUZFFlU1ZY?=
- =?utf-8?B?T3lBZ1lDcGJCRlZkN3lBRTI5NTFKZTA2QitoTUxGMUNpZkd2ZTBNbUZCcFFW?=
- =?utf-8?B?M1pZc2dWMkY4R0dNRHBFVVZnWm1EQnBvZjNrVlZGS3kzZWFPSkdMbTF4NHlW?=
- =?utf-8?B?ckFGYUthWVRqL3d6TjJUV2tHVEt2bDFpVTd3ZTdsekxJMEhUS3c3SllaQTMv?=
- =?utf-8?B?WnIyczl0anBmQW9DZW1ZbmVFbW1ORkZMNzV2ZEVPTW1ubklwN3orcmtNV0cy?=
- =?utf-8?B?YXF6Zkl1RGVnWkZrRmZBSUpYM1REcmF1d3BJc2VVdmprLy9uaEsyODg1aER2?=
- =?utf-8?B?Ryt4UExhbFp3RGpyY1Y5UkZhZ3dmYjhJRXFxRjU2VjRndEZMNlhZUTBRYWZY?=
- =?utf-8?B?QjB5TWxUQ2t3VWFQTFRwUDhjWUwyS244aEx4Z2RtRDYreHZMbkdFRnZPdVJO?=
- =?utf-8?B?RE1qZEo3VEVPUUl1cE1xcFhxWC9NQ2REV3IwSWh0SUhSNlV6WVh6MTBFRE9m?=
- =?utf-8?B?azdKRm1sbWRNZk12Rm8rdk1VazRDZXUxcmhwNUxiWVB5emtqTmhTdDNFSGd2?=
- =?utf-8?B?d2tveTA5SFN1dlArS0R2S1pSaUxzMkl3cm5pTW9lTVVBS0tpMFBVd1hkRFlT?=
- =?utf-8?B?Mjd5dEhQZUtRWkwvV3Jpa3h6a0o5bW11MUtsMXhIZTNUeWJlbjhwN0tsbjhm?=
- =?utf-8?B?cTI4dmoyQ0pGdHIwZG5qa2pOQ2J6bVl6dUJCSEF0SzU2YzFmanFYd2JRQmJh?=
- =?utf-8?B?SXpKZGNFS25VUVVOa3hLVFZTOVJCc2toMFNxVTZyOGZYQzRHUllESUI3MGda?=
- =?utf-8?B?SmpicDg0eGVoUVF6OXY5alFCNmxrU1dlbFZLNVBuL28yc3l1VmFkSDdVTnNz?=
- =?utf-8?B?UUp5c1p5V0w3RXpxaEVRcExCRWpRcnJuQjdCWnhSWmY0SzN6UmpDUS9wWklY?=
- =?utf-8?B?dzFNQmhnWEE3WDFIWmtjUS9wbkNYUWRkUEFHSytGejVTVFpheUMvYitCYW5M?=
- =?utf-8?B?U3c9PQ==?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: a8dbc0d6-9494-46e8-dab3-08da5ab4073c
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB4855.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2022 16:17:28.9794
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: u3nxjCnqp/ZjJNNgwXzzTu3ImfzmvaHHhtxXoGmNY60Xai5zfLhGfTp+Va+HJBIgff5bvWGI7GZgMc/EA52+nmZ2oMp2WKP3XnNUVfI60iI=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR11MB3701
-X-OriginatorOrg: intel.com
-X-Spam-Status: No, score=-7.5 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
-        RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
-        SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=ham autolearn_force=no
-        version=3.4.6
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 6/30/2022 9:07 AM, Luck, Tony wrote:
->> But these state components are architectural. While this can help
->> userspace anyway, saying "XSTATE component" here and on the man-page is
->> probably it as they are already defined in the x86 spec.
-> 
-> An application writer can't use:
-> 
-> # include {x86 spec}"
-> 
-> to get these values ... if applications need them to find out if AMX is present,
-> and to enable it, then they need an API.
+Hi Alex,
 
-Yeah, you're right.
+These two complementary APIs, FAN_REPORT_TARGET_FID (fanotify_init)
+and FAN_RENAME (fanotify_mark) were merged to kernel v5.17.
 
-> 
-> Maybe your example code should just be a library routine? So application writers
-> can just do:
-> 
-> if (!intel_amx_enable()) {
-> error message, or fall back to non-AMX implementation
-> }
-> 
-> without having to worry about those #defines.
+Note that we used the fact that this is new API to fix a glitch that
+exists in the old APIs - it is possble to request CREATE/DELETE/MOVE
+events and flags FAN_ONDIR/FAN_EVENT_ON_CHILD for a non-directrory,
+but those events and flags are only relevant for directories.
 
-I guess we cannot assume this. Given the arch_prctl() options, they can 
-do this by themselves.
+When the new APIs are used, ENOTDIR will be returned in such cases
+and this change is reflected in the man pages updates.
 
-Let me include those defines on the next version.
+The ENOTDIR error was added by later commits, one of them just merged
+to mainline, which are also mentioned in the commit message of the
+first patch.
+
+Both Jan and Matthew re-reviewed the changes to the ENOTDIR section.
 
 Thanks,
-Chang
+Amir,
+
+Changes since v2:
+- Rearrange ENOTDIR errors section
+- Add more cases of ENOTDIR following fix patch
+
+Amir Goldstein (2):
+  fanotify.7, fanotify_init.2: Document FAN_REPORT_TARGET_FID
+  fanotify.7, fanotify_init.2, fanotify_mark.2: Document FAN_RENAME
+
+ man2/fanotify_init.2 | 55 ++++++++++++++++++++++++++++++++++++++++----
+ man2/fanotify_mark.2 | 41 +++++++++++++++++++++++++++++++++
+ man7/fanotify.7      | 31 ++++++++++++++-----------
+ 3 files changed, 109 insertions(+), 18 deletions(-)
+
+-- 
+2.25.1
+
