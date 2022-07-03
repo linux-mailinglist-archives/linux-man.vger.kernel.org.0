@@ -2,105 +2,187 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 2021B564916
-	for <lists+linux-man@lfdr.de>; Sun,  3 Jul 2022 20:27:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DE902564952
+	for <lists+linux-man@lfdr.de>; Sun,  3 Jul 2022 20:38:54 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232139AbiGCS1l (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 3 Jul 2022 14:27:41 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47298 "EHLO
+        id S230063AbiGCSix (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 3 Jul 2022 14:38:53 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56588 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229879AbiGCS1k (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 3 Jul 2022 14:27:40 -0400
-Received: from ams.source.kernel.org (ams.source.kernel.org [IPv6:2604:1380:4601:e00::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 448F72AD0
-        for <linux-man@vger.kernel.org>; Sun,  3 Jul 2022 11:27:38 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by ams.source.kernel.org (Postfix) with ESMTPS id B979BB80C2C
-        for <linux-man@vger.kernel.org>; Sun,  3 Jul 2022 18:27:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 5635BC341CE
-        for <linux-man@vger.kernel.org>; Sun,  3 Jul 2022 18:27:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1656872855;
-        bh=zQkIj17jSwALxscFaSoVJgpF8s5YsWjL8+bnHVXqHv4=;
-        h=From:To:Subject:Date:In-Reply-To:References:From;
-        b=Z2w/W6BX43qMcmg+iZVtOZv8M6WI+n/H97UiF2ihlUuR/MltiohSROjDZzBvzYpMX
-         v4xAW82QaR4VfogxzkKgG8vlunqOZ2vCVqbkxgD03dDKfdujOqFeFX4gzmDUymj9yZ
-         FeAvdZAiFqJzzJqbOlEYB6NB95d/2IPy6Zozl05MFIteXFioOKKt2btPLjZLjGC2LU
-         2H8a+WHtIT568XKSBScct03qdOS31ilVhetdAKPSHYPYv44jSq2dIrrytiXXGBqNKf
-         4iC+i9w1hITuiyVVskBOaq0JMsimixSqg4Z5vlszq4Q/vSaCXHrUKCMelHhN8PIRdR
-         h6vthSYNeG3MA==
-Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
-        id 34A50CC13B6; Sun,  3 Jul 2022 18:27:35 +0000 (UTC)
-From:   bugzilla-daemon@kernel.org
-To:     linux-man@vger.kernel.org
-Subject: [Bug 216168] updwtmp(3) doesn't mention need for _GNU_SOURCE for
- updwtmpx
-Date:   Sun, 03 Jul 2022 18:27:34 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: changed
-X-Bugzilla-Watch-Reason: AssignedTo
- documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Product: Documentation
-X-Bugzilla-Component: man-pages
-X-Bugzilla-Version: unspecified
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: normal
-X-Bugzilla-Who: alx.manpages@gmail.com
-X-Bugzilla-Status: RESOLVED
-X-Bugzilla-Resolution: DOCUMENTED
-X-Bugzilla-Priority: P1
-X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: bug_status cc resolution
-Message-ID: <bug-216168-11311-3MVIMmtqq9@https.bugzilla.kernel.org/>
-In-Reply-To: <bug-216168-11311@https.bugzilla.kernel.org/>
-References: <bug-216168-11311@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
+        with ESMTP id S229835AbiGCSiw (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 3 Jul 2022 14:38:52 -0400
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com [IPv6:2a00:1450:4864:20::32a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A7D682DE4
+        for <linux-man@vger.kernel.org>; Sun,  3 Jul 2022 11:38:51 -0700 (PDT)
+Received: by mail-wm1-x32a.google.com with SMTP id k129so4228763wme.0
+        for <linux-man@vger.kernel.org>; Sun, 03 Jul 2022 11:38:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=message-id:date:mime-version:user-agent:subject:content-language:to
+         :cc:references:from:in-reply-to;
+        bh=ebvx1/qhFfkwyZ3/XIOXI0Q10ZXue9+Fg0PwPnFVgIU=;
+        b=Jf1nAbEvKOLIQ6ubylKGddEioHysmkXYmKu4XqZd2bJ60aIDN794mKHtMsKcCxKD7u
+         5SEOyzI1U4ji8e6DnnNEYFk+vPnDMKgJs/4c6EUs4tdNGHjr6dTABcKNDnVcczW9ays4
+         rendTB8TplyDG4+7TlZcpy5q8kE8LSSs/6GesUwUfgXBbPe7vQx3HtVf70ncLozRbPv9
+         9+2fOpSCpDiYhMW42eFBoQNn+irSfsk5xbDOaHqdzGkQDFn/v2SWCgRHKXRUk/c3hvn4
+         fcgfn3Azdk6zUczMnKlNgEwti44sSM8GT2DWarGksjADqvIiWJpU13UtUtcMe57gcJ1s
+         2MeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+         :content-language:to:cc:references:from:in-reply-to;
+        bh=ebvx1/qhFfkwyZ3/XIOXI0Q10ZXue9+Fg0PwPnFVgIU=;
+        b=vqaLqlndFYKUJEk2VBhuXl46zjmZNB9iX6xSQ7KzwCLofsPE7jWhKiamyxn+0VDj+V
+         PScvuTQPBijelmwIbmn1NvcxRrhoGspKUgJ3NGE6ZBPYnPUVpCsBLii8ijL+95IWTPBL
+         EtjuOykWqmTchR54zv4BWA6WLKiONR7iaJdpniZnn3MlDHjj+N5H3/fBcgWXZtqBDzlt
+         3SaNJJZXUh0/SgbyJeFhLCMsOzFT5d6NvZ88gDtOKVHpq7HMfLaEDc8aDErQe4ExIZYK
+         Jk4+iRZTbhpvOlRXjec70+JVeSRb483lCKwRIZyUNMeN0rXnUC15bIMi2fOAVszPKoEA
+         HH4Q==
+X-Gm-Message-State: AJIora+ejHQoZgjQIXnAvqbxd8uqED2IwuynFI9+NcpFrhmjFRZB8IYf
+        ClKJGKKdjAVeN75jUey1OHs=
+X-Google-Smtp-Source: AGRyM1tcQ0E8cQDAqwg7TSKX8UBWKnua356R7YaOyiuL9AXaDGZ9UOeC+daX4+XY0L1vNQk8EQrcfQ==
+X-Received: by 2002:a05:600c:a4c:b0:39c:34d0:fd25 with SMTP id c12-20020a05600c0a4c00b0039c34d0fd25mr27927889wmq.172.1656873530258;
+        Sun, 03 Jul 2022 11:38:50 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id r185-20020a1c2bc2000000b003a0484c069bsm19831353wmr.41.2022.07.03.11.38.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 03 Jul 2022 11:38:49 -0700 (PDT)
+Message-ID: <61367ef4-d7ab-d27b-6b9b-79a643c76119@gmail.com>
+Date:   Sun, 3 Jul 2022 20:38:34 +0200
 MIME-Version: 1.0
-X-Spam-Status: No, score=-7.8 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
-        autolearn_force=no version=3.4.6
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH v2 1/2] fanotify.7, fanotify_init.2: Document
+ FAN_REPORT_TARGET_FID
+Content-Language: en-US
+To:     Amir Goldstein <amir73il@gmail.com>
+Cc:     Jan Kara <jack@suse.cz>, Matthew Bobrowski <repnop@google.com>,
+        linux-man <linux-man@vger.kernel.org>
+References: <20220622164153.2188751-1-amir73il@gmail.com>
+ <20220622164153.2188751-2-amir73il@gmail.com>
+ <CAOQ4uxjYnK4phEuyotFCwCcdjx4sAJsZtaNabCxAgfUBe9+V5g@mail.gmail.com>
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <CAOQ4uxjYnK4phEuyotFCwCcdjx4sAJsZtaNabCxAgfUBe9+V5g@mail.gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------p5GnzRNrRV7mJWXvyhg030gb"
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D216168
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------p5GnzRNrRV7mJWXvyhg030gb
+Content-Type: multipart/mixed; boundary="------------kb0d0SWaSDpASLPdH90h5d6n";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: Amir Goldstein <amir73il@gmail.com>
+Cc: Jan Kara <jack@suse.cz>, Matthew Bobrowski <repnop@google.com>,
+ linux-man <linux-man@vger.kernel.org>
+Message-ID: <61367ef4-d7ab-d27b-6b9b-79a643c76119@gmail.com>
+Subject: Re: [PATCH v2 1/2] fanotify.7, fanotify_init.2: Document
+ FAN_REPORT_TARGET_FID
+References: <20220622164153.2188751-1-amir73il@gmail.com>
+ <20220622164153.2188751-2-amir73il@gmail.com>
+ <CAOQ4uxjYnK4phEuyotFCwCcdjx4sAJsZtaNabCxAgfUBe9+V5g@mail.gmail.com>
+In-Reply-To: <CAOQ4uxjYnK4phEuyotFCwCcdjx4sAJsZtaNabCxAgfUBe9+V5g@mail.gmail.com>
 
-Alejandro Colomar (man-pages) (alx.manpages@gmail.com) changed:
+--------------kb0d0SWaSDpASLPdH90h5d6n
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-           What    |Removed                     |Added
-----------------------------------------------------------------------------
-             Status|NEW                         |RESOLVED
-                 CC|                            |alx.manpages@gmail.com
-         Resolution|---                         |DOCUMENTED
+SGkgQW1pciENCg0KT24gNi8yNi8yMiAxNzozMSwgQW1pciBHb2xkc3RlaW4gd3JvdGU6DQo+
+IA0KPiBBbGV4LA0KPiANCj4gSSBob3BlIHRoZSByZXZpZXdlcnMgd29uJ3QgbWluZCwgYnV0
+IGJlY2F1c2Ugd2UgYXJlIGFkZGluZyBtb3JlDQo+IHJlYXNvbnMgb2YgRU5PVERJUg0KPiBs
+YXRlciBvbiwgSSB0aGluayB0aGlzIHNlY3Rpb24gd291bGQgbG9vayBiZXR0ZXIgd2l0aCBl
+dmVyeSBFTk9URElSDQo+IHJlYXNvbiBpbiBhIHBhcmFncmFwaA0KPiBvZiBpdHMgb3duLCBs
+aWtlIHRoaXM6DQoNClRoYXQgbWFrZXMgc2Vuc2UuICBPdGhlciBwYWdlcyBhbHNvIGRvIHRo
+YXQgYWxyZWFkeSwgc28gaXQncyBmaW5lIGZvciBtZS4NCg0KSSBtdXN0IHNheSB0aGF0IGl0
+IHdhcyBhIGJpdCB3ZWlyZCB0byBtZSBhIGxvbmcgdGltZSBhZ28sIHdoZW4gSSBzdGFydGVk
+IA0KcmVhZGluZyBtYW51YWwgcGFnZXMsIGFuZCBJJ3ZlIGFsc28gcmVjZWl2ZWQgYSByZXBv
+cnQgcmVjZW50bHkgZnJvbSANCnNvbWVvbmUgd2hvIHRob3VnaHQgdGhlIHNhbWUsIGJ1dCBu
+b3cgaXQgcmVhZHMgbm9ybWFsIHRvIG1lLCBzbyBJJ2xsIA0KYXNzdW1lIGl0J3MganVzdCBw
+YXJ0IG9mIHRoZSBsZWFybmluZyBjdXJ2ZSBvZiBsZWFybmluZyB0byByZWFkIG1hbiANCnBh
+Z2VzLiAgUHJvYmFibHkgaGF2aW5nIGEgbG90IG9mIHRleHQgdG9nZXRoZXIgaW4gYSBzaW5n
+bGUgZW50cnkgd291bGQgDQpiZSBldmVuIHdvcnNlIGZyb20gdGhlIHJlYWRhYmlsaXR5IHBv
+aW50IG9mIHZpZXcsIHNvIGdvIGFoZWFkLg0KDQpGb3IgdGhlIHJldmlldywgYXMgbG9uZyBh
+cyB5b3UgZG9uJ3QgY2hhbmdlIGV4aXN0aW5nIGNvZGUsIHlvdSBjYW4gZG8gaXQgDQphbGwg
+aW4gb25lIGNvbW1pdC4gIElmIHlvdSdyZSByZWZhY3RvcmluZyB0ZXh0IGF0IHRoZSBzYW1l
+IHRpbWUgYXMgDQphZGRpbmcgbmV3IHRleHQsIEknZCBwcmVmZXIgaWYgeW91IGJyZWFrIHRo
+ZSBjb21taXQgaW50byAyLCB0aGUgZmlyc3QgDQpvbmUgYmVpbmcgdGhlIHJlZmFjdG9yLCB0
+byBtYWtlIGl0IGVhc3kgdG8gcmV2aWV3IChzYW1lIGFzIGtlcm5lbCBydWxlcywgDQpJIGd1
+ZXNzKS4NCg0KPiANCj4gLlRQDQo+IC5CIEVOT1RESVINCj4gLkkgZmxhZ3MNCj4gY29udGFp
+bnMNCj4gLkJSIEZBTl9NQVJLX09OTFlESVIgLA0KPiBhbmQNCj4gLkkgZGlyZmQNCj4gYW5k
+DQo+IC5JIHBhdGhuYW1lDQo+IGRvIG5vdCBzcGVjaWZ5IGEgZGlyZWN0b3J5Lg0KPiAuVFAN
+Cj4gLkIgRU5PVERJUg0KPiBUaGUgZmFub3RpZnkgZ3JvdXAgd2FzIGluaXRpYWxpemVkIHdp
+dGggZmxhZw0KPiAuQlIgRkFOX1JFUE9SVF9UQVJHRVRfRklEICwNCj4gLkkgbWFzaw0KPiBj
+b250YWlucyBkaXJlY3RvcnkgZW50cnkgbW9kaWZpY2F0aW9uIGV2ZW50cw0KPiAoZS5nLiwN
+Cj4gLkJSIEZBTl9DUkVBVEUgLA0KPiAuQlIgRkFOX0RFTEVURSApICwNCj4gYW5kDQo+IC5J
+IGRpcmZkDQo+IGFuZA0KPiAuSSBwYXRobmFtZQ0KPiBkbyBub3Qgc3BlY2lmeSBhIGRpcmVj
+dG9yeS4NCj4gLlRQDQo+IA0KPiBUaGUgZW5kIHJlc3VsdCBbMV0gYWZ0ZXIgdGhlIGZvbGxv
+d2luZyBGQU5fUkVOQU1FIHBhdGNoIGxvb2tzIGxpa2UgdGhpczoNCj4gDQo+ICAgICAgICAg
+RU5PVERJUg0KPiAgICAgICAgICAgICAgICBmbGFncyBjb250YWlucyBGQU5fTUFSS19PTkxZ
+RElSLCBhbmQgZGlyZmQgYW5kIHBhdGhuYW1lDQo+IGRvIG5vdCBzcGVjaWZ5IGEgZGlyZWN0
+b3J5Lg0KPiANCj4gICAgICAgICBFTk9URElSDQo+ICAgICAgICAgICAgICAgIG1hc2sgY29u
+dGFpbnMgRkFOX1JFTkFNRSwgYW5kIGRpcmZkIGFuZCBwYXRobmFtZSBkbyBub3QNCj4gc3Bl
+Y2lmeSBhIGRpcmVjdG9yeS4NCj4gDQo+ICAgICAgICAgRU5PVERJUg0KPiAgICAgICAgICAg
+ICAgICBUaGUgZmFub3RpZnkgZ3JvdXAgd2FzIGluaXRpYWxpemVkIHdpdGggZmxhZw0KPiBG
+QU5fUkVQT1JUX1RBUkdFVF9GSUQsIG1hc2sgY29udGFpbnMNCj4gICAgICAgICAgICAgICAg
+ZGlyZWN0b3J5IGVudHJ5IG1vZGlmaWNhdGlvbiBldmVudHMgKGUuZy4sIEZBTl9DUkVBVEUs
+DQo+IEZBTl9ERUxFVEUpLCBhbmQgZGlyZmQgYW5kDQo+ICAgICAgICAgICAgICAgIHBhdGhu
+YW1lIGRvIG5vdCAgc3BlY2lmeSAgYSBkaXJlY3RvcnkuDQo+IA0KPiBCVFcsIEkgY291bGQg
+bm90IGZpZ3VyZSBvdXQgd2hhdCBjYXVzZXMgdGhlIGxpbmUgYnJlYWsgYWZ0ZXIgRU5PVERJ
+Ui4NCj4gT3RoZXIgZXJyb3JzIGxvb2sgc2ltaWxhcmx5IGZvcm1hdHRlZCBhbmQgZG9uJ3Qg
+aGF2ZSB0aGlzIGxpbmUgYnJlYWsuDQoNClRoYXQncyBub3JtYWwuICBUaGVyZSBtdXN0IGJl
+IGF0IGxlYXN0IGEgc3BhY2UgYmV0d2VlbiB0aGUgdGFnIGFuZCB0aGUgDQpwYXJhZ3JhcGgg
+aW4gYSB0YWdnZWQgcGFyYWdyYXBoICguVFApLCBzbyBpZiB0aGVyZSdzIG5vdCByb29tIGZv
+ciB0aGUgDQpzcGFjZSwgaXQgYnJlYWtzLCBidXQgaXQncyBub3JtYWwuDQoNCmdyb2ZmX21h
+big3KToNCiAgICAgICAgLlRQIFtpbmRlbnRhdGlvbl0NCiAgICAgICAgICAgICAgIFNldCBh
+IHBhcmFncmFwaCB3aXRoIGEgbGVhZGluZyB0YWcsICBhbmQgIHRoZSAgcmXigJANCiAgICAg
+ICAgICAgICAgIG1haW5kZXIgb2YgdGhlIHBhcmFncmFwaCBpbmRlbnRlZC4gIFRoZSBpbnB1
+dCBsaW5lDQogICAgICAgICAgICAgICBmb2xsb3dpbmcgdGhpcyBtYWNybywga25vd24gYXMg
+dGhlIHRhZywgaXMgcHJpbnRlZA0KICAgICAgICAgICAgICAgYXQgIHRoZSAgY3VycmVudCAg
+bGVmdCBtYXJnaW4uICBTdWJzZXF1ZW50IHRleHQgaXMNCiAgICAgICAgICAgICAgIGluZGVu
+dGVkIGJ5IGluZGVudGF0aW9uLCBpZiBzcGVjaWZpZWQsICBhbmQgIGJ5ICBhDQogICAgICAg
+ICAgICAgICBkZWZhdWx0IGFtb3VudCBvdGhlcndpc2U7IHNlZSBzdWJzZWN0aW9uIOKAnEhv
+cml6b27igJANCiAgICAgICAgICAgICAgIHRhbCBhbmQgdmVydGljYWwgc3BhY2luZ+KAnSBi
+ZWxvdy4NCg0KICAgICAgICAgICAgICAgSWYgIHRoZSB0YWcgaXMgbm90IGFzIHdpZGUgYXMg
+dGhlIGluZGVudGF0aW9uLCB0aGUNCiAgICAgICAgICAgICAgIHBhcmFncmFwaCBzdGFydHMg
+b24gdGhlIHNhbWUgbGluZSBhcyB0aGUgIHRhZywgIGF0DQogICAgICAgICAgICAgICB0aGUg
+IGFwcGxpY2FibGUgIGluZGVudGF0aW9uLCBhbmQgY29udGludWVzIG9uIHRoZQ0KICAgICAg
+ICAgICAgICAgZm9sbG93aW5nIGxpbmVzLiAgT3RoZXJ3aXNlLCB0aGUgZGVzY3JpcHRpdmUg
+IHBhcnQNCiAgICAgICAgICAgICAgIG9mICB0aGUgcGFyYWdyYXBoIGJlZ2lucyBvbiB0aGUg
+bGluZSBmb2xsb3dpbmcgdGhlDQogICAgICAgICAgICAgICB0YWcuDQoNClRoYW5rcywNCg0K
+QWxleA0KDQotLSANCkFsZWphbmRybyBDb2xvbWFyDQo8aHR0cDovL3d3dy5hbGVqYW5kcm8t
+Y29sb21hci5lcy8+DQo=
 
---- Comment #3 from Alejandro Colomar (man-pages) (alx.manpages@gmail.com) =
----
-Hi Sam,
+--------------kb0d0SWaSDpASLPdH90h5d6n--
 
-Sorry for the delay; I read your posts, but didn't have much time to reply.=
-=20
-Yes, normally I'd ask for a more detailed commit message, but since it is v=
-ery
-obvious to me that it's correct from this bugzilla report (and also from the
-glibc code), and there's a link to this issue in the commit, I think it's O=
-K as
-is the patch.
+--------------p5GnzRNrRV7mJWXvyhg030gb
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-Thanks!
+-----BEGIN PGP SIGNATURE-----
 
-Alex
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmLB4ioACgkQnowa+77/
+2zJQGw/+IlXav36u/qKBiL2vquq5ip1Jc2ntzv3/yuF4Y9i7EoRRsHBXw/pALNhj
+/k5vhSYU39jDT1CnoQ0bhwW7ZmGuT8osmzfflAYktDCeJBf8nm9Y8htfZ4VCCmTC
+ybkxMcQKUXczxkBSYLtkqcYzCaZXB3exMyLIGmFe+E0/LPt2moShWFFedPOUSTto
+j/s5Wu/2lcY1pw4hkHFOcs0DBYSdOoyYYZWjGEg8RrDYGEkhkYl3nP6StfC18/gq
+XC/5ILUuuyJYK6d68GLl4st0KEfr9Vx7YUBF0Dq7NZa77ecSUvN6zmus7ImEX8lo
+fq+8OKhndp8umdKnHMhnFpffSkb3+Dw21zZVlMC8FhvFLwR/rwlF00jZrwL0nWnt
+jghaw/TA8mEwhIAbI1zy0tusMSNtnzX2EVOtkeCXvRsw1oTjXZVTeGTpYbA31G6G
+2oiwy7U5IbOoS4VDjGCtTzv9idenPRps/jfjTCvjDSgncL70O5LOukK1PfvV+vQ2
+1V4sTPBIDsQ2SxmQg00UrU7ZQqka7M594oKLycbViBmL4r2q5NJYBof5qK86Xrhf
+u/ztvnDSEVpP7++hc5rW6lTF0e+T8QewKdtdN9w5jUhCIdMRyd+1DAWP+a9tWhIL
+BlTePECJ7WBGMlJVde4+/0Gl00IZRcS1gcflkfhnpwspJMPhYtM=
+=t74t
+-----END PGP SIGNATURE-----
 
---=20
-You may reply to this email to add a comment.
-
-You are receiving this mail because:
-You are watching the assignee of the bug.=
+--------------p5GnzRNrRV7mJWXvyhg030gb--
