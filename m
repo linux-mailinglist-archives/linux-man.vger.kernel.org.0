@@ -2,71 +2,65 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 700715648E2
-	for <lists+linux-man@lfdr.de>; Sun,  3 Jul 2022 20:08:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E753B56490C
+	for <lists+linux-man@lfdr.de>; Sun,  3 Jul 2022 20:21:29 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230174AbiGCSIl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 3 Jul 2022 14:08:41 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40824 "EHLO
+        id S230174AbiGCSV1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 3 Jul 2022 14:21:27 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45510 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229549AbiGCSIk (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 3 Jul 2022 14:08:40 -0400
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com [IPv6:2a00:1450:4864:20::429])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0915060F6
-        for <linux-man@vger.kernel.org>; Sun,  3 Jul 2022 11:08:38 -0700 (PDT)
-Received: by mail-wr1-x429.google.com with SMTP id s1so10351887wra.9
-        for <linux-man@vger.kernel.org>; Sun, 03 Jul 2022 11:08:37 -0700 (PDT)
+        with ESMTP id S229879AbiGCSV0 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 3 Jul 2022 14:21:26 -0400
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com [IPv6:2a00:1450:4864:20::42c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 37C59134
+        for <linux-man@vger.kernel.org>; Sun,  3 Jul 2022 11:21:25 -0700 (PDT)
+Received: by mail-wr1-x42c.google.com with SMTP id q9so10391543wrd.8
+        for <linux-man@vger.kernel.org>; Sun, 03 Jul 2022 11:21:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=ct1aNdH9ogR/nWX3CkYpIsgT2Rrs0c3MSWUH3bOpLl0=;
-        b=k0A/ThXT7wyUOGcl0RZ1TnobLBTneMi02w7oy667OiOF3QBcY23UxRuR7Wfsn7Wpsy
-         FbFrHIfRpYGxSroqD+UiqOPNgc026L3LQWD39M+XITl6X2A/BHLmjBvcU8JVN/JG8u16
-         wRoqInVNuSBzImWSjBc4NQgyhk9xnG33Nm7kFHUiYXEttJGvW5nb0e6CfDCWecka5DXD
-         lTWOTesljLDyQpmoXCI/CO5pHrqAJQ0zqN8HDKNy4j6eVDNFbfPHNLEPctiWk0KBFpck
-         F6UnaInzbIbnL5dIFu7fBffctNqZAliTgog/Z1UwjYRhOx0CmjvTWsnnc48IsIn/wEV3
-         jaqQ==
+         :references:from:in-reply-to;
+        bh=P1i9Z2tKrA5DqtkAc9JtIBV3GD9szursNjJggX/6GTs=;
+        b=bYNHuU+lZawdPKBS0VPq/gbUWiMC+A73Wst+TDXA9h/l/yvHFKNksxeNaMqV8B8vPX
+         oYhrYumDqPSoS53zuSn1z5MROK0rprCfvVm7Cqpv7/QFkgYzgJn7dhKD4Yj1eOHhE0cq
+         m3pWtDhcy1hMoADH2mivO2umuKc8ZG9l65guBS2vNmSQgt/xBKcLU88W597ryKA/dAYU
+         IMmI5mcjmkz1GUu83MR2NU1eP49ohmnTbc9v9gtAzKnDPU90Q4UXcDfbo5QZTEjA+9Fo
+         DfCfG1A6HY7Rw+oN+njNodJhTJCNuJymqietEhhGxUSwgje3steuI0XSIkIJmGw7OOdI
+         fD8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=ct1aNdH9ogR/nWX3CkYpIsgT2Rrs0c3MSWUH3bOpLl0=;
-        b=6W7hUW66NlDIqt8IAoU9wablDsig9m0VHzG4YZ3+H5xM1EbtmoALHtkraomQgjImTI
-         mZho4cD8GixNR0ll9RVUeHhttw49N0zYDCL4nKYdpflDG3C3KJ2PI/oJ4BKr051nUED0
-         CgcnYP/94YbMQPfBd7uMH0EIRXcP7ZFWzskOk6sklRpp8Lv4ThR0cZ8KT6E8qneyBHL9
-         G3JpypUcAYYfcpM5Qdty3OEP0EPFpOXNtiiAKilATvuTxhfkXGSAtCnfA8zac4brCLZe
-         v6uePm/wATU2Q7iHUd1gzyjRcD1WYSXQdJsrZfyU4yQXZIuemjslg9mJj0iFVtd2114k
-         iAkQ==
-X-Gm-Message-State: AJIora8VvPNbGf+TKTQrsZKME9Ka0dSFVPlfetS0XE++GMyTqUNaQlty
-        AUnzSHJ3u9al3/OoR1RGgVQ=
-X-Google-Smtp-Source: AGRyM1vdV6OpHyaczYpF9peyJQsb2SP987DcAAap+zAAVIBD9iE32nz0odeSDhAcJwbh7Cmbgua85Q==
-X-Received: by 2002:adf:9d92:0:b0:21d:66c4:e311 with SMTP id p18-20020adf9d92000000b0021d66c4e311mr3722389wre.575.1656871716536;
-        Sun, 03 Jul 2022 11:08:36 -0700 (PDT)
+         :content-language:to:references:from:in-reply-to;
+        bh=P1i9Z2tKrA5DqtkAc9JtIBV3GD9szursNjJggX/6GTs=;
+        b=JdyE2mcTSA3414TSOUaPuKm614MvgUhP/dmKAtvVo+MCBZYlXmTXfLgB19JAzuQlY5
+         mOcecFkHOqOCr5+TW5lBMwCVbwtoG9flVK03PT2KgZjcHKXE4CtHB4UU820OyNTFCfgA
+         o+xHrTz/2LiZXa1shQXup8hTluBUmrbQcgvChUEswSBu0oBPLNcB8p8FRv2tWUCepRLc
+         +L7ookTFVHQPmSHoEJ0RqAQ+yNgkEV0egOhwRtHV45FSZjBup+ZUhF8Xwxq7gOX7tBCZ
+         PBBtzKf/kiKpiK2LLajMaMGqr8RKEDDEawLBAZUXQOpyQaGhxNFMiYTw0Qd2rZYELSgC
+         H2jQ==
+X-Gm-Message-State: AJIora9EXkKZDxgYSGuEeU0h6ZR11uJEjKLNTuGBwuokHQgurUvCnZkY
+        EpoG6vFLcnAeIMfsJ0aK8+cOLcnIP0o=
+X-Google-Smtp-Source: AGRyM1sk0mw6Gl/7Ur6NdiYUjnF4ssZoyVjbWVUm1eNVPyLanCJtQLozHyTuA1e7Ol/DACCHnVhirA==
+X-Received: by 2002:a5d:428d:0:b0:21b:a1c1:2b04 with SMTP id k13-20020a5d428d000000b0021ba1c12b04mr23617922wrq.106.1656872483759;
+        Sun, 03 Jul 2022 11:21:23 -0700 (PDT)
 Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id v6-20020a5d6106000000b00213ba0cab3asm28506835wrt.44.2022.07.03.11.08.35
+        by smtp.gmail.com with ESMTPSA id c8-20020adfa308000000b0021d4d6355efsm7247861wrb.109.2022.07.03.11.21.22
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 03 Jul 2022 11:08:35 -0700 (PDT)
-Message-ID: <f180eaf2-fa3b-27d2-3787-cb1c826430f1@gmail.com>
-Date:   Sun, 3 Jul 2022 20:08:34 +0200
+        Sun, 03 Jul 2022 11:21:22 -0700 (PDT)
+Message-ID: <280baf7e-66dd-1782-55ce-3deed8eb5e0f@gmail.com>
+Date:   Sun, 3 Jul 2022 20:21:21 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.11.0
-Subject: Re: [PATCH v2] environ.7: align PWD with the standard
+Subject: Re: [PATCH] updwtmp.3: Add #define GNU_SOURCE for updwtmpx
 Content-Language: en-US
-To:     Stefan Puiu <stefan.puiu@gmail.com>,
-        =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc:     lnx-man <linux-man@vger.kernel.org>
-References: <f4b9cfdd-7b5b-2b31-2c84-064fc2c3206b@gmail.com>
- <20220619233934.25egwny37dzt7q3i@tarta.nabijaczleweli.xyz>
- <CACKs7VDJx1QEkgmb2vJzhAbNwbH9xjd_-rhD+eBSbtBk9-PzAA@mail.gmail.com>
- <20220620152317.nq4ehd5gtjmjxx2m@tarta.nabijaczleweli.xyz>
- <CACKs7VBN8N4mUUFFxkL9jj1C+Uc1qvmwTp5xR+--OFb4LXo21w@mail.gmail.com>
+To:     Sam James <sam@gentoo.org>, linux-man@vger.kernel.org
+References: <20220624025911.728497-1-sam@gentoo.org>
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <CACKs7VBN8N4mUUFFxkL9jj1C+Uc1qvmwTp5xR+--OFb4LXo21w@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20220624025911.728497-1-sam@gentoo.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------FN8W0Q68YGCoUnI6FxIqHONY"
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
@@ -77,122 +71,70 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Stefan, and наб,
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------FN8W0Q68YGCoUnI6FxIqHONY
+Content-Type: multipart/mixed; boundary="------------pe2r01cECXVd2MyuLC0i8ROS";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: Sam James <sam@gentoo.org>, linux-man@vger.kernel.org
+Message-ID: <280baf7e-66dd-1782-55ce-3deed8eb5e0f@gmail.com>
+Subject: Re: [PATCH] updwtmp.3: Add #define GNU_SOURCE for updwtmpx
+References: <20220624025911.728497-1-sam@gentoo.org>
+In-Reply-To: <20220624025911.728497-1-sam@gentoo.org>
 
-On 6/21/22 23:35, Stefan Puiu wrote:
-> On Mon, Jun 20, 2022 at 6:23 PM наб <nabijaczleweli@nabijaczleweli.xyz> wrote:
->>
->> Hi!
->>
->> On Mon, Jun 20, 2022 at 11:55:18AM +0300, Stefan Puiu wrote:
->>> On Mon, Jun 20, 2022 at 2:40 AM наб <nabijaczleweli@nabijaczleweli.xyz> wrote:
->>>>
->>>> Signed-off-by: Ahelenia Ziemiańska <nabijaczleweli@nabijaczleweli.xyz>
->>>> ---
->>>>   man7/environ.7 | 8 ++++++--
->>>>   1 file changed, 6 insertions(+), 2 deletions(-)
->>>>
->>>> diff --git a/man7/environ.7 b/man7/environ.7
->>>> index 019c5a25a..24446c709 100644
->>>> --- a/man7/environ.7
->>>> +++ b/man7/environ.7
->>>> @@ -158,8 +158,12 @@ used by
->>>>   to find manual pages, and so on.
->>>>   .TP
->>>>   .B PWD
->>>> -The current working directory.
->>>> -Set by some shells.
->>>> +Absolute path to the current working directory;
->>>> +required to be partially canonical (no
->>>> +.I .\&
->>>> +or
->>>> +.I ..\&
->>>> +components).
->>>
->>> If any shell decides to ignore that part of the spec, is there
->>> anything preventing them?
->> It no longer being a valid shell (if on startup) or providing an invalid
->> cd built-in (when cding), from the stand-point of conformance to both
->> the standard and historical shells.
-> 
-> My expectation from the Linux manual pages is that they document
-> behavior I'm likely to encounter in the real world on Linux, with
-> various libcs etc. Specs can be misread, misunderstood, ignored, or
-> can be wrong sometimes (see the discussion about fork being required
-> to be async signal safe, for example, the RH page here:
-> https://access.redhat.com/articles/2921161). So if I write software
-> that, say, does getent("PWD"), it's useful to know if there are cases
-> where that might not work. Even if POSIX requires PWD to be set,
-> that's not reassuring when my program crashes. That's why I asked if
-> you checked some shells to see what they do.
-> 
-> Also, I see there's already environ.3p for the POSIX version.
-> 
->>
->>> I would make it clear in the text that this
->>> is a spec requirement, not a practical guarantee (e.g. "required by
->>> <spec> to be ...").
->> Those are one and the same, that's the point of SUS/POSIX
->> (and conformance to historical implementations).
->> Are you aware of one or are you just concern-trolling?
-> 
-> I don't know of a shell that doesn't set PWD, but since you said the
-> previous comment ("Some shells set it") was wrong, I assumed you had
-> checked that. I did try bash and busybox sh and they seem to set it,
-> but there are (quite) a few other shells out there.
+--------------pe2r01cECXVd2MyuLC0i8ROS
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
+SGkgU2FtIQ0KDQpPbiA2LzI0LzIyIDA0OjU5LCBTYW0gSmFtZXMgd3JvdGU6DQo+IENsb3Nl
+czogaHR0cHM6Ly9idWd6aWxsYS5rZXJuZWwub3JnL3Nob3dfYnVnLmNnaT9pZD0yMTYxNjgN
+Cj4gU2lnbmVkLW9mZi1ieTogU2FtIEphbWVzIDxzYW1AZ2VudG9vLm9yZz4NCg0KVGhhbmtz
+IGZvciB0aGUgcGF0Y2ghICBJIGFwcGxpZWQgaXQuDQoNCkFuZCB5ZXMsIGdsaWJjIHVzZXMg
+aW50ZXJuYWxseSBfX1VTRV9HTlUgZm9yIHdoZW4gYSB1c2VyIGlzIGV4cGVjdGVkIHRvIA0K
+ZGVmaW5lIF9HTlVfU09VUkNFLg0KDQpDaGVlcnMsDQoNCkFsZXgNCg0KU2VlIGFsc286DQoN
+Cg0KYWx4QGFzdXM1Nzc1Oi91c3IvaW5jbHVkZSQgZ3JlcGMgX19VU0VfR05VDQouL2ZlYXR1
+cmVzLmg6MzkyOg0KIyBkZWZpbmUgX19VU0VfR05VCTENCg0KDQouL3JlZ2V4Lmg6MzM6DQoj
+IGRlZmluZSBfX1VTRV9HTlUgMQ0KDQoNCi4veDg2XzY0LWxpbnV4LWdudS9ydWJ5LTMuMC4w
+L3JiX21qaXRfbWluX2hlYWRlci0zLjAuNC5oOjE5NTU0Og0KI2RlZmluZSBfX1VTRV9HTlUg
+MQ0KYWx4QGFzdXM1Nzc1Oi91c3IvaW5jbHVkZSQgZ3JlcCAtcm5DMSBkZWZpbmUuX19VU0Vf
+R05VIGZlYXR1cmVzLmggcmVnZXguaA0KZmVhdHVyZXMuaC0zOTEtI2lmZGVmCV9HTlVfU09V
+UkNFDQpmZWF0dXJlcy5oOjM5MjojIGRlZmluZSBfX1VTRV9HTlUJMQ0KZmVhdHVyZXMuaC0z
+OTMtI2VuZGlmDQotLQ0KcmVnZXguaC0zMi0jaWZkZWYgX0dOVV9TT1VSQ0UNCnJlZ2V4Lmg6
+MzM6IyBkZWZpbmUgX19VU0VfR05VIDENCnJlZ2V4LmgtMzQtI2VuZGlmDQoNCg0KPiAtLS0N
+Cj4gICBtYW4zL3VwZHd0bXAuMyB8IDEgKw0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2Vy
+dGlvbigrKQ0KPiANCj4gZGlmZiAtLWdpdCBhL21hbjMvdXBkd3RtcC4zIGIvbWFuMy91cGR3
+dG1wLjMNCj4gaW5kZXggYmQ4NGI5MWNkLi4xNzViZWM3NzIgMTAwNjQ0DQo+IC0tLSBhL21h
+bjMvdXBkd3RtcC4zDQo+ICsrKyBiL21hbjMvdXBkd3RtcC4zDQo+IEBAIC02Niw2ICs2Niw3
+IEBAIGdsaWJjIHByb3ZpZGVzIChzaW5jZSB2ZXJzaW9uIDIuMSk6DQo+ICAgLlBQDQo+ICAg
+LmluICs0bg0KPiAgIC5FWA0KPiArLkJSICIjZGVmaW5lIF9HTlVfU09VUkNFICAgICAgICAg
+ICIgIi8qIFNlZSBmZWF0dXJlX3Rlc3RfbWFjcm9zKDcpICovIg0KPiAgIC5CICNpbmNsdWRl
+IDx1dG1weC5oPg0KPiAgIC5CSSAidm9pZCB1cGR3dG1weCAoY29uc3QgY2hhciAqIiB3dG1w
+eF9maWxlICIsIGNvbnN0IHN0cnVjdCB1dG1weCAqIiB1dHggKTsNCj4gICAuRUUNCg0KLS0g
+DQpBbGVqYW5kcm8gQ29sb21hcg0KPGh0dHA6Ly93d3cuYWxlamFuZHJvLWNvbG9tYXIuZXMv
+Pg0K
 
-Since no-one seems to know of a shell that deviates from this behavior, 
-and no-one replied in a couple of weeks, I'm going to assume that all 
-well-known shells follow POSIX, and that the wording was falling on the 
-safe side of things in the old times where following standards was not a 
-common thing to do (or maybe the page was written before there were any 
-standards).
+--------------pe2r01cECXVd2MyuLC0i8ROS--
 
-So I applied the patch.
+--------------FN8W0Q68YGCoUnI6FxIqHONY
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-> 
-> I don't know why you think that my question is some kind of trolling.
-> You can look up my contributions in the mailing list archive. It's
-> been a while since my last patch to the project; nowadays I follow
-> some of the mailing list discussions in my spare time and occasionally
-> chime in on people's patches. I get things wrong sometimes, of course,
-> but your reply is the first one that is defensive (and somewhat rude,
-> I would say). Probably a good indication that I need to find other
-> uses of my (spare) time.
+-----BEGIN PGP SIGNATURE-----
 
-Thanks for following the list, I appreciate your reviews!
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmLB3iEACgkQnowa+77/
+2zKwqxAApBoeEGNIGtKvWV/pt+OfoN8wqJZvYWc+un0l11it103MmLL+B8rnjsYl
+I8oyU8F8hbQ3Rs/c3j0xENKwDtLjDHU1PLAYOKdxFHBtUcf3cPbTCQLCezVi6mmM
+wtiLQKOjDXB5ZO/Ik9o68agjtHAGeJZ9H0L46pnhbOQj8dIpHYzPVIcHuR51Iqg1
+iJ5UAn8EkHMETPAAa3wLA082jEG1kAHhU3ASl5bslydxnh62CZMT3vDJxyAv76z5
+1oK56tGYEmLDfNue2G9mtJAEgyXRP/a5cOSgG1uA7VlHo72UeBtlL4xRt+hbTs+n
+N/Bz0gy78pfy/RCMbn+pny07AOHaKY0XzbhF813GNr4ukeXx6GOUhHfWmbhuDwpQ
+szNi8HjYfTcfAFju0U6j54IXxbGNkJVb0XIuuJvsYhfSAjMp7s6a1l1iAYUayBY0
+ToVsYo/PTJVB2TC1dIi0jk+uhxjApRyUO4ppCVUHUPYWngj5Wcji9ZvAYEF6DXED
+H2PJ6VZvQcnsvdVJU/PUQBHTUpzwvjSlwjxTeYDLvzNN9gg4YdLxJgn05D9hhoz0
+kNnzkEUxpY0h8NyweQa33Huh88lgwdq5n716X7LaxUS8jjjoXWgKGayg/gJcP9It
+q5OX/X2W/q9bydPDNg5nxoInW14yNSIRYcEdZd0fMN7wHEmgokk=
+=nZhl
+-----END PGP SIGNATURE-----
 
-> 
->> Obviously, pretty much no part of this manual applies to csh
->> because csh is its own 2BSD brand of insanity (in this case
->> largely because it predates V7 (3BSD), and, hence, the environment).
->> csh users understand they use a non-shell,
-> 
-> Well, this is the environ.7 man page, mostly useful to programmers
-> AFAICT, who don't have much control over what people use as their
-> shell. If they can set csh as their login shell, why should I assume
-> they won't? People have many reasons to choose the shell they run -
-> distro default, they like some features, speed, company policy, legacy
-> systems... Not sure POSIX compliance is high on that list.
-
-I checked csh(1) provides PWD, at least on my system (and in fact, it's 
-the only variable it sets):
-
-$ env -i csh
-% env
-PWD=/home/alx
-% csh -l
-% env
-PWD=/home/alx
-%
-
-I'm going to assume that the text is not true, unless someone reports 
-otherwise.
-
-Thanks you both!
-
-Alex
--- 
-Alejandro Colomar
-<http://www.alejandro-colomar.es/>
+--------------FN8W0Q68YGCoUnI6FxIqHONY--
