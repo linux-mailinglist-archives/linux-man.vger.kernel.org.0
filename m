@@ -2,46 +2,46 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 243DD564A49
-	for <lists+linux-man@lfdr.de>; Mon,  4 Jul 2022 00:23:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 39D2D564A4A
+	for <lists+linux-man@lfdr.de>; Mon,  4 Jul 2022 00:24:02 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229866AbiGCWXz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 3 Jul 2022 18:23:55 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57286 "EHLO
+        id S229871AbiGCWYB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 3 Jul 2022 18:24:01 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57334 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229495AbiGCWXy (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 3 Jul 2022 18:23:54 -0400
+        with ESMTP id S229495AbiGCWYB (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 3 Jul 2022 18:24:01 -0400
 Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 279A72BF4
-        for <linux-man@vger.kernel.org>; Sun,  3 Jul 2022 15:23:54 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 665962DDC
+        for <linux-man@vger.kernel.org>; Sun,  3 Jul 2022 15:24:00 -0700 (PDT)
 Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 6CB85B7C;
-        Mon,  4 Jul 2022 00:23:53 +0200 (CEST)
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id A213FA5E;
+        Mon,  4 Jul 2022 00:23:59 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-        s=202205; t=1656887033;
-        bh=JYNcFD+2Ek1ZLKpOmjC4etJIy4u14BrSMrZnSvHW9sk=;
+        s=202205; t=1656887039;
+        bh=vHZ01lLt56xWgsZK30GcDJuwIyztBy4l3gx9LlFrW/Y=;
         h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=ZByG77G8JWXjlWyk2oXK7HewGn4ObbSZrJGKm61bIsmEDYXW8nctsx3N7pNG0+SKI
-         4ABu3imI6rSxGUh/d5pHS7pvMLuY7e6CnSm+E8FwHEEMFZwiA0IKSqvu9bfN1c5ng2
-         9A9FeciTbwzAiqoQemZ7lgplJ65qX2/On5OL1qefgihXolyW0k9RR+KxOlmj4FfrVf
-         GUbVvgtoDpBdVVUb/GlgACOGS2KihrLNM4+h+gjJ+RGWR2GXbeQgkHm2Teha/oA7z6
-         IJPF/mCfpO41L6YProGLu9bPlDOGm6U/+cXaIGgAdxIsenJKU66mZ9qZ4tUf+WofMD
-         Zt2G8jaLe1AXzdUmfFajBCywShSXIKhtmdTFc6SPgch3fT/DDLBu+Xm1eYja1RYDkz
-         W3hxZpzRM+i26QUKm4dcQAfz36d98MQpkzc9Fk3wAJiNNibIio/XF36Jv6LnfY9XFT
-         VryFpqe73ISviBOX5dvl6JACm+pt9SGljHvh10HL2XXnr3khHJVwLxNbPKT7KY2+No
-         WzRQxpdCmtFxehgaOFB+QEEIc6yEu5xoH9FGZnVmmWzuzjct6qx94DXTi9Cwx/MQNL
-         zVci62BSXpz/c1k98M3nKZgKDhLDTjxQOLgBnYRtyAu9r8LwI/XGmzmd0oyn2hghgJ
-         x68ftH8V7+52QjL2YcR7X8ZA=
-Date:   Mon, 4 Jul 2022 00:23:52 +0200
+        b=m2KC5gj4aMSHovH0l7kD8HBu/CZT8kJxvsY4iRXLfCZM8PDOrGGZDiWCI5atHxi+l
+         vbLyXjRAqsJgtElASqhAIeBacGo17cKs33lD3tJXLn9AIirAK4XmGRbCqiywGoKFiT
+         R1YDBI4vGReJqQlOCs1Ofl3vVwsIQqq5E7//kXRIJK0ztEm0YPnJkG0ndT0Uca0FD5
+         4/Na6GHzCVcdGpwiWiMUUEL7IlO8AgIfQT6GHd+6CZ2pkAZil+Op1/4x513NccaB20
+         HmK+G3CgnHQWWAdN66xHXEPv5MwAAybT0WDZCZz2TMHgRCgUeJP8eCZw3eKRThXPa1
+         aP1tG9Sv7A7T+vlj3XoZVPgTSjm2/lFDAaN/qbGp1FCgG7Bn5aRDDmWKcwNZ2gOmPR
+         DKwx/e/6tHEH2qhimCBKQRQqZLzkzSIx3tMmausEuJFxtJ2OyY+gHRhSUc2hcQLFkB
+         sM0bN16K/AFz/sKOHgF1iCqDx2+WmypAAKCM1vIVttAYHwBeV6xj5IN2V+hOAmHIBI
+         yDgga3ks4H32o5G8Iri8iqMjfeTwLq2dmX/P/gNR2fY8XIQn8Tg1flPUQCI5PdS+T1
+         CSx8Tktal45l+3wIKrzhZQycmGvwN6I/epQ6IhAbefycJlVzu1bmYK9ZKlHYZDO/0E
+         1SwypjwZFtUv1tEABHYpoj5Y=
+Date:   Mon, 4 Jul 2022 00:23:58 +0200
 From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
 To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org
-Subject: [PATCH 3/4] fts.3: wfix
-Message-ID: <8206bab7d0d4fa33be11396521c665a19a381f84.1656887003.git.nabijaczleweli@nabijaczleweli.xyz>
+Subject: [PATCH 4/4] fts.3: tfix
+Message-ID: <f05a70b218089c288c3cefd1b2fbb4650a119eed.1656887003.git.nabijaczleweli@nabijaczleweli.xyz>
 References: <552ae4935239ba9240303b1802bd3c8913b564c5.1656887003.git.nabijaczleweli@nabijaczleweli.xyz>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="54vm52xbelfhu3yb"
+        protocol="application/pgp-signature"; boundary="tufv2ljm3xtw7hqb"
 Content-Disposition: inline
 In-Reply-To: <552ae4935239ba9240303b1802bd3c8913b564c5.1656887003.git.nabijaczleweli@nabijaczleweli.xyz>
 User-Agent: NeoMutt/20220429
@@ -56,55 +56,61 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---54vm52xbelfhu3yb
+--tufv2ljm3xtw7hqb
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-This list consistently uses "this option", force that for FTS_NOCHDIR
-too
+statp -> fts_statp
 
 Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
 ---
- man3/fts.3 | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ man3/fts.3 | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/man3/fts.3 b/man3/fts.3
-index 44465b815..627bb5afc 100644
+index 627bb5afc..601a74cd5 100644
 --- a/man3/fts.3
 +++ b/man3/fts.3
-@@ -419,8 +419,7 @@ As a performance optimization, the
- fts functions change directories as they walk the file hierarchy.
- This has the side-effect that an application cannot rely on being
- in any particular directory during the traversal.
--The
--.B FTS_NOCHDIR
-+This
- option turns off this optimization, and the
- fts functions will not change the current directory.
- Note that applications should not themselves change their current directory
+@@ -433,7 +433,7 @@ pathnames were provided as arguments to
+ By default, returned
+ .I FTSENT
+ structures reference file characteristic information (the
+-.I statp
++.I fts_statp
+ field) for each file visited.
+ This option relaxes that requirement as a performance optimization,
+ allowing the
+@@ -442,7 +442,7 @@ fts functions to set the
+ field to
+ .B FTS_NSOK
+ and leave the contents of the
+-.I statp
++.I fts_statp
+ field undefined.
+ .TP
+ .B FTS_SEEDOT
 --=20
 2.30.2
 
-
---54vm52xbelfhu3yb
+--tufv2ljm3xtw7hqb
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmLCFvcACgkQvP0LAY0m
-WPHuGA//dSWjc53784/eArDL1JYNQMSIpes+vyYljXkZbvp/vTktthXs/kt+Q/Ca
-xdXFGaK4pHDuMdRmBWNQlaXZ1WZzmvsIcqssZoGip8bEH87WG0ZGcpKwRCbgl5Ru
-7LAMFo5UHgSd7UPZYZlcxy+N2NIyjhsbBRTjhATRIHlJeZQXBdMMy+18Ey1Bpaa2
-uRDtp5W0/epTKSEOp8I/FgKfopBxixDWKyuSQsttF3YzeFdZRfAVfVjWHAJWRJdd
-GL5JUq2FLRqGrVV5xaomILQ0N9UbZX4VfZwurCHwiDXyNdwmFtzTIuVJwGKBORZb
-V0E97r/YABX+Pvbp63mLRQiq5FBprbzKrhxlzkkYfojVbRNIQpbL35tXzWHELiKq
-s8ptNKs/Nxbp2OGWLTYBSSdigGCo7LGNts94Bxd2cJgCWlQ5PLkJYNuxclYBIrmU
-Rw1ma/WwrjuEAgXV2X2iDOlEoEeB5pnCJmQxLmA4N123BZRoT4AW0z9UFuJqFrZw
-9Zw6IJYlAekocsgIwA46JuEE3Bovjsrxtv6n/q+4VBy9b7xmykNQJHo3xLDYTnGQ
-bG6IsrgClEUqV9xjhO2YPJmSPUzFOSqWAPLo0dpPIHDjrsj3Ooi1XwjA3N0dQHOt
-zSir+uS8/cI7/KiWhlXz6cuLrI3rEnsnXC578vnMrEtEcr+CXz4=
-=idsH
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmLCFv4ACgkQvP0LAY0m
+WPHzqw/+NlZtwuIYYE1FOacN7pi4C7XO2pMzFqWUC6SPDnjTOAJvqCcpwoRSHXgn
+YTnKatdVJJw2e3y29KzG/ds+Vi2rgUmUuhE4x6HzxB7KRaAZ34wO3AJ5vlLGuh/O
+qtF8bMO2izNONzU0mgdT134H950hS6ZdPr3oENgWz+i0AWlSNB+/REh1DCs9/XtL
+nVDKdk0pCRS5denB4dbtYxhgzlrQf2twPbGsgojR5lJEmtmp7r5g1qodAAhJnneg
+juWfMtCiMCU3jCniZUB0oVWNGd2TDEnFQfvObyLw8MNA1kgzroXq3GajjY7EimMM
+HCy7qxoKYEdot+lqGVaTceItSJZyqFEjUU4XOr7rC3bvP9ybc6NMyQDRzJLzLmK0
+9yGBdDOpdd6etTC6aCmVhggnDRnckggngDj0X5zecvqQP14KYxxUFHxRpwvaWG4r
+EIdag13pnLnOvAZUj6+G8w5yKIbMJ5p2Deq0v1togJ1ua8Fu9RgenhS/nZ1XfbLK
+vJ1Pjvvbc4GSXhoQ3ou3aJMXUgZcj1ei6QKDKdHlLxFxEftVbyqphWWNGLFyCe6K
+AxiDKzli8EqozJ3tyU4IAhW48P54I08vkmZzAUwbIMaT4t0vKutoY0/fv93uRTYm
+s4+OMjuCtBHBuFYfowkm8phCaoGQJoAL2XRJniBnowBSMZxM+f0=
+=OfO8
 -----END PGP SIGNATURE-----
 
---54vm52xbelfhu3yb--
+--tufv2ljm3xtw7hqb--
