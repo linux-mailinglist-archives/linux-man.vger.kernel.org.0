@@ -2,46 +2,46 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id CAB23567418
-	for <lists+linux-man@lfdr.de>; Tue,  5 Jul 2022 18:22:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E1BFC567419
+	for <lists+linux-man@lfdr.de>; Tue,  5 Jul 2022 18:22:07 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229798AbiGEQWA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 5 Jul 2022 12:22:00 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48748 "EHLO
+        id S231402AbiGEQWG (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 5 Jul 2022 12:22:06 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48812 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230432AbiGEQV7 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 5 Jul 2022 12:21:59 -0400
+        with ESMTP id S230432AbiGEQWG (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 5 Jul 2022 12:22:06 -0400
 Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id E6ACE1C919
-        for <linux-man@vger.kernel.org>; Tue,  5 Jul 2022 09:21:58 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id B3B101ADB9
+        for <linux-man@vger.kernel.org>; Tue,  5 Jul 2022 09:22:05 -0700 (PDT)
 Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 33E28E9C;
-        Tue,  5 Jul 2022 18:21:58 +0200 (CEST)
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 04BF3E9E;
+        Tue,  5 Jul 2022 18:22:05 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-        s=202205; t=1657038118;
-        bh=kcub+QJOpn+gTNt8l6qL77htaSxtUtctTB16vXfcAEA=;
+        s=202205; t=1657038125;
+        bh=Rsut/BLg5DbOV6Q80ewvs1YsVKlhBgM8FK/kS9fIdkg=;
         h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=K3G7VNLKZ0OtHwC5oPcPeZfade1GBnbInzqjrOVSBW46CvdqXTdJP5m/uas8bqQZc
-         vXOwSKNCSz7KaagkuDAp0smgbrRTRSIWJqgC0jU1LTPyCFuZ1m6r92ee2JRQ6ebqJA
-         k6GEiMjjznxgsEoLdQ12hL1Z01opFTFUtPOS36P4Rexbm09hIml37nGJda7+lJPb6N
-         w2Pa1v13E1PFAYAbws9PI4Vm0cyfxjVrPQowz8fx4E2B4bKbxqHKZFzd/+GK5KM2Lr
-         Hvs+Z7BDkr3KBcUDYvszqFhfEd/5WNiqcyF7GK+iLhMvogfXdm5YdvUggpMLWBqJrd
-         DNQgA0lPQqrVfYfMRfozKs0rUOIgTeT1uQzF/6b6CeMNHPG3LFZzBciZH1OVMd6hwP
-         bNj3k2OTcvy8F3Jp2EbIVIm415OuJPmcUFhk8U8RNqKOwShtFwUXiXkuYmNkfmMYuK
-         Sj63fFpG4GG398bZKvGwOvKguxbFB6yu4x9a4b7BPTKj7MphgcAEVpMi4JqYgXKV8/
-         asA7uyX28YcWx0SycqqguBtEOIFhyQlWNYWHxVMCIiKJHj16yJb4OfF/ue61414JiP
-         iUG6EznjSLx+KJF9wRQH5HC8ugfj+1mRS4LmTDUif5jMgnVJjy4HQnbrN9LtetdfsQ
-         S8gDXucJPXDV6yuazhvdY6ZA=
-Date:   Tue, 5 Jul 2022 18:21:57 +0200
+        b=gEqoL8bEy2cemfuoIDfh93NJhzZnv3O/CvsinaBWBYQzDcu67UPYjCfZylD7tabGK
+         05RgLTy/Pc6uuHKNu74kvJrcy+AkZmeBlm6CR+Yckva8JTI7eIOhlpHGFeQiV+NLAa
+         kHLz+z3LI6aZFNPo4c8eU34H/9pBgWEqP0K//C6/XTZvDKpSl9c8L45FNSahzrCgyh
+         tQeRYhY/OI8JnalarJuyRhRMRfNbKz9BHVy2nHlxNZKeLYbaRZfBA3ST46fBXhxir9
+         HoZlV9Y1BEtNKIKtPEH6szM0NbZ2oZKsA6ylDB2E/kQ/4Iy8pkKcufBnhjX5mgWlhJ
+         n2Jw6UMs1VMEFnAzUTCQFngJY/BXRGvSvi2p8nnVEwPz1efbhKspaiWpw0xY5IRWZl
+         KAYLDcZDlWGfkCTilMJaaz7ois3GuBKzskwQlWfV+/Jwy9lg5ut2C6UnnBMVlT9eCL
+         idkUPU3F/HP240AcT8C6wen0VAJ+H93us0frYmccCdvH4IK1et/ypZP0OF8e4hWV1B
+         sCadfwfZ5w4j9WukgbOfBg5WUyEMvMNQ7a6RzULLqDsLNfMTNtvPhBCUDcXU+UJoSY
+         BETjpvnZ63FAMZSQXohbSkwKaCy9fABFM6g1SiUaVKrvrULszUAG1FO/SPCdrTvOdv
+         DofGLPP6fv9B0Yzo6xlyuCpE=
+Date:   Tue, 5 Jul 2022 18:22:03 +0200
 From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
 To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org
-Subject: [PATCH v2 3/5] fts.3: clarify FTS_COMFOLLOW behaviour
-Message-ID: <a5a3f183e31eeb64d86d08e60a8bf6572ae7ccad.1657038020.git.nabijaczleweli@nabijaczleweli.xyz>
+Subject: [PATCH v2 4/5] fts.3: list primary modes first
+Message-ID: <bf985cca61ea76e5cbba712ce1085a7ed9898d3d.1657038020.git.nabijaczleweli@nabijaczleweli.xyz>
 References: <552ae4935239ba9240303b1802bd3c8913b564c5.1656887003.git.nabijaczleweli@nabijaczleweli.xyz>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="mmbc7rc2zxsymvx4"
+        protocol="application/pgp-signature"; boundary="f6jzqescwrlkgmpo"
 Content-Disposition: inline
 In-Reply-To: <552ae4935239ba9240303b1802bd3c8913b564c5.1656887003.git.nabijaczleweli@nabijaczleweli.xyz>
 User-Agent: NeoMutt/20220429
@@ -56,58 +56,109 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---mmbc7rc2zxsymvx4
+--f6jzqescwrlkgmpo
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-FTS_COMFOLLOW is equivalent to FTS_LOGICAL for fts_level =3D=3D 0:
-define it as such
+FTS_LOGICAL sorts before FTS_PHYSICAL,
+FTS_COMFOLLOW modifies FTS_PHYSICAL,
+the remaining flags follow in sorted order
 
 Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
 ---
- man3/fts.3 | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ man3/fts.3 | 42 +++++++++++++++++++++---------------------
+ 1 file changed, 21 insertions(+), 21 deletions(-)
 
 diff --git a/man3/fts.3 b/man3/fts.3
-index d3cb0145a..7afaa0da5 100644
+index 7afaa0da5..b49d85adc 100644
 --- a/man3/fts.3
 +++ b/man3/fts.3
-@@ -378,9 +378,9 @@ the following values:
+@@ -376,12 +376,6 @@ The options are selected by ORing
+ the following values:
+ .\" .Bl -tag -width "FTS_PHYSICAL"
  .TP
- .B FTS_COMFOLLOW
- This option causes any symbolic link specified as a root path to be
--followed immediately whether or not
--.B FTS_LOGICAL
--is also specified.
+-.B FTS_COMFOLLOW
+-This option causes any symbolic link specified as a root path to be
+-followed immediately, as if via
+-.BR FTS_LOGICAL ,
+-regardless of the primary mode.
+-.TP
+ .B FTS_LOGICAL
+ This option causes the
+ fts routines to return
+@@ -399,6 +393,27 @@ field is obtained via
+ with a fallback to
+ .BR lstat (2).
+ .TP
++.B FTS_PHYSICAL
++This option causes the
++fts routines to return
++.I FTSENT
++structures for symbolic links themselves instead
++of the target files they point to.
++If this option is set,
++.I FTSENT
++structures for all symbolic links in the
++hierarchy are returned to the application:
++the
++.I fts_statp
++field is obtained via
++.BR lstat (2).
++.TP
++.B FTS_COMFOLLOW
++This option causes any symbolic link specified as a root path to be
 +followed immediately, as if via
 +.BR FTS_LOGICAL ,
 +regardless of the primary mode.
++.TP
+ .B FTS_NOCHDIR
+ As a performance optimization, the
+ fts functions change directories as they walk the file hierarchy.
+@@ -430,21 +445,6 @@ and leave the contents of the
+ .I statp
+ field undefined.
  .TP
- .B FTS_LOGICAL
- This option causes the
+-.B FTS_PHYSICAL
+-This option causes the
+-fts routines to return
+-.I FTSENT
+-structures for symbolic links themselves instead
+-of the target files they point to.
+-If this option is set,
+-.I FTSENT
+-structures for all symbolic links in the
+-hierarchy are returned to the application:
+-the
+-.I fts_statp
+-field is obtained via
+-.BR lstat (2).
+-.TP
+ .B FTS_SEEDOT
+ By default, unless they are specified as path arguments to
+ .BR fts_open (),
 --=20
 2.30.2
 
 
---mmbc7rc2zxsymvx4
+--f6jzqescwrlkgmpo
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmLEZSQACgkQvP0LAY0m
-WPFxHA/8DZYGMq7bP9YJQCjCn1VPp/pMdpNG4Pu/sNCig7KAqu2q5hoU+OjZscKM
-uh+nojT94NanDZOEA9N4PQrR3MBhl2rx8mSXHtM9gDwG0q/sjwvQ3i1FamlDB21M
-QyfjYWSth0ZNw5+iuF8cpXx4y1GqYRDJzWDGEfrQ+gPzp+wKP8UM6/pZcuEswycH
-ILcQucz4d2jz1x+laPh7jTnKwL8vEoOrk8e/yTMwyfKDPT41ulj5/hedfhAZJxQx
-GQq342Ttl5f303OnFEzb1piGXpKYQZ8pbAtSq5ZTC/vdH1XmEgVhoxxGALrVW9rj
-3Fs6kwp9Ax0udTVZXFy7oufsBFVI3c5jLcRf9d0C4azz46qnKmzaJDuoSWKRchIX
-24AAG8rxcXnGGzK41QZrMKkaSavb8PI5RMiSR+K/14wcGx8goTkYpJgdcsOB3Z3u
-4UoeZ9IQvpryIezpYX9gZdlABJo0VgcGFADSKStbySAn4NEhzqyKb8jq3Mkj83xI
-1E1W2LW4LpiPGoNahG8lt5A4maZKcVmVNqLZqeVQ96Tjdq3J23rAu3MFCPnQJ7R5
-GyLnlfitcsE1eIHLPVkH9wrCKHQdemLdALDsZbWbOGAOc90nfyxxfZ8IuLMIoRkV
-1OeIQ0ixdxh5eSxcFjzhNpNstmbtqXtV2BGNLutGdtxko40J5ME=
-=0UZu
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmLEZSsACgkQvP0LAY0m
+WPHzIg/9G4NrnEkvWfzo6pW9kqzXhOhCxv7JLZlwKUQjBI8X8j26T6Q64xy+Lb4M
+qrAJt44McsCH7bu64G8UPmdT4c72NrohZoYbzXQ0MAdpKDJHKH05a7dI6aOgoQcL
+SiuLKVep+Q9DNd2mntynfxwWujzHwkMovCfHQF1WL15Ddfdw7L9LMkaSiochX9/o
+M4DYkBwGOOsIKDWju/dutpejQ+8QVJZVKX0gq2YPME22/MbzqQevdNzaCpNMxp8G
+QSqTcJ6SlCkuvcqlLs/r4qh4UVpyyYwmvosoyfGY3QOspCl1bOZ9KU4z93jfD+bV
+9RbtRskJ0uAvBAIdLCxsOYmxefOhi2Mdok1MhzjAeEY6OSI0M/BGO8MS7CWGmiNa
+1rV6L1l9TXvYRB0KremGANMigt48RPtK1XHmWuqlV8P0mTfgzR55vLZer2EDcn+x
+9Q+nrgQrPaQBGP8Jd1uw4CZRsZ9glRoGRuyt4I52EK6QGCKeRiDPRwbivOKvwYtA
+Dm9nMUzVQ6F7g7JoRwgt/beeV4KSeleEGED8cO8MzeXGaflXUWpgQlnjf3JCUuvP
+SVK1dkJpIbK5uJ3RPplZGc0V5IEOI5OMvr0BNMVB5V+DxA9j2/lnTNwcaXmnwbvo
+BrPBeUiwna8m2urjfcezEAV2y2I7bl286dFgF/a0hukqXBx6dZ4=
+=NLEe
 -----END PGP SIGNATURE-----
 
---mmbc7rc2zxsymvx4--
+--f6jzqescwrlkgmpo--
