@@ -2,138 +2,138 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 18F3B565F4D
-	for <lists+linux-man@lfdr.de>; Tue,  5 Jul 2022 00:02:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6244D56719A
+	for <lists+linux-man@lfdr.de>; Tue,  5 Jul 2022 16:54:14 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229719AbiGDWC1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 4 Jul 2022 18:02:27 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55088 "EHLO
+        id S231631AbiGEOyN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 5 Jul 2022 10:54:13 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48094 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229641AbiGDWC0 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 4 Jul 2022 18:02:26 -0400
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com [IPv6:2a00:1450:4864:20::32c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DE32D659D
-        for <linux-man@vger.kernel.org>; Mon,  4 Jul 2022 15:02:25 -0700 (PDT)
-Received: by mail-wm1-x32c.google.com with SMTP id k129so6066373wme.0
-        for <linux-man@vger.kernel.org>; Mon, 04 Jul 2022 15:02:25 -0700 (PDT)
+        with ESMTP id S231721AbiGEOyL (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 5 Jul 2022 10:54:11 -0400
+Received: from mail-vs1-xe2e.google.com (mail-vs1-xe2e.google.com [IPv6:2607:f8b0:4864:20::e2e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4018560F7
+        for <linux-man@vger.kernel.org>; Tue,  5 Jul 2022 07:54:11 -0700 (PDT)
+Received: by mail-vs1-xe2e.google.com with SMTP id 189so12171371vsh.2
+        for <linux-man@vger.kernel.org>; Tue, 05 Jul 2022 07:54:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to;
-        bh=+SkfSoIcircfgDLyyT/vphLyXsfu77ruQe/a3MET2jw=;
-        b=cNvrIj96AAEg5WP5l/I0PGnba5N+6j33C+HQsUdJfqPDPVd4Zli+eIKhzOW0opuD4c
-         f/XdZuBIQ9xXY0KmX7/p9S0n2xWIocR3G8ltuKPLLs43FOO8kiPJdI/Vp+KVtErWwYd1
-         LUiZ17sr0vXYPJtU+7lR4q52rOc6Rd/tE+8Sm5AlGiWqPdRz05aQBDLjPpXSoPXGStCu
-         dQoG6p5OxxzF6va5wYz75IIAfedraFKvAQFWjy2EBfa32sBVpOuKQNhbyjW4Ig640qhq
-         h3+ZMvws5V/D+u27NBU1qA+ESWxVQzbImrm5ZS4RsLfRpHNBNo7FMZU3Wk4Jh2sUFCPv
-         FayA==
+        h=mime-version:sender:from:date:message-id:subject:to;
+        bh=k7izWfIBBaFev3famyk9p7ENglhF6jIeWP6CHQZlG80=;
+        b=PO0IEpby5PNLAZUwRXC2LqRYu4WlQNIb5IKyDFHpbIXg6478rNnRE5oGbevMluDJiq
+         cG4y2DqTgK+Q6Ws2eJBEVqz36AT3Ei0ovXYzNbaRpLiP9BnQ2IOr8H1R8+W327tZ/Dem
+         kNESUHLxf8Er2+gKecYmOo3VSonAgAomkFCel4+E2qglEuRYZ6iHXQXz9R/eo0yNpJdx
+         HUoiNjtm0+mmcY+dw1wduPeUb1ZiQv6hPQCt693A3eARTQy2fEXKWtYlvxX7Zgrzt+ZO
+         L3Cus75yE/hy9ncIFYHratbq72GFuD3K5A3KHBfzPslYacendKZy9NBpUn1D0CmeTL6w
+         RB1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to;
-        bh=+SkfSoIcircfgDLyyT/vphLyXsfu77ruQe/a3MET2jw=;
-        b=cgYtEHWOo/md7+Dc93MnAGAultDKweLiSJ8n23rN0vokYSDH5SrJoLFKL5S6CHkxx2
-         qoX1og65DcTPHLdopxH77BNwp2ftg5UTD6UOH2W0PD5Lgk/Q7p0wKvs0s+sSxPmabUNZ
-         SZGDcqzZmQO5iAlMaGZjbvbIhCrQLHcVfKFTNsvWdvUOWMISOic/7w9elrK5vIR3fL1k
-         Q7IlOwSsnJWKGx3gsFBSgMpEgGKppxYcNPGD5gNCjvie2ck3VjZ8bBz4/wxlr6U3njmr
-         41Gsn3jaOzFEtzzVWUof+xcgiuxtUP4cS3T9sbq6SH/x7WfDn2hSA1s6Wk1ja/7hBeB0
-         AjUA==
-X-Gm-Message-State: AJIora+v2aRfXGag0i8pRZ5tRK16vCIDEAbuSLXuPD0WUGjZcNdN6V9E
-        c86l9gspMXNY7V7lrt6oUdY=
-X-Google-Smtp-Source: AGRyM1uvDypmuVcxYyb/iy1VFx5I5v3bahSJ2H/cqH2iZAbp7/1sWOGES9j7P3MO6xzWJ35kXg5uqQ==
-X-Received: by 2002:a05:600c:510f:b0:3a0:5836:3ddb with SMTP id o15-20020a05600c510f00b003a058363ddbmr35104815wms.123.1656972144499;
-        Mon, 04 Jul 2022 15:02:24 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id n35-20020a05600c3ba300b003a039054567sm20007283wms.18.2022.07.04.15.02.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 04 Jul 2022 15:02:23 -0700 (PDT)
-Message-ID: <ba2e454e-3dec-e877-9b51-d02a9f5ae747@gmail.com>
-Date:   Tue, 5 Jul 2022 00:02:22 +0200
+        h=x-gm-message-state:mime-version:sender:from:date:message-id:subject
+         :to;
+        bh=k7izWfIBBaFev3famyk9p7ENglhF6jIeWP6CHQZlG80=;
+        b=ehLMw4EmcvD8OgGdwXNX0jDzdiNHvbQ1bbyLNzZR/ij9Mjc6jpKh43iYTzS+4X00Bb
+         e46eVfS1414D3hXu99nWYCbp/lhpO1d1EqtbKJW5H38teP/9eMqk3rYXhLqS6K+r69dR
+         +QUMfuvX+90980ohstXKAMtFJ95fRSLwZgvAx9+wLcos6Fw53qvWK8e93gvsGr02Mxaz
+         skKwmejpd92KmmFWp/YHhiWVGx0JU2c3vHj4RYRywj//viBdg8ezJVy+NjMRS8wv/sHx
+         jBgpoW8s/GWWkc/B8FMjKH9N/7DqOH+qdX/8KKQtN48RzzfDAzjs3ToGSwLtgbSflpKa
+         dc5g==
+X-Gm-Message-State: AJIora9PSNPdtfPsylkBHT4qtxk+PXOiU5bn2cvjWP4eI/eQdzWyQqku
+        76gb/E+pjeXz+HKRrW9QTf5fKRnQlVrHh+dVV3w=
+X-Google-Smtp-Source: AGRyM1vDOfjXMEJt9DoQsAQHeVEJ9saJpDz2593zmLa/QLJSvOKdnw2B5UGlgsuItNgbKLQ9uYjZNm1dyWi1gjm8iX4=
+X-Received: by 2002:a67:eac9:0:b0:354:438c:bf05 with SMTP id
+ s9-20020a67eac9000000b00354438cbf05mr20500846vso.0.1657032849644; Tue, 05 Jul
+ 2022 07:54:09 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH 4/4] fts.3: tfix
-Content-Language: en-US
-To:     =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc:     linux-man@vger.kernel.org
-References: <552ae4935239ba9240303b1802bd3c8913b564c5.1656887003.git.nabijaczleweli@nabijaczleweli.xyz>
- <f05a70b218089c288c3cefd1b2fbb4650a119eed.1656887003.git.nabijaczleweli@nabijaczleweli.xyz>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <f05a70b218089c288c3cefd1b2fbb4650a119eed.1656887003.git.nabijaczleweli@nabijaczleweli.xyz>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------gGYjZMUQb9q0ueFbGclOuFf0"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-        autolearn=ham autolearn_force=no version=3.4.6
+Sender: andersonmore123456@gmail.com
+Received: by 2002:a05:612c:2414:b0:2d0:f8c0:5eda with HTTP; Tue, 5 Jul 2022
+ 07:54:09 -0700 (PDT)
+From:   Armed Zango <mrarmedzango@gmail.com>
+Date:   Tue, 5 Jul 2022 02:54:09 -1200
+X-Google-Sender-Auth: 6bfJYdZ2jt-6TRPY0smfJwZDEnM
+Message-ID: <CAGRFRQN64xDPZ00+sv9N8wx0usFWoE4s3grtBv-wVT_R1PobmQ@mail.gmail.com>
+Subject: URGENT RESPONSE AND TRUST
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
+X-Spam-Status: Yes, score=7.4 required=5.0 tests=ADVANCE_FEE_5_NEW_FRM_MNY,
+        BAYES_99,DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+        FILL_THIS_FORM,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,LOTS_OF_MONEY,
+        MILLION_USD,MONEY_FORM,MONEY_FRAUD_8,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,
+        SPF_PASS,SUBJ_ALL_CAPS,T_FILL_THIS_FORM_FRAUD_PHISH,
+        T_FILL_THIS_FORM_LOAN,T_SCC_BODY_TEXT_LINE,UNDISC_MONEY,URG_BIZ
+        autolearn=no autolearn_force=no version=3.4.6
+X-Spam-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
+        *      https://www.dnswl.org/, no trust
+        *      [2607:f8b0:4864:20:0:0:0:e2e listed in]
+        [list.dnswl.org]
+        *  3.5 BAYES_99 BODY: Bayes spam probability is 99 to 100%
+        *      [score: 0.9984]
+        *  0.5 SUBJ_ALL_CAPS Subject is all capitals
+        *  0.2 FREEMAIL_ENVFROM_END_DIGIT Envelope-from freemail username ends
+        *       in digit
+        *      [andersonmore123456[at]gmail.com]
+        *  0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
+        *      provider
+        *      [mrarmedzango[at]gmail.com]
+        *  0.0 SPF_HELO_NONE SPF: HELO does not publish an SPF Record
+        * -0.0 SPF_PASS SPF: sender matches SPF record
+        *  0.0 MILLION_USD BODY: Talks about millions of dollars
+        *  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+        *       valid
+        * -0.1 DKIM_VALID_EF Message has a valid DKIM or DK signature from
+        *      envelope-from domain
+        * -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+        *      author's domain
+        * -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+        *  0.6 URG_BIZ Contains urgent matter
+        * -0.0 T_SCC_BODY_TEXT_LINE No description available.
+        *  0.0 LOTS_OF_MONEY Huge... sums of money
+        *  0.0 FILL_THIS_FORM Fill in a form with personal information
+        *  0.0 T_FILL_THIS_FORM_LOAN Answer loan question(s)
+        *  0.0 MONEY_FORM Lots of money if you fill out a form
+        *  0.0 MONEY_FRAUD_8 Lots of money and very many fraud phrases
+        *  0.0 T_FILL_THIS_FORM_FRAUD_PHISH Answer suspicious question(s)
+        *  0.0 ADVANCE_FEE_5_NEW_FRM_MNY Advance Fee fraud form and lots of
+        *      money
+        *  2.8 UNDISC_MONEY Undisclosed recipients + money/fraud signs
+X-Spam-Level: *******
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------gGYjZMUQb9q0ueFbGclOuFf0
-Content-Type: multipart/mixed; boundary="------------9x0mIXUdBU5imIsYf4ptJb7D";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc: linux-man@vger.kernel.org
-Message-ID: <ba2e454e-3dec-e877-9b51-d02a9f5ae747@gmail.com>
-Subject: Re: [PATCH 4/4] fts.3: tfix
-References: <552ae4935239ba9240303b1802bd3c8913b564c5.1656887003.git.nabijaczleweli@nabijaczleweli.xyz>
- <f05a70b218089c288c3cefd1b2fbb4650a119eed.1656887003.git.nabijaczleweli@nabijaczleweli.xyz>
-In-Reply-To: <f05a70b218089c288c3cefd1b2fbb4650a119eed.1656887003.git.nabijaczleweli@nabijaczleweli.xyz>
-
---------------9x0mIXUdBU5imIsYf4ptJb7D
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
-
-SGksDQoNCk9uIDcvNC8yMiAwMDoyMywg0L3QsNCxIHdyb3RlOg0KPiBzdGF0cCAtPiBmdHNf
-c3RhdHANCj4gDQo+IFNpZ25lZC1vZmYtYnk6IEFoZWxlbmlhIFppZW1pYcWEc2thIDxuYWJp
-amFjemxld2VsaUBuYWJpamFjemxld2VsaS54eXo+DQoNCkkgdHJpZWQgdG8gYXBwbHkgdGhp
-cyBwYXRjaCwgYnV0IGl0IGRvZXNuJ3Qgd2FudCB0by4gIEkgZ3Vlc3MgaXQgZGVwZW5kcyAN
-Cm9uIHByZXZpb3VzIHBhdGNoZXMgaW4gdGhpcyBzZXQsIHNvIEknbGwgd2FpdCBmb3IgdjIu
-DQoNCkNoZWVycywNCg0KQWxleA0KDQo+IC0tLQ0KPiAgIG1hbjMvZnRzLjMgfCA0ICsrLS0N
-Cj4gICAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQ0K
-PiANCj4gZGlmZiAtLWdpdCBhL21hbjMvZnRzLjMgYi9tYW4zL2Z0cy4zDQo+IGluZGV4IDYy
-N2JiNWFmYy4uNjAxYTc0Y2Q1IDEwMDY0NA0KPiAtLS0gYS9tYW4zL2Z0cy4zDQo+ICsrKyBi
-L21hbjMvZnRzLjMNCj4gQEAgLTQzMyw3ICs0MzMsNyBAQCBwYXRobmFtZXMgd2VyZSBwcm92
-aWRlZCBhcyBhcmd1bWVudHMgdG8NCj4gICBCeSBkZWZhdWx0LCByZXR1cm5lZA0KPiAgIC5J
-IEZUU0VOVA0KPiAgIHN0cnVjdHVyZXMgcmVmZXJlbmNlIGZpbGUgY2hhcmFjdGVyaXN0aWMg
-aW5mb3JtYXRpb24gKHRoZQ0KPiAtLkkgc3RhdHANCj4gKy5JIGZ0c19zdGF0cA0KPiAgIGZp
-ZWxkKSBmb3IgZWFjaCBmaWxlIHZpc2l0ZWQuDQo+ICAgVGhpcyBvcHRpb24gcmVsYXhlcyB0
-aGF0IHJlcXVpcmVtZW50IGFzIGEgcGVyZm9ybWFuY2Ugb3B0aW1pemF0aW9uLA0KPiAgIGFs
-bG93aW5nIHRoZQ0KPiBAQCAtNDQyLDcgKzQ0Miw3IEBAIGZ0cyBmdW5jdGlvbnMgdG8gc2V0
-IHRoZQ0KPiAgIGZpZWxkIHRvDQo+ICAgLkIgRlRTX05TT0sNCj4gICBhbmQgbGVhdmUgdGhl
-IGNvbnRlbnRzIG9mIHRoZQ0KPiAtLkkgc3RhdHANCj4gKy5JIGZ0c19zdGF0cA0KPiAgIGZp
-ZWxkIHVuZGVmaW5lZC4NCj4gICAuVFANCj4gICAuQiBGVFNfU0VFRE9UDQoNCi0tIA0KQWxl
-amFuZHJvIENvbG9tYXINCjxodHRwOi8vd3d3LmFsZWphbmRyby1jb2xvbWFyLmVzLz4NCg==
+-- 
+I am Mr.Armed Zango,from west Africa i have a business deal to share
+with You in the sum of US$10,200.000.00 million united state dollars,
+that is been held in our Bank here in (B.O.A) bank of Africa the fund
+mentioned rightful belong to one of Our late client who deposited the
+money in our bank here ever since he died nobody have been able to
+apply to claim the fund so I wish that you will come and assume as his
+foreign business partner also note this business is risk free not to
+be sacred or doubt is real please my dearest one also Noted.Once we
+succeed in Transferring this fund to your wish provided account in
+your country it will shared among us in agreement of 60%40 i believe
+that after this deal joy and happiness will be on our face and
+family's please reply to me with your details so we can move on with
+this great plan ok.
 
 
---------------9x0mIXUdBU5imIsYf4ptJb7D--
+Your Full Name.......
 
---------------gGYjZMUQb9q0ueFbGclOuFf0
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+Your Age&Sex........
 
------BEGIN PGP SIGNATURE-----
+Your Marital Status......
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmLDY24ACgkQnowa+77/
-2zKqEg//T854rNwqAEMMBmnWgmgJQydMzKRt2y99IB6wzEWxYuczlyYIbQ2E8+Y9
-Yhhb/6CD8Wki47HcjVexERxzYLRN+p674ZeBOgCvueMQVxzpwtpuptjL3+u439Fg
-GWXpntJ99gsvjGxZdxN0CBksd92KGvR2HbvqS29S9FgTSlHpZ9K+W5Na0jg0MboP
-zjxKXPNyKrgSsalCCOYNccoIarls6sl+nxJQAqvG6sMD4jgzVQPVCpTmlBuyIKe+
-G7hRceBeFntwS1c1+C8OjfVAIJLKMHtjhVQ49u0upWbbAMiXjuJum7Ld3bXWBzlj
-62WTmK3KMbYBrxxndiodMeazivopC0FOyJFws76bUsQBmx5gF4ywLsoNX2Jg0caK
-zTZc0N1AfuAnkgcSKt4ObZgIJh96SiHBvhsUjjYE2bS8sDfxpA/h9lr8zIrg+HW6
-Gn/S0jZYRr/8nIYOqvPdxLAVRHbD4mPRPr2RiZuj+bfQlcQ96qW7p34CBTR/SckV
-Enb9I+swUDxnupngk31YW/N6zJQp4eqvJhdHCL/FZyflKa6YzzKcByCiSFAR04CI
-8+slnQSYO2eK94HWnr6h9iZhQT6ehc6v8eXZhRVftz9aE+P/xnqqR6YY2t1VkYMu
-XhJJO2LHk9ervlHATJFXv4pxQ2ENRvG+/7AkaxVgcJgJuoAuPQo=
-=n/TV
------END PGP SIGNATURE-----
+Your Country Name.......
 
---------------gGYjZMUQb9q0ueFbGclOuFf0--
+Your Phone Number......
+
+Your Occupation.....
+
+Your Bank Name......
+
+Your Account Number......
+
+Thanks Yours Friend
+Mr. Armed Zango
+REPLY TO-- (mrarmedzango@gmail.com)
