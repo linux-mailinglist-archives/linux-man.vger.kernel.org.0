@@ -2,34 +2,35 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 1D10E570958
-	for <lists+linux-man@lfdr.de>; Mon, 11 Jul 2022 19:43:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6E9C257378A
+	for <lists+linux-man@lfdr.de>; Wed, 13 Jul 2022 15:36:12 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229670AbiGKRna (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 11 Jul 2022 13:43:30 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44664 "EHLO
+        id S234967AbiGMNgL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 13 Jul 2022 09:36:11 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36392 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229602AbiGKRn3 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 11 Jul 2022 13:43:29 -0400
-Received: from mail.yonan.net (mail.yonan.net [54.244.116.145])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B236A6D567
-        for <linux-man@vger.kernel.org>; Mon, 11 Jul 2022 10:43:28 -0700 (PDT)
-Received: from unless.localdomain (unknown [76.130.91.106])
-        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-         key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-        (No client certificate requested)
-        by mail.yonan.net (Postfix) with ESMTPSA id D8AE23E950;
-        Mon, 11 Jul 2022 17:43:27 +0000 (UTC)
-From:   James Yonan <james@openvpn.net>
+        with ESMTP id S234320AbiGMNgK (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 13 Jul 2022 09:36:10 -0400
+X-Greylist: delayed 1829 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Wed, 13 Jul 2022 06:36:07 PDT
+Received: from mx01.ayax.eu (mx01.ayax.eu [188.137.98.110])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BA8FCDBE
+        for <linux-man@vger.kernel.org>; Wed, 13 Jul 2022 06:36:07 -0700 (PDT)
+Received: from [192.168.192.146] (port=60480 helo=nx64de-df6d00)
+        by mx01.ayax.eu with esmtpsa (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+        (Exim 4.92)
+        (envelope-from <gszymaszek@short.pl>)
+        id 1oBc3Y-0005Pm-47; Wed, 13 Jul 2022 15:05:32 +0200
+Date:   Wed, 13 Jul 2022 15:05:30 +0200
+From:   Grzegorz Szymaszek <gszymaszek@short.pl>
 To:     linux-man@vger.kernel.org
-Cc:     James Yonan <james@openvpn.net>
-Subject: [PATCH RFC] rename.2: document new renameat2() flag RENAME_NEWER_MTIME
-Date:   Mon, 11 Jul 2022 11:38:54 -0600
-Message-Id: <20220711173854.2260514-1-james@openvpn.net>
-X-Mailer: git-send-email 2.25.1
+Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
+        Grzegorz Szymaszek <gszymaszek@short.pl>
+Subject: [PATCH] keyrings.7: tfix hexadecimal number prefix
+Message-ID: <Ys7DGh/CJ14Kbpie@nx64de-df6d00>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,SPF_HELO_NONE,
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Spam-Status: No, score=-0.0 required=5.0 tests=BAYES_20,SPF_HELO_PASS,
         SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham autolearn_force=no
         version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -38,177 +39,31 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-RENAME_NEWER_MTIME is a proposed extension to renameat2() with a patch
-submitted to linux-fsdevel@vger.kernel.org that is currently under review.
+In the DESCRIPTION, where the Permissions column of /proc/keys is
+explained, the 0x02 value was written as Ox02. In case one cannot spot
+the difference: the first character was letter o (U+004F), while it
+should be digit zero (U+0030).
 
-Signed-off-by: James Yonan <james@openvpn.net>
+It seems the source tree does not contain any other "Ox" instances
+except at the beginning of "Oxford".
+
+Signed-off-by: Grzegorz Szymaszek <gszymaszek@short.pl>
 ---
- man2/rename.2 | 138 ++++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 138 insertions(+)
+ man7/keyrings.7 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/man2/rename.2 b/man2/rename.2
-index e403c0393..13169310d 100644
---- a/man2/rename.2
-+++ b/man2/rename.2
-@@ -273,6 +273,106 @@ btrfs (since Linux 4.7),
- .\" btrfs: commit cdd1fedf8261cd7a73c0596298902ff4f0f04492
- and ubifs (since Linux 4.9).
- .\" ubifs: commit 9e0a1fff8db56eaaebb74b4a3ef65f86811c4798
-+.TP
-+.BR RENAME_NEWER_MTIME " (since Linux 5.xx)"
-+.B RENAME_NEWER_MTIME
-+modifies the behavior of plain rename or
-+.B RENAME_EXCHANGE
-+by making the rename or exchange operation conditional on the file
-+modification time
-+.B mtime.
-+If
-+.I newpath
-+exists, only perform the operation if
-+.I oldpath
-+.B mtime
-+>
-+.I newpath
-+.B mtime;
-+otherwise return an error.  If
-+.I newpath
-+doesn't exist, do a plain rename.
-+.IP
-+.B RENAME_NEWER_MTIME
-+combines
-+.B mtime
-+comparison and conditional replacement into
-+an atomic operation that augments the existing guarantee
-+of rename operations -- that not only is there no point
-+at which another process attempting to access
-+.I newpath
-+would find it missing, but there is no point at which a reader
-+could detect an
-+.B mtime
-+backtrack in
-+.I newpath.
-+.IP
-+Some of the use cases for
-+.B RENAME_NEWER_MTIME
-+include (a) using a directory as a key-value store, or
-+(b) maintaining a near-real-time mirror of a remote data source.
-+A common design pattern for maintaining such a data
-+store would be to create a file using a temporary pathname,
-+setting the file
-+.B mtime
-+using
-+.BR utimensat (2)
-+or
-+.BR futimens (2)
-+based on the remote creation
-+timestamp of the file content, then using
-+.B RENAME_NEWER_MTIME
-+to move the file into place in the target directory.  If
-+the operation returns an error with
-+.I errno
-+set to
-+.B EEXIST,
-+then
-+.I oldpath
-+is not up-to-date and can safely be deleted.
-+The goal is to facilitate distributed systems
-+having many concurrent writers and readers,
-+where update notifications are possibly delayed, duplicated,
-+or reordered, yet where readers see a consistent view
-+of the target directory with predictable semantics
-+and atomic updates.
-+.IP
-+Note that
-+.B RENAME_NEWER_MTIME
-+depends on accurate, high-resolution timestamps for
-+.B mtime,
-+preferably approaching nanosecond resolution.
-+.IP
-+.B RENAME_NEWER_MTIME
-+only works on non-directory files and cannot be used when
-+.I oldpath
-+or
-+.I newpath
-+is open for write.
-+.IP
-+.B RENAME_NEWER_MTIME
-+can be combined with
-+.B RENAME_EXCHANGE
-+where
-+.I oldpath
-+and
-+.I newpath
-+will only be exchanged if
-+.I oldpath
-+.B mtime
-+>
-+.I newpath
-+.B mtime.
-+.IP
-+.B RENAME_NEWER_MTIME
-+cannot be combined with
-+.B RENAME_NOREPLACE
-+or
-+.B RENAME_WHITEOUT.
-+.IP
-+.B RENAME_NEWER_MTIME
-+requires support from the underlying filesystem.  As of Linux 5.xx,
-+ext2, ext3, ext4, xfs, btrfs, and tmpfs are supported.
- .SH RETURN VALUE
- On success, zero is returned.
- On error, \-1 is returned, and
-@@ -449,6 +549,37 @@ and
- .I newpath
- already exists.
+diff --git a/man7/keyrings.7 b/man7/keyrings.7
+index e73bc1652..fd7a5e728 100644
+--- a/man7/keyrings.7
++++ b/man7/keyrings.7
+@@ -621,7 +621,7 @@ Within each byte, the permission bits are as follows:
+ 0x01
+ .I view
  .TP
-+.B EEXIST
-+.I flags
-+contain
-+.B RENAME_NEWER_MTIME
-+and
-+.I oldpath
-+.B mtime
-+<=
-+.I newpath
-+.B mtime.
-+.TP
-+.B EISDIR
-+.I flags
-+contain
-+.B RENAME_NEWER_MTIME
-+and
-+.I oldpath
-+or
-+.I newpath
-+is a directory.
-+.TP
-+.B ETXTBSY
-+.I flags
-+contain
-+.B RENAME_NEWER_MTIME
-+and
-+.I oldpath
-+or
-+.I newpath
-+is open for write.
-+.TP
- .B EINVAL
- An invalid flag was specified in
- .IR flags .
-@@ -470,6 +601,13 @@ were specified in
- .IR flags .
+-Ox02
++0x02
+ .I read
  .TP
- .B EINVAL
-+.B RENAME_NEWER_MTIME
-+was used together with 
-+.B RENAME_NOREPLACE
-+or
-+.B RENAME_WHITEOUT.
-+.TP
-+.B EINVAL
- The filesystem does not support one of the flags in
- .IR flags .
- .TP
+ 0x04
 -- 
-2.25.1
-
+2.35.1
