@@ -2,61 +2,51 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 8949C578A1B
-	for <lists+linux-man@lfdr.de>; Mon, 18 Jul 2022 21:01:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 775D0579029
+	for <lists+linux-man@lfdr.de>; Tue, 19 Jul 2022 03:56:11 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234979AbiGRTBj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 18 Jul 2022 15:01:39 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55750 "EHLO
+        id S236399AbiGSB4K (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 18 Jul 2022 21:56:10 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33266 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234972AbiGRTBa (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 18 Jul 2022 15:01:30 -0400
-Received: from mail-yb1-xb35.google.com (mail-yb1-xb35.google.com [IPv6:2607:f8b0:4864:20::b35])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B3B1F2FFD8
-        for <linux-man@vger.kernel.org>; Mon, 18 Jul 2022 12:01:18 -0700 (PDT)
-Received: by mail-yb1-xb35.google.com with SMTP id k85so19870153ybk.7
-        for <linux-man@vger.kernel.org>; Mon, 18 Jul 2022 12:01:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:reply-to:from:date:message-id:subject:to;
-        bh=h0ZslgqQ94UM3iGDYCZGEx8ZwvbYHY5ZrQARiO/Kpbc=;
-        b=IQXHlBQ3jHSYUTt89EYBBYMpS/rXYtHBaNUJ6e2ZzB07/ETpvOJM0/ZijryokIEfDh
-         oJG0jiachEiIldTcksV5XzU+dy3csOVeMrzVRYAIpdf4PUrGYfI/KNNvcLIWjvmc8oHa
-         yWKlPWKnOFkuEw2Mq2CzZYpqcRK9kJ+LygeUXE0izxh4s3I+nauj1w40rP+480vJCi+X
-         rAPSoEvo8wXV23cydMjOZnuzBivYToT/OwjRuq1iqX/8Isb8Rqougy46FnOdoQuh9Z/u
-         z7xKihQATs9EIIDqpmGAQl/2n//vpMk3ZDpLHQioaLk/1hVBrL4som/CgeyT77yPFwbn
-         VU6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to;
-        bh=h0ZslgqQ94UM3iGDYCZGEx8ZwvbYHY5ZrQARiO/Kpbc=;
-        b=o7Ii0dNwQeswInLXthsIwbeRbKZncraYCPeQqlG4IJ3tSgFNA+tspDHA4bBsdBgu4s
-         f1KBEyNd6R/mWSGuTnrhnQy/lE3+MU+JZby0R39+MgDthBTXzjUZL+k6aG2Q7eFk8mmK
-         4gD2jIMiV+Pr0MjdCDSDyXvwWuQwvvk5iBC8Ewp/8qJZ6PGAXhadKMPrvEb0LYibbMZP
-         SMvx3CAFKxseqVFLLs7EkZkOw0Mc7cXYQzOEBgGRiXazoHStF6kf8VlNxBHe6MzDCpmS
-         xH3CCLziy8kZOc3WGT1iNAUcABHnjbW9QxQRMgSK/ui1p/mVZQs7+qczXf018iVmKHpl
-         wU5g==
-X-Gm-Message-State: AJIora/iFUOSdwjvWWBvRvnQvKdUimAGBNWpcHuR8iKhDoFUc289h2oF
-        ayHzv5UhlKLtVTLCmG0czJW/YVr0n4caRPd0S3u2X0w9TP3/8g==
-X-Google-Smtp-Source: AGRyM1sOF4caZ/Mzb7i1HwUB8dyXYAmjf9y+Pd1nVHRKiUHeMR6opOrMc10oZNu5DLkN2HS0cpkKNGEh0T+MU99Jmes=
-X-Received: by 2002:a81:5747:0:b0:31d:1bb8:65b7 with SMTP id
- l68-20020a815747000000b0031d1bb865b7mr30830046ywb.168.1658170865217; Mon, 18
- Jul 2022 12:01:05 -0700 (PDT)
+        with ESMTP id S236409AbiGSB4I (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 18 Jul 2022 21:56:08 -0400
+Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id A69942714D
+        for <linux-man@vger.kernel.org>; Mon, 18 Jul 2022 18:56:05 -0700 (PDT)
+Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 95160610;
+        Tue, 19 Jul 2022 03:56:01 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
+        s=202205; t=1658195761;
+        bh=q+ZVy1YIgkjFsUdVdJuMXaOrGrassDkeqlEI2n1x2Zc=;
+        h=Date:From:To:Cc:Subject:From;
+        b=mZuADCBLjq692R5y3VrqqooI9tfZMKFPmcIteQQ00qlcXsffjGT/3gA6+6o5Iy7UV
+         3D8zaRIWRStO7xJdxWUvfgxXirzat/M7SsAU7in+RR+mfTGCovboBh6+Mn7cPYZDvN
+         ZwPIFXbg2UrOjC05GmCL99viSbqKryuQ87iEw8EfrigeMYLefAPxoR2/uSfRtykvUM
+         DT8Uoo28k3ptrXvcvqMVBpmQXmBqGxvpPMzyY+71zzl2ttGJMJapufQjRTvTb0T70O
+         bsrQ2NAr5IIx9OCTmBgx74K4uFijXbo2vUu5ajUjT/Mp7zPLNlhqRjlnIIe5dti7fp
+         d6lbsaPPjMO7IpyESk8x3ix3Adq3+WY6S8tytXLEnblBrCz+sH/mvB30BYOHU+bArx
+         JPGyQ/L+893XSBykLB+Qcd4np0TZcfTgHMgTbrQiiCXmpqkoG1XLZKv9UyvauUUzVv
+         efIVsbZbHjzOWTumYb3U4SvZ9lRgIXbgaKhMGfQyJhFvgn+jNmO4XWzJtzsMyG0Mrw
+         NzCBiPTRX5g7akZlraIQ95iwhbskWPFs1InJ+hvn0833juq5C9OeKPxGKKxfXwxi7g
+         yXErlKbrFB40QBBe3Bh6KcF0rq7QdYC7VVMwzhAqux6lX2/YOhe1hU8LA5mr2JFi6j
+         gyHXRBsAJZz65pcRUt2vYNuU=
+Date:   Tue, 19 Jul 2022 03:56:00 +0200
+From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org
+Subject: [PATCH 1/5] tm.3type: tfix
+Message-ID: <62c1b6748d2faa6263264b9fcaa064495357441b.1658195739.git.nabijaczleweli@nabijaczleweli.xyz>
 MIME-Version: 1.0
-Received: by 2002:a05:6919:4004:b0:cc:50ff:b3d8 with HTTP; Mon, 18 Jul 2022
- 12:01:04 -0700 (PDT)
-Reply-To: lilywilliam989@gmail.com
-From:   Lily William <sgtalberts@gmail.com>
-Date:   Mon, 18 Jul 2022 11:01:04 -0800
-Message-ID: <CALPTejMFgL0Bg7jCKa7j+5KxVv_jnSM4ZPq-QhHCiUpG_ZswsQ@mail.gmail.com>
-Subject: Hi Dear,
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: No, score=4.9 required=5.0 tests=BAYES_50,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,FREEMAIL_REPLYTO,
-        FREEMAIL_REPLYTO_END_DIGIT,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
-        UNDISC_FREEM autolearn=no autolearn_force=no version=3.4.6
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="sli6w3sgkyfpifnr"
+Content-Disposition: inline
+User-Agent: NeoMutt/20220429
+X-Spam-Status: No, score=4.8 required=5.0 tests=BAYES_20,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FROM_SUSPICIOUS_NTLD,
+        FROM_SUSPICIOUS_NTLD_FP,PDS_OTHER_BAD_TLD,RDNS_DYNAMIC,SPF_HELO_NONE,
+        SPF_PASS autolearn=no autolearn_force=no version=3.4.6
 X-Spam-Level: ****
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -64,16 +54,52 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Dear,
 
-My name is Dr Lily William from the United States.I am a French and
-American nationality (dual) living in the U.S and sometimes in France
-for Work Purpose.
+--sli6w3sgkyfpifnr
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I hope you consider my friend request. I will share some of my pics
-and more details about myself when I get your response.
+Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
+---
+ man3/tm.3type | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks
+diff --git a/man3/tm.3type b/man3/tm.3type
+index 28d6208fb..8ae3a531c 100644
+--- a/man3/tm.3type
++++ b/man3/tm.3type
+@@ -24,7 +24,7 @@ Standard C library
+ "   /* Day of the week [" 0 ", " 6 "] (Sunday =3D " 0 ") */"
+ .BR "    int  tm_yday;" \
+ "   /* Day of the year [" 0 ", " 365 "] (Jan/01 =3D " 0 ") */"
+-.BR "    int  tm_isdst;" "  /* Daylighgt savings flag */"
++.BR "    int  tm_isdst;" "  /* Daylight savings flag */"
+ .B };
+ .fi
+ .SH DESCRIPTION
+--=20
+2.30.2
 
-With love
-Lily
+
+--sli6w3sgkyfpifnr
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmLWDzAACgkQvP0LAY0m
+WPECIg//TlrWtth15Mb64Tw5FQxTi2VE/EeIX8AeBolZG1HZ7lsb7geDj9al11sO
+/eWQ6U5dxMNgCI+r6+ZOFj4avz+twkIO8hGsIGMstxukJO5Dub9nMOtVWXoRlXOx
+n/eM7xB729PmGvCpqGJI/Ltbv2s0Ib7cjwj9tHM7ZdmVTkHNIRm0FrL7KM0QmwBv
+kyRkboAyeqwa1RhA1WsGZG51KNLioqbTJ++plVpDKXJF64OXSvwMWhjJHOJOQlWM
+s5UQct9y+QMf/ktcHGd/hhA3J1ManGxlmDLwDDaD+lCN5aSDMxDCMpgLf8UF9syv
+5q/5tm/SfTYpt84PEzvdfd+b/GbGKx7cZ7cvx6C9IVDku0WvxIjj0KFK1QVloOMh
+Gc2yMELKI9Rp+JtlrBe3P2MItzdUkIqEWaD1+UGHs18f8a0yTlR2j0i2vEFhHHKZ
+DRKskmGL6wvhvduOQQz3p7n6FP2U3gcyogdYwk9WaIX5z1VImlHFo6R+zmYVsRuz
+NypB2jrtT/icY53FW+w2dZiFHjupWqAcMlrteFKbmSg5+8OptD7gXDOeuqVXtBnX
+tSdlUt6RgtlmhGG7ZVFpz3cpUI+X4w9Usz46vDmJEGDfXMB5h6AG2U2GIvItaciZ
+8cop12UN6tvYF7V5iQR/+BmCwdBPYefOEJw4Tum6qCnY6P6gSVI=
+=eZDA
+-----END PGP SIGNATURE-----
+
+--sli6w3sgkyfpifnr--
