@@ -2,69 +2,53 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 8283457A884
-	for <lists+linux-man@lfdr.de>; Tue, 19 Jul 2022 22:50:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 727E257A8F9
+	for <lists+linux-man@lfdr.de>; Tue, 19 Jul 2022 23:28:08 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S240293AbiGSUuS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 19 Jul 2022 16:50:18 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34694 "EHLO
+        id S238228AbiGSV2G (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 19 Jul 2022 17:28:06 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38550 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S237788AbiGSUuS (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 19 Jul 2022 16:50:18 -0400
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com [IPv6:2a00:1450:4864:20::330])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8802B21824
-        for <linux-man@vger.kernel.org>; Tue, 19 Jul 2022 13:50:16 -0700 (PDT)
-Received: by mail-wm1-x330.google.com with SMTP id b6so9139125wmq.5
-        for <linux-man@vger.kernel.org>; Tue, 19 Jul 2022 13:50:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to;
-        bh=4bt42O+ytvCYpuG73TcbYqAL9+OXviavJY/O3J8c/vM=;
-        b=V1Z/KHh+/10iv0q7DE5CY5UMwUkcYmVVGJTmhw8Xx4jwi3IWyO/civt3Gk+JL46qnQ
-         J9cPhXITCOxfhnzyTtmWAxOT1AW684cNYMogL1Wjps4zsUDbkMMF9hu4V4YYysemD0AX
-         Rh0vxSeLhimp7TY/Ogy+D1qKVPWV4PL7zQdt7jg/kEBKUIetTSUt4twKrG69EefjiQeB
-         HPU7ZKWaaTByBg3SDit3mSTUVhz1yuYMMt0RznBZvdWc/oqziWoVbW4uz/MVr5Q7mOgj
-         TcdqUUMqJxSefltxKJVhAht9AjcPgjvZDvgs3+sj3EbojkSLEymsQaLyDEUf0D/dOYIM
-         lsSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to;
-        bh=4bt42O+ytvCYpuG73TcbYqAL9+OXviavJY/O3J8c/vM=;
-        b=GXupTsQgFaPgcAeMTwzrY2fORXKwCmEOHhDBc+aqFOHb0metR1hdFozbC1fCmlKxT0
-         7quh1Bli8VKjvRQk7BpYvX99EGkWdTGqBt/c48uTc0BBLxY7jfKLTZydUNZHDfQ2gweU
-         NMkqDtE/KY7OGKgEG0eVamj7OtD3KybTZUw36wV/ilK5BhNpgz8S+mRRFck1RJ1dvKmO
-         z9B1BpA9nuwYtZ5rwMpIok94gtIkmqVAm9cfN5kwymLvGKVEPOUElmXVNvSe5J3FTVj/
-         6IPn45C/c68Yls+elYAsDoig3LOq8CK+Js7McEzcTvNuIuj2dQYJEjrexx146NvwBIqz
-         hk7Q==
-X-Gm-Message-State: AJIora+TRkLi/j6s5P0PUzrKqN5phw81uJPJFeIMDzeHXlLY+7c4sHj6
-        fI9ZAWoxoZ3KRl/rwYQlsdHhszzES80=
-X-Google-Smtp-Source: AGRyM1sTLpUgqjzEaC6SqP8ya/CLNvJWpsYypd+g1zvSACSDBV/j1g+PI4F2e3iD7wHX8Z01zaprWw==
-X-Received: by 2002:a7b:cb82:0:b0:39e:f9cf:12b7 with SMTP id m2-20020a7bcb82000000b0039ef9cf12b7mr896678wmi.135.1658263815033;
-        Tue, 19 Jul 2022 13:50:15 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id o3-20020a5d4743000000b0020d07d90b71sm14091693wrs.66.2022.07.19.13.50.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 19 Jul 2022 13:50:14 -0700 (PDT)
-Message-ID: <9a085e45-f74f-2d6b-2f97-421a46670d8f@gmail.com>
-Date:   Tue, 19 Jul 2022 22:50:06 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.0.2
-Subject: Re: [PATCH] strftime.3: mention strftime_l() with .so link
-Content-Language: en-US
-To:     =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+        with ESMTP id S236857AbiGSV2F (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 19 Jul 2022 17:28:05 -0400
+Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id D91712F649
+        for <linux-man@vger.kernel.org>; Tue, 19 Jul 2022 14:28:02 -0700 (PDT)
+Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 4AAACB0C;
+        Tue, 19 Jul 2022 23:28:00 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
+        s=202205; t=1658266080;
+        bh=Y3oIlzkXu9mM+PMAzaYiMR7mDPIpkzka2xUofao3nYI=;
+        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+        b=h/O0QXZ/fRfUeQda8DNvGRfQOtIvv/g31UfOH6dVnfqqyEKgGcIz6nxepupKnJgnu
+         LQjDAeYYIBT9odgWBLotzypSjyJQu7f4B9B9eCeY0pEMJjF6/f68T5uJ07Isa/my+O
+         SEfwx7fTIh6ofC4N6xzq9RwstRb4kFdaC7OipYqdboJJWhSwpAucY1f+TDdhB9pNNu
+         g9FptMz1P29po6wpRr5jwnjk/7EApaBjl1gaxXKy9F+XEdSjUjy/Ywtm9ocNQmdclX
+         3UE07cUPgST2SA9h6isITPjMO0o1JrOeBbdjKAUVrRAnVD37JF5js+3r1CVDhyA9Z6
+         VHHEad8TDrHWfsdoejpZvWEHwDXta158V93cIQc6z80DrPmiuLlkJgGijPBB0IpiHO
+         XQbojVbe0fkqyOSCBb0KA7ESMpDf9lIQ0JDtyOhAQMCsQhO5gqyxYUpTkKJ7I/epb4
+         x1FNOJX7jWd8o9EfHMJpSP04ikGe7SpbRNT9yKYXW8mpfBpVAhD4Fdk8ehgkAcg4Fb
+         Hn+0aPGALGooKKsqvEvjPEwkJCiMF1wbJ+V28dD+cCtfkyTmqE0j6YvsS2BuZyjrK9
+         jSASqwJy+ciUWGenSrgDgANF26z1j0vhBm0yNDCwYKc9g09AlnaC0DZnlUu3sl1dX/
+         B4xXNn2GIRvpbQ2nZRyb10bo=
+Date:   Tue, 19 Jul 2022 23:27:59 +0200
+From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org
+Subject: Re: [PATCH] strftime.3: mention strftime_l() with .so link
+Message-ID: <20220719212759.ltj2zvgpiuv5mler@tarta.nabijaczleweli.xyz>
 References: <20220719184839.ear4elj2ls3fpzmz@tarta.nabijaczleweli.xyz>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20220719184839.ear4elj2ls3fpzmz@tarta.nabijaczleweli.xyz>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------0cP25F7V01Kw0WBY6jcDfitu"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
+ <9a085e45-f74f-2d6b-2f97-421a46670d8f@gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="yp5csspc2bmjn7ho"
+Content-Disposition: inline
+In-Reply-To: <9a085e45-f74f-2d6b-2f97-421a46670d8f@gmail.com>
+User-Agent: NeoMutt/20220429
+X-Spam-Status: No, score=0.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FROM_SUSPICIOUS_NTLD,
+        PDS_OTHER_BAD_TLD,RDNS_DYNAMIC,SPF_HELO_NONE,SPF_PASS autolearn=no
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -72,85 +56,135 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------0cP25F7V01Kw0WBY6jcDfitu
-Content-Type: multipart/mixed; boundary="------------4jSuxKdPEJBLMj2m0KicrKKR";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc: linux-man@vger.kernel.org
-Message-ID: <9a085e45-f74f-2d6b-2f97-421a46670d8f@gmail.com>
-Subject: Re: [PATCH] strftime.3: mention strftime_l() with .so link
-References: <20220719184839.ear4elj2ls3fpzmz@tarta.nabijaczleweli.xyz>
-In-Reply-To: <20220719184839.ear4elj2ls3fpzmz@tarta.nabijaczleweli.xyz>
 
---------------4jSuxKdPEJBLMj2m0KicrKKR
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+--yp5csspc2bmjn7ho
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-ID4gbWVudGlvbiBzdHJmdGltZV9sKCkgd2l0aCAuc28gbGluaw0KDQpNZW50aW9uPyByZWFs
-bHk/DQoNClRoYXQncyB0aGUgbW9zdCBkb3ducGxheWluZyB3b3JkIGZvciBkZXNjcmliaW5n
-IHRoZSBhZGRpdGlvbiBvZiBmdWxsIA0KZG9jdW1lbnRhdGlvbiBmb3IgYSBmdW5jdGlvbi4g
-eEQNCg0KQWxzbywgcGxlYXNlIGFkZCB0aGUgbGluayBwYWdlIG5hbWUgdG8gdGhlIGxpc3Qg
-b2YgYWZmZWN0ZWVkIHBhZ2VzOg0Kc3RyZnRpbWUuMywgc3RyZnRpbWVfbC4zOiAuLi4NCg0K
-WW91IGNhbiB1c2UgdGhlICQobWFuX2dpdHN0YWdlZCkgYmFzaCBmdW5jdGlvbiBmcm9tIC4v
-c2NyaXB0cy8gdG8gDQpwcm9kdWNlIHlvdXIgZ2l0IG1lc3NhZ2VzLiAgSSB0eXBpY2FsbHkg
-dXNlIGl0IGFzOg0KDQpnaXQgY29tbWl0IC1zbSAiJChtYW5fZ2l0c3RhZ2VkKTogRGVzY3Jp
-cHRpb24gZ29lcyBoZXJlIg0KDQpJIGFwcGVuZGVkIHRoZSBmb2xsb3dpbmcgdG8gbXkgLmJh
-c2hfYWxpYXNlczoNCg0KaWYgWyAtZiB+L3NyYy9saW51eC9tYW4tcGFnZXMvbWFuLXBhZ2Vz
-L3NjcmlwdHMvYmFzaF9hbGlhc2VzIF07IHRoZW4NCgkuIH4vc3JjL2xpbnV4L21hbi1wYWdl
-cy9tYW4tcGFnZXMvc2NyaXB0cy9iYXNoX2FsaWFzZXM7DQpmaTsNCg0KDQpPbiA3LzE5LzIy
-IDIwOjQ4LCDQvdCw0LEgd3JvdGU6DQo+IFNpZ25lZC1vZmYtYnk6IEFoZWxlbmlhIFppZW1p
-YcWEc2thIDxuYWJpamFjemxld2VsaUBuYWJpamFjemxld2VsaS54eXo+DQo+IC0tLQ0KPiAg
-IG1hbjMvc3RyZnRpbWUuMyAgIHwgMjcgKysrKysrKysrKysrKysrKysrKysrKysrKystDQo+
-ICAgbWFuMy9zdHJmdGltZV9sLjMgfCAgMSArDQo+ICAgMiBmaWxlcyBjaGFuZ2VkLCAyNyBp
-bnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pDQo+ICAgY3JlYXRlIG1vZGUgMTAwNjQ0IG1h
-bjMvc3RyZnRpbWVfbC4zDQo+IA0KPiBkaWZmIC0tZ2l0IGEvbWFuMy9zdHJmdGltZS4zIGIv
-bWFuMy9zdHJmdGltZS4zDQo+IGluZGV4IGRjOThhNTEyMi4uMTFkYTdlNzg3IDEwMDY0NA0K
-PiAtLS0gYS9tYW4zL3N0cmZ0aW1lLjMNCj4gKysrIGIvbWFuMy9zdHJmdGltZS4zDQpbLi4u
-XQ0KPiBAQCAtNTE2LDE0ICs1MzUsMjAgQEAgbGJ4IGxiIGxiDQo+ICAgbCBsIGwuDQo+ICAg
-SW50ZXJmYWNlCUF0dHJpYnV0ZQlWYWx1ZQ0KPiAgIFR7DQo+IC0uQlIgc3RyZnRpbWUgKCkN
-Cj4gKy5CUiBzdHJmdGltZSAoKSwNCj4gKy5CUiBzdHJmdGltZV9sICgpDQo+ICAgVH0JVGhy
-ZWFkIHNhZmV0eQlNVC1TYWZlIGVudiBsb2NhbGUNCj4gICAuVEUNCj4gICAuaHkNCj4gICAu
-YWQNCj4gICAuc3AgMQ0KPiAgIC5TSCBDT05GT1JNSU5HIFRPDQo+ICsuQlIgc3RyZnRpbWUg
-KCk6DQo+ICAgU1ZyNCwgQzg5LCBDOTkuDQo+ICsuYnINCg0KUHJlZmVyIC5QUA0KDQpXZSBh
-dm9pZCByYXcgcm9mZiByZXF1ZXN0cyBpbiBtYW4oNykgcGFnZXMgYXMgbXVjaCBhcyBwb3Nz
-aWJsZS4NCkknZCB0ZWxsIHlvdSBob3cgdG8gZ2V0IHRoZSBzYW1lIGJlaGF2aW9yIHdpdGgg
-cmFyZSBtYW4oNykgbWFjcm9zLCBidXQgSSANCmRvbid0IHRoaW5rIHdlIG5lZWQgdG8gY29t
-cGxpY2F0ZSBpdCwgd2hlbiAuUFAgaXMgYWxzbyBuaWNlIGhlcmUuDQpCdXQganVzdCBmb3Ig
-eW91IHRvIGtub3csIHRoZXJlJ3MgLlBEIDAgaW4gbWFuKDcpLg0KDQoNCkNoZWVycywNCg0K
-QWxleA0KDQo+ICsuQlIgc3RyZnRpbWVfbCAoKToNCj4gK1BPU0lYLjEtMjAwOC4NCj4gKy5Q
-UA0KPiAgIC5cIiBGSVhNRSBzdHJmdGltZSgpIGlzIGluIFBPU0lYLjEtMjAwMSBhbmQgUE9T
-SVguMS0yMDA4LCBidXQgdGhlIGRldGFpbHMNCj4gICAuXCIgaW4gdGhlIHN0YW5kYXJkcyBj
-aGFuZ2VkIGFjcm9zcyB2ZXJzaW9ucy4gSW52ZXN0aWdhdGUgYW5kDQo+ICAgLlwiIHdyaXRl
-IHVwLg0KPiBkaWZmIC0tZ2l0IGEvbWFuMy9zdHJmdGltZV9sLjMgYi9tYW4zL3N0cmZ0aW1l
-X2wuMw0KPiBuZXcgZmlsZSBtb2RlIDEwMDY0NA0KPiBpbmRleCAwMDAwMDAwMDAuLmEzYWE0
-YjQxYw0KPiAtLS0gL2Rldi9udWxsDQo+ICsrKyBiL21hbjMvc3RyZnRpbWVfbC4zDQo+IEBA
-IC0wLDAgKzEgQEANCj4gKy5zbyBtYW4zL3N0cmZ0aW1lLjMNCg0KLS0gDQpBbGVqYW5kcm8g
-Q29sb21hcg0KPGh0dHA6Ly93d3cuYWxlamFuZHJvLWNvbG9tYXIuZXMvPg0K
+On Tue, Jul 19, 2022 at 10:50:06PM +0200, Alejandro Colomar wrote:
+> Also, please add the link page name to the list of affecteed pages:
+> strftime.3, strftime_l.3: ...
 
---------------4jSuxKdPEJBLMj2m0KicrKKR--
+Fixed.
 
---------------0cP25F7V01Kw0WBY6jcDfitu
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+> Prefer .PP
+>=20
+> We avoid raw roff requests in man(7) pages as much as possible.
+> I'd tell you how to get the same behavior with rare man(7) macros, but I
+> don't think we need to complicate it, when .PP is also nice here.
+> But just for you to know, there's .PD 0 in man(7).
+
+I grepped for .br specifically and saw it's used so I used it.
+Replaced with .PD 0, .PP, .PD to the same effect.
+
+See updated scissor-patch below:
+-- >8 --
+Date: Tue, 19 Jul 2022 20:46:49 +0200
+Subject: [PATCH v2] strftime.3, strftime_l.3: mention strftime_l() with .so
+ link
+
+Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
+---
+ man3/strftime.3   | 29 ++++++++++++++++++++++++++++-
+ man3/strftime_l.3 |  1 +
+ 2 files changed, 29 insertions(+), 1 deletion(-)
+ create mode 100644 man3/strftime_l.3
+
+diff --git a/man3/strftime.3 b/man3/strftime.3
+index dc98a5122..a93c0f4c2 100644
+--- a/man3/strftime.3
++++ b/man3/strftime.3
+@@ -27,6 +27,11 @@ Standard C library
+ .BI "size_t strftime(char *restrict " s ", size_t " max ,
+ .BI "                const char *restrict " format ,
+ .BI "                const struct tm *restrict " tm );
++.PP
++.BI "size_t strftime_l(char *restrict " s ", size_t " max ,
++.BI "                  const char *restrict " format ,
++.BI "                  const struct tm *restrict " tm ,
++.BI "                  locale_t " locale );
+ .fi
+ .SH DESCRIPTION
+ The
+@@ -471,6 +476,20 @@ as an argument to a
+ One example of such alternative forms is the Japanese era calendar scheme =
+in the
+ .B ja_JP
+ glibc locale.
++.PP
++.\" POSIX.1-2008 TC2:
++.\"   [CX] The strftime_l() function shall be equivalent to the strftime()=
+ function, except that the locale data used is from the locale represented =
+by locale.
++.\"   [CX] The behavior is undefined if the locale argument to strftime_l(=
+) is the special locale object LC_GLOBAL_LOCALE or is not a valid locale ob=
+ject handle.
++.BR strftime_l ()
++is equivalent to
++.BR strftime (),
++except it uses the specified
++.I locale
++instead of the current locale.
++The behaviour is undefined if
++.I locale
++is invalid or
++.BR LC_GLOBAL_LOCALE .
+ .SH RETURN VALUE
+ Provided that the result string,
+ including the terminating null byte, does not exceed
+@@ -516,14 +535,22 @@ lbx lb lb
+ l l l.
+ Interface	Attribute	Value
+ T{
+-.BR strftime ()
++.BR strftime (),
++.BR strftime_l ()
+ T}	Thread safety	MT-Safe env locale
+ .TE
+ .hy
+ .ad
+ .sp 1
+ .SH CONFORMING TO
++.BR strftime ():
+ SVr4, C89, C99.
++.PD 0
++.PP
++.PD
++.BR strftime_l ():
++POSIX.1-2008.
++.PP
+ .\" FIXME strftime() is in POSIX.1-2001 and POSIX.1-2008, but the details
+ .\" in the standards changed across versions. Investigate and
+ .\" write up.
+diff --git a/man3/strftime_l.3 b/man3/strftime_l.3
+new file mode 100644
+index 000000000..02e797a23
+--- /dev/null
++++ b/man3/strftime_l.3
+@@ -0,0 +1 @@
++.so man3/strftime.3
+--=20
+2.30.2
+
+--yp5csspc2bmjn7ho
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmLXGP4ACgkQnowa+77/
-2zLTxg//QP4ReTjM6o6CVBn5knWm2aES4r6ImfrJQNHx4Kv6/MaGrsOjyTszjcOV
-tI4QWmoNP+XCVbsgHGTh0mO7wRpETDoPy06rdkpZc9nvsYPXsLzzYJaFtJrAwPtf
-VKmyVscD9ZIbzA6a6YT9K4x0uQSySBmAe68d+FjYjo943VKbTvrjK/7RjqJSRiwp
-3JesVCAvSxo4Kih5Ob0uo2J40ch6HZKORRquOPFFPI5lETi0CqRZTRxLU6Tx5H+c
-64CfJkPgBzDoE80eDuBPk8nmAraMoNQqasYjUl2fLHd1f9nYgogdEvxinxONBhdy
-nrG9YMmw9yQDzTQ+yNFRuN/fTmi0r+M0XmmAU3vRiXgtsJfWxyr3MsLPWutwU6wR
-zsqZ1BpQjOp8Di/3QxWMxG2X6zVrbBL5gsuZy9xUen8EJzoEGe84GPneVTbcCi9O
-9byBcBYUyiaonOZWenTRlqDwPQ5+avGM/I83KDDhxsQelF1GyFgmdDQkuEPjHxco
-TPdzo5lDlpy/XFBEnQ/TyEu1xys+SbPVg6W6OHsvf1rvABVdlJNhsmJ+pOi2b0zj
-ZNoNbO73FrKMVIDJPAs1d5ZeA1QZEzgv6/J0lGT7606UZYq9/ujd3txq2bDo6i1c
-5YpW0OccW9fv1tSvjJKGo/6XYZKP31KWAzYSIslu0US1sxAwFOg=
-=xKnB
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmLXId4ACgkQvP0LAY0m
+WPFzMg/9G7VZP29Yn+5eI4dZK9O8Jro31UN8Pkyz7Oca5U9qmeCDBpEKSiJPgucp
+Luxc3is4dmqJfTQSxwgXGzQ1vOGnHhvdufIWMyer+0ELkqC1A65ssLggZ6JRpgv/
+VlykACfywppIIuscwwqcxX2sHu9tuh2kaE3xittf1+FglCUBL2cuWkgRWsr1JUbs
+i+tPqVzAIQI21yyhWr9lJyEjEUOfXZSmhvsF65zvRUk0ts3foCaBa1spo5GGF1JB
+JlQv7wfkZgxllPlUbtwPe2TnCjzHeaUfP0h/vj7qcYQm9Q04xnoM3Nwj02uNM5p9
+8EMGuHiBVsN8sHIuyETQi3sVblCUiOZFOXfDgByRMvdntP+M73+v40j/7SJ6/fda
+ygiv8w4XGhuERYT46vYm7d+krQeDsk8J8VeOLll6LCGpRDFcldUAdZ73kKcIR8q4
+h3Y4+sk/Ug6qmKWj/Sg1g8KyAntb50q+lAulvBWXssDrBU/IRCuS2SVea/9ubEIV
+lc9yXcOdRcW3iW3rsIjo7cEguHxkSMTipL72ROe6g8o5EFIzisNEDEeUxQuIIVav
+pjPswrhiIZOfwUJkdMinSPqLeklk/qs1tM6Ee4mnJsumyT8qJjuEhYvWwk9DI68B
+VSItImRQIaeDf8h/Qp8+3wSTaUvl/YV/vlRZ/SUXHVvTpvkYfHU=
+=lKL/
 -----END PGP SIGNATURE-----
 
---------------0cP25F7V01Kw0WBY6jcDfitu--
+--yp5csspc2bmjn7ho--
