@@ -2,46 +2,46 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id E52F757A69D
-	for <lists+linux-man@lfdr.de>; Tue, 19 Jul 2022 20:39:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1438457A69E
+	for <lists+linux-man@lfdr.de>; Tue, 19 Jul 2022 20:39:22 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231495AbiGSSjB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 19 Jul 2022 14:39:01 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38050 "EHLO
+        id S230052AbiGSSjV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 19 Jul 2022 14:39:21 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38172 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230052AbiGSSjB (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 19 Jul 2022 14:39:01 -0400
+        with ESMTP id S239488AbiGSSjU (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 19 Jul 2022 14:39:20 -0400
 Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 0E7F95A143
-        for <linux-man@vger.kernel.org>; Tue, 19 Jul 2022 11:38:58 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 01E755A143
+        for <linux-man@vger.kernel.org>; Tue, 19 Jul 2022 11:39:18 -0700 (PDT)
 Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 00743910;
-        Tue, 19 Jul 2022 20:38:56 +0200 (CEST)
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 41C3CA90;
+        Tue, 19 Jul 2022 20:39:18 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-        s=202205; t=1658255937;
-        bh=HcNa7ZJT0xCebJBVQqHVmwD7Yy6++shxTAUDpUGpPvU=;
+        s=202205; t=1658255958;
+        bh=k3u9wT26vlt2spUBMnaftP+nVfrPeVXDoTwzWoHaqrI=;
         h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=XkPs+Alp9RwZJShEdEzkNslJ7ht1JRfQAc8r8g0qNDElzQQQbS9+InqDbkxJux66v
-         w3W2NPXy0XSdJtKGg91zeLN1ydoIt8IMHllcKskCgseKj7PtWLzgx5EyMUCNnCwFO5
-         kOf2YEXUrLCFcIcspJh3fQIrmjPvMU4S7KxKv5U2lHPmA7cHU9m8vVBgetrzylNIO4
-         pu/ZPyptK30SaG4nlj0s5oCefqDLUHDq8KV8CzuJxxmr+aSL2oHF2u6ov2YBx1AdMH
-         IQWTGY2fvDd3SCNrThbjH5doJ025ALL0lGLUM9n2eUweMy0o3oP7Sm3S6HXvRa+Krh
-         NjD093yCtG5m8JxsC0ejL6c699x4bjJ/6wOEYQotYJhxeDemlmT0cnz2u4S130ZU96
-         I/3JkAS6jPUYdSupLv4MWqabnkvZnPs590Qppg1RS9G9KFOO9BXFnQMpOWu2rwpAj5
-         0JDzhDeDZh4UI7MhAFzfScd6d41hB4+cL7fPu3QAsocgwIZQWDyTiyr9+3/5tyHrsZ
-         V4WFmZwICWQI50D7sUUCYHVES59eOhmHCGd1lSqvVr6Cr7nelRPVxrkaKQki/lsndm
-         65qK/4biMyS1by/kuN88JZIxCwx9x2OdhCoyZvFU94LuPJNPTvzUW1Ay6Kfl4HXEaS
-         mfupwnPpd+Qbpcis8OcMOyDw=
-Date:   Tue, 19 Jul 2022 20:38:55 +0200
+        b=g47SfvujjaUZBtYKfZI57i+pPbnn3ahBk3oxwmyucb/w8Gt2OGtFYNwxeRL1GxR2m
+         HvcnP+1I4QOSgm/PIeIJXGcirLAuzTplLKX9f/uRtK83oTp3s+8Bol4qt4eI85WrqD
+         q51rySw90vcrwWas69qwlzL7QMCq35rlixlqkJY89pq3K+dLmvCUqIZFjxMA6jK3hf
+         gr2R12tMeqLASZ9ncZWljg+VnSYZwFtUw5RgID8zM5tLpY0sSdOmRYM4EshKWy+TDc
+         TGiLkdUwix+cWNlZN+dBis1QBR+xMY/zs3XvLCgDDoIgoQQXawywzDcMOSGvUBG7ig
+         r4NmjSy9xz2MzN8Or9PszK6tRO3KdILvxz810lhYKy4+unvwNCpx2cq8itjskSBpGl
+         FLppty9wYW4Tdu5f9nNHB52+4eQs2nlPs13js3a8AvAjoes6phlhPYO938iEKfy6dX
+         68WeTg3MXo88cGZTgM+i2lSWw1A7HhIfiOTLSwIv4QHZ1BQ2ho0q5rgX40v4VFE4Zg
+         kJ/jkKrD7MIyXb79CGDEJo6z6gfXTQGUBr5t6ywXrOfGM6md8HHWa1bwhTRv2JKIAk
+         bg6CxSxcF/8+Xo1975QH9PKwRp52YBnotmenNbXMxXSudNnY13Ekk1+BFoxhD824VP
+         ++aY5GyRTlz0/RrkkTZ9GZMk=
+Date:   Tue, 19 Jul 2022 20:39:17 +0200
 From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
 To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org
-Subject: [PATCH v3 1/2] tm.3type: describe tm_zone, tm_gmtoff
-Message-ID: <b84f1ff5815f24cc23e55a0d89ddd1878f35faa7.1658255829.git.nabijaczleweli@nabijaczleweli.xyz>
+Subject: [PATCH v3 2/2] ctime.3: remove struct tm vestigia
+Message-ID: <fde294059cf12d822f1603ad3e0e308e3af76537.1658255829.git.nabijaczleweli@nabijaczleweli.xyz>
 References: <28ce4bcb0318b42c5fe6e286887bdab935995192.1658244821.git.nabijaczleweli@nabijaczleweli.xyz>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="nteny2y4axjv6fo7"
+        protocol="application/pgp-signature"; boundary="qm3s23vsnn2qchry"
 Content-Disposition: inline
 In-Reply-To: <28ce4bcb0318b42c5fe6e286887bdab935995192.1658244821.git.nabijaczleweli@nabijaczleweli.xyz>
 User-Agent: NeoMutt/20220429
@@ -56,135 +56,66 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---nteny2y4axjv6fo7
+--qm3s23vsnn2qchry
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-FreeBSD timezone(3) is V7 char *timezone(int zone, int dst),
-our documentation would imply it's impossible to service this type of
-system portably
-
-Indeed, glibc defines them both, and they make more sense for most
-use-cases than trying to use the globals
-
-glibc cited for __USE_MISC, tm_zone invalidation is Debian 2.33-7
-POSIX cited for XSI marking is Issue 7 TC2
-CSRG CD #2 contains 4.3BSD-Tahoe with both members
-
-We currently ship an outdated (and factually misleading) version
-of this description in ctime.3
+struct tm lives in tm.3type, and we now describe both of these fields,
+in detail and correctly, therein
 
 Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
 ---
- man3/tm.3type | 50 ++++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 50 insertions(+)
+ man3/ctime.3 | 15 ---------------
+ 1 file changed, 15 deletions(-)
 
-diff --git a/man3/tm.3type b/man3/tm.3type
-index 78e05a41a..c23fc023e 100644
---- a/man3/tm.3type
-+++ b/man3/tm.3type
-@@ -25,8 +25,26 @@ Standard C library
- .BR "    int         tm_yday;" \
- "   /* Day of the year  [" 0 ", " 365 "] (Jan/01 =3D " 0 ") */"
- .BR "    int         tm_isdst;" "  /* Daylight savings flag */"
-+
-+.BR "    long        tm_gmtoff;" " /* Seconds East of UTC */"
-+.BR "    const char *tm_zone;" "   /* Timezone abbreviation */"
- .B };
- .fi
-+.PP
-+.RS -4
-+Feature Test Macro Requirements for glibc (see
-+.BR feature_test_macros (7)):
-+.RE
-+.PP
-+.IR tm_gmtoff ,
-+.IR tm_zone :
-+.nf
-+.\" Guarded with __USE_MISC:
-+    Since glibc 2.20:
-+        _DEFAULT_SOURCE
-+    Glibc 2.20 and earlier:
-+        _BSD_SOURCE
-+.fi
- .SH DESCRIPTION
- Describes time, broken down into distinct components.
+diff --git a/man3/ctime.3 b/man3/ctime.3
+index d228bdc21..60ee4418d 100644
+--- a/man3/ctime.3
++++ b/man3/ctime.3
+@@ -356,21 +356,6 @@ In many implementations, including glibc, a 0 in
+ .I tm_mday
+ is interpreted as meaning the last day of the preceding month.
  .PP
-@@ -35,6 +53,16 @@ describes wether daylight saving time is in effect at th=
-e time described.
- The value is positive if daylight saving time is in effect,
- zero if it is not,
- and negative if the information is not available.
-+.PP
-+.I tm_gmtoff
-+is the difference, in seconds, of the timezone represented by this broken-=
-down time and UTC
-+(this is the additive inverse of
-+.BR timezone (3)).
-+.PP
-+.I tm_zone
-+is the equivalent of
-+.BR tzname (3)
-+for the timezone represented by this broken-down time.
- .SH VERSIONS
- In C90,
- .I tm_sec
-@@ -48,10 +76,32 @@ in C99.
- .SH CONFORMING TO
- C90 and later;
- POSIX.1-2001 and later.
-+.PP
-+.I tm_gmtoff
-+and
-+.I tm_zone
-+originate from 4.3BSD-Tahoe (where
-+.I tm_zone
-+is a
-+.IR "char *" ).
- .SH NOTES
- .I tm_sec
- can represent a leap second with the value
- .BR 60 .
-+.PP
-+.BR timezone (3),
-+as a variable, is an XSI extension: some systems provide the V7-compatible
-+.\" FreeBSD
-+.BR timezone ()
-+function.
-+The
-+.I tm_gmtoff
-+field provides an alternative (with the opposite sign) for those systems.
-+.PP
-+.I tm_zone
-+points to static storage and may be overriden on subsequent calls to
-+.BR localtime (3)
-+and similar functions (however, this never happens under glibc).
- .SH SEE ALSO
- .BR ctime (3),
- .BR strftime (3),
+-The glibc version of \fIstruct tm\fP has additional fields
+-.PP
+-.in +4n
+-.EX
+-long tm_gmtoff;           /* Seconds east of UTC */
+-const char *tm_zone;      /* Timezone abbreviation */
+-.EE
+-.in
+-.PP
+-defined when
+-.B _BSD_SOURCE
+-was set before including
+-.IR <time.h> .
+-This is a BSD extension, present in 4.3BSD-Reno.
+-.PP
+ According to POSIX.1-2001,
+ .BR localtime ()
+ is required to behave as though
 --=20
 2.30.2
 
-
---nteny2y4axjv6fo7
+--qm3s23vsnn2qchry
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmLW+j8ACgkQvP0LAY0m
-WPGZsQ/8D2Dl+NgDl4hr3qEYMT/39SPhmakJL4RBsiztN2KpzWPzNoZZMQ8t30kL
-8MvCQaDUgL2NcvPdJyLIMzt8hGisyJOhX7bEH/5/h5VDFzKi8ly7zmSsP/bxE1ce
-gt8fT1n+TLwYYFAzUjyA9e7dIS07DHxyHyRucHN93vkKL/xuxrvb8o+huKBz9aIG
-WqTKlThL8ojAIF6MTpS6kArNE8ujsxUITW6oTevt1D7Adh1Gz4rhVhbihzqFEGIt
-w7xgxRIdZcNpgbbL9/Hi0naehO5Di0kEhV0jSjEV8p7wogtn8Mve26wiK+3nGB3k
-iglTyeGa+1qOXqDf/KBlrfk+wXt8c6oOzVZIlWa9WOfPPM5X42J+Ge4YDvWc5BvS
-WRsKqoKggCp0Y97jgS1S1gQSUm/SaacBudA0tXTjlZgyqim/3q4VKmheMvC87iVF
-atqbDuIM2mv6VabmHqtLvPDKOi6QIrDGlgsM5PwQLhSgKAbPCfNO8XDYLnZTeTI4
-+hgKZp+XlRbM2jXM0DEB/4mw/PQw/QDcS9S2nohAyyn69RwLTVvC7BrwiSqfCBF2
-H8yDh0FMeZ55UoKUPMQquCpze1d9Rl2bqumtNur9iN20Cpb5bC1u97F208sWLovL
-kiM1RGXk8PhBJZC5avQtx/jrMp9eLe1E2JTbf4cQ7MtoaEV2bVc=
-=GtMc
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmLW+lQACgkQvP0LAY0m
+WPFwsw//QWhYd7WBcV+o+n6dHxSJygjka+4aEgEdJNJPGbihcw/gtXAglBDu6Z6m
+Q63PMaRle3pvuzNXpfnG8BApvr9pVrCXnZK8OMaYPXmq0O8J1mFyOwqb9BWtT7cA
+ZYd9Rt6O8sKL9fd/0B+YxPKMT2PdIf1FJEeetY3G9NF+uwwk3U61CB2QIxlAJfDE
+6WYpUHEDcfbseO20QD/XpLSMBqBKAzQY2oEpKPU2uNm8Kr5shn7CtlO1TF2sT8cq
+qe6BnatOjsHtQAGx5K/xFRWHaU3NIUN3FiCyJ3CH9PC5vH2rHRSsfubAzMV1G/RJ
+hVrJ4KwE0dojFmmzcJFNRctBmJOg7oSSM5ftCcdqgK3GdVBQ7KGoCxWr0CcapDAc
+VtjVjPV0AwwFAbTkS2cdikhVEU/zWQjiUN8guKb3F9hXQiycIUktTrFrElXOD3Di
+8YmHA57xqX5e/YgUCT4k/m3FNT99MXmE3JrjngPNWZg4ruSSwq8AfRSvL/B4d5gl
+KvN6L3SrO9UoNXaZclbW4TXlxYS0xpUKAVUwky5Zng6gzaMjB3IgQH8xLbkbLpRJ
+zdwC8Vo0PYLksnDMhq5XKpP/c5cY288469L9PdXC9JjtSF+DtXwmB5WMzrUO8YFs
+Ef7AAyoCzP9NIaK2Cl1tobS99+B4R5PRr0wAM5cJmW/cDnWkWck=
+=T3gt
 -----END PGP SIGNATURE-----
 
---nteny2y4axjv6fo7--
+--qm3s23vsnn2qchry--
