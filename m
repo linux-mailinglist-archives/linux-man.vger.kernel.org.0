@@ -2,139 +2,150 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 2F98B57A4B8
-	for <lists+linux-man@lfdr.de>; Tue, 19 Jul 2022 19:12:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C11E257A512
+	for <lists+linux-man@lfdr.de>; Tue, 19 Jul 2022 19:21:18 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S237546AbiGSRMq (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 19 Jul 2022 13:12:46 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38500 "EHLO
+        id S234781AbiGSRVS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 19 Jul 2022 13:21:18 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47786 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S238379AbiGSRMj (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 19 Jul 2022 13:12:39 -0400
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com [IPv6:2a00:1450:4864:20::42a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 53D4B4F186
-        for <linux-man@vger.kernel.org>; Tue, 19 Jul 2022 10:12:38 -0700 (PDT)
-Received: by mail-wr1-x42a.google.com with SMTP id bk26so22565473wrb.11
-        for <linux-man@vger.kernel.org>; Tue, 19 Jul 2022 10:12:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to;
-        bh=ZFuXDHZXwWQ7B+4zk651pdfPbYAETPyvMeI1fbEcHJQ=;
-        b=iXvaOHKS00nG23Eu+XTdi3/T1A6TzuPrneDUp3ozla0AIYU0pK2znvr53ePJMH4WuK
-         Hf5f1CDtzzfGHiGiBhdA3U+xIk9ulsWaws78h8RNMuVPTZ0CUH52wesj9BmX2IweqrZD
-         i9BRQutTUFu4YXhJKYGW9Ljq+tpARHSKKqoiPqyKcR8vzNwZxSAVGndBdRBre9O3CRPe
-         YszRHG/AkT32/O+dJOOSa9YXJ0lE/rvq5C5ObbZHRQESZXyX6IgJH+rGcE7FH3gmZGMH
-         UAEntq8/D/TL0rKcrBrU6+fbhmNCTe+QhWF3g3orwf1+JksKHe20dtFF8fNHYAiMuKV/
-         449g==
+        with ESMTP id S229655AbiGSRVR (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 19 Jul 2022 13:21:17 -0400
+Received: from mail-pg1-x564.google.com (mail-pg1-x564.google.com [IPv6:2607:f8b0:4864:20::564])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0A9A1122
+        for <linux-man@vger.kernel.org>; Tue, 19 Jul 2022 10:21:16 -0700 (PDT)
+Received: by mail-pg1-x564.google.com with SMTP id s27so14056318pga.13
+        for <linux-man@vger.kernel.org>; Tue, 19 Jul 2022 10:21:16 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to;
-        bh=ZFuXDHZXwWQ7B+4zk651pdfPbYAETPyvMeI1fbEcHJQ=;
-        b=wMNxOIKxHjjwfgSbz8Hl5o5Bg92GXXX478cYjnlrAWOEPJyIfP4y1czP20nXHIgope
-         IbSzrHSPncUxD4627aPohhpZiwGwLvYCqgP5JSzxeIKUQQaWJawdA/638YcSf0tfOefj
-         AZqv0VK+Wi0ytzZKyKw0kYTzgrYk4p6jaE/yX34u1cLyAFAJb3N18dBpzgVxojEbZY8Q
-         xn3ZUmenxz8+1V+TsBWF62OyzHotO9xVBG4xsxICOaVMNHALv0F6MO365sAtnQmsf9tT
-         yR7Oru4RFy0z9IF1Mum0ZNFfWq05kwvXW96+QsVuFb5/QTcx+LMgcT+peFVQ4akLdF6x
-         tK3w==
-X-Gm-Message-State: AJIora9k8GvDq6WdfdaH2bbo3i36H4WQJmS08BAvt57v2BcTXrvlW9Dg
-        syGq/jp7m5AsZdMTN/nc9Hw=
-X-Google-Smtp-Source: AGRyM1suK2AS5QAFGwBim/oftV6yb+HOXqh+Pft9VBDaOjWcuT2IhsnQOwFQcTDUcMSKuIvFBxkmlA==
-X-Received: by 2002:a05:6000:18c1:b0:21e:4712:b284 with SMTP id w1-20020a05600018c100b0021e4712b284mr585373wrq.545.1658250756884;
-        Tue, 19 Jul 2022 10:12:36 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id n125-20020a1ca483000000b003a02de5de80sm2208729wme.4.2022.07.19.10.12.35
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 19 Jul 2022 10:12:36 -0700 (PDT)
-Message-ID: <838d07e3-8b4f-f0bc-7d31-e07483439456@gmail.com>
-Date:   Tue, 19 Jul 2022 19:12:34 +0200
+        h=x-gm-message-state:dkim-signature:mime-version:references
+         :in-reply-to:from:date:message-id:subject:to:cc;
+        bh=QSn9mIgJk7sHIV7cBs73aK7jgBZZUNOd7XXOM0FfuLY=;
+        b=vjpRTHamgPnfo91W6n6N0bLjyu8W+JTvAwTA3MmwdiWI58N7Ia2V55pGwLfVjvloGy
+         nAPjzjUw8Vn5tYJAeiTDchEQaYnXOuAQ2+222w8BSBVG5GqT4qZMVdaB7xsD+tHWGj9l
+         0zjgMErgFcWTRepJokpPA1aRkjlZ0yZXSctB3DXoImYkY/kpgcYxVlRA/4s0T1rexeVT
+         KQ6m8xPefsp2uWdq4DmMQbx2oM9nQ3bRaZsQPvdRCpqI7w0uNPVj5Qpp5JQtLSLWnA3l
+         4p31UIzEpZblNS1juyh9eTqZH/PK1WF1/uGBssRdEEJW5XozMDu4v+wBs94LZtqVG8K4
+         Oy3w==
+X-Gm-Message-State: AJIora/LNXJ/NhPHDOWgdJAhqbL/z/DOCAMs6M7aQCGzD/dl0yeddNjK
+        Is9XcGlXEAaRXT/7Vl2+sRf7IAtxQYTJQn7EcC4QlDq0e1/Kmw==
+X-Google-Smtp-Source: AGRyM1vklX0BHf2UeXqF9+7uCgBpqlKGmTVtK67NUJL4DGDbrMh9XQpYu2xaKVAGsclYdnGVzlCHPc9Q7YlJ
+X-Received: by 2002:a63:5456:0:b0:419:fdbe:11af with SMTP id e22-20020a635456000000b00419fdbe11afmr15143209pgm.151.1658251275619;
+        Tue, 19 Jul 2022 10:21:15 -0700 (PDT)
+Received: from restore.menlosecurity.com (restore.menlosecurity.com. [13.56.32.52])
+        by smtp-relay.gmail.com with ESMTPS id cp18-20020a170902e79200b0016bf25b0d5asm942751plb.67.2022.07.19.10.21.15
+        for <linux-man@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 19 Jul 2022 10:21:15 -0700 (PDT)
+X-Relaying-Domain: menlosecurity.com
+Received: from safemail-prod-02850030cr-re.menlosecurity.com (13.56.32.53)
+    by restore.menlosecurity.com (13.56.32.52)
+    with SMTP id 316bc840-0787-11ed-8728-019c43d52f23;
+    Tue, 19 Jul 2022 17:21:15 GMT
+Received: from mail-yw1-f199.google.com (209.85.128.199)
+    by safemail-prod-02850030cr-re.menlosecurity.com (13.56.32.53)
+    with SMTP id 316bc840-0787-11ed-8728-019c43d52f23;
+    Tue, 19 Jul 2022 17:21:15 GMT
+Received: by mail-yw1-f199.google.com with SMTP id 00721157ae682-31cdce3ed04so125520187b3.13
+        for <linux-man@vger.kernel.org>; Tue, 19 Jul 2022 10:21:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=menlosecurity.com; s=google;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=QSn9mIgJk7sHIV7cBs73aK7jgBZZUNOd7XXOM0FfuLY=;
+        b=Y6GOjvKWB721ykqUwPeb3+/mcMt3FNGMpxVN82PapgowFcqjqBh+JGyTZNNFeUAsgx
+         eYOfeXMg/gvIG3rdxHLRjEmhHGWt5sZ+srQNBGFQ943853LpU8ggEy7sD/BUy2eYb45i
+         7j37MRPJOR6iA+WWcVXKJpdyUiAktlOeQ+hVU=
+X-Received: by 2002:a0d:cec1:0:b0:31e:590c:c6e4 with SMTP id q184-20020a0dcec1000000b0031e590cc6e4mr5258610ywd.42.1658251274085;
+        Tue, 19 Jul 2022 10:21:14 -0700 (PDT)
+X-Received: by 2002:a0d:cec1:0:b0:31e:590c:c6e4 with SMTP id
+ q184-20020a0dcec1000000b0031e590cc6e4mr5258576ywd.42.1658251273815; Tue, 19
+ Jul 2022 10:21:13 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.0.2
-Subject: Re: [PATCH v2 4/4] ctime.3: remove struct tm vestigia
-Content-Language: en-US
-To:     =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc:     linux-man@vger.kernel.org
-References: <62c1b6748d2faa6263264b9fcaa064495357441b.1658195739.git.nabijaczleweli@nabijaczleweli.xyz>
- <e9b0e687ff10a4607ec0442a3208dd31b6d4eed8.1658244821.git.nabijaczleweli@nabijaczleweli.xyz>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <e9b0e687ff10a4607ec0442a3208dd31b6d4eed8.1658244821.git.nabijaczleweli@nabijaczleweli.xyz>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------fet6XJpMtqFTTmyKUT90TMRf"
+References: <CA+FoirBpBrvp7Qme_sqViKf-90tG+s+tUZNy9fmZXEF5u4sx8w@mail.gmail.com>
+ <a62a00a3-e673-8874-73b2-57e8d9c362c4@gmail.com>
+In-Reply-To: <a62a00a3-e673-8874-73b2-57e8d9c362c4@gmail.com>
+From:   Rumen Telbizov <rumen.telbizov@menlosecurity.com>
+Date:   Tue, 19 Jul 2022 10:21:03 -0700
+Message-ID: <CA+FoirA75vZgYaDdNfJGUwR6sVCYZ6YL4T3mN_LNPpzeJ5pYhg@mail.gmail.com>
+Subject: Re: Update bpf-helpers(7) man page
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org, quentin@isovalent.com
+Content-Type: text/plain; charset="UTF-8"
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
-        autolearn_force=no version=3.4.6
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
+        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------fet6XJpMtqFTTmyKUT90TMRf
-Content-Type: multipart/mixed; boundary="------------dakoUlXouWaJ2qHDmCRRBTam";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc: linux-man@vger.kernel.org
-Message-ID: <838d07e3-8b4f-f0bc-7d31-e07483439456@gmail.com>
-Subject: Re: [PATCH v2 4/4] ctime.3: remove struct tm vestigia
-References: <62c1b6748d2faa6263264b9fcaa064495357441b.1658195739.git.nabijaczleweli@nabijaczleweli.xyz>
- <e9b0e687ff10a4607ec0442a3208dd31b6d4eed8.1658244821.git.nabijaczleweli@nabijaczleweli.xyz>
-In-Reply-To: <e9b0e687ff10a4607ec0442a3208dd31b6d4eed8.1658244821.git.nabijaczleweli@nabijaczleweli.xyz>
+Hi Alejandro,
 
---------------dakoUlXouWaJ2qHDmCRRBTam
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Thanks for following up on this.
+Quentin will send you the script these days for you to rerun.
+However, I'm wondering if there's a way to run it automatically when a change is
+detected or otherwise without needing manual intervention? This way
+the published
+page will not get out of date. I am not sure what that mechanism might be but
+just a thought.
 
-0L3QsNCxLCBJIHRoaW5rIHRoaXMgd291bGQgbmVlZCBhIGJpdCBtb3JlIG9mIGEgY29tbWl0
-IG1lc3NhZ2UsIGV2ZW4gaWYgdGhlIA0KcHJldmlvdXMgb25lIGFscmVhZHkgaGludHMgdGhh
-dCB0aGlzIHJlbW92YWwgd2lsbCBoYXBwZW4uDQoNCkNoZWVycywNCg0KQWxleA0KDQpPbiA3
-LzE5LzIyIDE3OjM1LCDQvdCw0LEgd3JvdGU6DQo+IFNpZ25lZC1vZmYtYnk6IEFoZWxlbmlh
-IFppZW1pYcWEc2thIDxuYWJpamFjemxld2VsaUBuYWJpamFjemxld2VsaS54eXo+DQo+IC0t
-LQ0KPiAgIG1hbjMvY3RpbWUuMyB8IDE1IC0tLS0tLS0tLS0tLS0tLQ0KPiAgIDEgZmlsZSBj
-aGFuZ2VkLCAxNSBkZWxldGlvbnMoLSkNCj4gDQo+IGRpZmYgLS1naXQgYS9tYW4zL2N0aW1l
-LjMgYi9tYW4zL2N0aW1lLjMNCj4gaW5kZXggZDIyOGJkYzIxLi42MGVlNDQxOGQgMTAwNjQ0
-DQo+IC0tLSBhL21hbjMvY3RpbWUuMw0KPiArKysgYi9tYW4zL2N0aW1lLjMNCj4gQEAgLTM1
-NiwyMSArMzU2LDYgQEAgSW4gbWFueSBpbXBsZW1lbnRhdGlvbnMsIGluY2x1ZGluZyBnbGli
-YywgYSAwIGluDQo+ICAgLkkgdG1fbWRheQ0KPiAgIGlzIGludGVycHJldGVkIGFzIG1lYW5p
-bmcgdGhlIGxhc3QgZGF5IG9mIHRoZSBwcmVjZWRpbmcgbW9udGguDQo+ICAgLlBQDQo+IC1U
-aGUgZ2xpYmMgdmVyc2lvbiBvZiBcZklzdHJ1Y3QgdG1cZlAgaGFzIGFkZGl0aW9uYWwgZmll
-bGRzDQo+IC0uUFANCj4gLS5pbiArNG4NCj4gLS5FWA0KPiAtbG9uZyB0bV9nbXRvZmY7ICAg
-ICAgICAgICAvKiBTZWNvbmRzIGVhc3Qgb2YgVVRDICovDQo+IC1jb25zdCBjaGFyICp0bV96
-b25lOyAgICAgIC8qIFRpbWV6b25lIGFiYnJldmlhdGlvbiAqLw0KPiAtLkVFDQo+IC0uaW4N
-Cj4gLS5QUA0KPiAtZGVmaW5lZCB3aGVuDQo+IC0uQiBfQlNEX1NPVVJDRQ0KPiAtd2FzIHNl
-dCBiZWZvcmUgaW5jbHVkaW5nDQo+IC0uSVIgPHRpbWUuaD4gLg0KPiAtVGhpcyBpcyBhIEJT
-RCBleHRlbnNpb24sIHByZXNlbnQgaW4gNC4zQlNELVJlbm8uDQo+IC0uUFANCj4gICBBY2Nv
-cmRpbmcgdG8gUE9TSVguMS0yMDAxLA0KPiAgIC5CUiBsb2NhbHRpbWUgKCkNCj4gICBpcyBy
-ZXF1aXJlZCB0byBiZWhhdmUgYXMgdGhvdWdoDQoNCi0tIA0KQWxlamFuZHJvIENvbG9tYXIN
-CjxodHRwOi8vd3d3LmFsZWphbmRyby1jb2xvbWFyLmVzLz4NCg==
+Cheers
 
---------------dakoUlXouWaJ2qHDmCRRBTam--
 
---------------fet6XJpMtqFTTmyKUT90TMRf
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
 
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmLW5gIACgkQnowa+77/
-2zJVCw//Ygq5eFRvkH/GRjEFBM5412QnPFJFmsvDUU8w4P3tFJQektuUpFReDQI2
-edCcPbEPgxXfKRmLg+kbBnLDcwdjKPgGYzxWpx2/9qKTWotfYbRAi0KDERrrInhA
-ZtthETrv8BIh+/vBiI2KZ3Jjam+/zmWhM53MdhZ8YIDwqBgP+1n0tVXh+hNzdGv0
-kiUA7LmeyVeEeHi6Le656GlJhN7zQWpzbSQ+IHXaOxgWJQF08zveVRj9sWIci/hJ
-plricx6EjILrx7luYKwUUvmWUCiJKhd+WBR2qtlum9e3GzODH2A1tndOmsM4YqT/
-CG440InDVYJwpx2p+F37dH6A8zX2k3i23ubr5lSXg+JHS/2lwyi4cVEzROW56gDk
-p8PpJP0u3tVxxz0hU4dAZFfzGYeNVbc/Rj9pd+YgoMJCrWUfXpaCL0uXJhalePmF
-thwKPqLhenHDlc8RBZiPjEo5u30XVB6l/Qxzd79nQBvK7vg8mYQjH3wuoGscOHKl
-P7HlZQWKbT43n3EUjDcadOWW05UAhePM4KK0komS3v79BvCkyC4dLqx5lEDllRT9
-PuA6eG3+UbIdacaLn2jtkgX+Q+68GvmM9/P2v1A1yY/Eq+9wx3hN4FpmQFgrkTKI
-g0AAl+p7NNNdpfGT4tHh40701e2iCFFSAgKsAFxe4dDn7kIBHjA=
-=O/ul
------END PGP SIGNATURE-----
-
---------------fet6XJpMtqFTTmyKUT90TMRf--
+On Tue, Jul 19, 2022 at 7:42 AM Alejandro Colomar
+<alx.manpages@gmail.com> wrote:
+>
+> Hi Rumen,
+>
+> On 7/18/22 18:37, Rumen Telbizov wrote:
+> > Hi Michael, everyone,
+> >
+> > I was directed to you by Quentin Monnet with regards to a missing
+> > function in the bpf-helpers(7) Linux man page. I found out that the
+> > man page doesn't have anything regarding bpf_redirect_neigh(). Quentin
+> > mentioned that he has a script which generates the man page from the
+> > comments in the source code, but then I am not sure how and when the
+> > man page is being generated so that it gets out of date. This function
+> > definitely has comments/documentation in the code and it works
+> > properly but is missing in the man page.
+> >
+> > Is this something you can help with?
+>
+> Yes, the page is generated:
+>
+> alx@asus5775:~/src/linux/man-pages/man-pages$ cat MAINTAINER_NOTES
+> Externally generated pages
+> ==========================
+>
+> A few pages come from external sources. Fixes to the pages should really
+> go to the upstream source.
+>
+> tzfile(5), zdump(8), and zic(8) come from the tz project
+> (https://www.iana.org/time-zones).
+>
+> bpf-helpers(7) is autogenerated from the kernel sources using scripts.
+> See man-pages commit 53666f6c30451cde022f65d35a8d448f5a7132ba for
+> details.
+>
+>
+>
+> If Quentin has the script, he could send it to me as a patch to the
+> man-pages repo, so that it's added to our scripts/ directory. I can
+> regenerate the page whenever I'm requested to do so, but I've never done
+> it, so I need the script and a simple explanation to use it.
+>
+>
+> Thanks,
+>
+> Alex
+>
+> >
+> > Thank you,
+> > Rumen Telbizov
+>
+> --
+> Alejandro Colomar
+> <http://www.alejandro-colomar.es/>
