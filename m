@@ -2,92 +2,203 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 4511E57C036
-	for <lists+linux-man@lfdr.de>; Thu, 21 Jul 2022 00:44:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 57E9257C112
+	for <lists+linux-man@lfdr.de>; Thu, 21 Jul 2022 01:45:25 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229686AbiGTWoZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 20 Jul 2022 18:44:25 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40404 "EHLO
+        id S231633AbiGTXpV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 20 Jul 2022 19:45:21 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56182 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229540AbiGTWoY (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 20 Jul 2022 18:44:24 -0400
-Received: from mail-pg1-x562.google.com (mail-pg1-x562.google.com [IPv6:2607:f8b0:4864:20::562])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 918A948CA0
-        for <linux-man@vger.kernel.org>; Wed, 20 Jul 2022 15:44:23 -0700 (PDT)
-Received: by mail-pg1-x562.google.com with SMTP id g4so17770047pgc.1
-        for <linux-man@vger.kernel.org>; Wed, 20 Jul 2022 15:44:23 -0700 (PDT)
+        with ESMTP id S229550AbiGTXpU (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 20 Jul 2022 19:45:20 -0400
+Received: from mail-pg1-x535.google.com (mail-pg1-x535.google.com [IPv6:2607:f8b0:4864:20::535])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 61256DE;
+        Wed, 20 Jul 2022 16:45:17 -0700 (PDT)
+Received: by mail-pg1-x535.google.com with SMTP id q16so82663pgq.6;
+        Wed, 20 Jul 2022 16:45:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=ZEaKQvm/NxARytV46Yo0/098MQt6QtYcYVz7xqviJd4=;
+        b=dkkvcOmipq3l/S9vFdOtqMRcATTOhf/0PsKkjbKggBqjMI3Bo/oMmQ3PKYxyICyjmU
+         bHnHwfMGsZlKGbBZ3YHm2wqBnqTqp22EiQEexS64OeaxlQ6KX+dMBsPQ/rKPlXOx3NST
+         bEIUk8fT0ZTxO2jFnx4X2N8Upzm92jBvY39jHd/HVrB81+EhKOastI7ujKoUH+c46Y3N
+         EySqi5B0Mn8hALfqNsFvabIg7ubZI/PrT8L54x1HDA7FwANcTlVGL+r8gtC3whUf+r5Y
+         jdMx71R/RZkaelSyBi0JDyKUsJZO9bxLfzodei6TYMYWv8fSM06GiB9ZQvxejeBUqVwl
+         4+uQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:dkim-signature:mime-version:references
-         :in-reply-to:from:date:message-id:subject:to:cc;
-        bh=QmCPW65uErEg9CJNKgUgQa+j3X1iQ//lVfWHddlHiNY=;
-        b=dOd4+d93ZAvJj2y2rDcNBOKxLmpDsAzWB/kifcU720KYqh+QsA1Axqyt3OK4qGgpDL
-         nwLsiCaMMFgQB3NofNt+jWvq6xmlTbQ3hmlPOrUmcmbRkpVC8z0yGA3axeQswq23aKxz
-         AArTbjzanPFVVgtBp8lUAVYkGqNh7W1CJXskVsaNssvJX8RZIJ79htymiShfhxhw9C7h
-         Kl135eqPV6RBLFLEcuS8jSc2lXEGdVmJmQwWni1ffV1+VmmbwXJgn5Gk9PYydiyEJdSf
-         N5kLvQvyzpSg9DnqbsEf+BjbHssYUmw8/ZE1rz37nSaknU52OuEiI+8WG7PGBVBwyDw0
-         YaWg==
-X-Gm-Message-State: AJIora/T40gY8+7nnIKx+D7JcY9c+VQ0NgMmVyO+4hQeCql53sYIsNiI
-        dv6JAS8JQ+LES01LTLoTkDNd656Sg1xo+8UuCx4Mu/Dojh84Cg==
-X-Google-Smtp-Source: AGRyM1u1zq8a7cWj5NtLxhYNls55PZXaEkqaGwlt+YEmo4xg/m+5vPwcUhffVBgnn5rfSBiscSM2wpGef08Y
-X-Received: by 2002:a05:6a00:1941:b0:50d:807d:530b with SMTP id s1-20020a056a00194100b0050d807d530bmr40737110pfk.17.1658357063173;
-        Wed, 20 Jul 2022 15:44:23 -0700 (PDT)
-Received: from restore.menlosecurity.com ([34.202.62.174])
-        by smtp-relay.gmail.com with ESMTPS id ji3-20020a170903324300b0016cda9d5e9bsm17028plb.1.2022.07.20.15.44.22
-        for <linux-man@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 20 Jul 2022 15:44:23 -0700 (PDT)
-X-Relaying-Domain: menlosecurity.com
-Received: from safemail-prod-02850030cr-re.menlosecurity.com (34.202.62.175)
-    by restore.menlosecurity.com (34.202.62.174)
-    with SMTP id 7f66ef60-087d-11ed-9556-5355e8d6d399;
-    Wed, 20 Jul 2022 22:44:23 GMT
-Received: from mail-yw1-f198.google.com (209.85.128.198)
-    by safemail-prod-02850030cr-re.menlosecurity.com (34.202.62.175)
-    with SMTP id 7f66ef60-087d-11ed-9556-5355e8d6d399;
-    Wed, 20 Jul 2022 22:44:23 GMT
-Received: by mail-yw1-f198.google.com with SMTP id 00721157ae682-31e6ca3d1efso303977b3.9
-        for <linux-man@vger.kernel.org>; Wed, 20 Jul 2022 15:44:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=menlosecurity.com; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=QmCPW65uErEg9CJNKgUgQa+j3X1iQ//lVfWHddlHiNY=;
-        b=MYPTtDEDB7pDmH8+MC7mZSh4odr5C/hi6kVD1bJvUbLKquk2iCl5KOaRrRg5ZkVZnS
-         0fqyW1pM0GSjYL8aZaZN3uQ0dLNTGWaEgZ0gT37G4QQ1p9F3qB0kAinM24pqpxsbiqPW
-         3YbeNmuCMYfMn97hpQPRLCKbm9NvxLWKLDX00=
-X-Received: by 2002:a81:5d06:0:b0:31e:3b24:4a86 with SMTP id r6-20020a815d06000000b0031e3b244a86mr16227111ywb.245.1658357061633;
-        Wed, 20 Jul 2022 15:44:21 -0700 (PDT)
-X-Received: by 2002:a81:5d06:0:b0:31e:3b24:4a86 with SMTP id
- r6-20020a815d06000000b0031e3b244a86mr16227100ywb.245.1658357061487; Wed, 20
- Jul 2022 15:44:21 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=ZEaKQvm/NxARytV46Yo0/098MQt6QtYcYVz7xqviJd4=;
+        b=xfqVjrlkR6ylX0xFSisNjqzWWbegSU1OostP7JGf1R19u9jMi8Y2trfjsz0qn+Zlss
+         6p70lsIAEFrW5sl16tLBMLH0P50Ao2h9q5ksWv8aDLTbqwJ2OOjWuSbbpZflCJgmy6fz
+         4IZ8w/F63UAb/GTEKKjevmvH7gKbOJXAOFoJZblS4xiRn6+zzZfuzBGQ4+iLvVpwk/pG
+         XJxHswwkcubcH8sQGLo/r+LAA7fFGZR60J4N3eibTHMZrC2hq4NIWhHRtNarAFh3kplE
+         UWjSUkB1RSzTPm8a0vaku7qIyioohoC+5u/kmyUPN/Azg5TnBJRTD50m4d/+F2LCpBeY
+         b8ew==
+X-Gm-Message-State: AJIora+zLUqkyy+Tg6/g9G1+kfbMwZuLkxf7gDU3vweYCsPMFxv4qg+q
+        gaAUqEJuPfFnt94IUccNOTgyI5Qgpt2j8enA
+X-Google-Smtp-Source: AGRyM1vFFzYOJBeKbSpBufrB70dlsWT9nvYD6ZrpKFS66NicfhO4SkGs4/p13KSWfIf5JGAW7wiODQ==
+X-Received: by 2002:a63:fb01:0:b0:419:699f:a0bb with SMTP id o1-20020a63fb01000000b00419699fa0bbmr35309139pgh.4.1658360716885;
+        Wed, 20 Jul 2022 16:45:16 -0700 (PDT)
+Received: from jbongio9100214.roam.corp.google.com (cpe-104-173-199-31.socal.res.rr.com. [104.173.199.31])
+        by smtp.googlemail.com with ESMTPSA id mm3-20020a17090b358300b001ef95232570sm2192339pjb.52.2022.07.20.16.45.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 20 Jul 2022 16:45:16 -0700 (PDT)
+From:   Jeremy Bongio <bongiojp@gmail.com>
+To:     Ted Tso <tytso@mit.edu>, "Darrick J . Wong" <djwong@kernel.org>
+Cc:     linux-ext4@vger.kernel.org, linux-man@vger.kernel.org,
+        Jeremy Bongio <bongiojp@gmail.com>
+Subject: [PATCH v2] Add manpage for get/set fsuuid ioctl for ext4 filesystem.
+Date:   Wed, 20 Jul 2022 16:45:12 -0700
+Message-Id: <20220720234512.354076-1-bongiojp@gmail.com>
+X-Mailer: git-send-email 2.37.0.170.g444d1eabd0-goog
 MIME-Version: 1.0
-References: <CA+FoirBpBrvp7Qme_sqViKf-90tG+s+tUZNy9fmZXEF5u4sx8w@mail.gmail.com>
- <a62a00a3-e673-8874-73b2-57e8d9c362c4@gmail.com> <CA+FoirA75vZgYaDdNfJGUwR6sVCYZ6YL4T3mN_LNPpzeJ5pYhg@mail.gmail.com>
- <6310b542-3a92-e072-b369-25e370036626@gmail.com> <CACdoK4KwzbRFZ+_HDd6wybzePAHy40Pc3p19uu3XburddOuC3A@mail.gmail.com>
- <b62b15e5-398d-6d17-dedf-532b70208299@gmail.com> <CACdoK4KuoRpTdyLqtPTbctHWHtfQTNgZoKunVC_f7T_y4ATF5g@mail.gmail.com>
- <7d125b8d-9873-b001-dae2-a78d3891f144@gmail.com>
-In-Reply-To: <7d125b8d-9873-b001-dae2-a78d3891f144@gmail.com>
-From:   Rumen Telbizov <rumen.telbizov@menlosecurity.com>
-Date:   Wed, 20 Jul 2022 15:44:10 -0700
-Message-ID: <CA+FoirA-FeYeA5ZPgCvo55Hg_dfe7dT54Co8CkU9wW8yemFcJA@mail.gmail.com>
-Subject: Re: Update bpf-helpers(7) man page
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     Quentin Monnet <quentin@isovalent.com>,
-        linux-man <linux-man@vger.kernel.org>,
-        Daniel Borkmann <daniel@iogearbox.net>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
-        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Thanks for handling that folks.
-I'll keep an eye on the man page updating.
+Signed-off-by: Jeremy Bongio <bongiojp@gmail.com>
+---
 
-Alejandro, do you have an idea when it might be that you would
-run the script and update the page? I can verify afterwards.
+This is a ext4 filesystem specific ioctl. However, this ioctl will
+likely be implemented for multiple filesystems at which point this
+manpage will be updated.
+
+ man2/ioctl_fsuuid.2 | 115 ++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 115 insertions(+)
+ create mode 100644 man2/ioctl_fsuuid.2
+
+diff --git a/man2/ioctl_fsuuid.2 b/man2/ioctl_fsuuid.2
+new file mode 100644
+index 000000000..53747684f
+--- /dev/null
++++ b/man2/ioctl_fsuuid.2
+@@ -0,0 +1,115 @@
++.\" Copyright (c) 2022 Google, Inc., written by Jeremy Bongio <bongiojp@gmail.com>
++.\"
++.\" SPDX-License-Identifier: Linux-man-pages-copyleft
++.TH IOCTL_FSUUID 2 2022-07-20 "Linux" "Linux Programmer's Manual"
++.SH NAME
++ioctl_fsuuid \- get or set an ext4 filesystem uuid
++.SH LIBRARY
++Standard C library
++.RI ( libc ", " \-lc )
++.SH SYNOPSIS
++.nf
++.B #include <sys/ioctl.h>
++.PP
++.BI "int ioctl(int " fd ", EXT4_IOC_GETFSUUID, struct " fsuuid ");"
++.BI "int ioctl(int " fd ", EXT4_IOC_SETFSUUID, struct " fsuuid ");"
++.fi
++.SH DESCRIPTION
++If an ext4 filesystem supports uuid manipulation, these
++.BR ioctl (2)
++operations can be used to get or set the uuid for the ext4 filesystem
++on which
++.I fd
++resides.
++.PP
++The argument to these operations should be a pointer to a
++.IR "struct fsuuid" ":"
++.PP
++.in +4n
++.EX
++struct fsuuid {
++       __u32 fsu_len;      /* Number of bytes in a uuid */
++       __u32 fsu_flags;    /* Mapping flags */
++       __u8  fsu_uuid[];   /* Byte array for uuid */
++};
++.EE
++.PP
++The
++.I fsu_flags
++field must be set to 0. 
++.PP
++If an
++.BR EXT4_IOC_GETFSUUID
++operation is called with
++.I fsu_len
++set to 0,
++.I fsu_len
++will be reassigned the number of bytes in an ext4 filesystem uuid
++and the return code will be -EINVAL.
++.PP
++If an
++.BR EXT4_IOC_GETFSUUID
++operation is called with
++.I fsu_len
++set to the number of bytes in an ext4 filesystem uuid and
++.I fsu_uuid
++is allocated at least that many bytes, then
++the filesystem uuid will be written to
++.I fsu_uuid.
++.PP
++If an
++.BR EXT4_IOC_SETFSUUID
++operation is called with
++.I fsu_len
++set to the number of bytes in an ext4 filesystem uuid and
++.I fsu_uuid
++contains a uuid with 
++.I fsu_uuid
++bytes, then
++the filesystem uuid will be set to
++.I fsu_uuid.
++.PP
++The
++.B FS_IOC_SETFSUUID
++operation requires privilege
++.RB ( CAP_SYS_ADMIN ).
++If the filesystem is currently being resized, an
++.B EXT4_IOC_SETFSUUID
++operation will wait until the resize is finished and the uuid can safely be set.
++This may take a long time.
++.PP
++.SH RETURN VALUE
++On success zero is returned.
++On error, \-1 is returned, and
++.I errno
++is set to indicate the error.
++.SH ERRORS
++Possible errors include (but are not limited to) the following:
++.TP
++.B EFAULT
++Either the pointer to the
++.I fsuuid
++structure is invalid or
++.I fsu_uuid
++has not been initialized properly.
++.TP
++.B EINVAL
++The specified arguments are invalid.
++.I fsu_len
++did not match the filesystem uuid length or
++.I fsu_flags
++has bits set that are not implemented.
++.TP
++.B ENOTTY
++The filesystem does not support the ioctl.
++.TP
++.B EOPNOTSUPP
++The filesystem does not currently support changing the uuid through this
++ioctl. This may be due to incompatible feature flags.
++.TP
++.B EPERM
++The calling process does not have sufficient permissions to set the uuid.
++.SH CONFORMING TO
++This API is Linux-specific.
++.SH SEE ALSO
++.BR ioctl (2)
+-- 
+2.37.0.170.g444d1eabd0-goog
+
