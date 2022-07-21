@@ -2,241 +2,142 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id CFB7A57C177
-	for <lists+linux-man@lfdr.de>; Thu, 21 Jul 2022 02:12:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1183257C9B8
+	for <lists+linux-man@lfdr.de>; Thu, 21 Jul 2022 13:28:22 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229898AbiGUAMs (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 20 Jul 2022 20:12:48 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50506 "EHLO
+        id S230036AbiGUL2U (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 21 Jul 2022 07:28:20 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44822 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229710AbiGUAMr (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 20 Jul 2022 20:12:47 -0400
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 186694A81B;
-        Wed, 20 Jul 2022 17:12:46 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by ams.source.kernel.org (Postfix) with ESMTPS id A89FBB82156;
-        Thu, 21 Jul 2022 00:12:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C2A4C3411E;
-        Thu, 21 Jul 2022 00:12:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1658362363;
-        bh=2Xu/bY52cBNKD0aenZIB3K742OBCJaMnfl5ejT+HdkA=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=TNoyJeN1QMwkTwq16E0WrGpBFoD3N8t1vj6LlOZDRBgJSewWBXUkbGRtlX/drVY9/
-         eCfsVj+coJ6PUuF43Kj8SJXfGtOw72VUqC/qf03sKqiWMpet7nIuIoY4TIK+CS1GjD
-         FV34XsSH65rw8hFyiGmJ0/3WJ0H0+G9MmUsfD3BfneRLJHNLqCslyB3Gmc19lYPTXV
-         lYJycAf4JMsC3d5lPdNjCN6GZt6KQafMO9KoVboA6ETGhrDhuYtlCndIqqKJtsjSOQ
-         2fujDPnLZETUJ+dM6bI3PzSbjl9fc3/xSD8lzH2GwY61n3T3q96DDRlCoeYnHcGYrH
-         rOAdKyF4HnffA==
-Date:   Wed, 20 Jul 2022 17:12:42 -0700
-From:   "Darrick J. Wong" <djwong@kernel.org>
-To:     Jeremy Bongio <bongiojp@gmail.com>
-Cc:     Ted Tso <tytso@mit.edu>, linux-ext4@vger.kernel.org,
-        linux-man@vger.kernel.org
-Subject: Re: [PATCH v2] Add manpage for get/set fsuuid ioctl for ext4
- filesystem.
-Message-ID: <YtiZ+gOmOFTpiAjW@magnolia>
-References: <20220720234512.354076-1-bongiojp@gmail.com>
+        with ESMTP id S229866AbiGUL2T (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 21 Jul 2022 07:28:19 -0400
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com [IPv6:2a00:1450:4864:20::42b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8FECB24BDC
+        for <linux-man@vger.kernel.org>; Thu, 21 Jul 2022 04:28:17 -0700 (PDT)
+Received: by mail-wr1-x42b.google.com with SMTP id z13so1782289wro.13
+        for <linux-man@vger.kernel.org>; Thu, 21 Jul 2022 04:28:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=message-id:date:mime-version:user-agent:subject:content-language:to
+         :cc:references:from:in-reply-to;
+        bh=qnx+O82HTvIYPZ8uINcERBaPG0ShiYZos10uqJSrYF0=;
+        b=o7kcdDEZ3zKD00xwZ6UAEJ3YyRXfwU6TqGvZQa5ApxJ47dGg9Pi7wCTmwe9BTEXjlT
+         tviMQmNqw7sf+DpfygN5kjeyC9UPw5wdORuvK391jx9teyQQhceGSBR642B8KuS+V1nm
+         oOW6aDHw0Jr2otc5llhoveJr2IUTKA3LzPfa4/y0HzxvdAskoN+sNsgRQJbuRIzl5p41
+         fHCnRxmxSW24LLYqiSBgnWH/OOoLzzK0I0gavroEtwmIeh4aaaUu+5tSVxooENmIe736
+         fVCXfbgZ66FR7JDCpRilnnn03i/rS6Id/QwGm0HA8ZHCTNiGsMOenw6WO8FvOP9ry/3F
+         uS1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+         :content-language:to:cc:references:from:in-reply-to;
+        bh=qnx+O82HTvIYPZ8uINcERBaPG0ShiYZos10uqJSrYF0=;
+        b=h//8pZPKgxJuYxHoOT2XohkXIeyyxMEfUMi2ScOtGr4IlC3+b78zMyGOaeRPPqw8Nd
+         FzNV/h3hLQCjebho3AosEDvELkUDnQFfDkl6Mgz/7dUu9aY4naYu1tsEUsw1tq27hXmR
+         EuAweR+W11iNblsqygi6yIIz00R+iIEQY2TOeAU31JFbyZDNDPgwr+bli4ev1FVNpP9u
+         nz7MgqGDDJL06fuBVecgeNmehEbx2xIYJ1CV8vNmId3qC1zqdbjJAxmsh9p3+L17y+TF
+         bCCNTsjnz7sUDcOXGG/twufWrixldqBUdUNrqjX1b1iFZvHsnJ5kSEgUOQuaaRHg/p7K
+         a7Yg==
+X-Gm-Message-State: AJIora+Iv6Ij2rGTYJy1A8502lYvQ5+nGviPzF87UQTeqFUPiE3kt8eZ
+        mgRDKv9YfSfbuZK5rXvBtmLGRMjytx4=
+X-Google-Smtp-Source: AGRyM1tErh0Wr2AR7ZpMHCWNkERcfC7MV86XFxS2gw8FQ+LS/QseFfgufRUDzWOMQjS31XGRCo53HQ==
+X-Received: by 2002:a05:6000:2cc:b0:21d:76d8:1f2c with SMTP id o12-20020a05600002cc00b0021d76d81f2cmr34150460wry.471.1658402896210;
+        Thu, 21 Jul 2022 04:28:16 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id z4-20020adfd0c4000000b0021d7b41255esm1592375wrh.98.2022.07.21.04.28.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 21 Jul 2022 04:28:15 -0700 (PDT)
+Message-ID: <fdec5bc8-1204-db0f-1f3e-86d7a2de8b5c@gmail.com>
+Date:   Thu, 21 Jul 2022 13:27:59 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220720234512.354076-1-bongiojp@gmail.com>
-X-Spam-Status: No, score=-7.8 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.0.2
+Subject: Re: Update bpf-helpers(7) man page
+Content-Language: en-US
+To:     Rumen Telbizov <rumen.telbizov@menlosecurity.com>
+Cc:     Quentin Monnet <quentin@isovalent.com>,
+        linux-man <linux-man@vger.kernel.org>,
+        Daniel Borkmann <daniel@iogearbox.net>
+References: <CA+FoirBpBrvp7Qme_sqViKf-90tG+s+tUZNy9fmZXEF5u4sx8w@mail.gmail.com>
+ <a62a00a3-e673-8874-73b2-57e8d9c362c4@gmail.com>
+ <CA+FoirA75vZgYaDdNfJGUwR6sVCYZ6YL4T3mN_LNPpzeJ5pYhg@mail.gmail.com>
+ <6310b542-3a92-e072-b369-25e370036626@gmail.com>
+ <CACdoK4KwzbRFZ+_HDd6wybzePAHy40Pc3p19uu3XburddOuC3A@mail.gmail.com>
+ <b62b15e5-398d-6d17-dedf-532b70208299@gmail.com>
+ <CACdoK4KuoRpTdyLqtPTbctHWHtfQTNgZoKunVC_f7T_y4ATF5g@mail.gmail.com>
+ <7d125b8d-9873-b001-dae2-a78d3891f144@gmail.com>
+ <CA+FoirA-FeYeA5ZPgCvo55Hg_dfe7dT54Co8CkU9wW8yemFcJA@mail.gmail.com>
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <CA+FoirA-FeYeA5ZPgCvo55Hg_dfe7dT54Co8CkU9wW8yemFcJA@mail.gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------Pg7WY4j9b57fgvbDJRGu0FQE"
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed, Jul 20, 2022 at 04:45:12PM -0700, Jeremy Bongio wrote:
-> Signed-off-by: Jeremy Bongio <bongiojp@gmail.com>
-> ---
-> 
-> This is a ext4 filesystem specific ioctl. However, this ioctl will
-> likely be implemented for multiple filesystems at which point this
-> manpage will be updated.
-> 
->  man2/ioctl_fsuuid.2 | 115 ++++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 115 insertions(+)
->  create mode 100644 man2/ioctl_fsuuid.2
-> 
-> diff --git a/man2/ioctl_fsuuid.2 b/man2/ioctl_fsuuid.2
-> new file mode 100644
-> index 000000000..53747684f
-> --- /dev/null
-> +++ b/man2/ioctl_fsuuid.2
-> @@ -0,0 +1,115 @@
-> +.\" Copyright (c) 2022 Google, Inc., written by Jeremy Bongio <bongiojp@gmail.com>
-> +.\"
-> +.\" SPDX-License-Identifier: Linux-man-pages-copyleft
-> +.TH IOCTL_FSUUID 2 2022-07-20 "Linux" "Linux Programmer's Manual"
-> +.SH NAME
-> +ioctl_fsuuid \- get or set an ext4 filesystem uuid
-> +.SH LIBRARY
-> +Standard C library
-> +.RI ( libc ", " \-lc )
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------Pg7WY4j9b57fgvbDJRGu0FQE
+Content-Type: multipart/mixed; boundary="------------0WxqfRrhifd00uXa9nPFbUlg";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: Rumen Telbizov <rumen.telbizov@menlosecurity.com>
+Cc: Quentin Monnet <quentin@isovalent.com>,
+ linux-man <linux-man@vger.kernel.org>, Daniel Borkmann <daniel@iogearbox.net>
+Message-ID: <fdec5bc8-1204-db0f-1f3e-86d7a2de8b5c@gmail.com>
+Subject: Re: Update bpf-helpers(7) man page
+References: <CA+FoirBpBrvp7Qme_sqViKf-90tG+s+tUZNy9fmZXEF5u4sx8w@mail.gmail.com>
+ <a62a00a3-e673-8874-73b2-57e8d9c362c4@gmail.com>
+ <CA+FoirA75vZgYaDdNfJGUwR6sVCYZ6YL4T3mN_LNPpzeJ5pYhg@mail.gmail.com>
+ <6310b542-3a92-e072-b369-25e370036626@gmail.com>
+ <CACdoK4KwzbRFZ+_HDd6wybzePAHy40Pc3p19uu3XburddOuC3A@mail.gmail.com>
+ <b62b15e5-398d-6d17-dedf-532b70208299@gmail.com>
+ <CACdoK4KuoRpTdyLqtPTbctHWHtfQTNgZoKunVC_f7T_y4ATF5g@mail.gmail.com>
+ <7d125b8d-9873-b001-dae2-a78d3891f144@gmail.com>
+ <CA+FoirA-FeYeA5ZPgCvo55Hg_dfe7dT54Co8CkU9wW8yemFcJA@mail.gmail.com>
+In-Reply-To: <CA+FoirA-FeYeA5ZPgCvo55Hg_dfe7dT54Co8CkU9wW8yemFcJA@mail.gmail.com>
 
-I'm not sure if libc will actually wrap this one, they often won't do
-that for ioctls.
+--------------0WxqfRrhifd00uXa9nPFbUlg
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-> +.SH SYNOPSIS
-> +.nf
-> +.B #include <sys/ioctl.h>
-> +.PP
-> +.BI "int ioctl(int " fd ", EXT4_IOC_GETFSUUID, struct " fsuuid ");"
-> +.BI "int ioctl(int " fd ", EXT4_IOC_SETFSUUID, struct " fsuuid ");"
-> +.fi
-> +.SH DESCRIPTION
-> +If an ext4 filesystem supports uuid manipulation, these
-> +.BR ioctl (2)
-> +operations can be used to get or set the uuid for the ext4 filesystem
-> +on which
-> +.I fd
-> +resides.
-> +.PP
-> +The argument to these operations should be a pointer to a
-> +.IR "struct fsuuid" ":"
-> +.PP
-> +.in +4n
-> +.EX
-> +struct fsuuid {
-> +       __u32 fsu_len;      /* Number of bytes in a uuid */
-> +       __u32 fsu_flags;    /* Mapping flags */
-> +       __u8  fsu_uuid[];   /* Byte array for uuid */
-> +};
-> +.EE
-> +.PP
-> +The
-> +.I fsu_flags
-> +field must be set to 0. 
+SGkgUnVtZW4sDQoNCk9uIDcvMjEvMjIgMDA6NDQsIFJ1bWVuIFRlbGJpem92IHdyb3RlOg0K
+PiBUaGFua3MgZm9yIGhhbmRsaW5nIHRoYXQgZm9sa3MuDQo+IEknbGwga2VlcCBhbiBleWUg
+b24gdGhlIG1hbiBwYWdlIHVwZGF0aW5nLg0KPiANCj4gQWxlamFuZHJvLCBkbyB5b3UgaGF2
+ZSBhbiBpZGVhIHdoZW4gaXQgbWlnaHQgYmUgdGhhdCB5b3Ugd291bGQNCj4gcnVuIHRoZSBz
+Y3JpcHQgYW5kIHVwZGF0ZSB0aGUgcGFnZT8gSSBjYW4gdmVyaWZ5IGFmdGVyd2FyZHMuDQoN
+CkRvbmUuICBDaGVjayB0aGUgbGFzdCB0d28gY29tbWl0cy4NCg0KQ2hlZXJzLA0KDQpBbGV4
+DQoNCi0tIA0KQWxlamFuZHJvIENvbG9tYXINCjxodHRwOi8vd3d3LmFsZWphbmRyby1jb2xv
+bWFyLmVzLz4NCg==
 
-Nit: whitespace at the end of the line.
+--------------0WxqfRrhifd00uXa9nPFbUlg--
 
-> +.PP
-> +If an
-> +.BR EXT4_IOC_GETFSUUID
-> +operation is called with
-> +.I fsu_len
-> +set to 0,
-> +.I fsu_len
-> +will be reassigned the number of bytes in an ext4 filesystem uuid
+--------------Pg7WY4j9b57fgvbDJRGu0FQE
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-"...will be set to the number of bytes..." ?
+-----BEGIN PGP SIGNATURE-----
 
-> +and the return code will be -EINVAL.
-> +.PP
-> +If an
-> +.BR EXT4_IOC_GETFSUUID
-> +operation is called with
-> +.I fsu_len
-> +set to the number of bytes in an ext4 filesystem uuid and
-> +.I fsu_uuid
-> +is allocated at least that many bytes, then
-> +the filesystem uuid will be written to
-> +.I fsu_uuid.
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmLZOD8ACgkQnowa+77/
+2zL07xAAoejbS6UbCIiZWY9m5sHDNHXc7OxN33ANpIIgZMQzRMSfjL12cFZfT6bt
+UPlEuFcxup8rtwQQJhaAfLYi/GfLDEg2OvkSZriK40htLCGfhYzTQUVo5CoHFBfC
+2YaooKfVYURar1cfSGBVAH17Lr5VvZtWuhqD4dtLu+AKw6vqMeSPhkLmzco5JC+c
+OLDuewW7IsJl1rDqqBU4+eA7KMLtPCsSeRkVKS6+T187G3rX/gIKfm6Zdw0N+P/S
+mmiNMQB85FeTRMBpRwPoC9K4iVE8dKKfTsIpivntZDAMRl9hfpFvwOitR8gD0HHz
+w/oykwZnzcYNWQuz+Yt06J2YPvorZ18EtXFH84cxUQsoVBKnE5SLnvfxnxCqi7AK
+gTt9+CDn6R6LWGfxVzQysiv+hK/WyVtBDTJlR6sRH5bIObROJkAZgGlOEHoFzUzj
+kDcXbAsACXt/XdLnioo+DRNe+FzEDtM2TtiR8o8v1wHgfKSVz4qoyrS3uCJGsstq
+uG2L0+GzjWWe+XGuveeydkztfkt5GKLURFlZB9MbCxs08TwvvXK+e2Tq2piyBo1L
++1iQ3mfVtpfNY9n7C4pKZo78ZOzgkVUPWsDOScpa2nJb5JPgYmIakZTD3PvN8C2I
+AaFOyD+lUT6Td4sjz8mMCQCyDOEU2KmOgdQwkxpTXgVsGn/6cuE=
+=XOZP
+-----END PGP SIGNATURE-----
 
-Hm.  It's not like the kernel actually checks the allocation -- if
-fsu_len is set to the length of the filesystem's volume uuid, then
-the that volume uuid will be written to fsu_uuid[].  How about:
-
-"If EXT4_IOC_GETFSUUID is called with fsu_len matching the length of the
-ext4 filesystem uuid, then that uuid will be written to fsu_uuid[] and
-the return value will be zero.
-If fsu_len does not match, the return value will be -EINVAL."
-
-> +.PP
-> +If an
-> +.BR EXT4_IOC_SETFSUUID
-> +operation is called with
-> +.I fsu_len
-> +set to the number of bytes in an ext4 filesystem uuid and
-> +.I fsu_uuid
-> +contains a uuid with 
-
-Nit: whitespace at EOL.
-
-> +.I fsu_uuid
-> +bytes, then
-> +the filesystem uuid will be set to
-> +.I fsu_uuid.
-
-"If EXT4_IOC_SETFSUUID is called with fsu_len matching the length of the
-ext4 filesystem uuid, then the filesystem uuid will be set to the
-contents of fsu_uuid[] and the return value will reflect the outcome of
-the update operation.
-If fsu_len does not match, the return value will be -EINVAL."
-
-> +.PP
-> +The
-> +.B FS_IOC_SETFSUUID
-> +operation requires privilege
-> +.RB ( CAP_SYS_ADMIN ).
-> +If the filesystem is currently being resized, an
-> +.B EXT4_IOC_SETFSUUID
-> +operation will wait until the resize is finished and the uuid can safely be set.
-> +This may take a long time.
-
-Why is resize called out here specifically?  Won't setfsuuid block on
-/any/ operation that has tied up the filesystem superblocks?  I think
-this could be more general:
-
-"If the filesystem is busy, an EXT4_IOC_SETFSUUID operation will wait
-until it can apply the uuid changes.
-This may take a long time."
-
-> +.PP
-> +.SH RETURN VALUE
-> +On success zero is returned.
-> +On error, \-1 is returned, and
-> +.I errno
-> +is set to indicate the error.
-> +.SH ERRORS
-> +Possible errors include (but are not limited to) the following:
-> +.TP
-> +.B EFAULT
-> +Either the pointer to the
-> +.I fsuuid
-> +structure is invalid or
-> +.I fsu_uuid
-> +has not been initialized properly.
-
-Invalid?  Isn't that what EINVAL is for?
-
-I think EFAULT is for "could not copy to/from userspace".
-
-> +.TP
-> +.B EINVAL
-> +The specified arguments are invalid.
-> +.I fsu_len
-> +did not match the filesystem uuid length or
-> +.I fsu_flags
-> +has bits set that are not implemented.
-
-"...not recognized."
-
-If they're not implemented, shouldn't that be EOPNOTSUPP?
-
---D
-
-> +.TP
-> +.B ENOTTY
-> +The filesystem does not support the ioctl.
-> +.TP
-> +.B EOPNOTSUPP
-> +The filesystem does not currently support changing the uuid through this
-> +ioctl. This may be due to incompatible feature flags.
-> +.TP
-> +.B EPERM
-> +The calling process does not have sufficient permissions to set the uuid.
-> +.SH CONFORMING TO
-> +This API is Linux-specific.
-> +.SH SEE ALSO
-> +.BR ioctl (2)
-> -- 
-> 2.37.0.170.g444d1eabd0-goog
-> 
+--------------Pg7WY4j9b57fgvbDJRGu0FQE--
