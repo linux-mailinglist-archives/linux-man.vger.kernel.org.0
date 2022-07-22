@@ -2,67 +2,65 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 8940457D807
-	for <lists+linux-man@lfdr.de>; Fri, 22 Jul 2022 03:34:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B4DA257D868
+	for <lists+linux-man@lfdr.de>; Fri, 22 Jul 2022 04:16:30 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229660AbiGVBel (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 21 Jul 2022 21:34:41 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59848 "EHLO
+        id S234135AbiGVCQT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 21 Jul 2022 22:16:19 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55122 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229441AbiGVBek (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 21 Jul 2022 21:34:40 -0400
-Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com [IPv6:2607:f8b0:4864:20::234])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CD66615FDB
-        for <linux-man@vger.kernel.org>; Thu, 21 Jul 2022 18:34:39 -0700 (PDT)
-Received: by mail-oi1-x234.google.com with SMTP id r13so3911902oie.1
-        for <linux-man@vger.kernel.org>; Thu, 21 Jul 2022 18:34:39 -0700 (PDT)
+        with ESMTP id S234140AbiGVCPx (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 21 Jul 2022 22:15:53 -0400
+Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com [IPv6:2607:f8b0:4864:20::32c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 07C6697A2B
+        for <linux-man@vger.kernel.org>; Thu, 21 Jul 2022 19:14:56 -0700 (PDT)
+Received: by mail-ot1-x32c.google.com with SMTP id g19-20020a9d1293000000b0061c7bfda5dfso2514801otg.1
+        for <linux-man@vger.kernel.org>; Thu, 21 Jul 2022 19:14:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=date:from:to:subject:message-id:references:mime-version
+        h=date:from:to:cc:subject:message-id:references:mime-version
          :content-disposition:in-reply-to;
-        bh=7+QF3WfiOoCWTlCNXlDNQqnFSpMB+gQUkPRlQBEgjzw=;
-        b=dDKufYspIRbinAjTtgp7QPwj0PVqY53LJQL3D4wsQ7ZYpvE2Rqo6jxH/scPTsV8Qiv
-         CS0+H+cfvFbRy2sZvkpDk33Mz2t0Py/nMt1I66q5yjVTThwMbr67HsMxNJa1mkiMCAp/
-         ZAKfXfTzA371WPjBXABrGIjmSz+gyp2qzRU5dkPsvPekkdif3CvymAs4x64IOrexAJgJ
-         nMJUIDZO1YURqXuu3AUQm/Dr1MTioALuz8B6tyMmrnQ01KMvh/8K3H4jeELrZICo121i
-         9a8hLEJnbgYbPXozjCXVmkw0V1APdxyytZ8y5EhUkvQD68n/4I7j19DOSlB2IabMIiGA
-         YLWQ==
+        bh=W2vxoTxKMXrZFED1mqsxwmBNXKLXSfqvmAqpddEXY9M=;
+        b=oYbTPRg672g4fETT+pwUmfXjpdR84ISeh0o7J9GOKo0gcW6HlHno7W4I0pgsIiGugD
+         Wc9KUhUdgTlkOmv3t+cBjHzuMZwvngMvkByQxrqdLjWSOsZGcL91vrBy+5PJd+eyGkSt
+         WDosL71k0gJR0ivWsSnBEX2XsYob0bEHr16FSnD0f6faLYQ98NDyF1OAG8gqoKpqYZLq
+         C4I6BweHViMssWHuRtcuVYZKAYGbAKq991dVB9FeBeNGOVUg2EBg0/C89eXq9sGmKg/v
+         VoIE4ZWChDo5nHXDeM8Grmq5LMKP03GuX3RSmM+tbf7Lid3qjjt7CJdmRcCwoARBoXx5
+         s21w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:date:from:to:subject:message-id:references
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
          :mime-version:content-disposition:in-reply-to;
-        bh=7+QF3WfiOoCWTlCNXlDNQqnFSpMB+gQUkPRlQBEgjzw=;
-        b=MY2GBstitbXwCEE7nwkMWG7qzSLFVZ1p1wxU9jZweY2uHAeHs7/v5KeyCXQqhkNfUr
-         i7q4B66lNpVpXW4t2rujs9603MKamQVjeQ/0GHzcILUNGzFxMQS7u7pNG0nMMDC1yE/l
-         TbnsxAstddgyHB0vz8xlVTdYjVPp8CVRHA5+t1qmjfw+teY1Rblf9VNnhff5CGOzfQTv
-         Xe84sVEoYjsvhucHqzC2sln1n0vgSgCczWvmOu0vr4uGV4pHbxbXR883H1sy+Dx/5KCN
-         t416vgW7B5R0KrL4qanT/7m+i2e8i8c63yslYNvXzgvmPcsI18FuOAszdQsZ8K+bJKUV
-         qRig==
-X-Gm-Message-State: AJIora/60mI3DBi1XKZbunA1se4lJoaZVg18e5KZlcJl7aDSWKj+7ega
-        y7M8+z9IQcVzF13IlvJNoUSN9ZfNBGs=
-X-Google-Smtp-Source: AGRyM1sAo66+BLQ+FZss9GxqfL0aonoIDy0H7tLJFmtmrSKRcRx4qo5oob7JhUjrYNmOxOOT5HscJQ==
-X-Received: by 2002:a05:6808:1183:b0:2d4:5eeb:1ca3 with SMTP id j3-20020a056808118300b002d45eeb1ca3mr424386oil.8.1658453679112;
-        Thu, 21 Jul 2022 18:34:39 -0700 (PDT)
+        bh=W2vxoTxKMXrZFED1mqsxwmBNXKLXSfqvmAqpddEXY9M=;
+        b=fWtolbZzFZE7N4Gj7lYia2kaQyENms9+IELXt1RcrvOi1vlBP8DEwpECcdJAqbtkjV
+         oDtWEAP6fskLbPxud4QgKq81f6SriPoB8lXePrwOkhZnHElikNXAFYddT2KvwXAeBdXn
+         5T5sJvyLpI8GT6cbvwJC/KnwuEjqBT2BsNPSr0o3JkgIOKo19rxKeSx1NO/MHtT2ZOn7
+         ELHfWQho8TIMllOR890xcZaACTzzhEENOEfx+4McvOwQMlp1G1kPMHvJaWoRQxo5era7
+         YKjeIxtfQbTeBUSq9xbH5F/MB5FCtSK5fiW5Txdgpz7aH5Fld8gPMs3lMpGR7atHxhFp
+         an6A==
+X-Gm-Message-State: AJIora8f6IoTuza3If0JihAWa5FOUt03mit/9tfNkoP2tffwdLwRSGeH
+        Im6n2uAMUMaDspk3VY7HxrbCAtIIh+4=
+X-Google-Smtp-Source: AGRyM1tQdZNmPvPvsratKhAmpVqfkfUGz2lazo8c53sBfJfeY1R9bnuvWvbLzXjoVUnGPO6Rvx9tRg==
+X-Received: by 2002:a9d:6657:0:b0:61c:b0ca:b1ec with SMTP id q23-20020a9d6657000000b0061cb0cab1ecmr487313otm.133.1658456095279;
+        Thu, 21 Jul 2022 19:14:55 -0700 (PDT)
 Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id f97-20020a9d2c6a000000b0061c87262540sm1397877otb.65.2022.07.21.18.34.36
+        by smtp.gmail.com with ESMTPSA id i9-20020a4ad089000000b00435b0a84995sm1439900oor.24.2022.07.21.19.14.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 21 Jul 2022 18:34:38 -0700 (PDT)
-Date:   Thu, 21 Jul 2022 20:34:35 -0500
+        Thu, 21 Jul 2022 19:14:54 -0700 (PDT)
+Date:   Thu, 21 Jul 2022 21:14:52 -0500
 From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     Alejandro Colomar <alx.manpages@gmail.com>,
-        Ingo Schwarze <schwarze@usta.de>,
-        linux-man <linux-man@vger.kernel.org>, groff <groff@gnu.org>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>, groff <groff@gnu.org>
 Subject: Re: All caps .TH page title
-Message-ID: <20220722013435.mkzzfscdgtechzgx@illithid>
+Message-ID: <20220722021452.5k43or5uwj2eiouh@illithid>
 References: <66c19a09-ef0f-0d85-0380-37a67ac483dd@gmail.com>
  <20220721183620.hdvgwwef66hmrgln@illithid>
  <1e1f9197-a013-0d6b-6bfa-853fe28102cf@gmail.com>
- <Ytnt4dPmkrPmL1Sh@riva.ucam.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="m33almp2o2ybrhqx"
+        protocol="application/pgp-signature"; boundary="qfpfci452h2jh7rh"
 Content-Disposition: inline
-In-Reply-To: <Ytnt4dPmkrPmL1Sh@riva.ucam.org>
+In-Reply-To: <1e1f9197-a013-0d6b-6bfa-853fe28102cf@gmail.com>
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
@@ -74,109 +72,102 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---m33almp2o2ybrhqx
+--qfpfci452h2jh7rh
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-At 2022-07-22T01:22:57+0100, Colin Watson wrote:
-> On Fri, Jul 22, 2022 at 01:16:49AM +0200, Alejandro Colomar wrote:
-> > On 7/21/22 20:36, G. Branden Robinson wrote:
-> > > At 2022-07-21T16:29:21+0200, Alejandro Colomar wrote:
-> > > > Also, does it have any functional implications?  I'm especially
-> > > > interested in knowing if that may affect in any way the ability
-> > > > of man(1) to find a page when invoked as `man TIMESPEC` for
-> > > > example.
-> > >=20
-> > > My understanding is that mandb(8) indexes based solely on the
-> > > second argument to the `TH` macro call and (what it interprets as)
-> > > the contents of the "Name" (or "NAME") section of the page.  It
-> > > parses *roff itself as best it can to determine this.  So the fact
-> > > that the _first_ argument to `TH` might be in full caps doesn't
-> > > deter it.  (It might in fact have made mandb(8) authors' job
-> > > easier if an "honest lettercase" practice had arisen back in the
-> > > day--but it didn't).
+[Colin and Ingo dropped from CC since I know they read the groff list]
+
+Hi Alex,
+
+At 2022-07-22T01:16:49+0200, Alejandro Colomar wrote:
+> On 7/21/22 20:36, G. Branden Robinson wrote:
+> > At 2022-07-21T16:29:21+0200, Alejandro Colomar wrote:
+> > > I've never been convinced about the page title being in all caps
+> > > in the .TH line.
 [...]
-> > > Since he's a mandb(8) author/maintainer, I would again defer to
-> > > Colin Watson's knowledge and expertise in this area.
+> > > I'd like to know why this has been the case historically, and any
+> > > opinions you might have about me changing the man-pages to use the
+> > > same caps as the actual identifier that I'm documenting (most of
+> > > the time that would mean lowercase).  Basically, the same rules as
+> > > within .SH NAME.
 [...]
+> > After that--the V4 manual was the first to be typeset with
+> > troff--the practice of full-capping the page titles in the headers
+> > was retained.
+> >=20
+> > How deliberate a choice this was is not something I can answer.  The
+> > decision was made in 1972.  You could ask some of the surviving
+> > principal Bell Labs CSRC figures on the TUHS mailing list.
 >=20
-> The above is not quite correct.  man-db doesn't index on the .TH
-> section at all, and I don't believe I've encountered the practice of
-> doing so in other indexers (I could be wrong, but I think that's
-> something I would have remembered if I'd noticed it).  Rather, it
-> parses the "NAME" (or "Name", or a number of localized variants)
-> section of pages using the man macro set for "foo \- description"
-> lines and uses the left-hand side of those for page names, or
-> equivalently looks for .Nm requests in pages using the mdoc macro set.
+> Is Doug one of them?  I've seem him on the groff@ list from time to
+> time.  I added the groff@ list, in case this is of interest to someone
+> there.
 
-Ah, thanks, Colin.  A quick consultation of ncurses man pages reveals
-that mandb(8)'s idea of the manual section comes from its place in the
-directory hierarchy, not from parsing the arguments to the `TH` call.
-My error!
+Yes, Doug McIlroy follows both the groff and TUHS lists.
 
-> With the exception of handling localized variants of that section
-> name, which is a pretty ugly pile of special cases, I believe this to
-> be fairly traditional behaviour.  I can't say I would have done it
-> that way if I'd been designing the system from scratch since it really
-> involves far too much half-arsed parsing, but it seemed to be the
-> usual thing to do when I came on the scene.
+> Heh!  You've never tried to clone the Linux man-pages in Windows or MacOS,
+> it seems :p
 
-We could have groff man(7) and mdoc(7) recognize a register, named
-`INDEX`, `DB`, or `SUMMARIZE` or something, which would cause the
-package(s) to emit the required information, derived solely from page
-content, in a desirable format.  Say, JSON, maybe.  Upon seeing this
-register and reporting the data, the package could then invoke `nx` to
-move to the next input file.
+No, can't say I've had the...pleasure.
 
-Thus, potentially, the indexing data could be generated with great
-speed--you could call groff (or nroff, it wouldn't matter) with as many
-man page file arguments as desired, specifying no preprocessor options
-(except maybe those for preconv), and a large percentage of page content
-would never even be read, let alone formatted.
+> At least, _Exit(2) and _exit(2) point to the same page.  nan(3) and
+> NAN(3) don't, though!
 
-Why, I wonder, was the thing not done this way in the first place?
-Possibly because what follows "Name" can be arbitrary roff language
-input.  However...
+Pretty gross.  A useful counterexample of good practice, though.
 
-The "Name" section's contents can be stored in a diversion.  In normal
-circumstances, this diversion's contents would be emitted immediately
-upon any other `SH` call (or, for degenerate pages that declare no
-sections after "Name", when the page's end macro is called[1]).
+> We can't blame the writers, since the identifiers have those names in
+> C.  Luckily, man(1) shows you the right page if you specify the right
+> string.
 
-Once in a diversion, these contents are subject to "sanitization", a
-feature I'm chewing over adding to the formatter.[2]  The gist is that
-all the garbage (font changes, special character escape sequences) you
-currently spent time parsing or stripping away is already removed or
-transformed for you, leaving clean, printable ASCII or UTF-8.
+Yes, and at least they're closely related and from the same project.
 
-At this point I pause to let the wave of horror break over my audience.
+This is the only man page I know of that documents only simple (i.e.,
+not function-like) C preprocessor macros.  You're more conversant with
+libc-ish man pages so you may know of others, but this is the sort of
+content that, as a user, I would prefer to find in, say, a "math.h(3)"
+man page.  Having these constants in a page by themselves does little to
+situate them within the context of the C math library API.  But I know I
+have suggested this to you before.  ;-)
+
+I observe that the most popular simple macro of all, NULL, has no man
+page.
+
+> I feel a need to fix this lack of precision in the page titles.
+> Unless someone opposes to it with some strong reason, which I don't
+> expect.
+
+You never know.  But keep in mind that a strong objection is not the
+same thing as a strong reason.
+
+> It'll take some time to do it, but if no-one speaks in a reasonable
+> time, I'll start doing it :).
+
+We should all practice our scowling faces for anyone who dares to
+promulgate man pages named "lS", "prIntf", or similar.
 
 Regards,
 Branden
 
-[1] andoc.tmac contrives for this to be the case when rendering multiple
-    pages.
-[2] https://savannah.gnu.org/bugs/?62787
-
---m33almp2o2ybrhqx
+--qfpfci452h2jh7rh
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmLZ/qMACgkQ0Z6cfXEm
-bc6QNA//dIszK+Lffwrnky7s5NKPA0xEkTdE5W+iHWT8/T8vhMPSyqBk4DtVLV3C
-pX3LqHflu787BOp8XdlGYhcatPNG5aWfrPnTE5Y5FNAb92KLNdCCZB+s50cFYHb1
-h9QFUTPytb14QO8tQZZh7MviL0IwDjFTdRPxGkG7ttvm17x4nH5cjRtRzGwCD8NW
-jnDA38FMuEzW9nAZIGAVY01TYqrYXTkqGuEtYcMcXchWKxWjmm4ZIyHd+oqxJ6RY
-FNvL1VFUDuXeHhzmcylcQ/BVaUI0mKYuZEbrv6gp27Y/1S/8oDW0mTSQDg8YBT29
-FdI22maeSLUJSCmWIzVDnwSeXezCwRobG71W3TBldXQw3ROHt28JclcoDowASu0X
-YIb2AFDQNJftTxBCyBJsDT88uaB300x+rvrChivRU7u0laW+LAf6M5vUUPu5xfY8
-N/izU1T29fvLchxz271BR1fMn0qy6GPV32WvuvtOLKg+VQcMLUwp0jVNccttiAIW
-+DV7zQwLNyQqJiWKLNdIDx5ZDkLIipQYySzCJj4gT6VWGmui5i7vQuUeX95wqxc7
-ijy/nFZRWZu56lv03mxcvZTgAUIJeOzfUihfSv2Vw/qydepTcvQYXI4YxEMkesHS
-RNj22yEmp/Az/ZS33hMCNISQVhi4tbdQ66wye9M8IQfkmwyMalU=
-=cIdl
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmLaCBQACgkQ0Z6cfXEm
+bc4V3g//c3NU1rc8vj79gO37+GS3+9gdZEHNzZgZfYnZNKIP/s0BKvmoKjfb07JD
+YnHRe+wsl/3TzfrLwOZnJs82uFwBmvxQm2OMFeR7KDFOSGovRfhOhjdEbnEqstmg
+TwnKkWR5MgmH1/vZ61mdvbnissTBI0og9jY8KvtOhEBt472TRU4KUc0SvbPr4OPa
+Rh6fKyXrkCszYDUIDNXUH7lb1/44Wvdjm4dSkEWIk3PAl71Zs1cpTvQDrin7P1Vw
+hCSrmAQYaAMZmsb/I5zYMevxf7ox/PWwphzRbWrdtZ+yYYIHi6TkBcuBCcu0LDQG
+V3Nl4dlXP21ZAo5yzh8aJGgpWLqQOZDHPnVT8SjOXCECl2ndbxrcs2MkyTqPclYF
+JmnLCGXsJIvO5i+BQxvRwiyApg+U9qYqXxMSYhY5c0M2M/cFRjByvYKjdPGwNokJ
+kEmMEQApjyBiGQdRyQXWRyE3NK1d7MH0r7Etoca4pX+GSVgFbGtuCIBoGM2FHzFb
+xxrIWMowNF9jko2FMogWC8El0WjzujmPWO+QcPc1GCoFouDXTpJYkkeZL5wyxx5z
+Yoc+sASuyCCNxPbzy2WU6SzzGpUicImN38HKwkwlV54iu7sx4npBBz3ofV5soJIn
+96Z/30v0NlHEqkkQWf40uMTeAGElc28BDnMrKSzZZAS3sLCLhu8=
+=FZIA
 -----END PGP SIGNATURE-----
 
---m33almp2o2ybrhqx--
+--qfpfci452h2jh7rh--
