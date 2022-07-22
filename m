@@ -2,110 +2,87 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 460B057E1FC
-	for <lists+linux-man@lfdr.de>; Fri, 22 Jul 2022 15:06:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id F095957E2A2
+	for <lists+linux-man@lfdr.de>; Fri, 22 Jul 2022 15:55:43 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229441AbiGVNGm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 22 Jul 2022 09:06:42 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54452 "EHLO
+        id S229839AbiGVNzm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 22 Jul 2022 09:55:42 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33886 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234548AbiGVNGl (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 22 Jul 2022 09:06:41 -0400
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 98E781140
-        for <linux-man@vger.kernel.org>; Fri, 22 Jul 2022 06:06:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1658495197;
-        h=from:from:reply-to:reply-to:subject:subject:date:date:
-         message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-         content-type:content-type:  content-transfer-encoding:content-transfer-encoding;
-        bh=KRAIBJvdRdM4mGqwYX7uPMuucWU5ZZ09WtgB4J0EI9A=;
-        b=hRj1LHVb1XoElqQfe3jxszTZqRba7WLAMuxtB9t4yTopjwJV8U+Vo1K50J9LXVLNLXl2aD
-        81R4yf9cZv16uZZvnHjnOxvWQXslkXvfyy1clPx/7GMpfCXgPeL+YM//yCKUOtDl1wv+z4
-        70HIJwRv5K1h/dSepDwpdFdiAxvzyo0=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-662-tXdrYkdGP-aShkdWyNKgrA-1; Fri, 22 Jul 2022 09:06:36 -0400
-X-MC-Unique: tXdrYkdGP-aShkdWyNKgrA-1
-Received: by mail-wm1-f70.google.com with SMTP id x17-20020a05600c21d100b003a32dda6577so1845422wmj.7
-        for <linux-man@vger.kernel.org>; Fri, 22 Jul 2022 06:06:36 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:subject:from:reply-to:to:cc:date
-         :organization:user-agent:mime-version:content-transfer-encoding;
-        bh=KRAIBJvdRdM4mGqwYX7uPMuucWU5ZZ09WtgB4J0EI9A=;
-        b=rXkY72hj246v8rLbN+gzcDkut/qDabFW2SeghAFLUQTVUoYIRZ5Bq1XGZvrhGmeTB+
-         llx2e+pkG19LHXyw/YdwRP1PLMrEn0kYLsNfKai2c1C4TB7WYvDP2rVengKVrguNHWPz
-         buUDwFjT++xu7jeuDm1cneSNeKe7AeeDRT4/CR1lnCbX8V/I98hcWdcoo38rpPHGjxys
-         ll5TVWOUsTT974iL96mhkQq8/Wz59688wvF0aTHcJl2mB/eMEdqWLIuGDnkmYW/iTcfQ
-         rptjDdZbahFNQc6bBSTZxjmuxqH4XUa7/9hMwF5eTELlTioPg2HBLSI/P0cv96jZ/tVb
-         xcUQ==
-X-Gm-Message-State: AJIora89nA24QZMIqA2fYikr0Vhbhj+hbTJ7V9Y43ouiZX4PY4SO/vN6
-        rVZ7gmz3MrOuVCJ1WKSnebGenTDqwaOUVEZ6e4TbX3qYHIXOfOIkY7iPQofOw9P2n3zg8oCjB+7
-        QvPhhDiTastmwNAdDOkai
-X-Received: by 2002:a5d:4f8f:0:b0:21e:4f09:9e15 with SMTP id d15-20020a5d4f8f000000b0021e4f099e15mr314180wru.55.1658495195342;
-        Fri, 22 Jul 2022 06:06:35 -0700 (PDT)
-X-Google-Smtp-Source: AGRyM1uZ6Etvc59FtwiHumHGBw+zJd8hkqyDpVkWaKwY/MKImCWqOIBOvah4NB+vVXEYsmUvhexiNQ==
-X-Received: by 2002:a5d:4f8f:0:b0:21e:4f09:9e15 with SMTP id d15-20020a5d4f8f000000b0021e4f099e15mr314148wru.55.1658495194972;
-        Fri, 22 Jul 2022 06:06:34 -0700 (PDT)
-Received: from ?IPv6:2001:470:5bd4:dead:e33d:dc07:2b0c:d9a9? ([2001:470:5bd4:dead:e33d:dc07:2b0c:d9a9])
-        by smtp.gmail.com with ESMTPSA id r5-20020a1c2b05000000b003a03be171b1sm5053918wmr.43.2022.07.22.06.06.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 22 Jul 2022 06:06:34 -0700 (PDT)
-Message-ID: <920642e4bc7b60c19962187b266dfc0ee4ac7f27.camel@redhat.com>
-Subject: [PATCH] nsswitch.conf.5: Mention subid database
-From:   Nikola =?ISO-8859-1?Q?Forr=F3?= <nforro@redhat.com>
-Reply-To: nforro@redhat.com
-To:     alx.manpages@gmail.com, mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org
-Date:   Fri, 22 Jul 2022 15:06:33 +0200
-Organization: Red Hat
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.42.4 (3.42.4-2.fc35) 
+        with ESMTP id S229671AbiGVNzl (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 22 Jul 2022 09:55:41 -0400
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CE32C87236;
+        Fri, 22 Jul 2022 06:55:40 -0700 (PDT)
+Received: from cwcc.thunk.org (pool-173-48-118-63.bstnma.fios.verizon.net [173.48.118.63])
+        (authenticated bits=0)
+        (User authenticated as tytso@ATHENA.MIT.EDU)
+        by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 26MDtOIe015224
+        (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+        Fri, 22 Jul 2022 09:55:25 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+        t=1658498126; bh=adOGrR/XnBYwUl94/YNKQYYFOIUm0MU+TJwn8QCkDdQ=;
+        h=Date:From:To:Cc:Subject:References:In-Reply-To;
+        b=Twa2n8cElnWOk9wJtu82xIorja+zyCG7F2qFd+ahBHkdpkAlWnWHYbalimcPshvjj
+         bNGxOOUrt1CURbl1bT4nYMDifH4FnH4AZI6TxoTDKtJ3rtjm+/4h8TK2131sdwnPU6
+         ITka+XOOPFiiVCybAWt14rsesERsvN2Cv4WkxJWyngW+35dyT0Z/ac/njfbQvBC9UI
+         Rjr0lMA+dHjiigIKCDnGa9gks7ldszw2NNitYEpEiSzLGCxNQ9HpZ1V2QDs7XBFJ7f
+         /tHbNMd7bR1k2N/JETZDwOyv5nEF150LkxqGqaJ/wxsqDb0FiDi8asnBWlDn/hH+wT
+         LswBwNKYejIoQ==
+Received: by cwcc.thunk.org (Postfix, from userid 15806)
+        id 99ACB15C3EF7; Fri, 22 Jul 2022 09:55:24 -0400 (EDT)
+Date:   Fri, 22 Jul 2022 09:55:24 -0400
+From:   "Theodore Ts'o" <tytso@mit.edu>
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Cc:     "Darrick J. Wong" <djwong@kernel.org>,
+        Jeremy Bongio <bongiojp@gmail.com>, linux-ext4@vger.kernel.org,
+        linux-man@vger.kernel.org
+Subject: Re: [PATCH v2] Add manpage for get/set fsuuid ioctl for ext4
+ filesystem.
+Message-ID: <YtqsTM2qXyR+dlz6@mit.edu>
+References: <20220720234512.354076-1-bongiojp@gmail.com>
+ <YtiZ+gOmOFTpiAjW@magnolia>
+ <e503645b-e665-50c4-37a9-cdc8637ba1d8@gmail.com>
+ <YtmXAyoF2PXstnLY@magnolia>
+ <e1573002-7ea3-2636-b2d2-331767a5622f@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-2.8 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
-        SPF_HELO_NONE,SPF_NONE autolearn=ham autolearn_force=no version=3.4.6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e1573002-7ea3-2636-b2d2-331767a5622f@gmail.com>
+X-Spam-Status: No, score=-4.0 required=5.0 tests=BAYES_00,DKIM_INVALID,
+        DKIM_SIGNED,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-shadow-utils use nsswitch.conf for configuring delegation of subordinate
-uids/gids.
+On Fri, Jul 22, 2022 at 12:03:23PM +0200, Alejandro Colomar (man-pages) wrote:
+> > SEE ALSO
+> > 	ioctl(2)
+> > 
+> > at the end of an ioctl_XXX manpage like this one.
+> > 
+> 
+> Okay.  Then may I ask for an EXAMPLES section with a program that
+> unequivocally shows users how to use it?
 
-Reference:
-https://github.com/shadow-maint/shadow/blob/3ec32f9975f262073f8fbdecd2bfaee4a1d3db48/lib/nss.c
+I'll note that existing ioctl man pages don't have an explicit
+statement that a libc is required --- nor do we do this for open(2),
+stat(2), etc.   (And that's especially necessary for stat(2), BTW!)
 
-and subuid.5/subgid.5 man pages.
+Many of the ioctl man pages (or other system call man pages, for that
+matter) also don't have an EXAMPLES section, either.
 
-Signed-off-by: Nikola Forró <nforro@redhat.com>
----
- man5/nsswitch.conf.5 | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Perhaps it would be useful to have a discussion over what the
+standards are for man pages in section 2, and when we need to state
+things that seem to be rather obvious (like "you must have a C
+library") and when there should be things like an EXAMPLES section?
 
-diff --git a/man5/nsswitch.conf.5 b/man5/nsswitch.conf.5
-index 144977d2b..56450b7f8 100644
---- a/man5/nsswitch.conf.5
-+++ b/man5/nsswitch.conf.5
-@@ -91,6 +91,14 @@ For example,
- consults the
- .B sudoers
- database.
-+Delegation of subordinate user/group IDs
-+can be configured using the
-+.B subid
-+database. Refer to
-+.BR subuid (5)
-+and
-+.BR subgid (5)
-+for more details.
- .PP
- Here is an example
- .I /etc/nsswitch.conf
--- 
-2.35.3
+Some the suggestions you are making don't seem to be adhered to by
+the existing man pages, and more text is not always better.
 
+https://www.npr.org/sections/13.7/2014/02/03/270680304/this-could-have-been-shorter
+
+      	     	       	       		- Ted
