@@ -2,75 +2,71 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 54C1057E64A
-	for <lists+linux-man@lfdr.de>; Fri, 22 Jul 2022 20:11:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 99B7757E6F7
+	for <lists+linux-man@lfdr.de>; Fri, 22 Jul 2022 21:04:08 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234146AbiGVSLO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 22 Jul 2022 14:11:14 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59564 "EHLO
+        id S231199AbiGVTEF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 22 Jul 2022 15:04:05 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43650 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232444AbiGVSLN (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 22 Jul 2022 14:11:13 -0400
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com [IPv6:2a00:1450:4864:20::329])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7E6DB6B27F;
-        Fri, 22 Jul 2022 11:11:12 -0700 (PDT)
-Received: by mail-wm1-x329.google.com with SMTP id u14-20020a05600c00ce00b003a323062569so2914128wmm.4;
-        Fri, 22 Jul 2022 11:11:12 -0700 (PDT)
+        with ESMTP id S229522AbiGVTEF (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 22 Jul 2022 15:04:05 -0400
+Received: from mail-oi1-x233.google.com (mail-oi1-x233.google.com [IPv6:2607:f8b0:4864:20::233])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0FF45A0245
+        for <linux-man@vger.kernel.org>; Fri, 22 Jul 2022 12:04:04 -0700 (PDT)
+Received: by mail-oi1-x233.google.com with SMTP id u9so6499670oiv.12
+        for <linux-man@vger.kernel.org>; Fri, 22 Jul 2022 12:04:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to;
-        bh=6bhINipkuISMye/v/enOK2bYVnVGplP4utVhoyD/Xq0=;
-        b=JIYGndWXTy6DSmLZU8vix4fauYixYn/LSaITBbjwe8mV0VuV3uxoZUpMa5DTGLSJpR
-         GfMyF4Eq4ZlBY7WD5gUnCVOJPxUy4hPPN+LJnEQAyRwmsBazKoSNCg0tjvxZBJGwhElz
-         h68+lvIUbhF4lwO0PkBMwUBox/4iUhEl4uvea/I+aaO/iymKtabTp3bxG5OxRQ5b5PLr
-         PcE4Tbfq3Hn87d6YAEU05yLKdLMpfr7ViKQCjirMWSurNUhiOY47ZDsQfmjEjccwLR6a
-         dB9/WqhcQxAw0VSf6bH5y9pTB9PUEZLMZ5Eh9O9YGPS6d5v33GCmrF8Vq5phPFtMSSxr
-         +4sw==
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=00krq+hqs3jJSja+kD+v4FhvtZx541gLxMjAVv1iYdQ=;
+        b=AL/CGJ+DSHM4LZRwHspsyUJlNvLtZPLJwwjOAPTaap7gM7VN0vwOvEhlKNW5KwxGaV
+         k6lotVx6RsY/B7Dc7/ioT5MiHd5in5oAzFzvjTWz/G0Ai+QsGd3VIoiVWgbjHreH8Vkf
+         IhCKp9QEkQ/RwtFQBkqGPg8jrzJrS1+iFv+eGvN9/dnK6awBCaId2K7EbGreyNpoHvH2
+         62PxZbEBxPR/uWzdYPgA5EBuREKvI1VEeMdDixT4IL4rW6DoxiViE47Ubqdfq86wRuqg
+         5T1bBruShmn9XupyGQCSSWkpG+8rP4aQm2EoYlb/SJmo9vqFcU9GQw8DQv8uyenWWTpf
+         QZVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to;
-        bh=6bhINipkuISMye/v/enOK2bYVnVGplP4utVhoyD/Xq0=;
-        b=3An+7H0QYkRlF0aTDEdx7mVI1oDgR0XJvOol8pZlQwHlDq6CSMXpNgWyNqrx231iWz
-         lKybAZHQUZYu7Zc0Mc2cIGFWvdV5ZFCgL4pWA/jwOgzljoH/3qEOKBEnWVVkErgsJau+
-         BZVJ6n/yLd28cig0n30aCsjDcm7v+JtLv8M1KGsNfR92Q5sTFG9BUNVPDPhE3J7T7bKb
-         BPhWD3z1Kpizqxe/neiSYi9VYQZ7qZm7eujtBUfTeHetuBsxjBQLM0eVE6I//ueQCnJT
-         5BuXQtDwrVzka6rcOK7ALBqhOw3QV6hrWT7NJg0Z43b4Nw4HAriOLvG9sIB6VwPKE9GB
-         iLcg==
-X-Gm-Message-State: AJIora9qPmBENnoL7QA4T34lJkWIERm4BgMKRcwGdSkYI23IJ1tJUUSY
-        3O8YyTDaZfgGzlWl3uELAy4=
-X-Google-Smtp-Source: AGRyM1sed6IhPu/ANsspiDAdWReAVAKSw79KxbYqQ29xF2Lupj+DNDwVDUxuy+yf3rZo0zIPYa9Gxg==
-X-Received: by 2002:a1c:f208:0:b0:3a2:dc06:f3fe with SMTP id s8-20020a1cf208000000b003a2dc06f3femr13315155wmc.119.1658513470977;
-        Fri, 22 Jul 2022 11:11:10 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id b6-20020a056000054600b0021badf3cb26sm6538301wrf.63.2022.07.22.11.11.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 22 Jul 2022 11:11:10 -0700 (PDT)
-Message-ID: <1266e2ec-2f26-b465-c1a8-3d4c7136a0f1@gmail.com>
-Date:   Fri, 22 Jul 2022 20:11:02 +0200
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=00krq+hqs3jJSja+kD+v4FhvtZx541gLxMjAVv1iYdQ=;
+        b=34IyjSy/aesWgkszWDQvNAzKzwbJXoNBfSAAFfLDnAW8+RSMkoAWgu/i706F4P6q4G
+         hC2YjdOMLaXn4v1SnVf+XUQdBMvGME2XyNtbHJtqgtQ3eJLBFCpQBNXemvtdaBmw98A4
+         fZ+6qhNm2VuFIw0SD1RJtotTJ96R9BTAP3n5Ir60nrATgHLXR9JbRFqbAMuCCfjOLup0
+         A6KTv7ERAWPiVHfcQrZka2mpzLJ4oucZMqnOMil7paBqPIIYJY3jGja8lZdzp6w6HOXE
+         ldMk2ysqggTJHy8Zi2ZS76LxkvB7KXUsVK5KX+CBFwHJbHotwduWAJA93gaCAa3YFiMt
+         PPfg==
+X-Gm-Message-State: AJIora8JzCN+mbzWOwECrPYM1Ty6DDYit4LJX9cQcnYkFfnI8l3YV2gZ
+        YJK2UbppA86+8RTSBHk5I4lufeRYNvY=
+X-Google-Smtp-Source: AGRyM1srxjDu/ZkP924DCny8iO60yrm0cvX+bNGw5a2pBBNJ9Paex0N//EoEF+W5xzyO19MkjS+clQ==
+X-Received: by 2002:a05:6808:1641:b0:333:3549:a374 with SMTP id az1-20020a056808164100b003333549a374mr558281oib.156.1658516643199;
+        Fri, 22 Jul 2022 12:04:03 -0700 (PDT)
+Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
+        by smtp.gmail.com with ESMTPSA id q126-20020aca5c84000000b003331f695f0asm2107675oib.30.2022.07.22.12.04.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 22 Jul 2022 12:04:02 -0700 (PDT)
+Date:   Fri, 22 Jul 2022 14:03:59 -0500
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>, groff <groff@gnu.org>
+Subject: Re: All caps .TH page title
+Message-ID: <20220722190359.pyw2yi3u6vua5z34@illithid>
+References: <66c19a09-ef0f-0d85-0380-37a67ac483dd@gmail.com>
+ <20220721183620.hdvgwwef66hmrgln@illithid>
+ <1e1f9197-a013-0d6b-6bfa-853fe28102cf@gmail.com>
+ <20220722021452.5k43or5uwj2eiouh@illithid>
+ <7a94b352-9ae5-a823-72c4-c526a0cc0e66@gmail.com>
+ <e4603be0-47f4-bc2b-b31e-52039ca63721@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.0.2
-Subject: Re: [PATCH v2] Add manpage for get/set fsuuid ioctl for ext4
- filesystem.
-Content-Language: en-US
-To:     "Darrick J. Wong" <djwong@kernel.org>
-Cc:     Theodore Ts'o <tytso@mit.edu>, Jeremy Bongio <bongiojp@gmail.com>,
-        linux-ext4@vger.kernel.org, linux-man@vger.kernel.org
-References: <20220720234512.354076-1-bongiojp@gmail.com>
- <YtiZ+gOmOFTpiAjW@magnolia> <e503645b-e665-50c4-37a9-cdc8637ba1d8@gmail.com>
- <YtmXAyoF2PXstnLY@magnolia> <e1573002-7ea3-2636-b2d2-331767a5622f@gmail.com>
- <YtqsTM2qXyR+dlz6@mit.edu> <c1bcaed9-0711-83de-f823-c38ba0302b4b@gmail.com>
- <YtriWvxMcNMUPBry@magnolia>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <YtriWvxMcNMUPBry@magnolia>
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------kUGXG1KWt7yMUAl6tcXkTjQk"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
+        protocol="application/pgp-signature"; boundary="lpqvjezzc7efqr2b"
+Content-Disposition: inline
+In-Reply-To: <e4603be0-47f4-bc2b-b31e-52039ca63721@gmail.com>
+X-Spam-Status: No, score=-0.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,URI_DOTEDU autolearn=no
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -78,128 +74,188 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------kUGXG1KWt7yMUAl6tcXkTjQk
-Content-Type: multipart/mixed; boundary="------------0cX1IdPrN9OwH00kjO3bOpGa";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: "Darrick J. Wong" <djwong@kernel.org>
-Cc: Theodore Ts'o <tytso@mit.edu>, Jeremy Bongio <bongiojp@gmail.com>,
- linux-ext4@vger.kernel.org, linux-man@vger.kernel.org
-Message-ID: <1266e2ec-2f26-b465-c1a8-3d4c7136a0f1@gmail.com>
-Subject: Re: [PATCH v2] Add manpage for get/set fsuuid ioctl for ext4
- filesystem.
-References: <20220720234512.354076-1-bongiojp@gmail.com>
- <YtiZ+gOmOFTpiAjW@magnolia> <e503645b-e665-50c4-37a9-cdc8637ba1d8@gmail.com>
- <YtmXAyoF2PXstnLY@magnolia> <e1573002-7ea3-2636-b2d2-331767a5622f@gmail.com>
- <YtqsTM2qXyR+dlz6@mit.edu> <c1bcaed9-0711-83de-f823-c38ba0302b4b@gmail.com>
- <YtriWvxMcNMUPBry@magnolia>
-In-Reply-To: <YtriWvxMcNMUPBry@magnolia>
 
---------------0cX1IdPrN9OwH00kjO3bOpGa
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+--lpqvjezzc7efqr2b
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-SGkgRGFycmljaywNCg0KT24gNy8yMi8yMiAxOTo0NiwgRGFycmljayBKLiBXb25nIHdyb3Rl
-Og0KPj4gTm93IHRoYXQgeW91IHNheSBpdCwgSSBmb3Jnb3QgdG8gZG9jdW1lbnQgdGhlIExJ
-QlJBUlkgc2VjdGlvbiBpbg0KPj4gbWFuLXBhZ2VzKDcpLiAgVGhlcmUncyBzb21ldGhpbmcg
-YWJvdXQgaXQsIGJ1dCBJIGZvcmdvdCB0byBhZGQgYSBwYXJhZ3JhcGgNCj4+IGRlc2NyaWJp
-bmcgaXQgaW4gZGV0YWlsLg0KPiANCj4gVGhhdCB3b3VsZCd2ZSBoZWxwZWQsIHNpbmNlIEkg
-c2Nhbm5lZA0KPiBodHRwczovL21hbjcub3JnL2xpbnV4L21hbi1wYWdlcy9tYW43L21hbi1w
-YWdlcy43Lmh0bWwNCj4gYW5kIGRpZG4ndCBzZWUgbXVjaCBhYm91dCB3aGF0IGdvZXMgaW4g
-dGhpcyBzZWN0aW9uLi4uDQoNClRoZXNlIGNoYW5nZXMgaGF2ZSBiZWVuIGludHJvZHVjZWQg
-YWZ0ZXIgdGhlIGxhc3QgcmVsZWFzZSB3YXMgbWFkZSwgc28gDQpldmVuIGlmIEkgaGFkIGRv
-Y3VtZW50ZWQgaXQsIGl0IHdvdWxkbid0IGhhdmUgcmVhY2hlZCA8bWFuNy5vcmc+LiAgSSdk
-IA0KcmVjb21tZW5kIHlvdSB0byBpbnN0YWxsIHRoZSBtYW4gcGFnZXMgZnJvbSBzb3VyY2Ug
-KGBzdWRvIG1ha2UgaW5zdGFsbGApLg0KDQo+IA0KPj4gUmVnYXJkaW5nIHRoZSBFWEFNUExF
-UyBzZWN0aW9uLCBldmVyeSBwYWdlIGluIG1hbjIgb3IgbWFuMyBzaG91bGQgaGF2ZSBhbg0K
-Pj4gZXhhbXBsZSBwcm9ncmFtLCBJTU8uICBDb25zaWRlciB0aGF0IHRoZXJlIGFyZSBwcm9n
-cmFtbWVycyB0aGF0IG1heSBmaW5kIGl0DQo+PiBlYXNpZXIgdG8gbGVhcm4gYSBmdW5jdGlv
-biBieSBleHBlcmltZW50aW5nIHdpdGggYSB3b3JraW5nIGV4YW1wbGUgb2YgQw0KPj4gY29k
-ZSwgcmF0aGVyIHRoYW4gYSBkZW5zZSB0ZXh0dWFsIGRlc2NyaXB0aW9uIGluIGEgbGFuZ3Vh
-Z2UgdGhhdCBtYXkgbm90IGJlDQo+PiBuYXRpdmUgdG8gdGhlIHByb2dyYW1tZXIuDQo+IA0K
-PiBGcmFua2x5IEknZCByYXRoZXIgcHVzaCBwZW9wbGUgdG8gaGF2ZSBleGFtcGxlIGNvZGUg
-b3ZlciBkb2N1bWVudGluZw0KPiB0aGF0IHN0YW5kYXJkIEMgbGlicmFyeSBmdW5jdGlvbnMg
-cmVxdWlyZSB0aGUgc3RhbmRhcmQgQyBsaWJyYXJ5LiA6KQ0KDQpBZ3JlZWQgOikNCg0KPiAN
-Cj4gVGhhdCBzYWlkLCBJIGRvbid0IGFsd2F5cyBlbmpveSB0aGUgdGV4dGJvb2sgZXhhbXBs
-ZXMgdGhhdCBoYXZlIGJlZW4NCj4gc2xpbW1lZCBkb3duIGZvciBtYW5wYWdlcyAtLSBJIHBy
-ZWZlciBhIGxpbmsgdG8gYSByZWFsIGltcGxlbWVudGF0aW9uDQo+IGluIChzYXkpIHRoZSB0
-ZXN0IHN1aXRlIHNvIHRoYXQgSSBjYW4gc2VlIGNvZGUgdGhhdCAob25lIHdvdWxkIGhvcGUp
-DQo+IGV4ZXJjaXNlcyBhbGwgdGhlIGZ1bmN0aW9uYWxpdHkgZXhwb3NlZCB0aHJvdWdoIHRo
-ZSBpbnRlcmZhY2UuDQo+IA0KPiBCdXQgSSBndWVzcyB0aGF0J3MgcmVhbGx5IHVwIHRvIHRo
-ZSBtYW5wYWdlIGF1dGhvciB0byBkZWNpZGUuDQoNClRoZXkncmUgbm90IGV4Y2x1c2l2ZS4g
-IEl0J3Mgd2VsY29tZSB0byBwb2ludCB0byBhIChzdGFibGUpIGxpbmsgc2hvd2luZyANCmEg
-bW9yZSBjb21wbGV4IGV4YW1wbGUgYWZ0ZXIgc2hvd2luZyBhIHNpbXBsZSBleGFtcGxlIHRo
-YXQgZml0cyB0aGUgcGFnZS4NCg0KPiANCj4+IFRoZXJlIGFyZSBtYW55IHBhZ2VzIHRoYXQg
-bGFjayBleGFtcGxlcywgYnV0IHRoYXQncyBub3Qgc29tZXRoaW5nIEkgd291bGQNCj4+IGNv
-bnNpZGVyIGEgZ29vZCB0aGluZy4NCj4+DQo+Pj4NCj4+PiBTb21lIHRoZSBzdWdnZXN0aW9u
-cyB5b3UgYXJlIG1ha2luZyBkb24ndCBzZWVtIHRvIGJlIGFkaGVyZWQgdG8gYnkNCj4+PiB0
-aGUgZXhpc3RpbmcgbWFuIHBhZ2VzLCBhbmQgbW9yZSB0ZXh0IGlzIG5vdCBhbHdheXMgYmV0
-dGVyLg0KPj4NCj4+IFRoZSBuZXh0IHJlbGVhc2Ugb2YgdGhlIG1hbi1wYWdlcyBpcyBjZXJ0
-YWlubHkgZ29pbmcgdG8gYmUgYW4gaW1wb3J0YW50IG9uZS4NCj4+IEl0IG1heSBiZSBoYXRl
-ZCBieSBtYW55LCBsb3ZlZCBieSBtYW55IG90aGVycy4gIEkgaG9wZSBvdmVyYWxsIEkgZGlk
-IGENCj4+IHNpZ25pZmljYW50IGltcHJvdmVtZW50IGluIGJvdGggaW1wcm92aW5nIHRoZSB0
-cmFuc21pc3Npb24gb2YgaW5mb3JtYXRpb24NCj4+IGFuZCBzaW1wbGlmeWluZyBtYWludGVu
-YW5jZS4NCj4gDQo+IEknbSBub3QgY29udmluY2VkIHRoYXQgaGF2aW5nIHRvIG9wZW4gKnR3
-byogbWFucGFnZXMganVzdCB0byBmaWd1cmUgb3V0DQo+IGhvdyB0byBjYWxsIGFuIGlvY3Rs
-IGlzIGdvaW5nIHRvIHNpbXBsaWZ5IG1haW50ZW5hbmNlIHVubGVzcyB0aGUgc3RydWN0DQo+
-IGlzIHNoYXJlZCBhY3Jvc3MgbW9yZSB0aGFuIG9uZSBtYW5wYWdlLCBidXQgSSd2ZSBhbHJl
-YWR5IG1hZGUgdGhhdA0KPiBwb2ludC4NCg0KV2VsbCwgSSdkIHNheSBpdCBzaW1wbGlmaWVz
-IG1haW50ZW5hbmNlIGluIHRoZSBjYXNlIHRoYXQgYW5vdGhlciBwYWdlIA0KYWRkcyBpbmZv
-cm1hdGlvbiBhYm91dCB0aGlzIHR5cGU6IHdoZW4gSSByZWNlaXZlIGEgcGF0Y2gsIEknbSBu
-b3QgDQpncmVwcGluZyBhbGwgb2YgdGhlIHBhZ2VzIHRvIHNlZSBpZiBvbmUgYWxyZWFkeSBk
-b2N1bWVudHMgYSB0eXBlLCB0byANCmRlY2lkZSB0byBtb3ZlIGl0IHRvIGEgc2VwYXJhdGUg
-cGFnZS4gIEl0J3MgbGlrZWx5IHRvIGJlIGZvcmdvdHRlbiwgYW5kIA0KdGhlIGRvY3VtZW50
-YXRpb24gYWJvdXQgdGhlIHR5cGUgZHVwbGljYXRlZCAoYW5kIHRoZXkgYXJlIGxpa2VseSB0
-byBnZXQgDQpvdXQgb2Ygc3luYykuDQoNCldoZW4gSSBhZGRlZCB0aGUgdHlwZSBwYWdlcywg
-SSBmb3VuZCBtYW55IHR5cGVzIHRvIGJlIGRvY3VtZW50ZWQgDQpkaWZmZXJlbnRseSBvbiBk
-aWZmZXJlbnQgcGFnZXMsIG5lZWRpbmcgdG8gY29weSBwYXJ0cyBvZiBldmVyeSBwYWdlIHRv
-IA0KZ2V0IHRoZSBmdWxsIHBpY3R1cmUsIGJlY2F1c2Ugbm9uZSBvZiB0aGVtIHdhcyBjb21w
-bGV0ZS4gIFRoYXQncyANCmVzcGVjaWFsbHkgd2hhdCBJJ20gdHJ5aW5nIHRvIGF2b2lkLg0K
-DQpTdGlsbCwgdGhlcmUgYXJlIG1hbnkgbW9yZSBpbXBvcnRhbnQgdHlwZXMgdG8gZG9jdW1l
-bnQgaW4gdGhlIHR5cGUgDQpwYWdlcywgYW5kIGlmIHlvdSBjb25zaWRlciB0aGF0IHRoaXMg
-b25lIGlzIHZlcnkgdW5saWtlbHkgdG8gYmUgc2hhcmVkIA0KaW4gdGhlIGxvbmcgdGVybSwg
-dGhlbiBJIGRvbid0IHN0cm9uZ2x5IG9wcG9zZSB0byBpdCBiZWluZyBpbiB0aGUgc2FtZSAN
-CnBhZ2UgYXMgdGhlIGlvY3RsIHRoYXQgdXNlcyBpdCBmb3Igbm93Lg0KDQo+IA0KPiAoVGhl
-cmUgaXNuJ3QgYW55IG1hZ2ljYWwgd2F5IHRvICNpbmNsdWRlIGEgbWFucGFnZSB3aXRoaW4g
-YW5vdGhlcg0KPiBtYW5wYWdlLCBpcyB0aGVyZT8pDQoNCk9oLCB0aGVyZSBpcy4gIEl0J3Mg
-dGhlIGdyb2ZmKDcpIC5zbyByZXF1ZXN0LCB3aGljaCBpcyBiYXNpY2FsbHkgdGhlIA0Kc2Ft
-ZSBhcyBDJ3MgI2luY2x1ZGUgZGlyZWN0aXZlLiAgV2UgYWN0dWFsbHkgdXNlIGl0IGEgbG90
-IGluIHRoZSANCm1hbi1wYWdlcywgdG8gY3JlYXRlIGxpbmsgcGFnZXMgKGEgcGFnZSB3aG9z
-ZSBvbmx5IGNvbnRlbnQgaXMgYSAuc28gDQpyZXF1ZXN0LCB3aGljaCBiYXNpY2FsbHkgbWVh
-bnMgaXRzIGNvbnRlbnRzIGFyZSB0aGUgc2FtZSBhcyBhbm90aGVyIA0KcGFnZXMnKS4gIFNl
-ZSBmb3IgZXhhbXBsZToNCg0KJCBjYXQgbWFuMi9sc3RhdC4yDQouc28gbWFuMi9zdGF0LjIN
-Cg0KDQpUZWNobmljYWxseSwgaXQgY291bGQgYmUgdXNlZCBkaWZmZXJlbnRseSwgdG8gaW5j
-bHVkZSBhIG1hbiBwYWdlIGFzIHBhcnQgDQpvZiBhbm90aGVyIHBhZ2UsIGJ1dCBpdCBoYXNu
-J3QgYmVlbiBkb25lIGV2ZXIsIGFzIGl0IHdvdWxkIHByb2JhYmx5IA0KY29tcGxpY2F0ZSBo
-b3cgbWFuIHBhZ2VzIGFyZSBzdG9yZWQsIGluZGV4ZWQsIGFuZCBzZWFyY2hlZCBpbiB0aGUg
-DQpmaWxlc3lzdGVtICh0aGVyZSdzIG5vIDwvdXNyL3NoYXJlL21hbi9pbmNsdWRlLz4gb3Ig
-PC91c3IvaW5sdWNkZS9tYW4vPiANCmRpcmVjdG9yeSBvciBzb21ldGhpbmcgbGlrZSB0aGF0
-KS4NCg0KQ2hlZXJzLA0KDQpBbGV4DQoNCi0tIA0KQWxlamFuZHJvIENvbG9tYXINCjxodHRw
-Oi8vd3d3LmFsZWphbmRyby1jb2xvbWFyLmVzLz4NCg==
+Hi Alex,
 
---------------0cX1IdPrN9OwH00kjO3bOpGa--
+At 2022-07-22T13:46:37+0200, Alejandro Colomar wrote:
+> On 7/22/22 12:35, Alejandro Colomar (man-pages) wrote:
+> > BTW, I think I didn't reply (or if I did was very short) to your
+> > comment that other languages may find it difficult to mirror our use
+> > of subsections, since their main section is already a subsection
+> > (e.g., 3pl).
 
---------------kUGXG1KWt7yMUAl6tcXkTjQk
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+In my (Debian-centric) experience, I see "3perl"--just a detail.
+
+> > I'd say that since C is the native Unix language, and others are
+> > just... others?, I'd optimize for C, and let other languages find a
+> > way to document their things.=A0 It would be easy to say just go away,
+> > the man pages are for C, but I won't dare to say that, since I like
+> > man pages, and I'd like to see more documentation for languages that
+> > I sometimes have to use be in the form of man pages, so I'll try to
+> > come up with a more imaginative answer:=A0 how about using
+> > subsubsections of the form 3pl_type?=A0 At least it's a possibility.=A0
+> > man(1) would handle them as any other subsection, but that's not a
+> > big problem.=A0 Maybe man(1) could develop a way to provide
+> > subsubsections...=A0 Colin, any ideas in this regard?
+
+I don't see any reason to privilege the C language more than it already
+is.  Let us review the default manual section titles--the material that
+appears in the center header by default when man pages are rendered.
+
+  .\" Localize manual section titles for English.
+  .de an*localize-strings
+  .  ds an*section1 General Commands Manual\"
+  .  ds an*section2 System Calls Manual\"
+  .  ds an*section3 Library Functions Manual\"
+  .  ds an*section4 Kernel Interfaces Manual\"
+  .  ds an*section5 File Formats Manual\"
+  .  ds an*section6 Games Manual\"
+  .  ds an*section7 Miscellaneous Information Manual\"
+  .  ds an*section8 System Manager's Manual\"
+  .  ds an*section9 Kernel Developer's Manual\"
+
+Literally none of this necessarily implies the use of C.  Instead these
+sections are a coalition--perhaps an uneasy one--of three different
+categorical axes.
+
+  (1) who needs the information--users, programmers, or administrators
+  (2) whether the information is a kernel-invariant or not
+  (3) the syntax of data presented to other system components
+
+I suggest that this arrangement survives not just due to blind inertia,
+though that may be the preponderant factor, but because in a POSIX
+system these categories remain fairly stable.  One can bloat or shrink
+the kernel but there's always going to be a kernel.  There is a sharp
+distinction between kernel (or supervisor) mode and user mode.  Some
+users are more privileged than others, and perform administrative tasks.
+The file metaphor as a persistent array of (often seekable, often
+persistent) bytes is deeply entrenched.
+
+> Or, maybe it's the time to write a whole new volume?  I think there's
+> a comparable difference between 3type and 3 than between 2 and 3 or 1
+> and 8, so it would be merited.  I didn't do it before for two reasons:
+> it might break software that assumes than Unix manuals use a single
+> number followed by an optional string (I'd say it's not a fair
+> assumption to say that man9 would be the last one ever used; if
+> there's 9, there might be a 10 some day), and because other projects
+> had already used 3type.
+>=20
+> But, that would start a clean namespace.  Maybe it's worth it.
+>=20
+> How would you feel if I inaugurate man10 for types, and later man11 for
+> non-function-like macros? :D
+
+Permit me to play an unaccustomed role as a voice of conservatism.  I
+don't think we need the section number, or even a section suffix, to
+communicate information about a data type.
+
+(A) Header files could be put in section 3 under their names as-is.  We
+    should remember that C standard library header files, per ISO C,
+    need not be literally present on the file system; they can be
+    provided by the compiler using unspecified means.  I point this out
+    to emphasize their exotic nature.  They need not be ordinary files,
+    though on POSIX systems we should expect this.  I don't think
+    inaugurating a "section 0" serves any use here, since C identifiers
+    will not collide with them.  We do not write a stand-alone man page
+    for a member of a structure, so the element "h" of a hypothetical
+    "struct math" will be documented in "math(3)", not "math.h(3)".
+
+(B) Collisions in C's name spaces are discouraged by common practice and
+    seldom leveraged even where syntactically distinct.  Functions and
+    variables ("objects") are in the same name space in C, and data
+    types and objects are so confusable[1] that in practice programmers
+    treat them as being in the same name space.  For example, structure
+    tags enjoy their own name space but most novice and even many
+    experienced C programmers are shaky on the fact.  (This ignorance
+    was compounded for decades by a common idiom of introducing type
+    aliases ("typedefs"[2]) for structs as soon as they were declared.)
+
+The above points are why I think we not only don't need new sections of
+the manual, but that suffixes like "type" and "def" are not performing
+any service for the reader that isn't clearly and obviously communicated
+in the text of the man page, if it is written to a minimum level of
+quality.  The synopsis will say what is needed, and within a programming
+language, names exposed by an API should not be ambiguous, so the suffix
+won't be necessary to aid the apropos/"man -k"-using reader.
+
+Here, let me do an impression.  [tousels hair; puts on big glasses;
+becomes copyright rentier; indulges predatory, monopolistic practices]
+
+"Nine sections of the manual ought to be enough for anybody."
+
+Regards,
+Branden
+
+[1] https://en.wikipedia.org/wiki/Lexer_hack
+[2] A deceitful little term if there ever was one, because it does
+    _nothing_ to enhance type conformance checking.  Kernighan pointed
+    out that "strong typing is not dimensional analysis" in his article
+    "Why Pascal Is Not My Favorite Programming Language", when
+    enumerating deficiencies of that language.  Here's his example.
+
+    type
+      apple =3D integer;
+      orange =3D integer;
+
+    C works similarly.
+
+    typedef int apple;
+    typedef int orange;
+
+    Kernighan failed to note that strong typing _could_ be dimensional
+    analysis, if taken seriously.  Perhaps he didn't because the same
+    criticism could then be made of C, which had his name on it and
+    proceeded to eat much of Pascal's lunch in the '80s and '90s--for
+    reasons conspicuously distinct from the quality of its type
+    checking.
+
+    If you want real checking of a primitive type in C, you have to wrap
+    it in a one-member struct.  Even then you don't get range
+    constraints, which are frequently valuable and which Pascal did
+    support.  Kernighan clucked in the same paper that range checks
+    "seemed like a service, though they too exact a run-time penalty".
+    In other words, they are costly.  I wonder how we might measure the
+    cost of failures to observe CERT'S INT{30,32}-C[3] in the quest for
+    bragging rights about performance.  Obviously its magnitude was
+    recognized only in retrospect.
+
+    Now, lest I seem hard on Kernighan here, let me note that, among
+    other excellent points in the paper, his thorough trashing of
+    Pascal's array handling, where the size was regarded as an
+    integral part of the data type, was completely deserved.  For those
+    who haven't read the paper, this means that, yes, in pre-ISO Pascal,
+    your function which operated on char arrays of length 4 would not be
+    permitted to operate on char arrays of length 5.  The compiler (or
+    interpreter) would stop you.  It is hard for me to imagine, as a
+    workaday programmer, how Wirth let the language escape the
+    laboratory with this defect.
+
+[3] https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=3D8715=
+2052
+
+--lpqvjezzc7efqr2b
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmLa6DYACgkQnowa+77/
-2zILjg//RPuFfnWCw7rsGeytiI3V3MBESbTTJlmwNgOkamB2wwnySVyiJnM/0yIy
-TIlJrt4c4+pytH07JR98h97ap2ZVtFABHDLAE2uz+v7TvB2inQQLRTlbJKALYw8B
-9KrTDzWkH+IclM1i5YGZ293xWtnFYA0Q2tcmDpOSdVfepIldG4qOeSezFyOtey04
-ERk6+Rq8DIHkLtjT99izqovoPqovbeIhjlCE1EKqXT6W4WGgI845y6rPg8M+M23q
-sgcpz2ka1itRTUCECRlhdmOzKUDgDFDRG2sLBO5Of9i9Edl++QrGteFyB4aA73sh
-UtF1Q4UG+QmslGcegGKK4QV4NkEQvBpjlfFS3awocEKCI3oyiWVuBNlP9qNHKuFx
-efilQklBaOPNhlasTbtzhuJjuQXkzH65o2n3uTZ0DspwsWyT6FauXszxYYbteVzi
-iHWEc7yL6qYkkpiaLsNq4o8l/Iim4G5OfHwHbQq6TZKC4qys1mm8/Ura8scnv0lI
-6ukYmx6mt+OduKShnh5XMAkAR6TR4vRLpNtkQO5j0tVhiCiVHgw/qtKYqlZIDv8U
-F6jzsWLN03dEz8DcIun2RPmxLXMlgG6CI9ve4kht0POVAmUM9OO8OkzTJzXiK/aX
-c7pdcwUMqjnTdgzuqOZi6lVMo1mBFNPGs4It89bszClV1h8VCpk=
-=iiIM
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmLa9JgACgkQ0Z6cfXEm
+bc5uRxAAiOeVmE7bCqPDWRMQtxWTTjEOqLemitv5CwWFAyoYk0TcCu3lrj8SKwWf
+0Vu3IVESQK0AMKMsmpfMRIZoTDdV7SA/bZojYO7qjJAym52EOHGs9i4StfAIV+X0
+PY/awcsaVBXFW1Luw+1uc6KRkBfyXRjXx+fT83VZtTOz1ZLkZfASHj8UaeUf3bnY
+7VMf9qsQ7+pmAJx5NlnO0inNc80LdhLRuJZ8VWTYEp8SCRKbrXc4Ajxov6+yKRP+
+VBjWPsvFNjkUw100JUip92czQjvH5WmRoc5dsiOI6ik0/YLXvkLBIqFL4duAbpOh
+rdCKpKSPv+uRQ3tOOeeR9mBcu58N/JIdwGPsAqPPVhTbDwOnSm0BWyaDug07n48w
+BEFNxU/wFapPLlRxJNhLlxlIRlJfDN1OJPFdTPsCHXWZMriWNbVNg/XjUdPCe095
+FkdrEzUj/HUdKBMhX36TdiqtX7hfk+5x7//sLQVCBfxd6ELh+UwCOietyFummi02
+gtsEu11KtK40jJaKybIbIu3cYrXCfuJd9wbSGV64mfVtLkKYX0ZHc+IIIeTqbmpB
+Bpuu3k9BSiQ7sHwMCP0SsoRXF4eBZDcIIc4JoYdPtec7vsGSpyJHoZG0/FqkVkEz
+LHj12LRrOM5DxuwZvbFLQoW5kyVklltlvzTyst5YRAA0bbFtkic=
+=DmRH
 -----END PGP SIGNATURE-----
 
---------------kUGXG1KWt7yMUAl6tcXkTjQk--
+--lpqvjezzc7efqr2b--
