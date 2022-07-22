@@ -2,64 +2,51 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id C26EC57DA65
-	for <lists+linux-man@lfdr.de>; Fri, 22 Jul 2022 08:37:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5D3C257DB72
+	for <lists+linux-man@lfdr.de>; Fri, 22 Jul 2022 09:43:14 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234185AbiGVGhk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 22 Jul 2022 02:37:40 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43704 "EHLO
+        id S234515AbiGVHnB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 22 Jul 2022 03:43:01 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37094 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229671AbiGVGhj (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 22 Jul 2022 02:37:39 -0400
-Received: from mail-pl1-x62d.google.com (mail-pl1-x62d.google.com [IPv6:2607:f8b0:4864:20::62d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BE07C7CB6D;
-        Thu, 21 Jul 2022 23:37:38 -0700 (PDT)
-Received: by mail-pl1-x62d.google.com with SMTP id z3so3837714plb.1;
-        Thu, 21 Jul 2022 23:37:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=mjNStj/Ns6QIdcmGsxHjWgOPWcgILa0Rvv/9EZz3V5Y=;
-        b=gpOapJ7S6v9oRcs7U47VgCoFyEgBlKDXo2ANlXNTqGHnqgwnqdZezVt8E2CQZO6F2D
-         9cRjnoVBha887e5vy47Kk49aXQ+ZvWE29y2mhcDMLT02ZQSHR3TSO+Inn4uVJ2CnjPWh
-         3ebUTZ80HsQaLNEIQoL7x63s+OTSM52ATXtwmHL3VR/oCRqanBva7JFb7atjq8VJBXtX
-         GRrHc1C7ZBHU8Hla+GgPRQgu5//1dHdDOJq/Y7McM4Jm8JseTSOofLpy8+aC9k/sViA0
-         PQG6AC29CKOKZ9Mss2MvzVT+A8z2q2qqQN7isnG+PoCUX3Fr6avVFW3MhAAnO2d8UqCy
-         vbng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=mjNStj/Ns6QIdcmGsxHjWgOPWcgILa0Rvv/9EZz3V5Y=;
-        b=1IX6mwNiaUEz/MjkkrH4rjhN8pzNbd/iDRP5hdDeFwqtd2vmH0xZk+YBrQRellI+iT
-         0ShmZ3M6qpItDqga+QewGiOW5zMpaJhN3Bh11pBB91Ob+F4BQiyj8XiBp/nrvFxMSe88
-         Rz1ofzb1PJitnw3aPf0ughTlicceiIu0gsro7gxDLlKDDKb8RgOgZQqmprldaUhQ0Cy6
-         GJjcxRY7dyuhjjQ1XB3suTSs2Uudr4eWh7HYy8Q5iZBtQRNjfbUTECQiRwZPH5gMfhca
-         8U9NynzH7ujqloVpvj3gXc8fM2C5BGB7acG94sSvW7x9Qy5uhUkrgCbgFnwFeJi/2Yav
-         p3TQ==
-X-Gm-Message-State: AJIora+cH0fN4VdvgkzB+62ObGKgu1oJ7ucCPu+7Y64kLVSC5dys+2s3
-        0wFlrwDiJHsi2m6xIhBpCfU=
-X-Google-Smtp-Source: AGRyM1tcz/xg9drbNXGkJB764ZZFq3d+GWtJeFDmonNcPZZTDINu3t6oj8npBqulkGKy6i7bClZydA==
-X-Received: by 2002:a17:903:120f:b0:15f:99f:9597 with SMTP id l15-20020a170903120f00b0015f099f9597mr1942198plh.45.1658471857762;
-        Thu, 21 Jul 2022 23:37:37 -0700 (PDT)
-Received: from jbongio9100214.roam.corp.google.com (cpe-104-173-199-31.socal.res.rr.com. [104.173.199.31])
-        by smtp.googlemail.com with ESMTPSA id q27-20020a635c1b000000b0041a390f276esm2591266pgb.40.2022.07.21.23.37.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 21 Jul 2022 23:37:37 -0700 (PDT)
-From:   Jeremy Bongio <bongiojp@gmail.com>
-To:     Ted Tso <tytso@mit.edu>, "Darrick J . Wong" <djwong@kernel.org>
-Cc:     linux-ext4@vger.kernel.org, linux-man@vger.kernel.org,
-        Jeremy Bongio <bongiojp@gmail.com>
-Subject: [PATCH v3] Add manpage for get/set fsuuid ioctl for ext4 filesystem.
-Date:   Thu, 21 Jul 2022 23:37:32 -0700
-Message-Id: <20220722063732.466621-1-bongiojp@gmail.com>
-X-Mailer: git-send-email 2.37.1.359.gd136c6c3e2-goog
+        with ESMTP id S229538AbiGVHnA (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 22 Jul 2022 03:43:00 -0400
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DD23217061;
+        Fri, 22 Jul 2022 00:42:58 -0700 (PDT)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        by ams.source.kernel.org (Postfix) with ESMTPS id 86C4AB8273C;
+        Fri, 22 Jul 2022 07:42:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1A33C341C6;
+        Fri, 22 Jul 2022 07:42:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1658475776;
+        bh=ogA0HhpspCjS+a1icpgHI4aSwotqmHJVFm71Wnc0cl4=;
+        h=From:To:Cc:Subject:Date:From;
+        b=OaVFj+XFyb+191Fiq3g3CejvUN/c9Pun4nlCjR8G1LUMKqhw8U7wlq43z+9xnj87f
+         Oi+A/SF7qArpUCv2diYRaj6o++MCSzNe0v2dpPKcwdD1S1Ss/IJVGsC0dnLkamPcg5
+         keJsBDJCk20l3G2V9E/8+2vGhRV9q3xu/dKiDIaA3zRBCkA7nERfwivYWB2V2dtTRp
+         oTyvW2z4AY0X+nehR57g3EQBfcPSEuPol0SIherrMMCfp6h4X6WHURyEz3RkiLiGDW
+         u3Geg2MtVq/oNiuENZPPsSLfh1QZz6crIsO3sLk+RtWcwEiMSugY8JjaD0PsS6Ktn8
+         /DshXvSmjr9iw==
+From:   Eric Biggers <ebiggers@kernel.org>
+To:     linux-fsdevel@vger.kernel.org
+Cc:     linux-man@vger.kernel.org, linux-ext4@vger.kernel.org,
+        linux-f2fs-devel@lists.sourceforge.net, linux-xfs@vger.kernel.org,
+        linux-api@vger.kernel.org, linux-fscrypt@vger.kernel.org,
+        linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Keith Busch <kbusch@kernel.org>
+Subject: [man-pages RFC PATCH v2] statx.2, open.2: document STATX_DIOALIGN
+Date:   Fri, 22 Jul 2022 00:42:28 -0700
+Message-Id: <20220722074229.148925-1-ebiggers@kernel.org>
+X-Mailer: git-send-email 2.37.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
+X-Spam-Status: No, score=-5.3 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+        SPF_HELO_NONE,SPF_PASS,SUSPICIOUS_RECIPS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -67,147 +54,136 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Signed-off-by: Jeremy Bongio <bongiojp@gmail.com>
+From: Eric Biggers <ebiggers@google.com>
+
+Document the proposed STATX_DIOALIGN support for statx()
+(https://lore.kernel.org/linux-fsdevel/20220722071228.146690-1-ebiggers@kernel.org/T/#u).
+
+Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
 
-Changes in v3:
+v2: rebased onto man-pages master branch, mentioned xfs, and updated
+    link to patchset
 
-Removed LIBRARY section since this ioctl won't be wrapped by a system library.
+ man2/open.2  | 43 ++++++++++++++++++++++++++++++++-----------
+ man2/statx.2 | 29 +++++++++++++++++++++++++++++
+ 2 files changed, 61 insertions(+), 11 deletions(-)
 
-Code now uses 4-space indent.
-
-Updated for semantic new lines. Please call out if I still break this rule.
-
-Reworded based on Darrick's suggestions.
-
-Unrecognized fsu_flags now results in EOPNOTSUPP error.
-
-Added definitions of EXT4_IOC_GETFSUUID/EXT4_IOC_SETFSUUID which are not
-contained in a library.
-
- man2/ioctl_fsuuid.2 | 113 ++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 113 insertions(+)
- create mode 100644 man2/ioctl_fsuuid.2
-
-diff --git a/man2/ioctl_fsuuid.2 b/man2/ioctl_fsuuid.2
-new file mode 100644
-index 000000000..c9e2789b9
---- /dev/null
-+++ b/man2/ioctl_fsuuid.2
-@@ -0,0 +1,113 @@
-+.\" Copyright (c) 2022 Google, Inc., written by Jeremy Bongio <bongiojp@gmail.com>
-+.\"
-+.\" SPDX-License-Identifier: Linux-man-pages-copyleft
-+.TH IOCTL_FSUUID 2 2022-07-20 "Linux" "Linux Programmer's Manual"
-+.SH NAME
-+ioctl_fsuuid \- get or set an ext4 filesystem uuid
-+.SH SYNOPSIS
-+.nf
-+.B #include <sys/ioctl.h>
-+.BR "#include <linux/fs.h>" "         /* Definition of " _IOR " and " _IOW " */"
-+.PP
-+.BI "#define EXT4_IOC_GETFSUUID      _IOR('f', 44, struct fsuuid)"
-+.BI "#define EXT4_IOC_SETFSUUID      _IOW('f', 44, struct fsuuid)"
-+.BI "int ioctl(int " fd ", EXT4_IOC_GETFSUUID, struct " fsuuid ");"
-+.BI "int ioctl(int " fd ", EXT4_IOC_SETFSUUID, struct " fsuuid ");"
-+.fi
-+.SH DESCRIPTION
-+If an ext4 filesystem supports uuid manipulation, these
-+.BR ioctl (2)
-+operations can be used to get or set the uuid for the ext4 filesystem on which
-+.I fd
-+resides.
-+.PP
-+The argument to these operations should be a pointer to a
-+.IR "struct fsuuid" ":"
-+.PP
-+.in +4n
-+.EX
-+struct fsuuid {
-+    __u32 fsu_len;      /* Number of bytes in a uuid */
-+    __u32 fsu_flags;    /* Mapping flags */
-+    __u8  fsu_uuid[];   /* Byte array for uuid */
-+};
-+.EE
-+.PP
-+The
-+.I fsu_flags
-+field must be set to 0.
-+.PP
-+If
-+.BR EXT4_IOC_GETFSUUID
-+is called with
-+.I fsu_len
-+set to 0,
-+.I fsu_len
-+will be set to the number of bytes in an ext4 filesystem uuid
-+and the return code will be EINVAL.
-+.PP
-+If
-+.BR EXT4_IOC_GETFSUUID
-+is called with
-+.I fsu_len
-+matching the length of the ext4 filesystem uuid,
-+then that uuid will be written to
-+.I fsu_uuid[]
-+and the return value will be zero.
-+If
-+.I fsu_len
-+does not match, the return value will be
-+.B EINVAL.
-+.PP
-+If
-+.BR EXT4_IOC_SETFSUUID
-+is called with
-+.I fsu_len
-+matching the length of the ext4 filesystem uuid,
-+then the filesystem uuid will be set to the contents of
-+.I fsu_uuid[]
-+and  the return value will reflect the outcome of the update operation.
-+If 
-+.I fsu_len
-+does not match, the return value will be
-+.B EINVAL.
-+.PP
-+The
-+.BR FS_IOC_SETFSUUID
-+operation requires privilege
-+.RB ( CAP_SYS_ADMIN ).
-+If the filesystem is busy, an
-+.BR EXT4_IOC_SETFSUUID
-+operation will wait until it can apply the uuid changes.
-+This may take a long time.
-+.PP
-+.SH RETURN VALUE
-+On success zero is returned.
-+On error, \-1 is returned, and
-+.I errno
-+is set to indicate the error.
-+.SH ERRORS
-+Possible errors include (but are not limited to) the following:
-+.TP
-+.B EFAULT
-+Could not copy to/from userspace.
-+.TP
+diff --git a/man2/open.2 b/man2/open.2
+index d1485999f..ef29847c3 100644
+--- a/man2/open.2
++++ b/man2/open.2
+@@ -1732,21 +1732,42 @@ of user-space buffers and the file offset of I/Os.
+ In Linux alignment
+ restrictions vary by filesystem and kernel version and might be
+ absent entirely.
+-However there is currently no filesystem\-independent
+-interface for an application to discover these restrictions for a given
+-file or filesystem.
+-Some filesystems provide their own interfaces
+-for doing so, for example the
++The handling of misaligned
++.B O_DIRECT
++I/Os also varies; they can either fail with
 +.B EINVAL
-+.I fsu_len
-+did not match the filesystem uuid length.
++or fall back to buffered I/O.
++.PP
++Since Linux 5.20,
++.B O_DIRECT
++support and alignment restrictions for a file can be queried using
++.BR statx (2),
++using the
++.B STATX_DIOALIGN
++flag.
++Support for
++.B STATX_DIOALIGN
++varies by filesystem; see
++.BR statx (2).
++.PP
++Some filesystems provide their own interfaces for querying
++.B O_DIRECT
++alignment restrictions, for example the
+ .B XFS_IOC_DIOINFO
+ operation in
+ .BR xfsctl (3).
++.B STATX_DIOALIGN
++should be used instead when it is available.
+ .PP
+-Under Linux 2.4, transfer sizes, the alignment of the user buffer,
+-and the file offset must all be multiples of the logical block size
+-of the filesystem.
+-Since Linux 2.6.0, alignment to the logical block size of the
+-underlying storage (typically 512 bytes) suffices.
+-The logical block size can be determined using the
++If none of the above is available, then direct I/O support and alignment
++restrictions can only be assumed from known characteristics of the filesystem,
++the individual file, the underlying storage device(s), and the kernel version.
++In Linux 2.4, most block device based filesystems require that the file offset
++and the length and memory address of all I/O segments be multiples of the
++filesystem block size (typically 4096 bytes).
++In Linux 2.6.0, this was relaxed to the logical block size of the block device
++(typically 512 bytes).
++A block device's logical block size can be determined using the
+ .BR ioctl (2)
+ .B BLKSSZGET
+ operation or from the shell using the command:
+diff --git a/man2/statx.2 b/man2/statx.2
+index 0326e9af0..ea38ec829 100644
+--- a/man2/statx.2
++++ b/man2/statx.2
+@@ -61,7 +61,12 @@ struct statx {
+        containing the filesystem where the file resides */
+     __u32 stx_dev_major;   /* Major ID */
+     __u32 stx_dev_minor;   /* Minor ID */
++
+     __u64 stx_mnt_id;      /* Mount ID */
++
++    /* Direct I/O alignment restrictions */
++    __u32 stx_dio_mem_align;
++    __u32 stx_dio_offset_align;
+ };
+ .EE
+ .in
+@@ -247,6 +252,8 @@ STATX_BTIME	Want stx_btime
+ STATX_ALL	The same as STATX_BASIC_STATS | STATX_BTIME.
+ 	It is deprecated and should not be used.
+ STATX_MNT_ID	Want stx_mnt_id (since Linux 5.8)
++STATX_DIOALIGN	Want stx_dio_mem_align and stx_dio_offset_align
++	(since Linux 5.20; support varies by filesystem)
+ .TE
+ .in
+ .PP
+@@ -407,6 +414,28 @@ This is the same number reported by
+ .BR name_to_handle_at (2)
+ and corresponds to the number in the first field in one of the records in
+ .IR /proc/self/mountinfo .
 +.TP
-+.B ENOTTY
-+The filesystem does not support the ioctl.
++.I stx_dio_mem_align
++The alignment (in bytes) required for user memory buffers for direct I/O
++.BR "" ( O_DIRECT )
++on this file. or 0 if direct I/O is not supported on this file.
++.IP
++.B STATX_DIOALIGN
++.IR "" ( stx_dio_mem_align
++and
++.IR stx_dio_offset_align )
++is supported on block devices since Linux 5.20.
++The support on regular files varies by filesystem; it is supported by ext4,
++f2fs, and xfs since Linux 5.20.
 +.TP
-+.B EOPNOTSUPP
-+The filesystem does not support changing the uuid through this ioctl.
-+This may be due to incompatible filesystem feature flags or
-+.I fsu_flags
-+has bits set that are not recognized.
-+.TP
-+.B EPERM
-+The calling process does not have sufficient permissions to set the uuid.
-+.SH CONFORMING TO
-+This API is Linux-specific.
-+.SH SEE ALSO
-+.BR ioctl (2)
++.I stx_dio_offset_align
++The alignment (in bytes) required for file offsets and I/O segment lengths for
++direct I/O
++.BR "" ( O_DIRECT )
++on this file, or 0 if direct I/O is not supported on this file.
++This will only be nonzero if
++.I stx_dio_mem_align
++is nonzero, and vice versa.
+ .PP
+ For further information on the above fields, see
+ .BR inode (7).
+
+base-commit: f9f25914e4ed393ac284ab921876e8a78722c504
 -- 
-2.37.1.359.gd136c6c3e2-goog
+2.37.0
 
