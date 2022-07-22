@@ -2,70 +2,74 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 039A257E999
-	for <lists+linux-man@lfdr.de>; Sat, 23 Jul 2022 00:20:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6DA9757EA65
+	for <lists+linux-man@lfdr.de>; Sat, 23 Jul 2022 01:47:54 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233045AbiGVWUv (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 22 Jul 2022 18:20:51 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45944 "EHLO
+        id S231478AbiGVXrx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 22 Jul 2022 19:47:53 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50680 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229611AbiGVWUu (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 22 Jul 2022 18:20:50 -0400
-Received: from mail-oa1-x32.google.com (mail-oa1-x32.google.com [IPv6:2001:4860:4864:20::32])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D93611FCEE
-        for <linux-man@vger.kernel.org>; Fri, 22 Jul 2022 15:20:48 -0700 (PDT)
-Received: by mail-oa1-x32.google.com with SMTP id 586e51a60fabf-1013ecaf7e0so7874742fac.13
-        for <linux-man@vger.kernel.org>; Fri, 22 Jul 2022 15:20:48 -0700 (PDT)
+        with ESMTP id S229611AbiGVXrw (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 22 Jul 2022 19:47:52 -0400
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com [IPv6:2a00:1450:4864:20::434])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EFF12BF9B6
+        for <linux-man@vger.kernel.org>; Fri, 22 Jul 2022 16:47:50 -0700 (PDT)
+Received: by mail-wr1-x434.google.com with SMTP id l15so4376099wro.11
+        for <linux-man@vger.kernel.org>; Fri, 22 Jul 2022 16:47:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=JChVdz7XxG7UTXWLVbKChYVnLxnCMsnSLuySKbkdV/c=;
-        b=ZrzF3rWUrRctNPvMs9AtwPtD0sV9/0WYw59d5z2gSWpdf7FjsE96kdO2hgKLayDJQt
-         Ru9unwv4/3LHcZ6W8dS1vfI3JeytwV7gs+BfYZvDXWXg+t14tlqr6n41AS75l6/nrY01
-         z1eNMb8nmmiFpPu1f2gOTDqhgdMpkPmfxkdrIaP/VbkRAeFx6LNSU/7g+BD+EdqMEgyW
-         YDPSandTdAtGrBsM7WpFCAIi+KGAlZnjDbLD+3/HucDlZtNQ41YYRT+QkADaDZdC0Wzf
-         2/2X62Uz0MAEb6dp9/Fl883S46AHj9eGpnPx/9bSbT8C3iZvOoAbn/Kx0XwfLTwXlv9T
-         LT6A==
+        h=message-id:date:mime-version:user-agent:subject:content-language:to
+         :cc:references:from:in-reply-to;
+        bh=l7yfV0W8c+c/lvtw8msAnGWpaDUPxVjX1pZQpArXuVE=;
+        b=cBGhxH6GDP3+IICqql8kbz7fQiM/MCbUxEsdIzsZ5daxPmVLfCvRKLgpHfVpMKy26L
+         JjHW5aahr5aKg4D8V6OeWmlDQUfh2i9QQf+wTFdKj50dIHkS0MIvdQl6vZY3H+nAwWGN
+         xQUs0APPEsnvw7mlKNkyulGdVNw8mHU50gdxXCHOqbJOOa6I1nVHRm2SIS4V76JaeEdP
+         qmU2NWdC8NzES8sQFxG5W7FUgQWbstaNom8bxmdpEJq9bx0HZHRPkGOS8gKP9xv08h4V
+         oxneNBug94lJD2r/gZuiRc5jbozGug0RebaKFD4B7KJUK8L2CnMb62lIsOFrhft6A4Nx
+         tixA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=JChVdz7XxG7UTXWLVbKChYVnLxnCMsnSLuySKbkdV/c=;
-        b=SPTMXzD1SOdGQfJHFVGbQcyjj9EmVGUZbdF77pCL8UsO/GA89/Y16vAmkHPa898XYr
-         n/UioiXg0zrklJV/yNu5mjK08TaxIw8I1rvgW4yuyoZmRabY6YQei6uUb4FrWJHpeYY3
-         o74evUg1EZWEcwGC9VjVQgAIUqRK+k3uCNl+if11DlRbo2BU19LRHQdl2SB3+S6n34aQ
-         ud2kTXha3GNDI7/fCoXiPz6Jwn4TvSg4PURS7AXTPBlh4nxqW1XN3eTw9fxRfuC/aswi
-         TCPrKZZvkjjWiP5i7+KSjF/sGHxE73nO4UIeauR/1MUuWaxP37BhK0ou2FWzkpLbIYuZ
-         BWvw==
-X-Gm-Message-State: AJIora+gXEzvxqsUVSu0DJjUzKVxlHUQlkAFkyS97znlJboGpsa3CfD1
-        vch4lHxQ67GNBgFG94vFDEk+Il+CgEA=
-X-Google-Smtp-Source: AGRyM1tQGM/69YUHTjRZz+dnqvfEhmFVXZMG6150t01R5ZWIM5l484LTZ8J8wZxSg3eNn4Ol2JYxAA==
-X-Received: by 2002:a05:6870:a54a:b0:10d:bb5d:7407 with SMTP id p10-20020a056870a54a00b0010dbb5d7407mr2383699oal.172.1658528448074;
-        Fri, 22 Jul 2022 15:20:48 -0700 (PDT)
-Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id i23-20020a9d6517000000b0061c4b17c0b7sm2561598otl.43.2022.07.22.15.20.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 22 Jul 2022 15:20:47 -0700 (PDT)
-Date:   Fri, 22 Jul 2022 17:20:45 -0500
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org, groff@gnu.org
-Subject: man(7) DS and DE macros (was: [PATCH 4/5] tm.3type: describe
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+         :content-language:to:cc:references:from:in-reply-to;
+        bh=l7yfV0W8c+c/lvtw8msAnGWpaDUPxVjX1pZQpArXuVE=;
+        b=WmL3fRyqL3vg/0EH+k5shZ+D/dz+/8iR3Gqtw13vJlQmRKwfWh9hV/QEugO6GkfVDZ
+         m9/9JEsYpd+/QODK5LgdwD/A1GEyRPEvwWq+NQNRnZa3ekyI1isMJFj4D0cs9eDfmmO0
+         3jplbzRDOTu6U8MfphexlQjyfD7b2Dq8QVaB0AYH7Sem+SBC2qC5I0LM/ZJXARBPAn6H
+         s9QCRusshin1RO+YOUq+TgnaNh8b2MEvk93bM/aqNDh7u7//gRWXwQyEOXkih+CzpVoK
+         pHdneMLjIonrWI18Qy2mR3g9QdsYEzkNm6oOQnmEZvcH4dgKe2s0wRTtdB1b6y5R4f0F
+         V5bQ==
+X-Gm-Message-State: AJIora9+q6ZXCATriEc1i6p4V4O0JqOFKOU/dYkU240OHIqowkgTW6Qe
+        3W99PFNmCgseQ93Mnvhm34swAa9lCGE=
+X-Google-Smtp-Source: AGRyM1uh0fXg4Xyw0PNLU0OZbZzFiYTQIGcnNHvkal3QeCA61rZkW9osJ+T7URwIAIPe+zLjzvjnqw==
+X-Received: by 2002:adf:ef0e:0:b0:21e:69c9:2db4 with SMTP id e14-20020adfef0e000000b0021e69c92db4mr1312974wro.697.1658533669095;
+        Fri, 22 Jul 2022 16:47:49 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id f8-20020a05600c4e8800b003a31673515bsm11839016wmq.7.2022.07.22.16.47.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 22 Jul 2022 16:47:48 -0700 (PDT)
+Message-ID: <1cae9a0e-823a-0e63-77f0-a80c308d804f@gmail.com>
+Date:   Sat, 23 Jul 2022 01:47:40 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.0.2
+Subject: Re: man(7) DS and DE macros (was: [PATCH 4/5] tm.3type: describe
  tm_zone, tm_gmtoff)
-Message-ID: <20220722222045.y7i3yc7d6agygien@illithid>
+Content-Language: en-US
+To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc:     linux-man@vger.kernel.org, groff@gnu.org
 References: <62c1b6748d2faa6263264b9fcaa064495357441b.1658195739.git.nabijaczleweli@nabijaczleweli.xyz>
  <a8be8830890c50b1a36e9b7d20693c19c77ca4e5.1658195739.git.nabijaczleweli@nabijaczleweli.xyz>
  <90beebd3-2636-21d5-323b-766c8d81d6d3@gmail.com>
  <20220722033353.ap7aqxh6uhghdcxo@illithid>
  <c59d4741-7d12-7845-5112-9f16f9467596@gmail.com>
-MIME-Version: 1.0
+ <20220722222045.y7i3yc7d6agygien@illithid>
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <20220722222045.y7i3yc7d6agygien@illithid>
 Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="z2rrxjb5zeo2qvbw"
-Content-Disposition: inline
-In-Reply-To: <c59d4741-7d12-7845-5112-9f16f9467596@gmail.com>
+ protocol="application/pgp-signature";
+ boundary="------------fNvFUNxGfyy0XL8sYD7CeJhN"
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -74,285 +78,161 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------fNvFUNxGfyy0XL8sYD7CeJhN
+Content-Type: multipart/mixed; boundary="------------F8krAOvBLnJAs077xAxUA4nF";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: linux-man@vger.kernel.org, groff@gnu.org
+Message-ID: <1cae9a0e-823a-0e63-77f0-a80c308d804f@gmail.com>
+Subject: Re: man(7) DS and DE macros (was: [PATCH 4/5] tm.3type: describe
+ tm_zone, tm_gmtoff)
+References: <62c1b6748d2faa6263264b9fcaa064495357441b.1658195739.git.nabijaczleweli@nabijaczleweli.xyz>
+ <a8be8830890c50b1a36e9b7d20693c19c77ca4e5.1658195739.git.nabijaczleweli@nabijaczleweli.xyz>
+ <90beebd3-2636-21d5-323b-766c8d81d6d3@gmail.com>
+ <20220722033353.ap7aqxh6uhghdcxo@illithid>
+ <c59d4741-7d12-7845-5112-9f16f9467596@gmail.com>
+ <20220722222045.y7i3yc7d6agygien@illithid>
+In-Reply-To: <20220722222045.y7i3yc7d6agygien@illithid>
 
---z2rrxjb5zeo2qvbw
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+--------------F8krAOvBLnJAs077xAxUA4nF
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-[dropped =D0=BD=D0=B0=D0=B1 from CC list; added groff@]
+SGkgQnJhbmRlbiwNCg0KT24gNy8yMy8yMiAwMDoyMCwgRy4gQnJhbmRlbiBSb2JpbnNvbiB3
+cm90ZToNCj4gW2Ryb3BwZWQg0L3QsNCxIGZyb20gQ0MgbGlzdDsgYWRkZWQgZ3JvZmZAXQ0K
+PiANCj4gQXQgMjAyMi0wNy0yMlQxMjo1Nzo1MyswMjAwLCBBbGVqYW5kcm8gQ29sb21hciAo
+bWFuLXBhZ2VzKSB3cm90ZToNCj4+IFlvdSBhbnN3ZXJlZCBhbGwgdGhhdCBJIHRob3VnaHQg
+eW91IHdvdWxkLCBhbmQgZXZlbiBtb3JlLiAgQXMgYWx3YXlzLA0KPj4geW91IHN1cnByaXNl
+IG1lIHdpdGggZ3JlYXQga25vd2xlZGdlIHRoYXQgSSBkaWRuJ3QgZXZlbiBrbm93IEkgY291
+bGQNCj4+IGFzayBmb3IsIGFuZCB0aGF0J3MgdGhlIG1haW4gcmVhc29uIEkgdGVuZCB0byBu
+b3QgdHJ5IHRvIGRpcmVjdCB5b3VyDQo+PiBhbnN3ZXJzLiAgVGhleSdyZSBhbHdheXMgd2Vs
+Y29tZSAoYWx0aG91Z2ggc29tZXRpbWVzIHRoZSBrbm93bGVkZ2UgaXMNCj4+IHRvbyBtdWNo
+IGZvciBtZSwgYSBub3ZpY2UgZ3JvZmYoNykgdXNlciwgdG8gdW5kZXJzdGFuZCBpdDsgYnV0
+IEkgdHJ5DQo+PiB0bykuDQo+IA0KPiBBd3csIHNodWNrcy4gIFdlbGwsIG5ldmVyIGhlc2l0
+YXRlIHRvIGNvcnJlY3Qgb3IgY2hhbGxlbmdlIG1lOyB0aGUgYmVzdA0KPiBrbm93bGVkZ2Ug
+aXMgdGVzdGVkIGtub3dsZWRnZS4NCg0KOi19DQoNClN1cmUhDQoNCj4gDQo+PiBPbiA3LzIy
+LzIyIDA1OjMzLCBHLiBCcmFuZGVuIFJvYmluc29uIHdyb3RlOg0KPj4+IE9oLCBib3RoZXIu
+ICBCYXNoIGF1dG9jb21wbGV0aW9uIGZvciAibWFuIiBvbiBteSBEZWJpYW4gYnVsbHNleWUg
+aXMNCj4+PiB0b28gZHVtYiB0byByZWNvZ25pemUgdGhpcyBuZXcgbWFuIHBhZ2Ugc3VmZml4
+LiAgSSB0cnVzdCBzb21lb25lDQo+Pj4gcmVhZGluZyB0aGlzIGlzIGF3YXJlIG9mIHRoZSBw
+cm9ibGVtIGFuZCBpcyBmaXhpbmcgaXQgZm9yIHRoZSBuZXh0DQo+Pj4gRGViaWFuIHJlbGVh
+c2UuICAoSGFzIHNvbWVvbmUgZmlsZWQgdGhpcyBhcyBhIGJ1ZyB3aXRoIHRoZSBEZWJpYW4N
+Cj4+PiBCVFM/KQ0KPj4NCj4+IEkgZG9uJ3QgdGhpbmsgaXQncyBiZWVuIHJlcG9ydGVkLiAg
+SSd2ZSBkZXRlY3RlZCBzb21lIHVucGxlYXNhbnRuZXNzLA0KPj4gYnV0IHNpbmNlIEkgYWxz
+byBoYWQgc29tZSB1bnBsZWFzYW50bmVzcyB3aXRoIHBhZ2VzIGluIHRoZSBtYWluDQo+PiBz
+ZWN0aW9ucywgSSBkaWRuJ3Qga25vdyBpZiB0aGVyZSB3YXMgZXZlbiBtb3JlIG9mIGl0IHdp
+dGggc3Vic2VjdGlvbnMuDQo+Pg0KPj4gV2FzIGl0IHRyeWluZyB0byByZWFkIGEgbWFudWFs
+IHBhZ2UgZnJvbSBhIHJlbGF0aXZlIHBhdGg/DQo+IA0KPiBZdXAuICBJIHdhcyAibWFuIC1s
+Ii1pbmcgaW5zaWRlIG15IEdpdCBjaGVja291dCBvZiBtYW4tcGFnZXMuDQoNClNpbmNlIEkg
+ZG9uJ3Qgc2VlIGEgYmlnIGJlbmVmaXQgaW4gYmVpbmcgYWJsZSB0byBub3JtYWxseSByZWFk
+IG9sZCANCnJlbGVhc2VzIG9mIHRoZSBtYW5wYWdlcywgSSByZWNvbW1lbmQgeW91IGluc3Rh
+bGxpbmcgdGhlbSBpbnRvIA0KL3Vzci9sb2NhbC4gIElmIHlvdSBldmVuIG5lZWQgdG8gcmVh
+ZCBhbiBvbGQgbWFuIHBhZ2UsIHlvdSBjYW4gZmluZCBpdCANCm1hbnVhbGx5Lg0KDQo+IE5v
+IGluZGVlZC4gIE15IExvZ2l0ZWNoIHRodW1iLW9wZXJhdGVkIHRyYWNrYmFsbCBoYXRlcyBt
+ZSwgYXMgZG9lcyB0aGUNCj4gY29tcGFueS0tdGhleSBkb24ndCBldmVuIHNlbGwgYSBjb3Jk
+ZWQgdmVyc2lvbiBhbnltb3JlLiAgRHVlIHRvIHNvbWUNCj4gZGlhYm9saWNhbCBjb2xsdXNp
+b24gd2l0aCB0aGUgYWxrYWxpbmUgY2FydGVsLCB0aGVpciBkZXZpY2VzIHJlZnVzZSB0bw0K
+PiBvcGVyYXRlIHJlbGlhYmx5IGFmdGVyIGEgZnJlc2ggYmF0dGVyeSBoYXMgYmVlbiBpbnN0
+YWxsZWQgZm9yIG1vcmUgdGhhbg0KPiBhYm91dCA3MSBzZWNvbmRzLg0KDQpEbyB5b3UgcmVj
+b21tZW5kIHRob3NlIHRoaW5ncz8gIEkgaGFkIGNvbnRhY3Qgd2l0aCBvbmUgd2hlbiBJIHdh
+cyB2ZXJ5IA0KbGl0dGxlIChsaWtlIDEwIHlyIG9sZD8pIGluIGEgbGlicmFyeSwgYW5kIGhh
+dmUgbmV2ZXIgc2VlbiBvbmUgb2YgdGhvc2UgDQphZ2Fpbi4gIEkgZGlkbid0IGxpa2UgaXQg
+YXQgdGhlIHRpbWUsIGJ1dCBJIG1pZ2h0IGNoYW5nZSBteSBvcGluaW9uIG5vdyANCnRoYXQg
+SSBoYXRlIG1vcmUgYW5kIG1vcmUgdGhlIG1vdXNlIGV2ZXJ5IGRheS4NCg0KPiANCj4+IEFu
+eXdheSwgSSB1c2VkIHBkZm1hbigpWzFdIHRvIHJlYWQgdGhlIHBhZ2UgaW4gUERGLCBhbmQg
+SSBnZXQgeW91cg0KPj4gcG9pbnQuDQo+IA0KPiBJJ20gdHJ5aW5nIHRoZSBhdHRhY2htZW50
+IGFnYWluIGZvciB0aGUgYmVuZWZpdCBvZiBsaXN0IHJlYWRlcnMuDQoNCkkgZ3Vlc3MgeW91
+IGZvcmdvdCBpdCwgJ2NhdXNlIEkgY2FuJ3Qgc2VlIGl0IDovLg0KDQoNCj4gDQo+IEkgdGhp
+bmsgZ29pbmcgYWhlYWQgYW5kIHVzaW5nIHRhYnMgYXMgYSBmaXJzdCBjdXQgaXMgYSBnb29k
+IGlkZWEuICBJDQo+IHdvdWxkIHJlY29tbWVuZCBfYWdhaW5zdF8gYWRkaW5nIHN1cHBsZW1l
+bnRhbCBhZGphY2VudCB0YWJzIHRvIG1hbnVhbGx5DQo+IGNvcnJlY3QgY2FzZXMgb2YgbWlz
+YWxpZ25tZW50LiAgQSB0YWIgY2hhcmFjdGVyIGFsd2F5cyBjYXVzZXMgbW90aW9uIHRvDQo+
+IHRoZSBuZXh0IHRhYiBzdG9wIHRvIHRoZSByaWdodCBvZiB0aGUgY3VycmVudCBkcmF3aW5n
+IHBvc2l0aW9uLCBzbyBpdA0KPiBzaG91bGQgbmV2ZXIgaGFwcGVuIHRoYXQgdGV4dCBvdmVy
+cnVubmluZyBhIHRhYiBzdG9wIHdpbGwgZ2V0DQo+IG92ZXJwcmludGVkLg0KDQpUaGF0J3Mg
+d2h5IEkgZG9uJ3QgdXNlIChJIGRpZCwgYnV0IG5vdCBhbnltb3JlKSB0YWJzIGZvciBhbGln
+bm1lbnQgaW4gQy4gDQogIHRhYnMgZm9yIGluZGVudGF0aW9uLCBzcGFjZXMgZm9yIGFsaWdu
+bWVudC4NCg0KU2luY2Ugd2UncmUgZG9pbmcgYWxpZ25tZW50IGhlcmUsIHlvdSdyZSByaWdo
+dCwgYW5kIEkgc2hvdWxkbid0IHVzZSANCm11bHRpcGxlIHRhYnMuICBCdXQgSSBkb24ndCB3
+YW50IHRvIGdvIHNvIGZhciBhcyB0byBjb25maWd1cmluZyB0aGUgdGFiIA0Kd2lkdGgsIG5v
+dCBldmVuIHdpdGggYSBtYWNyby4gIFRoYXQncyB0b28gY29tcGxleC4NCg0KU28gaW4gdGhl
+IGVuZCwgSSBkZWNpZGVkIHRibCgxKSBpcyB0aGUgb25seSBzYW5lIHdheSB0byBkbyBpdCAo
+eW91IGRvbid0IA0KbmVlZCB0byB0aGluazsgYXQgbGVhc3Qgbm90IGFueSBtb3JlIHRoYW4g
+dGhlIGxlYXJuaW5nIGN1cnZlIG9mIHRibCgxKSkuIA0KICBXaGVuIG1hbnkgcGFnZXMgdXNl
+IHRibCgxKSBmb3IgdGhlIFNZTk9QU0lTIG9mIHR5cGVzLCBldmVuIG5ldyANCmNvbnRyaWJ1
+dG9ycyBzaG91bGQgZmluZCBpdCBlYXN5IHRvIHdyaXRlIGEgbmV3IHN0cnVjdHVyZSBmb2xs
+b3dpbmcgdGhlIA0KZXhhbXBsZXMuDQoNCj4+PiBDMy4gVGhlIGFib3ZlIGhhcyB0aGUgcHJv
+YmxlbSB0aGF0IGl0IHJlbGllcyB1cG9uIHRoZSB3cml0ZXIgdG8ga25vdw0KPj4+ICAgICAg
+IHdoaWNoIHBpZWNlcyBvZiB0ZXh0IGJldHdlZW4gdGhlIHRhYiBzdG9wcyBhcmUgdGhlIGxv
+bmdlc3QuDQo+Pj4gICAgICAgVGhpcyBzb3VuZHMgbGlrZSBhbiBvYnZpb3VzIHRoaW5nIHRo
+YXQgbm8gb25lIHdvdWxkIGV2ZXIgc2NyZXcNCj4+PiAgICAgICB1cC4gIEkgdGhpbmsgdGhh
+dCBhc3N1bXB0aW9uIHdvdWxkIGJlIHN3aWZ0bHkgb3ZlcnR1cm5lZC4NCj4+DQo+PiBNYXli
+ZSB5b3UgY2FuIHNldCB1cCAuVEEgc28gdGhhdCBpdCB0YWtlcyB0aGUgbG9uZ2VzdCBvZiBh
+IHNldCBvZg0KPj4gY29uc2VjdXRpdmUgLlRBPyAgVGhhdCdzIGFscmVhZHkga2luZCBvZiB0
+YmwoMSkuICBNYXliZSB3ZSBzaG91bGQgdXNlDQo+PiB0YmwoMSkgZm9yIHRoYXQgOlAuDQo+
+IA0KPiBZZXMsIHRoYXQgc2VlbXMgYSBicmlkZ2UgdG9vIGZhciB0byBtZS4gIElmIGl0cyBm
+ZWF0dXJlcyBhcmUgbmVlZGVkLA0KPiB0aGVyZSBpcyBubyBzaGFtZSBpbiByZWFjaGluZyBm
+b3IgdGJsKDEpLg0KDQpJIHZlcnkgbXVjaCB3YW50IHRob3NlIGZlYXR1cmVzIChubyBuZWVk
+IHRvIHRoaW5rIGFib3V0IHdoaWNoIGZpZWxkIHdpbGwgDQpiZSB0aGUgd2lkZXN0KS4gIFNv
+LCB0aGF0IGxlYXZlcyBtZSB3aXRoIGdvb2Qgb2wnIHRibCgxKS4NCg0KPiANCj4+IFdvdWxk
+IHlvdSByZWNvbW1lbmQgbWUgdXNpbmcgdGJsKDEpLCBvciAuRVgsIG9yIHRhYnMgKGluIHRo
+ZSBzaW1wbGUNCj4+IHdheSk/DQoNCldlIGFncmVlIHRoYXQgd2Ugd291bGQgbGlrZSB0byBh
+dm9pZCAuRVguDQp0YWJzIHdvdWxkIGJlIGVpdGhlciBpbXBlcmZlY3QsIG9yIHRvbyBjb21w
+bGljYXRlZCwgb3Igd2Ugd291bGQgYmUgDQpyZWludmVudGluZyB0YmwoMSksIHNvIGxldCBp
+dCBiZS4NCj4gDQo+Pj4gRC4gQ29uZ3JhdHVsYXRpb25zLCB5b3UndmUgZGlzY292ZXJlZCB0
+YmwoMSkuWzFdDQo+Pg0KPj4gU28gaXQgc2VlbXMuDQoNClNvIGl0IHNlZW1zLi4uDQoNCj4g
+DQo+IEkgZmFuY3kgdGhhdCBJIHJlY29uc3RydWN0ZWQgdGhlIHNlcXVlbmNlIG9mIGV2ZW50
+cyB0aGF0IGxlZCBNaWtlIExlc2sNCj4gdG8gd3JpdGUgaXQuICBUaGlzIGNvdWxkIG9mIGNv
+dXJzZSBiZSBjb21wbGV0ZWx5IHdyb25nLiAgOy0pDQoNCkkgZ3Vlc3MsIHllcyA6RA0KDQo+
+IA0KPj4gU28gbm8gc2luZ2xlLXNpZGVkIHNwYWNlIGZvciBlbSBkYXNoZXMgLS1zdWNoIGFz
+IHRoaXMgb25lLS0sIHJpZ2h0Pw0KPj4gTWF5YmUgdGhhdCdzIGEgY29uc3RydWN0aW9uIG9m
+IG15IGJyYWluLCB0cnlpbmcgdG8gbWFrZSB0aGVtIGEgYml0DQo+PiBtb3JlIGxvZ2ljLi4u
+DQo+IA0KPiBJIGhhdmVuJ3Qgc2VlbiB0aGF0IG91dHNpZGUgb2YgdGhpbmdzIGxpa2UgbW9y
+ZSgxKSBwcm9tcHRzOyBteSBmZXcNCj4gbWVtb3JpZXMgb2Ygc3VjaCBmZWVsIGRlY2FkZXMg
+b2xkLCBwcm9iYWJseSBvZiBiZXNwb2tlIGltcGxlbWVudGF0aW9ucw0KPiBmb3IgMTk4MHMg
+bWljcm9zLg0KDQpJIHRoaW5rIGJvb2tzIGluIFNwYW5pc2ggdGVuZCB0byB1c2Ugc2luZ2xl
+LXNwYWNlZCBlbSBkYXNoZXMuICBJJ2xsIHRyeSANCnRvIHJlbWVtYmVyIHRvIGNoZWNrIHdo
+ZW4gcmVhZGluZy4NCg0KPiANCj4gT3IgbWF5YmUgSSdtIHRoaW5raW5nIG9mIE5ldEhhY2su
+WzFdDQoNCk9oLCB5ZXMsIHRoZSBvdGhlciBwYWdlIGluIG1hbjYgOkQNCg0KPiANCj4gU28g
+aGVyZSdzIHRoZSBjcmF6eSBpZGVhLg0KPiANCg0KWy4uLl0NCg0KU29ycnkgdG8gY29tcGxl
+dGVseSBkcm9wIGl0IGZyb20gdGhlIGVtYWlsLCBidXQgSSB0aGluayBpdCB3b3VsZCBiZSAN
+CmhhcmRlciB0byB1c2UgdGhhbiB0YmwoMSksIGZvciBsZXNzIGZ1bmN0aW9uYWxpdHkuICBJ
+J20gYWxyZWFkeSB0cnlpbmcgDQp0YmwoMSkuICBHb29kIG5ld3MgaXMgSSdsbCByZXZpZXcg
+eW91ciBwYWdlISAgSSdsbCB0cnkgdG8gbWFrZSBpdCB3b3JrIA0Kd2l0aG91dCByZWFkaW5n
+IGFueXRoaW5nIG90aGVyIHRoYW4gdGhhdCBwYWdlLg0KDQogPiBTbyBpdCBjYW4ndCBiZSB3
+cm9uZywgYW5kIHdpbGwgbmV2ZXIgYmUgaXNzdWVkIHNwdXJpb3VzbHkuWzJdDQoNCg0KQ2hl
+ZXJzLA0KDQpBbGV4DQoNCj4gDQo+IFJlZ2FyZHMsDQo+IEJyYW5kZW4NCj4gDQo+IFsxXSBo
+dHRwczovL2dpdGh1Yi5jb20vTmV0SGFjay9OZXRIYWNrL2Jsb2IvTmV0SGFjay0zLjcvZG9j
+L0d1aWRlYm9vay5tbiNMNDI4DQo+IFsyXSBmYW1vdXMgbGFzdCB3b3Jkcw0KDQpPaCwgdGhh
+dCBtYWRlIG1lIHJlbWVtYmVyIG9mIHNvbWVvbmUgdGhhdCBJIGtub3csIHRoYXQgc2FpZCB0
+aGUgZGF5IG9mIGEgDQpyZWxlYXNlOiAiSXQgbXVzdCB3b3JrLCBJIHRlc3RlZCBpdCBvbiBt
+eSBjb21wdXRlciIuIExPTCENCg0KLS0gDQpBbGVqYW5kcm8gQ29sb21hcg0KPGh0dHA6Ly93
+d3cuYWxlamFuZHJvLWNvbG9tYXIuZXMvPg0K
 
-At 2022-07-22T12:57:53+0200, Alejandro Colomar (man-pages) wrote:
-> You answered all that I thought you would, and even more.  As always,
-> you surprise me with great knowledge that I didn't even know I could
-> ask for, and that's the main reason I tend to not try to direct your
-> answers.  They're always welcome (although sometimes the knowledge is
-> too much for me, a novice groff(7) user, to understand it; but I try
-> to).
+--------------F8krAOvBLnJAs077xAxUA4nF--
 
-Aww, shucks.  Well, never hesitate to correct or challenge me; the best
-knowledge is tested knowledge.
-
-> On 7/22/22 05:33, G. Branden Robinson wrote:
-> > Oh, bother.  Bash autocompletion for "man" on my Debian bullseye is
-> > too dumb to recognize this new man page suffix.  I trust someone
-> > reading this is aware of the problem and is fixing it for the next
-> > Debian release.  (Has someone filed this as a bug with the Debian
-> > BTS?)
->=20
-> I don't think it's been reported.  I've detected some unpleasantness,
-> but since I also had some unpleasantness with pages in the main
-> sections, I didn't know if there was even more of it with subsections.
->=20
-> Was it trying to read a manual page from a relative path?
-
-Yup.  I was "man -l"-ing inside my Git checkout of man-pages.
-
-> That's where I find a lot of problems, and that's why I always `sudo
-> make install` the pages, then read them from the system as usual.
-> That makes it easier.  I improved the Makefile to make that loop
-> experience something nice.
->=20
-> Anyway, would you mind reporting the bug you notice and CCing me?
-
-If I work up the gumption to report it, I will CC you, yes.
-
-> > Hmmm.  I'm attaching a screenshot of Okular's rendering of the
-> > current state of tm(3type) in the Linux man-pages Git repository to
-> > PostScript.
->=20
-> I only see a black 180 bytes image.  Probably not what you expected to
-> send?
-
-No indeed.  My Logitech thumb-operated trackball hates me, as does the
-company--they don't even sell a corded version anymore.  Due to some
-diabolical collusion with the alkaline cartel, their devices refuse to
-operate reliably after a fresh battery has been installed for more than
-about 71 seconds.
-
-> Anyway, I used pdfman()[1] to read the page in PDF, and I get your
-> point.
-
-I'm trying the attachment again for the benefit of list readers.
-
-> > Synopses in man pages, whether for section [168] commands or section
-> > [23] C function calls or data types, are not typically set in a
-> > monospaced typeface, nor do I think they should be.  A proportional
-> > typeface generally looks better.
-> >=20
-> > The price of that improved appearance is that the use of sequences
-> > of spaces to get columnar alignment breaks as soon as there is
-> > variation in the content.
->=20
-> I know.  And I tend to agree that proportional typeface is nicer for
-> SYNOPSIS.
-
-Yeah, I don't want to give that up.  Also I seem to remember that in the
-Linux man-pages, some function declarations are already nearing or
-exceeding the line limit.  Switching to Courier would make this happen
-to more of them.
-
-> I'm generally a tab user, so you won't find resistance from me to use
-> them, especially if they improve the situation.
-
-When I started to contributing to groff, I didn't think they had a place
-in man pages outside of tbl(1) tables, but my resolve is softening.
-
-> > There are a few ways to address this issue.
-> >=20
-> > A. Don't worry about it and let HTML/PostScript/PDF output look ugly.
->=20
-> I'd prefer to help them if I can.
->=20
-> > B. Stick synopses, at least for section 2 and 3 man pages, in EX/EE
-> >     blocks [...].  My recollection is that Michael Kerrisk opposed
-> >     this practice.  I too don't think it's a great idea; the average
-> >     glyph width is lower in proportional fonts, so using it, you can
-> >     fit more content on an output line.
->=20
-> It would be an easy fix, if nothing else works nicely.  We can
-> restrict it to type pages, where there is an objective reason to do
-> that, and let function pages continue using proportinal typeface.
-
-After a bit of pondering today, I had an idea--see below.
-
-> > C. Use tabs anyway.  For results that will actually get what you
-> >    want, you will need to set the tab stops to ensure they're wide
-> >    enough to achieve the desired alignment.  The use of custom tab
-> >    stops requires invoking the `ta` request, and this is warned
-> >    against in the "Portability" section of groff_man(7) (to be part
-> >    of groff_man_style(7) in groff 1.23).  But by invoking the `nf`
-> >    and `fi` requests for other reasons, this project's pages have
-> >    already crossed that bridge.
->=20
-> That will be my first attempt.  But I won't try setting the width,
-> since you've shown in the below explanations how brittle and difficult
-> it is.  So, if the defaults work nicely (maybe using double tabs at
-> some places), I'll use tabs.  Otherwise, I'm probably going to
-> fallback to .EX/.EE.  What's your opinion on this?  Or do you prefer
-> going directly to .EX/.EE for 3type/2type pages?
-
-I think going ahead and using tabs as a first cut is a good idea.  I
-would recommend _against_ adding supplemental adjacent tabs to manually
-correct cases of misalignment.  A tab character always causes motion to
-the next tab stop to the right of the current drawing position, so it
-should never happen that text overrunning a tab stop will get
-overprinted.
-
-Further, in groff, by default the number of tab stops is infinite,
-spaced at half-inch (~1.3 cm) intervals.
-
-[Imagined: a new man(7) macro that would use \w to compute the widths of
-its arguments, add 1n, and set a tab stop for each.]
-> >      .TA char gmtoff
-> >=20
-> >      This certainly looks much cleaner, and in fact it closely
-> >      resembles Texinfo's @multitable command.  But it is just a mask
-> >      over the `ta` request of frightening appearance above, not a
-> >      silver bullet.
->=20
-> May be nice.
-
-I'm keeping the above content as preparation for the New Idea.
-
-> > C3. The above has the problem that it relies upon the writer to know
-> >      which pieces of text between the tab stops are the longest.
-> >      This sounds like an obvious thing that no one would ever screw
-> >      up.  I think that assumption would be swiftly overturned.
->=20
-> Maybe you can set up .TA so that it takes the longest of a set of
-> consecutive .TA?  That's already kind of tbl(1).  Maybe we should use
-> tbl(1) for that :P.
-
-Yes, that seems a bridge too far to me.  If its features are needed,
-there is no shame in reaching for tbl(1).
-
-> Would you recommend me using tbl(1), or .EX, or tabs (in the simple
-> way)?
-
-Start with tabs.  If that proves unsatisfactory, consider my New Idea
-below, or tbl(1).  Using EX/EE for some synopses but not others feels
-ugly to me.
-
-> > D. Congratulations, you've discovered tbl(1).[1]
->=20
-> So it seems.
-
-I fancy that I reconstructed the sequence of events that led Mike Lesk
-to write it.  This could of course be completely wrong.  ;-)
-
-> So no single-sided space for em dashes --such as this one--, right?
-> Maybe that's a construction of my brain, trying to make them a bit
-> more logic...
-
-I haven't seen that outside of things like more(1) prompts; my few
-memories of such feel decades old, probably of bespoke implementations
-for 1980s micros.
-
-Or maybe I'm thinking of NetHack.[1]
-
-So here's the crazy idea.
-
-Check this out from groff's an-ext.tmac file.
-
-259929625b (Werner LEMBERG      2007-01-15 07:17:24 +0000 267) .\" Start di=
-splay.
-259929625b (Werner LEMBERG      2007-01-15 07:17:24 +0000 268) .de DS
-259929625b (Werner LEMBERG      2007-01-15 07:17:24 +0000 269) .  \" XXX to=
- be written
-259929625b (Werner LEMBERG      2007-01-15 07:17:24 +0000 270) ..
-259929625b (Werner LEMBERG      2007-01-15 07:17:24 +0000 271) .
-259929625b (Werner LEMBERG      2007-01-15 07:17:24 +0000 272) .
-259929625b (Werner LEMBERG      2007-01-15 07:17:24 +0000 273) .\" End disp=
-lay.
-259929625b (Werner LEMBERG      2007-01-15 07:17:24 +0000 274) .de DE
-259929625b (Werner LEMBERG      2007-01-15 07:17:24 +0000 275) .  \" XXX to=
- be written
-259929625b (Werner LEMBERG      2007-01-15 07:17:24 +0000 276) ..
-
-We've had these stub, empty definitions of display macros lying around
-for over 15 years.
-
-How about we put some life into them?
-
-Your section 2 and 3 synopses don't use groff's SY/YS macros because
-those fill the text and you don't want the text filled.  You also need
-tab stops and command synopses never do.
-
-Unfilled text is a common feature of display macros in *roff macro
-packages (see groff_me(7), groff_mm(7), and groff_ms(7)).
-
-So, we could define `DS` as an `nf` invocation and `DE` as `fi`.  This
-would relieve the Linux man-pages from having to "reach down" and invoke
-these requests directly.
-
-But we can do better.
-
-Historically, there isn't much demand in man pages for right-aligned
-text or centering; means of encoding these requirements is a common
-feature of "display start" macro arguments in other packages.
-
-The macro definitions above ignore their arguments.  What if we made
-`DS` accept a list of strings whose widths it would use to compute the
-tab stops?  (If there are no arguments, it would do nothing with the tab
-stops.)
-
-That would make `DS` work like my straw-man `TA` above, and importantly,
-would eliminate the need to un-deprecate `DT` to reset the tab stops.
-The scope of your changed tab stops would end with `DE`.
-
-Furthermore, noting the (elided from the email) concerns I had about
-people rendering man pages at a different type size (as supported by the
-`S` register) or the future potential to make the font family used for
-the body text configurable, I think it would be valuable for this `DS`
-macro to emit a warning if a tab stop thus computed exceeds the line
-length.  Because this is done at formatting time, it is dynamic--it
-takes into account the properties of the font being used for rendering.
-So it can't be wrong, and will never be issued spuriously.[2]
-
-This change would be less disruptive than `MR`.  `DS` and `DE` are
-_already defined_, and have been in groff man(7) for 15+ years.  In the
-short term you could keep the `nf` and `fi` requests within `DS` and
-`DE` until groff 1.23 ages out of your support window.  groff 1.22.4 and
-earlier won't render your pages any _worse_ than they are right now, but
-groff 1.23 would handle them _better_.
-
-It will be important to remember that this feature isn't as powerful as
-tbl(1).  It will still rely on contributors updating the `DS` call to
-contain the "longest" text appearing in each column.  This will
-occasionally be overlooked and people will occasionally guess wrong.
-
-Maybe it's not worth the trouble.
-
-But maybe it is.  I think there is a chance that this feature would
-capture as much table or tab stop functionality as most man pages
-require.
-
-Regards,
-Branden
-
-[1] https://github.com/NetHack/NetHack/blob/NetHack-3.7/doc/Guidebook.mn#L4=
-28
-[2] famous last words
-
---z2rrxjb5zeo2qvbw
-Content-Type: application/pgp-signature; name="signature.asc"
+--------------fNvFUNxGfyy0XL8sYD7CeJhN
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmLbIrUACgkQ0Z6cfXEm
-bc7mOA//YisNQiV3j4QPlwKV75QwGMzcDJ5PQiYdVbkwSDt6Lfh4X28QSsrttSIY
-PdOndpIeCWasylAFGG+VfV7N+p/qdTNVXL4bWO6Zt1UmTyx+W9weF24xp0QbpqfF
-YltCGDO7Nfw3IqTcJODKjqQnG9KSVqRPqJJ2NXTS/iBMg9pSE9EX9qDJR+CMoZF0
-shaL4JGBPjQBfjcYeMVHM4C90biG6YwZwg7wcui5bTqP0J42GL2p2AEL0zoOPuyA
-uNK9gPT71kLspTPTjm1hQ4hcBbAbLR2CbeGCELHNk9EcSRtVwGlytY2Neogdj+1K
-WX2g4VtCx6/1nWoHacLziDcN6k4J/y/G+jeb2iCnjGTTBYie4fibSvgC5TiE6WpD
-VWETh2REeeJAd+GHoqVfSV66ltYPXsf6vzPQ3HSN0EFTChaCzCxatgwEYGbbE1sY
-0ucdNF5RcKoDjS70hJ72Bc4JvVQ04ji1IjWiqedSmKgNBrTnqtORMPRSCShf5XZ9
-A0Q+j04yQXSUhRKD8JkC/qwefUR03v2Hk4coqrlyZ/AxCzeo7JJZOuJjG7WYT2Nx
-nSdqVkF/gJUdsGNZeXdJr994NtHB5ZJpMM0xvUeX1Jo1pO87BeYUgzh67aUSCIrn
-w6TBFDOLhV48fQXK0J8JvUb7Ge6yHuM3tV7Rla1BoVd6YTibpkQ=
-=bZkr
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmLbNxwACgkQnowa+77/
+2zIQFg//Zjo2cbZLvRPeHbdhwBuqr0oVXVlaWrdIhP/W5ek00kigs5SZ2OkVvUyU
+D+06xwjle/t47z+H7Q1UbURcwc1WH/G9x9Swg0VzKkYkemsJf+RtOxPv315zowxg
+PWvJNe0TGAB4TJVMkvtYrcY0FmhWfKRG7o+KnjmwR8lW/T9V7OBf8kgx8a1I1tJw
+2VqkIt8m9oK5ldGg6Q0t42RXm+tedttcSmaarMeMjIwJW1ugs4agXeal3Xxc7acC
+cL894OkZRFy0RNwyPj9YA45wTgDvTYpgay013TOP3vqqU11UgnQIYIr7kQ1E3FCI
+RHhU2JfXhyMoX2ZxH0i1/0tCWPTHyMCGUFC2epJnYppCrv3ZDJsk/eLMrTxD9nep
+VTNHgyCsVybfcn3/nlHlk4a9c76LcIFiq32xCMElB8KOzsbOzORmE6U/Mu4PyML+
+FMI8kMFGbjSuiw1YYBHQbHMTCCqqQr1wNxgNrZ9jJA5sbweFcThjKEcszfnXUU/c
+sl4rGshG9BPGlbzd+VowTIX45ufGxHBIELl83prXob4Kv7A840NnQTdALwLzhY2a
+F+0hYFlr6yOEhaCJRiqFkfijpsvLMI1m6C8ymG8IU2Med3iVc5Z9wKJqsfe4Ykaf
+bkLqn7toweM6rjVH0S+FWVHfF43QDlTta25NOW5/FKIGrLbYQHs=
+=kf31
 -----END PGP SIGNATURE-----
 
---z2rrxjb5zeo2qvbw--
+--------------fNvFUNxGfyy0XL8sYD7CeJhN--
