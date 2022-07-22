@@ -2,209 +2,164 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 297FB57E467
-	for <lists+linux-man@lfdr.de>; Fri, 22 Jul 2022 18:32:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 89A1E57E4ED
+	for <lists+linux-man@lfdr.de>; Fri, 22 Jul 2022 18:59:31 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235603AbiGVQb5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 22 Jul 2022 12:31:57 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60004 "EHLO
+        id S231164AbiGVQ7a (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 22 Jul 2022 12:59:30 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54034 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229567AbiGVQbz (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 22 Jul 2022 12:31:55 -0400
-Received: from ams.source.kernel.org (ams.source.kernel.org [IPv6:2604:1380:4601:e00::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E805C89A9B;
-        Fri, 22 Jul 2022 09:31:53 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by ams.source.kernel.org (Postfix) with ESMTPS id C2190B82970;
-        Fri, 22 Jul 2022 16:31:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 682F5C341C6;
-        Fri, 22 Jul 2022 16:31:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1658507510;
-        bh=2zJKttnRhj1+bfpQ1neKDFu0IlRxRblBoec0bp8Sdok=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=R6uxrMTGkXqjhGQr3zA8qNa8GSPQYWhhd4mQ3yYrU74pGY1LX1IaIR5hc0nNP92LQ
-         q9wz+Ac3IrLVRoZlFBxpRSiQx2lr3niXhLmKlEKd0WaePq36/63ztLdxUHKVP91cna
-         iTiD0U+7tuK8NQRrlnfsoyqCoOVisiWxoj95uBcTC6TpEN1dPCJvAwk4AG+OLFbipY
-         Ev1zg3asT7LDP81fPvnsbpQUSyN9RHHDGbrlF5ehxKVjBYDOL18hUhi2yOduvU0hdK
-         zkACGw2vJii36YKdGWHobF9F/E/t5jlN1+H172Y6t7CaMxCzV8c30PiPug7zXwMxcb
-         86mtOuQB7uKRA==
-Date:   Fri, 22 Jul 2022 09:31:49 -0700
-From:   "Darrick J. Wong" <djwong@kernel.org>
-To:     Eric Biggers <ebiggers@kernel.org>
-Cc:     linux-fsdevel@vger.kernel.org, linux-man@vger.kernel.org,
-        linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
-        linux-xfs@vger.kernel.org, linux-api@vger.kernel.org,
-        linux-fscrypt@vger.kernel.org, linux-block@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Keith Busch <kbusch@kernel.org>
-Subject: Re: [man-pages RFC PATCH v2] statx.2, open.2: document STATX_DIOALIGN
-Message-ID: <YtrQ9cWwUkmOUe9r@magnolia>
-References: <20220722074229.148925-1-ebiggers@kernel.org>
+        with ESMTP id S229839AbiGVQ73 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 22 Jul 2022 12:59:29 -0400
+Received: from scc-mailout-kit-02.scc.kit.edu (scc-mailout-kit-02.scc.kit.edu [IPv6:2a00:1398:9:f712::810d:e752])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6A02A31201
+        for <linux-man@vger.kernel.org>; Fri, 22 Jul 2022 09:59:27 -0700 (PDT)
+Received: from hekate.asta.kit.edu ([2a00:1398:5:f401::77])
+        by scc-mailout-kit-02.scc.kit.edu with esmtps (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+        (envelope-from <schwarze@usta.de>)
+        id 1oEvzo-000r8r-Tt; Fri, 22 Jul 2022 18:59:25 +0200
+Received: from login-1.asta.kit.edu ([2a00:1398:5:f400::72])
+        by hekate.asta.kit.edu with esmtp (Exim 4.94.2)
+        (envelope-from <schwarze@usta.de>)
+        id 1oEvzo-006kNb-OE; Fri, 22 Jul 2022 18:59:24 +0200
+Received: from schwarze by login-1.asta.kit.edu with local (Exim 4.92)
+        (envelope-from <schwarze@usta.de>)
+        id 1oEvzo-0000c5-NC; Fri, 22 Jul 2022 18:59:24 +0200
+Date:   Fri, 22 Jul 2022 18:59:24 +0200
+From:   Ingo Schwarze <schwarze@usta.de>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org, g.branden.robinson@gmail.com
+Subject: Re: Linux man-pages Makefile portability
+Message-ID: <YtrXbDo5NVxNT/cb@asta-kit.de>
+References: <d8646de0-e4f0-3d4b-e763-92355162a405@gmail.com>
+ <Yq+P39bpy2QEeaSd@asta-kit.de>
+ <8b9daa0e-6f08-dd55-5772-51f5052ed8bb@gmail.com>
+ <YrB66rgFZqryrmpt@asta-kit.de>
+ <6e294373-2661-286c-09c4-e67cd84103d7@gmail.com>
+ <fdde7402-5e69-b6ff-60fc-74ad9c9054f1@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20220722074229.148925-1-ebiggers@kernel.org>
-X-Spam-Status: No, score=-5.3 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-        SPF_HELO_NONE,SPF_PASS,SUSPICIOUS_RECIPS autolearn=ham
-        autolearn_force=no version=3.4.6
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <fdde7402-5e69-b6ff-60fc-74ad9c9054f1@gmail.com>
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED,
+        SPF_HELO_NONE,SPF_NONE autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Fri, Jul 22, 2022 at 12:42:28AM -0700, Eric Biggers wrote:
-> From: Eric Biggers <ebiggers@google.com>
-> 
-> Document the proposed STATX_DIOALIGN support for statx()
-> (https://lore.kernel.org/linux-fsdevel/20220722071228.146690-1-ebiggers@kernel.org/T/#u).
-> 
-> Signed-off-by: Eric Biggers <ebiggers@google.com>
-> ---
-> 
-> v2: rebased onto man-pages master branch, mentioned xfs, and updated
->     link to patchset
-> 
->  man2/open.2  | 43 ++++++++++++++++++++++++++++++++-----------
->  man2/statx.2 | 29 +++++++++++++++++++++++++++++
->  2 files changed, 61 insertions(+), 11 deletions(-)
-> 
-> diff --git a/man2/open.2 b/man2/open.2
-> index d1485999f..ef29847c3 100644
-> --- a/man2/open.2
-> +++ b/man2/open.2
-> @@ -1732,21 +1732,42 @@ of user-space buffers and the file offset of I/Os.
->  In Linux alignment
->  restrictions vary by filesystem and kernel version and might be
->  absent entirely.
-> -However there is currently no filesystem\-independent
-> -interface for an application to discover these restrictions for a given
-> -file or filesystem.
-> -Some filesystems provide their own interfaces
-> -for doing so, for example the
-> +The handling of misaligned
-> +.B O_DIRECT
-> +I/Os also varies; they can either fail with
-> +.B EINVAL
-> +or fall back to buffered I/O.
-> +.PP
-> +Since Linux 5.20,
-> +.B O_DIRECT
-> +support and alignment restrictions for a file can be queried using
-> +.BR statx (2),
-> +using the
-> +.B STATX_DIOALIGN
-> +flag.
-> +Support for
-> +.B STATX_DIOALIGN
-> +varies by filesystem; see
-> +.BR statx (2).
-> +.PP
-> +Some filesystems provide their own interfaces for querying
-> +.B O_DIRECT
-> +alignment restrictions, for example the
->  .B XFS_IOC_DIOINFO
->  operation in
->  .BR xfsctl (3).
-> +.B STATX_DIOALIGN
-> +should be used instead when it is available.
->  .PP
-> -Under Linux 2.4, transfer sizes, the alignment of the user buffer,
-> -and the file offset must all be multiples of the logical block size
-> -of the filesystem.
-> -Since Linux 2.6.0, alignment to the logical block size of the
-> -underlying storage (typically 512 bytes) suffices.
-> -The logical block size can be determined using the
-> +If none of the above is available, then direct I/O support and alignment
-> +restrictions can only be assumed from known characteristics of the filesystem,
-> +the individual file, the underlying storage device(s), and the kernel version.
-> +In Linux 2.4, most block device based filesystems require that the file offset
-> +and the length and memory address of all I/O segments be multiples of the
-> +filesystem block size (typically 4096 bytes).
-> +In Linux 2.6.0, this was relaxed to the logical block size of the block device
-> +(typically 512 bytes).
-> +A block device's logical block size can be determined using the
->  .BR ioctl (2)
->  .B BLKSSZGET
->  operation or from the shell using the command:
-> diff --git a/man2/statx.2 b/man2/statx.2
-> index 0326e9af0..ea38ec829 100644
-> --- a/man2/statx.2
-> +++ b/man2/statx.2
-> @@ -61,7 +61,12 @@ struct statx {
->         containing the filesystem where the file resides */
->      __u32 stx_dev_major;   /* Major ID */
->      __u32 stx_dev_minor;   /* Minor ID */
-> +
->      __u64 stx_mnt_id;      /* Mount ID */
-> +
-> +    /* Direct I/O alignment restrictions */
-> +    __u32 stx_dio_mem_align;
-> +    __u32 stx_dio_offset_align;
->  };
->  .EE
->  .in
-> @@ -247,6 +252,8 @@ STATX_BTIME	Want stx_btime
->  STATX_ALL	The same as STATX_BASIC_STATS | STATX_BTIME.
->  	It is deprecated and should not be used.
->  STATX_MNT_ID	Want stx_mnt_id (since Linux 5.8)
-> +STATX_DIOALIGN	Want stx_dio_mem_align and stx_dio_offset_align
-> +	(since Linux 5.20; support varies by filesystem)
->  .TE
->  .in
->  .PP
-> @@ -407,6 +414,28 @@ This is the same number reported by
->  .BR name_to_handle_at (2)
->  and corresponds to the number in the first field in one of the records in
->  .IR /proc/self/mountinfo .
-> +.TP
-> +.I stx_dio_mem_align
-> +The alignment (in bytes) required for user memory buffers for direct I/O
-> +.BR "" ( O_DIRECT )
-> +on this file. or 0 if direct I/O is not supported on this file.
+Hi Alejandro,
 
-Nit: "..on this file, or 0 if direct..."
+Alejandro Colomar wrote on Thu, Jul 21, 2022 at 04:17:18PM +0200:
+> On 7/3/22 23:44, Alejandro Colomar wrote:
 
-> +.IP
-> +.B STATX_DIOALIGN
-> +.IR "" ( stx_dio_mem_align
-> +and
-> +.IR stx_dio_offset_align )
-> +is supported on block devices since Linux 5.20.
-> +The support on regular files varies by filesystem; it is supported by ext4,
-> +f2fs, and xfs since Linux 5.20.
-> +.TP
-> +.I stx_dio_offset_align
-> +The alignment (in bytes) required for file offsets and I/O segment lengths for
-> +direct I/O
-> +.BR "" ( O_DIRECT )
-> +on this file, or 0 if direct I/O is not supported on this file.
+>> [added Branden, as he was involved in discussions regarding man3type;
+>> Branden, you might want to visit this thread from the begining, as I 
+>> only copied the minimum to reply; it's in linux-man@]
 
-On this last part -- userspace can only conclude that directio is not
-supported on the file if ((STATX_DIOALIGN & stx_mask) &&
-stx_dio_offset_align == 0), right?
+>> On 6/20/22 15:49, Ingo Schwarze wrote:
+> [...]
+>>> That said, other projects are of course free to have such pages if
+>>> they want to.  The mandoc(1) program is also able to handle paths like
+>>> "man3/id_t.3type".  It will consider that page to be *both* in section
+>>> "3" (as specified by the directory name) and in section "3type" (as
+>>> specified by the file name and by the .TH macro).  I would consider
+>>> it better style to keep section names consistent, i.e. to use either
+>>> "man3/id_t.3" .TH id_t 3 or "man3type/id_t.3type" .TH id_t 3type,
+>>> but it's not a big deal: since many systems (in particular various
+>>> Linux distros) suffer from such inconsistencies, handling such
+>>> inconsistencies gracefully is an important feature that certainly
+>>> won't get removed.
 
-IOWs, if (STATX_DIOALIGN & stx_mask)==0 then userspace can't draw any
-conclusions from stx_dio_offset_align, correct?
+>> I considered[6] using man3type, and used man3 in the end just because 
+>> when in doubt I opted for the smallest change.  Knowing that it breaks 
+>> mandoc(1), I'll definitely move to <man3type/>.
 
-If the answers are yes and yes, then I think I've understood all this
-and can say
-Reviewed-by: Darrick J. Wong <djwong@kernel.org>
+I didn't mean to say man3/id_t.3type "breaks mandoc".  Quite to the
+contrary, the above quotation explains that mandoc copes with it.
 
---D
+However, when it comes to robustness with respect to *other* man(1)
+implementations apart from mandoc and man-db, i suspect the most
+portable and reliable way is using man1 - man9 only with no suffixes,
+consistent suffixes like "man3type/id_t.3type" are probably medium
+portability and medium reliability, and inconsistent suffixes
+like "man3/id_t.3type" and "man3type/id_t.3" are likely the least
+portable and the most fragile.
 
+So your change is an improvement.
 
-> +This will only be nonzero if
-> +.I stx_dio_mem_align
-> +is nonzero, and vice versa.
->  .PP
->  For further information on the above fields, see
->  .BR inode (7).
-> 
-> base-commit: f9f25914e4ed393ac284ab921876e8a78722c504
-> -- 
-> 2.37.0
-> 
+The system making the heaviest use of section suffixes i'm aware of
+is Solaris:
+
+  > uname -a
+  SunOS unstable11s 5.11 11.3 sun4u sparc SUNW,SPARC-Enterprise
+  > ls /usr/share/man/
+  entities      man3dat       man3mvec      man3sysevent    man4b
+  fr            man3dax       man3nsl       man3tcl         man5
+  fr.ISO8859-1  man3devid     man3nvpair    man3tecla       man5oldap
+  fr.UTF-8      man3devinfo   man3oldap     man3tiff        man5openssl
+  it            man3dlpi      man3openssl   man3tsol        man7
+  it.ISO8859-1  man3dns_sd    man3p         man3uuid        man7d
+  it.UTF-8      man3elf       man3pam       man3volmgt      man7fs
+  ja_JP.UTF-8   man3exacct    man3pcap      man3x           man7i
+  man-index     man3ext       man3perl      man3x11         man7ipp
+  man.cf        man3f         man3pi        man3xau         man7m
+  man1          man3fcoe      man3picl      man3xaw         man7openssl
+  man1b         man3fm        man3picltree  man3xcb         man7p
+  man1c         man3fstyp     man3plot      man3xcomposite  man8
+  man1m         man3gen       man3pool      man3xcurses     man8oldap
+  man1oldap     man3gss       man3proc      man3xcursor     man8s
+  man1openssl   man3hbaapi    man3project   man3xevie       man9
+  man1s         man3head      man3rad       man3xext        man9e
+  man1t         man3iscsit    man3reparse   man3xi          man9f
+  man2          man3kstat     man3resolv    man3xinerama    man9p
+  man3          man3kvm       man3rpc       man3xmu         man9s
+  man3archive   man3layout    man3sasl      man3xnet        pl
+  man3c         man3ldap      man3scf       man3xrandr      pl.ISO8859-2
+  man3c_db      man3lgrp      man3sec       man3xss         pl.UTF-8
+  man3cc4       man3lib       man3sip       man3xt          ru.KOI8-R
+  man3cfgadm    man3m         man3slp       man3xtsol       ru.UTF-8
+  man3cmi       man3mail      man3snmp      man3xtst        zh_CN.UTF-8
+  man3commputil man3malloc    man3socket    man3xv
+  man3contract  man3mlib      man3srpt      man3xxf86vm
+  man3cpc       man3mp        man3ssh2      man3zonestat
+  man3curses    man3mpapi     man3stmf      man4
+
+Inside these directories, they are *mostly* using the convention
+"keep both section names consistent", so i do think that is good
+to follow.  Even Solaris isn't perfect in that respect, though,
+they have, for example,
+
+  /usr/share/man/man3cc4/cartpol.3
+
+but on first sight, i only found about two dozen such examples.
+
+> I fixed it:
+> <https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?id=451a27a78d51973b01bfb5d3b1e0ec081d9161e1>
+
+I did not scrutinize your change in detail, but had a brief look at it
+and did not see any obvious problems.
+
+> And Debian seems to work fine with man3type/ and man2type/ out of the 
+> box, so I prefer it this way.  I hope that other projects follow the 
+> example; and that packagers/distributions also create subsection 
+> directories, and don't undo my work.
+
+On Linux, undoing it would make very little sense to me because i expect
+that all man(1) programs commonly used on Linux can cope with section
+suffixes, and in particular with consistent use of session suffixes.
+Besides, undoing it properly is hardly possibly for a packager.
+If would require changing all these:
+
+ - directory names
+ - file names
+ - .TH macros
+ - and manual page cross references
+
+So for better or worse, the only sane option for a packages is to follow
+your lead.
+
+Yours,
+  Ingo
