@@ -2,68 +2,61 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id A6C9557D94D
-	for <lists+linux-man@lfdr.de>; Fri, 22 Jul 2022 06:09:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C26EC57DA65
+	for <lists+linux-man@lfdr.de>; Fri, 22 Jul 2022 08:37:41 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234276AbiGVEJR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 22 Jul 2022 00:09:17 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44194 "EHLO
+        id S234185AbiGVGhk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 22 Jul 2022 02:37:40 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43704 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234360AbiGVEJF (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 22 Jul 2022 00:09:05 -0400
-Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com [IPv6:2607:f8b0:4864:20::22b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D73D09A5F8
-        for <linux-man@vger.kernel.org>; Thu, 21 Jul 2022 21:07:19 -0700 (PDT)
-Received: by mail-oi1-x22b.google.com with SMTP id w188so316201oiw.8
-        for <linux-man@vger.kernel.org>; Thu, 21 Jul 2022 21:07:19 -0700 (PDT)
+        with ESMTP id S229671AbiGVGhj (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 22 Jul 2022 02:37:39 -0400
+Received: from mail-pl1-x62d.google.com (mail-pl1-x62d.google.com [IPv6:2607:f8b0:4864:20::62d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BE07C7CB6D;
+        Thu, 21 Jul 2022 23:37:38 -0700 (PDT)
+Received: by mail-pl1-x62d.google.com with SMTP id z3so3837714plb.1;
+        Thu, 21 Jul 2022 23:37:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=date:from:to:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=mXu1uJp9chgitTtC5e4xj4OGioEiqmLb0U2kuizR7BM=;
-        b=m3RKCPtxOqUD10j3u+FM7RZ+6gZSXal34Ebh8vDyIueRfgdBoeG7EIH2UVL7ObqWb7
-         fbPbtt3dbrtW6dJsRjCuN/Jbg1e+Z8Pa4G68oo8EeojpOE2WbrzqcTd9ag/tAlq++D4h
-         1wOS+lIkOq3kdv5N+vjYBgzd3Q1UEhLIM01jAxoMf7m9qkwb6DAGye8qbSpKzcFg2INS
-         02yE5Xdje9zEwhMkpoOP8w638v3W/0YmA2yHdmYTi+MHjBLtOf/IGpVrMRyQZTrb+r+x
-         XzAZMmvhT2E1Zozh1tqk/zOciOLfsFBoc/f22P7EBpjcNX+bXBWSNlN17f6DFYpiwdzU
-         ww3g==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=mjNStj/Ns6QIdcmGsxHjWgOPWcgILa0Rvv/9EZz3V5Y=;
+        b=gpOapJ7S6v9oRcs7U47VgCoFyEgBlKDXo2ANlXNTqGHnqgwnqdZezVt8E2CQZO6F2D
+         9cRjnoVBha887e5vy47Kk49aXQ+ZvWE29y2mhcDMLT02ZQSHR3TSO+Inn4uVJ2CnjPWh
+         3ebUTZ80HsQaLNEIQoL7x63s+OTSM52ATXtwmHL3VR/oCRqanBva7JFb7atjq8VJBXtX
+         GRrHc1C7ZBHU8Hla+GgPRQgu5//1dHdDOJq/Y7McM4Jm8JseTSOofLpy8+aC9k/sViA0
+         PQG6AC29CKOKZ9Mss2MvzVT+A8z2q2qqQN7isnG+PoCUX3Fr6avVFW3MhAAnO2d8UqCy
+         vbng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:date:from:to:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=mXu1uJp9chgitTtC5e4xj4OGioEiqmLb0U2kuizR7BM=;
-        b=KlVqkxQErmzZLRBjiTIdUl/Zd1LPJ4yn5ek136knyBhroLE67HSnUetMzvHXp/ACk0
-         uVxIcjZKG09GPlJS/akRX20hRwmrwOO55kVKt83sbe1e4FqrY6VS5NJ5JaG4HhON8MdQ
-         UIuDzFTF1tj+Ua0n7ucq3+K72dTdW9Lr+/AiFfM0y/O/BknXpFLlkafLzNCoLzEqh4V/
-         M+clZsOe5Iq0Wd3kyzfEMsNt6aC5uuA2kkYXtuUrdarhKW6zf5DeDVqqDeb5szIdljuY
-         6MyfpC4+QcpQwWel0k4FcjP0JB64jxiY0Q7lPtD3iJXFlobOWn9bL2CAAi4ySrPGJjgn
-         Hf9w==
-X-Gm-Message-State: AJIora/XH5iYYyCeUxXlrxR647ghFJEATQByz3ATHLlKyurZ63rAsoN7
-        PPz9ROPYfoOIueEFGMM4p+gm5XZPhYLCGQ==
-X-Google-Smtp-Source: AGRyM1uDjZNQJGKcCdhWyBBmh4TfC3TiJ52Rp4QutKP/KNF69xMUfsDUF3ijZ1YDgy3wlWtfJRm66Q==
-X-Received: by 2002:a05:6808:995:b0:33a:8878:dd63 with SMTP id a21-20020a056808099500b0033a8878dd63mr607593oic.100.1658462828367;
-        Thu, 21 Jul 2022 21:07:08 -0700 (PDT)
-Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id i22-20020a056870221600b000f325409614sm1701922oaf.13.2022.07.21.21.07.07
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=mjNStj/Ns6QIdcmGsxHjWgOPWcgILa0Rvv/9EZz3V5Y=;
+        b=1IX6mwNiaUEz/MjkkrH4rjhN8pzNbd/iDRP5hdDeFwqtd2vmH0xZk+YBrQRellI+iT
+         0ShmZ3M6qpItDqga+QewGiOW5zMpaJhN3Bh11pBB91Ob+F4BQiyj8XiBp/nrvFxMSe88
+         Rz1ofzb1PJitnw3aPf0ughTlicceiIu0gsro7gxDLlKDDKb8RgOgZQqmprldaUhQ0Cy6
+         GJjcxRY7dyuhjjQ1XB3suTSs2Uudr4eWh7HYy8Q5iZBtQRNjfbUTECQiRwZPH5gMfhca
+         8U9NynzH7ujqloVpvj3gXc8fM2C5BGB7acG94sSvW7x9Qy5uhUkrgCbgFnwFeJi/2Yav
+         p3TQ==
+X-Gm-Message-State: AJIora+cH0fN4VdvgkzB+62ObGKgu1oJ7ucCPu+7Y64kLVSC5dys+2s3
+        0wFlrwDiJHsi2m6xIhBpCfU=
+X-Google-Smtp-Source: AGRyM1tcz/xg9drbNXGkJB764ZZFq3d+GWtJeFDmonNcPZZTDINu3t6oj8npBqulkGKy6i7bClZydA==
+X-Received: by 2002:a17:903:120f:b0:15f:99f:9597 with SMTP id l15-20020a170903120f00b0015f099f9597mr1942198plh.45.1658471857762;
+        Thu, 21 Jul 2022 23:37:37 -0700 (PDT)
+Received: from jbongio9100214.roam.corp.google.com (cpe-104-173-199-31.socal.res.rr.com. [104.173.199.31])
+        by smtp.googlemail.com with ESMTPSA id q27-20020a635c1b000000b0041a390f276esm2591266pgb.40.2022.07.21.23.37.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 21 Jul 2022 21:07:07 -0700 (PDT)
-Date:   Thu, 21 Jul 2022 23:07:05 -0500
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     Alejandro Colomar <alx.manpages@gmail.com>,
-        Ingo Schwarze <schwarze@usta.de>,
-        linux-man <linux-man@vger.kernel.org>, groff <groff@gnu.org>
-Subject: Re: All caps .TH page title
-Message-ID: <20220722040705.gkjwnsttiusdvg77@illithid>
-References: <66c19a09-ef0f-0d85-0380-37a67ac483dd@gmail.com>
- <20220721183620.hdvgwwef66hmrgln@illithid>
- <1e1f9197-a013-0d6b-6bfa-853fe28102cf@gmail.com>
- <Ytnt4dPmkrPmL1Sh@riva.ucam.org>
- <20220722013435.mkzzfscdgtechzgx@illithid>
+        Thu, 21 Jul 2022 23:37:37 -0700 (PDT)
+From:   Jeremy Bongio <bongiojp@gmail.com>
+To:     Ted Tso <tytso@mit.edu>, "Darrick J . Wong" <djwong@kernel.org>
+Cc:     linux-ext4@vger.kernel.org, linux-man@vger.kernel.org,
+        Jeremy Bongio <bongiojp@gmail.com>
+Subject: [PATCH v3] Add manpage for get/set fsuuid ioctl for ext4 filesystem.
+Date:   Thu, 21 Jul 2022 23:37:32 -0700
+Message-Id: <20220722063732.466621-1-bongiojp@gmail.com>
+X-Mailer: git-send-email 2.37.1.359.gd136c6c3e2-goog
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="lh3kywgqetk4se7w"
-Content-Disposition: inline
-In-Reply-To: <20220722013435.mkzzfscdgtechzgx@illithid>
+Content-Transfer-Encoding: 8bit
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
@@ -74,46 +67,147 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Signed-off-by: Jeremy Bongio <bongiojp@gmail.com>
+---
 
---lh3kywgqetk4se7w
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Changes in v3:
 
-At 2022-07-21T20:34:39-0500, G. Branden Robinson wrote:
-> Ah, thanks, Colin.  A quick consultation of ncurses man pages reveals
-> that mandb(8)'s idea of the manual section comes from its place in the
-> directory hierarchy, not from parsing the arguments to the `TH` call.
-> My error!
+Removed LIBRARY section since this ioctl won't be wrapped by a system library.
 
-Sorry, no, I was still wrong.  I guess it comes from the file extension
-on the man page.
+Code now uses 4-space indent.
 
-John Gardner's not the only person having trouble today.
+Updated for semantic new lines. Please call out if I still break this rule.
 
-90 dB of fans and a dehumidifier to dry out a flooded floor does not
-make for the most productive thinking environment.
+Reworded based on Darrick's suggestions.
 
-Regards,
-Branden
+Unrecognized fsu_flags now results in EOPNOTSUPP error.
 
---lh3kywgqetk4se7w
-Content-Type: application/pgp-signature; name="signature.asc"
+Added definitions of EXT4_IOC_GETFSUUID/EXT4_IOC_SETFSUUID which are not
+contained in a library.
 
------BEGIN PGP SIGNATURE-----
+ man2/ioctl_fsuuid.2 | 113 ++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 113 insertions(+)
+ create mode 100644 man2/ioctl_fsuuid.2
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmLaImAACgkQ0Z6cfXEm
-bc7GnhAAoW8CDRvkJZVwhfTeWHZBOp1La3VLThGushg8IxyrOklFKqi7In42zWXR
-iyT7gcgWNkN3GZnNJn7RsdRnCOFVdsNc6r+HYYx2ifLKTJdR2REDQqe/j3cHhlvh
-O8g84YJlqgXmjejDDyu5flbUuPrvYW5MkjzDZKGj4BoTQT8c3CSynYnBPZN+v4Yu
-D24bps5Bow0QKUpRWb/dMBLFKswkglfnANZoGlskt8LbgC9ZuQRRIASSqGiuKyW8
-flQMIUeqLTFAuBsTZDbrMpdeUVPstrHS4GOHsYwBG/rX5WBSF7b9O4qucPgssvPm
-xqimkgRDVjRZJaaaLAm2Dr0EGXkdZwAtm+/JyOao0wmhwKWKa6fCEBRMuA7MmBSV
-6PNAAQIAhQnEA6hA2Wc344AVJK2IFqK8VEeChe3C2uIEmncsP5uEKAJhefIBFRFX
-0/UCrvwdwy5TnXOY+yFRZBpZre7Bv+nrjHGKPSrR0CpX+k5SN1NXR5ZZ8E6Q/Raj
-3+juzjAAd6Vp9hDlPthu0Wdsq9jm3GQCJtO9H9ERD/06NzjCQ6mMHvIifypcNzzI
-lZq1rdw8a92sQ6oOHLQ/Ru4wefulQIxMJ3tc7rtzfApA5CtyoS1XFU2QoqmhFRB6
-nI/epjXyCEmERDsZDQZP3WMZX3K2lhcZw2sZJoz+NKZy9q0THqk=
-=2dQ5
------END PGP SIGNATURE-----
+diff --git a/man2/ioctl_fsuuid.2 b/man2/ioctl_fsuuid.2
+new file mode 100644
+index 000000000..c9e2789b9
+--- /dev/null
++++ b/man2/ioctl_fsuuid.2
+@@ -0,0 +1,113 @@
++.\" Copyright (c) 2022 Google, Inc., written by Jeremy Bongio <bongiojp@gmail.com>
++.\"
++.\" SPDX-License-Identifier: Linux-man-pages-copyleft
++.TH IOCTL_FSUUID 2 2022-07-20 "Linux" "Linux Programmer's Manual"
++.SH NAME
++ioctl_fsuuid \- get or set an ext4 filesystem uuid
++.SH SYNOPSIS
++.nf
++.B #include <sys/ioctl.h>
++.BR "#include <linux/fs.h>" "         /* Definition of " _IOR " and " _IOW " */"
++.PP
++.BI "#define EXT4_IOC_GETFSUUID      _IOR('f', 44, struct fsuuid)"
++.BI "#define EXT4_IOC_SETFSUUID      _IOW('f', 44, struct fsuuid)"
++.BI "int ioctl(int " fd ", EXT4_IOC_GETFSUUID, struct " fsuuid ");"
++.BI "int ioctl(int " fd ", EXT4_IOC_SETFSUUID, struct " fsuuid ");"
++.fi
++.SH DESCRIPTION
++If an ext4 filesystem supports uuid manipulation, these
++.BR ioctl (2)
++operations can be used to get or set the uuid for the ext4 filesystem on which
++.I fd
++resides.
++.PP
++The argument to these operations should be a pointer to a
++.IR "struct fsuuid" ":"
++.PP
++.in +4n
++.EX
++struct fsuuid {
++    __u32 fsu_len;      /* Number of bytes in a uuid */
++    __u32 fsu_flags;    /* Mapping flags */
++    __u8  fsu_uuid[];   /* Byte array for uuid */
++};
++.EE
++.PP
++The
++.I fsu_flags
++field must be set to 0.
++.PP
++If
++.BR EXT4_IOC_GETFSUUID
++is called with
++.I fsu_len
++set to 0,
++.I fsu_len
++will be set to the number of bytes in an ext4 filesystem uuid
++and the return code will be EINVAL.
++.PP
++If
++.BR EXT4_IOC_GETFSUUID
++is called with
++.I fsu_len
++matching the length of the ext4 filesystem uuid,
++then that uuid will be written to
++.I fsu_uuid[]
++and the return value will be zero.
++If
++.I fsu_len
++does not match, the return value will be
++.B EINVAL.
++.PP
++If
++.BR EXT4_IOC_SETFSUUID
++is called with
++.I fsu_len
++matching the length of the ext4 filesystem uuid,
++then the filesystem uuid will be set to the contents of
++.I fsu_uuid[]
++and  the return value will reflect the outcome of the update operation.
++If 
++.I fsu_len
++does not match, the return value will be
++.B EINVAL.
++.PP
++The
++.BR FS_IOC_SETFSUUID
++operation requires privilege
++.RB ( CAP_SYS_ADMIN ).
++If the filesystem is busy, an
++.BR EXT4_IOC_SETFSUUID
++operation will wait until it can apply the uuid changes.
++This may take a long time.
++.PP
++.SH RETURN VALUE
++On success zero is returned.
++On error, \-1 is returned, and
++.I errno
++is set to indicate the error.
++.SH ERRORS
++Possible errors include (but are not limited to) the following:
++.TP
++.B EFAULT
++Could not copy to/from userspace.
++.TP
++.B EINVAL
++.I fsu_len
++did not match the filesystem uuid length.
++.TP
++.B ENOTTY
++The filesystem does not support the ioctl.
++.TP
++.B EOPNOTSUPP
++The filesystem does not support changing the uuid through this ioctl.
++This may be due to incompatible filesystem feature flags or
++.I fsu_flags
++has bits set that are not recognized.
++.TP
++.B EPERM
++The calling process does not have sufficient permissions to set the uuid.
++.SH CONFORMING TO
++This API is Linux-specific.
++.SH SEE ALSO
++.BR ioctl (2)
+-- 
+2.37.1.359.gd136c6c3e2-goog
 
---lh3kywgqetk4se7w--
