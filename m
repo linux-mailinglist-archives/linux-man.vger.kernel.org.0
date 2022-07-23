@@ -2,48 +2,47 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 1CE4857F0EA
-	for <lists+linux-man@lfdr.de>; Sat, 23 Jul 2022 20:16:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 91DF757F132
+	for <lists+linux-man@lfdr.de>; Sat, 23 Jul 2022 21:29:25 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233758AbiGWSQM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 23 Jul 2022 14:16:12 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38672 "EHLO
+        id S236362AbiGWT3Y (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 23 Jul 2022 15:29:24 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43638 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231414AbiGWSQM (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 23 Jul 2022 14:16:12 -0400
-Received: from scc-mailout-kit-01.scc.kit.edu (scc-mailout-kit-01.scc.kit.edu [IPv6:2a00:1398:9:f712::810d:e751])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 190B413CE3
-        for <linux-man@vger.kernel.org>; Sat, 23 Jul 2022 11:16:09 -0700 (PDT)
+        with ESMTP id S231370AbiGWT3X (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 23 Jul 2022 15:29:23 -0400
+Received: from scc-mailout-kit-02.scc.kit.edu (scc-mailout-kit-02.scc.kit.edu [IPv6:2a00:1398:9:f712::810d:e752])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D78EB1B7B9
+        for <linux-man@vger.kernel.org>; Sat, 23 Jul 2022 12:29:21 -0700 (PDT)
 Received: from hekate.asta.kit.edu ([2a00:1398:5:f401::77])
-        by scc-mailout-kit-01.scc.kit.edu with esmtps (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+        by scc-mailout-kit-02.scc.kit.edu with esmtps (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
         (envelope-from <schwarze@usta.de>)
-        id 1oFJfa-001pzX-Vx; Sat, 23 Jul 2022 20:16:07 +0200
+        id 1oFKoR-003CfN-Li; Sat, 23 Jul 2022 21:29:19 +0200
 Received: from login-1.asta.kit.edu ([2a00:1398:5:f400::72])
         by hekate.asta.kit.edu with esmtp (Exim 4.94.2)
         (envelope-from <schwarze@usta.de>)
-        id 1oFJfa-006lLf-OD; Sat, 23 Jul 2022 20:16:06 +0200
+        id 1oFKoR-006lU1-2t; Sat, 23 Jul 2022 21:29:19 +0200
 Received: from schwarze by login-1.asta.kit.edu with local (Exim 4.92)
         (envelope-from <schwarze@usta.de>)
-        id 1oFJfa-0000Hj-NN; Sat, 23 Jul 2022 20:16:06 +0200
-Date:   Sat, 23 Jul 2022 20:16:06 +0200
+        id 1oFKoR-0000bi-25; Sat, 23 Jul 2022 21:29:19 +0200
+Date:   Sat, 23 Jul 2022 21:29:19 +0200
 From:   Ingo Schwarze <schwarze@usta.de>
 To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org, g.branden.robinson@gmail.com
-Subject: Re: Linux man-pages Makefile portability
-Message-ID: <Ytw65nGl1qouSU5R@asta-kit.de>
-References: <d8646de0-e4f0-3d4b-e763-92355162a405@gmail.com>
- <Yq+P39bpy2QEeaSd@asta-kit.de>
- <8b9daa0e-6f08-dd55-5772-51f5052ed8bb@gmail.com>
- <YrB66rgFZqryrmpt@asta-kit.de>
- <6e294373-2661-286c-09c4-e67cd84103d7@gmail.com>
- <fdde7402-5e69-b6ff-60fc-74ad9c9054f1@gmail.com>
- <YtrXbDo5NVxNT/cb@asta-kit.de>
- <80553a14-8f39-d4ad-def3-35d6551a31f3@gmail.com>
+Cc:     g.branden.robinson@gmail.com,
+        linux-man <linux-man@vger.kernel.org>, groff <groff@gnu.org>
+Subject: Re: All caps .TH page title
+Message-ID: <YtxMD7ovz1Xy/cfq@asta-kit.de>
+References: <66c19a09-ef0f-0d85-0380-37a67ac483dd@gmail.com>
+ <20220721183620.hdvgwwef66hmrgln@illithid>
+ <1e1f9197-a013-0d6b-6bfa-853fe28102cf@gmail.com>
+ <20220722021452.5k43or5uwj2eiouh@illithid>
+ <7a94b352-9ae5-a823-72c4-c526a0cc0e66@gmail.com>
+ <e4603be0-47f4-bc2b-b31e-52039ca63721@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <80553a14-8f39-d4ad-def3-35d6551a31f3@gmail.com>
+In-Reply-To: <e4603be0-47f4-bc2b-b31e-52039ca63721@gmail.com>
 X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED,
         SPF_HELO_NONE,SPF_NONE autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -54,130 +53,108 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Hi Alejandro,
 
-Alejandro Colomar wrote on Fri, Jul 22, 2022 at 07:37:14PM +0200:
-> On 7/22/22 18:59, Ingo Schwarze wrote:
->> Alejandro Colomar wrote:
+On 7/22/22 12:35, Alejandro Colomar (man-pages) wrote:
 
->>> I considered[6] using man3type, and used man3 in the end just because
->>> when in doubt I opted for the smallest change.  Knowing that it breaks
->>> mandoc(1), I'll definitely move to <man3type/>.
+> BTW, I think I didn't reply (or if I did was very short) to your comment 
+> that other languages may find it difficult to mirror our use of 
+> subsections, since their main section is already a subsection (e.g., 
+> 3pl).
 
->> I didn't mean to say man3/id_t.3type "breaks mandoc".  Quite to the
->> contrary, the above quotation explains that mandoc copes with it.
+Other languages are usually better off to live *outside* the $MANPATH
+and tell users to use "man -M" to access their documentation.
+For example, on OpenBSD, the TCL manuals live
+in /usr/local/lib/tcl/tcl8.5/man/ .
+Putting them into /usr/local/man/ would be quite disruptive because
+that would cause lots of clashes, including "apply", "break", "cd",
+"close", "eval", "exec", "exit", "expr", "glob", "info", "join", "open",
+"puts", "pwd", "read", "socket", "time", and so on.  I expect most
+other language will cause similar noise.
+Perl is better because the clashing names are mostly part of perlfunc(1),
+and the majority of other Perl manual page names contain colons.
+FORTRAN (traditionally in man3f) is also better because in this
+instance, the cryptic FORTAN six-letter identifiers become a virtue
+in so far as they prevent clashes.
 
-> Yeah, I didn't mean break as in "mandoc(1) goes nuts, or crashes", but 
-> rather as in "it doesn't do what I wanted it to do".
+> I'd say that since C is the native Unix language, and others are 
+> just... others?, I'd optimize for C, and let other languages find
+> a way to document their things.
 
-Even that is an overstatement.  The difference between being in section 3p
-only and being in both section 3p and 3 is barely user-visible.
+True - not because C is better or more worthy, but because looking up
+an identifier logically requires specifying the language, and as
+explained elsewhere, section suffixes are a poor solution for that.
 
-Here is a manual page that is in section 3p and in section 3p only,
-on OpenBSD-current:
+> It would be easy to say just go away, the man pages are for C,
 
-   $ man -w warnings
-  /usr/share/man/man3p/warnings.3p
-   $ grep  '^\.TH' $(man -w warnings)
-  .TH warnings 3p "2021-03-02" "perl v5.32.1" "Perl Programmers Reference Guide"
+Absolutely not.  While the manual page format may have some feature
+that are particularly well-suited to documenting C, it is not
+limited to that role.
 
-But lo and behold:
+> but I won't dare to say that, since I like man pages, 
+> and I'd like to see more documentation for languages that I sometimes 
+> have to use be in the form of man pages, so I'll try to come up with a 
+> more imaginative answer:  how about using subsubsections of the form 
+> 3pl_type?  At least it's a possibility.  man(1) would handle them as any 
+> other subsection, but that's not a big problem.  Maybe man(1) could 
+> develop a way to provide subsubsections...  Colin, any ideas in this 
+> regard?
 
-   $ man -s 3 -w warnings
-  /usr/share/man/man3p/warnings.3p
+See above.
 
-Mandoc still finds the page in section 3 because "3" is a substring of "3p",
-and that not only makes sense from the string processing perspective
-but also from a logical perspective because section 3p is a particular
-corner of section 3 after all.
+Alejandro Colomar wrote on Fri, Jul 22, 2022 at 01:46:37PM +0200:
 
-To cause mandoc to *not* find the page in section 3, the user would have
-to type something like
+> Or, maybe it's the time to write a whole new volume?  I think there's a 
+> comparable difference between 3type and 3 than between 2 and 3 or 1 and 
+> 8, so it would be merited.  I didn't do it before for two reasons: it 
+> might break software that assumes than Unix manuals use a single number 
+> followed by an optional string (I'd say it's not a fair assumption to 
+> say that man9 would be the last one ever used; if there's 9, there might 
+> be a 10 some day), and because other projects had already used 3type.
+> 
+> But, that would start a clean namespace.  Maybe it's worth it.
 
-   $ man -k 'sec~3$' -a warnings
-  man: nothing appropriate
+No, that would absolutely not be clean design.  I advise strongly
+against it.
 
-Even i don't normally use such advanced syntax (regex matching on section
-names using the "sec" search keyword and the explicit regex operator
-and the -a logical operator for the conjunction of two search criteria).
-I doubt whether man-db even supports similar features...
+First, concatening integer numbers and strings is often bad design
+because it significantly complicates processing in various way.
+For example, the traps set by the strtol(3) family of functions,
+in particular regarding trailing non-digit characters, are
+legendary.  Bugs love the breeding ground.  As another example,
+numerical vs. alphabetical sorting is a similarly famous trap,
+consider the difference of sort(1) vs. "sont -n".  I'm sure
+you do *not* want to design a data type represented as a string
+such that the first part needs to be sorted numerically and the
+second part needs to be sorted alphanumerically - with not even
+a delimiting character in between.
 
-[...]
->> The system making the heaviest use of section suffixes i'm aware of
->> is Solaris:
->> 
->>    > uname -a
->>    SunOS unstable11s 5.11 11.3 sun4u sparc SUNW,SPARC-Enterprise
->>    > ls /usr/share/man/
->>    entities      man3dat       man3mvec      man3sysevent    man4b
->>    fr            man3dax       man3nsl       man3tcl         man5
->>    fr.ISO8859-1  man3devid     man3nvpair    man3tecla       man5oldap
->>    fr.UTF-8      man3devinfo   man3oldap     man3tiff        man5openssl
->>    it            man3dlpi      man3openssl   man3tsol        man7
->>    it.ISO8859-1  man3dns_sd    man3p         man3uuid        man7d
->>    it.UTF-8      man3elf       man3pam       man3volmgt      man7fs
->>    ja_JP.UTF-8   man3exacct    man3pcap      man3x           man7i
->>    man-index     man3ext       man3perl      man3x11         man7ipp
->>    man.cf        man3f         man3pi        man3xau         man7m
->>    man1          man3fcoe      man3picl      man3xaw         man7openssl
->>    man1b         man3fm        man3picltree  man3xcb         man7p
->>    man1c         man3fstyp     man3plot      man3xcomposite  man8
->>    man1m         man3gen       man3pool      man3xcurses     man8oldap
->>    man1oldap     man3gss       man3proc      man3xcursor     man8s
->>    man1openssl   man3hbaapi    man3project   man3xevie       man9
->>    man1s         man3head      man3rad       man3xext        man9e
->>    man1t         man3iscsit    man3reparse   man3xi          man9f
->>    man2          man3kstat     man3resolv    man3xinerama    man9p
->>    man3          man3kvm       man3rpc       man3xmu         man9s
->>    man3archive   man3layout    man3sasl      man3xnet        pl
->>    man3c         man3ldap      man3scf       man3xrandr      pl.ISO8859-2
->>    man3c_db      man3lgrp      man3sec       man3xss         pl.UTF-8
->>    man3cc4       man3lib       man3sip       man3xt          ru.KOI8-R
->>    man3cfgadm    man3m         man3slp       man3xtsol       ru.UTF-8
->>    man3cmi       man3mail      man3snmp      man3xtst        zh_CN.UTF-8
->>    man3commputil man3malloc    man3socket    man3xv
->>    man3contract  man3mlib      man3srpt      man3xxf86vm
->>    man3cpc       man3mp        man3ssh2      man3zonestat
->>    man3curses    man3mpapi     man3stmf      man4
+Less technically, having a small number of sections with non-desciptive
+names is fine; people get used to the meaning of 1 to 9.  But when
+you start adding more sections, a scheme with non-descriptive names
+sooner or later becomes unsustainable.  "What was section 42 again...
+i guess i'll have to look that up."
 
-> Wow!
-> Although it's interesting to know that this list exists:
-> I can check it when trying to come up with a section name.
+So the design already strikes me as terrible even before starting
+to sonsider portability.
+I would expect no end of compatibility problems.
 
-I would somewhat advise against that.  While i do think that consistency
-is good *if* you decide to use a section suffix, i'd still recommend
-to use section suffixes sparingly, at least in operating systems
-that use them sparingly now.  They provide relatively little value,
-make the top directory of the manpath larger and less readable,
-and they are in particular *not* well suited to moving stuff out of
-the non-suffix directories that users may not wish to see by default.
-For example, suppose you created a directory man3py to document
-python library functions.  As explained above, these pages will *still*
-show up even when people type "man 3" or "man 3p" rather than "man 3py".
+ * Most man(1) implementations will probably treat section 10
+   as a subsection of section 1.
+ * While "man -s 10" may work with some man(1) implementations,
+   "man 10 wchar_t" will fail saying
+     man: No entry for 10 in the manual.
+   on most.
+ * When sorting, you will probably get 1, 10, 11, 2, 3, ...
+ * I expect lots of code does
+     char sc = '1' + sn - 1;
+     asprintf(&fn, "%s.%c%s", name, sc, suffix);
+   which leaves you with "name.:suffix" if sn == 10.
+ * ...
 
-> I guess Illumos shares this subsectioning scheme.
+> How would you feel if I inaugurate man10 for types, and later man11 for 
+> non-function-like macros? :D
 
-More or less, according to
-https://src.illumos.org/source/xref/illumos-gate/usr/src/man/ -
-it's not identical though.
-
-> Do you know from the top of your head if any of those is dedicated to 
-> constants such as NULL, PATH_MAX, or BUFSIZ?
-
-I doubt it, for two reasons.  On the one hand, my impression is that
-at least in Solaris, section suffixes are not so much used for
-logical subdivision of sections but more according to provenance;
-for example, man1b is for BSD compat features, man1s is for commands
-specific to SunOS, man3c is for libc, man3ext is for an "extended
-library", man3p is for the Sun performance library (available for
-both C and FORTRAN 95), and so on.
-
-On the other hand, naming manual pages after symbolic constants
-or after type names is so unsual that i doubt any scheme exists
-for that.  The most widely used way to look up manual pages
-by the names of symbolic constants or type names probably is
-using macro keys as implemented in the mandoc version of apropos(1).
-That is used by most FreeBSD, OpenBSD, Alpine Linux, and Void Linux.
-I admit that doesn't qualify as "widely used", but "most widely used"
-is probably true all the same.  ;-)
+I wouldn't feel well at all.
+I think i'd prefer contracting a common cold to having to deal with that.
 
 Yours,
   Ingo
