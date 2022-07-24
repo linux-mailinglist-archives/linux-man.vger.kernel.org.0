@@ -2,159 +2,212 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 91DF757F132
-	for <lists+linux-man@lfdr.de>; Sat, 23 Jul 2022 21:29:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D04EB57F4B6
+	for <lists+linux-man@lfdr.de>; Sun, 24 Jul 2022 12:41:51 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S236362AbiGWT3Y (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 23 Jul 2022 15:29:24 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43638 "EHLO
+        id S232755AbiGXKlt (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 24 Jul 2022 06:41:49 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57320 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231370AbiGWT3X (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 23 Jul 2022 15:29:23 -0400
-Received: from scc-mailout-kit-02.scc.kit.edu (scc-mailout-kit-02.scc.kit.edu [IPv6:2a00:1398:9:f712::810d:e752])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D78EB1B7B9
-        for <linux-man@vger.kernel.org>; Sat, 23 Jul 2022 12:29:21 -0700 (PDT)
-Received: from hekate.asta.kit.edu ([2a00:1398:5:f401::77])
-        by scc-mailout-kit-02.scc.kit.edu with esmtps (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-        (envelope-from <schwarze@usta.de>)
-        id 1oFKoR-003CfN-Li; Sat, 23 Jul 2022 21:29:19 +0200
-Received: from login-1.asta.kit.edu ([2a00:1398:5:f400::72])
-        by hekate.asta.kit.edu with esmtp (Exim 4.94.2)
-        (envelope-from <schwarze@usta.de>)
-        id 1oFKoR-006lU1-2t; Sat, 23 Jul 2022 21:29:19 +0200
-Received: from schwarze by login-1.asta.kit.edu with local (Exim 4.92)
-        (envelope-from <schwarze@usta.de>)
-        id 1oFKoR-0000bi-25; Sat, 23 Jul 2022 21:29:19 +0200
-Date:   Sat, 23 Jul 2022 21:29:19 +0200
-From:   Ingo Schwarze <schwarze@usta.de>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     g.branden.robinson@gmail.com,
-        linux-man <linux-man@vger.kernel.org>, groff <groff@gnu.org>
-Subject: Re: All caps .TH page title
-Message-ID: <YtxMD7ovz1Xy/cfq@asta-kit.de>
-References: <66c19a09-ef0f-0d85-0380-37a67ac483dd@gmail.com>
- <20220721183620.hdvgwwef66hmrgln@illithid>
- <1e1f9197-a013-0d6b-6bfa-853fe28102cf@gmail.com>
- <20220722021452.5k43or5uwj2eiouh@illithid>
- <7a94b352-9ae5-a823-72c4-c526a0cc0e66@gmail.com>
- <e4603be0-47f4-bc2b-b31e-52039ca63721@gmail.com>
+        with ESMTP id S229462AbiGXKlt (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 24 Jul 2022 06:41:49 -0400
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2D28213F1E
+        for <linux-man@vger.kernel.org>; Sun, 24 Jul 2022 03:41:48 -0700 (PDT)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id A421560C88
+        for <linux-man@vger.kernel.org>; Sun, 24 Jul 2022 10:41:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 0908DC341C7
+        for <linux-man@vger.kernel.org>; Sun, 24 Jul 2022 10:41:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1658659307;
+        bh=z3MbSdkPhobUbUGwiVyHZcFwtxuXgBT36or2+cGUJ7Q=;
+        h=From:To:Subject:Date:In-Reply-To:References:From;
+        b=qMEuG6doQXjujBiLaYgOdVMVBcVLEzNL2HgstLFanqBuy8XAvkHTacILEQ+nf2+Ee
+         dSd6QGSueUjzapfsEud5+1n1D66k3PyoLebluvMvLyUHM97zn3awN1tnP+mvn9og3+
+         w5SkuVCy6lYboB4Aw3D5or4g3X3zJeqeYvQfr770d7p3afKQhYBx6P2K4SDV7qdNyx
+         OiIiUjog82YDpFdLCZC9Ou0H608ExDQ0LBRB6Lb3ADv+bZHOnXbPladZJonOL7GzAh
+         mvo8Tc7GKe4WVJ2CnJINPX+JLYwiEmSGkvMOHRJ9ivnzfXUyW+u/yfL6w3m+gQcv79
+         FUQgyI2BkBfTA==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
+        id E8A63CC13B7; Sun, 24 Jul 2022 10:41:46 +0000 (UTC)
+From:   bugzilla-daemon@kernel.org
+To:     linux-man@vger.kernel.org
+Subject: [Bug 216275] Incorrect fts_pathlen in fts(3) man page
+Date:   Sun, 24 Jul 2022 10:41:46 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Documentation
+X-Bugzilla-Component: man-pages
+X-Bugzilla-Version: unspecified
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: alx.manpages@gmail.com
+X-Bugzilla-Status: NEW
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P1
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: 
+Message-ID: <bug-216275-11311-eujppNKN7b@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-216275-11311@https.bugzilla.kernel.org/>
+References: <bug-216275-11311@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <e4603be0-47f4-bc2b-b31e-52039ca63721@gmail.com>
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED,
-        SPF_HELO_NONE,SPF_NONE autolearn=ham autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-7.6 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Alejandro,
+https://bugzilla.kernel.org/show_bug.cgi?id=3D216275
 
-On 7/22/22 12:35, Alejandro Colomar (man-pages) wrote:
+--- Comment #2 from Alejandro Colomar (man-pages) (alx.manpages@gmail.com) =
+---
+Hi Philip,
 
-> BTW, I think I didn't reply (or if I did was very short) to your comment 
-> that other languages may find it difficult to mirror our use of 
-> subsections, since their main section is already a subsection (e.g., 
-> 3pl).
+On 7/23/22 14:56, bugzilla-daemon@kernel.org wrote:
+> https://bugzilla.kernel.org/show_bug.cgi?id=3D216275
+>=20
+>              Bug ID: 216275
+>             Summary: Incorrect fts_pathlen in fts(3) man page
+>             Product: Documentation
+>             Version: unspecified
+>            Hardware: All
+>                  OS: Linux
+>              Status: NEW
+>            Severity: normal
+>            Priority: P1
+>           Component: man-pages
+>            Assignee: documentation_man-pages@kernel-bugs.osdl.org
+>            Reporter: philj56@gmail.com
+>          Regression: No
+>=20
+> In the fts(3) man page, `fts_pathlen` is described as:
+> ```
+> short           fts_pathlen;  /* strlen(fts_path) +
+>                                   strlen(fts_name) */
+> ```
+>=20
+> This was changed from `strlen(fts_path)` in the following commit:
+>=20
+>
+> <https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?id=
+=3D10b6adae8ac6026b2bb69bc66d1e0fcb37c81696>
+>=20
+> This is only correct when `fts_children()` is called, however. When
+> only `fts_read()` is used, the original `fts_pathlen =3D strlen(fts_path)`
+> is correct. This feels like a glibc bug to me, seeing as the original
+> behaviour is listed in the glibc source:
+>=20
+>
+> <https://sourceware.org/git/?p=3Dglibc.git;a=3Dblob;f=3Dio/fts.h;h=3De005=
+75d154b1457ddd02a0ab67a4a5e3b10237c0;hb=3DHEAD#l98>
+>=20
+> Assuming that glibc won't change, I think the man page should document
+> both behaviours.
 
-Other languages are usually better off to live *outside* the $MANPATH
-and tell users to use "man -M" to access their documentation.
-For example, on OpenBSD, the TCL manuals live
-in /usr/local/lib/tcl/tcl8.5/man/ .
-Putting them into /usr/local/man/ would be quite disruptive because
-that would cause lots of clashes, including "apply", "break", "cd",
-"close", "eval", "exec", "exit", "expr", "glob", "info", "join", "open",
-"puts", "pwd", "read", "socket", "time", and so on.  I expect most
-other language will cause similar noise.
-Perl is better because the clashing names are mostly part of perlfunc(1),
-and the majority of other Perl manual page names contain colons.
-FORTRAN (traditionally in man3f) is also better because in this
-instance, the cryptic FORTAN six-letter identifiers become a virtue
-in so far as they prevent clashes.
+I replied CCing the glibc list, in case someone from there wants to comment.
 
-> I'd say that since C is the native Unix language, and others are 
-> just... others?, I'd optimize for C, and let other languages find
-> a way to document their things.
+>=20
+> The following program demonstrates the difference in behaviour:
+>=20
+> ```
+> #include <fts.h>
+> #include <pwd.h>
+> #include <stdio.h>
+> #include <string.h>
+> #include <unistd.h>
+>=20
+> void test_fts_children(char *paths[])
+> {
+>          FTS* fts =3D fts_open(paths, FTS_LOGICAL, NULL);
+>          FTSENT* ftsent =3D fts_read(fts);
+>          FTSENT* child =3D fts_children(fts, 0);
+>          while (child !=3D NULL) {
+>                  printf("    %s %s %d %lu\n", child->fts_path,
+>                  child->fts_name,
+>                                  child->fts_pathlen,
+>                                  strlen(child->fts_path));
+>                  child =3D child->fts_link;
+>          }
+>          fts_close(fts);
+> }
+>=20
+> void test_fts_read(char *paths[])
+> {
+>          FTS* fts =3D fts_open(paths, FTS_LOGICAL, NULL);
+>          FTSENT* ftsent =3D fts_read(fts);
+>          for (; ftsent !=3D NULL; ftsent =3D fts_read(fts)) {
+>                  /* Don't go any deeper */
+>                  if (ftsent->fts_level > 0 && (ftsent->fts_info & FTS_D))=
+ {
+>                          fts_set(fts, ftsent, FTS_SKIP);
+>                          continue;
+>                  }
+>                  printf("    %s %s %d %lu\n", ftsent->fts_path,
+> ftsent->fts_name,
+>                                  ftsent->fts_pathlen,
+>                                  strlen(ftsent->fts_path));
+>          }
+>          fts_close(fts);
+> }
+>=20
+> int main() {
+>          struct passwd *pwd_entry =3D getpwuid(getuid());
+>          char *paths[] =3D {pwd_entry->pw_dir, NULL};
+>          printf("fts_children:\n");
+>          test_fts_children(paths);
+>          printf("\nfts_read:\n");
+>          test_fts_read(paths);
+>          return 0;
+> }
+> ```
+>=20
+> Sample output:
+> ```
+> fts_children:
+>      /home/phil/ Templates 20 11
+>      /home/phil/ bin 14 11
+>      /home/phil/ Pictures 19 11
+>      /home/phil/ Public 17 11
+>      /home/phil/ Videos 17 11
+>      /home/phil/ Downloads 20 11
+>      /home/phil/ Music 16 11
+>      /home/phil/ Desktop 18 11
+>      /home/phil/ Documents 20 11
+>=20
+> fts_read:
+>      /home/phil phil 10 10
+>      /home/phil/Templates Templates 20 20
+>      /home/phil/bin bin 14 14
+>      /home/phil/Pictures Pictures 19 19
+>      /home/phil/Public Public 17 17
+>      /home/phil/Videos Videos 17 17
+>      /home/phil/Downloads Downloads 20 20
+>      /home/phil/Music Music 16 16
+>      /home/phil/Desktop Desktop 18 18
+>      /home/phil/Documents Documents 20 20
+>      /home/phil phil 10 10
+> ```
+>=20
 
-True - not because C is better or more worthy, but because looking up
-an identifier logically requires specifying the language, and as
-explained elsewhere, section suffixes are a poor solution for that.
+Thanks,
 
-> It would be easy to say just go away, the man pages are for C,
+Alex
 
-Absolutely not.  While the manual page format may have some feature
-that are particularly well-suited to documenting C, it is not
-limited to that role.
+--=20
+You may reply to this email to add a comment.
 
-> but I won't dare to say that, since I like man pages, 
-> and I'd like to see more documentation for languages that I sometimes 
-> have to use be in the form of man pages, so I'll try to come up with a 
-> more imaginative answer:  how about using subsubsections of the form 
-> 3pl_type?  At least it's a possibility.  man(1) would handle them as any 
-> other subsection, but that's not a big problem.  Maybe man(1) could 
-> develop a way to provide subsubsections...  Colin, any ideas in this 
-> regard?
-
-See above.
-
-Alejandro Colomar wrote on Fri, Jul 22, 2022 at 01:46:37PM +0200:
-
-> Or, maybe it's the time to write a whole new volume?  I think there's a 
-> comparable difference between 3type and 3 than between 2 and 3 or 1 and 
-> 8, so it would be merited.  I didn't do it before for two reasons: it 
-> might break software that assumes than Unix manuals use a single number 
-> followed by an optional string (I'd say it's not a fair assumption to 
-> say that man9 would be the last one ever used; if there's 9, there might 
-> be a 10 some day), and because other projects had already used 3type.
-> 
-> But, that would start a clean namespace.  Maybe it's worth it.
-
-No, that would absolutely not be clean design.  I advise strongly
-against it.
-
-First, concatening integer numbers and strings is often bad design
-because it significantly complicates processing in various way.
-For example, the traps set by the strtol(3) family of functions,
-in particular regarding trailing non-digit characters, are
-legendary.  Bugs love the breeding ground.  As another example,
-numerical vs. alphabetical sorting is a similarly famous trap,
-consider the difference of sort(1) vs. "sont -n".  I'm sure
-you do *not* want to design a data type represented as a string
-such that the first part needs to be sorted numerically and the
-second part needs to be sorted alphanumerically - with not even
-a delimiting character in between.
-
-Less technically, having a small number of sections with non-desciptive
-names is fine; people get used to the meaning of 1 to 9.  But when
-you start adding more sections, a scheme with non-descriptive names
-sooner or later becomes unsustainable.  "What was section 42 again...
-i guess i'll have to look that up."
-
-So the design already strikes me as terrible even before starting
-to sonsider portability.
-I would expect no end of compatibility problems.
-
- * Most man(1) implementations will probably treat section 10
-   as a subsection of section 1.
- * While "man -s 10" may work with some man(1) implementations,
-   "man 10 wchar_t" will fail saying
-     man: No entry for 10 in the manual.
-   on most.
- * When sorting, you will probably get 1, 10, 11, 2, 3, ...
- * I expect lots of code does
-     char sc = '1' + sn - 1;
-     asprintf(&fn, "%s.%c%s", name, sc, suffix);
-   which leaves you with "name.:suffix" if sn == 10.
- * ...
-
-> How would you feel if I inaugurate man10 for types, and later man11 for 
-> non-function-like macros? :D
-
-I wouldn't feel well at all.
-I think i'd prefer contracting a common cold to having to deal with that.
-
-Yours,
-  Ingo
+You are receiving this mail because:
+You are watching the assignee of the bug.=
