@@ -2,168 +2,183 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 2EF5C57F5DF
-	for <lists+linux-man@lfdr.de>; Sun, 24 Jul 2022 17:44:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2844557F5E9
+	for <lists+linux-man@lfdr.de>; Sun, 24 Jul 2022 17:57:39 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230469AbiGXPox (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 24 Jul 2022 11:44:53 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46566 "EHLO
+        id S229598AbiGXP5h (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 24 Jul 2022 11:57:37 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51672 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229818AbiGXPox (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 24 Jul 2022 11:44:53 -0400
-Received: from mail-oa1-x2e.google.com (mail-oa1-x2e.google.com [IPv6:2001:4860:4864:20::2e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 038D4647B
-        for <linux-man@vger.kernel.org>; Sun, 24 Jul 2022 08:44:52 -0700 (PDT)
-Received: by mail-oa1-x2e.google.com with SMTP id 586e51a60fabf-10cf9f5b500so11952903fac.2
-        for <linux-man@vger.kernel.org>; Sun, 24 Jul 2022 08:44:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=N0B126Y1AxRoNWX+/0LoYL2Xa4geSF+YQuSzOEBzl6U=;
-        b=XKs7kGk0ekHm9DxZ5LN8NBfxvO8YRPaGUNmwo2YBfS7iG+enyJ0hgRpgeQA05yF4V1
-         Wtr1CME4s33wBsnI4Cl40pDsNujDdR3zZGK8RVx/M+lDw2ykPNvuWTafoVT0Pz08snFF
-         4lV0aE2gxHjsv5WDJL6bkC/y6xwAgqKpyM3KhatD8sO+i4i9H1qjCVZPMotITWZJ12KE
-         IAwfKubxRynyiLPTrEwUaX/ry2lLBSn62VhPgkEftOFZltBTNu/v7NX8CluqpOtbwrgi
-         QkZeqj8meJb9Fx/7p4l8kdNmadcxOFxknqiw0jaCjIO7y0rLPTvDqdLTIDtZqzYfK4zS
-         FNSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=N0B126Y1AxRoNWX+/0LoYL2Xa4geSF+YQuSzOEBzl6U=;
-        b=l8luVz1oq1vXIXhooGtW2OFt77WwfNvwce2WLKJHYEsf9+FGLEB8dN3OXsTrHtBkQG
-         0S08ZsYQkTNVsHzAOkBBuhXJTPHG6w0d/xwXIQC7IEpmqJzXjARH1z4bVYF5+wu7l9St
-         Xzw1j7Z2NqkoFQUPTJQW9OHS9sgajSIn6AbgofFNKv2s+LCBThRijTo3ypbRWj+2JW+7
-         HSKuwdW9r/3mARTzciMPYHs9cKiQRViFp0YXOr6SYGu+ZMISWMfwJbI0RY/pOLAgQT+L
-         Ac4MC229KhpRxpknERpNifl44jrRaToBqpLU0l6t09pRcleW14dErJT14XVyvHlQLwF4
-         LUWQ==
-X-Gm-Message-State: AJIora8gtoDPAhqhBfbxvoIQHFtcQHb/TLIItgkSRziSDAlbADUC8n5c
-        dj8LsmDq/8AUSLLUjlG7brCNhMPghuU=
-X-Google-Smtp-Source: AGRyM1sn0iV4Gtl2XBuQ9Dxm9vsBao0HFmAdruNeLJGDlD9+jS1tr5td1zRpmgQ8DlogdIdiMu5gEA==
-X-Received: by 2002:a05:6870:f287:b0:109:d5fb:15be with SMTP id u7-20020a056870f28700b00109d5fb15bemr4348365oap.12.1658677490932;
-        Sun, 24 Jul 2022 08:44:50 -0700 (PDT)
-Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id r38-20020a056870582600b0010e00041996sm1213357oap.14.2022.07.24.08.44.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 24 Jul 2022 08:44:49 -0700 (PDT)
-Date:   Sun, 24 Jul 2022 10:44:47 -0500
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     Ingo Schwarze <schwarze@usta.de>
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org, groff@gnu.org
-Subject: Re: All caps .TH page title
-Message-ID: <20220724154447.us3vsmicaw52v4j6@illithid>
-References: <66c19a09-ef0f-0d85-0380-37a67ac483dd@gmail.com>
- <20220721183620.hdvgwwef66hmrgln@illithid>
- <1e1f9197-a013-0d6b-6bfa-853fe28102cf@gmail.com>
- <20220722021452.5k43or5uwj2eiouh@illithid>
- <7a94b352-9ae5-a823-72c4-c526a0cc0e66@gmail.com>
- <e4603be0-47f4-bc2b-b31e-52039ca63721@gmail.com>
- <YtxMD7ovz1Xy/cfq@asta-kit.de>
- <62937033-a3a7-05d0-fc68-a227e2b67bde@gmail.com>
- <Yt1dz0+xfRuyCcXo@asta-kit.de>
+        with ESMTP id S229471AbiGXP5g (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 24 Jul 2022 11:57:36 -0400
+Received: from scc-mailout-kit-02.scc.kit.edu (scc-mailout-kit-02.scc.kit.edu [IPv6:2a00:1398:9:f712::810d:e752])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id ADB8FDF60
+        for <linux-man@vger.kernel.org>; Sun, 24 Jul 2022 08:57:34 -0700 (PDT)
+Received: from hekate.asta.kit.edu ([2a00:1398:5:f401::77])
+        by scc-mailout-kit-02.scc.kit.edu with esmtps (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+        (envelope-from <schwarze@usta.de>)
+        id 1oFdz2-005QWD-BO; Sun, 24 Jul 2022 17:57:32 +0200
+Received: from login-1.asta.kit.edu ([2a00:1398:5:f400::72])
+        by hekate.asta.kit.edu with esmtp (Exim 4.94.2)
+        (envelope-from <schwarze@usta.de>)
+        id 1oFdz1-006mM6-Qx; Sun, 24 Jul 2022 17:57:31 +0200
+Received: from schwarze by login-1.asta.kit.edu with local (Exim 4.92)
+        (envelope-from <schwarze@usta.de>)
+        id 1oFdz1-0000An-Q9; Sun, 24 Jul 2022 17:57:31 +0200
+Date:   Sun, 24 Jul 2022 17:57:31 +0200
+From:   Ingo Schwarze <schwarze@usta.de>
+To:     alx.manpages@gmail.com
+Cc:     Colin Watson <cjwatson@debian.org>, linux-man@vger.kernel.org,
+        g.branden.robinson@gmail.com, man-db-devel@nongnu.org
+Subject: Re: Linux man-pages Makefile portability
+Message-ID: <Yt1r65RJemg3ecmO@asta-kit.de>
+References: <d8646de0-e4f0-3d4b-e763-92355162a405@gmail.com>
+ <Yq+P39bpy2QEeaSd@asta-kit.de>
+ <8b9daa0e-6f08-dd55-5772-51f5052ed8bb@gmail.com>
+ <YrB66rgFZqryrmpt@asta-kit.de>
+ <6e294373-2661-286c-09c4-e67cd84103d7@gmail.com>
+ <fdde7402-5e69-b6ff-60fc-74ad9c9054f1@gmail.com>
+ <YtrXbDo5NVxNT/cb@asta-kit.de>
+ <80553a14-8f39-d4ad-def3-35d6551a31f3@gmail.com>
+ <Ytw65nGl1qouSU5R@asta-kit.de>
+ <ff01b98c-563f-dfd3-4996-65ff5e5f44ce@gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="v3bso5vrhxq4rkem"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <Yt1dz0+xfRuyCcXo@asta-kit.de>
-X-Spam-Status: No, score=-0.2 required=5.0 tests=BAYES_40,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
-        autolearn_force=no version=3.4.6
+In-Reply-To: <ff01b98c-563f-dfd3-4996-65ff5e5f44ce@gmail.com>
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED,
+        SPF_HELO_NONE,SPF_NONE autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Hi Alejandro,
 
---v3bso5vrhxq4rkem
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Alejandro Colomar wrote on Sun, Jul 24, 2022 at 01:09:23PM +0200:
+> On 7/23/22 20:16, Ingo Schwarze wrote:
+>> Alejandro Colomar wrote:
 
-At 2022-07-24T16:57:19+0200, Ingo Schwarze wrote:
-> But dismissing decade-old *BSD standards like the use of /usr/ for the
-> base system and /usr/local/ for packages as a standard violation, and
-> promoting /opt/ which is firmly a Linux-only invention,
+[...]
+>>> Although it's interesting to know that this list exists:
+>>> I can check it when trying to come up with a section name.
 
-Oh, no it's not.  I remember that thing from Solaris 2.3 or 2.4.  Here's
-a slightly later source.
+>> I would somewhat advise against that.  While i do think that consistency
+>> is good *if* you decide to use a section suffix, i'd still recommend
+>> to use section suffixes sparingly, at least in operating systems
+>> that use them sparingly now.  They provide relatively little value,
+>> make the top directory of the manpath larger and less readable,
 
-https://docs.oracle.com/cd/E19455-01/805-6331/fsadm-17/index.html
+> I don't think there's any benefit of keeping $(mandir) contain only the 
+> standard man? subdirs.  Everybody already knows about them, so nobody 
+> needs to read the output of ls(1) in such a system.
 
-Your complaints about the Linux-centricity of the FHS can be explained
-largely by QuaNGO corporate politics.[1]  The first Linux file system
-organization standard was called FSSTND and dates back to about 1994.
-But it had little or no organizational support or funding behind it.
-(It is hard to overstate how much Linux seemed like an underdog in those
-days.)
+Admitted, it's a weak argument.  Having lots of useless directories
+does not do *significant* harm.  Then again, in general, i would say
+it is good practice to not add needless files or directories, even
+when they are not particularly harmful.  They still make find(1)
+and ls -R output and Makefiles longer.  Not doing needless things
+is a general aim of design economy.
 
-You can read some further history at the usual reliable(?) source.
+Besides, when there is not much to gain in the first place, even
+weak counter-arguments wield non-zero weight.
 
-https://en.wikipedia.org/wiki/Free_Standards_Group
+> On the other hand, reading the output of ls(1) in a system with free
+> use of subsections provides useful information.
 
-Since the FHS is fully under the purview of the Linux Foundation (LF), I
-don't think it's reasonable to expect any responses much different than
-what you describe.  The LF exists to "promote Linux", which, as with any
-NGO with an open-ended mission, in practice means to sustain itself
-indefinitely via membership fees.  (In the parlance of journalism, one
-can reliably correlate the "seriousness" of any NGO with the level of
-compensation enjoyed by its officers.)  The benefits of membership are
-significant; you can utterly disregard the terms of the GNU GPL.  If you
-are not a member and have transgressed, the Foundation will happily sell
-you an indulgence in the form of membership.
+I flatly deny that argument.  The Solaris list of suffixes deleted
+above does not tell me anything of value.  It's just a list of
+random sources of software, often with arbitrary partitions, and
+many of the suffixes are non-descriptive.
 
-Under this umbrella, the Linux kernel is effectively under the BSD
-license.  Don't be shocked if even the disclosure of relevant copyright
-and license notices is a negotiable point.  This is business.  Under
-litigation you'd end up in much the same place, potentially with much
-more bad press.  Monetary damages are the fuel that sustains the engine
-of civil procedure.  Compliance and specific performance are distant
-concerns.
+[...]
+>> On the other hand, naming manual pages after symbolic constants
+>> or after type names is so unsual that i doubt any scheme exists
+>> for that.
 
-Litigation to enforce the terms of the GPL is stridently characterized
-as discouraging and unproductive--we never ask "to whom?" or "of
-what?"--except insofar as it drives firms to the reassuring shelter of
-Foundation membership.  You can see how it is helpful to characterize
-independent GPL plaintiffs as cranks and lunatics--moreover, you do LF a
-huge favor if, as such a plaintiff, you actually are a lunatic.
+> Actually, man3type exists in several systems.  Solaris has it
 
-This model is widely regarded as successful; indeed, when limiting your
-interviews to members of a cartel, reported levels of satisfaction with
-the organization are characteristically high.  It dissolves otherwise.
+Not on the Solaris 11 system i have access to:
 
-So guess what?  The BSD camp did ultimately win the copyleft argument
-after all.
+  > uname -a
+  SunOS unstable11s 5.11 11.3 sun4u sparc SUNW,SPARC-Enterprise
+  > man -K e | grep 3type
+  [ no output]
+  > ls -d /usr/share/man/*type*
+  /usr/share/man/*type*: No such file or directory
+  > ls -d /usr/gnu/share/man/*type*
+  /usr/gnu/share/man/*type*: No such file or directory
 
-Regards,
-Branden
+> (I guess Illumos too),
 
-[1] Some would doubtless argue with the "qua" here.  I remind the reader
-    that copyrights are legal monopolies dispensed by the state.
-    Copyright enforcement in the United States, for instance, was a
-    _wholly_ civil matter until 1897, having spent over a century as a
-    government-created tort.
+Not according to https://src.illumos.org/source/search?path=3type
+nor according to
+https://src.illumos.org/source/xref/illumos-gate/usr/src/man/ .
 
---v3bso5vrhxq4rkem
-Content-Type: application/pgp-signature; name="signature.asc"
+Again, Solaris suffixes do *not* indicate logical subdivisions,
+but only a rather fuzzy, arbitrary, and inconsistent "where we
+got these files from", at least if i understand correctly.
 
------BEGIN PGP SIGNATURE-----
+> and I've seen it in other systems (something from Oracle, 
+> IIRC).  libbsd(7) also documents types, although they put them in the 
+> global namespace, which I think you and I agree that it's not quite 
+> right because of "documentation about a non-function in man3".
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmLdaOgACgkQ0Z6cfXEm
-bc5CCRAArBXGoznFaSWUeGpH5/Naw2GAaz5wgRRdfFE3FqQSvF7iwqqrFhY66p+Z
-Q8KkgV+DWm+3/zTFoUR4DH3yAD9M//y7Ph9pOy+O6tt7n1Q+fT9LDyBSRLzraQ3a
-a/2ANFzZd73J04slqlEur03fxDTcjGek0IWKrd5DGJPkFANU+ubItXnvOguxrLXb
-HIY0Cb9tCxbW/R9m24kByWGWTxj0uZ/C1eNlUurQFM/iCSwu7Q5MueO8gGpKuhi7
-q1sLjE+P46c6IZkZaNDU8LixDoS6sWxRzcGq7AiUVbPcOye8sQWqvTBQnCnaXU0T
-ZSG1pYXTxQGj/RB4fe/AhodTjcXYTM+eYAqfErHmR3JcPcD3Yw2gh3qseVWSBKgM
-H9X/9Xve2aHllo0L/P7qdC7qMbOkWsUb+yZ6EXl2PJLTjOByrKjoMzGdOmRS/ZXT
-atBQIApQSjWeoAr/zThnzjq51V+0EGkis1bjXURXpej91azmcn2Bisb0YmvXMnDM
-4DTqtbfHUvf1suAy6IbwbP1ZBUXK4qmDg7l7B+uD9GGwgOhseiCm7Hm4o0UNM9C8
-3fH5bJaSMHjJ1c6j9fop0RQOKgVcTIL/gH5xebuhC6HEtRjnbVlXrSAKx9t3nr+z
-6cXCFOYPVxZ83HRSQjXcgS9Tgj8h8/DN+WBAQfU427aIkumv8pw=
-=mF5l
------END PGP SIGNATURE-----
+That argument has no merit.  The pre-eminent rule is "all documentation
+of function libraries belongs in section 3" and explaining data types
+(typically defined by the function libraries in the same header files
+as the functions) are clearly part of that.
 
---v3bso5vrhxq4rkem--
+The rule "all library documentation should be organized by
+functions" is secondary to that, and the rule "all section 3
+names should be function names" is merely a corollary to that.
+
+So even if you throw the rule "all library dicumentation should
+be organized by functions" overboard, that is still no excuse
+for moving part of the library documentation out of section 3.
+It also makes sense to keep it all together in the same section
+because it is needed by exactly the same people (programmers)
+in exactly the same way (when reading and writing code and
+wondering what words contained in the code mean).
+
+>> The most widely used way to look up manual pages
+>> by the names of symbolic constants or type names probably is
+>> using macro keys as implemented in the mandoc version of apropos(1).
+>> That is used by most FreeBSD, OpenBSD, Alpine Linux, and Void Linux.
+>> I admit that doesn't qualify as "widely used", but "most widely used"
+>> is probably true all the same.  ;-)
+
+> That leaves out man(7).
+
+Yes.  Searching for preprocessor constants and searching for data
+type names are essentially semantic search features.  So it is
+your choice to pick a 197x-era markup language that does not provide
+semantic markup but only physical markup.  But than it feels
+irrational to me to turn around and complain not getting semantic
+search.  Unless you are a Prime Minister, you cannot have your cake
+and eat it.
+
+Trying to work around the lack of semantic markup by moving
+everything into the manual page names feels like very poor design
+to me.
+
+> And types tend to be not very well documented if they are
+> documented as part of a function page.
+
+We disagree about that, and i won't repeat my full explanation why.
+I'll repeat only this one aspect: There are few syntax elements where
+context matters as much as for types; types live by how they are
+used.  Separating their description from the functions using them
+is a disservice to users, forcing them to jump around various pages
+instead of having explained together what belongs together.
+
+> And they also tend to be documented several times (out of sync,
+> of course).
+
+Any kind of documentation needs discipline and diligence and
+maintenance, and none of it can ever be perfect.  But that's no
+excuse for artificially tearing apart what users need together.
+
+Yours,
+  Ingo
