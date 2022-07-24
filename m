@@ -2,226 +2,211 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 10B0E57F51D
-	for <lists+linux-man@lfdr.de>; Sun, 24 Jul 2022 14:49:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 891EE57F593
+	for <lists+linux-man@lfdr.de>; Sun, 24 Jul 2022 16:57:25 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232908AbiGXMtl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 24 Jul 2022 08:49:41 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54154 "EHLO
+        id S229618AbiGXO5Y (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 24 Jul 2022 10:57:24 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51170 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229450AbiGXMtl (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 24 Jul 2022 08:49:41 -0400
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com [IPv6:2a00:1450:4864:20::431])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B7C7F106
-        for <linux-man@vger.kernel.org>; Sun, 24 Jul 2022 05:49:39 -0700 (PDT)
-Received: by mail-wr1-x431.google.com with SMTP id v13so4585686wru.12
-        for <linux-man@vger.kernel.org>; Sun, 24 Jul 2022 05:49:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :references:from:in-reply-to:content-transfer-encoding;
-        bh=iP+TN4SMAh0x9dwqmGi0NMJlTTRckM7nxnx+bTPhPJA=;
-        b=SLK4YgN1OJQ5fHaVMfJWE511sd6E9S80dvX2FQg6nXsVcqSNxzeQ9cB+z1LE4VSKSh
-         dQz08cfPGWnoIOavuiyX8rIdiIlUs+Xmnn8mVtdBjDuL3VaviiaicOhmyTY/hNjwVFM+
-         L0O8LATGnAcn6fuUW9sZy0fl6DypdOHPvXrhOPoNV0heEns3OebfOOBHwFzZ5Y4HVGov
-         rpTqpelNek8JimXpRUEw8RNkjPVA5AC1YhlONuRvTdiFZBmGa1CBg+9iXrTya6PvM6on
-         J51/t1s5iNgzRL6BUuryDSVk/FqsvE58J0SAdCmuLSo7fE0C4Tu/TNh86rUWPv0P14PP
-         vLFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=iP+TN4SMAh0x9dwqmGi0NMJlTTRckM7nxnx+bTPhPJA=;
-        b=zqNmzERCW3Ym0hV2V6ML92R6B9oynuZIwLtWicRyHveylKLEoIiyzJmHHmow7CcpDm
-         93DW8P2Fw+qzU1OVymhQXxmyobXfkTDdc8CLZts/Jo9kb0wsybKoHU6njc+yU+hAbp0q
-         hRRgMIV+9WT6y8gN/FratBb9HiAAlyhgNMYC0K8lZvnlgphK8bgRxy3T2I1+VMXVw8VN
-         vjX+GJkD0R/eR4NxnrGIe5Idc/lIcjfd3Z9fPfc+Y4iS8VJjaenH/BXheBxsoOAVTy3p
-         Yh0biZyQc3q0dA8IhpQQDEoPPGwlw3xLszm8v5vd4wE9WZPpiSgVoM4szDVE2/m/Q9t+
-         xiyw==
-X-Gm-Message-State: AJIora8dRAV7kNjM48e8PqSMPELjHcVGGRPkwYhedTzYI23yEjA7iiDW
-        6mJYeUi/KtyqYItDsVyf06+PvyIlSQU=
-X-Google-Smtp-Source: AGRyM1uLpLxEDODSkhwunEfDER93P9gzqybNoiIz0QTnO3msYEeBuprdEW/jtGqcor+gNg/I6822AQ==
-X-Received: by 2002:adf:ead2:0:b0:21d:8b49:6138 with SMTP id o18-20020adfead2000000b0021d8b496138mr5338470wrn.138.1658666978022;
-        Sun, 24 Jul 2022 05:49:38 -0700 (PDT)
-Received: from [10.168.10.170] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id p10-20020adff20a000000b0021baf5e590dsm9172136wro.71.2022.07.24.05.49.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 24 Jul 2022 05:49:37 -0700 (PDT)
-Message-ID: <3659c8c9-74df-a23c-5102-54dc9fb3a8c9@gmail.com>
-Date:   Sun, 24 Jul 2022 14:49:36 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.1
-Subject: Re: [PATCH] NULL.3def: Add documentation for NULL
-Content-Language: en-US
-To:     Ralph Corderoy <ralph@inputplus.co.uk>, linux-man@vger.kernel.org,
+        with ESMTP id S229494AbiGXO5Y (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 24 Jul 2022 10:57:24 -0400
+Received: from scc-mailout-kit-01.scc.kit.edu (scc-mailout-kit-01.scc.kit.edu [IPv6:2a00:1398:9:f712::810d:e751])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 25A0A2190
+        for <linux-man@vger.kernel.org>; Sun, 24 Jul 2022 07:57:22 -0700 (PDT)
+Received: from hekate.asta.kit.edu ([2a00:1398:5:f401::77])
+        by scc-mailout-kit-01.scc.kit.edu with esmtps (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+        (envelope-from <schwarze@usta.de>)
+        id 1oFd2m-003xAA-3w; Sun, 24 Jul 2022 16:57:20 +0200
+Received: from login-1.asta.kit.edu ([2a00:1398:5:f400::72])
+        by hekate.asta.kit.edu with esmtp (Exim 4.94.2)
+        (envelope-from <schwarze@usta.de>)
+        id 1oFd2l-006mC0-7l; Sun, 24 Jul 2022 16:57:19 +0200
+Received: from schwarze by login-1.asta.kit.edu with local (Exim 4.92)
+        (envelope-from <schwarze@usta.de>)
+        id 1oFd2l-00087w-72; Sun, 24 Jul 2022 16:57:19 +0200
+Date:   Sun, 24 Jul 2022 16:57:19 +0200
+From:   Ingo Schwarze <schwarze@usta.de>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     g.branden.robinson@gmail.com, linux-man@vger.kernel.org,
         groff@gnu.org
-References: <20220722153127.14528-1-alx.manpages@gmail.com>
- <20220723102353.F050322157@orac.inputplus.co.uk>
-From:   "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-In-Reply-To: <20220723102353.F050322157@orac.inputplus.co.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
-        autolearn_force=no version=3.4.6
+Subject: Re: All caps .TH page title
+Message-ID: <Yt1dz0+xfRuyCcXo@asta-kit.de>
+References: <66c19a09-ef0f-0d85-0380-37a67ac483dd@gmail.com>
+ <20220721183620.hdvgwwef66hmrgln@illithid>
+ <1e1f9197-a013-0d6b-6bfa-853fe28102cf@gmail.com>
+ <20220722021452.5k43or5uwj2eiouh@illithid>
+ <7a94b352-9ae5-a823-72c4-c526a0cc0e66@gmail.com>
+ <e4603be0-47f4-bc2b-b31e-52039ca63721@gmail.com>
+ <YtxMD7ovz1Xy/cfq@asta-kit.de>
+ <62937033-a3a7-05d0-fc68-a227e2b67bde@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <62937033-a3a7-05d0-fc68-a227e2b67bde@gmail.com>
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED,
+        SPF_HELO_NONE,SPF_NONE autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Ralph!
+Hi Alejandro,
 
-On 7/23/22 12:23, Ralph Corderoy wrote:
-> Hi Alejandro,
-> 
->> As hinted in recent mails to groff@ and linux-man@,
->> I'm going to inaugurate a new [sub]section for constants.
-> 
-> This seems a bad idea.  They're quite at home in section 3.
+Alejandro Colomar wrote on Sun, Jul 24, 2022 at 01:20:46PM +0200:
+> On 7/23/22 21:29, Ingo Schwarze wrote:
+>> On 7/22/22 12:35, Alejandro Colomar (man-pages) wrote:
 
-Others disagree, with the argument that 3 is reserved for functions.
-3type is already in use by systems such as Illumos, Solaris and a few 
-others, for types.  Mirroring that for constants is a good thing; I think.
+>>> BTW, I think I didn't reply (or if I did was very short) to your comment
+>>> that other languages may find it difficult to mirror our use of
+>>> subsections, since their main section is already a subsection (e.g.,
+>>> 3pl).
 
-> 
->> I think it should contain constants, normally represented by
->> object-like macros in C.  But it should also contain other forms of
->> constants in other languages (e.g., C++'s constexpr variables), so I'm
->> not convinced by the name 3def.
-> 
-> 3const was seem more in line with how you keep referring to it.
+>> Other languages are usually better off to live *outside* the $MANPATH
+>> and tell users to use "man -M" to access their documentation.
+>> For example, on OpenBSD, the TCL manuals live
+>> in /usr/local/lib/tcl/tcl8.5/man/ .
+>> Putting them into /usr/local/man/ would be quite disruptive because
+>> that would cause lots of clashes, including "apply", "break", "cd",
+>> "close", "eval", "exec", "exit", "expr", "glob", "info", "join", "open",
+>> "puts", "pwd", "read", "socket", "time", and so on.  I expect most
+>> other language will cause similar noise.
+>> Perl is better because the clashing names are mostly part of perlfunc(1),
+>> and the majority of other Perl manual page names contain colons.
+>> FORTRAN (traditionally in man3f) is also better because in this
+>> instance, the cryptic FORTAN six-letter identifiers become a virtue
+>> in so far as they prevent clashes.
 
-Agreed.  Thanks!
+> I'm not happy with this approach.  I don't want to be typing paths for 
+> system stuff (your /usr/local is /usr in GNU/Linux systems;
 
-> 
->> I'm (very) tempted to inaugurate section 11 for this
-> 
-> That's seems a worse idea.  They're far too trivial to deserve their own
-> section.
-> 
->> The initial page for this section is non other than NULL ;)
-> 
-> It seems a bit simple to be worthy of its own man page.
+Then use an alias like
 
-Oh, seemingly simple things are sometimes the most complex ones, with 
-interesting surprises.  I've documented a few surprises of NULL that not 
-many programmers know, and even those that know the details could get 
-some help by having such a simple reminder.
+  alias tclman='man -M /usr/local/lib/tcl/tcl8.5/man/'
 
-I remember very well a recent discussion I had (involving mtk and a few 
-others) about NULL, where I was wrong about it and Michael was right 
-(and I like to think that I usually know very well those kinds of little 
-language-lawyer details).  The discussion would have been resolved 
-immediately by just consulting NULL(3const).
+It's not like users are normally using dozens of different languages
+at the same time, nor is the number of languages that provide a
+collection of manual pages very significant.  So there isn't any
+real-world problem that needs solving.
 
-> 
->> +.TH NULL 3def 2022-07-22 Linux "Linux Programmer's Manual"
->> +.SH NAME
->> +NULL \- null pointer constant
-> 
-> It's one of them.  An integer constant expression with the value 0 is
-> also a null pointer constant.
+I even considered supporting aliases for manpath directories
+in man.conf(5), something like being able to say
 
-Yup; I forgot to document that detail.  Will add for v2.
+  alias tcl /usr/local/lib/tcl/tcl8.5/man/
 
-> 
->> +.SH SYNOPSIS
->> +.nf
->> +.B "#define NULL  ((void *) 0)"
-> 
-> Does the reader need to know the definition of a macro?
+in /etc/man.conf and then being able to say
 
-Normally, I'd put a placeholder /* ... */, but in this case, POSIX is 
-very clear about the definition of NULL (it doesn't specify the 
-enclosing parentheses, but I think it's not a big deal, and glibc has 
-them --and I guess most sane implementation also do--).
+  man -M tcl open
+
+Disclaimer: the above is not a finished design, just a preliminary
+idea.  But i'm very certain that -M or something derived from -M
+is the tool for the job and -s or something derived from -s is not.
+Because when you want a python manual page, you most definitely want
+"Python only" and it serves no purpose whatsoever to search through
+various trees and various sections, and least of all to badly design
+a string-based composite data type like "number_language": that causes
+all the ambiguity and confusion you are already discussing, and
+it is error-prone and fragile in the parser on top of that.
+
+Also, the concept of "for which language" and the concept of sections
+are orthognal.  A programming langauge system usually provides
+utility programs (1), library functions (3), file formats(5),
+administration tools (8), and so on.
+
+The reason i didn't pursue the man.conf(5) alias idea so far is that
+the practical need for it is very limited.  No one ever asked me for
+it as far as i recall, shell aliases do the job just fine.
 
 
-> Are you intending to do this for all macros and constants?
+> If you want to search pages in section 3type, `man -s3type regex`. 
+> However, having some pages in subsections of 3, and others in the main 3 
+> section, is good for pages in subsections, but bad for pages in the main 
+> section (`man -s3 regex` would show all of the subsections' pages). 
+> That has a simple solution: move libc pages to man3c (and libm to man3m, 
+> ...).  Since `man 3 printf` will continue working if this change is 
+> done, it doesn't seem to have backwards compatibility issues.
 
-No.  Most macros will be defined as
+While the effect on the end user is indeed limited, you are proposing
+a massive file system reshuffle here that seems somewhat in search of
+a problem it wants to solve.  Yes, systems do exist that traditionally
+use lots of section suffixes, so it *is* vital that man(1) implementations
+support such suffixes.  But i claim that even in Solaris, those suffixes
+serve little practical purpose and users are best off simply ignoring
+them.
 
-#define MACRO  /* ... */
+> Also, you can put unimportant subsections at the end of the search
+> list, to not hide other more important pages.
 
-As I already do in int8_t(3type).
+In *BSD, support for changing the search list was deleted years ago.
+That feature was an example of overengineering and useless complication.
+I don't recall even one single complaint from a user who wanted the
+feature back or explained what they were using it for.  Not one
+person needing it in over half a decade since it was deleted...
 
-> 
->> +A null pointer is one that doesn't point to a valid object.
-> 
-> ...or function.
+Yours,
+  Ingo
 
-Thanks.  I wasn't sure if I should mention that, but I'll do.
 
-> 
->> +When it is necessary to set a pointer variable to a null pointer,
->> +it is not enough to use
->> +.IR "memset(&p, 0, sizeof(p))" ,
->> +since ISO C and POSIX don't guarantee that a bit pattern of all
->> +.BR 0 s
->> +would represent a null pointer.
-> 
-> ‘p = 0’ would suffice there; it may be better to give the typical case
-> where the pointer is part of a struct.
+P.S.
+I moved this to the bottom because it is off-topic:
 
-I didn't want to overcomplicate the example, but since that's the case 
-where it usually matters, I'll do.
+> BTW, that's a thing I don't like at all from BSDs; IMO (and FHS's),
 
-> 
-> Also, sizeof is an operator, not a function as the parenthesis and lack
-> of space suggest.  ‘memset(&p, 0, sizeof p)’ is clearer.  Perhaps you're
-> following some house style.
+Years ago, i tried to engage with the FHS maintainers, arguing that
+FHS is for Unux-like systems in general, and trying to contribute
+aspects relevant for *BSD.  It was an uphill battle because the
+FHS community was very firmly entrenched as "Linux only"; some
+didn't even see a need to consider my comments at all, many
+comments were rejected saying something like "this particular point
+may be unusual on *BSD systems, but it is so important on Linux that
+we cannot possibly allow the established *BSD convention for this
+point in the FHS" even by those who were in principle willing to
+view the FHS as a guideline for Unix-like systems in general.
 
-Ahh, yes, it's house style.  I like the kernel coding style in that 
-regard.  Also, ISO C seems to be making the parentheses mandatory for 
-new operators (e.g., _Alignas()[1]), so I prefer using parens here.
+On top of that, the group was almost dead, much less active than
+for example the groff community, and even that is a very small group.
+So ultimately, i gave up and left.  Other OpenBSD developers laughed
+at me for even trying, essentially saying "Why do you even care
+about that Linux-only crap?"  I still disagree and believe a
+file system hierarchy standard for Unix-like systems could potentially
+be useful.  Just consider that "Where are the URW fonts?"-saga
+currently under way on this list as an example.
 
-[1]: 
-<https://www.open-std.org/JTC1/SC22/WG14/www/docs/n2731.pdf#subsection.6.7.5>
+But dismissing decade-old *BSD standards like the use of /usr/
+for the base system and /usr/local/ for packages as a standard
+violation, and promoting /opt/ which is firmly a Linux-only
+invention, is not going to help.
 
-> 
->> +.SH SEE ALSO
->> +.BR memset (3),
->> +.BR void (3type)
-> 
-> More importantly, see also stddef.h(0p), as the man page hasn't yet told
-> me how to obtain NULL's definition.  Am I to copy the definition into my
-> code?
+> /usr/local is for sysadmins to build from source;
 
-Yup, I forgot to put #include <stddef.h> in the SYNOPSIS; that's already 
-fixed in my working copy.  I think it's not necessary to add the header 
-to SEE ALSO, having it in the SYNOPSIS.  I also removed memset from SEE 
-ALSO, since it's not really a related function, and mentioning the thing 
-in BUGS is enough.  So SEE ALSO is only void(3type) now.
+Doing that is *very* strongly discouraged on OpenBSD.  If you only want
+to try out some unported software, do not install it at all or install
+it in your home directory.  If you are serious about providing something
+system-wide, you are strongly expected to create a port, even if you do
+not publish the port, so it can be properly installed, kept track of
+by the package tools, controlled for collisions by the package
+tools, and cleanly uninstalled when its time comes.
 
-> 
-> POSIX has a man page per standard header; that seems a good level to
-> cover all the little things which each header file is defined to
-> provide.
+Creating a package is really simple.  Just a few days ago, senior
+ports developers provided help to a user on our lists to do it
+properly for company-internal software that will never be published,
+and the thread was short because there wasn't that much to explain.
 
-Well, stddef.h(0p) doesn't cover many of the interesting details covered 
-by this page, so I guess I showed some of the reasons to have such a 
-separate page.  Having stddef.h(0) document all of those details would 
-make it unreadable.
+I did build RPMs for SLES at one point in the past when working
+for a company, and i dimly remember looking at debian package build
+documentation occasionally, and both seemed significantly harder
+to both get started with and to master than BSD ports, so Linux
+users may have a stronger motivation to just "make install".
+Then again, there may also be a slight bias at work, what you are
+used to always feels simpler than what you are less familiar with.
 
->  If you really want to create work, consider a man page which
-> tables NULL, EOF, etc., and the header-file man-page to read.
-> 
+In any case, it is very intentional that OpenBSD does *not* provide
+a directory to users that they can "make install" to.
 
-I'm not sure EOF has much relation with NULL to put it in the same page.
-But it certainly is one important macro to document next, since it's 
-very often misused.
+> optional _packages_ should go to /opt).
 
-Thanks for your thorough review!
-
-Cheers,
-
-Alex
-
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; http://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+Not even Debian adheres to that.  When i install an additional,
+optional package, i.e. one that Debian did not install by default when
+the system was originally installed, most of the time, that optional
+package goes to /usr/, not to /opt/.
