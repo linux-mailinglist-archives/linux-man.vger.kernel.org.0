@@ -2,73 +2,67 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 32BE657F62F
-	for <lists+linux-man@lfdr.de>; Sun, 24 Jul 2022 19:29:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id ECD2257F68F
+	for <lists+linux-man@lfdr.de>; Sun, 24 Jul 2022 20:43:01 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229829AbiGXR3x (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 24 Jul 2022 13:29:53 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59282 "EHLO
+        id S231591AbiGXSnA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 24 Jul 2022 14:43:00 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60796 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229482AbiGXR3v (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 24 Jul 2022 13:29:51 -0400
-Received: from mail-oa1-x36.google.com (mail-oa1-x36.google.com [IPv6:2001:4860:4864:20::36])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E95C620D
-        for <linux-man@vger.kernel.org>; Sun, 24 Jul 2022 10:29:50 -0700 (PDT)
-Received: by mail-oa1-x36.google.com with SMTP id 586e51a60fabf-f2a4c51c45so12126674fac.9
-        for <linux-man@vger.kernel.org>; Sun, 24 Jul 2022 10:29:50 -0700 (PDT)
+        with ESMTP id S229552AbiGXSm7 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 24 Jul 2022 14:42:59 -0400
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com [IPv6:2a00:1450:4864:20::32f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DE845DEDD
+        for <linux-man@vger.kernel.org>; Sun, 24 Jul 2022 11:42:58 -0700 (PDT)
+Received: by mail-wm1-x32f.google.com with SMTP id n185so5601651wmn.4
+        for <linux-man@vger.kernel.org>; Sun, 24 Jul 2022 11:42:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=LMrMClDkSTZw8DZ/aVRT0sfpaXmZKFXoFV1b4kzalw0=;
-        b=lksYV1py+ETth7RacSqLplzCkrc1zcFc7GOahDPX7mOhwYr34IWpHngfl9mDatLIH0
-         74ZdqzfAhXEIxD4FF81ZLsdaz2JppU2bJ3O4BVskCAlvi+xa6TrUGXGsgTEyxv2as0Bq
-         x++/ffmq6yIT6AnQitEisSWnkiipJOmeo/D4WiArXnhvaB3lSFrKTpOo59wJLGPqOBfC
-         4V2LNaxZpZf43R0Mhq+clWLrdQqZA6RI8Tjy/92tkxFu+RfMuGR7fkpJV+ogHKhBehXW
-         FHVPBNRPoAjUyfvsrcnfshEs9wjurE64RXHSW50TLP+5+7PafjKlAAeOT3gvrF952H5b
-         /OOA==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=3oqA/P+s4QPvJG4VQ/4tKszqd6NfrS7PAwX5ddDuGFU=;
+        b=RJSTNUP9cPipGx0H3zII71cjYU8t+DNs9EO4g0Onx2XklUIMCOaNPdL4mHC6Umu3No
+         0I7vAMQzkeu2X40WORraSQbo3Gaz6IOihN0mt76RnSp8immabfAqRAP9iZm2u5A1hfQv
+         xc/Pq9reVrsdAU67pWeOzHF0zINy6lUqeUPUku8oCW7E5r8YHrpou4smTDjZYaY0FxFw
+         LEXmJN6ezB7q0/BbPF5UNcyOQWIQXPBBNGyLRPAe+26jlElBGJK/qXj6YeiiH6jYyPjz
+         f7msxZf23pmfxAVsZ99EuB9GuOpdOMLFU+Z4N2jmCLAr6vO1DLNvDI6puGXu1UhI+tlH
+         EwVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=LMrMClDkSTZw8DZ/aVRT0sfpaXmZKFXoFV1b4kzalw0=;
-        b=S25XXlp1500JJ2NC9vgIs+LUFro/0uS4kaB5gIo0bp0JFM95wF3XVfrtbrIzDhtbyf
-         YPew3+WyfprMLFju65lZn0kwstEJh5EVsp+xIp6CEjXqztKqaFO6HTFNn/A/Ebjh20tY
-         MtH6Oxh9fvvBOLf8Y1KTZQImMdzzoEH009fpQ+lbfTRtCfm4qHz/orh58Y5rl3YHMzfj
-         FrjV2cARYbG3d7Irv7Q3r6K50uohkLDRfEqYhmrHEQZf6hi/q5IPPa9goQhD0B/Am2d2
-         P9ThNA+L4U6h8+qpyWwlCwJAI/tbJJ9GXcEg6B4FODJ1GZpW4NKNLT4wyOvPtwRYnRFW
-         WpjA==
-X-Gm-Message-State: AJIora+2vblG1tseGMRC9vwfz67gwQEgvy1fDJ214kugXn9OP/NHycm7
-        NKdvL6nZ5XSedTUrjcTVavVKHNLPvuEk+Q==
-X-Google-Smtp-Source: AGRyM1sOn95Rfer+V3PQ881d4920QxhHJt8epZErph+Pd0b35Z9N6JehjR8AtGN5Tw6BGOzSgLYT4A==
-X-Received: by 2002:a05:6870:c229:b0:10d:bf9d:a9c5 with SMTP id z41-20020a056870c22900b0010dbf9da9c5mr5630280oae.28.1658683790202;
-        Sun, 24 Jul 2022 10:29:50 -0700 (PDT)
-Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id s30-20020a056870611e00b0010d04a20030sm4754613oae.36.2022.07.24.10.29.48
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=3oqA/P+s4QPvJG4VQ/4tKszqd6NfrS7PAwX5ddDuGFU=;
+        b=TyKvJSIE8ksC6bb820swesnpVwYqN62zsrsQeDgjp4zq+B0Ecjg/rfZzXZlPzsGels
+         J7BxbZLSd6gtKkIo3wRUm8NaPADxXNuDC3u2LZr1cM+bNU0Ugvyk0rUkCtKA2/rk1eKQ
+         B/4Jq+aFtO+JhNF+1qkkoUFk7HdfqmfJ5SIo5o+v44Up9J9fIlxbh9pO2yGtUdqC16JW
+         juDMSsFX8dzTwQj+u7EHvrdK1BT1FwMNpFZ5Dp3UONdKw0c3G/iO86dn10lYZ7fEgXCd
+         J6J7fwnKhZl9KoZocD3AXPjb1xP/CoPyNw1WZuhUpxvRv8+B3kC+4jMUNgZqjE3jgdhk
+         Q+tQ==
+X-Gm-Message-State: AJIora8nz48+pNXod17OEwleo+JsbAHXJSKzIcpDOR9zGlD7byLehksy
+        Qn/+EUU4Weewu4aY3zge6fPVuglmdys=
+X-Google-Smtp-Source: AGRyM1t38NADNPF24wXWL2BgHYo+ecMpFvbAlDsSMgtpcanceGwz6QBB5zc0adc8l+JAI+WJONTk4Q==
+X-Received: by 2002:a1c:cc13:0:b0:3a2:d01e:54a1 with SMTP id h19-20020a1ccc13000000b003a2d01e54a1mr6225449wmb.164.1658688176371;
+        Sun, 24 Jul 2022 11:42:56 -0700 (PDT)
+Received: from asus5775.alejandro-colomar.es ([170.253.36.171])
+        by smtp.googlemail.com with ESMTPSA id m9-20020a056000024900b0021d746d4820sm10028659wrz.37.2022.07.24.11.42.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 24 Jul 2022 10:29:49 -0700 (PDT)
-Date:   Sun, 24 Jul 2022 12:29:47 -0500
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     Ingo Schwarze <schwarze@usta.de>
-Cc:     alx.manpages@gmail.com, Colin Watson <cjwatson@debian.org>,
-        linux-man@vger.kernel.org, man-db-devel@nongnu.org
-Subject: Semantic man(7) markup (was: Linux man-pages Makefile portability)
-Message-ID: <20220724172947.qlunrfnje56yaasv@illithid>
-References: <Yq+P39bpy2QEeaSd@asta-kit.de>
- <8b9daa0e-6f08-dd55-5772-51f5052ed8bb@gmail.com>
- <YrB66rgFZqryrmpt@asta-kit.de>
- <6e294373-2661-286c-09c4-e67cd84103d7@gmail.com>
- <fdde7402-5e69-b6ff-60fc-74ad9c9054f1@gmail.com>
- <YtrXbDo5NVxNT/cb@asta-kit.de>
- <80553a14-8f39-d4ad-def3-35d6551a31f3@gmail.com>
- <Ytw65nGl1qouSU5R@asta-kit.de>
- <ff01b98c-563f-dfd3-4996-65ff5e5f44ce@gmail.com>
- <Yt1r65RJemg3ecmO@asta-kit.de>
+        Sun, 24 Jul 2022 11:42:55 -0700 (PDT)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+To:     linux-man@vger.kernel.org
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>, groff@gnu.org,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        Ralph Corderoy <ralph@inputplus.co.uk>,
+        Ingo Schwarze <schwarze@usta.de>
+Subject: [PATCH] NULL.3const: Add documentation for NULL
+Date:   Sun, 24 Jul 2022 20:36:05 +0200
+Message-Id: <20220724183604.12355-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.36.1
+In-Reply-To: <20220722153127.14528-1-alx.manpages@gmail.com>
+References: <20220722153127.14528-1-alx.manpages@gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="hkugtf6b4f5m4acr"
-Content-Disposition: inline
-In-Reply-To: <Yt1r65RJemg3ecmO@asta-kit.de>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2425; h=from:subject; bh=hxYoJnwb+7gRIi21inz6EZsOsTPpHFmN1bwHBeGo+po=; b=owEBbQKS/ZANAwAKAZ6MGvu+/9syAcsmYgBi3ZELnSpcWfauLeFZnanA9cfrHC7elgcDKSTrg85V ++tUKeqJAjMEAAEKAB0WIQTqOofwpOugMORd8kCejBr7vv/bMgUCYt2RCwAKCRCejBr7vv/bMvIaEA Ci7eMJgjSsQKx7RAAXe6ZH2sF6lGx0SpOlobHAmimYtx+lJ/Xgfx4+Ki9qOH/1lQQ7d3NqgRMZdp3l sX0aABvBj+pRbKylWzOuPZaF6SYe6FpuEZlJPv6dcpgdyNhoUS3n/jH10slCnnNC5D43UES8aZFAdX Ltkmbysi1PlkFLgDU21X469R1Bmt2u0RjoRl/vl2/4UF4WdvoPXcvaox1VLzgOFAR3p+nvVzBamWDM HszVth2fV8hFZqKrWvCr89DmcLuCmy8EuEqXA4wO63aVN4tWLXFCUa3XPk0SQAJpVV41i7AzrwnvMZ 3G5S5UbKichyTbqKezNozrfF5hb4fEIXy0AWwxXEprRhmC4RiHKlRAx5UBpkWq4o69LepSK6kG1PXQ VIA6vy1HKwW4XuSKf2BwbTnI1Gpx7BZ5kefJFYc44qa0u/OkscXv4j3b6gRSzM1IF73P9xfM3zVADc KW7cTG7my2ftaCGnGfBqCnd2CW/Qos0qJs/AJrK7LwpUVwNVJfcgLIU+iBwEWleUD+xlt/S5OFe8VV m1P4UjX8iqEzi7b/Yki9Vl5MSlAvZS+24cmJlfDTQMxIKUl21G7lVmX7TNWHPAPTuYWxMah4w43vqr vxDrQM//Te8sEAso7GoqqkXm6kSlISn4uml0Zmpsz4ussEQlJXX79fe/iPow==
+X-Developer-Key: i=alx.manpages@gmail.com; a=openpgp; fpr=A9348594CE31283A826FBDD8D57633D441E25BB5
+Content-Transfer-Encoding: 8bit
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
@@ -79,162 +73,107 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Reported-by: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: Ralph Corderoy <ralph@inputplus.co.uk>
+Cc: Ingo Schwarze <schwarze@usta.de>
+Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+---
 
---hkugtf6b4f5m4acr
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+v2:
 
-At 2022-07-24T17:57:31+0200, Ingo Schwarze wrote:
-> Alejandro Colomar wrote on Sun, Jul 24, 2022 at 01:09:23PM +0200:
-> > On 7/23/22 20:16, Ingo Schwarze wrote:
-> >> The most widely used way to look up manual pages by the names of
-> >> symbolic constants or type names probably is using macro keys as
-> >> implemented in the mandoc version of apropos(1).  That is used by
-> >> most FreeBSD, OpenBSD, Alpine Linux, and Void Linux.  I admit that
-> >> doesn't qualify as "widely used", but "most widely used" is
-> >> probably true all the same.  ;-)
->=20
-> > That leaves out man(7).
+- Move to man3const [Ralph, Branden]
+- Added LIBRARY section
+- Added #include [Ralph]
+- Note that it can also be used as a function pointer [Ralph]
+- Document that 0 is another null pointer constant [Ralph]
+  But note that it's to be avoided by most coding standards [alx]
+- Note that NULL is not NUL
+- Improve wording about zeroing a pointer [Ralph]
+  And refer to getaddrinfo(3) for an example.
+  This probably can be further improved; I'm not convinced.
+- Trim SEE ALSO to just void(3type)
+- Other minor fixes
 
-Perhaps not for long...
+ man3const/NULL.3const | 70 +++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 70 insertions(+)
+ create mode 100644 man3const/NULL.3const
 
-> Yes.  Searching for preprocessor constants and searching for data
-> type names are essentially semantic search features.  So it is
-> your choice to pick a 197x-era markup language that does not provide
-> semantic markup but only physical markup.  But than it feels
-> irrational to me to turn around and complain not getting semantic
-> search.  Unless you are a Prime Minister, you cannot have your cake
-> and eat it.
->=20
-> Trying to work around the lack of semantic markup by moving
-> everything into the manual page names feels like very poor design
-> to me.
+diff --git a/man3const/NULL.3const b/man3const/NULL.3const
+new file mode 100644
+index 000000000..1b0cb7948
+--- /dev/null
++++ b/man3const/NULL.3const
+@@ -0,0 +1,70 @@
++.\" Copyright (c) 2022 by Alejandro Colomar <colomar.6.4.3@gmail.com>
++.\"
++.\" SPDX-License-Identifier: Linux-man-pages-copyleft
++.\"
++.\"
++.TH NULL 3const 2022-07-22 Linux "Linux Programmer's Manual"
++.SH NAME
++NULL \- null pointer constant
++.SH LIBRARY
++Standard C library
++.RI ( libc )
++.SH SYNOPSIS
++.nf
++.B #include <stddef.h>
++.PP
++.B "#define NULL  ((void *) 0)"
++.fi
++.SH DESCRIPTION
++.B NULL
++represents a null pointer constant.
++.PP
++According to POSIX,
++it shall expand to an integer constant expression with the value
++.B 0
++cast to type
++.IR "void *" .
++.PP
++A null pointer is one that doesn't point to a valid object or function.
++.SH CONFORMING TO
++C99 and later;
++POSIX.1-2001 and later.
++.SH NOTES
++It is undefined behavior to dereference a null pointer
++or to perform pointer arithmetics on it.
++.I NULL \- NULL
++is, surprisingly, undefined behavior, according to ISO C.
++.PP
++.B 0
++also represents a null pointer constant
++when used in a context where a pointer is expected.
++This is considered bad practise by most coding guidelines,
++since it can be very confusing,
++and so
++.B NULL
++is preferred.
++.PP
++.B NULL
++shouldn't be confused with
++.BR NUL ,
++which is an
++.BR ascii (7)
++character,
++represented in C as
++.BR \(aq\e0\(aq .
++.SH BUGS
++When it is necessary to set a pointer variable to a null pointer,
++it is not enough to use
++.BR memset (3)
++to zero the pointer
++(this is usually done when zeroing a struct that contains pointers),
++since ISO C and POSIX don't guarantee that a bit pattern of all
++.BR 0 s
++would represent a null pointer.
++Instead, pointer variables need to be explicitly set to a null pointer
++when they need to hold a null pointer.
++See the EXAMPLES section in
++.BR getaddrinfo (3)
++for an example program that does this.
++.SH SEE ALSO
++.BR void (3type)
+-- 
+2.36.1
 
-It will not surprise, but might horrify, Ingo to learn that I have an
-idea for how to add semantic markup to man(7).
-
-Consider this hypothetical example.
-
-  $ cat man3/man-pages.man
-  .DC type B
-  .DC field I
-  $ cat man3/tm.3type
-  .so man3/man-pages.man
-[...]
-  .SH DESCRIPTION
-  .TG type "struct tm"
-  describes time, broken down into distinct components.
-  .PP
-  .TG field tm_isdst
-  describes wether daylight saving time is in effect at the time
-  described.
-[...]
-
-Here, "DC" means "define class", a class of tags.  "TG", if one could
-not guess, declares a tag of the type in its first argument with the
-remaining arguments being the content thus tagged.
-
-Returning to "DC", we see that it takes a second argument naming a macro
-to call which will then apply any desired presentational markup to style
-the tagged word.  This second argument need not be present.  In other
-words, tagged content need not be visually distinct from its
-surroundings.  Even in that event, it can still be useful; see #1 below.
-
-Further, it will be obvious to the experienced *roff user that the macro
-called by DC to style the applicable arguments given to TG need not even
-be part of the man(7) language.
-
-You could populate "man-pages.man" like this.
-
-  $ cat man3/man-pages.man
-  .de CW
-  .  ie t \&\f[CR]\\$*\f[]
-  .  el   \&\\$*
-  ..
-  .DC type CW
-  .DC field I
-
-This technique breaks the stranglehold of the man(7) font selection
-macros.  (You're still limited by the output device's font repertoire,
-however.)  If rendering to PostScript or PDF, you could decide to style
-certain tags in Zapf Chancery Medium italic, if you wished.  (I cannot
-warrant that you won't get yelled at.)
-
-Here are a few perhaps less obvious things this approach would offer.
-
-1.  It enables keyword search by tag.  Whatever does the searching need
-    only look for "TG" calls, match the class argument, and return the
-    remainder.  A search could be narrowed by limiting both the class
-    _and_ the keyword arguments of course, perhaps to answer questions
-    like "what pages use 'stat' as data type?".
-
-2.  Degraded operation for other/older man(7) implementations is
-    straightforward.  'DC' can be completely ignored.  'TG' can be
-    defined as follows.
-
-    .de TG
-    \&\\$*
-    ..
-
-    or, for truly bloody-minded portability, thus.
-
-    .de TG
-    \&\\$1 \\$2 \\$3 \\$4 \\$5 \\$6 \\$7 \\$8 \\$9
-    ..
-
-3.  Everyday man(7) page authors need only learn 'TG' and the available
-    list of keywords for the suite of man pages to which they are
-    contributing.  Hammering out the repertoire of available tag classes
-    and the surely monumental bikeshedding of text styling decisions to
-    be associated with each tag class is delegated to the project that
-    chooses to define them.  The man(7) macro package itself will impose
-    no policy and may not even define any tag classes to start with.
-    (groff would have some for its own man pages, of course, as I would
-    expect Linux man-pages to do.)
-
-4.  Site admins offended at the styling decisions undertaken by various
-    projects could reliably override them by editing the files sourced
-    by the relevant man pages.  Maybe those should live in /etc rather
-    than the man page hierarchy proper.
-
-5.  Misspelling a tag class or using an unavailable one is an error that
-    would be easily diagnosed and reported.
-
-To reiterate, groff man(7) would impose no policy regarding the tag
-classes or their rendering on anyone.  It similarly would escape the
-ongoing problem that mdoc(7) chose for itself by administering
-centralized authoritative lists of standards documents, operating system
-releases, and other lexica.  Tagful man(7) pages under my proposal would
-opt into whatever keyword/class discipline they desire, or not at all.
-
-I am not wedded to the nomenclature for the included files, nor the `DC`
-or `TG` macros, except to note that the macro names are available.
-(`DT`, putatively for "define tag", is not.  It is already taken.)
-
-I stand ready for the hail of rotten tomatoes.
-
-Regards,
-Branden
-
---hkugtf6b4f5m4acr
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmLdgYMACgkQ0Z6cfXEm
-bc48YQ/8C38/l0Bp00At2D+gui3vbJhK1M4jUxIYpDkyKNIkO5rEIxSVNgkQN62t
-mzXNdKXh0SxP9tM1Vfps2wtzAV6YkdcBWrTlKDjh1t6WLDcOlgNkj6YYsFt85k7a
-5WE0/oXruLSYWaAsZ+M8KGPjMXo6zrkOSyi/xVOHnUaYvXLKVK4QiuN357HnImEK
-jBdX3JyUnscd5aKDLqedjr79dbUcbQapooG4DX7Qry+KqkD8DPOQmGJ3r179vMxH
-Zr6j4Rxnap7KcWPTwzw2AwR/m6tuSdEDkt2OaHmAxTpLmkpmgNKD3chsni534hKt
-tbasL9EgRHE+H3anwtaGMDaAM8v/fGu+MyaKCl4Nzvjgteo2TcPwDc1I1XsKwuP1
-wD1QaI2YhwWbocWUIB2y60w07wNGI3bPRpv7MVVLjyUNz64GSLl4afsFguh5eDPz
-zh/56FwTzwAWjyTdGDNxqsW6PB4pEru40dG9XZTT+pOwPPMIQIzSTc2UFw6zpqtk
-moubJH7OskujIZNeWHrN9N7BITkmiwIZChHPrgDky2Zg2QvyrXcpoMG4IaqyTbvO
-Qvje9niBoSqwCNjTOhNDkFvtyREUbAc215amFQaS5iWqK9JyrWj+ZmbHIveZS7CL
-pDz5Z1vxS/WTncjqBfQFwoHxNztXXiKdePGkqAIGtsucHHEmmKk=
-=4LVT
------END PGP SIGNATURE-----
-
---hkugtf6b4f5m4acr--
