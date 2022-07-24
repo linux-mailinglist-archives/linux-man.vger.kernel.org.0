@@ -2,65 +2,65 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id ECD2257F68F
-	for <lists+linux-man@lfdr.de>; Sun, 24 Jul 2022 20:43:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 27CFF57F6B4
+	for <lists+linux-man@lfdr.de>; Sun, 24 Jul 2022 21:21:42 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231591AbiGXSnA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 24 Jul 2022 14:43:00 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60796 "EHLO
+        id S229579AbiGXTVl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 24 Jul 2022 15:21:41 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46920 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229552AbiGXSm7 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 24 Jul 2022 14:42:59 -0400
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com [IPv6:2a00:1450:4864:20::32f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DE845DEDD
-        for <linux-man@vger.kernel.org>; Sun, 24 Jul 2022 11:42:58 -0700 (PDT)
-Received: by mail-wm1-x32f.google.com with SMTP id n185so5601651wmn.4
-        for <linux-man@vger.kernel.org>; Sun, 24 Jul 2022 11:42:58 -0700 (PDT)
+        with ESMTP id S229542AbiGXTVk (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 24 Jul 2022 15:21:40 -0400
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com [IPv6:2a00:1450:4864:20::431])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 72F87EE0F
+        for <linux-man@vger.kernel.org>; Sun, 24 Jul 2022 12:21:39 -0700 (PDT)
+Received: by mail-wr1-x431.google.com with SMTP id v13so5464083wru.12
+        for <linux-man@vger.kernel.org>; Sun, 24 Jul 2022 12:21:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=3oqA/P+s4QPvJG4VQ/4tKszqd6NfrS7PAwX5ddDuGFU=;
-        b=RJSTNUP9cPipGx0H3zII71cjYU8t+DNs9EO4g0Onx2XklUIMCOaNPdL4mHC6Umu3No
-         0I7vAMQzkeu2X40WORraSQbo3Gaz6IOihN0mt76RnSp8immabfAqRAP9iZm2u5A1hfQv
-         xc/Pq9reVrsdAU67pWeOzHF0zINy6lUqeUPUku8oCW7E5r8YHrpou4smTDjZYaY0FxFw
-         LEXmJN6ezB7q0/BbPF5UNcyOQWIQXPBBNGyLRPAe+26jlElBGJK/qXj6YeiiH6jYyPjz
-         f7msxZf23pmfxAVsZ99EuB9GuOpdOMLFU+Z4N2jmCLAr6vO1DLNvDI6puGXu1UhI+tlH
-         EwVA==
+        bh=ULcTSEMRsjeZ737G7sf9Eic55W05F2BkapQEP5XJPbA=;
+        b=jTPoFsNm9zf4USwu/7UOe8N6Pp3oK2IkAMLKNcxyDLSYZsQgE5WMEgAA0B1Cn3Ciw/
+         QAuFbP0qv8mE28Shs3B3D3dolhEsYhmvVwkpYh6fqIIhQIyWZno7chE+pghxiQ3kcz3T
+         /F0aGk8SoCZRSrLBMRBanCsMAmQjZUxsJcfRpKEDkx0DgL1Qqf7oeYd9AxXl8xAJs5dn
+         EJPDWxcRwrgHkKKrD9oguSaGdYwfYH85qisOoOO7Qpi1Fc4IS/ZQQQ0Gz7i+FNXDLoQU
+         WJgCaSkSjuKCGgYdZELfA+QBC2doeUQsbo01TRobvDQaOITnKhz+Lqj96xEvKsAsiadc
+         LmMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=3oqA/P+s4QPvJG4VQ/4tKszqd6NfrS7PAwX5ddDuGFU=;
-        b=TyKvJSIE8ksC6bb820swesnpVwYqN62zsrsQeDgjp4zq+B0Ecjg/rfZzXZlPzsGels
-         J7BxbZLSd6gtKkIo3wRUm8NaPADxXNuDC3u2LZr1cM+bNU0Ugvyk0rUkCtKA2/rk1eKQ
-         B/4Jq+aFtO+JhNF+1qkkoUFk7HdfqmfJ5SIo5o+v44Up9J9fIlxbh9pO2yGtUdqC16JW
-         juDMSsFX8dzTwQj+u7EHvrdK1BT1FwMNpFZ5Dp3UONdKw0c3G/iO86dn10lYZ7fEgXCd
-         J6J7fwnKhZl9KoZocD3AXPjb1xP/CoPyNw1WZuhUpxvRv8+B3kC+4jMUNgZqjE3jgdhk
-         Q+tQ==
-X-Gm-Message-State: AJIora8nz48+pNXod17OEwleo+JsbAHXJSKzIcpDOR9zGlD7byLehksy
-        Qn/+EUU4Weewu4aY3zge6fPVuglmdys=
-X-Google-Smtp-Source: AGRyM1t38NADNPF24wXWL2BgHYo+ecMpFvbAlDsSMgtpcanceGwz6QBB5zc0adc8l+JAI+WJONTk4Q==
-X-Received: by 2002:a1c:cc13:0:b0:3a2:d01e:54a1 with SMTP id h19-20020a1ccc13000000b003a2d01e54a1mr6225449wmb.164.1658688176371;
-        Sun, 24 Jul 2022 11:42:56 -0700 (PDT)
+        bh=ULcTSEMRsjeZ737G7sf9Eic55W05F2BkapQEP5XJPbA=;
+        b=SXjNosNhHsCoK+QD1tESOYLdQX3Ie8z4WPLf/eWGAZMi9OZ5XkwC3FTSjnotUyedpY
+         31NBU3aB68kY2r5lePH54u6jdWFT9WDWTw5pXegTUCITYP1ooqJ81kHVHd1JO1s1M+//
+         x3GOVvLtTJ4UoLuCK7SygzpcJ2S1bA9zE/aOrtRER4mDCYOk0lb6OzCcafgN/hP4bYoE
+         88VwkHnd43ImA0nRRifrh+joG0H+ANMAsX2ZahltQuOhqnQsOCtEjEO5gStpBX0yM/ai
+         As5rZOktsaMrvN1heqcYQaboROBZeFOzkMPExsRB6tvY47/NAQM+n3AyQWq6ZmXZ3f9g
+         RKgg==
+X-Gm-Message-State: AJIora9iAkUMqsRC6xd7/HA0JfZKT5iZpMNW1ddfSAlJnMDYC8SK3GFy
+        pp7/H4eXloHgxLBYZzBElvuqTaikris=
+X-Google-Smtp-Source: AGRyM1umNSZ8roYu7AqaCNomDMNJmX5ABS/zCHvPJ1bQuyBl4fnYtdMY+DHLbaP/dnyWGovgWzBCTg==
+X-Received: by 2002:adf:fc85:0:b0:21e:5922:1965 with SMTP id g5-20020adffc85000000b0021e59221965mr6016190wrr.299.1658690497896;
+        Sun, 24 Jul 2022 12:21:37 -0700 (PDT)
 Received: from asus5775.alejandro-colomar.es ([170.253.36.171])
-        by smtp.googlemail.com with ESMTPSA id m9-20020a056000024900b0021d746d4820sm10028659wrz.37.2022.07.24.11.42.55
+        by smtp.googlemail.com with ESMTPSA id m20-20020a05600c4f5400b003976fbfbf00sm12827547wmq.30.2022.07.24.12.21.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 24 Jul 2022 11:42:55 -0700 (PDT)
+        Sun, 24 Jul 2022 12:21:37 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     linux-man@vger.kernel.org
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>, groff@gnu.org,
         "G. Branden Robinson" <g.branden.robinson@gmail.com>,
         Ralph Corderoy <ralph@inputplus.co.uk>,
         Ingo Schwarze <schwarze@usta.de>
-Subject: [PATCH] NULL.3const: Add documentation for NULL
-Date:   Sun, 24 Jul 2022 20:36:05 +0200
-Message-Id: <20220724183604.12355-1-alx.manpages@gmail.com>
+Subject: [PATCH v3] NULL.3const: Add documentation for NULL
+Date:   Sun, 24 Jul 2022 21:19:32 +0200
+Message-Id: <20220724191931.15683-1-alx.manpages@gmail.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220722153127.14528-1-alx.manpages@gmail.com>
 References: <20220722153127.14528-1-alx.manpages@gmail.com>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2425; h=from:subject; bh=hxYoJnwb+7gRIi21inz6EZsOsTPpHFmN1bwHBeGo+po=; b=owEBbQKS/ZANAwAKAZ6MGvu+/9syAcsmYgBi3ZELnSpcWfauLeFZnanA9cfrHC7elgcDKSTrg85V ++tUKeqJAjMEAAEKAB0WIQTqOofwpOugMORd8kCejBr7vv/bMgUCYt2RCwAKCRCejBr7vv/bMvIaEA Ci7eMJgjSsQKx7RAAXe6ZH2sF6lGx0SpOlobHAmimYtx+lJ/Xgfx4+Ki9qOH/1lQQ7d3NqgRMZdp3l sX0aABvBj+pRbKylWzOuPZaF6SYe6FpuEZlJPv6dcpgdyNhoUS3n/jH10slCnnNC5D43UES8aZFAdX Ltkmbysi1PlkFLgDU21X469R1Bmt2u0RjoRl/vl2/4UF4WdvoPXcvaox1VLzgOFAR3p+nvVzBamWDM HszVth2fV8hFZqKrWvCr89DmcLuCmy8EuEqXA4wO63aVN4tWLXFCUa3XPk0SQAJpVV41i7AzrwnvMZ 3G5S5UbKichyTbqKezNozrfF5hb4fEIXy0AWwxXEprRhmC4RiHKlRAx5UBpkWq4o69LepSK6kG1PXQ VIA6vy1HKwW4XuSKf2BwbTnI1Gpx7BZ5kefJFYc44qa0u/OkscXv4j3b6gRSzM1IF73P9xfM3zVADc KW7cTG7my2ftaCGnGfBqCnd2CW/Qos0qJs/AJrK7LwpUVwNVJfcgLIU+iBwEWleUD+xlt/S5OFe8VV m1P4UjX8iqEzi7b/Yki9Vl5MSlAvZS+24cmJlfDTQMxIKUl21G7lVmX7TNWHPAPTuYWxMah4w43vqr vxDrQM//Te8sEAso7GoqqkXm6kSlISn4uml0Zmpsz4ussEQlJXX79fe/iPow==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2609; h=from:subject; bh=v6qUMq8XCa86yEBiRImdr2BQssO6Y7d5ryJp1BruaU0=; b=owEBbQKS/ZANAwAKAZ6MGvu+/9syAcsmYgBi3Zs5W64yyoZpyacmU00JzGcq/qCEoO2kih5MFx2m QCwlJNiJAjMEAAEKAB0WIQTqOofwpOugMORd8kCejBr7vv/bMgUCYt2bOQAKCRCejBr7vv/bMmcrEA CfksgJi4WUISI+W4alcwtqOL3j+Ulpqs887IHxuzPGV5vQUShgDJYzbdrXWbeE42Ap6KXPkldokyIm aFWmmfqaNw7QnNbuHsZm56Uf9DaW1gji/tHq9lhZj1Ps3/GzH7K23fURNoNueM9xCNOJYQ9wzKnivc 8mhu8si2K2pQNSDjbvELhyjM4m7J180PD+0UyMSqi2Q5rMdFTI3YfPcRBptRL9udAWmrFbR7cTUKgS MTilYnLqQkOyymxkZv2xBgjgHk419iYcBu4ueAkrfBDfIPb1Y3EPyhhpj4gJgdwTo+9jaMy3nVX+fj 5IrugAL7FMlRjZwuhfq1TcKGWHAuAA0WIujvZ5guz8AMe3fJSB6FnozkWDnulLTHIi2w4RHKSh5tjG KUrfFOWLBmxbCxO2sB97lub2WAaYE55COerdk5ZoTVLroOn5yBQYalNfSaR/f/9iHw+GmQP13WdD82 mjRnNwhZ8vBfqdLw7et+l4ng4k9JbcyONkGFPozzgscCeVq+XXYZ1KF9Xt3jSPyTtqoPp4t29DdBuy 9nIVjADlFB6JSAYOyEqJS8HCQM081scDeoGvha/P5i7EArH62DG0q39FkRSs/bO18EZY0G1fDgkv9c 9o6D/UnQYNtOZdMHZu/DKmg3NKviOleerpwM8rPKXEvUCDqObGpFxrEk1oiA==
 X-Developer-Key: i=alx.manpages@gmail.com; a=openpgp; fpr=A9348594CE31283A826FBDD8D57633D441E25BB5
 Content-Transfer-Encoding: 8bit
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
@@ -79,6 +79,7 @@ Cc: Ingo Schwarze <schwarze@usta.de>
 Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
 ---
 
+
 v2:
 
 - Move to man3const [Ralph, Branden]
@@ -94,16 +95,23 @@ v2:
 - Trim SEE ALSO to just void(3type)
 - Other minor fixes
 
- man3const/NULL.3const | 70 +++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 70 insertions(+)
+v3:
+
+- Don't boldface 0s, since it doesn't refer to the literal constant 0,
+  but to the bit pattern of 0s.
+- Add list of headers that also define NULL (per POSIX.1-2008).
+
+
+ man3const/NULL.3const | 80 +++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 80 insertions(+)
  create mode 100644 man3const/NULL.3const
 
 diff --git a/man3const/NULL.3const b/man3const/NULL.3const
 new file mode 100644
-index 000000000..1b0cb7948
+index 000000000..730f670fe
 --- /dev/null
 +++ b/man3const/NULL.3const
-@@ -0,0 +1,70 @@
+@@ -0,0 +1,80 @@
 +.\" Copyright (c) 2022 by Alejandro Colomar <colomar.6.4.3@gmail.com>
 +.\"
 +.\" SPDX-License-Identifier: Linux-man-pages-copyleft
@@ -158,14 +166,24 @@ index 000000000..1b0cb7948
 +character,
 +represented in C as
 +.BR \(aq\e0\(aq .
++.PP
++The following headers also provide
++.BR NULL :
++.IR <locale.h> ,
++.IR <stdio.h> ,
++.IR <stdlib.h> ,
++.IR <string.h> ,
++.IR <time.h> ,
++.IR <unistd.h> ,
++and
++.IR <wchar.h> .
 +.SH BUGS
 +When it is necessary to set a pointer variable to a null pointer,
 +it is not enough to use
 +.BR memset (3)
 +to zero the pointer
 +(this is usually done when zeroing a struct that contains pointers),
-+since ISO C and POSIX don't guarantee that a bit pattern of all
-+.BR 0 s
++since ISO C and POSIX don't guarantee that a bit pattern of all 0s
 +would represent a null pointer.
 +Instead, pointer variables need to be explicitly set to a null pointer
 +when they need to hold a null pointer.
