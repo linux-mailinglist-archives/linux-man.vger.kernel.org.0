@@ -2,196 +2,389 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 27CFF57F6B4
-	for <lists+linux-man@lfdr.de>; Sun, 24 Jul 2022 21:21:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5146A57F732
+	for <lists+linux-man@lfdr.de>; Sun, 24 Jul 2022 23:26:15 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229579AbiGXTVl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 24 Jul 2022 15:21:41 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46920 "EHLO
+        id S230373AbiGXV0O (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 24 Jul 2022 17:26:14 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34282 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229542AbiGXTVk (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 24 Jul 2022 15:21:40 -0400
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com [IPv6:2a00:1450:4864:20::431])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 72F87EE0F
-        for <linux-man@vger.kernel.org>; Sun, 24 Jul 2022 12:21:39 -0700 (PDT)
-Received: by mail-wr1-x431.google.com with SMTP id v13so5464083wru.12
-        for <linux-man@vger.kernel.org>; Sun, 24 Jul 2022 12:21:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=ULcTSEMRsjeZ737G7sf9Eic55W05F2BkapQEP5XJPbA=;
-        b=jTPoFsNm9zf4USwu/7UOe8N6Pp3oK2IkAMLKNcxyDLSYZsQgE5WMEgAA0B1Cn3Ciw/
-         QAuFbP0qv8mE28Shs3B3D3dolhEsYhmvVwkpYh6fqIIhQIyWZno7chE+pghxiQ3kcz3T
-         /F0aGk8SoCZRSrLBMRBanCsMAmQjZUxsJcfRpKEDkx0DgL1Qqf7oeYd9AxXl8xAJs5dn
-         EJPDWxcRwrgHkKKrD9oguSaGdYwfYH85qisOoOO7Qpi1Fc4IS/ZQQQ0Gz7i+FNXDLoQU
-         WJgCaSkSjuKCGgYdZELfA+QBC2doeUQsbo01TRobvDQaOITnKhz+Lqj96xEvKsAsiadc
-         LmMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=ULcTSEMRsjeZ737G7sf9Eic55W05F2BkapQEP5XJPbA=;
-        b=SXjNosNhHsCoK+QD1tESOYLdQX3Ie8z4WPLf/eWGAZMi9OZ5XkwC3FTSjnotUyedpY
-         31NBU3aB68kY2r5lePH54u6jdWFT9WDWTw5pXegTUCITYP1ooqJ81kHVHd1JO1s1M+//
-         x3GOVvLtTJ4UoLuCK7SygzpcJ2S1bA9zE/aOrtRER4mDCYOk0lb6OzCcafgN/hP4bYoE
-         88VwkHnd43ImA0nRRifrh+joG0H+ANMAsX2ZahltQuOhqnQsOCtEjEO5gStpBX0yM/ai
-         As5rZOktsaMrvN1heqcYQaboROBZeFOzkMPExsRB6tvY47/NAQM+n3AyQWq6ZmXZ3f9g
-         RKgg==
-X-Gm-Message-State: AJIora9iAkUMqsRC6xd7/HA0JfZKT5iZpMNW1ddfSAlJnMDYC8SK3GFy
-        pp7/H4eXloHgxLBYZzBElvuqTaikris=
-X-Google-Smtp-Source: AGRyM1umNSZ8roYu7AqaCNomDMNJmX5ABS/zCHvPJ1bQuyBl4fnYtdMY+DHLbaP/dnyWGovgWzBCTg==
-X-Received: by 2002:adf:fc85:0:b0:21e:5922:1965 with SMTP id g5-20020adffc85000000b0021e59221965mr6016190wrr.299.1658690497896;
-        Sun, 24 Jul 2022 12:21:37 -0700 (PDT)
-Received: from asus5775.alejandro-colomar.es ([170.253.36.171])
-        by smtp.googlemail.com with ESMTPSA id m20-20020a05600c4f5400b003976fbfbf00sm12827547wmq.30.2022.07.24.12.21.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 24 Jul 2022 12:21:37 -0700 (PDT)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     linux-man@vger.kernel.org
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>, groff@gnu.org,
-        "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        Ralph Corderoy <ralph@inputplus.co.uk>,
-        Ingo Schwarze <schwarze@usta.de>
-Subject: [PATCH v3] NULL.3const: Add documentation for NULL
-Date:   Sun, 24 Jul 2022 21:19:32 +0200
-Message-Id: <20220724191931.15683-1-alx.manpages@gmail.com>
-X-Mailer: git-send-email 2.36.1
-In-Reply-To: <20220722153127.14528-1-alx.manpages@gmail.com>
-References: <20220722153127.14528-1-alx.manpages@gmail.com>
+        with ESMTP id S229533AbiGXV0N (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 24 Jul 2022 17:26:13 -0400
+Received: from scc-mailout-kit-02-level5.scc.kit.edu (scc-mailout-kit-02-level5.scc.kit.edu [IPv6:2a00:1398:9:f712::810d:e765])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E1369B49A
+        for <linux-man@vger.kernel.org>; Sun, 24 Jul 2022 14:26:10 -0700 (PDT)
+Received: from hekate.asta.kit.edu ([2a00:1398:5:f401::77])
+        by scc-mailout-kit-02.scc.kit.edu with esmtps (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+        (envelope-from <schwarze@usta.de>)
+        id 1oFj72-005w31-NX; Sun, 24 Jul 2022 23:26:09 +0200
+Received: from login-1.asta.kit.edu ([2a00:1398:5:f400::72])
+        by hekate.asta.kit.edu with esmtp (Exim 4.94.2)
+        (envelope-from <schwarze@usta.de>)
+        id 1oFj71-006mg2-Ui; Sun, 24 Jul 2022 23:26:07 +0200
+Received: from schwarze by login-1.asta.kit.edu with local (Exim 4.92)
+        (envelope-from <schwarze@usta.de>)
+        id 1oFj71-0002Hv-Tw; Sun, 24 Jul 2022 23:26:07 +0200
+Date:   Sun, 24 Jul 2022 23:26:07 +0200
+From:   Ingo Schwarze <schwarze@usta.de>
+To:     g.branden.robinson@gmail.com
+Cc:     alx.manpages@gmail.com, Colin Watson <cjwatson@debian.org>,
+        linux-man@vger.kernel.org, man-db-devel@nongnu.org
+Subject: Re: Semantic man(7) markup (was: Linux man-pages Makefile
+ portability)
+Message-ID: <Yt2473ZPmukEo584@asta-kit.de>
+References: <8b9daa0e-6f08-dd55-5772-51f5052ed8bb@gmail.com>
+ <YrB66rgFZqryrmpt@asta-kit.de>
+ <6e294373-2661-286c-09c4-e67cd84103d7@gmail.com>
+ <fdde7402-5e69-b6ff-60fc-74ad9c9054f1@gmail.com>
+ <YtrXbDo5NVxNT/cb@asta-kit.de>
+ <80553a14-8f39-d4ad-def3-35d6551a31f3@gmail.com>
+ <Ytw65nGl1qouSU5R@asta-kit.de>
+ <ff01b98c-563f-dfd3-4996-65ff5e5f44ce@gmail.com>
+ <Yt1r65RJemg3ecmO@asta-kit.de>
+ <20220724172947.qlunrfnje56yaasv@illithid>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2609; h=from:subject; bh=v6qUMq8XCa86yEBiRImdr2BQssO6Y7d5ryJp1BruaU0=; b=owEBbQKS/ZANAwAKAZ6MGvu+/9syAcsmYgBi3Zs5W64yyoZpyacmU00JzGcq/qCEoO2kih5MFx2m QCwlJNiJAjMEAAEKAB0WIQTqOofwpOugMORd8kCejBr7vv/bMgUCYt2bOQAKCRCejBr7vv/bMmcrEA CfksgJi4WUISI+W4alcwtqOL3j+Ulpqs887IHxuzPGV5vQUShgDJYzbdrXWbeE42Ap6KXPkldokyIm aFWmmfqaNw7QnNbuHsZm56Uf9DaW1gji/tHq9lhZj1Ps3/GzH7K23fURNoNueM9xCNOJYQ9wzKnivc 8mhu8si2K2pQNSDjbvELhyjM4m7J180PD+0UyMSqi2Q5rMdFTI3YfPcRBptRL9udAWmrFbR7cTUKgS MTilYnLqQkOyymxkZv2xBgjgHk419iYcBu4ueAkrfBDfIPb1Y3EPyhhpj4gJgdwTo+9jaMy3nVX+fj 5IrugAL7FMlRjZwuhfq1TcKGWHAuAA0WIujvZ5guz8AMe3fJSB6FnozkWDnulLTHIi2w4RHKSh5tjG KUrfFOWLBmxbCxO2sB97lub2WAaYE55COerdk5ZoTVLroOn5yBQYalNfSaR/f/9iHw+GmQP13WdD82 mjRnNwhZ8vBfqdLw7et+l4ng4k9JbcyONkGFPozzgscCeVq+XXYZ1KF9Xt3jSPyTtqoPp4t29DdBuy 9nIVjADlFB6JSAYOyEqJS8HCQM081scDeoGvha/P5i7EArH62DG0q39FkRSs/bO18EZY0G1fDgkv9c 9o6D/UnQYNtOZdMHZu/DKmg3NKviOleerpwM8rPKXEvUCDqObGpFxrEk1oiA==
-X-Developer-Key: i=alx.manpages@gmail.com; a=openpgp; fpr=A9348594CE31283A826FBDD8D57633D441E25BB5
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
-        autolearn_force=no version=3.4.6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220724172947.qlunrfnje56yaasv@illithid>
+X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_LOW,
+        SPF_HELO_NONE,SPF_NONE autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Reported-by: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: Ralph Corderoy <ralph@inputplus.co.uk>
-Cc: Ingo Schwarze <schwarze@usta.de>
-Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
----
+Hi Branden,
 
+> I stand ready for the hail of rotten tomatoes.
 
-v2:
+I hope you are not surprised that i'll try to answer constructively.
 
-- Move to man3const [Ralph, Branden]
-- Added LIBRARY section
-- Added #include [Ralph]
-- Note that it can also be used as a function pointer [Ralph]
-- Document that 0 is another null pointer constant [Ralph]
-  But note that it's to be avoided by most coding standards [alx]
-- Note that NULL is not NUL
-- Improve wording about zeroing a pointer [Ralph]
-  And refer to getaddrinfo(3) for an example.
-  This probably can be further improved; I'm not convinced.
-- Trim SEE ALSO to just void(3type)
-- Other minor fixes
+Even though i'm not sure how relevent such an early design draft
+is for linux-man@ or man-db-devel@, i'm not trimming the distribution
+list just yet, but you might perhaps wish to consider choosing one
+appropriate forum rather than cross-posting a design effort that is
+likely to be long and difficult to three lists.
 
-v3:
+G. Branden Robinson wrote on Sun, Jul 24, 2022 at 12:29:47PM -0500:
 
-- Don't boldface 0s, since it doesn't refer to the literal constant 0,
-  but to the bit pattern of 0s.
-- Add list of headers that also define NULL (per POSIX.1-2008).
+> It will not surprise, but might horrify, Ingo to learn that I have an
+> idea for how to add semantic markup to man(7).
 
+It does not surprise me, you have already moved ahead with adding new
+syntax to man(7), though so far in a piece-meal manner.  It would only
+horrify me if this were done badly.
 
- man3const/NULL.3const | 80 +++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 80 insertions(+)
- create mode 100644 man3const/NULL.3const
+Since this is an early draft, it is not a surpise that i will raise
+several points of the kind "won't work as you apparently hope" below.
+That's not intended as denigration.  In an early design phase, it
+is normal that not every idea is viable.  The job is to find the
+working ideas in a larger pool of potential ideas and hammer them
+into a working whole of minimal complexity that does the job.
 
-diff --git a/man3const/NULL.3const b/man3const/NULL.3const
-new file mode 100644
-index 000000000..730f670fe
---- /dev/null
-+++ b/man3const/NULL.3const
-@@ -0,0 +1,80 @@
-+.\" Copyright (c) 2022 by Alejandro Colomar <colomar.6.4.3@gmail.com>
-+.\"
-+.\" SPDX-License-Identifier: Linux-man-pages-copyleft
-+.\"
-+.\"
-+.TH NULL 3const 2022-07-22 Linux "Linux Programmer's Manual"
-+.SH NAME
-+NULL \- null pointer constant
-+.SH LIBRARY
-+Standard C library
-+.RI ( libc )
-+.SH SYNOPSIS
-+.nf
-+.B #include <stddef.h>
-+.PP
-+.B "#define NULL  ((void *) 0)"
-+.fi
-+.SH DESCRIPTION
-+.B NULL
-+represents a null pointer constant.
-+.PP
-+According to POSIX,
-+it shall expand to an integer constant expression with the value
-+.B 0
-+cast to type
-+.IR "void *" .
-+.PP
-+A null pointer is one that doesn't point to a valid object or function.
-+.SH CONFORMING TO
-+C99 and later;
-+POSIX.1-2001 and later.
-+.SH NOTES
-+It is undefined behavior to dereference a null pointer
-+or to perform pointer arithmetics on it.
-+.I NULL \- NULL
-+is, surprisingly, undefined behavior, according to ISO C.
-+.PP
-+.B 0
-+also represents a null pointer constant
-+when used in a context where a pointer is expected.
-+This is considered bad practise by most coding guidelines,
-+since it can be very confusing,
-+and so
-+.B NULL
-+is preferred.
-+.PP
-+.B NULL
-+shouldn't be confused with
-+.BR NUL ,
-+which is an
-+.BR ascii (7)
-+character,
-+represented in C as
-+.BR \(aq\e0\(aq .
-+.PP
-+The following headers also provide
-+.BR NULL :
-+.IR <locale.h> ,
-+.IR <stdio.h> ,
-+.IR <stdlib.h> ,
-+.IR <string.h> ,
-+.IR <time.h> ,
-+.IR <unistd.h> ,
-+and
-+.IR <wchar.h> .
-+.SH BUGS
-+When it is necessary to set a pointer variable to a null pointer,
-+it is not enough to use
-+.BR memset (3)
-+to zero the pointer
-+(this is usually done when zeroing a struct that contains pointers),
-+since ISO C and POSIX don't guarantee that a bit pattern of all 0s
-+would represent a null pointer.
-+Instead, pointer variables need to be explicitly set to a null pointer
-+when they need to hold a null pointer.
-+See the EXAMPLES section in
-+.BR getaddrinfo (3)
-+for an example program that does this.
-+.SH SEE ALSO
-+.BR void (3type)
--- 
-2.36.1
+> Consider this hypothetical example.
+> 
+>   $ cat man3/man-pages.man
+>   .DC type B
+>   .DC field I
+>   $ cat man3/tm.3type
+>   .so man3/man-pages.man
 
+There is a danger of collisions here between the helper files of
+different software projects.  That's maybe manageable; page names
+can already collide right now.  Do such helper files really need to
+be section-specific?  mdoc(7) teaches that in practice, there are
+basically two markup domains: command line utilities and library
+functions.  A possible third domain, kernel configuartion directives,
+leads a fringe existence at best.  In practice, combining both
+domains in one namespace poses no problems.
+
+Besides, you will hardly be surprised that i deem making the
+styles configurable detrimental in the first place.  The whole
+point of having such styles is enabling a uniform, consistent
+user experience.
+
+> [...]
+>   .SH DESCRIPTION
+>   .TG type "struct tm"
+
+This utterly breaks compatibility.
+On formatters not suuporting .TG, the most important
+content of the dpocument will simply disappear.
+
+Even if you would somehow manage to get a fallback
+
+  .de TG
+  \&\\$2
+  ..
+
+in place - and so far, i have no idea how you could do that portably
+on an arbitrary and potentially unknown formatter - that would
+leave "struct tm" with no markup whatsoever.
+
+One obvious idea to trivially improve the design is to use the
+equivalent syntax
+
+  .TG type
+  .I "struct tm"
+
+with the syntax constraint ".TG needs to be followed by a font macro"
+and the semantic effect "in that case, the custom style overrides
+the default style", reminiscent of how CSS can be used to override
+the default styles of HTML elements.
+
+This suggestion for improvement is not yet a definitive recommendation
+though, it is merely another idea for the pool.
+
+Let me also note that the markup overhead for your proposed scheme
+is so far at least three times as large as for mdoc(7).
+With modc(7), marking up a work usually requires one two-letter macro
+as the markup overhead.  Your scheme requites the tag (which will
+usually be at least four letters, sometimes more) in addition.
+
+For spacing and punctuation control, mdoc(7) usually requires
+no furthes overhead, except occasionally two letters for Ns.
+It's not yet clear how your scheme will fare in that respect
+because you proposed no mechanism for spacing and punction control
+yet, but that will likely require some overhead, too.
+
+>   describes time, broken down into distinct components.
+>   .PP
+>   .TG field tm_isdst
+>   describes wether daylight saving time is in effect at the time
+>   described.
+> [...]
+> 
+> Here, "DC" means "define class", a class of tags.  "TG", if one could
+> not guess, declares a tag of the type in its first argument with the
+> remaining arguments being the content thus tagged.
+> 
+> Returning to "DC", we see that it takes a second argument naming a macro
+> to call which will then apply any desired presentational markup to style
+> the tagged word.  This second argument need not be present.  In other
+> words, tagged content need not be visually distinct from its
+> surroundings.  Even in that event, it can still be useful; see #1 below.
+> 
+> Further, it will be obvious to the experienced *roff user that the macro
+> called by DC to style the applicable arguments given to TG need not even
+> be part of the man(7) language.
+> 
+> You could populate "man-pages.man" like this.
+> 
+>   $ cat man3/man-pages.man
+>   .de CW
+>   .  ie t \&\f[CR]\\$*\f[]
+>   .  el   \&\\$*
+>   ..
+>   .DC type CW
+>   .DC field I
+> 
+> This technique breaks the stranglehold of the man(7) font selection
+> macros.  (You're still limited by the output device's font repertoire,
+> however.)
+
+I fear you are missing the main aspect that makes using the man(7)
+font macros complicated: spacing and punctuation.
+
+Let us start with a moderately simple, everyday example:
+
+  .Ft double Fn atan2 "double y" "double x"
+
+What would that become with your proposed syntax?
+
+  .TG type double
+  .TG funcname atan2
+  (
+  .TG funcarg "double y"
+  ,
+  .TG funcarg "double x"
+  )
+
+What is your plan for that?  Recommending \c everywhere?
+Or mdoc(7)-style punctuation handling like
+
+  .TG type double
+  .TG funcname atan2 NS
+  .TG funcarg ( "double y" ,
+  .TG funcarg "double x" )
+
+Practical work shows these trivial cases of spacing around common
+punctuation like parentheses and commas are not the only ones that
+occur.  Sometimes, spacing needs to be inserted or suppressed in ways
+that differ from default rules.  mdoc(7) has several mechanisms for
+that, the most important one being .Ns.  Your new scheme might choose
+a different approach, but i predict how well that mechanism is going
+to be will be one determining factor of how pleasant or unpleasant
+the language will become for authors and maintainers.
+
+> If rendering to PostScript or PDF, you could decide to style
+> certain tags in Zapf Chancery Medium italic, if you wished.  (I cannot
+> warrant that you won't get yelled at.)
+> 
+> Here are a few perhaps less obvious things this approach would offer.
+> 
+> 1.  It enables keyword search by tag.  Whatever does the searching need
+>     only look for "TG" calls, match the class argument, and return the
+>     remainder.  A search could be narrowed by limiting both the class
+>     _and_ the keyword arguments of course, perhaps to answer questions
+>     like "what pages use 'stat' as data type?".
+
+Sure, just like
+
+  man -k Vt=stat
+
+with mandoc.
+
+> 2.  Degraded operation for other/older man(7) implementations is
+>     straightforward.  'DC' can be completely ignored.  'TG' can be
+>     defined as follows.
+> 
+>     .de TG
+>     \&\\$*
+>     ..
+
+No, that is plain wrong.  It results in
+
+     type struct tm describes time, broken down into distinct components.
+     field tm_isdst describes wether daylight saving time is in effect
+     at the time described.
+
+You certainly do not want to print out \\$1.
+
+>     or, for truly bloody-minded portability, thus.
+> 
+>     .de TG
+>     \&\\$1 \\$2 \\$3 \\$4 \\$5 \\$6 \\$7 \\$8 \\$9
+>     ..
+
+That would exclude any kind of mdoc(7)-style punctuation handling,
+making spacing control much harder to implement.  I'm not saying
+impossible, but harder.  One way out might be to use \\$2 only
+and require quoting of multi-word arguments.
+
+> 3.  Everyday man(7) page authors need only learn 'TG' and the available
+>     list of keywords for the suite of man pages to which they are
+>     contributing.  Hammering out the repertoire of available tag classes
+>     and the surely monumental bikeshedding of text styling decisions to
+>     be associated with each tag class is delegated to the project that
+>     chooses to define them.
+
+I fear that is a terrible idea.  The DocBook design fiasco teaches
+us that even a single committee is easily capable of utterly screwing
+up markup consistency.  Leaving the markup lexicon up to individual
+projects guarantees hopeless global inconsistency.  Different projects
+will mark up different syntax elements, assign different tags for the
+same purpose, and assign conflicting styles to the same tags.
+
+Consequently, semantic searching will *not* work at all.  You cannot
+even search for a function name if one group tags it as "function"
+and another as "funcname" and another as "sub" and another as "procname".
+Rendering will be wildly inconsistent because every group of pages,
+large or small, comes with its own styles - and larger projects are
+unlikely to remain consistent even within themselves.  Due to the
+undefined nature of tag names, distributions are unable to fix up
+the mess, too.
+
+>     The man(7) macro package itself will impose
+>     no policy and may not even define any tag classes to start with.
+
+Branden, seriously, standardizing this is your number two most important
+job during this design.  The top one priority, of course, is to
+choose a syntax that is short, simple, robust, esay to read, and
+easy to write for both usual and unusual use cases, and - if you
+want to continue calling the language man(7) - backward compatible.
+
+>     (groff would have some for its own man pages, of course, as I would
+>     expect Linux man-pages to do.)
+> 
+> 4.  Site admins offended at the styling decisions undertaken by various
+>     projects could reliably override them by editing the files sourced
+>     by the relevant man pages.
+
+That's illusionary until you provide an authoritative and long-time
+stable list of valid tags.
+Failing to do so is one among the reasons why SGML and XML turned
+out as hard to use in practice, and one of the reasons why HTML
+ultimately gave up on being XML and instead defined an exhaustive
+list of standard elements.
+
+Besides, on one of my machines, i currently have almost 600 packages
+installed even though lots of things that are packages on Linux do
+*not* count as packages on OpenBSD but are part of the base system
+that cannot ever be uninstalled, including thing like compilers and
+other development tools and lots of Internet daemons like web server,
+mail server, routing daemons, DNS servers and much more.  And yet,
+i still have almost 600 packages.  As a rule of thumb, on average one
+third of packages have manual pages.  So you want me to edit 200 config
+files and resolve conflicts in them whenever updating packages?
+I'm not yet convinced that's a very good plan.  :-o
+
+>     Maybe those should live in /etc rather
+>     than the man page hierarchy proper.
+> 
+> 5.  Misspelling a tag class or using an unavailable one is an error that
+>     would be easily diagnosed and reported.
+> 
+> To reiterate, groff man(7) would impose no policy regarding the tag
+> classes or their rendering on anyone.  It similarly would escape the
+> ongoing problem that mdoc(7) chose for itself by administering
+> centralized authoritative lists of standards documents, operating system
+> releases, and other lexica.
+
+I freely admit that .St .At .Bx .Nx .Fx .Ox .Dx .Lb are among the least
+well designed parts of mdoc(7).  But that design problem is completely
+unrelated to the fact that the list of macros (in mdoc(7) parlance)
+or tags (in your proposed terminology) needs to be fixed.  That's *the*
+central purpuse of a markup language.  Personally, i would go as far
+as calling a non-extensible markup language usually better than an
+extensible one, but even for an extensible markup language, the
+quality of the standard lexicon is the second highest priority,
+right after the quality of the basic syntax.
+
+> Tagful man(7) pages under my proposal would
+> opt into whatever keyword/class discipline they desire, or not at all.
+> 
+> I am not wedded to the nomenclature for the included files, nor the `DC`
+> or `TG` macros, except to note that the macro names are available.
+> (`DT`, putatively for "define tag", is not.  It is already taken.)
+
+Given how utterly your .TG proposal is breaking compatibility,
+i wonder whether it would be wiser to give your new macroset a new
+name and leave the legacy man(7) language alone.  That would allow
+cleaning up some design deficiencies of man(7) at the same time,
+for example:
+
+ * properly define display macros, a purpose now served in a
+   manner the is partially quirky, partially redundant, and yet
+   incomplete by .RS and .EX
+ * get rid of the font alternation macros; it is well known that
+   even though those squat on a considerable parcel of namespace,
+   they only solve part of their task - the infamous three-font
+   issue; your proposal needs a solution for that anyway that
+   still needs to be developed
+ * get rid of the redundancy among .TP .TQ .IP .HP
+ * get rid of legacy macros like .AT .DT .LP .P .SM .SB .UC
+   that are useless in practice
+ * get rid of misdesigned macros like .SY
+
+Please also consider that having a mix of semantic and presentational
+markup in a language is usually not the best idea.  As a prominent
+example, after a considerable amount of handwringing that lasted for
+many years, HTML finally abolished presentational markup completely.
+For similar reasons, we somewhat discourage using .Em and .Sy in mdoc(7),
+except for purposes similar to <em>, <i>, <strong>, and <b> in HTML 5.
+
+If you choose a new name, compatibility concerns vanish instantly.
+But of course, once you publicly announce "this is now ready for
+production", stability becomes important again, so the design should
+be well thought out from the start.  Finding a major design issue
+or design gap after it has been in production for, say, two years
+would be very unfortunate.
+
+On the other hand, if you want to continue calling it man(7), then
+the logical consequence is that compatibility concerns become
+paramount.
+
+Yours,
+  Ingo
