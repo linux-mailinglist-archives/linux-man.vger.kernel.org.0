@@ -2,154 +2,347 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id A416957FF36
-	for <lists+linux-man@lfdr.de>; Mon, 25 Jul 2022 14:46:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 17F1B580433
+	for <lists+linux-man@lfdr.de>; Mon, 25 Jul 2022 20:49:12 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235204AbiGYMq2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 25 Jul 2022 08:46:28 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50840 "EHLO
+        id S231523AbiGYStK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 25 Jul 2022 14:49:10 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55682 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234858AbiGYMqY (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 25 Jul 2022 08:46:24 -0400
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com [IPv6:2a00:1450:4864:20::433])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 33CD513F61
-        for <linux-man@vger.kernel.org>; Mon, 25 Jul 2022 05:46:23 -0700 (PDT)
-Received: by mail-wr1-x433.google.com with SMTP id z13so15786805wro.13
-        for <linux-man@vger.kernel.org>; Mon, 25 Jul 2022 05:46:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to;
-        bh=f2I22N6BiRV02WHioo0v/O+I/if+J1FSuHcauAxYbz0=;
-        b=iszQ7D05OQjG+VJdHnT+1ALGUsgfB3RcR/+0mak8ryHTkYedwZxI06czLFsYcmmgAt
-         dtfND1K/CC2ayOpdsWGh2rml/ZBg/A0L+gj4xIl3AboP8cF6GCYPXW3U66ZEbsI5DCkS
-         Yo7FyDd5DpUgHHbRtuW93055TtoyjF8dphkdpdyULKnwaGqCs6O08DYlUoxvowKfF2UC
-         Ejrwnb2U2s2wBnDDJNSUJRXKoWQNxxodZY8E+HKN8zPQ3butXKwTLEwNlQNRaXjw++s/
-         UgSRqsHOPNZMKS9iM8wsng3O5b/DHNGixABhahX/OlmDOfj2Ku1FHfrEV/X9Sq/3wfsl
-         A4Lg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to;
-        bh=f2I22N6BiRV02WHioo0v/O+I/if+J1FSuHcauAxYbz0=;
-        b=G5kR+7QpGAb6o51lkujJCI+vLmxaedXNSgXEiQD9qXK5hsZRy9r2GF7It2/vjxM7fn
-         gGNcpxYfAIcm9F9KsKDNwztVWJWYCWuF3wyOhTXdGdSKCPMve3PIXnNpVpeo3mf/Nn3r
-         GDRHhlxc/ZsKWHmHwHo/wuY0Kk9PkuFbiMeTHbeoVnRgy1fRx+PHUm91eXLhe47l+hIl
-         TowYxc5r7E3P4XSEwuY4mNKH6teo5cyES3AA55sBVQJ++H33Dni55QL7R6iEYsFInLFn
-         /4N61Fq/AfJHbzoNH17UoHxeOZ8S4LmS0/cpKuiXPrRqtJAiQQdklv9W2tLtvwfSeIaG
-         Up5A==
-X-Gm-Message-State: AJIora8GJ6txzVsabb/afROjk+FqNCfxP5wyzfzOzN/5xjl/GGsrIvA6
-        eIy9+oHtMEXW6fH6/PwJ+Nc=
-X-Google-Smtp-Source: AGRyM1ty5s+qd4Ri1CVy5mpq5T7YHYIOOBZcfU3l8ehEfOTaoVhxXhTU0qsHG9pbel12IYz3F3enHg==
-X-Received: by 2002:adf:e28c:0:b0:21e:660e:26aa with SMTP id v12-20020adfe28c000000b0021e660e26aamr7511052wri.345.1658753180755;
-        Mon, 25 Jul 2022 05:46:20 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id i24-20020a1c5418000000b003a3187a2d4csm18087025wmb.22.2022.07.25.05.46.19
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 25 Jul 2022 05:46:20 -0700 (PDT)
-Message-ID: <b7ecc62d-3b46-c6be-d102-3ede7b81b4ed@gmail.com>
-Date:   Mon, 25 Jul 2022 14:46:12 +0200
+        with ESMTP id S229753AbiGYStK (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 25 Jul 2022 14:49:10 -0400
+Received: from scc-mailout-kit-01.scc.kit.edu (scc-mailout-kit-01.scc.kit.edu [IPv6:2a00:1398:9:f712::810d:e751])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C306DB89
+        for <linux-man@vger.kernel.org>; Mon, 25 Jul 2022 11:49:07 -0700 (PDT)
+Received: from hekate.asta.kit.edu ([2a00:1398:5:f401::77])
+        by scc-mailout-kit-01.scc.kit.edu with esmtps (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+        (envelope-from <schwarze@usta.de>)
+        id 1oG38b-0071ul-Im; Mon, 25 Jul 2022 20:49:05 +0200
+Received: from login-1.asta.kit.edu ([2a00:1398:5:f400::72])
+        by hekate.asta.kit.edu with esmtp (Exim 4.94.2)
+        (envelope-from <schwarze@usta.de>)
+        id 1oG38a-006nr1-Gf; Mon, 25 Jul 2022 20:49:04 +0200
+Received: from schwarze by login-1.asta.kit.edu with local (Exim 4.92)
+        (envelope-from <schwarze@usta.de>)
+        id 1oG38a-00038K-Fr; Mon, 25 Jul 2022 20:49:04 +0200
+Date:   Mon, 25 Jul 2022 20:49:04 +0200
+From:   Ingo Schwarze <schwarze@usta.de>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org, groff@gnu.org,
+        g.branden.robinson@gmail.com,
+        Ralph Corderoy <ralph@inputplus.co.uk>
+Subject: Re: [PATCH v3] NULL.3const: Add documentation for NULL
+Message-ID: <Yt7loB0u3RgKGiDt@asta-kit.de>
+References: <20220722153127.14528-1-alx.manpages@gmail.com>
+ <20220724191931.15683-1-alx.manpages@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.0.2
-Subject: bash-completion doesn't support man subsections (was: Linux man-pages
- Makefile portability)
-Content-Language: en-US
-To:     Colin Watson <cjwatson@debian.org>
-Cc:     Ingo Schwarze <schwarze@usta.de>, linux-man@vger.kernel.org,
-        g.branden.robinson@gmail.com, man-db-devel@nongnu.org
-References: <d8646de0-e4f0-3d4b-e763-92355162a405@gmail.com>
- <Yq+P39bpy2QEeaSd@asta-kit.de>
- <8b9daa0e-6f08-dd55-5772-51f5052ed8bb@gmail.com>
- <YrB66rgFZqryrmpt@asta-kit.de>
- <6e294373-2661-286c-09c4-e67cd84103d7@gmail.com>
- <fdde7402-5e69-b6ff-60fc-74ad9c9054f1@gmail.com>
- <YtrXbDo5NVxNT/cb@asta-kit.de>
- <80553a14-8f39-d4ad-def3-35d6551a31f3@gmail.com>
- <Ytw65nGl1qouSU5R@asta-kit.de>
- <ff01b98c-563f-dfd3-4996-65ff5e5f44ce@gmail.com>
- <Yt5iPprqbVjiQRy6@riva.ucam.org>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <Yt5iPprqbVjiQRy6@riva.ucam.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------clCj2IgdGjaEmaVH8zD0kRuw"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
-        autolearn_force=no version=3.4.6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220724191931.15683-1-alx.manpages@gmail.com>
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED,
+        SPF_HELO_NONE,SPF_NONE autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------clCj2IgdGjaEmaVH8zD0kRuw
-Content-Type: multipart/mixed; boundary="------------FZ0heqZg0002LqDxGbkLbXWZ";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Colin Watson <cjwatson@debian.org>
-Cc: Ingo Schwarze <schwarze@usta.de>, linux-man@vger.kernel.org,
- g.branden.robinson@gmail.com, man-db-devel@nongnu.org
-Message-ID: <b7ecc62d-3b46-c6be-d102-3ede7b81b4ed@gmail.com>
-Subject: bash-completion doesn't support man subsections (was: Linux man-pages
- Makefile portability)
-References: <d8646de0-e4f0-3d4b-e763-92355162a405@gmail.com>
- <Yq+P39bpy2QEeaSd@asta-kit.de>
- <8b9daa0e-6f08-dd55-5772-51f5052ed8bb@gmail.com>
- <YrB66rgFZqryrmpt@asta-kit.de>
- <6e294373-2661-286c-09c4-e67cd84103d7@gmail.com>
- <fdde7402-5e69-b6ff-60fc-74ad9c9054f1@gmail.com>
- <YtrXbDo5NVxNT/cb@asta-kit.de>
- <80553a14-8f39-d4ad-def3-35d6551a31f3@gmail.com>
- <Ytw65nGl1qouSU5R@asta-kit.de>
- <ff01b98c-563f-dfd3-4996-65ff5e5f44ce@gmail.com>
- <Yt5iPprqbVjiQRy6@riva.ucam.org>
-In-Reply-To: <Yt5iPprqbVjiQRy6@riva.ucam.org>
+Hi Alejandro,
 
---------------FZ0heqZg0002LqDxGbkLbXWZ
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Alejandro Colomar wrote on Sun, Jul 24, 2022 at 09:19:32PM +0200:
 
-SGkgQ29saW4sDQoNCk9uIDcvMjUvMjIgMTE6MjgsIENvbGluIFdhdHNvbiB3cm90ZToNCj4g
-T24gU3VuLCBKdWwgMjQsIDIwMjIgYXQgMDE6MDk6MjNQTSArMDIwMCwgQWxlamFuZHJvIENv
-bG9tYXIgKG1hbi1wYWdlcykgd3JvdGU6DQo+PiBbVE8gKz0gQ29saW47IENDICs9IG1hbi1k
-di1kZXZlbEA7DQo+PiB0aGVyZSdzIGEgYnVnIGluIG1hbigxKSdzIGF1dG9jb21wbGV0ZV0N
-Cj4gDQo+IG1hbi1kYiBkb2Vzbid0IHNoaXAgaXRzIG93biBhdXRvY29tcGxldGUgY29kZSBh
-dCB0aGUgbW9tZW50Lg0KPiBUaGlzIGlzIHByb2JhYmx5IHNoaXBwZWQgYnkgc29tZSBvdGhl
-ciBwYWNrYWdlIGluIHlvdXIgZGlzdHJpYnV0aW9uLA0KDQpIZWgsIEkgYmV0IGl0J3MgdGhl
-IHNhbWUgYXMgeW91cnMsIGFzIHlvdSBzaG93IHVwIGFzIHRoZSBtYWludGFpbmVyIDspDQoN
-CiQgYXB0LWNhY2hlIHNob3cgbWFuLWRiIHwgZ3JlcCBNYWludGFpbmVyDQpNYWludGFpbmVy
-OiBDb2xpbiBXYXRzb24gPGNqd2F0c29uQGRlYmlhbi5vcmc+DQoNClllYWgsIEkgdXNlIERl
-YmlhbiAoU2lkKS4NCg0KDQo+IGFsdGhvdWdoIEkgZG9uJ3Qga25vdyBleGFjdGx5IHdoYXQg
-dGhhdCB3b3VsZCBiZSAobWF5YmUgYmFzaC1jb21wbGV0aW9uPykuDQpSZXBvcnRlZCB0byB1
-cHN0cmVhbToNCjxodHRwczovL2dpdGh1Yi5jb20vc2NvcC9iYXNoLWNvbXBsZXRpb24vaXNz
-dWVzLzc3OD4NCg0KQ2hlZXJzLA0KDQpBbGV4DQoNCi0tIA0KQWxlamFuZHJvIENvbG9tYXIN
-CjxodHRwOi8vd3d3LmFsZWphbmRyby1jb2xvbWFyLmVzLz4NCg==
+> - Move to man3const [Ralph, Branden]
+> - Added LIBRARY section
+> - Added #include [Ralph]
+> - Note that it can also be used as a function pointer [Ralph]
+> - Document that 0 is another null pointer constant [Ralph]
+>   But note that it's to be avoided by most coding standards [alx]
+> - Note that NULL is not NUL
+> - Improve wording about zeroing a pointer [Ralph]
+>   And refer to getaddrinfo(3) for an example.
+>   This probably can be further improved; I'm not convinced.
+> - Trim SEE ALSO to just void(3type)
+> - Other minor fixes
+> 
+> v3:
+> 
+> - Don't boldface 0s, since it doesn't refer to the literal constant 0,
+>   but to the bit pattern of 0s.
+> - Add list of headers that also define NULL (per POSIX.1-2008).
+> 
+> 
+>  man3const/NULL.3const | 80 +++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 80 insertions(+)
+>  create mode 100644 man3const/NULL.3const
+> 
+> diff --git a/man3const/NULL.3const b/man3const/NULL.3const
+> new file mode 100644
+> index 000000000..730f670fe
+> --- /dev/null
+> +++ b/man3const/NULL.3const
+> @@ -0,0 +1,80 @@
+> +.\" Copyright (c) 2022 by Alejandro Colomar <colomar.6.4.3@gmail.com>
+> +.\"
+> +.\" SPDX-License-Identifier: Linux-man-pages-copyleft
+> +.\"
+> +.\"
+> +.TH NULL 3const 2022-07-22 Linux "Linux Programmer's Manual"
+> +.SH NAME
+> +NULL \- null pointer constant
+> +.SH LIBRARY
+> +Standard C library
+> +.RI ( libc )
+> +.SH SYNOPSIS
+> +.nf
+> +.B #include <stddef.h>
+> +.PP
+> +.B "#define NULL  ((void *) 0)"
+> +.fi
+> +.SH DESCRIPTION
+> +.B NULL
+> +represents a null pointer constant.
+> +.PP
+> +According to POSIX,
 
---------------FZ0heqZg0002LqDxGbkLbXWZ--
+That phrase is misplaced in the DESCRIPTION.
+In belongs into STANDARDS.
 
---------------clCj2IgdGjaEmaVH8zD0kRuw
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+Not littering the DESCRIPTION with misplaced information is particular
+important in the first two sentences, because that's the first point
+of contact for the user where they are likely trying to figure out
+what the basic idea of the thing is, and whether they are even looking
+at the right manual page.
 
------BEGIN PGP SIGNATURE-----
+> +it shall expand to an integer constant expression with the value
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmLekJQACgkQnowa+77/
-2zKbCw//ehfhNsFbOFN2tIK4pS6ME3mtezUJQ2NZvT07zWkZZrxqh0enOJIYDyYv
-09Bxq4HOBIP1aqcM5b4aL4Pk5trsi2DaTJh8GCmJHXn5AbLbRm/ofUsuADxv2YPN
-kOkPOyxU3CEku8SnnOKS4gfJGnnfTN+KvlgOPRFOFA1RHLX87488EsUqVXiErkEm
-6YOycrw8PKyLSSe31DB85mhKK8qLy4FDERWAZrmi5N2heSqRUGd/h8K4N7oK+h1i
-bw1mE6kjxTLl6iMuVOGRUjdsojGYbpgNvVA+8rohliBWSqRxXtq/ETtM9URLs8Lr
-90vu0XpmrGBjqNZHYHB2hE9e2TpRIi1thyGJgiP86dxvWFSx6pzPR5voi983Olms
-UQ6m8Rhl0J/EWn5huFKe233LWso11K7iar1KGO1YukJSuZFP5mkby/gkh4VmmV/l
-PzzJNkQuA48PMM6vrkCqhybU2ORraAmvM38QtmvFyCtIlZa8x4uUjTMr0Hp6u045
-P5mjKadL5962dj74K+er+s/H27sHMnfT/4Nuwq9ZOCTSwlvFdwuYQptIT27kncan
-j7OraJ6295Cv1viXV7COKdI67crA64yy6R98gQq6iRivPBniQDd7HvszaB+9lO37
-IbUzKCFl5c2gPkRBxu2ZJQhc9/1R82cMI9tEWq9ea89gQvLUHRY=
-=3Dx1
------END PGP SIGNATURE-----
+Using the word "shall" in a manual page is usually terrible style.
+Here, it is misleading on top of that because it is unrelated to
+anything the user might be expected to do or not do.
 
---------------clCj2IgdGjaEmaVH8zD0kRuw--
+A manual page is neither a standard document formally defining
+the language nor a guideline for compiler authors.
+
+Considering this sentence in isolation, what you want to say is:
+
+  The macro
+  .B NULL
+  expands to the integer number 0 cast to the type
+  .IR "void *" .
+
+But you are violating an important guideline for writing manual
+pages: avoid useless verbosity, don't say the same thing twice.
+Here, you are saying exactly the same *three times*:  in the
+SYNOPSIS, in the first sentence of the DESCRIPTION, and in the
+second sentence of the DESCRIPTION.
+
+Consequently, i suggest deleting the second sentence with no
+replacement.
+
+> +.B 0
+
+There is really no need to mark up integer constants.
+
+> +cast to type
+
+Bad grammar:  s/to type/to the type/.
+
+> +.IR "void *" .
+> +.PP
+> +A null pointer is one that doesn't point to a valid object or function.
+
+That sounds like an afterthought, which is always bad in documentation.
+If you think the first sentence is too vague, integrate this information
+into the first sentence, where it obviously belongs.
+Besides, this wording is misleading: it sounds as if NULL might be
+pointing to an invalid object.
+
+I guess what you mean is:
+
+  .B NULL
+  represents a null pointer constant, that is, a pointer that
+  does not point to anything.
+
+> +.SH CONFORMING TO
+
+That should be ".SH STANDARDS".
+
+> +C99 and later;
+> +POSIX.1-2001 and later.
+> +.SH NOTES
+
+I throughly hate this section.  It is almost always an indication
+that the organization of the page wasn't properly thought through
+and random afterthoughts were dumped here.
+
+> +It is undefined behavior to dereference a null pointer
+
+That is formally true, but hardly helpful in a manual page
+because what happens when you dereference a NULL pointer is
+faily predictable in practice: a segmentation fault.
+
+Any other behaviour of the C language implementation would be such a
+massive security risk that i don't think even the most avid compiler
+optimizer would seriously consider it.  According to my practical
+experience, NULL pointer accesses are among the most frequent bugs,
+easily 20-50% of all bugs the can be found by fuzzing real-world code.
+Having the C language do anything else than segfault, for example
+continue execution with invalid or uninitialized data, would turn
+huge numbers of fairly harmless bugs into potentially exploitable
+security vulnerabilities.  Using my experience, off the top my head,
+i would estimate that *not* segfaulting on NULL pointer accesses
+would, in a typical codebase, increase the number of potentially
+exploitable vulnerabilities by roughly one power of ten.
+
+So, if you want to be helpful to the reader, you should say
+something like:
+
+  While dereferencing a NULL pointer is formally undefined
+  behaviour, it almost certainly causes a segmentation fault
+  in practice.
+
+> +or to perform pointer arithmetics on it.
+
+Sure.
+
+> +.I NULL \- NULL
+> +is, surprisingly, undefined behavior, according to ISO C.
+
+Saying that is completely useless.  Please delete this sentence.
+
+On the one hand, it is irrelevant because nobody in their right
+mind would do that in the first place.  A manual page is not
+the place to enumerate weird and unusual ways how something
+can *not* be used.  Its purpose is to explain proper usage.
+
+Besides, this is already obvious without saying it; it is
+not surprising in the least.  Pointer subtraction is only
+defined for pointers *into the same object*, and you already
+said that NULL pointers are not pointing to an object.
+
+> +.PP
+> +.B 0
+> +also represents a null pointer constant
+> +when used in a context where a pointer is expected.
+
+That is also completely irrelevant because you already told the
+user about a better way to create a NULL pointer.  Why digress
+into explaining another, no so good way?  On top of that,
+taking the SYNOPSIS and standard type coercion rules together,
+the content of this sentence is already blazingly obvious:
+If an explicit cast (void *)0 yields a NULL pointer, then it
+is clear the the implicit coercion "void *p = 0;" can only
+have the same result.
+
+> +This is considered bad practise by most coding guidelines,
+> +since it can be very confusing,
+> +and so
+> +.B NULL
+> +is preferred.
+
+You do have a minor point here, but all the same, i doubt that
+coding style belongs in a manual page, except when it has
+security implications.  In that case, it might be appropriate
+for the CAVEATS section.  If you think this matters for security,
+you might for example say:
+
+  .SH CAVEATS
+  To avoid confusing human readers of the code, do not compare
+  pointer variables to 0 and do not assign 0 to them.
+  Instead, always use
+  .BR NULL .
+
+> +.PP
+> +.B NULL
+> +shouldn't be confused with
+> +.BR NUL ,
+> +which is an
+> +.BR ascii (7)
+> +character,
+> +represented in C as
+> +.BR \(aq\e0\(aq .
+
+That definitely belongs in the CAVEATS section.
+
+> +.PP
+> +The following headers also provide
+> +.BR NULL :
+> +.IR <locale.h> ,
+> +.IR <stdio.h> ,
+> +.IR <stdlib.h> ,
+> +.IR <string.h> ,
+> +.IR <time.h> ,
+> +.IR <unistd.h> ,
+> +and
+> +.IR <wchar.h> .
+
+If you think that matters, just put it at the end of the DESCRIPTION,
+which is very short anyway.
+
+But usually, i see no need for dwelling on such technicalities.
+No harm is done if inexperienced users include <stddef.h>, too,
+and experienced users can look up such technicalities in the standard
+if they really need them, which happens rarely even for professionals.
+
+> +.SH BUGS
+
+The following is misplaced in BUGS.  It is not talking about any bug,
+nor about any API design defect.
+
+If you consider memset of a struct containing pointer members
+as unsafe, the section to say so would be CAVEATS because it
+would then be considered as a user error, and CAVEATS is the
+section to warn users about typical misuse of the API.
+
+It seems in theory, you are correct that
+
+  struct s {
+  	void *p;
+  };
+  s.p = 0;
+
+is guaranteed to set p to NULL whereas
+
+  memset(&s, 0, sizeof(s));
+
+is not.  It's not hugely important though as i doubt that you will
+be able to find a system in practice where the latter fails, and if
+a future platform would decide to let the latter fail, that would
+break such huge amounts of existing code it would not really be
+sustainable for the manufacturer of that hypothetical future
+system.
+
+> +When it is necessary to set a pointer variable to a null pointer,
+> +it is not enough to use
+> +.BR memset (3)
+> +to zero the pointer
+> +(this is usually done when zeroing a struct that contains pointers),
+> +since ISO C and POSIX don't guarantee that a bit pattern of all 0s
+> +would represent a null pointer.
+> +Instead, pointer variables need to be explicitly set to a null pointer
+> +when they need to hold a null pointer.
+> +See the EXAMPLES section in
+> +.BR getaddrinfo (3)
+> +for an example program that does this.
+
+That example can also be improved in two respects.
+
+First, and less importantly,
+
+  memset(&hints, 0, sizeof(hints));
+
+is less error prone, more readable, and shorter than
+
+  memset(&hints, 0, sizeof(struct addrinfo));
+
+More importantly, it is not good style to first memset the struct
+as a whole and then individual fields like
+
+  hints.ai_flags = 0;
+  hints.ai_protocol = 0;
+
+to zero right afterwards.  You should either (preferably, because
+that also clears any padding) memset and then only set the fields
+you want to be non-0, or set all fields individually, but not both.
+
+Yours,
+  Ingo
