@@ -2,75 +2,65 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id AFB1E581A32
-	for <lists+linux-man@lfdr.de>; Tue, 26 Jul 2022 21:18:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 4AB75581B10
+	for <lists+linux-man@lfdr.de>; Tue, 26 Jul 2022 22:30:31 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233380AbiGZTSk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 26 Jul 2022 15:18:40 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49026 "EHLO
+        id S232729AbiGZUa3 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 26 Jul 2022 16:30:29 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33386 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231793AbiGZTSj (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 26 Jul 2022 15:18:39 -0400
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com [IPv6:2a00:1450:4864:20::330])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D1E7E29C84
-        for <linux-man@vger.kernel.org>; Tue, 26 Jul 2022 12:18:34 -0700 (PDT)
-Received: by mail-wm1-x330.google.com with SMTP id n185so9316869wmn.4
-        for <linux-man@vger.kernel.org>; Tue, 26 Jul 2022 12:18:34 -0700 (PDT)
+        with ESMTP id S230168AbiGZUa2 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 26 Jul 2022 16:30:28 -0400
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com [IPv6:2a00:1450:4864:20::436])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3378111168
+        for <linux-man@vger.kernel.org>; Tue, 26 Jul 2022 13:30:27 -0700 (PDT)
+Received: by mail-wr1-x436.google.com with SMTP id l22so88258wrz.7
+        for <linux-man@vger.kernel.org>; Tue, 26 Jul 2022 13:30:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to;
-        bh=5HcA+23AFKM1HXFZvZczrYiCLusMOvtpQQwx+4o8x5I=;
-        b=RfmboS0AM4FXN/QAY99s3w94gORWQQsusoTw578HzCcNYDapp63kGpKi92Z25lp6wF
-         g0v3nrJzx78aGS89vtRyn4A3+zrSlci5wlnpI9XigdmcAcHlbHUW2Q8v9sGCmtCgzy7v
-         vVODHAUnax4p9FKQKrDXYlsgvCENU+A42ROgCVkDwVOmpIGn6DH2Sc9rc690SvYmgh9b
-         skiw80qbe3K/FJJ8clpPSNVTudP1D9Dz9RtvKUZmUIDBgSYqcS1pnRC6J0SM4b/xAhZc
-         NUaTGlYvVKzTQKRTo/X2J99Bm7S4QgVSc+XqMYE8xB2rYL3uUJ89be9l2f18tbj1Gbnu
-         FhQg==
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc;
+        bh=FMiNRn1zxFov4lL0b4TN65gy9uSnd1a7htV/FK2YSCM=;
+        b=MMZhlN5lDp7lrNLGULJfzgq+Q0MRTDtOIDXE/ujcMbv5MuMI2ReUbfErgnaNzf/XOO
+         oXpsyUujqx0592Dluqf6p7H8xtpcvBl7cb11LInLFg8wDVUZQNX+4JpMTMqx3pnmgsLb
+         lYwSZWc2/Jq9i0jXy8gM2wGTuajW1R/vr+Tb/0759PKhTFLeXQA6FuU0WRuOVtPfIzpx
+         1qJ2cm89mguI+2gWXeU74Y4pcGCBw1ZaQq/FO/+jpr4dUPE+stL67QIPe1oMyUPOlxK+
+         CIKWo2wZSe4vVXmioumuWTCfyHMLKlaSkhnHRJ1iwmtCcycxQdQ5jtgiKw9V6aQ8TIbd
+         OaRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to;
-        bh=5HcA+23AFKM1HXFZvZczrYiCLusMOvtpQQwx+4o8x5I=;
-        b=hotM9JZD0V0krwe1O31Dzz9n27IdO9QEU6PXTlaHdwtqkKbJF80QKNmmR6QzgIE3fG
-         6aMwmxLNR6fkzqVcAqBiowKCz6Ut9BVQQSFdC2Roimajrdgsp0hhRrr7L71aZGrK98v1
-         QJSR0wteaoaoRZErwaDXMJy3kj2RiIv+opkJzFyMoFUdnE39FMbkqJzRKDB/gzb5BI/U
-         WkV9Hu79vFWkHftaKjKzQCAXRt2pKSD1wQziW8nc1kFfKGnSo4JPqDHNX0QW0now/eqz
-         L+1DMf2yJYleoPhDgoVCxzoX41awESEXX8cGagMWTRHk1HtY+UCH6ypvXUWGh389PfLk
-         l6fg==
-X-Gm-Message-State: AJIora8Oecxd/bKVVTde7TVOm/tL/gexW3IhMObl6ZJhCfSEs4y1g0tL
-        H1u+8Iyc2tuRK+YkR6CpFuI3YlObGj8=
-X-Google-Smtp-Source: AGRyM1s5dkWZgMT2JzQTahU+o4UIoXTg8XXVj0inAwPuI6Aw6IxLjkbd0RN75AyBM9IRdwCyZdRg3Q==
-X-Received: by 2002:a1c:4487:0:b0:3a2:fb76:7981 with SMTP id r129-20020a1c4487000000b003a2fb767981mr459343wma.98.1658863113394;
-        Tue, 26 Jul 2022 12:18:33 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id l37-20020a05600c1d2500b003a33227e49bsm19033348wms.4.2022.07.26.12.18.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 26 Jul 2022 12:18:32 -0700 (PDT)
-Message-ID: <dcd16a37-82e4-d7c4-dbbc-0764cadfee76@gmail.com>
-Date:   Tue, 26 Jul 2022 21:18:31 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.0.2
-Subject: Re: [patch] RLIMIT_NPROC not enforced for root user, irrespective
- capabilities
-Content-Language: en-US
-To:     "Schneider, Robert" <robert.schneider03@sap.com>,
-        Eric Paris <eparis@redhat.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        David Howells <dhowells@redhat.com>
-Cc:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
-        "mtk.manpages@gmail.com" <mtk.manpages@gmail.com>
-References: <PAXPR02MB72147C88F7E9F82CC1AA577F8FAD9@PAXPR02MB7214.eurprd02.prod.outlook.com>
- <9e740310-6a05-5a05-b403-98369960830e@gmail.com>
- <PAXPR02MB7214288BB38033ACE0DBE35E8F879@PAXPR02MB7214.eurprd02.prod.outlook.com>
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc;
+        bh=FMiNRn1zxFov4lL0b4TN65gy9uSnd1a7htV/FK2YSCM=;
+        b=jGnEdJTV6ZgHtAZQV36+XzYDe6vieRUXNiSUj8RWaA3Sb+h/en3q0Ro6EmQMiFNjtF
+         2uV+1DA3Y2kcse1ifhVDDg0WiEGg3b/Y+kovkeVYuOrELfKfa3Bt+U6Y41yH8/0AVkC+
+         h0mpmIYkkO2fHU1N5Hq9/SbKIeMoKk4MUltDQJwTyySwsc0B000eEZtGJt1mHUpB05Ty
+         CjqsRTlppaqNe8lN09LHGV8JTsZVH02DE31B2QRKsfo7crJO6UKOcbvMm18+2sbzM684
+         OmIREeK1+zE+PMa1ZsDXlCK38Kc8Tun6yxBh6UOSaK6oFz87AiZYfz1t+n6Z5dwslrle
+         2F2Q==
+X-Gm-Message-State: AJIora/BZyNPEvVeEBclusz6574mrPXi5D/BHuLTb8tiURdzDxw7tyvZ
+        eMsvYrdQpziFDpcmJPlPdsjhrarU08Q=
+X-Google-Smtp-Source: AGRyM1umzgSCorpiNPPYa5sI7A3k8tr8UpUhYkLkd8zn9N3btyvfYdHfxfDBN2LnTQjREsRwpMGSvQ==
+X-Received: by 2002:adf:dc0e:0:b0:21e:9b17:52fe with SMTP id t14-20020adfdc0e000000b0021e9b1752femr3705912wri.21.1658867425511;
+        Tue, 26 Jul 2022 13:30:25 -0700 (PDT)
+Received: from asus5775.alejandro-colomar.es ([170.253.36.171])
+        by smtp.googlemail.com with ESMTPSA id j20-20020a05600c1c1400b003a319b67f64sm5329221wms.0.2022.07.26.13.30.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 26 Jul 2022 13:30:24 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <PAXPR02MB7214288BB38033ACE0DBE35E8F879@PAXPR02MB7214.eurprd02.prod.outlook.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------HjVOG84UyEwtYZlCbEaWB0fW"
+To:     linux-man@vger.kernel.org
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>, groff@gnu.org,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Subject: [PATCH v3] open_how.2type: ffix
+Date:   Tue, 26 Jul 2022 22:26:44 +0200
+Message-Id: <20220726202643.49890-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.36.1
+MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1073; h=from:subject; bh=9n3kll1q3H1hjBrscLwYGDtM9AWbnneNvCDCn4SRDB4=; b=owEBbQKS/ZANAwAKAZ6MGvu+/9syAcsmYgBi4E3wEGbpD9FgCaKRbQGxfu4fKmWEjoj1VsXK77dz b/WpB3WJAjMEAAEKAB0WIQTqOofwpOugMORd8kCejBr7vv/bMgUCYuBN8AAKCRCejBr7vv/bMgaiD/ 9MRj4T02TuLx8GsHOLC/nVmqzdZNECfxHRkqgxk50G4pcboDhSySBNVUJd+9PikVn3Z9uT97s7IfkL Y/pKikB6Ylnt0DzvkxkMRPDB6HlwhP5GJdVIlCQ53KdVp14INxKakrWQsjuzbctiUpZeXX4ebgTltv vx3T7j2jiWovXNywbfY8wp/iQxs/kxSrOd7OX7neahXGi+KViJqDB+bugvVZDDK/DlyvXv8cyceTLb K/fYISdO4ScmsH7qxInwk/6HfZb2qtF9Usr2PJuXEq3QMH6jaB0V3wqVJZ7tol4kaix32Ft+j2+gJC Arr2xN4sDUKSOI5COUjG/kqiSCw2qh5io//2cUiFgTBzxyhbWLB0ZedPwqlPWHZaWRrst6c33oN2CU NC0Wv+wwqCjto+TcCQ+OuJCaNLEcYjFbk/cPpss3Qs+WSfJzrRwQiytsloAlFmijy2h2JhOgnrQ3nC haK1ovBHWvRSFdv8h/ieXER+wBx2hUXkYHJjNi7sF0a4fD9+Q3NPeBn9qIWzyfnYgwzd4gYUWaH5Xn 5BhmXI9NbKVnKosvAZtCjIdhHxIkg9GEYRuvAAhFs7fkNnBs7TjLGQxxrXhBblWE6UxCB9NWdMEmyK E5nCcQTH+flRODfKx24rQC/N/0HNvIPsCbH8vG6rk+M9ihxsYUWIy0WFcFZg==
+X-Developer-Key: i=alx.manpages@gmail.com; a=openpgp; fpr=A9348594CE31283A826FBDD8D57633D441E25BB5
+Content-Transfer-Encoding: 8bit
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -79,105 +69,68 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------HjVOG84UyEwtYZlCbEaWB0fW
-Content-Type: multipart/mixed; boundary="------------bm00mD0NBR0QIaRB0JHbgnmZ";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: "Schneider, Robert" <robert.schneider03@sap.com>,
- Eric Paris <eparis@redhat.com>, Andrew Morton <akpm@linux-foundation.org>,
- David Howells <dhowells@redhat.com>
-Cc: "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
- "mtk.manpages@gmail.com" <mtk.manpages@gmail.com>
-Message-ID: <dcd16a37-82e4-d7c4-dbbc-0764cadfee76@gmail.com>
-Subject: Re: [patch] RLIMIT_NPROC not enforced for root user, irrespective
- capabilities
-References: <PAXPR02MB72147C88F7E9F82CC1AA577F8FAD9@PAXPR02MB7214.eurprd02.prod.outlook.com>
- <9e740310-6a05-5a05-b403-98369960830e@gmail.com>
- <PAXPR02MB7214288BB38033ACE0DBE35E8F879@PAXPR02MB7214.eurprd02.prod.outlook.com>
-In-Reply-To: <PAXPR02MB7214288BB38033ACE0DBE35E8F879@PAXPR02MB7214.eurprd02.prod.outlook.com>
+Format structures with tbl(1) to improve alignment in proportional-width font text.
 
---------------bm00mD0NBR0QIaRB0JHbgnmZ
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Reported-by: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+---
 
-SGkgUm9iZXJ0LA0KDQpPbiA3LzExLzIyIDE0OjMzLCBTY2huZWlkZXIsIFJvYmVydCB3cm90
-ZToNCj4gSGkgZXZlcnlvbmUsDQo+IA0KPiBJIGhvcGUgeW91IGRvbid0IG1pbmQgbWUgYXNr
-aW5nIGFnYWluIDopDQo+IEkgd291bGQgcmVhbGx5IGFwcHJlY2lhdGUgaWYgeW91IGNvdWxk
-IHRha2Ugc29tZSB0aW1lIHRvIHJldmlldyBteSBtYW4tcGFnZSBmaXg6DQo+IA0KPj4gSSd2
-ZSBub3RpY2VkIHRoYXQgdWlkIDAgaWdub3JlcyBSTElNSVRfTlBST0MgZXZlbiBpZiBpdCBk
-b2Vzbid0IGhhdmUgbmVpdGhlciBDQVBfU1lTX0FETUlOIG5vciBDQVBfU1lTX1JFU09VUkNF
-Lg0KPj4gVGhlIGNvcnJlc3BvbmRpbmcga2VybmVsIGNvZGUgaXMgaW4ga2VybmVsL2Zvcmsu
-YyBsaW5lIDIxMDAsDQo+PiBhbmQgSSdtIG5vdCBzdXJlIGlmIHAtPnJlYWxfY3JlYWQtPnVz
-ZXIgIT0gSU5JVF9VU0VSIHJlYWxseSBjaGVja3MgdGhlIHJ1aWQuDQo+IA0KPiANCj4gVGhh
-bmtzIGFnYWluLA0KPiBSb2JlcnQNCg0KDQpJIHRyaWVkIHRvIGFwcGx5IHRoZSBwYXRjaCwg
-d2hlbiBJIG5vdGljZWQgdGhhdCB0aGUgZm9ybWF0IGlzIG5vdCBwbGFpbiANCnRleHQuICAo
-QW5kIGdpdCByZWZ1c2VzIHRvIGFwcGx5IGl0LikNCg0KQ291bGQgeW91IHBsZWFzZSByZXNl
-bmQgaXQgbWFraW5nIHN1cmUgdGhhdCBpdCdzIHBsYWluIHRleHQ/DQpnaXQtZm9ybWF0LXBh
-dGNoKDEpIGluIGNvbWJpbmF0aW9uIHdpdGggZ2l0LXNlbmQtZW1haWwoMSkgbWlnaHQgaGVs
-cC4NCg0KT3RoZXJ3aXNlLCBJIGNhbiB0cnkgdG8gYXBwbHkgaXQgbWFudWFsbHkuLi4NCg0K
-VGhhbmtzLA0KDQpBbGV4DQo+IA0KPiANCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0N
-Cj4gRnJvbTogQWxlamFuZHJvIENvbG9tYXIgPGFseC5tYW5wYWdlc0BnbWFpbC5jb20+DQo+
-IFNlbnQ6IDE1IEp1bmUgMjAyMiAxODoyNw0KPiBUbzogRXJpYyBQYXJpcyA8ZXBhcmlzQHJl
-ZGhhdC5jb20+OyBBbmRyZXcgTW9ydG9uIDxha3BtQGxpbnV4LWZvdW5kYXRpb24ub3JnPjsg
-RGF2aWQgSG93ZWxscyA8ZGhvd2VsbHNAcmVkaGF0LmNvbT4NCj4gQ2M6IGxpbnV4LW1hbkB2
-Z2VyLmtlcm5lbC5vcmc7IG10ay5tYW5wYWdlc0BnbWFpbC5jb207IFNjaG5laWRlciwgUm9i
-ZXJ0IDxyb2JlcnQuc2NobmVpZGVyMDNAc2FwLmNvbT4NCj4gU3ViamVjdDogUmU6IFtwYXRj
-aF0gUkxJTUlUX05QUk9DIG5vdCBlbmZvcmNlZCBmb3Igcm9vdCB1c2VyLCBpcnJlc3BlY3Rp
-dmUgY2FwYWJpbGl0aWVzDQo+IA0KPiBIaSBFcmljLCBBbmRyZXcsIGFuZCBEYXZpZCwNCj4g
-DQo+IE9uIDYvMTUvMjIgMTg6MDQsIFNjaG5laWRlciwgUm9iZXJ0IHdyb3RlOg0KPj4gSGks
-DQo+Pg0KPj4gSSd2ZSBub3RpY2VkIHRoYXQgdWlkIDAgaWdub3JlcyBSTElNSVRfTlBST0Mg
-ZXZlbiBpZiBpdCBkb2Vzbid0IGhhdmUgbmVpdGhlciBDQVBfU1lTX0FETUlOIG5vciBDQVBf
-U1lTX1JFU09VUkNFLg0KPj4gVGhlIGNvcnJlc3BvbmRpbmcga2VybmVsIGNvZGUgaXMgaW4g
-a2VybmVsL2ZvcmsuYyBsaW5lIDIxMDAsDQo+PiBodHRwczovL2VsaXhpci5ib290bGluLmNv
-bS9saW51eC9sYXRlc3Qvc291cmNlL2tlcm5lbC9mb3JrLmMjTDIxMDANCj4+DQo+PiAgICAg
-ICAgICAgaWYgKGlzX3Vjb3VudHNfb3ZlcmxpbWl0KHRhc2tfdWNvdW50cyhwKSwgVUNPVU5U
-X1JMSU1JVF9OUFJPQywgcmxpbWl0KFJMSU1JVF9OUFJPQykpKSB7DQo+PiAgICAgICAgICAg
-ICAgICAgICBpZiAocC0+cmVhbF9jcmVkLT51c2VyICE9IElOSVRfVVNFUiAmJg0KPj4gICAg
-ICAgICAgICAgICAgICAgICAgICFjYXBhYmxlKENBUF9TWVNfUkVTT1VSQ0UpICYmICFjYXBh
-YmxlKENBUF9TWVNfQURNSU4pKQ0KPj4gICAgICAgICAgICAgICAgICAgICAgICAgICBnb3Rv
-IGJhZF9mb3JrX2NsZWFudXBfY291bnQ7DQo+PiAgICAgICAgICAgfSA+IEkgZG9uJ3QgdW5k
-ZXJzdGFuZCBfd2h5XyB1aWQgMCBpcyBleGNsdWRlZCBpbiBzdWNoIGEgd2F5LA0KPj4gYW5k
-IEknbSBub3QNCj4gc3VyZSBpZiBwLT5yZWFsX2NyZWFkLT51c2VyICE9IElOSVRfVVNFUiBy
-ZWFsbHkgY2hlY2tzIHRoZSBydWlkLg0KPj4gQW55d2F5LCBoZXJlJ3MgYSBwYXRjaCBmb3Ig
-dGhlIG1hbiBwYWdlIG9mIGdldHJsaW1pdCB0aGF0IHdvdWxkIGhhdmUNCj4+IGhlbHBlZCBt
-ZSBzYXZlIHNvbWUgdHJvdWJsZSA6KQ0KPj4NCj4gDQo+IENvdWxkIHlvdSBwbGVhc2UgY29u
-ZmlybSB0aGF0IHRoaXMgbWFudWFsIHBhZ2UgdXBkYXRlIGlzIHByZWNpc2U/DQo+IA0KPiBU
-aGFua3MsDQo+IA0KPiBBbGV4DQo+IA0KPj4NCj4+IGRpZmYgLS1naXQgYS9tYW4yL2dldHJs
-aW1pdC4yIGIvbWFuMi9nZXRybGltaXQuMiBpbmRleA0KPj4gNjQ4ZmQzYzg1Li43MjY4NTU2
-ZTYgMTAwNjQ0DQo+PiAtLS0gYS9tYW4yL2dldHJsaW1pdC4yDQo+PiArKysgYi9tYW4yL2dl
-dHJsaW1pdC4yDQo+PiBAQCAtMzU5LDcgKzM1OSw4IEBAIGxpbWl0IGlzIG5vdCBlbmZvcmNl
-ZCBmb3IgcHJvY2Vzc2VzIHRoYXQgaGF2ZSBlaXRoZXIgdGhlDQo+PiAgICAuQiBDQVBfU1lT
-X0FETUlODQo+PiAgICBvciB0aGUNCj4+ICAgIC5CIENBUF9TWVNfUkVTT1VSQ0UNCj4+IC1j
-YXBhYmlsaXR5Lg0KPj4gK2NhcGFiaWxpdHksDQo+PiArb3IgcnVuIHdpdGggcmVhbCB1c2Vy
-IElEIDAuDQo+PiAgICAuVFANCj4+ICAgIC5CIFJMSU1JVF9SU1MNCj4+ICAgIFRoaXMgaXMg
-YSBsaW1pdCAoaW4gYnl0ZXMpIG9uIHRoZSBwcm9jZXNzJ3MgcmVzaWRlbnQgc2V0DQo+Pg0K
-Pj4NCj4+IFJvYmVydA0KPiANCj4gLS0NCj4gQWxlamFuZHJvIENvbG9tYXINCj4gPGh0dHA6
-Ly93d3cuYWxlamFuZHJvLWNvbG9tYXIuZXMvPg0KDQotLSANCkFsZWphbmRybyBDb2xvbWFy
-DQo8aHR0cDovL3d3dy5hbGVqYW5kcm8tY29sb21hci5lcy8+DQo=
+Hi Branden,
 
---------------bm00mD0NBR0QIaRB0JHbgnmZ--
+I feel this v3 is good enough to propose it as an actual patch to the list.
 
---------------HjVOG84UyEwtYZlCbEaWB0fW
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+v3:
 
------BEGIN PGP SIGNATURE-----
+- Use .nf/.fi for comments, but not for types and member names.
+- Specify 2 spaces as the distance between types and member names,
+  and between member names and the comments.
+- Disallow hyphenating some identifier, to avoid confusion.
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmLgPgcACgkQnowa+77/
-2zLB+A/+PvziL+EoeFBE+VgA5yqejQdvrwX3BN+rI0aX0/riKLoKtEGal6M/5BG7
-nC7U/Rrah1FCvOodqwAE6UaNAY6g015qIv7kL60HScTAWyqDirFUYWh4P1TMWl76
-Z5AJMulSs7OFDdPGDPYMrqL19ZyFe32YbB4hRA2o2vNfAL6Q1HPeiv9HU1pBF5Jh
-ljqX3fpQAyAIQfQp0y2jTk36dySJil6qXibrwKOy3qu8tMs/yDFxtEQ9fMoTM/xC
-xZGTCeRtdQ4jrbczFaF6RrgoviWhM4n7q6twovUH7X28IhPGfK9QL+5YFStfgXBR
-pfhyftoPrDbV7uHcRSHcLAZlBNfzd2xITvQ+M+DVSSlukOw2iBWI4qLMvYlqstoF
-RCdEBYdp7t61x9aZvf59UrifOjd3ZaNGHkWxhSZn2aMK47+7wRlwcPTUP4K8XTid
-Ay7erUxetod0W98ZEBgOVWWSbRZ+rF3pjWUX9IMNhtb9aXBA6X1Igs03JT3LnhOg
-GJMVL/zJCTvdTCaawd/NP9RWKjz46TgJN+c2ryymCDNBJMmfY8GRToF/Tz1lWBUn
-b5OJ1QCG88uRTBZ5mppD58Y8Ao5+rXvkprDC2pnSqljN5lkfI8s5VwxyzVEDLT3d
-l+Idw1opBLOetUDlersLIEokLOJTWptawYGfxOXCqoz64EUkrQc=
-=fy4e
------END PGP SIGNATURE-----
+Cheers,
 
---------------HjVOG84UyEwtYZlCbEaWB0fW--
+Alex
+
+ man2type/open_how.2type | 27 ++++++++++++++++++++++++---
+ 1 file changed, 24 insertions(+), 3 deletions(-)
+
+diff --git a/man2type/open_how.2type b/man2type/open_how.2type
+index e058c08dc..01446a56b 100644
+--- a/man2type/open_how.2type
++++ b/man2type/open_how.2type
+@@ -13,9 +13,30 @@ Linux kernel headers
+ .B #include <linux/openat2.h>
+ .PP
+ .B struct open_how {
+-.BR "    u64  flags;" "    /* " O_ "* flags */"
+-.BR "    u64  mode;" "     /* Mode for " O_ { CREAT , TMPFILE "} */"
+-.BR "    u64  resolve;" "  /* " RESOLVE_ "* flags */"
++.PD 0
++.TS
++l lB2 lB2 l1 lX.
++\&	u64	flags;	/*	T{
++.fi
++.BR O_ *
++flags */
++.nf
++T}
++\&	u64	mode;	/*	T{
++.fi
++Mode for
++.BR \%O_ { CREAT , TMPFILE }
++*/
++.nf
++T}
++\&	u64	resolve;	/*	T{
++.fi
++.BR RESOLVE_ *
++flags */
++.nf
++T}
++.TE
++.PD
+     /* ... */
+ .B };
+ .fi
+-- 
+2.36.1
+
