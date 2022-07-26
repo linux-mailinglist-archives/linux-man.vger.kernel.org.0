@@ -2,73 +2,69 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 94DCA581335
-	for <lists+linux-man@lfdr.de>; Tue, 26 Jul 2022 14:37:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 4A0D458137E
+	for <lists+linux-man@lfdr.de>; Tue, 26 Jul 2022 14:54:32 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232255AbiGZMhC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 26 Jul 2022 08:37:02 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40358 "EHLO
+        id S238714AbiGZMya (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 26 Jul 2022 08:54:30 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50188 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231395AbiGZMhC (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 26 Jul 2022 08:37:02 -0400
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com [IPv6:2a00:1450:4864:20::42d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E5F8D1FCF2
-        for <linux-man@vger.kernel.org>; Tue, 26 Jul 2022 05:37:00 -0700 (PDT)
-Received: by mail-wr1-x42d.google.com with SMTP id v13so12182201wru.12
-        for <linux-man@vger.kernel.org>; Tue, 26 Jul 2022 05:37:00 -0700 (PDT)
+        with ESMTP id S233370AbiGZMy3 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 26 Jul 2022 08:54:29 -0400
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com [IPv6:2a00:1450:4864:20::330])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1F7AA1D321
+        for <linux-man@vger.kernel.org>; Tue, 26 Jul 2022 05:54:28 -0700 (PDT)
+Received: by mail-wm1-x330.google.com with SMTP id a18-20020a05600c349200b003a30de68697so942943wmq.0
+        for <linux-man@vger.kernel.org>; Tue, 26 Jul 2022 05:54:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to;
-        bh=3Th4R3GA3JEDBqMX0Jpc3yK7kUwhC7ioxi571Tks05Q=;
-        b=M6+qokYoqKVEu9rWlHFiWvwWt41abCgrWnL/Hc1b3wf7qfWsKERWbzDtWdJlvtItIk
-         TrsYMo5rhICuU0v4QkGUXelcbBxK+tkQr/fevUP/ejwrn2phXlJ4xqxSMX4vCeycQa6f
-         e19Xc1oqe93GXQIj0vxxfDBR2j65vKH39Pu2nEy50XVyv8Gkvg157SiZ89C7Yd/v8GRX
-         woQfUM5dmSB6QkOU7WXQoQ2TyoJjgjV1yeu0/C6buj+2elvUlb83RXwUR+gqoXVGM1Hz
-         H5lT2ie7zuQdxa0SdsnQIZPTJIGve9lh0RSmQSo9gZTWJtH/txbhWY7zK7D77vp5ffrl
-         wwyQ==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=LWslDXgvLCiIfbuCLYCJLJzFizj0J4oG0CAoBrAs+FQ=;
+        b=XFh1My2VLxarogYap6fM8KscU1I4BoUagv6/aoAOXELTS/Mk9t+fA+zZ+GyEJ93ceL
+         9VzbxQrLmTy/Qx/1xTs5wWKwbBm4mDkks0Kse3v5gUH8x9wGN57dGLWFj7JW08wBea0b
+         P6wm0eJnF5VqaQyCEQXvVVrL5b80BbM83HlehIXX8ULCVoewOTtucVnkoB50B8/6R4pt
+         8vF+0EbnMKsOVH1aSAXMnrWCNaSmzH7IX1TV+L6t+eDTn54lz6PKnaI6JnS5w7eOeUQg
+         SgqhM9RW502/7QXpZDFVblkNsRLik/BJeLqNqE+etNJEmRQZWzaO+FbJ0yj9sdNCywW2
+         TBFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to;
-        bh=3Th4R3GA3JEDBqMX0Jpc3yK7kUwhC7ioxi571Tks05Q=;
-        b=p2q+u7HK2wbBazH566kGnbKAFhSfrebQZbGbZzYC43TkTXn1siOY3wFgigdWRhG28n
-         7hZBR9Ol/Exx7v1jSU98GuT/FhFHRftm6HrE8/2klZiln3cE4a3w1DFBH14nyL0cgZN/
-         6oYNkeg26IYCocaX5cu4qrhZf2sEusz/mDMvTy9Jl9+rXH23aVBjKVAd75AsXV/Ev5z3
-         Wppqr46FRVEgrS2S8zgQ/cTvh46xzvnG+98NuMk8F1UCCbFth56El7Der4mvbohlY4Lc
-         GsqmhtmNbJ5FVX/nFumMX4w703kVD+tNI0D9x/AuKJGHoEoKKxYFsae3L2fYjO/BiOh4
-         RAkA==
-X-Gm-Message-State: AJIora+4DlJleTZK9D2sa75GRwoPIdw+pCQnjUAjrXX/ZZnpj7Rmm1V3
-        Un8HXqV6GVrqJVrAADgLMZg=
-X-Google-Smtp-Source: AGRyM1tJ4//T3QYxpCG2jUhIIQLs1NhLZGe9DV8mnBqKiLa/UJ6WQIyfZ2+IwBRYhUyCv+Fn9RCM6Q==
-X-Received: by 2002:a05:6000:15c1:b0:21e:8048:1b1a with SMTP id y1-20020a05600015c100b0021e80481b1amr8668521wry.370.1658839019289;
-        Tue, 26 Jul 2022 05:36:59 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id p20-20020a05600c1d9400b003a3561d4f3fsm8554169wms.43.2022.07.26.05.36.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 26 Jul 2022 05:36:58 -0700 (PDT)
-Message-ID: <54ab414c-b811-21db-80df-7c3934a85166@gmail.com>
-Date:   Tue, 26 Jul 2022 14:36:49 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.0.2
-Subject: Re: [PATCH v3] NULL.3const: Add documentation for NULL
-Content-Language: en-US
-To:     Jakub Wilk <jwilk@jwilk.net>
-Cc:     linux-man@vger.kernel.org, groff@gnu.org,
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=LWslDXgvLCiIfbuCLYCJLJzFizj0J4oG0CAoBrAs+FQ=;
+        b=ukrTAKVlWf6Hhi4qTMaPFa/VyIMNzlR6SgU66E8yiO6dk6S0fFvcqCBcJ5bYFmeWeO
+         AsHrDAZEv3kzaA8ugO9rxXYAGRP8Hf40wbBy1HUQ8DYz3qdtwGNPiNR5KGjcljNT4i96
+         1wPFUNcVH0Rcy2sZljBimAfd9q6dJBCkxZWpq85rdf+qZPiNxIc7EB7vE7s9ztwXKQWh
+         J6ayuzvA5paRv64gqdyeDImGUQ61LG3fjMf1J58w6gc+tECez5Jhc0+itlQWsBfc0PPs
+         XeZ3Mh6oWCe1LqZ658rU6RAyrj+ipi8+/pjMI14fzcjXDiqXpOENe2mM/IWF57CY2cNz
+         HZ5w==
+X-Gm-Message-State: AJIora9wxFzKhzKDIOLaM12KQHW7ADvzmuF3/zPxZS20oryL3tSL96Nc
+        BSMIqUqBP9lEt/lagH1tn8ciippBsbc=
+X-Google-Smtp-Source: AGRyM1uotZmcgc+3L8vYGg+IbiGuhNDd8cSIRz5W17EHnH2gfqF9tCGCbaEXJ30C1kceMC3Eva3ojw==
+X-Received: by 2002:a05:600c:35c7:b0:3a3:2612:f823 with SMTP id r7-20020a05600c35c700b003a32612f823mr12043729wmq.33.1658840066472;
+        Tue, 26 Jul 2022 05:54:26 -0700 (PDT)
+Received: from asus5775.alejandro-colomar.es ([170.253.36.171])
+        by smtp.googlemail.com with ESMTPSA id bg17-20020a05600c3c9100b003a04d19dab3sm3169327wmb.3.2022.07.26.05.54.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 26 Jul 2022 05:54:26 -0700 (PDT)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+To:     linux-man@vger.kernel.org
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>, groff@gnu.org,
         "G. Branden Robinson" <g.branden.robinson@gmail.com>,
         Ralph Corderoy <ralph@inputplus.co.uk>,
-        Ingo Schwarze <schwarze@usta.de>
-References: <20220722153127.14528-1-alx.manpages@gmail.com>
- <20220724191931.15683-1-alx.manpages@gmail.com>
- <20220725185704.zbebcx6yjs32uac4@jwilk.net>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20220725185704.zbebcx6yjs32uac4@jwilk.net>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------GNt626YsUYiLDDYvZ0WcjdjH"
+        Ingo Schwarze <schwarze@usta.de>, Jakub Wilk <jwilk@jwilk.net>
+Subject: [PATCH v4] NULL.3const: Add documentation for NULL
+Date:   Tue, 26 Jul 2022 14:48:01 +0200
+Message-Id: <20220726124800.108850-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.36.1
+In-Reply-To: <20220724191931.15683-1-alx.manpages@gmail.com>
+References: <20220724191931.15683-1-alx.manpages@gmail.com>
+MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2543; h=from:subject; bh=/CeqKCH0/N0R1TFPoy17pzR+ZYP0/aBccCHXPKl6WXs=; b=owEBbQKS/ZANAwAKAZ6MGvu+/9syAcsmYgBi3+JnoCXkUveud7qZsis0fi+u5UR9RCoKPudQ/VVt 0mRnc1OJAjMEAAEKAB0WIQTqOofwpOugMORd8kCejBr7vv/bMgUCYt/iZwAKCRCejBr7vv/bMkmzD/ 9cy4Hjnf9PHvYXNBM6t8hSdGlpt4B4brDygF5DS+dbuCe4Amv6p2moRBJGk6OwZACcJ2Oi+qhdrrkG gN5g0Q1ZOzEvVtzWS/Q4gj/SIqaWUO4WI/glpDr95AWaNgTDwMsw3+DLJpyXOlzmDjraG1c0FONkPJ wO6mhd1yTZ7lqQvAYB6VU0hHy9yqI2qoOgUAoFfIhcFZJMXufsCkD6AxIRm5RSP676+Nu+ZcPB3Iaj RxkqNzy1EfOVo2Sb2ueGNyfqgmKs+LYiSNEu5R7I5RP2iow6PsT9Lhzxxgfm4+/uJVUS/H9QOfg+8M uc4JB7OMrhqCkaXivtM4mRn4AeHnEERi5hLBc0jTL8iIPYq6k3oF3XjTtw4ahwgrDt/ta2cF7zydG4 dGeo3bp952TRWtpNalh4biwwkqyKFQjtnu3fs7rP3AOyZ8mIT+EPijOnjLNjMvmxj6qUD0nbbd6ghD X+Qbux950Jgwzk1FNjlhlWp0VHQRlbk3M8sHFib4TQg7cFUuwkGk0DOIquwfU7qCVzdx4+0Uma7iNS ISC3j8p8U3u4RqFjwtUnSZyiC1iAAMuobe404jQwgogxr2Lr6U6ivYhqhHbrW18z0SkzXIOL5kuhc3 p3wQaHXxylu693LkACLC7+w/Yk4XAG/G4mR0ZaDL1Snx1y2/jac1jugKu8vg==
+X-Developer-Key: i=alx.manpages@gmail.com; a=openpgp; fpr=A9348594CE31283A826FBDD8D57633D441E25BB5
+Content-Transfer-Encoding: 8bit
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -77,73 +73,135 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------GNt626YsUYiLDDYvZ0WcjdjH
-Content-Type: multipart/mixed; boundary="------------q6o3csl01dgUxfFU4yS3QdFw";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Jakub Wilk <jwilk@jwilk.net>
-Cc: linux-man@vger.kernel.org, groff@gnu.org,
- "G. Branden Robinson" <g.branden.robinson@gmail.com>,
- Ralph Corderoy <ralph@inputplus.co.uk>, Ingo Schwarze <schwarze@usta.de>
-Message-ID: <54ab414c-b811-21db-80df-7c3934a85166@gmail.com>
-Subject: Re: [PATCH v3] NULL.3const: Add documentation for NULL
-References: <20220722153127.14528-1-alx.manpages@gmail.com>
- <20220724191931.15683-1-alx.manpages@gmail.com>
- <20220725185704.zbebcx6yjs32uac4@jwilk.net>
-In-Reply-To: <20220725185704.zbebcx6yjs32uac4@jwilk.net>
+Reported-by: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: Ralph Corderoy <ralph@inputplus.co.uk>
+Cc: Ingo Schwarze <schwarze@usta.de>
+Cc: Jakub Wilk <jwilk@jwilk.net>
+Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+---
 
---------------q6o3csl01dgUxfFU4yS3QdFw
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+v2:
 
-SGkgSmFrdWIsDQoNCk9uIDcvMjUvMjIgMjA6NTcsIEpha3ViIFdpbGsgd3JvdGU6DQo+ICog
-QWxlamFuZHJvIENvbG9tYXIgPGFseC5tYW5wYWdlc0BnbWFpbC5jb20+LCAyMDIyLTA3LTI0
-LCAyMToxOToNCj4+ICsuQiAiI2RlZmluZSBOVUxMwqAgKCh2b2lkICopIDApIg0KPj4gKy5m
-aQ0KPj4gKy5TSCBERVNDUklQVElPTg0KPj4gKy5CIE5VTEwNCj4+ICtyZXByZXNlbnRzIGEg
-bnVsbCBwb2ludGVyIGNvbnN0YW50Lg0KPj4gKy5QUA0KPj4gK0FjY29yZGluZyB0byBQT1NJ
-WCwNCj4+ICtpdCBzaGFsbCBleHBhbmQgdG8gYW4gaW50ZWdlciBjb25zdGFudCBleHByZXNz
-aW9uIHdpdGggdGhlIHZhbHVlDQo+PiArLkIgMA0KPj4gK2Nhc3QgdG8gdHlwZQ0KPj4gKy5J
-UiAidm9pZCAqIiAuDQo+IA0KPiBNaWdodCBiZSB3b3J0aCBub3RpbmcgdGhhdCB0aGUgY2Fz
-dCByZXF1aXJlbWVudCB3YXMgYWRkZWQgb25seSBpbiANCj4gUE9TSVguMS0yMDA4IGFrYSBT
-VVN2NC4NCj4gDQo+PiArLlNIIENPTkZPUk1JTkcgVE8NCj4+ICtDOTkgYW5kIGxhdGVyOw0K
-PiANCj4gSXQncyBpbiBDODkgdG9vLg0KDQpNaWNoYWVsIGFuZCBJIGFncmVlZCB0aGF0IGZv
-ciBuZXcgcGFnZXMsIHdlJ3JlIGdvaW5nIHRvIGlnbm9yZSB0aGUgQzg5IA0Kc3RhbmRhcmQs
-IGFzIGFsbW9zdCBhbGwgY3VycmVudCBjb2RlIGFzc3VtZXMgQzk5IGlzIGF2YWlsYWJsZSwg
-YXQgbGVhc3QgDQp0byBhIGNlcnRhaW4gZGVncmVlIG9mIHN1cHBvcnQuDQoNClRoZSBzYW1l
-IGFzIFBPU0lYLjEtMTk5MCBpcyBhbHNvIGlnbm9yZWQgZm9yIHNpbXBsaWNpdHksIGFuZCB3
-ZSBzdGFydCANCmNvdW50aW5nIGZyb20gUE9TSVguMS0yMDAxLg0KDQpJJ20gbm90IHN1cmUg
-aWYgZG9jdW1lbnRpbmcgQzg5IHByb3ZpZGVzIGFueSB2YWx1ZSAoYXBhcnQgZnJvbSANCmhp
-c3RvcmljYWwgY3VyaW9zaXR5LCB0aGF0IGlzKS4NCg0KPiANCj4+ICsuSSBOVUxMIFwtIE5V
-TEwNCj4+ICtpcywgc3VycHJpc2luZ2x5LCB1bmRlZmluZWQgYmVoYXZpb3IsIGFjY29yZGlu
-ZyB0byBJU08gQy4NCj4gDQo+IEZXSVcsIEkgZG9uJ3QgZmluZCBpdCBzdXJwcmlzaW5nIGF0
-IGFsbC4NCg0KVGhlbiB5b3UgbWlnaHQgcGVyaGFwcyBmaW5kIGl0IHN1cnByaXNpbmcgdGhh
-dCBpbiBDKysgaXQncyBkZWZpbmVkIHRvIGJlIDAuDQoNCg0KQ2hlZXJzLA0KDQpBbGV4DQoN
-Ci0tIA0KQWxlamFuZHJvIENvbG9tYXINCjxodHRwOi8vd3d3LmFsZWphbmRyby1jb2xvbWFy
-LmVzLz4NCg==
+- Move to man3const [Ralph, Branden]
+- Added LIBRARY section
+- Added #include [Ralph]
+- Note that it can also be used as a function pointer [Ralph]
+- Document that 0 is another null pointer constant [Ralph]
+  But note that it's to be avoided by most coding standards [alx]
+- Note that NULL is not NUL
+- Improve wording about zeroing a pointer [Ralph]
+  And refer to getaddrinfo(3) for an example.
+  This probably can be further improved; I'm not convinced.
+- Trim SEE ALSO to just void(3type)
+- Other minor fixes
 
---------------q6o3csl01dgUxfFU4yS3QdFw--
+v3:
 
---------------GNt626YsUYiLDDYvZ0WcjdjH
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+- Don't boldface 0s, since it doesn't refer to the literal constant 0,
+  but to the bit pattern of 0s.
+- Add list of headers that also define NULL (per POSIX.1-2008).
 
------BEGIN PGP SIGNATURE-----
+v4:
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmLf3+EACgkQnowa+77/
-2zI+tQ/+MoTf1GrcK1/vbSQoVjc9NY76EQdc3Pt4BMirRHI865OyB6qoEbVHw4IY
-T4sRFsr5C92YGa6sAb+yjgFmdWcBQ7TuImnS9iIdcs/d0gvWPUDLodRDj8TbfkxY
-yHHL6Ux3h/8LP+4UYPgcY4421qYtccW0MxpWwsNcxAtk3cQzEnw7fYgDuWkLo73a
-2tLbok4Di/sBiYP0uNg45TwMVjf7LYEu6NJgIQxPwSlYhJ7d8UswlkXd/zYP6vYg
-LUsxVMyo95/94ILdBsrmwvmPMPthswiXzBGsB2PcRd+29U6YAP/RVRbi/gRSS0P+
-YjWLaegWh/5zCGsoLa1dj/Y4TLoeiyW9wbT30QzFlEAeXiVge9bjE+Q6F24XDxb8
-KLeBmjRcgU02XzXfR4Z2Sbmv+rRCd/5C1LvzVDhKBn7ytIDkByhrhsolDu42iRa7
-xjw3Ei0PSvQxuM9H0pax1Xgr9SpzAe7gOh9rmWb/m9XTQ+K+ArpyFhQahwutAR1M
-BTNTen2DrDXZIt5mMZbXrL0o/GFLGFaF43Gg1FYx9LJ6ZqesgVTVHm7SaRIxod/G
-2NGtG4+UrC59y30WmxBx4jXnF6mMVuetVKsOIxKCXyWTAXKVH9HVh42BDqrlX4/f
-6/GR3hWTM/CEE7w+N8d1JPDdWbiEme1r11NXB4VVFhbXiGzPM1s=
-=+Isd
------END PGP SIGNATURE-----
+- Remove details about POSIX defining NULL as (void*)0.  [Ingo]
+  All Unix systems already define it that way, so it's irrelevant for
+  us that ISO C or old versions of POSIX didn't define it that way.
+- Reword the remaining DESCRIPTION [Ingo]
+- Move a big part of NOTES into a new CAVEATS section [Ingo]
+  NOTES is a generic "doesn't fit elsewhere" section.
+  Those things fitted very well a CAVEATS section.
+- Simplify mention of 0 as a null pointer constant, and change it to
+  make clear that it's a thing to avoid. [Ingo]
+- Keep extra headers in NOTES, as it's a thing that few readers will
+  be interested in.
+- Reworded a few things. [Ingo]
 
---------------GNt626YsUYiLDDYvZ0WcjdjH--
+ man3const/NULL.3const | 76 +++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 76 insertions(+)
+ create mode 100644 man3const/NULL.3const
+
+diff --git a/man3const/NULL.3const b/man3const/NULL.3const
+new file mode 100644
+index 000000000..28a6f67aa
+--- /dev/null
++++ b/man3const/NULL.3const
+@@ -0,0 +1,76 @@
++.\" Copyright (c) 2022 by Alejandro Colomar <colomar.6.4.3@gmail.com>
++.\"
++.\" SPDX-License-Identifier: Linux-man-pages-copyleft
++.\"
++.\"
++.TH NULL 3const 2022-07-22 Linux "Linux Programmer's Manual"
++.SH NAME
++NULL \- null pointer constant
++.SH LIBRARY
++Standard C library
++.RI ( libc )
++.SH SYNOPSIS
++.nf
++.B #include <stddef.h>
++.PP
++.B "#define NULL  ((void *) 0)"
++.fi
++.SH DESCRIPTION
++.B NULL
++represents a null pointer constant,
++that is, a pointer that does not point to anything.
++.SH CONFORMING TO
++C99 and later;
++POSIX.1-2001 and later.
++.SH NOTES
++The following headers also provide
++.BR NULL :
++.IR <locale.h> ,
++.IR <stdio.h> ,
++.IR <stdlib.h> ,
++.IR <string.h> ,
++.IR <time.h> ,
++.IR <unistd.h> ,
++and
++.IR <wchar.h> .
++.SH CAVEATS
++It is undefined behavior to dereference a null pointer,
++and that usually causes a segmentation fault in practice.
++.PP
++It is also undefined behavior to perform pointer arithmetics on it.
++.PP
++.I NULL \- NULL
++is undefined behavior, according to ISO C, but is defined to be 0 in C++.
++.PP
++To avoid confusing human readers of the code,
++do not compare pointer variables to
++.BR 0 ,
++and do not assign
++.B 0
++to them.
++Instead, always use
++.BR NULL .
++.PP
++.B NULL
++shouldn't be confused with
++.BR NUL ,
++which is an
++.BR ascii (7)
++character,
++represented in C as
++.BR \(aq\e0\(aq .
++.SH BUGS
++When it is necessary to set a pointer variable to a null pointer,
++it is not enough to use
++.BR memset (3)
++to zero the pointer
++(this is usually done when zeroing a struct that contains pointers),
++since ISO C and POSIX don't guarantee that a bit pattern of all 0s
++would represent a null pointer.
++Instead, pointer variables need to be explicitly set to a null pointer
++when they need to hold a null pointer.
++See the EXAMPLES section in
++.BR getaddrinfo (3)
++for an example program that does this.
++.SH SEE ALSO
++.BR void (3type)
+-- 
+2.36.1
+
