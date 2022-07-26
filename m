@@ -2,105 +2,112 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 7C6EE58181E
-	for <lists+linux-man@lfdr.de>; Tue, 26 Jul 2022 19:09:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5C733581934
+	for <lists+linux-man@lfdr.de>; Tue, 26 Jul 2022 19:55:10 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231177AbiGZRJV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 26 Jul 2022 13:09:21 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42098 "EHLO
+        id S239838AbiGZRzG (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 26 Jul 2022 13:55:06 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45292 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232151AbiGZRJU (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 26 Jul 2022 13:09:20 -0400
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com [IPv6:2a00:1450:4864:20::132])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id ADFE11B781
-        for <linux-man@vger.kernel.org>; Tue, 26 Jul 2022 10:09:18 -0700 (PDT)
-Received: by mail-lf1-x132.google.com with SMTP id p10so16074756lfd.9
-        for <linux-man@vger.kernel.org>; Tue, 26 Jul 2022 10:09:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=FrCtXuJpRo8PiYyHtVSEP6i9HwGQx7g5KrzehoKdQnk=;
-        b=D5P8uq5/8b7+VWbtvKeHgfY2+/u5GKpVBALMGE+I0cpM3jrW/JyRmoZHHa3jWw7jK4
-         u0/AVRyWAGQsazXnvKbiwrnmyyUHuOT+R0bNC1uaCoRQtdeWcqvkV3I67o4csA/SziD3
-         IBu4v8IqLyne8UloGvrfidB04Vnfj2sYtdMk0xAZzmWk4HV8zrplSP6O9nINHiuComhL
-         he6zT7DDRYZjfT16sgm1a80oLp0ovEuFUe/0HFCjjjSVA13e6cJD+pOv+lY8IlJmwR1j
-         +6xxq0qAAQd3ErjMHMy2nP6MXdoW2w/L8NhYSc7A0XUeYATgi3lt2G3LBSwgwjq3DVzp
-         vWEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=FrCtXuJpRo8PiYyHtVSEP6i9HwGQx7g5KrzehoKdQnk=;
-        b=yUlolX9Oof2mnT7WgIOoO8//xhM+8trbgAYgVi0rxiBldiC/JvO7gMUV73e2Bhrpqv
-         HcS2l5dFchkhPeSpygIACt6zC51UcKk9VucOePmdrdx/Ro3zJ3r+gtUpnVcYbC2fzTkq
-         gXSpohbgFlfZoycjaD9AfsdAabDYI36TyqifsbQl06/zAEZPFdd/+NmGaUUumfRnTX4W
-         b7zDoo7OKxowgz28horlO8pJGDzKJCl0fh6xNwXteFXHIsJtrgtaiQebvdM5Q2SyHK8r
-         nJdH7mvwbq56mgzhQtf5FRSu8MEmefwGg6LzWuiR5U0WG1ySju5h7kMx5s9gjdLSb21Q
-         pyIg==
-X-Gm-Message-State: AJIora9f2+EwbCRy6zeYt76+V0+iIvulZ4ExFS9iDasML3vyQ5Gq0dHN
-        UqKGVGzGnCIIO+YvdqV+vBZHB9sLivVN0cxfgk86bA==
-X-Google-Smtp-Source: AGRyM1vlO0MrjmI2iAMgJfW4rK9CDqIlh/HewN5Rc4lxoJ9Q++5KtWzdGKemcJnVW/qnLFt+mPJ9MZY6YfxLaB7UzNs=
-X-Received: by 2002:a05:6512:518:b0:48a:a0e0:3c3 with SMTP id
- o24-20020a056512051800b0048aa0e003c3mr1612990lfb.118.1658855356821; Tue, 26
- Jul 2022 10:09:16 -0700 (PDT)
+        with ESMTP id S239856AbiGZRyr (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 26 Jul 2022 13:54:47 -0400
+Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 8A6CB326F0
+        for <linux-man@vger.kernel.org>; Tue, 26 Jul 2022 10:53:43 -0700 (PDT)
+Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 90E83B8A;
+        Tue, 26 Jul 2022 19:53:39 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
+        s=202205; t=1658858019;
+        bh=QVR0Jgkjq5Laodr8DBLDsGy/COfNGcHfOzAoZBzW6J0=;
+        h=Date:From:To:Cc:Subject:From;
+        b=sdRT62eGPVo+bfimBFZs4IIFTjaEzuPQnty6LoIx0UMikIbfhgJxgFb6LtyFc0x8u
+         Zcs5FTeexhToD4pTo3biyBNFwlV9Z2YDowCg0IUdGov8BbtRyGhth8y6wpstWpBc93
+         88XbjxK5gO1RtShfD7hWGcjzROoa4qNeIiDejAnafmMVIsnb2Ro/gGY6tfjqwYSpA/
+         l3MUkH9h4DaztCdIQP+7ygLh+whRvddYUzBiKRxz90YBCE7bcUJt+LIq6RAOXZ3yM6
+         xQC890BJ27J4rhSHaueiyVpRh+auvewNSZ9uein+fzG8kdmhg6MCvwbKcnwvCZE2Rf
+         9brZ4v/0ZO3nEHeEC4o/e26PmH1rhJmpvIuzn1vOpk3I22b2RD9nAWXG2VzbuINTPU
+         AoSO8JpKdhR+SeJSoHNUdckd+TlTITQv6ZgUd+7HGo262EELVuTYuWs+KfuAry1Eo4
+         wsZ7+A6jxYdBfX3eKSDRMPQ8fZwTwpqCvM5vFkwyUnzrNhbl0P1hbsCjspvTbmIv1P
+         mK2GFCegNHoVFXfG79SQY4J86eT8UJVB08ozLFmmaTFBsZ6EGx4DT1+eH9Ln9zKc/6
+         Ie23YH30aGyBvuz+yo3r1c+SeHvu9ieIciQxpsvMQmRo8RhD465cuJS4+QrOYRuMI2
+         8Y+RaMLriWgG28qRvXnqobcM=
+Date:   Tue, 26 Jul 2022 19:53:38 +0200
+From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org
+Subject: [PATCH] strsignal.3: fix str(d)abbrev typo
+Message-ID: <20220726175338.o6kto56ogecrhzgs@tarta.nabijaczleweli.xyz>
 MIME-Version: 1.0
-References: <CAJgzZoqZ1yfFtP0Zbc+i5aGS1bn6VJu2dHaa9CJhJr2P7QfSiQ@mail.gmail.com>
- <874k8k8m5s.fsf@oldenburg.str.redhat.com> <9dcab95b-ec77-b82b-22cf-ce082af033fb@gmail.com>
- <CAJgzZoovvrPuvL43bbj39QvH3KLO7ZO800j76T=bea+iHrvqBQ@mail.gmail.com>
- <48e15fa1-bdcf-a21f-1aa1-5c5168c67422@gmail.com> <CAJgzZoqDAMuk8j-kwzxkKMSbs4z2ZiGzbQuUkrouXitgW+RYmg@mail.gmail.com>
- <7f200367-3751-d110-4c9e-2c0a677eb548@gmail.com>
-In-Reply-To: <7f200367-3751-d110-4c9e-2c0a677eb548@gmail.com>
-From:   enh <enh@google.com>
-Date:   Tue, 26 Jul 2022 10:09:05 -0700
-Message-ID: <CAJgzZopKFRtexqHiT2JAyF_g1WoMYgvXM9RuNB7W+do1Nv0NvQ@mail.gmail.com>
-Subject: Re: [PATCH] pthread_atfork.3: wfix.
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     linux-man <linux-man@vger.kernel.org>,
-        "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>,
-        Florian Weimer <fweimer@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: No, score=-17.6 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-        ENV_AND_HDR_SPF_MATCH,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
-        USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=ham
-        autolearn_force=no version=3.4.6
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="tgmx3zjgvae5ddd5"
+Content-Disposition: inline
+User-Agent: NeoMutt/20220429
+X-Spam-Status: No, score=2.5 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FROM_SUSPICIOUS_NTLD,
+        FROM_SUSPICIOUS_NTLD_FP,PDS_OTHER_BAD_TLD,RDNS_DYNAMIC,SPF_HELO_NONE,
+        SPF_PASS autolearn=no autolearn_force=no version=3.4.6
+X-Spam-Level: **
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Tue, Jul 26, 2022 at 4:06 AM Alejandro Colomar
-<alx.manpages@gmail.com> wrote:
->
-> Hi enh,
->
-> On 7/25/22 23:00, enh wrote:
-> > interestingly, i see that commit in the log:
-> > https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/log/man3/pthread_atfork.3 <https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/log/man3/pthread_atfork.3>
-> >
-> > but it doesn't seem to have made it to the web?
-> > https://man7.org/linux/man-pages/man3/pthread_atfork.3.html
-> > <https://man7.org/linux/man-pages/man3/pthread_atfork.3.html>
-> >
-> > is there a known issue with man7.org <http://man7.org> being out of date?
->
-> man7.org shows the latest release.  Since we haven't released since
-> man-pages 5.13, there are many changes in the git repo that aren't found
-> in that website.
 
-oh, i didn't know that (in part because i have a local git clone and
-set $MANPATH!), but that would explain a lot! is there anything i can
-read on the background to this? in particular: is the problem
-technical or political or financial? (hopefully it's not health, given
-that 5.13 would be "early covid times"?)
+--tgmx3zjgvae5ddd5
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> Cheers,
->
-> Alex
->
->
-> --
-> Alejandro Colomar
-> <http://www.alejandro-colomar.es/>
+Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
+---
+ man3/strsignal.3 | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/man3/strsignal.3 b/man3/strsignal.3
+index 047da6ca0..fc376e2ac 100644
+--- a/man3/strsignal.3
++++ b/man3/strsignal.3
+@@ -149,7 +149,7 @@ Present on Solaris and the BSDs.
+ .PP
+ .BR sigdescr_np ()
+ and
+-.BR sigdabbrev_np ()
++.BR sigabbrev_np ()
+ are GNU extensions.
+ .PP
+ .I sys_siglist
+@@ -157,7 +157,7 @@ is nonstandard, but present on many other systems.
+ .SH NOTES
+ .BR sigdescr_np ()
+ and
+-.BR sigdabbrev_np ()
++.BR sigabbrev_np ()
+ are thread-safe and async-signal-safe.
+ .SH SEE ALSO
+ .BR psignal (3),
+--=20
+2.30.2
+
+--tgmx3zjgvae5ddd5
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmLgKiIACgkQvP0LAY0m
+WPFtmRAAs/OW5b7elSkpwsOymA1VF9dKZSDyHDyrgOUrxfq1Uwz8kIGufIHwO1KS
+Xr4G7B3EGdrnab0dPGSEQbTW4Ki1soIua6ZpTAwbnZjqp6onMRkWfEky7wcQ6kGT
+Av0qGQ2dZCqGpCdl6jg55D4AnccmBWwrb6MHD3138lblOGwFvwBFdTboMo2JX6a9
+0r8IurauEPPoTFnttZTfgRYvGo6Nfj4XMh8kgAClgoKxPpWMiB99XzSz/ZoOuIkX
+PBDdKmy8LNgokiBVKQH7HUHwf1LJWMhJzg0b1PnI2EE06mq71bpy3k6+SBoaJEos
+zKLFgl1dJbkLweuU+rpQE/eIVUK4MJhKOVNi/YPAvK9gO5XeGcgCdqz9C4YnbssE
+5ETKlnI6uaTdFlDyz84e5TsbZ50AX3+h+dcZJmWMLfNcccRDvo6cfQswNP3Evnsi
+NDfFYSnrWkzZu3SD9ITZmzj/j5Pq0IG4HOPw5E6yRwUW1tEe+Gs5sXwv6I5jFkDG
+c0o8vJHYxZAE91abgBV1W5H0VB54YJ0OaKom2XGeJt5Msvht5WiX4Xa+15mZVfys
+V56tkO73XCWRbEdmMvjO3ORH1eKH859dBnzXHlVsA47wiWkrewvMfEIG0nYEzHim
+iJjnff+P8ROCaS8gSnMZl8ohKFRve0MzUXEHcGd2ygLHsDpOf+E=
+=smMk
+-----END PGP SIGNATURE-----
+
+--tgmx3zjgvae5ddd5--
