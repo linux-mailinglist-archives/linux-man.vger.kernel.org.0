@@ -2,152 +2,141 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 94703581542
-	for <lists+linux-man@lfdr.de>; Tue, 26 Jul 2022 16:30:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D068458168F
+	for <lists+linux-man@lfdr.de>; Tue, 26 Jul 2022 17:37:40 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233921AbiGZOa0 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 26 Jul 2022 10:30:26 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38992 "EHLO
+        id S229763AbiGZPhj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 26 Jul 2022 11:37:39 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33700 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S239377AbiGZOaH (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 26 Jul 2022 10:30:07 -0400
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com [IPv6:2a00:1450:4864:20::42c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3BEDF2B1A8
-        for <linux-man@vger.kernel.org>; Tue, 26 Jul 2022 07:30:00 -0700 (PDT)
-Received: by mail-wr1-x42c.google.com with SMTP id h9so20453334wrm.0
-        for <linux-man@vger.kernel.org>; Tue, 26 Jul 2022 07:29:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:to:cc:references
-         :content-language:from:in-reply-to;
-        bh=klD3cM+fp78oPX6lQM3+mnpCjQVlMD1xodHD8oTkYWM=;
-        b=WPx3Wb48GbeLNZg9yuFrFyS9EAtHf38XMgCVFGWr60Vhlln2MpFqCxcOcvBh6dyo1a
-         tdUeiF9cs+PFoXaV5SSUKtnr+Spf9dUa4IhcPI/1V5+PmPb2D+ktzA8V4vqL/5rDc9i5
-         +n6XCEbsnoaQDNLMLI2Jk9orRj3SD286++S7Ks4seW6cSUE8Q6my3FUYbaK8Jdoxwoyr
-         aeRQHmjSzWfQNjtNYSkdnTFSH+zmgDiecJvPEPmlttXGVwgXynVSU1/hv/iBAZzMbdus
-         KHpJ2/KI/w2HCvXTGu94i3kuY+61WaOQ51zYZGEFelGr4LnzVP8ijFjpAfH2vVh63oXB
-         s1Ew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :to:cc:references:content-language:from:in-reply-to;
-        bh=klD3cM+fp78oPX6lQM3+mnpCjQVlMD1xodHD8oTkYWM=;
-        b=sGPrEu5RLTtOoXugmzXoCjA4YEAAX/sqob3DcijrDpnjPh+V7rUa882+kjkwGUz5z/
-         S4dlVHwXOnN0uq9oN4T2f7XsOwZfg/LFStT6zndaPAeRvcLfUOswRU+u8x90v1YHvhse
-         +I9/abu2Z2sedBt4U4kbfKdNSeRRvYBMQ4lIq7GMSbhHqOVWroglXbluFeRpxvWkqG7A
-         QcveXLlgQlb+AZJ/4XKqqH/+L5A7YpW+QzLQb4+kshB/h7m5kmJ3C34x4kbxxYMxrBLE
-         MwGGuWQ5TiMBasI8qEbZJHMzBFPiraWmK8FT7hvNnKhNsDdu5wjYZbUi0X+N3ZOjtr/p
-         9sWA==
-X-Gm-Message-State: AJIora9ZQH6pBitUWAsc6GmNBcem66giIKHhWUJ7bkMnFnHPMKMs1/s9
-        Ho/cYnDPy36Wlk353wSqhKWpOibEGlQ=
-X-Google-Smtp-Source: AGRyM1tvlXfFAZNX2w+mYvY9Jspj1a/jmLUeo6az7vtPMHiMOWE/v873b71afiXP4yh83vz/wlgFBQ==
-X-Received: by 2002:adf:fc85:0:b0:21e:5922:1965 with SMTP id g5-20020adffc85000000b0021e59221965mr11543154wrr.299.1658845797585;
-        Tue, 26 Jul 2022 07:29:57 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id m20-20020a05600c4f5400b003976fbfbf00sm20140972wmq.30.2022.07.26.07.29.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 26 Jul 2022 07:29:57 -0700 (PDT)
-Message-ID: <7effe1a8-c1b4-5542-932a-7edf436036ce@gmail.com>
-Date:   Tue, 26 Jul 2022 16:29:49 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.0.2
-Subject: Re: [PATCH] man-pages.7: Document CAVEATS section
-To:     Ingo Schwarze <schwarze@usta.de>
+        with ESMTP id S229495AbiGZPhi (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 26 Jul 2022 11:37:38 -0400
+Received: from scc-mailout-kit-02.scc.kit.edu (scc-mailout-kit-02.scc.kit.edu [IPv6:2a00:1398:9:f712::810d:e752])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5DA972BB0C
+        for <linux-man@vger.kernel.org>; Tue, 26 Jul 2022 08:37:36 -0700 (PDT)
+Received: from hekate.asta.kit.edu ([2a00:1398:5:f401::77])
+        by scc-mailout-kit-02.scc.kit.edu with esmtps (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+        (envelope-from <schwarze@usta.de>)
+        id 1oGMcn-00Ah1U-SD; Tue, 26 Jul 2022 17:37:34 +0200
+Received: from login-1.asta.kit.edu ([2a00:1398:5:f400::72])
+        by hekate.asta.kit.edu with esmtp (Exim 4.94.2)
+        (envelope-from <schwarze@usta.de>)
+        id 1oGMcn-006pKp-Ng; Tue, 26 Jul 2022 17:37:33 +0200
+Received: from schwarze by login-1.asta.kit.edu with local (Exim 4.92)
+        (envelope-from <schwarze@usta.de>)
+        id 1oGMcn-0001tE-Mm; Tue, 26 Jul 2022 17:37:33 +0200
+Date:   Tue, 26 Jul 2022 17:37:33 +0200
+From:   Ingo Schwarze <schwarze@usta.de>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org
+Subject: Re: [PATCH] man-pages.7: Document CAVEATS section
+Message-ID: <YuAKPTxrbJ2XuqJN@asta-kit.de>
 References: <20220726120817.100462-1-alx.manpages@gmail.com>
  <Yt/yMJuhXd+jH3sp@asta-kit.de>
-Content-Language: en-US
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <Yt/yMJuhXd+jH3sp@asta-kit.de>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------Xk5JnM5IpSjvCPqiUpj8hH0R"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
-        autolearn_force=no version=3.4.6
+ <7effe1a8-c1b4-5542-932a-7edf436036ce@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <7effe1a8-c1b4-5542-932a-7edf436036ce@gmail.com>
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED,
+        SPF_HELO_NONE,SPF_NONE autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------Xk5JnM5IpSjvCPqiUpj8hH0R
-Content-Type: multipart/mixed; boundary="------------LX2Wwc23PX0vkimbgvTipzT1";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Ingo Schwarze <schwarze@usta.de>
-Cc: linux-man@vger.kernel.org
-Message-ID: <7effe1a8-c1b4-5542-932a-7edf436036ce@gmail.com>
-Subject: Re: [PATCH] man-pages.7: Document CAVEATS section
-References: <20220726120817.100462-1-alx.manpages@gmail.com>
- <Yt/yMJuhXd+jH3sp@asta-kit.de>
-In-Reply-To: <Yt/yMJuhXd+jH3sp@asta-kit.de>
+Hi Alejandro,
 
---------------LX2Wwc23PX0vkimbgvTipzT1
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Alejandro Colomar wrote on Tue, Jul 26, 2022 at 04:29:49PM +0200:
+> On 7/26/22 15:54, Ingo Schwarze wrote:
+>> Alejandro Colomar wrote on Tue, Jul 26, 2022 at 02:08:18PM +0200:
 
-SGkgSW5nbywNCg0KT24gNy8yNi8yMiAxNTo1NCwgSW5nbyBTY2h3YXJ6ZSB3cm90ZToNCj4g
-SGkgQWxlamFuZHJvLA0KPiANCj4gQWxlamFuZHJvIENvbG9tYXIgd3JvdGUgb24gVHVlLCBK
-dWwgMjYsIDIwMjIgYXQgMDI6MDg6MThQTSArMDIwMDoNCj4gDQo+PiBDQVZFQVRTIGlzIGFu
-IGludGVyZXN0aW5nIHNlY3Rpb24gZnJvbSBPcGVuQlNELg0KPiANCj4gSXQgaXMgbm8gZG91
-YnQgbmljZSB3aGVuIGNyZWRpdCBpcyBnaXZlbiB0byBPcGVuQlNELA0KPiBidXQgaW4gdGhp
-cyBjYXNlLCBpdCBoYXBwZW5zIHRvIGJlIHVuZGVzZXJ2ZWQuICA7LSkNCj4gDQo+IEkgc2Vl
-IHRoZSBmb2xsb3dpbmcgZWFybHkgdXNlcyBvZiAiLlNIIENBVkVBVFMiOg0KPiANCj4gICAq
-IDQuMkJTRCBleGVjdmUoMiksIHJlbGVhc2VkIFNlcHRlbWJlciAxOTgzLCBhdXRob3IgdW5r
-bm93bg0KPiAgICogNC4zQlNELVRhaG9lIHBhdGNoKDEpLCByZWxlYXNlZCBKdW5lIDE5ODgs
-IGF1dGhvcjogTGFycnkgV2FsbA0KPiAgICogNC4zQlNELVJlbm8gYW1kKDgpLCByZWxlYXNl
-ZCBKdW5lIDE5OTAsIGF1dGhvcjogSmFuLVNpbW9uIFBlbmRyeQ0KPiAgICogNC40QlNEIHN0
-cmZ0aW1lKDMpLCByZWxlYXNlZCBKdW5lIDE5OTMsIGF1dGhvcjogQXJub2xkIFJvYmJpbnMN
-Cj4gICAqIDQuNEJTRCBnemlwKDEpLCByZWxlYXNlZCBKdW5lIDE5OTMsIGF1dGhvciAodW5z
-dXJlKSBKZWFuLWxvdXAgR2FpbGx5ID8NCj4gICAqIDQuNEJTRCBtb3VudF9rZXJuZnMoOCks
-IHJlbGVhc2VkIEp1bmUgMTk5MywgYXV0aG9yOiBKYW4tU2ltb24gUGVuZHJ5DQo+IA0KPiBU
-aGUgZmlyc3QgaW5zdGFuY2Ugb2YgIi5TaCBDQVZFQVRTIiBpIGZvdW5kIGlzOg0KPiANCj4g
-ICAqIDQuNEJTRC1MaXRlMSByZWFscGF0aCgzKSwgcmVsZWFzZWQgQXByaWwgMTk5NCwgYXV0
-aG9yIEtlaXRoIEJvc3RpYw0KPiANCj4gSXQgZG9lc24ndCBsb29rIGFzIGlmIHRoZSBVQyBD
-U1JHIHVzZWQgQ0FWRUFUUyBpbiBhZGRpdGlvbmFsIGZpbGVzLg0KPiANCj4gU3RhbmRhcmRp
-emF0aW9uIHdhcyBkZWNpZGVkIGluIE5ldEJTRCBkdXJpbmcgYSBkaXNjdXNzaW9uDQo+IG9u
-IDx0ZWNoLXVzZXJsZXZlbEBuZXRic2Qub3JnPiBsZWFkaW5nIHRvIHRoaXMgY29tbWl0Og0K
-PiANCj4gICAgL3NyYy9zaGFyZS9taXNjL21kb2MudGVtcGxhdGUgcmV2aXNpb24gMS42DQo+
-ICAgIGRhdGU6IDIwMDItMDctMTAgMDk6NDU6MTggKzAwMDA7ICBhdXRob3I6IHlhbXQ7ICBz
-dGF0ZTogRXhwOyAgbGluZXM6ICsyIC0xOw0KPiAgICBhZGQgQ0FWRUFUUyBzZWN0aW9uLiBk
-aXNjdXNzZWQgb24gdGVjaC11c2VybGV2ZWwuDQo+IA0KPiBUaGUgbG9naW4gbmFtZSAieWFt
-dCIgYmVsb25ncyB0byBZQU1BTU9UTyBUYWthc2hpLg0KPiANCj4gSXQgd2FzIHRoZW4gcXVp
-Y2tseSBwaWNrZWQgdXAgaW4gT3BlbkJTRCBieSBKYXNvbiBNY0ludHlyZS4NCj4gDQo+IFNv
-IHRoZSBzZWN0aW9uIGhhcyBhIHRyYWRpdGlvbiBvZiBhbG1vc3QgNDAgeWVhcnMgYW5kIGhh
-cyBiZWVuDQo+IHN0YW5kYXJkaXplZCBpbiAqQlNEIGZvciBhYm91dCB0d28gZGVjYWRlcywg
-ZXZlbiB0aG91Z2ggaXQgd2FzDQo+IG5vdCBvcmlnaW5hbGx5IGEgQlNEIGludmVudGlvbi4N
-Cg0KV2Fzbid0IGl0IGEgQlNEIGludmVudGlvbj8gIFRoZSBzb3VyY2VzIHlvdSBtZW50aW9u
-ZWQgc2VlbSB0byBzYXkgaXQgaXMuDQoNCldvdWxkIGl0IGJlIGNvcnJlY3QgdG8gc2F5ICIu
-Li4gc2VjdGlvbiBmcm9tIHRoZSBCU0RzIj8NCg0KQ2hlZXJzLA0KDQpBbGV4DQoNCi0tIA0K
-QWxlamFuZHJvIENvbG9tYXINCjxodHRwOi8vd3d3LmFsZWphbmRyby1jb2xvbWFyLmVzLz4N
-Cg==
+>>> CAVEATS is an interesting section from OpenBSD.
 
---------------LX2Wwc23PX0vkimbgvTipzT1--
+>> It is no doubt nice when credit is given to OpenBSD,
+>> but in this case, it happens to be undeserved.  ;-)
+>> 
+>> I see the following early uses of ".SH CAVEATS":
+>> 
+>>   * 4.2BSD execve(2), released September 1983, author unknown
+>>   * 4.3BSD-Tahoe patch(1), released June 1988, author: Larry Wall
+>>   * 4.3BSD-Reno amd(8), released June 1990, author: Jan-Simon Pendry
+>>   * 4.4BSD strftime(3), released June 1993, author: Arnold Robbins
+>>   * 4.4BSD gzip(1), released June 1993, author (unsure) Jean-loup Gailly ?
+>>   * 4.4BSD mount_kernfs(8), released June 1993, author: Jan-Simon Pendry
+>> 
+>> The first instance of ".Sh CAVEATS" i found is:
+>> 
+>>   * 4.4BSD-Lite1 realpath(3), released April 1994, author Keith Bostic
+>> 
+>> It doesn't look as if the UC CSRG used CAVEATS in additional files.
+>> 
+>> Standardization was decided in NetBSD during a discussion
+>> on <tech-userlevel@netbsd.org> leading to this commit:
+>> 
+>>    /src/share/misc/mdoc.template revision 1.6
+>>    date: 2002-07-10 09:45:18 +0000;  author: yamt;  lines: +2 -1;
+>>    add CAVEATS section. discussed on tech-userlevel.
+>> 
+>> The login name "yamt" belongs to YAMAMOTO Takashi.
+>> 
+>> It was then quickly picked up in OpenBSD by Jason McIntyre.
+>> 
+>> So the section has a tradition of almost 40 years and has been
+>> standardized in *BSD for about two decades, even though it was
+>> not originally a BSD invention.
 
---------------Xk5JnM5IpSjvCPqiUpj8hH0R
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+> Wasn't it a BSD invention?  The sources you mentioned seem to say it is.
 
------BEGIN PGP SIGNATURE-----
+Well, i looked through BSD history first because that's easiest for me,
+but it is striking that the authors listed above are not really BSD
+people:
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmLf+l0ACgkQnowa+77/
-2zK60hAAob/QsR+OrqYyogEP8D7MbVOAkQYB7keFbwZHlyBf5G5i9QRo+JQujHJ3
-zYF30MihX3BfLngDC9HTpe8qYgjGfrM+uy3z9hZvO9DkoLPmqQdtgx1PgWir/gLY
-08ozwePqZrWRc13whBTtOiMBrOTigrFLS1rURcIaIqBukHo/rtKxwbzz+xGxGPVC
-tfTFoREUVSDc01zgZop7eEt0pmuzTpoKFuusWFhUPLEzKwPK/RIznG5L96m6RwNb
-4Gg5HGv4X4BFkAmvkGQbmOifUpbWgqfGNelMHztARmv5zLuy8pHiapy3xkHwY+TL
-1JpurFNk3DB16VqN22wGrj5gLOS1IwkV3ll0E1rJsmdsbJY/nn69WaMj5uIB1cc7
-Ab0mvFiFX6+RRUfAfUbpaCBkbBJuFAc4vsw4v5czAkxiIeQTTZJ47UNyjMyc5lAb
-BH/9dV4TVq1z/AMmPLrhySewvRavzVwji1aeUFz+Z7EugxxuO00gKqOCSfhkHbQN
-N6K8a38wShaR6qvwuEjvAD4R44+6qaDIG1TtVsHkghmq9tQl+zodGcq9TmvjOdtm
-R84J9Rc3odmY9sDL9h6dVAJpOiH9Ba6qsm0kdqilJ1TJ4XCD/c5nm6mTtvWz3geM
-nuTkl8E3bJ690BU6/1xJwfM0FBUqVvGTABRXET+u1k/7OFyxDrs=
-=ptVi
------END PGP SIGNATURE-----
+ * Larry Wall is the author of perl(1) and not associated with USB or BSD.
 
---------------Xk5JnM5IpSjvCPqiUpj8hH0R--
+ * Jan-Simon Pendry eventually got an account (pendry@) and ultimately
+   scored slightly above 1000 commits to BSD, but he was an outside
+   contributor and not a member of the CSRG as far as i know.
+
+ * Arnold Robbins joined the GNU awk(1) project in 1988 and eventually
+   to over maintenance from Paul Rubin, Jay Fenlason, and RMS.
+   Later on, he also contributed to GNU coreutils.
+   In fact, the reason his strftime(3) manual page was included
+   in 4.4BSD is because it was part of his gawk(1) distribution
+   which was included into BSD back then.
+
+ * gzip(1) was also included into BSD as outside code, below contrib/.
+
+The only unambiguous CSRG person in the above list is Keith Bostic,
+and by the time he used CAVEATS, the section had already been in use
+for more than a decade.
+
+> Would it be correct to say "... section from the BSDs"?
+
+Some might misunderstand even that.  The final CSRG BSD release
+only contained about seven instances, all but about two coming
+from outside sources, which is not quite what most would expect
+hearing "from the BSDs".  Besides, Version 10 AT&T UNIX preceded
+4.4BSD-Lite1 by about five years and contained more instances
+of CAVEATS.
+
+I dug up some more instances:
+
+ * AT&T System III UNIX man(7), released 1982
+ * AT&T UNIX, Eighth Edition ksh(1), released February 1985
+ * AT&T UNIX, Tenth Edition about seven addition pages, released 1989
+
+So you could say something like this:
+
+  This section has been used in pages written in the man(7) language
+  by authors from a wide range of projects including AT&T, Korn shell,
+  Perl, GNU and BSD since the early 1980s.
+  Using the section was first officially recommended in 2002
+  by the file /usr/share/misc/mdoc.template in NetBSD and OpenBSD.
+
+According to my knowledge, that would be accurate.
+
+Yours,
+  Ingo
