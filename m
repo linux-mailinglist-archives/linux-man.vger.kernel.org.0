@@ -2,135 +2,84 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 4AB75581B10
-	for <lists+linux-man@lfdr.de>; Tue, 26 Jul 2022 22:30:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5ECE15822E0
+	for <lists+linux-man@lfdr.de>; Wed, 27 Jul 2022 11:14:40 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232729AbiGZUa3 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 26 Jul 2022 16:30:29 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33386 "EHLO
+        id S231294AbiG0JOf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 27 Jul 2022 05:14:35 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56486 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230168AbiGZUa2 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 26 Jul 2022 16:30:28 -0400
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com [IPv6:2a00:1450:4864:20::436])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3378111168
-        for <linux-man@vger.kernel.org>; Tue, 26 Jul 2022 13:30:27 -0700 (PDT)
-Received: by mail-wr1-x436.google.com with SMTP id l22so88258wrz.7
-        for <linux-man@vger.kernel.org>; Tue, 26 Jul 2022 13:30:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc;
-        bh=FMiNRn1zxFov4lL0b4TN65gy9uSnd1a7htV/FK2YSCM=;
-        b=MMZhlN5lDp7lrNLGULJfzgq+Q0MRTDtOIDXE/ujcMbv5MuMI2ReUbfErgnaNzf/XOO
-         oXpsyUujqx0592Dluqf6p7H8xtpcvBl7cb11LInLFg8wDVUZQNX+4JpMTMqx3pnmgsLb
-         lYwSZWc2/Jq9i0jXy8gM2wGTuajW1R/vr+Tb/0759PKhTFLeXQA6FuU0WRuOVtPfIzpx
-         1qJ2cm89mguI+2gWXeU74Y4pcGCBw1ZaQq/FO/+jpr4dUPE+stL67QIPe1oMyUPOlxK+
-         CIKWo2wZSe4vVXmioumuWTCfyHMLKlaSkhnHRJ1iwmtCcycxQdQ5jtgiKw9V6aQ8TIbd
-         OaRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc;
-        bh=FMiNRn1zxFov4lL0b4TN65gy9uSnd1a7htV/FK2YSCM=;
-        b=jGnEdJTV6ZgHtAZQV36+XzYDe6vieRUXNiSUj8RWaA3Sb+h/en3q0Ro6EmQMiFNjtF
-         2uV+1DA3Y2kcse1ifhVDDg0WiEGg3b/Y+kovkeVYuOrELfKfa3Bt+U6Y41yH8/0AVkC+
-         h0mpmIYkkO2fHU1N5Hq9/SbKIeMoKk4MUltDQJwTyySwsc0B000eEZtGJt1mHUpB05Ty
-         CjqsRTlppaqNe8lN09LHGV8JTsZVH02DE31B2QRKsfo7crJO6UKOcbvMm18+2sbzM684
-         OmIREeK1+zE+PMa1ZsDXlCK38Kc8Tun6yxBh6UOSaK6oFz87AiZYfz1t+n6Z5dwslrle
-         2F2Q==
-X-Gm-Message-State: AJIora/BZyNPEvVeEBclusz6574mrPXi5D/BHuLTb8tiURdzDxw7tyvZ
-        eMsvYrdQpziFDpcmJPlPdsjhrarU08Q=
-X-Google-Smtp-Source: AGRyM1umzgSCorpiNPPYa5sI7A3k8tr8UpUhYkLkd8zn9N3btyvfYdHfxfDBN2LnTQjREsRwpMGSvQ==
-X-Received: by 2002:adf:dc0e:0:b0:21e:9b17:52fe with SMTP id t14-20020adfdc0e000000b0021e9b1752femr3705912wri.21.1658867425511;
-        Tue, 26 Jul 2022 13:30:25 -0700 (PDT)
-Received: from asus5775.alejandro-colomar.es ([170.253.36.171])
-        by smtp.googlemail.com with ESMTPSA id j20-20020a05600c1c1400b003a319b67f64sm5329221wms.0.2022.07.26.13.30.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 26 Jul 2022 13:30:24 -0700 (PDT)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     linux-man@vger.kernel.org
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>, groff@gnu.org,
-        "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Subject: [PATCH v3] open_how.2type: ffix
-Date:   Tue, 26 Jul 2022 22:26:44 +0200
-Message-Id: <20220726202643.49890-1-alx.manpages@gmail.com>
-X-Mailer: git-send-email 2.36.1
+        with ESMTP id S232090AbiG0JOR (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 27 Jul 2022 05:14:17 -0400
+Received: from scc-mailout-kit-01.scc.kit.edu (scc-mailout-kit-01.scc.kit.edu [IPv6:2a00:1398:9:f712::810d:e751])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E4C03958C
+        for <linux-man@vger.kernel.org>; Wed, 27 Jul 2022 02:14:14 -0700 (PDT)
+Received: from hekate.asta.kit.edu ([2a00:1398:5:f401::77])
+        by scc-mailout-kit-01.scc.kit.edu with esmtps (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+        (envelope-from <schwarze@usta.de>)
+        id 1oGd7M-000gtg-Ig; Wed, 27 Jul 2022 11:14:13 +0200
+Received: from login-1.asta.kit.edu ([2a00:1398:5:f400::72])
+        by hekate.asta.kit.edu with esmtp (Exim 4.94.2)
+        (envelope-from <schwarze@usta.de>)
+        id 1oGd7M-006rl4-GJ; Wed, 27 Jul 2022 11:14:12 +0200
+Received: from schwarze by login-1.asta.kit.edu with local (Exim 4.92)
+        (envelope-from <schwarze@usta.de>)
+        id 1oGd7M-0000bJ-FV; Wed, 27 Jul 2022 11:14:12 +0200
+Date:   Wed, 27 Jul 2022 11:14:12 +0200
+From:   Ingo Schwarze <schwarze@usta.de>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org
+Subject: Re: [PATCH] man-pages.7: Document CAVEATS section
+Message-ID: <YuEB5INpOo+/UqmG@asta-kit.de>
+References: <20220726120817.100462-1-alx.manpages@gmail.com>
+ <Yt/yMJuhXd+jH3sp@asta-kit.de>
+ <7effe1a8-c1b4-5542-932a-7edf436036ce@gmail.com>
+ <YuAKPTxrbJ2XuqJN@asta-kit.de>
+ <f2c85cee-9ef0-eaad-d1b4-21352a324c9b@gmail.com>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1073; h=from:subject; bh=9n3kll1q3H1hjBrscLwYGDtM9AWbnneNvCDCn4SRDB4=; b=owEBbQKS/ZANAwAKAZ6MGvu+/9syAcsmYgBi4E3wEGbpD9FgCaKRbQGxfu4fKmWEjoj1VsXK77dz b/WpB3WJAjMEAAEKAB0WIQTqOofwpOugMORd8kCejBr7vv/bMgUCYuBN8AAKCRCejBr7vv/bMgaiD/ 9MRj4T02TuLx8GsHOLC/nVmqzdZNECfxHRkqgxk50G4pcboDhSySBNVUJd+9PikVn3Z9uT97s7IfkL Y/pKikB6Ylnt0DzvkxkMRPDB6HlwhP5GJdVIlCQ53KdVp14INxKakrWQsjuzbctiUpZeXX4ebgTltv vx3T7j2jiWovXNywbfY8wp/iQxs/kxSrOd7OX7neahXGi+KViJqDB+bugvVZDDK/DlyvXv8cyceTLb K/fYISdO4ScmsH7qxInwk/6HfZb2qtF9Usr2PJuXEq3QMH6jaB0V3wqVJZ7tol4kaix32Ft+j2+gJC Arr2xN4sDUKSOI5COUjG/kqiSCw2qh5io//2cUiFgTBzxyhbWLB0ZedPwqlPWHZaWRrst6c33oN2CU NC0Wv+wwqCjto+TcCQ+OuJCaNLEcYjFbk/cPpss3Qs+WSfJzrRwQiytsloAlFmijy2h2JhOgnrQ3nC haK1ovBHWvRSFdv8h/ieXER+wBx2hUXkYHJjNi7sF0a4fD9+Q3NPeBn9qIWzyfnYgwzd4gYUWaH5Xn 5BhmXI9NbKVnKosvAZtCjIdhHxIkg9GEYRuvAAhFs7fkNnBs7TjLGQxxrXhBblWE6UxCB9NWdMEmyK E5nCcQTH+flRODfKx24rQC/N/0HNvIPsCbH8vG6rk+M9ihxsYUWIy0WFcFZg==
-X-Developer-Key: i=alx.manpages@gmail.com; a=openpgp; fpr=A9348594CE31283A826FBDD8D57633D441E25BB5
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
-        autolearn_force=no version=3.4.6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f2c85cee-9ef0-eaad-d1b4-21352a324c9b@gmail.com>
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED,
+        SPF_HELO_NONE,SPF_NONE autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Format structures with tbl(1) to improve alignment in proportional-width font text.
+Hi Alejandro,
 
-Reported-by: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
----
+Alejandro Colomar wrote on Tue, Jul 26, 2022 at 09:02:40PM +0200:
 
-Hi Branden,
+> Thanks for the investigation.  Committed, with a similar commit message 
+> (changing references to man(7) by "manual pages", since I consider 
+> mdoc(7) pages as relevant in this regard).
 
-I feel this v3 is good enough to propose it as an actual patch to the list.
+Your commit cb828372 looks good, thanks!
 
-v3:
+The following is certainly not a big deal, just mentioning it because
+chances are this may not have been the last time i contributed
+something to your project.
 
-- Use .nf/.fi for comments, but not for types and member names.
-- Specify 2 spaces as the distance between types and member names,
-  and between member names and the comments.
-- Disallow hyphenating some identifier, to avoid confusion.
+In commit histories, release notes and the like, i prefer being
+credited as Ingo Schwarze <schwarze@openbsd.org> rathen than
+<schwarze@usta.de>.  The reason is that in a hundred years from
+now, i expect people will still know what openbsd.org is, but it
+seems rather unlikely they would still know what usta.de was.
 
-Cheers,
+You may wonder why i rarely use @openbsd.org in my From: headers.
+The reason is that i want to avoid the wrong impression that all my
+mails were official statements of the OpenBSD project.  While many
+opinions i voice might also be shared by some other OpenBSD developers,
+some clearly are not.  And disclaimers in a signature are annoying.
+There is less risk that people think i'm speaking for the UStA of
+the University of Karlsruhe.  :-)
 
-Alex
+Probably i should try to remember saying "if you credit me,
+please use this address: ..." when a commit is obviously imminent.
+I often forget because the vast majority of messages that credit me
+are inside OpenBSD, and there it goes without saying.
 
- man2type/open_how.2type | 27 ++++++++++++++++++++++++---
- 1 file changed, 24 insertions(+), 3 deletions(-)
-
-diff --git a/man2type/open_how.2type b/man2type/open_how.2type
-index e058c08dc..01446a56b 100644
---- a/man2type/open_how.2type
-+++ b/man2type/open_how.2type
-@@ -13,9 +13,30 @@ Linux kernel headers
- .B #include <linux/openat2.h>
- .PP
- .B struct open_how {
--.BR "    u64  flags;" "    /* " O_ "* flags */"
--.BR "    u64  mode;" "     /* Mode for " O_ { CREAT , TMPFILE "} */"
--.BR "    u64  resolve;" "  /* " RESOLVE_ "* flags */"
-+.PD 0
-+.TS
-+l lB2 lB2 l1 lX.
-+\&	u64	flags;	/*	T{
-+.fi
-+.BR O_ *
-+flags */
-+.nf
-+T}
-+\&	u64	mode;	/*	T{
-+.fi
-+Mode for
-+.BR \%O_ { CREAT , TMPFILE }
-+*/
-+.nf
-+T}
-+\&	u64	resolve;	/*	T{
-+.fi
-+.BR RESOLVE_ *
-+flags */
-+.nf
-+T}
-+.TE
-+.PD
-     /* ... */
- .B };
- .fi
--- 
-2.36.1
-
+Yours,
+  Ingo
