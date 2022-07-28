@@ -2,87 +2,110 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id F17ED583A26
-	for <lists+linux-man@lfdr.de>; Thu, 28 Jul 2022 10:16:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 86375584569
+	for <lists+linux-man@lfdr.de>; Thu, 28 Jul 2022 20:08:33 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233818AbiG1IQs (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 28 Jul 2022 04:16:48 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34026 "EHLO
+        id S230029AbiG1R57 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 28 Jul 2022 13:57:59 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35028 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234950AbiG1IQs (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 28 Jul 2022 04:16:48 -0400
-Received: from mail-yb1-xb2d.google.com (mail-yb1-xb2d.google.com [IPv6:2607:f8b0:4864:20::b2d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 206EB5F9AB
-        for <linux-man@vger.kernel.org>; Thu, 28 Jul 2022 01:16:47 -0700 (PDT)
-Received: by mail-yb1-xb2d.google.com with SMTP id n8so2147912yba.2
-        for <linux-man@vger.kernel.org>; Thu, 28 Jul 2022 01:16:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20210112;
-        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc;
-        bh=LzL2exMddnVNfSJkyJuM2XOWj/JeF9nX7uRb59aEzSg=;
-        b=VfGE7O/fyDjv3DXe++pcZ9M8hfBEroLlRPNhMzEGOMJnGi3R7VbaIodLM8CQwkUYPg
-         NfdBWmzyfelY/nvk7t5jC8sEpsIjyITZTEb0EcPoWu2df2W19QqyR0M1HJM9mfH8E00V
-         XWc+YFI+tfC6lvRNHiJjTBjxZ5SM9NqV29SUG0BIVzKwGl3nDH4vLNEJGw1fN8D1BaI4
-         T2H9Y62V5JETDR6jdxiuBd0q5Xtfe7KVhuorvy6YpfElagNma1GVkIXcLUuXPcXImPjO
-         xTtNRhwynULkurOoy03qM5PlodJ1H8VYAGsKdPoaIGbtGgfko966aVsLHPYp+ipViXWz
-         eF4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc;
-        bh=LzL2exMddnVNfSJkyJuM2XOWj/JeF9nX7uRb59aEzSg=;
-        b=4MupWetojX50ZdGClNeB2t4fsNi4AweowtLHFtOBSuFm81pITv4nfCFRit3wTU7liv
-         v5AeubjZEZiH7qB8ar2AL11G6ZjzrnVUMLZYJmZ5uvq2Dmc3cI1CP8H2+6M0XnJgW5X1
-         On+O/vOQgwlAXgfN5NJ6F803fdZYDISphD/yMo6FAKmsvbIkg3//uF4q/X1jhuyOyFf/
-         iy7talIllHU4r2FSxVd7r0WCIMZB1PbeYc+7l8u1qgtqfCPtDNE4uyG9h+AoUFTizEhc
-         6+Tmo8R8bnB7FszzEx+QoV8XzcXp21f1WPIXQRSGxXrFPjpQ/dJ++G8ACT868AguC5lP
-         zHRw==
-X-Gm-Message-State: AJIora+yG7Lw3eIIlzkJtEwhXoVslsg3c7ckc2kvFvaw+GElz1/7Vhbi
-        XOE8hM67VE7bI0l7FbhRc5SurDkzTMBnyzzTEC1MGQ==
-X-Google-Smtp-Source: AGRyM1vtR/99oa0CMtvAAYFhqesRAHcRZwGtPeBLhppOypX+C7x9oq72diodBa/2NNezLFKIhcQ+aaL6hYl/xrzti1Q=
-X-Received: by 2002:a25:bc3:0:b0:673:bc78:c095 with SMTP id
- 186-20020a250bc3000000b00673bc78c095mr2652233ybl.376.1658996205640; Thu, 28
- Jul 2022 01:16:45 -0700 (PDT)
+        with ESMTP id S229830AbiG1R56 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 28 Jul 2022 13:57:58 -0400
+Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 318ED42AF5
+        for <linux-man@vger.kernel.org>; Thu, 28 Jul 2022 10:57:56 -0700 (PDT)
+Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id E6E145FA;
+        Thu, 28 Jul 2022 19:57:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
+        s=202205; t=1659031072;
+        bh=XeppJmb6vIHDiI8bU/psqTmpTCzLkQzhNN/RGe5+AdY=;
+        h=Date:From:To:Cc:Subject:From;
+        b=csEjHR0KNXr7qm2FQ2l4DeYdPD177J3KnsahYQw925h2yh9GGjFra46KXHBW1JIlI
+         eZOlYBecnsN/0PFjZNKYcDq3TCwwR+aCvumfg5zGGk3ibrBsrK+xeSDBezK8qgzDzC
+         PGOZnEFJ/X9CZci3xmPl2U509ed7DirSIx5W2iVk5EhTIbslxfvc85MIiEU7UUtGm/
+         756sOvzniRpOvN3mCOWgrVcnSvE53i1Rc7pRqu0/y4uNC/iYRKvrIwhezOwyrBhkzr
+         T2d4EdUUGYieqz3BCOfGkheNLn09wa0pAButxWiwSKkR70EIZ4mORJWCOImGblFlEP
+         bH3bZbR+tchttgYl/a3SdvAXbTKqlm/JJEAU8HeC3g4AdM1r1bc1NJBmu76Y+D/MNT
+         pRL1PqvME0l32LIXMHk6STMKaqTK0UZaiAdAv4Npf1UINISKTNc2UgKrgKCb+PzzFE
+         XUjorMlhtxDtM6RBOQVNaxVnPucErl+6DUB7ksdGk6CZlu8ir9eTGrYX6HFJ61/Cig
+         aT+jZuNpdvt8yXTq3rgumqNhs8FBZqFSewVX6N4z/kGmeTo5AYlslnLNDOZ5Nd07LJ
+         6ukNiM7fsMr4VHeveEKYEUrzNBIkhtkrxAEVG/d+SS7oGaXH6osxzdsGVlLzm/Gqw+
+         zuU1kncwDwtUwuuLEWXhjJio=
+Date:   Thu, 28 Jul 2022 19:57:51 +0200
+From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org
+Subject: [PATCH] getsid.2: deduplicate getsid(0) case
+Message-ID: <20220728175751.3as2p7zj3sevrq6u@tarta.nabijaczleweli.xyz>
 MIME-Version: 1.0
-From:   Almaz Mingaleev <mingaleev@google.com>
-Date:   Thu, 28 Jul 2022 09:16:34 +0100
-Message-ID: <CAJ0cOr-v1GDCqsU86w-rZVvejtppOAW56FxApFPnfPwRmAd47w@mail.gmail.com>
-Subject: %z and %Z in strftime man page require clarification
-To:     mtk.manpages@gmail.com
-Cc:     linux-man@vger.kernel.org, Elliott Hughes <enh@google.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: No, score=-17.6 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-        ENV_AND_HDR_SPF_MATCH,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
-        USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=ham
-        autolearn_force=no version=3.4.6
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="hj7dmnuslobk3gua"
+Content-Disposition: inline
+User-Agent: NeoMutt/20220429
+X-Spam-Status: No, score=2.6 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FROM_SUSPICIOUS_NTLD,
+        FROM_SUSPICIOUS_NTLD_FP,PDS_OTHER_BAD_TLD,RDNS_DYNAMIC,SPF_HELO_NONE,
+        SPF_PASS autolearn=no autolearn_force=no version=3.4.6
+X-Spam-Level: **
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Michael,
-Current strftime specification in C language standard is not accurate.
-It tells that tm_isdst is enough to find out time zone's offset. But
-that's not true, for example Europe/Lisbon has changed [0] its
-standard offset from 00:00 to 01:00 and back to 00:00, so an exact
-date is needed to answer that.
 
-To get correct answer with the current glibc tm struct should either
-come from localtime or there should be a mktime call prior to
-strftime. You can find a repro example and discussion here [1]. Paul
-Eggert has proposed a fix to C standard [2].
+--hj7dmnuslobk3gua
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Should man pages reflect that i.e. mention that there should be
-localtime/mktime calls for %z and %Z?
+The first sentence in
+  getsid(0) returns the session ID of the calling process.
+  getsid() returns the session ID of the process with process ID pid.
+  If pid is 0, getsid() returns the session ID of the calling process.
+blames to beginning of git, duplicates the third one,
+and doesn't stylistically match current formatting
 
-Thanks,
-Almaz
+Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
+---
+ man2/getsid.2 | 2 --
+ 1 file changed, 2 deletions(-)
 
-P.S. I am resending the email. My previous attempt was bounced back as
-it wasn't TEXT/PLAIN.
+diff --git a/man2/getsid.2 b/man2/getsid.2
+index 7046bfc09..a80aa128e 100644
+--- a/man2/getsid.2
++++ b/man2/getsid.2
+@@ -30,8 +30,6 @@ Feature Test Macro Requirements for glibc (see
+         || /* Since glibc 2.12: */ _POSIX_C_SOURCE >=3D 200809L
+ .fi
+ .SH DESCRIPTION
+-.I getsid(0)
+-returns the session ID of the calling process.
+ .BR getsid ()
+ returns the session ID of the process with process ID
+ .IR pid .
+--=20
+2.30.2
 
-[0] https://github.com/eggert/tz/blob/a249a0c64b2f87a24c7f1aab43056fb597c95b96/europe#L2400
-[1] https://mm.icann.org/pipermail/tz/2022-July/031668.html
-[2] https://mm.icann.org/pipermail/tz/2022-July/031674.html
+--hj7dmnuslobk3gua
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmLizh8ACgkQvP0LAY0m
+WPEAhw/9HQTb73KbJrV7nutf4ABNdnriDuWpYya/5pYc72Io9A+DtGImVaUktaM4
+2F04xvlSF/ihAmupfGYR+hmwAbMz26de/JgpAdALIZ/v2SrdENDlg8xcZZif9GvO
+lkZaDp4pJoL7CasJ2GRjYXSOwGw3DHjaAfi1rZrTJsDo4v8R2ngxCGJUPQHWbpkH
+5bPXYW0+vBR4nZlekzRRyGFfJbiMSJZK3LfV/i+DoN8NbqIZSCSzI3kW44XdUDoL
+oFbUUEoochvDsNFwxXIFTLYC/yb1PSXpwPR1HpciX95FiJoihCjqVGXSlMnLmQVf
+gzB69cbqXR3kO/e1MSwEOLQrMH4bmV5bH5DjPNodlbz7eSGrmpfrosD55sSQhcja
+2r28vw6tEA53aAkTyKdAh1g14dkfhbKqWiPDVGfMWb/q3ylbAPcR6OdAxoK3L523
+twVhJmqY+Uv7R5kI2dPHNoM2vqtxikgZFDUC+kRNZW/w0ZF6lChWkzB+0kHwk1Qt
+fiM7u8m+FAUu8UTASzuKEAx8OolhYFtRR7bSvp5cnM+7HVwVnoDuiv4UnQizv9nW
+fHUQI1qAsBz4+aOKdl18k//sDSHgY0K3BfvYSP4KaljVluBQXzdiGntRkSO+lBo0
+1X6M1rrnqI5oFaD3w3q8OhBd1nJDRcPno+uETJzna/GllG9FPRg=
+=z+3B
+-----END PGP SIGNATURE-----
+
+--hj7dmnuslobk3gua--
