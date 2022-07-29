@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id E0FD9584FB0
-	for <lists+linux-man@lfdr.de>; Fri, 29 Jul 2022 13:44:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 61AD2584FB1
+	for <lists+linux-man@lfdr.de>; Fri, 29 Jul 2022 13:44:07 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235744AbiG2LoE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 29 Jul 2022 07:44:04 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55580 "EHLO
+        id S236078AbiG2LoF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 29 Jul 2022 07:44:05 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55600 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S236093AbiG2LoC (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 29 Jul 2022 07:44:02 -0400
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com [IPv6:2a00:1450:4864:20::434])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A6AF587C2E
-        for <linux-man@vger.kernel.org>; Fri, 29 Jul 2022 04:44:01 -0700 (PDT)
-Received: by mail-wr1-x434.google.com with SMTP id v3so4742662wrp.0
-        for <linux-man@vger.kernel.org>; Fri, 29 Jul 2022 04:44:01 -0700 (PDT)
+        with ESMTP id S235301AbiG2LoE (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 29 Jul 2022 07:44:04 -0400
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com [IPv6:2a00:1450:4864:20::42e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C779587C28
+        for <linux-man@vger.kernel.org>; Fri, 29 Jul 2022 04:44:02 -0700 (PDT)
+Received: by mail-wr1-x42e.google.com with SMTP id bn9so5683076wrb.9
+        for <linux-man@vger.kernel.org>; Fri, 29 Jul 2022 04:44:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=F6dh/BSMqxQr2XP6znjJw64u/ln4HLhMD7+DKJPi9E8=;
-        b=WsYJPKqQtzGcoHhW4DdMnU59SGf1FlgiSeFf+eJLXNqhCoaOgvRDryNMvDyksWp33k
-         PFgbDJijIN8QaeyO7oitSMsPoSwT0R8v126WjTTwL8RQAHecTcF03IDKE18S/OYtH552
-         /mm342LKCN95Ne5e1riYZzcMu12igyBKfRIJxM6FUeWswn4c4xMClNPpDQ70dYJSpI+l
-         TNItkGQHuU/E3OMyLOdo4bTa8isw09y2zumPr6o0aQCX/VfOUlBAqC42H0r68B+kbxOw
-         fciVFQUyctWw/aRgGi5uQjNJhl7NRpMJkfMkuU5EMlPvl9+mVUxF5ueqj2IX6tb+kD5P
-         Y8rQ==
+        bh=g/6RPqRyvy356as+oPt3+amTNcqfaAV/DZyU0nr3k9k=;
+        b=ABEPmDf2jpcxMGD6PMxOAUwVGTb+iXDDDhByTV4r61K7HjkmB04KMPtMchhWHs8sOe
+         0YYnLXHJm0VaBK1aLIunQN427N8SJpuQ57DOqf3ulMSW7HItXB/jHteZXKuKAcfpL2nV
+         jFYvDcWS4evma5qQ5JGGufm8v7WDZ5xLUXQVqkOhVKO80YqOotUz/ZfV/CuUEZAc2BvL
+         iMJZXOZ+mW/MbdjAQjdDuGZ0mXdFfyy+rQch7EHf9zO2RnGJJDveDPGaC8373t9CsTca
+         084H0V+214feHbdTwwX+0r+XKnfOeHlrsFxksxuORfdg/Hl+dFeULy+v6zYNkfUKiB07
+         fNTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=F6dh/BSMqxQr2XP6znjJw64u/ln4HLhMD7+DKJPi9E8=;
-        b=FGvCOZGA5askqsnP3xfW1OQPwn0F2c+OWSk5YzYXJizzRaU7FePotOvWzWbkUQH1r4
-         h2hwnOsQm8EpUrNRv5baFm7WHLRxNb1xXxX8OFvKhd1V2TC1NSd7A6dyAcyFCeU5lz9q
-         MXy9Txl/1rfVktsMr12/2PybG18IXLRzf+HoVkeMPonnMnFnfwtPvFwrOIEw0l9QeRKu
-         4VNDfx9oBaQCv+T4CoVtQckRR4GfI76utdUSFHl0gHKuPrEpd9HfWi4+M7vWd/RUEGeU
-         I4HovP1omKyEssrl1raVQeoGRPUrieCSla6g5Fgl+jAWj/63fZF3lrLJo5VB/iBtaFNq
-         s8ZA==
-X-Gm-Message-State: ACgBeo2pcux5TSNiE3P1WSCjrZXda28SaorEkJv9H+0ug3JihcDQKOeg
-        tR0Rgx8AIHwVAilVeCqKKUmFpDNePUs=
-X-Google-Smtp-Source: AA6agR7AlKrbqkokTPHaEzofZ6cCRMPJY1hEFIINBjtKKlhN30lrn6it8jsVTJOjauNIHKjDNaqdxg==
-X-Received: by 2002:a5d:4344:0:b0:21e:cc0b:5e32 with SMTP id u4-20020a5d4344000000b0021ecc0b5e32mr2177216wrr.171.1659095040040;
-        Fri, 29 Jul 2022 04:44:00 -0700 (PDT)
+        bh=g/6RPqRyvy356as+oPt3+amTNcqfaAV/DZyU0nr3k9k=;
+        b=GxNILNoriEGODYGJ9rn1NXfSxRoir/7JGNNF0U4vssRjTASi4PB+vLQKvy0Mg0t6UN
+         W8lgZqJKumzcO8cCNcJ4RFdytkFMipqW2oaO3CFFDKeJaGT019Xj+R9MIPSe7qWBVZ2W
+         gaD22g6EsBC9/pIYwzBoC9+wTNJH674Z4KA1ZWjfFkpxxnpQQW23YYUO58ls170ZGDst
+         /frfrWtzmXCNcZopcefl0eX3fy9+t+y2BMxbOAZ2aZHi6oZfgE/y7QoruoPp7B9yuXg3
+         ENfphbKz/AMlcHLxG5Lb0i7kE5Uv5LiOcaw6x/wUbmEaYMK7vuvrcRGr/+AaPVjRfiBu
+         y6Bg==
+X-Gm-Message-State: ACgBeo2fNEO/zgmKOJ/j84WOlox0dGHcVxi8676chTGG0WR7wZ/KRWHs
+        vfb5qGpT4wEH80P0wWo14LJ525z3zC4=
+X-Google-Smtp-Source: AA6agR4q6leUnt6gRwcgoHJbPhONlxKP/CU8/N94j3dhb9sHXCiNkbM57Lv+YRXU6Lcw7SFUwchvZg==
+X-Received: by 2002:a5d:6acb:0:b0:21e:efd7:c7be with SMTP id u11-20020a5d6acb000000b0021eefd7c7bemr2163199wrw.293.1659095041095;
+        Fri, 29 Jul 2022 04:44:01 -0700 (PDT)
 Received: from localhost (internet-185-112-167-45.cznet.cz. [185.112.167.45])
-        by smtp.gmail.com with ESMTPSA id p2-20020a05600c1d8200b003a32251c3f9sm9859852wms.5.2022.07.29.04.43.59
+        by smtp.gmail.com with ESMTPSA id e14-20020a5d594e000000b0021ec503075fsm3676512wri.31.2022.07.29.04.44.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 29 Jul 2022 04:43:59 -0700 (PDT)
+        Fri, 29 Jul 2022 04:44:00 -0700 (PDT)
 From:   =?UTF-8?q?=C5=A0t=C4=9Bp=C3=A1n=20N=C4=9Bmec?= <stepnem@gmail.com>
 To:     linux-man@vger.kernel.org,
         Alejandro Colomar <alx.manpages@gmail.com>,
         Michael Kerrisk <mtk.manpages@gmail.com>
-Subject: [PATCH 3/6] syslog.2: tfix
-Date:   Fri, 29 Jul 2022 13:45:03 +0200
-Message-Id: <20220729114506.1669153-3-stepnem@gmail.com>
+Subject: [PATCH 4/6] xattr.7: wfix
+Date:   Fri, 29 Jul 2022 13:45:04 +0200
+Message-Id: <20220729114506.1669153-4-stepnem@gmail.com>
 X-Mailer: git-send-email 2.37.1
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -68,24 +68,29 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+(My original intention was to just fix the grammar ("an attribute names
+is"), but, on second thought, the whole sentence didn't read very well.)
+
 Signed-off-by: Štěpán Němec <stepnem@gmail.com>
 ---
- man2/syslog.2 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ man7/xattr.7 | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/man2/syslog.2 b/man2/syslog.2
-index 6846eec2729b..1e5ddb38917a 100644
---- a/man2/syslog.2
-+++ b/man2/syslog.2
-@@ -260,7 +260,7 @@ the hard-coded default value for this field was 4
- .RB ( KERN_WARNING );
- since Linux 2.6.39,
- .\" commit 5af5bcb8d37f99ba415a1adc6da71051b84f93a5
--the default value is a defined by the kernel configuration option
-+the default value is defined by the kernel configuration option
- .BR CONFIG_DEFAULT_MESSAGE_LOGLEVEL ,
- which defaults to 4.
- .TP
+diff --git a/man7/xattr.7 b/man7/xattr.7
+index 4a69e2eb53e8..45a103fad4cc 100644
+--- a/man7/xattr.7
++++ b/man7/xattr.7
+@@ -119,8 +119,8 @@ manual page for an explanation of the sticky bit).
+ .SS Filesystem differences
+ The kernel and the filesystem may place limits on the maximum number
+ and size of extended attributes that can be associated with a file.
+-The VFS imposes limitations that an attribute names is limited to 255 bytes
+-and an attribute value is limited to 64\ kB.
++The VFS-imposed limits on attribute names and values are 255 bytes
++and 64\ kB, respectively.
+ The list of attribute names that
+ can be returned is also limited to 64\ kB
+ (see BUGS in
 -- 
 2.37.1
 
