@@ -2,136 +2,195 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id AF4CE5880FF
-	for <lists+linux-man@lfdr.de>; Tue,  2 Aug 2022 19:28:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CBF5D588357
+	for <lists+linux-man@lfdr.de>; Tue,  2 Aug 2022 23:17:42 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231758AbiHBR20 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 2 Aug 2022 13:28:26 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54306 "EHLO
+        id S229756AbiHBVRk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 2 Aug 2022 17:17:40 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60568 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229804AbiHBR2Z (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 2 Aug 2022 13:28:25 -0400
-Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 353F649B47
-        for <linux-man@vger.kernel.org>; Tue,  2 Aug 2022 10:28:24 -0700 (PDT)
-Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 6F4F39E6;
-        Tue,  2 Aug 2022 19:28:23 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-        s=202205; t=1659461303;
-        bh=cmNATsGnV/I8HnV/h3uJhne41CUIuqq1Slp2Boqz4r0=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=iYE5ZiL0MVCqCkP90m6a0eNPQcMkAgoMLvZmOtKrAMrkQAkRK5FmBsJfHF13yW5Uc
-         JPSh42PXSem9ZySGydIpbop2kptKAEMpGUT2Y4VO9D0ir3RsMRok4NLM7WvVnxEjyu
-         qVYulSPQK8hwiVSrfosS1pouNEeDgS3dy3HIAOuvIlKqPY4iScCse5nHV+LkxS4ce7
-         qe/f/+LW3WDNzzhJfk3cWP9AjJNmxs9YJuQRBAMiRvbkzoOrnxnYx8YeLkGHhN3R+A
-         O30t/Gc+5bfm6VI2k0kgU6eGBdnoGrHeKdoklytyyeQdEnP6qE+W3BegwraGf5TByL
-         K+Dq/FaPRmfxS2Y+vV/+Ny4iS68SGXoD0IDG7w5GwqfNVPgxvikCHzDSmF+O0aBIQl
-         PYQHq+1DBFajZYlOp+aHodvCGlND337q3qLMchtKHObw3boUFZsMOWv0ABswzTkoXK
-         HGx3Cu2fPhDmPRMqMVMcFNUDz51pH1Iq3QkEPbzSLgooCsfzTCO55yCL0Jeu1UypJR
-         L32i7Ixn2E+qozj8pFFf5+6TbwAd+v7MKBPmCeFwaFsuLlXMNFOG+5W8Y9lIeA0gD1
-         LmCls1zbtv48HbxKKDTBQ2+AJbU8arIKqPjHEoOj1Jwx4RsYOxaKVSiec8/rpkmOn7
-         8pYcJOcp0WmOe2XsSjZlByFY=
-Date:   Tue, 2 Aug 2022 19:28:22 +0200
-From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-Subject: [PATCH v2 3/3] getaddrinfo_a.3: gnu.cz => gnu.org
-Message-ID: <05b8faf09e16a4d5b3510c8adde3615884c2278f.1659461236.git.nabijaczleweli@nabijaczleweli.xyz>
-References: <bbdf48b6666c5ced765a2b2e81feaea2270cde78.1659402663.git.nabijaczleweli@nabijaczleweli.xyz>
+        with ESMTP id S229502AbiHBVRj (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 2 Aug 2022 17:17:39 -0400
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com [IPv6:2a00:1450:4864:20::232])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 96178CE3F
+        for <linux-man@vger.kernel.org>; Tue,  2 Aug 2022 14:17:37 -0700 (PDT)
+Received: by mail-lj1-x232.google.com with SMTP id y23so6614377ljh.12
+        for <linux-man@vger.kernel.org>; Tue, 02 Aug 2022 14:17:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=botdkQSJ/9Fhf9/UnEugpj9zHmp0pwGhAtvAizsxgvo=;
+        b=EsoGzi6NKvdhUA+V/CeLjDdsBBOTI+HMH2Wdro7XTP0mtPAaf+WxDhO7QY16S9ZFau
+         q25y6yWf6Z0DoClP4VB6h9ShHM05H6pMSQtd9xNCuRYu9tDRYXLFfEuArGuKPo3ZHnpC
+         3BhGyCAjXeUbIIh6GQTUB4Ei21Qc3+juu7/O/1nJD1PnF2mpkIl2ZaW2HATdbHVSfhzJ
+         zPEMdgX4S/EEDVk0kJ0yWlArJIhtZ8fcpGzailwioSvy+Z5GHeBxjUzZF2TWUCqOiiMM
+         UFv2WVXOQhIVGtZbpWT0AOiaCqXEHG6pHrXm7Olqc0MUsC5sPhRPrKkIwxbx3cFyuEDO
+         Aq2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=botdkQSJ/9Fhf9/UnEugpj9zHmp0pwGhAtvAizsxgvo=;
+        b=mFZ1HzKhQFD5o1/8DfFo+R3LqPirXEro2qfBsP6whG1cifNcMCG3DMrf24AN0uIkec
+         rYiQNwrk1bpZAlRg3gTwMskKFq0YwyQBt7dE6Gm02iF8bJx+1roxj5tOPBbIxzdbnQyv
+         e+Y76lEg6He4c3bMr3EVhF4EjyQdis8+4Brw6WyGxV0URhxcEsQBJvpjXpSNKYzI+71F
+         IlxwjN9lxZjgcxs+Aqw6kKenTtab4j1kePSPMG0k2Dfa0BELlmU7SM85cam/RqO3UHtk
+         Earm9s3w7xvXizTMasqAkwqTOUKdraPgTuXlHe+Rps0JXWiR3TyX3+GZErp33UKKa3qZ
+         hOtw==
+X-Gm-Message-State: ACgBeo2CF3cZbMKPeFJDNLIsEYeHx5z+FoIbxSMfpfTSJWkFlIpIyfrJ
+        OzVGbOpvFdj5mULgG9O83+hdZB5Qp7KaXlXf3F4y6yT76FolMg==
+X-Google-Smtp-Source: AA6agR4SJM7ffJqIcvqtFewrsfhP33Ur7Rjhg+lcM3h8ACqDWcRFGkbSaq/0Vz0KQKge7mGbLuiKO7qDA2D3NZUvEto=
+X-Received: by 2002:a2e:a411:0:b0:25e:5ff0:469 with SMTP id
+ p17-20020a2ea411000000b0025e5ff00469mr1281330ljn.149.1659475055799; Tue, 02
+ Aug 2022 14:17:35 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="3fibautehcrk6ufg"
-Content-Disposition: inline
-In-Reply-To: <bbdf48b6666c5ced765a2b2e81feaea2270cde78.1659402663.git.nabijaczleweli@nabijaczleweli.xyz>
-User-Agent: NeoMutt/20220429
-X-Spam-Status: No, score=1.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FROM_SUSPICIOUS_NTLD,
-        PDS_OTHER_BAD_TLD,RDNS_DYNAMIC,SPF_HELO_NONE,SPF_PASS autolearn=no
+References: <CAJgzZopm7h_0_4j=grKiOu5tWr87ik4-nNvMRy1gxxH_b5b7dQ@mail.gmail.com>
+ <3d4a4b63-99f2-1d9a-f496-aa4ee68775be@gmail.com>
+In-Reply-To: <3d4a4b63-99f2-1d9a-f496-aa4ee68775be@gmail.com>
+From:   enh <enh@google.com>
+Date:   Tue, 2 Aug 2022 14:17:24 -0700
+Message-ID: <CAJgzZoq1AUJO3wrk3a4OA3Kb2z5yW1otHnmsDWk2GHJbRDafoQ@mail.gmail.com>
+Subject: Re: [PATCH] getline.3: wfix.
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Spam-Status: No, score=-17.6 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+        ENV_AND_HDR_SPF_MATCH,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+        USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=ham
         autolearn_force=no version=3.4.6
-X-Spam-Level: *
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+ack. i've fixed all the other instances of `.I "foo"` in that file too...
 
---3fibautehcrk6ufg
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Date: Fri, 29 Jul 2022 13:13:10 -0700
+Subject: [PATCH] getline.3: wfix.
 
-gnu.cz exists at a different address (but is unreachable there),
-and the address we had is an unassigned coolhousing one
+Clarify in the RETURN VALUE section that it's necessary to free the
+buffer, since at least one person missed this up at the start of the
+DESCRIPTION.
 
-Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
+Signed-off-by: Elliott Hughes <enh@google.com>
 ---
- man3/getaddrinfo_a.3 | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ man3/getline.3 | 21 +++++++++++++--------
+ 1 file changed, 13 insertions(+), 8 deletions(-)
 
-diff --git a/man3/getaddrinfo_a.3 b/man3/getaddrinfo_a.3
-index 4a5b38078..25283dce9 100644
---- a/man3/getaddrinfo_a.3
-+++ b/man3/getaddrinfo_a.3
-@@ -323,10 +323,10 @@ The program might be used like this:
+diff --git a/man3/getline.3 b/man3/getline.3
+index 8b7357825..cb9e5b049 100644
+--- a/man3/getline.3
++++ b/man3/getline.3
+@@ -36,12 +36,12 @@ Feature Test Macro Requirements for glibc (see
+ .BR getline ()
+ reads an entire line from \fIstream\fP,
+ storing the address of the buffer containing the text into
+-.IR "*lineptr" .
++.IR *lineptr .
+ The buffer is null-terminated and includes the newline character, if
+ one was found.
  .PP
- .in +4n
- .EX
--$ \fB./a.out mirrors.kernel.org enoent.linuxfoundation.org gnu.cz\fP
-+$ \fB./a.out mirrors.kernel.org enoent.linuxfoundation.org gnu.org\fP
- mirrors.kernel.org: 139.178.88.99
- enoent.linuxfoundation.org: Name or service not known
--gnu.cz: 87.236.197.13
-+gnu.org: 209.51.188.116
- .EE
- .in
+ If
+-.I "*lineptr"
++.I *lineptr
+ is set to NULL before the call, then
+ .BR getline ()
+ will allocate a buffer for storing the line.
+@@ -52,26 +52,26 @@ failed.
  .PP
-@@ -403,19 +403,19 @@ An example session might look like this:
- .in +4n
- .EX
- $ \fB./a.out\fP
--> a mirrors.kernel.org enoent.linuxfoundation.org gnu.cz
-+> a mirrors.kernel.org enoent.linuxfoundation.org gnu.org
- > c 2
--[2] gnu.cz: Request not canceled
-+[2] gnu.org: Request not canceled
- > w 0 1
- [00] mirrors.kernel.org: Finished
- > l
- [00] mirrors.kernel.org: 139.178.88.99
- [01] enoent.linuxfoundation.org: Processing request in progress
--[02] gnu.cz: 87.236.197.13
-+[02] gnu.org: 209.51.188.116
- > l
- [00] mirrors.kernel.org: 139.178.88.99
- [01] enoent.linuxfoundation.org: Name or service not known
--[02] gnu.cz: 87.236.197.13
-+[02] gnu.org: 209.51.188.116
- .EE
- .in
+ Alternatively, before calling
+ .BR getline (),
+-.I "*lineptr"
++.I *lineptr
+ can contain a pointer to a
+ .BR malloc (3)\-allocated
+ buffer
+-.I "*n"
++.I *n
+ bytes in size.
+ If the buffer is not large enough to hold the line,
+ .BR getline ()
+ resizes it with
+ .BR realloc (3),
+ updating
+-.I "*lineptr"
++.I *lineptr
+ and
+-.I "*n"
++.I *n
+ as necessary.
  .PP
---=20
-2.30.2
+ In either case, on a successful call,
+-.I "*lineptr"
++.I *lineptr
+ and
+-.I "*n"
++.I *n
+ will be updated to reflect the buffer address and allocated size respectively.
+ .PP
+ .BR getdelim ()
+@@ -99,6 +99,11 @@ condition).
+ In the event of a failure,
+ .I errno
+ is set to indicate the error.
++.PP
++If
++.I *lineptr
++was set to NULL before the call, then the buffer should be freed by the
++user program even on failure.
+ .SH ERRORS
+ .TP
+ .B EINVAL
+-- 
+2.37.1.455.g008518b4e5-goog
 
---3fibautehcrk6ufg
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmLpXrUACgkQvP0LAY0m
-WPEJLQ//XWuRuC2OtiOwTAWb/hw/IEuf1jZXu6H4zP0roDGvtHTjG4dip1XnzWCi
-JIq8Dbjg28owr9NKXdRrDgp2bYJn/bfI603Gc1YPC0f5TrnDXUn/dXHkGDdCCRly
-WbqvJ4vYFRRrzSUGJfmea+j1gIr02wBjsUGSFX2iNJtpS9Lc3xY4ezdP6cP3lQrG
-NKSvIkjkqfoO3MIsShNC0rKfVSg5YQEZ/GHY51dWm+IrDD+TUw2neqMFTzfD759I
-0/iTz2GxRllZtKqb4GIn5asQ0zyxqyss6axLRlIpdquaBmtoQarvUYRSQdPDq4P2
-+f37c+99Es2d/wOPwC+Ppd3TQUxPXn4JgRRXsD+BVOhtucy2OMLWknY78WwoQ6y7
-R+se9ARV1Lf44rVJNDrAZ4ldOaq54TiMYD2X0ojM73JPVfvNw50qTMTEU/ZwieZy
-Qtj7talZStHUbgCB/bxEc0bN2ea7p86+tUawo7U5qTC2gyTiliPilMki2p/coSuq
-x4Ytzs3p98wCSoBIYpCmaKMAne9KYC+ziVOAm7L0R7G+FrG9TomAKFFfUypHjreW
-n/iyhCrvTsrGOcWdskZoT6rAtwJTWNAtA73PeKyCWLSbBGJmO/mZ3nUhkV+e2pzI
-EOci8zoKNFySx0H5nodBKS3oL7PLBwQQ8e/lEpTpLOZs4zeNTk8=
-=P/RP
------END PGP SIGNATURE-----
-
---3fibautehcrk6ufg--
+On Mon, Aug 1, 2022 at 5:54 AM Alejandro Colomar <alx.manpages@gmail.com> wrote:
+>
+> Hi enh,
+>
+> On 7/29/22 22:22, enh wrote:
+> > Clarify in the RETURN VALUE section that it's necessary to free the
+> > buffer, since at least one person missed this up at the start of the
+> > DESCRIPTION.
+> >
+> > Signed-off-by: Elliott Hughes <enh@google.com>
+> > ---
+> >   man3/getline.3 | 4 ++++
+> >   1 file changed, 4 insertions(+)
+> >
+> > diff --git a/man3/getline.3 b/man3/getline.3
+> > index 8b7357825..bad30956c 100644
+> > --- a/man3/getline.3
+> > +++ b/man3/getline.3
+> > @@ -99,6 +99,10 @@ condition).
+> >   In the event of a failure,
+> >   .I errno
+> >   is set to indicate the error.
+>
+> .PP
+>
+> Since the added text has nothing to do with the previous, let's separate
+> them into separate paragraphs.
+>
+> > +If
+> > +.I "*lineptr"
+>
+> As Branden said, please remove the unnecessary quotes.
+>
+> > +was set to NULL before the call, then the buffer should be freed by the
+> > +user program even on failure.
+> >   .SH ERRORS
+> >   .TP
+> >   .B EINVAL
+>
+> Cheers,
+>
+> Alex
+>
+> --
+> Alejandro Colomar
+> <http://www.alejandro-colomar.es/>
