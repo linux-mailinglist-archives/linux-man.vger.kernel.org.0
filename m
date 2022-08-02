@@ -2,126 +2,135 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 1037D586C8F
-	for <lists+linux-man@lfdr.de>; Mon,  1 Aug 2022 16:07:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A26965874FA
+	for <lists+linux-man@lfdr.de>; Tue,  2 Aug 2022 03:11:35 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231915AbiHAOH4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 1 Aug 2022 10:07:56 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58142 "EHLO
+        id S234162AbiHBBLd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 1 Aug 2022 21:11:33 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44142 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229943AbiHAOHz (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 1 Aug 2022 10:07:55 -0400
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com [IPv6:2a00:1450:4864:20::62b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 98A241759C
-        for <linux-man@vger.kernel.org>; Mon,  1 Aug 2022 07:07:54 -0700 (PDT)
-Received: by mail-ej1-x62b.google.com with SMTP id gk3so8410803ejb.8
-        for <linux-man@vger.kernel.org>; Mon, 01 Aug 2022 07:07:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=from:to:cc:subject:in-reply-to:references:user-agent:date
-         :message-id:mime-version:content-transfer-encoding;
-        bh=tebAr8yLyLQlv3t7LJFgWlm5hs5PHrswBDN66M0FIPA=;
-        b=Jl5HDpBO+39s9J/rFfmianJfNOd+kJgCIH7ff3nRHQA5uFaVVcDI6vkFUr3IScpUhX
-         +/ZXihYHfHcYlhdFQQzQVyGeYrl7CTTz2kreCTp0nyNNdQET1ZCK0xh8STkHfMhClfQM
-         AJjEezEqS2Ki8GBMCGGBYP2agm3TPz9R8ccDJ8cPdwD58A1kyJs9Qfcd6O7B9SwiuHw3
-         qovd5aE86dgpJm8d5K6Oe6Je1pe0IJl/GpOPhoY5pynhx5afDGyH+wKaRjowpx67dHFC
-         Z9yeENp3ff5CewM49faEtTPMfU6wchyNKNatAcBq2/+2ZAi52kd4lOKTyBl0s2Oe0X6v
-         nMWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:in-reply-to:references
-         :user-agent:date:message-id:mime-version:content-transfer-encoding;
-        bh=tebAr8yLyLQlv3t7LJFgWlm5hs5PHrswBDN66M0FIPA=;
-        b=Uke8aZ8UQLTJWPohQLYA61OJ5QFZFXY/hulh5+fP5aKVqcEZSlOkVIE1Qo59Mpz6A0
-         yaQkiftap/3IOjmW6oGM936ggl7f1D2RoDINyf0/evsfOpuuAzlZsyoSFXHw0ZdInIlB
-         f2hH5e9cg6J2IzENzpW6A6hHjpGH1EjG7zqOH+j64aSSc97OOa+eaTQOpgRN5Pr6MDWb
-         xM+n2UGuuSWBP32Hqn1MEXDOHAF4B+/GQOETz9oBV+mFZAfFhUMki69/J7AqUpei6cwj
-         1cFW9Qxo9k6bUT/M6A4qkh0+YSYtO2aC0KRwSeXr7i/eNp8TYS+rAhhecjOdL3/7qaw2
-         Vegg==
-X-Gm-Message-State: ACgBeo051AeZDgQQgaTPvLvN7WPzDQ3yPLGE2eQYxs6nRMixSKs2KkB3
-        uxWmmONIBRPUcljgOvSxIHY=
-X-Google-Smtp-Source: AA6agR4ufJKsF+lDCHAMT133vOJBryG30jPyOU5Y2c4qIOG7fcoBDuSr3zcQTPfLNTW6MvDHGICRSQ==
-X-Received: by 2002:a17:906:eec9:b0:730:8226:3915 with SMTP id wu9-20020a170906eec900b0073082263915mr4282892ejb.513.1659362873122;
-        Mon, 01 Aug 2022 07:07:53 -0700 (PDT)
-Received: from localhost (internet-185-112-167-51.cznet.cz. [185.112.167.51])
-        by smtp.gmail.com with ESMTPSA id e10-20020a056402088a00b0043ba437fe04sm6845275edy.78.2022.08.01.07.07.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 01 Aug 2022 07:07:52 -0700 (PDT)
-From:   =?utf-8?B?xaB0xJtww6FuIE7Em21lYw==?= <stepnem@gmail.com>
-To:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org
-Cc:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Subject: Re: [PATCH 1/6] getrlimit.2: tfix
-In-Reply-To: <d1e19ee4-d75a-86a5-e6c1-32dfd7460a3c@gmail.com>
-References: <20220729114506.1669153-1-stepnem@gmail.com>
- <d1e19ee4-d75a-86a5-e6c1-32dfd7460a3c@gmail.com>
-User-Agent: Notmuch/0.36 (https://notmuchmail.org) Emacs/29.0.50
- (x86_64-pc-linux-gnu)
-Date:   Mon, 01 Aug 2022 16:09:01 +0200
-Message-ID: <20220801160901+0200.350977-stepnem@gmail.com>
+        with ESMTP id S234075AbiHBBL0 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 1 Aug 2022 21:11:26 -0400
+Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 2B8DA2654D
+        for <linux-man@vger.kernel.org>; Mon,  1 Aug 2022 18:11:23 -0700 (PDT)
+Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 2A3F5268;
+        Tue,  2 Aug 2022 03:11:19 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
+        s=202205; t=1659402679;
+        bh=yzWcIczyVpT6PzFukIqlTjtNF0B53ISOgok+JAppS1Y=;
+        h=Date:From:To:Cc:Subject:From;
+        b=QR30GHpHoEo/XvDq3blOL+j1VJLaSxrSAa74PMgd5xipI2d2S7i32BrJEU4QhoJd2
+         aLbW4QdvBEi4O+KdkZg1nr9VcLkhTZdujWhJVmB6f2uxpM3bF+fouquSY0nBS7gyHO
+         ATMDs4SCGRiFYi82gSSgWgewdFeYH5LbdFvfEtyMbDEgSvfx4VB7A6GOZp0k6g65bd
+         lnl5WNOBcu7V6eZvC+mz3PeDb6/Es8mTXAzsshHyhOlvlo0mBhBHNJ0DXjQ8drH/rm
+         ibE/K9u2QT9/Zu1ixCxc0dtOUBlQlKyc5b0HjCuqFBHcT2RxeR6KTx56oSs7u+t5rz
+         2XxokTNUZQkrP76w5mtyvU+fQh3NhUFNq7QNq30CM/e/tyL07kfFRoR0rQS1ZDAZ/u
+         YpWU60y3jw+UQs7Nu1UO//LawxlS7XcnU1nS/6VNfbwLjUWtnqQjiDV1DPhoynYS3Z
+         Gc5iAd+1f2kLCdbXLumwIU5uvVpIJNdjY2ddmy5rXdxL6LeuAGfHyyimd3LzQJ52zr
+         hphqb8S1VwS9GMl56H6b/RufWbf+jKCPuEeyK0RnSDWOEaLLqrNFZqzojeALi630bw
+         ovGkwJAvYsQ545tEaDMBlujY0LEMGE0EuHw3lPeCmPopWFRu+FLuPoqWZ7K9gN+vx4
+         Byc7mnqvaQKS1e/aQELvOwMA=
+Date:   Tue, 2 Aug 2022 03:11:18 +0200
+From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org
+Subject: [PATCH 1/3] getaddrinfo_a.3: {ftp.us => mirrors}.kernel.org,
+ likewise for IP
+Message-ID: <bbdf48b6666c5ced765a2b2e81feaea2270cde78.1659402663.git.nabijaczleweli@nabijaczleweli.xyz>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
-        autolearn_force=no version=3.4.6
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="djeyp52qn452daca"
+Content-Disposition: inline
+User-Agent: NeoMutt/20220429
+X-Spam-Status: No, score=3.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FROM_SUSPICIOUS_NTLD,
+        FROM_SUSPICIOUS_NTLD_FP,PDS_OTHER_BAD_TLD,RDNS_DYNAMIC,SPF_HELO_NONE,
+        SPF_PASS autolearn=no autolearn_force=no version=3.4.6
+X-Spam-Level: ***
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Mon, 01 Aug 2022 15:03:29 +0200
-Alejandro Colomar wrote:
 
-> On 7/29/22 13:45, =C5=A0t=C4=9Bp=C3=A1n N=C4=9Bmec wrote:
->> Signed-off-by: =C5=A0t=C4=9Bp=C3=A1n N=C4=9Bmec <stepnem@gmail.com>
->
-> I applied the 6 patches from the patch set, including the controversial=20
-> \~ vs '\ ' one.  I think that fix is better as a separate one, which=20
-> should include references to the SI that I quoted.
+--djeyp52qn452daca
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Thank you. For convenience, here is the one '\~' outlier (I was sitting
-on that one in case Branden or anyone else would still want to chime in:
-the conflict with groff_man(7) does seem unfortunate), feel free to do
-with it as you please:
+ftp.us.kernel.org EAI_NONAMEs: turn it into mirrors.kernel.org,
+because the current text uses 216.165.129.139 which is m.k.o
 
--- >8 --
-From: =3D?UTF-8?q?=3DC5=3DA0t=3DC4=3D9Bp=3DC3=3DA1n=3D20N=3DC4=3D9Bmec?=3D =
-<stepnem@gmail.com>
-Date: Sat, 30 Jul 2022 20:42:03 +0200
-Subject: [PATCH] ioctl_fideduperange.2: use '\ ' instead of '\~' between
- number and unit
+Make the address consistent between 128.30.2.36
+(some address in MIT space) and 216.165.129.139 (valid, current)
 
-Signed-off-by: =C5=A0t=C4=9Bp=C3=A1n N=C4=9Bmec <stepnem@gmail.com>
+Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
 ---
- man2/ioctl_fideduperange.2 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ man3/getaddrinfo_a.3 | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/man2/ioctl_fideduperange.2 b/man2/ioctl_fideduperange.2
-index 8bf114e8bb3b..585ed8beb9d7 100644
---- a/man2/ioctl_fideduperange.2
-+++ b/man2/ioctl_fideduperange.2
-@@ -100,7 +100,7 @@ and the struct
- array must not exceed the system page size.
- The maximum size of
- .I src_length
--is filesystem dependent and is typically 16\~MiB.
-+is filesystem dependent and is typically 16\ MiB.
- This limit will be enforced silently by the filesystem.
- By convention, the storage used by
- .I src_fd
-
--- 8< --
-
-> I'll try to apply a global fix about spacing.  Anyway, could you please=20
-> share the grep commands you used to find it?  It might help me see you=20
-> command, in case I miss some corner cases.
-
-Oh, nothing fancy at all, just grepping for '\ ' or '\~', e.g.
-
-  grep -R '\\~' man*
-
+diff --git a/man3/getaddrinfo_a.3 b/man3/getaddrinfo_a.3
+index e47874f5b..259e7e40e 100644
+--- a/man3/getaddrinfo_a.3
++++ b/man3/getaddrinfo_a.3
+@@ -323,8 +323,8 @@ The program might be used like this:
+ .PP
+ .in +4n
+ .EX
+-$ \fB./a.out ftp.us.kernel.org enoent.linuxfoundation.org gnu.cz\fP
+-ftp.us.kernel.org: 128.30.2.36
++$ \fB./a.out mirrors.kernel.org enoent.linuxfoundation.org gnu.cz\fP
++mirrors.kernel.org: 216.165.129.139
+ enoent.linuxfoundation.org: Name or service not known
+ gnu.cz: 87.236.197.13
+ .EE
+@@ -403,17 +403,17 @@ An example session might look like this:
+ .in +4n
+ .EX
+ $ \fB./a.out\fP
+-> a ftp.us.kernel.org enoent.linuxfoundation.org gnu.cz
++> a mirrors.kernel.org enoent.linuxfoundation.org gnu.cz
+ > c 2
+ [2] gnu.cz: Request not canceled
+ > w 0 1
+-[00] ftp.us.kernel.org: Finished
++[00] mirrors.kernel.org: Finished
+ > l
+-[00] ftp.us.kernel.org: 216.165.129.139
++[00] mirrors.kernel.org: 216.165.129.139
+ [01] enoent.linuxfoundation.org: Processing request in progress
+ [02] gnu.cz: 87.236.197.13
+ > l
+-[00] ftp.us.kernel.org: 216.165.129.139
++[00] mirrors.kernel.org: 216.165.129.139
+ [01] enoent.linuxfoundation.org: Name or service not known
+ [02] gnu.cz: 87.236.197.13
+ .EE
 --=20
-=C5=A0t=C4=9Bp=C3=A1n
+2.30.2
+
+
+--djeyp52qn452daca
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmLoebUACgkQvP0LAY0m
+WPGd5A/8D9nSAQQ/ayM4Ou+lu70Y7ENs7bW8PSE2Hscu3PeJtERSbpzfWPviWp6X
+BYYTuWqmTdahqqXmxgyGUMexlXIEr9448jbUPdHyoqidmUMaPqKIdHq8l5jtAscf
+G2qoyLKmSkJ9v5PUUrq4CqDWXnJIh41X27VjzxSLQC9wZn8YJ3sQyf8NOCpKXVZH
+K9w3sXG2fKCTAnCzeMiJnM3m9JeEwxD4LqhJnoy5YQ6iNwxgG23AFYPeYwkV+/Xc
+WiQ/Fp9AYU/rfrENVa3sBTbNyU17OBRC4SSvS8UpQ+ell2NON9kjta4qvd9YxqYf
+3dIbMjYjQvDay6hKPRyNOFvaHDhpWThfFhxnKICv6DrtFRcrKc8X8U0ZCkxR6xZN
+U9PBt6G+4kJuBEeq4U6AJ+8cB5+XbcytzOsZGnT6muCHAwM1UClG0aU9RzE1wheq
+uO0qk+LIVgW+1MCZB7dXHhyR4bX2E8OtuBOPbTtTiiZU4nnTy0DcsGPp4T9kinnH
+Dzd2rw2l2TKEEHGAg0CSbh+NL/eAr46YvYPdPjVluj5zj9EEv6b2gREvcCwfOFsx
+fI6cTU2CFzQHTfwVeoWWrOJgGLTHtW+UKaAdtdlSbBd3Mmv+EbrmLQZZ3rZgLjpX
+xXK/+kLjAJ2SQ2FsBtwqiB1LDEFMbpdQRL5ZN7/bHWsyNi8iT9E=
+=fUW/
+-----END PGP SIGNATURE-----
+
+--djeyp52qn452daca--
