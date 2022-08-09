@@ -2,97 +2,106 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id A348A58DC9D
-	for <lists+linux-man@lfdr.de>; Tue,  9 Aug 2022 18:59:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 871FC58E30A
+	for <lists+linux-man@lfdr.de>; Wed, 10 Aug 2022 00:17:29 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S244966AbiHIQ7A (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 9 Aug 2022 12:59:00 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38982 "EHLO
+        id S230005AbiHIWQa (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 9 Aug 2022 18:16:30 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37322 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S243719AbiHIQ67 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 9 Aug 2022 12:58:59 -0400
-Received: from mail-oo1-xc64.google.com (mail-oo1-xc64.google.com [IPv6:2607:f8b0:4864:20::c64])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B987623BEF
-        for <linux-man@vger.kernel.org>; Tue,  9 Aug 2022 09:58:58 -0700 (PDT)
-Received: by mail-oo1-xc64.google.com with SMTP id u7-20020a4a8c07000000b00435ac1584a6so2214157ooj.1
-        for <linux-man@vger.kernel.org>; Tue, 09 Aug 2022 09:58:58 -0700 (PDT)
+        with ESMTP id S229974AbiHIWPT (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 9 Aug 2022 18:15:19 -0400
+Received: from mail-io1-xd29.google.com (mail-io1-xd29.google.com [IPv6:2607:f8b0:4864:20::d29])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 96E9324F1E
+        for <linux-man@vger.kernel.org>; Tue,  9 Aug 2022 15:15:15 -0700 (PDT)
+Received: by mail-io1-xd29.google.com with SMTP id 68so4104257iou.2
+        for <linux-man@vger.kernel.org>; Tue, 09 Aug 2022 15:15:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=to:subject:message-id:date:from:reply-to:mime-version:from:to:cc;
+        bh=GI1h58u9NHz7rI/vIwOU5DkUcoHPmL+b4tk5i/xxv5Y=;
+        b=QTP95oQi+RYhXbI8sz4RyTZp0RSE4jP48cyyUmWbTiK1ItvOHbADVtjkGHK/8zFbqv
+         EIzUG3d4HgG5eAQxnVHuBpH33ycuIiNpMEXk8S0LHARhhQGb6AufQVVn/40aQfLvP77W
+         778oK7qnpGZXO0Q2aGCYT4Mad4FGDHlh1br3s7D4D+9Vr7gPQrhXDR8bwR1fyz6kQ1n2
+         /mI7/+oIm6xqfpBjeRephfywWnzvzUcqvvdKwYuFsxmTm/GRVEQb9jKfBsLPvHEPeyBR
+         SLk52BQ10Zm7GZ4Mv5gugSKJZhGFXVOipaGDVsAOq6ABLyMrmGMv+5RYTjL3cqduwO+M
+         O1Rw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature:x-gm-message-state:from:to:cc;
-        bh=+eQHMMdBs5N/rufefflqkz3jznRwu+OTj00XN5Kl+E4=;
-        b=X7PvOJrqe06TPH/x1aDMDl6lo8eSfcRISAlRr2xc2U4/QTppFNnM7d3/tkFSvT2QTQ
-         rm6MmuN330YQryPN80dFH+xVfihuDG3Svh61HWvJTaEogd0iPeT+RrvXm24W1ct/l+iH
-         zH69Y8Xt/ET7CYPIFID0u9Bao1atJHWh4ApLoQNOEc3kUF8aKx10rrvJBrdIElx5iGm2
-         1nqnV37wjBIT8t81FE5Eq0QhtpfG0Nh7CNcr0Te/2NtW/AI+5uPH+AMGq4l1+KrJ5cfO
-         cW/5wNdSo0wcHltRiKbFdQgYzDRjH9hwDivywdaBd+2V3/DUB7Sdh7bB3sP+KltUS1O1
-         gSCQ==
-X-Gm-Message-State: ACgBeo261PXtJcEumDMjVf7+3jh8R2nUn2rp03XAf5rykAdXPELl7r35
-        gjOEzA1H2dno9NcpMHzW1NyMaFt8TaMSxuPjE1zkcxA3iiffKA==
-X-Google-Smtp-Source: AA6agR6b0yAmnOJTInFcqtfH4hRfvrzlH1te1rvOiBvsIs/uHG+0W2Sw5X3B9QHEg557d3CewK2XUYhjG9mi
-X-Received: by 2002:a4a:8e54:0:b0:435:76f2:2ab7 with SMTP id z20-20020a4a8e54000000b0043576f22ab7mr8363386ook.60.1660064338156;
-        Tue, 09 Aug 2022 09:58:58 -0700 (PDT)
-Received: from restore.menlosecurity.com ([13.56.32.54])
-        by smtp-relay.gmail.com with ESMTPS id q3-20020a056870e60300b00100feb13b78sm1677257oag.3.2022.08.09.09.58.57
-        for <linux-man@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 09 Aug 2022 09:58:58 -0700 (PDT)
-X-Relaying-Domain: menlosecurity.com
-Received: from safemail-prod-02850030cr-re.menlosecurity.com (13.56.32.55)
-    by restore.menlosecurity.com (13.56.32.54)
-    with SMTP id 8ec9d080-1804-11ed-ae78-573a90385d8c;
-    Tue, 09 Aug 2022 16:58:58 GMT
-Received: from mail-yw1-f197.google.com (209.85.128.197)
-    by safemail-prod-02850030cr-re.menlosecurity.com (13.56.32.55)
-    with SMTP id 8ec9d080-1804-11ed-ae78-573a90385d8c;
-    Tue, 09 Aug 2022 16:58:57 GMT
-Received: by mail-yw1-f197.google.com with SMTP id 00721157ae682-31f5960500bso105177187b3.14
-        for <linux-man@vger.kernel.org>; Tue, 09 Aug 2022 09:58:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=menlosecurity.com; s=google;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc;
-        bh=+eQHMMdBs5N/rufefflqkz3jznRwu+OTj00XN5Kl+E4=;
-        b=DtLNgYbv/NpgFpqLo3b18NO8nc9YTIXSqrKxUY2P/0I4vEAC8PI8L3UUG7M+ONiNEV
-         iK+x2qBi3NbwJDQ0Ar4lpGYX0752sqUpgGPb0bD01DpA5Ze+gPeBEye9XcNIAPPHi+fJ
-         KZHQbxzGxor1fqxdzyZo2dNkzmjrdJAHHbG+U=
-X-Received: by 2002:a81:8886:0:b0:31f:639:8b97 with SMTP id y128-20020a818886000000b0031f06398b97mr23879940ywf.192.1660064336450;
-        Tue, 09 Aug 2022 09:58:56 -0700 (PDT)
-X-Received: by 2002:a81:8886:0:b0:31f:639:8b97 with SMTP id
- y128-20020a818886000000b0031f06398b97mr23879929ywf.192.1660064336308; Tue, 09
- Aug 2022 09:58:56 -0700 (PDT)
+        h=to:subject:message-id:date:from:reply-to:mime-version
+         :x-gm-message-state:from:to:cc;
+        bh=GI1h58u9NHz7rI/vIwOU5DkUcoHPmL+b4tk5i/xxv5Y=;
+        b=hAkvOnfF2bD0tv8Is58wDQdYKtnzuPRyxmiZz/+ezA2QGz9OQbGZ0K18KCvtYI9slt
+         XRV9hWUZeJZflBrnODEW1c0CAgstoAwTGwekDClyJGOlTuv8jYRwCeh2zSm5pCO1DdWY
+         oPvwmm6WAYY+PZG+VvLSb4n32TN7FfWjQAy1h82vFRndKbzplDg9dw4dnl0QaF0SnRtP
+         oSbIcHZLn03rND5mBfGfGEjtHbIHlFdzu60WtmC8qqaBkylVFu6DcqCb7ROCreyqRlwu
+         AUcri5xxwotnPDTuxRoTl6W9UGINB7lBaalTCN4TZLl/sXZEE2vqNdKj7nXoAjT2GyW6
+         nXuA==
+X-Gm-Message-State: ACgBeo0FDSNABlpmNKL24tPR2aaTPFh1gKkF8QQ7nBIfwGPO7zz78iFu
+        HTZUd0h0fJIQe5HkKfxv+kNdav7f26QCTMOVm3o/pxSsivi/tw==
+X-Google-Smtp-Source: AA6agR7pJ6r7fhR2kV9XLe+oV3h+/ej1weqLnpTQS1YP5ule1vsDwGSNCnOW6LlEIY2xTapZFY+hu5KXPqSjTYpoaJM=
+X-Received: by 2002:a63:4642:0:b0:41b:d353:c5c7 with SMTP id
+ v2-20020a634642000000b0041bd353c5c7mr20359415pgk.568.1660083303718; Tue, 09
+ Aug 2022 15:15:03 -0700 (PDT)
 MIME-Version: 1.0
-References: <CA+FoirA6PSOztihqrvOTVRKiSR8KnqiiZM-Tj9jVZjur3cia4w@mail.gmail.com>
-In-Reply-To: <CA+FoirA6PSOztihqrvOTVRKiSR8KnqiiZM-Tj9jVZjur3cia4w@mail.gmail.com>
-From:   Rumen Telbizov <rumen.telbizov@menlosecurity.com>
-Date:   Tue, 9 Aug 2022 09:58:45 -0700
-Message-ID: <CA+FoirDEkxx5=LJbkrxSbieEbN__3kk5KnSuFooeff+hUo8cCw@mail.gmail.com>
-Subject: Re: man7.org update
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     linux-man <linux-man@vger.kernel.org>,
-        Quentin Monnet <quentin@isovalent.com>
+Received: by 2002:a05:6a10:e8a6:b0:2d4:fb1c:cc5e with HTTP; Tue, 9 Aug 2022
+ 15:15:03 -0700 (PDT)
+Reply-To: wijh555@gmail.com
+From:   "Dr. Ali Moses" <alimoses07@gmail.com>
+Date:   Tue, 9 Aug 2022 15:15:03 -0700
+Message-ID: <CADWzZe65tcOX2+bMZfMLLauGpHEQ9Cdv814nLU=uQvKzDFrEVg@mail.gmail.com>
+Subject: Good Day,
+To:     undisclosed-recipients:;
 Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
-        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
-        autolearn_force=no version=3.4.6
+X-Spam-Status: Yes, score=5.2 required=5.0 tests=BAYES_50,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
+        FREEMAIL_FROM,FREEMAIL_REPLYTO,FREEMAIL_REPLYTO_END_DIGIT,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+        UNDISC_FREEM autolearn=no autolearn_force=no version=3.4.6
+X-Spam-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
+        *      https://www.dnswl.org/, no trust
+        *      [2607:f8b0:4864:20:0:0:0:d29 listed in]
+        [list.dnswl.org]
+        *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
+        *      [score: 0.5000]
+        *  0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
+        *      provider
+        *      [alimoses07[at]gmail.com]
+        * -0.0 SPF_PASS SPF: sender matches SPF record
+        *  0.2 FREEMAIL_REPLYTO_END_DIGIT Reply-To freemail username ends in
+        *      digit
+        *      [wijh555[at]gmail.com]
+        *  0.0 SPF_HELO_NONE SPF: HELO does not publish an SPF Record
+        *  0.2 FREEMAIL_ENVFROM_END_DIGIT Envelope-from freemail username ends
+        *       in digit
+        *      [alimoses07[at]gmail.com]
+        * -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+        *  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+        *       valid
+        * -0.1 DKIM_VALID_EF Message has a valid DKIM or DK signature from
+        *      envelope-from domain
+        * -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+        *      author's domain
+        * -0.0 T_SCC_BODY_TEXT_LINE No description available.
+        *  3.1 UNDISC_FREEM Undisclosed recipients + freemail reply-to
+        *  1.0 FREEMAIL_REPLYTO Reply-To/From or Reply-To/body contain
+        *      different freemails
+X-Spam-Level: *****
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Alejandro, list,
+-- 
+Hello,
+We the Board Directors believe you are in good health, doing great and
+with the hope that this mail will meet you in good condition, We are
+privileged and delighted to reach you via email" And we are urgently
+waiting to hear from you. and again your number is not connecting.
 
-In short: Quentin and I were wondering if you know who maintains and updates
-https://man7.org/linux/man-pages/man7/bpf-helpers.7.html
+My regards,
+Dr. Ali Moses..
 
-This is with regards to the changes that we talked about previously to
-the bpf-helpers man page and the script that needs to be run in order
-to update the man page. Those changes don't seem to be reflected in
-the link above. Assuming that the script has been run already and all
-the changes are in place, do you have any idea when/who updates this
-page to reflect that?
-
-Thanks,
-Rumen Telbizov
+Sincerely,
+Prof. Chin Guang
