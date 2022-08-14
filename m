@@ -2,91 +2,113 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 2FEB9592014
-	for <lists+linux-man@lfdr.de>; Sun, 14 Aug 2022 16:16:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id ED26C592042
+	for <lists+linux-man@lfdr.de>; Sun, 14 Aug 2022 16:49:18 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231816AbiHNOQA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 14 Aug 2022 10:16:00 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38140 "EHLO
+        id S229731AbiHNOtS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 14 Aug 2022 10:49:18 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34776 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231268AbiHNOP7 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 14 Aug 2022 10:15:59 -0400
-Received: from scc-mailout-kit-01.scc.kit.edu (scc-mailout-kit-01.scc.kit.edu [IPv6:2a00:1398:9:f712::810d:e751])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 617B1B87A
-        for <linux-man@vger.kernel.org>; Sun, 14 Aug 2022 07:15:57 -0700 (PDT)
-Received: from hekate.asta.kit.edu ([2a00:1398:5:f401::77])
-        by scc-mailout-kit-01.scc.kit.edu with esmtps (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-        (envelope-from <schwarze@usta.de>)
-        id 1oNEPD-00HUm4-KJ; Sun, 14 Aug 2022 16:15:55 +0200
-Received: from login-1.asta.kit.edu ([2a00:1398:5:f400::72])
-        by hekate.asta.kit.edu with esmtp (Exim 4.94.2)
-        (envelope-from <schwarze@usta.de>)
-        id 1oNEPC-007KjG-Ng; Sun, 14 Aug 2022 16:15:54 +0200
-Received: from schwarze by login-1.asta.kit.edu with local (Exim 4.92)
-        (envelope-from <schwarze@usta.de>)
-        id 1oNEPC-00017g-NA; Sun, 14 Aug 2022 16:15:54 +0200
-Date:   Sun, 14 Aug 2022 16:15:54 +0200
-From:   Ingo Schwarze <schwarze@usta.de>
-To:     g.branden.robinson@gmail.com
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org, groff@gnu.org
-Subject: Re: *roff `\~` support (was: [PATCH 4/6] xattr.7: wfix)
-Message-ID: <YvkDmkC/0ZKTgDdU@asta-kit.de>
+        with ESMTP id S229558AbiHNOtR (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 14 Aug 2022 10:49:17 -0400
+Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AE14915828
+        for <linux-man@vger.kernel.org>; Sun, 14 Aug 2022 07:49:15 -0700 (PDT)
+Received: from submission (posteo.de [185.67.36.169]) 
+        by mout02.posteo.de (Postfix) with ESMTPS id 007CE240103
+        for <linux-man@vger.kernel.org>; Sun, 14 Aug 2022 16:49:12 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=posteo.mx; s=2017;
+        t=1660488553; bh=A5XhgeXVGEOJ1N3hWvMC6nMcdypnGuxDPLtW8Pa4eEI=;
+        h=Date:Cc:To:Subject:From:From;
+        b=H9Vt5rsgnfBjIqdmFmjQmbkcgZGB9I9Q2SWmOIhrzlSyBaE8wQ/Mb4f1Bv9HFWTS6
+         VNqQMQdOyQwqtaKNFF/x+fo1+eId/29lG09lRQ7fa6DiHRpwqAPZukmXxVe1XR0PvU
+         xvebQD94nKW7MN8N+T5Sd258FGOtj2KXgcYtPz3boz6r+1h1KNvvIoXLmQMvnjjSiU
+         IZlFAz1bqacVBawd/z/VZC19MfUM9AIQ4+uxjB+MV5R9Vn/d8e7FDFcGm+kH/Kbg47
+         Hg5AdFC/1KRu+aXUP5QJW8XtKPgmt2A6pOijXdI0ZekH25N1yjm2YyezF6eHw5T+xm
+         0572AYUVpW+aw==
+Received: from customer (localhost [127.0.0.1])
+        by submission (posteo.de) with ESMTPSA id 4M5L07431Kz9rxL;
+        Sun, 14 Aug 2022 16:49:11 +0200 (CEST)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date:   Sun, 14 Aug 2022 14:49:10 +0000
+Message-Id: <CM5U2DCMCPL4.38VBYJS3B1L65@grinningface>
+Cc:     <g.branden.robinson@gmail.com>,
+        "Alejandro Colomar" <alx.manpages@gmail.com>,
+        <linux-man@vger.kernel.org>, <groff@gnu.org>
+To:     "Ingo Schwarze" <schwarze@usta.de>
+Subject: Re: Standardize roff (was: *roff `\~` support)
+From:   "DJ Chase" <u9000@posteo.mx>
 References: <20220729114506.1669153-4-stepnem@gmail.com>
  <20220729205823.lcy4fbezlw32owgu@illithid>
  <20220730161521+0200.203910-stepnem@gmail.com>
  <c2ef3b9c-97d1-2733-df27-542c9eacad17@gmail.com>
  <8edd0272-0c43-b5e7-9220-20094bb5ae23@gmail.com>
- <YvT6s2Sv+M2bEldp@asta-kit.de>
- <20220811201714.a2o432xhkyyyj6qi@illithid>
- <YvZj6emfWNfwRjwe@asta-kit.de>
- <20220812221035.xd4udngmz5erht5p@illithid>
- <20220813042311.njw23k6g5mkrgknx@illithid>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220813042311.njw23k6g5mkrgknx@illithid>
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED,
-        SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=ham
-        autolearn_force=no version=3.4.6
+ <YvT6s2Sv+M2bEldp@asta-kit.de> <20220811201714.a2o432xhkyyyj6qi@illithid>
+ <YvZj6emfWNfwRjwe@asta-kit.de> <20220812221035.xd4udngmz5erht5p@illithid>
+ <CM52T3SFTBDU.21XFDQOUZP886@grinningface> <Yvj/CAUSL1jVbAot@asta-kit.de>
+In-Reply-To: <Yvj/CAUSL1jVbAot@asta-kit.de>
+X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+        RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Branden,
+On Sun Aug 14, 2022 at 9:56 AM EDT, Ingo Schwarze wrote:
+> Hi,
+>
+> DJ Chase wrote on Sat, Aug 13, 2022 at 05:27:34PM +0000:
+>
+> > Have we ever considered a de jure *roff standard?
+>
+> No, i think that would be pure madness given the amount of working
+> time available in any of the roff projects.
+>
+> [=E2=80=A6]
 
-G. Branden Robinson wrote on Fri, Aug 12, 2022 at 11:23:11PM -0500:
-> At 2022-08-12T16:30:01+0200, Ingo Schwarze wrote:
+This is very sad to hear.
 
->> There are people using Plan 9 for practical work though, they have
->> even occasionally posted on the groff and mandoc lists, so that is a
->> bit more of a problem.
+> > It could also lead to more users & use cases because existing
+> > users could count on systems supporting certain features, so
+> > they could use *roff in more situations, which would lead to
+> > more exposure.
+>
+> You appear to massively overrate the importance end-users
+> typically attribute to standardization.
 
-> plan9port's troff is no longer a problem, thanks to Dan Cross acting on
-> my pull request at relativistic speed.
-> https://github.com/9fans/plan9port/commit/93f814360076ccf28d33c9cb909fca7200ba4a7d
+That=E2=80=99s probably because *I* massively overrate the importance of
+standardization (I mean I literally carry a standards binder with me).
+Still, though, it=E2=80=99s rather annoying that end users =E2=80=94 especi=
+ally
+programmers =E2=80=94 don=E2=80=99t value standards as much.
 
-Nice.  :-)
+> > It=E2=80=99s ridiculous that *roff isn=E2=80=99t part of POSIX when it =
+was Unix=E2=80=99s
+> > killer feature.
+>
+> You are welcome to spend the many years required to change that.
+> But be aware that some standardization efforts that are part of
+> POSIX resulted in parts of the standard that are barely useable
+> for practical work.  One famous example is make(1).
+>
+> Don't get me wrong: i think standardization is very nice to have,
+> should be taken very seriously when available, and provides some
+> value even when the standardization effort mostly failed, like in
+> the case of make(1).  But standardization is absolutely not cheap.
+> To the contrary, it is usually significantly more expensive than
+> implementation and documentation.
 
-> I also have a PR pending with Illumos.
-> https://github.com/illumos/illumos-gate/pull/83
+Would an informal de jure standard be of any use? Like how TOML just has
+a specification, but it=E2=80=99s somewhat usable as a standard because it=
+=E2=80=99s
+been pretty stable and because it=E2=80=99s written clearly enough.
 
-Illumos isn't doing development on GitHub.
-
-Besides, Illumos is less of a problem because they have been using
-mandoc as the default manual page formatter since July 2014.
-
-All the same, getting \~ supported in their general-purpose
-roff implementation is no doubt nice to have, too.
-
-That reduces my converns mostly to commercial UNIXes and potentially
-to a few ad-hoc conversion tools we are not even aware of.
-Consequently, the converns aren't 100% resolved yet but getting
-closer to becoming theoretical concerns.  If it's only commercial
-UNIXes and unknown tools that may break, the improved typesetting
-quality may be worth the risk.
-
-Yours,
-  Ingo
+Cheers,
+--=20
+DJ Chase
+They, Them, Theirs
