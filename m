@@ -2,115 +2,133 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id D7F78594E24
-	for <lists+linux-man@lfdr.de>; Tue, 16 Aug 2022 03:50:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7FBA0594E34
+	for <lists+linux-man@lfdr.de>; Tue, 16 Aug 2022 03:50:25 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233540AbiHPBm3 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 15 Aug 2022 21:42:29 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38590 "EHLO
+        id S233382AbiHPBt5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 15 Aug 2022 21:49:57 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45014 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233727AbiHPBmH (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 15 Aug 2022 21:42:07 -0400
-Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id E2818F23F4
-        for <linux-man@vger.kernel.org>; Mon, 15 Aug 2022 14:34:04 -0700 (PDT)
-Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 4F3E0E6A;
-        Mon, 15 Aug 2022 23:33:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-        s=202205; t=1660599230;
-        bh=W/auaA43/ak/txk3X9AI1+vgKKceNsGjt+E1tJUdvMk=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=II4s2wY7rBBIU1bqEt1A704XoZScJu6W7/G+8l4uXi56JW4XfugRatoVbkrtV1YqQ
-         Wd7woN1j7+AfFIr5aBUhXqKl9DD+947QUakVflucKHLphAXMm5nJaLqBh21K86eMdJ
-         yoae2FcZYdmZliJSpcrEh2q6umIWX4iSDm/46xjaIHMMs2OqlN2ME2wAiASWqgA+Rv
-         pWKuYCCY1ijU6+QdXZh16xcP/jF3TiBO82gXYISxuzlns675bstZ0qwZ+e/GkMLYQk
-         1oYRcDlXHQT9SyIXCeY+mMjTf6O8DjsEEp/ZM3vhUwqi8O7uibP1SLTbt7spUFJeLv
-         1acu9y9hbXM5d23BUp1vyT6sUu8ym9F2mMzOkNp4IVkgcJiZlKb8XKBHh4/t6rEDoH
-         0VBGyo9K5JSff4tHbDul798UDqxitkdXXbNCk7g0HCe+b+uCg/JU7o6sjQiK6IrReB
-         0bDYJZnEBB/CNum5qwYs4Bk6DTX38d0AbDOPHE/Aog4CJRBjDh2TvduvlisDyHu02V
-         pCUv5gBLp2ER1vKSTrnqdWX6j8S4OkgtAguSM3v3Hjn0mBNPf2Mpi6imp4e0npQ6i5
-         IsdM1k5PnPBvMXVPo752UpB3kpu8+BMYNiUNuqVZm0zKdHTpl/tyy5sgfJRkKoaSm1
-         FxWs4U4cLkCh1ajvch8uZgJQ=
-Date:   Mon, 15 Aug 2022 23:33:49 +0200
-From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-Subject: [PATCH v3 3/3] getaddrinfo_a.3: actually gnu.cz => gnu.org
-Message-ID: <e3066c02785707f606606504abf1d5c9f7d3ddf3.1660599213.git.nabijaczleweli@nabijaczleweli.xyz>
-References: <6d48a9a552a9390cd029f2a4ea582f4bd61c4d73.1659461236.git.nabijaczleweli@nabijaczleweli.xyz>
+        with ESMTP id S233324AbiHPBtR (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 15 Aug 2022 21:49:17 -0400
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com [IPv6:2a00:1450:4864:20::42b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C23C9204E4C
+        for <linux-man@vger.kernel.org>; Mon, 15 Aug 2022 14:43:12 -0700 (PDT)
+Received: by mail-wr1-x42b.google.com with SMTP id z16so10446504wrh.12
+        for <linux-man@vger.kernel.org>; Mon, 15 Aug 2022 14:43:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=in-reply-to:from:references:to:content-language:subject:user-agent
+         :mime-version:date:message-id:from:to:cc;
+        bh=Rmmwn//AaSHDKZmEkrQsr1zgGTAMZ7h6NiIAL769mvM=;
+        b=gb7JORHZ6VoPzhWStKsN+1Us88QonWwOguk0OFUsIbsp90IkbWS60otg/TkVEhBVAA
+         PuS6NPWwakEHw0a2Wcmt+zq9gZOfMKVWtjtFLkbsWZRjtEnpw/jkA4HIczhSQUk1/Vyl
+         OTIN9LmJ0pAcDHVs584Z4lxClbpsGkdnduO/SXrMzHuW50+eGLGm1VYAs+q+qr8BVHtv
+         Zt5vSDXnNOQfnhU1h7TbbTgIyYshTsroVUyVKWIm7lqZcf//v/2Ww7zV/YR0DPh1wuJ3
+         ETB64LaYRZXe5aKzdIvWuTJi/+FXPu4AzTkZGW0qv2GPGodM0eTcILTnh9zAJKaOy7pZ
+         1muw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=in-reply-to:from:references:to:content-language:subject:user-agent
+         :mime-version:date:message-id:x-gm-message-state:from:to:cc;
+        bh=Rmmwn//AaSHDKZmEkrQsr1zgGTAMZ7h6NiIAL769mvM=;
+        b=VKuy3rX3btWnOT6cquVwJQSEkWve0oMU46YWtoSBWsTYZgtnBKYxYd1cPn0wyDsqOX
+         +pumrKNS1sc/oVFZZB1Bc22xUtc4YMM1VzU+k473jx6mr0uVW2prVdYldKsbhqYqB3Wj
+         +UFVixpTgrpFwBIc6+H+AE4XSF8pTtAOpejQAmeyjO4Yti5m+FdJ3vbjB8JlQWbYeyHR
+         whi3GBe7HVJUsKxWAcG7romWTJhwoyUCzmYYnLhmb1uz3d6IE4LDeLXXWJXkPNY1uwch
+         fepq9LuEEiHCNQumP9jprg8OWWYC4aHe+6q3OUO5n4E9FZtSt+KKfsOtBKVq1EH6mnRr
+         1Ypw==
+X-Gm-Message-State: ACgBeo3ICbammcq4HNg3Un+OAmQO2dqoHOpnbzExvqPYsipVOp4rewaI
+        zXrOzV+HhSPBLyNw+rHFIAE=
+X-Google-Smtp-Source: AA6agR6D/TfMdNOdb6N3aQ5rAf6pj1KPjQvr0/xokxuimK0dpjeH3LyetFZUumIQALMTGqfRIlNmEA==
+X-Received: by 2002:adf:f10d:0:b0:220:7e4f:ceb6 with SMTP id r13-20020adff10d000000b002207e4fceb6mr9911867wro.316.1660599790755;
+        Mon, 15 Aug 2022 14:43:10 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id c3-20020adffb43000000b00222d512d96asm8408634wrs.75.2022.08.15.14.43.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 15 Aug 2022 14:43:10 -0700 (PDT)
+Message-ID: <00af894a-5786-5f2a-18b3-1b8b090bdc78@gmail.com>
+Date:   Mon, 15 Aug 2022 23:43:09 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="ednotml7dw42s57x"
-Content-Disposition: inline
-In-Reply-To: <6d48a9a552a9390cd029f2a4ea582f4bd61c4d73.1659461236.git.nabijaczleweli@nabijaczleweli.xyz>
-User-Agent: NeoMutt/20220429
-X-Spam-Status: No, score=0.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FROM_SUSPICIOUS_NTLD,
-        PDS_OTHER_BAD_TLD,RDNS_DYNAMIC,SPF_HELO_NONE,SPF_PASS,
-        T_SCC_BODY_TEXT_LINE autolearn=no autolearn_force=no version=3.4.6
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.1.2
+Subject: Re: [PATCH] cgroups.7: Document memory_recursiveprot mount option
+Content-Language: en-US
+To:     Brett Holman <bholman.devel@gmail.com>, linux-man@vger.kernel.org,
+        mtk.manpages@gmail.com, hannes@cmpxchg.org
+References: <20220808212250.6cnl3zjabvyyc52r@isa>
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <20220808212250.6cnl3zjabvyyc52r@isa>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------CLXS8nEaYOEq0Uq2FFACTtw3"
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------CLXS8nEaYOEq0Uq2FFACTtw3
+Content-Type: multipart/mixed; boundary="------------PM4oMt0ytu2gXoXVasgiMTqK";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: Brett Holman <bholman.devel@gmail.com>, linux-man@vger.kernel.org,
+ mtk.manpages@gmail.com, hannes@cmpxchg.org
+Message-ID: <00af894a-5786-5f2a-18b3-1b8b090bdc78@gmail.com>
+Subject: Re: [PATCH] cgroups.7: Document memory_recursiveprot mount option
+References: <20220808212250.6cnl3zjabvyyc52r@isa>
+In-Reply-To: <20220808212250.6cnl3zjabvyyc52r@isa>
 
---ednotml7dw42s57x
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+--------------PM4oMt0ytu2gXoXVasgiMTqK
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Fixes: a2feb3e14f51a0e74daeb6f0217887ca31799967 ("getaddrinfo_a.3:
- gnu.cz =3D> gnu.org")
-Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
----
- man3/getaddrinfo_a.3 | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+SGkgQnJldHQsDQoNCk9uIDgvOC8yMiAyMzoyMiwgQnJldHQgSG9sbWFuIHdyb3RlOg0KPiBT
+aWduZWQtb2ZmLWJ5OiBCcmV0dCBIb2xtYW4gPGJob2xtYW4uZGV2ZWxAZ21haWwuY29tPg0K
+PiAtLS0NCg0KUGF0Y2ggYXBwbGllZC4NCg0KVGhhbmtzLA0KDQpBbGV4DQoNCj4gDQo+IEFk
+ZGVkIGluIDhhOTMxZjgwMTM0MGMyYmUxMDUgYnkgSm9oYW5uZXMgV2VpbmVyIGFuZCBkb2N1
+bWVudGVkIGluDQo+IERvY3VtZW50YXRpb24vYWRtaW4tZ3VpZGUvY2dyb3VwLXYyLnJzdCwg
+dGhpcyBtb3VudCBvcHRpb24gaXMNCj4gbWlzc2luZyBmcm9tIHRoZSBtb3VudCBvcHRpb24g
+bGlzdCBpbiBjZ3JvdXBzLjcuDQo+IA0KPiAgIG1hbjcvY2dyb3Vwcy43IHwgNiArKysrKysN
+Cj4gICAxIGZpbGUgY2hhbmdlZCwgNiBpbnNlcnRpb25zKCspDQo+IA0KPiBkaWZmIC0tZ2l0
+IGEvbWFuNy9jZ3JvdXBzLjcgYi9tYW43L2Nncm91cHMuNw0KPiBpbmRleCAyNDk2YzA2YzEu
+LjdiNWE1NDM2MCAxMDA2NDQNCj4gLS0tIGEvbWFuNy9jZ3JvdXBzLjcNCj4gKysrIGIvbWFu
+Ny9jZ3JvdXBzLjcNCj4gQEAgLTE4ODgsNiArMTg4OCwxMiBAQCBtb3VudCBvcHRpb24uDQo+
+ICAgVGhlIGtlcm5lbCBzdXBwb3J0cyB0aGUNCj4gICAuSSBuc2RlbGVnYXRlDQo+ICAgbW91
+bnQgb3B0aW9uLg0KPiArLlRQDQo+ICsuSVIgbWVtb3J5X3JlY3Vyc2l2ZXByb3QgIiAoc2lu
+Y2UgTGludXggNS43KSINCj4gKy5cIiBjb21taXQgOGE5MzFmODAxMzQwYzJiZTEwNTUyYzdi
+NTYyMmQ1ZjQ4NTJmM2EzNg0KPiArVGhlIGtlcm5lbCBzdXBwb3J0cyB0aGUNCj4gKy5JIG1l
+bW9yeV9yZWN1cnNpdmVwcm90DQo+ICttb3VudCBvcHRpb24uDQo+ICAgLlJFDQo+ICAgLlNI
+IFNFRSBBTFNPDQo+ICAgLkJSIHBybGltaXQgKDEpLA0KDQotLSANCkFsZWphbmRybyBDb2xv
+bWFyDQo8aHR0cDovL3d3dy5hbGVqYW5kcm8tY29sb21hci5lcy8+DQo=
 
-diff --git a/man3/getaddrinfo_a.3 b/man3/getaddrinfo_a.3
-index a5eb85843..25283dce9 100644
---- a/man3/getaddrinfo_a.3
-+++ b/man3/getaddrinfo_a.3
-@@ -323,7 +323,7 @@ The program might be used like this:
- .PP
- .in +4n
- .EX
--$ \fB./a.out mirrors.kernel.org enoent.linuxfoundation.org gnu.cz\fP
-+$ \fB./a.out mirrors.kernel.org enoent.linuxfoundation.org gnu.org\fP
- mirrors.kernel.org: 139.178.88.99
- enoent.linuxfoundation.org: Name or service not known
- gnu.org: 209.51.188.116
-@@ -403,7 +403,7 @@ An example session might look like this:
- .in +4n
- .EX
- $ \fB./a.out\fP
--> a mirrors.kernel.org enoent.linuxfoundation.org gnu.cz
-+> a mirrors.kernel.org enoent.linuxfoundation.org gnu.org
- > c 2
- [2] gnu.org: Request not canceled
- > w 0 1
---=20
-2.30.2
+--------------PM4oMt0ytu2gXoXVasgiMTqK--
 
---ednotml7dw42s57x
-Content-Type: application/pgp-signature; name="signature.asc"
+--------------CLXS8nEaYOEq0Uq2FFACTtw3
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmL6u7wACgkQvP0LAY0m
-WPG6yhAApuNivE2U5ByfJS2rLyYbqcV6n75ep0c1bMoneeoZrq5CgSnLQghYAg+O
-DxosRhnLmPE8cI1G4ZRwhe01bbDTepU23whUud48sgdzDpoCsfulnAKtqu48KSim
-APvTaKzxConp3gP9IJBmPRb9gF5XoJjBjG+AR7minQH6VJTeAPLK14s6h6pTwxqA
-yPOXtK8eFPHM3h26IhLQH3i5pQEx4wd+YfKI6YzcdFpIrX8jF5VuLZRjQ0mcvxFU
-Erv+FzPFxOyizc3ZHNlDS/D4D9GGSe8C7A+n8oOeqDwVJSGJQ1xHxgYvdTG22Aet
-f+rHRTCEqg7YsFzRlP8mZGqf+TiogS6e77/kOU8Zz0Glqaj9rFJ4HdGbFe1ihEth
-Xrp91Jg+/C0iCFIyLnW2L22vhw00fE4w5YKSvM1AtE8CipfuGpHEhjIGnkLFtpYl
-vjTZg5LeBxqPZMR610o7xjdQwwBo7BCbQiRXNTf3cor+EhFqXv0dr0nhPPxSDqZJ
-26UrI3yFRCX+omhg0t5ic+gjt+apibkMb/2TijeiTH/lzTI4S35TdmdUqHZS+CQR
-PB9E8KSf1z9kudrQ3F16XTcyaCKwBrDWWIdGifz2C5Mi9baRgIy+a6bgUrZ9/sx8
-l8FBaCAwX0CGN1aTr07mGWHqWh2k4GWbghzC5zoiyoLlDdVDZtc=
-=lnHX
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmL6ve0ACgkQnowa+77/
+2zJ2uBAAqWG6Mms47jRAzkMplw1069RXVBTm8DkZkzrOqBN+sY7IqomwkuNYWRbO
+Kz5k9lOJbGvZtuHRz9lJsqnZMeVrRyt9Li75KtUy8LYTz6G1T+M1MEmJztXkgqIG
+oBcYI3gwPinM4fAdY67QsHg1ATR5N34Ohh4UX6zGQPtKXXvVt8HhVK4b+8sRyaoS
+cA3XlV0CWnMQ9MBj2TiE/Crya/RmRv0Z5es4CQWF1z85BphuNzrnqrx4zPrdQLDm
+J9LteHG0yq8ixnoVbcA+eLFKnmsw7LNx+aR3AsIYd1+1mXHJFLbli0udEX4JH9EZ
+uiMBFKpR7QEIPekdrIE6P6gvwcPoJcviKI+VLZGoWmshwoB9550PaCiz9OrEGSql
+P6miwxz0H2S4IfuNMTquGbdpHr7WdnJctB3YEME3bgIvS9n+zPSwxod8lLp7nprq
+9LBuRABPdTkfk81Ez4PwnYUm++TrGiFru9biFe87aUZBUPyarYljylOj9e1s9cSP
+WLaNS7KSiiFIwbowwG+m7o/2fo6YTWQzaF9WHoiL7/2cq3HhT6yxJkmY+Zikqn6+
+fq3w7iS2gUj8Ek3XQaHNbb7mf8mg25tioUizBtJDBowrVANT/alBEJgyQ4S6brG9
+GobfaanXqgxQTDFBRJ0c4LztCtKDmD1J856dLmhuQh/if5pX94w=
+=fiKa
 -----END PGP SIGNATURE-----
 
---ednotml7dw42s57x--
+--------------CLXS8nEaYOEq0Uq2FFACTtw3--
