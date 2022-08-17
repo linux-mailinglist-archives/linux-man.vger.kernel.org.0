@@ -2,180 +2,102 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id E040C596622
-	for <lists+linux-man@lfdr.de>; Wed, 17 Aug 2022 01:47:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0EE20596A62
+	for <lists+linux-man@lfdr.de>; Wed, 17 Aug 2022 09:32:08 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S237703AbiHPXql (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 16 Aug 2022 19:46:41 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43248 "EHLO
+        id S230473AbiHQHbL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 17 Aug 2022 03:31:11 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40234 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229675AbiHPXqk (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 16 Aug 2022 19:46:40 -0400
-Received: from mailx.courier-mta.com (mailx.courier-mta.com [96.56.228.18])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 64A7E915C2
-        for <linux-man@vger.kernel.org>; Tue, 16 Aug 2022 16:46:39 -0700 (PDT)
-Received: from monster.email-scan.com (monster.email-scan.com [::ffff:192.168.0.2])
-  (TLS: TLSv1.3,256bits,TLS_AES_256_GCM_SHA384)
-  by www.courier-mta.com with ESMTPS
-  id 00000000002A025B.0000000062FC2C5D.0000D81D; Tue, 16 Aug 2022 19:46:37 -0400
-Received: from monster.email-scan.com (localhost [127.0.0.1])
-  (IDENT: uid 1004)
-  by monster.email-scan.com with UTF8SMTP
-  id 000000000006027A.0000000062FC2C5D.0005AFA4; Tue, 16 Aug 2022 19:46:37 -0400
-References: <YvZj6emfWNfwRjwe@asta-kit.de> <20220812221035.xd4udngmz5erht5p@illithid> <CM52T3SFTBDU.21XFDQOUZP886@grinningface> <Yvj/CAUSL1jVbAot@asta-kit.de> <cone.1660522834.354716.280603.1004@monster.email-scan.com> <YvuS8w3yYOuj9tWF@asta-kit.de>
-Message-ID: <cone.1660693597.75726.370792.1004@monster.email-scan.com>
-X-Mailer: http://www.courier-mta.org/cone/
-From:   Sam Varshavchik <mrsam@courier-mta.com>
-To:     Ingo Schwarze <schwarze@usta.de>
-Cc:     DJ Chase <u9000@posteo.mx>, g.branden.robinson@gmail.com,
-        Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org, groff@gnu.org
-Subject: Re: Standardize roff
-Date:   Tue, 16 Aug 2022 19:46:37 -0400
-Mime-Version: 1.0
-X-Mime-Autoconverted: from 8bit to quoted-printable by mimegpg
-Content-Type: multipart/signed;
-    boundary="=_monster.email-scan.com-370792-1660693597-0002";
-    micalg=pgp-sha1; protocol="application/pgp-signature"
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,SPF_HELO_NONE,
-        SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham autolearn_force=no
+        with ESMTP id S229448AbiHQHbK (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 17 Aug 2022 03:31:10 -0400
+Received: from mail-pf1-x432.google.com (mail-pf1-x432.google.com [IPv6:2607:f8b0:4864:20::432])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3FEC66CF59
+        for <linux-man@vger.kernel.org>; Wed, 17 Aug 2022 00:31:10 -0700 (PDT)
+Received: by mail-pf1-x432.google.com with SMTP id p125so11384889pfp.2
+        for <linux-man@vger.kernel.org>; Wed, 17 Aug 2022 00:31:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:to:subject:message-id:date:from:sender
+         :mime-version:from:to:cc;
+        bh=6EKS55FG/N5jiLPU84o9FdVsQINPsJTprgDz5KNgP2o=;
+        b=qZ/Ed4XXqQboAU3jjCMVgFxsBopdkPp0He33b1K9ssaearDuHjzgsADSTjRgYtEBHY
+         oA08UBEwbds+cA51EDZ6ndj7Ij2Srf0X1k7eKZmVJ1k29L/8xcu9BCyoROuWBk2p/8Dc
+         LhTOe+Kt3Nq2cTOPNqskJrhX+AM6BGj318BaKbKy6YS8HIfPc+E+0/H8tNSoTBsMJlA6
+         pjjdq+u2Hq/lfaJjXXFduk/0jNCCd0R/6wegnmuXRc1hrROh67P4jdek/lqdB4Pblypy
+         FfuTYVeGdiGninpYGO8P/iP59cbErqY80DXcnVwCrghIbsrPxP5btTuPfrGo303WrIcg
+         kW0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:to:subject:message-id:date:from:sender
+         :mime-version:x-gm-message-state:from:to:cc;
+        bh=6EKS55FG/N5jiLPU84o9FdVsQINPsJTprgDz5KNgP2o=;
+        b=wvT6uSOov00ACRhwUIQVy+tOOAlrpcaKJIntz3ntxwRzbd7PxKqHsgHCqULacReRr6
+         ml1dcg6TeK5rwXVoEETI9XGetazxcixSLqgrgSUJxzwwmQjXJf5ZrEqDo5FRpkjkjpUo
+         xBz7sBAHxNwD+pFudhFJEhbr2lcrqYojwRh1i9PKoNrZ/viyjzYXKkD1Ktrmt7Wl7OD1
+         a1hXJ8gy/b4XNg2iSI58k7DwVoEpQbaBooWNDYu0WGIeEGj2zVYO1adAGRVoX2qiSzie
+         framD++hWiplApoptXJwfRTCoYQhFI0j1JodZ735hzEuJCn1ULbCfjK3jn8u3N6hELBK
+         W4Qg==
+X-Gm-Message-State: ACgBeo3FU5DQqH6M71+IKyEc++Au46USb4tM5zoT2amk/OeVhQ45fVH5
+        lCLg77AOp2IqwhgAMALngycBX+nS0fvNpMFM4KY=
+X-Google-Smtp-Source: AA6agR7Cb6UQPfNqVALGDyDGYyNYRedFH921B/GQHsYNdLAUTn8HbbegerwbfNtNuFqPsQwOLrArgffEP6+DioEtJG4=
+X-Received: by 2002:aa7:8317:0:b0:52d:640e:322e with SMTP id
+ bk23-20020aa78317000000b0052d640e322emr24295801pfb.4.1660721468886; Wed, 17
+ Aug 2022 00:31:08 -0700 (PDT)
+MIME-Version: 1.0
+Sender: mariepascale3300@gmail.com
+Received: by 2002:a05:7022:698b:b0:43:900d:964e with HTTP; Wed, 17 Aug 2022
+ 00:31:07 -0700 (PDT)
+From:   Lizzy Johnson <lizzyjohs06@gmail.com>
+Date:   Wed, 17 Aug 2022 00:31:07 -0700
+X-Google-Sender-Auth: AdDBPfIrZ1GVR_XDbGVMT3GK1Qw
+Message-ID: <CAEncm9c3V8LnT4bw=VVLNCVYXnsaX+-oXDH3MSTXewcF09Dc5g@mail.gmail.com>
+Subject: Lizy Johnson
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: No, score=2.6 required=5.0 tests=BAYES_50,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
+        FREEMAIL_FROM,LOTS_OF_MONEY,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+        T_SCC_BODY_TEXT_LINE,UNDISC_MONEY autolearn=no autolearn_force=no
         version=3.4.6
+X-Spam-Level: **
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is a MIME GnuPG-signed message.  If you see this text, it means that
-your E-mail or Usenet software does not support MIME signed messages.
-The Internet standard for MIME PGP messages, RFC 2015, was published in 1996.
-To open this message correctly you will need to install E-mail or Usenet
-software that supports modern Internet standards.
+Tervehdys, olen rouva Lizzy Johnson, olen 65-vuotias. Sairastan
+pitkittynytt=C3=A4 rintasy=C3=B6p=C3=A4=C3=A4. Olen valmis lahjoittamaan 4 =
+500 000
+dollaria ty=C3=B6h=C3=B6si kirkon kehitt=C3=A4misess=C3=A4 ja
+auta k=C3=B6yhi=C3=A4, apua tarvitsevia ja v=C3=A4hemm=C3=A4n etuoikeutettu=
+ja keskuudessasi
+seurakunnat/seurat.
 
---=_monster.email-scan.com-370792-1660693597-0002
-Content-Type: text/plain; format=flowed; delsp=yes; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: inline
+Olkoon ja pysyk=C3=B6=C3=B6n Jumalan armo ja siunaukset kanssasi.
 
-Ingo Schwarze writes:
+J=C3=A4=C3=A4n odottamaan vastaustasi.
 
-> Hi San,
->
-> Sam Varshavchik wrote on Sun, Aug 14, 2022 at 08:20:34PM -0400:
-> > Ingo Schwarze writes:
-> >> DJ Chase wrote on Sat, Aug 13, 2022 at 05:27:34PM +0000:
->
-> >>> Have we ever considered a de jure *roff standard?
->
-> >> No, i think that would be pure madness given the amount of working
-> >> time available in any of the roff projects.
->
-> > I tinkered with something like this some years ago, but I took a slig=
-htly
-> > different approach.
-> >
-> > I converted man pages
->
-> What kind of manual pages?
+Terveiset,
 
-The ones that are the subject of discussions on linux-man@vger.kernel.org=
-.
+Rouva Lizzy Johnson
 
-> > from 'roff source to Docbook XML using a =E2=80=A6 pretty large Perl =
-script.
->
-> That sounds very foolish on several levels.
+///////////////////////////////////////////////////////////////////////////=
+///////////////////////////////////////////////////
 
-Well, I had some free time the other day, and had nothing better to do.
+Greetings, I=E2=80=99m Mrs. Lizzy Johnson, I=E2=80=99m 65 years old. I am s=
+uffering
+from prolonged cancer of the breast. I am willing to donate the sum of
+4,500,000 US dollars for your work in developing the Church and to
+help the poor, needy and less privileged among your
+congregations/society.
 
-> First, and most obviously, you seem to be duplicating esr@'s work
-> on doclifter:
->
->   http://www.catb.org/~esr/doclifter/
->   https://gitlab.com/esr/doclifter/-/blob/master/doclifter
+May the grace and blessings of God be and remain with you.
 
-Seems so, except that I tailored my logic to man pages, and specifically =
-to =20
-the linux-man@vger.kernel.org manpages.
+I shall be waiting for your response.
 
-> Second, quick and dirty Perl-style parsing is usually not good
-> enough to parse roff code, and a huge script is not particularly
-> good for readability and maintainability.
+Regards,
 
-Yes, arbitrary roff code will not fly very far. But something that's =20
-tailored can produce productive results.
-
-> Yes, i know the same resevations would apply to esr@'s work,
-> which is a giant Python 3 script.  But at least there is some
-> evidence that his work was able to find significant numbers of
-> real issues in real manual pages.
-
-Yes, there are plenty of issues there. I fed quite a few patches to Mr. =20
-Kerrisk when he maintained them, based on my scripts chewing through them=
-. =20
-There were plenty of mismatched .nf/.fi, and other things of that sort.
-
-
-> > Once a year, or so, when I have nothing better to do I pull the curre=
-nt
-> > man  page tarball and reconvert it. I usually need to tinker the Perl
-> > script, here and there, each time.
-> >
-> > The Docbook folks provide a stylesheet that converts Docbook XML
-> > back to 'roff.
->
-> Yikes.  That thing is by far the worst man(7) code generator existing
-> on this planet.  If at all possible, you should avoid that toolchain
-> like the plague.
-
-I do not view it as an authoritative source of man sources, but more of =20
-backwards compatibility. I believe that for man pages, roff should've bee=
-n =20
-replaced by Docbook XML a long time ago.
-
-That was really the original impetus for my Perl hacking: to see how =20
-feasible it would be to convert the existing man pages to Docbook XML. My =20
-end result showed that at least that it was doable; and I think that the =20
-Docbook XML stylesheet for man pages would've been an acceptable way to g=
-et =20
-some roff source generated from Docbook XML that's shown by the man comma=
-nd.
-
-> > The end result you get is standardized 'roff, whatever that means.
->
-> Absolutely not.  The result is utter crap.  It is rarely even
-> syntactically valid, let alone reasonable style.
-
-I should've used "consistent" instead of "standardized". Different man pa=
-ges =20
-from different sources use different ways of rendering the same content, =20
-i.e. function names. Sometimes it's in bold. Sometimes it's in italic. =20
-Sometimes it's something else. With consistent semantic markup a <functio=
-n> =20
-in every man page would've produced the same markup in the generated roff =20
-source.
-
-
-
---=_monster.email-scan.com-370792-1660693597-0002
-Content-Type: application/pgp-signature
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEMWrVnbBKLOeG9ifkazpiviedvyUFAmL8LF0ACgkQazpivied
-vyW9uxAAg//Y+21ZxpCFW0RJlfJznPAqWHXd4ZyK8F6yoKZUA7lHAVoRan6qHWEE
-SPXhQebM+f6JjX2xgyBhXPH0dGMSDH3bPpsvHgMZlaNdAQsMbVKcAQw69D/QXfhB
-QyoG2HLs/BhbYSSNEaH06FN/vihu3KixWjYFdsTp/xZdPHwaYVfuBhubihBEfK+m
-AJqCP9g7PDq9Z202gst2Hfnfta68ElWPaKGRyt5OX9WjqtBpF0BVzAvtUEL6CFvg
-Z7D10vo9JBwASoLF7Qy30aHTCMs+0IXbjQ0OTVUI+JzLVlX4q4OtzgEE2I5kfGKX
-ZS+SNg35c7eidcuteDHkyvj+VsswLBpnmxUnNXZWRBEmveZwsMkDCZZPFVgu32vU
-27jprZl6PUOauhHI5AeOMZnXlXMyUrBuQdKoaivFz06fVK1hvqMqDyhDEqtxLOwE
-M5H7MS/CBXe1qNrHrT6U2/jdFUTjgfwgE28xlZAnnm576ZGMcuGsFEwFmngimIEy
-3wi8bVa8foJ96hThJG7bKEw1uMSHmvpibpodY9j5bRmUXzdgGartMSIUGzt3eVFV
-iFksMxjI+eaM3HvnE+X0Mwh6wGwCr9KBtUSxuBUKElR16JjmfqjqsbV/OqjV98Nv
-KcHRZrOgPs/BXOu1JBPmajBphf8bDvbzE6JGcCfhk5jlZ1W192M=
-=GDEx
------END PGP SIGNATURE-----
-
---=_monster.email-scan.com-370792-1660693597-0002--
+Mrs.Lizzy Johnson
