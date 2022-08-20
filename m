@@ -2,80 +2,79 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 3533659AE63
-	for <lists+linux-man@lfdr.de>; Sat, 20 Aug 2022 15:12:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id BA58059AF18
+	for <lists+linux-man@lfdr.de>; Sat, 20 Aug 2022 19:14:17 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1346657AbiHTNFK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 20 Aug 2022 09:05:10 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49408 "EHLO
+        id S230179AbiHTRNz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 20 Aug 2022 13:13:55 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48094 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1347234AbiHTNFB (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 20 Aug 2022 09:05:01 -0400
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com [IPv6:2a00:1450:4864:20::32e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1399F8A6CA
-        for <linux-man@vger.kernel.org>; Sat, 20 Aug 2022 06:05:00 -0700 (PDT)
-Received: by mail-wm1-x32e.google.com with SMTP id k6-20020a05600c1c8600b003a54ecc62f6so3715158wms.5
-        for <linux-man@vger.kernel.org>; Sat, 20 Aug 2022 06:04:59 -0700 (PDT)
+        with ESMTP id S1345157AbiHTRNx (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 20 Aug 2022 13:13:53 -0400
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com [IPv6:2a00:1450:4864:20::431])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3115B19006
+        for <linux-man@vger.kernel.org>; Sat, 20 Aug 2022 10:13:52 -0700 (PDT)
+Received: by mail-wr1-x431.google.com with SMTP id bq11so1890662wrb.12
+        for <linux-man@vger.kernel.org>; Sat, 20 Aug 2022 10:13:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=in-reply-to:references:cc:to:from:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc;
-        bh=AydQHz5kfny2gdn1zUuOYuUIDZu1pfZmJ1cezDyxDQA=;
-        b=I1L2+1qqhz9ZFjn11OhiT8nr1hiS1WsaRaXsYX/BgESkNEooDlJI6o3UfHjY10eMkA
-         sX9wZ6IuQGpr8dOCKuEvmxwu9e47hYvH/trklrtHJKTTCBjNa8n73xbweJZL+pQjtX4y
-         xvebk0VI87c4BZa35+HzN28wirWn3yxHBUA/HLxA6wxS2542erHLzT3MsMNPIcx8V9IS
-         eWkNBtxKCx+KV9LIY0KPdB5jQxJSDM4L5en+QoMOOONBgbw0XpJqum2cBvcHsS6uPTOx
-         yGzZ3Xf3jx8Z7dBTgPM/Srav5xz0wUzo/i3ltDyvVwXhnm8bVocnlgtzyyEzqWGlXj8J
-         b0vQ==
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc;
+        bh=ZZ5eEQiZQ2hZC28aQWEFgC1Y5wfN74HnLG8ChRBveZs=;
+        b=qOdbm7qfkOBS9TAa3r+fSWi5YMAEeFZspQhjum76AdxVdOmMhab98X1FFORbDWCCmv
+         27oS9q6jbYBoEZqGDuu/PKnbxVcPEd4h27Ldw/hh9swXSthFIuWwdV1CsRMyHSfPftpZ
+         65u37AKkxGnViD2Yp3WaT3bfIDE5nMszNxHJIDS7ZlpirYVDuEOhETXuvF0RQqlV4hJS
+         m651zXCRu/mlDOzK8Zu+BYcxg4KbYHEKiLWTWpFIh2crLZf+4J4gYkm2++Qk7QmVg/g2
+         +UQsOqRVVPKnzxKdxl75yodTeJ1NCDN/u72GFC3fjlhWdB+S04oqrJKsBjh13MpTnDlh
+         y4zQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=in-reply-to:references:cc:to:from:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc;
-        bh=AydQHz5kfny2gdn1zUuOYuUIDZu1pfZmJ1cezDyxDQA=;
-        b=rLtj1isQJytejDQ/WjkoBXFoyKZ135P5HPBMMNA5mEKBhc7m1knqbYwvHa25YN8pxB
-         Ws3Fc+CuhcaYZ98CWX7IG+Bd5sAwBQBVjF9f0HcvPCBZABI9pvEd8FAoNm0p0Dd/5Mzi
-         vS6YS02scPGmkoqFgwyF6inIQs4UcK46QoUrI/FJ8jk/GXDJwymJL0DitvyRIPZqx2uB
-         HGWLuju8TSFyme0gjx9H2P20xnDzXlcj3ZXQIUnO035xCqeNDyI73DPYMk4+YssTs5pX
-         4NJ/KMsfJFyI+ByykCuWyJHBJmVrKRKyCT/ZgcUL9awBRM5US649DMchjg1CfhmDDW4E
-         ZRTg==
-X-Gm-Message-State: ACgBeo2CSpU5Zwpd2w2LHEFBp/vyVOgW0O1DwZTR+AonDcwm5bz6P4sU
-        jmLfSaHd3jnBIRqHknd6rho=
-X-Google-Smtp-Source: AA6agR42zallD3GIEm1C+Z8rIU5oFIPNUlPiiZWjkzW8ptfV39eiWEb2e3Hmo3EnxdwsbZveiVooWg==
-X-Received: by 2002:a1c:6a0a:0:b0:3a5:bcad:f2cc with SMTP id f10-20020a1c6a0a000000b003a5bcadf2ccmr10662466wmc.74.1661000698361;
-        Sat, 20 Aug 2022 06:04:58 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id m128-20020a1c2686000000b003a5dbdea6a8sm14017042wmm.27.2022.08.20.06.04.57
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 20 Aug 2022 06:04:57 -0700 (PDT)
-Message-ID: <67ad80cd-fc55-8636-7d50-4c29865f8c4b@gmail.com>
-Date:   Sat, 20 Aug 2022 15:04:50 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.1.2
-Subject: Re: .TH 4th field (Was: [PATCH 1/2] system_data_types.7: srcfix)
-Content-Language: en-US
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc;
+        bh=ZZ5eEQiZQ2hZC28aQWEFgC1Y5wfN74HnLG8ChRBveZs=;
+        b=blW+cBPt2Tw0o0gw0lrH13EQjTAPF/uYBhAL3deCwjVDX36EVDI65hyLCd7yfOAqAh
+         sBzTvj0qtxj47n8PoiPpxIc6OALG69tSVgxmQx4eD5ITQoxCsVq/1xb2eFUsFio1rV7t
+         sZqc5wz553hIh4CZdb9WrPAQuzIpCvtaZc37+1vVhISz21NndJwBflFvNP3WOoEY0fnl
+         cVo0TMBZMkHZr2wap67sx/vmlKFJrIz8jOfuMtrIDxqXNJuv6MaqKrdZyiOE5D8eVQRR
+         bzD+JYE8THt9wniqbo7iSimTkgVVZp1BDGWPcQu2iKFSwoKNwMzmxWKOAjD2otau0hkr
+         O6tA==
+X-Gm-Message-State: ACgBeo3TeYimsBw1V47/bLvNgtAb8CJFUzuMM5tV2+enjwA8y6XpPUaV
+        bhefap5Po35gHAzofiFdfF95Ge10nfE=
+X-Google-Smtp-Source: AA6agR6bAAAS9fBdc7P6xoBnNM3Ei1MJuyesqj7GWfF5rOKd2+KcCoayfyBcx7V9eoy54AMdg0QBtw==
+X-Received: by 2002:a5d:5b19:0:b0:225:3ed4:ff64 with SMTP id bx25-20020a5d5b19000000b002253ed4ff64mr3839170wrb.537.1661015630701;
+        Sat, 20 Aug 2022 10:13:50 -0700 (PDT)
+Received: from asus5775.alejandro-colomar.es ([170.253.36.171])
+        by smtp.googlemail.com with ESMTPSA id g17-20020a5d46d1000000b0020fff0ea0a3sm7193881wrs.116.2022.08.20.10.13.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 20 Aug 2022 10:13:50 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc:     Jakub Wilk <jwilk@jwilk.net>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        Ingo Schwarze <schwarze@usta.de>, linux-man@vger.kernel.org
-References: <20200925080330.184303-1-colomar.6.4.3@gmail.com>
- <20200927061015.4obt73pdhyh7wecu@localhost.localdomain>
- <20200928132959.x4koforqnzohxh5u@jwilk.net>
- <9b8303fe-969e-c9f0-e3cd-0590b342d5bf@gmail.com>
- <20200930101213.2m2pt3jrspvcrxfx@localhost.localdomain>
- <20220819180323.dbsgxh5qvcjabjm6@jwilk.net>
- <20220820054306.hejc3awpxvoajghf@illithid>
- <96f9777f-326f-baee-2894-eb070498863d@gmail.com>
- <20220820122003.qeldeox7hlcy6dw7@illithid>
- <a35cf5e8-ad2c-92bd-ca78-7be3dec3d62e@gmail.com>
-In-Reply-To: <a35cf5e8-ad2c-92bd-ca78-7be3dec3d62e@gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------3BGA4dmuXHLogvGSE8IoFOQh"
+To:     linux-man@vger.kernel.org
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        JeanHeyd Meneide <wg14@soasis.org>,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        Ingo Schwarze <schwarze@usta.de>
+Subject: [PATCH] _Generic.3: New page documenting _Generic()
+Date:   Sat, 20 Aug 2022 19:10:10 +0200
+Message-Id: <20220820171009.34196-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.37.2
+MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2585; i=alx.manpages@gmail.com;
+ h=from:subject; bh=Yrc0UyZIxyt+peO7pdFlZ59tsww06n55vazR7pSzmNM=;
+ b=owEBbQKS/ZANAwAKAZ6MGvu+/9syAcsmYgBjARVwM+faPqTobxLrjp+jASD2A5x2y79ns3l+4azY
+ FFAZlgOJAjMEAAEKAB0WIQTqOofwpOugMORd8kCejBr7vv/bMgUCYwEVcAAKCRCejBr7vv/bMvHQD/
+ 99/ZyLvERCwZaNKL/x2gVWKWVWtx3rh5cSSQtGeWM3SizqXKR69kzslicXvQvJZueN9KYqdJ+kUzye
+ 2Cwg5reDTjNVmHZKvW+PtROEfYQIY7OziKzT6TKk/NzaMKVyTsJdVAIk7pFZlxyhMYJysEiWuKl3Cw
+ /9Qko5DjClGphSJX3fvBHpWkCIk7il8QJ0kB31NQ9PnnuYDIl7Q9HerX07Axe9mom6QseuATYlHEJx
+ z/YpE1OQZ3LHS2FDbW4IXsKwxgx9ySa9OohSVAIX4kB/ClFZHNxUO7bLoA/naG3FX5ByqOFztn/8+Z
+ VWwsAfrWafY+BBOuXGM4+qDBA2iYHRkRVCtejja56M59qEjg8YeH6TYSdA9fSZ9uf7lZwo/saGHzIa
+ JiSXrqK6s9V/Rsqo77A6Hs8bNXdmokEYmnMWzw3lmcgx3edeCwW9k2B1wwwwzWVtL6H2/YA9si0zQu
+ Foh5aDCDJeWJsMtyaEMTQDSXY4QnedwTWEhyBPvY/GTI9itLOCp/tKYB1yTwqFpA08xq4XVc7czsHO
+ dt2ozaO2xTbyWUTh8A+vk0ZB3HSyb8sw36IjM+PyP9TYpelscNH/Q8U2w7pVFeSDPQR4ocOGVNsArf
+ tiA+sPaGGVLwPUSQMPRxa+odxgJucEb+zTk7yDBtMkJ4jRMcVH2N2hCCpTXA==
+X-Developer-Key: i=alx.manpages@gmail.com; a=openpgp; fpr=A9348594CE31283A826FBDD8D57633D441E25BB5
+Content-Transfer-Encoding: 8bit
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
         autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -84,80 +83,112 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------3BGA4dmuXHLogvGSE8IoFOQh
-Content-Type: multipart/mixed; boundary="------------5tgZxXs3EFP0hfwPTb6tb0m0";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: Jakub Wilk <jwilk@jwilk.net>, Michael Kerrisk <mtk.manpages@gmail.com>,
- Ingo Schwarze <schwarze@usta.de>, linux-man@vger.kernel.org
-Message-ID: <67ad80cd-fc55-8636-7d50-4c29865f8c4b@gmail.com>
-Subject: Re: .TH 4th field (Was: [PATCH 1/2] system_data_types.7: srcfix)
-References: <20200925080330.184303-1-colomar.6.4.3@gmail.com>
- <20200927061015.4obt73pdhyh7wecu@localhost.localdomain>
- <20200928132959.x4koforqnzohxh5u@jwilk.net>
- <9b8303fe-969e-c9f0-e3cd-0590b342d5bf@gmail.com>
- <20200930101213.2m2pt3jrspvcrxfx@localhost.localdomain>
- <20220819180323.dbsgxh5qvcjabjm6@jwilk.net>
- <20220820054306.hejc3awpxvoajghf@illithid>
- <96f9777f-326f-baee-2894-eb070498863d@gmail.com>
- <20220820122003.qeldeox7hlcy6dw7@illithid>
- <a35cf5e8-ad2c-92bd-ca78-7be3dec3d62e@gmail.com>
-In-Reply-To: <a35cf5e8-ad2c-92bd-ca78-7be3dec3d62e@gmail.com>
+Also add a hint of how intmax(3) and other functions using
+[u]intmax_t types could be better defined by ISO C, by requiring
+that they're implemented as type-generic macros, to avoid having
+problems with the ABI.
 
---------------5tgZxXs3EFP0hfwPTb6tb0m0
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+Cc: JeanHeyd Meneide <wg14@soasis.org>
+Cc: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: Ingo Schwarze <schwarze@usta.de>
+---
 
-SGkgQnJhbmRlbiwNCg0KT24gOC8yMC8yMiAxNDo0MCwgQWxlamFuZHJvIENvbG9tYXIgd3Jv
-dGU6DQo+IEhpIEJyYW5kZW4sDQo+IA0KPiBPbiA4LzIwLzIyIDE0OjIwLCBHLiBCcmFuZGVu
-IFJvYmluc29uIHdyb3RlOg0KWy4uLl0NCj4+IEkgd291bGQgYWRkICIgKGluIHByZXBhcmF0
-aW9uKSIgdG8gdGhlIHN0cmluZywgYW5kIGhhdmUgdGhlIHNjcmlwdCB0aGF0DQo+PiBmaW5h
-bGl6ZXMgYSByZWxlYXNlIHN0cmlwIHRoYXQgb3V0Lg0KPiANCj4gSSdsbCB1c2UgIkxpbnV4
-IG1hbi1wYWdlcyAodW5yZWxlYXNlZCkiIGZvciB0aGUgcmVwbyBwYWdlcywganVzdCB0byBi
-ZSANCj4gbW9yZSBzaW1pbGFyIHRvIERlYmlhbidzIGNoYW5nZWxvZyBmb3JtYXQuwqAgSSBk
-b24ndCBsaWtlIGludmVudGluZyBzdHVmZiANCj4gaWYgSSBkb24ndCBuZWVkIHRvLsKgIERv
-ZXMgaXQgbWFrZSBzZW5zZSB0byB5b3U/DQo+IA0KPiBIYXZpbmcgYSBmaXhlZCBzdHJpbmcg
-dGhlcmUgd2lsbCBiZSBnb29kLCBzaW5jZSB0aGF0IHdheSBJIHdvbid0IGRpc3R1cmIgDQo+
-IHRoZSBzY3JpcHQgdXBkYXRpbmcgdGhlIGxhc3QtbW9kaWZpZWQgZGF0ZS4NCg0KSSB0aGlu
-ayB0aGlzIHdpbGwgYmUgdGhlIGRlZmluaXRpdmUgY29tbWl0Og0KDQoNCiAgICAgQWxsIHBh
-Z2VzOiBSZXBsYWNlIHRoZSA0dGggYXJndW1lbnQgdG8gLlRIIGJ5ICJMaW51eCBtYW4tcGFn
-ZXMgDQo8dmVyc2lvbj4iDQoNCiAgICAgU2NyaXB0ZWQgY2hhbmdlOg0KDQogICAgICQgZmlu
-ZCBtYW4qIC10eXBlIGYgXA0KICAgICAgIHx4YXJncyBzZWQgLUVpICcvXi5USCAvcy8oLlRI
-ICtbXiBdKyArW14gXSsgK1teIF0rKSArIlteIl0qIi9cMSANCiJMaW51eCBtYW4tcGFnZXMg
-KHVucmVsZWFzZWQpIi8nDQoNCiAgICAgJCBmaW5kIG1hbiogLXR5cGUgZiBcDQogICAgICAg
-fHhhcmdzIHNlZCAtRWkgJy9eLlRIIC9zLyguVEggK1teIF0rICtbXiBdKyArW14gXSspICtb
-XiIgXSsvXDEgDQoiTGludXggbWFuLXBhZ2VzICh1bnJlbGVhc2VkKSIvJw0KDQogICAgICQg
-Z2l0IHJlc3RvcmUgbWFuNS90emZpbGUuNQ0KICAgICAkIGdpdCByZXN0b3JlIG1hbjgvemR1
-bXAuOA0KICAgICAkIGdpdCByZXN0b3JlIG1hbjgvemljLjgNCiAgICAgJCBnaXQgcmVzdG9y
-ZSBtYW43L2JwZi1oZWxwZXJzLjcNCg0KICAgICBTaWduZWQtb2ZmLWJ5OiBBbGVqYW5kcm8g
-Q29sb21hciA8YWx4Lm1hbnBhZ2VzQGdtYWlsLmNvbT4NCg0KDQpDaGVlcnMsDQoNCkFsZXgN
-Cg0KLS0gDQpBbGVqYW5kcm8gQ29sb21hcg0KPGh0dHA6Ly93d3cuYWxlamFuZHJvLWNvbG9t
-YXIuZXMvPg0K
+Hi,
 
---------------5tgZxXs3EFP0hfwPTb6tb0m0--
+This page is one of the first using true-case page title, and the
+first one using the new Linux man-pages 4th .TH argument.
 
---------------3BGA4dmuXHLogvGSE8IoFOQh
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+I always forget about the syntax details of using _Generic(),
+since it's different to anything else (why didn't they just use
+switch-case syntax??!).
 
------BEGIN PGP SIGNATURE-----
+I hope this is useful for others as it is for me.
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmMA2/IACgkQnowa+77/
-2zLlCQ//d4o0EKSBRjm4QUI+J3zrmpL4dMM6dA5ABXIg0dA8KY6JrRVueJrrJMUF
-8H8+pj3w+1PwMMHik6GNwUp3zimz9P5+LcvUWDf+TniqsD2fm+OxE8DTEusSgwVi
-TEHUAzqrNMjdWmSzbPURfQtBEMAW7Extwx6gozAFBnVK6TJqBALMbfTAix6X51OK
-Ya9aPg8dErB4V9Dn6E+z8xYEUCQ99KRxh0zMob7L3mqzTH4yqxBK+OJnbFsw6uiB
-M5E96AQOW/THYdAd1ZlVNOsC0JzUnAnjpegIV3bduhmk6sz/DH34FBy+vytDCJAF
-69bNfIs4JxK9SZs5OrhcMNUGsGsusNO0d8roUIgdZZ8dpH5isnUqSs/hOuk0rstc
-T/GLqX7VWc6qu1q0uBWX4WbnWh0caYRCkHqhxx04VmXnfnIlcViXA/QgkbrIlQEg
-TGl2Ul+pyvL7x7eU/0daXy1NGEfKOS1ku9u0Xs1IuofmIQEb8c54+bBA/VHCkHP1
-ZirzBI1cb3u3Aw43p3bb2gVqrgCJrM5njsJSyqDZlg3S1yHFHEl92znovU96bLSh
-6ZpWxija69tRkIZQNbrPSv++ZGwdKv1IK4mP6vZWrRno0JJdR2PUAZNNS/9sE4Zg
-krRWWH3C96DseFE1CEtg3CoDovNVduPULDr7qhzfKeBlLi5ZjLU=
-=cmP1
------END PGP SIGNATURE-----
+Cheers,
 
---------------3BGA4dmuXHLogvGSE8IoFOQh--
+Alex
+
+
+ man3/_Generic.3 | 69 +++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 69 insertions(+)
+ create mode 100644 man3/_Generic.3
+
+diff --git a/man3/_Generic.3 b/man3/_Generic.3
+new file mode 100644
+index 000000000..7c88a6975
+--- /dev/null
++++ b/man3/_Generic.3
+@@ -0,0 +1,69 @@
++.\" Copyright (C) 2022 Alejandro Colomar <alx.manpages@gmail.com>
++.\"
++.\" SPDX-License-Identifier: Linux-man-pages-copyleft
++.\"
++.TH _Generic 3 2022-08-20 "Linux man-pages (unreleased)" "Linux Programmer's Manual"
++.SH NAME
++_Generic \- type-generic selection
++.SH SYNOPSIS
++.nf
++.BR _Generic( \fIexpression\fP ", type1: " e1 ", " "... /*" \
++", default: " "e */" );
++.fi
++.SH DESCRIPTION
++.BR _Generic ()
++evaluates the path of code under the type selector
++that is compatible with the type of the controlling
++.IR expression ,
++or
++.B default:
++if no type is compatible.
++.PP
++.I expression
++is not evaluated.
++.PP
++This is especially useful for writing type-generic macros,
++that will behave differently depending on the type of the argument.
++.SH STANDARDS
++C11 and later.
++.SH EXAMPLES
++The following program demonstrates how to write
++a replacement for the standard
++.BR imaxabs (3)
++function, which being a function can't really provide what it promises:
++seamlessly upgrading to the widest available type.
++.PP
++.\" SRC BEGIN (_Generic.c)
++.EX
++#include <stdint.h>
++#include <stdio.h>
++#include <stdlib.h>
++
++#define my_imaxabs(j)  _Generic \e
++((intmax_t) 0,                  \e
++                                \e
++    int:                        \e
++        abs(j),                 \e
++                                \e
++    long:                       \e
++        labs(j),                \e
++                                \e
++    long long:                  \e
++        llabs(j)                \e
++                                \e
++    /* long long long: */       \e
++    /*  lllabs(j)     */        \e
++)
++
++int
++main(void)
++{
++    short a;
++
++    a = \-42;
++    printf("imaxabs(%d) == %jd\en", a, my_imaxabs(a));
++
++    exit(EXIT_SUCCESS);
++}
++.EE
++.\" SRC END
+-- 
+2.37.2
+
