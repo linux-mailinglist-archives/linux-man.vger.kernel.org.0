@@ -2,68 +2,73 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 4D70559B214
-	for <lists+linux-man@lfdr.de>; Sun, 21 Aug 2022 07:28:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 12AD959B34C
+	for <lists+linux-man@lfdr.de>; Sun, 21 Aug 2022 13:28:59 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229906AbiHUF2m (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 21 Aug 2022 01:28:42 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36110 "EHLO
+        id S229445AbiHUL2T (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 21 Aug 2022 07:28:19 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50264 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229379AbiHUF2l (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 21 Aug 2022 01:28:41 -0400
-Received: from mail-oa1-x2e.google.com (mail-oa1-x2e.google.com [IPv6:2001:4860:4864:20::2e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 723F12A273
-        for <linux-man@vger.kernel.org>; Sat, 20 Aug 2022 22:28:40 -0700 (PDT)
-Received: by mail-oa1-x2e.google.com with SMTP id 586e51a60fabf-11cb3c811d9so7764939fac.1
-        for <linux-man@vger.kernel.org>; Sat, 20 Aug 2022 22:28:40 -0700 (PDT)
+        with ESMTP id S229651AbiHUL2S (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 21 Aug 2022 07:28:18 -0400
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com [IPv6:2a00:1450:4864:20::32f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7DCC7EBF
+        for <linux-man@vger.kernel.org>; Sun, 21 Aug 2022 04:28:13 -0700 (PDT)
+Received: by mail-wm1-x32f.google.com with SMTP id h204-20020a1c21d5000000b003a5b467c3abso6283245wmh.5
+        for <linux-man@vger.kernel.org>; Sun, 21 Aug 2022 04:28:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc;
-        bh=4RqBD95/YTTvkNySVp4gXc4xmKCvEE+JgUe3hHbozes=;
-        b=Citza3lLoZ+R69m8XBdA0qqm+Ndp2fLFpN+y0c1JFVDfSDptXef9N3/FV2Tk5QOQNP
-         jPF6B8sIou/xm5VxJ8Dd7F2zFnFVTL1Ub4Q7L7u/yKvPzgjrAs8cuyUEnAMNQ5spNQr2
-         hKBo+9nVT8H62IcVXLrcFZuqPGZmHI/DmNllTYuSbrDysD8oaNUXOjiNAHEYYkPJ28f9
-         ZXGggyETTbBYYbRlCFo8k5KxYk7nO2p48KrhV27qVmobVxC/p2DskezZh1AQi7TnQOLK
-         Gb/Z+bU0+2auWt0tab3m3kE+Y/SsZ5UEqrzPXccdG0uWNP59JBZtE90ufSffCyOZ8TDp
-         cwOw==
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:from:to:cc;
+        bh=yy6kWOEJ5BFDYYNTQQrVe749xALOwEQ8VUJ+hI6jYN4=;
+        b=ETQa/pkIr1OjMW9fU26Z+aYPF+1un0X03kBThSHQyGXh1kCWWYODQt4W3yHeXtWMQA
+         RkzbXUIkYd54vJbytdHhA890uECnxXygYfCsWGisYtUWyRDu4VnaqFeZtP2ToWrCNBTT
+         tw8wP5szbhM78S/Xyo4Ua+ImKALupN6XDnPY/CyJJ8yof46DDKtRFA928WpY7hxykuOs
+         HeomlBAkTu9dV4VOeuWCR25DJnYgL7Wx/wBDKKoYkQ3JVCs+spCCeEsznc2sgtcngwN8
+         czdKOgIyfpV7Sm+V6xebyfuzMt+mTomlUR5zdMR52QhIyRprwgwEmzrZLmC6fCHnfKm6
+         EhfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc;
-        bh=4RqBD95/YTTvkNySVp4gXc4xmKCvEE+JgUe3hHbozes=;
-        b=A+o6DP+mqZYmHxXrbVpdJWjQAaNZA0BRVZ+rIZYqidySmzsAfpHN8tY0oaskbqWlTI
-         Fs3xukzIhUR9y/37O8FKUfN9fO0Ehotyuuu+tTQF7H3QrUpiAnnWfVGMQ89LIy+qamSR
-         TENOETYHST69i/Q1AySIZCMHKFSjSlPQM6P39qvuuLHPUzgkVcvT7tU59IbGkNj7Y4XF
-         U2jmJuAuUHgOsZPJVcpwMngbfrad5p8pnQ/vK9dqOLqLWjVZQXPCCpoolOfnKcsmxU18
-         OpllAacAY1GwaKT1JjWmmedBHMLXinNQPnvhnkAMH94hkdub447IWL5VBHlHpAmYFu4l
-         ypYA==
-X-Gm-Message-State: ACgBeo1PKGd7XAnDhHBQqfrhMbDa9vJ3di8wvKeswXPX9Bgp4/0MTWJ4
-        MfeeDWqrUN5XbC+yHkmdO3NiNzRs7S0=
-X-Google-Smtp-Source: AA6agR59nRxmfxKShuQ/LfZI5arKHqUQFV/nHa6EXH3LD3Vw9jz6qwe5HwYeeS9uud9g9l1I2FNUGA==
-X-Received: by 2002:a05:6870:600e:b0:115:8100:1947 with SMTP id t14-20020a056870600e00b0011581001947mr9826745oaa.134.1661059719783;
-        Sat, 20 Aug 2022 22:28:39 -0700 (PDT)
-Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id m9-20020a056870058900b0011bb6582378sm2286917oap.51.2022.08.20.22.28.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 20 Aug 2022 22:28:39 -0700 (PDT)
-Date:   Sun, 21 Aug 2022 00:28:37 -0500
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc;
+        bh=yy6kWOEJ5BFDYYNTQQrVe749xALOwEQ8VUJ+hI6jYN4=;
+        b=uo3Eg1joLO8iEPZyNd8PjbcS8l+5Vnb87Ah8oRHN6SmehGBXM0EZxe3TMXaZQJuDcI
+         2lsa5U/WrpRa4QIhRoHE8w7m1V7eTctxYuf84AmVtnmNOYVDNLk8EeQnj1dVqUh4oSMR
+         eC0VeiqfraAFHSE0GJEXXs7rjdl6Z36VVF6g96aXYVBIn/KcbFdHId81AynZllXmabgr
+         6DknhrU0IoX0bernVSojXT5cM7W2fUjuSxM87k2WNzVgTcvFxl8zbsdPXlYz/Iu9JQW8
+         L2BIqc/wHneYaGtg4DX3YmIJf9+KCCiMUv45rzJy9pkQbZVcWxIoF/gO1yMOpkuQ+026
+         TJ5g==
+X-Gm-Message-State: ACgBeo0h9IY/6MAsY1RVmboDQ7+eBX5/NYMZs5T38quqGv/x5+cqPYSB
+        XHMphG55e+en/FBjUKQIDPg=
+X-Google-Smtp-Source: AA6agR4LmSBmduA5aHou9e1mzb0+CsUksWyAgk68wuIf8pb6FHFyI+T7wkZMaNaAGFEEoG0/MBWdjg==
+X-Received: by 2002:a1c:2783:0:b0:3a2:fd82:bf46 with SMTP id n125-20020a1c2783000000b003a2fd82bf46mr12563522wmn.29.1661081291938;
+        Sun, 21 Aug 2022 04:28:11 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id l41-20020a05600c1d2900b003a62052053csm15397697wms.18.2022.08.21.04.28.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 21 Aug 2022 04:28:11 -0700 (PDT)
+Message-ID: <48974e65-dbd4-649b-2c21-c50fcfb7d734@gmail.com>
+Date:   Sun, 21 Aug 2022 13:28:03 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.1.2
+Subject: Re: [PATCH 01/10] fanotify_init.2: tfix
+Content-Language: en-US
+To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
 Cc:     Jakub Wilk <jwilk@jwilk.net>,
         Michael Kerrisk <mtk.manpages@gmail.com>,
         linux-man@vger.kernel.org
-Subject: Re: [PATCH 01/10] fanotify_init.2: tfix
-Message-ID: <20220821052837.tpxk3qe7vfwo7cef@illithid>
 References: <20220819190859.6248-1-jwilk@jwilk.net>
  <a5484dc8-33a7-e10b-2b73-7a44698a529c@gmail.com>
-MIME-Version: 1.0
+ <20220821052837.tpxk3qe7vfwo7cef@illithid>
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <20220821052837.tpxk3qe7vfwo7cef@illithid>
 Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="etubuvjbknp2nu2m"
-Content-Disposition: inline
-In-Reply-To: <a5484dc8-33a7-e10b-2b73-7a44698a529c@gmail.com>
+ protocol="application/pgp-signature";
+ boundary="------------sequPxiH7uI8nMTDZsv0TKh8"
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
         autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -72,80 +77,105 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------sequPxiH7uI8nMTDZsv0TKh8
+Content-Type: multipart/mixed; boundary="------------uz9FpW1t7QeAvJ806C77SR0q";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: Jakub Wilk <jwilk@jwilk.net>, Michael Kerrisk <mtk.manpages@gmail.com>,
+ linux-man@vger.kernel.org
+Message-ID: <48974e65-dbd4-649b-2c21-c50fcfb7d734@gmail.com>
+Subject: Re: [PATCH 01/10] fanotify_init.2: tfix
+References: <20220819190859.6248-1-jwilk@jwilk.net>
+ <a5484dc8-33a7-e10b-2b73-7a44698a529c@gmail.com>
+ <20220821052837.tpxk3qe7vfwo7cef@illithid>
+In-Reply-To: <20220821052837.tpxk3qe7vfwo7cef@illithid>
 
---etubuvjbknp2nu2m
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+--------------uz9FpW1t7QeAvJ806C77SR0q
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Hi Alex,
+SGkgQnJhbmRlbiwgSmFrdWIsDQoNCk9uIDgvMjEvMjIgMDc6MjgsIEcuIEJyYW5kZW4gUm9i
+aW5zb24gd3JvdGU6DQo+IEhpIEFsZXgsDQo+IA0KPiBBdCAyMDIyLTA4LTIwVDAxOjI4OjA0
+KzAyMDAsIEFsZWphbmRybyBDb2xvbWFyIHdyb3RlOg0KPj4+IC1jYXBhYmlsaXR5IHRvIGNy
+ZWF0ZSBhbmQgaW50aWFsaXplIGFuIGZhbm90aWZ5IGdyb3VwIHdpdGggbGltaXRlZCBmdW5j
+dGlvbmFsaXR5Lg0KPj4+ICtjYXBhYmlsaXR5IHRvIGNyZWF0ZSBhbmQgaW5pdGlhbGl6ZSBh
+biBmYW5vdGlmeSBncm91cCB3aXRoIGxpbWl0ZWQgZnVuY3Rpb25hbGl0eS4NCj4+DQo+PiBz
+aG91bGQgdGhpcyBiZSAnYSBmYW5vdGlmeScgaW5zdGVhZCBvZiAnYW4gZmFub3RpZnknPw0K
+PiANCj4gQW5zd2VyaW5nIHRoaXMgcmVxdWlyZXMgcGVvcGxlIHRvIGRvY3VtZW50IGhvdyB0
+aGUgZnVuY3Rpb24vZmVhdHVyZSBuYW1lDQo+IGlzIHN1cHBvc2VkIHRvIGJlIHByb25vdW5j
+ZWQuICBVc2UgImFuIiBpZiB3aGF0IGZvbGxvd3MgaXMgYSB2b3dlbA0KPiBzb3VuZC4gIFNw
+ZWxsaW5nIGlzIG5vdCBhIGRldGVybWluaW5nIGZhY3Rvci4NCj4gDQo+IFVuZm9ydHVuYXRl
+bHkgaXQgaXMgYSB0cmFkaXRpb24gaW4gVW5peCBjdWx0dXJlIG5vdCB0byBtYWtlDQo+IHBy
+b25vdWNpYXRpb24gb2YgaXRzIGxleGljb24gb2YgKGhpc3RvcmljYWxseSkgaGVybWV0aWNh
+bGx5IHRlcnNlDQo+IGlkZW50aWZpZXIgbGV4aWNvbiBjbGVhciwgc28gdGhhdCB0aGUgbmFt
+ZXMgb2YgY29tbWFuZHMgYW5kIGZ1bmN0aW9ucw0KPiB0aGF0IGFyZSB3ZWxsIGtub3duIGVu
+b3VnaCB0byBjb21lIHVwIGluIGNvbnZlcnNhdGlvbiBhdCBjb252ZW50aW9ucyBjYW4NCj4g
+YmUgdXNlZCBhIHNoaWJib2xldGggdG8gZGlzdGluZ3Vpc2ggc2VsZi10YXVnaHQgdXNlcnMg
+YW5kIHByb2dyYW1tZXJzDQo+IChhbmQgY2x1ZWxlc3Mgc2FsZXMgcGVyc29ubmVsIGFuZCB3
+b3VsZC1iZSBlbnRyZXByZW5ldXJzKSBmcm9tDQo+ICJhdXRoZW50aWMiIFVuaXggZXhwZXJ0
+cyB3aG8gdW5kZXJ3ZW50IGEgcHJvcGVyIGFwcHJlbnRpY2VzaGlwLCBhbmQNCj4gdGhyb3Vn
+aCBhIGNoYWluIG9mIG1hc3RlcnMsIGNhbiB0cmFjZSB0aGVpciB0dXRlbGFnZSB0byBhIGx1
+bWluYXJ5IGF0DQo+IHRoZSBCZWxsIExhYnMgQ1NSQyBvciBVQyBCZXJrZWxleSBDU1JHLS1z
+b21lb25lIHdpdGggYSBuYW1lIHRvIGJlIHNwb2tlbg0KPiBpbiBodXNoZWQgdG9uZXMgbGlr
+ZSAiUml0Y2hpZSIgb3IgIkpveSIuDQo+IA0KPiBEb2VzICJ0cm9mZiIgaGF2ZSBvbmUgc3ls
+bGFibGUgb3IgdHdvPyAgRG9lcyBvbmUgcmVmZXIgdG8gdGhlIHRleHQNCj4gZWRpdG9ycyBh
+cyAiZWUtZGVlIiBhbmQgInZlZS1leWUiIG9yIGFzIGlmIHRoZXkgd2VyZSBFbmdsaXNoIGRp
+bWludXRpdmUNCj4gbmFtZXMgIkVkIiBhbmQgIlZpIj8gIE9uZSBzZXQgb2YgY2hvaWNlcyB3
+aWxsIG1hcmsgeW91IGFzIGEgcGVyc29uIHdobw0KPiBfbWlnaHRfIGJlIHdvcnRoIGNvbnZl
+cnNpbmcgd2l0aDsgdGhlIG90aGVyIHdpbGwgZ2V0IHlvdSBhIHNob3J0IGxvb2sNCj4gZG93
+biBhIGxvbmcgbm9zZSBhbmQgdGhlIGNvbGQgc2hvdWxkZXIuICBXZSd2ZSBnb3QgZ2F0ZXMg
+dG8ga2VlcC4NCg0KWW91IGNhbiBndWVzcyB0aGUgYW5zd2VycyB0byB0aG9zZSBpbiBteSBo
+ZWFkIDspDQoNCj4gDQo+IEJvdGggVW5peCBhbmQgdGhlIExpbnV4IGtlcm5lbCwgdGhlIGxh
+dHRlciBwYXJ0aWN1bGFybHkgaW4gaXRzDQo+IGRldmVsb3BtZW50IG1vZGVsLCB3ZXJlIGxl
+dmVsbGluZyB0ZWNobm9sb2dpZXMuICBUaGV5IGJyb3VnaHQgYmV0dGVyIE9TDQo+IHRlY2hu
+b2xvZ3kgYW5kIHByb2dyYW1taW5nIGVudmlyb25tZW50cyB0byBtdWNoIGxhcmdlciBncm91
+cHMgb2YgcGVvcGxlDQo+IHRoYW4gaGFkIGVuam95ZWQgdGhlbSBiZWZvcmUuDQo+IA0KPiBC
+dXQgaXQgaXMgYSBzYWRseSByZWN1cnJpbmcgdGhlbWUgb2YgaHVtYW4gaGlzdG9yeSB0aGF0
+IGFzIHNvb24gYXMgc29tZQ0KPiBsZXZlbGxpbmcgcHJvY2VzcyBvY2N1cnMsIGEgY2VydGFp
+biB0eXBlIG9mIHBlcnNvbiBwcm9tcHRseSBtb3ZlcyBpbiB0bw0KPiByZXN0b3JlIGEgZ3Vp
+bGQsIGNhc3RlLCBvciBvdGhlciBoaWVyYXJjaGljYWwgc29jaWFsIG9yZGVyaW5nIHRoYXQg
+dGhleQ0KPiBhcmUgbW9yZSBjb21mb3J0YWJsZSB3aXRoLg0KPiANCj4gSWYgeW91IGNhbid0
+IGdldCBhbiBhdXRob3JpdGF0aXZlIGFuc3dlciBmcm9tIGEgcHJpbmNpcGFsIGF1dGhvciBv
+ZiB0aGUNCj4gZmFub3RpZnkgQVBJLCBJIHN1Z2dlc3QgcmVhZGluZyB0aGUgdGVybSBhcyAi
+ZWZmLUEtbm90aWZ5IjsNCg0KQWhoLCBtYWtlcyBzZW5zZSBub3cuICBJdCBoYWRuJ3Qgb2Nj
+dXJlZCB0byBtZSB0aGF0IHRoYXQgd2FzIGEgcG9zc2libGUgDQpwcm9ub3VuY2lhdGlvbi4g
+IEFueXdheSwgaXQnbGwgYWx3YXlzIGJlIGZhLW5vdGlmeSBpbiBteSBoZWFkLiAgSSdtIA0K
+d2FpdGluZyBmb3Igc29sLW5vdGlmeSwgd2hpY2ggd2lsbCBiZSBwcm9ub3VuY2VkIGV4YWN0
+bHkgYXMgZmFub3RpZnksIA0KYnV0IGEgdG9uZSBoaWdoZXIgOkQNCg0KPiB0aGlzIHdpbGwN
+Cj4gdGhlbiBiZSBpbXBsaWNpdGx5IGRvY3VtZW50ZWQgYnkgeW91ciBjaG9pY2Ugb2YgdGhl
+IGFydGljbGUgImFuIi4NCg0KSSB3YXMgdHJ5aW5nIHRvIGNvbWUgdXAgd2l0aCBwb3NzaWJs
+ZSBwcm9ub3VuY2lhdGlvbnMgdGhhdCB3b3VsZCBoYXZlIGEgDQp2b3dlbCBhdCB0aGUgYmVn
+aW5pbmcsIGJ1dCB0aGVuIEkgdGhvdWdodDogbm8sIHdobyB3b3VsZCBwcm9ub3VuY2UgdGhp
+cyANCmFzIGYtYS1ub3RpZnk/ICBJdCdzIHRvbyBtdWNoIHdvcmshICBIZWghDQoNCj4gIEl0
+DQo+IGRvZXNuJ3QgaGF2ZSBhbnl0aGluZyB0byBkbyB3aXRoIGZhbnMgb3IgdGhlIGZvdXJ0
+aCBkZWdyZWUgb2YgdGhlIG1ham9yDQo+IHNjYWxlLCBhZnRlciBhbGwuDQoNCkNoZWVycywN
+Cg0KQWxleA0KDQpQLlMuOiBQYXRjaCBhcHBsaWVkLg0KDQoNCi0tIA0KQWxlamFuZHJvIENv
+bG9tYXINCjxodHRwOi8vd3d3LmFsZWphbmRyby1jb2xvbWFyLmVzLz4NCg==
 
-At 2022-08-20T01:28:04+0200, Alejandro Colomar wrote:
-> > -capability to create and intialize an fanotify group with limited func=
-tionality.
-> > +capability to create and initialize an fanotify group with limited fun=
-ctionality.
->=20
-> should this be 'a fanotify' instead of 'an fanotify'?
+--------------uz9FpW1t7QeAvJ806C77SR0q--
 
-Answering this requires people to document how the function/feature name
-is supposed to be pronounced.  Use "an" if what follows is a vowel
-sound.  Spelling is not a determining factor.
-
-Unfortunately it is a tradition in Unix culture not to make
-pronouciation of its lexicon of (historically) hermetically terse
-identifier lexicon clear, so that the names of commands and functions
-that are well known enough to come up in conversation at conventions can
-be used a shibboleth to distinguish self-taught users and programmers
-(and clueless sales personnel and would-be entrepreneurs) from
-"authentic" Unix experts who underwent a proper apprenticeship, and
-through a chain of masters, can trace their tutelage to a luminary at
-the Bell Labs CSRC or UC Berkeley CSRG--someone with a name to be spoken
-in hushed tones like "Ritchie" or "Joy".
-
-Does "troff" have one syllable or two?  Does one refer to the text
-editors as "ee-dee" and "vee-eye" or as if they were English diminutive
-names "Ed" and "Vi"?  One set of choices will mark you as a person who
-_might_ be worth conversing with; the other will get you a short look
-down a long nose and the cold shoulder.  We've got gates to keep.
-
-Both Unix and the Linux kernel, the latter particularly in its
-development model, were levelling technologies.  They brought better OS
-technology and programming environments to much larger groups of people
-than had enjoyed them before.
-
-But it is a sadly recurring theme of human history that as soon as some
-levelling process occurs, a certain type of person promptly moves in to
-restore a guild, caste, or other hierarchical social ordering that they
-are more comfortable with.
-
-If you can't get an authoritative answer from a principal author of the
-fanotify API, I suggest reading the term as "eff-A-notify"; this will
-then be implicitly documented by your choice of the article "an".  It
-doesn't have anything to do with fans or the fourth degree of the major
-scale, after all.
-
-Regards,
-Branden
-
---etubuvjbknp2nu2m
-Content-Type: application/pgp-signature; name="signature.asc"
+--------------sequPxiH7uI8nMTDZsv0TKh8
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmMBwn0ACgkQ0Z6cfXEm
-bc5vAg//W0uxwIuyfZfGFotqo/aZg22p+XcbK2LJiBp4LjSn37i9jyl9LCIycSqA
-BGV3JUy0wbDOvqCOPwvGPKSgqiDKc1YyeGez9f4G44UYzPpU+mDzu2PAY+pkijTS
-TzgxcOjDIoKEEnU2x3C+ZWddQMMuBirxj+f+qWaUC8QXqJ6xpaNjhwVMiIpKj8zC
-T7r5KnD4FdQ4FwTftxgjykSvT4afZc1vCwF6QrI7nWhktMlkvOHDdRXQVIkWvkcQ
-0arO3aHt9856dAxgxEtCj1/mLFOw1hj+pKyfi10/wCawe8UwYE8+e1UABqFm3w5t
-fdMsEOn0AFFYVkz1/QOs/3h9ot3plU+8aADyyrb57oEdcthvLouBHfZy9zm90guS
-q3yeKa/6W06rHET3UAmGv1mMvvwJxZfrfaOdpR2P9e9MleWf+DdOqDsWr+KULGiz
-pa3RVjbXEM0kO4zSfoi7MxbmJCu7JDQylN/Ll3q5eZ/PmrGTnG8yqtn/TKrdA4BP
-Dy/OyGwWssJxs45RGaJySsAsuPeCzfMCjoJZMozMyWpJh5LFGahx2raZRxcyX/WH
-WpbgHWJ+KtbNTjgf4I3OblLw3qrs4lhxHmAcbqcjmopH1rUgyTIe8DZHOB4MES7Z
-L+Riv9vps6mGvLEZmzGfjSjfWKlbh17tSxzV7RpR9N6erDs8iAA=
-=C1sy
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmMCFsMACgkQnowa+77/
+2zJJWQ//cI+yw/kTxOxjwvlqlxqptqfAQ73P8KpDXzzfHMK5W0Bbv/1+iUF8lmel
+Av8CjhqDGd4QHP50BAHs9K0N+/rDPs4fcOBbuYoohGgXJrDYsGmLAbtduiHczqc5
+mgBLvm4R99lN3ZY4Fg3NuV35oKw3+mukKTiYcHSjOLMifqhIXIno/L5iZ1U7NvLD
+eUcOYz0YQdc9puvNTi+EwSe4M2UND5MS4TLeiMfWCTphyYYI6K73urxRtUcTCaGE
+0i4nmo1rHBqIIQ6FicRA5Hbbn0k8H+JTiTFGIN4RqtuCy+yyNCr/3HpuduAIFde5
+5qDSFGNtUNLz1Bkz8gpotjMRb/LImv+aCdHu/rS1JBYHTA6l1FJeydDox7/UYRkk
+Vx8kNpbjCcODd649Fsy67lnP+A12tu/icyRuNpPBRxSmc/IbSlRuBC9nGqhbeKWL
+A7o+usiQeF8fx9ThHc/u2hporGqk0WCkad3wWCa3/GBZvOputvFdOp+FyxQrNNpJ
+XxBHY/m0n3jLiXX7wiXx46z7eyUVoJX5ColdkIBEv6aFoQ4Q1BMyWsVb01yoEOQv
+GNx5ewROVbtnAmUH/W0xzoJSAn3VkDbm9yTrRQewhRrv3Gjgi5LrjbmB7JrSS8BZ
+OvABltBWUPe9ad0iEJcD2yhzy5V2vscoq6j6FaTdJ6RvaduJGrI=
+=pFQy
 -----END PGP SIGNATURE-----
 
---etubuvjbknp2nu2m--
+--------------sequPxiH7uI8nMTDZsv0TKh8--
