@@ -2,151 +2,106 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id CC7F959C7D0
-	for <lists+linux-man@lfdr.de>; Mon, 22 Aug 2022 21:03:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 11E0559D2D3
+	for <lists+linux-man@lfdr.de>; Tue, 23 Aug 2022 09:59:08 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S237722AbiHVTDH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 22 Aug 2022 15:03:07 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54834 "EHLO
+        id S240654AbiHWH7E (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 23 Aug 2022 03:59:04 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45418 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S236997AbiHVTDE (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 22 Aug 2022 15:03:04 -0400
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com [IPv6:2a00:1450:4864:20::32d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7F9DAFD8
-        for <linux-man@vger.kernel.org>; Mon, 22 Aug 2022 12:02:58 -0700 (PDT)
-Received: by mail-wm1-x32d.google.com with SMTP id k17so6072210wmr.2
-        for <linux-man@vger.kernel.org>; Mon, 22 Aug 2022 12:02:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc;
-        bh=+Q74a+KNtGhGIss+eZG3Sgez34t6OKe1D4ESQUmc2ww=;
-        b=Lw4+SgYoFMjv+KdDRVCrntjXZbMhKmXR6KeuWr6MdqFFAj9fDefz6w8oCyvRYOFaNk
-         /u7OMEZZu0JPC4V5SfUdr8zTlTfz4dBqnfXTAOhhgTkhbh/aUUSby43diLHucbk9Qhfx
-         tkZzU359ImzczWxOI6aoXH6KIVEea28gdl6joaO+fkBs6q6R9Aq7mmn+Gj1VxysQFQZo
-         +Z/ATCStzA4+SDmX2gku/H06fhZ6TiTX8XK2LnQGiGIAhMhSVXPr1nIL/wmVZeHywSCr
-         7UCJlPt00hpw7nv3G+b+qRnj3r4a7J3s1u4+cmygYb07c6Xx8WKT6ULUfAieIfgnpiTc
-         MmQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc;
-        bh=+Q74a+KNtGhGIss+eZG3Sgez34t6OKe1D4ESQUmc2ww=;
-        b=GBcOg5RlU81pYl/vUF2Bt4nnqIZnNYDSLCvEutDaE+c+o2uclfU2QlD32BZjMdH3Lt
-         q1ksdY31qJx9a3Jyl9ZSZeyWCNSMltgBh1bj0a17VM7bViOmQx0dnMGwtJDy43jcJVDR
-         lXYYGRpnqBRYk7vYsZXzzVPP5UdoVbPG/WLrj8qq5cb3RgXToZ73iXgylSqCd6pI3Agf
-         yU2aVI5W+zSUsNwujnJkvQBWaQbLknaLtlFlqaKAyYXws3OIC/S18iY8W+AQE4cTAU+9
-         LNIdLO9SpCs+WP2tDeBEyPtRHWq4KgnVUoBoJ7qniFLdUMdtg4u3G5BHtxbZdyC6SOuF
-         bbrA==
-X-Gm-Message-State: ACgBeo3mEPpSYbAfMy2EBihDUtwg6FGBrW9bzhFv9bD0YRi/tyyyPzIy
-        j51+PeeUWt3KsNoCkQRmZ74=
-X-Google-Smtp-Source: AA6agR4knQNMA54T9Cs84YKte9qroN/xet6qx8uZT6uhRZ3EN86j+qk9gxvUAJh0YINlVN5ieosMPQ==
-X-Received: by 2002:a05:600c:2f88:b0:3a5:4014:4b47 with SMTP id t8-20020a05600c2f8800b003a540144b47mr16178085wmn.96.1661194977059;
-        Mon, 22 Aug 2022 12:02:57 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id w13-20020a5d680d000000b002254b912727sm6657645wru.26.2022.08.22.12.02.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 22 Aug 2022 12:02:56 -0700 (PDT)
-Message-ID: <e09eb500-d32b-1334-fff3-64803e62b11f@gmail.com>
-Date:   Mon, 22 Aug 2022 21:02:48 +0200
+        with ESMTP id S241448AbiHWH7C (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 23 Aug 2022 03:59:02 -0400
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 997871E3F8
+        for <linux-man@vger.kernel.org>; Tue, 23 Aug 2022 00:59:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1661241540;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=ppu5ZJPTykE1mm1fm8ScUeo5vN0+pNCvXSsL/8Tq/tY=;
+        b=JTkTq7aK2BXU8V6O/roYeVNDIYKeSaPLnHL8Dwwp7aiIL1tqVmq1WXuyiRNpI2eZH2FCiK
+        BiSzWKkNojXVah9BqbtulorRVpexTqGnojWY/RPewgpy1jsUDtooe8MIEy+P6HYuRQF9L5
+        yHhNUIEf7NcDM9J4sC/jhhpnJB5za0I=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-339-8eIs7XB_NuC-nvrYtC1DVg-1; Tue, 23 Aug 2022 03:58:57 -0400
+X-MC-Unique: 8eIs7XB_NuC-nvrYtC1DVg-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A846A1C14D32;
+        Tue, 23 Aug 2022 07:58:56 +0000 (UTC)
+Received: from oldenburg.str.redhat.com (unknown [10.39.192.143])
+        by smtp.corp.redhat.com (Postfix) with ESMTPS id 67DEB2166B26;
+        Tue, 23 Aug 2022 07:58:55 +0000 (UTC)
+From:   Florian Weimer <fweimer@redhat.com>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org, JeanHeyd Meneide <wg14@soasis.org>,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        Ingo Schwarze <schwarze@usta.de>
+Subject: Re: [PATCH v2] _Generic.3: New page documenting _Generic()
+References: <20220820171009.34196-1-alx.manpages@gmail.com>
+        <20220821115506.22850-1-alx.manpages@gmail.com>
+Date:   Tue, 23 Aug 2022 09:58:53 +0200
+In-Reply-To: <20220821115506.22850-1-alx.manpages@gmail.com> (Alejandro
+        Colomar's message of "Sun, 21 Aug 2022 13:55:07 +0200")
+Message-ID: <87mtbv4chu.fsf@oldenburg.str.redhat.com>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/27.2 (gnu/linux)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.1.2
-Subject: Re: [PATCH 01/10] fanotify_init.2: tfix
-To:     Jakub Wilk <jwilk@jwilk.net>
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>, linux-man@vger.kernel.org
-References: <20220819190859.6248-1-jwilk@jwilk.net>
- <a5484dc8-33a7-e10b-2b73-7a44698a529c@gmail.com>
- <20220822182140.ttqdmboeuznr6qa6@jwilk.net>
-Content-Language: en-US
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20220822182140.ttqdmboeuznr6qa6@jwilk.net>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------dnOdWue0NhIhgsTaiZt0hEpo"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-        autolearn=ham autolearn_force=no version=3.4.6
+Content-Type: text/plain
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Spam-Status: No, score=-2.8 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,
+        SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------dnOdWue0NhIhgsTaiZt0hEpo
-Content-Type: multipart/mixed; boundary="------------rt79N9iDCoo7fkMxNx5H6Lp3";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Jakub Wilk <jwilk@jwilk.net>
-Cc: Michael Kerrisk <mtk.manpages@gmail.com>, linux-man@vger.kernel.org
-Message-ID: <e09eb500-d32b-1334-fff3-64803e62b11f@gmail.com>
-Subject: Re: [PATCH 01/10] fanotify_init.2: tfix
-References: <20220819190859.6248-1-jwilk@jwilk.net>
- <a5484dc8-33a7-e10b-2b73-7a44698a529c@gmail.com>
- <20220822182140.ttqdmboeuznr6qa6@jwilk.net>
-In-Reply-To: <20220822182140.ttqdmboeuznr6qa6@jwilk.net>
+* Alejandro Colomar:
 
---------------rt79N9iDCoo7fkMxNx5H6Lp3
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+> +.SH EXAMPLES
+> +The following program demonstrates how to write
+> +a replacement for the standard
+> +.BR imaxabs (3)
+> +function, which being a function can't really provide what it promises:
+> +seamlessly upgrading to the widest available type.
+> +.PP
+> +.\" SRC BEGIN (_Generic.c)
+> +.EX
+> +#include <stdint.h>
+> +#include <stdio.h>
+> +#include <stdlib.h>
+> +
+> +#define my_imaxabs(j)  _Generic((intmax_t) 0,  \e
+> +    int:            abs(j),                    \e
+> +    long:           labs(j),                   \e
+> +    long long:      llabs(j)                   \e
+> + /* long long long: lllabs(j) */               \e
+> +)
 
-SGkgSmFrdWIsDQoNCk9uIDgvMjIvMjIgMjA6MjEsIEpha3ViIFdpbGsgd3JvdGU6DQo+ICog
-QWxlamFuZHJvIENvbG9tYXIgPGFseC5tYW5wYWdlc0BnbWFpbC5jb20+LCAyMDIyLTA4LTIw
-IDAxOjI4Og0KPj4gQlRXLCBJIG5vdGljZWQgeW91IGZpbmQgYSBsb3Qgb2YgdHlwb3MuwqAg
-SSdtIGN1cmlvdXM6IGRvIHlvdSBmaW5kIHRoZW0gDQo+PiB3aGVuIHJlYWRpbmcsIG9yIHlv
-dSBydW4gYSB0b29sIHRoYXQgZmluZHMgdGhlbT8NCj4gDQo+IEkgaGF2ZSB0d28gdW5jb252
-ZW50aW9uYWwgc3BlbGxjaGVja2VycyBpbiBteSB0b29sYm94Og0KPiANCj4gaHR0cHM6Ly9q
-d2lsay5uZXQvc29mdHdhcmUvbXdpYw0KPiBodHRwczovL2p3aWxrLm5ldC9zb2Z0d2FyZS9h
-bm9yYWNrDQo+IA0KPiBJIHVzdWFsbHkgcnVuIHRoZW0gb24gZGlmZnMsIGxpa2UgdGhpczoN
-Cj4gDQo+ICDCoCAkIGdpdCBwdWxsDQo+ICDCoCAuLi4NCj4gIMKgICQgZ2l0IGRpZmYgQHsx
-fSB8IGdyZXAgXisgfCBtd2ljDQo+ICDCoCBbd2FkZSB0aHJvdWdoIHRoZSBqdW5nbGUgb2Yg
-ZmFsc2UgcG9zaXRpdmVzXQ0KPiANCg0KSW50ZXJlc3RpbmcuICBJIHJ1biBib3RoIHRocm91
-Z2ggdGhlIGVudGlyZSByZXBvLg0KDQphbm9yYWNrKDEpIHNlZW1zIHRvIGJlIHJlYXNvbmFi
-bGUsIGluIHRoYXQgaXQgcnVucyBpbiB1bmRlciAxIHNlY29uZCwgDQphbmQgb25seSBoYXMg
-MTM4IG1hdGNoZXMuICBNYW55IG9mIHRoZW0gYXJlIGZhbHNlIHBvc2l0aXZlcywgYnV0IGl0
-J3MgDQpub3QgdW5yZWFzb25hYmxlIHRvIGdvIHRocm91Z2ggdGhlbSBhbGwuDQoNCiQgdGlt
-ZSBmaW5kIG1hbiogLXR5cGUgZiB8IHhhcmdzIGFub3JhY2sgfCB3YyAtbA0KMTM4DQoNCnJl
-YWwJMG0wLjk3MXMNCnVzZXIJMG0wLjY5MXMNCnN5cwkwbTAuMDI0cw0KDQoNCkkgY291bGQg
-YWRkIGEgYG1ha2UgbGludC1zcGVsbC1hbm9yYWNrYCB0YXJnZXQgdG8gcnVuIGl0IGZyb20g
-dGltZSB0byANCnRpbWUuICBNYXliZSB5b3UgY291bGQgc3BlY2lhbC1jYXNlIHNvbWUgb2Yg
-dGhvc2UgZmFsc2UgcG9zaXRpdmVzIHRvIA0KbWFrZSBpdCBldmVuIGJldHRlcj8NCg0KbXdp
-Y2soMSkgc2VlbXMgdG8gaGF2ZSBhbiB1bnJlYXNvbmFibHkgaHVnZSBudW1iZXIgb2YgZmFs
-c2UgcG9zaXRpdmVzOg0KDQokIHRpbWUgZmluZCBtYW4qIC10eXBlIGYgfCB4YXJncyAgbXdp
-YyB8IHdjIC1sDQoxMzk3NjANCg0KcmVhbAkwbTM4Ljg2MnMNCnVzZXIJMG0zOC42NTNzDQpz
-eXMJMG0wLjIyNHMNCg0KSXQgc2VlbXMgaXQgY291bGQgZ2V0IHNvbWUgaGVscCBvZiB1bmRl
-cnN0YW5kaW5nIG1hbig3KSBzeW50YXggdG8gbGltaXQgDQppdHNlbGYgdG8gdGV4dC4gIEkn
-bSBkZWZpbml0ZWx5IG5vdCBhZGRpbmcgdGhpcyBvbmUgZm9yIG5vdy4NCg0KQWxzbywgaXQg
-d291bGQgYmUgbmljZSBpZiBib3RoIG9mIHRoZW0gaGFkIGEgd2F5IG9mIHJlcG9ydGluZyBl
-cnJvcnMgdG8gDQptYWtlKDEpIHRocm91Z2ggYW4gRVhJVCBTVEFUVVMsIHdoaWNoIGNvdWxk
-IGFsc28gYmUgZG9jdW1lbnRlZCBpbiB0aGVpciANCm1hbnVhbCBwYWdlcy4NCg0KDQpDaGVl
-cnMsDQoNCkFsZXgNCg0KLS0gDQpBbGVqYW5kcm8gQ29sb21hcg0KPGh0dHA6Ly93d3cuYWxl
-amFuZHJvLWNvbG9tYXIuZXMvPg0K
+The macro name does not really match what the function does.  It's a
+type-generic abs function, not related to the max function or intmax_t.
 
---------------rt79N9iDCoo7fkMxNx5H6Lp3--
+Note that this approach does not really work that well in practice
+because macros using _Generic expand all the alternatives (in current
+implementations; doing this differently requires deviating from the
+layered implementation strategy suggested in the C standard).  This
+means that _Generic-using macros can only be nested maybe three or four
+levels deep, depending on the number of _Generic alternatives on each
+level.  For <tgmath.h>, this is really not enough, so a high-quality
+implementation of <tgmath.h> using _Generic is not feasible.  GCC
+provides __builtin_tgmath, which is designed in such a way that when
+used in a macro, the macro argument is only expanded once.
 
---------------dnOdWue0NhIhgsTaiZt0hEpo
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+Maybe mention this under BUGS?
 
------BEGIN PGP SIGNATURE-----
+C++ templates do not suffer from this particular problem.
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmMD0tgACgkQnowa+77/
-2zJmEA/+LAi2t8M8fjdOgE+gxnA4fZvl2Bdp11fdQfYZWRLhDGQCHlYLChZC+156
-/3L8ZKhO0URNk8/eyd1IpNYe0kWDacFuhvOSAWnBPAUjXKQDAOHPG1jruz7sdavE
-l2Bp8s3UjPVmgfhwUa/pwULD05o3GSlJV/U/bCnLwoGWk7t+rySZWtZhJpPlLbm6
-r5wB1UqKKmDpkbtw+jFgTPKBbLWEpBrSvT53JbxdwXh8NYLYTC0jU2UZtcfi5dBo
-3ztoZlt/r3YcQIX4jiwdhv1Z2qwdmsXvtoQrwuY4ns/Y76vZM8iKNYMB7+9IS6+H
-ALnwJdLHrOQwaxxtnHrsATVN5U4Rj6yiW9Pt1jNvEM1Pc3Bkx3VsVdwoNYbH/pn3
-0cr8WcXWEUy0XRjweoWxSNld47D/YkhJt81VdF99ZsWbjX3xS0Qa2+bnW0oR6TKj
-dN+423lUYi4Gn7WdBg3aR1jOq1LLTtPEfvnhMysz2NPRP/+u9CauaK2CIM85NYL4
-BhLAWnjKnavQps9YjQsrEjz/1AjGR4fkVGXqG4KDUmoBDSF7roi+ONy81xAMMR+j
-7r5CvO3ZiHQWdOJsEEDbGPl3ERMhp9TsN2jWrdQgtp1rsXPBq8Oj7BGraCk7T3NE
-18JUxuJAgKutgbUy1reYFKHPCT1rvWJbEXR03Tn789GystJGVyY=
-=i3HR
------END PGP SIGNATURE-----
+Thanks,
+Florian
 
---------------dnOdWue0NhIhgsTaiZt0hEpo--
