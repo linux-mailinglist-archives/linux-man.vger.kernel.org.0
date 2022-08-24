@@ -2,127 +2,180 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id B7BAD59FFCA
-	for <lists+linux-man@lfdr.de>; Wed, 24 Aug 2022 18:48:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DB0365A001E
+	for <lists+linux-man@lfdr.de>; Wed, 24 Aug 2022 19:12:32 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S239629AbiHXQsm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 24 Aug 2022 12:48:42 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49004 "EHLO
+        id S238474AbiHXRM0 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 24 Aug 2022 13:12:26 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45200 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S239643AbiHXQsf (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 24 Aug 2022 12:48:35 -0400
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com [IPv6:2a00:1450:4864:20::42f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 410504E84E
-        for <linux-man@vger.kernel.org>; Wed, 24 Aug 2022 09:48:34 -0700 (PDT)
-Received: by mail-wr1-x42f.google.com with SMTP id e20so20979853wri.13
-        for <linux-man@vger.kernel.org>; Wed, 24 Aug 2022 09:48:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isovalent-com.20210112.gappssmtp.com; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc;
-        bh=+vc4wgvN93lLTqjnzKrYhwklTHMChxGC0LGuJUKq5uo=;
-        b=BOChIk25rDGwNsyUXgGxSOzyR6JuXgYTocN45+HaYSISx3JqKqDfV55hIhR8LeLOOR
-         tx+OJN4nxueVdu+dUSdAlyRHgFv/Y1KEdkSXc1JZsbv5v1UkayIdVEltji74CSo6u9gz
-         RyVH7/VHB8qoyD0tTY0I43l2VPUYzM6kyrJrtGuqVa7p3nTrBlVg+wt08f0ONVK918IE
-         oijm8t4yTWKtacwbHqKL2UfzHB2NmuRiEwilAoSbx/NFYUoW5JOot+X73kHLxxhnRvjn
-         bMoN2LDeGj57KaBNkkkuUs7pqWv4B4we1SArZQLDOZK4XdIgkVv349FGPwTTy437Oo/A
-         026w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc;
-        bh=+vc4wgvN93lLTqjnzKrYhwklTHMChxGC0LGuJUKq5uo=;
-        b=4gNV9i14j3bKnNwL60Qxyvp1Q9Pwu2ITq1rUojDeRAxil+ozEuKOKIFRmdumSECKnW
-         NoDjsnUUHSoBwWFhak7T1Hn6/HlE6+btDa6PgbX7wMHcWy8beX3Hbs3QX8L5PhgQ+hep
-         DA8Qfq1XLP4Kbom9dMhxF/6j4d+jMEcyoNojr9YHvvboyiyYWCOEKZ1yiaG0UjCcaVfQ
-         iP7nVXSS7OLXl9oGtWlsEjtOjnyAQbj8Y30HL2VU1W3DDim6f0JykUn3gc/vnKYahFk7
-         xRNfW+h0H2eHyWI/upT9J4JXk6hMsfdBKYVcEuGigDvXYjWLeCw9hlP9qfnXdsHwFWAs
-         Vm9w==
-X-Gm-Message-State: ACgBeo24Ciu7mb62pNPKbFHa52hgVSgTJWdkGU7y4AF96QYa+XzBZ0oa
-        l9WBREcVqInvl/nuyiDXB7XKjQ==
-X-Google-Smtp-Source: AA6agR5rhtcBeY+/UuJeA/WBaAb389NT1DK09diLJxnSlGMNH5PZypBS6KP1tVDXpHE19f8gAu3L4w==
-X-Received: by 2002:adf:e10c:0:b0:225:3168:c261 with SMTP id t12-20020adfe10c000000b002253168c261mr53609wrz.159.1661359712506;
-        Wed, 24 Aug 2022 09:48:32 -0700 (PDT)
-Received: from [192.168.178.32] ([51.155.200.13])
-        by smtp.gmail.com with ESMTPSA id r18-20020a05600c425200b003a603f96db7sm2557941wmm.36.2022.08.24.09.48.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 24 Aug 2022 09:48:31 -0700 (PDT)
-Message-ID: <32665572-6128-82e7-27b2-eb3817fe5ac7@isovalent.com>
-Date:   Wed, 24 Aug 2022 17:48:31 +0100
+        with ESMTP id S238988AbiHXRMY (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 24 Aug 2022 13:12:24 -0400
+Received: from scc-mailout-kit-02.scc.kit.edu (scc-mailout-kit-02.scc.kit.edu [IPv6:2a00:1398:9:f712::810d:e752])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 688A763B9
+        for <linux-man@vger.kernel.org>; Wed, 24 Aug 2022 10:12:21 -0700 (PDT)
+Received: from hekate.asta.kit.edu ([2a00:1398:5:f401::77])
+        by scc-mailout-kit-02.scc.kit.edu with esmtps (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+        (envelope-from <schwarze@usta.de>)
+        id 1oQtvP-00Dd6R-4k; Wed, 24 Aug 2022 19:12:19 +0200
+Received: from login-1.asta.kit.edu ([2a00:1398:5:f400::72])
+        by hekate.asta.kit.edu with esmtp (Exim 4.94.2)
+        (envelope-from <schwarze@usta.de>)
+        id 1oQtvO-007cg5-KI; Wed, 24 Aug 2022 19:12:18 +0200
+Received: from schwarze by login-1.asta.kit.edu with local (Exim 4.92)
+        (envelope-from <schwarze@usta.de>)
+        id 1oQtvO-0000z0-Ir; Wed, 24 Aug 2022 19:12:18 +0200
+Date:   Wed, 24 Aug 2022 19:12:18 +0200
+From:   Ingo Schwarze <schwarze@usta.de>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     g.branden.robinson@gmail.com, Jakub Wilk <jwilk@jwilk.net>,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        linux-man@vger.kernel.org
+Subject: Re: .TH 4th field (Was: [PATCH 1/2] system_data_types.7: srcfix)
+Message-ID: <YwZb8s7URld24bli@asta-kit.de>
+References: <20200928132959.x4koforqnzohxh5u@jwilk.net>
+ <9b8303fe-969e-c9f0-e3cd-0590b342d5bf@gmail.com>
+ <20200930101213.2m2pt3jrspvcrxfx@localhost.localdomain>
+ <20220819180323.dbsgxh5qvcjabjm6@jwilk.net>
+ <20220820054306.hejc3awpxvoajghf@illithid>
+ <96f9777f-326f-baee-2894-eb070498863d@gmail.com>
+ <20220820122003.qeldeox7hlcy6dw7@illithid>
+ <a35cf5e8-ad2c-92bd-ca78-7be3dec3d62e@gmail.com>
+ <YwYmENPAprVbooAP@asta-kit.de>
+ <9a202749-ab6a-e644-87e8-dc2b1d96e810@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.1.2
-Subject: Re: Update bpf-helpers(7) man page
-Content-Language: en-GB
-To:     Jakub Wilk <jwilk@jwilk.net>, linux-man@vger.kernel.org
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        Rumen Telbizov <rumen.telbizov@menlosecurity.com>,
-        Daniel Borkmann <daniel@iogearbox.net>
-References: <CA+FoirBpBrvp7Qme_sqViKf-90tG+s+tUZNy9fmZXEF5u4sx8w@mail.gmail.com>
- <a62a00a3-e673-8874-73b2-57e8d9c362c4@gmail.com>
- <CA+FoirA75vZgYaDdNfJGUwR6sVCYZ6YL4T3mN_LNPpzeJ5pYhg@mail.gmail.com>
- <6310b542-3a92-e072-b369-25e370036626@gmail.com>
- <CACdoK4KwzbRFZ+_HDd6wybzePAHy40Pc3p19uu3XburddOuC3A@mail.gmail.com>
- <b62b15e5-398d-6d17-dedf-532b70208299@gmail.com>
- <CACdoK4KuoRpTdyLqtPTbctHWHtfQTNgZoKunVC_f7T_y4ATF5g@mail.gmail.com>
- <7d125b8d-9873-b001-dae2-a78d3891f144@gmail.com>
- <CA+FoirA-FeYeA5ZPgCvo55Hg_dfe7dT54Co8CkU9wW8yemFcJA@mail.gmail.com>
- <fdec5bc8-1204-db0f-1f3e-86d7a2de8b5c@gmail.com>
- <20220824160259.bxyr6pxagaaoqaev@jwilk.net>
-From:   Quentin Monnet <quentin@isovalent.com>
-In-Reply-To: <20220824160259.bxyr6pxagaaoqaev@jwilk.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
-        T_SCC_BODY_TEXT_LINE autolearn=ham autolearn_force=no version=3.4.6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9a202749-ab6a-e644-87e8-dc2b1d96e810@gmail.com>
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED,
+        SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 24/08/2022 17:02, Jakub Wilk wrote:
-> The latest bpf-helpers(7) man page update introduced a few misspellings:
-> 
->> -EFAULT on failrue to parse the existing header options.
-> 
-> failrue -> failure
-> 
->> this helper enforces the key must be an task_struct
-> 
-> an -> a
-> 
->> Returns the stored IMA hash of the inode (if it's avaialable)
-> 
-> avaialable -> available
-> 
->> Providing an len_diff adjustment that is larger than the actual packet
->> size (resulting in negative packet size) will in principle not exceed
->> the MTU, why it is not considered a failure.
-> 
-> an -> a
-> 
-> But I can't parse the subordinate clause. I think it should be:
-> 
-> ..., which is why it is not considered a failure.
-> 
->> Other BPF-helpers are needed for performing the planned size change,
->> why the responsability for catch a negative packet size belong in
->> those helpers.
-> 
-> I can't parse this subordinate clause either. I guess it was meant to say:
-> 
-> ..., which is why the responsibility for catching a negative packet size
-> belongs in those helpers.
-> 
-> Any volunteers to fix the misspellings on the kernel side?
-> 
+Hi Alejandro,
 
-I'll have a look at these and send a fix. It's likely that some of those
-are my mistakes anyway.
+Alejandro Colomar wrote on Wed, Aug 24, 2022 at 05:04:57PM +0200:
+> On 8/24/22 15:22, Ingo Schwarze wrote:
+>> Alejandro Colomar wrote on Sat, Aug 20, 2022 at 02:40:58PM +0200:
 
-Thanks for the report,
-Quentin
+>>> Should I keep the static part of the COLOPHON in a REPORTING BUGS section?
+
+>> I do not think a manual page should include *any* boilerplate text.
+>> Text that is the same everywhere is nothing but a distraction
+>> and a waste of screen real estate.
+
+> Agree.  I was hesitant of removing that, which mtk added a long time 
+> ago, since he claimed an important improvement in awareness of the 
+> existence of the project.  But I prefer using reportbug(1) and dpkg(1) 
+> or apt(8) (or equivalent in other distros) to find out how to report bugs.
+
+Hum.  Interesting aspect.  Maybe Micheal had a point that advertising
+the Linux man-pages project - even in such an aggressive way - had some
+value in the early days.  I'm not an expert in Linux history, but i
+believe use of manual pages was initially much less common in Linux-
+based operating systems compared to AT&T UNIX, other commercial UNIX
+systems, and BSD.  Also, due to the fragmentation of Linux-based
+operating systems into Linux (the kernel), GNU (the most important
+parts of userland), and software from many third-party sources,
+a single, uniform corpus of manual pages was slower to develop for
+Linux than, for example, in BSD.
+
+But nowadays, i would no longer subscribe to such a theory, it seems
+to me that times have changed in this respect.  Debian has fostered
+some progress in writing missing manual pages.  Web sites like
+manpages.debian.org and even man.archlinux.org now provide more
+comprehensive collections of manual pages than even BSDs do.
+And such sites usually clearly identify package names, much reducing
+the effects of the conceptual fragmentation.  So i expect many more
+Linux users are now aware of the man-pages project than used to be,
+and even those who aren't yet are likely to find out once they need to.
+
+> Greg KH expressed concern about the copyright of the example programs 
+> some time ago.  He asked what license applies to them, and how should a 
+> user know, that is, is a user allowed to create derived programs from 
+> those examples?  Should we state their license in a C comment within the 
+> example program?  Or just assume that it's a meaningless program and 
+> that anyone can just copy it indiscriminately because, who cares about 
+> such a tiny insignificant piece of code?
+
+That is an interesting question, too.  I believe it never occurred
+to me because EXAMPLES in OpenBSD manual pages are typically kept so
+short and simple that they only demonstrate well-established aspects
+of prior art and do not really involve any creative act by the author
+of the manual pages, hence obviously being in in the public domain
+in the first place.
+
+But in the Linux man-pages project, you have many long and complex
+programs below EXAMPLES, some of which certainly pass the test of
+originality, hence being protected by Copyright law.
+
+Now obviously, unless otherwise stated, such examples are covered
+by the SPDX-License-Identifier: at the top of the file.  For pages
+licensed under the BSD or MIT licenses, everything is obviously
+fine, anyone can use such example code in any project.  For pages
+under GPL licenses, the situation is also tolerable: while BSD
+projects cannot use these example, at least GPL projects can, which
+feels like the main purpose of a Linux project.  I sense a real
+problem with EXAMPLES in Linux-man-pages-copyleft pages though:
+Those can *neither* be used in BSD projects *nor* in GPL projects
+as far as i can see.
+
+Maybe it would be worth finding the authors of significant examples
+in Linux-man-pages-copyleft pages and getting their permission
+to add a line like
+
+  /* This example code is released into the public domain. */
+
+at the top of such examples, maybe together with a roff(7) comment
+like
+
+  .\" This example code was written by Alice and Bob in 2015.
+
+Anything more complicated, like refering to GPL-2+ would seem like
+overkill to me.
+
+>>> AUTHORS,
+
+>> Mentioning the main AUTHORS of the original implementation of the program -
+>> for example, Robert Morris and Lorinda Cherry for bc(1) - and also
+>> mentioning the main AUTHORS of your current implementation, if it
+>> was rewritten from scratch, seems most important to me.
+
+> I guess in the Linux man-pages that means just don't use it at all. 
+> Original authors of Linux and GNU are Linux and RMS and that's well 
+> known.  Current author of any given feature is probably a combination of 
+> thousands of people.
+
+I didn't mean naming all contributors; that would be completely
+unreasonable even in the (usually smaller) BSD projects.  It seems
+sufficient to me to name the main and original author(s).  For
+example, for GNU troff, that is James Clark.  I don't doubt there
+is much GNU software where Linus and RMS are not the principle
+authors.
+
+However, i realize that
+
+ (1) AUTHORS sections are on average less useful in sections 2, 3, and 4
+     than in sections 1 and 8, and the Linux man-pages projects is
+     sparse in sections 1 and 8, for obvious reasons;
+
+ (2) If something really goes back all the way to Linus or RMS,
+     not explicitly saying so would be reasonable for similar
+     reasons as BSD manual pages rarely use AUTHORS sections for
+     features that have existed since the 1970s because those
+     were usually invented by Dennis Ritchie or Ken Thompson.
+     We do use AUTHORS sections for programs written from 1BSD
+     (1978) onwards, even if written by Bill Joy, Keith Bostic,
+     Eric Allman, Mary Ann Horton, Kurt Shoens, Rob Pike, or
+     similarly well-known people.
+
+I think it's a case-by-case decision: is there clear enough and
+significant enough authorship of the initial version, or was it
+a cast of many right from the start?
+
+Yours,
+  Ingo
