@@ -2,126 +2,154 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 581C15A0431
-	for <lists+linux-man@lfdr.de>; Thu, 25 Aug 2022 00:40:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 97D455A0449
+	for <lists+linux-man@lfdr.de>; Thu, 25 Aug 2022 00:51:54 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230407AbiHXWk3 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 24 Aug 2022 18:40:29 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37842 "EHLO
+        id S229565AbiHXWvx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 24 Aug 2022 18:51:53 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56784 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229798AbiHXWkS (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 24 Aug 2022 18:40:18 -0400
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com [IPv6:2a00:1450:4864:20::52b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4D9782E9E4;
-        Wed, 24 Aug 2022 15:40:17 -0700 (PDT)
-Received: by mail-ed1-x52b.google.com with SMTP id q2so21750203edb.6;
-        Wed, 24 Aug 2022 15:40:17 -0700 (PDT)
+        with ESMTP id S229445AbiHXWvv (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 24 Aug 2022 18:51:51 -0400
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com [IPv6:2a00:1450:4864:20::332])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B35994D147
+        for <linux-man@vger.kernel.org>; Wed, 24 Aug 2022 15:51:50 -0700 (PDT)
+Received: by mail-wm1-x332.google.com with SMTP id m17-20020a7bce11000000b003a5bedec07bso1721359wmc.0
+        for <linux-man@vger.kernel.org>; Wed, 24 Aug 2022 15:51:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc;
-        bh=W+SwShFa3i3wQlIqmrJCmsnCbHpnmw83ukjZXzLki18=;
-        b=Eb4hBAIjsW5NUkq4D9ve+Pz1LiMvwyaGeh0ULrOicTxhMu2Z4dXARXpNRx/f33omxV
-         /ZLiFVPFl5A1DWIPcyeQB6kCMLo8rNB+5+5RvTIWLxdzqnEIdqb7iJXa8+npGXGWVyGI
-         NCTOnkyKjFPLYdXStu1aioIgzIGEwxSMzmPzF4ZCGCO8sOUQlxPIfZC8kvnsKxMprURJ
-         n+qWoosNhh1hclsPBO9hnPeUbfZQC7nsYVPZIbyPDWYM4VN5cMEaAO8We8L0OFQoJIlp
-         QBiI0y7B0DcUx6SmzI4Du5rxp21waW57bLp2IOGoUww4ixmSm5jnzfylj9zWfhdl9Kw2
-         /2Qw==
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:from:to:cc;
+        bh=KGJYFceC/yi5h+yHPlEopeZ5viJeWLq48WIRO5O+WT4=;
+        b=f90+RLw5nExf6whNpr+KzQFwIPmKa4xbDJ9ah96n8B3kGhHK1zCD6ymKs4+IF701up
+         8kFVkgOGYAd0TItwAOOxdoBu5v+Q1SgYK/eys9ITKtkm9tx/9g2P8pz25oUr+oc4ZTW1
+         RntQZ4WHpNadbYIhC3cdvTczh2wqcDKcNHfP962CzlU8VYxpzCk89O1H6gSBUhdNRoc4
+         3aUWjh22Zyj9oQ5Ti7O9ZB9nFjR9La9pqBRiS+cJnpOC59u2zip5az9mqJ81kX3KZWPc
+         GqQnTkI1eKIsqxr1w7jd6LgMc86u6XbrH/iTYKD7Rcy7SE8qVhqegOX4HD0vfXV4iSn2
+         /aUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc;
-        bh=W+SwShFa3i3wQlIqmrJCmsnCbHpnmw83ukjZXzLki18=;
-        b=jHPONRSFjaAay2oXENZGoVTXCYHCdUnUauKJGKT4kDlma1S8H/cd+cdTn1SJQP4Qfy
-         y/mQDsdyT2GcqmTUjaqCPlKFTfsm0Htrvl2uYMnY47k01p5AtuA8275ZAXOkL/IHmIGP
-         imaOIRoznqIEvVw/w+MbNg4HbaVkboRfK46CgcLCASfEizvEmmcU5SEVUtaobuw/C4bB
-         fM8UNco/9hUXoZ5udezTqKetvMikUnvH/OA9YoSpwPUJrSzoRHcbkpbyod7ybMPbbab+
-         Oa3zG8bFUcFJgmK/2UgekNP3HhPIW0MyDsLU5Xu/uiytLdQGlhPfrDfSg6pvoJrTFfrB
-         9THg==
-X-Gm-Message-State: ACgBeo0WK9cX1WtDsNSiUj1N4QyPdUXjcLNRRzfa0XabWglZxRvTS5Dq
-        EC05ScjwUvonnuERQ/MhcTI9/Bqku9pa/G+JnYk=
-X-Google-Smtp-Source: AA6agR4FKu0eVIUn8G7XVv/tG0JhfwVi8NKI+LilIiBIFeoG2vrIvge5MX77xF20StzHp9O4/mepkyPBSeZ5xTzvr4Y=
-X-Received: by 2002:a05:6402:28cb:b0:43b:c6d7:ef92 with SMTP id
- ef11-20020a05640228cb00b0043bc6d7ef92mr898662edb.333.1661380815411; Wed, 24
- Aug 2022 15:40:15 -0700 (PDT)
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc;
+        bh=KGJYFceC/yi5h+yHPlEopeZ5viJeWLq48WIRO5O+WT4=;
+        b=ZHaTzlOYes3bc7PE1kv+i/22jgITqOVHYs+y3Pd9S5GYVMuf9KATH5BmsxLIGm/KV8
+         ZOiPipHQmUcqMZKCfWcniRDZVcJYR+EV+0iD1XZT+OeQGDV8wgyw6+VWcquYM1kfykfe
+         ZhLT2YJmqXnhLmypPIjVFNbMMf6GjPQiFiEnXS1U6kZiYFbQ1dHOkFojIOkj5fuUAcjg
+         0AKXZAkhAK4OaxFI1P7dl9ApzdJiqYOiKaK+9SRraEvCQylZCkAuZOGtc40eyS6dQDpe
+         N9HHTcYr++CkD8Q5JcoLCRybcg8mMWu4SICGLZFAU/eweaIqrKmFb4rkTWRgLfrtMo7C
+         2lcA==
+X-Gm-Message-State: ACgBeo1NtICNIJPyOBvD2Fa5jxeBBm8h4IRJetGmcFk0NamC5vTEeuHZ
+        SRZ4DRHBazfuejpTbO3U19E=
+X-Google-Smtp-Source: AA6agR7yTYxP8X1A7NcGN3Z/ckblg6/LE85v7x7/lr0RVj4Td28xNezV0etGKND+j5nBWUc9T4AVkw==
+X-Received: by 2002:a1c:7714:0:b0:3a5:de9d:b15f with SMTP id t20-20020a1c7714000000b003a5de9db15fmr487067wmi.95.1661381509213;
+        Wed, 24 Aug 2022 15:51:49 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id l25-20020a05600c1d1900b003a62052053csm4110827wms.18.2022.08.24.15.51.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 24 Aug 2022 15:51:48 -0700 (PDT)
+Message-ID: <d22dcd47-023c-8f52-d369-7b5308e6c842@gmail.com>
+Date:   Thu, 25 Aug 2022 00:51:41 +0200
 MIME-Version: 1.0
-References: <20210423230609.13519-1-alx.manpages@gmail.com> <20220824185505.56382-1-alx.manpages@gmail.com>
-In-Reply-To: <20220824185505.56382-1-alx.manpages@gmail.com>
-From:   Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Date:   Wed, 24 Aug 2022 15:40:04 -0700
-Message-ID: <CAADnVQKiEVL9zRtN4WY2+cTD2b3b3buV8BQb83yQw13pWq4OGQ@mail.gmail.com>
-Subject: Re: [PATCH v3] Many pages: Document fixed-width types with ISO C naming
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     linux-man <linux-man@vger.kernel.org>,
-        Alexei Starovoitov <ast@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Daniel Borkmann <daniel@iogearbox.net>,
-        Zack Weinberg <zackw@panix.com>,
-        LKML <linux-kernel@vger.kernel.org>,
-        glibc <libc-alpha@sourceware.org>, GCC <gcc-patches@gcc.gnu.org>,
-        bpf <bpf@vger.kernel.org>, LTP List <ltp@lists.linux.it>,
-        Linux API <linux-api@vger.kernel.org>,
-        linux-arch <linux-arch@vger.kernel.org>,
-        David Laight <David.Laight@aculab.com>,
-        Joseph Myers <joseph@codesourcery.com>,
-        Florian Weimer <fweimer@redhat.com>,
-        Cyril Hrubis <chrubis@suse.cz>,
-        David Howells <dhowells@redhat.com>,
-        Arnd Bergmann <arnd@arndb.de>, Rich Felker <dalias@libc.org>,
-        Adhemerval Zanella <adhemerval.zanella@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.1.2
+Subject: Re: Update bpf-helpers(7) man page
+Content-Language: en-US
+To:     Quentin Monnet <quentin@isovalent.com>,
+        Jakub Wilk <jwilk@jwilk.net>,
+        linux-man <linux-man@vger.kernel.org>
+Cc:     Rumen Telbizov <rumen.telbizov@menlosecurity.com>,
+        Daniel Borkmann <daniel@iogearbox.net>
+References: <CA+FoirBpBrvp7Qme_sqViKf-90tG+s+tUZNy9fmZXEF5u4sx8w@mail.gmail.com>
+ <a62a00a3-e673-8874-73b2-57e8d9c362c4@gmail.com>
+ <CA+FoirA75vZgYaDdNfJGUwR6sVCYZ6YL4T3mN_LNPpzeJ5pYhg@mail.gmail.com>
+ <6310b542-3a92-e072-b369-25e370036626@gmail.com>
+ <CACdoK4KwzbRFZ+_HDd6wybzePAHy40Pc3p19uu3XburddOuC3A@mail.gmail.com>
+ <b62b15e5-398d-6d17-dedf-532b70208299@gmail.com>
+ <CACdoK4KuoRpTdyLqtPTbctHWHtfQTNgZoKunVC_f7T_y4ATF5g@mail.gmail.com>
+ <7d125b8d-9873-b001-dae2-a78d3891f144@gmail.com>
+ <CA+FoirA-FeYeA5ZPgCvo55Hg_dfe7dT54Co8CkU9wW8yemFcJA@mail.gmail.com>
+ <fdec5bc8-1204-db0f-1f3e-86d7a2de8b5c@gmail.com>
+ <20220824160259.bxyr6pxagaaoqaev@jwilk.net>
+ <32665572-6128-82e7-27b2-eb3817fe5ac7@isovalent.com>
+ <CACdoK4+zk_RjS_DAAvWVfDBoBP--2DESQO-1nGNmGq2vhbZqqA@mail.gmail.com>
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <CACdoK4+zk_RjS_DAAvWVfDBoBP--2DESQO-1nGNmGq2vhbZqqA@mail.gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------49PCTog7DEVgA8KdNEB05fI4"
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-        autolearn=ham autolearn_force=no version=3.4.6
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+        URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed, Aug 24, 2022 at 12:04 PM Alejandro Colomar
-<alx.manpages@gmail.com> wrote:
->
-> diff --git a/man2/bpf.2 b/man2/bpf.2
-> index d05b73ec2..84d1b62e5 100644
-> --- a/man2/bpf.2
-> +++ b/man2/bpf.2
-> @@ -169,34 +169,34 @@ commands:
->  .EX
->  union bpf_attr {
->      struct {    /* Used by BPF_MAP_CREATE */
-> -        __u32         map_type;
-> -        __u32         key_size;    /* size of key in bytes */
-> -        __u32         value_size;  /* size of value in bytes */
-> -        __u32         max_entries; /* maximum number of entries
-> +        uint32_t      map_type;
-> +        uint32_t      key_size;    /* size of key in bytes */
-> +        uint32_t      value_size;  /* size of value in bytes */
-> +        uint32_t      max_entries; /* maximum number of entries
->                                        in a map */
->      };
->
->      struct {    /* Used by BPF_MAP_*_ELEM and BPF_MAP_GET_NEXT_KEY
->                     commands */
-> -        __u32         map_fd;
-> +        uint32_t      map_fd;
->          __aligned_u64 key;
->          union {
->              __aligned_u64 value;
->              __aligned_u64 next_key;
->          };
-> -        __u64         flags;
-> +        uint64_t      flags;
->      };
->
->      struct {    /* Used by BPF_PROG_LOAD */
-> -        __u32         prog_type;
-> -        __u32         insn_cnt;
-> +        uint32_t      prog_type;
-> +        uint32_t      insn_cnt;
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------49PCTog7DEVgA8KdNEB05fI4
+Content-Type: multipart/mixed; boundary="------------06I6Mn1s91AWFawsM0rSKOfn";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: Quentin Monnet <quentin@isovalent.com>, Jakub Wilk <jwilk@jwilk.net>,
+ linux-man <linux-man@vger.kernel.org>
+Cc: Rumen Telbizov <rumen.telbizov@menlosecurity.com>,
+ Daniel Borkmann <daniel@iogearbox.net>
+Message-ID: <d22dcd47-023c-8f52-d369-7b5308e6c842@gmail.com>
+Subject: Re: Update bpf-helpers(7) man page
+References: <CA+FoirBpBrvp7Qme_sqViKf-90tG+s+tUZNy9fmZXEF5u4sx8w@mail.gmail.com>
+ <a62a00a3-e673-8874-73b2-57e8d9c362c4@gmail.com>
+ <CA+FoirA75vZgYaDdNfJGUwR6sVCYZ6YL4T3mN_LNPpzeJ5pYhg@mail.gmail.com>
+ <6310b542-3a92-e072-b369-25e370036626@gmail.com>
+ <CACdoK4KwzbRFZ+_HDd6wybzePAHy40Pc3p19uu3XburddOuC3A@mail.gmail.com>
+ <b62b15e5-398d-6d17-dedf-532b70208299@gmail.com>
+ <CACdoK4KuoRpTdyLqtPTbctHWHtfQTNgZoKunVC_f7T_y4ATF5g@mail.gmail.com>
+ <7d125b8d-9873-b001-dae2-a78d3891f144@gmail.com>
+ <CA+FoirA-FeYeA5ZPgCvo55Hg_dfe7dT54Co8CkU9wW8yemFcJA@mail.gmail.com>
+ <fdec5bc8-1204-db0f-1f3e-86d7a2de8b5c@gmail.com>
+ <20220824160259.bxyr6pxagaaoqaev@jwilk.net>
+ <32665572-6128-82e7-27b2-eb3817fe5ac7@isovalent.com>
+ <CACdoK4+zk_RjS_DAAvWVfDBoBP--2DESQO-1nGNmGq2vhbZqqA@mail.gmail.com>
+In-Reply-To: <CACdoK4+zk_RjS_DAAvWVfDBoBP--2DESQO-1nGNmGq2vhbZqqA@mail.gmail.com>
 
-For the N-th time:
-Nacked-by: Alexei Starovoitov <ast@kernel.org>
+--------------06I6Mn1s91AWFawsM0rSKOfn
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Please stop sending this patch.
+SGkgUXVlbnRpbiwNCg0KT24gOC8yNS8yMiAwMDowNywgUXVlbnRpbiBNb25uZXQgd3JvdGU6
+DQo+IA0KPiBPdXQgb2YgY3VyaW9zaXR5LCBkaWQgeW91IHNwb3QgdGhlc2UgbWlzdGFrZXMg
+YnkgcmVhZGluZyB0aGUgcGFnZSwgb3INCj4gZGlkIHlvdSBydW4gYSB0b29sIG9uIHRoZSBk
+b2N1bWVudD8NCg0KSSBhc2tlZCB0aGUgc2FtZSB0aGluZyBhIGZldyBkYXlzIGFnbyA6KQ0K
+DQpBbnN3ZXIgaXMgaW4gbGludXgtbWFuQDoNCg0KPGh0dHBzOi8vbG9yZS5rZXJuZWwub3Jn
+L2xpbnV4LW1hbi9lYjZhMWU0MS1jNDhlLWFjNDUtNTE1NC1hYzU3YTJjNzYxMDhAZ21haWwu
+Y29tL1QvI200YThkMWIwMDM2MTY5MjgwMTNmZmNkMTQ1MDQzNzMwOWFiNjUyZjlmPg0KDQpD
+aGVlcnMsDQoNCkFsZXgNCg0KDQotLSANCkFsZWphbmRybyBDb2xvbWFyDQo8aHR0cDovL3d3
+dy5hbGVqYW5kcm8tY29sb21hci5lcy8+DQo=
+
+--------------06I6Mn1s91AWFawsM0rSKOfn--
+
+--------------49PCTog7DEVgA8KdNEB05fI4
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmMGq30ACgkQnowa+77/
+2zL3OA/7BxK5IomqrJyG/HGAj9spjFcgVr8MFwB7TxCq6wT47+NE4ck45G5s50IA
+Emhsb62/KoOrUoGz5UV3w9euIM+SOnrRpyRIu3HjoPKkHSOMXuStRxpgpzWaV1eo
+KQCXbIzwTElUwZQx/asSn1bXCC5P/cWu1gWAT79rjsh2iDf+Sw5UKyN28xtSb+2e
+DZzOZEqvdSYBGm7XkTeTLgkhAllnQ70t6epCIzcmzwqNQbXwFjfZoi9MHEjYf5wT
+abzgs4gfhKuedvjVuJPDb1PhUFxegbD0ZNYdr4Q6jQdOtiqi8l8A6Zo+V/Kmi4Tl
+d93OZlwC3Pwa7EOgJeRUVvEA0YJtf99POsDpWerzRPhqPgtNj1fCexYYiaoLQJmS
+mM2qdyG9dAXfDfrVYzDDPZwI3QBPoSNuoTbm0VUB5b8j25EYSEkD6pPxnKMynQIA
+nMi+g/yqKHMCVsbzspmFnPR47KGl4/lb78+zSVq3M17HHA0jPb1kIg6tptLp6EuA
+xWdcYjjf1zFGMN5BBJBsoZBp4Ljo/aDl9WO0Azkogf+VY3LEiIa5N0ADUP3Cum7g
+ybAsFbVPKUAHdv7MGyy6H+mUz7hpFolOjCliTL3HUFgtD4MuY68ZVsZ+ysU3VaHl
+72HAREWJvdh8CKnklB81GFLQvh35tXrPDmLgxdL3gSQTxsTLLW8=
+=FF/9
+-----END PGP SIGNATURE-----
+
+--------------49PCTog7DEVgA8KdNEB05fI4--
