@@ -2,58 +2,59 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id AC3105A1855
-	for <lists+linux-man@lfdr.de>; Thu, 25 Aug 2022 20:07:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7CB405A1B2D
+	for <lists+linux-man@lfdr.de>; Thu, 25 Aug 2022 23:36:35 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S241450AbiHYSHK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 25 Aug 2022 14:07:10 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56720 "EHLO
+        id S243854AbiHYVg2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 25 Aug 2022 17:36:28 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60178 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S242796AbiHYSHI (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 25 Aug 2022 14:07:08 -0400
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com [IPv6:2a00:1450:4864:20::631])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1B6D0BD102;
-        Thu, 25 Aug 2022 11:07:08 -0700 (PDT)
-Received: by mail-ej1-x631.google.com with SMTP id v14so4550406ejf.9;
-        Thu, 25 Aug 2022 11:07:08 -0700 (PDT)
+        with ESMTP id S235255AbiHYVg1 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 25 Aug 2022 17:36:27 -0400
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com [IPv6:2a00:1450:4864:20::62c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id ED3CBC12F9;
+        Thu, 25 Aug 2022 14:36:26 -0700 (PDT)
+Received: by mail-ej1-x62c.google.com with SMTP id gb36so41967578ejc.10;
+        Thu, 25 Aug 2022 14:36:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:from:to:cc;
-        bh=PbnNsoOGBtV1fJn01TE08zIsKcL4sGhm/016ARM/Ov8=;
-        b=nfJeuSNwIXF3pmbGxgAOHsBaeTxt0ZUa1DcBfx8ODJGzDhw8npM0OXCapx8o3UGGEB
-         3NV2YZrKQuqyivIRo/RwORXt1Mm/ptnE7JKxzCg5QvpcdkVXjSZSn7LDvu69cGsN8aHI
-         87b+aS6kazCpsWeg1B3XBJtX3KLQN/PH/NisxQQkT2iEQUNeg3KUObC9XEDtFsprEwfw
-         xsBHpBVKuOU6HvHikwky+D0AUkdvXSSlsMujC1rpSjcno0ES1JAlmEpRF51/+wv8lnqp
-         dZJOk81HKuQWH4soiLYdYDGpIQ1kGAC7OVA0jLbMcjefbR28ad8Mvt1Q3ZwwJ/0Ly7Ea
-         m/DA==
+        bh=3AHnMG+3jAegfBoDtUEnVJPMlQVvj/FsI6PElDkS+iI=;
+        b=c1EVdPbyQROQgHBvNFT33Cb0Mwn/qhfMMtEtxL0m+sqVgBOcBkkoZhqC2jqYnrbsde
+         KoglFX4A2Lc2HI8BIruqK4y3Rg+zwkwRDUevQ/jI5ReRkTuSS6Bab5AzO+axZk+w1aop
+         lRTJejVBTsqFOEHeexlrEK02GLeK9bSb7sAW5lQev2CC6NGoLLSHT5gU772UWl+4CEzK
+         XEseDgsKcL6oIfiAqHfw7ONHbLbCYsooUqJvo8eu27Mt44XVXiR0/0f/CFepP5nh2b7X
+         oqG42UgmJNtivSLV0Kd7bjtUp9IqYDT1bj+nuKM4ni1gwRgiukbpS4d4gpFUg5K2Viem
+         ZenQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-message-state:from:to:cc;
-        bh=PbnNsoOGBtV1fJn01TE08zIsKcL4sGhm/016ARM/Ov8=;
-        b=b6vbDD8DMXvrWLXJX+CgwuhviftbH5AF/gMvGDfqYwoPGgTNbUDyw751NvGIBEDeBy
-         rH71MzA049aQwo9sKZpOqbtYS7wXGEi8VW2z1PgkSnSph2zc84sKTFVCCGUdugSOpEnD
-         DHeBtEXskrdHBmUfHjuHYyuTGyCWIr03bsy+xP7cvPQ+ryDRJ2uBGw6H2GbOhvp6rsqn
-         dIm1dOHQG7JmU/lzT5UOuDkyKlCvrGXGbzKSfRJ9kwNOK/9nuLyHHkFkPafHcWEsBvel
-         o/Pu7ixRqowoDvR65OMaqKNhFe/N0vkp+uwvnb8TXXw7OniiosLGhJMzh7ad1+K/VdOu
-         HFkA==
-X-Gm-Message-State: ACgBeo0cfU1hNJ4WUM82lMD0msLI2LJSGdbZlBfWGabWWxLDLxh3RAd2
-        Gdctht0PSBjhGy9n17hamOA1FgcD7Ybi4YrNqcc=
-X-Google-Smtp-Source: AA6agR5OR/v+eQxDiw3/CIqWoeZPpihWB0x921WI3aYOrAX4sTG94Py08W12Ft3EU1CdzLoaCWfo6SJELKwJjU3mvWE=
-X-Received: by 2002:a17:907:7b94:b0:731:1b11:c241 with SMTP id
- ne20-20020a1709077b9400b007311b11c241mr3301224ejc.676.1661450826646; Thu, 25
- Aug 2022 11:07:06 -0700 (PDT)
+        bh=3AHnMG+3jAegfBoDtUEnVJPMlQVvj/FsI6PElDkS+iI=;
+        b=CKeTx3w7102aC57WfM8tmpi3/nkrtuUMkxz0yti30WbS/QfJq41Xf7/8aG/i7xKzmZ
+         Sr61bm0XXKc5BxUpGXe4WgllL05pjGcZNL1WrTQs5n21qflRYfC8ixhv2X/4yVcsRjER
+         uvXNj0Od5X+y6J1hznhn7IWZlMGMbSJVyUPcVNTJHxIxkFgHF4o14ekJ37EqjWVKMOKi
+         bkBoO1I37hW/DTwelYNx8mXNIlegUIOERGo3I6zU+Q+oIW+p8zLcB9bte/HjUgIzBIOo
+         oeVY4fCpBiXXedJj8MmGkcZY9Gm37snwzM6MhUenksQmWjJI7z0E4JOd0gfcpiyLkYLe
+         Migg==
+X-Gm-Message-State: ACgBeo2WujniLrgTu+nHHn5JUn/RRMogZIVBCW+wq7S4IliZ7d3vsRwf
+        DhHwvk3OLyk2naVoyMciEjJaCif2kb/MGaYMGK4Sb8kQ
+X-Google-Smtp-Source: AA6agR6CohKMhzhhQZErZ5uCvFYZaP5GqU6VNFllmnje3gV/BRQZyiwjB7Cy13UqEkvMGSqTup8RREDUEaiuvQiAyCI=
+X-Received: by 2002:a17:906:8a43:b0:73d:7cc2:245e with SMTP id
+ gx3-20020a1709068a4300b0073d7cc2245emr3657661ejc.114.1661463385435; Thu, 25
+ Aug 2022 14:36:25 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220825175653.131125-1-alx.manpages@gmail.com>
-In-Reply-To: <20220825175653.131125-1-alx.manpages@gmail.com>
-From:   Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Date:   Thu, 25 Aug 2022 11:06:55 -0700
-Message-ID: <CAADnVQ+yM_R4vuCLxtNJb0sp61ar=grJh9KmLWVGhXA7Lhpmvw@mail.gmail.com>
+References: <20220825175653.131125-1-alx.manpages@gmail.com> <CAADnVQ+yM_R4vuCLxtNJb0sp61ar=grJh9KmLWVGhXA7Lhpmvw@mail.gmail.com>
+In-Reply-To: <CAADnVQ+yM_R4vuCLxtNJb0sp61ar=grJh9KmLWVGhXA7Lhpmvw@mail.gmail.com>
+From:   Andrii Nakryiko <andrii.nakryiko@gmail.com>
+Date:   Thu, 25 Aug 2022 14:36:14 -0700
+Message-ID: <CAEf4BzbCgHp0MtsSm_ExPO+EGhFWzLUOiFuh1jyrhWfbsDtL3A@mail.gmail.com>
 Subject: Re: [PATCH] Fit line in 80 columns
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     Quentin Monnet <quentin@isovalent.com>, bpf <bpf@vger.kernel.org>,
-        linux-man <linux-man@vger.kernel.org>,
+To:     Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        Quentin Monnet <quentin@isovalent.com>,
+        bpf <bpf@vger.kernel.org>, linux-man <linux-man@vger.kernel.org>,
         Alexei Starovoitov <ast@kernel.org>,
         Daniel Borkmann <daniel@iogearbox.net>,
         Andrii Nakryiko <andrii@kernel.org>,
@@ -75,19 +76,25 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Thu, Aug 25, 2022 at 11:02 AM Alejandro Colomar
-<alx.manpages@gmail.com> wrote:
+On Thu, Aug 25, 2022 at 11:07 AM Alexei Starovoitov
+<alexei.starovoitov@gmail.com> wrote:
 >
-> That line is used to generate the bpf-helpers(7) manual page.  It
-> is a no-fill line, since it represents a command, which means that
-> the formatter can't break the line, and instead just runs across
-> the right margin (in most set-ups this means that the pager will
-> break the line).
+> On Thu, Aug 25, 2022 at 11:02 AM Alejandro Colomar
+> <alx.manpages@gmail.com> wrote:
+> >
+> > That line is used to generate the bpf-helpers(7) manual page.  It
+> > is a no-fill line, since it represents a command, which means that
+> > the formatter can't break the line, and instead just runs across
+> > the right margin (in most set-ups this means that the pager will
+> > break the line).
+> >
+> > Using <fmt> makes it end exactly at the 80-col right margin, both
+> > in the header file, and also in the manual page, and also seems to
+> > be a sensible name.
 >
-> Using <fmt> makes it end exactly at the 80-col right margin, both
-> in the header file, and also in the manual page, and also seems to
-> be a sensible name.
+> Nack.
+>
+> We don't follow 80 char limit and are not going to because of man pages.
 
-Nack.
-
-We don't follow 80 char limit and are not going to because of man pages.
+And it's questionable in general to enforce line length for verbatim
+(code) block. It's verbatim for a good reason, it can't be wrapped.
