@@ -2,145 +2,129 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id A598F5A0523
-	for <lists+linux-man@lfdr.de>; Thu, 25 Aug 2022 02:20:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 24DE15A0565
+	for <lists+linux-man@lfdr.de>; Thu, 25 Aug 2022 02:52:59 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229441AbiHYAUp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 24 Aug 2022 20:20:45 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55620 "EHLO
+        id S229669AbiHYAw6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 24 Aug 2022 20:52:58 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51904 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229437AbiHYAUp (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 24 Aug 2022 20:20:45 -0400
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DBD527FE6C
-        for <linux-man@vger.kernel.org>; Wed, 24 Aug 2022 17:20:43 -0700 (PDT)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
-        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-         key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-        (No client certificate requested)
-        by smtp-out1.suse.de (Postfix) with ESMTPS id 534E1351CA;
-        Thu, 25 Aug 2022 00:20:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-        t=1661386842; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-         mime-version:mime-version:content-type:content-type:
-         content-transfer-encoding:content-transfer-encoding:
-         in-reply-to:in-reply-to:references:references;
-        bh=XHGKkrDo2VnNnqwbHpAsfpFNgEAyWVE1tTpxGcepWPE=;
-        b=mDJ7LkjnaeFfgTX5PZ+GY4S5TDVOhxfYUFYXu+80yo7iHwcIrxz4d3oa3fDE9ON/g9540B
-        xFnpLrkAGDcBHSYV9uZGKjcvNE2Swm8dKAmrP4vhqJMlktPkDaTtNmtzEsofRXuGi1cRkU
-        NhUQytgX7hjiTVc+yF4ict5y67RrFbk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-        s=susede2_ed25519; t=1661386842;
-        h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-         mime-version:mime-version:content-type:content-type:
-         content-transfer-encoding:content-transfer-encoding:
-         in-reply-to:in-reply-to:references:references;
-        bh=XHGKkrDo2VnNnqwbHpAsfpFNgEAyWVE1tTpxGcepWPE=;
-        b=83ClWsI5xHUDi2tL5p1ifwCyNwpAEFIKV8fgtGSq/er1CsjCp5A9e/sOZ8q2RvC/SIVfUY
-        pyZXxD0cpgZcKaBw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
-        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-         key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-        (No client certificate requested)
-        by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E12F613A47;
-        Thu, 25 Aug 2022 00:20:40 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-        by imap2.suse-dmz.suse.de with ESMTPSA
-        id vWhnJ1jABmMuTwAAMHmgww
-        (envelope-from <neilb@suse.de>); Thu, 25 Aug 2022 00:20:40 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+        with ESMTP id S231446AbiHYAwz (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 24 Aug 2022 20:52:55 -0400
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com [IPv6:2a00:1450:4864:20::62d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A21C755094
+        for <linux-man@vger.kernel.org>; Wed, 24 Aug 2022 17:52:51 -0700 (PDT)
+Received: by mail-ej1-x62d.google.com with SMTP id kk26so6936154ejc.11
+        for <linux-man@vger.kernel.org>; Wed, 24 Aug 2022 17:52:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc;
+        bh=ot0aEvyT380VjDU6PPl13tz+5G5649T71Q1QmyiGXIo=;
+        b=YpSDVkBcxWVnnXfQXF/M7AZGWY5x+V+c24wMO5zVR8RFtXivElwnk0FLNTXke/emLT
+         oh8/MGX4jyRJc+YrZXh96+Jtsdh8UfgCE6n4YSYTOMmu4AtkTQJ7laVjSVHJm8+QclNG
+         oVzUJs4I5lvMg1LyJ9KO0CmiPyQ9FIcsSPJtg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc;
+        bh=ot0aEvyT380VjDU6PPl13tz+5G5649T71Q1QmyiGXIo=;
+        b=ez7Be0yBIiYJpOx8Lip8l+IpvYtlFVq2LnGia4sGyVbVCZGGpjzcj8pfmXAlTrMgYZ
+         1/jFJbLVt8kSALQJ8ZJSamNViqXe7Rz7XIQUN4fukzA6vx50uFCwRam0xh5G49+97/OW
+         GHGq9o/7hLJm+4dhAYOl8aqcifwgz6WJm8AKk6YDcw7WAFEvgAjdfekeGMiIz6GjRKM8
+         2eppBKfWexRf19XAV/xbp4YdIzOId59TCuE46G+EoWlrIkVbgJG7iZROTwFpjStdlxTC
+         RVwcdT5HkAHDzhptuRwLcxdYFtf8gQ+6com4d4jO2ooO5w4QmQSaoVCdpFKveDULxeVC
+         dtFg==
+X-Gm-Message-State: ACgBeo0Avlhqzwlxw+uQcii9RJl+95Kd9UCa9RNzKeaiHXxaFsHC995m
+        rFGGbVDwlGG1HUcwBtY7373CaIJReXitvPbLZ9M=
+X-Google-Smtp-Source: AA6agR5/sAxrRNfJbYSnzZHm5pKwSPJw4jgU0PORJ6tbBh4r3q04kEGcI+i4fxgkvGwIDtw7/SwG3g==
+X-Received: by 2002:a17:907:2cd1:b0:730:65c9:4c18 with SMTP id hg17-20020a1709072cd100b0073065c94c18mr914974ejc.324.1661388770010;
+        Wed, 24 Aug 2022 17:52:50 -0700 (PDT)
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com. [209.85.221.46])
+        by smtp.gmail.com with ESMTPSA id fk2-20020a056402398200b00445b5874249sm3743224edb.62.2022.08.24.17.52.38
+        for <linux-man@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 24 Aug 2022 17:52:44 -0700 (PDT)
+Received: by mail-wr1-f46.google.com with SMTP id bs25so22709653wrb.2
+        for <linux-man@vger.kernel.org>; Wed, 24 Aug 2022 17:52:38 -0700 (PDT)
+X-Received: by 2002:adf:e843:0:b0:225:221f:262 with SMTP id
+ d3-20020adfe843000000b00225221f0262mr764111wrn.193.1661388757863; Wed, 24 Aug
+ 2022 17:52:37 -0700 (PDT)
 MIME-Version: 1.0
-From:   "NeilBrown" <neilb@suse.de>
-To:     "Alejandro Colomar" <alx.manpages@gmail.com>
-Cc:     "Jeff Layton" <jlayton@kernel.org>,
-        "Michael Kerrisk" <mtk.manpages@gmail.com>,
-        linux-man@vger.kernel.org
-Subject: Re: [PATCH] utime.2, utimensat.2: explicitly mention ctime changing.
-In-reply-to: <38bbc417-9d74-2407-b7c6-f9b2554cc837@gmail.com>
-References: <166130409455.27490.3548169201261980550@noble.neil.brown.name>,
- <22fdfff7e210aef79ea9e65d779e87cb6bcd5295.camel@kernel.org>,
- <38bbc417-9d74-2407-b7c6-f9b2554cc837@gmail.com>
-Date:   Thu, 25 Aug 2022 10:20:36 +1000
-Message-id: <166138683612.27490.13474817287495072119@noble.neil.brown.name>
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
-        T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=ham autolearn_force=no
-        version=3.4.6
+References: <20210423230609.13519-1-alx.manpages@gmail.com>
+ <20220824185505.56382-1-alx.manpages@gmail.com> <CAADnVQKiEVL9zRtN4WY2+cTD2b3b3buV8BQb83yQw13pWq4OGQ@mail.gmail.com>
+ <c06008bc-0c13-12f1-df85-3814b74e47f9@gmail.com>
+In-Reply-To: <c06008bc-0c13-12f1-df85-3814b74e47f9@gmail.com>
+From:   Linus Torvalds <torvalds@linux-foundation.org>
+Date:   Wed, 24 Aug 2022 17:52:21 -0700
+X-Gmail-Original-Message-ID: <CAHk-=whfft=qpCiQ=mkaCz+X1MEfGK5hpUWYoM5zWK=2EQMwyw@mail.gmail.com>
+Message-ID: <CAHk-=whfft=qpCiQ=mkaCz+X1MEfGK5hpUWYoM5zWK=2EQMwyw@mail.gmail.com>
+Subject: Re: [PATCH v3] Many pages: Document fixed-width types with ISO C naming
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     Alexei Starovoitov <alexei.starovoitov@gmail.com>,
+        Alex Colomar <alx@kernel.org>,
+        Alexei Starovoitov <ast@kernel.org>,
+        linux-man <linux-man@vger.kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Daniel Borkmann <daniel@iogearbox.net>,
+        Zack Weinberg <zackw@panix.com>,
+        LKML <linux-kernel@vger.kernel.org>,
+        glibc <libc-alpha@sourceware.org>, GCC <gcc-patches@gcc.gnu.org>,
+        bpf <bpf@vger.kernel.org>, LTP List <ltp@lists.linux.it>,
+        Linux API <linux-api@vger.kernel.org>,
+        linux-arch <linux-arch@vger.kernel.org>,
+        David Laight <David.Laight@aculab.com>,
+        Joseph Myers <joseph@codesourcery.com>,
+        Florian Weimer <fweimer@redhat.com>,
+        Cyril Hrubis <chrubis@suse.cz>,
+        David Howells <dhowells@redhat.com>,
+        Arnd Bergmann <arnd@arndb.de>, Rich Felker <dalias@libc.org>,
+        Adhemerval Zanella <adhemerval.zanella@linaro.org>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Spam-Status: No, score=-1.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+        URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed, 24 Aug 2022, Alejandro Colomar wrote:
-> Hi Neil and Jeff,
->=20
-> On 8/24/22 12:15, Jeff Layton wrote:
-> > On Wed, 2022-08-24 at 11:21 +1000, NeilBrown wrote:
-> >> utime and related calls always change the ctime.  It is worth making
-> >> this explicit.
-> >> This is clear from the code (vfs_utimes() in fs/utimes.c always sets
-> >> ATTR_CTIME) and is documented in
-> >>    https://pubs.opengroup.org/onlinepubs/007904875/functions/utimes.html
-> >>
-> >> Signed-off-by: NeilBrown <neilb@suse.de>
-> >> ---
-> >>   man2/utime.2     | 2 ++
-> >>   man2/utimensat.2 | 3 +++
-> >>   2 files changed, 5 insertions(+)
-> >>
-> >> diff --git a/man2/utime.2 b/man2/utime.2
-> >> index 5338723574e2..7557d680afa3 100644
-> >> --- a/man2/utime.2
-> >> +++ b/man2/utime.2
-> >> @@ -39,6 +39,8 @@ to the
-> >>   fields of
-> >>   .I times
-> >>   respectively.
-> >> +The status change time (ctime) will be set to the current time, even if=
- the
-> >> +other time stamps don't actually change.
-> >>   .PP
-> >>   If
-> >>   .I times
-> >> diff --git a/man2/utimensat.2 b/man2/utimensat.2
-> >> index 11cf3ee24129..2abf8e196ee1 100644
-> >> --- a/man2/utimensat.2
-> >> +++ b/man2/utimensat.2
-> >> @@ -101,6 +101,9 @@ If
-> >>   .I times
-> >>   is NULL, then both timestamps are set to the current time.
-> >>   .\"
-> >> +.PP
-> >> +The status change time (ctime) will be set to the current time, even if=
- the
-> >> +other time stamps don't actually change.
-> >>   .SS Permissions requirements
-> >>   To set both file timestamps to the current time (i.e.,
-> >>   .I times
-> >=20
-> > Reviewed-by: Jeff Layton <jlayton@kernel.org>
->=20
-> Patch applied, with the tag.  Thank you both!
+On Wed, Aug 24, 2022 at 4:36 PM Alejandro Colomar
+<alx.manpages@gmail.com> wrote:
+>
+> I'm trying to be nice, and ask for review to make sure I'm not making
+> some big mistake by accident, and I get disrespect?  No thanks.
 
-Thanks.
+You've been told multiple times that the kernel doesn't use the
+"standard" names, and *cannot* use them for namespace reasons, and you
+ignore all the feedback, and then you claim you are asking for review?
 
->=20
-> Cheers,
-> Alex
->=20
-> P.S.: Please CC me in the patches, or I might not spot them.
+That's not "asking for review". That's "I think I know the answer, and
+when people tell me otherwise I ignore them".
 
-I will in future, but you might like to update
-https://www.kernel.org/doc/man-pages/patches.html to make it clear that
-"either" isn't really wanted and "both" maintainers should get the patch.
+The fact is, kernel UAPI header files MUST NOT use the so-called standard names.
 
-NeilBrown
+We cannot provide said names, because they are only provided by the
+standard header files.
 
+And since kernel header files cannot provide them, then kernel UAPI
+header files cannot _use_ them.
 
->=20
-> --=20
-> Alejandro Colomar
-> <http://www.alejandro-colomar.es/>
->=20
+End result: any kernel UAPI header file will continue to use __u32 etc
+naming that doesn't have any namespace pollution issues.
+
+Nothing else is even remotely acceptable.
+
+Stop trying to make this something other than it is.
+
+And if you cannot accept these simple technical reasons, why do you
+expect respect?
+
+Why are you so special that you think you can change the rules for
+kernel uapi files over the *repeated* objections from maintainers who
+know better?
+
+                  Linus
