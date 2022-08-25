@@ -2,134 +2,145 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id B00FB5A04DB
-	for <lists+linux-man@lfdr.de>; Thu, 25 Aug 2022 01:53:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A598F5A0523
+	for <lists+linux-man@lfdr.de>; Thu, 25 Aug 2022 02:20:56 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229580AbiHXXxd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 24 Aug 2022 19:53:33 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41368 "EHLO
+        id S229441AbiHYAUp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 24 Aug 2022 20:20:45 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55620 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229490AbiHXXxc (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 24 Aug 2022 19:53:32 -0400
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com [IPv6:2a00:1450:4864:20::42f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2E84C5EDC2
-        for <linux-man@vger.kernel.org>; Wed, 24 Aug 2022 16:53:31 -0700 (PDT)
-Received: by mail-wr1-x42f.google.com with SMTP id bq11so16018340wrb.12
-        for <linux-man@vger.kernel.org>; Wed, 24 Aug 2022 16:53:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=subject:from:to:content-language:user-agent:mime-version:date
-         :message-id:from:to:cc;
-        bh=3VbdeD4lSNNWOJU4wYHCAT7f7u7go2EOHm4/0jev3XQ=;
-        b=cGfWuRbovRKiDQPsfB7p3BxqUvAASTJU5jgx3X6wL0sahSwDFS5Iz4OE22mNCvQ8KR
-         3hds7gR2vq3WCFnNp9eMwJvUN0fPZvFqJsnDLitIj5T5Pq5fcDO6UJGSDHprxc4ZuR8D
-         RF2n0xkPqvWzJZhfS18HhBaovHgslphiSxBtxaUr9fQju8aqRcju5ArUnyybQ/ckmV4q
-         DZqWea4kjNq/w9m+LLOhZNtZZz7peQlT0iT+TW0ToIHq+NRav34MdxJVyHLR2Zd4bKQY
-         8eVUVzVGuFRTFq2EK94y7V3J5NzVEzSRnrZaWtdPdUIOrvaRgGTGzQKOX4c+S/+bcHDb
-         T3Vg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=subject:from:to:content-language:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc;
-        bh=3VbdeD4lSNNWOJU4wYHCAT7f7u7go2EOHm4/0jev3XQ=;
-        b=vBiEO7JZnE+uRpMWpntRasTbzIgMv8aHNLwYIr+vhYNYRyQhksAcQTm0zCFzmVAUMW
-         zmfyvVrEEHD962K4W1ppXPdxzH/sAz8FYdT8njI5OI0AGGaWjq6FzcCBWPZ228D/KEHQ
-         AkanSfCz4rRGl8eB+zssG0EGQeTKWaLh0UsG/OB23FWZ6b1uYPps9CZCktqt8+SV+edI
-         MkOZO+X9YamD5Te3T23LyUS39n0jGpGy5mQBUznVvwNXbZPDIbrQaGx9IakAdcKQ5BJw
-         aQJ5tfVGfDtl8spwwQ1xaZmavL+geLqpwExUPJEU0SxUnBncQuCPvO0B2fpHqLF325G+
-         4pIA==
-X-Gm-Message-State: ACgBeo3hJk5ILqTJwnNonNyuwGEF8cxptgl7OFxmJmoeVDcJiT5s5316
-        ko/rClpMHsY6dbjCBLGjzw8/qKH0NBY=
-X-Google-Smtp-Source: AA6agR5vwJtA5a9BESNDRkDxNdLsKnC8F+/EuppwARDZB06FgFWsiyzUZAZMFThdABRKqeVHc1u+kw==
-X-Received: by 2002:a05:6000:887:b0:21e:24a0:f302 with SMTP id ca7-20020a056000088700b0021e24a0f302mr667120wrb.466.1661385209707;
-        Wed, 24 Aug 2022 16:53:29 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id bh19-20020a05600c3d1300b003a2f6367049sm3479206wmb.48.2022.08.24.16.53.29
-        for <linux-man@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 24 Aug 2022 16:53:29 -0700 (PDT)
-Message-ID: <0c5c0e42-f722-e983-8d5f-9e865b01b6de@gmail.com>
-Date:   Thu, 25 Aug 2022 01:53:28 +0200
+        with ESMTP id S229437AbiHYAUp (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 24 Aug 2022 20:20:45 -0400
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DBD527FE6C
+        for <linux-man@vger.kernel.org>; Wed, 24 Aug 2022 17:20:43 -0700 (PDT)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+         key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+        (No client certificate requested)
+        by smtp-out1.suse.de (Postfix) with ESMTPS id 534E1351CA;
+        Thu, 25 Aug 2022 00:20:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+        t=1661386842; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+         mime-version:mime-version:content-type:content-type:
+         content-transfer-encoding:content-transfer-encoding:
+         in-reply-to:in-reply-to:references:references;
+        bh=XHGKkrDo2VnNnqwbHpAsfpFNgEAyWVE1tTpxGcepWPE=;
+        b=mDJ7LkjnaeFfgTX5PZ+GY4S5TDVOhxfYUFYXu+80yo7iHwcIrxz4d3oa3fDE9ON/g9540B
+        xFnpLrkAGDcBHSYV9uZGKjcvNE2Swm8dKAmrP4vhqJMlktPkDaTtNmtzEsofRXuGi1cRkU
+        NhUQytgX7hjiTVc+yF4ict5y67RrFbk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+        s=susede2_ed25519; t=1661386842;
+        h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+         mime-version:mime-version:content-type:content-type:
+         content-transfer-encoding:content-transfer-encoding:
+         in-reply-to:in-reply-to:references:references;
+        bh=XHGKkrDo2VnNnqwbHpAsfpFNgEAyWVE1tTpxGcepWPE=;
+        b=83ClWsI5xHUDi2tL5p1ifwCyNwpAEFIKV8fgtGSq/er1CsjCp5A9e/sOZ8q2RvC/SIVfUY
+        pyZXxD0cpgZcKaBw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+         key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+        (No client certificate requested)
+        by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E12F613A47;
+        Thu, 25 Aug 2022 00:20:40 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+        by imap2.suse-dmz.suse.de with ESMTPSA
+        id vWhnJ1jABmMuTwAAMHmgww
+        (envelope-from <neilb@suse.de>); Thu, 25 Aug 2022 00:20:40 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.1.2
-Content-Language: en-US
-To:     linux-man <linux-man@vger.kernel.org>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-Subject: Pre-release 6.0-rc1
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------Jg5DTK9eEnbVe20PiRI59g0o"
+From:   "NeilBrown" <neilb@suse.de>
+To:     "Alejandro Colomar" <alx.manpages@gmail.com>
+Cc:     "Jeff Layton" <jlayton@kernel.org>,
+        "Michael Kerrisk" <mtk.manpages@gmail.com>,
+        linux-man@vger.kernel.org
+Subject: Re: [PATCH] utime.2, utimensat.2: explicitly mention ctime changing.
+In-reply-to: <38bbc417-9d74-2407-b7c6-f9b2554cc837@gmail.com>
+References: <166130409455.27490.3548169201261980550@noble.neil.brown.name>,
+ <22fdfff7e210aef79ea9e65d779e87cb6bcd5295.camel@kernel.org>,
+ <38bbc417-9d74-2407-b7c6-f9b2554cc837@gmail.com>
+Date:   Thu, 25 Aug 2022 10:20:36 +1000
+Message-id: <166138683612.27490.13474817287495072119@noble.neil.brown.name>
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-        URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.6
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+        T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=ham autolearn_force=no
+        version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------Jg5DTK9eEnbVe20PiRI59g0o
-Content-Type: multipart/mixed; boundary="------------uJ5BPepI3nnWcplNMVrRlpKS";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: linux-man <linux-man@vger.kernel.org>
-Message-ID: <0c5c0e42-f722-e983-8d5f-9e865b01b6de@gmail.com>
-Subject: Pre-release 6.0-rc1
+On Wed, 24 Aug 2022, Alejandro Colomar wrote:
+> Hi Neil and Jeff,
+>=20
+> On 8/24/22 12:15, Jeff Layton wrote:
+> > On Wed, 2022-08-24 at 11:21 +1000, NeilBrown wrote:
+> >> utime and related calls always change the ctime.  It is worth making
+> >> this explicit.
+> >> This is clear from the code (vfs_utimes() in fs/utimes.c always sets
+> >> ATTR_CTIME) and is documented in
+> >>    https://pubs.opengroup.org/onlinepubs/007904875/functions/utimes.html
+> >>
+> >> Signed-off-by: NeilBrown <neilb@suse.de>
+> >> ---
+> >>   man2/utime.2     | 2 ++
+> >>   man2/utimensat.2 | 3 +++
+> >>   2 files changed, 5 insertions(+)
+> >>
+> >> diff --git a/man2/utime.2 b/man2/utime.2
+> >> index 5338723574e2..7557d680afa3 100644
+> >> --- a/man2/utime.2
+> >> +++ b/man2/utime.2
+> >> @@ -39,6 +39,8 @@ to the
+> >>   fields of
+> >>   .I times
+> >>   respectively.
+> >> +The status change time (ctime) will be set to the current time, even if=
+ the
+> >> +other time stamps don't actually change.
+> >>   .PP
+> >>   If
+> >>   .I times
+> >> diff --git a/man2/utimensat.2 b/man2/utimensat.2
+> >> index 11cf3ee24129..2abf8e196ee1 100644
+> >> --- a/man2/utimensat.2
+> >> +++ b/man2/utimensat.2
+> >> @@ -101,6 +101,9 @@ If
+> >>   .I times
+> >>   is NULL, then both timestamps are set to the current time.
+> >>   .\"
+> >> +.PP
+> >> +The status change time (ctime) will be set to the current time, even if=
+ the
+> >> +other time stamps don't actually change.
+> >>   .SS Permissions requirements
+> >>   To set both file timestamps to the current time (i.e.,
+> >>   .I times
+> >=20
+> > Reviewed-by: Jeff Layton <jlayton@kernel.org>
+>=20
+> Patch applied, with the tag.  Thank you both!
 
---------------uJ5BPepI3nnWcplNMVrRlpKS
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Thanks.
 
-R2lkZGF5LA0KDQpJIGNhbid0IHlldCBtYWtlIGFuIG9mZmljaWFsIHJlbGVhc2UgYmVjYXVz
-ZSBJIG5lZWQgdG8gbWFrZSBzdXJlIEkNCmhhdmUgYSBjbGVhciBhbmQgY29tcGxldGUgbGlz
-dCBvZiBzdGVwcyB0byByZWxlYXNlLCBhbmQgSSBuZWVkIHRvDQp3cml0ZSBhIGZldyBtb3Jl
-IHNjcmlwdHMgZm9yIHRoYXQgdG8gd29yay4NCg0KSSBhbHNvIGRvbid0IGV4cGVjdCByZWxl
-YXNpbmcgYmVmb3JlIGdyb2ZmLTEuMjMuMCBpcyByZWxlYXNlZCwNCnNpbmNlIHRoZSBjdXJy
-ZW50IG1ha2VmaWxlIG1ha2VzIHVzZSBvZiBhIGZldyBmZWF0dXJlcyB0aGF0IHdpbGwNCmJl
-IHJlbGVhc2VkIHdpdGggdGhhdCB2ZXJzaW9uIG9mIGdyb2ZmLiAgVGhleSdyZSBub3QgZnVu
-ZGFtZW50YWwsDQpidXQgaXQgd2lsbCBiZSBiZXR0ZXIgaWYgYWxsIG9mIHRoZSBmZWF0dXJl
-cyBvZiB0aGUgTWFrZWZpbGUgYXJlDQp1c2FibGUuDQoNCkknbSBnb2luZyB0byB1bmNvdXBs
-ZSB0aGUgdmVyc2lvbiBudW1iZXJzIG9mIHRoaXMgcHJvamVjdCBmcm9tIHRoZQ0KTGludXgg
-a2VybmVsIHZlcnNpb25zLCBzaW5jZSB0aGlzIHByb2plY3QgZG9jdW1lbnRzIG11Y2ggbW9y
-ZSB0aGFuDQpqdXN0IHRoZSBrZXJuZWwuICBFc3BlY2lhbGx5LCBsaWJjIChHTlUgbGliYykg
-ZG9jdW1lbnRhdGlvbiBpcyBhcw0KaW1wb3J0YW50IGFzIHRoZSBrZXJuZWwgb25lIGZvciB0
-aGlzIHByb2plY3QuDQoNClNpbmNlIG5leHQgcmVsZWFzZSB3aWxsIGJlIHRoZSBiaWdnZXN0
-IHJlbGVhc2UgaW4gdGhlIExpbnV4DQptYW4tcGFnZXMgcHJvamVjdCBzbyBmYXIsIGR1ZSB0
-byBub3QgaGF2aW5nIHJlbGVhc2VkIGluIGEgdmVyeQ0KbG9uZyB0aW1lLCBhbmQgYWxzbyBz
-aW5jZSBpdCdzIHRoZSBmaXJzdCByZWxlYXNlIHRoYXQgSSdsbCBkbw0KYXMgdGhlIG1haW4g
-bWFpbnRhaW5lciwgaXQgbWFrZXMgc2Vuc2UgdG8gc3RhcnQgdGhlIDYgcmVsZWFzZQ0Kc2Vy
-aWVzLiAgTmV4dCBvZmZpY2lhbCByZWxlYXNlIHdpbGwgYmUgIm1hbi1wYWdlcy02LjAiLg0K
-DQpTb21lIHdvcmsgaGFzIGltcHJvdmVkIG9uIHRoZSBNYWtlZmlsZSBmb3IgcmVsZWFzaW5n
-LCBzbyBJIGV4cGVjdA0KdGhhdCB0byBiZSBjbG9zZXIgbm93Lg0KDQo8aHR0cHM6Ly9naXQu
-a2VybmVsLm9yZy9wdWIvc2NtL2RvY3MvbWFuLXBhZ2VzL21hbi1wYWdlcy5naXQvdGFnLz9o
-PW1hbi1wYWdlcy02LjAtcmMxPg0KDQpDaGVlcnMsDQoNCkFsZXgNCg0KLS0gDQpBbGVqYW5k
-cm8gQ29sb21hcg0KPGh0dHA6Ly93d3cuYWxlamFuZHJvLWNvbG9tYXIuZXMvPg0K
+>=20
+> Cheers,
+> Alex
+>=20
+> P.S.: Please CC me in the patches, or I might not spot them.
 
---------------uJ5BPepI3nnWcplNMVrRlpKS--
+I will in future, but you might like to update
+https://www.kernel.org/doc/man-pages/patches.html to make it clear that
+"either" isn't really wanted and "both" maintainers should get the patch.
 
---------------Jg5DTK9eEnbVe20PiRI59g0o
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+NeilBrown
 
------BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmMGufgACgkQnowa+77/
-2zKeKg/9GQl+DQGOvdR0uX8M/Xd6Di/xiZ3gYKeFszlZqVGpPtGaBLWqdXJjEUdp
-f6Ikg2XgILTww2SXn0QaQQKPQVFNEQLr86xHdn9zhoJxM8+NSWGmTmg2XS6XCnQt
-FExdkg35Yx9RATrPljfQ6imWoDgatbbi9FT6MQkjNttd2iagqCzVU4/qJNFaBi5C
-Anju7nCwPVIjt9T55vFMwXa2quvOEEQnRFFOVQa8ugsG1K31wjW4mMinrz1qvZeo
-GXRQ0CU+YTFiZKAOPk9eOMGyGxxHJ1lWsayMumeimSvZlnWZJg7CxxOTSBwfdygx
-FgLbhcNs4xLMAWM9ctmIAQsbtIAyyf012T4ZhGkljWCvFytc4eAeGE3/8jl9Lh9m
-2cDCja4FucTwdiRNal5jo5wJdep+YhLZh8/1IBCXEubEZgd9W5oy0e0jRNbwA0zt
-HvL5FlOdnM1BPomXhDwLh7e9L44+W6HQn1S5V654xYOGepXNazgcQXlerqDXAKFV
-RSoEryggadjmArBSNbAuQNvT0n5f2sddKZvcHVTJEkcMJaw3GW1INzP6ODhUYC7c
-ZtZIql7R0He8cwgVJxUYRrgcKnEzcse/87kCMEi40ShxSJy+I9iPWh/l5nR1tZuy
-kO6b/cjKya7+htsBhS82pdTBTnTXvP98fHm0wwOp0Ip14dZ7Pi0=
-=kXWD
------END PGP SIGNATURE-----
-
---------------Jg5DTK9eEnbVe20PiRI59g0o--
+>=20
+> --=20
+> Alejandro Colomar
+> <http://www.alejandro-colomar.es/>
+>=20
