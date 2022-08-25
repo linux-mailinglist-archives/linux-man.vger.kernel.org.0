@@ -2,84 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 98AC75A1588
-	for <lists+linux-man@lfdr.de>; Thu, 25 Aug 2022 17:24:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A5BC65A165C
+	for <lists+linux-man@lfdr.de>; Thu, 25 Aug 2022 18:09:21 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S241752AbiHYPX7 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 25 Aug 2022 11:23:59 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34232 "EHLO
+        id S241454AbiHYQI7 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 25 Aug 2022 12:08:59 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50640 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S241324AbiHYPX4 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 25 Aug 2022 11:23:56 -0400
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com [IPv6:2a00:1450:4864:20::32e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7F43FB95AA
-        for <linux-man@vger.kernel.org>; Thu, 25 Aug 2022 08:23:46 -0700 (PDT)
-Received: by mail-wm1-x32e.google.com with SMTP id k18-20020a05600c0b5200b003a5dab49d0bso2708208wmr.3
-        for <linux-man@vger.kernel.org>; Thu, 25 Aug 2022 08:23:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isovalent-com.20210112.gappssmtp.com; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc;
-        bh=H2I5TElNZYzyAJK6JkaZO1xlJ//5MZXhH88RV4kU+ZE=;
-        b=uMCavZzAgNFAS43Nh/wYBreeIKgW/H4ZBnx+1MibRVxsJ6RZ8fqaNrMgmmTIIuEKXn
-         33i0I8BSdcNFx3JovCXuTW/xk/sCvGD+DBJddIFUDmz0j0za2AGykt2RN7Cx0WgXVmwN
-         4mJ6xdJSfSDYltc6i3J0jfOfBJbIkxaIPCwuaXmVFv57K/A+Hp7BsY25egoejQ68bF85
-         x3uNf6yphy73aPUPLDBrqeSAXYScET8rSA5qJyDUhqTBdSHmWgrzfFLknHbgaCQolqfe
-         q4593i09/VNxBJUbLXzlaslKdsWt3nRkKoql8J9Lyf7+tA4354DSe12I9jFS0MZmRGwT
-         LiOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc;
-        bh=H2I5TElNZYzyAJK6JkaZO1xlJ//5MZXhH88RV4kU+ZE=;
-        b=4a475bdUDx2noS3Ef2LZc5SKvolhwRRvGaKBL96X66BpSxHJ2U7Y0OT0kO9YAUIhI9
-         PdjgHwR1/LA0/0pmh8klIJqO2Du78Zl3exznEJZqkwgZ5eHuNi233NjP0kzhSBIna27b
-         uuh8K1uGBw5VznIBS55P4jeS4V60FOk9lixFI+uZbRiFw2AH7dyGvzfiF51PuQsNUm3X
-         JlCwv3NDJSacdA57oER1iP7aYjM42pA7brfuiC11LMmGN71XWO2i4tZerwr0rzJjKnn7
-         oqu3/9+EB/3PBbwWBBxU8BAOg4nwO9ILHGPMWNGKIZm2sCn6rpPgImzLT/rdRB9Kn7Wh
-         6kPQ==
-X-Gm-Message-State: ACgBeo3bcCBS2DsJN5niVahWbVQts4e26YsPSO1DEVu3IDxoLEm3Qyky
-        vv9nIANz0KN+BjM7Cdk4bYfdJA==
-X-Google-Smtp-Source: AA6agR5dQ1tz3j4m1ZhehRbrKaR6JX3ebP0E5kY6LPO6vaGTmWYbgu8cyLPnXqJU5DHiDrwLtpCf7w==
-X-Received: by 2002:a7b:c84c:0:b0:3a5:dde3:2a9e with SMTP id c12-20020a7bc84c000000b003a5dde32a9emr9121330wml.84.1661441024694;
-        Thu, 25 Aug 2022 08:23:44 -0700 (PDT)
-Received: from [192.168.178.32] ([51.155.200.13])
-        by smtp.gmail.com with ESMTPSA id m9-20020adfe0c9000000b00225206dd595sm19661825wri.86.2022.08.25.08.23.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 25 Aug 2022 08:23:44 -0700 (PDT)
-Message-ID: <89edec7d-7878-44b0-a050-f5daef69a0a1@isovalent.com>
-Date:   Thu, 25 Aug 2022 16:23:43 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.1.2
-Subject: Re: [PATCH bpf-next v2] bpf: Fix a few typos in BPF helpers
- documentation
-Content-Language: en-GB
-To:     Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Cc:     Alexei Starovoitov <ast@kernel.org>,
-        Daniel Borkmann <daniel@iogearbox.net>,
-        Andrii Nakryiko <andrii@kernel.org>,
-        Martin KaFai Lau <kafai@fb.com>,
-        Song Liu <songliubraving@fb.com>, Yonghong Song <yhs@fb.com>,
-        John Fastabend <john.fastabend@gmail.com>,
-        KP Singh <kpsingh@kernel.org>,
-        Stanislav Fomichev <sdf@google.com>,
-        Hao Luo <haoluo@google.com>, Jiri Olsa <jolsa@kernel.org>,
-        bpf <bpf@vger.kernel.org>,
+        with ESMTP id S242947AbiHYQI6 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 25 Aug 2022 12:08:58 -0400
+X-Greylist: delayed 962 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Thu, 25 Aug 2022 09:08:57 PDT
+Received: from esa1.mentor.iphmx.com (esa1.mentor.iphmx.com [68.232.129.153])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5B67DB9410
+        for <linux-man@vger.kernel.org>; Thu, 25 Aug 2022 09:08:57 -0700 (PDT)
+X-IronPort-AV: E=Sophos;i="5.93,263,1654588800"; 
+   d="scan'208";a="84691156"
+Received: from orw-gwy-01-in.mentorg.com ([192.94.38.165])
+  by esa1.mentor.iphmx.com with ESMTP; 25 Aug 2022 07:37:38 -0800
+IronPort-SDR: gqfyrLBj4obLayYIodUELOeYAABsqQvo8uOyOawchBB2Q8+w5UxlnjBrn460q3ycd6wHjJqmjd
+ gh7T7w/QcDRQ6tORaMlE5kUTFcOMmSI30/IrpvCk5Qd/qmt7O9jkSwCyju+AieGSqCOkgrFf0W
+ SQJu/53xgPnTrY4XPza5ZHuv1txMaVQqNKYA+Dwut3Ev6jvZD46k0K/9jtxIlvngRv31VMDc5g
+ PzxQEqscK8aPSncjQkN92X4fOOyz2DX2qWOKXKw1t+6Wr0Z6OmFLRCVUkUOLkHjinfKI7N5oFW
+ iBQ=
+Date:   Thu, 25 Aug 2022 15:37:27 +0000
+From:   Joseph Myers <joseph@codesourcery.com>
+X-X-Sender: jsm28@digraph.polyomino.org.uk
+To:     David Laight <David.Laight@ACULAB.COM>
+CC:     Linus Torvalds <torvalds@linux-foundation.org>,
+        Florian Weimer <fweimer@redhat.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
         Alejandro Colomar <alx.manpages@gmail.com>,
-        Jakub Wilk <jwilk@jwilk.net>,
-        Jesper Dangaard Brouer <brouer@redhat.com>,
-        linux-man <linux-man@vger.kernel.org>
-References: <20220825110216.53698-1-quentin@isovalent.com>
- <CAADnVQKdXUjBnq2P5hLahtGnJh6-_8bgQFFRr_EyykTRZb8Ujw@mail.gmail.com>
-From:   Quentin Monnet <quentin@isovalent.com>
-In-Reply-To: <CAADnVQKdXUjBnq2P5hLahtGnJh6-_8bgQFFRr_EyykTRZb8Ujw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+        Alexei Starovoitov <alexei.starovoitov@gmail.com>,
+        Alex Colomar <alx@kernel.org>,
+        Alexei Starovoitov <ast@kernel.org>,
+        linux-man <linux-man@vger.kernel.org>,
+        Daniel Borkmann <daniel@iogearbox.net>,
+        Zack Weinberg <zackw@panix.com>,
+        LKML <linux-kernel@vger.kernel.org>,
+        glibc <libc-alpha@sourceware.org>, GCC <gcc-patches@gcc.gnu.org>,
+        bpf <bpf@vger.kernel.org>, LTP List <ltp@lists.linux.it>,
+        Linux API <linux-api@vger.kernel.org>,
+        linux-arch <linux-arch@vger.kernel.org>,
+        Cyril Hrubis <chrubis@suse.cz>,
+        David Howells <dhowells@redhat.com>,
+        Arnd Bergmann <arnd@arndb.de>, Rich Felker <dalias@libc.org>,
+        Adhemerval Zanella <adhemerval.zanella@linaro.org>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+Subject: RE: [PATCH v3] Many pages: Document fixed-width types with ISO C
+ naming
+In-Reply-To: <5e10ac07e63e41639b3113d12c264447@AcuMS.aculab.com>
+Message-ID: <alpine.DEB.2.22.394.2208251533340.108545@digraph.polyomino.org.uk>
+References: <20210423230609.13519-1-alx.manpages@gmail.com> <20220824185505.56382-1-alx.manpages@gmail.com> <CAADnVQKiEVL9zRtN4WY2+cTD2b3b3buV8BQb83yQw13pWq4OGQ@mail.gmail.com> <c06008bc-0c13-12f1-df85-3814b74e47f9@gmail.com> <YwcPQ987poRYjfoL@kroah.com>
+ <87ilmgddui.fsf@oldenburg.str.redhat.com> <CAHk-=whsETo4kc2Ec1Nf4HQY5vKYmRi9et243kyqN4E-=PgKJw@mail.gmail.com> <alpine.DEB.2.22.394.2208251435370.104368@digraph.polyomino.org.uk> <5e10ac07e63e41639b3113d12c264447@AcuMS.aculab.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+MIME-Version: 1.0
+Content-Type: text/plain; charset="US-ASCII"
+X-Originating-IP: [137.202.0.90]
+X-ClientProxiedBy: svr-ies-mbx-15.mgc.mentorg.com (139.181.222.15) To
+ svr-ies-mbx-10.mgc.mentorg.com (139.181.222.10)
+X-Spam-Status: No, score=-4.0 required=5.0 tests=BAYES_00,
+        HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_MED,SPF_HELO_PASS,SPF_PASS,
         T_SCC_BODY_TEXT_LINE autolearn=unavailable autolearn_force=no
         version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -88,23 +70,35 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 25/08/2022 15:57, Alexei Starovoitov wrote:
-> On Thu, Aug 25, 2022 at 4:02 AM Quentin Monnet <quentin@isovalent.com> wrote:
->> index 4fb685591035..0487ee06edef 100644
->> --- a/tools/include/uapi/linux/bpf.h
->> +++ b/tools/include/uapi/linux/bpf.h
->> @@ -79,7 +79,7 @@ struct bpf_insn {
->>  /* Key of an a BPF_MAP_TYPE_LPM_TRIE entry */
->>  struct bpf_lpm_trie_key {
->>         __u32   prefixlen;      /* up to 32 for AF_INET, 128 for AF_INET6 */
->> -       __u8    data[0];        /* Arbitrary size */
->> +       __u8    data[]; /* Arbitrary size */
+On Thu, 25 Aug 2022, David Laight wrote:
+
+> From: Joseph Myers
+> > Sent: 25 August 2022 15:39
+> > 
+> > On Thu, 25 Aug 2022, Linus Torvalds wrote:
+> > 
+> > > That's a small detail that yes, we've tried to avoid the absolute
+> > > humongous mess that the C standard library has with their horrendous
+> > > 'PRId*' mess, but honestly, it's just a tiny detail.
+> > 
+> > I've not yet implemented it for glibc or for GCC format checking, but C23
+> > adds 'wN' format length modifiers so you will be able to e.g. use "%w64d"
+> > with printf to print an int64_t and won't need those PRI macros any more.
 > 
-> Sigh. Looks like you didn't even run the build of selftests.
-> Please see relevant commits in bpf tree.
+> Is that meant to work regardless of whether the type is
+> int, long or long long provided the size is correct?
+> 
+> Or does it require the compiler know which type inttypes.h
+> uses for uint32_t and uint64_t?
 
-The rest of the patch is a fix on typos, in comments, so indeed I did
-not :/. I missed the commit from Daniel and should have been more
-cautious about the above, apologies. I'll send a new version without it.
+The type passed needs to be that used for the relevant stdint.h typedef, 
+not another of the same size.  (For format checking, that means the 
+compiler needs to know what the types used in stdint.h are.)
 
-Quentin
+It's now required that if int32_t exists, int_least32_t must have the same 
+type, so int_least32_t can also be used with that format (and there are 
+'wfN' formats for int_fastN_t / uint_fastN_t as well).
+
+-- 
+Joseph S. Myers
+joseph@codesourcery.com
