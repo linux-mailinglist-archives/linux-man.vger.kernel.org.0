@@ -2,164 +2,200 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 3BCC05A1BBB
-	for <lists+linux-man@lfdr.de>; Thu, 25 Aug 2022 23:55:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 509595A1BEB
+	for <lists+linux-man@lfdr.de>; Fri, 26 Aug 2022 00:08:15 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S244090AbiHYVzA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 25 Aug 2022 17:55:00 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38994 "EHLO
+        id S242426AbiHYWIO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 25 Aug 2022 18:08:14 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36298 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S244088AbiHYVy6 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 25 Aug 2022 17:54:58 -0400
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com [IPv6:2a00:1450:4864:20::42e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EED50658A;
-        Thu, 25 Aug 2022 14:54:57 -0700 (PDT)
-Received: by mail-wr1-x42e.google.com with SMTP id az27so6188902wrb.6;
-        Thu, 25 Aug 2022 14:54:57 -0700 (PDT)
+        with ESMTP id S241639AbiHYWIN (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 25 Aug 2022 18:08:13 -0400
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com [IPv6:2a00:1450:4864:20::42f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 193215FAF6
+        for <linux-man@vger.kernel.org>; Thu, 25 Aug 2022 15:08:12 -0700 (PDT)
+Received: by mail-wr1-x42f.google.com with SMTP id b5so21944752wrr.5
+        for <linux-man@vger.kernel.org>; Thu, 25 Aug 2022 15:08:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=in-reply-to:references:cc:to:from:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc;
-        bh=NRNROM2HcbpI7DotalRvGgFhY8tcTV84PnjIlea9TF8=;
-        b=IOn7sLJYHymIx83gAsDAghResn7aEZhvkrIit8wTHnq9wokP82US4SY8+W7zNt+WGe
-         9tf/kadCQC2hsbuzbS844/U2CzQ0uhH3QE/4Wuh184cOLOxEtBpZZk/j1tqcaogwLjSh
-         2syjpzjml2HYJ/Nzo/ae0WWcvIsON7Zt264ENFfYIEk27nFDHlA2rHcZEElSLJowdquJ
-         Cc/NDfSyFmTgjL07LE7AGycLTHwNvMX9jSW9M9aXaPfS/H6L3vYusTdPqJshRO8eMj3C
-         VLgRKr9m9F5ndUoHfBd4tULsUaNrJIjJBAn4rrtWY/bn4thWcdaFScmz8F/drFgNItyq
-         JS6A==
+        d=isovalent-com.20210112.gappssmtp.com; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc;
+        bh=e+2mbE3EY6LbH66yMZs6iOUEPtcQI1RliOTDWT7QbUU=;
+        b=zvJEuOr15C+reSrV6n1lt6n9fUPlqz8u2HSF5ZxWNQeLyRTSrQx9yljTSaTGcAKD9c
+         AsJEP64rM/fk2/V1Pscd7qRi3saEioGiObGdmhdDxxXfNata/NkSUNLVWsWTT8FiDtvi
+         bhr3a4I+pG1Tukl5IFPz0FpfIEXhZm5Ar4eug24uVgdwKMuqFpyDVAC4Rlff4euN2WO+
+         HADFO2meL4vvp5UR8wf6IByv/THnaZqiujtxO9p+unCapYnkgGHKCHQQNYTaxIL1xyDA
+         2AT9XJY3beOSgbfa7uArsK1XZUtSsnasXNTS5YzOd3uhHMASj83cd5vKvEne3mBejK87
+         idLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=in-reply-to:references:cc:to:from:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc;
-        bh=NRNROM2HcbpI7DotalRvGgFhY8tcTV84PnjIlea9TF8=;
-        b=LZsHHYnEB9df7XqxtqblEyWW/RoN6T4WoKUUKOwqHsYIRNxcZpb/ps2C2fODAoFCeq
-         cFBLws7xmO2nzU7eRMhEHLTLMENc5y7CgmONvoCWf+/PuFn1GPx2Y/H+30nwAfz9b1Un
-         IsWTe6bZ4yUaOGDpOVcyBXc5Pj3/e2PQYAgUl1Lh5Sbdluj8PS2S/IU7WlOETT+IRu2r
-         9I7yN+/yFpxgdUvvIEjtr3rNMbSM1KbvkJsqnFQVP0cRm6IHEs/oylxnIMZiuC2wD4Av
-         FExFojuSpY0byHRzlZw82FOU9zYFQqorUaLAzGemXY1ahYYIW89JFS1PZ8ayMIe8Q3K2
-         tLCA==
-X-Gm-Message-State: ACgBeo3bSJWY/KNHDpUQf+HrUhYSJsDSTmUsMTrs7Rcgh5ediIuYDLCQ
-        b2QFGU/WmJ6182oCRTzGFjE=
-X-Google-Smtp-Source: AA6agR5D6bLitvZFpCTIAMsjDa9asrOTFDIK+qvjbMXsCE9t8Y1Y87TY/ssrEqfy4PidsB3W3Z7I/A==
-X-Received: by 2002:a5d:4649:0:b0:225:309d:1d51 with SMTP id j9-20020a5d4649000000b00225309d1d51mr3499490wrs.450.1661464496531;
-        Thu, 25 Aug 2022 14:54:56 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id d7-20020a5d4f87000000b002206236ab3dsm328585wru.3.2022.08.25.14.54.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 25 Aug 2022 14:54:56 -0700 (PDT)
-Message-ID: <c4c16145-a05e-474b-f7db-a88aa311a07d@gmail.com>
-Date:   Thu, 25 Aug 2022 23:54:54 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.1.2
-Subject: Re: [PATCH] Fit line in 80 columns
-Content-Language: en-US
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     Andrii Nakryiko <andrii.nakryiko@gmail.com>,
-        Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Cc:     Quentin Monnet <quentin@isovalent.com>, bpf <bpf@vger.kernel.org>,
-        linux-man <linux-man@vger.kernel.org>,
-        Alexei Starovoitov <ast@kernel.org>,
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc;
+        bh=e+2mbE3EY6LbH66yMZs6iOUEPtcQI1RliOTDWT7QbUU=;
+        b=5yy4AUSKcadtOqxqqMAG/VAu37zpWz1xTArvo1TltH21nUDyhEgTLu8Wk7D7vrPgk8
+         VDw6WfYxbOMr63+sVCoioT71LTuEpuqTU6Na+gbNrt/KcvQQkXyAXbnULlI545L8adNi
+         xrajad71zA/lEfIAOgWYKfTgpsI1HdgFbLAmTS3138j3N/F8PZGXzoWkiNdg46J5JT4E
+         EF7lIdUtizK3pXnaErqCNTzsSJU2SdXvF51Kwa+f+lZU5kb9pxfhVvWcVyEJKw4DsoVN
+         kFDhxFDVCr6JE1kZTd9lDygWEF9VehXdCONUseYHWw2zUa5rBt+Ze8yrvqa3vADhkACC
+         PkfQ==
+X-Gm-Message-State: ACgBeo34j56j5EQGNnYJCxFaN8jRmVFSBlXm6Ex56UGIMYSIaAB/8kiX
+        xKz/zUEAjYdTOrajJCn/2v50rA==
+X-Google-Smtp-Source: AA6agR71Zf6kI4YOh6gSdWKYscZ7sIGMO+p9S/VewZaVH/Om3SbSGE6SDKtJiVJoVAaklTpdZ9lF3A==
+X-Received: by 2002:a05:6000:1a8e:b0:225:644c:59a0 with SMTP id f14-20020a0560001a8e00b00225644c59a0mr3343913wry.67.1661465290601;
+        Thu, 25 Aug 2022 15:08:10 -0700 (PDT)
+Received: from harfang.fritz.box ([51.155.200.13])
+        by smtp.gmail.com with ESMTPSA id d2-20020adfe842000000b0020e6ce4dabdsm254192wrn.103.2022.08.25.15.08.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 25 Aug 2022 15:08:10 -0700 (PDT)
+From:   Quentin Monnet <quentin@isovalent.com>
+To:     Alexei Starovoitov <ast@kernel.org>,
         Daniel Borkmann <daniel@iogearbox.net>,
-        Andrii Nakryiko <andrii@kernel.org>,
-        Martin KaFai Lau <kafai@fb.com>,
-        Song Liu <songliubraving@fb.com>, Yonghong Song <yhs@fb.com>,
+        Andrii Nakryiko <andrii@kernel.org>
+Cc:     Martin KaFai Lau <kafai@fb.com>, Song Liu <songliubraving@fb.com>,
+        Yonghong Song <yhs@fb.com>,
         John Fastabend <john.fastabend@gmail.com>,
         KP Singh <kpsingh@kernel.org>,
         Stanislav Fomichev <sdf@google.com>,
         Hao Luo <haoluo@google.com>, Jiri Olsa <jolsa@kernel.org>,
-        Jesper Dangaard Brouer <brouer@redhat.com>
-References: <20220825175653.131125-1-alx.manpages@gmail.com>
- <CAADnVQ+yM_R4vuCLxtNJb0sp61ar=grJh9KmLWVGhXA7Lhpmvw@mail.gmail.com>
- <CAEf4BzbCgHp0MtsSm_ExPO+EGhFWzLUOiFuh1jyrhWfbsDtL3A@mail.gmail.com>
- <403a8238-12e7-1092-a28b-a52f5d63df2c@gmail.com>
-In-Reply-To: <403a8238-12e7-1092-a28b-a52f5d63df2c@gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------Wnhs4xmlrvschggQDUynsUCe"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-        URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.6
+        bpf@vger.kernel.org, Quentin Monnet <quentin@isovalent.com>,
+        Alejandro Colomar <alx.manpages@gmail.com>,
+        Jakub Wilk <jwilk@jwilk.net>,
+        Jesper Dangaard Brouer <brouer@redhat.com>,
+        linux-man@vger.kernel.org
+Subject: [PATCH bpf-next v3] bpf: Fix a few typos in BPF helpers documentation
+Date:   Thu, 25 Aug 2022 23:08:06 +0100
+Message-Id: <20220825220806.107143-1-quentin@isovalent.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+        T_SCC_BODY_TEXT_LINE autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------Wnhs4xmlrvschggQDUynsUCe
-Content-Type: multipart/mixed; boundary="------------Tpoj0lpqPVNxHZliuPfo58Yo";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Andrii Nakryiko <andrii.nakryiko@gmail.com>,
- Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Cc: Quentin Monnet <quentin@isovalent.com>, bpf <bpf@vger.kernel.org>,
- linux-man <linux-man@vger.kernel.org>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
- Martin KaFai Lau <kafai@fb.com>, Song Liu <songliubraving@fb.com>,
- Yonghong Song <yhs@fb.com>, John Fastabend <john.fastabend@gmail.com>,
- KP Singh <kpsingh@kernel.org>, Stanislav Fomichev <sdf@google.com>,
- Hao Luo <haoluo@google.com>, Jiri Olsa <jolsa@kernel.org>,
- Jesper Dangaard Brouer <brouer@redhat.com>
-Message-ID: <c4c16145-a05e-474b-f7db-a88aa311a07d@gmail.com>
-Subject: Re: [PATCH] Fit line in 80 columns
-References: <20220825175653.131125-1-alx.manpages@gmail.com>
- <CAADnVQ+yM_R4vuCLxtNJb0sp61ar=grJh9KmLWVGhXA7Lhpmvw@mail.gmail.com>
- <CAEf4BzbCgHp0MtsSm_ExPO+EGhFWzLUOiFuh1jyrhWfbsDtL3A@mail.gmail.com>
- <403a8238-12e7-1092-a28b-a52f5d63df2c@gmail.com>
-In-Reply-To: <403a8238-12e7-1092-a28b-a52f5d63df2c@gmail.com>
+Address a few typos in the documentation for the BPF helper functions.
+They were reported by Jakub [0], who ran spell checkers on the generated
+man page [1].
 
---------------Tpoj0lpqPVNxHZliuPfo58Yo
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+[0] https://lore.kernel.org/linux-man/d22dcd47-023c-8f52-d369-7b5308e6c842@gmail.com/T/#mb02e7d4b7fb61d98fa914c77b581184e9a9537af
+[1] https://lore.kernel.org/linux-man/eb6a1e41-c48e-ac45-5154-ac57a2c76108@gmail.com/T/#m4a8d1b003616928013ffcd1450437309ab652f9f
 
-T24gOC8yNS8yMiAyMzo1MSwgQWxlamFuZHJvIENvbG9tYXIgd3JvdGU6DQo+IE9uIDgvMjUv
-MjIgMjM6MzYsIEFuZHJpaSBOYWtyeWlrbyB3cm90ZToNCj4+IE9uIFRodSwgQXVnIDI1LCAy
-MDIyIGF0IDExOjA3IEFNIEFsZXhlaSBTdGFyb3ZvaXRvdg0KPj4gPGFsZXhlaS5zdGFyb3Zv
-aXRvdkBnbWFpbC5jb20+IHdyb3RlOg0KPj4+IFdlIGRvbid0IGZvbGxvdyA4MCBjaGFyIGxp
-bWl0IGFuZCBhcmUgbm90IGdvaW5nIHRvIGJlY2F1c2Ugb2YgbWFuIHBhZ2VzLg0KPj4NCj4+
-IEFuZCBpdCdzIHF1ZXN0aW9uYWJsZSBpbiBnZW5lcmFsIHRvIGVuZm9yY2UgbGluZSBsZW5n
-dGggZm9yIHZlcmJhdGltDQo+PiAoY29kZSkgYmxvY2suIEl0J3MgdmVyYmF0aW0gZm9yIGEg
-Z29vZCByZWFzb24sIGl0IGNhbid0IGJlIHdyYXBwZWQuDQo+IA0KPiBUaGF0J3Mgd2h5IGlu
-c3RlYWQgb2Ygd3JhcHBpbmcsIEkgcmVkdWNlZCB0aGUgbGVuZ3RoIG9mIHNvbWUgDQo+ICJp
-ZGVudGlmaWVyIi7CoCBJdCdzIG5vdCBlbmZvcmNlZCwgYnV0IGl0J3MgbmljZXIgaWYgaXQg
-Zml0cy7CoCBUaGVyZSBhcmUgDQo+IHNldmVyYWwgb3RoZXIgY2FzZXMsIHdoZXJlIGl0IHdh
-c24ndCBlYXN5IHRvIG1ha2UgaXQgc2hvcnRlciwgYW5kIEkgbGVmdCANCj4gaXQgZXhjZWVk
-aW5nIHRoZSBtYXJnaW4uDQo+IA0KPiBJdCdzIG5vdCBzbyBjcnVjaWFsIHRvIGZpeCBpdCwg
-YW5kIGlmIHlvdSBwcmVmZXIgaXQgbGlrZSBpdCBpcyANCj4gY3VycmVudGx5LCBpdCdzIHJl
-YXNvbmFibGUuwqAgVGhpcyBpcyBhIHN1Z2dlc3Rpb24sIHRvIG1ha2UgaXQgZWFzaWVyIHRv
-IA0KPiByZWFkLg0KDQpBcyBhbiBleGFtcGxlLCB5b3UgY2FuIHNlZSB0aGlzIGNvbW1pdCBy
-ZWNlbnRseSBhcHBsaWVkIHRvIHRoZSBtYW4tcGFnZXM6DQoNCjxodHRwczovL2dpdC5rZXJu
-ZWwub3JnL3B1Yi9zY20vZG9jcy9tYW4tcGFnZXMvbWFuLXBhZ2VzLmdpdC9jb21taXQvP2lk
-PWU1ZGExNmYxMGYyZDNkNTVkYjBiYjFlZjExNTZhZmNiMTk3ZDhmZGM+DQoNCkkgb25seSBt
-YWRlIGxpbmVzIHNob3J0ZXIgaW4gY2FzZXMgd2hlcmUgbm8gaW5mbyB3YXMgbG9zdCAoaW5j
-bHVkaW5nIA0KZm9ybWF0KS4NCg0KLS0gDQpBbGVqYW5kcm8gQ29sb21hcg0KPGh0dHA6Ly93
-d3cuYWxlamFuZHJvLWNvbG9tYXIuZXMvPg0K
+v3: Do not copy unrelated (and breaking) elements to tools/ header
+v2: Turn a ',' into a ';'
 
---------------Tpoj0lpqPVNxHZliuPfo58Yo--
+Cc: Alejandro Colomar <alx.manpages@gmail.com>
+Cc: Jakub Wilk <jwilk@jwilk.net>
+Cc: Jesper Dangaard Brouer <brouer@redhat.com>
+Cc: linux-man@vger.kernel.org
+Reported-by: Jakub Wilk <jwilk@jwilk.net>
+Signed-off-by: Quentin Monnet <quentin@isovalent.com>
+---
+ include/uapi/linux/bpf.h       | 16 ++++++++--------
+ tools/include/uapi/linux/bpf.h | 16 ++++++++--------
+ 2 files changed, 16 insertions(+), 16 deletions(-)
 
---------------Wnhs4xmlrvschggQDUynsUCe
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+diff --git a/include/uapi/linux/bpf.h b/include/uapi/linux/bpf.h
+index 0f61f09f467a..01c54a462352 100644
+--- a/include/uapi/linux/bpf.h
++++ b/include/uapi/linux/bpf.h
+@@ -4456,7 +4456,7 @@ union bpf_attr {
+  *
+  *		**-EEXIST** if the option already exists.
+  *
+- *		**-EFAULT** on failrue to parse the existing header options.
++ *		**-EFAULT** on failure to parse the existing header options.
+  *
+  *		**-EPERM** if the helper cannot be used under the current
+  *		*skops*\ **->op**.
+@@ -4665,7 +4665,7 @@ union bpf_attr {
+  *		a *map* with *task* as the **key**.  From this
+  *		perspective,  the usage is not much different from
+  *		**bpf_map_lookup_elem**\ (*map*, **&**\ *task*) except this
+- *		helper enforces the key must be an task_struct and the map must also
++ *		helper enforces the key must be a task_struct and the map must also
+  *		be a **BPF_MAP_TYPE_TASK_STORAGE**.
+  *
+  *		Underneath, the value is stored locally at *task* instead of
+@@ -4723,7 +4723,7 @@ union bpf_attr {
+  *
+  * long bpf_ima_inode_hash(struct inode *inode, void *dst, u32 size)
+  *	Description
+- *		Returns the stored IMA hash of the *inode* (if it's avaialable).
++ *		Returns the stored IMA hash of the *inode* (if it's available).
+  *		If the hash is larger than *size*, then only *size*
+  *		bytes will be copied to *dst*
+  *	Return
+@@ -4747,12 +4747,12 @@ union bpf_attr {
+  *
+  *		The argument *len_diff* can be used for querying with a planned
+  *		size change. This allows to check MTU prior to changing packet
+- *		ctx. Providing an *len_diff* adjustment that is larger than the
++ *		ctx. Providing a *len_diff* adjustment that is larger than the
+  *		actual packet size (resulting in negative packet size) will in
+- *		principle not exceed the MTU, why it is not considered a
+- *		failure.  Other BPF-helpers are needed for performing the
+- *		planned size change, why the responsability for catch a negative
+- *		packet size belong in those helpers.
++ *		principle not exceed the MTU, which is why it is not considered
++ *		a failure.  Other BPF helpers are needed for performing the
++ *		planned size change; therefore the responsibility for catching
++ *		a negative packet size belongs in those helpers.
+  *
+  *		Specifying *ifindex* zero means the MTU check is performed
+  *		against the current net device.  This is practical if this isn't
+diff --git a/tools/include/uapi/linux/bpf.h b/tools/include/uapi/linux/bpf.h
+index 5056cef2112f..d45dda46aa42 100644
+--- a/tools/include/uapi/linux/bpf.h
++++ b/tools/include/uapi/linux/bpf.h
+@@ -4456,7 +4456,7 @@ union bpf_attr {
+  *
+  *		**-EEXIST** if the option already exists.
+  *
+- *		**-EFAULT** on failrue to parse the existing header options.
++ *		**-EFAULT** on failure to parse the existing header options.
+  *
+  *		**-EPERM** if the helper cannot be used under the current
+  *		*skops*\ **->op**.
+@@ -4665,7 +4665,7 @@ union bpf_attr {
+  *		a *map* with *task* as the **key**.  From this
+  *		perspective,  the usage is not much different from
+  *		**bpf_map_lookup_elem**\ (*map*, **&**\ *task*) except this
+- *		helper enforces the key must be an task_struct and the map must also
++ *		helper enforces the key must be a task_struct and the map must also
+  *		be a **BPF_MAP_TYPE_TASK_STORAGE**.
+  *
+  *		Underneath, the value is stored locally at *task* instead of
+@@ -4723,7 +4723,7 @@ union bpf_attr {
+  *
+  * long bpf_ima_inode_hash(struct inode *inode, void *dst, u32 size)
+  *	Description
+- *		Returns the stored IMA hash of the *inode* (if it's avaialable).
++ *		Returns the stored IMA hash of the *inode* (if it's available).
+  *		If the hash is larger than *size*, then only *size*
+  *		bytes will be copied to *dst*
+  *	Return
+@@ -4747,12 +4747,12 @@ union bpf_attr {
+  *
+  *		The argument *len_diff* can be used for querying with a planned
+  *		size change. This allows to check MTU prior to changing packet
+- *		ctx. Providing an *len_diff* adjustment that is larger than the
++ *		ctx. Providing a *len_diff* adjustment that is larger than the
+  *		actual packet size (resulting in negative packet size) will in
+- *		principle not exceed the MTU, why it is not considered a
+- *		failure.  Other BPF-helpers are needed for performing the
+- *		planned size change, why the responsability for catch a negative
+- *		packet size belong in those helpers.
++ *		principle not exceed the MTU, which is why it is not considered
++ *		a failure.  Other BPF helpers are needed for performing the
++ *		planned size change; therefore the responsibility for catching
++ *		a negative packet size belongs in those helpers.
+  *
+  *		Specifying *ifindex* zero means the MTU check is performed
+  *		against the current net device.  This is practical if this isn't
+-- 
+2.34.1
 
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmMH764ACgkQnowa+77/
-2zJF7A/+PJ7dq++1Tw5HkmqSxWpk57Vv8HYi4lFXGDhd/TddpVTwnd8lIyXi5KMz
-0C330+aP3lRsdzCgawzBL+LFaeg3RQAMvH2O7a4nEJbFy9DoI2XIl9/WhFMduuY5
-2L7APETMrlpZBMKc8JKpjTJxjUD7aOcr+NI4RHB51/jgV2RbeOcAmvmvYdQXJJfe
-fguhokSwY3YP2YlLtnpdvNd4l9YxPSxdUE6Ko3IlgyGnqzrj8Jxoaup9klBvd1d1
-cPtnfaXPUb4W0sCxP++KLYG6zOONCK6qegBH/5692QtBEPWyvf1NjT2xRiHx/qca
-2LYftachS+x9DQ89NttvanJyCBIq3yId0D6Uq/PY/XszMM9FAUa4AcNAu97HDVIU
-3ZKXAoFCZXLE5MefxZ7CPZmndk1UscrE+74Bn6GH7p+GrbhT0j/xLHtd8xwFq/LL
-CL8BZj1uTBKtsWc9NPtzj4dxkG6/qSCDTUct3+HfsdhDbfi3WP5Foidn+HGzI1bb
-AL+G8Nft7aRk1q/tH+TCFMAw+IHM/gEA02cdGeR10dm3n28u115A2xyz5rG9FI66
-CptJjg6W95fGG7WLfgp5W+NgFN/k+KDycy2/Qw31nyCbS2VuHxGT+WhEO2VpeXvm
-SYuklcqJCTchI13zTScBd0+40qa6yJzXy1fUoDnDiuwtKzxSkiw=
-=Bipr
------END PGP SIGNATURE-----
-
---------------Wnhs4xmlrvschggQDUynsUCe--
