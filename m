@@ -2,141 +2,284 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id A24F95A37C9
-	for <lists+linux-man@lfdr.de>; Sat, 27 Aug 2022 15:08:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7B6AD5A398C
+	for <lists+linux-man@lfdr.de>; Sat, 27 Aug 2022 20:38:40 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229840AbiH0NId (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 27 Aug 2022 09:08:33 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41166 "EHLO
+        id S230302AbiH0Sij (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 27 Aug 2022 14:38:39 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59514 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229677AbiH0NId (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 27 Aug 2022 09:08:33 -0400
-Received: from scc-mailout-kit-02.scc.kit.edu (scc-mailout-kit-02.scc.kit.edu [IPv6:2a00:1398:9:f712::810d:e752])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5B0252CE35
-        for <linux-man@vger.kernel.org>; Sat, 27 Aug 2022 06:08:31 -0700 (PDT)
-Received: from hekate.asta.kit.edu ([2a00:1398:5:f401::77])
-        by scc-mailout-kit-02.scc.kit.edu with esmtps (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-        (envelope-from <schwarze@usta.de>)
-        id 1oRvY5-004K8O-5v; Sat, 27 Aug 2022 15:08:29 +0200
-Received: from login-1.asta.kit.edu ([2a00:1398:5:f400::72])
-        by hekate.asta.kit.edu with esmtp (Exim 4.94.2)
-        (envelope-from <schwarze@usta.de>)
-        id 1oRvY4-007h0o-OL; Sat, 27 Aug 2022 15:08:28 +0200
-Received: from schwarze by login-1.asta.kit.edu with local (Exim 4.92)
-        (envelope-from <schwarze@usta.de>)
-        id 1oRvY4-00070p-NP; Sat, 27 Aug 2022 15:08:28 +0200
-Date:   Sat, 27 Aug 2022 15:08:28 +0200
-From:   Ingo Schwarze <schwarze@usta.de>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org, JeanHeyd Meneide <wg14@soasis.org>
+        with ESMTP id S229884AbiH0Sii (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 27 Aug 2022 14:38:38 -0400
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com [IPv6:2a00:1450:4864:20::42f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6C0D7C120E
+        for <linux-man@vger.kernel.org>; Sat, 27 Aug 2022 11:38:33 -0700 (PDT)
+Received: by mail-wr1-x42f.google.com with SMTP id z16so5413323wrh.10
+        for <linux-man@vger.kernel.org>; Sat, 27 Aug 2022 11:38:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:from:to:cc;
+        bh=KcVY3iAV3TRrlHM7k7Sy9mB4dD/eF3pqtJB7acm+R3c=;
+        b=TJvi7294o2eYGq4lR8LhhTzFGmTOgudZH4vQqyVDo1vfd+j4gsbnuSAvArn9lExbBj
+         qpCyDD29hYR1415ktONDEVfJRlr5OHhqGcfQYCjgQkdQAvXUKAT15Yd3kjt2vLCCgw0b
+         Qq2L/UhjfNTCv2fePcaf4jkfoC24G17/oodhaxXVL5A8g4g4PYA4TQfpcTyX9urq3vH1
+         1LOeKgDDmxf+qvh/SoXaFAPU9vCva3OfnuPImzQXf+N812k8JhcnpqxJHp1fgfpFcbp4
+         lZG2cA02HdJY7aaMEsCn1Bq086PWhytVQv/zE3uoPVtOt1o8fzEPDkGnm1YWhJF+b6b0
+         yuzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc;
+        bh=KcVY3iAV3TRrlHM7k7Sy9mB4dD/eF3pqtJB7acm+R3c=;
+        b=5ePgUYvGFKP5a4qalYsMMwwiFq0q0X06UrbbwBdhjuq+EmcTd4iytXgKDKoGpVuVdU
+         3UrVlXdDpE01Ci89+8wgkx54UbsqRtO+f7ffW6iOiEQG85NjzSUtWuW1k13mZGYv+lm2
+         5wulq14Hf5Y4YhwNQIpElttODnFK3w5YoIDdxYMtm0noSI8H1Svwq6crydYPPkI32++N
+         d5vKm43904s1hTDvMUEzakG7iMPCcN+bYw/JIBIefQz5i66D4dv89Kez6+7oVJYwdkoD
+         hcu1OcxQePs5iDGANgbctn0JKfLvwR3WRP8BNxtH7BDodIatAcYaZryppGy0E3hCLtvj
+         GbXw==
+X-Gm-Message-State: ACgBeo3CLOzM5tG5jjdxCCHZP7iwBHpvQyutvyhV0SeQpEepQ/tnZAYR
+        /F2TELcnbv/1kBHg28Q5DYV/JF5I/IE=
+X-Google-Smtp-Source: AA6agR5gF1ClGYKxVNGLv220fKy4tiLbG4StG5hc87w37lzQK3TbYpogyK0jxxCopVWPI5W3rvkDEg==
+X-Received: by 2002:a05:6000:507:b0:225:5019:803b with SMTP id a7-20020a056000050700b002255019803bmr2718554wrf.617.1661625511360;
+        Sat, 27 Aug 2022 11:38:31 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id 1-20020a05600c230100b003a643ac2b08sm3515803wmo.8.2022.08.27.11.38.25
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 27 Aug 2022 11:38:26 -0700 (PDT)
+Message-ID: <e29de088-ae10-bbc8-0bfd-90bbb63aaf06@gmail.com>
+Date:   Sat, 27 Aug 2022 20:38:10 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.1.2
 Subject: Re: [PATCH] Various pages: SYNOPSIS: Use VLA syntax in function
  parameters
-Message-ID: <YwoXTGD8ljB8Gg6s@asta-kit.de>
+Content-Language: en-US
+To:     Ingo Schwarze <schwarze@usta.de>
+Cc:     linux-man@vger.kernel.org, JeanHeyd Meneide <wg14@soasis.org>
 References: <20220826210710.35237-1-alx.manpages@gmail.com>
  <Ywn7jMtB5ppSW0PB@asta-kit.de>
  <89d79095-d1cd-ab2b-00e4-caa31126751e@gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <89d79095-d1cd-ab2b-00e4-caa31126751e@gmail.com>
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED,
-        SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=ham
-        autolearn_force=no version=3.4.6
+ <YwoXTGD8ljB8Gg6s@asta-kit.de>
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <YwoXTGD8ljB8Gg6s@asta-kit.de>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------fZc2Mn6n6G5Ddlt8vzJ0BkQS"
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Alejandro,
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------fZc2Mn6n6G5Ddlt8vzJ0BkQS
+Content-Type: multipart/mixed; boundary="------------a8C6c8qFuIshvJhzl382mYto";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: Ingo Schwarze <schwarze@usta.de>
+Cc: linux-man@vger.kernel.org, JeanHeyd Meneide <wg14@soasis.org>
+Message-ID: <e29de088-ae10-bbc8-0bfd-90bbb63aaf06@gmail.com>
+Subject: Re: [PATCH] Various pages: SYNOPSIS: Use VLA syntax in function
+ parameters
+References: <20220826210710.35237-1-alx.manpages@gmail.com>
+ <Ywn7jMtB5ppSW0PB@asta-kit.de>
+ <89d79095-d1cd-ab2b-00e4-caa31126751e@gmail.com>
+ <YwoXTGD8ljB8Gg6s@asta-kit.de>
+In-Reply-To: <YwoXTGD8ljB8Gg6s@asta-kit.de>
 
-Alejandro Colomar wrote on Sat, Aug 27, 2022 at 02:15:32PM +0200:
-> On 8/27/22 13:10, Ingo Schwarze wrote:
->> Alejandro Colomar wrote:
+--------------a8C6c8qFuIshvJhzl382mYto
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
->>> -.BI "char *getcwd(char *" buf ", size_t " size );
->>> +.BI "char *getcwd(char " buf [ size "], size_t " size );
+SGkgSW5nbywNCg0KT24gOC8yNy8yMiAxNTowOCwgSW5nbyBTY2h3YXJ6ZSB3cm90ZToNClsu
+Li5dDQoNCj4+ICAgICAgIHZvaWQgKm1lbW1vdmUodm9pZCAqZGVzdCwgY29uc3Qgdm9pZCAq
+c3JjLCBzaXplX3Qgbik7DQo+Pg0KPj4gICAgICAgdm9pZCAqbWVtY3B5KHZvaWQgKnJlc3Ry
+aWN0IGRlc3QsIGNvbnN0IHZvaWQgKnJlc3RyaWN0IHNyYywNCj4+ICAgICAgICAgICAgICAg
+ICAgICBzaXplX3Qgbik7DQo+IA0KPiBBY3R1YWxseSwgdGhlIHN5bnRheCBvZiBib3RoIGlz
+IGlkZW50aWNhbCwgb25seSB0aGUgc2VtYW50aWNzIGRpZmZlci4NCj4gDQo+IFRoYXQgc2Fp
+ZCwgeW91IGFyZSByaWdodCB0aGF0IHVzaW5nIG1lbWNweSgzKSB3aGVuIG1lbW1vdmUoMykg
+aXMNCj4gcmVxdWlyZWQgaXMgYSBmYW1vdXMgYW5kIHdpZGVzcHJlYWQgYnVnLiAgSSBkb3Vi
+dCBwdXR0aW5nICJyZXN0cmljdCINCj4gaW50byB0aGUgU1lOT1BTSVMgd2lsbCBkaXNjb3Vy
+YWdlIGNhcmVsZXNzIHByb2dyYW1tZXJzIGZyb20gbWFraW5nIHRoYXQNCj4gbWlzdGFrZSB0
+aG91Z2guDQoNClRoZXJlIHdpbGwgYWx3YXlzIGJlIGNvbXBsZXRlbHkgY2FyZWxlc3MgcHJv
+Z3JhbW1lcnMsIGFuZCBJIHdvbid0IA0KYXR0ZW1wdCB0byB0YXJnZXQgdGhvc2UuICBCdXQg
+SSBob3BlIHRvIGluY3JlYXNlIHRoZSBwZXJjZW50YWdlIG9mIA0KcG9wdWxhdGlvbiB0aGF0
+IHJlY2VpdmVzIHRoZSBtZXNzYWdlIHdpdGggdGhpcyBjaGFuZ2UuDQoNClRoZXJlJ3MgYSBs
+b3Qgb2YgZ29vZCBwcm9ncmFtbWVycyBvdXQgdGhlcmUgdGhhdCBpZ25vcmUgd2hhdCB3ZSdk
+IA0KcHJvYmFibHkgY29uc2lkZXIgYmFzaWMgc3R1ZmYuICBJJ3ZlIHNlZW4gdmVyeSBzdWNj
+ZXNzZnVsIHByb2dyYW1tZXJzIA0KdXNpbmcgcG9pbnRlciB0eXBlcyB0byBzdG9yZSBvZmZz
+ZXRzLCB3aGVyZSBwdHJkaWZmX3Qgc2hvdWxkIGJlIHVzZWQ7IA0KYW5kIG9mIGNvdXJzZSB0
+aGUgY29kZSBpcyBmdWxsIG9mIGNhc3RzIChpbmNsdWRpbmcgdG8gdWludHB0cl90KSB0byAN
+CnNpbGVuY2UgdGhlIGh1bmRyZWRzIG9mIHdhcm5pbmdzIGZyb20gdGhlIGNvbXBpbGVyIHll
+bGxpbmcgYXQgdGhhdCANCmJsYXNwaGVteSAoMyBjYXN0cyBpbiBhIGxpbmUgb2YgY29kZSB0
+aGF0IHNob3VsZCBiZSBqdXN0ICdxID0gcCArIG9mZnNldDsnKS4NCg0KSSBkb24ndCB0aGlu
+ayBpdCdzIG9ubHkgY2FyZWxlc3NuZXNzIChva2F5LCB0aGVyZSdzIGEgYml0IG9mIGl0KSwg
+YnV0IA0KbW9yZSB0aGF0IHNvbWUgcHJvZ3JhbW1lcnMgc3RpbGwgbGl2ZSBpbiB0aGUgcGFz
+dCBjZW50dXJ5LCBhbmQgZG9uJ3QgDQprbm93IHRoYXQgJ2NvbnN0JywgYW5kIG1vcmUgcmVj
+ZW50bHkgJ3Jlc3RyaWN0JyB3ZXJlIGFkZGVkIHRvIHRoZSANCmxhbmd1YWdlLiAgRGlkIHRo
+ZXkgbGl2ZSBpbiBhIGNhdmU/ICBTbyBpdCBzZWVtcy4NCg0KPiANCj4gVG8gbWUsICJyZXN0
+cmljdCIgZmVlbHMgbGlrZSBhIHNwZWNpYWxpemVkIHRvb2wgZm9yIHBlb3BsZSB3cml0aW5n
+DQo+IGNvbXBpbGVyIG9wdGltaXplcnMsIG5vdCBsaWtlIHNvbWV0aGluZyBpbXBvcnRhbnQg
+ZW5vdWdoIHRvIGNsdXR0ZXINCj4gQVBJIGRvY3VtZW5hdGlvbi4NCj4gDQo+PiBEbyB5b3Ug
+cmVnYXJkIHRoZSAoYWJ1c2VkKSBWTEEgc3ludGF4IGFzIHNvbWV0aGluZyBtdWNoIHdvcnNl
+IHRoYW4gdGhlDQo+PiB1c2Ugb2YgcmVzdHJpY3Q/ICBPciBhcmUgdGhleSBtb3JlIG9yIGxl
+c3MgZXF1aXZhbGVudCB0byB5b3U/DQo+IA0KPiBJZiB5b3VyIGltcGxlbWVudGF0aW9uIHJl
+YWxseSBjb250YWlucyAicmVzdHJpY3QiIGluIHRoZSBoZWFkZXINCj4gZmlsZSBhbmQgaXQn
+cyBzdGFuZGFyZGl6ZWQsIHB1dHRpbmcgaXQgaW50byB0aGUgU1lOT1BTSVMgc2VlbXMNCj4g
+YWNjZXB0YWJsZSB0byBtZS4gIE5vdCBuZWNlc3NhcnkgdGhvdWdoIGFuZCBtYXliZSBzb21l
+d2hhdCBub2lzeQ0KPiBhbmQgZGlzdHJhY3RpbmcuDQoNCkkgd291bGQgZG9jdW1lbnQgcmVz
+dHJpY3QgZXZlbiBpZiBnbGliYyBvbW1pdGVkIGl0IGZyb20gdGhlaXIgDQpwcm90b3R5cGVz
+LCBiZWNhdXNlIHRoZSBtYW51YWwgcGFnZXMgZG9jdW1lbnQgdGhlIGJlaGF2aW9yLCBhbmQg
+YXJlIG5vdCANCnJlcXVpcmVkIHRvIGJlIHVuaW5mb3JtYXRpdmUgd2hlbiB0aGUgaW1wbGVt
+ZW50YXRpb24gaXMuICBtZW1jcHkoMykgDQpyZXF1aXJlcyByZXN0cmljdCBwb2ludGVycywg
+ZXZlbiBpZiB0aGUgaW1wbGVtZW50YXRpb24gZG9lc24ndCBhZHZlcnRpc2UgDQppdC4gIFRo
+ZSBydW4tdGltZSBiZWhhdmlvciB3aWxsIHByb2R1Y2UgYnVncyBpZiB0aGUgcG9pbnRlcnMg
+YXJlbid0IA0KcmVzdHJpY3QsIGFuZCBzbyB0aGUgZG9jdW1lbnRhdGlvbiBiZXR0ZXIgdGVs
+bHMgdGhhdC4NCg0KU2hvdWxkIHRoYXQgb25seSBiZSBsaW1pdGVkIHRvIHRoZSBERVNDUklQ
+VElPTj8gIE1heWJlLiAgSSBkb24ndCBsaWtlIA0KdGhhdCBpZGVhLCB3aGVuIHdlIGhhdmUg
+dGhlIGxhbmd1YWdlIHRvIGV4cHJlc3MgdGhhdCBtb3JlIHByZWNpc2VseSBhbmQgDQpjb25j
+aXNlbHkuDQoNCldoYXQgaXMgdGhlIHVzZWZ1bG5lc3Mgb2YgYSBwcm90b3R5cGUgdGhhdCBp
+cyBhcyBzaG9ydCBhcyBwb3NzaWJsZT8NCk9rYXksIGl0J3MgbGVzcyBub2lzeSwgYnV0IGF0
+IHRoZSBjb3N0IG9mIGdpdmluZyBsZXNzIGluZm9ybWF0aW9uIHRvIGFuIA0KaW50ZXJlc3Rl
+ZCByZWFkZXIuDQoNCiAgICAgdm9pZCAqbWVtY3B5KHZvaWQgZGVzdFtyZXN0cmljdCBuXSwg
+Y29uc3Qgdm9pZCBzcmNbcmVzdHJpY3Qgbl0sDQogICAgICAgICAgICAgICAgICBzaXplX3Qg
+bik7DQoNCiAgICAgdm9pZCAqbWVtY3B5KHZvaWQgKnJlc3RyaWN0IGRlc3QsIGNvbnN0IHZv
+aWQgKnJlc3RyaWN0IHNyYywNCiAgICAgICAgICAgICAgICAgIHNpemVfdCBuKTsNCg0KICAg
+ICB2b2lkICptZW1jcHkodm9pZCAqZGVzdCwgY29uc3Qgdm9pZCAqc3JjLCBzaXplX3Qgbik7
+DQoNCiAgICAgdm9pZCAqbWVtY3B5KHZvaWQgKmRlc3QsIHZvaWQgKnNyYywgc2l6ZV90IG4p
+Ow0KDQogICAgIHZvaWQgKm1lbWNweSh2b2lkICosIHZvaWQgKiwgc2l6ZV90KTsNCg0KV2hl
+cmUgZG8gd2Ugc3RvcD8gIE9rYXksIEkgd2FzIGFidXNpbmcgdG9vIG11Y2ggaW4gdGhlIGZp
+cnN0IG9uZS4gIEkgDQpkaWRuJ3QgZGFyZSB0byBwcm9wb3NlIHRoYXQsIHNpbmNlIFZMQSBz
+eW50YXggd2l0aCB2b2lkIGlzLCByaWdodCBub3csIGEgDQpzaG9vdGluZyBvZmZlbnNlLiAg
+R05VIEMgYWxsb3dzIHBvaW50ZXIgYXJpdGhtZXRpYyBvbiAndm9pZCAqJywgYnV0IGZvciAN
+CnNvbWUgcmVhc29uLCB3aGVuIHRoZXkgYXJlIGRpc2d1aXNlZCBhcyBmYWxzZSBhcnJheXMg
+aXQgaXMgbm90IGFsbG93ZWQgDQp0byBjb21waWxlLiAgR2l2ZSBpdCBzb21lIGRlY2FkZXMs
+IHRob3VnaC4gIEkgdGhpbmsgaXQgd291bGQgYmUgdXNlZnVsLg0KDQpUaGVzZSBwcm90b3R5
+cGVzIGdpdmUgc2V2ZXJhbCBsZXZlbHMgb2YgaW5mb3JtYXRpb24sIGZyb20gbW9zdCBiYXNp
+YywgdG8gDQptb3N0IHByZWNpc2U6DQoNCi0gbnVtYmVyIG9mIGFyZ3VtZW50cy4NCi0gdHlw
+ZSBvZiB0aGUgYXJndW1lbnRzLg0KLSBzbWFsbCBkZXNjcmlwdGlvbiBvZiB3aGF0IHRoZXkg
+bWVhbiAodGhyb3VnaCB0aGUgbmFtZXMpLg0KLSBhcmUgcG9pbnRlcnMgb25seSB1c2VkIGZv
+ciByZWFkaW5nLCBvciBhcmUgdGhlIHBvaW50ZWVzIGFsc28gbW9kaWZpZWQ/DQotIGNhbiBw
+b2ludGVycyBwb2ludCB0byB0aGUgc2FtZSBzdG9yYWdlPw0KLSBob3cgbWFueSBlbGVtZW50
+cy9ieXRlcyBoYXMgdGhlIHN0b3JhZ2UgcG9pbnRlZCB0byBieSBwb2ludGVycz8NCg0KQW5k
+IG5vdyB5ZXQgaW4gdGhvc2UgcHJvdG90eXBlcywgYnV0IEknZCBhbHNvIGxpa2UgdG8gZ2l2
+ZSBpbmZvcm1hdGlvbiANCmFib3V0IGlmIHBvaW50ZXJzIGFyZSBhbGxvd2VkIHRvIGJlIG51
+bGwgb3Igbm90LiAgSSdtIHN0aWxsIG5vdCANCmNvbnZpbmNlZCBhYm91dCBob3cgdG8gZG9j
+dW1lbnQgdGhhdC4NCg0KV2h5IGRyYXcgdGhlIGxpbmUgb2YgdGhpcyBpcyB1c2VmdWwgYW5k
+IHRoaXMgaXMgbm9pc2UgaW4gYSBzcGVjaWZpYyANCnBvaW50PyAgVGhlIGRlc2NyaXB0aW9u
+IGNvdWxkIHBlcmZlY3RseSBkb2N1bWVudCB0aGUgY29uc3QtbmVzcyBvZiBhIA0KcGFyYW1l
+dGVyIGFzIHdlbGwgYXMgaXQgZG9jdW1lbnRzIHRoZSByZXN0cmljdC1uZXNzIG9yIHRoZSBu
+dWxsLW5lc3MuICBJIA0KdGhpbmsgdGhhdCBoYXZpbmcgdGhlIHByb3RvdHlwZXMgYmUgY29u
+Y2lzZSBpcyBnb29kLCBidXQgdGhlIG92ZXJhbGwgDQpnb2FsIGlzIHRvIGhhdmUgdGhlIHdo
+b2xlIG1hbnVhbCBwYWdlIGNvbmNpc2UuICBJZiBhZGRpbmcgYSBsaXR0bGUgYml0IA0KdG8g
+dGhlIHByb3RvdHlwZXMgbWFrZXMgdGhlIGRlc2NyaXB0aW9uIG11Y2ggbW9yZSBjb25jaXNl
+IChzaW5jZSBpdCANCmRvZXNuJ3QgbmVlZCB0byBkb2N1bWVudCBjb25zdC1uZXNzLCBhbmQg
+aG9wZWZ1bGx5IHJlc3RyaWN0LW5lc3MgYW5kIA0KbnVsbC1uZXNzIG9yIHNpemUsIG9yIGF0
+IGxlYXN0IGl0IGNhbiBiZSBzaG9ydGVyIGFib3V0IGl0IHNpbmNlIHRoZSANCnByb3RvdHlw
+ZSBhbHJlYWR5IHRlbGxzIHlvdSBhIGJpZyBwYXJ0KSwgSSdkIGdvIGZvciBpdC4NCg0KPiAN
+Cj4gUHV0dGluZyBzb21ldGhpbmcgdGhhdCBpcyBub3QgaW4gdGhlIGltcGxlbWVudGF0aW9u
+IGFuZC9vciBub3QNCj4gaW4gdGhlIHN0YW5kYXJkIGludG8gdGhlIFNZTk9QU0lTIHNlZW1z
+IG11Y2ggd29yc2UgdG8gbWUuDQoNCkkgaGF2ZSBtaXhlZCBmZWVsaW5ncyBhYm91dCB0aGlz
+Lg0KDQpBcyB5b3UgcHJvYmFibHkga25vdyBieSBvbGRlciB0aHJlYWRzLCBJIGRvbid0IGxp
+a2UgdGhlIHN0YW5kYXJkIGFzIGEgDQpkcml2aW5nIGZvcmNlIGluIEMsIHNvIEkgZG9uJ3Qg
+bGlrZSB0aGUgaWRlYSB0aGF0IGltcGxlbWVudGF0aW9ucyBhbmQgDQpkb2N1bWVudGF0aW9u
+IHNob3VsZCBnbyBiZWhpbmQgdGhlIHN0YW5kYXJkLCB1c2luZyB3aGF0ZXZlciB0aGUgc3Rh
+bmRhcmQgDQpwcm92aWRlcyB0aGVtIHdpdGguICBJdCdzIG5vdCBjb21wbGV0ZWx5IGxpa2Ug
+dGhhdCwgYXMgSSBhY2tub3dsZWRnZSANCnRoYXQgdGhlIHN0YW5kYXJkIGhhcyBpbXByb3Zl
+ZCBjb25zaWRlcmFibHkgdGhlIGxhbmd1YWdlIGFuZCB0aGUgDQpsaWJyYXJ5LCBhbmQgSSBs
+aWtlIHRvIHVzZSBzb21lIG9mIHRoZWlyIGltcHJvdmVtZW50cywgb3IgZXZlbiB0aGluZ3Mg
+DQp0aGF0IGl0IGlzIHlldCBjb25zaWRlcmluZyAobXkgb3duIHBlcnNvbmFsIGNvZGUgSSBi
+dWlsZCBpdCB3aXRoIA0KLXN0ZD1nbnUyeCwgc2luY2UgaXQncyBqdXN0IGZvciBtZSwgc28g
+SSBkb24ndCBjYXJlIGFib3V0IHBvcnRhYmlsaXR5LCANCmFuZCB3YW50IHRoZSBtb3N0IHVz
+ZWZ1bCBleHRlbnNpb25zLCBhbmQgSSdtIHByZXBhcmVkIHRvIGRlYWwgd2l0aCANCmNvbXBp
+bGVyIGJ1Z3MpOyBidXQgSSBkb24ndCBsaWtlIHRoZSBzdGFuZGFyZCBhcyB0aGUgX29ubHlf
+IGRyaXZpbmcgZm9yY2UuDQoNClNhaWQgdGhhdCwgSSB0aGluayBib3RoIEdDQyBhbmQgZ2xp
+YmMgc2hvdWxkIG5vdCBiZSBpbnRpbWlkYXRlZCBieSB0aGUgDQpzdGFuZGFyZCB3aGVuIGRl
+dmVsb3BpbmcgbmV3IGV4dGVuc2lvbnMuICBPa2F5LCB0aGF0IGlzIG5vdCBhIHdpbGRjYXJk
+IA0KZm9yIHJlbGVhc2luZyBjcmFwOyBidXQgaWYgYSBmZWF0dXJlIGlzIGdvb2QsIHRoYXQn
+cyBmaW5lLiAgTm93LCBhcmUgdGhlIA0KbWFudWFsIHBhZ2VzIGFsbG93ZWQgdG8gZXh0ZW5k
+IHRoZSBsYW5ndWFnZSBhcyB3ZWxsPyAgT2YgY291cnNlIG5vdCBzbyANCm11Y2ggYXMgdGhl
+IGNvbXBpbGVyIG9yIGxpYmMsIGJ1dCBhIGxpdHRsZSBiaXQgd291bGRuJ3QgaHVydC4gIFNv
+LCBJIA0Kd291bGRuJ3QgdGFrZSB5b3VyIGNvbW1lbnQgdG9vIHN0cmljdGx5Lg0KDQpTdGls
+bCwgSSBhY2tub3dsZWRnZSB0aGlzIHN1Z2dlc3Rpb24gb2YgbWluZSBpcyBmYXIgbW9yZSBh
+Z2dyZXNzaXZlIHRoYW4gDQptb3N0IG90aGVyIHRyaXZpYWwgZGV2aWF0aW9ucyBmcm9tIHZh
+bGlkIGNvZGUuICBNYXliZSBJIHNob3VsZCBrZWVwIHRoZSANCmlkZWEgZmxvYXRpbmcgYXJv
+dW5kLCBhbmQgc3VnZ2VzdCBpdCBhZ2FpbiBhZnRlciB0aGUgbmV3IHN0YW5kYXJkIGlzIA0K
+cmVsZWFzZWQsIHNvIHRoYXQgY29tcGlsZXIgd3JpdGVycyBhcmUgbGVzcyBzdHJlc3NlZCBh
+Ym91dCBpdCwgYW5kIGNhbiANCmNvbnNpZGVyIHN1Y2ggYW4gZXh0ZW5zaW9uLiAgSSdsbCBt
+YXliZSB0YWxrIHRvIEdDQyBtYWludGFpbmVycyBhYm91dCBpdCANCmFuZCBzZWUgd2hhdCB0
+aGV5IHRoaW5rLg0KDQo+IA0KPiBBbmQgaW52YWxpZCBzeW50YXggaW4gdGhlIFNZTk9QU0lT
+IGlzIGV2ZW4gd29yc2UgdGhhbiB0aGF0Lg0KPiBGb3IgZXhhbXBsZSwgcGVvcGxlIG1heSBh
+dHRlbXB0IHRvIHVzZSBTWU5PUFNJUyBhcyBhbiBleGFtcGxlDQo+IHdoZW4gZGVzaWduaW5n
+IHRoZWlyIG93biwgcHJpdmF0ZSBmdW5jdGlvbiBmb3IgYSBzaW1pbGFyIGJ1dA0KPiBub3Qg
+aWRlbnRpY2FsIHB1cnBvc2UgYW5kIGVuZCB1cCB3cml0aW5nIG5vbi1wb3J0YWJsZSBjb2Rl
+LA0KPiBvciBldmVuIGNvZGUgdGhhdCBkb2VzIG5vdCBjb21waWxlIGFueXdoZXJlLg0KPiAN
+Cj4gVGhleSBtYXkgYmUgd3JvbmcgaWYgdGhleSBibGFtZSB5b3UgZm9yIHRoYXQsIGJ1dCBp
+IGRvdWJ0IHRoZXkNCj4gd2lsbCB0aGFuayB5b3UuDQoNClllYWgsIHRoYXQncyBzb21ldGhp
+bmcgaW1wb3J0YW50IHRvIGNvbnNpZGVyLg0KDQo+IA0KPj4+IFRoZXkgc2hvdWxkIGNlcnRh
+aW5seSBub3Qgc2hvdyBzb21ldGhpbmcgaW1hZ2luYXJ5DQo+Pj4gdGhhdCBkb2VzIG5vdCBt
+YXRjaCByZWFsaXR5LCBhbmQgZXZlbiBsZXNzIHNvIHVzaW5nIGludmFsaWQgc3ludGF4Lg0K
+PiANCj4+IFdlbGwsIG5vdCB0aGF0IEkgaGF2ZW4ndCBoYWQgdGhvc2UgdGhvdWdodHMsIGJ1
+dCB3ZSBhbHJlYWR5IHVzZSBpbGVnYWwNCj4+IHN5bnRheCBpbiBzb21lIGNhc2VzIGZvciBn
+b29kIHJlYXNvbnMuICBTZWUgZm9yIGV4YW1wbGUgb3BlbigyKToNCj4+DQo+PiAgICAgICAg
+ICBpbnQgb3Blbihjb25zdCBjaGFyICpwYXRobmFtZSwgaW50IGZsYWdzKTsNCj4+ICAgICAg
+ICAgIGludCBvcGVuKGNvbnN0IGNoYXIgKnBhdGhuYW1lLCBpbnQgZmxhZ3MsIG1vZGVfdCBt
+b2RlKTsNCj4+DQo+PiBPZiBjb3Vyc2UsIHlvdSBjYW4ndCBkZWNsYXJlIHR3byBjb25mbGlj
+dGluZyBwcm90b3R5cGVzIGxpa2UgdGhhdC4NCj4gDQo+IFRoaXMgZG9lcyBub3Qgc2VlbSBx
+dWl0ZSBhcyBob3JyaWZ5aW5nIGFzDQo+IA0KPiAgICBjaGFyICpnZXRjd2QoY2hhciBidWZb
+c2l6ZV0sIHNpemVfdCBzaXplKTsNCj4gDQo+IGJlY2F1c2UgYXQgbGVhc3QgZWFjaCBvZiB0
+aGUgcHJvdG90eXBlcyBpcyB2YWxpZC4NCj4gDQo+IE15IG1haW4gY29uY2VybiBhYm91dCBp
+dCB3b3VsZCBiZSB0aGF0IGl0IGlzIGxpa2VseSB0byBtYWtlIHNvbWUgcGVvcGxlDQo+IHRo
+aW5rIChhbmQgQysrIHByb2dyYW1tZXJzIGluIHBhcnRpY3VsYXIgOi0vKSB0aGF0IHRoZXJl
+IGlzIHR5cGUNCj4gY2hlY2tpbmcgZm9yIHRoZSB0aGlyZCBhbmQgc3Vic2VxdWVudCBhcmd1
+bWVudHMsIGluIHdoaWNoIGNhc2UgdGhleQ0KPiB3aWxsIGJlIHVucGxlYXNhbnRseSBzdXJw
+cmlzZWQgd2hlbiBhY2NpZGVudGFsbHkgd3JpdGluZyBzb21ldGhpbmcgbGlrZQ0KPiANCj4g
+ICAgb3BlbihwYXRobmFtZSwgZmxhZ3MsICZzb21lX3ZhciwgbW9kZSk7DQo+IA0KPiBhbmQg
+ZmluZGluZyBvdXQgbGF0ZXIgdGhhdCBpdCBjb21waWxlZCBhbmQgcmFuIGp1c3QgZmluZSwg
+YnV0IHRoZQ0KPiByZXN1bHRpbmcgZmlsZSB3YXNuJ3QgcXVpdGUgYXMgY29uZmlkZW50aWFs
+IGFzIHRoZXkgaG9wZWQuDQo+IA0KPiBFeHBsaWNpdGx5IGRpc3BsYXlpbmcgdGhlIC4uLiB0
+byBpbmRpY2F0ZSB0aGUgdmFyaWFibGUgbnVtYmVyIG9mDQo+IGFyZ3VtZW50cywgYnkgY29u
+dHJhc3QsIG1ha2VzIGl0IHZlcnkgY2xlYXIgdGhhdCBhbiBBUEkgaXMgYWxtb3N0DQo+IGNl
+cnRhaW5seSB1bnVzdWFsbHkgZGFuZ2Vyb3VzIGFuZCBuZWVkcyB0byBiZSB1c2VkIHdpdGgg
+ZXNwZWNpYWwNCj4gZGlsaWdlbmNlLg0KDQpZZWFoLCBJIHN1Z2dlc3RlZCBNaWNoYWVsIHVz
+aW5nICcuLi4nIGFuZCBhZGRpbmcgaW4gYSBjb21tZW50Og0KDQppbnQgb3Blbihjb25zdCBj
+aGFyICpwYXRobmFtZSwgaW50IGZsYWdzLCAuLi4gLyogbW9kZV90IG1vZGUgKi8pOw0KDQpI
+ZSBhZ3JlZWQsIGJ1dCB3ZSB3ZXJlIGRvaW5nIHNvbWV0aGluZyBlbHNlLCBhbmQgdGhlbiBJ
+IGRpZG4ndCBhc2sgDQphZ2Fpbiwgc28gdGhpcyBjaGFuZ2UgZGlkbid0IG1ha2UgaXQuICBJ
+ZiB5b3UgcmVjb21tZW5kIG1lIGRvaW5nIGl0LCANCkknbGwgZG8uDQoNCj4gDQo+IEVpdGhl
+ciB3YXksIGNlcnRhaW5seSBub3QgcXVpdGUgYXMgYmFkIGFzIGludmFsaWQgc3ludGF4IGlu
+c2lkZQ0KPiBhIHByb3RvdHlwZS4uLg0KDQpDaGVlcnMsDQoNCkFsZXgNCg0KPiANCj4gWW91
+cnMsDQo+ICAgIEluZ28NCg0KLS0gDQpBbGVqYW5kcm8gQ29sb21hcg0KPGh0dHA6Ly93d3cu
+YWxlamFuZHJvLWNvbG9tYXIuZXMvPg0K
 
->> I dislike this.
->> 
->> Manual pages should show function prototypes as they really are in
->> the header file, or if the header file contains useless fluff like
->> "restrict", a shortened form showing the essence that actually matters
->> for using the API.
+--------------a8C6c8qFuIshvJhzl382mYto--
 
-> Regarding restrict, it is essential to differentiate memcpy(3) and 
-> memmove(3), which are otherwise identical:
-> 
->      void *memmove(void *dest, const void *src, size_t n);
-> 
->      void *memcpy(void *restrict dest, const void *restrict src,
->                   size_t n);
+--------------fZc2Mn6n6G5Ddlt8vzJ0BkQS
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-Actually, the syntax of both is identical, only the semantics differ.
+-----BEGIN PGP SIGNATURE-----
 
-That said, you are right that using memcpy(3) when memmove(3) is
-required is a famous and widespread bug.  I doubt putting "restrict"
-into the SYNOPSIS will discourage careless programmers from making that
-mistake though.
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmMKZJMACgkQnowa+77/
+2zIp8BAAp6k9ay9LRfdTi2JhbBysWG3Msh/wZ9CmHr7RdlFKspGlGa6eqltvlxhz
+MuqR9QCWPquO/DMIHH0Dw0urNQlLIjyrtRrs3xm8xrTMpGgsGM1cTVFb2/XkoDzr
+Bn0gC/74S7lGCLezdnDqnWRJOzaYaPHWlNAcVgcrAwqunjFL7z7Yfy6NhoLPyRg9
+spLWxW338+vU2uMjobFD+pxn+3tJoWMdrGtF70w1z3fFspIPrrCjcJjzh5jVMC/5
+/rJ5pLLykrMUW83UAXPPRsHYjyMKoXmt1N8AmvmMvb9YiywWMNNkex9bNdJMokuQ
+hN1Aub3gngiDctMktOV9kMdaoDH19dG0G8eHR9+SVzD+RKwGGuqAgxgEE3yHRy37
+gn1A0qtT9swlTZYnFPaTZU9i9hLtWwIDoZ3Nkk293H4wIEqfFs1CtuO9/z22YXEm
+y2Y/XaAXn0GMLZnj5ejLr+CGJftWBKDQxGT86l1RrXxI0yO11uu6jzOjBRpPdhhT
+8RIyKlEZJ4Y07ov07D5562X8vuz97nr7tMBeVg3S8pBS0XzuSpqrlL60Jg0/5FQL
+tunLqvf49dcOD4TAQtymBDfOEYxtMneKOpNyuBM3tv9RntPtflD5BI07XF0hkLZ/
+9yaanSC4WRBE//VI3GtDrdeWTP1IrjSjQNUJl1ylClDHVa+c6ms=
+=Dlf+
+-----END PGP SIGNATURE-----
 
-To me, "restrict" feels like a specialized tool for people writing
-compiler optimizers, not like something important enough to clutter
-API documenation.
-
-> Do you regard the (abused) VLA syntax as something much worse than the 
-> use of restrict?  Or are they more or less equivalent to you?
-
-If your implementation really contains "restrict" in the header
-file and it's standardized, putting it into the SYNOPSIS seems
-acceptable to me.  Not necessary though and maybe somewhat noisy
-and distracting.
-
-Putting something that is not in the implementation and/or not
-in the standard into the SYNOPSIS seems much worse to me.
-
-And invalid syntax in the SYNOPSIS is even worse than that.
-For example, people may attempt to use SYNOPSIS as an example
-when designing their own, private function for a similar but
-not identical purpose and end up writing non-portable code,
-or even code that does not compile anywhere.
-
-They may be wrong if they blame you for that, but i doubt they
-will thank you.
-
->> They should certainly not show something imaginary
->> that does not match reality, and even less so using invalid syntax.
-
-> Well, not that I haven't had those thoughts, but we already use ilegal 
-> syntax in some cases for good reasons.  See for example open(2):
-> 
->         int open(const char *pathname, int flags);
->         int open(const char *pathname, int flags, mode_t mode);
-> 
-> Of course, you can't declare two conflicting prototypes like that.
-
-This does not seem quite as horrifying as
-
-  char *getcwd(char buf[size], size_t size);
-
-because at least each of the prototypes is valid.
-
-My main concern about it would be that it is likely to make some people
-think (and C++ programmers in particular :-/) that there is type
-checking for the third and subsequent arguments, in which case they
-will be unpleasantly surprised when accidentally writing something like
-
-  open(pathname, flags, &some_var, mode);
-
-and finding out later that it compiled and ran just fine, but the
-resulting file wasn't quite as confidential as they hoped.
-
-Explicitly displaying the ... to indicate the variable number of
-arguments, by contrast, makes it very clear that an API is almost
-certainly unusually dangerous and needs to be used with especial
-diligence.
-
-Either way, certainly not quite as bad as invalid syntax inside
-a prototype...
-
-Yours,
-  Ingo
+--------------fZc2Mn6n6G5Ddlt8vzJ0BkQS--
