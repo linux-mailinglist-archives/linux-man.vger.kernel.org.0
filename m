@@ -2,61 +2,43 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 733AF5A3582
-	for <lists+linux-man@lfdr.de>; Sat, 27 Aug 2022 09:20:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B9D8E5A3730
+	for <lists+linux-man@lfdr.de>; Sat, 27 Aug 2022 13:10:16 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231222AbiH0HT6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 27 Aug 2022 03:19:58 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51222 "EHLO
+        id S233440AbiH0LKO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 27 Aug 2022 07:10:14 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38142 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230085AbiH0HT5 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 27 Aug 2022 03:19:57 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 08A10220D9;
-        Sat, 27 Aug 2022 00:19:54 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id 7A40260B3F;
-        Sat, 27 Aug 2022 07:19:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BA56C433C1;
-        Sat, 27 Aug 2022 07:19:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-        s=korg; t=1661584793;
-        bh=YgbBYTSHjSokRb2qHtjrG0P3cBnZxmrktBYWXk9PcSY=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=T5W9lm89KHu34/aeb/BIifUQ7e1v8enARGT5+iFLAf3MNpFB58efC53Cbr81jGwtE
-         HiOgRY/+U+PPLN12wRCe/S7GeLIOlFuZHYGP5Ah7ovKEbVYtUcDQWd4JAWulnKlb1y
-         m6beUzU+SjNY/WrGMadPSmnHa0wBxMNUQMXZ1ChU=
-Date:   Sat, 27 Aug 2022 09:20:07 +0200
-From:   Greg KH <gregkh@linuxfoundation.org>
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc:     Alexei Starovoitov <alexei.starovoitov@gmail.com>,
-        Alejandro Colomar <alx.manpages@gmail.com>,
-        Quentin Monnet <quentin@isovalent.com>,
-        bpf <bpf@vger.kernel.org>, linux-man <linux-man@vger.kernel.org>,
-        Alexei Starovoitov <ast@kernel.org>,
-        Daniel Borkmann <daniel@iogearbox.net>,
-        Andrii Nakryiko <andrii@kernel.org>,
-        Martin KaFai Lau <kafai@fb.com>,
-        Song Liu <songliubraving@fb.com>, Yonghong Song <yhs@fb.com>,
-        John Fastabend <john.fastabend@gmail.com>,
-        KP Singh <kpsingh@kernel.org>,
-        Stanislav Fomichev <sdf@google.com>,
-        Hao Luo <haoluo@google.com>, Jiri Olsa <jolsa@kernel.org>,
-        Jesper Dangaard Brouer <brouer@redhat.com>
-Subject: Re: [PATCH] Fit line in 80 columns
-Message-ID: <YwnFp9BKmpi7UXUX@kroah.com>
-References: <20220825175653.131125-1-alx.manpages@gmail.com>
- <CAADnVQ+yM_R4vuCLxtNJb0sp61ar=grJh9KmLWVGhXA7Lhpmvw@mail.gmail.com>
- <20220825225425.hp2ylp5rxq453ewl@illithid>
+        with ESMTP id S237686AbiH0LKL (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 27 Aug 2022 07:10:11 -0400
+Received: from scc-mailout-kit-02.scc.kit.edu (scc-mailout-kit-02.scc.kit.edu [IPv6:2a00:1398:9:f712::810d:e752])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CCDFFDFD7
+        for <linux-man@vger.kernel.org>; Sat, 27 Aug 2022 04:10:07 -0700 (PDT)
+Received: from hekate.asta.kit.edu ([2a00:1398:5:f401::77])
+        by scc-mailout-kit-02.scc.kit.edu with esmtps (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+        (envelope-from <schwarze@usta.de>)
+        id 1oRthV-0047rM-Bz; Sat, 27 Aug 2022 13:10:05 +0200
+Received: from login-1.asta.kit.edu ([2a00:1398:5:f400::72])
+        by hekate.asta.kit.edu with esmtp (Exim 4.94.2)
+        (envelope-from <schwarze@usta.de>)
+        id 1oRthU-007gxm-Vw; Sat, 27 Aug 2022 13:10:04 +0200
+Received: from schwarze by login-1.asta.kit.edu with local (Exim 4.92)
+        (envelope-from <schwarze@usta.de>)
+        id 1oRthU-0006Oe-VD; Sat, 27 Aug 2022 13:10:04 +0200
+Date:   Sat, 27 Aug 2022 13:10:04 +0200
+From:   Ingo Schwarze <schwarze@usta.de>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org, JeanHeyd Meneide <wg14@soasis.org>
+Subject: Re: [PATCH] Various pages: SYNOPSIS: Use VLA syntax in function
+ parameters
+Message-ID: <Ywn7jMtB5ppSW0PB@asta-kit.de>
+References: <20220826210710.35237-1-alx.manpages@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20220825225425.hp2ylp5rxq453ewl@illithid>
-X-Spam-Status: No, score=-7.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
+In-Reply-To: <20220826210710.35237-1-alx.manpages@gmail.com>
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED,
+        SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -64,36 +46,18 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Thu, Aug 25, 2022 at 05:54:25PM -0500, G. Branden Robinson wrote:
-> [sorry for the big CC]
-> 
-> At 2022-08-25T11:06:55-0700, Alexei Starovoitov wrote:
-> > Nack.
-> > 
-> > We don't follow 80 char limit and are not going to because of man
-> > pages.
-> 
-> If someone got a contract with O'Reilly or No Starch Press to write a
-> book on BPF and how revolutionarily awesome it is, it's conceivable they
-> would be faced with exposing some BPF-related function declarations in
-> the text.  In cases like the following, what would you have them do?
-> 
-> int bpf_map_update_elem(struct bpf_map *map, const void *key, const void *value, u64 flags)
-> 
-> Be aware that the author may not have infinite flexibility; publishers
-> generally impose a "house style" which restricts selection of typeface
-> (so they can't necessarily print at a smaller type size or with the
-> kerning reduced beyond a certain point to squeeze the text onto the
-> line).
+Hi Alejandro,
 
-As someone who has written a book for one of those publishers you
-mention above, this is totally not an issue at all.  Authors and
-typesetters know how to properly wrap and handle stuff like this
-automatically, it's what they do and has nothing to do with how kernel
-header files are layed out.
+> -.BI "char *getcwd(char *" buf ", size_t " size );
+> +.BI "char *getcwd(char " buf [ size "], size_t " size );
 
-But even then, if it was an issue, we don't write kernel code for "some
-potential commercial entity that can't handle long lines", you know
-better than this :)
+I dislike this.
 
-greg k-h
+Manual pages should show function prototypes as they really are in
+the header file, or if the header file contains useless fluff like
+"restrict", a shortened form showing the essence that actually matters
+for using the API.  They should certainly not show something imaginary
+that does not match reality, and even less so using invalid syntax.
+
+Yours,
+  Ingo
