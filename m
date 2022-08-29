@@ -2,97 +2,138 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 8106F5A5742
-	for <lists+linux-man@lfdr.de>; Tue, 30 Aug 2022 00:48:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5CE775A5747
+	for <lists+linux-man@lfdr.de>; Tue, 30 Aug 2022 00:54:45 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229477AbiH2Wsm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 29 Aug 2022 18:48:42 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56114 "EHLO
+        id S229490AbiH2Wyo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 29 Aug 2022 18:54:44 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60468 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229451AbiH2Wsm (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 29 Aug 2022 18:48:42 -0400
-Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id D8FAC9DB63
-        for <linux-man@vger.kernel.org>; Mon, 29 Aug 2022 15:48:38 -0700 (PDT)
-Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 2126424A2;
-        Tue, 30 Aug 2022 00:48:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-        s=202205; t=1661813317;
-        bh=hgQ4smjY2uBHQShwxFK2tYubgocDGE5ZqALv9boMX2o=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=iNL51jdw3pjm50B/ptkJXHqEdTP9kK7b0C4fALIbg40IE68lOv65zdPVpNrAHSsLS
-         etHnf0x8zcjoziVvEprpcZXEdakbMpZfeJpu/M6j9CgjFiekv2DfK4kqDhWlqbbwlh
-         r3dP7wP3w3GYuO0jt3udu+EAKS1drNDem4AbNGKtFtqdnrECrp10AVtR9e8B1dtwOg
-         FK3psAQ2O8TP5J9h4qsC6ON5uYW83TECh+sPEgrxahEtjwWtOIFubJ2293GidTLgNJ
-         u7tYZxJfM/2L0Qf0lWUS8KmhxG/oAsJW8PME2ymjJZwQ8SQahDhsU6ZFox9brsqJLl
-         V6jFm73VTRIa1scSBKgZQObfHgaRusFvmAFi4L/JL7BznqXBZLI00uf44iCXic47yv
-         BWURdSnVu6k0WVh0w4z4VDXg2lH3nJI3gNq0EwRl+Jgt659eJCn/rjE2mXm4GE0YUd
-         VvfjvD40L66JwkQ6TcioFmN91caf+Y2Rzb/oVbXeInQL9f5K7XZsbsmIYNlkbZ/BH2
-         aEnHGTRsYbhIsKxrbEV4Nd4VZ1YyQEPxYf4+VWrCR1QRf24Ic/23iH+Z6lw+Wrz3tF
-         Q/Wj+vMeycXmLeMxvXugSC3aElJgfphJJxheNNxbRyssESyya2kQGt6JE9ShnBPaLw
-         VhAXHuKXidIvAS5Ezq9mfvr4=
-Date:   Tue, 30 Aug 2022 00:48:36 +0200
-From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        linux-man@vger.kernel.org
+        with ESMTP id S229449AbiH2Wyn (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 29 Aug 2022 18:54:43 -0400
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com [IPv6:2a00:1450:4864:20::334])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8430C7E308
+        for <linux-man@vger.kernel.org>; Mon, 29 Aug 2022 15:54:42 -0700 (PDT)
+Received: by mail-wm1-x334.google.com with SMTP id ay39-20020a05600c1e2700b003a5503a80cfso5186067wmb.2
+        for <linux-man@vger.kernel.org>; Mon, 29 Aug 2022 15:54:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:from:to:cc;
+        bh=r6il9SjDl3hwP7VIBbqcOrjnB0mKq0NNsuPSHFZldW4=;
+        b=Rv76LFg48D9Tc/EI5XwInsnT9jpCY5H1EjH6POxSWfvFm2P5FzcVbERtPXOIyQHsLy
+         tX4AAU3K5r2QQNsEoXvzYfUqo7eu2dOU9d4a3dWSBRyxtTyvIm8ThmTsjnrBsHbi4+pR
+         NXfbcc8ijl8oh3KDlhOs/JsZbx89xwB36nWkYrWO913LRhJ11J1OpcEmxxyKiDsgQz3a
+         ntw8jV25TNd6zyk3/zSHf4ObRjlrxuINYlfuB+940WOZCczmtOia6eTwYXKO6cjdWpTU
+         fBYkenWOlvWnXrFcpv0Ldcuazj9N7C8Eac6/nUSLb9z0W+GElgq1yyWNK4QIk3RhrKTQ
+         qC3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc;
+        bh=r6il9SjDl3hwP7VIBbqcOrjnB0mKq0NNsuPSHFZldW4=;
+        b=K8PdvLitb1IQcmOM9JgnpbzVUcqEGPCFsn0reREMEfYDvtgNi47QOs8sqjIRA4vP0b
+         tG3aE0u+BIw2Rgl7RksYyNpWa8+OH+WLg6AIZfBGNAWaytMCaA1PGA/e2rZH7uXvWtEz
+         ssXP7dGcJ+4ms9++efpVPZZWasMPdz3Y409U5rXGGDXUiVzKFzDMYx75AJrB2q/blo6J
+         Q4w/NBWP+LpXDIIknVNKSv/3qbhyonw9s/PeiCEKpmr6cd5ZE0v0b/E7O+gE6Q7HZWMW
+         YtAlBriOFVpegAD0Rr3DIrD2gzJJ4MKGTRAzx0s6WaifIQk12ZGBHk251Tv27mN53Peg
+         i3Yg==
+X-Gm-Message-State: ACgBeo0CrLdELtD/qNs8+1wzbk/taVnJIVnbZpRC5ZQV6GVlP4AzqKyu
+        juxdqyD2rjdQ9FR+eZioXaU=
+X-Google-Smtp-Source: AA6agR6ub6OGS9zms0m3g7uql/DsASa5RvW/2tDO0pX6iiz9VEykYssWIf5zvG+G3qyBg0+C1uAfNg==
+X-Received: by 2002:a1c:f60f:0:b0:3a0:3e0c:1de1 with SMTP id w15-20020a1cf60f000000b003a03e0c1de1mr8085375wmc.56.1661813681132;
+        Mon, 29 Aug 2022 15:54:41 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id c18-20020adffb52000000b00225239d9265sm8166047wrs.74.2022.08.29.15.54.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 29 Aug 2022 15:54:40 -0700 (PDT)
+Message-ID: <fb006d7d-3174-cebf-d366-8e2aef784930@gmail.com>
+Date:   Tue, 30 Aug 2022 00:54:32 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.0
 Subject: Re: [PATCH 1/2] cc_t.3type, speed_t.3type, tcflag_t.3type: document
  all together
-Message-ID: <20220829224836.yzjr4mz55vptvva3@tarta.nabijaczleweli.xyz>
+Content-Language: en-US
+To:     =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Cc:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        linux-man@vger.kernel.org
 References: <ad1134a85b71db33671385502931aa61029ffc44.1661809591.git.nabijaczleweli@nabijaczleweli.xyz>
  <3cbbf2e5-6213-198f-4cab-c6f42204d471@gmail.com>
  <20220829223352.dkxto5dtp4txted6@tarta.nabijaczleweli.xyz>
  <fd28f474-90a1-9f81-677d-f70ce604bd81@gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="nv5nt4gc7yslb3dw"
-Content-Disposition: inline
-In-Reply-To: <fd28f474-90a1-9f81-677d-f70ce604bd81@gmail.com>
-User-Agent: NeoMutt/20220429
-X-Spam-Status: No, score=0.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FROM_SUSPICIOUS_NTLD,
-        PDS_OTHER_BAD_TLD,RDNS_DYNAMIC,SPF_HELO_NONE,SPF_PASS,
-        T_SCC_BODY_TEXT_LINE autolearn=no autolearn_force=no version=3.4.6
+ <20220829224836.yzjr4mz55vptvva3@tarta.nabijaczleweli.xyz>
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <20220829224836.yzjr4mz55vptvva3@tarta.nabijaczleweli.xyz>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------H7ASUyGmXLnrmQ0spw4weY4n"
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------H7ASUyGmXLnrmQ0spw4weY4n
+Content-Type: multipart/mixed; boundary="------------GY8UhrrJb7XoFN9vFduZcISb";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Cc: "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+ linux-man@vger.kernel.org
+Message-ID: <fb006d7d-3174-cebf-d366-8e2aef784930@gmail.com>
+Subject: Re: [PATCH 1/2] cc_t.3type, speed_t.3type, tcflag_t.3type: document
+ all together
+References: <ad1134a85b71db33671385502931aa61029ffc44.1661809591.git.nabijaczleweli@nabijaczleweli.xyz>
+ <3cbbf2e5-6213-198f-4cab-c6f42204d471@gmail.com>
+ <20220829223352.dkxto5dtp4txted6@tarta.nabijaczleweli.xyz>
+ <fd28f474-90a1-9f81-677d-f70ce604bd81@gmail.com>
+ <20220829224836.yzjr4mz55vptvva3@tarta.nabijaczleweli.xyz>
+In-Reply-To: <20220829224836.yzjr4mz55vptvva3@tarta.nabijaczleweli.xyz>
 
---nv5nt4gc7yslb3dw
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+--------------GY8UhrrJb7XoFN9vFduZcISb
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-On Tue, Aug 30, 2022 at 12:36:37AM +0200, Alejandro Colomar wrote:
-> I just realized you didn't sign the patches.  Will sign them on your beha=
-lf
-> if you want.
+T24gOC8zMC8yMiAwMDo0OCwg0L3QsNCxIHdyb3RlOg0KPiBPbiBUdWUsIEF1ZyAzMCwgMjAy
+MiBhdCAxMjozNjozN0FNICswMjAwLCBBbGVqYW5kcm8gQ29sb21hciB3cm90ZToNCj4+IEkg
+anVzdCByZWFsaXplZCB5b3UgZGlkbid0IHNpZ24gdGhlIHBhdGNoZXMuICBXaWxsIHNpZ24g
+dGhlbSBvbiB5b3VyIGJlaGFsZg0KPj4gaWYgeW91IHdhbnQuDQo+IA0KPiBZZXMsIHBsZWFz
+ZSA6KSBJIGZvcmdvciDwn5KADQo+IA0KPiDQvdCw0LENCg0KUGF0Y2ggc2V0IGFwcGxpZWQg
+YW5kIHNpZ25lZC4NCjxodHRwOi8vd3d3LmFsZWphbmRyby1jb2xvbWFyLmVzL3NyYy9hbHgv
+bGludXgvbWFuLXBhZ2VzL21hbi1wYWdlcy5naXQvY29tbWl0Lz9pZD05NmY1NTQ2NGJjMjAw
+NGNkOTg2ZTdlZTA5NzZmODdmZjBjODgyZTBkPg0KDQpDaGVlcnMsDQoNCkFsZXgNCg0KLS0g
+DQpBbGVqYW5kcm8gQ29sb21hcg0KPGh0dHA6Ly93d3cuYWxlamFuZHJvLWNvbG9tYXIuZXMv
+Pg0K
 
-Yes, please :) I forgor =F0=9F=92=80
+--------------GY8UhrrJb7XoFN9vFduZcISb--
 
-=D0=BD=D0=B0=D0=B1
-
---nv5nt4gc7yslb3dw
-Content-Type: application/pgp-signature; name="signature.asc"
+--------------H7ASUyGmXLnrmQ0spw4weY4n
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmMNQkEACgkQvP0LAY0m
-WPE3GxAAsWc2bYSEvzkk+cgmzkZAhXFZX68v3+W3aAlw7lMFoAb3n2K6U/z3oxWr
-QxjcwCTXTLYONysnfMgVLekEIR4hn63wkaCkc3GXyg94DHk8hbonYFwAMEzwIbvR
-IbkgT0WFNGi5egoozX1ZMdh0e1AUd8iTKW9JasWFg5X7jkY1OUGBfpvmh93FN8Y5
-0M4WLneTInaDc2jwbPhqtsUfe/8RbK3uMrBfWvABSC9ENarcmuzTzxxXPDkMpiBX
-m8EaB6RmuSAu67xKSIA/ggMTgg2rDlawhxsV2o3rd7E82dbt3yEVqIjmrJRMW8wi
-z5Zvp5ajdobk9UfylK/z/3mt1Fr68QrJcsupmSulsrsyL8+JimAixpc9qO2utfIX
-/6u1cSQBsrpfgjSruZwnK8iULDb/vKfvuttDwFuCJI+IxJCiGURqJK3j0GmxNsJ7
-bqs8KKSa19weZvo5Oi3gEhg9HZn7ebuLB5/4JUfc+2Q0Cjz/3IynE+9lGwPui0Fd
-d2f5RFX/YT2Yczy81ZnjecIinUyN7XBQiVaZYX5yYFsQlrrVNVc5LCj1wmo8Xfyw
-WEEaykRejGHi39lYNOFSyo2yL8jxRtF1ULy63IPGMFuiidxE8gAx1YP/uvkSnQ6R
-4Li6ypl1q612RoxxxShpfdlDcyFfQmhMTOfudve0RKbDMVEYaX4=
-=johq
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmMNQ6gACgkQnowa+77/
+2zIiPg//SHpYRtsCr00Z8QPV4FKyVnp3JUJZASekPzf9NVA1xH6FOGBFHQQhLWpP
+ublxVkOV1DopD6g5w2LFN4lPHlYP+iBEjVhgVPdR7A0I+P3qqMVMsW5Y62yKdZ81
+RBpNgjHCGa20pEFS4VAHdDIfGlQa8YvW2bLgHNzz3CFx4czvhAtGSNFhB+mvjBgH
+Ou4sRbCRM+I/12zMmcWK/FDA1x0VPP2C/HSVMILSokzF9z5hFIKyY5rMi7wOnuD/
+BSUaVvN94525hivQlAVr/Vv/mjHn1OuLZbmELXOKAAx+PAqapRB/D27EDs5d7CNj
+Yas/Lrv6mCRsElEXtEASgB40mW2j9F6dV2/wTE/zUJ+KTrL2f+Qk7LSp7ZOZdUMf
+twquVQX56h58q3iKsLWS7WiujBJR7YxH1Wg4QlDQhEr1xS2azDHylvgBwhWzZOn6
+3W8x65raF7N57ejVf7lPosLhuM955niHYw3gwkpbIfUuCYl3Z5HSU2SI2oKUlfwm
+bDpcfSPQd6PqVlXA1/1MTdoe/1q/0N4ExfV7Rl73+y/f8+iQjIh/87P4jNQ7ZCmV
+dbC3ZwmnCq9TrypbzB+NJaeyLRzSWCCi0W5dthg+yFkO68A75WlFzM3Xs22lT3na
+lxykJWzMGhA9mU5KFw268ODvQHvzJa0J1CukbretV9smgF1pAbk=
+=e4Lp
 -----END PGP SIGNATURE-----
 
---nv5nt4gc7yslb3dw--
+--------------H7ASUyGmXLnrmQ0spw4weY4n--
