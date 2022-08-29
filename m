@@ -2,199 +2,207 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 2D5AF5A4C64
-	for <lists+linux-man@lfdr.de>; Mon, 29 Aug 2022 14:51:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DB1245A5536
+	for <lists+linux-man@lfdr.de>; Mon, 29 Aug 2022 22:00:56 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230258AbiH2MvQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 29 Aug 2022 08:51:16 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43150 "EHLO
+        id S229716AbiH2UAy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 29 Aug 2022 16:00:54 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41628 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229845AbiH2Muz (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 29 Aug 2022 08:50:55 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 03F4B7C74C;
-        Mon, 29 Aug 2022 05:37:37 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id 6F55F611FA;
-        Mon, 29 Aug 2022 12:37:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7A60C433C1;
-        Mon, 29 Aug 2022 12:37:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1661776656;
-        bh=iJoS2HHPSfAQPS7l1aJ39VXIxX+3fe7CLzcb+f5VidQ=;
-        h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-        b=HDLqM9EE81L82hfqDGddOPlqSmySTPWwLwm56CCLD/qUdQKxMTn2JoCz1ZOeiCrRv
-         Re0CnimCHjDxAq30OOeIqGjM8oqKuS/Cq5DX1Pc/3Xl/ZKzagzJ0/i/6xR0Q3PecjB
-         YDB506/bXCpuaTaxjvLwx7wYtjv492SDCxJgOCKasgwTkNi8ctn0K4xlv3bLaOC8sW
-         W4o8/i7C+tdfNefvBaA+B2AST8A4dWJPs/qTXS28uePb+pb0Eya9+rrc8NwXVYf2bj
-         ughTMcwv3SwmIrRqR1BwM/SU6gQQO3t6eLuWwgHtiHmnzhNOtq7Jr6Rxxk9PXSy5Kp
-         j1Pkzv5nCU65g==
-Message-ID: <bffe16482bcb3e6a69378e821e76182be21c7d1b.camel@kernel.org>
-Subject: Re: [man-pages PATCH] statx, inode: document the new
- STATX_INO_VERSION field
-From:   Jeff Layton <jlayton@kernel.org>
-To:     John Stoffel <john@stoffel.org>
-Cc:     tytso@mit.edu, adilger.kernel@dilger.ca, djwong@kernel.org,
-        david@fromorbit.com, trondmy@hammerspace.com, neilb@suse.de,
-        viro@zeniv.linux.org.uk, zohar@linux.ibm.com, xiubli@redhat.com,
-        chuck.lever@oracle.com, lczerner@redhat.com, jack@suse.cz,
-        brauner@kernel.org, linux-man@vger.kernel.org,
-        linux-api@vger.kernel.org, linux-btrfs@vger.kernel.org,
-        linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-ceph@vger.kernel.org, linux-ext4@vger.kernel.org,
-        linux-nfs@vger.kernel.org, linux-xfs@vger.kernel.org
-Date:   Mon, 29 Aug 2022 08:37:33 -0400
-In-Reply-To: <25355.34889.890961.350510@quad.stoffel.home>
-References: <20220826214747.134964-1-jlayton@kernel.org>
-         <25355.34889.890961.350510@quad.stoffel.home>
-Content-Type: text/plain; charset="ISO-8859-15"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4 (3.44.4-1.fc36) 
+        with ESMTP id S229453AbiH2UAx (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 29 Aug 2022 16:00:53 -0400
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com [IPv6:2a00:1450:4864:20::32b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D0EF361721;
+        Mon, 29 Aug 2022 13:00:51 -0700 (PDT)
+Received: by mail-wm1-x32b.google.com with SMTP id v7-20020a1cac07000000b003a6062a4f81so8763305wme.1;
+        Mon, 29 Aug 2022 13:00:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc;
+        bh=O8RhKIZc2yZtz2lAJUXOlbXsU53P4O5YbHxV7ztn1WQ=;
+        b=illYhjhFWB7pTcWsXZ7sYKMvl92Ex3/EjGhmOFJ/fafPeg1C67rWXORf8DsuQg93Vx
+         O1rBWeqfNb1p0BeT7xDzhhGPeEaXjCC5aKFXmCG2edGZlAfQSXSHfkzsEFKhDrgfmNml
+         DQYHHTWwSQXhayyj7kWNwHcUTySz0XNQPEPh7So/7vlPJ++XXDdMQcNwZLtnRiA+Si3d
+         mUI5LI747+Sg/HBFTJkEqNItX37zgL2xwrw+X5Fc/By4unhwEVrDceExI/SHhRWO+VF+
+         29ofjiJfy4EQtrnDoc0SE61JUvVBlprAKWsfOuTdyJEwx4yqIH5yRMa5vMxTrSnpsr0Z
+         06Rg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
+        bh=O8RhKIZc2yZtz2lAJUXOlbXsU53P4O5YbHxV7ztn1WQ=;
+        b=yi/nK/ghb6ulHf6jDw/wtacX5UCC0TeiNA9ODHBGZq+6Xx3p53QxDMUA635XG3Wt4C
+         ReLApl3xkPCY4l3YJtbYeNBe9sr7mIFu/Dm3QmJ1irFwz+UgCdZIFj9yKhQaSfidTeMF
+         tlQciw8HJ77nYMUbCxYTK8lz9VciyG/NL8CfEcFeCRokSMzFKN7lIHuRUAl9VFPwsAGK
+         oaiw8JtkSdvf1mn1QY9wI8dcVsItdp6yX8ybgbEs53yk5+XWcXWhIOAmyQl+rnIe6Z9M
+         hUY4zdjObbKuLCbqPFCeYPCRDOlCYl3P68Tdcb9tDBQ0eZc9PM6irpNEjxOuPEbpiOCG
+         +RJQ==
+X-Gm-Message-State: ACgBeo0vTmrVTlgAP2f9ZDKVUZybyKBFoV0df2MzswQLcwcwn9QkoFmQ
+        Bp+0PIzAIpTHqb3O2FrODmo=
+X-Google-Smtp-Source: AA6agR4fiTyjRSfl/A1iZbb6uhyJb1CwVrd6qmxTxRHDHm+iYIscnBz1QwW5oNhkorckn9VuoxRerQ==
+X-Received: by 2002:a05:600c:3d05:b0:3a5:dd21:e201 with SMTP id bh5-20020a05600c3d0500b003a5dd21e201mr7654637wmb.132.1661803250430;
+        Mon, 29 Aug 2022 13:00:50 -0700 (PDT)
+Received: from asus5775.alejandro-colomar.es ([170.253.36.171])
+        by smtp.googlemail.com with ESMTPSA id n18-20020a05600c3b9200b003a846a014c1sm5273193wms.23.2022.08.29.13.00.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 29 Aug 2022 13:00:50 -0700 (PDT)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+To:     Quentin Monnet <quentin@isovalent.com>
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        Alexei Starovoitov <ast@kernel.org>, bpf <bpf@vger.kernel.org>,
+        linux-man <linux-man@vger.kernel.org>,
+        Daniel Borkmann <daniel@iogearbox.net>,
+        Andrii Nakryiko <andrii@kernel.org>,
+        Martin KaFai Lau <kafai@fb.com>,
+        Song Liu <songliubraving@fb.com>, Yonghong Song <yhs@fb.com>,
+        John Fastabend <john.fastabend@gmail.com>,
+        KP Singh <kpsingh@kernel.org>,
+        Stanislav Fomichev <sdf@google.com>,
+        Hao Luo <haoluo@google.com>, Jiri Olsa <jolsa@kernel.org>,
+        Jesper Dangaard Brouer <brouer@redhat.com>,
+        Greg KH <gregkh@linuxfoundation.org>,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Subject: [PATCH v2] Fit lines in 80 columns
+Date:   Mon, 29 Aug 2022 21:58:44 +0200
+Message-Id: <20220829195842.85290-1-alx.manpages@gmail.com>
+X-Mailer: git-send-email 2.37.2
+In-Reply-To: <20220825175653.131125-1-alx.manpages@gmail.com>
+References: <20220825175653.131125-1-alx.manpages@gmail.com>
 MIME-Version: 1.0
-X-Spam-Status: No, score=-7.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
-        autolearn_force=no version=3.4.6
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4314; i=alx.manpages@gmail.com;
+ h=from:subject; bh=SXQKA7DgCgoz0zVpxVE3/r5g24gf6ZrgXIg75ha3hYQ=;
+ b=owEBbQKS/ZANAwAKAZ6MGvu+/9syAcsmYgBjDRpw7r3tuY2d7WmsoCLYpljp7VhH48Ik3WYMztV5
+ JCCgmeCJAjMEAAEKAB0WIQTqOofwpOugMORd8kCejBr7vv/bMgUCYw0acAAKCRCejBr7vv/bMnfeD/
+ 9JRdgnXkzJa19u7maUnVQV1Hcw50RBDTUV6vHekiYA/rmxIyL64YZMQ/EuHLIb2gen9MsrAn16UCs+
+ 06/EJGED3fg/MQ/HI/nlO/mWmhS0u386dTC56AR3p9Lq4w2OmMTPkOUl/See3QC+s9wdVafjvUbQFE
+ 6dfJdIWZ4GGQNmpqfczpEu0HScIu7zGPnlr0wsu038ev+yfXlK43nIBkykvXzCtnd6LgM4tqlsI4hD
+ SXZUGDLf8ozln278Y/lTxT2pQclozNdkIUFlDzxlxrrDhPJcF9MtUKBAlc410ve4N7ZvP2zvIpbF6/
+ Jrss42kyghaTWemxZTZCx6r9J/Ad23ih9epO6PxxBOybBHw3/U5r+NA56TlUcLDdPp1lHfvhkRRxWu
+ 1hcv1lUtA292jbyobhjdilNmRoF/GYr5z2MU4kZzJPP3quwPUG/2Jat8DBEqZeot3lNnlR3oPv6g01
+ fbqm90hdzk8sxhoXqLRbuQv//w52g6ihtVh/QcKZpjmcfM+2vNyb9iY/Zf0TLQZGX3LcivUu9eGg6g
+ OlCv5cgRCWxwEeg6+9g8ebEnBwCdLGvbkWQ85WIrX1icxXSjRgCdeB/YhLfuGloF/5EwulA59kU6iO
+ Uid8lyelQIngr5AnwXXT4NNzP+uPlqv9DHPjffx13e4Xj8rrVUCVJJoezLPA==
+X-Developer-Key: i=alx.manpages@gmail.com; a=openpgp; fpr=A9348594CE31283A826FBDD8D57633D441E25BB5
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Sun, 2022-08-28 at 11:22 -0400, John Stoffel wrote:
-> > > > > > "Jeff" =3D=3D Jeff Layton <jlayton@kernel.org> writes:
->=20
-> Jeff> We're planning to expose the inode change attribute via statx.
-> Document
-> Jeff> what this value means and what an observer can infer from a
-> change in
-> Jeff> its value.
->=20
-> It might be nice to put in some more example verbiage of how this
-> would be used by userland.  For example, if you do a statx() call and
-> notice that the ino_version has changed... what would you do next to
-> find out what changed? =20
->=20
-> Would you have to keep around an old copy of the statx() results and
-> then compare them to find the changes?  When talking to userland
-> people, don't assume they know anything about the kernel internals
-> here. =20
->=20
+Those lines is used to generate the bpf-helpers(7) manual page.
+They are no-fill lines, since they represent code, which means
+that the formatter can't break the line, and instead just runs
+across the right margin (in most set-ups this means that the pager
+will break the line).
 
-How you'd use this really depends on the application, but yes, you'd
-need to at least know what an old stx_ino_version was in order to detect
-that there has been a change to it.
+Using <fmt> makes it end exactly at the 80-col right margin, both
+in the header file, and also in the manual page, and also seems to
+be a sensible name to me.
 
-Today, i_version is mostly of use for knowing when you should invalidate
-cached file info. Think of it as something like ctime, but with infinite
-granularity. If it changes then something substantive _might_ have
-changed in the inode. It's possible it's nothing your application cares
-about, so you'd likely have to deal with "false" changes to this anyway.
+In the other case, the fix has been to separate the variable
+definition and its use, as the kernel coding style recommends.
 
-In the case of NFS, it will invalidate its data and metadata caches when
-this value changes. This is why this why false iversion bumps are so
-expensive for NFS, particularly if you're dealing with large files.
-Everything has to be re-fetched from the server when it changes.
+Nacked-by: Alexei Starovoitov <ast@kernel.org>
+Cc: bpf <bpf@vger.kernel.org>
+Cc: linux-man <linux-man@vger.kernel.org>
+Cc: Daniel Borkmann <daniel@iogearbox.net>
+Cc: Andrii Nakryiko <andrii@kernel.org>
+Cc: Martin KaFai Lau <kafai@fb.com>
+Cc: Song Liu <songliubraving@fb.com>
+Cc: Yonghong Song <yhs@fb.com>
+Cc: John Fastabend <john.fastabend@gmail.com>
+Cc: KP Singh <kpsingh@kernel.org>
+Cc: Stanislav Fomichev <sdf@google.com>
+Cc: Hao Luo <haoluo@google.com>
+Cc: Jiri Olsa <jolsa@kernel.org>
+Cc: Jesper Dangaard Brouer <brouer@redhat.com>
+Cc: Quentin Monnet <quentin@isovalent.com>
+Cc: Greg KH <gregkh@linuxfoundation.org>
+Cc: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
+---
+ include/uapi/linux/bpf.h       | 11 ++++++-----
+ tools/include/uapi/linux/bpf.h | 11 ++++++-----
+ 2 files changed, 12 insertions(+), 10 deletions(-)
 
-In the case of IMA, it will re-measure the data in the inode to make
-sure that it hasn't changed. That involves reading the whole file in and
-running a checksum over it.
+diff --git a/include/uapi/linux/bpf.h b/include/uapi/linux/bpf.h
+index ef78e0e1a754..1443fa2a1915 100644
+--- a/include/uapi/linux/bpf.h
++++ b/include/uapi/linux/bpf.h
+@@ -1619,7 +1619,7 @@ union bpf_attr {
+  *
+  * 		::
+  *
+- * 			telnet-470   [001] .N.. 419421.045894: 0x00000001: <formatted msg>
++ * 			telnet-470   [001] .N.. 419421.045894: 0x00000001: <fmt>
+  *
+  * 		In the above:
+  *
+@@ -1636,8 +1636,7 @@ union bpf_attr {
+  * 			* ``419421.045894`` is a timestamp.
+  * 			* ``0x00000001`` is a fake value used by BPF for the
+  * 			  instruction pointer register.
+- * 			* ``<formatted msg>`` is the message formatted with
+- * 			  *fmt*.
++ * 			* ``<fmt>`` is the message formatted with *fmt*.
+  *
+  * 		The conversion specifiers supported by *fmt* are similar, but
+  * 		more limited than for printk(). They are **%d**, **%i**,
+@@ -3860,8 +3859,10 @@ union bpf_attr {
+  * 			void bpf_sys_open(struct pt_regs *ctx)
+  * 			{
+  * 			        char buf[PATHLEN]; // PATHLEN is defined to 256
+- * 			        int res = bpf_probe_read_user_str(buf, sizeof(buf),
+- * 				                                  ctx->di);
++ * 			        int res;
++ *
++ * 			        res = bpf_probe_read_user_str(buf, sizeof(buf),
++ * 				                              ctx->di);
+  *
+  * 				// Consume buf, for example push it to
+  * 				// userspace via bpf_perf_event_output(); we
+diff --git a/tools/include/uapi/linux/bpf.h b/tools/include/uapi/linux/bpf.h
+index ef78e0e1a754..1443fa2a1915 100644
+--- a/tools/include/uapi/linux/bpf.h
++++ b/tools/include/uapi/linux/bpf.h
+@@ -1619,7 +1619,7 @@ union bpf_attr {
+  *
+  * 		::
+  *
+- * 			telnet-470   [001] .N.. 419421.045894: 0x00000001: <formatted msg>
++ * 			telnet-470   [001] .N.. 419421.045894: 0x00000001: <fmt>
+  *
+  * 		In the above:
+  *
+@@ -1636,8 +1636,7 @@ union bpf_attr {
+  * 			* ``419421.045894`` is a timestamp.
+  * 			* ``0x00000001`` is a fake value used by BPF for the
+  * 			  instruction pointer register.
+- * 			* ``<formatted msg>`` is the message formatted with
+- * 			  *fmt*.
++ * 			* ``<fmt>`` is the message formatted with *fmt*.
+  *
+  * 		The conversion specifiers supported by *fmt* are similar, but
+  * 		more limited than for printk(). They are **%d**, **%i**,
+@@ -3860,8 +3859,10 @@ union bpf_attr {
+  * 			void bpf_sys_open(struct pt_regs *ctx)
+  * 			{
+  * 			        char buf[PATHLEN]; // PATHLEN is defined to 256
+- * 			        int res = bpf_probe_read_user_str(buf, sizeof(buf),
+- * 				                                  ctx->di);
++ * 			        int res;
++ *
++ * 			        res = bpf_probe_read_user_str(buf, sizeof(buf),
++ * 				                              ctx->di);
+  *
+  * 				// Consume buf, for example push it to
+  * 				// userspace via bpf_perf_event_output(); we
+-- 
+2.37.2
 
-You could envision a backup tool using this to do incremental backups,
-for instance. Keep a db of stx_ino:stx_ino_version for the files and you
-could scan a filesystem and see which files need their backups updated.
-
-Or, use it as a way to do stable file copies: Get the stx_ino_version
-for a file, copy it somewhere and then get the stx_ino_version again.
-Did it change? Redo the copy. That might be a nice option to add to
-rsync, actually.
-
->=20
-> Jeff> Signed-off-by: Jeff Layton <jlayton@kernel.org>
-> Jeff> ---
-> Jeff>  man2/statx.2 | 13 +++++++++++++
-> Jeff>  man7/inode.7 | 10 ++++++++++
-> Jeff>  2 files changed, 23 insertions(+)
->=20
-> Jeff> diff --git a/man2/statx.2 b/man2/statx.2
-> Jeff> index 0d1b4591f74c..644fb251f114 100644
-> Jeff> --- a/man2/statx.2
-> Jeff> +++ b/man2/statx.2
-> Jeff> @@ -62,6 +62,7 @@ struct statx {
-> Jeff>      __u32 stx_dev_major;   /* Major ID */
-> Jeff>      __u32 stx_dev_minor;   /* Minor ID */
-> Jeff>      __u64 stx_mnt_id;      /* Mount ID */
-> Jeff> +    __u64 stx_ino_version; /* Inode change attribute */
-> Jeff>  };
-> Jeff>  .EE
-> Jeff>  .in
-> Jeff> @@ -247,6 +248,7 @@ STATX_BTIME	Want stx_btime
-> Jeff>  STATX_ALL	The same as STATX_BASIC_STATS | STATX_BTIME.
-> Jeff>  	It is deprecated and should not be used.
-> Jeff>  STATX_MNT_ID	Want stx_mnt_id (since Linux 5.8)
-> Jeff> +STATX_INO_VERSION	Want stx_ino_version (since Linux
-> 6.1)
-> Jeff>  .TE
-> Jeff>  .in
-> Jeff>  .PP
-> Jeff> @@ -411,6 +413,17 @@ and corresponds to the number in the first
-> field in one of the records in
-> Jeff>  For further information on the above fields, see
-> Jeff>  .BR inode (7).
-> Jeff>  .\"
-> Jeff> +.TP
-> Jeff> +.I stx_ino_version
-> Jeff> +The inode version, also known as the inode change attribute.
-> This
-> Jeff> +value is intended to change any time there is an inode status
-> change. Any
-> Jeff> +operation that would cause the stx_ctime to change should also
-> cause
-> Jeff> +stx_ino_version to change, even when there is no apparent
-> change to the
-> Jeff> +stx_ctime due to timestamp granularity.
-> Jeff> +.IP
-> Jeff> +Note that an observer cannot infer anything about the nature or
-> Jeff> +magnitude of the change from the value of this field. A change
-> in this value
-> Jeff> +only indicates that there may have been an explicit change in
-> the inode.
-> Jeff>  .SS File attributes
-> Jeff>  The
-> Jeff>  .I stx_attributes
-> Jeff> diff --git a/man7/inode.7 b/man7/inode.7
-> Jeff> index 9b255a890720..d296bb6df70c 100644
-> Jeff> --- a/man7/inode.7
-> Jeff> +++ b/man7/inode.7
-> Jeff> @@ -184,6 +184,16 @@ Last status change timestamp (ctime)
-> Jeff>  This is the file's last status change timestamp.
-> Jeff>  It is changed by writing or by setting inode information
-> Jeff>  (i.e., owner, group, link count, mode, etc.).
-> Jeff> +.TP
-> Jeff> +Inode version (i_version)
-> Jeff> +(not returned in the \fIstat\fP structure);
-> \fIstatx.stx_ino_version\fP
-> Jeff> +.IP
-> Jeff> +This is the inode change attribute. Any operation that would
-> result in a ctime
-> Jeff> +change should also result in a change to this value. The value
-> must change even
-> Jeff> +in the case where the ctime change is not evident due to
-> timestamp granularity.
-> Jeff> +An observer cannot infer anything from the actual value about
-> the nature or
-> Jeff> +magnitude of the change. If it is different from the last time
-> it was checked,
-> Jeff> +then something may have made an explicit change to the inode.
-> Jeff>  .PP
-> Jeff>  The timestamp fields report time measured with a zero point at
-> the
-> Jeff>  .IR Epoch ,
-> Jeff> --=20
-> Jeff> 2.37.2
->=20
-
---=20
-Jeff Layton <jlayton@kernel.org>
