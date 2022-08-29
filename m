@@ -2,116 +2,199 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 40C3A5A4317
-	for <lists+linux-man@lfdr.de>; Mon, 29 Aug 2022 08:21:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2D5AF5A4C64
+	for <lists+linux-man@lfdr.de>; Mon, 29 Aug 2022 14:51:19 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229650AbiH2GVz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 29 Aug 2022 02:21:55 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56874 "EHLO
+        id S230258AbiH2MvQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 29 Aug 2022 08:51:16 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43150 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229644AbiH2GVy (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 29 Aug 2022 02:21:54 -0400
-X-Greylist: delayed 441 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Sun, 28 Aug 2022 23:21:52 PDT
-Received: from kiste.informatik.uni-erlangen.de (kiste.informatik.uni-erlangen.de [131.188.40.98])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4D46A41D22
-        for <linux-man@vger.kernel.org>; Sun, 28 Aug 2022 23:21:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=sicherha.de; h=
- content-type:content-type:mime-version:message-id:date:date
- :subject:subject:from:from; s=dkim20200822; t=1661753668; x=
- 1662617669; bh=/URuszxD0hzfyU4gCG+/Z6J/GhMPnaCJP9XTk1jke9s=; b=m
- s+XsFz+LO8e20b1gcGb7ze+MNbtu4IuksIrUFgKI4a8KD+j93CObL5F6Ydust7KE
- M+XpFg8MjdZg1W5Tk1R4C4kIm9nJdc3/zdmwkv+VT7GHeZbXNPXOtMkZElVOMRjc
- O/Y/b/GXUVeNhCeDOjM1pr26wowMnXvitQ0Uz1Sk3WAwkgAjwpj7tYVhT4VM7h0l
- mqfiblGd8Dbsh5L9w+lHbrF+rxizpgwUND8hlH+AyDzLcfK7nrPa9URPXs2EPmic
- ijdscOeamU9fAEiZd6PQRcMkk3j3huU5ICmBAusmV6rSQYEHSsIRvguTOVLihclW
- rhdpuGdXINGSa4eV2Yej57hh+DItCxFZcWoi5sxJYWrWlCWUn0BFrBbqfBWlTPAV
- gbjBlN69kHn3c5vLUdMQDJBkV/SJUc7A2KYfpDIRl4aN4o4sviCGu3cpcfNRu+Ac
- v79f3ys0FlXF0iC9QVnMJBz4PwhpUaB/7LJttBJqMu4LxIu81/eE/O4i3AY3woK6
- ma4eOw7ZOP/ZcUIH8USMdkfeh+iYXkSmleeJRlZDRudR2AVs7lhvzk0pUqJwuhcs
- SKVnRNhuPgEdaEi/HQb+vjH0bTTHaCnwBhxQtslqy3t67RPHBA+Q1UDWF4sXBL20
- GQS6gwE6rK0NKcewyPnqXFxS524ausYkqgKDk+cqmE=
-X-Virus-Scanned: Debian amavisd-new at sicherha.de
-Sender: christoph.erhardt@sicherha.de
-From:   Christoph Erhardt <fedora@sicherha.de>
-To:     linux-man@vger.kernel.org
-Subject: Is man-pages-posix redistributable?
-Date:   Mon, 29 Aug 2022 08:14:22 +0200
-Message-ID: <3765026.aeNJFYEL58@delle>
+        with ESMTP id S229845AbiH2Muz (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 29 Aug 2022 08:50:55 -0400
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 03F4B7C74C;
+        Mon, 29 Aug 2022 05:37:37 -0700 (PDT)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id 6F55F611FA;
+        Mon, 29 Aug 2022 12:37:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7A60C433C1;
+        Mon, 29 Aug 2022 12:37:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1661776656;
+        bh=iJoS2HHPSfAQPS7l1aJ39VXIxX+3fe7CLzcb+f5VidQ=;
+        h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+        b=HDLqM9EE81L82hfqDGddOPlqSmySTPWwLwm56CCLD/qUdQKxMTn2JoCz1ZOeiCrRv
+         Re0CnimCHjDxAq30OOeIqGjM8oqKuS/Cq5DX1Pc/3Xl/ZKzagzJ0/i/6xR0Q3PecjB
+         YDB506/bXCpuaTaxjvLwx7wYtjv492SDCxJgOCKasgwTkNi8ctn0K4xlv3bLaOC8sW
+         W4o8/i7C+tdfNefvBaA+B2AST8A4dWJPs/qTXS28uePb+pb0Eya9+rrc8NwXVYf2bj
+         ughTMcwv3SwmIrRqR1BwM/SU6gQQO3t6eLuWwgHtiHmnzhNOtq7Jr6Rxxk9PXSy5Kp
+         j1Pkzv5nCU65g==
+Message-ID: <bffe16482bcb3e6a69378e821e76182be21c7d1b.camel@kernel.org>
+Subject: Re: [man-pages PATCH] statx, inode: document the new
+ STATX_INO_VERSION field
+From:   Jeff Layton <jlayton@kernel.org>
+To:     John Stoffel <john@stoffel.org>
+Cc:     tytso@mit.edu, adilger.kernel@dilger.ca, djwong@kernel.org,
+        david@fromorbit.com, trondmy@hammerspace.com, neilb@suse.de,
+        viro@zeniv.linux.org.uk, zohar@linux.ibm.com, xiubli@redhat.com,
+        chuck.lever@oracle.com, lczerner@redhat.com, jack@suse.cz,
+        brauner@kernel.org, linux-man@vger.kernel.org,
+        linux-api@vger.kernel.org, linux-btrfs@vger.kernel.org,
+        linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-ceph@vger.kernel.org, linux-ext4@vger.kernel.org,
+        linux-nfs@vger.kernel.org, linux-xfs@vger.kernel.org
+Date:   Mon, 29 Aug 2022 08:37:33 -0400
+In-Reply-To: <25355.34889.890961.350510@quad.stoffel.home>
+References: <20220826214747.134964-1-jlayton@kernel.org>
+         <25355.34889.890961.350510@quad.stoffel.home>
+Content-Type: text/plain; charset="ISO-8859-15"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.44.4 (3.44.4-1.fc36) 
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPart3771136.44csPzL39Z";
- micalg="pgp-sha256"; protocol="application/pgp-signature"
-X-Spam-Status: No, score=-0.2 required=5.0 tests=BAYES_20,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
-        T_SCC_BODY_TEXT_LINE autolearn=ham autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-7.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
---nextPart3771136.44csPzL39Z
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"; protected-headers="v1"
-From: Christoph Erhardt <fedora@sicherha.de>
-To: linux-man@vger.kernel.org
-Subject: Is man-pages-posix redistributable?
-Date: Mon, 29 Aug 2022 08:14:22 +0200
-Message-ID: <3765026.aeNJFYEL58@delle>
-MIME-Version: 1.0
+On Sun, 2022-08-28 at 11:22 -0400, John Stoffel wrote:
+> > > > > > "Jeff" =3D=3D Jeff Layton <jlayton@kernel.org> writes:
+>=20
+> Jeff> We're planning to expose the inode change attribute via statx.
+> Document
+> Jeff> what this value means and what an observer can infer from a
+> change in
+> Jeff> its value.
+>=20
+> It might be nice to put in some more example verbiage of how this
+> would be used by userland.  For example, if you do a statx() call and
+> notice that the ino_version has changed... what would you do next to
+> find out what changed? =20
+>=20
+> Would you have to keep around an old copy of the statx() results and
+> then compare them to find the changes?  When talking to userland
+> people, don't assume they know anything about the kernel internals
+> here. =20
+>=20
 
-Hi list,
+How you'd use this really depends on the application, but yes, you'd
+need to at least know what an old stx_ino_version was in order to detect
+that there has been a change to it.
 
-I have a question regarding the redistribution of man-pages-posix.
-Prior to the 2017-a release, the POSIX_COPYRIGHT file contained the following 
-paragraph:
-> Redistribution of this material is permitted so long as this notice and
-> the corresponding notices within each POSIX manual page are retained on
-> any distribution, and the nroff source is included. Modifications to
-> the text are permitted so long as any conflicts with the standard
-> are clearly marked as such in the text.
+Today, i_version is mostly of use for knowing when you should invalidate
+cached file info. Think of it as something like ctime, but with infinite
+granularity. If it changes then something substantive _might_ have
+changed in the inode. It's possible it's nothing your application cares
+about, so you'd likely have to deal with "false" changes to this anyway.
 
-In the 2017-a release, that paragraph has disappeared. I would like to clarify 
-the implications of that for downstream distributions.
+In the case of NFS, it will invalidate its data and metadata caches when
+this value changes. This is why this why false iversion bumps are so
+expensive for NFS, particularly if you're dealing with large files.
+Everything has to be re-fetched from the server when it changes.
 
-The Fedora project, which is known to be very strict about licensing concerns, 
-sees the new licence as impermissible and has dropped the POSIX man pages as a 
-consequence: https://bugzilla.redhat.com/show_bug.cgi?id=2116859
+In the case of IMA, it will re-measure the data in the inode to make
+sure that it hasn't changed. That involves reading the whole file in and
+running a checksum over it.
 
-Now, Fedora's quasi-official way of dealing with such licensing issues would 
-be to add the item in question to RPM Fusion's 'nonfree' package repository. I 
-have opened an inclusion request:
-https://bugzilla.rpmfusion.org/show_bug.cgi?id=6396
+You could envision a backup tool using this to do incremental backups,
+for instance. Keep a db of stx_ino:stx_ino_version for the files and you
+could scan a filesystem and see which files need their backups updated.
 
-However, the discussion there has raised the question whether the contents of 
-man-pages-posix are redistributable *at all* - given that the clause 
-mentioning redistribution has vanished from the licence.
+Or, use it as a way to do stable file copies: Get the stx_ino_version
+for a file, copy it somewhere and then get the stx_ino_version again.
+Did it change? Redo the copy. That might be a nice option to add to
+rsync, actually.
 
-Could someone please clarify?
+>=20
+> Jeff> Signed-off-by: Jeff Layton <jlayton@kernel.org>
+> Jeff> ---
+> Jeff>  man2/statx.2 | 13 +++++++++++++
+> Jeff>  man7/inode.7 | 10 ++++++++++
+> Jeff>  2 files changed, 23 insertions(+)
+>=20
+> Jeff> diff --git a/man2/statx.2 b/man2/statx.2
+> Jeff> index 0d1b4591f74c..644fb251f114 100644
+> Jeff> --- a/man2/statx.2
+> Jeff> +++ b/man2/statx.2
+> Jeff> @@ -62,6 +62,7 @@ struct statx {
+> Jeff>      __u32 stx_dev_major;   /* Major ID */
+> Jeff>      __u32 stx_dev_minor;   /* Minor ID */
+> Jeff>      __u64 stx_mnt_id;      /* Mount ID */
+> Jeff> +    __u64 stx_ino_version; /* Inode change attribute */
+> Jeff>  };
+> Jeff>  .EE
+> Jeff>  .in
+> Jeff> @@ -247,6 +248,7 @@ STATX_BTIME	Want stx_btime
+> Jeff>  STATX_ALL	The same as STATX_BASIC_STATS | STATX_BTIME.
+> Jeff>  	It is deprecated and should not be used.
+> Jeff>  STATX_MNT_ID	Want stx_mnt_id (since Linux 5.8)
+> Jeff> +STATX_INO_VERSION	Want stx_ino_version (since Linux
+> 6.1)
+> Jeff>  .TE
+> Jeff>  .in
+> Jeff>  .PP
+> Jeff> @@ -411,6 +413,17 @@ and corresponds to the number in the first
+> field in one of the records in
+> Jeff>  For further information on the above fields, see
+> Jeff>  .BR inode (7).
+> Jeff>  .\"
+> Jeff> +.TP
+> Jeff> +.I stx_ino_version
+> Jeff> +The inode version, also known as the inode change attribute.
+> This
+> Jeff> +value is intended to change any time there is an inode status
+> change. Any
+> Jeff> +operation that would cause the stx_ctime to change should also
+> cause
+> Jeff> +stx_ino_version to change, even when there is no apparent
+> change to the
+> Jeff> +stx_ctime due to timestamp granularity.
+> Jeff> +.IP
+> Jeff> +Note that an observer cannot infer anything about the nature or
+> Jeff> +magnitude of the change from the value of this field. A change
+> in this value
+> Jeff> +only indicates that there may have been an explicit change in
+> the inode.
+> Jeff>  .SS File attributes
+> Jeff>  The
+> Jeff>  .I stx_attributes
+> Jeff> diff --git a/man7/inode.7 b/man7/inode.7
+> Jeff> index 9b255a890720..d296bb6df70c 100644
+> Jeff> --- a/man7/inode.7
+> Jeff> +++ b/man7/inode.7
+> Jeff> @@ -184,6 +184,16 @@ Last status change timestamp (ctime)
+> Jeff>  This is the file's last status change timestamp.
+> Jeff>  It is changed by writing or by setting inode information
+> Jeff>  (i.e., owner, group, link count, mode, etc.).
+> Jeff> +.TP
+> Jeff> +Inode version (i_version)
+> Jeff> +(not returned in the \fIstat\fP structure);
+> \fIstatx.stx_ino_version\fP
+> Jeff> +.IP
+> Jeff> +This is the inode change attribute. Any operation that would
+> result in a ctime
+> Jeff> +change should also result in a change to this value. The value
+> must change even
+> Jeff> +in the case where the ctime change is not evident due to
+> timestamp granularity.
+> Jeff> +An observer cannot infer anything from the actual value about
+> the nature or
+> Jeff> +magnitude of the change. If it is different from the last time
+> it was checked,
+> Jeff> +then something may have made an explicit change to the inode.
+> Jeff>  .PP
+> Jeff>  The timestamp fields report time measured with a zero point at
+> the
+> Jeff>  .IR Epoch ,
+> Jeff> --=20
+> Jeff> 2.37.2
+>=20
 
-Thanks a lot,
-Christoph
---nextPart3771136.44csPzL39Z
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEwp5/nkNlccrQ2UKH4yzDBS9Gs8IFAmMMWT4ACgkQ4yzDBS9G
-s8KxbA/+PhjQi6RvuUdZ0Tc8ZDQoIz2VX7DtEJe0OrUBcAW2bI3u3N+Q39eGiAlV
-mB5oktJH3Qe4YF1HdWzzGSXefCYXT7Kj+RflEodRoKSz0GF1pUwTynNSbxx3ITY5
-P7rthF79LO9vDAJDA4hmws4nXgHk6tgQXplHSM//e2xS37DlrXK+OOLiRlIeuOVz
-FQvgQ+NA/CgeH7rmJAUYRdAg+rgqf6SF086DODkEi+2JXE4Zq9pFJplPIzup8D/b
-tKpY1eFqVc4ViARnAcu/Ims7oR+zwaEs9YhzlJ+ZCNnx/8Q6iDPryqWxHJ6e8STY
-QzLyuvtCxAUQaj7ho5XqLQvlCLSbzQNDZPB2wAGAN+PtE04uey6/xLes7LKx4RJh
-4vG1Myeoh9h6P8kFXSZFlV0qNUd1QtNTy/pJCHaOuHpgD3NON+6auhX/blrtGtk2
-fqAeWPm3DHIXHkpPNAgKGS1ZzMtu5MkgPcsxeMQ1xbxFaKBQxmJHjYzQW59Y1XiX
-y46HcG0vEQwk2SsqvLFlrQEh+xW0MD5lRMwetjSqbyK0Ia+9piWlrhnwU7pm/SAl
-2Gq3A3Zg1/a321S0bJz1l4pwOsZtUag/ytY3aRcodQdIjDzoSTxVLCVfWK8ui4y2
-Wy2h8ZEtJcWiWBA+GiU/nOZftqOKdhBZrP4LNQ3h1g2orSktSxU=
-=W9HG
------END PGP SIGNATURE-----
-
---nextPart3771136.44csPzL39Z--
-
-
+--=20
+Jeff Layton <jlayton@kernel.org>
