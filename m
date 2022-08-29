@@ -2,140 +2,153 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id A304A5A5588
-	for <lists+linux-man@lfdr.de>; Mon, 29 Aug 2022 22:29:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 978EC5A5668
+	for <lists+linux-man@lfdr.de>; Mon, 29 Aug 2022 23:46:53 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230054AbiH2U3Z (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 29 Aug 2022 16:29:25 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46328 "EHLO
+        id S229536AbiH2Vqw (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 29 Aug 2022 17:46:52 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39624 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229475AbiH2U3Y (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 29 Aug 2022 16:29:24 -0400
-Received: from www62.your-server.de (www62.your-server.de [213.133.104.62])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3772285FCC;
-        Mon, 29 Aug 2022 13:29:23 -0700 (PDT)
-Received: from sslproxy05.your-server.de ([78.46.172.2])
-        by www62.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
-        (Exim 4.92.3)
-        (envelope-from <daniel@iogearbox.net>)
-        id 1oSlNn-000G6Y-Df; Mon, 29 Aug 2022 22:29:19 +0200
-Received: from [85.1.206.226] (helo=linux-4.home)
-        by sslproxy05.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
-        (Exim 4.92)
-        (envelope-from <daniel@iogearbox.net>)
-        id 1oSlNm-000GuQ-V1; Mon, 29 Aug 2022 22:29:18 +0200
-Subject: Re: [PATCH v2] Fit lines in 80 columns
-To:     Alejandro Colomar <alx.manpages@gmail.com>,
-        Quentin Monnet <quentin@isovalent.com>
-Cc:     Alexei Starovoitov <ast@kernel.org>, bpf <bpf@vger.kernel.org>,
-        linux-man <linux-man@vger.kernel.org>,
-        Andrii Nakryiko <andrii@kernel.org>,
-        Martin KaFai Lau <kafai@fb.com>,
-        Song Liu <songliubraving@fb.com>, Yonghong Song <yhs@fb.com>,
-        John Fastabend <john.fastabend@gmail.com>,
-        KP Singh <kpsingh@kernel.org>,
-        Stanislav Fomichev <sdf@google.com>,
-        Hao Luo <haoluo@google.com>, Jiri Olsa <jolsa@kernel.org>,
-        Jesper Dangaard Brouer <brouer@redhat.com>,
-        Greg KH <gregkh@linuxfoundation.org>,
-        "G. Branden Robinson" <g.branden.robinson@gmail.com>
-References: <20220825175653.131125-1-alx.manpages@gmail.com>
- <20220829195842.85290-1-alx.manpages@gmail.com>
-From:   Daniel Borkmann <daniel@iogearbox.net>
-Message-ID: <0760a7e9-c3a5-fc27-0553-dc4ec6df554b@iogearbox.net>
-Date:   Mon, 29 Aug 2022 22:29:18 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.2
+        with ESMTP id S229508AbiH2Vqv (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 29 Aug 2022 17:46:51 -0400
+Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id B4A8185F81
+        for <linux-man@vger.kernel.org>; Mon, 29 Aug 2022 14:46:49 -0700 (PDT)
+Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 8163D1E70;
+        Mon, 29 Aug 2022 23:46:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
+        s=202205; t=1661809606;
+        bh=BkaG7rc1TQCoY7bkAdOe6Y1ckBNRiTfF9gwd/FUgCXM=;
+        h=Date:From:To:Cc:Subject:From;
+        b=oWOkAJQ377VOLFUVTiFpLuOsxP9mvKALyptBppr1W12Mk9aOYUP28PsIZ/oRXE5zx
+         j3hCqHBwL+wxET1FAKdE6NA6gNjMTRpisKktfi00/rtPzZN4lcmx3JmNZ3+5FRPQ+G
+         cm+cHaag7pYvHhGpVOAkIihawCJZ4y2hz+Y2DuFLSH2j5MoJ1HKY8cXVJV8xwXevuA
+         gpCxuDG7hwbrwOk2ojVB+djaXdB7ac/PBj4CoD9nXjvY2ysndolwko5iqgEFQoiSU4
+         IlbT1/jcGL/ELbyLaTVnQC0/kibX94e9DxLmvmNpBveeCaIC0QH44WjyB6PqAOUx+Y
+         isMfFLfzqyd29XWMwTzDDE5QOa5VYVnkhNbj0YVx/BBfXW09fl+q1YVfigQwSmStGV
+         V3YwJh+oFzzCir8QliDmzKstzjMHkMRu5hCcYvcZROlk/AT3AlMdZ7T3fVeJNz8qVp
+         LMnrF9h+am6koF+d/zTcRmgJ18JlmsZRdk1uLtZwgwZoQPUeXiwE9wlz6YZ9mC0JI1
+         mlfPKvPdioEh3mbExG/K2hN4DXW/wuWKEAkiD905T2AeX/EHwPRmuiT4nCiYNKemr3
+         K7XY1lgacJjMaIeUXGpfGkbYYAkHjY9KmwFCryCScpSPVpT23ur+OhdPQXnqy4WgLS
+         /Ns4q7WKya97iGWj6PGICbts=
+Date:   Mon, 29 Aug 2022 23:46:45 +0200
+From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org
+Subject: [PATCH 1/2] cc_t.3type, speed_t.3type, tcflag_t.3type: document all
+ together
+Message-ID: <ad1134a85b71db33671385502931aa61029ffc44.1661809591.git.nabijaczleweli@nabijaczleweli.xyz>
 MIME-Version: 1.0
-In-Reply-To: <20220829195842.85290-1-alx.manpages@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Authenticated-Sender: daniel@iogearbox.net
-X-Virus-Scanned: Clear (ClamAV 0.103.6/26642/Mon Aug 29 09:54:26 2022)
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-        autolearn=ham autolearn_force=no version=3.4.6
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="fhmyi7o6ge7icaqw"
+Content-Disposition: inline
+User-Agent: NeoMutt/20220429
+X-Spam-Status: No, score=2.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FROM_SUSPICIOUS_NTLD,
+        FROM_SUSPICIOUS_NTLD_FP,PDS_OTHER_BAD_TLD,RDNS_DYNAMIC,SPF_HELO_NONE,
+        SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=no autolearn_force=no
+        version=3.4.6
+X-Spam-Level: **
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 8/29/22 9:58 PM, Alejandro Colomar wrote:
-> Those lines is used to generate the bpf-helpers(7) manual page.
-> They are no-fill lines, since they represent code, which means
-> that the formatter can't break the line, and instead just runs
-> across the right margin (in most set-ups this means that the pager
-> will break the line).
-> 
-> Using <fmt> makes it end exactly at the 80-col right margin, both
-> in the header file, and also in the manual page, and also seems to
-> be a sensible name to me.
-> 
-> In the other case, the fix has been to separate the variable
-> definition and its use, as the kernel coding style recommends.
-> 
-> Nacked-by: Alexei Starovoitov <ast@kernel.org>
-> Cc: bpf <bpf@vger.kernel.org>
-> Cc: linux-man <linux-man@vger.kernel.org>
-> Cc: Daniel Borkmann <daniel@iogearbox.net>
-> Cc: Andrii Nakryiko <andrii@kernel.org>
-> Cc: Martin KaFai Lau <kafai@fb.com>
-> Cc: Song Liu <songliubraving@fb.com>
-> Cc: Yonghong Song <yhs@fb.com>
-> Cc: John Fastabend <john.fastabend@gmail.com>
-> Cc: KP Singh <kpsingh@kernel.org>
-> Cc: Stanislav Fomichev <sdf@google.com>
-> Cc: Hao Luo <haoluo@google.com>
-> Cc: Jiri Olsa <jolsa@kernel.org>
-> Cc: Jesper Dangaard Brouer <brouer@redhat.com>
-> Cc: Quentin Monnet <quentin@isovalent.com>
-> Cc: Greg KH <gregkh@linuxfoundation.org>
-> Cc: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-> Signed-off-by: Alejandro Colomar <alx.manpages@gmail.com>
-> ---
->   include/uapi/linux/bpf.h       | 11 ++++++-----
->   tools/include/uapi/linux/bpf.h | 11 ++++++-----
->   2 files changed, 12 insertions(+), 10 deletions(-)
-> 
-> diff --git a/include/uapi/linux/bpf.h b/include/uapi/linux/bpf.h
-> index ef78e0e1a754..1443fa2a1915 100644
-> --- a/include/uapi/linux/bpf.h
-> +++ b/include/uapi/linux/bpf.h
-> @@ -1619,7 +1619,7 @@ union bpf_attr {
->    *
->    * 		::
->    *
-> - * 			telnet-470   [001] .N.. 419421.045894: 0x00000001: <formatted msg>
-> + * 			telnet-470   [001] .N.. 419421.045894: 0x00000001: <fmt>
->    *
->    * 		In the above:
->    *
-> @@ -1636,8 +1636,7 @@ union bpf_attr {
->    * 			* ``419421.045894`` is a timestamp.
->    * 			* ``0x00000001`` is a fake value used by BPF for the
->    * 			  instruction pointer register.
-> - * 			* ``<formatted msg>`` is the message formatted with
-> - * 			  *fmt*.
-> + * 			* ``<fmt>`` is the message formatted with *fmt*.
->    *
->    * 		The conversion specifiers supported by *fmt* are similar, but
->    * 		more limited than for printk(). They are **%d**, **%i**,
-> @@ -3860,8 +3859,10 @@ union bpf_attr {
->    * 			void bpf_sys_open(struct pt_regs *ctx)
->    * 			{
->    * 			        char buf[PATHLEN]; // PATHLEN is defined to 256
-> - * 			        int res = bpf_probe_read_user_str(buf, sizeof(buf),
-> - * 				                                  ctx->di);
-> + * 			        int res;
-> + *
-> + * 			        res = bpf_probe_read_user_str(buf, sizeof(buf),
-> + * 				                              ctx->di);
->    *
 
-Aside that this has been Nacked before, this looks really ugly. I'm not applying
-this, sorry.
+--fhmyi7o6ge7icaqw
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Thanks,
-Daniel
+speed_t and tcflag_t were both unmentioned in general
+
+Issue 7 has this to say:
+  The <termios.h> header shall define the following data types through type=
+def:
+    cc_t     Used for terminal special characters.
+    speed_t  Used for terminal baud rates.
+    tcflag_t Used for terminal modes.
+  The above types shall be all unsigned integer types.
+---
+ man3type/cc_t.3type     | 14 +++++++++++---
+ man3type/speed_t.3type  |  1 +
+ man3type/tcflag_t.3type |  1 +
+ 3 files changed, 13 insertions(+), 3 deletions(-)
+ create mode 100644 man3type/speed_t.3type
+ create mode 100644 man3type/tcflag_t.3type
+
+diff --git a/man3type/cc_t.3type b/man3type/cc_t.3type
+index 029cf945c..0afdd2cd0 100644
+--- a/man3type/cc_t.3type
++++ b/man3type/cc_t.3type
+@@ -6,7 +6,7 @@
+ .\"
+ .TH CC_T 3type 2021-11-02 "Linux man-pages (unreleased)"
+ .SH NAME
+-cc_t \- terminal special characters
++cc_t, speed_t, tcflag_t \- terminal special characters, baud rates, modes
+ .SH LIBRARY
+ Standard C library
+ .RI ( libc )
+@@ -15,10 +15,18 @@ Standard C library
+ .B #include <termios.h>
+ .PP
+ .BR typedef " /* ... */ " cc_t;
++.BR typedef " /* ... */ " speed_t;
++.BR typedef " /* ... */ " tcflag_t;
+ .fi
+ .SH DESCRIPTION
+-Used for terminal special characters.
+-It is an unsigned integer type.
++.B cc_t
++is used for terminal special characters,
++.B speed_t
++\(em baud rates, and
++.B tcflag_t
++\(em modes.
++.PP
++All are unsigned integer types.
+ .SH STANDARDS
+ POSIX.1-2001 and later.
+ .SH SEE ALSO
+diff --git a/man3type/speed_t.3type b/man3type/speed_t.3type
+new file mode 100644
+index 000000000..26cfd0171
+--- /dev/null
++++ b/man3type/speed_t.3type
+@@ -0,0 +1 @@
++.so man3type/cc_t.3type
+diff --git a/man3type/tcflag_t.3type b/man3type/tcflag_t.3type
+new file mode 100644
+index 000000000..26cfd0171
+--- /dev/null
++++ b/man3type/tcflag_t.3type
+@@ -0,0 +1 @@
++.so man3type/cc_t.3type
+--=20
+2.30.2
+
+
+--fhmyi7o6ge7icaqw
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmMNM8UACgkQvP0LAY0m
+WPHl/w/9GePtwMjucrE6lhNtTNSzJHhqs0PzvcXBQKFppYgzhNAUQBnx7I0Yedhm
+HkLU+MxCUnj8aaYp7/8m3gE+2CGXZEsfqYgu+jMU84n58/fckYu5N8tymPgvk+e6
+VqwF7BS0Xk62b13KEiIxEoFPt2ewCC3Cf+GvImh+T8RuLV4LQ4z29Nd+RHNs9QHk
+G3DVIU64CpZoTvxaEeFv7T2tm/GAhWYrp23xg8ImnhKsQ3QVJqpo6cglNypuSbTX
+/lc90uCUiFN9MCtVK70mYcSfRdm1/m4CWtKIZHNOWttYSUixsap9ojGWmSfM2n0J
+eR+pCkgrPWzRYJpZe9fRT3j2PPqOnadrCR2bpgQvT6onugTBsTI2D2jN2k7aiG+0
+P4ljspUyybsdQ5TkeWWuMfbz9LJJCplyxg6AO9pkMYErihWN53ltut3ACQ5A1V2M
+YXwfSds7CIPNcAuNGDC7f/NsZdMfr2SFLikmKiPCO8guu+ShxdwFQuqSK4TDN9wS
+HrjVGID4CEu/PoliGMaNuTmGTTkZVZBTh179nNchFvf30tMfjBRfGAGXifNOEJb4
+cJCkjloc/vNujNrn2byM3EeBGjs2xxJn67Q+aLcsJVmt2RbADltVzyPvby7+eyEx
+babqDhSAsQJbMhOxneqCvPDSkFVG8wggy+jXS65qFvJC3CJlDyM=
+=7Rtk
+-----END PGP SIGNATURE-----
+
+--fhmyi7o6ge7icaqw--
