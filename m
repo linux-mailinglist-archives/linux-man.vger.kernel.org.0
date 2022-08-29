@@ -2,181 +2,182 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id BC5245A5727
-	for <lists+linux-man@lfdr.de>; Tue, 30 Aug 2022 00:33:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 727F45A572B
+	for <lists+linux-man@lfdr.de>; Tue, 30 Aug 2022 00:36:59 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229547AbiH2Wd6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 29 Aug 2022 18:33:58 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42042 "EHLO
+        id S229650AbiH2Wg5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 29 Aug 2022 18:36:57 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45448 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229532AbiH2Wd5 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 29 Aug 2022 18:33:57 -0400
-Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 2D6E683F38
-        for <linux-man@vger.kernel.org>; Mon, 29 Aug 2022 15:33:55 -0700 (PDT)
-Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 3B46C2608;
-        Tue, 30 Aug 2022 00:33:53 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-        s=202205; t=1661812433;
-        bh=Zwt7i13nfKjLEz4d7jse5hVSOzKuNoCq17LFuen6qF8=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=EeR+Y7K8xOhIGRTPpFE6LJqAS9WwLfgmJr7f3bpf7XcO9KdItYqC1c45wUOtziob9
-         AfJUuaDitXk2k66h13IdBRpejBlaTm5L2O9fNLKXVo7iH0xZXBeKFdxKIHbw9OXj5q
-         vhjgEyvvo33V02vx2wbQ8Oje2brQF/6c4eL9hU2omEKtbXA8PQG/E3sV+FsW9awTaI
-         9R1j5Ljjp5B/hbfLKDpjXVWDZU37Kfdn0ViEidhy9oV9rpwsnC7orb/KokIUrGam9r
-         YBA5ufX5QNMyq3x5dyKYl7xh+UaML2gW9FX0YYB2Mjn3YrLTy9Z2kwLOd77RyaqqXx
-         W26kVnBOgB3RsKucwRYAffITMguiJPpSHn9Kwz1i0DwtusOXA4AnT/q7nrcyhB1cr0
-         Eoy4ibg8uiwMJlO/E5czS3Uy+47ReFjt8wjO6eztyGhBFEUuwqbALEheEgY5Weq0g4
-         jA+ynDc2d5shUEZgN+/O/Xz5DyFECzi+tFxnPuvQKyrgb6O8uYU5hOxecQTZK2wPWH
-         xxslLjMa/xQPLISUt4pPotcbrtXJNIA69zXfzTo2oBTgr0Q9SMuKCdPw0XHitrAEgb
-         WibHzK9Q9Tap/pNJQb4uuYNzP4HbE+/8+lBt6K08cimWGeA6pQkNfR/MjP0fSqdk5k
-         U7wVc8dX2FMuh2ziImNUInF4=
-Date:   Tue, 30 Aug 2022 00:33:52 +0200
-From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        linux-man@vger.kernel.org
+        with ESMTP id S229551AbiH2Wg4 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 29 Aug 2022 18:36:56 -0400
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com [IPv6:2a00:1450:4864:20::431])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 96C4F9CCF6
+        for <linux-man@vger.kernel.org>; Mon, 29 Aug 2022 15:36:55 -0700 (PDT)
+Received: by mail-wr1-x431.google.com with SMTP id bu22so11569192wrb.3
+        for <linux-man@vger.kernel.org>; Mon, 29 Aug 2022 15:36:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:from:to:cc;
+        bh=UKbDkVgp08TxfFLvhl/ANyjzVBivTqf65cmHf/2D8pA=;
+        b=LHeAaCBU61XFVaCcnUHLdw6XmgMlI8MJnNdelbJ+STjQFLOgKO/6WKhzhqWx5U3/tW
+         tGQOpuUpRXtF0pPMuhisiRwqzcVAEwhl4VXR6bjt6JRuOuyw89JGeCOKZdf4PXulUI5i
+         AeYjO76mF4mTifGEql/f1KUXpmRGXPtS4d1iJtfanVlsbiJDcwibqFI+Xj/Q/pwfSfck
+         sGMdoHSeusb+Bmp3ErEW9rqnuhN4a3XeylzsVYmhT1rEAho7Q2CdgMItTFDnPpc5CuK1
+         yxlV7mo1Jpwb5FeR9cnmHyazpFhUNFhOH9tOvJ9lx6tJWRGQOk/3q+lLQZLlXhphhk06
+         zrzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc;
+        bh=UKbDkVgp08TxfFLvhl/ANyjzVBivTqf65cmHf/2D8pA=;
+        b=ujFhJAG3CD0TldVwigi0evTJdBSPACR6lHLnf9Lxw8ed+Zgt8J5OYrWb8O79bVHGag
+         nSC5V5NJVQ9tvJGqIVCRto+2FBREauNMDnJkXzmJcXTfchncriJp7rb82lTtSVj2/GGe
+         gQonqVRQakBGawPivqt11/IHOgQ5T6ujisY9B+j8O6sxZp78W1Ra673xBefoRjm35WaA
+         NBadfLs+u1P9ImljSCDtI50WC+TSy1tOa7f+ebF+gXvA1ehdnge1/zr7ZsiUVOdWB5NH
+         sez+oDL9dqTGo8jWq5Ao+x+3dioMJfvzWl8InDRYED4VgKn2caDTGqa9XALXw1rXyBJb
+         YjoQ==
+X-Gm-Message-State: ACgBeo3POWZsr/rBmmb9dcr4SxlFs63vIqMub48YuYgWM4B9eyekrr8l
+        423Nv2lwJXOxDyLhU6OhLH8=
+X-Google-Smtp-Source: AA6agR7E+edeqgLwLvQVMDuMfEPFzucy4bvxE3ONPq1111vhKnhkDCSXSguGV5ASQO4MAeMeyMAEkg==
+X-Received: by 2002:adf:f3cd:0:b0:225:f712:c34a with SMTP id g13-20020adff3cd000000b00225f712c34amr7294890wrp.563.1661812614082;
+        Mon, 29 Aug 2022 15:36:54 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id e3-20020adfe383000000b0021ef34124ebsm8239472wrm.11.2022.08.29.15.36.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 29 Aug 2022 15:36:50 -0700 (PDT)
+Message-ID: <fd28f474-90a1-9f81-677d-f70ce604bd81@gmail.com>
+Date:   Tue, 30 Aug 2022 00:36:37 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.0
 Subject: Re: [PATCH 1/2] cc_t.3type, speed_t.3type, tcflag_t.3type: document
  all together
-Message-ID: <20220829223352.dkxto5dtp4txted6@tarta.nabijaczleweli.xyz>
+Content-Language: en-US
+To:     =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Cc:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        linux-man@vger.kernel.org
 References: <ad1134a85b71db33671385502931aa61029ffc44.1661809591.git.nabijaczleweli@nabijaczleweli.xyz>
  <3cbbf2e5-6213-198f-4cab-c6f42204d471@gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="65rgb7bw6uyuyrax"
-Content-Disposition: inline
-In-Reply-To: <3cbbf2e5-6213-198f-4cab-c6f42204d471@gmail.com>
-User-Agent: NeoMutt/20220429
-X-Spam-Status: No, score=0.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FROM_SUSPICIOUS_NTLD,
-        PDS_OTHER_BAD_TLD,RDNS_DYNAMIC,SPF_HELO_NONE,SPF_PASS,
-        T_SCC_BODY_TEXT_LINE autolearn=no autolearn_force=no version=3.4.6
+ <20220829223352.dkxto5dtp4txted6@tarta.nabijaczleweli.xyz>
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <20220829223352.dkxto5dtp4txted6@tarta.nabijaczleweli.xyz>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------fbdIwutQq4nq64SnUScjQWPi"
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------fbdIwutQq4nq64SnUScjQWPi
+Content-Type: multipart/mixed; boundary="------------t4YSMLsCcPRCjkV9vA4EnbUp";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Cc: "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+ linux-man@vger.kernel.org
+Message-ID: <fd28f474-90a1-9f81-677d-f70ce604bd81@gmail.com>
+Subject: Re: [PATCH 1/2] cc_t.3type, speed_t.3type, tcflag_t.3type: document
+ all together
+References: <ad1134a85b71db33671385502931aa61029ffc44.1661809591.git.nabijaczleweli@nabijaczleweli.xyz>
+ <3cbbf2e5-6213-198f-4cab-c6f42204d471@gmail.com>
+ <20220829223352.dkxto5dtp4txted6@tarta.nabijaczleweli.xyz>
+In-Reply-To: <20220829223352.dkxto5dtp4txted6@tarta.nabijaczleweli.xyz>
 
---65rgb7bw6uyuyrax
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+--------------t4YSMLsCcPRCjkV9vA4EnbUp
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Hi!
+SGkhDQoNCk9uIDgvMzAvMjIgMDA6MzMsINC90LDQsSB3cm90ZToNCj4gSGkhDQo+IA0KPiBP
+biBUdWUsIEF1ZyAzMCwgMjAyMiBhdCAxMjoxNjo1OEFNICswMjAwLCBBbGVqYW5kcm8gQ29s
+b21hciB3cm90ZToNCj4+IFR5cGVzIGFyZSBmb3JtYXR0ZWQgd2l0aCAuSSwgYnV0IHRoYXQg
+c2VlbXMgdG8gYmUgZXhpc3RpbmcgcHJhY3RpY2UgYW5kIEkNCj4+IGRvbid0IGZpbmQgaXQg
+ZG9jdW1lbnRlZCBhbnl3aGVyZS4gIChCcmFuZGVuLCBkbyB5b3Uga25vdyBvZiBhbnkgc291
+cmNlIHRoYXQNCj4+IGRpc2N1c3NlcyB0aGlzPyAgSXMgaXQgYWxzbyBsaWtlIHRoYXQgaW4g
+b3RoZXIgbWFudWFsIHBhZ2VzPyAgV291bGQgeW91IGRvDQo+PiB0aGF0IGV2ZW4gaWYgaXQg
+aXMgdGhlIG1haW4gc3ViamVjdCBvZiB0aGUgcGFnZT8pDQo+IA0KPiBJJ2QgdXNlZCBCIGJl
+Y2F1c2UgdGhlIHR5cGVkZWZzIGluIFNZTk9QU0lTIHdlcmUgQi4NCj4gDQo+IChGV0lXIG1k
+b2MgYWdyZWVzIOKAkiBncm9mZiBhbmQgbWFuZG9jIFZ0IGFyZSBpdGFsaWMgaW4gYWxsIG91
+dHB1dCBtb2RlcykNCj4gDQo+Pj4gK2lzIHVzZWQgZm9yIHRlcm1pbmFsIHNwZWNpYWwgY2hh
+cmFjdGVycywNCj4+PiArLkIgc3BlZWRfdA0KPj4+ICtcKGVtIGJhdWQgcmF0ZXMsIGFuZA0K
+Pj4gSSB3b3VsZCB1c2UgYSAnZm9yJyBoZXJlOg0KPj4gQSBpcyB1c2VkIGZvciBYLCBCIGZv
+ciBZLCBhbmQgQyBmb3IgWi4NCj4+IHJhdGhlciB0aGFuDQo+PiBBIGlzIHVzZWQgZm9yIFgs
+IEIgLS0gWSwgYW5kIEMtLVouDQo+IA0KPiBTdXJlLCBzZWUgdXBkYXRlZCBzY2lzc29yLXBh
+dGNoIGJlbG93Lg0KPiANCj4gQmVzdCwNCj4gDQo+IC0tID44IC0tDQo+IHNwZWVkX3QgYW5k
+IHRjZmxhZ190IHdlcmUgYm90aCB1bm1lbnRpb25lZCBpbiBnZW5lcmFsDQo+IA0KPiBJc3N1
+ZSA3IGhhcyB0aGlzIHRvIHNheToNCj4gICAgVGhlIDx0ZXJtaW9zLmg+IGhlYWRlciBzaGFs
+bCBkZWZpbmUgdGhlIGZvbGxvd2luZyBkYXRhIHR5cGVzIHRocm91Z2ggdHlwZWRlZjoNCj4g
+ICAgICBjY190ICAgICBVc2VkIGZvciB0ZXJtaW5hbCBzcGVjaWFsIGNoYXJhY3RlcnMuDQo+
+ICAgICAgc3BlZWRfdCAgVXNlZCBmb3IgdGVybWluYWwgYmF1ZCByYXRlcy4NCj4gICAgICB0
+Y2ZsYWdfdCBVc2VkIGZvciB0ZXJtaW5hbCBtb2Rlcy4NCj4gICAgVGhlIGFib3ZlIHR5cGVz
+IHNoYWxsIGJlIGFsbCB1bnNpZ25lZCBpbnRlZ2VyIHR5cGVzLg0KDQpJIGp1c3QgcmVhbGl6
+ZWQgeW91IGRpZG4ndCBzaWduIHRoZSBwYXRjaGVzLiAgV2lsbCBzaWduIHRoZW0gb24geW91
+ciANCmJlaGFsZiBpZiB5b3Ugd2FudC4NCg0KQ2hlZXJzLA0KDQpBbGV4DQoNCj4gLS0tDQo+
+ICAgbWFuM3R5cGUvY2NfdC4zdHlwZSAgICAgfCAxNCArKysrKysrKysrKy0tLQ0KPiAgIG1h
+bjN0eXBlL3NwZWVkX3QuM3R5cGUgIHwgIDEgKw0KPiAgIG1hbjN0eXBlL3RjZmxhZ190LjN0
+eXBlIHwgIDEgKw0KPiAgIDMgZmlsZXMgY2hhbmdlZCwgMTMgaW5zZXJ0aW9ucygrKSwgMyBk
+ZWxldGlvbnMoLSkNCj4gICBjcmVhdGUgbW9kZSAxMDA2NDQgbWFuM3R5cGUvc3BlZWRfdC4z
+dHlwZQ0KPiAgIGNyZWF0ZSBtb2RlIDEwMDY0NCBtYW4zdHlwZS90Y2ZsYWdfdC4zdHlwZQ0K
+PiANCj4gZGlmZiAtLWdpdCBhL21hbjN0eXBlL2NjX3QuM3R5cGUgYi9tYW4zdHlwZS9jY190
+LjN0eXBlDQo+IGluZGV4IDAyOWNmOTQ1Yy4uNjQxNGRiZjIwIDEwMDY0NA0KPiAtLS0gYS9t
+YW4zdHlwZS9jY190LjN0eXBlDQo+ICsrKyBiL21hbjN0eXBlL2NjX3QuM3R5cGUNCj4gQEAg
+LTYsNyArNiw3IEBADQo+ICAgLlwiDQo+ICAgLlRIIENDX1QgM3R5cGUgMjAyMS0xMS0wMiAi
+TGludXggbWFuLXBhZ2VzICh1bnJlbGVhc2VkKSINCj4gICAuU0ggTkFNRQ0KPiAtY2NfdCBc
+LSB0ZXJtaW5hbCBzcGVjaWFsIGNoYXJhY3RlcnMNCj4gK2NjX3QsIHNwZWVkX3QsIHRjZmxh
+Z190IFwtIHRlcm1pbmFsIHNwZWNpYWwgY2hhcmFjdGVycywgYmF1ZCByYXRlcywgbW9kZXMN
+Cj4gICAuU0ggTElCUkFSWQ0KPiAgIFN0YW5kYXJkIEMgbGlicmFyeQ0KPiAgIC5SSSAoIGxp
+YmMgKQ0KPiBAQCAtMTUsMTAgKzE1LDE4IEBAIFN0YW5kYXJkIEMgbGlicmFyeQ0KPiAgIC5C
+ICNpbmNsdWRlIDx0ZXJtaW9zLmg+DQo+ICAgLlBQDQo+ICAgLkJSIHR5cGVkZWYgIiAvKiAu
+Li4gKi8gIiBjY190Ow0KPiArLkJSIHR5cGVkZWYgIiAvKiAuLi4gKi8gIiBzcGVlZF90Ow0K
+PiArLkJSIHR5cGVkZWYgIiAvKiAuLi4gKi8gIiB0Y2ZsYWdfdDsNCj4gICAuZmkNCj4gICAu
+U0ggREVTQ1JJUFRJT04NCj4gLVVzZWQgZm9yIHRlcm1pbmFsIHNwZWNpYWwgY2hhcmFjdGVy
+cy4NCj4gLUl0IGlzIGFuIHVuc2lnbmVkIGludGVnZXIgdHlwZS4NCj4gKy5JIGNjX3QNCj4g
+K2lzIHVzZWQgZm9yIHRlcm1pbmFsIHNwZWNpYWwgY2hhcmFjdGVycywNCj4gKy5JIHNwZWVk
+X3QNCj4gK2ZvciBiYXVkIHJhdGVzLCBhbmQNCj4gKy5JIHRjZmxhZ190DQo+ICtmb3IgbW9k
+ZXMuDQo+ICsuUFANCj4gK0FsbCBhcmUgdW5zaWduZWQgaW50ZWdlciB0eXBlcy4NCj4gICAu
+U0ggU1RBTkRBUkRTDQo+ICAgUE9TSVguMS0yMDAxIGFuZCBsYXRlci4NCj4gICAuU0ggU0VF
+IEFMU08NCj4gZGlmZiAtLWdpdCBhL21hbjN0eXBlL3NwZWVkX3QuM3R5cGUgYi9tYW4zdHlw
+ZS9zcGVlZF90LjN0eXBlDQo+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0DQo+IGluZGV4IDAwMDAw
+MDAwMC4uMjZjZmQwMTcxDQo+IC0tLSAvZGV2L251bGwNCj4gKysrIGIvbWFuM3R5cGUvc3Bl
+ZWRfdC4zdHlwZQ0KPiBAQCAtMCwwICsxIEBADQo+ICsuc28gbWFuM3R5cGUvY2NfdC4zdHlw
+ZQ0KPiBkaWZmIC0tZ2l0IGEvbWFuM3R5cGUvdGNmbGFnX3QuM3R5cGUgYi9tYW4zdHlwZS90
+Y2ZsYWdfdC4zdHlwZQ0KPiBuZXcgZmlsZSBtb2RlIDEwMDY0NA0KPiBpbmRleCAwMDAwMDAw
+MDAuLjI2Y2ZkMDE3MQ0KPiAtLS0gL2Rldi9udWxsDQo+ICsrKyBiL21hbjN0eXBlL3RjZmxh
+Z190LjN0eXBlDQo+IEBAIC0wLDAgKzEgQEANCj4gKy5zbyBtYW4zdHlwZS9jY190LjN0eXBl
+DQoNCi0tIA0KQWxlamFuZHJvIENvbG9tYXINCjxodHRwOi8vd3d3LmFsZWphbmRyby1jb2xv
+bWFyLmVzLz4NCg==
 
-On Tue, Aug 30, 2022 at 12:16:58AM +0200, Alejandro Colomar wrote:
-> Types are formatted with .I, but that seems to be existing practice and I
-> don't find it documented anywhere.  (Branden, do you know of any source t=
-hat
-> discusses this?  Is it also like that in other manual pages?  Would you do
-> that even if it is the main subject of the page?)
+--------------t4YSMLsCcPRCjkV9vA4EnbUp--
 
-I'd used B because the typedefs in SYNOPSIS were B.
-
-(FWIW mdoc agrees =E2=80=92 groff and mandoc Vt are italic in all output mo=
-des)
-
-> > +is used for terminal special characters,
-> > +.B speed_t
-> > +\(em baud rates, and
-> I would use a 'for' here:
-> A is used for X, B for Y, and C for Z.
-> rather than
-> A is used for X, B -- Y, and C--Z.
-
-Sure, see updated scissor-patch below.
-
-Best,
-
--- >8 --
-speed_t and tcflag_t were both unmentioned in general
-
-Issue 7 has this to say:
-  The <termios.h> header shall define the following data types through type=
-def:
-    cc_t     Used for terminal special characters.
-    speed_t  Used for terminal baud rates.
-    tcflag_t Used for terminal modes.
-  The above types shall be all unsigned integer types.
----
- man3type/cc_t.3type     | 14 +++++++++++---
- man3type/speed_t.3type  |  1 +
- man3type/tcflag_t.3type |  1 +
- 3 files changed, 13 insertions(+), 3 deletions(-)
- create mode 100644 man3type/speed_t.3type
- create mode 100644 man3type/tcflag_t.3type
-
-diff --git a/man3type/cc_t.3type b/man3type/cc_t.3type
-index 029cf945c..6414dbf20 100644
---- a/man3type/cc_t.3type
-+++ b/man3type/cc_t.3type
-@@ -6,7 +6,7 @@
- .\"
- .TH CC_T 3type 2021-11-02 "Linux man-pages (unreleased)"
- .SH NAME
--cc_t \- terminal special characters
-+cc_t, speed_t, tcflag_t \- terminal special characters, baud rates, modes
- .SH LIBRARY
- Standard C library
- .RI ( libc )
-@@ -15,10 +15,18 @@ Standard C library
- .B #include <termios.h>
- .PP
- .BR typedef " /* ... */ " cc_t;
-+.BR typedef " /* ... */ " speed_t;
-+.BR typedef " /* ... */ " tcflag_t;
- .fi
- .SH DESCRIPTION
--Used for terminal special characters.
--It is an unsigned integer type.
-+.I cc_t
-+is used for terminal special characters,
-+.I speed_t
-+for baud rates, and
-+.I tcflag_t
-+for modes.
-+.PP
-+All are unsigned integer types.
- .SH STANDARDS
- POSIX.1-2001 and later.
- .SH SEE ALSO
-diff --git a/man3type/speed_t.3type b/man3type/speed_t.3type
-new file mode 100644
-index 000000000..26cfd0171
---- /dev/null
-+++ b/man3type/speed_t.3type
-@@ -0,0 +1 @@
-+.so man3type/cc_t.3type
-diff --git a/man3type/tcflag_t.3type b/man3type/tcflag_t.3type
-new file mode 100644
-index 000000000..26cfd0171
---- /dev/null
-+++ b/man3type/tcflag_t.3type
-@@ -0,0 +1 @@
-+.so man3type/cc_t.3type
---=20
-2.30.2
-
---65rgb7bw6uyuyrax
-Content-Type: application/pgp-signature; name="signature.asc"
+--------------fbdIwutQq4nq64SnUScjQWPi
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmMNPs8ACgkQvP0LAY0m
-WPFibRAAoO0x6qnTEJAVVBNCfrSBDBqLZ61wNn4Kpa2X1ffQV4dmORcWOtGTXd70
-adDjM8bgPRvXOVhKhdZNMSMzHJmYxsI2clH61qTu/M0eUf2VL4SB7H3L5L0QtgHl
-aaphHUFRwbcPpTMSbOoCA8u/5uWdzon3NBr6z1+53Rvgaxd8qRGQY/AUsKOzJUjh
-3vu/3mihKCv6BkUjJDwzkZEmCE52Yr82jXVWCWaSH/TLHmBtMv7Z7t8UNPUuiNsA
-ARN3Q2ceL4QS2IlOjtAKVaKb4MLYwmM2+3EcCpWu+fOMqvu1YAy0PW4PqkjUVHy/
-euaMZjHGuKlF8M2XfXVKdtFcw3XUGcBcnykYTqjHMV3BFzsO+9pRpFJ7Vc9CoMLr
-0RH/Om9Cg77RE2ZGJqdVhloXcknLuLt86s9SKeWKYpG1hUnkMiXdEaPoJ6Hp6mMn
-/JoQdl50KUwyNEjdDt5JwbtIlJeOY5sZ7MgAwIlxOs4XGYhdyzl28Jai+W7Vf0DE
-+/3Tpcb/qsMN974UKtHn8tHR3bSTXwbiev7Rkhpx/PUa1fveQuphXIj0G3Q1QfgS
-NT5sOG4CNlQ9FjmsfbpZ6qKz4lMgi2b+OTyQEEovcxL00aNn+tGmU7zCs8bHQ4sZ
-InU1NnVzowVCB2dhZStq/t8i7bjU+WY8WdcBP0pC25WjWsn5c6Y=
-=SSKv
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmMNP3UACgkQnowa+77/
+2zKO1Q/+KM2Bcz9SZDVwtRsycNmH+A/jB40OKAQGTFcQenAb77vxRRIhhxRUedCa
+RMWbsdgj+BOZ7f5rxSgt8EEUBpTdXFyMJE6M7+jzyZKJRw5itDy4oxvizggJdpa+
+Mtlcjc2ljd3DgKNwIc7YMSN4bO+WhZK/rzNNO+2b3807LRJh8VWCu64vfhC4nrPa
+Rtkf3mcvc8AuWJa3yOMs1MgRnctVB9jjy4Oo0fhfK9DvGCFMnX4vYxSFTf4gzHNz
+T26v1HYkGvWrZvnV+kwcwOmo9KF6rztiy7EENay3YZ6/bwkOfu9wvzLsoKAs/l0b
+yovv0/JuvtWsvLdrWSrPPyt9EcwGbmeRkMjH4wdiklo0jdMI/bGXUCIYCuyYGXl7
+Ksgx9y4X6U+Eznjq4rY2/k/vptOpGwR5IeKgBdDENwxhbuKW+WDdaSN37b57NtrK
+kmkR5lx5JPgkvzRYYqAWrvYFQ2aDEYBVQ4sOnDszBrGF5igZCNUc2bRC6Ujlzcfe
+z0MhdGD+R6P6KfsLord4qx27D3AHXXYJzPW+vgqX7oNX2IUA/cJnfDn7sXXsGeW9
+cBicXxG+3voFYcbYZOOJW7d5rtrpGYtm4kq97LpYcM1YJnC19E85fC2Lswlx+4js
+RaUeVJiAnqIvnVoBxe/594n2SZxs6eBi+H/PmprgYY0hDlXabuw=
+=G2RN
 -----END PGP SIGNATURE-----
 
---65rgb7bw6uyuyrax--
+--------------fbdIwutQq4nq64SnUScjQWPi--
