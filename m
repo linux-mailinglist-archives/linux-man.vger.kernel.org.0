@@ -2,76 +2,49 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 5CE775A5747
-	for <lists+linux-man@lfdr.de>; Tue, 30 Aug 2022 00:54:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 51DF65A6E90
+	for <lists+linux-man@lfdr.de>; Tue, 30 Aug 2022 22:37:50 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229490AbiH2Wyo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 29 Aug 2022 18:54:44 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60468 "EHLO
+        id S230400AbiH3Uhs (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 30 Aug 2022 16:37:48 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43084 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229449AbiH2Wyn (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 29 Aug 2022 18:54:43 -0400
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com [IPv6:2a00:1450:4864:20::334])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8430C7E308
-        for <linux-man@vger.kernel.org>; Mon, 29 Aug 2022 15:54:42 -0700 (PDT)
-Received: by mail-wm1-x334.google.com with SMTP id ay39-20020a05600c1e2700b003a5503a80cfso5186067wmb.2
-        for <linux-man@vger.kernel.org>; Mon, 29 Aug 2022 15:54:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc;
-        bh=r6il9SjDl3hwP7VIBbqcOrjnB0mKq0NNsuPSHFZldW4=;
-        b=Rv76LFg48D9Tc/EI5XwInsnT9jpCY5H1EjH6POxSWfvFm2P5FzcVbERtPXOIyQHsLy
-         tX4AAU3K5r2QQNsEoXvzYfUqo7eu2dOU9d4a3dWSBRyxtTyvIm8ThmTsjnrBsHbi4+pR
-         NXfbcc8ijl8oh3KDlhOs/JsZbx89xwB36nWkYrWO913LRhJ11J1OpcEmxxyKiDsgQz3a
-         ntw8jV25TNd6zyk3/zSHf4ObRjlrxuINYlfuB+940WOZCczmtOia6eTwYXKO6cjdWpTU
-         fBYkenWOlvWnXrFcpv0Ldcuazj9N7C8Eac6/nUSLb9z0W+GElgq1yyWNK4QIk3RhrKTQ
-         qC3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc;
-        bh=r6il9SjDl3hwP7VIBbqcOrjnB0mKq0NNsuPSHFZldW4=;
-        b=K8PdvLitb1IQcmOM9JgnpbzVUcqEGPCFsn0reREMEfYDvtgNi47QOs8sqjIRA4vP0b
-         tG3aE0u+BIw2Rgl7RksYyNpWa8+OH+WLg6AIZfBGNAWaytMCaA1PGA/e2rZH7uXvWtEz
-         ssXP7dGcJ+4ms9++efpVPZZWasMPdz3Y409U5rXGGDXUiVzKFzDMYx75AJrB2q/blo6J
-         Q4w/NBWP+LpXDIIknVNKSv/3qbhyonw9s/PeiCEKpmr6cd5ZE0v0b/E7O+gE6Q7HZWMW
-         YtAlBriOFVpegAD0Rr3DIrD2gzJJ4MKGTRAzx0s6WaifIQk12ZGBHk251Tv27mN53Peg
-         i3Yg==
-X-Gm-Message-State: ACgBeo0CrLdELtD/qNs8+1wzbk/taVnJIVnbZpRC5ZQV6GVlP4AzqKyu
-        juxdqyD2rjdQ9FR+eZioXaU=
-X-Google-Smtp-Source: AA6agR6ub6OGS9zms0m3g7uql/DsASa5RvW/2tDO0pX6iiz9VEykYssWIf5zvG+G3qyBg0+C1uAfNg==
-X-Received: by 2002:a1c:f60f:0:b0:3a0:3e0c:1de1 with SMTP id w15-20020a1cf60f000000b003a03e0c1de1mr8085375wmc.56.1661813681132;
-        Mon, 29 Aug 2022 15:54:41 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id c18-20020adffb52000000b00225239d9265sm8166047wrs.74.2022.08.29.15.54.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 29 Aug 2022 15:54:40 -0700 (PDT)
-Message-ID: <fb006d7d-3174-cebf-d366-8e2aef784930@gmail.com>
-Date:   Tue, 30 Aug 2022 00:54:32 +0200
+        with ESMTP id S230451AbiH3Uhq (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 30 Aug 2022 16:37:46 -0400
+Received: from 10.mo548.mail-out.ovh.net (10.mo548.mail-out.ovh.net [46.105.77.235])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3B45B80034
+        for <linux-man@vger.kernel.org>; Tue, 30 Aug 2022 13:37:41 -0700 (PDT)
+Received: from mxplan6.mail.ovh.net (unknown [10.109.146.140])
+        by mo548.mail-out.ovh.net (Postfix) with ESMTPS id ABDCE22161;
+        Tue, 30 Aug 2022 19:58:04 +0000 (UTC)
+Received: from jwilk.net (37.59.142.103) by DAG4EX1.mxp6.local (172.16.2.31)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.12; Tue, 30 Aug
+ 2022 21:58:03 +0200
+Authentication-Results: garm.ovh; auth=pass (GARM-103G005b21649ab-c63c-4811-a4fe-353b4e6f7532,
+                    DD0743956CE8223FDAF572D0F4F9E873376A8952) smtp.auth=jwilk@jwilk.net
+X-OVh-ClientIp: 5.172.255.251
+From:   Jakub Wilk <jwilk@jwilk.net>
+To:     Michael Kerrisk <mtk.manpages@gmail.com>,
+        Alejandro Colomar <alx.manpages@gmail.com>
+CC:     <linux-man@vger.kernel.org>
+Subject: [PATCH] ioctl_ns.2, stat.2: drop unneeded uintmax_t casts.
+Date:   Tue, 30 Aug 2022 21:58:00 +0200
+Message-ID: <20220830195800.1779-1-jwilk@jwilk.net>
+X-Mailer: git-send-email 2.37.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.0
-Subject: Re: [PATCH 1/2] cc_t.3type, speed_t.3type, tcflag_t.3type: document
- all together
-Content-Language: en-US
-To:     =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        linux-man@vger.kernel.org
-References: <ad1134a85b71db33671385502931aa61029ffc44.1661809591.git.nabijaczleweli@nabijaczleweli.xyz>
- <3cbbf2e5-6213-198f-4cab-c6f42204d471@gmail.com>
- <20220829223352.dkxto5dtp4txted6@tarta.nabijaczleweli.xyz>
- <fd28f474-90a1-9f81-677d-f70ce604bd81@gmail.com>
- <20220829224836.yzjr4mz55vptvva3@tarta.nabijaczleweli.xyz>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20220829224836.yzjr4mz55vptvva3@tarta.nabijaczleweli.xyz>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------H7ASUyGmXLnrmQ0spw4weY4n"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+Content-Transfer-Encoding: 7BIT
+Content-Type:   text/plain; charset=US-ASCII
+X-Originating-IP: [37.59.142.103]
+X-ClientProxiedBy: DAG5EX1.mxp6.local (172.16.2.41) To DAG4EX1.mxp6.local
+ (172.16.2.31)
+X-Ovh-Tracer-GUID: ec2fc960-3f19-40a3-bcd3-f5e5fd3d7abb
+X-Ovh-Tracer-Id: 7767583457593710560
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: 0
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvfedrvdekfedgudeghecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecunecujfgurhephffvvefufffkofgggfgtihesthekredtredttdenucfhrhhomheplfgrkhhusgcuhghilhhkuceojhifihhlkhesjhifihhlkhdrnhgvtheqnecuggftrfgrthhtvghrnhepfefhteffhfffheetudefvdefheffgfduleejheeiteeihfefffejveeljeevheeinecukfhppedtrddtrddtrddtpdefjedrheelrddugedvrddutdefnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmohguvgepshhmthhpohhuthdphhgvlhhopehmgihplhgrnheirdhmrghilhdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomhepjhifihhlkhesjhifihhlkhdrnhgvthdpnhgspghrtghpthhtohepuddprhgtphhtthhopehlihhnuhigqdhmrghnsehvghgvrhdrkhgvrhhnvghlrdhorhhgpdfovfetjfhoshhtpehmohehgeek
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE,
+        RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
         autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -79,61 +52,62 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------H7ASUyGmXLnrmQ0spw4weY4n
-Content-Type: multipart/mixed; boundary="------------GY8UhrrJb7XoFN9vFduZcISb";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc: "G. Branden Robinson" <g.branden.robinson@gmail.com>,
- linux-man@vger.kernel.org
-Message-ID: <fb006d7d-3174-cebf-d366-8e2aef784930@gmail.com>
-Subject: Re: [PATCH 1/2] cc_t.3type, speed_t.3type, tcflag_t.3type: document
- all together
-References: <ad1134a85b71db33671385502931aa61029ffc44.1661809591.git.nabijaczleweli@nabijaczleweli.xyz>
- <3cbbf2e5-6213-198f-4cab-c6f42204d471@gmail.com>
- <20220829223352.dkxto5dtp4txted6@tarta.nabijaczleweli.xyz>
- <fd28f474-90a1-9f81-677d-f70ce604bd81@gmail.com>
- <20220829224836.yzjr4mz55vptvva3@tarta.nabijaczleweli.xyz>
-In-Reply-To: <20220829224836.yzjr4mz55vptvva3@tarta.nabijaczleweli.xyz>
+major() and minor() return unsigned int,
+so the typecasts to uintmax_t are not needed.
 
---------------GY8UhrrJb7XoFN9vFduZcISb
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
+---
+ man2/ioctl_ns.2 | 12 ++++++------
+ man2/stat.2     |  6 +++---
+ 2 files changed, 9 insertions(+), 9 deletions(-)
 
-T24gOC8zMC8yMiAwMDo0OCwg0L3QsNCxIHdyb3RlOg0KPiBPbiBUdWUsIEF1ZyAzMCwgMjAy
-MiBhdCAxMjozNjozN0FNICswMjAwLCBBbGVqYW5kcm8gQ29sb21hciB3cm90ZToNCj4+IEkg
-anVzdCByZWFsaXplZCB5b3UgZGlkbid0IHNpZ24gdGhlIHBhdGNoZXMuICBXaWxsIHNpZ24g
-dGhlbSBvbiB5b3VyIGJlaGFsZg0KPj4gaWYgeW91IHdhbnQuDQo+IA0KPiBZZXMsIHBsZWFz
-ZSA6KSBJIGZvcmdvciDwn5KADQo+IA0KPiDQvdCw0LENCg0KUGF0Y2ggc2V0IGFwcGxpZWQg
-YW5kIHNpZ25lZC4NCjxodHRwOi8vd3d3LmFsZWphbmRyby1jb2xvbWFyLmVzL3NyYy9hbHgv
-bGludXgvbWFuLXBhZ2VzL21hbi1wYWdlcy5naXQvY29tbWl0Lz9pZD05NmY1NTQ2NGJjMjAw
-NGNkOTg2ZTdlZTA5NzZmODdmZjBjODgyZTBkPg0KDQpDaGVlcnMsDQoNCkFsZXgNCg0KLS0g
-DQpBbGVqYW5kcm8gQ29sb21hcg0KPGh0dHA6Ly93d3cuYWxlamFuZHJvLWNvbG9tYXIuZXMv
-Pg0K
+diff --git a/man2/ioctl_ns.2 b/man2/ioctl_ns.2
+index 95b39ccac..02c1dab11 100644
+--- a/man2/ioctl_ns.2
++++ b/man2/ioctl_ns.2
+@@ -293,9 +293,9 @@ main(int argc, char *argv[])
+             exit(EXIT_FAILURE);
+         }
+         printf("Device/Inode of owning user namespace is: "
+-               "[%jx,%jx] / %ju\en",
+-               (uintmax_t) major(sb.st_dev),
+-               (uintmax_t) minor(sb.st_dev),
++               "[%x,%x] / %ju\en",
++               major(sb.st_dev),
++               minor(sb.st_dev),
+                (uintmax_t) sb.st_ino);
+ 
+         close(userns_fd);
+@@ -323,9 +323,9 @@ main(int argc, char *argv[])
+             perror("fstat\-parentns");
+             exit(EXIT_FAILURE);
+         }
+-        printf("Device/Inode of parent namespace is: [%jx,%jx] / %ju\en",
+-               (uintmax_t) major(sb.st_dev),
+-               (uintmax_t) minor(sb.st_dev),
++        printf("Device/Inode of parent namespace is: [%x,%x] / %ju\en",
++               major(sb.st_dev),
++               minor(sb.st_dev),
+                (uintmax_t) sb.st_ino);
+ 
+         close(parent_fd);
+diff --git a/man2/stat.2 b/man2/stat.2
+index 585a20484..bdd6d15e3 100644
+--- a/man2/stat.2
++++ b/man2/stat.2
+@@ -481,9 +481,9 @@ main(int argc, char *argv[])
+         exit(EXIT_FAILURE);
+     }
+ 
+-    printf("ID of containing device:  [%jx,%jx]\en",
+-           (uintmax_t) major(sb.st_dev),
+-           (uintmax_t) minor(sb.st_dev));
++    printf("ID of containing device:  [%x,%x]\en",
++           major(sb.st_dev),
++           minor(sb.st_dev));
+ 
+     printf("File type:                ");
+ 
+-- 
+2.37.2
 
---------------GY8UhrrJb7XoFN9vFduZcISb--
-
---------------H7ASUyGmXLnrmQ0spw4weY4n
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmMNQ6gACgkQnowa+77/
-2zIiPg//SHpYRtsCr00Z8QPV4FKyVnp3JUJZASekPzf9NVA1xH6FOGBFHQQhLWpP
-ublxVkOV1DopD6g5w2LFN4lPHlYP+iBEjVhgVPdR7A0I+P3qqMVMsW5Y62yKdZ81
-RBpNgjHCGa20pEFS4VAHdDIfGlQa8YvW2bLgHNzz3CFx4czvhAtGSNFhB+mvjBgH
-Ou4sRbCRM+I/12zMmcWK/FDA1x0VPP2C/HSVMILSokzF9z5hFIKyY5rMi7wOnuD/
-BSUaVvN94525hivQlAVr/Vv/mjHn1OuLZbmELXOKAAx+PAqapRB/D27EDs5d7CNj
-Yas/Lrv6mCRsElEXtEASgB40mW2j9F6dV2/wTE/zUJ+KTrL2f+Qk7LSp7ZOZdUMf
-twquVQX56h58q3iKsLWS7WiujBJR7YxH1Wg4QlDQhEr1xS2azDHylvgBwhWzZOn6
-3W8x65raF7N57ejVf7lPosLhuM955niHYw3gwkpbIfUuCYl3Z5HSU2SI2oKUlfwm
-bDpcfSPQd6PqVlXA1/1MTdoe/1q/0N4ExfV7Rl73+y/f8+iQjIh/87P4jNQ7ZCmV
-dbC3ZwmnCq9TrypbzB+NJaeyLRzSWCCi0W5dthg+yFkO68A75WlFzM3Xs22lT3na
-lxykJWzMGhA9mU5KFw268ODvQHvzJa0J1CukbretV9smgF1pAbk=
-=e4Lp
------END PGP SIGNATURE-----
-
---------------H7ASUyGmXLnrmQ0spw4weY4n--
