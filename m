@@ -2,68 +2,124 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id DEF515A9B7A
-	for <lists+linux-man@lfdr.de>; Thu,  1 Sep 2022 17:22:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9EA3B5A9CBF
+	for <lists+linux-man@lfdr.de>; Thu,  1 Sep 2022 18:13:56 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233677AbiIAPW4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 1 Sep 2022 11:22:56 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57768 "EHLO
+        id S234975AbiIAQMy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 1 Sep 2022 12:12:54 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47450 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232489AbiIAPWz (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 1 Sep 2022 11:22:55 -0400
-Received: from smtpout3.mo529.mail-out.ovh.net (smtpout3.mo529.mail-out.ovh.net [46.105.54.81])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6675075CCF
-        for <linux-man@vger.kernel.org>; Thu,  1 Sep 2022 08:22:54 -0700 (PDT)
-Received: from mxplan6.mail.ovh.net (unknown [10.108.1.108])
-        by mo529.mail-out.ovh.net (Postfix) with ESMTPS id 6BA5B1234D8A7;
-        Thu,  1 Sep 2022 17:13:12 +0200 (CEST)
-Received: from jwilk.net (37.59.142.96) by DAG4EX1.mxp6.local (172.16.2.31)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.12; Thu, 1 Sep
- 2022 17:13:11 +0200
-Authentication-Results: garm.ovh; auth=pass (GARM-96R0017605b666-c993-480b-8320-376050e163b2,
-                    08A2FDE8A4EF0199DF453D86D09E70CAC5E25498) smtp.auth=jwilk@jwilk.net
-X-OVh-ClientIp: 5.172.255.229
-Date:   Thu, 1 Sep 2022 17:13:09 +0200
-From:   Jakub Wilk <jwilk@jwilk.net>
-To:     =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-CC:     Alejandro Colomar <alx.manpages@gmail.com>,
-        <linux-man@vger.kernel.org>
-Subject: Re: [PATCH 4/4] ioctl_console.2: document all extant TIOCLINUX
- subcodes as of 6.0 (2.6.17)
-Message-ID: <20220901151309.hxobw3p2oqo3vg6d@jwilk.net>
-References: <120d03d4df30e5cdd87a850abff5eae116ed8963.1662039344.git.nabijaczleweli@nabijaczleweli.xyz>
- <d3c0288e8aafd04f876e43493a31182b46e4d2f9.1662039344.git.nabijaczleweli@nabijaczleweli.xyz>
+        with ESMTP id S234958AbiIAQMs (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 1 Sep 2022 12:12:48 -0400
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0B46891D0B
+        for <linux-man@vger.kernel.org>; Thu,  1 Sep 2022 09:12:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1662048763;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=UHmYOlxrBiaepineueJ+BA2NniHKUIf3ILRk7FlgVfY=;
+        b=BcVBwib8JPwhatc4zhB0jX8WWXtG3HsAJK9TxoSEZhQIaqbuXeyO8NGRijRkMNR9hLqcwV
+        abhg2uzzHiEpEE8x5hWMAEcs/ey9q0jS0IYzBUM2Hp3t+qwI/7PE+GMd1smlUdbyzQtbES
+        hXWs7cGwCf/Onk+Aytc3LnnHoOsx4Qg=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-442-Du0mSLDPMe-xNlqIJu9UJw-1; Thu, 01 Sep 2022 12:12:40 -0400
+X-MC-Unique: Du0mSLDPMe-xNlqIJu9UJw-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C8FEF80A0AE;
+        Thu,  1 Sep 2022 16:12:39 +0000 (UTC)
+Received: from oldenburg.str.redhat.com (unknown [10.39.192.37])
+        by smtp.corp.redhat.com (Postfix) with ESMTPS id 301FE40CF8F2;
+        Thu,  1 Sep 2022 16:12:34 +0000 (UTC)
+From:   Florian Weimer <fweimer@redhat.com>
+To:     Jeff Layton <jlayton@kernel.org>
+Cc:     tytso@mit.edu, adilger.kernel@dilger.ca, djwong@kernel.org,
+        david@fromorbit.com, trondmy@hammerspace.com, neilb@suse.de,
+        viro@zeniv.linux.org.uk, zohar@linux.ibm.com, xiubli@redhat.com,
+        chuck.lever@oracle.com, lczerner@redhat.com, jack@suse.cz,
+        bfields@fieldses.org, brauner@kernel.org,
+        linux-man@vger.kernel.org, linux-api@vger.kernel.org,
+        linux-btrfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+        linux-kernel@vger.kernel.org, ceph-devel@vger.kernel.org,
+        linux-ext4@vger.kernel.org, linux-nfs@vger.kernel.org,
+        linux-xfs@vger.kernel.org
+Subject: Re: [RFC PATCH v2] statx, inode: document the new STATX_INO_VERSION
+ field
+References: <20220901121714.20051-1-jlayton@kernel.org>
+Date:   Thu, 01 Sep 2022 18:12:33 +0200
+In-Reply-To: <20220901121714.20051-1-jlayton@kernel.org> (Jeff Layton's
+        message of "Thu, 1 Sep 2022 08:17:14 -0400")
+Message-ID: <874jxrqdji.fsf@oldenburg.str.redhat.com>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/27.2 (gnu/linux)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <d3c0288e8aafd04f876e43493a31182b46e4d2f9.1662039344.git.nabijaczleweli@nabijaczleweli.xyz>
-X-Originating-IP: [37.59.142.96]
-X-ClientProxiedBy: DAG4EX1.mxp6.local (172.16.2.31) To DAG4EX1.mxp6.local
- (172.16.2.31)
-X-Ovh-Tracer-GUID: f32dbf05-0aca-4c22-953b-a1bb29be529e
-X-Ovh-Tracer-Id: 14702000986317051869
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: 35
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvfedrvdekkedgkeejucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucgfrhhlucfvnfffucdlfeehmdenucfjughrpeffhffvvefukfhfgggtugfgjghisehtkeertddttdejnecuhfhrohhmpeflrghkuhgsucghihhlkhcuoehjfihilhhksehjfihilhhkrdhnvghtqeenucggtffrrghtthgvrhhnpeetgedvgfduueegffeftdffueeftedvgfdtteekieevhffhuefgheeuieevgfeijeenucfkpheptddrtddrtddrtddpfeejrdehledrudegvddrleeinecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmohguvgepshhmthhpohhuthdphhgvlhhopehmgihplhgrnheirdhmrghilhdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomhepjhifihhlkhesjhifihhlkhdrnhgvthdpnhgspghrtghpthhtohepuddprhgtphhtthhopehlihhnuhigqdhmrghnsehvghgvrhdrkhgvrhhnvghlrdhorhhgpdfovfetjfhoshhtpehmohehvdel
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,SPF_HELO_NONE,
-        SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham autolearn_force=no
-        version=3.4.6
+Content-Type: text/plain
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
+        SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=unavailable
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-* наб <nabijaczleweli@nabijaczleweli.xyz>, 2022-09-01 15:37:
->+can only be unblanked explicitly (by switching VTs, to text mode, &c.).
+* Jeff Layton:
 
-s/&c/etc/ — this is the spelling used elsewhere.
+> @@ -411,6 +413,21 @@ and corresponds to the number in the first field in one of the records in
+>  For further information on the above fields, see
+>  .BR inode (7).
+>  .\"
+> +.TP
+> +.I stx_ino_version
+> +The inode version, also known as the inode change attribute. This
+> +value must change any time there is an inode status change. Any
+> +operation that would cause the
+> +.I stx_ctime
+> +to change must also cause
+> +.I stx_ino_version
+> +to change, even when there is no apparent change to the
+> +.I stx_ctime
+> +due to coarse timestamp granularity.
+> +.IP
+> +An observer cannot infer anything about the nature or magnitude of the change
+> +from the value of this field. A change in this value only indicates that
+> +there has been an explicit change in the inode.
 
->+Returns the nomber of VT currently blanked,
+What happens if the file system does not support i_version?
 
-s/nomber/number/
+> diff --git a/man7/inode.7 b/man7/inode.7
+> index 9b255a890720..d5e0890a52c0 100644
+> --- a/man7/inode.7
+> +++ b/man7/inode.7
+> @@ -184,6 +184,18 @@ Last status change timestamp (ctime)
+>  This is the file's last status change timestamp.
+>  It is changed by writing or by setting inode information
+>  (i.e., owner, group, link count, mode, etc.).
+> +.TP
+> +Inode version (i_version)
+> +(not returned in the \fIstat\fP structure); \fIstatx.stx_ino_version\fP
+> +.IP
+> +This is the inode change attribute. Any operation that would result in a change
+> +to \fIstatx.stx_ctime\fP must result in a change to this value. The value must
+> +change even in the case where the ctime change is not evident due to coarse
+> +timestamp granularity.
+> +.IP
+> +An observer cannot infer anything from the returned value about the nature or
+> +magnitude of the change. If the returned value is different from the last time
+> +it was checked, then something has made an explicit change to the inode.
 
--- 
-Jakub Wilk
+What is the wraparound behavior for i_version?  Does it use the full
+64-bit range?
+
+If the system crashes without flushing disks, is it possible to observe
+new file contents without a change of i_version?
+
+Thanks,
+Florian
+
