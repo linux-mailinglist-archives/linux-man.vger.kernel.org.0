@@ -2,47 +2,47 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 5889A5AB21A
-	for <lists+linux-man@lfdr.de>; Fri,  2 Sep 2022 15:51:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id ADDB55AB343
+	for <lists+linux-man@lfdr.de>; Fri,  2 Sep 2022 16:19:26 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S238240AbiIBNvv (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 2 Sep 2022 09:51:51 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45932 "EHLO
+        id S236431AbiIBOTY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 2 Sep 2022 10:19:24 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37322 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S236824AbiIBNv1 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 2 Sep 2022 09:51:27 -0400
+        with ESMTP id S237531AbiIBOTJ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 2 Sep 2022 10:19:09 -0400
 Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 7631CC9E9B
-        for <linux-man@vger.kernel.org>; Fri,  2 Sep 2022 06:25:52 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 6B16DDFD0
+        for <linux-man@vger.kernel.org>; Fri,  2 Sep 2022 06:44:47 -0700 (PDT)
 Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 10F0AC86;
-        Fri,  2 Sep 2022 15:06:59 +0200 (CEST)
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id F0551C88;
+        Fri,  2 Sep 2022 15:07:17 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-        s=202205; t=1662124019;
-        bh=vjpq7GenubhD38nxk1raUddahuU0afLgEGUmXmphR5A=;
+        s=202205; t=1662124038;
+        bh=rkiCO45ENIkx3yFpgluVMGTFWUSdpWOfUhGxjGaJAsM=;
         h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=e4s0okV6U+j6QPPYQmzECpQehvE4qW1axaUnbZE1bWltg23SQ7DN+aI30jf3C4YhQ
-         c/Uh5aIxHZCojZVw6TtKD7qAAyrH4JFEqHrCMPH606N6XjaDN3mCtEf76apGOFCe68
-         Sqtpw7wI462ikxusQDSITJ8Hpb9lG79o8MpNX6N6WEAO+re9/7Z1Ukj76Aim1+rm7h
-         6flb4HWEGsF0Dc85Mxq0sone/TyD/Qr321X2baWeFwSeNMFV3vcZ7aFPMmizjbBcxh
-         6yo63CJw3JTHEPEo/4ij+pWQilYkLgSCvaXlYPZ0J1Vu+XGHVuHCsYdALeW8/qrYiz
-         cVpWnKc20ykT1NJeKrvtMhoEZPTGx0opYca82oWK2KDr3VeitYceHnSsB/Oyu4omIb
-         mV7YE9UeoRGcKzR81FFJ3zLTKrgqHMh2hMf7KPNP1FccrPTdNsXb+pKcMXpQn8bHeT
-         s5wzeVH5t9QkPVgpnZ/cW2Ffal96Hd7lhFoi3/0TXkHxsRtSa4Xp8BADUxmbMGIDTI
-         wlXkCVMvFlviJhwiGLEnWaeYBi+Z5xyLdpECq4YN3Pi8HRhvARUqYk5+wJqh1LYtHs
-         cawjDWHUnYq+RD+ZpliuBqQ/tEw1I1ZQigud0rjxcN4sw955zFntZHhiBLjog58f7+
-         igksDolUwmhkmXRtPlRu7iis=
-Date:   Fri, 2 Sep 2022 15:06:57 +0200
+        b=utJFekJuMZfia0LPXLn83MroFkfyLinfQ6pJ5Z2h7fPOCoYFcHRUjkB7/ObarQxqY
+         G08/QFgMrdKHJBDmSWmnxms10twremFKoNaR12w8DfbnMpWolu6S2FkakHvxb7votU
+         2hzRM+e0j12EDeJE2RgBvZ25JaOANiG2h4uKRNAJZ3cAPMWDFCWrO+wAyBAiG92+MM
+         bHqHRtJ0RQ7ECF0Fro1dA3qHmNgYD9HHWbLU7uMzu4pao2Rl/+pk8BpmFaJjt26t+I
+         yAxZlx9vJb6zJddgFyrF8IvT7N0kZpITNyiaGHpQhJgEMGNsoSN0sOLjp4I4j+XAJn
+         nkOaq/WlkvxcY0i943774IsWnfcekPb3F8hf7liarMsgJgVqtY7B7n5DdxIKsPfm0l
+         IrUL3/m2zK7GC0aLTx14XQWKMw3IuKzwBjGF7r6ATAcDe92c4jc08CVMgt3GcBg1iR
+         w/WYHPEzjaxGnr5xH+VFZEjmk5d0nW3PZOsKIYpg5fkkAk4R5dX6MiUOio6JbMIppr
+         qsPrGn8ICFXeKz0A2Kggp+dNpp7WvrrMm49DLKgw+qYsRLpItVYDLBJj3tq374mMsj
+         zy28AoD7KXvKDjyb/tqJ7sKKtz9QUH/zMtHg5q6Y1zK0QpVfar7XhJ4fNiC6XqHeEI
+         707WGpSZhv4cY3bugKe+OE+U=
+Date:   Fri, 2 Sep 2022 15:07:16 +0200
 From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
 To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org, Jakub Wilk <jwilk@jwilk.net>
-Subject: [PATCH v2 3/4] ioctl_console.2: devices/char/console.c and
- sel_buffer don't exist anymore
-Message-ID: <3583171b55ca46dfb359af4775e76435b46f2f2e.1662123938.git.nabijaczleweli@nabijaczleweli.xyz>
+Subject: [PATCH v2 4/4] ioctl_console.2: document all extant TIOCLINUX
+ subcodes as of 6.0 (2.6.17)
+Message-ID: <2c202ac5ba2df3cd94bcbb9b11f1476924d44b83.1662123938.git.nabijaczleweli@nabijaczleweli.xyz>
 References: <120d03d4df30e5cdd87a850abff5eae116ed8963.1662039344.git.nabijaczleweli@nabijaczleweli.xyz>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="zfbsaxt3ba36httn"
+        protocol="application/pgp-signature"; boundary="46ycztt2db2enice"
 Content-Disposition: inline
 In-Reply-To: <120d03d4df30e5cdd87a850abff5eae116ed8963.1662039344.git.nabijaczleweli@nabijaczleweli.xyz>
 User-Agent: NeoMutt/20220429
@@ -57,54 +57,94 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---zfbsaxt3ba36httn
+--46ycztt2db2enice
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-And haven't for over a decade.
-
 Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
 ---
- man2/ioctl_console.2 | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+v2: with corrections from Jakub
+
+ man2/ioctl_console.2 | 43 ++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 42 insertions(+), 1 deletion(-)
 
 diff --git a/man2/ioctl_console.2 b/man2/ioctl_console.2
-index 338c5e6c8..0c25edf67 100644
+index 0c25edf67..145e98081 100644
 --- a/man2/ioctl_console.2
 +++ b/man2/ioctl_console.2
-@@ -713,8 +713,7 @@ is 0 for character-by-character selection,
- 1 for word-by-word selection,
- or 2 for line-by-line selection.
- The indicated screen characters are highlighted and saved
--in the static array sel_buffer in
--.IR devices/char/console.c .
-+in a kernel buffer.
- .TP
- .BR TIOCLINUX ", " subcode =3D TIOCL_PASTESEL
- Paste selection.
+@@ -787,8 +787,49 @@ blank_timer times out, then you choose this option.
+ Powering down frequently will damage the monitor.)
+ (Since Linux 1.1.76.)
+ .RE
++.TP
++.BR TIOCLINUX ", " subcode =3D TIOCL_SETKMSGREDIRECT
++Change target of kernel messages ("console"):
++by default, and if this is set to
++.BR 0 ,
++messages are written to the currently active VT.
++The VT to write to is a single byte following
++.BR subcode .
++(Since Linux 2.5.36.)
++.TP
++.BR TIOCLINUX ", " subcode =3D TIOCL_GETFGCONSOLE
++Returns the number of VT currently in foreground.
++(Since Linux 2.5.36.)
++.TP
++.BR TIOCLINUX ", " subcode =3D TIOCL_SCROLLCONSOLE
++Scroll the foreground VT by the specified amount of
++.I lines
++down,
++or half the screen if
++.BR 0 .
++.I lines
++is *(((int32_t *)&subcode) + 1).
++(Since Linux 2.5.67.)
++.TP
++.BR TIOCLINUX ", " subcode =3D TIOCL_BLANKSCREEN
++Blank the foreground VT, ignoring "pokes" (typing):
++can only be unblanked explicitly (by switching VTs, to text mode, etc.).
++(Since Linux 2.5.71.)
++.TP
++.BR TIOCLINUX ", " subcode =3D TIOCL_BLANKEDSCREEN
++Returns the number of VT currently blanked,
++.B 0
++if none.
++(Since Linux 2.5.71.)
++.TP
++.BR TIOCLINUX ", " subcode =3D 16
++Never used.
++.TP
++.BR TIOCLINUX ", " subcode =3D TIOCL_GETKMSGREDIRECT
++Returns target of kernel messages.
++(Since Linux 2.6.17.)
+ .SH RETURN VALUE
+-On success, 0 is returned.
++On success, 0 is returned (except where indicated).
+ On failure, \-1 is returned, and
+ .I errno
+ is set to indicate the error.
 --=20
 2.30.2
 
-
---zfbsaxt3ba36httn
+--46ycztt2db2enice
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmMR//EACgkQvP0LAY0m
-WPGo6RAArG7aMZkHznEFMIeTTHTHL0Wj4aTFX/si+xhq2k3GX0NMZw9uyeC5jYj5
-jxOQ7y1ABJBfOnvFMWsFwXkioo+ptRS3XI7TLXDAq2ejXwNyxlPaP05NxB/KBZTP
-u+guQUnDvjQKyLouFR3CFCNpXpXlJZlSxP8nMNwKICQ2AvrAWdkqdUxc57F6f7s9
-SKYGNregwifIdcQQ8Aej56a9elIuok3VGKXGY1YXdNsQ5fgEyh6MRu9RRuX9JyBs
-4PkhYaHw8uo3h5fvNQbfHr9o6KbaYYdgqHdJHA+GesghVNyIQIu5HnBkjfBHtfTs
-sGncQ8IE8nn+NwC6wWbcd4HtJx7cBEKRwKZYfxn9POxTKgvWJPVp5hjQtS5H3nTg
-Rk0Q/FF1maZv+kKZYaDgBJo51tLm8RzHI5A1ZPvAJ4VX/psGydXaGbhC98yGqsrh
-5Bo9Erx08g2w23HMoS9LsIBkM7tAYN1B0jJqdijayLbnvUtCvBCRlJF6DnIBaGCA
-/xWg1JmBlZ/3/rj+kgtdxufRyMKMF9C1SdhH/zjlp0YblXGBTeCBOokhphAd7biZ
-PMoag+MmPkQkyB7N9Xbp0lBx+ROhGdu0OaP3KjDbu1MxA0w5RgUP6N8wqSDLUzSE
-KRcswiozyskOqobV8qrEoVSppsnGaVkUku2F6U93MC01DR40QK0=
-=ZR8T
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmMSAAQACgkQvP0LAY0m
+WPHgHhAAsf4VLdItzXeTwiav23WocgJvFBTFVKPy/pRIvLDuhpV5/WqfIi24l4aj
+JSdcjHL3WgFMP10vZ/8v19GI4OTfwZX7ZRDuBE4h5k2Q7LBGB7UX8Td2uE8ocqRs
+OFoB2nSKdvXKbd3s8d+YmO702298t5RE4zq2jIf8V6/EpXAe710OwqLM/LdAGoHh
+NjDUbIp/yiCSfexY9VMxKel46TErPAaGBHWg+GfsmCjxVQTc3vHWi8GRmD7p7gg9
+WBE+V4wBln5j7KlcbN1JoBoKg9lU9WEa23o8SRcfiuo5d3Wg4WqIBl52gByBu3Xi
+sA1BDxSO6r3UdJkB93iKmqMS8hPIQbKaaVB0nbgIo8kKOht1kbInUyDdHi/hEOlu
+S7P8j9IYZK8w24bsQi8ZsKHAVVtb4NyuzUoL2kf6oS/KqfQ4wNkacTxypL4/rrBI
+NrU0qp+yOJ6PlhTjDr00sKu+7Qt4BDGtUdNn4d7A3NLGwwe9FrIx1zTnVVlIl7t1
+QGL5qPmAfO4TosEhS8MZhLG/GioMcJVwjrVnyjYSfihWT/ENOm26WptC2Vzd5T95
+5P4k9Hpoi5ZoDFQvfdKvk3c8T8ZpDgJR8d1Nv8SYcD9WRrEvSNBsOU+3G9AmRjDI
+0uu3640arxs3EPmiR5p0NuzeEApup+qrrhlOpM6hq3K0FyOCBaM=
+=dxbR
 -----END PGP SIGNATURE-----
 
---zfbsaxt3ba36httn--
+--46ycztt2db2enice--
