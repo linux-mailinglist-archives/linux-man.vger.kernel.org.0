@@ -2,288 +2,227 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 27FB45ABA6E
-	for <lists+linux-man@lfdr.de>; Fri,  2 Sep 2022 23:58:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A9E0E5ABF06
+	for <lists+linux-man@lfdr.de>; Sat,  3 Sep 2022 14:54:26 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230235AbiIBV6h (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 2 Sep 2022 17:58:37 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45682 "EHLO
+        id S229504AbiICMyT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 3 Sep 2022 08:54:19 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54532 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230114AbiIBV6S (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 2 Sep 2022 17:58:18 -0400
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com [IPv6:2a00:1450:4864:20::42b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C8658FB0E5
-        for <linux-man@vger.kernel.org>; Fri,  2 Sep 2022 14:57:59 -0700 (PDT)
-Received: by mail-wr1-x42b.google.com with SMTP id c7so3849680wrp.11
-        for <linux-man@vger.kernel.org>; Fri, 02 Sep 2022 14:57:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=in-reply-to:references:cc:to:from:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date;
-        bh=wytS7FMNVLxQ7B3dEqkGWW7MiDOam449H0meE5sZ2ss=;
-        b=EkAFm0D7YZmDntCCLIreFEnxJDPZoFRrMYRfsPebOyxCApo3X9yQTqkx9APoQFnBvs
-         yTXP8N4biOVRUTKYQ8Eztpe4wS406na1GFzY19C88lnUPskvJZDS5qAMVDZpLGVtfAPH
-         oZNRNJdgb0MwKftyNzmYChfIcmUzrkEUvn+3rfZqSFANdemlqWhoJF5yQ60YxLKh+R2s
-         QwOGhY/AnvnZP3zAU3N5u/xdc9LYgqi3rkd9G9JqB55Lu2SXGLR63K1IDYshHuByE9ee
-         wGAd9jSk2IlLTouPrPOmX9Ytfb6w+aC2PfOQ1MCyQ8t+hLBoT1JX/AABa/uflVde+cqc
-         gkmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=in-reply-to:references:cc:to:from:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date;
-        bh=wytS7FMNVLxQ7B3dEqkGWW7MiDOam449H0meE5sZ2ss=;
-        b=x4+HvPoAOPaRCLR2Bgv05FxBMU1zB69EdpGgQXMxrklkt/rUubKNkgAD1Enbfb3e5S
-         w7RQbqNylaIfObpDExbnJY4zDQvCuG+T2sgGmHGnKAJ/ePFS/Ea3Pjg9HIByVrk9AZw9
-         Z5cvcxgMjNZ/yx2RS23GNbGch1BPCt71GSJ5ASpbqhWlD4IHQ943avxpcF0UNJOSWIIm
-         PKefescnJjD1aDWmccN0S4z8GG6oKIVDMLowrC15PJJq+6zC9bdxP1gz7NDsQMfJgmG5
-         R6J+jz6I/7wbmETUwVhuHqIxYPtkB0V7U1ytO1qAWyLaKHmbDPn8H3pB1wCHDZ8Za3DJ
-         vfLg==
-X-Gm-Message-State: ACgBeo1Gw1hznC0N0U2AY92FvcdSdCKy94owePmOsXoX5J83wc1pxZH5
-        3Gb/f9oBOYADq4bDrRxiGaY=
-X-Google-Smtp-Source: AA6agR6XCKJr29EtYlVSykqYGdFOpyx086iOW/rC+70rEH0xlO08R8TRZ7nle/jUKNvhOb72RyLKpg==
-X-Received: by 2002:adf:f94e:0:b0:225:63aa:27b4 with SMTP id q14-20020adff94e000000b0022563aa27b4mr18312290wrr.611.1662155878205;
-        Fri, 02 Sep 2022 14:57:58 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id d16-20020adfe850000000b0022526db2363sm2558118wrn.30.2022.09.02.14.57.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 02 Sep 2022 14:57:57 -0700 (PDT)
-Message-ID: <2abccaa2-d472-4c5b-aea6-7a2dddd665da@gmail.com>
-Date:   Fri, 2 Sep 2022 23:57:49 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.0
+        with ESMTP id S229594AbiICMyS (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 3 Sep 2022 08:54:18 -0400
+X-Greylist: delayed 422 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Sat, 03 Sep 2022 05:54:15 PDT
+Received: from mailrelay.tugraz.at (mailrelay.tugraz.at [129.27.2.202])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6C9F5326C8
+        for <linux-man@vger.kernel.org>; Sat,  3 Sep 2022 05:54:15 -0700 (PDT)
+Received: from [192.168.0.150] (84-115-222-2.cable.dynamic.surfer.at [84.115.222.2])
+        by mailrelay.tugraz.at (Postfix) with ESMTPSA id 4MKZKw6bRWz1LLF5;
+        Sat,  3 Sep 2022 14:47:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailrelay.tugraz.at 4MKZKw6bRWz1LLF5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tugraz.at;
+        s=mailrelay; t=1662209221;
+        bh=Bagu+LpsnQuxes2s9Vn4Tx99g+u6lQQnYNh/4oC/bys=;
+        h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+        b=nwOZZxxHofSvVRhkrKnVvngLMHx7kRg5apbwjYyJHzLNAxqNc3+m+9gl/qFUW2KW8
+         3thFUKFA2EKmVpDafFHeY20saq8bMmblJlqg2LmthiCAIHpiE9mZY8odEn4U+BbuSq
+         rQBcQqxAVJJISIJercKAuPStIkVKdUlndmh/ROfc=
+Message-ID: <4475b350c2a4d60da540c0f3055f466640e6c409.camel@tugraz.at>
 Subject: Re: [PATCH] Various pages: SYNOPSIS: Use VLA syntax in function
  parameters
-Content-Language: en-US
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     JeanHeyd Meneide <wg14@soasis.org>
+From:   Martin Uecker <uecker@tugraz.at>
+To:     Alejandro Colomar <alx.manpages@gmail.com>,
+        JeanHeyd Meneide <wg14@soasis.org>
 Cc:     Ingo Schwarze <schwarze@usta.de>, linux-man@vger.kernel.org,
         gcc@gcc.gnu.org
+Date:   Sat, 03 Sep 2022 14:47:00 +0200
+In-Reply-To: <2abccaa2-d472-4c5b-aea6-7a2dddd665da@gmail.com>
 References: <20220826210710.35237-1-alx.manpages@gmail.com>
- <Ywn7jMtB5ppSW0PB@asta-kit.de>
- <89d79095-d1cd-ab2b-00e4-caa31126751e@gmail.com>
- <YwoXTGD8ljB8Gg6s@asta-kit.de>
- <e29de088-ae10-bbc8-0bfd-90bbb63aaf06@gmail.com>
- <5ba53bad-019e-8a94-d61e-85b2f13223a9@gmail.com>
- <CACqA6+mfaj6Viw+LVOG=nE350gQhCwVKXRzycVru5Oi4EJzgTg@mail.gmail.com>
- <491a930d-47eb-7c86-c0c4-25eef4ac0be0@gmail.com>
-In-Reply-To: <491a930d-47eb-7c86-c0c4-25eef4ac0be0@gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------g0FfQiXb3ALuTTX8yeUfx8TE"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-        autolearn=ham autolearn_force=no version=3.4.6
+         <Ywn7jMtB5ppSW0PB@asta-kit.de>
+         <89d79095-d1cd-ab2b-00e4-caa31126751e@gmail.com>
+         <YwoXTGD8ljB8Gg6s@asta-kit.de>
+         <e29de088-ae10-bbc8-0bfd-90bbb63aaf06@gmail.com>
+         <5ba53bad-019e-8a94-d61e-85b2f13223a9@gmail.com>
+         <CACqA6+mfaj6Viw+LVOG=nE350gQhCwVKXRzycVru5Oi4EJzgTg@mail.gmail.com>
+         <491a930d-47eb-7c86-c0c4-25eef4ac0be0@gmail.com>
+         <2abccaa2-d472-4c5b-aea6-7a2dddd665da@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.30.5-1.1 
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-TUG-Backscatter-control: G/VXY7/6zeyuAY/PU2/0qw
+X-Spam-Scanner: SpamAssassin 3.003001 
+X-Spam-Score-relay: -0.4
+X-Scanned-By: MIMEDefang 2.74 on 129.27.10.116
+X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+        RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
+        T_SCC_BODY_TEXT_LINE autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------g0FfQiXb3ALuTTX8yeUfx8TE
-Content-Type: multipart/mixed; boundary="------------nfTfCR6ANY17Gve0g5e9bx6n";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: JeanHeyd Meneide <wg14@soasis.org>
-Cc: Ingo Schwarze <schwarze@usta.de>, linux-man@vger.kernel.org,
- gcc@gcc.gnu.org
-Message-ID: <2abccaa2-d472-4c5b-aea6-7a2dddd665da@gmail.com>
-Subject: Re: [PATCH] Various pages: SYNOPSIS: Use VLA syntax in function
- parameters
-References: <20220826210710.35237-1-alx.manpages@gmail.com>
- <Ywn7jMtB5ppSW0PB@asta-kit.de>
- <89d79095-d1cd-ab2b-00e4-caa31126751e@gmail.com>
- <YwoXTGD8ljB8Gg6s@asta-kit.de>
- <e29de088-ae10-bbc8-0bfd-90bbb63aaf06@gmail.com>
- <5ba53bad-019e-8a94-d61e-85b2f13223a9@gmail.com>
- <CACqA6+mfaj6Viw+LVOG=nE350gQhCwVKXRzycVru5Oi4EJzgTg@mail.gmail.com>
- <491a930d-47eb-7c86-c0c4-25eef4ac0be0@gmail.com>
-In-Reply-To: <491a930d-47eb-7c86-c0c4-25eef4ac0be0@gmail.com>
+...
+> > 
+> >        Whether or not you feel like the manpages are the best place to 
+> > start that, I'll leave up to you!
+> 
+> I'll try to defend the reasons to start this in the man-pages.
+> 
+> This feature is mostly for documentation purposes, not being meaningful 
+> for code at all (for some meaning of meaningful), since it won't change 
+> the function definition in any way, nor the calls to it.  At least not 
+> by itself; static analysis may get some benefits, though.
 
---------------nfTfCR6ANY17Gve0g5e9bx6n
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
 
-SGkgSmVhbkhleWQsDQoNCj4gU3ViamVjdDrCoMKgwqDCoCBSZTogW1BBVENIXSBWYXJpb3Vz
-IHBhZ2VzOiBTWU5PUFNJUzogVXNlIFZMQSBzeW50YXggaW4gDQo+IGZ1bmN0aW9uIHBhcmFt
-ZXRlcnMNCj4gRGF0ZTrCoMKgwqDCoCBGcmksIDIgU2VwIDIwMjIgMTY6NTY6MDAgLTA0MDAN
-Cj4gRnJvbTrCoMKgwqDCoCBKZWFuSGV5ZCBNZW5laWRlIDx3ZzE0QHNvYXNpcy5vcmc+DQo+
-IFRvOsKgwqDCoMKgIEFsZWphbmRybyBDb2xvbWFyIDxhbHgubWFucGFnZXNAZ21haWwuY29t
-Pg0KPiBDQzrCoMKgwqDCoCBJbmdvIFNjaHdhcnplIDxzY2h3YXJ6ZUB1c3RhLmRlPiwgbGlu
-dXgtbWFuQHZnZXIua2VybmVsLm9yZw0KPiANCj4gDQo+IA0KPiBIaSBBbGVqYW5kcm8gYW5k
-IEluZ28sDQo+IA0KPiAgwqDCoMKgwqDCoCBKdXN0IGNoaW1pbmcgaW4gZnJvbSBhIFN0YW5k
-YXJkcyBwZXJzcGVjdGl2ZSwgaGVyZS4gV2UgZGlzY3Vzc2VkLCANCj4gYnJpZWZseSwgYSB3
-YXkgdG8gYWxsb3cgVmFyaWFibGUtTGVuZ3RoIGZ1bmN0aW9uIHBhcmFtZXRlciBkZWNsYXJh
-dGlvbnMgDQo+IGxpa2UgdGhlIG9uZXMgc2hvd24gaW4gdGhpcyB0aHJlYWQgKGUuZy4sIGNo
-YXIgKmdldGN3ZChjaGFyIGJ1ZltzaXplXSwgDQo+IHNpemVfdCBzaXplICk7KS4NCj4gDQo+
-ICDCoMKgwqDCoMKgIEluIEdDQywgdGhlcmUgaXMgYSBHTlUgZXh0ZW5zaW9uIHRoYXQgYWxs
-b3dzIGV4cGxpY2l0bHkgDQo+IGZvcndhcmQtZGVjbGFyaW5nIHRoZSBwcm90b3R5cGUuIFVz
-aW5nIHRoZSBhYm92ZSBleGFtcGxlLCBpdCB3b3VsZCBsb29rIA0KPiBsaWtlIHNvOg0KDQpJ
-IGFkZGVkIHRoZSBHQ0MgbGlzdCB0byB0aGUgdGhyZWFkLCBzbyB0aGF0IHRoZXkgY2FuIGlu
-dGVydmVuZSBpZiB0aGV5IA0KY29uc2lkZXIgaXQgbmVjZXNzYXJ5Lg0KDQo+IA0KPiBjaGFy
-ICpnZXRjd2Qoc2l6ZV90IHNpemU7IGNoYXIgYnVmW3NpemVdLCBzaXplX3Qgc2l6ZSk7DQoN
-CkkgcmVhZCBhYm91dCB0aGF0LCBhbHRob3VnaCBJIGRvbid0IGxpa2UgaXQgdmVyeSBtdWNo
-LCBhbmQgbmV2ZXIgdXNlZCBpdC4NCg0KPiANCj4gKExpdmUgRXhhbXBsZSBbMV0pDQo+IA0K
-PiAoTm90ZSB0aGUgYDtgIGFmdGVyIHRoZSBmaXJzdCAic2l6ZSIgZGVjbGFyYXRpb24pLiBU
-aGlzIHdhcyBicm91Z2h0IA0KPiBiZWZvcmUgdGhlIENvbW1pdHRlZSB0byB2b3RlIG9uIGZv
-ciBDMjMgaW4gdGhlIGZvcm0gb2YgTjI3ODAgWzJdLCBhcm91bmQgDQo+IHRoZSBKYW51YXJ5
-IDIwMjIgdGltZWZyYW1lLiBUaGUgcGFwZXIgZGlkIG5vdCBwYXNzLCBhbmQgaXQgd2FzIHNl
-ZW4gYXMgYSANCj4gImZhaWxlZCBleHRlbnNpb24iLiBBZnRlciB0aGUgdm90ZSBvbiB0aGF0
-IGZhaWxlZCwgd2UgdGFsa2VkIGFib3V0IG90aGVyIA0KPiB3YXlzIG9mIGFsbG93aW5nIHBs
-YWNlcyB3aGV0aGVyIHRoZXJlIHdhcyBzb21lIGFwcGV0aXRlIHRvIGFsbG93IA0KPiAiZm9y
-d2FyZCBwYXJzaW5nIiBmb3IgdGhpcyBzb3J0IG9mIGNhc2UuIFRoYXQgaXMsIGNvdWxkIHdl
-IHNpbXBseSBhbGxvdzoNCj4gDQo+IGNoYXIgKmdldGN3ZChjaGFyIGJ1ZltzaXplXSwgc2l6
-ZV90IHNpemUpOw0KPiANCj4gdG8gd29yayBhcyBleHBlY3RlZC4gVGhlIHZvdGUgZm9yIHRo
-aXMgZGlkIG5vdCBnYWluIGZ1bGwgY29uc2Vuc3VzIA0KPiBlaXRoZXIsIGJ1dCB0aGVyZSB3
-ZXJlIGEgbG90IG9mIGFic3RlbnRpb25zIFszXS4gV2hpbGUgSSBwZXJzb25hbGx5IA0KPiB2
-b3RlZCBpbiBmYXZvciBvZiBhbGxvd2luZyBzdWNoIGZvciBDLCB0aGVyZSB3YXMgZGlzdGlu
-Y3Qgd29ycnkgdGhhdCANCj4gdGhpcyB3b3VsZCBwcm9kdWNlIGlzc3VlcyBmb3Igd2Vha2Vy
-IEMgaW1wbGVtZW50YXRpb25zIHRoYXQgZGlkIG5vdCB3YW50IA0KPiB0byBjb21taXQgdG8g
-ZGVsYXllZCBwYXJzaW5nIG9yIGZvcndhcmQgcGFyc2luZyBvZiB0aGUgZW50aXJldHkgb2Yg
-dGhlIA0KPiBhcmd1bWVudCBsaXN0IGJlZm9yZSByZXNvbHZpbmcgdHlwZXMuIFRoZXJlIGFy
-ZSBlbm91Z2ggYWJzdGVudGlvbnMgDQo+IGR1cmluZyB2b3RpbmcgdGhhdCBhIHdvcmtpbmcg
-aW1wbGVtZW50YXRpb24gd2l0aCBhIHdyaXRldXAgb2YgY29tcGxleGl0eSANCj4gd291bGQg
-c3dheSB0aGUgQ29tbWl0dGVlIG9uZSB3YXkgb3IgdGhlIG90aGVyLg0KDQpJIGxpa2UgdGhh
-dCB0aGlzIGdvdCBsZXNzIGhhdGUgdGhhbiB0aGUgR05VIGV4dGVuc2lvbi4gIEl0J3Mgbmlj
-ZXIgdG8gbXkgDQpleWVzLg0KDQo+IA0KPiBUaGlzIGlzIG5vdCB0byBkaXNzdWFkZSBBbGVq
-YW5kcm8ncyBwb3NpdGlvbiwgb3IgdG8gYm9sc3RlciBJbmdvJ3MgDQo+IHBvaW50OyBJJ20g
-bW9zdGx5IGp1c3QgcmVwb3J0aW5nIHRoZSBDb21taXR0ZWUncyByZXNwb25zZSBoZXJlLiBU
-aGlzIGlzIA0KPiBhbiB1bnNvbHZlZCBwcm9ibGVtIGZvciB0aGUgQ29tbWl0dGVlLCBhbmQg
-YWxzbyBhIGxhcmdlciBob2xkb3ZlciBmcm9tIA0KPiB0aGUgcmVtb3ZhbCBvZiBLJlIgZGVj
-bGFyYXRpb25zIGZyb20gQzIzLCB3aGljaCBDT1VMRCBzb2x2ZSB0aGlzIHByb2JsZW06DQo+
-IA0KPiAvLyBkZWNsDQo+IGNoYXIgKmdldGN3ZCgpOw0KPiANCj4gLy8gaW1wbA0KPiBjaGFy
-KiBnZXRjd2QoYnVmLCBzaXplKQ0KPiBjaGFyIGJ1ZltzaXplXTsNCj4gIMKgwqDCoMKgwqAg
-c2l6ZV90IHNpemU7DQo+IHsNCj4gIMKgwqDCoMKgwqAgLyogaW1wbCBoZXJlICovDQo+IH0N
-Cg0KSSB3b24ndCBtaXNzIHRoZW0gOykNCg0KTXkgcmVnZXgtYmFzZWQgcGFyc2VyWzFdIHRo
-YXQgZmluZHMgZGVjbGFyYXRpb25zIGFuZCBkZWZpbml0aW9ucyBpbiBDIA0KY29kZSBiYXNl
-cyBnb2VzIG51dHMgd2l0aCBLJlIgZnVuY3Rpb25zLiAgVGhleSBhcmUgZGVhZCBmb3IgZ29v
-ZCA6KQ0KDQpbMV06IDxodHRwOi8vd3d3LmFsZWphbmRyby1jb2xvbWFyLmVzL3NyYy9hbHgv
-YWx4L2dyZXBjLmdpdC8+DQoNCj4gDQo+ICDCoMKgwqDCoMKgIFRoZXJlIGlzIHJvb20gZm9y
-IGlubm92YXRpb24gaGVyZSwgb3IgcGVyaGFwcyBib2xzdGVyaW5nIG9mIHRoZSANCj4gR0ND
-IG9yaWdpbmFsIGV4dGVuc2lvbi4gQXMgaXQgc3RhbmRzIHJpZ2h0IG5vdywgY29tcGlsZXJz
-IG9ubHkgdmVyeSANCj4gcmVjZW50bHkgc3RhcnRlZCB0YWtpbmcgVmFyaWFibHktTW9kaWZp
-ZWQgVHlwZSBwYXJhbWV0ZXJzIGFuZCBTdGF0aWMgDQo+IEV4dGVudCBwYXJhbWV0ZXJzIHNl
-cmlvdXNseSBhZnRlciBjYXJlZnVsbHkgc2VwYXJhdGluZyB0aGVtIG91dCBvZiANCj4gVmFy
-aWFibGUtTGVuZ3RoIEFycmF5cywgd2FybmluZyB3aGVyZSB0aGV5IGNhbiB3aGVuIHN0YXRp
-YyBvciBvdGhlciANCj4gYXJyYXkgcGFyYW1ldGVycyBkbyBub3QgbWF0Y2ggYnVmZmVyIGxl
-bmd0aHMgYW5kIHNvLW9uLg0KPiANCj4gIMKgwqDCoMKgwqAgTm90IGp1c3QgdG8gdGhlIGZv
-bGtzIGluIHRoaXMgdGhyZWFkLCBidXQgdG8gdGhlIGJyb2FkZXIgDQo+IGNvbW11bml0eSBm
-b3IgYW55b25lIHdobyBpcyBwYXlpbmcgYXR0ZW50aW9uOiBXRzE0IHdvdWxkIGFjdGl2ZWx5
-IGxpa2UgDQo+IHRvIHNvbHZlIHRoaXMgcHJvYmxlbS4gSWYgc29tZW9uZSBjYW46DQo+IC0g
-cHJvdmUgb3V0IGEgd2F5IHRvIGRvIGRlbGF5ZWQgcGFyc2luZyB0aGF0IGlzIG5vdCBpbXBs
-ZW1lbnRhdGlvbi1jb3N0bHksDQo+IC0gcmV2aXZlIHRoZSBjb25zaWRlcmVkLWRlYWQgR0ND
-IGV4dGVuc2lvbiwgb3INCj4gLSBwcm92aWRlIGEgM3JkIG9yIDR0aCB3YXkgdG8gc3VwcG9y
-dCB0aGUgZ29hbHMsDQo+IA0KPiBJIGFtIGNlcnRhaW4gV0cxNCB3b3VsZCBsb29rIGZhdm9y
-YWJseSB1cG9uIHN1Y2ggYSB0aGluZyBldmVudHVhbGx5LCANCj4gYnJvdWdodCBiZWZvcmUg
-dGhlIENvbW1pdHRlZSBpbiBpbmNsdXNpb24gZm9yIEMyeS9DM2EuDQo+IA0KPiAgwqDCoMKg
-wqDCoCBXaGV0aGVyIG9yIG5vdCB5b3UgZmVlbCBsaWtlIHRoZSBtYW5wYWdlcyBhcmUgdGhl
-IGJlc3QgcGxhY2UgdG8gDQo+IHN0YXJ0IHRoYXQsIEknbGwgbGVhdmUgdXAgdG8geW91IQ0K
-DQpJJ2xsIHRyeSB0byBkZWZlbmQgdGhlIHJlYXNvbnMgdG8gc3RhcnQgdGhpcyBpbiB0aGUg
-bWFuLXBhZ2VzLg0KDQpUaGlzIGZlYXR1cmUgaXMgbW9zdGx5IGZvciBkb2N1bWVudGF0aW9u
-IHB1cnBvc2VzLCBub3QgYmVpbmcgbWVhbmluZ2Z1bCANCmZvciBjb2RlIGF0IGFsbCAoZm9y
-IHNvbWUgbWVhbmluZyBvZiBtZWFuaW5nZnVsKSwgc2luY2UgaXQgd29uJ3QgY2hhbmdlIA0K
-dGhlIGZ1bmN0aW9uIGRlZmluaXRpb24gaW4gYW55IHdheSwgbm9yIHRoZSBjYWxscyB0byBp
-dC4gIEF0IGxlYXN0IG5vdCANCmJ5IGl0c2VsZjsgc3RhdGljIGFuYWx5c2lzIG1heSBnZXQg
-c29tZSBiZW5lZml0cywgdGhvdWdoLg0KDQpBbHNvLCBuZXcgY29kZSBjYW4gYmUgZGVzaWdu
-ZWQgZnJvbSB0aGUgYmVnaW5uaW5nIHNvIHRoYXQgc2l6ZXMgZ28gDQpiZWZvcmUgdGhlaXIg
-Y29ycmVzcG9uZGluZyBhcnJheXMsIHNvIHRoYXQgbmV3IGNvZGUgd29uJ3QgdHlwaWNhbGx5
-IGJlIA0KYWZmZWN0ZWQgYnkgdGhlIGxhY2sgb2YgdGhpcyBmZWF0dXJlIGluIHRoZSBsYW5n
-dWFnZS4NCg0KVGhpcyBsZWF2ZXMgdXMgd2l0aCBsZWdhY3kgY29kZSwgZXNwZWNpYWxseSBs
-aWJjLCB3aGljaCBqdXN0IHdvcmtzLCBhbmQgDQpkb2Vzbid0IGhhdmUgYW55IHVyZ2VudCBu
-ZWVkcyB0byBjaGFuZ2UgdGhlaXIgcHJvdG90eXBlcyBpbiB0aGlzIHJlZ2FyZCANCih0aGV5
-IGNvdWxkLCB0byBpbXByb3ZlIHN0YXRpYyBhbmFseXNpcywgYnV0IG5vdCB3aGF0IHdlJ2Qg
-Y2FsbCB1cmdlbnQpLg0KDQpBbmQgc2luY2UgbW9zdCBwZW9wbGUgZG9uJ3QgZ28gYXJvdW5k
-IHJlYWRpbmcgbGliYyBoZWFkZXJzIHNlYXJjaGluZyBmb3IgDQpmdW5jdGlvbiBkZWNsYXJh
-dGlvbnMgKGVzcGVjaWFsbHkgc2luY2UgdGhlcmUgYXJlIG1hbnVhbCBwYWdlcyB0aGF0IHNo
-b3cgDQp0aGVtIG5pY2VseSksIGl0J3Mgbm90IGxpa2UgdGhlIGRvY3VtZW50YXRpb24gb2Yg
-dGhlIGNvZGUgZGVwZW5kcyBvbiBob3cgDQp0aGUgZnVuY3Rpb24gaXMgX2FjdHVhbGx5XyBk
-ZWNsYXJlZCBpbiBjb2RlICh0aGF0J3Mgd2h5IEkgYWxzbyBkZWZlbmRlZCANCmRvY3VtZW50
-aW5nIHJlc3RyaWN0IGV2ZW4gaWYgZ2xpYmMgd291bGRuJ3QgaGF2ZSBjYXJlZCB0byBkZWNs
-YXJlIGl0KSwgDQpidXQgaXQgZGVwZW5kcyBiYXNpY2FsbHkgb24gd2hhdCB0aGUgbWFudWFs
-IHBhZ2VzIHNheSBhYm91dCB0aGUgDQpmdW5jdGlvbi4gIElmIHRoZSBtYW51YWwgcGFnZXMg
-c2F5IGEgZnVuY3Rpb24gZ2V0cyAncmVzdHJpY3QnIHBhcmFtcywgaXQgDQptZWFucyBpdCBn
-ZXRzICdyZXN0cmljdCcgcGFyYW1zLCBubyBtYXR0ZXIgd2hhdCB0aGUgY29kZSBzYXlzLCBh
-bmQgaWYgaXQgDQpkb2Vzbid0LCB0aGUgZnVuY3Rpb24gYWNjZXB0cyBvdmVybGFwcGluZyBw
-b2ludGVycywgYXQgbGVhc3QgZm9yIG1vc3Qgb2YgDQp0aGUgcHVibGljIChtb2R1bG8gbWFu
-dWFsIHBhZ2UgYnVncywgdGhhdCBpcykuDQoNClNvIHRoaXMgZXh0ZW5zaW9uIGNvdWxkIHZl
-cnkgd2VsbCBiZSBhZGRlZCBieSB0aGUgbWFudWFsIHBhZ2VzLCBhcyBhIA0KZm9ybSBvZiBk
-b2N1bWVudGF0aW9uLCBhbmQgdGhlbiBtYXliZSBwaWNrZWQgdXAgYnkgY29tcGlsZXJzIHRo
-YXQgaGF2ZSANCmVub3VnaCByZXNvdXJjZXMgdG8gaW1wbGVtZW50IGl0Lg0KDQoNCkNvbnNp
-ZGVyaW5nIHRoYXQgdGhpcyBmZWF0dXJlIGlzIG1vc3RseSBhYm91dCBkb2N1bWVudGF0aW9u
-IChhbmQgYSBiaXQgDQpvZiBzdGF0aWMgYW5hbHlzaXMgdG9vKSwgdGhlIGRvY3VtZW50YXRp
-b24gc2hvdWxkIGJlIHNvbWV0aGluZyBhcHBlYWxpbmcgDQp0byB0aGUgcmVhZGVyLg0KDQoN
-CkxldCdzIHRha2UgYW4gZXhhbXBsZToNCg0KDQogICAgICAgIGludCBnZXRuYW1laW5mbyhj
-b25zdCBzdHJ1Y3Qgc29ja2FkZHIgKnJlc3RyaWN0IGFkZHIsDQogICAgICAgICAgICAgICAg
-ICAgICAgICBzb2NrbGVuX3QgYWRkcmxlbiwNCiAgICAgICAgICAgICAgICAgICAgICAgIGNo
-YXIgKnJlc3RyaWN0IGhvc3QsIHNvY2tsZW5fdCBob3N0bGVuLA0KICAgICAgICAgICAgICAg
-ICAgICAgICAgY2hhciAqcmVzdHJpY3Qgc2Vydiwgc29ja2xlbl90IHNlcnZsZW4sDQogICAg
-ICAgICAgICAgICAgICAgICAgICBpbnQgZmxhZ3MpOw0KDQphbmQgc29tZSB0cmFuc2Zvcm1h
-dGlvbnM6DQoNCg0KICAgICAgICBpbnQgZ2V0bmFtZWluZm8oY29uc3Qgc3RydWN0IHNvY2th
-ZGRyICpyZXN0cmljdCBhZGRyLA0KICAgICAgICAgICAgICAgICAgICAgICAgc29ja2xlbl90
-IGFkZHJsZW4sDQogICAgICAgICAgICAgICAgICAgICAgICBjaGFyIGhvc3RbcmVzdHJpY3Qg
-aG9zdGxlbl0sIHNvY2tsZW5fdCBob3N0bGVuLA0KICAgICAgICAgICAgICAgICAgICAgICAg
-Y2hhciBzZXJ2W3Jlc3RyaWN0IHNlcnZsZW5dLCBzb2NrbGVuX3Qgc2VydmxlbiwNCiAgICAg
-ICAgICAgICAgICAgICAgICAgIGludCBmbGFncyk7DQoNCg0KICAgICAgICBpbnQgZ2V0bmFt
-ZWluZm8oc29ja2xlbl90IGhvc3RsZW47DQogICAgICAgICAgICAgICAgICAgICAgICBzb2Nr
-bGVuX3Qgc2VydmxlbjsNCiAgICAgICAgICAgICAgICAgICAgICAgIGNvbnN0IHN0cnVjdCBz
-b2NrYWRkciAqcmVzdHJpY3QgYWRkciwNCiAgICAgICAgICAgICAgICAgICAgICAgIHNvY2ts
-ZW5fdCBhZGRybGVuLA0KICAgICAgICAgICAgICAgICAgICAgICAgY2hhciBob3N0W3Jlc3Ry
-aWN0IGhvc3RsZW5dLCBzb2NrbGVuX3QgaG9zdGxlbiwNCiAgICAgICAgICAgICAgICAgICAg
-ICAgIGNoYXIgc2VydltyZXN0cmljdCBzZXJ2bGVuXSwgc29ja2xlbl90IHNlcnZsZW4sDQog
-ICAgICAgICAgICAgICAgICAgICAgICBpbnQgZmxhZ3MpOw0KDQooSSdtIG5vdCBzdXJlIGlm
-IEkgdXNlZCBjb3JyZWN0IEdOVSBzeW50YXgsIHNpbmNlIEkgbmV2ZXIgdXNlZCB0aGF0IA0K
-ZXh0ZW5zaW9uIG15c2VsZi4pDQoNClRoZSBmaXJzdCB0cmFuc2Zvcm1hdGlvbiBhYm92ZSBp
-cyBub24tYW1iaWd1b3VzLCBhcyBjb25jaXNlIGFzIHBvc3NpYmxlLCANCmFuZCBpdHMgb25s
-eSBpc3N1ZSBpcyB0aGF0IGl0IG1pZ2h0IGNvbXBsaWNhdGUgdGhlIGltcGxlbWVudGF0aW9u
-IGEgYml0IA0KdG9vIG11Y2guICBJIGRvbid0IHRoaW5rIGZvcndhcmQtdXNpbmcgYSBwYXJh
-bWV0ZXIncyBzaXplIHdvdWxkIGJlIHRvbyANCm11Y2ggb2YgYSBwYXJzaW5nIHByb2JsZW0g
-Zm9yIGh1bWFuIHJlYWRlcnMuDQoNClRoZSBzZWNvbmQgb25lIGlzIHVubmVjZXNzYXJpbHkg
-bG9uZyBhbmQgdmVyYm9zZSwgYW5kIHNlbWljb2xvbnMgYXJlIG5vdCANCnZlcnkgZGlzdGlu
-Z3Vpc2hhYmxlIGZyb20gY29tbWFzLCBmb3IgaHVtYW4gcmVhZGVycywgd2hpY2ggbWF5IGJl
-IHZlcnkgDQpjb25mdXNpbmcuDQoNCiAgICAgICAgaW50IGZvbyhpbnQgYTsgaW50IGJbYV0s
-IGludCBhKTsNCiAgICAgICAgaW50IGZvbyhpbnQgYSwgaW50IGJbYV0sIGludCBvKTsNCg0K
-VGhvc2UgdHdvIGFyZSB2ZXJ5IGRpZmZlcmVudCB0byB0aGUgY29tcGlsZXIsIGFuZCB5ZXQg
-dmVyeSBzaW1pbGFyIHRvIA0KdGhlIGh1bWFuIGV5ZS4gIEkgZG9uJ3QgbGlrZSBpdC4gIFRo
-ZSBmYWN0IHRoYXQgaXQgYWxsb3dzIGZvciBzaW1wbGVyIA0KY29tcGlsZXJzIGlzbid0IGVu
-b3VnaCB0byBvdmVyY29tZSB0aGUgcmVhZGFiaWxpdHkgaXNzdWVzLg0KDQpJIHRoaW5rIEkn
-ZCBwcmVmZXIgaGF2aW5nIHRoZSBmb3J3YXJkLXVzaW5nIHN5bnRheCBhcyBhIG5vbi1zdGFu
-ZGFyZCANCmV4dGVuc2lvbiAtLW9yIGEgc3RhbmRhcmQgYnV0IG9wdGlvbmFsIGxhbmd1YWdl
-IGZlYXR1cmUtLSB0byBhdm9pZCANCmZvcmNpbmcgc21hbGwgY29tcGlsZXJzIHRvIGltcGxl
-bWVudCBpdCwgcmF0aGVyIHRoYW4gaGF2aW5nIHRoZSBHTlUgDQpleHRlbnNpb24gc3RhbmRh
-cmRpemVkIGluIGFsbCBjb21waWxlcnMuDQoNCkhhdmluZyB0aGlzIGV4dGVuc2lvbiBpbiBh
-bnkgc2luZ2xlIGNvbXBpbGVyIHdvdWxkIGV2ZW4gbWFrZSBpdCBtb3JlIA0KYXBwZWFsaW5n
-IHRvIG1hbnVhbCBwYWdlcywgd2hpY2ggY291bGQgdXNlIHRoZSBzeW50YXggbW9yZSBmcmVl
-bHkgDQp3aXRob3V0IGZlYXIgb2YgY29uZnVzaW5nIHJlYWRlcnMuICBFdmVuIGlmIHRoZSBz
-dGFuZGFyZCB3b3VsZG4ndCBhY2NlcHQgaXQuDQoNCkxldCdzIHNlZSBpZiBHQ0MgbGlrZXMg
-dGhlIGZlYXR1cmUgYW5kIGhlbHBzIG1lIGF0dGVtcHQgdG8gdXNlIGl0IGEgDQpsaXR0bGUg
-Yml0ISA6LSkNCg0KQ2hlZXJzLA0KDQpBbGV4DQoNCg0KLS0gDQpBbGVqYW5kcm8gQ29sb21h
-cg0KPGh0dHA6Ly93d3cuYWxlamFuZHJvLWNvbG9tYXIuZXMvPg0K
+GCC will warn if the bound is specified inconsistently between
+declarations and also emit warnings if it can see that a buffer
+which is passed is too small:
 
---------------nfTfCR6ANY17Gve0g5e9bx6n--
+https://godbolt.org/z/PsjPG1nv7
 
---------------g0FfQiXb3ALuTTX8yeUfx8TE
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
 
------BEGIN PGP SIGNATURE-----
+BTW: If you declare pointers to arrays (not first elements) you
+can get run-time bounds checking with UBSan:
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmMSfF0ACgkQnowa+77/
-2zKbsg//f+pmZQ9gjE5QVNv2z1RLTEKx6AeU2kjlfPTSFWv+NgGFEYMoA6B+Eaar
-j5O5KikUmFchaXCLbroDRTQrtEfRXZS8+l5Hgl1Ms1DD1dgtKiJh2TT7H9wyqpC4
-ftX8KWd/CGlDgXHnGkL45MaRdBY00uLiD6rUW+QPhDHtLXACFYdqgPmAeEcnHjsL
-rfzKIPu17eGbpfmiVfPTIuV5eUYxAvFEJ+9OkpYddZa6vgORtEngxAkozIX/AJcD
-6FksWtoac61GsmdwhjAVPgX571UwFGdMUH9kNfkNckpgeedL1EzI22D+YPWiWAIm
-gYWaRIIz2dRR4uGVYuIb9AeET2dV5CJBoUTQyZ3dY/v8qWy5DhCQi3d+msom3zvl
-pCggUfiozen/b6uJT3xVyg+jCKh3F8kgaWMgqvBwBqSUNGmBQE4tqhNdM6nIzyyJ
-GeuNGax4tG6y0mPq3l/Xt/O5Se2PC6tP6909mtqGZNebnWaB9iGjH0axnnMV6njP
-gRmpkpoJcSvieC5C755j1pthEBlvfpg7xx9QskQPZt2Q0jaAHiyNAR8w35wzsMOr
-+DsYF6ygIyFZDfzXXzNK4+xkv6FxO00Peds+OOOxmvMjzQXmAerl/tjNNq/sAL0r
-rdBjQ/kA4+YumFT5QlzNBTD1iN6YZccDeVTwVbghXpTl73RwSHE=
-=VG/p
------END PGP SIGNATURE-----
+https://godbolt.org/z/TvMo89WfP
 
---------------g0FfQiXb3ALuTTX8yeUfx8TE--
+
+> 
+> Also, new code can be designed from the beginning so that sizes go 
+> before their corresponding arrays, so that new code won't typically be 
+> affected by the lack of this feature in the language.
+> 
+> This leaves us with legacy code, especially libc, which just works, and 
+> doesn't have any urgent needs to change their prototypes in this regard 
+> (they could, to improve static analysis, but not what we'd call urgent).
+
+It would be useful step to find out-of-bounds problem in
+applications using libc.
+
+
+> And since most people don't go around reading libc headers searching for 
+> function declarations (especially since there are manual pages that show 
+> them nicely), it's not like the documentation of the code depends on how 
+> the function is _actually_ declared in code (that's why I also defended 
+> documenting restrict even if glibc wouldn't have cared to declare it), 
+> but it depends basically on what the manual pages say about the 
+> function.  If the manual pages say a function gets 'restrict' params, it 
+> means it gets 'restrict' params, no matter what the code says, and if it 
+> doesn't, the function accepts overlapping pointers, at least for most of 
+> the public (modulo manual page bugs, that is).
+> 
+> So this extension could very well be added by the manual pages, as a 
+> form of documentation, and then maybe picked up by compilers that have 
+> enough resources to implement it.
+> 
+> 
+> Considering that this feature is mostly about documentation (and a bit 
+> of static analysis too), the documentation should be something appealing 
+> to the reader.
+> 
+> 
+> Let's take an example:
+> 
+> 
+>         int getnameinfo(const struct sockaddr *restrict addr,
+>                         socklen_t addrlen,
+>                         char *restrict host, socklen_t hostlen,
+>                         char *restrict serv, socklen_t servlen,
+>                         int flags);
+> 
+> and some transformations:
+> 
+> 
+>         int getnameinfo(const struct sockaddr *restrict addr,
+>                         socklen_t addrlen,
+>                         char host[restrict hostlen], socklen_t hostlen,
+>                         char serv[restrict servlen], socklen_t servlen,
+>                         int flags);
+> 
+> 
+>         int getnameinfo(socklen_t hostlen;
+>                         socklen_t servlen;
+>                         const struct sockaddr *restrict addr,
+>                         socklen_t addrlen,
+>                         char host[restrict hostlen], socklen_t hostlen,
+>                         char serv[restrict servlen], socklen_t servlen,
+>                         int flags);
+> 
+> (I'm not sure if I used correct GNU syntax, since I never used that 
+> extension myself.)
+> 
+> The first transformation above is non-ambiguous, as concise as possible, 
+> and its only issue is that it might complicate the implementation a bit 
+> too much.  I don't think forward-using a parameter's size would be too 
+> much of a parsing problem for human readers.
+
+
+I personally find the second form not terrible.  Being
+able to read code left-to-right, top-down is helpful in more
+complicated examples.
+
+
+
+> The second one is unnecessarily long and verbose, and semicolons are not 
+> very distinguishable from commas, for human readers, which may be very 
+> confusing.
+> 
+>         int foo(int a; int b[a], int a);
+>         int foo(int a, int b[a], int o);
+> 
+> Those two are very different to the compiler, and yet very similar to 
+> the human eye.  I don't like it.  The fact that it allows for simpler 
+> compilers isn't enough to overcome the readability issues.
+
+This is true, I would probably use it with a comma and/or
+syntax highlighting.
+
+
+> I think I'd prefer having the forward-using syntax as a non-standard 
+> extension --or a standard but optional language feature-- to avoid 
+> forcing small compilers to implement it, rather than having the GNU 
+> extension standardized in all compilers.
+
+The problems with the second form are:
+
+- it is not 100% backwards compatible (which maybe ok though) as
+the semantics of the following code changes:
+
+int n;
+int foo(int a[n], int n); // refers to different n!
+
+Code written for new compilers could then be misunderstood
+by old compilers when a variable with 'n' is in scope.
+
+
+- it would generally be fundamentally new to C to have
+backwards references and parser might need to be changes
+to allow this
+
+
+- a compiler or tool then has to deal also with ugly
+corner cases such as mutual references:
+
+int foo(int (*a)[sizeof(*b)], int (*b)[sizeof(*a)]);
+
+
+
+We could consider new syntax such as
+
+int foo(char buf[.n], int n);
+
+
+Personally, I would prefer the conceptual simplicity of forward
+declarations and the fact that these exist already in GCC
+over any alternative.  I would also not mind new syntax, but
+then one has to define the rules more precisely to avoid the
+aforementioned problems. 
+
+
+Martin
+
+
+
+
