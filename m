@@ -2,63 +2,73 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 77E4D5AC520
-	for <lists+linux-man@lfdr.de>; Sun,  4 Sep 2022 17:51:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E70C25AC697
+	for <lists+linux-man@lfdr.de>; Sun,  4 Sep 2022 23:16:24 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234157AbiIDPvV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 4 Sep 2022 11:51:21 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45494 "EHLO
+        id S231225AbiIDVQX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 4 Sep 2022 17:16:23 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52006 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229938AbiIDPvU (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 4 Sep 2022 11:51:20 -0400
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com [IPv6:2a00:1450:4864:20::336])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 125DC2DA8C
-        for <linux-man@vger.kernel.org>; Sun,  4 Sep 2022 08:51:19 -0700 (PDT)
-Received: by mail-wm1-x336.google.com with SMTP id d5so4071935wms.5
-        for <linux-man@vger.kernel.org>; Sun, 04 Sep 2022 08:51:19 -0700 (PDT)
+        with ESMTP id S229596AbiIDVQW (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 4 Sep 2022 17:16:22 -0400
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com [IPv6:2a00:1450:4864:20::32e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 11629255BF
+        for <linux-man@vger.kernel.org>; Sun,  4 Sep 2022 14:16:21 -0700 (PDT)
+Received: by mail-wm1-x32e.google.com with SMTP id n17-20020a05600c501100b003a84bf9b68bso4675901wmr.3
+        for <linux-man@vger.kernel.org>; Sun, 04 Sep 2022 14:16:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date;
-        bh=o0Ok3zn7lI07pN+apRIJ0fqiak+xOXfcdbaKrywyUpQ=;
-        b=exH6D426Fgb1RkIL/vAy8vYMqZk9m64xE2TJt85Jc5dKIciaGLuN8IrAaB2P+rpUJ3
-         hbn2sjhJ7J0aQ6zrsWjHSv2EOCeC9nKbU6EyUAD6mPZMIHyvonwk4BE63qBJVyhRfYhc
-         QkH6usqG1lkC8IINYHz58lc+caPa9AtsW1BxGg4+XDiXYvkw5eiASsy4dHl2WcttnvgV
-         RleJPUIOsXuvTxlpslOw2Z+6xg2EmVusytThLt8nPOVBhvpSkez2mXCKmnfVbsciS15c
-         NMmHQmlGRvI5lPKptxylSQrgqYFm3NHiSxCNrzOIl3ZSjxDYEqxQwZOB5ZImajH0Kc3p
-         FR0g==
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date;
+        bh=SJr2rS7T8DQMBgRP8uhcjn2uzIdffAXFazjIh2/rMD0=;
+        b=kO8fLkM+8hT1SbVEwLf5cjSVLml9BuPCMRIu4VQ4tVcOq3dc3SvE8jSuMD7IE76L/h
+         rEB5BwP9gB6LlL0pMZQS6hxQVfZ5P9jLhOpTcONYi0j9P4zUcpk1dYqwtk4PmGk5Cqsn
+         W7n44nBSTXzbvY5kH3/LO4HPsfcjbXT3VCA1jnPnAZXx2umy4KwEJ8iL5H8fDCWu5g9g
+         OLahlMrrC2RTjA/49/6BZO+ZKpqd0P+jLHvuT71c3rwV80S4zNOxjxxJJRCIkzY7GMeX
+         IwbUJ+z9Ir70mArpu2YuBEYed9jLSPge7314W2uYW8TwBQSv3m2digE+rw+NU2XyvtU9
+         XHMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date;
-        bh=o0Ok3zn7lI07pN+apRIJ0fqiak+xOXfcdbaKrywyUpQ=;
-        b=CsD1CCmNCaqX+NqSRnu5MLU34wWJdsrwsJTQvfOSYTkKo/vd1IBUElJer/rIjWuU9r
-         eXvSBO7nXcMUjaqhrvouUVCWetDbzNL68aC/tCHIlyezZWSwwPoT9EPHPY/144jdCNci
-         JB5+KWx6OKuMIfhi794qJIOcQG2AfHqOID07tq1C2a+82+ZzjesmsLMoP5XF8XhN7XPO
-         IvdE/F4UmpcblCoywvMtFOW50iwHpM2apEpsQNyC790RqjvvWzoHIg5c+ERXTP0TngRb
-         o7E/YAvp0+2HBRXKo72oqF8jqMZoSVRb3xpkXAyeSTW/5uVB6qcM6EE3yp1T3zQRD06g
-         PTfQ==
-X-Gm-Message-State: ACgBeo1zzRCLJ5QfD0pf/f1pYK0I5WrL9COLXJDSVAYpPY1WfswcgCW8
-        fGSzhmDhwCkKNu/NpiJHSCY=
-X-Google-Smtp-Source: AA6agR7e5AeJTkyy4lJM2K904OWWy8rRbKJ/2WSDkCU4ClgHZ6e2AyqOmTWbvReP+JOhN7PMbc1U5Q==
-X-Received: by 2002:a05:600c:5009:b0:3a9:f99e:7410 with SMTP id n9-20020a05600c500900b003a9f99e7410mr8537419wmr.5.1662306677515;
-        Sun, 04 Sep 2022 08:51:17 -0700 (PDT)
-Received: from amir-ThinkPad-T480.ctera.local (bzq-166-168-31-246.red.bezeqint.net. [31.168.166.246])
-        by smtp.gmail.com with ESMTPSA id o21-20020a05600c4fd500b003a32297598csm15882121wmq.43.2022.09.04.08.51.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Sep 2022 08:51:16 -0700 (PDT)
-From:   Amir Goldstein <amir73il@gmail.com>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     Jan Kara <jack@suse.cz>, Matthew Bobrowski <repnop@google.com>,
-        linux-man@vger.kernel.org
-Subject: [RFC][PATCH] fanotify_mark.2: Document FAN_MARK_IGNORE
-Date:   Sun,  4 Sep 2022 18:51:13 +0300
-Message-Id: <20220904155113.2623371-1-amir73il@gmail.com>
-X-Mailer: git-send-email 2.25.1
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date;
+        bh=SJr2rS7T8DQMBgRP8uhcjn2uzIdffAXFazjIh2/rMD0=;
+        b=ykf+4lWRzSy209icsK7Au9ALa/WHXC/lPWECBkZKW7jSrAThZL5d1TlXgu3Tb7UrS6
+         mmTKkxk6ZF58zn1wcQrvZcGppeuiUwAe/vcLoclKFw+YWv3t1ZcjCPddUu/ae2co0aZD
+         1mWZdZWsqAW1Th/bCxttes/9BLoRwVDJ7VTaGIBeqcA1JnrUtbpdkWfMc64GoEYazaI3
+         neXoNav9UERNCIEPhZI1md5DCGK2YrZLmuGqYwoAPiQ0ZpU/p0eb1w9CDWOZoMtPGFxa
+         +SxDBco+3U9p90VKeTnknBAuW2aTDx8gkXDBGVVlqVTFrKl37BQxr7ImXuymHO4iEItK
+         TjwQ==
+X-Gm-Message-State: ACgBeo3SagLcXDHdtBbAAm69RQyBxcmZTn4izlJPO4h7uhT95mdpyvok
+        0eqBpbUjFe4YedBlq0IH3Nk=
+X-Google-Smtp-Source: AA6agR6y7eob13Ig6bphoLfCi4wUvHCHTxke2F+A8Q6Gb9DPBNiavUFsqdi58vT4FQsMu1sEtHX5xA==
+X-Received: by 2002:a05:600c:2195:b0:3a6:b3c:c100 with SMTP id e21-20020a05600c219500b003a60b3cc100mr8893115wme.8.1662326179222;
+        Sun, 04 Sep 2022 14:16:19 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id g13-20020a05600c4ecd00b003a4c6e67f01sm17651830wmq.6.2022.09.04.14.16.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 04 Sep 2022 14:16:18 -0700 (PDT)
+Message-ID: <28eb6a53-7865-d75d-8903-77b63e09222d@gmail.com>
+Date:   Sun, 4 Sep 2022 23:16:09 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.0
+Subject: Re: [PATCH v2] _Generic.3: New page documenting _Generic()
+To:     Florian Weimer <fweimer@redhat.com>
+Cc:     linux-man@vger.kernel.org, JeanHeyd Meneide <wg14@soasis.org>,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        Ingo Schwarze <schwarze@usta.de>
+References: <20220820171009.34196-1-alx.manpages@gmail.com>
+ <20220821115506.22850-1-alx.manpages@gmail.com>
+ <87mtbv4chu.fsf@oldenburg.str.redhat.com>
+Content-Language: en-US
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <87mtbv4chu.fsf@oldenburg.str.redhat.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------5vioAcDM4eELIO0MvcHtQfw9"
+X-Spam-Status: No, score=-3.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
         autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -67,219 +77,97 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-A new flavor of FAN_MARK_IGNORED_MASK that helps to resolve the
-ambiguity around the combination of event flags and ignore mask.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------5vioAcDM4eELIO0MvcHtQfw9
+Content-Type: multipart/mixed; boundary="------------NbrdkUa0ATcvV99lU6acdkAe";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: Florian Weimer <fweimer@redhat.com>
+Cc: linux-man@vger.kernel.org, JeanHeyd Meneide <wg14@soasis.org>,
+ "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+ Ingo Schwarze <schwarze@usta.de>
+Message-ID: <28eb6a53-7865-d75d-8903-77b63e09222d@gmail.com>
+Subject: Re: [PATCH v2] _Generic.3: New page documenting _Generic()
+References: <20220820171009.34196-1-alx.manpages@gmail.com>
+ <20220821115506.22850-1-alx.manpages@gmail.com>
+ <87mtbv4chu.fsf@oldenburg.str.redhat.com>
+In-Reply-To: <87mtbv4chu.fsf@oldenburg.str.redhat.com>
 
-It is also more strict in the events and flags allowed to be
-set in a non-directory inode mark mask and it mandates the use
-of FAN_MARK_IGNORED_SURV_MODIFY flag on filesystem, mount and
-directory inode marks.
+--------------NbrdkUa0ATcvV99lU6acdkAe
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
----
+SGkgRmxvcmlhbiwNCg0KT24gOC8yMy8yMiAwOTo1OCwgRmxvcmlhbiBXZWltZXIgd3JvdGU6
+DQo+IE5vdGUgdGhhdCB0aGlzIGFwcHJvYWNoIGRvZXMgbm90IHJlYWxseSB3b3JrIHRoYXQg
+d2VsbCBpbiBwcmFjdGljZQ0KPiBiZWNhdXNlIG1hY3JvcyB1c2luZyBfR2VuZXJpYyBleHBh
+bmQgYWxsIHRoZSBhbHRlcm5hdGl2ZXMgKGluIGN1cnJlbnQNCj4gaW1wbGVtZW50YXRpb25z
+OyBkb2luZyB0aGlzIGRpZmZlcmVudGx5IHJlcXVpcmVzIGRldmlhdGluZyBmcm9tIHRoZQ0K
+PiBsYXllcmVkIGltcGxlbWVudGF0aW9uIHN0cmF0ZWd5IHN1Z2dlc3RlZCBpbiB0aGUgQyBz
+dGFuZGFyZCkuICBUaGlzDQo+IG1lYW5zIHRoYXQgX0dlbmVyaWMtdXNpbmcgbWFjcm9zIGNh
+biBvbmx5IGJlIG5lc3RlZCBtYXliZSB0aHJlZSBvciBmb3VyDQo+IGxldmVscyBkZWVwLCBk
+ZXBlbmRpbmcgb24gdGhlIG51bWJlciBvZiBfR2VuZXJpYyBhbHRlcm5hdGl2ZXMgb24gZWFj
+aA0KPiBsZXZlbC4gIEZvciA8dGdtYXRoLmg+LCB0aGlzIGlzIHJlYWxseSBub3QgZW5vdWdo
+LCBzbyBhIGhpZ2gtcXVhbGl0eQ0KPiBpbXBsZW1lbnRhdGlvbiBvZiA8dGdtYXRoLmg+IHVz
+aW5nIF9HZW5lcmljIGlzIG5vdCBmZWFzaWJsZS4gIEdDQw0KPiBwcm92aWRlcyBfX2J1aWx0
+aW5fdGdtYXRoLCB3aGljaCBpcyBkZXNpZ25lZCBpbiBzdWNoIGEgd2F5IHRoYXQgd2hlbg0K
+PiB1c2VkIGluIGEgbWFjcm8sIHRoZSBtYWNybyBhcmd1bWVudCBpcyBvbmx5IGV4cGFuZGVk
+IG9uY2UuDQo+IA0KPiBNYXliZSBtZW50aW9uIHRoaXMgdW5kZXIgQlVHUz8NCj4gDQo+IEMr
+KyB0ZW1wbGF0ZXMgZG8gbm90IHN1ZmZlciBmcm9tIHRoaXMgcGFydGljdWxhciBwcm9ibGVt
+Lg0KDQoNCkhlaCwgSSBkb24ndCBrbm93IGhvdyB0aGlzIGRpZG4ndCBvb2N1ciB0byBtZSBi
+ZWZvcmUuICBXZWxsLCBtYXliZSBpdCdzIA0KYmVjYXVzZSBpdCdzIG5vbi1zdGFuZGFyZCAo
+YnV0IHRoZSBzdGFuZGFyZCBtaWdodCB2ZXJ5IHdlbGwgYmVuZWZpdCBmcm9tIA0KYWRkaW5n
+IHRoaXMsIElNTykuDQoNCkFuIGFsd2F5c19pbmxpbmUgZnVuY3Rpb24gd2l0aCBubyBleHRl
+cm4gZGVmaW5pdGlvbiBiZWhhdmVzIGFzIGlmIGl0IA0Kd2VyZSBhIG1hY3JvICh0cnlpbmcg
+dG8gdGFrZSBhIHBvaW50ZXIgdG8gaXQsIG9yIHNvbWV0aGluZyB0aGF0IG5lZWRzIGEgDQps
+aW5rZXIgc3ltYm9sLCB3aWxsIHJlc3VsdCBpbiBsaW5rZXIgZXJyb3JzLCB3aGljaCBpcyBu
+b3QgdGhlIG1vc3QgDQpyZWFkYWJsZSBlcnJvciwgYnV0IGdvb2QgZW5vdWdoKSwgaW4gdGhl
+IHNlbnNlIHRoYXQgaXQgZG9lc24ndCBoYXZlIEFCSSANCmlzc3VlcywgYnV0IGhhcyB0aGUg
+YmVuZWZpdCBvZiBub3QgY3JlYXRpbmcgY29kZSBleHBvbmVudGlhbGx5Lg0KDQoNCkNoZWVy
+cywNCg0KQWxleA0KDQotLS0NCg0KZGlmZiAtLWdpdCBhL21hbjMvX0dlbmVyaWMuMyBiL21h
+bjMvX0dlbmVyaWMuMw0KaW5kZXggZjNkYWY5OGMxLi4zYmQ1ZjMwNmMgMTAwNjQ0DQotLS0g
+YS9tYW4zL19HZW5lcmljLjMNCisrKyBiL21hbjMvX0dlbmVyaWMuMw0KQEAgLTMwLDcgKzMw
+LDkgQEAgQzExIGFuZCBsYXRlci4NCiAgVGhlIGZvbGxvd2luZyBwcm9ncmFtIGRlbW9uc3Ry
+YXRlcyBob3cgdG8gd3JpdGUNCiAgYSByZXBsYWNlbWVudCBmb3IgdGhlIHN0YW5kYXJkDQog
+IC5CUiBpbWF4YWJzICgzKQ0KLWZ1bmN0aW9uLCB3aGljaCBiZWluZyBhIGZ1bmN0aW9uIGNh
+bid0IHJlYWxseSBwcm92aWRlIHdoYXQgaXQgcHJvbWlzZXM6DQorZnVuY3Rpb24sIHdoaWNo
+IGJlaW5nIGFuDQorLkkgZXh0ZXJuDQorZnVuY3Rpb24gY2FuJ3QgcmVhbGx5IHByb3ZpZGUg
+d2hhdCBpdCBwcm9taXNlczoNCiAgc2VhbWxlc3NseSB1cGdyYWRpbmcgdG8gdGhlIHdpZGVz
+dCBhdmFpbGFibGUgdHlwZS4NCiAgLlBQDQogIC5cIiBTUkMgQkVHSU4gKF9HZW5lcmljLmMp
+DQpAQCAtMzksMTEgKzQxLDE2IEBAIHNlYW1sZXNzbHkgdXBncmFkaW5nIHRvIHRoZSB3aWRl
+c3QgYXZhaWxhYmxlIHR5cGUuDQogICNpbmNsdWRlIDxzdGRpby5oPg0KICAjaW5jbHVkZSA8
+c3RkbGliLmg+DQoNCi0jZGVmaW5lIG15X2ltYXhhYnMoaikgIF9HZW5lcmljKElOVE1BWF9D
+KDApLCAgXGUNCi0gICAgbG9uZzogICAgICAgICAgIGxhYnMoaiksICAgICAgICAgICAgICAg
+ICAgXGUNCi0gICAgbG9uZyBsb25nOiAgICAgIGxsYWJzKGopICAgICAgICAgICAgICAgICAg
+XGUNCi0gLyogbG9uZyBsb25nIGxvbmc6IGxsbGFicyhqKSAqLyAgICAgICAgICAgICAgXGUN
+Ci0pDQorW1tnbnU6OmFsd2F5c19pbmxpbmVdXQ0KK2lubGluZSBpbnRtYXhfdA0KK215X2lt
+YXhhYnMoaW50bWF4X3QgaikNCit7DQorICAgIHJldHVybiBfR2VuZXJpYyhqLA0KKyAgICAg
+ICAgbG9uZzogICAgICAgICAgIGxhYnMoaiksDQorICAgICAgICBsb25nIGxvbmc6ICAgICAg
+bGxhYnMoaikNCisgICAgIC8qIGxvbmcgbG9uZyBsb25nOiBsbGxhYnMoaikgKi8NCisgICAg
+KQ0KK30NCg0KICBpbnQNCiAgbWFpbih2b2lkKQ0KDQoNCg0KDQotLSANCkFsZWphbmRybyBD
+b2xvbWFyDQo8aHR0cDovL3d3dy5hbGVqYW5kcm8tY29sb21hci5lcy8+DQo=
 
-Hi Alex,
+--------------NbrdkUa0ATcvV99lU6acdkAe--
 
-This is an update for a new fanotify feature merged to v6.0-rc1.
-I am posting this man page update for early review.
+--------------5vioAcDM4eELIO0MvcHtQfw9
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-You would probably want to wait for v6.0 release before merging
-this anyway.
+-----BEGIN PGP SIGNATURE-----
 
-Thanks,
-Amir.
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmMVFZkACgkQnowa+77/
+2zJLAg/9HlmAoXgoYXY+dkxhgvIQoS8vpm0gdhvgHhtYLegpXs41b9CgkNJU9pv/
+IXdWAnbx4kk2Ha7Y/rSJCEup1V9se5g1Hme+Fuu2c2xyajtWrSkaK1Sm8ZjIC+9k
+Mbom5SWJY3QeP35M1WIjmqHTENJpurlhwtosq6RJv4f/geQT7soUQbSeiiU702w1
+HfNP4xkM2bF8xekxwExDI3EoyOKps66GEKoJYp2+uYHnl2dAO0ylD4311+sPldyp
+O/JgFjraJ6Aes+rVCFq7fiKvJqUiq/9ApSIvtXdOIlcj5sQNEZWA3SDGeK1dqpb3
+kpc1JojvTHajF7od1EnMPl+LHjsBfvXlcVZuyTbhGGHPzeRK6I7Kd3o+uGG/JPpf
+ATMsxxjSXZFtHFGhpebf3gyff4i7NrBhuy9YCRZ9RYWVO6B8GmsxnczObwQaVijp
+Ncl2I+vOSf5YqV75VoRWQXe6X1d2X3FXq/JVSOPvdusC0fdhpUERQL6GjRDNAtlL
+AgvJ7Nvza6NuciEhjs+iRVvvXXmMjKia2XWV9g2dpnw4RfuLsueIzzRtPz3rPgw3
+f9lFfv4RKB3bt87MRoyNtoNDyA84YnJReIEZNGjX0Yhaxa47cqzH1L6ZRPwL1Lp5
+Kik2V2Jthren1CLJ4VGOPS3b3ceGMbu7vXCBNXMw3D4ywM0i5vU=
+=tr/o
+-----END PGP SIGNATURE-----
 
- man2/fanotify_mark.2 | 147 ++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 146 insertions(+), 1 deletion(-)
-
-diff --git a/man2/fanotify_mark.2 b/man2/fanotify_mark.2
-index 757ad9159..e9303827c 100644
---- a/man2/fanotify_mark.2
-+++ b/man2/fanotify_mark.2
-@@ -146,12 +146,102 @@ capability.
- The events in
- .I mask
- shall be added to or removed from the ignore mask.
-+Note that the flags
-+.B FAN_ONDIR ,
-+and
-+.B FAN_EVENT_ON_CHILD
-+have no effect in combination with this flag.
-+The effect of setting those flags in the mask
-+on ignoring events that are set in the ignore mask
-+is undefined and depend on the Linux kernel version.
-+Specifically, prior to Linux 5.9,
-+.\" commit 497b0c5a7c0688c1b100a9c2e267337f677c198e
-+setting a mark mask on a file
-+and a mark with ignore mask on its parent directory
-+would not result in ignoring events on the file,
-+regardless of the
-+.B FAN_EVENT_ON_CHILD
-+flag in the parent directory's mark mask.
-+When the ignore mask is updated with the
-+.B FAN_MARK_IGNORED_MASK
-+flag,
-+on a mark that was previously updated with the
-+.B FAN_MARK_IGNORE
-+flag,
-+the update fails with
-+.B EEXIST
-+error.
-+.TP
-+.BR FAN_MARK_IGNORE " (since Linux 6.0)"
-+.\" commit e252f2ed1c8c6c3884ab5dd34e003ed21f1fe6e0
-+This flag has a similar effect as setting the
-+.B FAN_MARK_IGNORED_MASK
-+flag.
-+The events in
-+.I mask
-+shall be added to or removed from the ignore mask.
-+Unlike the
-+.B FAN_MARK_IGNORED_MASK
-+flag,
-+this flag also has the effect that the
-+.B FAN_ONDIR ,
-+and
-+.B FAN_EVENT_ON_CHILD
-+flags take effect on the ignore mask.
-+Specifically, unless
-+.B FAN_ONDIR
-+flag is set with
-+.BR FAN_MARK_IGNORE ,
-+events on directories will not be ignored
-+and if the flag
-+.B FAN_EVENT_ON_CHILD
-+is set,
-+events on children will be ignored.
-+For example,
-+a mark on a directory with combination of
-+a mask with
-+.B FAN_CREATE
-+event
-+and
-+.B FAN_ONDIR
-+flag
-+and an ignore mask with
-+.B FAN_CREATE
-+event
-+and without
-+.B FAN_ONDIR
-+flag,
-+will result in getting only events for creation of sub-directories.
-+When using this flag to add to an ignore mask
-+of a mount, filesystem, or directory inode mark,
-+the
-+.B FAN_MARK_IGNORED_SURV_MODIFY
-+flag must be specified.
-+Failure to do so will results with
-+.B EINVAL
-+or
-+.B EISDIR
-+error.
- .TP
- .B FAN_MARK_IGNORED_SURV_MODIFY
- The ignore mask shall survive modify events.
- If this flag is not set,
- the ignore mask is cleared when a modify event occurs
- for the ignored file or directory.
-+This flag cannot be removed from a mark once set.
-+When the ignore mask is updated without this flag,
-+on a mark that was previously updated with the
-+.B FAN_MARK_IGNORE
-+and
-+.B FAN_MARK_IGNORED_SURV_MODIFY
-+flags,
-+the update fails with
-+.B EEXIST
-+error.
-+.TP
-+.B FAN_MARK_IGNORE_SURV
-+This is a synonym for
-+.RB ( FAN_MARK_IGNORE | FAN_MARK_IGNORED_SURV_MODIFY ).
- .PP
- .TP
- .BR FAN_MARK_EVICTABLE " (since Linux 5.19)"
-@@ -459,6 +549,32 @@ and the user attempted to update the mark with
- .B FAN_MARK_EVICTABLE
- flag.
- .TP
-+.B EEXIST
-+The filesystem object indicated by
-+.I dirfd
-+and
-+.I pathname
-+has a mark that was updated with the
-+.B FAN_MARK_IGNORE
-+flag,
-+and the user attempted to update the mark with
-+.B FAN_MARK_IGNORED_MASK
-+flag.
-+.TP
-+.B EEXIST
-+The filesystem object indicated by
-+.I dirfd
-+and
-+.I pathname
-+has a mark that was updated with the
-+.B FAN_MARK_IGNORE
-+and
-+.B FAN_MARK_IGNORED_SURV_MODIFY
-+flags,
-+and the user attempted to update the mark only with
-+.B FAN_MARK_IGNORE
-+flag.
-+.TP
- .B EINVAL
- An invalid value was passed in
- .I flags
-@@ -484,8 +600,33 @@ but one or more event types specified in the
- .I mask
- require it.
- .TP
-+.B EINVAL
-+.I flags
-+contains
-+.BR FAN_MARK_IGNORE ,
-+and either
-+.B FAN_MARK_MOUNT
-+or
-+.BR FAN_MARK_FILESYSTEM ,
-+but does not contain
-+.BR FAN_MARK_IGNORED_SURV_MODIFY .
-+.TP
-+.B EISDIR
-+.I flags
-+contains
-+.BR FAN_MARK_IGNORE ,
-+and
-+.BR FAN_MARK_IGNORED_SURV_MODIFY ,
-+and
-+.I dirfd
-+and
-+.I pathname
-+specify a directory.
-+.TP
- .B ENODEV
- The filesystem object indicated by
-+.I dirfd
-+and
- .I pathname
- is not associated with a filesystem that supports
- .I fsid
-@@ -547,8 +688,12 @@ and
- do not specify a directory.
- .TP
- .B ENOTDIR
--The fanotify group was initialized with flag
-+.I flags
-+contains
-+.BR FAN_MARK_IGNORE ,
-+or the fanotify group was initialized with flag
- .BR FAN_REPORT_TARGET_FID ,
-+and
- .I mask
- contains directory entry modification events
- (e.g.,
--- 
-2.25.1
-
+--------------5vioAcDM4eELIO0MvcHtQfw9--
