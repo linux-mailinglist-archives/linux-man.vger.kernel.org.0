@@ -2,83 +2,92 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id F39B55AE2AE
-	for <lists+linux-man@lfdr.de>; Tue,  6 Sep 2022 10:33:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9F9115AE3D2
+	for <lists+linux-man@lfdr.de>; Tue,  6 Sep 2022 11:06:32 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233002AbiIFIdD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 6 Sep 2022 04:33:03 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34122 "EHLO
+        id S233731AbiIFJGa (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 6 Sep 2022 05:06:30 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40830 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233551AbiIFIdA (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 6 Sep 2022 04:33:00 -0400
-Received: from ams.source.kernel.org (ams.source.kernel.org [IPv6:2604:1380:4601:e00::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B2113C55
-        for <linux-man@vger.kernel.org>; Tue,  6 Sep 2022 01:32:58 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by ams.source.kernel.org (Postfix) with ESMTPS id 950C0B81647
-        for <linux-man@vger.kernel.org>; Tue,  6 Sep 2022 08:32:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 59953C433B5
-        for <linux-man@vger.kernel.org>; Tue,  6 Sep 2022 08:32:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1662453175;
-        bh=3iZACyn4XJFw2TOL9CLoVnj+mvflM5ht/C1Sp6BiN8s=;
-        h=From:To:Subject:Date:In-Reply-To:References:From;
-        b=D2UL0uVshBbedYb8NZNnDBk5xriVKLNURR/rwlzG2HLKbdiGJWC0s6kCoUje5T/ve
-         Te5XoNxJj0j0U1UzHenglMC0mxRaIlirn6uuu2hOK+u/RZmA0Ie5aCK1y6jprR+xCj
-         E0Uk6Ho14JBOOjByNm+WjlWe4H2/wKOgS9C75wkiaGJMclmur5MAQ/JV8DtzRVPdjn
-         snPs6WTs5I4ZCzjcpzBKui0W2zQgVaS/3637ALlWKqH7DbYrGkybqDpZfy4h2vlkVe
-         I1VDCXmMLOduQJS3aXw3X8/x75tSdRnQZXym9SAqg+vEaoOxgfd0zm1AtGEaqv4BLG
-         GkQH94smvlOzA==
-Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
-        id 456E1C433E7; Tue,  6 Sep 2022 08:32:55 +0000 (UTC)
-From:   bugzilla-daemon@kernel.org
-To:     linux-man@vger.kernel.org
-Subject: [Bug 215769] vfork() returns EINVAL after unshare(CLONE_NEWTIME)
-Date:   Tue, 06 Sep 2022 08:32:54 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: changed
-X-Bugzilla-Watch-Reason: AssignedTo
- documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Product: Other
-X-Bugzilla-Component: Other
-X-Bugzilla-Version: 2.5
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: normal
-X-Bugzilla-Who: socketpair@gmail.com
-X-Bugzilla-Status: NEW
-X-Bugzilla-Resolution: 
-X-Bugzilla-Priority: P1
-X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: 
-Message-ID: <bug-215769-11311-HgPjSQCS4V@https.bugzilla.kernel.org/>
-In-Reply-To: <bug-215769-11311@https.bugzilla.kernel.org/>
-References: <bug-215769-11311@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
+        with ESMTP id S232233AbiIFJG3 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 6 Sep 2022 05:06:29 -0400
+X-Greylist: delayed 301 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Tue, 06 Sep 2022 02:06:28 PDT
+Received: from a7-20.smtp-out.eu-west-1.amazonses.com (a7-20.smtp-out.eu-west-1.amazonses.com [54.240.7.20])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 418FC3F31C
+        for <linux-man@vger.kernel.org>; Tue,  6 Sep 2022 02:06:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+        s=ehv72hrdm63prfxoar2vn7kuxcadjmfr; d=pxeger.com; t=1662454885;
+        h=Message-ID:Date:MIME-Version:To:Cc:From:Subject:Content-Type:Content-Transfer-Encoding;
+        bh=l8JjaTgDGCTSOW96hcH5lY43QX2WodpovlV7fTcDwII=;
+        b=AycvExmdl3np3t4gC8Gcmb6P7MuqNat/mRRYClPKv9O9YRQ4OtY34yA2H6lfqlUa
+        hXt820tZm88SlB9fH8vFXoWPScA28Z33BqsiX4fqzmeWN8iQJUVGeTlhBMWOGfSwsmM
+        xdCEBpBLKiXpPFWaj9NIGJts2qxEzxVpcMsyNAC4=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+        s=ihchhvubuqgjsxyuhssfvqohv7z3u4hn; d=amazonses.com; t=1662454885;
+        h=Message-ID:Date:MIME-Version:To:Cc:From:Subject:Content-Type:Content-Transfer-Encoding:Feedback-ID;
+        bh=l8JjaTgDGCTSOW96hcH5lY43QX2WodpovlV7fTcDwII=;
+        b=DnGfXwRrkKUzzSbQVkO6a9r3/qPEW/nC+rbu9/SOduwJfMDYGcP1R6M+adf1nRiH
+        BFB+RzajZgk3E41avUXt2cLBnj+flupc203EDZo2nVkJ8JjlSeQnzZ3J7Uj2G4+vcg6
+        5Cid3tTXck/6E6AEDzeFvQEfAk7jVaTT7RCSTaWg=
+Message-ID: <0102018312086c29-13598a55-2c20-47eb-a288-a5bbe6f1caff-000000@eu-west-1.amazonses.com>
+Date:   Tue, 6 Sep 2022 09:01:25 +0000
 MIME-Version: 1.0
-X-Spam-Status: No, score=-7.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.0
+Content-Language: en-US
+To:     linux-man@vger.kernel.org
+Cc:     alx.manpages@gmail.com
+From:   Patrick Reader <_@pxeger.com>
+Subject: [patch] unshare.2: Add note about potential capabilities confusion
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Feedback-ID: 1.eu-west-1.O8fLL1RnZ8YOldtp6Bf8+xGGBJTnUb+xpx8eQnH6GAs=:AmazonSES
+X-SES-Outgoing: 2022.09.06-54.240.7.20
+X-Spam-Status: No, score=2.3 required=5.0 tests=BAYES_20,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FORGED_MUA_MOZILLA,
+        HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,
+        SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=no
         autolearn_force=no version=3.4.6
+X-Spam-Level: **
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D215769
+See https://bugzilla.kernel.org/show_bug.cgi?id=216215 for context.
 
---- Comment #16 from =D0=9A=D0=BE=D1=80=D0=B5=D0=BD=D0=B1=D0=B5=D1=80=D0=B3=
- =D0=9C=D0=B0=D1=80=D0=BA (socketpair@gmail.com) ---
-Please change "Assignee" please. It's not about documentation.
+I know nothing about groff formatting, so what I wrote here is based on 
+my inference from reading the existing source. If it's wrong, I apologise.
 
---=20
-You may reply to this email to add a comment.
 
-You are receiving this mail because:
-You are watching the assignee of the bug.=
+Signed-off-by: Patrick Reader <_@pxeger.com>
+---
+  man/man2/unshare.2 | 10 ++++++++++
+  1 file changed, 10 insertions(+)
+
+diff --git a/man/man2/unshare.2 b/man/man2/unshare.2
+index e72464950..851129022 100644
+--- a/man/man2/unshare.2
++++ b/man/man2/unshare.2
+@@ -461,6 +461,16 @@ Such functionality may be added in the future, if 
+required.
+  .\"be incrementally added to unshare without affecting legacy
+  .\"applications using unshare.
+  .\"
++.PP
++Creating all kinds of namespace, except user namespaces, requires the
++.B CAP_SYS_ADMIN
++capability. However, since creating a user namespace automatically 
+confers a
++full set of capabilities, creating both a user namespace and any other type
++of namespace in the same
++.BR unshare ()
++call does not require the
++.B CAP_SYS_ADMIN
++capability in the original namespace.
+  .SH EXAMPLES
+  The program below provides a simple implementation of the
+  .BR unshare (1)
+-- 
+2.37.3
