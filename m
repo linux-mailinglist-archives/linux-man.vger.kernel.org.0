@@ -2,178 +2,83 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 47E1F5ADF4F
-	for <lists+linux-man@lfdr.de>; Tue,  6 Sep 2022 08:01:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id F39B55AE2AE
+	for <lists+linux-man@lfdr.de>; Tue,  6 Sep 2022 10:33:10 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S238582AbiIFGBc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 6 Sep 2022 02:01:32 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39050 "EHLO
+        id S233002AbiIFIdD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 6 Sep 2022 04:33:03 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34122 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S238365AbiIFGBF (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 6 Sep 2022 02:01:05 -0400
-Received: from mail-vs1-xe33.google.com (mail-vs1-xe33.google.com [IPv6:2607:f8b0:4864:20::e33])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 61B136E8BC
-        for <linux-man@vger.kernel.org>; Mon,  5 Sep 2022 23:00:58 -0700 (PDT)
-Received: by mail-vs1-xe33.google.com with SMTP id 129so2232091vsi.10
-        for <linux-man@vger.kernel.org>; Mon, 05 Sep 2022 23:00:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date;
-        bh=IHHw3ZY1QZpDPWUA1zumzghk4plJwr05AfreZwB/Trk=;
-        b=mK4KN/fXFiHKI4hvwkTSrVtITb603tpUdrrwzDS6evst/3OuXqnP9cOaCwuvF/2GaD
-         Jb2hwh8Q7HYDztwajp1YcMBC9tXXxb4gS0Gqu4mgJqTExVA1JlB6VGWiKWDfHhfB3uf2
-         ZdRW5jluOW0okEgVuNVzGOWzPP1UBohpQwGA01OuQSaniQlZz6o+32FRQCxlJ0YKvkWD
-         TEqnTIuhSpjRZyE/c/0qut5/c1lquRjGf6xQXimrQtLnuuwAzGNo1z4ebVvzlIivRJqX
-         EFQXGG8Z5okHJswezzY/K2VdQPH+9m2WSwreTX7f67AtLrT810BcGDo3nGMisquCesCM
-         1gaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date;
-        bh=IHHw3ZY1QZpDPWUA1zumzghk4plJwr05AfreZwB/Trk=;
-        b=JTxr4O+bpBsfUXm2nGyVxF0uSrbD6TWvjnb4RS5bPJPK9SCMlRsTNEASkKKMCIeQEh
-         6gK7UHcAJAfoMUcIuSWeSMUtmg4P4gWnAz/q0AWmCePUeC2Q2A3OJ76G6zXsFG+8g/zb
-         SKbgV3/2v0jUQCiPxvVLGdYTSCbXbJ8Z+XDPODe1QEmFrR6WKnAybe/cdl26zbrd0wPP
-         Q58adwG21OhMRzlQxwp1ULZQOoyfs+MqpA/JjZ9TJ0OJ0XXzK9Z8FkPrKpt5MOufia6e
-         g3wx5cCp/bVK2ndkb0HSy2gyU0Lp0ATMH5DW4IF2HoUA5DN3w0IArqqkH4Xm4oVdyBDl
-         569A==
-X-Gm-Message-State: ACgBeo3B9+hMV1Bkf69Ge6JPOmWC5Rpi3N09JONs0qtjOsL/CVrdr0AO
-        CmTPim+OJLEVCNaEjIZuJYBpWsp0VhwfAKi1gzs=
-X-Google-Smtp-Source: AA6agR4a+aAUOrY7/22t4u2S8rEK3ZpOdZVULlvm/ovSoaStpTZTKbNHyi3D3YSbRS4rMDkm8SYthMC+y5c94J43Sro=
-X-Received: by 2002:a67:a649:0:b0:390:88c5:6a91 with SMTP id
- r9-20020a67a649000000b0039088c56a91mr15697280vsh.3.1662444056973; Mon, 05 Sep
- 2022 23:00:56 -0700 (PDT)
-MIME-Version: 1.0
-References: <20220904154639.2623138-1-amir73il@gmail.com> <207e0f01-f625-3f79-42d0-3e87a6882ee7@gmail.com>
-In-Reply-To: <207e0f01-f625-3f79-42d0-3e87a6882ee7@gmail.com>
-From:   Amir Goldstein <amir73il@gmail.com>
-Date:   Tue, 6 Sep 2022 09:00:45 +0300
-Message-ID: <CAOQ4uxjpNJ=LOrNSMcJqRchwJsGu3_UUSckg3XWUk5qrNP5w0w@mail.gmail.com>
-Subject: Re: [PATCH] fanotify_mark.2: Document FAN_MARK_EVICTABLE
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     Jan Kara <jack@suse.cz>, Matthew Bobrowski <repnop@google.com>,
-        linux-man <linux-man@vger.kernel.org>
+        with ESMTP id S233551AbiIFIdA (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 6 Sep 2022 04:33:00 -0400
+Received: from ams.source.kernel.org (ams.source.kernel.org [IPv6:2604:1380:4601:e00::1])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B2113C55
+        for <linux-man@vger.kernel.org>; Tue,  6 Sep 2022 01:32:58 -0700 (PDT)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        by ams.source.kernel.org (Postfix) with ESMTPS id 950C0B81647
+        for <linux-man@vger.kernel.org>; Tue,  6 Sep 2022 08:32:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 59953C433B5
+        for <linux-man@vger.kernel.org>; Tue,  6 Sep 2022 08:32:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1662453175;
+        bh=3iZACyn4XJFw2TOL9CLoVnj+mvflM5ht/C1Sp6BiN8s=;
+        h=From:To:Subject:Date:In-Reply-To:References:From;
+        b=D2UL0uVshBbedYb8NZNnDBk5xriVKLNURR/rwlzG2HLKbdiGJWC0s6kCoUje5T/ve
+         Te5XoNxJj0j0U1UzHenglMC0mxRaIlirn6uuu2hOK+u/RZmA0Ie5aCK1y6jprR+xCj
+         E0Uk6Ho14JBOOjByNm+WjlWe4H2/wKOgS9C75wkiaGJMclmur5MAQ/JV8DtzRVPdjn
+         snPs6WTs5I4ZCzjcpzBKui0W2zQgVaS/3637ALlWKqH7DbYrGkybqDpZfy4h2vlkVe
+         I1VDCXmMLOduQJS3aXw3X8/x75tSdRnQZXym9SAqg+vEaoOxgfd0zm1AtGEaqv4BLG
+         GkQH94smvlOzA==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
+        id 456E1C433E7; Tue,  6 Sep 2022 08:32:55 +0000 (UTC)
+From:   bugzilla-daemon@kernel.org
+To:     linux-man@vger.kernel.org
+Subject: [Bug 215769] vfork() returns EINVAL after unshare(CLONE_NEWTIME)
+Date:   Tue, 06 Sep 2022 08:32:54 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Other
+X-Bugzilla-Component: Other
+X-Bugzilla-Version: 2.5
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: socketpair@gmail.com
+X-Bugzilla-Status: NEW
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P1
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: 
+Message-ID: <bug-215769-11311-HgPjSQCS4V@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-215769-11311@https.bugzilla.kernel.org/>
+References: <bug-215769-11311@https.bugzilla.kernel.org/>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-        autolearn=ham autolearn_force=no version=3.4.6
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
+MIME-Version: 1.0
+X-Spam-Status: No, score=-7.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Mon, Sep 5, 2022 at 11:10 PM Alejandro Colomar
-<alx.manpages@gmail.com> wrote:
->
-> Hi Amir,
->
-> On 9/4/22 17:46, Amir Goldstein wrote:
-> > Add section about evictable inode marks and example use case.
-> > Add possible error case EEXIST related to evictable marks.
-> >
-> > Reviewed-by: Matthew Bobrowski <repnop@google.com>
-> > Signed-off-by: Amir Goldstein <amir73il@gmail.com>
-> > ---
-> >
-> > Hi Alex,
-> >
-> > This is an update for a new fanotify feature in v5.19.
-> > Please wait to see if Jan has any commetns before merging.
->
-> Sure.  Also, please check some comments of mine below.
->
-> Cheers,
->
-> Alex
->
-> >
-> > Thanks,
-> > Amir.
-> >
-> >   man2/fanotify_mark.2 | 50 +++++++++++++++++++++++++++++++++++++++++++=
-+
-> >   1 file changed, 50 insertions(+)
-> >
-> > diff --git a/man2/fanotify_mark.2 b/man2/fanotify_mark.2
-> > index 2696a803a..757ad9159 100644
-> > --- a/man2/fanotify_mark.2
-> > +++ b/man2/fanotify_mark.2
-> > @@ -153,6 +153,44 @@ If this flag is not set,
-> >   the ignore mask is cleared when a modify event occurs
-> >   for the ignored file or directory.
-> >   .PP
-> > +.TP
->
-> .PP followed by another paragraph macro is a no-op.  Remove .PP above.
->
-> Check the 'Paragraph macros' subsection in groff_man(7) for more details.
->
-> $ man groff_man
-> /^...Paragraph macros
->
-> > +.BR FAN_MARK_EVICTABLE " (since Linux 5.19)"
-> > +.\" commit 5f9d3bd520261fd7a850818c71809fd580e0f30c
-> > +When an inode mark is created with this flag,
-> > +the inode object will not be pinned to the inode cache.
-> > +Therefore, allowing the inode object to be evicted from the inode cach=
-e
->
-> I think 'Therefore' should continue the last sentence and be separated
-> by ',' or ';' instead of '.', and possibly removing the ',' after it.
->
-> > +when the memory pressure on the system is high.
-> > +The eviction of the inode object results in the evictable mark also
-> > +being lost.
->
-> Please rewrap the sentence above according to semantic newlines.
->
-> man-pages(7):
->     Use semantic newlines
->         In the source of a manual page, new sentences  should  be
->         started on new lines, long sentences should be split into
->         lines  at  clause breaks (commas, semicolons, colons, and
->         so on), and long clauses should be split at phrase bound=E2=80=90
->         aries.  This convention,  sometimes  known  as  "semantic
->         newlines",  makes it easier to see the effect of patches,
->         which often operate at the level of individual sentences,
->         clauses, or phrases.
->
->
-> > +When the mask of an evictable inode mark is updated
-> > +without using the
-> > +.B FAN_MARK_EVICATBLE
-> > +flag,
-> > +the marked inode is pinned to inode cache
-> > +and the mark is no longer evictable.
-> > +When the mask of a non-evictable inode mark is updated
-> > +with the
-> > +.B FAN_MARK_EVICTABLE
-> > +flag,
-> > +the inode mark remains non-evictable
-> > +and the update fails with
-> > +.B EEXIST
-> > +error.
-> > +Mounts and filesystems are not evictable,
-> > +so an attempt to create an evictable mount or filesystem mark
-> > +will results with
->
-> Some rewording needed ni the sentence above.
+https://bugzilla.kernel.org/show_bug.cgi?id=3D215769
 
-How's this:
+--- Comment #16 from =D0=9A=D0=BE=D1=80=D0=B5=D0=BD=D0=B1=D0=B5=D1=80=D0=B3=
+ =D0=9C=D0=B0=D1=80=D0=BA (socketpair@gmail.com) ---
+Please change "Assignee" please. It's not about documentation.
 
-Mounts and filesystems are not evictable objects,
-therefore,
-an attempt to create a mount mark or a filesystem mark
-with the
-.B FAN_MARK_EVICTABLE
-flag,
-will result in the error
-.BR EINVAL .
+--=20
+You may reply to this email to add a comment.
 
-Thanks for the review,
-Amir.
+You are receiving this mail because:
+You are watching the assignee of the bug.=
