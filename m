@@ -2,70 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 93F2E5ADA0F
-	for <lists+linux-man@lfdr.de>; Mon,  5 Sep 2022 22:10:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 47E1F5ADF4F
+	for <lists+linux-man@lfdr.de>; Tue,  6 Sep 2022 08:01:37 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231488AbiIEUK2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 5 Sep 2022 16:10:28 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40960 "EHLO
+        id S238582AbiIFGBc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 6 Sep 2022 02:01:32 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39050 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229616AbiIEUK1 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 5 Sep 2022 16:10:27 -0400
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com [IPv6:2a00:1450:4864:20::332])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F294130F5C
-        for <linux-man@vger.kernel.org>; Mon,  5 Sep 2022 13:10:24 -0700 (PDT)
-Received: by mail-wm1-x332.google.com with SMTP id v7-20020a1cac07000000b003a6062a4f81so8314657wme.1
-        for <linux-man@vger.kernel.org>; Mon, 05 Sep 2022 13:10:24 -0700 (PDT)
+        with ESMTP id S238365AbiIFGBF (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 6 Sep 2022 02:01:05 -0400
+Received: from mail-vs1-xe33.google.com (mail-vs1-xe33.google.com [IPv6:2607:f8b0:4864:20::e33])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 61B136E8BC
+        for <linux-man@vger.kernel.org>; Mon,  5 Sep 2022 23:00:58 -0700 (PDT)
+Received: by mail-vs1-xe33.google.com with SMTP id 129so2232091vsi.10
+        for <linux-man@vger.kernel.org>; Mon, 05 Sep 2022 23:00:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date;
-        bh=NpGioxSa17EuxBNo8BHUPd5EdzaVZbrMI4hibmhMn7U=;
-        b=N4PY4j1Fe88f4VbkNTL1jQ9yD+KYzmeAap3wB312n7y0rNWjuLTX4VqBJt/zW+Sxak
-         ANPIxblVOtkzTZZjoNUyvOnjxdCKJlXC3pkXn0fcizOYH3srD4fZOyljX8Emmvgc7u/I
-         O3SgoseH5dBGPQMieqx3Lq4Jqjd0bX+Xrz/4+Y6IcM32JJdGVR2LsMASoxgAcvhsNmuq
-         C3nz5IVNl+FPdDCZAMVX+HVvLHy1T213Yfvbri8z+7oLTenyqX3wpV8QWddjR2F0UA3A
-         wd2IWbeFVy6K24ePJE6wxWZuB7LU1BDOFTklsmuo2qLk8IhmocmF/oIvU9DzRt3JO6oY
-         WngA==
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date;
+        bh=IHHw3ZY1QZpDPWUA1zumzghk4plJwr05AfreZwB/Trk=;
+        b=mK4KN/fXFiHKI4hvwkTSrVtITb603tpUdrrwzDS6evst/3OuXqnP9cOaCwuvF/2GaD
+         Jb2hwh8Q7HYDztwajp1YcMBC9tXXxb4gS0Gqu4mgJqTExVA1JlB6VGWiKWDfHhfB3uf2
+         ZdRW5jluOW0okEgVuNVzGOWzPP1UBohpQwGA01OuQSaniQlZz6o+32FRQCxlJ0YKvkWD
+         TEqnTIuhSpjRZyE/c/0qut5/c1lquRjGf6xQXimrQtLnuuwAzGNo1z4ebVvzlIivRJqX
+         EFQXGG8Z5okHJswezzY/K2VdQPH+9m2WSwreTX7f67AtLrT810BcGDo3nGMisquCesCM
+         1gaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date;
-        bh=NpGioxSa17EuxBNo8BHUPd5EdzaVZbrMI4hibmhMn7U=;
-        b=A2shrJnz6kFt9Hhd9t4KlFiOSI4L1w8fLmda9b0B0tESO0kYC8ICheF8d5RhSEnJ92
-         MN1K2ERTBoSagHrzIbm2NRjeq98UU3r2eav9xUnoy8Plm334AUhTRXmIWhPKPIahFzHo
-         XDcTzMTHwEjFS9rxXbDHl9OOyatNwAV/TPtzXFtIRPeyt7TceqDWSmFay+TtpERJmVbX
-         0jTNVs7Z0S8D9GqSbm9MNxjnFf82UC5vLm4TAagyWo3ijuNewh3LoymeZCnE8Gqvk45V
-         sRN4HeJyxg3iiN5NneGqL8ktbNVE3gcakVmXBytvyp7x4L4IuAaAP/Ko9+FmMPBD0Qi6
-         M/kQ==
-X-Gm-Message-State: ACgBeo2MOfmfoPIBkGaUz3XkYh3FJt6RxrExVuA489M60+XAzx0Q+biI
-        x0P9KxA/JQTkJMKEronEtWCojSn0654=
-X-Google-Smtp-Source: AA6agR5BOID5PF0Qhf/Z9DedKWBStyayltXDfc0VzZR7tUM4l961Uha1onWjm3lhQsnElqXAcEW/Vg==
-X-Received: by 2002:a05:600c:3556:b0:3a6:220e:6242 with SMTP id i22-20020a05600c355600b003a6220e6242mr11335916wmq.145.1662408623411;
-        Mon, 05 Sep 2022 13:10:23 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id d6-20020a5d6446000000b00224f5bfa890sm9377854wrw.97.2022.09.05.13.10.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 05 Sep 2022 13:10:22 -0700 (PDT)
-Message-ID: <207e0f01-f625-3f79-42d0-3e87a6882ee7@gmail.com>
-Date:   Mon, 5 Sep 2022 22:10:10 +0200
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date;
+        bh=IHHw3ZY1QZpDPWUA1zumzghk4plJwr05AfreZwB/Trk=;
+        b=JTxr4O+bpBsfUXm2nGyVxF0uSrbD6TWvjnb4RS5bPJPK9SCMlRsTNEASkKKMCIeQEh
+         6gK7UHcAJAfoMUcIuSWeSMUtmg4P4gWnAz/q0AWmCePUeC2Q2A3OJ76G6zXsFG+8g/zb
+         SKbgV3/2v0jUQCiPxvVLGdYTSCbXbJ8Z+XDPODe1QEmFrR6WKnAybe/cdl26zbrd0wPP
+         Q58adwG21OhMRzlQxwp1ULZQOoyfs+MqpA/JjZ9TJ0OJ0XXzK9Z8FkPrKpt5MOufia6e
+         g3wx5cCp/bVK2ndkb0HSy2gyU0Lp0ATMH5DW4IF2HoUA5DN3w0IArqqkH4Xm4oVdyBDl
+         569A==
+X-Gm-Message-State: ACgBeo3B9+hMV1Bkf69Ge6JPOmWC5Rpi3N09JONs0qtjOsL/CVrdr0AO
+        CmTPim+OJLEVCNaEjIZuJYBpWsp0VhwfAKi1gzs=
+X-Google-Smtp-Source: AA6agR4a+aAUOrY7/22t4u2S8rEK3ZpOdZVULlvm/ovSoaStpTZTKbNHyi3D3YSbRS4rMDkm8SYthMC+y5c94J43Sro=
+X-Received: by 2002:a67:a649:0:b0:390:88c5:6a91 with SMTP id
+ r9-20020a67a649000000b0039088c56a91mr15697280vsh.3.1662444056973; Mon, 05 Sep
+ 2022 23:00:56 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.0
+References: <20220904154639.2623138-1-amir73il@gmail.com> <207e0f01-f625-3f79-42d0-3e87a6882ee7@gmail.com>
+In-Reply-To: <207e0f01-f625-3f79-42d0-3e87a6882ee7@gmail.com>
+From:   Amir Goldstein <amir73il@gmail.com>
+Date:   Tue, 6 Sep 2022 09:00:45 +0300
+Message-ID: <CAOQ4uxjpNJ=LOrNSMcJqRchwJsGu3_UUSckg3XWUk5qrNP5w0w@mail.gmail.com>
 Subject: Re: [PATCH] fanotify_mark.2: Document FAN_MARK_EVICTABLE
-Content-Language: en-US
-To:     Amir Goldstein <amir73il@gmail.com>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
 Cc:     Jan Kara <jack@suse.cz>, Matthew Bobrowski <repnop@google.com>,
-        linux-man@vger.kernel.org
-References: <20220904154639.2623138-1-amir73il@gmail.com>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20220904154639.2623138-1-amir73il@gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------0kvcYtsWdRCI2EVCPQzn0s0G"
-X-Spam-Status: No, score=-3.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        linux-man <linux-man@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
         autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -74,123 +67,113 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------0kvcYtsWdRCI2EVCPQzn0s0G
-Content-Type: multipart/mixed; boundary="------------ZYKX5YX6HE6E0DCKDbTGUcvU";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Amir Goldstein <amir73il@gmail.com>
-Cc: Jan Kara <jack@suse.cz>, Matthew Bobrowski <repnop@google.com>,
- linux-man@vger.kernel.org
-Message-ID: <207e0f01-f625-3f79-42d0-3e87a6882ee7@gmail.com>
-Subject: Re: [PATCH] fanotify_mark.2: Document FAN_MARK_EVICTABLE
-References: <20220904154639.2623138-1-amir73il@gmail.com>
-In-Reply-To: <20220904154639.2623138-1-amir73il@gmail.com>
+On Mon, Sep 5, 2022 at 11:10 PM Alejandro Colomar
+<alx.manpages@gmail.com> wrote:
+>
+> Hi Amir,
+>
+> On 9/4/22 17:46, Amir Goldstein wrote:
+> > Add section about evictable inode marks and example use case.
+> > Add possible error case EEXIST related to evictable marks.
+> >
+> > Reviewed-by: Matthew Bobrowski <repnop@google.com>
+> > Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+> > ---
+> >
+> > Hi Alex,
+> >
+> > This is an update for a new fanotify feature in v5.19.
+> > Please wait to see if Jan has any commetns before merging.
+>
+> Sure.  Also, please check some comments of mine below.
+>
+> Cheers,
+>
+> Alex
+>
+> >
+> > Thanks,
+> > Amir.
+> >
+> >   man2/fanotify_mark.2 | 50 +++++++++++++++++++++++++++++++++++++++++++=
++
+> >   1 file changed, 50 insertions(+)
+> >
+> > diff --git a/man2/fanotify_mark.2 b/man2/fanotify_mark.2
+> > index 2696a803a..757ad9159 100644
+> > --- a/man2/fanotify_mark.2
+> > +++ b/man2/fanotify_mark.2
+> > @@ -153,6 +153,44 @@ If this flag is not set,
+> >   the ignore mask is cleared when a modify event occurs
+> >   for the ignored file or directory.
+> >   .PP
+> > +.TP
+>
+> .PP followed by another paragraph macro is a no-op.  Remove .PP above.
+>
+> Check the 'Paragraph macros' subsection in groff_man(7) for more details.
+>
+> $ man groff_man
+> /^...Paragraph macros
+>
+> > +.BR FAN_MARK_EVICTABLE " (since Linux 5.19)"
+> > +.\" commit 5f9d3bd520261fd7a850818c71809fd580e0f30c
+> > +When an inode mark is created with this flag,
+> > +the inode object will not be pinned to the inode cache.
+> > +Therefore, allowing the inode object to be evicted from the inode cach=
+e
+>
+> I think 'Therefore' should continue the last sentence and be separated
+> by ',' or ';' instead of '.', and possibly removing the ',' after it.
+>
+> > +when the memory pressure on the system is high.
+> > +The eviction of the inode object results in the evictable mark also
+> > +being lost.
+>
+> Please rewrap the sentence above according to semantic newlines.
+>
+> man-pages(7):
+>     Use semantic newlines
+>         In the source of a manual page, new sentences  should  be
+>         started on new lines, long sentences should be split into
+>         lines  at  clause breaks (commas, semicolons, colons, and
+>         so on), and long clauses should be split at phrase bound=E2=80=90
+>         aries.  This convention,  sometimes  known  as  "semantic
+>         newlines",  makes it easier to see the effect of patches,
+>         which often operate at the level of individual sentences,
+>         clauses, or phrases.
+>
+>
+> > +When the mask of an evictable inode mark is updated
+> > +without using the
+> > +.B FAN_MARK_EVICATBLE
+> > +flag,
+> > +the marked inode is pinned to inode cache
+> > +and the mark is no longer evictable.
+> > +When the mask of a non-evictable inode mark is updated
+> > +with the
+> > +.B FAN_MARK_EVICTABLE
+> > +flag,
+> > +the inode mark remains non-evictable
+> > +and the update fails with
+> > +.B EEXIST
+> > +error.
+> > +Mounts and filesystems are not evictable,
+> > +so an attempt to create an evictable mount or filesystem mark
+> > +will results with
+>
+> Some rewording needed ni the sentence above.
 
---------------ZYKX5YX6HE6E0DCKDbTGUcvU
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+How's this:
 
-SGkgQW1pciwNCg0KT24gOS80LzIyIDE3OjQ2LCBBbWlyIEdvbGRzdGVpbiB3cm90ZToNCj4g
-QWRkIHNlY3Rpb24gYWJvdXQgZXZpY3RhYmxlIGlub2RlIG1hcmtzIGFuZCBleGFtcGxlIHVz
-ZSBjYXNlLg0KPiBBZGQgcG9zc2libGUgZXJyb3IgY2FzZSBFRVhJU1QgcmVsYXRlZCB0byBl
-dmljdGFibGUgbWFya3MuDQo+IA0KPiBSZXZpZXdlZC1ieTogTWF0dGhldyBCb2Jyb3dza2kg
-PHJlcG5vcEBnb29nbGUuY29tPg0KPiBTaWduZWQtb2ZmLWJ5OiBBbWlyIEdvbGRzdGVpbiA8
-YW1pcjczaWxAZ21haWwuY29tPg0KPiAtLS0NCj4gDQo+IEhpIEFsZXgsDQo+IA0KPiBUaGlz
-IGlzIGFuIHVwZGF0ZSBmb3IgYSBuZXcgZmFub3RpZnkgZmVhdHVyZSBpbiB2NS4xOS4NCj4g
-UGxlYXNlIHdhaXQgdG8gc2VlIGlmIEphbiBoYXMgYW55IGNvbW1ldG5zIGJlZm9yZSBtZXJn
-aW5nLg0KDQpTdXJlLiAgQWxzbywgcGxlYXNlIGNoZWNrIHNvbWUgY29tbWVudHMgb2YgbWlu
-ZSBiZWxvdy4NCg0KQ2hlZXJzLA0KDQpBbGV4DQoNCj4gDQo+IFRoYW5rcywNCj4gQW1pci4N
-Cj4gDQo+ICAgbWFuMi9mYW5vdGlmeV9tYXJrLjIgfCA1MCArKysrKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKw0KPiAgIDEgZmlsZSBjaGFuZ2VkLCA1MCBpbnNl
-cnRpb25zKCspDQo+IA0KPiBkaWZmIC0tZ2l0IGEvbWFuMi9mYW5vdGlmeV9tYXJrLjIgYi9t
-YW4yL2Zhbm90aWZ5X21hcmsuMg0KPiBpbmRleCAyNjk2YTgwM2EuLjc1N2FkOTE1OSAxMDA2
-NDQNCj4gLS0tIGEvbWFuMi9mYW5vdGlmeV9tYXJrLjINCj4gKysrIGIvbWFuMi9mYW5vdGlm
-eV9tYXJrLjINCj4gQEAgLTE1Myw2ICsxNTMsNDQgQEAgSWYgdGhpcyBmbGFnIGlzIG5vdCBz
-ZXQsDQo+ICAgdGhlIGlnbm9yZSBtYXNrIGlzIGNsZWFyZWQgd2hlbiBhIG1vZGlmeSBldmVu
-dCBvY2N1cnMNCj4gICBmb3IgdGhlIGlnbm9yZWQgZmlsZSBvciBkaXJlY3RvcnkuDQo+ICAg
-LlBQDQo+ICsuVFANCg0KLlBQIGZvbGxvd2VkIGJ5IGFub3RoZXIgcGFyYWdyYXBoIG1hY3Jv
-IGlzIGEgbm8tb3AuICBSZW1vdmUgLlBQIGFib3ZlLg0KDQpDaGVjayB0aGUgJ1BhcmFncmFw
-aCBtYWNyb3MnIHN1YnNlY3Rpb24gaW4gZ3JvZmZfbWFuKDcpIGZvciBtb3JlIGRldGFpbHMu
-DQoNCiQgbWFuIGdyb2ZmX21hbg0KL14uLi5QYXJhZ3JhcGggbWFjcm9zDQoNCj4gKy5CUiBG
-QU5fTUFSS19FVklDVEFCTEUgIiAoc2luY2UgTGludXggNS4xOSkiDQo+ICsuXCIgY29tbWl0
-IDVmOWQzYmQ1MjAyNjFmZDdhODUwODE4YzcxODA5ZmQ1ODBlMGYzMGMNCj4gK1doZW4gYW4g
-aW5vZGUgbWFyayBpcyBjcmVhdGVkIHdpdGggdGhpcyBmbGFnLA0KPiArdGhlIGlub2RlIG9i
-amVjdCB3aWxsIG5vdCBiZSBwaW5uZWQgdG8gdGhlIGlub2RlIGNhY2hlLg0KPiArVGhlcmVm
-b3JlLCBhbGxvd2luZyB0aGUgaW5vZGUgb2JqZWN0IHRvIGJlIGV2aWN0ZWQgZnJvbSB0aGUg
-aW5vZGUgY2FjaGUNCg0KSSB0aGluayAnVGhlcmVmb3JlJyBzaG91bGQgY29udGludWUgdGhl
-IGxhc3Qgc2VudGVuY2UgYW5kIGJlIHNlcGFyYXRlZCANCmJ5ICcsJyBvciAnOycgaW5zdGVh
-ZCBvZiAnLicsIGFuZCBwb3NzaWJseSByZW1vdmluZyB0aGUgJywnIGFmdGVyIGl0Lg0KDQo+
-ICt3aGVuIHRoZSBtZW1vcnkgcHJlc3N1cmUgb24gdGhlIHN5c3RlbSBpcyBoaWdoLg0KPiAr
-VGhlIGV2aWN0aW9uIG9mIHRoZSBpbm9kZSBvYmplY3QgcmVzdWx0cyBpbiB0aGUgZXZpY3Rh
-YmxlIG1hcmsgYWxzbw0KPiArYmVpbmcgbG9zdC4NCg0KUGxlYXNlIHJld3JhcCB0aGUgc2Vu
-dGVuY2UgYWJvdmUgYWNjb3JkaW5nIHRvIHNlbWFudGljIG5ld2xpbmVzLg0KDQptYW4tcGFn
-ZXMoNyk6DQogICAgVXNlIHNlbWFudGljIG5ld2xpbmVzDQogICAgICAgIEluIHRoZSBzb3Vy
-Y2Ugb2YgYSBtYW51YWwgcGFnZSwgbmV3IHNlbnRlbmNlcyAgc2hvdWxkICBiZQ0KICAgICAg
-ICBzdGFydGVkIG9uIG5ldyBsaW5lcywgbG9uZyBzZW50ZW5jZXMgc2hvdWxkIGJlIHNwbGl0
-IGludG8NCiAgICAgICAgbGluZXMgIGF0ICBjbGF1c2UgYnJlYWtzIChjb21tYXMsIHNlbWlj
-b2xvbnMsIGNvbG9ucywgYW5kDQogICAgICAgIHNvIG9uKSwgYW5kIGxvbmcgY2xhdXNlcyBz
-aG91bGQgYmUgc3BsaXQgYXQgcGhyYXNlIGJvdW5k4oCQDQogICAgICAgIGFyaWVzLiAgVGhp
-cyBjb252ZW50aW9uLCAgc29tZXRpbWVzICBrbm93biAgYXMgICJzZW1hbnRpYw0KICAgICAg
-ICBuZXdsaW5lcyIsICBtYWtlcyBpdCBlYXNpZXIgdG8gc2VlIHRoZSBlZmZlY3Qgb2YgcGF0
-Y2hlcywNCiAgICAgICAgd2hpY2ggb2Z0ZW4gb3BlcmF0ZSBhdCB0aGUgbGV2ZWwgb2YgaW5k
-aXZpZHVhbCBzZW50ZW5jZXMsDQogICAgICAgIGNsYXVzZXMsIG9yIHBocmFzZXMuDQoNCg0K
-PiArV2hlbiB0aGUgbWFzayBvZiBhbiBldmljdGFibGUgaW5vZGUgbWFyayBpcyB1cGRhdGVk
-DQo+ICt3aXRob3V0IHVzaW5nIHRoZQ0KPiArLkIgRkFOX01BUktfRVZJQ0FUQkxFDQo+ICtm
-bGFnLA0KPiArdGhlIG1hcmtlZCBpbm9kZSBpcyBwaW5uZWQgdG8gaW5vZGUgY2FjaGUNCj4g
-K2FuZCB0aGUgbWFyayBpcyBubyBsb25nZXIgZXZpY3RhYmxlLg0KPiArV2hlbiB0aGUgbWFz
-ayBvZiBhIG5vbi1ldmljdGFibGUgaW5vZGUgbWFyayBpcyB1cGRhdGVkDQo+ICt3aXRoIHRo
-ZQ0KPiArLkIgRkFOX01BUktfRVZJQ1RBQkxFDQo+ICtmbGFnLA0KPiArdGhlIGlub2RlIG1h
-cmsgcmVtYWlucyBub24tZXZpY3RhYmxlDQo+ICthbmQgdGhlIHVwZGF0ZSBmYWlscyB3aXRo
-DQo+ICsuQiBFRVhJU1QNCj4gK2Vycm9yLg0KPiArTW91bnRzIGFuZCBmaWxlc3lzdGVtcyBh
-cmUgbm90IGV2aWN0YWJsZSwNCj4gK3NvIGFuIGF0dGVtcHQgdG8gY3JlYXRlIGFuIGV2aWN0
-YWJsZSBtb3VudCBvciBmaWxlc3lzdGVtIG1hcmsNCj4gK3dpbGwgcmVzdWx0cyB3aXRoDQoN
-ClNvbWUgcmV3b3JkaW5nIG5lZWRlZCBuaSB0aGUgc2VudGVuY2UgYWJvdmUuDQoNCj4gKy5C
-IEVJTlZBTA0KPiArZXJyb3IuDQo+ICtGb3IgZXhhbXBsZSwNCj4gK2lub2RlIG1hcmtzIGNh
-biBiZSB1c2VkIGluIGNvbWJpbmF0aW9uIHdpdGggbW91bnQgbWFya3MNCj4gK3RvIHJlZHVj
-ZSB0aGUgYW1vdW50IG9mIGV2ZW50cyBmcm9tIG5vbmludGVyZXN0aW5nIHBhdGhzLg0KPiAr
-VGhlIGV2ZW50IGxpc3RlbmVyIHJlYWRzIGV2ZW50cywNCj4gK2NoZWNrcyBpZiB0aGUgcGF0
-aCByZXBvcnRlZCBpbiB0aGUgZXZlbnQgaXMgb2YgaW50ZXJlc3QNCg0Kcy8kLywvDQoNCj4g
-K2FuZCBpZiBpdCBpcyBub3QsDQo+ICt0aGUgbGlzdGVuZXIgc2V0cyBhIG1hcmsgd2l0aCBh
-biBpZ25vcmUgbWFzayBvbiB0aGUgZGlyZWN0b3J5Lg0KPiArRXZpY3RhYmxlIGlub2RlIG1h
-cmtzIGFsbG93IHVzaW5nIHRoaXMgbWV0aG9kIGZvciBhIGxhcmdlIG51bWJlciBvZiBkaXJl
-Y3Rvcmllcw0KPiArd2l0aG91dCB0aGUgY29uY2VybiBvZiBwaW5uaW5nIGFsbCBpbm9kZXMg
-YW5kIGV4aGF1c3RpbmcgdGhlIHN5c3RlbSdzIG1lbW9yeS4NCj4gKy5QUA0KPiAgIC5JIG1h
-c2sNCj4gICBkZWZpbmVzIHdoaWNoIGV2ZW50cyBzaGFsbCBiZSBsaXN0ZW5lZCBmb3IgKG9y
-IHdoaWNoIHNoYWxsIGJlIGlnbm9yZWQpLg0KPiAgIEl0IGlzIGEgYml0IG1hc2sgY29tcG9z
-ZWQgb2YgdGhlIGZvbGxvd2luZyB2YWx1ZXM6DQo+IEBAIC00MDksNiArNDQ3LDE4IEBAIGlz
-IG5laXRoZXINCj4gICAuQiBBVF9GRENXRA0KPiAgIG5vciBhIHZhbGlkIGZpbGUgZGVzY3Jp
-cHRvci4NCj4gICAuVFANCj4gKy5CIEVFWElTVA0KPiArVGhlIGZpbGVzeXN0ZW0gb2JqZWN0
-IGluZGljYXRlZCBieQ0KPiArLkkgZGlyZmQNCj4gK2FuZA0KPiArLkkgcGF0aG5hbWUNCj4g
-K2hhcyBhIG1hcmsgdGhhdCB3YXMgdXBkYXRlZCB3aXRob3V0IHRoZQ0KPiArLkIgRkFOX01B
-UktfRVZJQ1RBQkxFDQo+ICtmbGFnLA0KPiArYW5kIHRoZSB1c2VyIGF0dGVtcHRlZCB0byB1
-cGRhdGUgdGhlIG1hcmsgd2l0aA0KPiArLkIgRkFOX01BUktfRVZJQ1RBQkxFDQo+ICtmbGFn
-Lg0KPiArLlRQDQo+ICAgLkIgRUlOVkFMDQo+ICAgQW4gaW52YWxpZCB2YWx1ZSB3YXMgcGFz
-c2VkIGluDQo+ICAgLkkgZmxhZ3MNCg0KLS0gDQpBbGVqYW5kcm8gQ29sb21hcg0KPGh0dHA6
-Ly93d3cuYWxlamFuZHJvLWNvbG9tYXIuZXMvPg0K
+Mounts and filesystems are not evictable objects,
+therefore,
+an attempt to create a mount mark or a filesystem mark
+with the
+.B FAN_MARK_EVICTABLE
+flag,
+will result in the error
+.BR EINVAL .
 
---------------ZYKX5YX6HE6E0DCKDbTGUcvU--
-
---------------0kvcYtsWdRCI2EVCPQzn0s0G
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmMWV6IACgkQnowa+77/
-2zKi5w//Z3Ta6b8SgArCWe8VT+01fbHT4vd2or9EOU2GW6P45ypSKJYuDps8YA2B
-wax1GN3DIJ6S261zO9s35nU4RfWs7bo/dXb60r0VCfNXwQgsNwY/5IQlxuK+ss6S
-eVRQldkB1qfRUQjZYtRIZN8wM1F7PGv76WIV0obzP622tdUVyvukmbEBuLYuWqLx
-R32ojiiX/JkdwFodzIG20YKsLbw+aHvRaFkaO5cIdTue9IN6EltbHWPhBn8OhKsY
-g1YORHOzjWRVtMVD/jfIP8zobkW3x9oJrmrIkglyLG0K6V/Z7MZeSgbAWoJECfPj
-Z15qVgY3hLkKib7HVDsa1GG9YEGe1d/TW0fqhOC7qmqigcuy3L5uPWDcEKXK/pST
-ZUeV/ekrAri/yHQ0VfMuP8yqZcI25KPMvf4TH4FJt9zS44yA3NJfPXlySR+//1Ww
-Zodwl+3Ot7+tyVksX49SSfquab3cndUOZd0JcuI2tKVApI9b7IAPH0TT3WGoSz3W
-LsCUcO/i3hXDgoTBaHj5g98XPVNDZaIOgbfI5sFlM7SinTPy73w0HJ8OBgSS5ZUi
-eZQ+cXWU9zT65T4AXak253y5aQWvs/cL4tz3WuG9vmXkQkIhXiJz1x2XDGqX7mmw
-q/GlpsS958aZrBg3ZJZRvzHZwJEZN1DB72eHQV18SQLf4MkovJk=
-=5YB/
------END PGP SIGNATURE-----
-
---------------0kvcYtsWdRCI2EVCPQzn0s0G--
+Thanks for the review,
+Amir.
