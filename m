@@ -2,68 +2,69 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id A79EC5AE7F1
-	for <lists+linux-man@lfdr.de>; Tue,  6 Sep 2022 14:22:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0D47E5AE83A
+	for <lists+linux-man@lfdr.de>; Tue,  6 Sep 2022 14:33:09 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S240046AbiIFMVu (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 6 Sep 2022 08:21:50 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35630 "EHLO
+        id S240047AbiIFMcy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 6 Sep 2022 08:32:54 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59874 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S240047AbiIFMU6 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 6 Sep 2022 08:20:58 -0400
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CDB3A71701
-        for <linux-man@vger.kernel.org>; Tue,  6 Sep 2022 05:17:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1662466671;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         in-reply-to:in-reply-to:references:references;
-        bh=YjvVsGnaOPZ/gpG0KVHSfjbjbq9SkmePYc60DJuuWGs=;
-        b=MSpEL0chRJ4GyrN5Qq8vlyUPFNaQFVg1WlpU2PJgR+ycutjus6T8uBg5UcDdXy1VPxBHWQ
-        ynLqXa6eMeqc5FsKG6dgx2QkkAKeorGE0pxwS8ieDBj1YFQT/AWgZcOBWYB0GbYYUoSaj5
-        XuzheYB43yK2my4Y16tZ+EE4lYN8drc=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-47-HSUfhPJXM-2ppp1fdmrDZw-1; Tue, 06 Sep 2022 08:17:46 -0400
-X-MC-Unique: HSUfhPJXM-2ppp1fdmrDZw-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
-        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        with ESMTP id S240069AbiIFMcX (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 6 Sep 2022 08:32:23 -0400
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 238492981B
+        for <linux-man@vger.kernel.org>; Tue,  6 Sep 2022 05:31:52 -0700 (PDT)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
         (No client certificate requested)
-        by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E76891C06901;
-        Tue,  6 Sep 2022 12:17:44 +0000 (UTC)
-Received: from oldenburg.str.redhat.com (unknown [10.39.192.109])
-        by smtp.corp.redhat.com (Postfix) with ESMTPS id E9F5940334C;
-        Tue,  6 Sep 2022 12:17:39 +0000 (UTC)
-From:   Florian Weimer <fweimer@redhat.com>
-To:     Jeff Layton <jlayton@kernel.org>
-Cc:     tytso@mit.edu, adilger.kernel@dilger.ca, djwong@kernel.org,
-        david@fromorbit.com, trondmy@hammerspace.com, neilb@suse.de,
-        viro@zeniv.linux.org.uk, zohar@linux.ibm.com, xiubli@redhat.com,
-        chuck.lever@oracle.com, lczerner@redhat.com, jack@suse.cz,
-        bfields@fieldses.org, brauner@kernel.org,
-        linux-man@vger.kernel.org, linux-api@vger.kernel.org,
-        linux-btrfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-        linux-kernel@vger.kernel.org, ceph-devel@vger.kernel.org,
-        linux-ext4@vger.kernel.org, linux-nfs@vger.kernel.org,
-        linux-xfs@vger.kernel.org
-Subject: Re: [RFC PATCH v2] statx, inode: document the new STATX_INO_VERSION
- field
-References: <20220901121714.20051-1-jlayton@kernel.org>
-        <874jxrqdji.fsf@oldenburg.str.redhat.com>
-        <81e57e81e4570d1659098f2bbc7c9049a605c5e8.camel@kernel.org>
-Date:   Tue, 06 Sep 2022 14:17:38 +0200
-In-Reply-To: <81e57e81e4570d1659098f2bbc7c9049a605c5e8.camel@kernel.org> (Jeff
-        Layton's message of "Thu, 01 Sep 2022 12:30:20 -0400")
-Message-ID: <87ilm066jh.fsf@oldenburg.str.redhat.com>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/27.2 (gnu/linux)
+        by ams.source.kernel.org (Postfix) with ESMTPS id A27E1B818B2
+        for <linux-man@vger.kernel.org>; Tue,  6 Sep 2022 12:31:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 71B7AC433D7
+        for <linux-man@vger.kernel.org>; Tue,  6 Sep 2022 12:31:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1662467509;
+        bh=5E1lFm60useOQ5vbRtHQySxOkgrZ3We8XZuAjtusd5o=;
+        h=From:To:Subject:Date:In-Reply-To:References:From;
+        b=eTq1ghQ/ujAV32ojyPOZQEU+kbXMtj2iVK7sHVTwhdEj2F/POmiNQe9sugp3oV4JZ
+         nXax48khseOrrZvs0RPG7vZaj+ZIhhIMsvDOVYRulvutbbYOxACZ5ygh/pz4BBYbfL
+         Kp2g1TYg+t7mg6QIErYotppn+A8A7MV9dMiJxOCQwosjhXHFOT4FF2nhsdayIxfVk9
+         zkZ0tw8LqKERTLkyUmOYBpSkvld+XQcigt7VESGL+qZxm0ASit5SrVBvyUQaOG4kO8
+         YpwI1Mnba7D6gmhpRvoTKC6b1EiHX3DWiXns28+TWg7DZPj2AL1GClz0fb5WoXadu+
+         bWdvziOTka78A==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
+        id 60429C433EA; Tue,  6 Sep 2022 12:31:49 +0000 (UTC)
+From:   bugzilla-daemon@kernel.org
+To:     linux-man@vger.kernel.org
+Subject: [Bug 216215] clone and unshare say CAP_SYS_ADMIN is required to
+ create new namespaces
+Date:   Tue, 06 Sep 2022 12:31:49 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Documentation
+X-Bugzilla-Component: man-pages
+X-Bugzilla-Version: unspecified
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: alx.manpages@gmail.com
+X-Bugzilla-Status: RESOLVED
+X-Bugzilla-Resolution: DOCUMENTED
+X-Bugzilla-Priority: P1
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: bug_status resolution
+Message-ID: <bug-216215-11311-Knweg1CYhh@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-216215-11311@https.bugzilla.kernel.org/>
+References: <bug-216215-11311@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
-X-Spam-Status: No, score=-2.8 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,
-        SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=unavailable
+X-Spam-Status: No, score=-7.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -71,45 +72,17 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-* Jeff Layton:
+https://bugzilla.kernel.org/show_bug.cgi?id=3D216215
 
-> All of the existing implementations use all 64 bits. If you were to
-> increment a 64 bit value every nanosecond, it will take >500 years for
-> it to wrap. I'm hoping that's good enough. ;)
->
-> The implementation that all of the local Linux filesystems use track
-> whether the value has been queried using one bit, so there you only get
-> 63 bits of counter.
->
-> My original thinking here was that we should leave the spec "loose" to
-> allow for implementations that may not be based on a counter. E.g. could
-> some filesystem do this instead by hashing certain metadata?
+Alejandro Colomar (man-pages) (alx.manpages@gmail.com) changed:
 
-Hashing might have collisions that could be triggered deliberately, so
-probably not a good idea.  It's also hard to argue that random
-collisions are unlikely.
+           What    |Removed                     |Added
+----------------------------------------------------------------------------
+             Status|REOPENED                    |RESOLVED
+         Resolution|---                         |DOCUMENTED
 
-> It's arguable though that the NFSv4 spec requires that this be based on
-> a counter, as the client is required to increment it in the case of
-> write delegations.
+--=20
+You may reply to this email to add a comment.
 
-Yeah, I think it has to be monotonic.
-
->> If the system crashes without flushing disks, is it possible to observe
->> new file contents without a change of i_version?
->
-> Yes, I think that's possible given the current implementations.
->
-> We don't have a great scheme to combat that at the moment, other than
-> looking at this in conjunction with the ctime. As long as the clock
-> doesn't jump backward after the crash and it takes more than one jiffy
-> to get the host back up, then you can be reasonably sure that
-> i_version+ctime should never repeat.
->
-> Maybe that's worth adding to the NOTES section of the manpage?
-
-I'd appreciate that.
-
-Thanks,
-Florian
-
+You are receiving this mail because:
+You are watching the assignee of the bug.=
