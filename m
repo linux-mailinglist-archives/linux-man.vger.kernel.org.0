@@ -2,168 +2,128 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id CA4D55AE992
-	for <lists+linux-man@lfdr.de>; Tue,  6 Sep 2022 15:30:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CA4AD5AF07A
+	for <lists+linux-man@lfdr.de>; Tue,  6 Sep 2022 18:35:33 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S240432AbiIFN3j (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 6 Sep 2022 09:29:39 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46582 "EHLO
+        id S234983AbiIFQeu (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 6 Sep 2022 12:34:50 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34840 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S240167AbiIFN3h (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 6 Sep 2022 09:29:37 -0400
-Received: from ams.source.kernel.org (ams.source.kernel.org [IPv6:2604:1380:4601:e00::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 35214BC05;
-        Tue,  6 Sep 2022 06:29:35 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        with ESMTP id S235000AbiIFQeS (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 6 Sep 2022 12:34:18 -0400
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6DDB91D0EC
+        for <linux-man@vger.kernel.org>; Tue,  6 Sep 2022 09:09:42 -0700 (PDT)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+         key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
         (No client certificate requested)
-        by ams.source.kernel.org (Postfix) with ESMTPS id D44BAB818C2;
-        Tue,  6 Sep 2022 13:29:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 791BCC433D6;
-        Tue,  6 Sep 2022 13:29:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1662470972;
-        bh=eT4U+WivGyOotiGD0LRV2zLl7flGTzXZdjdWMcvNt7E=;
-        h=From:To:Cc:Subject:Date:From;
-        b=XwovBfCAI5xmw0RPdItCdZLjQ7bhW5v9Eu/vggCoju8MpsiPBXQ9MB2FAMttCv+DJ
-         nNFf4HHdz4g+SXNSMUeZuf3erv08qXCs76NUClj77fMxrGkpexrIX0KiBJSs6U6lea
-         9T5yCH9BS4KEJiwDQv3CKt0Iaxtygw8eFvyYON+QXJ0tmYGToCCggQFH3M6U/QMCdL
-         io2MN9GWbXvJuhHMWUHnhg4WzOz8GYzvsNHs65QkYDYqt+Za12C1yUaIdLNRr/jD5M
-         cS9+EXliVqd5LDrc34V0Nrx1sGR8zzIZtyqalLz/D+OAPa/mnX5D5iR0PCCL/LqEvE
-         BvVSERciktYmA==
-From:   Jeff Layton <jlayton@kernel.org>
-To:     tytso@mit.edu, adilger.kernel@dilger.ca, djwong@kernel.org,
-        david@fromorbit.com, trondmy@hammerspace.com, neilb@suse.de,
-        viro@zeniv.linux.org.uk, zohar@linux.ibm.com, xiubli@redhat.com,
-        chuck.lever@oracle.com, lczerner@redhat.com, jack@suse.cz,
-        bfields@fieldses.org, brauner@kernel.org, fweimer@redhat.com,
-        linux-man@vger.kernel.org
-Cc:     linux-api@vger.kernel.org, linux-btrfs@vger.kernel.org,
-        linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-        ceph-devel@vger.kernel.org, linux-ext4@vger.kernel.org,
-        linux-nfs@vger.kernel.org, linux-xfs@vger.kernel.org
-Subject: [man-pages RFC PATCH v3] statx, inode: document the STATX_INO_VERSION field
-Date:   Tue,  6 Sep 2022 09:29:28 -0400
-Message-Id: <20220906132928.106134-1-jlayton@kernel.org>
-X-Mailer: git-send-email 2.37.3
+        by smtp-out2.suse.de (Postfix) with ESMTPS id 739621F9A8;
+        Tue,  6 Sep 2022 16:09:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+        t=1662480580;
+        h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+         cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=HX57j0hkU4Et6Se+yt87iNi755l5cJhLxzGdaLL1uE0=;
+        b=dxIUEHoaYQrUVAQLiKqIh1OOWYx5rCOJRZzVwrmeZIp7JErjnSGncRuSTdQNBQDyZLnaMm
+        FQvFq/RqvKGPxtyKWz0uQCyVpEgGO5RCIi0yODX8M4HDB/cXjyswd3c3kLhgcxi6XfjuXR
+        N80DMDkBaR5pjaQZ8parZDhrIUvFhZ4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+        s=susede2_ed25519; t=1662480580;
+        h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+         cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=HX57j0hkU4Et6Se+yt87iNi755l5cJhLxzGdaLL1uE0=;
+        b=FmBzLxIleZO/iuOAh23DNWQ7j/z707e0cLze7a0NfB28rnR0xUWHUqB9fjldhU5rjA3YHx
+        gsCHXNPxlm6YcIAA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+         key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+        (No client certificate requested)
+        by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4789C13A19;
+        Tue,  6 Sep 2022 16:09:40 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+        by imap2.suse-dmz.suse.de with ESMTPSA
+        id JESFD8RwF2PiLwAAMHmgww
+        (envelope-from <pvorel@suse.cz>); Tue, 06 Sep 2022 16:09:40 +0000
+Date:   Tue, 6 Sep 2022 18:09:38 +0200
+From:   Petr Vorel <pvorel@suse.cz>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org, Michael Kerrisk <mtk.manpages@gmail.com>
+Subject: Re: Revert 70ac1c478 ("src.mk, All pages: Move man* to man/")
+Message-ID: <YxdwwgtQjSOqMkbG@pevik>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+References: <YxcV4h+Xn7cd6+q2@pevik>
+ <f8f6d1ba-5820-d238-4627-446d715fcf6f@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-7.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
-        autolearn_force=no version=3.4.6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f8f6d1ba-5820-d238-4627-446d715fcf6f@gmail.com>
+X-Spam-Status: No, score=-1.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
+        T_SCC_BODY_TEXT_LINE autolearn=no autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-I'm proposing to expose the inode change attribute via statx [1]. Document
-what this value means and what an observer can infer from a change in
-its value.
+Hi Alejandro,
 
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
+thanks a lot for your feedback.
 
-[1]: https://lore.kernel.org/linux-nfs/20220826214703.134870-1-jlayton@kernel.org/T/#t
----
- man2/statx.2 |  8 ++++++++
- man7/inode.7 | 34 ++++++++++++++++++++++++++++++++++
- 2 files changed, 42 insertions(+)
+> Hi Petr,
 
-v3: Move most verbiage to inode(7)
-    Clarify that this must be monotonically increasing
-    Flesh out usage discussion
-    Mention issues with value moving backward and how to combat them
+> On 9/6/22 11:41, Petr Vorel wrote:
+> > Hi Alejandro,
 
-diff --git a/man2/statx.2 b/man2/statx.2
-index 0d1b4591f74c..d98d5148a442 100644
---- a/man2/statx.2
-+++ b/man2/statx.2
-@@ -62,6 +62,7 @@ struct statx {
-     __u32 stx_dev_major;   /* Major ID */
-     __u32 stx_dev_minor;   /* Minor ID */
-     __u64 stx_mnt_id;      /* Mount ID */
-+    __u64 stx_ino_version; /* Inode change attribute */
- };
- .EE
- .in
-@@ -247,6 +248,7 @@ STATX_BTIME	Want stx_btime
- STATX_ALL	The same as STATX_BASIC_STATS | STATX_BTIME.
- 	It is deprecated and should not be used.
- STATX_MNT_ID	Want stx_mnt_id (since Linux 5.8)
-+STATX_INO_VERSION	Want stx_ino_version (DRAFT)
- .TE
- .in
- .PP
-@@ -407,10 +409,16 @@ This is the same number reported by
- .BR name_to_handle_at (2)
- and corresponds to the number in the first field in one of the records in
- .IR /proc/self/mountinfo .
-+.TP
-+.I stx_ino_version
-+The inode version, also known as the inode change attribute. See
-+.BR inode (7)
-+for details.
- .PP
- For further information on the above fields, see
- .BR inode (7).
- .\"
-+.TP
- .SS File attributes
- The
- .I stx_attributes
-diff --git a/man7/inode.7 b/man7/inode.7
-index 9b255a890720..80c2ed4acccd 100644
---- a/man7/inode.7
-+++ b/man7/inode.7
-@@ -184,6 +184,12 @@ Last status change timestamp (ctime)
- This is the file's last status change timestamp.
- It is changed by writing or by setting inode information
- (i.e., owner, group, link count, mode, etc.).
-+.TP
-+Inode version (i_version)
-+(not returned in the \fIstat\fP structure); \fIstatx.stx_ino_version\fP
-+.IP
-+This is the inode change counter. See the discussion of
-+\fBthe inode version counter\fP, below.
- .PP
- The timestamp fields report time measured with a zero point at the
- .IR Epoch ,
-@@ -424,6 +430,34 @@ on a directory means that a file
- in that directory can be renamed or deleted only by the owner
- of the file, by the owner of the directory, and by a privileged
- process.
-+.SS The inode version counter
-+.PP
-+The
-+.I statx.stx_ino_version
-+field is the inode change counter. Any operation that would result in a
-+change to \fIstatx.stx_ctime\fP must result in an increase to this value.
-+The value must increase even in the case where the ctime change is not
-+evident due to coarse timestamp granularity.
-+.PP
-+An observer cannot infer anything from amount of increase about the
-+nature or magnitude of the change. If the returned value is different
-+from the last time it was checked, then something has made an explicit
-+data and/or metadata change to the inode.
-+.PP
-+In the event of a system crash, this value can appear to go backward,
-+if it were queried before ever being written to the backing store. If
-+the value were then incremented again after restart, then an observer
-+could miss noticing a change.
-+.PP
-+In order to guard against this, it is recommended to also watch the
-+\fIstatx.stx_ctime\fP for changes when watching this value. As long as the
-+system clock doesn't jump backward during the crash, an observer can be
-+reasonably sure that the i_version and ctime together represent a unique inode
-+state.
-+.PP
-+The i_version is a Linux extension and is not supported by all filesystems.
-+The application must verify that the \fISTATX_INO_VERSION\fP bit is set in the
-+returned \fIstatx.stx_mask\fP before relying on this field.
- .SH STANDARDS
- If you need to obtain the definition of the
- .I blkcnt_t
--- 
-2.37.3
+> > yesterday you merged this commit (without sending it to ML):
+> > 70ac1c478 ("src.mk, All pages: Move man* to man/")
 
+
+> It's good to know that someone realized immediately after my patch.  I
+> wanted to know how much it would really hurt others' habits, and a
+> discussion about it would probably have been too artificial.  That's why I
+> did it without prior discussion.
+
+> > Although I agree that number of man* is quite high and single man directory
+> > looks nicer, from practical reasons I'd prefer to revert this commit.
+> > Because saving one extra cd is IMHO more important.
+
+> I rarely cd.  I edit pages from the root of the repo with (in my example,
+> I'll pretend to edit membarrier(2)):
+I also rarely cd. Both cd and editing from the git root directory use using tab
+autocompletion as you note below.
+
+> (previous to subsections):
+> vi m[TAB]2[TAB]memb[TAB]
+
+> (after subsections were introduced, but before this change):
+> vi m[TAB]2/memb[TAB]
+
+> (after this patch):
+> vi m[TAB]m[TAB]2/memb[TAB]
+
+
+> I agree it's two more keystrokes, and it took me so long to decide to change
+> it because two keystrokes all the time are not the most friendly thing in
+> the world, but I think I could live with them.
+
+> Do you still think I should revert it?
+I'd wait for more feedback, maybe others will like it.
+Sure, I can live with it if I'm alone who even noticed :).
+
+> I guess I'll receive a lot more emails like that in the following days, so
+> I'll wait a little bit more before considering reverting it, but yeah, I may
+> do it; I'm still unsure about what to do.
+No matter how you finally decide, the most important lesson is that tree wide
+changes, although they look trivial are safer to post to ML to get feedback
+before (and obviously anything which looks controversial).
+
+Kind regards,
+Petr
+
+> Kind regards,
+
+> Alex
