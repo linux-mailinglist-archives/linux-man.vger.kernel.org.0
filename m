@@ -2,61 +2,60 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 355975AE524
-	for <lists+linux-man@lfdr.de>; Tue,  6 Sep 2022 12:18:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id BEB005AE64B
+	for <lists+linux-man@lfdr.de>; Tue,  6 Sep 2022 13:13:46 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S239339AbiIFKSn (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 6 Sep 2022 06:18:43 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51448 "EHLO
+        id S234468AbiIFLNp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 6 Sep 2022 07:13:45 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54600 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S239221AbiIFKSf (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 6 Sep 2022 06:18:35 -0400
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com [IPv6:2a00:1450:4864:20::436])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 729D64E603
-        for <linux-man@vger.kernel.org>; Tue,  6 Sep 2022 03:18:33 -0700 (PDT)
-Received: by mail-wr1-x436.google.com with SMTP id bq9so1790310wrb.4
-        for <linux-man@vger.kernel.org>; Tue, 06 Sep 2022 03:18:33 -0700 (PDT)
+        with ESMTP id S233563AbiIFLNp (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 6 Sep 2022 07:13:45 -0400
+Received: from mail-vs1-xe33.google.com (mail-vs1-xe33.google.com [IPv6:2607:f8b0:4864:20::e33])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2FDC179620
+        for <linux-man@vger.kernel.org>; Tue,  6 Sep 2022 04:13:44 -0700 (PDT)
+Received: by mail-vs1-xe33.google.com with SMTP id k66so11260551vsc.11
+        for <linux-man@vger.kernel.org>; Tue, 06 Sep 2022 04:13:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date;
-        bh=IhNlKwHCXfoIpAk95MJfAuO7DTDhEKgG3yeLfKEGTMA=;
-        b=efpJXtZfW+AEf8Pq22EzlaCA2ECyFLBHWcQVUImh+shxlvcbXoCmF5mOfJPayvkVWh
-         JWSyJxULjgRSLJRNjhv3HEEMG6l6bjzpDBpPnXOiqDKKiyJ8Hm6oEEfaP6xr8jHcjrrj
-         UWDNIt1ysbfvKvk7Ic1xHpSAOwIbQKOjnJb9BYMz6Upo20jTAkeXMN6tyVkLZhGlu7/X
-         hIuXrzNAA007StzKWbPy8xS6HOy2ZK24/boRaj/GoXlQJcaOCTZ/+dUR+UtzzTPb2lrN
-         lgOxkV6WIwwXwvYN7d9tHueMVpEFOxLL82jwg7yHoXiEOi7ZH1AV3iO1WHIcDofih0fy
-         iF4w==
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date;
+        bh=aD4R1i8jwZ7eX2+2Yd7Vkzuo8plDzyyI/F9+fXiPjz0=;
+        b=q6eokNyCmZLD60QzvsJ54YSdpiZq+fHGYgAOaLDdAzjpt+NoQ0NG7MviUJn+I2PUKN
+         Soz6uQk+DGn0dh1IBA+CrjAfKtg2DcEmaX+1eRYFVzlfBgHar8BirWm+2S3lXS+HGrPm
+         s7srZUwse2wHOoCTKU4KS7pWcInf9SXyPkqowzbsVhYc+VDCMmj7Pg/BPDln7tWKnZFa
+         OtO5Z88RT7sAiWXHZ2OoaeSUzWNwUNNqMSI46yqta7tQZPo4q/4npyXhbop1I4u/3wwi
+         o79j/fzgswSQNnYJURkcLxWYUxSNNLt+utk9bJIPmSCRvjXYs/mgBSZokgdGo20MXEon
+         qGOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date;
-        bh=IhNlKwHCXfoIpAk95MJfAuO7DTDhEKgG3yeLfKEGTMA=;
-        b=KtFkT2nJ8q9QkxWQFZ8f4YMXFPdL6EPPOgdrAnte1TXyv082no5+hc26rcmio9QDvv
-         LULHRptvchJKvcKUz8HNLJlujt3lwCz7TAtCS6XL/gNMPnGCbyAkGz4Inm/+Z4y/OFiD
-         mvWWXw15yYBbzV0+QTfYvMZlcMRT5ZP0I7EmDHlj+jlqXLa6HtKQpFP1YFCvdgjtRo9a
-         BxFqTWHj5A/PGZ6GLb2rQXBjLJ+sLkthmKxxs11sNvW1/J5dA91i89XUa7dBE8+tLKcF
-         v/6i+UOVAy2pYlelkpcCaDOmPbtUMbEsvGQufhwhgtz2JAr0MKjfZQ1UBdGUefXEXjuJ
-         vnNQ==
-X-Gm-Message-State: ACgBeo2WGRmhiLqLF+eCd/fVYu3MtDR4/8pxS/zO17QNRJA65QMoHCiR
-        nBbSa7bRE1RZr/jPQe0o8Xg=
-X-Google-Smtp-Source: AA6agR65JUnNQbVQY9gs18F6nw3SYkUSylc/TUslG+E97V+KiWiU8pPyizrXKJq4+UaOb382iyVYrg==
-X-Received: by 2002:a05:6000:2c1:b0:226:e7d0:f098 with SMTP id o1-20020a05600002c100b00226e7d0f098mr18771254wry.578.1662459511738;
-        Tue, 06 Sep 2022 03:18:31 -0700 (PDT)
-Received: from localhost.localdomain ([77.137.66.49])
-        by smtp.gmail.com with ESMTPSA id i4-20020a05600c354400b003a2f6367049sm14856188wmq.48.2022.09.06.03.18.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Sep 2022 03:18:31 -0700 (PDT)
-From:   Amir Goldstein <amir73il@gmail.com>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     Jan Kara <jack@suse.cz>, Matthew Bobrowski <repnop@google.com>,
-        linux-man@vger.kernel.org
-Subject: [PATCH v2] fanotify_mark.2: Document FAN_MARK_EVICTABLE
-Date:   Tue,  6 Sep 2022 13:18:27 +0300
-Message-Id: <20220906101827.2760615-1-amir73il@gmail.com>
-X-Mailer: git-send-email 2.25.1
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date;
+        bh=aD4R1i8jwZ7eX2+2Yd7Vkzuo8plDzyyI/F9+fXiPjz0=;
+        b=7hu7MjsbQk5rPVdWxWcNZmcUsj6J5i6yVgImemHSFGCK1XnVzw2RaWZ+VrXdiotjFe
+         nCPH39cjm7TOGU4eFQQkK4ohWvtIJWP5Z4i8lAg5tuSahjBH2NFuNyc5alzBDc1Y150y
+         HMNVeLolZr09pnVCKuz2NvxERcteCacc4vUgdEiZZq+2UtgZKvOyEskFvx0ScEKjfqSW
+         2b2N18NClo2mSY5jYounr8QltmlmlJAI8jK5OCrQsciqSB+eRtjxsRKIqYKPvBdiidG1
+         SdcrTBdTpLPFqTxP0Vwjm9aelIZc0rQ6NtMySPH4HhhSHARNynnTtD06WlZTTHH2xDIc
+         IiQg==
+X-Gm-Message-State: ACgBeo1GpBDT8fM9s0/rhPCqgCP0ZoAFAqv2G612JROgFDFIbKL7BGCV
+        5iAU2vP0KrW0DCp05vAau+jaTlJVQ/mBwOZA+UqndhG595I=
+X-Google-Smtp-Source: AA6agR6A7v40aA+FWV/mBA2xn2vB/VD0PDEIapTqvNjYTK0LTzRBRl0fV5y+XqaFzD7XYc4E48IdoYHiTV+NmBwTwD4=
+X-Received: by 2002:a67:a649:0:b0:390:88c5:6a91 with SMTP id
+ r9-20020a67a649000000b0039088c56a91mr16007064vsh.3.1662462823265; Tue, 06 Sep
+ 2022 04:13:43 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20220904155113.2623371-1-amir73il@gmail.com> <20220906094838.7tjroxwb4hwy7qrp@quack3>
+In-Reply-To: <20220906094838.7tjroxwb4hwy7qrp@quack3>
+From:   Amir Goldstein <amir73il@gmail.com>
+Date:   Tue, 6 Sep 2022 14:13:31 +0300
+Message-ID: <CAOQ4uxhYmMyjWEdzYvKxBqw=-88wB=LarWTFUE=u5mFrJD7CVw@mail.gmail.com>
+Subject: Re: [RFC][PATCH] fanotify_mark.2: Document FAN_MARK_IGNORE
+To:     Jan Kara <jack@suse.cz>
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        Matthew Bobrowski <repnop@google.com>,
+        linux-man <linux-man@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
@@ -67,96 +66,136 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Add section about evictable inode marks and example use case.
-Add possible error case EEXIST related to evictable marks.
+On Tue, Sep 6, 2022 at 12:48 PM Jan Kara <jack@suse.cz> wrote:
+>
+> On Sun 04-09-22 18:51:13, Amir Goldstein wrote:
+> > A new flavor of FAN_MARK_IGNORED_MASK that helps to resolve the
+> > ambiguity around the combination of event flags and ignore mask.
+> >
+> > It is also more strict in the events and flags allowed to be
+> > set in a non-directory inode mark mask and it mandates the use
+> > of FAN_MARK_IGNORED_SURV_MODIFY flag on filesystem, mount and
+> > directory inode marks.
+> >
+> > Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+>
+> <snip>
+>
+> > +.BR FAN_MARK_IGNORE " (since Linux 6.0)"
+> > +.\" commit e252f2ed1c8c6c3884ab5dd34e003ed21f1fe6e0
+> > +This flag has a similar effect as setting the
+> > +.B FAN_MARK_IGNORED_MASK
+> > +flag.
+> > +The events in
+> > +.I mask
+> > +shall be added to or removed from the ignore mask.
+> > +Unlike the
+> > +.B FAN_MARK_IGNORED_MASK
+> > +flag,
+> > +this flag also has the effect that the
+> > +.B FAN_ONDIR ,
+> > +and
+> > +.B FAN_EVENT_ON_CHILD
+> > +flags take effect on the ignore mask.
+> > +Specifically, unless
+> > +.B FAN_ONDIR
+> > +flag is set with
+> > +.BR FAN_MARK_IGNORE ,
+> > +events on directories will not be ignored
+> > +and if the flag
+> > +.B FAN_EVENT_ON_CHILD
+> > +is set,
+> > +events on children will be ignored.
+> > +For example,
+> > +a mark on a directory with combination of
+> > +a mask with
+> > +.B FAN_CREATE
+> > +event
+> > +and
+> > +.B FAN_ONDIR
+> > +flag
+> > +and an ignore mask with
+> > +.B FAN_CREATE
+> > +event
+> > +and without
+> > +.B FAN_ONDIR
+> > +flag,
+> > +will result in getting only events for creation of sub-directories.
+> > +When using this flag to add to an ignore mask
+> > +of a mount, filesystem, or directory inode mark,
+> > +the
+> > +.B FAN_MARK_IGNORED_SURV_MODIFY
+> > +flag must be specified.
+>
+> Perhaps a short rationaly why this flag is required would be good here?
 
-Reviewed-by: Matthew Bobrowski <repnop@google.com>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
----
+Here is a bit much IMO.
+I will add it to the next section.
+How's that?
 
-Hi Alex,
+ .B FAN_MARK_IGNORED_SURV_MODIFY
+ The ignore mask shall survive modify events.
+ If this flag is not set,
+ the ignore mask is cleared when a modify event occurs
+-for the ignored file or directory.
++on the marked object.
++Omitting this flag is typically used to suppress events
++(e.g.,
++.BR FAN_OPEN )
++for a specific file,
++until that specific file's content has been modified.
++It is far less useful to suppress events
++on an entire filesystem,
++or mount,
++or on all files inside a directory,
++until some file's content has been modified.
++For this reason,
++the
++.B FAN_MARK_IGNORE
++flag requires the
++.B FAN_MARK_IGNORED_SURV_MODIFY
++flag on a mount,
++filesystem,
++or directory inode mark.
++This flag cannot be removed from a mark once set.
++When the ignore mask is updated without this flag,
++on a mark that was previously updated with the
++.B FAN_MARK_IGNORE
++and
++.B FAN_MARK_IGNORED_SURV_MODIFY
++flags,
++the update fails with
++.B EEXIST
++error.
++.TP
++.B FAN_MARK_IGNORE_SURV
++This is a synonym for
++.RB ( FAN_MARK_IGNORE | FAN_MARK_IGNORED_SURV_MODIFY ).
+ .TP
 
-Here is v2 with fixes to your review comments
-and Jan's Reviewed-by.
+
+>
+> > +Failure to do so will results with
+> > +.B EINVAL
+> > +or
+> > +.B EISDIR
+> > +error.
+>
+> <snip>
+>
+> > +.TP
+> > +.B EISDIR
+> > +.I flags
+> > +contains
+> > +.BR FAN_MARK_IGNORE ,
+> > +and
+> > +.BR FAN_MARK_IGNORED_SURV_MODIFY ,
+>
+> I think it should rather be "but does not contain
+> FAN_MARK_IGNORED_SURV_MODIFY", shouldn't it?
+>
+
+Yes. Good catch!
 
 Thanks,
 Amir.
-
- man2/fanotify_mark.2 | 53 ++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 53 insertions(+)
-
-diff --git a/man2/fanotify_mark.2 b/man2/fanotify_mark.2
-index 2696a803a..b9b3357e2 100644
---- a/man2/fanotify_mark.2
-+++ b/man2/fanotify_mark.2
-@@ -152,6 +152,47 @@ The ignore mask shall survive modify events.
- If this flag is not set,
- the ignore mask is cleared when a modify event occurs
- for the ignored file or directory.
-+.TP
-+.BR FAN_MARK_EVICTABLE " (since Linux 5.19)"
-+.\" commit 5f9d3bd520261fd7a850818c71809fd580e0f30c
-+When an inode mark is created with this flag,
-+the inode object will not be pinned to the inode cache,
-+therefore,
-+allowing the inode object to be evicted from the inode cache
-+when the memory pressure on the system is high.
-+The eviction of the inode object
-+results in the evictable mark also being lost.
-+When the mask of an evictable inode mark is updated
-+without using the
-+.B FAN_MARK_EVICATBLE
-+flag,
-+the marked inode is pinned to inode cache
-+and the mark is no longer evictable.
-+When the mask of a non-evictable inode mark is updated
-+with the
-+.B FAN_MARK_EVICTABLE
-+flag,
-+the inode mark remains non-evictable
-+and the update fails with
-+.B EEXIST
-+error.
-+Mounts and filesystems are not evictable objects,
-+therefore,
-+an attempt to create a mount mark or a filesystem mark
-+with the
-+.B FAN_MARK_EVICTABLE
-+flag,
-+will result in the error
-+.BR EINVAL .
-+For example,
-+inode marks can be used in combination with mount marks
-+to reduce the amount of events from noninteresting paths.
-+The event listener reads events,
-+checks if the path reported in the event is of interest,
-+and if it is not,
-+the listener sets a mark with an ignore mask on the directory.
-+Evictable inode marks allow using this method for a large number of directories
-+without the concern of pinning all inodes and exhausting the system's memory.
- .PP
- .I mask
- defines which events shall be listened for (or which shall be ignored).
-@@ -409,6 +450,18 @@ is neither
- .B AT_FDCWD
- nor a valid file descriptor.
- .TP
-+.B EEXIST
-+The filesystem object indicated by
-+.I dirfd
-+and
-+.I pathname
-+has a mark that was updated without the
-+.B FAN_MARK_EVICTABLE
-+flag,
-+and the user attempted to update the mark with
-+.B FAN_MARK_EVICTABLE
-+flag.
-+.TP
- .B EINVAL
- An invalid value was passed in
- .I flags
--- 
-2.25.1
-
