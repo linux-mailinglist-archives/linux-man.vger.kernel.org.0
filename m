@@ -2,109 +2,111 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 354E85B1D6A
-	for <lists+linux-man@lfdr.de>; Thu,  8 Sep 2022 14:42:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id EABC95B21F7
+	for <lists+linux-man@lfdr.de>; Thu,  8 Sep 2022 17:23:08 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230324AbiIHMmm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 8 Sep 2022 08:42:42 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33008 "EHLO
+        id S232499AbiIHPWd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 8 Sep 2022 11:22:33 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42118 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229907AbiIHMmg (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 8 Sep 2022 08:42:36 -0400
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com [IPv6:2a00:1450:4864:20::236])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E5156C6CCA
-        for <linux-man@vger.kernel.org>; Thu,  8 Sep 2022 05:42:31 -0700 (PDT)
-Received: by mail-lj1-x236.google.com with SMTP id bx38so19700655ljb.10
-        for <linux-man@vger.kernel.org>; Thu, 08 Sep 2022 05:42:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date;
-        bh=rnCzX6LiytrZdvrpgpe31+O5JyDOcLDCGAmR551mG0k=;
-        b=fIEFBF8/DW4d63kjNADvcydvIynKy4kVYgojmieNplC0eADhCFXzN2liudVuXEQ36Y
-         Bptw8JcaUA6ezT/2PCG6G9S6DWk0zZK9er3dcldNJPx+R7ot2nmXoUltgBvdt4NJY4NA
-         RgGyqNEWJebfsbsDR4fMaPnDYz8YjhTNMqpco5+KYXni0wLnPItcqNX4tfRdiZxv/4Pz
-         Zn8bBZ9ud1nYFCsLcE0y06vtMwffArfAYxpxqd0i0MvkhQNW+bSnmadbBspELkzS26Fr
-         V3YiVDEClzcLC3DR/lmdqclFIPSiVrGc9v6CMXXLV6EjcjZ8X5KAW2IeE49GpUubuWsd
-         2MYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date;
-        bh=rnCzX6LiytrZdvrpgpe31+O5JyDOcLDCGAmR551mG0k=;
-        b=xJH2HoD3r1nrD7E8aEcE1v+40GNVameJF7KgqKe5DIvW4GSVj++zwJA1ZL/4ins6/c
-         UWOOzlYrHXn0X7Vxpt8HQu96IwZDnuYofP6p8lBBp1uHHEjZv8R6/448hoTzbleOLlFw
-         BjEVRHjDDPP7oL8c7OWiGpvUWIBypUq5SH6IG/zMrd3HqNBlpv2Ns3xPm0x5Z8A9eaKb
-         qLLwezUbLO/6C3uK05VRI7M7R5+p0MP5Kid1Hvgq+9xt3ueY3nb4HQSHaUlc61DjWE4b
-         IAQ1KwDbjTd2XmJ7g8E3M75JueajiP1Ghjf9KzsDOr2baodgjW6HSUJiH0igYK6YFwBm
-         EogQ==
-X-Gm-Message-State: ACgBeo3TuJwpkJd4JWAOXZMdyP8WAShe+oFpeRAR66Vfk5B5GOU9dYfP
-        y8nvyszckZziP4wrXIlEjQWYl+Xo9xEKz8FOmGU=
-X-Google-Smtp-Source: AA6agR6pp803VwhDAhNKoPl/xuFNjKuENlrcB/VD9c80zZfy0Jl1DnmLZaJP00vkEI4MLdQKPr1O1i81z7+9fhn2fso=
-X-Received: by 2002:a2e:a7d4:0:b0:268:a9f9:bee7 with SMTP id
- x20-20020a2ea7d4000000b00268a9f9bee7mr2331443ljp.425.1662640950141; Thu, 08
- Sep 2022 05:42:30 -0700 (PDT)
+        with ESMTP id S232333AbiIHPW1 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 8 Sep 2022 11:22:27 -0400
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 18B917C1BD;
+        Thu,  8 Sep 2022 08:22:25 -0700 (PDT)
+Received: from letrec.thunk.org (guestnat-104-133-160-104.corp.google.com [104.133.160.104] (may be forged))
+        (authenticated bits=0)
+        (User authenticated as tytso@ATHENA.MIT.EDU)
+        by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 288FLnMO009638
+        (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+        Thu, 8 Sep 2022 11:21:51 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+        t=1662650518; bh=Q7EMQjEL1wIQNoEXbyxh/iG24EeohO2u4jvmmKyErqc=;
+        h=Date:From:To:Cc:Subject:References:In-Reply-To;
+        b=OxRR92RnotcXfOTtwLsEY0ShIG1KHzjTk+CbAOULYcjYZUv9LckN/LC+5Bc0r0Ign
+         m3K0Izjlrgh8xSPsTv51RN/SHipXczb4ohPsZ3re7pCWMXfqNAOE7rFSme/t6unRJl
+         /GbzJyT9SM3yZWP0vAWjR6FopNoq8h0eSqtEsCyOnQ1uI1JttKA2qDHVDd2hUesVbi
+         zenF9h86n3uqN/PsDpRHFzCOwa/YZWFebRbHZYIOeiKHiCtIMkNViPv1l/Vx75zqLp
+         lLYP14b8W4Dbvx058k1ma7fGQKNg1r1b36fu8gwTJBSvLc5iIK+fliDRf0/X5Kn0Qq
+         s/ktNGi6MuVZw==
+Received: by letrec.thunk.org (Postfix, from userid 15806)
+        id 2CCE98C2B48; Thu,  8 Sep 2022 11:21:49 -0400 (EDT)
+Date:   Thu, 8 Sep 2022 11:21:49 -0400
+From:   "Theodore Ts'o" <tytso@mit.edu>
+To:     Jan Kara <jack@suse.cz>
+Cc:     NeilBrown <neilb@suse.de>, Jeff Layton <jlayton@kernel.org>,
+        "J. Bruce Fields" <bfields@fieldses.org>, adilger.kernel@dilger.ca,
+        djwong@kernel.org, david@fromorbit.com, trondmy@hammerspace.com,
+        viro@zeniv.linux.org.uk, zohar@linux.ibm.com, xiubli@redhat.com,
+        chuck.lever@oracle.com, lczerner@redhat.com, brauner@kernel.org,
+        fweimer@redhat.com, linux-man@vger.kernel.org,
+        linux-api@vger.kernel.org, linux-btrfs@vger.kernel.org,
+        linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+        ceph-devel@vger.kernel.org, linux-ext4@vger.kernel.org,
+        linux-nfs@vger.kernel.org, linux-xfs@vger.kernel.org
+Subject: Re: [man-pages RFC PATCH v4] statx, inode: document the new
+ STATX_INO_VERSION field
+Message-ID: <YxoIjV50xXKiLdL9@mit.edu>
+References: <20220907111606.18831-1-jlayton@kernel.org>
+ <166255065346.30452.6121947305075322036@noble.neil.brown.name>
+ <79aaf122743a295ddab9525d9847ac767a3942aa.camel@kernel.org>
+ <20220907125211.GB17729@fieldses.org>
+ <771650a814ab1ff4dc5473d679936b747d9b6cf5.camel@kernel.org>
+ <20220907135153.qvgibskeuz427abw@quack3>
+ <166259786233.30452.5417306132987966849@noble.neil.brown.name>
+ <20220908083326.3xsanzk7hy3ff4qs@quack3>
 MIME-Version: 1.0
-References: <YxcV4h+Xn7cd6+q2@pevik> <20220907205304.nlqce37l26gezjqi@jwilk.net>
- <7b9c2ab4-6cdc-b4fd-1001-8721083695fa@gmail.com>
-In-Reply-To: <7b9c2ab4-6cdc-b4fd-1001-8721083695fa@gmail.com>
-From:   Stefan Puiu <stefan.puiu@gmail.com>
-Date:   Thu, 8 Sep 2022 15:42:18 +0300
-Message-ID: <CACKs7VADwh0Qs8Zo7=biVzpOhSgMt5xD1BSBXdg82sPAcdjYOg@mail.gmail.com>
-Subject: Re: Revert 70ac1c478 ("src.mk, All pages: Move man* to man/")
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     Jakub Wilk <jwilk@jwilk.net>, Petr Vorel <pvorel@suse.cz>,
-        lnx-man <linux-man@vger.kernel.org>,
-        Michael Kerrisk <mtk.manpages@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-        autolearn=ham autolearn_force=no version=3.4.6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220908083326.3xsanzk7hy3ff4qs@quack3>
+X-Spam-Status: No, score=-3.0 required=5.0 tests=BAYES_00,DKIM_INVALID,
+        DKIM_SIGNED,MAY_BE_FORGED,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,
+        T_SCC_BODY_TEXT_LINE autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Alex,
+On Thu, Sep 08, 2022 at 10:33:26AM +0200, Jan Kara wrote:
+> It boils down to the fact that we don't want to call mark_inode_dirty()
+> from IOCB_NOWAIT path because for lots of filesystems that means journal
+> operation and there are high chances that may block.
+> 
+> Presumably we could treat inode dirtying after i_version change similarly
+> to how we handle timestamp updates with lazytime mount option (i.e., not
+> dirty the inode immediately but only with a delay) but then the time window
+> for i_version inconsistencies due to a crash would be much larger.
 
-On Thu, Sep 8, 2022 at 1:28 AM Alejandro Colomar <alx.manpages@gmail.com> wrote:
->
-> Hi Jakub
->
-> On 9/7/22 22:53, Jakub Wilk wrote:
-> > * Petr Vorel <pvorel@suse.cz>, 2022-09-06 11:41:
-> >> Although I agree that number of man* is quite high and single man
-> >> directory looks nicer, from practical reasons I'd prefer to revert
-> >> this commit.
-> >
-> > I don't like the new layout either.
->
-> Thank you both for sharing your opinion.  I'll revert it, then.  Let me
-> a few weeks before doing that, since I'm in the middle of some other big
-> changes (about lint-c), so to not have to stash and fix conflicts at
-> that scale.  If in the meantime someone finds the new layout nice,
-> please speak up :)
+Perhaps this is a radical suggestion, but there seems to be a lot of
+the problems which are due to the concern "what if the file system
+crashes" (and so we need to worry about making sure that any
+increments to i_version MUST be persisted after it is incremented).
 
-I think one other aspect to consider is that it makes history
-searching harder. If you type 'git log <file>', by default you only
-get the history to the last move. You need 'git log --follow' to see
-the whole history. Then if you want to do a 'git blame' on an old
-version of the file, pre-move, I think you need to find the old path
-and use that. If the maintainer's opinion of where a file should be
-changes often, that makes it more fun :).
+Well, if we assume that unclean shutdowns are rare, then perhaps we
+shouldn't be optimizing for that case.  So.... what if a file system
+had a counter which got incremented each time its journal is replayed
+representing an unclean shutdown.  That shouldn't happen often, but if
+it does, there might be any number of i_version updates that may have
+gotten lost.  So in that case, the NFS client should invalidate all of
+its caches.
 
-Just my 2 cents,
-Stefan.
+If the i_version field was large enough, we could just prefix the
+"unclean shutdown counter" with the existing i_version number when it
+is sent over the NFS protocol to the client.  But if that field is too
+small, and if (as I understand things) NFS just needs to know when
+i_version is different, we could just simply hash the "unclean
+shtudown counter" with the inode's "i_version counter", and let that
+be the version which is sent from the NFS client to the server.
 
->
-> Cheers,
->
-> Alex
->
->
-> >
->
-> --
-> <http://www.alejandro-colomar.es/>
+If we could do that, then it doesn't become critical that every single
+i_version bump has to be persisted to disk, and we could treat it like
+a lazytime update; it's guaranteed to updated when we do an clean
+unmount of the file system (and when the file system is frozen), but
+on a crash, there is no guaranteee that all i_version bumps will be
+persisted, but we do have this "unclean shutdown" counter to deal with
+that case.
+
+Would this make life easier for folks?
+
+						- Ted
