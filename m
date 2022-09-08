@@ -2,270 +2,173 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 00D0F5B1100
-	for <lists+linux-man@lfdr.de>; Thu,  8 Sep 2022 02:26:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C5CB35B1140
+	for <lists+linux-man@lfdr.de>; Thu,  8 Sep 2022 02:31:44 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229889AbiIHA0v (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 7 Sep 2022 20:26:51 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34892 "EHLO
+        id S230191AbiIHAbn (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 7 Sep 2022 20:31:43 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46334 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230159AbiIHA0q (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 7 Sep 2022 20:26:46 -0400
-Received: from mail-qv1-xf35.google.com (mail-qv1-xf35.google.com [IPv6:2607:f8b0:4864:20::f35])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E3158C165C
-        for <linux-man@vger.kernel.org>; Wed,  7 Sep 2022 17:26:44 -0700 (PDT)
-Received: by mail-qv1-xf35.google.com with SMTP id o13so6220569qvw.12
-        for <linux-man@vger.kernel.org>; Wed, 07 Sep 2022 17:26:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date;
-        bh=zmhjAOxZEZTllZ45Tfs31tOCvzxdS3uD7T2k/Innnnc=;
-        b=AO3vTGoFkuvYqmQd7B+IGwllvsqtArMFoivT3okCUTST/+5aM6fwrHwIeykARjeOlq
-         HsKN7/e7UIZJ0iqR4XuSyzroWwlVwIjZEgz1TMlDBywujOeq4ZoSC+AyvYhiM345CEoa
-         FdoxXMVGQcKO9Hcadmykk2u7Ah3C3VOfj28j3fw8KHl/Cw781vFiK+5AGyPcwNakaerv
-         3BXeJ7UdVXXlf66F9KtGJIvOiRUihh7vNvzZnCv/1TxCANZWaDb/TbgzRnEM3PXoKry3
-         t4bEnyr1NPcLMNndzj5OzMPQRDYkRG7Neg7fMMV3YfZKymZpWr814IbsAJZhd/zHjzzL
-         +1Bg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date;
-        bh=zmhjAOxZEZTllZ45Tfs31tOCvzxdS3uD7T2k/Innnnc=;
-        b=AoBCi4eLlXquBUGu5HJgBoq4WGBQN+sB3QsOFOcGkHaul27zmN97ULPlO0XXgpz1sH
-         YpBLOsZc4mMG4+3vu2k5K4/GGa68vBelTqZj0ce3K3wUaqms3HhyecewH191z3Lz1hwS
-         AxsNZ5f0R5PZMi5He8d2r3TPMMGC9qwIr5VQt56ku9oqDr+p8KmNX/KRszFnac86eBx+
-         4w3B6muSg/rr+JZNaG2damxCqTu6LWvsNtOLOBBqWBpy3hWpFpuZVvZojMcv1tnXEPFE
-         CsEWAtLF9GTMdqT4p5pE6IlTfufUKV48zeruzMPSbKPjz+UmZgAvs6feW/Km/jllUFou
-         MDdA==
-X-Gm-Message-State: ACgBeo1MNuhCJBXsoxVqxrIscH29zJJy36WaOgLhZ85QAyNOWEWjVqMI
-        kZBpZr775WdFgonbonJAP138rw==
-X-Google-Smtp-Source: AA6agR74JGCya8aDmAIXpJW8lDPnkakandSxqYSeD1pSSTgUQiLZHOX92KlGXmz0QQVenEtWwnhZyw==
-X-Received: by 2002:ad4:418b:0:b0:4aa:3b02:dba6 with SMTP id e11-20020ad4418b000000b004aa3b02dba6mr5433687qvp.7.1662596803699;
-        Wed, 07 Sep 2022 17:26:43 -0700 (PDT)
-Received: from google.com (123.178.145.34.bc.googleusercontent.com. [34.145.178.123])
-        by smtp.gmail.com with ESMTPSA id x11-20020ac87ecb000000b0031ee918e9f9sm13612852qtj.39.2022.09.07.17.26.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Sep 2022 17:26:43 -0700 (PDT)
-Date:   Thu, 8 Sep 2022 00:26:40 +0000
-From:   Matthew Bobrowski <repnop@google.com>
-To:     Amir Goldstein <amir73il@gmail.com>
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        Jan Kara <jack@suse.cz>, linux-man <linux-man@vger.kernel.org>
-Subject: Re: [RFC][PATCH] fanotify_mark.2: Document FAN_MARK_IGNORE
-Message-ID: <Yxk2wNx0MK333sks@google.com>
-References: <20220904155113.2623371-1-amir73il@gmail.com>
- <Yxg+OAeugyp1R1FJ@google.com>
- <CAOQ4uxgTxAqv-W7Ds+K0Mh=0v-tfS0VGxkJ6bGWwVqSQkTtNew@mail.gmail.com>
+        with ESMTP id S230272AbiIHAba (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 7 Sep 2022 20:31:30 -0400
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 98145D0773;
+        Wed,  7 Sep 2022 17:31:21 -0700 (PDT)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+         key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+        (No client certificate requested)
+        by smtp-out2.suse.de (Postfix) with ESMTPS id 1848620A08;
+        Thu,  8 Sep 2022 00:31:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+        t=1662597080; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+         mime-version:mime-version:content-type:content-type:
+         content-transfer-encoding:content-transfer-encoding:
+         in-reply-to:in-reply-to:references:references;
+        bh=jZL4IIR5pfW+dB6M5aYU+c6C39aV8z8lPkflRrG+URU=;
+        b=xhWsmma/D1pNOJcXcAyNNudzKTd5IWeA/c3+FbDta8nGJ9qkuCHDG9GQnSG9PdnN7/Skva
+        HsIr1gy0WdeX8JatYzy3I+CQoAKtNUuQbd3xK9c1D/uq4a2OrhuBOXUELws2TMEbsDzqiJ
+        tVQZ0rCVKHwC5Y+ZngpvHcwx+/Vu5Vc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+        s=susede2_ed25519; t=1662597080;
+        h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+         mime-version:mime-version:content-type:content-type:
+         content-transfer-encoding:content-transfer-encoding:
+         in-reply-to:in-reply-to:references:references;
+        bh=jZL4IIR5pfW+dB6M5aYU+c6C39aV8z8lPkflRrG+URU=;
+        b=2EZ00t47e/GkOmNlEyHEtudCQMs17PgOGXfuHHWD2eWfRmG6ZTcBs00W3KzPNFGPfmK2ne
+        xklLIOrqfjDbRwAQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+         key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+        (No client certificate requested)
+        by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8B3DE1322C;
+        Thu,  8 Sep 2022 00:31:12 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+        by imap2.suse-dmz.suse.de with ESMTPSA
+        id odUxENA3GWPrBgAAMHmgww
+        (envelope-from <neilb@suse.de>); Thu, 08 Sep 2022 00:31:12 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAOQ4uxgTxAqv-W7Ds+K0Mh=0v-tfS0VGxkJ6bGWwVqSQkTtNew@mail.gmail.com>
-X-Spam-Status: No, score=-17.6 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-        ENV_AND_HDR_SPF_MATCH,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
-        T_SCC_BODY_TEXT_LINE,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL
-        autolearn=ham autolearn_force=no version=3.4.6
+From:   "NeilBrown" <neilb@suse.de>
+To:     "Trond Myklebust" <trondmy@hammerspace.com>
+Cc:     "bfields@fieldses.org" <bfields@fieldses.org>,
+        "jlayton@kernel.org" <jlayton@kernel.org>,
+        "zohar@linux.ibm.com" <zohar@linux.ibm.com>,
+        "djwong@kernel.org" <djwong@kernel.org>,
+        "xiubli@redhat.com" <xiubli@redhat.com>,
+        "brauner@kernel.org" <brauner@kernel.org>,
+        "linux-api@vger.kernel.org" <linux-api@vger.kernel.org>,
+        "linux-xfs@vger.kernel.org" <linux-xfs@vger.kernel.org>,
+        "david@fromorbit.com" <david@fromorbit.com>,
+        "fweimer@redhat.com" <fweimer@redhat.com>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+        "chuck.lever@oracle.com" <chuck.lever@oracle.com>,
+        "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
+        "linux-nfs@vger.kernel.org" <linux-nfs@vger.kernel.org>,
+        "tytso@mit.edu" <tytso@mit.edu>,
+        "viro@zeniv.linux.org.uk" <viro@zeniv.linux.org.uk>,
+        "jack@suse.cz" <jack@suse.cz>,
+        "linux-ext4@vger.kernel.org" <linux-ext4@vger.kernel.org>,
+        "linux-btrfs@vger.kernel.org" <linux-btrfs@vger.kernel.org>,
+        "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+        "lczerner@redhat.com" <lczerner@redhat.com>,
+        "adilger.kernel@dilger.ca" <adilger.kernel@dilger.ca>,
+        "ceph-devel@vger.kernel.org" <ceph-devel@vger.kernel.org>
+Subject: Re: [man-pages RFC PATCH v4] statx, inode: document the new
+ STATX_INO_VERSION field
+In-reply-to: <8a71986b4fb61cd9b4adc8b4250118cbb19eec58.camel@hammerspace.com>
+References: <20220907111606.18831-1-jlayton@kernel.org>,
+ <166255065346.30452.6121947305075322036@noble.neil.brown.name>,
+ <79aaf122743a295ddab9525d9847ac767a3942aa.camel@kernel.org>,
+ <20220907125211.GB17729@fieldses.org>,
+ <771650a814ab1ff4dc5473d679936b747d9b6cf5.camel@kernel.org>,
+ <8a71986b4fb61cd9b4adc8b4250118cbb19eec58.camel@hammerspace.com>
+Date:   Thu, 08 Sep 2022 10:31:08 +1000
+Message-id: <166259706887.30452.6749778447732126953@noble.neil.brown.name>
+X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+        SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham autolearn_force=no
+        version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed, Sep 07, 2022 at 01:55:30PM +0300, Amir Goldstein wrote:
-> On Wed, Sep 7, 2022 at 9:46 AM Matthew Bobrowski <repnop@google.com> wrote:
-> >
-> > Maybe some useful nits.
-> 
-> Definitely useful.
-> Thanks!
-> 
-> >
-> > On Sun, Sep 04, 2022 at 06:51:13PM +0300, Amir Goldstein wrote:
-> > > diff --git a/man2/fanotify_mark.2 b/man2/fanotify_mark.2
-> > > index 757ad9159..e9303827c 100644
-> > > --- a/man2/fanotify_mark.2
-> > > +++ b/man2/fanotify_mark.2
-> > > @@ -146,12 +146,102 @@ capability.
-> > >  The events in
-> > >  .I mask
-> > >  shall be added to or removed from the ignore mask.
-> > > +Note that the flags
-> > > +.B FAN_ONDIR ,
-> > > +and
-> > > +.B FAN_EVENT_ON_CHILD
-> > > +have no effect in combination with this flag.
-> > > +The effect of setting those flags in the mask
-> >
-> > Is there anything wrong with explicitly specifying the exact flags
-> > you're referring to here? Like, "is it those flags there?", or "is it
-> > those flags over there?". Oh wait, you mean "it is those flags
-> > there?".
-> >
-> > I think it's best not describe flag usage and behavior of something
-> > based on spatial proximity.
-> >
-> 
-> ok.
-> 
-> > > +on ignoring events that are set in the ignore mask
-> > > +is undefined and depend on the Linux kernel version.
-> >
-> > Reading this sentence made me a little confused at first. Just
-> 
-> Yeh, it's a badly phrased sentence.
-> I tried to improve it a bit:
-> 
->  .B FAN_MARK_IGNORED_MASK
->  The events in
->  .I mask
->  shall be added to or removed from the ignore mask.
-> +Note that the flags
-> +.B FAN_ONDIR ,
-> +and
-> +.B FAN_EVENT_ON_CHILD
-> +have no effect in combination with this flag.
-> +The effect of setting the flags
-> +.B FAN_ONDIR ,
-> +and
-> +.B FAN_EVENT_ON_CHILD
-> +in the mark mask
-> +on the events that are set in the ignore mask
-> +is undefined and depends on the Linux kernel version.
-> +Specifically, prior to Linux 5.9,
-> 
-> I would love to get suggestions for improvement.
-> 
-> > checking, what I understood was that the use of FAN_ONDIR or
-> > FAN_EVENT_ON_CHILD when setting the ignore mask via
-> > FAN_MARK_IGNORED_MASK leads to undefined behavior. Is my understanding
-> > correct?
-> >
-> 
-> Not exactly.
-> Setting those flags in the ignore mask has no effect
-> (as mentioned above).
-> Setting those flags in the mask has undefined behavior
-> w.r.t whether the events on a directory or on a child will
-> be ignored, when said events are in the ignore mask.
-> 
-> See the "Specifically" clause below.
-> 
-> > > +Specifically, prior to Linux 5.9,
-> > > +.\" commit 497b0c5a7c0688c1b100a9c2e267337f677c198e
-> > > +setting a mark mask on a file
-> > > +and a mark with ignore mask on its parent directory
-> > > +would not result in ignoring events on the file,
-> > > +regardless of the
-> > > +.B FAN_EVENT_ON_CHILD
-> > > +flag in the parent directory's mark mask.
-> > > +When the ignore mask is updated with the
-> > > +.B FAN_MARK_IGNORED_MASK
-> > > +flag,
-> >
-> > I'd just allow this sentence to flow without the use of comma after
-> > flag.
-> 
-> ok.
-> 
-> >
-> > > +on a mark that was previously updated with the
-> > > +.B FAN_MARK_IGNORE
-> > > +flag,
-> > > +the update fails with
-> > > +.B EEXIST
-> > > +error.
-> > > +.TP
-> > > +.BR FAN_MARK_IGNORE " (since Linux 6.0)"
-> > > +.\" commit e252f2ed1c8c6c3884ab5dd34e003ed21f1fe6e0
-> > > +This flag has a similar effect as setting the
-> > > +.B FAN_MARK_IGNORED_MASK
-> > > +flag.
-> > > +The events in
-> > > +.I mask
-> > > +shall be added to or removed from the ignore mask.
-> > > +Unlike the
-> > > +.B FAN_MARK_IGNORED_MASK
-> > > +flag,
-> > > +this flag also has the effect that the
-> > > +.B FAN_ONDIR ,
-> > > +and
-> > > +.B FAN_EVENT_ON_CHILD
-> > > +flags take effect on the ignore mask.
-> > > +Specifically, unless
-> >                         ^
-> >                         the
-> >
-> 
-> ok.
-> 
-> > > +.B FAN_ONDIR
-> > > +flag is set with
-> > > +.BR FAN_MARK_IGNORE ,
-> > > +events on directories will not be ignored
-> >                                             ^
-> >                                             .
-> >
-> > > +and if the flag
-> >
-> > I'd start a new sentence here.
-> 
-> ok.
-> 
-> >
-> > > +.B FAN_EVENT_ON_CHILD
-> > > +is set,
-> > > +events on children will be ignored.
-> > > +For example,
-> > > +a mark on a directory with combination of
-> > > +a mask with
-> > > +.B FAN_CREATE
-> > > +event
-> > > +and
-> > > +.B FAN_ONDIR
-> > > +flag
-> > > +and an ignore mask with
-> > > +.B FAN_CREATE
-> > > +event
-> > > +and without
-> > > +.B FAN_ONDIR
-> > > +flag,
-> > > +will result in getting only events for creation of sub-directories.
-> >                                          ^
-> >                                          the
-> 
-> ok.
-> 
-> >
-> > > +When using this flag to add to an ignore mask
-> > > +of a mount, filesystem, or directory inode mark,
-> > > +the
-> > > +.B FAN_MARK_IGNORED_SURV_MODIFY
-> > > +flag must be specified.
-> > > +Failure to do so will results with
-> > > +.B EINVAL
-> > > +or
-> > > +.B EISDIR
-> > > +error.
-> > >  .TP
-> > >  .B FAN_MARK_IGNORED_SURV_MODIFY
-> > >  The ignore mask shall survive modify events.
-> > >  If this flag is not set,
-> > >  the ignore mask is cleared when a modify event occurs
-> > >  for the ignored file or directory.
-> > > +This flag cannot be removed from a mark once set.
-> > > +When the ignore mask is updated without this flag,
-> >                                                     ^
-> > Don't think the comma is needed here.
-> 
-> ok.
-> 
-> FYI, I pushed the fixes to:
-> 
-> https://github.com/amir73il/man-pages/commits/fan_mark_ignore
+On Wed, 07 Sep 2022, Trond Myklebust wrote:
+> On Wed, 2022-09-07 at 09:12 -0400, Jeff Layton wrote:
+> > On Wed, 2022-09-07 at 08:52 -0400, J. Bruce Fields wrote:
+> > > On Wed, Sep 07, 2022 at 08:47:20AM -0400, Jeff Layton wrote:
+> > > > On Wed, 2022-09-07 at 21:37 +1000, NeilBrown wrote:
+> > > > > On Wed, 07 Sep 2022, Jeff Layton wrote:
+> > > > > > +The change to \fIstatx.stx_ino_version\fP is not atomic with
+> > > > > > respect to the
+> > > > > > +other changes in the inode. On a write, for instance, the
+> > > > > > i_version it usually
+> > > > > > +incremented before the data is copied into the pagecache.
+> > > > > > Therefore it is
+> > > > > > +possible to see a new i_version value while a read still
+> > > > > > shows the old data.
+> > > > >=20
+> > > > > Doesn't that make the value useless?
+> > > > >=20
+> > > >=20
+> > > > No, I don't think so. It's only really useful for comparing to an
+> > > > older
+> > > > sample anyway. If you do "statx; read; statx" and the value
+> > > > hasn't
+> > > > changed, then you know that things are stable.=20
+> > >=20
+> > > I don't see how that helps.=C2=A0 It's still possible to get:
+> > >=20
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0reader=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0writer
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0------=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0------
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0i_version++
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0statx
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0read
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0statx
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0update page cache
+> > >=20
+> > > right?
+> > >=20
+> >=20
+> > Yeah, I suppose so -- the statx wouldn't necessitate any locking. In
+> > that case, maybe this is useless then other than for testing purposes
+> > and userland NFS servers.
+> >=20
+> > Would it be better to not consume a statx field with this if so? What
+> > could we use as an alternate interface? ioctl? Some sort of global
+> > virtual xattr? It does need to be something per-inode.
+>=20
+> I don't see how a non-atomic change attribute is remotely useful even
+> for NFS.
+>=20
+> The main problem is not so much the above (although NFS clients are
+> vulnerable to that too) but the behaviour w.r.t. directory changes.
+>=20
+> If the server can't guarantee that file/directory/... creation and
+> unlink are atomically recorded with change attribute updates, then the
+> client has to always assume that the server is lying, and that it has
+> to revalidate all its caches anyway. Cue endless readdir/lookup/getattr
+> requests after each and every directory modification in order to check
+> that some other client didn't also sneak in a change of their own.
 
-One optional suggestion, but apart from that the refactoring LGTM.
+NFS re-export doesn't support atomic change attributes on directories.
+Do we see the endless revalidate requests after directory modification
+in that situation?  Just curious.
 
-Reviewed-by: Matthew Bobrowski <repnop@google.com>
-
-/M
+Thanks,
+NeilBrown
