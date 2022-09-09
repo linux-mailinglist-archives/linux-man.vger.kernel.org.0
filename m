@@ -2,97 +2,124 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 2ADF85B40EC
-	for <lists+linux-man@lfdr.de>; Fri,  9 Sep 2022 22:45:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7EC215B4182
+	for <lists+linux-man@lfdr.de>; Fri,  9 Sep 2022 23:36:12 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231601AbiIIUo5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 9 Sep 2022 16:44:57 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37656 "EHLO
+        id S231277AbiIIVgK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 9 Sep 2022 17:36:10 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53288 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229890AbiIIUou (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 9 Sep 2022 16:44:50 -0400
-X-Greylist: delayed 613 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Fri, 09 Sep 2022 13:44:35 PDT
-Received: from mail.stoffel.org (li1843-175.members.linode.com [172.104.24.175])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B6AD518E3C;
-        Fri,  9 Sep 2022 13:44:28 -0700 (PDT)
-Received: from quad.stoffel.org (068-116-170-226.res.spectrum.com [68.116.170.226])
-        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-         key-exchange X25519 server-signature RSA-PSS (2048 bits))
-        (No client certificate requested)
-        by mail.stoffel.org (Postfix) with ESMTPSA id 7A8FB270B5;
-        Fri,  9 Sep 2022 16:34:14 -0400 (EDT)
-Received: by quad.stoffel.org (Postfix, from userid 1000)
-        id 2733AA7E79; Fri,  9 Sep 2022 16:34:14 -0400 (EDT)
+        with ESMTP id S230108AbiIIVgI (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 9 Sep 2022 17:36:08 -0400
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4CA84F3439;
+        Fri,  9 Sep 2022 14:36:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1662759366; x=1694295366;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=nOmysUMqkWG2qS+aBrtlAZ6GS6f/rSpIBnTNj+QpHbo=;
+  b=de3r9CquOr4VDK1EF5PyRaYpZkJB7QhoGBMvJTp+YXRzLQd8fx9zaxoB
+   QKPmceGc8GJDR4yechGKwPoSrSti0pVFSnOA5EOz8Y9ORrzcJJRSJXn7S
+   7nrhNUaPts/D0z/a9TogXC0auC3EJQgX066QQQ5UXgFrgaV/HKJ76Q8cM
+   zOyrNH2/uY7Q+OVINXDtPCDbP7P9x8AHMBbxU9D11QnFJAhn76OyUQ8p8
+   2mvYG5WGoV9o1Who/z3nfi83NOHEzHHGqByPk9Ko8KDOpmyc86PTmzYtc
+   K0qzERUnuBWRUvipMxCDxz3lXH9YlyUd3VjzIrCRdgfbV1pav2DV9Pio3
+   Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10465"; a="361529380"
+X-IronPort-AV: E=Sophos;i="5.93,304,1654585200"; 
+   d="scan'208";a="361529380"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2022 14:36:05 -0700
+X-IronPort-AV: E=Sophos;i="5.93,304,1654585200"; 
+   d="scan'208";a="566506447"
+Received: from omeier-mobl1.ger.corp.intel.com (HELO [10.209.54.138]) ([10.209.54.138])
+  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2022 14:36:05 -0700
+Message-ID: <129981cd-32b7-0228-f932-4367f6c79316@intel.com>
+Date:   Fri, 9 Sep 2022 14:36:05 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH v4 1/4] Documentation/x86: Explain the purpose for dynamic
+ features
+Content-Language: en-US
+To:     "Chang S. Bae" <chang.seok.bae@intel.com>, x86@kernel.org,
+        tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
+        dave.hansen@linux.intel.com
+Cc:     hpa@zytor.com, corbet@lwn.net, bagasdotme@gmail.com,
+        tony.luck@intel.com, yang.zhong@intel.com,
+        linux-doc@vger.kernel.org, linux-man@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20220909201540.17705-1-chang.seok.bae@intel.com>
+ <20220909201540.17705-2-chang.seok.bae@intel.com>
+From:   Dave Hansen <dave.hansen@intel.com>
+In-Reply-To: <20220909201540.17705-2-chang.seok.bae@intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID: <25371.41798.87576.861659@quad.stoffel.home>
-Date:   Fri, 9 Sep 2022 16:34:14 -0400
-From:   "John Stoffel" <john@stoffel.org>
-To:     Jeff Layton <jlayton@kernel.org>
-Cc:     "J. Bruce Fields" <bfields@fieldses.org>,
-        Theodore Ts'o <tytso@mit.edu>, Jan Kara <jack@suse.cz>,
-        NeilBrown <neilb@suse.de>, adilger.kernel@dilger.ca,
-        djwong@kernel.org, david@fromorbit.com, trondmy@hammerspace.com,
-        viro@zeniv.linux.org.uk, zohar@linux.ibm.com, xiubli@redhat.com,
-        chuck.lever@oracle.com, lczerner@redhat.com, brauner@kernel.org,
-        fweimer@redhat.com, linux-man@vger.kernel.org,
-        linux-api@vger.kernel.org, linux-btrfs@vger.kernel.org,
-        linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-        ceph-devel@vger.kernel.org, linux-ext4@vger.kernel.org,
-        linux-nfs@vger.kernel.org, linux-xfs@vger.kernel.org
-Subject: Re: [man-pages RFC PATCH v4] statx, inode: document the new
- STATX_INO_VERSION field
-In-Reply-To: <44efe219dbf511492b21a653905448d43d0f3363.camel@kernel.org>
-References: <79aaf122743a295ddab9525d9847ac767a3942aa.camel@kernel.org>
-        <20220907125211.GB17729@fieldses.org>
-        <771650a814ab1ff4dc5473d679936b747d9b6cf5.camel@kernel.org>
-        <20220907135153.qvgibskeuz427abw@quack3>
-        <166259786233.30452.5417306132987966849@noble.neil.brown.name>
-        <20220908083326.3xsanzk7hy3ff4qs@quack3>
-        <YxoIjV50xXKiLdL9@mit.edu>
-        <02928a8c5718590bea5739b13d6b6ebe66cac577.camel@kernel.org>
-        <20220908155605.GD8951@fieldses.org>
-        <9e06c506fd6b3e3118da0ec24276e85ea3ee45a1.camel@kernel.org>
-        <20220908182252.GA18939@fieldses.org>
-        <44efe219dbf511492b21a653905448d43d0f3363.camel@kernel.org>
-X-Mailer: VM 8.2.0b under 27.1 (x86_64-pc-linux-gnu)
-X-Spam-Status: No, score=-4.0 required=5.0 tests=BAYES_00,NICE_REPLY_A,
-        SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
-        autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-6.5 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
+        RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
->>>>> "Jeff" == Jeff Layton <jlayton@kernel.org> writes:
+On 9/9/22 13:15, Chang S. Bae wrote:
+> +The purpose for dynamic features
+> +--------------------------------
+> +
+> + - Legacy userspace libraries have hard-coded sizes for an alternate signal
+> +   stack. With the arch_prctl() options, the signal frame beyond AVX-512
+> +   and PKRU will not be written by old programs as they are prevented from
+> +   using dynamic features. Then, the small signal stack will be compatible
+> +   on systems that support dynamic features.
 
-> On Thu, 2022-09-08 at 14:22 -0400, J. Bruce Fields wrote:
->> On Thu, Sep 08, 2022 at 01:40:11PM -0400, Jeff Layton wrote:
->> > Yeah, ok. That does make some sense. So we would mix this into the
->> > i_version instead of the ctime when it was available. Preferably, we'd
->> > mix that in when we store the i_version rather than adding it afterward.
->> > 
->> > Ted, how would we access this? Maybe we could just add a new (generic)
->> > super_block field for this that ext4 (and other filesystems) could
->> > populate at mount time?
->> 
->> Couldn't the filesystem just return an ino_version that already includes
->> it?
->> 
+This doesn't really ever broach the _problem_ that dynamic features solve.
 
-> Yes. That's simple if we want to just fold it in during getattr. If we
-> want to fold that into the values stored on disk, then I'm a little less
-> clear on how that will work.
+	Legacy userspace libraries often have hard-coded, static sizes
+	for alternate signal stacks, often using MINSIGSTKSZ which is
+	typically 2k.  That stack must be able to store at *least*
+	the signal frame that the kernel sets up before jumping into
+	the signal handler.  That signal frame must include an XSAVE
+	buffer defined by the CPU.
 
-I wonder if this series should also include some updates to the
-various xfstests to hopefully document in code what this statx() call
-will do in various situations.  Or at least document how to test it in
-some manner?  Especially since it's layers on top of layers to make
-this work. 
+	However, that means that the size of signal stacks is dynamic,
+	not static, because different CPUs have differently-sized XSAVE
+	buffers.  Those old <=2k buffers are now too small for new CPU
+	features like AVX-512, which is causing stack overflows at
+	signal entry.
 
-My assumption is that if the underlying filesystem doesn't support the
-new values, it just returns 0 or c_time?
 
-John
+> + - Modern server systems are consolidating more applications to share the
+> +   CPU resource.
+
+I'm not sure what this means.  Are you saying that CPU time is more
+overcommitted?  Or that different users are more likely to be sharing
+the same CPU core?  Or, is this trying to allude to the frequency
+penalties that cores (and even packages) pay for using features like
+AVX-512?
+
+> The risk of applications interfering with each other is
+> +   growing. The controllability on the resource trends to be more
+> +   warranted. Thus, this permission mechanism will be useful for that.
+
+Should this be something more like:
+
+Historically, a CPU shared very few resources with its neighbors outside
+of caches.  A CPU could execute whatever instructions it wanted without
+impacting other CPUs.  Also, there were minimal long-lasting temporal
+effects; an application that preceded yours running on a CPU would not
+impact how your application runs.
+
+That model has been eroding, first with SMT where multiple logical CPUs
+share a core's resources.  Then, with features like AVX-512 that have a
+frequency and thermal impact which can last even after AVX-512 use
+ceases and have an impact wider than a single core.
+
+In other words, it has become easier to be a "noisy neighbor".
+
+Dynamic features allow the kernel limit applications' ability to become
+noisy neighbors in the first place.
