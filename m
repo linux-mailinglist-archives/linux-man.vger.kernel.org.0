@@ -2,125 +2,97 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id AC3BB5B409D
-	for <lists+linux-man@lfdr.de>; Fri,  9 Sep 2022 22:26:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2ADF85B40EC
+	for <lists+linux-man@lfdr.de>; Fri,  9 Sep 2022 22:45:02 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232265AbiIIU0i (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 9 Sep 2022 16:26:38 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52776 "EHLO
+        id S231601AbiIIUo5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 9 Sep 2022 16:44:57 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37656 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232259AbiIIU0R (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 9 Sep 2022 16:26:17 -0400
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 576C0128C09;
-        Fri,  9 Sep 2022 13:25:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1662755142; x=1694291142;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references;
-  bh=XqLKA3MmjgworvdcvPYyVZ8zmzETc51MsjZvmPVofAk=;
-  b=XzLCS96C9mf5FjOB1vXos6sTZYwBfzaHvs3ruW91Ln0jBV+DDdqn//Vi
-   pWsyT1NafEwq8G59gUD1P16WAM/47krcPmxu0x92hX7AkJFLfOww2T4i6
-   cZ+r+cazbo2Tcexv0VAlav0EteMhRQioGCxyUE5j6OdYy0YAEJXJ5RMSb
-   7t3Fib8gxo+pEo5t0Qa3698wAvNLYGCFFjK2N0uox9eoWsYfJjKFapjgU
-   ko0/W4m1ShsJVzyRfb0GDbWQzzZ5ui0f2DASIV59Im1MW9nlz1cq/kiAV
-   y4ArWgkWg/V3C2bhePkZTMSZ1S4bjm4MzAoQeLBSjXlZEvVvRZMiOlQc0
-   g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10465"; a="280584706"
-X-IronPort-AV: E=Sophos;i="5.93,304,1654585200"; 
-   d="scan'208";a="280584706"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
-  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2022 13:25:36 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.93,304,1654585200"; 
-   d="scan'208";a="611163005"
-Received: from chang-linux-3.sc.intel.com ([172.25.66.173])
-  by orsmga007.jf.intel.com with ESMTP; 09 Sep 2022 13:25:36 -0700
-From:   "Chang S. Bae" <chang.seok.bae@intel.com>
-To:     x86@kernel.org, tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
-        dave.hansen@linux.intel.com
-Cc:     hpa@zytor.com, corbet@lwn.net, bagasdotme@gmail.com,
-        tony.luck@intel.com, yang.zhong@intel.com,
-        linux-doc@vger.kernel.org, linux-man@vger.kernel.org,
-        linux-kernel@vger.kernel.org, chang.seok.bae@intel.com
-Subject: [PATCH v4 4/4] Documentation/x86: Explain the state component permission for guests
-Date:   Fri,  9 Sep 2022 13:15:40 -0700
-Message-Id: <20220909201540.17705-5-chang.seok.bae@intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20220909201540.17705-1-chang.seok.bae@intel.com>
-References: <20220909201540.17705-1-chang.seok.bae@intel.com>
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,
-        SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=ham autolearn_force=no
-        version=3.4.6
+        with ESMTP id S229890AbiIIUou (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 9 Sep 2022 16:44:50 -0400
+X-Greylist: delayed 613 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Fri, 09 Sep 2022 13:44:35 PDT
+Received: from mail.stoffel.org (li1843-175.members.linode.com [172.104.24.175])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B6AD518E3C;
+        Fri,  9 Sep 2022 13:44:28 -0700 (PDT)
+Received: from quad.stoffel.org (068-116-170-226.res.spectrum.com [68.116.170.226])
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+         key-exchange X25519 server-signature RSA-PSS (2048 bits))
+        (No client certificate requested)
+        by mail.stoffel.org (Postfix) with ESMTPSA id 7A8FB270B5;
+        Fri,  9 Sep 2022 16:34:14 -0400 (EDT)
+Received: by quad.stoffel.org (Postfix, from userid 1000)
+        id 2733AA7E79; Fri,  9 Sep 2022 16:34:14 -0400 (EDT)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-ID: <25371.41798.87576.861659@quad.stoffel.home>
+Date:   Fri, 9 Sep 2022 16:34:14 -0400
+From:   "John Stoffel" <john@stoffel.org>
+To:     Jeff Layton <jlayton@kernel.org>
+Cc:     "J. Bruce Fields" <bfields@fieldses.org>,
+        Theodore Ts'o <tytso@mit.edu>, Jan Kara <jack@suse.cz>,
+        NeilBrown <neilb@suse.de>, adilger.kernel@dilger.ca,
+        djwong@kernel.org, david@fromorbit.com, trondmy@hammerspace.com,
+        viro@zeniv.linux.org.uk, zohar@linux.ibm.com, xiubli@redhat.com,
+        chuck.lever@oracle.com, lczerner@redhat.com, brauner@kernel.org,
+        fweimer@redhat.com, linux-man@vger.kernel.org,
+        linux-api@vger.kernel.org, linux-btrfs@vger.kernel.org,
+        linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+        ceph-devel@vger.kernel.org, linux-ext4@vger.kernel.org,
+        linux-nfs@vger.kernel.org, linux-xfs@vger.kernel.org
+Subject: Re: [man-pages RFC PATCH v4] statx, inode: document the new
+ STATX_INO_VERSION field
+In-Reply-To: <44efe219dbf511492b21a653905448d43d0f3363.camel@kernel.org>
+References: <79aaf122743a295ddab9525d9847ac767a3942aa.camel@kernel.org>
+        <20220907125211.GB17729@fieldses.org>
+        <771650a814ab1ff4dc5473d679936b747d9b6cf5.camel@kernel.org>
+        <20220907135153.qvgibskeuz427abw@quack3>
+        <166259786233.30452.5417306132987966849@noble.neil.brown.name>
+        <20220908083326.3xsanzk7hy3ff4qs@quack3>
+        <YxoIjV50xXKiLdL9@mit.edu>
+        <02928a8c5718590bea5739b13d6b6ebe66cac577.camel@kernel.org>
+        <20220908155605.GD8951@fieldses.org>
+        <9e06c506fd6b3e3118da0ec24276e85ea3ee45a1.camel@kernel.org>
+        <20220908182252.GA18939@fieldses.org>
+        <44efe219dbf511492b21a653905448d43d0f3363.camel@kernel.org>
+X-Mailer: VM 8.2.0b under 27.1 (x86_64-pc-linux-gnu)
+X-Spam-Status: No, score=-4.0 required=5.0 tests=BAYES_00,NICE_REPLY_A,
+        SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Commit 980fe2fddcff ("x86/fpu: Extend fpu_xstate_prctl() with guest
-permissions") extends a couple of arch_prctl(2) options for VCPU threads.
-Add description for them.
+>>>>> "Jeff" == Jeff Layton <jlayton@kernel.org> writes:
 
-Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
-Reviewed-by: Thiago Macieira <thiago.macieira@intel.com>
-Reviewed-by: Yang Zhong <yang.zhong@intel.com>
-Reviewed-by: Tony Luck <tony.luck@intel.com>
-Cc: x86@kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-doc@vger.kernel.org
----
-Changes from v1:
-* Add the reason for the guest options (Dave Hansen).
-* Add a note to allude some VMM policy, i.e. KVM_X86_XCOMP_GUEST_SUPP.
-* Move it in the separate section.
+> On Thu, 2022-09-08 at 14:22 -0400, J. Bruce Fields wrote:
+>> On Thu, Sep 08, 2022 at 01:40:11PM -0400, Jeff Layton wrote:
+>> > Yeah, ok. That does make some sense. So we would mix this into the
+>> > i_version instead of the ctime when it was available. Preferably, we'd
+>> > mix that in when we store the i_version rather than adding it afterward.
+>> > 
+>> > Ted, how would we access this? Maybe we could just add a new (generic)
+>> > super_block field for this that ext4 (and other filesystems) could
+>> > populate at mount time?
+>> 
+>> Couldn't the filesystem just return an ino_version that already includes
+>> it?
+>> 
 
-Note the correspondent attributes were also proposed for the KVM API. But,
-it was seen as inessential:
-    https://lore.kernel.org/lkml/20220823231402.7839-1-chang.seok.bae@intel.com/
----
- Documentation/x86/xstate.rst | 29 +++++++++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
+> Yes. That's simple if we want to just fold it in during getattr. If we
+> want to fold that into the values stored on disk, then I'm a little less
+> clear on how that will work.
 
-diff --git a/Documentation/x86/xstate.rst b/Documentation/x86/xstate.rst
-index f7aad2241d32..fd7b5333bd70 100644
---- a/Documentation/x86/xstate.rst
-+++ b/Documentation/x86/xstate.rst
-@@ -141,3 +141,32 @@ entry if the feature is in its initial configuration.  This differs from
- non-dynamic features which are always written regardless of their
- configuration.  Signal handlers can examine the XSAVE buffer's XSTATE_BV
- field to determine if a features was written.
-+
-+Dynamic features for virtual machines
-+-------------------------------------
-+
-+The permission for the guest state component needs to be managed separately
-+from the host, as they are exclusive to each other. A coupled of options
-+are extended to control the guest permission:
-+
-+-ARCH_GET_XCOMP_GUEST_PERM
-+
-+ arch_prctl(ARCH_GET_XCOMP_GUEST_PERM, &features);
-+
-+ ARCH_GET_XCOMP_GUEST_PERM is a variant of ARCH_GET_XCOMP_PERM. So it
-+ provides the same semantics and functionality but for the guest
-+ components.
-+
-+-ARCH_REQ_XCOMP_GUEST_PERM
-+
-+ arch_prctl(ARCH_REQ_XCOMP_GUEST_PERM, feature_nr);
-+
-+ ARCH_REQ_XCOMP_GUEST_PERM is a variant of ARCH_REQ_XCOMP_PERM. It has the
-+ same semantics for the guest permission. While providing a similiar
-+ functionality, this comes with a constraint. Permission is frozen when the
-+ first VCPU is created. Any attempt to change permission after that point
-+ is going to be rejected. So, the permission has to be requested before the
-+ first VCPU creation.
-+
-+Note that some VMMs may have already established a set of supported state
-+components. These options are not presumed to support any particular VMM.
--- 
-2.17.1
+I wonder if this series should also include some updates to the
+various xfstests to hopefully document in code what this statx() call
+will do in various situations.  Or at least document how to test it in
+some manner?  Especially since it's layers on top of layers to make
+this work. 
 
+My assumption is that if the underlying filesystem doesn't support the
+new values, it just returns 0 or c_time?
+
+John
