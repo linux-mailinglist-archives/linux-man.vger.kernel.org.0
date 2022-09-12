@@ -2,213 +2,88 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id BB6345B5978
-	for <lists+linux-man@lfdr.de>; Mon, 12 Sep 2022 13:42:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 4FF515B59A3
+	for <lists+linux-man@lfdr.de>; Mon, 12 Sep 2022 13:50:22 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230052AbiILLma (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 12 Sep 2022 07:42:30 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:32942 "EHLO
+        id S229608AbiILLuV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 12 Sep 2022 07:50:21 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43724 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229893AbiILLm0 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 12 Sep 2022 07:42:26 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3101E3C8EC;
-        Mon, 12 Sep 2022 04:42:21 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id 82E67611D4;
-        Mon, 12 Sep 2022 11:42:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD330C433D6;
-        Mon, 12 Sep 2022 11:42:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1662982939;
-        bh=J80lqO8T+MQ009K2wk7kCJ5IpBgUGLtZUqfovw09npg=;
-        h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-        b=R5fk2SYJ7keuw/mT8+NbWJTppM0IQktpH5ycR32l7IPSkyvAwv40AVRgGRgvDg8A0
-         abVTcNlEm3+UVioXgJXkdEhp7uE8GI9Xqtfz3FodSdqpv4JgTppU9ky4Tdb5nBtLod
-         g/ZTzyHYWwKUh1mzlqzyWS3ahOV+A+xPZyB7METhkCmWRubnL2UatKVYnByQNKhZ98
-         QIDD+Qx+QL+cZbz5JPUuPPFcK4hkHwy4x/VcX4+kbj3Xyq5skEkOWOfPGLfSjoOQUw
-         /M3LsCzWPsjZvl5MQ/DsuiLLOICMYz5SH4FlQ2c1e+LXHGrAdgbWG1HWvRuFV+4k+4
-         wXJRcr+6no2kw==
-Message-ID: <9eaed9a47d1aef11fee95f0079e302bc776bc7ff.camel@kernel.org>
-Subject: Re: [man-pages RFC PATCH v4] statx, inode: document the new
- STATX_INO_VERSION field
-From:   Jeff Layton <jlayton@kernel.org>
-To:     "J. Bruce Fields" <bfields@fieldses.org>
-Cc:     Theodore Ts'o <tytso@mit.edu>, Jan Kara <jack@suse.cz>,
-        NeilBrown <neilb@suse.de>, adilger.kernel@dilger.ca,
-        djwong@kernel.org, david@fromorbit.com, trondmy@hammerspace.com,
-        viro@zeniv.linux.org.uk, zohar@linux.ibm.com, xiubli@redhat.com,
-        chuck.lever@oracle.com, lczerner@redhat.com, brauner@kernel.org,
-        fweimer@redhat.com, linux-man@vger.kernel.org,
-        linux-api@vger.kernel.org, linux-btrfs@vger.kernel.org,
-        linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-        ceph-devel@vger.kernel.org, linux-ext4@vger.kernel.org,
-        linux-nfs@vger.kernel.org, linux-xfs@vger.kernel.org
-Date:   Mon, 12 Sep 2022 07:42:16 -0400
-In-Reply-To: <20220910145600.GA347@fieldses.org>
-References: <166259786233.30452.5417306132987966849@noble.neil.brown.name>
-         <20220908083326.3xsanzk7hy3ff4qs@quack3> <YxoIjV50xXKiLdL9@mit.edu>
-         <02928a8c5718590bea5739b13d6b6ebe66cac577.camel@kernel.org>
-         <20220908155605.GD8951@fieldses.org>
-         <9e06c506fd6b3e3118da0ec24276e85ea3ee45a1.camel@kernel.org>
-         <20220908182252.GA18939@fieldses.org>
-         <44efe219dbf511492b21a653905448d43d0f3363.camel@kernel.org>
-         <20220909154506.GB5674@fieldses.org>
-         <125df688dbebaf06478b0911e76e228e910b04b3.camel@kernel.org>
-         <20220910145600.GA347@fieldses.org>
-Content-Type: text/plain; charset="ISO-8859-15"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4 (3.44.4-1.fc36) 
+        with ESMTP id S229575AbiILLuU (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 12 Sep 2022 07:50:20 -0400
+Received: from mail-ej1-x642.google.com (mail-ej1-x642.google.com [IPv6:2a00:1450:4864:20::642])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E5A07201B1
+        for <linux-man@vger.kernel.org>; Mon, 12 Sep 2022 04:50:19 -0700 (PDT)
+Received: by mail-ej1-x642.google.com with SMTP id lc7so19646339ejb.0
+        for <linux-man@vger.kernel.org>; Mon, 12 Sep 2022 04:50:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=to:subject:message-id:date:from:sender:mime-version:from:to:cc
+         :subject:date;
+        bh=uQA+aIRjxMq5Er54+7F1flIAXLVuG7LSZ6eBJwAUGBk=;
+        b=eLVtxydq7udkaajCSitUkhh8wp5x0prb8V768A68j3sqEREpd5K5mkT8AEm3IcU1uw
+         qTCl24O4x8dCgjQDHMPuu3MoItWSEu2k/BSmsTYrgXsY6e4iRDN7cNXD68LwCiEXmCyo
+         mPJ/6ou1bVpwT02FnsvpFjG8e8F430GR1Ywp3Id5rcsFA9n/9+GIczkYNyLEj8TtKR60
+         1yup6xSgL/ybVJS0/cvhx/eFt5kj6huDNmSJzf9dUfiPrI6FKmfrcwjVqQY2xXHcg8p9
+         PJf9DF3R1iIMu9DLY/tF/Cd6KtML2AgeyGy9ouYxUc7RX5Yq3fX76dtcVjKifGy2ifCx
+         xp/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=to:subject:message-id:date:from:sender:mime-version
+         :x-gm-message-state:from:to:cc:subject:date;
+        bh=uQA+aIRjxMq5Er54+7F1flIAXLVuG7LSZ6eBJwAUGBk=;
+        b=JF3OGgbUUmLnXMskqOoylXK/Jin/p5OooBH0ffhbXrzVw2ZlJDeRh7gmPdyMGps8SC
+         jGdYsCvxu/zYQ5SM8GzaVs0HhCT30E3xAjOeX6Nv1PozeVdpOKvl3ie5o0GWq08zQVhr
+         qU+NETpMlOxds9k81RlTRuv6d/DxoXX0WwDtJaywLoklF86IMWafdw4ghutO7ZSBXqit
+         XDzFb96EGccF33ltl8Y9wilG6KVFe4w8cIQDXibC3AvgReMa38/2ca4Iug34vcQgs6ks
+         Nef5SiPHbxXIyP0e5EolV+iENXLltPJpT4TFjTdswnKbP9NpX/4PlBWAZWepebESqOmQ
+         Ykpw==
+X-Gm-Message-State: ACgBeo1Hp5+d38LHucBiTneEJZwd/W+E0ebHuAa1iWnLBluTrgIYS8js
+        OjlYG6RhA2/TOP5xrMaPzEnRjTawwYicXP+VTxg=
+X-Google-Smtp-Source: AA6agR7GJbctn5dduj2hq2TNCmc/OL2IRABizn7D0ayt7jb5iHfFed3U5y6PYw+vtwyzGrGj4w29bvM/hd58KLgFDdU=
+X-Received: by 2002:a17:907:1b1c:b0:72f:9aac:ee41 with SMTP id
+ mp28-20020a1709071b1c00b0072f9aacee41mr18283918ejc.56.1662983418290; Mon, 12
+ Sep 2022 04:50:18 -0700 (PDT)
 MIME-Version: 1.0
-X-Spam-Status: No, score=-7.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
-        autolearn_force=no version=3.4.6
+Sender: flanrodolphe@gmail.com
+Received: by 2002:a05:6f02:ca18:b0:24:46bd:f03d with HTTP; Mon, 12 Sep 2022
+ 04:50:17 -0700 (PDT)
+From:   Hannah Alex <hannah.aalex1@gmail.com>
+Date:   Mon, 12 Sep 2022 11:50:17 +0000
+X-Google-Sender-Auth: UvQfx53H6fveTY0NPui7nyKRmKM
+Message-ID: <CAPF29T+VpdR53Ate6_UkuF0xYxXmPxJ29WsgcHtaFkDTjqRV_w@mail.gmail.com>
+Subject: HELLO
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
+X-Spam-Status: No, score=4.2 required=5.0 tests=ADVANCE_FEE_5_NEW,BAYES_80,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+        UNDISC_MONEY autolearn=no autolearn_force=no version=3.4.6
+X-Spam-Level: ****
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Sat, 2022-09-10 at 10:56 -0400, J. Bruce Fields wrote:
-> On Fri, Sep 09, 2022 at 12:36:29PM -0400, Jeff Layton wrote:
-> > On Fri, 2022-09-09 at 11:45 -0400, J. Bruce Fields wrote:
-> > > On Thu, Sep 08, 2022 at 03:07:58PM -0400, Jeff Layton wrote:
-> > > > On Thu, 2022-09-08 at 14:22 -0400, J. Bruce Fields wrote:
-> > > > > On Thu, Sep 08, 2022 at 01:40:11PM -0400, Jeff Layton wrote:
-> > > > > > Yeah, ok. That does make some sense. So we would mix this into =
-the
-> > > > > > i_version instead of the ctime when it was available. Preferabl=
-y, we'd
-> > > > > > mix that in when we store the i_version rather than adding it a=
-fterward.
-> > > > > >=20
-> > > > > > Ted, how would we access this? Maybe we could just add a new (g=
-eneric)
-> > > > > > super_block field for this that ext4 (and other filesystems) co=
-uld
-> > > > > > populate at mount time?
-> > > > >=20
-> > > > > Couldn't the filesystem just return an ino_version that already i=
-ncludes
-> > > > > it?
-> > > > >=20
-> > > >=20
-> > > > Yes. That's simple if we want to just fold it in during getattr. If=
- we
-> > > > want to fold that into the values stored on disk, then I'm a little=
- less
-> > > > clear on how that will work.
-> > > >=20
-> > > > Maybe I need a concrete example of how that will work:
-> > > >=20
-> > > > Suppose we have an i_version value X with the previous crash counte=
-r
-> > > > already factored in that makes it to disk. We hand out a newer vers=
-ion
-> > > > X+1 to a client, but that value never makes it to disk.
-> > > >=20
-> > > > The machine crashes and comes back up, and we get a query for i_ver=
-sion
-> > > > and it comes back as X. Fine, it's an old version. Now there is a w=
-rite.
-> > > > What do we do to ensure that the new value doesn't collide with X+1=
-?=20
-> > >=20
-> > > I was assuming we could partition i_version's 64 bits somehow: e.g., =
-top
-> > > 16 bits store the crash counter.  You increment the i_version by: 1)
-> > > replacing the top bits by the new crash counter, if it has changed, a=
-nd
-> > > 2) incrementing.
-> > >=20
-> > > Do the numbers work out?  2^16 mounts after unclean shutdowns sounds
-> > > like a lot for one filesystem, as does 2^48 changes to a single file,
-> > > but people do weird things.  Maybe there's a better partitioning, or
-> > > some more flexible way of maintaining an i_version that still allows =
-you
-> > > to identify whether a given i_version preceded a crash.
-> > >=20
-> >=20
-> > We consume one bit to keep track of the "seen" flag, so it would be a
-> > 16+47 split. I assume that we'd also reset the version counter to 0 whe=
-n
-> > the crash counter changes? Maybe that doesn't matter as long as we don'=
-t
-> > overflow into the crash counter.
-> >=20
-> > I'm not sure we can get away with 16 bits for the crash counter, as
-> > it'll leave us subject to the version counter wrapping after a long
-> > uptimes.=20
-> >=20
-> > If you increment a counter every nanosecond, how long until that counte=
-r
-> > wraps? With 63 bits, that's 292 years (and change). With 16+47 bits,
-> > that's less than two days. An 8+55 split would give us ~416 days which
-> > seems a bit more reasonable?
->=20
-> Though now it's starting to seem a little limiting to allow only 2^8
-> mounts after unclean shutdowns.
->=20
-> Another way to think of it might be: multiply that 8-bit crash counter
-> by 2^48, and think of it as a 64-bit value that we believe (based on
-> practical limits on how many times you can modify a single file) is
-> gauranteed to be larger than any i_version that we gave out before the
-> most recent crash.
->=20
-> Our goal is to ensure that after a crash, any *new* i_versions that we
-> give out or write to disk are larger than any that have previously been
-> given out.  We can do that by ensuring that they're equal to at least
-> that old maximum.
->=20
-> So think of the 64-bit value we're storing in the superblock as a
-> ceiling on i_version values across all the filesystem's inodes.  Call it
-> s_version_max or something.  We also need to know what the maximum was
-> before the most recent crash.  Call that s_version_max_old.
->=20
-> Then we could get correct behavior if we generated i_versions with
-> something like:
->=20
-> 	i_version++;
-> 	if (i_version < s_version_max_old)
-> 		i_version =3D s_version_max_old;
-> 	if (i_version > s_version_max)
-> 		s_version_max =3D i_version + 1;
->=20
-> But that last step makes this ludicrously expensive, because for this to
-> be safe across crashes we need to update that value on disk as well, and
-> we need to do that frequently.
->=20
-> Fortunately, s_version_max doesn't have to be a tight bound at all.  We
-> can easily just initialize it to, say, 2^40, and only bump it by 2^40 at
-> a time.  And recognize when we're running up against it way ahead of
-> time, so we only need to say "here's an updated value, could you please
-> make sure it gets to disk sometime in the next twenty minutes"?
-> (Numbers made up.)
->=20
-> Sorry, that was way too many words.  But I think something like that
-> could work, and make it very difficult to hit any hard limits, and
-> actually not be too complicated??  Unless I missed something.
->=20
-
-That's not too many words -- I appreciate a good "for dummies"
-explanation!
-
-A scheme like that could work. It might be hard to do it without a
-spinlock or something, but maybe that's ok. Thinking more about how we'd
-implement this in the underlying filesystems:
-
-To do this we'd need 2 64-bit fields in the on-disk and in-memory=20
-superblocks for ext4, xfs and btrfs. On the first mount after a crash,
-the filesystem would need to bump s_version_max by the significant
-increment (2^40 bits or whatever). On a "clean" mount, it wouldn't need
-to do that.
-
-Would there be a way to ensure that the new s_version_max value has made
-it to disk? Bumping it by a large value and hoping for the best might be
-ok for most cases, but there are always outliers, so it might be
-worthwhile to make an i_version increment wait on that if necessary.=20
---=20
-Jeff Layton <jlayton@kernel.org>
+Dearest,
+My name is Hannah Alex, I would like to inquire about your services to be my
+foreign partner / investor and help me to transfer and manage my
+funds by investing in profit making ventures like buying of company
+shares or Real Estate in your country. I have a reasonable sum that I
+inherited from my late father, which I would like you to help me invest in
+your country.i enclose my personal photos,proof of payment of the fund,my
+international passport,my late fathers death certificate and a four page
+will from my late father.i am sending you all this so that you can have
+confidence that you are dealing with a real person
+Note: below are the major reasons I am contacting you.
+(1) To provide a new empty bank account in which this money would be
+transferred. if you do not want us to use your personal account.
+(2) To serve as a guardian of this fund since the bank insisted that their
+agreement with my father was that I provide a foreign partner before
+releasing the fund.
+(3) To make arrangements for me to come over to your country to further my
+education and to secure a resident permit in your country.
+Please reply as soon as you read this message for more details and proof.
+Kind regards.
+Hannah Alex.
