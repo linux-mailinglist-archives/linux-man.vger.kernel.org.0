@@ -2,201 +2,149 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id A84CB5B5DA4
-	for <lists+linux-man@lfdr.de>; Mon, 12 Sep 2022 17:49:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5BC6E5B63EE
+	for <lists+linux-man@lfdr.de>; Tue, 13 Sep 2022 01:14:58 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230378AbiILPto (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 12 Sep 2022 11:49:44 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55146 "EHLO
+        id S229938AbiILXOx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 12 Sep 2022 19:14:53 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44662 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230354AbiILPtk (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 12 Sep 2022 11:49:40 -0400
-Received: from ams.source.kernel.org (ams.source.kernel.org [IPv6:2604:1380:4601:e00::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 66FCB6419;
-        Mon, 12 Sep 2022 08:49:39 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        with ESMTP id S229436AbiILXOu (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 12 Sep 2022 19:14:50 -0400
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 248B6B1E5;
+        Mon, 12 Sep 2022 16:14:47 -0700 (PDT)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+         key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
         (No client certificate requested)
-        by ams.source.kernel.org (Postfix) with ESMTPS id 01429B80DB9;
-        Mon, 12 Sep 2022 15:49:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84D37C433C1;
-        Mon, 12 Sep 2022 15:49:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1662997776;
-        bh=Y9o8zlfMXVNo23NhygxCl5rFupwZ9JDKU3q8+i8soGs=;
-        h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-        b=VgtwOgaOC5ZZZKkHfIbpB574JJEJoW23SXv6vimyQ2E1GZB5xR05EY54KK2XjKTQL
-         RuWGai+VBLlIHFi7nY6rbzs9+SbPCKNiChnIdOWdNfZ/GHCGtjH0ZzOdaYHWLEKBBQ
-         rcAw9ghpBEVXcE8bjP4GrwYj1Ahu4PzyQ3EEfVbx+NaXmVeffa939fEiix8ie8z9TR
-         i8iTLXaYSq9HD9AFPkI/HN5maYCq4lDKoCuMvS/tqG7CFhcIT0iQ4ePyQY0SsUI0HT
-         vMiIPRHoFzoXgYtCZ8+s4l/lefw4tdfUv3svux60hS94qA8CxQc+bobZwTg5Cq9PpS
-         LREs3tt82vYCw==
-Message-ID: <f50919004f95782f0e8f26d9ac0513ee0c7ee432.camel@kernel.org>
+        by smtp-out2.suse.de (Postfix) with ESMTPS id 2B3A620D7E;
+        Mon, 12 Sep 2022 23:14:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+        t=1663024486; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+         mime-version:mime-version:content-type:content-type:
+         content-transfer-encoding:content-transfer-encoding:
+         in-reply-to:in-reply-to:references:references;
+        bh=FGsc36i9kOD73ZWzNaxwNDQZ5w1zThYCY/lFJv6Qf/o=;
+        b=PTCTiFZz1AwFvPPwx0WlVz/1//EZ3TIV2Dj4idg4LCuDxZz0bpV3P9TAUg5nUe32Lj5+0q
+        7uWwHCgCY0hwB/hyiztHv+FUxC2QuC1zwaCElq51YqU3o+1c4NAxsuBOSknhO2j13zWxrY
+        Q9hWCjvyjCOZDBT9zCC3eSmsuwxLDWI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+        s=susede2_ed25519; t=1663024486;
+        h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+         mime-version:mime-version:content-type:content-type:
+         content-transfer-encoding:content-transfer-encoding:
+         in-reply-to:in-reply-to:references:references;
+        bh=FGsc36i9kOD73ZWzNaxwNDQZ5w1zThYCY/lFJv6Qf/o=;
+        b=JpZoJo3akYzygJZ23V3z21LRW4JeUQhac6dvAmMBbG/80HmXiag7Agdu6gOaFmPBZJXg4j
+        OQW606Vwm/ahV7AA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+         key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+        (No client certificate requested)
+        by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C48A4139C8;
+        Mon, 12 Sep 2022 23:14:37 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+        by imap2.suse-dmz.suse.de with ESMTPSA
+        id 4UiSHl29H2NAbgAAMHmgww
+        (envelope-from <neilb@suse.de>); Mon, 12 Sep 2022 23:14:37 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+From:   "NeilBrown" <neilb@suse.de>
+To:     "J. Bruce Fields" <bfields@fieldses.org>
+Cc:     "Jeff Layton" <jlayton@kernel.org>,
+        "Theodore Ts'o" <tytso@mit.edu>, "Jan Kara" <jack@suse.cz>,
+        adilger.kernel@dilger.ca, djwong@kernel.org, david@fromorbit.com,
+        trondmy@hammerspace.com, viro@zeniv.linux.org.uk,
+        zohar@linux.ibm.com, xiubli@redhat.com, chuck.lever@oracle.com,
+        lczerner@redhat.com, brauner@kernel.org, fweimer@redhat.com,
+        linux-man@vger.kernel.org, linux-api@vger.kernel.org,
+        linux-btrfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+        linux-kernel@vger.kernel.org, ceph-devel@vger.kernel.org,
+        linux-ext4@vger.kernel.org, linux-nfs@vger.kernel.org,
+        linux-xfs@vger.kernel.org
 Subject: Re: [man-pages RFC PATCH v4] statx, inode: document the new
  STATX_INO_VERSION field
-From:   Jeff Layton <jlayton@kernel.org>
-To:     Trond Myklebust <trondmy@hammerspace.com>,
-        "bfields@fieldses.org" <bfields@fieldses.org>
-Cc:     "zohar@linux.ibm.com" <zohar@linux.ibm.com>,
-        "djwong@kernel.org" <djwong@kernel.org>,
-        "brauner@kernel.org" <brauner@kernel.org>,
-        "linux-xfs@vger.kernel.org" <linux-xfs@vger.kernel.org>,
-        "neilb@suse.de" <neilb@suse.de>,
-        "linux-api@vger.kernel.org" <linux-api@vger.kernel.org>,
-        "david@fromorbit.com" <david@fromorbit.com>,
-        "fweimer@redhat.com" <fweimer@redhat.com>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-        "xiubli@redhat.com" <xiubli@redhat.com>,
-        "chuck.lever@oracle.com" <chuck.lever@oracle.com>,
-        "linux-nfs@vger.kernel.org" <linux-nfs@vger.kernel.org>,
-        "tytso@mit.edu" <tytso@mit.edu>,
-        "viro@zeniv.linux.org.uk" <viro@zeniv.linux.org.uk>,
-        "jack@suse.cz" <jack@suse.cz>,
-        "linux-ext4@vger.kernel.org" <linux-ext4@vger.kernel.org>,
-        "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
-        "linux-btrfs@vger.kernel.org" <linux-btrfs@vger.kernel.org>,
-        "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
-        "adilger.kernel@dilger.ca" <adilger.kernel@dilger.ca>,
-        "lczerner@redhat.com" <lczerner@redhat.com>,
-        "ceph-devel@vger.kernel.org" <ceph-devel@vger.kernel.org>
-Date:   Mon, 12 Sep 2022 11:49:33 -0400
-In-Reply-To: <44884eeb662c2e304ba644d585b14c65b7dc1a0a.camel@hammerspace.com>
-References: <20220908182252.GA18939@fieldses.org>
-         <44efe219dbf511492b21a653905448d43d0f3363.camel@kernel.org>
-         <20220909154506.GB5674@fieldses.org>
-         <125df688dbebaf06478b0911e76e228e910b04b3.camel@kernel.org>
-         <20220910145600.GA347@fieldses.org>
-         <9eaed9a47d1aef11fee95f0079e302bc776bc7ff.camel@kernel.org>
-         <87a67423la.fsf@oldenburg.str.redhat.com>
-         <7c71050e139a479e08ab7cf95e9e47da19a30687.camel@kernel.org>
-         <20220912135131.GC9304@fieldses.org>
-         <aeb314e7104647ccfd83a82bd3092005c337d953.camel@hammerspace.com>
-         <20220912145057.GE9304@fieldses.org>
-         <626f7e46aa25d967b3b92be61cf7059067d1a9c3.camel@hammerspace.com>
-         <44884eeb662c2e304ba644d585b14c65b7dc1a0a.camel@hammerspace.com>
-Content-Type: text/plain; charset="ISO-8859-15"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4 (3.44.4-1.fc36) 
-MIME-Version: 1.0
-X-Spam-Status: No, score=-7.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
-        autolearn_force=no version=3.4.6
+In-reply-to: <20220912134208.GB9304@fieldses.org>
+References: <20220907135153.qvgibskeuz427abw@quack3>,
+ <166259786233.30452.5417306132987966849@noble.neil.brown.name>,
+ <20220908083326.3xsanzk7hy3ff4qs@quack3>, <YxoIjV50xXKiLdL9@mit.edu>,
+ <02928a8c5718590bea5739b13d6b6ebe66cac577.camel@kernel.org>,
+ <20220908155605.GD8951@fieldses.org>,
+ <9e06c506fd6b3e3118da0ec24276e85ea3ee45a1.camel@kernel.org>,
+ <20220908182252.GA18939@fieldses.org>,
+ <44efe219dbf511492b21a653905448d43d0f3363.camel@kernel.org>,
+ <166284799157.30452.4308111193560234334@noble.neil.brown.name>,
+ <20220912134208.GB9304@fieldses.org>
+Date:   Tue, 13 Sep 2022 09:14:32 +1000
+Message-id: <166302447257.30452.6751169887085269140@noble.neil.brown.name>
+X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+        SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham autolearn_force=no
+        version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Mon, 2022-09-12 at 15:32 +0000, Trond Myklebust wrote:
-> On Mon, 2022-09-12 at 14:56 +0000, Trond Myklebust wrote:
-> > On Mon, 2022-09-12 at 10:50 -0400, J. Bruce Fields wrote:
-> > > On Mon, Sep 12, 2022 at 02:15:16PM +0000, Trond Myklebust wrote:
-> > > > On Mon, 2022-09-12 at 09:51 -0400, J. Bruce Fields wrote:
-> > > > > On Mon, Sep 12, 2022 at 08:55:04AM -0400, Jeff Layton wrote:
-> > > > > > Because of the "seen" flag, we have a 63 bit counter to play
-> > > > > > with.
-> > > > > > Could
-> > > > > > we use a similar scheme to the one we use to handle when
-> > > > > > "jiffies"
-> > > > > > wraps?=A0Assume that we'd never compare two values that were
-> > > > > > more
-> > > > > > than
-> > > > > > 2^62 apart? We could add i_version_before/i_version_after
-> > > > > > macros to
-> > > > > > make
-> > > > > > it simple to handle this.
-> > > > >=20
-> > > > > As far as I recall the protocol just assumes it can never
-> > > > > wrap.=A0
-> > > > > I
-> > > > > guess
-> > > > > you could add a new change_attr_type that works the way you
-> > > > > describe.
-> > > > > But without some new protocol clients aren't going to know what
-> > > > > to do
-> > > > > with a change attribute that wraps.
-> > > > >=20
-> > > > > I think this just needs to be designed so that wrapping is
-> > > > > impossible
-> > > > > in
-> > > > > any realistic scenario.=A0 I feel like that's doable?
-> > > > >=20
-> > > > > If we feel we have to catch that case, the only 100% correct
-> > > > > behavior
-> > > > > would probably be to make the filesystem readonly.
-> > > > >=20
-> > > >=20
-> > > > Which protocol? If you're talking about basic NFSv4, it doesn't
-> > > > assume
-> > > > anything about the change attribute and wrapping.
-> > > >=20
-> > > > The NFSv4.2 protocol did introduce the optional attribute
-> > > > 'change_attr_type' that tries to describe the change attribute
-> > > > behaviour to the client. It tells you if the behaviour is
-> > > > monotonically
-> > > > increasing, but doesn't say anything about the behaviour when the
-> > > > attribute value overflows.
-> > > >=20
-> > > > That said, the Linux NFSv4.2 client, which uses that
-> > > > change_attr_type
-> > > > attribute does deal with overflow by assuming standard uint64_t
-> > > > wrap
-> > > > around rules. i.e. it assumes bit values > 63 are truncated,
-> > > > meaning
-> > > > that the value obtained by incrementing (2^64-1) is 0.
-> > >=20
-> > > Yeah, it was the MONOTONIC_INCRE case I was thinking of.=A0 That's
-> > > interesting, I didn't know the client did that.
-> > >=20
-> >=20
-> > If you look at where we compare version numbers, it is always some
-> > variant of the following:
-> >=20
-> > static int nfs_inode_attrs_cmp_monotonic(const struct nfs_fattr
-> > *fattr,
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 const struct inode *ino=
-de)
-> > {
-> > =A0=A0=A0=A0=A0=A0=A0 s64 diff =3D fattr->change_attr -
-> > inode_peek_iversion_raw(inode);
-> > =A0=A0=A0=A0=A0=A0=A0 if (diff > 0)
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 return 1;
-> > =A0=A0=A0=A0=A0=A0=A0 return diff =3D=3D 0 ? 0 : -1;
-> > }
-> >=20
-> > i.e. we do an unsigned 64-bit subtraction, and then cast it to the
-> > signed 64-bit equivalent in order to figure out which is the more
-> > recent value.
-> >=20
+On Mon, 12 Sep 2022, J. Bruce Fields wrote:
+> On Sun, Sep 11, 2022 at 08:13:11AM +1000, NeilBrown wrote:
+> > On Fri, 09 Sep 2022, Jeff Layton wrote:
+> > > 
+> > > The machine crashes and comes back up, and we get a query for i_version
+> > > and it comes back as X. Fine, it's an old version. Now there is a write.
+> > > What do we do to ensure that the new value doesn't collide with X+1? 
+> > 
+> > (I missed this bit in my earlier reply..)
+> > 
+> > How is it "Fine" to see an old version?
+> > The file could have changed without the version changing.
+> > And I thought one of the goals of the crash-count was to be able to
+> > provide a monotonic change id.
+> 
+> I was still mainly thinking about how to provide reliable close-to-open
+> semantics between NFS clients.  In the case the writer was an NFS
+> client, it wasn't done writing (or it would have COMMITted), so those
+> writes will come in and bump the change attribute soon, and as long as
+> we avoid the small chance of reusing an old change attribute, we're OK,
+> and I think it'd even still be OK to advertise
+> CHANGE_TYPE_IS_MONOTONIC_INCR.
 
-Good! This seems like the reasonable thing to do, given that the spec
-doesn't really say that the change attribute has to start at low values.
+You seem to be assuming that the client doesn't crash at the same time
+as the server (maybe they are both VMs on a host that lost power...)
 
->=20
-> ...and by the way, yes this does mean that if you suddenly add a value
-> of 2^63 to the change attribute, then you are likely to cause the
-> client to think that you just handed it an old value.
->=20
-> i.e. you're better off having the crash counter increment the change
-> attribute by a relatively small value. One that is guaranteed to be
-> larger than the values that may have been lost, but that is not
-> excessively large.
->=20
+If client A reads and caches, client B writes, the server crashes after
+writing some data (to already allocated space so no inode update needed)
+but before writing the new i_version, then client B crashes.
+When server comes back the i_version will be unchanged but the data has
+changed.  Client A will cache old data indefinitely...
 
-Yeah.
 
-Like with jiffies, you need to make sure the samples you're comparing
-aren't _too_ far off. That should be doable here -- 62 bits is plenty of
-room to store a lot of change values.
 
-My benchmark (maybe wrong, but maybe good enough) is to figure on an
-increment per nanosecond for a worst-case scenario. With that, 2^40
-nanoseconds is >12 days. Maybe that's overkill.
+> 
+> If we're trying to do better than that, I'm just not sure what's right.
 
-2^32 ns is about an hour and 20 mins. That's probably a reasonable value
-to use. If we can't get a a new value onto disk in that time then
-something is probably very wrong.
---=20
-Jeff Layton <jlayton@kernel.org>
+I think we need to require the filesystem to ensure that the i_version
+is seen to increase shortly after any change becomes visible in the
+file, and no later than the moment when the request that initiated the
+change is acknowledged as being complete.  In the case of an unclean
+restart, any file that is not known to have been unchanged immediately
+before the crash must have i_version increased.
+
+The simplest implementation is to have an unclean-restart counter and to
+always included this multiplied by some constant X in the reported
+i_version.  The filesystem guarantees to record (e.g.  to journal
+at least) the i_version if it comes close to X more than the previous
+record.  The filesystem gets to choose X.
+
+A more complex solution would be to record (similar to the way orphans
+are recorded) any file which is open for write, and to add X to the
+i_version for any "dirty" file still recorded during an unclean restart.
+This would avoid bumping the i_version for read-only files.
+
+There may be other solutions, but we should leave that up to the
+filesystem.  Each filesystem might choose something different.
+
+NeilBrown
