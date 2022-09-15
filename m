@@ -2,67 +2,65 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 7EFFA5B958F
-	for <lists+linux-man@lfdr.de>; Thu, 15 Sep 2022 09:42:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1111A5B9B8A
+	for <lists+linux-man@lfdr.de>; Thu, 15 Sep 2022 15:03:31 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229947AbiIOHmC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 15 Sep 2022 03:42:02 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52794 "EHLO
+        id S229498AbiIOND3 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 15 Sep 2022 09:03:29 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38518 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229783AbiIOHmB (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 15 Sep 2022 03:42:01 -0400
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9D2948D3E4
-        for <linux-man@vger.kernel.org>; Thu, 15 Sep 2022 00:42:00 -0700 (PDT)
-Received: from dggpemm500024.china.huawei.com (unknown [172.30.72.53])
-        by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4MSpv60kR7zNmJq
-        for <linux-man@vger.kernel.org>; Thu, 15 Sep 2022 15:37:22 +0800 (CST)
-Received: from huawei.com (10.67.175.31) by dggpemm500024.china.huawei.com
- (7.185.36.203) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Thu, 15 Sep
- 2022 15:41:43 +0800
-From:   GUO Zihua <guozihua@huawei.com>
-To:     <alx.manpages@gmail.com>, <mtk.manpages@gmail.com>
-CC:     <linux-man@vger.kernel.org>
-Subject: [PATCH] semop.2: Fix truncated comment on sempid
-Date:   Thu, 15 Sep 2022 15:37:58 +0800
-Message-ID: <20220915073758.17938-1-guozihua@huawei.com>
-X-Mailer: git-send-email 2.17.1
+        with ESMTP id S229487AbiIOND2 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 15 Sep 2022 09:03:28 -0400
+X-Greylist: delayed 1227 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Thu, 15 Sep 2022 06:03:27 PDT
+Received: from xzrbvego.halloweenbag.com (unknown [194.87.231.147])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5120E9C2DD;
+        Thu, 15 Sep 2022 06:03:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; s=dkim; d=halloweenbag.com;
+ h=Content-Type:MIME-Version:Content-Transfer-Encoding:Content-Description:Subject:To:From:Date:Message-ID; i=mar.for@halloweenbag.com;
+ bh=wvDGWh6GpkLKD9Vr3zXWUwqAdho=;
+ b=V52DLIQPO7jZo+uB/x1ia8gUvu8m5eRXcGpc8pdHyFzNhF0WWm/bM39BU5XzFVD6qlcVhHjrU+sx
+   ijaKZqXiJVJDkJMPg4Rqgb1D3sVr/xkD0O+QMNvblplOQTOU2jJXJCaRBL9rjjnD7H0zUOM+9QSB
+   LX7p67rESWEKaZnegARtpFjwd9JKiw8Ha5vzy/dVzA9DpznnOx4+/+KHG7rb8PTTr7wkuXS88H/Q
+   Db1w0I0I3+T8SYH0e2BSLcDD+TIeKwsFZQZVHTnTi1uUZXjDTiYWlq1aChZpe8M9vACh4jMwgk4A
+   7mKwN7AuLGcmkmELexDsOYp7vYNslWdQJpinWA==
+DomainKey-Signature: a=rsa-sha1; c=nofws; q=dns; s=dkim; d=halloweenbag.com;
+ b=o9wvwZOrBl+8GHS61V8yL6G5uSfzMBytOwVPXN9tU03JQStZvfWswnvqYnPS3GxoSb9LyGMdV9FQ
+   hLAnuFJFien/ZQRne2t0IGzodIeUrGCOgBiFaI+tuxl2mAp6rMYhbqat88mu4cUxAYYylVxmOAgN
+   wQH4AAlTCZGyFgmlD1zWrVXvzbW6CeaIq42e8qZUL8tbtZFwEsqWon7g58Wpuc8/tIwPWBH2MnqT
+   7tojHMyNB0DfXZJjvkarYfg5QWVGxpZIDETfZKG+sljeEDSsHh94D+UYpgHDDtXr+3Eb4T1qiMRI
+   ym1xDGIuBI2iXdwsyPvGZofj1m7jah0mTdqyTg==;
+Content-Type: text/plain; charset="iso-8859-1"
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.67.175.31]
-X-ClientProxiedBy: dggems704-chm.china.huawei.com (10.3.19.181) To
- dggpemm500024.china.huawei.com (7.185.36.203)
-X-CFilter-Loop: Reflected
-X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED,
-        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
-        autolearn_force=no version=3.4.6
+Content-Transfer-Encoding: quoted-printable
+Content-Description: Mail message body
+Subject: Business Insight
+To:     Recipients <mar.for@halloweenbag.com>
+From:   "Alek Brian" <mar.for@halloweenbag.com>
+Date:   Thu, 15 Sep 2022 13:49:52 +0200
+Message-ID: <0.0.0.656.1D8C8F949C9FE88.0@xzrbvego.halloweenbag.com>
+X-Spam-Status: No, score=2.4 required=5.0 tests=BAYES_50,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RDNS_NONE,SPF_HELO_NONE,
+        SPF_PASS,TO_EQ_FM_DIRECT_MX autolearn=no autolearn_force=no
+        version=3.4.6
+X-Spam-Level: **
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-The comment is truncated for sempid, and this patch fixes this issue.
+My name is Alek Brian, Researcher at a reputable company in the United King=
+dom , I would like to share with you some business insights .
 
-Signed-off-by: GUO Zihua <guozihua@huawei.com>
----
- man2/semop.2 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Please Kindly reply me on my personal email brianalek510@gmail.com
 
-diff --git a/man2/semop.2 b/man2/semop.2
-index 7a301f453c43..054f2b99363c 100644
---- a/man2/semop.2
-+++ b/man2/semop.2
-@@ -45,7 +45,7 @@ has the following associated values:
- unsigned short  semval;   /* semaphore value */
- unsigned short  semzcnt;  /* # waiting for zero */
- unsigned short  semncnt;  /* # waiting for increase */
--pid_t           sempid;   /* PID of process that last
-+pid_t           sempid;   /* PID of process that last modified the semaphore */
- .EE
- .in
- .PP
--- 
-2.17.1
+Note: You have the right to quit by the end of my detailed explanation and =
+you don't feel like moving forward with me.
 
+
+But Trust me, you won't regret it.
+
+
+Best Regards
+Alek Brian
+brianalek510@gmail.com
