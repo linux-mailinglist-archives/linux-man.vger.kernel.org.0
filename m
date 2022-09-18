@@ -2,73 +2,73 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id D39415BC087
-	for <lists+linux-man@lfdr.de>; Mon, 19 Sep 2022 01:26:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8ED855BC0AF
+	for <lists+linux-man@lfdr.de>; Mon, 19 Sep 2022 01:53:56 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229518AbiIRX0A (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 18 Sep 2022 19:26:00 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58594 "EHLO
+        id S229750AbiIRXxy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 18 Sep 2022 19:53:54 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53048 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229453AbiIRXZ6 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 18 Sep 2022 19:25:58 -0400
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com [IPv6:2a00:1450:4864:20::22f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F2CD315FC2
-        for <linux-man@vger.kernel.org>; Sun, 18 Sep 2022 16:25:52 -0700 (PDT)
-Received: by mail-lj1-x22f.google.com with SMTP id l9so5458942lji.4
-        for <linux-man@vger.kernel.org>; Sun, 18 Sep 2022 16:25:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date;
-        bh=lwWvf6qc5E8UxJVJwlicRuTMFAF0yxbKJiBWe2IYhRI=;
-        b=TuqysuUyCyRin4oZi7pIMxU1W66J1VCbO8JgDFE78PbEq7W4w1rwl/QxzSrnL/Yz2H
-         +ZDXHGQHZi3G4n2RgK3rKSW6lVg/dPNnctfxv0lgcGBfZqbLS3d0MFZ3Kaqlvc+0VU14
-         RhTIoMOveaanpLDtLDGhgRDmLoK540DcPSXNi+yOHjZUjNWPkKtWjYWqFbDX/1K4u6ZZ
-         Dr1FQ23yxg4WTMTX0twfFfSh3IGGUJKsMtCmL2DKcmTXiBWVpEDz4+BVGq838/RQHu7B
-         mcHjAlRoXEjPk78Juu0WMbzeoryb8PFUTMOmoj+ZegsclQ+8Jcdwhx/XsJ5zBSUCXYK4
-         2UIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date;
-        bh=lwWvf6qc5E8UxJVJwlicRuTMFAF0yxbKJiBWe2IYhRI=;
-        b=g9PTj4SGDn7lUgkVDruBG2CHw40S7SWHyXyhVTQUV5Cmg49bOnjhfrBzYr7tE2Nhoz
-         YTHEggvnWMikaOwVk+jyWigibbvY7bghFxrhzpVvWfavSe+U7osM1uZPEzI5hajmOd2L
-         GX7fJJP5tAyUQ7niZzkIHDRTxtyiZ5C0evcmbWrUHKYsq3AsFueuwBuFgBB1EOg1IHNl
-         IHMVOMXoN+EunwGJRmlt+SZw5FXKuu6a4ZYhoswLwbX3YzAqEIyjK7MJ8GRxSTfSjGk3
-         V8A6VkK5NkY3050GS7Cq3ObkxKqvERciYrpDa3SBVqrGdr1+YiYrUBmjr5vaJhc4b6/s
-         pmSQ==
-X-Gm-Message-State: ACrzQf1y2Rza8/WWBDpNDJAnhi4wjJ/tn6iBYbhbMalppb3SRtCbh4wZ
-        6GSePEVQPvWfdNylK7Yja4Y=
-X-Google-Smtp-Source: AMsMyM7C2LEErcyLSXHq/PpmyRPkvkFJWaCDgUxNdM9JUYl1EfEcugKWpsc6GTIZ2+p3eIkJWAp9NA==
-X-Received: by 2002:a2e:9606:0:b0:26c:442a:40c2 with SMTP id v6-20020a2e9606000000b0026c442a40c2mr2321128ljh.458.1663543551321;
-        Sun, 18 Sep 2022 16:25:51 -0700 (PDT)
-Received: from [192.168.1.104] ([31.169.55.19])
-        by smtp.gmail.com with ESMTPSA id e19-20020a05651236d300b004994117b0fdsm4886405lfs.281.2022.09.18.16.25.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 18 Sep 2022 16:25:50 -0700 (PDT)
-Message-ID: <32dd590f-4f1c-c383-e195-d90fe6465385@gmail.com>
-Date:   Mon, 19 Sep 2022 01:25:42 +0200
+        with ESMTP id S229519AbiIRXxw (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 18 Sep 2022 19:53:52 -0400
+Received: from mail104.syd.optusnet.com.au (mail104.syd.optusnet.com.au [211.29.132.246])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id A6D2D13CD7;
+        Sun, 18 Sep 2022 16:53:50 -0700 (PDT)
+Received: from dread.disaster.area (pa49-186-149-49.pa.vic.optusnet.com.au [49.186.149.49])
+        by mail104.syd.optusnet.com.au (Postfix) with ESMTPS id B1B9B8A9D52;
+        Mon, 19 Sep 2022 09:53:46 +1000 (AEST)
+Received: from dave by dread.disaster.area with local (Exim 4.92.3)
+        (envelope-from <david@fromorbit.com>)
+        id 1oa46a-009Oeo-7b; Mon, 19 Sep 2022 09:53:44 +1000
+Date:   Mon, 19 Sep 2022 09:53:44 +1000
+From:   Dave Chinner <david@fromorbit.com>
+To:     Jeff Layton <jlayton@kernel.org>
+Cc:     Theodore Ts'o <tytso@mit.edu>, NeilBrown <neilb@suse.de>,
+        Trond Myklebust <trondmy@hammerspace.com>,
+        "bfields@fieldses.org" <bfields@fieldses.org>,
+        "zohar@linux.ibm.com" <zohar@linux.ibm.com>,
+        "djwong@kernel.org" <djwong@kernel.org>,
+        "brauner@kernel.org" <brauner@kernel.org>,
+        "linux-xfs@vger.kernel.org" <linux-xfs@vger.kernel.org>,
+        "linux-api@vger.kernel.org" <linux-api@vger.kernel.org>,
+        "fweimer@redhat.com" <fweimer@redhat.com>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+        "chuck.lever@oracle.com" <chuck.lever@oracle.com>,
+        "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
+        "linux-nfs@vger.kernel.org" <linux-nfs@vger.kernel.org>,
+        "linux-ext4@vger.kernel.org" <linux-ext4@vger.kernel.org>,
+        "jack@suse.cz" <jack@suse.cz>,
+        "viro@zeniv.linux.org.uk" <viro@zeniv.linux.org.uk>,
+        "xiubli@redhat.com" <xiubli@redhat.com>,
+        "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+        "adilger.kernel@dilger.ca" <adilger.kernel@dilger.ca>,
+        "lczerner@redhat.com" <lczerner@redhat.com>,
+        "ceph-devel@vger.kernel.org" <ceph-devel@vger.kernel.org>,
+        "linux-btrfs@vger.kernel.org" <linux-btrfs@vger.kernel.org>
+Subject: Re: [man-pages RFC PATCH v4] statx, inode: document the new
+ STATX_INO_VERSION field
+Message-ID: <20220918235344.GH3600936@dread.disaster.area>
+References: <577b6d8a7243aeee37eaa4bbb00c90799586bc48.camel@hammerspace.com>
+ <1a968b8e87f054e360877c9ab8cdfc4cfdfc8740.camel@kernel.org>
+ <0646410b6d2a5d19d3315f339b2928dfa9f2d922.camel@hammerspace.com>
+ <34e91540c92ad6980256f6b44115cf993695d5e1.camel@kernel.org>
+ <871f9c5153ddfe760854ca31ee36b84655959b83.camel@hammerspace.com>
+ <e8922bc821a40f5a3f0a1301583288ed19b6891b.camel@kernel.org>
+ <166328063547.15759.12797959071252871549@noble.neil.brown.name>
+ <YyQdmLpiAMvl5EkU@mit.edu>
+ <7027d1c2923053fe763e9218d10ce8634b56e81d.camel@kernel.org>
+ <24005713ad25370d64ab5bd0db0b2e4fcb902c1c.camel@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-Subject: Re: [PATCH] register_printf_speficier.3, register_printf_modifier.3,
- register_printf_type.3: Add new manual page and links
-Content-Language: en-US
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc:     linux-man@vger.kernel.org, libc-alpha@sourceware.org,
-        Walter Harms <wharms@bfs.de>
-References: <20220918221640.19942-1-alx.manpages@gmail.com>
- <20220918231812.htiqn5b77reriljg@illithid>
-From:   Alex Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20220918231812.htiqn5b77reriljg@illithid>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------O0x8llae2nNSvSeL8J9dMFpC"
-X-Spam-Status: No, score=-5.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <24005713ad25370d64ab5bd0db0b2e4fcb902c1c.camel@kernel.org>
+X-Optus-CM-Score: 0
+X-Optus-CM-Analysis: v=2.4 cv=e9dl9Yl/ c=1 sm=1 tr=0 ts=6327af8e
+        a=XTRC1Ovx3SkpaCW1YxGVGA==:117 a=XTRC1Ovx3SkpaCW1YxGVGA==:17
+        a=kj9zAlcOel0A:10 a=xOM3xZuef0cA:10 a=7-415B0cAAAA:8
+        a=OM9ssF-cS7fGoRW40zoA:9 a=CjuIK1q_8ugA:10 a=biEYGPWJfzWAr4FL6Ov7:22
+X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_LOW,
+        RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_NONE autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -76,73 +76,124 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------O0x8llae2nNSvSeL8J9dMFpC
-Content-Type: multipart/mixed; boundary="------------565CXkD6CZCOiEZEm0rLjZKK";
- protected-headers="v1"
-From: Alex Colomar <alx.manpages@gmail.com>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: linux-man@vger.kernel.org, libc-alpha@sourceware.org,
- Walter Harms <wharms@bfs.de>
-Message-ID: <32dd590f-4f1c-c383-e195-d90fe6465385@gmail.com>
-Subject: Re: [PATCH] register_printf_speficier.3, register_printf_modifier.3,
- register_printf_type.3: Add new manual page and links
-References: <20220918221640.19942-1-alx.manpages@gmail.com>
- <20220918231812.htiqn5b77reriljg@illithid>
-In-Reply-To: <20220918231812.htiqn5b77reriljg@illithid>
+On Fri, Sep 16, 2022 at 11:11:34AM -0400, Jeff Layton wrote:
+> On Fri, 2022-09-16 at 07:36 -0400, Jeff Layton wrote:
+> > On Fri, 2022-09-16 at 02:54 -0400, Theodore Ts'o wrote:
+> > > On Fri, Sep 16, 2022 at 08:23:55AM +1000, NeilBrown wrote:
+> > > > > > If the answer is that 'all values change', then why store the crash
+> > > > > > counter in the inode at all? Why not just add it as an offset when
+> > > > > > you're generating the user-visible change attribute?
+> > > > > > 
+> > > > > > i.e. statx.change_attr = inode->i_version + (crash counter * offset)
+> > > 
+> > > I had suggested just hashing the crash counter with the file system's
+> > > on-disk i_version number, which is essentially what you are suggested.
+> > > 
+> > > > > Yes, if we plan to ensure that all the change attrs change after a
+> > > > > crash, we can do that.
+> > > > > 
+> > > > > So what would make sense for an offset? Maybe 2**12? One would hope that
+> > > > > there wouldn't be more than 4k increments before one of them made it to
+> > > > > disk. OTOH, maybe that can happen with teeny-tiny writes.
+> > > > 
+> > > > Leave it up the to filesystem to decide.  The VFS and/or NFSD should
+> > > > have not have part in calculating the i_version.  It should be entirely
+> > > > in the filesystem - though support code could be provided if common
+> > > > patterns exist across filesystems.
+> > > 
+> > > Oh, *heck* no.  This parameter is for the NFS implementation to
+> > > decide, because it's NFS's caching algorithms which are at stake here.
+> > > 
+> > > As a the file system maintainer, I had offered to make an on-disk
+> > > "crash counter" which would get updated when the journal had gotten
+> > > replayed, in addition to the on-disk i_version number.  This will be
+> > > available for the Linux implementation of NFSD to use, but that's up
+> > > to *you* to decide how you want to use them.
+> > > 
+> > > I was perfectly happy with hashing the crash counter and the i_version
+> > > because I had assumed that not *that* much stuff was going to be
+> > > cached, and so invalidating all of the caches in the unusual case
+> > > where there was a crash was acceptable.  After all it's a !@#?!@
+> > > cache.  Caches sometimmes get invalidated.  "That is the order of
+> > > things." (as Ramata'Klan once said in "Rocks and Shoals")
+> > > 
+> > > But if people expect that multiple TB's of data is going to be stored;
+> > > that cache invalidation is unacceptable; and that a itsy-weeny chance
+> > > of false negative failures which might cause data corruption might be
+> > > acceptable tradeoff, hey, that's for the system which is providing
+> > > caching semantics to determine.
+> > > 
+> > > PLEASE don't put this tradeoff on the file system authors; I would
+> > > much prefer to leave this tradeoff in the hands of the system which is
+> > > trying to do the caching.
+> > > 
+> > 
+> > Yeah, if we were designing this from scratch, I might agree with leaving
+> > more up to the filesystem, but the existing users all have pretty much
+> > the same needs. I'm going to plan to try to keep most of this in the
+> > common infrastructure defined in iversion.h.
+> > 
+> > Ted, for the ext4 crash counter, what wordsize were you thinking? I
+> > doubt we'll be able to use much more than 32 bits so a larger integer is
+> > probably not worthwhile. There are several holes in struct super_block
+> > (at least on x86_64), so adding this field to the generic structure
+> > needn't grow it.
+> 
+> That said, now that I've taken a swipe at implementing this, I need more
+> information than just the crash counter. We need to multiply the crash
+> counter with a reasonable estimate of the maximum number of individual
+> writes that could occur between an i_version being incremented and that
+> value making it to the backing store.
+> 
+> IOW, given a write that bumps the i_version to X, how many more write
+> calls could race in before X makes it to the platter? I took a SWAG and
+> said 4k in an earlier email, but I don't really have a way to know, and
+> that could vary wildly with different filesystems and storage.
+> 
+> What I'd like to see is this in struct super_block:
+> 
+> 	u32		s_version_offset;
 
---------------565CXkD6CZCOiEZEm0rLjZKK
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+	u64		s_version_salt;
 
-SGkgQnJhbmRlbiENCg0KT24gOS8xOS8yMiAwMToxOCwgRy4gQnJhbmRlbiBSb2JpbnNvbiB3
-cm90ZToNCj4gQXQgMjAyMi0wOS0xOVQwMDoxNjo0MSswMjAwLCBBbGV4IENvbG9tYXIgd3Jv
-dGU6DQo+PiBJIHdyb3RlIHRoaXMgbWFudWFsIHBhZ2UgYWZ0ZXIgb24gYW4gb2xkIGRpc2N1
-c3Npb24gd2l0aCBXYWx0ZXIsDQo+PiB3aGljaCBJIHBvc3Rwb25lZCB0b28gbXVjaC4gIEkg
-aGFkIGEgbG9uZyB0aW1lIGFnbyB3cml0dGVuIHNvbWUNCj4+IHVzaW5nIHJlZ2lzdGVyX3By
-aW50Zl9zcGVjaWZpZXIoMyksIGFuZCBJIHJlbWVtYmVyIGhhdmluZyBhIGxvdCBvZg0KPj4g
-dHJvdWJsZSB1c2luZywgc2luY2UgdGhlcmUncyBmZXcgZG9jdW1lbnRhdGlvbiBhYm91dCBp
-dCwgaWYgYXQNCj4+IGFsbC4gIEkgaGFkIHRvIGd1ZXNzIG11Y2ggb2YgaXQuDQo+PiBXZWxs
-LCBwbGVhc2UgcmV2aWV3IHRoaXMgcGFnZSwgYW5kIGNvbW1lbnQgYW55dGhpbmcgeW91IGRv
-bid0IGxpa2UuDQo+IFsuLi5dDQo+PiAgIG1hbjMvcmVnaXN0ZXJfcHJpbnRmX3NwZWZpY2ll
-ci4zIHwgNDM5ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysNCj4gDQo+IFdlbGws
-IGZvciBhIHN0YXJ0LCBJJ2Qgc3BlbGwgdGhlIG5ldyBmaWxlIG5hbWUgY29ycmVjdGx5LCBh
-dm9pZGluZyBhDQo+IGNvbnRyb3ZlcnNpYWwgZ2l0IHJlbmFtZSBpbiB0aGUgZnV0dXJlLiAg
-Oy0pDQoNClllYWgsIHRoYXQgbWF5IGJlIGEgZ29vZCBzdGFydCA6KQ0KDQpJJ20gc3RpbGwg
-ZmFyIGZyb20gcHVzaGluZyBhbnl0aGluZyBsaWtlIHRoYXQsIHNvIGV4cGVjdCBhIGxvdCBv
-ZiB0eXBvcy4gDQogIEhvdyBhYm91dCB0aGUgbGF5b3V0IGFuZCBjb250ZW50cyBvZiB0aGUg
-cGFnZT8gIERvIHlvdSBsaWtlIHRoZW0/IA0KQWxzbyBJIGNvbnNpZGVyZWQgYWRkaW5nIGRv
-Y3VtZW50YXRpb24gYWJvdXQgdGhlIHJlbGF0ZWQgdHlwZXMgaW4gdGhlIA0Kc2FtZSBwYWdl
-LCBzaW5jZSB0aGlzIGlzIG9uZSBvZiB0aG9zZSB3aGVyZSB0aGUgaGVhZGVyIGlzIHJlYWxs
-eSBzbWFsbCwgDQphbmQgdGhlIHR5cGVzIGRvbid0IGxlYWsgb3V0IG9mIHRoZW0sIHNvIHdl
-IGNhbiBoYXZlIGEgdHJ1ZSBtYW51YWwgcGFnZSANCihldmVuIGlmIHNvbWV3aGF0IGJpZywg
-c2luY2UgdGhvc2UgZnVuY3Rpb25zIGFyZSBhIGhlbGwgdG8gdW5kZXJzdGFuZCwgDQphbmQg
-dGhlcmVmb3JlIGRvY3VtZW50KS4NCg0KQ2hlZXJzLA0KDQpBbGV4DQoNCj4gDQo+IFJlZ2Fy
-ZHMsDQo+IEJyYW5kZW4NCg0KLS0gDQo8aHR0cDovL3d3dy5hbGVqYW5kcm8tY29sb21hci5l
-cy8+DQoNCg==
+> ...and then individual filesystems can calculate:
+> 
+> 	crash_counter * max_number_of_writes
+> 
+> and put the correct value in there at mount time.
 
---------------565CXkD6CZCOiEZEm0rLjZKK--
+Other filesystems might not have a crash counter but have other
+information that can be substituted, like a mount counter or a
+global change sequence number that is guaranteed to increment from
+one mount to the next. 
 
---------------O0x8llae2nNSvSeL8J9dMFpC
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+Further, have you thought about what "max number of writes" might
+be in ten years time? e.g.  what happens if a filesysetm as "max
+number of writes" being greater than 2^32? I mean, we already have
+machines out there running Linux with 64-128TB of physical RAM, so
+it's already practical to hold > 2^32 individual writes to a single
+inode that each bump i_version in memory....
 
------BEGIN PGP SIGNATURE-----
+So when we consider this sort of scale, the "crash counter * max
+writes" scheme largely falls apart because "max writes" is a really
+large number to begin with. We're going to be stuck with whatever
+algorithm is decided on for the foreseeable future, so we must
+recognise that _we've already overrun 32 bit counter schemes_ in
+terms of tracking "i_version changes in memory vs what we have on
+disk".
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmMnqPYACgkQnowa+77/
-2zJoxhAAiQopr8A3EOfiYaqwo7yxiEvKX5/XTVHrBH3UKoRslPdj1EStkOMIr00G
-BJGToQA2Q3KeZtdpDTU/dyT43BqWuoFlowu12b9qwmkUnFIF5ngF58f1OivDlbh+
-Ti46LQT0EGpVN7+7TOjcgCjw4sFtxmUigPcEot0G4kYWH/AE05iEhyAHDqO22shB
-KEeR/FF4TTiLnobRJlz0b1J/MscfG1wc3CQ9tbrcdiUxiAKLroRZeNIoKuRKS90C
-6luv6gloxpYzq+SrXh8fWacMCgr5TLx+ffmHcsxbe55IR6cBHn3I0HGhAah0w8VV
-Y4O2j+7FrdiVB89m2BgpP86kt9nd15vbgzq6FS0Qi6IMIiX1z19QI38f4iOS8qGx
-LDYNYVv0efyCUVPrYznsCfGxlmXYJjNBK+WM8srg1RGYRQN8pu/3GILIZHkKKHXp
-4N+TAFp8IBsO4mtW4LhUq5yJs2RyNTB6iJzyXinxmTwt6rMl2TomKfU6dA6qsyIf
-8IoFuVKnZ3+SUibyl3yL3dUvTuRYKZ2b19YG0nlQDj8wtlfJaURYUrTShAwZwCcB
-L6Ojl3h3g3C+5BDi1uCbq+2YjNe6mLLl9PK6xsf57rQ7UwbiVnY4zl+qMkzbTxqi
-hOwIK3DTIra9H15mlHLL9r9coNK3oAdTMRn0nbRVs9l9/KAIazY=
-=4I9C
------END PGP SIGNATURE-----
+Hence I really think that we should be leaving the implementation of
+the salt value to the individual filesysetms as different
+filesytsems are aimed at different use cases and so may not
+necessarily have to all care about the same things (like 2^32 bit
+max write overruns).  All the high level VFS code then needs to do
+is add the two together:
 
---------------O0x8llae2nNSvSeL8J9dMFpC--
+	statx.change_attr = inode->i_version + sb->s_version_salt;
+
+Cheers,
+
+Dave.
+-- 
+Dave Chinner
+david@fromorbit.com
