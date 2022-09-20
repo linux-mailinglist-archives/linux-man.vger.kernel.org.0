@@ -2,88 +2,115 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id BB4AE5BE5CA
-	for <lists+linux-man@lfdr.de>; Tue, 20 Sep 2022 14:30:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3291A5BEC94
+	for <lists+linux-man@lfdr.de>; Tue, 20 Sep 2022 20:10:46 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229522AbiITMaL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 20 Sep 2022 08:30:11 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46282 "EHLO
+        id S230365AbiITSKo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 20 Sep 2022 14:10:44 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45544 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229695AbiITMaK (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 20 Sep 2022 08:30:10 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 460ED5208A
-        for <linux-man@vger.kernel.org>; Tue, 20 Sep 2022 05:30:09 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        with ESMTP id S231216AbiITSKc (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 20 Sep 2022 14:10:32 -0400
+Received: from us-smtp-delivery-44.mimecast.com (us-smtp-delivery-44.mimecast.com [205.139.111.44])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8CB6F4F64F
+        for <linux-man@vger.kernel.org>; Tue, 20 Sep 2022 11:10:31 -0700 (PDT)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-185-DMmJYzxEOWSPHuBH53reNA-1; Tue, 20 Sep 2022 14:09:23 -0400
+X-MC-Unique: DMmJYzxEOWSPHuBH53reNA-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
         (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id D550D62055
-        for <linux-man@vger.kernel.org>; Tue, 20 Sep 2022 12:30:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 43812C433D7
-        for <linux-man@vger.kernel.org>; Tue, 20 Sep 2022 12:30:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1663677008;
-        bh=ycF9w7xLB37sQC56I+Ew/9QR3Wq4wy4PNPwPosLb5C8=;
-        h=From:To:Subject:Date:In-Reply-To:References:From;
-        b=hWerwWiMrb/B9S0WHD62hrrQeAjob9Nq/DEyrHJDL+VHNQQFz0wAoBanr76akQybP
-         pCtA0WZg8CZmZNSUySZRnGDLzzG6J7kWL3A0EO+PvrohcCtfoVi76nMAj1oFX7b5D2
-         7/7VtiE4LDrA+yZ7xJAhbAWYSAhOsTVm9/96LjHyW8/Yun864uq1dJqsyd1y0R5bOp
-         DVJ6Vj9Nx/9Lir+zefHtpdqjpFx1jdW8OY3+6qLvikziXn6OSQ37iWMv7s2Kw9ZAAL
-         2kzfWk8+FFZvQTUKxx1gBjd49UHpOKvph9AHgWGMeQTTiupqj0pdOuSWeTODlicxo/
-         n/IHvn5OpDrZg==
-Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
-        id 22C1BC433EA; Tue, 20 Sep 2022 12:30:08 +0000 (UTC)
-From:   bugzilla-daemon@kernel.org
-To:     linux-man@vger.kernel.org
-Subject: [Bug 216505] Grid False Ceiling in Coimbatore
-Date:   Tue, 20 Sep 2022 12:30:07 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: changed
-X-Bugzilla-Watch-Reason: AssignedTo
- documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Product: Other
-X-Bugzilla-Component: Spam
-X-Bugzilla-Version: 2.5
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: high
-X-Bugzilla-Who: aros@gmx.com
-X-Bugzilla-Status: NEW
-X-Bugzilla-Resolution: 
-X-Bugzilla-Priority: P1
-X-Bugzilla-Assigned-To: other_spam@kernel-bugs.kernel.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: component version assigned_to product
-Message-ID: <bug-216505-11311-ZrAuQ6PlDU@https.bugzilla.kernel.org/>
-In-Reply-To: <bug-216505-11311@https.bugzilla.kernel.org/>
-References: <bug-216505-11311@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
+        by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D5E38802801;
+        Tue, 20 Sep 2022 18:09:22 +0000 (UTC)
+Received: from comp-core-i7-2640m-0182e6.redhat.com (unknown [10.40.208.17])
+        by smtp.corp.redhat.com (Postfix) with ESMTP id EC0032166B26;
+        Tue, 20 Sep 2022 18:09:20 +0000 (UTC)
+From:   Alexey Gladkov <legion@kernel.org>
+To:     LKML <linux-kernel@vger.kernel.org>,
+        Linux Containers <containers@lists.linux.dev>,
+        linux-doc@vger.kernel.org, linux-man@vger.kernel.org
+Cc:     Andrew Morton <akpm@linux-foundation.org>,
+        Christian Brauner <brauner@kernel.org>,
+        "Eric W . Biederman" <ebiederm@xmission.com>,
+        Kees Cook <keescook@chromium.org>,
+        Manfred Spraul <manfred@colorfullife.com>,
+        Jonathan Corbet <corbet@lwn.net>
+Subject: [PATCH v2 3/3] docs: Add information about ipc sysctls limitations
+Date:   Tue, 20 Sep 2022 20:08:22 +0200
+Message-Id: <f54cc99145e1968e0f52dbe44e25ab057b8082dc.1663696560.git.legion@kernel.org>
+In-Reply-To: <cover.1663696560.git.legion@kernel.org>
+References: <YynnI2ySUkpu9j6S@example.org> <cover.1663696560.git.legion@kernel.org>
 MIME-Version: 1.0
-X-Spam-Status: No, score=-7.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_LOW,
+        SPF_HELO_NONE,SPF_SOFTFAIL autolearn=no autolearn_force=no
+        version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D216505
+After 25b21cb2f6d6 ("[PATCH] IPC namespace core") and 4e9823111bdc
+("[PATCH] IPC namespace - shm") the shared memory page count stopped
+being global and started counting per ipc namespace. The documentation
+and shmget(2) still says that shmall is a global option.
 
-Artem S. Tashkinov (aros@gmx.com) changed:
+shmget(2):
 
-           What    |Removed                     |Added
-----------------------------------------------------------------------------
-          Component|man-pages                   |Spam
-            Version|unspecified                 |2.5
-           Assignee|documentation_man-pages@ker |other_spam@kernel-bugs.kern
-                   |nel-bugs.osdl.org           |el.org
-            Product|Documentation               |Other
+SHMALL System-wide limit on the total amount of shared memory, measured
+in units of the system page size. On Linux, this limit can be read and
+modified via /proc/sys/kernel/shmall.
 
---=20
-You may reply to this email to add a comment.
+I think the changes made in 2006 should be documented.
 
-You are receiving this mail because:
-You are watching the assignee of the bug.=
+Signed-off-by: Alexey Gladkov <legion@kernel.org>
+Acked-by: "Eric W. Biederman" <ebiederm@xmission.com>
+---
+ Documentation/admin-guide/sysctl/kernel.rst | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
+
+diff --git a/Documentation/admin-guide/sysctl/kernel.rst b/Documentation/admin-guide/sysctl/kernel.rst
+index ee6572b1edad..c8b89bd8f004 100644
+--- a/Documentation/admin-guide/sysctl/kernel.rst
++++ b/Documentation/admin-guide/sysctl/kernel.rst
+@@ -541,6 +541,9 @@ default (``MSGMNB``).
+ ``msgmni`` is the maximum number of IPC queues. 32000 by default
+ (``MSGMNI``).
+ 
++All of these parameters are set per ipc namespace. The maximum number of bytes
++in POSIX message queues is limited by ``RLIMIT_MSGQUEUE``. This limit is
++respected hierarchically in the each user namespace.
+ 
+ msg_next_id, sem_next_id, and shm_next_id (System V IPC)
+ ========================================================
+@@ -1181,15 +1184,20 @@ are doing anyway :)
+ shmall
+ ======
+ 
+-This parameter sets the total amount of shared memory pages that
+-can be used system wide. Hence, ``shmall`` should always be at least
+-``ceil(shmmax/PAGE_SIZE)``.
++This parameter sets the total amount of shared memory pages that can be used
++inside ipc namespace. The shared memory pages counting occurs for each ipc
++namespace separately and is not inherited. Hence, ``shmall`` should always be at
++least ``ceil(shmmax/PAGE_SIZE)``.
+ 
+ If you are not sure what the default ``PAGE_SIZE`` is on your Linux
+ system, you can run the following command::
+ 
+ 	# getconf PAGE_SIZE
+ 
++To reduce or disable the ability to allocate shared memory, you must create a
++new ipc namespace, set this parameter to the required value and prohibit the
++creation of a new ipc namespace in the current user namespace or cgroups can
++be used.
+ 
+ shmmax
+ ======
+-- 
+2.33.4
+
