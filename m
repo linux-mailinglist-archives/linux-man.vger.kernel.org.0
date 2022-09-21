@@ -2,65 +2,74 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id CEDD15C01F8
-	for <lists+linux-man@lfdr.de>; Wed, 21 Sep 2022 17:46:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3DBA05E554D
+	for <lists+linux-man@lfdr.de>; Wed, 21 Sep 2022 23:41:35 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230282AbiIUPqT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 21 Sep 2022 11:46:19 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50188 "EHLO
+        id S230301AbiIUVld (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 21 Sep 2022 17:41:33 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43334 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230268AbiIUPqR (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 21 Sep 2022 11:46:17 -0400
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com [IPv6:2a00:1450:4864:20::632])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 32ABD77574
-        for <linux-man@vger.kernel.org>; Wed, 21 Sep 2022 08:46:16 -0700 (PDT)
-Received: by mail-ej1-x632.google.com with SMTP id y3so14639333ejc.1
-        for <linux-man@vger.kernel.org>; Wed, 21 Sep 2022 08:46:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date;
-        bh=ClWTbYeEhvOYg6XFFj5MAvSc/o7Jg6oSmZhpikiAjn0=;
-        b=PcAjrVvPZl/bFVdPKbAkXLKXq87SBJNVNecYr01Q6FKxrjOyiDen4/aaDrdqFvwCPP
-         gfdsDkt3oWWZdXBq5ifTU63mRZ3+2+p4kp4yjWtSZF0Ug93ygEb8UUJd13dsKIjvsEvg
-         u2paAVCkZyIuIwrjgVc8YeDbXNnXAIkCk3eKMGS7+jG9spqFTj+0lupeU1SSEu6nz/7j
-         XSyTtCgV6+NNudHESM3yHyUbvDS46cHjBtRLylgzJZS1QcxEDBWLPBY2jcFGo9AG1uEB
-         ByzCvG0HXlKZsCiWcJgbX/n6TFIanaU2s8PfavTuSU9PGa6nUMwjd6tPpk5ySpXpSP7v
-         htxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date;
-        bh=ClWTbYeEhvOYg6XFFj5MAvSc/o7Jg6oSmZhpikiAjn0=;
-        b=3KhhUXm5wLIGEAiKyetiJs9lJERi9JKN8W/GqAxhzYMC+8IFGsp6v5jGh5+lHr7j+d
-         Qkdpd66MT2xAcQR4IlgCiCZJJLMzprJ/Up63iNfueOiSUH89mWWsaGJ/gYm66dE3Npe2
-         bdxFGbVwVB1+QYjGxLi1Z6hfnUDMeMkeZQewCgd19gY6UwooX4wo8UJ8Tku695jqVwjM
-         yZSargmhE1jKLoPG5YJOZgJ6Udz3TNQPOfXPlD9voBgd2+rhpn0q5ulqDVQSb4T+cNdc
-         aNl3Rvhypyv4Mzj6E/2K0zvtT4Q/Ytp+9FzdFJvxBKYgTNYaCUkZuSvTufiFCNe+fZhd
-         ojJQ==
-X-Gm-Message-State: ACrzQf00HJbl2qfn/WkNpmNuhZp9pZfp5m0SgxVVbH99FwTfkfteBYkV
-        ++3uXwhaBHQWWcfpECRgWMKoPMYHdZE=
-X-Google-Smtp-Source: AMsMyM4b2qdlTvlswuO7F/q93mHI5Y378nlmn04SuZz3VCQ5ysSyXXgh5n8bsHTXkVf9CyLwjWlOyQ==
-X-Received: by 2002:a17:906:9b83:b0:730:b3ae:343 with SMTP id dd3-20020a1709069b8300b00730b3ae0343mr22259105ejc.670.1663775174592;
-        Wed, 21 Sep 2022 08:46:14 -0700 (PDT)
-Received: from localhost (internet-185-112-167-50.cznet.cz. [185.112.167.50])
-        by smtp.gmail.com with ESMTPSA id kw12-20020a170907770c00b0076ff600bf2csm1465531ejc.63.2022.09.21.08.46.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Sep 2022 08:46:13 -0700 (PDT)
-From:   =?UTF-8?q?=C5=A0t=C4=9Bp=C3=A1n=20N=C4=9Bmec?= <stepnem@gmail.com>
-To:     Alejandro Colomar <alx.manpages@gmail.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-Subject: [PATCH] mlock.2, pivot_root.2, poll.2, select.2, fopen.3, capabilities.7: tfix
-Date:   Wed, 21 Sep 2022 17:46:02 +0200
-Message-Id: <20220921154602.446336-1-stepnem@gmail.com>
-X-Mailer: git-send-email 2.37.3
+        with ESMTP id S229496AbiIUVlb (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 21 Sep 2022 17:41:31 -0400
+Received: from mail105.syd.optusnet.com.au (mail105.syd.optusnet.com.au [211.29.132.249])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 02665A61F1;
+        Wed, 21 Sep 2022 14:41:29 -0700 (PDT)
+Received: from dread.disaster.area (pa49-181-106-210.pa.nsw.optusnet.com.au [49.181.106.210])
+        by mail105.syd.optusnet.com.au (Postfix) with ESMTPS id CD09A1100972;
+        Thu, 22 Sep 2022 07:41:25 +1000 (AEST)
+Received: from dave by dread.disaster.area with local (Exim 4.92.3)
+        (envelope-from <david@fromorbit.com>)
+        id 1ob7TA-00AY5T-EA; Thu, 22 Sep 2022 07:41:24 +1000
+Date:   Thu, 22 Sep 2022 07:41:24 +1000
+From:   Dave Chinner <david@fromorbit.com>
+To:     Jeff Layton <jlayton@kernel.org>
+Cc:     Theodore Ts'o <tytso@mit.edu>, NeilBrown <neilb@suse.de>,
+        Trond Myklebust <trondmy@hammerspace.com>,
+        "bfields@fieldses.org" <bfields@fieldses.org>,
+        "zohar@linux.ibm.com" <zohar@linux.ibm.com>,
+        "djwong@kernel.org" <djwong@kernel.org>,
+        "brauner@kernel.org" <brauner@kernel.org>,
+        "linux-xfs@vger.kernel.org" <linux-xfs@vger.kernel.org>,
+        "linux-api@vger.kernel.org" <linux-api@vger.kernel.org>,
+        "fweimer@redhat.com" <fweimer@redhat.com>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+        "chuck.lever@oracle.com" <chuck.lever@oracle.com>,
+        "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
+        "linux-nfs@vger.kernel.org" <linux-nfs@vger.kernel.org>,
+        "linux-ext4@vger.kernel.org" <linux-ext4@vger.kernel.org>,
+        "jack@suse.cz" <jack@suse.cz>,
+        "viro@zeniv.linux.org.uk" <viro@zeniv.linux.org.uk>,
+        "xiubli@redhat.com" <xiubli@redhat.com>,
+        "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+        "adilger.kernel@dilger.ca" <adilger.kernel@dilger.ca>,
+        "lczerner@redhat.com" <lczerner@redhat.com>,
+        "ceph-devel@vger.kernel.org" <ceph-devel@vger.kernel.org>,
+        "linux-btrfs@vger.kernel.org" <linux-btrfs@vger.kernel.org>
+Subject: Re: [man-pages RFC PATCH v4] statx, inode: document the new
+ STATX_INO_VERSION field
+Message-ID: <20220921214124.GS3600936@dread.disaster.area>
+References: <166328063547.15759.12797959071252871549@noble.neil.brown.name>
+ <YyQdmLpiAMvl5EkU@mit.edu>
+ <7027d1c2923053fe763e9218d10ce8634b56e81d.camel@kernel.org>
+ <24005713ad25370d64ab5bd0db0b2e4fcb902c1c.camel@kernel.org>
+ <20220918235344.GH3600936@dread.disaster.area>
+ <87fb43b117472c0a4c688c37a925ac51738c8826.camel@kernel.org>
+ <20220920001645.GN3600936@dread.disaster.area>
+ <5832424c328ea427b5c6ecdaa6dd53f3b99c20a0.camel@kernel.org>
+ <20220921000032.GR3600936@dread.disaster.area>
+ <93b6d9f7cf997245bb68409eeb195f9400e55cd0.camel@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <93b6d9f7cf997245bb68409eeb195f9400e55cd0.camel@kernel.org>
+X-Optus-CM-Score: 0
+X-Optus-CM-Analysis: v=2.4 cv=OJNEYQWB c=1 sm=1 tr=0 ts=632b8509
+        a=j6JUzzrSC7wlfFge/rmVbg==:117 a=j6JUzzrSC7wlfFge/rmVbg==:17
+        a=kj9zAlcOel0A:10 a=xOM3xZuef0cA:10 a=7-415B0cAAAA:8
+        a=8pfsZ2Olh1enfcy7SOgA:9 a=CjuIK1q_8ugA:10 a=Fg_2k2EkwPauNWe-Eirz:22
+        a=biEYGPWJfzWAr4FL6Ov7:22
+X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_LOW,
+        RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_NONE autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -68,105 +77,71 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Signed-off-by: Štěpán Němec <stepnem@gmail.com>
----
- man2/mlock.2        | 2 +-
- man2/pivot_root.2   | 2 +-
- man2/poll.2         | 2 +-
- man2/select.2       | 2 +-
- man3/fopen.3        | 2 +-
- man7/capabilities.7 | 4 ++--
- 6 files changed, 7 insertions(+), 7 deletions(-)
+On Wed, Sep 21, 2022 at 06:33:28AM -0400, Jeff Layton wrote:
+> On Wed, 2022-09-21 at 10:00 +1000, Dave Chinner wrote:
+> > > How do we determine what that offset should be? Your last email
+> > > suggested that there really is no limit to the number of i_version bumps
+> > > that can happen in memory before one of them makes it to disk. What can
+> > > we do to address that?
+> > 
+> > <shrug>
+> > 
+> > I'm just pointing out problems I see when defining this as behaviour
+> > for on-disk format purposes. If we define it as part of the on-disk
+> > format, then we have to be concerned about how it may be used
+> > outside the scope of just the NFS server application. 
+> > 
+> > However, If NFS keeps this metadata and functionaly entirely
+> > contained at the application level via xattrs, I really don't care
+> > what algorithm NFS developers decides to use for their crash
+> > sequencing. It's not my concern at this point, and that's precisely
+> > why NFS should be using xattrs for this NFS specific functionality.
+> > 
+> 
+> I get it: you'd rather not have to deal with what you see as an NFS
+> problem, but I don't get how what you're proposing solves anything. We
+> might be able to use that scheme to detect crashes, but that's only part
+> of the problem (and it's a relatively simple part of the problem to
+> solve, really).
+> 
+> Maybe you can clarify it for me:
+> 
+> Suppose we go with what you're saying and store some information in
+> xattrs that allows us to detect crashes in some fashion. The server
+> crashes and comes back up and we detect that there was a crash earlier.
+> 
+> What does nfsd need to do now to ensure that it doesn't hand out a
+> duplicate change attribute? 
 
-diff --git a/man2/mlock.2 b/man2/mlock.2
-index fc138f6fdf44..da1ff69769d3 100644
---- a/man2/mlock.2
-+++ b/man2/mlock.2
-@@ -36,7 +36,7 @@ and
- perform the converse operation,
- unlocking part or all of the calling process's virtual
- address space, so that pages in the specified virtual address range may
--once more to be swapped out if required by the kernel memory manager.
-+once more be swapped out if required by the kernel memory manager.
- .PP
- Memory locking and unlocking are performed in units of whole pages.
- .SS mlock(), mlock2(), and munlock()
-diff --git a/man2/pivot_root.2 b/man2/pivot_root.2
-index f2df25d127b0..ecb92c103a2c 100644
---- a/man2/pivot_root.2
-+++ b/man2/pivot_root.2
-@@ -60,7 +60,7 @@ must not be on the same mount as the current root.
- .IP \-
- \fIput_old\fP must be at or underneath \fInew_root\fP;
- that is, adding some nonnegative
--number of "\fI/..\fP" prefixes to the pathname pointed to by
-+number of "\fI/..\fP" suffixes to the pathname pointed to by
- .I put_old
- must yield the same directory as \fInew_root\fP.
- .IP \-
-diff --git a/man2/poll.2 b/man2/poll.2
-index 8d2b08d63c6c..459cb383a702 100644
---- a/man2/poll.2
-+++ b/man2/poll.2
-@@ -577,7 +577,7 @@ main(int argc, char *argv[])
-     if (pfds == NULL)
-         errExit("malloc");
- 
--    /* Open each file on command line, and add it \(aqpfds\(aq array. */
-+    /* Open each file on command line, and add it to \(aqpfds\(aq array. */
- 
-     for (nfds_t j = 0; j < nfds; j++) {
-         pfds[j].fd = open(argv[j + 1], O_RDONLY);
-diff --git a/man2/select.2 b/man2/select.2
-index 0fc075d48897..413baf3d6fef 100644
---- a/man2/select.2
-+++ b/man2/select.2
-@@ -547,7 +547,7 @@ On some UNIX systems,
- .BR select ()
- unblocks and returns, with an indication that the file descriptor is ready
- (a subsequent I/O operation will likely fail with an error,
--unless another process reopens file descriptor between the time
-+unless another process reopens the file descriptor between the time
- .BR select ()
- returned and the I/O operation is performed).
- On Linux (and some other systems),
-diff --git a/man3/fopen.3 b/man3/fopen.3
-index d2fb6abeacf4..a2d3b5ab4ecc 100644
---- a/man3/fopen.3
-+++ b/man3/fopen.3
-@@ -123,7 +123,7 @@ called for its synchronizing side effect).
- Opening a file in append mode (\fBa\fP as the first character of
- .IR mode )
- causes all subsequent write operations to this stream to occur
--at end-of-file, as if preceded the call:
-+at end-of-file, as if preceded by the call:
- .PP
- .in +4n
- .EX
-diff --git a/man7/capabilities.7 b/man7/capabilities.7
-index ef56c63f9a34..c991b17b5666 100644
---- a/man7/capabilities.7
-+++ b/man7/capabilities.7
-@@ -1040,7 +1040,7 @@ Therefore, when assigning capabilities to a file
- if we specify the effective flag as being enabled for any capability,
- then the effective flag must also be specified as enabled
- for all other capabilities for which the corresponding permitted or
--inheritable flags is enabled.
-+inheritable flag is enabled.
- .\"
- .SS File capability extended attribute versioning
- To allow extensibility,
-@@ -1271,7 +1271,7 @@ file permitted capabilities, then
- fails with the error
- .BR EPERM .
- This prevents possible security risks that could arise when
--a capability-dumb application is executed with less privilege that it needs.
-+a capability-dumb application is executed with less privilege than it needs.
- Note that, by definition,
- the application could not itself recognize this problem,
- since it does not employ the
+As I've already stated, the NFS server can hold the persistent NFS
+crash counter value in a second xattr that it bumps whenever it
+detects a crash and hence we take the local filesystem completely
+out of the equation.  How the crash counter is then used by the nfsd
+to fold it into the NFS protocol change attribute is a nfsd problem,
+not a local filesystem problem.
 
-base-commit: bf8f5415a1dd3296d3741008936458aeaf8769fc
+If you're worried about maximum number of writes outstanding vs
+i_version bumps that are held in memory, then *bound the maximum
+number of uncommitted i_version changes that the NFS server will
+allow to build up in memory*. By moving the crash counter to being a
+NFS server only function, the NFS server controls the entire
+algorithm and it doesn't have to care about external 3rd party
+considerations like local filesystems have to.
+
+e.g. The NFS server can track the i_version values when the NFSD
+syncs/commits a given inode. The nfsd can sample i_version it when
+calls ->commit_metadata or flushed data on the inode, and then when
+it peeks at i_version when gathering post-op attrs (or any other
+getattr op) it can decide that there is too much in-memory change
+(e.g. 10,000 counts since last sync) and sync the inode.
+
+i.e. the NFS server can trivially cap the maximum number of
+uncommitted NFS change attr bumps it allows to build up in memory.
+At that point, the NFS server has a bound "maximum write count" that
+can be used in conjunction with the xattr based crash counter to
+determine how the change_attr is bumped by the crash counter.
+
+-Dave.
 -- 
-2.37.3
-
+Dave Chinner
+david@fromorbit.com
