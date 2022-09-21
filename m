@@ -2,114 +2,171 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id DD22B5BFC85
-	for <lists+linux-man@lfdr.de>; Wed, 21 Sep 2022 12:42:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CEDD15C01F8
+	for <lists+linux-man@lfdr.de>; Wed, 21 Sep 2022 17:46:20 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229845AbiIUKmQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 21 Sep 2022 06:42:16 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50048 "EHLO
+        id S230282AbiIUPqT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 21 Sep 2022 11:46:19 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50188 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230051AbiIUKmP (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 21 Sep 2022 06:42:15 -0400
-Received: from us-smtp-delivery-44.mimecast.com (us-smtp-delivery-44.mimecast.com [205.139.111.44])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2485D2A97F
-        for <linux-man@vger.kernel.org>; Wed, 21 Sep 2022 03:42:14 -0700 (PDT)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-60-1IQFo52uNZmnFUZIsYK-2Q-1; Wed, 21 Sep 2022 06:42:08 -0400
-X-MC-Unique: 1IQFo52uNZmnFUZIsYK-2Q-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
-        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-        (No client certificate requested)
-        by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E2B4E8630C3;
-        Wed, 21 Sep 2022 10:42:07 +0000 (UTC)
-Received: from comp-core-i7-2640m-0182e6.redhat.com (unknown [10.40.208.17])
-        by smtp.corp.redhat.com (Postfix) with ESMTP id 3A4B01759F;
-        Wed, 21 Sep 2022 10:42:06 +0000 (UTC)
-From:   Alexey Gladkov <legion@kernel.org>
-To:     LKML <linux-kernel@vger.kernel.org>,
-        Linux Containers <containers@lists.linux.dev>,
-        linux-doc@vger.kernel.org, linux-man@vger.kernel.org
-Cc:     Andrew Morton <akpm@linux-foundation.org>,
-        Christian Brauner <brauner@kernel.org>,
-        "Eric W . Biederman" <ebiederm@xmission.com>,
-        Kees Cook <keescook@chromium.org>,
-        Manfred Spraul <manfred@colorfullife.com>
-Subject: [PATCH v3 3/3] docs: Add information about ipc sysctls limitations
-Date:   Wed, 21 Sep 2022 12:41:49 +0200
-Message-Id: <ede20ddf7be48b93e8084c3be2e920841ee1a641.1663756794.git.legion@kernel.org>
-In-Reply-To: <cover.1663756794.git.legion@kernel.org>
-References: <202209211737.0Bu0F40t-lkp@intel.com> <cover.1663756794.git.legion@kernel.org>
+        with ESMTP id S230268AbiIUPqR (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 21 Sep 2022 11:46:17 -0400
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com [IPv6:2a00:1450:4864:20::632])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 32ABD77574
+        for <linux-man@vger.kernel.org>; Wed, 21 Sep 2022 08:46:16 -0700 (PDT)
+Received: by mail-ej1-x632.google.com with SMTP id y3so14639333ejc.1
+        for <linux-man@vger.kernel.org>; Wed, 21 Sep 2022 08:46:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date;
+        bh=ClWTbYeEhvOYg6XFFj5MAvSc/o7Jg6oSmZhpikiAjn0=;
+        b=PcAjrVvPZl/bFVdPKbAkXLKXq87SBJNVNecYr01Q6FKxrjOyiDen4/aaDrdqFvwCPP
+         gfdsDkt3oWWZdXBq5ifTU63mRZ3+2+p4kp4yjWtSZF0Ug93ygEb8UUJd13dsKIjvsEvg
+         u2paAVCkZyIuIwrjgVc8YeDbXNnXAIkCk3eKMGS7+jG9spqFTj+0lupeU1SSEu6nz/7j
+         XSyTtCgV6+NNudHESM3yHyUbvDS46cHjBtRLylgzJZS1QcxEDBWLPBY2jcFGo9AG1uEB
+         ByzCvG0HXlKZsCiWcJgbX/n6TFIanaU2s8PfavTuSU9PGa6nUMwjd6tPpk5ySpXpSP7v
+         htxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date;
+        bh=ClWTbYeEhvOYg6XFFj5MAvSc/o7Jg6oSmZhpikiAjn0=;
+        b=3KhhUXm5wLIGEAiKyetiJs9lJERi9JKN8W/GqAxhzYMC+8IFGsp6v5jGh5+lHr7j+d
+         Qkdpd66MT2xAcQR4IlgCiCZJJLMzprJ/Up63iNfueOiSUH89mWWsaGJ/gYm66dE3Npe2
+         bdxFGbVwVB1+QYjGxLi1Z6hfnUDMeMkeZQewCgd19gY6UwooX4wo8UJ8Tku695jqVwjM
+         yZSargmhE1jKLoPG5YJOZgJ6Udz3TNQPOfXPlD9voBgd2+rhpn0q5ulqDVQSb4T+cNdc
+         aNl3Rvhypyv4Mzj6E/2K0zvtT4Q/Ytp+9FzdFJvxBKYgTNYaCUkZuSvTufiFCNe+fZhd
+         ojJQ==
+X-Gm-Message-State: ACrzQf00HJbl2qfn/WkNpmNuhZp9pZfp5m0SgxVVbH99FwTfkfteBYkV
+        ++3uXwhaBHQWWcfpECRgWMKoPMYHdZE=
+X-Google-Smtp-Source: AMsMyM4b2qdlTvlswuO7F/q93mHI5Y378nlmn04SuZz3VCQ5ysSyXXgh5n8bsHTXkVf9CyLwjWlOyQ==
+X-Received: by 2002:a17:906:9b83:b0:730:b3ae:343 with SMTP id dd3-20020a1709069b8300b00730b3ae0343mr22259105ejc.670.1663775174592;
+        Wed, 21 Sep 2022 08:46:14 -0700 (PDT)
+Received: from localhost (internet-185-112-167-50.cznet.cz. [185.112.167.50])
+        by smtp.gmail.com with ESMTPSA id kw12-20020a170907770c00b0076ff600bf2csm1465531ejc.63.2022.09.21.08.46.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Sep 2022 08:46:13 -0700 (PDT)
+From:   =?UTF-8?q?=C5=A0t=C4=9Bp=C3=A1n=20N=C4=9Bmec?= <stepnem@gmail.com>
+To:     Alejandro Colomar <alx.manpages@gmail.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org
+Subject: [PATCH] mlock.2, pivot_root.2, poll.2, select.2, fopen.3, capabilities.7: tfix
+Date:   Wed, 21 Sep 2022 17:46:02 +0200
+Message-Id: <20220921154602.446336-1-stepnem@gmail.com>
+X-Mailer: git-send-email 2.37.3
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_LOW,
-        SPF_HELO_NONE,SPF_SOFTFAIL autolearn=no autolearn_force=no
-        version=3.4.6
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-After 25b21cb2f6d6 ("[PATCH] IPC namespace core") and 4e9823111bdc
-("[PATCH] IPC namespace - shm") the shared memory page count stopped
-being global and started counting per ipc namespace. The documentation
-and shmget(2) still says that shmall is a global option.
-
-shmget(2):
-
-SHMALL System-wide limit on the total amount of shared memory, measured
-in units of the system page size. On Linux, this limit can be read and
-modified via /proc/sys/kernel/shmall.
-
-I think the changes made in 2006 should be documented.
-
-Signed-off-by: Alexey Gladkov <legion@kernel.org>
-Acked-by: "Eric W. Biederman" <ebiederm@xmission.com>
+Signed-off-by: Štěpán Němec <stepnem@gmail.com>
 ---
- Documentation/admin-guide/sysctl/kernel.rst | 14 +++++++++++---
- 1 file changed, 11 insertions(+), 3 deletions(-)
+ man2/mlock.2        | 2 +-
+ man2/pivot_root.2   | 2 +-
+ man2/poll.2         | 2 +-
+ man2/select.2       | 2 +-
+ man3/fopen.3        | 2 +-
+ man7/capabilities.7 | 4 ++--
+ 6 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/Documentation/admin-guide/sysctl/kernel.rst b/Documentation/admin-guide/sysctl/kernel.rst
-index ee6572b1edad..c8b89bd8f004 100644
---- a/Documentation/admin-guide/sysctl/kernel.rst
-+++ b/Documentation/admin-guide/sysctl/kernel.rst
-@@ -541,6 +541,9 @@ default (``MSGMNB``).
- ``msgmni`` is the maximum number of IPC queues. 32000 by default
- (``MSGMNI``).
+diff --git a/man2/mlock.2 b/man2/mlock.2
+index fc138f6fdf44..da1ff69769d3 100644
+--- a/man2/mlock.2
++++ b/man2/mlock.2
+@@ -36,7 +36,7 @@ and
+ perform the converse operation,
+ unlocking part or all of the calling process's virtual
+ address space, so that pages in the specified virtual address range may
+-once more to be swapped out if required by the kernel memory manager.
++once more be swapped out if required by the kernel memory manager.
+ .PP
+ Memory locking and unlocking are performed in units of whole pages.
+ .SS mlock(), mlock2(), and munlock()
+diff --git a/man2/pivot_root.2 b/man2/pivot_root.2
+index f2df25d127b0..ecb92c103a2c 100644
+--- a/man2/pivot_root.2
++++ b/man2/pivot_root.2
+@@ -60,7 +60,7 @@ must not be on the same mount as the current root.
+ .IP \-
+ \fIput_old\fP must be at or underneath \fInew_root\fP;
+ that is, adding some nonnegative
+-number of "\fI/..\fP" prefixes to the pathname pointed to by
++number of "\fI/..\fP" suffixes to the pathname pointed to by
+ .I put_old
+ must yield the same directory as \fInew_root\fP.
+ .IP \-
+diff --git a/man2/poll.2 b/man2/poll.2
+index 8d2b08d63c6c..459cb383a702 100644
+--- a/man2/poll.2
++++ b/man2/poll.2
+@@ -577,7 +577,7 @@ main(int argc, char *argv[])
+     if (pfds == NULL)
+         errExit("malloc");
  
-+All of these parameters are set per ipc namespace. The maximum number of bytes
-+in POSIX message queues is limited by ``RLIMIT_MSGQUEUE``. This limit is
-+respected hierarchically in the each user namespace.
+-    /* Open each file on command line, and add it \(aqpfds\(aq array. */
++    /* Open each file on command line, and add it to \(aqpfds\(aq array. */
  
- msg_next_id, sem_next_id, and shm_next_id (System V IPC)
- ========================================================
-@@ -1181,15 +1184,20 @@ are doing anyway :)
- shmall
- ======
- 
--This parameter sets the total amount of shared memory pages that
--can be used system wide. Hence, ``shmall`` should always be at least
--``ceil(shmmax/PAGE_SIZE)``.
-+This parameter sets the total amount of shared memory pages that can be used
-+inside ipc namespace. The shared memory pages counting occurs for each ipc
-+namespace separately and is not inherited. Hence, ``shmall`` should always be at
-+least ``ceil(shmmax/PAGE_SIZE)``.
- 
- If you are not sure what the default ``PAGE_SIZE`` is on your Linux
- system, you can run the following command::
- 
- 	# getconf PAGE_SIZE
- 
-+To reduce or disable the ability to allocate shared memory, you must create a
-+new ipc namespace, set this parameter to the required value and prohibit the
-+creation of a new ipc namespace in the current user namespace or cgroups can
-+be used.
- 
- shmmax
- ======
+     for (nfds_t j = 0; j < nfds; j++) {
+         pfds[j].fd = open(argv[j + 1], O_RDONLY);
+diff --git a/man2/select.2 b/man2/select.2
+index 0fc075d48897..413baf3d6fef 100644
+--- a/man2/select.2
++++ b/man2/select.2
+@@ -547,7 +547,7 @@ On some UNIX systems,
+ .BR select ()
+ unblocks and returns, with an indication that the file descriptor is ready
+ (a subsequent I/O operation will likely fail with an error,
+-unless another process reopens file descriptor between the time
++unless another process reopens the file descriptor between the time
+ .BR select ()
+ returned and the I/O operation is performed).
+ On Linux (and some other systems),
+diff --git a/man3/fopen.3 b/man3/fopen.3
+index d2fb6abeacf4..a2d3b5ab4ecc 100644
+--- a/man3/fopen.3
++++ b/man3/fopen.3
+@@ -123,7 +123,7 @@ called for its synchronizing side effect).
+ Opening a file in append mode (\fBa\fP as the first character of
+ .IR mode )
+ causes all subsequent write operations to this stream to occur
+-at end-of-file, as if preceded the call:
++at end-of-file, as if preceded by the call:
+ .PP
+ .in +4n
+ .EX
+diff --git a/man7/capabilities.7 b/man7/capabilities.7
+index ef56c63f9a34..c991b17b5666 100644
+--- a/man7/capabilities.7
++++ b/man7/capabilities.7
+@@ -1040,7 +1040,7 @@ Therefore, when assigning capabilities to a file
+ if we specify the effective flag as being enabled for any capability,
+ then the effective flag must also be specified as enabled
+ for all other capabilities for which the corresponding permitted or
+-inheritable flags is enabled.
++inheritable flag is enabled.
+ .\"
+ .SS File capability extended attribute versioning
+ To allow extensibility,
+@@ -1271,7 +1271,7 @@ file permitted capabilities, then
+ fails with the error
+ .BR EPERM .
+ This prevents possible security risks that could arise when
+-a capability-dumb application is executed with less privilege that it needs.
++a capability-dumb application is executed with less privilege than it needs.
+ Note that, by definition,
+ the application could not itself recognize this problem,
+ since it does not employ the
+
+base-commit: bf8f5415a1dd3296d3741008936458aeaf8769fc
 -- 
-2.33.4
+2.37.3
 
