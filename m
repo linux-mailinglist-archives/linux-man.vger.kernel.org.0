@@ -2,154 +2,97 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id EBA075E7821
-	for <lists+linux-man@lfdr.de>; Fri, 23 Sep 2022 12:19:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6E8C95E7A84
+	for <lists+linux-man@lfdr.de>; Fri, 23 Sep 2022 14:22:44 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231642AbiIWKTo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 23 Sep 2022 06:19:44 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36966 "EHLO
+        id S232073AbiIWMWk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 23 Sep 2022 08:22:40 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41628 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231194AbiIWKTl (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 23 Sep 2022 06:19:41 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4D19A16583;
-        Fri, 23 Sep 2022 03:19:36 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id 9B6A8611BC;
-        Fri, 23 Sep 2022 10:19:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3D6FC433D6;
-        Fri, 23 Sep 2022 10:19:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1663928375;
-        bh=WKF/etRdydviG3/y3Y0AoNpRXxEQIEqA8KePNsIopAA=;
-        h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-        b=BiMNTTyzHQABsA/KKyvWH1h/rRoAV9oJlKE6TnzaPQcD4vipU3oxuvmgC13e/1JtT
-         wyTdwlj45t4Lf8JDs+7ruqqxdu2o438/B93OcmbjrfdGjYHcjdBw4gIfaELR8+9vAl
-         6Pj3tKo7d2egYOTO9g0hpD5+EsottpWXnK9qhpUMYytSt9ad32nK98+UKYqz5p6vko
-         EA9ThF7++KdcCT52Dquq5JsrJlfVZ6NV9I7PwbFbAZK+YUM2GmSuXZvMrRkcj37uoV
-         vcMMmY7KBIsJIGRFTSvgr5TUfovNF+9SOd+RbUdi+IXBoypTX66a2T0s8cXJxiGx4c
-         WUqSTI+DNyCEQ==
-Message-ID: <a30414b7b720217082a8245d10e50e9c342ec8ad.camel@kernel.org>
-Subject: Re: [man-pages RFC PATCH v4] statx, inode: document the new
- STATX_INO_VERSION field
-From:   Jeff Layton <jlayton@kernel.org>
-To:     Jan Kara <jack@suse.cz>
-Cc:     Dave Chinner <david@fromorbit.com>, Theodore Ts'o <tytso@mit.edu>,
-        NeilBrown <neilb@suse.de>,
-        Trond Myklebust <trondmy@hammerspace.com>,
-        "bfields@fieldses.org" <bfields@fieldses.org>,
-        "zohar@linux.ibm.com" <zohar@linux.ibm.com>,
-        "djwong@kernel.org" <djwong@kernel.org>,
-        "brauner@kernel.org" <brauner@kernel.org>,
-        "linux-xfs@vger.kernel.org" <linux-xfs@vger.kernel.org>,
-        "linux-api@vger.kernel.org" <linux-api@vger.kernel.org>,
-        "fweimer@redhat.com" <fweimer@redhat.com>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-        "chuck.lever@oracle.com" <chuck.lever@oracle.com>,
-        "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
-        "linux-nfs@vger.kernel.org" <linux-nfs@vger.kernel.org>,
-        "linux-ext4@vger.kernel.org" <linux-ext4@vger.kernel.org>,
-        "viro@zeniv.linux.org.uk" <viro@zeniv.linux.org.uk>,
-        "xiubli@redhat.com" <xiubli@redhat.com>,
-        "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
-        "adilger.kernel@dilger.ca" <adilger.kernel@dilger.ca>,
-        "lczerner@redhat.com" <lczerner@redhat.com>,
-        "ceph-devel@vger.kernel.org" <ceph-devel@vger.kernel.org>,
-        "linux-btrfs@vger.kernel.org" <linux-btrfs@vger.kernel.org>
-Date:   Fri, 23 Sep 2022 06:19:31 -0400
-In-Reply-To: <20220923095653.5c63i2jgv52j3zqp@quack3>
-References: <24005713ad25370d64ab5bd0db0b2e4fcb902c1c.camel@kernel.org>
-         <20220918235344.GH3600936@dread.disaster.area>
-         <87fb43b117472c0a4c688c37a925ac51738c8826.camel@kernel.org>
-         <20220920001645.GN3600936@dread.disaster.area>
-         <5832424c328ea427b5c6ecdaa6dd53f3b99c20a0.camel@kernel.org>
-         <20220921000032.GR3600936@dread.disaster.area>
-         <93b6d9f7cf997245bb68409eeb195f9400e55cd0.camel@kernel.org>
-         <20220921214124.GS3600936@dread.disaster.area>
-         <e04e349170bc227b330556556d0592a53692b5b5.camel@kernel.org>
-         <1ef261e3ff1fa7fcd0d75ed755931aacb8062de2.camel@kernel.org>
-         <20220923095653.5c63i2jgv52j3zqp@quack3>
-Content-Type: text/plain; charset="ISO-8859-15"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4 (3.44.4-1.fc36) 
+        with ESMTP id S229787AbiIWMV6 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 23 Sep 2022 08:21:58 -0400
+Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com [IPv6:2607:f8b0:4864:20::231])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 515D0133CB6
+        for <linux-man@vger.kernel.org>; Fri, 23 Sep 2022 05:17:28 -0700 (PDT)
+Received: by mail-oi1-x231.google.com with SMTP id m130so16167102oif.6
+        for <linux-man@vger.kernel.org>; Fri, 23 Sep 2022 05:17:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=to:subject:message-id:date:from:reply-to:mime-version:from:to:cc
+         :subject:date;
+        bh=FcyQcUXi9xALQQ6Lm7VNXiWYStBjH/LCUTADg6v4m+k=;
+        b=KyNkXozJX5ps9hGGGfbbILOmRbisUnw7dUIV20AvRsenSPnNVFjDJiFZNWnNrmzJR6
+         3JkDGlVUgOL5YAtVJorb5dt2zYMgEjutqKCm9UNUQtVvC6xn3wNaZAYIU/fkC7v2DWOC
+         DjThjagNfg9Ai/QscCjgSePZI7TQ0IObUlrms77J9ypNmui5ssoF1YpLBFNYPrG5BGX1
+         0Sg5xmxIzVx+5yfZ13FY+dT6Flss7Iqy2OflHqv2Y4z/kDo2iU3oN62vs92AWmAZC38q
+         CAqV+2xbyL0OTBY/CtD1YSBiBZhdAQ0+qaKDF8ChC0SiP2bkgqfcQfwj7a3amlMNi969
+         nKew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=to:subject:message-id:date:from:reply-to:mime-version
+         :x-gm-message-state:from:to:cc:subject:date;
+        bh=FcyQcUXi9xALQQ6Lm7VNXiWYStBjH/LCUTADg6v4m+k=;
+        b=3BpABceWJZl8InrYHJESd14nmkNS3Lih6M+7vxHrC6MOnAFNNxXbcAcFUk/6O02C8S
+         fI25YK4P4ReTu+dNS2qB/2Dbf4+w62WI4k//qD3AYcri1X7bwrl8p5p7MRPh8rBirjnY
+         UAF79LBNIImhmduhXG4Rg6Q4S9BwHSFQGeqZGIcyOITIvu8ozauTuY2wKYZYvhjBEZeW
+         vreVu30zs79SN/xlDKpHJBavHn5x2dkful3cEJgVmpQZ48cpTspfdVdtzCrPXm6JsBDm
+         m1wkqd4CUefIUM4cevHHTJVeomlx8mcfetVjeSk3rz2hchHJmUzFTWuWHIClA2MmShJN
+         u4OA==
+X-Gm-Message-State: ACrzQf14db7UpXENqwDDN8T4zYDJG0cLYIymm3SNClWb4RP/g+1tgEss
+        U4+DjWpkk8nTC5GGk++i6wRQ7fTgFPQHIcw5pAw=
+X-Google-Smtp-Source: AMsMyM4hqYcqGm4XsnZW0I3F9mKQNpTVarqWK6v7hTeNSPNndBhyRgL7pI26Ddoo2bGClCzJbCI4/fqWo7roESJpKhQ=
+X-Received: by 2002:a05:6808:3187:b0:350:3194:c29e with SMTP id
+ cd7-20020a056808318700b003503194c29emr4000504oib.174.1663935447742; Fri, 23
+ Sep 2022 05:17:27 -0700 (PDT)
 MIME-Version: 1.0
-X-Spam-Status: No, score=-7.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
+Received: by 2002:a05:6358:7e8a:b0:a1:ada:7451 with HTTP; Fri, 23 Sep 2022
+ 05:17:27 -0700 (PDT)
+Reply-To: linadavid0089@gmail.com
+From:   Lina David <desouzabayi7@gmail.com>
+Date:   Fri, 23 Sep 2022 13:17:27 +0100
+Message-ID: <CADVjuPrmvkNUKG8CFch_8-+GCu4BwSOmFuW-+bW_pkMVd2Y61w@mail.gmail.com>
+Subject: 
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
+X-Spam-Status: Yes, score=5.2 required=5.0 tests=BAYES_50,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
+        FREEMAIL_FROM,FREEMAIL_REPLYTO,FREEMAIL_REPLYTO_END_DIGIT,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,UNDISC_FREEM autolearn=no
+        autolearn_force=no version=3.4.6
+X-Spam-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
+        *      https://www.dnswl.org/, no trust
+        *      [2607:f8b0:4864:20:0:0:0:231 listed in]
+        [list.dnswl.org]
+        *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
+        *      [score: 0.4999]
+        * -0.0 SPF_PASS SPF: sender matches SPF record
+        *  0.2 FREEMAIL_REPLYTO_END_DIGIT Reply-To freemail username ends in
+        *      digit
+        *      [linadavid0089[at]gmail.com]
+        *  0.0 SPF_HELO_NONE SPF: HELO does not publish an SPF Record
+        *  0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
+        *      provider
+        *      [desouzabayi7[at]gmail.com]
+        *  0.2 FREEMAIL_ENVFROM_END_DIGIT Envelope-from freemail username ends
+        *       in digit
+        *      [desouzabayi7[at]gmail.com]
+        * -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+        *  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+        *       valid
+        * -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+        *      author's domain
+        * -0.1 DKIM_VALID_EF Message has a valid DKIM or DK signature from
+        *      envelope-from domain
+        *  3.1 UNDISC_FREEM Undisclosed recipients + freemail reply-to
+        *  1.0 FREEMAIL_REPLYTO Reply-To/From or Reply-To/body contain
+        *      different freemails
+X-Spam-Level: *****
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Fri, 2022-09-23 at 11:56 +0200, Jan Kara wrote:
-> On Thu 22-09-22 16:18:02, Jeff Layton wrote:
-> > On Thu, 2022-09-22 at 06:18 -0400, Jeff Layton wrote:
-> > > On Thu, 2022-09-22 at 07:41 +1000, Dave Chinner wrote:
-> > > > e.g. The NFS server can track the i_version values when the NFSD
-> > > > syncs/commits a given inode. The nfsd can sample i_version it when
-> > > > calls ->commit_metadata or flushed data on the inode, and then when
-> > > > it peeks at i_version when gathering post-op attrs (or any other
-> > > > getattr op) it can decide that there is too much in-memory change
-> > > > (e.g. 10,000 counts since last sync) and sync the inode.
-> > > >=20
-> > > > i.e. the NFS server can trivially cap the maximum number of
-> > > > uncommitted NFS change attr bumps it allows to build up in memory.
-> > > > At that point, the NFS server has a bound "maximum write count" tha=
-t
-> > > > can be used in conjunction with the xattr based crash counter to
-> > > > determine how the change_attr is bumped by the crash counter.
-> > >=20
-> > > Well, not "trivially". This is the bit where we have to grow struct
-> > > inode (or the fs-specific inode), as we'll need to know what the late=
-st
-> > > on-disk value is for the inode.
-> > >=20
-> > > I'm leaning toward doing this on the query side. Basically, when nfsd
-> > > goes to query the i_version, it'll check the delta between the curren=
-t
-> > > version and the latest one on disk. If it's bigger than X then we'd j=
-ust
-> > > return NFS4ERR_DELAY to the client.
-> > >=20
-> > > If the delta is >X/2, maybe it can kick off a workqueue job or someth=
-ing
-> > > that calls write_inode with WB_SYNC_ALL to try to get the thing onto =
-the
-> > > platter ASAP.
-> >=20
-> > Still looking at this bit too. Probably we can just kick off a
-> > WB_SYNC_NONE filemap_fdatawrite at that point and hope for the best?
->=20
-> "Hope" is not a great assurance regarding data integrity ;)=A0
-
-By "hoping for the best", I meant hoping that we never have to take the
-the drastic action of returning NFS4ERR_DELAY on GETATTR operations. We
-definitely don't want to jeopardize data integrity.=20
-
-> Anyway, it
-> depends on how you imagine the "i_version on disk" is going to be
-> maintained. It could be maintained by NFSD inside commit_inode_metadata()=
- -
-> fetch current i_version value before asking filesystem for the sync and b=
-y the
-> time commit_metadata() returns we know that value is on disk. If we detec=
-t the
-> current - on_disk is > X/2, we call commit_inode_metadata() and we are
-> done. It is not even *that* expensive because usually filesystems optimiz=
-e
-> away unnecessary IO when the inode didn't change since last time it got
-> synced.
->=20
-
-At >X/2 we don't really want to start blocking or anything. I'd prefer
-if we could kick off something in the background for this, but if it's
-not too expensive then maybe just calling commit_inode_metadata
-synchronously in this codepath is OK. Alternately, we could consider
-doing that in a workqueue job too.
-
-I need to do a bit more research here, but I think we have some options.
---=20
-Jeff Layton <jlayton@kernel.org>
+-- 
+Hello,
+how are you?
