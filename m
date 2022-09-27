@@ -2,139 +2,157 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 80A4F5ECCF2
-	for <lists+linux-man@lfdr.de>; Tue, 27 Sep 2022 21:33:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5716A5ECE91
+	for <lists+linux-man@lfdr.de>; Tue, 27 Sep 2022 22:32:12 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231218AbiI0TdU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 27 Sep 2022 15:33:20 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59970 "EHLO
+        id S232725AbiI0UcK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 27 Sep 2022 16:32:10 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55580 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229862AbiI0TdS (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 27 Sep 2022 15:33:18 -0400
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com [IPv6:2a00:1450:4864:20::434])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4070851434;
-        Tue, 27 Sep 2022 12:33:17 -0700 (PDT)
-Received: by mail-wr1-x434.google.com with SMTP id t14so16506502wrx.8;
-        Tue, 27 Sep 2022 12:33:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=in-reply-to:references:to:from:content-language:subject:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date;
-        bh=vTIAuy/pa4XjJdvf82pbunRZKX6pu4mEiYP8cYonrLI=;
-        b=hqg68fZrvHLo+tfFRvVBRtWoAjXTxh6E1rTsgoXDe/qvuW8j5VG2cjWsEN5AqtrxMp
-         qCxB5X0mjYuSHEZgysQICLlTYWYWTriTBjs3eB5WpG9q36meUnjAxE3cqCESH810/jB9
-         o31iO0edwiym6fxZO58fImat3DK/zkvyBmJ/qKSX2KVMnMPUKfeOqTQLOBWvEmCSRxIF
-         FA2rIoPAfCtgE37yl7OzeiUheRR6RlRqYzSaajGAqAmph+fRmHNMX390XKLUc7l+iyjj
-         XFhTC9N2mZFAs5fMXQ3MnM51j3fQxf+xapcGI6tv5oLybkVgVXua3ZTYo0MUi9gm1WD/
-         dwIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=in-reply-to:references:to:from:content-language:subject:user-agent
-         :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
-         :date;
-        bh=vTIAuy/pa4XjJdvf82pbunRZKX6pu4mEiYP8cYonrLI=;
-        b=W4FpouVKCamMBSaiZTEWCfRWB/YpeWwD/1CoH19uoo6YsD3sHexsCSnytWGGcdfKK8
-         e8gc+jk46z5SuqlwOPKmFAFICD/lDSoaE0sUPHFGR86bUedittUpOd+hAn1vc0TOWl54
-         Qn7icAm/94djOStxIf6itmgzxv515HhTuBpJ8bhcUYHy6+t62+nOpFR7nSlyNlYcKD9I
-         jkfV+RZiggSHFSGkVc0MLcF367Ek3PyI73ju3Y2S+/dGPBjJhBGviK2E36Ka8YvpgdWv
-         ruhXzmEfmVvj8Uyan72Umeks9n2BDiROBCZg+vVlwsLVsReAMcX3mrU4ez6zWhK9B3xH
-         ZEKw==
-X-Gm-Message-State: ACrzQf3kRwJMJk2YU6BvNsh0H4gwb8ohfGDaDERFYfptkoqaD+QtSUc3
-        FuGpEIXXGHi2MR2H7fWDgVM=
-X-Google-Smtp-Source: AMsMyM4PmknA24pz3sYkZy7ykN3et3CnAo4X3II9wI5OrnwJdIPQ5KVZA8vi3K4J7fmW7f0l7kTmkg==
-X-Received: by 2002:adf:e109:0:b0:225:4ca5:80d5 with SMTP id t9-20020adfe109000000b002254ca580d5mr17621940wrz.465.1664307195680;
-        Tue, 27 Sep 2022 12:33:15 -0700 (PDT)
-Received: from [192.168.43.80] ([31.221.140.113])
-        by smtp.gmail.com with ESMTPSA id ba11-20020a0560001c0b00b0022a9246c853sm2509351wrb.41.2022.09.27.12.33.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 27 Sep 2022 12:33:15 -0700 (PDT)
-Message-ID: <242f444d-9846-1a13-d901-9ad503dce605@gmail.com>
-Date:   Tue, 27 Sep 2022 21:33:05 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
+        with ESMTP id S232861AbiI0UcG (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 27 Sep 2022 16:32:06 -0400
+Received: from smtp.gentoo.org (woodpecker.gentoo.org [140.211.166.183])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A15E26567A;
+        Tue, 27 Sep 2022 13:32:03 -0700 (PDT)
+Content-Type: multipart/signed;
+        boundary="Apple-Mail=_6F771BEB-AB0E-416A-A064-2F102FF46030";
+        protocol="application/pgp-signature";
+        micalg=pgp-sha512
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3696.120.41.1.1\))
 Subject: Re: readpassphrase(3) in glibc, and agetpass() (Was: Is getpass(3)
  really obsolete?)
-Content-Language: en-US
-From:   Alex Colomar <alx.manpages@gmail.com>
-To:     Zack Weinberg <zack@owlfolio.org>,
+From:   Sam James <sam@gentoo.org>
+In-Reply-To: <c8287618-30c4-f14b-8ad7-898fee99d944@gmail.com>
+Date:   Tue, 27 Sep 2022 21:30:12 +0100
+Cc:     Zack Weinberg <zack@owlfolio.org>,
         Theo de Raadt <deraadt@openbsd.org>, rsbecker@nexbridge.com,
-        'linux-man' <linux-man@vger.kernel.org>, tech@openbsd.org,
+        linux-man <linux-man@vger.kernel.org>, tech@openbsd.org,
         Florian Weimer <libc-alpha@sourceware.org>, git@vger.kernel.org
+Message-Id: <180409CA-768D-44E5-A15D-91F66F8EC0C2@gentoo.org>
 References: <a0371f24-d8d3-07d9-83a3-00a4bf22c0f5@gmail.com>
  <73ac38a2-c287-4cc1-4e9c-0f9766ac4c0c@gmail.com>
  <00d501d7ccbe$0169c340$043d49c0$@nexbridge.com>
  <63238.1635515736@cvs.openbsd.org>
  <6d8642e9-71f7-4a83-9791-880d04f67d17@www.fastmail.com>
  <c8287618-30c4-f14b-8ad7-898fee99d944@gmail.com>
-In-Reply-To: <c8287618-30c4-f14b-8ad7-898fee99d944@gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------AXFuaZZQ7EVxwY5joCy9kNgO"
-X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
-        autolearn_force=no version=3.4.6
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+X-Mailer: Apple Mail (2.3696.120.41.1.1)
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED,
+        RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------AXFuaZZQ7EVxwY5joCy9kNgO
-Content-Type: multipart/mixed; boundary="------------jqR07irMUADwmW0E4W0rIOr8";
- protected-headers="v1"
-From: Alex Colomar <alx.manpages@gmail.com>
-To: Zack Weinberg <zack@owlfolio.org>, Theo de Raadt <deraadt@openbsd.org>,
- rsbecker@nexbridge.com, 'linux-man' <linux-man@vger.kernel.org>,
- tech@openbsd.org, Florian Weimer <libc-alpha@sourceware.org>,
- git@vger.kernel.org
-Message-ID: <242f444d-9846-1a13-d901-9ad503dce605@gmail.com>
-Subject: Re: readpassphrase(3) in glibc, and agetpass() (Was: Is getpass(3)
- really obsolete?)
-References: <a0371f24-d8d3-07d9-83a3-00a4bf22c0f5@gmail.com>
- <73ac38a2-c287-4cc1-4e9c-0f9766ac4c0c@gmail.com>
- <00d501d7ccbe$0169c340$043d49c0$@nexbridge.com>
- <63238.1635515736@cvs.openbsd.org>
- <6d8642e9-71f7-4a83-9791-880d04f67d17@www.fastmail.com>
- <c8287618-30c4-f14b-8ad7-898fee99d944@gmail.com>
-In-Reply-To: <c8287618-30c4-f14b-8ad7-898fee99d944@gmail.com>
 
---------------jqR07irMUADwmW0E4W0rIOr8
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+--Apple-Mail=_6F771BEB-AB0E-416A-A064-2F102FF46030
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=us-ascii
 
-T24gOS8yNy8yMiAyMToxOSwgQWxlamFuZHJvIENvbG9tYXIgd3JvdGU6DQouLi4NCj4gDQo+
-IFRoZSBwcm90b3R5cGVzIGZvciB0aGUgZnVuY3Rpb24gYW5kIHRoZSBjbGVhbi11cCBhcmU6
-DQo+IA0KPiBgYGANCj4gdm9pZCBlcmFzZV9wYXNzKGNoYXIgKnApOw0KPiBbW2dudTo6bWFs
-bG9jKGVyYXNlX3Bhc3MpXV0gY2hhciAqc2hkd19nZXRwYXNzKGNvbnN0IGNoYXIgKnByb21w
-dCk7DQoNCkkgZWRpdGVkIHRoZSBmdW5jdGlvbiBuYW1lIGZvciB0aGUgZW1haWwsIGFuZCBm
-b3Jnb3QgdG8gZml4IGl0IGhlcmUgOikNCg0Kcy9zaGR3Xy9hLw0KDQpDaGVlcnMsDQoNCkFs
-ZXgNCg0KDQotLSANCjxodHRwOi8vd3d3LmFsZWphbmRyby1jb2xvbWFyLmVzLz4NCg0K
 
---------------jqR07irMUADwmW0E4W0rIOr8--
 
---------------AXFuaZZQ7EVxwY5joCy9kNgO
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+> On 27 Sep 2022, at 20:19, Alejandro Colomar via Libc-alpha =
+<libc-alpha@sourceware.org> wrote:
+>=20
+> Hi Zack,
+>=20
+> On 10/29/21 16:53, Zack Weinberg via Libc-alpha wrote:
+>> On Fri, Oct 29, 2021, at 9:55 AM, Theo de Raadt wrote:
+>>> <rsbecker@nexbridge.com> wrote:
+>>>> On October 29, 2021 7:29 AM, Alejandro Colomar wrote:
+>>>>> On 10/29/21 13:15, Alejandro Colomar wrote:
+>>>>>> Hi,
+>>>>>>=20
+>>>>>> As the manual pages says, SUSv2 marked it as LEGACY, and POSIX =
+doesn't
+>>>>>> have it at all.  The manual page goes further and says "This =
+function
+>>>>>> is obsolete. Do not use it." in its first lines.
+>> ...
+>>> The community finally had the balls to get rid of gets(3).
+>>>=20
+>>> getpass(3) shares the same flaw, that the buffer size isn't passed.
+>>> This has been an issue in the past
+>> I was about to post exactly the same thing.  getpass(3) is not =
+deprecated because there's a better replacement, it's deprecated because =
+it's _unsafe_.  The glibc implementation wraps getline(3) and therefore  =
+doesn't truncate the passphrase or overflow a fixed-size buffer, no =
+matter how long the input is, but portable code cannot rely on that.  =
+And come to think of it, using getline(3) means that prefixes of the =
+passphrase may be left lying around in malloc's free lists.
+>> (getpass also cannot be made thread safe, due to recycling of a =
+static buffer, but a program in which multiple threads are racing to =
+prompt the user for passwords would be a UX disaster anyway, so I don't =
+think that's a critical flaw the way it is for e.g. strtok(3).)
+>> The Linux manpage project's documentation is, as I understand it, for =
+Linux with glibc _first_, but not _only_; it should not describe this =
+function as not-deprecated just because glibc has patched its worst =
+problems and doesn't offer any better API.
+>>> readpassphrase(3) has a few too many features/extensions for my =
+taste, but
+>>> at least it is harder to abuse.
+>> I am inclined to agree that readpassphrase has too many knobs, and I =
+can't think of any legitimate present-day use for several of them, which =
+is not a good property for an API handling security-critical data.  =
+Also, it relies on the caller to size the buffer for the passphrase, and =
+therefore risks truncating people's passphrases.
+>> With my libxcrypt hat on I've thought a bit about replacements for =
+getpass.  The conclusion I came to is that the easy changes are all =
+putting lipstick on a pig, and if I was going to work on this at all I =
+was going to design a privilege-separated authentication service that =
+could be asked to take over a tty, read a passphrase, check it, and =
+return just success or failure to the caller.  Neither the passphrase =
+itself, nor any strings derived from it, would ever be in the caller's =
+address space.  But this is obviously well out of scope for the C =
+library.
+>> zw
+>=20
+> I happen to be working on replacing getpass(3) in shadow-utils.  As =
+there is no replacement in glibc, I'm making the code depend on libbsd =
+on GNU systems.
+>=20
+> I developed a function similar to getpass(3), but which allocates a =
+buffer (similar to asprintf(3)).  I only allocate once, and bail out if =
+the password exceeds PASS_MAX, so no leaks in allocated memory (modulo =
+bugs that I may have not noticed).
+>=20
+> I also enforce both clearing and freeing the memory, by requiring a =
+specific clean-up function.
+>=20
+> The prototypes for the function and the clean-up are:
+>=20
+> [snip]
+> Would you mind implementing readpassphrase(3) in glibc so that it's =
+easier to use something safe and portable without resorting to =
+compatibility libraries?  Also, I'd like some review of this function, =
+if you think the API could be improved.  Maybe agetpass() would be a =
+simple almost-drop-in replacement for getpass(3), so if you like it for =
+glibc, let's discuss it.
+>=20
+I assume it'd be libxcrypt instead?
+
+Best,
+sam
+
+--Apple-Mail=_6F771BEB-AB0E-416A-A064-2F102FF46030
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename=signature.asc
+Content-Type: application/pgp-signature;
+	name=signature.asc
+Content-Description: Message signed with OpenPGP
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmMzT/EACgkQnowa+77/
-2zI6bA//eo4H4zX8a5arnmgXLjbH9MjSPq2XWgm/+cNr3ZVhujIbZstVygo3C81X
-8Fdu2QG18725kurn14ljIzPgACnrVQEGf07I9ql8PjXAsjPs9eSMuXEj+vaqf/Of
-XjzPf3ymAaaDl5wzLWP5h4USYt4iLK2KFCRAwcj5HJ6sc3M+y15/p+b1YKvlvCHR
-AwzgE0GfoPT7DVu/snMJuRPA6N01B1on/VeU9T8xHHCAs+TMuZPe8n/3GerQn0U0
-mp4UG88p5uwhC8Vn7CqiW2EPvmtUcTaRkvb3uH4Lmy+kq8MVLmGm+PPmGfaQ0o2G
-d9fR+sjTJxS4/9xp94CoEqWxEGJ62QNGhLg0MW3khE982TgAvbQKI4tmRhRz5kuk
-6tcc62gy2LwI5gL2PNUeog1TnUErgzHwUl6fSCq0AYj8VYt0zEDNgWMjoKGNYszD
-2qEZiQYZtPJ/hx4sr11IfDjsDt/LmMtmITvPtNZBaQ610ST3kdx8MiOPw7zPzpIe
-8TqC3IRGCx521kpVUrCH1UsWWbPTxhdp/cTFGluOnUEq6+mAQreOfB9hMxr09OF6
-ZckpT48UGQbZlossWxRNIp8TNb/L85g2SPqetrS/DldblzG9N30wQ+H+Ids6vF15
-sSINxhJROOZXzQehy9uHPZmuscRKwVbpaD1rnruNaXOlq2w3IiE=
-=y+Oz
+iNUEARYKAH0WIQQlpruI3Zt2TGtVQcJzhAn1IN+RkAUCYzNdVV8UgAAAAAAuAChp
+c3N1ZXItZnByQG5vdGF0aW9ucy5vcGVucGdwLmZpZnRoaG9yc2VtYW4ubmV0MjVB
+NkJCODhERDlCNzY0QzZCNTU0MUMyNzM4NDA5RjUyMERGOTE5MAAKCRBzhAn1IN+R
+kP8FAP93cWRejaNr1xofyUlSVQxeIiH5bBpzYNW2ThKOV/8KzgEA7f5aqWlTtrwk
+mMoUKUnEFjbmkjREJ2QlxcWOyegZlgM=
+=Knaw
 -----END PGP SIGNATURE-----
 
---------------AXFuaZZQ7EVxwY5joCy9kNgO--
+--Apple-Mail=_6F771BEB-AB0E-416A-A064-2F102FF46030--
