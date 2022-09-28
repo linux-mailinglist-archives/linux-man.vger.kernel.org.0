@@ -2,181 +2,167 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id C16145EDDF3
-	for <lists+linux-man@lfdr.de>; Wed, 28 Sep 2022 15:42:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DA6505EDE49
+	for <lists+linux-man@lfdr.de>; Wed, 28 Sep 2022 15:56:39 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234143AbiI1NmK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 28 Sep 2022 09:42:10 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60554 "EHLO
+        id S232702AbiI1N4i (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 28 Sep 2022 09:56:38 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34804 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231567AbiI1NmI (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 28 Sep 2022 09:42:08 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 204F16E2F4;
-        Wed, 28 Sep 2022 06:42:05 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id 9F8F761EB1;
-        Wed, 28 Sep 2022 13:42:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB686C433D6;
-        Wed, 28 Sep 2022 13:42:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1664372524;
-        bh=PDniZhspoAjFGFPMZfaZ8GgB4DLLy5mz44zztNU7B+8=;
-        h=From:To:Cc:Subject:Date:From;
-        b=DqtgQ/m//i1BdMXDYXkHNALzJc+Fb2CkxwupnjD5iFoPUOy+RjGzDkBw6u16woact
-         Ek+6D4V044/DHPxZTiHl8kuYrAVeeMg2TUGzyu9mlJpBrkxFJqDxhyeySNUTWPuyDE
-         hkbGAN5/XfCvtPpm39Zv+BugYwMfdEX6eE42uDuYEIIMtghXn56j8tNz+CdNoTpYGY
-         oLA0DJOske77HfN24JeefL9hG37cIs4JMzuBMxszwi1t7W9Jgu94CxlxxpRk9x88qB
-         1bv9fv5W8vrBkEn3A2+rUfg9FkuebF8rP6DNdglXtFDEV9ehvhMRQoF+tvVevKpvLP
-         8XuQDoIktoBXA==
-From:   Jeff Layton <jlayton@kernel.org>
-To:     tytso@mit.edu, adilger.kernel@dilger.ca, djwong@kernel.org,
-        david@fromorbit.com, trondmy@hammerspace.com, neilb@suse.de,
-        viro@zeniv.linux.org.uk, zohar@linux.ibm.com, xiubli@redhat.com,
-        chuck.lever@oracle.com, lczerner@redhat.com, jack@suse.cz,
-        bfields@fieldses.org, brauner@kernel.org, fweimer@redhat.com,
-        linux-man@vger.kernel.org
-Cc:     linux-btrfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-        linux-kernel@vger.kernel.org, ceph-devel@vger.kernel.org,
-        linux-ext4@vger.kernel.org, linux-nfs@vger.kernel.org,
-        linux-xfs@vger.kernel.org
-Subject: [man-pages RFC PATCH v6] statx, inode: document the new STATX_VERSION field
-Date:   Wed, 28 Sep 2022 09:42:00 -0400
-Message-Id: <20220928134200.28741-1-jlayton@kernel.org>
-X-Mailer: git-send-email 2.37.3
+        with ESMTP id S234224AbiI1N4g (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 28 Sep 2022 09:56:36 -0400
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com [IPv6:2a00:1450:4864:20::329])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AC42B56BB3
+        for <linux-man@vger.kernel.org>; Wed, 28 Sep 2022 06:56:32 -0700 (PDT)
+Received: by mail-wm1-x329.google.com with SMTP id ay36so8598710wmb.0
+        for <linux-man@vger.kernel.org>; Wed, 28 Sep 2022 06:56:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=in-reply-to:from:references:to:content-language:subject:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date;
+        bh=VoyjaTELdZWPqIDFhb1bAjVM0jk9a6bXWXm7HAxvFqU=;
+        b=UWKmNCMD3UGKBtWkRzVV/K6mDBnspAavb4Koq7ztpZwWY6AKL6cKqXAp3776l3yi7y
+         KGSrCEBlm4Ya1Vpf6cRgxlqF5819Qucc1uQ+hkTQVGSWB1QBg5DB8SJxsp8u8l/BhWGG
+         rCUMF0DJFWACMoEVaHCAq5bdWi9XAMSmY5i87aie/70yXv57ee3VBGt5GXPYsLRRTcs+
+         S/Q5/8OGB54QDswI08iRBUg7rgvr+wukZ9uoAMfTPyvn17e1W1Yvo6g8zzrqdA95jsDS
+         M36WC+TjojywxtsFFObd04+dXZC8q/AIF1vYclIzDwB9zL06HacTRH0gcGZ3rOT7w3R1
+         D5Ew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=in-reply-to:from:references:to:content-language:subject:user-agent
+         :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+         :date;
+        bh=VoyjaTELdZWPqIDFhb1bAjVM0jk9a6bXWXm7HAxvFqU=;
+        b=73qb9HTkRJm7u1b1HpRxnH4iPvpNwsAtn3t7gTrBrdvGiKMGTJHHHaGGseHvsUBVTT
+         MxY/KFZ1RecXCQvfYq5dBUJpu3tAmXw6bBku+zLAfBko0Agqq3I4b/+N+yi4I2CIbUi8
+         2SJTGjT8msGxp08MszGOYmWPea31oJMWeHDIJd1t0fpijzR/YcUfu/BGbgqj4bmHp4WB
+         HKpv16lm3+487O5vt1+p2qYlWliHKJG3s1cQmbMTd20w1XYUAHYlM/LE1UuwhSCMC448
+         dsocwMUOcBkCOP5/455mkDXGIWz17EVG3D/ZvhlYVJKdI0js2gRDtLV8d589gTntZq2Q
+         Au6A==
+X-Gm-Message-State: ACrzQf2rRw3hyrGI9CIITzp3d1rKQvkPL8wvyv4ttMJ73oaNDf+0q1Gu
+        j4ZdTOSfXbHZ2kS26KQ0ELGZ4KLiynk=
+X-Google-Smtp-Source: AMsMyM70L1g2vk0oVgEizsX6SeKZX4AFD3ozrN63mZR9n8VSZY1wtMe0JcKXpe2KKdW5JiJJaHkKbQ==
+X-Received: by 2002:a05:600c:4fc9:b0:3b4:9a6c:9545 with SMTP id o9-20020a05600c4fc900b003b49a6c9545mr6759156wmq.142.1664373391087;
+        Wed, 28 Sep 2022 06:56:31 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id bk9-20020a0560001d8900b002252884cc91sm4262234wrb.43.2022.09.28.06.56.30
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 28 Sep 2022 06:56:30 -0700 (PDT)
+Message-ID: <cc7fc498-f068-9f62-967b-743805298ebb@gmail.com>
+Date:   Wed, 28 Sep 2022 15:56:29 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-7.2 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.2
+Subject: Re: Is man-pages-posix redistributable?
+Content-Language: en-US
+To:     Christoph Erhardt <fedora@sicherha.de>, linux-man@vger.kernel.org,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+References: <3765026.aeNJFYEL58@delle> <22845672.EfDdHjke4D@delle>
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <22845672.EfDdHjke4D@delle>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------gFTQEkJeV7nWSiM1FvsyYjfk"
+X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-I'm proposing to expose the inode change attribute via statx [1]. Document
-what this value means and what an observer can infer from it changing.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------gFTQEkJeV7nWSiM1FvsyYjfk
+Content-Type: multipart/mixed; boundary="------------z3845QS8QQQykw2kbZ3JKBeh";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: Christoph Erhardt <fedora@sicherha.de>, linux-man@vger.kernel.org,
+ Michael Kerrisk <mtk.manpages@gmail.com>
+Message-ID: <cc7fc498-f068-9f62-967b-743805298ebb@gmail.com>
+Subject: Re: Is man-pages-posix redistributable?
+References: <3765026.aeNJFYEL58@delle> <22845672.EfDdHjke4D@delle>
+In-Reply-To: <22845672.EfDdHjke4D@delle>
 
-NB: this will probably have conflicts with the STATX_DIOALIGN doc
-patches, but we should be able to resolve those before merging anything.
+--------------z3845QS8QQQykw2kbZ3JKBeh
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
+SGkgQ2hyaXN0b3BoLA0KDQpPbiA5LzI4LzIyIDEwOjE1LCBDaHJpc3RvcGggRXJoYXJkdCB3
+cm90ZToNCj4gQW55b25lPw0KDQpTb3JyeSwgSSB3YXMgb24gdmFjYXRpb24uDQoNCj4gDQo+
+IE15IHByZWZlcnJlZCBhbnN3ZXIgd291bGQgYmUgJ3lvdXIgcXVlc3Rpb24gaXMgc3R1cGlk
+OyAqb2YgY291cnNlKiBtYW4tcGFnZXMtDQo+IHBvc2l4IGlzIHJlZGlzdHJpYnV0YWJsZScu
+IFNvIGlmIHRoYXQgaXMgaW5kZWVkIHRoZSBjYXNlLCBwbGVhc2UgZG9uJ3QNCj4gaGVzaXRh
+dGUgdG8gc2F5IHNvLiA7LSkNCg0KSSdkIGxpa2UgdG8sIGJ1dCBJIGNhbid0LiAgSSdtIG5v
+dCBzdXJlIGlmIGl0J3MgdHJ1ZSwgYnV0IHRoZSBmYWN0IGlzIA0KdGhhdCBpdCdzIG5vdCBv
+YnZpb3VzLg0KDQo+IA0KPiBUaGFua3MsDQo+IENocmlzdG9waA0KPiANCj4gT24gTW9uZGF5
+LCAyOSBBdWd1c3QgMjAyMiAwODoxNDoyMiBDRVNUIENocmlzdG9waCBFcmhhcmR0IHdyb3Rl
+Og0KPj4gSGkgbGlzdCwNCj4+DQo+PiBJIGhhdmUgYSBxdWVzdGlvbiByZWdhcmRpbmcgdGhl
+IHJlZGlzdHJpYnV0aW9uIG9mIG1hbi1wYWdlcy1wb3NpeC4NCj4+IFByaW9yIHRvIHRoZSAy
+MDE3LWEgcmVsZWFzZSwgdGhlIFBPU0lYX0NPUFlSSUdIVCBmaWxlIGNvbnRhaW5lZCB0aGUN
+Cj4+IGZvbGxvd2luZw0KPj4gcGFyYWdyYXBoOg0KPj4+IFJlZGlzdHJpYnV0aW9uIG9mIHRo
+aXMgbWF0ZXJpYWwgaXMgcGVybWl0dGVkIHNvIGxvbmcgYXMgdGhpcyBub3RpY2UgYW5kDQo+
+Pj4gdGhlIGNvcnJlc3BvbmRpbmcgbm90aWNlcyB3aXRoaW4gZWFjaCBQT1NJWCBtYW51YWwg
+cGFnZSBhcmUgcmV0YWluZWQgb24NCj4+PiBhbnkgZGlzdHJpYnV0aW9uLCBhbmQgdGhlIG5y
+b2ZmIHNvdXJjZSBpcyBpbmNsdWRlZC4gTW9kaWZpY2F0aW9ucyB0bw0KPj4+IHRoZSB0ZXh0
+IGFyZSBwZXJtaXR0ZWQgc28gbG9uZyBhcyBhbnkgY29uZmxpY3RzIHdpdGggdGhlIHN0YW5k
+YXJkDQo+Pj4gYXJlIGNsZWFybHkgbWFya2VkIGFzIHN1Y2ggaW4gdGhlIHRleHQuDQo+Pg0K
+Pj4gSW4gdGhlIDIwMTctYSByZWxlYXNlLCB0aGF0IHBhcmFncmFwaCBoYXMgZGlzYXBwZWFy
+ZWQuIEkgd291bGQgbGlrZSB0bw0KPj4gY2xhcmlmeSB0aGUgaW1wbGljYXRpb25zIG9mIHRo
+YXQgZm9yIGRvd25zdHJlYW0gZGlzdHJpYnV0aW9ucy4NCj4+DQo+PiBUaGUgRmVkb3JhIHBy
+b2plY3QsIHdoaWNoIGlzIGtub3duIHRvIGJlIHZlcnkgc3RyaWN0IGFib3V0IGxpY2Vuc2lu
+Zw0KPj4gY29uY2VybnMsIHNlZXMgdGhlIG5ldyBsaWNlbmNlIGFzIGltcGVybWlzc2libGUg
+YW5kIGhhcyBkcm9wcGVkIHRoZSBQT1NJWA0KPj4gbWFuIHBhZ2VzIGFzIGEgY29uc2VxdWVu
+Y2U6DQo+PiBodHRwczovL2J1Z3ppbGxhLnJlZGhhdC5jb20vc2hvd19idWcuY2dpP2lkPTIx
+MTY4NTkNCj4+DQo+PiBOb3csIEZlZG9yYSdzIHF1YXNpLW9mZmljaWFsIHdheSBvZiBkZWFs
+aW5nIHdpdGggc3VjaCBsaWNlbnNpbmcgaXNzdWVzIHdvdWxkDQo+PiBiZSB0byBhZGQgdGhl
+IGl0ZW0gaW4gcXVlc3Rpb24gdG8gUlBNIEZ1c2lvbidzICdub25mcmVlJyBwYWNrYWdlDQo+
+PiByZXBvc2l0b3J5LiBJIGhhdmUgb3BlbmVkIGFuIGluY2x1c2lvbiByZXF1ZXN0Og0KPj4g
+aHR0cHM6Ly9idWd6aWxsYS5ycG1mdXNpb24ub3JnL3Nob3dfYnVnLmNnaT9pZD02Mzk2DQo+
+Pg0KPj4gSG93ZXZlciwgdGhlIGRpc2N1c3Npb24gdGhlcmUgaGFzIHJhaXNlZCB0aGUgcXVl
+c3Rpb24gd2hldGhlciB0aGUgY29udGVudHMNCj4+IG9mIG1hbi1wYWdlcy1wb3NpeCBhcmUg
+cmVkaXN0cmlidXRhYmxlICphdCBhbGwqIC0gZ2l2ZW4gdGhhdCB0aGUgY2xhdXNlDQo+PiBt
+ZW50aW9uaW5nIHJlZGlzdHJpYnV0aW9uIGhhcyB2YW5pc2hlZCBmcm9tIHRoZSBsaWNlbmNl
+Lg0KPj4NCj4+IENvdWxkIHNvbWVvbmUgcGxlYXNlIGNsYXJpZnk/DQoNClRoZSBwZXJzb24g
+d2hvIGNvdWxkIGNsYXJpZnkgdGhpcyBjZXJ0YWlubHkgaXMgTWljaGFlbCBLZXJyaXNrLiAg
+SSdtIG5vdCANCnN1cmUgaWYgaGUgd2lsbCBoYXZlIHRoZSB0aW1lIHRvIHJlYWQgdGhpcywg
+dGhvdWdoLg0KDQpJJ20gc29ycnkgSSBoYXZlIG5vIGlkZWEuICBQT1NJWCBpcyB0b28gY2xv
+c2VkIGZvciBteSB0YXN0ZS4gIEkgdHJpZWQgDQpjb250YWN0aW5nIHRoZW0gYSBsb25nIHRp
+bWUgYWdvIHJlZ2FyZGluZyB0aGlzLCBhbmQgSSByZWNlaXZlZCBubyANCmFuc3dlciwgYW5k
+IHRoZWlyIHdlYnNpdGUgaXMgYSBsYWJ5cmludGggdG8gbWUuDQoNCkkgZW5jb3VyYWdlIHlv
+dSB0byB0cnkgdG8gY29udGFjdCB0aGVtIHdpdGggdGhpcyBwcm9ibGVtLCBhbmQgYXNrIHRo
+YXQgDQp0aGV5IGNsYXJpZnkgaXQsIGFuZCBpZiBwb3NzaWJsZSwgdGhhdCB0aGV5IHB1Ymxp
+c2ggdGhlIHNvdXJjZSBjb2RlIA0KKGhvcGVmdWxseSB0aGUgcm9mZig3KSwgbm90IEhUTUwp
+IHdpdGggd2hhdGV2ZXIgbGljZW5zZSB0aGV5IHdpc2gsIHNvIA0KdGhhdCBJIGNhbiBwaWNr
+IGl0IGVhc2lseS4gIEknbSB3b3JyaWVkIHRoYXQgaWYgdGhleSBkb24ndCBkbywgSSB3b24n
+dCANCmJlIGFibGUgdG8gcHJvdmlkZSBtYW51YWwgcGFnZXMgZm9yIHRoZSBuZXh0IHJldmlz
+aW9uIG9mIFBPU0lYLCBpZiB0aGV5IA0KZG9uJ3QuDQoNCj4+DQo+PiBUaGFua3MgYSBsb3Qs
+DQo+PiBDaHJpc3RvcGgNCj4gDQoNClRoYW5rIHlvdSwNCg0KQWxleA0KDQotLSANCjxodHRw
+Oi8vd3d3LmFsZWphbmRyby1jb2xvbWFyLmVzLz4NCg==
 
-[1]: https://lore.kernel.org/linux-nfs/20220826214703.134870-1-jlayton@kernel.org/T/#t
----
- man2/statx.2 | 13 +++++++++++++
- man7/inode.7 | 36 ++++++++++++++++++++++++++++++++++++
- 2 files changed, 49 insertions(+)
+--------------z3845QS8QQQykw2kbZ3JKBeh--
 
-v6: incorporate Neil's suggestions
-    clarify how well-behaved filesystems should order things
+--------------gFTQEkJeV7nWSiM1FvsyYjfk
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-diff --git a/man2/statx.2 b/man2/statx.2
-index 0d1b4591f74c..ee7005334a2f 100644
---- a/man2/statx.2
-+++ b/man2/statx.2
-@@ -62,6 +62,7 @@ struct statx {
-     __u32 stx_dev_major;   /* Major ID */
-     __u32 stx_dev_minor;   /* Minor ID */
-     __u64 stx_mnt_id;      /* Mount ID */
-+    __u64 stx_version;     /* Inode change attribute */
- };
- .EE
- .in
-@@ -247,6 +248,7 @@ STATX_BTIME	Want stx_btime
- STATX_ALL	The same as STATX_BASIC_STATS | STATX_BTIME.
- 	It is deprecated and should not be used.
- STATX_MNT_ID	Want stx_mnt_id (since Linux 5.8)
-+STATX_VERSION	Want stx_version (DRAFT)
- .TE
- .in
- .PP
-@@ -407,10 +409,16 @@ This is the same number reported by
- .BR name_to_handle_at (2)
- and corresponds to the number in the first field in one of the records in
- .IR /proc/self/mountinfo .
-+.TP
-+.I stx_version
-+The inode version, also known as the inode change attribute. See
-+.BR inode (7)
-+for details.
- .PP
- For further information on the above fields, see
- .BR inode (7).
- .\"
-+.TP
- .SS File attributes
- The
- .I stx_attributes
-@@ -489,6 +497,11 @@ without an explicit
- See
- .BR mmap (2)
- for more information.
-+.TP
-+.BR STATX_ATTR_VERSION_MONOTONIC " (since Linux 6.?)"
-+The stx_version value monotonically increases over time and will never appear
-+to go backward, even in the event of a crash. This can allow an application to
-+make a better determination about ordering when viewing different versions.
- .SH RETURN VALUE
- On success, zero is returned.
- On error, \-1 is returned, and
-diff --git a/man7/inode.7 b/man7/inode.7
-index 9b255a890720..e8adb63b1f6a 100644
---- a/man7/inode.7
-+++ b/man7/inode.7
-@@ -184,6 +184,12 @@ Last status change timestamp (ctime)
- This is the file's last status change timestamp.
- It is changed by writing or by setting inode information
- (i.e., owner, group, link count, mode, etc.).
-+.TP
-+Inode version (version)
-+(not returned in the \fIstat\fP structure); \fIstatx.stx_version\fP
-+.IP
-+This is the inode change counter. See the discussion of
-+\fBthe inode version counter\fP, below.
- .PP
- The timestamp fields report time measured with a zero point at the
- .IR Epoch ,
-@@ -424,6 +430,36 @@ on a directory means that a file
- in that directory can be renamed or deleted only by the owner
- of the file, by the owner of the directory, and by a privileged
- process.
-+.SS The inode version counter
-+.PP
-+The \fIstatx.stx_version\fP field is the inode change counter. Any operation
-+that could result in a change to \fIstatx.stx_ctime\fP must result in an
-+increase to this value. Soon after a change has been made, an stx_version value
-+should appear to be larger than previous readings. This is the case even
-+when a ctime change is not evident due to coarse timestamp granularity.
-+.PP
-+An observer cannot infer anything from amount of increase about the
-+nature or magnitude of the change. In fact, a single increment can reflect
-+multiple discrete changes if the value was not checked while those changes
-+were being processed.
-+.PP
-+Changes to stx_version are not necessarily atomic with the change itself, but
-+well-behaved filesystems should increment stx_version after a change has been
-+made visible to observers rather than before. This is especially important for
-+read-caching algorithms which could be fooled into associating a newer
-+stx_version with an older version of data. Note that this does leave a window
-+of time where a change may be visible, but the old stx_version is still being
-+reported.
-+.PP
-+In the event of a system crash, this value can appear to go backward if it was
-+queried before ever being written to the backing store. Applications that
-+persist stx_version values across a reboot should take care to mitigate this.
-+If the filesystem reports \fISTATX_ATTR_VERSION_MONOTONIC\fP in
-+\fIstatx.stx_attributes\fP, then it is not subject to this problem.
-+.PP
-+The stx_version is a Linux extension and is not supported by all filesystems.
-+The application must verify that the \fISTATX_VERSION\fP bit is set in the
-+returned \fIstatx.stx_mask\fP before relying on this field.
- .SH STANDARDS
- If you need to obtain the definition of the
- .I blkcnt_t
--- 
-2.37.3
+-----BEGIN PGP SIGNATURE-----
 
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmM0Uo0ACgkQnowa+77/
+2zKlcg//SwmOH8eNATwVsT+uQwYfUiWSulYUFpyYWJIJjlH+13qRthCZXjU5K16l
+3A39Eugi8uWluARn7wFZjN0SSTPHV4Hr05qin65CXd9GrquaxwmBhsxvtBI3HM+v
+uGC1hkFqDWQV+OJCPU8h5GDJiEY+A6Hd8adjzGhP8QyV/6e5X4U0p6ZAsYGZCaUK
+/pwJ+54cem1zHbLe0FuBazGCh2wEE5iOY7kNARn1uQLeF4rR0LwXTbQJ+1dvvOIv
+RbfgGp9RqyhJBSWNFR2mQmwiPQXhZofNkzJPd5yNVijcZoylYAFfmuLxYIHHpGCf
+JZVbhD0NrrksMc6bJc6d0Xzu55ndl4q/847OIoHLqYc5xwUGh7vP4gqiFDyeVP8w
+JTz4L36uXXuSyEXMwhrIaA6TbNc58369z9nRuNQL1plclfCzrXsvaKkEKEC6zbb6
+y1Wb6L/2wKzktETStmrXGu64zkLx/Uhb4nKH4EAsN/eZq52MTlSXOCyfSa1JHEeI
+Kv5p2k6FiC3uVTfo9R0gC1Sj9dge6nNKAgPmOg8RRtebHkRCfFvXWS4HKqIkQQWk
+J78de14VeQ9Ljv+CdnhZ8xPXdGrJG7hdIAMadk/7NuVrotwRUHEYAMCHov07FI5W
+d6NcM4HPyiGWIGJqcV1eo75t4lovXzoU9IgFcs0BK6ZgbUF1A6Y=
+=R0A2
+-----END PGP SIGNATURE-----
+
+--------------gFTQEkJeV7nWSiM1FvsyYjfk--
