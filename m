@@ -2,119 +2,195 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 224F85EEEBE
-	for <lists+linux-man@lfdr.de>; Thu, 29 Sep 2022 09:19:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0C2135F48D4
+	for <lists+linux-man@lfdr.de>; Tue,  4 Oct 2022 19:44:23 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235148AbiI2HTT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 29 Sep 2022 03:19:19 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44528 "EHLO
+        id S229709AbiJDRoU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 4 Oct 2022 13:44:20 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52332 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235182AbiI2HTR (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 29 Sep 2022 03:19:17 -0400
-X-Greylist: delayed 83023 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Thu, 29 Sep 2022 00:19:14 PDT
-Received: from kiste.informatik.uni-erlangen.de (kiste.informatik.uni-erlangen.de [IPv6:2001:638:a000:4140::ffff:98])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DC3F51166C3
-        for <linux-man@vger.kernel.org>; Thu, 29 Sep 2022 00:19:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=sicherha.de; h=
- content-type:content-type:mime-version:references:in-reply-to
- :message-id:date:date:subject:subject:from:from; s=dkim20200822;
- t=1664435952; x=1665299953; bh=IxNkub08grntwyBWKY76GTdXTArHWxF6
- JS/1y/Jk0gA=; b=apptdrHZo5o6CMTM0vYJ1MMlOOGmMZZxkZJpk5+huJPmscwS
- ShZelmB2NDitg4FbySbmNtwglkJ3nXk5Xb96u1qqTH1bSRrSbiW/qSvm+yIdFUsm
- uWKIE0Uz07+jrlfs/lKVfzgmF4fllNahU8nXwgrTgHKOpX4UMB8bCYy1V0PPpc00
- euzaIgVzzyGId3gL6xiz2TjbLeLSFnPi3BAsWAaSsaKY0XUM2QCYYnmEIANjAubu
- xoGTMnBT3RbN4VwZyn5OMo79S/aqCNRZ75GmPvBwJdClv9AZZs9TZDq3akz8YwYf
- uSt5IWIXBvm8rRuRud3IIMs8Fbt3OyuETgBaJL5i6kLE5gcSbrzg5AMZC5DVNV1O
- t57FT9M+//U6r0J1tnubtNzE065uYpeRf0KTOH/5PBe6jmwvlXNvt/MK//QJyRFV
- f863smfbJlzvlEyJUuctszDEaRXHc0uUdUY1jHVrUy0XH5he4JSM5RVFzSAN1MAY
- u1ly5h5rxNNAYojzJs5p1IMZT2qTqSRuMU/UXJYiBCwhJ1XCuKcFeeDXgoPqo22n
- DAf+n2NHxehF5vGG4pV3B+Am+hEwUKnuT6FS66RuSASHQ6xrkOqe5ad61GLwmeG4
- XCy+HTfaZxddgQMBx6OrfDeIj12coDjpxdgtBqFBHFx81VREiZGmaRWV7ao=
-X-Virus-Scanned: Debian amavisd-new at sicherha.de
-Sender: christoph.erhardt@sicherha.de
-From:   Christoph Erhardt <fedora@sicherha.de>
-To:     linux-man@vger.kernel.org,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        Alejandro Colomar <alx.manpages@gmail.com>
-Subject: Re: Is man-pages-posix redistributable?
-Date:   Thu, 29 Sep 2022 09:18:59 +0200
-Message-ID: <21618857.EfDdHjke4D@terra>
-In-Reply-To: <cc7fc498-f068-9f62-967b-743805298ebb@gmail.com>
-References: <3765026.aeNJFYEL58@delle> <22845672.EfDdHjke4D@delle>
- <cc7fc498-f068-9f62-967b-743805298ebb@gmail.com>
+        with ESMTP id S229803AbiJDRoQ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 4 Oct 2022 13:44:16 -0400
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 878D657887;
+        Tue,  4 Oct 2022 10:44:15 -0700 (PDT)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id 24F6E614ED;
+        Tue,  4 Oct 2022 17:44:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39833C433C1;
+        Tue,  4 Oct 2022 17:44:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1664905454;
+        bh=Rte1HvtfgvFRVjI9vmQSmn8KC1YqoQCVVzKzmhIF2f8=;
+        h=From:To:Cc:Subject:Date:From;
+        b=TXoomx0Fwgy3RlDGeKpNyJvQKJXILM0zhFXPxPg0RxBKHgGPZLtzxY9O8ROE7lIo1
+         S6oXgY/E1bP+73sU9RMOO0BCkm+WUGpaXZgeoozXSkMqPJVBG2G+cfL1lXx4rP1MWx
+         iDklhkM0ofevngD3ygTIu3fQDaNt1wk95jKbntv8AoBAE3T78h0Ye0GbXizhIFwM/c
+         l4NZ6B/vRH++0uutSiyEWPZLYnLcvPOziMdVgQ5RNsqV4NsP8XGw0Qxv+Zdl/2m8ht
+         TJ/m1byfhSfKmoWqIj1g6HydyWV31REWXwDD8zCXYmZh48HljZ7H7C9IRiw1kZGixU
+         h+1fTlkD57ACA==
+From:   Eric Biggers <ebiggers@kernel.org>
+To:     linux-man@vger.kernel.org
+Cc:     linux-fsdevel@vger.kernel.org, linux-api@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-ext4@vger.kernel.org,
+        linux-f2fs-devel@lists.sourceforge.net, linux-xfs@vger.kernel.org,
+        linux-fscrypt@vger.kernel.org, linux-block@vger.kernel.org,
+        "Darrick J. Wong" <djwong@kernel.org>
+Subject: [man-pages PATCH v3] statx.2, open.2: document STATX_DIOALIGN
+Date:   Tue,  4 Oct 2022 10:43:07 -0700
+Message-Id: <20221004174307.6022-1-ebiggers@kernel.org>
+X-Mailer: git-send-email 2.37.3
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPart7433323.EvYhyI6sBW";
- micalg="pgp-sha256"; protocol="application/pgp-signature"
-X-Spam-Status: No, score=-0.7 required=5.0 tests=BAYES_05,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
-        autolearn=ham autolearn_force=no version=3.4.6
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-4.6 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+        SPF_HELO_NONE,SPF_PASS,SUSPICIOUS_RECIPS autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
---nextPart7433323.EvYhyI6sBW
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"; protected-headers="v1"
-From: Christoph Erhardt <fedora@sicherha.de>
-Subject: Re: Is man-pages-posix redistributable?
-Date: Thu, 29 Sep 2022 09:18:59 +0200
-Message-ID: <21618857.EfDdHjke4D@terra>
-In-Reply-To: <cc7fc498-f068-9f62-967b-743805298ebb@gmail.com>
-MIME-Version: 1.0
+From: Eric Biggers <ebiggers@google.com>
 
-Thanks, Alex!
+Document the STATX_DIOALIGN support for statx()
+(https://git.kernel.org/linus/725737e7c21d2d25).
 
-I have reached out to The Open Group via some contact form on their website; 
-let's see if I'll get a reply from them.
+Reviewed-by: Darrick J. Wong <djwong@kernel.org>
+Signed-off-by: Eric Biggers <ebiggers@google.com>
+---
 
-On Wednesday, 28 September 2022 15:56:29 CEST Alejandro Colomar wrote:
-> The person who could clarify this certainly is Michael Kerrisk.  I'm not 
-> sure if he will have the time to read this, though.
-> 
-> I'm sorry I have no idea.  POSIX is too closed for my taste.  I tried 
-> contacting them a long time ago regarding this, and I received no 
-> answer, and their website is a labyrinth to me.
-> 
-> I encourage you to try to contact them with this problem, and ask that 
-> they clarify it, and if possible, that they publish the source code 
-> (hopefully the roff(7), not HTML) with whatever license they wish, so 
-> that I can pick it easily.  I'm worried that if they don't do, I won't 
-> be able to provide manual pages for the next revision of POSIX, if they 
-> don't.
-Hmm, that's a rather unsatisfying overall situation indeed. The description in
-https://git.kernel.org/pub/scm/docs/man-pages/man-pages-posix.git/tree/README
-is also vague on the details of how and where exactly to obtain the troff 
-sources.
+I'm resending this now that support for STATX_DIOALIGN has been merged
+upstream.
 
-I'd really like to get back to a state where I can successfully type
-`man pthread_cond_wait` into a terminal on Fedora.
+v3: updated mentions of Linux version, fixed some punctuation, and added
+    a Reviewed-by
 
-Best,
-Christoph
---nextPart7433323.EvYhyI6sBW
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
+v2: rebased onto man-pages master branch, mentioned xfs, and updated
+    link to patchset
 
------BEGIN PGP SIGNATURE-----
+ man2/open.2  | 43 ++++++++++++++++++++++++++++++++-----------
+ man2/statx.2 | 29 +++++++++++++++++++++++++++++
+ 2 files changed, 61 insertions(+), 11 deletions(-)
 
-iQIzBAABCAAdFiEEwp5/nkNlccrQ2UKH4yzDBS9Gs8IFAmM1RuMACgkQ4yzDBS9G
-s8LYvBAAoHQFtI4ym1EJD0S1LhAs6oSHFp9yx/rtlv4L/pdffnz6YOR75RQ3Bi3R
-eP50ebEDN3j/S5bskrdsovirt4KBfbKSrKdnQKe1AcxiHvD4JWnfY74AWZYhru0Z
-LpYuBviDgPaNmdGLrdKX47DXlXZlTIayxPii5I/I4gKP0VQjprr0hSGp51ywaTOm
-x0IYgHWlWM4EjiYsKEbuKZbm/Y7/znbk3SO5iVN5awbsJT1rHjMeGu+za8g8Fwes
-4QGu5/BrXZBPiBz/vQISMW/Mm3e2PS4P4rGbkrVVPiIQ/KMe+f8HCfcEZWfs3aPx
-btbwtAMCHHfJAwdg60606BoTZBbZL6tZ1mdu8kByY8rBKlNClXzG+u+yeWSd+hTM
-1xdkDkwwo3JuQN8ra7ypEaqzxvXLKtkHYxpEPphr8LPj37qmZamHcgZU2WEenui+
-C3AkcxSY8NC3Y2p3R5cG9LzJyaPORESVgKFv1bNDADG+ncZq6UjLmprQxfl/G9yi
-UqUeR8pAxz0s6uQxKB6i+VJq6XlcY3W5XSYEful7zrH4elSZLk/yaj2q5mWxmm41
-Ti35oTO9ZL8YH1gbvJvv5SJv1MeCugFUgeGTv4HL4h3si6ERTTxHM3qoHCREm2Fq
-saX78M7XDKSJko/rnqgLXvVWFXlvK7g0uxockFiZZhp2XVecESE=
-=mhBz
------END PGP SIGNATURE-----
+diff --git a/man2/open.2 b/man2/open.2
+index deba7e4ea..b8617e0d2 100644
+--- a/man2/open.2
++++ b/man2/open.2
+@@ -1732,21 +1732,42 @@ of user-space buffers and the file offset of I/Os.
+ In Linux alignment
+ restrictions vary by filesystem and kernel version and might be
+ absent entirely.
+-However there is currently no filesystem\-independent
+-interface for an application to discover these restrictions for a given
+-file or filesystem.
+-Some filesystems provide their own interfaces
+-for doing so, for example the
++The handling of misaligned
++.B O_DIRECT
++I/Os also varies; they can either fail with
++.B EINVAL
++or fall back to buffered I/O.
++.PP
++Since Linux 6.1,
++.B O_DIRECT
++support and alignment restrictions for a file can be queried using
++.BR statx (2),
++using the
++.B STATX_DIOALIGN
++flag.
++Support for
++.B STATX_DIOALIGN
++varies by filesystem; see
++.BR statx (2).
++.PP
++Some filesystems provide their own interfaces for querying
++.B O_DIRECT
++alignment restrictions, for example the
+ .B XFS_IOC_DIOINFO
+ operation in
+ .BR xfsctl (3).
++.B STATX_DIOALIGN
++should be used instead when it is available.
+ .PP
+-Under Linux 2.4, transfer sizes, the alignment of the user buffer,
+-and the file offset must all be multiples of the logical block size
+-of the filesystem.
+-Since Linux 2.6.0, alignment to the logical block size of the
+-underlying storage (typically 512 bytes) suffices.
+-The logical block size can be determined using the
++If none of the above is available, then direct I/O support and alignment
++restrictions can only be assumed from known characteristics of the filesystem,
++the individual file, the underlying storage device(s), and the kernel version.
++In Linux 2.4, most block device based filesystems require that the file offset
++and the length and memory address of all I/O segments be multiples of the
++filesystem block size (typically 4096 bytes).
++In Linux 2.6.0, this was relaxed to the logical block size of the block device
++(typically 512 bytes).
++A block device's logical block size can be determined using the
+ .BR ioctl (2)
+ .B BLKSSZGET
+ operation or from the shell using the command:
+diff --git a/man2/statx.2 b/man2/statx.2
+index 0d1b4591f..50397057d 100644
+--- a/man2/statx.2
++++ b/man2/statx.2
+@@ -61,7 +61,12 @@ struct statx {
+        containing the filesystem where the file resides */
+     __u32 stx_dev_major;   /* Major ID */
+     __u32 stx_dev_minor;   /* Minor ID */
++
+     __u64 stx_mnt_id;      /* Mount ID */
++
++    /* Direct I/O alignment restrictions */
++    __u32 stx_dio_mem_align;
++    __u32 stx_dio_offset_align;
+ };
+ .EE
+ .in
+@@ -247,6 +252,8 @@ STATX_BTIME	Want stx_btime
+ STATX_ALL	The same as STATX_BASIC_STATS | STATX_BTIME.
+ 	It is deprecated and should not be used.
+ STATX_MNT_ID	Want stx_mnt_id (since Linux 5.8)
++STATX_DIOALIGN	Want stx_dio_mem_align and stx_dio_offset_align
++	(since Linux 6.1; support varies by filesystem)
+ .TE
+ .in
+ .PP
+@@ -407,6 +414,28 @@ This is the same number reported by
+ .BR name_to_handle_at (2)
+ and corresponds to the number in the first field in one of the records in
+ .IR /proc/self/mountinfo .
++.TP
++.I stx_dio_mem_align
++The alignment (in bytes) required for user memory buffers for direct I/O
++.BR "" ( O_DIRECT )
++on this file, or 0 if direct I/O is not supported on this file.
++.IP
++.B STATX_DIOALIGN
++.IR "" ( stx_dio_mem_align
++and
++.IR stx_dio_offset_align )
++is supported on block devices since Linux 6.1.
++The support on regular files varies by filesystem; it is supported by ext4,
++f2fs, and xfs since Linux 6.1.
++.TP
++.I stx_dio_offset_align
++The alignment (in bytes) required for file offsets and I/O segment lengths for
++direct I/O
++.BR "" ( O_DIRECT )
++on this file, or 0 if direct I/O is not supported on this file.
++This will only be nonzero if
++.I stx_dio_mem_align
++is nonzero, and vice versa.
+ .PP
+ For further information on the above fields, see
+ .BR inode (7).
 
---nextPart7433323.EvYhyI6sBW--
-
+base-commit: bc28d289e5066fc626df260bafc249846a0f6ae6
+-- 
+2.37.3
 
