@@ -2,53 +2,65 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id BD59E5F72CB
-	for <lists+linux-man@lfdr.de>; Fri,  7 Oct 2022 04:35:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id AABA95F7423
+	for <lists+linux-man@lfdr.de>; Fri,  7 Oct 2022 08:13:38 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232076AbiJGCfs (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 6 Oct 2022 22:35:48 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44376 "EHLO
+        id S229538AbiJGGNh (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 7 Oct 2022 02:13:37 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56432 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229919AbiJGCfq (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 6 Oct 2022 22:35:46 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A4F00B48A1;
-        Thu,  6 Oct 2022 19:35:43 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id 7D27461B27;
-        Fri,  7 Oct 2022 02:35:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C611AC433C1;
-        Fri,  7 Oct 2022 02:35:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1665110142;
-        bh=cQuKCiWfU/2J+LYO5sPPzD/nSjKkEzACVE1++kaEJxg=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=SxpaYvLSh3p1Dakz0anXXycu0YeCICXXKUP0me6Payo0t3NVqdHG/0PBQ9eATaADq
-         pN5iZKhCIzmlM+q+0Epi9k2bS3Q7g5qa4kbfd4JynzFPAfJ3rWzhTHvlFBx/cinBzp
-         N4wwdemWu6S1I2k/+iFfxxexKPvLLXkKVioucyQyx3Y4hMFZtJv/+XRjVlTzT/niRX
-         fiPXwLjoflavHYOBZQPvHLe1hYCZ8IM1Qve4tQRP38NcqxuEX3LB1uj51Qs53QIAE4
-         BjKa2PvEG6p+7BnVCUC/4OZFXQwpEsLsvRiBtjNReUiibdx8jsYJH8GSmJ7/elcQH9
-         wvYBTmWSkfb0w==
-Date:   Thu, 6 Oct 2022 19:35:42 -0700
-From:   "Darrick J. Wong" <djwong@kernel.org>
-To:     Eric Biggers <ebiggers@kernel.org>
-Cc:     linux-man@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-        linux-api@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
-        linux-xfs@vger.kernel.org, linux-fscrypt@vger.kernel.org,
-        linux-block@vger.kernel.org
-Subject: Re: [man-pages PATCH v3] statx.2, open.2: document STATX_DIOALIGN
-Message-ID: <Yz+QflrzmdpF7g70@magnolia>
-References: <20221004174307.6022-1-ebiggers@kernel.org>
+        with ESMTP id S229482AbiJGGNh (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 7 Oct 2022 02:13:37 -0400
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com [IPv6:2a00:1450:4864:20::436])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B3606BA279
+        for <linux-man@vger.kernel.org>; Thu,  6 Oct 2022 23:13:34 -0700 (PDT)
+Received: by mail-wr1-x436.google.com with SMTP id a10so5696960wrm.12
+        for <linux-man@vger.kernel.org>; Thu, 06 Oct 2022 23:13:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=SDo5l0GXQ3t12e+EFm8pMkt6DrzQvkdwjOhC2S5qhsw=;
+        b=EnENR3O7X6Gt4fe6P2u7OXgfWqd7m8i53juc4YipylqII9y/+/pd9UorDU9ThRAMHa
+         SVwiJ3/QcYstXJN6VYu8Sz6GnyHkrNfp7AlNMy1fukB3Y0BM7pqnEjtez8i+U6RGx5TY
+         xAP8c9ihE5XdCIdQn6APMl+LV73LQTS++wKL+v+IC852j4IpuBgzaN9lsaM65qmhdhAe
+         W4qsd4Lv2S3m3T+dGAdPpbX/dw3qlZn/MvyoojLwkVEJ0Oqwx+t1yr64n+dtXAc156Yi
+         arto/7DmLhBrl+UHp1TCEkf5B3HUs/5sHcz6NOxTTDgRwJBHq4SF9S/w3FbR8w06ngpR
+         LFYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=SDo5l0GXQ3t12e+EFm8pMkt6DrzQvkdwjOhC2S5qhsw=;
+        b=hJcWilbFv5LiLL+KQ3sUNd4nE97rWUSMU73TrY/EZFd92RmoKvU8jdLm29Q7QE3zUp
+         yc+6NBVAIPsEw0STnxbyBEVC/CJrj1k1h9OTqHv3JH7UbgD5KDHin250EHhWfw6NyUKL
+         tRmsUH1qmZc4i2jFStR0ibUcS0nI0p1JAWDMBNLX+69X4wHoHdQaJ0fjwyjrFjXeO3A2
+         XjKsEMqfPr35GCuvprpRFUDVUspE0iQAZF1dYGjGUoDbxpD7oH9yh7dE0vvunnk0mnfd
+         KRSCdCZ0NlsDxhpeTVmDSPl3LmTrPvqrSTbSyQqJPfobADvSd+UcOLv80E9zIkQpvv0c
+         8Ncg==
+X-Gm-Message-State: ACrzQf1VyanCXgwbr6KNEArtBGVXAVUDxTgYutzQB6XJFBgjhRBy1BAA
+        TqyLZ/8OE8OCF6c6b73Hhhg=
+X-Google-Smtp-Source: AMsMyM6SEySD14CPvWWEJfZvReVKFyxtXgOhu7WtOZHEOTWLPWcQC44ysSIVv0a4zUp/1yjCHcRqbw==
+X-Received: by 2002:adf:cd84:0:b0:22e:2ff1:7305 with SMTP id q4-20020adfcd84000000b0022e2ff17305mr2083365wrj.650.1665123213118;
+        Thu, 06 Oct 2022 23:13:33 -0700 (PDT)
+Received: from amir-ThinkPad-T480.lan ([77.137.66.49])
+        by smtp.gmail.com with ESMTPSA id bh11-20020a05600c3d0b00b003b49ab8ff53sm1390934wmb.8.2022.10.06.23.13.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 06 Oct 2022 23:13:32 -0700 (PDT)
+From:   Amir Goldstein <amir73il@gmail.com>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     Jan Kara <jack@suse.cz>, Matthew Bobrowski <repnop@google.com>,
+        linux-man@vger.kernel.org
+Subject: [PATCH v2] fanotify_mark.2: Document FAN_MARK_IGNORE
+Date:   Fri,  7 Oct 2022 09:13:28 +0300
+Message-Id: <20221007061328.1326041-1-amir73il@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20221004174307.6022-1-ebiggers@kernel.org>
-X-Spam-Status: No, score=-4.6 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-        SPF_HELO_NONE,SPF_PASS,SUSPICIOUS_RECIPS autolearn=ham
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -56,148 +68,251 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Tue, Oct 04, 2022 at 10:43:07AM -0700, Eric Biggers wrote:
-> From: Eric Biggers <ebiggers@google.com>
-> 
-> Document the STATX_DIOALIGN support for statx()
-> (https://git.kernel.org/linus/725737e7c21d2d25).
-> 
-> Reviewed-by: Darrick J. Wong <djwong@kernel.org>
-> Signed-off-by: Eric Biggers <ebiggers@google.com>
-> ---
-> 
-> I'm resending this now that support for STATX_DIOALIGN has been merged
-> upstream.
+A new flavor of FAN_MARK_IGNORED_MASK that helps to resolve the
+ambiguity around the combination of event flags and ignore mask.
 
-Woo!  Thank you for getting this over the line! :)
+It is also more strict in the events and flags allowed to be
+set in a non-directory inode mark mask and it mandates the use
+of FAN_MARK_IGNORED_SURV_MODIFY flag on filesystem, mount and
+directory inode marks.
 
---D
+Reviewed-by: Jan Kara <jack@suse.cz>
+Reviewed-by: Matthew Bobrowski <repnop@google.com>
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+---
 
-> v3: updated mentions of Linux version, fixed some punctuation, and added
->     a Reviewed-by
-> 
-> v2: rebased onto man-pages master branch, mentioned xfs, and updated
->     link to patchset
-> 
->  man2/open.2  | 43 ++++++++++++++++++++++++++++++++-----------
->  man2/statx.2 | 29 +++++++++++++++++++++++++++++
->  2 files changed, 61 insertions(+), 11 deletions(-)
-> 
-> diff --git a/man2/open.2 b/man2/open.2
-> index deba7e4ea..b8617e0d2 100644
-> --- a/man2/open.2
-> +++ b/man2/open.2
-> @@ -1732,21 +1732,42 @@ of user-space buffers and the file offset of I/Os.
->  In Linux alignment
->  restrictions vary by filesystem and kernel version and might be
->  absent entirely.
-> -However there is currently no filesystem\-independent
-> -interface for an application to discover these restrictions for a given
-> -file or filesystem.
-> -Some filesystems provide their own interfaces
-> -for doing so, for example the
-> +The handling of misaligned
-> +.B O_DIRECT
-> +I/Os also varies; they can either fail with
-> +.B EINVAL
-> +or fall back to buffered I/O.
-> +.PP
-> +Since Linux 6.1,
-> +.B O_DIRECT
-> +support and alignment restrictions for a file can be queried using
-> +.BR statx (2),
-> +using the
-> +.B STATX_DIOALIGN
-> +flag.
-> +Support for
-> +.B STATX_DIOALIGN
-> +varies by filesystem; see
-> +.BR statx (2).
-> +.PP
-> +Some filesystems provide their own interfaces for querying
-> +.B O_DIRECT
-> +alignment restrictions, for example the
->  .B XFS_IOC_DIOINFO
->  operation in
->  .BR xfsctl (3).
-> +.B STATX_DIOALIGN
-> +should be used instead when it is available.
->  .PP
-> -Under Linux 2.4, transfer sizes, the alignment of the user buffer,
-> -and the file offset must all be multiples of the logical block size
-> -of the filesystem.
-> -Since Linux 2.6.0, alignment to the logical block size of the
-> -underlying storage (typically 512 bytes) suffices.
-> -The logical block size can be determined using the
-> +If none of the above is available, then direct I/O support and alignment
-> +restrictions can only be assumed from known characteristics of the filesystem,
-> +the individual file, the underlying storage device(s), and the kernel version.
-> +In Linux 2.4, most block device based filesystems require that the file offset
-> +and the length and memory address of all I/O segments be multiples of the
-> +filesystem block size (typically 4096 bytes).
-> +In Linux 2.6.0, this was relaxed to the logical block size of the block device
-> +(typically 512 bytes).
-> +A block device's logical block size can be determined using the
->  .BR ioctl (2)
->  .B BLKSSZGET
->  operation or from the shell using the command:
-> diff --git a/man2/statx.2 b/man2/statx.2
-> index 0d1b4591f..50397057d 100644
-> --- a/man2/statx.2
-> +++ b/man2/statx.2
-> @@ -61,7 +61,12 @@ struct statx {
->         containing the filesystem where the file resides */
->      __u32 stx_dev_major;   /* Major ID */
->      __u32 stx_dev_minor;   /* Minor ID */
-> +
->      __u64 stx_mnt_id;      /* Mount ID */
-> +
-> +    /* Direct I/O alignment restrictions */
-> +    __u32 stx_dio_mem_align;
-> +    __u32 stx_dio_offset_align;
->  };
->  .EE
->  .in
-> @@ -247,6 +252,8 @@ STATX_BTIME	Want stx_btime
->  STATX_ALL	The same as STATX_BASIC_STATS | STATX_BTIME.
->  	It is deprecated and should not be used.
->  STATX_MNT_ID	Want stx_mnt_id (since Linux 5.8)
-> +STATX_DIOALIGN	Want stx_dio_mem_align and stx_dio_offset_align
-> +	(since Linux 6.1; support varies by filesystem)
->  .TE
->  .in
->  .PP
-> @@ -407,6 +414,28 @@ This is the same number reported by
->  .BR name_to_handle_at (2)
->  and corresponds to the number in the first field in one of the records in
->  .IR /proc/self/mountinfo .
-> +.TP
-> +.I stx_dio_mem_align
-> +The alignment (in bytes) required for user memory buffers for direct I/O
-> +.BR "" ( O_DIRECT )
-> +on this file, or 0 if direct I/O is not supported on this file.
-> +.IP
-> +.B STATX_DIOALIGN
-> +.IR "" ( stx_dio_mem_align
-> +and
-> +.IR stx_dio_offset_align )
-> +is supported on block devices since Linux 6.1.
-> +The support on regular files varies by filesystem; it is supported by ext4,
-> +f2fs, and xfs since Linux 6.1.
-> +.TP
-> +.I stx_dio_offset_align
-> +The alignment (in bytes) required for file offsets and I/O segment lengths for
-> +direct I/O
-> +.BR "" ( O_DIRECT )
-> +on this file, or 0 if direct I/O is not supported on this file.
-> +This will only be nonzero if
-> +.I stx_dio_mem_align
-> +is nonzero, and vice versa.
->  .PP
->  For further information on the above fields, see
->  .BR inode (7).
-> 
-> base-commit: bc28d289e5066fc626df260bafc249846a0f6ae6
-> -- 
-> 2.37.3
-> 
+Hi Alex,
+
+This is the fanotify man page update for the 6.0 release.
+
+Thanks,
+Amir.
+
+Changes since [v1]:
+- Address review comments by Jan and Matthew
+
+[v1] https://lore.kernel.org/linux-man/20220904155113.2623371-1-amir73il@gmail.com/
+
+ man2/fanotify_mark.2 | 177 ++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 175 insertions(+), 2 deletions(-)
+
+diff --git a/man2/fanotify_mark.2 b/man2/fanotify_mark.2
+index b9b3357e2..f08ee2069 100644
+--- a/man2/fanotify_mark.2
++++ b/man2/fanotify_mark.2
+@@ -146,12 +146,130 @@ capability.
+ The events in
+ .I mask
+ shall be added to or removed from the ignore mask.
++Note that the flags
++.B FAN_ONDIR ,
++and
++.B FAN_EVENT_ON_CHILD
++have no effect when provided with this flag.
++The effect of setting the flags
++.B FAN_ONDIR ,
++and
++.B FAN_EVENT_ON_CHILD
++in the mark mask
++on the events that are set in the ignore mask
++is undefined and depends on the Linux kernel version.
++Specifically, prior to Linux 5.9,
++.\" commit 497b0c5a7c0688c1b100a9c2e267337f677c198e
++setting a mark mask on a file
++and a mark with ignore mask on its parent directory
++would not result in ignoring events on the file,
++regardless of the
++.B FAN_EVENT_ON_CHILD
++flag in the parent directory's mark mask.
++When the ignore mask is updated with the
++.B FAN_MARK_IGNORED_MASK
++flag
++on a mark that was previously updated with the
++.B FAN_MARK_IGNORE
++flag,
++the update fails with
++.B EEXIST
++error.
++.TP
++.BR FAN_MARK_IGNORE " (since Linux 6.0)"
++.\" commit e252f2ed1c8c6c3884ab5dd34e003ed21f1fe6e0
++This flag has a similar effect as setting the
++.B FAN_MARK_IGNORED_MASK
++flag.
++The events in
++.I mask
++shall be added to or removed from the ignore mask.
++Unlike the
++.B FAN_MARK_IGNORED_MASK
++flag,
++this flag also has the effect that the
++.B FAN_ONDIR ,
++and
++.B FAN_EVENT_ON_CHILD
++flags take effect on the ignore mask.
++Specifically, unless the
++.B FAN_ONDIR
++flag is set with
++.BR FAN_MARK_IGNORE ,
++events on directories will not be ignored.
++If the flag
++.B FAN_EVENT_ON_CHILD
++is set with
++.BR FAN_MARK_IGNORE ,
++events on children will be ignored.
++For example,
++a mark on a directory with combination of
++a mask with
++.B FAN_CREATE
++event
++and
++.B FAN_ONDIR
++flag
++and an ignore mask with
++.B FAN_CREATE
++event
++and without
++.B FAN_ONDIR
++flag,
++will result in getting only
++the events for creation of sub-directories.
++When using the
++.B FAN_MARK_IGNORE
++flag to add to an ignore mask
++of a mount,
++filesystem,
++or directory inode mark,
++the
++.B FAN_MARK_IGNORED_SURV_MODIFY
++flag must be specified.
++Failure to do so will results with
++.B EINVAL
++or
++.B EISDIR
++error.
+ .TP
+ .B FAN_MARK_IGNORED_SURV_MODIFY
+ The ignore mask shall survive modify events.
+ If this flag is not set,
+ the ignore mask is cleared when a modify event occurs
+-for the ignored file or directory.
++on the marked object.
++Omitting this flag is typically used to suppress events
++(e.g.,
++.BR FAN_OPEN )
++for a specific file,
++until that specific file's content has been modified.
++It is far less useful to suppress events
++on an entire filesystem,
++or mount,
++or on all files inside a directory,
++until some file's content has been modified.
++For this reason,
++the
++.B FAN_MARK_IGNORE
++flag requires the
++.B FAN_MARK_IGNORED_SURV_MODIFY
++flag on a mount,
++filesystem,
++or directory inode mark.
++This flag cannot be removed from a mark once set.
++When the ignore mask is updated without this flag
++on a mark that was previously updated with the
++.B FAN_MARK_IGNORE
++and
++.B FAN_MARK_IGNORED_SURV_MODIFY
++flags,
++the update fails with
++.B EEXIST
++error.
++.TP
++.B FAN_MARK_IGNORE_SURV
++This is a synonym for
++.RB ( FAN_MARK_IGNORE | FAN_MARK_IGNORED_SURV_MODIFY ).
+ .TP
+ .BR FAN_MARK_EVICTABLE " (since Linux 5.19)"
+ .\" commit 5f9d3bd520261fd7a850818c71809fd580e0f30c
+@@ -462,6 +580,32 @@ and the user attempted to update the mark with
+ .B FAN_MARK_EVICTABLE
+ flag.
+ .TP
++.B EEXIST
++The filesystem object indicated by
++.I dirfd
++and
++.I pathname
++has a mark that was updated with the
++.B FAN_MARK_IGNORE
++flag,
++and the user attempted to update the mark with
++.B FAN_MARK_IGNORED_MASK
++flag.
++.TP
++.B EEXIST
++The filesystem object indicated by
++.I dirfd
++and
++.I pathname
++has a mark that was updated with the
++.B FAN_MARK_IGNORE
++and
++.B FAN_MARK_IGNORED_SURV_MODIFY
++flags,
++and the user attempted to update the mark only with
++.B FAN_MARK_IGNORE
++flag.
++.TP
+ .B EINVAL
+ An invalid value was passed in
+ .I flags
+@@ -487,8 +631,33 @@ but one or more event types specified in the
+ .I mask
+ require it.
+ .TP
++.B EINVAL
++.I flags
++contains
++.BR FAN_MARK_IGNORE ,
++and either
++.B FAN_MARK_MOUNT
++or
++.BR FAN_MARK_FILESYSTEM ,
++but does not contain
++.BR FAN_MARK_IGNORED_SURV_MODIFY .
++.TP
++.B EISDIR
++.I flags
++contains
++.BR FAN_MARK_IGNORE ,
++but does not contain
++.BR FAN_MARK_IGNORED_SURV_MODIFY ,
++and
++.I dirfd
++and
++.I pathname
++specify a directory.
++.TP
+ .B ENODEV
+ The filesystem object indicated by
++.I dirfd
++and
+ .I pathname
+ is not associated with a filesystem that supports
+ .I fsid
+@@ -550,8 +719,12 @@ and
+ do not specify a directory.
+ .TP
+ .B ENOTDIR
+-The fanotify group was initialized with flag
++.I flags
++contains
++.BR FAN_MARK_IGNORE ,
++or the fanotify group was initialized with flag
+ .BR FAN_REPORT_TARGET_FID ,
++and
+ .I mask
+ contains directory entry modification events
+ (e.g.,
+-- 
+2.25.1
+
