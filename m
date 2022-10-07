@@ -2,64 +2,71 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id AABA95F7423
-	for <lists+linux-man@lfdr.de>; Fri,  7 Oct 2022 08:13:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E19C45F8150
+	for <lists+linux-man@lfdr.de>; Sat,  8 Oct 2022 01:43:20 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229538AbiJGGNh (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 7 Oct 2022 02:13:37 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56432 "EHLO
+        id S229509AbiJGXnU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 7 Oct 2022 19:43:20 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34966 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229482AbiJGGNh (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 7 Oct 2022 02:13:37 -0400
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com [IPv6:2a00:1450:4864:20::436])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B3606BA279
-        for <linux-man@vger.kernel.org>; Thu,  6 Oct 2022 23:13:34 -0700 (PDT)
-Received: by mail-wr1-x436.google.com with SMTP id a10so5696960wrm.12
-        for <linux-man@vger.kernel.org>; Thu, 06 Oct 2022 23:13:34 -0700 (PDT)
+        with ESMTP id S229611AbiJGXnT (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 7 Oct 2022 19:43:19 -0400
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com [IPv6:2a00:1450:4864:20::32e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0A995A9257
+        for <linux-man@vger.kernel.org>; Fri,  7 Oct 2022 16:43:18 -0700 (PDT)
+Received: by mail-wm1-x32e.google.com with SMTP id o20-20020a05600c4fd400b003b4a516c479so3391053wmq.1
+        for <linux-man@vger.kernel.org>; Fri, 07 Oct 2022 16:43:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=SDo5l0GXQ3t12e+EFm8pMkt6DrzQvkdwjOhC2S5qhsw=;
-        b=EnENR3O7X6Gt4fe6P2u7OXgfWqd7m8i53juc4YipylqII9y/+/pd9UorDU9ThRAMHa
-         SVwiJ3/QcYstXJN6VYu8Sz6GnyHkrNfp7AlNMy1fukB3Y0BM7pqnEjtez8i+U6RGx5TY
-         xAP8c9ihE5XdCIdQn6APMl+LV73LQTS++wKL+v+IC852j4IpuBgzaN9lsaM65qmhdhAe
-         W4qsd4Lv2S3m3T+dGAdPpbX/dw3qlZn/MvyoojLwkVEJ0Oqwx+t1yr64n+dtXAc156Yi
-         arto/7DmLhBrl+UHp1TCEkf5B3HUs/5sHcz6NOxTTDgRwJBHq4SF9S/w3FbR8w06ngpR
-         LFYQ==
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=aCeUFqfyTDadAy6JzOZlrSyvO+0EhqJvGhDdychU/MQ=;
+        b=FBwbbVqVjvxMLB2MUbvyCaSkMuMSSqHubj6PGhUVus2510KA9aLY0+WW2GxjAe4KCX
+         yW+HtObxJL+c9Oz6h6pQcIxlUeS6zawBl3lZ4mS9nmCVzPfsYEOFEni/1gvzl1ZbZcRY
+         PvCE9UI4SymzugmOXgzocyXZYG38KIIz1+I5S7Qgb4HtKgIUluBsxk9mKIIV2fVZHOCv
+         ns2HnVke9wMp5CHcSW+8WsbwF8B2hjlIFee+6pwb7yPd3Y2n8+bsQdrWehB9u+x35NcX
+         UFSj+WcmBgVJmBzd/PcNkmmfshPP76tlx/StRFJshpeWBuup8ui5Ohwh4N8M7MM1hIi7
+         wmLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=SDo5l0GXQ3t12e+EFm8pMkt6DrzQvkdwjOhC2S5qhsw=;
-        b=hJcWilbFv5LiLL+KQ3sUNd4nE97rWUSMU73TrY/EZFd92RmoKvU8jdLm29Q7QE3zUp
-         yc+6NBVAIPsEw0STnxbyBEVC/CJrj1k1h9OTqHv3JH7UbgD5KDHin250EHhWfw6NyUKL
-         tRmsUH1qmZc4i2jFStR0ibUcS0nI0p1JAWDMBNLX+69X4wHoHdQaJ0fjwyjrFjXeO3A2
-         XjKsEMqfPr35GCuvprpRFUDVUspE0iQAZF1dYGjGUoDbxpD7oH9yh7dE0vvunnk0mnfd
-         KRSCdCZ0NlsDxhpeTVmDSPl3LmTrPvqrSTbSyQqJPfobADvSd+UcOLv80E9zIkQpvv0c
-         8Ncg==
-X-Gm-Message-State: ACrzQf1VyanCXgwbr6KNEArtBGVXAVUDxTgYutzQB6XJFBgjhRBy1BAA
-        TqyLZ/8OE8OCF6c6b73Hhhg=
-X-Google-Smtp-Source: AMsMyM6SEySD14CPvWWEJfZvReVKFyxtXgOhu7WtOZHEOTWLPWcQC44ysSIVv0a4zUp/1yjCHcRqbw==
-X-Received: by 2002:adf:cd84:0:b0:22e:2ff1:7305 with SMTP id q4-20020adfcd84000000b0022e2ff17305mr2083365wrj.650.1665123213118;
-        Thu, 06 Oct 2022 23:13:33 -0700 (PDT)
-Received: from amir-ThinkPad-T480.lan ([77.137.66.49])
-        by smtp.gmail.com with ESMTPSA id bh11-20020a05600c3d0b00b003b49ab8ff53sm1390934wmb.8.2022.10.06.23.13.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 06 Oct 2022 23:13:32 -0700 (PDT)
-From:   Amir Goldstein <amir73il@gmail.com>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=aCeUFqfyTDadAy6JzOZlrSyvO+0EhqJvGhDdychU/MQ=;
+        b=Ooa6ZVkPdDpfO4hvy4sxfI9zmXEG9Zowj0nP5IdqNrmZ0afe/I+nMdPyr2hWJ+M5S/
+         RMJPmNr9FaWEMbI8/h6dph4N4BRkuPJjgoVqQE58PeTTnO1tbEdwKzX0T3xQMwcQWuK3
+         rGAQCWSnqzMeMdWRwJra3Mlt81JkSNSaJQk1X2STG2ic63Qx/r61t1AkUc65enUoLXRt
+         3qK8Lq8uiX6CzRQgHx0ij+KzXbemWpe2qrCMHGqnY+RYw+tIFTAZE1u8KX132jOSanCX
+         kvXGW6eD+s/FYxUpQswdCS9nPed72xpB0lfqhzQQRJG3VioatiDYgATh3yZ9C+nIcLOL
+         kAjw==
+X-Gm-Message-State: ACrzQf0npH+SY0hZyg+pEBJcAnPYL4/5hL0GrzKlHr3BD4AtKkzg/Wv5
+        ATmYuaoVEZHQTQ3hXEC0bA8=
+X-Google-Smtp-Source: AMsMyM4Q4/TiepNafIFplo0Q8wrdebaFK9oDIymOxDvHphnQXWHa+eTQyUJ9CW00Q/j7yn+x0sfUPQ==
+X-Received: by 2002:a05:600c:4153:b0:3c1:3ec6:45 with SMTP id h19-20020a05600c415300b003c13ec60045mr7657623wmm.130.1665186196342;
+        Fri, 07 Oct 2022 16:43:16 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id h7-20020a05600c350700b003b4868eb71bsm9524018wmq.25.2022.10.07.16.43.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 07 Oct 2022 16:43:15 -0700 (PDT)
+Message-ID: <96aeae1d-ee98-4bc4-6e82-60f902bdcf96@gmail.com>
+Date:   Sat, 8 Oct 2022 01:42:48 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.2
+Subject: Re: [PATCH v2] fanotify_mark.2: Document FAN_MARK_IGNORE
+Content-Language: en-US
+To:     Amir Goldstein <amir73il@gmail.com>
 Cc:     Jan Kara <jack@suse.cz>, Matthew Bobrowski <repnop@google.com>,
         linux-man@vger.kernel.org
-Subject: [PATCH v2] fanotify_mark.2: Document FAN_MARK_IGNORE
-Date:   Fri,  7 Oct 2022 09:13:28 +0300
-Message-Id: <20221007061328.1326041-1-amir73il@gmail.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+References: <20221007061328.1326041-1-amir73il@gmail.com>
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <20221007061328.1326041-1-amir73il@gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------Qnqo2lHeCZxR60KLXdMH4csn"
+X-Spam-Status: No, score=-4.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -68,251 +75,193 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-A new flavor of FAN_MARK_IGNORED_MASK that helps to resolve the
-ambiguity around the combination of event flags and ignore mask.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------Qnqo2lHeCZxR60KLXdMH4csn
+Content-Type: multipart/mixed; boundary="------------8PKyFsr6Wa4XP0k5lHiUJgaV";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: Amir Goldstein <amir73il@gmail.com>
+Cc: Jan Kara <jack@suse.cz>, Matthew Bobrowski <repnop@google.com>,
+ linux-man@vger.kernel.org
+Message-ID: <96aeae1d-ee98-4bc4-6e82-60f902bdcf96@gmail.com>
+Subject: Re: [PATCH v2] fanotify_mark.2: Document FAN_MARK_IGNORE
+References: <20221007061328.1326041-1-amir73il@gmail.com>
+In-Reply-To: <20221007061328.1326041-1-amir73il@gmail.com>
 
-It is also more strict in the events and flags allowed to be
-set in a non-directory inode mark mask and it mandates the use
-of FAN_MARK_IGNORED_SURV_MODIFY flag on filesystem, mount and
-directory inode marks.
+--------------8PKyFsr6Wa4XP0k5lHiUJgaV
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Reviewed-by: Jan Kara <jack@suse.cz>
-Reviewed-by: Matthew Bobrowski <repnop@google.com>
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
----
+SGkgQW1pciENCg0KT24gMTAvNy8yMiAwODoxMywgQW1pciBHb2xkc3RlaW4gd3JvdGU6DQo+
+IEEgbmV3IGZsYXZvciBvZiBGQU5fTUFSS19JR05PUkVEX01BU0sgdGhhdCBoZWxwcyB0byBy
+ZXNvbHZlIHRoZQ0KPiBhbWJpZ3VpdHkgYXJvdW5kIHRoZSBjb21iaW5hdGlvbiBvZiBldmVu
+dCBmbGFncyBhbmQgaWdub3JlIG1hc2suDQo+IA0KPiBJdCBpcyBhbHNvIG1vcmUgc3RyaWN0
+IGluIHRoZSBldmVudHMgYW5kIGZsYWdzIGFsbG93ZWQgdG8gYmUNCj4gc2V0IGluIGEgbm9u
+LWRpcmVjdG9yeSBpbm9kZSBtYXJrIG1hc2sgYW5kIGl0IG1hbmRhdGVzIHRoZSB1c2UNCj4g
+b2YgRkFOX01BUktfSUdOT1JFRF9TVVJWX01PRElGWSBmbGFnIG9uIGZpbGVzeXN0ZW0sIG1v
+dW50IGFuZA0KPiBkaXJlY3RvcnkgaW5vZGUgbWFya3MuDQo+IA0KPiBSZXZpZXdlZC1ieTog
+SmFuIEthcmEgPGphY2tAc3VzZS5jej4NCj4gUmV2aWV3ZWQtYnk6IE1hdHRoZXcgQm9icm93
+c2tpIDxyZXBub3BAZ29vZ2xlLmNvbT4NCj4gU2lnbmVkLW9mZi1ieTogQW1pciBHb2xkc3Rl
+aW4gPGFtaXI3M2lsQGdtYWlsLmNvbT4NCj4gLS0tDQo+IA0KPiBIaSBBbGV4LA0KPiANCj4g
+VGhpcyBpcyB0aGUgZmFub3RpZnkgbWFuIHBhZ2UgdXBkYXRlIGZvciB0aGUgNi4wIHJlbGVh
+c2UuDQo+IA0KPiBUaGFua3MsDQo+IEFtaXIuDQo+IA0KPiBDaGFuZ2VzIHNpbmNlIFt2MV06
+DQo+IC0gQWRkcmVzcyByZXZpZXcgY29tbWVudHMgYnkgSmFuIGFuZCBNYXR0aGV3DQo+IA0K
+PiBbdjFdIGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2xpbnV4LW1hbi8yMDIyMDkwNDE1NTEx
+My4yNjIzMzcxLTEtYW1pcjczaWxAZ21haWwuY29tLw0KDQpUaGFua3MhICBUaGUgc2VtYW50
+aWMgbmV3bGluZSB1c2FnZSBpcyB2ZXJ5IGdvb2QhIDspDQpTZWUgc29tZSBzbWFsbCBmb3Jt
+YXR0aW5nIGNvbW1lbnRzIGJlbG93Lg0KDQpDaGVlcnMsDQoNCkFsZXgNCg0KPiANCj4gICBt
+YW4yL2Zhbm90aWZ5X21hcmsuMiB8IDE3NyArKysrKysrKysrKysrKysrKysrKysrKysrKysr
+KysrKysrKysrKysrKystDQo+ICAgMSBmaWxlIGNoYW5nZWQsIDE3NSBpbnNlcnRpb25zKCsp
+LCAyIGRlbGV0aW9ucygtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL21hbjIvZmFub3RpZnlfbWFy
+ay4yIGIvbWFuMi9mYW5vdGlmeV9tYXJrLjINCj4gaW5kZXggYjliMzM1N2UyLi5mMDhlZTIw
+NjkgMTAwNjQ0DQo+IC0tLSBhL21hbjIvZmFub3RpZnlfbWFyay4yDQo+ICsrKyBiL21hbjIv
+ZmFub3RpZnlfbWFyay4yDQo+IEBAIC0xNDYsMTIgKzE0NiwxMzAgQEAgY2FwYWJpbGl0eS4N
+Cj4gICBUaGUgZXZlbnRzIGluDQo+ICAgLkkgbWFzaw0KPiAgIHNoYWxsIGJlIGFkZGVkIHRv
+IG9yIHJlbW92ZWQgZnJvbSB0aGUgaWdub3JlIG1hc2suDQo+ICtOb3RlIHRoYXQgdGhlIGZs
+YWdzDQo+ICsuQiBGQU5fT05ESVIgLA0KPiArYW5kDQo+ICsuQiBGQU5fRVZFTlRfT05fQ0hJ
+TEQNCj4gK2hhdmUgbm8gZWZmZWN0IHdoZW4gcHJvdmlkZWQgd2l0aCB0aGlzIGZsYWcuDQo+
+ICtUaGUgZWZmZWN0IG9mIHNldHRpbmcgdGhlIGZsYWdzDQo+ICsuQiBGQU5fT05ESVIgLA0K
+DQpzL0IvQlIvDQoNCmJvbGQgcm9tYW4gKGFsdGVybmF0aW5nKQ0KDQo+ICthbmQNCj4gKy5C
+IEZBTl9FVkVOVF9PTl9DSElMRA0KPiAraW4gdGhlIG1hcmsgbWFzaw0KPiArb24gdGhlIGV2
+ZW50cyB0aGF0IGFyZSBzZXQgaW4gdGhlIGlnbm9yZSBtYXNrDQo+ICtpcyB1bmRlZmluZWQg
+YW5kIGRlcGVuZHMgb24gdGhlIExpbnV4IGtlcm5lbCB2ZXJzaW9uLg0KPiArU3BlY2lmaWNh
+bGx5LCBwcmlvciB0byBMaW51eCA1LjksDQo+ICsuXCIgY29tbWl0IDQ5N2IwYzVhN2MwNjg4
+YzFiMTAwYTljMmUyNjczMzdmNjc3YzE5OGUNCj4gK3NldHRpbmcgYSBtYXJrIG1hc2sgb24g
+YSBmaWxlDQo+ICthbmQgYSBtYXJrIHdpdGggaWdub3JlIG1hc2sgb24gaXRzIHBhcmVudCBk
+aXJlY3RvcnkNCj4gK3dvdWxkIG5vdCByZXN1bHQgaW4gaWdub3JpbmcgZXZlbnRzIG9uIHRo
+ZSBmaWxlLA0KPiArcmVnYXJkbGVzcyBvZiB0aGUNCj4gKy5CIEZBTl9FVkVOVF9PTl9DSElM
+RA0KPiArZmxhZyBpbiB0aGUgcGFyZW50IGRpcmVjdG9yeSdzIG1hcmsgbWFzay4NCj4gK1do
+ZW4gdGhlIGlnbm9yZSBtYXNrIGlzIHVwZGF0ZWQgd2l0aCB0aGUNCj4gKy5CIEZBTl9NQVJL
+X0lHTk9SRURfTUFTSw0KPiArZmxhZw0KPiArb24gYSBtYXJrIHRoYXQgd2FzIHByZXZpb3Vz
+bHkgdXBkYXRlZCB3aXRoIHRoZQ0KPiArLkIgRkFOX01BUktfSUdOT1JFDQo+ICtmbGFnLA0K
+PiArdGhlIHVwZGF0ZSBmYWlscyB3aXRoDQo+ICsuQiBFRVhJU1QNCj4gK2Vycm9yLg0KPiAr
+LlRQDQo+ICsuQlIgRkFOX01BUktfSUdOT1JFICIgKHNpbmNlIExpbnV4IDYuMCkiDQo+ICsu
+XCIgY29tbWl0IGUyNTJmMmVkMWM4YzZjMzg4NGFiNWRkMzRlMDAzZWQyMWYxZmU2ZTANCj4g
+K1RoaXMgZmxhZyBoYXMgYSBzaW1pbGFyIGVmZmVjdCBhcyBzZXR0aW5nIHRoZQ0KPiArLkIg
+RkFOX01BUktfSUdOT1JFRF9NQVNLDQo+ICtmbGFnLg0KPiArVGhlIGV2ZW50cyBpbg0KPiAr
+LkkgbWFzaw0KPiArc2hhbGwgYmUgYWRkZWQgdG8gb3IgcmVtb3ZlZCBmcm9tIHRoZSBpZ25v
+cmUgbWFzay4NCj4gK1VubGlrZSB0aGUNCj4gKy5CIEZBTl9NQVJLX0lHTk9SRURfTUFTSw0K
+PiArZmxhZywNCj4gK3RoaXMgZmxhZyBhbHNvIGhhcyB0aGUgZWZmZWN0IHRoYXQgdGhlDQo+
+ICsuQiBGQU5fT05ESVIgLA0KDQpib2xkIHJvbWFuDQoNCj4gK2FuZA0KPiArLkIgRkFOX0VW
+RU5UX09OX0NISUxEDQo+ICtmbGFncyB0YWtlIGVmZmVjdCBvbiB0aGUgaWdub3JlIG1hc2su
+DQo+ICtTcGVjaWZpY2FsbHksIHVubGVzcyB0aGUNCj4gKy5CIEZBTl9PTkRJUg0KPiArZmxh
+ZyBpcyBzZXQgd2l0aA0KPiArLkJSIEZBTl9NQVJLX0lHTk9SRSAsDQo+ICtldmVudHMgb24g
+ZGlyZWN0b3JpZXMgd2lsbCBub3QgYmUgaWdub3JlZC4NCj4gK0lmIHRoZSBmbGFnDQo+ICsu
+QiBGQU5fRVZFTlRfT05fQ0hJTEQNCj4gK2lzIHNldCB3aXRoDQo+ICsuQlIgRkFOX01BUktf
+SUdOT1JFICwNCj4gK2V2ZW50cyBvbiBjaGlsZHJlbiB3aWxsIGJlIGlnbm9yZWQuDQo+ICtG
+b3IgZXhhbXBsZSwNCj4gK2EgbWFyayBvbiBhIGRpcmVjdG9yeSB3aXRoIGNvbWJpbmF0aW9u
+IG9mDQo+ICthIG1hc2sgd2l0aA0KPiArLkIgRkFOX0NSRUFURQ0KPiArZXZlbnQNCj4gK2Fu
+ZA0KPiArLkIgRkFOX09ORElSDQo+ICtmbGFnDQo+ICthbmQgYW4gaWdub3JlIG1hc2sgd2l0
+aA0KPiArLkIgRkFOX0NSRUFURQ0KPiArZXZlbnQNCj4gK2FuZCB3aXRob3V0DQo+ICsuQiBG
+QU5fT05ESVINCj4gK2ZsYWcsDQo+ICt3aWxsIHJlc3VsdCBpbiBnZXR0aW5nIG9ubHkNCj4g
+K3RoZSBldmVudHMgZm9yIGNyZWF0aW9uIG9mIHN1Yi1kaXJlY3Rvcmllcy4NCj4gK1doZW4g
+dXNpbmcgdGhlDQo+ICsuQiBGQU5fTUFSS19JR05PUkUNCj4gK2ZsYWcgdG8gYWRkIHRvIGFu
+IGlnbm9yZSBtYXNrDQo+ICtvZiBhIG1vdW50LA0KPiArZmlsZXN5c3RlbSwNCj4gK29yIGRp
+cmVjdG9yeSBpbm9kZSBtYXJrLA0KPiArdGhlDQo+ICsuQiBGQU5fTUFSS19JR05PUkVEX1NV
+UlZfTU9ESUZZDQo+ICtmbGFnIG11c3QgYmUgc3BlY2lmaWVkLg0KPiArRmFpbHVyZSB0byBk
+byBzbyB3aWxsIHJlc3VsdHMgd2l0aA0KPiArLkIgRUlOVkFMDQo+ICtvcg0KPiArLkIgRUlT
+RElSDQo+ICtlcnJvci4NCj4gICAuVFANCj4gICAuQiBGQU5fTUFSS19JR05PUkVEX1NVUlZf
+TU9ESUZZDQo+ICAgVGhlIGlnbm9yZSBtYXNrIHNoYWxsIHN1cnZpdmUgbW9kaWZ5IGV2ZW50
+cy4NCj4gICBJZiB0aGlzIGZsYWcgaXMgbm90IHNldCwNCj4gICB0aGUgaWdub3JlIG1hc2sg
+aXMgY2xlYXJlZCB3aGVuIGEgbW9kaWZ5IGV2ZW50IG9jY3Vycw0KPiAtZm9yIHRoZSBpZ25v
+cmVkIGZpbGUgb3IgZGlyZWN0b3J5Lg0KPiArb24gdGhlIG1hcmtlZCBvYmplY3QuDQo+ICtP
+bWl0dGluZyB0aGlzIGZsYWcgaXMgdHlwaWNhbGx5IHVzZWQgdG8gc3VwcHJlc3MgZXZlbnRz
+DQo+ICsoZS5nLiwNCj4gKy5CUiBGQU5fT1BFTiApDQo+ICtmb3IgYSBzcGVjaWZpYyBmaWxl
+LA0KPiArdW50aWwgdGhhdCBzcGVjaWZpYyBmaWxlJ3MgY29udGVudCBoYXMgYmVlbiBtb2Rp
+ZmllZC4NCj4gK0l0IGlzIGZhciBsZXNzIHVzZWZ1bCB0byBzdXBwcmVzcyBldmVudHMNCj4g
+K29uIGFuIGVudGlyZSBmaWxlc3lzdGVtLA0KPiArb3IgbW91bnQsDQo+ICtvciBvbiBhbGwg
+ZmlsZXMgaW5zaWRlIGEgZGlyZWN0b3J5LA0KPiArdW50aWwgc29tZSBmaWxlJ3MgY29udGVu
+dCBoYXMgYmVlbiBtb2RpZmllZC4NCj4gK0ZvciB0aGlzIHJlYXNvbiwNCj4gK3RoZQ0KPiAr
+LkIgRkFOX01BUktfSUdOT1JFDQo+ICtmbGFnIHJlcXVpcmVzIHRoZQ0KPiArLkIgRkFOX01B
+UktfSUdOT1JFRF9TVVJWX01PRElGWQ0KPiArZmxhZyBvbiBhIG1vdW50LA0KPiArZmlsZXN5
+c3RlbSwNCj4gK29yIGRpcmVjdG9yeSBpbm9kZSBtYXJrLg0KPiArVGhpcyBmbGFnIGNhbm5v
+dCBiZSByZW1vdmVkIGZyb20gYSBtYXJrIG9uY2Ugc2V0Lg0KPiArV2hlbiB0aGUgaWdub3Jl
+IG1hc2sgaXMgdXBkYXRlZCB3aXRob3V0IHRoaXMgZmxhZw0KPiArb24gYSBtYXJrIHRoYXQg
+d2FzIHByZXZpb3VzbHkgdXBkYXRlZCB3aXRoIHRoZQ0KPiArLkIgRkFOX01BUktfSUdOT1JF
+DQo+ICthbmQNCj4gKy5CIEZBTl9NQVJLX0lHTk9SRURfU1VSVl9NT0RJRlkNCj4gK2ZsYWdz
+LA0KPiArdGhlIHVwZGF0ZSBmYWlscyB3aXRoDQo+ICsuQiBFRVhJU1QNCj4gK2Vycm9yLg0K
+PiArLlRQDQo+ICsuQiBGQU5fTUFSS19JR05PUkVfU1VSVg0KPiArVGhpcyBpcyBhIHN5bm9u
+eW0gZm9yDQo+ICsuUkIgKCBGQU5fTUFSS19JR05PUkUgfCBGQU5fTUFSS19JR05PUkVEX1NV
+UlZfTU9ESUZZICkuDQoNCkknbSBub3Qgc3VyZSBpZiBJJ2QgZm9ybWF0IHRoaXMgYXMgY29k
+ZSAoaXRhbGljcykgcmlnaHQ/LA0KcmF0aGVyIHRoYW4gc2VwYXJhdGUgY29uc3RhbnQgbmFt
+ZXMuDQoNClBsZWFzZSBjaGVjayB0aGUgYmVsb3cgcGFyYWdyYXBocyBmcm9tIG1hbi1wYWdl
+cyg3KSwNCmFuZCBJJ2xsIGxlYXZlIHRoZSBkZWNpc3Npb24gdXAgdG8geW91Lg0KDQpTZWUg
+bWFuLXBhZ2VzKDcpOg0KICAgICAgICBDb21wbGV0ZSBjb21tYW5kcyBzaG91bGQsIGlmIGxv
+bmcsIGJlIHdyaXR0ZW4gYXMgIGFuICBpbuKAkA0KICAgICAgICBkZW50ZWQgIGxpbmUgIG9u
+ICB0aGVpciBvd24sIHdpdGggYSBibGFuayBsaW5lIGJlZm9yZSBhbmQNCiAgICAgICAgYWZ0
+ZXIgdGhlIGNvbW1hbmQsIGZvciBleGFtcGxlDQoNCiAgICAgICAgICAgIG1hbiA3IG1hbi1w
+YWdlcw0KDQogICAgICAgIElmIHRoZSBjb21tYW5kIGlzIHNob3J0LCB0aGVuIGl0IGNhbiBi
+ZSAgaW5jbHVkZWQgIGlubGluZQ0KICAgICAgICBpbiAgdGhlICB0ZXh0LCAgaW4gaXRhbGlj
+IGZvcm1hdCwgZm9yIGV4YW1wbGUsIG1hbiA3IG1hbuKAkA0KICAgICAgICBwYWdlcy4gIElu
+IHRoaXMgY2FzZSwgaXQgbWF5IGJlIHdvcnRoICB1c2luZyAgbm9uYnJlYWtpbmcNCiAgICAg
+ICAgc3BhY2VzICAoXH4pICBhdCBzdWl0YWJsZSBwbGFjZXMgaW4gdGhlIGNvbW1hbmQuICBD
+b21tYW5kDQogICAgICAgIG9wdGlvbnMgc2hvdWxkIGJlIHdyaXR0ZW4gaW4gaXRhbGljcyAo
+ZS5nLiwgLWwpLg0KDQogICAgICAgIEV4cHJlc3Npb25zLCBpZiBub3Qgd3JpdHRlbiBvbiBh
+IHNlcGFyYXRlIGluZGVudGVkICBsaW5lLA0KICAgICAgICBzaG91bGQgIGJlICBzcGVjaWZp
+ZWQgaW4gaXRhbGljcy4gIEFnYWluLCB0aGUgdXNlIG9mIG5vbuKAkA0KICAgICAgICBicmVh
+a2luZyBzcGFjZXMgbWF5IGJlIGFwcHJvcHJpYXRlIGlmIHRoZSAgZXhwcmVzc2lvbiAgaXMN
+CiAgICAgICAgaW5saW5lZCB3aXRoIG5vcm1hbCB0ZXh0Lg0KDQpbVGhlIG9yaWdpbmFsIHRl
+eHQgc2hvd3Mgc29tZSBmb3JtYXR0aW5nOyBzZWUgdGhlIG1hbnVhbCBwYWdlXQ0KDQo+ICAg
+LlRQDQo+ICAgLkJSIEZBTl9NQVJLX0VWSUNUQUJMRSAiIChzaW5jZSBMaW51eCA1LjE5KSIN
+Cj4gICAuXCIgY29tbWl0IDVmOWQzYmQ1MjAyNjFmZDdhODUwODE4YzcxODA5ZmQ1ODBlMGYz
+MGMNCj4gQEAgLTQ2Miw2ICs1ODAsMzIgQEAgYW5kIHRoZSB1c2VyIGF0dGVtcHRlZCB0byB1
+cGRhdGUgdGhlIG1hcmsgd2l0aA0KPiAgIC5CIEZBTl9NQVJLX0VWSUNUQUJMRQ0KPiAgIGZs
+YWcuDQo+ICAgLlRQDQo+ICsuQiBFRVhJU1QNCj4gK1RoZSBmaWxlc3lzdGVtIG9iamVjdCBp
+bmRpY2F0ZWQgYnkNCj4gKy5JIGRpcmZkDQo+ICthbmQNCj4gKy5JIHBhdGhuYW1lDQo+ICto
+YXMgYSBtYXJrIHRoYXQgd2FzIHVwZGF0ZWQgd2l0aCB0aGUNCj4gKy5CIEZBTl9NQVJLX0lH
+Tk9SRQ0KPiArZmxhZywNCj4gK2FuZCB0aGUgdXNlciBhdHRlbXB0ZWQgdG8gdXBkYXRlIHRo
+ZSBtYXJrIHdpdGgNCj4gKy5CIEZBTl9NQVJLX0lHTk9SRURfTUFTSw0KPiArZmxhZy4NCj4g
+Ky5UUA0KPiArLkIgRUVYSVNUDQo+ICtUaGUgZmlsZXN5c3RlbSBvYmplY3QgaW5kaWNhdGVk
+IGJ5DQo+ICsuSSBkaXJmZA0KPiArYW5kDQo+ICsuSSBwYXRobmFtZQ0KPiAraGFzIGEgbWFy
+ayB0aGF0IHdhcyB1cGRhdGVkIHdpdGggdGhlDQo+ICsuQiBGQU5fTUFSS19JR05PUkUNCj4g
+K2FuZA0KPiArLkIgRkFOX01BUktfSUdOT1JFRF9TVVJWX01PRElGWQ0KPiArZmxhZ3MsDQo+
+ICthbmQgdGhlIHVzZXIgYXR0ZW1wdGVkIHRvIHVwZGF0ZSB0aGUgbWFyayBvbmx5IHdpdGgN
+Cj4gKy5CIEZBTl9NQVJLX0lHTk9SRQ0KPiArZmxhZy4NCj4gKy5UUA0KPiAgIC5CIEVJTlZB
+TA0KPiAgIEFuIGludmFsaWQgdmFsdWUgd2FzIHBhc3NlZCBpbg0KPiAgIC5JIGZsYWdzDQo+
+IEBAIC00ODcsOCArNjMxLDMzIEBAIGJ1dCBvbmUgb3IgbW9yZSBldmVudCB0eXBlcyBzcGVj
+aWZpZWQgaW4gdGhlDQo+ICAgLkkgbWFzaw0KPiAgIHJlcXVpcmUgaXQuDQo+ICAgLlRQDQo+
+ICsuQiBFSU5WQUwNCj4gKy5JIGZsYWdzDQo+ICtjb250YWlucw0KPiArLkJSIEZBTl9NQVJL
+X0lHTk9SRSAsDQo+ICthbmQgZWl0aGVyDQo+ICsuQiBGQU5fTUFSS19NT1VOVA0KPiArb3IN
+Cj4gKy5CUiBGQU5fTUFSS19GSUxFU1lTVEVNICwNCj4gK2J1dCBkb2VzIG5vdCBjb250YWlu
+DQo+ICsuQlIgRkFOX01BUktfSUdOT1JFRF9TVVJWX01PRElGWSAuDQo+ICsuVFANCj4gKy5C
+IEVJU0RJUg0KPiArLkkgZmxhZ3MNCj4gK2NvbnRhaW5zDQo+ICsuQlIgRkFOX01BUktfSUdO
+T1JFICwNCj4gK2J1dCBkb2VzIG5vdCBjb250YWluDQo+ICsuQlIgRkFOX01BUktfSUdOT1JF
+RF9TVVJWX01PRElGWSAsDQo+ICthbmQNCj4gKy5JIGRpcmZkDQo+ICthbmQNCj4gKy5JIHBh
+dGhuYW1lDQo+ICtzcGVjaWZ5IGEgZGlyZWN0b3J5Lg0KPiArLlRQDQo+ICAgLkIgRU5PREVW
+DQo+ICAgVGhlIGZpbGVzeXN0ZW0gb2JqZWN0IGluZGljYXRlZCBieQ0KPiArLkkgZGlyZmQN
+Cj4gK2FuZA0KPiAgIC5JIHBhdGhuYW1lDQo+ICAgaXMgbm90IGFzc29jaWF0ZWQgd2l0aCBh
+IGZpbGVzeXN0ZW0gdGhhdCBzdXBwb3J0cw0KPiAgIC5JIGZzaWQNCj4gQEAgLTU1MCw4ICs3
+MTksMTIgQEAgYW5kDQo+ICAgZG8gbm90IHNwZWNpZnkgYSBkaXJlY3RvcnkuDQo+ICAgLlRQ
+DQo+ICAgLkIgRU5PVERJUg0KPiAtVGhlIGZhbm90aWZ5IGdyb3VwIHdhcyBpbml0aWFsaXpl
+ZCB3aXRoIGZsYWcNCj4gKy5JIGZsYWdzDQo+ICtjb250YWlucw0KPiArLkJSIEZBTl9NQVJL
+X0lHTk9SRSAsDQo+ICtvciB0aGUgZmFub3RpZnkgZ3JvdXAgd2FzIGluaXRpYWxpemVkIHdp
+dGggZmxhZw0KPiAgIC5CUiBGQU5fUkVQT1JUX1RBUkdFVF9GSUQgLA0KPiArYW5kDQo+ICAg
+LkkgbWFzaw0KPiAgIGNvbnRhaW5zIGRpcmVjdG9yeSBlbnRyeSBtb2RpZmljYXRpb24gZXZl
+bnRzDQo+ICAgKGUuZy4sDQoNCi0tIA0KPGh0dHA6Ly93d3cuYWxlamFuZHJvLWNvbG9tYXIu
+ZXMvPg0K
 
-Hi Alex,
+--------------8PKyFsr6Wa4XP0k5lHiUJgaV--
 
-This is the fanotify man page update for the 6.0 release.
+--------------Qnqo2lHeCZxR60KLXdMH4csn
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-Thanks,
-Amir.
+-----BEGIN PGP SIGNATURE-----
 
-Changes since [v1]:
-- Address review comments by Jan and Matthew
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmNAuXkACgkQnowa+77/
+2zIrCA/+JiznadvMCZ8EjCbB51WqPAO2qo/KynMVymudKDc9E8CDCNYJPCj5XXpM
+ETxGl9bQx1iErmzD/zyJZ5fP9BVFMxmBYM8tpFBylFwUxnnh5fcHrpxElitCbMST
+Qsep2qJiFIEZvLVR0PtvkHml7ZVDt4esGTQSyRI8cM094dspJffYmAMoXPjdodZl
+FqTxkW6JBKu9dJIicN8AIHMhmktmY8jYT9IyUv1Ly8TMDlwjGp7Lf1W/r/w1rTqv
+LWCBmIj/6gm3Fj9WUpwqaGKD23hIFuO9vyT7IsoE+9jg8fVorAeHpzgfZDu2yBsr
+LpuH+fPuOaPCPuEnnYVShQ5wKQoQdOScTqZbqztAdfmosF+In6wPKJjsMqC43XwM
+xEGHjndtzSaJDFIeTCQPBTM1UANHccrtgTRIqHHm8cXRbgw3jwIoXeaz/gJZ/y8C
+W4C72SJSXBXHlGIlogeAa5/zjZi8GbS16asQRYnsrZVT+OL/LtLJJKJqjFuO8nS+
+PYYrLwA5J/L9eYNZkOdSDjZqoVTYh9+NCXvKHsz+MUDGRLeNemYtEAC37Poh/aQd
+CW+5rYZe0oRs7dcKqCJ3zuXHYDudfctAx4CsJbi8GsiuQgIEfsJsZElKVuaGkO6M
+Gal+kA9k9Fq2enYaAMrC++XurxkjAMoONXtUM8zwRxMLJ+TPbJs=
+=BL9b
+-----END PGP SIGNATURE-----
 
-[v1] https://lore.kernel.org/linux-man/20220904155113.2623371-1-amir73il@gmail.com/
-
- man2/fanotify_mark.2 | 177 ++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 175 insertions(+), 2 deletions(-)
-
-diff --git a/man2/fanotify_mark.2 b/man2/fanotify_mark.2
-index b9b3357e2..f08ee2069 100644
---- a/man2/fanotify_mark.2
-+++ b/man2/fanotify_mark.2
-@@ -146,12 +146,130 @@ capability.
- The events in
- .I mask
- shall be added to or removed from the ignore mask.
-+Note that the flags
-+.B FAN_ONDIR ,
-+and
-+.B FAN_EVENT_ON_CHILD
-+have no effect when provided with this flag.
-+The effect of setting the flags
-+.B FAN_ONDIR ,
-+and
-+.B FAN_EVENT_ON_CHILD
-+in the mark mask
-+on the events that are set in the ignore mask
-+is undefined and depends on the Linux kernel version.
-+Specifically, prior to Linux 5.9,
-+.\" commit 497b0c5a7c0688c1b100a9c2e267337f677c198e
-+setting a mark mask on a file
-+and a mark with ignore mask on its parent directory
-+would not result in ignoring events on the file,
-+regardless of the
-+.B FAN_EVENT_ON_CHILD
-+flag in the parent directory's mark mask.
-+When the ignore mask is updated with the
-+.B FAN_MARK_IGNORED_MASK
-+flag
-+on a mark that was previously updated with the
-+.B FAN_MARK_IGNORE
-+flag,
-+the update fails with
-+.B EEXIST
-+error.
-+.TP
-+.BR FAN_MARK_IGNORE " (since Linux 6.0)"
-+.\" commit e252f2ed1c8c6c3884ab5dd34e003ed21f1fe6e0
-+This flag has a similar effect as setting the
-+.B FAN_MARK_IGNORED_MASK
-+flag.
-+The events in
-+.I mask
-+shall be added to or removed from the ignore mask.
-+Unlike the
-+.B FAN_MARK_IGNORED_MASK
-+flag,
-+this flag also has the effect that the
-+.B FAN_ONDIR ,
-+and
-+.B FAN_EVENT_ON_CHILD
-+flags take effect on the ignore mask.
-+Specifically, unless the
-+.B FAN_ONDIR
-+flag is set with
-+.BR FAN_MARK_IGNORE ,
-+events on directories will not be ignored.
-+If the flag
-+.B FAN_EVENT_ON_CHILD
-+is set with
-+.BR FAN_MARK_IGNORE ,
-+events on children will be ignored.
-+For example,
-+a mark on a directory with combination of
-+a mask with
-+.B FAN_CREATE
-+event
-+and
-+.B FAN_ONDIR
-+flag
-+and an ignore mask with
-+.B FAN_CREATE
-+event
-+and without
-+.B FAN_ONDIR
-+flag,
-+will result in getting only
-+the events for creation of sub-directories.
-+When using the
-+.B FAN_MARK_IGNORE
-+flag to add to an ignore mask
-+of a mount,
-+filesystem,
-+or directory inode mark,
-+the
-+.B FAN_MARK_IGNORED_SURV_MODIFY
-+flag must be specified.
-+Failure to do so will results with
-+.B EINVAL
-+or
-+.B EISDIR
-+error.
- .TP
- .B FAN_MARK_IGNORED_SURV_MODIFY
- The ignore mask shall survive modify events.
- If this flag is not set,
- the ignore mask is cleared when a modify event occurs
--for the ignored file or directory.
-+on the marked object.
-+Omitting this flag is typically used to suppress events
-+(e.g.,
-+.BR FAN_OPEN )
-+for a specific file,
-+until that specific file's content has been modified.
-+It is far less useful to suppress events
-+on an entire filesystem,
-+or mount,
-+or on all files inside a directory,
-+until some file's content has been modified.
-+For this reason,
-+the
-+.B FAN_MARK_IGNORE
-+flag requires the
-+.B FAN_MARK_IGNORED_SURV_MODIFY
-+flag on a mount,
-+filesystem,
-+or directory inode mark.
-+This flag cannot be removed from a mark once set.
-+When the ignore mask is updated without this flag
-+on a mark that was previously updated with the
-+.B FAN_MARK_IGNORE
-+and
-+.B FAN_MARK_IGNORED_SURV_MODIFY
-+flags,
-+the update fails with
-+.B EEXIST
-+error.
-+.TP
-+.B FAN_MARK_IGNORE_SURV
-+This is a synonym for
-+.RB ( FAN_MARK_IGNORE | FAN_MARK_IGNORED_SURV_MODIFY ).
- .TP
- .BR FAN_MARK_EVICTABLE " (since Linux 5.19)"
- .\" commit 5f9d3bd520261fd7a850818c71809fd580e0f30c
-@@ -462,6 +580,32 @@ and the user attempted to update the mark with
- .B FAN_MARK_EVICTABLE
- flag.
- .TP
-+.B EEXIST
-+The filesystem object indicated by
-+.I dirfd
-+and
-+.I pathname
-+has a mark that was updated with the
-+.B FAN_MARK_IGNORE
-+flag,
-+and the user attempted to update the mark with
-+.B FAN_MARK_IGNORED_MASK
-+flag.
-+.TP
-+.B EEXIST
-+The filesystem object indicated by
-+.I dirfd
-+and
-+.I pathname
-+has a mark that was updated with the
-+.B FAN_MARK_IGNORE
-+and
-+.B FAN_MARK_IGNORED_SURV_MODIFY
-+flags,
-+and the user attempted to update the mark only with
-+.B FAN_MARK_IGNORE
-+flag.
-+.TP
- .B EINVAL
- An invalid value was passed in
- .I flags
-@@ -487,8 +631,33 @@ but one or more event types specified in the
- .I mask
- require it.
- .TP
-+.B EINVAL
-+.I flags
-+contains
-+.BR FAN_MARK_IGNORE ,
-+and either
-+.B FAN_MARK_MOUNT
-+or
-+.BR FAN_MARK_FILESYSTEM ,
-+but does not contain
-+.BR FAN_MARK_IGNORED_SURV_MODIFY .
-+.TP
-+.B EISDIR
-+.I flags
-+contains
-+.BR FAN_MARK_IGNORE ,
-+but does not contain
-+.BR FAN_MARK_IGNORED_SURV_MODIFY ,
-+and
-+.I dirfd
-+and
-+.I pathname
-+specify a directory.
-+.TP
- .B ENODEV
- The filesystem object indicated by
-+.I dirfd
-+and
- .I pathname
- is not associated with a filesystem that supports
- .I fsid
-@@ -550,8 +719,12 @@ and
- do not specify a directory.
- .TP
- .B ENOTDIR
--The fanotify group was initialized with flag
-+.I flags
-+contains
-+.BR FAN_MARK_IGNORE ,
-+or the fanotify group was initialized with flag
- .BR FAN_REPORT_TARGET_FID ,
-+and
- .I mask
- contains directory entry modification events
- (e.g.,
--- 
-2.25.1
-
+--------------Qnqo2lHeCZxR60KLXdMH4csn--
