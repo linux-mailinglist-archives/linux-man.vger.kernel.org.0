@@ -2,100 +2,98 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id A8AE75F824D
-	for <lists+linux-man@lfdr.de>; Sat,  8 Oct 2022 04:08:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D78DE5F8599
+	for <lists+linux-man@lfdr.de>; Sat,  8 Oct 2022 16:32:01 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229620AbiJHCII (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 7 Oct 2022 22:08:08 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59634 "EHLO
+        id S229511AbiJHOcA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 8 Oct 2022 10:32:00 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52120 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229701AbiJHCIH (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 7 Oct 2022 22:08:07 -0400
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com [IPv6:2a00:1450:4864:20::42c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 012E411B2F7
-        for <linux-man@vger.kernel.org>; Fri,  7 Oct 2022 19:08:06 -0700 (PDT)
-Received: by mail-wr1-x42c.google.com with SMTP id r13so9535594wrj.11
-        for <linux-man@vger.kernel.org>; Fri, 07 Oct 2022 19:08:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=iFx+JRaapLjPjLXDA9eliWFweqys+DaFYYhX5foWFX0=;
-        b=MJDdzjgDPkezkPTm2PZUpWUUuETw8a8a8q8OAHbTeG+lIsySd9uTOjSXgyVxmCYRUd
-         /gOoY1lhG57KAiip09q8tZwCaOPJmIs6zcS1y02koEIHKbQYQ89kdBfFha45L6W3lYRF
-         uiNexPIBgNXdq38u/OVno5qRizD//vxIVni812vHHya3KwcNucZpUdD+5kHu/CfoXI5q
-         CjVjIdmffde6ll0KVq3imKQAFZzT1dwFh2S5pr9znizFWr4SdX9UxhyHkm2KcmIInM07
-         0A8pA5HNy/lpuNe5Eso5Qoq6joqhs2yr25Fe4JtJAQAWuAkvnbEtB0IVXBtSH1hxXZEm
-         Zkvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :sender:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=iFx+JRaapLjPjLXDA9eliWFweqys+DaFYYhX5foWFX0=;
-        b=EeprKDUvmsjzttw49+ZqPMyBEmKAbT2LPyTVPcciO1C0nR8X5t3liVX+umHkiOwRSa
-         hvOwVC0gjfIKino1gIDZKJtEGxtW2WRhyO59yLAH3xfBIrdItg5Y96xVE6LMujQLhwNa
-         0p+tJfa9L2K8Kr9NosS82/cu0Q6gqEGV9usQpZoq3PPGXB31kouVNx2lBTHnNgFE5tkJ
-         gEmdqb1mga4+pnebzENAp0lTGw4u99NXRBGri10ETjcMdOg+mm4oCrE4yI3H6jQc0Zdl
-         EXl6BO9ulzzdazf+mGDDsHLQT+Y3moCo0p7n1dkad1jiRy671d9cfsItvrPV0+gyrMRY
-         4uBw==
-X-Gm-Message-State: ACrzQf3HvCE1AYFEaJWINaYzYsIrom+azKiDC1PoWbBsdMv2euoADeMJ
-        3OLq9qC+sTJw7p4MqyIJFOc=
-X-Google-Smtp-Source: AMsMyM73oWauhpoD2JqD8dK8tEyQZoyU429XA13DmwyT8B70la473+/TO273BBQM/KoGJzCqfxzTDw==
-X-Received: by 2002:a5d:6dca:0:b0:22c:c6f9:57d2 with SMTP id d10-20020a5d6dca000000b0022cc6f957d2mr4829657wrz.474.1665194884493;
-        Fri, 07 Oct 2022 19:08:04 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id l17-20020a05600c1d1100b003a4efb794d7sm3714128wms.36.2022.10.07.19.08.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 07 Oct 2022 19:08:03 -0700 (PDT)
-Sender: Alejandro Colomar <alx.mailinglists@gmail.com>
-Message-ID: <b1a0a823-1fe2-31a1-8fed-ae5c16a502f3@gmail.com>
-Date:   Sat, 8 Oct 2022 04:08:03 +0200
+        with ESMTP id S229470AbiJHOb7 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 8 Oct 2022 10:31:59 -0400
+X-Greylist: delayed 1593 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Sat, 08 Oct 2022 07:31:58 PDT
+Received: from mail.smrk.net (mail.smrk.net [IPv6:2001:19f0:6c01:2788:5400:4ff:fe27:adaa])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7AD38422C8
+        for <linux-man@vger.kernel.org>; Sat,  8 Oct 2022 07:31:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smrk.net; s=20221002;
+        t=1665237916;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         content-transfer-encoding:content-transfer-encoding:
+         in-reply-to:in-reply-to:references:references;
+        bh=t6AYvbX6CCW+G9O+I2yAvkgY+0DwKVvoN0AfD4OlFDE=;
+        b=PfCQTSk64GMYTSQyuauoLw1/lMc3m01hQf1YhZhcfS4UlvlTEdopx8RtZ1ccYONRMvix7q
+        TLrme3yqfvWYC6jMzBEjoQy44mPvEfH9/9RPylrzsT5KKdH0pXsy+Ysmd6bbkFZglS1IrW
+        nqBA0Is3mLYJaZ6YxAOnOlvO/bQUEOkQyBbEZA7i2+Fl8nJ2hMy6iRtMJPVfW+utWBkzK/
+        tR1muJWIWpiaW+O5I/+1o+1BecpeUp2xVKqHfnaGAT8olU5v3X/rcQJBgDyV1lfmLCqVxS
+        NgIbGILsdZgvtVz7KmFEAWY2a+pKqmRKKF1zGcKiT5lWUEq4naGWRAP9P2CDTQ==
+Received: from localhost (internet-185-112-167-59.cznet.cz [185.112.167.59])
+        by smrk.net (OpenSMTPD) with ESMTPSA id 05924578 (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO);
+        Sat, 8 Oct 2022 16:05:16 +0200 (CEST)
+From:   =?UTF-8?q?=C5=A0t=C4=9Bp=C3=A1n=20N=C4=9Bmec?= <stepnem@smrk.net>
+To:     Alejandro Colomar <alx.manpages@gmail.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org
+Subject: [PATCH v1 0/2] Fix typos
+Date:   Sat,  8 Oct 2022 16:05:12 +0200
+Message-Id: <20221008140514.501942-1-stepnem@smrk.net>
+X-Mailer: git-send-email 2.38.0
+In-Reply-To: <a021af5a-7694-b09c-523b-54e758fb2880@gmail.com>
+References: <a021af5a-7694-b09c-523b-54e758fb2880@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-Subject: Re: statfs 2
-Content-Language: en-US
-To:     Jonny Grant <jg@jguk.org>
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>
-References: <dea031ca-e98c-0b45-09a3-6e0657cf0841@jguk.org>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <dea031ca-e98c-0b45-09a3-6e0657cf0841@jguk.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Spam-Status: No, score=-4.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
-        autolearn_force=no version=3.4.6
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-1.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FROM_FMBLA_NEWDOM14,
+        SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Jonny,
+On Sat, 08 Oct 2022 02:17:56 +0200
+Alejandro Colomar wrote:
 
-On 9/22/22 22:16, Jonny Grant wrote:
-> Hello
-> 
-> https://man7.org/linux/man-pages/man2/statfs.2.html
-> 
->             MSDOS_SUPER_MAGIC     0x4d44
-> 
-> Could this entry include FAT? All vfat drives show up this way.
-> 
->             FAT_SUPER_MAGIC     0x4d44
+>> --- a/man2/pivot_root.2
+>> +++ b/man2/pivot_root.2
+>> @@ -60,7 +60,7 @@ must not be on the same mount as the current root.
+>>   .IP \-
+>>   \fIput_old\fP must be at or underneath \fInew_root\fP;
+>>   that is, adding some nonnegative
+>> -number of "\fI/..\fP" prefixes to the pathname pointed to by
+>> +number of "\fI/..\fP" suffixes to the pathname pointed to by
+>
+> I'd like this change to be separate from the rest, as it's not an 
+> obvious writing typo, but rather one that needs understanding the context.
+>
+> Would you mind splitting into a separate patch?
 
-Would you mind sending a patch for the manual page source code?  You can 
-find it in
-<https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/>
+Here it is. (I wanted to test the waters of submitting accumulated
+trivial fixes as a single patch, as I think it saves both some electrons
+and the resources of everyone else involved.)
+
+I took this opportunity to squash in another missing article to the
+trivial typo patch (1/2).
 
 Thanks,
-Alex
 
-> 
-> Kind regards
-> Jonny
+  Štěpán
+
+Štěpán Němec (2):
+  memfd_create.2, mlock.2, poll.2, select.2, fopen.3, capabilities.7: tfix
+  pivot_root.2: Fix a typo/thinko
+
+ man2/memfd_create.2 | 2 +-
+ man2/mlock.2        | 2 +-
+ man2/pivot_root.2   | 2 +-
+ man2/poll.2         | 2 +-
+ man2/select.2       | 2 +-
+ man3/fopen.3        | 2 +-
+ man7/capabilities.7 | 4 ++--
+ 7 files changed, 8 insertions(+), 8 deletions(-)
+
+
+base-commit: a4a073ae7737fb8f20c390a60b8555a7cfdace98
+-- 
+2.38.0
