@@ -2,42 +2,49 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 6C6655FA699
-	for <lists+linux-man@lfdr.de>; Mon, 10 Oct 2022 22:54:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 53C565FAD2F
+	for <lists+linux-man@lfdr.de>; Tue, 11 Oct 2022 09:04:44 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230243AbiJJUyY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 10 Oct 2022 16:54:24 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35036 "EHLO
+        id S229976AbiJKHEm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 11 Oct 2022 03:04:42 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47678 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230221AbiJJUyW (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 10 Oct 2022 16:54:22 -0400
-Received: from mail-0301.mail-europe.com (mail-0301.mail-europe.com [188.165.51.139])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B35636F54D
-        for <linux-man@vger.kernel.org>; Mon, 10 Oct 2022 13:54:21 -0700 (PDT)
-Date:   Mon, 10 Oct 2022 20:54:06 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-        s=protonmail3; t=1665435257; x=1665694457;
-        bh=wUVGy+Izivb1c08JzzFzFe6MgepHP6ixwG2FcjGNRz4=;
-        h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-         Subject:Reply-To:Feedback-ID:Message-ID;
-        b=I4DZaQRoyjOy0uNEKWTwHhNfzy664ijocXUiYoOl1GqiXXoPyEc4Qfv+VlMBjly4F
-         2/ZfbihJ1cT4Q7LsDaaGwiK99dOlyTicAyP1pbco2OFAkpBtB3mJ5WIqlmq+2ndAgA
-         JdfFemDZtfRHWAhLXtW1f+BKbywutagcTpfwyTpULGwo01ORf+O6FmLsFkvVHxZdgc
-         iJceuKA1d2b/pSfhnJnZpLsWuYRLab+PGNWNQwEE3ve8IJ57USth7mX8mIwuU97BvF
-         CIONkzAnzBgnaZlL4c5oiqzPGsQNZFAvm2kcStZOSyDQChSnX85Clb/yciSrvFDtZC
-         +tUJWJynpYGWQ==
-To:     "mtk.manpages@gmail.com" <mtk.manpages@gmail.com>
-From:   Grigoriy <grigoriyremvar@protonmail.com>
-Cc:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
-        "alx.manpages@gmail.com" <alx.manpages@gmail.com>
-Subject: Typo in hier(7)
-Message-ID: <EaxY_bi27gr21Af1ZVvzsv5_HXuKiBWruaHhX04Vn6oGYQbTMOIwhaxAgdrnKKcuhIxulmrUu38q3xqXxeW6Et3jogFxvz-QVQB4zaL-BwM=@protonmail.com>
-Feedback-ID: 35478484:user:proton
+        with ESMTP id S229921AbiJKHEJ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 11 Oct 2022 03:04:09 -0400
+X-Greylist: delayed 1204 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Tue, 11 Oct 2022 00:04:07 PDT
+Received: from smtpout3.mo529.mail-out.ovh.net (smtpout3.mo529.mail-out.ovh.net [46.105.54.81])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2701885AA5
+        for <linux-man@vger.kernel.org>; Tue, 11 Oct 2022 00:04:06 -0700 (PDT)
+Received: from mxplan6.mail.ovh.net (unknown [10.109.156.219])
+        by mo529.mail-out.ovh.net (Postfix) with ESMTPS id ABFE61312912D;
+        Tue, 11 Oct 2022 08:25:24 +0200 (CEST)
+Received: from jwilk.net (37.59.142.97) by DAG4EX1.mxp6.local (172.16.2.31)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.12; Tue, 11 Oct
+ 2022 08:25:23 +0200
+Authentication-Results: garm.ovh; auth=pass (GARM-97G0028dd65873-1e20-4e56-8b72-b8461ade742b,
+                    BFFA122BD8CA4C6E4E903379B22456E68B469BCA) smtp.auth=jwilk@jwilk.net
+X-OVh-ClientIp: 5.172.255.168
+From:   Jakub Wilk <jwilk@jwilk.net>
+To:     Michael Kerrisk <mtk.manpages@gmail.com>,
+        Alejandro Colomar <alx.manpages@gmail.com>
+CC:     <linux-man@vger.kernel.org>
+Subject: [PATCH] prctl.2: tfix
+Date:   Tue, 11 Oct 2022 08:25:20 +0200
+Message-ID: <20221011062520.4614-1-jwilk@jwilk.net>
+X-Mailer: git-send-email 2.37.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,
+Content-Transfer-Encoding: 7BIT
+Content-Type:   text/plain; charset=US-ASCII
+X-Originating-IP: [37.59.142.97]
+X-ClientProxiedBy: DAG8EX2.mxp6.local (172.16.2.72) To DAG4EX1.mxp6.local
+ (172.16.2.31)
+X-Ovh-Tracer-GUID: 95f1d035-be40-4852-9fe9-eb09dce0ef4f
+X-Ovh-Tracer-Id: 888335029321062368
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: 0
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvfedrfeejhedguddtiecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecunecujfgurhephffvvefufffkofgggfgtihesthekredtredttdenucfhrhhomheplfgrkhhusgcuhghilhhkuceojhifihhlkhesjhifihhlkhdrnhgvtheqnecuggftrfgrthhtvghrnhepfefhteffhfffheetudefvdefheffgfduleejheeiteeihfefffejveeljeevheeinecukfhppedtrddtrddtrddtpdefjedrheelrddugedvrdeljeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhhouggvpehsmhhtphhouhhtpdhhvghlohepmhigphhlrghniedrmhgrihhlrdhovhhhrdhnvghtpdhinhgvtheptddrtddrtddrtddpmhgrihhlfhhrohhmpehjfihilhhksehjfihilhhkrdhnvghtpdhnsggprhgtphhtthhopedupdhrtghpthhtoheplhhinhhugidqmhgrnhesvhhgvghrrdhkvghrnhgvlhdrohhrghdpoffvtefjohhsthepmhhohedvle
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,SPF_HELO_NONE,
         SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -45,25 +52,26 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello.
+Escape hyphens.
 
-I think I found a typo in the hier(7) manpage.
-This part specifically:
+Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
+---
+ man2/prctl.2 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-/usr/share/sgml/mathtml
-              MathML DTD (optional).
+diff --git a/man2/prctl.2 b/man2/prctl.2
+index ea6b23229..b91d12af9 100644
+--- a/man2/prctl.2
++++ b/man2/prctl.2
+@@ -1618,7 +1618,7 @@ or
+ .IP
+ For more information,
+ see the kernel source file
+-.I Documentation/admin-guide/syscall-user-dispatch.rst
++.I Documentation/admin-guide/syscall\-user\-dispatch.rst
+ .\" prctl PR_SET_TAGGED_ADDR_CTRL
+ .\" commit 63f0c60379650d82250f22e4cf4137ef3dc4f43d
+ .TP
+-- 
+2.37.2
 
-I believe that it should be "mathml" instead of "mathtml".
-This typo is present in the latest release of this manpage, as it can be fo=
-und in the one displayed online (https://man7.org/linux/man-pages/man7/hier=
-.7.html).
-
-FHS 2.3 (https://www.pathname.com/fhs/pub/fhs-2.3.pdf) page 27 states:
-
-"The following directories, or symbolic links to directories, must be in /u=
-sr/share/sgml [...] mathml"
-
-This shows that "mathml" is the intended spelling.
-
-Regards,
-Grigoriy.
