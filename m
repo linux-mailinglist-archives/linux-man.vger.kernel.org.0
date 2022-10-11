@@ -2,106 +2,113 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 82D475FBA1C
-	for <lists+linux-man@lfdr.de>; Tue, 11 Oct 2022 20:07:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D06425FBC5F
+	for <lists+linux-man@lfdr.de>; Tue, 11 Oct 2022 22:47:10 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229971AbiJKSHj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 11 Oct 2022 14:07:39 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34734 "EHLO
+        id S229540AbiJKUrK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 11 Oct 2022 16:47:10 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40412 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229689AbiJKSHi (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 11 Oct 2022 14:07:38 -0400
-Received: from mail-yw1-x1133.google.com (mail-yw1-x1133.google.com [IPv6:2607:f8b0:4864:20::1133])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4FC1027FC3
-        for <linux-man@vger.kernel.org>; Tue, 11 Oct 2022 11:07:35 -0700 (PDT)
-Received: by mail-yw1-x1133.google.com with SMTP id 00721157ae682-3560e81aa1dso134860367b3.2
-        for <linux-man@vger.kernel.org>; Tue, 11 Oct 2022 11:07:35 -0700 (PDT)
+        with ESMTP id S229663AbiJKUrJ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 11 Oct 2022 16:47:09 -0400
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com [IPv6:2a00:1450:4864:20::432])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 66DB47FE62
+        for <linux-man@vger.kernel.org>; Tue, 11 Oct 2022 13:47:08 -0700 (PDT)
+Received: by mail-wr1-x432.google.com with SMTP id b4so23407318wrs.1
+        for <linux-man@vger.kernel.org>; Tue, 11 Oct 2022 13:47:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=to:subject:message-id:date:from:reply-to:mime-version:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=b7nMl+IIoVXIZCC/DKHT3CXI2Xf2HP4geGz0+dJZi9s=;
-        b=FG0qA4ikAjxVKa3sHpnmD3r0ovEhAB/bTmLX8VaAqEoTpZLQ8gI6+KCa2X7rXzcUx3
-         rJST5MEvmq0VI70J8hjHeW0BnsDmXHjn1DU19Jfy8L1wC2sLYsljtxyV47EilRh2TLtC
-         9cB+K0rCTEfq02tPXJzGGRr2QF9LJd3mCke8WtuRcb9fZqpXu9hc5PKyEH03JR7y3FCa
-         fR9MC0LDUvDah73tE2PvE3mCpnHEUVEXCgJH/S+cEMd13lcLv9SWquKndDYNyeOjDrAV
-         6YYxGSJpZ+hIfCaCTY2Nyncsf03owIdhplfLFZJjPMseBggOY0NJfZkPV3LWUppYNKkJ
-         0fRQ==
+        h=content-transfer-encoding:in-reply-to:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=DY5el2sUZLQiBv1qNVSnZpYbI4S2HZnWMz6RcgnA2lE=;
+        b=MWY/ouGcoCnIgXLcPvze4ODHB1vzVqpyU62KEzk1nl242m7jBxuAMW5bZvjjoBiT+z
+         3qmYHd2Yyn28Fl7CkwOWQsEh4m/hjyXjhVgeZYORmDBU08pBiIcod4JHlvmUvZnfHIvs
+         Tq+czz5Lj3CKt+l9BcfaIgCw5Qg0BOzGFG5jZLB5XoNTPadZKWprfdBiWNL0WHYWVesN
+         HiJY3ktKCo8uRRpRSht7ICzuDuhFJMEvUcE4r8Y+p3/1JuDVAWT4ajFfuKRG+Nbx8ped
+         BZG4WBSUDTt3gZWP9pEBdY0LKAGF5lAMGXr3R/XDv50Vbgk37R4B8Y6I/b0vn4qBkByI
+         H5qw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=to:subject:message-id:date:from:reply-to:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=b7nMl+IIoVXIZCC/DKHT3CXI2Xf2HP4geGz0+dJZi9s=;
-        b=rz8WxEoVLY22KZhpyjhsJsVQ1zrIdrjAvIXLT/5zhv4vQgODt+3aeE652l/5PYB5kN
-         9P3El2eIbJK3XFhNdo29qsmkfWC4lwVuNxQTE3kSkerewkjMACBZFh//T/DBrl+ue+Fv
-         2te6uFfc3QjDLFKYaMUM+uhLA0gawUA5NnqWhB6liTAI1tjfkQNG2M2JbWbpb2aNGKx9
-         xSHx5ykB5OYwvkv644rjaLpwbCHOvl5EX57ySj1+eWTcudzxVU4XhWKc0DPJkPRBi/aM
-         ou7B4bw7MlzFrVlz1t/0JG/TBofKGiM183ihyA7b8C/VmLPxDHij11J0FHppILBDf7vA
-         0x/A==
-X-Gm-Message-State: ACrzQf1DncfBmuJRzzZVbfiyrweN2SoIGG53LFg3VzrLdcuqTRpWinvh
-        ADvagS7AlpbQTEJb9wZ1xG6K3G2uQfvWaYSScaY=
-X-Google-Smtp-Source: AMsMyM6OCvagOVxxxTEsfErq9xBhIJJgtNqp5+7CYXRzAiyXlU45PahqHzXqTx5VO8MUR+9wqIhH0LJTIZYEhX9SSJw=
-X-Received: by 2002:a81:6907:0:b0:34a:51ce:3b38 with SMTP id
- e7-20020a816907000000b0034a51ce3b38mr23284332ywc.151.1665511654327; Tue, 11
- Oct 2022 11:07:34 -0700 (PDT)
+        h=content-transfer-encoding:in-reply-to:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=DY5el2sUZLQiBv1qNVSnZpYbI4S2HZnWMz6RcgnA2lE=;
+        b=4TuTS7xH96aTUfMrOUKVromOgAgvRWvK2nLzPzusRnfv+3DE1zhp/8bF085vzDrVZD
+         DWEz/61NUARu0atXYLh/zxc7y9iuz2B3qCKw3Jc4gnZxXS/Yv/65WMKv3f+GzkMGtTNx
+         tuN/sBTQOyZR1qyel5ZKrW1srJ+sWGMqb8wFiZ67m/KVsktkKBg8wP1Znj9ig1SOV7uI
+         9M3vjOr6Z2kpRvq/KUTfPG4i1xD+ltKJX/DMwfMN3MQUBkmC/63s7x0xRkPZ+l4PMWbC
+         4msTyHd2IXJX3FfZ6EVwzL9MtCONKZrvVv4l28TWNB0QDgYyHEAWeiDPjNbnnehx/+sN
+         NmgA==
+X-Gm-Message-State: ACrzQf05mBWKsEpVQkesHnA+GfMIvQ4KRekd1+TWF3wEyJ033qlGfAtL
+        zY6xnIiBAjgVGErD9ubpdlPbOGZBoc8=
+X-Google-Smtp-Source: AMsMyM4rgHBK6sxMP52QZrtlTd+/vOrDT8q17E9xxNYRqoI01iP25QA0A+Aut7iXZqQQWdAUPM5K1A==
+X-Received: by 2002:a5d:4f10:0:b0:231:1c7b:e42 with SMTP id c16-20020a5d4f10000000b002311c7b0e42mr5405825wru.568.1665521226822;
+        Tue, 11 Oct 2022 13:47:06 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id a3-20020a05600c224300b003b49bd61b19sm25772wmm.15.2022.10.11.13.47.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 11 Oct 2022 13:47:06 -0700 (PDT)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+X-Google-Original-From: Alejandro Colomar <alx@kernel.org>
+Message-ID: <7c567161-070d-5c5f-17c7-fd7fd5295493@kernel.org>
+Date:   Tue, 11 Oct 2022 22:47:05 +0200
 MIME-Version: 1.0
-Received: by 2002:a05:7000:1749:b0:3c5:f473:56e4 with HTTP; Tue, 11 Oct 2022
- 11:07:33 -0700 (PDT)
-Reply-To: illuminatiinitiationcenter56@gmail.com
-From:   Garry Lee <johnalinda8@gmail.com>
-Date:   Tue, 11 Oct 2022 21:07:33 +0300
-Message-ID: <CA+Dt0k_wprVPDRPoDepuruBYd2vtSZ60hGqdrTRy=NsRMSYouA@mail.gmail.com>
-Subject: 
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: Yes, score=5.2 required=5.0 tests=BAYES_50,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
-        FREEMAIL_FROM,FREEMAIL_REPLYTO,FREEMAIL_REPLYTO_END_DIGIT,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_FILL_THIS_FORM_SHORT,
-        UNDISC_FREEM,UPPERCASE_75_100 autolearn=no autolearn_force=no
-        version=3.4.6
-X-Spam-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
-        *      https://www.dnswl.org/, no trust
-        *      [2607:f8b0:4864:20:0:0:0:1133 listed in]
-        [list.dnswl.org]
-        *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
-        *      [score: 0.5000]
-        *  0.2 FREEMAIL_REPLYTO_END_DIGIT Reply-To freemail username ends in
-        *      digit
-        *      [illuminatiinitiationcenter56[at]gmail.com]
-        * -0.0 SPF_PASS SPF: sender matches SPF record
-        *  0.0 SPF_HELO_NONE SPF: HELO does not publish an SPF Record
-        *  0.2 FREEMAIL_ENVFROM_END_DIGIT Envelope-from freemail username ends
-        *       in digit
-        *      [johnalinda8[at]gmail.com]
-        *  0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-        *      provider
-        *      [johnalinda8[at]gmail.com]
-        * -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-        * -0.1 DKIM_VALID_EF Message has a valid DKIM or DK signature from
-        *      envelope-from domain
-        * -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-        *      author's domain
-        *  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-        *       valid
-        *  0.0 UPPERCASE_75_100 message body is 75-100% uppercase
-        *  3.1 UNDISC_FREEM Undisclosed recipients + freemail reply-to
-        *  1.0 FREEMAIL_REPLYTO Reply-To/From or Reply-To/body contain
-        *      different freemails
-        *  0.0 T_FILL_THIS_FORM_SHORT Fill in a short form with personal
-        *      information
-X-Spam-Level: *****
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.2
+Subject: Re: [PATCH v2] fanotify_mark.2: Document FAN_MARK_IGNORE
+Content-Language: en-US
+To:     Amir Goldstein <amir73il@gmail.com>
+Cc:     Jan Kara <jack@suse.cz>, Matthew Bobrowski <repnop@google.com>,
+        linux-man@vger.kernel.org
+References: <20221007061328.1326041-1-amir73il@gmail.com>
+ <96aeae1d-ee98-4bc4-6e82-60f902bdcf96@gmail.com>
+ <CAOQ4uxgqdhMgYZT3-6q+_=P_9Y7no9FopQ9nq2acPhSuEss34Q@mail.gmail.com>
+ <46c4f13c-c043-8c65-3417-61a51c97d60b@gmail.com>
+In-Reply-To: <46c4f13c-c043-8c65-3417-61a51c97d60b@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-5.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Hi Amir,
+
+On 10/10/22 22:16, Alejandro Colomar wrote:
+> Hi Amir,
+> 
+> On 10/10/22 20:02, Amir Goldstein wrote:
+> 
+>>>> +.RB ( FAN_MARK_IGNORE | FAN_MARK_IGNORED_SURV_MODIFY ).
+>>>
+>>> I'm not sure if I'd format this as code (italics) right?,
+>>> rather than separate constant names.
+>>>
+>>> Please check the below paragraphs from man-pages(7),
+>>> and I'll leave the decission up to you.
+>>>
+>>
+>> I kind of like it the way it is, which is also consistent with similar
+>> constructs in fanotify_init.2.
+>>
+>> Would you like me to post v3 for the 2 minor formatting fixes?
+>> Or will you make them on commit?
+> 
+> I can amend it; don't worry.  Let me prepare the repo after the release, 
+> and I'll apply this patch.  If I don't in a few days, please ping me.
+
+Patch applied.
+
+Cheers,
+
+Alex
+
+
 -- 
-DO YOU WANT TO BE RICH AND FAMOUS? JOIN THE GREAT ILLUMINATI ORDER OF
-RICHES, POWER/FAME  NOW AND ACHIEVE ALL YOUR DREAMS? IF YES EMAIL US :
-MAIL: illuminatiinitiationcenter56@gmail.com
-YOUR FULL NAME:
-PHONE NUMBER :
-COUNTRY :
-GENDER:
+<http://www.alejandro-colomar.es/>
