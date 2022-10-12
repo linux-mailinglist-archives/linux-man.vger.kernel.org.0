@@ -2,67 +2,65 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 2A41D5FC7A9
-	for <lists+linux-man@lfdr.de>; Wed, 12 Oct 2022 16:47:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 40F135FC8BA
+	for <lists+linux-man@lfdr.de>; Wed, 12 Oct 2022 17:52:56 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229619AbiJLOrk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 12 Oct 2022 10:47:40 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43420 "EHLO
+        id S229451AbiJLPwy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 12 Oct 2022 11:52:54 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54902 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229585AbiJLOrj (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 12 Oct 2022 10:47:39 -0400
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com [IPv6:2a00:1450:4864:20::436])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4FEA1B7EEC
-        for <linux-man@vger.kernel.org>; Wed, 12 Oct 2022 07:47:38 -0700 (PDT)
-Received: by mail-wr1-x436.google.com with SMTP id a3so26638099wrt.0
-        for <linux-man@vger.kernel.org>; Wed, 12 Oct 2022 07:47:38 -0700 (PDT)
+        with ESMTP id S229577AbiJLPwx (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 12 Oct 2022 11:52:53 -0400
+Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com [IPv6:2001:4860:4864:20::2a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D1637F1933
+        for <linux-man@vger.kernel.org>; Wed, 12 Oct 2022 08:52:52 -0700 (PDT)
+Received: by mail-oa1-x2a.google.com with SMTP id 586e51a60fabf-12c8312131fso19925075fac.4
+        for <linux-man@vger.kernel.org>; Wed, 12 Oct 2022 08:52:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=subject:from:cc:to:content-language:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=TaHjGxRX5HOTJ4qLnef/E7Nnu7uNON8RIF7a398GZek=;
-        b=Vq+2DWzer2mvig6f0cXorxq2Tf1V76aT2n0zCKuJ87BNp4h5tHCBMM0vAFBi8J3s+l
-         RhzroN4r3x7vjWCrK3pr4bm4F1oWx/eo7uiMFBwr2oLvMwCRUzFr3qeQ0/FqV50qbXBv
-         w1e2YDvEZBLW9rvoTh7j0OE339SosUuMcp+PNOkwy0KMz7CJDbuatISyChUdXo8IVOcp
-         Y9LQBsl1q8hUMCxZ32LZiLZNwQYNTz/4gio3i7PgvRdjkxZXwHu6qrO7TqGIhAeXeIEh
-         /He88BOBjG3GrLPRlOsjq9JEXG51FfG0dzTDaADEOwUe6dBjse8nd2k+TqAfcN2+uFl4
-         w70Q==
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=2xYc83rox7z3zvin7nLVxYyS0OhED/d+OGi5SoynAIo=;
+        b=eKUDuXN9JjZ4l77jgScIXadH9+OYtDTje4eeerCVihTHLZpCjdIiLUYPmktEemVAT3
+         NWgXG9TxaHPSKiXvASHb1TgweWvJoRzDtAC96MVVzzw91qmy0WdKy67n3sDcXXyAHYDm
+         X9QcSH6N6+AYoztSZCkEjHGNXfbBa3WI/TMM70sMf0gAYWBoMxGPAqN/G6oWf/Ktj9nc
+         JAiGAgLgB7jBqB2acIU0dEcQ+2f13PMB79212I8VuAxYyTno3T3NJ92cbvofVfGzZlLi
+         qnzUATjkwzKuk8nPCaTPwMzZx785mgUAwWe9p5tBk3oURM24G1v8owRMzl2oC+llOw5r
+         t3qw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=subject:from:cc:to:content-language:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=TaHjGxRX5HOTJ4qLnef/E7Nnu7uNON8RIF7a398GZek=;
-        b=p9VdRTsfibTuRflIIl3zlWmMetP80/B3VTuGlmaHNzu26o+fAWYB1VFnaW6reOsSKK
-         rcNCVW2eTPwvjU3ZtfGvFKOKLJo3hsGBrmDRz08Qf60VFradNE4lkcjskYTQH8UmWVFg
-         mOGGBzP9f55WyH4dGKWc9vJolj00JQ9esmMBB3sGwQNBQG+FSHgslh3EbLnmmsG5EZdA
-         jU4FXtIRw/0IY/bk8gOo8PWqjc3YK48UvxuqDv8m6yINz7iQ8JUOh3aNnLjLu3mfThYr
-         aDihnh3+69+DqHNy1LGQP/flVBqdzNyZVOqamu8u053eI9c1wo9pl4m5vBt1PAZzdk4N
-         HZiw==
-X-Gm-Message-State: ACrzQf0EZtHWkihbRdj+P9S3rjDONcyYVFh23WjySO+EGVkuP1UpHxn1
-        50369ONn1eV2sOsdH2hO11c=
-X-Google-Smtp-Source: AMsMyM6ZcPJ02GW+hI35PyrCQMWY6sDbt2RNYGFY6tBVyl8lS6EX0GNbNu4w1SzxGu7/ka+TJPL/hg==
-X-Received: by 2002:a5d:6485:0:b0:230:b6db:d41c with SMTP id o5-20020a5d6485000000b00230b6dbd41cmr8703392wri.709.1665586056712;
-        Wed, 12 Oct 2022 07:47:36 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id bp15-20020a5d5a8f000000b0022cbf4cda62sm17902803wrb.27.2022.10.12.07.47.35
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 12 Oct 2022 07:47:36 -0700 (PDT)
-Message-ID: <82b77010-6b42-a58a-f8c7-b977297d6832@gmail.com>
-Date:   Wed, 12 Oct 2022 16:47:27 +0200
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=2xYc83rox7z3zvin7nLVxYyS0OhED/d+OGi5SoynAIo=;
+        b=mlBj0Gy5Eg9S/F0OsnNhdslG2499huGMMld10f9RNgMfJp6CLrfrwfWp9LPYOcV+tV
+         w+TKLbrVL/rGsm1LBK+7baK2MQvRUDAy1y/4oeVaN9Br8ObFGnZjChK4Vx84LCuJcYdV
+         3CJ8KGcYsEZ7H+AEQz2Ry3lgaeA3U67rhXGGNCc2aVVnbe99O3YzEGWXmc2n3ebKt574
+         HMuCiL3/FaL2DEn9JuKydcKrI0RGlOh/yXRDu6PGYhNelWBLXEGg6WHUYC9d9P58HvXE
+         cQThqddlCB2f1Yxgmei7XXq0KdWcoIsZqtzWuzomCy9Gggi0bc46QD2tuQsPLXAj3tVP
+         zx0A==
+X-Gm-Message-State: ACrzQf18vG1lgcEBGPcazckB0I3qdQ7RLSVI0QSVRs2AuE7e32+Ya8uv
+        af+IhoPZ+v0YizfewEB1UxTxuPS1sIY=
+X-Google-Smtp-Source: AMsMyM5MbzJTNPJc6yA6eURdHmk0ayYCQEMARguPjLACbAUsYKyG6LdnFAMnyi0q2KSzs1i02H82BQ==
+X-Received: by 2002:a05:6870:b021:b0:132:d79b:6ad4 with SMTP id y33-20020a056870b02100b00132d79b6ad4mr2867565oae.1.1665589971957;
+        Wed, 12 Oct 2022 08:52:51 -0700 (PDT)
+Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
+        by smtp.gmail.com with ESMTPSA id e18-20020a056870c35200b00136c20b1c59sm1270352oak.43.2022.10.12.08.52.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 12 Oct 2022 08:52:51 -0700 (PDT)
+Date:   Wed, 12 Oct 2022 10:52:49 -0500
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     groff <groff@gnu.org>, linux-man <linux-man@vger.kernel.org>
+Subject: Re: 3-word compound adjectives; the return of the '-'
+Message-ID: <20221012155224.yhlmkaid23aumzoo@illithid>
+References: <82b77010-6b42-a58a-f8c7-b977297d6832@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.2
-Content-Language: en-US
-To:     groff <groff@gnu.org>
-Cc:     linux-man <linux-man@vger.kernel.org>,
-        "G. Branden Robinson" <g.branden.robinson@gmail.com>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-Subject: 3-word compound adjectives; the return of the '-'
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------u7WDNvdyeOZF5b0tSW3btsPS"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        protocol="application/pgp-signature"; boundary="qdruity3m4rehnlp"
+Content-Disposition: inline
+In-Reply-To: <82b77010-6b42-a58a-f8c7-b977297d6832@gmail.com>
+X-Spam-Status: No, score=-0.7 required=5.0 tests=BAYES_05,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
@@ -72,58 +70,89 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------u7WDNvdyeOZF5b0tSW3btsPS
-Content-Type: multipart/mixed; boundary="------------wlmaKzJUi9Pz6uKNgwmfSmN3";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: groff <groff@gnu.org>
-Cc: linux-man <linux-man@vger.kernel.org>,
- "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Message-ID: <82b77010-6b42-a58a-f8c7-b977297d6832@gmail.com>
-Subject: 3-word compound adjectives; the return of the '-'
 
---------------wlmaKzJUi9Pz6uKNgwmfSmN3
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+--qdruity3m4rehnlp
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-SGksDQoNCkluIGEgcGF0Y2ggdG8gbGludXgtbWFuQCB0aGVyZSdzIGEgMy13b3JkIGNvbXBv
-dW5kIGFkamVjdGl2ZS4gIEkgZG9uJ3QgDQprbm93IHdoYXQgYXJlIHRoZSBydWxlcyBmb3Ig
-c3VjaCBhIHRoaW5nLCBhbmQgSSdkIGxpa2UgdG8gaGF2ZSBzb21lIA0KY29uc2lzdGVuY3kg
-KGFuZCBjb3JyZWN0bmVzcykgaW4gdGhlIG1hbnVhbCBwYWdlcy4NCg0KSSd2ZSBzZWVuIG1h
-bnkgZGlmZmVyZW50IHRoaW5ncyBpbiB0aGUgcGFzdDs6DQoNCiAgYSkgYmxvY2sgZGV2aWNl
-LWJhc2VkIGZpbGVzeXN0ZW1zDQogIGIpIGJsb2NrLWRldmljZS1iYXNlZCBmaWxlc3lzdGVt
-cw0KICBjKSBibG9jay0gZGV2aWNlLWJhc2VkIGZpbGVzeXN0ZW1zDQoNCkFuZCBub3cgSSBm
-b3VuZCBvbmUgbW9yZSANCjxodHRwczovL3d3dy5lZGl0b3Jncm91cC5jb20vYmxvZy90by1o
-eXBoZW5hdGUtb3Itbm90LXRvLWh5cGhlbmF0ZS8+Og0KDQogIGQpIGJsb2NrIGRldmljZVxb
-ZW5dYmFzZWQgZmlsZXN5c3RlbXMNCg0KV2hlcmUgdGhlIGVuIGRhc2ggaXMgdXNlZCB0byBk
-aXN0aW5ndWlzaCBpdCBmcm9tICdhIGJsb2NrIGZpbGVzeXN0ZW0gDQpiYXNlZCBvbiBhIGRl
-dmljZScuDQoNCldoaWNoIGZvcm0gd291bGQgeW91IHJlY29tbWVuZCBtZSB0byB1c2U/DQoN
-Cg0KQ2hlZXJzLA0KDQpBbGV4DQoNCi0tIA0KPGh0dHA6Ly93d3cuYWxlamFuZHJvLWNvbG9t
-YXIuZXMvPg0K
+Hi Alex,
 
---------------wlmaKzJUi9Pz6uKNgwmfSmN3--
+At 2022-10-12T16:47:27+0200, Alejandro Colomar wrote:
+> In a patch to linux-man@ there's a 3-word compound adjective.  I don't
+> know what are the rules for such a thing, and I'd like to have some
+> consistency (and correctness) in the manual pages.
 
---------------u7WDNvdyeOZF5b0tSW3btsPS
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+Always laudable goals!  :D
+
+> I've seen many different things in the past;:
+>=20
+>  a) block device-based filesystems
+>  b) block-device-based filesystems
+>  c) block- device-based filesystems
+>=20
+> And now I found one more
+> <https://www.editorgroup.com/blog/to-hyphenate-or-not-to-hyphenate/>:
+>=20
+>  d) block device\[en]based filesystems
+>=20
+> Where the en dash is used to distinguish it from 'a block filesystem
+> based on a device'.
+
+Personally, I think the en dash is too much trouble to mess with.  Only
+readers as meticulous as we, and those with good fonts and good
+eyesight, will distinguish the en dash and hyphen glyphs.
+
+> Which form would you recommend me to use?
+
+Steve Izma articulated a good principle.  If thrust upon the horns of a
+wordsmithing dilemma, consider recasting entirely.
+
+That said, I'd go with "block device-based filesystems",[1] because
+there is no hyphen already in the noun phrase "block device", just as
+there isn't in "ice cream" (a compound word), and perhaps more on point,
+as there isn't in "hot fudge sundae" (even though it is only the fudge
+that is hot,[2] not the whole sundae).
+
+Similarly, we say "thirty year-old bug" and "two-fisted drinker", but
+"mother-in-law-driven divorce".  The multiplicity of hyphens in the last
+case is because they're already present in the word being compounded.  A
+"mother in law" would, strictly, refer to a maternal figure with an
+occupation in the legal system.
+
+I'd dig more into the underlying grammatical principles I would
+articulate for these cases but I'd prefer to get this email completed
+before next month.  ;-)
+
+Regards,
+Branden
+
+[1] I prefer "file system" and "file name" to their space-free
+    alternatives; I think the latter are the product of programmers
+    forgetting that they're writing English nouns instead of C
+    identifiers.  But I acknowledge that in many quarters those battles
+    are lost.
+[2] and it's chocolate sauce anyway, not true fudge--such is marketing
+    honesty in the U.S.
+
+--qdruity3m4rehnlp
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmNG038ACgkQnowa+77/
-2zJg8w//cvJsQOHJmpiXC7PWwV2CX47zS0cw9toD11JmyMamDJzV0Ada2cyHNhR4
-quwf4fMJZpeMvEAfZfUN/j4hDXBKVaeDWfgKQcM68rZazRV7BdGWjXrniv3Sml2l
-mXqGJPwkD28Uua4h0sWLeGUohsOnDlne25u4LwAj5L1cnKXAiu2z01BCVr7pSNrS
-VjElDMdCmXH8t1WCc792OHn43fLDt1igdViHfQUyezbaY933V5KWOUgNxejodZBZ
-DIbrN7f1QryQJajQ/ULzV3XbXz9kpUyaMvNF9O5B+95DSetZoxRrJrM22VJ+hnI+
-3xQ+UunTbbdnC/NBDk20BrRVIW89cwvJJGISytd+2AJ1uckuU8s0CY9vt8zxODYO
-cwQ1ZlJeR8pDMos+mqsu/tTxyP+EN9UJdLeAL1FiKwFFESguq9H40t1pf4KBQllT
-XiIsZOTl3Mbuxqsdj1Kv2VDZ/j3JMLFlTqU14OwDG/HOz3zXLLxphNAFF9p4ninX
-U6Da72ChTkhZqbG8EYn4Yz6LG6p/HAt0BlBYwLgGpb2QU5LjlVE1OuCV0KaxhVDn
-fPmFUoixcAP8Qyq7ZweQst98PtjG16TH/vuNfAJ1CW16dkVzWgRtqhbqo+kDgcI1
-Xrqjgq/UKN/RYieE1HR2lK4b45OAez3loO3XjWDnkzOjblXrqow=
-=AgC8
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmNG4tEACgkQ0Z6cfXEm
+bc5auQ//e0wDk4MMBAjOGDFHBUD4daJA8BHOisvfJ70VvU4T0t3d6WuZaIHml3tn
+qLrImb7vBlkemqJykkR6H1KIwdlGU70D9ntotoIfTFdKTl1AcqZJIRU5NrQkyMHK
+LaJmn/O78S3O93bnANHX+4LaLS6hCqOw/NcURLET5JKaEniwKjhe+Z946ifFKuIQ
+Lrh8lVP0b2sC+hu9P4mQc2R18MRxIqoS4m0/wQseleKPB8d0Oazdohg/nqjtIC5J
+iBKyz0pOmvafOhcqQ+ZWAeHBgNExdubDYGywmqetE+Mziz5XoAEiADgr5M46sFvC
+nNQuKKajedqNx5AjTzufu26XO3cB4SzWUapdqR2SJkKhWbORMmMlkxFhYn+0x9ST
+gLXv39v3XCFTz2F0tq0ytszZ+AI21M37pLBg0JzXRYBXtj5DlZafn2aYguyy7epV
+WSLVMDi/ftmCaBLpmZY11bJ+/5JyRZtQhXubYtznhJbywlEvw3s5I7tZZgDeDkNw
+6z74SXFgfVKvvBt0DlW5LTpAOMUR+VplYYEZo1h5i5DcLlgOK+EtY6TOG/qz2sNU
+GExYKh7V+BD1zW609iYogNicQ9ByFdvEciJxnlVlVL8htX1YYqOwIRs4BpqKIxGo
+LyMC9sAHHQrzW9amdj3Z/6GzmAzEmckfr/jSTTQPf+4UaOq/mJs=
+=xvFY
 -----END PGP SIGNATURE-----
 
---------------u7WDNvdyeOZF5b0tSW3btsPS--
+--qdruity3m4rehnlp--
