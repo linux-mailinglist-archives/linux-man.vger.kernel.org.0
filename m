@@ -2,55 +2,69 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 646925FBE25
-	for <lists+linux-man@lfdr.de>; Wed, 12 Oct 2022 01:02:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2A41D5FC7A9
+	for <lists+linux-man@lfdr.de>; Wed, 12 Oct 2022 16:47:42 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229671AbiJKXCm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 11 Oct 2022 19:02:42 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42650 "EHLO
+        id S229619AbiJLOrk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 12 Oct 2022 10:47:40 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43420 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229656AbiJKXCj (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 11 Oct 2022 19:02:39 -0400
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 87C5167C8A;
-        Tue, 11 Oct 2022 16:02:38 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by ams.source.kernel.org (Postfix) with ESMTPS id 31B14B817BB;
-        Tue, 11 Oct 2022 23:02:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8717FC433D6;
-        Tue, 11 Oct 2022 23:02:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1665529355;
-        bh=y4Ano1StaiQUYrKYxW/krjKkHKYUUCVRriaLSIOEAic=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=hZIFsAjLpJlnbBWUJKuBh0F5S/GKgabGfqQTZt8SwwkP/J7rmJxFBmdvyxWpJY1Y9
-         3QW5uMvFKuAe9HRFYlHKD4pi0/xv9MO0iWOnIf2AaqjytVfWJr8aVejJeLExJ/5KZ3
-         FrlFesvrqUYR/3JbrOA9OamXCfJjwQ/ne2rrxCnn7+JkgnaUtxq8jzzju5lNX9VZMj
-         OGx/bWnGyw+FFs/AoVq28SHVdUyPbpIo9h4hq6hcEOD4KPNhe0MRYfhZxFJTCExz4F
-         W36vvHtVIwfEG0+ZL+Eohic99c9jg9AxKCclN8amYinpbZSG2RDhRYsGaXHRgXP5kM
-         kAk+ZlelP4YYA==
-Date:   Tue, 11 Oct 2022 16:02:33 -0700
-From:   Eric Biggers <ebiggers@kernel.org>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-        linux-api@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
-        linux-xfs@vger.kernel.org, linux-fscrypt@vger.kernel.org,
-        linux-block@vger.kernel.org, "Darrick J. Wong" <djwong@kernel.org>
-Subject: Re: [man-pages PATCH v3] statx.2, open.2: document STATX_DIOALIGN
-Message-ID: <Y0X2CbXstn8qojPF@sol.localdomain>
-References: <20221004174307.6022-1-ebiggers@kernel.org>
- <26cafc28-e63a-6f13-df70-8ccec85a4ef0@gmail.com>
+        with ESMTP id S229585AbiJLOrj (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 12 Oct 2022 10:47:39 -0400
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com [IPv6:2a00:1450:4864:20::436])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4FEA1B7EEC
+        for <linux-man@vger.kernel.org>; Wed, 12 Oct 2022 07:47:38 -0700 (PDT)
+Received: by mail-wr1-x436.google.com with SMTP id a3so26638099wrt.0
+        for <linux-man@vger.kernel.org>; Wed, 12 Oct 2022 07:47:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=subject:from:cc:to:content-language:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=TaHjGxRX5HOTJ4qLnef/E7Nnu7uNON8RIF7a398GZek=;
+        b=Vq+2DWzer2mvig6f0cXorxq2Tf1V76aT2n0zCKuJ87BNp4h5tHCBMM0vAFBi8J3s+l
+         RhzroN4r3x7vjWCrK3pr4bm4F1oWx/eo7uiMFBwr2oLvMwCRUzFr3qeQ0/FqV50qbXBv
+         w1e2YDvEZBLW9rvoTh7j0OE339SosUuMcp+PNOkwy0KMz7CJDbuatISyChUdXo8IVOcp
+         Y9LQBsl1q8hUMCxZ32LZiLZNwQYNTz/4gio3i7PgvRdjkxZXwHu6qrO7TqGIhAeXeIEh
+         /He88BOBjG3GrLPRlOsjq9JEXG51FfG0dzTDaADEOwUe6dBjse8nd2k+TqAfcN2+uFl4
+         w70Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=subject:from:cc:to:content-language:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=TaHjGxRX5HOTJ4qLnef/E7Nnu7uNON8RIF7a398GZek=;
+        b=p9VdRTsfibTuRflIIl3zlWmMetP80/B3VTuGlmaHNzu26o+fAWYB1VFnaW6reOsSKK
+         rcNCVW2eTPwvjU3ZtfGvFKOKLJo3hsGBrmDRz08Qf60VFradNE4lkcjskYTQH8UmWVFg
+         mOGGBzP9f55WyH4dGKWc9vJolj00JQ9esmMBB3sGwQNBQG+FSHgslh3EbLnmmsG5EZdA
+         jU4FXtIRw/0IY/bk8gOo8PWqjc3YK48UvxuqDv8m6yINz7iQ8JUOh3aNnLjLu3mfThYr
+         aDihnh3+69+DqHNy1LGQP/flVBqdzNyZVOqamu8u053eI9c1wo9pl4m5vBt1PAZzdk4N
+         HZiw==
+X-Gm-Message-State: ACrzQf0EZtHWkihbRdj+P9S3rjDONcyYVFh23WjySO+EGVkuP1UpHxn1
+        50369ONn1eV2sOsdH2hO11c=
+X-Google-Smtp-Source: AMsMyM6ZcPJ02GW+hI35PyrCQMWY6sDbt2RNYGFY6tBVyl8lS6EX0GNbNu4w1SzxGu7/ka+TJPL/hg==
+X-Received: by 2002:a5d:6485:0:b0:230:b6db:d41c with SMTP id o5-20020a5d6485000000b00230b6dbd41cmr8703392wri.709.1665586056712;
+        Wed, 12 Oct 2022 07:47:36 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id bp15-20020a5d5a8f000000b0022cbf4cda62sm17902803wrb.27.2022.10.12.07.47.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 12 Oct 2022 07:47:36 -0700 (PDT)
+Message-ID: <82b77010-6b42-a58a-f8c7-b977297d6832@gmail.com>
+Date:   Wed, 12 Oct 2022 16:47:27 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <26cafc28-e63a-6f13-df70-8ccec85a4ef0@gmail.com>
-X-Spam-Status: No, score=-4.6 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-        SPF_HELO_NONE,SPF_PASS,SUSPICIOUS_RECIPS autolearn=ham
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.2
+Content-Language: en-US
+To:     groff <groff@gnu.org>
+Cc:     linux-man <linux-man@vger.kernel.org>,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+Subject: 3-word compound adjectives; the return of the '-'
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------u7WDNvdyeOZF5b0tSW3btsPS"
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -58,29 +72,58 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Alejandro,
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------u7WDNvdyeOZF5b0tSW3btsPS
+Content-Type: multipart/mixed; boundary="------------wlmaKzJUi9Pz6uKNgwmfSmN3";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: groff <groff@gnu.org>
+Cc: linux-man <linux-man@vger.kernel.org>,
+ "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Message-ID: <82b77010-6b42-a58a-f8c7-b977297d6832@gmail.com>
+Subject: 3-word compound adjectives; the return of the '-'
 
-On Sat, Oct 08, 2022 at 03:56:22AM +0200, Alejandro Colomar wrote:
-> > +If none of the above is available, then direct I/O support and alignment
-> 
-> Please use semantic newlines.
-> 
-> See man-pages(7):
->    Use semantic newlines
->        In the source of a manual page, new sentences  should  be
->        started on new lines, long sentences should be split into
->        lines  at  clause breaks (commas, semicolons, colons, and
->        so on), and long clauses should be split at phrase bound‐
->        aries.  This convention,  sometimes  known  as  "semantic
->        newlines",  makes it easier to see the effect of patches,
->        which often operate at the level of individual sentences,
->        clauses, or phrases.
+--------------wlmaKzJUi9Pz6uKNgwmfSmN3
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-I tried to do this in v4.  It seems very arbitrary, though, so if you want
-further changes to the newlines I recommend just making them when committing the
-patch.
+SGksDQoNCkluIGEgcGF0Y2ggdG8gbGludXgtbWFuQCB0aGVyZSdzIGEgMy13b3JkIGNvbXBv
+dW5kIGFkamVjdGl2ZS4gIEkgZG9uJ3QgDQprbm93IHdoYXQgYXJlIHRoZSBydWxlcyBmb3Ig
+c3VjaCBhIHRoaW5nLCBhbmQgSSdkIGxpa2UgdG8gaGF2ZSBzb21lIA0KY29uc2lzdGVuY3kg
+KGFuZCBjb3JyZWN0bmVzcykgaW4gdGhlIG1hbnVhbCBwYWdlcy4NCg0KSSd2ZSBzZWVuIG1h
+bnkgZGlmZmVyZW50IHRoaW5ncyBpbiB0aGUgcGFzdDs6DQoNCiAgYSkgYmxvY2sgZGV2aWNl
+LWJhc2VkIGZpbGVzeXN0ZW1zDQogIGIpIGJsb2NrLWRldmljZS1iYXNlZCBmaWxlc3lzdGVt
+cw0KICBjKSBibG9jay0gZGV2aWNlLWJhc2VkIGZpbGVzeXN0ZW1zDQoNCkFuZCBub3cgSSBm
+b3VuZCBvbmUgbW9yZSANCjxodHRwczovL3d3dy5lZGl0b3Jncm91cC5jb20vYmxvZy90by1o
+eXBoZW5hdGUtb3Itbm90LXRvLWh5cGhlbmF0ZS8+Og0KDQogIGQpIGJsb2NrIGRldmljZVxb
+ZW5dYmFzZWQgZmlsZXN5c3RlbXMNCg0KV2hlcmUgdGhlIGVuIGRhc2ggaXMgdXNlZCB0byBk
+aXN0aW5ndWlzaCBpdCBmcm9tICdhIGJsb2NrIGZpbGVzeXN0ZW0gDQpiYXNlZCBvbiBhIGRl
+dmljZScuDQoNCldoaWNoIGZvcm0gd291bGQgeW91IHJlY29tbWVuZCBtZSB0byB1c2U/DQoN
+Cg0KQ2hlZXJzLA0KDQpBbGV4DQoNCi0tIA0KPGh0dHA6Ly93d3cuYWxlamFuZHJvLWNvbG9t
+YXIuZXMvPg0K
 
-Note that a better way to review changes to text is to do a word diff instead of
-a line diff.
+--------------wlmaKzJUi9Pz6uKNgwmfSmN3--
 
-- Eric
+--------------u7WDNvdyeOZF5b0tSW3btsPS
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmNG038ACgkQnowa+77/
+2zJg8w//cvJsQOHJmpiXC7PWwV2CX47zS0cw9toD11JmyMamDJzV0Ada2cyHNhR4
+quwf4fMJZpeMvEAfZfUN/j4hDXBKVaeDWfgKQcM68rZazRV7BdGWjXrniv3Sml2l
+mXqGJPwkD28Uua4h0sWLeGUohsOnDlne25u4LwAj5L1cnKXAiu2z01BCVr7pSNrS
+VjElDMdCmXH8t1WCc792OHn43fLDt1igdViHfQUyezbaY933V5KWOUgNxejodZBZ
+DIbrN7f1QryQJajQ/ULzV3XbXz9kpUyaMvNF9O5B+95DSetZoxRrJrM22VJ+hnI+
+3xQ+UunTbbdnC/NBDk20BrRVIW89cwvJJGISytd+2AJ1uckuU8s0CY9vt8zxODYO
+cwQ1ZlJeR8pDMos+mqsu/tTxyP+EN9UJdLeAL1FiKwFFESguq9H40t1pf4KBQllT
+XiIsZOTl3Mbuxqsdj1Kv2VDZ/j3JMLFlTqU14OwDG/HOz3zXLLxphNAFF9p4ninX
+U6Da72ChTkhZqbG8EYn4Yz6LG6p/HAt0BlBYwLgGpb2QU5LjlVE1OuCV0KaxhVDn
+fPmFUoixcAP8Qyq7ZweQst98PtjG16TH/vuNfAJ1CW16dkVzWgRtqhbqo+kDgcI1
+Xrqjgq/UKN/RYieE1HR2lK4b45OAez3loO3XjWDnkzOjblXrqow=
+=AgC8
+-----END PGP SIGNATURE-----
+
+--------------u7WDNvdyeOZF5b0tSW3btsPS--
