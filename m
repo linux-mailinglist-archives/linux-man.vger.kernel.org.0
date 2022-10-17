@@ -2,149 +2,128 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id B16E4600BB8
-	for <lists+linux-man@lfdr.de>; Mon, 17 Oct 2022 11:58:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 913A1600CFA
+	for <lists+linux-man@lfdr.de>; Mon, 17 Oct 2022 12:56:28 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231531AbiJQJ6V (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 17 Oct 2022 05:58:21 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35068 "EHLO
+        id S230096AbiJQK41 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 17 Oct 2022 06:56:27 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43922 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231508AbiJQJ6U (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 17 Oct 2022 05:58:20 -0400
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com [IPv6:2a00:1450:4864:20::434])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1320F50718
-        for <linux-man@vger.kernel.org>; Mon, 17 Oct 2022 02:58:17 -0700 (PDT)
-Received: by mail-wr1-x434.google.com with SMTP id bu30so17627118wrb.8
-        for <linux-man@vger.kernel.org>; Mon, 17 Oct 2022 02:58:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=H39fCi72+6qnPlLAfPg4/WKulz32crcL5Wp80yGwqpo=;
-        b=Kl3VSPtHd84dfDo5NY9vLCaAs/QjmPUMBEIye3H5tP6olsv3DI/4EKHrrUmGCZ5Olc
-         FNm0XD0XsypcHfnt8K0RFg6WAYaMx3LKR5HNmu3t3jy+HSPUOiOecW10Rbi8OXNhuRGm
-         TIjQyRMvPoH0GAcIr3Xx7NihDswo/pYDmZVFMHbwNvpOQzvm3FmeYSnJx76CK25L8GuT
-         arLQEnbXe8EhS4DuIRtgVdFN6S3cLp3G4hZ16mY8A/AMTGifdI6QjfMoz1UZfk+5vuff
-         wJFgUZyBMlBgHM4kGtQQpPOaNN9n8J1WnZcako0nyBjNEMhAi/qfvyQ82wQbnObdRNmL
-         g3TA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=H39fCi72+6qnPlLAfPg4/WKulz32crcL5Wp80yGwqpo=;
-        b=FiiPFaY/gNP6qqZ1WE4niKvP4ymrR5Kyx7ydtVhnvdwqRT3yjmyN7um6toYO41/86B
-         E3lhS+lSUDChGOZBqEm0C5nmaG+y+SnOqm1N5XhAN57hYqwdSLFSPumOBFJNa2JSPJxE
-         ljQI0t5p+uMYPqEO62EMcp7a1tEl7FkVs2d1vqvXAGS5JDhmu2tyxXuj7SKTgF0H8bzS
-         tVabF/VU+whE5pdco6Rmn0gE2flHG5+QzVxOc0eFsd4ZY7Nju4KytQh3C0BmzoprywCV
-         kETrUbEO6vSGMgmAaqVt37yprYatDHg8XEpow644MICElcaeQAyVwJ0VKp79O6nFYzz7
-         f9RA==
-X-Gm-Message-State: ACrzQf2PiUCy/0NmHnl692FvZ+96Jg4lgTbaTB0QZvd22u1t3zC+oWWo
-        b9/klAi2ydfkChQSjeEctwJA0zKGjJE=
-X-Google-Smtp-Source: AMsMyM7rWCt3a2P0r99gp1ntyookGrQipVVug8Z2YTatMEC26Pqjoxd+yVF98+Dem3YmZ4CpXJ9xWg==
-X-Received: by 2002:a5d:64e2:0:b0:22e:7060:b4a7 with SMTP id g2-20020a5d64e2000000b0022e7060b4a7mr5361376wri.129.1666000695992;
-        Mon, 17 Oct 2022 02:58:15 -0700 (PDT)
-Received: from [192.168.43.80] ([31.221.171.215])
-        by smtp.gmail.com with ESMTPSA id o14-20020a05600c4fce00b003c6b67426b0sm15644440wmq.12.2022.10.17.02.58.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 17 Oct 2022 02:58:15 -0700 (PDT)
-Message-ID: <2b229c8d-9456-654a-d6a9-8b2727d8af41@gmail.com>
-Date:   Mon, 17 Oct 2022 11:58:06 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.2
-Subject: Re: [PATCH] ascii.7: chase down History to earliest
-To:     =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+        with ESMTP id S229916AbiJQK40 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 17 Oct 2022 06:56:26 -0400
+Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 05A2727913
+        for <linux-man@vger.kernel.org>; Mon, 17 Oct 2022 03:56:24 -0700 (PDT)
+Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id E39813B06;
+        Mon, 17 Oct 2022 12:56:22 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
+        s=202205; t=1666004182;
+        bh=YGVEOdVqGj8Fca3R7h45u/V4qt7/H7A8z5jRS5yeGBk=;
+        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+        b=aWmqJrK5SN2zkIgOjeSaDgqCy3TXQkxp9YSgbpwHZILP0dY1qaYorUmGIr71d41iH
+         YCfDStn207NB6kRRk7pBctDukFxN3B5Eo6yPTFmubC1O520m2OPFnc/25B7iChU0G7
+         TI1yA1n0j0ro3lBfTzVWy2K0u0mDHzNddDInWBZMoCANdnP712qntgexXdb/I/sdCi
+         f8WhFiGJxNlQadKaTXhub4HJpEApzZZ5rvZ7Z5BC2thMgK5nN/V8DeCgpFzS6g5lUB
+         df6sBZgbi/3RHhIKDeqDOCtZ9kG4X5QgWM+bX/sI3xaT0kEfYEBxzuuiEjzTtrbAA9
+         o/v/aV7RsoYqDLJnYeR1qqmbQMbVutp8sxqwGTGakLd0V/zGAGDTGyzao3AoXq2UIm
+         a35qYLcqP43cWI0RHfJnY0sQkVbspue954x2FrGLFErZXntsVtmRI4gSr98BxJ3TOY
+         V+mAvN3Ildp9ohNNako00rLAaSC0pN/zkdxfJah3jlkjDJ0PFYXDm9YM7qd5UnV1Eo
+         RnT+GVpnWV8/ZfjJXcOPCzCWWbS95JWMRaPI6/fcUA2DkAoNdycZrDxxrk3zQvgmw9
+         2Ppt7fzAGhM/vZGyi+DSPQtA0VO4dbSvMvBuncOWkRVZRchz/7tlpGt8HswsxGcNdo
+         gsbQDHz0hxRFPX4ILc2ZCfyE=
+Date:   Mon, 17 Oct 2022 12:56:21 +0200
+From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+To:     Alex Colomar <alx.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org
+Subject: Re: [PATCH] ascii.7: chase down History to earliest
+Message-ID: <20221017105621.i6mkseevfwydx5zl@tarta.nabijaczleweli.xyz>
 References: <20221017012257.kb25curb3gajgsxd@tarta.nabijaczleweli.xyz>
-Content-Language: en-US
-From:   Alex Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20221017012257.kb25curb3gajgsxd@tarta.nabijaczleweli.xyz>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------tjRtLhiihCZu3tye6C8vVygM"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
-        autolearn_force=no version=3.4.6
+ <2b229c8d-9456-654a-d6a9-8b2727d8af41@gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="lbruztpo72eag65i"
+Content-Disposition: inline
+In-Reply-To: <2b229c8d-9456-654a-d6a9-8b2727d8af41@gmail.com>
+User-Agent: NeoMutt/20220429
+X-Spam-Status: No, score=0.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FROM_SUSPICIOUS_NTLD,
+        PDS_OTHER_BAD_TLD,PDS_RDNS_DYNAMIC_FP,RDNS_DYNAMIC,SPF_HELO_NONE,
+        SPF_PASS autolearn=no autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------tjRtLhiihCZu3tye6C8vVygM
-Content-Type: multipart/mixed; boundary="------------vLHZkvSdwELWZJ2II9w5bl1D";
- protected-headers="v1"
-From: Alex Colomar <alx.manpages@gmail.com>
-To: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc: linux-man@vger.kernel.org
-Message-ID: <2b229c8d-9456-654a-d6a9-8b2727d8af41@gmail.com>
-Subject: Re: [PATCH] ascii.7: chase down History to earliest
-References: <20221017012257.kb25curb3gajgsxd@tarta.nabijaczleweli.xyz>
-In-Reply-To: <20221017012257.kb25curb3gajgsxd@tarta.nabijaczleweli.xyz>
 
---------------vLHZkvSdwELWZJ2II9w5bl1D
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+--lbruztpo72eag65i
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-SGkhDQoNCk9uIDEwLzE3LzIyIDAzOjIyLCDQvdCw0LEgd3JvdGU6DQo+IENmLiwgd2VsbCwg
-dGhlIFVOSVggUHJvZ3JhbW1lcidzIE1hbnVhbDoNCj4gICAgaHR0cHM6Ly93d3cudHVocy5v
-cmcvQXJjaGl2ZS9EaXN0cmlidXRpb25zL1Jlc2VhcmNoL0Rlbm5pc192MS9VTklYX1Byb2dy
-YW1tZXJzTWFudWFsX05vdjcxLnBkZg0KPiBQREYgcGFnZSAxOTE7IHllcywgdGhlIHR5cG9n
-cmFwaGljYWwgY29udmVudGlvbiBoZXJlIGlzIGluc2FuZSwgYW5kDQo+IHRoZSBjb250ZW1w
-cmFyeS1jb3JyZWN0IHdheSB0byByZWZlciB0byB0aGlzIHBhZ2UgZnJvbSB3aXRoaW4gdGhl
-IG1hbnVhbA0KPiB3b3VsZCBiZSAvanVzdC8gIi9ldGMvYXNjaWkiLCBidXQsIGdpdmVuIHRo
-ZSBjb250ZXh0LCAiL2V0Yy9hc2NpaSAoVklJKSINCj4gbWFrZXMgdGhlIG1vc3Qgc2Vuc2Ug
-dG8gbWUNCj4gDQo+IFNpZ25lZC1vZmYtYnk6IEFoZWxlbmlhIFppZW1pYcWEc2thIDxuYWJp
-amFjemxld2VsaUBuYWJpamFjemxld2VsaS54eXo+DQo+IC0tLQ0KPiAgIG1hbjcvYXNjaWku
-NyB8IDQgKy0tLQ0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMyBkZWxl
-dGlvbnMoLSkNCj4gDQo+IGRpZmYgLS1naXQgYS9tYW43L2FzY2lpLjcgYi9tYW43L2FzY2lp
-LjcNCj4gaW5kZXggMWJiYTdiYmFhLi43MWU4OTM4NGIgMTAwNjQ0DQo+IC0tLSBhL21hbjcv
-YXNjaWkuNw0KPiArKysgYi9tYW43L2FzY2lpLjcNCj4gQEAgLTEzNCw5ICsxMzQsNyBAQCBG
-OiAvID8gTyBfIG8gREVMDQo+ICAgLmZpDQo+ICAgLlNIIE5PVEVTDQo+ICAgLlNTIEhpc3Rv
-cnkNCj4gLUFuDQo+IC0uQiBhc2NpaQ0KPiAtbWFudWFsIHBhZ2UgYXBwZWFyZWQgaW4gVmVy
-c2lvbiA3IG9mIEFUJlQgVU5JWC4NCj4gKy9ldGMvYXNjaWkgKFZJSSkgYXBwZWFycyBpbiB0
-aGUgVU5JWCBQcm9ncmFtbWVyJ3MgTWFudWFsLg0KDQpJIHdvbmRlciBpZiAnLkJSIC9ldGMv
-YXNjaWkgKDcpJyB3b3VsZG4ndCBiZSBiZXR0ZXIuDQoNCkFsc28sIHNob3VsZG4ndCB3ZSBj
-bGFyaWZ5IHRoZSBWZXJzaW9uIDcgb2YgdGhlIFVOSVggUHJvZ3JhbW1lcidzIA0KTWFudWFs
-PyAgT3Igd2FzIGl0IG9ubHkgY2FsbGVkIHRoYXQgd2F5IGluIFY3PyAgSSBpZ25vcmUgbXVj
-aCBvZiBoaXN0b3J5IA0KYWJvdXQgdGhvc2UgdGltZXMsIGJ1dCBJIGd1ZXNzIG9sZGVyIHZl
-cnNpb25zIGFsc28gdXNlZCB0aGUgZXhhY3Qgc2FtZSANCnRpdGxlLCByaWdodD8NCg0KTWF5
-YmUgc29tZXRoaW5nIGxpa2U6DQoNCi5CUiAvZXRjL2FzY2lpICg3KQ0KYXBwZWFycyBpbiB0
-aGUgVU5JWCBQcm9ncmFtbWVyJ3MgTWFudWFsIGluIFZlcnNpb24gNy4NCg0KSSBkb24ndCBr
-bm93IGlmIHdlIHJlZmVyIHRvIHRoYXQgdGhpbmcgaW4gb3RoZXIgcGFnZXMuICBJZiBzbywg
-aXQgbWlnaHQgDQpiZSBpbnRlcmVzdGluZyB0byBjaGVjayB0aGUgc3ludGF4IHVzZWQgdGhl
-cmUgZm9yIGNvbnNpc3RlbmN5Lg0KDQpDaGVlcnMsDQoNCkFsZXgNCg0KPiAgIC5QUA0KPiAg
-IE9uIG9sZGVyIHRlcm1pbmFscywgdGhlIHVuZGVyc2NvcmUgY29kZSBpcyBkaXNwbGF5ZWQg
-YXMgYSBsZWZ0IGFycm93LA0KPiAgIGNhbGxlZCBiYWNrYXJyb3csIHRoZSBjYXJldCBpcyBk
-aXNwbGF5ZWQgYXMgYW4gdXAtYXJyb3cgYW5kIHRoZSB2ZXJ0aWNhbA0KDQotLSANCjxodHRw
-Oi8vd3d3LmFsZWphbmRyby1jb2xvbWFyLmVzLz4NCg0K
+Hi!
 
---------------vLHZkvSdwELWZJ2II9w5bl1D--
+On Mon, Oct 17, 2022 at 11:58:06AM +0200, Alex Colomar wrote:
+> On 10/17/22 03:22, =D0=BD=D0=B0=D0=B1 wrote:
+> > Cf., well, the UNIX Programmer's Manual:
+> >    https://www.tuhs.org/Archive/Distributions/Research/Dennis_v1/UNIX_P=
+rogrammersManual_Nov71.pdf
+> > PDF page 191; yes, the typographical convention here is insane, and
+> > the contemprary-correct way to refer to this page from within the manual
+> > would be /just/ "/etc/ascii", but, given the context, "/etc/ascii (VII)"
+> > makes the most sense to me
+> >=20
+> > --- a/man7/ascii.7
+> > +++ b/man7/ascii.7
+> > @@ -134,9 +134,7 @@ F: / ? O _ o DEL
+> >   .fi
+> >   .SH NOTES
+> >   .SS History
+> > -An
+> > -.B ascii
+> > -manual page appeared in Version 7 of AT&T UNIX.
+> > +/etc/ascii (VII) appears in the UNIX Programmer's Manual.
+>=20
+> I wonder if '.BR /etc/ascii (7)' wouldn't be better.
+>=20
+> Also, shouldn't we clarify the Version 7 of the UNIX Programmer's Manual?
+> Or was it only called that way in V7?  I ignore much of history about tho=
+se
+> times, but I guess older versions also used the exact same title, right?
 
---------------tjRtLhiihCZu3tye6C8vVygM
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+uhhhh, what do you mean Version 7?
+This appears in /the/ UNIX Programmer's Manual.
+Before they were versioned or whatever.
+
+So no, (7) is wrong because it's (VII)
+(indeed, arabic numbers started in V7).
+It's not bold because you can't do that on a typewriter.
+You could make the argument for it being together,
+but the prevailing convention is either no section at all or
+space-before-section, and the page number has the space.
+
+Best,
+=D0=BD=D0=B0=D0=B1
+
+--lbruztpo72eag65i
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmNNJy4ACgkQnowa+77/
-2zL+Mg/+IaAgK54AYgzJ+pdX90ta7Vog477/xnepbOQYN6JHWdO1+UTk7kZYMhw4
-lbu+kG3qP+1YdN3EIyniH7+jbk6NWyq/zLxZGY0w9aMeqdrAXLc0xZZArtOuGKR9
-xk0sBM4RYIocHOslyMsJDqv+HJeg+bLgJov8KE3LR+/4JqZTfLkmQ23E/Gmru+G3
-lJIct+jNym4Lx5yY+E7Vowr8T3AFnPRKYlQuH0EZCe0iwvK8uI6mW01BGOoiYtGJ
-ay8wtbrIysICj0P+F53XYtXTqBnJ2e7DclNzexJ2MpOGZs9EDhR2ZFpkEJkBN/sc
-VuVvzqde0o43uU01cqUNQm7DsyZ0r1IDcREMIFQXFGzK+rq7v+HCZf56LnyOXt2O
-mespuUxhA72j4YwkaU4sFlxYCGbP0n+511wLje1/pxIeppTFDAYaM8ejHBBYn9b/
-32uEijLgnnPYH3+xQFwnVZ++M9lwq9zCIgPfLgNHGtMcyKfuHTlKJAmGGsxls/j1
-Y1PetPDjkH4byetT0/3/T1CwSr8/tYv8uRs4eQMi4KNaTKinxc7JFIAd8PtOKU+l
-UAZNpOkudg7nLQELvYewW8D+7J4afL1EzxpUXYMJ6GS5t8cos7xnco001rnn9o8Z
-R8uhhCh6QOqOWGFlZ6L0ZNSZqnDxdJ9R0lmWBRduWf3cI8WoSTo=
-=ZFos
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmNNNNMACgkQvP0LAY0m
+WPFfPA//cCtj7uscSOes4I8mPtCuXlqEX2sjeqdfYkfYPtC+bhs/jd0kWB17KLZG
+gn8CUyfDvruN9lGRoD9BpZ3Kpzmu8BPB6zU4o931noiXl0aE0/fB0oeXttUZylPJ
+E+3TYFPK9mYx3cXHIR5anAIHVO+188cuResBTrMUIiqPTLOXVMXHukfxkBgsUUJl
+LZSQDoeycLb275qOaXbCiCYXGfq79F1Tx0VAoZxHs6g/mCWycqf4wtf1xSB4+H2B
+5Bx+vWfxPtM3cY7KRC8fVKFodIXfrkUWsL76bxHMO0QI70L6dwuXU3IVe+c0xhi4
+LSd+BrF8Hi2DWJxlrxBQ41/BgbixgvJDYKWZtwTGj89vWzHW3tiuoQKioMXL7+Qa
+YVx/F4SXD9PfBM/HpTgq7wRtNS4kIwDJFvm4mekbp2Cd9yn6I4jdYAtMkWf/Pbzp
+GDzmUzNXKujU2SvMz5yBh/AwXr5+VFZx+oJ2HMfTvRDxNw248FLLWT99xPDCRFX4
+wH97OLS8yHd9uVEs2mCrDPYANyn0ppam5MmERVzFR9H7dUyBn7JpkSQHwxMdYg0s
+roGYAlXDkltF4Qhq+MGcHASfacMlwlXujn7Wyjo4GvkwjIDnC0XS+dmO9rjihMCJ
+e99RnTDKJX08PwvcJhu7/vEFxliwZ0dUoA/2TW1pCj3eRwo3OpI=
+=rNo6
 -----END PGP SIGNATURE-----
 
---------------tjRtLhiihCZu3tye6C8vVygM--
+--lbruztpo72eag65i--
