@@ -2,56 +2,56 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id AAE456015CF
-	for <lists+linux-man@lfdr.de>; Mon, 17 Oct 2022 19:55:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 67DB36015D2
+	for <lists+linux-man@lfdr.de>; Mon, 17 Oct 2022 19:55:38 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230264AbiJQRzd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 17 Oct 2022 13:55:33 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54580 "EHLO
+        id S230417AbiJQRze (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 17 Oct 2022 13:55:34 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54582 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230333AbiJQRzc (ORCPT
+        with ESMTP id S230328AbiJQRzc (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Mon, 17 Oct 2022 13:55:32 -0400
-Received: from mail-pl1-x64a.google.com (mail-pl1-x64a.google.com [IPv6:2607:f8b0:4864:20::64a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D2CA252470
-        for <linux-man@vger.kernel.org>; Mon, 17 Oct 2022 10:55:30 -0700 (PDT)
-Received: by mail-pl1-x64a.google.com with SMTP id c12-20020a170903234c00b0017f695bf8f0so8078919plh.6
-        for <linux-man@vger.kernel.org>; Mon, 17 Oct 2022 10:55:30 -0700 (PDT)
+Received: from mail-pf1-x44a.google.com (mail-pf1-x44a.google.com [IPv6:2607:f8b0:4864:20::44a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7678C48EAC
+        for <linux-man@vger.kernel.org>; Mon, 17 Oct 2022 10:55:31 -0700 (PDT)
+Received: by mail-pf1-x44a.google.com with SMTP id y18-20020a056a00181200b00565b27c2611so6434300pfa.14
+        for <linux-man@vger.kernel.org>; Mon, 17 Oct 2022 10:55:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=google.com; s=20210112;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:from:to:cc:subject:date:message-id:reply-to;
-        bh=agT9QZQMe+zYcofiwo2fky7Lo5K5JsV+HiadouuU+xY=;
-        b=S7DlGIdUa4amE9BoDHGwjgJKqiO83psDwvsaprmeCr6GoWIkFEdQbvV1sXIPEdMv9g
-         0S+OXhabA0N1xRVPgyuPg8TszXx/+yHwEO/CwpGp6XtpFK4Aa0li2Rgx7e8Wep8ZS4Yg
-         D2hoxAMrGZxuAweBsXnXIRb2O4uBtN4Hu9jS5ucQx6yD3+/rFU9BvVSoZ40szyivSNPQ
-         mPYW2ZFLSvD8UW88Br1sKdAu1R5d5pxrbcFyU/efuZkbveR396g+Zsvi7twrPveruTq1
-         bibaRLQLbg+zlWTHOfH5AEGo01xabCQUJWuWanJovvYb+5EK1z3YP+FGpyatA6wVwCX2
-         T1wQ==
+        bh=k4YZ/MZAkRksM7yVQmihehh8ldAEChAETLP25ZBcDQ0=;
+        b=O6/4jT33BaC+RJJLf7veET9jVN1YLLZYIeYsGr0T4FVM9rhiunBt0L4bHC3T6gxRAj
+         iKi31nT/vPp3ptPZIwJ+iIRxMy8LyFAq9TzDmUfgRcs0bF5QUhERUjoocgGQ3PosM1L+
+         KlOhpZ/cDvr9Vc1iXQ9d8yk2/7B6bcXGQSSdn6Q/hcZePHkf5d6pdjWiQQXZ2XuzC1l0
+         PuO0IZuMiz2rzPU2zi6hAUViiIQ9Z1LoeF67Sua9BwCrKEc88iunEbRReHb30pVDqVpU
+         hFJC9CvCvf7oytGr6VLz7BN+AmjkuZ+d4Wm0/IwEeHZYqq/yfDa8WAru58mWK1KiV+l3
+         7/mw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=agT9QZQMe+zYcofiwo2fky7Lo5K5JsV+HiadouuU+xY=;
-        b=pI4w2Tw4YfmImix1cpoDjbN6Ok6ozMOQwUZw79EuQSZvvC/+Y2daitOoFVR+lDRJiG
-         pQTDfOe9Q/O5JASV8LSkqx7Ckf9An8a10HhyZUfttwW7colthTr+XJb3wO7fxB/oCo8c
-         dWHAgtbz7E6SEBDsdYhjP7eQN6WqDnVKCS73eZqMyeSI41CEehql0MPKDe7wn6NuJfpw
-         FXQ4cmwkUHYklXtqWuflAbI3lIMphoX6G5BBJYQq+38MTA6f0H6tvTzmULz4HHl19bVI
-         j6G71tlBTA6nfb4RcDg5XlAbzV8jqriaXhmAn4t2eihu4UD1CwXHTVarLVEaGkLc61hR
-         Qfgg==
-X-Gm-Message-State: ACrzQf01YhDkxn/o8JTqDtjN8uTRGET1UYpoBP3duKlXQJwn9ANire/b
-        qGgXXxNjflE3fLwbZKpOsk2HFw5KmEZw
-X-Google-Smtp-Source: AMsMyM5HuNyELUBHl+u6TZZkzRJi+vyJvjs8M4Fo5QyR44pbs2aljP0dCpBB03K1dW9Fpcw4ETF6ejUH7NJA
+        bh=k4YZ/MZAkRksM7yVQmihehh8ldAEChAETLP25ZBcDQ0=;
+        b=4iGGrQDeSIe43CeC9mzxofDSANbVDJpT1AVT/Tqqbck09UfHbX/2FMiA2JKMHR+Ypq
+         XAyAi5bmQfmRXbbCeXJGlC9FJpXRK42+zVNLIYkC74ZpDCFljeveypVWadhT6o3aNEfT
+         13WN965xbMWnBTTb34MWDLvZQPxksdD8vF+WzpEJsNgV1YUlu/nOvu/wBNJnK9GKQMp7
+         u1Qnw5OsLsEC/TrPGsTSLbKOAVlr6/CzoAZ2uGYepH9CzrnrWOdBOspedVW/qJ9cSPxt
+         8mF7cCIeJm4gXNnpeoOR9cILWi0ivaPmNw+/aqZbE1wS7ZCGwwBz3Teb0MxIaxgYPL0M
+         MYNQ==
+X-Gm-Message-State: ACrzQf2TDrpHKAKbvexyZGMzQwZd9xvvmc9IdfNEYgc3keiihXosEO+i
+        J0fvxkmK1rAesFYUtEOa1W4Rwcv/AUFx
+X-Google-Smtp-Source: AMsMyM4tPJA6Kt7/TvYOFt22YMGQ2eAWnUmfDcpnttaHh5FbPG7jHOHUD8ASdCZt7fk3JvlEgXHbdPCAeqfI
 X-Received: from zokeefe3.c.googlers.com ([fda3:e722:ac3:cc00:7f:e700:c0a8:1b6])
- (user=zokeefe job=sendgmr) by 2002:a17:902:ef92:b0:17e:2618:ee91 with SMTP id
- iz18-20020a170902ef9200b0017e2618ee91mr13497088plb.122.1666029329663; Mon, 17
- Oct 2022 10:55:29 -0700 (PDT)
-Date:   Mon, 17 Oct 2022 10:55:21 -0700
+ (user=zokeefe job=sendgmr) by 2002:a17:90b:3d85:b0:20c:8f6a:8298 with SMTP id
+ pq5-20020a17090b3d8500b0020c8f6a8298mr35396412pjb.242.1666029331036; Mon, 17
+ Oct 2022 10:55:31 -0700 (PDT)
+Date:   Mon, 17 Oct 2022 10:55:22 -0700
 In-Reply-To: <20221017175523.2048887-1-zokeefe@google.com>
 Mime-Version: 1.0
 References: <20221017175523.2048887-1-zokeefe@google.com>
 X-Mailer: git-send-email 2.38.0.413.g74048e4d9e-goog
-Message-ID: <20221017175523.2048887-3-zokeefe@google.com>
-Subject: [PATCH man-pages 2/4] madvise.2: document reliable probe for advice support
+Message-ID: <20221017175523.2048887-4-zokeefe@google.com>
+Subject: [PATCH man-pages 3/4] process_madvise.2: CAP_SYS_ADMIN cleanup
 From:   Zach OKeefe <zokeefe@google.com>
 To:     Alejandro Colomar <alx.manpages@gmail.com>,
         Michael Kerrisk <mtk.manpages@gmail.com>
@@ -70,36 +70,29 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 From: Zach O'Keefe <zokeefe@google.com>
 
-EINVAL is an overloaded error code for madvise(2) and it's not clear
-under what context it means "advice is not valid" vs another error.
-
-Explicitly document that madvise(0, 0, advice) can reliably be used to
-probe for kernel support for "advice", returning zero iff "advice" is
-supported by the kernel.
+Since commit 96cfe2c0fd23 ("mm/madvise: replace ptrace attach
+requirement for process_madvise"), process_madvise(2) has only
+required CAP_SYS_NICE capability.  Update the man page to reflect this.
 
 Signed-off-by: Zach O'Keefe <zokeefe@google.com>
 ---
- man2/madvise.2 | 7 +++++++
- 1 file changed, 7 insertions(+)
+ man2/process_madvise.2 | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/man2/madvise.2 b/man2/madvise.2
-index e14e0f7fb..adfe24c24 100644
---- a/man2/madvise.2
-+++ b/man2/madvise.2
-@@ -789,6 +789,13 @@ that are not mapped, the Linux version of
- ignores them and applies the call to the rest (but returns
- .B ENOMEM
- from the system call, as it should).
-+.PP
-+.BR madvise (0,
-+0,
-+.IR advice )
-+will return zero iff
-+.I advice
-+is supported by the kernel and can be relied on to probe for support.
- .\" .SH HISTORY
- .\" The
- .\" .BR madvise ()
+diff --git a/man2/process_madvise.2 b/man2/process_madvise.2
+index 6208206e4..7bee1a098 100644
+--- a/man2/process_madvise.2
++++ b/man2/process_madvise.2
+@@ -113,7 +113,8 @@ check (see
+ in addition,
+ because of the performance implications of applying the advice,
+ the caller must have the
+-.B CAP_SYS_ADMIN
++.\" commit 96cfe2c0fd23ea7c2368d14f769d287e7ae1082e
++.B CAP_SYS_NICE
+ capability.
+ .SH RETURN VALUE
+ On success,
 -- 
 2.38.0.413.g74048e4d9e-goog
 
