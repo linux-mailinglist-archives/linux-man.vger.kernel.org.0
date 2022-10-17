@@ -2,171 +2,168 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 799B6600D92
-	for <lists+linux-man@lfdr.de>; Mon, 17 Oct 2022 13:17:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0389B600E4D
+	for <lists+linux-man@lfdr.de>; Mon, 17 Oct 2022 13:56:24 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229597AbiJQLRX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 17 Oct 2022 07:17:23 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34136 "EHLO
+        id S229959AbiJQL4X (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 17 Oct 2022 07:56:23 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45122 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229687AbiJQLRK (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 17 Oct 2022 07:17:10 -0400
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com [IPv6:2a00:1450:4864:20::433])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E3C4F5F22B
-        for <linux-man@vger.kernel.org>; Mon, 17 Oct 2022 04:17:08 -0700 (PDT)
-Received: by mail-wr1-x433.google.com with SMTP id a3so18021277wrt.0
-        for <linux-man@vger.kernel.org>; Mon, 17 Oct 2022 04:17:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=in-reply-to:references:cc:to:from:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Q5E5OdDaDQI7F4tj9OpvgjW+Zui6c8me9fNk4dXUeEQ=;
-        b=Y3cjYCvBnLTDcA45H8IWhHb3gdkrtfO7F3Y/UttpgOV9uNymgzdF3iqRARuwIp0qnR
-         ZsChLcXTN9L5EOZ/tRCkh9RzT9RkJCeULiwc67p1ts5U3/bVoCS2vG3y1iaVS7tY7aCT
-         Z5vCA4fHQw+RMFMtJe9JDBE0lvjZWIZDBt2C0Nf2hDaGxYNYjKnH4GdvWZHi9QvIatdR
-         QegFK4MxtJkPsELsldaHyVjasv303GRtxO/JWzvs9msICxcbHOe9IEjSqwhVKO9uEPrR
-         ehKeG9akKOCei3Qyfrvrn/4RHyTu/ajB1g3/W97UUyqrYJutY///MjoEiXIm4hjlvL0P
-         jg6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=in-reply-to:references:cc:to:from:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=Q5E5OdDaDQI7F4tj9OpvgjW+Zui6c8me9fNk4dXUeEQ=;
-        b=6Tle+rKPRko71KbpOpnFqC2EHrt0D1XBFvnTwUyrKElxkWLFF+BTXIzaPmUwTQqPRK
-         0yAXZJrP2yggUrgnUfkKGCj+FWncpwt5LEXeALNQga/E5cNxdM7xvYIKB2HRzm1AyXHm
-         3hyyMNQCWkHXLzConLG5tZTO8wPYup/S7RTYmWwg7qSsf0ReRxM1Nitir6oH3PQGERrj
-         aWkOBtGo3IOkU7ZwA9UwiTvV7nLAPfOUZdG5uVh3sOL0Oj0t+gmZgGaoubza9SNMBmqF
-         /qn7mlH7yHq3K2kn80eLo166YyFldqJF9DJ3Eccq6+51/SM/j8DffQUNiqo4p9m71oDf
-         T5Bw==
-X-Gm-Message-State: ACrzQf2cgvWVgVkkQgmSWwg3Kb7A/DmATcp/WMhDp1nAYeOBYAHP7g0M
-        BTvIQ0Tc7AdvtxBJhkXhY98=
-X-Google-Smtp-Source: AMsMyM70tF/HhlEUAiNev6LrahioIrvxsVdnQYdcGzZvIXL7bpigV7Z1YBymjY3SXkutYKnbXg13VA==
-X-Received: by 2002:a05:6000:16c3:b0:22e:c6fd:2676 with SMTP id h3-20020a05600016c300b0022ec6fd2676mr5785549wrf.141.1666005427461;
-        Mon, 17 Oct 2022 04:17:07 -0700 (PDT)
-Received: from [192.168.43.80] ([31.221.171.215])
-        by smtp.gmail.com with ESMTPSA id r14-20020a056000014e00b0022e51c5222esm8095244wrx.86.2022.10.17.04.17.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 17 Oct 2022 04:17:06 -0700 (PDT)
-Message-ID: <b1557166-2da6-57b6-e15f-122acfb8ba37@gmail.com>
-Date:   Mon, 17 Oct 2022 13:17:05 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.2
-Subject: Re: Subdirs of man*/ (was: [PATCH] ascii.7: chase down History to
- earliest) (refers: man -M tcl)
-Content-Language: en-US
-From:   Alex Colomar <alx.manpages@gmail.com>
-To:     =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>,
-        Ingo Schwarze <schwarze@usta.de>
-Cc:     linux-man@vger.kernel.org,
+        with ESMTP id S230367AbiJQL4W (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 17 Oct 2022 07:56:22 -0400
+Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 67D69BF59
+        for <linux-man@vger.kernel.org>; Mon, 17 Oct 2022 04:56:20 -0700 (PDT)
+Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 3FBA03A28;
+        Mon, 17 Oct 2022 13:56:18 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
+        s=202205; t=1666007778;
+        bh=Ia4vAkNnhuMjRlpP7dy9MfZSJRN/vnz25WEDHPfjmoo=;
+        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+        b=H3PP8SjkIhW08Gr3Ne+4wzsg4mzJ3g/QCUCQWHLiJQ+GIe18qVg/V0l1/JZyZ0kwZ
+         Ej/3fPvjIdOS4FKekfox9QcX3nTTngWIN481S6u5kn2+o9U0putaFdgtV2QSwIvuTk
+         3/tfPJ5kCeufOTsUbzb+9wg1auQEsXJYH/Lpl6GDiix/aM4bYtHvmQ7SneFVC+hGY6
+         LWcwkIEZQJswp9mvEQOtoimqLLxTePY+g0QbZ+5ezgSzVO/6cf8pdGoEmaOxUwK0d1
+         k8N2Xf+TF5lSAPagHtA+35tM1jHRSwWD7looEObJeamGnC3+Q+iYeyuVY9GEQTufbU
+         fsgcyfHuaBUOsA/gZCFSkA+J/uL11z4LDMadwNaJYpYljHnllmM5vWc2c9h+kwtaJb
+         nje/mlHEMBxYoBrsPKBavVHh8HOsdjC7IKSrzD93/4WN5tBAsU3xKa8Y5+cLXU6BlV
+         PAPgbWQ+Mn4QdgSsqC1xG3fhLFJleNe3WMLCd1VEK5wwuPgVRL9G9bouWHBPwLZajb
+         AVCdXz+ppyS0SsiaXpJo6+zqGyHmEJ04TTj+tS2KCLP0hw5XTya0btauPK9Acq6lts
+         Zi46wL4EarE6cnVcHOtiDXuTJ2TV4UxNUmqVAN3xdwGwwkXGf7G113rAlOr2NzqLhM
+         RfIHkWokkCovmbZGk31UvmsY=
+Date:   Mon, 17 Oct 2022 13:56:17 +0200
+From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+To:     Alex Colomar <alx.manpages@gmail.com>
+Cc:     Ingo Schwarze <schwarze@usta.de>, linux-man@vger.kernel.org,
         "G. Branden Robinson" <g.branden.robinson@gmail.com>,
         Groff <groff@gnu.org>
+Subject: Re: Subdirs of man*/ (was: [PATCH] ascii.7: chase down History to
+ earliest) (refers: man -M tcl)
+Message-ID: <20221017115617.glfmvgqyfr7umavr@tarta.nabijaczleweli.xyz>
 References: <20221017012257.kb25curb3gajgsxd@tarta.nabijaczleweli.xyz>
  <9b96f437-63c7-3e68-dd62-5fdbd6612689@gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="77r5uvpbwli663ak"
+Content-Disposition: inline
 In-Reply-To: <9b96f437-63c7-3e68-dd62-5fdbd6612689@gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------FjpTUVgK0zUDuqwIc0LO07CS"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
-        autolearn_force=no version=3.4.6
+User-Agent: NeoMutt/20220429
+X-Spam-Status: No, score=0.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FROM_SUSPICIOUS_NTLD,
+        PDS_OTHER_BAD_TLD,PDS_RDNS_DYNAMIC_FP,RDNS_DYNAMIC,SPF_HELO_NONE,
+        SPF_PASS autolearn=no autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------FjpTUVgK0zUDuqwIc0LO07CS
-Content-Type: multipart/mixed; boundary="------------FTehW30AO3DO90DZUYhLDsBQ";
- protected-headers="v1"
-From: Alex Colomar <alx.manpages@gmail.com>
-To: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>,
- Ingo Schwarze <schwarze@usta.de>
-Cc: linux-man@vger.kernel.org,
- "G. Branden Robinson" <g.branden.robinson@gmail.com>, Groff <groff@gnu.org>
-Message-ID: <b1557166-2da6-57b6-e15f-122acfb8ba37@gmail.com>
-Subject: Re: Subdirs of man*/ (was: [PATCH] ascii.7: chase down History to
- earliest) (refers: man -M tcl)
-References: <20221017012257.kb25curb3gajgsxd@tarta.nabijaczleweli.xyz>
- <9b96f437-63c7-3e68-dd62-5fdbd6612689@gmail.com>
-In-Reply-To: <9b96f437-63c7-3e68-dd62-5fdbd6612689@gmail.com>
 
---------------FTehW30AO3DO90DZUYhLDsBQ
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+--77r5uvpbwli663ak
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-T24gMTAvMTcvMjIgMTM6MTAsIEFsZXggQ29sb21hciB3cm90ZToNCj4gW0NDICs9IGdyb2Zm
-QCwgc2luY2UgaXQgd2FzIENDZCBpbiB0aGUgb2xkIGNvbnZlcnNhdGlvbiByZWZlcnJlZCB0
-byBoZXJlXQ0KPiANCj4gSGkgSW5nbywNCj4gDQo+IE9uIDcvMjcvMjIgMTc6MzIsIEluZ28g
-U2Nod2FyemUgd3JvdGU6DQo+ICA+IEFsZWphbmRybyBDb2xvbWFyIHdyb3RlIG9uIFN1biwg
-SnVsIDI0LCAyMDIyIGF0IDA2OjE3OjQwUE0gKzAyMDA6DQo+ICA+PiBJIHdvbmRlcmVkIGZv
-ciBhIGxvbmcgdGltZSB3aGF0IGhhcHBlbnMgaWYgeW91IGNyZWF0ZSBzdWJkaXJzIHdpdGhp
-biBhDQo+ICA+PiBtYW4/IHNlY3Rpb24uwqAgSG93IGRvIG1hbigxKXMgaGFuZGxlIA0KPiA8
-L3Vzci9zaGFyZS9tYW4vbWFuMy9weXRob24vZm9vLjM+Pw0KPiAgPiBPbiAqQlNEIHN5c3Rl
-bXMsIHRoYXQgdHlwaWNhbGx5IG1lYW5zOg0KPiAgPg0KPiAgPsKgwqDCoCBUaGUgYXJjaGl0
-ZWN0dXJlLXNwZWNpZmljIGxpYnJhcnkgZnVuY3Rpb24gZm9vKDMpDQo+ICA+wqDCoMKgIGZv
-ciB0aGUgInB5dGhvbiIgaGFyZHdhcmUgYXJjaGl0ZWN0dXJlLg0KPiAgPg0KPiAgPiBIZXJl
-IGFyZSBhIGZldyBleGFtcGxlcyBmcm9tIE9wZW5CU0Q6DQo+ICA+DQo+ICA+wqDCoMKgIC91
-c3Ivc2hhcmUvbWFuL21hbjEvc3BhcmM2NC9ta3N1bmNkLjENCj4gID7CoMKgwqAgL3Vzci9z
-aGFyZS9tYW4vbWFuMi9hcm12Ny9hcm1fc3luY19pY2FjaGUuMg0KPiAgPsKgwqDCoCAvdXNy
-L3NoYXJlL21hbi9tYW4yL2kzODYvaTM4Nl9pb3BsLjINCj4gID7CoMKgwqAgL3Vzci9zaGFy
-ZS9tYW4vbWFuMy9vY3Rlb24vY2FjaGVmbHVzaC4zDQo+ICA+wqDCoMKgIC91c3Ivc2hhcmUv
-bWFuL21hbjMvc2dpL2dldF9mcGNfY3NyLjMNCj4gID7CoMKgwqAgL3Vzci9zaGFyZS9tYW4v
-bWFuNC9hbHBoYS9pcm9uZ2F0ZS40DQo+ICA+wqDCoMKgIC91c3Ivc2hhcmUvbWFuL21hbjQv
-YW1kNjQvbXBiaW9zLjQNCj4gID7CoMKgwqAgL3Vzci9zaGFyZS9tYW4vbWFuNC9sdW5hODhr
-L2NidXMuNA0KPiAgPsKgwqDCoCAvdXNyL3NoYXJlL21hbi9tYW40L21hY3BwYy9vcGVucGlj
-LjQNCj4gID7CoMKgwqAgL3Vzci9zaGFyZS9tYW4vbWFuNC9wb3dlcnBjNjQvb3BhbGNvbnMu
-NA0KPiAgPsKgwqDCoCAvdXNyL3NoYXJlL21hbi9tYW40L3Jpc2N2NjQvc2ZncGlvLjQNCj4g
-ID7CoMKgwqAgL3Vzci9zaGFyZS9tYW4vbWFuNS9zcGFyYzY0L2xkb20uY29uZi41DQo+ICA+
-wqDCoMKgIC91c3Ivc2hhcmUvbWFuL21hbjgvaHBwYS9ib290LjgNCj4gID7CoMKgwqAgL3Vz
-ci9zaGFyZS9tYW4vbWFuOC9tYWNwcGMvcGRpc2suOA0KPiAgPsKgwqDCoCAvdXNyL3NoYXJl
-L21hbi9tYW44L3NnaS9zZ2l2b2wuOA0KPiAgPsKgwqDCoCAvdXNyL3NoYXJlL21hbi9tYW44
-L3NwYXJjNjQvbGRvbWN0bC44DQo+IA0KPiANCj4gT24gMTAvMTcvMjIgMDM6MjIsINC90LDQ
-sSB3cm90ZToNCj4+IENmLiwgd2VsbCwgdGhlIFVOSVggUHJvZ3JhbW1lcidzIE1hbnVhbDoN
-Cj4+ICAgIA0KPj4gaHR0cHM6Ly93d3cudHVocy5vcmcvQXJjaGl2ZS9EaXN0cmlidXRpb25z
-L1Jlc2VhcmNoL0Rlbm5pc192MS9VTklYX1Byb2dyYW1tZXJzTWFudWFsX05vdjcxLnBkZg0K
-Pj4gUERGIHBhZ2UgMTkxOyB5ZXMsIHRoZSB0eXBvZ3JhcGhpY2FsIGNvbnZlbnRpb24gaGVy
-ZSBpcyBpbnNhbmUsIGFuZA0KPj4gdGhlIGNvbnRlbXByYXJ5LWNvcnJlY3Qgd2F5IHRvIHJl
-ZmVyIHRvIHRoaXMgcGFnZSBmcm9tIHdpdGhpbiB0aGUgbWFudWFsDQo+PiB3b3VsZCBiZSAv
-anVzdC8gIi9ldGMvYXNjaWkiLCBidXQsIGdpdmVuIHRoZSBjb250ZXh0LCAiL2V0Yy9hc2Np
-aSAoVklJKSINCj4+IG1ha2VzIHRoZSBtb3N0IHNlbnNlIHRvIG1lDQo+IA0KPiBJIGp1c3Qg
-c2F3IHRoaXMgYW5kIHdvbmRlcmVkIGlmIHRoZSBzdWJkaXJzIGluIHRoZSBwYXN0IHdlcmUg
-dXNlZCBhcyANCj4ganVzdCBwYXJ0IG9mIHRoZSBtYW51YWwgcGFnZSBuYW1lLi4uDQo+IA0K
-PiBJIGhhdmUgYmVlbiByZW1lbWJlcmluZyBldmVyeSBub3cgYW5kIHRoZW4gdGhlIGRpc2N1
-c3Npb24gd2UgaGFkIGFib3V0IGEgDQo+IGh5cG90aGV0aWNhbCAtTSwgYW5kIHRoaW5rIHdl
-IG5lZWQgaXQgb3Igc29tZXRoaW5nIGxpa2UgdGhhdC7CoCBJIGd1ZXNzIA0KPiBzdWJkaXJz
-IGFyZSBub3QgcG9zc2libGUgbm93YWRheXMgYmVjYXVzZSBvZiB0aGUgdHJhbnNsYXRpb24g
-dXNhZ2UsIGJ1dCANCnMvdHJhbnNsYXRpb24vYXJjaC8NCj4gSSdtIGN1cmlvdXMgYWJvdXQg
-aWYgdGhhdCB3YXMgZGlmZmVyZW50IGluIHRoZSBwYXN0IG9yIHdoYXQuDQo+IA0KPiBEb2Vz
-IGFueW9uZSBrbm93Pw0KPiANCj4gQ2hlZXJzLA0KPiANCj4gQWxleA0KDQoNCi0tIA0KPGh0
-dHA6Ly93d3cuYWxlamFuZHJvLWNvbG9tYXIuZXMvPg0KDQo=
+Hi!
 
---------------FTehW30AO3DO90DZUYhLDsBQ--
+On Mon, Oct 17, 2022 at 01:10:51PM +0200, Alex Colomar wrote:
+> [CC +=3D groff@, since it was CCd in the old conversation referred to her=
+e]
+>=20
+> Hi Ingo,
+>=20
+> On 7/27/22 17:32, Ingo Schwarze wrote:
+> > Alejandro Colomar wrote on Sun, Jul 24, 2022 at 06:17:40PM +0200:
+> >> I wondered for a long time what happens if you create subdirs within a
+> >> man? section.  How do man(1)s handle </usr/share/man/man3/python/foo.3=
+>?
+> > On *BSD systems, that typically means:
+> >
+> >    The architecture-specific library function foo(3)
+> >    for the "python" hardware architecture.
+> >
+> > Here are a few examples from OpenBSD:
+> >
+> >    /usr/share/man/man1/sparc64/mksuncd.1
+> >    /usr/share/man/man2/armv7/arm_sync_icache.2
+> >    /usr/share/man/man2/i386/i386_iopl.2
+> >    /usr/share/man/man3/octeon/cacheflush.3
+> >    /usr/share/man/man3/sgi/get_fpc_csr.3
+> >    /usr/share/man/man4/alpha/irongate.4
+> >    /usr/share/man/man4/amd64/mpbios.4
+> >    /usr/share/man/man4/luna88k/cbus.4
+> >    /usr/share/man/man4/macppc/openpic.4
+> >    /usr/share/man/man4/powerpc64/opalcons.4
+> >    /usr/share/man/man4/riscv64/sfgpio.4
+> >    /usr/share/man/man5/sparc64/ldom.conf.5
+> >    /usr/share/man/man8/hppa/boot.8
+> >    /usr/share/man/man8/macppc/pdisk.8
+> >    /usr/share/man/man8/sgi/sgivol.8
+> >    /usr/share/man/man8/sparc64/ldomctl.8
+>=20
+>=20
+> On 10/17/22 03:22, =D0=BD=D0=B0=D0=B1 wrote:
+> > Cf., well, the UNIX Programmer's Manual:
+> >    https://www.tuhs.org/Archive/Distributions/Research/Dennis_v1/UNIX_P=
+rogrammersManual_Nov71.pdf
+> > PDF page 191; yes, the typographical convention here is insane, and
+> > the contemprary-correct way to refer to this page from within the manual
+> > would be /just/ "/etc/ascii", but, given the context, "/etc/ascii (VII)"
+> > makes the most sense to me
+>=20
+> I just saw this and wondered if the subdirs in the past were used as just
+> part of the manual page name...
 
---------------FjpTUVgK0zUDuqwIc0LO07CS
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+This typographical convention disappeared as early as V2;
+the top-right page numbers were all trimmed to basename space section
+(/etc/ascii (VII)        becomes ascii (VII)
+ /dev/tty0 ... tty5 (IV) becomes tty0 (IV)
+ &c.)
+
+Cf.
+https://www.tuhs.org/Archive/Distributions/Research/Dennis_v2/v2man.pdf
+
+In the BSD side of the proverbial family tree I don't see anything
+similar to what you describe until 4.4BSD which has bsd.man.mk MANSUBDIR
+and uses it to install to MANDIR/manN/MANSUBDIR/page.N, and uses it
+reasonably broadly for vax/sparc/whatever.
+I think this is as present-day?
+
+I don't see any on-line manuals in the SysIII/SysVr[1234] dumps I have,
+so I assume these were distributed as books only, so idk.
+Seeing as no arch-specific subdirectories survive in the illumos gate,
+arch-only features are sometimes annotated "(not in 3B2)" inline,
+and that the more esoteric pages have their center-top-page
+(where you'd get "General Commands Manual" or whatever nowadays)
+say like "(not on PDP-11)"/"(PDP-11 only)"/"(VAX stand-alone only)"/
+"(3B20S only)" but are otherwise part of the same big book I assume
+that never happened there.
+
+Without context idk what you mean specifically but I hope this shines
+some light or whatever.
+
+Best,
+=D0=BD=D0=B0=D0=B1
+
+--77r5uvpbwli663ak
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmNNObEACgkQnowa+77/
-2zJpgA//dwD9TrH9+eRmffqp4ez6jXMrY43oK5H2Qf/iWEXdzu9+N3s6TecRjq6R
-fZbJiQwDZJq2JCMLt92jYOPE54Yr1DubY++GK8k0Nf323Cox6avtUef+2pB7cYBV
-DX/5Ju+5NeSE3+arVaheUDW67+gthTBvzZ643N7fvCOVRP18a/rWI+fvkRj2lgiD
-bTs/e/D/3sNnRQMRgdCHq/mYSVCksE55ElzGSatdzpIy91HC/0A10OUe44zBtldm
-dKFN904/63jj7wj0QVi2oKrivNRsq2YzaYLKELJtgYoO83l7KUNogJAfcVFhPhcE
-qF5aEzxZHJqvXZeSTgfX3+5KoY1UMcQhzFrB342HKVOpZFUfrfrEWuT9PUL/XxFS
-HEKNJcxWcNv4uqYn4Txg9lCMtmagZ+kS5sgJeYSjtSP1Fwb1BTOQOgEOLrLebA0r
-8m6s5LpVRRFYccYQqQkvwT/exT6DiT+cZ2puEsqHmIVCvLVGlx+fkHot12kOVnFB
-wiMMcjtLNQqRLTBjpbuilacTqHCA5+3bAO/i5P863t174Qcvw1GJdyuvCWGR5f3A
-PwxsdF49JkuwYrfXcZ9xbIkaXsUQcbwFD0hNKN49+eK3ApRgpZ5ddGeMi8tjVXSk
-nR+qTxLIn4Fxr31FTrm2RYY9UmIpjzhT0G+TzeXtikm5vycHcTk=
-=dcUv
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmNNQt4ACgkQvP0LAY0m
+WPGryBAAqF0v0/ualZgnrMv6ot4LUuFGos7/Gk26PteiQWDoWTQYo2JJITDS7Px+
+XGUjp9twEh2S5Fd0G/w7Wv5L4+YDoec3bxZsbgLoCKBLSdCu7LXzFbVumC3mF94R
+oEi8o6hU9MJ5w5Omxn8hbUiuxQt8KwP3Px0ovimmKKMXJ9wTLbGaUEZCR1lLsbF3
+Tongz0jMchKlZPi6mBDdUsXypF+YmGXaXPbcr6zQPVXaSNQqUIsVXFiQnG1iWZWM
+PThd99FCNssMSyDDw8xMXPk9xNoKIHHeP0fhMsIGsObrlvzejDfuX6PFeKHbNg12
+g9yP99XWVfcwAVzZ95NmEdKuAnMA4jGRfuxCPsN4RULe3nUavW9i805fXWvYgj5H
+MEMOMcDHJU5AZPIbg9h2RHunqWkqoLxWTx6s+fWASqmqOqzfAo+eYVCTMCNraUic
+atgX10ieY6xXL0Je+HsHAWBCbiWahw4UGRC0OoBiTd+FqY/S8clolUsxq/V1INWQ
+MG4976rp8p+DcmUthc+pDAvlZaD6wy0FTu/LYSGAl+MT75Ks3mU0GjDGoOiEBQhV
+r42DSJpggCNONs5Ap1tqSSSJ4xXKt8X4MxAJTrN0MfvbeoHV5PBqWKL6eCQA4/GO
+LPufIn1k3Vt00trDcBdZXhrNxFX+5RkCabPtuML59DnitrbXcHY=
+=jOL9
 -----END PGP SIGNATURE-----
 
---------------FjpTUVgK0zUDuqwIc0LO07CS--
+--77r5uvpbwli663ak--
