@@ -2,108 +2,104 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 89F2C60310D
-	for <lists+linux-man@lfdr.de>; Tue, 18 Oct 2022 18:52:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3A3B16031A1
+	for <lists+linux-man@lfdr.de>; Tue, 18 Oct 2022 19:33:56 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229722AbiJRQwp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 18 Oct 2022 12:52:45 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39976 "EHLO
+        id S229882AbiJRRdz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 18 Oct 2022 13:33:55 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:32820 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229962AbiJRQwn (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 18 Oct 2022 12:52:43 -0400
-Received: from mail-oa1-x33.google.com (mail-oa1-x33.google.com [IPv6:2001:4860:4864:20::33])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D99B6EB758
-        for <linux-man@vger.kernel.org>; Tue, 18 Oct 2022 09:52:41 -0700 (PDT)
-Received: by mail-oa1-x33.google.com with SMTP id 586e51a60fabf-1364357a691so17496796fac.7
-        for <linux-man@vger.kernel.org>; Tue, 18 Oct 2022 09:52:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=rwBdPI5r3kzHizArL/FPP5doSZttYR9Bkn0L4xCBrSM=;
-        b=iys/K6uKvOxDeCbuYO5eVmUIuITEYSPa7/IWB/WsblniNtnLxNJLB+Ce+Urii47yXt
-         lKPCh6UL8F7xyfF2up0dpqbZTrKA+ZfELVG9y5D+87jsMVAOElH43cLsBIpEjEQ02BDR
-         EKmCBZb0QH1N6cnMJUbI53Q5U/hURWGABoBt+PBXWpZR9GoPuAF1N6tHZFEJO5YWPhuA
-         vvYLIUQKuK8dKPK0ISBdw6BZywOhHBhkFKuOOkzC9kG0ymGntr9CK6Lfa6PgnHq1L4MC
-         CtDo/jwx1VNEimkJU9RgCigrfKVi1UWGj+6ax2YZwa0yYiVMoXdlmG/daCE2iRt+6KdX
-         v3fw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=rwBdPI5r3kzHizArL/FPP5doSZttYR9Bkn0L4xCBrSM=;
-        b=kCc2Rm3u1//QpJWZ6Tdc51uBOkHtD37sF/wXT2Ni3M3h5x1oKG00VIFWv/MfJ9wgdq
-         PppVZVEnoT/hgvIenx9gQSjcxeY9fSvQnpvx+KIdPLArR5M1m+51d9eanDNfByIKA9kC
-         XosBE4bhTUvIyFw3pIfx9POhcU2oHJ937JHInZNyiriCV2bBU35fQOKbmAhuXyiFegK7
-         p+DEnnppdAdbvtcQhscx9Qw0B+v7TtnPSzDoWEPMfefH5UEu2vuPus4F92y3gDuEWOJu
-         1I7UDZi43L5Z9HtUbt+AJdpKahPVDwXQCMzxY2r1SJngJ7ofufXOYyInKNfeJ4Lx68Y4
-         vQ/Q==
-X-Gm-Message-State: ACrzQf2hmLVHnEMHkKANOTZGShU1KTs8f15BLUcJfmuoI/qpCAopHWXB
-        OJPscEgBM1o9SrMlvSD8qEOnorBqgILctEFjI4tV3Q==
-X-Google-Smtp-Source: AMsMyM5NmP4DT1WMHDXTf0FNmODlnkEfXlczNoBhfIRE98gxfbbP2/tGujvqfGGHiFRr4rNMSh2UCJ0WBDEdKuuUzuo=
-X-Received: by 2002:a05:6870:7023:b0:132:538:43e7 with SMTP id
- u35-20020a056870702300b00132053843e7mr2110178oae.123.1666111960691; Tue, 18
- Oct 2022 09:52:40 -0700 (PDT)
-MIME-Version: 1.0
-References: <20221017175523.2048887-1-zokeefe@google.com> <20221017175523.2048887-2-zokeefe@google.com>
- <d748d5dd-d1ef-d421-25f3-1706e9ce1eea@gmail.com>
-In-Reply-To: <d748d5dd-d1ef-d421-25f3-1706e9ce1eea@gmail.com>
-From:   "Zach O'Keefe" <zokeefe@google.com>
-Date:   Tue, 18 Oct 2022 09:52:05 -0700
-Message-ID: <CAAa6QmRQ10Q_C=6a7uOigsM8EBnonJ16JBmEDJWMB=tJ9AcU=A@mail.gmail.com>
-Subject: Re: [PATCH man-pages 1/4] madvise.2: update THP file/shmem
- documentation for +5.4
-To:     Alex Colomar <alx.manpages@gmail.com>
-Cc:     Yang Shi <shy828301@gmail.com>, linux-mm@kvack.org,
-        linux-man@vger.kernel.org
+        with ESMTP id S229526AbiJRRdy (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 18 Oct 2022 13:33:54 -0400
+Received: from ams.source.kernel.org (ams.source.kernel.org [IPv6:2604:1380:4601:e00::1])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A5535B2DA1
+        for <linux-man@vger.kernel.org>; Tue, 18 Oct 2022 10:33:53 -0700 (PDT)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        by ams.source.kernel.org (Postfix) with ESMTPS id 54233B82075
+        for <linux-man@vger.kernel.org>; Tue, 18 Oct 2022 17:33:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 0832DC433B5
+        for <linux-man@vger.kernel.org>; Tue, 18 Oct 2022 17:33:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1666114431;
+        bh=2dsrfVmgf+ZSQnFNxEnRyGhb8rYMM4OuVT5A9cCrTpQ=;
+        h=From:To:Subject:Date:In-Reply-To:References:From;
+        b=FpA3wF+KZFBGMfs5/nAhakDriKmIjnvA+KmCBos1iSfZQdJNAdCwxckp16y8koevL
+         1tM91ukUMMtB/Ni2vlAfMCz5rIYoieedV+LmVIBCAImqm0I51E5V8/hDkflL8as819
+         BEGTDm3Jd2dtkzqv8AwSGv92+/n7ZdrKYSug5wvBi3RcspLJyCDEk0QpFr/cImrXx2
+         XtHxpRvomTz+dIBCeFVh9nnCY8ZI98WmQQmYVygof5ulJShT452+w5tvLdgwOxTqQE
+         W2PJKNh7j/VuKH8cWx/AVhq73OhY+A1I7UVCZx03nfq6tWsi/lvqKJB9B2yanrCHL/
+         KyJTzPO/C8+jw==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
+        id E011FC433EA; Tue, 18 Oct 2022 17:33:50 +0000 (UTC)
+From:   bugzilla-daemon@kernel.org
+To:     linux-man@vger.kernel.org
+Subject: [Bug 216602] The build system requires the bsd compat libraries even
+ if only installing man pages
+Date:   Tue, 18 Oct 2022 17:33:50 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Documentation
+X-Bugzilla-Component: man-pages
+X-Bugzilla-Version: unspecified
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: alx.manpages@gmail.com
+X-Bugzilla-Status: RESOLVED
+X-Bugzilla-Resolution: CODE_FIX
+X-Bugzilla-Priority: P1
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: bug_status cc resolution
+Message-ID: <bug-216602-11311-85aDJcPCHY@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-216602-11311@https.bugzilla.kernel.org/>
+References: <bug-216602-11311@https.bugzilla.kernel.org/>
 Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: No, score=-17.6 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-        ENV_AND_HDR_SPF_MATCH,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
-        USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=ham
-        autolearn_force=no version=3.4.6
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
+MIME-Version: 1.0
+X-Spam-Status: No, score=-7.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hey Alex, thanks for taking a look!
+https://bugzilla.kernel.org/show_bug.cgi?id=3D216602
 
-> > diff --git a/man2/madvise.2 b/man2/madvise.2
-> > index 81cce56af..e14e0f7fb 100644
-> > --- a/man2/madvise.2
-> > +++ b/man2/madvise.2
-> > @@ -320,8 +320,6 @@ Enable Transparent Huge Pages (THP) for pages in the range specified by
-> >   .I addr
-> >   and
-> >   .IR length .
-> > -Currently, Transparent Huge Pages work only with private anonymous pages (see
-> > -.BR mmap (2)).
-> >   The kernel will regularly scan the areas marked as huge page candidates
-> >   to replace them with huge pages.
-> >   The kernel will also allocate huge pages directly when the region is
-> > @@ -354,12 +352,45 @@ an access pattern that the developer knows in advance won't risk
-> >   to increase the memory footprint of the application when transparent
-> >   hugepages are enabled.
-> >   .IP
-> > +.\" commit 99cb0dbd47a15d395bf3faa78dc122bc5efe3fc0
-> > +Since Linux 5.4,
-> > +automatic scan of eligible areas and replacement by huge pages works with
-> > +private anonymous pages (see
-> > +.BR mmap (2)),
-> > +shmem-backed pages (including tmpfs (see
-> > +.BR tmpfs (5)),
->
-> I think here's missing a closing parenthesis.  Please check.  Maybe you
-> prefer combining em dashes or commas with parentheses to improve
-> visually discerning subclauses.
+Alejandro Colomar (man-pages) (alx.manpages@gmail.com) changed:
 
-Not only a good catch on the parenthesis, but I didn't actually know
-about the "em dash" previously (though I'm a frequent user of it in
-spirit). Thank you! With that in-hand, there are few places that could
-be cleaned up to avoid nested paracentesis.
+           What    |Removed                     |Added
+----------------------------------------------------------------------------
+             Status|NEW                         |RESOLVED
+                 CC|                            |alx.manpages@gmail.com
+         Resolution|---                         |CODE_FIX
 
-Best,
-Zach
+--- Comment #1 from Alejandro Colomar (man-pages) (alx.manpages@gmail.com) =
+---
+Hi Pierre!
+
+Thanks!  I was worried about it but didn't know what to do.  I've fixed now:
+
+<https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?id=3D8=
+f97613a490f5b5bdb1156f4572424771e051020>
+
+<https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?id=3D3=
+4caa7cd4d50f4ab306c18d5fc07c5619f237aea>
+
+I'll release 6.01 soon with this fix, since it's important enough.  I would
+release 6.00.1, but I prefer releasing some recent changes that deserve a n=
+ew
+release.
+
+--=20
+You may reply to this email to add a comment.
+
+You are receiving this mail because:
+You are watching the assignee of the bug.=
