@@ -2,70 +2,75 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 1CEBE603285
-	for <lists+linux-man@lfdr.de>; Tue, 18 Oct 2022 20:31:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 4BC266032B7
+	for <lists+linux-man@lfdr.de>; Tue, 18 Oct 2022 20:48:36 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230032AbiJRSbY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 18 Oct 2022 14:31:24 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36332 "EHLO
+        id S229720AbiJRSsf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 18 Oct 2022 14:48:35 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44110 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230030AbiJRSbX (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 18 Oct 2022 14:31:23 -0400
-Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com [IPv6:2607:f8b0:4864:20::22c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0DE723C17C
-        for <linux-man@vger.kernel.org>; Tue, 18 Oct 2022 11:31:21 -0700 (PDT)
-Received: by mail-oi1-x22c.google.com with SMTP id w74so16595582oie.0
-        for <linux-man@vger.kernel.org>; Tue, 18 Oct 2022 11:31:21 -0700 (PDT)
+        with ESMTP id S229453AbiJRSse (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 18 Oct 2022 14:48:34 -0400
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com [IPv6:2a00:1450:4864:20::434])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EBFA79F363;
+        Tue, 18 Oct 2022 11:48:32 -0700 (PDT)
+Received: by mail-wr1-x434.google.com with SMTP id j16so25203373wrh.5;
+        Tue, 18 Oct 2022 11:48:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20210112;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:subject:cc:to:content-language:user-agent
+         :mime-version:date:message-id:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=EnP8sgGhihhh5pbXuuUK2sG9k2D16qAENqhp+CIh9HE=;
-        b=AFOcQpSfNP6N3XORSUBvHbgkPAaQwNtJbq3oZ2rcNj6xjkXoAgjjx+3gSmzMItZq0D
-         OlW+42vwAkwGltYJIK/D12GmyoSeEe3OhpJKMml1c7FSeRhTKR8kS3wE0K3+0fweS6Zz
-         1l8UIxSS4BxzhboAX1lKxaJODpn1TyMN3Y3gMPL39cMuWM7NeyK1LEMT0loaBl8ILvKb
-         iCoKBmizhpsrPv6Qny7QXMrl8kyndCyWmesLe+DPMQcKMUeFTq1mymkN/E57Yww6sOkR
-         c/WCAWZISBoUkl7qPWl1G2eMbJDzfIXMtMV56MaSlisoAocLEMnQNPDcSJow5O9SUvbM
-         /ffg==
+        bh=1B4uQFomqZcKA1aWhx4jMpHwleRSccFekx+UVfGhW1E=;
+        b=Fhk2zU4yzRCoc/3UIGYe5w0pV84U6qJ8Ld8XEaWQ8sybzJCy1HIyLm2B7BSODnaZA7
+         gsyA7BOJFAD/VmT9jD+zMU1j07DTLgYUWX03+OBkrxMVfQwzVF7bSrL5E+BSyfYLg/U3
+         6Ba5BtxuOCVEfWxjPXppcOL3owBTQvzL9WSqFsPkLk470/ljamx4GWtDnu8FSOkPHYkO
+         SU9fkEAyairO7hQX3zz1N9K8VFlygwFxvpf26wyUhY4Y0e/pfjjE4+iOM4aZTw/0H11p
+         lDtdOWmkTbfIGyIXLofPSczMhHVeIS+Z1I+sphY/gryiBVgvCClSU0ZpCTt19/GmNOZy
+         wVCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+        h=content-transfer-encoding:subject:cc:to:content-language:user-agent
+         :mime-version:date:message-id:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=EnP8sgGhihhh5pbXuuUK2sG9k2D16qAENqhp+CIh9HE=;
-        b=IWXrAbXSSoFrrfafrI2wjQeR8oEMv/SADfMiZSo2EwmC7BWO89oIYiqzIcpdXzua5c
-         lgZ0SLmDa/rcsDLqNajHMyqGIzXbySY6LI2GfQf2ggV3TCuzBAY2rAA1gfGE2m9GBOSQ
-         jkFG5z4I+yaztWl/DwU02QcyqUFgsMpU22UhCNSj6I+Y8ZtGsDt0FAic1ZG7pUf9rnaR
-         +QAmEawOc2dkAzu285718u5Tfn2AsCmazqSqWotO8udRmEI13YVH1PXX1nau2Hu2S4Vw
-         nUsXYf/XMZonAOg51aHvV9TuI9QP2cuoA2JwNEjrpjTYBKPD8zpGKe4RvYTfc5KKUNXS
-         GD/Q==
-X-Gm-Message-State: ACrzQf2uOIhg5Xs8NSYqBxZHebsy67uBB52+yfz7E/8214Lkqgieq7BP
-        pQEOSUpgQhvv6DgmrTyTgpaGbMqXkiALuvkrziRI9Zm9Wp0=
-X-Google-Smtp-Source: AMsMyM5+40jotf53m5cZQRUwf/hLr9NInDdhVdN7owL/JDYj0ah9yrixM5AtJyvtvRoAhjlZJxKaHcnjXOePLaT4t3w=
-X-Received: by 2002:a05:6808:f12:b0:354:b4c6:b4a3 with SMTP id
- m18-20020a0568080f1200b00354b4c6b4a3mr2070234oiw.123.1666117880895; Tue, 18
- Oct 2022 11:31:20 -0700 (PDT)
+        bh=1B4uQFomqZcKA1aWhx4jMpHwleRSccFekx+UVfGhW1E=;
+        b=Ue4Qu4s6xwcCn2J2xDWZDiiy3pTiJDlB/XeUcBZ22fDfoQB4RFVJXvKgpfhWEP2t8w
+         T7Nj+ED3ZFXa9Yzgg1AJ2Cfq91ct/Yrb8psa/IHBikzeqCVFSQW29LFAQobEfPrsqv5E
+         H4DKMMny+u1p7rGSU5MxWBD/yU0p+f5Tb+cbHYaUsSSjfqPWxP3792CYqiLBzaE/yRHr
+         cgsonrmD4oAwzDOY6DDg8Zb537qD1J8Us9i6u29SpzA402LNwj5NCYvZHhiF/+s+voDR
+         QAGJN/kGKBX/2yAK7FAWykJNgb2XROyO2yoIQeV3Lz+vRkqU0UuV/iRNuy0E3A3TOHCQ
+         VQQg==
+X-Gm-Message-State: ACrzQf0lLdUFadTbU7KUR+WB5cs6tByito1c2MFfP2rExtnxw8E7qjrO
+        4skCQwgb5HFLK0A+lrWCbMg=
+X-Google-Smtp-Source: AMsMyM618G4qNRFWj1h5K+/NYtPnnh0r7INysWssGfChFVQGZmZ2UNQUYGajcgmJZD940vn0eBO/bg==
+X-Received: by 2002:a5d:6a42:0:b0:22e:6706:647b with SMTP id t2-20020a5d6a42000000b0022e6706647bmr2801236wrw.58.1666118911351;
+        Tue, 18 Oct 2022 11:48:31 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id bl13-20020adfe24d000000b00230b3a0f461sm11581949wrb.33.2022.10.18.11.48.30
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 18 Oct 2022 11:48:30 -0700 (PDT)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+X-Google-Original-From: Alejandro Colomar <alx@kernel.org>
+Message-ID: <4ba6c215-6d28-1769-52d3-04941b962ff3@kernel.org>
+Date:   Tue, 18 Oct 2022 20:48:29 +0200
 MIME-Version: 1.0
-References: <20221017175523.2048887-1-zokeefe@google.com> <20221017175523.2048887-3-zokeefe@google.com>
- <2de9de5f-c82d-f2ce-26e3-b9fabd88a08c@gmail.com> <CAAa6QmQn-8sY2N7r4-rAHJbgdMdAkJUKQyGWfbief0bhdY4Csw@mail.gmail.com>
- <30f2b019-1dbd-dbb8-e6f5-a1c2c9f3a979@gmail.com>
-In-Reply-To: <30f2b019-1dbd-dbb8-e6f5-a1c2c9f3a979@gmail.com>
-From:   "Zach O'Keefe" <zokeefe@google.com>
-Date:   Tue, 18 Oct 2022 11:30:45 -0700
-Message-ID: <CAAa6QmRghdBvHv43LoekXCzEhf8yE=CK-atgty=Y0nxDSoh83A@mail.gmail.com>
-Subject: Re: [PATCH man-pages 2/4] madvise.2: document reliable probe for
- advice support
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
-        Yang Shi <shy828301@gmail.com>, linux-mm@kvack.org,
-        linux-man@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: No, score=-17.6 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-        ENV_AND_HDR_SPF_MATCH,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
-        USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=ham
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.2
+Content-Language: en-US
+To:     Michael Kerrisk <mtk.manpages@gmail.com>,
+        LKML <linux-kernel@vger.kernel.org>,
+        GNU C Library <libc-alpha@sourceware.org>,
+        linux-man <linux-man@vger.kernel.org>
+Cc:     Jonathan Corbet <corbet@lwn.net>,
+        "Dr. Tobias Quathamer" <toddy@debian.org>,
+        Marcos Fouces <marcos@debian.org>, Sam James <sam@gentoo.org>,
+        Pierre Labastie <pierre.labastie@neuf.fr>
+Subject: man-pages-6.01 released
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -73,59 +78,115 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Tue, Oct 18, 2022 at 11:04 AM Alejandro Colomar
-<alx.manpages@gmail.com> wrote:
->
-> Hey Zach!
->
-> On 10/18/22 19:53, Zach O'Keefe wrote:
-> > Hey Alex,
-> >
-> >>> diff --git a/man2/madvise.2 b/man2/madvise.2
-> >>> index e14e0f7fb..adfe24c24 100644
-> >>> --- a/man2/madvise.2
-> >>> +++ b/man2/madvise.2
-> >>> @@ -789,6 +789,13 @@ that are not mapped, the Linux version of
-> >>>    ignores them and applies the call to the rest (but returns
-> >>>    .B ENOMEM
-> >>>    from the system call, as it should).
-> >>> +.PP
-> >>> +.BR madvise (0,
-> >>> +0,
-> >>> +.IR advice )
-> >>
-> >> For expressions, we don't follow the same highlighting rules as in
-> >> identifiers and man-page references.  Instead we use all italics.  See
-> >> man-pages(7):
-> >>
-> >>          Expressions, if not written on a separate indented  line,
-> >>          should  be  specified in italics.  Again, the use of non=E2=
-=80=90
-> >>          breaking spaces may be appropriate if the  expression  is
-> >>          inlined with normal text.
-> >
-> > Just to confirm, by "expression", you mean "madvise(0, 0, advice)"?
->
-> Yes, I meant that.
->
-> > If
-> > so, to be consistent with the other note, perhaps best to break this
-> > into a phrase such as:
-> >
-> > --8<---
-> > .BR madvise ()
-> > called with zero for both
-> > .IR addr
-> > and
-> > .IR length
-> > will return zero iff
-> > .I advice
-> > is supported by the kernel and can be relied on to probe for support.
-> > --8<---
->
-> I think the C expression was more readable.
+Gidday!
 
-SGTM - will update for v2.  Appreciate your help here!
+I'm proud to announce:
 
-Best,
-Zach
+     man-pages-6.01 - manual pages for GNU/Linux
+
+This release results from patches, bug reports, reviews, and comments
+from around 16 contributors.  The release includes around 14 commits,
+and changed all of the pages.
+
+Tarball download:
+     <https://mirrors.edge.kernel.org/pub/linux/docs/man-pages/>
+Git repository:
+     <https://git.kernel.org/cgit/docs/man-pages/man-pages.git/>
+
+The most notable changes in man-pages-6.01 are the following:
+
+- Build system fixes.  These were quite bad for distributors, which is
+   the reason we released 6.01 so soon after 6.00.
+
+- Document EOF, FAN_MARK_IGNORE, STATX_DIOALIGN, and a few feature
+   test macros.
+
+Thank you all for contributing.
+
+
+Cheers,
+
+Alex
+
+==================== Changes in man-pages-6.01 ====================
+
+Released: 2022-10-18, Aldaya
+
+
+Contributors
+------------
+
+The following people contributed patches/fixes, reports, notes,
+ideas, and discussions that have been incorporated in changes in
+this release:
+
+"G. Branden Robinson" <g.branden.robinson@gmail.com>
+Agostino Sarubbo <ago@gentoo.org>
+Alejandro Colomar <alx@kernel.org>
+Amir Goldstein <amir73il@gmail.com>
+Darrick J. Wong <djwong@kernel.org>
+Eric Biggers <ebiggers@google.com>
+Grigoriy <grigoriyremvar@protonmail.com>
+Jakub Wilk <jwilk@jwilk.net>
+Jan Kara <jack@suse.cz>
+Matthew Bobrowski <repnop@google.com>
+Michael Tokarev <mjt@tls.msk.ru>
+Mike Gilbert <floppym@gentoo.org>
+Nicolás A. Ortega Froysa <nicolas@ortegas.org>
+Pierre Labastie <pierre.labastie@neuf.fr>
+Sam James <sam@gentoo.org>
+Steve Izma <sizma@golden.net>
+
+Apologies if I missed anyone!
+
+
+New and rewritten pages
+-----------------------
+
+EOF.3const
+
+
+Newly documented interfaces in existing pages
+---------------------------------------------
+
+fanotify_mark.2
+	FAN_MARK_IGNORE
+
+open.2, statx.2
+	STATX_DIOALIGN
+
+feature_test_macros.7
+	_FORTIFY_SOURCE=3
+	_TIME_BITS
+
+
+Global changes
+--------------
+
+- Build system:
+
+   - Update manual page dates (TH 3rd argument) when creating the tarball
+     with 'make dist'.  this removes the need for a tstamp commit before
+     each release.
+
+   - Don't print spurious errors from the Makefile that are not relevant.
+
+- Manual pages' sections:
+
+   - Title (.TH):
+
+     - Remove the hardcoded date (TH 3rd argument), and replace it by a
+       placeholder that should be changed when creating the tarball.
+       This removes the need for a tstamp commit before each release.
+
+
+Changes to individual pages
+---------------------------
+
+The manual pages (and other files in the repository) have been improved
+beyond what this changelog covers.  To learn more about changes applied
+to individual pages, use git(1).
+
+
+-- 
+<http://www.alejandro-colomar.es/>
