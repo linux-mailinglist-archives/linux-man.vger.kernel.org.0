@@ -2,82 +2,90 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id D38FA60333F
-	for <lists+linux-man@lfdr.de>; Tue, 18 Oct 2022 21:18:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8B6BC603351
+	for <lists+linux-man@lfdr.de>; Tue, 18 Oct 2022 21:22:35 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229452AbiJRTSy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 18 Oct 2022 15:18:54 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55176 "EHLO
+        id S229452AbiJRTWd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 18 Oct 2022 15:22:33 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36168 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229905AbiJRTSv (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 18 Oct 2022 15:18:51 -0400
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C2014786E5
-        for <linux-man@vger.kernel.org>; Tue, 18 Oct 2022 12:18:50 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by sin.source.kernel.org (Postfix) with ESMTPS id DB0FACE1D52
-        for <linux-man@vger.kernel.org>; Tue, 18 Oct 2022 19:18:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 135E7C433B5
-        for <linux-man@vger.kernel.org>; Tue, 18 Oct 2022 19:18:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1666120727;
-        bh=FkY3qolpJUth47eT5FAmiX+IHKCm6ryZQCH3R8/UEcU=;
-        h=From:To:Subject:Date:In-Reply-To:References:From;
-        b=cSN5em+rMNaHKiauWADNts88tRxauEh0L9yqq6hYS5IIHak4ZbGb2aKiZ3UxiCy8B
-         fZC/MDM/lP1A5+VFJYrCQ5NbfA7Tll4lh1XYySpE6jpRfO/Gk9lyyKsl8xt3HqKlSC
-         r6NtA4rNdgcg2grV6S8005yXaSC1Ndy2tNZbM9X0bvx5u9onF9SmpzxVi2hWOWy8an
-         PRX4FiocnhmryqWptp9JACwwsaSu03EGpV1hR0mG5zYh/Wtb70rUVnFwVwtO7+liDt
-         xlfx0gSHlEGrrLs7ZmO3as5RwLaTeYFIrCEwMsAb44jDLhMD99jEIdqhV42ZiifVXy
-         TjOZ5LO2IEgdA==
-Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
-        id ECEEEC433EA; Tue, 18 Oct 2022 19:18:46 +0000 (UTC)
-From:   bugzilla-daemon@kernel.org
-To:     linux-man@vger.kernel.org
-Subject: [Bug 216602] The build system requires the bsd compat libraries even
- if only installing man pages
-Date:   Tue, 18 Oct 2022 19:18:46 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: changed
-X-Bugzilla-Watch-Reason: AssignedTo
- documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Product: Documentation
-X-Bugzilla-Component: man-pages
-X-Bugzilla-Version: unspecified
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: normal
-X-Bugzilla-Who: pierre.labastie@neuf.fr
-X-Bugzilla-Status: RESOLVED
-X-Bugzilla-Resolution: CODE_FIX
-X-Bugzilla-Priority: P1
-X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: 
-Message-ID: <bug-216602-11311-Lijo4vSprR@https.bugzilla.kernel.org/>
-In-Reply-To: <bug-216602-11311@https.bugzilla.kernel.org/>
-References: <bug-216602-11311@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
+        with ESMTP id S229572AbiJRTWc (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 18 Oct 2022 15:22:32 -0400
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com [IPv6:2a00:1450:4864:20::429])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CE4EA6C134
+        for <linux-man@vger.kernel.org>; Tue, 18 Oct 2022 12:22:31 -0700 (PDT)
+Received: by mail-wr1-x429.google.com with SMTP id bk15so25295183wrb.13
+        for <linux-man@vger.kernel.org>; Tue, 18 Oct 2022 12:22:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:subject:to:content-language:user-agent
+         :mime-version:date:message-id:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=0l2o6FF0Aa4QPBfSWwaWrhe6ftxYsQaAb7C/MIpJIZY=;
+        b=Xo+FsrtJdZ88z8g5oX2UaPJ9pksosP+GIHt/79TVNvT73dHoLw/5jJBDN2u1bceIT/
+         SBkaRjskG4BZiggduj6jTbqAl7d3gepV7XP6+o9MMYVCrGPwZsAYllqQPTA3B1JxXo7U
+         c65gmgapTQ7Kyg8X6cJil7GfF0TOvz+q/67a2DxLZidDMs4/r++PhrzkujGU0krMWzw8
+         XIoLP08DZGZD7M5p/LudAiBL3hCma8mMlQmTaM7fwqfrBb86JydHNQsVWKu5MajAZswP
+         OcF0WY0pLT8T8DpoolZxHfIDFG0OvBEEgDf0go4Cxjg+41UVbmLIl+SMFTSAEbgSSiBY
+         4qcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:subject:to:content-language:user-agent
+         :mime-version:date:message-id:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=0l2o6FF0Aa4QPBfSWwaWrhe6ftxYsQaAb7C/MIpJIZY=;
+        b=KXUjYIBX1X+OvQlSfvrmPB8UfXDMjW7XshOsmylk0/BaPWQ6+w+w/q8HlM93h4aaV5
+         MlAaflB80brQ3zKm8HDrq4TOpOORRV3dk0o4Nk4rYqZpkNZJfJRvPH8WMNsBMxHbkEBa
+         0dplIeehCZm6iacl5u//xV5LniE37m+QcSZt4OIuvkE0DWvUjemL/ESx7MjmYqQU2yZe
+         6rC146TEQaqELVCan0WYEBmpnh1ixq8nKc0y3ib+1851qD4eohteOpJeKXy5ZAE7uaTo
+         a0aElyLRYH3AeN2Ta7jdbwS5X6rxWRlESmd9J6oSrpLb5bjH2QqGB40lpLpewi0c5ecc
+         5GdQ==
+X-Gm-Message-State: ACrzQf2/+ge3/Bzg10bV+5TLUjq5Ne+xgpi8EErPDzL+zrCkzloS9ABx
+        +mwWO1230oeb6T4qNW4eJwdERxZOGhs=
+X-Google-Smtp-Source: AMsMyM4COS/NFowwhF/GqG+Cr8tMTQzL6fUKST50MEYKoR8+XAJVJcNhuz24WOL75Ajek+loTJrFlw==
+X-Received: by 2002:adf:a459:0:b0:22e:3725:ba17 with SMTP id e25-20020adfa459000000b0022e3725ba17mr2848575wra.110.1666120950038;
+        Tue, 18 Oct 2022 12:22:30 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id r16-20020a05600c35d000b003a84375d0d1sm21765298wmq.44.2022.10.18.12.22.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 18 Oct 2022 12:22:29 -0700 (PDT)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+X-Google-Original-From: Alejandro Colomar <alx@kernel.org>
+Message-ID: <a94037d5-b30b-897a-eac8-879c834914f8@kernel.org>
+Date:   Tue, 18 Oct 2022 21:22:28 +0200
 MIME-Version: 1.0
-X-Spam-Status: No, score=-7.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.2
+Content-Language: en-US
+To:     Pierre Labastie <pierre.labastie@neuf.fr>,
+        linux-man <linux-man@vger.kernel.org>
+Subject: installing man-pages from source
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D216602
+Hi Pierre,
 
---- Comment #2 from Pierre Labastie (pierre.labastie@neuf.fr) ---
-Thanks for the fast answer.
+We discovered a bug about using install(1) very recently in a discussion 
+in NGINX Unit:
 
---=20
-You may reply to this email to add a comment.
+<https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/>
 
-You are receiving this mail because:
-You are watching the assignee of the bug.=
+I forgot to apply this fix before releasing man-pages-6.01.  :(
+I'm interested in knowing if it's important for you and if you'd like 
+any action from me.  I guess it's especially important to linuxfromscratch.
+
+Cheers,
+
+Alex
+
+-- 
+<http://www.alejandro-colomar.es/>
