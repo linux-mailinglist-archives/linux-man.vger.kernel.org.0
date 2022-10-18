@@ -2,61 +2,60 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 83D976034D9
-	for <lists+linux-man@lfdr.de>; Tue, 18 Oct 2022 23:23:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B127B603549
+	for <lists+linux-man@lfdr.de>; Tue, 18 Oct 2022 23:54:58 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229535AbiJRVX0 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 18 Oct 2022 17:23:26 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41646 "EHLO
+        id S229509AbiJRVy4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 18 Oct 2022 17:54:56 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43166 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229470AbiJRVXZ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 18 Oct 2022 17:23:25 -0400
-Received: from mail-oa1-x31.google.com (mail-oa1-x31.google.com [IPv6:2001:4860:4864:20::31])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E1C53B5162
-        for <linux-man@vger.kernel.org>; Tue, 18 Oct 2022 14:23:24 -0700 (PDT)
-Received: by mail-oa1-x31.google.com with SMTP id 586e51a60fabf-1364357a691so18383070fac.7
-        for <linux-man@vger.kernel.org>; Tue, 18 Oct 2022 14:23:24 -0700 (PDT)
+        with ESMTP id S229587AbiJRVyz (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 18 Oct 2022 17:54:55 -0400
+Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com [IPv6:2001:4860:4864:20::2a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 37B0540E33
+        for <linux-man@vger.kernel.org>; Tue, 18 Oct 2022 14:54:54 -0700 (PDT)
+Received: by mail-oa1-x2a.google.com with SMTP id 586e51a60fabf-132fb4fd495so18448697fac.12
+        for <linux-man@vger.kernel.org>; Tue, 18 Oct 2022 14:54:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=google.com; s=20210112;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=HKNro2Dl2lLl1vH96Fa6tylrRWVVjIEfAK2Tj8kMrac=;
-        b=mQZqbeuZgFxPySK+/ATK+Ynm8gV5RriBOamrhsmxgpg+1qx2/sq2k6HkhFAQAhpLkA
-         jZYNPN2SB4+/ERAHiNlofKC5YvbVH1vUspptyioL5QHumpha/s+GiNg1mpAPQOKGWiSw
-         kCBKZsUYts6F5XFTlRZtO+QZw+x4cPFG6JSsCyVfakMK9jgMhzO+cTbjAUhTFmiDxHOj
-         ITnRol1I8MzlUVBb9y7gaJj6ldCzYf8UJmJXiN8XDx5UnJ12yOA9PDbt0rrWePSV7Bh9
-         McgEPagKwYlbt77JIYXbD4xUOP6CpCiIn/EbIHIsukyNbpc6d51vS03JQ8svzAY36jlj
-         0mcQ==
+        bh=vg0Pcs10Y92MsNWsNPF7sv/sR53jtyZyeD2Za0Kgcdw=;
+        b=N4HpQK/GZ7fxikFLN08ygHMbQJ0CNQnd6j6xW4f4tUOgjLxGJ1QtijxStMRMu4coEW
+         +H1382tHH0EzW22OPoEwiRb7pqB7fiv5LAvys2V3MnBUyTelJvfFFUjHEJDL1HuYDXTt
+         XQSTXgrgqHcyZPkHYkQsrqH+QaOHBZcMdn55mUBDLN5VGqzNPqzazlzpqJjImG6X/8VA
+         0EyWdl6XmprwvsPgS3t/Xm2I+cLcmyT9+5vfc13rEC95Kjqo78jvK3H3sLagrbqZHLZC
+         s8qxC7ETrRsOLq27Qem5DG6ePFU53V/I21zBiTUWwccIlxseRlmT3jnADQaxskQXTdW8
+         jttQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=HKNro2Dl2lLl1vH96Fa6tylrRWVVjIEfAK2Tj8kMrac=;
-        b=oP7DlwTbQJKF5g+ddGYxnrin7fUYZk+BdTx7vrNihYVnnmFzje9KhQ4d5N2GHDB2DS
-         LWSdCFoTn21/cNvXd+V31GP4CpKGKcLwrr8Dw/5rC4AEiuKpMg6M/GSp8H0oP4pSIih1
-         nsSXR9mYt6bmQibaP+6TXDdFWzGxZ3uMa/aqVU2RwNpxMdUGLukec7V/U4oHWGW22i7S
-         +RpCiemHEd9I0TjUAHRWw7gEsX3Dibdq6aWHP0V+YRaJR/LyV2dNNoiKPjW+UQxR2R0D
-         IUFbrABFnkgXvLkta9/Qwx/NR5HiAlOv9r3PJRUq2b1KXEuWmvVwzsE8doQBu7Br7Egy
-         M6ow==
-X-Gm-Message-State: ACrzQf3n/v26+UAabp9eS6NKmJzQWsR1lWW18WhdUery+WOBFJ9aDO7A
-        TR5YeJO5GEvea37poeb5BpTC5m5knvjF5fNPBFZE/g==
-X-Google-Smtp-Source: AMsMyM7JsKutNnrrYEHZPS1NHrhsFk9OhYRU++CvDtuKH2c/lSnYp62n6rXadzxeR4sfoZAHXx4Z6+dRuEC3Gwb9LxA=
+        bh=vg0Pcs10Y92MsNWsNPF7sv/sR53jtyZyeD2Za0Kgcdw=;
+        b=00rxLkgOAt+MCzgw8VCMf9g5dK9hmLSLdryY7CdDncHT+cwyU055vSYUwzbtyLeIPg
+         cnexaVf6sdmzWbLHs36waz1Z/OsTQbu8pAI3bLOOe44EXPhNW4j8E2jPnB+0V4girxTg
+         51GuCBPAaCXyWzU4fgzaT6CZX5dwD2LZ5Dd7XYbnZY/6X30StexRmyHxkeIAyNE6aKsO
+         4xZxBSqJGHih3XTxlt066avIW8BRF6WvF7DGhNtizksuwuCaZPMZ1tFcKwbodnHJZKI6
+         v2FZBf/JPMvGTZrnyW0aQniScq+Nfy9Z3mkEiqtUvCAMEdfFuMIk8umPmGEQrSQvrJ2a
+         ub4A==
+X-Gm-Message-State: ACrzQf1u238uOXY+22HJGoqptO6ZyRJajFpavBUk4EfpYSczvOMDyglL
+        ZYta07bFtu4ALDLPYqSu25z2PA+mH7Y435QobqdRmw==
+X-Google-Smtp-Source: AMsMyM7XrQbi06W+gjRcTz+WgL5SSxyvGih+iSbwSDcckk/j7tSXbhbXjZ7M9kVfJKHI/MqHEp3GVEtc8Wrxi+0fkU8=
 X-Received: by 2002:a05:6870:7023:b0:132:538:43e7 with SMTP id
- u35-20020a056870702300b00132053843e7mr2792828oae.123.1666128204029; Tue, 18
- Oct 2022 14:23:24 -0700 (PDT)
+ u35-20020a056870702300b00132053843e7mr2852494oae.123.1666130093426; Tue, 18
+ Oct 2022 14:54:53 -0700 (PDT)
 MIME-Version: 1.0
-References: <20221017175523.2048887-1-zokeefe@google.com> <20221017175523.2048887-4-zokeefe@google.com>
- <95dd505c-40cd-b4f3-c510-1f21dcb77f1d@gmail.com>
-In-Reply-To: <95dd505c-40cd-b4f3-c510-1f21dcb77f1d@gmail.com>
+References: <20221017175523.2048887-1-zokeefe@google.com> <20221017175523.2048887-5-zokeefe@google.com>
+ <0e980bc2-d8a8-1ad0-2660-cc9f7f8568a3@gmail.com>
+In-Reply-To: <0e980bc2-d8a8-1ad0-2660-cc9f7f8568a3@gmail.com>
 From:   "Zach O'Keefe" <zokeefe@google.com>
-Date:   Tue, 18 Oct 2022 14:22:48 -0700
-Message-ID: <CAAa6QmRuqAX6qpwE3Pm=068AR1ikByxF1BkrSUaqsBRqPJt9Lw@mail.gmail.com>
-Subject: Re: [PATCH man-pages 3/4] process_madvise.2: CAP_SYS_ADMIN cleanup
+Date:   Tue, 18 Oct 2022 14:54:17 -0700
+Message-ID: <CAAa6QmRu6CkLi9N0BxXmuj0kcwaG386iBqu6MesT-=Kt_HmkhA@mail.gmail.com>
+Subject: Re: [PATCH man-pages 4/4] madvise.2: add documentation for MADV_COLLAPSE
 To:     Alex Colomar <alx.manpages@gmail.com>
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
-        Yang Shi <shy828301@gmail.com>, linux-mm@kvack.org,
-        linux-man@vger.kernel.org, Suren Baghdasaryan <surenb@google.com>
+Cc:     Yang Shi <shy828301@gmail.com>, linux-mm@kvack.org,
+        linux-man@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 X-Spam-Status: No, score=-17.6 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
         DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
@@ -71,53 +70,34 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Hey Alex,
 
-On Tue, Oct 18, 2022 at 3:38 AM Alex Colomar <alx.manpages@gmail.com> wrote:
+On Tue, Oct 18, 2022 at 3:47 AM Alex Colomar <alx.manpages@gmail.com> wrote:
 >
 > Hi Zach,
 >
 > On 10/17/22 19:55, Zach OKeefe wrote:
 > > From: Zach O'Keefe <zokeefe@google.com>
 > >
-> > Since commit 96cfe2c0fd23 ("mm/madvise: replace ptrace attach
-> > requirement for process_madvise"), process_madvise(2) has only
-> > required CAP_SYS_NICE capability.  Update the man page to reflect this.
+> > Linux 6.1 introduced MADV_COLLAPSE in upstream commit 7d8faaf15545
+> > ("mm/madvise: introduce MADV_COLLAPSE sync hugepage collapse") and
+> > upstream commit 34488399fa08 ("mm/madvise: add file and shmem support to
+> > MADV_COLLAPSE").  Update the man-pages for madvise(2) and
+> > process_madvise(2).
 > >
+> > Link: https://lore.kernel.org/linux-mm/20220922224046.1143204-1-zokeefe@google.com/
+> > Link: https://lore.kernel.org/linux-mm/20220706235936.2197195-1-zokeefe@google.com/
 > > Signed-off-by: Zach O'Keefe <zokeefe@google.com>
-> > ---
-> >   man2/process_madvise.2 | 3 ++-
-> >   1 file changed, 2 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/man2/process_madvise.2 b/man2/process_madvise.2
-> > index 6208206e4..7bee1a098 100644
-> > --- a/man2/process_madvise.2
-> > +++ b/man2/process_madvise.2
-> > @@ -113,7 +113,8 @@ check (see
-> >   in addition,
-> >   because of the performance implications of applying the advice,
-> >   the caller must have the
-> > -.B CAP_SYS_ADMIN
-> > +.\" commit 96cfe2c0fd23ea7c2368d14f769d287e7ae1082e
-> > +.B CAP_SYS_NICE
 >
-> Would it make sense to keep some parentheses specifying that in old
-> kernels CAP_SYS_ADMIN was requiring instead?
-
-Thanks for the suggestion. I've chatted with Suren on this
-(process_madvise(2) author and contributor of initial
-process_madvise(2) man-page) and the initial CAP_SYS_ADMIN appears to
-have been a mistake; it was CAP_SYS_NICE from the beginning. I'll
-reword the commit description and resend it as part of v2.
-
-Thanks,
-Zach
-
-> Cheers,
+> Please see some comments below.
+> There are a few more cases were I'd break the lines at different points,
+> but there are few, so I'll apply them with an amend.
+>
+> Thanks!
+>
 > Alex
->
-> >   capability.
-> >   .SH RETURN VALUE
-> >   On success,
->
-> --
-> <http://www.alejandro-colomar.es/>
->
+
+Thank you :) Greatly appreciated. I'll take a look at the patch
+post-amend to see what I could have done. All the mentioned fixes
+(thanks for pointing them out) will be included in v2.
+
+Best,
+Zach
