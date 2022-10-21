@@ -2,62 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 75D926081AB
-	for <lists+linux-man@lfdr.de>; Sat, 22 Oct 2022 00:33:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 30DC36081AC
+	for <lists+linux-man@lfdr.de>; Sat, 22 Oct 2022 00:33:19 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229958AbiJUWdP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 21 Oct 2022 18:33:15 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45000 "EHLO
+        id S229949AbiJUWdR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 21 Oct 2022 18:33:17 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45028 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229949AbiJUWdO (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 21 Oct 2022 18:33:14 -0400
+        with ESMTP id S229959AbiJUWdQ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 21 Oct 2022 18:33:16 -0400
 Received: from mail-pg1-x54a.google.com (mail-pg1-x54a.google.com [IPv6:2607:f8b0:4864:20::54a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 866E22AD300
-        for <linux-man@vger.kernel.org>; Fri, 21 Oct 2022 15:33:13 -0700 (PDT)
-Received: by mail-pg1-x54a.google.com with SMTP id l185-20020a6388c2000000b004610d11faddso1933547pgd.1
-        for <linux-man@vger.kernel.org>; Fri, 21 Oct 2022 15:33:13 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4CB192AD308
+        for <linux-man@vger.kernel.org>; Fri, 21 Oct 2022 15:33:15 -0700 (PDT)
+Received: by mail-pg1-x54a.google.com with SMTP id g66-20020a636b45000000b0043a256d3639so1944724pgc.12
+        for <linux-man@vger.kernel.org>; Fri, 21 Oct 2022 15:33:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=google.com; s=20210112;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:from:to:cc:subject:date:message-id:reply-to;
-        bh=j2YCFcqV/9HrzAdGPsM8brD/lu5Yer6yqOKsV1muLNk=;
-        b=HHfec0IrAIaL4AtU3Wpm7aVpC4i94PMX7nrLVtU6PvrMsavLXNOlDhshgg27hWZdIt
-         idPOGOjnsq77chS50l9alJOA+dp4fbdKYtel6mYHNQ0akrF1p8ChpF5/BYN52LnexEBP
-         4ve9YZatUDehddh8CDFokDoIQ9E4TWQaMCb7hlSA0ZSD3X5/3xZiZwsnuj4TULdfP21s
-         rJxUGOJwsrRBDKXUMAi2FYITq1O0NUNm0y+ZwLxQ+lhk/d7Hmj7xI0EzASF75pcDym+d
-         vZDT9jSnS45yobGQuRhMMbj2hdTyKiuHpvOcVNhdpt+koA5Fu0eDrCUVicuoZ3OvKAgl
-         kgTQ==
+        bh=2mfLSi9N+JZYnQf9EtD/iIl2pLa/hOhtVxEVkuJcdM8=;
+        b=lle+N5TrpCI1LNnjia1zJiidMB+e23mByhA6yA8Vit77UUdoQYM+pwQoiVsTaYTKyT
+         N4oaZiegEhXqpWIdopwuN4BNJfgSeQ759NCA6ON9MwhxIxGVTg/jQ2646la3DV6DFDKa
+         6HvoFVNZiRwKbAqBW74PRLN4JlbW4hhTOmfdpsyiJ0OKudLFy++cBVyGOEj5WNJlljXd
+         wABZ0t+Q6fb7c9S8a8xYGx1boByY+WGIiPGBL6lSnPDdf9LnoRtZTtk2mHw9Aqk4dgLQ
+         DQBlnegZ+rTSY0xoPJU35qcOt+nFV8OWm6dr3zrMQ0o6STzWhYG6uWDRb40eMAnsWgbs
+         gAgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=j2YCFcqV/9HrzAdGPsM8brD/lu5Yer6yqOKsV1muLNk=;
-        b=TEoT4KPXWshHX057B3BZnxFG2mwjjA6eBiaYPP9Sl1RgTf7erKrnIQMBcoyIjDNoaH
-         lskL9oW8kc87izgeTYMoF7z32K0BRNf0jaBCAVlJSMZdnaQtjjo8rknQ1E4JPxG+GbxS
-         d+mPHdi8peKfK5roGfLAF1/pz6e+EP9NGettMOrbVGUU4+rGQmoYaisXS1Ke/YhuQs5K
-         IOE0oNVLWT5OEwxOwojNeg8XmknxRqPZ+/+/BLbmsu6zQTl2gP5lcZaXslXBBvYOl5w2
-         3HO7Q3IyJtKl9k9ZtglcjbohM8luIMPJoEcHmutWcJ+T9t0qjoeY6x1mCCiLJpawrGiJ
-         44nw==
-X-Gm-Message-State: ACrzQf16d3gCBjSdEBS5eLPNFefj7MUAzpxqq2FaaT5Ev42hXKrn33au
-        uUSNFSfGW2yCSI9VbjwugZFQLfcW3PwG
-X-Google-Smtp-Source: AMsMyM5jbebFfHwkbcLcmu7Jew0Ty0YvJLAwsxWJiSk2lsX8c+ywMk9uxffW2GmlBDmylLmhg9xrUyNlvbUA
+        bh=2mfLSi9N+JZYnQf9EtD/iIl2pLa/hOhtVxEVkuJcdM8=;
+        b=0R/hcpWafG5f99VHsOj78WbFDHQElpcy0NxOTf2G4wbSUZy1BuflxWQ84FOkmq37G7
+         VAL4wxSkjfuWHC4BJm5qIlsL8IHaD4vz++iCDFKp+mb00q7lW8+LQ1j1nB39WPobidzT
+         iuOg9qT6tA98e1SH6ePWfG0g2bKv5bxzwQKHkqa731X42XVlDGuR8k+OYSQgd69hEQu7
+         wAomUJT68vOvRkTy0UrHasyWPiXyuhMB224i25M03lNURXefRL7Wj8FtKNxHSGPPFEzq
+         qrCDuedNhWlaT3papR79wZRI7hXkpirmoJc3YtvKVdnAW4SR3TipczNGo1nv3HzZlGzm
+         PwPQ==
+X-Gm-Message-State: ACrzQf2/9PGPlzLMql4Wtvbzt+jtz2hI4a1sUNF06ZGmd9vvxgCyp1NT
+        mxV3nwDhN950mBwocFU2Vcwcy9MnnUl6
+X-Google-Smtp-Source: AMsMyM7ykWOvJQhnYq5jJgK0UIS3OByEZBiFkO+t8lJMkUXraxyk1KUhcnhVDNpBp0OeeK7nYEVmNP4GhzH8
 X-Received: from zokeefe3.c.googlers.com ([fda3:e722:ac3:cc00:7f:e700:c0a8:1b6])
- (user=zokeefe job=sendgmr) by 2002:a62:144b:0:b0:562:38de:9a0e with SMTP id
- 72-20020a62144b000000b0056238de9a0emr21455891pfu.78.1666391593062; Fri, 21
- Oct 2022 15:33:13 -0700 (PDT)
-Date:   Fri, 21 Oct 2022 15:32:58 -0700
+ (user=zokeefe job=sendgmr) by 2002:a17:903:24e:b0:179:b755:b82f with SMTP id
+ j14-20020a170903024e00b00179b755b82fmr20595013plh.34.1666391594831; Fri, 21
+ Oct 2022 15:33:14 -0700 (PDT)
+Date:   Fri, 21 Oct 2022 15:32:59 -0700
 In-Reply-To: <20221021223300.3675201-1-zokeefe@google.com>
 Mime-Version: 1.0
 References: <20221021223300.3675201-1-zokeefe@google.com>
 X-Mailer: git-send-email 2.38.0.135.g90850a2211-goog
-Message-ID: <20221021223300.3675201-3-zokeefe@google.com>
-Subject: [PATCH man-pages v3 2/4] madvise.2: document reliable probe for
- advice support
+Message-ID: <20221021223300.3675201-4-zokeefe@google.com>
+Subject: [PATCH man-pages v3 3/4] process_madvise.2: fix capability and ptrace requirements
 From:   Zach OKeefe <zokeefe@google.com>
 To:     Alejandro Colomar <alx.manpages@gmail.com>,
         Michael Kerrisk <mtk.manpages@gmail.com>
 Cc:     Yang Shi <shy828301@gmail.com>, linux-mm@kvack.org,
-        linux-man@vger.kernel.org, "Zach O'Keefe" <zokeefe@google.com>
+        linux-man@vger.kernel.org, "Zach O'Keefe" <zokeefe@google.com>,
+        Suren Baghdasaryan <surenb@google.com>,
+        Minchan Kim <minchan@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 X-Spam-Status: No, score=-9.6 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
         DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
@@ -71,34 +72,76 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 From: Zach O'Keefe <zokeefe@google.com>
 
-EINVAL is an overloaded error code for madvise(2) and it's not clear
-under what context it means "advice is not valid" vs another error.
+The initial commit of process_madvise(2) to Linux, commit ecb8ac8b1f14
+("mm/madvise: introduce process_madvise() syscall: an external memory
+hinting API"), relied on PTRACE_MODE_ATTACH_FSCREDS (see ptrace(2)),
+but was amended by commit 96cfe2c0fd23 ("mm/madvise: replace ptrace
+attach requirement for process_madvise") which replaced this with a
+combination of PTRACE_MODE_READ and CAP_SYS_NICE (PTRACE_MODE_READ to
+prevent leaking ASLR metadata and CAP_SYS_NICE for influencing process
+performance).
 
-Explicitly document that madvise(0, 0, advice) can reliably be used to
-probe for kernel support for "advice", returning zero iff "advice" is
-supported by the kernel.
+The initial commit of process_madvise(2) to man-pages project, made
+after the second patch, included two errors:
 
+1) CAP_SYS_ADMIN instead of CAP_SYS_NICE
+2) PTRACE_MODE_READ_REALCREDS instead of PTRACE_MODE_READ_FSCREDS
+
+Correct this in the man-page for process_madvise(2).
+
+Fixes: a144f458b ("process_madvise.2: Document process_madvise(2)")
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Minchan Kim <minchan@kernel.org>
 Signed-off-by: Zach O'Keefe <zokeefe@google.com>
 ---
- man2/madvise.2 | 5 +++++
- 1 file changed, 5 insertions(+)
+ man2/process_madvise.2 | 21 +++++++++++++++++----
+ 1 file changed, 17 insertions(+), 4 deletions(-)
 
-diff --git a/man2/madvise.2 b/man2/madvise.2
-index 64f788ace..df3413cc8 100644
---- a/man2/madvise.2
-+++ b/man2/madvise.2
-@@ -790,6 +790,11 @@ that are not mapped, the Linux version of
- ignores them and applies the call to the rest (but returns
- .B ENOMEM
- from the system call, as it should).
-+.PP
-+.IR madvise(0,\ 0,\ advice)
-+will return zero iff
-+.I advice
-+is supported by the kernel and can be relied on to probe for support.
- .\" .SH HISTORY
- .\" The
- .\" .BR madvise ()
+diff --git a/man2/process_madvise.2 b/man2/process_madvise.2
+index 6208206e4..44d3b94e8 100644
+--- a/man2/process_madvise.2
++++ b/man2/process_madvise.2
+@@ -105,16 +105,20 @@ remote process.
+ No further elements will be processed beyond that point.
+ (See the discussion regarding partial advice in RETURN VALUE.)
+ .PP
+-Permission to apply advice to another process is governed by a
++.\" commit 96cfe2c0fd23ea7c2368d14f769d287e7ae1082e
++Starting in Linux 5.12,
++permission to apply advice to another process is governed by
+ ptrace access mode
+-.B PTRACE_MODE_READ_REALCREDS
++.B PTRACE_MODE_READ_FSCREDS
+ check (see
+ .BR ptrace (2));
+ in addition,
+ because of the performance implications of applying the advice,
+ the caller must have the
+-.B CAP_SYS_ADMIN
+-capability.
++.B CAP_SYS_NICE
++capability
++(see
++.BR capabilities (7)).
+ .SH RETURN VALUE
+ On success,
+ .BR process_madvise ()
+@@ -180,6 +184,15 @@ configuration option.
+ The
+ .BR process_madvise ()
+ system call is Linux-specific.
++.SH NOTES
++When this system call first appeared in Linux 5.10,
++permission to apply advice to another process was entirely governed by
++ptrace access mode
++.B PTRACE_MODE_ATTACH_FSCREDS
++check (see
++.BR ptrace (2)).
++This requirement was relaxed in Linux 5.12 so that the caller didn't require
++full control over the target process.
+ .SH SEE ALSO
+ .BR madvise (2),
+ .BR pidfd_open (2),
 -- 
 2.38.0.135.g90850a2211-goog
 
