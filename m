@@ -2,76 +2,67 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id ACB9F607722
-	for <lists+linux-man@lfdr.de>; Fri, 21 Oct 2022 14:42:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 622AD607BEF
+	for <lists+linux-man@lfdr.de>; Fri, 21 Oct 2022 18:17:14 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229988AbiJUMmB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 21 Oct 2022 08:42:01 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52384 "EHLO
+        id S230175AbiJUQRM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 21 Oct 2022 12:17:12 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50576 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229995AbiJUMlw (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 21 Oct 2022 08:41:52 -0400
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com [IPv6:2a00:1450:4864:20::42a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 82D802690A6
-        for <linux-man@vger.kernel.org>; Fri, 21 Oct 2022 05:41:40 -0700 (PDT)
-Received: by mail-wr1-x42a.google.com with SMTP id a3so4796155wrt.0
-        for <linux-man@vger.kernel.org>; Fri, 21 Oct 2022 05:41:40 -0700 (PDT)
+        with ESMTP id S230196AbiJUQRJ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 21 Oct 2022 12:17:09 -0400
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com [IPv6:2a00:1450:4864:20::229])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2346421345F
+        for <linux-man@vger.kernel.org>; Fri, 21 Oct 2022 09:17:08 -0700 (PDT)
+Received: by mail-lj1-x229.google.com with SMTP id a25so4469256ljk.0
+        for <linux-man@vger.kernel.org>; Fri, 21 Oct 2022 09:17:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=in-reply-to:references:cc:to:from:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=q7q8WYvKv2eM2Gz1eQJ4GTOMGk73vle4GtHOVEytQ7o=;
-        b=Wzbmh8IJRGFS66gAIvUvN58rrAK5RFawW0prWDDF4MA2kQeZMTVuOC3wEkzu1f8L70
-         88oRz1fvZoKNo0rf8g8s9Wz10vBcJ1GSacLyHGHNJyJfCpGx8/jB+1jQqK7JWL3zDxua
-         GFAlJMQufW4iQLwzLYANi0GfCh3glh7K22jSQGnrgOkGIS+AqpG5Uag6ZiVnXg81R+QF
-         fkHcI1No5BCbO/8hgiUfsJ7o0pAyY4sXkJAuJEbEgFVP/eECEPKCOhVhOMBaNiqQGTP5
-         /bI7PG64su0xkyO1k8EmupaL+ZdFsFmC0C3aAHTQy03TDG8w7q6jk6yT3TybkY76P1IO
-         nR/A==
+        d=google.com; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=9BhlseJunuaOmArCKyKq3dQuPh8gFQ+o2A9akwjB3AI=;
+        b=BUPK9ZUfwReOcby/Gds2wXxyDFdZn/URLMBUknN2fpwmvsslo/cZLKOqBgzU1Ay0Em
+         vXpCOXkf2BYt38YpjK1TWAx4ZN8QES/63162BUi09mVcLDkyzFqv7j6JVQ4zLTqUoVhk
+         ve8ra80u2qCQH397+n4jUSmhdvFmWOI32NMe2Z55MYmamQmo1PtkSrZjTrbNNxR1xiBv
+         TQvSjEqgR/StDPNz1vuoksRfGQwWJvlDRWJyGVd4Op0Tx1GVYu3n1dFSubw6P1lF0CL3
+         zLWSxqdVz3+sOdke8uyOyehrii3IPiQLbJ8NGLTiesyPUO+UW5i9QkNKdt0bnd/0y14J
+         g3Qw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=in-reply-to:references:cc:to:from:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=q7q8WYvKv2eM2Gz1eQJ4GTOMGk73vle4GtHOVEytQ7o=;
-        b=FiMR8r9H4CSGpIvxuYhK15SebNs9QzaPr1h2VioxlsnshpesW0YEeStumcBIP2Yp+k
-         jxjVHEhdPTlNqe3geJN0LJ0ap7pYE5VI27yXDP3qtGO1o4HFUhhb8o+vcbnAhhTabnZT
-         wKhkkMOBrTkOQrSMp7nx2Hf1Vi3eM45vkhph2vnDsIgb5Dzl0Oyb9+Pk0F/bQKK8vn/A
-         dbs0NmvFReOifO++4pVWe5xqXrauqOYle9Q4idL7rYNoUy2w4OE4qHqFmpo3QFslLGqe
-         KQl30znKKTNq7FNVBsJ7ToV+Ogk0QOxGM1pv9+/2YMMudJCsKrtaf2tGrHtuWZDe21/V
-         LDOw==
-X-Gm-Message-State: ACrzQf0U2kaIQCr414jpgGx10biOfpYQ1iiExkfN18+OXdJOJd4Oq7Yf
-        V7+4MnaZWDw9aaz5sSnMWHY=
-X-Google-Smtp-Source: AMsMyM6XOCuIy0EiPxny38uW5KtZRoX27Pq4fIrU7Gxx+q1+iCAG+808nqXK521ukHZFrVsGtGifhg==
-X-Received: by 2002:a5d:4d07:0:b0:22e:3c45:9f00 with SMTP id z7-20020a5d4d07000000b0022e3c459f00mr12045905wrt.646.1666356098587;
-        Fri, 21 Oct 2022 05:41:38 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id n128-20020a1c2786000000b003c43dc42b4dsm2680987wmn.16.2022.10.21.05.41.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 21 Oct 2022 05:41:38 -0700 (PDT)
-Message-ID: <ca631c4f-0e7c-6dc4-0375-97c25088d252@gmail.com>
-Date:   Fri, 21 Oct 2022 14:41:36 +0200
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=9BhlseJunuaOmArCKyKq3dQuPh8gFQ+o2A9akwjB3AI=;
+        b=ZhaD5lusMlXlfgydHq5HuGfABd+ujUKVUUqj6BXAWAiYeZewwKx/BUanvy8uvddWT6
+         T/aqc7vgDVvxv8RJRbUqicif/+snTh7mU7fzd4LPcl5niwzjcu87FdtKRT52XTHiXRUQ
+         UgRc4Iztk31c7ebrW2TBvihF04JMmfkqW+JCxSeIyWdU8L0FWqBRhNKaHoKEVv2ZA6Nj
+         yGi5R7mpfrv11dWy3pdQDqLS2tkyYVcIkbEx8iFuiJwUQ/sAtnfEobIF2sxfEvfT/cJe
+         6R0T2SpjG6uUL/nl2zZsebFFwAtw8nrsM7DyQSIDWXVjgjZT1LG7ON3odFwkPgtL3u/E
+         qOVA==
+X-Gm-Message-State: ACrzQf3hd9go9TpTH+Tlgey7vSMVLSQvK/Vrl+QBBxkX93FmO0xLIlh9
+        njdxTJN8a95VSUyr0qYfsH9cezWEW46kWwoCNcOW6g==
+X-Google-Smtp-Source: AMsMyM5cr1rkQnIy7ZZdYV76WByW8AWIWarXv+LgIth8dhI7XGXUwi0D3qEkyYiDRBZwobcsLl+nYMVn/Ku24gt5B+Y=
+X-Received: by 2002:a2e:8810:0:b0:276:be89:55a7 with SMTP id
+ x16-20020a2e8810000000b00276be8955a7mr711119ljh.394.1666369026001; Fri, 21
+ Oct 2022 09:17:06 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.3
+References: <20221018235051.152548-1-zokeefe@google.com> <20221018235051.152548-4-zokeefe@google.com>
+ <d9f8599f-fb81-6915-85d9-fbbc74226608@gmail.com> <ca631c4f-0e7c-6dc4-0375-97c25088d252@gmail.com>
+In-Reply-To: <ca631c4f-0e7c-6dc4-0375-97c25088d252@gmail.com>
+From:   "Zach O'Keefe" <zokeefe@google.com>
+Date:   Fri, 21 Oct 2022 09:16:29 -0700
+Message-ID: <CAAa6QmT-4+Tx_VOVxGw+jO=Zh7+0NPLx8K+p0DsUd9WVoEvZNA@mail.gmail.com>
 Subject: Re: [PATCH man-pages v2 3/4] process_madvise.2: CAP_SYS_ADMIN cleanup
-Content-Language: en-US
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     Zach OKeefe <zokeefe@google.com>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
 Cc:     Yang Shi <shy828301@gmail.com>, linux-mm@kvack.org,
         linux-man@vger.kernel.org, Suren Baghdasaryan <surenb@google.com>,
         Minchan Kim <minchan@kernel.org>,
         Michael Kerrisk <mtk.manpages@gmail.com>
-References: <20221018235051.152548-1-zokeefe@google.com>
- <20221018235051.152548-4-zokeefe@google.com>
- <d9f8599f-fb81-6915-85d9-fbbc74226608@gmail.com>
-In-Reply-To: <d9f8599f-fb81-6915-85d9-fbbc74226608@gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------1mjqlOTRS9vn3om5h0J6pHE6"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+Content-Type: text/plain; charset="UTF-8"
+X-Spam-Status: No, score=-17.6 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+        ENV_AND_HDR_SPF_MATCH,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+        URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -79,69 +70,53 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------1mjqlOTRS9vn3om5h0J6pHE6
-Content-Type: multipart/mixed; boundary="------------VIa0xNE0Chx4bssHRFHNDPUb";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Zach OKeefe <zokeefe@google.com>
-Cc: Yang Shi <shy828301@gmail.com>, linux-mm@kvack.org,
- linux-man@vger.kernel.org, Suren Baghdasaryan <surenb@google.com>,
- Minchan Kim <minchan@kernel.org>, Michael Kerrisk <mtk.manpages@gmail.com>
-Message-ID: <ca631c4f-0e7c-6dc4-0375-97c25088d252@gmail.com>
-Subject: Re: [PATCH man-pages v2 3/4] process_madvise.2: CAP_SYS_ADMIN cleanup
-References: <20221018235051.152548-1-zokeefe@google.com>
- <20221018235051.152548-4-zokeefe@google.com>
- <d9f8599f-fb81-6915-85d9-fbbc74226608@gmail.com>
-In-Reply-To: <d9f8599f-fb81-6915-85d9-fbbc74226608@gmail.com>
+Hey Alex!
 
---------------VIa0xNE0Chx4bssHRFHNDPUb
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Thanks for taking the time to review!
 
-T24gMTAvMjEvMjIgMTQ6MzcsIEFsZWphbmRybyBDb2xvbWFyIHdyb3RlOg0KPiBPbiAxMC8x
-OS8yMiAwMTo1MCwgWmFjaCBPS2VlZmUgd3JvdGU6DQo+PiBGcm9tOiBaYWNoIE8nS2VlZmUg
-PHpva2VlZmVAZ29vZ2xlLmNvbT4NCj4+DQo+PiBUaGUgaW5pdGlhbCBjb21taXQgb2YgcHJv
-Y2Vzc19tYWR2aXNlKDIpIHRvIG1hbi1wYWdlcyBwcm9qZWN0IGluY2x1ZGVkDQo+PiBhbiBl
-cnJvciwgaW5kaWNhdGluZyB0aGF0IENBUF9TWVNfQURNSU4gY2FwYWJpbGl0eSB3YXMgcmVx
-dWlyZWQgd2hlbiwgaW4NCj4+IGZhY3QsIENBUF9TWVNfTklDRSB3YXMgdGhlIHJlcXVpcmVk
-IGNhcGFiaWxpdHkuDQo+Pg0KPj4gVGhlIGluaXRpYWwgY29tbWl0IG9mIHByb2Nlc3NfbWFk
-dmlzZSgyKSB0byBMaW51eCwgY29tbWl0IGVjYjhhYzhiMWYxNA0KPj4gKCJtbS9tYWR2aXNl
-OiBpbnRyb2R1Y2UgcHJvY2Vzc19tYWR2aXNlKCkgc3lzY2FsbDogYW4gZXh0ZXJuYWwgbWVt
-b3J5DQo+PiBoaW50aW5nIEFQSSIpLCByZWxpZWQgb24gUFRSQUNFX01PREVfQVRUQUNIX0ZT
-Q1JFRFMgKHNlZSBwdHJhY2UoMikpLA0KPj4gYnV0IHdhcyBhbWVuZGVkIGJ5IGNvbW1pdCA5
-NmNmZTJjMGZkMjMgKCJtbS9tYWR2aXNlOiByZXBsYWNlIHB0cmFjZQ0KPj4gYXR0YWNoIHJl
-cXVpcmVtZW50IGZvciBwcm9jZXNzX21hZHZpc2UiKSB3aGljaCByZXBsYWNlZCB0aGlzIHdp
-dGggYQ0KPj4gY29tYmluYXRpb24gb2YgUFRSQUNFX01PREVfUkVBRCBhbmQgQ0FQX1NZU19O
-SUNFIChQVFJBQ0VfTU9ERV9SRUFEIHRvDQo+PiBwcmV2ZW50IGxlYWtpbmcgQVNMUiBtZXRh
-ZGF0YSBhbmQgQ0FQX1NZU19OSUNFIGZvciBpbmZsdWVuY2luZyBwcm9jZXNzDQo+PiBwZXJm
-b3JtYW5jZSkuDQoNClsuLi5dDQoNCj4gSWYgSSB1bmRlcnN0YW5kIHRoZSBwYXJhZ3JhcGgg
-YWJvdmUsIGZyb20gNS4xMCB0byA1LjEyIHRoZSBjYXBhYmlsaXR5IHJlcXVpcmVkIA0KPiB3
-YXMgQ0FQX1NZU19BRE1JTj8NCg0KT3Igd2FzIGl0IENBUF9TWVNfUFRSQUNFPw0KDQotLSAN
-CjxodHRwOi8vd3d3LmFsZWphbmRyby1jb2xvbWFyLmVzLz4NCg==
+On Fri, Oct 21, 2022 at 5:41 AM Alejandro Colomar
+<alx.manpages@gmail.com> wrote:
+>
+> On 10/21/22 14:37, Alejandro Colomar wrote:
+> > On 10/19/22 01:50, Zach OKeefe wrote:
+> >> From: Zach O'Keefe <zokeefe@google.com>
+> >>
+> >> The initial commit of process_madvise(2) to man-pages project included
+> >> an error, indicating that CAP_SYS_ADMIN capability was required when, in
+> >> fact, CAP_SYS_NICE was the required capability.
+> >>
+> >> The initial commit of process_madvise(2) to Linux, commit ecb8ac8b1f14
+> >> ("mm/madvise: introduce process_madvise() syscall: an external memory
+> >> hinting API"), relied on PTRACE_MODE_ATTACH_FSCREDS (see ptrace(2)),
+> >> but was amended by commit 96cfe2c0fd23 ("mm/madvise: replace ptrace
+> >> attach requirement for process_madvise") which replaced this with a
+> >> combination of PTRACE_MODE_READ and CAP_SYS_NICE (PTRACE_MODE_READ to
+> >> prevent leaking ASLR metadata and CAP_SYS_NICE for influencing process
+> >> performance).
+>
+> [...]
+>
+> > If I understand the paragraph above, from 5.10 to 5.12 the capability required
+> > was CAP_SYS_ADMIN?
+>
+> Or was it CAP_SYS_PTRACE?
 
---------------VIa0xNE0Chx4bssHRFHNDPUb--
+Starting in 5.10, there was no CAP_* capability requirement - only
+PTRACE_MODE_ATTACH_FSCREDS (aka PTRACE_MODE_ATTACH |
+PTRACE_MODE_REALCREDS). Now, my understanding of the algorithm
+employed for ptrace access mode checking isn't to be trusted, but
+AFAIK, a caller having CAP_SYS_PTRACE in the target's user namespace
+(directly or transitively) isn't required to pass this (though it
+makes it easier). ptrace(2) has an overview of the algorithm.
 
---------------1mjqlOTRS9vn3om5h0J6pHE6
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+Starting in 5.12, CAP_SYS_NICE was added as a requirement, and the
+ptrace algorithm used changed to PTRACE_MODE_READ.
 
------BEGIN PGP SIGNATURE-----
+If you think recording the differences in kernel versions in the
+man-page is important, let me know and I can amend this patch.
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmNSk4AACgkQnowa+77/
-2zLQ+Q/7BqQlCHBWpEmPh6iUKGavv4rTieIZpdhIuN6s4z+//rUywpeCv6TEodoG
-RRsmRz/Sz+ekN1qkTs9eaDEIHQPwpK7Btnk6MGs6/BcyzmzByjfhvbQJfD9Tnv11
-oTsvJqM4TfTV9iCWFgvvLmSpkxJm5cJVUMo6M45oXFgLQZqJCv8wqyi47KeE2RCC
-vlO1QrM/JAopE9GGRLg0lu903x9SzfXLQ9UrofdQ8loCTygaTl7wiBqSi2WkUsSS
-ecqFHeqGCFDF1hEALZ2nN+Fq6fvJfOz0DXRoWIvefSUbtg/Y8DG3yHDo2qsFkT+8
-0QC9H1S+kp/qj+Z5ASg109R0YTXf8EuD6G5xng/Xjn84gCoBQRrhXwm/0xP8IOPn
-NqzYy85WgoAsPSxspCo0jZKxOBE03J1LnMJiuJqXMsu+1ywfwwoCDjPGbdHBQmkl
-fYJWeOte97UmqK13L8o6LuRcRy3o1Zy8caRrEyUl6h17VAtoNo7JCyeF7/IpKVd9
-DXDv/dMNzmrRAyDhObJ0ARkVSTQ+LFb6Y+gD8KymlD+A+lb5WZ/3ZOhsNMWgTQGU
-LbEAAmXCKfqfR/0YlGgx4Min6z912FJ68cQ9lVc09wW2QkOUyq9AYPqxeUj8AlRh
-le3+6KYuzkiLjGYSB56GiaWTP14WrclU5lEgEhRgpHy1PySUbzQ=
-=2rxk
------END PGP SIGNATURE-----
+Thanks,
+Zcah
 
---------------1mjqlOTRS9vn3om5h0J6pHE6--
+> --
+> <http://www.alejandro-colomar.es/>
