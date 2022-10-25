@@ -2,115 +2,152 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 1EE6160D071
-	for <lists+linux-man@lfdr.de>; Tue, 25 Oct 2022 17:23:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E0C0F60D165
+	for <lists+linux-man@lfdr.de>; Tue, 25 Oct 2022 18:14:04 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233280AbiJYPXy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 25 Oct 2022 11:23:54 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48102 "EHLO
+        id S233131AbiJYQOD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 25 Oct 2022 12:14:03 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54796 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233302AbiJYPXd (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 25 Oct 2022 11:23:33 -0400
-Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id D9B9A16EA02
-        for <linux-man@vger.kernel.org>; Tue, 25 Oct 2022 08:21:33 -0700 (PDT)
-Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 829803BF8;
-        Tue, 25 Oct 2022 17:21:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-        s=202205; t=1666711290;
-        bh=z4qt7krLzQJfmRzWcEKOa0yGDKopAEJAF8vUPCExp3k=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=PhFK28CommNbbvzJbYOgtSREXeswqn/FaUhOC8oVihdJ7soYOdbxU/Y6/hcbJbGdw
-         Oo6kczxMeNDj0JI5FHadLrAUK0QvA5Bpsnlf78lVLDw9jvl1dhYUVi+2kGTlrBE7hA
-         X8Z0FskEjZJV6Tcs14KR7NY/4SgsA9rTvngYsbpR1WcgUu4rLJbLww4qY6BqlNwFS8
-         KCbWp8eHjAFFhKzo0rpbCNTLehWWlV+zDcek91sst0xKKNI1vkYXzylMLHlp8kGH4u
-         YwREgvryU7VAEnlBgpglRrcpLCf2TktS3whIsukN5YIih7/h4KrCxUM8iLAfvV73dq
-         RkKHa24yzZelac8Zru3YLGNxJWiNBCqoRrXTclSWhyIVmcI9sn5ShlTYuftRDnGF+K
-         uv0MzEhueq0U5yWLIsip/BvM2UfSP4tu7xWfpSJJwJwY/V4L4Cba2JInjooQxlNCBG
-         40UKjuCWBTruYU8eHnPpeLeFG3scqSgZQ387UzKjbJfENOcJNuDVrqNFhnDT1Rih0J
-         eg03IF8iLHp4btty7TEUZ3t9kLVjqwYEKi92tLEofezwapTvYKmsC3oKqxcHhm8QBm
-         m0VLC28dLrJc+9ZhVWUkXCRcsDP37NGR3nz6wMYTX/xeOfjEZ5CzLib93ZN59QV/jc
-         ORevOM0I8phsHk1HBDPvYhK4=
-Date:   Tue, 25 Oct 2022 17:21:29 +0200
-From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-To:     Alex Colomar <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
+        with ESMTP id S233146AbiJYQN6 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 25 Oct 2022 12:13:58 -0400
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com [IPv6:2a00:1450:4864:20::335])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 27951F9731
+        for <linux-man@vger.kernel.org>; Tue, 25 Oct 2022 09:13:57 -0700 (PDT)
+Received: by mail-wm1-x335.google.com with SMTP id bg9-20020a05600c3c8900b003bf249616b0so8614749wmb.3
+        for <linux-man@vger.kernel.org>; Tue, 25 Oct 2022 09:13:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ujPCV+Z75eiCT3aE7zlGroeWCO31wHkG6tbpHlKRFsw=;
+        b=D07scDGfq5E38Hb3PM1kscs0yXXT2zuAkTC8067DKjF/MeKJoJLDp3vK3YmOTgCE3R
+         +bhrO0n37XRVSjpDpj5c2yvZf+LUdCmh3PUgJfMW9v3ktJ+5fMnu6OpJX/1N9q5dLTIk
+         b+/HsVxFAeT1Kj2xRH1q5jyv9ADWGudiz+OO86kEr2P/aQ25xkcNRMjB+7/5OufaFcYR
+         ftlZF/kgHJ7PEo+Zqn0RiBifPOeB2/aUEOtiWdpKWzTMCPumaumHDxb4Oh2OzTBeGjJX
+         8OZ076a9UPKKD9Q8GfzjzQnb8h/Ij+djAEU+/zn03Q+I37mg3I99Yu16ZYnzMki/K2hJ
+         GWdw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=ujPCV+Z75eiCT3aE7zlGroeWCO31wHkG6tbpHlKRFsw=;
+        b=33us6dA6KdlOPIiGQwGmt/Hs8KpCEodbiqPryqxpIYNoC2Jl0O2kTccjH4TphvcbKF
+         bS4xMZCoL1tof/RgBzBAJJ0WM6ATVr5idTSO7tMLAnmgl37o+TyJsIAFvx1fLTg1Nemn
+         VocZbUi0e1hQpRM7DeqLWXJzmGJP3qXbX+3yJ+YZe66kceePbfpOAOvHspXxwn/X/44J
+         Ck3NPKKox7I2ro3TXNFML/rI0ZTKyD70O5dcd1EHnvogADZtGQQOieSo4j3jgAGbdK42
+         kr4LkhmWBtPNaI8nUPAaa7/Fv0QhW+moJwlFEHY+0YhE/s79on5QiMWvlfa6MSpi9JlX
+         DnHg==
+X-Gm-Message-State: ACrzQf2iy4p4r7aTM2s1+/qtpJrw92L5QtFSHMk8fe6BMa6fq68wv1Wv
+        7A49PLTyMeS1Y9PUBsoMaK8=
+X-Google-Smtp-Source: AMsMyM4XoNBOIFnj6DmcRH6SXJHb17tpvnFA5c/iY/aHji/nJB7ZAQScdED9VZhHAEk6djLruKpdgA==
+X-Received: by 2002:a05:600c:5388:b0:3c5:4c1:a1f6 with SMTP id hg8-20020a05600c538800b003c504c1a1f6mr26785507wmb.11.1666714435633;
+        Tue, 25 Oct 2022 09:13:55 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id i17-20020adfded1000000b002364835caacsm3102869wrn.112.2022.10.25.09.13.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 25 Oct 2022 09:13:55 -0700 (PDT)
+Message-ID: <a300820d-4370-4387-dbbf-b9a7a3f0e86b@gmail.com>
+Date:   Tue, 25 Oct 2022 18:13:46 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.3
 Subject: Re: [PATCH] ascii.7: chase down History to earliest
-Message-ID: <20221025152129.emkeptsou3mcwldv@tarta.nabijaczleweli.xyz>
+Content-Language: en-US
+To:     =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Cc:     linux-man@vger.kernel.org
 References: <20221017012257.kb25curb3gajgsxd@tarta.nabijaczleweli.xyz>
  <2b229c8d-9456-654a-d6a9-8b2727d8af41@gmail.com>
  <20221017105621.i6mkseevfwydx5zl@tarta.nabijaczleweli.xyz>
  <0a38aa0b-5684-f217-4844-6c075de6d551@gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="jemff2tthry3624g"
-Content-Disposition: inline
-In-Reply-To: <0a38aa0b-5684-f217-4844-6c075de6d551@gmail.com>
-User-Agent: NeoMutt/20220429
-X-Spam-Status: No, score=2.3 required=5.0 tests=BAYES_05,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FROM_SUSPICIOUS_NTLD,
-        PDS_OTHER_BAD_TLD,PDS_RDNS_DYNAMIC_FP,RDNS_DYNAMIC,SPF_HELO_NONE,
-        SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.6
-X-Spam-Level: **
+ <20221025152129.emkeptsou3mcwldv@tarta.nabijaczleweli.xyz>
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <20221025152129.emkeptsou3mcwldv@tarta.nabijaczleweli.xyz>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------d4tOE4D63uVoD7gAMXSewH5s"
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------d4tOE4D63uVoD7gAMXSewH5s
+Content-Type: multipart/mixed; boundary="------------t8LiDYv50Fx316pwhAwbHhXc";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Cc: linux-man@vger.kernel.org
+Message-ID: <a300820d-4370-4387-dbbf-b9a7a3f0e86b@gmail.com>
+Subject: Re: [PATCH] ascii.7: chase down History to earliest
+References: <20221017012257.kb25curb3gajgsxd@tarta.nabijaczleweli.xyz>
+ <2b229c8d-9456-654a-d6a9-8b2727d8af41@gmail.com>
+ <20221017105621.i6mkseevfwydx5zl@tarta.nabijaczleweli.xyz>
+ <0a38aa0b-5684-f217-4844-6c075de6d551@gmail.com>
+ <20221025152129.emkeptsou3mcwldv@tarta.nabijaczleweli.xyz>
+In-Reply-To: <20221025152129.emkeptsou3mcwldv@tarta.nabijaczleweli.xyz>
 
---jemff2tthry3624g
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+--------------t8LiDYv50Fx316pwhAwbHhXc
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Hi!
+SGkhDQoNCk9uIDEwLzI1LzIyIDE3OjIxLCDQvdCw0LEgd3JvdGU6DQo+IEhpIQ0KPiANCj4g
+T24gTW9uLCBPY3QgMTcsIDIwMjIgYXQgMDE6MDI6MDFQTSArMDIwMCwgQWxleCBDb2xvbWFy
+IHdyb3RlOg0KPj4gT24gMTAvMTcvMjIgMTI6NTYsINC90LDQsSB3cm90ZToNCj4+PiBTbyBu
+bywgKDcpIGlzIHdyb25nIGJlY2F1c2UgaXQncyAoVklJKQ0KPj4+IChpbmRlZWQsIGFyYWJp
+YyBudW1iZXJzIHN0YXJ0ZWQgaW4gVjcpLg0KPj4+IEl0J3Mgbm90IGJvbGQgYmVjYXVzZSB5
+b3UgY2FuJ3QgZG8gdGhhdCBvbiBhIHR5cGV3cml0ZXIuDQo+Pj4gWW91IGNvdWxkIG1ha2Ug
+dGhlIGFyZ3VtZW50IGZvciBpdCBiZWluZyB0b2dldGhlciwNCj4+PiBidXQgdGhlIHByZXZh
+aWxpbmcgY29udmVudGlvbiBpcyBlaXRoZXIgbm8gc2VjdGlvbiBhdCBhbGwgb3INCj4+PiBz
+cGFjZS1iZWZvcmUtc2VjdGlvbiwgYW5kIHRoZSBwYWdlIG51bWJlciBoYXMgdGhlIHNwYWNl
+Lg0KPj4NCj4+IEkgZ3Vlc3MgeW91J3JlIHJlZmVycmluZyB0byB0aGUgb2xkIGNvbnZlbnRp
+b24gKGZyb20gVFVQTSk/ICBJbiB0aGlzIGNhc2UNCj4+IGl0J3MgYSBiaXQgd2VpcmQgYmVj
+YXVzZSB3ZSdyZSByZWZlcnJpbmcgdG8gYW4gb2xkIG1hbnVhbCBwYWdlIGZyb20gYSBuZXcN
+Cj4+IG1hbnVhbCBwYWdlLCBzbyBJIGRvbid0IGtub3cgaWYgd2Ugc2hvdWxkIHVzZSB0aGUg
+b2xkIHN5bnRheCBvciB0aGUgbmV3DQo+PiBvbmUuLi4gIFdlIG5vdyBoYXZlIGJldHRlciAo
+b3IgZGlmZmVyZW50KSBjYXBhYmlsaXRpZXMgKGJvbGQpLCBhbmQgYXJhYmljDQo+PiBudW1i
+ZXJzLCBzbyB3ZSBjb3VsZCB0YWtlIGFkdmFudGFnZSBvZiB0aGVtLi4uICBCdXQgbWF5YmUg
+dGhhdCBjb3VsZA0KPj4gY29uZnVzZS4uLiAgSSBndWVzcyBJJ2xsIGdvIHdpdGggd2hhdCB5
+b3UgcHJlZmVyLCBzaW5jZSB5b3UncmUgd3JpdGluZyBpdCwNCj4+IGFuZCBJJ20gbm90IHN1
+cmUuDQo+IA0KPiBZZXMsIEkgdGhpbmsgcmVzcGVjdGluZyB0aGUgb3JpZ2luYWwgcGFnZSBu
+dW1iZXINCj4gKHdoaWNoLCB3aGlsZSB2ZXJ5IGZ1bm55IHNwZWxsaW5nLXdpc2UsIGlzIHZl
+cnkgbXVjaCB3aGF0IGl0IGlzOw0KPiAgIGNmLiB0aGUgZmlyc3QgaXNzdWUgb2YgdGhlIFgv
+T3BlbiBQb3J0YWJpbGl0eSBHdWlkZSwNCj4gICB3aGljaCBudW1iZXJzIHBhZ2VzIGFzICJC
+U0VBUkNIKDNDKS4zIiBpbiBQYXJ0IElJLCBmb3IgZXhhbXBsZSkNCj4gYXMgaXQgd2FzIHdy
+aXR0ZW4g4oCSICIvZXRjL2FzY2lpIChWSUkpIiDigJINCj4gaXMgYmlibGlvZ3JhcGhpY2Fs
+bHkgdGhlIG1vc3QgY29ycmVjdCB0aGluZyB0byBkbyBoZXJlLg0KDQpNYWtlcyBzZW5zZS4g
+IFBhdGNoIGFwcGxpZWQuDQoNCkNoZWVycywNCkFsZXgNCg0KPiANCj4g0L3QsNCxDQoNCi0t
+IA0KPGh0dHA6Ly93d3cuYWxlamFuZHJvLWNvbG9tYXIuZXMvPg0K
 
-On Mon, Oct 17, 2022 at 01:02:01PM +0200, Alex Colomar wrote:
-> On 10/17/22 12:56, =D0=BD=D0=B0=D0=B1 wrote:
-> > So no, (7) is wrong because it's (VII)
-> > (indeed, arabic numbers started in V7).
-> > It's not bold because you can't do that on a typewriter.
-> > You could make the argument for it being together,
-> > but the prevailing convention is either no section at all or
-> > space-before-section, and the page number has the space.
->=20
-> I guess you're referring to the old convention (from TUPM)?  In this case
-> it's a bit weird because we're referring to an old manual page from a new
-> manual page, so I don't know if we should use the old syntax or the new
-> one...  We now have better (or different) capabilities (bold), and arabic
-> numbers, so we could take advantage of them...  But maybe that could
-> confuse...  I guess I'll go with what you prefer, since you're writing it,
-> and I'm not sure.
+--------------t8LiDYv50Fx316pwhAwbHhXc--
 
-Yes, I think respecting the original page number
-(which, while very funny spelling-wise, is very much what it is;
- cf. the first issue of the X/Open Portability Guide,
- which numbers pages as "BSEARCH(3C).3" in Part II, for example)
-as it was written =E2=80=92 "/etc/ascii (VII)" =E2=80=92
-is bibliographically the most correct thing to do here.
-
-=D0=BD=D0=B0=D0=B1
-
---jemff2tthry3624g
-Content-Type: application/pgp-signature; name="signature.asc"
+--------------d4tOE4D63uVoD7gAMXSewH5s
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmNX/vkACgkQvP0LAY0m
-WPFU2w//YK29fiwf+k1V+VwkVkVKKAfE6dUVzebSfuNps339cQiUKE83FHfowx/8
-g5oyvr6xCUPHSXlcAcK6yhYPUx2l4SvJifBgY21ZW9EBklx3Hw25os10t9Dh5dDX
-L+nEEmCgEcG7k3ahhq9G3NWPfwyPP5AAC9GHW1m0+5mJDNt1KE2oSR4Cgdl3VXO4
-ygbVKnODP7J3nXQFUbe9dcs79+QtjF3ezmQfRnfN7Vh1xq4QA9VXfHbEVWxsHAO2
-DwZClD4MKEeDjkqg3pi/7YEnicanVydtyGWkfpeIyWEVXeuEvxVc3FQbdI8CB+oe
-GvBpikX68hEwyawP7QTxcpir3RS7psHoJbVfsf6iLU7dirnHuSv7u8i/2sj7/cbc
-VqPv7QClWAe3XbdxA0/O6Mkt50u63uRy2oYULme+CeWNq4GXNim1XiIQU3yvI3rI
-XXI9Wyr2ertN+HoKvnBpGI3F5MvrbskJMrMNe2v5nhrFvL7v0q/QiC1TMBRAkd3w
-hj09JB2sDXmLaUjLb/tmWODy+KrHqQxL2t/qj6FBPgxtgzDDTCvYDjxH/PE6AUtA
-uuD51J9ywzBedVj+RgawCnHzICHg0oeUvUfYYL3krUopSct6FOD7AdYXY9hy9OLd
-ZtLc4BfR6Df4gSfnrMXh2wiHmyqEzTuHpTET+lX+/5+HJS4wZqs=
-=A4Kl
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmNYCzoACgkQnowa+77/
+2zL0bA//dBVEpsbWeljqmEz2+bBv2efH+9Bbftig/WNqoF9hYWyx7Gx5nGTsLJm3
+w0WF6E0c1W0hMk2JmuBtRxswahZohofE6lUZkmbKiUuYr+DFXLKX/zwqU8mh9iB4
+DvhXfNd6wBjP3rV2ZUsPGr+LJ0se4/d98S9BJsecNga3BmzbZB4YUcScSmZS5ds2
+tP6SY5LmZI3H2IIRaHjRaQe8SqX7w6D8Du6xrO1kYgFA/z+sVs+k2UMyxR/GLp3E
+DQ00S+VnN6ItSNgzfl///s8zaoTj+UAc1eJqpzyla9QaZgkHsxf/fCBdoqOtsEx8
+sU5Pm7xVtF9RHOAV4tihaUFQKXGiOKy8jpc5WXxMvvt2gwRijIYCmHEjmXd1mFli
+DZ45Wnt3cwsFFRGM2f8pY5Jm0ttqlt9xCLwjfCU/bRY5mgZ9yaPWtkoIIgXqqjmK
+H1h+RMlsYf+aFxsfnuia5Tk30SQ+wH1LfmBxwrRZn1euqxghC+0iDapPCc4yzhWn
+mN595quw04PchwuzCCWcjnuzm/Y9ceBrYUW6y76wolSFrm1rK58K/e3wqK557ycJ
+K6jrMuNRqoNBUDi2z4xoFrrJwzuX5sqKuWrPktk5vKPlpRUXp3wEa7rMLbRNyiuE
+arpHHjlNqnWGFHEXp3Oz56fnEhBLpPA+/aNfFU1P/wP+0GEQjl8=
+=FgYc
 -----END PGP SIGNATURE-----
 
---jemff2tthry3624g--
+--------------d4tOE4D63uVoD7gAMXSewH5s--
