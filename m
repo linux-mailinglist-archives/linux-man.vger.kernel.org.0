@@ -2,75 +2,71 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 36BE9612A6D
-	for <lists+linux-man@lfdr.de>; Sun, 30 Oct 2022 12:50:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 41CA5612C34
+	for <lists+linux-man@lfdr.de>; Sun, 30 Oct 2022 19:21:24 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229792AbiJ3Luw (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 30 Oct 2022 07:50:52 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50340 "EHLO
+        id S229441AbiJ3SVW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 30 Oct 2022 14:21:22 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50638 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229497AbiJ3Luv (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 30 Oct 2022 07:50:51 -0400
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com [IPv6:2a00:1450:4864:20::335])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E03F4BF65
-        for <linux-man@vger.kernel.org>; Sun, 30 Oct 2022 04:50:50 -0700 (PDT)
-Received: by mail-wm1-x335.google.com with SMTP id t1so2016394wmi.4
-        for <linux-man@vger.kernel.org>; Sun, 30 Oct 2022 04:50:50 -0700 (PDT)
+        with ESMTP id S229574AbiJ3SVV (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 30 Oct 2022 14:21:21 -0400
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com [IPv6:2a00:1450:4864:20::42f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5AFE6B85F
+        for <linux-man@vger.kernel.org>; Sun, 30 Oct 2022 11:21:18 -0700 (PDT)
+Received: by mail-wr1-x42f.google.com with SMTP id v1so13126560wrt.11
+        for <linux-man@vger.kernel.org>; Sun, 30 Oct 2022 11:21:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=wJWlFN9pV7CMYjKUD9gK0F0hyjOyKxx2xeOhMhok1PI=;
-        b=Gt9DLfm8coz/r+SFs2TBGG6Df2TBpWfAf+BP6RoQ82rJaYVKS9pNRFvJ12nCeMGPPQ
-         2Ty78wZ+GV11p5yjb8grP5wlFN222OG5oIyFk8/pJqUZzdNERP1fX/4+/wejYmmP2mnz
-         QDFIxhhZyxOGMia0ZNudAUD0IHLU+sSYr8eAimx8ND7EfuSZ3vE0sClDsp5na/nDv+Tp
-         HlNdBatic2f4bggaF7NxJtYJzKikqeplzF2KF5ta+rHtl7HTv53QnRae8CSmYMO0eEX5
-         Q8FnrC5FGkZ7FOxo9xDd74+QE8PXi+K8lYBd20tUBGgWYQDV06I97XaHdW+NoxJnWU/T
-         N7+w==
+        bh=q/5Y8u0MVR1pS74lQD7j6GuQnkttzHY5hOh2CpkhO+o=;
+        b=ieXt3vPzgLJiGpU/R4FVE3SCXAZZw0gMl1nWlAyMtShwfmduHCjHxk9IFUdM2Pf7ht
+         AhqRP84oZBGMMNqH4JF8EhRRxSMXwOUYSUtdhBuXp34tu6ranI60Ne9HSRqmrKZ82GiS
+         fXmRC9jzj9x5jeDwqs5I2se0PE+jBW00dBHWF98mV5Tz+LDvxJYWEV8EnMlUxDDart4E
+         gEmozQbGolzdDaBYkKzhopxGDqJ6vxtJJ0nw/AiNlkLjPNEpAJO3KMwgEh87YvZ152jQ
+         NCij14oSYHHdaiW4lIBNCva5u3y3VlZe8DTCSgqzLyb5j3YcUrezaPWbEhyWrEaHoyKu
+         mmiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=wJWlFN9pV7CMYjKUD9gK0F0hyjOyKxx2xeOhMhok1PI=;
-        b=NOI0SzIGSp7udXEDUQ/naI7GV3ABPlOC6bARog9Vg+0JbuJI5GbozEn+zbP2NuwRrT
-         n5m/85oJqg2kBPtXZpaiDrcGalc2/jMpiSFqQQBvlkJU5f1wBOI+vaRSWrLibrRSXqJ/
-         6CY2lJBFI4nUp0TcjpISfF+KK3f6i14/7P4xRxT155FPMnnXh8azOX/JzrTn7zHbHKH2
-         IGV4NsvnsHXD7iQapLrzwzrHUo2SV21Gbc3RkQaF5+fcrlUIjtrzhRdtmshx+yexSlwG
-         Wg8165axCRyXWe6YFVEb8Krtxkjs1QQaL8f4xxrV1bNx2fXbAgC2PwbqpIX6K4YYEeM3
-         gn0w==
-X-Gm-Message-State: ACrzQf1yuS7/qFPAnxhU2p0sDvPl+wNOISWUbz9bXO/iNXQEsYM8Iiif
-        eBRqA/nKdP37iI+GcpvMPHw=
-X-Google-Smtp-Source: AMsMyM4PgOoKYCsSKhZ0DwcFvirEk2lzi1qmt1gdMo/X/6uAOWrnWZih6NalDfwAWEyAmQwvuyCpDA==
-X-Received: by 2002:a05:600c:600e:b0:3c6:fc59:5eda with SMTP id az14-20020a05600c600e00b003c6fc595edamr4926043wmb.30.1667130649295;
-        Sun, 30 Oct 2022 04:50:49 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id c192-20020a1c35c9000000b003c6f3f6675bsm4185693wma.26.2022.10.30.04.50.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 30 Oct 2022 04:50:48 -0700 (PDT)
-Message-ID: <ad6a0605-3494-ca32-c577-dbd4142ea7f8@gmail.com>
-Date:   Sun, 30 Oct 2022 12:50:47 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.0
-Subject: Re: [PATCH man-pages v3 3/4] process_madvise.2: fix capability and
- ptrace requirements
-Content-Language: en-US
-To:     Suren Baghdasaryan <surenb@google.com>
-Cc:     Yang Shi <shy828301@gmail.com>, linux-mm@kvack.org,
-        linux-man@vger.kernel.org, Minchan Kim <minchan@kernel.org>,
-        Zach OKeefe <zokeefe@google.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>
-References: <20221021223300.3675201-1-zokeefe@google.com>
- <20221021223300.3675201-4-zokeefe@google.com>
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=q/5Y8u0MVR1pS74lQD7j6GuQnkttzHY5hOh2CpkhO+o=;
+        b=hGYKzG6aBOkrtpMSifu9eKNZe9l5DVFnWDkFMJ+yLzn2ZMaENvGnlOrPYYiWSV/80t
+         T0/H67N3dBbyM330hu2B0twbAGDIZcjaCnV4PiB4lVJ0ZFvLT7+hO89Pvh5GtcSeKfqF
+         /TRgxvmyL0DExG/5BVBTb6Qm9VhfHyuzRKFCATqCnJGTJEdXPO5ZD5yvyXK1bGPCVEcz
+         oCkKTO2gRAtT/6KTXWFgBxHG+12m4HKhtUPOnkJGBzd7at9H8Xymy0i233gWfDLjPlkl
+         eehpc4v+2dwTe8Y7C64Is5KemvrQkyHfiCC+tWdFEVAPLm0JBRTEu3fIw5Kk81xdcmqF
+         y9MQ==
+X-Gm-Message-State: ACrzQf3+t5yJ9EXtKuqUYLp6ZcXhuot4/mkz5JcOvEkl3iMpBGx4I2hK
+        zd8L0vJFCi8bEldwR69QudCzo4BYwCs=
+X-Google-Smtp-Source: AMsMyM6OvbEdMgSykNJhrgSUDhGahcS75xRxg3cAW+xYOfOwrzaj++roNrklf30DTYCQWx4He/0dOQ==
+X-Received: by 2002:a05:6000:6:b0:236:c963:ab6e with SMTP id h6-20020a056000000600b00236c963ab6emr1463298wrx.148.1667154076806;
+        Sun, 30 Oct 2022 11:21:16 -0700 (PDT)
+Received: from asus5775.alejandro-colomar.es ([170.253.36.171])
+        by smtp.googlemail.com with ESMTPSA id k18-20020a05600c081200b003b4935f04a4sm5398913wmp.5.2022.10.30.11.21.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 30 Oct 2022 11:21:16 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20221021223300.3675201-4-zokeefe@google.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------qWvl0UwRAumI62o5qunbheiy"
+X-Google-Original-From: Alejandro Colomar <alx@kernel.org>
+To:     linux-man@vger.kernel.org
+Cc:     Alejandro Colomar <alx@kernel.org>,
+        Ingo Schwarze <schwarze@openbsd.org>,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Subject: [PATCH 2/2] get_nprocs.3, get_nprocs_conf.3, program_invocation_name.3, sysvipc.7: Match page title with file name
+Date:   Sun, 30 Oct 2022 19:16:52 +0100
+Message-Id: <20221030181651.98670-2-alx@kernel.org>
+X-Mailer: git-send-email 2.37.2
+In-Reply-To: <20221030181651.98670-1-alx@kernel.org>
+References: <20221030181651.98670-1-alx@kernel.org>
+MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6353; i=alx@kernel.org; h=from:subject; bh=4oE5tEgL819LccLoiTmmWO/aNrgzk5Dj7jOqs91kc40=; b=owEBbQKS/ZANAwAKAZ6MGvu+/9syAcsmYgBjXr+Jb28+4By3JIp1HreKXgwWDaa5cQBzomQ0aghN L9C+oNOJAjMEAAEKAB0WIQTqOofwpOugMORd8kCejBr7vv/bMgUCY16/iQAKCRCejBr7vv/bMtvgD/ 9On+Yz9NkYAiMThKu1vg0gS/i6AvJvcMzcS5lwxF6zjeJBEnGFAv5JEDYfK1rmf2eNp6YeFJEvRU0t R9GDt5Jccfq0a+XOYLKCFsqarn+nmQCfxqG5Xbhio4IAN55t29x1DW6/c00+tfMh489qrF/4YjlglR 3Y2f37fk/SYGzb/H5eLKSgKSjU5LmdjxfV8eRNb3VHectJ/W+i/UUpM6WVfwBG5WwUyHn+tFCO7yCp Ok3iSTJpu2q4UZcvmr5x5JO3A9Ra1LD3BzbpF572fI37JKvxaalEs5T9vmNumo5NuT4V8sfYJjD1+0 3cdMNzDblwZGOrpPZq48sVmFqoQcA64Pov1AZH1SyKPmt8aHoVfy3UNbP5G7q426pBHYqoive4pfaB YWdn9m+c525hqP3xs8Pp1BHmaEhSfrPoUy25RPpjI4ODW9VUw/TyA15ReN9AHBGupwyV1a0ittMJs4 9GHG7QE45DQBMaw127kikzxIEsh8aByZoITVq2ujIECzjvue1rk2rDTP4e6gdE+edV8I+15gR9Yx8v xvQYXApNr547G0I9WfEGH+gcBMOUmvhQQZPx9LpPQwC4OnLGHLN9zRIjBJe+s/xHsrHmBVncAol1st wU9HyVf3G9B7suju3GLPC7E4GbtsdjJYI0trsguf5Au9nMR6sHJD4uWCUx2A==
+X-Developer-Key: i=alx@kernel.org; a=openpgp; fpr=A9348594CE31283A826FBDD8D57633D441E25BB5
+Content-Transfer-Encoding: 8bit
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -79,105 +75,247 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------qWvl0UwRAumI62o5qunbheiy
-Content-Type: multipart/mixed; boundary="------------R1J2A20kwWF6KVxmYypw1yzi";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Suren Baghdasaryan <surenb@google.com>
-Cc: Yang Shi <shy828301@gmail.com>, linux-mm@kvack.org,
- linux-man@vger.kernel.org, Minchan Kim <minchan@kernel.org>,
- Zach OKeefe <zokeefe@google.com>, Michael Kerrisk <mtk.manpages@gmail.com>
-Message-ID: <ad6a0605-3494-ca32-c577-dbd4142ea7f8@gmail.com>
-Subject: Re: [PATCH man-pages v3 3/4] process_madvise.2: fix capability and
- ptrace requirements
-References: <20221021223300.3675201-1-zokeefe@google.com>
- <20221021223300.3675201-4-zokeefe@google.com>
-In-Reply-To: <20221021223300.3675201-4-zokeefe@google.com>
+Manually tweak a few pages that weren't covered by the script used
+in the previous commit.
 
---------------R1J2A20kwWF6KVxmYypw1yzi
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Cc: Ingo Schwarze <schwarze@openbsd.org>
+Cc: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Signed-off-by: Alejandro Colomar <alx@kernel.org>
+---
+ man3/get_nprocs.3              | 96 +++++++++++++++++++++++++++++++++-
+ man3/get_nprocs_conf.3         | 96 +---------------------------------
+ man3/program_invocation_name.3 |  2 +-
+ man7/sysvipc.7                 |  2 +-
+ 4 files changed, 98 insertions(+), 98 deletions(-)
 
-SGkgU3VyZW4sDQoNCk9uIDEwLzIyLzIyIDAwOjMyLCBaYWNoIE9LZWVmZSB3cm90ZToNCj4g
-RnJvbTogWmFjaCBPJ0tlZWZlIDx6b2tlZWZlQGdvb2dsZS5jb20+DQo+IA0KPiBUaGUgaW5p
-dGlhbCBjb21taXQgb2YgcHJvY2Vzc19tYWR2aXNlKDIpIHRvIExpbnV4LCBjb21taXQgZWNi
-OGFjOGIxZjE0DQo+ICgibW0vbWFkdmlzZTogaW50cm9kdWNlIHByb2Nlc3NfbWFkdmlzZSgp
-IHN5c2NhbGw6IGFuIGV4dGVybmFsIG1lbW9yeQ0KPiBoaW50aW5nIEFQSSIpLCByZWxpZWQg
-b24gUFRSQUNFX01PREVfQVRUQUNIX0ZTQ1JFRFMgKHNlZSBwdHJhY2UoMikpLA0KPiBidXQg
-d2FzIGFtZW5kZWQgYnkgY29tbWl0IDk2Y2ZlMmMwZmQyMyAoIm1tL21hZHZpc2U6IHJlcGxh
-Y2UgcHRyYWNlDQo+IGF0dGFjaCByZXF1aXJlbWVudCBmb3IgcHJvY2Vzc19tYWR2aXNlIikg
-d2hpY2ggcmVwbGFjZWQgdGhpcyB3aXRoIGENCj4gY29tYmluYXRpb24gb2YgUFRSQUNFX01P
-REVfUkVBRCBhbmQgQ0FQX1NZU19OSUNFIChQVFJBQ0VfTU9ERV9SRUFEIHRvDQo+IHByZXZl
-bnQgbGVha2luZyBBU0xSIG1ldGFkYXRhIGFuZCBDQVBfU1lTX05JQ0UgZm9yIGluZmx1ZW5j
-aW5nIHByb2Nlc3MNCj4gcGVyZm9ybWFuY2UpLg0KPiANCj4gVGhlIGluaXRpYWwgY29tbWl0
-IG9mIHByb2Nlc3NfbWFkdmlzZSgyKSB0byBtYW4tcGFnZXMgcHJvamVjdCwgbWFkZQ0KPiBh
-ZnRlciB0aGUgc2Vjb25kIHBhdGNoLCBpbmNsdWRlZCB0d28gZXJyb3JzOg0KPiANCj4gMSkg
-Q0FQX1NZU19BRE1JTiBpbnN0ZWFkIG9mIENBUF9TWVNfTklDRQ0KPiAyKSBQVFJBQ0VfTU9E
-RV9SRUFEX1JFQUxDUkVEUyBpbnN0ZWFkIG9mIFBUUkFDRV9NT0RFX1JFQURfRlNDUkVEUw0K
-PiANCj4gQ29ycmVjdCB0aGlzIGluIHRoZSBtYW4tcGFnZSBmb3IgcHJvY2Vzc19tYWR2aXNl
-KDIpLg0KPiANCj4gRml4ZXM6IGExNDRmNDU4YiAoInByb2Nlc3NfbWFkdmlzZS4yOiBEb2N1
-bWVudCBwcm9jZXNzX21hZHZpc2UoMikiKQ0KPiBDYzogU3VyZW4gQmFnaGRhc2FyeWFuIDxz
-dXJlbmJAZ29vZ2xlLmNvbT4NCj4gQ2M6IE1pbmNoYW4gS2ltIDxtaW5jaGFuQGtlcm5lbC5v
-cmc+DQo+IFNpZ25lZC1vZmYtYnk6IFphY2ggTydLZWVmZSA8em9rZWVmZUBnb29nbGUuY29t
-Pg0KDQpZb3UgYWRkZWQgeW91ciBSZXZpZXdlZC1ieSB0YWcgdG8gdjIgb2YgdGhpcyBwYXRj
-aC4gIEkgZ3Vlc3MgeW91J2QgbGlrZSB0byBwdXQgDQppdCBpbiB0aGlzIG9uZSB0b28sIGJ1
-dCBzaW5jZSBpdCBjaGFuZ2VkIHNsaWdodGx5LCBJJ2QgbGlrZSB5b3UgdG8gY29uZmlybS4N
-Cg0KVGhhbmtzLA0KDQpBbGV4DQoNCj4gLS0tDQo+ICAgbWFuMi9wcm9jZXNzX21hZHZpc2Uu
-MiB8IDIxICsrKysrKysrKysrKysrKysrLS0tLQ0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAxNyBp
-bnNlcnRpb25zKCspLCA0IGRlbGV0aW9ucygtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL21hbjIv
-cHJvY2Vzc19tYWR2aXNlLjIgYi9tYW4yL3Byb2Nlc3NfbWFkdmlzZS4yDQo+IGluZGV4IDYy
-MDgyMDZlNC4uNDRkM2I5NGU4IDEwMDY0NA0KPiAtLS0gYS9tYW4yL3Byb2Nlc3NfbWFkdmlz
-ZS4yDQo+ICsrKyBiL21hbjIvcHJvY2Vzc19tYWR2aXNlLjINCj4gQEAgLTEwNSwxNiArMTA1
-LDIwIEBAIHJlbW90ZSBwcm9jZXNzLg0KPiAgIE5vIGZ1cnRoZXIgZWxlbWVudHMgd2lsbCBi
-ZSBwcm9jZXNzZWQgYmV5b25kIHRoYXQgcG9pbnQuDQo+ICAgKFNlZSB0aGUgZGlzY3Vzc2lv
-biByZWdhcmRpbmcgcGFydGlhbCBhZHZpY2UgaW4gUkVUVVJOIFZBTFVFLikNCj4gICAuUFAN
-Cj4gLVBlcm1pc3Npb24gdG8gYXBwbHkgYWR2aWNlIHRvIGFub3RoZXIgcHJvY2VzcyBpcyBn
-b3Zlcm5lZCBieSBhDQo+ICsuXCIgY29tbWl0IDk2Y2ZlMmMwZmQyM2VhN2MyMzY4ZDE0Zjc2
-OWQyODdlN2FlMTA4MmUNCj4gK1N0YXJ0aW5nIGluIExpbnV4IDUuMTIsDQo+ICtwZXJtaXNz
-aW9uIHRvIGFwcGx5IGFkdmljZSB0byBhbm90aGVyIHByb2Nlc3MgaXMgZ292ZXJuZWQgYnkN
-Cj4gICBwdHJhY2UgYWNjZXNzIG1vZGUNCj4gLS5CIFBUUkFDRV9NT0RFX1JFQURfUkVBTENS
-RURTDQo+ICsuQiBQVFJBQ0VfTU9ERV9SRUFEX0ZTQ1JFRFMNCj4gICBjaGVjayAoc2VlDQo+
-ICAgLkJSIHB0cmFjZSAoMikpOw0KPiAgIGluIGFkZGl0aW9uLA0KPiAgIGJlY2F1c2Ugb2Yg
-dGhlIHBlcmZvcm1hbmNlIGltcGxpY2F0aW9ucyBvZiBhcHBseWluZyB0aGUgYWR2aWNlLA0K
-PiAgIHRoZSBjYWxsZXIgbXVzdCBoYXZlIHRoZQ0KPiAtLkIgQ0FQX1NZU19BRE1JTg0KPiAt
-Y2FwYWJpbGl0eS4NCj4gKy5CIENBUF9TWVNfTklDRQ0KPiArY2FwYWJpbGl0eQ0KPiArKHNl
-ZQ0KPiArLkJSIGNhcGFiaWxpdGllcyAoNykpLg0KPiAgIC5TSCBSRVRVUk4gVkFMVUUNCj4g
-ICBPbiBzdWNjZXNzLA0KPiAgIC5CUiBwcm9jZXNzX21hZHZpc2UgKCkNCj4gQEAgLTE4MCw2
-ICsxODQsMTUgQEAgY29uZmlndXJhdGlvbiBvcHRpb24uDQo+ICAgVGhlDQo+ICAgLkJSIHBy
-b2Nlc3NfbWFkdmlzZSAoKQ0KPiAgIHN5c3RlbSBjYWxsIGlzIExpbnV4LXNwZWNpZmljLg0K
-PiArLlNIIE5PVEVTDQo+ICtXaGVuIHRoaXMgc3lzdGVtIGNhbGwgZmlyc3QgYXBwZWFyZWQg
-aW4gTGludXggNS4xMCwNCj4gK3Blcm1pc3Npb24gdG8gYXBwbHkgYWR2aWNlIHRvIGFub3Ro
-ZXIgcHJvY2VzcyB3YXMgZW50aXJlbHkgZ292ZXJuZWQgYnkNCj4gK3B0cmFjZSBhY2Nlc3Mg
-bW9kZQ0KPiArLkIgUFRSQUNFX01PREVfQVRUQUNIX0ZTQ1JFRFMNCj4gK2NoZWNrIChzZWUN
-Cj4gKy5CUiBwdHJhY2UgKDIpKS4NCj4gK1RoaXMgcmVxdWlyZW1lbnQgd2FzIHJlbGF4ZWQg
-aW4gTGludXggNS4xMiBzbyB0aGF0IHRoZSBjYWxsZXIgZGlkbid0IHJlcXVpcmUNCj4gK2Z1
-bGwgY29udHJvbCBvdmVyIHRoZSB0YXJnZXQgcHJvY2Vzcy4NCj4gICAuU0ggU0VFIEFMU08N
-Cj4gICAuQlIgbWFkdmlzZSAoMiksDQo+ICAgLkJSIHBpZGZkX29wZW4gKDIpLA0KDQotLSAN
-CjxodHRwOi8vd3d3LmFsZWphbmRyby1jb2xvbWFyLmVzLz4NCg==
+diff --git a/man3/get_nprocs.3 b/man3/get_nprocs.3
+index 63c03bac7..98478cb80 100644
+--- a/man3/get_nprocs.3
++++ b/man3/get_nprocs.3
+@@ -1 +1,95 @@
+-.so man3/get_nprocs_conf.3
++.\" Copyright (c) 2012, Petr Benas
++.\" and Copyright (c) 2012, Michael Kerrisk <mtk.man-pages@gmail.com>
++.\"
++.\" SPDX-License-Identifier: Linux-man-pages-copyleft
++.\"
++.TH get_nprocs 3 (date) "Linux man-pages (unreleased)"
++.SH NAME
++get_nprocs, get_nprocs_conf \- get number of processors
++.SH LIBRARY
++Standard C library
++.RI ( libc ", " \-lc )
++.SH SYNOPSIS
++.nf
++.B #include <sys/sysinfo.h>
++.PP
++.B int get_nprocs(void);
++.B int get_nprocs_conf(void);
++.fi
++.SH DESCRIPTION
++The function
++.BR get_nprocs_conf ()
++returns the number of processors configured by the operating system.
++.PP
++The function
++.BR get_nprocs ()
++returns the number of processors currently available in the system.
++This may be less than the number returned by
++.BR get_nprocs_conf ()
++because processors may be offline (e.g., on hotpluggable systems).
++.SH RETURN VALUE
++As given in DESCRIPTION.
++.SH ATTRIBUTES
++For an explanation of the terms used in this section, see
++.BR attributes (7).
++.ad l
++.nh
++.TS
++allbox;
++lbx lb lb
++l l l.
++Interface	Attribute	Value
++T{
++.BR get_nprocs (),
++.BR get_nprocs_conf ()
++T}	Thread safety	MT-Safe
++.TE
++.hy
++.ad
++.sp 1
++.SH STANDARDS
++These functions are GNU extensions.
++.SH NOTES
++The current
++.\" glibc 2.15
++implementation of these functions is rather expensive,
++since they open and parse files in the
++.I /sys
++filesystem each time they are called.
++.PP
++The following
++.BR sysconf (3)
++calls make use of the functions documented on this page
++to return the same information.
++.PP
++.in +4n
++.EX
++np = sysconf(_SC_NPROCESSORS_CONF);     /* processors configured */
++np = sysconf(_SC_NPROCESSORS_ONLN);     /* processors available */
++.EE
++.in
++.SH EXAMPLES
++The following example shows how
++.BR get_nprocs ()
++and
++.BR get_nprocs_conf ()
++can be used.
++.PP
++.\" SRC BEGIN (get_nprocs_conf.c)
++.EX
++#include <stdio.h>
++#include <stdlib.h>
++#include <sys/sysinfo.h>
++
++int
++main(void)
++{
++    printf("This system has %d processors configured and "
++            "%d processors available.\en",
++            get_nprocs_conf(), get_nprocs());
++    exit(EXIT_SUCCESS);
++}
++.EE
++.\" SRC END
++.SH SEE ALSO
++.BR nproc (1)
+diff --git a/man3/get_nprocs_conf.3 b/man3/get_nprocs_conf.3
+index 1cf7f2070..7de3e2b31 100644
+--- a/man3/get_nprocs_conf.3
++++ b/man3/get_nprocs_conf.3
+@@ -1,95 +1 @@
+-.\" Copyright (c) 2012, Petr Benas
+-.\" and Copyright (c) 2012, Michael Kerrisk <mtk.man-pages@gmail.com>
+-.\"
+-.\" SPDX-License-Identifier: Linux-man-pages-copyleft
+-.\"
+-.TH GET_NPROCS 3 (date) "Linux man-pages (unreleased)"
+-.SH NAME
+-get_nprocs, get_nprocs_conf \- get number of processors
+-.SH LIBRARY
+-Standard C library
+-.RI ( libc ", " \-lc )
+-.SH SYNOPSIS
+-.nf
+-.B #include <sys/sysinfo.h>
+-.PP
+-.B int get_nprocs(void);
+-.B int get_nprocs_conf(void);
+-.fi
+-.SH DESCRIPTION
+-The function
+-.BR get_nprocs_conf ()
+-returns the number of processors configured by the operating system.
+-.PP
+-The function
+-.BR get_nprocs ()
+-returns the number of processors currently available in the system.
+-This may be less than the number returned by
+-.BR get_nprocs_conf ()
+-because processors may be offline (e.g., on hotpluggable systems).
+-.SH RETURN VALUE
+-As given in DESCRIPTION.
+-.SH ATTRIBUTES
+-For an explanation of the terms used in this section, see
+-.BR attributes (7).
+-.ad l
+-.nh
+-.TS
+-allbox;
+-lbx lb lb
+-l l l.
+-Interface	Attribute	Value
+-T{
+-.BR get_nprocs (),
+-.BR get_nprocs_conf ()
+-T}	Thread safety	MT-Safe
+-.TE
+-.hy
+-.ad
+-.sp 1
+-.SH STANDARDS
+-These functions are GNU extensions.
+-.SH NOTES
+-The current
+-.\" glibc 2.15
+-implementation of these functions is rather expensive,
+-since they open and parse files in the
+-.I /sys
+-filesystem each time they are called.
+-.PP
+-The following
+-.BR sysconf (3)
+-calls make use of the functions documented on this page
+-to return the same information.
+-.PP
+-.in +4n
+-.EX
+-np = sysconf(_SC_NPROCESSORS_CONF);     /* processors configured */
+-np = sysconf(_SC_NPROCESSORS_ONLN);     /* processors available */
+-.EE
+-.in
+-.SH EXAMPLES
+-The following example shows how
+-.BR get_nprocs ()
+-and
+-.BR get_nprocs_conf ()
+-can be used.
+-.PP
+-.\" SRC BEGIN (get_nprocs_conf.c)
+-.EX
+-#include <stdio.h>
+-#include <stdlib.h>
+-#include <sys/sysinfo.h>
+-
+-int
+-main(void)
+-{
+-    printf("This system has %d processors configured and "
+-            "%d processors available.\en",
+-            get_nprocs_conf(), get_nprocs());
+-    exit(EXIT_SUCCESS);
+-}
+-.EE
+-.\" SRC END
+-.SH SEE ALSO
+-.BR nproc (1)
++.so man3/get_nprocs.3
+diff --git a/man3/program_invocation_name.3 b/man3/program_invocation_name.3
+index 6110d826e..97d787470 100644
+--- a/man3/program_invocation_name.3
++++ b/man3/program_invocation_name.3
+@@ -21,7 +21,7 @@
+ .\" SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ .\" %%%LICENSE_END
+ .\"
+-.TH INVOCATION_NAME 3 (date) "Linux man-pages (unreleased)"
++.TH program_invocation_name 3 (date) "Linux man-pages (unreleased)"
+ .SH NAME
+ program_invocation_name, program_invocation_short_name \- \
+ obtain name used to invoke calling program
+diff --git a/man7/sysvipc.7 b/man7/sysvipc.7
+index e801794b0..4b3576157 100644
+--- a/man7/sysvipc.7
++++ b/man7/sysvipc.7
+@@ -2,7 +2,7 @@
+ .\"
+ .\" SPDX-License-Identifier: Linux-man-pages-copyleft
+ .\"
+-.TH SVIPC 7 (date) "Linux man-pages (unreleased)"
++.TH sysvipc 7 (date) "Linux man-pages (unreleased)"
+ .SH NAME
+ sysvipc \- System V interprocess communication mechanisms
+ .SH DESCRIPTION
+-- 
+2.37.2
 
---------------R1J2A20kwWF6KVxmYypw1yzi--
-
---------------qWvl0UwRAumI62o5qunbheiy
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmNeZRcACgkQnowa+77/
-2zIyFg/+OwmuNb4dh6UYjTrxRIH7CApFI3pen8EEAt5aOqLX2gF3QsbLs4GC6R3A
-Em6xvqJtqKTDqpjY8VdpAX8eOs1HkFJY5kZ/Qf53HdUVny9v/cvYeHFg78N3n4Dt
-YTU2l0j50FMy1ywxrFrvx9IXqKC1UfSYeYRZnk/TvIpOtvbGeKT7hnKLpJeBVKjq
-584fXOYA6c9CdngZGcrNuNCZm/8JJYOqCw/ZoYSHO+eCoxktaf17mtMXIU/fRVLK
-QWWw0+aerEQ7vE8yyGUjRMwQwc2Zy6BWVBEfqyYFD3oO/oUV3obPiq9sngYelhju
-eeuTjy2HpkjNuJFSNH5/cXrqTTi/EKUoaukTqxXr/FJFaA8sgWOUAO/skXcgUGDO
-FHdsxHC0+MRu0xbwV/Hqvv6pk5jAwPICE66jj/7SyvPXW0mWxQd4PtXd35B3LaPa
-zejGYvZqpBOEg9Rdjh0+IHNsF2BmUVqh4dOT2+jcKQW22nnpLW9sVHqQHX7QUmD2
-l5T4jXI+nCgaS9HAbnr3WIGfNxOPD/AAuWBfN+D5klOXlHechC7LWaW10mHnYFy4
-uxYuydNwtQ2hmmlqPMRgqlT5fqfIbZuL6EaAt1xg5cGFeuFYxA5d0VfMDZn2uz3F
-EBZ9UGTxb/G4Mm/7Agj8+Tr4piDM/41J54B13Sc28de3ISnHQuk=
-=fW/X
------END PGP SIGNATURE-----
-
---------------qWvl0UwRAumI62o5qunbheiy--
