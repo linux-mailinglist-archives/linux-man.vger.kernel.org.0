@@ -2,68 +2,76 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 7F9ED613E10
-	for <lists+linux-man@lfdr.de>; Mon, 31 Oct 2022 20:13:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0A55F613EBC
+	for <lists+linux-man@lfdr.de>; Mon, 31 Oct 2022 21:12:13 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229752AbiJaTNz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 31 Oct 2022 15:13:55 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38772 "EHLO
+        id S229574AbiJaUML (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 31 Oct 2022 16:12:11 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46162 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229744AbiJaTNx (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 31 Oct 2022 15:13:53 -0400
-Received: from mail-yb1-xb2b.google.com (mail-yb1-xb2b.google.com [IPv6:2607:f8b0:4864:20::b2b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6494C13CF5
-        for <linux-man@vger.kernel.org>; Mon, 31 Oct 2022 12:13:52 -0700 (PDT)
-Received: by mail-yb1-xb2b.google.com with SMTP id f205so14857823yba.2
-        for <linux-man@vger.kernel.org>; Mon, 31 Oct 2022 12:13:52 -0700 (PDT)
+        with ESMTP id S229487AbiJaUML (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 31 Oct 2022 16:12:11 -0400
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com [IPv6:2a00:1450:4864:20::32e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 27F3F100A
+        for <linux-man@vger.kernel.org>; Mon, 31 Oct 2022 13:12:10 -0700 (PDT)
+Received: by mail-wm1-x32e.google.com with SMTP id 5so7763919wmo.1
+        for <linux-man@vger.kernel.org>; Mon, 31 Oct 2022 13:12:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=YESZVpAPSr5V8ydBxH4teaVc2gti9rjXuWC7z8MOzbs=;
-        b=Egp6DPeAXAbGblVbELnd+D5sIu0Z64+4l1uEMjjgRF4lA24ugyLHMInpYgR1x9kPpk
-         n4Y91mVW1nracVAcDu0O9puMp1/cH+bn1p0Zxv740z1eIudxD7Gw3G5LoocYB/L0cdNu
-         hWJ6i/PJfs6/iLMKoZGg7fO1VGv3VvtqrFUj1shiEEjveQj7DPpnMmt9Yz7eHlJV90U4
-         SPfDdseODTIlEWvsgz0+odubA+NOAYlLYMdULGnxAuuHV3md3QObc8uItAX+XssuiOur
-         ffcSNbSKhmQ8F/KgJLk11XWY9U819SmEHrIzjy/BxfBNCbHRNowCCDHaYc5fyd9B6Voo
-         xXSw==
+        d=gmail.com; s=20210112;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=TLuKz2xgJQKAR35gVnxeVT53fCA2Wo3U25UpH3ujrqs=;
+        b=d5IhATjMPHbI+4U9JQkehFlC7xa5/BuJxEs9Twkq05fCGF8uQ+/OaL5+dag4hCR41C
+         mut4rMR6XhuNkvLlAyFMgcSpRwmN/nSrPXBA7ubKmr9H4YLZc3zXpBpGWFX/cAVedRyb
+         jTWrzakAE8LU8EMdOw2urNylGPNoVSmWFx1v/W49idkxkJA+OsYjssMa6FjpT4PH+pSk
+         OZAa7WIy35hIvCmkDJYjEd2I95n9SaF2axwYdX3KzS5onhogiurMlrzOqkLxgSAx9SOJ
+         FyC1Kh6wD+AIltCRE+uyirv2XzPP1nOSJiUbaGbWKU9hZ90WiYK25DmSMBCHsEmntsj+
+         o6DQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=YESZVpAPSr5V8ydBxH4teaVc2gti9rjXuWC7z8MOzbs=;
-        b=yem5qpsPtK96fg08+X6lFeK4P7I3qmxAVoFCFmdgt+HyK/FGa3jSCQt/waSaBIlfTX
-         vzV8yCeQZuuTdfj6zY8CFiwwPTfJ7GBKei+pYpA16nB3LXlsZNoufbcc6SC5VPLZOVc7
-         3B2PAcnjBqd0DBGVOei17IREHZLnABZ+eZWmP8lnR4ktRpJ7D2kDRSOREAKkW2pRsE7r
-         5EU7Was1VidbYAthYdB3c6ZG/z3lrd0QDzjTC8SLpLcivZM0lpIgQhL2QgfTlM4F+ohu
-         SPmJLtWzvN3/T2pyRlfgLjgchEyJkCvlXFVb8q6iQmGZyFz685kir/TPAjMADgA09hWC
-         7uSw==
-X-Gm-Message-State: ACrzQf0xxi9r0Mx+O42TAx4NxJlzNXf6xC2Z12a5BunzcA1rbbBtgFbP
-        2I8eGd83Nm/mipIzJ1kEGsJcyvpVBezsejlAe3fevpJynyjf0w==
-X-Google-Smtp-Source: AMsMyM5t1vb/UUHxaFELwLbrCFUP2Pcq7okgt2sJbap+4vIHr4PxpRCv651wfUiiBDLTcOBRbKfKFOjk+2IwcrjSrSk=
-X-Received: by 2002:a05:6902:1201:b0:6ca:b14e:8aaa with SMTP id
- s1-20020a056902120100b006cab14e8aaamr14508700ybu.316.1667243631361; Mon, 31
- Oct 2022 12:13:51 -0700 (PDT)
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=TLuKz2xgJQKAR35gVnxeVT53fCA2Wo3U25UpH3ujrqs=;
+        b=it/3zmCytVLoVXszryLbcVH5LprkSUlfJkjq4p7xUek9F0vUONnADcH6y7AwKgT56P
+         j4PdVaAs8jPaHQi76mNuFcMF7lblJPsluZq08XoLzruODX2kWgMyjvb4gD3yUBP6U1y3
+         HYqnjImMuzpKvTAxZEUpZfSvWKPZkBg19EnTdPzip1Jtg8ZHG8qWLNn9DxmkLjKSMxv1
+         1Na+vXNFfjw3LxQK9J9L6277GTcYT0zAHr53vLL5jKdf8YKkkCytn0DtJCBjxLBN4gZN
+         uPJyyq0/qSgXT1sE7rnaOZE0H3aPTnrezU31+jwsfabAbwJrX247f1A7R1VJ612ZtGTl
+         ROTQ==
+X-Gm-Message-State: ACrzQf3uLDnKoLNHaxrjIGnebjX8HbV1cGjC6dBPTGsFV81lZUgDaG/1
+        KiMdr7tIRN01DMq6DUXyEnE=
+X-Google-Smtp-Source: AMsMyM7p1nExoYq1MMRziGCCZHFdVMAJJ4GQjLpD86Gi6zj8crXddp1nI4Q1bCZDQ7wusn6hWTDqFQ==
+X-Received: by 2002:a05:600c:2150:b0:3cf:6c05:b4ab with SMTP id v16-20020a05600c215000b003cf6c05b4abmr6426374wml.161.1667247128561;
+        Mon, 31 Oct 2022 13:12:08 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id o17-20020a5d4091000000b0022584c82c80sm8282349wrp.19.2022.10.31.13.12.07
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 31 Oct 2022 13:12:07 -0700 (PDT)
+Message-ID: <c10d20ea-f992-80d5-63c8-afdcf59b699c@gmail.com>
+Date:   Mon, 31 Oct 2022 21:11:58 +0100
 MIME-Version: 1.0
-References: <20221021223300.3675201-1-zokeefe@google.com> <20221021223300.3675201-4-zokeefe@google.com>
- <ad6a0605-3494-ca32-c577-dbd4142ea7f8@gmail.com>
-In-Reply-To: <ad6a0605-3494-ca32-c577-dbd4142ea7f8@gmail.com>
-From:   Suren Baghdasaryan <surenb@google.com>
-Date:   Mon, 31 Oct 2022 12:13:40 -0700
-Message-ID: <CAJuCfpFvrhcfLAMDaz-3cRNtYXmHuP7FBZWy4TrYxcg8AF9c8w@mail.gmail.com>
-Subject: Re: [PATCH man-pages v3 3/4] process_madvise.2: fix capability and
- ptrace requirements
-To:     Alejandro Colomar <alx.manpages@gmail.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.0
+Subject: Re: [PATCH man-pages v3 1/4] madvise.2: update THP file/shmem
+ documentation for +5.4
+To:     Zach O'Keefe <zokeefe@google.com>
 Cc:     Yang Shi <shy828301@gmail.com>, linux-mm@kvack.org,
-        linux-man@vger.kernel.org, Minchan Kim <minchan@kernel.org>,
-        Zach OKeefe <zokeefe@google.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: No, score=-17.6 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-        ENV_AND_HDR_SPF_MATCH,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
-        USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=ham
+        linux-man@vger.kernel.org, Michael Kerrisk <mtk.manpages@gmail.com>
+References: <20221021223300.3675201-1-zokeefe@google.com>
+ <20221021223300.3675201-2-zokeefe@google.com>
+ <715d8645-16ea-d230-0488-46ea01792bc6@gmail.com>
+ <CAAa6QmTqSpct3hf0M6eGJx_n1-dF3oNZ17LWonqbnmAC1W6FwA@mail.gmail.com>
+Content-Language: en-US
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <CAAa6QmTqSpct3hf0M6eGJx_n1-dF3oNZ17LWonqbnmAC1W6FwA@mail.gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------agIoct0ix0L9BzvXEB2eUwUC"
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -71,101 +79,63 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Alex,
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------agIoct0ix0L9BzvXEB2eUwUC
+Content-Type: multipart/mixed; boundary="------------yy6Vz3mf90ZfXhD4LXWApOJm";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: Zach O'Keefe <zokeefe@google.com>
+Cc: Yang Shi <shy828301@gmail.com>, linux-mm@kvack.org,
+ linux-man@vger.kernel.org, Michael Kerrisk <mtk.manpages@gmail.com>
+Message-ID: <c10d20ea-f992-80d5-63c8-afdcf59b699c@gmail.com>
+Subject: Re: [PATCH man-pages v3 1/4] madvise.2: update THP file/shmem
+ documentation for +5.4
+References: <20221021223300.3675201-1-zokeefe@google.com>
+ <20221021223300.3675201-2-zokeefe@google.com>
+ <715d8645-16ea-d230-0488-46ea01792bc6@gmail.com>
+ <CAAa6QmTqSpct3hf0M6eGJx_n1-dF3oNZ17LWonqbnmAC1W6FwA@mail.gmail.com>
+In-Reply-To: <CAAa6QmTqSpct3hf0M6eGJx_n1-dF3oNZ17LWonqbnmAC1W6FwA@mail.gmail.com>
 
-On Sun, Oct 30, 2022 at 4:50 AM Alejandro Colomar
-<alx.manpages@gmail.com> wrote:
->
-> Hi Suren,
->
-> On 10/22/22 00:32, Zach OKeefe wrote:
-> > From: Zach O'Keefe <zokeefe@google.com>
-> >
-> > The initial commit of process_madvise(2) to Linux, commit ecb8ac8b1f14
-> > ("mm/madvise: introduce process_madvise() syscall: an external memory
-> > hinting API"), relied on PTRACE_MODE_ATTACH_FSCREDS (see ptrace(2)),
-> > but was amended by commit 96cfe2c0fd23 ("mm/madvise: replace ptrace
-> > attach requirement for process_madvise") which replaced this with a
-> > combination of PTRACE_MODE_READ and CAP_SYS_NICE (PTRACE_MODE_READ to
-> > prevent leaking ASLR metadata and CAP_SYS_NICE for influencing process
-> > performance).
-> >
-> > The initial commit of process_madvise(2) to man-pages project, made
-> > after the second patch, included two errors:
-> >
-> > 1) CAP_SYS_ADMIN instead of CAP_SYS_NICE
-> > 2) PTRACE_MODE_READ_REALCREDS instead of PTRACE_MODE_READ_FSCREDS
-> >
-> > Correct this in the man-page for process_madvise(2).
-> >
-> > Fixes: a144f458b ("process_madvise.2: Document process_madvise(2)")
-> > Cc: Suren Baghdasaryan <surenb@google.com>
-> > Cc: Minchan Kim <minchan@kernel.org>
-> > Signed-off-by: Zach O'Keefe <zokeefe@google.com>
+--------------yy6Vz3mf90ZfXhD4LXWApOJm
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+SGkgWmFjaCENCg0KT24gMTAvMzEvMjIgMTc6MzMsIFphY2ggTydLZWVmZSB3cm90ZToNCj4g
+DQo+IFRoYW5rcyBmb3IgdGFraW5nIHRoZSBwYXRjaCwgYW5kIHRoYW5rcyBmb3IgdGFraW5n
+IHRoZSB0aW1lIHdpdGggdGhlDQo+IGV4cGxhbmF0aW9uISBHbGFkIEkgd2Fzbid0ICp0b28q
+IGZhciBvZmYgOikNCg0KOikNCg0KQlRXLCBJIGp1c3QgZG9jdW1lbnRlZCB0aGUgbGludGVy
+cyB0aGF0IGFyZSBhdmFpbGFibGUgaW4gdGhlIGJ1aWxkIHN5c3RlbS4NCkl0IHdvdWxkIGhh
+dmUgY2F1Z2h0IGFuIGlzc3VlIGFuIHBhdGNoIDIvNCB0aGF0IEkgZGlkbid0IChhbHRob3Vn
+aCBpdCByZXF1aXJlcyBhIA0KeWV0LXVucmVsZWFzZWQgZ3JvZmYgdmVyc2lvbjsgc28gaXQg
+d29uJ3QgYmUgYXZhaWxhYmxlIHRvIGdlbmVyYWwgcHVibGljIHVudGlsIA0KaXQgaXMgcmVs
+ZWFzZWQgaW4gYSBmZXcgbW9udGhzKS4NCllvdSBtYXkgd2FudCB0byBydW4gaXQgaW4gZnV0
+dXJlIHBhdGNoZXMgOykNCg0KSSdsbCB0ZWxsIG1vcmUgYWJvdXQgaXQgaW4gdGhlIHRocmVh
+ZCBmb3IgMi80DQoNCj4gDQo+IENoYW5nZXMgbG9vayBnb29kIHRvIG1lIC0gdGhhbmsgeW91
+IQ0KDQpDaGVlcnMsDQpBbGV4DQoNCi0tIA0KPGh0dHA6Ly93d3cuYWxlamFuZHJvLWNvbG9t
+YXIuZXMvPg0K
 
->
-> You added your Reviewed-by tag to v2 of this patch.  I guess you'd like to put
-> it in this one too, but since it changed slightly, I'd like you to confirm.
+--------------yy6Vz3mf90ZfXhD4LXWApOJm--
 
-Thanks for the reminder!
-Suren.
+--------------agIoct0ix0L9BzvXEB2eUwUC
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
->
-> Thanks,
->
-> Alex
->
-> > ---
-> >   man2/process_madvise.2 | 21 +++++++++++++++++----
-> >   1 file changed, 17 insertions(+), 4 deletions(-)
-> >
-> > diff --git a/man2/process_madvise.2 b/man2/process_madvise.2
-> > index 6208206e4..44d3b94e8 100644
-> > --- a/man2/process_madvise.2
-> > +++ b/man2/process_madvise.2
-> > @@ -105,16 +105,20 @@ remote process.
-> >   No further elements will be processed beyond that point.
-> >   (See the discussion regarding partial advice in RETURN VALUE.)
-> >   .PP
-> > -Permission to apply advice to another process is governed by a
-> > +.\" commit 96cfe2c0fd23ea7c2368d14f769d287e7ae1082e
-> > +Starting in Linux 5.12,
-> > +permission to apply advice to another process is governed by
-> >   ptrace access mode
-> > -.B PTRACE_MODE_READ_REALCREDS
-> > +.B PTRACE_MODE_READ_FSCREDS
-> >   check (see
-> >   .BR ptrace (2));
-> >   in addition,
-> >   because of the performance implications of applying the advice,
-> >   the caller must have the
-> > -.B CAP_SYS_ADMIN
-> > -capability.
-> > +.B CAP_SYS_NICE
-> > +capability
-> > +(see
-> > +.BR capabilities (7)).
-> >   .SH RETURN VALUE
-> >   On success,
-> >   .BR process_madvise ()
-> > @@ -180,6 +184,15 @@ configuration option.
-> >   The
-> >   .BR process_madvise ()
-> >   system call is Linux-specific.
-> > +.SH NOTES
-> > +When this system call first appeared in Linux 5.10,
-> > +permission to apply advice to another process was entirely governed by
-> > +ptrace access mode
-> > +.B PTRACE_MODE_ATTACH_FSCREDS
-> > +check (see
-> > +.BR ptrace (2)).
-> > +This requirement was relaxed in Linux 5.12 so that the caller didn't require
-> > +full control over the target process.
-> >   .SH SEE ALSO
-> >   .BR madvise (2),
-> >   .BR pidfd_open (2),
->
-> --
-> <http://www.alejandro-colomar.es/>
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmNgLA4ACgkQnowa+77/
+2zJKrQ/+LqX3wIUQDvno91TYhQhkCUbjHY+1n6OP/q7yBA4G2o1GUiC3HKdri4Mn
+jOOBGtS5ILUxgxnScfyjeCMmjjjtSRgj9/31wdEK3j+Dpsld/0NhfOnxmw8DERPW
+nS27RtMjKk0uiggXu9qmHUPc5g4H2e7tbOtT/OsduUA9U1TQMd1yqLv/eKmb5ZOn
+sub1/7GR59UhwDhYK5WkKkXGEdvaDDubkQOuAGdWdBiiSKhlM56DScJ0MI6XEAiJ
+r5N72nTG8OPRMpb7HgE0ezqQL+dBe32rzVk9al1O9K/vAEJrjmO0wkt4MHAb0RTG
+dkcYtdzphKSUYolrG2IDgxTLbNK3mkwyncQv16NY2nMOTahu21ixiUGdWhQcPuxd
+oltO32zYSU4ZnjHzruzMhzXbhVEQzC/7VPlgP44SyaFOvGqOEmlgzoqCbkdf/Jmy
+xExuCfQciW8UDoREa72B56t5a9GDXWsD0c+WNCOnU4f3+XfRXClT+G2nxe4rhs/B
+7Y7PQ+K+e7jyAhPsHy0RdlJYLbhSTUVaiUYOtED+FhZ4rQjYwJw50xelNm8pWjZe
+5Xg5tTQcHJbbl6uJ57IxLCQZEhC+bD1ihZwUenP5uMSYzeJNx7YjNWxzDWlqaj/P
+L9zjHVAn7dQmzDOzQhkQYcPX63OKyXO6RJWASu9LHowft0r4Up8=
+=ROSu
+-----END PGP SIGNATURE-----
+
+--------------agIoct0ix0L9BzvXEB2eUwUC--
