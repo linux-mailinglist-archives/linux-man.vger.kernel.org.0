@@ -2,58 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 2797B613B61
-	for <lists+linux-man@lfdr.de>; Mon, 31 Oct 2022 17:34:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 5AF49613B67
+	for <lists+linux-man@lfdr.de>; Mon, 31 Oct 2022 17:34:17 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231674AbiJaQdu (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 31 Oct 2022 12:33:50 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49922 "EHLO
+        id S231821AbiJaQeQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 31 Oct 2022 12:34:16 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51132 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231876AbiJaQdm (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 31 Oct 2022 12:33:42 -0400
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com [IPv6:2a00:1450:4864:20::22e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 09C23C7B
-        for <linux-man@vger.kernel.org>; Mon, 31 Oct 2022 09:33:41 -0700 (PDT)
-Received: by mail-lj1-x22e.google.com with SMTP id k19so17048545lji.2
-        for <linux-man@vger.kernel.org>; Mon, 31 Oct 2022 09:33:40 -0700 (PDT)
+        with ESMTP id S231796AbiJaQeP (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 31 Oct 2022 12:34:15 -0400
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com [IPv6:2a00:1450:4864:20::134])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 15552E39
+        for <linux-man@vger.kernel.org>; Mon, 31 Oct 2022 09:34:15 -0700 (PDT)
+Received: by mail-lf1-x134.google.com with SMTP id j4so20145261lfk.0
+        for <linux-man@vger.kernel.org>; Mon, 31 Oct 2022 09:34:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=google.com; s=20210112;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=nr4kGPG1ThX/VOdbvfAuqtiy4NRvTu3/gQg/bZ0f2ss=;
-        b=dp/j2aWv4bculz/bfdKAADjnLCjMsidQGp9uEriE3DfhmiQvoW7kweu9BYWcRM/vBW
-         qRvBaVxrbIpZijIBIaDKq72TdD4HQH9ok/5R+x/paZEMjodKY1TFRJd7fRy9psjEME2v
-         XPgIRFKl261LZ9H637+TqrpsxhzPJn2SE/oLFgLljOgP34Vc1zBCgBcuymdjrwK03NXk
-         UnOJKz3xyELEKvsFazwgM5nrgAEVoZCDoRBNBQQfMhEHPDC0nZpg7MFbSdj7IWo9xpv0
-         6NF26lJ2dpIeI8EJU3+/OTHAfqE8iX43n7RENC+jkiMUO5gxP4GPPPQ0CpoirHfhesKq
-         sDyg==
+        bh=WuUkP45RzlUJMMDmT0axeeuMqG2jWs1gF2XKSWMSsoc=;
+        b=SAMTViSV7EiGrPMEdUePOO7yk3by937/qt76oi0BU1uXz5fBWs8yxw/1HEavwbpqlW
+         cSBNZwLWG76VRiruSLQgD181ABYCh0/VDVJ2IJ1JIa+y2tWYd4+9HvVadhMSkx8OZ/Qy
+         OvKh63BnhHwCkSseiHc/KK4McNjWM0Y2S68wsJnuTlCQUxPyYf3SbkUWjGqMSKBM0X7M
+         mDbfEH+xSw3GaR16PQhW9NbusAN/179Zdwqp+NyA10Ibrko9gfTIHVdRaJd4Wz9npaa4
+         qbxAnYFusQqYYFBKy/1bH1J0KiJ/78qPV3YogY/CWNmfGt3ZYOgmhSK1wQcXNtZqlbjA
+         I+CA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=nr4kGPG1ThX/VOdbvfAuqtiy4NRvTu3/gQg/bZ0f2ss=;
-        b=eEqs+twe/Av+LvKUEj4RMTDGUBMM0Pj9TBPTpCIr+Z+irxKC8oww89uQKmDp3LGRha
-         bf0TzP7IO/ZJY7T+Qrymlj+fxXiPMUbQGv7+DwMv5VitnD/hzMD4fS1PEAFaoI4EpLU7
-         maoZFfEh/DDy2arEnTYHriU8z3ocQBeC0rK+p2g+XsjuphuIK4bONbkr9Yb/qARHJIpL
-         l5+Hd6AEt0Xgdd9Vhpyc0aMgFL4h0upAKVCOHfAUyLbNvZw4nH5jXFntbvWttHxCvags
-         Guas4o0FB28Qf1jvu3tZvGdKdOZ5OJ4CZ0Rjt5rwVz6z6OQbmcTn4VheETwp36qeGHqE
-         3mSw==
-X-Gm-Message-State: ACrzQf092EqoaVa/HDuS5/pSkyPZzX6hWnWMZZGub88nfZldeMe9Zq9A
-        mLAcnZYCT/P0rKpppOzFN40/Okr+iF0AXKV1uWENytGG+dk=
-X-Google-Smtp-Source: AMsMyM4uP+ZYwkLC2x9YZkVBQNth9mry9vJtu5TTKKKnZMeGhtC9QZEavxCGxsfo6J1SVtzyEX4Bx5IOx0h+kYInGqQ=
-X-Received: by 2002:a2e:b605:0:b0:277:970:6207 with SMTP id
- r5-20020a2eb605000000b0027709706207mr6227816ljn.296.1667234019010; Mon, 31
- Oct 2022 09:33:39 -0700 (PDT)
+        bh=WuUkP45RzlUJMMDmT0axeeuMqG2jWs1gF2XKSWMSsoc=;
+        b=vu2nI6iOr+taP1+WJ133bP66lA7w6MVnlCI+d91KzY6EC3lFwXLbPAvpqTwycIiCB4
+         WaGXKbbez+CwjgAo92Aje1p8AGFwY2u3YA5VguuJl6nH2Omt6Q3UhIG4aZbIdD0x+tQS
+         wBsKbQlsLnAFfpMXz8pFlPEjVU5Xcv8WYT0uR3eb5DPBLU1SSjUowjYfvnUh7U/+E0H0
+         VEZmndUAOnP8z9lF5l0BSiMhilnFc+82MD8kHL8E3C17EuAiszCEnVFwGzs67jsfHjRg
+         kkdnH153DTn/pq13QTk+Ml1pJd4WPrkGvA18wKpGBX9dFIX1rYRFUd0hjCmVxEDhOo7z
+         qwpA==
+X-Gm-Message-State: ACrzQf2pbNd5cF7QADfXB92BWgghoBZI+OXD4DW4Uhu0CrM5n3tfCLhg
+        za5o7H6l5/G8BRKYDu1OnmrrFlBP+jIVBC9ra9pi2g==
+X-Google-Smtp-Source: AMsMyM6IbEpj4S7zheWIkOiAI7Z3aMzs2dfYqSF45HWOtEdjt8FMu87rX/oW7AqlJSS6rfgw8Pyi+AP1cef+Q0VAy5I=
+X-Received: by 2002:a05:6512:ac7:b0:4a2:6b9b:3254 with SMTP id
+ n7-20020a0565120ac700b004a26b9b3254mr5921719lfu.234.1667234053303; Mon, 31
+ Oct 2022 09:34:13 -0700 (PDT)
 MIME-Version: 1.0
-References: <20221021223300.3675201-1-zokeefe@google.com> <20221021223300.3675201-2-zokeefe@google.com>
- <715d8645-16ea-d230-0488-46ea01792bc6@gmail.com>
-In-Reply-To: <715d8645-16ea-d230-0488-46ea01792bc6@gmail.com>
+References: <20221021223300.3675201-1-zokeefe@google.com> <20221021223300.3675201-3-zokeefe@google.com>
+ <2f67d133-8996-ef10-4a36-42537906ebba@gmail.com>
+In-Reply-To: <2f67d133-8996-ef10-4a36-42537906ebba@gmail.com>
 From:   "Zach O'Keefe" <zokeefe@google.com>
-Date:   Mon, 31 Oct 2022 09:33:02 -0700
-Message-ID: <CAAa6QmTqSpct3hf0M6eGJx_n1-dF3oNZ17LWonqbnmAC1W6FwA@mail.gmail.com>
-Subject: Re: [PATCH man-pages v3 1/4] madvise.2: update THP file/shmem
- documentation for +5.4
+Date:   Mon, 31 Oct 2022 09:33:37 -0700
+Message-ID: <CAAa6QmT_nGqVpgtNvcrcQos4VGkqF0_mv-L2098ygPHfnc4uyw@mail.gmail.com>
+Subject: Re: [PATCH man-pages v3 2/4] madvise.2: document reliable probe for
+ advice support
 To:     Alejandro Colomar <alx.manpages@gmail.com>
 Cc:     Yang Shi <shy828301@gmail.com>, linux-mm@kvack.org,
         linux-man@vger.kernel.org, Michael Kerrisk <mtk.manpages@gmail.com>
@@ -69,147 +69,54 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Sun, Oct 30, 2022 at 4:42 AM Alejandro Colomar
+On Sun, Oct 30, 2022 at 4:44 AM Alejandro Colomar
 <alx.manpages@gmail.com> wrote:
 >
-> Hi Zach!
+> Hi Zach,
 >
 > On 10/22/22 00:32, Zach OKeefe wrote:
 > > From: Zach O'Keefe <zokeefe@google.com>
 > >
-> > Since Linux 5.4, Transparent Huge Pages now support both file-backed
-> > memory and shmem memory. Update MADV_HUGEPAGE advice description to
-> > reflect this.
+> > EINVAL is an overloaded error code for madvise(2) and it's not clear
+> > under what context it means "advice is not valid" vs another error.
 > >
-> > Additionally, expand the description of requirements for memory to be
-> > considered eligible for THP: alignment / mapping requirements, VMA
-> > flags, prctl(2) settings, inode status, etc.
+> > Explicitly document that madvise(0, 0, advice) can reliably be used to
+> > probe for kernel support for "advice", returning zero iff "advice" is
+> > supported by the kernel.
 > >
 > > Signed-off-by: Zach O'Keefe <zokeefe@google.com>
 >
-> Patch applied!  Thanks.
-> Since you were interested, I amended it with the following diff:
->
->
-> diff --git a/man2/madvise.2 b/man2/madvise.2
-> index 64f788ace..48bda703c 100644
-> --- a/man2/madvise.2
-> +++ b/man2/madvise.2
-> @@ -361,9 +361,10 @@ .SS Linux-specific advice values
->   and file-backed pages.
->   For all memory types,
->   memory may only be replaced by huge pages on hugepage-aligned boundaries.
-> -For file-mapped memory \(em including tmpfs (see
-> -.BR tmpfs (2))
-> -\(em the mapping must also be naturally hugepage-aligned within the file.
-> +For file-mapped memory
-> +\(emincluding tmpfs (see
-> +.BR tmpfs (2))\(em
-> +the mapping must also be naturally hugepage-aligned within the file.
->   Additionally,
->   for file-backed,
->   non-tmpfs memory,
-> @@ -382,7 +383,7 @@ .SS Linux-specific advice values
->   The process must also not have
->   .B PR_SET_THP_DISABLE
->   set (see
-> -.BR prctl (2) ).
-> +.BR prctl (2)).
->   .IP
->   The
->   .B MADV_HUGEPAGE
->
->
-> - The em dashes you used were correct with spaces in both sides; there are those
-> who use them with spaces in both sides and those who use them with no spaces at
-> all.  And then there are those who put spaces as if they were parentheses
-> (admittedly this is much less common).  I prefer this latter case, since it
-> makes technical texts more parseable.
->
-> - I used a semantic newline break for the em dashes, since they are similar to a
-> coma.
->
-> - Removed a spurious space in BR that would have made the formatting weird.
->
-> Cheers,
->
+> Patch applied.
 
-Thanks for taking the patch, and thanks for taking the time with the
-explanation! Glad I wasn't *too* far off :)
-
-Changes look good to me - thank you!
+Thank you!
 
 Best,
 Zach
 
+> Thanks,
+>
 > Alex
 >
->
 > > ---
-> >   man2/madvise.2 | 38 +++++++++++++++++++++++++++++++++++---
-> >   1 file changed, 35 insertions(+), 3 deletions(-)
+> >   man2/madvise.2 | 5 +++++
+> >   1 file changed, 5 insertions(+)
 > >
 > > diff --git a/man2/madvise.2 b/man2/madvise.2
-> > index 81cce56af..64f788ace 100644
+> > index 64f788ace..df3413cc8 100644
 > > --- a/man2/madvise.2
 > > +++ b/man2/madvise.2
-> > @@ -320,8 +320,6 @@ Enable Transparent Huge Pages (THP) for pages in the range specified by
-> >   .I addr
-> >   and
-> >   .IR length .
-> > -Currently, Transparent Huge Pages work only with private anonymous pages (see
-> > -.BR mmap (2)).
-> >   The kernel will regularly scan the areas marked as huge page candidates
-> >   to replace them with huge pages.
-> >   The kernel will also allocate huge pages directly when the region is
-> > @@ -354,12 +352,46 @@ an access pattern that the developer knows in advance won't risk
-> >   to increase the memory footprint of the application when transparent
-> >   hugepages are enabled.
-> >   .IP
-> > +.\" commit 99cb0dbd47a15d395bf3faa78dc122bc5efe3fc0
-> > +Since Linux 5.4,
-> > +automatic scan of eligible areas and replacement by huge pages works with
-> > +private anonymous pages (see
-> > +.BR mmap (2)),
-> > +shmem pages,
-> > +and file-backed pages.
-> > +For all memory types,
-> > +memory may only be replaced by huge pages on hugepage-aligned boundaries.
-> > +For file-mapped memory \(em including tmpfs (see
-> > +.BR tmpfs (2))
-> > +\(em the mapping must also be naturally hugepage-aligned within the file.
-> > +Additionally,
-> > +for file-backed,
-> > +non-tmpfs memory,
-> > +the file must not be open for write and the mapping must be executable.
-> > +.IP
-> > +The VMA must not be marked
-> > +.BR VM_NOHUGEPAGE ,
-> > +.BR VM_HUGETLB ,
-> > +.BR VM_IO ,
-> > +.BR VM_DONTEXPAND ,
-> > +.BR VM_MIXEDMAP ,
-> > +or
-> > +.BR VM_PFNMAP ,
-> > +nor can it be stack memory or backed by a DAX-enabled device
-> > +(unless the DAX device is hot-plugged as System RAM).
-> > +The process must also not have
-> > +.B PR_SET_THP_DISABLE
-> > +set (see
-> > +.BR prctl (2) ).
-> > +.IP
-> >   The
-> >   .B MADV_HUGEPAGE
-> >   and
-> >   .B MADV_NOHUGEPAGE
-> >   operations are available only if the kernel was configured with
-> > -.BR CONFIG_TRANSPARENT_HUGEPAGE .
-> > +.B CONFIG_TRANSPARENT_HUGEPAGE
-> > +and file/shmem memory is only supported if the kernel was configured with
-> > +.BR CONFIG_READ_ONLY_THP_FOR_FS .
-> >   .TP
-> >   .BR MADV_NOHUGEPAGE " (since Linux 2.6.38)"
-> >   Ensures that memory in the address range specified by
+> > @@ -790,6 +790,11 @@ that are not mapped, the Linux version of
+> >   ignores them and applies the call to the rest (but returns
+> >   .B ENOMEM
+> >   from the system call, as it should).
+> > +.PP
+> > +.IR madvise(0,\ 0,\ advice)
+> > +will return zero iff
+> > +.I advice
+> > +is supported by the kernel and can be relied on to probe for support.
+> >   .\" .SH HISTORY
+> >   .\" The
+> >   .\" .BR madvise ()
 >
 > --
 > <http://www.alejandro-colomar.es/>
