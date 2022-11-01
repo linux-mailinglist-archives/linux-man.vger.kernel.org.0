@@ -2,70 +2,68 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id A3FC4614BE1
-	for <lists+linux-man@lfdr.de>; Tue,  1 Nov 2022 14:38:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 27E79614BE7
+	for <lists+linux-man@lfdr.de>; Tue,  1 Nov 2022 14:40:25 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229871AbiKANi1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 1 Nov 2022 09:38:27 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35304 "EHLO
+        id S229496AbiKANkX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 1 Nov 2022 09:40:23 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40928 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229867AbiKANi0 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 1 Nov 2022 09:38:26 -0400
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com [IPv6:2a00:1450:4864:20::429])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 758F0327
-        for <linux-man@vger.kernel.org>; Tue,  1 Nov 2022 06:38:23 -0700 (PDT)
-Received: by mail-wr1-x429.google.com with SMTP id bs21so20157964wrb.4
-        for <linux-man@vger.kernel.org>; Tue, 01 Nov 2022 06:38:23 -0700 (PDT)
+        with ESMTP id S229894AbiKANkS (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 1 Nov 2022 09:40:18 -0400
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com [IPv6:2a00:1450:4864:20::435])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2A4D7DE9D
+        for <linux-man@vger.kernel.org>; Tue,  1 Nov 2022 06:40:17 -0700 (PDT)
+Received: by mail-wr1-x435.google.com with SMTP id w14so20120477wru.8
+        for <linux-man@vger.kernel.org>; Tue, 01 Nov 2022 06:40:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=in-reply-to:from:references:cc:to:content-language:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=4elxbIbszE/Gf58rpq1Jngpp7J7NYgH2YMP/VGhhqjE=;
-        b=JVAybaxuPGgzJyykSr7lRHqILzWuKi2/wiF2yGfZs4R7fokUmP5MhWBXfeiYmHMgkU
-         1lcxyOY5656M2a/r4jVuavxaVCR71CwZwqTQIvcAMhrC8UCVbLS8NFIKUYjpv4IHOpcU
-         FBSklMuSlwVioAxgIW/twDL9TWle4I7XNod41H0ocDG0qS0sx3PMvkxUbkHPPAzJ8X7O
-         rfTuWcp99Dlirs0qnKkyUhhwYm0YxV1UuJvtzCXoSjn07BPiUvGeqmD/+tJpnXlGFKN7
-         fNQe30COi8BgwEkrennuUGD964B5lqun487HBuEXeKDnZmp82FHyAQSh860rCXgB3TU5
-         ytBA==
+        bh=+lxp16QgXB7q697C90CrDGMxUaRjiliwMHqLky1MIVo=;
+        b=WlNX86b76dl6xOGOa5CL8qvtZ7ipsrwbr29T1Fvf96VRmIbDeh4pCVcPvMP7MBcONH
+         1MH8HeWFNragU5eHClagSDf1euTXqSJglobK+E9A+gNzUfNMuewZy2L5G90BrffA/oUn
+         q1o+HF7TMk2iXR6Y01iuEpzNztxIFoRwwkSyUfWZCccdVL+P6mjSzq8dgyStHGm/eLMC
+         vP66BF+72xKXzaVBVKE9NMMWAJl0mkzHh9FKo9GLn6Kr/6srTfwB+gII1tPZY7h3tN3t
+         tg1Rd47VwyPm7RHRhrBbH0jjBf4SwBJKR5nmd8fr8fKB+Rf0/UwtOwB/sonSF7xJxVQW
+         XtCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=in-reply-to:from:references:cc:to:content-language:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=4elxbIbszE/Gf58rpq1Jngpp7J7NYgH2YMP/VGhhqjE=;
-        b=4FP/L9HECsdzXqyS//+m5PXuYdumAtm9m8FlvbhtyYeAj58LHahI1UeE4LuFERNyuq
-         5PcsIzbqYX+dwpjWR+yPPkNkFXBJUzsKyRZbBjgQB386yo/no7o3zuuRKtSHLMXb8ZF+
-         EUER9+XmW9ekoFux/iXLZvHmMt9GgzwuTCQ8u12LibL+SvNqVK0l8FTCud2DuiMCMytM
-         iEXRtNX19oeeMifmVzNyjG8YJ7juYgjxV2Lq7LAMT3Ms34pVuMeblac/fodXIMe6mdzb
-         mtyqFJ5nD/kgMZZdrfmtxZnoVWGYx4GReeSkKj5yhcZdIcIS5i1wxbZ/MYLTIbXlRWHm
-         fJkQ==
-X-Gm-Message-State: ACrzQf1W5A1K29WENZ/ubf/irlld/DO0NbhcGJ91zU7HwJ+Juf1SXBCT
-        1swPCfvcwDyBDx0ld8IyTnkWNN3Rs1c=
-X-Google-Smtp-Source: AMsMyM5mgtP8y42T3wSRjHdR7vP62nw48mDAdFV/D0O//qrjlgoggN+3gOuj3YiL+rzcwW3LZQi0mg==
-X-Received: by 2002:adf:b646:0:b0:221:76eb:b3ba with SMTP id i6-20020adfb646000000b0022176ebb3bamr11417632wre.237.1667309901897;
-        Tue, 01 Nov 2022 06:38:21 -0700 (PDT)
+        bh=+lxp16QgXB7q697C90CrDGMxUaRjiliwMHqLky1MIVo=;
+        b=Uy7jMYAub7HX6umL5Pw8HYhpCgRV48dmpxv/kmbOIcpLuEJzYAFMY8QWG55WLbJgfh
+         bBYk6pBweYOCFn2XO8IVYNWBWBJ3QXesySnSriaMwKJNaxXJf3yq45fiXSZzZNutW8Mj
+         imhaCnydgrmB6fmhWFkyELicG01TWjkxEk4UrifvAprUvWb2YkDWFous1WTwnrwyzkJG
+         Emc5TdyEywL98k8yCM5JOZNKICRE/uQlNu+pGSZfHFGmd08BqCAP44YHcEUi0EtKaFFS
+         mFUHwx/sJPa2VSJ7s/g9FYrQOwhFA3ePre+pHWYLeq640h5VbAbI3tUZWpM8ETUDQuw3
+         6bew==
+X-Gm-Message-State: ACrzQf0AR8thgwMRQJ1G/OtzdRsMIKfwgz2jovuHNErLe0rFFHkLfvnW
+        nHdy8S7f5PO014kLp8WbkfI=
+X-Google-Smtp-Source: AMsMyM4xP4zO+l5Px4lqSZufLWNt9FI7Jrwt+ibgPkDGY08Zv5it0098Z2Ij0/M02lDnj6kyEQUFMA==
+X-Received: by 2002:adf:e805:0:b0:236:22d6:1001 with SMTP id o5-20020adfe805000000b0023622d61001mr11765914wrm.277.1667310015483;
+        Tue, 01 Nov 2022 06:40:15 -0700 (PDT)
 Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id b21-20020a05600c4e1500b003c6bd91caa5sm5057333wmq.17.2022.11.01.06.38.20
+        by smtp.gmail.com with ESMTPSA id p16-20020adff210000000b0022ac672654dsm10148839wro.58.2022.11.01.06.40.14
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 01 Nov 2022 06:38:21 -0700 (PDT)
-Message-ID: <c2c88b4e-7c10-0045-5de1-5f595cc9166b@gmail.com>
-Date:   Tue, 1 Nov 2022 14:38:13 +0100
+        Tue, 01 Nov 2022 06:40:15 -0700 (PDT)
+Message-ID: <735fcef7-b09d-ecb3-68a0-1c51f68fd52f@gmail.com>
+Date:   Tue, 1 Nov 2022 14:40:13 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.4.0
-Subject: Re: [PATCH RESEND] keyrings.7: tfix hexadecimal number prefix
+Subject: Re: [patch] nice.2: replace "thread" with "process"
 Content-Language: en-US
-To:     Grzegorz Szymaszek <gszymaszek@short.pl>
-Cc:     linux-man@vger.kernel.org,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        Alejandro Colomar <alx@kernel.org>
-References: <Ys7DGh/CJ14Kbpie@nx64de-df6d00> <Y2DfeqJB/gyUUcRQ@nx64de-df6d00>
+To:     "i@1a-insec.net" <i@1a-insec.net>
+Cc:     mtk.manpages@gmail.com, linux-man@vger.kernel.org
+References: <0dbe239f-22ce-2b8b-59e1-eeece3a64a66@1a-insec.net>
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <Y2DfeqJB/gyUUcRQ@nx64de-df6d00>
+In-Reply-To: <0dbe239f-22ce-2b8b-59e1-eeece3a64a66@1a-insec.net>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------v8hx8z6lQUs2LgJ0YDBG7ioS"
+ boundary="------------4q51GykekudDxW3Gm2hcg55A"
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
@@ -77,63 +75,52 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------v8hx8z6lQUs2LgJ0YDBG7ioS
-Content-Type: multipart/mixed; boundary="------------AH44tfeVuqLaarkCneMCwpL6";
+--------------4q51GykekudDxW3Gm2hcg55A
+Content-Type: multipart/mixed; boundary="------------MbQPga60Zs3TkJ0ESRH3qd00";
  protected-headers="v1"
 From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Grzegorz Szymaszek <gszymaszek@short.pl>
-Cc: linux-man@vger.kernel.org, Michael Kerrisk <mtk.manpages@gmail.com>,
- Alejandro Colomar <alx@kernel.org>
-Message-ID: <c2c88b4e-7c10-0045-5de1-5f595cc9166b@gmail.com>
-Subject: Re: [PATCH RESEND] keyrings.7: tfix hexadecimal number prefix
-References: <Ys7DGh/CJ14Kbpie@nx64de-df6d00> <Y2DfeqJB/gyUUcRQ@nx64de-df6d00>
-In-Reply-To: <Y2DfeqJB/gyUUcRQ@nx64de-df6d00>
+To: "i@1a-insec.net" <i@1a-insec.net>
+Cc: mtk.manpages@gmail.com, linux-man@vger.kernel.org
+Message-ID: <735fcef7-b09d-ecb3-68a0-1c51f68fd52f@gmail.com>
+Subject: Re: [patch] nice.2: replace "thread" with "process"
+References: <0dbe239f-22ce-2b8b-59e1-eeece3a64a66@1a-insec.net>
+In-Reply-To: <0dbe239f-22ce-2b8b-59e1-eeece3a64a66@1a-insec.net>
 
---------------AH44tfeVuqLaarkCneMCwpL6
+--------------MbQPga60Zs3TkJ0ESRH3qd00
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: base64
 
-SGkgR3J6ZWdvcnosDQoNCk9uIDExLzEvMjIgMDk6NTcsIEdyemVnb3J6IFN6eW1hc3playB3
-cm90ZToNCj4gSW4gdGhlIERFU0NSSVBUSU9OLCB3aGVyZSB0aGUgUGVybWlzc2lvbnMgY29s
-dW1uIG9mIC9wcm9jL2tleXMgaXMNCj4gZXhwbGFpbmVkLCB0aGUgMHgwMiB2YWx1ZSB3YXMg
-d3JpdHRlbiBhcyBPeDAyLiBJbiBjYXNlIG9uZSBjYW5ub3Qgc3BvdA0KPiB0aGUgZGlmZmVy
-ZW5jZTogdGhlIGZpcnN0IGNoYXJhY3RlciB3YXMgbGV0dGVyIG8gKFUrMDA0RiksIHdoaWxl
-IGl0DQo+IHNob3VsZCBiZSBkaWdpdCB6ZXJvIChVKzAwMzApLg0KPiANCj4gSXQgc2VlbXMg
-dGhlIHNvdXJjZSB0cmVlIGRvZXMgbm90IGNvbnRhaW4gYW55IG90aGVyICJPeCIgaW5zdGFu
-Y2VzDQo+IGV4Y2VwdCBhdCB0aGUgYmVnaW5uaW5nIG9mICJPeGZvcmQiLg0KPiANCj4gU2ln
-bmVkLW9mZi1ieTogR3J6ZWdvcnogU3p5bWFzemVrIDxnc3p5bWFzemVrQHNob3J0LnBsPg0K
-DQpQYXRjaCBhcHBsaWVkLg0KDQpUaGFua3MsDQoNCkFsZXgNCg0KPiAtLS0NCj4gICBtYW43
-L2tleXJpbmdzLjcgfCAyICstDQo+ICAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCsp
-LCAxIGRlbGV0aW9uKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvbWFuNy9rZXlyaW5ncy43IGIv
-bWFuNy9rZXlyaW5ncy43DQo+IGluZGV4IDM1ODkwNTk3MC4uYmNjOTY2NWNlIDEwMDY0NA0K
-PiAtLS0gYS9tYW43L2tleXJpbmdzLjcNCj4gKysrIGIvbWFuNy9rZXlyaW5ncy43DQo+IEBA
-IC02MzcsNyArNjM3LDcgQEAgV2l0aGluIGVhY2ggYnl0ZSwgdGhlIHBlcm1pc3Npb24gYml0
-cyBhcmUgYXMgZm9sbG93czoNCj4gICAweDAxDQo+ICAgLkkgdmlldw0KPiAgIC5UUA0KPiAt
-T3gwMg0KPiArMHgwMg0KPiAgIC5JIHJlYWQNCj4gICAuVFANCj4gICAweDA0DQoNCi0tIA0K
-PGh0dHA6Ly93d3cuYWxlamFuZHJvLWNvbG9tYXIuZXMvPg0K
+SGVsbG8sDQoNCk9uIDExLzEvMjIgMDc6MTcsIGlAMWEtaW5zZWMubmV0IHdyb3RlOg0KPiBu
+aWNlKDIpIGluIGdsaWJjIHVzZXMgYHNldHByaW9yaXR5KFBSSU9fUFJPQ0VTUywgeClgLiBJ
+IHRoaW5rICJ0aHJlYWQiIG1lYW5zIA0KPiBwdGhyZWFkIG1vcmUsIHNvICJwcm9jZXNzIiBp
+cyB0aGUgYmV0dGVyIHdvcmQgaGVyZS4NCg0KQ291bGQgeW91IHBsZWFzZSByZXNlbmQgdGhl
+IHBhdGNoIGZvbGxvd2luZyB0aGVzZSBndWlkZWxpbmVzPzoNCg0KPGh0dHBzOi8vZ2l0Lmtl
+cm5lbC5vcmcvcHViL3NjbS9kb2NzL21hbi1wYWdlcy9tYW4tcGFnZXMuZ2l0L3RyZWUvQ09O
+VFJJQlVUSU5HPg0KDQpUaGFua3MsDQpBbGV4DQoNCi0tIA0KPGh0dHA6Ly93d3cuYWxlamFu
+ZHJvLWNvbG9tYXIuZXMvPg0K
 
---------------AH44tfeVuqLaarkCneMCwpL6--
+--------------MbQPga60Zs3TkJ0ESRH3qd00--
 
---------------v8hx8z6lQUs2LgJ0YDBG7ioS
+--------------4q51GykekudDxW3Gm2hcg55A
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmNhIUUACgkQnowa+77/
-2zI6fhAAqZplmGgyGqIgPCdEHSgfEimjDQIoe+vMqp7wMjkAF6exR4B4fo8Xs2wE
-Rh7WzzUD0mtcXNTMQyFfLHD9m2vL5pd/QkSZ7haGCJB7pDW09GWz0ezYo4uN+T/s
-R/f8auI5Sa2AY9mCtX9umEyB5Zk1S1X99qrQuVOJ1g+2tpVXyNOmZYFyeP0jd6Og
-J/a5l7k7w+1HVr3nYwu7t4ekeTm0M+rjnY4irU1U4pvPlZYODRmh/irfPMhOEY6+
-9GqURm4kEcrv5jjoiwwZZvyFP7U+csoEsDNHfWBIKd31+CIpKkeyVXesxhNY0ACO
-hKKIpt7XY9aj7aGe8M0npnXi/HSShn35nL2FMkiLbIdviw42hEzbPXioWXA4XfyO
-CymZ/kNg6XtunNKPUlU2gVc3qeHSQgr3avdhuVepheORZgCXW62duJzwC7V9I51W
-AWrFvyqRpQHqDRyqEqYuPEMtBcUVYGGXPpB6xZWJctQqRawFmLzIdaJ5GQ9jzklK
-4oo3IU0eu7YE6ipft/GhgTOjW82MSgRpgkLiWPwS63BhNV8RjEnQo5XczOwW32oe
-xWBkUqNZ4v2qBC+mv1MOa++VH6KODWVyLu2Sk/o8LrkHqlOq/4+iKPCGCpZugXKM
-Gb1oVsm6EKTWPuLtvDISTdRrjq8jJ295g5yQU4ZvJ98IPbOEsR4=
-=dkt6
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmNhIb0ACgkQnowa+77/
+2zJkaA//VOW7wAjOfIuJkQnKQvHQOYg7iR8QqF081+4oPWNgH8huVia9TGaZUyJD
+fRRoeTBZgTXuxC1xGj3CL4u5tjf+Am8SFm+JR/RV8H/9yWwW1nex4qjjcStubhTl
+RTSN4UVGK3gkFQ2p9sAbyZSKm8IUyYOXUneyYLw5mkOAp/3bTUP+I0SAUv/KM3b8
+HmMnMbP9JEj7Cmd3zHEmvPVnQlZ2P9aYKBlytXelJQ0l0m3MyXfBOz0dLRU4V0dw
+jqNbpGOW3ZjjScfWEG2WNu2aWpM4HIjnGN05HjgAc8K5JwkP+v/tqXLCIW/9n3Ub
+fKt9ylZVLrkRI32Kt5zNsHQp/ruf+3C6v2i0g6Qj4bHFuwX0ed6cjE7YKmIJi/Hq
+I/lU5//f298cAoRLIUm6PaT2Rvyymp4y/oFnxzqezbmxcn/+8Wnzxx3tmZpPmU10
+Q2LeatWr1Bt9f3EjtIMuIlB8r5DRbWVxiAnaLxOnyudQIs3D7aO0tbOZvtaO42vR
+fnxYAIWzizUmWhNn6tbGyoB45jtkftxx0vy6OAXwVHHaNjBaTVJI6yOAJ48QFoDV
+pOYFOa/IpvEUPtNR0Md4EPrF6c6XCcCXNUFFupvSyoJqktCnlqD2Oa/M8vGHc6es
++Ppneu86ohZCAkOh5kV2tLkbxi02lwtgx+bKv6kOZQrn4HpWtFI=
+=mLiP
 -----END PGP SIGNATURE-----
 
---------------v8hx8z6lQUs2LgJ0YDBG7ioS--
+--------------4q51GykekudDxW3Gm2hcg55A--
