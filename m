@@ -2,73 +2,64 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 1C90B6141DC
-	for <lists+linux-man@lfdr.de>; Tue,  1 Nov 2022 00:37:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 615DA614261
+	for <lists+linux-man@lfdr.de>; Tue,  1 Nov 2022 01:38:44 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229589AbiJaXhM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 31 Oct 2022 19:37:12 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53708 "EHLO
+        id S229479AbiKAAim (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 31 Oct 2022 20:38:42 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58674 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229502AbiJaXhL (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 31 Oct 2022 19:37:11 -0400
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com [IPv6:2a00:1450:4864:20::42e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BC36114085
-        for <linux-man@vger.kernel.org>; Mon, 31 Oct 2022 16:37:09 -0700 (PDT)
-Received: by mail-wr1-x42e.google.com with SMTP id a14so18078852wru.5
-        for <linux-man@vger.kernel.org>; Mon, 31 Oct 2022 16:37:09 -0700 (PDT)
+        with ESMTP id S229469AbiKAAil (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 31 Oct 2022 20:38:41 -0400
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com [IPv6:2a00:1450:4864:20::132])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 02ADB15FD3
+        for <linux-man@vger.kernel.org>; Mon, 31 Oct 2022 17:38:40 -0700 (PDT)
+Received: by mail-lf1-x132.google.com with SMTP id bp15so21615234lfb.13
+        for <linux-man@vger.kernel.org>; Mon, 31 Oct 2022 17:38:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=OdPThqicUheo5t7BqCGuFnwQnDiLnJzBNLDIEkO1a88=;
-        b=FCNh1jBqB9t/i/3qLDdCYazZU7hUpK31Lr2qoH94yoYmN1gNb8LHBGR3XmnCgdOV22
-         4W88SGSYFnsrx/LzOmBOllwgWYeOR89bnJL36K24HpRlANHaymytAZoUfE3ZNIvdOcEZ
-         VFbZK7C4W5IBPPHSanWVNhwhhIWxYB4J48DrLKYqqHR15HsPL7+HcdHO74bXE3TF17o1
-         SEAyjOVhlzwAT5iBLbx+h+B4SJIhhXRfGASl2DnIZQqms1BS6ncuhXqu/YayAGEhKYNS
-         55GsNhpHEErZdfvK9RUPb2xc7GrXbCeQQ+YilbSLMZHD1/WrI3DiOuo/UQNrZnnQvTSj
-         azSw==
+        d=google.com; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=7zsi25LUppNRGZUBCxJU8+sdcNTiVadS3JzFP7kRgEw=;
+        b=VCtELJc8MpnTOhzvmwq1D92X+KwkHolIGDSCmNDgPra9ucS1f6mhIp62SoWfyCJgvw
+         QX/0JG0kVF21JoOSe3WNSiNlz4zRJh8IAMyTZ1GssiHcgQVYh0eZekrLSKCfkTOPrVHW
+         kYWu4glDoOBenOdZEiU4GTYUWP7Dw0v8etUF4PPe87M9rfifPB+tEoRstKvXoAzAoScz
+         1ljOwAMWpJjJMO72fAVAAGnCmGv3+LNwdsqDpoNIgVbxYLpscdiGklcOKES1iQT7mujz
+         stEcjGKOA7ey8xMQA4h61Ollrfv5xoWKxFY3j0vuJfs38Y+QYIAscmUrFiScApbUiAPk
+         lI3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=OdPThqicUheo5t7BqCGuFnwQnDiLnJzBNLDIEkO1a88=;
-        b=Wvp0GsjO8V0Pg5wVy/acwVYZKXifR0POSvNP6Ig32MYtskdAC3ec/dJ8iJVj57jM53
-         bhzZZSwHWmOTGodY/mi1ZmtILuOCipX1OIFc5Gddt5cNtsy32q/qgaS8PnU0SyNflU+0
-         BTFLG0GIagiaYQz/YEtm3GuSCltMFI0Mkr6AUSP4e+MIPCq/c/7oKx+D9TLrBUZLGGrV
-         2HADxVz0TahaW7ExCkegtvRcVz+eRlugO/N0/tzIwdhi1r1z7T0/GYKXY4YrukO1IikX
-         2yYvm/9UcszkP2eLIRahPsAdBag1VQv8JXbRe8+iWOZst8fBvBxIuC65vO3UhfkG0q+k
-         Takg==
-X-Gm-Message-State: ACrzQf3/LKO6qR8DSrERE7bVqBDTrIaWqHSO/0NCh/Lk+e5dCf28jwbP
-        TMmBMppzDBODTX+IjUu2EEHPO6gfIpo=
-X-Google-Smtp-Source: AMsMyM5XYFtLRwrDaMVJ9ETV/AsaZ5rtiZBar0zo30abxQiogixtJtSsb3/GEgVPBHQpNjsjJ4yCQQ==
-X-Received: by 2002:adf:d1ca:0:b0:236:737f:9525 with SMTP id b10-20020adfd1ca000000b00236737f9525mr9716325wrd.634.1667259428199;
-        Mon, 31 Oct 2022 16:37:08 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id d17-20020a5d6dd1000000b0023691d62cffsm8289616wrz.70.2022.10.31.16.37.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 Oct 2022 16:37:07 -0700 (PDT)
-Message-ID: <4b4a42ee-9243-96aa-b581-d56ae420f84a@gmail.com>
-Date:   Tue, 1 Nov 2022 00:36:53 +0100
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=7zsi25LUppNRGZUBCxJU8+sdcNTiVadS3JzFP7kRgEw=;
+        b=PA8AdcNHauJXMXzNvPtEDxsa5WwvbIOPk4UDaJ2Itwyg2TfIpycE7Jb912W/HBxhcQ
+         YDI6Gxse611luGUakAIxIs6b9+QySE1YdSWalyqH3dKFOWgOLTkkfjw+EW7ZkTGRo9M/
+         8Vv9XOCJ70L6Zbr52OZsGwLWpDWAPvM0IX1XlAzWJVBSq4Amx8WpJ/tRqz/ra30Uun5h
+         vpKj3tr5KqQzEh/anrrvpMbVSoIQ15v9EqxIGq6qT4Sbb0LXBxhySaistVyDKPWuUEd5
+         2ULNUJSZeVTxI2aR7TY47jqaO+ZPYsB4COA/a9YOjCvuQqcHRTdRaXBtHLPTwr4+W/tJ
+         Y7ag==
+X-Gm-Message-State: ACrzQf0GDsqbFT/C2v0c6Qd10y9Zg5myfqT7mBwnwxRJBaw52dfd5wnd
+        Flz/R/cp32fo9hKLDIcMfZ3RnhX0iRTQaVk/vZYb6o07zf4=
+X-Google-Smtp-Source: AMsMyM5aJ9tUtcJltmfyJ8qfpfIyIflHP9MUtBpl3kb/WyJW4FwimsgcmcBCPhYkHRt2tWslVvUOBmwrqA9jU3j7cRk=
+X-Received: by 2002:a05:6512:2282:b0:4a2:7dc5:6630 with SMTP id
+ f2-20020a056512228200b004a27dc56630mr6377087lfu.645.1667263118098; Mon, 31
+ Oct 2022 17:38:38 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.0
-Subject: Re: [PATCH man-pages v4] madvise.2: add documentation for
- MADV_COLLAPSE
-Content-Language: en-US
-To:     Zach OKeefe <zokeefe@google.com>
+References: <20221031225500.3994542-1-zokeefe@google.com> <4b4a42ee-9243-96aa-b581-d56ae420f84a@gmail.com>
+In-Reply-To: <4b4a42ee-9243-96aa-b581-d56ae420f84a@gmail.com>
+From:   "Zach O'Keefe" <zokeefe@google.com>
+Date:   Mon, 31 Oct 2022 17:38:01 -0700
+Message-ID: <CAAa6QmQN1u5ynyE7Lce9xEKwRQpG6OU8ZOcgFk5nc1h-AN4YgQ@mail.gmail.com>
+Subject: Re: [PATCH man-pages v4] madvise.2: add documentation for MADV_COLLAPSE
+To:     Alejandro Colomar <alx.manpages@gmail.com>
 Cc:     Yang Shi <shy828301@gmail.com>, linux-mm@kvack.org,
         linux-man@vger.kernel.org, Michael Kerrisk <mtk.manpages@gmail.com>
-References: <20221031225500.3994542-1-zokeefe@google.com>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20221031225500.3994542-1-zokeefe@google.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------qAB2yOmG2fApEAs0DWKzS7xI"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
+Content-Type: text/plain; charset="UTF-8"
+X-Spam-Status: No, score=-17.6 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+        ENV_AND_HDR_SPF_MATCH,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+        USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -76,238 +67,326 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------qAB2yOmG2fApEAs0DWKzS7xI
-Content-Type: multipart/mixed; boundary="------------QQNjPEtPcCP8DJbFUPs9MTzJ";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Zach OKeefe <zokeefe@google.com>
-Cc: Yang Shi <shy828301@gmail.com>, linux-mm@kvack.org,
- linux-man@vger.kernel.org, Michael Kerrisk <mtk.manpages@gmail.com>
-Message-ID: <4b4a42ee-9243-96aa-b581-d56ae420f84a@gmail.com>
-Subject: Re: [PATCH man-pages v4] madvise.2: add documentation for
- MADV_COLLAPSE
-References: <20221031225500.3994542-1-zokeefe@google.com>
-In-Reply-To: <20221031225500.3994542-1-zokeefe@google.com>
+Hey Alex,
 
---------------QQNjPEtPcCP8DJbFUPs9MTzJ
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+On Mon, Oct 31, 2022 at 4:37 PM Alejandro Colomar
+<alx.manpages@gmail.com> wrote:
+>
+> Hey Zach!
+>
+> On 10/31/22 23:55, Zach OKeefe wrote:
+> > From: Zach O'Keefe <zokeefe@google.com>
+> >
+> > Linux 6.1 introduced MADV_COLLAPSE in upstream commit 7d8faaf15545
+> > ("mm/madvise: introduce MADV_COLLAPSE sync hugepage collapse") and
+> > upstream commit 34488399fa08 ("mm/madvise: add file and shmem support to
+> > MADV_COLLAPSE").  Update the man-pages for madvise(2) and
+> > process_madvise(2).
+> >
+> > Link: https://lore.kernel.org/linux-mm/20220922224046.1143204-1-zokeefe@google.com/
+> > Link: https://lore.kernel.org/linux-mm/20220706235936.2197195-1-zokeefe@google.com/
+> > Signed-off-by: Zach O'Keefe <zokeefe@google.com>
+>
+> Okay, now I have some more comments:
+>
 
-SGV5IFphY2ghDQoNCk9uIDEwLzMxLzIyIDIzOjU1LCBaYWNoIE9LZWVmZSB3cm90ZToNCj4g
-RnJvbTogWmFjaCBPJ0tlZWZlIDx6b2tlZWZlQGdvb2dsZS5jb20+DQo+IA0KPiBMaW51eCA2
-LjEgaW50cm9kdWNlZCBNQURWX0NPTExBUFNFIGluIHVwc3RyZWFtIGNvbW1pdCA3ZDhmYWFm
-MTU1NDUNCj4gKCJtbS9tYWR2aXNlOiBpbnRyb2R1Y2UgTUFEVl9DT0xMQVBTRSBzeW5jIGh1
-Z2VwYWdlIGNvbGxhcHNlIikgYW5kDQo+IHVwc3RyZWFtIGNvbW1pdCAzNDQ4ODM5OWZhMDgg
-KCJtbS9tYWR2aXNlOiBhZGQgZmlsZSBhbmQgc2htZW0gc3VwcG9ydCB0bw0KPiBNQURWX0NP
-TExBUFNFIikuICBVcGRhdGUgdGhlIG1hbi1wYWdlcyBmb3IgbWFkdmlzZSgyKSBhbmQNCj4g
-cHJvY2Vzc19tYWR2aXNlKDIpLg0KPiANCj4gTGluazogaHR0cHM6Ly9sb3JlLmtlcm5lbC5v
-cmcvbGludXgtbW0vMjAyMjA5MjIyMjQwNDYuMTE0MzIwNC0xLXpva2VlZmVAZ29vZ2xlLmNv
-bS8NCj4gTGluazogaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbGludXgtbW0vMjAyMjA3MDYy
-MzU5MzYuMjE5NzE5NS0xLXpva2VlZmVAZ29vZ2xlLmNvbS8NCj4gU2lnbmVkLW9mZi1ieTog
-WmFjaCBPJ0tlZWZlIDx6b2tlZWZlQGdvb2dsZS5jb20+DQoNCk9rYXksIG5vdyBJIGhhdmUg
-c29tZSBtb3JlIGNvbW1lbnRzOg0KDQotIEEgZmV3IGNoYW5nZXMgYWJvdXQgc2VtYW50aWMg
-bmV3bGluZXMuICBTZWUgYSBkaWZmIGF0IHRoZSBib3R0b20gb2YgdGhpcyBlbWFpbCANCnRo
-YXQgeW91IGNhbiBhcHBseS4NCg0KLSBBbiBhY2NpZGVudC4NCg0KLSBTb21lIHBhcmFncmFw
-aCBJIGRvbid0IHJlYWxseSB1bmRlcnN0YW5kLg0KDQpDaGVlcnMsDQoNCkFsZXgNCg0KPiAt
-LS0NCj4gDQo+IHYzWzFdIC0+IHY0DQo+IC0gUmViYXNlZCB0byBsYXRlc3QgbWFzdGVyDQo+
-IC0gKEFsZWphbmRybyBDb2xvbWFyKSBGaXhlZCB3ZWlyZCwgbm9uLWFzY2lpIGNoYXJzOiBl
-MiA4MCA5OSAtPiAiJyINCj4gLSAoQWxlamFuZHJvIENvbG9tYXIpIFJlcGxhY2VkIC5CUiB3
-aXRoIC5CIGRpcmVjdGl2ZSB3aGVuIHRoZSBlbnRpcmUNCj4gICAgbGluZSB3YXMgYm9sZCAo
-bm8gbm9uLWJvbGQgcGFydCkNCj4gDQo+IFsxXSBodHRwczovL2xvcmUua2VybmVsLm9yZy9s
-aW51eC1tYW4vYmIzYjVjM2MtMzk2Ni1lYTFhLTZkODQtNGY3ZjNhZmEzN2NhQGdtYWlsLmNv
-bS9ULyN1DQo+IA0KPiAgIG1hbjIvbWFkdmlzZSAgICAgICAgICAgfCAgMA0KPiAgIG1hbjIv
-bWFkdmlzZS4yICAgICAgICAgfCA5MCArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrKy0NCj4gICBtYW4yL3Byb2Nlc3NfbWFkdmlzZS4yIHwgMTAgKysrKysNCj4g
-ICAzIGZpbGVzIGNoYW5nZWQsIDk4IGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pDQo+
-ICAgY3JlYXRlIG1vZGUgMTAwNjQ0IG1hbjIvbWFkdmlzZQ0KPiANCj4gZGlmZiAtLWdpdCBh
-L21hbjIvbWFkdmlzZSBiL21hbjIvbWFkdmlzZQ0KPiBuZXcgZmlsZSBtb2RlIDEwMDY0NA0K
-PiBpbmRleCAwMDAwMDAwMDAuLmU2OWRlMjliYg0KDQpIZWghICBUaGlzIHdhcyBhIGZ1bm55
-IGFjY2lkZW50LiAgSSByZWFsaXplZCBiZWNhdXNlIGF1dG9jb21wbGV0ZSBzaG93ZWQgaXQg
-YXMgYSANCnBvc3NpYmlsaXR5LiA6KQ0KDQpUaGUgZGlmZiBhdCB0aGUgYm90dG9tIHJlbW92
-ZXMgaXQuDQoNCj4gZGlmZiAtLWdpdCBhL21hbjIvbWFkdmlzZS4yIGIvbWFuMi9tYWR2aXNl
-LjINCj4gaW5kZXggZWRmODA1NzQwLi5kY2E0MmM3ZDYgMTAwNjQ0DQo+IC0tLSBhL21hbjIv
-bWFkdmlzZS4yDQo+ICsrKyBiL21hbjIvbWFkdmlzZS4yDQo+IEBAIC0zODYsOSArMzg2LDEw
-IEBAIHNldCAoc2VlDQo+ICAgLkJSIHByY3RsICgyKSkuDQo+ICAgLklQDQo+ICAgVGhlDQo+
-IC0uQiBNQURWX0hVR0VQQUdFDQo+ICsuQlIgTUFEVl9IVUdFUEFHRSAsDQo+ICsuQlIgTUFE
-Vl9OT0hVR0VQQUdFICwNCj4gICBhbmQNCj4gLS5CIE1BRFZfTk9IVUdFUEFHRQ0KPiArLkIg
-TUFEVl9DT0xMQVBTRQ0KPiAgIG9wZXJhdGlvbnMgYXJlIGF2YWlsYWJsZSBvbmx5IGlmIHRo
-ZSBrZXJuZWwgd2FzIGNvbmZpZ3VyZWQgd2l0aA0KPiAgIC5CIENPTkZJR19UUkFOU1BBUkVO
-VF9IVUdFUEFHRQ0KPiAgIGFuZCBmaWxlL3NobWVtIG1lbW9yeSBpcyBvbmx5IHN1cHBvcnRl
-ZCBpZiB0aGUga2VybmVsIHdhcyBjb25maWd1cmVkIHdpdGgNCj4gQEAgLTQwMSw2ICs0MDIs
-ODEgQEAgYW5kDQo+ICAgLkkgbGVuZ3RoDQo+ICAgd2lsbCBub3QgYmUgYmFja2VkIGJ5IHRy
-YW5zcGFyZW50IGh1Z2VwYWdlcy4NCj4gICAuVFANCj4gKy5CUiBNQURWX0NPTExBUFNFICIg
-KHNpbmNlIExpbnV4IDYuMSkiDQo+ICsuXCIgY29tbWl0IDdkOGZhYWYxNTU0NTRmODc5OGVj
-NTY0MDRmYWNhMjlhODI2ODljNzcNCj4gKy5cIiBjb21taXQgMzQ0ODgzOTlmYTA4ZmFhZjY2
-NDc0M2ZhNTRiMjcxZWI2ZjllMTMyMQ0KPiArUGVyZm9ybSBhIGJlc3QtZWZmb3J0IHN5bmNo
-cm9ub3VzIGNvbGxhcHNlIG9mIHRoZSBuYXRpdmUgcGFnZXMgbWFwcGVkIGJ5IHRoZQ0KPiAr
-bWVtb3J5IHJhbmdlIGludG8gVHJhbnNwYXJlbnQgSHVnZSBQYWdlcyAoVEhQcykuDQo+ICsu
-QiBNQURWX0NPTExBUFNFDQo+ICtvcGVyYXRlcyBvbiB0aGUgY3VycmVudCBzdGF0ZSBvZiBt
-ZW1vcnkgb2YgdGhlIGNhbGxpbmcgcHJvY2VzcyBhbmQgbWFrZXMgbm8NCj4gK3BlcnNpc3Rl
-bnQgY2hhbmdlcyBvciBndWFyYW50ZWVzIG9uIGhvdyBwYWdlcyB3aWxsIGJlIG1hcHBlZCwN
-Cj4gK2NvbnN0cnVjdGVkLA0KPiArb3IgZmF1bHRlZCBpbiB0aGUgZnV0dXJlLg0KPiArLklQ
-DQo+ICsuQiBNQURWX0NPTExBUFNFDQo+ICtzdXBwb3J0cyBwcml2YXRlIGFub255bW91cyBw
-YWdlcyAoc2VlDQo+ICsuQlIgbW1hcCAoMikpLA0KPiArc2htZW0gcGFnZXMsDQo+ICthbmQg
-ZmlsZS1iYWNrZWQgcGFnZXMuDQo+ICtTZWUNCj4gKy5CIE1BRFZfSFVHRVBBR0UNCj4gK2Zv
-ciBnZW5lcmFsIGluZm9ybWF0aW9uIG9uIG1lbW9yeSByZXF1aXJlbWVudHMgZm9yIFRIUC4N
-Cj4gK0lmIHRoZSByYW5nZSBwcm92aWRlZCBzcGFucyBtdWx0aXBsZSBWTUFzLA0KPiArdGhl
-IHNlbWFudGljcyBvZiB0aGUgY29sbGFwc2Ugb3ZlciBlYWNoIFZNQSBpcyBpbmRlcGVuZGVu
-dCBmcm9tIHRoZSBvdGhlcnMuDQo+ICtJZiBjb2xsYXBzZSBvZiBhIGdpdmVuIGh1Z2UgcGFn
-ZS1hbGlnbmVkL3NpemVkIHJlZ2lvbiBmYWlscywNCj4gK3RoZSBvcGVyYXRpb24gbWF5IGNv
-bnRpbnVlIHRvIGF0dGVtcHQgY29sbGFwc2luZyB0aGUgcmVtYWluZGVyIG9mIHRoZQ0KPiAr
-c3BlY2lmaWVkIG1lbW9yeS4NCj4gKy5CIE1BRFZfQ09MTEFQU0UNCj4gK3dpbGwgYXV0b21h
-dGljYWxseSBjbGFtcCB0aGUgcHJvdmlkZWQgcmFuZ2UgdG8gYmUgaHVnZXBhZ2UtYWxpZ25l
-ZC4NCj4gKy5JUA0KPiArQWxsIG5vbi1yZXNpZGVudCBwYWdlcyBjb3ZlcmVkIGJ5IHRoZSBy
-YW5nZSB3aWxsIGZpcnN0IGJlDQo+ICtzd2FwcGVkL2ZhdWx0ZWQtaW4sDQo+ICtiZWZvcmUg
-YmVpbmcgY29waWVkIG9udG8gYSBmcmVzaGx5IGFsbG9jYXRlZCBodWdlcGFnZS4NCj4gK0lm
-IHRoZSBuYXRpdmUgcGFnZXMgY29tcG9zZSB0aGUgc2FtZSBQVEUtbWFwcGVkIGh1Z2VwYWdl
-LA0KPiArYW5kIGFyZSBzdWl0YWJseSBhbGlnbmVkLA0KPiArYWxsb2NhdGlvbiBvZiBhIG5l
-dyBodWdlcGFnZSBtYXkgYmUgZWxpZGVkIGFuZCBjb2xsYXBzZSBtYXkgaGFwcGVuDQo+ICtp
-bi1wbGFjZS4NCj4gK1VubWFwcGVkIHBhZ2VzIHdpbGwgaGF2ZSB0aGVpciBkYXRhIGRpcmVj
-dGx5IGluaXRpYWxpemVkIHRvIDAgaW4gdGhlIG5ldw0KPiAraHVnZXBhZ2UuDQo+ICtIb3dl
-dmVyLA0KPiArZm9yIGV2ZXJ5IGVsaWdpYmxlIGh1Z2VwYWdlLWFsaWduZWQvc2l6ZWQgcmVn
-aW9uIHRvIGJlIGNvbGxhcHNlZCwNCj4gK2F0IGxlYXN0IG9uZSBwYWdlIG11c3QgY3VycmVu
-dGx5IGJlIGJhY2tlZCBieSBwaHlzaWNhbCBtZW1vcnkuDQo+ICsuSVANCj4gKy5CIE1BRFZf
-Q09MTEFQU0UNCj4gK2lzIGluZGVwZW5kZW50IG9mIGFueSBzeXNmcw0KPiArKHNlZQ0KPiAr
-LkJSIHN5c2ZzICg1KSkNCj4gK3NldHRpbmcgdW5kZXINCj4gKy5JUiAvc3lzL2tlcm5lbC9t
-bS90cmFuc3BhcmVudF9odWdlcGFnZSAsDQo+ICtib3RoIGluIHRlcm1zIG9mIGRldGVybWlu
-aW5nIFRIUCBlbGlnaWJpbGl0eSwNCj4gK2FuZCBhbGxvY2F0aW9uIHNlbWFudGljcy4NCj4g
-K1NlZSBMaW51eCBrZXJuZWwgc291cmNlIGZpbGUNCj4gKy5JIERvY3VtZW50YXRpb24vYWRt
-aW5cLWd1aWRlL21tL3RyYW5zaHVnZS5yc3QNCj4gK2ZvciBtb3JlIGluZm9ybWF0aW9uLg0K
-PiArLkIgTUFEVl9DT0xMQVBTRQ0KPiArYWxzbyBpZ25vcmVzDQo+ICsuQiBodWdlPQ0KPiAr
-dG1wZnMgbW91bnQgd2hlbiBvcGVyYXRpbmcgb24gdG1wZnMgZmlsZXMuDQo+ICtBbGxvY2F0
-aW9uIGZvciB0aGUgbmV3IGh1Z2VwYWdlIG1heSBlbnRlciBkaXJlY3QgcmVjbGFpbSBhbmQv
-b3IgY29tcGFjdGlvbiwNCj4gK3JlZ2FyZGxlc3Mgb2YgVk1BIGZsYWdzDQo+ICsodGhvdWdo
-DQo+ICsuQiBWTV9OT0hVR0VQQUdFDQo+ICtpcyBzdGlsbCByZXNwZWN0ZWQpLg0KPiArLklQ
-DQo+ICtXaGVuIHRoZSBzeXN0ZW0gaGFzIG11bHRpcGxlIE5VTUEgbm9kZXMsDQo+ICt0aGUg
-aHVnZXBhZ2Ugd2lsbCBiZSBhbGxvY2F0ZWQgZnJvbSB0aGUgbm9kZSBwcm92aWRpbmcgdGhl
-IG1vc3QgbmF0aXZlDQo+ICtwYWdlcy4NCj4gKy5JUA0KPiArSWYgYWxsIGh1Z2VwYWdlLXNp
-emVkL2FsaWduZWQgcmVnaW9ucyBjb3ZlcmVkIGJ5IHRoZSBwcm92aWRlZCByYW5nZSB3ZXJl
-DQo+ICtlaXRoZXIgc3VjY2Vzc2Z1bGx5IGNvbGxhcHNlZCwNCj4gK29yIHdlcmUgYWxyZWFk
-eSBQTUQtbWFwcGVkIFRIUHMsDQo+ICt0aGlzIG9wZXJhdGlvbiB3aWxsIGJlIGRlZW1lZCBz
-dWNjZXNzZnVsLg0KPiArTm90ZSB0aGF0IHRoaXMgZG9lc24ndCBndWFyYW50ZWUgYW55dGhp
-bmcgYWJvdXQgb3RoZXIgcG9zc2libGUgbWFwcGluZ3Mgb2YNCj4gK3RoZSBtZW1vcnkuDQo+
-ICtBbHNvIG5vdGUgdGhhdCBtYW55IGZhaWx1cmVzIG1pZ2h0IGhhdmUgb2NjdXJyZWQgc2lu
-Y2UgdGhlIG9wZXJhdGlvbiBtYXkNCj4gK2NvbnRpbnVlIHRvIGNvbGxhcHNlIGluIHRoZSBl
-dmVudCBjb2xsYXBzZSBvZiBhIHNpbmdsZSBodWdlcGFnZS1zaXplZC9hbGlnbmVkDQo+ICty
-ZWdpb24gZmFpbHMuDQoNCkkgZG9uJ3QgdW5kZXJzdGFuZCB0aGlzIGxhc3QgcGFyYWdyYXBo
-IChzaW5jZSAiQWxzbyBub3RlIC4uLiIpLiAgQ291bGQgeW91IA0KcGxlYXNlIHJld29yZCBp
-dCBhIGxpdHRsZSBiaXQ/DQoNCj4gKy5UUA0KPiAgIC5CUiBNQURWX0RPTlREVU1QICIgKHNp
-bmNlIExpbnV4IDMuNCkiDQo+ICAgLlwiIGNvbW1pdCA5MDlhZjc2OGU4ODg2NzAxNmY0Mjcy
-NjRhZTM5ZDI3YTU3YjZhOGVkDQo+ICAgLlwiIGNvbW1pdCBhY2NiNjFmZTdiYjBmNWMyYTQx
-MDIyMzllNDk4MTY1MGY5MDQ4NTE5DQo+IEBAIC02MjAsNiArNjk2LDExIEBAIEEga2VybmVs
-IHJlc291cmNlIHdhcyB0ZW1wb3JhcmlseSB1bmF2YWlsYWJsZS4NCj4gICAuQiBFQkFERg0K
-PiAgIFRoZSBtYXAgZXhpc3RzLCBidXQgdGhlIGFyZWEgbWFwcyBzb21ldGhpbmcgdGhhdCBp
-c24ndCBhIGZpbGUuDQo+ICAgLlRQDQo+ICsuQiBFQlVTWQ0KPiArKGZvcg0KPiArLkJSIE1B
-RFZfQ09MTEFQU0UgKQ0KPiArQ291bGQgbm90IGNoYXJnZSBodWdlcGFnZSB0byBjZ3JvdXA6
-IGNncm91cCBsaW1pdCBleGNlZWRlZC4NCj4gKy5UUA0KPiAgIC5CIEVGQVVMVA0KPiAgIC5J
-IGFkdmljZQ0KPiAgIGlzDQo+IEBAIC03MTcsNiArNzk4LDExIEBAIG1heGltdW0gcmVzaWRl
-bnQgc2V0IHNpemUuDQo+ICAgTm90IGVub3VnaCBtZW1vcnk6IHBhZ2luZyBpbiBmYWlsZWQu
-DQo+ICAgLlRQDQo+ICAgLkIgRU5PTUVNDQo+ICsoZm9yDQo+ICsuQlIgTUFEVl9DT0xMQVBT
-RSApDQo+ICtOb3QgZW5vdWdoIG1lbW9yeTogY291bGQgbm90IGFsbG9jYXRlIGh1Z2VwYWdl
-Lg0KPiArLlRQDQo+ICsuQiBFTk9NRU0NCj4gICBBZGRyZXNzZXMgaW4gdGhlIHNwZWNpZmll
-ZCByYW5nZSBhcmUgbm90IGN1cnJlbnRseQ0KPiAgIG1hcHBlZCwgb3IgYXJlIG91dHNpZGUg
-dGhlIGFkZHJlc3Mgc3BhY2Ugb2YgdGhlIHByb2Nlc3MuDQo+ICAgLlRQDQo+IGRpZmYgLS1n
-aXQgYS9tYW4yL3Byb2Nlc3NfbWFkdmlzZS4yIGIvbWFuMi9wcm9jZXNzX21hZHZpc2UuMg0K
-PiBpbmRleCBhYzk4ODUwYTkuLjkyODc4Mjg2YiAxMDA2NDQNCj4gLS0tIGEvbWFuMi9wcm9j
-ZXNzX21hZHZpc2UuMg0KPiArKysgYi9tYW4yL3Byb2Nlc3NfbWFkdmlzZS4yDQo+IEBAIC03
-Myw2ICs3MywxMCBAQCBhcmd1bWVudCBpcyBvbmUgb2YgdGhlIGZvbGxvd2luZyB2YWx1ZXM6
-DQo+ICAgU2VlDQo+ICAgLkJSIG1hZHZpc2UgKDIpLg0KPiAgIC5UUA0KPiArLkIgTUFEVl9D
-T0xMQVBTRQ0KPiArU2VlDQo+ICsuQlIgbWFkdmlzZSAoMikuDQo+ICsuVFANCj4gICAuQiBN
-QURWX1BBR0VPVVQNCj4gICBTZWUNCj4gICAuQlIgbWFkdmlzZSAoMikuDQo+IEBAIC0xNzMs
-NiArMTc3LDEyIEBAIFRoZSBjYWxsZXIgZG9lcyBub3QgaGF2ZSBwZXJtaXNzaW9uIHRvIGFj
-Y2VzcyB0aGUgYWRkcmVzcyBzcGFjZSBvZiB0aGUgcHJvY2Vzcw0KPiAgIC5UUA0KPiAgIC5C
-IEVTUkNIDQo+ICAgVGhlIHRhcmdldCBwcm9jZXNzIGRvZXMgbm90IGV4aXN0IChpLmUuLCBp
-dCBoYXMgdGVybWluYXRlZCBhbmQgYmVlbiB3YWl0ZWQgb24pLg0KPiArLlBQDQo+ICtTZWUN
-Cj4gKy5CUiBtYWR2aXNlICgyKQ0KPiArZm9yDQo+ICsuSVIgYWR2aWNlIC1zcGVjaWZpYw0K
-PiArZXJyb3JzLg0KPiAgIC5TSCBWRVJTSU9OUw0KPiAgIFRoaXMgc3lzdGVtIGNhbGwgZmly
-c3QgYXBwZWFyZWQgaW4gTGludXggNS4xMC4NCj4gICAuXCIgY29tbWl0IGVjYjhhYzhiMWYx
-NDY5MTVhYTZiOTY0NDliNjZkZDQ4OTg0Y2FhY2MNCg0KRGlmZiBmb3IgY2hhbmdpbmcgYSBm
-ZXcgbGluZSBicmVha3MgKGFuZCByZW1vdmluZyB0aGUgc3B1cmlvdXMgZmlsZSk6DQoNCmRp
-ZmYgLS1naXQgYS9tYW4yL21hZHZpc2UgYi9tYW4yL21hZHZpc2UNCmRlbGV0ZWQgZmlsZSBt
-b2RlIDEwMDY0NA0KaW5kZXggZTY5ZGUyOWJiLi4wMDAwMDAwMDANCmRpZmYgLS1naXQgYS9t
-YW4yL21hZHZpc2UuMiBiL21hbjIvbWFkdmlzZS4yDQppbmRleCBkY2E0MmM3ZDYuLjdmMzQz
-MDFkMyAxMDA2NDQNCi0tLSBhL21hbjIvbWFkdmlzZS4yDQorKysgYi9tYW4yL21hZHZpc2Uu
-Mg0KQEAgLTQwNSwxMSArNDA1LDEyIEBAIC5TUyBMaW51eC1zcGVjaWZpYyBhZHZpY2UgdmFs
-dWVzDQogIC5CUiBNQURWX0NPTExBUFNFICIgKHNpbmNlIExpbnV4IDYuMSkiDQogIC5cIiBj
-b21taXQgN2Q4ZmFhZjE1NTQ1NGY4Nzk4ZWM1NjQwNGZhY2EyOWE4MjY4OWM3Nw0KICAuXCIg
-Y29tbWl0IDM0NDg4Mzk5ZmEwOGZhYWY2NjQ3NDNmYTU0YjI3MWViNmY5ZTEzMjENCi1QZXJm
-b3JtIGEgYmVzdC1lZmZvcnQgc3luY2hyb25vdXMgY29sbGFwc2Ugb2YgdGhlIG5hdGl2ZSBw
-YWdlcyBtYXBwZWQgYnkgdGhlDQotbWVtb3J5IHJhbmdlIGludG8gVHJhbnNwYXJlbnQgSHVn
-ZSBQYWdlcyAoVEhQcykuDQorUGVyZm9ybSBhIGJlc3QtZWZmb3J0IHN5bmNocm9ub3VzIGNv
-bGxhcHNlIG9mDQordGhlIG5hdGl2ZSBwYWdlcyBtYXBwZWQgYnkgdGhlIG1lbW9yeSByYW5n
-ZQ0KK2ludG8gVHJhbnNwYXJlbnQgSHVnZSBQYWdlcyAoVEhQcykuDQogIC5CIE1BRFZfQ09M
-TEFQU0UNCi1vcGVyYXRlcyBvbiB0aGUgY3VycmVudCBzdGF0ZSBvZiBtZW1vcnkgb2YgdGhl
-IGNhbGxpbmcgcHJvY2VzcyBhbmQgbWFrZXMgbm8NCi1wZXJzaXN0ZW50IGNoYW5nZXMgb3Ig
-Z3VhcmFudGVlcyBvbiBob3cgcGFnZXMgd2lsbCBiZSBtYXBwZWQsDQorb3BlcmF0ZXMgb24g
-dGhlIGN1cnJlbnQgc3RhdGUgb2YgbWVtb3J5IG9mIHRoZSBjYWxsaW5nIHByb2Nlc3MgYW5k
-DQorbWFrZXMgbm8gcGVyc2lzdGVudCBjaGFuZ2VzIG9yIGd1YXJhbnRlZXMgb24gaG93IHBh
-Z2VzIHdpbGwgYmUgbWFwcGVkLA0KICBjb25zdHJ1Y3RlZCwNCiAgb3IgZmF1bHRlZCBpbiB0
-aGUgZnV0dXJlLg0KICAuSVANCkBAIC00MjQsMjAgKzQyNSwyMCBAQCAuU1MgTGludXgtc3Bl
-Y2lmaWMgYWR2aWNlIHZhbHVlcw0KICBJZiB0aGUgcmFuZ2UgcHJvdmlkZWQgc3BhbnMgbXVs
-dGlwbGUgVk1BcywNCiAgdGhlIHNlbWFudGljcyBvZiB0aGUgY29sbGFwc2Ugb3ZlciBlYWNo
-IFZNQSBpcyBpbmRlcGVuZGVudCBmcm9tIHRoZSBvdGhlcnMuDQogIElmIGNvbGxhcHNlIG9m
-IGEgZ2l2ZW4gaHVnZSBwYWdlLWFsaWduZWQvc2l6ZWQgcmVnaW9uIGZhaWxzLA0KLXRoZSBv
-cGVyYXRpb24gbWF5IGNvbnRpbnVlIHRvIGF0dGVtcHQgY29sbGFwc2luZyB0aGUgcmVtYWlu
-ZGVyIG9mIHRoZQ0KLXNwZWNpZmllZCBtZW1vcnkuDQordGhlIG9wZXJhdGlvbiBtYXkgY29u
-dGludWUgdG8gYXR0ZW1wdCBjb2xsYXBzaW5nDQordGhlIHJlbWFpbmRlciBvZiB0aGUgc3Bl
-Y2lmaWVkIG1lbW9yeS4NCiAgLkIgTUFEVl9DT0xMQVBTRQ0KICB3aWxsIGF1dG9tYXRpY2Fs
-bHkgY2xhbXAgdGhlIHByb3ZpZGVkIHJhbmdlIHRvIGJlIGh1Z2VwYWdlLWFsaWduZWQuDQog
-IC5JUA0KLUFsbCBub24tcmVzaWRlbnQgcGFnZXMgY292ZXJlZCBieSB0aGUgcmFuZ2Ugd2ls
-bCBmaXJzdCBiZQ0KLXN3YXBwZWQvZmF1bHRlZC1pbiwNCitBbGwgbm9uLXJlc2lkZW50IHBh
-Z2VzIGNvdmVyZWQgYnkgdGhlIHJhbmdlDQord2lsbCBmaXJzdCBiZSBzd2FwcGVkL2ZhdWx0
-ZWQtaW4sDQogIGJlZm9yZSBiZWluZyBjb3BpZWQgb250byBhIGZyZXNobHkgYWxsb2NhdGVk
-IGh1Z2VwYWdlLg0KICBJZiB0aGUgbmF0aXZlIHBhZ2VzIGNvbXBvc2UgdGhlIHNhbWUgUFRF
-LW1hcHBlZCBodWdlcGFnZSwNCiAgYW5kIGFyZSBzdWl0YWJseSBhbGlnbmVkLA0KLWFsbG9j
-YXRpb24gb2YgYSBuZXcgaHVnZXBhZ2UgbWF5IGJlIGVsaWRlZCBhbmQgY29sbGFwc2UgbWF5
-IGhhcHBlbg0KLWluLXBsYWNlLg0KLVVubWFwcGVkIHBhZ2VzIHdpbGwgaGF2ZSB0aGVpciBk
-YXRhIGRpcmVjdGx5IGluaXRpYWxpemVkIHRvIDAgaW4gdGhlIG5ldw0KLWh1Z2VwYWdlLg0K
-K2FsbG9jYXRpb24gb2YgYSBuZXcgaHVnZXBhZ2UgbWF5IGJlIGVsaWRlZCBhbmQNCitjb2xs
-YXBzZSBtYXkgaGFwcGVuIGluLXBsYWNlLg0KK1VubWFwcGVkIHBhZ2VzIHdpbGwgaGF2ZSB0
-aGVpciBkYXRhIGRpcmVjdGx5IGluaXRpYWxpemVkIHRvIDANCitpbiB0aGUgbmV3IGh1Z2Vw
-YWdlLg0KICBIb3dldmVyLA0KICBmb3IgZXZlcnkgZWxpZ2libGUgaHVnZXBhZ2UtYWxpZ25l
-ZC9zaXplZCByZWdpb24gdG8gYmUgY29sbGFwc2VkLA0KICBhdCBsZWFzdCBvbmUgcGFnZSBt
-dXN0IGN1cnJlbnRseSBiZSBiYWNrZWQgYnkgcGh5c2ljYWwgbWVtb3J5Lg0KQEAgLTQ2NCwx
-NSArNDY1LDE1IEBAIC5TUyBMaW51eC1zcGVjaWZpYyBhZHZpY2UgdmFsdWVzDQogIGlzIHN0
-aWxsIHJlc3BlY3RlZCkuDQogIC5JUA0KICBXaGVuIHRoZSBzeXN0ZW0gaGFzIG11bHRpcGxl
-IE5VTUEgbm9kZXMsDQotdGhlIGh1Z2VwYWdlIHdpbGwgYmUgYWxsb2NhdGVkIGZyb20gdGhl
-IG5vZGUgcHJvdmlkaW5nIHRoZSBtb3N0IG5hdGl2ZQ0KLXBhZ2VzLg0KK3RoZSBodWdlcGFn
-ZSB3aWxsIGJlIGFsbG9jYXRlZCBmcm9tDQordGhlIG5vZGUgcHJvdmlkaW5nIHRoZSBtb3N0
-IG5hdGl2ZSBwYWdlcy4NCiAgLklQDQogIElmIGFsbCBodWdlcGFnZS1zaXplZC9hbGlnbmVk
-IHJlZ2lvbnMgY292ZXJlZCBieSB0aGUgcHJvdmlkZWQgcmFuZ2Ugd2VyZQ0KICBlaXRoZXIg
-c3VjY2Vzc2Z1bGx5IGNvbGxhcHNlZCwNCiAgb3Igd2VyZSBhbHJlYWR5IFBNRC1tYXBwZWQg
-VEhQcywNCiAgdGhpcyBvcGVyYXRpb24gd2lsbCBiZSBkZWVtZWQgc3VjY2Vzc2Z1bC4NCi1O
-b3RlIHRoYXQgdGhpcyBkb2Vzbid0IGd1YXJhbnRlZSBhbnl0aGluZyBhYm91dCBvdGhlciBw
-b3NzaWJsZSBtYXBwaW5ncyBvZg0KLXRoZSBtZW1vcnkuDQorTm90ZSB0aGF0IHRoaXMgZG9l
-c24ndCBndWFyYW50ZWUgYW55dGhpbmcgYWJvdXQNCitvdGhlciBwb3NzaWJsZSBtYXBwaW5n
-cyBvZiB0aGUgbWVtb3J5Lg0KICBBbHNvIG5vdGUgdGhhdCBtYW55IGZhaWx1cmVzIG1pZ2h0
-IGhhdmUgb2NjdXJyZWQgc2luY2UgdGhlIG9wZXJhdGlvbiBtYXkNCiAgY29udGludWUgdG8g
-Y29sbGFwc2UgaW4gdGhlIGV2ZW50IGNvbGxhcHNlIG9mIGEgc2luZ2xlIGh1Z2VwYWdlLXNp
-emVkL2FsaWduZWQNCiAgcmVnaW9uIGZhaWxzLg0KDQoNCi0tIA0KPGh0dHA6Ly93d3cuYWxl
-amFuZHJvLWNvbG9tYXIuZXMvPg0K
+Thank you :)
 
---------------QQNjPEtPcCP8DJbFUPs9MTzJ--
+> - A few changes about semantic newlines.  See a diff at the bottom of this email
+> that you can apply.
+>
+> - An accident.
+>
+> - Some paragraph I don't really understand.
+>
+> Cheers,
+>
+> Alex
+>
+> > ---
+> >
+> > v3[1] -> v4
+> > - Rebased to latest master
+> > - (Alejandro Colomar) Fixed weird, non-ascii chars: e2 80 99 -> "'"
+> > - (Alejandro Colomar) Replaced .BR with .B directive when the entire
+> >    line was bold (no non-bold part)
+> >
+> > [1] https://lore.kernel.org/linux-man/bb3b5c3c-3966-ea1a-6d84-4f7f3afa37ca@gmail.com/T/#u
+> >
+> >   man2/madvise           |  0
+> >   man2/madvise.2         | 90 +++++++++++++++++++++++++++++++++++++++++-
+> >   man2/process_madvise.2 | 10 +++++
+> >   3 files changed, 98 insertions(+), 2 deletions(-)
+> >   create mode 100644 man2/madvise
+> >
+> > diff --git a/man2/madvise b/man2/madvise
+> > new file mode 100644
+> > index 000000000..e69de29bb
+>
+> Heh!  This was a funny accident.  I realized because autocomplete showed it as a
+> possibility. :)
+>
+> The diff at the bottom removes it.
+>
 
---------------qAB2yOmG2fApEAs0DWKzS7xI
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+Sorry about that - thanks for noticing!
 
------BEGIN PGP SIGNATURE-----
+> > diff --git a/man2/madvise.2 b/man2/madvise.2
+> > index edf805740..dca42c7d6 100644
+> > --- a/man2/madvise.2
+> > +++ b/man2/madvise.2
+> > @@ -386,9 +386,10 @@ set (see
+> >   .BR prctl (2)).
+> >   .IP
+> >   The
+> > -.B MADV_HUGEPAGE
+> > +.BR MADV_HUGEPAGE ,
+> > +.BR MADV_NOHUGEPAGE ,
+> >   and
+> > -.B MADV_NOHUGEPAGE
+> > +.B MADV_COLLAPSE
+> >   operations are available only if the kernel was configured with
+> >   .B CONFIG_TRANSPARENT_HUGEPAGE
+> >   and file/shmem memory is only supported if the kernel was configured with
+> > @@ -401,6 +402,81 @@ and
+> >   .I length
+> >   will not be backed by transparent hugepages.
+> >   .TP
+> > +.BR MADV_COLLAPSE " (since Linux 6.1)"
+> > +.\" commit 7d8faaf155454f8798ec56404faca29a82689c77
+> > +.\" commit 34488399fa08faaf664743fa54b271eb6f9e1321
+> > +Perform a best-effort synchronous collapse of the native pages mapped by the
+> > +memory range into Transparent Huge Pages (THPs).
+> > +.B MADV_COLLAPSE
+> > +operates on the current state of memory of the calling process and makes no
+> > +persistent changes or guarantees on how pages will be mapped,
+> > +constructed,
+> > +or faulted in the future.
+> > +.IP
+> > +.B MADV_COLLAPSE
+> > +supports private anonymous pages (see
+> > +.BR mmap (2)),
+> > +shmem pages,
+> > +and file-backed pages.
+> > +See
+> > +.B MADV_HUGEPAGE
+> > +for general information on memory requirements for THP.
+> > +If the range provided spans multiple VMAs,
+> > +the semantics of the collapse over each VMA is independent from the others.
+> > +If collapse of a given huge page-aligned/sized region fails,
+> > +the operation may continue to attempt collapsing the remainder of the
+> > +specified memory.
+> > +.B MADV_COLLAPSE
+> > +will automatically clamp the provided range to be hugepage-aligned.
+> > +.IP
+> > +All non-resident pages covered by the range will first be
+> > +swapped/faulted-in,
+> > +before being copied onto a freshly allocated hugepage.
+> > +If the native pages compose the same PTE-mapped hugepage,
+> > +and are suitably aligned,
+> > +allocation of a new hugepage may be elided and collapse may happen
+> > +in-place.
+> > +Unmapped pages will have their data directly initialized to 0 in the new
+> > +hugepage.
+> > +However,
+> > +for every eligible hugepage-aligned/sized region to be collapsed,
+> > +at least one page must currently be backed by physical memory.
+> > +.IP
+> > +.B MADV_COLLAPSE
+> > +is independent of any sysfs
+> > +(see
+> > +.BR sysfs (5))
+> > +setting under
+> > +.IR /sys/kernel/mm/transparent_hugepage ,
+> > +both in terms of determining THP eligibility,
+> > +and allocation semantics.
+> > +See Linux kernel source file
+> > +.I Documentation/admin\-guide/mm/transhuge.rst
+> > +for more information.
+> > +.B MADV_COLLAPSE
+> > +also ignores
+> > +.B huge=
+> > +tmpfs mount when operating on tmpfs files.
+> > +Allocation for the new hugepage may enter direct reclaim and/or compaction,
+> > +regardless of VMA flags
+> > +(though
+> > +.B VM_NOHUGEPAGE
+> > +is still respected).
+> > +.IP
+> > +When the system has multiple NUMA nodes,
+> > +the hugepage will be allocated from the node providing the most native
+> > +pages.
+> > +.IP
+> > +If all hugepage-sized/aligned regions covered by the provided range were
+> > +either successfully collapsed,
+> > +or were already PMD-mapped THPs,
+> > +this operation will be deemed successful.
+> > +Note that this doesn't guarantee anything about other possible mappings of
+> > +the memory.
+> > +Also note that many failures might have occurred since the operation may
+> > +continue to collapse in the event collapse of a single hugepage-sized/aligned
+> > +region fails.
+>
+> I don't understand this last paragraph (since "Also note ...").  Could you
+> please reword it a little bit?
+>
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmNgXBUACgkQnowa+77/
-2zLKAw//RRbLyHyfUZFza/bXtNnwYezPD1URl2VMm3FwXA/LQF1i1pk+bILHu7xr
-+BC/tTqeKJ9jI6O4a89OenX+W6JK0y+jud3lzLkFIauHC2HJ4VXCjVqIoY3rjoa2
-cP+ysIl2W+fYZllrCFI5aMK8lw9cuRlQLOLceZzBL5uS2cHl4YJlF4UbfxQyDtfd
-vbAw7rigOXjy716SFnSCCoCL0r9lCw53eFl8gJU8eEnYGbMwk7nGPHMr+AQrg7tq
-EgDD9LSB4smxHUsqbIV6Db3S4p672IBrcAlKtjvn7z5fhExweedXxnAG6vZfHuhO
-ahfxpsMBc7xR7IbvFPfW82OOX1wDL45tQ3kyB+2JKwnTwYekVFNHby8yzbdAz9Hd
-1ioP+PI6s8wYS3xkXrLML2gJzUeto5ydeWgLxwj0QvE1V4XFWfdtGFuHDGvt9+ff
-2CiD3DAECTeMdqGHJBiJx4FKIkVcOAxCX+tXMKi3jlDfPnH3wQzxm+eG6KAYpcN7
-yVmfypjOkOo78QdmIL42t0IfJ0mo51tRJQYop5eu9JiIKd90QaRCuDipwZZC3FpO
-wp2T1UIKo6F8fhd07Ju9pP11B5Pra98qt7/2vUJl9DGmFYJC+EKmRa5Jj07IBBAr
-6dc1Mb/+Gt8u7MyX7ExVXb0O8ITROqmKMWRqNOb7bcfvW2V7qEw=
-=h4aL
------END PGP SIGNATURE-----
+Sure - I can see that it's hard to parse.
 
---------------qAB2yOmG2fApEAs0DWKzS7xI--
+Further up I note that, "If collapse of a given huge
+page-aligned/sized region fails, the operation may continue to attempt
+collapsing the remainder of the specified memory."
+
+Then perhaps it's enough to just state, "In the event multiple
+hugepage-aligned/sized areas fail to collapse, only the most
+recently-failed code will be set in errno"
+
+The idea here being: errno only communicates the reason for 1/N
+failures that might have occured.
+
+However -- on second thought -- perhaps this isn't particularly
+useful, as it's already implied. So, my new suggestion would be that
+we should drop it. What do you think?
+
+> > +.TP
+> >   .BR MADV_DONTDUMP " (since Linux 3.4)"
+> >   .\" commit 909af768e88867016f427264ae39d27a57b6a8ed
+> >   .\" commit accb61fe7bb0f5c2a4102239e4981650f9048519
+> > @@ -620,6 +696,11 @@ A kernel resource was temporarily unavailable.
+> >   .B EBADF
+> >   The map exists, but the area maps something that isn't a file.
+> >   .TP
+> > +.B EBUSY
+> > +(for
+> > +.BR MADV_COLLAPSE )
+> > +Could not charge hugepage to cgroup: cgroup limit exceeded.
+> > +.TP
+> >   .B EFAULT
+> >   .I advice
+> >   is
+> > @@ -717,6 +798,11 @@ maximum resident set size.
+> >   Not enough memory: paging in failed.
+> >   .TP
+> >   .B ENOMEM
+> > +(for
+> > +.BR MADV_COLLAPSE )
+> > +Not enough memory: could not allocate hugepage.
+> > +.TP
+> > +.B ENOMEM
+> >   Addresses in the specified range are not currently
+> >   mapped, or are outside the address space of the process.
+> >   .TP
+> > diff --git a/man2/process_madvise.2 b/man2/process_madvise.2
+> > index ac98850a9..92878286b 100644
+> > --- a/man2/process_madvise.2
+> > +++ b/man2/process_madvise.2
+> > @@ -73,6 +73,10 @@ argument is one of the following values:
+> >   See
+> >   .BR madvise (2).
+> >   .TP
+> > +.B MADV_COLLAPSE
+> > +See
+> > +.BR madvise (2).
+> > +.TP
+> >   .B MADV_PAGEOUT
+> >   See
+> >   .BR madvise (2).
+> > @@ -173,6 +177,12 @@ The caller does not have permission to access the address space of the process
+> >   .TP
+> >   .B ESRCH
+> >   The target process does not exist (i.e., it has terminated and been waited on).
+> > +.PP
+> > +See
+> > +.BR madvise (2)
+> > +for
+> > +.IR advice -specific
+> > +errors.
+> >   .SH VERSIONS
+> >   This system call first appeared in Linux 5.10.
+> >   .\" commit ecb8ac8b1f146915aa6b96449b66dd48984caacc
+>
+> Diff for changing a few line breaks (and removing the spurious file):
+>
+
+Thank you so much for this! :)
+
+> diff --git a/man2/madvise b/man2/madvise
+> deleted file mode 100644
+> index e69de29bb..000000000
+> diff --git a/man2/madvise.2 b/man2/madvise.2
+> index dca42c7d6..7f34301d3 100644
+> --- a/man2/madvise.2
+> +++ b/man2/madvise.2
+> @@ -405,11 +405,12 @@ .SS Linux-specific advice values
+>   .BR MADV_COLLAPSE " (since Linux 6.1)"
+>   .\" commit 7d8faaf155454f8798ec56404faca29a82689c77
+>   .\" commit 34488399fa08faaf664743fa54b271eb6f9e1321
+> -Perform a best-effort synchronous collapse of the native pages mapped by the
+> -memory range into Transparent Huge Pages (THPs).
+> +Perform a best-effort synchronous collapse of
+> +the native pages mapped by the memory range
+> +into Transparent Huge Pages (THPs).
+>   .B MADV_COLLAPSE
+> -operates on the current state of memory of the calling process and makes no
+> -persistent changes or guarantees on how pages will be mapped,
+> +operates on the current state of memory of the calling process and
+> +makes no persistent changes or guarantees on how pages will be mapped,
+>   constructed,
+>   or faulted in the future.
+>   .IP
+> @@ -424,20 +425,20 @@ .SS Linux-specific advice values
+>   If the range provided spans multiple VMAs,
+>   the semantics of the collapse over each VMA is independent from the others.
+>   If collapse of a given huge page-aligned/sized region fails,
+> -the operation may continue to attempt collapsing the remainder of the
+> -specified memory.
+> +the operation may continue to attempt collapsing
+> +the remainder of the specified memory.
+>   .B MADV_COLLAPSE
+>   will automatically clamp the provided range to be hugepage-aligned.
+>   .IP
+> -All non-resident pages covered by the range will first be
+> -swapped/faulted-in,
+> +All non-resident pages covered by the range
+> +will first be swapped/faulted-in,
+>   before being copied onto a freshly allocated hugepage.
+>   If the native pages compose the same PTE-mapped hugepage,
+>   and are suitably aligned,
+> -allocation of a new hugepage may be elided and collapse may happen
+> -in-place.
+> -Unmapped pages will have their data directly initialized to 0 in the new
+> -hugepage.
+> +allocation of a new hugepage may be elided and
+> +collapse may happen in-place.
+> +Unmapped pages will have their data directly initialized to 0
+> +in the new hugepage.
+>   However,
+>   for every eligible hugepage-aligned/sized region to be collapsed,
+>   at least one page must currently be backed by physical memory.
+> @@ -464,15 +465,15 @@ .SS Linux-specific advice values
+>   is still respected).
+>   .IP
+>   When the system has multiple NUMA nodes,
+> -the hugepage will be allocated from the node providing the most native
+> -pages.
+> +the hugepage will be allocated from
+> +the node providing the most native pages.
+>   .IP
+>   If all hugepage-sized/aligned regions covered by the provided range were
+>   either successfully collapsed,
+>   or were already PMD-mapped THPs,
+>   this operation will be deemed successful.
+> -Note that this doesn't guarantee anything about other possible mappings of
+> -the memory.
+> +Note that this doesn't guarantee anything about
+> +other possible mappings of the memory.
+>   Also note that many failures might have occurred since the operation may
+>   continue to collapse in the event collapse of a single hugepage-sized/aligned
+>   region fails.
+>
+>
+> --
+> <http://www.alejandro-colomar.es/>
+
+Best,
+Zach
