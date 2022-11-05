@@ -2,97 +2,73 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id D96E261D7F8
-	for <lists+linux-man@lfdr.de>; Sat,  5 Nov 2022 07:50:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id CB7B261D9F0
+	for <lists+linux-man@lfdr.de>; Sat,  5 Nov 2022 13:38:57 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229495AbiKEGuW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 5 Nov 2022 02:50:22 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49846 "EHLO
+        id S229772AbiKEMiz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 5 Nov 2022 08:38:55 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39786 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229486AbiKEGuV (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 5 Nov 2022 02:50:21 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5DCC4C75A
-        for <linux-man@vger.kernel.org>; Fri,  4 Nov 2022 23:50:20 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id E79A1604EF
-        for <linux-man@vger.kernel.org>; Sat,  5 Nov 2022 06:50:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27143C433D6
-        for <linux-man@vger.kernel.org>; Sat,  5 Nov 2022 06:50:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1667631019;
-        bh=SepDzBh6WYKJNn6UTU4aGeVN+4JZct/10HJVPFLkHCA=;
-        h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-        b=ddiQwFszi0FihsI6BrtIlRAd9sm4nC9zI89Ju9XELFDVx8ocoDemRYq8EplgIdMpV
-         ltp7Bm9EE/Bc/7NMqIWvID18n2dmw1n/MCRmzxArucqLUx9eQl/aOi4U2HJFMPIuuS
-         LCfoXAi7rnUjmJ6+6E5z89XbXQxs0kaFsEfOUvxNVbJVm4B3eHAcYE1Sxg/QahTWr+
-         3yPEh+Pe3AaZE/l+JGNk2FjcLFRJTiS8sRV4NTL4ItYpzC4SiJY+ZXehFk6V6+xH0e
-         +LcfJbwR1BXFJhZQTgHHi6fyQlGm/biunYT6Lok2vyz9/wG3vqIN+FlW0woMC0zcXI
-         R/tn6DYhK4OHA==
-Received: by mail-ed1-f46.google.com with SMTP id s12so865585edd.5
-        for <linux-man@vger.kernel.org>; Fri, 04 Nov 2022 23:50:19 -0700 (PDT)
-X-Gm-Message-State: ACrzQf0vwWyTfJaAfzzH5mBXUEWD5cFD+XlNYIcRMn4r5EYJwT2sBBTG
-        v8l0Phr+6cN2VqDQHy19ORQ9wRCP20n/x51qv7s=
-X-Google-Smtp-Source: AMsMyM4IS0LZhUdYmoOACHK/koIeZDFuVuXrS+5iUGJHovwgjRBoRpM8Z6mF0LkhvwczPKtdlFmmnjIfSCHcBAi9jOE=
-X-Received: by 2002:a05:6402:2937:b0:461:32aa:32da with SMTP id
- ee55-20020a056402293700b0046132aa32damr38277788edb.78.1667631017355; Fri, 04
- Nov 2022 23:50:17 -0700 (PDT)
+        with ESMTP id S229691AbiKEMix (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 5 Nov 2022 08:38:53 -0400
+Received: from mail-pl1-x635.google.com (mail-pl1-x635.google.com [IPv6:2607:f8b0:4864:20::635])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F339915FF9
+        for <linux-man@vger.kernel.org>; Sat,  5 Nov 2022 05:38:50 -0700 (PDT)
+Received: by mail-pl1-x635.google.com with SMTP id 4so7249022pli.0
+        for <linux-man@vger.kernel.org>; Sat, 05 Nov 2022 05:38:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:to:subject:message-id:date:from:reply-to
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=c8XA1N0uaxkLO/wKHErNWHaSuu64k5Pjb5u9dmcZrOc=;
+        b=dP/vGfJ52tqdGGbdLFa+Ia1xCAutipWeAOPq8jKDnWkU62hZU7sMsZY49TgkwXAA5g
+         1yeGamAlfRFs90wkvR6lgaV3Wg24N6HDnekdo8UURsmSP5otybZlRkZzNxJ7AfUj6Q2+
+         CKiyBj4FP1EFkZc1H9L2i7zRAVvwvNQ+/TJeOdzeNP7tRScDVLp3Vlh/OdENcMPFJkDn
+         oSEUQfZcVQpylzARvlDhQNJui4E2RbhaxAaa7n3Kdgsd4f/k34LkyqWLBylB/XpPW04g
+         dKDuUZyENsU3QsJf+hTLTKsTcNOWBj2897N39hnlhbs7/J2gK6gRaL+j/IeFSdFJ1ntP
+         NWQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:to:subject:message-id:date:from:reply-to
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=c8XA1N0uaxkLO/wKHErNWHaSuu64k5Pjb5u9dmcZrOc=;
+        b=BNzfWa18amtnYyEI11Sjg5naInnoQFEpdFW/eh7sNErf2TFE02j3xk352EXeh7BIpo
+         i0dIeBksBUpEKTIIWpVljCSpzU3Nd5AF2i0cg5qZO/NJzcADDtNk3HQIq8Wk4cJlLYTG
+         nqwP9MHYF4E2c4ySCnHERP/ETfCUjw2jz9ciWKR+XcVbK8+C015ykzrtvTBzD23HBppQ
+         hwYilzOMoLVFWqKwevWP1aHXFZeJoguFowuwR1ia0l29TwUZOVENpdU0bYPD6uwHS3fX
+         16MjDuPc/ruJ1KqEOETJfPTURnP4o9lLuWuMa3zODKo+fh46jYGBDipaXTNoxRqwffID
+         sIbA==
+X-Gm-Message-State: ACrzQf2Pc4RmkEFfMIJao+8hPHd96wdKDamFcgNTV40/hJ/9C+Jp1V2X
+        sljbOjzsCrN97KgNOIpXH4JKo9DbGwN4ar9XDJU=
+X-Google-Smtp-Source: AMsMyM4olsI8J+PUrJBDqcdS3+ybCY1m5BPCD8wMv7D7l+O5tLdAL0JwRK1eWuD3q/Waqjsy5xHfJk1xeIU90M7q0J0=
+X-Received: by 2002:a17:902:f28b:b0:186:b069:63fc with SMTP id
+ k11-20020a170902f28b00b00186b06963fcmr41192256plc.38.1667651930280; Sat, 05
+ Nov 2022 05:38:50 -0700 (PDT)
 MIME-Version: 1.0
-References: <20221105021514.8344-1-xry111@xry111.site>
-In-Reply-To: <20221105021514.8344-1-xry111@xry111.site>
-From:   Huacai Chen <chenhuacai@kernel.org>
-Date:   Sat, 5 Nov 2022 14:50:06 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H4eWeLNtRQg+nuZZH-BH-z7BB_Jy-JQBvxt9gvsJp6HLQ@mail.gmail.com>
-Message-ID: <CAAhV-H4eWeLNtRQg+nuZZH-BH-z7BB_Jy-JQBvxt9gvsJp6HLQ@mail.gmail.com>
-Subject: Re: [PATCH] syscall.2: add loongarch
-To:     Xi Ruoyao <xry111@xry111.site>
-Cc:     Alejandro Colomar <alx@kernel.org>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-man@vger.kernel.org, Wang Xuerui <kernel@xen0n.name>,
-        loongarch@lists.linux.dev
+Received: by 2002:a05:7301:2e91:b0:83:922d:c616 with HTTP; Sat, 5 Nov 2022
+ 05:38:49 -0700 (PDT)
+Reply-To: stefanopessia755@hotmail.com
+From:   Stefano Pessina <wamathaibenard@gmail.com>
+Date:   Sat, 5 Nov 2022 15:38:49 +0300
+Message-ID: <CAN7bvZJK9DwWPHW=SDzsdiMac2NZ4YPui9Vp11ivOjS8hNwTjg@mail.gmail.com>
+Subject: Geldspende
+To:     undisclosed-recipients:;
 Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: No, score=-8.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
+Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: No, score=4.7 required=5.0 tests=BAYES_50,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,FREEMAIL_REPLYTO,
+        FREEMAIL_REPLYTO_END_DIGIT,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+        UNDISC_FREEM autolearn=no autolearn_force=no version=3.4.6
+X-Spam-Level: ****
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
-
-On Sat, Nov 5, 2022 at 10:15 AM Xi Ruoyao <xry111@xry111.site> wrote:
->
-> Link: https://lore.kernel.org/loongarch/1f353678-3398-e30b-1c87-6edb278f74db@xen0n.name/
-> Link: https://sourceware.org/git/?p=glibc.git;a=blob;f=sysdeps/unix/sysv/linux/loongarch/sysdep.h
-> Signed-off-by: Xi Ruoyao <xry111@xry111.site>
-> ---
->  man2/syscall.2 | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/man2/syscall.2 b/man2/syscall.2
-> index 1bac0b9d7..a2aef6d33 100644
-> --- a/man2/syscall.2
-> +++ b/man2/syscall.2
-> @@ -176,6 +176,7 @@ arm64       svc #0  w8      x0      x1      -
->  blackfin       excpt 0x0       P0      R0      -       -
->  i386   int $0x80       eax     eax     edx     -
->  ia64   break 0x100000  r15     r8      r9      r10     1, 6
-> +loongarch      syscall 0       a7      a0      -       -
->  m68k   trap #0 d0      d0      -       -
->  microblaze     brki r14,8      r12     r3      -       -
->  mips   syscall v0      v0      v1      a3      1, 6
-> @@ -301,6 +302,7 @@ arm64       x0      x1      x2      x3      x4      x5      -
->  blackfin       R0      R1      R2      R3      R4      R5      -
->  i386   ebx     ecx     edx     esi     edi     ebp     -
->  ia64   out0    out1    out2    out3    out4    out5    -
-> +loongarch      a0      a1      a2      a3      a4      a5      a6
->  m68k   d1      d2      d3      d4      d5      a0      -
->  microblaze     r5      r6      r7      r8      r9      r10     -
->  mips/o32       a0      a1      a2      a3      -       -       -       1
-> --
-> 2.38.1
->
+--=20
+Die Summe von 500.000,00 =E2=82=AC wurde Ihnen von STEFANO PESSINA gespende=
+t.
+Bitte kontaktieren Sie uns f=C3=BCr weitere Informationen =C3=BCber
+stefanopessia755@hotmail.com
