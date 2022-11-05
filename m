@@ -2,93 +2,82 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 7F71B619F42
-	for <lists+linux-man@lfdr.de>; Fri,  4 Nov 2022 18:52:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0F5B861A6DA
+	for <lists+linux-man@lfdr.de>; Sat,  5 Nov 2022 03:15:55 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231824AbiKDRwo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 4 Nov 2022 13:52:44 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57022 "EHLO
+        id S229445AbiKECPy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 4 Nov 2022 22:15:54 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42198 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231849AbiKDRwm (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 4 Nov 2022 13:52:42 -0400
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 96B1432065
-        for <linux-man@vger.kernel.org>; Fri,  4 Nov 2022 10:51:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1667584300;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type;
-        bh=leoXDhqIhqH0KG4xZ8stqR6MRSgC8J0Ko3K6x1MMqu4=;
-        b=X/viF+zeTVxIvU5ccSfATnAb0lW+0Z0kqUaymlnMksG2B7/9oU+rMo1srK/+/DAB9BGfea
-        EZOr24Z5ASLjDGH14OkV7aIlRj3UudRgCMTBOGcknGCPuCe+rKt2YW42NXZzchYBadwNXQ
-        s9AxMUX5lCGT7ViP7BFClaiYDt79MzU=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-246-pFj14f1mNv2vdJ0yB13-Tw-1; Fri, 04 Nov 2022 13:51:39 -0400
-X-MC-Unique: pFj14f1mNv2vdJ0yB13-Tw-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
-        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-        (No client certificate requested)
-        by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 566641C05149;
-        Fri,  4 Nov 2022 17:51:39 +0000 (UTC)
-Received: from oldenburg.str.redhat.com (unknown [10.2.16.19])
-        by smtp.corp.redhat.com (Postfix) with ESMTPS id C51AD40C83EC;
-        Fri,  4 Nov 2022 17:51:38 +0000 (UTC)
-From:   Florian Weimer <fweimer@redhat.com>
-To:     linux-man@vger.kernel.org
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>
-Subject: [PATCH v2] nsswitch.conf.5: Current glibc reloads this
- configuration file
-Date:   Fri, 04 Nov 2022 18:51:36 +0100
-Message-ID: <87sfiyy5ef.fsf@oldenburg.str.redhat.com>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/27.2 (gnu/linux)
+        with ESMTP id S229459AbiKECPx (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 4 Nov 2022 22:15:53 -0400
+Received: from xry111.site (xry111.site [89.208.246.23])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 002D540938
+        for <linux-man@vger.kernel.org>; Fri,  4 Nov 2022 19:15:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=xry111.site;
+        s=default; t=1667614547;
+        bh=AMol7+6VhSazICOuYDq16Qv5nK+JNzmLP+frS6dtp4w=;
+        h=From:To:Cc:Subject:Date:From;
+        b=PavNqb80/Rv0flgsr9bzke8g5vquDM2eEV3Sj5XOAoasFBIt1O0p2QC6QflLtWAM9
+         vbPDrbwB2Wrf+kCK0XhQRHfwLZQmqPGGZqsXCZmDKUkUQkAXSDrkr7KBFWFLVCuudp
+         JiT/sP7saxkRNtxILqq6qQsE4g+30nzDk9AxVSLA=
+Received: from xry111-x57s1.. (unknown [IPv6:240e:358:11ed:a500:dc73:854d:832e:4])
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+         key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+        (Client did not present a certificate)
+        (Authenticated sender: xry111@xry111.site)
+        by xry111.site (Postfix) with ESMTPSA id 332DB65A8C;
+        Fri,  4 Nov 2022 22:15:41 -0400 (EDT)
+From:   Xi Ruoyao <xry111@xry111.site>
+To:     Alejandro Colomar <alx@kernel.org>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org, Huacai Chen <chenhuacai@kernel.org>,
+        Wang Xuerui <kernel@xen0n.name>, loongarch@lists.linux.dev,
+        Xi Ruoyao <xry111@xry111.site>
+Subject: [PATCH] syscall.2: add loongarch
+Date:   Sat,  5 Nov 2022 10:15:14 +0800
+Message-Id: <20221105021514.8344-1-xry111@xry111.site>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-X-Spam-Status: No, score=-3.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
-        RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_NONE autolearn=ham
-        autolearn_force=no version=3.4.6
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=1.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FROM_SUSPICIOUS_NTLD,
+        FROM_SUSPICIOUS_NTLD_FP,PDS_OTHER_BAD_TLD,SPF_HELO_PASS,SPF_PASS
+        autolearn=no autolearn_force=no version=3.4.6
+X-Spam-Level: *
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-The implementation happened across multiple glibc commits, but the work
-was completed for glibc 2.33.
-
-Signed-off-by: Florian Weimer <fweimer@redhat.com>
-
+Link: https://lore.kernel.org/loongarch/1f353678-3398-e30b-1c87-6edb278f74db@xen0n.name/
+Link: https://sourceware.org/git/?p=glibc.git;a=blob;f=sysdeps/unix/sysv/linux/loongarch/sysdep.h
+Signed-off-by: Xi Ruoyao <xry111@xry111.site>
 ---
-v2: Semantic line breaks.
- man5/nsswitch.conf.5 | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+ man2/syscall.2 | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/man5/nsswitch.conf.5 b/man5/nsswitch.conf.5
-index 098585cf1..b4c5b865a 100644
---- a/man5/nsswitch.conf.5
-+++ b/man5/nsswitch.conf.5
-@@ -402,11 +402,13 @@ for respective databases:
- .PD
- .RE
- .SH NOTES
--Within each process that uses
--.BR nsswitch.conf ,
--the entire file is read only once.
--If the file is later changed, the
--process will continue using the old configuration.
-+Starting with glibc 2.33,
-+.\" https://sourceware.org/bugzilla/show_bug.cgi?id=12459
-+.B nsswitch.conf
-+is automatically reloaded if the file is changed.
-+In earlier versions, the entire file was read only once within each process.
-+If the file was later changed,
-+the process would continue using the old configuration.
- .PP
- Traditionally, there was only a single source for service information,
- often in the form of a single configuration
-
-base-commit: b106cd5bf43fe806100bb5266b78f92bac90b6e0
+diff --git a/man2/syscall.2 b/man2/syscall.2
+index 1bac0b9d7..a2aef6d33 100644
+--- a/man2/syscall.2
++++ b/man2/syscall.2
+@@ -176,6 +176,7 @@ arm64	svc #0	w8	x0	x1	-
+ blackfin	excpt 0x0	P0	R0	-	-
+ i386	int $0x80	eax	eax	edx	-
+ ia64	break 0x100000	r15	r8	r9	r10	1, 6
++loongarch	syscall 0	a7	a0	-	-
+ m68k	trap #0	d0	d0	-	-
+ microblaze	brki r14,8	r12	r3	-	-
+ mips	syscall	v0	v0	v1	a3	1, 6
+@@ -301,6 +302,7 @@ arm64	x0	x1	x2	x3	x4	x5	-
+ blackfin	R0	R1	R2	R3	R4	R5	-
+ i386	ebx	ecx	edx	esi	edi	ebp	-
+ ia64	out0	out1	out2	out3	out4	out5	-
++loongarch	a0	a1	a2	a3	a4	a5	a6
+ m68k	d1	d2	d3	d4	d5	a0	-
+ microblaze	r5	r6	r7	r8	r9	r10	-
+ mips/o32	a0	a1	a2	a3	-	-	-	1
+-- 
+2.38.1
 
