@@ -2,48 +2,48 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id CB7B261D9F0
-	for <lists+linux-man@lfdr.de>; Sat,  5 Nov 2022 13:38:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 4A20561DA08
+	for <lists+linux-man@lfdr.de>; Sat,  5 Nov 2022 13:39:10 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229772AbiKEMiz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 5 Nov 2022 08:38:55 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39786 "EHLO
+        id S229749AbiKEMjI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 5 Nov 2022 08:39:08 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39818 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229691AbiKEMix (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 5 Nov 2022 08:38:53 -0400
-Received: from mail-pl1-x635.google.com (mail-pl1-x635.google.com [IPv6:2607:f8b0:4864:20::635])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F339915FF9
-        for <linux-man@vger.kernel.org>; Sat,  5 Nov 2022 05:38:50 -0700 (PDT)
-Received: by mail-pl1-x635.google.com with SMTP id 4so7249022pli.0
-        for <linux-man@vger.kernel.org>; Sat, 05 Nov 2022 05:38:50 -0700 (PDT)
+        with ESMTP id S229487AbiKEMiy (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 5 Nov 2022 08:38:54 -0400
+Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com [IPv6:2607:f8b0:4864:20::633])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 010D917E12
+        for <linux-man@vger.kernel.org>; Sat,  5 Nov 2022 05:38:51 -0700 (PDT)
+Received: by mail-pl1-x633.google.com with SMTP id u6so7177832plq.12
+        for <linux-man@vger.kernel.org>; Sat, 05 Nov 2022 05:38:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=content-transfer-encoding:to:subject:message-id:date:from:reply-to
          :mime-version:from:to:cc:subject:date:message-id:reply-to;
         bh=c8XA1N0uaxkLO/wKHErNWHaSuu64k5Pjb5u9dmcZrOc=;
-        b=dP/vGfJ52tqdGGbdLFa+Ia1xCAutipWeAOPq8jKDnWkU62hZU7sMsZY49TgkwXAA5g
-         1yeGamAlfRFs90wkvR6lgaV3Wg24N6HDnekdo8UURsmSP5otybZlRkZzNxJ7AfUj6Q2+
-         CKiyBj4FP1EFkZc1H9L2i7zRAVvwvNQ+/TJeOdzeNP7tRScDVLp3Vlh/OdENcMPFJkDn
-         oSEUQfZcVQpylzARvlDhQNJui4E2RbhaxAaa7n3Kdgsd4f/k34LkyqWLBylB/XpPW04g
-         dKDuUZyENsU3QsJf+hTLTKsTcNOWBj2897N39hnlhbs7/J2gK6gRaL+j/IeFSdFJ1ntP
-         NWQg==
+        b=ZV2TcGDoVIbq1v5Mx1L1rUnUNhUQbze72wuOuh+wa69lbnQcoFfWFbkhfb7gZAMr2W
+         ByUyHxmNJ+EgAzfkEbgt2p4DOLQzRBGtUuogzeUQqAM9RqI4JEUvU9sSGNzhT5Afew3Q
+         d4OngWwLOFgISkd6x5vooHRKK9Az4aJczFzroYPLH7Dt+vGVCRowVZ5uZAV52Cgy+A2F
+         D3j8/lIwVLi3bxecncjVVFxwzOJ1xg3DK6jhFVflm1wFbGzu0e/ikP7247t4mqip1Jkf
+         Njk6WVMatLJ/Jf10pKJi5H9vXXx7mlCmIY7ZKhF8dEeWXppRLVuVdsqFZujt6LQJeXIn
+         5+hg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:to:subject:message-id:date:from:reply-to
          :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
         bh=c8XA1N0uaxkLO/wKHErNWHaSuu64k5Pjb5u9dmcZrOc=;
-        b=BNzfWa18amtnYyEI11Sjg5naInnoQFEpdFW/eh7sNErf2TFE02j3xk352EXeh7BIpo
-         i0dIeBksBUpEKTIIWpVljCSpzU3Nd5AF2i0cg5qZO/NJzcADDtNk3HQIq8Wk4cJlLYTG
-         nqwP9MHYF4E2c4ySCnHERP/ETfCUjw2jz9ciWKR+XcVbK8+C015ykzrtvTBzD23HBppQ
-         hwYilzOMoLVFWqKwevWP1aHXFZeJoguFowuwR1ia0l29TwUZOVENpdU0bYPD6uwHS3fX
-         16MjDuPc/ruJ1KqEOETJfPTURnP4o9lLuWuMa3zODKo+fh46jYGBDipaXTNoxRqwffID
-         sIbA==
-X-Gm-Message-State: ACrzQf2Pc4RmkEFfMIJao+8hPHd96wdKDamFcgNTV40/hJ/9C+Jp1V2X
-        sljbOjzsCrN97KgNOIpXH4JKo9DbGwN4ar9XDJU=
-X-Google-Smtp-Source: AMsMyM4olsI8J+PUrJBDqcdS3+ybCY1m5BPCD8wMv7D7l+O5tLdAL0JwRK1eWuD3q/Waqjsy5xHfJk1xeIU90M7q0J0=
-X-Received: by 2002:a17:902:f28b:b0:186:b069:63fc with SMTP id
- k11-20020a170902f28b00b00186b06963fcmr41192256plc.38.1667651930280; Sat, 05
+        b=BB4YkWfhg//TLpmvpzZtmd4sysRNoX7jFXfCuvlhJzhv4n0E/Zg3TPJghynIdP4V0y
+         9EKGQi5H60kn9cZPYmCia4kmwAOOnv5JWRw5ZJ+cdxpOJIcaZbvF+gLlfWVeGRwKNdvG
+         t1a1MIldx+1zxLhQFeUMADgS59oCHtPQ5DsJPEiXWoybA1xQjqRkkJTCXHPkgm0i/+Os
+         M/CAHQCUu0WbFMRP4Akr1MgPHPFBD92ktu6rYhsSfmss6t54kzyke8e3ohlQKBPcFZKU
+         3a6YdlL00gGX2KaOSYIqWUlrMZaY5sgmjAsJ60gsJ5RmZTIGVQJHkh8veOWzf6IexkCn
+         gz7g==
+X-Gm-Message-State: ACrzQf3PWAA6nFjGOnbxT8l7Ja84euLWLmwKMg49wmns6qwCMjfTLs7W
+        OsiNSsURfTQT3JRT2iRAwdnHM0ozOKRAEM4j1lo=
+X-Google-Smtp-Source: AMsMyM4kXiQfEHD7xTnbuAFjuPJHm46vGSi/KRiuWhPRjTwiHbLpMEWmL5EuXvVkMsm5T5CXDTvs4U+iY+YcWl58B1s=
+X-Received: by 2002:a17:90b:4ac3:b0:213:3918:f276 with SMTP id
+ mh3-20020a17090b4ac300b002133918f276mr57019553pjb.19.1667651930232; Sat, 05
  Nov 2022 05:38:50 -0700 (PDT)
 MIME-Version: 1.0
 Received: by 2002:a05:7301:2e91:b0:83:922d:c616 with HTTP; Sat, 5 Nov 2022
@@ -51,7 +51,7 @@ Received: by 2002:a05:7301:2e91:b0:83:922d:c616 with HTTP; Sat, 5 Nov 2022
 Reply-To: stefanopessia755@hotmail.com
 From:   Stefano Pessina <wamathaibenard@gmail.com>
 Date:   Sat, 5 Nov 2022 15:38:49 +0300
-Message-ID: <CAN7bvZJK9DwWPHW=SDzsdiMac2NZ4YPui9Vp11ivOjS8hNwTjg@mail.gmail.com>
+Message-ID: <CAN7bvZJ4rp_NOu942tGepXyrWhRuYBiZxGOwGAGice4B=GS3aA@mail.gmail.com>
 Subject: Geldspende
 To:     undisclosed-recipients:;
 Content-Type: text/plain; charset="UTF-8"
