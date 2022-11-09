@@ -2,282 +2,219 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 0B40B622EC2
-	for <lists+linux-man@lfdr.de>; Wed,  9 Nov 2022 16:08:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 94A02622EEF
+	for <lists+linux-man@lfdr.de>; Wed,  9 Nov 2022 16:20:16 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231858AbiKIPIH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 9 Nov 2022 10:08:07 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45026 "EHLO
+        id S231996AbiKIPUP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 9 Nov 2022 10:20:15 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52898 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231786AbiKIPIG (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 9 Nov 2022 10:08:06 -0500
-X-Greylist: delayed 62 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Wed, 09 Nov 2022 07:08:04 PST
-Received: from ewsoutbound.kpnmail.nl (ewsoutbound.kpnmail.nl [195.121.94.185])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 69D3D1A810
-        for <linux-man@vger.kernel.org>; Wed,  9 Nov 2022 07:08:03 -0800 (PST)
-X-KPN-MessageId: 080f0f24-6040-11ed-bfe8-005056999439
-Received: from smtp.kpnmail.nl (unknown [10.31.155.5])
-        by ewsoutbound.so.kpn.org (Halon) with ESMTPS
-        id 080f0f24-6040-11ed-bfe8-005056999439;
-        Wed, 09 Nov 2022 16:06:04 +0100 (CET)
+        with ESMTP id S232005AbiKIPUJ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 9 Nov 2022 10:20:09 -0500
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com [IPv6:2a00:1450:4864:20::330])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9830F1DDFB
+        for <linux-man@vger.kernel.org>; Wed,  9 Nov 2022 07:20:08 -0800 (PST)
+Received: by mail-wm1-x330.google.com with SMTP id o30so11041083wms.2
+        for <linux-man@vger.kernel.org>; Wed, 09 Nov 2022 07:20:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=xs4all.nl; s=xs4all01;
-        h=from:to:subject:mime-version:date:message-id:content-type;
-        bh=JSsgZRo+DDCN4Kx3N3gve4rQZ+EA9/LXcFRt4szZdHU=;
-        b=XcfAg5aOqdutYkFItcwLHCQNW0VjSh//tZPHhdwsrSeyd/VJ4TXWSssLsbfaBabjS4/ZiIPpbMdel
-         5pZER8XMQiR1LQRiH5TtVvJtdeil1wLoo5ugwMJNzc/ihzItSNTFQliWjX1f01g28KhbIOD6fDRuqs
-         oap9o0MkY1yEQLTgcpjragaoIg9ryxYVO//fHV788vZm4SMjQXORnbqS6Chsqkn74twcfjFLFw+KSt
-         elCSxj4IP9cHZYpeafZUmBA4P7itvbpm8nkUJKk0oVBY/dMUmm/a1K3upZYMMie14Js/BwMDxiSrTW
-         zjeB/tLdAXKG3jmtHy4nI6eUo6K014Q==
-X-KPN-MID: 33|i86RwdoA7SP+qfoMlwlHRXnSdnky2dMBDtVBx/64Sg7h7MYyRE/cbHCUyCFrJpc
- 58orH4VPia8HdflaR+UTeaO4UAdRkcl+eU8JbtXcQMTs=
-X-KPN-VerifiedSender: Yes
-X-CMASSUN: 33|5ny/Xw1834T+UwCPTu5aPCT4Q1Z2T6csC+m6Vaxe50z/bCFiZr8SWpCD3AhS8lB
- EFC0v9TgbIguMvXuiAaHV7Q==
-X-Originating-IP: 77.173.35.122
-Received: from [192.168.178.20] (77-173-35-122.fixed.kpn.net [77.173.35.122])
-        by smtp.xs4all.nl (Halon) with ESMTPSA
-        id 282673bd-6040-11ed-9b31-00505699b758;
-        Wed, 09 Nov 2022 16:06:58 +0100 (CET)
-Content-Type: multipart/mixed; boundary="------------J537EZ0t9VsXvYIvZ1iwSEnD"
-Message-ID: <2d4d8b7b-5890-cd9f-061d-6d259d8ed6ee@xs4all.nl>
-Date:   Wed, 9 Nov 2022 16:06:58 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: Fwd: Simple changes to select(2) and pipe(7) - example program
-Content-Language: en-US
-To:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>
-Cc:     Ken Brown <kbrown@cornell.edu>,
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=4euLALXb7+nxXiRkyZn5UACXE/DRKFc6blqbPAwtxkw=;
+        b=jGqu//gPza39ZuaNgXXQ8/ryNTaX4FwICphcjC63lSI1sZpgSOgiWwk3jtGfyA5mMO
+         WmxQxI7yl21I51BIJvnJ5S8ZJ7wxAFQBlZAC0zz1mGcWQCXWFDDuTtstMbWJtMFwUv8T
+         DyQJVpS7K3pZ9zAJYdDAm6dXMYReWCXzNRoPQipztsTkN4QF9s5IPMTwtX0KK+QAreet
+         EzUWYF6niEoBeb2ALwxJi1a4gmbETJXN6hW5HGWTCJfevOBAxisK1H7mJKaWFVxzN/ob
+         4UyiOY85fyftb3wML7px46l1P+F+pIdCjA+Vo72A0FbvugMAMA29CR7ggAFF4RVeonYC
+         NO3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=4euLALXb7+nxXiRkyZn5UACXE/DRKFc6blqbPAwtxkw=;
+        b=bGB7Mwkdf1gCdBkfe4wt2pvT1/6BOHe07z22gNahkjrvFU+IS/opDvbasfgqkD544C
+         3bxwmR2d8QjJYRq2l3uL2wLL5sYBHtT1HX9PPXqYNVtKqcLBGXa+Khjpow4hQaG3kxIU
+         OTqk0F6R1MFbGXi1aCQnJu/CoDWXTjSh9toxHBo8ixooEXNcCwPQYlXxtR+e5cV6aDpk
+         PONiCh1tM9Iu5aX6MgaL7fkvO0MQtRtMiYtUZ7c4aIqMDRTkX7tMhD3y3jPmc25d9F5J
+         bWsCtbGBfv/NtqSLe1YzdhjPuRICSnqZbzAeZeUBy9GEB8kDIpBsemWSFrZCxyvglcMF
+         9WlQ==
+X-Gm-Message-State: ACrzQf3X0OMzjQMKi3Lrvxy+6VdGff5SgGNvT3mnjXTpjQ1E++NX8mUB
+        hXUcsPLSVl5MJ4Rcp7vuVFQ5YbgNYhc=
+X-Google-Smtp-Source: AMsMyM78Ny9Hu95/a8D9FDzfNinmJTzNgd4XxIFm+kf06r0OPOTTVmkszxd/wBMSF96UrjQeMQTdDQ==
+X-Received: by 2002:a7b:c2b2:0:b0:3cf:71af:7845 with SMTP id c18-20020a7bc2b2000000b003cf71af7845mr36213057wmk.7.1668007207040;
+        Wed, 09 Nov 2022 07:20:07 -0800 (PST)
+Received: from asus5775.alejandro-colomar.es ([170.253.36.171])
+        by smtp.googlemail.com with ESMTPSA id l16-20020adfe590000000b002365cd93d05sm13223777wrm.102.2022.11.09.07.20.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Nov 2022 07:20:06 -0800 (PST)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+X-Google-Original-From: Alejandro Colomar <alx@kernel.org>
+To:     Jakub Wilk <jwilk@jwilk.net>, linux-man@vger.kernel.org
+Cc:     Alejandro Colomar <alx@kernel.org>,
+        Mike Frysinger <vapier@gentoo.org>,
+        Mike Frysinger <vapier@chromium.org>,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>,
         Michael Kerrisk <mtk.manpages@gmail.com>,
-        "Michael T. Kerrisk" <mtk@man7.org>
-References: <30847211-efc7-12be-6ce9-c5c4ada16805@xs4all.nl>
- <9f23de64-4748-5176-1caa-f05b9f4d5f0f@gmail.com>
- <0fd276c7-3aab-0075-8a54-1371e4fad925@gmail.com>
-From:   "J.H. vd Water" <henri.van.de.water@xs4all.nl>
-In-Reply-To: <0fd276c7-3aab-0075-8a54-1371e4fad925@gmail.com>
-X-Spam-Status: No, score=-2.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_LOW,
-        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
+        Stefan Puiu <stefan.puiu@gmail.com>
+Subject: [PATCH] INSTALL, Makefile, cmd.mk, lint-man.mk: Lint about '\" t' comment for tbl(1)
+Date:   Wed,  9 Nov 2022 16:18:13 +0100
+Message-Id: <20221109151812.58365-1-alx@kernel.org>
+X-Mailer: git-send-email 2.38.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is a multi-part message in MIME format.
---------------J537EZ0t9VsXvYIvZ1iwSEnD
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+This is to make sure that we have correct \" t comments in the pages,
+which are necessary for the Debian package checker:
 
-On 11/9/22 15:15, Alejandro Colomar wrote:
-> Hi Henri,
+On 8/19/22 22:21, Jakub Wilk wrote:
+> * Michael Kerrisk <mtk.manpages@gmail.com>, 2020-07-24 12:13:
+>> For 15 years or at least, I've not paid any attention to adding the
+>> 't' comments when I added tables to pages, and I do recall anyone
+>> reporting ill effects.  So, I'm inclined to apply Mike's patch, but
+>> will hold off a moment, in case there's other feedback.
+>
+> I'm a bit late, but...
+>
+> Lintian, the Debian package checker, sets the MANROFFSEQ environment
+> variable to empty string as a speed optimization.  This turns off
+> loading preprocessors that weren't explicitly declared in the source.
+> The lack of '\" comments can cause false positives (and maybe also
+> false negatives?) in Lintian.
+>
+> The use of $MANROFFSEQ for Lintian was proposed here:
+> https://bugs.debian.org/677874
+>
+> Beware that the man(1) man page does not correctly explain what
+> $MANROFFSEQ does: <https://bugs.debian.org/971009>
 
-> I've forwarded the emails I got from you to the mailing list, for an
-> open discussion.  If I'm missing any, please resend including to the
-> list, and preferrably as a reply to this thread.
-Oops!
+Also update the dependencies list, since now we also need head(1) and
+tail(1) for linting man(7) source.
 
-Hi Alex,
+Link: <https://lore.kernel.org/linux-man/07a7d4e7-79a6-b2c3-6892-1e39a0679f27@gmail.com/T/#mcf36c8a387fd5ff4f800dc220e3dbdd229b556bd>
+Cc: Mike Frysinger <vapier@gentoo.org>
+Cc: Mike Frysinger <vapier@chromium.org>
+Cc: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: Michael Kerrisk <mtk.manpages@gmail.com>
+Cc: Stefan Puiu <stefan.puiu@gmail.com>
+Reported-by: Jakub Wilk <jwilk@jwilk.net>
+Co-developed-by: Jakub Wilk <jwilk@jwilk.net>
+Signed-off-by: Alejandro Colomar <alx@kernel.org>
+---
 
-Only just now I finished an e-mail, that I intended to send to the list ...
+Hi Jakub,
 
-(Sorry, I am that quick anymore)
+Since you contributed the initial rough scripts used in this patch, it's
+fair to say that you co-developed it.  Would you mind signing off the
+patch?
 
-Regards,
-Henri
+Cheers,
 
-=====
+Alex
 
-Subscribe to the list beforehand ...
 
-To: Alejandro Colomar <alx@kernel.org> <==== different e-mail address
-To: Michael Kerrisk <mtk.manpages@gmail.com>
-Cc: linux-man@vger.kernel.org
-Cc: Ken Brown <kbrown@cornell.edu>
+ INSTALL         |  2 ++
+ Makefile        |  1 +
+ lib/cmd.mk      |  2 ++
+ lib/lint-man.mk | 22 +++++++++++++++++++++-
+ 4 files changed, 26 insertions(+), 1 deletion(-)
 
-Subject Title: [patch] select.2, pipe.7: wfix
+diff --git a/INSTALL b/INSTALL
+index bcaadf763..ab513f8c4 100644
+--- a/INSTALL
++++ b/INSTALL
+@@ -93,7 +93,9 @@ Description
+           -  For linting man(7) source:
+              -  eqn(1)
+              -  grotty(1)
++             -  head(1)
+              -  mkdir(1)
++             -  tail(1)
+              -  tbl(1)
+              -  troff(1) >= 1.23.0 - GNU troff is required.
+ 
+diff --git a/Makefile b/Makefile
+index e7be1e291..66f02dea8 100644
+--- a/Makefile
++++ b/Makefile
+@@ -71,6 +71,7 @@ help:
+ 	$(info	lint-man		Wrapper for lint-man-* targets)
+ 	$(info	lint-man-groff		Lint man pages with groff(1))
+ 	$(info	lint-man-mandoc		Lint man pages with mandoc(1))
++	$(info	lint-man-tbl		Lint man pages about '\" t' comment for tbl(1))
+ 	$(info	)
+ 	$(info	[un]install		Alias for "[un]install-man")
+ 	$(info	[un]install-man		Wrapper for [un]install-man* targets)
+diff --git a/lib/cmd.mk b/lib/cmd.mk
+index c9c22d0ae..7d6d9abd9 100644
+--- a/lib/cmd.mk
++++ b/lib/cmd.mk
+@@ -14,12 +14,14 @@ FIND       := find
+ GIT        := git
+ GREP       := grep
+ GZIP       := gzip
++HEAD       := head
+ INSTALL    := install
+ LOCALE     := locale
+ PKG-CONFIG := pkg-config
+ SED        := sed
+ SORT       := sort
+ TAC        := tac
++TAIL       := tail
+ TAR        := tar
+ XARGS      := xargs
+ XZ         := xz
+diff --git a/lib/lint-man.mk b/lib/lint-man.mk
+index 18b71446b..c86f3addd 100644
+--- a/lib/lint-man.mk
++++ b/lib/lint-man.mk
+@@ -66,9 +66,10 @@ MANDOC              := mandoc
+ 
+ _LINT_man_groff :=$(patsubst $(MANDIR)/%,$(_LINTDIR)/%.lint-man.groff.touch,$(LINTMAN))
+ _LINT_man_mandoc:=$(patsubst $(MANDIR)/%,$(_LINTDIR)/%.lint-man.mandoc.touch,$(LINTMAN))
++_LINT_man_tbl   :=$(patsubst $(MANDIR)/%,$(_LINTDIR)/%.lint-man.tbl.touch,$(LINTMAN))
+ 
+ 
+-linters_man := groff mandoc
++linters_man := groff mandoc tbl
+ lint_man    := $(foreach x,$(linters_man),lint-man-$(x))
+ 
+ 
+@@ -87,6 +88,25 @@ $(_LINT_man_mandoc): $(_LINTDIR)/%.lint-man.mandoc.touch: $(MANDIR)/% | $$(@D)/.
+ 	$(MANDOC) $(MANDOCFLAGS) $<
+ 	touch $@
+ 
++$(_LINT_man_tbl): $(_LINTDIR)/%.lint-man.tbl.touch: $(MANDIR)/% | $$(@D)/.
++	$(info LINT (tbl)	$@)
++	if $(GREP) '^\.TS$$' <$< >/dev/null && ! $(HEAD) -n1 <$< | $(GREP) '\\" t$$' >/dev/null; then \
++		2>&1 $(ECHO) "$<: 1: missing '\\\" t' comment:"; \
++		2>&1 $(HEAD) -n1 <$<; \
++		exit 1; \
++	fi;
++	if $(HEAD) -n1 <$< | $(GREP) '\\" t$$' >/dev/null && ! $(GREP) '^\.TS$$' <$< >/dev/null; then \
++		2>&1 $(ECHO) "$<: 1: spurious '\\\" t' comment:"; \
++		2>&1 $(HEAD) -n1 <$<; \
++		exit 1; \
++	fi;
++	if $(TAIL) -n+2 <$< | $(GREP) '\\" t$$' >/dev/null ; then \
++		2>&1 $(ECHO) "$<: spurious '\\\" t' not in first line:"; \
++		2>&1 $(GREP) -n '\\" t$$' $< /dev/null; \
++		exit 1; \
++	fi;
++	touch $@
++
+ 
+ .PHONY: $(lint_man)
+ $(lint_man): lint-man-%: $$(_LINT_man_%)
+-- 
+2.38.1
 
-L.S.,
-
-As result of a problem report against his implementation of select(2) on Cygwin,
-it became clear to Ken Brown (and myself) that both the Linux man pages and LPI,
-which is a acronym for the book: Linux Programming Interface by Michael Kerrisk,
-are not completely correct in describing the behaviour of select(2).
-
-You can read all about it here:
-
- - https://cygwin.com/pipermail/cygwin/2022-September/252246.html
-
-   (Re: FIFO issues - response by Ken Brown in which he announces
-    the correction of his implementation of select() - in Cygwin)
-
-Basically, select(2) says that the read end of a fifo is "read ready" in case
-the write end of the fifo is closed (i.e. select(2) would return in that case,
-because read(2) would return in that case).
-
-However, select(2) blocks on the read end of a pipe in case the write end has
-never been opened before (different from read(2)) - and only in that case! [1]
-
-[1] select(2) on the read end of a pipe will return in case the write end is
-closed, once the write has been opened and closed once.
-
-After studying the Linux man pages (and verification on Fedora 35), I propose
-the following modifications:
-
- 1.
-man 2 select  ... DESCRIPTION reads:
-
-"select() allows a program to monitor multiple file descriptors, waiting
- until one or more of the file descriptors become "ready" for some class of
- I/O operation (e.g., input possible). A file descriptor is considered
- ready if it is  possible to perform a corresponding I/O operation
- (e.g., read(2), or a sufficiently small write(2)) without blocking."
-
-I suggest to add the following line:
-
-"However, note that select(2) will block on the read end of a pipe/fifo, if
- the write end of the pipe/fifo has never been opened before, unlike read(2)
- (read(2) will always return with zero if the write end of the pipe/fifo is
-  closed - see pipe(7) where the text starts with I/O on pipes and fifos).
-
- 2.
-man 7 pipe ... where the paragraph start with "I/O on pipes and FIFOs":
-
-"If a process attempts to read from an empty pipe, then read(2) will block
- until data is available."
-
-I suggest to change the above line as follows:
-
-"If a process attempts to read from an empty pipe while the write end is open,
- then read(2) will block (in case the O_NONBLOCK openfile status flag has been
- disabled) until data is available; however, if the write end of the pipe is
- closed and the pipe is empty, then read(2) will return with zero."
-
------
-Attached to this mail, you will find the files server.c and client.c, which
-will hopefully clarify what I am talking about.
-
-Finally, I do realize that this message does not contain an official patch,
-but I cannot provide one, as I am not set up to provide one. Several years
-ago, I "retired from active duty" (Cygwin, not Linux); git(1) and anything
-that is useful (required?) in order to be able to properly "submit a patch
-to the list" is currently not present on my system.
-
-Attachments: server.c, client.c
-
-====
---------------J537EZ0t9VsXvYIvZ1iwSEnD
-Content-Type: text/x-csrc; charset=UTF-8; name="client.c"
-Content-Disposition: attachment; filename="client.c"
-Content-Transfer-Encoding: base64
-
-Ly8gZ2NjIC1XYWxsIC1XZXh0cmEgLW8gY2xpZW50IGNsaWVudC5jCgojaW5jbHVkZSA8c3Rk
-aW8uaD4KI2luY2x1ZGUgPHVuaXN0ZC5oPgojaW5jbHVkZSA8c3RkbGliLmg+CiNpbmNsdWRl
-IDxzdHJpbmcuaD4KI2luY2x1ZGUgPHN5cy9zdGF0Lmg+CiNpbmNsdWRlIDxmY250bC5oPgoj
-aW5jbHVkZSA8ZXJybm8uaD4KCiNkZWZpbmUgRklGT19QQVRIICIvdG1wL215ZmlmbyIKCmlu
-dAptYWluKGludCBhcmdjLCBjaGFyICphcmd2W10pCnsKICAgIGludCBmZCA9IC0xOwoKICAg
-IGZkID0gb3BlbihGSUZPX1BBVEgsIE9fV1JPTkxZKTsKICAgIHByaW50ZigiZmQgPSAlZFxu
-IiwgZmQpOwoKICAgIGlmIChmZCA8IDApIHsKICAgICAgICBmcHJpbnRmKHN0ZGVyciwgIkNv
-dWxkIG5vdCBvcGVuIGZpZm8gJXM6ICVzXG4iLCBGSUZPX1BBVEgsIHN0cmVycm9yKGVycm5v
-KSk7CiAgICAgICAgcmV0dXJuIC0xOwogICAgfQoKICAgIGludCBmbGFncyA9IGZjbnRsKGZk
-LCBGX0dFVEZMKTsKICAgIGlmIChmbGFncyA9PSAtMSkKICAgICAgICBmcHJpbnRmKHN0ZGVy
-ciwgImZjbnRsIEZfR0VURkw6ICVzXG4iLCBzdHJlcnJvcihlcnJubykpOwogICAgcHJpbnRm
-KCJmbGFncyA9IDAlb1xuIiwgZmxhZ3MpOwoKICAgIGlmIChhcmdjID4gMSkgewogICAgICAg
-IHdyaXRlKGZkLCBhcmd2WzFdLCBzdHJsZW4oYXJndlsxXSkgKTsKICAgIH0gZWxzZSB7CiAg
-ICAgICAgd3JpdGUoZmQsICYiV2hhdCBobyEiLCA5KTsKICAgIH0KICAgIC8vIG5vdGU6IHBy
-aW50ZiAiV2hhdCBobyIgPiAvdG1wL215ZmlmbyBmcm9tIGJhc2gsIHdvdWxkIGNsb3NlIHRo
-ZSBmaWxlIGRlc2NyaXB0b3IuCgogICAgcHJpbnRmKCJDbG9zaW5nIC4uLiBmZCA9ICVkXG4i
-LCBmZCk7CiAgICBjbG9zZShmZCk7IC8vIEVPRgoKICAgIHJldHVybiAwOwp9CgovLz09PT09
-Cg==
---------------J537EZ0t9VsXvYIvZ1iwSEnD
-Content-Type: text/x-csrc; charset=UTF-8; name="server.c"
-Content-Disposition: attachment; filename="server.c"
-Content-Transfer-Encoding: base64
-
-Ly8gZ2NjIC1XYWxsIC1XZXh0cmEgLW8gc2VydmVyIHNlcnZlci5jCgojaW5jbHVkZSA8c3Rk
-aW8uaD4KI2luY2x1ZGUgPHVuaXN0ZC5oPgojaW5jbHVkZSA8c3RkbGliLmg+CiNpbmNsdWRl
-IDxzdHJpbmcuaD4KI2luY2x1ZGUgPHN5cy9zdGF0Lmg+CiNpbmNsdWRlIDxzeXMvc2VsZWN0
-Lmg+CiNpbmNsdWRlIDxmY250bC5oPgojaW5jbHVkZSA8ZXJybm8uaD4KCiNkZWZpbmUgRklG
-T19QQVRIICIvdG1wL215ZmlmbyIKCmludAptYWluKCkKewogICAgaW50IGZkID0gLTE7CiAg
-ICBmZF9zZXQgcmVhZGZkczsKICAgIGludCBuc2VsOwogICAgY2hhciBidWZbODBdID0geyAw
-IH07CgogICAgaWYgKHVubGluayAoRklGT19QQVRIKSA8IDAgICYmIGVycm5vICE9IEVOT0VO
-VCkgewogICAgICBwZXJyb3IgKCJ1bmxpbmsiKTsKICAgICAgZXhpdCAoMSk7CiAgICB9Cgog
-ICAgaWYgKG1rZmlmbyhGSUZPX1BBVEgsIDA2MDApIDwgMCkgewogICAgICAgIGZwcmludGYo
-c3RkZXJyLCAiQ291bGQgbm90IGNyZWF0ZSBmaWZvICVzOiAlc1xuIiwgRklGT19QQVRILCBz
-dHJlcnJvcihlcnJubykpOwogICAgICAgIHJldHVybiAtMTsKICAgIH0KCiAgICBmZCA9IG9w
-ZW4oRklGT19QQVRILCBPX1JET05MWSB8IE9fTk9OQkxPQ0spOyAvLyBvcGVuKCkgZG9lcyBu
-b3QgYmxvY2sKICAgIHByaW50ZigiZmQgPSAlZFxuIiwgZmQpOwoKICAgIGlmIChmZCA8IDAp
-IHsKICAgICAgICBmcHJpbnRmKHN0ZGVyciwgIkNvdWxkIG5vdCBvcGVuIGZpZm8gJXM6ICVz
-XG4iLCBGSUZPX1BBVEgsIHN0cmVycm9yKGVycm5vKSk7CiAgICAgICAgcmV0dXJuIC0xOwog
-ICAgfQoKICAgIGlmIChmY250bChmZCwgRl9TRVRGTCwgT19SRE9OTFkpID09IC0xKSAvLyBw
-cmFnbWF0aWMKICAgICAgICBmcHJpbnRmKHN0ZGVyciwgImZjbnRsIEZfU0VURkw6ICVzXG4i
-LCBzdHJlcnJvcihlcnJubykpOwogICAgaW50IGZsYWdzID0gZmNudGwoZmQsIEZfR0VURkwp
-OwogICAgaWYgKGZsYWdzID09IC0xKQogICAgICAgIGZwcmludGYoc3RkZXJyLCAiZmNudGwg
-Rl9HRVRGTDogJXNcbiIsIHN0cmVycm9yKGVycm5vKSk7CiAgICBwcmludGYoImZsYWdzID0g
-MCVvXG4iLCBmbGFncyk7CgogICAgd2hpbGUoMSkgewogICAgICAgIHByaW50ZigiQ2FsbGlu
-ZyBzZWxlY3QoKSAuLi4gIik7CiAgICAgICAgZmZsdXNoKHN0ZG91dCk7CiAgICAgICAgRkRf
-WkVSTyAoJnJlYWRmZHMpOwogICAgICAgIEZEX1NFVCAoZmQsICZyZWFkZmRzKTsKCiAgICAg
-ICAgLyoKICAgICAgICBEaWZmZXJlbnQgZnJvbSByZWFkKDIpLCBzZWxlY3QoMikgd2lsbCAq
-YmxvY2sqIG9uIHRoZSByZWFkIGVuZCBvZiBhIGZpZm8gKG9yCiAgICAgICAgcGlwZSkgaWYg
-dGhlIHdyaXRlIGVuZCBoYXMgbmV2ZXIgYmVlbiBvcGVuZWQgYmVmb3JlIChhbmQgb25seSBp
-biB0aGF0IGNhc2UpLAogICAgICAgIHdoaWxlIHJlYWQoMikgd2lsbCBhbHdheXMgcmV0dXJu
-IHdpdGggemVybyAoaW4gY2FzZSBvZiBhbiBlbXB0eSBwaXBlKSBpZiB0aGUKICAgICAgICB3
-cml0ZSBlbmQgaXMgY2xvc2VkLyBoYXMgYmVlbiBjbG9zZWQuCgogICAgICAgIFRoZXJlZm9y
-ZSwgY2FsbGluZyBzZWxlY3QoMikgYmVmb3JlIGNhbGxpbmcgcmVhZCgyKSwgd2lsbCBlbmFi
-bGUgdXMgdG8gYmxvY2sKICAgICAgICBpZiB0aGUgcGlwZSBoYXMgbmV2ZXIgYmVlbiBvcGVu
-ZW5kIGJlZm9yZSAoYWdhaW4sIGFuZCBvbmx5IGluIHRoYXQgY2FzZSkuCiAgICAgICAgKi8K
-CiAgICAgICAgbnNlbCA9IHNlbGVjdCAoZmQgKyAxLCAmcmVhZGZkcywgTlVMTCwgTlVMTCwg
-TlVMTCk7CiAgICAgICAgLy8gc2VsZWN0KCkgYmxvY2tzIHVudGlsIHRoZSB3cml0ZSBlbmQg
-b2YgdGhlIHBpcGUgaGFzIGJlZW4gb3BlbmVkICh3aGlsZSB0aGUKICAgICAgICAvLyB3cml0
-ZSBlbmQgaGFzIG5ldmVyIGJlZW4gb3BlbmVkIGJlZm9yZSkgYW5kIGRhdGEgaGFzIGJlZW4g
-aW5qZWN0ZWQuCiAgICAgICAgcHJpbnRmICgicmV0dXJuZWQgJWRcbiIsIG5zZWwpOwoKICAg
-ICAgICBwcmludGYoIlJlYWRpbmcgLi4uXG4iKTsKCiAgICAgICAgc3NpemVfdCBzdGF0dXMg
-PSAwOwogICAgICAgIHdoaWxlICgxKSB7IC8vIGFsbG93IG1lIHRvIHJlc2V0IGVycm5vIGFu
-ZCBpbnNwZWN0IHN0YXR1cyAuLi4KZXJybm8gPSAwOwoKICAgICAgICAgICAgLyoKICAgICAg
-ICAgICAgIHJlYWQoMikgd2lsbCBibG9jayBvbiB0aGUgcmVhZCBlbmQgb2YgYSBmaWZvIChv
-ciBwaXBlKSBpbiBjYXNlIHRoZSB3cml0ZSBlbmQKICAgICAgICAgICAgIG9mIHRoZSBmaWZv
-IChvciBwaXBlKSBoYXMgYmVlbiBvcGVuZWQgYW5kIHRoZSBwaXBlIGlzIGVtcHR5LiBbMV0K
-ICAgICAgICAgICAgIFsxXSBvbmx5IGlmIHRoZSBPX05PTkJMT0NLIG9wZW4gZmlsZSBzdGF0
-dXMgZmxhZyBoYXMgYmVlbiBkaXNhYmxlZC4KICAgICAgICAgICAgICovCgogICAgICAgICAg
-ICBzdGF0dXMgPSByZWFkKGZkLCBidWYsIHNpemVvZihidWYpKTsKcHJpbnRmKCJzdGF0dXMg
-PSAlbGQsIGVycm5vID0gJWRcbiIsIHN0YXR1cywgZXJybm8pOwoKICAgICAgICAgICAgLy8g
-d2lsbCBhcnJpdmUgaGVyZSBvbmx5IGlmIHRoZSB3cml0ZSBlbmQgb2YgZmlmbyBoYXMgYmVl
-biBvcGVuZWQgKGJlZm9yZSBpdAogICAgICAgICAgICAvLyB3YXMgY2xvc2VkIGFnYWluKQog
-ICAgICAgICAgICBpZiAoc3RhdHVzID09IDApIHsgLy8gdGhlIHdyaXRlIGVuZCBvZiB0aGUg
-ZmlmbyBoYXMgYmVlbiBjbG9zZWQgKEVPRikKICAgICAgICAgICAgICAgIGNsb3NlKGZkKTsK
-ICAgICAgICAgICAgICAgIGludCBmZDI7CiAgICAgICAgICAgICAgICBpZiAoKGZkMiA9IG9w
-ZW4gKEZJRk9fUEFUSCwgT19SRE9OTFkgfCBPX05PTkJMT0NLKSkgPCAwKSB7CiAgICAgICAg
-ICAgICAgICAgICAgcGVycm9yICgib3BlbiIpOwogICAgICAgICAgICAgICAgICAgIGV4aXQg
-KDEpOwogICAgICAgICAgICAgICAgfQoKICAgICAgICAgICAgICAgIGlmIChmY250bChmZCwg
-Rl9TRVRGTCwgT19SRE9OTFkpID09IC0xKSAvLyBwcmFnbWF0aWMKICAgICAgICAgICAgICAg
-ICAgICBmcHJpbnRmKHN0ZGVyciwgImZjbnRsIEZfU0VURkw6ICVzXG4iLCBzdHJlcnJvcihl
-cnJubykpOwogICAgICAgICAgICAgICAgaW50IGZsYWdzID0gZmNudGwoZmQsIEZfR0VURkwp
-OwogICAgICAgICAgICAgICAgaWYgKGZsYWdzID09IC0xKQogICAgICAgICAgICAgICAgICAg
-IGZwcmludGYoc3RkZXJyLCAiZmNudGwgRl9HRVRGTDogJXNcbiIsIHN0cmVycm9yKGVycm5v
-KSk7CiAgICAgICAgICAgICAgICBwcmludGYoImZsYWdzID0gMCVvXG4iLCBmbGFncyk7Cgog
-ICAgICAgICAgICAgICAgLyoKICAgICAgICAgICAgICAgICBhc3NpZ24gdGhlIG5ldyBmaWxl
-IGRlc2NyaXB0b3IgdG8gdmFyaWFibGUgZmQ7IG90aGVyd2lzZSBzZWxlY3QoMikgd2lsbAog
-ICAgICAgICAgICAgICAgIG5vdCBibG9jayBvbiB0aGUgcmVhZCBlbmQgaW4gY2FzZSB0aGUg
-d3JpdGUgZW5kIG9mIHRoZSBmaWZvIChvciBwaXBlKSBpcwogICAgICAgICAgICAgICAgIGNs
-b3NlZC4KICAgICAgICAgICAgICAgICAqLwogICAgICAgICAgICAgICAgZmQgPSBmZDI7Cgog
-ICAgICAgICAgICAgICAgcHJpbnRmKCJmZCA9ICVkIC0gcmVmcmVzaGVkXG4iLCBmZCk7CiAg
-ICAgICAgICAgICAgICBicmVhazsKICAgICAgICAgICAgfQogICAgICAgICAgICBpZiAoc3Rh
-dHVzID4gMCkgewogICAgICAgICAgICAgICAgaWYgKHdyaXRlKDEsIGJ1Ziwgc3RhdHVzKSA8
-IDApIHsKICAgICAgICAgICAgICAgICAgICBmcHJpbnRmKHN0ZGVyciwgIkVycm9yIHNlbmRp
-bmcgbWVzc2FnZTogJyVzJzogJXNcbiIsIGJ1Ziwgc3RyZXJyb3IoZXJybm8pKTsKICAgICAg
-ICAgICAgICAgIH0KICAgICAgICAgICAgICAgIGlmIChidWZbc3RhdHVzIC0gMV0gIT0gJ1xu
-JykgewogICAgICAgICAgICAgICAgICAgIHdyaXRlKDEsICYiXG4iLCAxKTsKICAgICAgICAg
-ICAgICAgIH0KICAgICAgICAgICAgICAgIGlmIChzdHJuY2FzZWNtcChidWYsICJxdWl0Iiwg
-NCkgPT0gMCkgewogICAgICAgICAgICAgICAgICAgIGNsb3NlKGZkKTsKICAgICAgICAgICAg
-ICAgICAgICByZW1vdmUoRklGT19QQVRIKTsKICAgICAgICAgICAgICAgICAgICBleGl0ICgw
-KTsKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgIH0KICAgICAgICAgICAgaWYgKHN0
-YXR1cyA8IDApIHsKICAgICAgICAgICAgICAgIC8qIEFuIGVycm9yIG9jY3VycmVkLCBiYWls
-IG91dCAqLwogICAgICAgICAgICAgICAgY2xvc2UoZmQpOwogICAgICAgICAgICAgICAgcGVy
-cm9yKCJyZWFkIik7CiAgICAgICAgICAgICAgICBleGl0ICgxKTsKICAgICAgICAgICAgfQog
-ICAgICAgIH0gLy8gZW5kIHdoaWxlKDEpIHJlYWQKCiAgICB9IC8vIGVuZCB3aGlsZSghZG9u
-ZSkgc2VsZWN0CgogICAgY2xvc2UoZmQpOwogICAgcmVtb3ZlKEZJRk9fUEFUSCk7CgogICAg
-cmV0dXJuIDA7Cn0KCi8vPT09PT0K
-
---------------J537EZ0t9VsXvYIvZ1iwSEnD--
