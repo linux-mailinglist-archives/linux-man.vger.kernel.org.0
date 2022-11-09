@@ -2,182 +2,282 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id A56C0622D47
-	for <lists+linux-man@lfdr.de>; Wed,  9 Nov 2022 15:15:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0B40B622EC2
+	for <lists+linux-man@lfdr.de>; Wed,  9 Nov 2022 16:08:09 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229656AbiKIOPf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 9 Nov 2022 09:15:35 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56226 "EHLO
+        id S231858AbiKIPIH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 9 Nov 2022 10:08:07 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45026 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229509AbiKIOPf (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 9 Nov 2022 09:15:35 -0500
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com [IPv6:2a00:1450:4864:20::432])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D5E73318
-        for <linux-man@vger.kernel.org>; Wed,  9 Nov 2022 06:15:31 -0800 (PST)
-Received: by mail-wr1-x432.google.com with SMTP id z14so25964470wrn.7
-        for <linux-man@vger.kernel.org>; Wed, 09 Nov 2022 06:15:31 -0800 (PST)
+        with ESMTP id S231786AbiKIPIG (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 9 Nov 2022 10:08:06 -0500
+X-Greylist: delayed 62 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Wed, 09 Nov 2022 07:08:04 PST
+Received: from ewsoutbound.kpnmail.nl (ewsoutbound.kpnmail.nl [195.121.94.185])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 69D3D1A810
+        for <linux-man@vger.kernel.org>; Wed,  9 Nov 2022 07:08:03 -0800 (PST)
+X-KPN-MessageId: 080f0f24-6040-11ed-bfe8-005056999439
+Received: from smtp.kpnmail.nl (unknown [10.31.155.5])
+        by ewsoutbound.so.kpn.org (Halon) with ESMTPS
+        id 080f0f24-6040-11ed-bfe8-005056999439;
+        Wed, 09 Nov 2022 16:06:04 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=in-reply-to:cc:references:to:from:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=kNqEpa6F+zwfbavyqRrbydj+IBjj2FIqheUqdZHAJ3w=;
-        b=qnA/35xJpCk8pgsQBqQhys6QrWmKSmaPANOu60QJjM9bw1inWeTgt9cTdXop0IGh3F
-         K9Bmm1xz00okCB2Dtd+qZsZyx7RVyo14adoJlUhEUBoOeYhdtNWfKgsbmNugxBUjYOd3
-         b8YQI1puWAq5NWtk7YScNGuC1K7pGhORy2MTI9WHKblpVi34ynEnlA04mxiPnEEVfQ2V
-         GxkbEBGVIivkBa5rt+IcsXg7jkBzjuaf23IlbQMc/XiGiEGHZshQ8hU0gRCo4afoPn1G
-         PDctUop0JzZUfsnqTKiuVAsUhw0KeITN9rB4wzFUenUVs/qAAw6AmKoRSo70gh6JbXsU
-         iIRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=in-reply-to:cc:references:to:from:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=kNqEpa6F+zwfbavyqRrbydj+IBjj2FIqheUqdZHAJ3w=;
-        b=EZf6tm0FHD7OFWanM+SeScFb2L2w+qlx2WbFCofrULM8pRjTg/yE9I+W2ByFNOnUnB
-         xvCry5ZSHtK1lMC7dAJ1+kfd0mvFP6vX3DkBfLNT13/y/9sos/21bB91jVnHtt0R5MBK
-         Bgrh7eL4CzrgmaBKQ3uqBgTLgoc2y1rv185UccxOVSLFrc0nRLZyYpx1dh63C027HsF+
-         hrOnfwU0WZ4IQvzHONqqjUckQv6OKgCo2oF5EswY0gzw5t6hVZITB94hASstVS6/SX7V
-         gOHIUhrXjJvxc4oFLPqA1O/lyMM37FsY0i+aF8f5/xwO9oEkSi1JVyfI7qegp6j3971L
-         JOJQ==
-X-Gm-Message-State: ACrzQf3QuwQFRPDRHG982sC5Sd+hz2BZP369rM7ev1EawfNh3t+FzHYI
-        zYk8fPhscQpeyPABZSsVs44=
-X-Google-Smtp-Source: AMsMyM4kme7+VhKwZeIKg3t8JvQLZoNobyTr8uypG0Seeqzig8qYFwtKXvfqJUshtjpHsg5fFMbzSA==
-X-Received: by 2002:adf:b304:0:b0:236:debd:f6ef with SMTP id j4-20020adfb304000000b00236debdf6efmr30653362wrd.213.1668003330417;
-        Wed, 09 Nov 2022 06:15:30 -0800 (PST)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id k34-20020a05600c1ca200b003b47b80cec3sm2100724wms.42.2022.11.09.06.15.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Nov 2022 06:15:29 -0800 (PST)
-Message-ID: <0fd276c7-3aab-0075-8a54-1371e4fad925@gmail.com>
-Date:   Wed, 9 Nov 2022 15:15:21 +0100
+        d=xs4all.nl; s=xs4all01;
+        h=from:to:subject:mime-version:date:message-id:content-type;
+        bh=JSsgZRo+DDCN4Kx3N3gve4rQZ+EA9/LXcFRt4szZdHU=;
+        b=XcfAg5aOqdutYkFItcwLHCQNW0VjSh//tZPHhdwsrSeyd/VJ4TXWSssLsbfaBabjS4/ZiIPpbMdel
+         5pZER8XMQiR1LQRiH5TtVvJtdeil1wLoo5ugwMJNzc/ihzItSNTFQliWjX1f01g28KhbIOD6fDRuqs
+         oap9o0MkY1yEQLTgcpjragaoIg9ryxYVO//fHV788vZm4SMjQXORnbqS6Chsqkn74twcfjFLFw+KSt
+         elCSxj4IP9cHZYpeafZUmBA4P7itvbpm8nkUJKk0oVBY/dMUmm/a1K3upZYMMie14Js/BwMDxiSrTW
+         zjeB/tLdAXKG3jmtHy4nI6eUo6K014Q==
+X-KPN-MID: 33|i86RwdoA7SP+qfoMlwlHRXnSdnky2dMBDtVBx/64Sg7h7MYyRE/cbHCUyCFrJpc
+ 58orH4VPia8HdflaR+UTeaO4UAdRkcl+eU8JbtXcQMTs=
+X-KPN-VerifiedSender: Yes
+X-CMASSUN: 33|5ny/Xw1834T+UwCPTu5aPCT4Q1Z2T6csC+m6Vaxe50z/bCFiZr8SWpCD3AhS8lB
+ EFC0v9TgbIguMvXuiAaHV7Q==
+X-Originating-IP: 77.173.35.122
+Received: from [192.168.178.20] (77-173-35-122.fixed.kpn.net [77.173.35.122])
+        by smtp.xs4all.nl (Halon) with ESMTPSA
+        id 282673bd-6040-11ed-9b31-00505699b758;
+        Wed, 09 Nov 2022 16:06:58 +0100 (CET)
+Content-Type: multipart/mixed; boundary="------------J537EZ0t9VsXvYIvZ1iwSEnD"
+Message-ID: <2d4d8b7b-5890-cd9f-061d-6d259d8ed6ee@xs4all.nl>
+Date:   Wed, 9 Nov 2022 16:06:58 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.1
+ Thunderbird/102.4.2
 Subject: Re: Fwd: Simple changes to select(2) and pipe(7) - example program
 Content-Language: en-US
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     "J.H. vd Water" <henri.van.de.water@xs4all.nl>,
+To:     Alejandro Colomar <alx.manpages@gmail.com>,
         linux-man <linux-man@vger.kernel.org>
-References: <30847211-efc7-12be-6ce9-c5c4ada16805@xs4all.nl>
- <9f23de64-4748-5176-1caa-f05b9f4d5f0f@gmail.com>
 Cc:     Ken Brown <kbrown@cornell.edu>,
         Michael Kerrisk <mtk.manpages@gmail.com>,
         "Michael T. Kerrisk" <mtk@man7.org>
-In-Reply-To: <9f23de64-4748-5176-1caa-f05b9f4d5f0f@gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------dSeU07mHwTccIDBbHkWbyxey"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
-        autolearn_force=no version=3.4.6
+References: <30847211-efc7-12be-6ce9-c5c4ada16805@xs4all.nl>
+ <9f23de64-4748-5176-1caa-f05b9f4d5f0f@gmail.com>
+ <0fd276c7-3aab-0075-8a54-1371e4fad925@gmail.com>
+From:   "J.H. vd Water" <henri.van.de.water@xs4all.nl>
+In-Reply-To: <0fd276c7-3aab-0075-8a54-1371e4fad925@gmail.com>
+X-Spam-Status: No, score=-2.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_LOW,
+        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------dSeU07mHwTccIDBbHkWbyxey
-Content-Type: multipart/mixed; boundary="------------bBjqA46aPdrPqTn6kItEZpo0";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: "J.H. vd Water" <henri.van.de.water@xs4all.nl>,
- linux-man <linux-man@vger.kernel.org>
-Cc: Ken Brown <kbrown@cornell.edu>, Michael Kerrisk <mtk.manpages@gmail.com>,
- "Michael T. Kerrisk" <mtk@man7.org>
-Message-ID: <0fd276c7-3aab-0075-8a54-1371e4fad925@gmail.com>
-Subject: Re: Fwd: Simple changes to select(2) and pipe(7) - example program
-References: <30847211-efc7-12be-6ce9-c5c4ada16805@xs4all.nl>
- <9f23de64-4748-5176-1caa-f05b9f4d5f0f@gmail.com>
-In-Reply-To: <9f23de64-4748-5176-1caa-f05b9f4d5f0f@gmail.com>
+This is a multi-part message in MIME format.
+--------------J537EZ0t9VsXvYIvZ1iwSEnD
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
---------------bBjqA46aPdrPqTn6kItEZpo0
-Content-Type: text/plain; charset=UTF-8; format=flowed
+On 11/9/22 15:15, Alejandro Colomar wrote:
+> Hi Henri,
+
+> I've forwarded the emails I got from you to the mailing list, for an
+> open discussion.  If I'm missing any, please resend including to the
+> list, and preferrably as a reply to this thread.
+Oops!
+
+Hi Alex,
+
+Only just now I finished an e-mail, that I intended to send to the list ...
+
+(Sorry, I am that quick anymore)
+
+Regards,
+Henri
+
+=====
+
+Subscribe to the list beforehand ...
+
+To: Alejandro Colomar <alx@kernel.org> <==== different e-mail address
+To: Michael Kerrisk <mtk.manpages@gmail.com>
+Cc: linux-man@vger.kernel.org
+Cc: Ken Brown <kbrown@cornell.edu>
+
+Subject Title: [patch] select.2, pipe.7: wfix
+
+L.S.,
+
+As result of a problem report against his implementation of select(2) on Cygwin,
+it became clear to Ken Brown (and myself) that both the Linux man pages and LPI,
+which is a acronym for the book: Linux Programming Interface by Michael Kerrisk,
+are not completely correct in describing the behaviour of select(2).
+
+You can read all about it here:
+
+ - https://cygwin.com/pipermail/cygwin/2022-September/252246.html
+
+   (Re: FIFO issues - response by Ken Brown in which he announces
+    the correction of his implementation of select() - in Cygwin)
+
+Basically, select(2) says that the read end of a fifo is "read ready" in case
+the write end of the fifo is closed (i.e. select(2) would return in that case,
+because read(2) would return in that case).
+
+However, select(2) blocks on the read end of a pipe in case the write end has
+never been opened before (different from read(2)) - and only in that case! [1]
+
+[1] select(2) on the read end of a pipe will return in case the write end is
+closed, once the write has been opened and closed once.
+
+After studying the Linux man pages (and verification on Fedora 35), I propose
+the following modifications:
+
+ 1.
+man 2 select  ... DESCRIPTION reads:
+
+"select() allows a program to monitor multiple file descriptors, waiting
+ until one or more of the file descriptors become "ready" for some class of
+ I/O operation (e.g., input possible). A file descriptor is considered
+ ready if it is  possible to perform a corresponding I/O operation
+ (e.g., read(2), or a sufficiently small write(2)) without blocking."
+
+I suggest to add the following line:
+
+"However, note that select(2) will block on the read end of a pipe/fifo, if
+ the write end of the pipe/fifo has never been opened before, unlike read(2)
+ (read(2) will always return with zero if the write end of the pipe/fifo is
+  closed - see pipe(7) where the text starts with I/O on pipes and fifos).
+
+ 2.
+man 7 pipe ... where the paragraph start with "I/O on pipes and FIFOs":
+
+"If a process attempts to read from an empty pipe, then read(2) will block
+ until data is available."
+
+I suggest to change the above line as follows:
+
+"If a process attempts to read from an empty pipe while the write end is open,
+ then read(2) will block (in case the O_NONBLOCK openfile status flag has been
+ disabled) until data is available; however, if the write end of the pipe is
+ closed and the pipe is empty, then read(2) will return with zero."
+
+-----
+Attached to this mail, you will find the files server.c and client.c, which
+will hopefully clarify what I am talking about.
+
+Finally, I do realize that this message does not contain an official patch,
+but I cannot provide one, as I am not set up to provide one. Several years
+ago, I "retired from active duty" (Cygwin, not Linux); git(1) and anything
+that is useful (required?) in order to be able to properly "submit a patch
+to the list" is currently not present on my system.
+
+Attachments: server.c, client.c
+
+====
+--------------J537EZ0t9VsXvYIvZ1iwSEnD
+Content-Type: text/x-csrc; charset=UTF-8; name="client.c"
+Content-Disposition: attachment; filename="client.c"
 Content-Transfer-Encoding: base64
 
-SGkgSGVucmksDQoNCk9uIDExLzkvMjIgMTQ6NTcsIEFsZWphbmRybyBDb2xvbWFyIHdyb3Rl
-Og0KPiAtLS0tLS0tLSBGb3J3YXJkZWQgTWVzc2FnZSAtLS0tLS0tLQ0KPiBTdWJqZWN0OiBS
-ZTogU2ltcGxlIGNoYW5nZXMgdG8gc2VsZWN0KDIpIGFuZCBwaXBlKDcpIC0gZXhhbXBsZSBw
-cm9ncmFtDQo+IERhdGU6IFdlZCwgOSBOb3YgMjAyMiAwOTo0Mjo0MyArMDEwMA0KPiBGcm9t
-OiBKLkguIHZkIFdhdGVyIDxoZW5yaS52YW4uZGUud2F0ZXJAeHM0YWxsLm5sPg0KPiBUbzog
-QWxlamFuZHJvIENvbG9tYXIgPGFseEBrZXJuZWwub3JnPg0KPiBDQzogTWljaGFlbCBLZXJy
-aXNrIDxtdGsubWFucGFnZXNAZ21haWwuY29tPg0KDQpJJ3ZlIGZvcndhcmRlZCB0aGUgZW1h
-aWxzIEkgZ290IGZyb20geW91IHRvIHRoZSBtYWlsaW5nIGxpc3QsIGZvciBhbiBvcGVuIA0K
-ZGlzY3Vzc2lvbi4gIElmIEknbSBtaXNzaW5nIGFueSwgcGxlYXNlIHJlc2VuZCBpbmNsdWRp
-bmcgdG8gdGhlIGxpc3QsIGFuZCANCnByZWZlcnJhYmx5IGFzIGEgcmVwbHkgdG8gdGhpcyB0
-aHJlYWQuDQoNCkkndmUgYWxzbyBpbmNsdWRlZCBLZW4gaW4gdGhlIENDIGxpc3QsIGFzIHRo
-ZSBDT05UUklCVVRJTkcgZmlsZSByZWNvbW1lbmRzLCANCnNpbmNlIGhlIGtub3dzIHdoYXQg
-d2UncmUgZGlzY3Vzc2luZy4NCg0KSSd2ZSBpbmNsdWRlZCBib3RoIG10ayBhZGRyZXNzZXMs
-IHNpbmNlIHRoaXMgaXNzdWUgaXMgYm90aCByZXBvcnRlZCBmb3IgdGhlIG1hbiANCnBhZ2Vz
-IGFuZCBmb3IgaGlzIFRMUEkgYm9vay4gIEJ1dCBhcyB5b3UndmUgZXhwZXJpZW5jZWQsIGhl
-J3MgcmVjZW50bHkgYmVlbiB2ZXJ5IA0KYnVzeSBhbmQgbWlnaHQgbm90IHJlc3BvbmQgdG8g
-dGhpcyB0aHJlYWQuDQoNCj4gDQo+IE9uIDExLzgvMjIgMTM6MjAsIEFsZWphbmRybyBDb2xv
-bWFyIHdyb3RlOg0KPj4gT24gMTEvNi8yMiAxOTo1MywgSi5ILiB2ZCBXYXRlciB3cm90ZToN
-Cj4gW3NuaXBdDQo+IA0KPj4+IG1hbiAyIHNlbGVjdMKgIC4uLiBERVNDUklQVElPTiByZWFk
-czoNCj4+Pg0KPj4+ICJzZWxlY3QoKSBhbGxvd3MgYSBwcm9ncmFtIHRvIG1vbml0b3IgbXVs
-dGlwbGUgZmlsZSBkZXNjcmlwdG9ycywgd2FpdGluZw0KPj4+IMKgIHVudGlsIG9uZSBvciBt
-b3JlIG9mIHRoZSBmaWxlIGRlc2NyaXB0b3JzIGJlY29tZSAicmVhZHkiIGZvciBzb21lIGNs
-YXNzIG9mDQo+Pj4gwqAgSS9PIG9wZXJhdGlvbiAoZS5nLiwgaW5wdXQgcG9zc2libGUpLiBB
-IGZpbGUgZGVzY3JpcHRvciBpcyBjb25zaWRlcmVkDQo+Pj4gwqAgcmVhZHkgaWYgaXQgaXPC
-oCBwb3NzaWJsZSB0byBwZXJmb3JtIGEgY29ycmVzcG9uZGluZyBJL08gb3BlcmF0aW9uDQo+
-Pj4gwqAgKGUuZy4sIHJlYWQoMiksIG9yIGEgc3VmZmljaWVudGx5IHNtYWxsIHdyaXRlKDIp
-KSB3aXRob3V0IGJsb2NraW5nLiINCj4+Pg0KPj4+IEkgc3VnZ2VzdCB0byBhZGQgdGhlIGZv
-bGxvd2luZyBsaW5lOg0KPj4+DQo+Pj4gIkhvd2V2ZXIsIG5vdGUgdGhhdCBzZWxlY3QoMikg
-d2lsbCBibG9jayBvbiB0aGUgcmVhZCBlbmQgb2YgYSBwaXBlL2ZpZm8sIGlmDQo+Pj4gwqAg
-dGhlIHdyaXRlIGVuZCBvZiB0aGUgcGlwZS9maWZvIGhhcyBuZXZlciBiZWVuIG9wZW5lZCBi
-ZWZvcmUsIHVubGlrZSByZWFkKDIpDQo+Pj4gwqAgKHJlYWQoMikgd2lsbCBhbHdheXMgcmV0
-dXJuIHdpdGggemVybyBpZiB0aGUgd3JpdGUgZW5kIG9mIHRoZSBwaXBlL2ZpZm8gaXMNCj4+
-PiDCoCBjbG9zZWQgLSBzZWUgcGlwZSg3KSB3aGVyZSB0aGUgdGV4dCBzdGFydHMgd2l0aCBJ
-L08gb24gcGlwZXMgYW5kIGZpZm9zKS4NCj4+DQo+PiBJdCBpcyBpbnRlcmVzdGluZy7CoCBD
-b3VsZCB5b3UgcGxlYXNlIHNoYXJlIGEgc21hbGwgZXhhbXBsZSBwcm9ncmFtDQo+PiB0aGF0
-IGRlbW9uc3RyYXRlcyB0aGlzIGJlaGF2aW9yP8KgIFRoYXQgd291bGQgY2VydGFpbmx5IGhl
-bHAgYSBsb3QNCj4+IHJldmlld2luZyB0aGUgY2hhbmdlLg0KPiANCj4gSGkgQWxleCwNCj4g
-DQo+IFllc3RlcmRheSwgSSByZXBsaWVkIHRvIEFsZWphbmRybyBDb2xvbWFyIDxhbHgubWFu
-cGFnZXNAZ21haWwuY29tPjsgSSBhbHNvIHNlbnQNCj4geW91IGEgY29weSBvZiB0aGUgbWVz
-c2FnZSBJIHNlbnQgdG8gTS5LLiBvbiAyOXRoIG9mIFNlcHRlbWJlciAoY2xhcmlmaWNhdGlv
-bikuDQoNClllYWgsIEkgc2VlLiAgRm9yIG5vdyBib3RoIG15IGFkZHJlc3NlcyBhcnJpdmUg
-dG8gdGhlIHNhbWUgbWFpbGJveCwgc28gbm8gDQpwcm9ibGVtIHRoZXJlLiAgVGhhbmtzLg0K
-DQpUaGUgbWFpbGluZyBsaXN0IGlzIG1vcmUgaW1wb3J0YW50LCB0aG91Z2guDQoNCg0KPiAN
-Cj4gVGhpcyB0aW1lIEkgd2lsbCBhdHRhY2ggMiBmaWxlcyAoaS5lLiBzZXJ2ZXIuYyBhbmQg
-Y2xpZW50LmMpLCB0aGUgc21hbGwgZXhhbXBsZQ0KPiBwcm9ncmFtIHRoYXQgeW91IGFza2Vk
-IGZvciAodXNpbmcgYWx4QGtlcm5lbC5vcmcgYXMgYWRkcmVzcykuDQoNClRoYW5rcyENCg0K
-QlRXLCBJIGp1c3QgZm91bmQgYSBidWcgaW4gdGhlIGNsaWVudC5jIHByb2dyYW06DQoNCiAg
-ICAgd3JpdGUoZmQsICYiV2hhdCBobyEiLCA5KTsNCg0KVGhhdCAmIGlzIHdyb25nLiAgVGhl
-IGFkZHJlc3Mgb2YgdGhlIGFycmF5IHNob3VsZCBub3QgYmUgcGFzc2VkIHRvIHdyaXRlKDIp
-LCBidXQgDQpyYXRoZXIgdGhlIGFkZHJlc3MgdG8gdGhlIGZpcnN0IGVsZW1lbnQgaW4gdGhl
-IGFycmF5LiAgVGhpcyBpcyBhIG1pbGQgYnVnIHRoYXQgDQp3aWxsIG5vcm1hbGx5IG5vdCBk
-byBhbnkgaGFybSwgYnV0IGNhbiBiZSBkYW5nZXJvdXMgc3RpbGwsIGlmIHlvdXIgY29tcGls
-ZXIgaXMgDQpvcHRpbWl6aW5nIGhlYXZpbHkuDQoNCkknbGwgdGFrZSBzb21lIHRpbWUgdG8g
-aW52ZXN0aWdhdGUgdGhlIGV4YW1wbGUgcHJvZ3JhbXMsIHNpbmNlIHRoZXNlIGRheXMgSSAN
-CmRvbid0IGhhdmUgbXVjaCB0aW1lIGZvciB0aGF0OyBzb3JyeS4gIEZlZWwgZnJlZSB0byBw
-aW5nIG1lIGluIGEgd2VlayBvciB0d28gaWYgDQpJIGRpZG4ndCByZXNwb25kLg0KDQpDaGVl
-cnMsDQoNCkFsZXgNCg0KPiANCj4gUmVnYXJkcywNCj4gSGVucmkNCg0KLS0gDQo8aHR0cDov
-L3d3dy5hbGVqYW5kcm8tY29sb21hci5lcy8+DQo=
+Ly8gZ2NjIC1XYWxsIC1XZXh0cmEgLW8gY2xpZW50IGNsaWVudC5jCgojaW5jbHVkZSA8c3Rk
+aW8uaD4KI2luY2x1ZGUgPHVuaXN0ZC5oPgojaW5jbHVkZSA8c3RkbGliLmg+CiNpbmNsdWRl
+IDxzdHJpbmcuaD4KI2luY2x1ZGUgPHN5cy9zdGF0Lmg+CiNpbmNsdWRlIDxmY250bC5oPgoj
+aW5jbHVkZSA8ZXJybm8uaD4KCiNkZWZpbmUgRklGT19QQVRIICIvdG1wL215ZmlmbyIKCmlu
+dAptYWluKGludCBhcmdjLCBjaGFyICphcmd2W10pCnsKICAgIGludCBmZCA9IC0xOwoKICAg
+IGZkID0gb3BlbihGSUZPX1BBVEgsIE9fV1JPTkxZKTsKICAgIHByaW50ZigiZmQgPSAlZFxu
+IiwgZmQpOwoKICAgIGlmIChmZCA8IDApIHsKICAgICAgICBmcHJpbnRmKHN0ZGVyciwgIkNv
+dWxkIG5vdCBvcGVuIGZpZm8gJXM6ICVzXG4iLCBGSUZPX1BBVEgsIHN0cmVycm9yKGVycm5v
+KSk7CiAgICAgICAgcmV0dXJuIC0xOwogICAgfQoKICAgIGludCBmbGFncyA9IGZjbnRsKGZk
+LCBGX0dFVEZMKTsKICAgIGlmIChmbGFncyA9PSAtMSkKICAgICAgICBmcHJpbnRmKHN0ZGVy
+ciwgImZjbnRsIEZfR0VURkw6ICVzXG4iLCBzdHJlcnJvcihlcnJubykpOwogICAgcHJpbnRm
+KCJmbGFncyA9IDAlb1xuIiwgZmxhZ3MpOwoKICAgIGlmIChhcmdjID4gMSkgewogICAgICAg
+IHdyaXRlKGZkLCBhcmd2WzFdLCBzdHJsZW4oYXJndlsxXSkgKTsKICAgIH0gZWxzZSB7CiAg
+ICAgICAgd3JpdGUoZmQsICYiV2hhdCBobyEiLCA5KTsKICAgIH0KICAgIC8vIG5vdGU6IHBy
+aW50ZiAiV2hhdCBobyIgPiAvdG1wL215ZmlmbyBmcm9tIGJhc2gsIHdvdWxkIGNsb3NlIHRo
+ZSBmaWxlIGRlc2NyaXB0b3IuCgogICAgcHJpbnRmKCJDbG9zaW5nIC4uLiBmZCA9ICVkXG4i
+LCBmZCk7CiAgICBjbG9zZShmZCk7IC8vIEVPRgoKICAgIHJldHVybiAwOwp9CgovLz09PT09
+Cg==
+--------------J537EZ0t9VsXvYIvZ1iwSEnD
+Content-Type: text/x-csrc; charset=UTF-8; name="server.c"
+Content-Disposition: attachment; filename="server.c"
+Content-Transfer-Encoding: base64
 
---------------bBjqA46aPdrPqTn6kItEZpo0--
+Ly8gZ2NjIC1XYWxsIC1XZXh0cmEgLW8gc2VydmVyIHNlcnZlci5jCgojaW5jbHVkZSA8c3Rk
+aW8uaD4KI2luY2x1ZGUgPHVuaXN0ZC5oPgojaW5jbHVkZSA8c3RkbGliLmg+CiNpbmNsdWRl
+IDxzdHJpbmcuaD4KI2luY2x1ZGUgPHN5cy9zdGF0Lmg+CiNpbmNsdWRlIDxzeXMvc2VsZWN0
+Lmg+CiNpbmNsdWRlIDxmY250bC5oPgojaW5jbHVkZSA8ZXJybm8uaD4KCiNkZWZpbmUgRklG
+T19QQVRIICIvdG1wL215ZmlmbyIKCmludAptYWluKCkKewogICAgaW50IGZkID0gLTE7CiAg
+ICBmZF9zZXQgcmVhZGZkczsKICAgIGludCBuc2VsOwogICAgY2hhciBidWZbODBdID0geyAw
+IH07CgogICAgaWYgKHVubGluayAoRklGT19QQVRIKSA8IDAgICYmIGVycm5vICE9IEVOT0VO
+VCkgewogICAgICBwZXJyb3IgKCJ1bmxpbmsiKTsKICAgICAgZXhpdCAoMSk7CiAgICB9Cgog
+ICAgaWYgKG1rZmlmbyhGSUZPX1BBVEgsIDA2MDApIDwgMCkgewogICAgICAgIGZwcmludGYo
+c3RkZXJyLCAiQ291bGQgbm90IGNyZWF0ZSBmaWZvICVzOiAlc1xuIiwgRklGT19QQVRILCBz
+dHJlcnJvcihlcnJubykpOwogICAgICAgIHJldHVybiAtMTsKICAgIH0KCiAgICBmZCA9IG9w
+ZW4oRklGT19QQVRILCBPX1JET05MWSB8IE9fTk9OQkxPQ0spOyAvLyBvcGVuKCkgZG9lcyBu
+b3QgYmxvY2sKICAgIHByaW50ZigiZmQgPSAlZFxuIiwgZmQpOwoKICAgIGlmIChmZCA8IDAp
+IHsKICAgICAgICBmcHJpbnRmKHN0ZGVyciwgIkNvdWxkIG5vdCBvcGVuIGZpZm8gJXM6ICVz
+XG4iLCBGSUZPX1BBVEgsIHN0cmVycm9yKGVycm5vKSk7CiAgICAgICAgcmV0dXJuIC0xOwog
+ICAgfQoKICAgIGlmIChmY250bChmZCwgRl9TRVRGTCwgT19SRE9OTFkpID09IC0xKSAvLyBw
+cmFnbWF0aWMKICAgICAgICBmcHJpbnRmKHN0ZGVyciwgImZjbnRsIEZfU0VURkw6ICVzXG4i
+LCBzdHJlcnJvcihlcnJubykpOwogICAgaW50IGZsYWdzID0gZmNudGwoZmQsIEZfR0VURkwp
+OwogICAgaWYgKGZsYWdzID09IC0xKQogICAgICAgIGZwcmludGYoc3RkZXJyLCAiZmNudGwg
+Rl9HRVRGTDogJXNcbiIsIHN0cmVycm9yKGVycm5vKSk7CiAgICBwcmludGYoImZsYWdzID0g
+MCVvXG4iLCBmbGFncyk7CgogICAgd2hpbGUoMSkgewogICAgICAgIHByaW50ZigiQ2FsbGlu
+ZyBzZWxlY3QoKSAuLi4gIik7CiAgICAgICAgZmZsdXNoKHN0ZG91dCk7CiAgICAgICAgRkRf
+WkVSTyAoJnJlYWRmZHMpOwogICAgICAgIEZEX1NFVCAoZmQsICZyZWFkZmRzKTsKCiAgICAg
+ICAgLyoKICAgICAgICBEaWZmZXJlbnQgZnJvbSByZWFkKDIpLCBzZWxlY3QoMikgd2lsbCAq
+YmxvY2sqIG9uIHRoZSByZWFkIGVuZCBvZiBhIGZpZm8gKG9yCiAgICAgICAgcGlwZSkgaWYg
+dGhlIHdyaXRlIGVuZCBoYXMgbmV2ZXIgYmVlbiBvcGVuZWQgYmVmb3JlIChhbmQgb25seSBp
+biB0aGF0IGNhc2UpLAogICAgICAgIHdoaWxlIHJlYWQoMikgd2lsbCBhbHdheXMgcmV0dXJu
+IHdpdGggemVybyAoaW4gY2FzZSBvZiBhbiBlbXB0eSBwaXBlKSBpZiB0aGUKICAgICAgICB3
+cml0ZSBlbmQgaXMgY2xvc2VkLyBoYXMgYmVlbiBjbG9zZWQuCgogICAgICAgIFRoZXJlZm9y
+ZSwgY2FsbGluZyBzZWxlY3QoMikgYmVmb3JlIGNhbGxpbmcgcmVhZCgyKSwgd2lsbCBlbmFi
+bGUgdXMgdG8gYmxvY2sKICAgICAgICBpZiB0aGUgcGlwZSBoYXMgbmV2ZXIgYmVlbiBvcGVu
+ZW5kIGJlZm9yZSAoYWdhaW4sIGFuZCBvbmx5IGluIHRoYXQgY2FzZSkuCiAgICAgICAgKi8K
+CiAgICAgICAgbnNlbCA9IHNlbGVjdCAoZmQgKyAxLCAmcmVhZGZkcywgTlVMTCwgTlVMTCwg
+TlVMTCk7CiAgICAgICAgLy8gc2VsZWN0KCkgYmxvY2tzIHVudGlsIHRoZSB3cml0ZSBlbmQg
+b2YgdGhlIHBpcGUgaGFzIGJlZW4gb3BlbmVkICh3aGlsZSB0aGUKICAgICAgICAvLyB3cml0
+ZSBlbmQgaGFzIG5ldmVyIGJlZW4gb3BlbmVkIGJlZm9yZSkgYW5kIGRhdGEgaGFzIGJlZW4g
+aW5qZWN0ZWQuCiAgICAgICAgcHJpbnRmICgicmV0dXJuZWQgJWRcbiIsIG5zZWwpOwoKICAg
+ICAgICBwcmludGYoIlJlYWRpbmcgLi4uXG4iKTsKCiAgICAgICAgc3NpemVfdCBzdGF0dXMg
+PSAwOwogICAgICAgIHdoaWxlICgxKSB7IC8vIGFsbG93IG1lIHRvIHJlc2V0IGVycm5vIGFu
+ZCBpbnNwZWN0IHN0YXR1cyAuLi4KZXJybm8gPSAwOwoKICAgICAgICAgICAgLyoKICAgICAg
+ICAgICAgIHJlYWQoMikgd2lsbCBibG9jayBvbiB0aGUgcmVhZCBlbmQgb2YgYSBmaWZvIChv
+ciBwaXBlKSBpbiBjYXNlIHRoZSB3cml0ZSBlbmQKICAgICAgICAgICAgIG9mIHRoZSBmaWZv
+IChvciBwaXBlKSBoYXMgYmVlbiBvcGVuZWQgYW5kIHRoZSBwaXBlIGlzIGVtcHR5LiBbMV0K
+ICAgICAgICAgICAgIFsxXSBvbmx5IGlmIHRoZSBPX05PTkJMT0NLIG9wZW4gZmlsZSBzdGF0
+dXMgZmxhZyBoYXMgYmVlbiBkaXNhYmxlZC4KICAgICAgICAgICAgICovCgogICAgICAgICAg
+ICBzdGF0dXMgPSByZWFkKGZkLCBidWYsIHNpemVvZihidWYpKTsKcHJpbnRmKCJzdGF0dXMg
+PSAlbGQsIGVycm5vID0gJWRcbiIsIHN0YXR1cywgZXJybm8pOwoKICAgICAgICAgICAgLy8g
+d2lsbCBhcnJpdmUgaGVyZSBvbmx5IGlmIHRoZSB3cml0ZSBlbmQgb2YgZmlmbyBoYXMgYmVl
+biBvcGVuZWQgKGJlZm9yZSBpdAogICAgICAgICAgICAvLyB3YXMgY2xvc2VkIGFnYWluKQog
+ICAgICAgICAgICBpZiAoc3RhdHVzID09IDApIHsgLy8gdGhlIHdyaXRlIGVuZCBvZiB0aGUg
+ZmlmbyBoYXMgYmVlbiBjbG9zZWQgKEVPRikKICAgICAgICAgICAgICAgIGNsb3NlKGZkKTsK
+ICAgICAgICAgICAgICAgIGludCBmZDI7CiAgICAgICAgICAgICAgICBpZiAoKGZkMiA9IG9w
+ZW4gKEZJRk9fUEFUSCwgT19SRE9OTFkgfCBPX05PTkJMT0NLKSkgPCAwKSB7CiAgICAgICAg
+ICAgICAgICAgICAgcGVycm9yICgib3BlbiIpOwogICAgICAgICAgICAgICAgICAgIGV4aXQg
+KDEpOwogICAgICAgICAgICAgICAgfQoKICAgICAgICAgICAgICAgIGlmIChmY250bChmZCwg
+Rl9TRVRGTCwgT19SRE9OTFkpID09IC0xKSAvLyBwcmFnbWF0aWMKICAgICAgICAgICAgICAg
+ICAgICBmcHJpbnRmKHN0ZGVyciwgImZjbnRsIEZfU0VURkw6ICVzXG4iLCBzdHJlcnJvcihl
+cnJubykpOwogICAgICAgICAgICAgICAgaW50IGZsYWdzID0gZmNudGwoZmQsIEZfR0VURkwp
+OwogICAgICAgICAgICAgICAgaWYgKGZsYWdzID09IC0xKQogICAgICAgICAgICAgICAgICAg
+IGZwcmludGYoc3RkZXJyLCAiZmNudGwgRl9HRVRGTDogJXNcbiIsIHN0cmVycm9yKGVycm5v
+KSk7CiAgICAgICAgICAgICAgICBwcmludGYoImZsYWdzID0gMCVvXG4iLCBmbGFncyk7Cgog
+ICAgICAgICAgICAgICAgLyoKICAgICAgICAgICAgICAgICBhc3NpZ24gdGhlIG5ldyBmaWxl
+IGRlc2NyaXB0b3IgdG8gdmFyaWFibGUgZmQ7IG90aGVyd2lzZSBzZWxlY3QoMikgd2lsbAog
+ICAgICAgICAgICAgICAgIG5vdCBibG9jayBvbiB0aGUgcmVhZCBlbmQgaW4gY2FzZSB0aGUg
+d3JpdGUgZW5kIG9mIHRoZSBmaWZvIChvciBwaXBlKSBpcwogICAgICAgICAgICAgICAgIGNs
+b3NlZC4KICAgICAgICAgICAgICAgICAqLwogICAgICAgICAgICAgICAgZmQgPSBmZDI7Cgog
+ICAgICAgICAgICAgICAgcHJpbnRmKCJmZCA9ICVkIC0gcmVmcmVzaGVkXG4iLCBmZCk7CiAg
+ICAgICAgICAgICAgICBicmVhazsKICAgICAgICAgICAgfQogICAgICAgICAgICBpZiAoc3Rh
+dHVzID4gMCkgewogICAgICAgICAgICAgICAgaWYgKHdyaXRlKDEsIGJ1Ziwgc3RhdHVzKSA8
+IDApIHsKICAgICAgICAgICAgICAgICAgICBmcHJpbnRmKHN0ZGVyciwgIkVycm9yIHNlbmRp
+bmcgbWVzc2FnZTogJyVzJzogJXNcbiIsIGJ1Ziwgc3RyZXJyb3IoZXJybm8pKTsKICAgICAg
+ICAgICAgICAgIH0KICAgICAgICAgICAgICAgIGlmIChidWZbc3RhdHVzIC0gMV0gIT0gJ1xu
+JykgewogICAgICAgICAgICAgICAgICAgIHdyaXRlKDEsICYiXG4iLCAxKTsKICAgICAgICAg
+ICAgICAgIH0KICAgICAgICAgICAgICAgIGlmIChzdHJuY2FzZWNtcChidWYsICJxdWl0Iiwg
+NCkgPT0gMCkgewogICAgICAgICAgICAgICAgICAgIGNsb3NlKGZkKTsKICAgICAgICAgICAg
+ICAgICAgICByZW1vdmUoRklGT19QQVRIKTsKICAgICAgICAgICAgICAgICAgICBleGl0ICgw
+KTsKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgIH0KICAgICAgICAgICAgaWYgKHN0
+YXR1cyA8IDApIHsKICAgICAgICAgICAgICAgIC8qIEFuIGVycm9yIG9jY3VycmVkLCBiYWls
+IG91dCAqLwogICAgICAgICAgICAgICAgY2xvc2UoZmQpOwogICAgICAgICAgICAgICAgcGVy
+cm9yKCJyZWFkIik7CiAgICAgICAgICAgICAgICBleGl0ICgxKTsKICAgICAgICAgICAgfQog
+ICAgICAgIH0gLy8gZW5kIHdoaWxlKDEpIHJlYWQKCiAgICB9IC8vIGVuZCB3aGlsZSghZG9u
+ZSkgc2VsZWN0CgogICAgY2xvc2UoZmQpOwogICAgcmVtb3ZlKEZJRk9fUEFUSCk7CgogICAg
+cmV0dXJuIDA7Cn0KCi8vPT09PT0K
 
---------------dSeU07mHwTccIDBbHkWbyxey
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmNrtfkACgkQnowa+77/
-2zIx+RAAjJuzT9rKG2h/o0Xp4Z2fJpXLDThrw+1ge3t6+8pHeAJmLXY/vKzrF4Df
-TgMhtOfnNN9fwsI/Zju4+pPyvzcLl89Zoe/42FVqyLy0dNUIme4VFvxWx6zt4N66
-0PVeb8FOjq/ATT+6iciRnI3oxSvMYQH1FZnM7WfIXHyBdZMTmhCCQd+u+Uou3uD7
-elIeicOnZUSzy0FABiTuVHPKdgVqohQgCRDGz92C3tOtApG4MRE90K8jJWVBoI1G
-9RfOff69S8WvTJt4iXG6ozhB+6SUmB6insombJj0RIGRnu4QJEw03xGd8FLzvVWj
-o+JOpqY7TPWk0XO29ABFegHSX4KK43dtbfvdyK1So5Dzg/7II6LCavmHqz9utG+W
-/bzBppXpTsMRKIrlIfvM56MMJ0PTLfQK1z5luJVjdk9FceKRfgV8ae+UHMfHBonq
-GcVvSYr82xCydj9fLXSAIhqCwNcjdmzNngr9BQ7URD0gzQdhkNfi8k9aCTKlc9a6
-ACRX+Bmuc9OKmFXc++5XbZBgx741+c7FsosJU8v3RFFynyKygx4OsDhker2xGtO5
-qBwctRuHyR3Kp3XZW+I0k9vCr9JnoIB5bbskwaTwvbmByipU9VKttbIvG9ocQP2g
-uFTsoevWUp4saMSanmlWOoS4mBirL0FFOcMNvpimHyF0BlZjK3o=
-=lr0y
------END PGP SIGNATURE-----
-
---------------dSeU07mHwTccIDBbHkWbyxey--
+--------------J537EZ0t9VsXvYIvZ1iwSEnD--
