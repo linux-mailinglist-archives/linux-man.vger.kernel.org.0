@@ -2,73 +2,68 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 8721B6263BF
-	for <lists+linux-man@lfdr.de>; Fri, 11 Nov 2022 22:40:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id D9883626535
+	for <lists+linux-man@lfdr.de>; Sat, 12 Nov 2022 00:08:51 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231625AbiKKVkw (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 11 Nov 2022 16:40:52 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55718 "EHLO
+        id S233927AbiKKXIt (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 11 Nov 2022 18:08:49 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41314 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232372AbiKKVku (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 11 Nov 2022 16:40:50 -0500
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com [IPv6:2a00:1450:4864:20::32c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 35FB2627F7
-        for <linux-man@vger.kernel.org>; Fri, 11 Nov 2022 13:40:49 -0800 (PST)
-Received: by mail-wm1-x32c.google.com with SMTP id ay14-20020a05600c1e0e00b003cf6ab34b61so6360274wmb.2
-        for <linux-man@vger.kernel.org>; Fri, 11 Nov 2022 13:40:49 -0800 (PST)
+        with ESMTP id S234140AbiKKXIe (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 11 Nov 2022 18:08:34 -0500
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com [IPv6:2a00:1450:4864:20::436])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C2035DE92
+        for <linux-man@vger.kernel.org>; Fri, 11 Nov 2022 15:08:27 -0800 (PST)
+Received: by mail-wr1-x436.google.com with SMTP id j15so8204827wrq.3
+        for <linux-man@vger.kernel.org>; Fri, 11 Nov 2022 15:08:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=in-reply-to:references:cc:to:from:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=kkQamqyG7ZJdQwlQ5hloOSEGrF0wL1rEXnvG3H16C6o=;
-        b=TDzSDSodWlW8TeyFeUYSS1OBveO4YE6ByHN4Yp6e4vNCY+QcB80Qhj93M/vyc+4+KS
-         3eFvixOD0RRkBGfYDpbfCRgDJtL61+gqz/Ty6nEWze+L1cDw+wVkRwBoxLKudohi9pad
-         KC/Ro7xfZYIIGUI/woJ6A5Bueg7d3TPnVeztO/dHCY4rchLKgZcmdDLNuJsgjWclX+vl
-         HFBhRYBQv08ZO+ETq4M3nftMhTlyOUUE3TgBe9IlgVZLUH+LT9GdfvAHHfzm5KyX+ujb
-         5ex6P5VAAPlKv/IxbnnJPhk1jqSc7VX41pgxPhvMsmWXjG0UvmiQcJbWe8c+s2gHwJmG
-         b5rQ==
+        bh=sXGO+9RSG9I+KyMHGvb/rslvIziqm5D4YZsBXfWDP1Y=;
+        b=Un2l/6qfxy3+uYaRCc8nMdIki81Rj4Nvl5uSu2JDEOAXSY2wwI91DBgOZCSfI/ccuE
+         ww6kmXbrMfd5AS+EUo2Ob3DwWXuzg7jCEXk1uEKV2BUTQg62L5Tiz47A9xTzecjiSG5Q
+         9MMgG2SrcvC8CXkhlyYo2q79DVqxQU7NVRUxS6niIJ5Vv3hB4g/opv99g6ZVbjXVCQlX
+         QNSIqUv32/THPUbREfwEblWH+XutdvEtg2wkBn0Wa17veVs+p1MRguLqgqGHteEMnjFE
+         4wNwXFRoWxt1poN4fPZHuhZfUKHLlCBj8KnD1i9T/f9ucc9GaSzv8skDctclbua7izph
+         T0Ww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=in-reply-to:references:cc:to:from:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=kkQamqyG7ZJdQwlQ5hloOSEGrF0wL1rEXnvG3H16C6o=;
-        b=lbhGTf5KilbRYqLqEFCsede06i04Htzn83klbs5eNEaJOchzzFJsI0F33knL9IAf9/
-         jMkOPGMgDKLzR43p1T3tiQVeaMcY640Gka3tDih+uJmuOZX0YgjID46fMfQetyh1X8xa
-         Nh1J6jky9gSBDZtjHW8qacxIJ5X9YN4DzG/GKXMQnxsSWwD2MjjdYSlpRq7apc5tlFEA
-         hv/XCWBYLsBnDjLY0rMm0eQTlbOVYVn9yxgcivP2aMJYVTc95tXxRA+FXXtcrit2Aue8
-         xt9j46+hOJY8jg0DphWPab9Q8PqRAxieigkTqRqP8qcCwBlTIdxNszPjPuUrcIEZMSzi
-         Be6A==
-X-Gm-Message-State: ANoB5pmN40OokX8nEVyTH6p7NcNVUmtMXk9mhk5iHmNzulCtyXDPnZtH
-        B3JA9aVMvqN8+FwxbD/xATTrCvLFHCg=
-X-Google-Smtp-Source: AA0mqf5/653JEr0A3QwhSIoQtOqr01M/r821iVDmYnMVU7ivL1kVTzUx1ZoUVaII2LOV1vNpyjHW1g==
-X-Received: by 2002:a05:600c:4311:b0:3c7:a5:6113 with SMTP id p17-20020a05600c431100b003c700a56113mr2478825wme.129.1668202847667;
-        Fri, 11 Nov 2022 13:40:47 -0800 (PST)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id h15-20020a05600c350f00b003cfcf9f9d62sm3976417wmq.12.2022.11.11.13.40.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Nov 2022 13:40:47 -0800 (PST)
-Message-ID: <c583b742-9582-ceaa-aaf7-097cecb78a2e@gmail.com>
-Date:   Fri, 11 Nov 2022 22:40:39 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.1
-Subject: Re: _Generic.3: EXAMPLES: C++'s static_cast() in C
-Content-Language: en-US
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=sXGO+9RSG9I+KyMHGvb/rslvIziqm5D4YZsBXfWDP1Y=;
+        b=tSCwBAg1MepAaGBgVTDrk0nozscyRZ2izpOt1+smeW75zrD7zCwtKl78uqAIVhqHF7
+         RQlsCtzdxWrNP1lhl8eLjG9Ht9N3TzTRkPjY5kiGBodusbr0MhATfBEYB74l/p8hjqa4
+         2ZdGUj9ENyaUYbrrSyH1iPWBhaudE6tuE/huukkYoOIXdRHZDTPIzfjdje8VqwUHym/A
+         /3arefoWlLbAi+iM9kNHdzIWuk7V0wMVhSj+AmSlK95r3PWYHnK2rtcL9R3fB71ystyr
+         gO5FMAbTOfuJo0Nfm/o23P0ZviEuexbCVpADgtRYIYzOlRK539XxfiHL+NTXS5F4kHjP
+         CQzw==
+X-Gm-Message-State: ANoB5pnA4RYstOX3ODVkuLODdUd79FATWK+ztvG39DVnMV2hIJazFeJw
+        ylgmT07hKqpMKQASn9psYakeQLqWZmI=
+X-Google-Smtp-Source: AA0mqf7Ziw2MAVHO8SGRszYiQt8C7+Jni1zV5uPxh7/h/RvY9TZ+Yihvvfnr9XXWMOwu87EjkgECJw==
+X-Received: by 2002:a5d:6250:0:b0:236:55eb:a25a with SMTP id m16-20020a5d6250000000b0023655eba25amr2440938wrv.55.1668208106211;
+        Fri, 11 Nov 2022 15:08:26 -0800 (PST)
+Received: from asus5775.alejandro-colomar.es ([170.253.36.171])
+        by smtp.googlemail.com with ESMTPSA id g9-20020a05600c310900b003a2f2bb72d5sm12858790wmo.45.2022.11.11.15.08.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Nov 2022 15:08:25 -0800 (PST)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     linux-man <linux-man@vger.kernel.org>
-Cc:     Andrew Clayton <andrew@digital-domain.net>
-References: <1d042618-35ac-d5a5-c469-4301bb7a2cce@gmail.com>
- <f85646f4-5ebc-76a7-c0f1-6d9a632b9edd@gmail.com>
- <97f60deb-7818-d510-27e9-4eb4a929ab55@gmail.com>
- <71b02e3a-d710-cda0-6ae6-5f12c664b7f8@gmail.com>
-In-Reply-To: <71b02e3a-d710-cda0-6ae6-5f12c664b7f8@gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------pqmzzL0uumUbkiJU4GdKI3Ys"
+X-Google-Original-From: Alejandro Colomar <alx@kernel.org>
+To:     linux-man@vger.kernel.org
+Cc:     Alejandro Colomar <alx@kernel.org>,
+        Andrew Clayton <andrew@digital-domain.net>
+Subject: [PATCH v6] _Generic.3: EXAMPLES: Add sockaddr_cast() macro
+Date:   Sat, 12 Nov 2022 00:06:44 +0100
+Message-Id: <20221111230643.10764-1-alx@kernel.org>
+X-Mailer: git-send-email 2.38.1
+In-Reply-To: <c583b742-9582-ceaa-aaf7-097cecb78a2e@gmail.com>
+References: <c583b742-9582-ceaa-aaf7-097cecb78a2e@gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -77,180 +72,170 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------pqmzzL0uumUbkiJU4GdKI3Ys
-Content-Type: multipart/mixed; boundary="------------Ks66cgbn0TuJmfG739UkZK50";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: linux-man <linux-man@vger.kernel.org>
+This macro is an example of how C++-style casts can be implemented in C.
+They are better than C's casts because they only allow certain
+conversions, while disallowing most.  This adds considerable type
+safety.  They also make code more greppable.
+
+A macro similar to const_cast() can also be implemented in a similar
+manner:
+
+ /* This code is in the public domain. */
+
+ #define qual_cast(t, p)                               \
+    _Generic(typeof_unqual(&*(p)),                     \
+    typeof_unqual(t):                                  \
+        _Generic(&*(p),                                \
+        const t:          (t) (p),                     \
+        volatile t:       (t) (p),                     \
+        const volatile t: (t) (p),                     \
+        default:              (p))                     \
+    default:                                           \
+        (p)                                            \
+    )
+
+However, qual_cast() is less useful in quality code, since it breaks const
+correctness.  It's only useful to interface dubious APIs.
+
+Note that typeof_unqual() is yet unsupported by GCC and Clang, and will
+be added to C23.  Similar behavior can be achieved by combining GNU
+builtins.
+
 Cc: Andrew Clayton <andrew@digital-domain.net>
-Message-ID: <c583b742-9582-ceaa-aaf7-097cecb78a2e@gmail.com>
-Subject: Re: _Generic.3: EXAMPLES: C++'s static_cast() in C
-References: <1d042618-35ac-d5a5-c469-4301bb7a2cce@gmail.com>
- <f85646f4-5ebc-76a7-c0f1-6d9a632b9edd@gmail.com>
- <97f60deb-7818-d510-27e9-4eb4a929ab55@gmail.com>
- <71b02e3a-d710-cda0-6ae6-5f12c664b7f8@gmail.com>
-In-Reply-To: <71b02e3a-d710-cda0-6ae6-5f12c664b7f8@gmail.com>
+Signed-off-by: Alejandro Colomar <alx@kernel.org>
+---
+ man3/_Generic.3 | 113 +++++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 112 insertions(+), 1 deletion(-)
 
---------------Ks66cgbn0TuJmfG739UkZK50
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+diff --git a/man3/_Generic.3 b/man3/_Generic.3
+index ddee5f6c4..740b7b358 100644
+--- a/man3/_Generic.3
++++ b/man3/_Generic.3
+@@ -27,12 +27,123 @@ .SH DESCRIPTION
+ .SH STANDARDS
+ C11 and later.
+ .SH EXAMPLES
++The following code demonstrates how to write
++a macro similar to C++'s
++.BR \%static_cast (),
++which will allow casting safely between a limited set of types.
++It is useful for example when calling
++system calls or library functions that use compatible structures,
++like for example
++.BR bind (2)
++with
++.BR \%sockaddr (3type).
++.IP
++.EX
++/* This code is in the public domain. */
++
++#include <netinet/in.h>
++#include <sys/socket.h>
++#include <sys/un.h>
++
++#define sockaddr_cast(t, p)                            \e
++    _Generic(&*(p),                                    \e
++    struct sockaddr *:                                 \e
++        _Generic((typeof_unqual(t)) NULL,              \e
++        struct sockaddr_in *:             (t) (p),     \e
++        struct sockaddr_in6 *:            (t) (p),     \e
++        struct sockaddr_un *:             (t) (p),     \e
++        default:                              (p)),    \e
++    struct sockaddr **:                                \e
++        _Generic((typeof_unqual(t)) NULL,              \e
++        struct sockaddr_in **:            (t) (p),     \e
++        struct sockaddr_in6 **:           (t) (p),     \e
++        struct sockaddr_un **:            (t) (p),     \e
++        default:                              (p)),    \e
++    const struct sockaddr *:                           \e
++        _Generic((t) NULL,                             \e
++        const struct sockaddr_in *:       (t) (p),     \e
++        const struct sockaddr_in6 *:      (t) (p),     \e
++        const struct sockaddr_un *:       (t) (p),     \e
++        default:                              (p)),    \e
++                                                       \e
++    struct sockaddr_in *:                              \e
++        _Generic((typeof_unqual(t)) NULL,              \e
++        struct sockaddr *:                (t) (p),     \e
++        default:                              (p)),    \e
++    struct sockaddr_in **:                             \e
++        _Generic((typeof_unqual(t)) NULL,              \e
++        struct sockaddr **:               (t) (p),     \e
++        default:                              (p)),    \e
++    const struct sockaddr_in *:                        \e
++        _Generic((t) NULL,                             \e
++        const struct sockaddr *:          (t) (p),     \e
++        default:                              (p)),    \e
++                                                       \e
++    struct sockaddr_in6 *:                             \e
++        _Generic((typeof_unqual(t)) NULL,              \e
++        struct sockaddr *:                (t) (p),     \e
++        default:                              (p)),    \e
++    struct sockaddr_in6 **:                            \e
++        _Generic((typeof_unqual(t)) NULL,              \e
++        struct sockaddr **:               (t) (p),     \e
++        default:                              (p)),    \e
++    const struct sockaddr_in6 *:                       \e
++        _Generic((t) NULL,                             \e
++        const struct sockaddr *:          (t) (p),     \e
++        default:                              (p)),    \e
++                                                       \e
++    struct sockaddr_un *:                              \e
++        _Generic((typeof_unqual(t)) NULL,              \e
++        struct sockaddr *:                (t) (p),     \e
++        default:                              (p)),    \e
++    struct sockaddr_un **:                             \e
++        _Generic((typeof_unqual(t)) NULL,              \e
++        struct sockaddr **:               (t) (p),     \e
++        default:                              (p)),    \e
++    const struct sockaddr_un *:                        \e
++        _Generic((t) NULL,                             \e
++        const struct sockaddr *:          (t) (p),     \e
++        default:                              (p)),    \e
++                                                       \e
++    struct sockaddr_storage *:                         \e
++        _Generic((typeof_unqual(t)) NULL,              \e
++        struct sockaddr *:                (t) (p),     \e
++        struct sockaddr_in *:             (t) (p),     \e
++        struct sockaddr_in6 *:            (t) (p),     \e
++        struct sockaddr_un *:             (t) (p),     \e
++        default:                              (p)),    \e
++    struct sockaddr_storage **:                        \e
++        _Generic((typeof_unqual(t)) NULL,              \e
++        struct sockaddr **:               (t) (p),     \e
++        struct sockaddr_in **:            (t) (p),     \e
++        struct sockaddr_in6 **:           (t) (p),     \e
++        struct sockaddr_un **:            (t) (p),     \e
++        default:                              (p)),    \e
++    const struct sockaddr_storage *:                   \e
++        _Generic((t) NULL,                             \e
++        const struct sockaddr *:          (t) (p),     \e
++        const struct sockaddr_in *:       (t) (p),     \e
++        const struct sockaddr_in6 *:      (t) (p),     \e
++        const struct sockaddr_un *:       (t) (p),     \e
++        default:                              (p)),    \e
++                                                       \e
++    default:                                           \e
++        (p)                                            \e
++    )
++
++socklen_t                slen;
++struct sockaddr_storage  ss;
++
++slen = sizeof(ss);
++getsockname(sfd, sockaddr_cast(struct sockaddr *, &ss), &slen);
++.EE
++.PP
+ The following program demonstrates how to write
+ a replacement for the standard
+ .BR imaxabs (3)
+ function, which being a function can't really provide what it promises:
+ seamlessly upgrading to the widest available type.
+-.PP
++.IP
+ .\" SRC BEGIN (_Generic.c)
+ .EX
+ #include <stdint.h>
+-- 
+2.38.1
 
-T24gMTEvMTEvMjIgMTg6MDgsIEFsZWphbmRybyBDb2xvbWFyIHdyb3RlOj4+Pj4gRGVhciBy
-ZWFkZXJzLA0KPj4+Pg0KPj4+PiBJJ3ZlIGJlZW4gZGV2ZWxvcGluZyBhIGNhc3QgbWFjcm8g
-Zm9yIEMgdGhhdCBpcyBzaW1pbGFyIHRvIEMrKydzIA0KPj4+PiBzdGF0aWNfY2FzdCgpLCB3
-aGljaCBhbGxvd3MgdG86DQo+Pj4+DQo+Pj4+IC0gQ2FzdCBiZXR3ZWVuIGEgbGltaXRlZCBz
-ZXQgb2YgdHlwZXMgKGFjdHVhbGx5LCBwb2ludGVycyB0byB0aG9zZSB0eXBlcykuDQo+Pj4+
-IC0gQ2FuIGFkZCBjb25zdCwgYnV0IG5vdCByZW1vdmUgaXQuDQo+Pj4+IC0gRWFzaWx5IGdy
-ZXAgZm9yIGFsbCBjYXN0cy4NCj4+Pj4NCj4+Pj4gQnV0IGZvcmJpZHM6DQo+Pj4+DQo+Pj4+
-IC0gQ2FzdCBiZXR3ZWVuIHVucmVsYXRlZCB0eXBlcy4NCj4+Pj4gLSBSZW1vdmluZyBjb25z
-dC4NCj4+Pj4NCj4+Pj4gVGhpcyBpbXByb3ZlcyB0eXBlIHNhZmV0eSBpbiBDLCB3aGVyZSBj
-YXN0cyBhbGxvdyBwcm9ncmFtbWVycyB0byBjb21taXQgYWxsIA0KPj4+PiBraW5kcyBvZiBj
-cmltZXMgYnkgZGlzYWJsaW5nIG1vc3QgY29tcGlsZXIgd2FybmluZ3MuDQo+Pj4+DQo+Pj4+
-IFRoZSBtYWNybyBJIG9yaWdpbmFsbHkgd3JvdGUsIGFsbG93cyB0byBjb252ZXJ0IGJldHdl
-ZW4gdV9jaGFyIGFuZCBjaGFyLCBmb3IgDQo+Pj4+IGEgY29kZSBiYXNlIHRoYXQgdXNlcyB1
-X2NoYXIgaW50ZXJuYWxseSBidXQgaGFzIHRvIGludGVyZmFjZSBsaWJjIGFuZCANCj4+Pj4g
-c3lzY2FsbHMuIFRoYXQgb25lIGlzIHVubmVjZXNzYXJ5IGZvciBtb3N0IGNvZGUgYmFzZXMg
-d2hpY2gganVzdCB1c2UgY2hhciANCj4+Pj4gKGFuZCB0aGF0J3MgaG93IGl0IHNob3VsZCBi
-ZSBmb3Igc3RyaW5nczsgaWYgeW91IHdhbnQgdW5zaWduZWQgJ2NoYXIncywgeW91IA0KPj4+
-PiBzaG91bGQgdXNlICctZnVuc2lnbmVkLWNoYXInKS4NCj4+Pj4NCj4+Pj4gQnV0IHRoZXJl
-IGFyZSBjYXNlcyB3aGVyZSB0aGUga2VybmVsIG9yIGxpYmMgZm9yY2VzIHVzIHRvIHVzZSBj
-YXN0cywgbGlrZSANCj4+Pj4gZm9yIGV4YW1wbGUgaW4gYmluZCgyKS7CoCBUaGF0J3MgZm9y
-IHdoYXQgdGhlIGZvbGxvd2luZyBtYWNybyBpcywgYW5kIEkgcGxhbiANCj4+Pj4gdG8gYWRk
-IGl0IHRvIHRoZSBFWEFNUExFUyBzZWN0aW9uIGluIF9HZW5lcmljKDMpLCByZXBsYWNpbmcg
-dGhlIHByZXZpb3VzIA0KPj4+PiBwcm9ncmFtLg0KPj4+Pg0KPj4+PiBUaGUgbWFjcm8gaXRz
-ZWxmIGlzIHF1aXRlIGh1Z2UsIHdoaWNoIG1pZ2h0IGRpc2NvdXJhZ2Ugc29tZSwgYnV0IGl0
-IGlzIG5vdCANCj4+Pj4gc28gY29tcGxleC7CoCBJJ2xsIHJlbGVhc2UgaXQgdG8gdGhlIHB1
-YmxpYyBkb21haW4uwqAgQ291bGQgeW91IHBsZWFzZSByZXZpZXcgaXQ/DQo+Pj4+DQo+Pj4+
-IENoZWVycywNCj4+Pj4NCj4+Pj4gQWxleA0KPj4+Pg0KPj4+DQo+Pj4gV2l0aCBDMngncyB0
-eXBlb2ZfdW5xdWFsKCksIGl0IGNhbiBiZSBtYWRlIGEgYml0IHNtYWxsZXIsIGFuZCBiZXR0
-ZXIgKGl0IG5vdyANCj4+PiBzdXBwb3J0cyB2b2xhdGlsZSkuDQo+Pg0KPj4NCj4+IEFuZCBz
-aW5jZSBpdCBtYWtlcyBubyBzZW5zZSB0byBjb252ZXJ0IGJldHdlZW4gc29tZSBvZiB0aGUg
-ZGVyaXZhdGl2ZSB0eXBlcyANCj4+IChlLmcuLCBzYV9pbiB0byBzYV91biksIGl0IGNhbiBi
-ZSBmdXJ0aGVyIHNpbXBsaWZpZWQ6DQo+Pg0KPiB2NDoNCj4gDQo+IC0gUmVpbnRyb2R1Y2Ug
-c29tZSB0eXBlb2ZfdW5xdWFsKCkgdGhhdCB3ZXJlIGFjY2lkZW50YWxseSByZW1vdmVkIGlu
-IHYzLg0KPiAtIEFsaWduIGNhc3RzIGZvciByZWFkYWJpbGl0eS4NCj4gDQoNCnY1Og0KDQot
-IENhc3RpbmcgdG8gc29ja2FkZHJfc3RvcmFnZSBpcyB1c2VsZXNzLiAgT25seSBjYXN0aW5n
-IGZyb20gaXQgbWFrZXMgc2Vuc2UuDQoNCkknbGwgc2VuZCBzaG9ydGx5IGFmdGVyIGFuIHY2
-LCBpZiBJIG1hbmFnZSB0byBzaW1wbGlmeSBhZnRlciB0aGlzIGNoYW5nZSwgYnV0IA0KSSds
-bCBwb3N0IHRoaXMgdjUgdG8gbm90IGhhdmUgYSBzdWRkZW4ganVtcCB3aXRoIGFuIHVucmVh
-ZGFibHkgaW50ZXJkaWZmLg0KDQojZGVmaW5lIHNvY2thZGRyX2Nhc3QodCwgcCkgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgXA0KICAgICBfR2VuZXJpYygmKihwKSwgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICBcDQogICAgIHN0cnVjdCBzb2NrYWRkciAqOiAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwNCiAgICAgICAgIF9HZW5lcmljKCh0
-eXBlb2ZfdW5xdWFsKHQpKSBOVUxMLCAgICAgICAgICAgICAgXA0KICAgICAgICAgc3RydWN0
-IHNvY2thZGRyX2luICo6ICAgICAgICAgICAgICh0KSAocCksICAgICBcDQogICAgICAgICBz
-dHJ1Y3Qgc29ja2FkZHJfaW42ICo6ICAgICAgICAgICAgKHQpIChwKSwgICAgIFwNCiAgICAg
-ICAgIHN0cnVjdCBzb2NrYWRkcl91biAqOiAgICAgICAgICAgICAodCkgKHApLCAgICAgXA0K
-ICAgICAgICAgZGVmYXVsdDogKHApKSwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBcDQogICAgIHN0cnVjdCBzb2NrYWRkciAqKjogICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIFwNCiAgICAgICAgIF9HZW5lcmljKCh0eXBlb2ZfdW5xdWFsKHQpKSBOVUxMLCAg
-ICAgICAgICAgICAgXA0KICAgICAgICAgc3RydWN0IHNvY2thZGRyX2luICoqOiAgICAgICAg
-ICAgICh0KSAocCksICAgICBcDQogICAgICAgICBzdHJ1Y3Qgc29ja2FkZHJfaW42ICoqOiAg
-ICAgICAgICAgKHQpIChwKSwgICAgIFwNCiAgICAgICAgIHN0cnVjdCBzb2NrYWRkcl91biAq
-KjogICAgICAgICAgICAodCkgKHApLCAgICAgXA0KICAgICAgICAgZGVmYXVsdDogKHApKSwg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcDQogICAgIGNvbnN0IHN0cnVjdCBz
-b2NrYWRkciAqOiAgICAgICAgICAgICAgICAgICAgICAgICAgIFwNCiAgICAgICAgIF9HZW5l
-cmljKCh0KSBOVUxMLCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXA0KICAgICAgICAg
-Y29uc3Qgc3RydWN0IHNvY2thZGRyX2luICo6ICAgICAgICh0KSAocCksICAgICBcDQogICAg
-ICAgICBjb25zdCBzdHJ1Y3Qgc29ja2FkZHJfaW42ICo6ICAgICAgKHQpIChwKSwgICAgIFwN
-CiAgICAgICAgIGNvbnN0IHN0cnVjdCBzb2NrYWRkcl91biAqOiAgICAgICAodCkgKHApLCAg
-ICAgXA0KICAgICAgICAgZGVmYXVsdDogKHApKSwgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICBcDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIFwNCiAgICAgc3RydWN0IHNvY2thZGRyX2luICo6ICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgXA0KICAgICAgICAgX0dlbmVyaWMoKHR5cGVvZl91bnF1YWwo
-dCkpIE5VTEwsICAgICAgICAgICAgICBcDQogICAgICAgICBzdHJ1Y3Qgc29ja2FkZHIgKjog
-ICAgICAgICAgICAgICAgKHQpIChwKSwgICAgIFwNCiAgICAgICAgIGRlZmF1bHQ6IChwKSks
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXA0KICAgICBzdHJ1Y3Qgc29ja2Fk
-ZHJfaW4gKio6ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcDQogICAgICAgICBfR2Vu
-ZXJpYygodHlwZW9mX3VucXVhbCh0KSkgTlVMTCwgICAgICAgICAgICAgIFwNCiAgICAgICAg
-IHN0cnVjdCBzb2NrYWRkciAqKjogICAgICAgICAgICAgICAodCkgKHApLCAgICAgXA0KICAg
-ICAgICAgZGVmYXVsdDogKHApKSwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBc
-DQogICAgIGNvbnN0IHN0cnVjdCBzb2NrYWRkcl9pbiAqOiAgICAgICAgICAgICAgICAgICAg
-ICAgIFwNCiAgICAgICAgIF9HZW5lcmljKCh0KSBOVUxMLCAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgXA0KICAgICAgICAgY29uc3Qgc3RydWN0IHNvY2thZGRyICo6ICAgICAgICAg
-ICh0KSAocCksICAgICBcDQogICAgICAgICBkZWZhdWx0OiAocCkpLCAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIFwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgXA0KICAgICBzdHJ1Y3Qgc29ja2FkZHJfaW42ICo6
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcDQogICAgICAgICBfR2VuZXJpYygodHlw
-ZW9mX3VucXVhbCh0KSkgTlVMTCwgICAgICAgICAgICAgIFwNCiAgICAgICAgIHN0cnVjdCBz
-b2NrYWRkciAqOiAgICAgICAgICAgICAgICAodCkgKHApLCAgICAgXA0KICAgICAgICAgZGVm
-YXVsdDogKHApKSwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcDQogICAgIHN0
-cnVjdCBzb2NrYWRkcl9pbjYgKio6ICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwNCiAg
-ICAgICAgIF9HZW5lcmljKCh0eXBlb2ZfdW5xdWFsKHQpKSBOVUxMLCAgICAgICAgICAgICAg
-XA0KICAgICAgICAgc3RydWN0IHNvY2thZGRyICoqOiAgICAgICAgICAgICAgICh0KSAocCks
-ICAgICBcDQogICAgICAgICBkZWZhdWx0OiAocCkpLCAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIFwNCiAgICAgY29uc3Qgc3RydWN0IHNvY2thZGRyX2luNiAqOiAgICAgICAg
-ICAgICAgICAgICAgICAgXA0KICAgICAgICAgX0dlbmVyaWMoKHQpIE5VTEwsICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICBcDQogICAgICAgICBjb25zdCBzdHJ1Y3Qgc29ja2FkZHIg
-KjogICAgICAgICAgKHQpIChwKSwgICAgIFwNCiAgICAgICAgIGRlZmF1bHQ6IChwKSksICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXA0KICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcDQogICAgIHN0cnVjdCBzb2Nr
-YWRkcl91biAqOiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwNCiAgICAgICAgIF9H
-ZW5lcmljKCh0eXBlb2ZfdW5xdWFsKHQpKSBOVUxMLCAgICAgICAgICAgICAgXA0KICAgICAg
-ICAgc3RydWN0IHNvY2thZGRyICo6ICAgICAgICAgICAgICAgICh0KSAocCksICAgICBcDQog
-ICAgICAgICBkZWZhdWx0OiAocCkpLCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IFwNCiAgICAgc3RydWN0IHNvY2thZGRyX3VuICoqOiAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgXA0KICAgICAgICAgX0dlbmVyaWMoKHR5cGVvZl91bnF1YWwodCkpIE5VTEwsICAg
-ICAgICAgICAgICBcDQogICAgICAgICBzdHJ1Y3Qgc29ja2FkZHIgKio6ICAgICAgICAgICAg
-ICAgKHQpIChwKSwgICAgIFwNCiAgICAgICAgIGRlZmF1bHQ6IChwKSksICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgXA0KICAgICBjb25zdCBzdHJ1Y3Qgc29ja2FkZHJfdW4g
-KjogICAgICAgICAgICAgICAgICAgICAgICBcDQogICAgICAgICBfR2VuZXJpYygodCkgTlVM
-TCwgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwNCiAgICAgICAgIGNvbnN0IHN0cnVj
-dCBzb2NrYWRkciAqOiAgICAgICAgICAodCkgKHApLCAgICAgXA0KICAgICAgICAgZGVmYXVs
-dDogKHApKSwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcDQogICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwNCiAgICAg
-c3RydWN0IHNvY2thZGRyX3N0b3JhZ2UgKjogICAgICAgICAgICAgICAgICAgICAgICAgXA0K
-ICAgICAgICAgX0dlbmVyaWMoKHR5cGVvZl91bnF1YWwodCkpIE5VTEwsICAgICAgICAgICAg
-ICBcDQogICAgICAgICBzdHJ1Y3Qgc29ja2FkZHIgKjogICAgICAgICAgICAgICAgKHQpIChw
-KSwgICAgIFwNCiAgICAgICAgIHN0cnVjdCBzb2NrYWRkcl9pbiAqOiAgICAgICAgICAgICAo
-dCkgKHApLCAgICAgXA0KICAgICAgICAgc3RydWN0IHNvY2thZGRyX2luNiAqOiAgICAgICAg
-ICAgICh0KSAocCksICAgICBcDQogICAgICAgICBzdHJ1Y3Qgc29ja2FkZHJfdW4gKjogICAg
-ICAgICAgICAgKHQpIChwKSwgICAgIFwNCiAgICAgICAgIGRlZmF1bHQ6IChwKSksICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgXA0KICAgICBzdHJ1Y3Qgc29ja2FkZHJfc3Rv
-cmFnZSAqKjogICAgICAgICAgICAgICAgICAgICAgICBcDQogICAgICAgICBfR2VuZXJpYygo
-dHlwZW9mX3VucXVhbCh0KSkgTlVMTCwgICAgICAgICAgICAgIFwNCiAgICAgICAgIHN0cnVj
-dCBzb2NrYWRkciAqKjogICAgICAgICAgICAgICAodCkgKHApLCAgICAgXA0KICAgICAgICAg
-c3RydWN0IHNvY2thZGRyX2luICoqOiAgICAgICAgICAgICh0KSAocCksICAgICBcDQogICAg
-ICAgICBzdHJ1Y3Qgc29ja2FkZHJfaW42ICoqOiAgICAgICAgICAgKHQpIChwKSwgICAgIFwN
-CiAgICAgICAgIHN0cnVjdCBzb2NrYWRkcl91biAqKjogICAgICAgICAgICAodCkgKHApLCAg
-ICAgXA0KICAgICAgICAgZGVmYXVsdDogKHApKSwgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICBcDQogICAgIGNvbnN0IHN0cnVjdCBzb2NrYWRkcl9zdG9yYWdlICo6ICAgICAg
-ICAgICAgICAgICAgIFwNCiAgICAgICAgIF9HZW5lcmljKCh0KSBOVUxMLCAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgXA0KICAgICAgICAgY29uc3Qgc3RydWN0IHNvY2thZGRyICo6
-ICAgICAgICAgICh0KSAocCksICAgICBcDQogICAgICAgICBjb25zdCBzdHJ1Y3Qgc29ja2Fk
-ZHJfaW4gKjogICAgICAgKHQpIChwKSwgICAgIFwNCiAgICAgICAgIGNvbnN0IHN0cnVjdCBz
-b2NrYWRkcl9pbjYgKjogICAgICAodCkgKHApLCAgICAgXA0KICAgICAgICAgY29uc3Qgc3Ry
-dWN0IHNvY2thZGRyX3VuICo6ICAgICAgICh0KSAocCksICAgICBcDQogICAgICAgICBkZWZh
-dWx0OiAocCkpLCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwNCiAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXA0KICAg
-ICBkZWZhdWx0OiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBc
-DQogICAgICAgICAocCkgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIFwNCiAgICAgKQ0KDQoNCi0tIA0KPGh0dHA6Ly93d3cuYWxlamFuZHJvLWNvbG9tYXIu
-ZXMvPg0K
-
---------------Ks66cgbn0TuJmfG739UkZK50--
-
---------------pqmzzL0uumUbkiJU4GdKI3Ys
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmNuwVcACgkQnowa+77/
-2zIAyQ//UqhrATiQwCnjwb+UcVpRSIzoKj44wYvQftusnUY0JqeoKhMJOek40fxw
-yF0sWUDIAzAOwzrEScEX0CbUUMQCzF0tkNBUocffBjlloVDlSQKhtZ6T3YNSgvZD
-aO39KcJI7jyvvVOqjWp+XZ0eZsEKC13PhDCC7Y1qX/6rg7JoxoCA2JO6KGKZRIF7
-cE4ITfBbeKISB6SRIngHj9/dyvXtHqAQmwRO0yJ5Y8XSMX9Qwv584ZoceCteq0j2
-Rrt1SKJn1LBaP7i+hZylPnsevdiR5Xq4j+qI1v1KLtMYwBTc4DTUh5VeHw8ZILdM
-jYyHfs67xxON9oaHv5BIdp3l3qDpjhqx8p2kGRoAmwgelNGfJ47A5BMlRSWOQnLP
-YFYqAkiCV23vjbOhNACYF80Ag2Ba+jh75adHsIw2JFf+dy9HR4XVF2e+aUp8Ocsi
-BgpI/Fd4+KBqs2/d7gsp0jHdlgvvyI7VyL25caQq963jTB1JOCyy5d+6PRoOUZ3J
-j/rkANdGWHGllLRKAXFgMpnCZFsIMeWXNXYvl3SMc7qRrx2z5d9NvYa5PbbshQTv
-a+cSLJu8qliAFfBju6nIK+DxKfaMAK1QGoIfPxHRd9zVOPa9c0bjqB6g4y/Zuees
-O0c4Vn5DpkXME/kNl2sNCoqdiVGI0LtgfG0rVsy+xvaIFo9vfg8=
-=tgWv
------END PGP SIGNATURE-----
-
---------------pqmzzL0uumUbkiJU4GdKI3Ys--
