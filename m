@@ -2,75 +2,65 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id AD4A06252CC
-	for <lists+linux-man@lfdr.de>; Fri, 11 Nov 2022 05:46:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id C0671625D88
+	for <lists+linux-man@lfdr.de>; Fri, 11 Nov 2022 15:53:36 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230043AbiKKEqp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 10 Nov 2022 23:46:45 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44674 "EHLO
+        id S233395AbiKKOxf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 11 Nov 2022 09:53:35 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57324 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230181AbiKKEp4 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 10 Nov 2022 23:45:56 -0500
-Received: from mail-oa1-x35.google.com (mail-oa1-x35.google.com [IPv6:2001:4860:4864:20::35])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BDBB46EB5E
-        for <linux-man@vger.kernel.org>; Thu, 10 Nov 2022 20:44:28 -0800 (PST)
-Received: by mail-oa1-x35.google.com with SMTP id 586e51a60fabf-13b103a3e5dso4402801fac.2
-        for <linux-man@vger.kernel.org>; Thu, 10 Nov 2022 20:44:28 -0800 (PST)
+        with ESMTP id S234679AbiKKOx2 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 11 Nov 2022 09:53:28 -0500
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com [IPv6:2a00:1450:4864:20::436])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id ABBEDCC5
+        for <linux-man@vger.kernel.org>; Fri, 11 Nov 2022 06:53:27 -0800 (PST)
+Received: by mail-wr1-x436.google.com with SMTP id w14so6766290wru.8
+        for <linux-man@vger.kernel.org>; Fri, 11 Nov 2022 06:53:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=YyLSoOzFmoCNAHInCM8zeSuXAJvqaXiy4kC1sFQWDnM=;
-        b=Oyi8Qn9MpzAe3NUSOgTcv9Eyd10GY6jd2MwQFVIa4C8zTxH+jBdUnAPaqu3OmpzYee
-         RXab7KdyNryRkyzMTV3LvvFQoBAYKxmsXs1gCM0qHB5D6o/lpwbPor4Ilpd+/pA8jsxy
-         ipvEfMiOC+xhjX1VJ9U1bZtCAxWQ3fOwtr82TVArP9cFssxMx7YbmyWJ5hVW601bhnvc
-         35OB0f3AwHLMrAgDAtmv095EWWsJIQEMm88FrvSlR7/ch5Z4/ltji4kQgd5iKFB3D406
-         WQsfJVd8TBXmz1+pIrno8Qox2mojZLX6FEv9ZvHdULtdwLkYgOK4I/0WFwEUQWXIof11
-         IWJw==
+        h=subject:from:cc:to:content-language:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Ws1qOxfZ89sJ66EN33MHEVNmUMSIQIWwg1FKIhylqME=;
+        b=duNo0fGcrz6lINuCzbzTyOq3BlNgP+hPkAaZeSx3XCG9lrAHpByZG+C+s0yq8CXrow
+         AHxHVbLbhti2wUPWL/cVxceGVQrzF01OFHQA6SCg3qxZZUPSsgPQwynLS/MD+RAMugs1
+         Ecs7hzrJncBMou2n0XeWhPkMubRouTNTIJObdcNaObnmtIPdAW1UXWZ4DfJQOytMDPnH
+         tnxz6hpSnQ/hH15F/NrzDHzlwhyNgnqF29VyooXTz1yvNJXLEPa4Ml4PSLwl+SG87NEp
+         deAsFrh5ysrKk6m74L3VCyLLKOnnrpkNdl5oa9wuGW2YYU5ln1Isd1JN89l3Iz7fOfrd
+         KIqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=YyLSoOzFmoCNAHInCM8zeSuXAJvqaXiy4kC1sFQWDnM=;
-        b=hZ9sYiXoHOy7PP40AReARbpWILJw0PS25NAsSvkgcswrFxfLm62iov70PxqaEdvKEg
-         7OloqTVsOy/VceENG9zHpXhJklwmZBTyS51NKROOADkTeCHwvXgmLeQ0KmBy5LZywGG5
-         Rbd1GTErCgfjBKWDISjRTgA0gNNlSLXCOdQ4kyC8o5utYOHp9Q3CMbmXxWQQ1N8/NVx8
-         uxI5d2dIP+G9syUxRY0MgAw9bFW/i2bQbzX/CE8ZwX/aqi1tsGt/alO4DQ/S5ehWIYIx
-         izMw1xSs0gdsypfTyDNzGcPxhl0XCh6QOonAjwderOYuCeaiR9IxvwACk50RAB5O46pf
-         sWvg==
-X-Gm-Message-State: ANoB5pnyorLva/EOkksJOou1qC8mY1++3EgMMuf2j2U7mW4SbO87jMIy
-        shmzX2b8nmGx4KP1d4VSsG9xyqkkmO0=
-X-Google-Smtp-Source: AA0mqf5zCVVEPAmmW8TCZHCCIU1iTZD6DNgivBLlauDbFZ6v+qvON1Bh2CLeJvhm/uld3zkEVUkMSQ==
-X-Received: by 2002:a05:6870:17a5:b0:13b:7793:444c with SMTP id r37-20020a05687017a500b0013b7793444cmr20770oae.59.1668141868070;
-        Thu, 10 Nov 2022 20:44:28 -0800 (PST)
-Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id h7-20020a4aa747000000b00492f9f46aa4sm94352oom.36.2022.11.10.20.44.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Nov 2022 20:44:27 -0800 (PST)
-Date:   Thu, 10 Nov 2022 22:44:24 -0600
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     groff <groff@gnu.org>, Ingo Schwarze <schwarze@usta.de>,
-        linux-man@vger.kernel.org
-Subject: Re: MR macro 4th argument (was: [PATCH] Various pages: SYNOPSIS: Use
- VLA syntax in function parameters)
-Message-ID: <20221111044424.ohbhmhqni7pukuf2@illithid>
-References: <d524528c29f806b763a2d394abc1241f6b2dc0cb.camel@tugraz.at>
- <51f5a2f2-84c1-bc75-cf94-0cdc1771d37f@gmail.com>
- <4e3fee795769544738b3dc793aa95d6b34b72047.camel@tugraz.at>
- <e9ba79ff-fb73-c4d4-b966-d8d15062f7b7@gmail.com>
- <20221110094033.ptpfsqpvvx2yd5xs@illithid>
- <8cca79d4-f31d-1508-0775-cef54e3755c1@gmail.com>
- <01da77c7-fed2-0fc1-ae6a-770885057a27@gmail.com>
- <5e3a103d-2aff-511a-e819-96dafb640c24@gmail.com>
- <20221110225524.hiojzgiiid5d3k65@illithid>
- <8f7162fd-cefb-dc31-cb0f-ba4b76ca5011@gmail.com>
+        h=subject:from:cc:to:content-language:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Ws1qOxfZ89sJ66EN33MHEVNmUMSIQIWwg1FKIhylqME=;
+        b=xop5nefh3dj1ttivRCFfnVYZv42E89ZY1WoyM9l85dbKIi3sLj5CuwvaZy/AVL+PWd
+         72DCylz0mgYzjIzZBPnTyCuIJEDZNbveV/hIldteZaS48ZRf0BTX1s9Ph651nsdXUM5X
+         VAtdkfwPKLsa2g8m+/onnox4QlzJBz8mp1/JtMXsrs3lxh4b/nkv+if8hAXL8IoS3wEP
+         ChEK/Y1JG7UKqhBkn59Nxmie+fJEwToKPFqiRbo2jYctgu7aXkfimD6LUR0AaxKEHKX4
+         y+1/KrF8AemWTd6LzvmLLV9fyVV1odIOnoXRGpSjgPMBq4r5MB8/wBE3s+hzlPBWIVUm
+         MDbg==
+X-Gm-Message-State: ANoB5pmwDdYNKHupLf37vC4QjYb83wHOlEiNiCdrFB/IUZePRP2t9dZg
+        bZFCViDjmI88Cmb4r4i2U/PL/xQaDTs=
+X-Google-Smtp-Source: AA0mqf7Al7q5C8eB3w4dozOr7v9ujMoKv8lHI+z73oGigYG9BuAKFToZi4l5C+y8MOKSJY56Z6t8iw==
+X-Received: by 2002:a5d:528c:0:b0:22f:da60:345 with SMTP id c12-20020a5d528c000000b0022fda600345mr1447879wrv.218.1668178405622;
+        Fri, 11 Nov 2022 06:53:25 -0800 (PST)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id g16-20020a7bc4d0000000b003cf75f56105sm3584656wmk.41.2022.11.11.06.53.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 11 Nov 2022 06:53:25 -0800 (PST)
+Message-ID: <1d042618-35ac-d5a5-c469-4301bb7a2cce@gmail.com>
+Date:   Fri, 11 Nov 2022 15:53:15 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.1
+Content-Language: en-US
+To:     linux-man <linux-man@vger.kernel.org>
+Cc:     Andrew Clayton <andrew@digital-domain.net>
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+Subject: _Generic.3: EXAMPLES: C++'s static_cast() in C
 Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="zve3umj34lvgd226"
-Content-Disposition: inline
-In-Reply-To: <8f7162fd-cefb-dc31-cb0f-ba4b76ca5011@gmail.com>
+ protocol="application/pgp-signature";
+ boundary="------------1QnvuaYG4DTJ1UsYCZWhVyLN"
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
@@ -81,115 +71,214 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------1QnvuaYG4DTJ1UsYCZWhVyLN
+Content-Type: multipart/mixed; boundary="------------JGfSlninfr5BsCKyZ150yinR";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: linux-man <linux-man@vger.kernel.org>
+Cc: Andrew Clayton <andrew@digital-domain.net>
+Message-ID: <1d042618-35ac-d5a5-c469-4301bb7a2cce@gmail.com>
+Subject: _Generic.3: EXAMPLES: C++'s static_cast() in C
 
---zve3umj34lvgd226
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+--------------JGfSlninfr5BsCKyZ150yinR
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-At 2022-11-11T00:55:18+0100, Alejandro Colomar wrote:
-> Hmm, will need to parse that.  Anyway, I think now that I have the MR
-> with 4 arguments, moving the 4th to the previous line with sed and N
-> should not be that difficult.
+RGVhciByZWFkZXJzLA0KDQpJJ3ZlIGJlZW4gZGV2ZWxvcGluZyBhIGNhc3QgbWFjcm8gZm9y
+IEMgdGhhdCBpcyBzaW1pbGFyIHRvIEMrKydzIHN0YXRpY19jYXN0KCksIA0Kd2hpY2ggYWxs
+b3dzIHRvOg0KDQotIENhc3QgYmV0d2VlbiBhIGxpbWl0ZWQgc2V0IG9mIHR5cGVzIChhY3R1
+YWxseSwgcG9pbnRlcnMgdG8gdGhvc2UgdHlwZXMpLg0KLSBDYW4gYWRkIGNvbnN0LCBidXQg
+bm90IHJlbW92ZSBpdC4NCi0gRWFzaWx5IGdyZXAgZm9yIGFsbCBjYXN0cy4NCg0KQnV0IGZv
+cmJpZHM6DQoNCi0gQ2FzdCBiZXR3ZWVuIHVucmVsYXRlZCB0eXBlcy4NCi0gUmVtb3Zpbmcg
+Y29uc3QuDQoNClRoaXMgaW1wcm92ZXMgdHlwZSBzYWZldHkgaW4gQywgd2hlcmUgY2FzdHMg
+YWxsb3cgcHJvZ3JhbW1lcnMgdG8gY29tbWl0IGFsbCANCmtpbmRzIG9mIGNyaW1lcyBieSBk
+aXNhYmxpbmcgbW9zdCBjb21waWxlciB3YXJuaW5ncy4NCg0KVGhlIG1hY3JvIEkgb3JpZ2lu
+YWxseSB3cm90ZSwgYWxsb3dzIHRvIGNvbnZlcnQgYmV0d2VlbiB1X2NoYXIgYW5kIGNoYXIs
+IGZvciBhIA0KY29kZSBiYXNlIHRoYXQgdXNlcyB1X2NoYXIgaW50ZXJuYWxseSBidXQgaGFz
+IHRvIGludGVyZmFjZSBsaWJjIGFuZCBzeXNjYWxscy4gDQpUaGF0IG9uZSBpcyB1bm5lY2Vz
+c2FyeSBmb3IgbW9zdCBjb2RlIGJhc2VzIHdoaWNoIGp1c3QgdXNlIGNoYXIgKGFuZCB0aGF0
+J3MgaG93IA0KaXQgc2hvdWxkIGJlIGZvciBzdHJpbmdzOyBpZiB5b3Ugd2FudCB1bnNpZ25l
+ZCAnY2hhcidzLCB5b3Ugc2hvdWxkIHVzZSANCictZnVuc2lnbmVkLWNoYXInKS4NCg0KQnV0
+IHRoZXJlIGFyZSBjYXNlcyB3aGVyZSB0aGUga2VybmVsIG9yIGxpYmMgZm9yY2VzIHVzIHRv
+IHVzZSBjYXN0cywgbGlrZSBmb3IgDQpleGFtcGxlIGluIGJpbmQoMikuICBUaGF0J3MgZm9y
+IHdoYXQgdGhlIGZvbGxvd2luZyBtYWNybyBpcywgYW5kIEkgcGxhbiB0byBhZGQgDQppdCB0
+byB0aGUgRVhBTVBMRVMgc2VjdGlvbiBpbiBfR2VuZXJpYygzKSwgcmVwbGFjaW5nIHRoZSBw
+cmV2aW91cyBwcm9ncmFtLg0KDQpUaGUgbWFjcm8gaXRzZWxmIGlzIHF1aXRlIGh1Z2UsIHdo
+aWNoIG1pZ2h0IGRpc2NvdXJhZ2Ugc29tZSwgYnV0IGl0IGlzIG5vdCBzbyANCmNvbXBsZXgu
+ICBJJ2xsIHJlbGVhc2UgaXQgdG8gdGhlIHB1YmxpYyBkb21haW4uICBDb3VsZCB5b3UgcGxl
+YXNlIHJldmlldyBpdD8NCg0KQ2hlZXJzLA0KDQpBbGV4DQoNCi0tLQ0KDQojZGVmaW5lIHNv
+Y2thZGRyX2Nhc3QodCwgcCkgICAgICAgICAgICAgICAgICAgICAgICAgICAgXA0KICAgICBf
+R2VuZXJpYygmKihwKSwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcDQog
+ICAgIHN0cnVjdCBzb2NrYWRkciAqOiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IFwNCiAgICAgICAgIF9HZW5lcmljKCh0KSBOVUxMLCAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgXA0KICAgICAgICAgc3RydWN0IHNvY2thZGRyX2luICo6ICh0KSAocCksICAgICAg
+ICAgICAgICAgICBcDQogICAgICAgICBjb25zdCBzdHJ1Y3Qgc2lja2FkZHJfaW4gKjogKHQp
+IChwKSwgICAgICAgICAgIFwNCiAgICAgICAgIHN0cnVjdCBzb2NrYWRkcl9pbjYgKjogKHQp
+IChwKSwgICAgICAgICAgICAgICAgXA0KICAgICAgICAgY29uc3Qgc3RydWN0IHNpY2thZGRy
+X2luNiAqOiAodCkgKHApLCAgICAgICAgICBcDQogICAgICAgICBzdHJ1Y3Qgc29ja2FkZHJf
+dW4gKjogKHQpIChwKSwgICAgICAgICAgICAgICAgIFwNCiAgICAgICAgIGNvbnN0IHN0cnVj
+dCBzaWNrYWRkcl91biAqOiAodCkgKHApLCAgICAgICAgICAgXA0KICAgICAgICAgc3RydWN0
+IHNvY2thZGRyX3N0b3JhZ2UgKjogKHQpIChwKSwgICAgICAgICAgICBcDQogICAgICAgICBj
+b25zdCBzdHJ1Y3Qgc2lja2FkZHJfc3RvcmFnZSAqOiAodCkgKHApLCAgICAgIFwNCiAgICAg
+ICAgIGRlZmF1bHQ6IChwKSksICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXA0K
+ICAgICBzdHJ1Y3Qgc29ja2FkZHIgKio6ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBcDQogICAgICAgICBfR2VuZXJpYygodCkgTlVMTCwgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIFwNCiAgICAgICAgIHN0cnVjdCBzb2NrYWRkcl9pbiAqKjogKHQpIChwKSwgICAg
+ICAgICAgICAgICAgXA0KICAgICAgICAgc3RydWN0IHNvY2thZGRyX2luNiAqKjogKHQpIChw
+KSwgICAgICAgICAgICAgICBcDQogICAgICAgICBzdHJ1Y3Qgc29ja2FkZHJfdW4gKio6ICh0
+KSAocCksICAgICAgICAgICAgICAgIFwNCiAgICAgICAgIHN0cnVjdCBzb2NrYWRkcl9zdG9y
+YWdlICoqOiAodCkgKHApLCAgICAgICAgICAgXA0KICAgICAgICAgZGVmYXVsdDogKHApKSwg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcDQogICAgIGNvbnN0IHN0cnVjdCBz
+b2NrYWRkciAqOiAgICAgICAgICAgICAgICAgICAgICAgICAgIFwNCiAgICAgICAgIF9HZW5l
+cmljKCh0KSBOVUxMLCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXA0KICAgICAgICAg
+Y29uc3Qgc3RydWN0IHNvY2thZGRyX2luICo6ICh0KSAocCksICAgICAgICAgICBcDQogICAg
+ICAgICBjb25zdCBzdHJ1Y3Qgc29ja2FkZHJfaW42ICo6ICh0KSAocCksICAgICAgICAgIFwN
+CiAgICAgICAgIGNvbnN0IHN0cnVjdCBzb2NrYWRkcl91biAqOiAodCkgKHApLCAgICAgICAg
+ICAgXA0KICAgICAgICAgY29uc3Qgc3RydWN0IHNvY2thZGRyX3N0b3JhZ2UgKjogKHQpIChw
+KSwgICAgICBcDQogICAgICAgICBkZWZhdWx0OiAocCkpLCAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIFwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgXA0KICAgICBzdHJ1Y3Qgc29ja2FkZHJfaW4gKjogICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICBcDQogICAgICAgICBfR2VuZXJpYygodCkgTlVMTCwg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwNCiAgICAgICAgIHN0cnVjdCBzb2NrYWRk
+ciAqOiAodCkgKHApLCAgICAgICAgICAgICAgICAgICAgXA0KICAgICAgICAgY29uc3Qgc3Ry
+dWN0IHNpY2thZGRyICo6ICh0KSAocCksICAgICAgICAgICAgICBcDQogICAgICAgICBzdHJ1
+Y3Qgc29ja2FkZHJfaW42ICo6ICh0KSAocCksICAgICAgICAgICAgICAgIFwNCiAgICAgICAg
+IGNvbnN0IHN0cnVjdCBzaWNrYWRkcl9pbjYgKjogKHQpIChwKSwgICAgICAgICAgXA0KICAg
+ICAgICAgc3RydWN0IHNvY2thZGRyX3VuICo6ICh0KSAocCksICAgICAgICAgICAgICAgICBc
+DQogICAgICAgICBjb25zdCBzdHJ1Y3Qgc2lja2FkZHJfdW4gKjogKHQpIChwKSwgICAgICAg
+ICAgIFwNCiAgICAgICAgIHN0cnVjdCBzb2NrYWRkcl9zdG9yYWdlICo6ICh0KSAocCksICAg
+ICAgICAgICAgXA0KICAgICAgICAgY29uc3Qgc3RydWN0IHNpY2thZGRyX3N0b3JhZ2UgKjog
+KHQpIChwKSwgICAgICBcDQogICAgICAgICBkZWZhdWx0OiAocCkpLCAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIFwNCiAgICAgc3RydWN0IHNvY2thZGRyX2luICoqOiAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgXA0KICAgICAgICAgX0dlbmVyaWMoKHQpIE5VTEws
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcDQogICAgICAgICBzdHJ1Y3Qgc29ja2Fk
+ZHIgKio6ICh0KSAocCksICAgICAgICAgICAgICAgICAgIFwNCiAgICAgICAgIHN0cnVjdCBz
+b2NrYWRkcl9pbjYgKio6ICh0KSAocCksICAgICAgICAgICAgICAgXA0KICAgICAgICAgc3Ry
+dWN0IHNvY2thZGRyX3VuICoqOiAodCkgKHApLCAgICAgICAgICAgICAgICBcDQogICAgICAg
+ICBzdHJ1Y3Qgc29ja2FkZHJfc3RvcmFnZSAqKjogKHQpIChwKSwgICAgICAgICAgIFwNCiAg
+ICAgICAgIGRlZmF1bHQ6IChwKSksICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+XA0KICAgICBjb25zdCBzdHJ1Y3Qgc29ja2FkZHJfaW4gKjogICAgICAgICAgICAgICAgICAg
+ICAgICBcDQogICAgICAgICBfR2VuZXJpYygodCkgTlVMTCwgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIFwNCiAgICAgICAgIGNvbnN0IHN0cnVjdCBzb2NrYWRkciAqOiAodCkgKHAp
+LCAgICAgICAgICAgICAgXA0KICAgICAgICAgY29uc3Qgc3RydWN0IHNvY2thZGRyX2luNiAq
+OiAodCkgKHApLCAgICAgICAgICBcDQogICAgICAgICBjb25zdCBzdHJ1Y3Qgc29ja2FkZHJf
+dW4gKjogKHQpIChwKSwgICAgICAgICAgIFwNCiAgICAgICAgIGNvbnN0IHN0cnVjdCBzb2Nr
+YWRkcl9zdG9yYWdlICo6ICh0KSAocCksICAgICAgXA0KICAgICAgICAgZGVmYXVsdDogKHAp
+KSwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcDQogICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwNCiAgICAgc3RydWN0
+IHNvY2thZGRyX2luNiAqOiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXA0KICAgICAg
+ICAgX0dlbmVyaWMoKHQpIE5VTEwsICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcDQog
+ICAgICAgICBzdHJ1Y3Qgc29ja2FkZHIgKjogKHQpIChwKSwgICAgICAgICAgICAgICAgICAg
+IFwNCiAgICAgICAgIGNvbnN0IHN0cnVjdCBzaWNrYWRkciAqOiAodCkgKHApLCAgICAgICAg
+ICAgICAgXA0KICAgICAgICAgc3RydWN0IHNvY2thZGRyX2luICo6ICh0KSAocCksICAgICAg
+ICAgICAgICAgICBcDQogICAgICAgICBjb25zdCBzdHJ1Y3Qgc2lja2FkZHJfaW4gKjogKHQp
+IChwKSwgICAgICAgICAgIFwNCiAgICAgICAgIHN0cnVjdCBzb2NrYWRkcl91biAqOiAodCkg
+KHApLCAgICAgICAgICAgICAgICAgXA0KICAgICAgICAgY29uc3Qgc3RydWN0IHNpY2thZGRy
+X3VuICo6ICh0KSAocCksICAgICAgICAgICBcDQogICAgICAgICBzdHJ1Y3Qgc29ja2FkZHJf
+c3RvcmFnZSAqOiAodCkgKHApLCAgICAgICAgICAgIFwNCiAgICAgICAgIGNvbnN0IHN0cnVj
+dCBzaWNrYWRkcl9zdG9yYWdlICo6ICh0KSAocCksICAgICAgXA0KICAgICAgICAgZGVmYXVs
+dDogKHApKSwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcDQogICAgIHN0cnVj
+dCBzb2NrYWRkcl9pbjYgKio6ICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwNCiAgICAg
+ICAgIF9HZW5lcmljKCh0KSBOVUxMLCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXA0K
+ICAgICAgICAgc3RydWN0IHNvY2thZGRyICoqOiAodCkgKHApLCAgICAgICAgICAgICAgICAg
+ICBcDQogICAgICAgICBzdHJ1Y3Qgc29ja2FkZHJfaW4gKio6ICh0KSAocCksICAgICAgICAg
+ICAgICAgIFwNCiAgICAgICAgIHN0cnVjdCBzb2NrYWRkcl91biAqKjogKHQpIChwKSwgICAg
+ICAgICAgICAgICAgXA0KICAgICAgICAgc3RydWN0IHNvY2thZGRyX3N0b3JhZ2UgKio6ICh0
+KSAocCksICAgICAgICAgICBcDQogICAgICAgICBkZWZhdWx0OiAocCkpLCAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIFwNCiAgICAgY29uc3Qgc3RydWN0IHNvY2thZGRyX2lu
+NiAqOiAgICAgICAgICAgICAgICAgICAgICAgXA0KICAgICAgICAgX0dlbmVyaWMoKHQpIE5V
+TEwsICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcDQogICAgICAgICBjb25zdCBzdHJ1
+Y3Qgc29ja2FkZHIgKjogKHQpIChwKSwgICAgICAgICAgICAgIFwNCiAgICAgICAgIGNvbnN0
+IHN0cnVjdCBzb2NrYWRkcl9pbiAqOiAodCkgKHApLCAgICAgICAgICAgXA0KICAgICAgICAg
+Y29uc3Qgc3RydWN0IHNvY2thZGRyX3VuICo6ICh0KSAocCksICAgICAgICAgICBcDQogICAg
+ICAgICBjb25zdCBzdHJ1Y3Qgc29ja2FkZHJfc3RvcmFnZSAqOiAodCkgKHApLCAgICAgIFwN
+CiAgICAgICAgIGRlZmF1bHQ6IChwKSksICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgXA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICBcDQogICAgIHN0cnVjdCBzb2NrYWRkcl91biAqOiAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIFwNCiAgICAgICAgIF9HZW5lcmljKCh0KSBOVUxMLCAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgXA0KICAgICAgICAgc3RydWN0IHNvY2thZGRyICo6ICh0KSAo
+cCksICAgICAgICAgICAgICAgICAgICBcDQogICAgICAgICBjb25zdCBzdHJ1Y3Qgc2lja2Fk
+ZHIgKjogKHQpIChwKSwgICAgICAgICAgICAgIFwNCiAgICAgICAgIHN0cnVjdCBzb2NrYWRk
+cl9pbiAqOiAodCkgKHApLCAgICAgICAgICAgICAgICAgXA0KICAgICAgICAgY29uc3Qgc3Ry
+dWN0IHNpY2thZGRyX2luICo6ICh0KSAocCksICAgICAgICAgICBcDQogICAgICAgICBzdHJ1
+Y3Qgc29ja2FkZHJfaW42ICo6ICh0KSAocCksICAgICAgICAgICAgICAgIFwNCiAgICAgICAg
+IGNvbnN0IHN0cnVjdCBzaWNrYWRkcl9pbjYgKjogKHQpIChwKSwgICAgICAgICAgXA0KICAg
+ICAgICAgc3RydWN0IHNvY2thZGRyX3N0b3JhZ2UgKjogKHQpIChwKSwgICAgICAgICAgICBc
+DQogICAgICAgICBjb25zdCBzdHJ1Y3Qgc2lja2FkZHJfc3RvcmFnZSAqOiAodCkgKHApLCAg
+ICAgIFwNCiAgICAgICAgIGRlZmF1bHQ6IChwKSksICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgXA0KICAgICBzdHJ1Y3Qgc29ja2FkZHJfdW4gKio6ICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBcDQogICAgICAgICBfR2VuZXJpYygodCkgTlVMTCwgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIFwNCiAgICAgICAgIHN0cnVjdCBzb2NrYWRkciAqKjogKHQp
+IChwKSwgICAgICAgICAgICAgICAgICAgXA0KICAgICAgICAgc3RydWN0IHNvY2thZGRyX2lu
+ICoqOiAodCkgKHApLCAgICAgICAgICAgICAgICBcDQogICAgICAgICBzdHJ1Y3Qgc29ja2Fk
+ZHJfaW42ICoqOiAodCkgKHApLCAgICAgICAgICAgICAgIFwNCiAgICAgICAgIHN0cnVjdCBz
+b2NrYWRkcl9zdG9yYWdlICoqOiAodCkgKHApLCAgICAgICAgICAgXA0KICAgICAgICAgZGVm
+YXVsdDogKHApKSwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcDQogICAgIGNv
+bnN0IHN0cnVjdCBzb2NrYWRkcl91biAqOiAgICAgICAgICAgICAgICAgICAgICAgIFwNCiAg
+ICAgICAgIF9HZW5lcmljKCh0KSBOVUxMLCAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+XA0KICAgICAgICAgY29uc3Qgc3RydWN0IHNvY2thZGRyICo6ICh0KSAocCksICAgICAgICAg
+ICAgICBcDQogICAgICAgICBjb25zdCBzdHJ1Y3Qgc29ja2FkZHJfaW4gKjogKHQpIChwKSwg
+ICAgICAgICAgIFwNCiAgICAgICAgIGNvbnN0IHN0cnVjdCBzb2NrYWRkcl9pbjYgKjogKHQp
+IChwKSwgICAgICAgICAgXA0KICAgICAgICAgY29uc3Qgc3RydWN0IHNvY2thZGRyX3N0b3Jh
+Z2UgKjogKHQpIChwKSwgICAgICBcDQogICAgICAgICBkZWZhdWx0OiAocCkpLCAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIFwNCiAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXA0KICAgICBzdHJ1Y3Qgc29ja2FkZHJf
+c3RvcmFnZSAqOiAgICAgICAgICAgICAgICAgICAgICAgICBcDQogICAgICAgICBfR2VuZXJp
+YygodCkgTlVMTCwgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwNCiAgICAgICAgIHN0
+cnVjdCBzb2NrYWRkciAqOiAodCkgKHApLCAgICAgICAgICAgICAgICAgICAgXA0KICAgICAg
+ICAgY29uc3Qgc3RydWN0IHNpY2thZGRyICo6ICh0KSAocCksICAgICAgICAgICAgICBcDQog
+ICAgICAgICBzdHJ1Y3Qgc29ja2FkZHJfaW4gKjogKHQpIChwKSwgICAgICAgICAgICAgICAg
+IFwNCiAgICAgICAgIGNvbnN0IHN0cnVjdCBzaWNrYWRkcl9pbiAqOiAodCkgKHApLCAgICAg
+ICAgICAgXA0KICAgICAgICAgc3RydWN0IHNvY2thZGRyX2luNiAqOiAodCkgKHApLCAgICAg
+ICAgICAgICAgICBcDQogICAgICAgICBjb25zdCBzdHJ1Y3Qgc2lja2FkZHJfaW42ICo6ICh0
+KSAocCksICAgICAgICAgIFwNCiAgICAgICAgIHN0cnVjdCBzb2NrYWRkcl91biAqOiAodCkg
+KHApLCAgICAgICAgICAgICAgICAgXA0KICAgICAgICAgY29uc3Qgc3RydWN0IHNpY2thZGRy
+X3VuICo6ICh0KSAocCksICAgICAgICAgICBcDQogICAgICAgICBkZWZhdWx0OiAocCkpLCAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwNCiAgICAgc3RydWN0IHNvY2thZGRy
+X3N0b3JhZ2UgKio6ICAgICAgICAgICAgICAgICAgICAgICAgXA0KICAgICAgICAgX0dlbmVy
+aWMoKHQpIE5VTEwsICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcDQogICAgICAgICBz
+dHJ1Y3Qgc29ja2FkZHIgKio6ICh0KSAocCksICAgICAgICAgICAgICAgICAgIFwNCiAgICAg
+ICAgIHN0cnVjdCBzb2NrYWRkcl9pbiAqKjogKHQpIChwKSwgICAgICAgICAgICAgICAgXA0K
+ICAgICAgICAgc3RydWN0IHNvY2thZGRyX2luNiAqKjogKHQpIChwKSwgICAgICAgICAgICAg
+ICBcDQogICAgICAgICBzdHJ1Y3Qgc29ja2FkZHJfdW4gKio6ICh0KSAocCksICAgICAgICAg
+ICAgICAgIFwNCiAgICAgICAgIGRlZmF1bHQ6IChwKSksICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgXA0KICAgICBjb25zdCBzdHJ1Y3Qgc29ja2FkZHJfc3RvcmFnZSAqOiAg
+ICAgICAgICAgICAgICAgICBcDQogICAgICAgICBfR2VuZXJpYygodCkgTlVMTCwgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIFwNCiAgICAgICAgIGNvbnN0IHN0cnVjdCBzb2NrYWRk
+ciAqOiAodCkgKHApLCAgICAgICAgICAgICAgXA0KICAgICAgICAgY29uc3Qgc3RydWN0IHNv
+Y2thZGRyX2luICo6ICh0KSAocCksICAgICAgICAgICBcDQogICAgICAgICBjb25zdCBzdHJ1
+Y3Qgc29ja2FkZHJfaW42ICo6ICh0KSAocCksICAgICAgICAgIFwNCiAgICAgICAgIGNvbnN0
+IHN0cnVjdCBzb2NrYWRkcl91biAqOiAodCkgKHApLCAgICAgICAgICAgXA0KICAgICAgICAg
+ZGVmYXVsdDogKHApKSwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcDQogICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwN
+CiAgICAgZGVmYXVsdDogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgXA0KICAgICAgICAgKHApICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICBcDQogICAgICkNCg0KLS0gDQo8aHR0cDovL3d3dy5hbGVqYW5kcm8tY29sb21h
+ci5lcy8+DQo=
 
-Okay.
+--------------JGfSlninfr5BsCKyZ150yinR--
 
-> Well, being a compatible extension to the others is not that bad.  How
-> does mdoc(7) solve it with Xr?
-
-I alluded to it: the `Pf` ("prefix") macro.
-
-man(7):
-=2ETH foo 1 2022-11-10 "groff test suite"
-=2ESH Description
-pre-\c
-=2EMR exec 3
-
-mdoc(7):
-=2EDd 2022-11-10
-=2EDt foo 1
-=2EOs "groff test suite"
-=2ESh Description
-=2EPf pre- Xr exec 3
-
-> One of the biggest issues with this is that it breaks what would
-> otherwise represent a single entity, into two lines, so it hurts
-> readability.  See as an extreme example the following change I did
-> with my scripts (from posix_spawn(3), if you're curious):
->=20
-> @@ -129,7 +129,7 @@ .SH DESCRIPTION
->  Below, the functions are described in terms of a three-step process: the
->  .MR fork 3
->  step, the
-> -.RB pre- exec ()
-> +.MR exec 3 "" pre-
->  step (executed in the child),
->  and the
->  .MR exec 3
->=20
-> Having 'pre-' as the last part of some random line, separates it from the
-> other part of the word.  The \c alternative would be:
->=20
-> step, the pre-
-> .MR exec 3
-> step ...
->=20
-> Not terrible, but I'm not in love with it.
-
-I personally find the derangement of word ordering more disruptive to my
-reading than a mid-word line break...especially after a hyphen, where
-years of experience have prepared me to expect a continued word on the
-next line anyway.  ;-)
-
-I would also note that I don't think it's necessary to hyperlink every
-single occurence of a cross-referenced man page topic, especially if the
-same page topic comes up repeatedly in a section (or even paragraph).
-IIRC Ingo doesn't agree, and you might too.
-
-> I hope I can come up with something, but yes, if not, I'll call you ;)
-
-My bat-shaped phone is plugged in.
-
-> BTW, so far I've never found a case where I had to use the hold space.
-> I wonder if I may meet a case where I need it in my life.  This week I
-> came up with some script for inserting an element into a JSON array at
-> a specified position, but N is all that was needed:
-> <http://www.alejandro-colomar.es/src/alx/nginx/unitcli.git/tree/bin/setup=
--unit#n969>.
-
-Multi-line patterns solve a lot of problems.  A person knows that they
-are no longer a sed(1) beginner when they use those effectively.  :D
-
-> I've met a few more-complex cases, but not really that much.  I always
-> come up with some combination of filters that allows me to avoid the
-> hold space.  Sometimes, two scripts run consecutively also helps keep
-> it simple :)
-
-I've resorted to this too.  It's just that sed is such a small language
-(even in its GNU dialect) that it taunts me.  Surely mastering it should
-be _easy_...
-
-Regards,
-Branden
-
---zve3umj34lvgd226
-Content-Type: application/pgp-signature; name="signature.asc"
+--------------1QnvuaYG4DTJ1UsYCZWhVyLN
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmNt0yAACgkQ0Z6cfXEm
-bc5rMQ/8DIrwfXIGXYJrBdN1aJ8/RVCdAQdPWsTHMRqlBYEQHM9xtDDQNAHOuAsN
-ccNT++3kskiUGDN/kCfTeRkKWd2IZ9CVWoDV/5y4T0QZWSb6UQKBqgqQdnEg1tTo
-SA2KeaG4RpaFanEqCb77O/ye62UCGyqrpD0wVsOdoRcZkL/51EV/EMuMQ0ukYF/R
-Vt0Wiy49L0WW+d0nDcYvwSrFJ75J9qJIhDAyLmoO0Z7w/6wVK6FD795Hi/stlCGz
-yfYxz3m3XJNS5pZUrl/JzUJDYx9L1ZdAphvqW6Q0JEQjnmWquvVaH0vioMd5gw+S
-mv0fmKgrE+cYqOSv3e8WiQ4Bii2ysGWbwAwaJCa3B3vECUXa4gh0tQFPr0ijHnmQ
-bJDoPvTT20uDm2DO8H0qaPjXdgPhAOFPfD7QlyRBg6SJOsE7qGA6wcZr03BnAzuq
-/RXVl9akoITlhkXXdqnrsmXW1LGxdcnzbTcvvoLUzccKLJO/7Y3jca1aofuJmbMO
-+MNOH51f5GH7xuyoahLh5AdGDDZMJXaphL41236OSubKWHIL6yXTDQVp6ZqOxoEg
-ikMN8K5JREF0IxyexnE1kvt35+oPDr1XQOT+J+yTE5dZSnVvd8tMepQoNxg1L8Ch
-78PWHQy6RjW/AMKJb34PZqAZuuZHoUlj9JvWcPNRHaVWFwGJuKk=
-=g6kR
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmNuYdsACgkQnowa+77/
+2zJxmhAAkvcNMBVUTm9L2Q1v0lhEartYooo69D28zaein1tKH0sL4F1DeaZiGjxr
+sGr+kcvBBTuLjsXn9V4TxRG3R4xLasn2+/sCNrVKxw6T16jD/tTjYrgXOimAc31e
++auNRXD9VWpfb7v1y0U3ucUkWMA/nzBFdY3/51/DArs2HgkOpWifNzBqwwEn2Sdq
+KKTDGx5vB+BzAapdTdQ1Axt4rKbekPIorC/ko44oSyQkvPvyL8sasx3fIojRHTjr
+7Go8pDEiCP/moAG4Ep/i/CakSPA9GTE9eikuJyjSLQPehBwRRe0+S4WVpo2AHF6p
+tf4iEFr0gQykWqpzIZ2OtWsELzLk4fJnMV9ks3UgbGBIp2i38xiqbJlefA+TETyr
+vWpyK2SXLPds4U2/fE5Xfn7mMWhh0wGRhCk8bkLOEQ+STSPzVRM+aU4kOSP1zK1S
+4t/c0PSgMm2A/c5aGASUxwYG2dyJaBrX0HBgkcFICjyfuDh3lCOO+8ZuO8aBui61
+f+vDtGSAk8mrglYpERiQtxSLNmL2ZL8FSQ9ZccvzUF6FpbvypcmyIsaf9Qd+fGIe
+QZVNsLJLf4kCjqF317ERcaJLil1SLLNYysp+4oNvFlaOerRdSGwcxIsLvoR/ERN5
+pE0kGfa9FLnzaEdkKBXoivJPhQ14WhsyYznrw3d0SB0mBQB+E7w=
+=6gtB
 -----END PGP SIGNATURE-----
 
---zve3umj34lvgd226--
+--------------1QnvuaYG4DTJ1UsYCZWhVyLN--
