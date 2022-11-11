@@ -2,84 +2,121 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 540306260E7
-	for <lists+linux-man@lfdr.de>; Fri, 11 Nov 2022 19:11:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 04BD0626268
+	for <lists+linux-man@lfdr.de>; Fri, 11 Nov 2022 20:52:24 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234019AbiKKSLn (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 11 Nov 2022 13:11:43 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55024 "EHLO
+        id S234252AbiKKTwX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 11 Nov 2022 14:52:23 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45286 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234267AbiKKSLY (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 11 Nov 2022 13:11:24 -0500
-X-Greylist: delayed 91 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Fri, 11 Nov 2022 10:11:23 PST
-Received: from omta002.cacentral1.a.cloudfilter.net (omta002.cacentral1.a.cloudfilter.net [3.97.99.33])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 17EAA729B5
-        for <linux-man@vger.kernel.org>; Fri, 11 Nov 2022 10:11:22 -0800 (PST)
-Received: from shw-obgw-4002a.ext.cloudfilter.net ([10.228.9.250])
-        by cmsmtp with ESMTP
-        id tUPYojOZDyQ9etYTOo6ZSL; Fri, 11 Nov 2022 18:09:50 +0000
-Received: from [10.0.0.5] ([184.64.124.72])
-        by cmsmtp with ESMTP
-        id tYTOoyKoqomIwtYTOowODw; Fri, 11 Nov 2022 18:09:50 +0000
-X-Authority-Analysis: v=2.4 cv=LM91/ba9 c=1 sm=1 tr=0 ts=636e8fee
- a=oHm12aVswOWz6TMtn9zYKg==:117 a=oHm12aVswOWz6TMtn9zYKg==:17
- a=IkcTkHD0fZMA:10 a=CCpqsmhAAAAA:8 a=t8vAJgLVPhGRq8TaxOkA:9 a=QEXdDO2ut3YA:10
- a=ul9cdbp4aOFLsgKbc677:22
-Message-ID: <25e512c8-33d7-ef98-aded-552082c6744b@SystematicSw.ab.ca>
-Date:   Fri, 11 Nov 2022 11:09:50 -0700
+        with ESMTP id S233768AbiKKTwW (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 11 Nov 2022 14:52:22 -0500
+Received: from mailrelay.tugraz.at (mailrelay.tugraz.at [129.27.2.202])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 45B9082929
+        for <linux-man@vger.kernel.org>; Fri, 11 Nov 2022 11:52:19 -0800 (PST)
+Received: from [192.168.0.150] (84-115-221-90.cable.dynamic.surfer.at [84.115.221.90])
+        by mailrelay.tugraz.at (Postfix) with ESMTPSA id 4N88VY4QxKz1LB1y;
+        Fri, 11 Nov 2022 20:52:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailrelay.tugraz.at 4N88VY4QxKz1LB1y
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tugraz.at;
+        s=mailrelay; t=1668196327;
+        bh=us0QboMBDFu9aHTIQqc0TrvZGpnMDJEB406Ps+h2NJY=;
+        h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+        b=KGeOQFVIBUpmX68ZijrL+J8OqwfaMfvdOLjCfpnLpT1jJkz0DQTobLb32VPM7nS7Q
+         xVny+OLu4MJPa8hPPdr2jI8ypszsTLMDf9xi5LuURH+r4fw5UM/WZPuT6lxnF+v1rh
+         NxaJZsWp99i14C7YSPheytc63/FAF0xmPkZb87BQ=
+Message-ID: <a0667c528a8e6616df9589754390d883e524bf4f.camel@tugraz.at>
+Subject: Re: [PATCH] Various pages: SYNOPSIS: Use VLA syntax in function
+ parameters
+From:   Martin Uecker <uecker@tugraz.at>
+To:     Joseph Myers <joseph@codesourcery.com>
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        Ingo Schwarze <schwarze@usta.de>,
+        JeanHeyd Meneide <wg14@soasis.org>, linux-man@vger.kernel.org,
+        gcc@gcc.gnu.org
+Date:   Fri, 11 Nov 2022 20:52:04 +0100
+In-Reply-To: <75c352c-e8b5-90d0-5fae-7b211c647934@codesourcery.com>
+References: <20220826210710.35237-1-alx.manpages@gmail.com>
+         <Ywn7jMtB5ppSW0PB@asta-kit.de>
+         <89d79095-d1cd-ab2b-00e4-caa31126751e@gmail.com>
+         <YwoXTGD8ljB8Gg6s@asta-kit.de>
+         <e29de088-ae10-bbc8-0bfd-90bbb63aaf06@gmail.com>
+         <5ba53bad-019e-8a94-d61e-85b2f13223a9@gmail.com>
+         <CACqA6+mfaj6Viw+LVOG=nE350gQhCwVKXRzycVru5Oi4EJzgTg@mail.gmail.com>
+         <491a930d-47eb-7c86-c0c4-25eef4ac0be0@gmail.com>
+         <2abccaa2-d472-4c5b-aea6-7a2dddd665da@gmail.com>
+         <4475b350c2a4d60da540c0f3055f466640e6c409.camel@tugraz.at>
+         <fcf6f3f7-f61d-9b91-bfeb-370849439ce3@gmail.com>
+         <d524528c29f806b763a2d394abc1241f6b2dc0cb.camel@tugraz.at>
+         <51f5a2f2-84c1-bc75-cf94-0cdc1771d37f@gmail.com>
+         <4e3fee795769544738b3dc793aa95d6b34b72047.camel@tugraz.at>
+         <e9ba79ff-fb73-c4d4-b966-d8d15062f7b7@gmail.com>
+         <69d694b3-756-792d-8880-87bab482ea34@codesourcery.com>
+         <76c083af-c01f-a4b2-3df-c83075c6b0de@codesourcery.com>
+         <ab605ae5d4c89a453a433717c2e5fe0134e90803.camel@tugraz.at>
+         <75c352c-e8b5-90d0-5fae-7b211c647934@codesourcery.com>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.30.5-1.1 
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.1
-To:     linux-man@vger.kernel.org
-Cc:     alx@kernel.org, mtk.manpages@gmail.com, andrew@digital-domain.net
-Subject: Re: [PATCH v3] memmem.3: Add list of known systems where this is
- available
-Reply-To: Brian.Inglis@SystematicSw.ab.ca
-Content-Language: en-CA
-In-Reply-To: <20221111012724.11558-1-andrew@digital-domain.net>
-From:   Brian Inglis <Brian.Inglis@SystematicSw.ab.ca>
-Organization: Systematic Software
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CMAE-Envelope: MS4xfF0EjLIa0z4rQgFI4h+pERJXJ7A3XydqZkV5AUeIhTZJZLfDTyCDktp+GvrfcZdQOzES73ZEWtmYZkbXu7cZpSSh5nJyIfhwpuUa/ONCC2ywdIb7r9D0
- zRhWDIfP6Rnmd2gSDDcXXZwmYYoMNQTxd2tbyRlbEtMSNzOuQvlNjzV4xzIPXdxYN2nn1UnGvZpMY0Bbf6t/BJKQrY3kM3wUp67O2sCKvrrcZS5fFs6mLWCm
- RatMOxod1Eq0uKSEMl3d8q1lrmDjSMQ3PGflo7Kq7GVv+i8iLd1v0KKlS1o4ukXb08eB6x15EB5C6ARhXTPI5Q==
-X-Spam-Status: No, score=-0.5 required=5.0 tests=BAYES_05,RCVD_IN_DNSWL_NONE,
-        SPF_HELO_NONE,SPF_NONE autolearn=ham autolearn_force=no version=3.4.6
+Content-Transfer-Encoding: 7bit
+X-TUG-Backscatter-control: G/VXY7/6zeyuAY/PU2/0qw
+X-Spam-Scanner: SpamAssassin 3.003001 
+X-Spam-Score-relay: -1.9
+X-Scanned-By: MIMEDefang 2.74 on 129.27.10.117
+X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+        RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Fri, 11 Nov 2022 01:27:24 +0000, Andrew Clayton wrote:
-> While looking at which systems provide memmem(3) I have been able to
-> discern the following:
+Am Donnerstag, den 10.11.2022, 23:19 +0000 schrieb Joseph Myers:
+> On Thu, 10 Nov 2022, Martin Uecker via Gcc wrote:
 > 
->   musl libc since v0.9.7 (2012)
->   bionic since Android 9 (2018)
+> > One problem with WG14 papers is that people put in too much,
+> > because the overhead is so high and the standard is not updated
+> > very often.  It would be better to build such feature more
+> > incrementally, which could be done more easily with a compiler
+> > extension.  One could start supporting just [.x] but not more
+> > complicated expressions.
 > 
->   FreeBSD since 6.0 (2005)
->   OpenBSD since 5.4 (2013)
->   NetBSD
->   macOS
->   Illumos
+> Even a compiler extension requires the level of detail of specification 
+> that you get with a WG14 paper (and the level of work on finding bugs in 
+> that specification), to avoid the problem we've had before with too many 
+> features added in GCC 2.x days where a poorly defined feature is "whatever 
+> the compiler accepts".
 
-FYI:
+I think the effort needed to specify the feature correctly
+can be minimized by making the first version of the feature
+as simple as possible.  
 
-Newlib added on 2008-01-12
-https://sourceware.org/git/?p=newlib-cygwin.git;a=commit;h=40617efc8b9309006af1f0c72425fc4a404f40d4
+> If you use .x as the notation but don't limit it to [.x], you have a 
+> completely new ambiguity between ordinary identifiers and member names
+> 
+> struct s { int a; };
+> void f(int a, int b[((struct s) { .a = 1 }).a]);
+> 
+> where it's newly ambiguous whether ".a = 1" is an assignment to the 
+> expression ".a" or a use of a designated initializer.
 
-tagged as 1.16 2008-09-04
-https://sourceware.org/git/?p=newlib-cygwin.git&a=search&h=refs%2Ftags%2Fnewlib-1_16_0&st=commit&s=memmem
+If we only allowed [ . a ] then this example would not be allowed.
 
-Cygwin added on 2005-11-08 replaced by newlib 2008-01-15 untagged releases 
-between about 1.4 and 1.6
+If need more flexibility, we could incrementally extend it.
 
--- 
-Take care. Thanks, Brian Inglis			Calgary, Alberta, Canada
+> (I think that if you add any syntax for this, GNU VLA forward declarations 
+> are clearly to be preferred to inventing something new like [.x] which 
+> introduces its own problems.)
 
-La perfection est atteinte			Perfection is achieved
-non pas lorsqu'il n'y a plus rien à ajouter	not when there is no more to add
-mais lorsqu'il n'y a plus rien à retirer	but when there is no more to cut
-			-- Antoine de Saint-Exupéry
+I also prefer this.
+
+I proposed forward declarations but WG14 and also people in this
+discussion did not like them.  If we would actually start using
+them, we could propose them again for the next revision.
+
+Martin
+
+
+
