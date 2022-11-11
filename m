@@ -2,262 +2,84 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 0EA51626021
-	for <lists+linux-man@lfdr.de>; Fri, 11 Nov 2022 18:09:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 540306260E7
+	for <lists+linux-man@lfdr.de>; Fri, 11 Nov 2022 19:11:44 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234155AbiKKRJe (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 11 Nov 2022 12:09:34 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47818 "EHLO
+        id S234019AbiKKSLn (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 11 Nov 2022 13:11:43 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55024 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233750AbiKKRJK (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 11 Nov 2022 12:09:10 -0500
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com [IPv6:2a00:1450:4864:20::42d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 262EB167E1
-        for <linux-man@vger.kernel.org>; Fri, 11 Nov 2022 09:08:56 -0800 (PST)
-Received: by mail-wr1-x42d.google.com with SMTP id o4so7281529wrq.6
-        for <linux-man@vger.kernel.org>; Fri, 11 Nov 2022 09:08:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=in-reply-to:references:cc:to:from:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=blNCY7eYSbsSzhXP1skHTBIl9y/kfS1LcvNwPzPV+R8=;
-        b=kAoMdFofIN7kQ+3vTRBjsXPjoIfAiiF/1UnUmRdD/9CfdjOEXxHb9upJf3gneMHcyP
-         ti0NpsVWzO3LmIus6tVoZx7gTufzL++SZDZNWxiJUdf7qPh/ExgHGbBRHDfCNMJSuobX
-         7Dr2YxbnxGlfgjoffJSnVRT200oFiYOrN03SEGKszyK2xTH4chJ8HYFeXTWLFFTSEbAj
-         8b9yTk565vw11gjSt5qQLLOh/EkEdnTH5H4PWlHE8aSyi9ITdWJ8VU4HIo1e5knfp3og
-         sRWwaH+esmB+T6mHuVK26s6gV18rCSRkLKZ65x+Nj5CVa8xocIqPrAT15g2nN6iziqcR
-         9rnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=in-reply-to:references:cc:to:from:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=blNCY7eYSbsSzhXP1skHTBIl9y/kfS1LcvNwPzPV+R8=;
-        b=sNJ/JRz89znKGK1PnaLl+NrqLtZ4O9U8gAOK9koXp1ujBzDy/VwmQOLfY9tbZRujqr
-         bpZQNDdZzz+vN5dQladyWMkB4KkXXQRYAvzgv6Ei573bMIlNpkqndGH1gj4wUSHnBOGW
-         rSOiMl9qrI8vsDatFjtsZL2bPRR6AaFPUoWajncu+TcTVdJflf+H8jDdO15TOnsIsec7
-         LmXTH0NHRvSNwh7royRsEQlbeibeAImStVm160S4p1vZfUa/9bjCd7EFbXM18rr1EIbP
-         AUycsNRivXm3PxqXwXqdcz/ffObT1eedGv7g3zQuC9fucpRouE3fAHxJjapwi22oQspt
-         GDTw==
-X-Gm-Message-State: ANoB5pkse139GWRy6ouzXA6WjtPK5JyvbY1SWeWBqAKDLH+Dd670AUkA
-        KeCLqaE6K0pOhMcttPrckAZVPk5qbUM=
-X-Google-Smtp-Source: AA0mqf60mflQnE9upu+LO+OtDXhEl3mZfMh6R/dsKqXTDQP6uP5otqgkP2xmq1/anphZSVudg4+MYA==
-X-Received: by 2002:a5d:554a:0:b0:241:7277:95dc with SMTP id g10-20020a5d554a000000b00241727795dcmr1671885wrw.620.1668186534714;
-        Fri, 11 Nov 2022 09:08:54 -0800 (PST)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id g9-20020a05600c310900b003a2f2bb72d5sm11839545wmo.45.2022.11.11.09.08.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Nov 2022 09:08:53 -0800 (PST)
-Message-ID: <71b02e3a-d710-cda0-6ae6-5f12c664b7f8@gmail.com>
-Date:   Fri, 11 Nov 2022 18:08:45 +0100
+        with ESMTP id S234267AbiKKSLY (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 11 Nov 2022 13:11:24 -0500
+X-Greylist: delayed 91 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Fri, 11 Nov 2022 10:11:23 PST
+Received: from omta002.cacentral1.a.cloudfilter.net (omta002.cacentral1.a.cloudfilter.net [3.97.99.33])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 17EAA729B5
+        for <linux-man@vger.kernel.org>; Fri, 11 Nov 2022 10:11:22 -0800 (PST)
+Received: from shw-obgw-4002a.ext.cloudfilter.net ([10.228.9.250])
+        by cmsmtp with ESMTP
+        id tUPYojOZDyQ9etYTOo6ZSL; Fri, 11 Nov 2022 18:09:50 +0000
+Received: from [10.0.0.5] ([184.64.124.72])
+        by cmsmtp with ESMTP
+        id tYTOoyKoqomIwtYTOowODw; Fri, 11 Nov 2022 18:09:50 +0000
+X-Authority-Analysis: v=2.4 cv=LM91/ba9 c=1 sm=1 tr=0 ts=636e8fee
+ a=oHm12aVswOWz6TMtn9zYKg==:117 a=oHm12aVswOWz6TMtn9zYKg==:17
+ a=IkcTkHD0fZMA:10 a=CCpqsmhAAAAA:8 a=t8vAJgLVPhGRq8TaxOkA:9 a=QEXdDO2ut3YA:10
+ a=ul9cdbp4aOFLsgKbc677:22
+Message-ID: <25e512c8-33d7-ef98-aded-552082c6744b@SystematicSw.ab.ca>
+Date:   Fri, 11 Nov 2022 11:09:50 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.4.1
-Subject: Re: _Generic.3: EXAMPLES: C++'s static_cast() in C
-Content-Language: en-US
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     linux-man <linux-man@vger.kernel.org>
-Cc:     Andrew Clayton <andrew@digital-domain.net>
-References: <1d042618-35ac-d5a5-c469-4301bb7a2cce@gmail.com>
- <f85646f4-5ebc-76a7-c0f1-6d9a632b9edd@gmail.com>
- <97f60deb-7818-d510-27e9-4eb4a929ab55@gmail.com>
-In-Reply-To: <97f60deb-7818-d510-27e9-4eb4a929ab55@gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------NATJqvpsMPZ450ssmVctLhxi"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
-        autolearn_force=no version=3.4.6
+To:     linux-man@vger.kernel.org
+Cc:     alx@kernel.org, mtk.manpages@gmail.com, andrew@digital-domain.net
+Subject: Re: [PATCH v3] memmem.3: Add list of known systems where this is
+ available
+Reply-To: Brian.Inglis@SystematicSw.ab.ca
+Content-Language: en-CA
+In-Reply-To: <20221111012724.11558-1-andrew@digital-domain.net>
+From:   Brian Inglis <Brian.Inglis@SystematicSw.ab.ca>
+Organization: Systematic Software
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CMAE-Envelope: MS4xfF0EjLIa0z4rQgFI4h+pERJXJ7A3XydqZkV5AUeIhTZJZLfDTyCDktp+GvrfcZdQOzES73ZEWtmYZkbXu7cZpSSh5nJyIfhwpuUa/ONCC2ywdIb7r9D0
+ zRhWDIfP6Rnmd2gSDDcXXZwmYYoMNQTxd2tbyRlbEtMSNzOuQvlNjzV4xzIPXdxYN2nn1UnGvZpMY0Bbf6t/BJKQrY3kM3wUp67O2sCKvrrcZS5fFs6mLWCm
+ RatMOxod1Eq0uKSEMl3d8q1lrmDjSMQ3PGflo7Kq7GVv+i8iLd1v0KKlS1o4ukXb08eB6x15EB5C6ARhXTPI5Q==
+X-Spam-Status: No, score=-0.5 required=5.0 tests=BAYES_05,RCVD_IN_DNSWL_NONE,
+        SPF_HELO_NONE,SPF_NONE autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------NATJqvpsMPZ450ssmVctLhxi
-Content-Type: multipart/mixed; boundary="------------CMUT8f0FAaTz7znjs38Pi8sF";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: linux-man <linux-man@vger.kernel.org>
-Cc: Andrew Clayton <andrew@digital-domain.net>
-Message-ID: <71b02e3a-d710-cda0-6ae6-5f12c664b7f8@gmail.com>
-Subject: Re: _Generic.3: EXAMPLES: C++'s static_cast() in C
-References: <1d042618-35ac-d5a5-c469-4301bb7a2cce@gmail.com>
- <f85646f4-5ebc-76a7-c0f1-6d9a632b9edd@gmail.com>
- <97f60deb-7818-d510-27e9-4eb4a929ab55@gmail.com>
-In-Reply-To: <97f60deb-7818-d510-27e9-4eb4a929ab55@gmail.com>
+On Fri, 11 Nov 2022 01:27:24 +0000, Andrew Clayton wrote:
+> While looking at which systems provide memmem(3) I have been able to
+> discern the following:
+> 
+>   musl libc since v0.9.7 (2012)
+>   bionic since Android 9 (2018)
+> 
+>   FreeBSD since 6.0 (2005)
+>   OpenBSD since 5.4 (2013)
+>   NetBSD
+>   macOS
+>   Illumos
 
---------------CMUT8f0FAaTz7znjs38Pi8sF
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+FYI:
 
-DQoNCk9uIDExLzExLzIyIDE3OjU0LCBBbGVqYW5kcm8gQ29sb21hciB3cm90ZToNCj4gDQo+
-IA0KPiBPbiAxMS8xMS8yMiAxNjoxMSwgQWxlamFuZHJvIENvbG9tYXIgd3JvdGU6DQo+PiBP
-biAxMS8xMS8yMiAxNTo1MywgQWxlamFuZHJvIENvbG9tYXIgd3JvdGU6DQo+Pj4gRGVhciBy
-ZWFkZXJzLA0KPj4+DQo+Pj4gSSd2ZSBiZWVuIGRldmVsb3BpbmcgYSBjYXN0IG1hY3JvIGZv
-ciBDIHRoYXQgaXMgc2ltaWxhciB0byBDKysncyANCj4+PiBzdGF0aWNfY2FzdCgpLCB3aGlj
-aCBhbGxvd3MgdG86DQo+Pj4NCj4+PiAtIENhc3QgYmV0d2VlbiBhIGxpbWl0ZWQgc2V0IG9m
-IHR5cGVzIChhY3R1YWxseSwgcG9pbnRlcnMgdG8gdGhvc2UgdHlwZXMpLg0KPj4+IC0gQ2Fu
-IGFkZCBjb25zdCwgYnV0IG5vdCByZW1vdmUgaXQuDQo+Pj4gLSBFYXNpbHkgZ3JlcCBmb3Ig
-YWxsIGNhc3RzLg0KPj4+DQo+Pj4gQnV0IGZvcmJpZHM6DQo+Pj4NCj4+PiAtIENhc3QgYmV0
-d2VlbiB1bnJlbGF0ZWQgdHlwZXMuDQo+Pj4gLSBSZW1vdmluZyBjb25zdC4NCj4+Pg0KPj4+
-IFRoaXMgaW1wcm92ZXMgdHlwZSBzYWZldHkgaW4gQywgd2hlcmUgY2FzdHMgYWxsb3cgcHJv
-Z3JhbW1lcnMgdG8gY29tbWl0IGFsbCANCj4+PiBraW5kcyBvZiBjcmltZXMgYnkgZGlzYWJs
-aW5nIG1vc3QgY29tcGlsZXIgd2FybmluZ3MuDQo+Pj4NCj4+PiBUaGUgbWFjcm8gSSBvcmln
-aW5hbGx5IHdyb3RlLCBhbGxvd3MgdG8gY29udmVydCBiZXR3ZWVuIHVfY2hhciBhbmQgY2hh
-ciwgZm9yIA0KPj4+IGEgY29kZSBiYXNlIHRoYXQgdXNlcyB1X2NoYXIgaW50ZXJuYWxseSBi
-dXQgaGFzIHRvIGludGVyZmFjZSBsaWJjIGFuZCANCj4+PiBzeXNjYWxscy4gVGhhdCBvbmUg
-aXMgdW5uZWNlc3NhcnkgZm9yIG1vc3QgY29kZSBiYXNlcyB3aGljaCBqdXN0IHVzZSBjaGFy
-IA0KPj4+IChhbmQgdGhhdCdzIGhvdyBpdCBzaG91bGQgYmUgZm9yIHN0cmluZ3M7IGlmIHlv
-dSB3YW50IHVuc2lnbmVkICdjaGFyJ3MsIHlvdSANCj4+PiBzaG91bGQgdXNlICctZnVuc2ln
-bmVkLWNoYXInKS4NCj4+Pg0KPj4+IEJ1dCB0aGVyZSBhcmUgY2FzZXMgd2hlcmUgdGhlIGtl
-cm5lbCBvciBsaWJjIGZvcmNlcyB1cyB0byB1c2UgY2FzdHMsIGxpa2UgZm9yIA0KPj4+IGV4
-YW1wbGUgaW4gYmluZCgyKS7CoCBUaGF0J3MgZm9yIHdoYXQgdGhlIGZvbGxvd2luZyBtYWNy
-byBpcywgYW5kIEkgcGxhbiB0byANCj4+PiBhZGQgaXQgdG8gdGhlIEVYQU1QTEVTIHNlY3Rp
-b24gaW4gX0dlbmVyaWMoMyksIHJlcGxhY2luZyB0aGUgcHJldmlvdXMgcHJvZ3JhbS4NCj4+
-Pg0KPj4+IFRoZSBtYWNybyBpdHNlbGYgaXMgcXVpdGUgaHVnZSwgd2hpY2ggbWlnaHQgZGlz
-Y291cmFnZSBzb21lLCBidXQgaXQgaXMgbm90IHNvIA0KPj4+IGNvbXBsZXguwqAgSSdsbCBy
-ZWxlYXNlIGl0IHRvIHRoZSBwdWJsaWMgZG9tYWluLsKgIENvdWxkIHlvdSBwbGVhc2UgcmV2
-aWV3IGl0Pw0KPj4+DQo+Pj4gQ2hlZXJzLA0KPj4+DQo+Pj4gQWxleA0KPj4+DQo+Pg0KPj4g
-V2l0aCBDMngncyB0eXBlb2ZfdW5xdWFsKCksIGl0IGNhbiBiZSBtYWRlIGEgYml0IHNtYWxs
-ZXIsIGFuZCBiZXR0ZXIgKGl0IG5vdyANCj4+IHN1cHBvcnRzIHZvbGF0aWxlKS4NCj4gDQo+
-IA0KPiBBbmQgc2luY2UgaXQgbWFrZXMgbm8gc2Vuc2UgdG8gY29udmVydCBiZXR3ZWVuIHNv
-bWUgb2YgdGhlIGRlcml2YXRpdmUgdHlwZXMgDQo+IChlLmcuLCBzYV9pbiB0byBzYV91biks
-IGl0IGNhbiBiZSBmdXJ0aGVyIHNpbXBsaWZpZWQ6DQo+IA0KdjQ6DQoNCi0gUmVpbnRyb2R1
-Y2Ugc29tZSB0eXBlb2ZfdW5xdWFsKCkgdGhhdCB3ZXJlIGFjY2lkZW50YWxseSByZW1vdmVk
-IGluIHYzLg0KLSBBbGlnbiBjYXN0cyBmb3IgcmVhZGFiaWxpdHkuDQoNCiNkZWZpbmUgc29j
-a2FkZHJfY2FzdCh0LCBwKSAgICAgICAgICAgICAgICAgICAgICAgICAgICBcDQogICAgIF9H
-ZW5lcmljKCYqKHApLCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwNCiAg
-ICAgc3RydWN0IHNvY2thZGRyICo6ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-XA0KICAgICAgICAgX0dlbmVyaWMoKHR5cGVvZl91bnF1YWwodCkpIE5VTEwsICAgICAgICAg
-ICAgICBcDQogICAgICAgICBzdHJ1Y3Qgc29ja2FkZHJfaW4gKjogICAgICAgICAgICAgKHQp
-IChwKSwgICAgIFwNCiAgICAgICAgIHN0cnVjdCBzb2NrYWRkcl9pbjYgKjogICAgICAgICAg
-ICAodCkgKHApLCAgICAgXA0KICAgICAgICAgc3RydWN0IHNvY2thZGRyX3VuICo6ICAgICAg
-ICAgICAgICh0KSAocCksICAgICBcDQogICAgICAgICBzdHJ1Y3Qgc29ja2FkZHJfc3RvcmFn
-ZSAqOiAgICAgICAgKHQpIChwKSwgICAgIFwNCiAgICAgICAgIGRlZmF1bHQ6IChwKSksICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXA0KICAgICBzdHJ1Y3Qgc29ja2FkZHIg
-Kio6ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcDQogICAgICAgICBfR2VuZXJp
-YygodHlwZW9mX3VucXVhbCh0KSkgTlVMTCwgICAgICAgICAgICAgIFwNCiAgICAgICAgIHN0
-cnVjdCBzb2NrYWRkcl9pbiAqKjogICAgICAgICAgICAodCkgKHApLCAgICAgXA0KICAgICAg
-ICAgc3RydWN0IHNvY2thZGRyX2luNiAqKjogICAgICAgICAgICh0KSAocCksICAgICBcDQog
-ICAgICAgICBzdHJ1Y3Qgc29ja2FkZHJfdW4gKio6ICAgICAgICAgICAgKHQpIChwKSwgICAg
-IFwNCiAgICAgICAgIHN0cnVjdCBzb2NrYWRkcl9zdG9yYWdlICoqOiAgICAgICAodCkgKHAp
-LCAgICAgXA0KICAgICAgICAgZGVmYXVsdDogKHApKSwgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICBcDQogICAgIGNvbnN0IHN0cnVjdCBzb2NrYWRkciAqOiAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIFwNCiAgICAgICAgIF9HZW5lcmljKCh0KSBOVUxMLCAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgXA0KICAgICAgICAgY29uc3Qgc3RydWN0IHNvY2thZGRy
-X2luICo6ICAgICAgICh0KSAocCksICAgICBcDQogICAgICAgICBjb25zdCBzdHJ1Y3Qgc29j
-a2FkZHJfaW42ICo6ICAgICAgKHQpIChwKSwgICAgIFwNCiAgICAgICAgIGNvbnN0IHN0cnVj
-dCBzb2NrYWRkcl91biAqOiAgICAgICAodCkgKHApLCAgICAgXA0KICAgICAgICAgY29uc3Qg
-c3RydWN0IHNvY2thZGRyX3N0b3JhZ2UgKjogICh0KSAocCksICAgICBcDQogICAgICAgICBk
-ZWZhdWx0OiAocCkpLCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwNCiAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXA0K
-ICAgICBzdHJ1Y3Qgc29ja2FkZHJfaW4gKjogICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBcDQogICAgICAgICBfR2VuZXJpYygodHlwZW9mX3VucXVhbCh0KSkgTlVMTCwgICAgICAg
-ICAgICAgIFwNCiAgICAgICAgIHN0cnVjdCBzb2NrYWRkciAqOiAgICAgICAgICAgICAgICAo
-dCkgKHApLCAgICAgXA0KICAgICAgICAgc3RydWN0IHNvY2thZGRyX3N0b3JhZ2UgKjogICAg
-ICAgICh0KSAocCksICAgICBcDQogICAgICAgICBkZWZhdWx0OiAocCkpLCAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIFwNCiAgICAgc3RydWN0IHNvY2thZGRyX2luICoqOiAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgXA0KICAgICAgICAgX0dlbmVyaWMoKHR5cGVv
-Zl91bnF1YWwodCkpIE5VTEwsICAgICAgICAgICAgICBcDQogICAgICAgICBzdHJ1Y3Qgc29j
-a2FkZHIgKio6ICAgICAgICAgICAgICAgKHQpIChwKSwgICAgIFwNCiAgICAgICAgIHN0cnVj
-dCBzb2NrYWRkcl9zdG9yYWdlICoqOiAgICAgICAodCkgKHApLCAgICAgXA0KICAgICAgICAg
-ZGVmYXVsdDogKHApKSwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcDQogICAg
-IGNvbnN0IHN0cnVjdCBzb2NrYWRkcl9pbiAqOiAgICAgICAgICAgICAgICAgICAgICAgIFwN
-CiAgICAgICAgIF9HZW5lcmljKCh0KSBOVUxMLCAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgXA0KICAgICAgICAgY29uc3Qgc3RydWN0IHNvY2thZGRyICo6ICAgICAgICAgICh0KSAo
-cCksICAgICBcDQogICAgICAgICBjb25zdCBzdHJ1Y3Qgc29ja2FkZHJfc3RvcmFnZSAqOiAg
-KHQpIChwKSwgICAgIFwNCiAgICAgICAgIGRlZmF1bHQ6IChwKSksICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgXA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICBcDQogICAgIHN0cnVjdCBzb2NrYWRkcl9pbjYgKjog
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwNCiAgICAgICAgIF9HZW5lcmljKCh0eXBl
-b2ZfdW5xdWFsKHQpKSBOVUxMLCAgICAgICAgICAgICAgXA0KICAgICAgICAgc3RydWN0IHNv
-Y2thZGRyICo6ICAgICAgICAgICAgICAgICh0KSAocCksICAgICBcDQogICAgICAgICBzdHJ1
-Y3Qgc29ja2FkZHJfc3RvcmFnZSAqOiAgICAgICAgKHQpIChwKSwgICAgIFwNCiAgICAgICAg
-IGRlZmF1bHQ6IChwKSksICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXA0KICAg
-ICBzdHJ1Y3Qgc29ja2FkZHJfaW42ICoqOiAgICAgICAgICAgICAgICAgICAgICAgICAgICBc
-DQogICAgICAgICBfR2VuZXJpYygodHlwZW9mX3VucXVhbCh0KSkgTlVMTCwgICAgICAgICAg
-ICAgIFwNCiAgICAgICAgIHN0cnVjdCBzb2NrYWRkciAqKjogICAgICAgICAgICAgICAodCkg
-KHApLCAgICAgXA0KICAgICAgICAgc3RydWN0IHNvY2thZGRyX3N0b3JhZ2UgKio6ICAgICAg
-ICh0KSAocCksICAgICBcDQogICAgICAgICBkZWZhdWx0OiAocCkpLCAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIFwNCiAgICAgY29uc3Qgc3RydWN0IHNvY2thZGRyX2luNiAq
-OiAgICAgICAgICAgICAgICAgICAgICAgXA0KICAgICAgICAgX0dlbmVyaWMoKHQpIE5VTEws
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcDQogICAgICAgICBjb25zdCBzdHJ1Y3Qg
-c29ja2FkZHIgKjogICAgICAgICAgKHQpIChwKSwgICAgIFwNCiAgICAgICAgIGNvbnN0IHN0
-cnVjdCBzb2NrYWRkcl9zdG9yYWdlICo6ICAodCkgKHApLCAgICAgXA0KICAgICAgICAgZGVm
-YXVsdDogKHApKSwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcDQogICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwNCiAg
-ICAgc3RydWN0IHNvY2thZGRyX3VuICo6ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-XA0KICAgICAgICAgX0dlbmVyaWMoKHR5cGVvZl91bnF1YWwodCkpIE5VTEwsICAgICAgICAg
-ICAgICBcDQogICAgICAgICBzdHJ1Y3Qgc29ja2FkZHIgKjogICAgICAgICAgICAgICAgKHQp
-IChwKSwgICAgIFwNCiAgICAgICAgIHN0cnVjdCBzb2NrYWRkcl9zdG9yYWdlICo6ICAgICAg
-ICAodCkgKHApLCAgICAgXA0KICAgICAgICAgZGVmYXVsdDogKHApKSwgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICBcDQogICAgIHN0cnVjdCBzb2NrYWRkcl91biAqKjogICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIFwNCiAgICAgICAgIF9HZW5lcmljKCh0eXBlb2Zf
-dW5xdWFsKHQpKSBOVUxMLCAgICAgICAgICAgICAgXA0KICAgICAgICAgc3RydWN0IHNvY2th
-ZGRyICoqOiAgICAgICAgICAgICAgICh0KSAocCksICAgICBcDQogICAgICAgICBzdHJ1Y3Qg
-c29ja2FkZHJfc3RvcmFnZSAqKjogICAgICAgKHQpIChwKSwgICAgIFwNCiAgICAgICAgIGRl
-ZmF1bHQ6IChwKSksICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXA0KICAgICBj
-b25zdCBzdHJ1Y3Qgc29ja2FkZHJfdW4gKjogICAgICAgICAgICAgICAgICAgICAgICBcDQog
-ICAgICAgICBfR2VuZXJpYygodCkgTlVMTCwgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IFwNCiAgICAgICAgIGNvbnN0IHN0cnVjdCBzb2NrYWRkciAqOiAgICAgICAgICAodCkgKHAp
-LCAgICAgXA0KICAgICAgICAgY29uc3Qgc3RydWN0IHNvY2thZGRyX3N0b3JhZ2UgKjogICh0
-KSAocCksICAgICBcDQogICAgICAgICBkZWZhdWx0OiAocCkpLCAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIFwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgXA0KICAgICBzdHJ1Y3Qgc29ja2FkZHJfc3RvcmFnZSAq
-OiAgICAgICAgICAgICAgICAgICAgICAgICBcDQogICAgICAgICBfR2VuZXJpYygodHlwZW9m
-X3VucXVhbCh0KSkgTlVMTCwgICAgICAgICAgICAgIFwNCiAgICAgICAgIHN0cnVjdCBzb2Nr
-YWRkciAqOiAgICAgICAgICAgICAgICAodCkgKHApLCAgICAgXA0KICAgICAgICAgc3RydWN0
-IHNvY2thZGRyX2luICo6ICAgICAgICAgICAgICh0KSAocCksICAgICBcDQogICAgICAgICBz
-dHJ1Y3Qgc29ja2FkZHJfaW42ICo6ICAgICAgICAgICAgKHQpIChwKSwgICAgIFwNCiAgICAg
-ICAgIHN0cnVjdCBzb2NrYWRkcl91biAqOiAgICAgICAgICAgICAodCkgKHApLCAgICAgXA0K
-ICAgICAgICAgZGVmYXVsdDogKHApKSwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBcDQogICAgIHN0cnVjdCBzb2NrYWRkcl9zdG9yYWdlICoqOiAgICAgICAgICAgICAgICAg
-ICAgICAgIFwNCiAgICAgICAgIF9HZW5lcmljKCh0eXBlb2ZfdW5xdWFsKHQpKSBOVUxMLCAg
-ICAgICAgICAgICAgXA0KICAgICAgICAgc3RydWN0IHNvY2thZGRyICoqOiAgICAgICAgICAg
-ICAgICh0KSAocCksICAgICBcDQogICAgICAgICBzdHJ1Y3Qgc29ja2FkZHJfaW4gKio6ICAg
-ICAgICAgICAgKHQpIChwKSwgICAgIFwNCiAgICAgICAgIHN0cnVjdCBzb2NrYWRkcl9pbjYg
-Kio6ICAgICAgICAgICAodCkgKHApLCAgICAgXA0KICAgICAgICAgc3RydWN0IHNvY2thZGRy
-X3VuICoqOiAgICAgICAgICAgICh0KSAocCksICAgICBcDQogICAgICAgICBkZWZhdWx0OiAo
-cCkpLCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwNCiAgICAgY29uc3Qgc3Ry
-dWN0IHNvY2thZGRyX3N0b3JhZ2UgKjogICAgICAgICAgICAgICAgICAgXA0KICAgICAgICAg
-X0dlbmVyaWMoKHQpIE5VTEwsICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcDQogICAg
-ICAgICBjb25zdCBzdHJ1Y3Qgc29ja2FkZHIgKjogICAgICAgICAgKHQpIChwKSwgICAgIFwN
-CiAgICAgICAgIGNvbnN0IHN0cnVjdCBzb2NrYWRkcl9pbiAqOiAgICAgICAodCkgKHApLCAg
-ICAgXA0KICAgICAgICAgY29uc3Qgc3RydWN0IHNvY2thZGRyX2luNiAqOiAgICAgICh0KSAo
-cCksICAgICBcDQogICAgICAgICBjb25zdCBzdHJ1Y3Qgc29ja2FkZHJfdW4gKjogICAgICAg
-KHQpIChwKSwgICAgIFwNCiAgICAgICAgIGRlZmF1bHQ6IChwKSksICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgXA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICBcDQogICAgIGRlZmF1bHQ6ICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwNCiAgICAgICAgIChwKSAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXA0KICAgICApDQoNCg0KLS0gDQo8
-aHR0cDovL3d3dy5hbGVqYW5kcm8tY29sb21hci5lcy8+DQo=
+Newlib added on 2008-01-12
+https://sourceware.org/git/?p=newlib-cygwin.git;a=commit;h=40617efc8b9309006af1f0c72425fc4a404f40d4
 
---------------CMUT8f0FAaTz7znjs38Pi8sF--
+tagged as 1.16 2008-09-04
+https://sourceware.org/git/?p=newlib-cygwin.git&a=search&h=refs%2Ftags%2Fnewlib-1_16_0&st=commit&s=memmem
 
---------------NATJqvpsMPZ450ssmVctLhxi
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+Cygwin added on 2005-11-08 replaced by newlib 2008-01-15 untagged releases 
+between about 1.4 and 1.6
 
------BEGIN PGP SIGNATURE-----
+-- 
+Take care. Thanks, Brian Inglis			Calgary, Alberta, Canada
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmNugZ0ACgkQnowa+77/
-2zKo7A//eeOCjux668e6MQM7hQrOOz4okVJiLp7UzHLYGBFckARugjlRCNN05i42
-Io44nwI8ThAJSBY+yeyi3Bbrd0zUDsXs9e7F0/PV4BxQoqE2scqYysae5YGZH65v
-JJkPzccu8AvqwzPvuPKYLRgDHb8VRM/P80fLC/VrW+Bdoa8IFuHFN6YIsbrzgblc
-wRen2d/vAuBgylb878H1bhyakWdX4d5fbNNrayx5Z5kh4EqY42GTr8ij8BM/Hwei
-+I3zyQLTX+vynyBw0FQx+Lou5oFvy46MxTvfWv/tZIJ9IDEpOtieLVJACfLKlWVk
-p3LFAQAh9OCvLmwBOvLV5UNlwLK9M3yWbE2EwwwEoXhBFchlY/pX9Nd67aEKZBCR
-sG92WyOYxwwiDKelqerWKWZsHqLmyxuQF0wRMaX8lblEU2dLKXekcvLtlWzIGDRo
-ngZvW5Y5yQ8vj0lA6SPhA1VRjw7t6LOMba9AOitHU8HVSkje7Ckw1v68Jwb/pjIb
-G9Dum79s7+NeP9+G4jqrUOnHI4xWazWLau2GdQUxCBUMfzGWbyAGCZSEKzfipbKT
-/PHa3VuaiBnO3OnhdDvPWs74MP4kDm6nQ8DV3NMGI0K18GPivCgxyYS44leYIRXh
-sDEuPtcZD8V8cjGMOMbqK5x8/wHCmUhOpkoAKsUhEulUQILHpAI=
-=tozZ
------END PGP SIGNATURE-----
-
---------------NATJqvpsMPZ450ssmVctLhxi--
+La perfection est atteinte			Perfection is achieved
+non pas lorsqu'il n'y a plus rien à ajouter	not when there is no more to add
+mais lorsqu'il n'y a plus rien à retirer	but when there is no more to cut
+			-- Antoine de Saint-Exupéry
