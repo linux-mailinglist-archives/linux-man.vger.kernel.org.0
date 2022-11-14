@@ -2,104 +2,93 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 13AEF627DE1
-	for <lists+linux-man@lfdr.de>; Mon, 14 Nov 2022 13:36:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 81EEF62874D
+	for <lists+linux-man@lfdr.de>; Mon, 14 Nov 2022 18:40:52 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S237181AbiKNMgM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 14 Nov 2022 07:36:12 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56946 "EHLO
+        id S236665AbiKNRku (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 14 Nov 2022 12:40:50 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41806 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S237171AbiKNMgK (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 14 Nov 2022 07:36:10 -0500
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com [IPv6:2a00:1450:4864:20::62e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C2C6E248E4
-        for <linux-man@vger.kernel.org>; Mon, 14 Nov 2022 04:36:06 -0800 (PST)
-Received: by mail-ej1-x62e.google.com with SMTP id n20so7338344ejh.0
-        for <linux-man@vger.kernel.org>; Mon, 14 Nov 2022 04:36:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=szeredi.hu; s=google;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=sU9x5ssg8XOYMe/rb8up2J+YLGp3IkvlIELqEyeyXlY=;
-        b=NnWstm8DqlCqRdyMglLY7MPEfHjK68m/pRvlqV3oel5H8vqtXc3KtfhohAcqmB6ke5
-         xIAoh3nDcghJ7DPQkq4B4QYfHnEbnKMgkpttObeK4MFq+jiRO5xIZJyJsZycus/ajUhU
-         sEgbjUbiNBPFKDfWaa/cDrm/umRrNjbBJ3XBY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=sU9x5ssg8XOYMe/rb8up2J+YLGp3IkvlIELqEyeyXlY=;
-        b=PcTT6VZxnjSTGPVjOwIfXlbnK5UgMBMRbDEDV4FXAH2fp/lzTAEbHUoFVD7ptTAaSO
-         HpURFqgkJ86WAWDgXgIDI7Nro/vp1PQ2cYpyqI3/r/FJgv0rRclnFjQPVZB4D/XPRg3a
-         2MUQCPQiDe5o3II/j67OYeoQG7uA319FJYod2GQNxpLuUXFofMdjfRKMyHPmXcwj2JPm
-         PB3BT13Mm1J48ay5RnALfEMf4F9cPL2667Y9Yg3fLLWOtAi2rePB9V2f41Xd+96M4mpA
-         9sKwbJIaorUs5h9CmqxNGS8bBtgJ0sQC3sm/caDyV/TK/VyCaOnjt26rtrmzeSe4j5ic
-         1NWg==
-X-Gm-Message-State: ANoB5pmPDB9+6ayDOhQ6gqX6dfujdO7xa5a/PUGdgD9B7t7vsbqEyDy9
-        J+lLT0dd5I01XPGyXVZtDBfoqvGtk+pU99yY6+yygw==
-X-Google-Smtp-Source: AA0mqf7xxaXCQcsg9ZYGxFJ3RjLGgBQ3wnQMAUrceAXa9Wi66rhSV8regTVEEtLmw7PnnQh0JiI+9kMluq/F6yfI28I=
-X-Received: by 2002:a17:906:a044:b0:7a5:a671:8236 with SMTP id
- bg4-20020a170906a04400b007a5a6718236mr10321692ejb.187.1668429365397; Mon, 14
- Nov 2022 04:36:05 -0800 (PST)
-MIME-Version: 1.0
-References: <YnEeuw6fd1A8usjj@miu.piliscsaba.redhat.com> <e57733cd-364d-84e0-cfe0-fd41de14f434@bytedance.com>
-In-Reply-To: <e57733cd-364d-84e0-cfe0-fd41de14f434@bytedance.com>
-From:   Miklos Szeredi <miklos@szeredi.hu>
-Date:   Mon, 14 Nov 2022 13:35:54 +0100
-Message-ID: <CAJfpegsVsnjUy2N+qO-j4ToScwev01AjwUA0Enp_DxroPQS30A@mail.gmail.com>
-Subject: Re: [RFC PATCH] getting misc stats/attributes via xattr API
-To:     Abel Wu <wuyun.abel@bytedance.com>
-Cc:     linux-fsdevel@vger.kernel.org, Dave Chinner <david@fromorbit.com>,
-        "Theodore Ts'o" <tytso@mit.edu>, Karel Zak <kzak@redhat.com>,
-        Greg KH <gregkh@linuxfoundation.org>,
-        Christian Brauner <brauner@kernel.org>,
-        linux-kernel@vger.kernel.org,
-        Linux API <linux-api@vger.kernel.org>,
-        linux-man <linux-man@vger.kernel.org>,
-        LSM <linux-security-module@vger.kernel.org>,
-        Ian Kent <raven@themaw.net>,
-        David Howells <dhowells@redhat.com>,
-        Linus Torvalds <torvalds@linux-foundation.org>,
-        Al Viro <viro@zeniv.linux.org.uk>,
-        Christian Brauner <christian@brauner.io>,
-        Amir Goldstein <amir73il@gmail.com>,
-        James Bottomley <James.Bottomley@hansenpartnership.com>
+        with ESMTP id S236965AbiKNRkn (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 14 Nov 2022 12:40:43 -0500
+Received: from xry111.site (xry111.site [89.208.246.23])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 91FC9C742
+        for <linux-man@vger.kernel.org>; Mon, 14 Nov 2022 09:40:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=xry111.site;
+        s=default; t=1668447639;
+        bh=VZVaUl9X4eZdGT6RfC1oQDK7UmkPBkc3qKH8A9luH/k=;
+        h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+        b=KTrB9eBQgoxr5DX0uUuzx/b90ylR+U+UWXz3hg3Vs+vUG85nnIUrazptCK3DRDE6W
+         l/125yCHk6HuegQu58Eq14a4qFiMTtyWw8HpEySXBtvggi3RpOKJ0FEvMzgjlcZ3H7
+         E1qDhM6SkBktByDII2A3cZqtUkifQMsXFFm9v5uc=
+Received: from localhost.localdomain (xry111.site [IPv6:2001:470:683e::1])
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+         key-exchange ECDHE (P-256) server-signature ECDSA (P-384) server-digest SHA384)
+        (Client did not present a certificate)
+        (Authenticated sender: xry111@xry111.site)
+        by xry111.site (Postfix) with ESMTPSA id EE49A6698D;
+        Mon, 14 Nov 2022 12:40:37 -0500 (EST)
+Message-ID: <3412acd8ea2f0f3ace22ae7a88b1782fca66aa39.camel@xry111.site>
+Subject: Ping: [PATCH] syscall.2: add loongarch
+From:   Xi Ruoyao <xry111@xry111.site>
+To:     Alejandro Colomar <alx@kernel.org>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org, Huacai Chen <chenhuacai@kernel.org>,
+        Wang Xuerui <kernel@xen0n.name>, loongarch@lists.linux.dev
+Date:   Tue, 15 Nov 2022 01:40:35 +0800
+In-Reply-To: <20221105021514.8344-1-xry111@xry111.site>
+References: <20221105021514.8344-1-xry111@xry111.site>
 Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
-        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
+Content-Transfer-Encoding: base64
+User-Agent: Evolution 3.46.0 
+MIME-Version: 1.0
+X-Spam-Status: No, score=-0.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FROM_SUSPICIOUS_NTLD,
+        PDS_OTHER_BAD_TLD,SPF_HELO_PASS,SPF_PASS autolearn=no
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Mon, 14 Nov 2022 at 10:00, Abel Wu <wuyun.abel@bytedance.com> wrote:
->
-> Hi Miklos and anyone interested in this proposal, is there any update on
-> this? Sorry that I didn't find any..
+R2VudGxlIFBpbmcgOikuCgpPbiBTYXQsIDIwMjItMTEtMDUgYXQgMTA6MTUgKzA4MDAsIFhpIFJ1
+b3lhbyB3cm90ZToKPiBMaW5rOgo+IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2xvb25nYXJjaC8x
+ZjM1MzY3OC0zMzk4LWUzMGItMWM4Ny02ZWRiMjc4Zjc0ZGJAeGVuMG4ubmFtZS8KPiBMaW5rOgo+
+IGh0dHBzOi8vc291cmNld2FyZS5vcmcvZ2l0Lz9wPWdsaWJjLmdpdDthPWJsb2I7Zj1zeXNkZXBz
+L3VuaXgvc3lzdi9saW51eC9sb29uZ2FyY2gvc3lzZGVwLmgKPiBTaWduZWQtb2ZmLWJ5OiBYaSBS
+dW95YW8gPHhyeTExMUB4cnkxMTEuc2l0ZT4KPiAtLS0KPiDCoG1hbjIvc3lzY2FsbC4yIHwgMiAr
+Kwo+IMKgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKQo+IAo+IGRpZmYgLS1naXQgYS9t
+YW4yL3N5c2NhbGwuMiBiL21hbjIvc3lzY2FsbC4yCj4gaW5kZXggMWJhYzBiOWQ3Li5hMmFlZjZk
+MzMgMTAwNjQ0Cj4gLS0tIGEvbWFuMi9zeXNjYWxsLjIKPiArKysgYi9tYW4yL3N5c2NhbGwuMgo+
+IEBAIC0xNzYsNiArMTc2LDcgQEAgYXJtNjTCoMKgwqDCoMKgwqDCoHN2YyAjMMKgwqB3OMKgwqDC
+oMKgwqDCoHgwwqDCoMKgwqDCoMKgeDHCoMKgwqDCoMKgwqAtCj4gwqBibGFja2ZpbsKgwqDCoMKg
+wqDCoMKgZXhjcHQgMHgwwqDCoMKgwqDCoMKgwqBQMMKgwqDCoMKgwqDCoFIwwqDCoMKgwqDCoMKg
+LcKgwqDCoMKgwqDCoMKgLQo+IMKgaTM4NsKgwqDCoGludCAkMHg4MMKgwqDCoMKgwqDCoMKgZWF4
+wqDCoMKgwqDCoGVheMKgwqDCoMKgwqBlZHjCoMKgwqDCoMKgLQo+IMKgaWE2NMKgwqDCoGJyZWFr
+IDB4MTAwMDAwwqDCoHIxNcKgwqDCoMKgwqByOMKgwqDCoMKgwqDCoHI5wqDCoMKgwqDCoMKgcjEw
+wqDCoMKgwqDCoDEsIDYKPiArbG9vbmdhcmNowqDCoMKgwqDCoMKgc3lzY2FsbCAwwqDCoMKgwqDC
+oMKgwqBhN8KgwqDCoMKgwqDCoGEwwqDCoMKgwqDCoMKgLcKgwqDCoMKgwqDCoMKgLQo+IMKgbTY4
+a8KgwqDCoHRyYXAgIzDCoGQwwqDCoMKgwqDCoMKgZDDCoMKgwqDCoMKgwqAtwqDCoMKgwqDCoMKg
+wqAtCj4gwqBtaWNyb2JsYXplwqDCoMKgwqDCoGJya2kgcjE0LDjCoMKgwqDCoMKgwqByMTLCoMKg
+wqDCoMKgcjPCoMKgwqDCoMKgwqAtwqDCoMKgwqDCoMKgwqAtCj4gwqBtaXBzwqDCoMKgc3lzY2Fs
+bMKgdjDCoMKgwqDCoMKgwqB2MMKgwqDCoMKgwqDCoHYxwqDCoMKgwqDCoMKgYTPCoMKgwqDCoMKg
+wqAxLCA2Cj4gQEAgLTMwMSw2ICszMDIsNyBAQAo+IGFybTY0wqDCoMKgwqDCoMKgwqB4MMKgwqDC
+oMKgwqDCoHgxwqDCoMKgwqDCoMKgeDLCoMKgwqDCoMKgwqB4M8KgwqDCoMKgwqDCoHg0wqDCoMKg
+wqDCoMKgeDXCoMKgwqDCoMKgwqAtCj4gwqBibGFja2ZpbsKgwqDCoMKgwqDCoMKgUjDCoMKgwqDC
+oMKgwqBSMcKgwqDCoMKgwqDCoFIywqDCoMKgwqDCoMKgUjPCoMKgwqDCoMKgwqBSNMKgwqDCoMKg
+wqDCoFI1wqDCoMKgwqDCoMKgLQo+IMKgaTM4NsKgwqDCoGVieMKgwqDCoMKgwqBlY3jCoMKgwqDC
+oMKgZWR4wqDCoMKgwqDCoGVzacKgwqDCoMKgwqBlZGnCoMKgwqDCoMKgZWJwwqDCoMKgwqDCoC0K
+PiDCoGlhNjTCoMKgwqBvdXQwwqDCoMKgwqBvdXQxwqDCoMKgwqBvdXQywqDCoMKgwqBvdXQzwqDC
+oMKgwqBvdXQ0wqDCoMKgwqBvdXQ1wqDCoMKgwqAtCj4gK2xvb25nYXJjaMKgwqDCoMKgwqDCoGEw
+wqDCoMKgwqDCoMKgYTHCoMKgwqDCoMKgwqBhMsKgwqDCoMKgwqDCoGEzwqDCoMKgwqDCoMKgYTTC
+oMKgwqDCoMKgwqBhNcKgwqDCoMKgwqDCoGE2Cj4gwqBtNjhrwqDCoMKgZDHCoMKgwqDCoMKgwqBk
+MsKgwqDCoMKgwqDCoGQzwqDCoMKgwqDCoMKgZDTCoMKgwqDCoMKgwqBkNcKgwqDCoMKgwqDCoGEw
+wqDCoMKgwqDCoMKgLQo+IMKgbWljcm9ibGF6ZcKgwqDCoMKgwqByNcKgwqDCoMKgwqDCoHI2wqDC
+oMKgwqDCoMKgcjfCoMKgwqDCoMKgwqByOMKgwqDCoMKgwqDCoHI5wqDCoMKgwqDCoMKgcjEwwqDC
+oMKgwqDCoC0KPiDCoG1pcHMvbzMywqDCoMKgwqDCoMKgwqBhMMKgwqDCoMKgwqDCoGExwqDCoMKg
+wqDCoMKgYTLCoMKgwqDCoMKgwqBhM8KgwqDCoMKgwqDCoC3CoMKgwqDCoMKgwqDCoC3CoMKgwqDC
+oMKgwqDCoC0KPiDCoMKgwqDCoMKgwqDCoDEKCi0tIApYaSBSdW95YW8gPHhyeTExMUB4cnkxMTEu
+c2l0ZT4KU2Nob29sIG9mIEFlcm9zcGFjZSBTY2llbmNlIGFuZCBUZWNobm9sb2d5LCBYaWRpYW4g
+VW5pdmVyc2l0eQo=
 
-No update.
-
-Which part are you interested in?
-
-Getting mount attributes?  Or a generic key-value retrieval and
-storage interface?
-
-For the first one there are multiple proposals, one of them is adding
-a new system call using binary structs.  The fsinfo(2) syscall was
-deemed overdesigned and rejected.  Something simpler would probably be
-fairly uncontroversial.
-
-As for the other proposal it seems like some people would prefer a set
-of new syscalls, while some others would like to reuse the xattr
-syscalls.  No agreement seems to have been reached.
-
-Also I think a notification system for mount related events is also a
-much needed component.   I've tried to explore using the fsnotify
-framework for this, but the code is pretty convoluted and I couldn't
-get prototype working.
-
-Thanks,
-Miklos
