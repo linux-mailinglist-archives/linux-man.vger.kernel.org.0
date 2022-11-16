@@ -2,89 +2,132 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 91811629FCA
-	for <lists+linux-man@lfdr.de>; Tue, 15 Nov 2022 18:00:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id C025562CD2B
+	for <lists+linux-man@lfdr.de>; Wed, 16 Nov 2022 22:52:00 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229554AbiKORAi (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 15 Nov 2022 12:00:38 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38678 "EHLO
+        id S229536AbiKPVv7 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 16 Nov 2022 16:51:59 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51268 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229560AbiKORA2 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 15 Nov 2022 12:00:28 -0500
-X-Greylist: delayed 558 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Tue, 15 Nov 2022 09:00:26 PST
-Received: from mailgw-k01.its.kfa-juelich.de (mailgw-k01.its.kfa-juelich.de [134.94.4.39])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C93F72C109
-        for <linux-man@vger.kernel.org>; Tue, 15 Nov 2022 09:00:26 -0800 (PST)
-Received: from localhost (localhost [127.0.0.1])
-        by mailgw-k01.its.kfa-juelich.de (Postfix) with ESMTP id 1B9D73603D3;
-        Tue, 15 Nov 2022 17:51:07 +0100 (CET)
-Authentication-Results: mailgw-k01.its.kfa-juelich.de (amavisd-new);
-        dkim=pass (1024-bit key) reason="pass (just generated, assumed good)"
-        header.d=fz-juelich.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fz-juelich.de; h=
-        content-transfer-encoding:content-type:content-type:subject
-        :subject:from:from:content-language:user-agent:mime-version:date
-        :date:message-id:received:received:received; s=main; t=
-        1668531064; bh=SrwvdHN1Mps2Xy0Y2lwps7O0LViQwmoW1SoBQxyPsig=; b=F
-        BOZI06Tcr6lCwqkPqhD3nOO47PvTXCQfrL0xWyysShxbaObJ69HCgB05z9XXSVWy
-        BtnQxPhrkuLDlk+mCioPc0XJ9WiGpyAW3pWgGEbbuPPKdIWJA2tC4JVT7w9hmqEV
-        dK1UM/6tDuzYQFChJCB3vf0EKVW1GLhK+X5/QV+3aQ=
-X-Virus-Scanned: Debian amavisd-new at mailgw-k01.its.kfa-juelich.de
-Received: from mailgw-k01.its.kfa-juelich.de ([127.0.0.1])
-        by localhost (mailgw-k01.its.kfa-juelich.de [127.0.0.1]) (amavisd-new, port 10024)
-        with ESMTP id RJyJDg_EK6hi; Tue, 15 Nov 2022 17:51:04 +0100 (CET)
-Received: from exch2016-e2.ad.fz-juelich.de (exch2016-e2.its.kfa-juelich.de [134.94.4.36])
-        by mailgw-k01.its.kfa-juelich.de (Postfix) with ESMTPS;
-        Tue, 15 Nov 2022 17:51:04 +0100 (CET)
-Received: from [192.168.33.165] (193.49.43.137) by
- exch2016-e2.ad.fz-juelich.de (134.94.4.36) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.13; Tue, 15 Nov 2022 17:51:02 +0100
-Message-ID: <9ed5e1a7-7003-e31f-1a39-62d2c3e718cc@fz-juelich.de>
-Date:   Tue, 15 Nov 2022 17:51:02 +0100
+        with ESMTP id S232774AbiKPVvm (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 16 Nov 2022 16:51:42 -0500
+Received: from out0.migadu.com (out0.migadu.com [94.23.1.103])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 859926DCD2
+        for <linux-man@vger.kernel.org>; Wed, 16 Nov 2022 13:50:34 -0800 (PST)
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=thomasvoss.com;
+        s=key1; t=1668635433;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:
+         content-transfer-encoding:content-transfer-encoding;
+        bh=SZzBYlsAQOENtqaXKZXY5HvXe/I1lo1zWlNyNA8u7VE=;
+        b=MD/813hXLPN68KKcNjInM1s6OrFJ9wisC8SXQ82MuztrlkHrCW6TJo4X3cJdpBFG6JOUyZ
+        yeAByxAXmcqxlzbn9m3wABaUbVrAdqajhn8ssXcakTgEAIr495gRq2vWvdyfBlANkMxCgf
+        8ZrJAEvkgupwk9vNQ8w092sxRLb8f3We7NMgBPlpk/njuKUxWga+rhfT5WY8n6kW3QRFDX
+        cbO5BjIycrty78/wDcJzzWMhfkLCcAuqBcTEvCtK+qbxFgO7DQ5OB9BItOr6b1+VljAC+z
+        S4H7BjeDSinQU7mghSrNf/Ia3QgFf7MgiPAPqmKQlSnneiT6uciSTtgvy+tkGA==
+From:   Thomas Voss <mail@thomasvoss.com>
+To:     linux-man@vger.kernel.org
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>, mtk.manpages@gmail.com,
+        Thomas Voss <mail@thomasvoss.com>
+Subject: [PATCH] EXIT_SUCCESS.3const EXIT_FAILURE.3const: Add pages
+Date:   Wed, 16 Nov 2022 22:50:36 +0100
+Message-Id: <20221116215036.30423-1-mail@thomasvoss.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.1
-Content-Language: en-US
-To:     <mtk.manpages@gmail.com>, <alx.manpages@gmail.com>
-CC:     <linux-man@vger.kernel.org>
-From:   Joachim Wuttke <j.wuttke@fz-juelich.de>
-Subject: man ld(1): see also ldd, ldconfig
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [193.49.43.137]
-X-ClientProxiedBy: exch2016-e2.ad.fz-juelich.de (134.94.4.36) To
- exch2016-e2.ad.fz-juelich.de (134.94.4.36)
-X-Spam-Status: No, score=-2.5 required=5.0 tests=BAYES_20,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
-        RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS autolearn=ham
-        autolearn_force=no version=3.4.6
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
+X-Spam-Status: No, score=-2.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_PASS,
+        SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-I'd suggest to add ldd and ldconfig to the "see also" section of man ld,
-because those are the man pages you need when desperately debugging
-ld failures on misconfigured systems.
+I see we have manuals for constants, types, and more now!  That sure brings a
+smile to my face :).  I guess I might help out a bit will filling out some of
+the missing manuals.
 
-Thanks for all your work on the Linux man pages project, Joachim
+Signed-off-by: Thomas Voss <mail@thomasvoss.com>
+---
+ man3const/EXIT_FAILURE.3const |  1 +
+ man3const/EXIT_SUCCESS.3const | 58 +++++++++++++++++++++++++++++++++++
+ 2 files changed, 59 insertions(+)
+ create mode 100644 man3const/EXIT_FAILURE.3const
+ create mode 100644 man3const/EXIT_SUCCESS.3const
 
+diff --git a/man3const/EXIT_FAILURE.3const b/man3const/EXIT_FAILURE.3const
+new file mode 100644
+index 000000000..ba0d62df9
+--- /dev/null
++++ b/man3const/EXIT_FAILURE.3const
+@@ -0,0 +1 @@
++.so man3const/EXIT_SUCCESS.3const
+diff --git a/man3const/EXIT_SUCCESS.3const b/man3const/EXIT_SUCCESS.3const
+new file mode 100644
+index 000000000..dd6f908e5
+--- /dev/null
++++ b/man3const/EXIT_SUCCESS.3const
+@@ -0,0 +1,58 @@
++.\" Copyright (c) 2022 by Thomas Voss <mail@thomasvoss.com>
++.\"
++.\" SPDX-License-Identifier: Linux-man-pages-copyleft
++.\"
++.\"
++.TH EXIT_SUCCESS 3const (date) "Linux man-pages (unreleased)"
++.SH NAME
++EXIT_SUCCESS, EXIT_FAILURE \- termination status constants
++.SH LIBRARY
++Standard C library
++.RI ( libc )
++.SH SYNOPSIS
++.nf
++.B #include <stdlib.h>
++.PP
++.B "#define EXIT_SUCCESS  /* ... */"
++.B "#define EXIT_FAILURE  /* ... */"
++.fi
++.SH DESCRIPTION
++.BR EXIT_SUCCESS " and " EXIT_FAILURE
++represent a successful and unsuccessful exit status respectively.
++Both macros are constant expressions of type
++.I int
++which can be used as arguments to the
++.BR exit ()
++function.
++.SH CONFORMING TO
++C99 and later;
++POSIX.1-2001 and later.
++.SH EXAMPLES
++.\" SRC BEGIN (EXIT_SUCCESS.c)
++.EX
++#include <stdio.h>
++#include <stdlib.h>
++
++int
++main(int argc, char *argv[])
++{
++    FILE *fp;
++
++    if (argc != 2) {
++        fprintf(stderr, "Usage: %s <file>\en", argv[0]);
++        exit(EXIT_FAILURE);
++    }
++
++    if ((fp = fopen(argv[1], "r")) == NULL) {
++        perror(argv[1]);
++        exit(EXIT_FAILURE);
++    }
++
++    /* Other code omitted */
++
++    exit(EXIT_SUCCESS);
++}
++.EE
++.\" SRC END
++.SH SEE ALSO
++.BR exit (3)
+-- 
+2.38.1
 
----------------------------------------------------------------------------=
----------------------
----------------------------------------------------------------------------=
----------------------
-Forschungszentrum Juelich GmbH
-52425 Juelich
-Sitz der Gesellschaft: Juelich
-Eingetragen im Handelsregister des Amtsgerichts Dueren Nr. HR B 3498
-Vorsitzender des Aufsichtsrats: MinDir Volker Rieke
-Geschaeftsfuehrung: Prof. Dr.-Ing. Wolfgang Marquardt (Vorsitzender),
-Karsten Beneke (stellv. Vorsitzender), Prof. Dr. Astrid Lambrecht,
-Prof. Dr. Frauke Melchior
----------------------------------------------------------------------------=
----------------------
----------------------------------------------------------------------------=
----------------------
