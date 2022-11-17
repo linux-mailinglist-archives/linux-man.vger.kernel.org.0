@@ -2,70 +2,68 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 605CA62CF18
-	for <lists+linux-man@lfdr.de>; Thu, 17 Nov 2022 00:50:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B1DE262CF51
+	for <lists+linux-man@lfdr.de>; Thu, 17 Nov 2022 01:06:55 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234604AbiKPXuB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 16 Nov 2022 18:50:01 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41664 "EHLO
+        id S232905AbiKQAGu (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 16 Nov 2022 19:06:50 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49568 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S238019AbiKPXty (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 16 Nov 2022 18:49:54 -0500
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com [IPv6:2a00:1450:4864:20::330])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 48D5F682A1
-        for <linux-man@vger.kernel.org>; Wed, 16 Nov 2022 15:49:50 -0800 (PST)
-Received: by mail-wm1-x330.google.com with SMTP id r127-20020a1c4485000000b003cfdd569507so2095225wma.4
-        for <linux-man@vger.kernel.org>; Wed, 16 Nov 2022 15:49:50 -0800 (PST)
+        with ESMTP id S229939AbiKQAGt (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 16 Nov 2022 19:06:49 -0500
+Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com [IPv6:2607:f8b0:4864:20::22f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AE70E289
+        for <linux-man@vger.kernel.org>; Wed, 16 Nov 2022 16:06:48 -0800 (PST)
+Received: by mail-oi1-x22f.google.com with SMTP id n205so208856oib.1
+        for <linux-man@vger.kernel.org>; Wed, 16 Nov 2022 16:06:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=c4WdPHamv8L2GtKcmeDwF1a101IT7x1En1Ge+obiYsU=;
-        b=InOPcXZPjOWufRKRi9NFUGFrNR8vEfKbDXxAnE3uPTmM1HCpHwGNZagP5AsdGbqyDY
-         4ZlM6ghnCj3B5ok2ejIFmj66n8ysDSh3+4H+ErmMWsPYhSWdd5d9ik4WiHWx6BiYss7C
-         ODEOB/OI9ggK30bfgQBY2RG5VyLFlU0X5uhJ50Uyo5C7DG2i+ZWShhnQ5wzicE8CFXSn
-         3GXylbb+GILrACQXaZWPB32b0tYucxjMZPhV4gQWCaMxlHiPlXxGcCcMy0d//AfYgnvu
-         AAMfEZ6RtjdijTUTNabA3mwWrlAiwybL7Acl0fwPIKr3iD1T8SUASXzIXtj9Bdmmf27+
-         XHuQ==
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=yL430yzJUoQXMlyodR3dZlPBQI1x8p4Nff0nFIjdGcs=;
+        b=nktfd0MLagkUlGgLRMuukqrXYbH2AVwmxDeaaxLBYyKZxebvT3LEQK3oIXxrjXNUU3
+         vTwU0JDfWfmi+NLQ6GUM1n8wYVqGzV4CA13Qsa+B6uHUVSbtajlfWQvqHUNZJz3d2ozw
+         CMc/w4oaWq3we9r5qChKipFTNdjYOxP/VDSaJFOH1f1VuxdPgCVZX3eID8QA+IPGaEPu
+         IOcDwLhFio7xviiii8wXNFqd0cH/GRABmPF5rAW+SZR9RzyFC4CuEIeOh6LFCIZuWDOE
+         w1+Q6phQvmPMtpEzGH3ELlaqK6MeKlSkhY6Dyr6qub61NbTLFqNnDMXWHq/YyZXLI2+y
+         UWUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=c4WdPHamv8L2GtKcmeDwF1a101IT7x1En1Ge+obiYsU=;
-        b=fPQTj/2ntM5ZPUEK8lMOl6sWSNPY2Z7OYCie23TEvG5oj7k5Fx8RZ9G59ekKCXBnfH
-         zlxy0FR+4/6/SKleC4qHkbKeJH4BkZgn5XFKhaEXYWpCZ045ST4XzgKjOQpgyg0YFq3e
-         oQ3YrtkVTTKKqpVPfuLvpcDunPEnuMOhtt2jWxopdlajrOdwZrYLTZ6A7AzfaHlsKsfn
-         tNGcfwAnZl+bNwJLUyuhfePYwbD3VEC7QnXcMaXUer0JMKNLRb8tDlV9rDofn9R6m9qa
-         vB7V76Im+MJzeqN5iG/YROUanUrwWxRfjQZOpXfl5WJwHZlaW6DA0WhdqGyU5IbflTeu
-         qqZg==
-X-Gm-Message-State: ANoB5plgCbYuCcB6tGrI+5AkmJMciagMGXgcBb1ANPP8KxiiVx2GT3SZ
-        2HJVc7oPSyri55Tzpq4GG+Hu+xuE13E=
-X-Google-Smtp-Source: AA0mqf56NmYKN29FaTs+paJAicBhyNHutltjabXxu4YIrNgTdtfjw7IxH8sR2Ir5rRnmHq2xiF3/mQ==
-X-Received: by 2002:a1c:4b0f:0:b0:3cf:735c:9d5a with SMTP id y15-20020a1c4b0f000000b003cf735c9d5amr12517wma.113.1668642588774;
-        Wed, 16 Nov 2022 15:49:48 -0800 (PST)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id l32-20020a05600c1d2000b003cfbbd54178sm8130887wms.2.2022.11.16.15.49.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 16 Nov 2022 15:49:48 -0800 (PST)
-Message-ID: <08710003-7f8a-7583-cc79-cb51fbb8d859@gmail.com>
-Date:   Thu, 17 Nov 2022 00:49:47 +0100
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=yL430yzJUoQXMlyodR3dZlPBQI1x8p4Nff0nFIjdGcs=;
+        b=v5MY0dB/ZUGguQI2E4OstnocD7SpMuJvF3QJ8cOVxtDGsXYm2vvkkWRV/2T6WSjdR1
+         Qsb3DnJVEQq0p8Q7GCxjJ49EHgueVKcpmor9RLT4o4mrUUFe4cqqS/0xXhVyfRasgOuy
+         QDn51paUgknktcmrAhXe/UrQkuuAIo9IdT0WbkNv+3XuR/dnWXUUZzsMhTTvrO9i9XdU
+         1ymqa2YvCzN93Z3aUF96BU1B2IRe2nXEbSmsJP/WQy6xBOBQAvZwrfu3ClhE8Ih2YVW1
+         presXHte7mAOoYKSNSHo5qMZAkFRdgkGtyg/yDCsIw+feCkxTxgCQ08H/T3EGiGKaZnQ
+         amaw==
+X-Gm-Message-State: ANoB5pmb5WGMAjTW5VW+VFQCIw6gwWzxaQnqrLg3e43+ACDL2GS93n95
+        Bfib/5sf3KPebWPvcoxPaX/sfebSPs8LWw==
+X-Google-Smtp-Source: AA0mqf41xqooVFuM9+CeEcFlHj6YQyco2LiZ0hZT72e3Td4v7sO42Hur3Vcm3DXi63xfokYpLgwVBw==
+X-Received: by 2002:a05:6808:3ca:b0:359:d2a1:b140 with SMTP id o10-20020a05680803ca00b00359d2a1b140mr40909oie.274.1668643607994;
+        Wed, 16 Nov 2022 16:06:47 -0800 (PST)
+Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
+        by smtp.gmail.com with ESMTPSA id w6-20020a056808018600b003458d346a60sm6667755oic.25.2022.11.16.16.06.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Nov 2022 16:06:47 -0800 (PST)
+Date:   Wed, 16 Nov 2022 18:06:46 -0600
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>,
+        Ingo Schwarze <schwarze@usta.de>,
+        Douglas McIlroy <douglas.mcilroy@dartmouth.edu>
+Subject: Re: intro(3type) draft
+Message-ID: <20221117000646.pjz5cf43h65emq6q@illithid>
+References: <c7f78a1b-a7bb-a077-3445-802e99f5e9c7@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.1
-Subject: Re: man ld(1): see also ldd, ldconfig
-Content-Language: en-US
-To:     Joachim Wuttke <j.wuttke@fz-juelich.de>, binutils@sourceware.org
-Cc:     linux-man@vger.kernel.org
-References: <9ed5e1a7-7003-e31f-1a39-62d2c3e718cc@fz-juelich.de>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <9ed5e1a7-7003-e31f-1a39-62d2c3e718cc@fz-juelich.de>
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------bSn1hMjUh0i1BwpPLF76F90Y"
+        protocol="application/pgp-signature"; boundary="kpyvh6hopnnykbng"
+Content-Disposition: inline
+In-Reply-To: <c7f78a1b-a7bb-a077-3445-802e99f5e9c7@gmail.com>
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -74,70 +72,122 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------bSn1hMjUh0i1BwpPLF76F90Y
-Content-Type: multipart/mixed; boundary="------------cUgt6jjrIw11Yi7p6arUEKer";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Joachim Wuttke <j.wuttke@fz-juelich.de>, binutils@sourceware.org
-Cc: linux-man@vger.kernel.org
-Message-ID: <08710003-7f8a-7583-cc79-cb51fbb8d859@gmail.com>
-Subject: Re: man ld(1): see also ldd, ldconfig
-References: <9ed5e1a7-7003-e31f-1a39-62d2c3e718cc@fz-juelich.de>
-In-Reply-To: <9ed5e1a7-7003-e31f-1a39-62d2c3e718cc@fz-juelich.de>
 
---------------cUgt6jjrIw11Yi7p6arUEKer
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+--kpyvh6hopnnykbng
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-SGkgSm9hY2hpbSwNCg0KT24gMTEvMTUvMjIgMTc6NTEsIEpvYWNoaW0gV3V0dGtlIHdyb3Rl
-Og0KPiBJJ2Qgc3VnZ2VzdCB0byBhZGQgbGRkIGFuZCBsZGNvbmZpZyB0byB0aGUgInNlZSBh
-bHNvIiBzZWN0aW9uIG9mIG1hbiBsZCwNCj4gYmVjYXVzZSB0aG9zZSBhcmUgdGhlIG1hbiBw
-YWdlcyB5b3UgbmVlZCB3aGVuIGRlc3BlcmF0ZWx5IGRlYnVnZ2luZw0KPiBsZCBmYWlsdXJl
-cyBvbiBtaXNjb25maWd1cmVkIHN5c3RlbXMuDQoNCkknZCBhbHNvIGFkZCBsZC5zbyg4KS4N
-Cg0KVGhlIHBhZ2UgbGQoMSkgaXMgbm90IHByb3ZpZGVkIGJ5IHRoZSBMaW51eCBtYW4tcGFn
-ZXMsIGJ1dCBieSB0aGUgR05VIGJpbnV0aWxzIA0KcHJvamVjdC4NCg0KSSBhZGRlZCB0aGVt
-IHRvIHRoaXMgbWFpbC4NCg0KPiANCj4gVGhhbmtzIGZvciBhbGwgeW91ciB3b3JrIG9uIHRo
-ZSBMaW51eCBtYW4gcGFnZXMgcHJvamVjdCwgSm9hY2hpbQ0KDQpUaGFua3MhICA6LSkNCg0K
-Q2hlZXJzLA0KDQpBbGV4DQoNCj4gDQo+IA0KPiAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0NCj4gLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tDQo+IEZvcnNjaHVuZ3N6ZW50cnVtIEp1ZWxpY2ggR21iSA0KPiA1MjQyNSBK
-dWVsaWNoDQo+IFNpdHogZGVyIEdlc2VsbHNjaGFmdDogSnVlbGljaA0KPiBFaW5nZXRyYWdl
-biBpbSBIYW5kZWxzcmVnaXN0ZXIgZGVzIEFtdHNnZXJpY2h0cyBEdWVyZW4gTnIuIEhSIEIg
-MzQ5OA0KPiBWb3JzaXR6ZW5kZXIgZGVzIEF1ZnNpY2h0c3JhdHM6IE1pbkRpciBWb2xrZXIg
-Umlla2UNCj4gR2VzY2hhZWZ0c2Z1ZWhydW5nOiBQcm9mLiBEci4tSW5nLiBXb2xmZ2FuZyBN
-YXJxdWFyZHQgKFZvcnNpdHplbmRlciksDQo+IEthcnN0ZW4gQmVuZWtlIChzdGVsbHYuIFZv
-cnNpdHplbmRlciksIFByb2YuIERyLiBBc3RyaWQgTGFtYnJlY2h0LA0KPiBQcm9mLiBEci4g
-RnJhdWtlIE1lbGNoaW9yDQo+IC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLQ0KPiAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0N
-Cg0KLS0gDQo8aHR0cDovL3d3dy5hbGVqYW5kcm8tY29sb21hci5lcy8+DQo=
+Hi Alex,
 
---------------cUgt6jjrIw11Yi7p6arUEKer--
+At 2022-11-17T00:13:56+0100, Alejandro Colomar wrote:
+> Per the request of Branden that I should discourage programmers of
+> writing their manuals with subchapters, which fundamentally means
+> discouraging programmers of writing their libraries (or modules, or
+> whatever a given language uses) in a way that you can't document a
+> header in a single page, I wrote the following introductory page
+> intro(3type).
+>=20
+> The caveat that you'll read should go either in all intro([23]\w+)
+> pages.  We could put it in the main section into pages too.  I want to
+> hear some opinions about this.
 
---------------bSn1hMjUh0i1BwpPLF76F90Y
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+I agree with both of those suggestions.
+
+> I used temporarily the term [sub]chapter to see how it fits.
+
+I think the adoption of the term (sub)chapter has a potential benefit in
+that it removes a terminological collision with (sub)sections as
+subdivisions of individual man pages (man: SH, SS; mdoc: Sh, Ss).
+
+If this terminological reform is adopted, I think it should be done
+across all of (1) Linux man-pages, (2) groff, (3) mandoc, and (4)
+man-db.  If we can't speak with one voice on this then I think it's
+better not to undertake that reform at all, to avoid frustrating the
+discoverabilty of man pages.
+
+Possibly the biggest barrier to this is the mnemonic and documentation
+of the man(1) '-s' option.  In man-db man, '-C' and '-c' are both
+already in use.
+
+Probably a good idea to loop Colin Watson in on this proposal of yours,
+which is strictly speaking severable from the below.
+
+Whatever term is settled on, I'll refer to as $SUBDIVISION below.
+
+> intro(3type)                                        intro(3type)
+>=20
+> NAME
+>        intro - introduction to library types
+
+More information in the summary description is better for keyword
+searches.
+
+I suggest:
+
+**snip**
+introduction to data types defined by the C library
+**snip**
+
+> DESCRIPTION
+>        Subchapter  3type  of the manual describes the types pro=E2=80=90
+>        vided by C libraries.
+
+Now since the description restates the summary description, you'll want
+to say something more substantive here.
+
+> CAVEATS
+
+I wouldn't use "CAVEATS" for this, at least not as I rewrote it below.
+
+>        The separation of chapter 3 of this manual into  subchap=E2=80=90
+>        ters  is  only  a  consequence of the organization in the
+>        Standard C Library.
+
+I would recast this.
+
+**snip**
+$SUBDIVISION 3 of this manual is organized into sub${SUBDIVISION}s to
+reflect the complex structure of the standard C library and its many
+implementations.  This difficult history frequently makes it a poor
+example to follow in design, implementation, and presentation.
+
+Ideally, a library for the C language is designed such that each header
+file presents the interface to a coherent software module.  It furnishes
+a small number of function declarations and exposes only data types and
+constants that are required for use of those functions.  Together, these
+are termed an API or _application program interface_.  Types and
+constants to be shared shared among multiple APIs should be placed in
+header files that declare no functions.  This organization permits a C
+library module to be documented concisely with one header file per man
+page.  Such an approach improves the readability and accessibility of
+library documentation, and thereby the usability of the software.
+**snip**
+
+But maybe this material is better placed intro(3) itself, unless you
+want a lot of duplication for the sake of getting the message across.
+
+Regards,
+Branden
+
+--kpyvh6hopnnykbng
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmN1dxsACgkQnowa+77/
-2zIvtA/5AS+v3K62sXi8cqqzNCF0XtHoAKk95VMmileZ+c1nNA8PUnJg/drpOUyB
-rppVR5bh7ccAnfygM3GwS8aRd6tfxbnooU3LpAT+ILray7FRFU/aONf9kNErjyh1
-3AwzHiKNr5SEpGolKBHNn+ufJas0hhhmIpcnlL7tGwNJFMR2he/GmuBu5p2KZkWA
-qoTrEJGEaUZX22wWDyJXr5VP7Pn48MQUljbtBtAWXtd50aamyb5GGydMITyeDvor
-FDyZW2lHSX6qwMfGPvOf+BxGUrYyJm6cgEy/6U7W+X2zV2+7OIdyE7bu40G7fm8W
-wdi2ykegQqm03c/7cDNgAk830p1RF3aXdlbQHH8iEW92OJVF1KxDZz5kF8KFvR9c
-eHopyK62tCCbEJAMduCzk8U9mCnMYNUvTj+pMbRJJAPTWbVIVTPWr+Vlqzg4qllg
-ce7+D2wmWUU9HG1ySd9nxWp365Di8viID0fC8kiIldZjfg577DASdy0R+a1agylF
-mr2wloPrBpQ4UQtT7pFUuu13rV0mlH1KT86DF/7RrQcnJTxv7rlJdv9MUTPmlCJO
-QyFz379SFEmZG7ZFkt+k5C01fuC/kVz2Twmoh+pCuzKsyD/thtaLFI6iYfrqYt8h
-KzqBsHbji7MZC0fnrfKnTBTvQfbJ7f8zwf6NnHOFhn0kk63i1Hs=
-=FheD
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmN1ew4ACgkQ0Z6cfXEm
+bc6CBA//eAFkl7dCBmeYDWecEEoOLSNJOHjPXhrIdPhVFZEWkZ7GUC4fLl5MIE63
+Au0I9Efz1yOKWC7qqy7BvhOmeL82cKAugChYQhe566K88Ma6TMNTwaq+y+r8EfM/
+0nXLTTEvOI/2OJdXjdVSckrVsNuPoIe+pI55JQGtdRDZWHQURhHAA2HAVDjC5cws
+duZiXGdxPecEHXoWeBxM6p6AUAmbCaVnloA1Oo5eQFphTNv2A+0Qh3UebBKPRK6v
++Gjr8OfZN0bSkCghqMGFC316K2HTwljdHlXjPsxCAYk1j40Ne9B+iaq6Zu07rH5O
+Kaie+vC4aUfNspXfHW4j1vE1Gnz0P3IZX43exdWyEEcDQSmu6XaMXOuXtqBpCF9L
+XenGep+7cnF16Q0SVKepDZdhZNSAkfazT4uj7VnM1ItEX2JFTDM6nbAaLsyAU8YZ
+qcF9GcFzWK6vlkCBmgW1C0a54w9M9abT2gwgKgIDvIbJy+bpUwlyuqHnYo+5IWPo
+balOWjuzrYgunkzGhorJXBEwoZwC05FWcRH9qZ9aEEdt/QbQPGhNMdMAGy2UhroL
+/0whDbGs2MAJxeil8groIeW6a+YCiGC9e+dAhD6i6F2YWDh2CnLYnQqPC05F+myJ
+FYOJFZYm7pXyZYvJ2hqvdrmWU2CeDxkKqHwxU+Uj+Ypa36KEntQ=
+=dIXz
 -----END PGP SIGNATURE-----
 
---------------bSn1hMjUh0i1BwpPLF76F90Y--
+--kpyvh6hopnnykbng--
