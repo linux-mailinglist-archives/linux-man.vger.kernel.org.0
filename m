@@ -2,68 +2,74 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 1A4176369E5
-	for <lists+linux-man@lfdr.de>; Wed, 23 Nov 2022 20:31:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id BCAD56369E6
+	for <lists+linux-man@lfdr.de>; Wed, 23 Nov 2022 20:32:17 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235397AbiKWTbg (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 23 Nov 2022 14:31:36 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57192 "EHLO
+        id S235297AbiKWTcR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 23 Nov 2022 14:32:17 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57228 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235311AbiKWTbd (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 23 Nov 2022 14:31:33 -0500
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com [IPv6:2a00:1450:4864:20::333])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7BC9B67101
-        for <linux-man@vger.kernel.org>; Wed, 23 Nov 2022 11:31:32 -0800 (PST)
-Received: by mail-wm1-x333.google.com with SMTP id l39-20020a05600c1d2700b003cf93c8156dso2011425wms.4
-        for <linux-man@vger.kernel.org>; Wed, 23 Nov 2022 11:31:32 -0800 (PST)
+        with ESMTP id S233908AbiKWTcQ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 23 Nov 2022 14:32:16 -0500
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com [IPv6:2a00:1450:4864:20::42c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 011F668C79
+        for <linux-man@vger.kernel.org>; Wed, 23 Nov 2022 11:32:14 -0800 (PST)
+Received: by mail-wr1-x42c.google.com with SMTP id n3so14386672wrp.5
+        for <linux-man@vger.kernel.org>; Wed, 23 Nov 2022 11:32:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=subject:from:cc:to:content-language:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=4r8uaZQuvEHiFOtJLv31Ft+c4qQEwadgXPmyRzogFKA=;
-        b=UO/AnR0s6P9dQtT3TeypwJPMcgoI8fBrmFO1r3wpT3Ju8o/xezHPYbaVuOqsXsG/F+
-         KFq4GVdWLlo++PbRJkJHO+ErCBir2CYAKUV/hSc/19vINBwvyeU6Ryc01dpPxhPAA4a9
-         YKR/kmBmklyFwigBBmjNOCbvi+wfbaqu3kfb5XvwLdOv3hMM9VzewyIAyMPHa32FnWhh
-         PbING5cEPxlPs9IGbzeTRUxrBtBkwB8zSPGSKfjpf+ita1hepfc8kw2+WoUIXTs67wpO
-         dTTXFExWcYH5eR9SObQHpOWWBLFs0vSKEjkOIKrQiFcZhRlSGV4czHgeUwaX6Emz2d8P
-         faYQ==
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=CWRjS73E/ar49pCAMJt4hdFypxzA1NMNejQy0UrUfdY=;
+        b=HlFrKP3+PnOiflIW9Z+j5DhLTa2FoQlRvUqYD5c2h5RBs+351mp8lNRCsNfTV2Dsrt
+         D4HHfXUeyRMDKj2+rWDIpBbeBz0/xc8LCPB/0DbOY9Nri4C1harHImzjYwcNxwfjBiJr
+         3hwg75QmQkUTlyntS0+xxgYN6m3vEvHpBmZNbpL/HgL1rHWKeGRtzmGGGEWw5RIwysDQ
+         iCCqHtRiksvVE0MQmRpNGruyWla0i2VX6tRc3U7QPukuJm04MmcCGKd6q8Y0K5mOYGAz
+         1PPA+beCBtYOU8Ice35L4k+tGEkNi/cN86qIx1O6n2uZUBtemyXu9hLH3yd04v0G26QP
+         Db/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=subject:from:cc:to:content-language:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=4r8uaZQuvEHiFOtJLv31Ft+c4qQEwadgXPmyRzogFKA=;
-        b=q7uW5eDOn83fr7GKk8FYX3O31PTsDhA0CJr5SwwhIt6klYXjzV4zynbooFqAZCzGo4
-         K5EqDJ+YeejEh5UQ3YVBdHTdXnaUV5jXz55R0IDncoJ79ez09xxG2OR/h+A4I9W76yxf
-         VtgyutlpacMohGZGKoeVGsuV+U39QHqZxqCTQY2bqZn3tqDiYTHVuRbw9bFlzsNsVwPL
-         z59hY2WA7QPGaFUIPnU7qGGGvY8Z0eqpJYgROU1j0U+WfXt4dgKuhH5Zwgc0/h7St0hX
-         PS3gnJzzt97SWkju0i5j9ltRpQPrc/5piwmpbCwdT4mMPxqb72JuuGFISIkjoAw8ifXF
-         XGVQ==
-X-Gm-Message-State: ANoB5pk28EYE5KJm6jidOZa2Hyy2cTvPCdY5IxGeI7+rQjaYTsDHpYCA
-        JkHm9PjEqSnR+PSBx0znVC4=
-X-Google-Smtp-Source: AA0mqf4qcIR865FlMZ17c2e9p6YhewyMHYOaP9dS1HhjUMOkBGMnJaVD5o4Zw7GqB2diJ77XKELgKw==
-X-Received: by 2002:a05:600c:4c96:b0:3cf:6a66:e324 with SMTP id g22-20020a05600c4c9600b003cf6a66e324mr14152645wmp.158.1669231891078;
-        Wed, 23 Nov 2022 11:31:31 -0800 (PST)
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=CWRjS73E/ar49pCAMJt4hdFypxzA1NMNejQy0UrUfdY=;
+        b=q27Bqw7KsSEv6Ld2u3/rozn+DJFDoav6HR+EmsxnuOIowDXR4jYbzX7ua6lQqq/QEz
+         p/3CqoNtxLdCS+T3TY0riLMgXNWAqyGJs0WLCwHZyIHS7/1+518bP+F+6p47AJ9zOlU/
+         tu7UJ+/w5CfAnHd9NInxtRsZqQXPU1fPGtZFmdKDi9671A/14Y0a661+VLkbAxsIh08k
+         uTZCUoadepsRvLeyvdSnqi4XVjCkF4umSNQdSBy8qD4qTgnS6snye/WywjRvdlPdQZs/
+         0ZaSsw7CWjrMbe4EY8h/hMLhlQd9hTJZ6vvlTDDKQI7A8zkMYm0LsELwVgZeFgXIYz1W
+         iNMA==
+X-Gm-Message-State: ANoB5pnrOXNpFcrMvgrVyQvIUalhaVj7DsINaL8DAmYpO1R+j8QmUeNZ
+        IEMbCm+5f7KpwzZhFv7nmbABeEKaegk=
+X-Google-Smtp-Source: AA0mqf6aMn5QjrFQJaKK+aIlXWS+lOJkz8jvTNcfHeMHn1ZQeiRYt0VBhl7M4gXBhaieor3ilD8Now==
+X-Received: by 2002:adf:d841:0:b0:236:5655:13a5 with SMTP id k1-20020adfd841000000b00236565513a5mr17891769wrl.477.1669231933530;
+        Wed, 23 Nov 2022 11:32:13 -0800 (PST)
 Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id g16-20020adffc90000000b0022ae401e9e0sm17447889wrr.78.2022.11.23.11.31.30
+        by smtp.gmail.com with ESMTPSA id d16-20020a5d6dd0000000b0022584c82c80sm17111949wrz.19.2022.11.23.11.32.12
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Nov 2022 11:31:30 -0800 (PST)
-Message-ID: <842adff8-8d8c-b189-8e6c-34be111b8b19@gmail.com>
-Date:   Wed, 23 Nov 2022 20:31:22 +0100
+        Wed, 23 Nov 2022 11:32:13 -0800 (PST)
+Message-ID: <88abc104-1317-bd56-88f3-92f70f0776f1@gmail.com>
+Date:   Wed, 23 Nov 2022 20:32:11 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.4.1
+Subject: Re: [PATCH v2 1/4] zic.8: Add public domain notice
 Content-Language: en-US
-To:     Time zone mailing list <tz@iana.org>,
-        Paul Eggert <eggert@cs.ucla.edu>
-Cc:     linux-man <linux-man@vger.kernel.org>, groff <groff@gnu.org>
+To:     Paul Eggert <eggert@cs.ucla.edu>, tz@iana.org
+Cc:     linux-man@vger.kernel.org, Alejandro Colomar <alx@kernel.org>,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>
+References: <20221123134827.10420-1-alx@kernel.org>
+ <ab852b8f-2c05-ba10-187d-c7f0e6545dcd@cs.ucla.edu>
+ <423d19dd-211a-1acc-eb9b-a86153c19f94@gmail.com>
+ <fe28e39d-64ed-75bc-e652-734a67b8259c@cs.ucla.edu>
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-Subject: Doubts about a typo fix
+In-Reply-To: <fe28e39d-64ed-75bc-e652-734a67b8259c@cs.ucla.edu>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------Yr9Z2msF4ksS0myvv1sRaSje"
+ boundary="------------63tiYFqHQ040hzppMZHORL2C"
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -73,87 +79,54 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------Yr9Z2msF4ksS0myvv1sRaSje
-Content-Type: multipart/mixed; boundary="------------I854UuyUXYYGJQmp3Ap3o0oj";
+--------------63tiYFqHQ040hzppMZHORL2C
+Content-Type: multipart/mixed; boundary="------------x7CCqGup0P2L6unvj3nRnHfT";
  protected-headers="v1"
 From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Time zone mailing list <tz@iana.org>, Paul Eggert <eggert@cs.ucla.edu>
-Cc: linux-man <linux-man@vger.kernel.org>, groff <groff@gnu.org>
-Message-ID: <842adff8-8d8c-b189-8e6c-34be111b8b19@gmail.com>
-Subject: Doubts about a typo fix
+To: Paul Eggert <eggert@cs.ucla.edu>, tz@iana.org
+Cc: linux-man@vger.kernel.org, Alejandro Colomar <alx@kernel.org>,
+ "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Message-ID: <88abc104-1317-bd56-88f3-92f70f0776f1@gmail.com>
+Subject: Re: [PATCH v2 1/4] zic.8: Add public domain notice
+References: <20221123134827.10420-1-alx@kernel.org>
+ <ab852b8f-2c05-ba10-187d-c7f0e6545dcd@cs.ucla.edu>
+ <423d19dd-211a-1acc-eb9b-a86153c19f94@gmail.com>
+ <fe28e39d-64ed-75bc-e652-734a67b8259c@cs.ucla.edu>
+In-Reply-To: <fe28e39d-64ed-75bc-e652-734a67b8259c@cs.ucla.edu>
 
---------------I854UuyUXYYGJQmp3Ap3o0oj
+--------------x7CCqGup0P2L6unvj3nRnHfT
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: base64
 
-SGkgUGF1bCwNCg0KSSBkb24ndCB1bmRlcnRzdGFuZCB0aGUgY29tbWl0IHNob3duIGJlbG93
-LiAgSXQgYnJlYWtzIHRoZSAnLScgc3ltYm9sLCB3aGljaCBub3cgDQppcyBhIGh5cGhlbi4g
-IFNlZSB0aGUgdGFibGUgbWVudGlvbmVkIHllc3RlcmRheToNCg0KICAgICAgICAgIOKUjOKU
-gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
-gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
-gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
-gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUkA0KICAgICAgICAgIOKUgktl
-eWNhcCAgIEFwcGVhcmFuY2UgYW5kIG1lYW5pbmcgICBTcGVjaWFsIGNoYXJhY3RlciBhbmQg
-bWVhbmluZyAgIOKUgg0KICAgICAgICAgIOKUnOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
-gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
-gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
-gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
-gOKUgOKUgOKUgOKUpA0KICAgICAgICAgIOKUgiIgICAgICAgICIgbmV1dHJhbCBkb3VibGUg
-cXVvdGUgICBcW2RxXSBuZXV0cmFsIGRvdWJsZSBxdW90ZSAgICAgIOKUgg0KICAgICAgICAg
-IOKUgicgICAgICAgIOKAmSBjbG9zaW5nIHNpbmdsZSBxdW90ZSAgIFxbYXFdIG5ldXRyYWwg
-YXBvc3Ryb3BoZSAgICAgICAg4pSCDQogICAgICAgICAg4pSCLSAgICAgICAg4oCQIGh5cGhl
-biAgICAgICAgICAgICAgICAgXC0gb3IgXFstXSBtaW51cyBzaWduL1VuaXggZGFzaCDilIIN
-CiAgICAgICAgICDilIJcICAgICAgICAoZXNjYXBlIGNoYXJhY3RlcikgICAgICAgXGUgb3Ig
-XFtyc10gcmV2ZXJzZSBzb2xpZHVzICAgICDilIINCiAgICAgICAgICDilIJeICAgICAgICDL
-hiBtb2RpZmllciBjaXJjdW1mbGV4ICAgIFwoaGEgY2lyY3VtZmxleC9jYXJldC/igJxoYXTi
-gJ0gICAgIOKUgg0KICAgICAgICAgIOKUgmAgICAgICAgIOKAmCBvcGVuaW5nIHNpbmdsZSBx
-dW90ZSAgIFwoZ2EgZ3JhdmUgYWNjZW50ICAgICAgICAgICAgICAg4pSCDQogICAgICAgICAg
-4pSCfiAgICAgICAgy5wgbW9kaWZpZXIgdGlsZGUgICAgICAgICBcKHRpIHRpbGRlICAgICAg
-ICAgICAgICAgICAgICAgIOKUgg0KICAgICAgICAgIOKUlOKUgOKUgOKUgOKUgOKUgOKUgOKU
-gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
-gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
-gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
-gOKUgOKUgOKUgOKUgOKUgOKUmA0KDQoNClNvLCBhdCBsZWFzdCwgaXQgc2hvdWxkIGJlIChi
-dXQgSSBiZWxpZXZlIHRoZSBpbml0aWFsIGNvZGUgd2FzIGNvcnJlY3QpOg0KDQoucSAiemlj
-IFwqXC1yIEAkKGRhdGUgKyVzKSINCg0KSG93ZXZlciwgSSB3b25kZXIgd2hhdCB0aGF0IFwq
-IGlzIGludGVuZGluZyB0byBkbyB0aGVyZSAoSSBjYW4gc2VlIG5vIGRpZmZlcmVuY2UgDQpp
-biBteSBzY3JlZW4gd2l0aCBvciB3aXRob3V0IGl0KS4NCg0KQ2hlZXJzLA0KDQpBbGV4DQoN
-Ci0tLQ0KDQpjb21taXQgOTE4ZTEwZTg5NjNiM2MwZDM4ZDNiNWZiOGVjOWNmMDhlY2QwMzc1
-Nw0KQXV0aG9yOiBQYXVsIEVnZ2VydCA8ZWdnZXJ0QGNzLnVjbGEuZWR1Pg0KRGF0ZTogICBU
-dWUgSnVsIDEyIDA2OjI2OjUzIDIwMjIgLTA3MDANCg0KICAgICAqIHppYy44OiBmaXggbWlu
-dXMgdHlwbw0KDQpkaWZmIC0tZ2l0IGEvemljLjggYi96aWMuOA0KaW5kZXggMGNkMDc4MWUu
-LmU4ODE2ZTViIDEwMDY0NA0KLS0tIGEvemljLjgNCisrKyBiL3ppYy44DQpAQCAtMTQ1LDcg
-KzE0NSw3IEBAIC5TSCBPUFRJT05TDQogIDMxLWJpdCBzaWduZWQgaW50ZWdlcnMuDQogIE9u
-IHBsYXRmb3JtcyB3aXRoIEdOVQ0KICAuQlIgZGF0ZSAsDQotLnEgInppYyBcLXIgQCQoZGF0
-ZSArJXMpIg0KKy5xICJ6aWMgXCotciBAJChkYXRlICslcykiDQogIG9taXRzIGRhdGEgaW50
-ZW5kZWQgZm9yIHBhc3QgdGltZXN0YW1wcy4NCiAgQWx0aG91Z2ggdGhpcyBvcHRpb24gdHlw
-aWNhbGx5IHJlZHVjZXMgdGhlIG91dHB1dCBmaWxlJ3Mgc2l6ZSwNCiAgdGhlIHNpemUgY2Fu
-IGluY3JlYXNlIGR1ZSB0byB0aGUgbmVlZCB0byByZXByZXNlbnQgdGhlIHRpbWVzdGFtcCBy
-YW5nZQ0KDQoNCg0KLS0gDQo8aHR0cDovL3d3dy5hbGVqYW5kcm8tY29sb21hci5lcy8+DQo=
+T24gMTEvMjMvMjIgMjA6MTksIFBhdWwgRWdnZXJ0IHdyb3RlOg0KPiBPbiAyMDIyLTExLTIz
+IDExOjAxLCBBbGVqYW5kcm8gQ29sb21hciB3cm90ZToNCj4+IFdvdWxkIHlvdSBtaW5kIG1v
+dmluZyBpdCB0byB0aGUgdG9wIG9mIHRoZSBmaWxlLCBhcyBpcyBjb21tb24gd2l0aCB0aGVz
+ZSBub3RpY2VzPw0KPiANCj4gU3VyZSwgdGhhdCdzIGVhc3kuIERvbmUgYnkgaW5zdGFsbGlu
+ZyB0aGUgYXR0YWNoZWQuDQoNClRoYW5rcyA6KQ0KDQotLSANCjxodHRwOi8vd3d3LmFsZWph
+bmRyby1jb2xvbWFyLmVzLz4NCg==
 
+--------------x7CCqGup0P2L6unvj3nRnHfT--
 
---------------I854UuyUXYYGJQmp3Ap3o0oj--
-
---------------Yr9Z2msF4ksS0myvv1sRaSje
+--------------63tiYFqHQ040hzppMZHORL2C
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmN+dQoACgkQnowa+77/
-2zI2Yg/+Oh5CAc8QtDmuduSZWt4MjuFZ6GtxF3q3M0co1Lpwq/DG9R2G20ij/rgq
-pYYtjJOYu15VWTtGI2CmSDoC+YuP4IpPXXlHiO0zABzYcc9dHmjFGMT1tklfAooV
-qzANnpX64gjqFU9XN6AnlncKYJeWKbRKfEdWLRp3J4JLS9oi87y3FFHncwl01fkO
-cCy1jz1dxjeUC7alZ08eIdayImpHqit52ZiLvo/E9fUn+wWSu/wftr7AD6Hw0Zgt
-PjtJpICbQI43Kftg1YuxzLNSm+WCdBpFBIhK6IaAElegx7ql1cbv09oAQVH4iAbU
-tGY4OMMb5KouxvIzSf7ECQGFg3k6k6TG+Mv4oUNXxuXhAvL7QcuNs2UoV6jT7gVc
-8pZ/bAuprCXcUwBaM7PqHFEF49EO3F/SQz+bhbQhLwHtAQxTDIMnbgK28lEpmjsm
-XjKpfO923hdQOO1vZeyx1ZxBJKeL45RqEZoofvGzF4lcP0Wk6XDCA3gA1aiIJnxb
-lHB3X6GKhOMJQ2sYfpSUX08MRGXs0KbbdKHEBSVpwGidqKqFR40X0lkkRPIFddKy
-htqcaa66xy4wZtdoHFma++gkJ78E8C0oNGkcs6sK8xf6zVGn2hBd7s/9fpVu0FzR
-3fCZgtxQvEUd7az66I0eN5mSwijvJjB82uOpMCiHdmj/e75TJMk=
-=JD1U
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmN+dTsACgkQnowa+77/
+2zI1ThAAkc/yl1/pBYPrfvrnq7rFLeS8/Gzh5a58sVe3Q0iv2bBSMULMoz3Lhiwo
+ZJ0knSujy0uK205VEoeEsVlZR7w00v+XPoi9VSJMVlYsm2ZzO4HMizHStoIZDw8f
+42PWsYlDxrw2HOuY4n7lCSazLD3DCEXSjkpUK2bGjzhbNFPGDiZ3xDWXlWY+U7mJ
+J59m3A+74+icK5Qe1m4YCmzIBtU4RN+bNQ/TvFuGxaNN/RxAF1SMIJOExwZ3AAUR
+ggRdpyjAQtgng6XbkeZQtM9o5sHLNmFVCZFq+CkHQsKXxYg+SJuTknGS9nd2jh1o
+tOqL5bNv89aCkPro5XVwViLj1jGygThOa86dn3D9GFMoqc3HH5Xr5bR1tMd62g4X
+eQLV+2tafa/ludkqAFoVncI3FXMarPAPM4ulLohE/39szg8UWvLFPHFRE+R+g5ho
+GUXDlt+Au0TdNSk18GRopKuj7df0s1iAai4T9q0YDaJBSkkaYD6lPrEIkXqLIeqq
+M/Dd6uF13BKFzoVRk1wQYwagxXXOoYNDGprPLuDulSxBQNiq5lat0fVXZugq2JEV
+yjAy8v0r2YPYC/J0ohl93zEi4JDChidF+gByhu+eOaJ83Xs/atTI/DmcntTQnecb
+6b1zRpsa+bNtY6H7O6vEbaq4R4LbWVyfqFNxzXwuoODmSVQ4moc=
+=ze8D
 -----END PGP SIGNATURE-----
 
---------------Yr9Z2msF4ksS0myvv1sRaSje--
+--------------63tiYFqHQ040hzppMZHORL2C--
