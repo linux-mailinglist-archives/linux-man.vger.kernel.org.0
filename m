@@ -2,64 +2,67 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 9658B63608F
-	for <lists+linux-man@lfdr.de>; Wed, 23 Nov 2022 14:55:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 3CDA0636090
+	for <lists+linux-man@lfdr.de>; Wed, 23 Nov 2022 14:55:32 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S237694AbiKWNzR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 23 Nov 2022 08:55:17 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38822 "EHLO
+        id S236973AbiKWNzb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 23 Nov 2022 08:55:31 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38618 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S236016AbiKWNyy (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 23 Nov 2022 08:54:54 -0500
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com [IPv6:2a00:1450:4864:20::432])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 77E5F65863
-        for <linux-man@vger.kernel.org>; Wed, 23 Nov 2022 05:49:05 -0800 (PST)
-Received: by mail-wr1-x432.google.com with SMTP id x17so16012985wrn.6
-        for <linux-man@vger.kernel.org>; Wed, 23 Nov 2022 05:49:05 -0800 (PST)
+        with ESMTP id S236980AbiKWNzH (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 23 Nov 2022 08:55:07 -0500
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com [IPv6:2a00:1450:4864:20::42d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 731A36B21D
+        for <linux-man@vger.kernel.org>; Wed, 23 Nov 2022 05:49:21 -0800 (PST)
+Received: by mail-wr1-x42d.google.com with SMTP id d1so17363204wrs.12
+        for <linux-man@vger.kernel.org>; Wed, 23 Nov 2022 05:49:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=49QooWvwCFddH0S4/ezu30sbtGIAVXX2GvGTqUbNI3M=;
-        b=kmxnd51+Oboez72HxQrxZTbbxgQpl0fDWSmmAY7rArwcm4QLtJE3uEk8a8kR3lCbtW
-         BOjEj73IoPk/oCODaSoh1ydHeErQDhhlpOWnwZumIOuZwJ2TbO/bjuMu1Q8u1c9qy7tP
-         08E+dbwhE+D5gI/OFh0CELUocpEuuQ5aVv2O9y06GUKy/e5nWnIjhddeO2DAKLz2ngXC
-         UE4FaqaRW4jR00C+c+Vn7BjiW0nmge5g1fxJuZ2uqcGF8wwioW4aJ6nN2jRHJZNQNRKc
-         kP7owQ64qe9VJUMCwYs/XCfJwgxN1N7OgBnfwGVonn11tYg/+eu741sSKroEkiyBTWdk
-         rkxA==
+        bh=z2LGpXx1kju2+gx33OjCICn93dcCuObe9DX33M0v2qE=;
+        b=eNIZO2Rg8MlcrcE5BqOMIfl8M0kyXhnTO5UyTjrA2uHarBFWklsXCNGk54tjSAFRuL
+         avErd5QPgdEiiV4mHgbD0f5iRDXM/h7whIrxtyDKu+GthOZwvFFcJVMATq5HGFNcK5nq
+         oKea6luNwuAGPeBD+iKvbJNurp17i05TyAAwko+Nm3WiyRLTPFybw2BNRnVD8naMhIjA
+         TWfwMFVbnm8MVCdzd/gmjPET/iKXOHlIKFrRPNsyChCeNouqh6EldKcAm0VmE6Hx7LyM
+         WZ8QUwUf3Fm+PrameUlLIBH06nb0gpIMQFJkXBomejxWNsK73/KgHLWZ22euKOYMrApA
+         otTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=49QooWvwCFddH0S4/ezu30sbtGIAVXX2GvGTqUbNI3M=;
-        b=fVf8xYBGxVCGFq38GbkIHbY5EdPk69NM5cYgTKSOV2dmfp7WnOp5b2L7DXkdnQA8Tq
-         J5qx4xX89or74t6WFxpJa+JqrMJOnDUHVX/2BxAre0iNrbucgoQt/q5tt2cVJaYq+dxm
-         lhqvNwUSmkyIgvdc+6PXYk4/bNYxGOWbQcSkrgaWNw1LRyWFeJ9JPbqeZAA4Sbg+bCrZ
-         gp5Rt684+/dR6DfyAWAowTnwEzgugpGvQlTdt+AiSreMHJmkcV/kDCjKj1sdW34kDu6D
-         w4fkRwyNsK4jIJ7vNgVVbLGAB7xMAiSfUhxb6bToCGeixsjAeu8dlviwhJvtt9Abs3rL
-         5s+w==
-X-Gm-Message-State: ANoB5pljDu7I2ZyyGGwmfn07H6Ll9kk8n3tGbROvj4fcflwYWYOg1tCx
-        ufAFRb8a9OP35EaiCiNuy1yNZYK6g/Y=
-X-Google-Smtp-Source: AA0mqf4HlWOSb1A8Er2OcbJi0FsT7mGCWYjL5VamLbq6OyVuzdty0puFKLFriw90IlWDKE1SrstNAQ==
-X-Received: by 2002:adf:f50d:0:b0:23a:cdf5:3676 with SMTP id q13-20020adff50d000000b0023acdf53676mr18418935wro.336.1669211344012;
-        Wed, 23 Nov 2022 05:49:04 -0800 (PST)
+        bh=z2LGpXx1kju2+gx33OjCICn93dcCuObe9DX33M0v2qE=;
+        b=nlxcC9shH6mNqEhIo4YkJ4/bjRid7GtVZ4Kt4phDoJ9wjwRVNkpCwldxDWcfaRB7Rc
+         NHajl5Ppl5LP676kKNzEOQRWPemEB+qbJ/5fIR6emcwqBa6P++Vb2f2dPtX4MudNkCog
+         K4O9QUj0UvZQe2hI377egFSb05uifAU675onkichaCG8KkkfyqezPZnY/2+k0S1bXiUZ
+         H3BjG/L6vZGjZSYs8UmtYt+5KTLW0Io/Ynz0PFoH9DnAt050Me9Zj4tsMZ5G+J4HADkC
+         D+2mZIxSJvnSB586tCOru38f+5VNzM8XcW92dktDuda3kcfZtzj+gZBbM4WG9DusaHx9
+         UHdw==
+X-Gm-Message-State: ANoB5pm8gRzwaQf6CW0Rgd5t4ed3ACedBmkOpkekVWypiP6aLQRW02ip
+        KnwtPxnptB+6rVkdwoDKZqg=
+X-Google-Smtp-Source: AA0mqf7LYE+mIyvCE1l8cD7e/tZ/J9XBTJV6/wa7iLctxScc/oN83T/HlvUCETtGidinRhTDAi0NBg==
+X-Received: by 2002:adf:f741:0:b0:22e:37ba:41c7 with SMTP id z1-20020adff741000000b0022e37ba41c7mr17344316wrp.173.1669211360034;
+        Wed, 23 Nov 2022 05:49:20 -0800 (PST)
 Received: from asus5775.alejandro-colomar.es ([170.253.36.171])
-        by smtp.googlemail.com with ESMTPSA id o7-20020a05600c510700b003cf5ec79bf9sm2587736wms.40.2022.11.23.05.49.03
+        by smtp.googlemail.com with ESMTPSA id o7-20020a05600c510700b003cf5ec79bf9sm2587736wms.40.2022.11.23.05.49.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Nov 2022 05:49:03 -0800 (PST)
+        Wed, 23 Nov 2022 05:49:19 -0800 (PST)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 X-Google-Original-From: Alejandro Colomar <alx@kernel.org>
 To:     tz@iana.org, Paul Eggert <eggert@cs.ucla.edu>
-Cc:     linux-man@vger.kernel.org, Alejandro Colomar <alx@kernel.org>
-Subject: [PATCH v2 2/4] zic.8: s/time zone/timezone/ for consistency
-Date:   Wed, 23 Nov 2022 14:48:27 +0100
-Message-Id: <20221123134827.10420-2-alx@kernel.org>
+Cc:     linux-man@vger.kernel.org, Alejandro Colomar <alx@kernel.org>,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        Geoff Clare <gwc@opengroup.org>, groff@gnu.org
+Subject: [PATCH v2 3/4] zic.8: Use correct escape sequences instead of special characters
+Date:   Wed, 23 Nov 2022 14:48:29 +0100
+Message-Id: <20221123134827.10420-3-alx@kernel.org>
 X-Mailer: git-send-email 2.38.1
 In-Reply-To: <20221123134827.10420-1-alx@kernel.org>
 References: <20221123134827.10420-1-alx@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
@@ -71,101 +74,55 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This adds consistency across other manual pages, and with POSIX.1.
+See the following table from groff_char(7):
 
+ ┌──────────────────────────────────────────────────────────────────┐
+ │Keycap   Appearance and meaning   Special character and meaning   │
+ ├──────────────────────────────────────────────────────────────────┤
+ │"        " neutral double quote   \[dq] neutral double quote      │
+ │'        ’ closing single quote   \[aq] neutral apostrophe        │
+ │-        ‐ hyphen                 \- or \[-] minus sign/Unix dash │
+ │\        (escape character)       \e or \[rs] reverse solidus     │
+ │^        ˆ modifier circumflex    \(ha circumflex/caret/“hat”     │
+ │`        ‘ opening single quote   \(ga grave accent               │
+ │~        ˜ modifier tilde         \(ti tilde                      │
+ └──────────────────────────────────────────────────────────────────┘
+
+Reviewed-by: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: Geoff Clare <gwc@opengroup.org>
+Cc: <groff@gnu.org>
 Signed-off-by: Alejandro Colomar <alx@kernel.org>
 ---
- zic.8 | 20 ++++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
+
+v2:
+- Transform ' into \(aq [Branden].
+
+
+Hi Branden,
+
+I took the freedom to take your message as a reviewed-by.  Please confirm :)
+
+Cheers,
+
+Alex
+
+
+ zic.8 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/zic.8 b/zic.8
-index c2c61739..7fb51dde 100644
+index 7fb51dde..4ef2482c 100644
 --- a/zic.8
 +++ b/zic.8
-@@ -212,7 +212,7 @@ .SH OPTIONS
- .B zic
- prohibit this.
- .PP
--A time zone abbreviation uses a
-+A timezone abbreviation uses a
- .B %z
- format.
- Pre-2015 versions of
-@@ -270,7 +270,7 @@ .SH OPTIONS
- pre-2014 versions of the reference client support at most 1200
- transitions.
- .PP
--A time zone abbreviation has fewer than 3 or more than 6 characters.
-+A timezone abbreviation has fewer than 3 or more than 6 characters.
- POSIX requires at least 3, and requires implementations to support
- at least 6.
- .PP
-@@ -297,7 +297,7 @@ .SH FILES
- \*<https://pubs\*:.opengroup\*:.org/\*:onlinepubs/\*:9699919799/\*:basedefs/\*:V1_chap06\*:.html\*>
- and the encoding's non-unibyte characters should consist entirely of
- non-PPCS bytes.  Non-PPCS characters typically occur only in comments:
--although output file names and time zone abbreviations can contain
-+although output file names and timezone abbreviations can contain
- nearly any character, other software will work better if these are
- limited to the restricted syntax described under the
- .B \*-v
-@@ -521,7 +521,7 @@ .SH FILES
- .q "EST"
- or
- .q "EDT" )
--of time zone abbreviations to be used when this rule is in effect.
-+of timezone abbreviations to be used when this rule is in effect.
- If this field is
- .q \*- ,
- the variable part is null.
-@@ -574,12 +574,12 @@ .SH FILES
- this amount matters.
+@@ -351,7 +351,7 @@ .SH FILES
+ .q + .
+ To allow for future extensions,
+ an unquoted name should not contain characters from the set
+-.q !$%&'()*,/:;<=>?@[\e]^`{|}~ .
++.q !$%&\(aq()*,/:;<=>?@[\e]\(ha\(ga{|}\(ti .
  .TP
- .B FORMAT
--The format for time zone abbreviations.
-+The format for timezone abbreviations.
- The pair of characters
- .B %s
- is used to show where the
- .q "variable part"
--of the time zone abbreviation goes.
-+of the timezone abbreviation goes.
- Alternatively, a format can use the pair of characters
- .B %z
- to stand for the UT offset in the form
-@@ -596,12 +596,12 @@ .SH FILES
- Alternatively,
- a slash (/)
- separates standard and daylight abbreviations.
--To conform to POSIX, a time zone abbreviation should contain only
-+To conform to POSIX, a timezone abbreviation should contain only
- alphanumeric ASCII characters,
- .q "+"
- and
- .q "\*-".
--By convention, the time zone abbreviation
-+By convention, the timezone abbreviation
- .q "\*-00"
- is a placeholder that means local time is unspecified.
- .TP
-@@ -609,7 +609,7 @@ .SH FILES
- The time at which the UT offset or the rule(s) change for a location.
- It takes the form of one to four fields YEAR [MONTH [DAY [TIME]]].
- If this is specified,
--the time zone information is generated from the given UT offset
-+the timezone information is generated from the given UT offset
- and rule change until the time specified, which is interpreted using
- the rules in effect just before the transition.
- The month, day, and time of day have the same format as the IN, ON, and AT
-@@ -867,7 +867,7 @@ .SH "EXTENDED EXAMPLE"
- and
- .q "BMT"
- were initially used, respectively.  Since
--Swiss rules and later EU rules were applied, the time zone abbreviation
-+Swiss rules and later EU rules were applied, the timezone abbreviation
- has been CET for standard time and CEST for daylight saving
- time.
- .SH FILES
+ .B FROM
+ Gives the first year in which the rule applies.
 -- 
 2.38.1
 
