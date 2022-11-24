@@ -2,81 +2,123 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id B509C637C84
-	for <lists+linux-man@lfdr.de>; Thu, 24 Nov 2022 16:10:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id CF001637E12
+	for <lists+linux-man@lfdr.de>; Thu, 24 Nov 2022 18:12:45 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229919AbiKXPKl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 24 Nov 2022 10:10:41 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52742 "EHLO
+        id S229453AbiKXRMo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 24 Nov 2022 12:12:44 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38446 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229611AbiKXPKk (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 24 Nov 2022 10:10:40 -0500
-X-Greylist: delayed 151479 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Thu, 24 Nov 2022 07:10:39 PST
-Received: from 5.mo548.mail-out.ovh.net (5.mo548.mail-out.ovh.net [188.165.49.213])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2B8301541AB
-        for <linux-man@vger.kernel.org>; Thu, 24 Nov 2022 07:10:39 -0800 (PST)
-Received: from mxplan6.mail.ovh.net (unknown [10.109.138.238])
-        by mo548.mail-out.ovh.net (Postfix) with ESMTPS id AB9362301E;
-        Thu, 24 Nov 2022 15:10:36 +0000 (UTC)
-Received: from jwilk.net (37.59.142.95) by DAG4EX1.mxp6.local (172.16.2.31)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.16; Thu, 24 Nov
- 2022 16:10:35 +0100
-Authentication-Results: garm.ovh; auth=pass (GARM-95G00140d998f1-146d-4e0b-9a13-d30555f12526,
-                    52EBBC6FCCF0EF623BBB279D01B7F6A926A75B37) smtp.auth=jwilk@jwilk.net
-X-OVh-ClientIp: 5.172.255.86
-From:   Jakub Wilk <jwilk@jwilk.net>
-To:     Michael Kerrisk <mtk.manpages@gmail.com>,
-        Alejandro Colomar <alx.manpages@gmail.com>
-CC:     <linux-man@vger.kernel.org>
-Subject: [PATCH] confstr.3: srcfix
-Date:   Thu, 24 Nov 2022 16:10:34 +0100
-Message-ID: <20221124151034.8060-1-jwilk@jwilk.net>
-X-Mailer: git-send-email 2.38.1
+        with ESMTP id S229597AbiKXRMn (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 24 Nov 2022 12:12:43 -0500
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com [IPv6:2a00:1450:4864:20::431])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 791194874C
+        for <linux-man@vger.kernel.org>; Thu, 24 Nov 2022 09:12:41 -0800 (PST)
+Received: by mail-wr1-x431.google.com with SMTP id s5so3353919wru.1
+        for <linux-man@vger.kernel.org>; Thu, 24 Nov 2022 09:12:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rivosinc-com.20210112.gappssmtp.com; s=20210112;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=E/WsFYZRX1AeNR+4gh8Ss2sIErXOewqR12PDDkr/27w=;
+        b=vacYD0NQanWjuA3GOSjTYVZDBMGvfmF6Vd904OJHK9xcny70dfoX+cUOp7d6mejteg
+         YO9NR4cjc28uDp/GqopCEMys2azE+iluRicx11RgU4nLC/RuWcAOK/yZIrJYHYkFXgSk
+         7+Ig+KgaSF0c9G+v77P1qUvuk74Qwmq3CfMOXlVVOp8pXXnpnsZnM2cjDyyNiVC/aeug
+         yE4ZycTnCAJ1QWBWeyI63GW1BggJOXMNZG0/vb3Yn9SbI4kcj3ffT4B1rwJNWUpmmInP
+         d8E3XF9mS3Pn7qPQn+TadLMYt6w+QjQCx1Zr+S41tOU0RohrnaPpNllIqrshfs6gTZrC
+         1lEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=E/WsFYZRX1AeNR+4gh8Ss2sIErXOewqR12PDDkr/27w=;
+        b=yqzWgEWehrVl/H1N+zbkevWH3eptMxXWyLrmoR3gqRWrn3Vc/wFK7v+0MYZfwIkfQI
+         F2uN9yxxnG4MbUgNfT5+F8sdDwaq4nbBWJhXIH9v5rTYo4NFlqaBEKhL7gZ8OjkS9SYj
+         Xd3efE9pPUs5NIH3396xXFIbsTvuWW3kYSZDK5JjiyB63f2/VrRmIfm3Ml3GfuWFVsNY
+         bm+KI6PMzhFG5PhAlt2eL6DVjneIvnHFZ30p8RyCdmvUkL+toSYXYiCAamO3nqzqXXzl
+         vxIn2P9BuHQtIP6PG9GDUNRpjNhoKtdAH+yUI1rtmNhSEL4iAWBrMdn3hssrpOQDdOQd
+         iWUg==
+X-Gm-Message-State: ANoB5pk7j2t93vn4KV0EkSsfaZvaakr4vmhezBvn0iVk2M7aUc4GaCZe
+        WBZv7UNomX0PnhSn6npIp1GyPg==
+X-Google-Smtp-Source: AA0mqf4EkcQPK/TpqP3c+qIXAMQp7K3u644h34Pd4fKfm/kHZIk0PLwVnfI5L6Hmb2D87tZnsQYcxQ==
+X-Received: by 2002:a05:6000:156e:b0:241:cbe9:78a9 with SMTP id 14-20020a056000156e00b00241cbe978a9mr14665805wrz.529.1669309960015;
+        Thu, 24 Nov 2022 09:12:40 -0800 (PST)
+Received: from vermeer ([145.224.92.100])
+        by smtp.gmail.com with ESMTPSA id n9-20020a5d4849000000b00228692033dcsm1750909wrs.91.2022.11.24.09.12.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Nov 2022 09:12:39 -0800 (PST)
+Date:   Thu, 24 Nov 2022 18:12:36 +0100
+From:   Samuel Ortiz <sameo@rivosinc.com>
+To:     Conor Dooley <conor.dooley@microchip.com>
+Cc:     "Hongren (Zenithal) Zheng" <i@zenithal.me>,
+        Palmer Dabbelt <palmer@rivosinc.com>,
+        Paul Walmsley <paul.walmsley@sifive.com>,
+        Albert Ou <aou@eecs.berkeley.edu>,
+        Atish Patra <atishp@rivosinc.com>,
+        Anup Patel <anup@brainfault.org>,
+        Eric Biederman <ebiederm@xmission.com>,
+        Kees Cook <keescook@chromium.org>, linux-mm@kvack.org,
+        linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+        linux-api@vger.kernel.org,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        linux-man@vger.kernel.org, Jiatai He <jiatai2021@iscas.ac.cn>,
+        Heiko Stuebner <heiko@sntech.de>
+Subject: Re: [PATCH v3 2/3] RISC-V: uapi: add HWCAP for Bitmanip/Scalar Crypto
+Message-ID: <Y3+mBAV8oxphjHcJ@vermeer>
+References: <YqYz+xDsXr/tNaNu@Sun>
+ <YqY0i22SdbHjB/MX@Sun>
+ <Y385rS/5zDaDJ3Os@vermeer>
+ <Y39AXYPFzSiBngwI@wendy>
+ <Y39Lwp4rQc3Qkl0i@vermeer>
+ <Y39blUaC/jHiOYCk@wendy>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7BIT
-Content-Type:   text/plain; charset=US-ASCII
-X-Originating-IP: [37.59.142.95]
-X-ClientProxiedBy: DAG3EX2.mxp6.local (172.16.2.22) To DAG4EX1.mxp6.local
- (172.16.2.31)
-X-Ovh-Tracer-GUID: d67fecba-06d9-4c9e-9ba7-e548651af756
-X-Ovh-Tracer-Id: 9902289684662966240
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: 0
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvgedrieefgdejfecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecunecujfgurhephffvvefufffkofgggfgtihesthekredtredttdenucfhrhhomheplfgrkhhusgcuhghilhhkuceojhifihhlkhesjhifihhlkhdrnhgvtheqnecuggftrfgrthhtvghrnhepfefhteffhfffheetudefvdefheffgfduleejheeiteeihfefffejveeljeevheeinecukfhppeduvdejrddtrddtrddupdefjedrheelrddugedvrdelheenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpeduvdejrddtrddtrddupdhmrghilhhfrhhomhepoehjfihilhhksehjfihilhhkrdhnvghtqedpnhgspghrtghpthhtohepuddprhgtphhtthhopehmthhkrdhmrghnphgrghgvshesghhmrghilhdrtghomhdprghlgidrmhgrnhhprghgvghssehgmhgrihhlrdgtohhmpdhlihhnuhigqdhmrghnsehvghgvrhdrkhgvrhhnvghlrdhorhhgpdfovfetjfhoshhtpehmohehgeekpdhmohguvgepshhmthhpohhuth
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE,
-        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <Y39blUaC/jHiOYCk@wendy>
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-At least on Debian systems, there's no "confstr" in the info directory
-node, so the command "info confstr" either fails with:
+On Thu, Nov 24, 2022 at 11:55:01AM +0000, Conor Dooley wrote:
+> On Thu, Nov 24, 2022 at 11:47:30AM +0100, Samuel Ortiz wrote:
+> 
+> > Patch #1 is definitely needed regardless of which interface we pick for
+> > exposing the ISA strings to userspace.
+> 
+> I took another look at #1, and I feel more confused about what
+> constitutes canonical order than I did before! If you know better than
+> I, and you probably do since you're interested in these 6 month old
+> patches, some insight would be appreciated!
 
-    info: No menu item 'confstr' in node '(dir)Top'
+Assuming we don't go with hwcap, I dont think the order of the
+riscv_isa_ext_id enum matters that much?
 
-or shows you this very man page.
+iiuc we're building the cpuinfo string from the riscv_isa_ext_data
+array, and I think the current code is incorrect:
 
-Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
----
- man3/confstr.3 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+static struct riscv_isa_ext_data isa_ext_arr[] = {
+    __RISCV_ISA_EXT_DATA(sscofpmf, RISCV_ISA_EXT_SSCOFPMF),
+    __RISCV_ISA_EXT_DATA(sstc, RISCV_ISA_EXT_SSTC),
+    __RISCV_ISA_EXT_DATA(svinval, RISCV_ISA_EXT_SVINVAL),
+    __RISCV_ISA_EXT_DATA(svpbmt, RISCV_ISA_EXT_SVPBMT),
+    __RISCV_ISA_EXT_DATA(zicbom, RISCV_ISA_EXT_ZICBOM),
+    __RISCV_ISA_EXT_DATA(zihintpause, RISCV_ISA_EXT_ZIHINTPAUSE),
+    __RISCV_ISA_EXT_DATA("", RISCV_ISA_EXT_MAX),
+};
 
-diff --git a/man3/confstr.3 b/man3/confstr.3
-index 9d3b5d72d..31007e91f 100644
---- a/man3/confstr.3
-+++ b/man3/confstr.3
-@@ -5,7 +5,7 @@
- .\" Modified Sat Jul 24 19:53:02 1993 by Rik Faith (faith@cs.unc.edu)
- .\"
- .\" FIXME Many more values for 'name' are supported, some of which
--.\" are documented under 'info confstr'.
-+.\" are documented under 'info libc confstr'.
- .\" See <bits/confname.h> for the rest.
- .\" These should all be added to this page.
- .\" See also the POSIX.1-2001 specification of confstr()
--- 
-2.38.1
+zicbom and zihintpause should come before supervisor level extensions.
+I'm going to send a patch for that.
+
+And the Zb/Zk ones should come after the Zi ones, and before the
+supervisor level ones (The I category comes before the B or the K one).
+So we should check that when patch #1 is rebased.
+
+Cheers,
+Samuel.
 
