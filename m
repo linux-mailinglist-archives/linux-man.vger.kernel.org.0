@@ -2,89 +2,81 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 47267637825
-	for <lists+linux-man@lfdr.de>; Thu, 24 Nov 2022 12:55:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B509C637C84
+	for <lists+linux-man@lfdr.de>; Thu, 24 Nov 2022 16:10:41 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229686AbiKXLzb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 24 Nov 2022 06:55:31 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33704 "EHLO
+        id S229919AbiKXPKl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 24 Nov 2022 10:10:41 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52742 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229661AbiKXLz3 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 24 Nov 2022 06:55:29 -0500
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7F6EBC5B62;
-        Thu, 24 Nov 2022 03:55:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1669290928; x=1700826928;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=55nH4LmzDK+5WNB9MoXsKRknvVrM2IQDWXw3Al5UU80=;
-  b=EDy6qYR8OiqLFY9zK45oL63khFfMVHFVedyC8cO4xaHg3udrXdxyeSU8
-   xQSjz1mnID1Q+wNM3flz+a9zk88mUh5AbRPCKaiUbJ0on0Ly1Y7YHlEsn
-   IyhBMbGj2MW0eaMmmL1f5HRQrWjvV0BZ1ATDNrHLDQf//H0TQu4blVmQy
-   XGS8N3UGxbigQNr/UFk7C9F4DZiAdJLCdxknozEXVNb+2y8Sj6/T+XCpP
-   5YnRIruMCKnwRccuUvbGkVFe9ypLrzBoXFO0YmUuS9g1XbgXrn8kLHs40
-   wiUt1QWhRWIU4BR2Mz8S9yP94mmEGBWIyCeQWt6Y0hkau1sA0u4LsEp+R
-   g==;
-X-IronPort-AV: E=Sophos;i="5.96,190,1665471600"; 
-   d="scan'208";a="124940786"
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa6.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256; 24 Nov 2022 04:55:27 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.12; Thu, 24 Nov 2022 04:55:23 -0700
-Received: from wendy (10.10.115.15) by chn-vm-ex03.mchp-main.com
- (10.10.85.151) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.12 via Frontend
- Transport; Thu, 24 Nov 2022 04:55:20 -0700
-Date:   Thu, 24 Nov 2022 11:55:01 +0000
-From:   Conor Dooley <conor.dooley@microchip.com>
-To:     Samuel Ortiz <sameo@rivosinc.com>
-CC:     "Hongren (Zenithal) Zheng" <i@zenithal.me>,
-        Palmer Dabbelt <palmer@rivosinc.com>,
-        Paul Walmsley <paul.walmsley@sifive.com>,
-        Albert Ou <aou@eecs.berkeley.edu>,
-        Atish Patra <atishp@rivosinc.com>,
-        Anup Patel <anup@brainfault.org>,
-        Eric Biederman <ebiederm@xmission.com>,
-        Kees Cook <keescook@chromium.org>, <linux-mm@kvack.org>,
-        <linux-riscv@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-        <linux-api@vger.kernel.org>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        <linux-man@vger.kernel.org>, Jiatai He <jiatai2021@iscas.ac.cn>,
-        Heiko Stuebner <heiko@sntech.de>
-Subject: Re: [PATCH v3 2/3] RISC-V: uapi: add HWCAP for Bitmanip/Scalar Crypto
-Message-ID: <Y39blUaC/jHiOYCk@wendy>
-References: <YqYz+xDsXr/tNaNu@Sun>
- <YqY0i22SdbHjB/MX@Sun>
- <Y385rS/5zDaDJ3Os@vermeer>
- <Y39AXYPFzSiBngwI@wendy>
- <Y39Lwp4rQc3Qkl0i@vermeer>
+        with ESMTP id S229611AbiKXPKk (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 24 Nov 2022 10:10:40 -0500
+X-Greylist: delayed 151479 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Thu, 24 Nov 2022 07:10:39 PST
+Received: from 5.mo548.mail-out.ovh.net (5.mo548.mail-out.ovh.net [188.165.49.213])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2B8301541AB
+        for <linux-man@vger.kernel.org>; Thu, 24 Nov 2022 07:10:39 -0800 (PST)
+Received: from mxplan6.mail.ovh.net (unknown [10.109.138.238])
+        by mo548.mail-out.ovh.net (Postfix) with ESMTPS id AB9362301E;
+        Thu, 24 Nov 2022 15:10:36 +0000 (UTC)
+Received: from jwilk.net (37.59.142.95) by DAG4EX1.mxp6.local (172.16.2.31)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.16; Thu, 24 Nov
+ 2022 16:10:35 +0100
+Authentication-Results: garm.ovh; auth=pass (GARM-95G00140d998f1-146d-4e0b-9a13-d30555f12526,
+                    52EBBC6FCCF0EF623BBB279D01B7F6A926A75B37) smtp.auth=jwilk@jwilk.net
+X-OVh-ClientIp: 5.172.255.86
+From:   Jakub Wilk <jwilk@jwilk.net>
+To:     Michael Kerrisk <mtk.manpages@gmail.com>,
+        Alejandro Colomar <alx.manpages@gmail.com>
+CC:     <linux-man@vger.kernel.org>
+Subject: [PATCH] confstr.3: srcfix
+Date:   Thu, 24 Nov 2022 16:10:34 +0100
+Message-ID: <20221124151034.8060-1-jwilk@jwilk.net>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <Y39Lwp4rQc3Qkl0i@vermeer>
-X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
-        SPF_HELO_PASS,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
+Content-Transfer-Encoding: 7BIT
+Content-Type:   text/plain; charset=US-ASCII
+X-Originating-IP: [37.59.142.95]
+X-ClientProxiedBy: DAG3EX2.mxp6.local (172.16.2.22) To DAG4EX1.mxp6.local
+ (172.16.2.31)
+X-Ovh-Tracer-GUID: d67fecba-06d9-4c9e-9ba7-e548651af756
+X-Ovh-Tracer-Id: 9902289684662966240
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: 0
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvgedrieefgdejfecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecunecujfgurhephffvvefufffkofgggfgtihesthekredtredttdenucfhrhhomheplfgrkhhusgcuhghilhhkuceojhifihhlkhesjhifihhlkhdrnhgvtheqnecuggftrfgrthhtvghrnhepfefhteffhfffheetudefvdefheffgfduleejheeiteeihfefffejveeljeevheeinecukfhppeduvdejrddtrddtrddupdefjedrheelrddugedvrdelheenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpeduvdejrddtrddtrddupdhmrghilhhfrhhomhepoehjfihilhhksehjfihilhhkrdhnvghtqedpnhgspghrtghpthhtohepuddprhgtphhtthhopehmthhkrdhmrghnphgrghgvshesghhmrghilhdrtghomhdprghlgidrmhgrnhhprghgvghssehgmhgrihhlrdgtohhmpdhlihhnuhigqdhmrghnsehvghgvrhdrkhgvrhhnvghlrdhorhhgpdfovfetjfhoshhtpehmohehgeekpdhmohguvgepshhmthhpohhuth
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE,
+        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Thu, Nov 24, 2022 at 11:47:30AM +0100, Samuel Ortiz wrote:
+At least on Debian systems, there's no "confstr" in the info directory
+node, so the command "info confstr" either fails with:
 
-> Patch #1 is definitely needed regardless of which interface we pick for
-> exposing the ISA strings to userspace.
+    info: No menu item 'confstr' in node '(dir)Top'
 
-I took another look at #1, and I feel more confused about what
-constitutes canonical order than I did before! If you know better than
-I, and you probably do since you're interested in these 6 month old
-patches, some insight would be appreciated!
+or shows you this very man page.
 
-Thanks,
-Conor.
+Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
+---
+ man3/confstr.3 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/man3/confstr.3 b/man3/confstr.3
+index 9d3b5d72d..31007e91f 100644
+--- a/man3/confstr.3
++++ b/man3/confstr.3
+@@ -5,7 +5,7 @@
+ .\" Modified Sat Jul 24 19:53:02 1993 by Rik Faith (faith@cs.unc.edu)
+ .\"
+ .\" FIXME Many more values for 'name' are supported, some of which
+-.\" are documented under 'info confstr'.
++.\" are documented under 'info libc confstr'.
+ .\" See <bits/confname.h> for the rest.
+ .\" These should all be added to this page.
+ .\" See also the POSIX.1-2001 specification of confstr()
+-- 
+2.38.1
 
