@@ -2,152 +2,138 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 5800563B3C0
-	for <lists+linux-man@lfdr.de>; Mon, 28 Nov 2022 21:59:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 9623C63B4EE
+	for <lists+linux-man@lfdr.de>; Mon, 28 Nov 2022 23:42:55 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232812AbiK1U67 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 28 Nov 2022 15:58:59 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36228 "EHLO
+        id S233219AbiK1Wmy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 28 Nov 2022 17:42:54 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43018 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232558AbiK1U66 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 28 Nov 2022 15:58:58 -0500
-Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com [64.147.123.19])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0CF9963A5
-        for <linux-man@vger.kernel.org>; Mon, 28 Nov 2022 12:58:56 -0800 (PST)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
-        by mailout.west.internal (Postfix) with ESMTP id 65F003200094;
-        Mon, 28 Nov 2022 15:58:54 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
-  by compute3.internal (MEProxy); Mon, 28 Nov 2022 15:58:54 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tycho.pizza; h=
-        cc:cc:content-transfer-encoding:date:date:from:from:in-reply-to
-        :message-id:mime-version:reply-to:sender:subject:subject:to:to;
-         s=fm3; t=1669669133; x=1669755533; bh=jXZriIeKqbDrhD4DSydzMTRUY
-        g8IqvDCo558GgOlymI=; b=P5sPXxJ8eLMNke3PKzb6E1FX9T9VHPe9QsrpMwdhj
-        8cZ0IVjmCM02mOLQMsKfVgkzbuSQxZlOLYg/Bl5STIIvpUS2asRxYSqIB1PhspiG
-        TwHHKume9FTtz2C8KASqXQ8tU9cmb1IdpLVOhUOPE/mWHdeocCzqImEDRh+04BJx
-        YnLLXeb5G7dNdXO+CKFIqyTZraeBzzVmEidXgJKFUwroRBUAkbM4LxCVWbzpTWCh
-        OxfxzD/ovXSchEpqdlFTve9TehlSH3OxDXJWHH01+VDvj32CLnkpJVte1fHOe2lt
-        yG/Hj3JdbveVPbBvmcyiIRDfQEcMLNwNWNv3+f1FStLeQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-        messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
-        :feedback-id:feedback-id:from:from:in-reply-to:message-id
-        :mime-version:reply-to:sender:subject:subject:to:to:x-me-proxy
-        :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-        1669669133; x=1669755533; bh=jXZriIeKqbDrhD4DSydzMTRUYg8IqvDCo55
-        8GgOlymI=; b=VmIYf44A32QpOKl8SBR4X7dGYykGzly3rPY9CE2N4joWddcHwie
-        Sne2lEQPrUoUaVRdn8pd4f2yS/jpgBb3X4aJXVu64TRuqsx02ZCsOztRM9t/iFgN
-        aVWwk8TPJBSt1Qpf07dC5qI1jIimhqgQgYFKxt+tzrFGVEY3IsKUPokJz1s20Nrw
-        rEnqpJwD/Y8xW1B2m9kiZxug0I5Urd5haK2gauWWa5Ynb0+Ghz26H2/ql25jJkTf
-        rlMYtuCdjRzznPBl4SAHlyoFouIP51esYMPf16Q/66qr65671THnRN4TDAL2yZNi
-        uL7GV85+puTACB70A3PcEl4KjE0nW/MF/hw==
-X-ME-Sender: <xms:DSGFYz7YmrqeD-KrKcqQD0rjHdxOoEkbIz0Ke-B-cIT2GjRLXhs4lA>
-    <xme:DSGFY47iU_chXDmpYfPRfaMAOEwEa7c0_8kAjjno7WCiBAsMhbwy8l4lEB2V22DtE
-    JS1QbJ0IzGU6Y1Tnn8>
-X-ME-Received: <xmr:DSGFY6dii6IAxqiYWcNLLyvWVHuv6MdrxSbOSt3kiAeowyN2d_YjY0yaoW72dND5Ixi1wIpX>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrjedvgddugeeiucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucenucfjughrpefhvfevufffkffoggfgsedtkeertd
-    ertddtnecuhfhrohhmpefvhigthhhoucetnhguvghrshgvnhcuoehthigthhhosehthigt
-    hhhordhpihiiiigrqeenucggtffrrghtthgvrhhnpeehfeefheelfedtgfejgeehleeife
-    dvgffhueduueehheeuhffhhfethfeivdeggeenucevlhhushhtvghrufhiiigvpedtnecu
-    rfgrrhgrmhepmhgrihhlfhhrohhmpehthigthhhosehthigthhhordhpihiiiigr
-X-ME-Proxy: <xmx:DSGFY0J30ngDzxPRz3WNPYS_jd1QaWiXk0iIFYEE5iR6-WQO0oMguw>
-    <xmx:DSGFY3LX3fEajEkXiz3kGofam622dbzsTmxljUd6U_f5ct47rbLlig>
-    <xmx:DSGFY9zDA0VBUa3pDilhEgfTCRZktw3Rx501qxQNUrVxz6vemwCP-A>
-    <xmx:DSGFY-WgraQgHB7ipV8rQV_vmiXPBzyAwm0xXCbkz3PGIVYzdwW8Cg>
-Feedback-ID: i21f147d5:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 28 Nov 2022 15:58:52 -0500 (EST)
-From:   Tycho Andersen <tycho@tycho.pizza>
-To:     Alejandro Colomar <alx@kernel.org>,
-        Michael Kerrisk <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org, Tycho Andersen <tycho@tycho.pizza>
-Subject: [PATCH] socket.7: be explicit that connect(2) respects SO_*TIMEO
-Date:   Mon, 28 Nov 2022 13:58:37 -0700
-Message-Id: <20221128205837.2408050-1-tycho@tycho.pizza>
-X-Mailer: git-send-email 2.34.1
+        with ESMTP id S232966AbiK1Wmx (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 28 Nov 2022 17:42:53 -0500
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com [IPv6:2a00:1450:4864:20::32c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 74C651FFB0
+        for <linux-man@vger.kernel.org>; Mon, 28 Nov 2022 14:42:51 -0800 (PST)
+Received: by mail-wm1-x32c.google.com with SMTP id v124-20020a1cac82000000b003cf7a4ea2caso12928499wme.5
+        for <linux-man@vger.kernel.org>; Mon, 28 Nov 2022 14:42:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=KvymSu3E0qk9ZvKcHH/xFHXhImFPNB0/1j/WH5U4ykM=;
+        b=fHTc7zhiWjTnQ3IibatqQQsI/XrVaGEmbRcomh0K7Sez4rX/foJPypb0GNZntzEtUH
+         jEGB6xdKtqisHo3BFkov1z4VyhhSDMtQ1Y5ud2juxXneFe2nFjjLY1szydzYaO8rRyHj
+         TLF1E5dzVuTgfJKQ5aHU9Y/dcS4d6i7ZHxQV52z/FxgeQJ4N4PpHOEwmLzwkLPq/4DH0
+         95UISu3KGDcgZyp6dG3+3rtg5DB38OrPixQbJeQhT6IwNJigyVUMy84Sveej7q3SxVak
+         Zf90LjV+LSuEp1JjcgdEbwkjcyGoN51T9/OjYyctuby6HvO5ZO7i8Zy4tPD1areSEI7e
+         sO3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=KvymSu3E0qk9ZvKcHH/xFHXhImFPNB0/1j/WH5U4ykM=;
+        b=z7h/jgUVKs32dsXH25sWQ0zUOYYA0/r9VVMAaltbmNURONzEX4kFd+JfqILAjHkP+W
+         2F5PUlJVCYKk9EUDetd7R6PQa2533rifggVVZ7NJQv1CskCcn2cfhWByfe0M31m0m5ka
+         qrpKmkA08WwSmCBN4UFybfQ/mBOrWzMK0Q3gLRFsOa7kxS+cwh2q7kDygcy3XNVB15PH
+         UvR5cL8+yhCwrDNUjdeSUVeKx+fM6CY3AwFGH8REEAouFHXugHasBvCr72I/CDnSr7xS
+         Llz6dnKsf7gowDJUPQMH/J9yLlVK2ErCG5OENQmuJJe9Jdt6YQaOH3AC6lPr6XS28AjT
+         vClQ==
+X-Gm-Message-State: ANoB5plWIDfCMAe9tAfBBP8Ms5rc4cr+JKJvrt9mi8p3Ugsy9IlD4s7k
+        jUCC0y2MH0Sh6CSemxoYjeI=
+X-Google-Smtp-Source: AA0mqf4gj08uxz8stMMlOAO26gSaZD7XY3uXEIAKDZMieMhHniJOtrLOt3fZfsfUFLxlPHKpy7EwfQ==
+X-Received: by 2002:a05:600c:1d93:b0:3cf:d0ba:e5ff with SMTP id p19-20020a05600c1d9300b003cfd0bae5ffmr38848448wms.36.1669675370034;
+        Mon, 28 Nov 2022 14:42:50 -0800 (PST)
+Received: from [192.168.43.80] ([31.221.250.124])
+        by smtp.gmail.com with ESMTPSA id s3-20020a5d4243000000b00241e4bff85asm11721869wrr.100.2022.11.28.14.42.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 28 Nov 2022 14:42:49 -0800 (PST)
+Message-ID: <fca34c0f-23c9-401d-9f75-c4bef6cf2aea@gmail.com>
+Date:   Mon, 28 Nov 2022 23:42:48 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-2.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_PASS,
-        SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.3
+Subject: Re: [PATCH] confstr.3: srcfix
+Content-Language: en-US
+To:     Jakub Wilk <jwilk@jwilk.net>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org
+References: <20221124151034.8060-1-jwilk@jwilk.net>
+From:   Alex Colomar <alx.manpages@gmail.com>
+In-Reply-To: <20221124151034.8060-1-jwilk@jwilk.net>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------wN8DKe1UXyhjL8SlywyWfm0P"
+X-Spam-Status: No, score=-2.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Our group recently had some confusion around this. Although f327722042df
-("socket.7: Explain effect of SO_SNDTIMEO for connect()") adds a mention of
-connect(2), the wording around "Timeouts  only  have  effect  for  system
-calls  that perform socket I/O" is slightly confusing: is connect(2) I/O?.
-Let's just add connect(2) to the list of things that time out explicitly to
-avoid any confusion.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------wN8DKe1UXyhjL8SlywyWfm0P
+Content-Type: multipart/mixed; boundary="------------067IGxM0mXEM1vJCdA8cF0VJ";
+ protected-headers="v1"
+From: Alex Colomar <alx.manpages@gmail.com>
+To: Jakub Wilk <jwilk@jwilk.net>, Michael Kerrisk <mtk.manpages@gmail.com>
+Cc: linux-man@vger.kernel.org
+Message-ID: <fca34c0f-23c9-401d-9f75-c4bef6cf2aea@gmail.com>
+Subject: Re: [PATCH] confstr.3: srcfix
+References: <20221124151034.8060-1-jwilk@jwilk.net>
+In-Reply-To: <20221124151034.8060-1-jwilk@jwilk.net>
 
-Test program for grins:
+--------------067IGxM0mXEM1vJCdA8cF0VJ
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-#include <stdio.h>
-#include <sys/socket.h>
-#include <netinet/ip.h>
-#include <arpa/inet.h>
+T24gMTEvMjQvMjIgMTY6MTAsIEpha3ViIFdpbGsgd3JvdGU6DQo+IEF0IGxlYXN0IG9uIERl
+YmlhbiBzeXN0ZW1zLCB0aGVyZSdzIG5vICJjb25mc3RyIiBpbiB0aGUgaW5mbyBkaXJlY3Rv
+cnkNCj4gbm9kZSwgc28gdGhlIGNvbW1hbmQgImluZm8gY29uZnN0ciIgZWl0aGVyIGZhaWxz
+IHdpdGg6DQo+IA0KPiAgICAgIGluZm86IE5vIG1lbnUgaXRlbSAnY29uZnN0cicgaW4gbm9k
+ZSAnKGRpcilUb3AnDQo+IA0KPiBvciBzaG93cyB5b3UgdGhpcyB2ZXJ5IG1hbiBwYWdlLg0K
+PiANCj4gU2lnbmVkLW9mZi1ieTogSmFrdWIgV2lsayA8andpbGtAandpbGsubmV0Pg0KDQpI
+aSBKYWt1YiwNCg0KUGF0Y2ggYXBwbGllZCEgIFRoYW5rcy4NCg0KQWxleA0KDQo+IC0tLQ0K
+PiAgIG1hbjMvY29uZnN0ci4zIHwgMiArLQ0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2Vy
+dGlvbigrKSwgMSBkZWxldGlvbigtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL21hbjMvY29uZnN0
+ci4zIGIvbWFuMy9jb25mc3RyLjMNCj4gaW5kZXggOWQzYjVkNzJkLi4zMTAwN2U5MWYgMTAw
+NjQ0DQo+IC0tLSBhL21hbjMvY29uZnN0ci4zDQo+ICsrKyBiL21hbjMvY29uZnN0ci4zDQo+
+IEBAIC01LDcgKzUsNyBAQA0KPiAgIC5cIiBNb2RpZmllZCBTYXQgSnVsIDI0IDE5OjUzOjAy
+IDE5OTMgYnkgUmlrIEZhaXRoIChmYWl0aEBjcy51bmMuZWR1KQ0KPiAgIC5cIg0KPiAgIC5c
+IiBGSVhNRSBNYW55IG1vcmUgdmFsdWVzIGZvciAnbmFtZScgYXJlIHN1cHBvcnRlZCwgc29t
+ZSBvZiB3aGljaA0KPiAtLlwiIGFyZSBkb2N1bWVudGVkIHVuZGVyICdpbmZvIGNvbmZzdHIn
+Lg0KPiArLlwiIGFyZSBkb2N1bWVudGVkIHVuZGVyICdpbmZvIGxpYmMgY29uZnN0cicuDQo+
+ICAgLlwiIFNlZSA8Yml0cy9jb25mbmFtZS5oPiBmb3IgdGhlIHJlc3QuDQo+ICAgLlwiIFRo
+ZXNlIHNob3VsZCBhbGwgYmUgYWRkZWQgdG8gdGhpcyBwYWdlLg0KPiAgIC5cIiBTZWUgYWxz
+byB0aGUgUE9TSVguMS0yMDAxIHNwZWNpZmljYXRpb24gb2YgY29uZnN0cigpDQoNCi0tIA0K
+PGh0dHA6Ly93d3cuYWxlamFuZHJvLWNvbG9tYXIuZXMvPg0KDQo=
 
-int main(void)
-{
-	struct sockaddr_in servaddr = {
-                /* tycho.pizza */
-                .sin_addr.s_addr = inet_addr("192.241.255.151"),
-                .sin_port = htons(443),
-                .sin_family = AF_INET,
-        };
-	int fd;
-	struct timeval timeout = {
-		.tv_sec = 0,
-		.tv_usec = 100,
-	};
+--------------067IGxM0mXEM1vJCdA8cF0VJ--
 
-	fd = socket(AF_INET, SOCK_STREAM, 0);
-	if (fd < 0) {
-		perror("socket");
-		return 1;
-	}
+--------------wN8DKe1UXyhjL8SlywyWfm0P
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-	if (setsockopt(fd, SOL_SOCKET, SO_SNDTIMEO, &timeout, sizeof(timeout)) < 0) {
-		perror("setsockopt");
-		return 1;
-	}
+-----BEGIN PGP SIGNATURE-----
 
-	if (connect(fd, (struct sockaddr *)&servaddr, sizeof(servaddr)) < 0) {
-		perror("connect");
-		return 1;
-	}
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmOFOWgACgkQnowa+77/
+2zK/MRAAgb4oYHV7uST1oDMZ6bpCdRkfP2MWVdgPZHmUoEiOFmKZyucxrvfCq9FY
+3+cmt4vIJDWVzmFyuwk/E7hNTXKIa91jEtn2JmokVxpFkDKNsDz9ckZhIXs07dEp
+8z4+Yaueq/fkCH3F1thc6oJ5U4MQBzGLsqfb1XqQQTASuenyErTU66iPvANBWHZq
+IM/Hr3/rr0TbCm9epvIQqb4JcDtTzWrw6lxgDW9ccGYFJmglpy7n7TkEV5ZVpb2S
+jeA0WM9FWEmZ/esAEJoeblDyUnklL2SOMrQmnlGGjCsJx9w4w4pU8hj+oTdWHWBU
+MwBm/ntxN5ZMhWOT00N6RK9zoKKTQjmM0DtYmF9rPVFqzZOAdF0DXXD7DFL4D59I
+848rUZxTVUIAz4lwQTQe4CKvu10rwrz6eJ7Y7vF47o7I8fxeYpuXIymGt2NiXk2s
+3F2Ao0ZFmDa/j2Bk/Dmn16J6pHvRi02v83mwOXwTby3XpSVEcDihK63vfv3t7a0s
+6CYPvFS68HZeXwGbYnBFqDtIQPtYBSDQPtgdVftzLldnG7TcR85lG1ySfRbEYjS3
+3lwsyGmhOuQPe45pN3hIfePD0ybJJ7tl1TNH2/elJ376EqgRVNOugx9/HpIz9dow
+Y36xLc6+DpiLBpaZu+cQxkGqdi0m9s6fygvEZ2JIgIiO2LI8yMA=
+=IDLY
+-----END PGP SIGNATURE-----
 
-	printf("connect successful\n");
-	return 0;
-}
-
-$ ./so_sndtimeo
-connect: Operation now in progress
-
-Signed-off-by: Tycho Andersen <tycho@tycho.pizza>
----
- man7/socket.7 | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/man7/socket.7 b/man7/socket.7
-index 2b191c783..c3c13cda6 100644
---- a/man7/socket.7
-+++ b/man7/socket.7
-@@ -838,6 +838,7 @@ just as if the socket was specified to be nonblocking.
- If the timeout is set to zero (the default),
- then the operation will never timeout.
- Timeouts only have effect for system calls that perform socket I/O (e.g.,
-+.BR connect (2),
- .BR read (2),
- .BR recvmsg (2),
- .BR send (2),
-
-base-commit: 60eb580d1e836977d57355b6519f32e37bdc3392
--- 
-2.34.1
-
+--------------wN8DKe1UXyhjL8SlywyWfm0P--
