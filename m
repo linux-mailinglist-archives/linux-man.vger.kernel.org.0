@@ -2,109 +2,89 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id F3FDB63F306
-	for <lists+linux-man@lfdr.de>; Thu,  1 Dec 2022 15:39:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E7D1563F3FB
+	for <lists+linux-man@lfdr.de>; Thu,  1 Dec 2022 16:32:29 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231859AbiLAOjU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 1 Dec 2022 09:39:20 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52566 "EHLO
+        id S231888AbiLAPc2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 1 Dec 2022 10:32:28 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42544 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231862AbiLAOjS (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 1 Dec 2022 09:39:18 -0500
-Received: from ewsoutbound.kpnmail.nl (ewsoutbound.kpnmail.nl [195.121.94.185])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2487BA6CEE
-        for <linux-man@vger.kernel.org>; Thu,  1 Dec 2022 06:39:15 -0800 (PST)
-X-KPN-MessageId: c102692f-7185-11ed-bfe8-005056999439
-Received: from smtp.kpnmail.nl (unknown [10.31.155.8])
+        with ESMTP id S231818AbiLAPcZ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 1 Dec 2022 10:32:25 -0500
+Received: from ewsoutbound.kpnmail.nl (ewsoutbound.kpnmail.nl [195.121.94.186])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F054DAA8E5
+        for <linux-man@vger.kernel.org>; Thu,  1 Dec 2022 07:32:02 -0800 (PST)
+X-KPN-MessageId: 3afba1c4-718d-11ed-b97e-00505699b430
+Received: from smtp.kpnmail.nl (unknown [10.31.155.5])
         by ewsoutbound.so.kpn.org (Halon) with ESMTPS
-        id c102692f-7185-11ed-bfe8-005056999439;
-        Thu, 01 Dec 2022 15:38:00 +0100 (CET)
+        id 3afba1c4-718d-11ed-b97e-00505699b430;
+        Thu, 01 Dec 2022 16:31:31 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=xs4all.nl; s=xs4all01;
-        h=content-type:to:from:subject:mime-version:date:message-id;
-        bh=/UI3Fv/m1ybGJuATx0DgWear22ZtPF2dZ4+3K9NvMMo=;
-        b=N+RbmWOm/n2mThfkrmdg/6ZBqTzureCbMxHJCe049owERkrt3NH6qShpvWTzjZdNz7LR0odcKKMDR
-         D5+ZzbwzSEHQic/woYvt6A3fcwisJ5A9KxMq3qi6nudCD7NMG/kxqL/g2+6XCtdMKGtrgNyess9p8/
-         ZjsY4irZImtYlyyI/V6ZcwZ8kZ1UQMxPwsC0efh3NnO2ob8c3ZYqD2QC5CVYzWvhA9xBhh9KxaiCXH
-         mTtY00vwH4y56HapKUOclqVFuc5Xu7TzKStBLJa9XhEgQ1LfNroZrLIv/xX/x+b9eXui4U0hBXIZKz
-         mXCPJc+Lq+82cGqkPDUyY/TupANEjRg==
-X-KPN-MID: 33|yRot1IujciJCWFwI+Yw7rhXy8JHFSN0kMbvfpYbXVxqYOfnp4HgPBYKaTnFleqc
- lnb2vojSETaGBdZ9RMw+5yCVCCRnD7ykBRnizE3SMOdI=
+        h=mime-version:message-id:date:subject:to:from;
+        bh=O8MXa9gRCxRl+xe1nFHzMcry4Ev3qbvEgwxeXdasUck=;
+        b=bxnn6Yp0dV7jUQIUlsU9w9NdL92yAAtrM2J9TOTKxsfIglUtrxZpfh21qk1H8WRaIiFTPFC5UMeMl
+         DqjzQBEhllCbuL5bgivVoeoq5dKYnJOrn6CjsURB0dWSwehbJbRMnlhSGuywFsLjuVrfIQ2oUc2N5a
+         w5ymV/lC8N8J9dMkiIce3xll9SWbTuWUORD9WoJLdVnNTN3bZC+RIMLrxeTtpn8fDSvGHdn6EH5m8n
+         hzZgC4H7zU01J/iCcywHS8m6PPpsLQzrs8xU/tAvmAMb3it29eJsFJM6hTueMGMEFryJFCgkmxfED1
+         aP2H2cr15vMPHfxl90rNy0cZ0BBIHCA==
+X-KPN-MID: 33|55scqyT6z3KWqtRgenuJ055XWzk58gVId9k/3n49kFHnmxpAg7lXLKq6EQbFunf
+ j2GWPnx9wqBk8AKLKLSbp6YmgKf3xKzu6J807/n6P09g=
 X-KPN-VerifiedSender: Yes
-X-CMASSUN: 33|CgZBzaq9N4bAnapc0rnqhyTq0kK0OOk/AQNxgYUOb/Ugr0XuOHhNpQKfV+Uul8M
- PzVYl114LKeO+ifWpzHWyFQ==
+X-CMASSUN: 33|Fa2z7NsBPMp7kXXyI+Yv+vTDZ5CkQ+ZMe9rTpHtup5+TJb1a1dThprvYbFmzEwW
+ Hlv851en4g0RcrVzGkodj7g==
 X-Originating-IP: 77.173.35.122
-Received: from [192.168.178.20] (77-173-35-122.fixed.kpn.net [77.173.35.122])
+Received: from frodo.. (77-173-35-122.fixed.kpn.net [77.173.35.122])
         by smtp.xs4all.nl (Halon) with ESMTPSA
-        id ebf9eebd-7185-11ed-9b28-00505699d6e5;
-        Thu, 01 Dec 2022 15:39:12 +0100 (CET)
-Message-ID: <724c2a0a-7c20-3a99-b868-4a9ba27310f7@xs4all.nl>
-Date:   Thu, 1 Dec 2022 15:39:12 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.0
-Subject: Re: Simple changes to select(2) and pipe(7)
-Content-Language: en-US
+        id 4c3a9ca0-718d-11ed-9b31-00505699b758;
+        Thu, 01 Dec 2022 16:32:00 +0100 (CET)
 From:   "J.H. vd Water" <henri.van.de.water@xs4all.nl>
-To:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>
-Cc:     Ken Brown <kbrown@cornell.edu>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        "Michael T. Kerrisk" <mtk@man7.org>
-References: <30847211-efc7-12be-6ce9-c5c4ada16805@xs4all.nl>
- <9f23de64-4748-5176-1caa-f05b9f4d5f0f@gmail.com>
- <0fd276c7-3aab-0075-8a54-1371e4fad925@gmail.com>
- <2d4d8b7b-5890-cd9f-061d-6d259d8ed6ee@xs4all.nl>
- <66aeb672-5ceb-00cc-70c0-592e2b7f293f@xs4all.nl>
- <a36590b4-a5fe-523c-f2bd-8af5c25f28a8@xs4all.nl>
-In-Reply-To: <a36590b4-a5fe-523c-f2bd-8af5c25f28a8@xs4all.nl>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Spam-Status: No, score=-3.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_LOW,
-        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
+To:     Alejandro Colomar <alx@kernel.org>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org
+Subject: [PATCH v3] select.2: blocks on the read end of a FIFO (if the write end has never been opened).
+Date:   Thu,  1 Dec 2022 16:31:59 +0100
+Message-Id: <20221201153159.9544-1-henri.van.de.water@xs4all.nl>
+X-Mailer: git-send-email 2.38.1
+In-Reply-To: <20221122183220.2460-1-henri.van.de.water@xs4all.nl>
+References: <20221122183220.2460-1-henri.van.de.water@xs4all.nl>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-2.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,
+        SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Alex,
+Clarify that select(2) will block on the read end of a FIFO, if the write
+end of the FIFO has never been opened before, unlike read(2).
+---
+ man2/select.2 | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-Additional information:
+diff --git a/man2/select.2 b/man2/select.2
+index 199522a01..cb3295823 100644
+--- a/man2/select.2
++++ b/man2/select.2
+@@ -77,6 +77,15 @@ perform a corresponding I/O operation (e.g.,
+ or a sufficiently small
+ .BR write (2))
+ without blocking.
++.PP
++However, note that
++.BR select ()
++will block on the read end of a FIFO, if the write end of
++the FIFO has never been opened before, unlike
++.BR read (2).
++(read(2) will always return with zero if the write end of
++the pipe/fifo is closed - see pipe(7) where the text starts with
++I/O on pipes and FIFOs)
+ .\"
+ .SS fd_set
+ A structure type that can represent a set of file descriptors.
+-- 
+2.38.1
 
-LPI 63.2.3 Comparison of select() and poll():
-
-Implementation details
-
-"Within the Linux kernel, select() and poll() both employ the same set of
- kernel-internal poll routines ..."
-
-See also: https://github.com/torvalds/linux/blob/master/fs/select.c
-
-Furthermore:
-
- - https://pubs.opengroup.org/onlinepubs/9699919799/functions/poll.html
-
-DESCRIPTION
-...
-  POLLHUP
-    A device has been disconnected, or a pipe or FIFO has been closed by the last process
-    that had it open for writing. ...
-...
-RATIONALE
-
-  The POLLHUP event does not occur for FIFOs just because the FIFO is not open for writing.
-  It only occurs when the FIFO is closed by the last writer and persists until some process
-  opens the FIFO for writing or until all read-only file descriptors for the FIFO are closed.
-
-Next I decided to verify this on Linux (Fedora 35): poll(2) returns zero (after time out) on
-a FIFO of which the write end is closed from the start ...,
-
-meaning neither POLLIN nor POLLHUP have been set in revents.
-
-Bottom-line: select(2) blocks on a FIFO of which the write end is closed from
-the start (i.e. select.2 is wrong, or at least not complete).
-
-Regards,
-Henri
