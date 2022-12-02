@@ -2,89 +2,107 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id E7D1563F3FB
-	for <lists+linux-man@lfdr.de>; Thu,  1 Dec 2022 16:32:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 18BD86410FE
+	for <lists+linux-man@lfdr.de>; Fri,  2 Dec 2022 23:59:16 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231888AbiLAPc2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 1 Dec 2022 10:32:28 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42544 "EHLO
+        id S234204AbiLBW7P (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 2 Dec 2022 17:59:15 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59358 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231818AbiLAPcZ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 1 Dec 2022 10:32:25 -0500
-Received: from ewsoutbound.kpnmail.nl (ewsoutbound.kpnmail.nl [195.121.94.186])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F054DAA8E5
-        for <linux-man@vger.kernel.org>; Thu,  1 Dec 2022 07:32:02 -0800 (PST)
-X-KPN-MessageId: 3afba1c4-718d-11ed-b97e-00505699b430
-Received: from smtp.kpnmail.nl (unknown [10.31.155.5])
-        by ewsoutbound.so.kpn.org (Halon) with ESMTPS
-        id 3afba1c4-718d-11ed-b97e-00505699b430;
-        Thu, 01 Dec 2022 16:31:31 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=xs4all.nl; s=xs4all01;
-        h=mime-version:message-id:date:subject:to:from;
-        bh=O8MXa9gRCxRl+xe1nFHzMcry4Ev3qbvEgwxeXdasUck=;
-        b=bxnn6Yp0dV7jUQIUlsU9w9NdL92yAAtrM2J9TOTKxsfIglUtrxZpfh21qk1H8WRaIiFTPFC5UMeMl
-         DqjzQBEhllCbuL5bgivVoeoq5dKYnJOrn6CjsURB0dWSwehbJbRMnlhSGuywFsLjuVrfIQ2oUc2N5a
-         w5ymV/lC8N8J9dMkiIce3xll9SWbTuWUORD9WoJLdVnNTN3bZC+RIMLrxeTtpn8fDSvGHdn6EH5m8n
-         hzZgC4H7zU01J/iCcywHS8m6PPpsLQzrs8xU/tAvmAMb3it29eJsFJM6hTueMGMEFryJFCgkmxfED1
-         aP2H2cr15vMPHfxl90rNy0cZ0BBIHCA==
-X-KPN-MID: 33|55scqyT6z3KWqtRgenuJ055XWzk58gVId9k/3n49kFHnmxpAg7lXLKq6EQbFunf
- j2GWPnx9wqBk8AKLKLSbp6YmgKf3xKzu6J807/n6P09g=
-X-KPN-VerifiedSender: Yes
-X-CMASSUN: 33|Fa2z7NsBPMp7kXXyI+Yv+vTDZ5CkQ+ZMe9rTpHtup5+TJb1a1dThprvYbFmzEwW
- Hlv851en4g0RcrVzGkodj7g==
-X-Originating-IP: 77.173.35.122
-Received: from frodo.. (77-173-35-122.fixed.kpn.net [77.173.35.122])
-        by smtp.xs4all.nl (Halon) with ESMTPSA
-        id 4c3a9ca0-718d-11ed-9b31-00505699b758;
-        Thu, 01 Dec 2022 16:32:00 +0100 (CET)
-From:   "J.H. vd Water" <henri.van.de.water@xs4all.nl>
-To:     Alejandro Colomar <alx@kernel.org>,
-        Michael Kerrisk <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-Subject: [PATCH v3] select.2: blocks on the read end of a FIFO (if the write end has never been opened).
-Date:   Thu,  1 Dec 2022 16:31:59 +0100
-Message-Id: <20221201153159.9544-1-henri.van.de.water@xs4all.nl>
-X-Mailer: git-send-email 2.38.1
-In-Reply-To: <20221122183220.2460-1-henri.van.de.water@xs4all.nl>
-References: <20221122183220.2460-1-henri.van.de.water@xs4all.nl>
+        with ESMTP id S234065AbiLBW7N (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 2 Dec 2022 17:59:13 -0500
+X-Greylist: delayed 522 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Fri, 02 Dec 2022 14:59:13 PST
+Received: from hosted.mailcow.de (hosted.mailcow.de [5.1.76.202])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2DD9AEFD2D
+        for <linux-man@vger.kernel.org>; Fri,  2 Dec 2022 14:59:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pearson.onl; s=default;
+        t=1670021429; h=from:subject:date:message-id:to:cc:mime-version:
+         content-transfer-encoding; bh=o9ozsXCjOCa2+QHepMz48Xs5bBCfVcQ3qpMpBPaTmus=;
+        b=iyHW6RGweUCkMS9//c6qLpio0fBrQIaUTp+aA5mO34hg9uE/b6mLVZz2eyAhbT6j0Gxjkk
+        00wajRUKCTp4jQ5Dapg3sbQXg2I6wjPy289tbP8BfKPJA+3L2UNiMG9hw/ATWLveISti8e
+        95YCsnKolqO4jY6ZIDHxbKZwJdRjaRw5N3aHAvIr15xDjUODoCXPLm1RRfN5k6Hs28ZswT
+        SExtEqrp7n9LUNpvv0+8dtTW5NdG/FYXvyAWwKqj252QlwlqvjLuO8SvcMoTssD4XUvPCQ
+        oMW2ccJIyyPfiNJy512vJvwasCHgs1DH950m/TA7k/FCPAxt3aYbgDHucbn0/A==
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 96A4D7C474B;
+        Fri,  2 Dec 2022 23:50:28 +0100 (CET)
+From:   Jack Pearson <jack@pearson.onl>
+To:     linux-man@vger.kernel.org, alx.manpages@gmail.com,
+        mtk.manpages@gmail.com
+Cc:     Jack Pearson <jack@pearson.onl>
+Subject: [PATCH] clone.2: note EINVAL when exit_signal + bad flags
+Date:   Fri,  2 Dec 2022 14:44:19 -0800
+Message-Id: <20221202224419.231717-1-jack@pearson.onl>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-2.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,
-        SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
+        SPF_HELO_PASS,T_SPF_PERMERROR autolearn=ham autolearn_force=no
+        version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Clarify that select(2) will block on the read end of a FIFO, if the write
-end of the FIFO has never been opened before, unlike read(2).
----
- man2/select.2 | 9 +++++++++
- 1 file changed, 9 insertions(+)
+Document that Linux will report EINVAL when exit_signal is specified and
+either CLONE_THREAD or CLONE_PARENT is specified.
 
-diff --git a/man2/select.2 b/man2/select.2
-index 199522a01..cb3295823 100644
---- a/man2/select.2
-+++ b/man2/select.2
-@@ -77,6 +77,15 @@ perform a corresponding I/O operation (e.g.,
- or a sufficiently small
- .BR write (2))
- without blocking.
-+.PP
-+However, note that
-+.BR select ()
-+will block on the read end of a FIFO, if the write end of
-+the FIFO has never been opened before, unlike
-+.BR read (2).
-+(read(2) will always return with zero if the write end of
-+the pipe/fifo is closed - see pipe(7) where the text starts with
-+I/O on pipes and FIFOs)
- .\"
- .SS fd_set
- A structure type that can represent a set of file descriptors.
--- 
-2.38.1
+From clone3_args_valid in Linux:
+```
+	if ((kargs->flags & (CLONE_THREAD | CLONE_PARENT)) &&
+	    kargs->exit_signal)
+		return false;
+```
+
+I have verified that this happens on my kernel with a small program, and
+that this doesn't happen with normal `clone` through the glibc helper.
+
+The program:
+
+```
+#include <stdio.h>
+#include <linux/sched.h>
+#include <signal.h>
+#include <sys/syscall.h>
+#include <unistd.h>
+
+int main() {
+	struct clone_args ca = {
+		.flags = CLONE_THREAD | CLONE_SIGHAND | CLONE_VM,
+		.exit_signal = SIGCHLD, // comment me out to fix error
+		.set_tid_size = 0,
+	};
+	syscall(SYS_clone3, &ca, sizeof(struct clone_args));
+	perror("");
+}
+```
+
+Signed-off-by: Jack Pearson <jack@pearson.onl>
+---
+ man2/clone.2 | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/man2/clone.2 b/man2/clone.2
+index 093630859..a0fa50d83 100644
+--- a/man2/clone.2
++++ b/man2/clone.2
+@@ -1433,6 +1433,16 @@ One of the PIDs specified in
+ .I set_tid
+ was an invalid.
+ .TP
++.BR EINVAL " (" clone3 "() only)"
++.\" commit 7f192e3cd316ba58c88dfa26796cf77789dd9872
++.B CLONE_THREAD
++or
++.B CLONE_PARENT
++was specified in the
++.I flags
++mask, but a signal was specified in
++.I exit_signal.
++.TP
+ .BR EINVAL " (AArch64 only, Linux 4.6 and earlier)"
+ .I stack
+ was not aligned to a 128-bit boundary.
+--
+2.35.1
 
