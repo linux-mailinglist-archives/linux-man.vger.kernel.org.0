@@ -2,28 +2,28 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id CD8EF641BD5
-	for <lists+linux-man@lfdr.de>; Sun,  4 Dec 2022 10:07:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id A3F15641BD2
+	for <lists+linux-man@lfdr.de>; Sun,  4 Dec 2022 10:07:23 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229919AbiLDJHY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 4 Dec 2022 04:07:24 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33514 "EHLO
+        id S229845AbiLDJHW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 4 Dec 2022 04:07:22 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33536 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230001AbiLDJHT (ORCPT
+        with ESMTP id S230031AbiLDJHT (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Sun, 4 Dec 2022 04:07:19 -0500
 Received: from static.213-239-213-133.clients.your-server.de (luckmann.name [213.239.213.133])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 29ACF17072
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B16B817063
         for <linux-man@vger.kernel.org>; Sun,  4 Dec 2022 01:07:18 -0800 (PST)
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E540C6.00000000638C6342.00000271; Sun, 04 Dec 2022 10:07:14 +0100
+  id 0000000000E540A7.00000000638C6342.00000243; Sun, 04 Dec 2022 10:07:14 +0100
 Date:   Sun, 4 Dec 2022 10:07:14 +0100
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     alx.manpages@gmail.com
 Cc:     mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Issue in man page ascii.7
-Message-ID: <20221204090714.GA610@Debian-50-lenny-64-minimal>
+Subject: Issue in man page passwd.5
+Message-ID: <20221204090713.GA564@Debian-50-lenny-64-minimal>
 Mime-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
@@ -43,23 +43,10 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Without further ado, the following was found:
 
-Issue:    In the right table, please add \& markup for end of sentence characters (? ! .) to get proper formatting in other locales. Thanks!
+Issue:    put B<> on "nullok" and "nonull", maybe on "pam_unix.so" as well.
 
-"   2 3 4 5 6 7       30 40 50 60 70 80 90 100 110 120\n"
-" -------------      ---------------------------------\n"
-"0:   0 @ P \\` p     0:    (  2  E<lt>  F  P  Z  d   n   x\n"
-"1: ! 1 A Q a q     1:    )  3  =  G  Q  [  e   o   y\n"
-"2: \" 2 B R b r     2:    *  4  E<gt>  H  R  \\e  f   p   z\n"
-"3: # 3 C S c s     3: !  +  5  ?  I  S  ]  g   q   {\n"
-"4: $ 4 D T d t     4: \"  ,  6  @  J  T  \\(ha  h   r   |\n"
-"5: % 5 E U e u     5: #  -  7  A  K  U  _  i   s   }\n"
-"6: & 6 F V f v     6: $  .  8  B  L  V  \\`  j   t   \\(ti\n"
-"7: \\(aq 7 G W g w     7: %  /  9  C  M  W  a  k   u  DEL\n"
-"8: ( 8 H X h x     8: &  0  :  D  N  X  b  l   v\n"
-"9: ) 9 I Y i y     9: \\(aq  1  ;  E  O  Y  c  m   w\n"
-"A: * : J Z j z\n"
-"B: + ; K [ k {\n"
-"C: , E<lt> L \\e l |\n"
-"D: - = M ] m }\n"
-"E: . E<gt> N \\(ha n \\(ti\n"
-"F: / ? O _ o DEL\n"
+"If the encrypted password, whether in I</etc/passwd> or in I</etc/shadow>, "
+"is an empty string, login is allowed without even asking for a password.  "
+"Note that this functionality may be intentionally disabled in applications, "
+"or configurable (for example using the \"nullok\" or \"nonull\" arguments to "
+"pam_unix.so)."
