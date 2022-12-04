@@ -2,28 +2,28 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 521DF641BC6
-	for <lists+linux-man@lfdr.de>; Sun,  4 Dec 2022 10:07:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id A475B641BC4
+	for <lists+linux-man@lfdr.de>; Sun,  4 Dec 2022 10:07:15 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229985AbiLDJHP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 4 Dec 2022 04:07:15 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33434 "EHLO
+        id S229875AbiLDJHO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 4 Dec 2022 04:07:14 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33410 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229945AbiLDJHN (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 4 Dec 2022 04:07:13 -0500
+        with ESMTP id S229910AbiLDJHM (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 4 Dec 2022 04:07:12 -0500
 Received: from static.213-239-213-133.clients.your-server.de (luckmann.name [213.239.213.133])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B092B167CB
-        for <linux-man@vger.kernel.org>; Sun,  4 Dec 2022 01:07:12 -0800 (PST)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 12D43167C5
+        for <linux-man@vger.kernel.org>; Sun,  4 Dec 2022 01:07:11 -0800 (PST)
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E540A7.00000000638C633D.00007FDC; Sun, 04 Dec 2022 10:07:09 +0100
+  id 0000000000E54094.00000000638C633D.00007FBF; Sun, 04 Dec 2022 10:07:09 +0100
 Date:   Sun, 4 Dec 2022 10:07:09 +0100
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     alx.manpages@gmail.com
 Cc:     mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Issue in man page keyrings.7
-Message-ID: <20221204090709.GA32717@Debian-50-lenny-64-minimal>
+Subject: Issue in man page iswctype.3
+Message-ID: <20221204090709.GA32688@Debian-50-lenny-64-minimal>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
@@ -43,8 +43,9 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Without further ado, the following was found:
 
-Issue:    pinned → anchored?
+Issue:    the B<iswctype>() → then the B<iswctype>()
 
-"Process credentials themselves reference keyrings with specific semantics.  "
-"These keyrings are pinned as long as the set of credentials exists, which is "
-"usually as long as the process exists."
+"If I<wc> is a wide character having the character property designated by "
+"I<desc> (or in other words: belongs to the character class designated by "
+"I<desc>), the B<iswctype>()  function returns nonzero.  Otherwise, it "
+"returns zero.  If I<wc> is B<WEOF>, zero is returned."
