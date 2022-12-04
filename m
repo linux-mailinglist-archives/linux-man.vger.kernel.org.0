@@ -2,28 +2,28 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 6EDDA641BBF
-	for <lists+linux-man@lfdr.de>; Sun,  4 Dec 2022 10:06:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 26A68641BC2
+	for <lists+linux-man@lfdr.de>; Sun,  4 Dec 2022 10:07:15 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229805AbiLDJGc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 4 Dec 2022 04:06:32 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33348 "EHLO
+        id S229899AbiLDJHN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 4 Dec 2022 04:07:13 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33400 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229636AbiLDJGb (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 4 Dec 2022 04:06:31 -0500
+        with ESMTP id S229811AbiLDJHM (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 4 Dec 2022 04:07:12 -0500
 Received: from static.213-239-213-133.clients.your-server.de (luckmann.name [213.239.213.133])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 318441054E
-        for <linux-man@vger.kernel.org>; Sun,  4 Dec 2022 01:06:29 -0800 (PST)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1951C167CB
+        for <linux-man@vger.kernel.org>; Sun,  4 Dec 2022 01:07:10 -0800 (PST)
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E54048.00000000638C6314.00007F2E; Sun, 04 Dec 2022 10:06:28 +0100
-Date:   Sun, 4 Dec 2022 10:06:28 +0100
+  id 0000000000E5408E.00000000638C633C.00007F73; Sun, 04 Dec 2022 10:07:08 +0100
+Date:   Sun, 4 Dec 2022 10:07:08 +0100
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     alx.manpages@gmail.com
 Cc:     mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Issues in various man pages
-Message-ID: <20221204090627.GA32543@Debian-50-lenny-64-minimal>
+Subject: Issue in man page errno.3
+Message-ID: <20221204090708.GA32612@Debian-50-lenny-64-minimal>
 Mime-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
@@ -41,37 +41,8 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Dear manpages maintainer,
-the manpage-l10n project maintains a large number of translations of
-man pages both from a large variety of sources (including manpages) as
-well for a large variety of target languages.
+Without further ado, the following was found:
 
-During their work translators notice different possible issues in the
-original (english) man pages. Sometimes this is a straightforward
-typo, sometimes a hard to read sentence, sometimes this is a
-convention not held up and sometimes we simply do not understand the
-original.
+Issue:    Different than errno -l
 
-We use several distributions as sources and update regularly (at
-least every 2 month). This means we are fairly recent (some
-distributions like archlinux also update frequently) but might miss
-the latest upstream version once in a while, so the error might be
-already fixed. We apologize and ask you to close the issue immediately
-if this should be the case, but given the huge volume of projects and
-the very limited number of volunteers we are not able to double check
-each and every issue.
-
-Secondly we translators see the manpages in the neutral po format,
-i.e. converted and harmonized, but not the original source (be it man,
-groff, xml or other). So we cannot provide a true patch (where
-possible), but only an approximation which you need to convert into
-your source format.
-
-Finally the issues I'm reporting have accumulated over time and are
-not always discovered by me, so sometimes my description of the
-problem my be a bit limited - do not hesitate to ask so we can clarify
-them.
-
-I'm now reporting the errors for your project. If future reports
-should use another channel, please let me know.
-
+"Improper link (POSIX.1-2001)."
