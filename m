@@ -2,28 +2,28 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 81563641BCD
-	for <lists+linux-man@lfdr.de>; Sun,  4 Dec 2022 10:07:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E4C5C641BCF
+	for <lists+linux-man@lfdr.de>; Sun,  4 Dec 2022 10:07:21 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229995AbiLDJHT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 4 Dec 2022 04:07:19 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33482 "EHLO
+        id S230000AbiLDJHU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 4 Dec 2022 04:07:20 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33500 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230001AbiLDJHQ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 4 Dec 2022 04:07:16 -0500
+        with ESMTP id S229931AbiLDJHS (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 4 Dec 2022 04:07:18 -0500
 Received: from static.213-239-213-133.clients.your-server.de (luckmann.name [213.239.213.133])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 58DF0167F7
-        for <linux-man@vger.kernel.org>; Sun,  4 Dec 2022 01:07:14 -0800 (PST)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 55B25167D9
+        for <linux-man@vger.kernel.org>; Sun,  4 Dec 2022 01:07:16 -0800 (PST)
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E5408F.00000000638C6340.000001C8; Sun, 04 Dec 2022 10:07:12 +0100
+  id 0000000000E54095.00000000638C6340.000001DF; Sun, 04 Dec 2022 10:07:12 +0100
 Date:   Sun, 4 Dec 2022 10:07:12 +0100
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     alx.manpages@gmail.com
 Cc:     mario.blaettermann@gmail.com, linux-man@vger.kernel.org
 Subject: Issue in man page mount_namespaces.7
-Message-ID: <20221204090712.GA441@Debian-50-lenny-64-minimal>
+Message-ID: <20221204090712.GA464@Debian-50-lenny-64-minimal>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
@@ -43,11 +43,10 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Without further ado, the following was found:
 
-Issue:    performed. → performed).
+Issue:    mount point → mount ?
 
-"Above, we see that the mount with ID 273 is a slave whose master is the peer "
-"group 105.  The mount point for that master is unreachable, and so a "
-"I<propagate_from> tag is displayed, indicating that the closest dominant "
-"peer group (i.e., the nearest reachable mount in the slave chain)  is the "
-"peer group with the ID 102 (corresponding to the I</mnt> mount point before "
-"the B<chroot>(1)  was performed."
+"The propagation type assigned to a new mount depends on the propagation type "
+"of the parent mount.  If the mount has a parent (i.e., it is a non-root "
+"mount point) and the propagation type of the parent is B<MS_SHARED>, then "
+"the propagation type of the new mount is also B<MS_SHARED>.  Otherwise, the "
+"propagation type of the new mount is B<MS_PRIVATE>."
