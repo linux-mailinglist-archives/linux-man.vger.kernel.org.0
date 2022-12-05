@@ -2,45 +2,74 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id F28606430CD
-	for <lists+linux-man@lfdr.de>; Mon,  5 Dec 2022 19:54:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 3B08D643573
+	for <lists+linux-man@lfdr.de>; Mon,  5 Dec 2022 21:18:18 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232120AbiLESy1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 5 Dec 2022 13:54:27 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43678 "EHLO
+        id S232695AbiLEUSQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 5 Dec 2022 15:18:16 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59028 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232341AbiLESyZ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 5 Dec 2022 13:54:25 -0500
-Received: from static.213-239-213-133.clients.your-server.de (luckmann.name [213.239.213.133])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B34E91FFAA
-        for <linux-man@vger.kernel.org>; Mon,  5 Dec 2022 10:54:23 -0800 (PST)
-Received: from localhost (localhost [127.0.0.1])
-  (uid 502)
-  by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E62006.00000000638E3E5D.00002BE1; Mon, 05 Dec 2022 19:54:21 +0100
-Date:   Mon, 5 Dec 2022 19:54:21 +0100
-From:   Helge Kreutzmann <debian@helgefjell.de>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     Jakub Wilk <jwilk@jwilk.net>,
-        Mario =?utf-8?Q?Bl=C3=A4ttermann?= <mario.blaettermann@gmail.com>,
+        with ESMTP id S231965AbiLEUSP (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 5 Dec 2022 15:18:15 -0500
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com [IPv6:2a00:1450:4864:20::432])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9AC9A24F06
+        for <linux-man@vger.kernel.org>; Mon,  5 Dec 2022 12:18:13 -0800 (PST)
+Received: by mail-wr1-x432.google.com with SMTP id q7so20542730wrr.8
+        for <linux-man@vger.kernel.org>; Mon, 05 Dec 2022 12:18:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=fzp+9jLJ9XyxLozuJTCe/U7dMjhv/tsAqIMG8jeN7vQ=;
+        b=A8IdKJ/5A+GU7qvKGEZoToz7A4riUNavdQdLGxbFqxbwLxpJIAvp0GFZmUtiK0G4e6
+         AqyIM/das+Woex4/xUsOlwcZpic+ZUIDZ6ZtzygYvVzzqMhgBjs2A1EZzn7BGgLVmcdc
+         g1YMo88AHqyTx6AIxQ1XK6nuJ6RLOWGsgrqgP/EuTu6+Mxyuraw6Ukin+QPfbV/NaJt2
+         s6RyPOviQ37pGR43309YMg22CplXW4HKyJ+rzoSiJ593n+b08tGTRnwkMt7qVlOHZcpS
+         hGQXbXdlnCbNEtcpXuz+L7IzB7X2086ybC6Dl8GW1UXQFkVoBbZaeW2KJ+oKGTGPx4o6
+         CNJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=fzp+9jLJ9XyxLozuJTCe/U7dMjhv/tsAqIMG8jeN7vQ=;
+        b=2O0EiTWvzweu+NL5F6NBUMSxJkoGyYLWI4mCwKxEZaA0bI45BUDvNmbmlUVWxqEU8K
+         VXbUUmsYrdCPxEnFw0LYLcMPheABr16nM5Y2JWD2RZf93/GO5n7oIr+V78K1CFCp0kBe
+         V1RTp50CCRjcztgH4fngrRloAnPbTc42nX+A4bQqtnovceia0MS9EaO+PPy1D4juNTLe
+         +ZNISWUX0jGtXvRE2RKU015AwsrHQqXe2+Ry/XFhRHoi7eFNNQHUjVx7A9p/AqLrfnWB
+         rYf3BK48qcvbMm4SFTj97EYSp0xoQUvgNDy9rFGAa/zOdMKWpnN8ZKNXRUvabhP9KoYw
+         nWhA==
+X-Gm-Message-State: ANoB5pkD0+q5a+BXPr+9Wv6AxG7oQ61FIJ8fB7p+M32dobj7xCFA3WvO
+        Ijm0tk5dTbkw307Wj9SuwCs=
+X-Google-Smtp-Source: AA0mqf4Z1xJl6QjxS9jrJLuV2aN1lE4rFb5XIOIW2m0phfeNDxlXD+djs7K0K/0/b/+dRBdz8pkF4A==
+X-Received: by 2002:a05:6000:1101:b0:242:6fa0:d5bc with SMTP id z1-20020a056000110100b002426fa0d5bcmr2240852wrw.351.1670271492013;
+        Mon, 05 Dec 2022 12:18:12 -0800 (PST)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id a3-20020adffac3000000b0024245e543absm9738002wrs.88.2022.12.05.12.18.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 05 Dec 2022 12:18:11 -0800 (PST)
+Message-ID: <ee1c220c-d253-7d50-363c-281b9e9368a8@gmail.com>
+Date:   Mon, 5 Dec 2022 21:18:03 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.1
+Subject: Re: Issue in man page uri.7
+To:     Jakub Wilk <jwilk@jwilk.net>,
+        Helge Kreutzmann <debian@helgefjell.de>
+Cc:     =?UTF-8?Q?Mario_Bl=c3=a4ttermann?= <mario.blaettermann@gmail.com>,
         linux-man@vger.kernel.org
-Subject: Re: Issue in man page mount_namespaces.7
-Message-ID: <20221205185421.GA8102@Debian-50-lenny-64-minimal>
-References: <20221204090711.GA370@Debian-50-lenny-64-minimal>
- <4ac1d53f-ae77-0bc3-530c-7d1a29af78ff@gmail.com>
- <20221204140009.GD441@Debian-50-lenny-64-minimal>
- <4a2140e0-4589-87f3-e579-5575aab5e284@gmail.com>
- <20221205123809.5p66jmpalhd4bhoq@jwilk.net>
- <59dde6dc-5970-c422-30b3-e2cbe4fabd09@gmail.com>
-Mime-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-11233-1670266461-0001-2"
-Content-Disposition: inline
-In-Reply-To: <59dde6dc-5970-c422-30b3-e2cbe4fabd09@gmail.com>
-X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
-X-homepage: http://www.helgefjell.de/debian
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Spam-Status: No, score=0.4 required=5.0 tests=BAYES_00,CK_HELO_GENERIC,
-        HELO_DYNAMIC_IPADDR,SPF_HELO_NONE,SPF_NONE,URIBL_SBL_A autolearn=no
+References: <20221204090719.GA902@Debian-50-lenny-64-minimal>
+ <20221205170925.meppalvtfqsoe4vj@jwilk.net>
+Content-Language: en-US
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <20221205170925.meppalvtfqsoe4vj@jwilk.net>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------prFInIKa7MeslT0rySLIfCBO"
+X-Spam-Status: No, score=-2.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -48,96 +77,57 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is a MIME-formatted message.  If you see this text it means that your
-E-mail software does not support MIME-formatted messages.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------prFInIKa7MeslT0rySLIfCBO
+Content-Type: multipart/mixed; boundary="------------5sBRfGxV0SV7nY9IY02Skig0";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: Jakub Wilk <jwilk@jwilk.net>, Helge Kreutzmann <debian@helgefjell.de>
+Cc: =?UTF-8?Q?Mario_Bl=c3=a4ttermann?= <mario.blaettermann@gmail.com>,
+ linux-man@vger.kernel.org
+Message-ID: <ee1c220c-d253-7d50-363c-281b9e9368a8@gmail.com>
+Subject: Re: Issue in man page uri.7
+References: <20221204090719.GA902@Debian-50-lenny-64-minimal>
+ <20221205170925.meppalvtfqsoe4vj@jwilk.net>
+In-Reply-To: <20221205170925.meppalvtfqsoe4vj@jwilk.net>
 
---=_luckmann.name-11233-1670266461-0001-2
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+--------------5sBRfGxV0SV7nY9IY02Skig0
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Hello Alejandro,
-On Mon, Dec 05, 2022 at 02:18:19PM +0100, Alejandro Colomar wrote:
-> On 12/5/22 13:38, Jakub Wilk wrote:
-> > * Alejandro Colomar <alx.manpages@gmail.com>, 2022-12-04 15:06:
-> > > > > > Issue:=C2=A0=C2=A0=C2=A0 mount point I<B> =E2=86=92 mount I<B>
-> > > > > >=20
-> > > > > > "Here, I<B> is the destination mount, and I<b> is a subdirector=
-y path under"
-> > > > > > "the mount point I<B>.=C2=A0 The propagation type of the result=
-ing mount, I<B/b>,"
-> > > > > > "follows the same rules as for a bind mount, where the propagat=
-ion type of"
-> > > > > > "the source mount is considered always to be private."
-> > > > >=20
-> > > > > I'm not sure about this one.=C2=A0 If we change that wording, I'd
-> > > > > like to make sure we don't lose any details in the
-> > > > > information.=C2=A0 Please CC any related kernel developers, and
-> > > > > suggest them review the documentation for more consistent
-> > > > > language.
-> > > >=20
-> > > > Until recently, there was "mount point" used all over this man
-> > > > pages. This was changed to "mount" in one of the previous
-> > > > release of man pages.
-> > >=20
-> > > I didn't know that; please point to the commit that did that.
-> >=20
-> > Probably this one:
-> >=20
-> >  =C2=A0 commit 8c9a82742976dc98578338ef886776f06c0ab3f2
-> >  =C2=A0 Author: Michael Kerrisk <mtk.manpages@gmail.com>
-> >  =C2=A0 Date:=C2=A0=C2=A0 2021-08-18 01:34:54 +0200
-> >  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mount_namespaces.7: Terminology clean-u=
-p: "mount point" =3D=3D> "mount"
-> >  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Many times, this page use the terminolo=
-gy "mount point", where
-> >  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "mount" would be better. A "mount point=
-" is the location at which
-> >  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 a mount is attached. A "mount" is an as=
-sociation between a
-> >  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 filesystem and a mount point.
-> >  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Signed-off-by: Michael Kerrisk <mtk.man=
-pages@gmail.com>
-> >=20
-> > Both terms are valid, but they have different meanings.
-> >=20
-> > (No idea which one is appropriate in the paragraph in question.)
->=20
->=20
-> Thanks!  I also don't know, so I'll leave this as is for now.
+SGkgSmFrdWIhDQoNCk9uIDEyLzUvMjIgMTg6MDksIEpha3ViIFdpbGsgd3JvdGU6DQo+ICog
+SGVsZ2UgS3JldXR6bWFubiA8ZGViaWFuQGhlbGdlZmplbGwuZGU+LCAyMDIyLTEyLTA0IDEw
+OjA3Og0KPj4gSXNzdWU6wqDCoMKgIEdvcGhlciBzZWxlY3RvciBzdHJpbmcg4oaSIEdvcGhl
+ciB0eXBlIHNlbGVjdG9yIHN0cmluZz8NCj4gDQo+IE5vLCBpdCdzIGp1c3QgInNlbGVjdG9y
+Iiwgbm90ICJ0eXBlIHNlbGVjdG9yIi4NCj4gU2VlIFJGQyA0MjY2LCBzZWN0aW9uIDIuMS4N
+Cj4gDQo+IChDYW4gd2UgYWRkIHRoYXQgUkZDIHJlZmVyZW5jZSB0byB0aGUgbWFuIHBhZ2Us
+IHNvIHRoYXQncyBpdCdzIGVhc2llciB0byBmaW5kPykNCg0KU3VyZSwgcGxlYXNlIHNlbmQg
+YSBwYXRjaC4NClRoYW5rcyBmb3IgbG9va2luZyBpbnRvIHRoaXMhDQoNCkNoZWVycywNCg0K
+QWxleA0KDQo+IA0KDQotLSANCjxodHRwOi8vd3d3LmFsZWphbmRyby1jb2xvbWFyLmVzLz4N
+Cg==
 
-So you want me to remind you later on this or should I switch it to
-WONTFIX?
+--------------5sBRfGxV0SV7nY9IY02Skig0--
 
-Greetings
-
-         Helge
-
---=20
-      Dr. Helge Kreutzmann                     debian@helgefjell.de
-           Dipl.-Phys.                   http://www.helgefjell.de/debian.php
-        64bit GNU powered                     gpg signed mail preferred
-           Help keep free software "libre": http://www.ffii.de/
-
---=_luckmann.name-11233-1670266461-0001-2
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Transfer-Encoding: 7bit
+--------------prFInIKa7MeslT0rySLIfCBO
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmOOPlgACgkQQbqlJmgq
-5nD6lg//bjIcTw0o5sG5/JgzswBvZW4uWlsxq4ZMMYwXQA0LYw5su0886xzF/Gz2
-UPLX6xWgMXcJlUpXD5+zWNEobZ0EGPpOiLlrRGBAnNUyT9nk+cf/GjhP/92T9mNK
-gELve4rQZwVJy+n1nKxUs8b62N/kzWvFE8KTevfFDyObZ6ZwF+raY82hCsmPbIHl
-p7lbb+Bc4M8Oijj4cEOwKaVi4/hOPXgpFlTojgXjSZc++t1eFV/C4VOk5fjwGAYf
-F3lP5budGk4GcUS9VXXKXMMCGVaWHXyNaVY1/MnHJzXa55Y442E5qMXcHdFRK8zL
-MWF5nebo7/1K5xf+NzN7RE7f/qlFS+oEQQ68sskiwWCZzSk2PBulMI2odVUN9goU
-kt0VVcQn1BifvjPgmbYM5FPVYPDv3rZV0tz7f3BXzUofFl7JM89TOcN0xxbtK71W
-zrK6dDy/TgEDknHFNNIUZhmoz0C8CUlOovqcVbeANHGejZBPA6dNYXiVgvz3sztI
-PSSAuVOuKL9HJvgOjrVDk4+/QoU/Fj0toM3mUoRF5WqOom+sv8uLfzYSn8VfQSYq
-LnuLouZa7XZehyYOqTGovzluSNn1b4pDTsAzJsjwfRYsmQoSCE3iuZJILGx6o5hv
-1u9/iYWFH2EdebtgEuAWTosugW3wrDmgBWLzlLPFjVVbAisP2r4=
-=/L87
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmOOUfsACgkQnowa+77/
+2zLIqw/9EzbG85b4lUtAyBhGm5Mw9JaJ9ronvsiUll/3MUwYZBzxO1jYNfOVjiaN
+u4F7pXwwKRDFl/TjX93ZT31fND/gRDOBu8kZf6sn6g69fBsMM9mOltPBj2G/AIVn
+RL8frTgsadTjVz1JcmMDMOWBOqWNmFjdJehnI/yV5ZF5ZgPTxiRSOFFs9gww0QnK
+sQxSGEKtaU2uAOhjIQzvRWcxdgoUUPQRjfTgM6VWAo3mQiimW5EaA4N5/UhVj+Il
+XdZNTGpY0dDigjxiLqtzG0bSRjUF6a4Wlg9+hIpQPKQbofW7Xz2BC0FYpFRn1Syl
+vxRuOe6MGTKPmxYPFAG0WN0tcB1u1wosBPh++7IDgYNz937zCRG4CCOuzuAcHGPP
+0kF3dxblIwhr0nlDraHxBWbwUc+geF2T0QPhE/R7vs31q5g3DMcy5eFnWNFn0hw6
+NM+GWv4suM4YRX9Q5BDr61udyqv0qRvi/7ue9xW/CoTJHviN+/dqKT2s6r4Z0oc3
+Ag6DVesRuDz4FjoK0KHfWhDpRHI9Dz5SR9CVL7k11e+pyS7GlCQe3vzL2MVtu1A0
+mdfQvLXA46HLW8X67ZX0m4s+D3l6ydIUu7IBJsRp3vAUzL4SwkgkGa6ytM4O6M59
+8YIUOcf9H4ld9t54rzoAwPU2lTS+13c9AIZxb4/XGxSCdxj/mCE=
+=UFkO
 -----END PGP SIGNATURE-----
 
---=_luckmann.name-11233-1670266461-0001-2--
+--------------prFInIKa7MeslT0rySLIfCBO--
