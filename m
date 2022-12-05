@@ -2,59 +2,60 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 7D51A642B45
-	for <lists+linux-man@lfdr.de>; Mon,  5 Dec 2022 16:19:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0947B642C4B
+	for <lists+linux-man@lfdr.de>; Mon,  5 Dec 2022 16:52:43 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231924AbiLEPTM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 5 Dec 2022 10:19:12 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50882 "EHLO
+        id S230050AbiLEPwl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 5 Dec 2022 10:52:41 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59404 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232384AbiLEPSv (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 5 Dec 2022 10:18:51 -0500
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com [IPv6:2a00:1450:4864:20::42e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8322DDF67
-        for <linux-man@vger.kernel.org>; Mon,  5 Dec 2022 07:18:49 -0800 (PST)
-Received: by mail-wr1-x42e.google.com with SMTP id y16so19108532wrm.2
-        for <linux-man@vger.kernel.org>; Mon, 05 Dec 2022 07:18:49 -0800 (PST)
+        with ESMTP id S232258AbiLEPwk (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 5 Dec 2022 10:52:40 -0500
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com [IPv6:2a00:1450:4864:20::42c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2371D2DDF
+        for <linux-man@vger.kernel.org>; Mon,  5 Dec 2022 07:52:39 -0800 (PST)
+Received: by mail-wr1-x42c.google.com with SMTP id bs21so19268693wrb.4
+        for <linux-man@vger.kernel.org>; Mon, 05 Dec 2022 07:52:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=kvwC/QCIv3eMATH92cAgR7ddWzID8UQtIARugq0b+T0=;
-        b=oDSJn83NY/2iU1U4b5a7LxJgOiN5E60b/DADWxLGZ+yKlB/WDovBqxWonPgKiOeJz9
-         yI7CxUKhCnmrgIe1vQrmoTdA2MSS6cWu7gwNUzCaWnxyz6ukZfbRoW2pynB+oZsk7OG2
-         XgY8o58i0MAhAuHjmuWm45T4pEpCeXCKsJq3SFYFmVD2eds7yWZbaZh+2z+/Fn+JMaGX
-         +XM4eP4/WXpiUQ/xHEwOlKc+w26FhqpZIMSKI+DV4aT3AgD0xTLYvJxJz/OsikomFQ2w
-         6fLqDZ24yWZZ8+OXy5ZUTrovI2yuiKZpV+zYMW3NsOfo7eX5NkPIg36fI6A0CClMdrKN
-         /CSA==
+        bh=cgJoOWOesR718Szj00hCIz9f/B28g41C4V3QcLG26oY=;
+        b=DtUhtGScX9PxVBWHYYxcVuMNDXQDCQBvWlauyEfp7OL5T6TtTVG1fMS5PozB1Q5HOi
+         xigrb5i0w8p01XviFERnvYMJWN7wbV84OwSyh4ngxyvLyz8d86Ol7MyOjkW7hfzvhvq3
+         LkO723q4tASgdUjZWVdpDQiNJMKjJFudL+z4ActF+uf87k7BsVE2pkBWl4SxONiOktxW
+         8hIWfMqZgQ8UXYUKshs/jguz9+hTXoIJBb2FhYUuYgb+PI+djP4dP5Bo+Ur6nL2nxrm1
+         TrtHM6x36OG+Di17BqTKR84YoWv8TRjpT3St5Ml7KMyf+H5G12Ru2T5XgNY09DpMNyy4
+         VFYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=kvwC/QCIv3eMATH92cAgR7ddWzID8UQtIARugq0b+T0=;
-        b=t/IQyPM6Upkw60V2W6rj1r3Lh/8LQQP8qbj1L5A6qnD3euVPba+vXryaCLN/d2EkGH
-         9C4hCm/quyDLq6fmeWzj4KI5ebMuyw9yZ9I552/GJ8EoxbPMxtYirUUZ8v9dRUYahkea
-         5CBcClp5PqC11xm2eB6+ijt2IcICtmj4aIBDxaB1X1ARd9KSuH0zXTXYKZAsrEVOPxWC
-         comgWtbf7GrfzcFfNipUIuak2VagV8Bisc0QX7orlY6DW5EoTK6xZpvs4AgikgFKIQee
-         qDrqK9GPCSQvC8c6FLsPz0HpMdtsSskKo0r/UxIbCpufZZ5jYDBH2MfViTvi2tZm/QDY
-         Wl+g==
-X-Gm-Message-State: ANoB5pmnal+5Ethf5bzxBD7au9BuHtfTit52YRlGPyzaX8HgaIfnPN2s
-        JHwPoFv9dsIKptpWQjqkt9m3lvvJLuM=
-X-Google-Smtp-Source: AA0mqf4/XkPKnzKenVt2LYtqEv1pysMUb1IgGq7d1xGge4gXa8nwjVQ1ilDhA083ercCzujw9wnQnw==
-X-Received: by 2002:adf:e5c6:0:b0:242:5c5d:b393 with SMTP id a6-20020adfe5c6000000b002425c5db393mr4334540wrn.403.1670253528095;
-        Mon, 05 Dec 2022 07:18:48 -0800 (PST)
+        bh=cgJoOWOesR718Szj00hCIz9f/B28g41C4V3QcLG26oY=;
+        b=DzlyIuYbqf9drsA5gJZv99ZCBKcb4c1kSkpLC/SlMZCZPgCoRf/tywjl743NXaUNN7
+         iG7/9O2M8I4kYRViih8M/u+hTA1q3VgKOUzjnyR9D49vqL1d+ChdHZeED9RgDAhYrsWy
+         mncE6+PARh0ChN8DDmH4TpFfCbkMjR8YIxjeg0IKFXWqk3pcZZwlRA38mmgB7cjsjy2x
+         UUoLJVS+om7Wq7rjEJCexIF2voRy5lBf2dihPkb/ADAHrsyN7wVDW0y0Up1KYicLK2oQ
+         yT2TMjLwB9AzH9yimGc1In2K6oZaqlgOshLoliXj+PIhbUqS+RiqmAuwC44v0ptGlxOf
+         dWFw==
+X-Gm-Message-State: ANoB5pmEcwWxboqqwxiXi8/d4qJitgH4fPV4GavBEUJ2o/6JGuKYAllt
+        H14U7Z2MG0dectdPiTjTXTcRZn/3DmI=
+X-Google-Smtp-Source: AA0mqf4l0SNXZtpajgXwUxchWm4V1/5icoRQNMHLoWO8leA16zFa7+LqJRFblDdOYwi7YBXIrpPFxA==
+X-Received: by 2002:a05:6000:1f11:b0:242:1c3b:7132 with SMTP id bv17-20020a0560001f1100b002421c3b7132mr19787320wrb.569.1670255557568;
+        Mon, 05 Dec 2022 07:52:37 -0800 (PST)
 Received: from asus5775.alejandro-colomar.es ([170.253.36.171])
-        by smtp.googlemail.com with ESMTPSA id u1-20020a05600c00c100b003d1e34bcbb2sm1290597wmm.13.2022.12.05.07.18.47
+        by smtp.googlemail.com with ESMTPSA id l28-20020a05600c1d1c00b003c6b7f5567csm29582614wms.0.2022.12.05.07.52.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Dec 2022 07:18:47 -0800 (PST)
+        Mon, 05 Dec 2022 07:52:37 -0800 (PST)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 X-Google-Original-From: Alejandro Colomar <alx@kernel.org>
 To:     linux-man@vger.kernel.org
-Cc:     Alejandro Colomar <alx@kernel.org>, libc-alpha@sourceware.org
-Subject: [PATCH] strcat.3: SYNOPSIS: Fix the size of 'dest'
-Date:   Mon,  5 Dec 2022 16:11:03 +0100
-Message-Id: <20221205151102.13042-1-alx@kernel.org>
+Cc:     Alejandro Colomar <alx@kernel.org>,
+        pkg-shadow-devel@alioth-lists.debian.net, libc-alpha@sourceware.org
+Subject: [PATCH] strcat.3, strncat.3: RIP strncat(3)
+Date:   Mon,  5 Dec 2022 16:49:05 +0100
+Message-Id: <20221205154904.15321-1-alx@kernel.org>
 X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -68,51 +69,247 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-I had a mistake when adding VLA syntax to this prototype.  From this
-fixed prototype, it's visible how broken the design for this function
-is.  Next move is to kill this function.
+Never use this function.  Really.
 
+Cc: <pkg-shadow-devel@alioth-lists.debian.net>
 Cc: <libc-alpha@sourceware.org>
 Signed-off-by: Alejandro Colomar <alx@kernel.org>
 ---
 
 Hi!
 
-I'm continuing my indiscriminated shooting against broken functions.
-I don't remember if I ever used it, but it got me surprised for how much
-broken it is.
+To shadow-utils readers, I've seen there are a few uses of strncat(3) in
+shadow-utils.  I'll review my current PR about string handling to also
+address this issue.
 
-Please kill this function in glibc.  The updated prototype using a bit
-of imagination to overextend VLA syntax to show how it behaves, shows
-how broken it is.
-
-It is impossible to use this function correctly (okay, it you try hard,
-you can, but only for the pleasure of using it without crashing, not for
-anything useful).
+To glibc readers, please bury this function deep down as if it were
+radioactive waste.
 
 Cheers,
 
 Alex
 
- man3/strcat.3 | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+
+ man3/strcat.3  | 75 +++-------------------------------------
+ man3/strncat.3 | 92 +++++++++++++++++++++++++++++++++++++++++++++++++-
+ 2 files changed, 95 insertions(+), 72 deletions(-)
 
 diff --git a/man3/strcat.3 b/man3/strcat.3
-index a4a376ba9..61d3e54f1 100644
+index 61d3e54f1..277e5b1e4 100644
 --- a/man3/strcat.3
 +++ b/man3/strcat.3
-@@ -20,9 +20,8 @@ .SH SYNOPSIS
+@@ -11,7 +11,7 @@
+ .\"     Improve discussion of strncat().
+ .TH strcat 3 (date) "Linux man-pages (unreleased)"
+ .SH NAME
+-strcat, strncat \- concatenate two strings
++strcat \- concatenate two strings
+ .SH LIBRARY
+ Standard C library
+ .RI ( libc ", " \-lc )
+@@ -20,8 +20,6 @@ .SH SYNOPSIS
  .B #include <string.h>
  .PP
  .BI "char *strcat(char *restrict " dest ", const char *restrict " src );
--.BI "char *strncat(char " dest "[restrict ." n "], \
--const char " src "[restrict ." n ],
--.BI "              size_t " n );
-+.BI "char *strncat(char " dest "[restrict strlen(." dest ") + strnlen(." n ") + 1],"
-+.BI "              const char " src "[restrict ." n "], size_t " n );
+-.BI "char *strncat(char " dest "[restrict strlen(." dest ") + strnlen(." n ") + 1],"
+-.BI "              const char " src "[restrict ." n "], size_t " n );
  .fi
  .SH DESCRIPTION
  The
+@@ -42,73 +40,10 @@ .SH DESCRIPTION
+ .I dest
+ is not large enough, program behavior is unpredictable;
+ .IR "buffer overruns are a favorite avenue for attacking secure programs" .
+-.PP
+-The
+-.BR strncat ()
+-function is similar, except that
+-.IP \(bu 3
+-it will use at most
+-.I n
+-bytes from
+-.IR src ;
+-and
+-.IP \(bu
+-.I src
+-does not need to be null-terminated if it contains
+-.I n
+-or more bytes.
+-.PP
+-As with
+-.BR strcat (),
+-the resulting string in
+-.I dest
+-is always null-terminated.
+-.PP
+-If
+-.I src
+-contains
+-.I n
+-or more bytes,
+-.BR strncat ()
+-writes
+-.I n+1
+-bytes to
+-.I dest
+-.RI ( n
+-from
+-.I src
+-plus the terminating null byte).
+-Therefore, the size of
+-.I dest
+-must be at least
+-.IR "strlen(dest)+n+1" .
+-.PP
+-A simple implementation of
+-.BR strncat ()
+-might be:
+-.PP
+-.in +4n
+-.EX
+-char *
+-strncat(char *dest, const char *src, size_t n)
+-{
+-    size_t dest_len = strlen(dest);
+-    size_t i;
+-
+-    for (i = 0 ; i < n && src[i] != \(aq\e0\(aq ; i++)
+-        dest[dest_len + i] = src[i];
+-    dest[dest_len + i] = \(aq\e0\(aq;
+-
+-    return dest;
+-}
+-.EE
+-.in
+ .SH RETURN VALUE
+ The
+ .BR strcat ()
+-and
+-.BR strncat ()
+-functions return a pointer to the resulting string
++function returns a pointer to the resulting string
+ .IR dest .
+ .SH ATTRIBUTES
+ For an explanation of the terms used in this section, see
+@@ -175,12 +110,10 @@ .SH NOTES
+ .SH EXAMPLES
+ Because
+ .BR strcat ()
+-and
+-.BR strncat ()
+ must find the null byte that terminates the string
+ .I dest
+ using a search that starts at the beginning of the string,
+-the execution time of these functions
++the execution time of this function
+ scales according to the length of the string
+ .IR dest .
+ This can be demonstrated by running the program below.
+@@ -222,6 +155,6 @@ .SH SEE ALSO
+ .BR memcpy (3),
+ .BR strcpy (3),
+ .BR string (3),
+-.BR strncpy (3),
++.BR strlcat (3bsd),
+ .BR wcscat (3),
+ .BR wcsncat (3)
+diff --git a/man3/strncat.3 b/man3/strncat.3
+index dc3a1ca1c..fefd68c84 100644
+--- a/man3/strncat.3
++++ b/man3/strncat.3
+@@ -1 +1,91 @@
+-.so man3/strcat.3
++.\" Copyright 2022 Alejandro Colomar <alx@kernel.org>
++.\"
++.\" SPDX-License-Identifier: Linux-man-pages-copyleft
++.\"
++.TH strncat 3 (date) "Linux man-pages (unreleased)"
++.SH NAME
++strncat \- concatenate two strings
++.SH LIBRARY
++Standard C library
++.RI ( libc ", " \-lc )
++.SH SYNOPSIS
++.nf
++.B #include <string.h>
++.PP
++.B [[deprecated]]
++.BI "char *strncat(char " dest "[restrict strlen(." dest ") + strnlen(." n ") + 1],"
++.BI "              const char " src "[restrict ." n ],
++.BI "              size_t " n );
++.fi
++.SH DESCRIPTION
++.BI Note: " Never use this function."
++.PP
++For safe string concatenation, see
++.BR strlcat (3bsd).
++For copying or concatenating a string into a fixed-length buffer
++with zeroing of the rest, see
++.BR stpncpy (3).
++.PP
++.BR strncat ()
++appends at most
++.I n
++characters of
++.I src
++to the end of
++.IR dst .
++It always terminates with a null character the string placed in
++.IR dest .
++.PP
++A simple implementation of
++.BR strncat ()
++might be:
++.PP
++.in +4n
++.EX
++char *
++strncat(char *dest, const char *src, size_t n)
++{
++    return memcpy(dest + strlen(dest), src, strnlen(src, n));
++}
++.EE
++.in
++.SH RETURN VALUE
++.BR strncat ()
++returns a pointer to the resulting string
++.IR dest .
++.SH ATTRIBUTES
++For an explanation of the terms used in this section, see
++.BR attributes (7).
++.ad l
++.nh
++.TS
++allbox;
++lbx lb lb
++l l l.
++Interface	Attribute	Value
++T{
++.BR strncat ()
++T}	Thread safety	MT-Safe
++.TE
++.hy
++.ad
++.sp 1
++.SH STANDARDS
++POSIX.1-2001, POSIX.1-2008, C89, C99, SVr4, 4.3BSD.
++.SH BUGS
++All.
++Seriously,
++there's no use case for this function.
++.PP
++It has a
++.I very
++misleading name.
++This function has no relationship with
++.BR strncpy (3).
++.PP
++Since it doesn't know the size of the destination buffer,
++this function can easily write past the end of the array,
++being an open door to all kinds of crackers.
++.SH SEE ALSO
++.BR strcpy (3),
++.BR string (3)
 -- 
 2.38.1
 
