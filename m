@@ -2,34 +2,36 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 109A4642E07
-	for <lists+linux-man@lfdr.de>; Mon,  5 Dec 2022 17:57:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id C1D26642E19
+	for <lists+linux-man@lfdr.de>; Mon,  5 Dec 2022 18:01:45 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229970AbiLEQ5y (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 5 Dec 2022 11:57:54 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55126 "EHLO
+        id S231516AbiLERBl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 5 Dec 2022 12:01:41 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58538 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230084AbiLEQ5v (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 5 Dec 2022 11:57:51 -0500
+        with ESMTP id S231924AbiLERBk (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 5 Dec 2022 12:01:40 -0500
 Received: from static.213-239-213-133.clients.your-server.de (luckmann.name [213.239.213.133])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 42C03F53
-        for <linux-man@vger.kernel.org>; Mon,  5 Dec 2022 08:57:50 -0800 (PST)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 91836DEF2
+        for <linux-man@vger.kernel.org>; Mon,  5 Dec 2022 09:01:39 -0800 (PST)
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E5E0DC.00000000638E230D.0000166E; Mon, 05 Dec 2022 17:57:49 +0100
-Date:   Mon, 5 Dec 2022 17:57:49 +0100
+  id 0000000000E5E0DC.00000000638E23F1.00001798; Mon, 05 Dec 2022 18:01:37 +0100
+Date:   Mon, 5 Dec 2022 18:01:37 +0100
 From:   Helge Kreutzmann <debian@helgefjell.de>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page close.2
-Message-ID: <20221205165749.GC5000@Debian-50-lenny-64-minimal>
-References: <20221204090722.GA1155@Debian-50-lenny-64-minimal>
- <d8b948b4-4aa4-c391-9327-431e9f447527@gmail.com>
+To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        mario.blaettermann@gmail.com, linux-man@vger.kernel.org
+Subject: Re: Issue in man page wcscspn.3
+Message-ID: <20221205170137.GD5000@Debian-50-lenny-64-minimal>
+References: <20221204090723.GA1178@Debian-50-lenny-64-minimal>
+ <0cfe8177-6671-c006-efb8-7634bd3b2cd7@gmail.com>
+ <20221205150058.enbfwn52waftdlbk@illithid>
 Mime-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-5742-1670259469-0001-2"
+Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-6040-1670259697-0001-2"
 Content-Disposition: inline
-In-Reply-To: <d8b948b4-4aa4-c391-9327-431e9f447527@gmail.com>
+In-Reply-To: <20221205150058.enbfwn52waftdlbk@illithid>
 X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
 X-homepage: http://www.helgefjell.de/debian
 User-Agent: Mutt/1.10.1 (2018-07-13)
@@ -45,36 +47,42 @@ X-Mailing-List: linux-man@vger.kernel.org
 This is a MIME-formatted message.  If you see this text it means that your
 E-mail software does not support MIME-formatted messages.
 
---=_luckmann.name-5742-1670259469-0001-2
+--=_luckmann.name-6040-1670259697-0001-2
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
 Hello Alejandro,
-On Sun, Dec 04, 2022 at 09:23:23PM +0100, Alejandro Colomar wrote:
-> On 12/4/22 10:07, Helge Kreutzmann wrote:
-> > Without further ado, the following was found:
+hello Branden,
+On Mon, Dec 05, 2022 at 09:00:58AM -0600, G. Branden Robinson wrote:
+> At 2022-12-04T21:27:05+0100, Alejandro Colomar wrote:
+> > On 12/4/22 10:07, Helge Kreutzmann wrote:
+> > > Issue:    longest initial =E2=86=92 initial
 > >=20
-> > Issue:    . the =E2=86=92 . The
+> > Why?  I believe "longest initial" is fine.
 >=20
-> I don't find that issue in the text quoted below.  Please check.
+> I agree.  POSIX says:
+>=20
+> "The wcscspn() function shall compute the length (in wide characters) of
+> the *maximum initial segment* of the wide-character string pointed to by
+> ws1 which consists entirely of wide-character codes _not_ from the
+> wide-character string."[1]
+>=20
+> [* emphasis added, _ emphasis in original]
+>=20
+> This distinction is important for those who have learned, often the hard
+> way, the difference between greedy and stingy pattern matches.[2]
 
-Me neither. Apologies for the noise. I removed the FIXME.
+Thanks. I do understand now.
 
-Please disregard this report.
+(And this is where you can see that translators are not programmers,
+the wording looked strange and hence this report came about.).
 
-> > "On Linux (and possibly some other systems), the behavior is different:=
- the"
-> > "blocking I/O system call holds a reference to the underlying open file"
-> > "description, and this reference keeps the description open until the I=
-/O"
-> > "system call completes.  (See B<open>(2)  for a discussion of open file"
-> > "descriptions.)  Thus, the blocking system call in the first thread may"
-> > "successfully complete after the B<close>()  in the second thread."
+Please thus disregard this invalid report.
 
 Greetings
 
-           Helge
+       Helge
 
 --=20
       Dr. Helge Kreutzmann                     debian@helgefjell.de
@@ -82,25 +90,25 @@ Greetings
         64bit GNU powered                     gpg signed mail preferred
            Help keep free software "libre": http://www.ffii.de/
 
---=_luckmann.name-5742-1670259469-0001-2
+--=_luckmann.name-6040-1670259697-0001-2
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmOOIwwACgkQQbqlJmgq
-5nCgeg/+K6a6XEiVHk34tXH8XNVCWhJ2z5e7bi+aWzfqDQugsWYYNVyayadChYOL
-B5ekcba0cK/r/87DyTreFDD3Onn+jmjpWbU/RBIVJMici/72mumq2np8hLWXc7Tw
-niU2Gc9ThaQwdeFQVOpQozxfzewJU9De+s4zVYb8GqmWN6OL24OLtFjMttUeh7G1
-O9HUFj94rSOKgl0NmJ7rvERNJyTRwJY1JfPMUwdrYsip1le+vjYXMg4UiExoIIcI
-G6YQqDK7HbNwBaSs+PdaZh5+EL69yQ1OFtXYCriO+xnyKmfZMxk489ZGTcRfc8MI
-BLTKZCsgji4K40IQ7c0R+3DiDAj9yt7DDsg1pYOcjQf3Toledtyq2Lv9zFMEkJMC
-+LFMnSP58BWYapuRr9mcuWzEiPcxyaoeRBAekx6K/yyMGB7Zdo0Z+oPF/GwY2UL5
-6m63+l1rgBV50gKcxNNMNyxkaak/piHWXvoZ5C08e84Be5t3E6KCnHGElq9R6UTm
-TRfYXrx0JhdE/xFqt4DZB5bUeRAp8GNRmt9s6ai9xzdlpJpsklTihsVbHwmMJCaG
-ZM+V+paACwNne7gnHF25tasfS7n0I7pblSgtUOJR8DBlYSW87QL5DeKSrpSIu94+
-eB2aREK1u8H7ah3bKGD/iwl26QvUkRmfK84UcH9W6LinJ4vwMfU=
-=hbS9
+iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmOOI/EACgkQQbqlJmgq
+5nDPnw/+KnJKen1WiRGcgCwKkrY+wZf20wVWgklmSIGIZuPo2RTrRtwH5xzE0YhE
+bpeXsP+wmYbjBICUJiMrZmXj6o/Vncpi6QueRMyfuW3BaX3z4UtcBqyfzHrLZhxL
+bBiccJYBJee0RLsXxRJieD8wZTTq3j6WJmWHLF28XKigZXdmveFa4/PORwQ4SzAG
+0nctlg0ZSFAlMNU8dqvdm21WAGaNCg7geOkuyozVFwuRUA/fZASJTjbx9IpBUCcb
+lxwnayapjVJi0w/xprfD+llO83qBu0oGVGzkdLaLBkSb3Ig/VkX4nvs+XB4+a4pp
++iKlVE1BnydqIZaggW1NKDolTPybyY+7Gew6ArVw/UjKnZKaDjYB+vVNaSlaulH5
+2pBDjI+EbfuiX4qvYPfnkKk24KxR5ms3Cy+EQzzi0EeC6xb4wVQfAZ/K9Pkeowyc
+tibsa1HDmPrav2+XAOn1SgVUEWCwRmr/J/DVs+L2yQeKNd5i0mEcsdnnPw89SMYQ
+RJSaX42wJANao1G4i3NgxXSo62R8EH3ImJ7ixQjqYPY+nFfTlh6KN2MbViWq4rlz
+EHrCdUwNLxU5jsrO3//2eqcl7WAQy0q8stpsYFaFgT7taENk8PW0fWJD37fTALrd
+ulJL64Q9nUhNSf+0K1wJH7bZ//Jqj8ZeXttF3PbuJW518gpO85k=
+=vaL9
 -----END PGP SIGNATURE-----
 
---=_luckmann.name-5742-1670259469-0001-2--
+--=_luckmann.name-6040-1670259697-0001-2--
