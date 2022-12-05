@@ -2,70 +2,45 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 38E0F642F82
-	for <lists+linux-man@lfdr.de>; Mon,  5 Dec 2022 18:55:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id F28606430CD
+	for <lists+linux-man@lfdr.de>; Mon,  5 Dec 2022 19:54:30 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231715AbiLERzw (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 5 Dec 2022 12:55:52 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48982 "EHLO
+        id S232120AbiLESy1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 5 Dec 2022 13:54:27 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43678 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232499AbiLERzd (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 5 Dec 2022 12:55:33 -0500
-Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com [IPv6:2001:4860:4864:20::2a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9F38663E8
-        for <linux-man@vger.kernel.org>; Mon,  5 Dec 2022 09:55:06 -0800 (PST)
-Received: by mail-oa1-x2a.google.com with SMTP id 586e51a60fabf-1322d768ba7so14362562fac.5
-        for <linux-man@vger.kernel.org>; Mon, 05 Dec 2022 09:55:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=Zk0mIUfKW6eSQ+Y6VSK1hjlX/HIQ7qtzUzNIGjEpgis=;
-        b=MSvbZWhc05t5QpjRH/inWh8AqfHIn0f8fACEMaFurfBnnvNTtBRD4RCdV5/BsLfqXY
-         hk0XwVNaUjVuPL1hfhrGCKV576CdDMHFQYTrtIZUiUZLveajDeI/kbB/6Ztc06A9YxIO
-         sBa1Y0jImxOXxkrlmBLWv17NwqNT/Whb3QfyZY99TOHFz1UTCVr8nPKP0TH51hDKJeJ8
-         ZIu/lRufaiDyxXqs9mLWo6ILxF2XB2cJa+h3ZCfJTVzNGurO0/0f2zJagWji04HOrdw3
-         YerhEBejvOfMAvxYG/r1yqGDkXQbIptRXkqn1OzC/XX2I+i8NOz0f6Tg/HFuB69SQA9V
-         VYxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Zk0mIUfKW6eSQ+Y6VSK1hjlX/HIQ7qtzUzNIGjEpgis=;
-        b=qnyWXek4gjCf1b6ZjVZQU6byDkMfQbQKHWLLVSGjWtEbSvz9oLkiDAwwjq9t1vzoxK
-         pNI5n+mRct8yv+KR6FW3H/RvFP9ZAjq2KFyRyJ5Ahfve6UDRoiZBcOutyAXm7hvheLC8
-         1RIPEuQfUM9LCYD7PNa3mVJbk3+EbUWMfvD/wv+Y4yU/AL313fjGNQWf6av5xeHwDGXM
-         IS152vczZXLYCJH6T9FbMdPo+Y2bTebqm26scx2Z/yxBAwzU6ufQUGiD3fdr03F3OAga
-         V63JCkBPXJrW1grRcUS41GAJOljQpjwluBHdZIA0udlhOwZVmuZATZzWKizxHUMEE727
-         ricg==
-X-Gm-Message-State: ANoB5pnroaWpg/QZD1OLS1Vi6kWPluFUzFHbtM8uWINbnatgam0LU2CF
-        JeqLZWuQ9QjSmdfMzzRYE3ZV7eVTiKI=
-X-Google-Smtp-Source: AA0mqf4bVp/pLEFcupHu6vS2i0OQHzOJFJUryS69jo4andnvndS8/oPKzAGOroZJZjPsi6g6TTsMAg==
-X-Received: by 2002:a05:6870:f616:b0:12d:4244:43d0 with SMTP id ek22-20020a056870f61600b0012d424443d0mr38165789oab.207.1670262905768;
-        Mon, 05 Dec 2022 09:55:05 -0800 (PST)
-Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id f13-20020a9d6c0d000000b006704589eb54sm1135795otq.74.2022.12.05.09.55.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Dec 2022 09:55:05 -0800 (PST)
-Date:   Mon, 5 Dec 2022 11:55:03 -0600
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     Helge Kreutzmann <debian@helgefjell.de>
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page wcsncpy.3
-Message-ID: <20221205175503.ts7a3agzslnoycqb@illithid>
-References: <20221204090724.GA1249@Debian-50-lenny-64-minimal>
- <e358f853-93e5-a30a-2d59-1115d64a61af@gmail.com>
- <20221205170935.GE5000@Debian-50-lenny-64-minimal>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="r2ecxitfgvt7zc6k"
+        with ESMTP id S232341AbiLESyZ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 5 Dec 2022 13:54:25 -0500
+Received: from static.213-239-213-133.clients.your-server.de (luckmann.name [213.239.213.133])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B34E91FFAA
+        for <linux-man@vger.kernel.org>; Mon,  5 Dec 2022 10:54:23 -0800 (PST)
+Received: from localhost (localhost [127.0.0.1])
+  (uid 502)
+  by static.213-239-213-133.clients.your-server.de with local
+  id 0000000000E62006.00000000638E3E5D.00002BE1; Mon, 05 Dec 2022 19:54:21 +0100
+Date:   Mon, 5 Dec 2022 19:54:21 +0100
+From:   Helge Kreutzmann <debian@helgefjell.de>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     Jakub Wilk <jwilk@jwilk.net>,
+        Mario =?utf-8?Q?Bl=C3=A4ttermann?= <mario.blaettermann@gmail.com>,
+        linux-man@vger.kernel.org
+Subject: Re: Issue in man page mount_namespaces.7
+Message-ID: <20221205185421.GA8102@Debian-50-lenny-64-minimal>
+References: <20221204090711.GA370@Debian-50-lenny-64-minimal>
+ <4ac1d53f-ae77-0bc3-530c-7d1a29af78ff@gmail.com>
+ <20221204140009.GD441@Debian-50-lenny-64-minimal>
+ <4a2140e0-4589-87f3-e579-5575aab5e284@gmail.com>
+ <20221205123809.5p66jmpalhd4bhoq@jwilk.net>
+ <59dde6dc-5970-c422-30b3-e2cbe4fabd09@gmail.com>
+Mime-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-11233-1670266461-0001-2"
 Content-Disposition: inline
-In-Reply-To: <20221205170935.GE5000@Debian-50-lenny-64-minimal>
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
+In-Reply-To: <59dde6dc-5970-c422-30b3-e2cbe4fabd09@gmail.com>
+X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
+X-homepage: http://www.helgefjell.de/debian
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Spam-Status: No, score=0.4 required=5.0 tests=BAYES_00,CK_HELO_GENERIC,
+        HELO_DYNAMIC_IPADDR,SPF_HELO_NONE,SPF_NONE,URIBL_SBL_A autolearn=no
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -73,218 +48,96 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+This is a MIME-formatted message.  If you see this text it means that your
+E-mail software does not support MIME-formatted messages.
 
---r2ecxitfgvt7zc6k
+--=_luckmann.name-11233-1670266461-0001-2
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hi Helge,
-
-At 2022-12-05T18:09:35+0100, Helge Kreutzmann wrote:
-> Hello Alejandro,
-> On Sun, Dec 04, 2022 at 09:44:47PM +0100, Alejandro Colomar wrote:
-> > On 12/4/22 10:07, Helge Kreutzmann wrote:
-> > > Without further ado, the following was found:
+Hello Alejandro,
+On Mon, Dec 05, 2022 at 02:18:19PM +0100, Alejandro Colomar wrote:
+> On 12/5/22 13:38, Jakub Wilk wrote:
+> > * Alejandro Colomar <alx.manpages@gmail.com>, 2022-12-04 15:06:
+> > > > > > Issue:=C2=A0=C2=A0=C2=A0 mount point I<B> =E2=86=92 mount I<B>
+> > > > > >=20
+> > > > > > "Here, I<B> is the destination mount, and I<b> is a subdirector=
+y path under"
+> > > > > > "the mount point I<B>.=C2=A0 The propagation type of the result=
+ing mount, I<B/b>,"
+> > > > > > "follows the same rules as for a bind mount, where the propagat=
+ion type of"
+> > > > > > "the source mount is considered always to be private."
+> > > > >=20
+> > > > > I'm not sure about this one.=C2=A0 If we change that wording, I'd
+> > > > > like to make sure we don't lose any details in the
+> > > > > information.=C2=A0 Please CC any related kernel developers, and
+> > > > > suggest them review the documentation for more consistent
+> > > > > language.
+> > > >=20
+> > > > Until recently, there was "mount point" used all over this man
+> > > > pages. This was changed to "mount" in one of the previous
+> > > > release of man pages.
 > > >=20
-> > > Issue:    Is the "L" in the bracket (for the NULL character) correct?
+> > > I didn't know that; please point to the commit that did that.
 > >=20
-> > AFAIK, yes.  I never used it myself, but I believe L'\0' generates a "n=
-ull
-> > wide character".
+> > Probably this one:
+> >=20
+> >  =C2=A0 commit 8c9a82742976dc98578338ef886776f06c0ab3f2
+> >  =C2=A0 Author: Michael Kerrisk <mtk.manpages@gmail.com>
+> >  =C2=A0 Date:=C2=A0=C2=A0 2021-08-18 01:34:54 +0200
+> >  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mount_namespaces.7: Terminology clean-u=
+p: "mount point" =3D=3D> "mount"
+> >  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Many times, this page use the terminolo=
+gy "mount point", where
+> >  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "mount" would be better. A "mount point=
+" is the location at which
+> >  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 a mount is attached. A "mount" is an as=
+sociation between a
+> >  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 filesystem and a mount point.
+> >  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Signed-off-by: Michael Kerrisk <mtk.man=
+pages@gmail.com>
+> >=20
+> > Both terms are valid, but they have different meanings.
+> >=20
+> > (No idea which one is appropriate in the paragraph in question.)
 >=20
-> Just to get this clear for myself, the man page currently use quoting
-> characters (not plain ''), i.e.=20
 >=20
-> L\\(aq\\e0\\(aq
+> Thanks!  I also don't know, so I'll leave this as is for now.
 
-Right.  \(aq means "write out ASCII 39 decimal (U+0027)".[0]
+So you want me to remind you later on this or should I switch it to
+WONTFIX?
 
-> And this should not be translated? Currently I translate the quotes,
-> i.e. in German this is marked as:
->=20
-> L=C2=BB\\e0=C2=AB
->=20
-> This is probably wrong?
+Greetings
 
-Yes.  You are turning this into a set of typographical quotes for
-written prose, but the expression is a literal constant in the C
-language and must be typed using "straight single quotes" a.k.a. ASCII
-39 decimal.
+         Helge
 
-L'\0' is a null wide character, that is, a null character of type
-wchar_t.  The language has this because '\0' without the L prefix
-already means a null character constant of CHAR_BITS width; if wchar_t
-is wider than that, then there can be ambiguity with respect to what
-happens to the higher-order bits in the object thus initialized.
+--=20
+      Dr. Helge Kreutzmann                     debian@helgefjell.de
+           Dipl.-Phys.                   http://www.helgefjell.de/debian.php
+        64bit GNU powered                     gpg signed mail preferred
+           Help keep free software "libre": http://www.ffii.de/
 
-The following compiles without warnings on my system, even with -Wall.
-
-int main(int argc, char *argv[]) {
-        wchar_t w1 =3D '\0', w2 =3D L'\0';
-        printf("%d\n", (w1 + w2));
-}
-
-For me this reliably writes "0" to the standard output.
-
-However it is conceivable, depending on the implementation, that bits 8+
-of w1 come from uninitialized memory, and a large positive or negative
-value would be written to stdout.
-
-C is full of undefined and implementation-dependent behavior.  This is
-what makes it go fast and break stuff.
-
-> Is there a way to note that this quotes are not to be translated even
-> though they are not printed literally but with the macro \\(aq?
-
-Technically, in roff parlance, that is not a macro, but a special
-character escape sequence.[1]
-
-> I explicitly ask this because using macros (markup) is a clear sign
-> for me that it can be translated, and thus this breaks my heuristics.
-
-That heuristic is not reliable.  \(aq and \(dq, among other
-characters,[2] will often be used in man pages to _avoid_ the output of
-glyphs common in a conventional prose typography context.
-
-groff_char(7) surveys several kinds of quotation mark.  UTF-8 follows.
-
-  Quotation marks
-    The neutral double quote, often useful when documenting programming
-    languages, is also available as a special character for convenient
-    embedding in macro arguments; see subsection =E2=80=9CFundamental chara=
-cter
-    set=E2=80=9D above.
-
-    Output   Input   Unicode   Notes
-    =E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80
-    =E2=80=9E        \[Bq]   u201E     low double comma quote
-    =E2=80=9A        \[bq]   u201A     low single comma quote
-    =E2=80=9C        \[lq]   u201C     left double quote
-    =E2=80=9D        \[rq]   u201D     right double quote
-    =E2=80=98        \[oq]   u2018     single opening (left) quote
-    =E2=80=99        \[cq]   u2019     single closing (right) quote
-    '        \[aq]   u0027     apostrophe, neutral single quote
-    "        "       u0022     neutral double quote
-    "        \[dq]   u0022     neutral double quote
-    =C2=AB        \[Fo]   u00AB     left double chevron
-    =C2=BB        \[Fc]   u00BB     right double chevron
-    =E2=80=B9        \[fo]   u2039     left single chevron
-    =E2=80=BA        \[fc]   u203A     right single chevron
-
-Programming languages frequently attach important semantics to \(aq and
-\(dq (ASCII ' and "), so it is important not to subject these to natural
-language quotation mark transformations.
-
-Because of their specialized nature, this also means that if you see a
-man page using them in prose, the page is wrong.  You should translate
-the quotation marks as if you were seeing \(lq, \(rq, \(oq, \(cq, and so
-forth.
-
-Here's an example of erroneous input.
-
-After reading from /proc/$$/mem, Anne\(aqs mom told her not to
-\(dqparty\(dq.
-
-The foregoing should be recast to use conventional punctuation and
-typographer's quotes.
-
-After reading from /proc/$$/mem, Anne's mom told her not to
-\(lqparty\(rq.
-
-The above uses en_US quotation; en_GB practice is different.
-
-After reading from /proc/$$/mem, Anne's mom told her not to
-\(oqparty\(cq.
-
-=2E..but experienced readers of English generally have little trouble
-switching conventions.[2]
-
-Regards,
-Branden
-
-[0] Technically, the glyph corresponding to it, and this will do the
-    right thing even on OS/390 Unix, which uses code page 1047 (EBCDIC).
-    There is a way to ask for glyph index 39 in the current font, but a
-    man page should never fool with that.
-
-[1] Once a groff user is good and comfortable with the distinction,
-    someone comes along and does this.
-
-    https://git.savannah.gnu.org/cgit/groff.git/tree/src/roff/troff/node.cp=
-p#n5029
-
-    This is why manufacturers of voodoo dolls will never starve.
-
-[2] From groff_man_style(7):
-
-   =E2=80=A2 Some ASCII characters look funny or copy and paste wrong.
-        On devices with large glyph repertoires, like UTF=E2=80=908=E2=80=
-=90capable
-        terminals and PDF, several keyboard glyphs are mapped to code
-        points outside the Unicode basic Latin range because that
-        usually results in better typography in the general case.  When
-        documenting GNU/Linux command or C language syntax, however,
-        this translation is sometimes not desirable.
-
-        To get a =E2=80=9Cliteral=E2=80=9D...   ...should be input.
-        =E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80
-                            '   \(aq
-                            -   \-
-                            \   \(rs
-                            ^   \(ha
-                            `   \(ga
-                            ~   \(ti
-        =E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80
-
-        Additionally, if a neutral double quote (") is needed in a macro
-        argument, you can use \(dq to get it.  You should not use \(aq
-        for an ordinary apostrophe (as in =E2=80=9Ccan=E2=80=99t=E2=80=9D) =
-or \- for an ordinary
-        hyphen (as in =E2=80=9Cword=E2=80=90aligned=E2=80=9D).  Review subs=
-ection =E2=80=9CPortability=E2=80=9D
-        above.
-
-[3] The U.K. practice of dropping periods from abbreviations when the
-    last letter of the abbreviated word remains intact is far more
-    distracting and productive of ambiguity.
-
---r2ecxitfgvt7zc6k
+--=_luckmann.name-11233-1670266461-0001-2
 Content-Type: application/pgp-signature; name="signature.asc"
+Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmOOMHAACgkQ0Z6cfXEm
-bc5uCg/+IwaTRQx0RxENGxIwrXQC7x/jBlf32IC+DfHr9+NyCVZqv0XApOhtz4TO
-mm+E+WnWIwQt6Ls+SpsYcYa17yLm0WCYgKJaOJxHxoCK/0d6JmgLuToLEVWhO5+I
-rmIV+H7jqVUMemm1wwD1rLVik35IMX9qPAatRcgIM9LdrA6SICeELH6l6H1ONjrc
-8/AWB6oGJq1mK3wfMuHhVvITjAAfDJoV4VkicO++F9hNeIxIHpBzOH+IYwAPz5JF
-TyAjb2Q+pShhil0cvZuZ3ohm/T/t8m8q/cT1M7Qg+U9/zBGK686hw5O50xE3wRQ4
-DAVzU8ZC4p6rhlkQ8SZa2d9pTB1xbpAuhSOATx7WK3BUfa1TTFphwowcKa2HYPe1
-sGpPQkjqVkV80pA4rSwB2CjGsyiofqc7W3RIFzFdtbqmUKp5Cns/xdeHqQvTEOZh
-uMTUz7xv++FyQXamIK6JoUO6mx5UtgTDUdYQuXNovQlHZLw5Fwi0nX1znBY9spoB
-cwu2omHv6yWADcMz6D7CdjJSENtuHaAnnsgCmN6J6fWgG1PmwxWvxok4oyg9LG9R
-vsYxQ2LzHXDrMaE+oUYI9Ip/xjyfA1sh9E+KD0iHi/PODhG6zOtJD2irCq1ctwPf
-0odcp2L+c5n1gfjqAAKK23kJvcVvIx45yTpRDplnQXTkHAKAJzQ=
-=r882
+iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmOOPlgACgkQQbqlJmgq
+5nD6lg//bjIcTw0o5sG5/JgzswBvZW4uWlsxq4ZMMYwXQA0LYw5su0886xzF/Gz2
+UPLX6xWgMXcJlUpXD5+zWNEobZ0EGPpOiLlrRGBAnNUyT9nk+cf/GjhP/92T9mNK
+gELve4rQZwVJy+n1nKxUs8b62N/kzWvFE8KTevfFDyObZ6ZwF+raY82hCsmPbIHl
+p7lbb+Bc4M8Oijj4cEOwKaVi4/hOPXgpFlTojgXjSZc++t1eFV/C4VOk5fjwGAYf
+F3lP5budGk4GcUS9VXXKXMMCGVaWHXyNaVY1/MnHJzXa55Y442E5qMXcHdFRK8zL
+MWF5nebo7/1K5xf+NzN7RE7f/qlFS+oEQQ68sskiwWCZzSk2PBulMI2odVUN9goU
+kt0VVcQn1BifvjPgmbYM5FPVYPDv3rZV0tz7f3BXzUofFl7JM89TOcN0xxbtK71W
+zrK6dDy/TgEDknHFNNIUZhmoz0C8CUlOovqcVbeANHGejZBPA6dNYXiVgvz3sztI
+PSSAuVOuKL9HJvgOjrVDk4+/QoU/Fj0toM3mUoRF5WqOom+sv8uLfzYSn8VfQSYq
+LnuLouZa7XZehyYOqTGovzluSNn1b4pDTsAzJsjwfRYsmQoSCE3iuZJILGx6o5hv
+1u9/iYWFH2EdebtgEuAWTosugW3wrDmgBWLzlLPFjVVbAisP2r4=
+=/L87
 -----END PGP SIGNATURE-----
 
---r2ecxitfgvt7zc6k--
+--=_luckmann.name-11233-1670266461-0001-2--
