@@ -2,66 +2,62 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 303CC642AE7
-	for <lists+linux-man@lfdr.de>; Mon,  5 Dec 2022 16:01:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 7D51A642B45
+	for <lists+linux-man@lfdr.de>; Mon,  5 Dec 2022 16:19:14 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230230AbiLEPBS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 5 Dec 2022 10:01:18 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33016 "EHLO
+        id S231924AbiLEPTM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 5 Dec 2022 10:19:12 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50882 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232343AbiLEPBD (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 5 Dec 2022 10:01:03 -0500
-Received: from mail-oa1-x35.google.com (mail-oa1-x35.google.com [IPv6:2001:4860:4864:20::35])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D693D1DA6D
-        for <linux-man@vger.kernel.org>; Mon,  5 Dec 2022 07:01:01 -0800 (PST)
-Received: by mail-oa1-x35.google.com with SMTP id 586e51a60fabf-14455716674so7587265fac.7
-        for <linux-man@vger.kernel.org>; Mon, 05 Dec 2022 07:01:01 -0800 (PST)
+        with ESMTP id S232384AbiLEPSv (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 5 Dec 2022 10:18:51 -0500
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com [IPv6:2a00:1450:4864:20::42e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8322DDF67
+        for <linux-man@vger.kernel.org>; Mon,  5 Dec 2022 07:18:49 -0800 (PST)
+Received: by mail-wr1-x42e.google.com with SMTP id y16so19108532wrm.2
+        for <linux-man@vger.kernel.org>; Mon, 05 Dec 2022 07:18:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=hrmNjcU/2ZOnrxHLUXK5OMGvixXQJ+xkHsabUjodD/I=;
-        b=EVZ7Xhb1g3Bvjnz7eELb5ly4B8TMls/FeoF6qilCEpfwMiMdc68NWQOtXMDn2OYMAA
-         vty/Ou9ADhOfXQYxD+WmNrZQdLZ4gv6D1ctJap1q/QAbba67GGXNQSXRKH317lkgz7tm
-         e3geYB8lBmzZaRr1CD71oUv1OTcUt7Q8vIVUJ4pms60/IzEmIHNCadC6Uet1CdPNEnYx
-         CQkEhoe7IOp/BUc5yh8u2F2vR2GS2Kg+kYCb6wd6+3GgPyDQh+2H3suI5t2tzyn5v318
-         YZdpa0m29mpRA8eAVEQZzmhmJ951cd6Tw4T9xZuPIFMsITFHMX+xhC1uZh2WqiTnQ8H2
-         JH4A==
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=kvwC/QCIv3eMATH92cAgR7ddWzID8UQtIARugq0b+T0=;
+        b=oDSJn83NY/2iU1U4b5a7LxJgOiN5E60b/DADWxLGZ+yKlB/WDovBqxWonPgKiOeJz9
+         yI7CxUKhCnmrgIe1vQrmoTdA2MSS6cWu7gwNUzCaWnxyz6ukZfbRoW2pynB+oZsk7OG2
+         XgY8o58i0MAhAuHjmuWm45T4pEpCeXCKsJq3SFYFmVD2eds7yWZbaZh+2z+/Fn+JMaGX
+         +XM4eP4/WXpiUQ/xHEwOlKc+w26FhqpZIMSKI+DV4aT3AgD0xTLYvJxJz/OsikomFQ2w
+         6fLqDZ24yWZZ8+OXy5ZUTrovI2yuiKZpV+zYMW3NsOfo7eX5NkPIg36fI6A0CClMdrKN
+         /CSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=hrmNjcU/2ZOnrxHLUXK5OMGvixXQJ+xkHsabUjodD/I=;
-        b=pMKgHhzMBuvBKBK8RoywOfDi7xliUzv1C4hxUWeAKP6ZZCmN6SPPerwjJRHN1YzTIP
-         Q5yXvWK+x2jE2uR0aQpDuT3AK+nqi8LlA81pu6FSFTA+LAojTchea0ARMFryM3MYaErn
-         1/fF3EX0ztj3jiYWmzWYP9jX/C23KSEeaeLGTb4qwHBYlKrf2abi+A4N0M+puAXK+IWB
-         EiwaYqFCPJ3RGkATMcb+DDTG/Z5xUSIHbqQcOTy5/cuJFhGNjBpY4baSgAgzWZWBKOXz
-         Xos+NK72XQhiIuwtafnXxEu2NraGao9BFdAKD9PhBUBamjyFXHTWok1yTWlv0YEAhi2y
-         4xHw==
-X-Gm-Message-State: ANoB5plxxFqqv9Sx8PpAF6XEq+FOyaQIVsOObqRSaEgh8lipGjByZ9Hp
-        m81tTTWPHOJ/tBZRoFl9i2R5IoFhLUA=
-X-Google-Smtp-Source: AA0mqf4864rSEwfuF7SGB80+d9pY/sVbxG2c/1CQ/uLkoreRLCrpaUaBvVqxIFVCux6UiGJy1O7FIw==
-X-Received: by 2002:a05:6870:2408:b0:132:1a61:8ed9 with SMTP id n8-20020a056870240800b001321a618ed9mr36185859oap.105.1670252460911;
-        Mon, 05 Dec 2022 07:01:00 -0800 (PST)
-Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id 60-20020a9d0dc2000000b0066e84574c48sm4866238ots.75.2022.12.05.07.01.00
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=kvwC/QCIv3eMATH92cAgR7ddWzID8UQtIARugq0b+T0=;
+        b=t/IQyPM6Upkw60V2W6rj1r3Lh/8LQQP8qbj1L5A6qnD3euVPba+vXryaCLN/d2EkGH
+         9C4hCm/quyDLq6fmeWzj4KI5ebMuyw9yZ9I552/GJ8EoxbPMxtYirUUZ8v9dRUYahkea
+         5CBcClp5PqC11xm2eB6+ijt2IcICtmj4aIBDxaB1X1ARd9KSuH0zXTXYKZAsrEVOPxWC
+         comgWtbf7GrfzcFfNipUIuak2VagV8Bisc0QX7orlY6DW5EoTK6xZpvs4AgikgFKIQee
+         qDrqK9GPCSQvC8c6FLsPz0HpMdtsSskKo0r/UxIbCpufZZ5jYDBH2MfViTvi2tZm/QDY
+         Wl+g==
+X-Gm-Message-State: ANoB5pmnal+5Ethf5bzxBD7au9BuHtfTit52YRlGPyzaX8HgaIfnPN2s
+        JHwPoFv9dsIKptpWQjqkt9m3lvvJLuM=
+X-Google-Smtp-Source: AA0mqf4/XkPKnzKenVt2LYtqEv1pysMUb1IgGq7d1xGge4gXa8nwjVQ1ilDhA083ercCzujw9wnQnw==
+X-Received: by 2002:adf:e5c6:0:b0:242:5c5d:b393 with SMTP id a6-20020adfe5c6000000b002425c5db393mr4334540wrn.403.1670253528095;
+        Mon, 05 Dec 2022 07:18:48 -0800 (PST)
+Received: from asus5775.alejandro-colomar.es ([170.253.36.171])
+        by smtp.googlemail.com with ESMTPSA id u1-20020a05600c00c100b003d1e34bcbb2sm1290597wmm.13.2022.12.05.07.18.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Dec 2022 07:01:00 -0800 (PST)
-Date:   Mon, 5 Dec 2022 09:00:58 -0600
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     Helge Kreutzmann <debian@helgefjell.de>,
-        mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page wcscspn.3
-Message-ID: <20221205150058.enbfwn52waftdlbk@illithid>
-References: <20221204090723.GA1178@Debian-50-lenny-64-minimal>
- <0cfe8177-6671-c006-efb8-7634bd3b2cd7@gmail.com>
+        Mon, 05 Dec 2022 07:18:47 -0800 (PST)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+X-Google-Original-From: Alejandro Colomar <alx@kernel.org>
+To:     linux-man@vger.kernel.org
+Cc:     Alejandro Colomar <alx@kernel.org>, libc-alpha@sourceware.org
+Subject: [PATCH] strcat.3: SYNOPSIS: Fix the size of 'dest'
+Date:   Mon,  5 Dec 2022 16:11:03 +0100
+Message-Id: <20221205151102.13042-1-alx@kernel.org>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="ernp74kt6ke2fash"
-Content-Disposition: inline
-In-Reply-To: <0cfe8177-6671-c006-efb8-7634bd3b2cd7@gmail.com>
+Content-Transfer-Encoding: 8bit
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
@@ -72,56 +68,51 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+I had a mistake when adding VLA syntax to this prototype.  From this
+fixed prototype, it's visible how broken the design for this function
+is.  Next move is to kill this function.
 
---ernp74kt6ke2fash
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Cc: <libc-alpha@sourceware.org>
+Signed-off-by: Alejandro Colomar <alx@kernel.org>
+---
 
-Hi Alex & Helge,
+Hi!
 
-At 2022-12-04T21:27:05+0100, Alejandro Colomar wrote:
-> On 12/4/22 10:07, Helge Kreutzmann wrote:
-> > Issue:    longest initial =E2=86=92 initial
->=20
-> Why?  I believe "longest initial" is fine.
+I'm continuing my indiscriminated shooting against broken functions.
+I don't remember if I ever used it, but it got me surprised for how much
+broken it is.
 
-I agree.  POSIX says:
+Please kill this function in glibc.  The updated prototype using a bit
+of imagination to overextend VLA syntax to show how it behaves, shows
+how broken it is.
 
-"The wcscspn() function shall compute the length (in wide characters) of
-the *maximum initial segment* of the wide-character string pointed to by
-ws1 which consists entirely of wide-character codes _not_ from the
-wide-character string."[1]
+It is impossible to use this function correctly (okay, it you try hard,
+you can, but only for the pleasure of using it without crashing, not for
+anything useful).
 
-[* emphasis added, _ emphasis in original]
+Cheers,
 
-This distinction is important for those who have learned, often the hard
-way, the difference between greedy and stingy pattern matches.[2]
+Alex
 
-Regards,
-Branden
+ man3/strcat.3 | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-[1] https://pubs.opengroup.org/onlinepubs/9699919799/functions/wcscspn.html
-[2] https://www.aivosto.com/regexpr/help/greedy-stingy.html
+diff --git a/man3/strcat.3 b/man3/strcat.3
+index a4a376ba9..61d3e54f1 100644
+--- a/man3/strcat.3
++++ b/man3/strcat.3
+@@ -20,9 +20,8 @@ .SH SYNOPSIS
+ .B #include <string.h>
+ .PP
+ .BI "char *strcat(char *restrict " dest ", const char *restrict " src );
+-.BI "char *strncat(char " dest "[restrict ." n "], \
+-const char " src "[restrict ." n ],
+-.BI "              size_t " n );
++.BI "char *strncat(char " dest "[restrict strlen(." dest ") + strnlen(." n ") + 1],"
++.BI "              const char " src "[restrict ." n "], size_t " n );
+ .fi
+ .SH DESCRIPTION
+ The
+-- 
+2.38.1
 
---ernp74kt6ke2fash
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmOOB6MACgkQ0Z6cfXEm
-bc4INA//eYFMNpn/QNrln0CLUevFQarvpsi38bPbn3jHOyKHyDBprHaPjBiLxneR
-0CbY6pnA9wvBy9HU75NswWJsxX4llJJWpimQEcgceY7yb9ONCSr+q/tzTN8rvG36
-dgrNhnzfz6hHPKihWe4H9PCAbGvvi8gVUKizmuabunaMcNxkR4NvhR2EkXBuRnvb
-TyF7cT85ATE0jQVvQm0V2HFrBUnpucQYNNvIgck9txEAqoXKkHXwXRaXRS92aPNw
-XVr6IRfDd9ArOw3mGXz9Vt7ROlpcRm9rJQBBv38Y48srIA8SRb9GdTUplsoXTN61
-4ybik9/nVkGsXTrTFtbAxbPS89OAmGPrAHiDKyYukQMnd/h8WWcnzmvpsUF3fIkP
-NgSgsMSUDMX23Ww3CgVHWuk+u03rO021BBLhevdsvTqJQNIupqKQNbZwyebBV85Q
-n2mdSw09VtN780eDY5jtsvR9iNIE2qbyHTFBTipWYPJCmtpc2oUKFtYvnjaPkmVu
-nSgxxIKtss2JRaCEx7sDM46YUyYzVODy7ty7h+lAMzFEgfz3DLweWm7lpCudmB9D
-YSailT2qle/Df0foAQRRTgG8p++iUv5G2dxcFDFm4XefAjPDHvXhMfJT7tobk2nj
-uI1bKh4i4nU+X0q/7VkCSGo9e5wE4dJh4rVcQQOIzZKx5VK1h1M=
-=KWKE
------END PGP SIGNATURE-----
-
---ernp74kt6ke2fash--
