@@ -2,41 +2,41 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id B96D6644A56
-	for <lists+linux-man@lfdr.de>; Tue,  6 Dec 2022 18:35:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id CBF52644A57
+	for <lists+linux-man@lfdr.de>; Tue,  6 Dec 2022 18:36:03 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235237AbiLFRfs (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 6 Dec 2022 12:35:48 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34642 "EHLO
+        id S235161AbiLFRgD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 6 Dec 2022 12:36:03 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34820 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235144AbiLFRfq (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 6 Dec 2022 12:35:46 -0500
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 154C0391D3
-        for <linux-man@vger.kernel.org>; Tue,  6 Dec 2022 09:35:45 -0800 (PST)
+        with ESMTP id S235134AbiLFRgB (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 6 Dec 2022 12:36:01 -0500
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 625CF31EEC
+        for <linux-man@vger.kernel.org>; Tue,  6 Dec 2022 09:36:01 -0800 (PST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
         (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
         (No client certificate requested)
-        by ams.source.kernel.org (Postfix) with ESMTPS id 92462B81AE2
-        for <linux-man@vger.kernel.org>; Tue,  6 Dec 2022 17:35:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 31E4DC43470
-        for <linux-man@vger.kernel.org>; Tue,  6 Dec 2022 17:35:42 +0000 (UTC)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id E665C617E3
+        for <linux-man@vger.kernel.org>; Tue,  6 Dec 2022 17:36:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 56CE8C433D7
+        for <linux-man@vger.kernel.org>; Tue,  6 Dec 2022 17:36:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1670348142;
-        bh=fUp8IYb9cuBmFAxOsiLN6SpgPvLYbup62m/6AaAedNk=;
+        s=k20201202; t=1670348160;
+        bh=bEpe1bM+I1gTNQ1ZV0jfV63VPZlZaisR/LakjreAQd4=;
         h=From:To:Subject:Date:In-Reply-To:References:From;
-        b=iRy6DAhVtZcrfB8bUwME3T4HVPfHDTzx4wTetQg0Js9PB3X+enF6iOWmE5ckjms/w
-         4PDYz2WtnMyC+Jeu4sThWBB7Uffp/zBegbASAsEIlI0aVSlkdVlkiCeZrubUfVVkNF
-         vruMknuJ/rfxy1IG9O1ZwOrt+wT7JE3kIQFbGPl8vN0oRZo38Xw0W1fnQXgm6Opir8
-         I0PutABNwFh+EHiNJsZmq8ZYSGelhRfuLoUW53W1RCY7WUSWDyBatsUYyh7oSbdpZ6
-         8v109wCceduM8tjAlmk0fFUzm8GuExCIc+PgN33B8AEsxtXo6pfL+fepcvvCTxYjVQ
-         o2hupnUkD5+3g==
+        b=E7Kl5WVfUgmPPJfA7sFsrM8Gk6GLC6QZ7MsYmjoMnukJrZNJY73YIInIgM6O+JJ2q
+         D38arxt8ZAwdqXat4nZH+pRXCKaCyYlQvvHi++CxHivejXOvmj2OknawxlMtGuqtfH
+         A33dt+c7NHQUhmbc7NBMhnqAJFUX9MkmRVKiZ1merNOnaUeTgpRKTps/RLwoJQy2Te
+         k8cNNF55mNDESrpGWT/1aCv7TdUvg+JK4/UZKYkg7C/Yo9fVHlHz3wEoZ4H1aGtAqy
+         yxMZTjDpjdmnL+x71XZ2PbjCXqopoDaPJeFJecwFiyXSoeDkrty4Zxo6XVkGqjzIc1
+         fXEWX+/K0GtUg==
 Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
-        id 176CEC433E6; Tue,  6 Dec 2022 17:35:42 +0000 (UTC)
+        id 4984AC433EA; Tue,  6 Dec 2022 17:36:00 +0000 (UTC)
 From:   bugzilla-daemon@kernel.org
 To:     linux-man@vger.kernel.org
-Subject: [Bug 216779] dark force
-Date:   Tue, 06 Dec 2022 17:35:41 +0000
+Subject: [Bug 216778] dark force-71
+Date:   Tue, 06 Dec 2022 17:36:00 +0000
 X-Bugzilla-Reason: None
 X-Bugzilla-Type: changed
 X-Bugzilla-Watch-Reason: AssignedTo
@@ -53,9 +53,9 @@ X-Bugzilla-Priority: P1
 X-Bugzilla-Assigned-To: other_spam@kernel-bugs.kernel.org
 X-Bugzilla-Flags: 
 X-Bugzilla-Changed-Fields: component version assigned_to product
-Message-ID: <bug-216779-11311-5x8kAUmd1r@https.bugzilla.kernel.org/>
-In-Reply-To: <bug-216779-11311@https.bugzilla.kernel.org/>
-References: <bug-216779-11311@https.bugzilla.kernel.org/>
+Message-ID: <bug-216778-11311-yt3x1JUy36@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-216778-11311@https.bugzilla.kernel.org/>
+References: <bug-216778-11311@https.bugzilla.kernel.org/>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-Bugzilla-URL: https://bugzilla.kernel.org/
@@ -70,7 +70,7 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D216779
+https://bugzilla.kernel.org/show_bug.cgi?id=3D216778
 
 Artem S. Tashkinov (aros@gmx.com) changed:
 
