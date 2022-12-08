@@ -2,88 +2,93 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id CBF52644A57
-	for <lists+linux-man@lfdr.de>; Tue,  6 Dec 2022 18:36:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E8E14646BBC
+	for <lists+linux-man@lfdr.de>; Thu,  8 Dec 2022 10:16:17 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235161AbiLFRgD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 6 Dec 2022 12:36:03 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34820 "EHLO
+        id S229976AbiLHJQQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 8 Dec 2022 04:16:16 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45448 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235134AbiLFRgB (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 6 Dec 2022 12:36:01 -0500
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 625CF31EEC
-        for <linux-man@vger.kernel.org>; Tue,  6 Dec 2022 09:36:01 -0800 (PST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id E665C617E3
-        for <linux-man@vger.kernel.org>; Tue,  6 Dec 2022 17:36:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 56CE8C433D7
-        for <linux-man@vger.kernel.org>; Tue,  6 Dec 2022 17:36:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1670348160;
-        bh=bEpe1bM+I1gTNQ1ZV0jfV63VPZlZaisR/LakjreAQd4=;
-        h=From:To:Subject:Date:In-Reply-To:References:From;
-        b=E7Kl5WVfUgmPPJfA7sFsrM8Gk6GLC6QZ7MsYmjoMnukJrZNJY73YIInIgM6O+JJ2q
-         D38arxt8ZAwdqXat4nZH+pRXCKaCyYlQvvHi++CxHivejXOvmj2OknawxlMtGuqtfH
-         A33dt+c7NHQUhmbc7NBMhnqAJFUX9MkmRVKiZ1merNOnaUeTgpRKTps/RLwoJQy2Te
-         k8cNNF55mNDESrpGWT/1aCv7TdUvg+JK4/UZKYkg7C/Yo9fVHlHz3wEoZ4H1aGtAqy
-         yxMZTjDpjdmnL+x71XZ2PbjCXqopoDaPJeFJecwFiyXSoeDkrty4Zxo6XVkGqjzIc1
-         fXEWX+/K0GtUg==
-Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
-        id 4984AC433EA; Tue,  6 Dec 2022 17:36:00 +0000 (UTC)
-From:   bugzilla-daemon@kernel.org
-To:     linux-man@vger.kernel.org
-Subject: [Bug 216778] dark force-71
-Date:   Tue, 06 Dec 2022 17:36:00 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: changed
-X-Bugzilla-Watch-Reason: AssignedTo
- documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Product: Other
-X-Bugzilla-Component: Spam
-X-Bugzilla-Version: 2.5
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: normal
-X-Bugzilla-Who: aros@gmx.com
-X-Bugzilla-Status: NEW
-X-Bugzilla-Resolution: 
-X-Bugzilla-Priority: P1
-X-Bugzilla-Assigned-To: other_spam@kernel-bugs.kernel.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: component version assigned_to product
-Message-ID: <bug-216778-11311-yt3x1JUy36@https.bugzilla.kernel.org/>
-In-Reply-To: <bug-216778-11311@https.bugzilla.kernel.org/>
-References: <bug-216778-11311@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
+        with ESMTP id S230303AbiLHJPz (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 8 Dec 2022 04:15:55 -0500
+Received: from smtp.gentoo.org (mail.gentoo.org [IPv6:2001:470:ea4a:1:5054:ff:fec7:86e4])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1FA8E6F0C4
+        for <linux-man@vger.kernel.org>; Thu,  8 Dec 2022 01:14:49 -0800 (PST)
+Received: by smtp.gentoo.org (Postfix, from userid 559)
+        id 8C9CE340DFF; Thu,  8 Dec 2022 09:14:47 +0000 (UTC)
+From:   Mike Frysinger <vapier@gentoo.org>
+To:     Michael Kerrisk <mtk.manpages@gmail.com>,
+        Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org
+Subject: [PATCH/RFC] popen.3: change wait4(2) references to wait(2) family
+Date:   Thu,  8 Dec 2022 04:14:42 -0500
+Message-Id: <20221208091442.10595-1-vapier@gentoo.org>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-X-Spam-Status: No, score=-7.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED,
+        SPF_HELO_PASS,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D216778
+From: Mike Frysinger <vapier@chromium.org>
 
-Artem S. Tashkinov (aros@gmx.com) changed:
+Since wait4(2) is deprecated and people should use waitpid(2) instead,
+and the specific wait function used is largely an internal detail,
+update the references to talk about the wait "family" of functions.
 
-           What    |Removed                     |Added
-----------------------------------------------------------------------------
-          Component|man-pages                   |Spam
-            Version|unspecified                 |2.5
-           Assignee|documentation_man-pages@ker |other_spam@kernel-bugs.kern
-                   |nel-bugs.osdl.org           |el.org
-            Product|Documentation               |Other
+Signed-off-by: Mike Frysinger <vapier@gentoo.org>
+---
+ man3/popen.3 | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
---=20
-You may reply to this email to add a comment.
+diff --git a/man3/popen.3 b/man3/popen.3
+index bfa88f522665..5be8b783909e 100644
+--- a/man3/popen.3
++++ b/man3/popen.3
+@@ -92,8 +92,9 @@ streams are block buffered by default.
+ The
+ .BR pclose ()
+ function waits for the associated process to terminate and returns the exit
+-status of the command as returned by
+-.BR wait4 (2).
++status of the command as returned by one of the
++.BR wait (2)
++family of calls.
+ .SH RETURN VALUE
+ .BR popen ():
+ on success, returns a pointer to an open stream that
+@@ -106,15 +107,15 @@ calls fail, or if the function cannot allocate memory,
+ NULL is returned.
+ .PP
+ .BR pclose ():
+-on success, returns the exit status of the command; if
++on success, returns the exit status of the command; if one of the
+ .\" These conditions actually give undefined results, so I commented
+ .\" them out.
+ .\" .I stream
+ .\" is not associated with a "popen()ed" command, if
+ .\".I stream
+ .\" already "pclose()d", or if
+-.BR wait4 (2)
+-returns an error, or some other error is detected,
++.BR wait (2)
++family of calls returns an error, or some other error is detected,
+ \-1 is returned.
+ .PP
+ On failure, both functions set
+@@ -201,7 +202,7 @@ The only hint is an exit status of 127.
+ .BR sh (1),
+ .BR fork (2),
+ .BR pipe (2),
+-.BR wait4 (2),
++.BR wait (2),
+ .BR fclose (3),
+ .BR fflush (3),
+ .BR fopen (3),
+-- 
+2.38.1
 
-You are receiving this mail because:
-You are watching the assignee of the bug.=
