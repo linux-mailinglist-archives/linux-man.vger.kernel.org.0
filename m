@@ -2,97 +2,85 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 35F4F646FE6
-	for <lists+linux-man@lfdr.de>; Thu,  8 Dec 2022 13:41:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id C17196473CE
+	for <lists+linux-man@lfdr.de>; Thu,  8 Dec 2022 17:02:53 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229606AbiLHMls (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 8 Dec 2022 07:41:48 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43240 "EHLO
+        id S229900AbiLHQCO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 8 Dec 2022 11:02:14 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47278 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229462AbiLHMlr (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 8 Dec 2022 07:41:47 -0500
-X-Greylist: delayed 392 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Thu, 08 Dec 2022 04:41:46 PST
-Received: from smtp107.iad3a.emailsrvr.com (smtp107.iad3a.emailsrvr.com [173.203.187.107])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D02BF55C87
-        for <linux-man@vger.kernel.org>; Thu,  8 Dec 2022 04:41:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mev.co.uk;
-        s=20190130-41we5z8j; t=1670502913;
-        bh=PLR0FsgMo9j5Bs6jvVFu5I4rU8y5vfQVklJ8bs2C8rw=;
-        h=From:To:Subject:Date:From;
-        b=eUssOYyxl5/UqFRaQW/bilM/WXX9CkFvawvWBtWK0zy+N0oWkW2uikxSmdxan8Dpq
-         BWSSzB81lIY+HQ2PguLmF+20krSrPOXqaB6x7T3Tckd637ncdy1P+DIUmlkbuQFlUP
-         KEFRcKcu29tNWSGv7QHQkZnbNetjQn9uv9zQzblA=
-X-Auth-ID: abbotti@mev.co.uk
-Received: by smtp14.relay.iad3a.emailsrvr.com (Authenticated sender: abbotti-AT-mev.co.uk) with ESMTPSA id C32B121DDD;
-        Thu,  8 Dec 2022 07:35:12 -0500 (EST)
-From:   Ian Abbott <abbotti@mev.co.uk>
-To:     Alejandro Colomar <alx@kernel.org>
-Cc:     linux-man@vger.kernel.org, Ian Abbott <abbotti@mev.co.uk>,
-        Michael Kerrisk <mtk.manpages@gmail.com>
-Subject: [PATCH] scanf.3: Do not mention the ERANGE error
-Date:   Thu,  8 Dec 2022 12:34:54 +0000
-Message-Id: <20221208123454.13132-1-abbotti@mev.co.uk>
-X-Mailer: git-send-email 2.35.1
+        with ESMTP id S229861AbiLHQCM (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 8 Dec 2022 11:02:12 -0500
+X-Greylist: delayed 1274 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Thu, 08 Dec 2022 08:02:11 PST
+Received: from mail.smrk.net (mail.smrk.net [IPv6:2001:19f0:6c01:2788:5400:4ff:fe27:adaa])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 23D9F98E92
+        for <linux-man@vger.kernel.org>; Thu,  8 Dec 2022 08:02:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smrk.net; s=20221002;
+        t=1670513654;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         content-transfer-encoding:content-transfer-encoding:
+         in-reply-to:in-reply-to:references:references;
+        bh=0g2+U0YLQNNhMLCz3390mh/KF1xhXrOHnGkqzwssXqw=;
+        b=Pp83J02FA5ZG/yNOuUNhVxi5kUc/o0MOAWqj7/sEG7P01qggUuFv2cyno/CcXVsu8ch+Cu
+        R5L9lAngYYF97va4gcCJbDpNJtqRzhiHYcM2xFnripjl+tk7RrlLEoUdMTNruhLn0CUdvA
+        PstYIAhvEYuMM+N8eWJxK/ZUHSq32w7Ag3CIBV4VlaZeXaukkqvVYfeF/XPlwxSe5NIg/X
+        oiwhNpjV7EB81LZYnIpbvg9iGwlRqGY2Fqu+B6Kmij0JPD6P2Y9NIT27B64TWufcdd+/WO
+        NjXTCiO94CkoxCvJM1+tNdPcpmSJo1roEaqfrzWGsQOQf4Wq/ubzfgvNSLsRNA==
+Received: from localhost (<unknown> [192.168.5.2])
+        by smrk.net (OpenSMTPD) with ESMTPSA id 1de81c08 (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO);
+        Thu, 8 Dec 2022 16:34:13 +0100 (CET)
+From:   =?utf-8?B?xaB0xJtww6FuIE7Em21lYw==?= <stepnem@smrk.net>
+To:     Mike Frysinger <vapier@gentoo.org>
+Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
+        Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org
+Subject: Re: [PATCH/RFC] popen.3: change wait4(2) references to wait(2) family
+In-Reply-To: <20221208091442.10595-1-vapier@gentoo.org> (Mike Frysinger's
+        message of "Thu, 8 Dec 2022 04:14:42 -0500")
+References: <20221208091442.10595-1-vapier@gentoo.org>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/29.0.50 (gnu/linux)
+Date:   Thu, 08 Dec 2022 16:34:13 +0100
+Message-ID: <20221208163413+0100.348521-stepnem@smrk.net>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Classification-ID: 510ee3c6-6235-40bd-8b6e-ef12375a1da9-1-1
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
-        RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS autolearn=ham
-        autolearn_force=no version=3.4.6
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-The `scanf()` function does not intentionally set `errno` to `ERANGE`.
-That is just a side effect of the code that it uses to perform
-conversions.  It also does not work as reliably as indicated in the
-'man' page when the target integer type is narrower than `long`.
-Typically (at least in glibc) for target integer types narrower than
-`long`, the number has to exceed the range of `long` (for signed
-conversions) or `unsigned long` (for unsigned conversions) for `errno`
-to be set to `ERANGE`.
+On Thu,  8 Dec 2022 04:14:42 -0500
+Mike Frysinger wrote:
 
-Documenting `ERANGE` in the ERRORS section kind of implies that
-`scanf()` should return `EOF` when an integer overflow is encountered,
-which it doesn't (and doing so would violate the C standard).
+> @@ -106,15 +107,15 @@ calls fail, or if the function cannot allocate memo=
+ry,
+>  NULL is returned.
+>  .PP
+>  .BR pclose ():
+> -on success, returns the exit status of the command; if
+> +on success, returns the exit status of the command; if one of the
+>  .\" These conditions actually give undefined results, so I commented
+>  .\" them out.
+>  .\" .I stream
+>  .\" is not associated with a "popen()ed" command, if
+>  .\".I stream
+>  .\" already "pclose()d", or if
+> -.BR wait4 (2)
+> -returns an error, or some other error is detected,
+> +.BR wait (2)
+> +family of calls returns an error, or some other error is detected,
+>  \-1 is returned.
+>  .PP
+>  On failure, both functions set
 
-Just remove any mention of the `ERANGE` error to avoid confusion.
+I'll just point out that, if this goes in, putting "one of the" _after_
+the comment would prevent rendering it incomprehensible.
 
-Fixes: 646af540e467 ("Add an ERRORS section documenting at least some of the errors that may occur for scanf().")
-Cc: Michael Kerrisk <mtk.manpages@gmail.com>
-Signed-off-by: Ian Abbott <abbotti@mev.co.uk>
----
- man3/scanf.3 | 7 -------
- 1 file changed, 7 deletions(-)
+Thanks,
 
-diff --git a/man3/scanf.3 b/man3/scanf.3
-index ba470a5c1..c5ff59f45 100644
---- a/man3/scanf.3
-+++ b/man3/scanf.3
-@@ -576,10 +576,6 @@ is NULL.
- .TP
- .B ENOMEM
- Out of memory.
--.TP
--.B ERANGE
--The result of an integer conversion would exceed the size
--that can be stored in the corresponding integer type.
- .SH ATTRIBUTES
- For an explanation of the terms used in this section, see
- .BR attributes (7).
-@@ -609,9 +605,6 @@ The functions
- and
- .BR sscanf ()
- conform to C89 and C99 and POSIX.1-2001.
--These standards do not specify the
--.B ERANGE
--error.
- .PP
- The
- .B q
--- 
-2.35.1
-
+  =C5=A0t=C4=9Bp=C3=A1n
