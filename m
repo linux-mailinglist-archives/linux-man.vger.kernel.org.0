@@ -2,81 +2,98 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 1FF98647488
-	for <lists+linux-man@lfdr.de>; Thu,  8 Dec 2022 17:44:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 979B6648040
+	for <lists+linux-man@lfdr.de>; Fri,  9 Dec 2022 10:41:11 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229743AbiLHQom (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 8 Dec 2022 11:44:42 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51698 "EHLO
+        id S229680AbiLIJlK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 9 Dec 2022 04:41:10 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53038 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229586AbiLHQol (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 8 Dec 2022 11:44:41 -0500
-Received: from 6.mo552.mail-out.ovh.net (6.mo552.mail-out.ovh.net [188.165.49.222])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D0196AD98B
-        for <linux-man@vger.kernel.org>; Thu,  8 Dec 2022 08:44:39 -0800 (PST)
-Received: from mxplan6.mail.ovh.net (unknown [10.109.143.134])
-        by mo552.mail-out.ovh.net (Postfix) with ESMTPS id 1398F30C07;
-        Thu,  8 Dec 2022 16:36:14 +0000 (UTC)
-Received: from jwilk.net (37.59.142.99) by DAG4EX1.mxp6.local (172.16.2.31)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.16; Thu, 8 Dec
- 2022 17:36:14 +0100
-Authentication-Results: garm.ovh; auth=pass (GARM-99G003b370004a-aaad-447c-9ee4-76900992c749,
-                    0299285C5895A5D340988CB47486A9EBEB5DF79A) smtp.auth=jwilk@jwilk.net
-X-OVh-ClientIp: 5.172.255.221
-Date:   Thu, 8 Dec 2022 17:36:05 +0100
-From:   Jakub Wilk <jwilk@jwilk.net>
-To:     Mike Frysinger <vapier@gentoo.org>
-CC:     Michael Kerrisk <mtk.manpages@gmail.com>,
-        Alejandro Colomar <alx.manpages@gmail.com>,
-        <linux-man@vger.kernel.org>
-Subject: Re: [PATCH/RFC] popen.3: change wait4(2) references to wait(2) family
-Message-ID: <20221208163605.w7hmtcuwwma5tgfz@jwilk.net>
-References: <20221208091442.10595-1-vapier@gentoo.org>
+        with ESMTP id S229816AbiLIJlI (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 9 Dec 2022 04:41:08 -0500
+Received: from smtp.gentoo.org (woodpecker.gentoo.org [140.211.166.183])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 85B61490A1
+        for <linux-man@vger.kernel.org>; Fri,  9 Dec 2022 01:41:07 -0800 (PST)
+Received: by smtp.gentoo.org (Postfix, from userid 559)
+        id 16CD9340EBE; Fri,  9 Dec 2022 09:41:07 +0000 (UTC)
+Date:   Fri, 9 Dec 2022 18:41:05 +0900
+From:   Mike Frysinger <vapier@gentoo.org>
+To:     linux-man@vger.kernel.org
+Subject: preferred /proc/<pid>/xxx style?
+Message-ID: <Y5MCsc/H9BV6RcST@vapier>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"; format=flowed
+Content-Type: multipart/signed; micalg=pgp-sha256;
+        protocol="application/pgp-signature"; boundary="tTTzgdNjLA2GpV8I"
 Content-Disposition: inline
-In-Reply-To: <20221208091442.10595-1-vapier@gentoo.org>
-X-Originating-IP: [37.59.142.99]
-X-ClientProxiedBy: DAG5EX2.mxp6.local (172.16.2.42) To DAG4EX1.mxp6.local
- (172.16.2.31)
-X-Ovh-Tracer-GUID: 2eccb750-063e-4b15-8068-5eba57be2ccf
-X-Ovh-Tracer-Id: 1332502544013252576
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: 0
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvhedrvddtgdeludcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecunecujfgurhepfffhvfevuffkfhggtggujghisehttdertddttddvnecuhfhrohhmpeflrghkuhgsucghihhlkhcuoehjfihilhhksehjfihilhhkrdhnvghtqeenucggtffrrghtthgvrhhnpeeutddtteelhfffuddvhefgfedujeeltdekheduveekkeelfeduuedvgeejudffgfenucfkphepuddvjedrtddrtddruddpfeejrdehledrudegvddrleelnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepuddvjedrtddrtddruddpmhgrihhlfhhrohhmpeeojhifihhlkhesjhifihhlkhdrnhgvtheqpdhnsggprhgtphhtthhopedupdhrtghpthhtohepvhgrphhivghrsehgvghnthhoohdrohhrghdpmhhtkhdrmhgrnhhprghgvghssehgmhgrihhlrdgtohhmpdgrlhigrdhmrghnphgrghgvshesghhmrghilhdrtghomhdplhhinhhugidqmhgrnhesvhhgvghrrdhkvghrnhgvlhdrohhrghdpoffvtefjohhsthepmhhoheehvddpmhhouggvpehsmhhtphhouhht
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE,
-        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED,
+        RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-* Mike Frysinger <vapier@gentoo.org>, 2022-12-08 04:14:
->Since wait4(2) is deprecated and people should use waitpid(2) instead,
 
-For simplicity I'd just do s/wait4/waitpid/, because AFAICS that's what 
-glibc uses.
+--tTTzgdNjLA2GpV8I
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 
->and the specific wait function used is largely an internal detail,
->update the references to talk about the wait "family" of functions.
+while browsing time_namespaces(7), i noticed it's inconsistent when it comes to
+styling of /proc/<pid>/paths.  it uses the styles:
+* .IR /proc/ pid /ns/time_for_children
+* .I /proc/PID/timens_offsets
 
-But if we chose to talk about families, then...
+grepping the tree turns up more:
+* .I /proc/<pid>/maps
+* .I /proc/[pid]/status
 
->+status of the command as returned by one of the
->+.BR wait (2)
->+family of calls.
+it seems that the tree is moving towards the first style.  personally i find
+that jarring to read because it's using italics for the whole path except for
+the pid which has no styling at all.  in the terminal this yields colored &
+underlined text except for the "pid" which is just plain text like the rest.
 
-... maybe s/calls/functions/?
+commit 1ae6b2c7b818e5d8804cf8d3abfdb6fba32119db made a large change recently
+to proc(5) to use .IR, but with no explanation in the commit message other
+than to satisfy a linter, and running that linter locally doesn't seem to show
+any warnings when using the previous /proc/[pid] style.
 
-"family of functions" seems to be the most widely used term:
+the man-pages(7) guidance doesn't covert this afaict.  it has:
+> Formatting conventions (general)
+> Filenames (whether pathnames, or references to header files) are always in italics ...
+that implies it should be only in italics.
 
-$ grep -rhoP 'family of (functions|(sys(tem )?)?calls)' man* | sort | uniq -c | sort
-       1 family of calls
-       1 family of system calls
-       2 family of syscalls
-      20 family of functions
+if we look a bit further, using .IR seems inconsistent.
+> SYNOPSIS
+> For commands, this shows the syntax of the command and its arguments (including options);
+> boldface is used for as-is text and italics are used to indicate replaceable arguments
+>
+> Formatting conventions for manual pages describing commands
+> For manual pages that describe a command (...), the arguments are always specified using italics
+>
+> Formatting conventions for manual pages describing functions
+> For manual pages that describe functions (...), the arguments are always specified using italics,
+> even in the SYNOPSIS section, where the rest of the function is specified in bold:
+-mike
 
--- 
-Jakub Wilk
+--tTTzgdNjLA2GpV8I
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEuQK1JxMl+JKsJRrUQWM7n+g39YEFAmOTAqsACgkQQWM7n+g3
+9YEATg/+JVxuFK3hmSpjzCxBRwpk30tcBENb2FtBiEJaoTolXVyubNERCcNXndSl
+c7Z2DFPYu9xu7yUfFGTJb/2SB3XdpYt6zmYqu3EelQ3nTsNfRyDtdZdG7BHChBxF
+O5otdAZ/cixapb+aBWIIKPE1vfrqIaFCh4kBV62uojdUkkOD2L2c2zq5Ohh8Q35s
+F7aRnPmm4533wMU8BXRr6BFRgzDNE2v+MNgl52Io5WR0Pp2YBoXWAl6GmR4QlWU3
+0C/gZNzccl3FAnleygYjjVjrvkNBRCDsRpWIfmzCY2T8NWb9hUFE8shT0ExURks7
+y510a2KnFQ/R07J/JyKZOBAWY8vVcZtIIP5c7DU5JXNmyR/31QYC14LubyzyOlCG
+3bCdrh+3Q6s9s2lUsmeSz4slS3f6oS5BrGUEUzx1yNRNhQRllZEYzdIXgyjn627A
+UXW6rYX9kTYWiM8dIAM4fqTIwFBMJQW0+yNDNGXxL4utjTyp2rCn9N6EUb69smQo
+Auktzg+qZV+IqpaXk6mSQKvDN0CLP1Ime7v+z4fcNosz60hR1l9vpmLMNd/LnW5C
+3ZLeTFAhoEQWJ9PZQ1J0GN3d5HmuMI9xLouF75h/xdpS+NrTRQy5VoJI2ix4ZPwz
+pYZd0mSwAQ/bpSyTACgvddOxM/5Xy5ImJWxiv9KJe8pEtCGHEF0=
+=J6BH
+-----END PGP SIGNATURE-----
+
+--tTTzgdNjLA2GpV8I--
