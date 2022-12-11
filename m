@@ -2,170 +2,125 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 886B06494FF
-	for <lists+linux-man@lfdr.de>; Sun, 11 Dec 2022 16:58:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 61007649503
+	for <lists+linux-man@lfdr.de>; Sun, 11 Dec 2022 16:59:17 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230164AbiLKP6n (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 11 Dec 2022 10:58:43 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52470 "EHLO
+        id S230157AbiLKP7Q (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 11 Dec 2022 10:59:16 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52492 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230080AbiLKP6k (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 11 Dec 2022 10:58:40 -0500
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com [IPv6:2a00:1450:4864:20::32a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D6BA2BE2E
-        for <linux-man@vger.kernel.org>; Sun, 11 Dec 2022 07:58:39 -0800 (PST)
-Received: by mail-wm1-x32a.google.com with SMTP id m19so3272126wms.5
-        for <linux-man@vger.kernel.org>; Sun, 11 Dec 2022 07:58:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=in-reply-to:from:cc:references:to:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=YTV9dDljf0PYYF05Ij+N822LKzjMNzXiXOl+2nu8mPc=;
-        b=Xm6F6xqWi5PofM2/56JyWZLzePWDM0QlWOyBS5o39Cb0ScQlVB4xtVBxae5RBPIlxI
-         zWmpCZ7hZmDhrKNV4+9a/Ocyh2prMLyaOLjv7uxDNnkpdEFNN+q1s9/6KBBux7wRQ4Ak
-         spk064lZ+sezSWXYW8tEG8P1LWCNyOZioRqFwVGx/VDoU2AxYfovcYjVhdmMOSTY1TFe
-         cLKXjA+YeZ1e4ZzbjtqqhPVV1MZQCdITYJUPZawMmze15yILhkuoe7dQkl20RrD/AY43
-         +wew7UmuVHFRuF/vrah0PTlJ6wFoGSrH++fmUIBh0GrWp+avfBUXXFz3CXANc3s1Jypb
-         NMlg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=in-reply-to:from:cc:references:to:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=YTV9dDljf0PYYF05Ij+N822LKzjMNzXiXOl+2nu8mPc=;
-        b=cd5GM4habkZEzmjLpkFAVTtclggQdDwKjIvSPttS7vr82luZ62yCtsQA3PJgDtvyG2
-         PgUij0RMYT/GKj+GNzj/8W+LYamY2aRJUf9IgYKgvb31KBkEtDfl2GjOnEvGuMKRFANr
-         kRxStTdMuOcRqfrm3Zt2MUn5hv8FTGvkK+901fWVuM/bABEnTGKBMoMvP4IsrCj8/grv
-         UgesJJv7LZ41HmozZDSta6czuVnNdR/8I/NJHhnPv9z9Vu0akVh3+73xKfRzNz4R7tz9
-         x8CQ1Lf9sgDXeoPy0UkDZVOHKc/eVL5CBb8NNO3TyPq3hm29LWmPqT7zkPl4UPyxCf0y
-         6FFg==
-X-Gm-Message-State: ANoB5pnDbCQr3MY9JpTqPZ8TFcwCVEh8r66dYJSNIyObG7/bRm2liGB8
-        UTlkcq+Yt6X81KuUUGL3bc0=
-X-Google-Smtp-Source: AA0mqf58refZKu6DpMKmoGm1SPSF6emknpLKAZUvszrrwLJcbapk8N1l7qbmoErQYI9bjmYClP2Png==
-X-Received: by 2002:a05:600c:1d98:b0:3cf:74b4:c3c8 with SMTP id p24-20020a05600c1d9800b003cf74b4c3c8mr10242895wms.17.1670774317893;
-        Sun, 11 Dec 2022 07:58:37 -0800 (PST)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id bi27-20020a05600c3d9b00b003d225cdb68esm1438060wmb.0.2022.12.11.07.58.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 11 Dec 2022 07:58:37 -0800 (PST)
-Message-ID: <d65cff0c-7aba-8bb3-9a2f-3d07f20517b4@gmail.com>
-Date:   Sun, 11 Dec 2022 16:58:27 +0100
+        with ESMTP id S230080AbiLKP7P (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 11 Dec 2022 10:59:15 -0500
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com [66.111.4.26])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 089F0BE33
+        for <linux-man@vger.kernel.org>; Sun, 11 Dec 2022 07:59:13 -0800 (PST)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+        by mailout.nyi.internal (Postfix) with ESMTP id A61745C0095;
+        Sun, 11 Dec 2022 10:59:11 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+  by compute3.internal (MEProxy); Sun, 11 Dec 2022 10:59:11 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tycho.pizza; h=
+        cc:cc:content-type:date:date:from:from:in-reply-to:in-reply-to
+        :message-id:mime-version:references:reply-to:sender:subject
+        :subject:to:to; s=fm1; t=1670774351; x=1670860751; bh=VNQLoqCYPR
+        /0QPYlTWYfNrE+pNths3iWIFWsOwiXnd8=; b=crlvPKUU+legFdqpK0gsDGh2cc
+        rWbuHaKR8J+fx8Ot/g6o6J8LXjgekaQ/gIo4c3xm6/QAAgcBfU+wJi/y3rlsx2LH
+        lzNVJzv/KMfRNWRkI3C2gWOIinl5peJ+336LV35lDfqUGzf/ijU5izSepEve/pbG
+        baVPZ7Ac7jseQ+vUYM7F4/kxHbi2s6f2Vl6ucCCjRRtL2A99itD+raAOK5C203Dr
+        ZtIadtEzmzh9iDy18V22dSY+SBsiFHmO8Unl4aGeIM8gSJccAhdthuYid6tUboJ2
+        toOYQNPG5fY5bl6Il0YVUQDVnQ5fKetuhntakisoEyo2s9KBcdd+27FZ3tHg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+        messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+        :feedback-id:from:from:in-reply-to:in-reply-to:message-id
+        :mime-version:references:reply-to:sender:subject:subject:to:to
+        :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+        fm2; t=1670774351; x=1670860751; bh=VNQLoqCYPR/0QPYlTWYfNrE+pNth
+        s3iWIFWsOwiXnd8=; b=iMvUflfZ2BJVdFsrJZMRjQSs9D3gQI1ZL4QCcJ8l5Oec
+        GaINv2kn2lUNK2IoPCCLV0g0qv2J81AzwvI5o/l+HRq80l3lL0uOdT1vngZ+z6sa
+        WYm4tOIryi/0wjppRDY3X8Ve0NEoudCzeJOjIMq4eYR7j2cQ7N8ycJ2RFZVQi0RK
+        nr4u3zVcg57OIwb4n/2Go2e/hAZoDWVyQTyX2DtERCyZ/r6aoZ9iES282pgxci3M
+        ll3vfLPdL5VAKK4O1vruIhUlEyTJpemzZVdJH1hs0f+LjXEA6EA+diVD58g8+Fe4
+        xh8C7jOyXQ+c7gTt3KVo8W/tJEjxX3V43qid5Rm72g==
+X-ME-Sender: <xms:T_6VYyMmv3JEhBpwtbyGtoSgaCoeDq-E-TQCUH7SBcGBaex80blmaQ>
+    <xme:T_6VYw_L4GHwTTFpBmseBSdGLe9ZofYdPlr8P_XEB5lkDxOA1Vkpu8A7PNawYFjy_
+    tOS-TQ_rs3EpwKPPg4>
+X-ME-Received: <xmr:T_6VY5RHWs7ayEqbupf4XX9B_tn0h0h_glvkVcwvJxd68-WrylNEYGHFtoElLAY>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrvdeigdekvdcutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecunecujfgurhepfffhvfevuffkfhggtggujgesthdtre
+    dttddtvdenucfhrhhomhepvfihtghhohcutehnuggvrhhsvghnuceothihtghhohesthih
+    tghhohdrphhiiiiirgeqnecuggftrfgrthhtvghrnhepleevudetgefhheekueekhfduff
+    ethfehteeftdfhvefgteelvedvudevteeufeehnecuffhomhgrihhnpehkvghrnhgvlhdr
+    ohhrghenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
+    hthigthhhosehthigthhhordhpihiiiigr
+X-ME-Proxy: <xmx:T_6VYyveEpLIfOOvf--TKXjdfEr52z8-95Kppg2409ZakxBufOoNHA>
+    <xmx:T_6VY6f-int9eyjfD2sCTkW905rIHQmXTtHLjpDHS4Kv2kz0-8-YSA>
+    <xmx:T_6VY20T049CzurKIJWfYVJxL-W01wmF_zFpHMEGbmegMLnzBfUqfg>
+    <xmx:T_6VY7qZAoVmU_7HmX2XSdpCg4pHjYRNCEvgDAyP4d8_aiDxN9-YfA>
+Feedback-ID: i21f147d5:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 11 Dec 2022 10:59:10 -0500 (EST)
+Date:   Sun, 11 Dec 2022 08:59:10 -0700
+From:   Tycho Andersen <tycho@tycho.pizza>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     Alejandro Colomar <alx@kernel.org>,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        linux-man@vger.kernel.org
+Subject: Re: [PATCH] socket.7: be explicit that connect(2) respects SO_*TIMEO
+Message-ID: <Y5X+Tq25nxFVTroL@tycho.pizza>
+References: <20221128205837.2408050-1-tycho@tycho.pizza>
+ <a796c0f9-a4bf-bc5d-3953-9c725b53d10e@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.1
-Subject: Re: [PATCH] scanf.3: Do not mention the ERANGE error
-Content-Language: en-US
-To:     Zack Weinberg <zack@owlfolio.org>, libc-alpha@sourceware.org,
-        'linux-man' <linux-man@vger.kernel.org>
-References: <20221208123454.13132-1-abbotti@mev.co.uk>
- <5f490d45-b31e-279e-edcb-de4806b8ba54@gmail.com>
- <d1ecf57b-72cf-dbb4-3b4a-b19c7cdc93e9@mev.co.uk>
- <06f70d09-a258-7d6d-4a98-6a89ed761849@gmail.com>
- <6269173b-20cb-7b47-1ad9-6099a9baa052@owlfolio.org>
-Cc:     Ian Abbott <abbotti@mev.co.uk>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <6269173b-20cb-7b47-1ad9-6099a9baa052@owlfolio.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------8jR4fWoX80DNo2lKyPnKXAwD"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
-        autolearn_force=no version=3.4.6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a796c0f9-a4bf-bc5d-3953-9c725b53d10e@gmail.com>
+X-Spam-Status: No, score=-2.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,
+        RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------8jR4fWoX80DNo2lKyPnKXAwD
-Content-Type: multipart/mixed; boundary="------------XBM6waUV2aALaQe4340VR0vK";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Zack Weinberg <zack@owlfolio.org>, libc-alpha@sourceware.org,
- 'linux-man' <linux-man@vger.kernel.org>
-Cc: Ian Abbott <abbotti@mev.co.uk>
-Message-ID: <d65cff0c-7aba-8bb3-9a2f-3d07f20517b4@gmail.com>
-Subject: Re: [PATCH] scanf.3: Do not mention the ERANGE error
-References: <20221208123454.13132-1-abbotti@mev.co.uk>
- <5f490d45-b31e-279e-edcb-de4806b8ba54@gmail.com>
- <d1ecf57b-72cf-dbb4-3b4a-b19c7cdc93e9@mev.co.uk>
- <06f70d09-a258-7d6d-4a98-6a89ed761849@gmail.com>
- <6269173b-20cb-7b47-1ad9-6099a9baa052@owlfolio.org>
-In-Reply-To: <6269173b-20cb-7b47-1ad9-6099a9baa052@owlfolio.org>
+On Fri, Dec 09, 2022 at 09:37:35PM +0100, Alejandro Colomar wrote:
+> Hi Tycho,
+> 
+> On 11/28/22 21:58, Tycho Andersen wrote:
+> 
+> So, yes, I like your patch.  So, patch applied.
 
---------------XBM6waUV2aALaQe4340VR0vK
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Thanks!
 
-W0NDICs9IElhbl0NCg0KSGkgWmFjaywNCg0KT24gMTIvOS8yMiAyMjo0MSwgWmFjayBXZWlu
-YmVyZyB2aWEgTGliYy1hbHBoYSB3cm90ZToNCj4gT24gMjAyMi0xMi0wOSAyOjMzIFBNLCBB
-bGVqYW5kcm8gQ29sb21hciB2aWEgTGliYy1hbHBoYSB3cm90ZToNCj4+PiBUZWNobmljYWxs
-eSwgdGhlIGJlaGF2aW9yIGlzIHVuZGVmaW5lZCBpZiB0aGUgcmVzdWx0IG9mIHRoZSBjb252
-ZXJzaW9uIGNhbm5vdCANCj4+PiBiZSByZXByZXNlbnRlZCBpbiB0aGUgb2JqZWN0IGJlaW5n
-IGFzc2lnbmVkIHRvIGJ5IHNjYW5mLsKgIChJbiB0aGUgY2FzZSBvZiANCj4+PiBnbGliYywg
-dGhhdCBwcm9iYWJseSByZXN1bHRzIGluIGVpdGhlciB0aGUgaW50ZWdlciBvYmplY3QgYmVp
-bmcgc2V0IHRvIGEgDQo+Pj4gdHJ1bmNhdGVkIHZlcnNpb24gb2YgdGhlIGlucHV0IGludGVn
-ZXIsIG9yIHRoZSBpbnRlZ2VyIG9iamVjdCBiZWluZyBzZXQgdG8gYSANCj4+PiB0cnVuY2F0
-ZWQgdmVyc2lvbiBvZiBMT05HX01JTiBvciBMT05HX01BWCwgZGVwZW5kaW5nIG9uIHRoZSBh
-Y3R1YWwgbnVtYmVyLikNCj4+DQo+PiBIbW0sIFVCLsKgIFVuZGVyIFVCLCBhbnl0aGluZyBj
-YW4gY2hhbmdlLCBzbyBlcnJvciByZXBvcnRpbmcgaXMgYWxyZWFkeSANCj4+IHVucmVsaWFi
-bGUuwqAgSWYgRU9GK0VSQU5HRSBjYW4gX29ubHlfIGhhcHBlbiB1bmRlciBVQiwgSSdkIHJh
-dGhlciByZW1vdmUgdGhlIA0KPj4gcGFyYWdyYXBoLsKgIFBsZWFzZSBjb25maXJtLg0KPiAN
-Cj4gQlVHUw0KPiANCj4gVGhlIGBzY2FuZmAgZnVuY3Rpb25zIGhhdmUgdW5kZWZpbmVkIGJl
-aGF2aW9yIGlmIG51bWVyaWMgaW5wdXQgb3ZlcmZsb3dzLsKgIFRoaXMgDQo+IG1lYW5zIGl0
-IGlzICppbXBvc3NpYmxlKiB0byBkZXRlY3QgbWFsZm9ybWVkIGlucHV0IHJlbGlhYmx5IHVz
-aW5nIHRoZXNlIGZ1bmN0aW9ucy4NCj4gDQo+IE1hbnkgaW5wdXQgc3BlY2lmaWNhdGlvbnMg
-KGUuZy4gYCVzYCwgYCVbXlxuXWApIHJlYWQgYSBzZXF1ZW5jZSBvZiBjaGFyYWN0ZXJzIA0K
-PiBpbnRvIGEgZGVzdGluYXRpb24gYnVmZmVyIHdob3NlIHNpemUgaXMgdW5zcGVjaWZpZWQ7
-IGFueSB1c2Ugb2Ygc3VjaCANCj4gc3BlY2lmaWNhdGlvbnMgcmVuZGVycyBgc2NhbmZgIGV2
-ZXJ5IGJpdCBhcyBkYW5nZXJvdXMgYXMgYGdldHNgLg0KDQpUaGFua3MgZm9yIHJlbWluZGlu
-ZyB0aGF0ISAgU2luY2UgSSBkb24ndCB1c2UgdGhlc2UgZnVuY3Rpb25zLCBJIGRvbid0IHJl
-bWVtYmVyIA0KaG93IGJhZCB0aGV5IGFyZSA6KQ0KDQo+IA0KPiBCZXN0IHByYWN0aWNlIGlz
-IG5vdCB0byB1c2UgYW55IG9mIHRoZXNlIGZ1bmN0aW9ucyBhdCBhbGwuDQo+IA0KPiB6dyAo
-bm8sIHRoaXMgaXMgbm90IGEgam9rZSkNCg0KSSdtIGluY2xpbmVkIHRvIGFkZCB0aGF0IGlu
-IHRoYXQgbWFudWFsIHBhZ2UuICBJcyB0aGVyZSBhbnl0aGluZyB0aGF0IGNhbiBiZSANCnNh
-dmVkIGZyb20gdGhhdCBwYWdlLCBvciBzaG91bGQgd2UgYnVybiBpdCBhbGw/ICBUbyBiZSBt
-b3JlIHNwZWNpZmljOg0KDQotICBBcmUgdGhlcmUgYW55IGZ1bmN0aW9ucyBpbiB0aGF0IHBh
-Z2UgdGhhdCBhcmUgc3RpbGwgdXNlZnVsIGZvciBhbnkgY29ybmVyIA0KY2FzZXMsIG9yIGFy
-ZSB0aGV5IGFsbCB1c2VsZXNzPw0KLSAgQXJlIHRoZXJlIGFueSBjb252ZXJzaW9uIHNwZWNp
-ZmllcnMgdGhhdCBjYW4gYmUgdXNlZCBzYWZlbHk/DQoNCk9yIHRoZSBjb252ZXJzZSBxdWVz
-dGlvbnM6DQoNCi0gIFdoaWNoIGNvbnZlcnNpb24gc3BlY2lmaWVycyAob3IgbW9kaWZpZXJz
-KSBhcmUgaW1wb3NzaWJsZSB0byB1c2Ugc2FmZWx5IGFzIA0KZ2V0cygzKSBhbmQgc2hvdWxk
-IHRoZXJlZm9yZSBiZSBtYXJrZWQgYXMgZGVwcmVjYXRlZCBpbiB0aGUgbWFudWFsIHBhZ2Ug
-KGFuZCANCnByb2JhYmx5IHdhcm5lZCBpbiBHQ0MpPw0KLSAgV2hpY2ggZnVuY3Rpb25zIGlu
-IHRoYXQgcGFnZSBhcmUgaW1wb3NzaWJsZSB0byB1c2Ugc2FmZWx5IGFuZCBzaG91bGQgDQp0
-aGVyZWZvcmUgYmUgbWFya2VkIGFzIGRlcHJlY2F0ZWQ/DQoNCldvdWxkIHlvdSBwbGVhc2Ug
-bWFyayB0aGVtIGFzIFtbZGVwcmVjYXRlZF1dIGluIGdsaWJjIHRvbz8gIFRoaXMgaXMgbm90
-IA0KZXNzZW50aWFsIHRvIG1lLCBzaW5jZSBJIGNhbiBtYXJrIHRoZW0gYXMgZGVwcmVjYXRl
-ZCBpbiB0aGUgbWFudWFsIHBhZ2VzIHdpdGhvdXQgDQp0aGF0IGhhcHBlbmluZywgYnV0IGl0
-J2QgaGVscC4NCg0KQ2hlZXJzLA0KDQpBbGV4DQoNCj4gDQoNCi0tIA0KPGh0dHA6Ly93d3cu
-YWxlamFuZHJvLWNvbG9tYXIuZXMvPg0K
+> > 
+> > Test program for grins:
+> > 
+> > #include <stdio.h>
+> > #include <sys/socket.h>
+> > #include <netinet/ip.h>
+> > #include <arpa/inet.h>
+> 
+> BTW, I'm curious, how did you get the headers in the commit
+> message?  I always have a space before the # to avoid git
+> doing harmful stuff.
 
---------------XBM6waUV2aALaQe4340VR0vK--
+I have,
 
---------------8jR4fWoX80DNo2lKyPnKXAwD
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+[commit]
+    cleanup=scissors
 
------BEGIN PGP SIGNATURE-----
+in my ~/.gitconfig, which makes it so that the #s are literals.
+According to the man page you can also set core.commentChar to
+something else if you like that instead.
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmOV/iMACgkQnowa+77/
-2zKkRw/+Ozc9DlWYoRU6PQUcH0Jbtxnl3bJb3dX7kR5GjEiPEPqvClfxSSSq06bF
-WNm6a303ysCrRW0ckljMWxBbbgK9y4hd7nMMoI924rCYXWpVOTDZBZ7Wecn4Bj7z
-An/pUqZoOkV9gorHtSZqOotM2GDarfAb8aQJTMA1aY5S333nMOBf/usa2qU59S9u
-+UB4R9sO4Wsa25BQXJw/DPEZ06wAWYacn/kzA4xe17JIen/9TBMtn03J4b1WziE2
-57pqEKzWDnpZiXWp939BwBRMMXqyURuJyPxViVKfemDtmcCf+ozjmu2SjXaOp+ho
-hc83eSuyJqA/q+Xq5UrF/3uNVRbm9UaawyzmSRE/JCsfEI7VhPj8jKysLIK34UPJ
-AeIQijfhShgFCFYikpr26SzI6R7u1uV+49Ixq6vJPh4wXVWpJlmIP1ZEtOwObjzN
-JyEgnJZbXOmHfwuSIfoN4+1FwMM5qaN2TvFgNtY39EsOVeQpcFEHbTIsNB09Fu2D
-iSNM+Xs9YnskU4R26V3R+bhB2isa5CMw2EAF8T4J0fxMcX3DOxCcSQFusj7EuYDB
-FMLtrCQzEDgmhoGY247K8crFj4PVZwKDd51lzwIRf6TArXZeVk8/a+gXOqkuaJP7
-DDX0oNNh6Mbx2AV5jRxfmoeoYUVtRExnjLrreBJ6+nkwQhBgn6Q=
-=4/je
------END PGP SIGNATURE-----
+> P.S.:  I don't know if you could please review some patches
+> about which you may be more familiar than I am.  The are
+> somewhat related to this.  They are here:
+> 
+> <https://lore.kernel.org/linux-man/20221122153027.10943-1-henri.van.de.water@xs4all.nl/T/#t>
+> <https://lore.kernel.org/linux-man/2d4d8b7b-5890-cd9f-061d-6d259d8ed6ee@xs4all.nl/T/#t>
 
---------------8jR4fWoX80DNo2lKyPnKXAwD--
+Sure, I'm traveling now but will take a look this week.
+
+Tycho
