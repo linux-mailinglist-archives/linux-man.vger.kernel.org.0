@@ -2,115 +2,343 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 7E58364966D
-	for <lists+linux-man@lfdr.de>; Sun, 11 Dec 2022 22:10:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 37BA564968E
+	for <lists+linux-man@lfdr.de>; Sun, 11 Dec 2022 22:52:06 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229708AbiLKVKP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 11 Dec 2022 16:10:15 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41708 "EHLO
+        id S229656AbiLKVwE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 11 Dec 2022 16:52:04 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46608 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229461AbiLKVKP (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 11 Dec 2022 16:10:15 -0500
-Received: from mail.moria.de (in.ti-gw.moria.de [217.197.85.202])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8C3D7B850
-        for <linux-man@vger.kernel.org>; Sun, 11 Dec 2022 13:10:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=moria.de;
-         s=20221124; h=From:Message-Id:References:In-Reply-To:Cc:Subject:To:Date:
-        Sender:Reply-To:MIME-Version:Content-Type:Content-Transfer-Encoding:
-        Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-        Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-        List-Subscribe:List-Post:List-Owner:List-Archive;
-        bh=A1lvkOMLwVf2m8PYgZrZLEFMiKqBGpkw9SXtNV5pqLg=; b=E8eOnHMGu4pnzTDaeNzlKvvO3E
-        0RGVPEN7Lw/0jtauC6cDdt90WFgpBdhPJL/GujcHX/xYz4N/gdoFi95kvSrgPLDKrVe1E0xWDUVJD
-        yme2sZSuBVLDCJ5YR6eP6lhuMLf4wuxu1S/soL93WQND1bT5YbgR5Z+SZAF37Uv4nWvvHALsty1ai
-        R7Uoo7dRkMzWr9d6scwRP8mhypGNWaDfQfhaFEYnhsTpvBVMvPfx9hVljsoDsWYe6tXfktfwHoGBS
-        AOlBPJFa8VNbN7EHhdaAPv26KvZX8NFglw8G8TyBmmCPrpmJ79xDV7T4FM5DDhvg6qIvvzEs/joNs
-        f3wum42A==;
-Received: from palantir.moria.de ([2001:67c:1407:e1::80]:43544 helo=palantir)
-        by mail.moria.de with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256) (Exim 4.94 #2)
-        id 1p4TaL-0008Bv-9b; Sun, 11 Dec 2022 22:10:09 +0100
-Received: from michael by palantir with local (ID michael) (Exim 4.94 #2)
-        id 1p4TaF-0002j0-7s; Sun, 11 Dec 2022 22:10:03 +0100
-Date:   Sun, 11 Dec 2022 22:10:03 +0100
+        with ESMTP id S229475AbiLKVwD (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 11 Dec 2022 16:52:03 -0500
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com [IPv6:2a00:1450:4864:20::534])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A4A84A1A2
+        for <linux-man@vger.kernel.org>; Sun, 11 Dec 2022 13:51:59 -0800 (PST)
+Received: by mail-ed1-x534.google.com with SMTP id f7so10450752edc.6
+        for <linux-man@vger.kernel.org>; Sun, 11 Dec 2022 13:51:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20210112;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=tAsBOke2BpP0AUx1Uo31pzqkvBQIOc+n/cFTJnRRyuQ=;
+        b=Dv5yXSKeLNUyyGUFkrJkLTzYz94eTXhK+5oqRZKkpfmb7YaN8SuhThCSlF3uXvLnVc
+         SOSfixiGs+btbhddbGbbsjSDuufY6X1bDP6/3b3P69hp6+uDClYilaZgovM+wbjhYJMJ
+         fXhbmRe4IAMFJy+kRX6DTHF5pAubQLoK9Hrv2Ap9qmE+dyr2RzBRqRl0t4HxDz6patf7
+         17rLUoFVjSBz7K4dbwNjhM7yRW12wGG9hqtmqrvGkSvkV/FwZsN6+JaHjkiTxduNiL24
+         CvE9BTFwDFV5WwJ8CgAG5GaGCabjL+WfmhCyrO2bgerOOc70bQHmBgqQKTp8pVDpi8t6
+         vsQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=tAsBOke2BpP0AUx1Uo31pzqkvBQIOc+n/cFTJnRRyuQ=;
+        b=fO3Unfo8tDb7bPz4oJBW6xtdYNxmDyVYXoQDKlWUMbP2SF/ryn90jSbKXJRsDpkfLP
+         2lpToTh8ZdiJznpCjaJhUahJeaNBExfemnTdOmfYiXsNBE1E3MFSgyfx1AIsZkzabBjo
+         5RghiQI7Fezp9DvIWW6BObVYL1yHoobGQb2iZj3MouC6gPLPt8Nfk0038SuRzvXM9mdg
+         N/e5JYJiXTZRV1fvizfvyFwt3bDyljwNA5WM/ZK23PO3JqkZJ29P9EPuVkh6O1YL+nQN
+         9NwbgorNGmrXdQdfE6emjOLyCnESfZjmhN3oNPqKLI9mbWjju5QOHoKDVf610ZDoJHlb
+         3gIA==
+X-Gm-Message-State: ANoB5pkZRLKnFkchi29nElxmuDocjmUSqrMBqecfaKoD6n7LdhRhYLZT
+        FcNG5cYHhc22I2T8MsBuuz8/qrttAjh+2/1XCR44m+me/K9he1oe
+X-Google-Smtp-Source: AA0mqf5yYWPfginE8ZXp76TtLxpZmPM/eTxW9uT+yBWXgTPTu9F1TwnKb7sgg7MwsT1SVXtrYK9VMkejB5BLWeThNfE=
+X-Received: by 2002:aa7:cd8d:0:b0:463:19ca:a573 with SMTP id
+ x13-20020aa7cd8d000000b0046319caa573mr84471638edv.31.1670795517958; Sun, 11
+ Dec 2022 13:51:57 -0800 (PST)
+MIME-Version: 1.0
+References: <20221021223300.3675201-1-zokeefe@google.com> <20221021223300.3675201-5-zokeefe@google.com>
+ <374b1dcd-6a2c-a452-9c1b-9f5945df493b@gmail.com>
+In-Reply-To: <374b1dcd-6a2c-a452-9c1b-9f5945df493b@gmail.com>
+From:   "Zach O'Keefe" <zokeefe@google.com>
+Date:   Sun, 11 Dec 2022 13:51:21 -0800
+Message-ID: <CAAa6QmQU5T9E1kCxE3MpU6ybp0vR6kftwJiw68+5X14PoD-a5A@mail.gmail.com>
+Subject: Re: [PATCH man-pages v3 4/4] madvise.2: add documentation for MADV_COLLAPSE
 To:     Alejandro Colomar <alx.manpages@gmail.com>
-Subject: Re: Ping^1: Chapters of the manual (was: Bug#1018737:
- /usr/bin/rst2man: rst2man: .TH 5th field shouldn't be empty)
-Cc:     Colin Watson <cjwatson@debian.org>,
-        Ingo Schwarze <schwarze@usta.de>,
-        "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>, groff@gnu.org,
-        Andries Brouwer <Andries.Brouwer@cwi.nl>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        Douglas McIlroy <douglas.mcilroy@dartmouth.edu>,
-        "Andries E. Brouwer" <aeb@cwi.nl>
-In-Reply-To: <59fb70b0-f4b7-d257-117e-767135fa39c3@gmail.com>
-References: <20220906191320.447t5awx3rcb5d5b@illithid>
- <a7b8c6b3-a8e8-6ab7-6cf4-118446849a9c@gmail.com>
- <dca0e251-7481-7f1e-4077-0ddee070a357@gmail.com>
- <20220906204245.hzhq2s7yha6zzgrh@illithid>
- <30e80fe0-f0ce-d6cd-ee40-28692e5a5f82@gmail.com>
- <5c1e8620-e4ff-c79a-1d4e-11f797276726@gmail.com>
- <20221116234049.GA1229865@if>
- <f306a83a-306d-e3d0-5d25-bf07da3da59f@gmail.com>
- <c23b1a4f-1269-55a6-53ac-abbd2cff5786@gmail.com>
- <b13137bb-8eb9-dc69-da3b-191eda8e5642@gmail.com> <E1p4Rdx-0002PO-Kl@moria.de>
- <59fb70b0-f4b7-d257-117e-767135fa39c3@gmail.com>
-User-Agent: mail v14.9.24
-Message-Id: <E1p4TaF-0002j0-7s@moria.de>
-From:   Michael Haardt <michael@moria.de>
-X-Debug: DKIM none moria.de 
-X-Spam-Status: No, score=-1.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FORGED_SPF_HELO,SPF_HELO_PASS,
-        SPF_NONE autolearn=no autolearn_force=no version=3.4.6
+Cc:     Yang Shi <shy828301@gmail.com>, linux-mm@kvack.org,
+        linux-man@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: No, score=-17.6 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+        ENV_AND_HDR_SPF_MATCH,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+        USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-> Admittedly, it's hard to defend my proposal as _necessary_.  Especially after 
-> the world has lived for decades with the ambiguity of having chapters as 
-> sections and sections also as... sections.
+On Sun, Dec 11, 2022 at 9:59 AM Alejandro Colomar
+<alx.manpages@gmail.com> wrote:
+>
+> Hi Zach,
 
-Well, one are the volume sections and the other manpage sections. :)
+Hey Alex,
 
-Originally, Unix documentation was split into volumes, each taking many
-heavy books or binders and a site typically had a big shelf or closet
-holding those. In addition there was a documentation overview and a giant
-permuted index.
+> On 10/22/22 00:33, Zach OKeefe wrote:
+> > From: Zach O'Keefe <zokeefe@google.com>
+> >
+> > Linux 6.1 introduced MADV_COLLAPSE in upstream commit 7d8faaf15545
+> > ("mm/madvise: introduce MADV_COLLAPSE sync hugepage collapse") and
+> > upstream commit 34488399fa08 ("mm/madvise: add file and shmem support t=
+o
+> > MADV_COLLAPSE").  Update the man-pages for madvise(2) and
+> > process_madvise(2).
+> >
+> > Link: https://lore.kernel.org/linux-mm/20220922224046.1143204-1-zokeefe=
+@google.com/
+> > Link: https://lore.kernel.org/linux-mm/20220706235936.2197195-1-zokeefe=
+@google.com/
+> > Signed-off-by: Zach O'Keefe <zokeefe@google.com>
+>
+> Please see a few comments below.
+>
 
-One volume was the reference documentation, that's what we know as
-manual pages, and those were also available online. There were no
-chapters really. After yacc(1) came intro(2) and then all pages from (2)
-in alphabetical order. No separation page or title and the intro pages
-looked like all others. Hence .TH, so you could quickly browse through
-the pages up to the top line of the page you were looking for. The
-binders were labelled with volume and section on their back to speed up
-finding something.
+Thanks for the mail. So, this patch was taken as commit b106cd5bf
+("madvise.2: add documentation for MADV_COLLAPSE"). Some of your
+comments below were
+applied (I think, by you) as fixes pre-commit. However, there are some
+new comments (or ones
+that address the same lines, but in different ways). Is this mail to
+log ~ what changes were done,
+or is there anything actionable here on my side?
 
-The Oxford dictionary defines chapter as "a separate section of a book,
-usually with a number or title". Given the lack of separation I see why
-they were just called sections, not chapters, and why the term chapter
-was removed where it was used in the old days. No ambiguity or regression
-there.
+Best,
+Zach
 
-The other volumes were a collection of papers on various subsystems and
-topics, often written using ms(7). Each Unix distribution extended them
-to their desire. Those were not online, because they consumed more space
-than the reference manual volume, so they are much less known.
-
-> IMO, there's undoubtedly a reason to fix the regression, and reform the old 
-> term.  However, the reason is not very strong, so it all depends on reaching an 
-> agreement with all of man-db, mandoc(1), and groff(1).  That would probably have 
-> the side-effect that we also have agreement with OpenBSD.  That would be a large 
-> subset of the relevant parties.
-
-If those agree, I won't object. That's not an area where I argue about
-semantics of single words.
-
-In addition, you could separate the sections into true chapters by making
-sure the intro pages can be recognized as introduction, and provide an
-chapter overview that links to all intro pages. Back then new users got
-to know them from the printed versions, but that is decades ago.
-
-Michael
+Thanks for this.
+> Cheers,
+>
+> Alex
+>
+> > ---
+> >   man2/madvise.2         | 90 +++++++++++++++++++++++++++++++++++++++++=
+-
+> >   man2/process_madvise.2 | 10 +++++
+> >   2 files changed, 98 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/man2/madvise.2 b/man2/madvise.2
+> > index df3413cc8..b03fc731d 100644
+> > --- a/man2/madvise.2
+> > +++ b/man2/madvise.2
+> > @@ -385,9 +385,10 @@ set (see
+> >   .BR prctl (2) ).
+> >   .IP
+> >   The
+> > -.B MADV_HUGEPAGE
+> > +.BR MADV_HUGEPAGE ,
+> > +.BR MADV_NOHUGEPAGE ,
+> >   and
+> > -.B MADV_NOHUGEPAGE
+> > +.B MADV_COLLAPSE
+> >   operations are available only if the kernel was configured with
+> >   .B CONFIG_TRANSPARENT_HUGEPAGE
+> >   and file/shmem memory is only supported if the kernel was configured =
+with
+> > @@ -400,6 +401,81 @@ and
+> >   .I length
+> >   will not be backed by transparent hugepages.
+> >   .TP
+> > +.BR MADV_COLLAPSE " (since Linux 6.1)"
+> > +.\" commit 7d8faaf155454f8798ec56404faca29a82689c77
+> > +.\" commit 34488399fa08faaf664743fa54b271eb6f9e1321
+> > +Perform a best-effort synchronous collapse of the native pages mapped =
+by the
+>
+> Please use semantic line breaks.  In this case, I'd break after "pages".
+>
+> man-pages(7):
+>     Use semantic newlines
+>         In  the source of a manual page, new sentences should be started =
+on new
+>         lines, long sentences should be split into lines at clause breaks=
+ (com=E2=80=90
+>         mas, semicolons, colons, and so on), and long clauses should  be =
+ split
+>         at  phrase  boundaries.   This convention, sometimes known as "se=
+mantic
+>         newlines", makes it easier to see the effect of  patches,  which =
+ often
+>         operate at the level of individual sentences, clauses, or phrases=
+.
+>
+> > +memory range into Transparent Huge Pages (THPs).
+> > +.B MADV_COLLAPSE
+> > +operates on the current state of memory of the calling process and mak=
+es no
+>
+> Here I'd break after "and".
+>
+> > +persistent changes or guarantees on how pages will be mapped,
+> > +constructed,
+> > +or faulted in the future.
+> > +.IP
+> > +.B MADV_COLLAPSE
+> > +supports private anonymous pages (see
+> > +.BR mmap (2)),
+> > +shmem pages,
+> > +and file-backed pages.
+> > +See
+> > +.B MADV_HUGEPAGE
+> > +for general information on memory requirements for THP.
+> > +If the range provided spans multiple VMAs,
+> > +the semantics of the collapse over each VMA is independent from the ot=
+hers.
+> > +If collapse of a given huge page-aligned/sized region fails,
+> > +the operation may continue to attempt collapsing the remainder of the
+>
+> Break after "collapsing".
+>
+> > +specified memory.
+> > +.B MADV_COLLAPSE
+> > +will automatically clamp the provided range to be hugepage-aligned.
+> > +.IP
+> > +All non-resident pages covered by the range will first be
+>
+> Break after "range".
+>
+> > +swapped/faulted-in,
+> > +before being copied onto a freshly allocated hugepage.
+> > +If the native pages compose the same PTE-mapped hugepage,
+> > +and are suitably aligned,
+> > +allocation of a new hugepage may be elided and collapse may happen
+>
+> Break before or after "and".
+>
+> > +in-place.
+> > +Unmapped pages will have their data directly initialized to 0 in the n=
+ew
+>
+> Break after "0".
+>
+> > +hugepage.
+> > +However,
+> > +for every eligible hugepage-aligned/sized region to be collapsed,
+> > +at least one page must currently be backed by physical memory.
+> > +.IP
+> > +.BR MADV_COLLAPSE
+>
+> s/BR/B/
+>
+> > +is independent of any sysfs
+> > +(see
+> > +.BR sysfs (5))
+> > +setting under
+> > +.IR /sys/kernel/mm/transparent_hugepage ,
+> > +both in terms of determining THP eligibility,
+> > +and allocation semantics.
+> > +See Linux kernel source file
+> > +.I Documentation/admin\-guide/mm/transhuge.rst
+> > +for more information.
+> > +.BR MADV_COLLAPSE
+>
+> s/BR/B/
+>
+> > +also ignores
+> > +.B huge=3D
+> > +tmpfs mount when operating on tmpfs files.
+> > +Allocation for the new hugepage may enter direct reclaim and/or compac=
+tion,
+> > +regardless of VMA flags
+> > +(though
+> > +.BR VM_NOHUGEPAGE
+>
+> s/BR/B/
+>
+> > +is still respected).
+> > +.IP
+> > +When the system has multiple NUMA nodes,
+> > +the hugepage will be allocated from the node providing the most native
+>
+> Break after "from".
+>
+> > +pages.
+> > +.IP
+> > +If all hugepage-sized/aligned regions covered by the provided range we=
+re
+>
+> Prefer English rather than "/".
+>
+> > +either successfully collapsed,
+> > +or were already PMD-mapped THPs,
+> > +this operation will be deemed successful.
+> > +Note that this doesn=E2=80=99t guarantee anything about other possible=
+ mappings of
+>
+> Break after "about".
+>
+> > +the memory.
+> > +Also note that many failures might have occurred since the operation m=
+ay
+> > +continue to collapse in the event collapse of a single hugepage-sized/=
+aligned
+>
+> Add some omitted "that" or something that will help readability to
+> non-native-English readers.
+>
+> And break at a better place.
+>
+> > +region fails.
+> > +.TP
+> >   .BR MADV_DONTDUMP " (since Linux 3.4)"
+> >   .\" commit 909af768e88867016f427264ae39d27a57b6a8ed
+> >   .\" commit accb61fe7bb0f5c2a4102239e4981650f9048519
+> > @@ -619,6 +695,11 @@ A kernel resource was temporarily unavailable.
+> >   .B EBADF
+> >   The map exists, but the area maps something that isn't a file.
+> >   .TP
+> > +.B EBUSY
+> > +(for
+> > +.BR MADV_COLLAPSE )
+> > +Could not charge hugepage to cgroup: cgroup limit exceeded.
+> > +.TP
+> >   .B EFAULT
+> >   .I advice
+> >   is
+> > @@ -716,6 +797,11 @@ maximum resident set size.
+> >   Not enough memory: paging in failed.
+> >   .TP
+> >   .B ENOMEM
+> > +(for
+> > +.BR MADV_COLLAPSE )
+> > +Not enough memory: could not allocate hugepage.
+> > +.TP
+> > +.B ENOMEM
+> >   Addresses in the specified range are not currently
+> >   mapped, or are outside the address space of the process.
+> >   .TP
+> > diff --git a/man2/process_madvise.2 b/man2/process_madvise.2
+> > index 44d3b94e8..8b0ddccdd 100644
+> > --- a/man2/process_madvise.2
+> > +++ b/man2/process_madvise.2
+> > @@ -73,6 +73,10 @@ argument is one of the following values:
+> >   See
+> >   .BR madvise (2).
+> >   .TP
+> > +.B MADV_COLLAPSE
+> > +See
+> > +.BR madvise (2).
+> > +.TP
+> >   .B MADV_PAGEOUT
+> >   See
+> >   .BR madvise (2).
+> > @@ -173,6 +177,12 @@ The caller does not have permission to access the =
+address space of the process
+> >   .TP
+> >   .B ESRCH
+> >   The target process does not exist (i.e., it has terminated and been w=
+aited on).
+> > +.PP
+> > +See
+> > +.BR madvise (2)
+> > +for
+> > +.IR advice -specific
+> > +errors.
+> >   .SH VERSIONS
+> >   This system call first appeared in Linux 5.10.
+> >   .\" commit ecb8ac8b1f146915aa6b96449b66dd48984caacc
+>
+> --
+> <http://www.alejandro-colomar.es/>
