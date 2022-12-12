@@ -2,142 +2,286 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id BCF08649BDA
-	for <lists+linux-man@lfdr.de>; Mon, 12 Dec 2022 11:17:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 760D4649BF9
+	for <lists+linux-man@lfdr.de>; Mon, 12 Dec 2022 11:21:52 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231683AbiLLKRQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 12 Dec 2022 05:17:16 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47352 "EHLO
+        id S229697AbiLLKVv (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 12 Dec 2022 05:21:51 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49858 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231875AbiLLKRH (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 12 Dec 2022 05:17:07 -0500
-X-Greylist: delayed 589 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Mon, 12 Dec 2022 02:17:05 PST
-Received: from smtp107.iad3b.emailsrvr.com (smtp107.iad3b.emailsrvr.com [146.20.161.107])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9A1432C8
-        for <linux-man@vger.kernel.org>; Mon, 12 Dec 2022 02:17:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mev.co.uk;
-        s=20221208-6x11dpa4; t=1670839636;
-        bh=gQdFebfYZcP7p9JUFuvn+6IBK4Wo2WtyJm3YpRwE/UE=;
-        h=Date:Subject:To:From:From;
-        b=D2oBZELh9099eBz8mD0MX9a8ci10qRkmAPBJD/tw9JCdre+VduWaCPTfN9A6mwTQt
-         js+3XAfrhltpdwEzZbF7ubCX3ICI446GE7WnUIKcxqJps3x1C/EUrT4P1p3FjHoa+e
-         rF1JFUutrxndzKKfo+/V3Vfdc1Rk1jpYf+YxW5ZY=
-X-Auth-ID: abbotti@mev.co.uk
-Received: by smtp14.relay.iad3b.emailsrvr.com (Authenticated sender: abbotti-AT-mev.co.uk) with ESMTPSA id 9DCA6E00F9;
-        Mon, 12 Dec 2022 05:07:15 -0500 (EST)
-Message-ID: <5af4f708-337f-fddf-9a2d-e0e4602d3a72@mev.co.uk>
-Date:   Mon, 12 Dec 2022 10:07:13 +0000
+        with ESMTP id S229452AbiLLKVt (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 12 Dec 2022 05:21:49 -0500
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com [IPv6:2a00:1450:4864:20::32e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DC1772FC
+        for <linux-man@vger.kernel.org>; Mon, 12 Dec 2022 02:21:47 -0800 (PST)
+Received: by mail-wm1-x32e.google.com with SMTP id f13-20020a1cc90d000000b003d08c4cf679so4671289wmb.5
+        for <linux-man@vger.kernel.org>; Mon, 12 Dec 2022 02:21:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=CtFRjHEI22DkXmuKMQ6C5nsX9RNL1fYcFcv2Ilx3nLA=;
+        b=c25YFksnf96I+SzNhoevlhjLinLCSOpp89eftQNbssLHbPUaTlm4UIIZ+aESE7jnnX
+         03MxCOJcFamAExN9M8L0hGeePCbcpq7XJuCeohtyvxhJR+ZQMEm0v2aZq463tRBH1Mdj
+         HXRGJZDNfsoI42CUmCr1ueoJmZk9oTp5z78uRlHwL8wdsoqVjYpmafUl61QNPYU1HAt8
+         2bRTwgeU1CYAIs63UI2Or8059Fzt9k+1ntPqZuZoYPo8B2MNRVLacl7/z7XAWoaPoP9A
+         fjhlhuh7SfMcSC/o0c74MPpjyqS6HVrQGcxgdZADyViqHe0DAlsAI2NsiGD7HIgDI6Im
+         5nqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=CtFRjHEI22DkXmuKMQ6C5nsX9RNL1fYcFcv2Ilx3nLA=;
+        b=wdZzFriZ5zaGwiHmvfVoIb1xkfuKsGuLFY3pdKaetNwxGa8ccU4gwKJXli470SeUCN
+         eo3VClZ4R7hUEO6Swf1JbQL0++GY01i3+V0RkJkQZzVmp3YZhjJi8eN5DysK3slGe+t3
+         t4fF5FeLH/q3WXzmyJJSuavHTwYgOkbtSAluBdbPBuphx/X0wK446wfedEcOyZqLlRTm
+         IF0FvvWmqOxs0tL+OjPX58jA3Ddxh0XkqY/a7sXE3TX9GQsqaUInGpV3mghtwxYo/Ok6
+         nl+T2TjbjQ0dUScjnPnLJs/b7SrNKJG06tVWKV02Y38tjGQqf8HphIC0Jya5ozbmOfFt
+         Ajtg==
+X-Gm-Message-State: ANoB5pm/VphRCO9qPsW+1bX3nV+19xc2jYUFvgxs4Oy105xfD5Rv31MP
+        iR/U/tz5wi4UZReMw4AfmtU=
+X-Google-Smtp-Source: AA0mqf4AYlKpIruyNnINRksrqrc6MUhb8XoRJJShZYJW/0xdCR72R6Orh4JjlqM5yw/OscOzYqRocw==
+X-Received: by 2002:a1c:4b16:0:b0:3cf:7197:e68a with SMTP id y22-20020a1c4b16000000b003cf7197e68amr12008052wma.18.1670840506227;
+        Mon, 12 Dec 2022 02:21:46 -0800 (PST)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id l6-20020a1c7906000000b003cf4eac8e80sm10323302wme.23.2022.12.12.02.21.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 12 Dec 2022 02:21:45 -0800 (PST)
+Message-ID: <a7a60a45-afb2-2fae-f6b0-a26db649c09c@gmail.com>
+Date:   Mon, 12 Dec 2022 11:21:29 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.0
+ Thunderbird/102.5.1
 Subject: Re: [PATCH] scanf.3: Do not mention the ERANGE error
-Content-Language: en-GB
-To:     Alejandro Colomar <alx.manpages@gmail.com>,
-        Alejandro Colomar <alx@kernel.org>
-Cc:     linux-man@vger.kernel.org,
-        GNU C Library <libc-alpha@sourceware.org>
+To:     Zack Weinberg <zack@owlfolio.org>
+Cc:     libc-alpha@sourceware.org, 'linux-man' <linux-man@vger.kernel.org>,
+        Ian Abbott <abbotti@mev.co.uk>
 References: <20221208123454.13132-1-abbotti@mev.co.uk>
  <5f490d45-b31e-279e-edcb-de4806b8ba54@gmail.com>
  <d1ecf57b-72cf-dbb4-3b4a-b19c7cdc93e9@mev.co.uk>
  <06f70d09-a258-7d6d-4a98-6a89ed761849@gmail.com>
-From:   Ian Abbott <abbotti@mev.co.uk>
-Organization: MEV Ltd.
-In-Reply-To: <06f70d09-a258-7d6d-4a98-6a89ed761849@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Classification-ID: 64c27f69-6426-427e-b097-a550a7c08a94-1-1
+ <6269173b-20cb-7b47-1ad9-6099a9baa052@owlfolio.org>
+ <d65cff0c-7aba-8bb3-9a2f-3d07f20517b4@gmail.com>
+ <ypikk02xv09c.fsf@owlfolio.org>
+Content-Language: en-US
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <ypikk02xv09c.fsf@owlfolio.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------svKP47LQs3A1ApQ9Qaf1ofVj"
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
-        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 09/12/2022 19:33, Alejandro Colomar wrote:
-> Hi Ian,
-> 
-> On 12/9/22 20:28, Ian Abbott wrote:
->> On 09/12/2022 18:59, Alejandro Colomar wrote:
->>> On 12/8/22 13:34, Ian Abbott wrote:
->>>> The `scanf()` function does not intentionally set `errno` to `ERANGE`.
->>>> That is just a side effect of the code that it uses to perform
->>>> conversions.  It also does not work as reliably as indicated in the
->>>> 'man' page when the target integer type is narrower than `long`.
->>>> Typically (at least in glibc) for target integer types narrower than
->>>> `long`, the number has to exceed the range of `long` (for signed
->>>> conversions) or `unsigned long` (for unsigned conversions) for `errno`
->>>> to be set to `ERANGE`.
->>>>
->>>> Documenting `ERANGE` in the ERRORS section kind of implies that
->>>> `scanf()` should return `EOF` when an integer overflow is encountered,
->>>> which it doesn't (and doing so would violate the C standard).
->>>>
->>>> Just remove any mention of the `ERANGE` error to avoid confusion.
->>>>
->>>> Fixes: 646af540e467 ("Add an ERRORS section documenting at least 
->>>> some of the errors that may occur for scanf().")
->>>> Cc: Michael Kerrisk <mtk.manpages@gmail.com>
->>>> Signed-off-by: Ian Abbott <abbotti@mev.co.uk>
->>>
->>> I see.  How about saying something like "it may also fail for any of 
->>> any errors that functions used to perform the conversions may fail"?
->>
->> It depends what you mean by "fail".  These errors do not make scanf 
->> return EOF. 
-> 
-> Just to clarify.  Does scanf(3) _never_ fail (EOF) due to ERANGE?  Or is 
-> it that ERANGE sometimes makes it fail, sometimes not?
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------svKP47LQs3A1ApQ9Qaf1ofVj
+Content-Type: multipart/mixed; boundary="------------ZQDfiwD0BQhWpV7K0njXKGEN";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: Zack Weinberg <zack@owlfolio.org>
+Cc: libc-alpha@sourceware.org, 'linux-man' <linux-man@vger.kernel.org>,
+ Ian Abbott <abbotti@mev.co.uk>
+Message-ID: <a7a60a45-afb2-2fae-f6b0-a26db649c09c@gmail.com>
+Subject: Re: [PATCH] scanf.3: Do not mention the ERANGE error
+References: <20221208123454.13132-1-abbotti@mev.co.uk>
+ <5f490d45-b31e-279e-edcb-de4806b8ba54@gmail.com>
+ <d1ecf57b-72cf-dbb4-3b4a-b19c7cdc93e9@mev.co.uk>
+ <06f70d09-a258-7d6d-4a98-6a89ed761849@gmail.com>
+ <6269173b-20cb-7b47-1ad9-6099a9baa052@owlfolio.org>
+ <d65cff0c-7aba-8bb3-9a2f-3d07f20517b4@gmail.com>
+ <ypikk02xv09c.fsf@owlfolio.org>
+In-Reply-To: <ypikk02xv09c.fsf@owlfolio.org>
 
-The glibc implementation certainly doesn't return EOF when ERANGE is 
-detected.  __vfscanf_internal() in stdio-common/vfscan-internal.c does 
-not contain any code to deal with ERANGE - it's just a side-effect of 
-the calls to __strtol_internal(), __strtoul_internal(), 
-__strtoll_internal(), or __strtoull_internal().
+--------------ZQDfiwD0BQhWpV7K0njXKGEN
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-> If it's the former, I agree with your patch.  When a function hasn't 
-> reported failure, errno is unspecified.
-> 
-> If it's the latter, I'd write something about it.
+SGkgWmFjayENCg0KT24gMTIvMTIvMjIgMDM6MTEsIFphY2sgV2VpbmJlcmcgd3JvdGU6DQo+
+IEFsZWphbmRybyBDb2xvbWFyIDxhbHgubWFucGFnZXNAZ21haWwuY29tPiB3cml0ZXM6DQo+
+PiBPbiAxMi85LzIyIDIyOjQxLCBaYWNrIFdlaW5iZXJnIHZpYSBMaWJjLWFscGhhIHdyb3Rl
+Og0KPj4+IFRoZSBgc2NhbmZgIGZ1bmN0aW9ucyBoYXZlIHVuZGVmaW5lZCBiZWhhdmlvciBp
+ZiBudW1lcmljIGlucHV0DQo+Pj4gb3ZlcmZsb3dzLsKgIFRoaXMgbWVhbnMgaXQgaXMgKmlt
+cG9zc2libGUqIHRvIGRldGVjdCBtYWxmb3JtZWQgaW5wdXQNCj4+PiByZWxpYWJseSB1c2lu
+ZyB0aGVzZSBmdW5jdGlvbnMuDQo+Pj4gTWFueSBpbnB1dCBzcGVjaWZpY2F0aW9ucyAoZS5n
+LiBgJXNgLCBgJVteXG5dYCkgcmVhZCBhIHNlcXVlbmNlIG9mDQo+Pj4gY2hhcmFjdGVycyBp
+bnRvIGEgZGVzdGluYXRpb24gYnVmZmVyIHdob3NlIHNpemUgaXMgdW5zcGVjaWZpZWQ7IGFu
+eQ0KPj4+IHVzZSBvZiBzdWNoIHNwZWNpZmljYXRpb25zIHJlbmRlcnMgYHNjYW5mYCBldmVy
+eSBiaXQgYXMgZGFuZ2Vyb3VzIGFzDQo+Pj4gYGdldHNgLg0KPiDigKYNCj4+PiBCZXN0IHBy
+YWN0aWNlIGlzIG5vdCB0byB1c2UgYW55IG9mIHRoZXNlIGZ1bmN0aW9ucyBhdCBhbGwuDQo+
+IOKApg0KPj4gSSdtIGluY2xpbmVkIHRvIGFkZCB0aGF0IGluIHRoYXQgbWFudWFsIHBhZ2Uu
+ICBJcyB0aGVyZSBhbnl0aGluZyB0aGF0DQo+PiBjYW4gYmUgc2F2ZWQgZnJvbSB0aGF0IHBh
+Z2UsIG9yIHNob3VsZCB3ZSBidXJuIGl0IGFsbD8gIFRvIGJlIG1vcmUNCj4+IHNwZWNpZmlj
+Og0KPj4NCj4+IC0gIEFyZSB0aGVyZSBhbnkgZnVuY3Rpb25zIGluIHRoYXQgcGFnZSB0aGF0
+IGFyZSBzdGlsbCB1c2VmdWwgZm9yIGFueQ0KPj4gICAgIGNvcm5lciBjYXNlcywgb3IgYXJl
+IHRoZXkgYWxsIHVzZWxlc3M/DQo+PiAtICBBcmUgdGhlcmUgYW55IGNvbnZlcnNpb24gc3Bl
+Y2lmaWVycyB0aGF0IGNhbiBiZSB1c2VkIHNhZmVseT8NCj4gDQo+IEhtbSwgdGhpcyB0dXJu
+cyBvdXQgdG8gYmUgYSBiaXQgb2YgYSByYWJiaXQgaG9sZS4NCj4gDQo+IFRoZXJlIGFyZSB0
+d28gbWFqb3IgZGVzaWduLWxldmVsIHByb2JsZW1zIHdpdGggdGhlIHNjYW5mIGZhbWlseS4N
+Cj4gVGhlIG1vcmUgaW1wb3J0YW50IG9uZSBpcyB0aGF0IHN0cmluZyBpbnB1dCBjb252ZXJz
+aW9ucyAoJXMsICVb4oCmXSkNCj4gd2lsbCByZWFkIGFuIHVubGltaXRlZCBudW1iZXIgb2Yg
+Y2hhcmFjdGVycyBieSBkZWZhdWx0LCBvYmxpdmlvdXMgdG8NCj4gdGhlIHNpemUgb2YgdGhl
+IGRlc3RpbmF0aW9uIGJ1ZmZlciDigJQgZXhhY3RseSB0aGUgc2FtZSBkZXNpZ24gZmxhdyBh
+cw0KPiDigJhnZXRz4oCZLiAgVGhleSBkbyBzdG9wIHNjYW5uaW5nIGF0IF9hbnlfIHdoaXRl
+c3BhY2UgKG5vdCBqdXN0IFxuKSBzbywNCj4gaWYgeW914oCZcmUgdHJ5aW5nIHRvIGNyYWZ0
+IGV4cGxvaXQgY29kZSwgdGhlcmUgYXJlIG1vcmUgYnl0ZSB2YWx1ZXMgdGhhdA0KPiBtdXN0
+IGJlIGF2b2lkZWQsIGJ1dCB0aGlzIGlzIG9ubHkgYSBtaW5vciBvYnN0YWNsZS4gIFRoZXkg
+Y2FuLCBob3dldmVyLA0KPiBiZSB1c2VkIHNhZmVseSwgZWl0aGVyIGJ5IHN1cHBseWluZyBh
+IGZpZWxkIHdpZHRoIHRoYXQgYWNjdXJhdGVseQ0KPiByZWZsZWN0cyB0aGUgc2l6ZSBvZiB0
+aGUgZGVzdGluYXRpb24gYnVmZmVyLCBvciBieSB1c2luZyB0aGUg4oCYbeKAmQ0KPiBtb2Rp
+ZmllciAoYSBQT1NJWCBleHRlbnNpb24pLCB3aGljaCBkaXJlY3RzIHNjYW5mIHRvIGFsbG9j
+YXRlIHRoZQ0KPiByaWdodCBhbW91bnQgb2Ygc3BhY2UgZm9yIHRoZSBzdHJpbmcgd2l0aCBt
+YWxsb2MuDQoNCk9rYXksIHNvICVzIGFuZCAkWyBhcmUgYXQgbGVhc3QgdXNhYmxlLiAgVXNl
+ZnVsPyAgSSBkb24ndCBrbm93LiAgUHJvYmFibHkgDQpmZ2V0cygzKSBhbmQgdGhlbiBlaXRo
+ZXIgPHN0cmluZy5oPiBvciA8cmVnZXguaD4gZnVuY3Rpb25zIG9yIHRha2luZyANCnVudGVy
+bWluYXRlZCBzdHJpbmdzIChwb2ludGVyIHBsdXMgbGVuZ3RoKSBpcyBhIG11Y2ggYmV0dGVy
+IGlkZWEuDQoNCkJ1dCBub3QgZW5vdWdoIHRvIGRlcHJlY2F0ZSB0aGUgc3BlY2lmaWVyczsg
+cHJvYmFibHkgYmV0dGVyIHRvIHdhcm4gb24gR0NDLg0KDQo+IA0KPiAoRmllbGQgd2lkdGhz
+IGFyZSBhd2t3YXJkIHRvIHVzZSBiZWNhdXNlIHlvdSBoYXZlIHRvIHdyaXRlIHRoZW0gYXMN
+Cj4gZGVjaW1hbCBjb25zdGFudHMgX2luc2lkZSB0aGUgZm9ybWF0IHN0cmluZ18sIHdoaWNo
+IG1ha2VzIHRoZW0gbW9yZQ0KPiBsaWtlbHkgdG8gZ2V0IG91dCBvZiBzeW5jIHdpdGggdGhl
+IGFjdHVhbCBzaXplIG9mIHRoZSBidWZmZXIgdGhhbiwNCj4gc2F5LCB0aGUgYnVmZmVyLXNp
+emUgYXJndW1lbnQgdG8g4oCYZmdldHPigJksIGJ1dCB0aGlzIGlzIG5vdCBhIGZhdGFsDQo+
+IGZsYXcgaW4gYW5kIG9mIGl0c2VsZi4pDQoNClllYWg7IGl0J3MgYW4gYWxtb3N0IHVzZWxl
+c3MgZmVhdHVyZSwgYnV0IG5vdCBhIGZhdGFsIGZsYXcuICBBbnkgcHJvZ3JhbW1lciANCndv
+dWxkIHByb2JhYmx5IGludHVpdGl2ZWx5IGtub3cgdGhhdCBpdCdzIGJhZC4gIFNvLCBubyBh
+Y3Rpb24gaXMgcmVxdWlyZWQgaGVyZS4NCg0KPiANCj4gVGhlIG90aGVyIGRlc2lnbi1sZXZl
+bCBpc3N1ZSBhZmZlY3RzIGFsbCBvZiB0aGUgbnVtZXJpYyBjb252ZXJzaW9uczoNCj4gaWYg
+dGhlIHJlc3VsdCBvZiAoYWJzdHJhY3QsIGluZmluaXRlLXByZWNpc2lvbikgbnVtZXJpYyBp
+bnB1dCBjb252ZXJzaW9uDQo+IGRvZXMgbm90IGZpdCBpbiB0aGUgdmFyaWFibGUgc3VwcGxp
+ZWQgdG8gaG9sZCB0aGUgcmVzdWx0IG9mIHRoYXQgY29udmVyc2lvbiwNCj4gdGhlIGJlaGF2
+aW9yIGlzIHVuZGVmaW5lZC4gIFRoZSBtYW5wYWdlIHNheXMgdGhhdCB5b3UgZ2V0IGFuIEVS
+QU5HRSBlcnJvcg0KPiBpbiB0aGlzIGNhc2UsIGFuZCB0aGF0IG1heSBiZSB0aGUgYmVoYXZp
+b3IgX2dsaWJjXyBndWFyYW50ZWVzIChJIGRvbuKAmXQNCj4gYWN0dWFsbHkga25vdyBmb3Ig
+c3VyZSksIGJ1dCBpbiB0aGUgbW9kZXJuIGVyYSBvZiBjb21waWxlcnMgZHJhd2luZw0KPiBp
+bmZlcmVuY2VzIGZyb20gdW5kZWZpbmVkIGJlaGF2aW9yLCBhIGd1YXJhbnRlZSBieSBvbmUg
+QyBsaWJyYXJ5IGlzDQo+IG5vdCBnb29kIGVub3VnaC4NCg0KVGhpcywgdG8gbWUsIGlzIGVu
+b3VnaCB0byBtYXJrIHRoZW0gYXMgZGVwcmVjYXRlZCBpbiB0aGUgbWFudWFsIHBhZ2UuICBB
+bnl3YXksIA0KZGVwcmVjYXRpbmcgc29tZXRoaW5nIGlzIG5vdCByZW1vdmluZyBpdC4gIEl0
+J3MganVzdCBzYXlpbmcgImhleSwgeW91IHNob3VsZG4ndCANCmJlIHVzaW5nIHRoYXQ7IGl0
+J3MgYmFkLCBhbmQgZG9uJ3QgZXhwZWN0IHRoYXQgSVNPIEMgd2lsbCBrZWVwIGl0IGFyb3Vu
+ZCBuZXh0IA0KY2VudHVyeSIuDQoNClNvbWV0aGluZyB0aGF0IHJlc3VsdHMgaW4gdW5kZWZp
+bmVkIGJlaGF2aW9yIHdpdGhvdXQgY29udHJvbCBvZiB0aGUgcHJvZ3JhbW1lciANCmlzIGFz
+IGJhZCBhcyBnZXRzKDMpIChva2F5LCBub3QgYXMgYmFkOyBnZXRzKDMpIGp1c3Qgd2FzIGEg
+cmVkIGNhcnBldCBmb3IgDQphdHRhY2tzLCBidXQgZnVuZGFtZW50YWxseSwgeWVzKS4NCg0K
+U28sIEknbGwgYXBwbHkgdGhlIGRpZmYgc2hvd24gYXQgdGhlIGJvdHRvbSBvZiB0aGUgcGFn
+ZSBmb3IgdGhpcy4NCg0KPiANCj4gVGhhdCBjb3ZlcnMgZXZlcnl0aGluZyBleGNlcHQgJWMg
+YW5kICVuLCB3aGljaCBhcmUgc2FmZSBidXQgc29tZXdoYXQNCj4gcG9pbnRsZXNzIGluIGlz
+b2xhdGlvbi4NCj4gDQo+PiBPciB0aGUgY29udmVyc2UgcXVlc3Rpb25zOg0KPj4NCj4+IC0g
+IFdoaWNoIGNvbnZlcnNpb24gc3BlY2lmaWVycyAob3IgbW9kaWZpZXJzKSBhcmUgaW1wb3Nz
+aWJsZSB0byB1c2UNCj4+ICAgICBzYWZlbHkgYXMgZ2V0cygzKSBhbmQgc2hvdWxkIHRoZXJl
+Zm9yZSBiZSBtYXJrZWQgYXMgZGVwcmVjYXRlZCBpbg0KPj4gICAgIHRoZSBtYW51YWwgcGFn
+ZSAoYW5kIHByb2JhYmx5IHdhcm5lZCBpbiBHQ0MpPw0KPj4gLSAgV2hpY2ggZnVuY3Rpb25z
+IGluIHRoYXQgcGFnZSBhcmUgaW1wb3NzaWJsZSB0byB1c2Ugc2FmZWx5IGFuZA0KPj4gICAg
+IHNob3VsZCB0aGVyZWZvcmUgYmUgbWFya2VkIGFzIGRlcHJlY2F0ZWQ/DQo+Pg0KPj4gV291
+bGQgeW91IHBsZWFzZSBtYXJrIHRoZW0gYXMgW1tkZXByZWNhdGVkXV0gaW4gZ2xpYmMgdG9v
+Pw0KPiANCj4gSSBkb27igJl0IHRoaW5rIGdsaWJjIHNob3VsZCB1bmlsYXRlcmFsbHkgZGVw
+cmVjYXRlIGFueSBmdW5jdGlvbiB0aGF04oCZcw0KPiBzcGVjaWZpZWQgYnkgSVNPIEMuDQoN
+Ck9rYXkuICBUaGUgbWFuLXBhZ2VzIGFyZSBub3QgdGhhdCByZXN0cmljdGVkLCBzaW5jZSB0
+aGV5IHdvbid0IGFmZmVjdCBjb2RlIGF0IA0KYWxsLCBhbmQgb25seSB0aGUgbWluZHMgb2Yg
+dGhlIHByb2dyYW1tZXJzLCB3aGljaCBpcyBtb3JlIHBvd2VyZnVsLiAgU28sIEknbGwgDQpt
+YXJrIGFzIGRlcHJlY2F0ZWQgYXQgbGVhc3QgdGhlIGludGVnZXIgY29udmVyc2lvbiBzcGVj
+aWZpZXJzLg0KDQo+ICBBbmQsIHRoZSBzY2FuZiBmYW1pbHkgKmNhbiogYmUgdXNlZCBzYWZl
+bHkgd2l0aA0KPiBzdWZmaWNpZW50IGNhcmUg4oCUIHJlYWQgZW50aXJlIGxpbmVzIG9mIGlu
+cHV0IHdpdGggZ2V0bGluZSwNCg0KSWYgZ2V0bGluZSgzKSBfaXMgbmVjZXNzYXJ5XyB0byBi
+ZSBzYWZlLCB0aGVuIEkgd291bGQgZGVwcmVjYXRlIHRoZSBzdHJlYW0gDQpmdW5jdGlvbnMs
+IGFuZCBrZWVwIG9ubHkgdGhlICJzIiB2YXJpYW50cy4gIElzIGl0Pw0KDQpJbiBmYWN0LCBJ
+J2Qgc2F5IHRoYXQgZXZlbiBpZiBpdCdzIG5vdCBuZWNlc3NhcnkgdG8gYmUgc2FmZSwgdGhl
+cmUgYXJlIG5vIGdvb2QgDQpyZWFzb25zIHRvIHVzZSBbZl1zY2FuZigzKSBhdCBhbGwuICBJ
+J20gdmVyeSBtdWNoIGNvbnNpZGVyaW5nIGRlcHJlY2F0aW5nIHRoZW0gDQppbiB0aGUgbWFu
+dWFsIHBhZ2UuDQoNCj4gdGhlbiBzcGxpdA0KPiB0aGVtIHVwIGludG8gZmllbGRzIHdpdGgg
+c3NjYW5mIHVzaW5nIG9ubHkgJW1zIGFuZCAlbVvigKZdLCBhbmQgZmluYWxseQ0KPiBwYXJz
+ZSBhbGwgbnVtZXJpYyBmaWVsZHMgYnkgaGFuZCB3aXRoIHN0cnRvWCDigJQgdGhlIGlzc3Vl
+IGlzIG1vcmUgdGhhdCwNCj4gaWYgeW91IGxpbWl0IHlvdXJzZWxmIHRvIHRoZSBzZXQgb2Yg
+c2NhbmYgb3BlcmF0aW9ucyB0aGF0IGFyZSAxMDAlIHNhZmUsDQo+IHlvdeKAmXJlIGxlZnQg
+b25seSB3aXRoIHN0dWZmIHRoYXQgaXMgYXJndWFibHkgKmVhc2llciogdG8gZG8gd2l0aCA8
+c3RyaW5nLmg+DQo+IGFuZCA8cmVnZXguaD4gZnVuY3Rpb25zLg0KPiANCj4gSW4gYSBtb3Jl
+IHNvYmVyIHRvbmUgb2Ygdm9pY2UgSSBzdWdnZXN0IHRoaXMgdGV4dCBmb3IgdGhlIG1hbnBh
+Z2U6DQo+IA0KPiAuU0ggQlVHUw0KPiBCeSBkZWZhdWx0LCB0aGUNCj4gLklSICVzICIgYW5k
+ICIgJVsNCj4gY29udmVyc2lvbnMgd2lsbCByZWFkIGFuDQo+IC5JIHVubGltaXRlZA0KPiBu
+dW1iZXIgb2YgY2hhcmFjdGVycyBmcm9tIHRoZSBpbnB1dC4NCj4gSW4gdGhpcyBtb2RlIHRo
+ZXkgYXJlIGp1c3QgYXMgdW5zYWZlIGFzIHRoZSBpbmZhbW91cw0KPiAuQlIgZ2V0cyAoMyku
+DQo+IE9uZSBzaG91bGQgYWx3YXlzIHNwZWNpZnkgZWl0aGVyIGEgZmllbGQgd2lkdGgsDQo+
+IG9yIHRoZQ0KPiAuSSBtDQo+IG1vZGlmaWVyLA0KPiB3aXRoIGV2ZXJ5IHVzZSBvZg0KPiAu
+SVIgJXMgIiBvciAiICVbIC4NCj4gLlBQDQo+IElmIGEgbnVtZXJpYyBpbnB1dCBjb252ZXJz
+aW9uIHByb2R1Y2VzIGEgdmFsdWUNCj4gdGhhdCBpcyBub3QgcmVwcmVzZW50YWJsZSBpbiB0
+aGUgdHlwZSBvZiB0aGUgY29ycmVzcG9uZGluZyBhcmd1bWVudA0KPiAoZS5nLiBpZiA5OTk5
+OSBpcyB0byBiZSBzdG9yZWQgaW4gYW4NCj4gLklSICJ1bnNpZ25lZCBzaG9ydCIgKSwNCj4g
+SVNPIEMgc2F5cyB0aGF0IHRoZSBiZWhhdmlvciBpcyB1bmRlZmluZWQuDQo+IFRoZSBHTlUg
+QyBMaWJyYXJ5IGd1YXJhbnRlZXMgdG8gdHJlYXQgdGhpcyBjb25kaXRpb24gYXMgYQ0KPiAu
+SVIgIm1hdGNoaW5nIGZhaWx1cmUiICwNCj4gYnV0IHBvcnRhYmxlIGNvZGUgc2hvdWxkIGF2
+b2lkIHVzaW5nIHRoZSBudW1lcmljIGNvbnZlcnNpb25zLg0KDQpUaGF0IG1ha2VzIHNlbnNl
+IHRvIG1lLiAgV291bGQgeW91IG1pbmQgc2VuZGluZyBhIHBhdGNoPyAgOikNCg0KPiANCj4g
+SSBhbHNvIHN1Z2dlc3QgdGhhdCBHQ0Mgc2hvdWxkIGFkZCBkaWFnbm9zdGljcyB0byAtV2Zv
+cm1hdCBhbmQvb3INCj4gLVdmb3JtYXQtc2VjdXJpdHkgdG8gY2F0Y2ggdXNlIG9mICVzIGFu
+ZCAlWyB3aXRoIG5vIHNpemUgc3BlY2lmaWVkOw0KPiBpZiBnbGliYyBkb2VzbuKAmXQgYWxy
+ZWFkeSB0cmVhdCBudW1lcmljIG92ZXJmbG93IGFzIGEgbWF0Y2hpbmcgZmFpbHVyZSwNCj4g
+aXQgc2hvdWxkIGJlIGNoYW5nZWQgdG8gZG8gc287IGFuZCBtYXliZSBzb21lb25lIHNob3Vs
+ZCB3cml0ZSB1cCBhDQo+IHByb3Bvc2FsIGZvciB0aGUgQyBzdGFuZGFyZCB0byBtYWtlIHRo
+ZSBzYW1lIGNoYW5nZS4NCg0KQWNrZWQtYnk6IEFsZWphbmRybyBDb2xvbWFyIDxhbHhAa2Vy
+bmVsLm9yZz4NCg0KPiANCj4gencNCg0KQ2hlZXJzLA0KDQpBbGV4DQoNCi0tLQ0KDQoNCmRp
+ZmYgLS1naXQgYS9tYW4zL3NjYW5mLjMgYi9tYW4zL3NjYW5mLjMNCmluZGV4IGJhNDcwYTVj
+MS4uMDA0MWQ1NTczIDEwMDY0NA0KLS0tIGEvbWFuMy9zY2FuZi4zDQorKysgYi9tYW4zL3Nj
+YW5mLjMNCkBAIC0zODYsNiArMzg2LDcgQEAgLlNTIENvbnZlcnNpb25zDQogIGFuZCBhc3Np
+Z25tZW50IGRvZXMgbm90IG9jY3VyLg0KICAuVFANCiAgLkIgZA0KKy5JUiBEZXByZWNhdGVk
+IC4NCiAgTWF0Y2hlcyBhbiBvcHRpb25hbGx5IHNpZ25lZCBkZWNpbWFsIGludGVnZXI7DQog
+IHRoZSBuZXh0IHBvaW50ZXIgbXVzdCBiZSBhIHBvaW50ZXIgdG8NCiAgLklSIGludCAuDQpA
+QCAtNDAwLDYgKzQwMSw3IEBAIC5TUyBDb252ZXJzaW9ucw0KICAuXCIgaXMgc2lsZW50bHkg
+aWdub3JlZCwgY2F1c2luZyBvbGQgcHJvZ3JhbXMgdG8gZmFpbCBteXN0ZXJpb3VzbHkuKQ0K
+ICAuVFANCiAgLkIgaQ0KKy5JUiBEZXByZWNhdGVkIC4NCiAgTWF0Y2hlcyBhbiBvcHRpb25h
+bGx5IHNpZ25lZCBpbnRlZ2VyOyB0aGUgbmV4dCBwb2ludGVyIG11c3QgYmUgYSBwb2ludGVy
+IHRvDQogIC5JUiBpbnQgLg0KICBUaGUgaW50ZWdlciBpcyByZWFkIGluIGJhc2UgMTYgaWYg
+aXQgYmVnaW5zIHdpdGgNCkBAIC00MTIsMTUgKzQxNCwxOCBAQCAuU1MgQ29udmVyc2lvbnMN
+CiAgT25seSBjaGFyYWN0ZXJzIHRoYXQgY29ycmVzcG9uZCB0byB0aGUgYmFzZSBhcmUgdXNl
+ZC4NCiAgLlRQDQogIC5CIG8NCisuSVIgRGVwcmVjYXRlZCAuDQogIE1hdGNoZXMgYW4gdW5z
+aWduZWQgb2N0YWwgaW50ZWdlcjsgdGhlIG5leHQgcG9pbnRlciBtdXN0IGJlIGEgcG9pbnRl
+ciB0bw0KICAuSVIgInVuc2lnbmVkIGludCIgLg0KICAuVFANCiAgLkIgdQ0KKy5JUiBEZXBy
+ZWNhdGVkIC4NCiAgTWF0Y2hlcyBhbiB1bnNpZ25lZCBkZWNpbWFsIGludGVnZXI7IHRoZSBu
+ZXh0IHBvaW50ZXIgbXVzdCBiZSBhDQogIHBvaW50ZXIgdG8NCiAgLklSICJ1bnNpZ25lZCBp
+bnQiIC4NCiAgLlRQDQogIC5CIHgNCisuSVIgRGVwcmVjYXRlZCAuDQogIE1hdGNoZXMgYW4g
+dW5zaWduZWQgaGV4YWRlY2ltYWwgaW50ZWdlcg0KICAodGhhdCBtYXkgb3B0aW9uYWxseSBi
+ZWdpbiB3aXRoIGEgcHJlZml4IG9mDQogIC5JIDB4DQpAQCAtNDMxLDI3ICs0MzYsMzMgQEAg
+LlNTIENvbnZlcnNpb25zDQogIC5JUiAidW5zaWduZWQgaW50IiAuDQogIC5UUA0KICAuQiBY
+DQorLklSIERlcHJlY2F0ZWQgLg0KICBFcXVpdmFsZW50IHRvDQogIC5CUiB4IC4NCiAgLlRQ
+DQogIC5CIGYNCisuSVIgRGVwcmVjYXRlZCAuDQogIE1hdGNoZXMgYW4gb3B0aW9uYWxseSBz
+aWduZWQgZmxvYXRpbmctcG9pbnQgbnVtYmVyOyB0aGUgbmV4dCBwb2ludGVyIG11c3QNCiAg
+YmUgYSBwb2ludGVyIHRvDQogIC5JUiBmbG9hdCAuDQogIC5UUA0KICAuQiBlDQorLklSIERl
+cHJlY2F0ZWQgLg0KICBFcXVpdmFsZW50IHRvDQogIC5CUiBmIC4NCiAgLlRQDQogIC5CIGcN
+CisuSVIgRGVwcmVjYXRlZCAuDQogIEVxdWl2YWxlbnQgdG8NCiAgLkJSIGYgLg0KICAuVFAN
+CiAgLkIgRQ0KKy5JUiBEZXByZWNhdGVkIC4NCiAgRXF1aXZhbGVudCB0bw0KICAuQlIgZiAu
+DQogIC5UUA0KICAuQiBhDQorLklSIERlcHJlY2F0ZWQgLg0KICAoQzk5KSBFcXVpdmFsZW50
+IHRvDQogIC5CUiBmIC4NCiAgLlRQDQoNCg0KDQotLSANCjxodHRwOi8vd3d3LmFsZWphbmRy
+by1jb2xvbWFyLmVzLz4NCg==
 
-For the glibc implementation, it's the former.
+--------------ZQDfiwD0BQhWpV7K0njXKGEN--
 
->> Technically, the behavior is undefined if the result of the conversion 
->> cannot be represented in the object being assigned to by scanf.  (In 
->> the case of glibc, that probably results in either the integer object 
->> being set to a truncated version of the input integer, or the integer 
->> object being set to a truncated version of LONG_MIN or LONG_MAX, 
->> depending on the actual number.)
-> 
-> Hmm, UB.  Under UB, anything can change, so error reporting is already 
-> unreliable.  If EOF+ERANGE can _only_ happen under UB, I'd rather remove 
-> the paragraph.  Please confirm.
+--------------svKP47LQs3A1ApQ9Qaf1ofVj
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-Yes, it is UB as per C17 7.21.6 paragraph 10: "[...] Unless assignment 
-suppression was indicated by a *, the result of the conversion is placed 
-in the object pointed to by the first argument following the format 
-argument that has not already received a conversion result. If this 
-object does not have an appropriate type, or if the result of the 
-conversion cannot be represented in the object, the behavior is undefined."
+-----BEGIN PGP SIGNATURE-----
 
->> Setting errno to 0 before calling scanf and expecting errno to have a 
->> meaningful value when scanf returns something other than EOF is bogus 
->> usage.
-> 
-> Yep, that's bogus.
-> 
-> 
-> Cheers,
-> 
-> Alex
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmOXAKkACgkQnowa+77/
+2zKBVA/+MruWFIVGcj2ZbVlwKvfKMepNSXBapY9sAizH2BLlmujwNi6lBlZnVGf6
+BtoW5vXWPu7k1+KgOem/24HT0oZJSJEECUK9fkrcrRGAi8XZGGAbvrKQY2qXO1nr
+ZIr2X8T3wpdgW9BqoAD+Zn1LBFcJQuerNVvbCye2vxQHwkvTXlP/3h2P3ZL5MsD4
+tJrDdTFGr3A7E7wi74vLFBUKPzNK/3Vyeq9jLx5x+kZIOda4fw2FKA35LlYHAI8I
+GEViWuYC7+jYYZPW05u1qDKXis5Nm38KZKZOSQ+v8LLWaPNUzKvscjAZegWaVMJI
+QhdGwgELd0fo7r8XYgnbbewFa45gYrQPVX6/jZGALDAcwkGfDTApzyXTJsas50qk
+gcmK5TqcEbzDolD2+cVdsV58qqkg35OqqcFJ/CHnljQAa6eBBPyYMpzrWA1vTk1u
+bbU29VgsBqZ3HRlxO8bGXjeojC+DpqclfaO/CzBm7sN0a4lYp4uSlNc1HE6NWWgT
+kUCswkdKrgg+8lWs34gZadZ97kpHLBtwCBKOHruMShsn+WZ6sS46DHN7SChFuhb9
+U3xq6JYiR1qBwz1dFao811RWYcCC6Lmr0FsHUFeHlP1nAZmY44DeFbKRwP/Hth3C
+apuMO44yCdSZjRWrzc0n2gn4A5oftfI/MBW9GNB1nAP+zUeFCb4=
+=9lPE
+-----END PGP SIGNATURE-----
 
-Best regards,
-Ian
-
--- 
--=( Ian Abbott <abbotti@mev.co.uk> || MEV Ltd. is a company  )=-
--=( registered in England & Wales.  Regd. number: 02862268.  )=-
--=( Regd. addr.: S11 & 12 Building 67, Europa Business Park, )=-
--=( Bird Hall Lane, STOCKPORT, SK3 0XA, UK. || www.mev.co.uk )=-
-
+--------------svKP47LQs3A1ApQ9Qaf1ofVj--
