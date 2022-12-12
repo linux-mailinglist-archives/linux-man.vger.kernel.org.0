@@ -2,180 +2,138 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id E16BB64A615
-	for <lists+linux-man@lfdr.de>; Mon, 12 Dec 2022 18:43:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id D9C5D64A617
+	for <lists+linux-man@lfdr.de>; Mon, 12 Dec 2022 18:44:10 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229958AbiLLRnW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 12 Dec 2022 12:43:22 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48332 "EHLO
+        id S229872AbiLLRoJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 12 Dec 2022 12:44:09 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48436 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229872AbiLLRnV (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 12 Dec 2022 12:43:21 -0500
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com [IPv6:2a00:1450:4864:20::333])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DA919658A
-        for <linux-man@vger.kernel.org>; Mon, 12 Dec 2022 09:43:19 -0800 (PST)
-Received: by mail-wm1-x333.google.com with SMTP id v124-20020a1cac82000000b003cf7a4ea2caso5841593wme.5
-        for <linux-man@vger.kernel.org>; Mon, 12 Dec 2022 09:43:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=sFOfwJuMkKD+DrzCV0rJyOJXWThiBgbRNG2CoqEYxsQ=;
-        b=PLl+BKAiXlL3DEJazPkH22wieaFCjb/uDgbx6LKuWhXoFs+L35Vd/jil0tHZPwycQ8
-         Euspw6D1r1iRxwcG1RgzN9eGCvroABIrPpVldlWb0X+SzEZiSDBMeg7RtN0FZoUflIby
-         Y2dzPWZnrjzdAnXHKlXCJM6y0cgloUB3jOGq3rw1q7nu098Yh8C3kNv/CVYOgix1Kfy6
-         qnsqsIOyuFAI6bW04KhU4dCRe4jmefvRydIGQBbdKbYVL2s0vWs7L3l3SXvGwe35IHJb
-         o9sJkn0iqSQ82MOWjb8JRdR4euzPt97Izz2QwdtzkT+/RNCEWYOQz9FG9DpR/knzH5ds
-         D6/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=sFOfwJuMkKD+DrzCV0rJyOJXWThiBgbRNG2CoqEYxsQ=;
-        b=7OaWhffdhUrRLqTYNKiLBpYzQUFZ1Sk2ckXBXMb8zMspQZDREsAeYT4MXFW/JHp57+
-         bP3VzPFyVRfcxKNJS6fJzXay8W0Lis998blWPPUIFYQzPJtbwmZ2pGl7G2YOc4x4mg2e
-         wJ5GGP3S6oxNvIsCzi9fDeW68cauZOUowTWB99HmOqySvg9lGIX3ZTeZCpHGjJLtyUPb
-         84JvnV/y0D7wo8gJKC3Fc9A8kSUrSIox/4C9M9U9AygnlD7VCt8U/hDY7mf2bPlSWIAN
-         wqEQnyZbuk4huD6yRJlWWUkT+J4K9Z0YdeSQ5ibK128r0MzGvd6GzWPNlJ3IsFHZD0Ht
-         4WTg==
-X-Gm-Message-State: ANoB5pkWgA+el/2rdhA1pNXMpw3hR26qSQi5HOpiB6cNTvFmDKMsxJDR
-        wvwyUPDKdC+mrSlzOvvH0nkPxk2lhxg=
-X-Google-Smtp-Source: AA0mqf60wmZNNGzo14+zSIl8fOcY65RtK+6dFIvjki2Z3r/r4ZnlArNwbgnsJs1rE05ge/U3MS6Yug==
-X-Received: by 2002:a05:600c:1f09:b0:3d0:7d89:2256 with SMTP id bd9-20020a05600c1f0900b003d07d892256mr13629018wmb.13.1670866998423;
-        Mon, 12 Dec 2022 09:43:18 -0800 (PST)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id o19-20020a5d58d3000000b002421a8f4fa6sm9139602wrf.92.2022.12.12.09.43.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 12 Dec 2022 09:43:18 -0800 (PST)
-Message-ID: <7ab2036d-4fc5-76e7-92fc-03beb88cbf9b@gmail.com>
-Date:   Mon, 12 Dec 2022 18:43:16 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.1
-Subject: Re: Systemctl man page
-Content-Language: en-US
-To:     Josh Gentry <josh.gentry@cargt.com>
-Cc:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
+        with ESMTP id S231481AbiLLRoI (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 12 Dec 2022 12:44:08 -0500
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com (mail-bn8nam11on2100.outbound.protection.outlook.com [40.107.236.100])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 14D7013E2A
+        for <linux-man@vger.kernel.org>; Mon, 12 Dec 2022 09:44:07 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=BM8J4smH3ckb6nRBrnD5Sxq+DF5L6bQQkJNfcjYgeCennc95eJahM1rrMcRpN7eXPCsa31IQ1GONZaOUGADDRTY2O9nGACz/ljaHExtMIlKrw6c+f6EynyACzGUawapqLTfxpel1CE4BrsR2VRBnVM5n2xL4nUo9nEMEC6RZxrQSjdT+HS0UMn8vM8cPRhJmXHDrd+5T90bmuTIbQCPev0KlmQHyNIi0uyny7s9hfVpGOsbQvvWooFRNhAG81hCctJHKVQfzGq+E6DxTIv93qhG1WgP+1T3Bo/q26AiDynJ/tL0iSiRC1mhCrogY5tWXvXU/VtpYerPv8FS+JANoKg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jT3VoYWYB4js1fo4La4J8C0r6n6EEbIX/zaJYCZtoTw=;
+ b=g9HmCTEJjsciuUVP+YOTdhnUnpG3FBDx7FuuMxVS/TjLcLisRVWXhEvZN6ABnQKRPrt0NHPv/Z0q3dHvePnzUkzLPm5NJ9UsxOTc18GcyT8AScP5S/tUVLQfhoSC+Bzg3ej+5KtN0rTZmH473CS3LCYOU7jMZe+cR9ck2Z+qiv5Hm7gKzR0zn2FNdADCncs5tFpPCWL3nmZYVTLOKzhy9vnhRDggpzTCz8UMOLUQLC59z7cPWWz1CYzwr0aIe9HgmUClV+g3pqxcR2Ez8QxLmQppRzASB6i7t8qX5loeXHWLK/M0Rjnp+mKQKpcu/D5L8i7j6SMlzgIEM3yEBbdEGw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=cargt.com; dmarc=pass action=none header.from=cargt.com;
+ dkim=pass header.d=cargt.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cargt.onmicrosoft.com;
+ s=selector2-cargt-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jT3VoYWYB4js1fo4La4J8C0r6n6EEbIX/zaJYCZtoTw=;
+ b=bytbme9digG2K+aTmkOlIygxrnPYyhx+k/OGoiiXXdVizXF/0EUg2JM+U8A0F0MDzwZZaQ20PUNnVVgLTHH+lhJM/PHmw1Oz3H0zdURMoInFwFt/Upxbq9Jgpnj0gHykfZ1Uy5cacQBS2mlqayFURi+5aRQEiOHp81dyBL/QOQ8=
+Received: from BL3PR12MB6595.namprd12.prod.outlook.com (2603:10b6:208:38e::12)
+ by MN2PR12MB4125.namprd12.prod.outlook.com (2603:10b6:208:1d9::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.19; Mon, 12 Dec
+ 2022 17:44:02 +0000
+Received: from BL3PR12MB6595.namprd12.prod.outlook.com
+ ([fe80::6ce8:be46:a918:71b6]) by BL3PR12MB6595.namprd12.prod.outlook.com
+ ([fe80::6ce8:be46:a918:71b6%8]) with mapi id 15.20.5880.019; Mon, 12 Dec 2022
+ 17:44:02 +0000
+From:   Josh Gentry <josh.gentry@cargt.com>
+To:     "mtk.manpages@gmail.com" <mtk.manpages@gmail.com>,
+        "alx.manpages@gmail.com" <alx.manpages@gmail.com>
+CC:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
+Subject: RE: Systemctl man page
+Thread-Topic: Systemctl man page
+Thread-Index: AdkOUCrCRSSIpQ2xSlCElq6HpHm3xQAALOow
+Date:   Mon, 12 Dec 2022 17:44:02 +0000
+Message-ID: <BL3PR12MB6595802B726BBA705B2AFCBDF5E29@BL3PR12MB6595.namprd12.prod.outlook.com>
 References: <BL3PR12MB65951A6382B9F21CA0E4BC8BF5E29@BL3PR12MB6595.namprd12.prod.outlook.com>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
 In-Reply-To: <BL3PR12MB65951A6382B9F21CA0E4BC8BF5E29@BL3PR12MB6595.namprd12.prod.outlook.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------n9jncNZLS5s1zAw4J5xQWXo0"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
-        autolearn_force=no version=3.4.6
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=cargt.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BL3PR12MB6595:EE_|MN2PR12MB4125:EE_
+x-ms-office365-filtering-correlation-id: e6008b21-3727-4b8a-3c10-08dadc687509
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: sGXzVqAeKN6XRSLAL838+xPUPdV9+Vk5Q+WmSftH8FeuezdEYjuJuDglFqYkGR2wIcNLRw7aRDdc4D2m7mYxzD8hIm7SquZ1GWi6gzC6wWPyynNuPw2a4Xv/B+hcx6exbZ5gLPVeMDpeMv5qpDC4zjI132DywBGi+M3HKQsNCjnpv9JgPEC2R9wKqJRaX7TBXmvnif0weBlUM+jSfm6neW3P+mfdIYphtVnFjGGDbAw3ucP0oyS95eVpwVZ/XPP4Tk0FWuCvqzCOBb8DEJFTvglbySWn4ZpIH+0o8yCObZAhZ6n3EnsmHtCNcc6TOv5VjgtUhonsxVZEeOzaZ/gxP6jU+E88rfnOS82p73FD3Yi25rHR7MlK3rlZqFBkNaIjkogpfGlxBcrYURe7zk8coKfIcsJBFfvf/YatXX5gVtoE9vxSVKI7FrrKQaGPWS0XAiZ6dRYeNDAg7G20GHeW0rH5/XC47JC1N/fkQfF5eEEFiag7wYrSl+gu1j8hhba8uxUAN/hGQKPXYR+xUHtlc3Tn6zqOqKijn6hmPj/wuQ1gRJGGjzyS41DJbI+2wPRce28h95gXPzog0Rzhkq6VLyVLf+tPVgSRVe/2kyxmGQ4GFlyvTR/DuSzGEKUjCTdVfmFg6IqtbgApFI7HgiMgkWM3yPaY2Do7uDDh6+jOvMDMKpGZEh38Zmzd7GeWxparwgNU22olhytcU5bn9m26wRnuOzE/6ZaO/7BZoGEbpXk=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL3PR12MB6595.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(136003)(346002)(39830400003)(366004)(396003)(376002)(451199015)(2940100002)(122000001)(966005)(26005)(478600001)(9686003)(186003)(6506007)(7696005)(71200400001)(83380400001)(38100700002)(3480700007)(66476007)(66446008)(64756008)(55016003)(66556008)(8676002)(110136005)(41300700001)(7116003)(76116006)(44832011)(4326008)(52536014)(316002)(2906002)(5660300002)(66946007)(8936002)(4744005)(86362001)(38070700005)(40140700001)(33656002);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?3yWUmMAuejJrv5JYgwCSstdSAJOpqdpQVs0rdejJ4dy95o81RJ29O2y/vA?=
+ =?iso-8859-1?Q?7yVyvviIKU7itaI5o1z41lGsljwcn5LIogO3pVPipAI5bhdPChP4WxvSB5?=
+ =?iso-8859-1?Q?dfpkezFJBpElGBifoET1iJCE4ChTLXCvmuknGIeqZj+RvH2y7B4sV0c9q8?=
+ =?iso-8859-1?Q?rniUDD4DlKcOZ6cbf3sYtVccTsevu1kklw6HEsH3h8yMPliVCuwRcSrOij?=
+ =?iso-8859-1?Q?RI7j2TRNRlZ35NzH7Bns4B6p2HA+8JYMTJGYFz5cdAnY+ieLGKzENuA4Ql?=
+ =?iso-8859-1?Q?fl+TwdYclldhCY1iEurMccTrGfxuWvLcAYL38e63gHvhFDNaIhKIE2zd3X?=
+ =?iso-8859-1?Q?ADzZjeh2w7FW7EKdvnm4JZ+Eq5R5OdwIxPPUwgfEW65qX3/lnsQ7nAIjr4?=
+ =?iso-8859-1?Q?VV0dT99sb3exeK4xCpYO6T53x+dKvgeP1beH/GSi/PFBjQPffPQI/GbIFu?=
+ =?iso-8859-1?Q?LTjkg1MWLdaGDQm9ShEc13nCm505FnkqSdf9aE3iJMh91qbDF+Tx9JlxTY?=
+ =?iso-8859-1?Q?I0aSSMcAdnkBNUrASsiwUtOuWO3Nl/1VfagMafS1CbdN+xRdwO9k6YeC0e?=
+ =?iso-8859-1?Q?rJUQ43NRyzBD3NXzGhcmLcybf42nSAO1ZdbrGLBOXrq/RtT98CY2WsNnHl?=
+ =?iso-8859-1?Q?AxrfF63l13ALKzFDcJrpFT9e7m13zaueMmdHD9+tactBix9xa6k7G9V0sQ?=
+ =?iso-8859-1?Q?1vf8IvwrKJQ3GdQoI79/dwHOAM8PQ+f9qg19gzHRXtMEdnd4fS9V7p/8ci?=
+ =?iso-8859-1?Q?qOfLyHawXxNy+AFstuTuyGRelQiYQGgf2VLv3vBacS6wA6+P4RBM+stGDp?=
+ =?iso-8859-1?Q?MPiPOzStA2kSic1I+dw6GZxfuuoHsTAgDy/e4FOxO06GcdIL/67vV/nb1t?=
+ =?iso-8859-1?Q?daFMyjdKpBVu+iLc8BW/nGXrL19K3Pftz4oFffheEfA397RClyqQfEYLVG?=
+ =?iso-8859-1?Q?ntfi9XuoEMBGQYKiWedhE3FUwtMtGC1D7sek/das0fa+DQDUNjw7DeW+Vl?=
+ =?iso-8859-1?Q?octJYrtNm94MVPK51lDhQ3bY6uNN+590yTftFYMJxeWU03ziYJ6Mov0+o6?=
+ =?iso-8859-1?Q?wGppFKrKlsXZkl55BsYO28pmTw8QopH44Dtu1Itnf3CMhbKe7RGP5ZQ4Nx?=
+ =?iso-8859-1?Q?i89QPRKUHvan9GeLy36YsYfHrq/Kbh46h41ADC51ZcLmg1HmFQNMWicNor?=
+ =?iso-8859-1?Q?wgmFrjfmoWILnosmI5blQ3FrTcktDQWiVZW0mDb6Nnu8rpvyOK6OwngOwa?=
+ =?iso-8859-1?Q?GZ+b2RmIbRlATWY9WP02cRMYt3WJE3KIHETPJqmKDYFMpJOv3OXqhLWPDW?=
+ =?iso-8859-1?Q?7mZWduoiqDJawx9YhrjTmYIYl/sT6MbUBQ9V7wnSvIhjyTIaAfN262un5y?=
+ =?iso-8859-1?Q?9rcqCX2tZ0cE2oyejt9pV4suRs7ZjjmnfFbsE5QC3wugWVHae6gaHyKw2H?=
+ =?iso-8859-1?Q?hlnfUmp1DSwvR73+GEe3dvF9h30YKm/kFjGXLOc4bQRlJ0ZfVVWaW9JGr2?=
+ =?iso-8859-1?Q?uW8q1JOwGnVvk70HoVcHdJ7y3KwOaOC3f1jYt+3gU2iA9XMEhRl728CpBO?=
+ =?iso-8859-1?Q?gl2YManwL+G6QGlpQx5FOMyf4MuEfCg37Z/UXiMSgvz8Cia2njHQR0caes?=
+ =?iso-8859-1?Q?Bev947qjV9CFt1GIL4TNEk4ySeDhLJGXpN?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: cargt.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL3PR12MB6595.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e6008b21-3727-4b8a-3c10-08dadc687509
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Dec 2022 17:44:02.4439
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 86e1de54-319a-42df-8fb0-4d915f8be14c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: jYctwm/0VT8Ogyv12GYGrX/1SBjkdkTdW6PijXMzziERcPPkCVjH4RNzcWzB7s3FNinXBGhyLEZ1OAsEi+fO4g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4125
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------n9jncNZLS5s1zAw4J5xQWXo0
-Content-Type: multipart/mixed; boundary="------------e0nvcr3p00i40bJP6lLB68YZ";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Josh Gentry <josh.gentry@cargt.com>
-Cc: "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
-Message-ID: <7ab2036d-4fc5-76e7-92fc-03beb88cbf9b@gmail.com>
-Subject: Re: Systemctl man page
-References: <BL3PR12MB65951A6382B9F21CA0E4BC8BF5E29@BL3PR12MB6595.namprd12.prod.outlook.com>
-In-Reply-To: <BL3PR12MB65951A6382B9F21CA0E4BC8BF5E29@BL3PR12MB6595.namprd12.prod.outlook.com>
+In the systemctl man page, under:
+bind UNIT PATH [PATH]
+	...=20
 
---------------e0nvcr3p00i40bJP6lLB68YZ
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+The bind mount is ephemeral, and it=A0is undone as soon as the current unit=
+ process exists.=20
 
-SGVsbG8gSm9zaCwNCg0KT24gMTIvMTIvMjIgMTg6MzgsIEpvc2ggR2VudHJ5IHdyb3RlOg0K
-PiBJbiB0aGUgc3lzdGVtY3RsIG1hbiBwYWdlLCB1bmRlcjoNCj4gDQo+ICpiaW5kICovVU5J
-VCBQQVRIL1svUEFUSC9dDQo+IA0KPiAgwqDCoMKgwqDCoMKgwqDCoMKgwqAgQmluZC1tb3Vu
-dHMgYSBmaWxlIG9yIGRpcmVjdG9yeSBmcm9tIHRoZSBob3N0IGludG8gdGhlDQo+IA0KPiAg
-wqDCoMKgwqDCoMKgwqDCoMKgwqAgc3BlY2lmaWVkIHVuaXQncyBtb3VudCBuYW1lc3BhY2Uu
-IFRoZSBmaXJzdCBwYXRoIGFyZ3VtZW50IGlzDQo+IA0KPiAgwqDCoMKgwqDCoMKgwqDCoMKg
-wqAgdGhlIHNvdXJjZSBmaWxlIG9yIGRpcmVjdG9yeSBvbiB0aGUgaG9zdCwgdGhlIHNlY29u
-ZCBwYXRoDQo+IA0KPiAgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYXJndW1lbnQgaXMgdGhlIGRl
-c3RpbmF0aW9uIGZpbGUgb3IgZGlyZWN0b3J5IGluIHRoZSB1bml0J3MNCj4gDQo+ICDCoMKg
-wqDCoMKgwqDCoMKgwqDCoCBtb3VudCBuYW1lc3BhY2UuIFdoZW4gdGhlIGxhdHRlciBpcyBv
-bWl0dGVkLCB0aGUgZGVzdGluYXRpb24NCj4gDQo+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoCBw
-YXRoIGluIHRoZSB1bml0J3MgbW91bnQgbmFtZXNwYWNlIGlzIHRoZSBzYW1lIGFzIHRoZSBz
-b3VyY2UNCj4gDQo+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoCBwYXRoIG9uIHRoZSBob3N0LiBX
-aGVuIGNvbWJpbmVkIHdpdGggdGhlICotLXJlYWQtb25seSAqc3dpdGNoLA0KPiANCj4gIMKg
-wqDCoMKgwqDCoMKgwqDCoMKgYSByZWFkeS1vbmx5IGJpbmQgbW91bnQgaXMgY3JlYXRlZC4g
-V2hlbiBjb21iaW5lZCB3aXRoIHRoZQ0KPiANCj4gKi0tbWtkaXIgKnN3aXRjaCwgdGhlIGRl
-c3RpbmF0aW9uIHBhdGggaXMgZmlyc3QgY3JlYXRlZCBiZWZvcmUNCj4gDQo+ICDCoMKgwqDC
-oMKgwqDCoMKgwqDCoCB0aGUgbW91bnQgaXMgYXBwbGllZC4NCj4gDQo+ICDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCBOb3RlIHRoYXQgdGhpcyBvcHRpb24gaXMgY3VycmVudGx5IG9ubHkgc3Vw
-cG9ydGVkIGZvciB1bml0cw0KPiANCj4gIMKgwqDCoMKgwqDCoMKgwqDCoCDCoHRoYXQgcnVu
-IHdpdGhpbiBhIG1vdW50IG5hbWVzcGFjZSAoZS5nLjogd2l0aCAqUm9vdEltYWdlPSosDQo+
-IA0KPiAqUHJpdmF0ZU1vdW50cz0qLCBldGMuKS4gVGhpcyBjb21tYW5kIHN1cHBvcnRzIGJp
-bmQtbW91bnRpbmcNCj4gDQo+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoCBkaXJlY3Rvcmllcywg
-cmVndWxhciBmaWxlcywgZGV2aWNlIG5vZGVzLCAqQUZfVU5JWCAqc29ja2V0DQo+IA0KPiAg
-wqDCoMKgwqDCoMKgwqDCoMKgwqAgbm9kZXMsIGFzIHdlbGwgYXMgRklGT3MuIFRoZSBiaW5k
-IG1vdW50IGlzIGVwaGVtZXJhbCwgYW5kIGl0DQo+IA0KPiAgwqDCoMKgwqDCoMKgwqDCoMKg
-wqAgaXMgdW5kb25lIGFzIHNvb24gYXMgdGhlIGN1cnJlbnQgdW5pdCBwcm9jZXNzIGV4aXN0
-cy4gTm90ZQ0KPiANCj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgIHRoYXQgdGhlIG5hbWVzcGFj
-ZSBtZW50aW9uZWQgaGVyZSwgd2hlcmUgdGhlIGJpbmQgbW91bnQgd2lsbA0KPiANCj4gIMKg
-wqDCoMKgwqDCoMKgwqDCoMKgIGJlIGFkZGVkIHRvLCBpcyB0aGUgb25lIHdoZXJlIHRoZSBt
-YWluIHNlcnZpY2UgcHJvY2VzcyBydW5zLg0KPiANCj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKg
-IE90aGVyIHByb2Nlc3NlcyAodGhvc2UgZXhlY2VjdXRlZCBieSAqRXhlY1JlbG9hZD0qLA0K
-PiANCj4gKkV4ZWNTdGFydFByZT0qLCBldGMuKSBydW4gaW4gZGlzdGluY3QgbmFtZXNwYWNl
-cy4NCj4gDQo+IEkgYmVsaWV2ZSDigJhleGlzdHPigJkgc2hvdWxkIGJlIOKAmGV4aXRz4oCZ
-IGJ1dCB0aGlzIG1heSBqdXN0IGJlIHdlaXJkIGdyYW1tYXIgYXMgd2VsbC4NCj4gDQo+IEkg
-dXNlZCB0aGlzIGxpbmsgdG8gcmVmZXJlbmNlIHRoZSBzeXN0ZW1jdGwgbWFuIHBhZ2U6DQo+
-IA0KPiBodHRwczovL21hbjcub3JnL2xpbnV4L21hbi1wYWdlcy9tYW4xL3N5c3RlbWN0bC4x
-Lmh0bWwgDQo+IDxodHRwczovL21hbjcub3JnL2xpbnV4L21hbi1wYWdlcy9tYW4xL3N5c3Rl
-bWN0bC4xLmh0bWw+DQo+IA0KPiBUaGFua3MgZm9yIHlvdXIgZXhjZWxsZW50IG1hbiBwYWdl
-cyENCg0KVGhhbmsgeW91ciBmb3IgeW91ciByZXBvcnQhDQoNCkluIHRoaXMgY2FzZSwgaXQn
-cyBub3QgYSBwYWdlIHByb3ZpZGVkIGJ5IHRoZSBMaW51eCBtYW4tcGFnZXMgcHJvamVjdCwg
-YnV0IG9uZSANCnByb3ZpZGVkIGJ5IHRoZSBzeXN0ZW1kIHByb2plY3QsIHNvIHlvdSBzaG91
-bGQgcmVwb3J0IGl0IHRvIHRoZW0uICBTZWUgdGhlIA0KY29sb3Bob24gb2YgdGhlIHBhZ2U6
-DQoNCg0KQ09MT1BIT04gICAgICAgICB0b3ANCg0KICAgICAgICBUaGlzIHBhZ2UgaXMgcGFy
-dCBvZiB0aGUgc3lzdGVtZCAoc3lzdGVtZCBzeXN0ZW0gYW5kIHNlcnZpY2UNCiAgICAgICAg
-bWFuYWdlcikgcHJvamVjdC4gIEluZm9ybWF0aW9uIGFib3V0IHRoZSBwcm9qZWN0IGNhbiBi
-ZSBmb3VuZCBhdA0KICAgICAgICDin6hodHRwOi8vd3d3LmZyZWVkZXNrdG9wLm9yZy93aWtp
-L1NvZnR3YXJlL3N5c3RlbWTin6kuICBJZiB5b3UgaGF2ZQ0KICAgICAgICBhIGJ1ZyByZXBv
-cnQgZm9yIHRoaXMgbWFudWFsIHBhZ2UsIHNlZQ0KICAgICAgICDin6hodHRwOi8vd3d3LmZy
-ZWVkZXNrdG9wLm9yZy93aWtpL1NvZnR3YXJlL3N5c3RlbWQvI2J1Z3JlcG9ydHPin6kuDQog
-ICAgICAgIFRoaXMgcGFnZSB3YXMgb2J0YWluZWQgZnJvbSB0aGUgcHJvamVjdCdzIHVwc3Ry
-ZWFtIEdpdCByZXBvc2l0b3J5DQogICAgICAgIOKfqGh0dHBzOi8vZ2l0aHViLmNvbS9zeXN0
-ZW1kL3N5c3RlbWQuZ2l04p+pIG9uIDIwMjEtMDgtMjcuICAoQXQgdGhhdA0KICAgICAgICB0
-aW1lLCB0aGUgZGF0ZSBvZiB0aGUgbW9zdCByZWNlbnQgY29tbWl0IHRoYXQgd2FzIGZvdW5k
-IGluIHRoZQ0KICAgICAgICByZXBvc2l0b3J5IHdhcyAyMDIxLTA4LTI3LikgIElmIHlvdSBk
-aXNjb3ZlciBhbnkgcmVuZGVyaW5nDQogICAgICAgIHByb2JsZW1zIGluIHRoaXMgSFRNTCB2
-ZXJzaW9uIG9mIHRoZSBwYWdlLCBvciB5b3UgYmVsaWV2ZSB0aGVyZQ0KICAgICAgICBpcyBh
-IGJldHRlciBvciBtb3JlIHVwLXRvLWRhdGUgc291cmNlIGZvciB0aGUgcGFnZSwgb3IgeW91
-IGhhdmUNCiAgICAgICAgY29ycmVjdGlvbnMgb3IgaW1wcm92ZW1lbnRzIHRvIHRoZSBpbmZv
-cm1hdGlvbiBpbiB0aGlzIENPTE9QSE9ODQogICAgICAgICh3aGljaCBpcyBub3QgcGFydCBv
-ZiB0aGUgb3JpZ2luYWwgbWFudWFsIHBhZ2UpLCBzZW5kIGEgbWFpbCB0bw0KICAgICAgICBt
-YW4tcGFnZXNAbWFuNy5vcmcNCg0KDQpDaGVlcnMsDQoNCkFsZXgNCg0KDQotLSANCjxodHRw
-Oi8vd3d3LmFsZWphbmRyby1jb2xvbWFyLmVzLz4NCg==
+	...
 
---------------e0nvcr3p00i40bJP6lLB68YZ--
+I believe 'exists' should be 'exits' but this may just be weird grammar as =
+well.
 
---------------n9jncNZLS5s1zAw4J5xQWXo0
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+I used this link to reference the systemctl man page:
+https://man7.org/linux/man-pages/man1/systemctl.1.html
 
------BEGIN PGP SIGNATURE-----
+Thanks for the excellent man pages!
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmOXaDUACgkQnowa+77/
-2zJxhA/+IJlaeC3vubvnqzAbNB8sPbogtAYGjigvkLPp4c6j9Yw17or5PlN2MfCf
-+oQXaoL+4mpGtOegYY77k8QPqL2WajgXFSWAekNubbCne58Ik9FGBAvZkpAt3baS
-qt3Df3iP3zpyQCjdz2Z1+tLyJt915J/PwamiIOvkN68iywelqx2nSqyxWlnnDhV6
-V4447jSpTZ6vosA1n1imTnBfX2gtlWvhZCCpi8ev5MvtTp50sLcbhZsbHn+qEfgQ
-cWNiXSdjsFgBIwy/YYCX7lgnBkVGsYhvglDqATs+VtJ+In+WaDM2tKJUr3rsOV5R
-78AG9BZkbuHO4Y8f0uhm8m/MrkRob5K2l5+tmNyZUK69mj4PBhVu5RKeygT469F+
-Zos2LjrhYyUdJODb3i9CkugtaSfKvvTcnmbfa2+6bHznNGvptVC9cZU/wwnehcod
-rovN21s1SnQ1LC7ElI8+uuecorA8bZK1qWxGJM+NhfTMHI9DPx3Mmd7zRw187xRg
-b1z79j0YV65MlaTHhs4dBbb5/799Hzv2QnXHZJkDS6PdAahLKHfnRQeIELOMma0y
-tv+V7apua15PTJV9bsefacndrNJXfy6DLO9ywc9q6nG6xfCyV16UTHAOG4WM+yzf
-K9eJDOKOjwPC15R3MaIIgp8svWR2y4h0lHlQBXwT968HI/HncDU=
-=YxuS
------END PGP SIGNATURE-----
+Josh Gentry
+Cargt, Inc | cargt.com
+9825 Widmer Road | Lenexa, KS 66215
+785-304-4400
 
---------------n9jncNZLS5s1zAw4J5xQWXo0--
