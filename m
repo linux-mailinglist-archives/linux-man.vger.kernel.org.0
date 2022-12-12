@@ -2,67 +2,67 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id BEFBE64A751
-	for <lists+linux-man@lfdr.de>; Mon, 12 Dec 2022 19:41:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E68E464AB08
+	for <lists+linux-man@lfdr.de>; Tue, 13 Dec 2022 00:01:07 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233392AbiLLSlP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 12 Dec 2022 13:41:15 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58184 "EHLO
+        id S233941AbiLLXBF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 12 Dec 2022 18:01:05 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58084 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232773AbiLLSkw (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 12 Dec 2022 13:40:52 -0500
-Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com [IPv6:2001:4860:4864:20::2a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DDCD118387
-        for <linux-man@vger.kernel.org>; Mon, 12 Dec 2022 10:38:47 -0800 (PST)
-Received: by mail-oa1-x2a.google.com with SMTP id 586e51a60fabf-1445ca00781so9514434fac.1
-        for <linux-man@vger.kernel.org>; Mon, 12 Dec 2022 10:38:47 -0800 (PST)
+        with ESMTP id S233929AbiLLXBD (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 12 Dec 2022 18:01:03 -0500
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com [IPv6:2a00:1450:4864:20::331])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A2D2D15A08
+        for <linux-man@vger.kernel.org>; Mon, 12 Dec 2022 15:01:01 -0800 (PST)
+Received: by mail-wm1-x331.google.com with SMTP id c65-20020a1c3544000000b003cfffd00fc0so6624297wma.1
+        for <linux-man@vger.kernel.org>; Mon, 12 Dec 2022 15:01:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=5u34DZ2giijsqAdKGFhgOHP9wR/uRuh1z2drFNPyjVg=;
-        b=HZ2C0ug06XD5i3o2KgAGQtDs5MPtxUlyIxxm4Kh4HkxGJtzGW3yBTUuinjiCAENx3T
-         CUi3jDThltc0hqlWF2PxDX83N76FRZS+rvQ9ToErucabVwlfwK28oI9j2LGDhdOhSEeS
-         2fZDvlqQdXvrfLZ/ELUa5qWaGBIFDz7VuGLLO7mcJ2hvLPiNETc0yTO3vWXVEEnDZzaV
-         TmcNfzXypoir3YAYflhZADVj0EtXeu3LsCXtc7RxGK7vs8MSdu7QJ7VFJLtAR+be6v5o
-         gjACRkVxfoTawQTNykhOFVGavfAe42kbbFh0yNdWj/xrCOzEDy40htB0Z2QUP5y6ArfU
-         6gdA==
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=T1+OvDI30VYerENfBQdO8J600kPigwqgJvJ5qCk9olc=;
+        b=ouOM/dfHAkXjTHWpXU4LKdC/086JrcxU0expEcSTqZLadzUAv6eye0sZONzmvPRE+Y
+         BGWyJ7i5plPljkGJSor5PU8qVja1+QWs0aeUSO/c2Td4IHe27GQwbQZpOaWoZDjRxSJ/
+         iqed10Vlcm1qnmKFXSDwgMVkdTPkLgt9DeFjo38XglVIdhibvLXKVG+G/VD8og3ks8Aj
+         BzHT8RrjIOdTShExDJxfCvzE9pxa2Mv9MoOkZphNP8w2vkd0zgnV3NrHFAwr+WKxGv0U
+         8n8WaNViB5iD0S1BF6N434peQt4MUZkRYlv5p42nBJ71HvArbtVUGXEsGd3R8d4rAo9A
+         9B2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=5u34DZ2giijsqAdKGFhgOHP9wR/uRuh1z2drFNPyjVg=;
-        b=gvDaWfVAUVGcXiNOvDBu7TzmwEkpOo9V+v5vJs1kTfcOPNeIE1bGd137eZAzlRHz4D
-         eMrpoctt910ll8bkPcH80dIMNOnQTG2MDYnGg5KcXrJdEacYKbo4W0VpTBIXZ+i4zPZH
-         1W2fmjTa2atdOGJVzFbvz37WqbplrtfJo1EVo+DOjGMpOVbVwPisSDb1tjIggFst5iRV
-         iftd1kXQVBcKK+TyYSYr9CR8WvB0nK4dHbHhn37z4WO6LpB0XJ8H5MYTwKDOi46X74xO
-         uexblUv4ZZJHZlJ1dBgtT7FH7j+Phj+ufprAewqhuCjKDhRfJCXHbm4RXiV2Eh7lnWAw
-         x34A==
-X-Gm-Message-State: ANoB5pmbdhbBiNqtpnAdu0Rj5ROlxdmuN4eOMHpBFYqlaDAnuP760ZvM
-        oM5g0XRPm2uiGDZxiLA+lDPKERukRKnDWQ==
-X-Google-Smtp-Source: AA0mqf7ochRjv40BnMhn6h0pR2U+vw6dBz8nay/PRIgPbJa9NgKNKodaAgcr9vfgUFa29OhVMyaSXA==
-X-Received: by 2002:a05:6871:87:b0:148:592f:83d2 with SMTP id u7-20020a056871008700b00148592f83d2mr2182025oaa.6.1670870322342;
-        Mon, 12 Dec 2022 10:38:42 -0800 (PST)
-Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id r20-20020a05687080d400b0012d939eb0bfsm268772oab.34.2022.12.12.10.38.41
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=T1+OvDI30VYerENfBQdO8J600kPigwqgJvJ5qCk9olc=;
+        b=jrsFmPa8LeKjeOvrOoeFqNcbDXWgnZYQA/UsLPpXIBJnt2u0fWW73Pl214QfPhKN5K
+         HFvRcjuNTwum0qm0DR3leOUNYrLpYaVM7EL7/REWiAUbELchRO00jazMmVkxnnE+Ck4j
+         PxppIXa0J8HVzse+bT+PJqfusmZzdLFLA/4yNJeTN5qNTSW5fQxv3ywA6hKa3PsGT3CU
+         ARWJk/RMbsB66FTG9TVSIDddF17HCNQqLZeCXGnpx15KRb+ttHUeOESdeREGbrUQd8G7
+         b18cdFUo4zwsjhkKqVT5GEf4I3W1dLHYJpW/0WDk8k4ic4IQy/FnUb13kAgRPcK3w7VX
+         QfRQ==
+X-Gm-Message-State: ANoB5pl5eGAU17WR20XyPtQLXGFB1aBwZL9fmdqkHKqtEfId1Nc84OZc
+        UyzGykkvoFHzUtJhtdt9n3U1K38VGYo=
+X-Google-Smtp-Source: AA0mqf556YRsgcO5W8JG9Y65lTW4wL1E6WL6PoIDvXmCHhoVFGWALZqc4kerSGbGxNElw+Zu+nTn/g==
+X-Received: by 2002:a05:600c:1d9f:b0:3cf:a80d:69ab with SMTP id p31-20020a05600c1d9f00b003cfa80d69abmr13882434wms.31.1670886059784;
+        Mon, 12 Dec 2022 15:00:59 -0800 (PST)
+Received: from asus5775.alejandro-colomar.es ([170.253.36.171])
+        by smtp.googlemail.com with ESMTPSA id m27-20020a05600c3b1b00b003b47ff307e1sm11801099wms.31.2022.12.12.15.00.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Dec 2022 10:38:41 -0800 (PST)
-Date:   Mon, 12 Dec 2022 12:38:40 -0600
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     groff <groff@gnu.org>, linux-man@vger.kernel.org
-Subject: groff man(7) extensions (was: [PATCH 1/3] strcpy.3: Rewrite page to
- document all string-copying functions)
-Message-ID: <20221212183840.jhkgkxllwmxr5p3p@illithid>
-References: <176225b0-4b0e-698b-b79e-f8ed78b4cf8c@gmail.com>
- <20221212142418.27615-1-alx@kernel.org>
- <cfb105a2-4bdb-c317-60b0-0771cc6201e8@gmail.com>
+        Mon, 12 Dec 2022 15:00:59 -0800 (PST)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+X-Google-Original-From: Alejandro Colomar <alx@kernel.org>
+To:     linux-man@vger.kernel.org
+Cc:     Martin Sebor <msebor@redhat.com>,
+        Alejandro Colomar <alx@kernel.org>
+Subject: [PATCH v2 0/3] Rewrite strcpy(3)
+Date:   Tue, 13 Dec 2022 00:00:41 +0100
+Message-Id: <20221212230044.86105-1-alx@kernel.org>
+X-Mailer: git-send-email 2.38.1
+In-Reply-To: <20221212142418.27615-1-alx@kernel.org>
+References: <20221212142418.27615-1-alx@kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="2yjhmlj5zekcox2y"
-Content-Disposition: inline
-In-Reply-To: <cfb105a2-4bdb-c317-60b0-0771cc6201e8@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
@@ -73,196 +73,708 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+I'm describing all string-copying functions together in a single manual
+page, using consistent and clear language to help fix long-standing
+misuses of those interfaces.
 
---2yjhmlj5zekcox2y
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+v2 has seen many changes, but two major are:
 
-Hi Alex,
+-  Don't deprecate functions.  A friendly explanation of why they are
+   inferior is probably more appealing.
 
-At 2022-12-12T18:33:52+0100, Alejandro Colomar wrote:
-> On 12/12/22 15:24, Alejandro Colomar wrote:
-> > +.\" ----- RETURN VALUE :: Deprecated ---------------------------------=
--/
-> > +.SS Deprecated
-> > +The following functions return
-> > +the length of the total string that they tried to create
-> > +(as if truncation didn't occur).
-> > +.IP \(bu 3
-> > +.BR strlcpy (3bsd),
-> > +.BR strlcat (3bsd)
-> > +.PP
-> > +The following function returns
-> > +the length of the destination string, or
-> > +.B \-E2BIG
-> > +on truncation.
-> > +.IP \(bu 3
-> > +.BR strscpy (9)
-> > +.PP
-> > +The following functions return the
-> > +.I dst
-> > +pointer,
-> > +which is useless.
-> > +.PD 0
-> > +.IP \(bu 3
-> > +.BR strcpy (3),
-> > +.BR strcat (3)
-> > +.IP \(bu
-> > +.BR strncpy (3)
-> > +.IP \(bu
-> > +.BR strncat (3)
-> > +.PD
->=20
-> I realized that the above doesn't produce exactly what I wanted.  I
-> wanted this:
->=20
->        The following functions return the dst pointer, which is useless.
->=20
->        =E2=80=A2  strcpy(3), strcat(3)
->        =E2=80=A2  strncpy(3)
->        =E2=80=A2  strncat(3)
->=20
-> But I got this:
->=20
->        The following functions return the dst pointer, which is useless.
->        =E2=80=A2  strcpy(3), strcat(3)
->        =E2=80=A2  strncpy(3)
->        =E2=80=A2  strncat(3)
->=20
-> I see various possible solutions, but which would you recommend?
->=20
-> I've thought of:
->=20
-> [
-> [...]
-> .PP
-> .PD 0
-> .IP \(bu 3
-> [...]
-> ]
->=20
-> or
->=20
-> [
-> [...]
-> .IP \(bu 3
-> .PD 0
-> [...]
-> ]
->=20
-> I was thinking about your future (I hope) .LS and .LE, and how they
-> would also fit in here.
+-  Use more precise syntax: mostly
+   s/unterminated string/character sequence/g [Martin].
 
-Either is fine; if it were me, after threatening another radical
-innovation, I would probably go with the latter, using ".PD 0" _after_
-the first `IP` macro.  The hazard there is that if you re-order the
-list, you might move the ".PD 0" with it accidentally.  Your earlier
-approach avoids that at the cost of a _seemingly_ useless `PP` call.
 
-Paragraphing macros in man(7) are not enclosures; they are spot
-marks.[1]  This is an impedance mismatch with the brains of people who
-grew up on HTML/XML.
+See the formatted page below.
 
-Also, you don't need to keep restating the indentation amount ("3").
+Alejandro Colomar (3):
+  strcpy.3: Rewrite page to document all string-copying functions
+  stpcpy.3, stpncpy.3, strcat.3, strncat.3, strncpy.3: Transform the old
+    pages into links to strcpy(3)
+  stpecpy.3, stpecpyx.3, strlcat.3, strlcpy.3, strscpy.3: Add new links
+    to strcpy(3)
 
-  Horizontal and vertical spacing
-    The indentation argument accepted by .RS, .IP, .TP, and the
-    deprecated .HP is a number plus an optional scaling unit.  If no
-    scaling unit is given, the man package assumes "n".  An indentation
-    specified in a call to .IP, .TP, or the deprecated .HP persists
-    until (1) another of these macros is called with an explicit
-    indentation argument, or (2) .SH, .SS, or .P or its synonyms is
-    called; these clear the indentation entirely. [...]
+ man3/stpcpy.3   |  115 +-----
+ man3/stpecpy.3  |    1 +
+ man3/stpecpyx.3 |    1 +
+ man3/stpncpy.3  |  123 +-----
+ man3/strcat.3   |  161 +-------
+ man3/strcpy.3   | 1048 +++++++++++++++++++++++++++++++++++++++++++----
+ man3/strlcat.3  |    1 +
+ man3/strlcpy.3  |    1 +
+ man3/strncat.3  |  172 +-------
+ man3/strncpy.3  |  130 +-----
+ man3/strscpy.3  |    1 +
+ 11 files changed, 970 insertions(+), 784 deletions(-)
+ create mode 100644 man3/stpecpy.3
+ create mode 100644 man3/stpecpyx.3
+ create mode 100644 man3/strlcat.3
+ create mode 100644 man3/strlcpy.3
+ create mode 100644 man3/strscpy.3
 
-(ms(7) works this way, too, though its macro repertoire differs a
-bit.[2])
 
-I haven't given much more thought to `LS` and `LE`.  I haven't soured on
-them; I simply have more urgent fish to fry.  The possibility of having
-`LS` accept an argument to set the paragraph indentation so that `IP` or
-`TP` items can be rearranged freely within has occurred to me.  So has
-making the inter-paragraph distance itself an argument (possibly just a
-Boolean).  So has support for auto-enumerated lists.  But then I wonder
-if man(7) authors really need a macro that is as tricked-out as
-mdoc(7)'s list macros, which take up about 5 of its 31 U.S. letter-sized
-pages of documentation.  That's heavy.
+strcpy(3)                  Library Functions Manual                  strcpy(3)
 
-Here's a list of man(7) extensions to which I have given consideration.
+NAME
+       stpcpy,  strcpy,  strcat, stpecpy, stpecpyx, strlcpy, strlcat, strscpy,
+       stpncpy, strncpy, ustr2stp, strncat, mempcpy - copy strings and charac‐
+       ter sequences
 
-	KS/KE	Keeps.  Easy.[3]  Harmlessly ignorable by other
-		implementations.
-	LS/LE	List enclosure.  Throws a semantic hint (e.g., for HTML
-		output) and eliminates final use case of `PD` macro.[4]
-	DC/TG	Semantics at last.  Sure to rouse anger in people who
-		decided long ago that man(7) can't do this.[5]  Having
-		looked more closely at mdoc(7) since writing that, I
-		think `DC` should accept a _pair_ of arguments as its
-		second and third parameters for bracketing purposes.
-		But again, most man page authors would never need to
-		mess with `DC` at all.
+LIBRARY
+       stpcpy(3)
+       strcpy(3), strcat(3)
+       stpncpy(3)
+       strncpy(3)
+       strncat(3)
+       mempcpy(3)
+              Standard C library (libc, -lc)
 
-`DS`/`DE` have been squatted on by groff man(7) for 13 years and have
-precedent going back at least to DEC Ultrix, but apart from using them
-as a sort of ersatz tbl(1) for people who don't want to use to use
-tbl(1),[6] I haven't been able to come up with any use cases for it.
+       stpecpy(3), stpecpyx(3)
+              Not provided by any library.
 
-Regards,
-Branden
+       strlcpy(3), strlcat(3)
+              Utility functions from BSD systems (libbsd, -lbsd)
 
-[1] For the curious, all the paragraphing macros in groff man(7) call
-    the same common macro.  (They all perform additional operations.)
+       strscpy(3)
+              Not provided by any library.  It  is  a  Linux  kernel  internal
+              function.
 
-=2E\" Break a paragraph.  Restore defaults, except for indentation.
-=2Ede an-break-paragraph
-=2E  ft R
-=2E  ps \\n[PS]u
-=2E  vs \\n[VS]u
-=2E  sp \\n[PD]u
-=2E  ns
+SYNOPSIS
+       #include <string.h>
 
-   This internal macro name is subject to change.
+   Strings
+       // Chain‐copy a string.
+       char *stpcpy(char *restrict dst, const char *restrict src);
 
-[2] The new ms(7) manual for groff 1.23 appears to have stabilized.[7]
-    Here's a URL to a work area I use to proof-read groff documentation.
-    I invite you (and others) to check out ms.2022-12-07.pdf, or
-    whatever version is there at the time.
+       // Copy/concatenate a string.
+       char *strcpy(char *restrict dst, const char *restrict src);
+       char *strcat(char *restrict dst, const char *restrict src);
 
-    https://www.dropbox.com/sh/17ftu3z31couf07/AAC_9kq0ZA-Ra2ZhmZFWlLuva?dl=
-=3D0
+       // Chain‐copy a string with truncation.
+       char *stpecpy(char *dst, char past_end[0], const char *restrict src);
 
-[3] I initially shied away from dealing with nested diversions, but I
-    think I know how to cope with them now.  It seems that in a lot of
-    cases, "bubbling up" as illustrated in groff Git's tbl(1) page is
-    all that is required.
+       // Chain‐copy a string with truncation and SIGSEGV on UB.
+       char *stpecpyx(char *dst, char past_end[0], const char *restrict src);
 
-[4] https://lists.gnu.org/archive/html/groff/2022-05/msg00026.html
-[5] https://lore.kernel.org/linux-man/20220724172947.qlunrfnje56yaasv@illit=
-hid/
-[6] https://lore.kernel.org/linux-man/20220722222045.y7i3yc7d6agygien@illit=
-hid/
+       // Copy/concatenate a string with truncation and SIGSEGV on UB.
+       size_t strlcpy(char dst[restrict .sz], const char *restrict src,
+                      size_t sz);
+       size_t strlcat(char dst[restrict .sz], const char *restrict src,
+                      size_t sz);
 
-[7] By saying this, I increase my ability to find a flaw in it, or for
-    a reader to report one.  We use all the QA tools at our disposal.
+       // Copy a string with truncation.
+       ssize_t strscpy(char dst[restrict .sz], const char src[restrict .sz],
+                      size_t sz);
 
---2yjhmlj5zekcox2y
-Content-Type: application/pgp-signature; name="signature.asc"
+   Null‐padded character sequences
+       // Zero a fixed‐width buffer, and
+       // copy a string with truncation into a character sequence.
+       char *stpncpy(char dst[restrict .sz], const char *restrict src,
+                      size_t sz);
 
------BEGIN PGP SIGNATURE-----
+       // Zero a fixed‐width buffer, and
+       // copy a string with truncation into a character sequence.
+       char *strncpy(char dest[restrict .sz], const char *restrict src,
+                      size_t sz);
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmOXdSQACgkQ0Z6cfXEm
-bc7j4g/+JgSWOo6iPlJxbEr5mGBRiC6bmKXvo7cVmdD3Sc8OgB0JuYExsaH0J+Aa
-H73OfpP07e2CjA1tEmc34cVsQ6z1WRHbPtgfYKSmIGOedDSI5GuxlJW8jN5BhW2C
-F2H+6pMnbhWrF4QR5BqiT6QeSfbLjNhVRSHe5p/noOxxkBVP8wfHEfwzynHUnm81
-1d15rm0PeBoHh1/R8t4+uu/3rwO+ET5y9csJE0zxxyaj+3vPX+vscrEc7yyB9ixI
-ycP6+SGxSBZ9NXl1NkCoWRTRG+PsO/pg4g0pj1dMXccHZvQsQeFNwg4TzdhOj7Co
-jq7KGOWhOwP9O8yjfYD++BdKQvclhcP9vA/4fYH+4O6egIPnfwIRg6zvavJaBsjl
-x1KkLTeaHNkoDfwOa0BaWrrirzuSLQNItbNLTY4krJXVTIyQ7GWRG5vhbz9MTuCh
-vJ6nQ1SRGQ5JWn/WtiTKYVcWNW8GSrPiAoZOm8uS9I9o9h9mMJQgDnSq6s21+C/6
-yXiDFchZH+8+9bvt9LtNhWdn8ZrdpY/FLnawbYI6UEwvmUhDosDKUr0ugSgmLm2s
-1EU5iRp2MQlX4Lg2Gb2mT1RnW3z70vzE9iBe0s9uQ5zwBNMU/YbTKUhTOp7SpdlF
-YyAmQtt3RwMul9wFssO779EX6U2X7kQYpRikKlSRXl3ny8dmBe0=
-=uN9H
------END PGP SIGNATURE-----
+       // Chain‐copy a null‐padded character sequence into a string.
+       char *ustr2stp(char *restrict dst, const char src[restrict .sz],
+                      size_t sz);
 
---2yjhmlj5zekcox2y--
+       // Concatenate a null‐padded character sequence into a string.
+       char *strncat(char *restrict dst, const char src[restrict .sz],
+                      size_t sz);
+
+   Measured character sequences
+       // Chain‐copy a measured character sequence.
+       void *mempcpy(void *restrict dst, const void src[restrict .len],
+                      size_t len);
+
+   Feature Test Macro Requirements for glibc (see feature_test_macros(7)):
+
+       stpcpy(3), stpncpy(3):
+           Since glibc 2.10:
+               _POSIX_C_SOURCE >= 200809L
+           Before glibc 2.10:
+               _GNU_SOURCE
+
+       mempcpy(3):
+           _GNU_SOURCE
+
+DESCRIPTION
+   Terms (and abbreviations)
+       string (str)
+              is  a sequence of zero or more non‐null characters followed by a
+              null byte.
+
+       character sequence (ustr)
+              is a sequence of zero or more non‐null  characters.   A  program
+              should  never  usa  a  character  sequence where a string is re‐
+              quired.  However, with appropriate care, a string can be used in
+              the place of a character sequence.
+
+              null‐padded character sequence
+                     Character  sequences  can  be  contained  in  fixed‐width
+                     buffers, which contain padding null bytes after the char‐
+                     acter  sequence,  to  fill the rest of the buffer without
+                     affecting the character sequence; however, those  padding
+                     null bytes are not part of the character sequence.
+
+              measured character sequence
+                     Character sequence delimited by its length.
+
+       length (len)
+              is  the  number  of non‐null characters in a string or character
+              sequence.   It  is  the  return  value  of  strlen(str)  and  of
+              strnlen(ustr, sz).
+
+       size (sz)
+              refers  to  the  entire buffer where the string or character se‐
+              quence is contained.
+
+       end    is the name of a pointer to  the  terminating  null  byte  of  a
+              string, or a pointer to one past the last character of a charac‐
+              ter  sequence.  This is the return value of functions that allow
+              chaining.  It is equivalent to &str[len].
+
+       past_end
+              is the name of a pointer to one past the end of the buffer  that
+              contains  a  string  or character sequence.  It is equivalent to
+              &str[sz].  It is used as a sentinel value, to be able  to  trun‐
+              cate  strings  or character sequences instead of overrunning the
+              containing buffer.
+
+   Copy, concatenate, and chain‐copy
+       Originally, there was a distinction between  functions  that  copy  and
+       those  that  concatenate.  However, newer functions that copy while al‐
+       lowing chaining cover both use cases with a single API.  They are  also
+       algorithmically  faster, since they don’t need to search for the end of
+       the existing string.  However, their use is a bit more verbose.
+
+       To chain copy functions, they need to return  a  pointer  to  the  end.
+       That’s  a  byproduct  of  the  copy operation, so it has no performance
+       costs.  Functions that return such a pointer, and thus can be  chained,
+       have  names  of the form *stp*() or *memp*(), since it’s also common to
+       name the pointer just p.
+
+       Chain‐copying functions that truncate should accept a  pointer  to  one
+       past  the  end  of  the  destination buffer, and have names of the form
+       *stpe*().  This allows not having to recalculate the remaining size af‐
+       ter each call.
+
+   Truncate or not?
+       The first thing to note is that  programmers  should  be  careful  with
+       buffers,  so  they  always have the correct size, and truncation is not
+       necessary.
+
+       In most cases, truncation is not desired, and it is simpler to just  do
+       the copy.  Simpler code is safer code.  Programming against programming
+       mistakes  by  adding more code just adds more points where mistakes can
+       be made.
+
+       Nowadays, compilers can detect most  programmer  errors  with  features
+       like  compiler  warnings,  static  analyzers,  and _FORTIFY_SOURCE (see
+       ftm(7)).  Keeping the code simple helps these  overflow‐detection  fea‐
+       tures be more precise.
+
+       When  validating  user input, however, it makes sense to truncate.  Re‐
+       member to check the return value of such function calls.
+
+       Functions that truncate:
+
+       •  stpecpy(3) is the most efficient string copy function that  performs
+          truncation.  It only requires to check for truncation once after all
+          chained calls.
+
+       •  stpecpyx(3)  is  a  variant  of  stpecpy(3) that consumes the entire
+          source string, to catch bugs in the program by forcing  a  segmenta‐
+          tion fault (as strlcpy(3bsd) and strlcat(3bsd) do).
+
+       •  strlcpy(3bsd)  and  strlcat(3bsd) are designed to crash if the input
+          string is invalid (doesn’t contain a terminating null byte).
+
+       •  strscpy(3)  reports  an  error  instead  of  crashing  (similar   to
+          stpecpy(3)).
+
+       •  stpncpy(3)  and  strncpy(3)  also  truncate,  but  they  don’t write
+          strings, but rather null‐padded character sequences.
+
+   Null‐padded character sequences
+       For historic reasons, some standard APIs, such as utmpx(5),  use  null‐
+       padded  character  sequences in fixed‐width buffers.  To interface with
+       them, specialized functions need to be used.
+
+       To copy strings into them, use stpncpy(3).
+
+       To copy from an unterminated string within a fixed‐width buffer into  a
+       string,  ignoring  any  trailing  null  bytes in the source fixed‐width
+       buffer, you should use ustr2stp(3) or strncat(3).
+
+   Measured character sequences
+       The simplest character sequence copying function is mempcpy(3).  It re‐
+       quires always knowing the length of your character sequences, for which
+       structures can be used.  It makes the code much faster, since  you  al‐
+       ways  know the length of your character sequences, and can do the mini‐
+       mal copies and length measurements.  mempcpy(3)  copies  character  se‐
+       quences, so you need to explicitly set the terminating null byte if you
+       need a string.
+
+       The  following code can be used to chain‐copy from a measured character
+       sequence into a string:
+
+           p = mempcpy(p, foo->str, foo->len);
+           *p = '\0';
+
+       The following code can be used to chain‐copy from a measured  character
+       sequence into an unterminated string:
+
+           p = mempcpy(p, src->str, src->len);
+
+       In  programs  that  make  considerable  use of strings or character se‐
+       quences, and need the best performance, using overlapping character se‐
+       quences can make a big difference.  It allows holding subsequences of a
+       larger character sequence.  while not duplicating memory nor using time
+       to do a copy.
+
+       However, this is delicate, since it requires using character sequences.
+       C library APIs use strings, so programs that  use  character  sequences
+       will  have  to  take care of differentiating strings from character se‐
+       quences.
+
+   String vs character sequence
+       Some functions only operate on strings.  Those require that  the  input
+       src  is  a string, and guarantee an output string (even when truncation
+       occurs).  Functions that concatenate also  require  that  dst  holds  a
+       string before the call.  List of functions:
+
+       •  stpcpy(3)
+       •  strcpy(3), strcat(3)
+       •  stpecpy(3), stpecpyx(3)
+       •  strlcpy(3bsd), strlcat(3bsd)
+       •  strscpy(3)
+
+       Other  functions  require  an  input string, but create a character se‐
+       quence as output.  These functions have confusing  names,  and  have  a
+       long history of misuse.  List of functions:
+
+       •  stpncpy(3)
+       •  strncpy(3)
+
+       Other  functions  operate on an input character sequence, and create an
+       output string.  Functions that concatenate also require that dst  holds
+       a  string before the call.  strncat(3) has an even more misleading name
+       than the functions above.  List of functions:
+
+       •  ustr2stp(3)
+       •  strncat(3)
+
+       And the last one, operates on an input character sequence to create  an
+       output  character  sequence.  But because it asks for the length, and a
+       string is by nature composed of a character sequence of the same length
+       plus a terminating null byte, a  string  is  also  accepted  as  input.
+       Function:
+
+       •  mempcpy(3)
+
+   Functions
+       stpcpy(3)
+              This function copies the input string into a destination string.
+              The  programmer  is  responsible  for  allocating a buffer large
+              enough.  It returns a pointer suitable for chaining.
+
+              An implementation of this function might be:
+
+                  char *
+                  stpcpy(char *restrict dst, const char *restrict src)
+                  {
+                      return mempcpy(dst, src, strlen(src));
+                  }
+
+       strcpy(3)
+       strcat(3)
+              These functions copy the input string into a destination string.
+              The programmer is responsible  for  allocating  a  buffer  large
+              enough.  The return value is useless.
+
+              stpcpy(3) is a faster alternative to these functions.
+
+              An implementation of these functions might be:
+
+                  char *
+                  strcpy(char *restrict dst, const char *restrict src)
+                  {
+                      stpcpy(dst, src);
+                      return dst;
+                  }
+
+                  char *
+                  strcat(char *restrict dst, const char *restrict src)
+                  {
+                      stpcpy(dst + strlen(dst), src);
+                      return dst;
+                  }
+
+       stpecpy(3)
+       stpecpyx(3)
+              These functions copy the input string into a destination string.
+              If  the destination buffer, limited by a pointer to one past the
+              end of it, isn’t large enough to hold the  copy,  the  resulting
+              string  is  truncated  (but  it  is guaranteed to be null‐termi‐
+              nated).  They return a pointer suitable for  chaining.   Trunca‐
+              tion needs to be detected only once after the last chained call.
+              stpecpyx(3)  has  identical semantics to stpecpy(3), except that
+              it forces a SIGSEGV if the src pointer is not a string.
+
+              These functions are not provided by any library, but you can de‐
+              fine them with the following reference implementations:
+
+                  /* This code is in the public domain. */
+                  char *
+                  stpecpy(char *dst, char past_end[0],
+                          const char *restrict src)
+                  {
+                      char *p;
+
+                      if (dst == past_end)
+                          return past_end;
+
+                      p = memccpy(dst, src, '\0', past_end - dst);
+                      if (p != NULL)
+                          return p - 1;
+
+                      /* truncation detected */
+                      past_end[-1] = '\0';
+                      return past_end;
+                  }
+
+                  /* This code is in the public domain. */
+                  char *
+                  stpecpyx(char *dst, char past_end[0],
+                           const char *restrict src)
+                  {
+                      if (src[strlen(src)] != '\0')
+                          raise(SIGSEGV);
+
+                      return stpecpy(dst, past_end, src);
+                  }
+
+       strlcpy(3bsd)
+       strlcat(3bsd)
+              These functions copy the input string into a destination string.
+              If the destination buffer, limited  by  its  size,  isn’t  large
+              enough  to hold the copy, the resulting string is truncated (but
+              it is guaranteed to be null‐terminated).  They return the length
+              of the total string they tried to create.  These functions force
+              a SIGSEGV if the src pointer is not a string.
+
+              stpecpyx(3) is a faster alternative to these functions.
+
+       strscpy(3)
+              This function copies the input string into a destination string.
+              If the destination buffer, limited  by  its  size,  isn’t  large
+              enough  to hold the copy, the resulting string is truncated (but
+              it is guaranteed to be null‐terminated).  It returns the  length
+              of the destination string, or -E2BIG on truncation.
+
+              stpecpy(3) is a simpler and faster alternative to this function.
+
+       stpncpy(3)
+              This  function  copies the input string into a destination null‐
+              padded character sequence in a fixed‐width buffer.  If the  des‐
+              tination buffer, limited by its size, isn’t large enough to hold
+              the  copy, the resulting character sequence is truncated.  Since
+              it creates a character sequence, it doesn’t need to write a ter‐
+              minating null byte.  It returns a pointer suitable for chaining,
+              but it’s not ideal for that.  Truncation needs  to  be  detected
+              only once after the last chained call.
+
+              If  you’re going to use this function in chained calls, it would
+              be useful to develop a similar function that accepts  a  pointer
+              to one past the end of the buffer instead of a size.
+
+              An implementation of this function might be:
+
+                  char *
+                  stpncpy(char *restrict dst, const char *restrict src,
+                          size_t sz)
+                  {
+                      char  *p;
+
+                      bzero(dst, sz);
+                      p = memccpy(dst, src, '\0', sz);
+                      if (p == NULL)
+                          return dst + sz;
+
+                      return p - 1;
+                  }
+
+       ustr2stp(3)
+              This function copies the input character sequence contained in a
+              null‐padded  wixed‐width buffer, into a destination string.  The
+              programmer is responsible for allocating a buffer large  enough.
+              It returns a pointer suitable for chaining.
+
+              A  truncating  version of this function doesn’t exist, since the
+              size of the original character sequence is always known,  so  it
+              wouldn’t be very useful.
+
+              This function is not provided by any library, but you can define
+              it with the following reference implementation:
+
+                  /* This code is in the public domain. */
+                  char *
+                  ustr2stp(char *restrict dst, const char *restrict src,
+                           size_t sz)
+                  {
+                      char  *end;
+
+                      end = memccpy(dst, src, '\0', sz)) ?: dst + sz;
+                      *end = '\0';
+
+                      return end;
+                  }
+
+       strncpy(3)
+              This  function is identical to stpncpy(3) except for the useless
+              return value.  Due to the return value, with this function  it’s
+              hard to correctly check for truncation.
+
+              stpncpy(3) is a simpler alternative to this function.
+
+              An implementation of this function might be:
+
+                  char *
+                  strncpy(char *restrict dst, const char *restrict src,
+                          size_t sz)
+                  {
+                      stpncpy(dst, src, sz);
+                      return dst;
+                  }
+
+       strncat(3)
+              Do  not  confuse this function with strncpy(3); they are not re‐
+              lated at all.
+
+              This function concatenates the  input  character  sequence  con‐
+              tained  in  a null‐padded wixed‐width buffer, into a destination
+              string.  The programmer is responsible for allocating  a  buffer
+              large enough.  The return value is useless.
+
+              ustr2stp(3) is a faster alternative to this function.
+
+              An implementation of this function might be:
+
+                  char *
+                  strncat(char *restrict dst, const char *restrict src,
+                          size_t sz)
+                  {
+                      ustr2stp(dst + strlen(dst), src, sz);
+                      return dst;
+                  }
+
+       mempcpy(3)
+              This  function  copies  the input character sequence, limited by
+              its length, into a destination character sequence.  The program‐
+              mer is responsible for allocating a buffer large enough.  It re‐
+              turns a pointer suitable for chaining.
+
+              An implementation of this function might be:
+
+                  void *
+                  mempcpy(void *restrict dst, const void *restrict src,
+                          size_t len)
+                  {
+                      return memcpy(dst, src, len) + len;
+                  }
+
+RETURN VALUE
+       The following functions return a pointer to the terminating  null  byte
+       in the destination string.
+
+       •  stpcpy(3)
+       •  ustr2stp(3)
+
+       The  following  functions return a pointer to the terminating null byte
+       in the destination string, except when truncation occurs; if truncation
+       occurs, they return a pointer to one past the end  of  the  destination
+       buffer (past_end).
+
+       •  stpecpy(3), stpecpyx(3)
+
+       The  following function returns a pointer to one after the last charac‐
+       ter in the destination character sequence; if truncation  occurs,  that
+       pointer  is equivalent to a pointer to one past the end of the destina‐
+       tion buffer.
+
+       •  stpncpy(3)
+
+       The following function returns a pointer to one after the last  charac‐
+       ter in the destination character sequence.
+
+       •  mempcpy(3)
+
+       The following functions return the length of the total string that they
+       tried to create (as if truncation didn’t occur).
+
+       •  strlcpy(3bsd), strlcat(3bsd)
+
+       The following function returns the length of the destination string, or
+       -E2BIG on truncation.
+
+       •  strscpy(3)
+
+       The following functions return the dst pointer, which is useless.
+
+       •  strcpy(3), strcat(3)
+       •  strncpy(3)
+       •  strncat(3)
+
+ATTRIBUTES
+       For  an  explanation  of  the  terms  used in this section, see attrib‐
+       utes(7).
+       ┌────────────────────────────────────────────┬───────────────┬─────────┐
+       │Interface                                   │ Attribute     │ Value   │
+       ├────────────────────────────────────────────┼───────────────┼─────────┤
+       │stpcpy(), strcpy(), strcat(), stpecpy(),    │ Thread safety │ MT‐Safe │
+       │stpecpyx() strlcpy(), strlcat(), strscpy(), │               │         │
+       │stpncpy(), strncpy(), ustr2stp(),           │               │         │
+       │strncat(), mempcpy()                        │               │         │
+       └────────────────────────────────────────────┴───────────────┴─────────┘
+
+STANDARDS
+       strcpy(3), strcat(3)
+       strncpy(3)
+       strncat(3)
+              POSIX.1‐2001, POSIX.1‐2008, C89, C99, SVr4, 4.3BSD.
+
+       stpcpy(3)
+       stpncpy(3)
+              POSIX.1‐2008.
+
+       strlcpy(3bsd), strlcat(3bsd)
+              Functions originated in OpenBSD and present in  some  Unix  sys‐
+              tems.
+
+       mempcpy(3)
+              This function is a GNU extension.
+
+       strscpy(3)
+              Linux kernel internal function.
+
+       stpecpy(3), stpecpyx(3)
+       ustr2stp(3)
+              Not defined by any standards nor libraries.
+
+CAVEATS
+       Don’t  mix  chain calls to truncating and non‐truncating functions.  It
+       is conceptually wrong unless you know that the first  part  of  a  copy
+       will  always  fit.  Anyway, the performance difference will probably be
+       negligible, so it will probably be more clear if you use consistent se‐
+       mantics: either truncating or non‐truncating.  Calling a non‐truncating
+       function after a truncating one is necessarily wrong.
+
+       Some of the functions described here are not provided by  any  library;
+       you should write your own copy if you want to use them.  See STANDARDS.
+
+EXAMPLES
+       The following are examples of correct use of each of these functions.
+
+       stpcpy(3)
+                  p = buf;
+                  p = stpcpy(p, "Hello ");
+                  p = stpcpy(p, "world");
+                  p = stpcpy(p, "!");
+                  len = p - buf;
+                  puts(buf);
+
+       strcpy(3)
+       strcat(3)
+                  strcpy(buf, "Hello ");
+                  strcat(buf, "world");
+                  strcat(buf, "!");
+                  len = strlen(buf);
+                  puts(buf);
+
+       stpecpy(3)
+       stpecpyx(3)
+                  past_end = buf + sizeof(buf);
+                  p = buf;
+                  p = stpecpy(p, past_end, "Hello ");
+                  p = stpecpy(p, past_end, "world");
+                  p = stpecpy(p, past_end, "!");
+                  if (p == past_end) {
+                      p--;
+                      goto toolong;
+                  }
+                  len = p - buf;
+                  puts(buf);
+
+       strlcpy(3bsd)
+       strlcat(3bsd)
+                  if (strlcpy(buf, "Hello ", sizeof(buf)) >= sizeof(buf))
+                      goto toolong;
+                  if (strlcat(buf, "world", sizeof(buf)) >= sizeof(buf))
+                      goto toolong;
+                  len = strlcat(buf, "!", sizeof(buf));
+                  if (len >= sizeof(buf))
+                      goto toolong;
+                  puts(buf);
+
+       strscpy(3)
+                  len = strscpy(buf, "Hello world!", sizeof(buf));
+                  if (len == -E2BIG)
+                      goto toolong;
+                  puts(buf);
+
+       stpncpy(3)
+                  past_end = buf + sizeof(buf);
+                  end = stpncpy(buf, "Hello world!", sizeof(buf));
+                  if (end == past_end)
+                      goto toolong;
+                  len = end - buf;
+                  for (size_t i = 0; i < sizeof(buf); i++)
+                      putchar(buf[i]);
+
+       strncpy(3)
+                  strncpy(buf, "Hello world!", sizeof(buf));
+                  if (buf + sizeof(buf) - 1 == '\0')
+                      goto toolong;
+                  len = strnlen(buf, sizeof(buf));
+                  for (size_t i = 0; i < sizeof(buf); i++)
+                      putchar(buf[i]);
+
+       ustr2stp(3)
+                  p = buf;
+                  p = ustr2stp(p, "Hello ", 6);
+                  p = ustr2stp(p, "world", 42);  // Padding null bytes ignored.
+                  p = ustr2stp(p, "!", 1);
+                  len = p - buf;
+                  puts(buf);
+
+       strncat(3)
+                  buf[0] = '\0';  // There’s no ’cpy’ function to this ’cat’.
+                  strncat(buf, "Hello ", 6);
+                  strncat(buf, "world", 42);  // Padding null bytes ignored.
+                  strncat(buf, "!", 1);
+                  len = strlen(buf);
+                  puts(buf);
+
+       mempcpy(3)
+                  p = buf;
+                  p = mempcpy(p, "Hello ", 6);
+                  p = mempcpy(p, "world", 5);
+                  p = mempcpy(p, "!", 1);
+                  p = '\0';
+                  len = p - buf;
+                  puts(buf);
+
+SEE ALSO
+       bzero(3), memcpy(3), memccpy(3), mempcpy(3), string(3)
+
+Linux man‐pages (unreleased)        (date)                           strcpy(3)
+
+
+-- 
+2.38.1
+
