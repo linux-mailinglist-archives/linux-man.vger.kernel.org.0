@@ -2,125 +2,118 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 43A3A64AB09
-	for <lists+linux-man@lfdr.de>; Tue, 13 Dec 2022 00:01:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E2EA864ADF5
+	for <lists+linux-man@lfdr.de>; Tue, 13 Dec 2022 03:54:59 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233949AbiLLXBH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 12 Dec 2022 18:01:07 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58124 "EHLO
+        id S234350AbiLMCy6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 12 Dec 2022 21:54:58 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56010 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233939AbiLLXBF (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 12 Dec 2022 18:01:05 -0500
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com [IPv6:2a00:1450:4864:20::32e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 71D391903A
-        for <linux-man@vger.kernel.org>; Mon, 12 Dec 2022 15:01:04 -0800 (PST)
-Received: by mail-wm1-x32e.google.com with SMTP id ay40so7009618wmb.2
-        for <linux-man@vger.kernel.org>; Mon, 12 Dec 2022 15:01:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=h5LtCu1OG7ST9zUwh85D4d56B1gQTrgTy6KgwrA7+tw=;
-        b=cspZFAfOlwOHY6pqaaQ3H5juphH+hUeaHR1xLG117XAuTQhWvwD7CkWX6aUKgn1ZJe
-         rvaDW4F6a+0aaoTgLHt0K2TbqJWWO4XOUZDVlOr7x/nlbWrTMxE0pc8aOGLvNx5hmtLG
-         xeGLRnqWH5yJkBemUaCDDXi+7K/Rmka3m/DQCXHLviycWiZl7BIUie+joY5L+9YehfGg
-         4hUdGXea2ewZirG626/6d4O7phv88ewUjoLkabAHwmpajzffmyq6YGheV408/+Yy9ho/
-         Tzq0uc8e7aErzbiH4qHfC11FwVb1Vj0cDbsTvxJH9pUX7jiIn5m3aI/DVKjQr3CmfY++
-         fK7Q==
+        with ESMTP id S234418AbiLMCyt (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 12 Dec 2022 21:54:49 -0500
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EB6A613CD4
+        for <linux-man@vger.kernel.org>; Mon, 12 Dec 2022 18:53:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1670900028;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         content-transfer-encoding:content-transfer-encoding:
+         in-reply-to:in-reply-to:references:references;
+        bh=0RhDm3KlHkWaiYSwzCX1LN5q6/F6VMFXDyNsycvG1aE=;
+        b=MuszqrdHm95CbROfRgPXRJX5NZJ1caHyWdvZhML/LqEZnDQHqvYQyI8Upu4Rt4K3eQ6D/r
+        mJHDyuASNcM7knzHATb1qRKCFgr1bLIM262stBYhLJ3a1UD8tGBtpqemwT5RmGNTp3igyd
+        TPnzuPclhTesTl0dAlOaua/17lfmPmI=
+Received: from mail-io1-f70.google.com (mail-io1-f70.google.com
+ [209.85.166.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-294-kW8nCEv2NPCnbQtHhJD6Xw-1; Mon, 12 Dec 2022 21:53:47 -0500
+X-MC-Unique: kW8nCEv2NPCnbQtHhJD6Xw-1
+Received: by mail-io1-f70.google.com with SMTP id g11-20020a6be60b000000b006e2c707e565so1116883ioh.14
+        for <linux-man@vger.kernel.org>; Mon, 12 Dec 2022 18:53:47 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=h5LtCu1OG7ST9zUwh85D4d56B1gQTrgTy6KgwrA7+tw=;
-        b=13bLS5nsmGNGXvYApCcZIc+1Ua+Fpt7WUnZWqxSrYazKPzh9+ivVQRsoVwvnICJfuA
-         8l6uBKtZgf7IZSpeYfrJfDEW126i5mlUf8S3AfcT+3qr4ZtvXAHLbCnHN26rgqGkG+nY
-         IjxlMhu+Cwl5mjbrOEtYF3YOOX48waiphgqXt9U0JM966TyN5lgyzO8edwE9IrTvieuR
-         PRl/RhymGUiXgAqavQIOSAdpKNCMUU5PsmUGT9QpnBqoJGIjB1yfdHXKseDV7wPGSiqE
-         +pfA0/zyhqufFW7H2zCrhH9nFlC1SEnAir5hcfFVDEMX1s1oI4338vaqoa5kcVYQELjH
-         Ixqw==
-X-Gm-Message-State: ANoB5pmmovSIY5aCp6o1W98z8Y9VxSSM/7GXDW26fGsD1lF7TlK7R9/2
-        9sIn8a6O9qsK/Ruom08p6Iuogrks79M=
-X-Google-Smtp-Source: AA0mqf7yJaW0TMt9OsL/23CR4MN7IXZNuiJQF/OEk+KYAUQVvGPZbGRF4fF8mpNN0J0L6HaRmPedqA==
-X-Received: by 2002:a05:600c:3508:b0:3c6:e63e:816f with SMTP id h8-20020a05600c350800b003c6e63e816fmr13051403wmq.38.1670886063035;
-        Mon, 12 Dec 2022 15:01:03 -0800 (PST)
-Received: from asus5775.alejandro-colomar.es ([170.253.36.171])
-        by smtp.googlemail.com with ESMTPSA id m27-20020a05600c3b1b00b003b47ff307e1sm11801099wms.31.2022.12.12.15.01.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Dec 2022 15:01:02 -0800 (PST)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-X-Google-Original-From: Alejandro Colomar <alx@kernel.org>
-To:     linux-man@vger.kernel.org
-Cc:     Martin Sebor <msebor@redhat.com>,
-        Alejandro Colomar <alx@kernel.org>
-Subject: [PATCH v2 3/3] stpecpy.3, stpecpyx.3, strlcat.3, strlcpy.3, strscpy.3: Add new links to strcpy(3)
-Date:   Tue, 13 Dec 2022 00:00:44 +0100
-Message-Id: <20221212230044.86105-4-alx@kernel.org>
-X-Mailer: git-send-email 2.38.1
-In-Reply-To: <20221212142418.27615-1-alx@kernel.org>
-References: <20221212142418.27615-1-alx@kernel.org>
+        h=content-transfer-encoding:in-reply-to:organization:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=0RhDm3KlHkWaiYSwzCX1LN5q6/F6VMFXDyNsycvG1aE=;
+        b=2sn6aPuVRatYPdUGLM06s6IKm6tUaxFpxUduyEyUibwp6QnwztYyUJOIvoOFUhX3fk
+         tnKa5qWFEbjfYlNC4RC8rs+7wcw4c8fzqwOyOGVJis3ycniLc3oOsTypdDwXQbx1e0h6
+         lsI8BFwFqhnW2p2OoSuZ3tkJegE5DDbjCjzhVuqMa6JaJz72f+9Q0DHbHwOB/QLYFQs0
+         f0q0h8xqCRgn0VGkFiBDZYEgu/NOJIPJOBzuEmbSFyIHKMFk/Do/HOPNv038l0IlpLmq
+         R8ioB7E2Bp7w3Fw/3pEIGfI9HCm+F9rijIUCcAVRapyaw6yi216PtjDJL1c1WLirQNI0
+         Q5dg==
+X-Gm-Message-State: ANoB5pns9ymbOS2uZB4ZS+WoCNoJdlThJX0LkK2an+PWrosJLMHnuJpb
+        1wrhFYNSEG5WxdPfwDHQmP6SNmlffxW+3xb35JIoyyd9mhmc0Oc/yk9PpC6QAjuti3ECIi7WOmb
+        LBkRsR1GEDrHa8HBsNtVd
+X-Received: by 2002:a92:c9c4:0:b0:303:8c18:1283 with SMTP id k4-20020a92c9c4000000b003038c181283mr9899469ilq.31.1670900026987;
+        Mon, 12 Dec 2022 18:53:46 -0800 (PST)
+X-Google-Smtp-Source: AA0mqf4zIYbu3DDutBNMqQz/nHzlsk7Nv/Zl+bpcEtu/5yQplpP6b2xOl0/lyndBNHuMhDVaop+sFA==
+X-Received: by 2002:a92:c9c4:0:b0:303:8c18:1283 with SMTP id k4-20020a92c9c4000000b003038c181283mr9899462ilq.31.1670900026704;
+        Mon, 12 Dec 2022 18:53:46 -0800 (PST)
+Received: from [192.168.0.241] (192-0-145-146.cpe.teksavvy.com. [192.0.145.146])
+        by smtp.gmail.com with ESMTPSA id h12-20020a02cd2c000000b0038a760ab9a4sm462127jaq.161.2022.12.12.18.53.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 12 Dec 2022 18:53:45 -0800 (PST)
+Message-ID: <d96be4c5-b8b5-38da-57d0-55e02a41abcd@redhat.com>
+Date:   Mon, 12 Dec 2022 21:53:45 -0500
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.0
+Subject: Re: [PATCH] clone.2: note EINVAL when exit_signal + bad flags
+Content-Language: en-US
+To:     Alejandro Colomar <alx.manpages@gmail.com>,
+        Jack Pearson <jack@pearson.onl>,
+        "H.J. Lu" <hjl.tools@gmail.com>
+Cc:     linux-man@vger.kernel.org
+References: <20221202224419.231717-1-jack@pearson.onl>
+ <606b744f-131d-15b5-3242-745b400b3fa9@gmail.com>
+From:   Carlos O'Donell <carlos@redhat.com>
+Organization: Red Hat
+In-Reply-To: <606b744f-131d-15b5-3242-745b400b3fa9@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
-        autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
+        RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_NONE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Signed-off-by: Alejandro Colomar <alx@kernel.org>
----
- man3/stpecpy.3  | 1 +
- man3/stpecpyx.3 | 1 +
- man3/strlcat.3  | 1 +
- man3/strlcpy.3  | 1 +
- man3/strscpy.3  | 1 +
- 5 files changed, 5 insertions(+)
- create mode 100644 man3/stpecpy.3
- create mode 100644 man3/stpecpyx.3
- create mode 100644 man3/strlcat.3
- create mode 100644 man3/strlcpy.3
- create mode 100644 man3/strscpy.3
+On 12/9/22 14:49, Alejandro Colomar wrote:
+> Hi Jack,
+> 
+> On 12/2/22 23:44, Jack Pearson wrote:
+>> Document that Linux will report EINVAL when exit_signal is specified and
+>> either CLONE_THREAD or CLONE_PARENT is specified.
+>>
+>>  From clone3_args_valid in Linux:
+>> ```
+>>     if ((kargs->flags & (CLONE_THREAD | CLONE_PARENT)) &&
+>>         kargs->exit_signal)
+>>         return false;
+>> ```
+>>
+>> I have verified that this happens on my kernel with a small program, and
+>> that this doesn't happen with normal `clone` through the glibc helper.
+> 
+> Could you please also send a test program with the glibc wrapper?
+> 
+> BTW, glibc has a clone3(2) wrapper since last year.  It would be interesting to document it instead of the raw syscall.
 
-diff --git a/man3/stpecpy.3 b/man3/stpecpy.3
-new file mode 100644
-index 000000000..ff7476a84
---- /dev/null
-+++ b/man3/stpecpy.3
-@@ -0,0 +1 @@
-+.so man3/strcpy.3
-diff --git a/man3/stpecpyx.3 b/man3/stpecpyx.3
-new file mode 100644
-index 000000000..ff7476a84
---- /dev/null
-+++ b/man3/stpecpyx.3
-@@ -0,0 +1 @@
-+.so man3/strcpy.3
-diff --git a/man3/strlcat.3 b/man3/strlcat.3
-new file mode 100644
-index 000000000..ff7476a84
---- /dev/null
-+++ b/man3/strlcat.3
-@@ -0,0 +1 @@
-+.so man3/strcpy.3
-diff --git a/man3/strlcpy.3 b/man3/strlcpy.3
-new file mode 100644
-index 000000000..ff7476a84
---- /dev/null
-+++ b/man3/strlcpy.3
-@@ -0,0 +1 @@
-+.so man3/strcpy.3
-diff --git a/man3/strscpy.3 b/man3/strscpy.3
-new file mode 100644
-index 000000000..ff7476a84
---- /dev/null
-+++ b/man3/strscpy.3
-@@ -0,0 +1 @@
-+.so man3/strcpy.3
+glibc does not have a clone3 wrapper.
+
+glibc has an internal non-exported __clone3 interface that we use for pthreads,
+and likely soon for posix_spawn.
+
+We have not yet chosen to export clone3 as a public global symbol that developers
+can use.
+
 -- 
-2.38.1
+Cheers,
+Carlos.
 
