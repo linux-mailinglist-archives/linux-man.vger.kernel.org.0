@@ -2,118 +2,140 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id E2EA864ADF5
-	for <lists+linux-man@lfdr.de>; Tue, 13 Dec 2022 03:54:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 8685464B4D0
+	for <lists+linux-man@lfdr.de>; Tue, 13 Dec 2022 13:08:44 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234350AbiLMCy6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 12 Dec 2022 21:54:58 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56010 "EHLO
+        id S235127AbiLMMIn (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 13 Dec 2022 07:08:43 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58710 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234418AbiLMCyt (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 12 Dec 2022 21:54:49 -0500
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EB6A613CD4
-        for <linux-man@vger.kernel.org>; Mon, 12 Dec 2022 18:53:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1670900028;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         content-transfer-encoding:content-transfer-encoding:
-         in-reply-to:in-reply-to:references:references;
-        bh=0RhDm3KlHkWaiYSwzCX1LN5q6/F6VMFXDyNsycvG1aE=;
-        b=MuszqrdHm95CbROfRgPXRJX5NZJ1caHyWdvZhML/LqEZnDQHqvYQyI8Upu4Rt4K3eQ6D/r
-        mJHDyuASNcM7knzHATb1qRKCFgr1bLIM262stBYhLJ3a1UD8tGBtpqemwT5RmGNTp3igyd
-        TPnzuPclhTesTl0dAlOaua/17lfmPmI=
-Received: from mail-io1-f70.google.com (mail-io1-f70.google.com
- [209.85.166.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-294-kW8nCEv2NPCnbQtHhJD6Xw-1; Mon, 12 Dec 2022 21:53:47 -0500
-X-MC-Unique: kW8nCEv2NPCnbQtHhJD6Xw-1
-Received: by mail-io1-f70.google.com with SMTP id g11-20020a6be60b000000b006e2c707e565so1116883ioh.14
-        for <linux-man@vger.kernel.org>; Mon, 12 Dec 2022 18:53:47 -0800 (PST)
+        with ESMTP id S234899AbiLMMIm (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 13 Dec 2022 07:08:42 -0500
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com [IPv6:2a00:1450:4864:20::32b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5E82E13F9E;
+        Tue, 13 Dec 2022 04:08:41 -0800 (PST)
+Received: by mail-wm1-x32b.google.com with SMTP id v7so8147580wmn.0;
+        Tue, 13 Dec 2022 04:08:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=9EZN5D7YMctr8QYDTHJDTpFFxPnxIXKf6eLLlSncA3Q=;
+        b=eiaUdUECEAE9B/WItc5/7yC7N2DCJ4LWnIJgM/MErm3f7mYB4qUpJo9AvOq/BkrLg8
+         hGENktrO5oxY/UTJDsAHg9tra7m7QHF4zKLx/EzPta2YCZgnIzne3bfKp/2/c6WCGYQ7
+         qJXoAvoTmwuFWTloB2WXmuvU72FmrZ/7QYG8APKPh7bWLRp0+XFmyTHE372D/JYR9l6k
+         wxXo8rRvPQLeiHJsXLM1h8d0PrX6lTNl+3pzD+WIpbL0JbBDzUF0hhNhMs0fr8TLBeMk
+         y/uyh6bxLq8QNuTh6aZW4QwpY0ZKdNrhgOtgJs4rqctwtH7tTPjBjalUlxvPWCgRW5nE
+         HSNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:in-reply-to:organization:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=0RhDm3KlHkWaiYSwzCX1LN5q6/F6VMFXDyNsycvG1aE=;
-        b=2sn6aPuVRatYPdUGLM06s6IKm6tUaxFpxUduyEyUibwp6QnwztYyUJOIvoOFUhX3fk
-         tnKa5qWFEbjfYlNC4RC8rs+7wcw4c8fzqwOyOGVJis3ycniLc3oOsTypdDwXQbx1e0h6
-         lsI8BFwFqhnW2p2OoSuZ3tkJegE5DDbjCjzhVuqMa6JaJz72f+9Q0DHbHwOB/QLYFQs0
-         f0q0h8xqCRgn0VGkFiBDZYEgu/NOJIPJOBzuEmbSFyIHKMFk/Do/HOPNv038l0IlpLmq
-         R8ioB7E2Bp7w3Fw/3pEIGfI9HCm+F9rijIUCcAVRapyaw6yi216PtjDJL1c1WLirQNI0
-         Q5dg==
-X-Gm-Message-State: ANoB5pns9ymbOS2uZB4ZS+WoCNoJdlThJX0LkK2an+PWrosJLMHnuJpb
-        1wrhFYNSEG5WxdPfwDHQmP6SNmlffxW+3xb35JIoyyd9mhmc0Oc/yk9PpC6QAjuti3ECIi7WOmb
-        LBkRsR1GEDrHa8HBsNtVd
-X-Received: by 2002:a92:c9c4:0:b0:303:8c18:1283 with SMTP id k4-20020a92c9c4000000b003038c181283mr9899469ilq.31.1670900026987;
-        Mon, 12 Dec 2022 18:53:46 -0800 (PST)
-X-Google-Smtp-Source: AA0mqf4zIYbu3DDutBNMqQz/nHzlsk7Nv/Zl+bpcEtu/5yQplpP6b2xOl0/lyndBNHuMhDVaop+sFA==
-X-Received: by 2002:a92:c9c4:0:b0:303:8c18:1283 with SMTP id k4-20020a92c9c4000000b003038c181283mr9899462ilq.31.1670900026704;
-        Mon, 12 Dec 2022 18:53:46 -0800 (PST)
-Received: from [192.168.0.241] (192-0-145-146.cpe.teksavvy.com. [192.0.145.146])
-        by smtp.gmail.com with ESMTPSA id h12-20020a02cd2c000000b0038a760ab9a4sm462127jaq.161.2022.12.12.18.53.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 12 Dec 2022 18:53:45 -0800 (PST)
-Message-ID: <d96be4c5-b8b5-38da-57d0-55e02a41abcd@redhat.com>
-Date:   Mon, 12 Dec 2022 21:53:45 -0500
+        bh=9EZN5D7YMctr8QYDTHJDTpFFxPnxIXKf6eLLlSncA3Q=;
+        b=sL6kvw2Rle+/FTuudwWWF94XybT5+PjiZ4K2Ynk8ae8tw/rNPyvzmBYyyxK3fr2fe+
+         3W6eb++9K7uEBLyDbx4mgw+8ukbD4DL0/a4nXpauwFJfFS5kJuvyo8hnMbxCH0nLY0Hd
+         luGhtN8RvEMuROJBeNxlPs6rNvjZPqNFzCel3hcrYulskbRKoCXOHvc0w9OzZ7saNUB/
+         ogSGGyg8iVI4lJyScM3Q/FOoO7+CfoI4+MCM22PsXuG58wxs4qgROtMbR8x47uFOMxuZ
+         4iuXG+H/f1HS103PUkvmYmpbtXYEb0o3TNNBj0CaYA/+bHGT42tRZ1Fq52nNGCzxWQ/v
+         m4KA==
+X-Gm-Message-State: ANoB5pmeHbnOGxjYDji3Zo4UOPbApLukchV3JOmxaOozM7+C/hpjRlTr
+        MN1GD3UzKiJNJT3PddR/+iY=
+X-Google-Smtp-Source: AA0mqf7ETkqGHV59uaPAmaovl76uzzXvMs6DSiuvDOEdPStlHcrv23Z8t6DLh74A59lDb19WtVkSzQ==
+X-Received: by 2002:a05:600c:600c:b0:3d0:8c7:65dc with SMTP id az12-20020a05600c600c00b003d008c765dcmr14934963wmb.0.1670933319702;
+        Tue, 13 Dec 2022 04:08:39 -0800 (PST)
+Received: from localhost.localdomain ([5.29.249.86])
+        by smtp.gmail.com with ESMTPSA id n14-20020a05600c500e00b003cf774c31a0sm12941255wmr.16.2022.12.13.04.08.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Dec 2022 04:08:39 -0800 (PST)
+From:   Amir Goldstein <amir73il@gmail.com>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     Luis Henriques <lhenriques@suse.de>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        linux-fsdevel@vger.kernel.org, linux-man@vger.kernel.org
+Subject: [PATCH] copy_file_range.2: Fix wrong kernel version information
+Date:   Tue, 13 Dec 2022 14:08:34 +0200
+Message-Id: <20221213120834.948163-1-amir73il@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.0
-Subject: Re: [PATCH] clone.2: note EINVAL when exit_signal + bad flags
-Content-Language: en-US
-To:     Alejandro Colomar <alx.manpages@gmail.com>,
-        Jack Pearson <jack@pearson.onl>,
-        "H.J. Lu" <hjl.tools@gmail.com>
-Cc:     linux-man@vger.kernel.org
-References: <20221202224419.231717-1-jack@pearson.onl>
- <606b744f-131d-15b5-3242-745b400b3fa9@gmail.com>
-From:   Carlos O'Donell <carlos@redhat.com>
-Organization: Red Hat
-In-Reply-To: <606b744f-131d-15b5-3242-745b400b3fa9@gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_NONE
-        autolearn=ham autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 12/9/22 14:49, Alejandro Colomar wrote:
-> Hi Jack,
-> 
-> On 12/2/22 23:44, Jack Pearson wrote:
->> Document that Linux will report EINVAL when exit_signal is specified and
->> either CLONE_THREAD or CLONE_PARENT is specified.
->>
->>  From clone3_args_valid in Linux:
->> ```
->>     if ((kargs->flags & (CLONE_THREAD | CLONE_PARENT)) &&
->>         kargs->exit_signal)
->>         return false;
->> ```
->>
->> I have verified that this happens on my kernel with a small program, and
->> that this doesn't happen with normal `clone` through the glibc helper.
-> 
-> Could you please also send a test program with the glibc wrapper?
-> 
-> BTW, glibc has a clone3(2) wrapper since last year.  It would be interesting to document it instead of the raw syscall.
+commit d7ba612d0 ("copy_file_range.2: Update cross-filesystem support
+for 5.12") prematurely documented kernel 5.12 as the version that
+changes the cross-fs copy_file_range() behavior, but that behavior
+change was only merged in kernel version 5.19.
 
-glibc does not have a clone3 wrapper.
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+---
+ man2/copy_file_range.2 | 17 +++++++++++------
+ 1 file changed, 11 insertions(+), 6 deletions(-)
 
-glibc has an internal non-exported __clone3 interface that we use for pthreads,
-and likely soon for posix_spawn.
-
-We have not yet chosen to export clone3 as a public global symbol that developers
-can use.
-
+diff --git a/man2/copy_file_range.2 b/man2/copy_file_range.2
+index ac74d9a07..25146a1dd 100644
+--- a/man2/copy_file_range.2
++++ b/man2/copy_file_range.2
+@@ -152,7 +152,8 @@ Out of memory.
+ .B ENOSPC
+ There is not enough space on the target filesystem to complete the copy.
+ .TP
+-.BR EOPNOTSUPP " (since Linux 5.12)"
++.BR EOPNOTSUPP " (since Linux 5.19)"
++.\" commit 868f9f2f8e004bfe0d3935b1976f625b2924893b
+ The filesystem does not support this operation.
+ .TP
+ .B EOVERFLOW
+@@ -171,11 +172,13 @@ or
+ refers to an active swap file.
+ .TP
+ .BR EXDEV " (before Linux 5.3)"
++.\" commit 5dae222a5ff0c269730393018a5539cc970a4726
+ The files referred to by
+ .IR fd_in " and " fd_out
+ are not on the same filesystem.
+ .TP
+-.BR EXDEV " (since Linux 5.12)"
++.BR EXDEV " (since Linux 5.19)"
++.\" commit 868f9f2f8e004bfe0d3935b1976f625b2924893b
+ The files referred to by
+ .IR fd_in " and " fd_out
+ are not on the same filesystem,
+@@ -191,13 +194,15 @@ emulation when it is not available.
+ A major rework of the kernel implementation occurred in Linux 5.3.
+ Areas of the API that weren't clearly defined were clarified and the API bounds
+ are much more strictly checked than on earlier kernels.
+-Applications should target the behaviour and requirements of 5.3 kernels.
+ .PP
+-Since Linux 5.12,
++Since Linux 5.19,
+ cross-filesystem copies can be achieved
+ when both filesystems are of the same type,
+ and that filesystem implements support for it.
+-See BUGS for behavior prior to Linux 5.12.
++See BUGS for behavior prior to Linux 5.19.
++.PP
++Applications should target the behaviour and requirements of 5.19 kernels,
++that was also backported to earlier stable kernels.
+ .SH STANDARDS
+ The
+ .BR copy_file_range ()
+@@ -223,7 +228,7 @@ such as the use of reflinks (i.e., two or more inodes that share
+ pointers to the same copy-on-write disk blocks)
+ or server-side-copy (in the case of NFS).
+ .SH BUGS
+-In Linux 5.3 to Linux 5.11,
++In Linux 5.3 to Linux 5.18,
+ cross-filesystem copies were implemented by the kernel,
+ if the operation was not supported by individual filesystems.
+ However, on some virtual filesystems,
 -- 
-Cheers,
-Carlos.
+2.25.1
 
