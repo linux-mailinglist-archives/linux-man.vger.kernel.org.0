@@ -2,67 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 3134964B8E8
-	for <lists+linux-man@lfdr.de>; Tue, 13 Dec 2022 16:48:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id BE66E64BB28
+	for <lists+linux-man@lfdr.de>; Tue, 13 Dec 2022 18:35:25 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S236225AbiLMPs3 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 13 Dec 2022 10:48:29 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44140 "EHLO
+        id S235935AbiLMRfY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 13 Dec 2022 12:35:24 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52582 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S236353AbiLMPrs (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 13 Dec 2022 10:47:48 -0500
-Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com [IPv6:2001:4860:4864:20::2a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2638622B07
-        for <linux-man@vger.kernel.org>; Tue, 13 Dec 2022 07:46:02 -0800 (PST)
-Received: by mail-oa1-x2a.google.com with SMTP id 586e51a60fabf-14455716674so13029997fac.7
-        for <linux-man@vger.kernel.org>; Tue, 13 Dec 2022 07:46:02 -0800 (PST)
+        with ESMTP id S235686AbiLMRfV (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 13 Dec 2022 12:35:21 -0500
+Received: from mail-oa1-x33.google.com (mail-oa1-x33.google.com [IPv6:2001:4860:4864:20::33])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 25F413AD
+        for <linux-man@vger.kernel.org>; Tue, 13 Dec 2022 09:35:20 -0800 (PST)
+Received: by mail-oa1-x33.google.com with SMTP id 586e51a60fabf-14449b7814bso13443328fac.3
+        for <linux-man@vger.kernel.org>; Tue, 13 Dec 2022 09:35:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=5FKPPVjfT5NUfQpbGN6eOYaIwyJsdHEYz0ZTu3l1b6g=;
-        b=pSFDZhaJOUMDA0e4r0vJk19CdqYMhwv9mu7goP8mS6q8w4AFWrClSO4MyvJq6o9z3c
-         HN1rdBtwT3W+rFvjVUEQkZnecOvouNTqCQuMolm2/bPj0vFmLhFqikjXB7NgehnKkmz3
-         QF9CYNbUaydDhvCKCad55bAz16beyE8VpK9uWkilAFEoRERIzKYFoJZnZaDorbH3crWz
-         mD9KgxodKAhVlfCMarPcZf3Ub6TXcx8GPVVspVxM045sE6K1A4GyWELXV7vDmqi0u1Iw
-         vgSfLGN6B9IFHM+GpE+GWvZnthMF91/Wy/VdbKgf1/ZzYXf0HfvO+O2JaGasXYu10rXn
-         DPuA==
+        bh=H7hzGJfLQxnCzaib/w3qdTYyt/STv5Wnvh6gqd1vITw=;
+        b=fR8QpU3k8e/e39qkUOzNd/J2wH3zdwi0SjcrY9I4pN7aFPmBGpO+Lz7btJkxlDyiLN
+         R0C/C/1aC4MyJwyksiiH4I8MlURBSHJXUYd5E+zG2B9rH9YG8snIruj9ABDUKtHnMT8M
+         t7lI1PojmUvyBgI0amm7dA1Rkn5RHWHgd85AtkhkppF93lzvpvl3ovegj9zLlp61Aj+f
+         9NQ4hIjPCMqTIVAeUgMM6rhRNimlwOQzPkmTpKsPWN1DixXDms1qa9kzgmWGh6PVz5up
+         4n2QZeXi+SnTRPbpkuAxcQw362xwIwVIfa5S2doJlt+aX/QTvTKDwu2t0EmFKcJOOFyU
+         9JHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=5FKPPVjfT5NUfQpbGN6eOYaIwyJsdHEYz0ZTu3l1b6g=;
-        b=hh/Mha9ToymuT5+dsGARFUdvfpDkrEslmCMB3ydpHGuBv8MYWC2t7PMSZTRyxzyKjY
-         flEDHQiFfUn67vYpRaXIYDVZYCnjYpXSMdFhkLtcN0bGlKdT330hUlJObxDdTOxNM4TC
-         h+uPMWDpkOb7frb1Rie74jOSz5/jHRCgCU7V11Dssb77CmZzaVA81lsJwo5I/t4vzyQG
-         zH92BS3Ca51FPhgsZ2c2GSRZXTpnGrYICiuWL50aXRenB19NlpnPMqGJlT1B89014/Gi
-         FYlpn8+kXWRO8DOPX3BwJCDUchpAfaWurOD1xxmhUM4OLhVMHnQnDe4/s++m6saDmGzu
-         81yw==
-X-Gm-Message-State: ANoB5plM+J/NH9CMATG74OeTrMptzgC+Ytu03yCsOV+ENWznvoVLrmWT
-        w+NrDlkD1mm6L8Ae2p58UPFbNdHc2OM=
-X-Google-Smtp-Source: AA0mqf5W6EorIVGrglyXYHTD416M+RVkuJfCd46oYLI4ek/kopNBdRCrpXf6OyUcgeq23TwkeShqHQ==
-X-Received: by 2002:a05:6870:588f:b0:13b:f650:f0b4 with SMTP id be15-20020a056870588f00b0013bf650f0b4mr10673808oab.5.1670946356029;
-        Tue, 13 Dec 2022 07:45:56 -0800 (PST)
+        bh=H7hzGJfLQxnCzaib/w3qdTYyt/STv5Wnvh6gqd1vITw=;
+        b=UJVDM9dSWCXBQ3jzk0uXq97q3ma5bhoGkPUDMaRFY77bHurBcmtDWLRmtHf8ErzS9h
+         +g7jmJIL/N+jCiHRueU5K/MzQZDOD9YZ61qR5kgV5KbfzB84TWUfzSa8zrDeewQyOBlV
+         GD8ZugZf+yZWGSVnnTCJCMZgub83OO2Mzfqm+wo8oyNa0QX87CNgFw54JA7AZWsZDbd7
+         +tTMLs94ZNjaANGPqimAJBgT6Lnm0lblmklkjyeuTn6Bhil4ueQLTe08Glf+H1jAMknG
+         Ml0sTmBjskGAJDDcvgQAbHPLh/hQ6b07rjsz5BDKKNZX8ir2Wa8okIX5W6qCQuM72Oln
+         G1xw==
+X-Gm-Message-State: ANoB5pnMCooD/PVpRJXRQ9XC10niDjSTjoXm3UuNZpJvZ39d4d2WE00M
+        GHQ3n9RI0qff0cq8uL4qMnI=
+X-Google-Smtp-Source: AA0mqf6KH2g4x+KcxgO0/gd2oTQ4nSFKppc1eWlwxYTKve9i7cufnLthBS9tWy/M8Ad4rR2UB+SN9Q==
+X-Received: by 2002:a05:6871:4683:b0:137:3ada:7249 with SMTP id ni3-20020a056871468300b001373ada7249mr9315679oab.54.1670952919281;
+        Tue, 13 Dec 2022 09:35:19 -0800 (PST)
 Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id q16-20020a056870829000b0013c8ae74a14sm1529759oae.42.2022.12.13.07.45.55
+        by smtp.gmail.com with ESMTPSA id h4-20020a4aa284000000b004a3cc18e86asm1330603ool.40.2022.12.13.09.35.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Dec 2022 07:45:55 -0800 (PST)
-Date:   Tue, 13 Dec 2022 09:45:54 -0600
+        Tue, 13 Dec 2022 09:35:18 -0800 (PST)
+Date:   Tue, 13 Dec 2022 11:35:17 -0600
 From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
 To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     groff <groff@gnu.org>, linux-man@vger.kernel.org
-Subject: a Q quotation macro for man(7) (was: groff man(7) extensions)
-Message-ID: <20221213154554.zmpdso7j4eht53pd@illithid>
-References: <176225b0-4b0e-698b-b79e-f8ed78b4cf8c@gmail.com>
- <20221212142418.27615-1-alx@kernel.org>
- <cfb105a2-4bdb-c317-60b0-0771cc6201e8@gmail.com>
- <20221212183840.jhkgkxllwmxr5p3p@illithid>
+Cc:     groff <groff@gnu.org>, Helge Kreutzmann <debian@helgefjell.de>,
+        mario.blaettermann@gmail.com, linux-man@vger.kernel.org
+Subject: Re: Italics in SS (was: Issue in man page namespaces.7)
+Message-ID: <20221213173517.fhtj52pchamx6xof@illithid>
+References: <20221204090713.GA512@Debian-50-lenny-64-minimal>
+ <796a4611-9030-0d3a-e3e6-5b23ca66672b@gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="trfcs6psjjxx2iy2"
+        protocol="application/pgp-signature"; boundary="nqeuvn3qoy4ihrwz"
 Content-Disposition: inline
-In-Reply-To: <20221212183840.jhkgkxllwmxr5p3p@illithid>
+In-Reply-To: <796a4611-9030-0d3a-e3e6-5b23ca66672b@gmail.com>
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
@@ -74,125 +73,228 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---trfcs6psjjxx2iy2
-Content-Type: multipart/mixed; boundary="ntwl3q23fgnkpjog"
-Content-Disposition: inline
-
-
---ntwl3q23fgnkpjog
-Content-Type: text/plain; charset=us-ascii
+--nqeuvn3qoy4ihrwz
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-[self-reply]
+Hi Alex,
 
-At 2022-12-12T12:38:42-0600, G. Branden Robinson wrote:
-> Here's a list of man(7) extensions to which I have given consideration.
+[finally getting to this; my email reply queue is about 3 weeks deep]
+
+At 2022-12-04T13:34:43+0100, Alejandro Colomar wrote:
+> On 12/4/22 10:07, Helge Kreutzmann wrote:
+> > Without further ado, the following was found:
+> >=20
+> > Issue:    /proc/sys/user =E2=86=92 I</proc/sys/user>
+> >=20
+> > "The /proc/sys/user directory"
 >=20
-> 	KS/KE	Keeps.  Easy.[3]  Harmlessly ignorable by other
-> 		implementations.
-> 	LS/LE	List enclosure.  Throws a semantic hint (e.g., for HTML
-> 		output) and eliminates final use case of `PD` macro.[4]
-> 	DC/TG	Semantics at last.  Sure to rouse anger in people who
-> 		decided long ago that man(7) can't do this.[5]  Having
-> 		looked more closely at mdoc(7) since writing that, I
-> 		think `DC` should accept a _pair_ of arguments as its
-> 		second and third parameters for bracketing purposes.
-> 		But again, most man page authors would never need to
-> 		mess with `DC` at all.
+> That is a subsection, which is of course bold by default.  In the SS
+> title, there's text that would be formatted if it appeared elsewhere
+> in the page, but we don't format it in SS titles (I'm guessing for
+> laziness of using the dreaded \f escape).  Would you recommend using
+> it?  I tried it, and it shows in bold+italics,
 
-There was one more.
+Know how I can tell you're using groff Git?  ;-)
 
-	Q	Quotation macro.  It's madness that one doesn't already
-		exist.  Its absence, the imperfect portability of
-		special character identifiers for various types of
-		quotation mark, and the bad ergonomics of introducing
-		*roff strings just to serve this one purpose have made
-		quotation such a pain point in man(7) writing that
-		authors have tended to not bother with and instead abuse
-		font style changes for it, putting things that should
-		simply be quoted into stentorian italics or screaming
-		bold instead, when these faces are already heavily
-		burdened by other uses.
+> which is okay to my taste, and also increases consistency of
+> formatting, so I'm fine with it.
 
-I experimentally implemented `Q` at one point but ran into a corner case
-I wasn't happy with.  Looking back over it now I see that I got it
-entangled with an extension to `SY`/`YS` to support arguments to help
-the formatter compute tab stops.  I'm attaching "clone.man" so you can
-have a look.
+Yes.  This is an exception to my general proscription regarding use of
+`\f` in man pages.  It is rare that a typeface change is required in a
+(sub)section heading, but when it is, it should not be omitted to keep
+the document source tidy.
 
-I've also pondered having private strings (i.e., not for use directly by
-man pages) for opening and closing quotation marks that localization
-packages can set.  This might save Helge Kreutzmann and collaborators
-some tedium.
+Strange as it may sound, this issue is intertwined with some of the
+trickiest and most frustrating design features (or gaps) of *roff, going
+back to Ossanna troff in the mid-1970s and all the way up to fancy PDF
+features today.
 
-Even with that wrinkle, a `Q` macro would be dead simple.
+So settle in for yet another gigantic email, and I'll tell you a story.
 
-Here's an an-ext.tmac portable version.
+1.  groff 1.22.4 and earlier will _not_ show bold-italics.  I taught
+    groff Git to do this because the loss of stroke weight when
+    rendering to PostScript and PDF was irritating.
 
-=2E\" Define opening and closing quotation marks as appropriate to your
-=2E\" language and/or output device.
-=2Eds oq \(lq
-=2Eds cq \(rq
-=2E
-=2E\" Quote first argument with second argument immediately following.
-=2Ede Q
-\*(oq\\$1\*(cq\\$2
-=2E.
+2.  There _was_ a way to do this with font style macros.
+
+  .SS
+  The\~\c
+  .I /proc/sys/user\~\c
+  .B directory
+
+    This works in groff 1.22.4, but it is warty, as you can see.  People
+    get baffled by these escape sequences, and having to select the bold
+    style again explicitly does not play well with groff man(7)'s `HF`
+    string feature (which turns 20 years old in February).
+
+    But the most notable thing about the above is that the "arguments"
+    to the `SS` macro call are on subsequent lines.  They are not
+    arguments at all.  They are ordinary text lines, which the `SS`
+    macro has arranged for capture by the macro package through use of a
+    *roff feature known as an "input trap" (request `it`).
+
+    I broke the foregoing in groff Git, on purpose, because a
+    compatibility dilemma arose involving output line continuation
+    (`\c`) and input line traps.  In the end I went with AT&T Unix
+    Version 7 troff compatibility.  The details are deeply down in the
+    weeds, and since taking that decision after discussion[1] with
+    mandoc(1) maintainer Ingo Schwarze I have come to feel that AT&T
+    troff was in fact buggy in this regard; its `it` request counted
+    input lines including those using the `\c` escape sequence like any
+    others, while the `ce` centering request counted input lines but
+    _didn't_ increment the counter for lines using `\c`.  I claim that
+    these should have been consistent with each other, but they weren't.
+
+    (groff's `rj` [right-alignment] request counts input lines as `ce`
+    does, and for extra excitement, input lines that aren't productive
+    of formatted output aren't counted by _any_ of these macros--a point
+    I feel has not been adequately stressed by any *roff documentation I
+    have seen to date.)
+
+    I have recently updated groff's documentation to discuss these
+    matters frankly.  (I hope comprehensively in our Texinfo manual, and
+    economically in the case of our man pages.)  That includes an
+    explanation of what, exactly, I mean by "input lines that are
+    productive of formatted input".
+
+    Changing groff's `it` to work like its `itc` would (1) render `itc`
+    superfluous, and (2) break historical *roff code in ways that could
+    be really hard for a novice to troubleshoot.  The alternative was to
+    "break" groff man(7)'s `SH` and `SS` macros instead.
+
+    But here's the good news.  *Almost no one, past or present, uses
+    `SH` and `SS` this way.*  I'll bet some people reading this did not
+    even know you could put the (sub)section headings on the next line
+    like this.  You could, but even in the first man(7) pages ever, in
+    Version 7, `SH` was used with arguments.  And nearly every man(7)
+    page written since has followed suit.  Further, breaking it has
+    other benefits I'll get back to in a moment.
+
+    (Another fun fact: `SS` was implemented in the first man(7) macros
+    ever, but not documented in Version 7 Unix's own man(7) page.)
+
+    (Back then, there was an absolute limit of 9 arguments to any macro,
+    because that's all you could say with `\$1` .. `\$9`.  Also, AT&T
+    man(7) tended to only pass 6 arguments among macros anyway.  I
+    wonder if the input line trap approach to `SH` and `SS` was adopted
+    in foresight of the possibility that someone might want a
+    (sub)section heading that was more than six (or nine) words long,
+    and they might be unreceptive to advice to just _quote multi-word
+    arguments to macros_.  Or maybe `SH` and `SS` used input traps
+    because that's how Mike Lesk's ms(7) macro package, at that time the
+    gold standard for technical writing at the Bell Labs CSRC, handled
+    its `NH` and `SH` macros for numbered and unnumbered headings.)
+
+    More obviously, one can observe that escape sequences are still
+    necessary in the above.  The `\c` is one that has proven challenging
+    to master--though I've done my damnedest in groff's documentation
+    post-1.22.4 to demystify it--so we might not regard the foregoing
+    approach as an improvement.  Users at least have confidence that
+    they know what the font selection escape sequences will do.  (As
+    Russ Allbery has recently brought to my attention, if the font you
+    select doesn't exist, your confidence when subsequently using `\fP`
+    or `f[]` may be misplaced, especially when using Solaris troff.)
+
+3.  So the (sub)section heading technique that no one uses will be
+    broken in groff 1.23.  Do we gain anything from this apart from a
+    perverse compatibility with a 43-year-old version of a macro
+    package?
+
+    Yes!
+
+    With the contents of the heading sitting right there, we can with
+    great ease construct a PDF bookmark with them.  This means when you
+    render your man pages to PDF, your PDF viewer's navigation pane will
+    show you a hierarchical menu of the man page with hyperlinked
+    section and subsection titles, greatly easing navigation.
+
+    When I re-typeset the Kernighan & Cherry paper "Typesetting
+    Mathematics -- User's Guide" using groff earlier this year[2], Larry
+    McVoy emailed me to express pleased surprise at this sudden new
+    hyperlink-powered navigability feature in a 40+ year old document.
+    The reason was that K&C used a private macro called `SC` as an
+    extension to the ms(7) macros they used for the document.  Their
+    `SC` macro wanted the heading title as _arguments_, which made it
+    trivial to construct a PDF bookmark from it.
+
+4.  The argumentful use of `SH` and `SS` is more amenable to grepping.
+
+5.  Not all is joy and roses.  When you do things like embed font
+    selection escape sequences in a heading, internally groff creates
+    data structures called "nodes" that are not straightforwardly
+    encodable in the device control escape sequences that are used to
+    embed "PDFMark" data in the formatted document.  In the past this
+    has led to what I nominate as groff's most horribly inscrutable
+    diagnostic message.
+
+      can't transparently output node at top level
+
+   So, long story short (too late) what we need in groff is a better
+   method of "sanitizing" node lists, so we can strip them of everything
+   but _encoded characters_ suitable for handoff to an output device.
+   groff _already_ has two requests for this sort of thing, `unformat`
+   and `asciify`, but my current assessment is unfortunately they don't
+   do precisely what is needed.
+
+   This includes the problem of embedding non-ASCII characters that
+   appear in (sub)section headings.  Right now this is simply not
+   expected to work, with a similar diagnostic message.  I haven't yet
+   fully sorted the issue out (PDF experts know this stuff better than I
+   do), but I think it has to do with non-ASCII characters requiring
+   UTF-16 encoding.  groff simply doesn't know to produce UTF-16-encoded
+   characters.
+
+   Maybe we'll get that sorted out in a clean way for groff 1.24.
+
+   https://savannah.gnu.org/bugs/index.php?63074
+
+   In the meantime, I have stifled these warnings.  Anyone wanting to
+   see them can turn them back on with an environment variable,
+   GROFF_ENABLE_TRANSPARENCY_WARNINGS.  This variable is undocumented
+   because I hope it won't live long, and I feel pretty confident that
+   the only people who want to see or can do anything about such
+   warnings are developers of groff itself, or of macro packages.
+
+6. The problems discussed in point #5 would still afflict us even if we
+   continued to use input traps for `SH` and `SS`, so retaining that
+   point of compatibility would seem to buy us little.
+
+So, go forth with
+
+  .SS "The \f[I]/proc/sys/user\f[] directory"
+
+or
+
+  .SS "The \fI/proc/sys/user\fP directory"
+
+if you want old *roff compatibility, and be merry.
 
 Regards,
 Branden
 
---ntwl3q23fgnkpjog
-Content-Type: application/x-troff-man
-Content-Disposition: attachment; filename="clone.man"
-Content-Transfer-Encoding: quoted-printable
+[1] https://lists.gnu.org/archive/html/groff/2022-06/msg00020.html
+[2] https://lists.gnu.org/archive/html/groff/2022-07/msg00002.html
 
-=2ETH clone 2 2022-08-05 "groff test suite"=0A.\" BEGIN stuff that would go=
- into a future an.tmac or an-ext.tmac=0A.nr an*in-synopsis 0=0A.\" Begin sy=
-nopsis.=0A.de SY=0A.  \" If already in a synopsis, start a new item within =
-it.=0A.  ie \\n[an*in-synopsis] \{\=0A.    br=0A.    ns=0A.  \}=0A.  el \{\=
-=0A.    nh=0A.    nr an*in-synopsis 1=0A.    nr an*saved-adjustment-mode \\=
-n(.j=0A.    ad l=0A.    nr an*saved-indentation \\n(.i=0A.=0A.    \" If giv=
-en arguments, use them to set up tab stops measured from=0A.    \" the begi=
-nning of the output line, wide enough to hold each=0A.    \" argument plus =
-1 en.  This handles C function synopses.=0A.    ie \\n[.$] \{\=0A.      lin=
-etabs=0A.      ds an*tab-stops \" empty=0A.      while \\n[.$] \{\=0A.     =
-   as an*tab-stops " \w'\\$1'u+1n=0A.        shift=0A.      \}=0A.      ta =
-\\*[an*tab-stops]=0A.    \}=0A.    \" If not given arguments, set up hangin=
-g paragraph for command=0A.    \" synopsis.=0A.    el \{\=0A.      HP \w'\f=
-B\\$1\fP\ '=0A.      B "\\$1"=0A.    \}=0A.  \}=0A..=0A.=0A.=0A.\" End syno=
-psis.  Restores adjustment.=0A.de YS=0A.  in \\n[an*saved-indentation]u=0A.=
-  ad \\n[an*saved-adjustment-mode]=0A.  hy \\n(mH \" defined in an-ext.tmac=
-=0A.  if d an*tab-stops \{\=0A.    ta=0A.    rm an*tab-stops=0A.  \}=0A.  n=
-r an*in-synopsis 0=0A..=0A.=0A.=0A.\" Quote first argument with second argu=
-ment immediately following.=0A.de Q=0A.  nop \[lq]\\$1\[rq]\\$2=0A..=0A.\" =
-END stuff that would go into a future an.tmac or an-ext.tmac=0A.=0A.SH Name=
-=0Aclone \- create a=0A.Q child=0Aprocess=0A.SH Synopsis=0A.SY "#include <s=
-ys/syscall.h>" "/* Definition of ""CLONE_"" constants"=0A.B "#include <sche=
-d.h>	"\" tab=0A.I /* Definition of \c=0A.Q CLONE_=0A.I constants */=0A.=0A.=
-SY=0A.B "#include <sys/syscall.h>	"\" tab=0A.I /* Definition of \c=0A.Q SYS=
-_=0A.I constants */=0A.YS=0A
---ntwl3q23fgnkpjog--
-
---trfcs6psjjxx2iy2
+--nqeuvn3qoy4ihrwz
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmOYnioACgkQ0Z6cfXEm
-bc55MxAArm81irbWTj9OHpSXE6m1lGzf5iVekwSZRmJlMECVl390GBbBV9yTUDw8
-KvAtHwNLYYeR67iyUxme0TNxlmv7Mm93yDtHWdeLieauwS8L58dlNb38J5jnCJL9
-J/oLcwW6/NCAkdfGnDhl3+ixBRCJfVoUGBVnin/7EohicRYDzLPnanwd9B3R6ZkB
-sXAU+SFiWOBcQrbdaRm8+svyyC3Y68lWkT3f2lhuV9+o1K9RUnsnrLoIyKntVclm
-HyTOA2n2HQR1PV9hoe9RVHshlmtT1Os1mFEOS3T5F4ZjhWwSqld+YnnD5DtG3ydp
-bDlseQPhQbetfnAlpSVAnOq464RlmPm9HkC7JocASlwKsj0C4nXQL4/q8JgutK3O
-mW9FTyIUkAbD/RC1rqjB674Xb69/rfrwKTZCCQRUZnr+iRbj/l2LCdg0Q3Gb78EZ
-7OqOqyM4/hbpbGkx6WdvGVUZEjeQQrCo4HWtomzr6zcGrFzY6LZpue0cON3NkMmo
-1tPt/tmWkQXkWgxeYbEAKd6KyrEdBA9sye4l1H8vlisBcU+m3CHFsfENrq44rOq4
-xZe2MFKFYiar2E8e3hhB4thcd0EU2ZTkUbjgeEPx/oFIHFy3kPXs+sHPlYZGqa55
-8e8/CCFd1hCR40DQTPDwhBgYg3+6HfFH/2gaZqk0GqflCTGHHT8=
-=y129
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmOYt80ACgkQ0Z6cfXEm
+bc5lcQ//feRfVC72+MwDTrI/hkEDfSdGDPLQhxyidurPrN5CQxAdaYE7H4fF4PVy
+J4Fj1+H/XNkopbd4aEv//UI6l/gSjxkZHY5YlQloWbeXU49Dnp8zqALeDdGiKikD
+Hekwr2XQv198ULqG43a0uwrKtFJGd9l32ZIhw6hY+QDGtMdlKEkzKRRlA2QLSgGl
+uw7avaDHfyydwasjI0qW1F1aNzwtLLfnzb+hDv2hQhSRv0NM3lbTLOsmM8du56G1
+uf/aglnqnNTTm0rXsqQDgJ8lgbbK4Z9SrdwLZ4wYxAVvy974GdsubMy11LFhdED1
+ivdf10F/xqYqoyLJ+uPCatZG8zIVhs6JK/RlGgYG2GKMHrIt8zeMT8Oxu+9kryK9
+o03gALjRpvs8fof9+qXOeRG1dxOR2FVW3I015q3rcGMzJop5xfUb+J6Bwqo8MJej
+sFk+o5Pum/ppZFP2gsj8AEtHqNijEZcBY5EKXkubcV3Ksva8v6Rx4s0HkfbI5MOc
+VHGCVcSrBYy7c6ZKa2Mqhfm9zTKhD1KyrzUHKZFF55zjoiQHGkGaKmZ+UL2FuwR/
+Joj4y/KJV1Srt1G5sdJJNJQ22yJuBbElt+qCvdhLmtgNa8BA36e9V7bq1tAgzC9V
+XqbXtsKFRAqUm5poBLxXexAEH2zSTAIthgTJq+llRFk9Kk3n+Ug=
+=vBxh
 -----END PGP SIGNATURE-----
 
---trfcs6psjjxx2iy2--
+--nqeuvn3qoy4ihrwz--
