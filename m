@@ -2,72 +2,72 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id A330A64C061
-	for <lists+linux-man@lfdr.de>; Wed, 14 Dec 2022 00:18:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E300364C08A
+	for <lists+linux-man@lfdr.de>; Wed, 14 Dec 2022 00:25:10 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S236740AbiLMXSU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 13 Dec 2022 18:18:20 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36204 "EHLO
+        id S236570AbiLMXZI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 13 Dec 2022 18:25:08 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38534 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S236964AbiLMXST (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 13 Dec 2022 18:18:19 -0500
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com [IPv6:2a00:1450:4864:20::32e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 788D7183BC;
-        Tue, 13 Dec 2022 15:18:18 -0800 (PST)
-Received: by mail-wm1-x32e.google.com with SMTP id ay14-20020a05600c1e0e00b003cf6ab34b61so9202042wmb.2;
-        Tue, 13 Dec 2022 15:18:18 -0800 (PST)
+        with ESMTP id S237128AbiLMXYr (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 13 Dec 2022 18:24:47 -0500
+Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com [IPv6:2607:f8b0:4864:20::32e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9075C275DD
+        for <linux-man@vger.kernel.org>; Tue, 13 Dec 2022 15:24:10 -0800 (PST)
+Received: by mail-ot1-x32e.google.com with SMTP id x44-20020a05683040ac00b006707c74330eso816985ott.10
+        for <linux-man@vger.kernel.org>; Tue, 13 Dec 2022 15:24:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=vacqH88FUNan5uc11twtF4/03DcXtDAgTvsUlY31Oqo=;
-        b=eR7ZRZjcjawKY/quLRcZfwuVsIKzRJ5eEOuVOppODGf78KPbGGF/TO8DtF9mfh13Vd
-         AjV8AdieZh7TAlQLGb+QPXKWJHZM6XwGsWelMvxIfczcBhOljR5HiF/GcdU9ZL+3mkKU
-         dIAvf9WW941Z3vzxp4H360NsXIn/rjWcQjZjXrc99cghAIFGOLGyfS+0UbKmIkRD3HHz
-         Q4d658n59aYEeZUYo0w1x3TV/utiggEeD9sG+3day2zd/DPj/7d/Hieg4Tg5wYo7EEJT
-         GuU0GHCvoOHwKDVDTC5XcIrMXTQ0vK1m3JGvUcxPTfW4XLrvThwn++CbA+obE2xTStzE
-         p1fw==
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=OULe3Ib/ZD1jIXAKql+xgg1caBpNXdvPnFOkaFGpWGA=;
+        b=nzhbQHXIaDMhYzRr9b8yy73u110gdjbrxBriWOXTNSIu8EQmRIswovyYuZ6i1bhhfR
+         Tz5VEJpIJdggqVe+OwTU0wCvJWsK8+snHXVZTdCQHE0fW8o9tnHGhdIUy1lD6bAE0j5f
+         2a6rFdg85CwAnA+KcoL8mjjykiUroOQiIyMYwtJSZmXoRVszyeOTsPQbmdCoKtVl26Es
+         EAcQcQsii2j2t9TYZUJV9RiWP/C/aL7gIKGJREK5Q9AFCJPIBkZog+0omFVnTrZqtwV9
+         Fb0LzjvwE9wWE1VspdMukumdmBtLZ3Kg7bSXJO3Z2jXUaQaraRR0LmW96RD8ZK7en+R4
+         RN8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=vacqH88FUNan5uc11twtF4/03DcXtDAgTvsUlY31Oqo=;
-        b=CKxKreJySj/mLVsOWyAltL2J16sHqM5DLifyWvHx1qvycqxlawEpUaq30ThM0SxoNY
-         OtdvPvXRjXTzFxxsqLDeTyO/Ocofxc4oV+fZRUbXFbjgVHKdG4YJTu7ewztW84oQ5wJZ
-         IA5+UTNFZxT3KXEUn2942qnKH5cC71io0L9V3PJl/GHfUS6vt5moaQZg2F4HZUiY1fy6
-         5eLL5Jx1LVirVaaxMKuzIR0xj2MyYILhurHURaAgYAElQwK124lI0/Nz0Y0IZfYkig7/
-         k/8tSeUAwMfGJoXJaokgKnydV95woJbK0TyvYQgf2yFDx1CfkcCbjLRtx0yEnHchMg71
-         WQbA==
-X-Gm-Message-State: ANoB5pkER6wKggCJKNmz82t//2LdlmReSmeVXAzFaLxI2IE5q78Tr9iy
-        0cggVdaXTXk2McAJdCX63yU=
-X-Google-Smtp-Source: AA0mqf4kgZha2gHVU7MLwZB62SKj0eMi4wj4Z+pv68CTlQQOVpfBi9I1vMSJpWJZh/44/iIq75jMfw==
-X-Received: by 2002:a05:600c:538f:b0:3d0:2485:c046 with SMTP id hg15-20020a05600c538f00b003d02485c046mr16995380wmb.27.1670973496924;
-        Tue, 13 Dec 2022 15:18:16 -0800 (PST)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id e5-20020a05600c254500b003c6d21a19a0sm200001wma.29.2022.12.13.15.18.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Dec 2022 15:18:16 -0800 (PST)
-Message-ID: <0c932ff1-1b5f-3a3b-1b81-1bbe710e1994@gmail.com>
-Date:   Wed, 14 Dec 2022 00:18:08 +0100
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=OULe3Ib/ZD1jIXAKql+xgg1caBpNXdvPnFOkaFGpWGA=;
+        b=p5hFtJq+1HEBo6awTaoe0aWbKv2GI7FClLC0cVb/W7SpkTDuMEGXbm9XnORCk9vyfH
+         I+iTaIM7qxWTMue06Wr1QnzIGn8Fj31wbrHE0BW7zkWtaSHQTsF36vF+BJuZXaiwz7fF
+         TZg8suGu+vJoGKjWtQgHzX+HCxzQ9j4CxGeQI9uAZ9FTG/m1hELb6S2fAhHhYm++ulFc
+         X4dRpbp9bc0xl0KlMqTIcsieapZDcico8WXb764R63//K7vUay7PSvbgr4z+kl8cyRmz
+         05zcui2CDfzqKgIfuA3s7v/Ibst7JeTZY07l60UCXTeIg113yqu3MQaBSK78cB0isUXY
+         8OxQ==
+X-Gm-Message-State: ANoB5pmC9n9rOIdTJFzvB6ZLxKXO+2Kd9pIQ2AP+E2zVO655q6Ip2XMt
+        oYAeBCp/IfncKnjpt00TGqjakP4ToaX6ZA==
+X-Google-Smtp-Source: AA0mqf53rrpn8qbNmramaVRhO/6F5lh1CEQG6htaytJS0GHZnZ6i14U2HT8GPuYThse3R0DLM6OnSw==
+X-Received: by 2002:a05:6830:9c2:b0:661:dfeb:ae27 with SMTP id y2-20020a05683009c200b00661dfebae27mr9591426ott.30.1670973849799;
+        Tue, 13 Dec 2022 15:24:09 -0800 (PST)
+Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
+        by smtp.gmail.com with ESMTPSA id bq20-20020a056830389400b00670679748f9sm1771514otb.49.2022.12.13.15.24.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Dec 2022 15:24:09 -0800 (PST)
+Date:   Tue, 13 Dec 2022 17:24:07 -0600
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To:     Paul Eggert <eggert@cs.ucla.edu>
+Cc:     groff@gnu.org, linux-man@vger.kernel.org, tz@iana.org
+Subject: Re: [PATCH v2 3/4] zic.8: Use correct escape sequences instead of
+ special characters
+Message-ID: <20221213232407.walpi6jmhbbtis3c@illithid>
+References: <20221123134827.10420-1-alx@kernel.org>
+ <20221123134827.10420-3-alx@kernel.org>
+ <2dc9b4ee-83c4-9a23-82d5-fd314efd648d@cs.ucla.edu>
+ <f8fa5d28-034c-4080-98d7-a142f467b45e@cs.ucla.edu>
+ <20221126211947.wzhb6zopmbsxqapj@illithid>
+ <aaab0674-6e77-6f60-0c1a-1cc2188f5ece@cs.ucla.edu>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.1
-Subject: Re: [PATCH] copy_file_range.2: Fix wrong kernel version information
-Content-Language: en-US
-To:     Amir Goldstein <amir73il@gmail.com>
-Cc:     Luis Henriques <lhenriques@suse.de>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        linux-fsdevel@vger.kernel.org, linux-man@vger.kernel.org
-References: <20221213120834.948163-1-amir73il@gmail.com>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20221213120834.948163-1-amir73il@gmail.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------xtHd3hDnYkhSZtbe3z0aiKB3"
+        protocol="application/pgp-signature"; boundary="4kl2jkidlxj4awzk"
+Content-Disposition: inline
+In-Reply-To: <aaab0674-6e77-6f60-0c1a-1cc2188f5ece@cs.ucla.edu>
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -76,101 +76,218 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------xtHd3hDnYkhSZtbe3z0aiKB3
-Content-Type: multipart/mixed; boundary="------------v7Hkknm2ucdki00UKWnrTv4z";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Amir Goldstein <amir73il@gmail.com>
-Cc: Luis Henriques <lhenriques@suse.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-fsdevel@vger.kernel.org, linux-man@vger.kernel.org
-Message-ID: <0c932ff1-1b5f-3a3b-1b81-1bbe710e1994@gmail.com>
-Subject: Re: [PATCH] copy_file_range.2: Fix wrong kernel version information
-References: <20221213120834.948163-1-amir73il@gmail.com>
-In-Reply-To: <20221213120834.948163-1-amir73il@gmail.com>
 
---------------v7Hkknm2ucdki00UKWnrTv4z
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+--4kl2jkidlxj4awzk
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-SGkgQW1pciwNCg0KT24gMTIvMTMvMjIgMTM6MDgsIEFtaXIgR29sZHN0ZWluIHdyb3RlOg0K
-PiBjb21taXQgZDdiYTYxMmQwICgiY29weV9maWxlX3JhbmdlLjI6IFVwZGF0ZSBjcm9zcy1m
-aWxlc3lzdGVtIHN1cHBvcnQNCj4gZm9yIDUuMTIiKSBwcmVtYXR1cmVseSBkb2N1bWVudGVk
-IGtlcm5lbCA1LjEyIGFzIHRoZSB2ZXJzaW9uIHRoYXQNCj4gY2hhbmdlcyB0aGUgY3Jvc3Mt
-ZnMgY29weV9maWxlX3JhbmdlKCkgYmVoYXZpb3IsIGJ1dCB0aGF0IGJlaGF2aW9yDQo+IGNo
-YW5nZSB3YXMgb25seSBtZXJnZWQgaW4ga2VybmVsIHZlcnNpb24gNS4xOS4NCj4gDQo+IFNp
-Z25lZC1vZmYtYnk6IEFtaXIgR29sZHN0ZWluIDxhbWlyNzNpbEBnbWFpbC5jb20+DQoNClRo
-YW5rcyEgIFBhdGNoIGFwcGxpZWQuDQoNCkNoZWVycywNCg0KQWxleA0KDQo+IC0tLQ0KPiAg
-IG1hbjIvY29weV9maWxlX3JhbmdlLjIgfCAxNyArKysrKysrKysrKy0tLS0tLQ0KPiAgIDEg
-ZmlsZSBjaGFuZ2VkLCAxMSBpbnNlcnRpb25zKCspLCA2IGRlbGV0aW9ucygtKQ0KPiANCj4g
-ZGlmZiAtLWdpdCBhL21hbjIvY29weV9maWxlX3JhbmdlLjIgYi9tYW4yL2NvcHlfZmlsZV9y
-YW5nZS4yDQo+IGluZGV4IGFjNzRkOWEwNy4uMjUxNDZhMWRkIDEwMDY0NA0KPiAtLS0gYS9t
-YW4yL2NvcHlfZmlsZV9yYW5nZS4yDQo+ICsrKyBiL21hbjIvY29weV9maWxlX3JhbmdlLjIN
-Cj4gQEAgLTE1Miw3ICsxNTIsOCBAQCBPdXQgb2YgbWVtb3J5Lg0KPiAgIC5CIEVOT1NQQw0K
-PiAgIFRoZXJlIGlzIG5vdCBlbm91Z2ggc3BhY2Ugb24gdGhlIHRhcmdldCBmaWxlc3lzdGVt
-IHRvIGNvbXBsZXRlIHRoZSBjb3B5Lg0KPiAgIC5UUA0KPiAtLkJSIEVPUE5PVFNVUFAgIiAo
-c2luY2UgTGludXggNS4xMikiDQo+ICsuQlIgRU9QTk9UU1VQUCAiIChzaW5jZSBMaW51eCA1
-LjE5KSINCj4gKy5cIiBjb21taXQgODY4ZjlmMmY4ZTAwNGJmZTBkMzkzNWIxOTc2ZjYyNWIy
-OTI0ODkzYg0KPiAgIFRoZSBmaWxlc3lzdGVtIGRvZXMgbm90IHN1cHBvcnQgdGhpcyBvcGVy
-YXRpb24uDQo+ICAgLlRQDQo+ICAgLkIgRU9WRVJGTE9XDQo+IEBAIC0xNzEsMTEgKzE3Miwx
-MyBAQCBvcg0KPiAgIHJlZmVycyB0byBhbiBhY3RpdmUgc3dhcCBmaWxlLg0KPiAgIC5UUA0K
-PiAgIC5CUiBFWERFViAiIChiZWZvcmUgTGludXggNS4zKSINCj4gKy5cIiBjb21taXQgNWRh
-ZTIyMmE1ZmYwYzI2OTczMDM5MzAxOGE1NTM5Y2M5NzBhNDcyNg0KPiAgIFRoZSBmaWxlcyBy
-ZWZlcnJlZCB0byBieQ0KPiAgIC5JUiBmZF9pbiAiIGFuZCAiIGZkX291dA0KPiAgIGFyZSBu
-b3Qgb24gdGhlIHNhbWUgZmlsZXN5c3RlbS4NCj4gICAuVFANCj4gLS5CUiBFWERFViAiIChz
-aW5jZSBMaW51eCA1LjEyKSINCj4gKy5CUiBFWERFViAiIChzaW5jZSBMaW51eCA1LjE5KSIN
-Cj4gKy5cIiBjb21taXQgODY4ZjlmMmY4ZTAwNGJmZTBkMzkzNWIxOTc2ZjYyNWIyOTI0ODkz
-Yg0KPiAgIFRoZSBmaWxlcyByZWZlcnJlZCB0byBieQ0KPiAgIC5JUiBmZF9pbiAiIGFuZCAi
-IGZkX291dA0KPiAgIGFyZSBub3Qgb24gdGhlIHNhbWUgZmlsZXN5c3RlbSwNCj4gQEAgLTE5
-MSwxMyArMTk0LDE1IEBAIGVtdWxhdGlvbiB3aGVuIGl0IGlzIG5vdCBhdmFpbGFibGUuDQo+
-ICAgQSBtYWpvciByZXdvcmsgb2YgdGhlIGtlcm5lbCBpbXBsZW1lbnRhdGlvbiBvY2N1cnJl
-ZCBpbiBMaW51eCA1LjMuDQo+ICAgQXJlYXMgb2YgdGhlIEFQSSB0aGF0IHdlcmVuJ3QgY2xl
-YXJseSBkZWZpbmVkIHdlcmUgY2xhcmlmaWVkIGFuZCB0aGUgQVBJIGJvdW5kcw0KPiAgIGFy
-ZSBtdWNoIG1vcmUgc3RyaWN0bHkgY2hlY2tlZCB0aGFuIG9uIGVhcmxpZXIga2VybmVscy4N
-Cj4gLUFwcGxpY2F0aW9ucyBzaG91bGQgdGFyZ2V0IHRoZSBiZWhhdmlvdXIgYW5kIHJlcXVp
-cmVtZW50cyBvZiA1LjMga2VybmVscy4NCj4gICAuUFANCj4gLVNpbmNlIExpbnV4IDUuMTIs
-DQo+ICtTaW5jZSBMaW51eCA1LjE5LA0KPiAgIGNyb3NzLWZpbGVzeXN0ZW0gY29waWVzIGNh
-biBiZSBhY2hpZXZlZA0KPiAgIHdoZW4gYm90aCBmaWxlc3lzdGVtcyBhcmUgb2YgdGhlIHNh
-bWUgdHlwZSwNCj4gICBhbmQgdGhhdCBmaWxlc3lzdGVtIGltcGxlbWVudHMgc3VwcG9ydCBm
-b3IgaXQuDQo+IC1TZWUgQlVHUyBmb3IgYmVoYXZpb3IgcHJpb3IgdG8gTGludXggNS4xMi4N
-Cj4gK1NlZSBCVUdTIGZvciBiZWhhdmlvciBwcmlvciB0byBMaW51eCA1LjE5Lg0KPiArLlBQ
-DQo+ICtBcHBsaWNhdGlvbnMgc2hvdWxkIHRhcmdldCB0aGUgYmVoYXZpb3VyIGFuZCByZXF1
-aXJlbWVudHMgb2YgNS4xOSBrZXJuZWxzLA0KPiArdGhhdCB3YXMgYWxzbyBiYWNrcG9ydGVk
-IHRvIGVhcmxpZXIgc3RhYmxlIGtlcm5lbHMuDQo+ICAgLlNIIFNUQU5EQVJEUw0KPiAgIFRo
-ZQ0KPiAgIC5CUiBjb3B5X2ZpbGVfcmFuZ2UgKCkNCj4gQEAgLTIyMyw3ICsyMjgsNyBAQCBz
-dWNoIGFzIHRoZSB1c2Ugb2YgcmVmbGlua3MgKGkuZS4sIHR3byBvciBtb3JlIGlub2RlcyB0
-aGF0IHNoYXJlDQo+ICAgcG9pbnRlcnMgdG8gdGhlIHNhbWUgY29weS1vbi13cml0ZSBkaXNr
-IGJsb2NrcykNCj4gICBvciBzZXJ2ZXItc2lkZS1jb3B5IChpbiB0aGUgY2FzZSBvZiBORlMp
-Lg0KPiAgIC5TSCBCVUdTDQo+IC1JbiBMaW51eCA1LjMgdG8gTGludXggNS4xMSwNCj4gK0lu
-IExpbnV4IDUuMyB0byBMaW51eCA1LjE4LA0KPiAgIGNyb3NzLWZpbGVzeXN0ZW0gY29waWVz
-IHdlcmUgaW1wbGVtZW50ZWQgYnkgdGhlIGtlcm5lbCwNCj4gICBpZiB0aGUgb3BlcmF0aW9u
-IHdhcyBub3Qgc3VwcG9ydGVkIGJ5IGluZGl2aWR1YWwgZmlsZXN5c3RlbXMuDQo+ICAgSG93
-ZXZlciwgb24gc29tZSB2aXJ0dWFsIGZpbGVzeXN0ZW1zLA0KDQotLSANCjxodHRwOi8vd3d3
-LmFsZWphbmRyby1jb2xvbWFyLmVzLz4NCg==
+[dropping Alex and Geoff Clare of TOG, but keeping mailing lists because
+Paul corrected me on a significant point and I won't have anyone
+claiming I don't own up to my mistakes; still, length warning: 189
+lines]
 
---------------v7Hkknm2ucdki00UKWnrTv4z--
+Hi Paul,
 
---------------xtHd3hDnYkhSZtbe3z0aiKB3
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+=2E..finally getting back to this, with belated thanks.
+
+At 2022-11-26T16:12:25-0800, Paul Eggert wrote:
+> On 2022-11-26 13:19, G. Branden Robinson wrote:
+> > I would attach scans of Tables I and II from "NROFF/TROFF User's
+> > Manual", the version dated 1976, published with Volume 2 of the Unix
+> > Programmer's Manual (1979)
+>=20
+> Thanks for looking into this. It took me a trip down memory lane as I
+> believe I was the first person to submit a computer-typeset PhD thesis
+> to UCLA.
+
+Cheers!
+
+> I used 7th Edition Unix troff along with the C/A/T phototypesetter
+> that was troff's main target in the 1970s. (As an aside, the C/A/T was
+> why stderr was invented; see Diomidis Spinellis's "The Birth of
+> Standard Error" 2013-12-11 <https://www.spinellis.gr/blog/20131211/>.)
+
+I'll bet a lot of readers didn't know that one, but I did, and when I
+found out about it via the TUHS list I was so tickled that I added a
+link to groff's Texinfo manual.
+
+  standard error stream.  The notation then serves to identify the
+  output stream and does not necessarily mean that an error has
+  occurred.@footnote{Unix and related operating systems distinguish
+  standard output and standard error streams @emph{because} of
+  @code{troff}:@:
+  @uref{https://minnie.tuhs.org/pipermail/tuhs/2013-December/006113.html}.}
+
+> Solaris 10 /usr/bin/troff is largely unchanged from 1970s troff, and
+> supports \(ga but none of the other escapes you mention, I expect
+> because they were not present in the Bell Labs special font version 4
+> and Commercial II that Unix assumed on the C/A/T.
+
+I admit to some shock here.  The 1976 version of Ossanna's nroff/troff
+manual, CSTR #54, explicitly documents--
+
+--wait, no it doesn't.
+
+<blinks>
+
+[Some UTF-8 follows, because it's essential to the discussion of
+glyph/character repertoire.]
+
+Apparently I outright hallucinated the presence of \(ha and \(ti in
+"Table II: Input Naming Conventions for =E2=80=99, =E2=80=98, and =E2=80=94=
+ and for Non-ASCII
+Special Characters".  \(ga is there like you said but \(ha and \(ti are
+not.  I managed to sustain this delusion despite acquiring a paper copy
+of the HRW 1983 printing of both volumes of the Version 7 Unix
+Programmer's Manual (typeset with the C/A/T itself), and reading it with
+especially loving attention to the troff material.  By God, I told
+myself, I'll figure this stuff out.
+
+Hrm.  Vexing.
+
+Lest some readers think this is a ridiculous thing to have gotten wrong,
+permit me to quote one of the paragraphs interstitially present in
+"Table II"'s 2 tables spread over 2 pages.  Times--and the Times
+font--were very different in 1973, when the Bell Labs CSRC took delivery
+of the C/A/T.
+
+"The ASCII characters @, #, ", =E2=80=99, =E2=80=98, <, >, \, {, }, =CB=9C,=
+ =CB=86, and _ exist
+_only_ on the special font and are printed as a 1-em space if that font
+is not mounted."
+
+So why did I use so much non-Basic Latin Unicode to quote a list of
+_ASCII_ characters from the CSTR #54 document?  Because that's what they
+_look like_.  Some material in the groff_char(7) man page speaks to it.
+
+History
+    A consideration of the typefaces originally available to AT&T nroff
+    and troff illuminates many conventions that one might regard as
+    idiosyncratic fifty years afterward.  (See section =E2=80=9CHistory=E2=
+=80=9D of
+    roff(7) for more context.)  The face used by the Teletype Model 37
+    terminals of the Murray Hill Unix Room was based on ASCII, but
+    assigned multiple meanings to several code points, as suggested by
+    that standard.  Decimal 34 (") served as a dieresis accent and
+    neutral double quotation mark; decimal 39 (') as an acute accent,
+    apostrophe, and closing (right) single quotation mark; decimal 45
+    (-) as a hyphen and a minus sign; decimal 94 (^) as a circumflex
+    accent and caret; decimal 96 (`) as a grave accent and opening
+    (left) single quotation mark; and decimal 126 (~) as a tilde accent
+    and (with a half=E2=80=90line motion) swung dash.  The Model 37 bore an
+    optional extended character set offering upright Greek letters and
+    several mathematical symbols; these were documented as early as the
+    kbd(VII) man page of the (First Edition) Unix Programmer=E2=80=99s Manu=
+al.
+
+    At the time Graphic Systems delivered the C/A/T phototypesetter to
+    AT&T, the ASCII character set was not considered a standard basis
+    for a glyph repertoire by traditional typographers.  In the stock
+    Times roman, italic, and bold styles available, several ASCII
+    characters were not present at all, nor was most of the Teletype=E2=80=
+=99s
+    extended character set.  AT&T commissioned a =E2=80=9Cspecial=E2=80=9D =
+font to
+    ensure no loss of repertoire.
+
+(Nit: one character, the broken bar =C2=A6, got lost anyway.  I guess no one
+missed it.)
+
+> The source code of 7th Edition Unix troff agrees with Solaris 10
+> behavior here, and this also agrees with 7th Edition Unix
+> /usr/doc/troff/table2 which documents \(ga but none of the other
+> escapes you mentioned. I'm a bit surprised that the printed manuals
+> you mention disagree with 7th Edition Unix,
+
+Imagine how surprised I was when I found I had deceived myself!  Usually
+my vision sucks this badly only when reviewing my _own_ work.
+
+None of these three appear in the 1992 revision of CSTR #54 (revised by
+Kernighan and documenting device-independent troff extensions).  I would
+say they are GNU extensions, but two others that one might impugn with
+such a descriptor are \(aq and \(dq (along with \(ga) appear in
+Documenter's Workbench (DWB) troff 3.3 font descriptions for its
+PostScript driver,[1] which I have no reason to believe isn't about 10
+years older than that version of CSTR #54.  Device-independent troff
+made it easy to specify your own special character names; people did.
+
+> but anyway it doesn't matter all that much since Solaris 10 is what it
+> is.
+
+Agreed.  And even though someone could have added special character
+aliases of "ASCII" glyphs in Solaris's font description files 30+ years
+ago, they didn't.  Perhaps the reason was a feeling that nothing good
+ever came from GNU; a more likely explanation to me is a dedication of
+religious intensity to the principle of inertia, similarly to why
+Solaris kept the World's Worst Bourne Shell implementation, compliant
+with no published standard ever, as /bin/sh for something like 30 years.
+
+(Think I'm kidding?  https://www.in-ulm.de/~mascheck/bourne/segv.html )
+
+> On other words, on Solaris 10 if I take this file 'foo':
+>=20
+> 	.nf
+> 	default font
+> 	aq |\(aq| |'|
+> 	ga |\(ga| |`|
+> 	ha |\(ha| |^|
+> 	ti |\(ti| |~|
+> 	.ft CW
+> 	CW font
+> 	aq |\(aq| |'|
+> 	ga |\(ga| |`|
+> 	ha |\(ha| |^|
+> 	ti |\(ti| |~|
+>=20
+> and run the shell command:
+>=20
+>    /usr/bin/troff foo | /usr/lib/lp/postscript/dpost >foo.ps
+>=20
+> I get the attached file foo.ps, and 'evince' says only \(ga works and
+> even there it's barely usable in the default font, as shown in the
+> attached screenshot foo.png of 'evince' displaying foo.ps.
+
+Right.  With the undefinedness of \(ha and \(ti as well as \(aq now
+clear to me, nothing about your output surprises me.
+
+> > .ie \n(.g .q \f(CR!$%&\(aq()*,/:;<=3D>?@[\e]\(ha\(ga{|}\(ti\fP .
+> > .el .ie t .q \f(CW!$%&'()*,/:;<=3D>?@[\e]\(ha\(ga{|}\(ti\fP .
+> > .    el   .q !$%&'()*,/:;<=3D>?@[\e]\(ha\(ga{|}\(ti .
+>=20
+> With Solaris 10 in mind, in the second line of your proposed code the
+> \f(CW...\fP and the \(ga are OK but the \(ha, \(ga, \(ti are dubious
+> so I installed the attached patch instead.
+
+Quite sensible.  As we discussed elsewhere, Solaris troff is scheduled
+for retirement in January 2024, and groff 1.22.3 succeeded it.  While
+old, it certainly supports \(aq, \(ha, and \(ti.
+
+Thank you again for knocking the scales off my eyes here.
+
+Regards,
+Branden
+
+[1] https://github.com/n-t-roff/DWB3.3/blob/master/postscript/devopost/R
+
+--4kl2jkidlxj4awzk
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmOZCDAACgkQnowa+77/
-2zLA+g//Q+oHUl8d2gKeL6+vuxcv/k9MFjznTKfxMGqfnzHb2Irn8O2Oz9vsGfKL
-pM10UpIoNq71/ACaDb+/bwzKraCGtFdyf6sbEBJ/TdvDKOC7ZtpDiuu49YuSc+Ko
-p/L14c/IG3rWMOgCP82Zhu/uQGr9q/pj80v1bCjp0Q3Dr0yHfwximqVWxokwCFbU
-yLB1SK63VUr5dT5POcD74/wkfMqzn/iFNiNgjDbgCqpp+b0t8XsibTH1Mzs9KdF6
-iTd8Px/4rCDhmv+p5+NSPjx1HPfXbB2jSKu7YXcajXz9rffW0cYXz3bltuDR6tn0
-68jd9jekaw+UhN/rdtRJD7FS1lhLflRKFnKCgOYg8zuauOkTQmvtah9rKbjfZu9J
-kuzlo4wmfwBl0R1OF9HCrHKgMOKsiLSwcL6fpahup4qpM1uytCe+D3J6pwe7fT5D
-64m/UmKM6nc+Ks9DwdO8hBjYpfgamf82fM69bagvtHnb1vKiY/qycFrq/qeh1G4B
-B98UAa6QBzXuy+TsFwEafiqR5Zrru10ON1Y1nOjiZGQsiK/zdmV8T1vxJnji30rS
-uq0dYwDINKOND5Ben3Mf8gBgQLz3U76zkCir7dP0EV9s5CClpn7YYYuvudGnqwb3
-k1Tv3W3g0+voBmISNJjF+g4a3gLFRxATohmWrHu4ECKUUR7LQDg=
-=s6Uy
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmOZCY8ACgkQ0Z6cfXEm
+bc6hmw/+IMvPEooIBGXYW8oQFMyBs+vKveU43iT/y8VtckQxliiG5NvFhLAn/qkl
+uZhMR3ACQXLWjy+unR9kNHErucNBSuUZkLWpMWc8wq/sbdvPGkhMF9x7MmMlu2yh
+uB6I5s2k1gmL6C25hjAaFIDwikdppZHZWSQwD1Ez/DXvS7uE5kYqOv1nynfNkarj
+N0dQJSTtGRx74swmsJRjJDTChNmj6Mgy50QSWkx61x3rS5XnWKiBhMmbptS/GFik
+jmfgvGWzpOKVK8CRzpEeQbuBayTqjKkZbAYJizmyQ+ch6yZRJMsraQhQo+zCOBla
+NhFWxi9ry0FHsDAA1/Z9CYZuXMZzrOE9JBsY6oYmTYTVexMMh1MHmEUHcaEzGYyo
+ZmSOOl+3/+ffPszJBIWhG7Q8GzmvVwpXAdgGFn3SnJfws8xRgo/s2D2Q1TdDjePk
+je27vhTL+R8MljZFTvPcYSDXMvExovn+Zr9Oc4Uill6YATTJGYnQOhUU4W1oXaZc
+iUhqdHLj9qgZz1qO46FILZc4dceG4mr4DONDKqGcj6B56GL1T5xaULuD1ClPHAFc
+OSfgE2NL5RRhuZOyHd0Ytc3MfpZry9Oct/wMi4scbM4zbay+uj13TnqrBFXvHNoO
+Yha1yQhUJm5aVzczhf2AOsOj142I3Z3BvVeuuAkx7VajahX4adc=
+=QWwo
 -----END PGP SIGNATURE-----
 
---------------xtHd3hDnYkhSZtbe3z0aiKB3--
+--4kl2jkidlxj4awzk--
