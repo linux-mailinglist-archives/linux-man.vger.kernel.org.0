@@ -2,30 +2,30 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 432F864C771
-	for <lists+linux-man@lfdr.de>; Wed, 14 Dec 2022 11:52:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 59FBB64C7A5
+	for <lists+linux-man@lfdr.de>; Wed, 14 Dec 2022 12:03:56 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S238113AbiLNKwg (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 14 Dec 2022 05:52:36 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56612 "EHLO
+        id S237788AbiLNLDx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 14 Dec 2022 06:03:53 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:32858 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S237881AbiLNKwa (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 14 Dec 2022 05:52:30 -0500
-Received: from smtp74.ord1d.emailsrvr.com (smtp74.ord1d.emailsrvr.com [184.106.54.74])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 53AC623BF9
-        for <linux-man@vger.kernel.org>; Wed, 14 Dec 2022 02:52:29 -0800 (PST)
+        with ESMTP id S237566AbiLNLDY (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 14 Dec 2022 06:03:24 -0500
+Received: from smtp127.ord1d.emailsrvr.com (smtp127.ord1d.emailsrvr.com [184.106.54.127])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 435E624F19
+        for <linux-man@vger.kernel.org>; Wed, 14 Dec 2022 03:03:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mev.co.uk;
-        s=20221208-6x11dpa4; t=1671015148;
-        bh=ZplDRQqZ6uSpSA+n64SF6GH05U3nnM26l0BM/u52RXY=;
+        s=20221208-6x11dpa4; t=1671015789;
+        bh=sqdpTGZCfbt4/mjXrrvSxTiM4/EKD2ih9v6hkmrlZ+E=;
         h=Date:Subject:To:From:From;
-        b=aT2/9Sts9XiJhElwyZm9dOivUmrEq00j+ITjvsIVWtVQuU/r9QsWAcEt1plyGrAYC
-         Yb9s2cV/y6/ELXa7h0JImh2CVysmJaa1O2RWE3fdjmey1b2uXYgUfW10u/c24AQZam
-         ZKD4G2PKQNhmcTAfNFsY3HS/JIwCWldlKG9RYdbs=
+        b=ZY835JPaYTRokpnmXg6PaIfW6fm6skLeNCoi3A0ZwTzCHO6BTe6siP6UF8FhHMdF2
+         eAGdW26rWwJP8GmmGA6XC4c97nbKdHZXBquyjXOMw1t9n1mMgmq7GXF2QNbcCXsifE
+         Ba2xHpmwSY+jhhQf6xi6CJcwL7yasfxSBe0vebKg=
 X-Auth-ID: abbotti@mev.co.uk
-Received: by smtp2.relay.ord1d.emailsrvr.com (Authenticated sender: abbotti-AT-mev.co.uk) with ESMTPSA id 0B0ED20077;
-        Wed, 14 Dec 2022 05:52:27 -0500 (EST)
-Message-ID: <8be4b9ef-7579-fd6a-c2aa-72e92db7adc9@mev.co.uk>
-Date:   Wed, 14 Dec 2022 10:52:27 +0000
+Received: by smtp16.relay.ord1d.emailsrvr.com (Authenticated sender: abbotti-AT-mev.co.uk) with ESMTPSA id A2E9140098;
+        Wed, 14 Dec 2022 06:03:08 -0500 (EST)
+Message-ID: <d5c2f98f-5341-eb19-b54e-6d049f80de8d@mev.co.uk>
+Date:   Wed, 14 Dec 2022 11:03:07 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.5.1
@@ -41,16 +41,15 @@ References: <20221208123454.13132-1-abbotti@mev.co.uk>
  <6269173b-20cb-7b47-1ad9-6099a9baa052@owlfolio.org>
  <d65cff0c-7aba-8bb3-9a2f-3d07f20517b4@gmail.com>
  <ypikk02xv09c.fsf@owlfolio.org>
- <1f339439-3346-6732-3544-8e0e0a0f9823@mev.co.uk>
- <ypiksfhiafsn.fsf@owlfolio.org>
- <6c9645b1-d0e4-4064-0e55-a0bead7d1f71@mev.co.uk>
- <7d561198-44f7-a64e-06ae-3ee41d156e82@gmail.com>
+ <a7a60a45-afb2-2fae-f6b0-a26db649c09c@gmail.com>
+ <ypikwn6uag11.fsf@owlfolio.org>
+ <4fe9ed93-8fb9-64d0-26f1-a9560387d108@gmail.com>
 From:   Ian Abbott <abbotti@mev.co.uk>
 Organization: MEV Ltd.
-In-Reply-To: <7d561198-44f7-a64e-06ae-3ee41d156e82@gmail.com>
+In-Reply-To: <4fe9ed93-8fb9-64d0-26f1-a9560387d108@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Classification-ID: ec3c1cc1-6482-483b-9adb-f7aa81d7a441-1-1
+X-Classification-ID: 5589a1cb-1f94-4871-9ba1-421925b9485b-1-1
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
         SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
@@ -60,39 +59,37 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 2022-12-14 10:39, Alejandro Colomar wrote:
-> Hi Ian & Zack,
-> 
-> On 12/14/22 11:22, Ian Abbott wrote:
->> On 14/12/2022 02:18, Zack Weinberg wrote:
->>> Ian Abbott <abbotti@mev.co.uk> writes:
->>>
->>>> On 12/12/2022 02:11, Zack Weinberg wrote:
->>>>> Field widths are awkward to use because you have to write them as
->>>>> decimal constants _inside the format string_…
->>>>
->>>> It's a shame that scanf's maximum field width couldn't be specified
->>>> using an integer parameter in the same was as printf's minimum field
->>>> width, but the '*' flag was already taken!
->>>
->>> Yup.  I suppose we could make up another flag … ‘@’ isn’t used for
->>> anything …
+On 2022-12-14 10:47, Alejandro Colomar wrote:
+> On 12/14/22 03:13, Zack Weinberg wrote:
+>> Alejandro Colomar <alx.manpages@gmail.com> writes:
+>>>> In a more sober tone of voice I suggest this text for the manpage:
+>> …
+>>> That makes sense to me.  Would you mind sending a patch?  :)
 >>
->> '@' isn't included in C's basic character set though.  '&' is available.
+>> I do not have time to do that anytime soon.  Also, maybe glibc’s
+>> behavior on numeric input overflow should be fixed first.
 > 
-> Just a curious question from an ignorant:  what's the difference between 
-> the basic character set and the source character set?
+> That also makes sense ;)
+> 
+> In short:
+> 
+> (1)  Numeric conversion specifiers are broken but can be fixed, and you 
+> plan to fix them.
+> 
+>       (1.1)  I'll revert the deprecation warning now; since they are 
+> only broken because the _current_ standard and implementations are 
+> broken, but not by inherent design problems.
+> 
+>       (1.2)  When you fix the implementation to not be UB anymore, it 
+> will also make sense to revert the patch that removed the ERANGE error, 
+> since you'll need to report it.
 
-The source character set may contain locale-specific characters outside 
-the basic source character set.
-
-Actually, there are two basic character sets - the basic source 
-character set and the basic execution character set (which includes the 
-basic source character set plus a few control characters).  The source 
-character set and/or execution character set may contain 
-locale-specific, extended characters outside the basic character set.
-
-https://port70.net/~nsz/c/c11/n1570.html#5.2.1
+And would ERANGE cause scanf to return EOF in the fixed implementation? 
+That seems like it would break a lot of existing code (even though it is 
+currently UB).  It would probably be better to silently set errno to 
+ERANGE without returning EOF, and to set the integer object's value to 
+the maximum or minimum value for its type (as it currently does for 
+signed/unsigned long).
 
 -- 
 -=( Ian Abbott <abbotti@mev.co.uk> || MEV Ltd. is a company  )=-
