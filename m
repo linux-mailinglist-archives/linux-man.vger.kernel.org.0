@@ -2,68 +2,68 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 4D9D864DAF0
-	for <lists+linux-man@lfdr.de>; Thu, 15 Dec 2022 13:13:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id C5D7064DB28
+	for <lists+linux-man@lfdr.de>; Thu, 15 Dec 2022 13:29:24 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230098AbiLOMNt (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 15 Dec 2022 07:13:49 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39150 "EHLO
+        id S229495AbiLOM3W (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 15 Dec 2022 07:29:22 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49318 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230004AbiLOMNs (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 15 Dec 2022 07:13:48 -0500
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com [IPv6:2a00:1450:4864:20::42b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3D3692E6BB
-        for <linux-man@vger.kernel.org>; Thu, 15 Dec 2022 04:13:47 -0800 (PST)
-Received: by mail-wr1-x42b.google.com with SMTP id y16so2840345wrm.2
-        for <linux-man@vger.kernel.org>; Thu, 15 Dec 2022 04:13:47 -0800 (PST)
+        with ESMTP id S229471AbiLOM3U (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 15 Dec 2022 07:29:20 -0500
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com [IPv6:2a00:1450:4864:20::333])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 042036302
+        for <linux-man@vger.kernel.org>; Thu, 15 Dec 2022 04:29:20 -0800 (PST)
+Received: by mail-wm1-x333.google.com with SMTP id o5-20020a05600c510500b003d21f02fbaaso1556288wms.4
+        for <linux-man@vger.kernel.org>; Thu, 15 Dec 2022 04:29:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=EDvmmSSrPPvT2KXn0aiEF7TqeH5i7BORalUkugN4rl8=;
-        b=nb2/K2/b3YfxL58wCMkm9xNogtg82r/4PfXxuZROBFQ5eGl/6UCNLqH3+2Jk5WGO+1
-         QFjqkugWBwI+BZJU4G5fbf8Z8qgxBKBOlWvhl+H3oXJh92avqfohXhOy8/U7GPGtmEQz
-         9NUazYy+wfY18nBZ2oCmjhX9wnc0efHNGT1kNR7gS63AtSle2trLkpoiAzgeCkAauZDO
-         bBmnG/qr3H1bwwQoH3Yk1n73Ip4VXOB6B5+92tzkukRBQax7Z2Jn+sQ7SaOcvd9Vw+P5
-         74YyY44JUMRPDTW9V20hu0OjXAlJEh4VsCJSUbOQyV5mNBXhSvplY7rlKQIFvtOxg1bj
-         Jqmg==
+        h=content-transfer-encoding:in-reply-to:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=ID/0B5nOMT7pIKv+yAJjKuVlThOPbvUBaunZliAzMmQ=;
+        b=lMPlBKOA7eGiL+5n5qAkzUJW/2ib7Cc8pSqRbwDkhzRswym7GO9KcGVLlRWtp0va+a
+         Qtpq5n32diPles3aubnv3qJehXPlJfALMCfIa5tjeHZfceIIzBeYYJqjtf0PtMgVf1hg
+         WkDvjZlBvuKrXnUsFWaMrjoCBoxvK988rOf4ny/FyAox8UkBtu14Q0UKK9oqEWTwDiPa
+         M01MYmV0M5UoVozOvjPsDEvn99QZoWdkX1GZbJKfH8eV5oAH+pAWNW0O6N3rCanYzQOt
+         PtRdWEF3Q45Z9wviAkVmuvQyuRrS+r21Zi+RARdrvtND77+JA/zWvUEdY3e2igVT2seH
+         jjfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=EDvmmSSrPPvT2KXn0aiEF7TqeH5i7BORalUkugN4rl8=;
-        b=Dq2+X2xbhZUFBeCAv73ojR7FvxIyipBcav/QtmDWaSlVdizJa/RQD0fuqRGAdvsOgN
-         G4GcH521yDxBxPmgUiYgqjc0p11RYPb8mnvpCy1i1SahuGkpFs72gXqXdHGPSpw8X1OE
-         yPzKFRti8kwQUO/r0OP6edc3IPyIY3/3rwdkOq+OkM8SEyUmDCxNiX6SiZ84LeAEDrkD
-         VH6Oksx1bR8puMOdiRO4pOYoHr6ymaAk5Eu0TATz5wwU3ZbOPUJwSbNRcCP2lIICDSj2
-         hnLDu1Va7kGb3LBSd24iPTmcNrSHDBs2wvhc4DxVEivcJytxxyXmIoz/UQPZljSvIs9y
-         NQmw==
-X-Gm-Message-State: ANoB5pmkiyebEGZ+NkXpFarTEtcnKp+4Aug0FtbyzhU9HLPLbETQqT2P
-        Rp7FYQtqwPJG8eUq/UEBklWkehtoHd4=
-X-Google-Smtp-Source: AA0mqf6lHnMOYj1FW/Zih7eLDT00cpqJYBVglOLSrIXpTBAsbdy2XYH7CqazfwiPMxx/B5oACu9XEQ==
-X-Received: by 2002:a5d:6e0d:0:b0:24f:11cc:86b7 with SMTP id h13-20020a5d6e0d000000b0024f11cc86b7mr10667604wrz.41.1671106425675;
-        Thu, 15 Dec 2022 04:13:45 -0800 (PST)
+        h=content-transfer-encoding:in-reply-to:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :sender:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=ID/0B5nOMT7pIKv+yAJjKuVlThOPbvUBaunZliAzMmQ=;
+        b=7CwlFfyU8WtBypw/2Kz46D8INAzC5r6t1hIsFO4DZcDZLHbn+zS172u03bt12v9vT9
+         B51VS215uiRFKP8kA+zB91t3jkPIhD/0QocG9S00iTxpeR2TkCtqqf3u02icYgag87SU
+         IopuiCkpRXgs6FZ47NxTgQycGgCdxIhSbn59KAWYElwgQAlm8dokgLi7EnZnDwBopSfZ
+         yLhxTQo4yXLV2sL3ujD9NFy+eZ4UPry58vFPxPbLQM+/Qaw0MnlQWpeP9gUw/ZjdyEnM
+         EOslhHrwVaA+iaF6ksbVOMa/tIFjP4KQ3fnyrQnoSWxOqY9uRa4BKeamAVC2+roHx4ne
+         U3MA==
+X-Gm-Message-State: ANoB5pnzPCCTlpJme9rcwNpSJp0iPQx0UaFxCb8fhnhVmuLoLyM5jr59
+        c+kUsGRECrhApqhcGBwbZLs=
+X-Google-Smtp-Source: AA0mqf4Ay6KJCvMue9WRimqlV5pCVgivS5v9cG4En3qiV9r2m+2+Qf1WAEsZ4djuqHGZPMNrZxnnNw==
+X-Received: by 2002:a05:600c:17d5:b0:3d1:f2de:195a with SMTP id y21-20020a05600c17d500b003d1f2de195amr21430136wmo.32.1671107358418;
+        Thu, 15 Dec 2022 04:29:18 -0800 (PST)
 Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id co22-20020a0560000a1600b0024228b0b932sm7224059wrb.27.2022.12.15.04.13.45
+        by smtp.gmail.com with ESMTPSA id 8-20020a05600c020800b003d237d60318sm6187207wmi.2.2022.12.15.04.29.17
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Dec 2022 04:13:45 -0800 (PST)
-Message-ID: <0c1be2b4-1b92-785c-a6f1-82ccb145d3be@gmail.com>
-Date:   Thu, 15 Dec 2022 13:13:37 +0100
+        Thu, 15 Dec 2022 04:29:18 -0800 (PST)
+Sender: Alejandro Colomar <alx.mailinglists@gmail.com>
+Message-ID: <4358d250-760b-913c-c77d-2e7d5f5e2445@gmail.com>
+Date:   Thu, 15 Dec 2022 13:29:17 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.5.1
-Subject: Re: [PATCH] utimensat.2: tfix
-To:     Jakub Wilk <jwilk@jwilk.net>
-Cc:     linux-man@vger.kernel.org
-References: <20221215074215.3741-1-jwilk@jwilk.net>
+Subject: Re: [PATCH] ioctl_userfaultfd.2: tfix
 Content-Language: en-US
+To:     Eric Biggers <ebiggers@kernel.org>, linux-man@vger.kernel.org
+References: <20221215065958.65921-1-ebiggers@kernel.org>
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20221215074215.3741-1-jwilk@jwilk.net>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------CXhnt7A6XUVlGzmtMB0Xr7Gj"
+In-Reply-To: <20221215065958.65921-1-ebiggers@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
@@ -74,60 +74,31 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------CXhnt7A6XUVlGzmtMB0Xr7Gj
-Content-Type: multipart/mixed; boundary="------------M0MNgs6aMIKDSKvUJe5UVY9U";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Jakub Wilk <jwilk@jwilk.net>
-Cc: linux-man@vger.kernel.org
-Message-ID: <0c1be2b4-1b92-785c-a6f1-82ccb145d3be@gmail.com>
-Subject: Re: [PATCH] utimensat.2: tfix
-References: <20221215074215.3741-1-jwilk@jwilk.net>
-In-Reply-To: <20221215074215.3741-1-jwilk@jwilk.net>
+Hi Eric,
 
---------------M0MNgs6aMIKDSKvUJe5UVY9U
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+On 12/15/22 07:59, Eric Biggers wrote:
+> From: Eric Biggers <ebiggers@google.com>
+> 
+> Signed-off-by: Eric Biggers <ebiggers@google.com>
 
-SGkgSmFrdWIsDQoNCk9uIDEyLzE1LzIyIDA4OjQyLCBKYWt1YiBXaWxrIHdyb3RlOg0KPiBT
-aWduZWQtb2ZmLWJ5OiBKYWt1YiBXaWxrIDxqd2lsa0Bqd2lsay5uZXQ+DQpQYXRjaCBhcHBs
-aWVkLiAgVGhhbmtzIQ0KDQpBbGV4DQoNCj4gLS0tDQo+ICAgbWFuMi91dGltZW5zYXQuMiB8
-IDIgKy0NCj4gICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24o
-LSkNCj4gDQo+IGRpZmYgLS1naXQgYS9tYW4yL3V0aW1lbnNhdC4yIGIvbWFuMi91dGltZW5z
-YXQuMg0KPiBpbmRleCA0MDQ4MzJlNWMuLmM3ZTMwY2U3NiAxMDA2NDQNCj4gLS0tIGEvbWFu
-Mi91dGltZW5zYXQuMg0KPiArKysgYi9tYW4yL3V0aW1lbnNhdC4yDQo+IEBAIC0zNTIsNyAr
-MzUyLDcgQEAgY2FwYWJpbGl0eSk7IG9yLA0KPiAgIC5cIiB0cmVhdGVkIGxpa2UgdGhlICh0
-aW1lcyA9PSBOVUxMKSBjYXNlLg0KPiAgIHRoZSBmaWxlIGlzIG1hcmtlZCBhcHBlbmQtb25s
-eSBvciBpbW11dGFibGUgKHNlZQ0KPiAgIC5CUiBjaGF0dHIgKDEpKS4NCj4gLS5cIiBFWFQy
-X0lNTVVUQUJMRV9GTCBFWFRfQVBQUEVORF9GTCBhbmQgc2ltaWxhciBmbGFncyBmb3INCj4g
-Ky5cIiBFWFQyX0lNTVVUQUJMRV9GTCBFWFRfQVBQRU5EX0ZMIGFuZCBzaW1pbGFyIGZsYWdz
-IGZvcg0KPiAgIC5cIiBvdGhlciBmaWxlc3lzdGVtcy4NCj4gICAuXCINCj4gICAuXCIgV2h5
-IHRoZSBpbmNvbnNpc3RlbmN5ICh3aGljaCBpcyBkZXNjcmliZWQgdW5kZXIgTk9URVMpIGJl
-dHdlZW4NCg0KLS0gDQo8aHR0cDovL3d3dy5hbGVqYW5kcm8tY29sb21hci5lcy8+DQo=
+Patch applied.  Thanks,
 
---------------M0MNgs6aMIKDSKvUJe5UVY9U--
+Alex
 
---------------CXhnt7A6XUVlGzmtMB0Xr7Gj
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmObD3EACgkQnowa+77/
-2zIIjxAAin/Xr3GUOJs55g5guZXNPUMmSktomQGH4PPt0n/QUlYRsqKWjBKDNrMA
-Y6TlEbcUyH3fQQtNC4MWaSgQSEqBVjlC201w5ZrpBZEBOUZJvW0ivdOTQGbS06HI
-uhySfGfLaYKJo/mL7JMdPM2q+gMg4aeI1Mq9tp6cP1R6A2b862ufX54Roaeu+WF/
-+mgJfod0CghJhbSg2zJ9auxpcc8EuanwuSEOfZWYSI7sD+UMXHUp/VtT7ldSD2q+
-MKiKXmabCbtO7AT80UtiP10DKAje+N0908zxloowCDX/DIvJwM/+tyW+GbDdkFaQ
-/tjGpXv6b04D1HERB50utmy1jmd2UHwSr+1VEVvwOUEg5jRO/ZO8cyDYstupy8xZ
-BNigQxZqUmVGcov3Q5D3TmifX68q2nAEmc5uFPd9UzBfIBrkhRwJhcPCV7lm7VCv
-wfzpw66TYGiQcIgXcQghMxvhx3r5Hl+jNV+1xYaDkbZocWodx96FiNYZOWZVf0hK
-cnPvWp6aSb+KA36aPz9Da6dL3xAwmnelaJss2WjYB2LY5rR5MS6m4GzAqodcp3QP
-F3LBrfFCBkGDoXQseteax+OE25VMg8siHt5YZuqfI7BW4MlnXUIE+8gTZY8iRvFu
-Ign/FXPrKIqjJhuJXiC4HVNnntF/0eBCRd2KXuKV1bFA3mpSK04=
-=MPHs
------END PGP SIGNATURE-----
-
---------------CXhnt7A6XUVlGzmtMB0Xr7Gj--
+> ---
+>   man2/ioctl_userfaultfd.2 | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/man2/ioctl_userfaultfd.2 b/man2/ioctl_userfaultfd.2
+> index cb56315f2..a78353c54 100644
+> --- a/man2/ioctl_userfaultfd.2
+> +++ b/man2/ioctl_userfaultfd.2
+> @@ -321,7 +321,7 @@ Track minor page faults.
+>   Since Linux 5.13,
+>   only hugetlbfs ranges are compatible.
+>   Since Linux 5.14,
+> -compatiblity with shmem ranges was added.
+> +compatibility with shmem ranges was added.
+>   .PP
+>   If the operation is successful, the kernel modifies the
+>   .I ioctls
