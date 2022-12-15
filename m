@@ -2,396 +2,127 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id CD9B164E28C
-	for <lists+linux-man@lfdr.de>; Thu, 15 Dec 2022 21:50:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 2307464E28F
+	for <lists+linux-man@lfdr.de>; Thu, 15 Dec 2022 21:51:25 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229863AbiLOUuH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 15 Dec 2022 15:50:07 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43488 "EHLO
+        id S229892AbiLOUvX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 15 Dec 2022 15:51:23 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44256 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229678AbiLOUuG (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 15 Dec 2022 15:50:06 -0500
-Received: from mail-io1-xd33.google.com (mail-io1-xd33.google.com [IPv6:2607:f8b0:4864:20::d33])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B5C9A21E10
-        for <linux-man@vger.kernel.org>; Thu, 15 Dec 2022 12:50:03 -0800 (PST)
-Received: by mail-io1-xd33.google.com with SMTP id d123so268202iof.6
-        for <linux-man@vger.kernel.org>; Thu, 15 Dec 2022 12:50:03 -0800 (PST)
+        with ESMTP id S229679AbiLOUvU (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 15 Dec 2022 15:51:20 -0500
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com [IPv6:2a00:1450:4864:20::12e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1997949B66
+        for <linux-man@vger.kernel.org>; Thu, 15 Dec 2022 12:51:16 -0800 (PST)
+Received: by mail-lf1-x12e.google.com with SMTP id b3so357482lfv.2
+        for <linux-man@vger.kernel.org>; Thu, 15 Dec 2022 12:51:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=ETS2PrNK52ZF7ihhQfdkJf0l8bWDKDlt5Iz3iIbVSKc=;
-        b=ApkjH9I6rEwQ3kVDqQFt9ytmF/KzDvS1aMRVvO/F8qeIk8cT49qvl9bX/qSarrJg5I
-         S8p7QcGQajMwQALwz/f0vVlIPzAcjIUCc5lErnCckcXiL8cdCD5A2nQFSUVrlcLWbWho
-         cVuRLhcvvEFOfz/Lql/6cFQaerDKFezm3MFMFeyaesyA4HNT0ORxKzXcBe3dyT5UHCrq
-         3O8qBbvGwg6h2OepYWjz5kuikLt98w2Zfgs++RMx8wJ51pIOCrOP7tTu1Jv+e9CzXgyI
-         CPI2JlNwqe7g+f6DxPTkm88F1Gbm4mhFYwkRGooCLEB6Y/AULgGpW028bSeWuXkE5Ey4
-         uI8w==
+        h=content-transfer-encoding:to:subject:message-id:date:from:reply-to
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=BRQm+z5zZvqAspvybGyHhPMRJtHnBkC47At9BzYrF4Y=;
+        b=j7voqyqxAe0xuX8qYzHHu9LQAuc9U0DtVem0OZG6r34v3joAKeyOFWJ9qVN5XG1t93
+         SH544N7JGceIm+5HdjwRv/rIimz051+vJt85/YmgR4L3l/rS/B6t9cYsHlsJhqT7Nsyw
+         eYM29FjxJ9BqfNkQF9rIZzO1C0pvdIIJJdo6Ckot+zq6LgOm6+J1zU+wWTctI81v+Iuh
+         NT7ZuL/d7iLsnZrqWrHEHKk7GNQMSstZ7p+uwWxY9/HsbchTwbAe6RWN0AK5+goJKoSQ
+         Wz91mNNJqWApKRDeSej+tvI5EbpKwHuRIJXTNtqH6wJYv1vZoTOLQUaibw6dj9zZoFzx
+         uLLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ETS2PrNK52ZF7ihhQfdkJf0l8bWDKDlt5Iz3iIbVSKc=;
-        b=ddVTMtb5IhYMMA03i3USpx8W6ZODnKNu468V5C3yfAK6uvsD+D8GTSMa4K/ngg4fGB
-         VQ0815+YjQhRavI/IkCuK7a24Xob8FQ6OiRxdIKDcgdXpVpk+jWS5F6FEbf1zmto8270
-         8TLAeH5lJOPSsvQHexoG++DhK47C2l0u/IvyfbTQCku9kQ+bR91BWvRYah8zcf0i6Cfi
-         ThwY8VcyHLS/i+vG9Pa5YhBW8mOwcBekiNGWiYYxWfacYztcyQL2jbXEn3cPtA/TdMyT
-         tATlsQ8Lsm1sXhKRbS3/l+85T8LDdLMXM+syPb2NG4iwEXePWfkXV5otZ5FZpgQeeut2
-         mtZg==
-X-Gm-Message-State: ANoB5pmmsq/2BF0HJaa7bbl5cJRV6gKc+J4WHi2K3pYfu17o5ozmLCVn
-        dCTZtw8j1WqA7mNFGm1AZcQ=
-X-Google-Smtp-Source: AA0mqf51X33wjek1/UopiVfGUQLs7tPEu6w2G/MZivxdjx8q/y3zs4T8ZJ/N+amymNdt0x9n/KdHhQ==
-X-Received: by 2002:a6b:7f09:0:b0:6e0:256d:547a with SMTP id l9-20020a6b7f09000000b006e0256d547amr17909943ioq.14.1671137402971;
-        Thu, 15 Dec 2022 12:50:02 -0800 (PST)
-Received: from [192.168.0.41] (184-96-229-210.hlrn.qwest.net. [184.96.229.210])
-        by smtp.gmail.com with ESMTPSA id w191-20020a025dc8000000b003752e5b3c23sm124449jaa.20.2022.12.15.12.50.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Dec 2022 12:50:02 -0800 (PST)
-Message-ID: <746bce22-9b6f-9452-5f0e-0e257738a03d@gmail.com>
-Date:   Thu, 15 Dec 2022 13:50:00 -0700
+        h=content-transfer-encoding:to:subject:message-id:date:from:reply-to
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=BRQm+z5zZvqAspvybGyHhPMRJtHnBkC47At9BzYrF4Y=;
+        b=6kG1ntiYWwerX4ps+76Sh4Qz932pL4ky3sipUbXRmV0pbkJRE5Nk1GtJvflHX05ocJ
+         KmixsbYi31euD01XbwvXg4sAymhtlcRH5Xee7rIQ1xFjtw1nJcPpWF7ztfXAZ2whKvJ9
+         d5Ass8/jCn7yy1XcnANAr/d5x94Vs9bI9z1geadmPruKLnSLNBFgPJUtsIsrkxHOq3tN
+         wlFi3hFHq7BRiMcDDVW9YOKI85VYJrhUFLubvIYzB9Fh/3xjnG4TEkFOL4thgLJznYr1
+         6i0Ui6CiASnPTyT3rttRbDgxZERT29Bxpupx10+Le+euEuwy4OoCCir4jsq6dmUEtR3W
+         sM/A==
+X-Gm-Message-State: ANoB5pmY4Nt4IHXbChT7Ug01yBB4qzPwuRiTrdrBmR6QoIikEC0SgtlU
+        3f/pZfYSLPWnCeY+qldtRLG+YHwmVmeEv+oLXag=
+X-Google-Smtp-Source: AA0mqf5P3uzO6JRifc5u64KV6bAk9Hv3I/2/A9mcE5HQXJRXZSPJnSN9S+XquPK/wukEqpgvQTOylGiljOjGxbCUVf4=
+X-Received: by 2002:a19:7b03:0:b0:4a7:7d52:bcff with SMTP id
+ w3-20020a197b03000000b004a77d52bcffmr31613069lfc.380.1671137474372; Thu, 15
+ Dec 2022 12:51:14 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.4.0
-Subject: Re: [-Wstringop-overflow=] strncat(3)
-Content-Language: en-US
-To:     Alejandro Colomar <alx.manpages@gmail.com>,
-        Andrew Pinski <pinskia@gmail.com>
-Cc:     gcc@gcc.gnu.org, linux-man <linux-man@vger.kernel.org>,
-        GNU C Library <libc-alpha@sourceware.org>,
-        groff <groff@gnu.org>, Martin Sebor <msebor@redhat.com>
-References: <30a77019-ded0-fe3b-d0db-6c77842674db@gmail.com>
- <CA+=Sn1nkz5FKFFx3e+A42nhpAF-TLW0Gmdgn4a5NL0KkCpuWNg@mail.gmail.com>
- <c306794f-8bfd-6b88-0baa-352d4c8b6871@gmail.com>
-From:   Martin Sebor <msebor@gmail.com>
-In-Reply-To: <c306794f-8bfd-6b88-0baa-352d4c8b6871@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
-        autolearn_force=no version=3.4.6
+Received: by 2002:ab3:118b:0:b0:200:8802:d453 with HTTP; Thu, 15 Dec 2022
+ 12:51:13 -0800 (PST)
+Reply-To: illuminatilord1945@gmail.com
+From:   Illuminati Invitation <kabirushadrack2020@gmail.com>
+Date:   Thu, 15 Dec 2022 21:51:13 +0100
+Message-ID: <CAHqTH-Ozi62f7Gh9UHLMx+5cdCezLNTE=tnyyCxnsjB8w1vJ0A@mail.gmail.com>
+Subject: WILLKOMMEN BEI DER ILLUMINATI-GESELLSCHAFT
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: Yes, score=5.3 required=5.0 tests=BAYES_50,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
+        FREEMAIL_FROM,FREEMAIL_REPLYTO,FREEMAIL_REPLYTO_END_DIGIT,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,SUBJ_ALL_CAPS,UNDISC_FREEM
+        autolearn=no autolearn_force=no version=3.4.6
+X-Spam-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
+        *      https://www.dnswl.org/, no trust
+        *      [2a00:1450:4864:20:0:0:0:12e listed in]
+        [list.dnswl.org]
+        *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
+        *      [score: 0.5000]
+        *  0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
+        *      provider
+        *      [kabirushadrack2020[at]gmail.com]
+        *  0.2 FREEMAIL_ENVFROM_END_DIGIT Envelope-from freemail username ends
+        *       in digit
+        *      [kabirushadrack2020[at]gmail.com]
+        *  0.5 SUBJ_ALL_CAPS Subject is all capitals
+        *  0.2 FREEMAIL_REPLYTO_END_DIGIT Reply-To freemail username ends in
+        *      digit
+        *      [illuminatilord1945[at]gmail.com]
+        *  0.0 SPF_HELO_NONE SPF: HELO does not publish an SPF Record
+        * -0.0 SPF_PASS SPF: sender matches SPF record
+        *  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+        *       valid
+        * -0.1 DKIM_VALID_EF Message has a valid DKIM or DK signature from
+        *      envelope-from domain
+        * -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+        *      author's domain
+        * -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+        *  2.7 UNDISC_FREEM Undisclosed recipients + freemail reply-to
+        *  1.0 FREEMAIL_REPLYTO Reply-To/From or Reply-To/body contain
+        *      different freemails
+X-Spam-Level: *****
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 12/14/22 16:14, Alejandro Colomar via Libc-alpha wrote:
-> [CC += groff]
-> 
-> Hi Andrew,
-> 
-> On 12/14/22 23:57, Andrew Pinski wrote:
->> On Wed, Dec 14, 2022 at 2:46 PM Alejandro Colomar via Libc-alpha
->> <libc-alpha@sourceware.org> wrote:
->>>
->>> Hi,
->>>
->>> I was rewriting the strncat(3) manual page, and when I tried to 
->>> compile the
->>> example program, I got a surprise from the compiler.
->>>
->>> Here goes the page:
->>>
->>>
->>>     strncat(3)               Library Functions Manual              
->>> strncat(3)
->>>
->>>     NAME
->>>            strncat  -  concatenate  a  null‐padded  character 
->>> sequence into a
->>>            string
->>>
->>>     LIBRARY
->>>            Standard C library (libc, -lc)
->>>
->>>     SYNOPSIS
->>>            #include <string.h>
->>>
->>>            char *strncat(char *restrict dst, const char src[restrict 
->>> .sz],
->>>                           size_t sz);
->>>
->>>     DESCRIPTION
->>>            This function catenates the input character sequence 
->>> contained  in
->>>            a  null‐padded  fixed‐width  buffer,  into  a string at 
->>> the buffer
->>>            pointed to by dst.  The programmer is responsible for 
->>> allocating a
->>>            buffer large enough, that is, strlen(dst) + strnlen(src, 
->>> sz) + 1.
->>>
->>>            An implementation of this function might be:
->>>
->>>                char *
->>>                strncat(char *restrict dst, const char *restrict src, 
->>> size_t sz)
->>>                {
->>>                    int   len;
->>>                    char  *end;
->>>
->>>                    len = strnlen(src, sz);
->>>                    end = dst + strlen(dst);
->>>                    end = mempcpy(end, src, len);
->>>                    *end = '\0';
->>>
->>>                    return dst;
->>>                }
->>>
->>>     RETURN VALUE
->>>            strncat() returns dest.
->>>
->>>     ATTRIBUTES
->>>            [...]
->>>
->>>     STANDARDS
->>>            POSIX.1‐2001, POSIX.1‐2008, C89, C99, SVr4, 4.3BSD.
->>>
->>>     CAVEATS
->>>            The  name of this function is confusing.  This function 
->>> has no re‐
->>>            lation with strncpy(3).
->>>
->>>            If the destination buffer is not large enough, the 
->>> behavior is un‐
->>>            defined.  See _FORTIFY_SOURCE in feature_test_macros(7).
->>>
->>>     BUGS
->>>            This function  can  be  very  inefficient.   Read  about  
->>> Shlemiel
->>>            the       painter      
->>> ⟨https://www.joelonsoftware.com/2001/12/11/
->>>            back-to-basics/⟩.
->>>
->>>     EXAMPLES
->>>            #include <stdio.h>
->>>            #include <stdlib.h>
->>>            #include <string.h>
->>>
->>>            int
->>>            main(void)
->>>            {
->>>                char    buf[BUFSIZ];
->>>                size_t  len;
->>>
->>>                buf[0] = '\0';  // There’s no ’cpy’ function to this 
->>> ’cat’.
->>>                strncat(buf, "Hello ", 6);
+--=20
+EINLADUNG ZUR GRO=C3=9FEN ILLUMINATI-GESELLSCHAFT
 
-There's nothing wrong with this but the two lines above would be
-more simply coded as one:
+GL=C3=9CCKWUNSCH AN SIE....
+Du wurdest unter den Menschen ausgew=C3=A4hlt, denen diesen November die
+M=C3=B6glichkeit gegeben wurde, reich und beliebt zu werden, indem du dich
+den Gro=C3=9Fen ILLUMINATI anschlie=C3=9Ft.
 
-   strcpy(buf, "Hello ");
+Treten Sie uns noch heute bei und verwirklichen Sie Ihre Tr=C3=A4ume und
+leben Sie ein besseres Leben. Es ist wichtig zu wissen, dass Sie daf=C3=BCr
+bezahlt werden, Mitglied zu werden. Sie verdienen monatlich ein
+Mitgliedsgehalt. Es sind keine Menschenopfer erforderlich, nur Ihre
+Loyalit=C3=A4t und Ihr Engagement. Nutzen Sie diese "GOLDENEN
+GELEGENHEITEN". Die Organisation macht Sie reich und ber=C3=BChmt in der
+Welt ...
 
-The original code suggests a misunderstanding of strncpy's purpose:
-that it writes exactly 6 bytes into the destination.  That's what
-the warning points out.
+F=C3=9CLLEN SIE BITTE DIE FOLGENDEN DETAILS AUS UND SENDEN SIE JETZT ZUR=C3=
+=9CCK.....
 
->>>                strncat(buf, "world", 42);  // Padding null bytes 
->>> ignored.
->>>                strncat(buf, "!", 1);
->>>                len = strlen(buf);
->>>                printf("[len = %zu]: <%s>\n", len, buf);
->>>
->>>                exit(EXIT_SUCCESS);
->>>            }
->>>
->>>     SEE ALSO
->>>            string(3), string_copy(3)
->>>
->>>     Linux man‐pages (unreleased)      (date)                       
->>> strncat(3)
->>>
->>>
->>> And when you compile that, you get:
->>>
->>> $ cc -Wall -Wextra ./strncat.c
->>> ./strncat.c: In function ‘main’:
->>> ./strncat.c:12:12: warning: ‘strncat’ specified bound 6 equals source 
->>> length
->>> [-Wstringop-overflow=]
->>>      12 |            strncat(buf, "Hello ", 6);
->>>         |            ^~~~~~~~~~~~~~~~~~~~~~~~~
->>> ./strncat.c:14:12: warning: ‘strncat’ specified bound 1 equals source 
->>> length
->>> [-Wstringop-overflow=]
->>>      14 |            strncat(buf, "!", 1);
->>>         |            ^~~~~~~~~~~~~~~~~~~~
->>>
->>>
->>> So, what?  Where's the problem?  This function does exactly that: 
->>> "take an
->>> unterminated character sequence and catenate it to an existing 
->>> string".
+Ganze Namen:
+Land:
+Das Alter:
+Familienstand:
+Beruf:
+Monatliches Einkommen:
+Telefonnummer:
 
-Strncat has historically had two distinct use cases.  One of them
--- to constrain the amount of data to copy to the space remaining
-in the destination -- gained popularity with the push to reduce
-buffer overflow weaknesses in code.  Mistakes in these uses gave
-rise to a whole other class of security bugs, to the extent that
-CERT felt it necessary to publish the strncpy and strncat best
-practice.  The GCC warning in turn was added to support the CERT
-guideline.  I touch on some of this in a blog post I wrote a few
-years ago:
+Bitte senden Sie diese Informationen jetzt an die ILLUMINATI-E-Mail unten.
 
-https://developers.redhat.com/blog/2018/05/24/detecting-string-truncation-with-gcc-8
-
-The specific uses of the function above are contrived (there's
-no point in calling strncat to append the full string -- strcat
-will do that more clearly and efficiently) but the general use
-case -- limiting the amount of copied data to an initial
-substring of the source sequence -- although valid and originally
-intended (it's one of the two uses of the function in UNIX v7),
-is not one that either the guideline or the warning consider.
-They can only consider one use cases, and they chose the one
-that was observed behind security bugs.  That choice unavoidably
-leads to some false positives.  The expected way to deal with
-them is to suppress the warning by one of the usual mechanisms
-(command line option or #pragma GCC diagnostic).
-
-Martin
-
->>>  Clang
->>> seems to be fine with the code.
->>
->> See https://gcc.gnu.org/bugzilla/show_bug.cgi?id=83404 and the
->> background of why the warning was added here:
->>
->> https://www.us-cert.gov/bsi/articles/knowledge/coding-practices/strncpy-and-strncat. 
->>
-> 
-> This document is bogus, since it's puting strncpy(3) and strncat(3) in 
-> the same sack, when they're in reality two completely different beasts.  
-> I'll quote below some paragraphs of some new page I'm writing, which 
-> will show why.
-> 
-> The rationale behind GCC's warning is also fundamentally wrong.  Martin 
-> was wrong when he claimed that the right call for strncat(3) is the 
-> remaining space in the destination.
-> 
-> I admit that I didn't know what strncat(3) was useful for, and believed 
-> that it was simply a broken-by-design function until very recently (this 
-> week, more or less).  And to be honest, I still believe it's broken by 
-> design; it's just that it can be repurposed for a reasonable new purpose 
-> (which I found while digging in groff's source code; that's why the CC).
-> 
-> 
-> First I'll show an example program that I added to the strncat(3) manual 
-> page last week, which is based on the groff code that used it:
-> 
-> 
->         #include <stdio.h>
->         #include <stdlib.h>
->         #include <string.h>
-> 
->         #define nitems(arr)  (sizeof((arr)) / sizeof((arr)[0]))
-> 
->         int
->         main(void)
->         {
->             char pre[4] = "pre.";
->             char *post = ".post";
->             char *src = "some_long_body.post";
->             char dest[100];
-> 
->             dest[0] = '\0';
->             strncat(dest, pre, nitems(pre));
->             strncat(dest, src, strlen(src) - strlen(post));
-> 
->             puts(dest);  // "pre.some_long_body"
->             exit(EXIT_SUCCESS);
->         }
-> 
-> 
-> And now I'll quote some text that I'm writing currently for the function:
-> 
-> 
->     Null‐padded character sequences
->         For historic reasons, some standard APIs, such as utmpx(5),  
-> use  null‐
->         padded  character  sequences in fixed‐width buffers.  To 
-> interface with
->         them, specialized functions need to be used.
-> 
->         To copy strings into them, use stpncpy(3).
-> 
->         To copy from an unterminated string within a fixed‐width buffer 
-> into  a
->         string,  ignoring  any  trailing  null  bytes in the source 
-> fixed‐width
->         buffer, you should use strncat(3).
-> 
->         [...]
-> 
->         stpncpy(3)
->                This function copies the input string  into  a  destination
->                null‐padded character sequence in a fixed‐width buffer.  If
->                the  destination  buffer,  limited by its size, isn’t large
->                enough to hold the copy, the resulting  character  sequence
->                is  truncated.   Since  it creates a character sequence, it
->                doesn’t need to write a terminating null byte.  It’s impos‐
->                sible to distinguish truncation  after  the  call,  from  a
->                character  sequence  that just fits the destination buffer;
->                truncation should be detected from the length of the origi‐
->                nal string.
-> 
->         strncpy(3)
->                This function is identical to  stpncpy(3)  except  for  the
->                useless return value.
-> 
->                stpncpy(3) is a simpler alternative to this function.
-> 
->         [...]
-> 
->         strncat(3)
->                Do not confuse this function with strncpy(3); they are  not
->                related at all.
-> 
->                This  function  catenates the input character sequence con‐
->                tained in a null‐padded wixed‐width buffer, into a destina‐
->                tion string.  The programmer is responsible for  allocating
->                a buffer large enough.  The return value is useless.
-> 
->                zustr2stp(3) is a faster alternative to this function.
-> 
->                An implementation of this function might be:
-> 
->                    char *
->                    strncat(char *restrict dst, const char *restrict src,
->                            size_t sz)
->                    {
->                        int   len;
->                        char  *end;
-> 
->                        len = strnlen(src, sz);
->                        end = dst + strlen(dst);
->                        end = mempcpy(end, src, len);
->                        *end = '\0';
-> 
->                        return dst;
->                    }
-> 
-> 
-> Cheers,
-> 
-> Alex
-> 
-> 
-> 
->>
->> Thanks,
->> Andrew Pinski
->>
->>>
->>> Cheers,
->>>
->>> Alex
->>>
->>>
->>> -- 
->>> <http://www.alejandro-colomar.es/>
-> 
-
+E-Mail: illuminatilord1945@gmail.com
