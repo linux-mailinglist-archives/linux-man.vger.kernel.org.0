@@ -2,66 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id C5D7064DB28
-	for <lists+linux-man@lfdr.de>; Thu, 15 Dec 2022 13:29:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 6DB6964DB29
+	for <lists+linux-man@lfdr.de>; Thu, 15 Dec 2022 13:29:37 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229495AbiLOM3W (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 15 Dec 2022 07:29:22 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49318 "EHLO
+        id S229627AbiLOM3f (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 15 Dec 2022 07:29:35 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49342 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229471AbiLOM3U (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 15 Dec 2022 07:29:20 -0500
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com [IPv6:2a00:1450:4864:20::333])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 042036302
-        for <linux-man@vger.kernel.org>; Thu, 15 Dec 2022 04:29:20 -0800 (PST)
-Received: by mail-wm1-x333.google.com with SMTP id o5-20020a05600c510500b003d21f02fbaaso1556288wms.4
-        for <linux-man@vger.kernel.org>; Thu, 15 Dec 2022 04:29:19 -0800 (PST)
+        with ESMTP id S229547AbiLOM3e (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 15 Dec 2022 07:29:34 -0500
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com [IPv6:2a00:1450:4864:20::329])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 446D2101F0
+        for <linux-man@vger.kernel.org>; Thu, 15 Dec 2022 04:29:33 -0800 (PST)
+Received: by mail-wm1-x329.google.com with SMTP id o5-20020a05600c510500b003d21f02fbaaso1556715wms.4
+        for <linux-man@vger.kernel.org>; Thu, 15 Dec 2022 04:29:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=content-transfer-encoding:in-reply-to:from:references:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=ID/0B5nOMT7pIKv+yAJjKuVlThOPbvUBaunZliAzMmQ=;
-        b=lMPlBKOA7eGiL+5n5qAkzUJW/2ib7Cc8pSqRbwDkhzRswym7GO9KcGVLlRWtp0va+a
-         Qtpq5n32diPles3aubnv3qJehXPlJfALMCfIa5tjeHZfceIIzBeYYJqjtf0PtMgVf1hg
-         WkDvjZlBvuKrXnUsFWaMrjoCBoxvK988rOf4ny/FyAox8UkBtu14Q0UKK9oqEWTwDiPa
-         M01MYmV0M5UoVozOvjPsDEvn99QZoWdkX1GZbJKfH8eV5oAH+pAWNW0O6N3rCanYzQOt
-         PtRdWEF3Q45Z9wviAkVmuvQyuRrS+r21Zi+RARdrvtND77+JA/zWvUEdY3e2igVT2seH
-         jjfw==
+        bh=Gii35Nop+2g4QCqIN1xriZzqfyp6GvfLGqOv/37mvRc=;
+        b=iQqNOzT6S+aODmeEhEi6DRNuR+o7HBn3hSS/ZSEvjECpWz34+uNl6GdoYxjfLhJ4s9
+         l4bhYcUjxxDabx/dJAI7fbjiNkYocX6Y07keIXunp6RD6AlW/w7jNLNKJlATJKmpsy7G
+         uSLgXARe0I4nmqIuarhNT7Aex4lYesChwAY3uW/or7MUjYYEoJMlLoQzit0+xwWgji4w
+         UW5UxUa+6w6NPUK5g1JP7laZl811GvVQqDc/qF8ePeUoPVa6MzFUmvwvlzoL6+Hpxre7
+         /ykEnOZdIGpSudpYFsLRxGMgPnTVlRy4xdMYIxxM4lq4f93fxrnj3MT5gbIkhKxT3mMT
+         emKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:in-reply-to:from:references:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :sender:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=ID/0B5nOMT7pIKv+yAJjKuVlThOPbvUBaunZliAzMmQ=;
-        b=7CwlFfyU8WtBypw/2Kz46D8INAzC5r6t1hIsFO4DZcDZLHbn+zS172u03bt12v9vT9
-         B51VS215uiRFKP8kA+zB91t3jkPIhD/0QocG9S00iTxpeR2TkCtqqf3u02icYgag87SU
-         IopuiCkpRXgs6FZ47NxTgQycGgCdxIhSbn59KAWYElwgQAlm8dokgLi7EnZnDwBopSfZ
-         yLhxTQo4yXLV2sL3ujD9NFy+eZ4UPry58vFPxPbLQM+/Qaw0MnlQWpeP9gUw/ZjdyEnM
-         EOslhHrwVaA+iaF6ksbVOMa/tIFjP4KQ3fnyrQnoSWxOqY9uRa4BKeamAVC2+roHx4ne
-         U3MA==
-X-Gm-Message-State: ANoB5pnzPCCTlpJme9rcwNpSJp0iPQx0UaFxCb8fhnhVmuLoLyM5jr59
-        c+kUsGRECrhApqhcGBwbZLs=
-X-Google-Smtp-Source: AA0mqf4Ay6KJCvMue9WRimqlV5pCVgivS5v9cG4En3qiV9r2m+2+Qf1WAEsZ4djuqHGZPMNrZxnnNw==
-X-Received: by 2002:a05:600c:17d5:b0:3d1:f2de:195a with SMTP id y21-20020a05600c17d500b003d1f2de195amr21430136wmo.32.1671107358418;
-        Thu, 15 Dec 2022 04:29:18 -0800 (PST)
+        bh=Gii35Nop+2g4QCqIN1xriZzqfyp6GvfLGqOv/37mvRc=;
+        b=QkpvLNQI/yKzXaGIcMyqBVzC6IOy6SAFrBRUyMa0uH3oYX4o92ZRpmJx92ygrmErLn
+         TyKkxqT6OOBwxPr54hocjvDRaSwwcLP26QX9kC2Ydgte7kpI9MDXpmPet8exMScLzg2W
+         mDsgzeEfUnlTT9ZNK4m/rxkkHm9tAM4de8wVk7pu+/Np2yQF5TITIUiwAteH7B5XCqT6
+         1cLq7KrXIbbGrYA+BgzqscelAfT8+A1KJo1tdPfmGL+TgxsxEB/D78S98YluFbvvA0o3
+         /09obE43axZytfKjB6FbY61+lPPTC3JJPjN8tk9tlPz5c65a3OJKISaqfPdjxVXUa86Q
+         amzA==
+X-Gm-Message-State: ANoB5pm9OAFC9pvH8RBPbiVApST9W7ANX0kv3bZ2P7WdXP8vWi6/B1cc
+        yTGL0iExoOuHROKJhBVYnwQ=
+X-Google-Smtp-Source: AA0mqf41uk6VuvbYDYIOR1Vzwdtm50TKpTXwgoO389jG/eZjNEPHHxfQqoA6+AbECkpqjaUvsByijQ==
+X-Received: by 2002:a05:600c:1da7:b0:3d2:2b70:f2fd with SMTP id p39-20020a05600c1da700b003d22b70f2fdmr10459979wms.21.1671107371788;
+        Thu, 15 Dec 2022 04:29:31 -0800 (PST)
 Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id 8-20020a05600c020800b003d237d60318sm6187207wmi.2.2022.12.15.04.29.17
+        by smtp.gmail.com with ESMTPSA id l5-20020a1c7905000000b003d1e4120700sm6716410wme.41.2022.12.15.04.29.31
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Dec 2022 04:29:18 -0800 (PST)
+        Thu, 15 Dec 2022 04:29:31 -0800 (PST)
 Sender: Alejandro Colomar <alx.mailinglists@gmail.com>
-Message-ID: <4358d250-760b-913c-c77d-2e7d5f5e2445@gmail.com>
-Date:   Thu, 15 Dec 2022 13:29:17 +0100
+Message-ID: <ead19a42-cd52-ad3d-1321-4fed5700c36a@gmail.com>
+Date:   Thu, 15 Dec 2022 13:29:30 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.5.1
-Subject: Re: [PATCH] ioctl_userfaultfd.2: tfix
+Subject: Re: [PATCH] INSTALL: tfix
 Content-Language: en-US
 To:     Eric Biggers <ebiggers@kernel.org>, linux-man@vger.kernel.org
-References: <20221215065958.65921-1-ebiggers@kernel.org>
+References: <20221215065816.65765-1-ebiggers@kernel.org>
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20221215065958.65921-1-ebiggers@kernel.org>
+In-Reply-To: <20221215065816.65765-1-ebiggers@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
@@ -74,9 +74,9 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Eric,
 
-On 12/15/22 07:59, Eric Biggers wrote:
+
+On 12/15/22 07:58, Eric Biggers wrote:
 > From: Eric Biggers <ebiggers@google.com>
 > 
 > Signed-off-by: Eric Biggers <ebiggers@google.com>
@@ -84,21 +84,20 @@ On 12/15/22 07:59, Eric Biggers wrote:
 Patch applied.  Thanks,
 
 Alex
-
 > ---
->   man2/ioctl_userfaultfd.2 | 2 +-
+>   INSTALL | 2 +-
 >   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/man2/ioctl_userfaultfd.2 b/man2/ioctl_userfaultfd.2
-> index cb56315f2..a78353c54 100644
-> --- a/man2/ioctl_userfaultfd.2
-> +++ b/man2/ioctl_userfaultfd.2
-> @@ -321,7 +321,7 @@ Track minor page faults.
->   Since Linux 5.13,
->   only hugetlbfs ranges are compatible.
->   Since Linux 5.14,
-> -compatiblity with shmem ranges was added.
-> +compatibility with shmem ranges was added.
->   .PP
->   If the operation is successful, the kernel modifies the
->   .I ioctls
+> diff --git a/INSTALL b/INSTALL
+> index d2367883b..eb90c5b30 100644
+> --- a/INSTALL
+> +++ b/INSTALL
+> @@ -47,7 +47,7 @@ Description
+>              -  DESTDIR
+>              -  prefix
+>   
+> -       Comand Variables
+> +       Command Variables
+>              Some commands use flags.  A command named 'command' will have a
+>              variable COMMAND to specify an alternative command name.  To append
+>              flags to the default ones, set the variable EXTRA_COMMANDFLAGS.  To
