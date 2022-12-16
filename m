@@ -2,60 +2,62 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 7B44964F137
-	for <lists+linux-man@lfdr.de>; Fri, 16 Dec 2022 19:47:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 6531F64F15C
+	for <lists+linux-man@lfdr.de>; Fri, 16 Dec 2022 20:04:14 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229863AbiLPSrT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 16 Dec 2022 13:47:19 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47720 "EHLO
+        id S231542AbiLPTEM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 16 Dec 2022 14:04:12 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53038 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229583AbiLPSrS (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 16 Dec 2022 13:47:18 -0500
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com [IPv6:2a00:1450:4864:20::62c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C09B627CEF
-        for <linux-man@vger.kernel.org>; Fri, 16 Dec 2022 10:47:16 -0800 (PST)
-Received: by mail-ej1-x62c.google.com with SMTP id gh17so8245063ejb.6
-        for <linux-man@vger.kernel.org>; Fri, 16 Dec 2022 10:47:16 -0800 (PST)
+        with ESMTP id S231753AbiLPTEE (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 16 Dec 2022 14:04:04 -0500
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com [IPv6:2a00:1450:4864:20::32f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3D9AC6A768
+        for <linux-man@vger.kernel.org>; Fri, 16 Dec 2022 11:04:03 -0800 (PST)
+Received: by mail-wm1-x32f.google.com with SMTP id m19so2508055wms.5
+        for <linux-man@vger.kernel.org>; Fri, 16 Dec 2022 11:04:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=6Jjm32ot2yxjGt3yCOPp7D/2nHFxcZOE04i6i5Hrj50=;
-        b=TFiPXghYsL56wREzpLZizmaYegTQgYHZcRzztEDimGy8n9oYf0QGr8TsgQEAe/Bdzy
-         Ks7le1qnMI1+cIrLZrztpCD+jQUUh6oIaMMU7tX0jYC1k+tg7HuPSMorQk3UuOalrd2P
-         WTG48ao6Ga/doaAC+rkSVQCpd7r24gJyfvYlihfZ6odSPzFKdn8lB68hsokxKNtYqM4h
-         8hlZlguuJhv7kVTtPH8ouRmpXLQrZVDNQZg5gmqU4bd3iuEqD9s8FK4UXBN0z+L2ZS9z
-         0Hk+IDClMNiVLiGlsWU9evDoejVk7za0bJPkh/UIyBsnPg2FLsGOWfdDOrcI5cqnYot4
-         N98g==
+        bh=JVRV/7KSTFiWyNpOhvGhU8RwglCLSJK3wpTFnsnsaTo=;
+        b=U19mF0erKnIRStg/dG+fG44FuGD7/tygaxMUSn1gGWOSrWPoyEP3Vqq+kNU5MigYeC
+         w2WxyXV89Dn73YibBiWVkAZYV0+tbAYBBMUgwRjXZ7MnvDUl27iux/h2Qsp+CYmRm82y
+         eQD/ZqXVdJvlBj4Dt1AfrF4P3JnTd9jZsURB7vAu47dcN7XRq42V5zAOyNi5yIiAAoL4
+         CnKos1RVVY/vVJuTXC3Gi7dF/FRAtV4Pbel9GHLBNzS1qY+kYlIAhtjQ22AT3u/Zk05N
+         z11D07vaCvYZr+gsaCn6L2tPyXCgLvZF5C7UzLavZ3mM4aZTLV2HxQc8IbHWyh1+lKC+
+         dDVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=6Jjm32ot2yxjGt3yCOPp7D/2nHFxcZOE04i6i5Hrj50=;
-        b=IauXWRdY1QcYro9XlgoHsYm6rUiK9gTMaSYFke70MFK7CChA97QMlt56uxnUO6QmET
-         a6DchBVO/lc02ZLZK3MA52ivu/zsiq7eigR3AzzVnnt0vGITAN0/CjFX75Yq3MTogww/
-         mlgvA6Jpddn0E0KJAi1JIK8VbS+tVKQXPkVEdD4l+VZ35X5ieVQFsV5fVPAk+NpJLf6A
-         BRgdckHhdU6IYEr/0XLv5tZZZBsKrrCUnhQPLkjyzWRIHMU40UAYDJp3SHkk0br3HdHS
-         eCRRlKqymJAPH9xMMY2FWlL8ROu2szPoqiE+XvLnn4xWNDFRp9f5W6049nvtRWEvF+YI
-         l1Tw==
-X-Gm-Message-State: ANoB5pnP8cB+7bXPToB+nEo5Q9LZPUl7tTMXHGvJ/rTvVLWY3123SCfo
-        TATQ0XynSCNDmuWqozr948cQ8XIy6/PeLKhwtG4=
-X-Google-Smtp-Source: AA0mqf6/zkj8c7xuAl51KPBqNgvxgKrxjPKeJq0Sult+XEKdObPg/E9rvycbtUGz3rGW/yKonx6iZ74mArmbdgen4WI=
-X-Received: by 2002:a17:906:3e09:b0:7c0:e6d8:3e82 with SMTP id
- k9-20020a1709063e0900b007c0e6d83e82mr17222874eji.451.1671216435221; Fri, 16
- Dec 2022 10:47:15 -0800 (PST)
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=JVRV/7KSTFiWyNpOhvGhU8RwglCLSJK3wpTFnsnsaTo=;
+        b=MDM0/O8YhnTYk8iXp0F8HkSs7CRyNF94njpepzIjBVmOD/vd6ie/Zlg8aYSnythKtJ
+         HoaFr9T/9wSfmDPVL3tt4eKIAEHFom+/XwDM0cD5ZYaOtyfeGfxIt2FFKHd/RpXoX1kE
+         w8ECaST6xsVCgyovnrVMtFY29776FlptRxdHfBBU9iDmJyRCv6gebGh3sU6UFudYoeae
+         DiYi+rdVDBt0t5Lc4i6kVU5KOPcF0HMjk0oTDoijGkXjGTMMGeZv67cEQyJTbkUxXQEh
+         JxHNiQl3mU8yleY/cD4XIPiYBwmMx7pfYd+iYZELc7NMLyVpuhqQipJu2qyhFTL/ZbYg
+         BMbQ==
+X-Gm-Message-State: ANoB5pmVwHToLK5Y1mRZf/HmqpBV3eA/iI55PB6mtyZ0IK7NZ64DBijM
+        3fkGs60IYgqYr6bG6jjWgv8=
+X-Google-Smtp-Source: AA0mqf7nwighmpSRJUSdeI1xuw/IeTARWINwXNnYgm2VMrIasQD3VVob2zgrHravYjm85opWcj1SAw==
+X-Received: by 2002:a05:600c:3549:b0:3c6:e61e:ae8c with SMTP id i9-20020a05600c354900b003c6e61eae8cmr36046809wmq.28.1671217441523;
+        Fri, 16 Dec 2022 11:04:01 -0800 (PST)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id j17-20020a05600c1c1100b003cf774c31a0sm12458604wms.16.2022.12.16.11.04.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 16 Dec 2022 11:04:01 -0800 (PST)
+Message-ID: <5abac28c-e8fa-d62b-2211-5ddd6820e882@gmail.com>
+Date:   Fri, 16 Dec 2022 20:03:53 +0100
 MIME-Version: 1.0
-References: <20221214161719.12862-1-alx@kernel.org> <20221215002648.35111-3-alx@kernel.org>
- <ff1858d2-f354-294f-aaf4-35a1becef557@gmail.com>
-In-Reply-To: <ff1858d2-f354-294f-aaf4-35a1becef557@gmail.com>
-From:   Stefan Puiu <stefan.puiu@gmail.com>
-Date:   Fri, 16 Dec 2022 20:47:03 +0200
-Message-ID: <CACKs7VDYWBaMtAELqnV31eJjRNebPH-m9kZiXXq4fABgvQ+E5Q@mail.gmail.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.1
 Subject: Re: [PATCH v5 2/5] stpecpy.3, stpecpyx.3, ustpcpy.3, ustr2stp.3,
  zustr2stp.3, zustr2ustp.3: Add new links to string_copy(7)
-To:     Alejandro Colomar <alx.manpages@gmail.com>
+Content-Language: en-US
+To:     Stefan Puiu <stefan.puiu@gmail.com>
 Cc:     linux-man@vger.kernel.org, Alejandro Colomar <alx@kernel.org>,
         Martin Sebor <msebor@redhat.com>,
         "G. Branden Robinson" <g.branden.robinson@gmail.com>,
@@ -63,10 +65,17 @@ Cc:     linux-man@vger.kernel.org, Alejandro Colomar <alx@kernel.org>,
         Jakub Wilk <jwilk@jwilk.net>, Serge Hallyn <serge@hallyn.com>,
         Iker Pedrosa <ipedrosa@redhat.com>,
         Andrew Pinski <pinskia@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+References: <20221214161719.12862-1-alx@kernel.org>
+ <20221215002648.35111-3-alx@kernel.org>
+ <ff1858d2-f354-294f-aaf4-35a1becef557@gmail.com>
+ <CACKs7VDYWBaMtAELqnV31eJjRNebPH-m9kZiXXq4fABgvQ+E5Q@mail.gmail.com>
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <CACKs7VDYWBaMtAELqnV31eJjRNebPH-m9kZiXXq4fABgvQ+E5Q@mail.gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------4z8RW44oTOAthmfw8yfhHUYj"
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -75,222 +84,206 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Alex!
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------4z8RW44oTOAthmfw8yfhHUYj
+Content-Type: multipart/mixed; boundary="------------UBbESfkLli6zHQGsV5oolOhs";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: Stefan Puiu <stefan.puiu@gmail.com>
+Cc: linux-man@vger.kernel.org, Alejandro Colomar <alx@kernel.org>,
+ Martin Sebor <msebor@redhat.com>,
+ "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+ Douglas McIlroy <douglas.mcilroy@dartmouth.edu>, Jakub Wilk
+ <jwilk@jwilk.net>, Serge Hallyn <serge@hallyn.com>,
+ Iker Pedrosa <ipedrosa@redhat.com>, Andrew Pinski <pinskia@gmail.com>
+Message-ID: <5abac28c-e8fa-d62b-2211-5ddd6820e882@gmail.com>
+Subject: Re: [PATCH v5 2/5] stpecpy.3, stpecpyx.3, ustpcpy.3, ustr2stp.3,
+ zustr2stp.3, zustr2ustp.3: Add new links to string_copy(7)
+References: <20221214161719.12862-1-alx@kernel.org>
+ <20221215002648.35111-3-alx@kernel.org>
+ <ff1858d2-f354-294f-aaf4-35a1becef557@gmail.com>
+ <CACKs7VDYWBaMtAELqnV31eJjRNebPH-m9kZiXXq4fABgvQ+E5Q@mail.gmail.com>
+In-Reply-To: <CACKs7VDYWBaMtAELqnV31eJjRNebPH-m9kZiXXq4fABgvQ+E5Q@mail.gmail.com>
 
-On Thu, Dec 15, 2022 at 2:46 AM Alejandro Colomar
-<alx.manpages@gmail.com> wrote:
->
-> Formatted strpcy(3):
->
-> strcpy(3)                  Library Functions Manual                  strc=
-py(3)
->
-> NAME
->         strcpy - copy or catenate a string
->
-> LIBRARY
->         Standard C library (libc, -lc)
->
-> SYNOPSIS
->         #include <string.h>
->
->         char *stpcpy(char *restrict dst, const char *restrict src);
->         char *strcpy(char *restrict dst, const char *restrict src);
->         char *strcat(char *restrict dst, const char *restrict src);
->
->     Feature Test Macro Requirements for glibc (see feature_test_macros(7)=
-):
->
->         stpcpy():
->             Since glibc 2.10:
->                 _POSIX_C_SOURCE >=3D 200809L
->             Before glibc 2.10:
->                 _GNU_SOURCE
->
-> DESCRIPTION
->         stpcpy()
->         strcpy()
->                These functions copy the string pointed to by src, into a =
-string
->                at  the buffer pointed to by dst.  The programmer is respo=
-nsible
->                for allocating a buffer large enough, that is, strlen(src)=
- +  1.
->                They only differ in the return value.
+--------------UBbESfkLli6zHQGsV5oolOhs
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-A destination buffer large enough? It's not that obvious to me from
-the text, but maybe I'm tired :).
-I was also a bit at a loss about the difference between the two; maybe
-you can say "For the difference between the two, see RETURN VALUE"?
+SGkgU3RlZmFuLA0KDQpPbiAxMi8xNi8yMiAxOTo0NywgU3RlZmFuIFB1aXUgd3JvdGU6DQo+
+IEhpIEFsZXghDQo+IA0KPiBPbiBUaHUsIERlYyAxNSwgMjAyMiBhdCAyOjQ2IEFNIEFsZWph
+bmRybyBDb2xvbWFyDQo+IDxhbHgubWFucGFnZXNAZ21haWwuY29tPiB3cm90ZToNCj4+DQo+
+PiBGb3JtYXR0ZWQgc3RycGN5KDMpOg0KPj4NCj4+IHN0cmNweSgzKSAgICAgICAgICAgICAg
+ICAgIExpYnJhcnkgRnVuY3Rpb25zIE1hbnVhbCAgICAgICAgICAgICAgICAgIHN0cmNweSgz
+KQ0KPj4NCj4+IE5BTUUNCj4+ICAgICAgICAgIHN0cmNweSAtIGNvcHkgb3IgY2F0ZW5hdGUg
+YSBzdHJpbmcNCj4+DQo+PiBMSUJSQVJZDQo+PiAgICAgICAgICBTdGFuZGFyZCBDIGxpYnJh
+cnkgKGxpYmMsIC1sYykNCj4+DQo+PiBTWU5PUFNJUw0KPj4gICAgICAgICAgI2luY2x1ZGUg
+PHN0cmluZy5oPg0KPj4NCj4+ICAgICAgICAgIGNoYXIgKnN0cGNweShjaGFyICpyZXN0cmlj
+dCBkc3QsIGNvbnN0IGNoYXIgKnJlc3RyaWN0IHNyYyk7DQo+PiAgICAgICAgICBjaGFyICpz
+dHJjcHkoY2hhciAqcmVzdHJpY3QgZHN0LCBjb25zdCBjaGFyICpyZXN0cmljdCBzcmMpOw0K
+Pj4gICAgICAgICAgY2hhciAqc3RyY2F0KGNoYXIgKnJlc3RyaWN0IGRzdCwgY29uc3QgY2hh
+ciAqcmVzdHJpY3Qgc3JjKTsNCj4+DQo+PiAgICAgIEZlYXR1cmUgVGVzdCBNYWNybyBSZXF1
+aXJlbWVudHMgZm9yIGdsaWJjIChzZWUgZmVhdHVyZV90ZXN0X21hY3Jvcyg3KSk6DQo+Pg0K
+Pj4gICAgICAgICAgc3RwY3B5KCk6DQo+PiAgICAgICAgICAgICAgU2luY2UgZ2xpYmMgMi4x
+MDoNCj4+ICAgICAgICAgICAgICAgICAgX1BPU0lYX0NfU09VUkNFID49IDIwMDgwOUwNCj4+
+ICAgICAgICAgICAgICBCZWZvcmUgZ2xpYmMgMi4xMDoNCj4+ICAgICAgICAgICAgICAgICAg
+X0dOVV9TT1VSQ0UNCj4+DQo+PiBERVNDUklQVElPTg0KPj4gICAgICAgICAgc3RwY3B5KCkN
+Cj4+ICAgICAgICAgIHN0cmNweSgpDQo+PiAgICAgICAgICAgICAgICAgVGhlc2UgZnVuY3Rp
+b25zIGNvcHkgdGhlIHN0cmluZyBwb2ludGVkIHRvIGJ5IHNyYywgaW50byBhIHN0cmluZw0K
+Pj4gICAgICAgICAgICAgICAgIGF0ICB0aGUgYnVmZmVyIHBvaW50ZWQgdG8gYnkgZHN0LiAg
+VGhlIHByb2dyYW1tZXIgaXMgcmVzcG9uc2libGUNCj4+ICAgICAgICAgICAgICAgICBmb3Ig
+YWxsb2NhdGluZyBhIGJ1ZmZlciBsYXJnZSBlbm91Z2gsIHRoYXQgaXMsIHN0cmxlbihzcmMp
+ICsgIDEuDQo+PiAgICAgICAgICAgICAgICAgVGhleSBvbmx5IGRpZmZlciBpbiB0aGUgcmV0
+dXJuIHZhbHVlLg0KPiANCj4gQSBkZXN0aW5hdGlvbiBidWZmZXIgbGFyZ2UgZW5vdWdoPyBJ
+dCdzIG5vdCB0aGF0IG9idmlvdXMgdG8gbWUgZnJvbQ0KPiB0aGUgdGV4dCwgYnV0IG1heWJl
+IEknbSB0aXJlZCA6KS4NCg0KU3VyZS4gIFRoYW5rcyENCg0KPiBJIHdhcyBhbHNvIGEgYml0
+IGF0IGEgbG9zcyBhYm91dCB0aGUgZGlmZmVyZW5jZSBiZXR3ZWVuIHRoZSB0d287IG1heWJl
+DQo+IHlvdSBjYW4gc2F5ICJGb3IgdGhlIGRpZmZlcmVuY2UgYmV0d2VlbiB0aGUgdHdvLCBz
+ZWUgUkVUVVJOIFZBTFVFIj8NCg0KVGhhdCBjYW4gbWFrZSBzZW5zZSwgeWVzLg0KDQo+IA0K
+Pj4NCj4+ICAgICAgICAgIHN0cmNhdCgpDQo+PiAgICAgICAgICAgICAgICAgVGhpcyBmdW5j
+dGlvbiBjYXRlbmF0ZXMgdGhlIHN0cmluZyBwb2ludGVkIHRvIGJ5IHNyYywgYXQgdGhlIGVu
+ZA0KPj4gICAgICAgICAgICAgICAgIG9mICB0aGUgc3RyaW5nIHBvaW50ZWQgdG8gYnkgZHN0
+LiAgVGhlIHByb2dyYW1tZXIgaXMgcmVzcG9uc2libGUNCj4+ICAgICAgICAgICAgICAgICBm
+b3IgYWxsb2NhdGluZyBhIGJ1ZmZlciBsYXJnZSBlbm91Z2gsICB0aGF0ICBpcywgIHN0cmxl
+bihkc3QpICArDQo+PiAgICAgICAgICAgICAgICAgc3RybGVuKHNyYykgKyAxLg0KPiANCj4g
+RGl0dG8gaGVyZS4NCg0KOikNCg0KPiANCj4+DQo+PiAgICAgICAgICBBbiBpbXBsZW1lbnRh
+dGlvbiBvZiB0aGVzZSBmdW5jdGlvbnMgbWlnaHQgYmU6DQo+Pg0KPj4gICAgICAgICAgICAg
+IGNoYXIgKg0KPj4gICAgICAgICAgICAgIHN0cGNweShjaGFyICpyZXN0cmljdCBkc3QsIGNv
+bnN0IGNoYXIgKnJlc3RyaWN0IHNyYykNCj4+ICAgICAgICAgICAgICB7DQo+PiAgICAgICAg
+ICAgICAgICAgIGNoYXIgICplbmQ7DQo+Pg0KPj4gICAgICAgICAgICAgICAgICBlbmQgPSBt
+ZW1wY3B5KGRzdCwgc3JjLCBzdHJsZW4oc3JjKSk7DQo+PiAgICAgICAgICAgICAgICAgICpl
+bmQgPSAnXDAnOw0KPj4NCj4+ICAgICAgICAgICAgICAgICAgcmV0dXJuIGVuZDsNCj4+ICAg
+ICAgICAgICAgICB9DQo+Pg0KPj4gICAgICAgICAgICAgIGNoYXIgKg0KPj4gICAgICAgICAg
+ICAgIHN0cmNweShjaGFyICpyZXN0cmljdCBkc3QsIGNvbnN0IGNoYXIgKnJlc3RyaWN0IHNy
+YykNCj4+ICAgICAgICAgICAgICB7DQo+PiAgICAgICAgICAgICAgICAgIHN0cGNweShkc3Qs
+IHNyYyk7DQo+PiAgICAgICAgICAgICAgICAgIHJldHVybiBkc3Q7DQo+PiAgICAgICAgICAg
+ICAgfQ0KPj4NCj4+ICAgICAgICAgICAgICBjaGFyICoNCj4+ICAgICAgICAgICAgICBzdHJj
+YXQoY2hhciAqcmVzdHJpY3QgZHN0LCBjb25zdCBjaGFyICpyZXN0cmljdCBzcmMpDQo+PiAg
+ICAgICAgICAgICAgew0KPj4gICAgICAgICAgICAgICAgICBzdHBjcHkoZHN0ICsgc3RybGVu
+KGRzdCksIHNyYyk7DQo+PiAgICAgICAgICAgICAgICAgIHJldHVybiBkc3Q7DQo+PiAgICAg
+ICAgICAgICAgfQ0KPiANCj4gQXJlIHlvdSBzdXJlIHRoaXMgc2VjdGlvbiBhZGRzIGFueSB2
+YWx1ZT8gSSB0aGluayBnb29kIGRvY3VtZW50YXRpb24NCj4gc2hvdWxkIGV4cGxhaW4gaG93
+IGEgZnVuY3Rpb24gd29ya3Mgd2l0aG91dCBkZWx2aW5nIGludG8gdGhlDQo+IGludGVycHJl
+dGF0aW9uLg0KDQpUbyBiZSBob25lc3QsIHRoaXMgcGFnZSBkb2Vzbid0IGJlbmVmaXQgdG9v
+IG11Y2ggZnJvbSBpdC4gIHN0cmNweSgzKS9zdHJjYXQoMykgDQphcmUgZGVhZCBzaW1wbGUs
+IGFuZCB0aGUgZXhwbGFuYXRpb25zIGFib3ZlIHNob3VsZCBiZSBlbm91Z2guDQoNCkhvd2V2
+ZXIsIHRoZSBzYW1lIHRoaW5nIGluIHN0cm5jcHkoMykgYW5kIHN0cm5jYXQoMykgaXMgdmVy
+eSBoZWxwZnVsLCBJTU8uICBGb3IgDQpjb25zaXN0ZW5jeSBJIGp1c3Qgc2hvd2VkIHRyaXZp
+YWwgaW1wbGVtZW50YXRpb25zIGluIGFsbCBvZiB0aGUgcGFnZXMuICAoQW5kIGluIA0KZmFj
+dCwgdGhlcmUgd2FzIGFuIGV4YW1wbGUgaW1wbGVtZW50YXRpb24gaW4gdGhlIG9sZCBzdHJu
+Y2F0KDMpIGFuZCBtYXliZSBhIGZldyANCm90aGVycywgSUlSQy4pDQoNCj4gQWxzbywgcGVv
+cGxlIG1pZ2h0IGdldCBjb25mdXNlZCBhbmQgdGhpbmsgdGhpcyBpcyB0aGUNCj4gYWN0dWFs
+IGltcGxlbWVudGF0aW9uLg0KDQpJIGRvbid0IHRoaW5rIHRoZXJlJ3MgYW55IHByb2JsZW0g
+aWYgb25lIGJlbGlldmVzIHRoaXMgaXMgdGhlIGltcGxlbWVudGF0aW9uLiANCkV4Y2VwdCBm
+b3Igc3RwY3B5KDMpLCBpbiB3aGljaCBJIHByZWZlcnJlZCByZWFkYWJpbGl0eSwgdGhleSBh
+cmUgYWN0dWFsbHkgcXVpdGUgDQpnb29kIGltcGxlbWVudGF0aW9ucy4gIEEgZmFzdGVyIGlt
+cGxlbWVudGF0aW9uIG9mIHN0cGNweSgzKSBtaWdodCBiZSBkb25lIGluIA0KdGVybXMgb2Yg
+bWVtY2NweSgzKS4NCg0KRnVubmlseSBlbm91Z2gsIEkganVzdCBjaGVja2VkIHdoYXQgbXVz
+bCBsaWJjIGRvZXMsIGFuZCBpdCdzIHRoZSBzYW1lIGFzIHNob3duIGhlcmU6DQoNCg0KYWx4
+QGRlYmlhbjp+L3NyYy9tdXNsL211c2wkIGdyZXBjIC10ZmQgc3RyY3B5DQouL3NyYy9zdHJp
+bmcvc3RyY3B5LmM6MzoNCmNoYXIgKnN0cmNweShjaGFyICpyZXN0cmljdCBkZXN0LCBjb25z
+dCBjaGFyICpyZXN0cmljdCBzcmMpDQp7DQoJX19zdHBjcHkoZGVzdCwgc3JjKTsNCglyZXR1
+cm4gZGVzdDsNCn0NCmFseEBkZWJpYW46fi9zcmMvbXVzbC9tdXNsJCBncmVwYyAtdGZkIHN0
+cmNhdA0KLi9zcmMvc3RyaW5nL3N0cmNhdC5jOjM6DQpjaGFyICpzdHJjYXQoY2hhciAqcmVz
+dHJpY3QgZGVzdCwgY29uc3QgY2hhciAqcmVzdHJpY3Qgc3JjKQ0Kew0KCXN0cmNweShkZXN0
+ICsgc3RybGVuKGRlc3QpLCBzcmMpOw0KCXJldHVybiBkZXN0Ow0KfQ0KDQoNCj4gDQo+Pg0K
+Pj4gUkVUVVJOIFZBTFVFDQo+PiAgICAgICAgICBzdHBjcHkoKQ0KPj4gICAgICAgICAgICAg
+ICAgIFRoaXMgIGZ1bmN0aW9uIHJldHVybnMgYSBwb2ludGVyIHRvIHRoZSB0ZXJtaW5hdGlu
+ZyBudWxsIGJ5dGUgYXQNCj4+ICAgICAgICAgICAgICAgICB0aGUgZW5kIG9mIHRoZSBjb3Bp
+ZWQgc3RyaW5nLg0KPj4NCj4+ICAgICAgICAgIHN0cmNweSgpDQo+PiAgICAgICAgICBzdHJj
+YXQoKQ0KPj4gICAgICAgICAgICAgICAgIFRoZXNlIGZ1bmN0aW9ucyByZXR1cm4gZGVzdC4N
+Cj4+DQo+PiBBVFRSSUJVVEVTDQo+PiAgICAgICAgICBGb3IgYW4gZXhwbGFuYXRpb24gb2Yg
+dGhlIHRlcm1zICB1c2VkICBpbiAgdGhpcyAgc2VjdGlvbiwgIHNlZSAgYXR0cmli4oCQDQo+
+PiAgICAgICAgICB1dGVzKDcpLg0KPj4gICAgICAgICAg4pSM4pSA4pSA4pSA4pSA4pSA4pSA
+4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
+4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
+4pSA4pSA4pSs4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
+4pSs4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSQDQo+PiAgICAgICAgICDilIJJbnRl
+cmZhY2UgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIOKUgiBBdHRyaWJ1dGUg
+ICAgIOKUgiBWYWx1ZSAgIOKUgg0KPj4gICAgICAgICAg4pSc4pSA4pSA4pSA4pSA4pSA4pSA
+4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
+4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
+4pSA4pSA4pS84pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA
+4pS84pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSkDQo+PiAgICAgICAgICDilIJzdHBj
+cHkoKSwgc3RyY3B5KCksIHN0cmNhdCgpICAgICAgICAgICAgICAgIOKUgiBUaHJlYWQgc2Fm
+ZXR5IOKUgiBNVOKAkFNhZmUg4pSCDQo+PiAgICAgICAgICDilJTilIDilIDilIDilIDilIDi
+lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi
+lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi
+lIDilIDilIDilLTilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi
+lIDilLTilIDilIDilIDilIDilIDilIDilIDilIDilIDilJgNCj4+DQo+PiBTVEFOREFSRFMN
+Cj4+ICAgICAgICAgIHN0cGNweSgpDQo+PiAgICAgICAgICAgICAgICAgUE9TSVguMeKAkDIw
+MDguDQo+Pg0KPj4gICAgICAgICAgc3RyY3B5KCkNCj4+ICAgICAgICAgIHN0cmNhdCgpDQo+
+PiAgICAgICAgICAgICAgICAgUE9TSVguMeKAkDIwMDEsIFBPU0lYLjHigJAyMDA4LCBDODks
+IEM5OSwgU1ZyNCwgNC4zQlNELg0KPj4NCj4+IENBVkVBVFMNCj4+ICAgICAgICAgIFRoZSBz
+dHJpbmdzIHNyYyBhbmQgZHN0IG1heSBub3Qgb3ZlcmxhcC4NCj4+DQo+PiAgICAgICAgICBJ
+ZiAgdGhlICBkZXN0aW5hdGlvbiAgYnVmZmVyIGlzIG5vdCBsYXJnZSBlbm91Z2gsIHRoZSBi
+ZWhhdmlvciBpcyB1bmRl4oCQDQo+PiAgICAgICAgICBmaW5lZC4gIFNlZSBfRk9SVElGWV9T
+T1VSQ0UgaW4gZmVhdHVyZV90ZXN0X21hY3Jvcyg3KS4NCj4+DQo+PiBCVUdTDQo+PiAgICAg
+ICAgICBzdHJjYXQoKQ0KPj4gICAgICAgICAgICAgICAgIFRoaXMgZnVuY3Rpb24gY2FuIGJl
+ICB2ZXJ5ICBpbmVmZmljaWVudC4gICBSZWFkICBhYm91dCAgU2hsZW1pZWwNCj4+ICAgICAg
+ICAgICAgICAgICB0aGUgICAgICBwYWludGVyICAgICDin6hodHRwczovL3d3dy5qb2Vsb25z
+b2Z0d2FyZS5jb20vMjAwMS8xMi8xMS8NCj4+ICAgICAgICAgICAgICAgICBiYWNrLXRvLWJh
+c2ljcy/in6kuDQo+IA0KPiBJJ20gbm90IHN1cmUgdGhpcyBpcyBhIGJ1ZywgcmF0aGVyIGEg
+ZGVzaWduIGxpbWl0YXRpb24uIE1heWJlIGl0DQo+IGJlbG9uZ3MgaW4gTk9URVMgb3IgQ0FW
+RUFUUz8NCg0KWWVhaCwgSSBoYWQgYmVlbiB0aGlua2luZyBvZiBkb3duZ3JhZGluZyBpdC4g
+IEknbGwgZG8gaXQuDQoNCj4gQWxzbywgSSB0aGluayB0aGlzIGNhbiBiZSBzdW1tYXJpemVk
+DQo+IGFsb25nIHRoZSBsaW5lcyBvZiAnc3RyY2F0IG5lZWRzIHRvIHdhbGsgdGhlIGRlc3Rp
+bmF0aW9uIGJ1ZmZlciB0bw0KPiBmaW5kIHRoZSBudWxsIHRlcm1pbmF0b3IsIHNvIGl0IGhh
+cyBsaW5lYXIgY29tcGxleGl0eSB3aXRoIHJlc3BlY3QgdG8NCj4gdGhlIHNpemUgb2YgdGhl
+IGRlc3RpbmF0aW9uIGJ1ZmZlciB1cCB0byB0aGUgdGVybWluYXRvcicgKGhtbSwgSSdtDQo+
+IHN1cmUgdGhpcyBjYW4gYmUgZXhwcmVzc2VkIG1vcmUgY29uY2lzZWx5KSwgc28gdGhlIHBh
+Z2UgaXMgbW9yZSBzZWxmDQo+IGNvbnRhaW5lZC4gT3V0c2lkZSBsaW5rcyBzb21ldGltZXMg
+Z28gZGVhZCwgbGlrZSBvbiBXaWtpcGVkaWEsIHNvIEkNCj4gdGhpbmsganVzdCBpbiBjYXNl
+LCBpdCBoZWxwcyB0byBtYWtlIGV4cGxpY2l0IHRoZSBwb2ludCB0aGF0IHlvdSB3YW50DQo+
+IHRoZSByZWFkZXIgdG8gc3R1ZHkgZnVydGhlciBpbiB0aGUgVVJMLg0KDQpJIHdhc24ndCBp
+bnNwaXJlZCB0byB3cml0ZSBpdCBzaG9ydCBlbm91Z2ggdG8gbm90IGJlIHRvbyB2ZXJib3Nl
+LiAgTWF5YmUgSSdsbCANCndyaXRlIHNvbWV0aGluZyBiYXNlZCBvbiB5b3VyIHN1Z2dlc3Rp
+b24uDQoNCj4gDQo+IFJlZ2FyZHMsDQo+IFN0ZWZhbi4NCg0KVGhhbmtzIGZvciB0aGUgcmV2
+aWV3IQ0KDQpDaGVlcnMsDQoNCkFsZXgNCg0KPiANCj4+DQo+PiBFWEFNUExFUw0KPj4gICAg
+ICAgICAgI2luY2x1ZGUgPHN0ZGlvLmg+DQo+PiAgICAgICAgICAjaW5jbHVkZSA8c3RkbGli
+Lmg+DQo+PiAgICAgICAgICAjaW5jbHVkZSA8c3RyaW5nLmg+DQo+Pg0KPj4gICAgICAgICAg
+aW50DQo+PiAgICAgICAgICBtYWluKHZvaWQpDQo+PiAgICAgICAgICB7DQo+PiAgICAgICAg
+ICAgICAgY2hhciAgICAqcDsNCj4+ICAgICAgICAgICAgICBjaGFyICAgIGJ1ZjFbQlVGU0la
+XTsNCj4+ICAgICAgICAgICAgICBjaGFyICAgIGJ1ZjJbQlVGU0laXTsNCj4+ICAgICAgICAg
+ICAgICBzaXplX3QgIGxlbjsNCj4+DQo+PiAgICAgICAgICAgICAgcCA9IGJ1ZjE7DQo+PiAg
+ICAgICAgICAgICAgcCA9IHN0cGNweShwLCAiSGVsbG8gIik7DQo+PiAgICAgICAgICAgICAg
+cCA9IHN0cGNweShwLCAid29ybGQiKTsNCj4+ICAgICAgICAgICAgICBwID0gc3RwY3B5KHAs
+ICIhIik7DQo+PiAgICAgICAgICAgICAgbGVuID0gcCAtIGJ1ZjE7DQo+Pg0KPj4gICAgICAg
+ICAgICAgIHByaW50ZigiW2xlbiA9ICV6dV06ICIsIGxlbik7DQo+PiAgICAgICAgICAgICAg
+cHV0cyhidWYxKTsgIC8vICJIZWxsbyB3b3JsZCEiDQo+Pg0KPj4gICAgICAgICAgICAgIHN0
+cmNweShidWYyLCAiSGVsbG8gIik7DQo+PiAgICAgICAgICAgICAgc3RyY2F0KGJ1ZjIsICJ3
+b3JsZCIpOw0KPj4gICAgICAgICAgICAgIHN0cmNhdChidWYyLCAiISIpOw0KPj4gICAgICAg
+ICAgICAgIGxlbiA9IHN0cmxlbihidWYyKTsNCj4+DQo+PiAgICAgICAgICAgICAgcHJpbnRm
+KCJbbGVuID0gJXp1XTogIiwgbGVuKTsNCj4+ICAgICAgICAgICAgICBwdXRzKGJ1ZjIpOyAg
+Ly8gIkhlbGxvIHdvcmxkISINCj4+DQo+PiAgICAgICAgICAgICAgZXhpdChFWElUX1NVQ0NF
+U1MpOw0KPj4gICAgICAgICAgfQ0KPj4NCj4+IFNFRSBBTFNPDQo+PiAgICAgICAgICBzdHJk
+dXAoMyksIHN0cmluZygzKSwgd2NzY3B5KDMpLCBzdHJpbmdfY29weSg3KQ0KPj4NCj4+IExp
+bnV4IG1hbuKAkHBhZ2VzICh1bnJlbGVhc2VkKSAgICAgICAgKGRhdGUpICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgc3RyY3B5KDMpDQo+Pg0KPj4gLS0NCj4+IDxodHRwOi8vd3d3LmFs
+ZWphbmRyby1jb2xvbWFyLmVzLz4NCg0KLS0gDQo8aHR0cDovL3d3dy5hbGVqYW5kcm8tY29s
+b21hci5lcy8+DQo=
 
->
->         strcat()
->                This function catenates the string pointed to by src, at t=
-he end
->                of  the string pointed to by dst.  The programmer is respo=
-nsible
->                for allocating a buffer large enough,  that  is,  strlen(d=
-st)  +
->                strlen(src) + 1.
+--------------UBbESfkLli6zHQGsV5oolOhs--
 
-Ditto here.
+--------------4z8RW44oTOAthmfw8yfhHUYj
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
->
->         An implementation of these functions might be:
->
->             char *
->             stpcpy(char *restrict dst, const char *restrict src)
->             {
->                 char  *end;
->
->                 end =3D mempcpy(dst, src, strlen(src));
->                 *end =3D '\0';
->
->                 return end;
->             }
->
->             char *
->             strcpy(char *restrict dst, const char *restrict src)
->             {
->                 stpcpy(dst, src);
->                 return dst;
->             }
->
->             char *
->             strcat(char *restrict dst, const char *restrict src)
->             {
->                 stpcpy(dst + strlen(dst), src);
->                 return dst;
->             }
+-----BEGIN PGP SIGNATURE-----
 
-Are you sure this section adds any value? I think good documentation
-should explain how a function works without delving into the
-interpretation. Also, people might get confused and think this is the
-actual implementation.
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmOcwRkACgkQnowa+77/
+2zI/yhAAmOHDtOgHz49jUST9w8oxIuobbGsgYwRHcM3GM4uNso4G8VC2b64B0bXG
+o3ry119D7UDXX/ZOkLfUzk7neFvAz4/fRBNhBwRTXR63d7FQOdTzKaF5tYcDI6SH
+egISsXCragVIQdMgH6glTR8HMVPNKzo+CtqZT3Z3PI9ADMVn6xhO9pI6N31R1Pd5
+NwSIQ013v41Ul1+/5ROZigVdBtTD9aj7TGvz4ORrUzygFkh6XRAxOJPvprSFEVk9
+WwynA5DuJaPo4tzwzO+TwOwAN1/BcRrCPXn1vh2T62kLZGQiE4RqCkGkUDL9dRgS
+s12pF447+/7bfFHwvtvVbZiGKvyrn9HnKTlJ1jnXVCqVU/c9Zf6lwEK8s8Dyje9v
+RnhxM3nKHgSKADepyuPJCuMh+aEjg33690CeGj962SYX5hUQCGlcnIcUHFkj78ty
+bWdgKHmIk9RFfeI2/8VTTDquaCQfb2yX1HnW9VGQ/a7ZvsS5LGghC1qD/3sDErOY
+RvBN4cFHdhVPMTSigYX4koTwEKjiprjM+AiQE7KkNqI6EJ2vaomfw0mGLVK9o3c+
+tLVFd4KFeq+xZi0KepTWjugDD5Tz/TaDs5CO4X6l9zU6vA99hcL3NMboSeu4kcET
+nKxTIXy1lWodprxHqCeTCK82tPwkU9JLB2N+/yQxuhFeQsXC41Q=
+=Ty6E
+-----END PGP SIGNATURE-----
 
->
-> RETURN VALUE
->         stpcpy()
->                This  function returns a pointer to the terminating null b=
-yte at
->                the end of the copied string.
->
->         strcpy()
->         strcat()
->                These functions return dest.
->
-> ATTRIBUTES
->         For an explanation of the terms  used  in  this  section,  see  a=
-ttrib=E2=80=90
->         utes(7).
->         =E2=94=8C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=AC=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=AC=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=90
->         =E2=94=82Interface                                   =E2=94=82 At=
-tribute     =E2=94=82 Value   =E2=94=82
->         =E2=94=9C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=BC=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=BC=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=A4
->         =E2=94=82stpcpy(), strcpy(), strcat()                =E2=94=82 Th=
-read safety =E2=94=82 MT=E2=80=90Safe =E2=94=82
->         =E2=94=94=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=B4=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=B4=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=98
->
-> STANDARDS
->         stpcpy()
->                POSIX.1=E2=80=902008.
->
->         strcpy()
->         strcat()
->                POSIX.1=E2=80=902001, POSIX.1=E2=80=902008, C89, C99, SVr4=
-, 4.3BSD.
->
-> CAVEATS
->         The strings src and dst may not overlap.
->
->         If  the  destination  buffer is not large enough, the behavior is=
- unde=E2=80=90
->         fined.  See _FORTIFY_SOURCE in feature_test_macros(7).
->
-> BUGS
->         strcat()
->                This function can be  very  inefficient.   Read  about  Sh=
-lemiel
->                the      painter     =E2=9F=A8https://www.joelonsoftware.c=
-om/2001/12/11/
->                back-to-basics/=E2=9F=A9.
-
-I'm not sure this is a bug, rather a design limitation. Maybe it
-belongs in NOTES or CAVEATS? Also, I think this can be summarized
-along the lines of 'strcat needs to walk the destination buffer to
-find the null terminator, so it has linear complexity with respect to
-the size of the destination buffer up to the terminator' (hmm, I'm
-sure this can be expressed more concisely), so the page is more self
-contained. Outside links sometimes go dead, like on Wikipedia, so I
-think just in case, it helps to make explicit the point that you want
-the reader to study further in the URL.
-
-Regards,
-Stefan.
-
->
-> EXAMPLES
->         #include <stdio.h>
->         #include <stdlib.h>
->         #include <string.h>
->
->         int
->         main(void)
->         {
->             char    *p;
->             char    buf1[BUFSIZ];
->             char    buf2[BUFSIZ];
->             size_t  len;
->
->             p =3D buf1;
->             p =3D stpcpy(p, "Hello ");
->             p =3D stpcpy(p, "world");
->             p =3D stpcpy(p, "!");
->             len =3D p - buf1;
->
->             printf("[len =3D %zu]: ", len);
->             puts(buf1);  // "Hello world!"
->
->             strcpy(buf2, "Hello ");
->             strcat(buf2, "world");
->             strcat(buf2, "!");
->             len =3D strlen(buf2);
->
->             printf("[len =3D %zu]: ", len);
->             puts(buf2);  // "Hello world!"
->
->             exit(EXIT_SUCCESS);
->         }
->
-> SEE ALSO
->         strdup(3), string(3), wcscpy(3), string_copy(7)
->
-> Linux man=E2=80=90pages (unreleased)        (date)                       =
-    strcpy(3)
->
-> --
-> <http://www.alejandro-colomar.es/>
+--------------4z8RW44oTOAthmfw8yfhHUYj--
