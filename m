@@ -2,58 +2,62 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id B1251652357
-	for <lists+linux-man@lfdr.de>; Tue, 20 Dec 2022 16:01:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 19EBF65236C
+	for <lists+linux-man@lfdr.de>; Tue, 20 Dec 2022 16:04:13 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234240AbiLTPBn (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 20 Dec 2022 10:01:43 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51100 "EHLO
+        id S229628AbiLTPEL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 20 Dec 2022 10:04:11 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53554 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234179AbiLTPBL (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 20 Dec 2022 10:01:11 -0500
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com [IPv6:2a00:1450:4864:20::635])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 98B4A1ADBB
-        for <linux-man@vger.kernel.org>; Tue, 20 Dec 2022 07:00:57 -0800 (PST)
-Received: by mail-ej1-x635.google.com with SMTP id qk9so29853685ejc.3
-        for <linux-man@vger.kernel.org>; Tue, 20 Dec 2022 07:00:57 -0800 (PST)
+        with ESMTP id S233803AbiLTPEK (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 20 Dec 2022 10:04:10 -0500
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com [IPv6:2a00:1450:4864:20::32b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4D76C26D7
+        for <linux-man@vger.kernel.org>; Tue, 20 Dec 2022 07:04:07 -0800 (PST)
+Received: by mail-wm1-x32b.google.com with SMTP id r204-20020a1c44d5000000b003d6b8e8e07fso83426wma.0
+        for <linux-man@vger.kernel.org>; Tue, 20 Dec 2022 07:04:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=X194ZwvLVnXXn9ybtM2ylM84007IQ/KfrSKJzf56DX8=;
-        b=kxNH9vbswOF9gtveDPHGDGI11BFFjd9PnaFer2JEsCKYLm2ngI2NEsKW2kLRvylYqV
-         yer9kVzw8j5qPsrwZDjKhVuQBisurXcuw3eawoNomoIuol4s/ybrwRNvjoy/ySzAPsHa
-         pVldSJZYOffXgzpVXZ+g7Yora8SmrkXya4mwppSEwQXtTzeN6d7VZjVxs7OFqJ/Jvklc
-         BlT6+av27I7QodhP3IbosAiRlB0hlxI9D0A7oj6GPk81jhadLGdygcLyjDf884qvnaGJ
-         5znlwlueSHPpemIG1lGs1XREIBDIbtfVn0m6aaCR0j9soa3PmOjs7IoTGmjRC4LtYvwL
-         igIg==
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=TzrHsgKZsl2qezFDMf4AbrJhv96KX22QRdHbgICPhVo=;
+        b=TXBgZgioj08hBNE3zvv36aZAxqCc3MWSsDFOyh1JSZ9VbFtpzjuioDQWMQHJPIbgZ/
+         4vxxAaDSBrRgnSjN/x6+1+xdla+EcJnBLKnuLBR/PPO0ODgmkPdbFB7764gmk2QkP0yp
+         IR8wvo++UvNYSLPXU1q61j0duKnUAezbQhW6iK76U0pnFXCh/HqFs/VSrJPOC66y+ffu
+         EKRp4USlLfHst244ce8j4cyMXs8DGUfCKUTPZOxu+2PqkUQjk+hfazA0oCU/dBNe/tVr
+         VbCCBpFiRVeLQiLLBm4PUDsNPfvW8VqIEffIX2ERaNRi+qtuL+/xQwM6sMmohLARq442
+         S2xA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=X194ZwvLVnXXn9ybtM2ylM84007IQ/KfrSKJzf56DX8=;
-        b=GUox9dYRNm5J9uK+wl2CmrXHi82nCLSXX75YrHZPPvKdlUrAR9lQ1oRR5cxSfMyn9c
-         b++XCPZ7NcmMId0J8I8wA4eC43MT4Q9CKnvbk3Jy9f/wWFPwF46heA/m3/DLjKiylCTo
-         Dn5ZeD8CtJoRCbRaec061D5bveoRgNiL2KQ4jI+d+XRHKkxQ/6q+DBtsVfaKP1FagZIo
-         qkVvaC6f6CAn6pwsQoA9LfAc/ffD9rdoaEJMWbydIjQ3E60B1FREsM9832sQhVbIq9j6
-         /zXacW1VBJdqJ1GGnmG3m0Kkoa0VchOYqa0pO8w2CxiJZpi99AZ8IEgDxgx26lbsYdef
-         haVw==
-X-Gm-Message-State: ANoB5pmKX1Fn0ctHURkITUw817Z3NzaT+O3X/FbRyKjSXNQJg3hGZ+bi
-        Km50F5Q/yLPl2gWpCqgB5PdXhy0/Lvt4EtAcJwM=
-X-Google-Smtp-Source: AA0mqf5JYCZ6mkNTr3rEcsbbUeg5ZJ/NMM5A8us9crV0khIl+/KtxlvAKBU5h4QtSG/PhAqr1mBV9IMWE4sWKMbfPfw=
-X-Received: by 2002:a17:907:728c:b0:7c1:10cf:b81c with SMTP id
- dt12-20020a170907728c00b007c110cfb81cmr10647669ejc.315.1671548455916; Tue, 20
- Dec 2022 07:00:55 -0800 (PST)
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=TzrHsgKZsl2qezFDMf4AbrJhv96KX22QRdHbgICPhVo=;
+        b=MQTBvFY61qDw3aFoJ/3v46z2Q/AykApktKHuSooTzLNYuIqgZM5dibTkH7KJQ0xyVb
+         luQbNHdbOhz4yo3g51+AvvolFoz2RTY6J+p6A2ROZdOwC1/eQqB1cMGJDYTxn4c3RE5i
+         hrfSq0sMALpIz6PDTRLs+ty9MX3Y+fazVtnxufcm5ttQjqrBRg5XYMLZUOW8gZhUHiIP
+         c+6GmY16TzZCtMH8sUCoyZYV9Auwj+798sFb/YfGO3X/uJnhWbfpJdWE4LXVfyh0Jizv
+         e4s+Mgxlf1UR9rdcX1bSGDkNvoPLNKa/s9adSaqef7/CNATPxtS+C4xi5V3ymsaB5oK0
+         48rw==
+X-Gm-Message-State: AFqh2kpDKoaOAZDFTUElzsIXbXJBm2gotDDzef1ovwlwT7cIYjxA2hr+
+        sJzgSADx6uSh73QKgApr1cc=
+X-Google-Smtp-Source: AMrXdXvHJ15pIWKIedEiRXVOsXvWUGE7cAaXToUs156SuzPe/mdXN/kRp1cATARmzEOyS2vntrxpGQ==
+X-Received: by 2002:a7b:ca51:0:b0:3d2:7a7:5cc6 with SMTP id m17-20020a7bca51000000b003d207a75cc6mr1949810wml.18.1671548645688;
+        Tue, 20 Dec 2022 07:04:05 -0800 (PST)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id m4-20020a05600c3b0400b003c6b7f5567csm3717164wms.0.2022.12.20.07.04.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 20 Dec 2022 07:04:05 -0800 (PST)
+Message-ID: <b555606a-ba56-3543-d9dd-debbc89fa3e3@gmail.com>
+Date:   Tue, 20 Dec 2022 16:03:54 +0100
 MIME-Version: 1.0
-References: <20221215002648.35111-1-alx@kernel.org> <20221219210208.10860-2-alx@kernel.org>
-In-Reply-To: <20221219210208.10860-2-alx@kernel.org>
-From:   Stefan Puiu <stefan.puiu@gmail.com>
-Date:   Tue, 20 Dec 2022 17:00:43 +0200
-Message-ID: <CACKs7VC-2j7cK3AYBAx5yxrJTXb1EAarjXhmOBDKcCNgyY1EZA@mail.gmail.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
 Subject: Re: [PATCH v6 1/5] string_copy.7: Add page to document all
  string-copying functions
-To:     Alejandro Colomar <alx.manpages@gmail.com>
+Content-Language: en-US
+To:     Stefan Puiu <stefan.puiu@gmail.com>
 Cc:     linux-man@vger.kernel.org, Alejandro Colomar <alx@kernel.org>,
         Martin Sebor <msebor@redhat.com>,
         "G. Branden Robinson" <g.branden.robinson@gmail.com>,
@@ -61,9 +65,16 @@ Cc:     linux-man@vger.kernel.org, Alejandro Colomar <alx@kernel.org>,
         Jakub Wilk <jwilk@jwilk.net>, Serge Hallyn <serge@hallyn.com>,
         Iker Pedrosa <ipedrosa@redhat.com>,
         Andrew Pinski <pinskia@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+References: <20221215002648.35111-1-alx@kernel.org>
+ <20221219210208.10860-2-alx@kernel.org>
+ <CACKs7VC-2j7cK3AYBAx5yxrJTXb1EAarjXhmOBDKcCNgyY1EZA@mail.gmail.com>
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <CACKs7VC-2j7cK3AYBAx5yxrJTXb1EAarjXhmOBDKcCNgyY1EZA@mail.gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------nEwjYLWKfBR9N27SWh0eXJLX"
+X-Spam-Status: No, score=-3.3 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -72,904 +83,630 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi,
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------nEwjYLWKfBR9N27SWh0eXJLX
+Content-Type: multipart/mixed; boundary="------------F0Y2wkWhN28JcHCSiunhiqKO";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: Stefan Puiu <stefan.puiu@gmail.com>
+Cc: linux-man@vger.kernel.org, Alejandro Colomar <alx@kernel.org>,
+ Martin Sebor <msebor@redhat.com>,
+ "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+ Douglas McIlroy <douglas.mcilroy@dartmouth.edu>, Jakub Wilk
+ <jwilk@jwilk.net>, Serge Hallyn <serge@hallyn.com>,
+ Iker Pedrosa <ipedrosa@redhat.com>, Andrew Pinski <pinskia@gmail.com>
+Message-ID: <b555606a-ba56-3543-d9dd-debbc89fa3e3@gmail.com>
+Subject: Re: [PATCH v6 1/5] string_copy.7: Add page to document all
+ string-copying functions
+References: <20221215002648.35111-1-alx@kernel.org>
+ <20221219210208.10860-2-alx@kernel.org>
+ <CACKs7VC-2j7cK3AYBAx5yxrJTXb1EAarjXhmOBDKcCNgyY1EZA@mail.gmail.com>
+In-Reply-To: <CACKs7VC-2j7cK3AYBAx5yxrJTXb1EAarjXhmOBDKcCNgyY1EZA@mail.gmail.com>
 
-Noticed a typo below
+--------------F0Y2wkWhN28JcHCSiunhiqKO
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-On Mon, Dec 19, 2022 at 11:02 PM Alejandro Colomar
-<alx.manpages@gmail.com> wrote:
->
-> This is an opportunity to use consistent language across the
-> documentation for all string-copying functions.
->
-> It is also easier to show the similarities and differences between all
-> of the functions, so that a reader can use this page to know which
-> function is needed for a given task.
->
-> Alternative functions not provided by libc have been given in the same
-> page, with reference implementations.
->
-> Cc: Martin Sebor <msebor@redhat.com>
-> Cc: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-> Cc: Douglas McIlroy <douglas.mcilroy@dartmouth.edu>
-> Cc: Jakub Wilk <jwilk@jwilk.net>
-> Cc: Serge Hallyn <serge@hallyn.com>
-> Cc: Iker Pedrosa <ipedrosa@redhat.com>
-> Cc: Andrew Pinski <pinskia@gmail.com>
-> Cc: Stefan Puiu <stefan.puiu@gmail.com>
-> Signed-off-by: Alejandro Colomar <alx@kernel.org>
-> ---
->  man7/string_copy.7 | 855 +++++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 855 insertions(+)
->  create mode 100644 man7/string_copy.7
->
-> diff --git a/man7/string_copy.7 b/man7/string_copy.7
-> new file mode 100644
-> index 000000000..a32b93c01
-> --- /dev/null
-> +++ b/man7/string_copy.7
-> @@ -0,0 +1,855 @@
-> +.\" Copyright 2022 Alejandro Colomar <alx@kernel.org>
-> +.\"
-> +.\" SPDX-License-Identifier: BSD-3-Clause
-> +.\"
-> +.TH string_copy 7 (date) "Linux man-pages (unreleased)"
-> +.\" ----- NAME :: -----------------------------------------------------/
-> +.SH NAME
-> +stpcpy,
-> +strcpy, strcat,
-> +stpecpy, stpecpyx,
-> +strlcpy, strlcat,
-> +stpncpy,
-> +strncpy,
-> +zustr2ustp, zustr2stp,
-> +strncat,
-> +ustpcpy, ustr2stp
-> +\- copy strings and character sequences
-> +.\" ----- SYNOPSIS :: -------------------------------------------------/
-> +.SH SYNOPSIS
-> +.\" ----- SYNOPSIS :: (Null-terminated) strings -----------------------/
-> +.SS Strings
-> +.nf
-> +// Chain-copy a string.
-> +.BI "char *stpcpy(char *restrict " dst ", const char *restrict " src );
-> +.PP
-> +// Copy/catenate a string.
-> +.BI "char *strcpy(char *restrict " dst ", const char *restrict " src );
-> +.BI "char *strcat(char *restrict " dst ", const char *restrict " src );
-> +.PP
-> +// Chain-copy a string with truncation.
-> +.BI "char *stpecpy(char *" dst ", char " end "[0], const char *restrict " src );
-> +.PP
-> +// Chain-copy a string with truncation and SIGSEGV on UB.
-> +.BI "char *stpecpyx(char *" dst ", char " end "[0], const char *restrict " src );
-> +.PP
-> +// Copy/catenate a string with truncation and SIGSEGV on UB.
-> +.BI "size_t strlcpy(char " dst "[restrict ." sz "], \
-> +const char *restrict " src ,
-> +.BI "               size_t " sz );
-> +.BI "size_t strlcat(char " dst "[restrict ." sz "], \
-> +const char *restrict " src ,
-> +.BI "               size_t " sz );
-> +.fi
-> +.\" ----- SYNOPSIS :: Null-padded character sequences --------/
-> +.SS Null-padded character sequences
-> +.nf
-> +// Zero a fixed-width buffer, and
-> +// copy a string into a character sequence with truncation.
-> +.BI "char *stpncpy(char " dst "[restrict ." sz "], \
-> +const char *restrict " src ,
-> +.BI "               size_t " sz );
-> +.PP
-> +// Zero a fixed-width buffer, and
-> +// copy a string into a character sequence with truncation.
-> +.BI "char *strncpy(char " dest "[restrict ." sz "], \
-> +const char *restrict " src ,
-> +.BI "               size_t " sz );
-> +.PP
-> +// Chain-copy a null-padded character sequence into a character sequence.
-> +.BI "char *zustr2ustp(char *restrict " dst ", \
-> +const char " src "[restrict ." sz ],
-> +.BI "               size_t " sz );
-> +.PP
-> +// Chain-copy a null-padded character sequence into a string.
-> +.BI "char *zustr2stp(char *restrict " dst ", \
-> +const char " src "[restrict ." sz ],
-> +.BI "               size_t " sz );
-> +.PP
-> +// Catenate a null-padded character sequence into a string.
-> +.BI "char *strncat(char *restrict " dst ", const char " src "[restrict ." sz ],
-> +.BI "               size_t " sz );
-> +.fi
-> +.\" ----- SYNOPSIS :: Measured character sequences --------------------/
-> +.SS Measured character sequences
-> +.nf
-> +// Chain-copy a measured character sequence.
-> +.BI "char *ustpcpy(char *restrict " dst ", \
-> +const char " src "[restrict ." len ],
-> +.BI "               size_t " len );
-> +.PP
-> +// Chain-copy a measured character sequence into a string.
-> +.BI "char *ustr2stp(char *restrict " dst ", \
-> +const char " src "[restrict ." len ],
-> +.BI "               size_t " len );
-> +.fi
-> +.SH DESCRIPTION
-> +.\" ----- DESCRIPTION :: Terms (and abbreviations) :: -----------------/
-> +.SS Terms (and abbreviations)
-> +.\" ----- DESCRIPTION :: Terms (and abbreviations) :: string (str) ----/
-> +.TP
-> +.IR "string " ( str )
-> +is a sequence of zero or more non-null characters followed by a null byte.
-> +.\" ----- DESCRIPTION :: Terms (and abbreviations) :: null-padded character seq
-> +.TP
-> +.I character sequence
-> +is a sequence of zero or more non-null characters.
-> +A program should never usa a character sequence where a string is required.
+SGkgU3RlZmFuLA0KDQpPbiAxMi8yMC8yMiAxNjowMCwgU3RlZmFuIFB1aXUgd3JvdGU6DQo+
+IEhpLA0KPiANCj4gTm90aWNlZCBhIHR5cG8gYmVsb3cNCg0KVHlwbyBmaXhlZC4gIFRoYW5r
+cywNCg0KQWxleA0KDQo8aHR0cHM6Ly9naXQua2VybmVsLm9yZy9wdWIvc2NtL2RvY3MvbWFu
+LXBhZ2VzL21hbi1wYWdlcy5naXQvY29tbWl0Lz9pZD0zZDM5NTI4Mjg2MGY3Yjg2ZjY1YzY3
+MzUzNTFmMjRiNTJjNDg2NzE4Pg0KDQo+IA0KPiBPbiBNb24sIERlYyAxOSwgMjAyMiBhdCAx
+MTowMiBQTSBBbGVqYW5kcm8gQ29sb21hcg0KPiA8YWx4Lm1hbnBhZ2VzQGdtYWlsLmNvbT4g
+d3JvdGU6DQo+Pg0KPj4gVGhpcyBpcyBhbiBvcHBvcnR1bml0eSB0byB1c2UgY29uc2lzdGVu
+dCBsYW5ndWFnZSBhY3Jvc3MgdGhlDQo+PiBkb2N1bWVudGF0aW9uIGZvciBhbGwgc3RyaW5n
+LWNvcHlpbmcgZnVuY3Rpb25zLg0KPj4NCj4+IEl0IGlzIGFsc28gZWFzaWVyIHRvIHNob3cg
+dGhlIHNpbWlsYXJpdGllcyBhbmQgZGlmZmVyZW5jZXMgYmV0d2VlbiBhbGwNCj4+IG9mIHRo
+ZSBmdW5jdGlvbnMsIHNvIHRoYXQgYSByZWFkZXIgY2FuIHVzZSB0aGlzIHBhZ2UgdG8ga25v
+dyB3aGljaA0KPj4gZnVuY3Rpb24gaXMgbmVlZGVkIGZvciBhIGdpdmVuIHRhc2suDQo+Pg0K
+Pj4gQWx0ZXJuYXRpdmUgZnVuY3Rpb25zIG5vdCBwcm92aWRlZCBieSBsaWJjIGhhdmUgYmVl
+biBnaXZlbiBpbiB0aGUgc2FtZQ0KPj4gcGFnZSwgd2l0aCByZWZlcmVuY2UgaW1wbGVtZW50
+YXRpb25zLg0KPj4NCj4+IENjOiBNYXJ0aW4gU2Vib3IgPG1zZWJvckByZWRoYXQuY29tPg0K
+Pj4gQ2M6ICJHLiBCcmFuZGVuIFJvYmluc29uIiA8Zy5icmFuZGVuLnJvYmluc29uQGdtYWls
+LmNvbT4NCj4+IENjOiBEb3VnbGFzIE1jSWxyb3kgPGRvdWdsYXMubWNpbHJveUBkYXJ0bW91
+dGguZWR1Pg0KPj4gQ2M6IEpha3ViIFdpbGsgPGp3aWxrQGp3aWxrLm5ldD4NCj4+IENjOiBT
+ZXJnZSBIYWxseW4gPHNlcmdlQGhhbGx5bi5jb20+DQo+PiBDYzogSWtlciBQZWRyb3NhIDxp
+cGVkcm9zYUByZWRoYXQuY29tPg0KPj4gQ2M6IEFuZHJldyBQaW5za2kgPHBpbnNraWFAZ21h
+aWwuY29tPg0KPj4gQ2M6IFN0ZWZhbiBQdWl1IDxzdGVmYW4ucHVpdUBnbWFpbC5jb20+DQo+
+PiBTaWduZWQtb2ZmLWJ5OiBBbGVqYW5kcm8gQ29sb21hciA8YWx4QGtlcm5lbC5vcmc+DQo+
+PiAtLS0NCj4+ICAgbWFuNy9zdHJpbmdfY29weS43IHwgODU1ICsrKysrKysrKysrKysrKysr
+KysrKysrKysrKysrKysrKysrKysrKysrKysrKw0KPj4gICAxIGZpbGUgY2hhbmdlZCwgODU1
+IGluc2VydGlvbnMoKykNCj4+ICAgY3JlYXRlIG1vZGUgMTAwNjQ0IG1hbjcvc3RyaW5nX2Nv
+cHkuNw0KPj4NCj4+IGRpZmYgLS1naXQgYS9tYW43L3N0cmluZ19jb3B5LjcgYi9tYW43L3N0
+cmluZ19jb3B5LjcNCj4+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0DQo+PiBpbmRleCAwMDAwMDAw
+MDAuLmEzMmI5M2MwMQ0KPj4gLS0tIC9kZXYvbnVsbA0KPj4gKysrIGIvbWFuNy9zdHJpbmdf
+Y29weS43DQo+PiBAQCAtMCwwICsxLDg1NSBAQA0KPj4gKy5cIiBDb3B5cmlnaHQgMjAyMiBB
+bGVqYW5kcm8gQ29sb21hciA8YWx4QGtlcm5lbC5vcmc+DQo+PiArLlwiDQo+PiArLlwiIFNQ
+RFgtTGljZW5zZS1JZGVudGlmaWVyOiBCU0QtMy1DbGF1c2UNCj4+ICsuXCINCj4+ICsuVEgg
+c3RyaW5nX2NvcHkgNyAoZGF0ZSkgIkxpbnV4IG1hbi1wYWdlcyAodW5yZWxlYXNlZCkiDQo+
+PiArLlwiIC0tLS0tIE5BTUUgOjogLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0vDQo+PiArLlNIIE5BTUUNCj4+ICtzdHBjcHksDQo+PiAr
+c3RyY3B5LCBzdHJjYXQsDQo+PiArc3RwZWNweSwgc3RwZWNweXgsDQo+PiArc3RybGNweSwg
+c3RybGNhdCwNCj4+ICtzdHBuY3B5LA0KPj4gK3N0cm5jcHksDQo+PiArenVzdHIydXN0cCwg
+enVzdHIyc3RwLA0KPj4gK3N0cm5jYXQsDQo+PiArdXN0cGNweSwgdXN0cjJzdHANCj4+ICtc
+LSBjb3B5IHN0cmluZ3MgYW5kIGNoYXJhY3RlciBzZXF1ZW5jZXMNCj4+ICsuXCIgLS0tLS0g
+U1lOT1BTSVMgOjogLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS8NCj4+ICsuU0ggU1lOT1BTSVMNCj4+ICsuXCIgLS0tLS0gU1lOT1BTSVMgOjog
+KE51bGwtdGVybWluYXRlZCkgc3RyaW5ncyAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS8NCj4+
+ICsuU1MgU3RyaW5ncw0KPj4gKy5uZg0KPj4gKy8vIENoYWluLWNvcHkgYSBzdHJpbmcuDQo+
+PiArLkJJICJjaGFyICpzdHBjcHkoY2hhciAqcmVzdHJpY3QgIiBkc3QgIiwgY29uc3QgY2hh
+ciAqcmVzdHJpY3QgIiBzcmMgKTsNCj4+ICsuUFANCj4+ICsvLyBDb3B5L2NhdGVuYXRlIGEg
+c3RyaW5nLg0KPj4gKy5CSSAiY2hhciAqc3RyY3B5KGNoYXIgKnJlc3RyaWN0ICIgZHN0ICIs
+IGNvbnN0IGNoYXIgKnJlc3RyaWN0ICIgc3JjICk7DQo+PiArLkJJICJjaGFyICpzdHJjYXQo
+Y2hhciAqcmVzdHJpY3QgIiBkc3QgIiwgY29uc3QgY2hhciAqcmVzdHJpY3QgIiBzcmMgKTsN
+Cj4+ICsuUFANCj4+ICsvLyBDaGFpbi1jb3B5IGEgc3RyaW5nIHdpdGggdHJ1bmNhdGlvbi4N
+Cj4+ICsuQkkgImNoYXIgKnN0cGVjcHkoY2hhciAqIiBkc3QgIiwgY2hhciAiIGVuZCAiWzBd
+LCBjb25zdCBjaGFyICpyZXN0cmljdCAiIHNyYyApOw0KPj4gKy5QUA0KPj4gKy8vIENoYWlu
+LWNvcHkgYSBzdHJpbmcgd2l0aCB0cnVuY2F0aW9uIGFuZCBTSUdTRUdWIG9uIFVCLg0KPj4g
+Ky5CSSAiY2hhciAqc3RwZWNweXgoY2hhciAqIiBkc3QgIiwgY2hhciAiIGVuZCAiWzBdLCBj
+b25zdCBjaGFyICpyZXN0cmljdCAiIHNyYyApOw0KPj4gKy5QUA0KPj4gKy8vIENvcHkvY2F0
+ZW5hdGUgYSBzdHJpbmcgd2l0aCB0cnVuY2F0aW9uIGFuZCBTSUdTRUdWIG9uIFVCLg0KPj4g
+Ky5CSSAic2l6ZV90IHN0cmxjcHkoY2hhciAiIGRzdCAiW3Jlc3RyaWN0IC4iIHN6ICJdLCBc
+DQo+PiArY29uc3QgY2hhciAqcmVzdHJpY3QgIiBzcmMgLA0KPj4gKy5CSSAiICAgICAgICAg
+ICAgICAgc2l6ZV90ICIgc3ogKTsNCj4+ICsuQkkgInNpemVfdCBzdHJsY2F0KGNoYXIgIiBk
+c3QgIltyZXN0cmljdCAuIiBzeiAiXSwgXA0KPj4gK2NvbnN0IGNoYXIgKnJlc3RyaWN0ICIg
+c3JjICwNCj4+ICsuQkkgIiAgICAgICAgICAgICAgIHNpemVfdCAiIHN6ICk7DQo+PiArLmZp
+DQo+PiArLlwiIC0tLS0tIFNZTk9QU0lTIDo6IE51bGwtcGFkZGVkIGNoYXJhY3RlciBzZXF1
+ZW5jZXMgLS0tLS0tLS0vDQo+PiArLlNTIE51bGwtcGFkZGVkIGNoYXJhY3RlciBzZXF1ZW5j
+ZXMNCj4+ICsubmYNCj4+ICsvLyBaZXJvIGEgZml4ZWQtd2lkdGggYnVmZmVyLCBhbmQNCj4+
+ICsvLyBjb3B5IGEgc3RyaW5nIGludG8gYSBjaGFyYWN0ZXIgc2VxdWVuY2Ugd2l0aCB0cnVu
+Y2F0aW9uLg0KPj4gKy5CSSAiY2hhciAqc3RwbmNweShjaGFyICIgZHN0ICJbcmVzdHJpY3Qg
+LiIgc3ogIl0sIFwNCj4+ICtjb25zdCBjaGFyICpyZXN0cmljdCAiIHNyYyAsDQo+PiArLkJJ
+ICIgICAgICAgICAgICAgICBzaXplX3QgIiBzeiApOw0KPj4gKy5QUA0KPj4gKy8vIFplcm8g
+YSBmaXhlZC13aWR0aCBidWZmZXIsIGFuZA0KPj4gKy8vIGNvcHkgYSBzdHJpbmcgaW50byBh
+IGNoYXJhY3RlciBzZXF1ZW5jZSB3aXRoIHRydW5jYXRpb24uDQo+PiArLkJJICJjaGFyICpz
+dHJuY3B5KGNoYXIgIiBkZXN0ICJbcmVzdHJpY3QgLiIgc3ogIl0sIFwNCj4+ICtjb25zdCBj
+aGFyICpyZXN0cmljdCAiIHNyYyAsDQo+PiArLkJJICIgICAgICAgICAgICAgICBzaXplX3Qg
+IiBzeiApOw0KPj4gKy5QUA0KPj4gKy8vIENoYWluLWNvcHkgYSBudWxsLXBhZGRlZCBjaGFy
+YWN0ZXIgc2VxdWVuY2UgaW50byBhIGNoYXJhY3RlciBzZXF1ZW5jZS4NCj4+ICsuQkkgImNo
+YXIgKnp1c3RyMnVzdHAoY2hhciAqcmVzdHJpY3QgIiBkc3QgIiwgXA0KPj4gK2NvbnN0IGNo
+YXIgIiBzcmMgIltyZXN0cmljdCAuIiBzeiBdLA0KPj4gKy5CSSAiICAgICAgICAgICAgICAg
+c2l6ZV90ICIgc3ogKTsNCj4+ICsuUFANCj4+ICsvLyBDaGFpbi1jb3B5IGEgbnVsbC1wYWRk
+ZWQgY2hhcmFjdGVyIHNlcXVlbmNlIGludG8gYSBzdHJpbmcuDQo+PiArLkJJICJjaGFyICp6
+dXN0cjJzdHAoY2hhciAqcmVzdHJpY3QgIiBkc3QgIiwgXA0KPj4gK2NvbnN0IGNoYXIgIiBz
+cmMgIltyZXN0cmljdCAuIiBzeiBdLA0KPj4gKy5CSSAiICAgICAgICAgICAgICAgc2l6ZV90
+ICIgc3ogKTsNCj4+ICsuUFANCj4+ICsvLyBDYXRlbmF0ZSBhIG51bGwtcGFkZGVkIGNoYXJh
+Y3RlciBzZXF1ZW5jZSBpbnRvIGEgc3RyaW5nLg0KPj4gKy5CSSAiY2hhciAqc3RybmNhdChj
+aGFyICpyZXN0cmljdCAiIGRzdCAiLCBjb25zdCBjaGFyICIgc3JjICJbcmVzdHJpY3QgLiIg
+c3ogXSwNCj4+ICsuQkkgIiAgICAgICAgICAgICAgIHNpemVfdCAiIHN6ICk7DQo+PiArLmZp
+DQo+PiArLlwiIC0tLS0tIFNZTk9QU0lTIDo6IE1lYXN1cmVkIGNoYXJhY3RlciBzZXF1ZW5j
+ZXMgLS0tLS0tLS0tLS0tLS0tLS0tLS0vDQo+PiArLlNTIE1lYXN1cmVkIGNoYXJhY3RlciBz
+ZXF1ZW5jZXMNCj4+ICsubmYNCj4+ICsvLyBDaGFpbi1jb3B5IGEgbWVhc3VyZWQgY2hhcmFj
+dGVyIHNlcXVlbmNlLg0KPj4gKy5CSSAiY2hhciAqdXN0cGNweShjaGFyICpyZXN0cmljdCAi
+IGRzdCAiLCBcDQo+PiArY29uc3QgY2hhciAiIHNyYyAiW3Jlc3RyaWN0IC4iIGxlbiBdLA0K
+Pj4gKy5CSSAiICAgICAgICAgICAgICAgc2l6ZV90ICIgbGVuICk7DQo+PiArLlBQDQo+PiAr
+Ly8gQ2hhaW4tY29weSBhIG1lYXN1cmVkIGNoYXJhY3RlciBzZXF1ZW5jZSBpbnRvIGEgc3Ry
+aW5nLg0KPj4gKy5CSSAiY2hhciAqdXN0cjJzdHAoY2hhciAqcmVzdHJpY3QgIiBkc3QgIiwg
+XA0KPj4gK2NvbnN0IGNoYXIgIiBzcmMgIltyZXN0cmljdCAuIiBsZW4gXSwNCj4+ICsuQkkg
+IiAgICAgICAgICAgICAgIHNpemVfdCAiIGxlbiApOw0KPj4gKy5maQ0KPj4gKy5TSCBERVND
+UklQVElPTg0KPj4gKy5cIiAtLS0tLSBERVNDUklQVElPTiA6OiBUZXJtcyAoYW5kIGFiYnJl
+dmlhdGlvbnMpIDo6IC0tLS0tLS0tLS0tLS0tLS0tLw0KPj4gKy5TUyBUZXJtcyAoYW5kIGFi
+YnJldmlhdGlvbnMpDQo+PiArLlwiIC0tLS0tIERFU0NSSVBUSU9OIDo6IFRlcm1zIChhbmQg
+YWJicmV2aWF0aW9ucykgOjogc3RyaW5nIChzdHIpIC0tLS0vDQo+PiArLlRQDQo+PiArLklS
+ICJzdHJpbmcgIiAoIHN0ciApDQo+PiAraXMgYSBzZXF1ZW5jZSBvZiB6ZXJvIG9yIG1vcmUg
+bm9uLW51bGwgY2hhcmFjdGVycyBmb2xsb3dlZCBieSBhIG51bGwgYnl0ZS4NCj4+ICsuXCIg
+LS0tLS0gREVTQ1JJUFRJT04gOjogVGVybXMgKGFuZCBhYmJyZXZpYXRpb25zKSA6OiBudWxs
+LXBhZGRlZCBjaGFyYWN0ZXIgc2VxDQo+PiArLlRQDQo+PiArLkkgY2hhcmFjdGVyIHNlcXVl
+bmNlDQo+PiAraXMgYSBzZXF1ZW5jZSBvZiB6ZXJvIG9yIG1vcmUgbm9uLW51bGwgY2hhcmFj
+dGVycy4NCj4+ICtBIHByb2dyYW0gc2hvdWxkIG5ldmVyIHVzYSBhIGNoYXJhY3RlciBzZXF1
+ZW5jZSB3aGVyZSBhIHN0cmluZyBpcyByZXF1aXJlZC4NCj4gDQo+IEhlcmUgSSB0aGluayB5
+b3Ugd2FudCBzL3VzYS91c2UgYWJvdmUuDQo+IA0KPiBUaGFua3MsDQo+IFN0ZWZhbi4NCj4g
+DQo+PiArSG93ZXZlciwgd2l0aCBhcHByb3ByaWF0ZSBjYXJlLA0KPj4gK2Egc3RyaW5nIGNh
+biBiZSB1c2VkIGluIHRoZSBwbGFjZSBvZiBhIGNoYXJhY3RlciBzZXF1ZW5jZS4NCj4+ICsu
+UlMNCj4+ICsuVFANCj4+ICsuSVIgIm51bGwtcGFkZGVkIGNoYXJhY3RlciBzZXF1ZW5jZSAi
+ICggenVzdHIgKQ0KPj4gK0NoYXJhY3RlciBzZXF1ZW5jZXMgY2FuIGJlIGNvbnRhaW5lZCBp
+biBmaXhlZC13aWR0aCBidWZmZXJzLA0KPj4gK3doaWNoIGNvbnRhaW4gcGFkZGluZyBudWxs
+IGJ5dGVzIGFmdGVyIHRoZSBjaGFyYWN0ZXIgc2VxdWVuY2UsDQo+PiArdG8gZmlsbCB0aGUg
+cmVzdCBvZiB0aGUgYnVmZmVyDQo+PiArd2l0aG91dCBhZmZlY3RpbmcgdGhlIGNoYXJhY3Rl
+ciBzZXF1ZW5jZTsNCj4+ICtob3dldmVyLCB0aG9zZSBwYWRkaW5nIG51bGwgYnl0ZXMgYXJl
+IG5vdCBwYXJ0IG9mIHRoZSBjaGFyYWN0ZXIgc2VxdWVuY2UuDQo+PiArLlwiIC0tLS0tIERF
+U0NSSVBUSU9OIDo6IFRlcm1zIChhbmQgYWJicmV2aWF0aW9ucykgOjogbWVhc3VyZWQgY2hh
+cmFjdGVyIHNlcXVlbmNlDQo+PiArLlRQDQo+PiArLklSICJtZWFzdXJlZCBjaGFyYWN0ZXIg
+c2VxdWVuY2UgIiAoIHVzdHIgKQ0KPj4gK0NoYXJhY3RlciBzZXF1ZW5jZSBkZWxpbWl0ZWQg
+YnkgaXRzIGxlbmd0aC4NCj4+ICtJdCBtYXkgYmUgYSBzbGljZSBvZiBhIGxhcmdlciBjaGFy
+YWN0ZXIgc2VxdWVuY2UsDQo+PiArb3IgZXZlbiBvZiBhIHN0cmluZy4NCj4+ICsuUkUNCj4+
+ICsuXCIgLS0tLS0gREVTQ1JJUFRJT04gOjogVGVybXMgKGFuZCBhYmJyZXZpYXRpb25zKSA6
+OiBsZW5ndGggKGxlbikgLS0tLS8NCj4+ICsuVFANCj4+ICsuSVIgImxlbmd0aCAiICggbGVu
+ICkNCj4+ICtpcyB0aGUgbnVtYmVyIG9mIG5vbi1udWxsIGNoYXJhY3RlcnMgaW4gYSBzdHJp
+bmcgb3IgY2hhcmFjdGVyIHNlcXVlbmNlLg0KPj4gK0l0IGlzIHRoZSByZXR1cm4gdmFsdWUg
+b2YNCj4+ICsuSSBzdHJsZW4oc3RyKQ0KPj4gK2FuZCBvZg0KPj4gKy5JUiAic3Rybmxlbih1
+c3RyLCBzeikiIC4NCj4+ICsuXCIgLS0tLS0gREVTQ1JJUFRJT04gOjogVGVybXMgKGFuZCBh
+YmJyZXZpYXRpb25zKSA6OiBzaXplIChzeikgLS0tLS0tLS8NCj4+ICsuVFANCj4+ICsuSVIg
+InNpemUgIiAoIHN6ICkNCj4+ICtyZWZlcnMgdG8gdGhlIGVudGlyZSBidWZmZXINCj4+ICt3
+aGVyZSB0aGUgc3RyaW5nIG9yIGNoYXJhY3RlciBzZXF1ZW5jZSBpcyBjb250YWluZWQuDQo+
+PiArLlwiIC0tLS0tIERFU0NSSVBUSU9OIDo6IFRlcm1zIChhbmQgYWJicmV2aWF0aW9ucykg
+OjogZW5kIC0tLS0tLS0tLS0tLS0vDQo+PiArLlRQDQo+PiArLkkgZW5kDQo+PiAraXMgdGhl
+IG5hbWUgb2YgYSBwb2ludGVyIHRvIG9uZSBwYXN0IHRoZSBsYXN0IGVsZW1lbnQgb2YgYSBi
+dWZmZXIuDQo+PiArSXQgaXMgZXF1aXZhbGVudCB0bw0KPj4gKy5JUiAmc3RyW3N6XSAuDQo+
+PiArSXQgaXMgdXNlZCBhcyBhIHNlbnRpbmVsIHZhbHVlLA0KPj4gK3RvIGJlIGFibGUgdG8g
+dHJ1bmNhdGUgc3RyaW5ncyBvciBjaGFyYWN0ZXIgc2VxdWVuY2VzDQo+PiAraW5zdGVhZCBv
+ZiBvdmVycnVubmluZyB0aGUgY29udGFpbmluZyBidWZmZXIuDQo+PiArLlwiIC0tLS0tIERF
+U0NSSVBUSU9OIDo6IFRlcm1zIChhbmQgYWJicmV2aWF0aW9ucykgOjogY29weSAtLS0tLS0t
+LS0tLS0vDQo+PiArLlRQDQo+PiArLkkgY29weQ0KPj4gK1RoaXMgdGVybSBpcyB1c2VkIHdo
+ZW4NCj4+ICt0aGUgd3JpdGluZyBzdGFydHMgYXQgdGhlIGZpcnN0IGVsZW1lbnQgcG9pbnRl
+ZCB0byBieQ0KPj4gKy5JUiBkc3QgLg0KPj4gKy5cIiAtLS0tLSBERVNDUklQVElPTiA6OiBU
+ZXJtcyAoYW5kIGFiYnJldmlhdGlvbnMpIDo6IGNhdGVuYXRlIC0tLS0tLS0tLw0KPj4gKy5U
+UA0KPj4gKy5JIGNhdGVuYXRlDQo+PiArVGhpcyB0ZXJtIGlzIHVzZWQgd2hlbg0KPj4gK2Eg
+ZnVuY3Rpb24gZmlyc3QgZmluZHMgdGhlIHRlcm1pbmF0aW5nIG51bGwgYnl0ZSBpbg0KPj4g
+Ky5JUiBkc3QgLA0KPj4gK2FuZCB0aGVuIHN0YXJ0cyB3cml0aW5nIGF0IHRoYXQgcG9zaXRp
+b24uDQo+PiArLlwiIC0tLS0tIERFU0NSSVBUSU9OIDo6IFRlcm1zIChhbmQgYWJicmV2aWF0
+aW9ucykgOjogY2hhaW4gLS0tLS0tLS0tLS0vDQo+PiArLlRQDQo+PiArLkkgY2hhaW4NCj4+
+ICtUaGlzIHRlcm0gaXMgdXNlZCB3aGVuDQo+PiAraXQncyB0aGUgcHJvZ3JhbW1lciB3aG8g
+cHJvdmlkZXMNCj4+ICthIHBvaW50ZXIgdG8gdGhlIHRlcm1pbmF0aW5nIG51bGwgYnl0ZSBp
+biB0aGUgc3RyaW5nDQo+PiArLkkgZHN0DQo+PiArKG9yIG9uZSBhZnRlciB0aGUgbGFzdCBj
+aGFyYWN0ZXIgaW4gYSBjaGFyYWN0ZXIgc2VxdWVuY2UpLA0KPj4gK2FuZCB0aGUgZnVuY3Rp
+b24gc3RhcnRzIHdyaXRpbmcgYXQgdGhhdCBsb2NhdGlvbi4NCj4+ICtUaGUgZnVuY3Rpb24g
+cmV0dXJucw0KPj4gK2EgcG9pbnRlciB0byB0aGUgbmV3IGxvY2F0aW9uIG9mIHRoZSB0ZXJt
+aW5hdGluZyBudWxsIGJ5dGUNCj4+ICsob3Igb25lIGFmdGVyIHRoZSBsYXN0IGNoYXJhY3Rl
+ciBpbiBhIGNoYXJhY3RlciBzZXF1ZW5jZSkNCj4+ICthZnRlciB0aGUgY2FsbCwNCj4+ICtz
+byB0aGF0IHRoZSBwcm9ncmFtbWVyIGNhbiB1c2UgaXQgdG8gY2hhaW4gc3VjaCBjYWxscy4N
+Cj4+ICsuXCIgLS0tLS0gREVTQ1JJUFRJT04gOjogQ29weSwgY2F0ZW5hdGUsIGFuZCBjaGFp
+bi1jb3B5IC0tLS0tLS0tLS0tLS0tLS8NCj4+ICsuU1MgQ29weSwgY2F0ZW5hdGUsIGFuZCBj
+aGFpbi1jb3B5DQo+PiArT3JpZ2luYWxseSwNCj4+ICt0aGVyZSB3YXMgYSBkaXN0aW5jdGlv
+biBiZXR3ZWVuIGZ1bmN0aW9ucyB0aGF0IGNvcHkgYW5kIHRob3NlIHRoYXQgY2F0ZW5hdGUu
+DQo+PiArSG93ZXZlciwgbmV3ZXIgZnVuY3Rpb25zIHRoYXQgY29weSB3aGlsZSBhbGxvd2lu
+ZyBjaGFpbmluZw0KPj4gK2NvdmVyIGJvdGggdXNlIGNhc2VzIHdpdGggYSBzaW5nbGUgQVBJ
+Lg0KPj4gK1RoZXkgYXJlIGFsc28gYWxnb3JpdGhtaWNhbGx5IGZhc3RlciwNCj4+ICtzaW5j
+ZSB0aGV5IGRvbid0IG5lZWQgdG8gc2VhcmNoIGZvcg0KPj4gK3RoZSB0ZXJtaW5hdGluZyBu
+dWxsIGJ5dGUgb2YgdGhlIGV4aXN0aW5nIHN0cmluZy4NCj4+ICtIb3dldmVyLCBmdW5jdGlv
+bnMgdGhhdCBjYXRlbmF0ZSBoYXZlIGEgbXVjaCBzaW1wbGVyIHVzZSwNCj4+ICtzbyBpZiBw
+ZXJmb3JtYW5jZSBpcyBub3QgaW1wb3J0YW50LA0KPj4gK2l0IGNhbiBtYWtlIHNlbnNlIHRv
+IHVzZSB0aGVtIGZvciBpbXByb3ZpbmcgcmVhZGFiaWxpdHkuDQo+PiArLlBQDQo+PiArVGhl
+IHBvaW50ZXIgcmV0dXJuZWQgYnkgZnVuY3Rpb25zIHRoYXQgYWxsb3cgY2hhaW5pbmcNCj4+
+ICtpcyBhIGJ5cHJvZHVjdCBvZiB0aGUgY29weSBvcGVyYXRpb24sDQo+PiArc28gaXQgaGFz
+IG5vIHBlcmZvcm1hbmNlIGNvc3RzLg0KPj4gK0Z1bmN0aW9ucyB0aGF0IHJldHVybiBzdWNo
+IGEgcG9pbnRlciwNCj4+ICthbmQgdGh1cyBjYW4gYmUgY2hhaW5lZCwNCj4+ICtoYXZlIG5h
+bWVzIG9mIHRoZSBmb3JtDQo+PiArLlJCICogc3RwICooKSwNCj4+ICtzaW5jZSBpdCdzIGNv
+bW1vbiB0byBuYW1lIHRoZSBwb2ludGVyIGp1c3QNCj4+ICsuSVIgcCAuDQo+PiArLlBQDQo+
+PiArQ2hhaW4tY29weWluZyBmdW5jdGlvbnMgdGhhdCB0cnVuY2F0ZQ0KPj4gK3Nob3VsZCBh
+Y2NlcHQgYSBwb2ludGVyIHRvIHRoZSBlbmQgb2YgdGhlIGRlc3RpbmF0aW9uIGJ1ZmZlciwN
+Cj4+ICthbmQgaGF2ZSBuYW1lcyBvZiB0aGUgZm9ybQ0KPj4gKy5SQiAqIHN0cGUgKigpLg0K
+Pj4gK1RoaXMgYWxsb3dzIG5vdCBoYXZpbmcgdG8gcmVjYWxjdWxhdGUgdGhlIHJlbWFpbmlu
+ZyBzaXplIGFmdGVyIGVhY2ggY2FsbC4NCj4+ICsuXCIgLS0tLS0gREVTQ1JJUFRJT04gOjog
+VHJ1bmNhdGUgb3Igbm90PyAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS8NCj4+ICsu
+U1MgVHJ1bmNhdGUgb3Igbm90Pw0KPj4gK1RoZSBmaXJzdCB0aGluZyB0byBub3RlIGlzIHRo
+YXQgcHJvZ3JhbW1lcnMgc2hvdWxkIGJlIGNhcmVmdWwgd2l0aCBidWZmZXJzLA0KPj4gK3Nv
+IHRoZXkgYWx3YXlzIGhhdmUgdGhlIGNvcnJlY3Qgc2l6ZSwNCj4+ICthbmQgdHJ1bmNhdGlv
+biBpcyBub3QgbmVjZXNzYXJ5Lg0KPj4gKy5QUA0KPj4gK0luIG1vc3QgY2FzZXMsDQo+PiAr
+dHJ1bmNhdGlvbiBpcyBub3QgZGVzaXJlZCwNCj4+ICthbmQgaXQgaXMgc2ltcGxlciB0byBq
+dXN0IGRvIHRoZSBjb3B5Lg0KPj4gK1NpbXBsZXIgY29kZSBpcyBzYWZlciBjb2RlLg0KPj4g
+K1Byb2dyYW1taW5nIGFnYWluc3QgcHJvZ3JhbW1pbmcgbWlzdGFrZXMgYnkgYWRkaW5nIG1v
+cmUgY29kZQ0KPj4gK2p1c3QgYWRkcyBtb3JlIHBvaW50cyB3aGVyZSBtaXN0YWtlcyBjYW4g
+YmUgbWFkZS4NCj4+ICsuUFANCj4+ICtOb3dhZGF5cywNCj4+ICtjb21waWxlcnMgY2FuIGRl
+dGVjdCBtb3N0IHByb2dyYW1tZXIgZXJyb3JzIHdpdGggZmVhdHVyZXMgbGlrZQ0KPj4gK2Nv
+bXBpbGVyIHdhcm5pbmdzLA0KPj4gK3N0YXRpYyBhbmFseXplcnMsIGFuZA0KPj4gKy5CUiBc
+JV9GT1JUSUZZX1NPVVJDRQ0KPj4gKyhzZWUNCj4+ICsuQlIgZnRtICg3KSkuDQo+PiArS2Vl
+cGluZyB0aGUgY29kZSBzaW1wbGUNCj4+ICtoZWxwcyB0aGVzZSBvdmVyZmxvdy1kZXRlY3Rp
+b24gZmVhdHVyZXMgYmUgbW9yZSBwcmVjaXNlLg0KPj4gKy5QUA0KPj4gK1doZW4gdmFsaWRh
+dGluZyB1c2VyIGlucHV0LA0KPj4gK2hvd2V2ZXIsDQo+PiAraXQgbWFrZXMgc2Vuc2UgdG8g
+dHJ1bmNhdGUuDQo+PiArUmVtZW1iZXIgdG8gY2hlY2sgdGhlIHJldHVybiB2YWx1ZSBvZiBz
+dWNoIGZ1bmN0aW9uIGNhbGxzLg0KPj4gKy5QUA0KPj4gK0Z1bmN0aW9ucyB0aGF0IHRydW5j
+YXRlOg0KPj4gKy5JUCBcKGJ1IDMNCj4+ICsuQlIgc3RwZWNweSAoMykNCj4+ICtpcyB0aGUg
+bW9zdCBlZmZpY2llbnQgc3RyaW5nIGNvcHkgZnVuY3Rpb24gdGhhdCBwZXJmb3JtcyB0cnVu
+Y2F0aW9uLg0KPj4gK0l0IG9ubHkgcmVxdWlyZXMgdG8gY2hlY2sgZm9yIHRydW5jYXRpb24g
+b25jZSBhZnRlciBhbGwgY2hhaW5lZCBjYWxscy4NCj4+ICsuSVAgXChidQ0KPj4gKy5CUiBz
+dHBlY3B5eCAoMykNCj4+ICtpcyBhIHZhcmlhbnQgb2YNCj4+ICsuQlIgc3RwZWNweSAoMykN
+Cj4+ICt0aGF0IGNvbnN1bWVzIHRoZSBlbnRpcmUgc291cmNlIHN0cmluZywNCj4+ICt0byBj
+YXRjaCBidWdzIGluIHRoZSBwcm9ncmFtDQo+PiArYnkgZm9yY2luZyBhIHNlZ21lbnRhdGlv
+biBmYXVsdCAoYXMNCj4+ICsuQlIgc3RybGNweSAoM2JzZCkNCj4+ICthbmQNCj4+ICsuQlIg
+c3RybGNhdCAoM2JzZCkNCj4+ICtkbykuDQo+PiArLklQIFwoYnUNCj4+ICsuQlIgc3RybGNw
+eSAoM2JzZCkNCj4+ICthbmQNCj4+ICsuQlIgc3RybGNhdCAoM2JzZCkNCj4+ICthcmUgZGVz
+aWduZWQgdG8gY3Jhc2ggaWYgdGhlIGlucHV0IHN0cmluZyBpcyBpbnZhbGlkDQo+PiArKGRv
+ZXNuJ3QgY29udGFpbiBhIHRlcm1pbmF0aW5nIG51bGwgYnl0ZSkuDQo+PiArLklQIFwoYnUN
+Cj4+ICsuQlIgc3RwbmNweSAoMykNCj4+ICthbmQNCj4+ICsuQlIgc3RybmNweSAoMykNCj4+
+ICthbHNvIHRydW5jYXRlLCBidXQgdGhleSBkb24ndCB3cml0ZSBzdHJpbmdzLA0KPj4gK2J1
+dCByYXRoZXIgbnVsbC1wYWRkZWQgY2hhcmFjdGVyIHNlcXVlbmNlcy4NCj4+ICsuXCIgLS0t
+LS0gREVTQ1JJUFRJT04gOjogTnVsbC1wYWRkZWQgY2hhcmFjdGVyIHNlcXVlbmNlcyAtLS0t
+LS0tLS0tLS0tLS8NCj4+ICsuU1MgTnVsbC1wYWRkZWQgY2hhcmFjdGVyIHNlcXVlbmNlcw0K
+Pj4gK0ZvciBoaXN0b3JpYyByZWFzb25zLA0KPj4gK3NvbWUgc3RhbmRhcmQgQVBJcywNCj4+
+ICtzdWNoIGFzDQo+PiArLkJSIHV0bXB4ICg1KSwNCj4+ICt1c2UgbnVsbC1wYWRkZWQgY2hh
+cmFjdGVyIHNlcXVlbmNlcyBpbiBmaXhlZC13aWR0aCBidWZmZXJzLg0KPj4gK1RvIGludGVy
+ZmFjZSB3aXRoIHRoZW0sDQo+PiArc3BlY2lhbGl6ZWQgZnVuY3Rpb25zIG5lZWQgdG8gYmUg
+dXNlZC4NCj4+ICsuUFANCj4+ICtUbyBjb3B5IHN0cmluZ3MgaW50byB0aGVtLCB1c2UNCj4+
+ICsuQlIgc3RwbmNweSAoMykuDQo+PiArLlBQDQo+PiArVG8gY29weSBmcm9tIGFuIHVudGVy
+bWluYXRlZCBzdHJpbmcgd2l0aGluIGEgZml4ZWQtd2lkdGggYnVmZmVyIGludG8gYSBzdHJp
+bmcsDQo+PiAraWdub3JpbmcgYW55IHRyYWlsaW5nIG51bGwgYnl0ZXMgaW4gdGhlIHNvdXJj
+ZSBmaXhlZC13aWR0aCBidWZmZXIsDQo+PiAreW91IHNob3VsZCB1c2UNCj4+ICsuQlIgenVz
+dHIyc3RwICgzKQ0KPj4gK29yDQo+PiArLkJSIHN0cm5jYXQgKDMpLg0KPj4gKy5QUA0KPj4g
+K1RvIGNvcHkgZnJvbSBhbiB1bnRlcm1pbmF0ZWQgc3RyaW5nIHdpdGhpbiBhIGZpeGVkLXdp
+ZHRoIGJ1ZmZlcg0KPj4gK2ludG8gYSBjaGFyYWN0ZXIgc2VxdWVuY2UsDQo+PiAraW5nb3Jp
+bmcgYW55IHRyYWlsaW5nIG51bGwgYnl0ZXMgaW4gdGhlIHNvdXJjZSBmaXhlZC13aWR0aCBi
+dWZmZXIsDQo+PiAreW91IHNob3VsZCB1c2UNCj4+ICsuQlIgenVzdHIydXN0cCAoMykuDQo+
+PiArLlwiIC0tLS0tIERFU0NSSVBUSU9OIDo6IE1lYXN1cmVkIGNoYXJhY3RlciBzZXF1ZW5j
+ZXMgLS0tLS0tLS0tLS0tLS0tLS0vDQo+PiArLlNTIE1lYXN1cmVkIGNoYXJhY3RlciBzZXF1
+ZW5jZXMNCj4+ICtUaGUgc2ltcGxlc3QgY2hhcmFjdGVyIHNlcXVlbmNlIGNvcHlpbmcgZnVu
+Y3Rpb24gaXMNCj4+ICsuQlIgbWVtcGNweSAoMykuDQo+PiArSXQgcmVxdWlyZXMgYWx3YXlz
+IGtub3dpbmcgdGhlIGxlbmd0aCBvZiB5b3VyIGNoYXJhY3RlciBzZXF1ZW5jZXMsDQo+PiAr
+Zm9yIHdoaWNoIHN0cnVjdHVyZXMgY2FuIGJlIHVzZWQuDQo+PiArSXQgbWFrZXMgdGhlIGNv
+ZGUgbXVjaCBmYXN0ZXIsDQo+PiArc2luY2UgeW91IGFsd2F5cyBrbm93IHRoZSBsZW5ndGgg
+b2YgeW91ciBjaGFyYWN0ZXIgc2VxdWVuY2VzLA0KPj4gK2FuZCBjYW4gZG8gdGhlIG1pbmlt
+YWwgY29waWVzIGFuZCBsZW5ndGggbWVhc3VyZW1lbnRzLg0KPj4gKy5CUiBtZW1wY3B5ICgz
+KQ0KPj4gK2NvcGllcyBjaGFyYWN0ZXIgc2VxdWVuY2VzLA0KPj4gK3NvIHlvdSBuZWVkIHRv
+IGV4cGxpY2l0bHkgc2V0IHRoZSB0ZXJtaW5hdGluZyBudWxsIGJ5dGUgaWYgeW91IG5lZWQg
+YSBzdHJpbmcuDQo+PiArLlBQDQo+PiArSG93ZXZlciwNCj4+ICtmb3Iga2VlcGluZyB0eXBl
+IHNhZmV0eSwNCj4+ICtpdCdzIGdvb2QgdG8gYWRkIGEgd3JhcHBlciB0aGF0IHVzZXMNCj4+
+ICsuSSBjaGFyXH4qDQo+PiAraW5zdGVhZCBvZg0KPj4gKy5JUiB2b2lkXH4qIDoNCj4+ICsu
+QlIgdXN0cGNweSAoMykuDQo+PiArLlBQDQo+PiArSW4gcHJvZ3JhbXMgdGhhdCBtYWtlIGNv
+bnNpZGVyYWJsZSB1c2Ugb2Ygc3RyaW5ncyBvciBjaGFyYWN0ZXIgc2VxdWVuY2VzLA0KPj4g
+K2FuZCBuZWVkIHRoZSBiZXN0IHBlcmZvcm1hbmNlLA0KPj4gK3VzaW5nIG92ZXJsYXBwaW5n
+IGNoYXJhY3RlciBzZXF1ZW5jZXMgY2FuIG1ha2UgYSBiaWcgZGlmZmVyZW5jZS4NCj4+ICtJ
+dCBhbGxvd3MgaG9sZGluZyBzdWJzZXF1ZW5jZXMgb2YgYSBsYXJnZXIgY2hhcmFjdGVyIHNl
+cXVlbmNlLg0KPj4gK3doaWxlIG5vdCBkdXBsaWNhdGluZyBtZW1vcnkNCj4+ICtub3IgdXNp
+bmcgdGltZSB0byBkbyBhIGNvcHkuDQo+PiArLlBQDQo+PiArSG93ZXZlciwgdGhpcyBpcyBk
+ZWxpY2F0ZSwNCj4+ICtzaW5jZSBpdCByZXF1aXJlcyB1c2luZyBjaGFyYWN0ZXIgc2VxdWVu
+Y2VzLg0KPj4gK0MgbGlicmFyeSBBUElzIHVzZSBzdHJpbmdzLA0KPj4gK3NvIHByb2dyYW1z
+IHRoYXQgdXNlIGNoYXJhY3RlciBzZXF1ZW5jZXMNCj4+ICt3aWxsIGhhdmUgdG8gdGFrZSBj
+YXJlIG9mIGRpZmZlcmVudGlhdGluZyBzdHJpbmdzIGZyb20gY2hhcmFjdGVyIHNlcXVlbmNl
+cy4NCj4+ICsuUFANCj4+ICtUbyBjb3B5IGEgbWVhc3VyZWQgY2hhcmFjdGVyIHNlcXVlbmNl
+LCB1c2UNCj4+ICsuQlIgdXN0cGNweSAoMykuDQo+PiArLlBQDQo+PiArVG8gY29weSBhIG1l
+YXN1cmVkIGNoYXJhY3RlciBzZXF1ZW5jZSBpbnRvIGEgc3RyaW5nLCB1c2UNCj4+ICsuQlIg
+dXN0cjJzdHAgKDMpLg0KPj4gKy5QUA0KPj4gK0JlY2F1c2UgdGhlc2UgZnVuY3Rpb25zIGFz
+ayBmb3IgdGhlIGxlbmd0aCwNCj4+ICthbmQgYSBzdHJpbmcgaXMgYnkgbmF0dXJlIGNvbXBv
+c2VkIG9mIGEgY2hhcmFjdGVyIHNlcXVlbmNlIG9mIHRoZSBzYW1lIGxlbmd0aA0KPj4gK3Bs
+dXMgYSB0ZXJtaW5hdGluZyBudWxsIGJ5dGUsDQo+PiArYSBzdHJpbmcgaXMgYWxzbyBhY2Nl
+cHRlZCBhcyBpbnB1dC4NCj4+ICsuXCIgLS0tLS0gREVTQ1JJUFRJT04gOjogU3RyaW5nIHZz
+IGNoYXJhY3RlciBzZXF1ZW5jZSAtLS0tLS0tLS0tLS0tLS0tLS8NCj4+ICsuU1MgU3RyaW5n
+IHZzIGNoYXJhY3RlciBzZXF1ZW5jZQ0KPj4gK1NvbWUgZnVuY3Rpb25zIG9ubHkgb3BlcmF0
+ZSBvbiBzdHJpbmdzLg0KPj4gK1Rob3NlIHJlcXVpcmUgdGhhdCB0aGUgaW5wdXQNCj4+ICsu
+SSBzcmMNCj4+ICtpcyBhIHN0cmluZywNCj4+ICthbmQgZ3VhcmFudGVlIGFuIG91dHB1dCBz
+dHJpbmcNCj4+ICsoZXZlbiB3aGVuIHRydW5jYXRpb24gb2NjdXJzKS4NCj4+ICtGdW5jdGlv
+bnMgdGhhdCBjYXRlbmF0ZQ0KPj4gK2Fsc28gcmVxdWlyZSB0aGF0DQo+PiArLkkgZHN0DQo+
+PiAraG9sZHMgYSBzdHJpbmcgYmVmb3JlIHRoZSBjYWxsLg0KPj4gK0xpc3Qgb2YgZnVuY3Rp
+b25zOg0KPj4gKy5JUCBcKGJ1IDMNCj4+ICsuUEQgMA0KPj4gKy5CUiBzdHBjcHkgKDMpDQo+
+PiArLklQIFwoYnUNCj4+ICsuQlIgc3RyY3B5ICIoMyksIFxjIg0KPj4gKy5CUiBzdHJjYXQg
+KDMpDQo+PiArLklQIFwoYnUNCj4+ICsuQlIgc3RwZWNweSAiKDMpLCBcYyINCj4+ICsuQlIg
+c3RwZWNweXggKDMpDQo+PiArLklQIFwoYnUNCj4+ICsuQlIgc3RybGNweSAiKDNic2QpLCBc
+YyINCj4+ICsuQlIgc3RybGNhdCAoM2JzZCkNCj4+ICsuUEQNCj4+ICsuUFANCj4+ICtPdGhl
+ciBmdW5jdGlvbnMgcmVxdWlyZSBhbiBpbnB1dCBzdHJpbmcsDQo+PiArYnV0IGNyZWF0ZSBh
+IGNoYXJhY3RlciBzZXF1ZW5jZSBhcyBvdXRwdXQuDQo+PiArVGhlc2UgZnVuY3Rpb25zIGhh
+dmUgY29uZnVzaW5nIG5hbWVzLA0KPj4gK2FuZCBoYXZlIGEgbG9uZyBoaXN0b3J5IG9mIG1p
+c3VzZS4NCj4+ICtMaXN0IG9mIGZ1bmN0aW9uczoNCj4+ICsuSVAgXChidSAzDQo+PiArLlBE
+IDANCj4+ICsuQlIgc3RwbmNweSAoMykNCj4+ICsuSVAgXChidQ0KPj4gKy5CUiBzdHJuY3B5
+ICgzKQ0KPj4gKy5QRA0KPj4gKy5QUA0KPj4gK090aGVyIGZ1bmN0aW9ucyBvcGVyYXRlIG9u
+IGFuIGlucHV0IGNoYXJhY3RlciBzZXF1ZW5jZSwNCj4+ICthbmQgY3JlYXRlIGFuIG91dHB1
+dCBzdHJpbmcuDQo+PiArRnVuY3Rpb25zIHRoYXQgY2F0ZW5hdGUNCj4+ICthbHNvIHJlcXVp
+cmUgdGhhdA0KPj4gKy5JIGRzdA0KPj4gK2hvbGRzIGEgc3RyaW5nIGJlZm9yZSB0aGUgY2Fs
+bC4NCj4+ICsuQlIgc3RybmNhdCAoMykNCj4+ICtoYXMgYW4gZXZlbiBtb3JlIG1pc2xlYWRp
+bmcgbmFtZSB0aGFuIHRoZSBmdW5jdGlvbnMgYWJvdmUuDQo+PiArTGlzdCBvZiBmdW5jdGlv
+bnM6DQo+PiArLklQIFwoYnUgMw0KPj4gKy5QRCAwDQo+PiArLkJSIHp1c3RyMnN0cCAoMykN
+Cj4+ICsuSVAgXChidQ0KPj4gKy5CUiBzdHJuY2F0ICgzKQ0KPj4gKy5JUCBcKGJ1DQo+PiAr
+LkJSIHVzdHIyc3RwICgzKQ0KPj4gKy5QRA0KPj4gKy5QUA0KPj4gK090aGVyIGZ1bmN0aW9u
+cyBvcGVyYXRlIG9uIGFuIGlucHV0IGNoYXJhY3RlciBzZXF1ZW5jZQ0KPj4gK3RvIGNyZWF0
+ZSBhbiBvdXRwdXQgY2hhcmFjdGVyIHNlcXVlbmNlLg0KPj4gK0xpc3Qgb2YgZnVuY3Rpb25z
+Og0KPj4gKy5JUCBcKGJ1IDMNCj4+ICsuUEQgMA0KPj4gKy5CUiB1c3RwY3B5ICgzKQ0KPj4g
+Ky5JUCBcKGJ1DQo+PiArLkJSIHp1c3RyMnN0cCAoMykNCj4+ICsuUEQNCj4+ICsuXCIgLS0t
+LS0gREVTQ1JJUFRJT04gOjogRnVuY3Rpb25zIDo6IC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS8NCj4+ICsuU1MgRnVuY3Rpb25zDQo+PiArLlwiIC0tLS0tIERFU0NSSVBU
+SU9OIDo6IEZ1bmN0aW9ucyA6OiBzdHBjcHkoMykgLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0v
+DQo+PiArLlRQDQo+PiArLkJSIHN0cGNweSAoMykNCj4+ICtUaGlzIGZ1bmN0aW9uIGNvcGll
+cyB0aGUgaW5wdXQgc3RyaW5nIGludG8gYSBkZXN0aW5hdGlvbiBzdHJpbmcuDQo+PiArVGhl
+IHByb2dyYW1tZXIgaXMgcmVzcG9uc2libGUgZm9yIGFsbG9jYXRpbmcgYSBidWZmZXIgbGFy
+Z2UgZW5vdWdoLg0KPj4gK0l0IHJldHVybnMgYSBwb2ludGVyIHN1aXRhYmxlIGZvciBjaGFp
+bmluZy4NCj4+ICsuXCIgLS0tLS0gREVTQ1JJUFRJT04gOjogRnVuY3Rpb25zIDo6IHN0cmNw
+eSgzKSwgc3RyY2F0KDMpIC0tLS0tLS0tLS0tLS8NCj4+ICsuVFANCj4+ICsuQlIgc3RyY3B5
+ICgzKQ0KPj4gKy5UUQ0KPj4gKy5CUiBzdHJjYXQgKDMpDQo+PiArVGhlc2UgZnVuY3Rpb25z
+IGNvcHkgYW5kIGNhdGVuYXRlIHRoZSBpbnB1dCBzdHJpbmcgaW50byBhIGRlc3RpbmF0aW9u
+IHN0cmluZy4NCj4+ICtUaGUgcHJvZ3JhbW1lciBpcyByZXNwb25zaWJsZSBmb3IgYWxsb2Nh
+dGluZyBhIGJ1ZmZlciBsYXJnZSBlbm91Z2guDQo+PiArVGhlIHJldHVybiB2YWx1ZSBpcyB1
+c2VsZXNzLg0KPj4gKy5JUA0KPj4gKy5CUiBzdHBjcHkgKDMpDQo+PiAraXMgYSBmYXN0ZXIg
+YWx0ZXJuYXRpdmUgdG8gdGhlc2UgZnVuY3Rpb25zLg0KPj4gKy5cIiAtLS0tLSBERVNDUklQ
+VElPTiA6OiBGdW5jdGlvbnMgOjogc3RwZWNweSgzKSwgc3RwZWNweXgoMykgLS0tLS0tLS0t
+Lw0KPj4gKy5UUA0KPj4gKy5CUiBzdHBlY3B5ICgzKQ0KPj4gKy5UUQ0KPj4gKy5CUiBzdHBl
+Y3B5eCAoMykNCj4+ICtUaGVzZSBmdW5jdGlvbnMgY29weSB0aGUgaW5wdXQgc3RyaW5nIGlu
+dG8gYSBkZXN0aW5hdGlvbiBzdHJpbmcuDQo+PiArSWYgdGhlIGRlc3RpbmF0aW9uIGJ1ZmZl
+ciwNCj4+ICtsaW1pdGVkIGJ5IGEgcG9pbnRlciB0byBpdHMgZW5kLA0KPj4gK2lzbid0IGxh
+cmdlIGVub3VnaCB0byBob2xkIHRoZSBjb3B5LA0KPj4gK3RoZSByZXN1bHRpbmcgc3RyaW5n
+IGlzIHRydW5jYXRlZA0KPj4gKyhidXQgaXQgaXMgZ3VhcmFudGVlZCB0byBiZSBudWxsLXRl
+cm1pbmF0ZWQpLg0KPj4gK1RoZXkgcmV0dXJuIGEgcG9pbnRlciBzdWl0YWJsZSBmb3IgY2hh
+aW5pbmcuDQo+PiArVHJ1bmNhdGlvbiBuZWVkcyB0byBiZSBkZXRlY3RlZCBvbmx5IG9uY2Ug
+YWZ0ZXIgdGhlIGxhc3QgY2hhaW5lZCBjYWxsLg0KPj4gKy5CUiBzdHBlY3B5eCAoMykNCj4+
+ICtoYXMgaWRlbnRpY2FsIHNlbWFudGljcyB0bw0KPj4gKy5CUiBzdHBlY3B5ICgzKSwNCj4+
+ICtleGNlcHQgdGhhdCBpdCBmb3JjZXMgYSBTSUdTRUdWIGlmIHRoZQ0KPj4gKy5JIHNyYw0K
+Pj4gK3BvaW50ZXIgaXMgbm90IGEgc3RyaW5nLg0KPj4gKy5JUA0KPj4gK1RoZXNlIGZ1bmN0
+aW9ucyBhcmUgbm90IHByb3ZpZGVkIGJ5IGFueSBsaWJyYXJ5Ow0KPj4gK1NlZSBFWEFNUExF
+UyBmb3IgYSByZWZlcmVuY2UgaW1wbGVtZW50YXRpb24uDQo+PiArLlwiIC0tLS0tIERFU0NS
+SVBUSU9OIDo6IEZ1bmN0aW9ucyA6OiBzdHJsY3B5KDNic2QpLCBzdHJsY2F0KDNic2QpIC0t
+LS0vDQo+PiArLlRQDQo+PiArLkJSIHN0cmxjcHkgKDNic2QpDQo+PiArLlRRDQo+PiArLkJS
+IHN0cmxjYXQgKDNic2QpDQo+PiArVGhlc2UgZnVuY3Rpb25zIGNvcHkgYW5kIGNhdGVuYXRl
+IHRoZSBpbnB1dCBzdHJpbmcgaW50byBhIGRlc3RpbmF0aW9uIHN0cmluZy4NCj4+ICtJZiB0
+aGUgZGVzdGluYXRpb24gYnVmZmVyLA0KPj4gK2xpbWl0ZWQgYnkgaXRzIHNpemUsDQo+PiAr
+aXNuJ3QgbGFyZ2UgZW5vdWdoIHRvIGhvbGQgdGhlIGNvcHksDQo+PiArdGhlIHJlc3VsdGlu
+ZyBzdHJpbmcgaXMgdHJ1bmNhdGVkDQo+PiArKGJ1dCBpdCBpcyBndWFyYW50ZWVkIHRvIGJl
+IG51bGwtdGVybWluYXRlZCkuDQo+PiArVGhleSByZXR1cm4gdGhlIGxlbmd0aCBvZiB0aGUg
+dG90YWwgc3RyaW5nIHRoZXkgdHJpZWQgdG8gY3JlYXRlLg0KPj4gK1RoZXNlIGZ1bmN0aW9u
+cyBmb3JjZSBhIFNJR1NFR1YgaWYgdGhlDQo+PiArLkkgc3JjDQo+PiArcG9pbnRlciBpcyBu
+b3QgYSBzdHJpbmcuDQo+PiArLklQDQo+PiArLkJSIHN0cGVjcHl4ICgzKQ0KPj4gK2lzIGEg
+ZmFzdGVyIGFsdGVybmF0aXZlIHRvIHRoZXNlIGZ1bmN0aW9ucy4NCj4+ICsuXCIgLS0tLS0g
+REVTQ1JJUFRJT04gOjogRnVuY3Rpb25zIDo6IHN0cG5jcHkoMykgLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS8NCj4+ICsuVFANCj4+ICsuQlIgc3RwbmNweSAoMykNCj4+ICtUaGlzIGZ1bmN0
+aW9uIGNvcGllcyB0aGUgaW5wdXQgc3RyaW5nIGludG8NCj4+ICthIGRlc3RpbmF0aW9uIG51
+bGwtcGFkZGVkIGNoYXJhY3RlciBzZXF1ZW5jZSBpbiBhIGZpeGVkLXdpZHRoIGJ1ZmZlci4N
+Cj4+ICtJZiB0aGUgZGVzdGluYXRpb24gYnVmZmVyLA0KPj4gK2xpbWl0ZWQgYnkgaXRzIHNp
+emUsDQo+PiAraXNuJ3QgbGFyZ2UgZW5vdWdoIHRvIGhvbGQgdGhlIGNvcHksDQo+PiArdGhl
+IHJlc3VsdGluZyBjaGFyYWN0ZXIgc2VxdWVuY2UgaXMgdHJ1bmNhdGVkLg0KPj4gK1NpbmNl
+IGl0IGNyZWF0ZXMgYSBjaGFyYWN0ZXIgc2VxdWVuY2UsDQo+PiAraXQgZG9lc24ndCBuZWVk
+IHRvIHdyaXRlIGEgdGVybWluYXRpbmcgbnVsbCBieXRlLg0KPj4gK0l0J3MgaW1wb3NzaWJs
+ZSB0byBkaXN0aW5ndWlzaCB0cnVuY2F0aW9uIGJ5IHRoZSByZXN1bHQgb2YgdGhlIGNhbGws
+DQo+PiArZnJvbSBhIGNoYXJhY3RlciBzZXF1ZW5jZSB0aGF0IGp1c3QgZml0cyB0aGUgZGVz
+dGluYXRpb24gYnVmZmVyOw0KPj4gK3RydW5jYXRpb24gc2hvdWxkIGJlIGRldGVjdGVkIGJ5
+DQo+PiArY29tcGFyaW5nIHRoZSBsZW5ndGggb2YgdGhlIGlucHV0IHN0cmluZw0KPj4gK3dp
+dGggdGhlIHNpemUgb2YgdGhlIGRlc3RpbmF0aW9uIGJ1ZmZlci4NCj4+ICsuXCIgLS0tLS0g
+REVTQ1JJUFRJT04gOjogRnVuY3Rpb25zIDo6IHN0cm5jcHkoMykgLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS8NCj4+ICsuVFANCj4+ICsuQlIgc3RybmNweSAoMykNCj4+ICtUaGlzIGZ1bmN0
+aW9uIGlzIGlkZW50aWNhbCB0bw0KPj4gKy5CUiBzdHBuY3B5ICgzKQ0KPj4gK2V4Y2VwdCBm
+b3IgdGhlIHVzZWxlc3MgcmV0dXJuIHZhbHVlLg0KPj4gKy5JUA0KPj4gKy5CUiBzdHBuY3B5
+ICgzKQ0KPj4gK2lzIGEgbW9yZSB1c2VmdWwgYWx0ZXJuYXRpdmUgdG8gdGhpcyBmdW5jdGlv
+bi4NCj4+ICsuXCIgLS0tLS0gREVTQ1JJUFRJT04gOjogRnVuY3Rpb25zIDo6IHp1c3RyMnVz
+dHAoMykgLS0tLS0tLS0tLS0tLS0tLS0tLS0vDQo+PiArLlRQDQo+PiArLkJSIHp1c3RyMnVz
+dHAgKDMpDQo+PiArVGhpcyBmdW5jdGlvbiBjb3BpZXMgdGhlIGlucHV0IGNoYXJhY3RlciBz
+ZXF1ZW5jZQ0KPj4gK2NvbnRhaW5lZCBpbiBhIG51bGwtcGFkZGVkIHdpeGVkLXdpZHRoIGJ1
+ZmZlciwNCj4+ICtpbnRvIGEgZGVzdGluYXRpb24gY2hhcmFjdGVyIHNlcXVlbmNlLg0KPj4g
+K1RoZSBwcm9ncmFtbWVyIGlzIHJlc3BvbnNpYmxlIGZvciBhbGxvY2F0aW5nIGEgYnVmZmVy
+IGxhcmdlIGVub3VnaC4NCj4+ICtJdCByZXR1cm5zIGEgcG9pbnRlciBzdWl0YWJsZSBmb3Ig
+Y2hhaW5pbmcuDQo+PiArLklQDQo+PiArQSB0cnVuY2F0aW5nIHZlcnNpb24gb2YgdGhpcyBm
+dW5jdGlvbiBkb2Vzbid0IGV4aXN0LA0KPj4gK3NpbmNlIHRoZSBzaXplIG9mIHRoZSBvcmln
+aW5hbCBjaGFyYWN0ZXIgc2VxdWVuY2UgaXMgYWx3YXlzIGtub3duLA0KPj4gK3NvIGl0IHdv
+dWxkbid0IGJlIHZlcnkgdXNlZnVsLg0KPj4gKy5JUA0KPj4gK1RoaXMgZnVuY3Rpb24gaXMg
+bm90IHByb3ZpZGVkIGJ5IGFueSBsaWJyYXJ5Ow0KPj4gK1NlZSBFWEFNUExFUyBmb3IgYSBy
+ZWZlcmVuY2UgaW1wbGVtZW50YXRpb24uDQo+PiArLlwiIC0tLS0tIERFU0NSSVBUSU9OIDo6
+IEZ1bmN0aW9ucyA6OiB6dXN0cjJzdHAoMykgLS0tLS0tLS0tLS0tLS0tLS0tLS0vDQo+PiAr
+LlRQDQo+PiArLkJSIHp1c3RyMnN0cCAoMykNCj4+ICtUaGlzIGZ1bmN0aW9uIGNvcGllcyB0
+aGUgaW5wdXQgY2hhcmFjdGVyIHNlcXVlbmNlDQo+PiArY29udGFpbmVkIGluIGEgbnVsbC1w
+YWRkZWQgd2l4ZWQtd2lkdGggYnVmZmVyLA0KPj4gK2ludG8gYSBkZXN0aW5hdGlvbiBzdHJp
+bmcuDQo+PiArVGhlIHByb2dyYW1tZXIgaXMgcmVzcG9uc2libGUgZm9yIGFsbG9jYXRpbmcg
+YSBidWZmZXIgbGFyZ2UgZW5vdWdoLg0KPj4gK0l0IHJldHVybnMgYSBwb2ludGVyIHN1aXRh
+YmxlIGZvciBjaGFpbmluZy4NCj4+ICsuSVANCj4+ICtBIHRydW5jYXRpbmcgdmVyc2lvbiBv
+ZiB0aGlzIGZ1bmN0aW9uIGRvZXNuJ3QgZXhpc3QsDQo+PiArc2luY2UgdGhlIHNpemUgb2Yg
+dGhlIG9yaWdpbmFsIGNoYXJhY3RlciBzZXF1ZW5jZSBpcyBhbHdheXMga25vd24sDQo+PiAr
+c28gaXQgd291bGRuJ3QgYmUgdmVyeSB1c2VmdWwuDQo+PiArLklQDQo+PiArVGhpcyBmdW5j
+dGlvbiBpcyBub3QgcHJvdmlkZWQgYnkgYW55IGxpYnJhcnk7DQo+PiArU2VlIEVYQU1QTEVT
+IGZvciBhIHJlZmVyZW5jZSBpbXBsZW1lbnRhdGlvbi4NCj4+ICsuXCIgLS0tLS0gREVTQ1JJ
+UFRJT04gOjogRnVuY3Rpb25zIDo6IHN0cm5jYXQoMykgLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS8NCj4+ICsuVFANCj4+ICsuQlIgc3RybmNhdCAoMykNCj4+ICtEbyBub3QgY29uZnVzZSB0
+aGlzIGZ1bmN0aW9uIHdpdGgNCj4+ICsuQlIgc3RybmNweSAoMyk7DQo+PiArdGhleSBhcmUg
+bm90IHJlbGF0ZWQgYXQgYWxsLg0KPj4gKy5JUA0KPj4gK1RoaXMgZnVuY3Rpb24gY2F0ZW5h
+dGVzIHRoZSBpbnB1dCBjaGFyYWN0ZXIgc2VxdWVuY2UNCj4+ICtjb250YWluZWQgaW4gYSBu
+dWxsLXBhZGRlZCB3aXhlZC13aWR0aCBidWZmZXIsDQo+PiAraW50byBhIGRlc3RpbmF0aW9u
+IHN0cmluZy4NCj4+ICtUaGUgcHJvZ3JhbW1lciBpcyByZXNwb25zaWJsZSBmb3IgYWxsb2Nh
+dGluZyBhIGJ1ZmZlciBsYXJnZSBlbm91Z2guDQo+PiArVGhlIHJldHVybiB2YWx1ZSBpcyB1
+c2VsZXNzLg0KPj4gKy5JUA0KPj4gKy5CUiB6dXN0cjJzdHAgKDMpDQo+PiAraXMgYSBmYXN0
+ZXIgYWx0ZXJuYXRpdmUgdG8gdGhpcyBmdW5jdGlvbi4NCj4+ICsuXCIgLS0tLS0gREVTQ1JJ
+UFRJT04gOjogRnVuY3Rpb25zIDo6IHVzdHBjcHkoMykgLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS8NCj4+ICsuVFANCj4+ICsuQlIgdXN0cGNweSAoMykNCj4+ICtUaGlzIGZ1bmN0aW9uIGNv
+cGllcyB0aGUgaW5wdXQgY2hhcmFjdGVyIHNlcXVlbmNlLA0KPj4gK2xpbWl0ZWQgYnkgaXRz
+IGxlbmd0aCwNCj4+ICtpbnRvIGEgZGVzdGluYXRpb24gY2hhcmFjdGVyIHNlcXVlbmNlLg0K
+Pj4gK1RoZSBwcm9ncmFtbWVyIGlzIHJlc3BvbnNpYmxlIGZvciBhbGxvY2F0aW5nIGEgYnVm
+ZmVyIGxhcmdlIGVub3VnaC4NCj4+ICtJdCByZXR1cm5zIGEgcG9pbnRlciBzdWl0YWJsZSBm
+b3IgY2hhaW5pbmcuDQo+PiArLlwiIC0tLS0tIERFU0NSSVBUSU9OIDo6IEZ1bmN0aW9ucyA6
+OiB1c3RyMnN0cCgzKSAtLS0tLS0tLS0tLS0tLS0tLS0tLS0vDQo+PiArLlRQDQo+PiArLkJS
+IHVzdHIyc3RwICgzKQ0KPj4gK1RoaXMgZnVuY3Rpb24gY29waWVzIHRoZSBpbnB1dCBjaGFy
+YWN0ZXIgc2VxdWVuY2UsDQo+PiArbGltaXRlZCBieSBpdHMgbGVuZ3RoLA0KPj4gK2ludG8g
+YSBkZXN0aW5hdGlvbiBzdHJpbmcuDQo+PiArVGhlIHByb2dyYW1tZXIgaXMgcmVzcG9uc2li
+bGUgZm9yIGFsbG9jYXRpbmcgYSBidWZmZXIgbGFyZ2UgZW5vdWdoLg0KPj4gK0l0IHJldHVy
+bnMgYSBwb2ludGVyIHN1aXRhYmxlIGZvciBjaGFpbmluZy4NCj4+ICsuXCIgLS0tLS0gUkVU
+VVJOIFZBTFVFIDo6IC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS8NCj4+ICsuU0ggUkVUVVJOIFZBTFVFDQo+PiArVGhlIGZvbGxvd2luZyBmdW5jdGlv
+bnMgcmV0dXJuDQo+PiArYSBwb2ludGVyIHRvIHRoZSB0ZXJtaW5hdGluZyBudWxsIGJ5dGUg
+aW4gdGhlIGRlc3RpbmF0aW9uIHN0cmluZy4NCj4+ICsuSVAgXChidSAzDQo+PiArLlBEIDAN
+Cj4+ICsuQlIgc3RwY3B5ICgzKQ0KPj4gKy5JUCBcKGJ1DQo+PiArLkJSIHVzdHIyc3RwICgz
+KQ0KPj4gKy5JUCBcKGJ1DQo+PiArLkJSIHp1c3RyMnN0cCAoMykNCj4+ICsuUEQNCj4+ICsu
+UFANCj4+ICtUaGUgZm9sbG93aW5nIGZ1bmN0aW9ucyByZXR1cm4NCj4+ICthIHBvaW50ZXIg
+dG8gdGhlIHRlcm1pbmF0aW5nIG51bGwgYnl0ZSBpbiB0aGUgZGVzdGluYXRpb24gc3RyaW5n
+LA0KPj4gK2V4Y2VwdCB3aGVuIHRydW5jYXRpb24gb2NjdXJzOw0KPj4gK2lmIHRydW5jYXRp
+b24gb2NjdXJzLA0KPj4gK3RoZXkgcmV0dXJuIGEgcG9pbnRlciB0byB0aGUgZW5kIG9mIHRo
+ZSBkZXN0aW5hdGlvbiBidWZmZXIuDQo+PiArLklQIFwoYnUgMw0KPj4gKy5CUiBzdHBlY3B5
+ICgzKSwNCj4+ICsuQlIgc3RwZWNweXggKDMpDQo+PiArLlBQDQo+PiArVGhlIGZvbGxvd2lu
+ZyBmdW5jdGlvbiByZXR1cm5zDQo+PiArYSBwb2ludGVyIHRvIG9uZSBhZnRlciB0aGUgbGFz
+dCBjaGFyYWN0ZXINCj4+ICtpbiB0aGUgZGVzdGluYXRpb24gY2hhcmFjdGVyIHNlcXVlbmNl
+Ow0KPj4gK2lmIHRydW5jYXRpb24gb2NjdXJzLA0KPj4gK3RoYXQgcG9pbnRlciBpcyBlcXVp
+dmFsZW50IHRvDQo+PiArYSBwb2ludGVyIHRvIHRoZSBlbmQgb2YgdGhlIGRlc3RpbmF0aW9u
+IGJ1ZmZlci4NCj4+ICsuSVAgXChidSAzDQo+PiArLkJSIHN0cG5jcHkgKDMpDQo+PiArLlBQ
+DQo+PiArVGhlIGZvbGxvd2luZyBmdW5jdGlvbnMgcmV0dXJuDQo+PiArYSBwb2ludGVyIHRv
+IG9uZSBhZnRlciB0aGUgbGFzdCBjaGFyYWN0ZXINCj4+ICtpbiB0aGUgZGVzdGluYXRpb24g
+Y2hhcmFjdGVyIHNlcXVlbmNlLg0KPj4gKy5JUCBcKGJ1IDMNCj4+ICsuUEQgMA0KPj4gKy5C
+UiB6dXN0cjJ1c3RwICgzKQ0KPj4gKy5JUCBcKGJ1DQo+PiArLkJSIHVzdHBjcHkgKDMpDQo+
+PiArLlBEDQo+PiArLlBQDQo+PiArVGhlIGZvbGxvd2luZyBmdW5jdGlvbnMgcmV0dXJuDQo+
+PiArdGhlIGxlbmd0aCBvZiB0aGUgdG90YWwgc3RyaW5nIHRoYXQgdGhleSB0cmllZCB0byBj
+cmVhdGUNCj4+ICsoYXMgaWYgdHJ1bmNhdGlvbiBkaWRuJ3Qgb2NjdXIpLg0KPj4gKy5JUCBc
+KGJ1IDMNCj4+ICsuQlIgc3RybGNweSAoM2JzZCksDQo+PiArLkJSIHN0cmxjYXQgKDNic2Qp
+DQo+PiArLlBQDQo+PiArVGhlIGZvbGxvd2luZyBmdW5jdGlvbnMgcmV0dXJuIHRoZQ0KPj4g
+Ky5JIGRzdA0KPj4gK3BvaW50ZXIsDQo+PiArd2hpY2ggaXMgdXNlbGVzcy4NCj4+ICsuSVAg
+XChidSAzDQo+PiArLlBEIDANCj4+ICsuQlIgc3RyY3B5ICgzKSwNCj4+ICsuQlIgc3RyY2F0
+ICgzKQ0KPj4gKy5JUCBcKGJ1DQo+PiArLkJSIHN0cm5jcHkgKDMpDQo+PiArLklQIFwoYnUN
+Cj4+ICsuQlIgc3RybmNhdCAoMykNCj4+ICsuUEQNCj4+ICsuXCIgLS0tLS0gTk9URVMgOjog
+c3Ryc2NweSg5KSAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS8N
+Cj4+ICsuU0ggTk9URVMNCj4+ICtUaGUgTGludXgga2VybmVsIGhhcyBhbiBpbnRlcm5hbCBm
+dW5jdGlvbiBmb3IgY29weWluZyBzdHJpbmdzLA0KPj4gK3doaWNoIGlzIHNpbWlsYXIgdG8N
+Cj4+ICsuQlIgc3RwZWNweSAoMyksDQo+PiArZXhjZXB0IHRoYXQgaXQgY2FuJ3QgYmUgY2hh
+aW5lZDoNCj4+ICsuVFANCj4+ICsuQlIgc3Ryc2NweSAoOSkNCj4+ICtUaGlzIGZ1bmN0aW9u
+IGNvcGllcyB0aGUgaW5wdXQgc3RyaW5nIGludG8gYSBkZXN0aW5hdGlvbiBzdHJpbmcuDQo+
+PiArSWYgdGhlIGRlc3RpbmF0aW9uIGJ1ZmZlciwNCj4+ICtsaW1pdGVkIGJ5IGl0cyBzaXpl
+LA0KPj4gK2lzbid0IGxhcmdlIGVub3VnaCB0byBob2xkIHRoZSBjb3B5LA0KPj4gK3RoZSBy
+ZXN1bHRpbmcgc3RyaW5nIGlzIHRydW5jYXRlZA0KPj4gKyhidXQgaXQgaXMgZ3VhcmFudGVl
+ZCB0byBiZSBudWxsLXRlcm1pbmF0ZWQpLg0KPj4gK0l0IHJldHVybnMgdGhlIGxlbmd0aCBv
+ZiB0aGUgZGVzdGluYXRpb24gc3RyaW5nLCBvcg0KPj4gKy5CIFwtRTJCSUcNCj4+ICtvbiB0
+cnVuY2F0aW9uLg0KPj4gKy5JUA0KPj4gKy5CUiBzdHBlY3B5ICgzKQ0KPj4gK2lzIGEgc2lt
+cGxlciBhbmQgZmFzdGVyIGFsdGVybmF0aXZlIHRvIHRoaXMgZnVuY3Rpb24uDQo+PiArLlJF
+DQo+PiArLlwiIC0tLS0tIENBVkVBVFMgOjogLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0vDQo+PiArLlNIIENBVkVBVFMNCj4+ICtEb24ndCBt
+aXggY2hhaW4gY2FsbHMgdG8gdHJ1bmNhdGluZyBhbmQgbm9uLXRydW5jYXRpbmcgZnVuY3Rp
+b25zLg0KPj4gK0l0IGlzIGNvbmNlcHR1YWxseSB3cm9uZw0KPj4gK3VubGVzcyB5b3Uga25v
+dyB0aGF0IHRoZSBmaXJzdCBwYXJ0IG9mIGEgY29weSB3aWxsIGFsd2F5cyBmaXQuDQo+PiAr
+QW55d2F5LCB0aGUgcGVyZm9ybWFuY2UgZGlmZmVyZW5jZSB3aWxsIHByb2JhYmx5IGJlIG5l
+Z2xpZ2libGUsDQo+PiArc28gaXQgd2lsbCBwcm9iYWJseSBiZSBtb3JlIGNsZWFyIGlmIHlv
+dSB1c2UgY29uc2lzdGVudCBzZW1hbnRpY3M6DQo+PiArZWl0aGVyIHRydW5jYXRpbmcgb3Ig
+bm9uLXRydW5jYXRpbmcuDQo+PiArQ2FsbGluZyBhIG5vbi10cnVuY2F0aW5nIGZ1bmN0aW9u
+IGFmdGVyIGEgdHJ1bmNhdGluZyBvbmUgaXMgbmVjZXNzYXJpbHkgd3JvbmcuDQo+PiArLlwi
+IC0tLS0tIEJVR1MgOjogLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0vDQo+PiArLlNIIEJVR1MNCj4+ICtBbGwgY2F0ZW5hdGlvbiBmdW5j
+dGlvbnMgc2hhcmUgdGhlIHNhbWUgcGVyZm9ybWFuY2UgcHJvYmxlbToNCj4+ICsuVVIgaHR0
+cHM6Ly93d3cuam9lbG9uc29mdHdhcmUuY29tL1w6MjAwMS8xMi8xMS9cOmJhY2tcLXRvXC1i
+YXNpY3MvDQo+PiArU2hsZW1pZWwgdGhlIHBhaW50ZXINCj4+ICsuVUUgLg0KPj4gKy5cIiAt
+LS0tLSBFWEFNUExFUyA6OiAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLw0KPj4gKy5TSCBFWEFNUExFUw0KPj4gK1RoZSBmb2xsb3dpbmcgYXJl
+IGV4YW1wbGVzIG9mIGNvcnJlY3QgdXNlIG9mIGVhY2ggb2YgdGhlc2UgZnVuY3Rpb25zLg0K
+Pj4gKy5cIiAtLS0tLSBFWEFNUExFUyA6OiBzdHBjcHkoMykgLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLw0KPj4gKy5UUA0KPj4gKy5CUiBzdHBjcHkgKDMpDQo+
+PiArLkVYDQo+PiArcCA9IGJ1ZjsNCj4+ICtwID0gc3RwY3B5KHAsICJIZWxsbyAiKTsNCj4+
+ICtwID0gc3RwY3B5KHAsICJ3b3JsZCIpOw0KPj4gK3AgPSBzdHBjcHkocCwgIiEiKTsNCj4+
+ICtsZW4gPSBwIFwtIGJ1ZjsNCj4+ICtwdXRzKGJ1Zik7DQo+PiArLkVFDQo+PiArLlwiIC0t
+LS0tIEVYQU1QTEVTIDo6IHN0cmNweSgzKSwgc3RyY2F0KDMpIC0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0vDQo+PiArLlRQDQo+PiArLkJSIHN0cmNweSAoMykNCj4+ICsuVFENCj4+
+ICsuQlIgc3RyY2F0ICgzKQ0KPj4gKy5FWA0KPj4gK3N0cmNweShidWYsICJIZWxsbyAiKTsN
+Cj4+ICtzdHJjYXQoYnVmLCAid29ybGQiKTsNCj4+ICtzdHJjYXQoYnVmLCAiISIpOw0KPj4g
+K2xlbiA9IHN0cmxlbihidWYpOw0KPj4gK3B1dHMoYnVmKTsNCj4+ICsuRUUNCj4+ICsuXCIg
+LS0tLS0gRVhBTVBMRVMgOjogc3RwZWNweSgzKSwgc3RwZWNweXgoMykgLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS8NCj4+ICsuVFANCj4+ICsuQlIgc3RwZWNweSAoMykNCj4+ICsuVFEN
+Cj4+ICsuQlIgc3RwZWNweXggKDMpDQo+PiArLkVYDQo+PiArZW5kID0gYnVmICsgc2l6ZW9m
+KGJ1Zik7DQo+PiArcCA9IGJ1ZjsNCj4+ICtwID0gc3RwZWNweShwLCBlbmQsICJIZWxsbyAi
+KTsNCj4+ICtwID0gc3RwZWNweShwLCBlbmQsICJ3b3JsZCIpOw0KPj4gK3AgPSBzdHBlY3B5
+KHAsIGVuZCwgIiEiKTsNCj4+ICtpZiAocCA9PSBlbmQpIHsNCj4+ICsgICAgcFwtXC07DQo+
+PiArICAgIGdvdG8gdG9vbG9uZzsNCj4+ICt9DQo+PiArbGVuID0gcCBcLSBidWY7DQo+PiAr
+cHV0cyhidWYpOw0KPj4gKy5FRQ0KPj4gKy5cIiAtLS0tLSBFWEFNUExFUyA6OiBzdHJsY3B5
+KDNic2QpLCBzdHJsY2F0KDNic2QpIC0tLS0tLS0tLS0tLS0tLS0tLS0tLw0KPj4gKy5UUA0K
+Pj4gKy5CUiBzdHJsY3B5ICgzYnNkKQ0KPj4gKy5UUQ0KPj4gKy5CUiBzdHJsY2F0ICgzYnNk
+KQ0KPj4gKy5FWA0KPj4gK2lmIChzdHJsY3B5KGJ1ZiwgIkhlbGxvICIsIHNpemVvZihidWYp
+KSA+PSBzaXplb2YoYnVmKSkNCj4+ICsgICAgZ290byB0b29sb25nOw0KPj4gK2lmIChzdHJs
+Y2F0KGJ1ZiwgIndvcmxkIiwgc2l6ZW9mKGJ1ZikpID49IHNpemVvZihidWYpKQ0KPj4gKyAg
+ICBnb3RvIHRvb2xvbmc7DQo+PiArbGVuID0gc3RybGNhdChidWYsICIhIiwgc2l6ZW9mKGJ1
+ZikpOw0KPj4gK2lmIChsZW4gPj0gc2l6ZW9mKGJ1ZikpDQo+PiArICAgIGdvdG8gdG9vbG9u
+ZzsNCj4+ICtwdXRzKGJ1Zik7DQo+PiArLkVFDQo+PiArLlwiIC0tLS0tIEVYQU1QTEVTIDo6
+IHN0cnNjcHkoOSkgLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0vDQo+
+PiArLlRQDQo+PiArLkJSIHN0cnNjcHkgKDkpDQo+PiArLkVYDQo+PiArbGVuID0gc3Ryc2Nw
+eShidWYsICJIZWxsbyB3b3JsZCEiLCBzaXplb2YoYnVmKSk7DQo+PiAraWYgKGxlbiA9PSBc
+LUUyQklHKQ0KPj4gKyAgICBnb3RvIHRvb2xvbmc7DQo+PiArcHV0cyhidWYpOw0KPj4gKy5F
+RQ0KPj4gKy5cIiAtLS0tLSBFWEFNUExFUyA6OiBzdHBuY3B5KDMpIC0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLw0KPj4gKy5UUA0KPj4gKy5CUiBzdHBuY3B5ICgz
+KQ0KPj4gKy5FWA0KPj4gK3AgPSBzdHBuY3B5KGJ1ZiwgIkhlbGxvIHdvcmxkISIsIHNpemVv
+ZihidWYpKTsNCj4+ICtpZiAoc2l6ZW9mKGJ1ZikgPCBzdHJsZW4oIkhlbGxvIHdvcmxkISIp
+KQ0KPj4gKyAgICBnb3RvIHRvb2xvbmc7DQo+PiArbGVuID0gcCBcLSBidWY7DQo+PiArZm9y
+IChzaXplX3QgaSA9IDA7IGkgPCBzaXplb2YoYnVmKTsgaSsrKQ0KPj4gKyAgICBwdXRjaGFy
+KGJ1ZltpXSk7DQo+PiArLkVFDQo+PiArLlwiIC0tLS0tIEVYQU1QTEVTIDo6IHN0cm5jcHko
+MykgLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0vDQo+PiArLlRQDQo+
+PiArLkJSIHN0cm5jcHkgKDMpDQo+PiArLkVYDQo+PiArc3RybmNweShidWYsICJIZWxsbyB3
+b3JsZCEiLCBzaXplb2YoYnVmKSk7DQo+PiAraWYgKHNpemVvZihidWYpIDwgc3RybGVuKCJI
+ZWxsbyB3b3JsZCEiKSkNCj4+ICsgICAgZ290byB0b29sb25nOw0KPj4gK2xlbiA9IHN0cm5s
+ZW4oYnVmLCBzaXplb2YoYnVmKSk7DQo+PiArZm9yIChzaXplX3QgaSA9IDA7IGkgPCBzaXpl
+b2YoYnVmKTsgaSsrKQ0KPj4gKyAgICBwdXRjaGFyKGJ1ZltpXSk7DQo+PiArLkVFDQo+PiAr
+LlwiIC0tLS0tIEVYQU1QTEVTIDo6IHp1c3RyMnVzdHAoMykgLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0vDQo+PiArLlRQDQo+PiArLkJSIHp1c3RyMnVzdHAgKDMpDQo+
+PiArLkVYDQo+PiArcCA9IGJ1ZjsNCj4+ICtwID0genVzdHIydXN0cChwLCAiSGVsbG8gIiwg
+Nik7DQo+PiArcCA9IHp1c3RyMnVzdHAocCwgIndvcmxkIiwgNDIpOyAgLy8gUGFkZGluZyBu
+dWxsIGJ5dGVzIGlnbm9yZWQuDQo+PiArcCA9IHp1c3RyMnVzdHAocCwgIiEiLCAxKTsNCj4+
+ICtsZW4gPSBwIFwtIGJ1ZjsNCj4+ICtwcmludGYoIiUuKnNcZW4iLCAoaW50KSBsZW4sIGJ1
+Zik7DQo+PiArLkVFDQo+PiArLlwiIC0tLS0tIEVYQU1QTEVTIDo6IHp1c3RyMnN0cCgzKSAt
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0vDQo+PiArLlRQDQo+PiArLkJS
+IHp1c3RyMnN0cCAoMykNCj4+ICsuRVgNCj4+ICtwID0gYnVmOw0KPj4gK3AgPSB6dXN0cjJz
+dHAocCwgIkhlbGxvICIsIDYpOw0KPj4gK3AgPSB6dXN0cjJzdHAocCwgIndvcmxkIiwgNDIp
+OyAgLy8gUGFkZGluZyBudWxsIGJ5dGVzIGlnbm9yZWQuDQo+PiArcCA9IHp1c3RyMnN0cChw
+LCAiISIsIDEpOw0KPj4gK2xlbiA9IHAgXC0gYnVmOw0KPj4gK3B1dHMoYnVmKTsNCj4+ICsu
+RUUNCj4+ICsuXCIgLS0tLS0gRVhBTVBMRVMgOjogc3RybmNhdCgzKSAtLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS8NCj4+ICsuVFANCj4+ICsuQlIgc3RybmNhdCAo
+MykNCj4+ICsuRVgNCj4+ICtidWZbMF0gPSBcKGFxXGUwXChhcTsgIC8vIFRoZXJlJ3Mgbm8g
+J2NweScgZnVuY3Rpb24gdG8gdGhpcyAnY2F0Jy4NCj4+ICtzdHJuY2F0KGJ1ZiwgIkhlbGxv
+ICIsIDYpOw0KPj4gK3N0cm5jYXQoYnVmLCAid29ybGQiLCA0Mik7ICAvLyBQYWRkaW5nIG51
+bGwgYnl0ZXMgaWdub3JlZC4NCj4+ICtzdHJuY2F0KGJ1ZiwgIiEiLCAxKTsNCj4+ICtsZW4g
+PSBzdHJsZW4oYnVmKTsNCj4+ICtwdXRzKGJ1Zik7DQo+PiArLkVFDQo+PiArLlwiIC0tLS0t
+IEVYQU1QTEVTIDo6IHVzdHBjcHkoMykgLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0vDQo+PiArLlRQDQo+PiArLkJSIHVzdHBjcHkgKDMpDQo+PiArLkVYDQo+PiAr
+cCA9IGJ1ZjsNCj4+ICtwID0gdXN0cGNweShwLCAiSGVsbG8gIiwgNik7DQo+PiArcCA9IHVz
+dHBjcHkocCwgIndvcmxkIiwgNSk7DQo+PiArcCA9IHVzdHBjcHkocCwgIiEiLCAxKTsNCj4+
+ICtsZW4gPSBwIFwtIGJ1ZjsNCj4+ICtwcmludGYoIiUuKnNcZW4iLCAoaW50KSBsZW4sIGJ1
+Zik7DQo+PiArLkVFDQo+PiArLlwiIC0tLS0tIEVYQU1QTEVTIDo6IHVzdHIyc3RwKDMpIC0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0vDQo+PiArLlRQDQo+PiArLkJS
+IHVzdHIyc3RwICgzKQ0KPj4gKy5FWA0KPj4gK3AgPSBidWY7DQo+PiArcCA9IHVzdHIyc3Rw
+KHAsICJIZWxsbyAiLCA2KTsNCj4+ICtwID0gdXN0cjJzdHAocCwgIndvcmxkIiwgNSk7DQo+
+PiArcCA9IHVzdHIyc3RwKHAsICIhIiwgMSk7DQo+PiArbGVuID0gcCBcLSBidWY7DQo+PiAr
+cHV0cyhidWYpOw0KPj4gKy5FRQ0KPj4gKy5cIiAtLS0tLSBFWEFNUExFUyA6OiBJbXBsZW1l
+bnRhdGlvbnMgOjogLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLw0KPj4gKy5TUyBJ
+bXBsZW1lbnRhdGlvbnMNCj4+ICtIZXJlIGFyZSByZWZlcmVuY2UgaW1wbGVtZW50YXRpb25z
+IGZvciBmdW5jdGlvbnMgbm90IHByb3ZpZGVkIGJ5IGxpYmMuDQo+PiArLlBQDQo+PiArLmlu
+ICs0bg0KPj4gKy5FWA0KPj4gKy8qIFRoaXMgY29kZSBpcyBpbiB0aGUgcHVibGljIGRvbWFp
+bi4gKi8NCj4+ICsNCj4+ICsuXCIgLS0tLS0gRVhBTVBMRVMgOjogSW1wbGVtZW50YXRpb25z
+IDo6IHN0cGVjcHkoMykgLS0tLS0tLS0tLS0tLS0tLS0tLS8NCj4+ICtjaGFyICoNCj4+ICsu
+SVIgc3RwZWNweSAiKGNoYXIgKmRzdCwgY2hhciBlbmRbMF0sIGNvbnN0IGNoYXIgKnJlc3Ry
+aWN0IHNyYykiDQo+PiArew0KPj4gKyAgICBjaGFyICpwOw0KPj4gKw0KPj4gKyAgICBpZiAo
+ZHN0ID09IGVuZCkNCj4+ICsgICAgICAgIHJldHVybiBlbmQ7DQo+PiArDQo+PiArICAgIHAg
+PSBtZW1jY3B5KGRzdCwgc3JjLCBcKGFxXGUwXChhcSwgZW5kIFwtIGRzdCk7DQo+PiArICAg
+IGlmIChwICE9IE5VTEwpDQo+PiArICAgICAgICByZXR1cm4gcCBcLSAxOw0KPj4gKw0KPj4g
+KyAgICAvKiB0cnVuY2F0aW9uIGRldGVjdGVkICovDQo+PiArICAgIGVuZFtcLTFdID0gXChh
+cVxlMFwoYXE7DQo+PiArICAgIHJldHVybiBlbmQ7DQo+PiArfQ0KPj4gKw0KPj4gKy5cIiAt
+LS0tLSBFWEFNUExFUyA6OiBJbXBsZW1lbnRhdGlvbnMgOjogc3RwZWNweSgzKSAtLS0tLS0t
+LS0tLS0tLS0tLS0tLw0KPj4gK2NoYXIgKg0KPj4gKy5JUiBzdHBlY3B5eCAiKGNoYXIgKmRz
+dCwgY2hhciBlbmRbMF0sIGNvbnN0IGNoYXIgKnJlc3RyaWN0IHNyYykiDQo+PiArew0KPj4g
+KyAgICBpZiAoc3JjW3N0cmxlbihzcmMpXSAhPSBcKGFxXGUwXChhcSkNCj4+ICsgICAgICAg
+IHJhaXNlKFNJR1NFR1YpOw0KPj4gKw0KPj4gKyAgICByZXR1cm4gc3RwZWNweShkc3QsIGVu
+ZCwgc3JjKTsNCj4+ICt9DQo+PiArDQo+PiArLlwiIC0tLS0tIEVYQU1QTEVTIDo6IEltcGxl
+bWVudGF0aW9ucyA6OiB6dXN0cjJ1c3RwKDMpIC0tLS0tLS0tLS0tLS0tLS0vDQo+PiArY2hh
+ciAqDQo+PiArLklSIHp1c3RyMnVzdHAgIihjaGFyICpyZXN0cmljdCBkc3QsIGNvbnN0IGNo
+YXIgKnJlc3RyaWN0IHNyYywgc2l6ZV90IHN6KSINCj4+ICt7DQo+PiArICAgIHJldHVybiB1
+c3RwY3B5KGRzdCwgc3JjLCBzdHJubGVuKHNyYywgc3opKTsNCj4+ICt9DQo+PiArDQo+PiAr
+LlwiIC0tLS0tIEVYQU1QTEVTIDo6IEltcGxlbWVudGF0aW9ucyA6OiB6dXN0cjJzdHAoMykg
+LS0tLS0tLS0tLS0tLS0tLS0vDQo+PiArY2hhciAqDQo+PiArLklSIHp1c3RyMnN0cCAiKGNo
+YXIgKnJlc3RyaWN0IGRzdCwgY29uc3QgY2hhciAqcmVzdHJpY3Qgc3JjLCBzaXplX3Qgc3op
+Ig0KPj4gK3sNCj4+ICsgICAgY2hhciAgKnA7DQo+PiArDQo+PiArICAgIHAgPSB6dXN0cjJ1
+c3RwKGRzdCwgc3JjLCBzeik7DQo+PiArICAgICpwID0gXChhcVxlMFwoYXE7DQo+PiArDQo+
+PiArICAgIHJldHVybiBwOw0KPj4gK30NCj4+ICsNCj4+ICsuXCIgLS0tLS0gRVhBTVBMRVMg
+OjogSW1wbGVtZW50YXRpb25zIDo6IHVzdHBjcHkoMykgLS0tLS0tLS0tLS0tLS0tLS0tLS8N
+Cj4+ICtjaGFyICoNCj4+ICsuSVIgdXN0cGNweSAiKGNoYXIgKnJlc3RyaWN0IGRzdCwgY29u
+c3QgY2hhciAqcmVzdHJpY3Qgc3JjLCBzaXplX3QgbGVuKSINCj4+ICt7DQo+PiArICAgIHJl
+dHVybiBtZW1wY3B5KGRzdCwgc3JjLCBsZW4pOw0KPj4gK30NCj4+ICsNCj4+ICsuXCIgLS0t
+LS0gRVhBTVBMRVMgOjogSW1wbGVtZW50YXRpb25zIDo6IHVzdHIyc3RwKDMpIC0tLS0tLS0t
+LS0tLS0tLS0tLS8NCj4+ICtjaGFyICoNCj4+ICsuSVIgdXN0cjJzdHAgIihjaGFyICpyZXN0
+cmljdCBkc3QsIGNvbnN0IGNoYXIgKnJlc3RyaWN0IHNyYywgc2l6ZV90IGxlbikiDQo+PiAr
+ew0KPj4gKyAgICBjaGFyICAqcDsNCj4+ICsNCj4+ICsgICAgcCA9IHVzdHBjcHkoZHN0LCBz
+cmMsIGxlbik7DQo+PiArICAgICpwID0gXChhcVxlMFwoYXE7DQo+PiArDQo+PiArICAgIHJl
+dHVybiBwOw0KPj4gK30NCj4+ICsuRUUNCj4+ICsuaW4NCj4+ICsuXCIgLS0tLS0gU0VFIEFM
+U08gOjogLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS8NCj4+ICsuU0ggU0VFIEFMU08NCj4+ICsuQlIgYnplcm8gKDMpLA0KPj4gKy5CUiBtZW1j
+cHkgKDMpLA0KPj4gKy5CUiBtZW1jY3B5ICgzKSwNCj4+ICsuQlIgbWVtcGNweSAoMyksDQo+
+PiArLkJSIHN0cGNweSAoMyksDQo+PiArLkJSIHN0cmxjcHkgKDNic2QpLA0KPj4gKy5CUiBz
+dHJuY2F0ICgzKSwNCj4+ICsuQlIgc3RwbmNweSAoMyksDQo+PiArLkJSIHN0cmluZyAoMykN
+Cj4+IC0tDQo+PiAyLjM5LjANCj4+DQoNCi0tIA0KPGh0dHA6Ly93d3cuYWxlamFuZHJvLWNv
+bG9tYXIuZXMvPg0K
 
-Here I think you want s/usa/use above.
+--------------F0Y2wkWhN28JcHCSiunhiqKO--
 
-Thanks,
-Stefan.
+--------------nEwjYLWKfBR9N27SWh0eXJLX
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-> +However, with appropriate care,
-> +a string can be used in the place of a character sequence.
-> +.RS
-> +.TP
-> +.IR "null-padded character sequence " ( zustr )
-> +Character sequences can be contained in fixed-width buffers,
-> +which contain padding null bytes after the character sequence,
-> +to fill the rest of the buffer
-> +without affecting the character sequence;
-> +however, those padding null bytes are not part of the character sequence.
-> +.\" ----- DESCRIPTION :: Terms (and abbreviations) :: measured character sequence
-> +.TP
-> +.IR "measured character sequence " ( ustr )
-> +Character sequence delimited by its length.
-> +It may be a slice of a larger character sequence,
-> +or even of a string.
-> +.RE
-> +.\" ----- DESCRIPTION :: Terms (and abbreviations) :: length (len) ----/
-> +.TP
-> +.IR "length " ( len )
-> +is the number of non-null characters in a string or character sequence.
-> +It is the return value of
-> +.I strlen(str)
-> +and of
-> +.IR "strnlen(ustr, sz)" .
-> +.\" ----- DESCRIPTION :: Terms (and abbreviations) :: size (sz) -------/
-> +.TP
-> +.IR "size " ( sz )
-> +refers to the entire buffer
-> +where the string or character sequence is contained.
-> +.\" ----- DESCRIPTION :: Terms (and abbreviations) :: end -------------/
-> +.TP
-> +.I end
-> +is the name of a pointer to one past the last element of a buffer.
-> +It is equivalent to
-> +.IR &str[sz] .
-> +It is used as a sentinel value,
-> +to be able to truncate strings or character sequences
-> +instead of overrunning the containing buffer.
-> +.\" ----- DESCRIPTION :: Terms (and abbreviations) :: copy ------------/
-> +.TP
-> +.I copy
-> +This term is used when
-> +the writing starts at the first element pointed to by
-> +.IR dst .
-> +.\" ----- DESCRIPTION :: Terms (and abbreviations) :: catenate --------/
-> +.TP
-> +.I catenate
-> +This term is used when
-> +a function first finds the terminating null byte in
-> +.IR dst ,
-> +and then starts writing at that position.
-> +.\" ----- DESCRIPTION :: Terms (and abbreviations) :: chain -----------/
-> +.TP
-> +.I chain
-> +This term is used when
-> +it's the programmer who provides
-> +a pointer to the terminating null byte in the string
-> +.I dst
-> +(or one after the last character in a character sequence),
-> +and the function starts writing at that location.
-> +The function returns
-> +a pointer to the new location of the terminating null byte
-> +(or one after the last character in a character sequence)
-> +after the call,
-> +so that the programmer can use it to chain such calls.
-> +.\" ----- DESCRIPTION :: Copy, catenate, and chain-copy ---------------/
-> +.SS Copy, catenate, and chain-copy
-> +Originally,
-> +there was a distinction between functions that copy and those that catenate.
-> +However, newer functions that copy while allowing chaining
-> +cover both use cases with a single API.
-> +They are also algorithmically faster,
-> +since they don't need to search for
-> +the terminating null byte of the existing string.
-> +However, functions that catenate have a much simpler use,
-> +so if performance is not important,
-> +it can make sense to use them for improving readability.
-> +.PP
-> +The pointer returned by functions that allow chaining
-> +is a byproduct of the copy operation,
-> +so it has no performance costs.
-> +Functions that return such a pointer,
-> +and thus can be chained,
-> +have names of the form
-> +.RB * stp *(),
-> +since it's common to name the pointer just
-> +.IR p .
-> +.PP
-> +Chain-copying functions that truncate
-> +should accept a pointer to the end of the destination buffer,
-> +and have names of the form
-> +.RB * stpe *().
-> +This allows not having to recalculate the remaining size after each call.
-> +.\" ----- DESCRIPTION :: Truncate or not? -----------------------------/
-> +.SS Truncate or not?
-> +The first thing to note is that programmers should be careful with buffers,
-> +so they always have the correct size,
-> +and truncation is not necessary.
-> +.PP
-> +In most cases,
-> +truncation is not desired,
-> +and it is simpler to just do the copy.
-> +Simpler code is safer code.
-> +Programming against programming mistakes by adding more code
-> +just adds more points where mistakes can be made.
-> +.PP
-> +Nowadays,
-> +compilers can detect most programmer errors with features like
-> +compiler warnings,
-> +static analyzers, and
-> +.BR \%_FORTIFY_SOURCE
-> +(see
-> +.BR ftm (7)).
-> +Keeping the code simple
-> +helps these overflow-detection features be more precise.
-> +.PP
-> +When validating user input,
-> +however,
-> +it makes sense to truncate.
-> +Remember to check the return value of such function calls.
-> +.PP
-> +Functions that truncate:
-> +.IP \(bu 3
-> +.BR stpecpy (3)
-> +is the most efficient string copy function that performs truncation.
-> +It only requires to check for truncation once after all chained calls.
-> +.IP \(bu
-> +.BR stpecpyx (3)
-> +is a variant of
-> +.BR stpecpy (3)
-> +that consumes the entire source string,
-> +to catch bugs in the program
-> +by forcing a segmentation fault (as
-> +.BR strlcpy (3bsd)
-> +and
-> +.BR strlcat (3bsd)
-> +do).
-> +.IP \(bu
-> +.BR strlcpy (3bsd)
-> +and
-> +.BR strlcat (3bsd)
-> +are designed to crash if the input string is invalid
-> +(doesn't contain a terminating null byte).
-> +.IP \(bu
-> +.BR stpncpy (3)
-> +and
-> +.BR strncpy (3)
-> +also truncate, but they don't write strings,
-> +but rather null-padded character sequences.
-> +.\" ----- DESCRIPTION :: Null-padded character sequences --------------/
-> +.SS Null-padded character sequences
-> +For historic reasons,
-> +some standard APIs,
-> +such as
-> +.BR utmpx (5),
-> +use null-padded character sequences in fixed-width buffers.
-> +To interface with them,
-> +specialized functions need to be used.
-> +.PP
-> +To copy strings into them, use
-> +.BR stpncpy (3).
-> +.PP
-> +To copy from an unterminated string within a fixed-width buffer into a string,
-> +ignoring any trailing null bytes in the source fixed-width buffer,
-> +you should use
-> +.BR zustr2stp (3)
-> +or
-> +.BR strncat (3).
-> +.PP
-> +To copy from an unterminated string within a fixed-width buffer
-> +into a character sequence,
-> +ingoring any trailing null bytes in the source fixed-width buffer,
-> +you should use
-> +.BR zustr2ustp (3).
-> +.\" ----- DESCRIPTION :: Measured character sequences -----------------/
-> +.SS Measured character sequences
-> +The simplest character sequence copying function is
-> +.BR mempcpy (3).
-> +It requires always knowing the length of your character sequences,
-> +for which structures can be used.
-> +It makes the code much faster,
-> +since you always know the length of your character sequences,
-> +and can do the minimal copies and length measurements.
-> +.BR mempcpy (3)
-> +copies character sequences,
-> +so you need to explicitly set the terminating null byte if you need a string.
-> +.PP
-> +However,
-> +for keeping type safety,
-> +it's good to add a wrapper that uses
-> +.I char\~*
-> +instead of
-> +.IR void\~* :
-> +.BR ustpcpy (3).
-> +.PP
-> +In programs that make considerable use of strings or character sequences,
-> +and need the best performance,
-> +using overlapping character sequences can make a big difference.
-> +It allows holding subsequences of a larger character sequence.
-> +while not duplicating memory
-> +nor using time to do a copy.
-> +.PP
-> +However, this is delicate,
-> +since it requires using character sequences.
-> +C library APIs use strings,
-> +so programs that use character sequences
-> +will have to take care of differentiating strings from character sequences.
-> +.PP
-> +To copy a measured character sequence, use
-> +.BR ustpcpy (3).
-> +.PP
-> +To copy a measured character sequence into a string, use
-> +.BR ustr2stp (3).
-> +.PP
-> +Because these functions ask for the length,
-> +and a string is by nature composed of a character sequence of the same length
-> +plus a terminating null byte,
-> +a string is also accepted as input.
-> +.\" ----- DESCRIPTION :: String vs character sequence -----------------/
-> +.SS String vs character sequence
-> +Some functions only operate on strings.
-> +Those require that the input
-> +.I src
-> +is a string,
-> +and guarantee an output string
-> +(even when truncation occurs).
-> +Functions that catenate
-> +also require that
-> +.I dst
-> +holds a string before the call.
-> +List of functions:
-> +.IP \(bu 3
-> +.PD 0
-> +.BR stpcpy (3)
-> +.IP \(bu
-> +.BR strcpy "(3), \c"
-> +.BR strcat (3)
-> +.IP \(bu
-> +.BR stpecpy "(3), \c"
-> +.BR stpecpyx (3)
-> +.IP \(bu
-> +.BR strlcpy "(3bsd), \c"
-> +.BR strlcat (3bsd)
-> +.PD
-> +.PP
-> +Other functions require an input string,
-> +but create a character sequence as output.
-> +These functions have confusing names,
-> +and have a long history of misuse.
-> +List of functions:
-> +.IP \(bu 3
-> +.PD 0
-> +.BR stpncpy (3)
-> +.IP \(bu
-> +.BR strncpy (3)
-> +.PD
-> +.PP
-> +Other functions operate on an input character sequence,
-> +and create an output string.
-> +Functions that catenate
-> +also require that
-> +.I dst
-> +holds a string before the call.
-> +.BR strncat (3)
-> +has an even more misleading name than the functions above.
-> +List of functions:
-> +.IP \(bu 3
-> +.PD 0
-> +.BR zustr2stp (3)
-> +.IP \(bu
-> +.BR strncat (3)
-> +.IP \(bu
-> +.BR ustr2stp (3)
-> +.PD
-> +.PP
-> +Other functions operate on an input character sequence
-> +to create an output character sequence.
-> +List of functions:
-> +.IP \(bu 3
-> +.PD 0
-> +.BR ustpcpy (3)
-> +.IP \(bu
-> +.BR zustr2stp (3)
-> +.PD
-> +.\" ----- DESCRIPTION :: Functions :: ---------------------------------/
-> +.SS Functions
-> +.\" ----- DESCRIPTION :: Functions :: stpcpy(3) -----------------------/
-> +.TP
-> +.BR stpcpy (3)
-> +This function copies the input string into a destination string.
-> +The programmer is responsible for allocating a buffer large enough.
-> +It returns a pointer suitable for chaining.
-> +.\" ----- DESCRIPTION :: Functions :: strcpy(3), strcat(3) ------------/
-> +.TP
-> +.BR strcpy (3)
-> +.TQ
-> +.BR strcat (3)
-> +These functions copy and catenate the input string into a destination string.
-> +The programmer is responsible for allocating a buffer large enough.
-> +The return value is useless.
-> +.IP
-> +.BR stpcpy (3)
-> +is a faster alternative to these functions.
-> +.\" ----- DESCRIPTION :: Functions :: stpecpy(3), stpecpyx(3) ---------/
-> +.TP
-> +.BR stpecpy (3)
-> +.TQ
-> +.BR stpecpyx (3)
-> +These functions copy the input string into a destination string.
-> +If the destination buffer,
-> +limited by a pointer to its end,
-> +isn't large enough to hold the copy,
-> +the resulting string is truncated
-> +(but it is guaranteed to be null-terminated).
-> +They return a pointer suitable for chaining.
-> +Truncation needs to be detected only once after the last chained call.
-> +.BR stpecpyx (3)
-> +has identical semantics to
-> +.BR stpecpy (3),
-> +except that it forces a SIGSEGV if the
-> +.I src
-> +pointer is not a string.
-> +.IP
-> +These functions are not provided by any library;
-> +See EXAMPLES for a reference implementation.
-> +.\" ----- DESCRIPTION :: Functions :: strlcpy(3bsd), strlcat(3bsd) ----/
-> +.TP
-> +.BR strlcpy (3bsd)
-> +.TQ
-> +.BR strlcat (3bsd)
-> +These functions copy and catenate the input string into a destination string.
-> +If the destination buffer,
-> +limited by its size,
-> +isn't large enough to hold the copy,
-> +the resulting string is truncated
-> +(but it is guaranteed to be null-terminated).
-> +They return the length of the total string they tried to create.
-> +These functions force a SIGSEGV if the
-> +.I src
-> +pointer is not a string.
-> +.IP
-> +.BR stpecpyx (3)
-> +is a faster alternative to these functions.
-> +.\" ----- DESCRIPTION :: Functions :: stpncpy(3) ----------------------/
-> +.TP
-> +.BR stpncpy (3)
-> +This function copies the input string into
-> +a destination null-padded character sequence in a fixed-width buffer.
-> +If the destination buffer,
-> +limited by its size,
-> +isn't large enough to hold the copy,
-> +the resulting character sequence is truncated.
-> +Since it creates a character sequence,
-> +it doesn't need to write a terminating null byte.
-> +It's impossible to distinguish truncation by the result of the call,
-> +from a character sequence that just fits the destination buffer;
-> +truncation should be detected by
-> +comparing the length of the input string
-> +with the size of the destination buffer.
-> +.\" ----- DESCRIPTION :: Functions :: strncpy(3) ----------------------/
-> +.TP
-> +.BR strncpy (3)
-> +This function is identical to
-> +.BR stpncpy (3)
-> +except for the useless return value.
-> +.IP
-> +.BR stpncpy (3)
-> +is a more useful alternative to this function.
-> +.\" ----- DESCRIPTION :: Functions :: zustr2ustp(3) --------------------/
-> +.TP
-> +.BR zustr2ustp (3)
-> +This function copies the input character sequence
-> +contained in a null-padded wixed-width buffer,
-> +into a destination character sequence.
-> +The programmer is responsible for allocating a buffer large enough.
-> +It returns a pointer suitable for chaining.
-> +.IP
-> +A truncating version of this function doesn't exist,
-> +since the size of the original character sequence is always known,
-> +so it wouldn't be very useful.
-> +.IP
-> +This function is not provided by any library;
-> +See EXAMPLES for a reference implementation.
-> +.\" ----- DESCRIPTION :: Functions :: zustr2stp(3) --------------------/
-> +.TP
-> +.BR zustr2stp (3)
-> +This function copies the input character sequence
-> +contained in a null-padded wixed-width buffer,
-> +into a destination string.
-> +The programmer is responsible for allocating a buffer large enough.
-> +It returns a pointer suitable for chaining.
-> +.IP
-> +A truncating version of this function doesn't exist,
-> +since the size of the original character sequence is always known,
-> +so it wouldn't be very useful.
-> +.IP
-> +This function is not provided by any library;
-> +See EXAMPLES for a reference implementation.
-> +.\" ----- DESCRIPTION :: Functions :: strncat(3) ----------------------/
-> +.TP
-> +.BR strncat (3)
-> +Do not confuse this function with
-> +.BR strncpy (3);
-> +they are not related at all.
-> +.IP
-> +This function catenates the input character sequence
-> +contained in a null-padded wixed-width buffer,
-> +into a destination string.
-> +The programmer is responsible for allocating a buffer large enough.
-> +The return value is useless.
-> +.IP
-> +.BR zustr2stp (3)
-> +is a faster alternative to this function.
-> +.\" ----- DESCRIPTION :: Functions :: ustpcpy(3) ----------------------/
-> +.TP
-> +.BR ustpcpy (3)
-> +This function copies the input character sequence,
-> +limited by its length,
-> +into a destination character sequence.
-> +The programmer is responsible for allocating a buffer large enough.
-> +It returns a pointer suitable for chaining.
-> +.\" ----- DESCRIPTION :: Functions :: ustr2stp(3) ---------------------/
-> +.TP
-> +.BR ustr2stp (3)
-> +This function copies the input character sequence,
-> +limited by its length,
-> +into a destination string.
-> +The programmer is responsible for allocating a buffer large enough.
-> +It returns a pointer suitable for chaining.
-> +.\" ----- RETURN VALUE :: ---------------------------------------------/
-> +.SH RETURN VALUE
-> +The following functions return
-> +a pointer to the terminating null byte in the destination string.
-> +.IP \(bu 3
-> +.PD 0
-> +.BR stpcpy (3)
-> +.IP \(bu
-> +.BR ustr2stp (3)
-> +.IP \(bu
-> +.BR zustr2stp (3)
-> +.PD
-> +.PP
-> +The following functions return
-> +a pointer to the terminating null byte in the destination string,
-> +except when truncation occurs;
-> +if truncation occurs,
-> +they return a pointer to the end of the destination buffer.
-> +.IP \(bu 3
-> +.BR stpecpy (3),
-> +.BR stpecpyx (3)
-> +.PP
-> +The following function returns
-> +a pointer to one after the last character
-> +in the destination character sequence;
-> +if truncation occurs,
-> +that pointer is equivalent to
-> +a pointer to the end of the destination buffer.
-> +.IP \(bu 3
-> +.BR stpncpy (3)
-> +.PP
-> +The following functions return
-> +a pointer to one after the last character
-> +in the destination character sequence.
-> +.IP \(bu 3
-> +.PD 0
-> +.BR zustr2ustp (3)
-> +.IP \(bu
-> +.BR ustpcpy (3)
-> +.PD
-> +.PP
-> +The following functions return
-> +the length of the total string that they tried to create
-> +(as if truncation didn't occur).
-> +.IP \(bu 3
-> +.BR strlcpy (3bsd),
-> +.BR strlcat (3bsd)
-> +.PP
-> +The following functions return the
-> +.I dst
-> +pointer,
-> +which is useless.
-> +.IP \(bu 3
-> +.PD 0
-> +.BR strcpy (3),
-> +.BR strcat (3)
-> +.IP \(bu
-> +.BR strncpy (3)
-> +.IP \(bu
-> +.BR strncat (3)
-> +.PD
-> +.\" ----- NOTES :: strscpy(9) -----------------------------------------/
-> +.SH NOTES
-> +The Linux kernel has an internal function for copying strings,
-> +which is similar to
-> +.BR stpecpy (3),
-> +except that it can't be chained:
-> +.TP
-> +.BR strscpy (9)
-> +This function copies the input string into a destination string.
-> +If the destination buffer,
-> +limited by its size,
-> +isn't large enough to hold the copy,
-> +the resulting string is truncated
-> +(but it is guaranteed to be null-terminated).
-> +It returns the length of the destination string, or
-> +.B \-E2BIG
-> +on truncation.
-> +.IP
-> +.BR stpecpy (3)
-> +is a simpler and faster alternative to this function.
-> +.RE
-> +.\" ----- CAVEATS :: --------------------------------------------------/
-> +.SH CAVEATS
-> +Don't mix chain calls to truncating and non-truncating functions.
-> +It is conceptually wrong
-> +unless you know that the first part of a copy will always fit.
-> +Anyway, the performance difference will probably be negligible,
-> +so it will probably be more clear if you use consistent semantics:
-> +either truncating or non-truncating.
-> +Calling a non-truncating function after a truncating one is necessarily wrong.
-> +.\" ----- BUGS :: -----------------------------------------------------/
-> +.SH BUGS
-> +All catenation functions share the same performance problem:
-> +.UR https://www.joelonsoftware.com/\:2001/12/11/\:back\-to\-basics/
-> +Shlemiel the painter
-> +.UE .
-> +.\" ----- EXAMPLES :: -------------------------------------------------/
-> +.SH EXAMPLES
-> +The following are examples of correct use of each of these functions.
-> +.\" ----- EXAMPLES :: stpcpy(3) ---------------------------------------/
-> +.TP
-> +.BR stpcpy (3)
-> +.EX
-> +p = buf;
-> +p = stpcpy(p, "Hello ");
-> +p = stpcpy(p, "world");
-> +p = stpcpy(p, "!");
-> +len = p \- buf;
-> +puts(buf);
-> +.EE
-> +.\" ----- EXAMPLES :: strcpy(3), strcat(3) ----------------------------/
-> +.TP
-> +.BR strcpy (3)
-> +.TQ
-> +.BR strcat (3)
-> +.EX
-> +strcpy(buf, "Hello ");
-> +strcat(buf, "world");
-> +strcat(buf, "!");
-> +len = strlen(buf);
-> +puts(buf);
-> +.EE
-> +.\" ----- EXAMPLES :: stpecpy(3), stpecpyx(3) -------------------------/
-> +.TP
-> +.BR stpecpy (3)
-> +.TQ
-> +.BR stpecpyx (3)
-> +.EX
-> +end = buf + sizeof(buf);
-> +p = buf;
-> +p = stpecpy(p, end, "Hello ");
-> +p = stpecpy(p, end, "world");
-> +p = stpecpy(p, end, "!");
-> +if (p == end) {
-> +    p\-\-;
-> +    goto toolong;
-> +}
-> +len = p \- buf;
-> +puts(buf);
-> +.EE
-> +.\" ----- EXAMPLES :: strlcpy(3bsd), strlcat(3bsd) --------------------/
-> +.TP
-> +.BR strlcpy (3bsd)
-> +.TQ
-> +.BR strlcat (3bsd)
-> +.EX
-> +if (strlcpy(buf, "Hello ", sizeof(buf)) >= sizeof(buf))
-> +    goto toolong;
-> +if (strlcat(buf, "world", sizeof(buf)) >= sizeof(buf))
-> +    goto toolong;
-> +len = strlcat(buf, "!", sizeof(buf));
-> +if (len >= sizeof(buf))
-> +    goto toolong;
-> +puts(buf);
-> +.EE
-> +.\" ----- EXAMPLES :: strscpy(9) --------------------------------------/
-> +.TP
-> +.BR strscpy (9)
-> +.EX
-> +len = strscpy(buf, "Hello world!", sizeof(buf));
-> +if (len == \-E2BIG)
-> +    goto toolong;
-> +puts(buf);
-> +.EE
-> +.\" ----- EXAMPLES :: stpncpy(3) --------------------------------------/
-> +.TP
-> +.BR stpncpy (3)
-> +.EX
-> +p = stpncpy(buf, "Hello world!", sizeof(buf));
-> +if (sizeof(buf) < strlen("Hello world!"))
-> +    goto toolong;
-> +len = p \- buf;
-> +for (size_t i = 0; i < sizeof(buf); i++)
-> +    putchar(buf[i]);
-> +.EE
-> +.\" ----- EXAMPLES :: strncpy(3) --------------------------------------/
-> +.TP
-> +.BR strncpy (3)
-> +.EX
-> +strncpy(buf, "Hello world!", sizeof(buf));
-> +if (sizeof(buf) < strlen("Hello world!"))
-> +    goto toolong;
-> +len = strnlen(buf, sizeof(buf));
-> +for (size_t i = 0; i < sizeof(buf); i++)
-> +    putchar(buf[i]);
-> +.EE
-> +.\" ----- EXAMPLES :: zustr2ustp(3) -----------------------------------/
-> +.TP
-> +.BR zustr2ustp (3)
-> +.EX
-> +p = buf;
-> +p = zustr2ustp(p, "Hello ", 6);
-> +p = zustr2ustp(p, "world", 42);  // Padding null bytes ignored.
-> +p = zustr2ustp(p, "!", 1);
-> +len = p \- buf;
-> +printf("%.*s\en", (int) len, buf);
-> +.EE
-> +.\" ----- EXAMPLES :: zustr2stp(3) ------------------------------------/
-> +.TP
-> +.BR zustr2stp (3)
-> +.EX
-> +p = buf;
-> +p = zustr2stp(p, "Hello ", 6);
-> +p = zustr2stp(p, "world", 42);  // Padding null bytes ignored.
-> +p = zustr2stp(p, "!", 1);
-> +len = p \- buf;
-> +puts(buf);
-> +.EE
-> +.\" ----- EXAMPLES :: strncat(3) --------------------------------------/
-> +.TP
-> +.BR strncat (3)
-> +.EX
-> +buf[0] = \(aq\e0\(aq;  // There's no 'cpy' function to this 'cat'.
-> +strncat(buf, "Hello ", 6);
-> +strncat(buf, "world", 42);  // Padding null bytes ignored.
-> +strncat(buf, "!", 1);
-> +len = strlen(buf);
-> +puts(buf);
-> +.EE
-> +.\" ----- EXAMPLES :: ustpcpy(3) --------------------------------------/
-> +.TP
-> +.BR ustpcpy (3)
-> +.EX
-> +p = buf;
-> +p = ustpcpy(p, "Hello ", 6);
-> +p = ustpcpy(p, "world", 5);
-> +p = ustpcpy(p, "!", 1);
-> +len = p \- buf;
-> +printf("%.*s\en", (int) len, buf);
-> +.EE
-> +.\" ----- EXAMPLES :: ustr2stp(3) -------------------------------------/
-> +.TP
-> +.BR ustr2stp (3)
-> +.EX
-> +p = buf;
-> +p = ustr2stp(p, "Hello ", 6);
-> +p = ustr2stp(p, "world", 5);
-> +p = ustr2stp(p, "!", 1);
-> +len = p \- buf;
-> +puts(buf);
-> +.EE
-> +.\" ----- EXAMPLES :: Implementations :: ------------------------------/
-> +.SS Implementations
-> +Here are reference implementations for functions not provided by libc.
-> +.PP
-> +.in +4n
-> +.EX
-> +/* This code is in the public domain. */
-> +
-> +.\" ----- EXAMPLES :: Implementations :: stpecpy(3) -------------------/
-> +char *
-> +.IR stpecpy "(char *dst, char end[0], const char *restrict src)"
-> +{
-> +    char *p;
-> +
-> +    if (dst == end)
-> +        return end;
-> +
-> +    p = memccpy(dst, src, \(aq\e0\(aq, end \- dst);
-> +    if (p != NULL)
-> +        return p \- 1;
-> +
-> +    /* truncation detected */
-> +    end[\-1] = \(aq\e0\(aq;
-> +    return end;
-> +}
-> +
-> +.\" ----- EXAMPLES :: Implementations :: stpecpy(3) -------------------/
-> +char *
-> +.IR stpecpyx "(char *dst, char end[0], const char *restrict src)"
-> +{
-> +    if (src[strlen(src)] != \(aq\e0\(aq)
-> +        raise(SIGSEGV);
-> +
-> +    return stpecpy(dst, end, src);
-> +}
-> +
-> +.\" ----- EXAMPLES :: Implementations :: zustr2ustp(3) ----------------/
-> +char *
-> +.IR zustr2ustp "(char *restrict dst, const char *restrict src, size_t sz)"
-> +{
-> +    return ustpcpy(dst, src, strnlen(src, sz));
-> +}
-> +
-> +.\" ----- EXAMPLES :: Implementations :: zustr2stp(3) -----------------/
-> +char *
-> +.IR zustr2stp "(char *restrict dst, const char *restrict src, size_t sz)"
-> +{
-> +    char  *p;
-> +
-> +    p = zustr2ustp(dst, src, sz);
-> +    *p = \(aq\e0\(aq;
-> +
-> +    return p;
-> +}
-> +
-> +.\" ----- EXAMPLES :: Implementations :: ustpcpy(3) -------------------/
-> +char *
-> +.IR ustpcpy "(char *restrict dst, const char *restrict src, size_t len)"
-> +{
-> +    return mempcpy(dst, src, len);
-> +}
-> +
-> +.\" ----- EXAMPLES :: Implementations :: ustr2stp(3) ------------------/
-> +char *
-> +.IR ustr2stp "(char *restrict dst, const char *restrict src, size_t len)"
-> +{
-> +    char  *p;
-> +
-> +    p = ustpcpy(dst, src, len);
-> +    *p = \(aq\e0\(aq;
-> +
-> +    return p;
-> +}
-> +.EE
-> +.in
-> +.\" ----- SEE ALSO :: -------------------------------------------------/
-> +.SH SEE ALSO
-> +.BR bzero (3),
-> +.BR memcpy (3),
-> +.BR memccpy (3),
-> +.BR mempcpy (3),
-> +.BR stpcpy (3),
-> +.BR strlcpy (3bsd),
-> +.BR strncat (3),
-> +.BR stpncpy (3),
-> +.BR string (3)
-> --
-> 2.39.0
->
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmOhztoACgkQnowa+77/
+2zLBqhAAiKKmLhn28XVTvqDMrI0x9OMhOwt82FcK0QdjKS/LWlNU1X53hw6ORUz/
+EbeUAOcyTGuIj4aQuyJiEo4P94NgvQ3bmyJNjWAA+u9Fsis49ZJ1XwZdDIEvWfNg
+GSiq38VuVqe4sr6RwJw7Uq0mbG8CAk7vHFBgZPBCG5CoSap58yDbjA503h9IG9JI
+v4jCNDZbeM/O037a2kXgmc7DqkelgHtz531iBL/IPip9WQpLnd/dPQqHaaQeu3om
+bGYf9fCSeSt5Mh3k0meMV7iMX5TZu49KrIWuho+Ul3Slw2d+pL4ezfoQwOXYEdGR
+2qJK4mF0uqcmu6FSTqSs8LJmYLeu3n2oslSt90hMNX6pXO7eSQ5S0Hs8HrlMRPa2
+1aL/h1ZaDVl7Ojaxz1A7NNNvRRtLyWuYVoTgVE2vF1KR56gAEcJbNCjniAtPLbXS
+sLMcv1ueqNy9sKZW1EPEINDKEkHyQRdXxrpLtXGTZIc+DOGhU8nEQkoNM6jAmOzJ
+kt6o8sSDU3ye4GVYr84T3YLHm7kGWW/iJZnnUe+UBfFuI7P2OmzzbRk/I2WYK6Cc
+DwhcSnFImQjtk8QDZqQibLRbU9Xi65YgGC/vSyHkmBse5FUIzVtnRiOYlV83+V95
+7+HNxMdkkgCWOAOTUuy829fdIs52UK0hf3I/XmD3iUmvBtYsfsc=
+=CLRr
+-----END PGP SIGNATURE-----
+
+--------------nEwjYLWKfBR9N27SWh0eXJLX--
