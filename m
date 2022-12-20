@@ -2,71 +2,68 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id BB6E3652266
-	for <lists+linux-man@lfdr.de>; Tue, 20 Dec 2022 15:24:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B1251652357
+	for <lists+linux-man@lfdr.de>; Tue, 20 Dec 2022 16:01:45 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229943AbiLTOYV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 20 Dec 2022 09:24:21 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51078 "EHLO
+        id S234240AbiLTPBn (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 20 Dec 2022 10:01:43 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51100 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230054AbiLTOXw (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 20 Dec 2022 09:23:52 -0500
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com [IPv6:2a00:1450:4864:20::429])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 744D61900A
-        for <linux-man@vger.kernel.org>; Tue, 20 Dec 2022 06:23:31 -0800 (PST)
-Received: by mail-wr1-x429.google.com with SMTP id m14so11876095wrh.7
-        for <linux-man@vger.kernel.org>; Tue, 20 Dec 2022 06:23:31 -0800 (PST)
+        with ESMTP id S234179AbiLTPBL (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 20 Dec 2022 10:01:11 -0500
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com [IPv6:2a00:1450:4864:20::635])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 98B4A1ADBB
+        for <linux-man@vger.kernel.org>; Tue, 20 Dec 2022 07:00:57 -0800 (PST)
+Received: by mail-ej1-x635.google.com with SMTP id qk9so29853685ejc.3
+        for <linux-man@vger.kernel.org>; Tue, 20 Dec 2022 07:00:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=v6lTHQAu+bCC9hIooeuvMypV+lmnZKbs7GLDvs5ggYY=;
-        b=TfI7YBghSXbTtCcp3o+vYVoI/MEyZXCUqn6qD14N90XGSDGtN7QUqVfPyn569ELDiF
-         lv1mbdT/oJ4a2se0nJazDWgOOWENln22VszMBzuDfpCisTMgdc/UiGASmLX0ci2cAYHp
-         Yw+Mt4SLNXRAUUuflCTMufefYueEfKHUlZRk37GP2mpm5SgjGUEXWDJioAPVuMd7n52d
-         zA+m1KA/X0r6UB78xxns9sZ+9TpByo5I/VcoPo8U9yxlM5Oh+3P3BZbtSnN3dzo25NT7
-         jGe8f9sfdrGLTJ00ablMOEhn4exJSInxkj3fNjeitU1gwmtwnMIX1ugOLPKRWSeQtjyh
-         WGVg==
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=X194ZwvLVnXXn9ybtM2ylM84007IQ/KfrSKJzf56DX8=;
+        b=kxNH9vbswOF9gtveDPHGDGI11BFFjd9PnaFer2JEsCKYLm2ngI2NEsKW2kLRvylYqV
+         yer9kVzw8j5qPsrwZDjKhVuQBisurXcuw3eawoNomoIuol4s/ybrwRNvjoy/ySzAPsHa
+         pVldSJZYOffXgzpVXZ+g7Yora8SmrkXya4mwppSEwQXtTzeN6d7VZjVxs7OFqJ/Jvklc
+         BlT6+av27I7QodhP3IbosAiRlB0hlxI9D0A7oj6GPk81jhadLGdygcLyjDf884qvnaGJ
+         5znlwlueSHPpemIG1lGs1XREIBDIbtfVn0m6aaCR0j9soa3PmOjs7IoTGmjRC4LtYvwL
+         igIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=v6lTHQAu+bCC9hIooeuvMypV+lmnZKbs7GLDvs5ggYY=;
-        b=TVh9do08mzUSiDCwZk/SkVcZy4gQ9tTl0SEyT5t+6P+4RWVqSnyWn/V+Rd656qDIyk
-         vdt09P++L34cnEUd36/EyuIt37/Yk9j5Ba8oCR7eB1rKLUTRQzTFyeQpF2uDgYPvRQoU
-         H4Pr/wSdidrOha5gQLZOMitGf1vqnsvT2DVbYCUyVt7Fp9VBp7Boci63FW+vKFmQtk9o
-         cDKbmTHJmBbjB0yXWvk+jam0X3dVFnnjEtjmS4+stT0va69n9UBiEGP/+99n7D7bQQuY
-         QqIbXXRvfAc8GcpUGVX0SlUFXQRBzj5LbWKBbyjhnd594Mr8inpNB9a1AyLmtRH6EXJ7
-         2ZyQ==
-X-Gm-Message-State: AFqh2krDRdjEvt06Xwx+Yhf1Qx1xle19m7lrGJTtLl2NwwZ4baSCAJVD
-        DBM1BSfLce2qBa2Ov9cFBj4=
-X-Google-Smtp-Source: AMrXdXuaSliNbF56odClWDpptpZh1ehBTBl+bEJdY7TpxR2qQqP8L6JoSagigVCJAR/TV5P3+R7GDA==
-X-Received: by 2002:adf:dbc7:0:b0:256:ff7d:2347 with SMTP id e7-20020adfdbc7000000b00256ff7d2347mr1290520wrj.13.1671546209878;
-        Tue, 20 Dec 2022 06:23:29 -0800 (PST)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id l7-20020a5d5607000000b002420fe50322sm12883989wrv.91.2022.12.20.06.23.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 20 Dec 2022 06:23:29 -0800 (PST)
-Message-ID: <50501038-c095-103d-dd7e-3254ac5a9443@gmail.com>
-Date:   Tue, 20 Dec 2022 15:23:13 +0100
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=X194ZwvLVnXXn9ybtM2ylM84007IQ/KfrSKJzf56DX8=;
+        b=GUox9dYRNm5J9uK+wl2CmrXHi82nCLSXX75YrHZPPvKdlUrAR9lQ1oRR5cxSfMyn9c
+         b++XCPZ7NcmMId0J8I8wA4eC43MT4Q9CKnvbk3Jy9f/wWFPwF46heA/m3/DLjKiylCTo
+         Dn5ZeD8CtJoRCbRaec061D5bveoRgNiL2KQ4jI+d+XRHKkxQ/6q+DBtsVfaKP1FagZIo
+         qkVvaC6f6CAn6pwsQoA9LfAc/ffD9rdoaEJMWbydIjQ3E60B1FREsM9832sQhVbIq9j6
+         /zXacW1VBJdqJ1GGnmG3m0Kkoa0VchOYqa0pO8w2CxiJZpi99AZ8IEgDxgx26lbsYdef
+         haVw==
+X-Gm-Message-State: ANoB5pmKX1Fn0ctHURkITUw817Z3NzaT+O3X/FbRyKjSXNQJg3hGZ+bi
+        Km50F5Q/yLPl2gWpCqgB5PdXhy0/Lvt4EtAcJwM=
+X-Google-Smtp-Source: AA0mqf5JYCZ6mkNTr3rEcsbbUeg5ZJ/NMM5A8us9crV0khIl+/KtxlvAKBU5h4QtSG/PhAqr1mBV9IMWE4sWKMbfPfw=
+X-Received: by 2002:a17:907:728c:b0:7c1:10cf:b81c with SMTP id
+ dt12-20020a170907728c00b007c110cfb81cmr10647669ejc.315.1671548455916; Tue, 20
+ Dec 2022 07:00:55 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-Subject: Re: [PATCH 1/2] suffixes.7: Drop diagnostic-suppressing hack
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        Alejandro Colomar <alx@kernel.org>
-Cc:     linux-man@vger.kernel.org
-References: <20221220031801.ocnqc66lh23nxgz7@illithid>
-Content-Language: en-US
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20221220031801.ocnqc66lh23nxgz7@illithid>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------4mOaS07j32wpr0sfQOiphqBE"
-X-Spam-Status: No, score=-3.3 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+References: <20221215002648.35111-1-alx@kernel.org> <20221219210208.10860-2-alx@kernel.org>
+In-Reply-To: <20221219210208.10860-2-alx@kernel.org>
+From:   Stefan Puiu <stefan.puiu@gmail.com>
+Date:   Tue, 20 Dec 2022 17:00:43 +0200
+Message-ID: <CACKs7VC-2j7cK3AYBAx5yxrJTXb1EAarjXhmOBDKcCNgyY1EZA@mail.gmail.com>
+Subject: Re: [PATCH v6 1/5] string_copy.7: Add page to document all
+ string-copying functions
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org, Alejandro Colomar <alx@kernel.org>,
+        Martin Sebor <msebor@redhat.com>,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        Douglas McIlroy <douglas.mcilroy@dartmouth.edu>,
+        Jakub Wilk <jwilk@jwilk.net>, Serge Hallyn <serge@hallyn.com>,
+        Iker Pedrosa <ipedrosa@redhat.com>,
+        Andrew Pinski <pinskia@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -75,67 +72,904 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------4mOaS07j32wpr0sfQOiphqBE
-Content-Type: multipart/mixed; boundary="------------FBlWvn36lcNslQedAjKClvw6";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>,
- Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org
-Message-ID: <50501038-c095-103d-dd7e-3254ac5a9443@gmail.com>
-Subject: Re: [PATCH 1/2] suffixes.7: Drop diagnostic-suppressing hack
-References: <20221220031801.ocnqc66lh23nxgz7@illithid>
-In-Reply-To: <20221220031801.ocnqc66lh23nxgz7@illithid>
+Hi,
 
---------------FBlWvn36lcNslQedAjKClvw6
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Noticed a typo below
 
-SGkgQnJhbmRlbiwNCg0KT24gMTIvMjAvMjIgMDQ6MTgsIEcuIEJyYW5kZW4gUm9iaW5zb24g
-d3JvdGU6DQo+IFRoZSBleHRlbnNpb24gb2YgdGhlIHBhZ2UgbGVuZ3RoIGlzIHdvcmthcm91
-bmQgZm9yDQo+IDxodHRwczovL3NhdmFubmFoLmdudS5vcmcvYnVncy8/NjM0NDk+LCB3aGlj
-aCBpcyBhIHZlcnkgb2xkIGdyb2ZmIGJ1ZywNCj4gcG9zc2liaWx5IGRhdGluZyBiYWNrIHRv
-IGdyb2ZmIDEuMDAgb3IgYmV5b25kLiAgSXQgaXMgZml4ZWQgaW4gZ3JvZmYNCj4gR2l0LiAg
-QnV0IHdhaXRpbmcgZm9yIGEgZ3JvZmYgcmVsZWFzZSBpcyBub3QgbmVjZXNzYXJ5OyBtYW4t
-ZGIgbWFuKDEpDQo+IG5vd2FkYXlzIGNvbmNlYWxzIGRpYWdub3N0aWMgbWVzc2FnZXMgZnJv
-bSB0aGUgZm9ybWF0dGVyIGFuZCBvdXRwdXQNCj4gZHJpdmVycy4NCg0KUGF0Y2ggc2V0IGFw
-cGxpZWQuICBUaGFua3MsDQoNCkFsZXgNCg0KPiAtLS0NCj4gICBtYW43L3N1ZmZpeGVzLjcg
-fCAzIC0tLQ0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAzIGRlbGV0aW9ucygtKQ0KPiANCj4gZGlm
-ZiAtLWdpdCBhL21hbjcvc3VmZml4ZXMuNyBiL21hbjcvc3VmZml4ZXMuNw0KPiBpbmRleCBi
-N2RhMjZjMTMuLjg5YjljZGUyYyAxMDA2NDQNCj4gLS0tIGEvbWFuNy9zdWZmaXhlcy43DQo+
-ICsrKyBiL21hbjcvc3VmZml4ZXMuNw0KPiBAQCAtMTMsOSArMTMsNiBAQA0KPiAgIC5cIiBN
-b2RpZmllZCBUaHUgTm92IDE2IDIzOjI4OjI1IDIwMDAgYnkgRGF2aWQgQS4gV2hlZWxlcg0K
-PiAgIC5cIiAgICA8ZHdoZWVsZXJAZHdoZWVsZXIuY29tPg0KPiAgIC5cIg0KPiAtLlwiICJu
-cm9mZiIgKCJtYW4iKSAob3IgInRibCIpIG5lZWRzIGEgbG9uZyBwYWdlIHRvIGF2b2lkIHdh
-cm5pbmdzDQo+IC0uXCIgZnJvbSAiZ3JvdHR5IiAoYXQgaW1hZ2luZWQgcGFnZSBicmVha3Mp
-LiAgQnVnIGluIGdyb3R0eT8NCj4gLS5pZiBuIC5wbCAxMDAwdg0KPiAgIC5USCBTVUZGSVhF
-UyA3IChkYXRlKSAiTGludXggbWFuLXBhZ2VzICh1bnJlbGVhc2VkKSINCj4gICAuU0ggTkFN
-RQ0KPiAgIHN1ZmZpeGVzIFwtIGxpc3Qgb2YgZmlsZSBzdWZmaXhlcw0KDQotLSANCjxodHRw
-Oi8vd3d3LmFsZWphbmRyby1jb2xvbWFyLmVzLz4NCg==
+On Mon, Dec 19, 2022 at 11:02 PM Alejandro Colomar
+<alx.manpages@gmail.com> wrote:
+>
+> This is an opportunity to use consistent language across the
+> documentation for all string-copying functions.
+>
+> It is also easier to show the similarities and differences between all
+> of the functions, so that a reader can use this page to know which
+> function is needed for a given task.
+>
+> Alternative functions not provided by libc have been given in the same
+> page, with reference implementations.
+>
+> Cc: Martin Sebor <msebor@redhat.com>
+> Cc: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+> Cc: Douglas McIlroy <douglas.mcilroy@dartmouth.edu>
+> Cc: Jakub Wilk <jwilk@jwilk.net>
+> Cc: Serge Hallyn <serge@hallyn.com>
+> Cc: Iker Pedrosa <ipedrosa@redhat.com>
+> Cc: Andrew Pinski <pinskia@gmail.com>
+> Cc: Stefan Puiu <stefan.puiu@gmail.com>
+> Signed-off-by: Alejandro Colomar <alx@kernel.org>
+> ---
+>  man7/string_copy.7 | 855 +++++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 855 insertions(+)
+>  create mode 100644 man7/string_copy.7
+>
+> diff --git a/man7/string_copy.7 b/man7/string_copy.7
+> new file mode 100644
+> index 000000000..a32b93c01
+> --- /dev/null
+> +++ b/man7/string_copy.7
+> @@ -0,0 +1,855 @@
+> +.\" Copyright 2022 Alejandro Colomar <alx@kernel.org>
+> +.\"
+> +.\" SPDX-License-Identifier: BSD-3-Clause
+> +.\"
+> +.TH string_copy 7 (date) "Linux man-pages (unreleased)"
+> +.\" ----- NAME :: -----------------------------------------------------/
+> +.SH NAME
+> +stpcpy,
+> +strcpy, strcat,
+> +stpecpy, stpecpyx,
+> +strlcpy, strlcat,
+> +stpncpy,
+> +strncpy,
+> +zustr2ustp, zustr2stp,
+> +strncat,
+> +ustpcpy, ustr2stp
+> +\- copy strings and character sequences
+> +.\" ----- SYNOPSIS :: -------------------------------------------------/
+> +.SH SYNOPSIS
+> +.\" ----- SYNOPSIS :: (Null-terminated) strings -----------------------/
+> +.SS Strings
+> +.nf
+> +// Chain-copy a string.
+> +.BI "char *stpcpy(char *restrict " dst ", const char *restrict " src );
+> +.PP
+> +// Copy/catenate a string.
+> +.BI "char *strcpy(char *restrict " dst ", const char *restrict " src );
+> +.BI "char *strcat(char *restrict " dst ", const char *restrict " src );
+> +.PP
+> +// Chain-copy a string with truncation.
+> +.BI "char *stpecpy(char *" dst ", char " end "[0], const char *restrict " src );
+> +.PP
+> +// Chain-copy a string with truncation and SIGSEGV on UB.
+> +.BI "char *stpecpyx(char *" dst ", char " end "[0], const char *restrict " src );
+> +.PP
+> +// Copy/catenate a string with truncation and SIGSEGV on UB.
+> +.BI "size_t strlcpy(char " dst "[restrict ." sz "], \
+> +const char *restrict " src ,
+> +.BI "               size_t " sz );
+> +.BI "size_t strlcat(char " dst "[restrict ." sz "], \
+> +const char *restrict " src ,
+> +.BI "               size_t " sz );
+> +.fi
+> +.\" ----- SYNOPSIS :: Null-padded character sequences --------/
+> +.SS Null-padded character sequences
+> +.nf
+> +// Zero a fixed-width buffer, and
+> +// copy a string into a character sequence with truncation.
+> +.BI "char *stpncpy(char " dst "[restrict ." sz "], \
+> +const char *restrict " src ,
+> +.BI "               size_t " sz );
+> +.PP
+> +// Zero a fixed-width buffer, and
+> +// copy a string into a character sequence with truncation.
+> +.BI "char *strncpy(char " dest "[restrict ." sz "], \
+> +const char *restrict " src ,
+> +.BI "               size_t " sz );
+> +.PP
+> +// Chain-copy a null-padded character sequence into a character sequence.
+> +.BI "char *zustr2ustp(char *restrict " dst ", \
+> +const char " src "[restrict ." sz ],
+> +.BI "               size_t " sz );
+> +.PP
+> +// Chain-copy a null-padded character sequence into a string.
+> +.BI "char *zustr2stp(char *restrict " dst ", \
+> +const char " src "[restrict ." sz ],
+> +.BI "               size_t " sz );
+> +.PP
+> +// Catenate a null-padded character sequence into a string.
+> +.BI "char *strncat(char *restrict " dst ", const char " src "[restrict ." sz ],
+> +.BI "               size_t " sz );
+> +.fi
+> +.\" ----- SYNOPSIS :: Measured character sequences --------------------/
+> +.SS Measured character sequences
+> +.nf
+> +// Chain-copy a measured character sequence.
+> +.BI "char *ustpcpy(char *restrict " dst ", \
+> +const char " src "[restrict ." len ],
+> +.BI "               size_t " len );
+> +.PP
+> +// Chain-copy a measured character sequence into a string.
+> +.BI "char *ustr2stp(char *restrict " dst ", \
+> +const char " src "[restrict ." len ],
+> +.BI "               size_t " len );
+> +.fi
+> +.SH DESCRIPTION
+> +.\" ----- DESCRIPTION :: Terms (and abbreviations) :: -----------------/
+> +.SS Terms (and abbreviations)
+> +.\" ----- DESCRIPTION :: Terms (and abbreviations) :: string (str) ----/
+> +.TP
+> +.IR "string " ( str )
+> +is a sequence of zero or more non-null characters followed by a null byte.
+> +.\" ----- DESCRIPTION :: Terms (and abbreviations) :: null-padded character seq
+> +.TP
+> +.I character sequence
+> +is a sequence of zero or more non-null characters.
+> +A program should never usa a character sequence where a string is required.
 
---------------FBlWvn36lcNslQedAjKClvw6--
+Here I think you want s/usa/use above.
 
---------------4mOaS07j32wpr0sfQOiphqBE
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+Thanks,
+Stefan.
 
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmOhxVEACgkQnowa+77/
-2zKARw/9Eg6ARWL/9ko2hQpvB24SLQlHOBYL14aoYws8eyJAbjE8A4LDSfL44kWK
-JDOLGF50d7VNble0B3iztClNPFfggvMCefJuH5aq+canOOxxXbzXlvFxzEybwV5t
-dIFcfMZ9K4y4recUeErx3u6GoIiSlxu+zHJjkejHFNtswOLFUanJuNOPfQSKXfpc
-memCM3fA/4MaqC8FlMCm9dXOsU+PK8kjmDeNOUp10hwVc1l+MX1aG51p36tYpbH0
-2+6HIGtuD9e6BM7/QxvVaHWEP/yfJtxsObUQuvp7mu+EaK43ZOjlyh+9j6IV+prl
-QNeRkpoYzBZGw77Lqe93XGN2l2xIT8LBFff6ZPkGK2KrLTOaboUFvK6Z4R/2jOTx
-cmU+kW81MX0qMK35KS7+dpB4w3nyAagbys4r88yLFcU3NTIgXvfyaRipF6/21+sY
-xTR+0nFXG3LPGLOPfUAVOMp6AqGNmdfJJXkAGp1Rk0VhXNyk/E0g7493uYgns48a
-6FrfHCkRfAxo1TJM2AYRPB4fQAb30pbsYFguZKHTzmYDf7sfa7+r5l9eZmbv52v9
-btUvF+OYChgFtEvfUFUcLO0hbc1kK9GyMc25plskviGAzrytjUPLrsDEwtQ6fm78
-wz+Do1GpAmfvLaF0Z2Qx9AYtOKNiT0WQkTz4MhkG3OkNLTWePgo=
-=qtXL
------END PGP SIGNATURE-----
-
---------------4mOaS07j32wpr0sfQOiphqBE--
+> +However, with appropriate care,
+> +a string can be used in the place of a character sequence.
+> +.RS
+> +.TP
+> +.IR "null-padded character sequence " ( zustr )
+> +Character sequences can be contained in fixed-width buffers,
+> +which contain padding null bytes after the character sequence,
+> +to fill the rest of the buffer
+> +without affecting the character sequence;
+> +however, those padding null bytes are not part of the character sequence.
+> +.\" ----- DESCRIPTION :: Terms (and abbreviations) :: measured character sequence
+> +.TP
+> +.IR "measured character sequence " ( ustr )
+> +Character sequence delimited by its length.
+> +It may be a slice of a larger character sequence,
+> +or even of a string.
+> +.RE
+> +.\" ----- DESCRIPTION :: Terms (and abbreviations) :: length (len) ----/
+> +.TP
+> +.IR "length " ( len )
+> +is the number of non-null characters in a string or character sequence.
+> +It is the return value of
+> +.I strlen(str)
+> +and of
+> +.IR "strnlen(ustr, sz)" .
+> +.\" ----- DESCRIPTION :: Terms (and abbreviations) :: size (sz) -------/
+> +.TP
+> +.IR "size " ( sz )
+> +refers to the entire buffer
+> +where the string or character sequence is contained.
+> +.\" ----- DESCRIPTION :: Terms (and abbreviations) :: end -------------/
+> +.TP
+> +.I end
+> +is the name of a pointer to one past the last element of a buffer.
+> +It is equivalent to
+> +.IR &str[sz] .
+> +It is used as a sentinel value,
+> +to be able to truncate strings or character sequences
+> +instead of overrunning the containing buffer.
+> +.\" ----- DESCRIPTION :: Terms (and abbreviations) :: copy ------------/
+> +.TP
+> +.I copy
+> +This term is used when
+> +the writing starts at the first element pointed to by
+> +.IR dst .
+> +.\" ----- DESCRIPTION :: Terms (and abbreviations) :: catenate --------/
+> +.TP
+> +.I catenate
+> +This term is used when
+> +a function first finds the terminating null byte in
+> +.IR dst ,
+> +and then starts writing at that position.
+> +.\" ----- DESCRIPTION :: Terms (and abbreviations) :: chain -----------/
+> +.TP
+> +.I chain
+> +This term is used when
+> +it's the programmer who provides
+> +a pointer to the terminating null byte in the string
+> +.I dst
+> +(or one after the last character in a character sequence),
+> +and the function starts writing at that location.
+> +The function returns
+> +a pointer to the new location of the terminating null byte
+> +(or one after the last character in a character sequence)
+> +after the call,
+> +so that the programmer can use it to chain such calls.
+> +.\" ----- DESCRIPTION :: Copy, catenate, and chain-copy ---------------/
+> +.SS Copy, catenate, and chain-copy
+> +Originally,
+> +there was a distinction between functions that copy and those that catenate.
+> +However, newer functions that copy while allowing chaining
+> +cover both use cases with a single API.
+> +They are also algorithmically faster,
+> +since they don't need to search for
+> +the terminating null byte of the existing string.
+> +However, functions that catenate have a much simpler use,
+> +so if performance is not important,
+> +it can make sense to use them for improving readability.
+> +.PP
+> +The pointer returned by functions that allow chaining
+> +is a byproduct of the copy operation,
+> +so it has no performance costs.
+> +Functions that return such a pointer,
+> +and thus can be chained,
+> +have names of the form
+> +.RB * stp *(),
+> +since it's common to name the pointer just
+> +.IR p .
+> +.PP
+> +Chain-copying functions that truncate
+> +should accept a pointer to the end of the destination buffer,
+> +and have names of the form
+> +.RB * stpe *().
+> +This allows not having to recalculate the remaining size after each call.
+> +.\" ----- DESCRIPTION :: Truncate or not? -----------------------------/
+> +.SS Truncate or not?
+> +The first thing to note is that programmers should be careful with buffers,
+> +so they always have the correct size,
+> +and truncation is not necessary.
+> +.PP
+> +In most cases,
+> +truncation is not desired,
+> +and it is simpler to just do the copy.
+> +Simpler code is safer code.
+> +Programming against programming mistakes by adding more code
+> +just adds more points where mistakes can be made.
+> +.PP
+> +Nowadays,
+> +compilers can detect most programmer errors with features like
+> +compiler warnings,
+> +static analyzers, and
+> +.BR \%_FORTIFY_SOURCE
+> +(see
+> +.BR ftm (7)).
+> +Keeping the code simple
+> +helps these overflow-detection features be more precise.
+> +.PP
+> +When validating user input,
+> +however,
+> +it makes sense to truncate.
+> +Remember to check the return value of such function calls.
+> +.PP
+> +Functions that truncate:
+> +.IP \(bu 3
+> +.BR stpecpy (3)
+> +is the most efficient string copy function that performs truncation.
+> +It only requires to check for truncation once after all chained calls.
+> +.IP \(bu
+> +.BR stpecpyx (3)
+> +is a variant of
+> +.BR stpecpy (3)
+> +that consumes the entire source string,
+> +to catch bugs in the program
+> +by forcing a segmentation fault (as
+> +.BR strlcpy (3bsd)
+> +and
+> +.BR strlcat (3bsd)
+> +do).
+> +.IP \(bu
+> +.BR strlcpy (3bsd)
+> +and
+> +.BR strlcat (3bsd)
+> +are designed to crash if the input string is invalid
+> +(doesn't contain a terminating null byte).
+> +.IP \(bu
+> +.BR stpncpy (3)
+> +and
+> +.BR strncpy (3)
+> +also truncate, but they don't write strings,
+> +but rather null-padded character sequences.
+> +.\" ----- DESCRIPTION :: Null-padded character sequences --------------/
+> +.SS Null-padded character sequences
+> +For historic reasons,
+> +some standard APIs,
+> +such as
+> +.BR utmpx (5),
+> +use null-padded character sequences in fixed-width buffers.
+> +To interface with them,
+> +specialized functions need to be used.
+> +.PP
+> +To copy strings into them, use
+> +.BR stpncpy (3).
+> +.PP
+> +To copy from an unterminated string within a fixed-width buffer into a string,
+> +ignoring any trailing null bytes in the source fixed-width buffer,
+> +you should use
+> +.BR zustr2stp (3)
+> +or
+> +.BR strncat (3).
+> +.PP
+> +To copy from an unterminated string within a fixed-width buffer
+> +into a character sequence,
+> +ingoring any trailing null bytes in the source fixed-width buffer,
+> +you should use
+> +.BR zustr2ustp (3).
+> +.\" ----- DESCRIPTION :: Measured character sequences -----------------/
+> +.SS Measured character sequences
+> +The simplest character sequence copying function is
+> +.BR mempcpy (3).
+> +It requires always knowing the length of your character sequences,
+> +for which structures can be used.
+> +It makes the code much faster,
+> +since you always know the length of your character sequences,
+> +and can do the minimal copies and length measurements.
+> +.BR mempcpy (3)
+> +copies character sequences,
+> +so you need to explicitly set the terminating null byte if you need a string.
+> +.PP
+> +However,
+> +for keeping type safety,
+> +it's good to add a wrapper that uses
+> +.I char\~*
+> +instead of
+> +.IR void\~* :
+> +.BR ustpcpy (3).
+> +.PP
+> +In programs that make considerable use of strings or character sequences,
+> +and need the best performance,
+> +using overlapping character sequences can make a big difference.
+> +It allows holding subsequences of a larger character sequence.
+> +while not duplicating memory
+> +nor using time to do a copy.
+> +.PP
+> +However, this is delicate,
+> +since it requires using character sequences.
+> +C library APIs use strings,
+> +so programs that use character sequences
+> +will have to take care of differentiating strings from character sequences.
+> +.PP
+> +To copy a measured character sequence, use
+> +.BR ustpcpy (3).
+> +.PP
+> +To copy a measured character sequence into a string, use
+> +.BR ustr2stp (3).
+> +.PP
+> +Because these functions ask for the length,
+> +and a string is by nature composed of a character sequence of the same length
+> +plus a terminating null byte,
+> +a string is also accepted as input.
+> +.\" ----- DESCRIPTION :: String vs character sequence -----------------/
+> +.SS String vs character sequence
+> +Some functions only operate on strings.
+> +Those require that the input
+> +.I src
+> +is a string,
+> +and guarantee an output string
+> +(even when truncation occurs).
+> +Functions that catenate
+> +also require that
+> +.I dst
+> +holds a string before the call.
+> +List of functions:
+> +.IP \(bu 3
+> +.PD 0
+> +.BR stpcpy (3)
+> +.IP \(bu
+> +.BR strcpy "(3), \c"
+> +.BR strcat (3)
+> +.IP \(bu
+> +.BR stpecpy "(3), \c"
+> +.BR stpecpyx (3)
+> +.IP \(bu
+> +.BR strlcpy "(3bsd), \c"
+> +.BR strlcat (3bsd)
+> +.PD
+> +.PP
+> +Other functions require an input string,
+> +but create a character sequence as output.
+> +These functions have confusing names,
+> +and have a long history of misuse.
+> +List of functions:
+> +.IP \(bu 3
+> +.PD 0
+> +.BR stpncpy (3)
+> +.IP \(bu
+> +.BR strncpy (3)
+> +.PD
+> +.PP
+> +Other functions operate on an input character sequence,
+> +and create an output string.
+> +Functions that catenate
+> +also require that
+> +.I dst
+> +holds a string before the call.
+> +.BR strncat (3)
+> +has an even more misleading name than the functions above.
+> +List of functions:
+> +.IP \(bu 3
+> +.PD 0
+> +.BR zustr2stp (3)
+> +.IP \(bu
+> +.BR strncat (3)
+> +.IP \(bu
+> +.BR ustr2stp (3)
+> +.PD
+> +.PP
+> +Other functions operate on an input character sequence
+> +to create an output character sequence.
+> +List of functions:
+> +.IP \(bu 3
+> +.PD 0
+> +.BR ustpcpy (3)
+> +.IP \(bu
+> +.BR zustr2stp (3)
+> +.PD
+> +.\" ----- DESCRIPTION :: Functions :: ---------------------------------/
+> +.SS Functions
+> +.\" ----- DESCRIPTION :: Functions :: stpcpy(3) -----------------------/
+> +.TP
+> +.BR stpcpy (3)
+> +This function copies the input string into a destination string.
+> +The programmer is responsible for allocating a buffer large enough.
+> +It returns a pointer suitable for chaining.
+> +.\" ----- DESCRIPTION :: Functions :: strcpy(3), strcat(3) ------------/
+> +.TP
+> +.BR strcpy (3)
+> +.TQ
+> +.BR strcat (3)
+> +These functions copy and catenate the input string into a destination string.
+> +The programmer is responsible for allocating a buffer large enough.
+> +The return value is useless.
+> +.IP
+> +.BR stpcpy (3)
+> +is a faster alternative to these functions.
+> +.\" ----- DESCRIPTION :: Functions :: stpecpy(3), stpecpyx(3) ---------/
+> +.TP
+> +.BR stpecpy (3)
+> +.TQ
+> +.BR stpecpyx (3)
+> +These functions copy the input string into a destination string.
+> +If the destination buffer,
+> +limited by a pointer to its end,
+> +isn't large enough to hold the copy,
+> +the resulting string is truncated
+> +(but it is guaranteed to be null-terminated).
+> +They return a pointer suitable for chaining.
+> +Truncation needs to be detected only once after the last chained call.
+> +.BR stpecpyx (3)
+> +has identical semantics to
+> +.BR stpecpy (3),
+> +except that it forces a SIGSEGV if the
+> +.I src
+> +pointer is not a string.
+> +.IP
+> +These functions are not provided by any library;
+> +See EXAMPLES for a reference implementation.
+> +.\" ----- DESCRIPTION :: Functions :: strlcpy(3bsd), strlcat(3bsd) ----/
+> +.TP
+> +.BR strlcpy (3bsd)
+> +.TQ
+> +.BR strlcat (3bsd)
+> +These functions copy and catenate the input string into a destination string.
+> +If the destination buffer,
+> +limited by its size,
+> +isn't large enough to hold the copy,
+> +the resulting string is truncated
+> +(but it is guaranteed to be null-terminated).
+> +They return the length of the total string they tried to create.
+> +These functions force a SIGSEGV if the
+> +.I src
+> +pointer is not a string.
+> +.IP
+> +.BR stpecpyx (3)
+> +is a faster alternative to these functions.
+> +.\" ----- DESCRIPTION :: Functions :: stpncpy(3) ----------------------/
+> +.TP
+> +.BR stpncpy (3)
+> +This function copies the input string into
+> +a destination null-padded character sequence in a fixed-width buffer.
+> +If the destination buffer,
+> +limited by its size,
+> +isn't large enough to hold the copy,
+> +the resulting character sequence is truncated.
+> +Since it creates a character sequence,
+> +it doesn't need to write a terminating null byte.
+> +It's impossible to distinguish truncation by the result of the call,
+> +from a character sequence that just fits the destination buffer;
+> +truncation should be detected by
+> +comparing the length of the input string
+> +with the size of the destination buffer.
+> +.\" ----- DESCRIPTION :: Functions :: strncpy(3) ----------------------/
+> +.TP
+> +.BR strncpy (3)
+> +This function is identical to
+> +.BR stpncpy (3)
+> +except for the useless return value.
+> +.IP
+> +.BR stpncpy (3)
+> +is a more useful alternative to this function.
+> +.\" ----- DESCRIPTION :: Functions :: zustr2ustp(3) --------------------/
+> +.TP
+> +.BR zustr2ustp (3)
+> +This function copies the input character sequence
+> +contained in a null-padded wixed-width buffer,
+> +into a destination character sequence.
+> +The programmer is responsible for allocating a buffer large enough.
+> +It returns a pointer suitable for chaining.
+> +.IP
+> +A truncating version of this function doesn't exist,
+> +since the size of the original character sequence is always known,
+> +so it wouldn't be very useful.
+> +.IP
+> +This function is not provided by any library;
+> +See EXAMPLES for a reference implementation.
+> +.\" ----- DESCRIPTION :: Functions :: zustr2stp(3) --------------------/
+> +.TP
+> +.BR zustr2stp (3)
+> +This function copies the input character sequence
+> +contained in a null-padded wixed-width buffer,
+> +into a destination string.
+> +The programmer is responsible for allocating a buffer large enough.
+> +It returns a pointer suitable for chaining.
+> +.IP
+> +A truncating version of this function doesn't exist,
+> +since the size of the original character sequence is always known,
+> +so it wouldn't be very useful.
+> +.IP
+> +This function is not provided by any library;
+> +See EXAMPLES for a reference implementation.
+> +.\" ----- DESCRIPTION :: Functions :: strncat(3) ----------------------/
+> +.TP
+> +.BR strncat (3)
+> +Do not confuse this function with
+> +.BR strncpy (3);
+> +they are not related at all.
+> +.IP
+> +This function catenates the input character sequence
+> +contained in a null-padded wixed-width buffer,
+> +into a destination string.
+> +The programmer is responsible for allocating a buffer large enough.
+> +The return value is useless.
+> +.IP
+> +.BR zustr2stp (3)
+> +is a faster alternative to this function.
+> +.\" ----- DESCRIPTION :: Functions :: ustpcpy(3) ----------------------/
+> +.TP
+> +.BR ustpcpy (3)
+> +This function copies the input character sequence,
+> +limited by its length,
+> +into a destination character sequence.
+> +The programmer is responsible for allocating a buffer large enough.
+> +It returns a pointer suitable for chaining.
+> +.\" ----- DESCRIPTION :: Functions :: ustr2stp(3) ---------------------/
+> +.TP
+> +.BR ustr2stp (3)
+> +This function copies the input character sequence,
+> +limited by its length,
+> +into a destination string.
+> +The programmer is responsible for allocating a buffer large enough.
+> +It returns a pointer suitable for chaining.
+> +.\" ----- RETURN VALUE :: ---------------------------------------------/
+> +.SH RETURN VALUE
+> +The following functions return
+> +a pointer to the terminating null byte in the destination string.
+> +.IP \(bu 3
+> +.PD 0
+> +.BR stpcpy (3)
+> +.IP \(bu
+> +.BR ustr2stp (3)
+> +.IP \(bu
+> +.BR zustr2stp (3)
+> +.PD
+> +.PP
+> +The following functions return
+> +a pointer to the terminating null byte in the destination string,
+> +except when truncation occurs;
+> +if truncation occurs,
+> +they return a pointer to the end of the destination buffer.
+> +.IP \(bu 3
+> +.BR stpecpy (3),
+> +.BR stpecpyx (3)
+> +.PP
+> +The following function returns
+> +a pointer to one after the last character
+> +in the destination character sequence;
+> +if truncation occurs,
+> +that pointer is equivalent to
+> +a pointer to the end of the destination buffer.
+> +.IP \(bu 3
+> +.BR stpncpy (3)
+> +.PP
+> +The following functions return
+> +a pointer to one after the last character
+> +in the destination character sequence.
+> +.IP \(bu 3
+> +.PD 0
+> +.BR zustr2ustp (3)
+> +.IP \(bu
+> +.BR ustpcpy (3)
+> +.PD
+> +.PP
+> +The following functions return
+> +the length of the total string that they tried to create
+> +(as if truncation didn't occur).
+> +.IP \(bu 3
+> +.BR strlcpy (3bsd),
+> +.BR strlcat (3bsd)
+> +.PP
+> +The following functions return the
+> +.I dst
+> +pointer,
+> +which is useless.
+> +.IP \(bu 3
+> +.PD 0
+> +.BR strcpy (3),
+> +.BR strcat (3)
+> +.IP \(bu
+> +.BR strncpy (3)
+> +.IP \(bu
+> +.BR strncat (3)
+> +.PD
+> +.\" ----- NOTES :: strscpy(9) -----------------------------------------/
+> +.SH NOTES
+> +The Linux kernel has an internal function for copying strings,
+> +which is similar to
+> +.BR stpecpy (3),
+> +except that it can't be chained:
+> +.TP
+> +.BR strscpy (9)
+> +This function copies the input string into a destination string.
+> +If the destination buffer,
+> +limited by its size,
+> +isn't large enough to hold the copy,
+> +the resulting string is truncated
+> +(but it is guaranteed to be null-terminated).
+> +It returns the length of the destination string, or
+> +.B \-E2BIG
+> +on truncation.
+> +.IP
+> +.BR stpecpy (3)
+> +is a simpler and faster alternative to this function.
+> +.RE
+> +.\" ----- CAVEATS :: --------------------------------------------------/
+> +.SH CAVEATS
+> +Don't mix chain calls to truncating and non-truncating functions.
+> +It is conceptually wrong
+> +unless you know that the first part of a copy will always fit.
+> +Anyway, the performance difference will probably be negligible,
+> +so it will probably be more clear if you use consistent semantics:
+> +either truncating or non-truncating.
+> +Calling a non-truncating function after a truncating one is necessarily wrong.
+> +.\" ----- BUGS :: -----------------------------------------------------/
+> +.SH BUGS
+> +All catenation functions share the same performance problem:
+> +.UR https://www.joelonsoftware.com/\:2001/12/11/\:back\-to\-basics/
+> +Shlemiel the painter
+> +.UE .
+> +.\" ----- EXAMPLES :: -------------------------------------------------/
+> +.SH EXAMPLES
+> +The following are examples of correct use of each of these functions.
+> +.\" ----- EXAMPLES :: stpcpy(3) ---------------------------------------/
+> +.TP
+> +.BR stpcpy (3)
+> +.EX
+> +p = buf;
+> +p = stpcpy(p, "Hello ");
+> +p = stpcpy(p, "world");
+> +p = stpcpy(p, "!");
+> +len = p \- buf;
+> +puts(buf);
+> +.EE
+> +.\" ----- EXAMPLES :: strcpy(3), strcat(3) ----------------------------/
+> +.TP
+> +.BR strcpy (3)
+> +.TQ
+> +.BR strcat (3)
+> +.EX
+> +strcpy(buf, "Hello ");
+> +strcat(buf, "world");
+> +strcat(buf, "!");
+> +len = strlen(buf);
+> +puts(buf);
+> +.EE
+> +.\" ----- EXAMPLES :: stpecpy(3), stpecpyx(3) -------------------------/
+> +.TP
+> +.BR stpecpy (3)
+> +.TQ
+> +.BR stpecpyx (3)
+> +.EX
+> +end = buf + sizeof(buf);
+> +p = buf;
+> +p = stpecpy(p, end, "Hello ");
+> +p = stpecpy(p, end, "world");
+> +p = stpecpy(p, end, "!");
+> +if (p == end) {
+> +    p\-\-;
+> +    goto toolong;
+> +}
+> +len = p \- buf;
+> +puts(buf);
+> +.EE
+> +.\" ----- EXAMPLES :: strlcpy(3bsd), strlcat(3bsd) --------------------/
+> +.TP
+> +.BR strlcpy (3bsd)
+> +.TQ
+> +.BR strlcat (3bsd)
+> +.EX
+> +if (strlcpy(buf, "Hello ", sizeof(buf)) >= sizeof(buf))
+> +    goto toolong;
+> +if (strlcat(buf, "world", sizeof(buf)) >= sizeof(buf))
+> +    goto toolong;
+> +len = strlcat(buf, "!", sizeof(buf));
+> +if (len >= sizeof(buf))
+> +    goto toolong;
+> +puts(buf);
+> +.EE
+> +.\" ----- EXAMPLES :: strscpy(9) --------------------------------------/
+> +.TP
+> +.BR strscpy (9)
+> +.EX
+> +len = strscpy(buf, "Hello world!", sizeof(buf));
+> +if (len == \-E2BIG)
+> +    goto toolong;
+> +puts(buf);
+> +.EE
+> +.\" ----- EXAMPLES :: stpncpy(3) --------------------------------------/
+> +.TP
+> +.BR stpncpy (3)
+> +.EX
+> +p = stpncpy(buf, "Hello world!", sizeof(buf));
+> +if (sizeof(buf) < strlen("Hello world!"))
+> +    goto toolong;
+> +len = p \- buf;
+> +for (size_t i = 0; i < sizeof(buf); i++)
+> +    putchar(buf[i]);
+> +.EE
+> +.\" ----- EXAMPLES :: strncpy(3) --------------------------------------/
+> +.TP
+> +.BR strncpy (3)
+> +.EX
+> +strncpy(buf, "Hello world!", sizeof(buf));
+> +if (sizeof(buf) < strlen("Hello world!"))
+> +    goto toolong;
+> +len = strnlen(buf, sizeof(buf));
+> +for (size_t i = 0; i < sizeof(buf); i++)
+> +    putchar(buf[i]);
+> +.EE
+> +.\" ----- EXAMPLES :: zustr2ustp(3) -----------------------------------/
+> +.TP
+> +.BR zustr2ustp (3)
+> +.EX
+> +p = buf;
+> +p = zustr2ustp(p, "Hello ", 6);
+> +p = zustr2ustp(p, "world", 42);  // Padding null bytes ignored.
+> +p = zustr2ustp(p, "!", 1);
+> +len = p \- buf;
+> +printf("%.*s\en", (int) len, buf);
+> +.EE
+> +.\" ----- EXAMPLES :: zustr2stp(3) ------------------------------------/
+> +.TP
+> +.BR zustr2stp (3)
+> +.EX
+> +p = buf;
+> +p = zustr2stp(p, "Hello ", 6);
+> +p = zustr2stp(p, "world", 42);  // Padding null bytes ignored.
+> +p = zustr2stp(p, "!", 1);
+> +len = p \- buf;
+> +puts(buf);
+> +.EE
+> +.\" ----- EXAMPLES :: strncat(3) --------------------------------------/
+> +.TP
+> +.BR strncat (3)
+> +.EX
+> +buf[0] = \(aq\e0\(aq;  // There's no 'cpy' function to this 'cat'.
+> +strncat(buf, "Hello ", 6);
+> +strncat(buf, "world", 42);  // Padding null bytes ignored.
+> +strncat(buf, "!", 1);
+> +len = strlen(buf);
+> +puts(buf);
+> +.EE
+> +.\" ----- EXAMPLES :: ustpcpy(3) --------------------------------------/
+> +.TP
+> +.BR ustpcpy (3)
+> +.EX
+> +p = buf;
+> +p = ustpcpy(p, "Hello ", 6);
+> +p = ustpcpy(p, "world", 5);
+> +p = ustpcpy(p, "!", 1);
+> +len = p \- buf;
+> +printf("%.*s\en", (int) len, buf);
+> +.EE
+> +.\" ----- EXAMPLES :: ustr2stp(3) -------------------------------------/
+> +.TP
+> +.BR ustr2stp (3)
+> +.EX
+> +p = buf;
+> +p = ustr2stp(p, "Hello ", 6);
+> +p = ustr2stp(p, "world", 5);
+> +p = ustr2stp(p, "!", 1);
+> +len = p \- buf;
+> +puts(buf);
+> +.EE
+> +.\" ----- EXAMPLES :: Implementations :: ------------------------------/
+> +.SS Implementations
+> +Here are reference implementations for functions not provided by libc.
+> +.PP
+> +.in +4n
+> +.EX
+> +/* This code is in the public domain. */
+> +
+> +.\" ----- EXAMPLES :: Implementations :: stpecpy(3) -------------------/
+> +char *
+> +.IR stpecpy "(char *dst, char end[0], const char *restrict src)"
+> +{
+> +    char *p;
+> +
+> +    if (dst == end)
+> +        return end;
+> +
+> +    p = memccpy(dst, src, \(aq\e0\(aq, end \- dst);
+> +    if (p != NULL)
+> +        return p \- 1;
+> +
+> +    /* truncation detected */
+> +    end[\-1] = \(aq\e0\(aq;
+> +    return end;
+> +}
+> +
+> +.\" ----- EXAMPLES :: Implementations :: stpecpy(3) -------------------/
+> +char *
+> +.IR stpecpyx "(char *dst, char end[0], const char *restrict src)"
+> +{
+> +    if (src[strlen(src)] != \(aq\e0\(aq)
+> +        raise(SIGSEGV);
+> +
+> +    return stpecpy(dst, end, src);
+> +}
+> +
+> +.\" ----- EXAMPLES :: Implementations :: zustr2ustp(3) ----------------/
+> +char *
+> +.IR zustr2ustp "(char *restrict dst, const char *restrict src, size_t sz)"
+> +{
+> +    return ustpcpy(dst, src, strnlen(src, sz));
+> +}
+> +
+> +.\" ----- EXAMPLES :: Implementations :: zustr2stp(3) -----------------/
+> +char *
+> +.IR zustr2stp "(char *restrict dst, const char *restrict src, size_t sz)"
+> +{
+> +    char  *p;
+> +
+> +    p = zustr2ustp(dst, src, sz);
+> +    *p = \(aq\e0\(aq;
+> +
+> +    return p;
+> +}
+> +
+> +.\" ----- EXAMPLES :: Implementations :: ustpcpy(3) -------------------/
+> +char *
+> +.IR ustpcpy "(char *restrict dst, const char *restrict src, size_t len)"
+> +{
+> +    return mempcpy(dst, src, len);
+> +}
+> +
+> +.\" ----- EXAMPLES :: Implementations :: ustr2stp(3) ------------------/
+> +char *
+> +.IR ustr2stp "(char *restrict dst, const char *restrict src, size_t len)"
+> +{
+> +    char  *p;
+> +
+> +    p = ustpcpy(dst, src, len);
+> +    *p = \(aq\e0\(aq;
+> +
+> +    return p;
+> +}
+> +.EE
+> +.in
+> +.\" ----- SEE ALSO :: -------------------------------------------------/
+> +.SH SEE ALSO
+> +.BR bzero (3),
+> +.BR memcpy (3),
+> +.BR memccpy (3),
+> +.BR mempcpy (3),
+> +.BR stpcpy (3),
+> +.BR strlcpy (3bsd),
+> +.BR strncat (3),
+> +.BR stpncpy (3),
+> +.BR string (3)
+> --
+> 2.39.0
+>
