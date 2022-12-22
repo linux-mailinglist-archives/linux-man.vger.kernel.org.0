@@ -2,95 +2,114 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 29CD265482A
-	for <lists+linux-man@lfdr.de>; Thu, 22 Dec 2022 23:03:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id EAB0D65493E
+	for <lists+linux-man@lfdr.de>; Fri, 23 Dec 2022 00:28:17 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235678AbiLVWDo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 22 Dec 2022 17:03:44 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58098 "EHLO
+        id S230022AbiLVX2Q (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 22 Dec 2022 18:28:16 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57310 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235669AbiLVWDm (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 22 Dec 2022 17:03:42 -0500
-Received: from nautica.notk.org (ipv6.notk.org [IPv6:2001:41d0:1:7a93::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4E23527CDF;
-        Thu, 22 Dec 2022 14:03:39 -0800 (PST)
-Received: by nautica.notk.org (Postfix, from userid 108)
-        id 436A8C01C; Thu, 22 Dec 2022 23:03:50 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org; s=2;
-        t=1671746630; bh=J9cbmNLcnEnCzcBsTSDM83r/CZk2MSdV+XdK2UiVhRg=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=yrc8ExY0fLJTTRWHTlch4Cyxv5EtIeitomlHj/m+ith2ighEVLQ6n2zRleruRC6iK
-         qZfblkCg9qAB1MZ2kwCJHpAfuvPggLa863smMTButGcD9cRu+sniJ9RDZFT4Tar5j+
-         Q3ZajyhrLBW7JKD/HySrXL4tKtMQKDLpTNnzAX+cv4VOJ0aClp2E/N91/ZL6Lr5kz/
-         ID7/p/lu7O0czxyVNVwaGDY6hWIqiMA1UO0lw3+/P79cbPGbhf1RLr0RzTsSjgkIcm
-         UzmXioU+AKcv9ooLREIlB8SpKxfgakyELc4UNtelHklGoEkuhUWRFH2sKq+wvpVN/G
-         b3/zZaoMAL/kQ==
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
-        lindbergh.monkeyblade.net
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
-        autolearn=ham autolearn_force=no version=3.4.6
-Received: from odin.codewreck.org (localhost [127.0.0.1])
-        by nautica.notk.org (Postfix) with ESMTPS id 3303CC009;
-        Thu, 22 Dec 2022 23:03:47 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org; s=2;
-        t=1671746629; bh=J9cbmNLcnEnCzcBsTSDM83r/CZk2MSdV+XdK2UiVhRg=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=sN5SexYGLTywPu95AlPDl6xzCCf0WMMlvUROicG3DAfP5QeDpfD3rcxAiY9/y5fK7
-         pWLoEi7+tJJftjgsMEDsss8t3v6SGZMPQScgFS2UJzUeSfi/DfEzsos+rzGgkOiZR/
-         zhsYkZn+kJHISFOrv2bqWpZra6OeevrzOG0RrtlfQhlTFkSeZmdJpIm2vvtFpC2XbU
-         CQ3VCHYcAjs3g1+UsTI5oOYlAPc4xSEVKmx5+PhHHT6ClGjWAEfyBd1VZkA6cYMmVW
-         X9TjGhXQqZBr9IeRLFvKBpXMOEfs3a4LT41SunCI2nJACJE9jKRxurz1tE562ICieL
-         zrYXBCYgZLijg==
-Received: from localhost (odin.codewreck.org [local])
-        by odin.codewreck.org (OpenSMTPD) with ESMTPA id f1ad2f5f;
-        Thu, 22 Dec 2022 22:03:32 +0000 (UTC)
-Date:   Fri, 23 Dec 2022 07:03:17 +0900
-From:   Dominique Martinet <asmadeus@codewreck.org>
-To:     oss-security@lists.openwall.com
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        with ESMTP id S229627AbiLVX2P (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 22 Dec 2022 18:28:15 -0500
+X-Greylist: delayed 400 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Thu, 22 Dec 2022 15:28:13 PST
+Received: from second.openwall.net (second.openwall.net [193.110.157.125])
+        by lindbergh.monkeyblade.net (Postfix) with SMTP id 86EEA1AF17
+        for <linux-man@vger.kernel.org>; Thu, 22 Dec 2022 15:28:13 -0800 (PST)
+Received: (qmail 10063 invoked from network); 22 Dec 2022 23:21:31 -0000
+Received: from localhost (HELO pvt.openwall.com) (127.0.0.1)
+  by localhost with SMTP; 22 Dec 2022 23:21:31 -0000
+Received: by pvt.openwall.com (Postfix, from userid 503)
+        id 59670AB3A4; Fri, 23 Dec 2022 00:21:12 +0100 (CET)
+Date:   Fri, 23 Dec 2022 00:21:12 +0100
+From:   Solar Designer <solar@openwall.com>
+To:     Dominique Martinet <asmadeus@codewreck.org>
+Cc:     oss-security@lists.openwall.com,
+        Alejandro Colomar <alx.manpages@gmail.com>,
         Michael Kerrisk <mtk.manpages@gmail.com>,
         linux-kernel@vger.kernel.org, linux-man@vger.kernel.org
-Subject: Re: [oss-security] [patch] proc.5: tell how to parse /proc/*/stat
- correctly
-Message-ID: <Y6TUJcr/IHrsTE0W@codewreck.org>
-References: <Y6SJDbKBk471KE4k@p183>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Subject: Re: [oss-security] [patch] proc.5: tell how to parse /proc/*/stat correctly
+Message-ID: <20221222232112.GA29438@openwall.com>
+References: <Y6SJDbKBk471KE4k@p183> <Y6TUJcr/IHrsTE0W@codewreck.org>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <Y6SJDbKBk471KE4k@p183>
+In-Reply-To: <Y6TUJcr/IHrsTE0W@codewreck.org>
+User-Agent: Mutt/1.4.2.3i
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_MSPIKE_H2,
+        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
+X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
+        lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Alexey Dobriyan wrote on Thu, Dec 22, 2022 at 07:42:53PM +0300:
-> --- a/man5/proc.5
-> +++ b/man5/proc.5
-> @@ -2092,6 +2092,11 @@ Strings longer than
->  .B TASK_COMM_LEN
->  (16) characters (including the terminating null byte) are silently truncated.
->  This is visible whether or not the executable is swapped out.
-> +
-> +Note that \fIcomm\fP can contain space and closing parenthesis characters. 
-> +Parsing /proc/${pid}/stat with split() or equivalent, or scanf(3) isn't
-> +reliable. The correct way is to locate closing parenthesis with strrchr(')')
-> +from the end of the buffer and parse integers from there.
+On Fri, Dec 23, 2022 at 07:03:17AM +0900, Dominique Martinet wrote:
+> Alexey Dobriyan wrote on Thu, Dec 22, 2022 at 07:42:53PM +0300:
+> > --- a/man5/proc.5
+> > +++ b/man5/proc.5
+> > @@ -2092,6 +2092,11 @@ Strings longer than
+> >  .B TASK_COMM_LEN
+> >  (16) characters (including the terminating null byte) are silently truncated.
+> >  This is visible whether or not the executable is swapped out.
+> > +
+> > +Note that \fIcomm\fP can contain space and closing parenthesis characters. 
+> > +Parsing /proc/${pid}/stat with split() or equivalent, or scanf(3) isn't
+> > +reliable. The correct way is to locate closing parenthesis with strrchr(')')
+> > +from the end of the buffer and parse integers from there.
+> 
+> That's still not enough unless new lines are escaped, which they aren't:
+> 
+> $ echo -n 'test) 0 0 0
+> ' > /proc/$$/comm
+> $ cat /proc/$$/stat
+> 71076 (test) 0 0 0
+> ) S 71075 71076 71076 34840 71192 4194304 6623 6824 0 0 10 3 2 7 20 0 1 0 36396573 15208448 2888 18446744073709551615 94173281726464 94173282650929 140734972513568 0 0 0 65536 3686404 1266761467 1 0 0 17 1 0 0 0 0 0 94173282892592 94173282940880 94173287231488 140734972522071 140734972522076 140734972522076 140734972526574 0
+> 
+> The silver lining here is that comm length is rather small (16) so we
+> cannot emulate full lines and a very careful process could notice that
+> there are not enough fields after the last parenthesis... So just look
+> for the last closing parenthesis in the next line and try again?
 
-That's still not enough unless new lines are escaped, which they aren't:
+No, just don't treat this file's content as a line (nor as several
+lines) - treat it as a string that might contain new line characters.
 
-$ echo -n 'test) 0 0 0
-' > /proc/$$/comm
-$ cat /proc/$$/stat
-71076 (test) 0 0 0
-) S 71075 71076 71076 34840 71192 4194304 6623 6824 0 0 10 3 2 7 20 0 1 0 36396573 15208448 2888 18446744073709551615 94173281726464 94173282650929 140734972513568 0 0 0 65536 3686404 1266761467 1 0 0 17 1 0 0 0 0 0 94173282892592 94173282940880 94173287231488 140734972522071 140734972522076 140734972522076 140734972526574 0
+The ps command from procps-ng seems to manage, e.g. for your test "ps c"
+prints:
 
-The silver lining here is that comm length is rather small (16) so we
-cannot emulate full lines and a very careful process could notice that
-there are not enough fields after the last parenthesis... So just look
-for the last closing parenthesis in the next line and try again?
+29394 pts/3    S      0:00 test) 0 0 0?
 
-But, really, I just don't see how this can practically be said to be parsable...
+where the question mark is what it substitutes for the non-printable
+character (the new line character).  I didn't check whether the process
+name it prints comes from /proc/$$/stat or /proc/$$/status, though (per
+strace, it reads both).
 
--- 
-Dominique Martinet | Asmadeus
+> But, really, I just don't see how this can practically be said to be parsable...
+
+This format certainly makes it easier to get a parser wrong than to get
+it right.
+
+I agree the above man page edit is not enough, and should also mention
+the caveat that this shouldn't be read in nor parsed as a line.
+
+Also, the Linux kernel does have problems with new lines in the comm
+field elsewhere, at least in the log messages it produces:
+
+https://github.com/lkrg-org/lkrg/issues/165
+
+Here I looked into this in context of LKRG development, but with the
+kernel itself also producing messages with comm in them the point of
+only fixing LKRG's messages is moot.
+
+Alexander
+
+P.S. While this thread goes well so far, please note that in general
+CC'ing other lists on postings to oss-security (or vice versa) is
+discouraged.  With such CC's, possible follow-ups from members of those
+other lists can be off-topic for oss-security - e.g., they might focus
+on non-security technicalities.  Probably not this time when only a man
+page is to be patched, but proposed patches to the Linux kernel often
+result in lengthy discussions and multiple versions of the patch.  In
+those cases, I think it's better to have separate threads and only post
+summary follow-up(s) to oss-security (e.g., one message stating that a
+patch was proposed and linking to the thread, and another after the
+final version is merged).
