@@ -2,67 +2,70 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 4A1B16557F4
-	for <lists+linux-man@lfdr.de>; Sat, 24 Dec 2022 02:44:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 38C836559D1
+	for <lists+linux-man@lfdr.de>; Sat, 24 Dec 2022 11:37:57 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S236885AbiLXBoU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 23 Dec 2022 20:44:20 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50328 "EHLO
+        id S229637AbiLXKhz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 24 Dec 2022 05:37:55 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52776 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S237082AbiLXBn6 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 23 Dec 2022 20:43:58 -0500
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com [IPv6:2a00:1450:4864:20::335])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3C5C049DEB
-        for <linux-man@vger.kernel.org>; Fri, 23 Dec 2022 17:34:40 -0800 (PST)
-Received: by mail-wm1-x335.google.com with SMTP id bg10so4613688wmb.1
-        for <linux-man@vger.kernel.org>; Fri, 23 Dec 2022 17:34:40 -0800 (PST)
+        with ESMTP id S229487AbiLXKhz (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 24 Dec 2022 05:37:55 -0500
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com [IPv6:2a00:1450:4864:20::32f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B3359DEBE
+        for <linux-man@vger.kernel.org>; Sat, 24 Dec 2022 02:37:53 -0800 (PST)
+Received: by mail-wm1-x32f.google.com with SMTP id b24-20020a05600c4a9800b003d21efdd61dso5003960wmp.3
+        for <linux-man@vger.kernel.org>; Sat, 24 Dec 2022 02:37:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=subject:from:cc:to:content-language:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=w+6azl8Bt0oxp0ARZACCqT0Z6eddnsC/CHYNPoKk9Xc=;
-        b=aW9WVQFXsMvTUXoq75mDHBHmwFkJCmDebq6tk9PUhA6xAyabDYpfeJsGI2jx7bXId6
-         8Sx+lNTuFUC7MXOf8O+l45KafKUdzPiyqEvz1b1FeuIRSwqxKqxHuU2+LOWr3kBAqBtE
-         wz+iQuRQ6dY6HSv60nXmhMeLV8YrOMHLjls0cm027zZSP7Lk2NFM71CP24ibGGk96Js0
-         NlzsdXy6/+qLej8y9XdveEdcjjj1sznS1SY9a7R6/aiPGdey/07sFFcJhXEZvaA+3X8D
-         TORRNKFuH3ld6dPIp+qJLjFnbpK6VYqjSDVxDcrGfGYoxpxXGWd/x1sfVQ7nldSExOec
-         kllQ==
+        h=in-reply-to:content-language:references:cc:to:from:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Us4wnNl1jTPZTidlhZLpB58i19AkO07kue8bcH2m2Qg=;
+        b=B0uc4liPiysU/X0k6w3fuyN54cCo+UQgEdzZA6uspuYZtXYuL8zO33bl5YZObnkCMI
+         ePo2vhQcKlwv8uTUcGZXq+glOq6D/rFn895lLWtKXA3iy7krSGdsofuSTCrrUlmkC6Hf
+         qFkgNb6rBJqjBZQJaT6bsY2lY/jZruIB5hTqMClQa6FXyA3+K5ptkFoSOBRorbYGXnnD
+         11N5npc2T8IXtiei0JpOvvcLhEp4fno0Aot8mu3Gh5Xq3vF+3y3nG406rTCiEiRGk7AT
+         tSJrfuPw4jLTuFsSMkQcF+ZfNi5U8n7EvC258WMH91QmTZWm6uBpjlorV2/fdDQSQsw6
+         kIxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=subject:from:cc:to:content-language:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=w+6azl8Bt0oxp0ARZACCqT0Z6eddnsC/CHYNPoKk9Xc=;
-        b=isAKzm/dAwtPiLOvu/YJi0PDk8AYLQzenPWSiBsXqg4i42uAxPvoKn23pn2v7Pn+Ia
-         JHq02tCBjZG5/3RLz6VnC0peI1L+RdWGRge+OJyQ2H+S/aLAqafYKj4P534eGRAgVih4
-         qs394jM5j8CWu0Cb3m0BsQ67YHlBOB0nJwxCrAAjV3Ev2P9mzXpE/0oOCo2QiwYg8F+B
-         exhpmcuKjms8tFn1CkTfZtNdaPhbz8Zgk6og+6rDCHH4LO1Thj1PLlJw0xCMZsqo38QV
-         Mtdymm20hfzpx8BbBmz3B7u5oZ5wgPrQgvmhiByeXWeejapBLwuB6Bewiv1zuWpGH603
-         TztA==
-X-Gm-Message-State: AFqh2kpaBcD4JQHQXvUMwDCQfYrGY9CCd9R3zkHgBwFI5bIV92eKW8xv
-        FFp36af9GXO5xnvjrAocPiV+Td94jTU=
-X-Google-Smtp-Source: AMrXdXuAPR5zoHbJoWteW+EN2sito0njz7eqdWn+xd4C6T1yVJpXWwGUM9TlZJ+kpSOppHSXyogG5A==
-X-Received: by 2002:a05:600c:4e48:b0:3cf:5d41:b748 with SMTP id e8-20020a05600c4e4800b003cf5d41b748mr11171858wmq.36.1671845664639;
-        Fri, 23 Dec 2022 17:34:24 -0800 (PST)
+        h=in-reply-to:content-language:references:cc:to:from:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Us4wnNl1jTPZTidlhZLpB58i19AkO07kue8bcH2m2Qg=;
+        b=BOrRa42H2P4A9/YdfVYRwSKBoTlxv9prQAsCbuZXE670hOBe3ALJOj4Jt6gs2KME78
+         CSuwaN9RgKZn8mFzW3bJ/Rdw9VMXryV1yEVDxij/hNGNAP32t36Ah27H8R3zxnzGjhhM
+         xNXoG0eg2SNaWjfcnH0H0MN6cQppL5+ehypjv0m1IjYPornyZUTeTj4OPQL/tXw8DUeU
+         XzyghTjkaajbNVUGtHFXl0m68f0ngmEBLBdUV2vLAk+NR/2nOTYZ1C7d91SAZT6J/lbv
+         GOi54ZGzww10QrX9EI6B8xM8/cia3t5Le91Hg7MzSznztvrXb+011WI4C+8I66ge+Rkx
+         sttQ==
+X-Gm-Message-State: AFqh2kpHA1ajquFjjAXFy+fBp4QvcO8iBX3Pg/aeoyJsOnm7GUKnZ19a
+        aLvouInUqyA+eR5xc/3zgxZt9mkM1HE=
+X-Google-Smtp-Source: AMrXdXuC3Qfj+U2RKiFTOm4LNWirjBQCshvxgbsQ2b9UURBrHs7aTobEG6yZvktKIJuhzQhy3M9vkQ==
+X-Received: by 2002:a05:600c:1f12:b0:3d2:267d:64bd with SMTP id bd18-20020a05600c1f1200b003d2267d64bdmr10684997wmb.3.1671878272183;
+        Sat, 24 Dec 2022 02:37:52 -0800 (PST)
 Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id y22-20020a1c4b16000000b003d01b84e9b2sm6035024wma.27.2022.12.23.17.34.23
+        by smtp.gmail.com with ESMTPSA id v15-20020a05600c444f00b003cf54b77bfesm13456677wmn.28.2022.12.24.02.37.51
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 23 Dec 2022 17:34:24 -0800 (PST)
-Message-ID: <bc608529-e8bf-ba91-8206-986d880a595f@gmail.com>
-Date:   Sat, 24 Dec 2022 02:34:13 +0100
+        Sat, 24 Dec 2022 02:37:51 -0800 (PST)
+Message-ID: <43941d08-2277-28ec-8536-19a2b6e35469@gmail.com>
+Date:   Sat, 24 Dec 2022 11:37:50 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.0
-Content-Language: en-US
+Subject: Re: man-pages book: Using stdin/stdout more?
+From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     Deri <deri@chuzzlewit.myzen.co.uk>
 Cc:     linux-man <linux-man@vger.kernel.org>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-Subject: man-pages book: Using stdin/stdout more?
+References: <bc608529-e8bf-ba91-8206-986d880a595f@gmail.com>
+Content-Language: en-US
+In-Reply-To: <bc608529-e8bf-ba91-8206-986d880a595f@gmail.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------gZS2SQ6Vm5cC0YJDVXzX0UiH"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+ boundary="------------JE0ubui4QVS0yzGhJ6iwjvNC"
+X-Spam-Status: No, score=-3.2 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -72,48 +75,56 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------gZS2SQ6Vm5cC0YJDVXzX0UiH
-Content-Type: multipart/mixed; boundary="------------00n64fYkYRTclysVnTL0sQ7F";
+--------------JE0ubui4QVS0yzGhJ6iwjvNC
+Content-Type: multipart/mixed; boundary="------------MkFt2oMwB0rT4mDCshpTsyqz";
  protected-headers="v1"
 From: Alejandro Colomar <alx.manpages@gmail.com>
 To: Deri <deri@chuzzlewit.myzen.co.uk>
 Cc: linux-man <linux-man@vger.kernel.org>
-Message-ID: <bc608529-e8bf-ba91-8206-986d880a595f@gmail.com>
-Subject: man-pages book: Using stdin/stdout more?
+Message-ID: <43941d08-2277-28ec-8536-19a2b6e35469@gmail.com>
+Subject: Re: man-pages book: Using stdin/stdout more?
+References: <bc608529-e8bf-ba91-8206-986d880a595f@gmail.com>
+In-Reply-To: <bc608529-e8bf-ba91-8206-986d880a595f@gmail.com>
 
---------------00n64fYkYRTclysVnTL0sQ7F
+--------------MkFt2oMwB0rT4mDCshpTsyqz
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: base64
 
-SGkgRGVyaSENCg0KSSB1cGxvYWRlZCB0aGUgc2NyaXB0IHRvIHRoZSByZXBvLiA6KQ0KDQpX
-b3VsZCBpdCBiZSBwb3NzaWJsZSB0byB1c2UgYSBwaXBlIGluc3RlYWQgb2YgdGhlIFQgZmls
-ZT8NCldvdWxkIGl0IGJlIHBvc3NpYmxlIHRvIGdlbmVyYXRlIHRoZSBQREYgb24gc3Rkb3V0
-Pw0KDQpUaGF0IHdvdWxkIGhlbHAgaG9va2luZyB0aGUgc2NyaXB0IGludG8gdGhlIGJ1aWxk
-IHN5c3RlbS4NCg0KQ2hlZXJzLA0KDQpBbGV4DQotLSANCjxodHRwOi8vd3d3LmFsZWphbmRy
-by1jb2xvbWFyLmVzLz4NCg==
+T24gMTIvMjQvMjIgMDI6MzQsIEFsZWphbmRybyBDb2xvbWFyIHdyb3RlOg0KPiBIaSBEZXJp
+IQ0KPiANCj4gSSB1cGxvYWRlZCB0aGUgc2NyaXB0IHRvIHRoZSByZXBvLiA6KQ0KPiANCj4g
+V291bGQgaXQgYmUgcG9zc2libGUgdG8gdXNlIGEgcGlwZSBpbnN0ZWFkIG9mIHRoZSBUIGZp
+bGU/DQoNCk9yIGV2ZW4gYmV0dGVyLCBiZWNhdXNlIGhhdmluZyB0aGUgaW50ZXJtZWRpYXRl
+IGZpbGUgaXMgaW50ZXJlc3RpbmcgZm9yIA0KZGVidWdnaW5nLiAgSG93IGFib3V0IGJyZWFr
+aW5nIHRoZSBwcm9jZXNzIGludG8gMiBzY3JpcHRzLCBib3RoIG9mIHdoaWNoIHdyaXRlIA0K
+dG8gc3Rkb3V0Pw0KDQpUaGVuIGEgd3JhcHBlciB3b3VsZCBvbmx5IGhhdmUgdG8gY2FsbCB0
+aGUgdHdvIHNjcmlwdHMuICBNYXliZSB0aGUgc2Vjb25kIGNhbiANCmV2ZW4gcmVhZCBmcm9t
+IHN0ZGluLg0KDQpDaGVlcnMsDQoNCkFsZXgNCg0KPiBXb3VsZCBpdCBiZSBwb3NzaWJsZSB0
+byBnZW5lcmF0ZSB0aGUgUERGIG9uIHN0ZG91dD8NCj4gDQo+IFRoYXQgd291bGQgaGVscCBo
+b29raW5nIHRoZSBzY3JpcHQgaW50byB0aGUgYnVpbGQgc3lzdGVtLg0KDQotLSANCjxodHRw
+Oi8vd3d3LmFsZWphbmRyby1jb2xvbWFyLmVzLz4NCg==
 
---------------00n64fYkYRTclysVnTL0sQ7F--
+--------------MkFt2oMwB0rT4mDCshpTsyqz--
 
---------------gZS2SQ6Vm5cC0YJDVXzX0UiH
+--------------JE0ubui4QVS0yzGhJ6iwjvNC
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmOmVxUACgkQnowa+77/
-2zIGlQ/8CozQe21T0y3kyxytrH0BJh9i7R/ZAesiFm6U5cgU3WYjWMeIPyYKhAu8
-5M7Up3aTz/9SsAxwscgpJApViNarmiZizIpVdtbpU9Uv0tu5yUllCvKcIy0WASG3
-Sbd+zX3ETsGxWeOnqi1RYgzUxOykqpdwpoDiKhWMjjfpZOb4xuCf920ZNO1cBrDl
-L2UcJ/wUpzvzK537XOaUxRyBCu4mmzFQVLho3FAVKQ/yxg8HNv6+ygUs9dSzQHRc
-pLqDvESxHjsmkieuyzLi+r7ZftobJv07zOzxg4UYETXTQH8KXc7Wg5KhCr4AWJSx
-qFUJvld8VgB9eigZak0jcuqWSXZVHGejPILQXgGr9Jc3NFvdmOW6o0BhUiScknv6
-HonuIj4fv9z+MtAulXLETI8wwDrMQuI9RYVwSkTRcAfDSd0tltfiGRVmGXVQP0jo
-BNBxTl016ZocYxlQVYcoIDIC94pI/BjtwUB3mHDrLyjQ/UpT3vvmS63Ax6NOBu/A
-N6GZnCJpub9lY1DnACX8gmoI/Kt/ZCY3Umr052jaRr75/T/cCCWxiZ6sssf01Owb
-PdFS4NRETc4KhYsfKEwXv+83ZgnKUMUE+cOaDvYTAgqxcAfDpsXlGjFxT0inOMjx
-THNSpTpTdGhAAdMpO6amwylsdwx6rXtJ7XXZn2C7lw82qmirmq0=
-=BUrK
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmOm1n4ACgkQnowa+77/
+2zJ1fw//WfFq7nrPXCw8tKNXRfxpNBnpSDBzviC8PDIj6hHa/q66i9j4hz0A9rFA
+1NvuqlJ4Qs/DeyozH6YgvVfjix3JawXsTKku9Cpnwl6YYz92ya376AyMVkVQz5I/
+QyTM/1tlokLvIuecD+XL3RFk5NZkxENlA0bj4N8lXGwHtgxHAdFFWakEWAG+ogPF
++94jSChUpc3jr57qB4ou9W0Ea3yWHP3aB/h8IAHXeRx75qn2as4nbcg6rQ72+rWj
+4OQdDgtjwjuRrJhSBIm+WzTD4/cCNsqZ9wlfnlxOebJv8d2flFgCjgEbj1PupFQE
+xghBTwYHmFOzJ3MugQTfv+F6IB+H/RwiCoqVEUswqjozxPz8FzS5Ewmb5iDnLc6K
+HDABaWGwGUEZpVi/rHVrpnVLjqzFVPsNwizAgp4hMKsM1JwqhzZjvBTGNoDfiY8s
+X+HY5FfJEGaGKjEXZks5YOAKApIiwlsb0u4qZeZgI01WZuYrYvJ503EfKc0Y4XtP
+zxjHDMsV1CWh9GMADdtMdYElNWY2N7u/x06WaORDjeqo0YUl6bS/bo3/jeANP0Wv
+vfXkaCikKU0ziCnDewmQLhENSWHKV5dTA+pDdc35IiYqfYAjWvdakn/HDge8d6oz
+LCU4CNoiGUp3WF+wKAY3yc1StU+HsRadGco56EQWHo4hAp87wDQ=
+=fTx8
 -----END PGP SIGNATURE-----
 
---------------gZS2SQ6Vm5cC0YJDVXzX0UiH--
+--------------JE0ubui4QVS0yzGhJ6iwjvNC--
