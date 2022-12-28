@@ -2,76 +2,87 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 48766657C5B
-	for <lists+linux-man@lfdr.de>; Wed, 28 Dec 2022 16:32:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 9584B6583DD
+	for <lists+linux-man@lfdr.de>; Wed, 28 Dec 2022 17:53:23 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233876AbiL1PcK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 28 Dec 2022 10:32:10 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49360 "EHLO
+        id S234424AbiL1QxW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 28 Dec 2022 11:53:22 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43234 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233828AbiL1Pbt (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 28 Dec 2022 10:31:49 -0500
-Received: from mail-qt1-x832.google.com (mail-qt1-x832.google.com [IPv6:2607:f8b0:4864:20::832])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C051115FD0
-        for <linux-man@vger.kernel.org>; Wed, 28 Dec 2022 07:31:39 -0800 (PST)
-Received: by mail-qt1-x832.google.com with SMTP id s9so12926918qtx.6
-        for <linux-man@vger.kernel.org>; Wed, 28 Dec 2022 07:31:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=hardenedbsd.org; s=google;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=vuofHjDm4STYXNdGsep6aD4JXI32+stKyT0rMvY0yIE=;
-        b=gtw3JBQVK415jmrBeDvapjJYJdJrnltnKNSkGA6YgrLtP2bs/93MkQJeCOIQjucj2f
-         jZ1To18EjK2jj0xhwN8IYMiq6Xg5V/SPv5nZlAucA3ifJ4UAbPbg5X3GMMFD4ImRFlfu
-         DJbtp9w36RU53oYDAzNd29JbudrOxckr34nj6U+d9FMncElAubAJ6NiUceU+gLE6umJn
-         z6D7sclZS0mLbXhJnd26xqMG2dfmuKWyl6XP/Yyaf2A0JcD1cory6tUYo/TPu2YMttAA
-         ZAm4dfTdT/xpiY0SVWQ6xCzNiFlrWcmNlJbolRbXkuSOqJhvyzlCXB04MdpLlyKrX841
-         OYfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=vuofHjDm4STYXNdGsep6aD4JXI32+stKyT0rMvY0yIE=;
-        b=UmufrjYUsPVnmUSuuFiu2Exy5KrW9c5G+KRpy0pjHI9NAAllp9+DOyzuD8WKUN1jt9
-         Gqy0XIkQHFYgVPuGglUYCK1NggEYjbnhIPzEuz75SAzK01kWReS1mDVzObr/wNZhFGgr
-         UFtaRyd/QIyMtA5YXTVM3GxuDbWkZultUi0ljIwHCFn/Hx1KVhRRskl9z7qI3btR86ud
-         7kA9J6OVkplAqpI6SpqVUlyYqed1Co6Hk/Hy4aOvhoDDc+r3yaI80BYXy2yZF3rQxi7r
-         s62NCcRLf7OU1Fg9mk1Uqwl2c6iHA8Nil5E6Dhp5cS8O7UzX5EKtasSi9io7puI7LoDl
-         PMsQ==
-X-Gm-Message-State: AFqh2koL0R4wQZm1TPi67ajIjS49H9rbjawbPkSI4HkMu/52XBPWwU6D
-        vhFztyX+h0sBde48pXyMe0SSw6b35Kn5P8mU
-X-Google-Smtp-Source: AMrXdXsJ7fP4Q5mz0Ra/FOpqE5hbViJkZkTFXPjbP9L+A24yyFhTx8aCgTBTZVxN/TmkNlUjEx+7sQ==
-X-Received: by 2002:ac8:534c:0:b0:3a9:8183:6a04 with SMTP id d12-20020ac8534c000000b003a981836a04mr43048522qto.54.1672241498856;
-        Wed, 28 Dec 2022 07:31:38 -0800 (PST)
-Received: from mutt-hbsd (pool-100-16-219-215.bltmmd.fios.verizon.net. [100.16.219.215])
-        by smtp.gmail.com with ESMTPSA id m14-20020ac866ce000000b003a7ee9613a6sm10027215qtp.25.2022.12.28.07.31.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Dec 2022 07:31:37 -0800 (PST)
-Date:   Wed, 28 Dec 2022 10:31:37 -0500
-From:   Shawn Webb <shawn.webb@hardenedbsd.org>
+        with ESMTP id S235210AbiL1Qwp (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 28 Dec 2022 11:52:45 -0500
+Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com [66.111.4.27])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5A26C1D0E4;
+        Wed, 28 Dec 2022 08:47:32 -0800 (PST)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+        by mailout.nyi.internal (Postfix) with ESMTP id CA0A25C0197;
+        Wed, 28 Dec 2022 11:47:31 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+  by compute5.internal (MEProxy); Wed, 28 Dec 2022 11:47:31 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+        invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+        :in-reply-to:in-reply-to:message-id:mime-version:references
+        :reply-to:sender:subject:subject:to:to; s=fm2; t=1672246051; x=
+        1672332451; bh=kNEXh77+6wY23ZdF9C0dJh8nBDvRVsFvdpp9oNCrBQA=; b=T
+        QXrNMCJuy72Qyz8a+hAKaJwHniwj+t/33+MUy98/s1jDMTK9TnCzM9PVH7veOxl2
+        abNE3E53WEtzhRFn7rTT9+Nbgu/M2xZoSF3rdWbmlOHBI4tX4vCYEAqZliAn1dQX
+        b3DLhKblswviltyAS+uGGNBV7eutuEOO6RfrmKlnPPEILM9rzuEK3isQaqGlz73u
+        Pg1NwXRVhOaZS10FIPHtlhisbPSzMrQoYsVUwCFqBXHlNzoAhuJk2PnirM4UggJv
+        faeCH6SJmNKSn5mNjjccthJNR0gUvd2zRE8elqKu8aN0dhaAxITW4VJrIbN7FMmf
+        BlbulI98MbufWDvXO994Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+        messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+        :feedback-id:from:from:in-reply-to:in-reply-to:message-id
+        :mime-version:references:reply-to:sender:subject:subject:to:to
+        :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+        fm2; t=1672246051; x=1672332451; bh=kNEXh77+6wY23ZdF9C0dJh8nBDvR
+        VsFvdpp9oNCrBQA=; b=Cm3M6SLAGROnguwnqsMb5REVOQ5WnIndpxqFT1cV0p3B
+        mKlBHKOQzSbGx75r3ZjcNXq9csWpffkW/wAsaXGvTA5IBcHl+4/zzIqVob25kGvn
+        1QekDtW1wM6jF8QwtEBYieJQV0LHIFcCBpabqKU5ntSWNc37jVZVmJi52ZCuyKqk
+        RDh70r7a82gAAMQa1nLUT509oaZ5sb5DsvRznmAtfHlAfBZRlv0hE9LMUBlKLIf3
+        WihKESlR30cejoaJNZB9wsrDERj1rc9z60hqSwoYc3g9BhBZI6NFOA2oSUGtY+p8
+        EVeKXDQJtcKuT9IUdLSPkn4o0vasjacDpW3//t8DJg==
+X-ME-Sender: <xms:I3OsYz5hRhYMEas7y71Sww6BGMce91_3xjYLIrPO8JIKTUVbD3s2IA>
+    <xme:I3OsY443c2iCaPqRY9fawRe_q5ZjpN_leV-Cy4AinN3hXK7aiBoJ5MHBYCgF0Xtq6
+    SWKf3lPGzGxvZ4>
+X-ME-Received: <xmr:I3OsY6eTQE_gPzdh-k8l9cAqw5Fv7jp7seJhFsOBr3OfdYEJOc2VrZfqVEje>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedriedvgdelgecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecunecujfgurhepfffhvfevuffkfhggtggujgesghdtre
+    ertddtvdenucfhrhhomhepffgvmhhiucforghrihgvucfqsggvnhhouhhruceouggvmhhi
+    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnh
+    epudeileefueetvdelheeuteffjeegjeegffekleevueelueekjeejudffteejkeetnecu
+    vehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepuggvmhhise
+    hinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:I3OsY0JU_veQtjYBiC3HniNOTkiOfWiL_4ain8QTEd81lO5O2OtKuQ>
+    <xmx:I3OsY3LwGDztGLd08k5G3RwjsHDxi4uo8e1kg4GIeTEX-9IOEUP7DA>
+    <xmx:I3OsY9xoowRss3v04ct5kDbOZPK7Q94VeH40CloN5IpBecwfYjkLtw>
+    <xmx:I3OsY-XZ0ofbrNrxu-1W5UA3u95zki_rCPi9s1ugav9Q8YW02geH3w>
+Feedback-ID: iac594737:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 28 Dec 2022 11:47:30 -0500 (EST)
+Date:   Wed, 28 Dec 2022 11:47:25 -0500
+From:   Demi Marie Obenour <demi@invisiblethingslab.com>
 To:     oss-security@lists.openwall.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         Michael Kerrisk <mtk.manpages@gmail.com>,
         linux-kernel@vger.kernel.org, linux-man@vger.kernel.org
 Subject: Re: [oss-security] [patch] proc.5: tell how to parse /proc/*/stat
  correctly
-Message-ID: <20221228153137.4w4bhaqt4fb5vlio@mutt-hbsd>
-X-Operating-System: FreeBSD mutt-hbsd 14.0-CURRENT-HBSD FreeBSD
- 14.0-CURRENT-HBSD 
-X-PGP-Key: https://git.hardenedbsd.org/hardenedbsd/pubkeys/-/blob/master/Shawn_Webb/03A4CBEBB82EA5A67D9F3853FF2E67A277F8E1FA.pub.asc
+Message-ID: <Y6xzIR9P+a6uaaEx@itl-email>
 References: <Y6SJDbKBk471KE4k@p183>
  <Y6TUJcr/IHrsTE0W@codewreck.org>
  <1a1963aa1036ba07@orthanc.ca>
  <20221228152458.6xyksrxunukjrtzx@mutt-hbsd>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="k7cz6avvpg6f66a7"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="r4azVG4BR9kBokFk"
 Content-Disposition: inline
 In-Reply-To: <20221228152458.6xyksrxunukjrtzx@mutt-hbsd>
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
-        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-2.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,
+        RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_NONE autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
@@ -79,10 +90,18 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---k7cz6avvpg6f66a7
-Content-Type: text/plain; charset=us-ascii
+--r4azVG4BR9kBokFk
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Date: Wed, 28 Dec 2022 11:47:25 -0500
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: oss-security@lists.openwall.com
+Cc: Alejandro Colomar <alx.manpages@gmail.com>,
+	Michael Kerrisk <mtk.manpages@gmail.com>,
+	linux-kernel@vger.kernel.org, linux-man@vger.kernel.org
+Subject: Re: [oss-security] [patch] proc.5: tell how to parse /proc/*/stat
+ correctly
 
 On Wed, Dec 28, 2022 at 10:24:58AM -0500, Shawn Webb wrote:
 > On Tue, Dec 27, 2022 at 04:44:49PM -0800, Lyndon Nerenberg (VE7TFX/VE6BBM=
@@ -111,55 +130,30 @@ parsable...
 > 2. /proc/pid/stats.xml
 > 3. /proc/pid/stats.yaml_shouldnt_be_a_thing
 
-To expand upon this idea, lets define an example json file:
-
-{
-	"schemaver": "20221228001",
-	"name": "cat",
-	"state": {
-		"raw": "R",
-		"intval": 1,
-		"Pretty": "(Running)",
-	},
-	"tgid": 5452,
-	"pid": 5452,
-	"ppid": 743,
-	"uid": {
-		"real": 501,
-		"effective": 501,
-		"saved_set": 501,
-		"fs": 501
-	}
-}
-
-And so on.
-
+A binary format would be even better.  No risk of ambiguity.
 --=20
-Shawn Webb
-Cofounder / Security Engineer
-HardenedBSD
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
 
-https://git.hardenedbsd.org/hardenedbsd/pubkeys/-/raw/master/Shawn_Webb/03A=
-4CBEBB82EA5A67D9F3853FF2E67A277F8E1FA.pub.asc
-
---k7cz6avvpg6f66a7
+--r4azVG4BR9kBokFk
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEA6TL67gupaZ9nzhT/y5nonf44foFAmOsYVkACgkQ/y5nonf4
-4fonfA//aKcBZ1LuRMDhEhGwkR7Iq3V988pnjIrfeJzNM33Cpf4zWtfsyR73gStD
-29peSWTP+L9hg6A9K9FcvcbseYYYhlegTtqPtxdbEbL7fqBzm2LDLD9Vh3RTQE1Z
-qYMOXSGRjbjivPfoDDGXlFahY5Lqt5NX5w1/wfR+4NpbpGZ/VyXo48XtSmiG9XuV
-+LDGIQ1FOul4M1XqqD3CApJsjuOmwtLGQxQIcatQYgkOin9uN1O8bYMVHiXXPEJp
-q+s+gZIT9sxHLKvNbAjw3WRzTHMPNPk2PTxLkNjxBbrxd428UNamJlPmLwPsp2xg
-OucAMb3coSh+Af71K7f+bZ6lv/ZAVKbA0Vpmun887rww/dlcPKUd+DpdVKc2JK8k
-pvQy/OZIly8+uggmx3qfz8svjpR0wD68v5wX/i/+UXsszgp9ArlCKbAlORTxea+A
-5R7wQi9QS0jKk04zMA5GZ2W8gEFgjRYdjPe3oIt64mcbHKE8qaj3kZNjgoyqXl7e
-zmMjP776S8ot/aPsHTho9sizi8RuqjMbX3q4TePjWajbJC99Akqoo6Ah/x2rNZ54
-U3l5aQAEOw8E/sMYAjBNMVIJFZz9yEyDgeYqXBOI3zl68h6A/hdDtd75higpM1Qo
-8pHkUFFYDOBKfaIdJmDR4QNf/DPOYQaW9RZFrF6p6c2L5WPdOko=
-=Epsn
+iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmOscyIACgkQsoi1X/+c
+IsHnOA//fT6cVIE4FIMywkI+AqPhk9XiChwWd7FjC1AvRuFHtzRVeZKbsQm5+TvP
+zsyVq80XH79nYyCvOdjUsU6ItgvLFssJhLrgLHsLZLgOBF6aCjcKTGQ/Gt6yksqG
+SYEf2mU5CDAvHiqqimYruOHU7I+4KLozQpk1zhOkb2YyVcl9Jwc6ia4k7p6Fffdi
+K/W851sXSQ4MHRGwu3Acwu014W0OgwCji/0UeFIhktSMMyi/sOQrs9F/hfsCty+q
+F1pCWeclNXERprw5653z5ujLGEUgD4eUX+DLoqxJ1oYQz0MvMITWISSZ8Q1lnPM+
+xpaZZTF2cJG6IF0hBuMWqqudaOvfqKYlyXU2c92FyBKsVruaj1e7WDco60p4iFvX
+rxaPlMsRUYeMYjWdO9Uvhz1GcygbI4eBdQk6+XCNX+jvCHAG2TtKtda5fPa5r2mt
+wpfni8qiaGDJQybqsDqjAjjRlN+AgXQJYYK+GFDXCd7B6qdxpOGSJaTUmjw3Mf+6
+vykA7kPEX2MrF2WCben6ve6pvUKQYI3NjjWUd+R1IDnnFrFMJiC7MdKgaRF2jN/1
+x7w+U7oj6VngCGRWcwlbx01/BTkhJT1AvKF4wjCxffaG7OS9JYlOLfERAZTiXjMh
+PlHFUvAsRpTaqXdVVT3/f4WvXlFMGB7jydW9E/PX1Qd3YZHaOUo=
+=ujCS
 -----END PGP SIGNATURE-----
 
---k7cz6avvpg6f66a7--
+--r4azVG4BR9kBokFk--
