@@ -2,78 +2,89 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 6432E658542
-	for <lists+linux-man@lfdr.de>; Wed, 28 Dec 2022 18:25:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 1950865856F
+	for <lists+linux-man@lfdr.de>; Wed, 28 Dec 2022 19:03:32 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232508AbiL1RZ1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 28 Dec 2022 12:25:27 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38596 "EHLO
+        id S233412AbiL1SDa (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 28 Dec 2022 13:03:30 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47298 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231852AbiL1RZY (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 28 Dec 2022 12:25:24 -0500
-Received: from mail-vs1-xe30.google.com (mail-vs1-xe30.google.com [IPv6:2607:f8b0:4864:20::e30])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8AECB1582D
-        for <linux-man@vger.kernel.org>; Wed, 28 Dec 2022 09:25:19 -0800 (PST)
-Received: by mail-vs1-xe30.google.com with SMTP id m129so10285460vsc.11
-        for <linux-man@vger.kernel.org>; Wed, 28 Dec 2022 09:25:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=hardenedbsd.org; s=google;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=AEVM5AUDilZJYaQsZd9oVNR1x46s1U+Ak2sstBJ5jV8=;
-        b=j8S08/QHYpGAcDHI/4qQdIScYpGuBRltLRMeaq4DGRSTXK38MdlCFAmttEa3pQ2AAR
-         NtXln8auiAZjKs5RKITvwiuO1ZOSR0W++0JciEQIn8C56feM5e5AFKcDHtkheALQVVPp
-         r7zMAp6ORF1QFUMJpVD7nasWQGh0kL0KtpkZ4C9/ZXMqHbz5BlpuW8H8UFd1MiDW8OKH
-         kyiXRFlSRG5m8C3h/8RAgYplVIyX07AKNInN72kjvOFxhk6+rNlOtc5iUW4hXlqJbQBh
-         JpCuRo1YLtBeJlbNRlsujRzhTF8G4fVxxPfdmWgN2GVySWxiR8no5Ah1jufjcdqUB1EA
-         OrmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=AEVM5AUDilZJYaQsZd9oVNR1x46s1U+Ak2sstBJ5jV8=;
-        b=TxecrZw/O6HPmcK6HXmul9p5eS+FabKu01n9QfoqySYixVavc4ao0IV9VZtXiCX4+F
-         UoKrkvXOXJvMfZfAmdtLwP1SguWO7rJXHxts6i7Ah7eYuK+G8v3mBCju7tWzsmZbQ5MF
-         XJKsN75tF+B480a8IzIGhW2xzZVKk2nkkBFkgfLyjYA5UoaGR4JMOKUKxRsi+GuSM93L
-         VaM96X96KB3brfsdset9cI4f9ChgcE+9OplxHrXpJW1gA8ySPify6U+V1vta/zZNK+Sx
-         kYJtl9lKBsCG7KNrRZoyW6t/NOlMNDllCCDIIFvg3KjNUKbegAHZHibs6Q6RujTEJ5ml
-         AGuw==
-X-Gm-Message-State: AFqh2kpWbT/nhHpjaJ35c914yEOl08x15MV+92jyrut0wDP0sbArTVTS
-        cNUfsQQLEvKpLzQHc/H0fBewLQ==
-X-Google-Smtp-Source: AMrXdXubLSWgdRat/lLGOFgWgMfxK3e5HrzYBf27Lx4PdebB/GXsDoRKstMhux3jJ8bNBBTapYhWlA==
-X-Received: by 2002:a05:6102:508a:b0:3b1:3a70:ae18 with SMTP id bl10-20020a056102508a00b003b13a70ae18mr13788387vsb.17.1672248318317;
-        Wed, 28 Dec 2022 09:25:18 -0800 (PST)
-Received: from mutt-hbsd (pool-100-16-219-215.bltmmd.fios.verizon.net. [100.16.219.215])
-        by smtp.gmail.com with ESMTPSA id q12-20020a05620a2a4c00b006fef61300fesm11801298qkp.16.2022.12.28.09.25.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Dec 2022 09:25:17 -0800 (PST)
-Date:   Wed, 28 Dec 2022 12:25:17 -0500
-From:   Shawn Webb <shawn.webb@hardenedbsd.org>
+        with ESMTP id S232696AbiL1SDH (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 28 Dec 2022 13:03:07 -0500
+Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com [66.111.4.27])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 636CA2FA;
+        Wed, 28 Dec 2022 10:02:45 -0800 (PST)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+        by mailout.nyi.internal (Postfix) with ESMTP id BC0E65C0081;
+        Wed, 28 Dec 2022 13:02:41 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+  by compute3.internal (MEProxy); Wed, 28 Dec 2022 13:02:41 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+        invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+        :in-reply-to:in-reply-to:message-id:mime-version:references
+        :reply-to:sender:subject:subject:to:to; s=fm2; t=1672250561; x=
+        1672336961; bh=c7NmyHHySc4TjiTj5MpYoylB3a/6CpCUH0DjRLdd1lU=; b=S
+        jjLlDIvmwsM4cWOGVPAfCPJ3Iqw47RWqA2A26yerdb1yMyZsRpOIgVAjNTwWFoyj
+        nMsZp3+w8LtFji4OSuW6w+vQaZ8NTcLfDN2D9/hmwqsrvvYajnVOjmGnsxV59XHB
+        /Jjut9L0u8P1i06X7/1GBUM7W5YRgUpNyfQx1S7LlCMYquZ9yIClV4umM6VXAKyv
+        SVW+pXrGb/D51KN4ZIpznZgZRYzppqfDdjIyLVFho9UgGMfnV3Kg0WGyKB+taLUf
+        OrmE3yzMGvoOyBYVAIFP1++UB1p772BkeCm54hvc+v3RE6q4vnBPuJe1uE5nbatc
+        l+R8WvC8JNEYe/MZTXiNQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+        messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+        :feedback-id:from:from:in-reply-to:in-reply-to:message-id
+        :mime-version:references:reply-to:sender:subject:subject:to:to
+        :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+        fm2; t=1672250561; x=1672336961; bh=c7NmyHHySc4TjiTj5MpYoylB3a/6
+        CpCUH0DjRLdd1lU=; b=G08Uqk4JD2HKMOsIYHW1j6f5WHpI4b6VPMipox68x9t+
+        Dsgjq3lwh3b2TZxrUQ/Wt4jU6ZkYauJA9ZRPES/AFA0HXDxuUm/rMEdNALk+wPXF
+        gT+L5t2ukQaPqOzuTLungjFipvHE1lupmRpKiqalgkDbwaMawjmbCE1Vz8/zsd6m
+        CCINFlaznifdI9E77xFxngtcjp00ZQqWuX8kY5pihVA4OHhJruShMFdr6A1fldMF
+        2Ak7tSziw0YQws3EfKgWmlJO1MNCt4y0Ew+MNjJvrQ9F9YbJWVJkmLS6vehtk1Jc
+        rSbxYuX/Zi+HnEuE7W7r6RpPdwsGd08b8N5WhLL3YQ==
+X-ME-Sender: <xms:wYSsY9cpR5iT9ExQsZn84DS25qtEfYjVqsqSpwKGXs4kPp3nA67YTg>
+    <xme:wYSsY7MWDhJFDXndWqGpJyLFzh0NRwKCXTE-u-Kj-prIdrgTLCR1auJ1Ogq2vn96e
+    kRO8zj7J3Iq6k0>
+X-ME-Received: <xmr:wYSsY2jUyHa5Lz3p6VSdFa-srRY2a9lKM4f60YQKAX71J9wusw_BPqHrNwSm>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedriedvgddutdelucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucenucfjughrpeffhffvvefukfhfgggtuggjsehgtd
+    erredttdejnecuhfhrohhmpeffvghmihcuofgrrhhivgcuqfgsvghnohhurhcuoeguvghm
+    ihesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrh
+    hnpedvjeetgeekhfetudfhgfetffegfffguddvgffhffeifeeikeektdehgeetheffleen
+    ucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpeguvghmih
+    esihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:wYSsY29MG0dofwNMNTPH0v7ExPp2SQKxzWfWfXkHHPi4PzPBA3cHjg>
+    <xmx:wYSsY5sJ48EVau6xxv4IHpP0SjyQCi2eKUvAjhw9JQX0KKGHrfYnfA>
+    <xmx:wYSsY1H1Fk5xtDtxXDcVplxNdvdcG9wjhtI1CyT8ZfMM2l2lsz4WsQ>
+    <xmx:wYSsYy6PbWaeFjq6DmwZEz-6Bos1hmZOulAPMtXNU64UufNMx9DqIg>
+Feedback-ID: iac594737:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 28 Dec 2022 13:02:41 -0500 (EST)
+Date:   Wed, 28 Dec 2022 13:02:35 -0500
+From:   Demi Marie Obenour <demi@invisiblethingslab.com>
 To:     oss-security@lists.openwall.com
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         Michael Kerrisk <mtk.manpages@gmail.com>,
         linux-kernel@vger.kernel.org, linux-man@vger.kernel.org
 Subject: Re: [oss-security] [patch] proc.5: tell how to parse /proc/*/stat
  correctly
-Message-ID: <20221228172517.l7h3m7wjfpxr3dzw@mutt-hbsd>
-X-Operating-System: FreeBSD mutt-hbsd 14.0-CURRENT-HBSD FreeBSD
- 14.0-CURRENT-HBSD 
-X-PGP-Key: https://git.hardenedbsd.org/hardenedbsd/pubkeys/-/blob/master/Shawn_Webb/03A4CBEBB82EA5A67D9F3853FF2E67A277F8E1FA.pub.asc
+Message-ID: <Y6yEv+6iYQQNaqi9@itl-email>
 References: <Y6SJDbKBk471KE4k@p183>
  <Y6TUJcr/IHrsTE0W@codewreck.org>
  <1a1963aa1036ba07@orthanc.ca>
  <20221228152458.6xyksrxunukjrtzx@mutt-hbsd>
  <Y6xzIR9P+a6uaaEx@itl-email>
+ <20221228172517.l7h3m7wjfpxr3dzw@mutt-hbsd>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="53fjlxfw5lfxitvk"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="h7PZ10vsTAyj4PIA"
 Content-Disposition: inline
-In-Reply-To: <Y6xzIR9P+a6uaaEx@itl-email>
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
-        SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no
-        version=3.4.6
+In-Reply-To: <20221228172517.l7h3m7wjfpxr3dzw@mutt-hbsd>
+X-Spam-Status: No, score=-2.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,
+        RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_NONE autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
@@ -81,71 +92,79 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---53fjlxfw5lfxitvk
-Content-Type: text/plain; charset=us-ascii
+--h7PZ10vsTAyj4PIA
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Date: Wed, 28 Dec 2022 13:02:35 -0500
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: oss-security@lists.openwall.com
+Cc: Alejandro Colomar <alx.manpages@gmail.com>,
+	Michael Kerrisk <mtk.manpages@gmail.com>,
+	linux-kernel@vger.kernel.org, linux-man@vger.kernel.org
+Subject: Re: [oss-security] [patch] proc.5: tell how to parse /proc/*/stat
+ correctly
 
-On Wed, Dec 28, 2022 at 11:47:25AM -0500, Demi Marie Obenour wrote:
-> On Wed, Dec 28, 2022 at 10:24:58AM -0500, Shawn Webb wrote:
-> > On Tue, Dec 27, 2022 at 04:44:49PM -0800, Lyndon Nerenberg (VE7TFX/VE6B=
-BM) wrote:
-> > > Dominique Martinet writes:
+On Wed, Dec 28, 2022 at 12:25:17PM -0500, Shawn Webb wrote:
+> On Wed, Dec 28, 2022 at 11:47:25AM -0500, Demi Marie Obenour wrote:
+> > On Wed, Dec 28, 2022 at 10:24:58AM -0500, Shawn Webb wrote:
+> > > On Tue, Dec 27, 2022 at 04:44:49PM -0800, Lyndon Nerenberg (VE7TFX/VE=
+6BBM) wrote:
+> > > > Dominique Martinet writes:
+> > > >=20
+> > > > > But, really, I just don't see how this can practically be said to=
+ be parsable...
+> > > >=20
+> > > > In its current form it never will be.  The solution is to place
+> > > > this variable-length field last.  Then you can "cut -d ' ' -f 51-"
+> > > > to get the command+args part (assuming I counted all those fields
+> > > > correctly ...)
+> > > >=20
+> > > > Of course, this breaks backwards compatability.
 > > >=20
-> > > > But, really, I just don't see how this can practically be said to b=
-e parsable...
+> > > It would also break forwards compatibility in the case new fields
+> > > needed to be added.
 > > >=20
-> > > In its current form it never will be.  The solution is to place
-> > > this variable-length field last.  Then you can "cut -d ' ' -f 51-"
-> > > to get the command+args part (assuming I counted all those fields
-> > > correctly ...)
+> > > The only solution would be a libxo-style feature wherein a
+> > > machine-parseable format is exposed by virtue of a file extension.
 > > >=20
-> > > Of course, this breaks backwards compatability.
+> > > Examples:
+> > >=20
+> > > 1. /proc/pid/stats.json
+> > > 2. /proc/pid/stats.xml
+> > > 3. /proc/pid/stats.yaml_shouldnt_be_a_thing
 > >=20
-> > It would also break forwards compatibility in the case new fields
-> > needed to be added.
-> >=20
-> > The only solution would be a libxo-style feature wherein a
-> > machine-parseable format is exposed by virtue of a file extension.
-> >=20
-> > Examples:
-> >=20
-> > 1. /proc/pid/stats.json
-> > 2. /proc/pid/stats.xml
-> > 3. /proc/pid/stats.yaml_shouldnt_be_a_thing
+> > A binary format would be even better.  No risk of ambiguity.
 >=20
-> A binary format would be even better.  No risk of ambiguity.
+> I think the argument I'm trying to make is to be flexible in
+> implementation, allowing for future needs and wants--that is "future
+> proofing".
 
-I think the argument I'm trying to make is to be flexible in
-implementation, allowing for future needs and wants--that is "future
-proofing".
-
+Linux should not have an XML, JSON, or YAML serializer.  Linux already
+does way too much; let=E2=80=99s not add one more thing to the list.
 --=20
-Shawn Webb
-Cofounder / Security Engineer
-HardenedBSD
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
 
-https://git.hardenedbsd.org/hardenedbsd/pubkeys/-/raw/master/Shawn_Webb/03A=
-4CBEBB82EA5A67D9F3853FF2E67A277F8E1FA.pub.asc
-
---53fjlxfw5lfxitvk
+--h7PZ10vsTAyj4PIA
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEA6TL67gupaZ9nzhT/y5nonf44foFAmOse+YACgkQ/y5nonf4
-4fqYGw//ei+Kr3PwFtaEm+2Q1h8l2hrnM14W8ORZQWkqtv75yAPUCq6mb4XmSDze
-3Z9kMrY4xvdYTMUZa4S1VvXF+tDe7nIqjf4kq6qCOhfyeoozvUm13yXEARvpMsLO
-joSrhua4pTi8fCs3ZGebfgM8mNEMl4ZgdZIIpjcRWhVe0XAs7FvwZJyknr6joe8G
-HBXB6FzCzbR4AUpp8+MjpwZIoPKw5KVODDGBG2rOvDoCFZceL/d9djmBW0dsI1Y1
-EM4dQkx2zUJWBF77sQni1pAK+JJ52Xlwh61PbgHJLzUpUvUl7ZWMZoVn996MEdfF
-tD0/V6de9kF6xkyQ+tBI+hRHuAUAAkSuYFR9/1BdLkcgVzaaXbUdTUAJQ/6sD9nt
-CRIIhN6sQcYUe2VZbbS+KU+DhFGl6M9P3WPfbMJeaDootxRbkshThvUiXcdlMHIg
-q8ce1idlwBxYonLgYdhF2FtOi3kjy0bykabUM3lzHpieadyxfSwP01x8PiOPjRs3
-+M48jCecix8LaW8yIzvY42ZhawwsO/7fqr4U373hM6BhkW6HnkzTr0Glkq6pQxVR
-8tBkVfaY9+JEqNOb0qU+fO3MVcpbkUnAtbnnGOfEmEaT5aWcaI7m1IvJsN6L+wWP
-HNBNpi9Gizl9BbzbIkFxepiN8WsxNK2aEjuSt6YfiUICuguqeeM=
-=ZLcQ
+iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmOshMAACgkQsoi1X/+c
+IsFRcRAAyi/536j5gBlVkcg6xT9EIcHZq2MRXB1xoJuKa5bRWIH6vBDgH924yy7i
+gSNF0CfemdwbPvI/SCF5E+MdJJPzYlb1cyZe8faDey92XGKadi7w61YQSZT/sLT5
+Oa66GmF+BcPi5v7wPArP8dOXHItwG7nazKZehsWcWk6pX2TBW6xvVBgmjQlDXNFM
+KdgeSKnD6nBr3ehkr1u3U8FdTCoy1x7+3M7aZDQsho23gJ2EGLZP4tEMrJuhU6ny
+gMCM0GVvLJhEbw7cpV+2qCDs9nGEIuma99RXHYQq5gzjIQD7X+FbWpa75KigpS7a
+nDB/ZdY8DJ4sychM1/GqSqckrOoazq8kTQHrF3BbOHFZ5NUMiPK9BPO18x76DfuY
+L/gzOxeZmmu0bq0WUBJQg/vlmvAINZTw3C6j9q5P9HPOb1DbiMVJbk0XJ6GplSNL
+W7BN6bHHsKa05QGXzF7j6Kk2BBnyzXDKzIgkexP+pDR5ZTyKkijQGxIOdTV5qO4R
+DfcpQAGX5x2R2kxD8jtMt1d+Nky1/lziX0n9+nXo0OO6uevjDrj0aPY+01N9OGM2
+rqqscUS9mUuT8v/5+1CkNhl0G009b673iKyZVN9QM7MhGMypwQJ6IMS8hRgFcqjl
+XFanvw16iKAKxSRt2s1bckswJ/TlXNsGwjvAJreboDybPHBpewY=
+=Wdo0
 -----END PGP SIGNATURE-----
 
---53fjlxfw5lfxitvk--
+--h7PZ10vsTAyj4PIA--
