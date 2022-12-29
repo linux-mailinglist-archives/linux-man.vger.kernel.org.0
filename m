@@ -2,120 +2,167 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 28D45658F1E
-	for <lists+linux-man@lfdr.de>; Thu, 29 Dec 2022 17:37:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 54A0D658F22
+	for <lists+linux-man@lfdr.de>; Thu, 29 Dec 2022 17:40:03 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229699AbiL2Qhy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 29 Dec 2022 11:37:54 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33768 "EHLO
+        id S230022AbiL2QkB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 29 Dec 2022 11:40:01 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34042 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229685AbiL2Qhx (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 29 Dec 2022 11:37:53 -0500
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com [66.111.4.26])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EDC08BCAF
-        for <linux-man@vger.kernel.org>; Thu, 29 Dec 2022 08:37:52 -0800 (PST)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
-        by mailout.nyi.internal (Postfix) with ESMTP id E85F75C00C4;
-        Thu, 29 Dec 2022 11:37:48 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
-  by compute3.internal (MEProxy); Thu, 29 Dec 2022 11:37:48 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=owlfolio.org; h=
-        cc:cc:content-transfer-encoding:content-type:date:date:from:from
-        :in-reply-to:in-reply-to:message-id:mime-version:references
-        :reply-to:sender:subject:subject:to:to; s=fm1; t=1672331868; x=
-        1672418268; bh=03RvTwlfPlLqq8GlYnm7nm/xsEYqc5c3Dg5rQGoy4Jg=; b=0
-        uMZNhl/CiRe8v2ePEXhgBuidb/JtUBLex03GJUTtrHEMC2VKRQkAyMk26BuokIvK
-        FYWkogS472GWDKQLOXIdbthuVOsfw19YcWPl13Dri1SDHf5wGJeAapC6JPND6Fc+
-        4RZB3KOHr+j7kL7nfvv1tVBIFf0jB8yIiLRBH01MQwwaP7SGQ1XWtpgA8BiTXvxN
-        Wg/8tuZV2IdfnW9i6V1oPch6FbbFdcPrqTD94df1rjyk6uTsZ7WiC2BUZxyVxiIJ
-        ZBoJ6FzOvAX9aPegMeAggDGcOmZyKgmf9q8YCGI9dZuxz7ZhllMudLJ1AJiNjV95
-        iM/4DD/+wYXjdjXTk8XOw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-        messagingengine.com; h=cc:cc:content-transfer-encoding
-        :content-type:date:date:feedback-id:feedback-id:from:from
-        :in-reply-to:in-reply-to:message-id:mime-version:references
-        :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
-        :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1672331868; x=
-        1672418268; bh=03RvTwlfPlLqq8GlYnm7nm/xsEYqc5c3Dg5rQGoy4Jg=; b=X
-        lZYI02l/VHuUSrO/Lwi/mDsEeKNC0QHrHk5/iUmXvcf8OgPMDyfHwRdkGR6da1Z8
-        Ypv8hUJ9EPpjyFtN4Vl3Nr8XbXC4QEpQERZUt2Hgogd0uHp1E/TvqE3iV7It7Dqg
-        p9zmTSiuq7mFrqMqgXzYmy+ByQ7SijWaZAqIhTXHHaVrMI1ZS6ZRmHdpam+dZe8v
-        /hvZSRCfe465pT0UUJmlvnuGQPTy2gK6r+4LqpVdJwIuVRgOcxDqTGZ+UEddY1Uz
-        unhEtsd/FDqtYpRNyjC0kB0YO0fl11+5UmlO+rZSUBRx2iQcMavSV0ivrCNvJJj0
-        CYH19yjGj1xp0WjVGnl5g==
-X-ME-Sender: <xms:XMKtY3_u5DiBObRaiKigKOAGDaCJdt39qnia5MxxddUiYRz_FAq2og>
-    <xme:XMKtYzvCyS6kiStaViyWecI4TMGXpFBBL9nrK7FTKyV9WZ84JwxmMdlYW03bHV4iM
-    2-LAw3Ee-zM9LaY5DE>
-X-ME-Received: <xmr:XMKtY1ANLWDqyLIS0rF0YX2TQp6_WVwjIY3QSZ_y0dRBEagRpM_QUwieWi24HDCqQTz0Txf021zcxO9CKNAn3Xe_2Vh0bTX7iG0y5d2EAhxhhQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrieeggdeludcutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffkffhvfevufgjfhgfgggtgfesthhqredttderuhenucfhrhhomhepkggrtghk
-    ucghvghinhgsvghrghcuoeiirggtkhesohiflhhfohhlihhordhorhhgqeenucggtffrrg
-    htthgvrhhnpeeitdegjefghfdukeehkeeffeevvdefudfgjeffffetiefgkefgvdefleei
-    udevtdenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
-    iirggtkhesohiflhhfohhlihhordhorhhg
-X-ME-Proxy: <xmx:XMKtYzf3x1ceZ--IwOFjorY7lEowZIeC92A79QPiPyHZFdQd1pKUOA>
-    <xmx:XMKtY8NwN91llq5juB_3dN_oeHDNpi899JkSuW21ykdpqWWE127L6Q>
-    <xmx:XMKtY1nRlI558PADAvnDwKyCG2d_bdhgGmKAlw3f7dojAcsL5VCgdQ>
-    <xmx:XMKtY1azKBmu2m8KEzFzhFW-pEYiElAgpQs9pEG_gfWnLGkGuaw4sQ>
-Feedback-ID: i876146a2:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 29 Dec 2022 11:37:47 -0500 (EST)
-Date:   Thu, 29 Dec 2022 11:35:45 -0500
-Message-ID: <ypikv8lugobi.wl-zack@owlfolio.org>
-From:   Zack Weinberg <zack@owlfolio.org>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
+        with ESMTP id S233662AbiL2Qj6 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 29 Dec 2022 11:39:58 -0500
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com [IPv6:2a00:1450:4864:20::32a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 57A32BF6F
+        for <linux-man@vger.kernel.org>; Thu, 29 Dec 2022 08:39:57 -0800 (PST)
+Received: by mail-wm1-x32a.google.com with SMTP id k22-20020a05600c1c9600b003d1ee3a6289so13545476wms.2
+        for <linux-man@vger.kernel.org>; Thu, 29 Dec 2022 08:39:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=S44io7vGzfQ8lj6LpDFLUNl8aJwIPkAUEJOrocXtrSk=;
+        b=g24nO4qoKzN5XYKuVApAlKFK+sAYgnAGPsoi8sgPWUTZ9TlNBgILgGLYwqWQiHPzQf
+         Mu5i1V+W4cpIJ4mezqzqVXiokqnrR9VA8Ql9OjyVypVN7nRouC3lXxJZ0KSqWP/ohgCh
+         0rVL0Z8Hlls+/zKmyO3uyIEUpCmIYRCBJF93UHZ5GTQpdPqWrYGT3tK6hkhVFHeYovTR
+         3E4ZLLMW109/bJtmu7cPbVgcGOuDyWsLLSB7Vq3jbn7/MMv+bqml9ubH/i8VUQUe919o
+         CbSlzxogA28IeyWE5vR79LD0yZ5ihT2NmuGRF3FraoAgNnQi3BspcTeba7kjUlj0T4UQ
+         RxDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=S44io7vGzfQ8lj6LpDFLUNl8aJwIPkAUEJOrocXtrSk=;
+        b=f1Lf4xGjRCw5KniXIPDkUYQq623+dZ8tm2QThbJH5cHd/5EJ4dY41tWsnFeSkv9gBB
+         dsSDyPmHaTOhe9fbFSn2LAIcP3TXsCiafcFK6fTLVPhTUsoUpkx7ga/a7dz26lJmrEQC
+         cDEAlK8hpSR6Bnv00nC2wT55pb/ucrr08Vjov0jheWIYbnNnM5UImU1S1NZaVfvhdqdX
+         Qb2aVMfQ9rDV+souyLeIVhtCaNZSBV5Ajc1JQSjqPkNUNsdqvhPP4Mm/QSpUXn2+ZjbC
+         h/NShq488ZoJv74T4h/LuCQ112wpaUfDUbvHVi49y857OCvUmpG80SvgCtyb+CQ2yEcf
+         zfiw==
+X-Gm-Message-State: AFqh2kot+7EFBQQIeMyhauBAWwJZFfro/zpyrOq5oQKuC70gexamPZMW
+        X6nNnScgh7fy45gPyAnRXHQ=
+X-Google-Smtp-Source: AMrXdXtE1yKebENYucF86QrL3HEhRWbepOjJX32TLoqSpHghZCCcrZpR7sfkMMHKCPOqFpnWRFCdxA==
+X-Received: by 2002:a05:600c:35d1:b0:3d3:58d1:2588 with SMTP id r17-20020a05600c35d100b003d358d12588mr21215549wmq.41.1672331995850;
+        Thu, 29 Dec 2022 08:39:55 -0800 (PST)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id h23-20020a1ccc17000000b003d1e051f671sm24673499wmb.9.2022.12.29.08.39.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 29 Dec 2022 08:39:55 -0800 (PST)
+Message-ID: <9446d42e-c00e-d1ea-e8ac-06a14e8a2669@gmail.com>
+Date:   Thu, 29 Dec 2022 17:39:32 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+Subject: Re: [PATCH] scanf.3: Do not mention the ERANGE error
+Content-Language: en-US
+To:     Zack Weinberg <zack@owlfolio.org>
 Cc:     libc-alpha@sourceware.org, 'linux-man' <linux-man@vger.kernel.org>,
         Ian Abbott <abbotti@mev.co.uk>
-Subject: Re: [PATCH] scanf.3: Do not mention the ERANGE error
-In-Reply-To: <c5b7ba41-4c18-5d78-43c2-fc9f088298db@gmail.com>
 References: <20221208123454.13132-1-abbotti@mev.co.uk>
-        <5f490d45-b31e-279e-edcb-de4806b8ba54@gmail.com>
-        <d1ecf57b-72cf-dbb4-3b4a-b19c7cdc93e9@mev.co.uk>
-        <06f70d09-a258-7d6d-4a98-6a89ed761849@gmail.com>
-        <6269173b-20cb-7b47-1ad9-6099a9baa052@owlfolio.org>
-        <d65cff0c-7aba-8bb3-9a2f-3d07f20517b4@gmail.com>
-        <ypikk02xv09c.fsf@owlfolio.org>
-        <a7a60a45-afb2-2fae-f6b0-a26db649c09c@gmail.com>
-        <ypikwn6uag11.fsf@owlfolio.org>
-        <4fe9ed93-8fb9-64d0-26f1-a9560387d108@gmail.com>
-        <ypikv8luogqp.wl-zack@owlfolio.org>
-        <c5b7ba41-4c18-5d78-43c2-fc9f088298db@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal)
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-7
-Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: No, score=-2.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,
-        RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS
-        autolearn=ham autolearn_force=no version=3.4.6
+ <5f490d45-b31e-279e-edcb-de4806b8ba54@gmail.com>
+ <d1ecf57b-72cf-dbb4-3b4a-b19c7cdc93e9@mev.co.uk>
+ <06f70d09-a258-7d6d-4a98-6a89ed761849@gmail.com>
+ <6269173b-20cb-7b47-1ad9-6099a9baa052@owlfolio.org>
+ <d65cff0c-7aba-8bb3-9a2f-3d07f20517b4@gmail.com>
+ <ypikk02xv09c.fsf@owlfolio.org>
+ <a7a60a45-afb2-2fae-f6b0-a26db649c09c@gmail.com>
+ <ypikwn6uag11.fsf@owlfolio.org>
+ <4fe9ed93-8fb9-64d0-26f1-a9560387d108@gmail.com>
+ <ypikv8luogqp.wl-zack@owlfolio.org>
+ <c5b7ba41-4c18-5d78-43c2-fc9f088298db@gmail.com>
+ <ypikv8lugobi.wl-zack@owlfolio.org>
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <ypikv8lugobi.wl-zack@owlfolio.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------j3zSUOuvtHOG00eRcUMfpdhp"
+X-Spam-Status: No, score=-3.2 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Thu, 29 Dec 2022 05:47:06 -0500, Alejandro Colomar wrote:
-> On 12/29/22 07:39, Zack Weinberg wrote:
-> > To be clear, I personally don=A2t have plans to do any of the actual
-> > programming or standard-changing work involved here.  :-)
->=20
-> Ah, no, I meant more that the whole set of glibc maintainers had that
-> in mind, as a long term plan (like 10 years maybe?).
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------j3zSUOuvtHOG00eRcUMfpdhp
+Content-Type: multipart/mixed; boundary="------------AkDMlhdlQ75wWCxdS9Cgo4MT";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: Zack Weinberg <zack@owlfolio.org>
+Cc: libc-alpha@sourceware.org, 'linux-man' <linux-man@vger.kernel.org>,
+ Ian Abbott <abbotti@mev.co.uk>
+Message-ID: <9446d42e-c00e-d1ea-e8ac-06a14e8a2669@gmail.com>
+Subject: Re: [PATCH] scanf.3: Do not mention the ERANGE error
+References: <20221208123454.13132-1-abbotti@mev.co.uk>
+ <5f490d45-b31e-279e-edcb-de4806b8ba54@gmail.com>
+ <d1ecf57b-72cf-dbb4-3b4a-b19c7cdc93e9@mev.co.uk>
+ <06f70d09-a258-7d6d-4a98-6a89ed761849@gmail.com>
+ <6269173b-20cb-7b47-1ad9-6099a9baa052@owlfolio.org>
+ <d65cff0c-7aba-8bb3-9a2f-3d07f20517b4@gmail.com>
+ <ypikk02xv09c.fsf@owlfolio.org>
+ <a7a60a45-afb2-2fae-f6b0-a26db649c09c@gmail.com>
+ <ypikwn6uag11.fsf@owlfolio.org>
+ <4fe9ed93-8fb9-64d0-26f1-a9560387d108@gmail.com>
+ <ypikv8luogqp.wl-zack@owlfolio.org>
+ <c5b7ba41-4c18-5d78-43c2-fc9f088298db@gmail.com>
+ <ypikv8lugobi.wl-zack@owlfolio.org>
+In-Reply-To: <ypikv8lugobi.wl-zack@owlfolio.org>
 
-Oh, OK.  Yeah, changes to the standard can easily take that long.
+--------------AkDMlhdlQ75wWCxdS9Cgo4MT
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-> Before you start writing patches, I'm considering the following, which
-> is my way to say don't use these functions without deprecating them:
->=20
-> Split FILE and char* functions into separate manual pages.  In the one
-> for [v]sscanf(3), I'd keep the current documentation.  In the one for
-> FILE functions, I'd keep it very short, defering to sscanf(3) for
-> documentation of things like conversion specifiers, and that page
-> would only cover the bugs^Wdifferences that apply only to FILE
-> functions.
+SGkgWmFjaywNCg0KT24gMTIvMjkvMjIgMTc6MzUsIFphY2sgV2VpbmJlcmcgd3JvdGU6DQo+
+IE9uIFRodSwgMjkgRGVjIDIwMjIgMDU6NDc6MDYgLTA1MDAsIEFsZWphbmRybyBDb2xvbWFy
+IHdyb3RlOg0KPj4gT24gMTIvMjkvMjIgMDc6MzksIFphY2sgV2VpbmJlcmcgd3JvdGU6DQo+
+Pj4gVG8gYmUgY2xlYXIsIEkgcGVyc29uYWxseSBkb27igJl0IGhhdmUgcGxhbnMgdG8gZG8g
+YW55IG9mIHRoZSBhY3R1YWwNCj4+PiBwcm9ncmFtbWluZyBvciBzdGFuZGFyZC1jaGFuZ2lu
+ZyB3b3JrIGludm9sdmVkIGhlcmUuICA6LSkNCj4+DQo+PiBBaCwgbm8sIEkgbWVhbnQgbW9y
+ZSB0aGF0IHRoZSB3aG9sZSBzZXQgb2YgZ2xpYmMgbWFpbnRhaW5lcnMgaGFkIHRoYXQNCj4+
+IGluIG1pbmQsIGFzIGEgbG9uZyB0ZXJtIHBsYW4gKGxpa2UgMTAgeWVhcnMgbWF5YmU/KS4N
+Cj4gDQo+IE9oLCBPSy4gIFllYWgsIGNoYW5nZXMgdG8gdGhlIHN0YW5kYXJkIGNhbiBlYXNp
+bHkgdGFrZSB0aGF0IGxvbmcuDQo+IA0KPj4gQmVmb3JlIHlvdSBzdGFydCB3cml0aW5nIHBh
+dGNoZXMsIEknbSBjb25zaWRlcmluZyB0aGUgZm9sbG93aW5nLCB3aGljaA0KPj4gaXMgbXkg
+d2F5IHRvIHNheSBkb24ndCB1c2UgdGhlc2UgZnVuY3Rpb25zIHdpdGhvdXQgZGVwcmVjYXRp
+bmcgdGhlbToNCj4+DQo+PiBTcGxpdCBGSUxFIGFuZCBjaGFyKiBmdW5jdGlvbnMgaW50byBz
+ZXBhcmF0ZSBtYW51YWwgcGFnZXMuICBJbiB0aGUgb25lDQo+PiBmb3IgW3Zdc3NjYW5mKDMp
+LCBJJ2Qga2VlcCB0aGUgY3VycmVudCBkb2N1bWVudGF0aW9uLiAgSW4gdGhlIG9uZSBmb3IN
+Cj4+IEZJTEUgZnVuY3Rpb25zLCBJJ2Qga2VlcCBpdCB2ZXJ5IHNob3J0LCBkZWZlcmluZyB0
+byBzc2NhbmYoMykgZm9yDQo+PiBkb2N1bWVudGF0aW9uIG9mIHRoaW5ncyBsaWtlIGNvbnZl
+cnNpb24gc3BlY2lmaWVycywgYW5kIHRoYXQgcGFnZQ0KPj4gd291bGQgb25seSBjb3ZlciB0
+aGUgYnVnc15XZGlmZmVyZW5jZXMgdGhhdCBhcHBseSBvbmx5IHRvIEZJTEUNCj4+IGZ1bmN0
+aW9ucy4NCj4gDQo+IFRoYXQgc2VlbXMgbGlrZSBhIGdvb2Qgd2F5IGZvcndhcmQgdG8gbWUu
+DQoNCkkndmUgZG9uZSB0aGUgc3BsaXR0aW5nLiAgSWYgeW91IHdvdWxkIGxpa2UgdG8gcHJl
+cGFyZSBhbnkgcGF0Y2hlcyBmb3IgYWRkaW5nIA0KQlVHUywgSSdsbCB0YWtlIHRoZW0gOikN
+Cg0KQ2hlZXJzLA0KDQpBbGV4DQoNCj4gDQo+IHp3DQoNCi0tIA0KPGh0dHA6Ly93d3cuYWxl
+amFuZHJvLWNvbG9tYXIuZXMvPg0K
 
-That seems like a good way forward to me.
+--------------AkDMlhdlQ75wWCxdS9Cgo4MT--
 
-zw
+--------------j3zSUOuvtHOG00eRcUMfpdhp
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmOtwsQACgkQnowa+77/
+2zJYBQ/7BQKFTR+YjnYVMGSqrMq1GEhC7dO7pS9P7zRVN/I0v4LrruzBpxUa0OuX
+ESqPLhhhmfUlk+APJPLWUzrauYXer6EdPMOSXBhHtUlpte902kDW2rwMIkoSBchw
+iUxmzmQ3EQxubxkQPc16Fg28pxrZVGdWVPefhNkgLQ3mTjk+GzT3Hhn+631Yd25T
+hbI/yuhogD2Qtiz+6gN95ygLJDS25air7sUErHna1pyzTzyu7knCjULaEityhGmZ
+AkBHX9VQ8nCOUWi2NsyHH77ReGFFtT8jNtpgOK9rFlLOXkbFe6A/pSeNMjHmFerK
+jNuS2OpEDLKQkv6WA8bYP5BUO1AVeNJzxJ7S1BwazaV5Mdv3mwFewA2JedByP/ZK
+kEJ0EPFmCKGIIrwwjFrnAujhm5LBOZkd3A143Fx9RfTChbfJ+3uWbIupcJtls4hq
+pILMH/jjVYSsxH3UCJrbVPmNfKBGW6pxQhP6oQhwEcFjOOhZz43lKvmDK+BfY3uq
+R+PejuCyzQdc5R4dB9axkZkyLtbIviMZ4ZiK0bD6DQtlTihAhbnqwMAuEL5zc7yr
+k41IBg+zrbHfUbyABSre8JtE5wJVwjj9vne2yP3KlZW8sCaUC1peprww/MiUTjCs
+FH6MpNXY+bzKgeDWgVT2qJwmMyoKXikX+GsJC0izDBqo4kHFOR0=
+=0Xb5
+-----END PGP SIGNATURE-----
+
+--------------j3zSUOuvtHOG00eRcUMfpdhp--
