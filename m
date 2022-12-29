@@ -2,45 +2,75 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 1F1C365873F
-	for <lists+linux-man@lfdr.de>; Wed, 28 Dec 2022 23:13:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 5025765881C
+	for <lists+linux-man@lfdr.de>; Thu, 29 Dec 2022 01:34:03 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232434AbiL1WNk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 28 Dec 2022 17:13:40 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51168 "EHLO
+        id S230083AbiL2AeB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 28 Dec 2022 19:34:01 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51468 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231351AbiL1WNj (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 28 Dec 2022 17:13:39 -0500
-Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EAE7E1C1
-        for <linux-man@vger.kernel.org>; Wed, 28 Dec 2022 14:13:38 -0800 (PST)
-Received: from letrec.thunk.org (capios.firout.com [104.224.87.177] (may be forged))
-        (authenticated bits=0)
-        (User authenticated as tytso@ATHENA.MIT.EDU)
-        by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 2BSMDDj7012798
-        (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-        Wed, 28 Dec 2022 17:13:16 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
-        t=1672265599; bh=ul/NZsCm1LN681rwuJVRjc6Rre5uxmh36nv6gaDD6Zk=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To;
-        b=bQ0sELAf0MkyDpX2YfhSPyZu7PNw0tyhKvYxrPslvfzsXpjtfbX+toZKJBF/k7E/Q
-         0q+oMGtUtbvHyugU9FhY7p7SRFCf3Vy6HAn9MnSQFM/SHnMCIcTmm4h331Hb4ge+kq
-         bT2B3J6rSoAt0+kyeXca4w/NmbDn3PkgsvtYApIJ0lFlw3seQNcY9Ho12tTRQS+pIt
-         UaW9ITffzg3CAtRn1OKZhdWYtMB6+siNCskG9+wAiSTpUlW8yTumfYzNwxVs+BVqyG
-         2KFH2FQ4XaDPM86p6mWMAR5qAFxiPUaBP6Im0tj+4hw8zB7v8Ki9kaI3j84eHTfiwp
-         AWYK/fgfJL1Vg==
-Received: by letrec.thunk.org (Postfix, from userid 15806)
-        id 9EA5B8C08FD; Wed, 28 Dec 2022 17:14:42 -0500 (EST)
-Date:   Wed, 28 Dec 2022 17:14:42 -0500
-From:   "Theodore Ts'o" <tytso@mit.edu>
-To:     Demi Marie Obenour <demi@invisiblethingslab.com>
+        with ESMTP id S229716AbiL2AeA (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 28 Dec 2022 19:34:00 -0500
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com [66.111.4.28])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BE42E6305;
+        Wed, 28 Dec 2022 16:33:59 -0800 (PST)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+        by mailout.nyi.internal (Postfix) with ESMTP id 9CF405C0112;
+        Wed, 28 Dec 2022 19:33:56 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+  by compute3.internal (MEProxy); Wed, 28 Dec 2022 19:33:56 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+        invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+        :in-reply-to:in-reply-to:message-id:mime-version:references
+        :reply-to:sender:subject:subject:to:to; s=fm2; t=1672274036; x=
+        1672360436; bh=HKzN5hcxwK00PMUjeR7lAQ3Jmh4Ntcdoe9XK/6l4nS8=; b=K
+        uU2DTEC6dJVU/MTafBwiK90FTSOJgl5tSpZht1i4BXNKq9Yq6aJ2Zjh1FYrc2BiW
+        RZr1FMhXUePHWVF1CNPB8LE401eo/6hswf04ImGu0NXbA0Xlqk9XNkUmUJWXENgt
+        4fg7VvKTnjwyaAgILvhdZlC3dHR0bZWrfBM6PEp3EeH5UIaD8qNafAuimzAluyps
+        PNOeG3PNSr/s21Nh19NEJ96Y1TRAwSpk3wSPdEokqieBw8blw0IITdm4ATfh0ZnG
+        axYyisfZbGx088yiIo6IkOFzTkm4yD+WTn+gyEEJkrlpLRvOKxtcB/SRFR/srDwm
+        PgItKVhemVSwBnajDS1VA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+        messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+        :feedback-id:from:from:in-reply-to:in-reply-to:message-id
+        :mime-version:references:reply-to:sender:subject:subject:to:to
+        :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+        fm2; t=1672274036; x=1672360436; bh=HKzN5hcxwK00PMUjeR7lAQ3Jmh4N
+        tcdoe9XK/6l4nS8=; b=nbBTGCxuJluFHfLQbvuyn26CJAZlADphWbP3fAKmB5cm
+        OlNAS3ejYqXupSip4nrph5f50FpRZIlrRX+Dbt9NuqLYv6171upXdK4KOgRZYnkZ
+        PHqjnSxNkz5o8TxpmK2sEyHAp+FXX9BkDtPZbsVjDDUdRj5J5lzXzaN3Hq0pCMk7
+        xvcdlW/47kPEFaHwXTdK7wE+l6trX/7SCED8FzlPwfviNgsCESH+d2lbVNeCAWbA
+        kjmulbVB+S7+iPWN0m5H/6P2CLIRcankUPF2HxqVRn1C5nMhqxGJq2yOEb1YopZR
+        qzWeruXTCS4TfJFwHncLTqh1RsBjvu4O9fEYC5S++w==
+X-ME-Sender: <xms:c-CsY-Jpa1cefYBF3gLbbVyD444BEkW7CHQJrDRAuDE2ch3OBB9B7Q>
+    <xme:c-CsY2I9K5pZG9dgbi1zR5EthzVlVuPNlc6ZELo4qSQLW-SK69vKWOdPvwKHd25wX
+    QDhAx93iIFhSD8>
+X-ME-Received: <xmr:c-CsY-uGRwdunNh1jImKb3EIEaHkicuBqOHwvTZFRoaZxqAgOdPH_IsTno5D>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrieefgddvgecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecunecujfgurhepfffhvfevuffkfhggtggujgesghdtre
+    ertddtjeenucfhrhhomhepffgvmhhiucforghrihgvucfqsggvnhhouhhruceouggvmhhi
+    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnh
+    epvdejteegkefhteduhffgteffgeffgfduvdfghfffieefieekkedtheegteehffelnecu
+    vehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepuggvmhhise
+    hinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:dOCsYzYAM8wSDLQ6NQiOpdC-nywvJzLmC59JIpOLnQiH2Y1DCKvfpw>
+    <xmx:dOCsY1Zf8wV8efGGSHlL6Xf0FD-Sh9JWcqgGwSmPmLVP17KZw3Mj_Q>
+    <xmx:dOCsY_B3dShw-NkJGVnf4s3JPPI6XDfDNZ-K4MS8Vu5QxIon2D6gIA>
+    <xmx:dOCsY5Hr-nfY6YIDIvcr2GGDCXgMrkoE0aqRimOJ_-t7RrTyL1LY3A>
+Feedback-ID: iac594737:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 28 Dec 2022 19:33:55 -0500 (EST)
+Date:   Wed, 28 Dec 2022 19:33:50 -0500
+From:   Demi Marie Obenour <demi@invisiblethingslab.com>
+To:     Theodore Ts'o <tytso@mit.edu>
 Cc:     oss-security@lists.openwall.com,
         Alejandro Colomar <alx.manpages@gmail.com>,
         Michael Kerrisk <mtk.manpages@gmail.com>,
         linux-kernel@vger.kernel.org, linux-man@vger.kernel.org
 Subject: Re: [oss-security] [patch] proc.5: tell how to parse /proc/*/stat
  correctly
-Message-ID: <Y6y/0uzFlTpkw/VT@mit.edu>
+Message-ID: <Y6zgcTndt4Ss6/6/@itl-email>
 References: <Y6SJDbKBk471KE4k@p183>
  <Y6TUJcr/IHrsTE0W@codewreck.org>
  <1a1963aa1036ba07@orthanc.ca>
@@ -48,30 +78,76 @@ References: <Y6SJDbKBk471KE4k@p183>
  <Y6xzIR9P+a6uaaEx@itl-email>
  <20221228172517.l7h3m7wjfpxr3dzw@mutt-hbsd>
  <Y6yEv+6iYQQNaqi9@itl-email>
+ <Y6y/0uzFlTpkw/VT@mit.edu>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="U1zMNkwBbrv0FFj2"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <Y6yEv+6iYQQNaqi9@itl-email>
-X-Spam-Status: No, score=-4.0 required=5.0 tests=BAYES_00,DKIM_INVALID,
-        DKIM_SIGNED,MAY_BE_FORGED,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE
-        autolearn=unavailable autolearn_force=no version=3.4.6
+In-Reply-To: <Y6y/0uzFlTpkw/VT@mit.edu>
+X-Spam-Status: No, score=-2.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,
+        RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_NONE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed, Dec 28, 2022 at 01:02:35PM -0500, Demi Marie Obenour wrote:
-> > I think the argument I'm trying to make is to be flexible in
-> > implementation, allowing for future needs and wants--that is "future
-> > proofing".
-> 
-> Linux should not have an XML, JSON, or YAML serializer.  Linux already
-> does way too much; let’s not add one more thing to the list.
 
-There's always Protobufs[1]!  :-)  And all of these are better than
-ASN.1, for which Google already has a limited parser (for x.509
-certificates).   :-)   :-)   :-)
+--U1zMNkwBbrv0FFj2
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 28 Dec 2022 19:33:50 -0500
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Theodore Ts'o <tytso@mit.edu>
+Cc: oss-security@lists.openwall.com,
+	Alejandro Colomar <alx.manpages@gmail.com>,
+	Michael Kerrisk <mtk.manpages@gmail.com>,
+	linux-kernel@vger.kernel.org, linux-man@vger.kernel.org
+Subject: Re: [oss-security] [patch] proc.5: tell how to parse /proc/*/stat
+ correctly
 
-						- Ted
+On Wed, Dec 28, 2022 at 05:14:42PM -0500, Theodore Ts'o wrote:
+> On Wed, Dec 28, 2022 at 01:02:35PM -0500, Demi Marie Obenour wrote:
+> > > I think the argument I'm trying to make is to be flexible in
+> > > implementation, allowing for future needs and wants--that is "future
+> > > proofing".
+> >=20
+> > Linux should not have an XML, JSON, or YAML serializer.  Linux already
+> > does way too much; let=E2=80=99s not add one more thing to the list.
+>=20
+> There's always Protobufs[1]!  :-)  And all of these are better than
+> ASN.1, for which Google already has a limited parser (for x.509
+> certificates).   :-)   :-)   :-)
+>=20
+> 						- Ted
+
+Cap=E2=80=99n Proto is better than Protobufs :-)
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
+
+--U1zMNkwBbrv0FFj2
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmOs4HEACgkQsoi1X/+c
+IsEIgQ/+Pco7jrnuvj7VgymwTpedg/FPOwiYyFGufCerhIOsAEicXgmVmAJL8nV9
+yzex5oy5B/e7gyykxdwOC9MCQU2rbP1VIlIfQ8oT3CzD+aHHheLOCh2AuX2xI5bX
+kpIj7ZMJNb2cvvCLN7ADgg3Z2vUQZWVYTzIkdfBus5S+AVBl5uOm6OihfmJu51OJ
+WQcCT79Z2bb41xFHTJdE2UZQ56Xg/nOwxPDO9xqt396dJGeweMd/WRM15eMJS/d5
+LmTvHuER0etr3UYr+GmRwO4btSnbhT1+WHZVdyOIK9Nm8oT3eDgMfJG7yEdgekId
+7/pGXZTwuBdil2fnojBu3VLC9YEbu1GGhKDQ14Ai9hPjia1S3yalpKTiqEyJg5oe
+H/RIEJMUZY5Km5DSypejrkyP8MOuUd5m6Jn2lnd+TsHAG/5+9iLXqCEKGqV457VL
+zdwOA8GjJmzXFX75bcefA98qpdcQ9b6DHn2MTJy/2YaRkI6bJdUmzyfSP3o854Mi
+o9uiR+MjXi8oEc3FclNyCfUtgvUywqXlgPe6kI1k4HoDdTvabXZdUZ2skLBrL96K
+Yfawnff9C2dBE5MQNSjSVtGhfoo8Mt07YYwCPUSB0s9rDyN8+IwNxYizQMYaf7yj
+Z+wN6R3ZpXBudktJ43W0NVYR2zpp3DEuNiyJt3fyZS3CFdmVjo8=
+=Hb8y
+-----END PGP SIGNATURE-----
+
+--U1zMNkwBbrv0FFj2--
