@@ -2,65 +2,72 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 64EC0658C42
-	for <lists+linux-man@lfdr.de>; Thu, 29 Dec 2022 12:36:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 8B0B1658C43
+	for <lists+linux-man@lfdr.de>; Thu, 29 Dec 2022 12:38:05 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229611AbiL2Lg5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 29 Dec 2022 06:36:57 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46614 "EHLO
+        id S231229AbiL2LiE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 29 Dec 2022 06:38:04 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46710 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230083AbiL2Lgz (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 29 Dec 2022 06:36:55 -0500
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com [IPv6:2a00:1450:4864:20::42f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6C6912BE5
-        for <linux-man@vger.kernel.org>; Thu, 29 Dec 2022 03:36:52 -0800 (PST)
-Received: by mail-wr1-x42f.google.com with SMTP id bx10so17190419wrb.0
-        for <linux-man@vger.kernel.org>; Thu, 29 Dec 2022 03:36:52 -0800 (PST)
+        with ESMTP id S230083AbiL2LiD (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 29 Dec 2022 06:38:03 -0500
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com [IPv6:2a00:1450:4864:20::42e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 250201159
+        for <linux-man@vger.kernel.org>; Thu, 29 Dec 2022 03:38:02 -0800 (PST)
+Received: by mail-wr1-x42e.google.com with SMTP id j17so11799471wrr.7
+        for <linux-man@vger.kernel.org>; Thu, 29 Dec 2022 03:38:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=/fQNpeSeQnE3/kKfLfZUxwL+EsgCovRZs4GU8B7uXPU=;
-        b=FgL6knpSZ6a7C3AuIQgpnnwcXifF2obobV0ntSPB8FWp7LHxMUvDDmq6rLMuiCcuWZ
-         mt8tsqq/yWKjNx1q3xoaS/GZvJkiFcycMjsHoTwuCNYULyeE5iwwwEIvW8X8hlbe/fm9
-         xMzzMqSfESuKH6VyDtRPzYs9wLWmpdZ5w/eJilSoUUK49+wSKUR9xq2kn01Ww82admnj
-         A31RxNCLW64VZpi+yhbPKWA4aWXm9jacIclqGTdmXE4zmOaNsuM5y+lUgqEDU42Sqbp1
-         bcr9MLKRkeaCtv/aplf93DfueBoKSInNA6BCJPI+uYVGHEYK0gVFV+HfLg+AN3ftELdn
-         00WA==
+        h=in-reply-to:references:cc:to:from:content-language:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=KtSazvB+bNbtKRe44+efYM+4n9pl2kDMt0mzarGgugc=;
+        b=CbE7cf2C7jY/KlB5VLYIrIq2YBcA1gxcSYhZdLS1zR/HG0aeKf8ue5dm0TAhVABKhK
+         d1v0XJRz0GyNHTl1q1Dlvs1UIPTLWuDSDBdtk+x9w4iXmm9D2zEUO93FOrXmFQn6cO/F
+         XXmVrF/T8T32y/9Cg3pDhxmAKvF0KfhVaK4JFcVSIEBV1uGr/Ag4JRz8iUvoqGXDcAoZ
+         q4p2vKE04F4O0osjTtfD+fdkVvsD/Yy6aoL3hfGtjUsKaacLu8GNWxkh4thPE/mSfHJr
+         gsm/Zz1YBaO932jUT5Y2CL1prXvoQmMVoeTOivpUhjL9Nx9LQ2C8cHE9epuyy+UVqqV+
+         SBiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=/fQNpeSeQnE3/kKfLfZUxwL+EsgCovRZs4GU8B7uXPU=;
-        b=pBl4jGgjaZMhsnX07rWuAyCsBa4B/AstL5ucSaAJbxewQk85+Qm8qRpDEb7JpyXbcI
-         zc0IBprAoOMN90Bu9nalF0JjoUqZLrSwDL0y7k1x8hGZkOKdmKlo2/PPudgN4ncWys/c
-         tmcweNmX0pb5YWqeW3/C7vWnxVH2kM2BDQkVt3fSHw83xKtta02BhasuyAKfxsbURK2q
-         pQoJ0y+P1rBxtM/VAvxzFa4yZuYojkaoBQm7BAvgluFWCDOvRPg+isGkWy6y6PgOKFqJ
-         IMbRBVdlkftOIL9Y7yyHTkzK49DD1YLZEk6XSwExKtxZbwwjqadD7UD/1Jv238BtRosY
-         wXzQ==
-X-Gm-Message-State: AFqh2krO5sPsVw6yDUI7CsiSFCuKpERsnAjjeLWeI/uuDCBtMUeTnoFB
-        x+iisOZUdd5lIipVCBRXlYZnBt0Oekk=
-X-Google-Smtp-Source: AMrXdXteuLih3tD+xfMKpN/mUaYv/f/GXlDdaYf4Egyekxm1jbYHNXrRafhnYFALRnGXXNWYFhR9ug==
-X-Received: by 2002:adf:e703:0:b0:242:43f3:8948 with SMTP id c3-20020adfe703000000b0024243f38948mr18291671wrm.26.1672313810251;
-        Thu, 29 Dec 2022 03:36:50 -0800 (PST)
-Received: from asus5775.alejandro-colomar.es ([170.253.36.171])
-        by smtp.googlemail.com with ESMTPSA id c10-20020a5d414a000000b0024242111a27sm18103185wrq.75.2022.12.29.03.36.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Dec 2022 03:36:49 -0800 (PST)
+        h=in-reply-to:references:cc:to:from:content-language:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=KtSazvB+bNbtKRe44+efYM+4n9pl2kDMt0mzarGgugc=;
+        b=sx86CciDQgRjwWqBbm/NG4H2KycqiJja5qcVPLetekCRPhowa+1pnSP9hQAUtLwTEv
+         clEjIhv/+6ZzskeRYdL4tgNv6Gl0GVN+wUxFy2JrQnAqrSE5IfLvmk/k63XfsCQEVI/7
+         7DXw8rCBwwJ0f3N5JvCEnZir3BUkfvt5mAgPy1YdgilU56de6+oY+2icN9b9vslF/vK7
+         AUihFumpjatxWG0En2NGgbzOJLpMoLKXizZ8aM5PvwtSeNlutha9nMAUt2pDjfvWhrww
+         ErQ5PHugAOkKcSndy55f7EaFlgSu6yY0aIsDIqRKNyTSNF+CGWA6cBXc+MImbbQ16TQI
+         MCdQ==
+X-Gm-Message-State: AFqh2kqB/xow4NNXiQtSCA9nW9g/ypWf2PkO7R2SYEQgsSAN98qgfABa
+        quwIYxBEjRn+qo2Xlxx31kF67iSCqPE=
+X-Google-Smtp-Source: AMrXdXsoKQ3YKbFQJLGfKN1UG8D6VpXwzHoYZ09z/8Vb5ZeeTqN+bbTD6wkBEtY/I1qxCykiQvvBlg==
+X-Received: by 2002:adf:dd48:0:b0:242:70f0:9196 with SMTP id u8-20020adfdd48000000b0024270f09196mr18535134wrm.45.1672313880676;
+        Thu, 29 Dec 2022 03:38:00 -0800 (PST)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id n17-20020a5d4011000000b00288ebd8dc10sm3687702wrp.62.2022.12.29.03.37.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 29 Dec 2022 03:38:00 -0800 (PST)
+Message-ID: <a927c23d-aca7-ddfc-9f64-cca0f36fff04@gmail.com>
+Date:   Thu, 29 Dec 2022 12:37:46 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+Subject: Re: [PATCH] scanf.3, sscanf.3, vsscanf.3: Split the page, one for
+ strings and one for FILEs
+Content-Language: en-US
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-X-Google-Original-From: Alejandro Colomar <alx@kernel.org>
 To:     linux-man@vger.kernel.org
 Cc:     Alejandro Colomar <alx@kernel.org>, Ian Abbott <abbotti@mev.co.uk>,
         Zack Weinberg <zack@owlfolio.org>
-Subject: [PATCH] scanf.3, sscanf.3, vsscanf.3: Split the page, one for strings and one for FILEs
-Date:   Thu, 29 Dec 2022 12:26:35 +0100
-Message-Id: <20221229112635.4684-1-alx@kernel.org>
-X-Mailer: git-send-email 2.39.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+References: <20221229112635.4684-1-alx@kernel.org>
+In-Reply-To: <20221229112635.4684-1-alx@kernel.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------Yh7IPmwMRbZdRTz6c2ZIhmkV"
+X-Spam-Status: No, score=-3.2 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -69,1550 +76,120 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From these functions, the ones that read from a FILE are very difficult
---if not impossible-- to use correctly.  Let's split the page into two,
-so that we give the impression that sscanf(3) is the first class
-citizen, and the others are just historic artifacts that are left for
-reasons.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------Yh7IPmwMRbZdRTz6c2ZIhmkV
+Content-Type: multipart/mixed; boundary="------------cje1B8FqWOUcdZXAI6AZvfO8";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: linux-man@vger.kernel.org
+Cc: Alejandro Colomar <alx@kernel.org>, Ian Abbott <abbotti@mev.co.uk>,
+ Zack Weinberg <zack@owlfolio.org>
+Message-ID: <a927c23d-aca7-ddfc-9f64-cca0f36fff04@gmail.com>
+Subject: Re: [PATCH] scanf.3, sscanf.3, vsscanf.3: Split the page, one for
+ strings and one for FILEs
+References: <20221229112635.4684-1-alx@kernel.org>
+In-Reply-To: <20221229112635.4684-1-alx@kernel.org>
 
-FILE functions are now in a page which clearly tells the reader to look
-for other ways to read input.
+--------------cje1B8FqWOUcdZXAI6AZvfO8
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Link: <https://lore.kernel.org/linux-man/633629bd-753c-3097-9896-2491a0b0f1a2@gmail.com/T/>
-Cc: Ian Abbott <abbotti@mev.co.uk>
-Cc: Zack Weinberg <zack@owlfolio.org>
-Signed-off-by: Alejandro Colomar <alx@kernel.org>
----
+c2NhbmYoMykgICAgICAgICAgICAgICAgICAgTGlicmFyeSBGdW5jdGlvbnMgTWFudWFsICAg
+ICAgICAgICAgICAgICAgIHNjYW5mKDMpDQoNCk5BTUUNCiAgICAgICAgc2NhbmYsIGZzY2Fu
+ZiwgdnNjYW5mLCB2ZnNjYW5mIC0gaW5wdXQgRklMRSBmb3JtYXQgY29udmVyc2lvbg0KDQpM
+SUJSQVJZDQogICAgICAgIFN0YW5kYXJkIEMgbGlicmFyeSAobGliYywgLWxjKQ0KDQpTWU5P
+UFNJUw0KICAgICAgICAjaW5jbHVkZSA8c3RkaW8uaD4NCg0KICAgICAgICBpbnQgc2NhbmYo
+Y29uc3QgY2hhciAqcmVzdHJpY3QgZm9ybWF0LCAuLi4pOw0KICAgICAgICBpbnQgZnNjYW5m
+KEZJTEUgKnJlc3RyaWN0IHN0cmVhbSwNCiAgICAgICAgICAgICAgICAgICBjb25zdCBjaGFy
+ICpyZXN0cmljdCBmb3JtYXQsIC4uLik7DQoNCiAgICAgICAgI2luY2x1ZGUgPHN0ZGFyZy5o
+Pg0KDQogICAgICAgIGludCB2c2NhbmYoY29uc3QgY2hhciAqcmVzdHJpY3QgZm9ybWF0LCB2
+YV9saXN0IGFwKTsNCiAgICAgICAgaW50IHZmc2NhbmYoRklMRSAqcmVzdHJpY3Qgc3RyZWFt
+LA0KICAgICAgICAgICAgICAgICAgIGNvbnN0IGNoYXIgKnJlc3RyaWN0IGZvcm1hdCwgdmFf
+bGlzdCBhcCk7DQoNCiAgICBGZWF0dXJlIFRlc3QgTWFjcm8gUmVxdWlyZW1lbnRzIGZvciBn
+bGliYyAoc2VlIGZlYXR1cmVfdGVzdF9tYWNyb3MoNykpOg0KDQogICAgICAgIHZzY2FuZigp
+LCB2ZnNjYW5mKCk6DQogICAgICAgICAgICBfSVNPQzk5X1NPVVJDRSB8fCBfUE9TSVhfQ19T
+T1VSQ0UgPj0gMjAwMTEyTA0KDQpERVNDUklQVElPTg0KICAgICAgICBUaGUgIHNjYW5mKCkg
+IGZhbWlseSAgb2YgZnVuY3Rpb25zIHNjYW5zIGlucHV0IGxpa2Ugc3NjYW5mKDMpLCBidXQg
+cmVhZA0KICAgICAgICBmcm9tIGEgRklMRS4gIEl0IGlzIHZlcnkgZGlmZmljdWx0IHRvIHVz
+ZSAgdGhlc2UgIGZ1bmN0aW9ucyAgY29ycmVjdGx5LA0KICAgICAgICBhbmQgIGl0ICBpcyBw
+cmVmZXJhYmxlIHRvIHJlYWQgZW50aXJlIGxpbmVzIHdpdGggZmdldHMoMykgb3IgZ2V0bGlu
+ZSgzKQ0KICAgICAgICBhbmQgcGFyc2UgdGhlbSBsYXRlciB3aXRoIHNzY2FuZigzKSBvciBt
+b3JlIHNwZWNpYWxpemVkIGZ1bmN0aW9ucyAgc3VjaA0KICAgICAgICBhcyBzdHJ0b2woMyku
+DQoNCiAgICAgICAgVGhlICBzY2FuZigpICBmdW5jdGlvbiByZWFkcyBpbnB1dCBmcm9tIHRo
+ZSBzdGFuZGFyZCBpbnB1dCBzdHJlYW0gc3RkaW4NCiAgICAgICAgYW5kIGZzY2FuZigpIHJl
+YWRzIGlucHV0IGZyb20gdGhlIHN0cmVhbSBwb2ludGVyIHN0cmVhbS4NCg0KICAgICAgICBU
+aGUgdmZzY2FuZigpIGZ1bmN0aW9uIGlzIGFuYWxvZ291cyB0byB2ZnByaW50ZigzKSBhbmQg
+cmVhZHMgaW5wdXQgZnJvbQ0KICAgICAgICB0aGUgc3RyZWFtIHBvaW50ZXIgc3RyZWFtIHVz
+aW5nIGEgdmFyaWFibGUgYXJndW1lbnQgIGxpc3QgIG9mICBwb2ludGVycw0KICAgICAgICAo
+c2VlICBzdGRhcmcoMykuICAgVGhlIHZzY2FuZigpIGZ1bmN0aW9uIGlzIGFuYWxvZ291cyB0
+byB2cHJpbnRmKDMpIGFuZA0KICAgICAgICByZWFkcyBmcm9tIHRoZSBzdGFuZGFyZCBpbnB1
+dC4NCg0KUkVUVVJOIFZBTFVFDQogICAgICAgIE9uIHN1Y2Nlc3MsIHRoZXNlIGZ1bmN0aW9u
+cyByZXR1cm4gdGhlIG51bWJlciBvZiBpbnB1dCAgaXRlbXMgIHN1Y2Nlc3PigJANCiAgICAg
+ICAgZnVsbHkgIG1hdGNoZWQgIGFuZCAgYXNzaWduZWQ7ICB0aGlzIGNhbiBiZSBmZXdlciB0
+aGFuIHByb3ZpZGVkIGZvciwgb3INCiAgICAgICAgZXZlbiB6ZXJvLCBpbiB0aGUgZXZlbnQg
+b2YgYW4gZWFybHkgbWF0Y2hpbmcgZmFpbHVyZS4NCg0KICAgICAgICBUaGUgdmFsdWUgRU9G
+IGlzIHJldHVybmVkIGlmIHRoZSBlbmQgb2YgaW5wdXQgaXMgcmVhY2hlZCBiZWZvcmUgIGVp
+dGhlcg0KICAgICAgICB0aGUgIGZpcnN0ICBzdWNjZXNzZnVsIGNvbnZlcnNpb24gb3IgYSBt
+YXRjaGluZyBmYWlsdXJlIG9jY3Vycy4gIEVPRiBpcw0KICAgICAgICBhbHNvIHJldHVybmVk
+IGlmIGEgcmVhZCBlcnJvciBvY2N1cnMsIGluIHdoaWNoIGNhc2UgdGhlIGVycm9yIGluZGlj
+YXRvcg0KICAgICAgICBmb3IgdGhlIHN0cmVhbSAoc2VlIGZlcnJvcigzKSkgaXMgc2V0LCBh
+bmQgZXJybm8gaXMgc2V0IHRvIGluZGljYXRlIHRoZQ0KICAgICAgICBlcnJvci4NCg0KRVJS
+T1JTDQogICAgICAgIEVBR0FJTiBUaGUgZmlsZSBkZXNjcmlwdG9yIHVuZGVybHlpbmcgc3Ry
+ZWFtIGlzIG1hcmtlZCBub25ibG9ja2luZywgYW5kDQogICAgICAgICAgICAgICB0aGUgcmVh
+ZCBvcGVyYXRpb24gd291bGQgYmxvY2suDQoNCiAgICAgICAgRUJBREYgIFRoZSBmaWxlIGRl
+c2NyaXB0b3IgdW5kZXJseWluZyBzdHJlYW0gaXMgaW52YWxpZCwgIG9yICBub3QgIG9wZW4N
+CiAgICAgICAgICAgICAgIGZvciByZWFkaW5nLg0KDQogICAgICAgIEVJTFNFUSBJbnB1dCBi
+eXRlIHNlcXVlbmNlIGRvZXMgbm90IGZvcm0gYSB2YWxpZCBjaGFyYWN0ZXIuDQoNCiAgICAg
+ICAgRUlOVFIgIFRoZSByZWFkIG9wZXJhdGlvbiB3YXMgaW50ZXJydXB0ZWQgYnkgYSBzaWdu
+YWw7IHNlZSBzaWduYWwoNykuDQoNCiAgICAgICAgRUlOVkFMIE5vdCBlbm91Z2ggYXJndW1l
+bnRzOyBvciBmb3JtYXQgaXMgTlVMTC4NCg0KICAgICAgICBFTk9NRU0gT3V0IG9mIG1lbW9y
+eS4NCg0KQVRUUklCVVRFUw0KICAgICAgICBGb3IgIGFuICBleHBsYW5hdGlvbiAgb2YgIHRo
+ZSAgdGVybXMgIHVzZWQgaW4gdGhpcyBzZWN0aW9uLCBzZWUgYXR0cmli4oCQDQogICAgICAg
+IHV0ZXMoNykuDQogICAgICAgIOKUjOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
+gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
+gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUrOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
+gOKUgOKUgOKUgOKUgOKUgOKUgOKUrOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
+gOKUgOKUgOKUgOKUgOKUgOKUkA0KICAgICAgICDilIJJbnRlcmZhY2UgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAg4pSCIEF0dHJpYnV0ZSAgICAg4pSCIFZhbHVlICAgICAgICAgIOKU
+gg0KICAgICAgICDilJzilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi
+lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi
+lIDilIDilIDilIDilIDilIDilLzilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi
+lIDilIDilIDilIDilLzilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi
+lIDilIDilIDilKQNCiAgICAgICAg4pSCc2NhbmYoKSwgZnNjYW5mKCksIHZzY2FuZigpLCAg
+ICAgICAgIOKUgiBUaHJlYWQgc2FmZXR5IOKUgiBNVOKAkFNhZmUgbG9jYWxlIOKUgg0KICAg
+ICAgICDilIJ2ZnNjYW5mKCkgICAgICAgICAgICAgICAgICAgICAgICAgICAg4pSCICAgICAg
+ICAgICAgICAg4pSCICAgICAgICAgICAgICAgIOKUgg0KICAgICAgICDilJTilIDilIDilIDi
+lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi
+lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilLTilIDi
+lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilLTilIDilIDilIDi
+lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilJgNCg0KU1RBTkRBUkRT
+DQogICAgICAgIFRoZXNlIGZ1bmN0aW9ucyBjb25mb3JtIHRvIEM5OSBhbmQgUE9TSVguMeKA
+kDIwMDEuDQoNClNFRSBBTFNPDQogICAgICAgIGZnZXRzKDMpLCBnZXRsaW5lKDMpLCBzc2Nh
+bmYoMykNCg0KTGludXggbWFu4oCQcGFnZXMgKHVucmVsZWFzZWQpICAgICAgICAoZGF0ZSkg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgc2NhbmYoMykNCg==
 
-Hi!
+--------------cje1B8FqWOUcdZXAI6AZvfO8--
 
-I'll send in a moment the new formatted pages as replies to this email.
+--------------Yh7IPmwMRbZdRTz6c2ZIhmkV
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-BTW, as part of the splitting, I slightly reworded STANDARDS to mention
-C99 instead of C89 and ANSI C, to also cover the v* functions.
+-----BEGIN PGP SIGNATURE-----
 
-This prompted one of the changes I've wanted to do since long ago:
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmOtfAoACgkQnowa+77/
+2zKRvw//TIYh9lXtMrqDkSCNSMXbMngTkPhh/8MyXneVAH+ukU/0WsYKxYRxuqIC
+yFzYb5AMRXRFMhN2zWt0WougOaIKRJdcjQdPBnNx8AWMiTVc3MNiz9SJaxLK9d2H
+XDpNdIXOrrm1sl6YG2ZTgouGbhdpUmvsYWbPZu1Gibfg0m/WLV/n+fKy9EoAFKmI
+stE9RpiZlrqzUhmgOhjkIc2diCUCQoMUP3JJ5EaN99bKxkQ8KYjIPailFFbIu73c
+hkCpGDgh6IvZfk6TsMnuf3Qb1PFIQz1QaM3EvHaXyW+XHj4t32lKg7r3FDZ40t/W
+N3nAVGfgeb6Sc5rEvn0BAB8mHlRNRSZnJC2Fz7XcVhCx1fpkAeVhW1dOtM0Rh/SF
+XrTnVO+vUkg3OmMR7GAfvMjOdKWlo3Grv+LLowMho2hLh4jI3C19yDlfkYhqQtj3
+EJn+3JCAbc4ptRXdUf/dB8c7zqmYkjnpkao7l89LTTkV+3zcXdt8X995XHnEtSig
+giTUYwGZQCd7kuffDCHJ9z4nRwk+r848ZmWouZ/3+OPHwIckdJ5MrFX6FrUKX7By
+uyKULvTAglgs2XsLfo+0QL1unWdLNaGh0SKnUfaj0LfprgAdQ47I/0U2/yRRv9rD
+0umI9Khg0SvE7LjKAVnMQvxFo593cH3GLrsC3aNwgkR6Ru5rGjk=
+=nVNH
+-----END PGP SIGNATURE-----
 
-	Kill C89.
-
-It's horrible to program under that standard, and most projects have
-moved away from it.  I'm going to rewrite all pages to only mention C99
-and later (something we already started in new pages when Michael was
-around).  This would be similar to how we completely ignore the
-existence of POSIX prior to 2001; today's programs can live without
-that knowledge.  Of course, the curious can go to standards(7) to learn
-about old standards, and to git history to know about old contents of
-pages, but
-
-I want to explicitly discourage any use of C89.
-
-Cheers,
-
-Alex
-
-
- man3/scanf.3   | 688 ++--------------------------------------------
- man3/sscanf.3  | 731 ++++++++++++++++++++++++++++++++++++++++++++++++-
- man3/vsscanf.3 |   2 +-
- 3 files changed, 756 insertions(+), 665 deletions(-)
-
-diff --git a/man3/scanf.3 b/man3/scanf.3
-index 4bc1af70e..249efab57 100644
---- a/man3/scanf.3
-+++ b/man3/scanf.3
-@@ -1,30 +1,10 @@
- '\" t
--.\" Copyright (c) 1990, 1991 The Regents of the University of California.
--.\" All rights reserved.
--.\"
--.\" This code is derived from software contributed to Berkeley by
--.\" Chris Torek and the American National Standards Committee X3,
--.\" on Information Processing Systems.
--.\"
--.\" SPDX-License-Identifier: BSD-4-Clause-UC
--.\"
--.\"     @(#)scanf.3	6.14 (Berkeley) 1/8/93
--.\"
--.\" Converted for Linux, Mon Nov 29 15:22:01 1993, faith@cs.unc.edu
--.\" modified to resemble the GNU libio setup used in the Linux libc
--.\" used in versions 4.x (x>4) and 5   Helmut.Geyer@iwr.uni-heidelberg.de
--.\" Modified, aeb, 970121
--.\" 2005-07-14, mtk, added description of %n$ form; various text
--.\"	incorporated from the GNU C library documentation ((C) The
--.\"	Free Software Foundation); other parts substantially rewritten.
--.\"
--.\" 2008-06-23, mtk
--.\"     Add ERRORS section.
--.\"     Document the 'a' and 'm' modifiers for dynamic string allocation.
-+.\" Copyright 2022 Alejandro Colomar <alx@kernel.org>
-+.\" SPDX-License-Identifier:  Linux-man-pages-copyleft
- .\"
- .TH scanf 3 (date) "Linux man-pages (unreleased)"
- .SH NAME
--scanf, fscanf, sscanf, vscanf, vsscanf, vfscanf \- input format conversion
-+scanf, fscanf, vscanf, vfscanf \- input FILE format conversion
- .SH LIBRARY
- Standard C library
- .RI ( libc ", " \-lc )
-@@ -35,16 +15,12 @@ .SH SYNOPSIS
- .BI "int scanf(const char *restrict " format ", ...);"
- .BI "int fscanf(FILE *restrict " stream ,
- .BI "           const char *restrict " format ", ...);"
--.BI "int sscanf(const char *restrict " str ,
--.BI "           const char *restrict " format ", ...);"
- .PP
- .B #include <stdarg.h>
- .PP
- .BI "int vscanf(const char *restrict " format ", va_list " ap );
- .BI "int vfscanf(FILE *restrict " stream ,
- .BI "           const char *restrict " format ", va_list " ap );
--.BI "int vsscanf(const char *restrict " str ,
--.BI "           const char *restrict " format ", va_list " ap );
- .fi
- .PP
- .RS -4
-@@ -53,7 +29,6 @@ .SH SYNOPSIS
- .RE
- .PP
- .BR vscanf (),
--.BR vsscanf (),
- .BR vfscanf ():
- .nf
-     _ISOC99_SOURCE || _POSIX_C_SOURCE >= 200112L
-@@ -61,43 +36,28 @@ .SH SYNOPSIS
- .SH DESCRIPTION
- The
- .BR scanf ()
--family of functions scans input according to
--.I format
--as described below.
--This format may contain
--.IR "conversion specifications" ;
--the results from such conversions, if any,
--are stored in the locations pointed to by the
--.I pointer
--arguments that follow
--.IR format .
--Each
--.I pointer
--argument must be of a type that is appropriate for the value returned
--by the corresponding conversion specification.
--.PP
--If the number of conversion specifications in
--.I format
--exceeds the number of
--.I pointer
--arguments, the results are undefined.
--If the number of
--.I pointer
--arguments exceeds the number of conversion specifications, then the excess
--.I pointer
--arguments are evaluated, but are otherwise ignored.
-+family of functions scans input like
-+.BR sscanf (3),
-+but read from a
-+.IR FILE .
-+It is very difficult to use these functions correctly,
-+and it is preferable to read entire lines with
-+.BR fgets (3)
-+or
-+.BR getline (3)
-+and parse them later with
-+.BR sscanf (3)
-+or more specialized functions such as
-+.BR strtol (3).
- .PP
- The
- .BR scanf ()
- function reads input from the standard input stream
--.IR stdin ,
-+.I stdin
-+and
- .BR fscanf ()
- reads input from the stream pointer
--.IR stream ,
--and
--.BR sscanf ()
--reads its input from the character string pointed to by
--.IR str .
-+.IR stream .
- .PP
- The
- .BR vfscanf ()
-@@ -109,442 +69,9 @@ .SH DESCRIPTION
- .BR stdarg (3).
- The
- .BR vscanf ()
--function scans a variable argument list from the standard input and the
--.BR vsscanf ()
--function scans it from a string; these are analogous to the
-+function is analogous to
- .BR vprintf (3)
--and
--.BR vsprintf (3)
--functions respectively.
--.PP
--The
--.I format
--string consists of a sequence of
--.I directives
--which describe how to process the sequence of input characters.
--If processing of a directive fails, no further input is read, and
--.BR scanf ()
--returns.
--A "failure" can be either of the following:
--.IR "input failure" ,
--meaning that input characters were unavailable, or
--.IR "matching failure" ,
--meaning that the input was inappropriate (see below).
--.PP
--A directive is one of the following:
--.TP
--\(bu
--A sequence of white-space characters (space, tab, newline, etc.; see
--.BR isspace (3)).
--This directive matches any amount of white space,
--including none, in the input.
--.TP
--\(bu
--An ordinary character (i.e., one other than white space or \(aq%\(aq).
--This character must exactly match the next character of input.
--.TP
--\(bu
--A conversion specification,
--which commences with a \(aq%\(aq (percent) character.
--A sequence of characters from the input is converted according to
--this specification, and the result is placed in the corresponding
--.I pointer
--argument.
--If the next item of input does not match the conversion specification,
--the conversion fails\(emthis is a
--.IR "matching failure" .
--.PP
--Each
--.I conversion specification
--in
--.I format
--begins with either the character \(aq%\(aq or the character sequence
--"\fB%\fP\fIn\fP\fB$\fP"
--(see below for the distinction) followed by:
--.TP
--\(bu
--An optional \(aq*\(aq assignment-suppression character:
--.BR scanf ()
--reads input as directed by the conversion specification,
--but discards the input.
--No corresponding
--.I pointer
--argument is required, and this specification is not
--included in the count of successful assignments returned by
--.BR scanf ().
--.TP
--\(bu
--For decimal conversions, an optional quote character (\(aq).
--This specifies that the input number may include thousands'
--separators as defined by the
--.B LC_NUMERIC
--category of the current locale.
--(See
--.BR setlocale (3).)
--The quote character may precede or follow the \(aq*\(aq
--assignment-suppression character.
--.TP
--\(bu
--An optional \(aqm\(aq character.
--This is used with string conversions
--.RI ( %s ,
--.IR %c ,
--.IR %[ ),
--and relieves the caller of the
--need to allocate a corresponding buffer to hold the input: instead,
--.BR scanf ()
--allocates a buffer of sufficient size,
--and assigns the address of this buffer to the corresponding
--.I pointer
--argument, which should be a pointer to a
--.I "char\ *"
--variable (this variable does not need to be initialized before the call).
--The caller should subsequently
--.BR free (3)
--this buffer when it is no longer required.
--.TP
--\(bu
--An optional decimal integer which specifies the
--.IR "maximum field width" .
--Reading of characters stops either when this maximum is reached or
--when a nonmatching character is found, whichever happens first.
--Most conversions discard initial white space characters (the exceptions
--are noted below),
--and these discarded characters don't count toward the maximum field width.
--String input conversions store a terminating null byte (\(aq\e0\(aq)
--to mark the end of the input;
--the maximum field width does not include this terminator.
--.TP
--\(bu
--An optional
--.IR "type modifier character" .
--For example, the
--.B l
--type modifier is used with integer conversions such as
--.B %d
--to specify that the corresponding
--.I pointer
--argument refers to a
--.I "long"
--rather than a pointer to an
--.IR int .
--.TP
--\(bu
--A
--.I "conversion specifier"
--that specifies the type of input conversion to be performed.
--.PP
--The conversion specifications in
--.I format
--are of two forms, either beginning with \(aq%\(aq or beginning with
--"\fB%\fP\fIn\fP\fB$\fP".
--The two forms should not be mixed in the same
--.I format
--string, except that a string containing
--"\fB%\fP\fIn\fP\fB$\fP"
--specifications can include
--.B %%
--and
--.BR %* .
--If
--.I format
--contains \(aq%\(aq
--specifications, then these correspond in order with successive
--.I pointer
--arguments.
--In the
--"\fB%\fP\fIn\fP\fB$\fP"
--form (which is specified in POSIX.1-2001, but not C99),
--.I n
--is a decimal integer that specifies that the converted input should
--be placed in the location referred to by the
--.IR n -th
--.I pointer
--argument following
--.IR format .
--.SS Conversions
--The following
--.I "type modifier characters"
--can appear in a conversion specification:
--.TP
--.B h
--Indicates that the conversion will be one of
--\fBd\fP, \fBi\fP, \fBo\fP, \fBu\fP, \fBx\fP, \fBX\fP, or \fBn\fP
--and the next pointer is a pointer to a
--.I short
--or
--.I unsigned short
--(rather than
--.IR int ).
--.TP
--.B hh
--As for
--.BR h ,
--but the next pointer is a pointer to a
--.I signed char
--or
--.IR "unsigned char" .
--.TP
--.B j
--As for
--.BR h ,
--but the next pointer is a pointer to an
--.I intmax_t
--or a
--.IR uintmax_t .
--This modifier was introduced in C99.
--.TP
--.B l
--Indicates either that the conversion will be one of
--\fBd\fP, \fBi\fP, \fBo\fP, \fBu\fP, \fBx\fP, \fBX\fP, or \fBn\fP
--and the next pointer is a pointer to a
--.I long
--or
--.I unsigned long
--(rather than
--.IR int ),
--or that the conversion will be one of
--\fBe\fP, \fBf\fP, or \fBg\fP
--and the next pointer is a pointer to
--.I double
--(rather than
--.IR float ).
--If used with
--.B %c
--or
--.BR %s ,
--the corresponding parameter is considered
--as a pointer to a wide character or wide-character string respectively.
--.\" This use of l was introduced in Amendment 1 to ISO C90.
--.TP
--.B ll
--(ell-ell)
--Indicates that the conversion will be one of
--.BR b ,
--.BR d ,
--.BR i ,
--.BR o ,
--.BR u ,
--.BR x ,
--.BR X ,
--or
--.B n
--and the next pointer is a pointer to a
--.I long long
--or
--.I unsigned long long
--(rather than
--.IR int ).
--.TP
--.B L
--Indicates that the conversion will be either
--\fBe\fP, \fBf\fP, or \fBg\fP
--and the next pointer is a pointer to
--.I "long double"
--or
--(as a GNU extension)
--the conversion will be
--\fBd\fP, \fBi\fP, \fBo\fP, \fBu\fP, or \fBx\fP
--and the next pointer is a pointer to
--.IR "long long" .
--.\" MTK, Jul 05: The following is no longer true for modern
--.\" ANSI C (i.e., C99):
--.\" (Note that long long is not an
--.\" ANSI C
--.\" type. Any program using this will not be portable to all
--.\" architectures).
--.TP
--.B q
--equivalent to
--.BR L .
--This specifier does not exist in ANSI C.
--.TP
--.B t
--As for
--.BR h ,
--but the next pointer is a pointer to a
--.IR ptrdiff_t .
--This modifier was introduced in C99.
--.TP
--.B z
--As for
--.BR h ,
--but the next pointer is a pointer to a
--.IR size_t .
--This modifier was introduced in C99.
--.PP
--The following
--.I "conversion specifiers"
--are available:
--.TP
--.B %
--Matches a literal \(aq%\(aq.
--That is,
--.B %\&%
--in the format string matches a
--single input \(aq%\(aq character.
--No conversion is done (but initial white space characters are discarded),
--and assignment does not occur.
--.TP
--.B d
--.IR Deprecated .
--Matches an optionally signed decimal integer;
--the next pointer must be a pointer to
--.IR int .
--.\" .TP
--.\" .B D
--.\" Equivalent to
--.\" .IR ld ;
--.\" this exists only for backward compatibility.
--.\" (Note: thus only in libc4
--.\" In libc5 and glibc the
--.\" .B %D
--.\" is silently ignored, causing old programs to fail mysteriously.)
--.TP
--.B i
--.IR Deprecated .
--Matches an optionally signed integer; the next pointer must be a pointer to
--.IR int .
--The integer is read in base 16 if it begins with
--.I 0x
--or
--.IR 0X ,
--in base 8 if it begins with
--.IR 0 ,
--and in base 10 otherwise.
--Only characters that correspond to the base are used.
--.TP
--.B o
--.IR Deprecated .
--Matches an unsigned octal integer; the next pointer must be a pointer to
--.IR "unsigned int" .
--.TP
--.B u
--.IR Deprecated .
--Matches an unsigned decimal integer; the next pointer must be a
--pointer to
--.IR "unsigned int" .
--.TP
--.B x
--.IR Deprecated .
--Matches an unsigned hexadecimal integer
--(that may optionally begin with a prefix of
--.I 0x
--or
--.IR 0X ,
--which is discarded); the next pointer must
--be a pointer to
--.IR "unsigned int" .
--.TP
--.B X
--.IR Deprecated .
--Equivalent to
--.BR x .
--.TP
--.B f
--.IR Deprecated .
--Matches an optionally signed floating-point number; the next pointer must
--be a pointer to
--.IR float .
--.TP
--.B e
--.IR Deprecated .
--Equivalent to
--.BR f .
--.TP
--.B g
--.IR Deprecated .
--Equivalent to
--.BR f .
--.TP
--.B E
--.IR Deprecated .
--Equivalent to
--.BR f .
--.TP
--.B a
--.IR Deprecated .
--(C99) Equivalent to
--.BR f .
--.TP
--.B s
--Matches a sequence of non-white-space characters;
--the next pointer must be a pointer to the initial element of a
--character array that is long enough to hold the input sequence and
--the terminating null byte (\(aq\e0\(aq), which is added automatically.
--The input string stops at white space or at the maximum field
--width, whichever occurs first.
--.TP
--.B c
--Matches a sequence of characters whose length is specified by the
--.I maximum field width
--(default 1); the next pointer must be a pointer to
--.IR char ,
--and there must be enough room for all the characters
--(no terminating null byte is added).
--The usual skip of leading white space is suppressed.
--To skip white space first, use an explicit space in the format.
--.TP
--.B \&[
--Matches a nonempty sequence of characters from the specified set of
--accepted characters; the next pointer must be a pointer to
--.IR char ,
--and there must be enough room for all the characters in the string, plus a
--terminating null byte.
--The usual skip of leading white space is suppressed.
--The string is to be made up of characters in (or not in) a particular set;
--the set is defined by the characters between the open bracket
--.B [
--character and a close bracket
--.B ]
--character.
--The set
--.I excludes
--those characters if the first character after the open bracket is a
--circumflex
--.RB ( \(ha ).
--To include a close bracket in the set, make it the first character after
--the open bracket or the circumflex; any other position will end the set.
--The hyphen character
--.B \-
--is also special; when placed between two other characters, it adds all
--intervening characters to the set.
--To include a hyphen, make it the last
--character before the final close bracket.
--For instance,
--.B [\(ha]0\-9\-]
--means
--the set "everything except close bracket, zero through nine, and hyphen".
--The string ends with the appearance of a character not in the (or, with a
--circumflex, in) set or when the field width runs out.
--.TP
--.B p
--Matches a pointer value (as printed by
--.B %p
--in
--.BR printf (3));
--the next pointer must be a pointer to a pointer to
--.IR void .
--.TP
--.B n
--Nothing is expected; instead, the number of characters consumed thus far
--from the input is stored through the next pointer, which must be a pointer
--to
--.IR int ,
--or variant whose size matches the (optionally)
--supplied integer length modifier.
--This is
--.I not
--a conversion and does
--.I not
--increase the count returned by the function.
--The assignment can be suppressed with the
--.B *
--assignment-suppression character, but the effect on the
--return value is undefined.
--Therefore
--.B %*n
--conversions should not be used.
-+and reads from the standard input.
- .SH RETURN VALUE
- On success, these functions return the number of input items
- successfully matched and assigned;
-@@ -601,9 +128,7 @@ .SH ATTRIBUTES
- T{
- .BR scanf (),
- .BR fscanf (),
--.BR sscanf (),
- .BR vscanf (),
--.BR vsscanf (),
- .BR vfscanf ()
- T}	Thread safety	MT-Safe locale
- .TE
-@@ -611,171 +136,8 @@ .SH ATTRIBUTES
- .ad
- .sp 1
- .SH STANDARDS
--The functions
--.BR fscanf (),
--.BR scanf (),
--and
--.BR sscanf ()
--conform to C89 and C99 and POSIX.1-2001.
--.PP
--The
--.B q
--specifier is the 4.4BSD notation for
--.IR "long long" ,
--while
--.B ll
--or the usage of
--.B L
--in integer conversions is the GNU notation.
--.PP
--The Linux version of these functions is based on the
--.I GNU
--.I libio
--library.
--Take a look at the
--.I info
--documentation of
--.I GNU
--.I libc (glibc-1.08)
--for a more concise description.
--.SH NOTES
--.SS The 'a' assignment-allocation modifier
--Originally, the GNU C library supported dynamic allocation for string inputs
--(as a nonstandard extension) via the
--.B a
--character.
--(This feature is present at least as far back as glibc 2.0.)
--Thus, one could write the following to have
--.BR scanf ()
--allocate a buffer for an input string,
--with a pointer to that buffer being returned in
--.IR *buf :
--.PP
--.in +4n
--.EX
--char *buf;
--scanf("%as", &buf);
--.EE
--.in
--.PP
--The use of the letter
--.B a
--for this purpose was problematic, since
--.B a
--is also specified by the ISO C standard as a synonym for
--.B f
--(floating-point input).
--POSIX.1-2008 instead specifies the
--.B m
--modifier for assignment allocation (as documented in DESCRIPTION, above).
--.PP
--Note that the
--.B a
--modifier is not available if the program is compiled with
--.I gcc\~\-std=c99
--or
--.I gcc\~\-D_ISOC99_SOURCE
--(unless
--.B _GNU_SOURCE
--is also specified), in which case the
--.B a
--is interpreted as a specifier for floating-point numbers (see above).
--.PP
--Support for the
--.B m
--modifier was added to glibc 2.7,
--and new programs should use that modifier instead of
--.BR a .
--.PP
--As well as being standardized by POSIX, the
--.B m
--modifier has the following further advantages over
--the use of
--.BR a :
--.IP \(bu 3
--It may also be applied to
--.B %c
--conversion specifiers (e.g.,
--.BR %3mc ).
--.IP \(bu
--It avoids ambiguity with respect to the
--.B %a
--floating-point conversion specifier (and is unaffected by
--.I gcc\~\-std=c99
--etc.).
--.SH BUGS
--All functions are fully C89 conformant, but provide the
--additional modifiers
--.B q
--and
--.B a
--as well as an additional behavior of the
--.B L
--and
--.B ll
--modifiers.
--The latter may be considered to be a bug, as it changes the
--behavior of modifiers defined in C89.
--.PP
--Some combinations of the type modifiers and conversion
--specifiers defined by ANSI C do not make sense
--(e.g.,
--.BR "%Ld" ).
--While they may have a well-defined behavior on Linux, this need not
--to be so on other architectures.
--Therefore it usually is better to use
--modifiers that are not defined by ANSI C at all, that is, use
--.B q
--instead of
--.B L
--in combination with
--\fBd\fP, \fBi\fP, \fBo\fP, \fBu\fP, \fBx\fP, and \fBX\fP
--conversions or
--.BR ll .
--.PP
--The usage of
--.B q
--is not the same as on 4.4BSD,
--as it may be used in float conversions equivalently to
--.BR L .
--.SH EXAMPLES
--To use the dynamic allocation conversion specifier, specify
--.B m
--as a length modifier (thus
--.B %ms
--or
--\fB%m[\fP\fIrange\fP\fB]\fP).
--The caller must
--.BR free (3)
--the returned string, as in the following example:
--.PP
--.in +4n
--.EX
--char *p;
--int n;
--
--errno = 0;
--n = scanf("%m[a\-z]", &p);
--if (n == 1) {
--    printf("read: %s\en", p);
--    free(p);
--} else if (errno != 0) {
--    perror("scanf");
--} else {
--    fprintf(stderr, "No matching characters\en");
--}
--.EE
--.in
--.PP
--As shown in the above example, it is necessary to call
--.BR free (3)
--only if the
--.BR scanf ()
--call successfully read a string.
-+These functions conform to C99 and POSIX.1-2001.
- .SH SEE ALSO
--.BR getc (3),
--.BR printf (3),
--.BR setlocale (3),
--.BR strtod (3),
--.BR strtol (3),
--.BR strtoul (3)
-+.BR fgets (3),
-+.BR getline (3),
-+.BR sscanf (3)
-diff --git a/man3/sscanf.3 b/man3/sscanf.3
-index 9fd424bb2..26a02521b 100644
---- a/man3/sscanf.3
-+++ b/man3/sscanf.3
-@@ -1 +1,730 @@
--.so man3/scanf.3
-+'\" t
-+.\" Copyright (c) 1990, 1991 The Regents of the University of California.
-+.\" All rights reserved.
-+.\"
-+.\" This code is derived from software contributed to Berkeley by
-+.\" Chris Torek and the American National Standards Committee X3,
-+.\" on Information Processing Systems.
-+.\"
-+.\" SPDX-License-Identifier: BSD-4-Clause-UC
-+.\"
-+.\"     @(#)scanf.3	6.14 (Berkeley) 1/8/93
-+.\"
-+.\" Converted for Linux, Mon Nov 29 15:22:01 1993, faith@cs.unc.edu
-+.\" modified to resemble the GNU libio setup used in the Linux libc
-+.\" used in versions 4.x (x>4) and 5   Helmut.Geyer@iwr.uni-heidelberg.de
-+.\" Modified, aeb, 970121
-+.\" 2005-07-14, mtk, added description of %n$ form; various text
-+.\"	incorporated from the GNU C library documentation ((C) The
-+.\"	Free Software Foundation); other parts substantially rewritten.
-+.\"
-+.\" 2008-06-23, mtk
-+.\"     Add ERRORS section.
-+.\"     Document the 'a' and 'm' modifiers for dynamic string allocation.
-+.\"
-+.TH sscanf 3 (date) "Linux man-pages (unreleased)"
-+.SH NAME
-+sscanf, vsscanf \- input string format conversion
-+.SH LIBRARY
-+Standard C library
-+.RI ( libc ", " \-lc )
-+.SH SYNOPSIS
-+.nf
-+.B #include <stdio.h>
-+.PP
-+.BI "int sscanf(const char *restrict " str ,
-+.BI "           const char *restrict " format ", ...);"
-+.PP
-+.B #include <stdarg.h>
-+.PP
-+.BI "int vsscanf(const char *restrict " str ,
-+.BI "           const char *restrict " format ", va_list " ap );
-+.fi
-+.PP
-+.RS -4
-+Feature Test Macro Requirements for glibc (see
-+.BR feature_test_macros (7)):
-+.RE
-+.PP
-+.BR vsscanf ():
-+.nf
-+    _ISOC99_SOURCE || _POSIX_C_SOURCE >= 200112L
-+.fi
-+.SH DESCRIPTION
-+The
-+.BR sscanf ()
-+family of functions scans input according to
-+.I format
-+as described below.
-+This format may contain
-+.IR "conversion specifications" ;
-+the results from such conversions, if any,
-+are stored in the locations pointed to by the
-+.I pointer
-+arguments that follow
-+.IR format .
-+Each
-+.I pointer
-+argument must be of a type that is appropriate for the value returned
-+by the corresponding conversion specification.
-+.PP
-+If the number of conversion specifications in
-+.I format
-+exceeds the number of
-+.I pointer
-+arguments, the results are undefined.
-+If the number of
-+.I pointer
-+arguments exceeds the number of conversion specifications, then the excess
-+.I pointer
-+arguments are evaluated, but are otherwise ignored.
-+.PP
-+.BR sscanf ()
-+These functions
-+read their input from the string pointed to by
-+.IR str .
-+.PP
-+The
-+.BR vsscanf ()
-+function is analogous to
-+.BR vsprintf (3).
-+.PP
-+The
-+.I format
-+string consists of a sequence of
-+.I directives
-+which describe how to process the sequence of input characters.
-+If processing of a directive fails, no further input is read, and
-+.BR sscanf ()
-+returns.
-+A "failure" can be either of the following:
-+.IR "input failure" ,
-+meaning that input characters were unavailable, or
-+.IR "matching failure" ,
-+meaning that the input was inappropriate (see below).
-+.PP
-+A directive is one of the following:
-+.TP
-+\(bu
-+A sequence of white-space characters (space, tab, newline, etc.; see
-+.BR isspace (3)).
-+This directive matches any amount of white space,
-+including none, in the input.
-+.TP
-+\(bu
-+An ordinary character (i.e., one other than white space or \(aq%\(aq).
-+This character must exactly match the next character of input.
-+.TP
-+\(bu
-+A conversion specification,
-+which commences with a \(aq%\(aq (percent) character.
-+A sequence of characters from the input is converted according to
-+this specification, and the result is placed in the corresponding
-+.I pointer
-+argument.
-+If the next item of input does not match the conversion specification,
-+the conversion fails\(emthis is a
-+.IR "matching failure" .
-+.PP
-+Each
-+.I conversion specification
-+in
-+.I format
-+begins with either the character \(aq%\(aq or the character sequence
-+"\fB%\fP\fIn\fP\fB$\fP"
-+(see below for the distinction) followed by:
-+.TP
-+\(bu
-+An optional \(aq*\(aq assignment-suppression character:
-+.BR sscanf ()
-+reads input as directed by the conversion specification,
-+but discards the input.
-+No corresponding
-+.I pointer
-+argument is required, and this specification is not
-+included in the count of successful assignments returned by
-+.BR scanf ().
-+.TP
-+\(bu
-+For decimal conversions, an optional quote character (\(aq).
-+This specifies that the input number may include thousands'
-+separators as defined by the
-+.B LC_NUMERIC
-+category of the current locale.
-+(See
-+.BR setlocale (3).)
-+The quote character may precede or follow the \(aq*\(aq
-+assignment-suppression character.
-+.TP
-+\(bu
-+An optional \(aqm\(aq character.
-+This is used with string conversions
-+.RI ( %s ,
-+.IR %c ,
-+.IR %[ ),
-+and relieves the caller of the
-+need to allocate a corresponding buffer to hold the input: instead,
-+.BR sscanf ()
-+allocates a buffer of sufficient size,
-+and assigns the address of this buffer to the corresponding
-+.I pointer
-+argument, which should be a pointer to a
-+.I "char\ *"
-+variable (this variable does not need to be initialized before the call).
-+The caller should subsequently
-+.BR free (3)
-+this buffer when it is no longer required.
-+.TP
-+\(bu
-+An optional decimal integer which specifies the
-+.IR "maximum field width" .
-+Reading of characters stops either when this maximum is reached or
-+when a nonmatching character is found, whichever happens first.
-+Most conversions discard initial white space characters (the exceptions
-+are noted below),
-+and these discarded characters don't count toward the maximum field width.
-+String input conversions store a terminating null byte (\(aq\e0\(aq)
-+to mark the end of the input;
-+the maximum field width does not include this terminator.
-+.TP
-+\(bu
-+An optional
-+.IR "type modifier character" .
-+For example, the
-+.B l
-+type modifier is used with integer conversions such as
-+.B %d
-+to specify that the corresponding
-+.I pointer
-+argument refers to a
-+.I "long"
-+rather than a pointer to an
-+.IR int .
-+.TP
-+\(bu
-+A
-+.I "conversion specifier"
-+that specifies the type of input conversion to be performed.
-+.PP
-+The conversion specifications in
-+.I format
-+are of two forms, either beginning with \(aq%\(aq or beginning with
-+"\fB%\fP\fIn\fP\fB$\fP".
-+The two forms should not be mixed in the same
-+.I format
-+string, except that a string containing
-+"\fB%\fP\fIn\fP\fB$\fP"
-+specifications can include
-+.B %%
-+and
-+.BR %* .
-+If
-+.I format
-+contains \(aq%\(aq
-+specifications, then these correspond in order with successive
-+.I pointer
-+arguments.
-+In the
-+"\fB%\fP\fIn\fP\fB$\fP"
-+form (which is specified in POSIX.1-2001, but not C99),
-+.I n
-+is a decimal integer that specifies that the converted input should
-+be placed in the location referred to by the
-+.IR n -th
-+.I pointer
-+argument following
-+.IR format .
-+.SS Conversions
-+The following
-+.I "type modifier characters"
-+can appear in a conversion specification:
-+.TP
-+.B h
-+Indicates that the conversion will be one of
-+\fBd\fP, \fBi\fP, \fBo\fP, \fBu\fP, \fBx\fP, \fBX\fP, or \fBn\fP
-+and the next pointer is a pointer to a
-+.I short
-+or
-+.I unsigned short
-+(rather than
-+.IR int ).
-+.TP
-+.B hh
-+As for
-+.BR h ,
-+but the next pointer is a pointer to a
-+.I signed char
-+or
-+.IR "unsigned char" .
-+.TP
-+.B j
-+As for
-+.BR h ,
-+but the next pointer is a pointer to an
-+.I intmax_t
-+or a
-+.IR uintmax_t .
-+This modifier was introduced in C99.
-+.TP
-+.B l
-+Indicates either that the conversion will be one of
-+\fBd\fP, \fBi\fP, \fBo\fP, \fBu\fP, \fBx\fP, \fBX\fP, or \fBn\fP
-+and the next pointer is a pointer to a
-+.I long
-+or
-+.I unsigned long
-+(rather than
-+.IR int ),
-+or that the conversion will be one of
-+\fBe\fP, \fBf\fP, or \fBg\fP
-+and the next pointer is a pointer to
-+.I double
-+(rather than
-+.IR float ).
-+If used with
-+.B %c
-+or
-+.BR %s ,
-+the corresponding parameter is considered
-+as a pointer to a wide character or wide-character string respectively.
-+.\" This use of l was introduced in Amendment 1 to ISO C90.
-+.TP
-+.B ll
-+(ell-ell)
-+Indicates that the conversion will be one of
-+.BR b ,
-+.BR d ,
-+.BR i ,
-+.BR o ,
-+.BR u ,
-+.BR x ,
-+.BR X ,
-+or
-+.B n
-+and the next pointer is a pointer to a
-+.I long long
-+or
-+.I unsigned long long
-+(rather than
-+.IR int ).
-+.TP
-+.B L
-+Indicates that the conversion will be either
-+\fBe\fP, \fBf\fP, or \fBg\fP
-+and the next pointer is a pointer to
-+.I "long double"
-+or
-+(as a GNU extension)
-+the conversion will be
-+\fBd\fP, \fBi\fP, \fBo\fP, \fBu\fP, or \fBx\fP
-+and the next pointer is a pointer to
-+.IR "long long" .
-+.\" MTK, Jul 05: The following is no longer true for modern
-+.\" ANSI C (i.e., C99):
-+.\" (Note that long long is not an
-+.\" ANSI C
-+.\" type. Any program using this will not be portable to all
-+.\" architectures).
-+.TP
-+.B q
-+equivalent to
-+.BR L .
-+This specifier does not exist in ANSI C.
-+.TP
-+.B t
-+As for
-+.BR h ,
-+but the next pointer is a pointer to a
-+.IR ptrdiff_t .
-+This modifier was introduced in C99.
-+.TP
-+.B z
-+As for
-+.BR h ,
-+but the next pointer is a pointer to a
-+.IR size_t .
-+This modifier was introduced in C99.
-+.PP
-+The following
-+.I "conversion specifiers"
-+are available:
-+.TP
-+.B %
-+Matches a literal \(aq%\(aq.
-+That is,
-+.B %\&%
-+in the format string matches a
-+single input \(aq%\(aq character.
-+No conversion is done (but initial white space characters are discarded),
-+and assignment does not occur.
-+.TP
-+.B d
-+.IR Deprecated .
-+Matches an optionally signed decimal integer;
-+the next pointer must be a pointer to
-+.IR int .
-+.\" .TP
-+.\" .B D
-+.\" Equivalent to
-+.\" .IR ld ;
-+.\" this exists only for backward compatibility.
-+.\" (Note: thus only in libc4
-+.\" In libc5 and glibc the
-+.\" .B %D
-+.\" is silently ignored, causing old programs to fail mysteriously.)
-+.TP
-+.B i
-+.IR Deprecated .
-+Matches an optionally signed integer; the next pointer must be a pointer to
-+.IR int .
-+The integer is read in base 16 if it begins with
-+.I 0x
-+or
-+.IR 0X ,
-+in base 8 if it begins with
-+.IR 0 ,
-+and in base 10 otherwise.
-+Only characters that correspond to the base are used.
-+.TP
-+.B o
-+.IR Deprecated .
-+Matches an unsigned octal integer; the next pointer must be a pointer to
-+.IR "unsigned int" .
-+.TP
-+.B u
-+.IR Deprecated .
-+Matches an unsigned decimal integer; the next pointer must be a
-+pointer to
-+.IR "unsigned int" .
-+.TP
-+.B x
-+.IR Deprecated .
-+Matches an unsigned hexadecimal integer
-+(that may optionally begin with a prefix of
-+.I 0x
-+or
-+.IR 0X ,
-+which is discarded); the next pointer must
-+be a pointer to
-+.IR "unsigned int" .
-+.TP
-+.B X
-+.IR Deprecated .
-+Equivalent to
-+.BR x .
-+.TP
-+.B f
-+.IR Deprecated .
-+Matches an optionally signed floating-point number; the next pointer must
-+be a pointer to
-+.IR float .
-+.TP
-+.B e
-+.IR Deprecated .
-+Equivalent to
-+.BR f .
-+.TP
-+.B g
-+.IR Deprecated .
-+Equivalent to
-+.BR f .
-+.TP
-+.B E
-+.IR Deprecated .
-+Equivalent to
-+.BR f .
-+.TP
-+.B a
-+.IR Deprecated .
-+(C99) Equivalent to
-+.BR f .
-+.TP
-+.B s
-+Matches a sequence of non-white-space characters;
-+the next pointer must be a pointer to the initial element of a
-+character array that is long enough to hold the input sequence and
-+the terminating null byte (\(aq\e0\(aq), which is added automatically.
-+The input string stops at white space or at the maximum field
-+width, whichever occurs first.
-+.TP
-+.B c
-+Matches a sequence of characters whose length is specified by the
-+.I maximum field width
-+(default 1); the next pointer must be a pointer to
-+.IR char ,
-+and there must be enough room for all the characters
-+(no terminating null byte is added).
-+The usual skip of leading white space is suppressed.
-+To skip white space first, use an explicit space in the format.
-+.TP
-+.B \&[
-+Matches a nonempty sequence of characters from the specified set of
-+accepted characters; the next pointer must be a pointer to
-+.IR char ,
-+and there must be enough room for all the characters in the string, plus a
-+terminating null byte.
-+The usual skip of leading white space is suppressed.
-+The string is to be made up of characters in (or not in) a particular set;
-+the set is defined by the characters between the open bracket
-+.B [
-+character and a close bracket
-+.B ]
-+character.
-+The set
-+.I excludes
-+those characters if the first character after the open bracket is a
-+circumflex
-+.RB ( \(ha ).
-+To include a close bracket in the set, make it the first character after
-+the open bracket or the circumflex; any other position will end the set.
-+The hyphen character
-+.B \-
-+is also special; when placed between two other characters, it adds all
-+intervening characters to the set.
-+To include a hyphen, make it the last
-+character before the final close bracket.
-+For instance,
-+.B [\(ha]0\-9\-]
-+means
-+the set "everything except close bracket, zero through nine, and hyphen".
-+The string ends with the appearance of a character not in the (or, with a
-+circumflex, in) set or when the field width runs out.
-+.TP
-+.B p
-+Matches a pointer value (as printed by
-+.B %p
-+in
-+.BR printf (3));
-+the next pointer must be a pointer to a pointer to
-+.IR void .
-+.TP
-+.B n
-+Nothing is expected; instead, the number of characters consumed thus far
-+from the input is stored through the next pointer, which must be a pointer
-+to
-+.IR int ,
-+or variant whose size matches the (optionally)
-+supplied integer length modifier.
-+This is
-+.I not
-+a conversion and does
-+.I not
-+increase the count returned by the function.
-+The assignment can be suppressed with the
-+.B *
-+assignment-suppression character, but the effect on the
-+return value is undefined.
-+Therefore
-+.B %*n
-+conversions should not be used.
-+.SH RETURN VALUE
-+On success, these functions return the number of input items
-+successfully matched and assigned;
-+this can be fewer than provided for,
-+or even zero, in the event of an early matching failure.
-+.PP
-+The value
-+.B EOF
-+is returned if the end of input is reached before either the first
-+successful conversion or a matching failure occurs.
-+.B EOF
-+is also returned if a read error occurs,
-+in which case the error indicator for the stream (see
-+.BR ferror (3))
-+is set, and
-+.I errno
-+is set to indicate the error.
-+.SH ERRORS
-+.TP
-+.B EILSEQ
-+Input byte sequence does not form a valid character.
-+.TP
-+.B EINVAL
-+Not enough arguments; or
-+.I format
-+is NULL.
-+.TP
-+.B ENOMEM
-+Out of memory.
-+.SH ATTRIBUTES
-+For an explanation of the terms used in this section, see
-+.BR attributes (7).
-+.ad l
-+.nh
-+.TS
-+allbox;
-+lbx lb lb
-+l l l.
-+Interface	Attribute	Value
-+T{
-+.BR sscanf (),
-+.BR vsscanf ()
-+T}	Thread safety	MT-Safe locale
-+.TE
-+.hy
-+.ad
-+.sp 1
-+.SH STANDARDS
-+These functions conform to C99 and POSIX.1-2001.
-+.PP
-+The
-+.B q
-+specifier is the 4.4BSD notation for
-+.IR "long long" ,
-+while
-+.B ll
-+or the usage of
-+.B L
-+in integer conversions is the GNU notation.
-+.PP
-+The Linux version of these functions is based on the
-+.I GNU
-+.I libio
-+library.
-+Take a look at the
-+.I info
-+documentation of
-+.I GNU
-+.I libc (glibc-1.08)
-+for a more concise description.
-+.SH NOTES
-+.SS The 'a' assignment-allocation modifier
-+Originally, the GNU C library supported dynamic allocation for string inputs
-+(as a nonstandard extension) via the
-+.B a
-+character.
-+(This feature is present at least as far back as glibc 2.0.)
-+Thus, one could write the following to have
-+.BR sscanf ()
-+allocate a buffer for a string,
-+with a pointer to that buffer being returned in
-+.IR *buf :
-+.PP
-+.in +4n
-+.EX
-+char *buf;
-+sscanf(str, "%as", &buf);
-+.EE
-+.in
-+.PP
-+The use of the letter
-+.B a
-+for this purpose was problematic, since
-+.B a
-+is also specified by the ISO C standard as a synonym for
-+.B f
-+(floating-point input).
-+POSIX.1-2008 instead specifies the
-+.B m
-+modifier for assignment allocation (as documented in DESCRIPTION, above).
-+.PP
-+Note that the
-+.B a
-+modifier is not available if the program is compiled with
-+.I gcc\~\-std=c99
-+or
-+.I gcc\~\-D_ISOC99_SOURCE
-+(unless
-+.B _GNU_SOURCE
-+is also specified), in which case the
-+.B a
-+is interpreted as a specifier for floating-point numbers (see above).
-+.PP
-+Support for the
-+.B m
-+modifier was added to glibc 2.7,
-+and new programs should use that modifier instead of
-+.BR a .
-+.PP
-+As well as being standardized by POSIX, the
-+.B m
-+modifier has the following further advantages over
-+the use of
-+.BR a :
-+.IP \(bu 3
-+It may also be applied to
-+.B %c
-+conversion specifiers (e.g.,
-+.BR %3mc ).
-+.IP \(bu
-+It avoids ambiguity with respect to the
-+.B %a
-+floating-point conversion specifier (and is unaffected by
-+.I gcc\~\-std=c99
-+etc.).
-+.SH BUGS
-+These functions are fully C99 conformant, but provide the
-+additional modifiers
-+.B q
-+and
-+.B a
-+as well as an additional behavior of the
-+.B L
-+and
-+.B ll
-+modifiers.
-+The latter may be considered to be a bug, as it changes the
-+behavior of modifiers defined in C99.
-+.PP
-+Some combinations of the type modifiers and conversion
-+specifiers defined by C99 do not make sense
-+(e.g.,
-+.BR "%Ld" ).
-+While they may have a well-defined behavior on Linux, this need not
-+to be so on other architectures.
-+Therefore it usually is better to use
-+modifiers that are not defined by C99 at all, that is, use
-+.B q
-+instead of
-+.B L
-+in combination with
-+\fBd\fP, \fBi\fP, \fBo\fP, \fBu\fP, \fBx\fP, and \fBX\fP
-+conversions or
-+.BR ll .
-+.PP
-+The usage of
-+.B q
-+is not the same as on 4.4BSD,
-+as it may be used in float conversions equivalently to
-+.BR L .
-+.SH EXAMPLES
-+To use the dynamic allocation conversion specifier, specify
-+.B m
-+as a length modifier (thus
-+.B %ms
-+or
-+\fB%m[\fP\fIrange\fP\fB]\fP).
-+The caller must
-+.BR free (3)
-+the returned string, as in the following example:
-+.PP
-+.in +4n
-+.EX
-+char *p;
-+int n;
-+
-+errno = 0;
-+n = sscanf(str, "%m[a\-z]", &p);
-+if (n == 1) {
-+    printf("read: %s\en", p);
-+    free(p);
-+} else if (errno != 0) {
-+    perror("sscanf");
-+} else {
-+    fprintf(stderr, "No matching characters\en");
-+}
-+.EE
-+.in
-+.PP
-+As shown in the above example, it is necessary to call
-+.BR free (3)
-+only if the
-+.BR sscanf ()
-+call successfully read a string.
-+.SH SEE ALSO
-+.BR getc (3),
-+.BR printf (3),
-+.BR setlocale (3),
-+.BR strtod (3),
-+.BR strtol (3),
-+.BR strtoul (3)
-diff --git a/man3/vsscanf.3 b/man3/vsscanf.3
-index 9fd424bb2..8f5ebc15e 100644
---- a/man3/vsscanf.3
-+++ b/man3/vsscanf.3
-@@ -1 +1 @@
--.so man3/scanf.3
-+.so man3/sscanf.3
--- 
-2.39.0
-
+--------------Yh7IPmwMRbZdRTz6c2ZIhmkV--
