@@ -2,95 +2,84 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 258EB659C8B
-	for <lists+linux-man@lfdr.de>; Fri, 30 Dec 2022 22:50:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 8A226659D59
+	for <lists+linux-man@lfdr.de>; Fri, 30 Dec 2022 23:58:33 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235403AbiL3VuZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 30 Dec 2022 16:50:25 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42862 "EHLO
+        id S235677AbiL3W6c (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 30 Dec 2022 17:58:32 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58388 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229519AbiL3VuX (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 30 Dec 2022 16:50:23 -0500
-Received: from esa2.mentor.iphmx.com (esa2.mentor.iphmx.com [68.232.141.98])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 92AF8113
-        for <linux-man@vger.kernel.org>; Fri, 30 Dec 2022 13:50:22 -0800 (PST)
-X-IronPort-AV: E=Sophos;i="5.96,288,1665475200"; 
-   d="scan'208";a="92127986"
-Received: from orw-gwy-01-in.mentorg.com ([192.94.38.165])
-  by esa2.mentor.iphmx.com with ESMTP; 30 Dec 2022 13:50:21 -0800
-IronPort-SDR: DnrzW5L2tpAz0x0xW05+AghfXKPnpTBqdXODd97FSoisjvjBrJIBJkQ3olj3HrIKN2c50FJRLV
- ns51DA6EPk+R0eU5iKdneVXv25Y4SiHi9vomgfDMksNn8dpfR2zVRQ9A26xET6w38Y9MF+2ZFK
- iSSNvoBh8ULMXMlNmRN8JLhhpmTQzjZP5tZoiSmi2xv+QlF/i5guTPt7k6H4euz1kurK+yTtSW
- +vLrpQ9JAtK6gFWZGPd7OJZVQ/Zi8xIWiPw1OW1RftS9wNvcEUWzKJTvKUjqf5j8cxqIit4806
- j1s=
-Date:   Fri, 30 Dec 2022 21:50:16 +0000
-From:   Joseph Myers <joseph@codesourcery.com>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-CC:     =?ISO-8859-15?Q?Cristian_Rodr=EDguez?= <crrodriguez@opensuse.org>,
-        "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        Jonny Grant <jg@jguk.org>, Florian Weimer <fweimer@redhat.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-man <linux-man@vger.kernel.org>,
-        GNU C Library <libc-alpha@sourceware.org>
-Subject: Re: Internal organization of "the implementation" (was: [PATCH] Add
- example to rand.3)
-In-Reply-To: <49e90587-8f1a-111e-8937-40afbbf55106@gmail.com>
-Message-ID: <b754dc-d68c-6a66-50a7-4153ca6537f1@codesourcery.com>
-References: <105835f5-359c-2646-f609-e73459ee2d3b@jguk.org> <92e5ad68-d013-43f5-cc3e-459daea93a83@gmail.com> <CAPBLoAeLFYtzVP7ZqkThdT4Pan9aoW=YPqHDM9Wbh6Fn+tki7w@mail.gmail.com> <8bd20ea2-2031-173a-5b09-f6a74473ef8f@gmail.com> <20221228000010.iyrekqdj6fi5sf7d@illithid>
- <8d7b59a0-c068-93ec-7c8b-4a12d9f412e9@gmail.com> <CAPBLoAcatosY7Rqpd1Vj96j3dwnR2D4giMSzZ6e16LjF7PQ0Wg@mail.gmail.com> <2fc0ab18-7052-abf2-6487-f9c86d19138c@codesourcery.com> <CAPBLoAcGH1jdcLj8piriw9d5WCiknHAf=6gBFQjJs71cYZtLxA@mail.gmail.com>
- <db22324-e427-d9bb-f6ee-ec155c3ff33c@codesourcery.com> <49e90587-8f1a-111e-8937-40afbbf55106@gmail.com>
+        with ESMTP id S235671AbiL3W6b (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 30 Dec 2022 17:58:31 -0500
+X-Greylist: delayed 882 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Fri, 30 Dec 2022 14:58:28 PST
+Received: from mail-01-1.mymagenta.at (mail-01-1.mymagenta.at [80.109.253.246])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E24BA1B9E2
+        for <linux-man@vger.kernel.org>; Fri, 30 Dec 2022 14:58:28 -0800 (PST)
+Received: from [192.168.232.140] (helo=ren-mail-psmtp-mg54.mail.mymagenta.at)
+        by mail-01.mymagenta.at with esmtp (Exim 4.93)
+        (envelope-from <aaron_ng@inode.at>)
+        id 1pBO6K-001pKd-0x
+        for linux-man@vger.kernel.org; Fri, 30 Dec 2022 23:43:44 +0100
+Received: from [192.168.178.32] ([85.127.181.33])
+        by ren-mail-psmtp-mg54.mail.mymagenta.at with ESMTPA
+        id BO6DppfSPide9BO6JpMnwd; Fri, 30 Dec 2022 23:43:44 +0100
+X-Env-Mailfrom: aaron_ng@inode.at
+X-Env-Rcptto: linux-man@vger.kernel.org
+X-SourceIP: 85.127.181.33
+X-CNFS-Analysis: v=2.4 cv=V8Yebcri c=1 sm=1 tr=0 ts=63af69a0
+ a=F7jJJw0I8AULWD3B5xnGMg==:117 a=F7jJJw0I8AULWD3B5xnGMg==:17 a=GcyzOjIWAAAA:8
+ a=--0P5llU2j4A:10 a=XJH1uMPmMx8A:10 a=IkcTkHD0fZMA:10
+ a=KnCWC9jKtc4QZuCzZjsA:9 a=QEXdDO2ut3YA:10 a=U_-AqwUHEsgA:10
+ a=oxbJiMDY3v4A:10 a=NNXpXIuLykEA:10 a=hQL3dl6oAZ8NdCsdz28n:22
+X-Authenticated-Sender: aaron_ng@inode.at
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=inode.at;
+        s=201801custpemceu; t=1672440224;
+        bh=ePU4gLvMfip07c26nUTA0Dv7QWoROkjQo6ei3oDqHGQ=;
+        h=Date:To:From:Subject:Cc;
+        b=vZ0TuIB4g7cRbAnLIWy6jMj71hywEQAlnPfuh/ofLoOWGEAVnuR8tB8HEhZ/b3hws
+         tcv+tGE7RnC9m1o/hac5FN2Tntf2IIpw1LfyCh8E/z9vFgWEYzdzAYwm+thZENZ7DB
+         5Uk3w9AMIbNpQ14o8Fm1wMRgjfafJHaCYOoa+pK0HndpYpa81PWPskj9ArFrIoruID
+         g2idLxfTMoam8Dfq78paLXjuSbcJ6NGWCun1myFJ5KtWjdhEomCPDB0ztn0tErrN64
+         TYK2Aj1H08Cpj8MzkM47/Or0EUJELsCkBGR5Hgw+MR/LJyD6r9YafiHSjuZqy1iPri
+         bS5slHx3p5WVA==
+Message-ID: <4e7589dc-2c5c-d705-e2a9-4b0878bfce3d@inode.at>
+Date:   Fri, 30 Dec 2022 23:43:37 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="US-ASCII"
-X-Originating-IP: [137.202.0.90]
-X-ClientProxiedBy: svr-ies-mbx-10.mgc.mentorg.com (139.181.222.10) To
- svr-ies-mbx-10.mgc.mentorg.com (139.181.222.10)
-X-Spam-Status: No, score=-4.0 required=5.0 tests=BAYES_00,
-        HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_MED,RCVD_IN_MSPIKE_H2,
-        SPF_HELO_PASS,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+Content-Language: en-US, de-DE
+To:     mtk.manpages@gmail.com
+From:   Aaron Peter Bachmann <aaron_ng@inode.at>
+Subject: misleading note in
+ https://man7.org/linux/man-pages/man3/bstring.3.html
+Cc:     linux-man@vger.kernel.org
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CMAE-Envelope: MS4xfCHYUQuQ+AxI3Qn2zTn1fr8kqxoazY5OviSjyakttdvN3V+NtOTjBJdgTkg4YKCPPUJB1dc9j1+4YD1w2FHAJcTxlRinHlCvR8izinlyfukoREODUbET
+ watgDMSk1OvIU9HahZ/bfP5w3GDeDDDgbEp297lYEPCyENMuxVz1RS7nSI7Z7GXt3wkNDy9AKpGRheRhLdMohVISCRLyEuE11Vo2mUdQm4Ry6/FoC/z16VG2
+X-Spam-Status: No, score=-0.1 required=5.0 tests=BAYES_50,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,
+        RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Fri, 30 Dec 2022, Alejandro Colomar via Libc-alpha wrote:
+Hello!
 
-> Why is this duplication of responsibility for libc functions?  Why isn't there
+The note section in https://man7.org/linux/man-pages/man3/bstring.3.html 
+says:
 
-There isn't duplication.  Each function is the responsibility of exactly 
-one of the compiler and the libc; GCC's documentation, once updated for 
-C2x, will reflect which parts it expects to provide and which it expects a 
-corresponding libc to provide.
+The functions*bcmp*(),*bcopy*(), and*bzero*() are obsolete.  Use
+        *memcmp*(),*memcpy*(), and*memset*() instead.
 
-> a smaller say libmem that provides a unique implementation for these memcpy(),
-> memmove(), memset() functions, and both gcc and glibc (and even the kernel
-> could, with static linking) depend on it?
+The std-replacement replacement for bcopy() in NOT memcpy() but memmove().
+Thus it should say:
 
-The design follows from the traditional structure of libc on Unix systems 
-(containing both functions closely related to the OS and functions that 
-only depend on the CPU architecture and not the OS) and GCC's early role 
-as an alternative to the system compiler there.  It's possible to 
-structure libraries in lots of different ways (I don't know if BSD systems 
-actually share parts of libc with the kernel, but they certainly tend to 
-have closer integration of code across the whole system, for example).  
-Non-C-family languages are probably a better place for exploring the 
-design space of different divisions among compilers and libraries, than C 
-libraries that are expected to fit with existing tooling, build systems 
-and operating systems (and certainly the extreme case of a very large 
-number of separately maintained tiny libraries in some such language 
-environments shows up its own problems with dependency management).
+The functions*bcmp*(),*bcopy*(), and*bzero*() are obsolete.  Use
+        *memcmp*(),*memmove*(), and*memset*() instead.
 
-In practice, while there's sometimes sharing at the level of a third-party 
-source code repository providing code that can be used in multiple places 
-(see Arm's optimized routines, for example), including code in shared 
-libraries and using features such as IFUNC, along with e.g. some objects 
-having multiple entry points and other libc-internal symbol handling 
-requiring close coordination among the build of all linked objects, makes 
-it hard to share at the object code level.  And we've tended lately to 
-move *away* from separate small shared libraries - rather, integrating 
-formerly separate libraries such as libpthread into the single shared 
-libc.
+Regards, Aaron Peter Bachmann
 
--- 
-Joseph S. Myers
-joseph@codesourcery.com
