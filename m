@@ -2,64 +2,74 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id E46F865B34D
-	for <lists+linux-man@lfdr.de>; Mon,  2 Jan 2023 15:24:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id A5BC365B3AF
+	for <lists+linux-man@lfdr.de>; Mon,  2 Jan 2023 16:02:29 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235955AbjABOYJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 2 Jan 2023 09:24:09 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58908 "EHLO
+        id S230205AbjABPC1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 2 Jan 2023 10:02:27 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45724 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232572AbjABOYI (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 2 Jan 2023 09:24:08 -0500
-Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com [IPv6:2607:f8b0:4864:20::231])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 922016591
-        for <linux-man@vger.kernel.org>; Mon,  2 Jan 2023 06:24:07 -0800 (PST)
-Received: by mail-oi1-x231.google.com with SMTP id r130so25080983oih.2
-        for <linux-man@vger.kernel.org>; Mon, 02 Jan 2023 06:24:07 -0800 (PST)
+        with ESMTP id S235937AbjABPCZ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 2 Jan 2023 10:02:25 -0500
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com [IPv6:2a00:1450:4864:20::32e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 00A3265C4
+        for <linux-man@vger.kernel.org>; Mon,  2 Jan 2023 07:02:24 -0800 (PST)
+Received: by mail-wm1-x32e.google.com with SMTP id b24-20020a05600c4a9800b003d21efdd61dso20712003wmp.3
+        for <linux-man@vger.kernel.org>; Mon, 02 Jan 2023 07:02:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=5SHaygsJMS+nqLkYIy9v4HpppdDvT3jmbd99WGueHg4=;
-        b=H96WrW8WvaxNLYWjibCTi9is7Yx/fwMPWq5mbDFDrooimAqIzxGOXjV2pgvYOIfFtM
-         AYvfWKjWvJgDPosSciL5FN3cnaFwPcop9G90ZKStbrdNMJdwV5APedeoyIj4aGuJ+vng
-         6bFYVkzsF+Z9CPW8bCsv2tlS3nbiN0auwjCI0l0prK/tvZ5i1WPbICt1RDnhfBjtS3oZ
-         pdWHWs8R+Jtn/ar8cTpnlMFW8xIoYHHGt60vHoWdTPT1ccLdkIZMPuYW6C6o/EoWWuGv
-         /y3R3Q6TvrL1WcMZWw7hOjy5tKe67oqlmQtkyp/zOFGzC28xCtwo63TlFuHtzjo7uaa5
-         gtug==
+        h=in-reply-to:cc:from:references:to:content-language:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=/F9gD1OOCZqbt3s2THyh5J16/lmZnBA67y04r75nCYo=;
+        b=kivQtDU30MMP9yyGbYPxQyp3PHoMl+uebZ+dhMDOiDuyk3g8vim1j6weQfhNTLS4iQ
+         HlOPTFc1JtKFjPfBt/t3SVeDDuMsxK7jqC+CIAONbfxgkqKN6wElJH8/7ck3jbyKmTsd
+         5WxQFWxcsl8va5nZhcO8ozH0XuTnoLfziBWSw1LN+4KUQ4l+usS3HVfRf8wZnT+mMkDB
+         GZcDVmIvoLvfCCLjuCpDyiNsSxN/QoeT+B6s+g634Pug9pOEm97XUCRh5YbAMHKLDj5V
+         +FRZZbtUv58+b/YYsB66gv4i1uNjHY/XQUq5PbZhnvsWD/GqTOaOgPjRz15weHCHjl9n
+         F0OQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=5SHaygsJMS+nqLkYIy9v4HpppdDvT3jmbd99WGueHg4=;
-        b=xVIdzUVNNHFTEiGtEHH+3Lcjo6dDdjO60fPAjJUVRpiSUSBcXU7mIY90rmNgPWLHpp
-         UHV3fPFIH09KUbHV7wZVSvDO/r+2uKDYaOtrbV91jTfnZhM5UorYut5ZSQi5lLKlV0oH
-         hMhgM+r9d8EM2LA5n9uhaHzoJHcO6pCmgFVaaCF4iYvqpjvzJzs+y0NmckKB3lQh9WL9
-         XZtyGCGt8Vu47un31sWwFHIu3MF38ojn27CuGMvyqgMvxKHyi4+rF55XpDrNuKB68T7+
-         JY15AtqsxMcl1mws2nNkLLnjfFR63LGomGEidWehbdQeOGKlZNEmmEwC4w2A95XHi+jy
-         Xsjg==
-X-Gm-Message-State: AFqh2krPWZVdDe7DO+Uj7aFMM5dTRC8ek39VCngvDd/7braK5ViYPsBv
-        zHerCbijHHw741btiaBrsas6fHAw5YEhPQ==
-X-Google-Smtp-Source: AMrXdXsbN3i4VWzkQKM1csdgqB45XYuxxwcJ3k1Qxa4kTgC1KN5x5z0OayyanDupJaNdycN7R4iImg==
-X-Received: by 2002:aca:5d82:0:b0:35e:ae7c:2edf with SMTP id r124-20020aca5d82000000b0035eae7c2edfmr19441597oib.34.1672669446838;
-        Mon, 02 Jan 2023 06:24:06 -0800 (PST)
-Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id r70-20020acaa849000000b00354932bae03sm11984633oie.10.2023.01.02.06.24.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Jan 2023 06:24:06 -0800 (PST)
-Date:   Mon, 2 Jan 2023 08:24:04 -0600
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-Subject: [PATCH 4/4] intro.3: Revise.
-Message-ID: <20230102142404.zf5tqq2cqm47sqej@illithid>
+        h=in-reply-to:cc:from:references:to:content-language:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=/F9gD1OOCZqbt3s2THyh5J16/lmZnBA67y04r75nCYo=;
+        b=BnMz5CG/fvKS4dY3w7NFxRofB+aHC3cL9EynzKv2v2d4i4o7uvsO3yaUqbSJV4i72e
+         oNQSG18/qAFYTCh7tSuRYA+4QLu4PbJ6GwwNwscx+YLD79TlWu1hihyA2XGGzvTaMprU
+         MuHzc5aLBdTvutgILAF8qpe36Cevts5to+X3trwwdOWqglifP23WuzQVdoPCQuM4A7fr
+         /Us1svSIuuL1vdit1ht8jp9AaCb4gMcElAuZlITqPdfhvhs38IR/F12hfxWlFvJVvISL
+         J3jJbjbwvLCMUoahpI76gPrant6iduxftZOO7lWAer/mFaBC/d2WA1c1dw4cMR4PeePe
+         epcg==
+X-Gm-Message-State: AFqh2kopLC5xvsfOOF6cy/sHAN1RVNADNPMyDdLIJAWgJVu56ng5QAJt
+        NrzL68Pej7S221BeU8AgffI=
+X-Google-Smtp-Source: AMrXdXtjMtohSOW5P89X73qv4QSWD30Lp5SyfPAPbGqLSv+XyiLDaEFyTwmWQlanCxJ86a4X+dmkGA==
+X-Received: by 2002:a05:600c:3c8c:b0:3d9:719b:bd1b with SMTP id bg12-20020a05600c3c8c00b003d9719bbd1bmr28063952wmb.33.1672671743431;
+        Mon, 02 Jan 2023 07:02:23 -0800 (PST)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id n64-20020a1ca443000000b003d21759db42sm43653113wme.5.2023.01.02.07.02.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Jan 2023 07:02:22 -0800 (PST)
+Message-ID: <1fed37b4-0bf6-0e20-56ff-2e006928989c@gmail.com>
+Date:   Mon, 2 Jan 2023 16:02:05 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+Subject: Re: [Bug 216876] New: prototype for execveat() in the documentation
+ appears wrong
+Content-Language: en-US
+To:     bugzilla-daemon@kernel.org,
+        GNU C Library <libc-alpha@sourceware.org>,
+        markgaleck@gmail.com, linux-man <linux-man@vger.kernel.org>
+References: <bug-216876-216477@https.bugzilla.kernel.org/>
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+In-Reply-To: <bug-216876-216477@https.bugzilla.kernel.org/>
 Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="gsnjvpvbawbpz63m"
-Content-Disposition: inline
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
+ protocol="application/pgp-signature";
+ boundary="------------mGrdMR1Iyb3pMj0iDXt5lsbd"
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,FREEMAIL_REPLY,
+        NICE_REPLY_A,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -67,170 +77,112 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------mGrdMR1Iyb3pMj0iDXt5lsbd
+Content-Type: multipart/mixed; boundary="------------QsiWdDqdpq6SyD4ftKlD00Ro";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: bugzilla-daemon@kernel.org, GNU C Library <libc-alpha@sourceware.org>,
+ markgaleck@gmail.com, linux-man <linux-man@vger.kernel.org>
+Cc: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+Message-ID: <1fed37b4-0bf6-0e20-56ff-2e006928989c@gmail.com>
+Subject: Re: [Bug 216876] New: prototype for execveat() in the documentation
+ appears wrong
+References: <bug-216876-216477@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-216876-216477@https.bugzilla.kernel.org/>
 
---gsnjvpvbawbpz63m
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+--------------QsiWdDqdpq6SyD4ftKlD00Ro
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Content:
-* Recast introduction to discuss the purpose of section 3 as a whole
-  instead of focussing solely on the standard C library.
-* Explain basic principles of usage of any C library to the novice.
-  (This page _is_ called "intro".)
-* Drop material about organization of glibc, now moved to libc(7).
-* Make crystal clear what Alex's new subsections are for.
+SGksDQoNCk9uIDEvMi8yMyAwNDo0NywgYnVnemlsbGEtZGFlbW9uQGtlcm5lbC5vcmcgd3Jv
+dGU6DQo+IGh0dHBzOi8vYnVnemlsbGEua2VybmVsLm9yZy9zaG93X2J1Zy5jZ2k/aWQ9MjE2
+ODc2DQo+IA0KPiAgICAgICAgICAgICAgQnVnIElEOiAyMTY4NzYNCj4gICAgICAgICAgICAg
+U3VtbWFyeTogcHJvdG90eXBlIGZvciBleGVjdmVhdCgpIGluIHRoZSBkb2N1bWVudGF0aW9u
+IGFwcGVhcnMNCj4gICAgICAgICAgICAgICAgICAgICAgd3JvbmcNCj4gICAgICAgICAgICAg
+UHJvZHVjdDogRG9jdW1lbnRhdGlvbg0KPiAgICAgICAgICAgICBWZXJzaW9uOiB1bnNwZWNp
+ZmllZA0KPiAgICAgICAgICAgIEhhcmR3YXJlOiBBbGwNCj4gICAgICAgICAgICAgICAgICBP
+UzogTGludXgNCj4gICAgICAgICAgICAgIFN0YXR1czogTkVXDQo+ICAgICAgICAgICAgU2V2
+ZXJpdHk6IGxvdw0KPiAgICAgICAgICAgIFByaW9yaXR5OiBQMQ0KPiAgICAgICAgICAgQ29t
+cG9uZW50OiBtYW4tcGFnZXMNCj4gICAgICAgICAgICBBc3NpZ25lZTogZG9jdW1lbnRhdGlv
+bl9tYW4tcGFnZXNAa2VybmVsLWJ1Z3Mub3NkbC5vcmcNCj4gICAgICAgICAgICBSZXBvcnRl
+cjogbWFya2dhbGVja0BnbWFpbC5jb20NCj4gICAgICAgICAgUmVncmVzc2lvbjogTm8NCj4g
+DQo+IHByb3RvdHlwZSBmb3IgZXhlY3ZlYXQoKSBpbiB0aGUgZG9jdW1lbnRhdGlvbiBpczoN
+Cj4gDQo+IGludCBleGVjdmVhdChpbnQgZGlyZmQsIGNvbnN0IGNoYXIgKnBhdGhuYW1lLA0K
+PiAgICAgICAgICAgICAgICAgICAgICBjb25zdCBjaGFyICpjb25zdCBhcmd2W10sIGNvbnN0
+IGNoYXIgKmNvbnN0IGVudnBbXSwNCj4gICAgICAgICAgICAgICAgICAgICAgaW50IGZsYWdz
+KTsNCj4gDQo+IA0KPiBUaGlzIGFwcGVhcnMgdG8gYmUgaW5jb25zaXN0ZW50IHdpdGggc2lt
+aWxhciBmdW5jdGlvbnMsIG90aGVyIGRvY3VtZW50YXRpb24sDQo+IGFuZCBteSBzb3VyY2Vz
+IChsYXRlc3QgVWJ1bnR1IGRpc3RyaWJ1dGlvbikuDQo+IA0KPiANCj4gSSB0aGluayB0d28g
+b2YgdGhlICJjb25zdCIgc2hvdWxkIGJlIGRyb3BwZWQgc28gdGhhdCB3ZSBzaG91bGQgaGF2
+ZToNCj4gDQo+IGludCBleGVjdmVhdChpbnQgZGlyZmQsIGNvbnN0IGNoYXIgKnBhdGhuYW1l
+LA0KPiAgICAgICAgICAgICAgICAgICAgICBjaGFyICpjb25zdCBhcmd2W10sIGNoYXIgKmNv
+bnN0IGVudnBbXSwNCj4gICAgICAgICAgICAgICAgICAgICAgaW50IGZsYWdzKTsNCg0KVGhh
+bmtzIGZvciB0aGUgcmVwb3J0IQ0KDQpUaGlzIHdhcyBpbnRyb2R1Y2VkIGluIGNvbW1pdCA3
+MWEyNWQ0Yzc5YjFjY2Y1MzhmNmI4MTNjODM0YmJjNDE5N2Y2MzcwDQoiZXhlY3ZlYXQuMjog
+Rml4IHByb3RvdHlwZSIuDQoNClRoZSByZWFzb24gaXMgdGhhdCB0aGUga2VybmVsIHVzZXMg
+dGhlIGNvbnN0Og0KDQphbHhAYXN1czU3NzU6fi9zcmMvbGludXgvbGludXgkIGdyZXBjIGV4
+ZWN2ZWF0DQouL2luY2x1ZGUvbGludXgvY29tcGF0Lmg6ODUxOg0KYXNtbGlua2FnZSBsb25n
+IGNvbXBhdF9zeXNfZXhlY3ZlYXQoaW50IGRmZCwgY29uc3QgY2hhciBfX3VzZXIgKmZpbGVu
+YW1lLA0KCQkgICAgIGNvbnN0IGNvbXBhdF91cHRyX3QgX191c2VyICphcmd2LA0KCQkgICAg
+IGNvbnN0IGNvbXBhdF91cHRyX3QgX191c2VyICplbnZwLCBpbnQgZmxhZ3MpOw0KDQoNCi4v
+aW5jbHVkZS9saW51eC9zeXNjYWxscy5oOjEwMTE6DQphc21saW5rYWdlIGxvbmcgc3lzX2V4
+ZWN2ZWF0KGludCBkZmQsIGNvbnN0IGNoYXIgX191c2VyICpmaWxlbmFtZSwNCgkJCWNvbnN0
+IGNoYXIgX191c2VyICpjb25zdCBfX3VzZXIgKmFyZ3YsDQoJCQljb25zdCBjaGFyIF9fdXNl
+ciAqY29uc3QgX191c2VyICplbnZwLCBpbnQgZmxhZ3MpOw0KDQoNCi4vZnMvZXhlYy5jOjIw
+OTY6DQpTWVNDQUxMX0RFRklORTUoZXhlY3ZlYXQsDQoJCWludCwgZmQsIGNvbnN0IGNoYXIg
+X191c2VyICosIGZpbGVuYW1lLA0KCQljb25zdCBjaGFyIF9fdXNlciAqY29uc3QgX191c2Vy
+ICosIGFyZ3YsDQoJCWNvbnN0IGNoYXIgX191c2VyICpjb25zdCBfX3VzZXIgKiwgZW52cCwN
+CgkJaW50LCBmbGFncykNCnsNCglyZXR1cm4gZG9fZXhlY3ZlYXQoZmQsDQoJCQkgICBnZXRu
+YW1lX3VmbGFncyhmaWxlbmFtZSwgZmxhZ3MpLA0KCQkJICAgYXJndiwgZW52cCwgZmxhZ3Mp
+Ow0KfQ0KDQoNCi4vZnMvZXhlYy5jOjIxMTU6DQpDT01QQVRfU1lTQ0FMTF9ERUZJTkU1KGV4
+ZWN2ZWF0LCBpbnQsIGZkLA0KCQkgICAgICAgY29uc3QgY2hhciBfX3VzZXIgKiwgZmlsZW5h
+bWUsDQoJCSAgICAgICBjb25zdCBjb21wYXRfdXB0cl90IF9fdXNlciAqLCBhcmd2LA0KCQkg
+ICAgICAgY29uc3QgY29tcGF0X3VwdHJfdCBfX3VzZXIgKiwgZW52cCwNCgkJICAgICAgIGlu
+dCwgIGZsYWdzKQ0Kew0KCXJldHVybiBjb21wYXRfZG9fZXhlY3ZlYXQoZmQsDQoJCQkJICBn
+ZXRuYW1lX3VmbGFncyhmaWxlbmFtZSwgZmxhZ3MpLA0KCQkJCSAgYXJndiwgZW52cCwgZmxh
+Z3MpOw0KfQ0KDQoNCkl0IHNlZW1zIHRoYXQgZ2xpYmMgYWRkZWQgYSB3cmFwcGVyIHJlY2Vu
+dGx5LCBhbmQgSSBkaWRuJ3QgY2hlY2sgdGhhdCB0aGUgDQpwcm90b3R5cGUgY2hhbmdlZDoN
+Cg0KYWx4QGFzdXM1Nzc1On4vc3JjL2dudS9nbGliYyQgZ3JlcGMgZXhlY3ZlYXQNCi4vcG9z
+aXgvdW5pc3RkLmg6MzAwOg0KZXh0ZXJuIGludCBleGVjdmVhdCAoaW50IF9fZmQsIGNvbnN0
+IGNoYXIgKl9fcGF0aCwgY2hhciAqY29uc3QgX19hcmd2W10sDQogICAgICAgICAgICAgICAg
+ICAgICAgY2hhciAqY29uc3QgX19lbnZwW10sIGludCBfX2ZsYWdzKQ0KICAgICBfX1RIUk9X
+IF9fbm9ubnVsbCAoKDIsIDMpKTsNCg0KDQouL3N5c2RlcHMvdW5peC9zeXN2L2xpbnV4L2V4
+ZWN2ZWF0LmM6MjU6DQppbnQNCmV4ZWN2ZWF0IChpbnQgZGlyZmQsIGNvbnN0IGNoYXIgKnBh
+dGgsIGNoYXIgKmNvbnN0IGFyZ3ZbXSwgY2hhciAqY29uc3QgZW52cFtdLA0KICAgICAgICAg
+ICBpbnQgZmxhZ3MpDQp7DQogICAvKiBBdm9pZCBpbXBsaWNpdCBhcnJheSBjb2VyY2lvbiBp
+biBzeXNjYWxsIG1hY3Jvcy4gICovDQogICByZXR1cm4gSU5MSU5FX1NZU0NBTExfQ0FMTCAo
+ZXhlY3ZlYXQsIGRpcmZkLCBwYXRoLCAmYXJndlswXSwgJmVudnBbMF0sDQoJCQkgICAgICBm
+bGFncyk7DQp9DQoNCg0KSSBDQ2QgZ2xpYmMgc28gdGhhdCB0aGV5IGNhbiBjb21tZW50Lg0K
+DQpDaGVlcnMsDQoNCkFsZXgNCg0KUC5TLjogIFRoZXJlJ3Mgc29tZSBwcm9ibGVtIGluIGJ1
+Z3ppbGxhIHRoYXQgaXQncyBub3QgcmVjZWl2aW5nIG15IHJlcGxpZXMsIHNvIEkgDQpDQ2Vk
+IGV2ZXJ5b25lIGludm9sdmVkIHNvIHdlIGNhbiBrZWVwIHRoZSBkaXNjdXNzaW9uIGluIHRo
+ZSBtYWlsaW5nIGxpc3QuDQoNClAuUy4yOiAgUGluZywgS29uc3RhbnRpbiwgcGxlYXNlIGNo
+ZWNrIHRoYXQuDQoNCi0tIA0KPGh0dHA6Ly93d3cuYWxlamFuZHJvLWNvbG9tYXIuZXMvPg0K
 
-Style:
-* Tighten cross reference.  It wastes words to tell people to look
-  elsewhere "for more information".  Why else would they look there?
-* Set introduction of a defined term in italics.
-* Use passive voice less.
 
-Markup:
-* Use `P` instead of `PP` paragraphing macro.
----
- man3/intro.3 | 92 ++++++++++++++++++++++++++++++----------------------
- 1 file changed, 53 insertions(+), 39 deletions(-)
+--------------QsiWdDqdpq6SyD4ftKlD00Ro--
 
-diff --git a/man3/intro.3 b/man3/intro.3
-index e85c0677a..3daabc2b6 100644
---- a/man3/intro.3
-+++ b/man3/intro.3
-@@ -7,37 +7,44 @@
- .SH NAME
- intro \- introduction to library functions
- .SH DESCRIPTION
--Section 3 of the manual describes all library functions excluding the libr=
-ary
--functions (system call wrappers) described in Section 2,
--which implement system calls.
--.PP
--Many of the functions described in the section are part of the
--Standard C Library
--.RI ( libc ).
--Some functions are part of other libraries (e.g.,
--the math library,
--.IR libm ,
--or the real-time library,
--.IR librt )
--in which case the manual page will indicate the linker
--option needed to link against the required library
--(e.g.,
--.I \-lm
-+Section 3 of the manual describes library functions
-+generally useful to programmers,
-+excluding the system calls described in section 2.
-+Use of a C\~language library entails two requirements:
-+its symbol names must be exposed to the compiler
-+through the inclusion of a
-+.IR "header file" ,
-+presented at the beginning of a man page's \(lqSynopsis\(rq section;
- and
--.IR \-lrt ,
--respectively,
--for the aforementioned libraries).
--.PP
-+(with one exception)
-+to the linker through the specification of an
-+.I \-l
-+flag,
-+documented in the page's \(lqLibrary\(rq section.
-+.P
-+Many of the functions described are part of the Standard C Library
-+(see
-+.BR libc (7)).
-+C\~linkers link with
-+.I libc
-+implicitly by default;
-+an
-+.I \-lc
-+option is redundant.
-+.P
- In some cases,
--the programmer must define a feature test macro in order to obtain
--the declaration of a function from the header file specified
--in the man page SYNOPSIS section.
--(Where required, these feature test macros must be defined before including
-+the programmer must define a C\~preprocessor macro
-+to access the declaration of a symbol from a header file.
-+(Where required,
-+these
-+.I feature test macros
-+must be defined before including
- .I any
- header files.)
--In such cases, the required macro is described in the man page.
--For further information on feature test macros, see
--.BR feature_test_macros (7).
-+In such cases,
-+the required macro is described in the applicable man page.
-+See
-+.BR \%feature_test_macros (7).
- .\"
- .\" There
- .\" are various function groups which can be identified by a letter which
-@@ -65,19 +72,26 @@ For further information on feature test macros, see
- .\" Various special libraries.  The manual pages documenting their functio=
-ns
- .\" specify the library names.
- .SS Subsections
--Section 3 of this manual is organized into subsections
-+The Linux
-+.I man-pages
-+organize section 3 into subsections
- that reflect the complex structure of the standard C library
--and its many implementations:
--.IP \(bu 3
--3const
--.IP \(bu
--3head
--.IP \(bu
--3type
--.PP
--This difficult history frequently makes it a poor example to follow
--in design, implementation, and presentation.
--.PP
-+and its many implementations.
-+.IR libc 's
-+difficult history frequently makes it a poor example to follow
-+in design,
-+implementation,
-+and presentation.
-+.TP 10n
-+.B 3const
-+Constants.
-+.TP
-+.B 3head
-+Header files.
-+.TP
-+.B 3type
-+Data types.
-+.P
- Ideally,
- a library for the C language
- is designed such that each header file
---=20
-2.30.2
-
---gsnjvpvbawbpz63m
-Content-Type: application/pgp-signature; name="signature.asc"
+--------------mGrdMR1Iyb3pMj0iDXt5lsbd
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmOy6QQACgkQ0Z6cfXEm
-bc6MZw//eEqu/cH1rFCr11ebWLguuUECNz+vsmqjCBdEdhA/AswOIIUnJs4yNpmI
-keIUHsO7nDiiw4iqkuECzF4uZ1zbRbtkQi56+MpmlkFc+w5b/gwxwlIf2CsOb3A3
-hyH77LCZDKgRrKXlT3DY4ftTN+EOPqHjeNMHCaB58tA3RnYj8pkQKRDclnnLqE9U
-3ZuKhDBq4iSDt4CjGzt02HSkt+qpZMkwOEX6EAGiZlf5kmkLvX14ZG+Vp35UCQwZ
-c7Taae7NmCPJQXLH10jN2SwkH/JE0zGPRGJ6/KFIQez9PKlPOWom1OeMR/yngeOa
-gLBmGqcZ2piEQgjfDnP7Fl2GFY7RAaibfvDtDIVdC32bV4wIxUYiJN/9ONi3n5uz
-3C/pkN0RsqXmpB/UuIv3y8Wy89DnL4+jl27FmcWpD+HxWBOrv9/bFrDYMr/Lp9rr
-k8C9OyihaOqPUdZSeev3YmBCbN82dFrWMIdIvmSGS2w72w4TwLVqX3jtT9YomqBJ
-+S4hv4AxqE4nxc02njVwjVZG+JJiCO3DmffU+NUgobGMNDRIMTOXrlwvu236r2+8
-p7AFgsXo9cWzeWLih0y9bKifjYMKWBQ4u3aPMyw/GvSMW7jbzEor/zJBQLSCdOWx
-uxw+q4hvm/Jma4fYW8CFN7Q9BUR5mt0vtfLmNAPpG42QzoL3DLo=
-=jyh/
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmOy8e4ACgkQnowa+77/
+2zIVlw//WbxCsgGedW4rlgviBAH1cu9o9VH/NFtuaT6IqvoCMd2GCTNL/BWnxKaP
+8RyEa3GEglplK1RmiXB+PSjOmDsohF3+Y0Pr3avmWX+j7KGd/bkwjVbmCUSy0czn
+CtxjmXL8PeuX133/CKNRXcOqYzqLxSi9lYEQBcxEsS6Xxpz1ZYg6cKAPxzIqVm3M
+K7xp8PRENP+hVhjuhYA14ADrRm8m9iZ9/Z9mwHfu1RfLtYIT5CVziX1ahKVjPEaT
+0L4EezNV0WIb0wd8bmAFJKzlgZsD1L+vYedXXCuZ8L7c79ejtTh5oMjujC5d2hRX
+VYCcGyC1OokArcxaqL4hLMrVTmYO1BNKjN6oUvHi/zqTkVTOz68h85iI1h5NPkoI
+CbFXGFjUfvwMvj8drwm/7gAjxPbnKtPvYw0fVOGXmig8qSoRVgag58Js0vDZzsD4
+hDE80MeI0su7sPRDTeeBHPtc5j4Uj8ikv0GtDUVZsPhpRFKHsse3RVlSm1pE1oj3
+1LkLyu1yFZGHZ9T47hRllmlPPtxM7kC/uQtQ4nDmU1mSeiusYVBruaH/ACtMCOw6
+qNxwItWvUtNz8TXbT6ekXkS9rOYB5axqglibJB+MfYwJavIxRUa15L+H4ovDtzgr
+IxwmNAA/YJILSfED+ACjCcwFDb5pBJ1Qgrbn00xH8N0hg9/7Ze8=
+=lmOw
 -----END PGP SIGNATURE-----
 
---gsnjvpvbawbpz63m--
+--------------mGrdMR1Iyb3pMj0iDXt5lsbd--
