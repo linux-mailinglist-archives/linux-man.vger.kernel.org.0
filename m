@@ -2,68 +2,78 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 138AE65B42D
-	for <lists+linux-man@lfdr.de>; Mon,  2 Jan 2023 16:27:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id BD28265B42C
+	for <lists+linux-man@lfdr.de>; Mon,  2 Jan 2023 16:27:07 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S236008AbjABP1Q (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 2 Jan 2023 10:27:16 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35248 "EHLO
+        id S229447AbjABP1G (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 2 Jan 2023 10:27:06 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35270 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230120AbjABP1P (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 2 Jan 2023 10:27:15 -0500
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 78DE93A1
-        for <linux-man@vger.kernel.org>; Mon,  2 Jan 2023 07:26:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1672673196;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         in-reply-to:in-reply-to:references:references;
-        bh=U8WFYy1QhhwO8JBTjxXwg2SEka2+KMgPc6FjpRQ3tlQ=;
-        b=WfLSshDCUlH0trJ8Xym7ieNZlfveI84T7icT1ZoGgZHtK/DefwoNjrZlYZcN4nvg8w8gpH
-        q7BXtv4bopl+BOojoSlQd4UnO3pL1ArRmkR8ZG7D8Q/noM9pUgtdeScm1EipXDrBQcxt5n
-        bFEaX3jSLL864fuJ0Z7PY82voikx9nQ=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-553-o-ASszwuMAuoCMPlU4oRXA-1; Mon, 02 Jan 2023 10:26:30 -0500
-X-MC-Unique: o-ASszwuMAuoCMPlU4oRXA-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
-        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        with ESMTP id S236402AbjABP0n (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 2 Jan 2023 10:26:43 -0500
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 187C6B5D
+        for <linux-man@vger.kernel.org>; Mon,  2 Jan 2023 07:26:42 -0800 (PST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
         (No client certificate requested)
-        by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F06173810780;
-        Mon,  2 Jan 2023 15:26:26 +0000 (UTC)
-Received: from oldenburg.str.redhat.com (unknown [10.2.16.30])
-        by smtp.corp.redhat.com (Postfix) with ESMTPS id B5882140EBF5;
-        Mon,  2 Jan 2023 15:26:25 +0000 (UTC)
-From:   Florian Weimer <fweimer@redhat.com>
-To:     Alejandro Colomar via Libc-alpha <libc-alpha@sourceware.org>
-Cc:     bugzilla-daemon@kernel.org, markgaleck@gmail.com,
-        linux-man <linux-man@vger.kernel.org>,
-        Alejandro Colomar <alx.manpages@gmail.com>,
-        Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-Subject: Re: [Bug 216876] New: prototype for execveat() in the documentation
- appears wrong
-References: <bug-216876-216477@https.bugzilla.kernel.org/>
-        <1fed37b4-0bf6-0e20-56ff-2e006928989c@gmail.com>
-Date:   Mon, 02 Jan 2023 16:26:23 +0100
-In-Reply-To: <1fed37b4-0bf6-0e20-56ff-2e006928989c@gmail.com> (Alejandro
-        Colomar via Libc-alpha's message of "Mon, 2 Jan 2023 16:02:05 +0100")
-Message-ID: <87y1qllzz4.fsf@oldenburg.str.redhat.com>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/28.1 (gnu/linux)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id 8F6D061008
+        for <linux-man@vger.kernel.org>; Mon,  2 Jan 2023 15:26:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id EBC6FC433F2
+        for <linux-man@vger.kernel.org>; Mon,  2 Jan 2023 15:26:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1672673201;
+        bh=7ZohUxz8wsmTUMHUykodjJvBMM/VP1n7IEQe29S2qEQ=;
+        h=From:To:Subject:Date:In-Reply-To:References:From;
+        b=QDfPcuNhBSBV2QUscyztCH3jDxUiHHJx9wlx1rYLeRVuSbZDG6R5E/J+r1vRIZBk2
+         5LCExPQWDEN5g+rwQuSE10M2ElkzedP32/eCk5tOA+9Wcdeqe2QNgHe74Zp1svUcPY
+         SDZP8Z4XEFbr4dZBB3CJGQh/d76nQ80wqq4TBST2eiBZAbyKESO7qf1T10N6pgwZaR
+         De1tUrv/ChLrdWqPjP17a1xKSX6Yz34FNQudT9xTPYr9E/nKg0zAtrw1zJgQ7aDffA
+         qtC0IsBcVf5uVPajEMTsEtWalHnvaq2kgdpZt5U4DvuAjDA4SlM3P5Aoovy2eoggxJ
+         +bV5EYbNjS2rw==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
+        id D5D77C43144; Mon,  2 Jan 2023 15:26:40 +0000 (UTC)
+From:   bugzilla-daemon@kernel.org
+To:     linux-man@vger.kernel.org
+Subject: [Bug 216876] prototype for execveat() in the documentation appears
+ wrong
+Date:   Mon, 02 Jan 2023 15:26:40 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Documentation
+X-Bugzilla-Component: man-pages
+X-Bugzilla-Version: unspecified
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: low
+X-Bugzilla-Who: fweimer@redhat.com
+X-Bugzilla-Status: NEW
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P1
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: 
+Message-ID: <bug-216876-11311-ih78cgxgtz@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-216876-11311@https.bugzilla.kernel.org/>
+References: <bug-216876-11311@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
-        RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_NONE autolearn=ham
-        autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-7.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+https://bugzilla.kernel.org/show_bug.cgi?id=3D216876
+
+--- Comment #1 from Florian Weimer (fweimer@redhat.com) ---
 * Alejandro Colomar via Libc-alpha:
 
 > It seems that glibc added a wrapper recently, and I didn't check that
@@ -78,12 +88,13 @@ X-Mailing-List: linux-man@vger.kernel.org
 >
 > ./sysdeps/unix/sysv/linux/execveat.c:25:
 > int
-> execveat (int dirfd, const char *path, char *const argv[], char *const envp[],
+> execveat (int dirfd, const char *path, char *const argv[], char *const
+> envp[],
 >           int flags)
 > {
 >   /* Avoid implicit array coercion in syscall macros.  */
 >   return INLINE_SYSCALL_CALL (execveat, dirfd, path, &argv[0], &envp[0],
-> 			      flags);
+>                             flags);
 > }
 >
 >
@@ -102,3 +113,8 @@ comparison.
 Thanks,
 Florian
 
+--=20
+You may reply to this email to add a comment.
+
+You are receiving this mail because:
+You are watching the assignee of the bug.=
