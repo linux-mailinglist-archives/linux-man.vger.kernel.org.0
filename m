@@ -2,107 +2,82 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 6F7AB65B9AE
-	for <lists+linux-man@lfdr.de>; Tue,  3 Jan 2023 04:29:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 263D565BD88
+	for <lists+linux-man@lfdr.de>; Tue,  3 Jan 2023 10:59:39 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S236632AbjACD3G convert rfc822-to-8bit (ORCPT
-        <rfc822;lists+linux-man@lfdr.de>); Mon, 2 Jan 2023 22:29:06 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47800 "EHLO
+        id S237001AbjACJ7i (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 3 Jan 2023 04:59:38 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38204 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S236580AbjACD3C (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 2 Jan 2023 22:29:02 -0500
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com (mail-dm3nam02on2127.outbound.protection.outlook.com [40.107.95.127])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1A490CE03
-        for <linux-man@vger.kernel.org>; Mon,  2 Jan 2023 19:29:01 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PK7kEgVTbuS0ovDjBa+VmaKII0nRvnCRF3kCtuKtRrrjAa3BHmZcK/7GeJEDOOaxmkeO0TsPIpHTBqxYkfrGlz3qht1Wlsm4/ZNYOPN2hoSLyTjucftmawOnV7yV3ShL4mUIRe1KHQqz4XPqu1T4kPsWcOJ3JevKL6G6FCtXasCyVrCHrXNI/BNN+9g+IBdJO2AmhBAhDMP6nQTrCGg1fksDYuBqnN59RlQ0pBr+XgMxgchnGid/91LrheFr9rc+xKh0VNfELGLVePcu9ghtw0iD3eMQXvcqBczM3UsR8Tc1mNefXBT4tLAkkSBa9le/mkYfQRlK+r9HEGF8IdQAxw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SPWCjSBFmp5lpKHeJ3q2Tn5TdHRIzvorTCkxgQKKWvk=;
- b=ltnjdhh92ZSi0mim5xldDgntwTqVAKmhQ7i4uHqfECFa45tJA1+5BXNGk76aUToktOxIUNKq0lmi/Axl6yP+fnp98DpcNDYHgHhIT8qr1Smq3JvDLhXdrbfqanaVadsqTPoX9YfgK7a5pBC7r0EjDxyJrMfuFaRLNjJcdIgkAGnkWASuIBiu+eRwQmW0Iw6Syc9ffaUiHBNCL9iJT2AYFVrUe3Grx6qIK4WPrUxfm0/yXEFmq/g2Hl66e/XQz+J1GIZhHnaIrPXLQQDNvTjOSHnHSKNtBqjSgNhAzrbuPJI+2bBHcI5oZnKIRN3sSiH9OcAX6SP0IdG4I9TfDHiRng==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nickgregory.me; dmarc=pass action=none
- header.from=nickgregory.me; dkim=pass header.d=nickgregory.me; arc=none
-Received: from BYAPR10MB3653.namprd10.prod.outlook.com (2603:10b6:a03:11d::11)
- by CH3PR10MB7117.namprd10.prod.outlook.com (2603:10b6:610:126::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.19; Tue, 3 Jan
- 2023 03:28:59 +0000
-Received: from BYAPR10MB3653.namprd10.prod.outlook.com
- ([fe80::c382:5e06:e62a:9494]) by BYAPR10MB3653.namprd10.prod.outlook.com
- ([fe80::c382:5e06:e62a:9494%7]) with mapi id 15.20.5944.019; Tue, 3 Jan 2023
- 03:28:58 +0000
-From:   Nick Gregory <nick@nickgregory.me>
-To:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
-        "alx.manpages@gmail.com" <alx.manpages@gmail.com>
-CC:     "ccross@google.com" <ccross@google.com>
-Subject: [PATCH] prctl.2, proc.5: Document VMA naming
-Thread-Topic: [PATCH] prctl.2, proc.5: Document VMA naming
-Thread-Index: AQHZHyOEYeJzEJdMekeksXb0hesjzA==
-Date:   Tue, 3 Jan 2023 03:28:58 +0000
-Message-ID: <A9E684DF-4985-4441-BA62-490C2F04AE70@nickgregory.me>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nickgregory.me;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BYAPR10MB3653:EE_|CH3PR10MB7117:EE_
-x-ms-office365-filtering-correlation-id: 28fe9452-ed37-4319-905a-08daed3aa6b7
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: R+fJK06hrtcSdeLkH/YNumrKQp10srylGVMlUHO2wV/QxjJU7ysrhob/fJDnyA1xsd5CtswC6BPkkf9OL/6Y0JiBRRMjWdKqpFVhbVG+LJHc+m9wiItpYe13TvpwND8Zj3sVXhdZEvcna5zKEAHKjZ7pKmvUqk5g31jgTQ2X7x6Dm8xHcGvObXJx9ECuhXwi5wjRf+4JCWoFlUWuQsVTZFnryjLLukbyr7uhWFjZhcLWC2Msez88L05LpbY9iefPkezEfrWzTOo8MQgw0F9m2hKYOF1Htg+TGGvyk7+8RQMPrqKCUuaLXZUiSoMX5N1xSaWJQeqNT7cOLAxFkqBFmJIxxx5wIQ4QU4qZGSr4ilk+6l0exq4q0kylYVsf9iRfJNGbZ3lXxVnmpDPBadwoaeaZ83hC3Fz2XyFtnbbYPS8rDKXCReeQ0woBqFaOMGiqbhJgU2S40sHWs6wbHdOmWmH7I9t6AU7OGygCg0yXy4hlfSO2zUQdukg7P/f+2ytBY/chrta9vExureXDFpyX1CGd+tv3Ft2d46l7Qa3O8zETCq2rN/0vLLaiGj8bDQmMoQ0Vr7IUkErnXmNjbRFQnC0W8Cg/WaAwCRRhRji4IJCDA7gTsfqH9g7IevO9tIRat6zO6GPEe6Jryd4TQoblmDdyiykOEUu7XsmE6aMW9DjKp9wA2ZGyP7NpS9hnB788Wat4jz4+n11Q90l/QorAX9gCvc9uQOSqg5kSb/0jWcmPPW2rm49nbcXGBwr4Sw8KPCHTKaW+JcomQ/YuUa2TGA==
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR10MB3653.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(366004)(376002)(346002)(136003)(396003)(39830400003)(451199015)(6512007)(186003)(2906002)(966005)(6486002)(478600001)(71200400001)(6506007)(66556008)(66946007)(2616005)(91956017)(76116006)(66446008)(66476007)(64756008)(4326008)(8676002)(41300700001)(316002)(5660300002)(83380400001)(33656002)(122000001)(8936002)(38100700002)(110136005)(36756003)(38070700005)(86362001)(22166006)(45980500001);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?NDNbioZdH4M7n64G2wJXhM4eBtDme2SHfPi45H5Uh/spfcOvTUH2rHNgu00z?=
- =?us-ascii?Q?gE+DDKm4HQ6UgIPjXOLQ8+SoIc1fPirm3vkpNISLgNgCLkWst0BF3h+fUgb6?=
- =?us-ascii?Q?filj1cWSfPa4zu8D8hUOpFvQqPuZAz1MwsAPT79YOBouQTYn5aTH4xLEgxRX?=
- =?us-ascii?Q?Y7F9MKydVxxyTiblPBIIe3SowN53kazsAKFstORsmNAZrKr9NoggIafCfnx2?=
- =?us-ascii?Q?JqYAhtDLYFnW0iloeVE2vzlpXfr0fhN78fm5KoOJgwmvNfgT4IcbW+lc2UF4?=
- =?us-ascii?Q?b1A9W5gAZtMI3tQ+JaIkSwIDZpa3hj/gFYraG7QjJbxxI9Ym2G+/081nM/bg?=
- =?us-ascii?Q?gQyzcwa1eA8KL9sng77OqBP81COam9l0zYqLtK6jLtWz8yBEHG77VI7lzJt2?=
- =?us-ascii?Q?lj8hVYeq1TewoK9Dq+tD4BTU0Wra77enNbimNRWDbl1S0zQgyRF5kCe43tdh?=
- =?us-ascii?Q?PXGwEA+/7RHJVnu5QYJqH5GwNFaCBy8FIcBJmaYH7FFWu7VmD+KP78qBdMZA?=
- =?us-ascii?Q?0XHV7k8Lz638gXEYWFLNde8lO6SpHc/RdkjGlf6Wtgn94VCRLgYw0LE7U/XJ?=
- =?us-ascii?Q?ipkJQ05GTWFq2Eby6Blg/R7AgCYT9NSxPiKu9TImlp51Pu2FvO0kAQX62Yp6?=
- =?us-ascii?Q?aIeAHH0EPZjzT7GPnVomixVxAlq3xvWgh7Ykc4FQ60tjt8HDNaDs4rSRerJx?=
- =?us-ascii?Q?AbZYc9F2FAugKbKMtVyX5fRR78HSzrTPEng1gAMMXbPJmp5dA02u5kHwwPKf?=
- =?us-ascii?Q?Q8uvSMwfsjHQr1h/8VlI256f2KhIpqIfVEMaRHN4fpNmuIIx+ohIuGLWyZsV?=
- =?us-ascii?Q?nWltVbok4Hv1lEouPRa9JFfr4g/7MkZnlp+CcqDGHqBbN8aomWHvWBN2LjBa?=
- =?us-ascii?Q?jkTXGtdU8X4wRgQU6fIIwDqzIpIoTCEHQaKBMsFocmpZvff+F1zlyylZCIOj?=
- =?us-ascii?Q?nHgediLosdoYXD0Fcu+V/gvOR/bOHfk9E4AIvbkf3xcF9/fw5hEvVY8wcALZ?=
- =?us-ascii?Q?B1ZjgqnWsi5GymY14vMJc9IyuR1Z+MNCPYkcdZFrHXGh40ZN1nLYqYrY5Efs?=
- =?us-ascii?Q?e56mW19jyjGagz/+zNc1Ac2qOKm7Zon0E3yoPH5dCZfaM79JxjN/eTZYAJMc?=
- =?us-ascii?Q?JMR5YOKT4i8Gp7M52978RoRaO0krPkqYuYggnfCtdAbTuWvmyN+s4fiUW2Vh?=
- =?us-ascii?Q?WIjclg4NHnpBUHnRl5Ob32OuhmBpCc/KrE7Kt82JoRnv6qH0x8VcjRw2UQX/?=
- =?us-ascii?Q?Hn+/NwM+2YXwQLcJOIWs/pNDC235OR72LXnn3+mKGz9sFEc1xstb3vf+Rde7?=
- =?us-ascii?Q?dUiKKde3AK+qSp27MqoG99UvBheEJmRfO+dInK2Ov7HA1QGr4b1WDnzx7JAD?=
- =?us-ascii?Q?zFDGhy4YOtzkzU+9V0jB793VaoNQYbvAAJOdcCkh//mdmphLnuCGrIgq2i7H?=
- =?us-ascii?Q?AVbGgP7q3taELpiPgXZyfgh92plCaxScfq1qt+cCzti5BOC//H0VzJnbgl7Q?=
- =?us-ascii?Q?2sSArS7EGHyOFpr0b0OQcQe2+BjEvLaZGKsDIRUmMMIHCzqiGGdhfQG2VpmK?=
- =?us-ascii?Q?pENSVd7+lytatY+n+5GiWj7Zn3ZhXsq+RLOUPAYU38IptBS6D0/7ajIzBbXh?=
- =?us-ascii?Q?brBVsJScJYEFD1qZC5jNItadiAf6SViabirQ5GgEUkb7n2wtajeJFcwabr1l?=
- =?us-ascii?Q?/zjLzA=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <FBA665B14AFB3D4FB7353ECBD658251F@namprd10.prod.outlook.com>
-Content-Transfer-Encoding: 8BIT
+        with ESMTP id S232990AbjACJ7h (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 3 Jan 2023 04:59:37 -0500
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com [IPv6:2a00:1450:4864:20::42e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 809D7EE31;
+        Tue,  3 Jan 2023 01:59:35 -0800 (PST)
+Received: by mail-wr1-x42e.google.com with SMTP id y8so28855794wrl.13;
+        Tue, 03 Jan 2023 01:59:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=MLIBMGouQmobP8kVmsIkUHnUqoZi7lrFSQF4WjKTeKw=;
+        b=S9ETtDyRqt2r/bQL5jRQ3/qQYx0QJsrs2sOqucmenRibHhBr9sCwlkWx/DPoLjFF0K
+         JUm6XWrcLHjrW1AGmi9DI+XOmBc/G3in2HMrRW/mDgp0Q1SuZs+2N4OrnLAWwUpv6aMm
+         WRPoVZSB/PHoz16uGxDHkYQAIY/efeBak8gxMZ05fSKGMTeU573KvzxVHQ5ZmUtvJ7nY
+         NHdNuYqLJeKA8T63+JETFz/Q5xXT9JZat8bh+m4kbatGeSwiFgAOjHKQoLMbtSpkYP8M
+         zq6HumuTxjAbYuXvCAdK8rLb4Dc/Yhz7f9e83jQU4L2lyflz+V2eYtrfboTXoWr8b+nv
+         DVRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=MLIBMGouQmobP8kVmsIkUHnUqoZi7lrFSQF4WjKTeKw=;
+        b=v5o4lyx7pmnCmtKlOKfce85CLm1GhmwT3vYUaWSa066NVwAG56CFfbjv+6PW/N5SKq
+         MK6QjrlbC4d9fkW4xwnhctMs4LaIAsnXv/VrZkPfQNb73Aasoz/1rpzspXZPAjY4nqrW
+         HpPYSnUDGuJlh0jn5mVztF8/Cm9FGvAKcn/1lOtmQ7B9ybPXV9wXjCM6MTyYCJg0DX/I
+         ZrtLaPEaonMCMJ2GSp+O1Z39+VkpDBAzcy02bZkysdWQ5EPNUHzToPssM1lZF7Y6lVwr
+         eqek66CFS6in9POsp/aVM5redwUPMmZ/bt2OeKVhFFxBVtJ2Nl1Of1sbhVIiNlkZlSaf
+         wMsQ==
+X-Gm-Message-State: AFqh2krPS/ujfSJq7c7xtPgbknGVuiw+5Erf1bQfoPw9dJZpFnzAhZbd
+        rRa3fhryQbTBVxqjaBdj7Bs=
+X-Google-Smtp-Source: AMrXdXs5LlGC6+psGmG4txh5Zb59lJlJXCUcagL3nMJKopVxukDh9Zz1MSdcyC82aIbdirJ6aOJ1jg==
+X-Received: by 2002:a05:6000:1e04:b0:273:e385:1a89 with SMTP id bj4-20020a0560001e0400b00273e3851a89mr24224697wrb.67.1672739973902;
+        Tue, 03 Jan 2023 01:59:33 -0800 (PST)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id s18-20020adfdb12000000b00241fde8fe04sm31154035wri.7.2023.01.03.01.59.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 03 Jan 2023 01:59:33 -0800 (PST)
+Message-ID: <aa0ec1ba-ad47-795f-6e36-d6c0d224f51e@gmail.com>
+Date:   Tue, 3 Jan 2023 10:59:24 +0100
 MIME-Version: 1.0
-X-OriginatorOrg: nickgregory.me
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR10MB3653.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 28fe9452-ed37-4319-905a-08daed3aa6b7
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Jan 2023 03:28:58.6655
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53402301-82a7-45d8-a44c-27dc38ab0f60
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: qvxfLCdxldcwuo+ziaSoALvYqjxWmFrSl9E/+sFQ4N5ig0wUzEAdfUNAiDfro6bVeGVWm+PKTJNrJR0/sfhiZg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR10MB7117
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE,
-        RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS autolearn=ham
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+Subject: Re: [PATCH] perf_event_open.2: Update recent changes
+To:     Namhyung Kim <namhyung@kernel.org>
+Cc:     Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org,
+        Peter Zijlstra <peterz@infradead.org>,
+        Arnaldo Carvalho de Melo <acme@kernel.org>,
+        Jiri Olsa <jolsa@kernel.org>,
+        Alexei Starovoitov <ast@kernel.org>,
+        Marco Elver <elver@google.com>,
+        Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+        Kan Liang <kan.liang@linux.intel.com>,
+        Stephane Eranian <eranian@google.com>,
+        linux-perf-users@vger.kernel.org
+References: <20221228021651.1027725-1-namhyung@kernel.org>
+ <55416c53-1633-2c9c-e51c-cc96e27b4b11@gmail.com>
+ <CAM9d7ci1wwqcBtu0RxeoiNqmDMAnaUnzEv9jTbFNjw+VnGinBA@mail.gmail.com>
+Content-Language: en-US
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <CAM9d7ci1wwqcBtu0RxeoiNqmDMAnaUnzEv9jTbFNjw+VnGinBA@mail.gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------kvj0UhbbGa7HE5FTLv6sQ0ez"
+X-Spam-Status: No, score=-5.2 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -110,89 +85,72 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Bring in prctl man page changes from the patch set by Colin Cross
-<ccross@google.com> [0], and document the corresponding virtual names in proc.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------kvj0UhbbGa7HE5FTLv6sQ0ez
+Content-Type: multipart/mixed; boundary="------------0haipMI5tcAB6M9M3w7hwWBx";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: Namhyung Kim <namhyung@kernel.org>
+Cc: Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org,
+ Peter Zijlstra <peterz@infradead.org>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>, Jiri Olsa <jolsa@kernel.org>,
+ Alexei Starovoitov <ast@kernel.org>, Marco Elver <elver@google.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Kan Liang <kan.liang@linux.intel.com>, Stephane Eranian
+ <eranian@google.com>, linux-perf-users@vger.kernel.org
+Message-ID: <aa0ec1ba-ad47-795f-6e36-d6c0d224f51e@gmail.com>
+Subject: Re: [PATCH] perf_event_open.2: Update recent changes
+References: <20221228021651.1027725-1-namhyung@kernel.org>
+ <55416c53-1633-2c9c-e51c-cc96e27b4b11@gmail.com>
+ <CAM9d7ci1wwqcBtu0RxeoiNqmDMAnaUnzEv9jTbFNjw+VnGinBA@mail.gmail.com>
+In-Reply-To: <CAM9d7ci1wwqcBtu0RxeoiNqmDMAnaUnzEv9jTbFNjw+VnGinBA@mail.gmail.com>
 
-Signed-off-by: Nick Gregory <nick@nickgregory.me>
+--------------0haipMI5tcAB6M9M3w7hwWBx
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-[0] https://lore.kernel.org/linux-mm/20211019215511.3771969-2-surenb@google.com/
----
- man2/prctl.2 | 35 +++++++++++++++++++++++++++++++++++
- man5/proc.5  | 14 ++++++++++++++
- 2 files changed, 49 insertions(+)
+SGkgTmFtaHl1bmcsDQoNCk9uIDEvMy8yMyAwNDoxMywgTmFtaHl1bmcgS2ltIHdyb3RlOg0K
+PiBIaSBBbGVqYW5kcm8sDQo+IA0KPiBIYXBweSBuZXcgeWVhciENCg0KSGFwcHkgbmV3IHll
+YXIhIDopDQoNCj4+PiBAQCAtMjIwOSw2ICsyMzM2LDEyIEBAIHN0cnVjdCB7DQo+Pj4gICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgLyogaWYgUEVSRl9TQU1QTEVfUkVHU19JTlRSICov
+DQo+Pj4gICAgICAgIHU2NCAgICBwaHlzX2FkZHI7ICAgLyogaWYgUEVSRl9TQU1QTEVfUEhZ
+U19BRERSICovDQo+Pj4gICAgICAgIHU2NCAgICBjZ3JvdXA7ICAgICAgLyogaWYgUEVSRl9T
+QU1QTEVfQ0dST1VQICovDQo+Pj4gKyAgICB1NjQgICAgZGF0YV9wYWdlX3NpemU7DQo+Pj4g
+KyAgICAgICAgICAgICAgICAgICAgICAgIC8qIGlmIFBFUkZfU0FNUExFX0RBVEFfUEFHRV9T
+SVpFICovDQo+Pg0KPj4gVGhlIGxpbmUgYWJvdmUgcnVucyBwYXN0IDgwIGNvbHVtbi4NCj4+
+DQo+Pj4gKyAgICB1NjQgICAgY29kZV9wYWdlX3NpemU7DQo+Pj4gKyAgICAgICAgICAgICAg
+ICAgICAgICAgIC8qIGlmIFBFUkZfU0FNUExFX0NPREVfUEFHRV9TSVpFICovDQo+Pg0KPj4g
+VGhlIGxpbmUgYWJvdmUgcnVucyBwYXN0IDgwIGNvbHVtbi4NCj4+DQo+IA0KPiBIbW0uLiB0
+aGV5IGRvbid0IHJ1biBwYXN0IDgwIGNvbHVtbiBieSB0aGVtc2VsdmVzLg0KPiBXaWxsIHRo
+ZXkgZ2V0IG1lcmdlZCBzb21laG93Pw0KDQpUaGV5IGRvbid0IHJ1biBwYXN0IDgwIGluIHRo
+ZSBzb3VyY2UsIGJ1dCBydW4gcGFzdCA4MCBpbiB0aGUgZm9ybWF0dGVkIHBhZ2UuIA0KQmVj
+YXVzZSB0aGVyZSdzIGFscmVhZHkgYSA3LXNwYWNlIGluZGVudGF0aW9uIGZvciBldmVyeXRo
+aW5nIGluIGEgbWFudWFsIHBhZ2UsIA0KZXhjZXB0IGZvciB0aGUgc2VjdGlvbiB0aXRsZXMu
+DQoNCkNoZWVycywNCg0KQWxleA0KDQo+IA0KPiBUaGFua3MsDQo+IE5hbWh5dW5nDQoNCi0t
+IA0KPGh0dHA6Ly93d3cuYWxlamFuZHJvLWNvbG9tYXIuZXMvPg0K
 
-diff --git a/man2/prctl.2 b/man2/prctl.2
-index 74f86ff49..82b8a1b02 100644
---- a/man2/prctl.2
-+++ b/man2/prctl.2
-@@ -769,6 +769,41 @@ This feature is available only if the kernel is built with the
- .B CONFIG_CHECKPOINT_RESTORE
- option enabled.
- .RE
-+.\" prctl PR_SET_VMA
-+.TP
-+.BR PR_SET_VMA " (since Linux 5.17)"
-+.\" Commit 9a10064f5625d5572c3626c1516e0bebc6c9fe9b
-+Sets an attribute specified in
-+.I arg2
-+for virtual memory areas starting from
-+the address specified in
-+.I arg3
-+and spanning the size specified in
-+.IR arg4 .
-+.I arg5
-+specifies the value of the attribute to be set.
-+.IP
-+Note that assigning an attribute to a virtual memory
-+area might prevent it from being merged with adjacent virtual
-+memory areas due to the difference in that attribute's value.
-+.IP
-+Currently,
-+.I arg2
-+must be one of:
-+.RS
-+.TP
-+.B PR_SET_VMA_ANON_NAME
-+Set a name for anonymous virtual memory areas.
-+.I arg5
-+should be a pointer to a null-terminated string containing the
-+name. The name length including null byte cannot exceed
-+80 bytes. If
-+.I arg5
-+is NULL, the name of the appropriate
-+anonymous virtual memory areas will be reset.
-+The name can contain only printable ascii characters
-+(including space), except '[',']','\','$' and '`'.
-+.RE
- .\" prctl PR_MPX_ENABLE_MANAGEMENT
- .TP
- .BR PR_MPX_ENABLE_MANAGEMENT ", " PR_MPX_DISABLE_MANAGEMENT " (since Linux 3.19, removed in Linux 5.4; only on x86)"
-diff --git a/man5/proc.5 b/man5/proc.5
-index 65a4c38e3..e0a64d486 100644
---- a/man5/proc.5
-+++ b/man5/proc.5
-@@ -1372,6 +1372,20 @@ See
- .TP
- .I [heap]
- The process's heap.
-+.TP
-+.IR [anon: name ] " (since Linux 5.17)"
-+.\" Commit 9a10064f5625d5572c3626c1516e0bebc6c9fe9b
-+A named private anonymous mapping.
-+Set with
-+.BR prctl (2)
-+.BR PR_SET_VMA_ANON_NAME .
-+.TP
-+.IR [anon_shmem: name ] " (since Linux 6.2)"
-+.\" Commit d09e8ca6cb93bb4b97517a18fbbf7eccb0e9ff43
-+A named shared anonymous mapping.
-+Set with
-+.BR prctl (2)
-+.BR PR_SET_VMA_ANON_NAME .
- .in
- .RE
- .IP
--- 
-2.39.0
+--------------0haipMI5tcAB6M9M3w7hwWBx--
 
+--------------kvj0UhbbGa7HE5FTLv6sQ0ez
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmOz/HwACgkQnowa+77/
+2zI4OA//QGhUdGanmLglT1a+EKN0HpxTqy/E3mvidQ0Icz+cLzP1rZWPAXktncBZ
+jlMl+mkV8J4etYHXVw5sO3JW5PHpTYKWQyxDi/GFdyrMf1vM9SNhODN/53j3Hiqi
+rpnnjg/GkaBfN7It3j8OO0Z3wrCZmanIq8xXUfvGZu5Sf532IIswWs5asQp3UrM2
+TXYy0rzwOK7AFmBdf2228v3JllngAIKnEmYdZMtlfZAr++0emJOLaY6ldZbZcaOj
+ovlhmESz20GBRDeLX7LhLPcZ9rwp2W025ka/qOt+utJg2HefqI2P87JTPam6GVTf
+CzrPZZE4TIvb1x8QVuB/kvtqeCSNkmnaA27e2WbK4BMcYT8yduAMrusZHmQ/91fc
+SnP8Zz+K+AqjDVCpvNcHFemXX0oP+6eh5wT/+NmCPbee5S9MtoYEO6xaGFRLBYr5
+xtfRvK0kk4JfoOIsc6jGHWMIMFPurtMQSE7RReNPK1brR3gNaaNidhxeStvYKp7+
+4ZPfqbHFQZTIvU+pp7UjyswpIiCxzhIDZYgUi1oL40b4c7fAygTfC20swGdox+V/
+U5G1Hf/uDYT3dULxDFfYCYlEwy9ct5xnPnUuBmtDfT3LQVcFFB3PnYd23zxLbZ4F
+ESoUzS8XYuWkG346EX9hkcM4CM7Flgjz1p8Rox4ruwt7GIoKfiM=
+=m9RN
+-----END PGP SIGNATURE-----
+
+--------------kvj0UhbbGa7HE5FTLv6sQ0ez--
