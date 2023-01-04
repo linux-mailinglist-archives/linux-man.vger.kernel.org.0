@@ -2,60 +2,60 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 56B2265CDB8
-	for <lists+linux-man@lfdr.de>; Wed,  4 Jan 2023 08:39:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 92F8365CDBC
+	for <lists+linux-man@lfdr.de>; Wed,  4 Jan 2023 08:40:56 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231241AbjADHj0 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 4 Jan 2023 02:39:26 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41194 "EHLO
+        id S230487AbjADHkz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 4 Jan 2023 02:40:55 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41612 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233315AbjADHjY (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 4 Jan 2023 02:39:24 -0500
-Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com [IPv6:2607:f8b0:4864:20::32b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 092C919C00
-        for <linux-man@vger.kernel.org>; Tue,  3 Jan 2023 23:39:22 -0800 (PST)
-Received: by mail-ot1-x32b.google.com with SMTP id e17-20020a9d7311000000b00678202573f1so20359307otk.8
-        for <linux-man@vger.kernel.org>; Tue, 03 Jan 2023 23:39:22 -0800 (PST)
+        with ESMTP id S231201AbjADHky (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 4 Jan 2023 02:40:54 -0500
+Received: from mail-oa1-x31.google.com (mail-oa1-x31.google.com [IPv6:2001:4860:4864:20::31])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0A6F2B1F
+        for <linux-man@vger.kernel.org>; Tue,  3 Jan 2023 23:40:53 -0800 (PST)
+Received: by mail-oa1-x31.google.com with SMTP id 586e51a60fabf-12c8312131fso39222346fac.4
+        for <linux-man@vger.kernel.org>; Tue, 03 Jan 2023 23:40:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=content-disposition:mime-version:message-id:subject:cc:to:from:date
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=8mpmYWJZD61tiOncMAa3/+YRKr1+tzelAw8xRXqcbLI=;
-        b=QATYtLt0UUzZH0yqhzlnfcM4ISrzg66gqqzQedyl6x6yVK+xfO1JICkk9OJGTQNgYE
-         1hUl5wyMv/S6emBm3fL47xHHwc6P7dJVIV2K653WQCbaRJ4uvZdmNpQKNn+vIXWH6bjx
-         V2E+3eeTUCzl6P4or46LL/y9rp3EoCdb+y5Ng/2LgVAjytvtqoOAVhRcp9+M1n0dpweM
-         QuAYTAbgwwTLMHYvbq1QTx//Fg+6GuLHBwMFsKnL4JrFNispbm4JBsoihgxxUGYH3UFM
-         x5DggaoLubwCAN6+4MFSAgdD0/L9ip46ezHGkbu/VtSd6O8DZ1A0TrvBHMssXa2A5EHw
-         YQhg==
+        bh=2cxi40HT1PFT6sPmkDuojsZryRhX+gBQmJbRyrLq8oM=;
+        b=qU7XrhjH2vMS2ZrB3AxFBmMTQylCpqB2pG680HqjWmcYkA+enEYzrmHSe+m1yTaUbF
+         CR+en6dQtCgo5tqXS86ncLcViNIURUTneKp9BLfSf2bNNrSHXoQNnYP185CxJbtDhHMv
+         Pwjncub/8QcxEW0wazYAk27fcCyFgEzMMm3rvu/35HV8FJXLNkm4qJCw76Q8Z5OeYelg
+         TSzm042JpsIggmK76ZbVGeBzTXINrMHnE+qP3+CVvHgV4+H9zjv32OYtMx7sf3KRid/z
+         Z+5swaoPbpnEq3EunViHjU8CDNIgq2BsyEBgDCYuiZX6bVeJxQd+7yb7NuqY9EJ5oXrP
+         M71w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-disposition:mime-version:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=8mpmYWJZD61tiOncMAa3/+YRKr1+tzelAw8xRXqcbLI=;
-        b=kRx0r3iF9mk5YqDzkJe47B/APvKvgusyT1d9WREhL6/s0RsYa6EhW08SA6YToR5Rmx
-         rNbvMINLwhXLadIFE1ZjkBPYWuNFiBoEJt6DFCGvNFIorKw9D8VMOgZKmTznroEkAgil
-         x5yrPBHgLonCGXHdGDwmr1Esf5lYcIG44zdv08DtUkN99cvUYYwOCKKLmSa5cu9Vq5fO
-         Z10G8k6/qAZ7fFYi4AmPvnzwH2ONPVIrAW32jv/ZUFl+Kpx9gNDMGZyZY8Agy3wca12l
-         1h234CF/t2Gf5JdS3n+Gqv/hcBoR9JzfHEBjE6BjUatFQDksW6Dq9bSIiaInMd2Rd9Jz
-         yoOQ==
-X-Gm-Message-State: AFqh2kq0hcfWIF16W7KOQWjwhFYjhNmWoJW+4gpKTGwO9xWtIXVOjFYk
-        Th67CvsecrrejaWVRPGMoEiTfdhVW6U=
-X-Google-Smtp-Source: AMrXdXt3S1qt3LUWffC5XY5g841GIFrTBjRKpSCQYiCkQh9npC5SbhJ/HKKmNCGV/bF5dtVjUYIiiQ==
-X-Received: by 2002:a05:6830:2015:b0:661:dfeb:f88d with SMTP id e21-20020a056830201500b00661dfebf88dmr21721951otp.20.1672817962590;
-        Tue, 03 Jan 2023 23:39:22 -0800 (PST)
+        bh=2cxi40HT1PFT6sPmkDuojsZryRhX+gBQmJbRyrLq8oM=;
+        b=ChSuiw1q8g5Ak/bmSO5ddCUfTQiOxeMClFk6gZ3uHVAABy2gtcZC3l23hDU9GNu+NQ
+         BmSOcJSuwNCdQrxzFCq2dLpRbLP3NuAA5NXFPU3+Y243jwaFMbFy4nrvdMYrooh1AndO
+         BeBXsCJkZcwQgNC0yt0V6h4sfV30ZIpXsS+D7vGgVwXpRq6MpdqjT5DprCVM7/QB1WNK
+         HJuQXuujSFwyVYdAq6HQEWbIFDFgZLmg+gWgpb3nqi1ehvBauTcIHfoMA5fn640SLeQI
+         nCmEo0RbH31XJgjwmcZ2x4gTDDE3SFmINhN8DM5JcqztkgfNAey7daLA9meeDrPhhcWT
+         KIpA==
+X-Gm-Message-State: AFqh2kplq1ppfM997ip5ig/PoKXrwlqFfls/eGz96dRF0bb+nPjOW7b9
+        /TxhaOUg5e36v7Aj7yFyT4gQBwVPIb8=
+X-Google-Smtp-Source: AMrXdXuFWTJK1lSY7/fc5A0mtcqV9owLRuTMR896ekIm6y0aa6TATFSl+5+x+klv+iYLrKZc4l7kcg==
+X-Received: by 2002:a05:6870:171d:b0:151:33f6:feed with SMTP id h29-20020a056870171d00b0015133f6feedmr25264oae.19.1672818052086;
+        Tue, 03 Jan 2023 23:40:52 -0800 (PST)
 Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id e21-20020a9d0195000000b00670523bf1cfsm16127387ote.47.2023.01.03.23.39.20
+        by smtp.gmail.com with ESMTPSA id m21-20020a4ac695000000b004d8c6815287sm8963004ooq.17.2023.01.03.23.40.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Jan 2023 23:39:22 -0800 (PST)
-Date:   Wed, 4 Jan 2023 01:39:13 -0600
+        Tue, 03 Jan 2023 23:40:51 -0800 (PST)
+Date:   Wed, 4 Jan 2023 01:40:44 -0600
 From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
 To:     Alejandro Colomar <alx.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org
-Subject: [PATCH 4/9] libc.7: Fix markup nits
-Message-ID: <20230104073913.alfpnxq5apwnfr6c@illithid>
+Subject: [PATCH 5/9] libc.7: Fix style nits
+Message-ID: <20230104074044.4ld4ndi3qins7ytg@illithid>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="tdhbd4hwjfj4uab3"
+        protocol="application/pgp-signature"; boundary="5cs6mf4rxzyxgdrb"
 Content-Disposition: inline
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
@@ -68,135 +68,178 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---tdhbd4hwjfj4uab3
+--5cs6mf4rxzyxgdrb
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-* Use typographer's quotation marks instead of '"' for quotation.
-* Hyperlink the text "GNU C Library" to its website.
-* Add hyphenless break points to URLs.
-* Break input lines after commas.
-* Set multi-word parentheticals on their own input lines.
+* Set `TH` page title in lowercase, since the migration is underway.
+* Say "GNU/Linux distributions" instead of "Linux distributions".
+* Clarify claim about popularity of glibc.
+* Tighten wording.
 
 Signed-off-by: G. Branden Robinson <g.branden.robinson@gmail.com>
 ---
- man7/libc.7 | 47 ++++++++++++++++++++++++++++++-----------------
- 1 file changed, 30 insertions(+), 17 deletions(-)
+ man7/libc.7 | 105 ++++++++++++++++++++++++++++------------------------
+ 1 file changed, 56 insertions(+), 49 deletions(-)
 
 diff --git a/man7/libc.7 b/man7/libc.7
-index 12c79dc11..7b7d376e7 100644
+index 7b7d376e7..c6180075c 100644
 --- a/man7/libc.7
 +++ b/man7/libc.7
-@@ -7,15 +7,18 @@
+@@ -3,7 +3,7 @@
+ .\"
+ .\" SPDX-License-Identifier: Linux-man-pages-copyleft
+ .\"
+-.TH LIBC 7 (date) "Linux man-pages (unreleased)"
++.TH libc 7 (date) "Linux man-pages (unreleased)"
  .SH NAME
  libc \- overview of standard C libraries on Linux
  .SH DESCRIPTION
--The term "libc" is commonly used as a shorthand for
--the "standard C library",
-+The term \(lqlibc\(rq is commonly used as a shorthand for
-+the \(lqstandard C library\(rq
- a library of standard functions that can be used by all C programs
- (and sometimes by programs in other languages).
--Because of some history (see below), use of the term "libc"
-+Because of some history
-+(see below),
-+use of the term \(lqlibc\(rq
+@@ -16,80 +16,88 @@ Because of some history
+ use of the term \(lqlibc\(rq
  to refer to the standard C library is somewhat ambiguous on Linux.
  .SS glibc
--By far the most widely used C library on Linux is the GNU C Library
-+By far the most widely used C library on Linux is the
+-By far the most widely used C library on Linux is the
++The standard libc most popularly used with the Linux kernel is
  .UR http://www.gnu.org\:/software\:/libc/
-+GNU C Library
+ GNU C Library
  .UE ,
- often referred to as
+-often referred to as
++widely called
  .IR glibc .
-@@ -24,26 +27,31 @@ major Linux distributions.
- It is also the C library whose details are documented
+-This is the C library that is nowadays used in all
+-major Linux distributions.
+-It is also the C library whose details are documented
++This implementation is nowadays used
++in all major GNU/Linux distributions.
++Its details are documented
  in the relevant pages of the
++Linux
  .I man-pages
--project (primarily in Section 3 of the manual).
-+project
-+(primarily in Section 3 of the manual).
- Documentation of glibc is also available in the glibc manual,
- available via the command
- .IR "info libc" .
- Release 1.0 of glibc was made in September 1992.
+-project
+-(primarily in Section 3 of the manual).
+-Documentation of glibc is also available in the glibc manual,
+-available via the command
+-.IR "info libc" .
+-Release 1.0 of glibc was made in September 1992.
++project,
++primarily in section 3 of the manual.
++glibc also offers a manual of its own in Texinfo format,
++browsable at the command line with
++.RI \(lq "info libc" \(rq.
++Version 1.0 of glibc was released in September 1992.
  (There were earlier 0.x releases.)
--The next major release of glibc was 2.0, at the beginning of 1997.
-+The next major release of glibc was 2.0,
-+at the beginning of 1997.
+-The next major release of glibc was 2.0,
++The next major release of glibc was 2.0
+ at the beginning of 1997.
  .PP
- The pathname
+-The pathname
++The file
  .I /lib/libc.so.6
--(or something similar) is normally a symbolic link that
-+(or something similar)
-+is normally a symbolic link that
- points to the location of the glibc library,
- and executing this pathname will cause glibc to display
- various information about the version installed on your system.
+-(or something similar)
+-is normally a symbolic link that
+-points to the location of the glibc library,
+-and executing this pathname will cause glibc to display
+-various information about the version installed on your system.
++or similar
++is normally a symbolic link to the glibc library.
++Execute it to display information about the version installed on your
++system.
  .SS Linux libc
--In the early to mid 1990s, there was for a while
-+In the early to mid 1990s,
-+there was for a while
+-In the early to mid 1990s,
+-there was for a while
++In the early to mid-1990s,
  .IR "Linux libc" ,
- a fork of glibc 1.x created by Linux developers who felt that glibc
- development at the time was not sufficing for the needs of Linux.
--Often, this library was referred to (ambiguously) as just "libc".
-+Often,
-+this library was referred to (ambiguously) as just \(lqlibc\(rq.
+-a fork of glibc 1.x created by Linux developers who felt that glibc
+-development at the time was not sufficing for the needs of Linux.
++a fork of glibc\~1,
++was maintained by Linux developers
++who felt that glibc development at the time
++did not meet the Linux user community's needs.
+ Often,
+-this library was referred to (ambiguously) as just \(lqlibc\(rq.
++this library was referred to,
++simply and ambiguously,
++as \(lqlibc\(rq.
  Linux libc released major versions 2, 3, 4, and 5,
- as well as many minor versions of those releases.
- Linux libc4 was the last version to use the a.out binary format,
-@@ -54,8 +62,10 @@ this version used the shared library soname
+-as well as many minor versions of those releases.
+-Linux libc4 was the last version to use the a.out binary format,
+-and the first version to provide (primitive) shared library support.
+-Linux libc 5 was the first version to support the ELF binary format;
+-this version used the shared library soname
++along with many minor updates.
++Linux libc\~4 was the last to use the
++object file format called \(lqa.out\(rq,
++and the first on Linux to provide (primitive) shared library support.
++Linux libc\~5 was the first on Linux to support ELF object code;
++it employed the
++.I soname
++(shared object name)
+ .IR libc.so.5 .
  For a while,
- Linux libc was the standard C library in many Linux distributions.
+-Linux libc was the standard C library in many Linux distributions.
++Linux libc was the standard C library in many GNU/Linux distributions.
  .PP
--However, notwithstanding the original motivations of the Linux libc effort,
--by the time glibc 2.0 was released (in 1997),
-+However,
-+notwithstanding the original motivations of the Linux libc effort,
-+by the time glibc 2.0 was released
-+(in 1997),
+-However,
+-notwithstanding the original motivations of the Linux libc effort,
+-by the time glibc 2.0 was released
+-(in 1997),
++Notwithstanding the original motivations of the Linux libc effort,
++by the time glibc 2.0 was released,
  it was clearly superior to Linux libc,
- and all major Linux distributions that had been using Linux libc
- soon switched back to glibc.
-@@ -66,9 +76,11 @@ glibc 2.0 and later used the shared library soname
+-and all major Linux distributions that had been using Linux libc
+-soon switched back to glibc.
+-To avoid any confusion with Linux libc versions,
+-glibc 2.0 and later used the shared library soname
+-.IR libc.so.6 .
++and all major GNU/Linux distributions that had been using Linux libc
++soon switched (back) to glibc.
++To avoid confusion with Linux libc versioning,
++glibc 2.0 and later use the soname
++.I libc.so.6
++on Linux systems to indicate their status as successors
++to Linux libc\~5.
+ .PP
  Since the switch from Linux libc to glibc 2.0 occurred long ago,
  .I man-pages
  no longer takes care to document Linux libc details.
--Nevertheless, the history is visible in vestiges of information
-+Nevertheless,
-+the history is visible in vestiges of information
- about Linux libc that remain in a few manual pages,
--in particular, references to
-+in particular,
-+references to
+ Nevertheless,
+-the history is visible in vestiges of information
+-about Linux libc that remain in a few manual pages,
++vestiges of this history linger in comments
++about Linux libc in a few manual pages\(em\
+ in particular,
+ references to
  .I libc4
  and
  .IR libc5 .
-@@ -79,19 +91,20 @@ both in terms of features and memory footprint,
- and often intended for building small binaries,
- perhaps targeted at development for embedded Linux systems.
+ .SS Other C libraries
+-There are various other less widely used C libraries for Linux.
+-These libraries are generally smaller than glibc,
+-both in terms of features and memory footprint,
+-and often intended for building small binaries,
+-perhaps targeted at development for embedded Linux systems.
++Other,
++less widely used,
++C libraries for Linux exist.
++They are generally smaller than glibc
++in terms of features and memory footprint,
++and are often intended for building small binaries,
++such as those targetting embedded systems.
  Among such libraries are
--.UR http://www.uclibc.org/
-+.UR http://www\:.uclibc\:.org/
+ .UR http://www\:.uclibc\:.org/
  .I uClibc
- .UE ,
--.UR http://www.fefe.de/dietlibc/
-+.UR http://www\:.fefe\:.de/\:dietlibc/
- .I dietlibc
- .UE ,
- and
--.UR http://www.musl\-libc.org/
-+.UR http://www\:.musl\-libc\:.org/
+@@ -101,10 +109,9 @@ and
+ .UR http://www\:.musl\-libc\:.org/
  .I "musl libc"
  .UE .
- Details of these libraries are covered by the
+-Details of these libraries are covered by the
++Details of these are offered by Linux
  .I man-pages
--project, where they are known.
-+project,
-+where they are known.
+-project,
+-where they are known.
++where known.
  .SH SEE ALSO
  .BR syscalls (2),
  .BR getauxval (3),
@@ -204,24 +247,24 @@ index 12c79dc11..7b7d376e7 100644
 2.30.2
 
 
---tdhbd4hwjfj4uab3
+--5cs6mf4rxzyxgdrb
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmO1LSEACgkQ0Z6cfXEm
-bc6/Og/+IdVSWPBVrW+TFJTih7XNFR67110nvTgN104dXAqpzSdXXjfPnTrJWL2e
-wzSBc2j1B43WxM0KPl/d01APalhaIyJnF7BuXZEG1/wleo/rp9ZkCZ4j9SMp8pxt
-j6TcyxokQTphS07rR8uHjldjrtU6IfkYMZTJmuDouUy3Q1BPS6Qf7CsEMRTi/sRx
-4dXOW2Y+H0ytJUrJeiLoIxvs7dnbJ8Sl8Y8+t7kYg8BpXJnE56yp4wn2sObcGIlk
-eVlJuoAKsBfdlj6MOq4NOu1P1FrD2DxShjnTp9t/rrgRcPNULF4qT4OXY+e2YS9K
-FLv4HduPsg0RN+mYNXQAlH9TIjrClTm2DaMfUIExjJQf/hxw7e9dXqcPkYkEwNQw
-CzVI+EZtzCXoslgW5uIWps2RFMi3+pCCuiSX8+ol3Ier5zHi7KiSUK/W8YevXeUH
-i1DGggKs1Omw611SqdrF72r8r5AhmPHeBSOYaytOkAVwAgBFxKZGp2peoPFEzhkC
-9B6Os+Ztld+ErNSPxhjccZUWJuLoISszVPBY1R4mkxCt+lOvkvbVJjK7VSGWfklU
-I2QBJ1HSgDgslJDy3v/RbiFlIZFaXVi9zBXvzQe/v4BEJCyDOvA6cyx4uj9CI0OW
-j4kiW3ZVQdGTOh+b6BtEqjNM2GA/7lSLQLVHIMzgaiq0U4BIJWs=
-=RIon
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmO1LXwACgkQ0Z6cfXEm
+bc6ZBw/+M5/jtwszRU5ZJE2seqnJaOBb2i8Y92HN+Tw1FnaLFuIp+3YuuWgnRDtI
+JtlZBLXLJafYT0ZdIucOzhiNCjv56HzlUyVpLkvK06alM7wi48u6szTXgFSgL4eV
+W0+4Ew82my3AjL/nah+aIS2tW1f0k6TEk4Rv6+YZDW4OpplzyICYxr9lSDgKp3Up
+AgJGYx3TGBZ3V/jPJFPL8TaWLN0dcrL4ayfcPpPE7jeULigqSdXfNupI16MW0omi
+6iV48uGbcD+G1XTxI6Hd44Z4/v0j8t7JsNoj54YZ/Yiv6BCd+TJYRuDazohZwaMX
+4zFx2dJ1CFfz39Rj0v3oj4FpqQG8T4eVE964aJ6n00kMhGjbWV7ZJOA0nxHbMFYp
+GntjpHQU0/zdFsSBI9jgvs3LPd+tcPbk3P/wYCSvrbkqI6X6db7dg39Nn4xZxFD5
+ALjwkLonF7pYtP0gg+TBGGQGPFs2YvD5NV+vALZp0Y3KSQVr/uCwokdisawf4Gpg
+mymyFFmdXwrdbtk++MKEHe0GAVd3dj5yGDhMS8C9e2dZOHzJcbfLr/xpvfKeRauF
+mnG7u+ij3aI+cK9gqqXJ4Pwrmbpa9NTW4GPRopKq0JyrBsuVKByB9HEYzUyRFui2
+pODisbjAII6B3RRvgKQ/G6dAppOKbgaeolDzwBR/YBziJAz3gqE=
+=FYAs
 -----END PGP SIGNATURE-----
 
---tdhbd4hwjfj4uab3--
+--5cs6mf4rxzyxgdrb--
