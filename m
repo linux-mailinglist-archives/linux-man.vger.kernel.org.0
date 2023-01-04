@@ -2,74 +2,71 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id EC54765DD7F
-	for <lists+linux-man@lfdr.de>; Wed,  4 Jan 2023 21:15:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 50A6B65DDF3
+	for <lists+linux-man@lfdr.de>; Wed,  4 Jan 2023 22:00:47 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S240257AbjADUPh (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 4 Jan 2023 15:15:37 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60660 "EHLO
+        id S235489AbjADVAp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 4 Jan 2023 16:00:45 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50466 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S240174AbjADUPJ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 4 Jan 2023 15:15:09 -0500
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com [IPv6:2a00:1450:4864:20::333])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DB6FC3FCB0
-        for <linux-man@vger.kernel.org>; Wed,  4 Jan 2023 12:15:03 -0800 (PST)
-Received: by mail-wm1-x333.google.com with SMTP id g10so12733113wmo.1
-        for <linux-man@vger.kernel.org>; Wed, 04 Jan 2023 12:15:03 -0800 (PST)
+        with ESMTP id S230233AbjADVAo (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 4 Jan 2023 16:00:44 -0500
+Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com [IPv6:2001:4860:4864:20::2a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 79C5D15FEB
+        for <linux-man@vger.kernel.org>; Wed,  4 Jan 2023 13:00:43 -0800 (PST)
+Received: by mail-oa1-x2a.google.com with SMTP id 586e51a60fabf-12c8312131fso41190129fac.4
+        for <linux-man@vger.kernel.org>; Wed, 04 Jan 2023 13:00:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=A5lDdBmIDOfO4HlARbfx3HTvl73COQsqNowTdFFSqYo=;
-        b=DR9piB6F1Hv9My5shZWWWkaSkN3xU6saOFHwpfz8HadAIUHb9PcP42o2HRd6aWjvVJ
-         htzbauiLkTMudnZMkrLKoQPOWH5Zxh1R1e8/wW5JOjZRBLrTIGquS8cdR5ood7vBpfz3
-         JTjn7dGcxf42/wSS84+JEVi/aRp+SZ843xDS0YNYti1DVxCHiukO5NA7w0zLfDednxcK
-         vrsjNpaqks5Ks/JeMBfSEp/z3efvrxVogP8nly3sReMeSFt0O58ne6ettu9SoM0NnoPy
-         3xlBgoOJyvGdogS0zf0JQ2C9Ead9OHadSaDLt7eudCacJSCqKi42anErV79p/R9OeqxT
-         sRJw==
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=6V+5SRO7nNeCvP8iWCvl3t3Dy6HXOdKFWEs9SqpfwG4=;
+        b=p0vUqAcNTC6iEENsibHvJWFeQ9VqqQfQFNy2bMhy4k22+6gwPIEEjIZQ+iEaK/8IL6
+         QqOSEVv/fAOUc3A4Si1C+JGWfEFdjZVDVEBC016Le331ob0HSPY8i5Cy/w/juTTm3RtT
+         XP6dLiEL1E0C2LwxZ2pL8Vw1eNyAoaxdA/n1Y0ZQ6hH0lScGSrz/gJ86SBRVSM0ds1pd
+         BOmbAPWKGK8IHsJ8sEJzA489K3tbE6xnYsqUodX4HgtXgo6fKtlUm6CzcXMM6AVJznCU
+         yCmn0xosplMsuGD9E0W4+noT5ayA7f3hp1ghdFj8f3/57cC0GqjahlB/nA94DDlSiNMn
+         JQNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=A5lDdBmIDOfO4HlARbfx3HTvl73COQsqNowTdFFSqYo=;
-        b=cCDiJlxlYCn2DNBCEosikfxWOxnzxO4S78gyg2a64fDMpUh76bAB8gEks0miwZxFfY
-         kDu+ECYs5to2GTk5qbXXrCSh+J+3U6zUfxRMfbMtiDloPhpZYDWjOfg2hVi65No33z2T
-         7h9u8+SdbdNc7atB9SBA5oD/uk9i44hyycbOLZQV+hFPraY666k3Ol6egv8wcE+GzmF3
-         NelHpBEtv5JtnzgwpgNlz+58Rxbi2AVv/07+DCgOEpLgyTpMB9x/vGb/4fc679MBtjzc
-         nnsCEawYbjun01rLicE9JEoKjMqHRifnDHLRSysqIINx3zv3KOKsjuVdv9IwnuK2G5cj
-         aJuA==
-X-Gm-Message-State: AFqh2krAaU9o9tW9DG9R18Gmch4yumLRomihWqzmeRbrg1lGWzuQ2avo
-        Fp3Q2gZd7W3AdFlnA0wT3RQ=
-X-Google-Smtp-Source: AMrXdXt0mLab2JdAyuwNaUZ9qNgMf6rHQpd81xFJ8JyLOfVFcJysgmVekAFtfjV/mEbpRQqeQWKZ9g==
-X-Received: by 2002:a05:600c:4a90:b0:3d2:3ae8:886a with SMTP id b16-20020a05600c4a9000b003d23ae8886amr38317428wmp.17.1672863302307;
-        Wed, 04 Jan 2023 12:15:02 -0800 (PST)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id h14-20020a05600c314e00b003d237d60318sm50579469wmo.2.2023.01.04.12.15.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Jan 2023 12:15:01 -0800 (PST)
-Message-ID: <afd3a0d3-9bf4-2687-4f62-2ebd62398447@gmail.com>
-Date:   Wed, 4 Jan 2023 21:15:00 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-Subject: Re: [PATCH 1/9] ldconfig.8: Fix markup nits
-Content-Language: en-US
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=6V+5SRO7nNeCvP8iWCvl3t3Dy6HXOdKFWEs9SqpfwG4=;
+        b=D7MIVEDhq/8AGaYBVrNdu5Xx8kopPom3ylEJJLynR2m/EDTY5Pu8+b03pqOFqvCUbH
+         9tsIsXXIbK9anus+SOcz7KKcQHgd5h8SYpq9jvWAelzQLfdmH4gk/MV5qZdk04TfbV6r
+         Js7nsFo+apyouFun0J+yH8jc7Xm60PscPKPCuvN/ZD7ZMd0W17blpdmAyLIeSjB9nDM8
+         0uBEUFSF6y+TifIyr9FRhnRA5W+zjzXmtWNHpOQULD1SwHRz2Lq5sYYiwLc137nSJizb
+         tZV19nWEDeLR9hDWO+9gEZd0KAh8AONg7cBznfYPVDQes/Af4jNCqZupiPsAwYm7cFuw
+         NOQg==
+X-Gm-Message-State: AFqh2kr9RronjQhkzbfs1XJuIy8FGBgn79B0dyBzY+fv0sYLeGoZNDRX
+        e3Qloga6pojyE3Yzo1n3WwM=
+X-Google-Smtp-Source: AMrXdXt5ZsPEV68GYiie7jD789dz6QozebGzS04sLCEJydb/SdRjra13UOHB8Ykd7h1wQ0b/k0XHCw==
+X-Received: by 2002:a05:6870:1b08:b0:150:d1f4:936f with SMTP id hl8-20020a0568701b0800b00150d1f4936fmr3916712oab.18.1672866042065;
+        Wed, 04 Jan 2023 13:00:42 -0800 (PST)
+Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
+        by smtp.gmail.com with ESMTPSA id l8-20020a056870204800b001417f672787sm15916340oad.36.2023.01.04.13.00.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Jan 2023 13:00:41 -0800 (PST)
+Date:   Wed, 4 Jan 2023 14:59:42 -0600
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org
+Subject: Re: [PATCH 1/9] ldconfig.8: Fix markup nits
+Message-ID: <20230104205942.uc6klfjzf5fe2zij@illithid>
 References: <20230104073807.gcohk253vopp4ii3@illithid>
  <8527af62-1921-63cc-a94b-db3d9af4ee49@gmail.com>
  <20230104155512.klkmu62oaz7ore5a@illithid>
  <529c2d78-395f-b0e6-a114-e214335d4472@gmail.com>
  <20230104191118.xs7jwtjcqz6fhbbx@illithid>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20230104191118.xs7jwtjcqz6fhbbx@illithid>
+ <afd3a0d3-9bf4-2687-4f62-2ebd62398447@gmail.com>
+MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------KtmoQB0PGwgiQvD1LoEnvuTD"
-X-Spam-Status: No, score=-3.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        protocol="application/pgp-signature"; boundary="bm44v24vxcpku64r"
+Content-Disposition: inline
+In-Reply-To: <afd3a0d3-9bf4-2687-4f62-2ebd62398447@gmail.com>
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -78,239 +75,213 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------KtmoQB0PGwgiQvD1LoEnvuTD
-Content-Type: multipart/mixed; boundary="------------jZ8R4BcvN9Fouh8bPTQu4pq1";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: linux-man@vger.kernel.org
-Message-ID: <afd3a0d3-9bf4-2687-4f62-2ebd62398447@gmail.com>
-Subject: Re: [PATCH 1/9] ldconfig.8: Fix markup nits
-References: <20230104073807.gcohk253vopp4ii3@illithid>
- <8527af62-1921-63cc-a94b-db3d9af4ee49@gmail.com>
- <20230104155512.klkmu62oaz7ore5a@illithid>
- <529c2d78-395f-b0e6-a114-e214335d4472@gmail.com>
- <20230104191118.xs7jwtjcqz6fhbbx@illithid>
-In-Reply-To: <20230104191118.xs7jwtjcqz6fhbbx@illithid>
 
---------------jZ8R4BcvN9Fouh8bPTQu4pq1
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+--bm44v24vxcpku64r
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-SGkgQnJhbmRlbiwNCg0KT24gMS80LzIzIDIwOjExLCBHLiBCcmFuZGVuIFJvYmluc29uIHdy
-b3RlOg0KPiBIaSBBbGV4LA0KPiANCj4gQXQgMjAyMy0wMS0wNFQxOTo0MTo1MSswMTAwLCBB
-bGVqYW5kcm8gQ29sb21hciB3cm90ZToNCj4+IE9uIDEvNC8yMyAxNjo1NSwgRy4gQnJhbmRl
-biBSb2JpbnNvbiB3cm90ZToNCj4+PiBBdCAyMDIzLTAxLTA0VDEzOjI2OjMzKzAxMDAsIEFs
-ZWphbmRybyBDb2xvbWFyIHdyb3RlOg0KPj4+Pj4gICAgIC5TSCBOQU1FDQo+Pj4+PiAgICAg
-bGRjb25maWcgXC0gY29uZmlndXJlIGR5bmFtaWMgbGlua2VyIHJ1bi10aW1lIGJpbmRpbmdz
-DQo+Pj4+PiAgICAgLlNIIFNZTk9QU0lTDQo+Pj4+DQo+Pj4+IFdlIHNob3VsZCB3cmFwIHRo
-aXMgaW4gLm5mLy5maQ0KPj4+DQo+Pj4gVGhhdCB3aWxsIGhhdmUgYSBjb3N0LiAgSXQgd2ls
-bCBtZWFuIHVzaW5nIGEgbG90IG9mIFxjIGVzY2FwZQ0KPj4+IHNlcXVlbmNlcyB0byBjb25u
-ZWN0IHRoZSBvdXRwdXQgbGluZXMuDQo+Pj4NCj4+PiBUaGUgZXhpc3Rpbmcgc3lub3BzaXMg
-Zml0cyB3aXRoaW4gNzQgb3V0cHV0IGNvbHVtbnMgb24gYSB0ZXJtaW5hbC4NCj4+Pg0KPj4+
-IERvIHlvdSB0aGluayBpdCdzIHdvcnRoIGl0Pw0KPj4NCj4+IEJ1dCwgaXQgd2UgZG9uJ3Qg
-dXNlIGl0LCBpZiBzb21lb25lIHVzZXMgYSBzbWFsbGVyIHRlcm1pbmFsLCB0aGVyZQ0KPj4g
-bWlnaHQgYXBwZWFyIG91ciBiZWxvdmVkIGh5cGhlbnMgYnJlYWtpbmcgYSB3b3JkLi4uDQo+
-IA0KPiBUaGF0J3MgdHJ1ZS4gIEJ1dCB3aGF0IGlzIF9ub3RfIHRydWUgaXMgdGhhdCB5b3Ug
-ZG9uJ3QgaGF2ZSBhIG1pbmltdW0NCj4gZXhwZWN0ZWQgdGVybWluYWwgd2lkdGguICBZb3Ug
-ZG8sIHlvdSBqdXN0IG1pZ2h0IG5vdCBrbm93IHdoYXQgaXQgaXMgYW5kDQo+IGl0IG1heSBu
-b3QgZXZlbiBoYXZlIGJlZW4gY29uc2Npb3VzbHkgY2hvc2VuLg0KDQpJIGhhdmVuJ3QgY29u
-c2Npb3VzbHkgY2hvc2VuIGl0LCBidXQgSSBvZnRlbiB1c2UgNjYtY29sIHRlcm1pbmFscywg
-ZXNwZWNpYWxseSANCndoZW4gSSBwbGFuIHRvIHBhc3RlIHRleHQgaW50byBhbiBlbWFpbC4N
-Cg0KPiANCj4gVGhlIG1pbmltdW0gZXhwZWN0ZWQgdGVybWluYWwgd2lkdGggZm9yIHRoZSBM
-aW51eCBtYW4tcGFnZXMgY29ycHVzIGlzDQo+IHRoZSBsb25nZXN0IG91dHB1dCBsaW5lIHBy
-b2R1Y2VkIGJ5IGFuIHVuZmlsbGVkICgubmYvLmZpKSByZWdpb24gb3IgYQ0KPiB0YmwoMSkg
-cm93IHRoYXQgZG9lc24ndCB1c2UgYSB0ZXh0IGJsb2NrLiAgU29tZXdoZXJlIGluIHRoZSB+
-Miw1MzkgbWFuDQo+IHBhZ2VzLCBhIGxvbmdlc3QgdW5maWxsZWQgbGluZSBsdXJrcy4uLmFu
-ZCBpdHMgaWRlbnRpdHkgbWF5IGNoYW5nZQ0KPiBkZXBlbmRpbmcgb24gdGhlIG91dHB1dCBk
-ZXZpY2UgdXNlZCB0byByZW5kZXIgaXQgKHRlcm1pbmFsIHZzLg0KPiB0eXBlc2V0dGVyKS4N
-Cg0KRXZlbiBpZiB1bmZpbGxlZCBibG9ja3MgZXhjZWVkIHRoZSB0ZXJtaW5hbCB3aWR0aCwg
-YW5kIHRoZXJlZm9yZSBtaWdodCBiZSANCnVucGxlYXNhbnQgdG8gdGhlIGV5ZXMsIHRoZXkg
-aGF2ZSBhIG5pY2UgZmVhdHVyZTogdGhlIGxpbmUgbmV2ZXIgYnJlYWtzLCBhbmQgeW91IA0K
-Y2FuIHN0aWxsIHBpcGUgaXQgdG8gb3RoZXIgcHJvZ3JhbXMsIG9yIHBhc3RlIGl0LCBhbmQg
-aXQgd2lsbCBiZSBhIHNpbmdsZSBsaW5lLg0KDQo+IA0KPiBJZiB5b3UgX2RvXyBrbm93IHdo
-YXQgdGhhdCBleHBlY3RlZCBtaW5pbXVtIGlzLCBwbGVhc2UgZG9jdW1lbnQgaXQuDQo+IA0K
-PiBUaGUgbmVhcmVzdCB0aGluZyBJIHNlZSBpczoNCj4gDQo+ICJQbGVhc2UgbGltaXQgc291
-cmNlIGNvZGUgbGluZSBsZW5ndGggdG8gbm8gbW9yZSB0aGFuIGFib3V0IDc1DQo+IGNoYXJh
-Y3RlcnMgd2hlcmV2ZXIgcG9zc2libGUuIiAtLSBtYW4tcGFnZXMoNykNCj4gDQo+IEJ1dCB0
-aGUgcmVsYXRpb25zaGlwIGJldHdlZW4gaW5wdXQgZG9jdW1lbnQgbGluZSBsZW5ndGggZm9y
-IGFuZA0KPiBmb3JtYXR0ZWQgb3V0cHV0IGxpbmUgbGVuZ3RoIGlzIGEgbG9vc2Ugb25lLg0K
-PiANCj4gSW4gYW55IGV2ZW50LCBncm9mZiBtYW4oNykncyBTWS9ZUyBleHRlbnNpb24gbWFj
-cm9zIGFyZSBfYnVpbHRfIGZvciB0aGlzDQo+IGFwcGxpY2F0aW9uLiAgSSdtIGhhcHB5IHRv
-ICJwb3J0IiB0aGlzIHBhZ2UgdG8gdXNlIHRoZW07IGRvaW5nIHNvIHdpbGwNCj4gcGVybWl0
-IHJlbW92YWwgb2YgdGhlIFBEIG1hY3JvIGNhbGxzLCBhbW9uZyBvdGhlciBiZW5lZml0cy4N
-Cg0KWXVwLCB0aGF0IHdvdWxkIGJlIG5pY2UhDQoNCj4gDQo+PiBJcyB0aGVyZSBhbnl0aGlu
-ZyB0aGF0ICJyZXZlcnRzIiBcJT8gIFNvIHRoYXQgaWYgaXQgd2VyZSB0aGUgZGVmYXVsdCwN
-Cj4+IHdlIGNvdWxkIHVzZSBcYW50aS0lIHRvIHNheSAiZ3JvZmYsIHlvdSBtaWdodCBicmVh
-ayB0aGlzIHdvcmQiPw0KPiANCj4gWWVzLiAgXCUgaXRzZWxmIGRvZXMgdGhhdC4NCkkgbWVh
-biBzb21ldGhpbmcgbGlrZSBcWFwlZm9vYmFyLCBzbyB0aGF0IHRoZSBcWCAiY2FuY2VscyIg
-dGhlIFwlLiAgTm90IG1hbnVhbGx5IA0KaW5zZXJ0aW5nIGJyZWFrIHBvaW50cy4gIFNvLCBp
-bWFnaW5pbmcgYSB3b3JsZCBpbiB3aGljaCBoeXBoZW5hdGlvbiB3YXMgZGlzYWJsZWQgDQpf
-b25seV8gd2l0aGluIGZvbnQtc2VsZWN0aW9uIG1hY3JvcywgSSBjb3VsZCBzcGVjaWZ5IHRo
-YXQgYSB3b3JkIGlzIGZpbmUgdG8gYmUgDQpoeXBoZW5hdGVkIGxpa2UgdGhpczoNCg0KLkIg
-XFhpZG9udGNhcmVpZnRoaXNpc2h5cGhlbmF0ZWQNCg0KPiANCj4gIEZyb20gdGhlIGdyb2Zm
-IDEuMjMgVGV4aW5mbyBtYW51YWwgKHdpdGggc3R1ZmYgaXJyZWxldmFudCB0byBtYW4oNykN
-Cj4gdXNhZ2Ugc3RyaXBwZWQgb3V0KToNCj4gDQo+ICAgLS0gRXNjYXBlIHNlcXVlbmNlOiBc
-JQ0KPiAgIC0tIEVzY2FwZSBzZXF1ZW5jZTogXDoNCj4gICAgICAgVG8gdGVsbCBHTlUgJ3Ry
-b2ZmJyBob3cgdG8gaHlwaGVuYXRlIHdvcmRzIGFzIHRoZXkgb2NjdXIgaW4gaW5wdXQsDQo+
-ICAgICAgIHVzZSB0aGUgJ1wlJyBlc2NhcGUgc2VxdWVuY2U7IGl0IGlzIHRoZSBkZWZhdWx0
-ICJoeXBoZW5hdGlvbg0KPiAgICAgICBjaGFyYWN0ZXIiLiAgRWFjaCBpbnN0YW5jZSB3aXRo
-aW4gYSB3b3JkIGluZGljYXRlcyB0byBHTlUgJ3Ryb2ZmJw0KPiAgICAgICB0aGF0IHRoZSB3
-b3JkIG1heSBiZSBoeXBoZW5hdGVkIGF0IHRoYXQgcG9pbnQsIHdoaWxlIHByZWZpeGluZyBh
-DQo+ICAgICAgIHdvcmQgd2l0aCB0aGlzIGVzY2FwZSBzZXF1ZW5jZSBwcmV2ZW50cyBpdCBm
-cm9tIGJlaW5nIG90aGVyd2lzZQ0KPiAgICAgICBoeXBoZW5hdGVkLiAgVGhpcyBtZWNoYW5p
-c20gYWZmZWN0cyBvbmx5IHRoYXQgb2NjdXJyZW5jZSBvZiB0aGUNCj4gICAgICAgd29yZDsg
-Wy4uLl0NCj4gDQo+IFsuLi5dDQo+IA0KPiAgICAgICAnXDonIGluc2VydHMgYSBub24tcHJp
-bnRpbmcgYnJlYWsgcG9pbnQ7IHRoYXQgaXMsIGEgd29yZCBjYW4gYnJlYWsNCj4gICAgICAg
-dGhlcmUsIGJ1dCB0aGUgc29mdCBoeXBoZW4gZ2x5cGggKHNlZSBiZWxvdykgaXMgbm90IHdy
-aXR0ZW4gdG8gdGhlDQo+ICAgICAgIG91dHB1dCBpZiBpdCBkb2VzLiAgVGhpcyBlc2NhcGUg
-c2VxdWVuY2UgaXMgYW4gaW5wdXQgd29yZCBib3VuZGFyeSwNCj4gICAgICAgc28gdGhlIHJl
-bWFpbmRlciBvZiB0aGUgd29yZCBpcyBzdWJqZWN0IHRvIGh5cGhlbmF0aW9uIGFzIG5vcm1h
-bC4NCj4gDQo+ICAgICAgIFlvdSBjYW4gdXNlICdcOicgYW5kICdcJScgaW4gY29tYmluYXRp
-b24gdG8gY29udHJvbCBicmVha2luZyBvZiBhDQo+ICAgICAgIGZpbGUgbmFtZSBvciBVUkwg
-b3IgdG8gcGVybWl0IGh5cGhlbmF0aW9uIG9ubHkgYWZ0ZXIgY2VydGFpbg0KPiAgICAgICBl
-eHBsaWNpdCBoeXBoZW5zIHdpdGhpbiBhIHdvcmQuDQo+IA0KPiAgICAgICAgICAgIFRoZSBc
-JUxldGhicmlkZ2UtU3Rld2FydC1cOlwlU2Fja3ZpbGxlLUJhZ2dpbnMgZGl2b3JjZQ0KPiAg
-ICAgICAgICAgIHdhcywgaW4gcmV0cm9zcGVjdCwgaW5ldml0YWJsZSBvbmNlIHRoZSBjb250
-ZW50cyBvZg0KPiAgICAgICAgICAgIFwlL3Zhci9sb2cvXDpcJWh0dHBkL1w6XCVhY2Nlc3Nf
-bG9nIG9uIHRoZSBmYW1pbHkgd2ViDQo+ICAgICAgICAgICAgc2VydmVyIGNhbWUgdG8gbGln
-aHQsIHJldmVhbGluZyB2aXNpdG9ycyBmcm9tIEhvZ3dhcnRzLg0KPiANCj4+PiBncm9mZiBt
-YW4oNykgX2hhc18gYSBtZWNoYW5pc20gZm9yIHRoaXMsIGFuZCBoYXMgc2luY2UgZ3JvZmYg
-MS4xOQ0KPj4+ICgyMDAzKS4gIEl0J3MgdGhlIGBIWWAgcmVnaXN0ZXIuICBQZW9wbGUgY2Fu
-IHB1dCB0aGlzIGluIHRoZWlyDQo+Pj4gbWFuLmxvY2FsIGZpbGVzIChvbiBEZWJpYW4tYmFz
-ZWQgc3lzdGVtcywgdGhhdCdzIGluIC9ldGMvZ3JvZmYpLg0KPj4+DQo+Pj4gLm5yIEhZIDAN
-Cj4+DQo+PiBJIGtub3csIGJ1dCBJIGRvbid0IHRoaW5rIHdlIHNob3VsZCB3cml0ZSBtYW51
-YWwgcGFnZXMgaW4gYSB3YXkgdGhhdA0KPj4gZm9yY2VzIGRpc3RyaWJ1dG9ycyB0byB1c2Ug
-c3VjaCBhIHRoaW5nLg0KPiANCj4gQXMgZmFyIGFzIEkga25vdywgbW9zdCBkaXN0cmlidXRv
-cnMgYXJlbid0IGNvbmZpZ3VyaW5nIG1hbi5sb2NhbCB0aGlzDQo+IHdheSB0b2RheSwgZGVz
-cGl0ZSBpdCBoYXZpbmcgYmVlbiBwb3NzaWJsZSBmb3IgYWxtb3N0IDIwIHllYXJzLg0KDQpU
-b3VjaGUuDQoNCj4gIEFkZGluZw0KPiBleHBsaWNpdCBoeXBoZW5hdGlvbiBicmVha3BvaW50
-cyAob3IgdGhlaXIgc3VwcHJlc3Npb24pIGlzbid0IGdvaW5nIHRvDQo+IGZvcmNlIHRoZW0g
-YW55IGhhcmRlciB0aGFuIHRoZXkgaGF2ZSBiZWVuIGZvciAyIGRlY2FkZXM7IGl0IHdpbGwg
-aW4gZmFjdA0KPiByZWR1Y2UgYW55IHN1Y2ggcHJlc3N1cmUgYnkgcmVkdWNpbmcgdGhlIG51
-bWJlciBvZiBib2d1cyBoeXBoZW5hdGlvbg0KPiBicmVha3Mgd2hlbiBoeXBoZW5hdGlvbiBp
-cyBlbmFibGVkLg0KPiANCj4+IEVpdGhlciB0aGUgcGFnZXMgYXJlIHdyaXR0ZW4gcGxhZ3Vl
-ZCB3aXRoIFwlLA0KPiANCj4gTGlrZSBjaGFuZ2VzIGluIGxldHRlcmNhc2UsIHRoaXMgaXMg
-X2luZm9ybWF0aW9uXy4NCg0KSSBkb24ndCBhcmd1ZSBhZ2FpbnN0IHRoYXQsIGJ1dCBpZiB0
-aGVyZSB3YXMgYSB3YXkgdG8gcmV0dXJuIHRoYXQgaW5mb3JtYXRpb24gDQpleHBsaWNpdGx5
-LCB3ZSB3b3VsZG4ndCBiZSBsb29zaW5nIGl0Lg0KDQo+IA0KPj4gYW5kIHRoZSBkaXN0cm9z
-IGRvbid0IG5lZWQgdG8gdXNlIC5IWSwgb3Igd2Ugd3JpdGUgcGFnZXMgbGF6aWx5IHNvDQo+
-PiB0aGF0IGRpc3Ryb3MgbmVlZCB0byBmaXggdGhlIGh5cGhlbmF0aW9uLg0KPiANCj4gRGlz
-dHJpYnV0b3JzJyBsYXppbmVzcyBzZWVtcyB0byBiZSBhIG1hdGNoIGZvciBMaW51eCBtYW4t
-cGFnZXMncyBvd247DQo+IHVzZXJzIHNlZW0gdG8gbXVkZGxlIHRocm91Z2ggd2l0aG91dCBt
-dWNoIGV2aWRlbnQgY29tcGxhaW50Lg0KDQpPaCwgSSBkbyBjb21wbGFpbiBhIGxvdDsgaG93
-ZXZlciwgSSBkb24ndCBleHByZXNzIGl0IHRvbyBtdWNoIGluIHRoZSBmb3JtIG9mIGJ1ZyAN
-CnJlcG9ydHMsIHNpbmNlIEkgZG9uJ3QgYmVsaWV2ZSBpdCdzIHRoZSBmYXVsdCBvZiB0aGUg
-d3JpdGVyLCBidXQgcmF0aGVyIGxhY2sgb2YgDQpzdXBwb3J0IGZyb20gZ3JvZmYoMSkuDQoN
-CkJ1dCBJIGRvIGZpbmQgaXQgdmVyeSB1bmNvbWZvcnRhYmxlLCBzaW1pbGFyIHRvIHdoZW4g
-bWFudWFsIHBhZ2UgYXV0aG9ycyBkb24ndCANCnVzZSB0aGUgcHJvcGVyIFwtLiAgSG93ZXZl
-ciwgSSBkbyB0aGluayB0aGF0IG9uZSBpcyBmYXVsdCBvZiB0aGUgYXV0aG9yLCBhbmQgeW91
-IA0KY2FuIGFscmVhZHkgZmluZCBtYW55IHN1Y2ggcmVwb3J0cyBzaWduZWQgYnkgbWUgOikN
-Cg0KPiAgSSBzdXBwb3NlDQo+IHBlb3BsZSB3aG8gY29weS1hbmQtcGFzdGUgbXVsdGlwbGUg
-bGluZXMgZnJvbSBhIG1hbiBwYWdlIHJlYWxpemUgdGhleQ0KPiBuZWVkIHRvIHJlbW92ZSB0
-aGUgaHlwaGVucyBhbG9uZyB3aXRoIG5ld2xpbmVzLiAgRm9ydHVuYXRlbHksIG9uIFVURi04
-DQo+IHRlcm1pbmFscywgdGhleSBoYXZlIGhvcGUgb2Ygc2VlaW5nIHRoZSBkaWZmZXJlbmNl
-IGJldHdlZW4gaHlwaGVucyBhbmQNCj4gdGhlIEFTQ0lJIGh5cGhlbi1taW51cyB0aGF0IGlz
-IGFsd2F5cyg/KSBtZWFudCBhcyBhIGxpdGVyYWwuDQoNCk15IHByb2JsZW0gaXMgbm90IGFi
-b3V0IHBhc3RpbmcgdGV4dC4gIFRoYXQncyB2ZXJ5IG1pbm9yLiAgTXkgcHJvYmxlbSBpcyBm
-aW5kaW5nIA0KdGV4dC4NCg0KRm9yIGZpbmRpbmcgY29tbWFuZCBvcHRpb25zLCBJIHVzdWFs
-bHkgdHlwZToNCg0KLyAgIC0tZm9vDQoNCklmIFwtIGhhc24ndCBiZWVuIHVzZWQsIEkgbmVl
-ZCB0byB1c2U6DQoNCi8gICAuLmZvbw0KDQphbmQgc2tpcCBhbGwgdGhlIG5vaXNlLiAgV2hl
-biB0aGVyZSdzIHRvbyBtdWNoIG5vaXNlLCBzb21ldGltZXMgdXNpbmcgYW4gYW5jaG9yIA0K
-KF4pIGhlbHBzLiAgQnV0IGl0J3Mgd2F5IG5pY2VyIHdoZW4gd3JpdGVycyB1c2UgXC0uICBJ
-IGtlZXAgZmluZGluZyBzdWNoIGJ1Z3MsIA0KYW5kIHJlcG9ydGluZyB0aGVtIGFzIG11Y2gg
-YXMgSSBjYW4uDQoNCldoZW4gc2VhcmNoaW5nIGZvciBrZXl3b3JkcywgdGhlIHByb2JsZW0g
-aXMgdGhlIGZvbGxvd2luZzogIEkgZG8gYC9rZXl3b3JkYCwgYnV0IA0KdGhlbiBpZiB0aGUg
-a2V5d29yZCBpcyBoeXBoZW5hdGVkLi4uIHdlbGwsIGdvb2QgbHVjay4NCg0KPiANCj4+IEJ1
-dCB3cml0aW5nIHRoZSBwYWdlcyBsYXppbHkgYW5kIGhhdmluZyBkaXN0cmlidXRvcnMgaWdu
-b3JlIGl0IHdvdWxkDQo+PiByZXN1bHQgaW4gc3Vib3B0aW1hbCBwYWdlcyBmb3Igb3VyIHJl
-YWRlcnMuDQo+IA0KPiBJIHRoaW5rIG1hcmtpbmcgYnJlYWsgcG9pbnRzLCBoeXBoZW5hdGVk
-IGFuZCBvdGhlcndpc2UgKGFzIHdpdGggVVJMcyksDQo+IGlzIHRoZSBvcHBvc2l0ZSBvZiBs
-YXppbmVzcy4gIEl0IGlzIGEgbGV2ZWwgb2YgZmFzdGlkaW91c25lc3MgSSBkb24ndA0KPiBh
-Y3R1YWxseSBleHBlY3Qgb2YgbWFueSBtYW4oNykgd3JpdGVycyBhcGFydCBmcm9tIG15c2Vs
-Zi4NCg0KSSB3b3VsZCB3YW50IHRvIHVzZSBcOi4gIFdoYXQgSSB3YW50IGlzIGEgdG9vbCB3
-aGljaCByZS1lbmFibGVzIHRoZSBkZWZhdWx0IA0KaHlwaGVuYXRpb24gcG9pbnRzIGFmdGVy
-IHRoZXkgaGF2ZSBiZWVuIGNhbmNlbGxlZC4NCg0KPiANCj4+PiBDb2xpbiBXYXRzb24ncyBt
-YW4tZGIgbWFuKDEpIGFsc28gaGFzIGEgZmVhdHVyZSB0byBzdXBwcmVzcw0KPj4+IGh5cGhl
-bmF0aW9uLCB1c2luZyBhIGhhY2s7IGl0J3Mgbm90IHByZXR0eSBidXQgaXQgd29ya3MgZXZl
-biBvbg0KPj4+IG90aGVyICpyb2ZmIGZvcm1hdHRlcnMuDQo+Pg0KPj4gRG9lcyB0aGF0IGRp
-c2FibGUgaHlwaGVuYXRpb24gZm9yIG1hY3Jvcywgb3IgZm9yIHRoZSBlbnRpcmUgZG9jdW1l
-bnQ/DQo+PiBJIG9ubHkgd2FudCB0byBkaXNhYmxlIGl0IGluIGhpZ2hsaWdodGluZyBtYWNy
-b3MuDQo+IA0KPiBJIGRvbid0IHF1aXRlIHVuZGVyc3RhbmQgd2hhdCB5b3UgbWVhbiBieSAi
-bWFjcm9zIiBoZXJlLiAgTWFjcm8NCj4gaW50ZXJwb2xhdGlvbiBpcyB0ZXh0dWFsIHJlcGxh
-Y2VtZW50LCB0aGVyZSBpc24ndCByZWFsbHkgYSBtYWNybyAibW9kZSINCj4gdGhhdCBpcyB2
-aXNpYmxlIHRvIHRoZSBmb3JtYXR0ZXIgd2hlbiBoeXBoZW5hdGlvbiBkZWNpc2lvbnMgYXJl
-IG1hZGUuDQo+IA0KPiBCdXQgaWYgYnkgImhpZ2hsaWdodGluZyBtYWNyb3MiIHlvdSBtZWFu
-IGZvbnQgc2VsZWN0aW9uIGFuZA0KPiBhbHRlcm5hdGlvbiBtYWNyb3MgaW4gbWFuKDcpICgu
-QiwgLkksIC5CUiwgZXRjLiksIHRoZW4gdGhlIGFuc3dlciBpcw0KPiAiZm9yIHRoZSBlbnRp
-cmUgZG9jdW1lbnQiLiAgWW91IGRvbid0IGFsd2F5cyB3YW50IHRvIGRpc2FibGUgaHlwaGVu
-YXRpb24NCj4gd2hlbiB1c2luZyB0aGVzZSBtYWNyb3MgYW55d2F5LiAgTm90IGV2ZXJ5dGhp
-bmcgaXMgYSBsaXRlcmFsLiAgVGhlIGZvbnQNCj4gbWFjcm9zIGFyZSBwcmVzZW50YXRpb25h
-bCwgbm90IHNlbWFudGljLg0KPiANCj4gRXZlbiB0aGVuLCBJIHdvdWxkIG5vdCBzdXBwcmVz
-cyBoeXBoZW5hdGlvbiBvZiBhIG1ldGFzeW50YWN0aWMgdmFyaWFibGUsDQo+IGxpa2UgImRp
-cmVjdG9yeSIuICBUaGUgd2hvbGUgcG9pbnQgb2YgdGhlc2UgaXMgdGhhdCB0aGV5IGFyZSB0
-ZXh0dWFsbHkNCj4gcmVwbGFjZWQgX2J5IHRoZSByZWFkZXJfLg0KDQpJIHdvdWxkLiAgSSB3
-b3VsZG4ndCBiZSBhYmxlIHRvIGNvdW50IGhvdyBtYW55IHRpbWVzIEkndmUgdHJpZWQgdG8g
-c2VhcmNoIGZvciANCnN1Y2ggYSBrZXl3b3JkLCBhbmQgaXQgd2FzIGh5cGhlbmF0ZWQuDQoN
-Cj4gDQo+Pj4gSSBkb24ndCBpbnNpc3QgdGhhdCBwZW9wbGUga2VlcCBoeXBoZW5hdGlvbiBl
-bmFibGVkLCBidXQgYXNzdW1pbmcNCj4+PiB0aGF0IG5vIG9uZSB3aWxsIGRvIHNvIHdpbGwg
-a2VlcCB1cyBmcm9tIHB1dHRpbmcgd29ydGh3aGlsZQ0KPj4+IGluZm9ybWF0aW9uIGluIG91
-ciBtYW4gcGFnZXMuDQo+Pj4NCj4+PiBJZiB5b3UgZHJlYWQgdGhlIHRlZGl1bSBvZiBhZGRp
-bmcgXCUgZXNjYXBlIHNlcXVlbmNlcyB0byAia2V5d29yZHMiDQo+Pj4gYWxsIG92ZXIgdGhl
-IHBsYWNlLCBJIGRvbid0IGJsYW1lIHlvdS4gIFRoaXMgaXMgb25lIHJlYXNvbiBJDQo+Pj4g
-cHJvcG9zZWQgbXkgbW9zdCBhbWJpdGlvdXMgbWFuKDcpIGV4dGVuc2lvbiB5ZXQsIGEgdHdv
-LW1hY3JvDQo+Pj4gc2VtYW50aWMgdGFnIG1lY2hhbmlzbS4NCj4+Pg0KPj4+IGh0dHBzOi8v
-bWFyYy5pbmZvLz9sPWxpbnV4LW1hbiZtPTE2NTg2ODM2NjEyNjkwOSZ3PTINCj4+DQo+PiBJ
-IHN0aWxsIGRvbid0IGtub3cgd2hhdCB0byB0aGluayBhYm91dCB0aGF0Lg0KPiANCj4gVGhh
-dCdzIG9rYXkuICBJdHMgcmVhbGl6YXRpb24gaXMgc29tZSB3YXlzIG9mZiwgaWYgZXZlci4g
-IEZpcnN0IEkgbmVlZA0KPiBCZXJ0cmFuZCB0byByZWNvdmVyIGZyb20gaG9saWRheXMuICA6
-LU8NCj4gDQo+PiAiWFhYIC0gcXVpY2sgaGFjaywgc2hvdWxkIGRpc2FwcGVhciBiZWZvcmUg
-YW55b25lIG5vdGljZXMgOikuIg0KPj4NCj4+IE9mIGNvdXJzZSwgdGhlIHF1aWNrIGhhY2sg
-bmV2ZXIgZGlzYXBwZWFyZWQgYWZ0ZXIgT2N0IDcsIDIwMDcsIHdoZW4gaXQNCj4+IHdhcyB3
-cml0dGVuIGluIHN0b25lLg0KPiANCj4gT2YgY291cnNlIQ0KPiANCj4+IDxodHRwczovL2dp
-dGh1Yi5jb20vc2hhZG93LW1haW50L3NoYWRvdy9jb21taXQvNmI2ZTAwNWNlMWNjNGE1ZTRm
-YzdmYzQwYTUyZjJlZDIyOWY1NGI1Yj4NCj4+DQo+PiAiWFhYIC0gaXMgdGhlIGFib3ZlIG9r
-IG9yIHNob3VsZCBpdCBiZSA8dGltZS5oPiBvbiB1bHRyaXg/Ig0KPiANCj4gSWYgeW91IHBp
-bmUgZm9yIGEgc3RhZ25hbnQgY29tbWVyY2lhbCBVbml4IHRvIGtpY2sgYXJvdW5kLCBTb2xh
-cmlzIDEwDQo+IHdpbGwgYmUgYXJvdW5kIGZvciBhbm90aGVyIHllYXIgb3Igc28uLi4NCg0K
-U29sYXJpcyAxMCwgSSBhbHJlYWR5IHJlbW92ZSBjb2RlIHRoYXQgc3VwcG9ydHMgaXQgYXQg
-ZXZlcnkgY2hhbmNlIHRoYXQgSSBoYXZlIDopDQoNCkkgd29uZGVyIHdoZW4gdGhlIGRheSB3
-aWxsIGNvbWUgdGhhdCB0aGluZ3MgbGlrZSBDODkgd2lsbCBvZmZpY2lhbGx5IGJlIGRlY2xh
-cmVkIA0KZGVhZCBieSBjb25zZW5zdXMuICBJIHdpc2ggR0NDIHdvdWxkIGRyb3AgLXN0ZD1n
-bnU4OSBzb21lIGRheS4NCg0KU2VlaW5nIGhvdyBzb21lIHBlb3BsZSBzdHJvbmdseSBkZWZl
-bmQgcG9ydGFiaWxpdHkgdG8gZGlub3NhdXIgc2hlbGxzLCBiZWNhdXNlIA0KUE9TSVggaXMg
-bm90IHBvcnRhYmxlIGVub3VnaC4uLiAgd2VsbCwgSSBkb24ndCB0aGluayB3ZSdsbCBnZXQg
-cmlkIG9mIEM4OSBpbiANCmFub3RoZXIgNTAgeWVhcnMuLi4NCg0KQnV0IGhleSwgd2hlbiB5
-b3UgZG9uJ3QgY2FyZSBhYm91dCBiaWcgcGlsZXMgbydtb25leSwgeW91IGNhbiB3cml0ZSAN
-CiJub24tcG9ydGFibGUiIFBPU0lYLW9ubHkgY29kZS4gIEkgcHJlZmVyIHdyaXRpbmcgbm9u
-LXBvcnRhYmxlIGNvZGUsIHRoYW4gDQpTb2xhcmlzLTMtcG9ydGFibGUgY29kZSBmb3IgYSBi
-aWcgcGlsZSBvJ21vbmV5LiA6KQ0KDQo+IA0KPiBSZWdhcmRzLA0KPiBCcmFuZGVuDQoNCkNo
-ZWVycywNCg0KQWxleA0KDQotLSANCjxodHRwOi8vd3d3LmFsZWphbmRyby1jb2xvbWFyLmVz
-Lz4NCg==
+Hi Alex,
 
---------------jZ8R4BcvN9Fouh8bPTQu4pq1--
+At 2023-01-04T21:15:00+0100, Alejandro Colomar wrote:
+> > That's true.  But what is _not_ true is that you don't have a
+> > minimum expected terminal width.  You do, you just might not know
+> > what it is and it may not even have been consciously chosen.
+>=20
+> I haven't consciously chosen it, but I often use 66-col terminals,
+> especially when I plan to paste text into an email.
 
---------------KtmoQB0PGwgiQvD1LoEnvuTD
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+Well, by "you" I mean in your capacity as Linux man-pages maintainer.
+
+There is some threshold of terminal width in the corpus of pages below
+which things start to look really horrible.
+
+Maybe you'd like my shell wrapper for man(1).
+
+    # View a man page but report all warnings.
+    man () {
+        if command man "$@"
+        then
+            command man --warnings=3Dw "$@" >/dev/null
+        fi
+    }
+
+It shows me the formatter's warnings _after_ the page is rendered.
+
+> Even if unfilled blocks exceed the terminal width, and therefore might
+> be unpleasant to the eyes, they have a nice feature: the line never
+> breaks, and you can still pipe it to other programs, or paste it, and
+> it will be a single line.
+
+You can therefore simulate this for any man page by setting the `LL`
+register to some large value.  Once it exceeds your terminal width, it
+will certainly be ugly as hell, but if you want line-by-line
+piping/pasting, maybe you'll find it useful.
+
+    -rLL=3Dline=E2=80=90length
+        Set line length; the default is 78n for terminal devices and
+        6.5i for typesetter devices.
+
+man-db man(1) simulates this with the MANWIDTH environment variable.
+Presently it uses a hack, which I hope will go away after groff 1.23.
+
+https://savannah.gnu.org/bugs/index.php?58992
+
+> > In any event, groff man(7)'s SY/YS extension macros are _built_ for
+> > this application.  I'm happy to "port" this page to use them; doing
+> > so will permit removal of the PD macro calls, among other benefits.
+>=20
+> Yup, that would be nice!
+
+Okay, there's another change for v3, then!  :)
+
+> > > Is there anything that "reverts" \%?  So that if it were the
+> > > default, we could use \anti-% to say "groff, you might break this
+> > > word"?
+> >=20
+> > Yes.  \% itself does that.
+>
+> I mean something like \X\%foobar, so that the \X "cancels" the \%.
+> Not manually inserting break points.  So, imagining a world in which
+> hyphenation was disabled _only_ within font-selection macros, I could
+> specify that a word is fine to be hyphenated like this:
+>=20
+> .B \Xidontcareifthisishyphenated
+
+Hmm, no, there is no *roff escape sequence for "apply automatic
+hyphenation to the following word".
+
+But your hypothetical is already a counterfactual.  Macros like .B
+_already_ don't disable hyphenation.  So it seems to me like you're
+proposing second-order machinery to get yourself out of the bind you're
+creating with your first-order demand to make the font macros disable
+hyphenation.
+
+It really seems better to me to leave the font macros alone and have
+a semantic tagging facility for those things you really don't want
+hyphenated.
+
+Or, proceed as the groff man pages have to date, stick to the font
+selection macros as they are, and use \% with them.
+
+Most of the 94 printable Basic Latin characters already have meaning
+as *roff escape sequences when preceded by an escape character.  The
+scarce name space that remains must be occupied only with great
+consideration.  Dave Kemper and I have kicked around ideas for an
+"extension" character for escape sequences to surmount this problem.  \<
+is available, and despite giving me nightmare memories of HTML, it might
+be the best choice among what remains.[1]
+
+> > Like changes in lettercase, this is _information_.
+>=20
+> I don't argue against that, but if there was a way to return that
+> information explicitly, we wouldn't be loosing it.
+
+As noted above, I think a good way to achieve that is by not discarding
+it such that it needs recovery later.
+
+> Oh, I do complain a lot; however, I don't express it too much in the
+> form of bug reports, since I don't believe it's the fault of the
+> writer, but rather lack of support from groff(1).
+
+I don't think groff is missing support for anything you want here; we
+have a disagreement over the design of the man(7) package.
+
+> But I do find it very uncomfortable, similar to when manual page authors
+> don't use the proper \-.  However, I do think that one is fault of the
+> author, and you can already find many such reports signed by me :)
+
+My Debian colleagues teased me twenty years for railing against man
+pages that didn't escape their hyphens.  I was an early adopter of UTF-8
+terminal emulators.
+
+> > I suppose people who copy-and-paste multiple lines from a man page
+> > realize they need to remove the hyphens along with newlines.
+> > Fortunately, on UTF-8 terminals, they have hope of seeing the
+> > difference between hyphens and the ASCII hyphen-minus that is
+> > always(?) meant as a literal.
+>=20
+> My problem is not about pasting text.  That's very minor.  My problem
+> is finding text.
+
+Yes, I've seen many people complain about this, justifiably, over the
+years.  When people leave hyphenation enabled and try full-text searches
+of man pages, often inside less(1), they get frustrated by the broken
+words.
+
+> For finding command options, I usually type:
+>=20
+> /   --foo
+>=20
+> If \- hasn't been used, I need to use:
+>=20
+> /   ..foo
+>=20
+> and skip all the noise.  When there's too much noise, sometimes using
+> an anchor (^) helps.  But it's way nicer when writers use \-.  I keep
+> finding such bugs, and reporting them as much as I can.
+
+Yup.  Improving hyphen-minus hygiene here produces wins.
+
+> When searching for keywords, the problem is the following:  I do
+> `/keyword`, but then if the keyword is hyphenated... well, good luck.
+
+Right.  less(1) is an interesting program.  It has lots of features,
+many more than any one user will use.  But it seems to be pretty
+indifferent to helping with searches for hyphenated words.
+
+It's _possible_ to design an extension to ISO 6429 for communicating
+hyphenation break information to terminals (and pagers).  A big question
+is what would bother to use that information.  If Mark Nudelmann doesn't
+want to support it, it's DOA, and he views ISO 6429 grudgingly enough in
+the first place, hence "less -R".
+
+I have only two recommendations.
+
+1.  Disable hyphenation in your man.local; or
+2.  Back my play for semantic tagging in man(7).  ;-)
+
+> > I think marking break points, hyphenated and otherwise (as with
+> > URLs), is the opposite of laziness.  It is a level of fastidiousness
+> > I don't actually expect of many man(7) writers apart from myself.
+>=20
+> I would want to use \:.  What I want is a tool which re-enables the
+> default hyphenation points after they have been cancelled.
+
+I submit again: if you don't cancel them in the first place, they don't
+have to be reconstructed.
+
+> I would.  I wouldn't be able to count how many times I've tried to
+> search for such a keyword, and it was hyphenated.
+
+Semantic tags would solve this problem.
+
+Regards,
+Branden
+
+[1] What's available?
+
+    \+ \1 \2 \3 \4 \5 \6 \7 \8 \9 \; \< \=3D \> \@
+    \G \i \I \j \J \P \T \U \W \y \]
+
+--bm44v24vxcpku64r
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmO13kQACgkQnowa+77/
-2zJjlw//Sq/YhhcW91JijYtiqoYHc/15IXlILt3rcXcG7M+YUGEAtPEzh2npi993
-vdVRQx96X0kd1j9jWK/PO4/D37IcnlB/5tHoq4eOm131MlY809jEVxQ6QREQPmWp
-tM1ph0bMCc9NryzSfP/sOginmVz5PbBCS6Ga5rA+7V441fdEsvnIPEWUsD1MS2bS
-1T82/xZweHwiKIEgxDAXarIjeOsywIhd6Fw5KhiQMe1KHEpDFarpANLepA3y9XS4
-MOrBBPoN//6/VwedGW1yoVtm6wJv3BBviiGntpfl+ug+6WX0v5wzdCBtHPPaDSn8
-x8rRxxv8ycqXTYRUqlf4jMAmoInXXsyjAkGs4sl/T++rrZbyZEZRfSlKcy3rIorK
-lbJGnzYV7WB9PaL1Fa+6IAAgMpVDhKS/OKDzlK7KFMCUV9incxf1/lFdtPX9ARur
-6aom6WytrW2tV4C3LnEBENcCTJGQRWQI/WeVc09c88iiSJgMreMWxJHcJ9m6R7eC
-EPuCufhk8vsMWF9lpF/ERtJo+ff3VGaJn/NQb9p8UFTz5O2IEEwpzyTmZ9hY84kG
-K/mIMhKVju8gneyAJhT964vcXKvNtkQpkGDgRCyjLV37kGKLxUOWC2DrsYIw/8eB
-7c0gv7JOwBN6J5/+7xHR8EpAIm8wY+UEx5qxoLz0FfcTsca5B2s=
-=tzjX
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmO16LcACgkQ0Z6cfXEm
+bc7UixAAhsfvsYzep/ANfI/NNXJZ4vDLM8gDpaEwn5MhLJcgbnvTY3+8P5QbqUwD
+7UR+TTArn1Z/E7hZElEfhtnJxD07Y5qyAW8ex+0Q1gBE9JgdHluz/e90xLYIGYJm
+U1fXfOCbH7VZM8dftx1rKw65TdMP/2YaRV9r/sz0X5S5xIR+/MHh6mcYXAYTKSy1
+i9xdR9/PosLdFK06i+26dl3oUX2xXBe5Y1/1QP8MCHVVH3Dg77UYiiquQ7wajBzq
+3WMnQeNi0+AXKe5p0ufra2QBhdfnWnIw09bF+8dPaaYoSzoWSFygeCc5d4nVTVjr
+LZq8FEdNdqYCVO0dbMX9eBwabpzDu7SL+a1ranqGi+NnMdlzqyJWrTHNRFgExeDN
+4IfXArsXvNbm+U5iRbn0TbO7R3U3NNJ33eXUnWwrYjc7tbZmx7L7RfbfCC08MLP2
+Fo4HoCPMRN18OWbYzyB7LgJgSMo7tXSIDHA7+58FtYDZbqI/FZdAF1qiADJCOmFA
+v4ANulwMlGhvtnjKegMKYVUQMwyww/BtzQaoRlx26Ng2EWkMTsWEvlw9XUQH6hbp
+c5dgCnjWI2gAi+vBXYd1BWhRwngV/LNLQeskAmOyMLFMC0BAm8blXW2YvNu4cYfi
+GG2ikRmhCt9x11HUPSWeIZ2zZC3w8dxgVw9pf6c4OpU8JKVYO8o=
+=kjWa
 -----END PGP SIGNATURE-----
 
---------------KtmoQB0PGwgiQvD1LoEnvuTD--
+--bm44v24vxcpku64r--
