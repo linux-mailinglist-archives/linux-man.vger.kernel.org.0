@@ -2,72 +2,69 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 55E2C65DC82
-	for <lists+linux-man@lfdr.de>; Wed,  4 Jan 2023 20:03:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 2A92E65DC91
+	for <lists+linux-man@lfdr.de>; Wed,  4 Jan 2023 20:12:18 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235305AbjADTDl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 4 Jan 2023 14:03:41 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55718 "EHLO
+        id S231197AbjADTLp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 4 Jan 2023 14:11:45 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58458 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234591AbjADTDV (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 4 Jan 2023 14:03:21 -0500
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com [IPv6:2a00:1450:4864:20::32a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 433E2186A1
-        for <linux-man@vger.kernel.org>; Wed,  4 Jan 2023 11:03:20 -0800 (PST)
-Received: by mail-wm1-x32a.google.com with SMTP id g10so12584063wmo.1
-        for <linux-man@vger.kernel.org>; Wed, 04 Jan 2023 11:03:20 -0800 (PST)
+        with ESMTP id S239927AbjADTL2 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 4 Jan 2023 14:11:28 -0500
+Received: from mail-oo1-xc30.google.com (mail-oo1-xc30.google.com [IPv6:2607:f8b0:4864:20::c30])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 556761EC77
+        for <linux-man@vger.kernel.org>; Wed,  4 Jan 2023 11:11:26 -0800 (PST)
+Received: by mail-oo1-xc30.google.com with SMTP id x15-20020a4ab90f000000b004e64a0a967fso3206359ooo.2
+        for <linux-man@vger.kernel.org>; Wed, 04 Jan 2023 11:11:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=HBs8rAzLrWBcQPfR8zUTuRwsZ31b093ZlUWHV1HgYh8=;
-        b=LgLE6sBdn6NPOt8kKWPLFEOQWRwhiE79e6r+fn6tA5hSRpSzgfyRuKvCm7+kySH0Aa
-         Gpq/4/0atxSe0IyJ+oZJYcA4vo9ataCZITrXgbSGlZ4NSe816efaXmiYsVNGYrgixu3g
-         y6+ZdkRcnHy4vDy/o5ctSZn7EOjP+PoERVkNgDX9yhPsPDgDs2iMCfxVqcUI25uKZ3eJ
-         1SQy6hiBi4vbXSLZ/0Eea6u5JdO5X3yV3kDhsO0d127cw057tJ2PhPVLjlpQzzxJUVuc
-         hsLxV9QuV3Uk2pXcsN8DodRBlutU3t9+hgfOlqga9vb3EQ1S0VcphOGJ0SYyocI50vcM
-         bxNw==
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=GfeUbB2cpPLoXmG5AYT5qqx5fUC9yUlAZaXLuz3emkQ=;
+        b=KG1ux7em7c2P3pfMPz2FsQKoMmSRf7MSI3613Sgk7gnE696I2NI2DHXxCFmK7VmGp9
+         pprdFGvuwb2HHlDiXNCBjDjWwfsf9gDBfRd0InMafsFjogjzp3718VBpmeUr5emJ0vY7
+         0Qm5mpOQ1QYNDw/H8fIraBHgm412J4lPC8I+aCNtgO6/ruuOO1E9t6jUVHDvYxfj2/Ns
+         TSOI3L/LrcDcDBVMHS09AFGqjOwItlQ1ihNc7QBQpL4SGF/DmyXUf00VsY7cJBP0p3bj
+         LINyytPgVKf08QPZ074z84U4S4qqD4PnPj1IT30OET+l6KD/lbKYeJZtT93pE+isII+1
+         0plQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=HBs8rAzLrWBcQPfR8zUTuRwsZ31b093ZlUWHV1HgYh8=;
-        b=v2XeYwalvxbC/3NEthLE9NE4L/rXYOUa/WrUk/ub06Woyx2nCX9D0HrAh9q3pmNyxR
-         AvOgCWQEjjIe+KcIO3mR6v2e0NMQBxwdLNq2urnDdmrmfCMfQvzQqHpHilQpoEp3fZ50
-         ZNgAdTjnFUSQew6rWxnmvsHm7wszJtkrHuxOItKc7yL7C+QvrZ6tC7fD5hl5BXvF/RG2
-         slWaUDvJ9xFijIjB/prITjepXPr9trowwQf+wvuSY4sC45wADOXOnC14dNSgBcdLFnZ6
-         6WHKkfWTnBKsMxcDsf4EP5RvZfYyGUCNxsJ+5oH+zA5swHzk3G8et0xrbs98v77s0deO
-         73PA==
-X-Gm-Message-State: AFqh2kqqir/5nt0QjJIyYpRXL1NKlAGC0epfcdOkSH2q69ezMFpd6OW7
-        Fteg0V/+tTE1hqdpiE2zYa0=
-X-Google-Smtp-Source: AMrXdXsCz2WZ9KYMtxNsfVNu+8p7qQhu1A++MOI8Op9HdQf9Oyv+Dyu7W3k+781wFLm4saRdhNKZLg==
-X-Received: by 2002:a05:600c:3b82:b0:3cf:900c:de6b with SMTP id n2-20020a05600c3b8200b003cf900cde6bmr34552078wms.15.1672858998842;
-        Wed, 04 Jan 2023 11:03:18 -0800 (PST)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id l15-20020a5d410f000000b002683695bf97sm34814135wrp.58.2023.01.04.11.03.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Jan 2023 11:03:18 -0800 (PST)
-Message-ID: <07547001-e13e-a9a2-b0ba-0879d0b1280e@gmail.com>
-Date:   Wed, 4 Jan 2023 20:03:08 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-Subject: Re: [PATCH v2 0/9] intro.3, libc.7, ldconfig.8: Revise
-Content-Language: en-US
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=GfeUbB2cpPLoXmG5AYT5qqx5fUC9yUlAZaXLuz3emkQ=;
+        b=jAoA8mjV/9RVDS3iLm+i/zVe/V3jS8Z38cJ8eGWtVl4DnEwcpGstjfunf4vj//nJ2f
+         8XquXHuc+cjnG8f+Nr73e/m8TLVvRdjjwylfwJk3l9vaXMPNJb36sVpStd3suk7Zwg1M
+         /09iaSJ4z9FVqMNbigTF8pT+AHBe03fxWmgb1sUAYftF+jq5zfftwQyHrmFkO+EEbnpb
+         I/qeOVOz3JsF3Yba5C5YM3NyiP/XNGKMkTvjfAdu8GdFOtg5Qmrz70zdz0WTzpTSOSQn
+         KrQ1emrS0CvsVwrWwHR72Sua2OGX6JSovWakvFfQXcLKcxsUP/mNK3vOpV3LRo/ajUex
+         OrCQ==
+X-Gm-Message-State: AFqh2kpYowPoIoXbL8LqTnu0iPHy0xSSti4uALIW3EFPq5yPsxG1RcRK
+        ohN2kEZfw1mll4vKoP945mLK5HYONbs=
+X-Google-Smtp-Source: AMrXdXshIiS8zPDCfIn8AQUmZfxVtFFVQ2rwPnWnbQlqZRe7keq/GfmdRy72MjKeNXMra2t2Jdb7ig==
+X-Received: by 2002:a05:6820:82c:b0:4b8:c265:1068 with SMTP id bg44-20020a056820082c00b004b8c2651068mr25129169oob.5.1672859485580;
+        Wed, 04 Jan 2023 11:11:25 -0800 (PST)
+Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
+        by smtp.gmail.com with ESMTPSA id d18-20020a4ad352000000b0049fd6bfde95sm13785144oos.26.2023.01.04.11.11.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Jan 2023 11:11:24 -0800 (PST)
+Date:   Wed, 4 Jan 2023 13:11:18 -0600
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org
-References: <20230104073746.govufof5kk34nonj@illithid>
- <5fc0b202-0829-42b2-760a-25e1de006e34@gmail.com>
- <20230104160530.ony3dowlttbjehha@illithid>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20230104160530.ony3dowlttbjehha@illithid>
+Subject: Re: [PATCH 1/9] ldconfig.8: Fix markup nits
+Message-ID: <20230104191118.xs7jwtjcqz6fhbbx@illithid>
+References: <20230104073807.gcohk253vopp4ii3@illithid>
+ <8527af62-1921-63cc-a94b-db3d9af4ee49@gmail.com>
+ <20230104155512.klkmu62oaz7ore5a@illithid>
+ <529c2d78-395f-b0e6-a114-e214335d4472@gmail.com>
+MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------7Xs5jKYhnb9omAUXcOp00hAA"
-X-Spam-Status: No, score=-3.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        protocol="application/pgp-signature"; boundary="lywwcs7ktedlqd3s"
+Content-Disposition: inline
+In-Reply-To: <529c2d78-395f-b0e6-a114-e214335d4472@gmail.com>
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -76,119 +73,202 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------7Xs5jKYhnb9omAUXcOp00hAA
-Content-Type: multipart/mixed; boundary="------------OMR0BVhbGzkjer5ncKG9CDxv";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: linux-man@vger.kernel.org
-Message-ID: <07547001-e13e-a9a2-b0ba-0879d0b1280e@gmail.com>
-Subject: Re: [PATCH v2 0/9] intro.3, libc.7, ldconfig.8: Revise
-References: <20230104073746.govufof5kk34nonj@illithid>
- <5fc0b202-0829-42b2-760a-25e1de006e34@gmail.com>
- <20230104160530.ony3dowlttbjehha@illithid>
-In-Reply-To: <20230104160530.ony3dowlttbjehha@illithid>
 
---------------OMR0BVhbGzkjer5ncKG9CDxv
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+--lywwcs7ktedlqd3s
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-SGkgQnJhbmRlbiwNCg0KT24gMS80LzIzIDE3OjA1LCBHLiBCcmFuZGVuIFJvYmluc29uIHdy
-b3RlOg0KPiBIaSBBbGV4LA0KPiANCj4gQXQgMjAyMy0wMS0wNFQxMzozNDo1OSswMTAwLCBB
-bGVqYW5kcm8gQ29sb21hciB3cm90ZToNCj4+PiB2MjoNCj4+Pg0KPj4+ICogTm8gbG9uZ2Vy
-IG1pZ3JhdGVzIGBQUGAgbWFjcm9zIHRvIGBQYC4NCj4+PiAqIE5vIGxvbmdlciBtaWdyYXRl
-cyBBU0NJSSAiYXJyb3ciIGAtPmAgdG8gdHJvZmYgc3BlY2lhbCBjaGFyYWN0ZXIuDQo+PiBJ
-J2QgbGlrZSB0aGlzIGNoYW5nZSwgaWYgeW91IGNhbiBhcHBseSBpdCBnbG9iYWxseS4gIEJ1
-dCB3ZSdsbCBsZWF2ZQ0KPj4gaXQgZm9yIGEgc2VwYXJhdGUgcGF0Y2ggc2V0Lg0KPiANCj4g
-WWVzLiAgSSBhbHJlYWR5IGNoYXNlZCBpdCBkb3duLiAgIkdsb2JhbGx5IiBhZmZlY3RzIDIg
-cGFnZXMuDQo+IA0KPiBUaGVyZSBpcyBtb3JlIGVsYWJvcmF0ZSBBU0NJSSBhcnQgaW4gc2No
-ZWQoNykuICBUaGF0IGNhbiBiZSBtYWRlDQo+IHJlbGF0aXZlbHkgcHJldHR5IHdpdGggVW5p
-Y29kZSBhcnJvdyBjaGFyYWN0ZXJzOyB0aGUgZm91ciBvcnRob2dvbmFsDQo+IHNpbmdsZS1z
-dGVtbWVkIGFycm93cyBldmVuIGhhcHBlbiB0byBoYXZlIHBvcnRhYmxlIHNwZWNpYWwgY2hh
-cmFjdGVyDQo+IGlkZW50aWZpZXJzIGdvaW5nIGJhY2sgdG8gMTk3NiBBVCZUIHRyb2ZmLg0K
-PiANCj4gQnV0IEknbSBub3Qgc3VyZSBhYm91dCBjaGV3aW5nIHRoYXQgb25lIG9mZi4gIFVz
-aW5nIHNwZWNpYWwgY2hhcmFjdGVyDQo+IGVzY2FwZSBzZXF1ZW5jZXMgd291bGQgbWFrZSB0
-aGUgc291cmNlIGxvb2tlZCB3ZWlyZGVyIGFuZCBtaXNhbGlnbmVkLg0KPiBUaGVyZSdzIGEg
-d2F5IGFyb3VuZCB0aGF0ICh0aGUgYHRyYCByZXF1ZXN0KSBidXQgdGhhdCdzIGEgZmFpcmx5
-IGNodW5reQ0KPiBicmVhY2ggb2YgdGhlICJubyAqcm9mZiByZXF1ZXN0cyBpbiBtYW4gcGFn
-ZSBzb3VyY2VzKSBydWxlIHRoYXQgSW5nbw0KPiBTY2h3YXJ6ZSBhbmQgSSB0cnkgdG8gaG9s
-ZCB0by4NCj4gDQo+IFN0aWxsLCBpdCdzIHdvcnRoIHRoaW5raW5nIGFib3V0IHdoZXRoZXIg
-eW91J2QgbGlrZSB0byBoYXZlIHBpYygxKQ0KPiBkaWFncmFtcyBpbiB0aGUgTGludXggbWFu
-LXBhZ2VzLCB3aXRoIEFTQ0lJL1VuaWNvZGUtYXJ0IGZhbGxiYWNrcyBmb3INCj4gdGVybWlu
-YWwgZGV2aWNlcy4NCg0KSSBkb24ndCBrbm93LiAgQ2FuIHlvdSBzaG93IHNvdXJjZSBjb2Rl
-IGFuZCBmb3JtYXR0ZWQgb3V0cHV0IG9mIHNvbWUgZXhhbXBsZXMsIA0Kc28gSSBjYW4gY29t
-cGFyZT8NCg0KPiANCj4+IFRoaXMgbW9yZSBvciBsZXNzIGNvcnJlc3BvbmRzIHRvIHdoYXQg
-d2UgY2FsbCBzcmNmaXggKGFsdGhvdWdoIHNvbWUgbWlnaHQNCj4+IHF1YWxpZnkgYXMgZmZp
-eDsgdGhlIG9uZXMgeW91IGNhbGxlZCBpbXByZWNpc2UpLg0KPiBbLi4uXQ0KPj4gVGhpcyBt
-b3JlIG9yIGxlc3MgY29ycmVzcG9uZHMgdG8gd2hhdCB3ZSBjYWxsIHRmaXguDQo+IFsuLi5d
-DQo+PiBUaGlzIG1vcmUgb3IgbGVzcyBjb3JyZXNwb25kcyB0byB3aGF0IHdlIGNhbGwgd2Zp
-eC4gIHdmaXggY2FuIGVuZ2xvYmUNCj4+IHRmaXggbm9ybWFsbHkuDQo+IFsuLi5dDQo+PiBU
-aGlzIG1vcmUgb3IgbGVzcyBjb3JyZXNwb25kcyB0byB3aGF0IHdlIGNhbGwgZmZpeC4gIEl0
-IG1pZ2h0IGJlIGdvb2QNCj4+IHRvIGJyZWFrIHN1Y2ggY2hhbmdlcyBpbiB0d28gb3IgdGhy
-ZWUgc2VwYXJhdGUgY2F0ZWdvcmllcywgYWx0aG91Z2gNCj4+IHNvbWV0aW1lcyBvbmUgbmVl
-ZHMgdGhlIG90aGVyLCBhbmQgaXQncyBzaW1wbGVyIHRvIGp1c3QgYXBwbHkgb25lDQo+PiBw
-YXRjaCB0aGF0IGRvZXMgYWxsIG9mIHRoZW0uDQo+IA0KPiBJIHdpbGwgcmVjYXN0IG15IGNo
-YXJhY3Rlcml6YXRpb25zIGluIHRoZSBjb21taXQgbWVzc2FnZXMuICBJIHVzZWQgdG8NCj4g
-a25vdyB0aGUgYWJvdmUgY2F0ZWdvcmllcywgYnV0IHRoZXkgYml0LXJvdHRlZCBpbiBteSBi
-cmFpbiBkdWUgdG8gbXkNCj4gZmV2ZXJpc2ggcnVzaCB0byBnZXQgZ3JvZmYgMS4yMyByZWFk
-eS4gIENvbnRleHQgc3dpdGNoZXMgYXJlIGV4cGVuc2l2ZQ0KPiBpbiBtZWF0c3BhY2UsIHRv
-by4uLg0KPiANCj4gRG8geW91IGNvbnRpbnVlIHRvIHByYWN0aWNlIE1pY2hhZWwncyBpbmRp
-ZmZlcmVuY2UgdG8gR2l0J3MgZmlyc3QtbGluZQ0KPiAibGltaXQiIHRvIGNvbW1pdCBtZXNz
-YWdlcz8NCg0KWWVzLiAgV2hpbGUgSSB0cnkgdG8gbWFrZSBzdWJqZWN0cyBzaG9ydCwgYXMg
-YW55b25lIGVsc2UsIEkgZG9uJ3QgaGF2ZSBhbnkgDQpzdHJpY3QgcnVsZXMgYWJvdXQgaXQu
-ICBJZiB0aGUgbnVtYmVyIG9mIGZpbGVzIGJlaW5nIG1vZGlmaWVkIGlzIGEgYml0IGxhcmdl
-LCANCml0J3MgZWFzeSB0byBnbyBwYXN0IHRoZSA4MC1jb2wsIGFuZCBJJ20gZmluZSB3aXRo
-IHRoYXQuDQoNCkhvd2V2ZXIsIE1pY2hhZWwgYW5kIEkgdXNlZCBzb21lIGFiYnJldmlhdGlv
-bnMsIHN1Y2ggYXMgIk1hbnkgcGFnZXM6IC4uLiIsIG9yIA0KIlZhcmlvdXMgcGFnZXM6IC4u
-LiIsIGFuZCBzaW1pbGFyLCB3aGVuIHRoZXJlIHdlcmUgYSBsYXJnZSBhbW91bnQgb2YgcGFn
-ZXMgYnV0IA0KdGhlIGNoYW5nZSB3YXMgYSBnbG9iYWwgZml4IGFuZCB0aGUgcGFnZSBuYW1l
-cyB3ZXJlIGNvbXBsZXRlbHkgaXJyZWxldmFudC4gIFdlIA0KdXNlZCAidmFyaW91cyIgZm9y
-IGEgc21hbGxpc2ggbnVtYmVyIG9mIHBhZ2VzIG92ZXIgMTAgb3Igc28uICAiTWFueSIgd2Fz
-IG1vcmUgDQpmb3IgdGhpbmdzIGxpa2UgNTAwIHBhZ2VzLg0KDQo+ICBJIGhhdmUgc29tZSBw
-ZW5kaW5nIHBhdGNoZXMgdGhhdCBsb29rIGxpa2UNCj4gdGhpcy4NCj4gDQo+IGNvbW1pdCBh
-YjIxOGQ5ZjAyYmNmYjlkNmM3YzEyN2VkOTBjOWE4YzM0Y2Q4YmE1DQo+IEF1dGhvcjogRy4g
-QnJhbmRlbiBSb2JpbnNvbiA8Zy5icmFuZGVuLnJvYmluc29uQGdtYWlsLmNvbT4NCj4gRGF0
-ZTogICBXZWQgSmFuIDQgMDI6MzE6MzcgMjAyMyAtMDYwMA0KPiANCj4gICAgICBhZGp0aW1l
-eC4yLCBldmVudGZkLjIsIG1tYXAyLjIsIHBlcmZfZXZlbnRfb3Blbi4yLCBxdW90YWN0bC4y
-LCBzaG1nZXQuMiwgdGltZXMuMiwgZHJhbmQ0OC4zLCBsZGV4cC4zLCByYW5kb20uMywgdGdh
-bW1hLjMsIHByb2MuNSwgbW91bnRfbmFtZXNwYWNlcy43LCByYW5kb20uNywgc2NoZWQuNywg
-dGNwLjcsIHVkcGxpdGUuNywgdW5pdHMuNywgdW5peC43LCB1dGYtOC43OiBzcmNmaXgNCg0K
-WW91IGNvdWxkIHVzZSAiVmFyaW91cyBwYWdlczogc3JjZml4IiBoZXJlLg0KDQpCVFcsIGFu
-b3RoZXIgdGhpbmcgSSBub3RpY2VkIHlvdSBwcmFjdGljZSBpcyB3cml0aW5nIGEgdHJhaWxp
-bmcgJy4nIGluIHRoZSANCnN1YmplY3QgbGluZS4NCkkgZG9uJ3QgaGF2ZSBhbnkgc3Ryb25n
-IHByZWZlcmVuY2UgdGhlcmUsIGJ1dCBmb2xsb3dlZCB0aGUgcHJhY3RpY2Ugb2Ygbm90IA0K
-d3JpdGluZyBpdCwgYXMgTWljaGFlbCBkaWQuICBJdCBoYXMgdGhlIGFkdmFudGFnZSBvZiBo
-YXZpbmcgb25lIG1vcmUgYnl0ZSBmb3IgDQp0aGUgc3ViamVjdC4NCg0KSSBndWVzcyB5b3Ug
-cHJlZmVyIGxhbmd1YWdlIGNvbnNpc3RlbmN5Lg0KDQo+IA0KPiAgICAgIFVzZSBjb3JyZWN0
-ICpyb2ZmIHNwZWNpYWwgY2hhcmFjdGVyIGZvciBoYXQvY2FyZXQvY2lyY3VtZmxleCBhY2Nl
-bnQuDQo+IA0KPiAgICAgIFNpZ25lZC1vZmYtYnk6IEcuIEJyYW5kZW4gUm9iaW5zb24gPGcu
-YnJhbmRlbi5yb2JpbnNvbkBnbWFpbC5jb20+DQo+IA0KPiBSZWdhcmRzLA0KPiBCcmFuZGVu
-DQoNCkNoZWVycywNCg0KQWxleA0KDQotLSANCjxodHRwOi8vd3d3LmFsZWphbmRyby1jb2xv
-bWFyLmVzLz4NCg==
+Hi Alex,
 
---------------OMR0BVhbGzkjer5ncKG9CDxv--
+At 2023-01-04T19:41:51+0100, Alejandro Colomar wrote:
+> On 1/4/23 16:55, G. Branden Robinson wrote:
+> > At 2023-01-04T13:26:33+0100, Alejandro Colomar wrote:
+> > > >    .SH NAME
+> > > >    ldconfig \- configure dynamic linker run-time bindings
+> > > >    .SH SYNOPSIS
+> > >=20
+> > > We should wrap this in .nf/.fi
+> >=20
+> > That will have a cost.  It will mean using a lot of \c escape
+> > sequences to connect the output lines.
+> >=20
+> > The existing synopsis fits within 74 output columns on a terminal.
+> >=20
+> > Do you think it's worth it?
+>=20
+> But, it we don't use it, if someone uses a smaller terminal, there
+> might appear our beloved hyphens breaking a word...
 
---------------7Xs5jKYhnb9omAUXcOp00hAA
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+That's true.  But what is _not_ true is that you don't have a minimum
+expected terminal width.  You do, you just might not know what it is and
+it may not even have been consciously chosen.
+
+The minimum expected terminal width for the Linux man-pages corpus is
+the longest output line produced by an unfilled (.nf/.fi) region or a
+tbl(1) row that doesn't use a text block.  Somewhere in the ~2,539 man
+pages, a longest unfilled line lurks...and its identity may change
+depending on the output device used to render it (terminal vs.
+typesetter).
+
+If you _do_ know what that expected minimum is, please document it.
+
+The nearest thing I see is:
+
+"Please limit source code line length to no more than about 75
+characters wherever possible." -- man-pages(7)
+
+But the relationship between input document line length for and
+formatted output line length is a loose one.
+
+In any event, groff man(7)'s SY/YS extension macros are _built_ for this
+application.  I'm happy to "port" this page to use them; doing so will
+permit removal of the PD macro calls, among other benefits.
+
+> Is there anything that "reverts" \%?  So that if it were the default,
+> we could use \anti-% to say "groff, you might break this word"?
+
+Yes.  \% itself does that.
+
+=46rom the groff 1.23 Texinfo manual (with stuff irrelevant to man(7)
+usage stripped out):
+
+ -- Escape sequence: \%
+ -- Escape sequence: \:
+     To tell GNU 'troff' how to hyphenate words as they occur in input,
+     use the '\%' escape sequence; it is the default "hyphenation
+     character".  Each instance within a word indicates to GNU 'troff'
+     that the word may be hyphenated at that point, while prefixing a
+     word with this escape sequence prevents it from being otherwise
+     hyphenated.  This mechanism affects only that occurrence of the
+     word; [...]
+
+[...]
+
+     '\:' inserts a non-printing break point; that is, a word can break
+     there, but the soft hyphen glyph (see below) is not written to the
+     output if it does.  This escape sequence is an input word boundary,
+     so the remainder of the word is subject to hyphenation as normal.
+
+     You can use '\:' and '\%' in combination to control breaking of a
+     file name or URL or to permit hyphenation only after certain
+     explicit hyphens within a word.
+
+          The \%Lethbridge-Stewart-\:\%Sackville-Baggins divorce
+          was, in retrospect, inevitable once the contents of
+          \%/var/log/\:\%httpd/\:\%access_log on the family web
+          server came to light, revealing visitors from Hogwarts.
+
+> > groff man(7) _has_ a mechanism for this, and has since groff 1.19
+> > (2003).  It's the `HY` register.  People can put this in their
+> > man.local files (on Debian-based systems, that's in /etc/groff).
+> >=20
+> > .nr HY 0
+>=20
+> I know, but I don't think we should write manual pages in a way that
+> forces distributors to use such a thing.
+
+As far as I know, most distributors aren't configuring man.local this
+way today, despite it having been possible for almost 20 years.  Adding
+explicit hyphenation breakpoints (or their suppression) isn't going to
+force them any harder than they have been for 2 decades; it will in fact
+reduce any such pressure by reducing the number of bogus hyphenation
+breaks when hyphenation is enabled.
+
+> Either the pages are written plagued with \%,
+
+Like changes in lettercase, this is _information_.
+
+> and the distros don't need to use .HY, or we write pages lazily so
+> that distros need to fix the hyphenation.
+
+Distributors' laziness seems to be a match for Linux man-pages's own;
+users seem to muddle through without much evident complaint.  I suppose
+people who copy-and-paste multiple lines from a man page realize they
+need to remove the hyphens along with newlines.  Fortunately, on UTF-8
+terminals, they have hope of seeing the difference between hyphens and
+the ASCII hyphen-minus that is always(?) meant as a literal.
+
+> But writing the pages lazily and having distributors ignore it would
+> result in suboptimal pages for our readers.
+
+I think marking break points, hyphenated and otherwise (as with URLs),
+is the opposite of laziness.  It is a level of fastidiousness I don't
+actually expect of many man(7) writers apart from myself.
+
+> > Colin Watson's man-db man(1) also has a feature to suppress
+> > hyphenation, using a hack; it's not pretty but it works even on
+> > other *roff formatters.
+>=20
+> Does that disable hyphenation for macros, or for the entire document?
+> I only want to disable it in highlighting macros.
+
+I don't quite understand what you mean by "macros" here.  Macro
+interpolation is textual replacement, there isn't really a macro "mode"
+that is visible to the formatter when hyphenation decisions are made.
+
+But if by "highlighting macros" you mean font selection and
+alternation macros in man(7) (.B, .I, .BR, etc.), then the answer is
+"for the entire document".  You don't always want to disable hyphenation
+when using these macros anyway.  Not everything is a literal.  The font
+macros are presentational, not semantic.
+
+Even then, I would not suppress hyphenation of a metasyntactic variable,
+like "directory".  The whole point of these is that they are textually
+replaced _by the reader_.
+
+> > I don't insist that people keep hyphenation enabled, but assuming
+> > that no one will do so will keep us from putting worthwhile
+> > information in our man pages.
+> >=20
+> > If you dread the tedium of adding \% escape sequences to "keywords"
+> > all over the place, I don't blame you.  This is one reason I
+> > proposed my most ambitious man(7) extension yet, a two-macro
+> > semantic tag mechanism.
+> >=20
+> > https://marc.info/?l=3Dlinux-man&m=3D165868366126909&w=3D2
+>=20
+> I still don't know what to think about that.
+
+That's okay.  Its realization is some ways off, if ever.  First I need
+Bertrand to recover from holidays.  :-O
+
+> "XXX - quick hack, should disappear before anyone notices :)."
+>=20
+> Of course, the quick hack never disappeared after Oct 7, 2007, when it
+> was written in stone.
+
+Of course!
+
+> <https://github.com/shadow-maint/shadow/commit/6b6e005ce1cc4a5e4fc7fc40a5=
+2f2ed229f54b5b>
+>=20
+> "XXX - is the above ok or should it be <time.h> on ultrix?"
+
+If you pine for a stagnant commercial Unix to kick around, Solaris 10
+will be around for another year or so...
+
+Regards,
+Branden
+
+--lywwcs7ktedlqd3s
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmO1zWwACgkQnowa+77/
-2zJrgA/7Bgi9Rabyhd01ljf0cb14lz0Z9Yoyv7xVVrt8Lq3MNpXjYYWCEAMG3+wz
-Y3oprMxhpBY0og6lNMrbNIggNbMzKQQ8VGUuD87Hf5ewbqNa7ks0iCADs5sEID/M
-ot5VjcHKXO5RaZOglablxgs7oBRIhTRvd7OB9JPLTyO1+viHhtXc36tFnxVPWOYJ
-wGMRj8xgW2inYZ7kMgqfBa9kehMm/L0XNu6yb5cj/K64B0YPtUJOCOh3BSZl5D77
-oGoi6vJHKLsR/hzKWH5S7U8nqNgK8QM+JTlDLQgqmZazx6DTzmBlecNKsYQyxByB
-6TisPsz0wwSM7HFONxIsPB5w3oLXVsNFn5mGtS/KL067YkVxUqpI5rB4fxzTz8CW
-Cir+WT/8aJceBXEKRpYp9M5Op6h6YQYppdaFLJ9xeA22b+tTQrkA7Y0I3MRMnTo7
-Kye2XvdRgAygfSghP1HBWK9mVwWhmAudaCVbp3cJHkjZXrNeaa1zUg1Hef6jiW5/
-Z8rY0IUg61CVqPxFJbIBLHsCmKEEaYRD9XXzxL3jfKxfYqf7byiwM0+Dd5mkBZiO
-uhVJx3fMxmgUfR0P9sn6r8PCKWtwt5C9v/J0ShO2VkJj1yefemZ67rSCdh3GYZEf
-JcBC7zexFw115amx/s0+bhRqhQIR/YMbpfrJMic9HQMJGteag1w=
-=N2oO
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmO1z08ACgkQ0Z6cfXEm
+bc6gVA/7BnWZEdDJytkmqDCFxqKKpfnHSC9JeA2N/rZSY/FVbo1oFydxppYiK7F3
+8twB4UHpnfcYhfXbftCoxcHY7Nh9kAL01qZw/PvYbANlawsBJI5Ko01m5LYxZ4DB
+V/Pog3uFfWHXzaxloPHxQvMx/H47uAEkjLPO7kMzss0cmOtn0vOeBs03juLOyUs2
+1gVgyy/ODCbtTepsc3jLUmJUzGuG1kbT1atq7Tpn5NaKwU73+zModmXSBI2odaUY
+fq9kjxd3jY7sKafhr3mpt3kWyOrLqsTJrVURjuYRBm4wP0KreevZSwcJJfikYwMC
+boC8FYubsKjQ9WEnxkY8VR0iUHdwOxBa4MBFhUWZI8kc+kADgYepSdghlBvvFjd0
+9xzQuj/6zmW8zIzfEWksfa+X+C+67FXy47Wuwv1+JiD4UlqQEGOxdDpn6We4qvd7
+55Y1jInxcV51UU45U3kkhhwEdGKyOkr/xxCTAmRoAssio4Q4dGy3t6e/uQcpU/wx
+Bsx3viDeLCgdS3dL0mfvK+uI147q1CXM+aS4pMNzrFkfoI3sxo9k9u7Yn9e2zIVA
+KS7sTaDtYOCvsJnNroX4JKHgQBNA8d8jxXB1maBpp6ca6MP86qmp5ZN2wra+z/D8
+oY6oi4c6k/JpcWLHuXmFtVJQYI7MJro0IJBVbtZOPBzfpegSs5E=
+=GRWa
 -----END PGP SIGNATURE-----
 
---------------7Xs5jKYhnb9omAUXcOp00hAA--
+--lywwcs7ktedlqd3s--
