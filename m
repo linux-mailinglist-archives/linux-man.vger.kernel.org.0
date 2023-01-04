@@ -2,69 +2,75 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 50A6B65DDF3
-	for <lists+linux-man@lfdr.de>; Wed,  4 Jan 2023 22:00:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id C46BC65DF16
+	for <lists+linux-man@lfdr.de>; Wed,  4 Jan 2023 22:32:20 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235489AbjADVAp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 4 Jan 2023 16:00:45 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50466 "EHLO
+        id S230073AbjADVcS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 4 Jan 2023 16:32:18 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45718 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230233AbjADVAo (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 4 Jan 2023 16:00:44 -0500
-Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com [IPv6:2001:4860:4864:20::2a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 79C5D15FEB
-        for <linux-man@vger.kernel.org>; Wed,  4 Jan 2023 13:00:43 -0800 (PST)
-Received: by mail-oa1-x2a.google.com with SMTP id 586e51a60fabf-12c8312131fso41190129fac.4
-        for <linux-man@vger.kernel.org>; Wed, 04 Jan 2023 13:00:43 -0800 (PST)
+        with ESMTP id S230233AbjADVcS (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 4 Jan 2023 16:32:18 -0500
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com [IPv6:2a00:1450:4864:20::42c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9330F26D
+        for <linux-man@vger.kernel.org>; Wed,  4 Jan 2023 13:32:16 -0800 (PST)
+Received: by mail-wr1-x42c.google.com with SMTP id az7so9975148wrb.5
+        for <linux-man@vger.kernel.org>; Wed, 04 Jan 2023 13:32:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=6V+5SRO7nNeCvP8iWCvl3t3Dy6HXOdKFWEs9SqpfwG4=;
-        b=p0vUqAcNTC6iEENsibHvJWFeQ9VqqQfQFNy2bMhy4k22+6gwPIEEjIZQ+iEaK/8IL6
-         QqOSEVv/fAOUc3A4Si1C+JGWfEFdjZVDVEBC016Le331ob0HSPY8i5Cy/w/juTTm3RtT
-         XP6dLiEL1E0C2LwxZ2pL8Vw1eNyAoaxdA/n1Y0ZQ6hH0lScGSrz/gJ86SBRVSM0ds1pd
-         BOmbAPWKGK8IHsJ8sEJzA489K3tbE6xnYsqUodX4HgtXgo6fKtlUm6CzcXMM6AVJznCU
-         yCmn0xosplMsuGD9E0W4+noT5ayA7f3hp1ghdFj8f3/57cC0GqjahlB/nA94DDlSiNMn
-         JQNw==
+        h=content-transfer-encoding:mime-version:message-id:in-reply-to
+         :user-agent:references:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=FKBlx740w9A5UAeJo05D8jbCIPN2LFJg0L8SLYifXos=;
+        b=GaX2K8jQpdswaduOtffTYBsu2GWdIHWx3f77IFUGpLZ3/HIMUm4+lq6B2aaLVrp7gA
+         8htSjolG0NlL7Lw2pgnDKz2xAJCmicWZG6KeAggc8AMyRPdtihZL+1yBiSbbm/AIwsS3
+         h4gVZcx79PfBET+MK6ra3Cyn/DKRmP2EeZGKeF+sfEvdzyH2ooPRS1YL3Zu2I7tmHCRE
+         Ac2QMNAhLdiU9HtZtl7U9JEG5yHU3ZnFHfFVety6qoBjLuSJODLPvfHk+PgJi8x/WzO1
+         +m4lxILFaAa/TGsDKN//XxCCb8Vl8Sqre1r7L0bMp8T+eTihtJAVHlqaLJeYGHkLaBlc
+         JSXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=6V+5SRO7nNeCvP8iWCvl3t3Dy6HXOdKFWEs9SqpfwG4=;
-        b=D7MIVEDhq/8AGaYBVrNdu5Xx8kopPom3ylEJJLynR2m/EDTY5Pu8+b03pqOFqvCUbH
-         9tsIsXXIbK9anus+SOcz7KKcQHgd5h8SYpq9jvWAelzQLfdmH4gk/MV5qZdk04TfbV6r
-         Js7nsFo+apyouFun0J+yH8jc7Xm60PscPKPCuvN/ZD7ZMd0W17blpdmAyLIeSjB9nDM8
-         0uBEUFSF6y+TifIyr9FRhnRA5W+zjzXmtWNHpOQULD1SwHRz2Lq5sYYiwLc137nSJizb
-         tZV19nWEDeLR9hDWO+9gEZd0KAh8AONg7cBznfYPVDQes/Af4jNCqZupiPsAwYm7cFuw
-         NOQg==
-X-Gm-Message-State: AFqh2kr9RronjQhkzbfs1XJuIy8FGBgn79B0dyBzY+fv0sYLeGoZNDRX
-        e3Qloga6pojyE3Yzo1n3WwM=
-X-Google-Smtp-Source: AMrXdXt5ZsPEV68GYiie7jD789dz6QozebGzS04sLCEJydb/SdRjra13UOHB8Ykd7h1wQ0b/k0XHCw==
-X-Received: by 2002:a05:6870:1b08:b0:150:d1f4:936f with SMTP id hl8-20020a0568701b0800b00150d1f4936fmr3916712oab.18.1672866042065;
-        Wed, 04 Jan 2023 13:00:42 -0800 (PST)
-Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id l8-20020a056870204800b001417f672787sm15916340oad.36.2023.01.04.13.00.03
+        h=content-transfer-encoding:mime-version:message-id:in-reply-to
+         :user-agent:references:date:subject:cc:to:from:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=FKBlx740w9A5UAeJo05D8jbCIPN2LFJg0L8SLYifXos=;
+        b=ZNnu6mEuK4aHosmrG1jO5NGpSij8X7ALubeOVjSjxMiZBxOBlHlMXupefMSEech7fq
+         qyNfWkev7fHhoZVT+sBcpvHqsEkYntcKZcC7vWtvXyMhaJTWav2ASgwz4wLCJulC0Bua
+         FJMWex8TNOzg0apPG8OiOlcrkHOV9ns/NRzDr+W0duBXVx/Ws8yfoORsjRnuY88aiqbq
+         +dtV2y6/wMzS2KGfuL6ahcocQAeMr14wlBF9DJRRMXCFpvUg4QDEc/u7bW/1zpF3UrtF
+         9WdXuHXvlLAeeAd2cGzfxde017Iio9CyOjzz2ThI3AfAT7nbCYHC0HHAL5DJb4pXhGor
+         x74w==
+X-Gm-Message-State: AFqh2ko3AnUzzltjDELz333SmkpuKTDZROu/vohvb3zS0pDZ4O4Dg9qv
+        nmsMSJQ+Kt1wRSQAnNGcqKKFdJd+XvtCVw==
+X-Google-Smtp-Source: AMrXdXtppnsDd+8AVYBNy6o2vlqJ1phIHhxItHYGjkl2h4aRH3dcPnFnR3W7SjSlxQawcOH5KIpyTQ==
+X-Received: by 2002:a5d:6d0f:0:b0:28b:456c:1b6d with SMTP id e15-20020a5d6d0f000000b0028b456c1b6dmr23679664wrq.55.1672867934918;
+        Wed, 04 Jan 2023 13:32:14 -0800 (PST)
+Received: from gmgdl (dsl-59-113.bl26.telepac.pt. [176.78.59.113])
+        by smtp.gmail.com with ESMTPSA id c8-20020a5d4148000000b002428c4fb16asm34847934wrq.10.2023.01.04.13.32.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Jan 2023 13:00:41 -0800 (PST)
-Date:   Wed, 4 Jan 2023 14:59:42 -0600
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
+        Wed, 04 Jan 2023 13:32:14 -0800 (PST)
+Received: from avar by gmgdl with local (Exim 4.96)
+        (envelope-from <avarab@gmail.com>)
+        id 1pDBMr-00CTMA-1S;
+        Wed, 04 Jan 2023 22:32:13 +0100
+From:   =?utf-8?B?w4Z2YXIgQXJuZmrDtnLDsA==?= Bjarmason <avarab@gmail.com>
 To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-Subject: Re: [PATCH 1/9] ldconfig.8: Fix markup nits
-Message-ID: <20230104205942.uc6klfjzf5fe2zij@illithid>
-References: <20230104073807.gcohk253vopp4ii3@illithid>
- <8527af62-1921-63cc-a94b-db3d9af4ee49@gmail.com>
- <20230104155512.klkmu62oaz7ore5a@illithid>
- <529c2d78-395f-b0e6-a114-e214335d4472@gmail.com>
- <20230104191118.xs7jwtjcqz6fhbbx@illithid>
- <afd3a0d3-9bf4-2687-4f62-2ebd62398447@gmail.com>
+Cc:     Linus Torvalds <torvalds@linux-foundation.org>,
+        linux-man@vger.kernel.org, Alejandro Colomar <alx@kernel.org>,
+        Tejun Heo <tj@kernel.org>, Craig Small <csmall@enc.com.au>,
+        Alexey Dobriyan <adobriyan@gmail.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
+Subject: Re: [PATCH 0/2] proc.5: note broken v4.18 userspace promise
+Date:   Wed, 04 Jan 2023 21:59:38 +0100
+References: <cover-0.2-000000000-20221223T174835Z-avarab@gmail.com>
+ <CAHk-=wh6f8+e7Nm1nj1yNGB7d1SivgrBw8Gd3Ow58pc+NoNi1w@mail.gmail.com>
+ <cf8e5404-f3bc-8a27-9cd0-2cdc0c26d030@gmail.com>
+User-agent: Debian GNU/Linux bookworm/sid; Emacs 27.1; mu4e 1.9.0
+In-reply-to: <cf8e5404-f3bc-8a27-9cd0-2cdc0c26d030@gmail.com>
+Message-ID: <230104.86r0wat28y.gmgdl@evledraar.gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="bm44v24vxcpku64r"
-Content-Disposition: inline
-In-Reply-To: <afd3a0d3-9bf4-2687-4f62-2ebd62398447@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
@@ -76,212 +82,109 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---bm44v24vxcpku64r
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Wed, Dec 28 2022, Alejandro Colomar wrote:
 
-Hi Alex,
-
-At 2023-01-04T21:15:00+0100, Alejandro Colomar wrote:
-> > That's true.  But what is _not_ true is that you don't have a
-> > minimum expected terminal width.  You do, you just might not know
-> > what it is and it may not even have been consciously chosen.
->=20
-> I haven't consciously chosen it, but I often use 66-col terminals,
-> especially when I plan to paste text into an email.
-
-Well, by "you" I mean in your capacity as Linux man-pages maintainer.
-
-There is some threshold of terminal width in the corpus of pages below
-which things start to look really horrible.
-
-Maybe you'd like my shell wrapper for man(1).
-
-    # View a man page but report all warnings.
-    man () {
-        if command man "$@"
-        then
-            command man --warnings=3Dw "$@" >/dev/null
-        fi
-    }
-
-It shows me the formatter's warnings _after_ the page is rendered.
-
-> Even if unfilled blocks exceed the terminal width, and therefore might
-> be unpleasant to the eyes, they have a nice feature: the line never
-> breaks, and you can still pipe it to other programs, or paste it, and
-> it will be a single line.
-
-You can therefore simulate this for any man page by setting the `LL`
-register to some large value.  Once it exceeds your terminal width, it
-will certainly be ugly as hell, but if you want line-by-line
-piping/pasting, maybe you'll find it useful.
-
-    -rLL=3Dline=E2=80=90length
-        Set line length; the default is 78n for terminal devices and
-        6.5i for typesetter devices.
-
-man-db man(1) simulates this with the MANWIDTH environment variable.
-Presently it uses a hack, which I hope will go away after groff 1.23.
-
-https://savannah.gnu.org/bugs/index.php?58992
-
-> > In any event, groff man(7)'s SY/YS extension macros are _built_ for
-> > this application.  I'm happy to "port" this page to use them; doing
-> > so will permit removal of the PD macro calls, among other benefits.
->=20
-> Yup, that would be nice!
-
-Okay, there's another change for v3, then!  :)
-
-> > > Is there anything that "reverts" \%?  So that if it were the
-> > > default, we could use \anti-% to say "groff, you might break this
-> > > word"?
-> >=20
-> > Yes.  \% itself does that.
+> [[PGP Signed Part:Undecided]]
+> Hi,
 >
-> I mean something like \X\%foobar, so that the \X "cancels" the \%.
-> Not manually inserting break points.  So, imagining a world in which
-> hyphenation was disabled _only_ within font-selection macros, I could
-> specify that a word is fine to be hyphenated like this:
->=20
-> .B \Xidontcareifthisishyphenated
+> On 12/23/22 19:12, Linus Torvalds wrote:
+>> On Fri, Dec 23, 2022 at 10:00 AM =C3=86var Arnfj=C3=B6r=C3=B0 Bjarmason
+>> <avarab@gmail.com> wrote:
+>>>
+>>> Whereas the fix here is a fix for a promise we're currently making
+>>> which hasn't been true since v4.18.
+>> Hah. Ack. Did anybody ever actually notice?
+>> I wonder if the newer limit of 64 characters for kworkers shouldn't
+>> even be mentioned at all, and if the 16-byte truncation for user space
+>> should also be just removed.
+>> Those limits should never have been some documented API, they were
+>> always just implementation details, after all.
+>>               Linus
+>
 
-Hmm, no, there is no *roff escape sequence for "apply automatic
-hyphenation to the following word".
+Sorry about the late reply, holidays.
 
-But your hypothetical is already a counterfactual.  Macros like .B
-_already_ don't disable hyphenation.  So it seems to me like you're
-proposing second-order machinery to get yourself out of the bind you're
-creating with your first-order demand to make the font macros disable
-hyphenation.
+> I agree.  A variable implementation detail like this doesn't provide
+> anything valuable to users; especially since there's no statbility
+> promise at all.  I'd rewrite to just remove the (16) implementation
+> detail.
+>
+> =C3=86var, would you send an v2 that removes implementation details, rath=
+er
+> than fixing the details?
 
-It really seems better to me to leave the font macros alone and have
-a semantic tagging facility for those things you really don't want
-hyphenated.
+Maybe, because I'm not sure I'm qualified to document this anymore. My
+current patch just extends the description to cover the 4.18 divergence.
 
-Or, proceed as the groff man pages have to date, stick to the font
-selection macros as they are, and use \% with them.
+Let's separate a few things here:
 
-Most of the 94 printable Basic Latin characters already have meaning
-as *roff escape sequences when preceded by an escape character.  The
-scarce name space that remains must be occupied only with great
-consideration.  Dave Kemper and I have kicked around ideas for an
-"extension" character for escape sequences to surmount this problem.  \<
-is available, and despite giving me nightmare memories of HTML, it might
-be the best choice among what remains.[1]
+ A. The long-standing docs promise that it's limited to 16 bytes
+ B. Since 4.18 that hasn't been true for (some of) the kernel's own
+    processes, where the limit's been 64.
+ C. Was the part of "A" where a limit was documented at all a good idea
+    in retrospect?
+ D. If "C"'s a "no" (which seems to be the consensus) what should the
+    docs say?
+ E. I hadn't mentioned this before, but the docs for prctl()'s
+    PR_SET_NAME document the same 16 byte limit.
 
-> > Like changes in lettercase, this is _information_.
->=20
-> I don't argue against that, but if there was a way to return that
-> information explicitly, we wouldn't be loosing it.
+I think the current behavior since 4.18 is a broken userspace promise,
+although admittedly a minor/obscure one.
 
-As noted above, I think a good way to achieve that is by not discarding
-it such that it needs recovery later.
+I think even if going forward the documentation is deliberately
+ambiguous about it, it would make sense to briefly document the 16 and
+64 byte limits as past limits, to at least help to explain why current
+code parsing "/proc/*/stat" seems to be confident in those (or more
+commonly, the 16 bytes).
 
-> Oh, I do complain a lot; however, I don't express it too much in the
-> form of bug reports, since I don't believe it's the fault of the
-> writer, but rather lack of support from groff(1).
+The code I wrote was rather anal about that promise, but e.g. looking at
+htop(1)'s source code they've got a total limit of 2048 for this sort of
+line (MAX_READ). I'm sure if I went fishing I could find other similar
+cases (and probably some lower ones).
 
-I don't think groff is missing support for anything you want here; we
-have a disagreement over the design of the man(7) package.
+I don't think it would be good to just leave it ambiguous for those
+trying to use this interface. They might assume any of 16 bytes (from
+finding the prctl() PR_SET_NAME docs), 64 bytes (from reading kernel
+sources), 255 (maximum filename length) etc.
 
-> But I do find it very uncomfortable, similar to when manual page authors
-> don't use the proper \-.  However, I do think that one is fault of the
-> author, and you can already find many such reports signed by me :)
+Wouldn't the least bad thing be to:
 
-My Debian colleagues teased me twenty years for railing against man
-pages that didn't escape their hyphens.  I was an early adopter of UTF-8
-terminal emulators.
+ * Cover "A" and "B" in passing, i.e. explain past promised /
+   implemented limits.
+ * Note that this is no guarantee, but that...
+ * ...we might use up to N, where N is some sane limit (1024? 2048?
+   4096?).
 
-> > I suppose people who copy-and-paste multiple lines from a man page
-> > realize they need to remove the hyphens along with newlines.
-> > Fortunately, on UTF-8 terminals, they have hope of seeing the
-> > difference between hyphens and the ASCII hyphen-minus that is
-> > always(?) meant as a literal.
->=20
-> My problem is not about pasting text.  That's very minor.  My problem
-> is finding text.
+   So programs that parse this now could just increase their fixed
+   buffers, rather than having to use some getc()/realloc() loop, as
+   they might if the interface makes no promises about an upper bound,
+   and if they're being paranoid about future-proofing the parser.
 
-Yes, I've seen many people complain about this, justifiably, over the
-years.  When people leave hyphenation enabled and try full-text searches
-of man pages, often inside less(1), they get frustrated by the broken
-words.
+   If so I have no opinion on what value of "N" would be sane, other
+   than it seems best to pick something.
 
-> For finding command options, I usually type:
->=20
-> /   --foo
->=20
-> If \- hasn't been used, I need to use:
->=20
-> /   ..foo
->=20
-> and skip all the noise.  When there's too much noise, sometimes using
-> an anchor (^) helps.  But it's way nicer when writers use \-.  I keep
-> finding such bugs, and reporting them as much as I can.
+?
 
-Yup.  Improving hyphen-minus hygiene here produces wins.
+> On 12/23/22 18:59, =C3=86var Arnfj=C3=B6r=C3=B0 Bjarmason wrote:
+>> diff --git a/man5/proc.5 b/man5/proc.5
+>> index 115c8592e..b23dd1479 100644
+>> --- a/man5/proc.5
+>> +++ b/man5/proc.5
+>> @@ -2092,9 +2092,13 @@ The filename of the executable, in
+>   parentheses. Tools such as
+>>   may alternatively (or additionally) use
+>>   .IR/proc/  pid /cmdline.
+>>   .IP
+>> -Strings longer than
+>> +For userspace, strings longer than
+>>   .B TASK_COMM_LEN
+>>   (16) characters (including the terminating null byte) are silently tru=
+ncated.
+>> +Since Linux version 4.18.0 a longer limit of 64 (including the
+>> +terminating null byte) has applied to the kernel's own workqueue
+>> +workers (whose names start with "kworker/").
+>> +.IP
+>>   This is visible whether or not the executable is swapped out.
+>>   .TP
+>>   (3) \fIstate\fP \ %c
 
-> When searching for keywords, the problem is the following:  I do
-> `/keyword`, but then if the keyword is hyphenated... well, good luck.
-
-Right.  less(1) is an interesting program.  It has lots of features,
-many more than any one user will use.  But it seems to be pretty
-indifferent to helping with searches for hyphenated words.
-
-It's _possible_ to design an extension to ISO 6429 for communicating
-hyphenation break information to terminals (and pagers).  A big question
-is what would bother to use that information.  If Mark Nudelmann doesn't
-want to support it, it's DOA, and he views ISO 6429 grudgingly enough in
-the first place, hence "less -R".
-
-I have only two recommendations.
-
-1.  Disable hyphenation in your man.local; or
-2.  Back my play for semantic tagging in man(7).  ;-)
-
-> > I think marking break points, hyphenated and otherwise (as with
-> > URLs), is the opposite of laziness.  It is a level of fastidiousness
-> > I don't actually expect of many man(7) writers apart from myself.
->=20
-> I would want to use \:.  What I want is a tool which re-enables the
-> default hyphenation points after they have been cancelled.
-
-I submit again: if you don't cancel them in the first place, they don't
-have to be reconstructed.
-
-> I would.  I wouldn't be able to count how many times I've tried to
-> search for such a keyword, and it was hyphenated.
-
-Semantic tags would solve this problem.
-
-Regards,
-Branden
-
-[1] What's available?
-
-    \+ \1 \2 \3 \4 \5 \6 \7 \8 \9 \; \< \=3D \> \@
-    \G \i \I \j \J \P \T \U \W \y \]
-
---bm44v24vxcpku64r
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmO16LcACgkQ0Z6cfXEm
-bc7UixAAhsfvsYzep/ANfI/NNXJZ4vDLM8gDpaEwn5MhLJcgbnvTY3+8P5QbqUwD
-7UR+TTArn1Z/E7hZElEfhtnJxD07Y5qyAW8ex+0Q1gBE9JgdHluz/e90xLYIGYJm
-U1fXfOCbH7VZM8dftx1rKw65TdMP/2YaRV9r/sz0X5S5xIR+/MHh6mcYXAYTKSy1
-i9xdR9/PosLdFK06i+26dl3oUX2xXBe5Y1/1QP8MCHVVH3Dg77UYiiquQ7wajBzq
-3WMnQeNi0+AXKe5p0ufra2QBhdfnWnIw09bF+8dPaaYoSzoWSFygeCc5d4nVTVjr
-LZq8FEdNdqYCVO0dbMX9eBwabpzDu7SL+a1ranqGi+NnMdlzqyJWrTHNRFgExeDN
-4IfXArsXvNbm+U5iRbn0TbO7R3U3NNJ33eXUnWwrYjc7tbZmx7L7RfbfCC08MLP2
-Fo4HoCPMRN18OWbYzyB7LgJgSMo7tXSIDHA7+58FtYDZbqI/FZdAF1qiADJCOmFA
-v4ANulwMlGhvtnjKegMKYVUQMwyww/BtzQaoRlx26Ng2EWkMTsWEvlw9XUQH6hbp
-c5dgCnjWI2gAi+vBXYd1BWhRwngV/LNLQeskAmOyMLFMC0BAm8blXW2YvNu4cYfi
-GG2ikRmhCt9x11HUPSWeIZ2zZC3w8dxgVw9pf6c4OpU8JKVYO8o=
-=kjWa
------END PGP SIGNATURE-----
-
---bm44v24vxcpku64r--
