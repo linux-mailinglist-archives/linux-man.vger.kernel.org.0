@@ -2,65 +2,65 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 757C765D79D
-	for <lists+linux-man@lfdr.de>; Wed,  4 Jan 2023 16:55:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 335B665D7D8
+	for <lists+linux-man@lfdr.de>; Wed,  4 Jan 2023 17:06:22 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233514AbjADPzQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 4 Jan 2023 10:55:16 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50016 "EHLO
+        id S230341AbjADQFt (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 4 Jan 2023 11:05:49 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57436 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234370AbjADPzP (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 4 Jan 2023 10:55:15 -0500
-Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com [IPv6:2607:f8b0:4864:20::230])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DF8EF3AAA9
-        for <linux-man@vger.kernel.org>; Wed,  4 Jan 2023 07:55:14 -0800 (PST)
-Received: by mail-oi1-x230.google.com with SMTP id h185so7314594oif.5
-        for <linux-man@vger.kernel.org>; Wed, 04 Jan 2023 07:55:14 -0800 (PST)
+        with ESMTP id S239737AbjADQFd (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 4 Jan 2023 11:05:33 -0500
+Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com [IPv6:2607:f8b0:4864:20::331])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1015C21BA
+        for <linux-man@vger.kernel.org>; Wed,  4 Jan 2023 08:05:33 -0800 (PST)
+Received: by mail-ot1-x331.google.com with SMTP id p17-20020a9d6951000000b00678306ceb94so21000977oto.5
+        for <linux-man@vger.kernel.org>; Wed, 04 Jan 2023 08:05:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=hg7sQ2Gm8Oc+fNNMq+ULxWKmndjqNOlSyi/aJRvp/mA=;
-        b=XWU5QUTowXG7/5RWRDP5WzUdHahfRIYb+1YXrEQjkZU4Hw21CFtYDsYxQ49KLmDifY
-         hUuPk/Eb6faRBDKUEHtPSzZEqGtlmWhm8cKYFZZlSor1RiIzUj7wXiSowYTuhiTOkbtZ
-         In8D5aVf97yThC7u1o5Qjs7nXPeDHGyJvUR5iQs/Mm9OXBY5XQfIJUA8fpoUUxhFAnOF
-         SQm52+qCTIpVZXgp33D7V0rs0BSSxXO5S0JZljf8Szl/RPUp4vOA97dk06Xm0zB8AbFz
-         SuRG3eOFgVgyFHnxzQTkGYlMOA9zXdQmVGwKKvDV4qvl8CKGgs/b5qig1tQgn5iBfHWH
-         xpNQ==
+        bh=vuCdMdp3XY2oWrz+fezDlfBf3DKDz7s0myLSD1WOhB4=;
+        b=mW865iOa27hn/nx8YWKqWLv2VzoYYokBqdnbzB+1vsCpfPIN2Gx1DyK8gsAYYPz3hn
+         dhdOCvF6ODKgfzfZswRgpuKBLuWUCnHfTQwvuQ0ZaOXGTvhJT2sMM3iOmcbrAXJ3nloN
+         EaZ724TSkEyWMsuQRaSkkhZWTaIi8ENFMVLD57l3CNodLeX0c02HIurJbt/D4SWVidnS
+         MTh/8tN73GDW102EaumEdimMMarAJcQQ+2FGHPIRMPAsP/88JkPBc4Efp3aOmW5KKt78
+         Sxnhp2jP6EjJGtREEpPbtAM3H79r1tIJlQW9xDFTLvfnaWMp2t9w7FifNVBRoE9k4d1z
+         lIww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=hg7sQ2Gm8Oc+fNNMq+ULxWKmndjqNOlSyi/aJRvp/mA=;
-        b=tKIrwnolrABr7lmwPxxLIgx011LsR1tJv5qdgiP7JkmoVeE3zhnNpzYswnjCl12jrB
-         Z4GCHWPM/ecQaKMIR+ESo2RcK3Au39ozfGPrCJpMYcuoVeQWKoaEzP6jYoK69HFtq32b
-         pk7iD1flPrFXpxvBXxRic2N4CZsRGx3PFcHzmuEJrbqqLI5VIvrUNMKm0EBgOBm8m8fY
-         ynBkuAVqYL8JV8zbFMJWFpLWOdMwV30dgWGalxx4cDRvfAbj7uBDX1O96XSdVONUz2Kq
-         rCBBOpHZyfYnkVYtfXcZdAKgv1wA8rN7k3BoFUJY7rx3YlmcY6GU56/fXMIRjKC9IJyV
-         8YoQ==
-X-Gm-Message-State: AFqh2kpjRk2LmXNGkoJ9erkXHLwRpC9i1MrMifAYZAj6+3EHCh3H8ZvZ
-        Gg0ei7IhwigmIHB6IyPItWEQwLpcuSs=
-X-Google-Smtp-Source: AMrXdXuesGBIVEm9Sb+iXYR7zD2pY8YHKDsR9dyNquHjJFAQF5hvtJAJVRdOfmmQMQuE1LqsGNkIkQ==
-X-Received: by 2002:aca:d841:0:b0:35c:29d0:fda5 with SMTP id p62-20020acad841000000b0035c29d0fda5mr21083236oig.59.1672847714152;
-        Wed, 04 Jan 2023 07:55:14 -0800 (PST)
+        bh=vuCdMdp3XY2oWrz+fezDlfBf3DKDz7s0myLSD1WOhB4=;
+        b=s7cQD1IfwuMiDmgoQBZUXT6CC+lv1ph90vN3ggDtBip0+UO3OxEnBGjCsmNNO6gdKv
+         ywVduUyhAs7ddodPDC266xosvil347WJeSouhuD+Jv5BSdIUVfBs29uoNXr2lC0eODEM
+         YbRGXHT4fp5fn/2BR90tx5G0vLYZc1YafZH3Ibyn9vilxuXGc0fDojK3JzSmlIxhuVN8
+         ZVJhIUNVXytNxStoLm524vwiv+Zau0eXcvxVqAfxEgxYGvKQNtl9DR/A8h1b/slgY/oo
+         FJgTL/EncmN3M5QMqN9sQWxGkmxTlhHIE5ttTp/oR0qG8xgw3wUf90NWMH4HF+jSX2nz
+         O3zQ==
+X-Gm-Message-State: AFqh2kqadnsUIZn7eT0v+h3Osicrhi9DaCmfwixctPUXMPHtZiyPNIZn
+        qT6t99j5W/ax9P16wiCHKNDqmFHny9U=
+X-Google-Smtp-Source: AMrXdXsfKKzPc558j8CcIAKY0MSpIrAI4w4ffSCq49UCt8tBcygStQyiy4v9/4alJwgD5YnN5inmsA==
+X-Received: by 2002:a05:6830:11da:b0:668:60:5903 with SMTP id v26-20020a05683011da00b0066800605903mr23293511otq.1.1672848332319;
+        Wed, 04 Jan 2023 08:05:32 -0800 (PST)
 Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id b66-20020acab245000000b0035b4b6d1bbfsm14196753oif.28.2023.01.04.07.55.13
+        by smtp.gmail.com with ESMTPSA id j69-20020a9d17cb000000b0066c45517c8fsm16085786otj.52.2023.01.04.08.05.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Jan 2023 07:55:13 -0800 (PST)
-Date:   Wed, 4 Jan 2023 09:55:12 -0600
+        Wed, 04 Jan 2023 08:05:31 -0800 (PST)
+Date:   Wed, 4 Jan 2023 10:05:30 -0600
 From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
 To:     Alejandro Colomar <alx.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org
-Subject: Re: [PATCH 1/9] ldconfig.8: Fix markup nits
-Message-ID: <20230104155512.klkmu62oaz7ore5a@illithid>
-References: <20230104073807.gcohk253vopp4ii3@illithid>
- <8527af62-1921-63cc-a94b-db3d9af4ee49@gmail.com>
+Subject: Re: [PATCH v2 0/9] intro.3, libc.7, ldconfig.8: Revise
+Message-ID: <20230104160530.ony3dowlttbjehha@illithid>
+References: <20230104073746.govufof5kk34nonj@illithid>
+ <5fc0b202-0829-42b2-760a-25e1de006e34@gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="pizu3vs73emap33e"
+        protocol="application/pgp-signature"; boundary="t6mzjar7tkgq632y"
 Content-Disposition: inline
-In-Reply-To: <8527af62-1921-63cc-a94b-db3d9af4ee49@gmail.com>
+In-Reply-To: <5fc0b202-0829-42b2-760a-25e1de006e34@gmail.com>
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
@@ -72,99 +72,93 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---pizu3vs73emap33e
+--t6mzjar7tkgq632y
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
 Hi Alex,
 
-At 2023-01-04T13:26:33+0100, Alejandro Colomar wrote:
-> This patch looks good to me.  However, I didn't apply it, since I have
-> a few comments below.
+At 2023-01-04T13:34:59+0100, Alejandro Colomar wrote:
+> > v2:
+> >=20
+> > * No longer migrates `PP` macros to `P`.
+> > * No longer migrates ASCII "arrow" `->` to troff special character.
+> I'd like this change, if you can apply it globally.  But we'll leave
+> it for a separate patch set.
 
-Ok.  V3, here we come!
+Yes.  I already chased it down.  "Globally" affects 2 pages.
 
-> >   .SH NAME
-> >   ldconfig \- configure dynamic linker run-time bindings
-> >   .SH SYNOPSIS
->=20
-> We should wrap this in .nf/.fi
+There is more elaborate ASCII art in sched(7).  That can be made
+relatively pretty with Unicode arrow characters; the four orthogonal
+single-stemmed arrows even happen to have portable special character
+identifiers going back to 1976 AT&T troff.
 
-That will have a cost.  It will mean using a lot of \c escape sequences
-to connect the output lines.
+But I'm not sure about chewing that one off.  Using special character
+escape sequences would make the source looked weirder and misaligned.
+There's a way around that (the `tr` request) but that's a fairly chunky
+breach of the "no *roff requests in man page sources) rule that Ingo
+Schwarze and I try to hold to.
 
-The existing synopsis fits within 74 output columns on a terminal.
+Still, it's worth thinking about whether you'd like to have pic(1)
+diagrams in the Linux man-pages, with ASCII/Unicode-art fallbacks for
+terminal devices.
 
-Do you think it's worth it?
+> This more or less corresponds to what we call srcfix (although some might
+> qualify as ffix; the ones you called imprecise).
+[...]
+> This more or less corresponds to what we call tfix.
+[...]
+> This more or less corresponds to what we call wfix.  wfix can englobe
+> tfix normally.
+[...]
+> This more or less corresponds to what we call ffix.  It might be good
+> to break such changes in two or three separate categories, although
+> sometimes one needs the other, and it's simpler to just apply one
+> patch that does all of them.
 
-> Although maybe this goes better in the style patch, since it's a
-> formatting fix.
+I will recast my characterizations in the commit messages.  I used to
+know the above categories, but they bit-rotted in my brain due to my
+feverish rush to get groff 1.23 ready.  Context switches are expensive
+in meatspace, too...
 
-I can shift it.
+Do you continue to practice Michael's indifference to Git's first-line
+"limit" to commit messages?  I have some pending patches that look like
+this.
 
-> I will suggest again that I believe \% should be the default in manual
-> pages. Count how many times you want to break highlighted stuff vs how
-> many times you want to not break such stuff.
+commit ab218d9f02bcfb9d6c7c127ed90c9a8c34cd8ba5
+Author: G. Branden Robinson <g.branden.robinson@gmail.com>
+Date:   Wed Jan 4 02:31:37 2023 -0600
 
-I don't see good prospects of this for the same reason that I was able
-to talk Ingo Schwarze out of keeping section headings in shouting
-capitals.  It's a matter of preference, but one preference means
-discarding information irrevocably in the source document, and the other
-means that the information is present but unused.
+    adjtimex.2, eventfd.2, mmap2.2, perf_event_open.2, quotactl.2, shmget.2=
+, times.2, drand48.3, ldexp.3, random.3, tgamma.3, proc.5, mount_namespaces=
+=2E7, random.7, sched.7, tcp.7, udplite.7, units.7, unix.7, utf-8.7: srcfix
 
-groff man(7) _has_ a mechanism for this, and has since groff 1.19
-(2003).  It's the `HY` register.  People can put this in their man.local
-files (on Debian-based systems, that's in /etc/groff).
+    Use correct *roff special character for hat/caret/circumflex accent.
 
-=2Enr HY 0
-
-Colin Watson's man-db man(1) also has a feature to suppress hyphenation,
-using a hack; it's not pretty but it works even on other *roff
-formatters.
-
-I don't insist that people keep hyphenation enabled, but assuming that
-no one will do so will keep us from putting worthwhile information in
-our man pages.
-
-If you dread the tedium of adding \% escape sequences to "keywords" all
-over the place, I don't blame you.  This is one reason I proposed my
-most ambitious man(7) extension yet, a two-macro semantic tag mechanism.
-
-https://marc.info/?l=3Dlinux-man&m=3D165868366126909&w=3D2
-
-As with the new `MR` in groff 1.23, you could then suppress hyphenation
-in the internal macros that wrap "tagged" keywords.
-
-> > -.\" FIXME glibc 2.7 added -i
->=20
-> And this is why comments are harmful.  I fint it rather uncommon for
-> comments to be up-to-date with the code :P
-
-I generally find FIXME comments useful.  It's a happy day when I find
-one that's already been addressed.  :)
+    Signed-off-by: G. Branden Robinson <g.branden.robinson@gmail.com>
 
 Regards,
 Branden
 
---pizu3vs73emap33e
+--t6mzjar7tkgq632y
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmO1oVgACgkQ0Z6cfXEm
-bc6zbA/7BLauqrZ7FdLyhmLWFHX6NEKrLcDvIj9IYDzaB3gHV4dPYzV3iT21WZCh
-xSZjS0A1fQLSB6D1YeRhoQSz1QzZyIO6jhf1EiFuUsLkobUzFXIR0qNJL30DOxWQ
-SZqot/KVC20zaReU4R1a79jLYbMdxT6GPj/q5mxdNO6pkb+fCEoqGozf6e6qWlP4
-YZGl6fYs+PirGIggRSghPIExoOa8rCxKjmsZ/bhCLrNBYgR2Wht01jmBuEq635pw
-hHboE+J0R0u5dLoKzqE/5KG3aC5EBN9O/AAhUZoNCKId1aIyAvYvG0fzzpwnpbXs
-gatHsYRisEkUumgGkZ0xrizDEVwQD2S2DiYqWE9h97uXLI2DqHTZGEKZvIdnp3e6
-oxA5GcCvolwKt8m8yZOAYLRkF5+hA9ZCXqCk7cNsCoSVISCL8WjP3ncjo7A6/Il8
-e9wd8xxFpKXGomlAuE6wHLZ1k+8Kvu2swfMdbNPyqZU4DLN+N/I0sD7dKamubeuy
-m7VbVWcOEXYaMausQYl8Lx0Dq/N/kvLOrI6GUKAO4u8dIsF1DplAV90NhX4mBxdX
-czhACZyCfaLtrvXsqXjd8YzV0kxU1jw2piqYlhzvPos9taglJ4A5yvj34Xkc1lDV
-Fig+N1I2KZ4l1sQVMfr9nh/jCaQ3jSrzznRQGjB3unvLjSzelDM=
-=J8BJ
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmO1o8EACgkQ0Z6cfXEm
+bc7JjQ//Xvp4E/5gSpaBUbV+XPafLahWzHT3yF9W9fVmC2uGg3K3oPXQQwsmaIsy
+vo1yCBP9EnuDLhv1U8rJkzruixPJk7UTI0T7HK+BK4ht6e5Y0FTXGF6TpNZ/tM+y
+wq1b2CeIC8vSSwB5noLYjx4fiNQjnGCwPwl7M7q1NfHKGckuLOStj30EXwo0ZjPr
+sD/EZJTPTkOyfMUIudhW8uRZ7w5gmTMms0y49t1oPI9624fkY53NXB9Po992xhSD
+0NX4gkb09zTkoRy5T2cx2cNkcxKYKBwHszTw4WK+yFnTkGL7pH6WxbvpOB+bfkDn
+5eqkZ1FMeS8wdIIuBWUT2dukN8CJ5e10TElXm905WOyb5Y2MmxDKSWbDXNbIzXLE
+l+x2UsA4LKtavbx9tCjwGFOskQ7h290HwuXJWZbJdfyzmvMG+RTSsYQ8HnL4kzpp
+MECWyLKsFXBDOQs5XAhjO5WktL++hZucPyREg5di4Pu9j/0j076YbY2ACP7drC7Q
+l4fIMsyljiDEIEg7hFnxwycOGmjwR7jiA+uGeTEtskJsHf1dmTA4Wsfirj+h3A/r
+MQxcDYNP/tj7XAmWoAGuQzXaELQAIPTJ3exo1l0wpjtiD1T57PF87bjB4hSpgjPK
+1HPZZlAW6N2JdhczZSmfN3sHOScU9gKUnW2AtBIYw5i4FevJPsQ=
+=8DZd
 -----END PGP SIGNATURE-----
 
---pizu3vs73emap33e--
+--t6mzjar7tkgq632y--
