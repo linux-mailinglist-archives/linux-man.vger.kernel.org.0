@@ -2,63 +2,70 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 48A5265CDC3
-	for <lists+linux-man@lfdr.de>; Wed,  4 Jan 2023 08:42:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 32E9865D292
+	for <lists+linux-man@lfdr.de>; Wed,  4 Jan 2023 13:27:07 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231355AbjADHm2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 4 Jan 2023 02:42:28 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42038 "EHLO
+        id S239306AbjADM1E (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 4 Jan 2023 07:27:04 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51390 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230251AbjADHm1 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 4 Jan 2023 02:42:27 -0500
-Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com [IPv6:2607:f8b0:4864:20::335])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CBDD9193D1
-        for <linux-man@vger.kernel.org>; Tue,  3 Jan 2023 23:42:25 -0800 (PST)
-Received: by mail-ot1-x335.google.com with SMTP id i26-20020a9d68da000000b00672301a1664so20367679oto.6
-        for <linux-man@vger.kernel.org>; Tue, 03 Jan 2023 23:42:25 -0800 (PST)
+        with ESMTP id S239133AbjADM0h (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 4 Jan 2023 07:26:37 -0500
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com [IPv6:2a00:1450:4864:20::32e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A907C14015
+        for <linux-man@vger.kernel.org>; Wed,  4 Jan 2023 04:26:36 -0800 (PST)
+Received: by mail-wm1-x32e.google.com with SMTP id m8-20020a05600c3b0800b003d96f801c48so23877514wms.0
+        for <linux-man@vger.kernel.org>; Wed, 04 Jan 2023 04:26:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=k2bUbgfskMt19ItrWr+8XPp1g3s3F6j1TlEX4kDLKY4=;
-        b=Qhjj2A+eQHtPzB9tDLQ/YdnZ5qkKJm7E3v+BPWn+sqmuu6TcogoRsUhDd2IFpdMTtQ
-         243tfraZL8nH3Bom0013sPdF4HPlCq+fJh8P02ESnmbhfzGooVuPQOA0I0WCuoRVgPrq
-         zZGaXgzDGNB/i18VQTtAuQrY0FnsHMKInESQBjlPOHxFJqS/ZTOOdY+U9ojtSy87N8op
-         +G9JSSKugUr/ojZVyB3V8Ro/4YKcjo9wZ+voCyvjA18P63U5bVrdPACAV5V/Zp2RnB8K
-         owtqKPR2RzTK4MqWx/NJjV/sgGCMrjLWdml3ChgLMKj2u1bw5ZcErCUlpn1TXYnPs9kf
-         iO6A==
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=iOyHYJUv9PJiEGpx+S3VKme+3HzcDnOW606Hu4CjOWM=;
+        b=LrrRfLQ3r04x1VIUICd1m+2dIr9scwP8Yi45h9f4AON7FQVFxdigge/SD0EO50arz/
+         n3e8dcS9DIHPhWkrLvFSFViq7LDPchE1PfBKTEMRqef8eC6tSxcpcyNgiOtLJSSOPNnS
+         7WOdsTR/a5rhpEZvSr4Gjw2BJQPPokvvF+PALt15hwnwFHAe1P3JqhoFf2p6FN/veSC9
+         747tkeTlnGjPtDlK4j30G/a0H+3R8T0BcIfkJzNs6C5CEQ3f0xsNpdfom5hzPNfBBWgL
+         c5I5MJOkfcoRAmZl1sDlB+wRs01lWoM+8pGJ50f3TZllajJOaYENK4gdf/VTXd52HEDZ
+         Y1KQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=k2bUbgfskMt19ItrWr+8XPp1g3s3F6j1TlEX4kDLKY4=;
-        b=xDws2trivo/vAG1YxOZmREiqiups+ovS6s4pzyn6xap2XfO/IP3WYNyVxmUDnA8gew
-         6DGWgYXq0qqgJ0WLwZmBHaoBNDzLkSiyrgJWHzi8YXUo4VvnoTzQJYEGH8vhG7q3ANwU
-         vmwuikmyENb6OR9EFKIN+oUvsaTvvMFLkx64otknTebVaBnTABGKkwFbnfZ2350wOZLh
-         fN232oz2fbWri558fPfNXfEso8NawHEbtLAGnMp69KaqGfbhjkhzVmnR3bAsNtE+qqda
-         GIZjNxrqy9dWgLQbNz2CuXBTZrPkZ8EL7FbufeXJPLj6iVKvgpCOMKPBo0oPohYhDM6N
-         zEYA==
-X-Gm-Message-State: AFqh2ko4iS9ph/rZIKRpaxYjoCJt/YxIfxqRfB+Cn29aJ1cq+t0869J1
-        Y7S0UonOGfrxdtaM9t58VAJEMHdrPJU=
-X-Google-Smtp-Source: AMrXdXsFBavx2md4lWOCGbSs5dHL7MZmwT9b9NxWZxouq7f6UDkRjDYO3dm4ychr4lL6Rqz43L9EoA==
-X-Received: by 2002:a05:6830:1652:b0:670:6328:f4bb with SMTP id h18-20020a056830165200b006706328f4bbmr23598320otr.24.1672818145175;
-        Tue, 03 Jan 2023 23:42:25 -0800 (PST)
-Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id g31-20020a9d12a2000000b00661ad8741b4sm15899355otg.24.2023.01.03.23.42.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Jan 2023 23:42:24 -0800 (PST)
-Date:   Wed, 4 Jan 2023 01:42:18 -0600
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-Subject: [PATCH 9/9] intro.3: Revise discussion
-Message-ID: <20230104074218.lvxtj7que3o4oeip@illithid>
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=iOyHYJUv9PJiEGpx+S3VKme+3HzcDnOW606Hu4CjOWM=;
+        b=kqfz9N7USauhI3Y7DSd64cbyjiiVUrXru37nizVv0MltgeiOZd+c+zbC/tT2bXLgSg
+         gRm/IaNSWfX1iFIzkdCOdBKIbb3EdI7uSaWTINdDw0TAIwQspLeswsu0TjTwRRf6NeGP
+         62kK+N+NR2YbBy2xHgJ3t5cHB9W/zzEbRkYg0TSHoqaJAc5964iXxyF9FbMruZY/Cijn
+         R6VA7Lz+Jd6ZcEqaacL72nOM1siIMuuIELMMrozMoQu1fYkpNVsg0Iacx2NxO2AiSM0B
+         S+9XoNPj5O+WKC8bnFeQ0vapespGkP3mEqQNGSWZW1oWAwH0NqLbS74Uw/vk8PWeavxI
+         nMpQ==
+X-Gm-Message-State: AFqh2kpOC+AcmgM1lnjMS37bvC6PqxE5yna+xBft44Vx5ZtTw3J2Z2Eg
+        cHQ47kv/KMTZZzld8gx4vCE=
+X-Google-Smtp-Source: AMrXdXvTqx6cSHf2d8M8nIV/Lm/ydqWJnIY/sgWO7ecQ+iCbpo2yt3vixq357Vw5e9uTyuB4HEOeBQ==
+X-Received: by 2002:a05:600c:2d91:b0:3cf:735c:9d54 with SMTP id i17-20020a05600c2d9100b003cf735c9d54mr33086376wmg.1.1672835195199;
+        Wed, 04 Jan 2023 04:26:35 -0800 (PST)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id x15-20020a1c7c0f000000b003c6bbe910fdsm63867392wmc.9.2023.01.04.04.26.34
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Jan 2023 04:26:34 -0800 (PST)
+Message-ID: <8527af62-1921-63cc-a94b-db3d9af4ee49@gmail.com>
+Date:   Wed, 4 Jan 2023 13:26:33 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+Subject: Re: [PATCH 1/9] ldconfig.8: Fix markup nits
+Content-Language: en-US
+To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc:     linux-man@vger.kernel.org
+References: <20230104073807.gcohk253vopp4ii3@illithid>
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <20230104073807.gcohk253vopp4ii3@illithid>
 Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="un4t63ebvdro7iqw"
-Content-Disposition: inline
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+ protocol="application/pgp-signature";
+ boundary="------------60Aizv6Z98kJKN6kY0n6fcfn"
+X-Spam-Status: No, score=-3.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -67,133 +74,119 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------60Aizv6Z98kJKN6kY0n6fcfn
+Content-Type: multipart/mixed; boundary="------------5zlTc6u60N77bhsSAr5M4bxS";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: linux-man@vger.kernel.org
+Message-ID: <8527af62-1921-63cc-a94b-db3d9af4ee49@gmail.com>
+Subject: Re: [PATCH 1/9] ldconfig.8: Fix markup nits
+References: <20230104073807.gcohk253vopp4ii3@illithid>
+In-Reply-To: <20230104073807.gcohk253vopp4ii3@illithid>
 
---un4t63ebvdro7iqw
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+--------------5zlTc6u60N77bhsSAr5M4bxS
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-* Recast introduction to discuss the purpose of section 3 as a whole
-  instead of focussing solely on the standard C library.
-* Explain basic principles of usage of any C library to the novice.
-  (This page _is_ called "intro".)
-* Drop material about organization of glibc, now moved to libc(7).
-* Make crystal clear what Alex's new subsections are for.
+SGkgQnJhbmRlbiwNCg0KT24gMS80LzIzIDA4OjM4LCBHLiBCcmFuZGVuIFJvYmluc29uIHdy
+b3RlOg0KPiAqIERyb3Agc3RhbGUgRklYTUUgYW5ub3RhdGlvbiByZWdhcmRpbmcgY29tbWl0
+IElEIGZvciBgLWlgIG9wdGlvbi4NCj4gKiBSZXdyaXRlIHN5bm9wc2VzIHRvIHVzZSBtYW4o
+NykgZm9udCBtYWNyb3MgaW5zdGVhZCBvZiAqcm9mZiBmb250DQo+ICAgIHNlbGVjdGlvbiBl
+c2NhcGUgc2VxdWVuY2VzLg0KPiAqIERyb3AgcmVkdW5kYW50IGBQRGAgbWFjcm8gY2FsbHMu
+DQo+ICogUmV3cml0ZSBvcHRpb24gbGlzdCB0byB1c2UgbWFuKDcpIGZvbnQgbWFjcm9zIGlu
+c3RlYWQgb2YgKnJvZmYgZm9udA0KPiAgICBzZWxlY3Rpb24gZXNjYXBlIHNlcXVlbmNlcy4N
+Cj4gKiBVc2UgYFRRYCBtYWNybyB0byBpbmNsdWRlIG11bHRpcGxlIHRhZ3MgZm9yIG9wdGlv
+bnMgd2l0aCBsb25nIHN5bm9ueW1zDQo+ICAgIGluc3RlYWQgb2YgY29tbWEgbm90YXRpb24u
+DQo+ICogQnJlYWsgaW5wdXQgbGluZXMgYWZ0ZXIgY29tbWFzLg0KPiAqIFNldCBtdWx0aS13
+b3JkIHBhcmVudGhldGljYWxzIG9uIHRoZWlyIG93biBpbnB1dCBsaW5lcy4NCj4gKiBCcmVh
+ayBpbnB1dCBsaW5lcyBhdCBwaHJhc2UgYm91bmRhcmllcyBtb3JlIG9mdGVuLg0KPiAqIFBy
+b3RlY3QgbGl0ZXJhbHMgZnJvbSBhdXRvbWF0aWMgaHlwaGVuYXRpb24gd2l0aCBgXCVgIGVz
+Y2FwZSBzZXF1ZW5jZS4NCj4gKiBVc2UgXH4gZXNjYXBlIHNlcXVlbmNlIGluc3RlYWQgb2Yg
+cXVvdGVkIGFyZ3VtZW50cyBhdCB3b3JkDQo+ICAgIGJvdW5kYXJpZXMgaW4gb3B0aW9uIHN5
+bm9wc2VzLg0KPiANCj4gU2lnbmVkLW9mZi1ieTogRy4gQnJhbmRlbiBSb2JpbnNvbiA8Zy5i
+cmFuZGVuLnJvYmluc29uQGdtYWlsLmNvbT4NCg0KVGhpcyBwYXRjaCBsb29rcyBnb29kIHRv
+IG1lLiAgSG93ZXZlciwgSSBkaWRuJ3QgYXBwbHkgaXQsIHNpbmNlIEkgaGF2ZSBhIGZldyAN
+CmNvbW1lbnRzIGJlbG93Lg0KPiAtLS0NCj4gICBtYW44L2xkY29uZmlnLjggfCAxMDkgKysr
+KysrKysrKysrKysrKysrKysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0tLS0tDQo+ICAgMSBm
+aWxlIGNoYW5nZWQsIDcxIGluc2VydGlvbnMoKyksIDM4IGRlbGV0aW9ucygtKQ0KPiANCj4g
+ZGlmZiAtLWdpdCBhL21hbjgvbGRjb25maWcuOCBiL21hbjgvbGRjb25maWcuOA0KPiBpbmRl
+eCBkNjA4YWFmNTYuLjBlNzRjMTc5MSAxMDA2NDQNCj4gLS0tIGEvbWFuOC9sZGNvbmZpZy44
+DQo+ICsrKyBiL21hbjgvbGRjb25maWcuOA0KPiBAQCAtOSwyMiArOSwyOSBAQA0KPiAgIC5T
+SCBOQU1FDQo+ICAgbGRjb25maWcgXC0gY29uZmlndXJlIGR5bmFtaWMgbGlua2VyIHJ1bi10
+aW1lIGJpbmRpbmdzDQo+ICAgLlNIIFNZTk9QU0lTDQoNCldlIHNob3VsZCB3cmFwIHRoaXMg
+aW4gLm5mLy5maQ0KDQpBbHRob3VnaCBtYXliZSB0aGlzIGdvZXMgYmV0dGVyIGluIHRoZSBz
+dHlsZSBwYXRjaCwgc2luY2UgaXQncyBhIGZvcm1hdHRpbmcgZml4Lg0KDQo+IC0uQlIgL3Ni
+aW4vbGRjb25maWcgIiBbIiBcLW5OdlhWICJdIFsiIFwtZiAiIFxmSWNvbmZcZlBdIFsiIFwt
+QyAiIFxmSWNhY2hlXGZQXSBbIiBcLXIgIiBcZklyb290XGZQXSINCj4gLS5JUiBkaXJlY3Rv
+cnkgXC4uLg0KPiAgIC5QRCAwDQo+ICsuXCIgVE9ETz86IC1jLCAtLWZvcm1hdCwgLWksIC0t
+aWdub3JlLWF1eC1jYWNoZSwgLS1wcmludC1jYWNoZSwNCj4gKy5cIiAtLXZlcmJvc2UsIC1W
+LCAtLXZlcnNpb24sIC0/LCAtLWhlbHAsIC0tdXNhZ2UNCj4gKy5CIC9zYmluL2xkY29uZmln
+DQo+ICsuUkIgWyBcLW5OdlhWIF0NCj4gKy5SQiBbIFwtZg0KPiArLklSIGNvbmYgXQ0KPiAr
+LlJCIFsgXC1DDQo+ICsuSVIgY2FjaGUgXQ0KPiArLlJCIFsgXC1yDQo+ICsuSVIgcm9vdCBd
+DQo+ICsuSVIgZGlyZWN0b3J5IC4uLg0KPiAgIC5QUA0KPiAtLlBEDQo+ICAgLkIgL3NiaW4v
+bGRjb25maWcNCj4gICAuQiBcLWwNCj4gICAuUkIgWyBcLXYgXQ0KPiAtLklSIGxpYnJhcnkg
+XC4uLg0KPiAtLlBEIDANCj4gKy5JUiBsaWJyYXJ5IC4uLg0KPiAgIC5QUA0KPiAtLlBEDQo+
+ICAgLkIgL3NiaW4vbGRjb25maWcNCj4gICAuQiBcLXANCj4gKy5QRA0KPiAgIC5TSCBERVND
+UklQVElPTg0KPiAtLkIgbGRjb25maWcNCj4gKy5CIFwlbGRjb25maWcNCg0KSSB3aWxsIHN1
+Z2dlc3QgYWdhaW4gdGhhdCBJIGJlbGlldmUgXCUgc2hvdWxkIGJlIHRoZSBkZWZhdWx0IGlu
+IG1hbnVhbCBwYWdlcy4gDQpDb3VudCBob3cgbWFueSB0aW1lcyB5b3Ugd2FudCB0byBicmVh
+ayBoaWdobGlnaHRlZCBzdHVmZiB2cyBob3cgbWFueSB0aW1lcyB5b3UgDQp3YW50IHRvIG5v
+dCBicmVhayBzdWNoIHN0dWZmLg0KDQo+ICAgY3JlYXRlcyB0aGUgbmVjZXNzYXJ5IGxpbmtz
+IGFuZCBjYWNoZSB0byB0aGUgbW9zdCByZWNlbnQgc2hhcmVkDQo+ICAgbGlicmFyaWVzIGZv
+dW5kIGluIHRoZSBkaXJlY3RvcmllcyBzcGVjaWZpZWQgb24gdGhlIGNvbW1hbmQgbGluZSwN
+Cj4gICBpbiB0aGUgZmlsZQ0KPiBAQCAtMzcsNyArNDQsOCBAQCBhbmQNCg0KWy4uLl0NCg0K
+PiBAQCAtMTA1LDM1ICsxMjIsNDEgQEAgRmFpbHVyZSB0byBmb2xsb3cgdGhpcyBwYXR0ZXJu
+IG1heSByZXN1bHQgaW4gY29tcGF0aWJpbGl0eSBpc3N1ZXMNCj4gICBhZnRlciBhbiB1cGdy
+YWRlLg0KPiAgIC5TSCBPUFRJT05TDQo+ICAgLlRQDQo+IC0uQlIgXC1jICIgXGZJZm10XGZQ
+LCAiIFwtXC1mb3JtYXQ9XGZJZm10XGZQDQo+ICsuQkkgXC1jXH4gZm10DQo+ICsuVFENCj4g
+Ky5CSSBcLVwtZm9ybWF0PSBmbXQNCj4gICAoU2luY2UgZ2xpYmMgMi4yKQ0KPiArLlwiIGNv
+bW1pdCA0NWVjYTRkMTQxYzA0Nzk1MGRiNDhjNjljODk0MTE2M2QwYTYxZmNkDQo+ICAgQ2Fj
+aGUgZm9ybWF0IHRvIHVzZToNCj4gICAuSVIgb2xkICwNCj4gICAuSVIgbmV3ICwNCj4gICBv
+cg0KPiAtLklSIGNvbXBhdCAuDQo+IC1TaW5jZSBnbGliYyAyLjMyLCB0aGUgZGVmYXVsdCBp
+cw0KPiArLklSIFwlY29tcGF0IC4NCj4gK1NpbmNlIGdsaWJjIDIuMzIsDQo+ICt0aGUgZGVm
+YXVsdCBpcw0KPiAgIC5JUiBuZXcgLg0KPiAgIC5cIiBjb21taXQgY2FkNjRmNzc4YWNlZDg0
+ZWZkYWEwNGFlNjRmODczN2I4NmYwNjNhYg0KPiAtQmVmb3JlIHRoYXQsIGl0IHdhcw0KPiAt
+LklSIGNvbXBhdCAuDQo+ICtCZWZvcmUgdGhhdCwNCj4gK2l0IHdhcw0KPiArLklSIFwlY29t
+cGF0IC4NCj4gICAuVFANCj4gLS5CSSAiXC1DICIgY2FjaGUNCj4gKy5CSSBcLUNcfiBjYWNo
+ZQ0KPiAgIFVzZQ0KPiAgIC5JIGNhY2hlDQo+ICAgaW5zdGVhZCBvZg0KPiAgIC5JUiAvZXRj
+L2xkLnNvLmNhY2hlIC4NCj4gICAuVFANCj4gLS5CSSAiXC1mICIgY29uZg0KPiArLkJJIFwt
+Zlx+IGNvbmYNCj4gICBVc2UNCj4gICAuSSBjb25mDQo+ICAgaW5zdGVhZCBvZg0KPiAgIC5J
+UiAvZXRjL2xkLnNvLmNvbmYgLg0KPiAtLlwiIEZJWE1FIGdsaWJjIDIuNyBhZGRlZCAtaQ0K
+DQpBbmQgdGhpcyBpcyB3aHkgY29tbWVudHMgYXJlIGhhcm1mdWwuICBJIGZpbnQgaXQgcmF0
+aGVyIHVuY29tbW9uIGZvciBjb21tZW50cyB0byANCmJlIHVwLXRvLWRhdGUgd2l0aCB0aGUg
+Y29kZSA6UA0KDQo+ICAgLlRQDQo+IC0uQlIgXC1pICIsICIgXC1cLWlnbm9yZVwtYXV4XC1j
+YWNoZQ0KPiArLkIgXC1pDQo+ICsuVFENCj4gKy5CIFwtXC1pZ25vcmVcLWF1eFwtY2FjaGUN
+Cj4gICAoU2luY2UgZ2xpYmMgMi43KQ0KPiAtLlwiICAgICAgICAgICAgIGNvbW1pdCAyN2Q5
+ZmZkYTE3ZGY0ZDIzODg2ODdhZmQxMjg5Nzc3NGZkZTM5YmNjDQo+ICsuXCIgY29tbWl0IDI3
+ZDlmZmRhMTdkZjRkMjM4ODY4N2FmZDEyODk3Nzc0ZmRlMzliY2MNCj4gICBJZ25vcmUgYXV4
+aWxpYXJ5IGNhY2hlIGZpbGUuDQo+ICAgLlRQDQo+ICAgLkIgXC1sDQo+IEBAIC0xNTQsMzEg
+KzE3Nyw0MCBAQCBJbXBsaWVzDQoNClsuLi5dDQoNCg0KLS0gDQo8aHR0cDovL3d3dy5hbGVq
+YW5kcm8tY29sb21hci5lcy8+DQo=
 
-Signed-off-by: G. Branden Robinson <g.branden.robinson@gmail.com>
----
- man3/intro.3 | 67 +++++++++++++++++++++++++++-------------------------
- 1 file changed, 35 insertions(+), 32 deletions(-)
+--------------5zlTc6u60N77bhsSAr5M4bxS--
 
-diff --git a/man3/intro.3 b/man3/intro.3
-index d2c8c132e..d28dee4cc 100644
---- a/man3/intro.3
-+++ b/man3/intro.3
-@@ -7,34 +7,34 @@
- .SH NAME
- intro \- introduction to library functions
- .SH DESCRIPTION
--Section 3 of the manual describes all library functions
--excluding the library functions
--(system call wrappers)
--described in Section 2,
--which implement system calls.
--.PP
--Many of the functions described in the section are part of the
--Standard C Library
--.RI ( libc ).
--Some functions are part of other libraries
--(e.g.,
--the math library,
--.IR libm ,
--or the real-time library,
--.IR librt )
--in which case the manual page will indicate
--the linker option needed to link against the required library
--(e.g.,
--.I \-lm
-+Section 3 of the manual describes library functions
-+generally useful to programmers,
-+excluding the system calls described in section 2.
-+Use of a C\~language library entails two requirements:
-+its symbol names must be exposed to the compiler
-+through the inclusion of a
-+.IR "header file" ,
-+presented at the beginning of a man page's \(lqSynopsis\(rq section;
- and
--.IR \-lrt ,
--respectively,
--for the aforementioned libraries).
-+(with one exception)
-+to the linker through the specification of an
-+.I \-l
-+flag,
-+documented in the page's \(lqLibrary\(rq section.
-+.PP
-+Many of the functions described are part of the Standard C Library
-+(see
-+.BR libc (7)).
-+C\~linkers link with
-+.I libc
-+implicitly by default;
-+an
-+.I \-lc
-+option is redundant.
- .PP
--In some cases,
--the programmer must define a feature test macro in order to obtain
--the declaration of a function from the header file specified
--in the man page SYNOPSIS section.
-+Sometimes,
-+the programmer must define a C\~preprocessor macro
-+to access the declaration of a symbol from a header file.
- (Where required,
- these
- .I feature test macros
-@@ -86,12 +86,15 @@ difficult history frequently makes it a poor example to=
- follow
- in design,
- implementation,
- and presentation.
--.IP \(bu 3
--3const
--.IP \(bu
--3head
--.IP \(bu
--3type
-+.TP 10n
-+.B 3const
-+Constants.
-+.TP
-+.B 3head
-+Header files.
-+.TP
-+.B 3type
-+Data types.
- .PP
- Ideally,
- a library for the C language
---=20
-2.30.2
-
---un4t63ebvdro7iqw
-Content-Type: application/pgp-signature; name="signature.asc"
+--------------60Aizv6Z98kJKN6kY0n6fcfn
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmO1LdkACgkQ0Z6cfXEm
-bc6rog/+IJJlnC2OpmzM8BfumdPo6nbEvxP43ToJsS6JzyV/5TIUW0juRpBu2dW+
-x/Ut64MVGCYLieptI6RZ60bdcyW/6St+7ZpK/oWJWer1SzMIPEcn8iVXoXIBMN6p
-NB2B09Y4UrF/NzxKg+c8pBqRem05sfLFnspOq6eZEo5O+9rrBELBSTgJaeAHgZn8
-kOCUt0YDXVpsOJhSUXnBSmJWseQsieYyx46m9Pd5fbip+SPEHIPk0AdrtpbauGBS
-e47fy/zVKWikBm9yjxxXW5ZQGDd+U9u+Pe80ksqyk4hHgmHVLDQDZdiTpbUbvGoF
-PxUmpYJq4ZrvTAOF/bCIyr7OljEfMx+VEADIPiIc/MoEh3gFDZ5SDA0vkC42bTAR
-dZLJqQmfNb+WekYyyY+vJv4acKUcTNdrptvbq5BheqIFTNfLSJs6GQtQHBTNuvAU
-kTaCnMl6vjDmQ7yeh6rfe2tRmdHvTbnhQVTS6zAg/bLNCfpFudyaj+mpYCqXCrHu
-80qIfxI6mF7EmYrXPZ5UGnCE1gGBQwjShWgEPlyEvbho04i4CnAud5JqQcN6ZAZj
-+ZFfgNr0RMgnZnxCgZ+XRn+SWkrBQiNbilFCl9JBMzjWsKSAxgU8zdPPxSMbak2K
-h7egI3YbCaPx6EAmJ1TXgmWEz7Isjgj2CuIaVZN0dQyjer4hPKo=
-=H4+P
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmO1cHkACgkQnowa+77/
+2zIoxBAAooQbm7QLap2QN78A1FxfR1L9XpbA0hOcohasM0woKu5u4+0F4kwUSZI1
+n31Kd6ZdcsFbeJ+cNkV6XJUQVS/ZLeiZgmkpD0aFDWz7446qQG2mTUy01BBA+sPh
+gCEpWo1iJsAbYxuMsnOD6w9T8+ZWnfv6PYH9C/jQr9Y2nqTJz8pMmrf8C7IXByb/
+E0+qhngNkNtnLSgNktNLll+XLRPqXH62e74FtutWH7UPNnxfedqcDC9tUyr4cE2r
+BiJkijmAcXu7QCbclC/HOvtwKALeR7RHRGjjTsx8VQ0w9TY0PahpCvNRQYuoBw0o
+xhv0RaFZY7dhs9QO5QOHNuDargawrrHDiSD4w9U3HF9MvStvLzffcphWrnWfcsus
+JXxrXrnbt5ySwDiuJcac1t41Uk1WpSBVz3AgH4SS1HS/FmOmpr7dG8ox1V66Bg2z
+JbNrdDaOgUratM55K7182yGW8q10PTk1qGZtuXRM206kAsLGeWMiS+hNVtun0gLF
+bUdB4r6keqmiUz4y/LdQReZnXcojTFZor5QXEbFdDxfr8hccJ8Q6XY1Ol0hAX6E3
+Avf8Walmk53jZsmjv3ZOedB7UQyBpl/f2XfcT8v4EcjOs8g409NSvDLF31cnjeyg
+0jyUJYArwXkYTqdNlMQqRvcflcHxbXaIwr8458evj9mJx9E28NY=
+=5qX9
 -----END PGP SIGNATURE-----
 
---un4t63ebvdro7iqw--
+--------------60Aizv6Z98kJKN6kY0n6fcfn--
