@@ -2,60 +2,60 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 4B29865F70D
-	for <lists+linux-man@lfdr.de>; Thu,  5 Jan 2023 23:52:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 6656A65F70E
+	for <lists+linux-man@lfdr.de>; Thu,  5 Jan 2023 23:52:27 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S236444AbjAEWwM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 5 Jan 2023 17:52:12 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42290 "EHLO
+        id S236117AbjAEWw0 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 5 Jan 2023 17:52:26 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42550 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S236382AbjAEWv5 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 5 Jan 2023 17:51:57 -0500
-Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com [IPv6:2607:f8b0:4864:20::235])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 200FF58828
-        for <linux-man@vger.kernel.org>; Thu,  5 Jan 2023 14:51:44 -0800 (PST)
-Received: by mail-oi1-x235.google.com with SMTP id r11so33261242oie.13
-        for <linux-man@vger.kernel.org>; Thu, 05 Jan 2023 14:51:44 -0800 (PST)
+        with ESMTP id S236454AbjAEWwN (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 5 Jan 2023 17:52:13 -0500
+Received: from mail-oo1-xc2f.google.com (mail-oo1-xc2f.google.com [IPv6:2607:f8b0:4864:20::c2f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EC5FA71FFE
+        for <linux-man@vger.kernel.org>; Thu,  5 Jan 2023 14:51:56 -0800 (PST)
+Received: by mail-oo1-xc2f.google.com with SMTP id m23-20020a4abc97000000b004bfe105c580so57551oop.4
+        for <linux-man@vger.kernel.org>; Thu, 05 Jan 2023 14:51:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=content-disposition:mime-version:message-id:subject:cc:to:from:date
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=DjUuIcFHEA9kYuLQqe3XeU+72/TBe0RySYGUJ5L5Vh0=;
-        b=j/C/wnWYktOwjiWpwJJVXByO++3TPJo8bfDKDE4YRfNqzycEJX/itma2ZQ8Y9G2fIC
-         iXIWD+xdUz3MaPV1fy0HK0RMDB5ADH21efyKPNdrDRZSERgqmea2+zm8d/+WY+KmXO3B
-         PXrWSH2309tSU6WBepE1JXQNZLq9/Hsjhuo3pEffTtvf7Yj4ULrx9PQCG7HM1GghLfx7
-         bftbt/SWtn/VvlO8Aog+IKVM9nifoEACfpf3fIBUo9hkte/VW25afD/8E8eMG31x2d4x
-         CM+kbbNe7uxQBRhu+cM793xCOztEMbmAi7iYBcfNtFEK8d4hKIJGVNYGz1WqurKIAesF
-         DXoA==
+        bh=4grDefUfLoaVR6pzHBy33Fxx7+zeSUQjJ0IELku9kho=;
+        b=KKqpPqZt89WoATJqvzlbE6ZCt4aa4WFYHXDAlrPJdT5LXvMjs9qMFvx/i7hlpaGWhH
+         Fs13oxoVtSRtWVUrGIDCipXLEt/B4V53lsSYpqNE2IQ6R/aj9D2TfmWINF9p6CIcQAEO
+         YBwUFazcPZDBesm1nVgfKfvh6gWRQm6fK0jrnwImi7lTNhff+pt+I+pZprXX0zo1YCr3
+         w2jPpLZDZ/uey02jFDmzKMWJSJx1qEVqt3RCuxPKeUsl4tTLrsRX9T+DbAJHia9c+Z9q
+         WDPH/PUTkvVqinUGWmhXFIoSE46JdMidoR20fmJ0PFCOCJ7iM4NxuXBhUECY10Yllffj
+         VEUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-disposition:mime-version:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=DjUuIcFHEA9kYuLQqe3XeU+72/TBe0RySYGUJ5L5Vh0=;
-        b=PFSRo47wWgEjdQIT5r/aZBQwwKM3f4/yUgZIsYz1y1cfQOUvR1dFcBnrm5xRm0rCOL
-         T5YzdakcE/vnl9tN57R4+FriwevEpOn7WZ35an9QuGi3fhSWQCUtJ3X1q3zjOzgrwiBn
-         CNfRFIYO5WIG1OW/u0Uq+qJwZTgGzI6xOiilh4vrdJ7mM/OK1zcTFjhIw4O7mJ+ElNDq
-         4c/nzFFPQW24DLh68SHGv969Kbwx1bmss5gz/E+G5+yI3pSdjVzTYYNnmJR6GRfRkHRx
-         kmIjODKJIVb9dDJAFoWlSmbTSUlo8HLBgfOP2cJEstKM6IqeX9OYz9BixLlmMdDf56BO
-         w1Tg==
-X-Gm-Message-State: AFqh2kr9fuQrQaGgif9LcqWL7bjxtuaByarc52kUfRkzMpSICabfuVRh
-        HCPiHRRJlopFyqhkJuH4Los=
-X-Google-Smtp-Source: AMrXdXvsBlkYYX0fSA7SKhJ+nstx/1FjoC3FEY4u8nNv6yOT/W+G5lxLWZiqNknWdbT/rfsk6EuzKw==
-X-Received: by 2002:a54:400a:0:b0:35c:51c3:8cb1 with SMTP id x10-20020a54400a000000b0035c51c38cb1mr23065402oie.13.1672959104269;
-        Thu, 05 Jan 2023 14:51:44 -0800 (PST)
+        bh=4grDefUfLoaVR6pzHBy33Fxx7+zeSUQjJ0IELku9kho=;
+        b=MAhTH8qMlZqdWjOVWtLokD5PhAHTdEeGYpCJHB7xkIA77LRqHtqwgcig00GX2GQ0tN
+         8YEFEu4hLg8nLm/crzNjesIbMLOxAIf5aFfSG4CEtm2K/dOwhZiaLJ2x0b94EAwZ9xSb
+         PBVJErSxK7WE/EnxRgrDPq5MJM7EiDIpGn7UCOT8law/D/ERdG3mUw9c6ifwZ2TqxHp2
+         jEOAfFdVlYwZq0gCf9VZMDjQhYYqpkAgFz85Dj6tT4xWzqo+A8WGhh6P5uQPAPQUOBLq
+         Q1ZGcV2VfIUormOpC2uzORChh78aLti83mwqyAWkJ6hv/7ujLpSWtepB5q6xrt+ay08Z
+         RHww==
+X-Gm-Message-State: AFqh2kqJUy7B8pmM0P239IicpBlf/F9HEkP/acd4Urt8YR0x+SjFJp0Q
+        S3UlsFpmnXt4l/SKAOJsV0H0hr9sXSo=
+X-Google-Smtp-Source: AMrXdXujylIniShvgq9V74eS0WEx3QBbEEasK9n2ONWwh0jHSX2Sv6xqMFyoIhBJea8RMIayckpWAQ==
+X-Received: by 2002:a05:6820:82c:b0:4a6:1542:ef5b with SMTP id bg44-20020a056820082c00b004a61542ef5bmr25665832oob.4.1672959116139;
+        Thu, 05 Jan 2023 14:51:56 -0800 (PST)
 Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id g18-20020a9d6492000000b0066ec67bbc7asm17727158otl.7.2023.01.05.14.51.43
+        by smtp.gmail.com with ESMTPSA id w36-20020a4a97a7000000b0049f5ce88583sm14999182ooi.7.2023.01.05.14.51.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Jan 2023 14:51:43 -0800 (PST)
-Date:   Thu, 5 Jan 2023 16:51:42 -0600
+        Thu, 05 Jan 2023 14:51:55 -0800 (PST)
+Date:   Thu, 5 Jan 2023 16:51:54 -0600
 From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
 To:     Alejandro Colomar <alx.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org
-Subject: [PATCH v3 00/13] ldconfig.8, libc.7, intro.3 revisions
-Message-ID: <20230105225142.vzzqdz2njikw3izh@illithid>
+Subject: [PATCH v3 01/13] ldconfig.8: srcfix
+Message-ID: <20230105225154.fs2i6gct66m5nehh@illithid>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="dhb5nhib4hdhvtsz"
+        protocol="application/pgp-signature"; boundary="2emo5s36muityrpd"
 Content-Disposition: inline
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
@@ -68,43 +68,243 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---dhb5nhib4hdhvtsz
+--2emo5s36muityrpd
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Hi Alex,
-
-v3:
-
-* Segregate style changes into srcfix, ffix, wfix commits.
-* Use SY/YS groff man(7) extensions to set ldconfig(8) synopsis.
-
-v2:
-
-* No longer migrates `PP` macros to `P`.
-* No longer migrates ASCII "arrow" `->` to troff special character.
-* Changes to each page split into markup, style, and content changes.
+* Drop stale FIXME annotation regarding commit ID for `-i` option.
+* Drop redundant `PD` macro calls.
+* Break input lines after commas.
+* Set multi-word parentheticals on their own input lines.
+* Break input lines at phrase boundaries more often.
+* Protect literals from automatic hyphenation with `\%` escape sequence.
 
 Signed-off-by: G. Branden Robinson <g.branden.robinson@gmail.com>
+---
+ man8/ldconfig.8 | 74 +++++++++++++++++++++++++++++--------------------
+ 1 file changed, 44 insertions(+), 30 deletions(-)
 
---dhb5nhib4hdhvtsz
+diff --git a/man8/ldconfig.8 b/man8/ldconfig.8
+index d608aaf56..0a4695e09 100644
+--- a/man8/ldconfig.8
++++ b/man8/ldconfig.8
+@@ -9,22 +9,20 @@
+ .SH NAME
+ ldconfig \- configure dynamic linker run-time bindings
+ .SH SYNOPSIS
+-.BR /sbin/ldconfig " [" \-nNvXV "] [" \-f " \fIconf\fP] [" \-C " \fIcache\=
+fP] [" \-r " \fIroot\fP]"
+-.IR directory \...
+ .PD 0
++.BR /sbin/ldconfig " [" \-nNvXV "] [" \-f " \fIconf\fP] [" \-C " \fIcache\=
+fP] [" \-r " \fIroot\fP]"
++.IR directory ...
+ .PP
+-.PD
+ .B /sbin/ldconfig
+ .B \-l
+ .RB [ \-v ]
+-.IR library \...
+-.PD 0
++.IR library ...
+ .PP
+-.PD
+ .B /sbin/ldconfig
+ .B \-p
++.PD
+ .SH DESCRIPTION
+-.B ldconfig
++.B \%ldconfig
+ creates the necessary links and cache to the most recent shared
+ libraries found in the directories specified on the command line,
+ in the file
+@@ -37,7 +35,8 @@ and
+ .I /lib
+ and
+ .I /usr/lib
+-are the trusted directories for 32-bit libraries, while
++are the trusted directories for 32-bit libraries,
++while
+ .I /lib64
+ and
+ .I /usr/lib64
+@@ -47,13 +46,17 @@ The cache is used by the run-time linker,
+ .I ld.so
+ or
+ .IR ld\-linux.so .
+-.B ldconfig
++.B \%ldconfig
+ checks the header and filenames of the libraries it encounters when
+ determining which versions should have their links updated.
+ .PP
+-.B ldconfig
+-will attempt to deduce the type of ELF libraries (i.e., libc5 or libc6/gli=
+bc)
+-based on what C libraries, if any, the library was linked against.
++.B \%ldconfig
++will attempt to deduce the type of ELF libraries
++(i.e.,
++libc5 or libc6/glibc)
++based on what C libraries,
++if any,
++the library was linked against.
+ .\" The following sentence looks suspect
+ .\" (perhaps historical cruft) -- MTK, Jul 2005
+ .\" Therefore, when making dynamic libraries,
+@@ -61,14 +64,18 @@ based on what C libraries, if any, the library was link=
+ed against.
+ .PP
+ Some existing libraries do not contain enough information
+ to allow the deduction of their type.
+-Therefore, the
++Therefore,
++the
+ .I /etc/ld.so.conf
+ file format allows the specification of an expected type.
+ This is used
+ .I only
+ for those ELF libraries which we can not work out.
+ The format
+-is "dirname=3DTYPE", where TYPE can be libc4, libc5, or libc6.
++is "dirname=3DTYPE",
++where TYPE can be libc4,
++libc5,
++or libc6.
+ (This syntax also works on the command line.)
+ Spaces are
+ .I not
+@@ -76,12 +83,12 @@ allowed.
+ Also see the
+ .B \-p
+ option.
+-.B ldconfig
++.B \%ldconfig
+ should normally be run by the superuser as it may require write
+ permission on some root owned directories and files.
+ .PP
+ Note that
+-.B ldconfig
++.B \%ldconfig
+ will only look at files that are named
+ .I lib*.so*
+ (for regular shared objects) or
+@@ -89,9 +96,10 @@ will only look at files that are named
+ (for the dynamic loader itself).
+ Other files will be ignored.
+ Also,
+-.B ldconfig
+-expects a certain pattern to how the symlinks are set up, like this
+-example, where the middle file
++.B \%ldconfig
++expects a certain pattern to how the symlinks are set up,
++like this example,
++where the middle file
+ .RB ( libfoo.so.1
+ here) is the SONAME for the library:
+ .PP
+@@ -107,16 +115,19 @@ after an upgrade.
+ .TP
+ .BR \-c " \fIfmt\fP, " \-\-format=3D\fIfmt\fP
+ (Since glibc 2.2)
++.\" commit 45eca4d141c047950db48c69c8941163d0a61fcd
+ Cache format to use:
+ .IR old ,
+ .IR new ,
+ or
+-.IR compat .
+-Since glibc 2.32, the default is
++.IR \%compat .
++Since glibc 2.32,
++the default is
+ .IR new .
+ .\" commit cad64f778aced84efdaa04ae64f8737b86f063ab
+-Before that, it was
+-.IR compat .
++Before that,
++it was
++.IR \%compat .
+ .TP
+ .BI "\-C " cache
+ Use
+@@ -129,11 +140,10 @@ Use
+ .I conf
+ instead of
+ .IR /etc/ld.so.conf .
+-.\" FIXME glibc 2.7 added -i
+ .TP
+ .BR \-i ", " \-\-ignore\-aux\-cache
+ (Since glibc 2.7)
+-.\"             commit 27d9ffda17df4d2388687afd12897774fde39bcc
++.\" commit 27d9ffda17df4d2388687afd12897774fde39bcc
+ Ignore auxiliary cache file.
+ .TP
+ .B \-l
+@@ -154,7 +164,8 @@ Implies
+ Don't rebuild the cache.
+ Unless
+ .B \-X
+-is also specified, links are still updated.
++is also specified,
++links are still updated.
+ .TP
+ .BR \-p ", " \-\-print\-cache
+ Print the lists of directories and candidate libraries stored in
+@@ -167,8 +178,9 @@ as the root directory.
+ .TP
+ .BR \-v ", " \-\-verbose
+ Verbose mode.
+-Print current version number, the name of each directory as it
+-is scanned, and any links that are created.
++Print current version number,
++the name of each directory as it is scanned,
++and any links that are created.
+ Overrides quiet mode.
+ .TP
+ .BR \-V ", " \-\-version
+@@ -178,7 +190,8 @@ Print program version.
+ Don't update links.
+ Unless
+ .B \-N
+-is also specified, the cache is still rebuilt.
++is also specified,
++the cache is still rebuilt.
+ .SH FILES
+ .\" FIXME Since glibc-2.3.4, "include" directives are supported in ld.so.c=
+onf
+ .\"
+@@ -189,7 +202,8 @@ is also specified, the cache is still rebuilt.
+ Run-time linker/loader.
+ .TP
+ .I /etc/ld.so.conf
+-File containing a list of directories, one per line,
++File containing a list of directories,
++one per line,
+ in which to search for libraries.
+ .TP
+ .I /etc/ld.so.cache
+--=20
+2.30.2
+
+
+--2emo5s36muityrpd
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmO3VHYACgkQ0Z6cfXEm
-bc54txAAj6NOTsptyzpYgrMerZigZBIwpV4eVCFawJb+TeYwkmU1mXo54CC46PnJ
-jIHdbcA906kGelr+vGwc7F6ub7OFCDy6d8jU6m7KmS9u/iujg+YyIczK5Q3TzUtF
-j0bBFfdMw0NLiS5KLDwYrBB7Z9hsaCapMga/3OPEqdtUNG63qdyfFnptQI0PXXcN
-fhZ8GMKe+VsqMU76IgjDsPT7Vy0y+31asVVQ0gEziY1aO03D3z66XhXWJKd5fIov
-AVj51Rfp8ncCnqG6zjhqVz1Ux31eatSE/lem0u/iZ6KVZpnyLwT13il7GlFcsUu1
-hrWrewnUMsjlkuGt1bDiFEqscRdzxisDr93CeMi+j3WvFKrkX0gfOVjjtydrB029
-r+WiILEHtli1oG8xZZ42sDdIgsXXSnhqsIJcb+x3Ci1tApwZvj7hGXbnFE17OE7G
-ShIq+rnZncOyIlFAHVTPodHDCjqtwQC2MM5NEJziGdLDOsYGOSjE+avAivEih8+E
-tt+SlCNQTd3Um0kXpFoocyYnHn5sZEeSnQbq/yJlDrDjsAye3AanYuMGfNFqIg0U
-pq3jrQnqYQBCi5rM/Tws75yofQQL9hw0ZmJWpFIDeRD1GaHp9TPIgvBKQVI6bDF5
-sDO8uRhJdCqvzJiUA98OEI/Z2ME5J6z0SfGZXXh4vRY9ctgFfZI=
-=3ifl
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmO3VIoACgkQ0Z6cfXEm
+bc6w0A/+OOdQajRdD1GB1Hblm9vWSTw+wwJhJnSr/YTQs2z8BZ/BrfMWCWikBeGO
+J5T1BHCt5LKE7ICmSjztHPLubRuM/132WY7cB2KXfHMQGObmMmIVWV3poj262roc
+qlHven+qV8Auld4j67ECaSMuVxqxWDZ93Xugxq8tWYi7BfXyZN6WvP6NTQdjMsXF
+DE9x/IAMDghaQw/Ez6I9mVoh1oUCpcnfAXh1x35P0/QhAkVoksSWASp8dIMhIIGP
+Vu3QhedCFunYEztjTi12uHIw2DbUwSxfmbylklLZBu8nrDn04l4Fr2ZkWGrwL+30
+RH/sCCwKl1XflN36A66ZukrQS31eiF7HtDWppJFAVKT6XvmTY8IwXLAFV4zqyIEy
+jmtXXD69sEBWUT2yYT8j227ysOb2xYPSwzp6GbAmfr4FNgjTnhsxux3iqXYUoTbj
+N4xz3m9L33lKHz3322OiUnQybbGyLXNsFgsqOuQ9aobjbxjGiffn4vUHh8xXlheC
+X57ljFN0jzG1myLUCMC2WcIVg7BaJUjmT9xytRO1fz9xqqGwxE6ASkQ2mgUty3sj
+S873IY5V14VKFBW+rl/1/lKYZ6nd0Hpusf98LcYRD9mSDSQwl2RDTqoscKVxFPsO
+XpPyxwnD796kK3w9aZ2ighdhJ7i9f5RL2WD6n7PSE0RpsHdUWy4=
+=55ux
 -----END PGP SIGNATURE-----
 
---dhb5nhib4hdhvtsz--
+--2emo5s36muityrpd--
