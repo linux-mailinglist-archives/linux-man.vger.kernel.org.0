@@ -2,74 +2,65 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 199D065F374
-	for <lists+linux-man@lfdr.de>; Thu,  5 Jan 2023 19:09:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 34C0465F3EF
+	for <lists+linux-man@lfdr.de>; Thu,  5 Jan 2023 19:46:33 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234433AbjAESJP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 5 Jan 2023 13:09:15 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42282 "EHLO
+        id S232268AbjAESqa (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 5 Jan 2023 13:46:30 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59856 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233998AbjAESJN (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 5 Jan 2023 13:09:13 -0500
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com [IPv6:2a00:1450:4864:20::435])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 30CB31C8
-        for <linux-man@vger.kernel.org>; Thu,  5 Jan 2023 10:09:12 -0800 (PST)
-Received: by mail-wr1-x435.google.com with SMTP id m7so2491576wrn.10
-        for <linux-man@vger.kernel.org>; Thu, 05 Jan 2023 10:09:12 -0800 (PST)
+        with ESMTP id S234467AbjAESq0 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 5 Jan 2023 13:46:26 -0500
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com [IPv6:2a00:1450:4864:20::32e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 415B55E089
+        for <linux-man@vger.kernel.org>; Thu,  5 Jan 2023 10:46:25 -0800 (PST)
+Received: by mail-wm1-x32e.google.com with SMTP id i17-20020a05600c355100b003d99434b1cfso2042522wmq.1
+        for <linux-man@vger.kernel.org>; Thu, 05 Jan 2023 10:46:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=9iB3feF7kGwsGLz0heXR9/Q58r6wy78m9xcpAGS3gW4=;
-        b=qiOQXB93LOAC098YRxKWZxqpLtl6/6oEIv09oh7zVW9T5Cz9BKzpYBJ64C5IMgcbhG
-         cQ6iDFmmHU5rThfNfYkQ48t0wMIR1wEg30ISfIu+G/355t/bWoJrz6oEIGPlfJNCuM7c
-         FGUtJlwUQ1TaOhZxZm1W59cJoIfCHN9cVtozmFxxdO8Kr+WrxflSuo+vugUJEbKQlbp+
-         vKVL0dazvmp6dpOvDH//kmD8GJIYNWyrvq+jjI6njJbHSdMBVaraaS+eMWFo4Rm9ePS1
-         VaByJOgyN8HZqPfn5ay6eoVNEJ7thd1UyZsDJoE/wIpADl/C9OX74PSzMSNRVWWX595K
-         gkYA==
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=8qGETN16PKwBQIQys7WOodlRuu45oJafwcx25tH0lFQ=;
+        b=giEeWozlLxgE/B3rwHPh+EZR9ofA+XdUolEZVGO2PC+k3eYT56Tdz+EfKSkCDz7Nvi
+         j1WL+PNFGbkv+j4WjWNHlO0Y37z/JOMiafJI4pntVM6l8zb7q/k43lmD4sh4WnNYNIrG
+         6THdkMF4ZMseKnzj9lxARPMj1k0PcV2OEsg5XpdV6bm85i89yDs35+l6ocvSrU81Zhmz
+         T5HXGR/+r0l33aNX7Q31aBRnL5G6/Yy/Ulp+l41c1AnbKHoqzyXCGpu3SAHbZ1YzwMFX
+         xNWzlgAeF8LRYA7UcYJOtcaWQu28B+4jDViWCPuii6TAMWsVUkshiGgNvfTsRUA16fTz
+         kg3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=9iB3feF7kGwsGLz0heXR9/Q58r6wy78m9xcpAGS3gW4=;
-        b=cuPnRI/BH+snWST2tYrMpLBxzEr2W7wr8mxBttNriUlhDVIpqzUepxe8wSXzAmZKn+
-         JJQykHCCce14kQb6Xtg8RymRmO+Vb4UyfArnahQfb3K0ZjFaZ/zHOTKgisP50qia883P
-         AUF/DBJzHCxbdakWbVIFyB4pVRJCqbcz+SYkdKe40G2seWmC6OOAG5d8qNHbqqj00gEZ
-         5jVZe00TGVZ6psc4MjQys/X4/fpeVHfY/i4fkFMtlR8i87qTzdgOagxfiQSPuw00b0+N
-         yKe+zwsVpd0oaZldTMEUmFoK0rxb1PwvPga0vjHqI5guC97qtQP5kDvsYtOxIITA78Mm
-         1Iqg==
-X-Gm-Message-State: AFqh2kpdsyQxAA6mQCe8Bzy4NDSlWVhEkkwciwbx83v6XcncaET9clb9
-        ynBrXkxv9uAITpWzCCf8xKaOn4gNCD4=
-X-Google-Smtp-Source: AMrXdXsIb11B5W4QW1BMXod1kzWiODyPjCM6Rqqj3+dIRGDGaDroS4E20+eJIwkVWV6Ygt7I3fRRQw==
-X-Received: by 2002:adf:dd81:0:b0:274:2c97:b381 with SMTP id x1-20020adfdd81000000b002742c97b381mr28888547wrl.23.1672942150783;
-        Thu, 05 Jan 2023 10:09:10 -0800 (PST)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id p11-20020adfe60b000000b002366e3f1497sm38012144wrm.6.2023.01.05.10.09.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Jan 2023 10:09:10 -0800 (PST)
-Message-ID: <a9bd3c47-aa41-7d69-4c5b-3699e0aec214@gmail.com>
-Date:   Thu, 5 Jan 2023 19:09:02 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-Subject: Re: [PATCH 2/9] ldconfig.8: Fix style nits
-Content-Language: en-US
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc:     linux-man@vger.kernel.org
-References: <20230104073851.h6kg265ev5v4gmjl@illithid>
- <f5b81092-fb68-d57c-0686-c1b3e482f35b@gmail.com>
- <20230104200451.vxgnuunzztnkifig@illithid>
- <ee241821-34a4-a5a3-f757-dc7018241bc7@gmail.com>
- <20230105123538.kkg53yge3e2fhxjk@illithid>
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=8qGETN16PKwBQIQys7WOodlRuu45oJafwcx25tH0lFQ=;
+        b=Uys2u301di2u5Z3/7bDkkxzIxW/IVPrpUnDWAVMT8NOvfPgekE6y70lvRPKNpgWTpP
+         6s0dWrCgnZPCA8Tc+OyUA56Hn2qsI9Y9tGtZT5OqKkb/aI45NUBmpXGbbvLHn8UcLHnZ
+         4b9r6zUJnjf4KCm6YrLeyNPvYvY+v37jJOeJcYaLbCfLKtsmywlnW0TIcgT4cC6LMfH+
+         va3UeIyxhUQhHHfNdYGNmjPM/6aLzA9w89AZkUhp6BrxeIH6TRYk1FdzeXXUJkvCIJ/A
+         7wsAuGNQkS6nCIKmrXpjk3lkEgZrDhwWgGy0Vh5BXZYtt5Fm+iG5a+IjAdIzxnS0IS/p
+         05bA==
+X-Gm-Message-State: AFqh2kr1Pz0ItXGfuPIhwA94pXi6Hx+Xp5wmSYRM/ieQbOjjaEPI3IjI
+        i5/t94zpKTAbvcK7X5NkOiM=
+X-Google-Smtp-Source: AMrXdXs/eF4YY8bZuBX21GdE8ilwKBrYPuvzo0/bmYizstnZ/V3xi5YKWP1PMWGbp8vQNcA7YdgTZg==
+X-Received: by 2002:a7b:cd99:0:b0:3d3:5506:1bac with SMTP id y25-20020a7bcd99000000b003d355061bacmr37786533wmj.30.1672944383734;
+        Thu, 05 Jan 2023 10:46:23 -0800 (PST)
+Received: from asus5775.alejandro-colomar.es ([170.253.36.171])
+        by smtp.googlemail.com with ESMTPSA id bg24-20020a05600c3c9800b003cfa3a12660sm9406283wmb.1.2023.01.05.10.46.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Jan 2023 10:46:23 -0800 (PST)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20230105123538.kkg53yge3e2fhxjk@illithid>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------cHQ0KK0kAutXJFZTwjdRN4zT"
-X-Spam-Status: No, score=-5.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+X-Google-Original-From: Alejandro Colomar <alx@kernel.org>
+To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        linux-man@vger.kernel.org
+Cc:     Alejandro Colomar <alx@kernel.org>
+Subject: [PATCH] index.3, memchr.3, strchr.3, string.3, strpbrk.3, strsep.3, strspn.3, strstr.3, strtok.3: Deprecate index(3) and rindex(3)
+Date:   Thu,  5 Jan 2023 19:44:47 +0100
+Message-Id: <20230105184446.10141-1-alx@kernel.org>
+X-Mailer: git-send-email 2.39.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -78,93 +69,258 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------cHQ0KK0kAutXJFZTwjdRN4zT
-Content-Type: multipart/mixed; boundary="------------dGYL2vEh0Z2oUPb2h5drzR8Q";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: linux-man@vger.kernel.org
-Message-ID: <a9bd3c47-aa41-7d69-4c5b-3699e0aec214@gmail.com>
-Subject: Re: [PATCH 2/9] ldconfig.8: Fix style nits
-References: <20230104073851.h6kg265ev5v4gmjl@illithid>
- <f5b81092-fb68-d57c-0686-c1b3e482f35b@gmail.com>
- <20230104200451.vxgnuunzztnkifig@illithid>
- <ee241821-34a4-a5a3-f757-dc7018241bc7@gmail.com>
- <20230105123538.kkg53yge3e2fhxjk@illithid>
-In-Reply-To: <20230105123538.kkg53yge3e2fhxjk@illithid>
+They are identical to strchr(3) and strrchr(3).  Use those.
 
---------------dGYL2vEh0Z2oUPb2h5drzR8Q
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Signed-off-by: Alejandro Colomar <alx@kernel.org>
+---
 
-SGkgQnJhbmRlbiwNCg0KT24gMS81LzIzIDEzOjM1LCBHLiBCcmFuZGVuIFJvYmluc29uIHdy
-b3RlOg0KPiBIaSBBbGV4LA0KPiANCj4gQXQgMjAyMy0wMS0wNVQxMzowMzowMSswMTAwLCBB
-bGVqYW5kcm8gQ29sb21hciB3cm90ZToNCj4+IE9uIDEvNC8yMyAyMTowNCwgRy4gQnJhbmRl
-biBSb2JpbnNvbiB3cm90ZToNCj4+PiBPZmZpY2lhbCBHTlUgcmVzaXN0YW5jZSB0byBtYW4g
-cGFnZXMgaXMgYnJvYWQgYW5kIGRlZXAsIGJ1dCBub3QNCj4+PiB1bml2ZXJzYWwuDQo+Pg0K
-Pj4gSXMgdGhlcmUgc3RpbGwgcmVzaXN0YW5jZSBhcGFydCBmcm9tIHdyaXR0ZW4/DQo+IA0K
-PiBUaGlzIGlzIGhhcmQgdG8gbWUgdG8ganVkZ2UsIGJ1dCBJIGFsc28gaW50ZXJwcmV0IHVu
-b3J0aG9kb3ggbWFuIHBhZ2UNCj4gdHlwb2dyYXBoeSBhcyBjb25zdGl0dXRpdmUgb2YgcmVz
-aXN0YW5jZS4gIEkgY3JlZGl0IEFsYmVydCBDYWhhbGFuIHdpdGgNCj4gZ2l2aW5nIG1lIGEg
-Zm9ybWF0aXZlIGV4cGVyaWVuY2UgaW4gcmVhZGluZyBhIG1hbiBwYWdlIHRoYXQgd2FzIHdy
-aXR0ZW4NCj4gd2l0aCByZXNlbnRtZW50LlsxXQ0KDQpIZWghICBUaGF0IG9uZSBkZWZpbml0
-ZWx5IGNvdW50cyBhcyByZXNpc3RhbmNlLg0KDQo+ICBDb3VudGxlc3MgdGhvdXNhbmRzIG9m
-IERlYmlhbiBwcygxKSBwYWdlIHJlYWRlcnMsDQo+IG9mdGVuIHVuZGVyIHN0cmVzcyB0cnlp
-bmcgdG8gZmlndXJlIG91dCBob3cgdG8gaWRlbnRpZnkgYW5kIGtpbGwgYSByb2d1ZQ0KPiBw
-cm9jZXNzLCBhdHRlbXB0ZWQgc2VsZi1oZWxwIGFuZCBmb3VuZCB0aGVtc2VsdmVzIHNlcnZl
-ZCBhIGRpbm5lciBwbGF0ZQ0KPiBvZiBzdGVhbWluZyBkb2N1bWVudGFyeSBob3N0aWxpdHks
-IGlubm9jZW50IGJ5c3RhbmRlcnMgY2F1Z2h0IHVwIGluIGENCj4gcG9pbnRsZXNzIHZlbmRl
-dHRhIGFnYWluc3QgYSB0ZXh0IGZvcm1hdHRpbmcgbGFuZ3VhZ2UuDQoNClRoZXcgY3VycmVu
-dCBwYWdlIGlzIGJldHRlciwgYnV0IHRoZSBjb21tYW5kIGlzIHNvIGh1Z2UgdGhhdCBJJ2xs
-IGRpZSBiZWZvcmUgDQprbm93aW5nIGhvdyB0byB1c2UgaXQgbW9yZSB0aGFuIHRoZSBjb3Vw
-bGUgb2Ygb3B0aW9ucyBJIG5vcm1hbGx5IHVzZS4NCg0KPiANCj4gV2hlbiBNci4gQ2FoYWxh
-biBwYXNzZXMsIEkgaG9wZSBoaXMgZmFtaWx5IGhhcyB0aGUgZnVuZHMgdG8gZW5ncmF2ZSB0
-aGUNCj4gZmlyc3QgY29tbWVudCBibG9jayBmcm9tIGhpcyBwcygxKSByZXdyaXRlIG9uIGhp
-cyBoZWFkc3RvbmUuDQoNCkl0IHdvdWxkIGJlIGlyb25pYyBpZiB0aGV5IGluZGVudGVkIGFu
-eXRoaW5nIGluIGhpcyBoZWFkc3RvbmUgOikNCg0KPiANCj4+IE1vc3QgY29udHJpYnV0b3Jz
-IHRvIEdOVSB0b2RheSBzZWVtIHRvIHVzZSBtYW4gcGFnZXMuICBUaGVyZSBhcmUgc3RpbGwN
-Cj4+IGEgZmV3IHByb2plY3RzLCBsaWtlIG1ha2UoMSkgd2hpY2ggd291bGQgYmUgYmV0dGVy
-IHdpdGggbWFudWFsIHBhZ2VzDQo+PiBkb2N1bWVudGluZyB0aGUgbGFuZ3VhZ2UsIGJ1dCBt
-b3N0IGhhdmUgdXNlZnVsIG1hbnVhbCBwYWdlcywgZG9uJ3QNCj4+IHRoZXk/DQo+IA0KPiBH
-TlUgcHJvZ3JhbXMgd2hvc2UgbWFudWFscyBoYXZlIEludmFyaWFudCBTZWN0aW9ucyBvciBD
-b3ZlciBUZXh0cyB1bmRlcg0KPiB0aGUgRkRMIHRlbmQgYWxzbyB0byBsYWNrIGZyZWVseS1s
-aWNlbnNlZCBtYW4gcGFnZXMuDQo+IA0KPiBGb3J0dW5hdGVseSBncm9mZiBkb2Vzbid0IGhh
-dmUgdGhpcyBwcm9ibGVtLCBiZWNhdXNlIGl0J3MgYWxsDQo+IGR1YWwtbGljZW5zZWQgR1BM
-Lg0KPiANCj4+IE1heWJlIERlYmlhbiBoZWxwZWQgZ2V0IHRoZXJlLg0KPiANCj4gSSdkIGxp
-a2UgdG8gdGhpbmsgc28uICBJIHdhcyBhcm91bmQgd2hlbiBEZWJpYW4gc3RpbGwgdG9vayBh
-IGxvdCBvZiBjcmFwDQo+IGZvciBhZG9wdGluZyB0aGF0IHN0YW5jZS4gIE5vdyBpdCBoYXMg
-dXNlcnMgd2hvIHdlcmVuJ3QgYm9ybiB5ZXQgd2hlbg0KPiB0aGF0IHBvbGljeSBkZWNpc2lv
-biB3YXMgbWFkZS4NCj4gDQo+IElmIHlvdSBkb24ndCBoYXZlIGZ1cnRoZXIgY29tbWVudHMg
-b24gdjIgSSdsbCBtYWtlIGEgZmV3IG1vcmUgY2hhbmdlcyB0bw0KPiB2MyBhbmQgc3VibWl0
-IGl0Lg0KDQpQbGVhc2Ugc3VibWl0IGl0LiAgV2UnbGwgc2VlLg0KDQpDaGVlcnMsDQoNCkFs
-ZXgNCg0KPiANCj4gUmVnYXJkcywNCj4gQnJhbmRlbg0KPiANCj4gWzFdIGh0dHBzOi8vZ2l0
-bGFiLmNvbS9wcm9jcHMtbmcvcHJvY3BzL2Jsb2IvN2FjOWEwZTFmNTYwNjY5NmRjNzk5Yjc3
-M2Q1ZWM3MDE4M2NhOTFhMy9wcy9wcy4xDQoNCi0tIA0KPGh0dHA6Ly93d3cuYWxlamFuZHJv
-LWNvbG9tYXIuZXMvPg0K
+Hi Branden,
 
---------------dGYL2vEh0Z2oUPb2h5drzR8Q--
+I prepared this in response to your messages regarding index(3) and
+rindex(3).  These functions are wasting manual page real estate, and are
+just confusing users.  Be concise in that these are just aliases for
+str[r]chr(3), and let readers open strchr(3) for the details.
 
---------------cHQ0KK0kAutXJFZTwjdRN4zT
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+Cheers,
 
------BEGIN PGP SIGNATURE-----
+Alex
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmO3Ej4ACgkQnowa+77/
-2zJXoA//fppRTYy3K78jxkX85BFlIErxLfiuSPVwHoskvwhqq4QeeiEdptBPHLPm
-5HOYl26Lg0A2th+5EiIhBl3o0UTPwJOZ3OJCsOE6sSsL/0T6kE+ZQYd7dbK5LwCH
-Z/TcePKRHVtUTl2JSLV/4YAdBNHV5DncOiRVgbLuxAWP2l2P/OIhgNSHkOpbYDV0
-q/FN1GynLI/PcB5KgOLnYK/uY4JkiAhTi0XPHW9QdLMwsjW+u7VIaeSjEWVpQlX+
-TAsnpUnF/92f3cQUdENtfzGL/nhOKjseci6ijSG1n3rQc7pw09kr1DSIbEnTsT1+
-n4jd5U4IJDRpreyysf4v8t+oybfck/jBQwKSpwPlcqSGjjkbZXwVcIvnptcStza6
-e6i2FGOuZzYSV1fbEIVz3vdEP57EWvwrYe1pLo2pcRMhMjK2NEqXUPBHSS3gK5Aj
-FIDqyaKL395kGy7Je5oVSItopwmF2GNhlUJULbF2rF09co+HKDZOqSRnMiw4WtqQ
-gVDUYrcmJBAa7Up+Rzfe/q1T8/Do2vGCMl4g7XFUWgMPSiYT1XVF4JqeZZgq0+dt
-qO0q/jD7FgYLIpIwYbdTsGehBG32nA6REffjN1EjDFTFVckckr+r8uIyJtRtux8V
-8vKvyONE3E4Qq5wHBhTF3RdLOYqimV8n/V+DD262cq1gms+pSbM=
-=ApVp
------END PGP SIGNATURE-----
+ man3/index.3   | 61 ++++++++++----------------------------------------
+ man3/memchr.3  |  2 --
+ man3/strchr.3  |  2 --
+ man3/string.3  | 14 ++++--------
+ man3/strpbrk.3 |  2 --
+ man3/strsep.3  |  2 --
+ man3/strspn.3  |  2 --
+ man3/strstr.3  |  2 --
+ man3/strtok.3  |  2 --
+ 9 files changed, 16 insertions(+), 73 deletions(-)
 
---------------cHQ0KK0kAutXJFZTwjdRN4zT--
+diff --git a/man3/index.3 b/man3/index.3
+index 24ba04baa..a0aa5b78a 100644
+--- a/man3/index.3
++++ b/man3/index.3
+@@ -1,14 +1,8 @@
+ '\" t
+-.\" Copyright 1993 David Metcalfe (david@prism.demon.co.uk)
++.\" Copyright 2022 Alejandro Colomar <alx@kernel.org>
+ .\"
+ .\" SPDX-License-Identifier: Linux-man-pages-copyleft
+ .\"
+-.\" References consulted:
+-.\"     Linux libc source code
+-.\"     Lewine's _POSIX Programmer's Guide_ (O'Reilly & Associates, 1991)
+-.\"     386BSD man pages
+-.\" Modified Mon Apr 12 12:54:34 1993, David Metcalfe
+-.\" Modified Sat Jul 24 19:13:52 1993, Rik Faith (faith@cs.unc.edu)
+ .TH index 3 (date) "Linux man-pages (unreleased)"
+ .SH NAME
+ index, rindex \- locate character in string
+@@ -19,47 +13,23 @@ .SH SYNOPSIS
+ .nf
+ .B #include <strings.h>
+ .PP
+-.BI "char *index(const char *" s ", int " c );
+-.BI "char *rindex(const char *" s ", int " c );
++.BI "[[deprecated]] char *index(const char *" s ", int " c );
++.BI "[[deprecated]] char *rindex(const char *" s ", int " c );
+ .fi
+ .SH DESCRIPTION
+-The
+ .BR index ()
+-function returns a pointer to the first occurrence
+-of the character \fIc\fP in the string \fIs\fP.
++is identical to
++.BR strchr (3).
+ .PP
+-The
+ .BR rindex ()
+-function returns a pointer to the last occurrence
+-of the character \fIc\fP in the string \fIs\fP.
++is identical to
++.BR strrchr (3).
+ .PP
+-The terminating null byte (\(aq\e0\(aq) is considered to be a part of the
+-strings.
+-.SH RETURN VALUE
+-The
+-.BR index ()
++Use
++.BR strchr (3)
+ and
+-.BR rindex ()
+-functions return a pointer to
+-the matched character or NULL if the character is not found.
+-.SH ATTRIBUTES
+-For an explanation of the terms used in this section, see
+-.BR attributes (7).
+-.ad l
+-.nh
+-.TS
+-allbox;
+-lbx lb lb
+-l l l.
+-Interface	Attribute	Value
+-T{
+-.BR index (),
+-.BR rindex ()
+-T}	Thread safety	MT-Safe
+-.TE
+-.hy
+-.ad
+-.sp 1
++.BR strrchr (3)
++instead of these functions.
+ .SH STANDARDS
+ 4.3BSD; marked as LEGACY in POSIX.1-2001.
+ POSIX.1-2008 removes the specifications of
+@@ -72,12 +42,5 @@ .SH STANDARDS
+ .BR strrchr (3)
+ instead.
+ .SH SEE ALSO
+-.BR memchr (3),
+ .BR strchr (3),
+-.BR string (3),
+-.BR strpbrk (3),
+-.BR strrchr (3),
+-.BR strsep (3),
+-.BR strspn (3),
+-.BR strstr (3),
+-.BR strtok (3)
++.BR strrchr (3)
+diff --git a/man3/memchr.3 b/man3/memchr.3
+index 10bc35b9d..68873964e 100644
+--- a/man3/memchr.3
++++ b/man3/memchr.3
+@@ -137,9 +137,7 @@ .SH STANDARDS
+ .SH SEE ALSO
+ .BR bstring (3),
+ .BR ffs (3),
+-.BR index (3),
+ .BR memmem (3),
+-.BR rindex (3),
+ .BR strchr (3),
+ .BR strpbrk (3),
+ .BR strrchr (3),
+diff --git a/man3/strchr.3 b/man3/strchr.3
+index 6686e6fee..bbdf33a77 100644
+--- a/man3/strchr.3
++++ b/man3/strchr.3
+@@ -112,9 +112,7 @@ .SH STANDARDS
+ .BR strchrnul ()
+ is a GNU extension.
+ .SH SEE ALSO
+-.BR index (3),
+ .BR memchr (3),
+-.BR rindex (3),
+ .BR string (3),
+ .BR strlen (3),
+ .BR strpbrk (3),
+diff --git a/man3/string.3 b/man3/string.3
+index 0bd16a0bd..298f57e83 100644
+--- a/man3/string.3
++++ b/man3/string.3
+@@ -37,16 +37,12 @@ .SH SYNOPSIS
+ ignoring case.
+ .TP
+ .BI "char *index(const char *" s ", int " c );
+-Return a pointer to the first occurrence of the character
+-.I c
+-in the string
+-.IR s .
++Alias for
++.BR strchr (3).
+ .TP
+ .BI "char *rindex(const char *" s ", int " c );
+-Return a pointer to the last occurrence of the character
+-.I c
+-in the string
+-.IR s .
++Alias for
++.BR strrchr (3).
+ .TP
+ .B #include <string.h>
+ .TP
+@@ -204,8 +200,6 @@ .SH DESCRIPTION
+ See the individual man pages for descriptions of each function.
+ .SH SEE ALSO
+ .BR bstring (3),
+-.BR index (3),
+-.BR rindex (3),
+ .BR stpcpy (3),
+ .BR strcasecmp (3),
+ .BR strcat (3),
+diff --git a/man3/strpbrk.3 b/man3/strpbrk.3
+index f459ee1ee..cb84aeca4 100644
+--- a/man3/strpbrk.3
++++ b/man3/strpbrk.3
+@@ -57,9 +57,7 @@ .SH ATTRIBUTES
+ .SH STANDARDS
+ POSIX.1-2001, POSIX.1-2008, C99, SVr4, 4.3BSD.
+ .SH SEE ALSO
+-.BR index (3),
+ .BR memchr (3),
+-.BR rindex (3),
+ .BR strchr (3),
+ .BR string (3),
+ .BR strsep (3),
+diff --git a/man3/strsep.3 b/man3/strsep.3
+index 0eb95b8a7..c3e584343 100644
+--- a/man3/strsep.3
++++ b/man3/strsep.3
+@@ -154,9 +154,7 @@ .SS Program source
+ .EE
+ .\" SRC END
+ .SH SEE ALSO
+-.BR index (3),
+ .BR memchr (3),
+-.BR rindex (3),
+ .BR strchr (3),
+ .BR string (3),
+ .BR strpbrk (3),
+diff --git a/man3/strspn.3 b/man3/strspn.3
+index e584ca257..34d2f1a6a 100644
+--- a/man3/strspn.3
++++ b/man3/strspn.3
+@@ -75,9 +75,7 @@ .SH ATTRIBUTES
+ .SH STANDARDS
+ POSIX.1-2001, POSIX.1-2008, C99, SVr4, 4.3BSD.
+ .SH SEE ALSO
+-.BR index (3),
+ .BR memchr (3),
+-.BR rindex (3),
+ .BR strchr (3),
+ .BR string (3),
+ .BR strpbrk (3),
+diff --git a/man3/strstr.3 b/man3/strstr.3
+index 879e51cef..5e7122390 100644
+--- a/man3/strstr.3
++++ b/man3/strstr.3
+@@ -80,10 +80,8 @@ .SH STANDARDS
+ .BR strcasestr ()
+ function is a nonstandard extension.
+ .SH SEE ALSO
+-.BR index (3),
+ .BR memchr (3),
+ .BR memmem (3),
+-.BR rindex (3),
+ .BR strcasecmp (3),
+ .BR strchr (3),
+ .BR string (3),
+diff --git a/man3/strtok.3 b/man3/strtok.3
+index 80c189064..437072563 100644
+--- a/man3/strtok.3
++++ b/man3/strtok.3
+@@ -272,9 +272,7 @@ .SS Program source
+ can be found in
+ .BR getaddrinfo_a (3).
+ .SH SEE ALSO
+-.BR index (3),
+ .BR memchr (3),
+-.BR rindex (3),
+ .BR strchr (3),
+ .BR string (3),
+ .BR strpbrk (3),
+-- 
+2.39.0
+
