@@ -2,144 +2,82 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id B5E3865F58A
-	for <lists+linux-man@lfdr.de>; Thu,  5 Jan 2023 22:12:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 5CFF565F5DB
+	for <lists+linux-man@lfdr.de>; Thu,  5 Jan 2023 22:34:07 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235598AbjAEVMa (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 5 Jan 2023 16:12:30 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41578 "EHLO
+        id S231990AbjAEVeE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 5 Jan 2023 16:34:04 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56714 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235124AbjAEVM3 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 5 Jan 2023 16:12:29 -0500
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com (mail-vi1eur05on2047.outbound.protection.outlook.com [40.107.21.47])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C0DCE60CC0
-        for <linux-man@vger.kernel.org>; Thu,  5 Jan 2023 13:12:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OXCtB97HMQWZh2kCbHSHpaa7YsPcwh60VTWOQuvhy9Y=;
- b=E6vsRgUBqSuHXk7GkhGihyVN+orv6swVO8Hu7pnma1DJ3DxXApfMHcxCIj1xzwPID0ovRBOHfWkRAvxZJkI/haWDsAhIP8nEVz8hFXB3YTK8PyH7NodCcDzgtv/1iXzLtj+lC5iPQZVbr+KTylbMlCjfWk9+L0/nFtNfpfHxTR0=
-Received: from DU2PR04CA0356.eurprd04.prod.outlook.com (2603:10a6:10:2b4::14)
- by GV1PR08MB7380.eurprd08.prod.outlook.com (2603:10a6:150:24::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.9; Thu, 5 Jan
- 2023 21:12:24 +0000
-Received: from DBAEUR03FT033.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:10:2b4:cafe::e2) by DU2PR04CA0356.outlook.office365.com
- (2603:10a6:10:2b4::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.15 via Frontend
- Transport; Thu, 5 Jan 2023 21:12:24 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DBAEUR03FT033.mail.protection.outlook.com (100.127.142.251) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5944.16 via Frontend Transport; Thu, 5 Jan 2023 21:12:24 +0000
-Received: ("Tessian outbound 333ca28169fa:v132"); Thu, 05 Jan 2023 21:12:24 +0000
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 95c2d00843d04c83
-X-CR-MTA-TID: 64aa7808
-Received: from 4e5288317731.1
-        by 64aa7808-outbound-1.mta.getcheckrecipient.com id 901750E0-C6BE-4834-A286-915D2F72883E.1;
-        Thu, 05 Jan 2023 21:12:18 +0000
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
-    by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 4e5288317731.1
-    (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
-    Thu, 05 Jan 2023 21:12:18 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ITGIzQqsF4//pMqqeva3miVZ52oVZ8nlSasxDM6bjLcu1x0SyXcHzTK+pJrTnOaOuStJQkOFqE4urHQsQMGa4DmSJfyCPHSIwYXjdTMaZCfdpMAJddTCqhy52GnvngNJaBS1OPhnubjwxYchFLtvlETLXl598r6O3t32DQWSyQMHvAV2G0ARw8g2YsttIbzy3UxmAcGJ1VG8iPoKUd7/DZi4T3KLBEMwdCGBXBCW5mVxkPeO6OmbU1quXQ9+dIBeechd18FzdEEAIloDdkGSzP8RTyPwE0U/UQV8ZfWOmG89EGPdhxYuYkPn645HT9TKLHI7fJLhV01UwP3AGPnxrg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OXCtB97HMQWZh2kCbHSHpaa7YsPcwh60VTWOQuvhy9Y=;
- b=j2h+58T6Y3EA3B6FIAgQh9vQ0fyZNR2mwsix/43P0FPuXhQYbGkfAtNoArtScLi8BcJLoccf7sfwvdDTaLCKRYaCFQcTZ/lkLVRd9S2PJ2D0RvxGGHQOFhwb5RB5gQnEs79Q5aaLbnd+yuTp92Xuwmt3uBh9QXlyMa1rdujRPDcUbqWFfJl35tCQ+NQ7wH1WI8lQM+whUNnCkvhGzso7NIqnxj/hMkZIP0X/WuB35cRg1D5WQvLi5LLTvjUb0xNEhVe9eOarg7TH15Y4jVAuTt9uJ4IjXSaba1JFSQqSwHsp5FgU9o+2etKQoQB+/lwZa6Ak8e9Dxd5HC5uZiaF56A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OXCtB97HMQWZh2kCbHSHpaa7YsPcwh60VTWOQuvhy9Y=;
- b=E6vsRgUBqSuHXk7GkhGihyVN+orv6swVO8Hu7pnma1DJ3DxXApfMHcxCIj1xzwPID0ovRBOHfWkRAvxZJkI/haWDsAhIP8nEVz8hFXB3YTK8PyH7NodCcDzgtv/1iXzLtj+lC5iPQZVbr+KTylbMlCjfWk9+L0/nFtNfpfHxTR0=
-Received: from PAWPR08MB8982.eurprd08.prod.outlook.com (2603:10a6:102:33f::20)
- by PAVPR08MB8918.eurprd08.prod.outlook.com (2603:10a6:102:323::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.9; Thu, 5 Jan
- 2023 21:12:16 +0000
-Received: from PAWPR08MB8982.eurprd08.prod.outlook.com
- ([fe80::66e4:4940:d096:4f7]) by PAWPR08MB8982.eurprd08.prod.outlook.com
- ([fe80::66e4:4940:d096:4f7%9]) with mapi id 15.20.5986.014; Thu, 5 Jan 2023
- 21:12:16 +0000
-From:   Wilco Dijkstra <Wilco.Dijkstra@arm.com>
-To:     Paul Eggert <eggert@cs.ucla.edu>,
-        Adhemerval Zanella Netto <adhemerval.zanella@linaro.org>,
-        Alejandro Colomar <alx.manpages@gmail.com>,
-        "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
-CC:     Alejandro Colomar <alx@kernel.org>,
-        "libc-alpha@sourceware.org" <libc-alpha@sourceware.org>,
-        "G. Branden Robinson" <g.branden.robinson@gmail.com>
+        with ESMTP id S233552AbjAEVeD (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 5 Jan 2023 16:34:03 -0500
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com [IPv6:2a00:1450:4864:20::330])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E7A0763F7F
+        for <linux-man@vger.kernel.org>; Thu,  5 Jan 2023 13:34:00 -0800 (PST)
+Received: by mail-wm1-x330.google.com with SMTP id g10so15194311wmo.1
+        for <linux-man@vger.kernel.org>; Thu, 05 Jan 2023 13:34:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=wROeFNuahmFJu4sSq1qCh+B+5iCDLHPA4ugj012xpxs=;
+        b=kxjzePzLznBV+T1wbPruLv2YXak9sxVJ4Lia0IFYtoboy53zFQixbv2ib856tYtOgH
+         YIGfGHgEPVcV7wj9lyXdKQERCNDqhAxnyP9Wdw580DwSzFX7bj2i/L8Cph58ButQQmDb
+         y7R5B6S1W07+lok5aSNk2EU/mWlIZcPek30lOe0YP1rhTOQz50WjkO5p8hEWNjXbFYg0
+         Ge9+vsDdF8rXEi+r32CzcQSAuTi1ReF9VQJnVVT5JMC+YFqokrW1CzmOrl63YCOGrWoh
+         5ygiEpjQRFNjE1ox2OVw4RnMfn7qhJ2yg+k2KWW+5RQH7XFGbY6coA5nEUMM2fyGpaCs
+         qxcw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=wROeFNuahmFJu4sSq1qCh+B+5iCDLHPA4ugj012xpxs=;
+        b=tSeSicHdFIOl6a9oRCmyphnQEntj5ZTCNqplRopmLHIJIIDxzWuO+V4/hDpGA3Ysa3
+         LMhotfIXX5Sa/uZ+wB6V/rfgqc8RRk59shkBAhL2r3f+Rpygvzy0hkCFyVZ/Zsvou3FP
+         JiiT11cW0PgHKutN4DvyzRmh73E8f70jPfKPesy6AKAc6T6YReYZ5WKkOj9wzmQkrAvC
+         v8o4+OWttj48lQDyw2np5F03MWxNjwTyEelcuPkWniIRP0dVrSV2LfXzOyRVxCJwpQi1
+         IFBj0mmnf47WuIApTItlcfq5hD3+3ZuSpQPm+NPBLBfQUXhAO8thmfKCLIhSfoIJtBaG
+         wZdA==
+X-Gm-Message-State: AFqh2kpyUcugFKSE0siHqmPHIUwFWrkgey/ybjst7hTiiTjM+1BnS86O
+        VPa3SypC3eHjPKzvoiFCJ80=
+X-Google-Smtp-Source: AMrXdXsF4pvvdNTBv31dAjh/aGFgyIRijsr6wZhDw/7kHsMtZpP2n3zxqohtsjrwM2Rvg8ezxCULBg==
+X-Received: by 2002:a7b:c8ca:0:b0:3cf:728e:c224 with SMTP id f10-20020a7bc8ca000000b003cf728ec224mr37646718wml.6.1672954439348;
+        Thu, 05 Jan 2023 13:33:59 -0800 (PST)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id x2-20020adfec02000000b0025e86026866sm45668584wrn.0.2023.01.05.13.33.58
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Jan 2023 13:33:58 -0800 (PST)
+Message-ID: <7fd4dc6d-6c35-108d-3f19-3583cba5ff6f@gmail.com>
+Date:   Thu, 5 Jan 2023 22:33:37 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
 Subject: Re: [PATCH] bind.2, mount_setattr.2, openat2.2, perf_event_open.2,
  pidfd_send_signal.2, recvmmsg.2, seccomp_unotify.2, select_tut.2, sendmmsg.2,
  set_thread_area.2, sysctl.2, bzero.3, getaddrinfo.3, getaddrinfo_a.3,
  getutent.3, mbrtowc.3, mbsinit.3, rti...
-Thread-Topic: [PATCH] bind.2, mount_setattr.2, openat2.2, perf_event_open.2,
- pidfd_send_signal.2, recvmmsg.2, seccomp_unotify.2, select_tut.2, sendmmsg.2,
- set_thread_area.2, sysctl.2, bzero.3, getaddrinfo.3, getaddrinfo_a.3,
- getutent.3, mbrtowc.3, mbsinit.3, rti...
-Thread-Index: AQHZIUcLEgfJIKubUE+7fNap7IPfGa6QTaKAgAAAjlU=
-Date:   Thu, 5 Jan 2023 21:12:16 +0000
-Message-ID: <PAWPR08MB8982513ADD350AC12E758ED483FA9@PAWPR08MB8982.eurprd08.prod.outlook.com>
+Content-Language: en-US
+To:     Wilco Dijkstra <Wilco.Dijkstra@arm.com>,
+        Paul Eggert <eggert@cs.ucla.edu>,
+        Adhemerval Zanella Netto <adhemerval.zanella@linaro.org>,
+        "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
+Cc:     Alejandro Colomar <alx@kernel.org>,
+        "libc-alpha@sourceware.org" <libc-alpha@sourceware.org>,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>
 References: <20230105193751.18846-1-alx@kernel.org>
  <2e3e0b30-0fdd-cf17-fa84-a241d2169745@linaro.org>
  <18377873-00df-84fa-a9e9-5d1207e4ea52@cs.ucla.edu>
-In-Reply-To: <18377873-00df-84fa-a9e9-5d1207e4ea52@cs.ucla.edu>
-Accept-Language: en-GB, en-US
-Content-Language: en-GB
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: 
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic: PAWPR08MB8982:EE_|PAVPR08MB8918:EE_|DBAEUR03FT033:EE_|GV1PR08MB7380:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9354a4b3-6c5e-4921-ba1e-08daef618adb
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original: tVajuCRKaEHDuemh0L2nJD3ci+FRQA0EPVLRrwaeeX98+e6lDOzP++eWtONmmdTh4IPn4N6L0GHPBLmDckS/P9QKHwtD1FltuH9vKaE74ALqIDYDl4V4R2nvB2jTFGb7ONLpaWzIaGIxsrwPIRwhR9nPcdnmEV1eLgWSAc7JSBDP6qh561jfU0WYK2sSqaLtbVzUKbYNTmIGOz67jUgj0sArH6WKXPZoyRmxeiOavnN1/vi8BL0PlNPBM+XDSc3H/FtNaQ7GbS3uwjmCwXfv1+FFvLy9KlscCkbjYwSwBSx/n3myx9/MvtqJ0AhLayAJBoxsftRvPmigT+zIZ1iX8AnzRPW40P5ncr8JGhfpFuuQgIw7DrTSzrt13crTdrymzVehTsTY+d6yXrCCeyEwE8kWM8nXM5n+9yUQkVBSVoeon393efaMkgtMEQTXNpcF0LOtWlfM+vjeoZ+PUZTF4GegZzaJpc0QItAFVz4oQvP4z+8ldqLnT1RdtTqKNKRiNmxGRgpN7ztTLLnUokDEr71jZ9tFPFFUZD90kXLuPYE0PFnnzE2gAPm7Ez6O8pWWxRK/HYAH6xdqgpmMTr7U0K1zN895wEXDypDAJVhkJV50RU4ivbFn8kHSphUvT6NUViTUL5fNUGS5sVp3TXzrR1O5p1xFAxA6aM2hg+whYIJS7R14nkM+KrWj+RjRXAM3OztrC0TQ4R+KtL1v4IMxwMT/F2pUJjYGMUBJxnzcQc4=
-X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAWPR08MB8982.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(396003)(346002)(376002)(366004)(39860400002)(136003)(451199015)(186003)(33656002)(83380400001)(86362001)(55016003)(122000001)(38100700002)(38070700005)(26005)(6506007)(91956017)(2906002)(9686003)(66556008)(66946007)(7696005)(66446008)(8936002)(71200400001)(478600001)(76116006)(4326008)(66476007)(8676002)(52536014)(110136005)(41300700001)(54906003)(316002)(5660300002)(64756008)(219693005);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAVPR08MB8918
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped: DBAEUR03FT033.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs: 1864b601-bec9-41ba-aedb-08daef6185d5
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: iNQhT+B7PPEPAf+eJog/QT58cYLftB8g5S1dxGnTNX/Q2W78uTyIL+l8kNSfzPSEy68Z5LHk/guorSxW6yuDORdXQjhU4Yga5djx9xhiG24p9YNa0e9yrfZak5DfxaIWl2oIoeVPYgkD3ykScFP/tv4703a5MAm8wiF5GTVA7dxP75YJLjfafNkC/s4nUzHVfBOII8+Yma65L3uw+gB1OxVhFd6mxKiU3yj+hLSYSZt+iVSmPpisUuXWYS3f09Kl8HHCjezAx+hUugVV0cw9vt8gvuMB3vy7AojByR59SRtb9TKThU0+mIT8fdQPXQw4Hf51mhLOn07bYLPF1OLZqLSXNV2s8W6p1RBxDCSPvUQrq+uWLEWeN/0PxO088jm/cqxrdIm4po0T6xfr1RpM9AxCZStF0VFyZtFvi4q2OxWdKWhKCcTbTMiGyroGqGB7CRq1YXcZisAxU19t/GVufLFlsPUXq5KefzbmylrKgBhoTr0fnC1wWUvHgOEJpVfB0dLYTGZG05hunQgIP9XEO6sGxOSFoGyUQhKVhgTE3ErEWBLY7sJgMUSNLd6MuGj/Iuadc58GUd44tLZ7BYUwDvINNiZsoV57eUQhqo4r2/++dns7OVl4KeYuXCehcezixFj45VylVnPxXxZrf9kGZM7beyMzeNLtUlHqZk3VS2mcrpnq7zGCpTJkGAjoSCTZBhFeBdU00ni/NJZiQNbI1C6kvT/9UMwXB1lmKCdTLSU=
-X-Forefront-Antispam-Report: CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230022)(4636009)(136003)(376002)(39860400002)(346002)(396003)(451199015)(36840700001)(46966006)(40470700004)(83380400001)(86362001)(107886003)(82740400003)(40480700001)(186003)(8936002)(82310400005)(6506007)(26005)(4326008)(81166007)(41300700001)(8676002)(70586007)(70206006)(356005)(33656002)(47076005)(336012)(7696005)(5660300002)(316002)(54906003)(55016003)(478600001)(36860700001)(9686003)(52536014)(40460700003)(2906002)(110136005)(219693005);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jan 2023 21:12:24.6712
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9354a4b3-6c5e-4921-ba1e-08daef618adb
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource: DBAEUR03FT033.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR08MB7380
-X-Spam-Status: No, score=-0.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,FORGED_SPF_HELO,RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,
-        SPF_HELO_PASS,SPF_NONE,UNPARSEABLE_RELAY autolearn=no
+ <PAWPR08MB8982513ADD350AC12E758ED483FA9@PAWPR08MB8982.eurprd08.prod.outlook.com>
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <PAWPR08MB8982513ADD350AC12E758ED483FA9@PAWPR08MB8982.eurprd08.prod.outlook.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------gYGn9y6t0lbfLJcjDy0qFXon"
+X-Spam-Status: No, score=-5.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -147,35 +85,119 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi,=0A=
-=0A=
->> bzero is deprecated by POSIX.1-2001, removed by POSIX.1-2008, and on gli=
-bc=0A=
->> implementation now calls memset (previously some architecture added ifun=
-c=0A=
->> redirection to optimized bzero to avoid the extra function call, it was=
-=0A=
->> removed from all architectures).=0A=
->> =0A=
->> Also, GCC for some time also replaces bzero with memset so there is no g=
-ain=0A=
->> in actually call bzero (check glibc commit 9403b71ae97e3f1a91c796ddcbb4e=
-6f044434734).=0A=
-=0A=
-Agreed, there is no benefit from using it, and certainly no reason to try t=
-o undo=0A=
-its removal. We should promote standards, not try to subvert them...=0A=
-A more productive way would be to propose new functions to the C/C++=0A=
-committees.=0A=
-=0A=
-> In addition, gcc -Wall warns if you mistakenly pass 0 as memset's 3rd =0A=
-> arg, which undercuts the argument that bzero avoids silly mistakes.=0A=
-=0A=
-Also I think GCC should give a deprecated/obsolete warning (or perhaps erro=
-r?)=0A=
-when using bzero, bcmp, bcopy, index, rindex etc so people can start removi=
-ng=0A=
-the few remaining uses from ancient code.=0A=
-=0A=
-Cheers,=0A=
-Wilco=
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------gYGn9y6t0lbfLJcjDy0qFXon
+Content-Type: multipart/mixed; boundary="------------7tUBKWDbFrSc0SL4VkhTzACR";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: Wilco Dijkstra <Wilco.Dijkstra@arm.com>, Paul Eggert
+ <eggert@cs.ucla.edu>,
+ Adhemerval Zanella Netto <adhemerval.zanella@linaro.org>,
+ "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
+Cc: Alejandro Colomar <alx@kernel.org>,
+ "libc-alpha@sourceware.org" <libc-alpha@sourceware.org>,
+ "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Message-ID: <7fd4dc6d-6c35-108d-3f19-3583cba5ff6f@gmail.com>
+Subject: Re: [PATCH] bind.2, mount_setattr.2, openat2.2, perf_event_open.2,
+ pidfd_send_signal.2, recvmmsg.2, seccomp_unotify.2, select_tut.2, sendmmsg.2,
+ set_thread_area.2, sysctl.2, bzero.3, getaddrinfo.3, getaddrinfo_a.3,
+ getutent.3, mbrtowc.3, mbsinit.3, rti...
+References: <20230105193751.18846-1-alx@kernel.org>
+ <2e3e0b30-0fdd-cf17-fa84-a241d2169745@linaro.org>
+ <18377873-00df-84fa-a9e9-5d1207e4ea52@cs.ucla.edu>
+ <PAWPR08MB8982513ADD350AC12E758ED483FA9@PAWPR08MB8982.eurprd08.prod.outlook.com>
+In-Reply-To: <PAWPR08MB8982513ADD350AC12E758ED483FA9@PAWPR08MB8982.eurprd08.prod.outlook.com>
+
+--------------7tUBKWDbFrSc0SL4VkhTzACR
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
+
+SGkgV2lsY28sIFBhdWwsIGFuZCBBZGhlbWVydmFsLA0KDQpPbiAxLzUvMjMgMjI6MTIsIFdp
+bGNvIERpamtzdHJhIHdyb3RlOg0KPiBIaSwNCj4gDQo+Pj4gYnplcm8gaXMgZGVwcmVjYXRl
+ZCBieSBQT1NJWC4xLTIwMDEsIHJlbW92ZWQgYnkgUE9TSVguMS0yMDA4LCBhbmQgb24gZ2xp
+YmMNCj4+PiBpbXBsZW1lbnRhdGlvbiBub3cgY2FsbHMgbWVtc2V0IChwcmV2aW91c2x5IHNv
+bWUgYXJjaGl0ZWN0dXJlIGFkZGVkIGlmdW5jDQo+Pj4gcmVkaXJlY3Rpb24gdG8gb3B0aW1p
+emVkIGJ6ZXJvIHRvIGF2b2lkIHRoZSBleHRyYSBmdW5jdGlvbiBjYWxsLCBpdCB3YXMNCj4+
+PiByZW1vdmVkIGZyb20gYWxsIGFyY2hpdGVjdHVyZXMpLg0KDQpTdXJlLCBQT1NJWCBwcmVm
+ZXJzIG1lbXNldCgzKS4gIEJ1dCB3aHk/ICAiQmVjYXVzZSBpdCBpcyBzdGFuZGFyZCIgaXNu
+J3QgYSB2YWxpZCANCnJlYXNvbmluZywgYmVjYXVzZSBQT1NJWCBkZWNpZGVzIHdoYXQgaXMg
+c3RhbmRhcmQsIHNvIGl0IHdvdWxkIGJlIGNpcmN1bGFyIA0KcmVhc29uaW5nLg0KDQpBbnl3
+YXksIHRoZSBmYWN0IHRoYXQgbGliYyBkb2Vzbid0IHByb3ZpZGUgaXQgaXMgbm90IGEgcHJv
+YmxlbSBmb3IgY2FsbGVyczogdGhlIA0KY29tcGlsZXIgcHJvdmlkZXMgaXQuICBBbmQgZXZl
+biBpZiB0aGUgY29tcGlsZXIgZHJvcHBlZCBzdXBwb3J0LCBvbmUgY2FuIHdyaXRlIA0KaXQg
+d2l0aCBhIG9uZSBsaW5lciwgd2hpY2ggZXZlbiBQT1NJWCBvbmNlIHJlY29tbWVuZGVkWzFd
+Og0KDQogICAgICNkZWZpbmUgYnplcm8oYixsZW4pIChtZW1zZXQoKGIpLCAnXDAnLCAobGVu
+KSksICh2b2lkKSAwKQ0KDQoNClsxXTogIDxodHRwczovL3B1YnMub3Blbmdyb3VwLm9yZy9v
+bmxpbmVwdWJzLzAwOTY5NTM5OS9mdW5jdGlvbnMvYnplcm8uaHRtbD4NCg0KPj4+DQo+Pj4g
+QWxzbywgR0NDIGZvciBzb21lIHRpbWUgYWxzbyByZXBsYWNlcyBiemVybyB3aXRoIG1lbXNl
+dCBzbyB0aGVyZSBpcyBubyBnYWluDQo+Pj4gaW4gYWN0dWFsbHkgY2FsbCBiemVybyAoY2hl
+Y2sgZ2xpYmMgY29tbWl0IDk0MDNiNzFhZTk3ZTNmMWE5MWM3OTZkZGNiYjRlNmYwNDQ0MzQ3
+MzQpLg0KDQpObyBnYWluIGluIGdlbmVyYXRlZCBjb2RlOyBidXQgdGhlcmUncyBhIGdhaW4g
+aW4gc291cmNlIGNvZGU6IGxlc3MgY29nbml0aXZlIA0KbG9hZC4gIEluc3RlYWQgb2YgMyBh
+cmd1bWVudHMsIHRoZSBvcmRlciBvZiB3aGljaCBpcyBub3QgZWFzeSB0byByZW1lbWJlciwg
+dGhlIA0KcHJvZ3JhbW1lciBvbmx5IG5lZWRzIHRvIGNhcmUgYWJvdXQgMiwgYW5kIHRoZXkn
+cmUgb2J2aW91cy4NCg0KPiANCj4gQWdyZWVkLCB0aGVyZSBpcyBubyBiZW5lZml0IGZyb20g
+dXNpbmcgaXQsIGFuZCBjZXJ0YWlubHkgbm8gcmVhc29uIHRvIHRyeSB0byB1bmRvDQo+IGl0
+cyByZW1vdmFsLiBXZSBzaG91bGQgcHJvbW90ZSBzdGFuZGFyZHMsIG5vdCB0cnkgdG8gc3Vi
+dmVydCB0aGVtLi4uDQoNCkkgZ2VuZXJhbGx5IHByb21vdGUgUE9TSVg7IGJ1dCBhdCB0aGUg
+c2FtZSB0aW1lIEknbSBub3QgYmxpbmRseSBmb2xsb3dpbmcgaXQsIA0KYW5kIHdoZW4gaXRz
+IGRlY2lzaW9ucyBkb24ndCBtYWtlIHNlbnNlIEkgd2lsbCBkZXZpYXRlIGZyb20gaXQuDQoN
+Cj4gQSBtb3JlIHByb2R1Y3RpdmUgd2F5IHdvdWxkIGJlIHRvIHByb3Bvc2UgbmV3IGZ1bmN0
+aW9ucyB0byB0aGUgQy9DKysNCj4gY29tbWl0dGVlcy4NCg0KSSBiZWxpZXZlIGluIGV4aXN0
+aW5nIHByYWN0aWNlIGFzIGEgd2F5IG9mIGltcHJvdmluZyB0aGUgc3RhbmRhcmRzLiAgSU1P
+LCBpdCANCmRvZXNuJ3QgbWFrZSBzZW5zZSB0byBhc2sgUE9TSVggdG8gYWRkIGEgZnVuY3Rp
+b24sIGlmIG5vLW9uZSB1c2VzIGl0Lg0KDQpTbyBJIHRoaW5rIGl0IHNob3VsZCBiZSBmaW5l
+IHRvIHJlY29tbWVuZCB1c2luZyBhIHdlbGwgZGVzaWduZWQgQVBJLCBhbmQgdXNlIA0KdGhh
+dCBhcyBhIHdheSB0byBpbmNyZWFzZSBpdHMgdXNlLCBob3BlZnVsbHkgcmVzdWx0aW5nIGxv
+bmctdGVybSBpbiBhIA0KcmVpbmNvcnBvcmF0aW9uIHRvIFBPU0lYLg0KDQpJIGFsc28gZGVm
+ZW5kIG1lbXBjcHkoMykgb3ZlciBhbnkgUE9TSVggb3IgSVNPIGFsdGVybmF0aXZlcy4gIEl0
+J3Mgc2ltcGx5IA0Kc3VwZXJpb3IgdG8gdGhlIGFsdGVybmF0aXZlcywgYW5kIFBPU0lYIHNo
+b3VsZCBzdGFuZGFyZGl6ZSBpdCAoYW5kIEknZCBzYXkgZXZlbiANCmRlcHJlY2F0ZSBtZW1j
+cHkoMyksIHdoaWNoIGlzIGEgbWlzZGVzaWduZWQgQVBJLCBidXQgSSB3b24ndCBnbyB0aGF0
+IGZhciBmb3Igbm93KS4NCg0KPiANCj4+IEluIGFkZGl0aW9uLCBnY2MgLVdhbGwgd2FybnMg
+aWYgeW91IG1pc3Rha2VubHkgcGFzcyAwIGFzIG1lbXNldCdzIDNyZA0KPj4gYXJnLCB3aGlj
+aCB1bmRlcmN1dHMgdGhlIGFyZ3VtZW50IHRoYXQgYnplcm8gYXZvaWRzIHNpbGx5IG1pc3Rh
+a2VzLg0KPiANCj4gQWxzbyBJIHRoaW5rIEdDQyBzaG91bGQgZ2l2ZSBhIGRlcHJlY2F0ZWQv
+b2Jzb2xldGUgd2FybmluZyAob3IgcGVyaGFwcyBlcnJvcj8pDQo+IHdoZW4gdXNpbmcgYnpl
+cm8sIGJjbXAsIGJjb3B5LCBpbmRleCwgcmluZGV4IGV0YyBzbyBwZW9wbGUgY2FuIHN0YXJ0
+IHJlbW92aW5nDQo+IHRoZSBmZXcgcmVtYWluaW5nIHVzZXMgZnJvbSBhbmNpZW50IGNvZGUu
+DQoNClRoZXJlIGFyZSBtYW55IHVzZXJzIG9mIGJ6ZXJvKDMpIGluIHRoZSB3aWxkLCBhbmQg
+aXQgaXMgYSBmaW5lIEFQSSBmcm9tIGEgDQp1c2FiaWxpdHkgcG9pbnQgb2Ygdmlldy4gIE5v
+dCBiZWluZyBwcm9tb3RlZCBieSBQT1NJWCBvciBJU08gaXMgbm90IGVub3VnaCB0byANCndh
+cm4gYWJvdXQgaXRzIHVzZS4gIFdpdGggdGhhdCByZWFzb25pbmcsIHdlIHNob3VsZCB3YXJu
+IGFib3V0IG1hbnkgR05VIA0KZXh0ZW5zaW9ucywgYW5kIHNvbWUgb2YgdGhlbSBhcmUgcmVh
+bGx5IGZpbmUgKHNvIG11Y2ggdGhhdCBtYW55IGVuZGVkIHVwIGluIFBPU0lYKS4NCg0KSG93
+ZXZlciwgaXQgd291bGQgYmUgZmluZSB0byB3YXJuIGFib3V0IHRob3NlIHRoYXQgYXJlIGVy
+cm9yLXByb25lOg0KDQotICBiY29weSgzKQ0KDQpBbmQgYWxzbyB3YXJuIGFib3V0IHRob3Nl
+IHRoYXQgaGF2ZSBhIGRyb3AtaW4gcmVwbGFjZW1lbnQgaW4gUE9TSVg6DQoNCi0gIGJjbXAo
+MykNCi0gIGluZGV4KDMpDQotICByaW5kZXgoMykNCg0KSSB3b3VsZCBlbmRvcnNlIHdhcm5p
+bmcgYWJvdXQgdGhvc2UuICBCVFcsIEknbGwgcmV3cml0ZSB0aGUgYmNtcCgzKSBwYWdlIHRv
+IHNheSANCml0J3MgaWRlbnRpY2FsIHRvIG1lbWNtcCgzKS4NCg0KPiANCj4gQ2hlZXJzLA0K
+PiBXaWxjbw0KDQpDaGVlcnMsDQoNCkFsZXgNCg0KLS0gDQo8aHR0cDovL3d3dy5hbGVqYW5k
+cm8tY29sb21hci5lcy8+DQo=
+
+--------------7tUBKWDbFrSc0SL4VkhTzACR--
+
+--------------gYGn9y6t0lbfLJcjDy0qFXon
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmO3QjEACgkQnowa+77/
+2zK4Hg//ZtF+3eGdOXXvwWTnC1fmVTBFEL31BH5BV8gMZSCMJKKZCdHvn88oCFUP
+PjWX7+UAjjogiES08MF/cCMHxavzWtfcnD+uvSz6XI7m3UiNvYl0SgevYwYwEa2k
+5BNNIu//gTMbEs+t1FfV44bTbmdRyp4MC3h/OWeyfw1pNnl2UGb/RZnh6/7cbWNp
+5BSe4sx+pz7WYe7m1J3RLThYbqX6U1h1wM9NIaaUFoTQ4n34Fy4lxJFeh4zAB6g0
+ZTblwoMCvm6lf0k9d8mw7Ehr4SpfO3x849zOFbzOHXOMAI02XrdITiyK/Bx1Oedr
+RNaZtwEiO/n3tCFb9NdaG/VelAxCofW+KEbWR9TkwUU/y9hPZuOXNDvSOilxmQhm
+wAlWknDd5g6MkV7/YLhxEDoI1T+xw4qUhpAdbpsPO2JQ4S/hr/WQ7AZ5emx7SttF
+/KbTJtXhnkJN82XG1nJxdGFitYPRKJ6QYseYirV1oqN5o1Flfpi1p5mug84zH2hF
+HEwwPChhjpGaS9EWPuJghJx2i0Q51c1zKr9cqRqD28J1u5jNIiF6NstnRNDC5+F8
+LLLr7tSipFLNOoRlb+vIkHMKTP8eP7o2NJxqpfCLFd5rzrwPx19nl5uXxGAOPSy1
+3HDvvGrPPF5ERbgQ0SS0gaiSgiS6uGh+gg6bnRDXPqGMaQMzsik=
+=cWcc
+-----END PGP SIGNATURE-----
+
+--------------gYGn9y6t0lbfLJcjDy0qFXon--
