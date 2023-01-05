@@ -2,72 +2,65 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 1C7CD65F3F5
-	for <lists+linux-man@lfdr.de>; Thu,  5 Jan 2023 19:48:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 8A8FD65F412
+	for <lists+linux-man@lfdr.de>; Thu,  5 Jan 2023 20:03:45 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234999AbjAESsD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 5 Jan 2023 13:48:03 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60568 "EHLO
+        id S234805AbjAETDo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 5 Jan 2023 14:03:44 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37890 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234525AbjAESsD (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 5 Jan 2023 13:48:03 -0500
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com [IPv6:2a00:1450:4864:20::32d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 422325E0BA
-        for <linux-man@vger.kernel.org>; Thu,  5 Jan 2023 10:48:02 -0800 (PST)
-Received: by mail-wm1-x32d.google.com with SMTP id m8-20020a05600c3b0800b003d96f801c48so2034263wms.0
-        for <linux-man@vger.kernel.org>; Thu, 05 Jan 2023 10:48:02 -0800 (PST)
+        with ESMTP id S235301AbjAETDW (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 5 Jan 2023 14:03:22 -0500
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com [IPv6:2a00:1450:4864:20::334])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 459975F91A
+        for <linux-man@vger.kernel.org>; Thu,  5 Jan 2023 11:03:21 -0800 (PST)
+Received: by mail-wm1-x334.google.com with SMTP id b24-20020a05600c4a9800b003d21efdd61dso2068754wmp.3
+        for <linux-man@vger.kernel.org>; Thu, 05 Jan 2023 11:03:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=in-reply-to:references:cc:to:from:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Rt7mHW7xha7ZP6t3FvNynj27ble7vKSG9hqyVlKZEII=;
-        b=EAESby7u+thZUfGncibh44m/luw3f4/L6uEzUZZi5lHHSIOWrx9kGVpX2OPxLh6usa
-         TLcUGkPVA+IuCJW3BzjwFX5EHvsZ6sk9LcZYYNkUik9NeS3/AFpI7ET3XsklRZ/6YVs4
-         OFooW1kc5V7F2WAC7Qdk2PWCwnlbhauq5jpQ00hjEMzVI8ZY8eO/yg7VN1veGGxpozzM
-         VgZgSunZHh6xBEg7yIjBQCl5HakdVLGcqN0aYXOtcN46rJbwSdr3n8ODY5Ft9yGyDGyH
-         tnnRgWz2ahHEpCh57c/DAIk4qzZZqqE1EiK3mdDLX2Azc1cpiUlN4Hh+LMbmaAx1Ab++
-         GQQg==
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=NxPeAIxS09WE50B11Am9pyYt/NXTZqDeqCWqmVQsHN4=;
+        b=QHuhx7+0oq/tnWOYMk9gwFP6AW3so/Vx87dbdRTEZBMpWZEbJOuLOlW0Ni3Pr7b2EY
+         opoF6ydKFKB0FSH3hXMSH9w9VMUmjQybRX4IamDv682aJQ85VNF/0Okr3m4yEMrxafia
+         JE8ZUfqUqNbh2McsxHz9Vqt4m0pI9XIGLmM3o6lUUxOa6smWXpmp9EZOpw4jjOBYycLY
+         0Jz23nLt9rcXQXTAx/2TGBL8LoBXNtRHMoGyEScnqggggCz8zaXuuV1EHHRtNvTegP9n
+         STeanbOuMccQRTleN13ncqFDp+SmRoCWm91kwW+Cpw0s2uCjS97neiJIzdrl1Mnwy7Jd
+         ch8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=in-reply-to:references:cc:to:from:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=Rt7mHW7xha7ZP6t3FvNynj27ble7vKSG9hqyVlKZEII=;
-        b=LryX3dvVRegWvqjIKKQbaceRfSYY2GHxKuzHA7/BfPOsXzRi4rlFE8U9E04KD3mnCy
-         16QhNX+XtOsOi5T7Xk2Ckfwc46Fd3aYJ1Yj7nkcI+V7IXDlSwrW4PLTzOADV8ykiA/H3
-         loOOt6pQOcJZtGe8wDICFNJ+auHkIKBsbpXylJ9kMCVLpU2f5E4OTwaGcBaY6vnX96Dl
-         SHY0uDd43q0DuL2orks/OmmSN9NlRZ711PcbUnGjK9CfceJ9D/moOoRQcKtTshVfHNMF
-         8DKVdLSIxP8NhVZ9pVnbytzjPWYYEHDW6gxyDbW7082kBwXGedx5yZKD9evAGTyf6DPO
-         ph+w==
-X-Gm-Message-State: AFqh2kqn1BfD0iz51baWjRQxrOi1CdrFLi+kNuPNdVcGVV0pV1OlWO+8
-        VOoi1lSUYDwTN4QphH7wkDs=
-X-Google-Smtp-Source: AMrXdXslPlvuVH9V6DpPfGShM4wVkSxFIXwQD83YhYhdWdKo7g4nTpnuoMmBzJzNfVRo5XhPWlX1Aw==
-X-Received: by 2002:a05:600c:1c20:b0:3d2:2f48:9443 with SMTP id j32-20020a05600c1c2000b003d22f489443mr36481617wms.15.1672944480829;
-        Thu, 05 Jan 2023 10:48:00 -0800 (PST)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id o9-20020a05600c510900b003d98f92692fsm3942292wms.17.2023.01.05.10.48.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Jan 2023 10:48:00 -0800 (PST)
-Message-ID: <72facfb2-c219-1558-181c-8ea06b2d1283@gmail.com>
-Date:   Thu, 5 Jan 2023 19:47:48 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-Subject: Re: [PATCH] index.3, memchr.3, strchr.3, string.3, strpbrk.3,
- strsep.3, strspn.3, strstr.3, strtok.3: Deprecate index(3) and rindex(3)
-Content-Language: en-US
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=NxPeAIxS09WE50B11Am9pyYt/NXTZqDeqCWqmVQsHN4=;
+        b=rZhtPDz+Z3tqIdMerocw8b/OTrhTekvq7BAO5McT5Tr9WZkqum/FbWKJWADwlr439q
+         zmFzh/mjdoUYzuxHaG39M8o81O87O/WVzTxWNwoIlvpF/KqejWm9F88rQT+SWCCg398J
+         bx5iWlZ4cQLc1L0yA9heNzXdenq1GoQJLsBg0e2qV6jrwvW2T5poL6P6XwzqBsov0bIo
+         Y4PAQu5eGlojByTATBa3osfOQhJdBWKrT2waYrh42K0arhWj0DfY1QZdlQ310d/XyAZg
+         QpPY32roanCSE2ph68wfT46BZfhkgJw/2iNg8p8wV0vtHm5bRbI5oVd1sssbKq556Kqo
+         gWJQ==
+X-Gm-Message-State: AFqh2kpnaw1kZoEyDhDIVGr/EQhp+TkThz623OgRegEsvtSsdzR6O3t+
+        1IxVjJrxWlt8VaV2bVdrE/qMD7ts1Uk=
+X-Google-Smtp-Source: AMrXdXtE0Ao6yg/3yO7aMGMuOGGrM/X1BkR1a5ud+FolA3zEwP7pcdDE1HRk/PRjwkvv87tX6kJZFw==
+X-Received: by 2002:a7b:ce06:0:b0:3cf:a483:3100 with SMTP id m6-20020a7bce06000000b003cfa4833100mr37012012wmc.3.1672945400884;
+        Thu, 05 Jan 2023 11:03:20 -0800 (PST)
+Received: from asus5775.alejandro-colomar.es ([170.253.36.171])
+        by smtp.googlemail.com with ESMTPSA id r7-20020a05600c458700b003c6b7f5567csm8837322wmo.0.2023.01.05.11.03.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Jan 2023 11:03:20 -0800 (PST)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        linux-man@vger.kernel.org
-Cc:     Alejandro Colomar <alx@kernel.org>
-References: <20230105184446.10141-1-alx@kernel.org>
-In-Reply-To: <20230105184446.10141-1-alx@kernel.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------GHgnzKyY3vo8367LjqfO8AoX"
-X-Spam-Status: No, score=-5.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+X-Google-Original-From: Alejandro Colomar <alx@kernel.org>
+To:     linux-man@vger.kernel.org
+Cc:     Alejandro Colomar <alx@kernel.org>, libc-alpha@sourceware.org,
+        Wilco Dijkstra <Wilco.Dijkstra@arm.com>
+Subject: [PATCH] memchr.3: Deprecate rawmemchr(3)
+Date:   Thu,  5 Jan 2023 20:02:47 +0100
+Message-Id: <20230105190246.17819-1-alx@kernel.org>
+X-Mailer: git-send-email 2.39.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -76,64 +69,66 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------GHgnzKyY3vo8367LjqfO8AoX
-Content-Type: multipart/mixed; boundary="------------srzA1iANcmQeK1D1uO7xKEy5";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>,
- linux-man@vger.kernel.org
-Cc: Alejandro Colomar <alx@kernel.org>
-Message-ID: <72facfb2-c219-1558-181c-8ea06b2d1283@gmail.com>
-Subject: Re: [PATCH] index.3, memchr.3, strchr.3, string.3, strpbrk.3,
- strsep.3, strspn.3, strstr.3, strtok.3: Deprecate index(3) and rindex(3)
-References: <20230105184446.10141-1-alx@kernel.org>
-In-Reply-To: <20230105184446.10141-1-alx@kernel.org>
+It is not optimized, and it calls either strlen(3) or memchr(3), so the
+caller can do it directly, and it will be better.
 
---------------srzA1iANcmQeK1D1uO7xKEy5
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Suggested-by: Wilco Dijkstra <Wilco.Dijkstra@arm.com>
+Signed-off-by: Alejandro Colomar <alx@kernel.org>
+---
+ man3/memchr.3 | 28 ++++++++++++----------------
+ 1 file changed, 12 insertions(+), 16 deletions(-)
 
-aW5kZXgoMykgICAgICAgICAgICAgICAgICAgTGlicmFyeSBGdW5jdGlvbnMgTWFudWFsICAg
-ICAgICAgICAgICAgICAgIGluZGV4KDMpDQoNCk5BTUUNCiAgICAgICAgaW5kZXgsIHJpbmRl
-eCAtIGxvY2F0ZSBjaGFyYWN0ZXIgaW4gc3RyaW5nDQoNCkxJQlJBUlkNCiAgICAgICAgU3Rh
-bmRhcmQgQyBsaWJyYXJ5IChsaWJjLCAtbGMpDQoNClNZTk9QU0lTDQogICAgICAgICNpbmNs
-dWRlIDxzdHJpbmdzLmg+DQoNCiAgICAgICAgW1tkZXByZWNhdGVkXV0gY2hhciAqaW5kZXgo
-Y29uc3QgY2hhciAqcywgaW50IGMpOw0KICAgICAgICBbW2RlcHJlY2F0ZWRdXSBjaGFyICpy
-aW5kZXgoY29uc3QgY2hhciAqcywgaW50IGMpOw0KDQpERVNDUklQVElPTg0KICAgICAgICBp
-bmRleCgpIGlzIGlkZW50aWNhbCB0byBzdHJjaHIoMykuDQoNCiAgICAgICAgcmluZGV4KCkg
-aXMgaWRlbnRpY2FsIHRvIHN0cnJjaHIoMykuDQoNCiAgICAgICAgVXNlIHN0cmNocigzKSBh
-bmQgc3RycmNocigzKSBpbnN0ZWFkIG9mIHRoZXNlIGZ1bmN0aW9ucy4NCg0KU1RBTkRBUkRT
-DQogICAgICAgIDQuM0JTRDsgIG1hcmtlZCAgYXMgIExFR0FDWSAgaW4gUE9TSVguMeKAkDIw
-MDEuICBQT1NJWC4x4oCQMjAwOCByZW1vdmVzIHRoZQ0KICAgICAgICBzcGVjaWZpY2F0aW9u
-cyBvZiBpbmRleCgpIGFuZCByaW5kZXgoKSwgcmVjb21tZW5kaW5nIHN0cmNocigzKSBhbmQg
-c3Ry4oCQDQogICAgICAgIHJjaHIoMykgaW5zdGVhZC4NCg0KU0VFIEFMU08NCiAgICAgICAg
-c3RyY2hyKDMpLCBzdHJyY2hyKDMpDQoNCkxpbnV4IG1hbuKAkHBhZ2VzICh1bnJlbGVhc2Vk
-KSAgICAgICAgKGRhdGUpICAgICAgICAgICAgICAgICAgICAgICAgICAgIGluZGV4KDMpDQo=
+diff --git a/man3/memchr.3 b/man3/memchr.3
+index 68873964e..e03001bec 100644
+--- a/man3/memchr.3
++++ b/man3/memchr.3
+@@ -22,7 +22,8 @@ .SH SYNOPSIS
+ .PP
+ .BI "void *memchr(const void " s [. n "], int " c ", size_t " n );
+ .BI "void *memrchr(const void " s [. n "], int " c ", size_t " n );
+-.BI "void *rawmemchr(const void " s [. n "], int " c );
++.PP
++.BI "[[deprecated]] void *rawmemchr(const void " s [. n "], int " c );
+ .fi
+ .PP
+ .RS -4
+@@ -66,26 +67,21 @@ .SH DESCRIPTION
+ The
+ .BR rawmemchr ()
+ function is similar to
+-.BR memchr ():
+-it assumes (i.e., the programmer knows for certain)
++.BR memchr (),
++but it assumes
++(i.e., the programmer knows for certain)
+ that an instance of
+ .I c
+ lies somewhere in the memory area starting at the location pointed to by
+-.IR s ,
+-and so performs an optimized search for
+-.I c
+-(i.e., no use of a count argument to limit the range of the search).
++.IR s .
+ If an instance of
+ .I c
+-is not found, the results are unpredictable.
+-The following call is a fast means of locating a string's
+-terminating null byte:
+-.PP
+-.in +4n
+-.EX
+-char *p = rawmemchr(s,\ \(aq\e0\(aq);
+-.EE
+-.in
++is not found, the behavior is undefined.
++Use either
++.BR strlen (3)
++or
++.BR memchr (3)
++instead.
+ .SH RETURN VALUE
+ The
+ .BR memchr ()
+-- 
+2.39.0
 
-
---------------srzA1iANcmQeK1D1uO7xKEy5--
-
---------------GHgnzKyY3vo8367LjqfO8AoX
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmO3G1QACgkQnowa+77/
-2zKv5BAAnqXH6L4Nk8EyOcEq5w58ds85yc04CpjU43+n6sj2aTOnWdP6lOmt3N1f
-JjPoyFgEXAAoU3Dou7JMZieQXFWdgY2PS6vKfv1MEpz8HlD7KqstBYIXHmfFdY36
-g0y/KvfegZaT0lRk3OaLoWpO6zI1Iq0Xwojn63yAwNtgIeAUyCUSLWpkhSYEXX5w
-zu8N8xkPYaYKQ0lcOq/5ZPGNyvM1iNOBEekObOzcCm1wzTUZArqu7Kh8y6oFGLNN
-Aruzp21lNeg2tIzBQ0TsnxiDVIgPjmYWHrSCn3EQgC8ng0l6GMxaBUXyvcpL/F6e
-Z1DJYGwcDockW3CCG9IKheH332sB43LAUN5E42jIR6NM0o/qkgHC2ynG1TxYwuNM
-4l8HsXSrdjjTvn2c5LyJwgQ7wHZZ+7sMV21E/EOyGhu+Z0zaETa0PGIJzFNgkDzu
-2cGYL5atiQfF7Iadgkm+Xu2RaMyeEEZBTpmZyxIZs2OifhiQFP7jYNxDqTkwf/KR
-VfN3P6r9Egg3oVq7bjxPRF6XxlO7CazsXGVlXegcI+SX1nnksbB86+D/GVZsf0FQ
-qMMqy+1RPkFxNnwKwQzt6tq3WWHZeBRSjEK1BIuhiQU1B9OrpnUQD1U7UGMIishS
-BPGtOLt4AjN6x1m4Wrk3iJ2/4b8I2iFCGEVoPFBUvDbJp01UMuE=
-=SU4A
------END PGP SIGNATURE-----
-
---------------GHgnzKyY3vo8367LjqfO8AoX--
