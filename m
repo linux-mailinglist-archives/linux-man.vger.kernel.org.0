@@ -2,67 +2,65 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 1773465FBCB
-	for <lists+linux-man@lfdr.de>; Fri,  6 Jan 2023 08:17:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B00BD65FBD8
+	for <lists+linux-man@lfdr.de>; Fri,  6 Jan 2023 08:20:24 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229490AbjAFHRj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 6 Jan 2023 02:17:39 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48088 "EHLO
+        id S229636AbjAFHUY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 6 Jan 2023 02:20:24 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50136 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229694AbjAFHRb (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 6 Jan 2023 02:17:31 -0500
-Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com [IPv6:2607:f8b0:4864:20::231])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4E3306318E
-        for <linux-man@vger.kernel.org>; Thu,  5 Jan 2023 23:17:30 -0800 (PST)
-Received: by mail-oi1-x231.google.com with SMTP id i127so478215oif.8
-        for <linux-man@vger.kernel.org>; Thu, 05 Jan 2023 23:17:30 -0800 (PST)
+        with ESMTP id S229490AbjAFHUX (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 6 Jan 2023 02:20:23 -0500
+Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com [IPv6:2607:f8b0:4864:20::22d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AD7616ECB6
+        for <linux-man@vger.kernel.org>; Thu,  5 Jan 2023 23:20:22 -0800 (PST)
+Received: by mail-oi1-x22d.google.com with SMTP id o66so484177oia.6
+        for <linux-man@vger.kernel.org>; Thu, 05 Jan 2023 23:20:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=67/PB7m7tR8NtgRWhrJArBpMMyALL6kDaNiArF7axkw=;
-        b=CG+NpxwQOu5N+9Qpd3zCZFjgB8gxzCiaObgRMjcq5krskojrACi3nHQTINAR43ny+3
-         nTvjfDqVyQOhgKjYY6QNxNw6rDdRe90ujlcGRRLGu9/IfPmu2BrDK2fQIF+Eot4tgFA3
-         CuafcScfrjMhVivGPP34AnSQuk9vOuWA/IhupUyH7+ijFLzKvl/gCWH6DTOjre9Q8PON
-         8mL4CZhJ1DYxwQZcEpOyl/ApMM/lyY8bju0v9+3I052veliH3zw3XGgnMeDDzCxWM9Xy
-         8b/GGis5Wd5p0kePC7SVUA8fhNSYsTBd/NI14+bIMVcttuQo8xogdeerGIej78M+pxNq
-         9B6Q==
+        bh=qcZW7ewspwY9vWin4Y58nkG9rPq6bWZ7SCkabPrWWhw=;
+        b=Mq3YAlog8AO9HE+ffXOkF/K1jvV5G0qT1VsOxmlj/GALvz6ySO/HUV5g10J/g11y3B
+         +fQAtmwz6JjFv2tDlHxSbnyvaF9T4fedYLdqMCrefWLGANtrYS/aDb23k7M/e+5aTrb1
+         mqSTC3o1JGaK9U+KE/QHDtu8qatPAwk+qmu55RRF4m4aq6AjRSI/XQO/e+NZWUYwdS4n
+         AtvwRmYsPL+GeRm+EIlwQ8DsOmxomAkOL3rqpptQ2mgPot3tszWqytdAkcsnsgKEl9v8
+         welIj8H3xtVuDGKQVNtCoMZjyfNW93KR0VIdBdzQPDUiuln0LUybPP4IZKlbIyCf7+CY
+         WD8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=67/PB7m7tR8NtgRWhrJArBpMMyALL6kDaNiArF7axkw=;
-        b=4XZGqBkvQPFp0PA9u+IagRiXrrrs3jYiilvYuTXT6pCni7c0YSYGe9DavQ1gy3SOAA
-         1kTjkintYvDlb3lxNYoDPgVm8cJw5Ypg6fP4EG3PT23orHRHIfTUPis7Em6+qbDqHYuE
-         fQQYNsxO2Ui9XmBeb68sC2HkEYY3tiRHeup/NYa83JHX7vzXA0uzgGVSBg9dpGGwxfhC
-         RwZvkzL8yNmvRH8CGCaadPwfZa0HsafkvDdbdXuoNOEIq3E4o9gVhxyBfn5d4RSFwzid
-         QL8Co6khwB7WOpCoAfXgoZCnvGWPlNCdYk4GXD7cyiGtGi7VmPQNFQfC29dD8d6iwKPG
-         4IkQ==
-X-Gm-Message-State: AFqh2kpwCaSGBCZBK5aUc9NzfrhX6DUvzfpJZjthp0A6nb33vwIhQgkk
-        dxQLBMXqM8ZQRqBkr3hxXM9bx6ECm20=
-X-Google-Smtp-Source: AMrXdXubYaU8xCXVM36hT187mfWVShRxzEV3LjvpuQRd8tMha6uOW1stGsz9KnfGOw37rRmGvQXQgw==
-X-Received: by 2002:a54:4e89:0:b0:35c:152a:940b with SMTP id c9-20020a544e89000000b0035c152a940bmr24077721oiy.43.1672989449700;
-        Thu, 05 Jan 2023 23:17:29 -0800 (PST)
+        bh=qcZW7ewspwY9vWin4Y58nkG9rPq6bWZ7SCkabPrWWhw=;
+        b=jHRQ40rOr1RVL3K0aw0sU3qZHltaGwFTkamNMZkrcy3X4hfroPJESky9+yussRwyKC
+         IHIHeq3xrh44KaAe071LwKBQgwnkuahpapCfw/EAsMuPznQr+s811WirTpgRWw1ecwcP
+         cr1GltkfPBly/7H7sKxyCkmbUoiMGzmqxCDy7t03sukd+DCDTdHdseFulo0Pmw5uIAoz
+         cUxgvf3VOEGXhOCdN30Wod5ENDQ4ral2JmN9M9eAx3REPLYeyAQFWKXelWRxT4nx7dgU
+         7ETPcnanX5RjjxvdNfaKpK+S1eMdGIJC73zitDEI9J0UmJRM56NnbvnZEoTvyUcAVmKn
+         JQaA==
+X-Gm-Message-State: AFqh2krgGonlGovEdAIaEo/Bt7fy/fBJQezQjVoQi7fgVZHL2ytqCTdH
+        ltpYcdTEXuqYPi8kITkf/Zq0eHiWwlY=
+X-Google-Smtp-Source: AMrXdXuqYH0pAcMXGA+YyDKkEFKCAbPxBen6orVMm2JUb1YQDJ8qFHXhOhLdB6VTwJfMEtyIDD838Q==
+X-Received: by 2002:a54:4e85:0:b0:361:9:31b3 with SMTP id c5-20020a544e85000000b00361000931b3mr22962447oiy.6.1672989622089;
+        Thu, 05 Jan 2023 23:20:22 -0800 (PST)
 Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id y28-20020a544d9c000000b0035474ff66b3sm116048oix.35.2023.01.05.23.17.29
+        by smtp.gmail.com with ESMTPSA id v14-20020a9d4e8e000000b0066db09fb1b5sm232435otk.66.2023.01.05.23.20.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Jan 2023 23:17:29 -0800 (PST)
-Date:   Fri, 6 Jan 2023 01:17:28 -0600
+        Thu, 05 Jan 2023 23:20:21 -0800 (PST)
+Date:   Fri, 6 Jan 2023 01:20:20 -0600
 From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
 To:     Alejandro Colomar <alx.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org
-Subject: Re: [PATCH v3 10/13] intro.3: srcfix
-Message-ID: <20230106071728.73bflxm6bewxq4kz@illithid>
-References: <20230105225328.tutvqrvewd6knewc@illithid>
- <7cac58e5-19bf-de63-7bc7-2ef22ee6f6f9@gmail.com>
- <20230106001929.n62apcljbzg4j2vu@illithid>
- <61a4275b-f9f9-dbb0-bff7-f6687ab169b4@gmail.com>
+Subject: Re: [PATCH v3 05/13] ldconfig.8: Revise and update for glibc 2.32
+Message-ID: <20230106072020.zpjzc2pk4kjhwotx@illithid>
+References: <20230105225246.uid2pwwivc6testz@illithid>
+ <2ef7c0b8-978e-7bc0-d5b9-88ea9348a677@gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="4znf2kygak2ff5nk"
+        protocol="application/pgp-signature"; boundary="3yzdqppxiilsu4pv"
 Content-Disposition: inline
-In-Reply-To: <61a4275b-f9f9-dbb0-bff7-f6687ab169b4@gmail.com>
+In-Reply-To: <2ef7c0b8-978e-7bc0-d5b9-88ea9348a677@gmail.com>
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
@@ -74,43 +72,55 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---4znf2kygak2ff5nk
+--3yzdqppxiilsu4pv
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
 Hi Alex,
 
-At 2023-01-06T01:40:20+0100, Alejandro Colomar wrote:
-> On 1/6/23 01:19, G. Branden Robinson wrote:
-> > I regard hyphenation suppression as correct (and harmless) practice
-> > with font macros; do you want that change backed out?
+At 2023-01-06T02:21:27+0100, Alejandro Colomar wrote:
+> On 1/5/23 23:52, G. Branden Robinson wrote:
+> > * Comment out multiple paragraphs discussing libc4 and libc5 shared
+> >    library support.  It was removed upstream in July; annotate
+> >    commit.
+[...]
+> > +.\" Support for libc4 and libc5 dropped in
+> > +.\" 8ee878592c4a642937152c8308b8faef86bcfc40 (2022-07-14) as "obsolete
+> > +.\" for over twenty years".
 >=20
-> At least separated.  Could you put it last in the set?
+> I prefer removing the code completely.  Since removing code is more
+> delicate, and to help whoever may want to investigate history in the
+> future, please do so in a separate commit.  I guess it will be better
+> if that commit removing code goes before the general revision of the
+> page.
 
-Sure, I'll do that for v4.
+Okay, will do.  I dithered over it because the withdrawn support is such
+a recent change.  But on the other hand it will take time for man-pages
+6.02 (or what have you) to percolate out to distributors just as glibc
+2.32 will.
 
 Regards,
 Branden
 
---4znf2kygak2ff5nk
+--3yzdqppxiilsu4pv
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmO3ywcACgkQ0Z6cfXEm
-bc5qNxAAr0rQFQ2MjnNkCmP1cQm+r7NQR23cXnQmdKXKeS4cO6LGrOOY6qHS7JLD
-KOZcOlAkpFLlPwGQUL+Vf4Z2wDUpnEZYfhyCRIHj5/ti08yhZq9pK/osFdjFQwTo
-a5jVOr3fZrAai07TH0J/SBYTH7ROV/G3AYtxDfUvBAfWYBmW0jE5HZF9md5BxosR
-Mr1qZYvPVrPOi4ea9opj3rfwYmGJSx2UArrtS35YDSfOv9AV1SlLJR7udxhuEkxC
-wkOPay4jsgHygFPIkmV6u0bIsD2XsVkAkMtCUHvSAtKNKUcq3KU4GMGY6DyOd7xC
-wQeeX2o/IdUZRwm7gfLKce1fpO31SPYKjn94V8lsa8DV7O4wD6UnIY0R27mhj6l4
-tNoZ4ghhI1ha0mAAsKbNWYsyLN8RnRrriFAejkx9B6sv4J43vVCB4QuATS15SylJ
-CZQzznh1wPv90en00XLmkUW5/6GSpdmVny/xTvY4TMOuqznvZBZ/FPyf4lX++Z9+
-2SxAlyHqUqtQHQX+y30KDD+f5S7QlUOAZ08LGoraaGxhEXVCxeNGZb1Tfa5sPefB
-9NkMnpS6Ohrj1DfaGRdiGsWlJz5VAzqBv09BN53hT+4640+SbFuDWPAa5qDwrH+X
-LA0KySzsvzIUmQ44BmUFlQZ6F6M7LCYCY8rd0Ji54c1QN+Hkjjo=
-=Bzlx
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmO3y7QACgkQ0Z6cfXEm
+bc7gjQ/+N1T874Wf4i730ZQufOgORL6IWMYlmYM1xnJM/mK8GWTPM0k0k24VWJ/k
+aEXE74MBfQJMGyiiL6KHcXBzNsT1uduzxmSRH7Ncs6fhtc4x2SebGYfN/dxie8uo
+YZEcFPCxSvn9WUDDCPminUXQhqTzy9B4lty4E+cKDuMQwHpGxWysbM+J3F/2yPMF
+RebQy0U5BEctbL/kFGRCAdOvNA5Ejuw8YTX67J1Gsys/ANo9udKoQMjGRGNHTFTZ
+2YItUnaQ3Qi20xBHck077Mk25aImjrIFXD4k0YXZ5knnqxPNAxchtPpTiEVUhRFA
+dlSSCGsAPM4ekg/cxINo1Jc5gDDxzh69fPcsQxV92YiYv92sfB8Gry4Eytq6ewkF
+8qjWXYa3ZjqqEiKqC6PwW9bMHADTPjhA+NQrD31h2pOTxsysQaBmUDrWq6zXmuQw
+RfrRVbLkOJRNzZ37uKWHjLDS6D4xjYpBSu5FltEnLvwC82B2mfdKkFY7Ja+y7t3b
+dyuF5lyptmkg+cfktpCR5Sd1w8kr69R69KC+Y30T0ObQCLJFzt6sFnCNc4D0wzv7
+wF5Iul4qcLmFWtm6QBKdMdAon2YTDC2b3AawgMtBnl52Ux+dEkkX1vsDziKV6CGq
+KUD81RPqKPrAMthEMYY9RU1MUkVC3f4SOVbbRijfnrPBoUNevQs=
+=mPNJ
 -----END PGP SIGNATURE-----
 
---4znf2kygak2ff5nk--
+--3yzdqppxiilsu4pv--
