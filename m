@@ -2,73 +2,133 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 4196F660075
-	for <lists+linux-man@lfdr.de>; Fri,  6 Jan 2023 13:45:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id D0E066600B3
+	for <lists+linux-man@lfdr.de>; Fri,  6 Jan 2023 13:58:08 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233524AbjAFMpS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 6 Jan 2023 07:45:18 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36756 "EHLO
+        id S229490AbjAFM5i (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 6 Jan 2023 07:57:38 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43712 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233583AbjAFMpO (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 6 Jan 2023 07:45:14 -0500
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com [IPv6:2a00:1450:4864:20::32e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D1F06745B6
-        for <linux-man@vger.kernel.org>; Fri,  6 Jan 2023 04:45:10 -0800 (PST)
-Received: by mail-wm1-x32e.google.com with SMTP id ay40so983080wmb.2
-        for <linux-man@vger.kernel.org>; Fri, 06 Jan 2023 04:45:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=keCtRG8nRGAjES1gJwhlK4CKN0+NRmoT7pQpoDRogn8=;
-        b=EdhY6FBPgSC/SCemfTyP/542CXBI7b0xG23M4eqltN2ueNhCVedeQN4XrvWPezRtNY
-         3tNgD4n4t2EiJpBPSxEV/LYBkTpTmf6HYP0FJdzJi+PyhFfFa40wN+aod6TPOYRw3lki
-         JJKEacMzueXOV7Sz+YSkWdV3yJCDPXSnHlJgasOngazImm4q8xJf3iSkQspWJVNtiJQj
-         /n40eiYWOO3mQYnO/4mcTzl/+JPZ2GUbJ+a5qehW6yNBxrytBEzP3KSSZae9ND2nmT1K
-         idBvzX5BTrqZF1/cQm/hY+jOvS8x2wGo/NJrv5ja6k6ubtcX22op+PaUd9vGa3w2jyZL
-         E+8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=keCtRG8nRGAjES1gJwhlK4CKN0+NRmoT7pQpoDRogn8=;
-        b=tU4CCLXany3Ok7cDg9MxPwe2YrxInNsYqr8NNyeGT00wd2GSGCWwDudS+dzBINCweT
-         u2jGRVHqtDPjDlNSC637hvo4ECigFenlhlOeft28ZzI0/TAOsPr3iM6yhUTc+dICiQdr
-         bZArzDDxfQUh6BwP5/Gh+PS8shNiDM4CUB/52F8ywXQMYM2oWVgE26FVAwM7jCZUwBSy
-         Gf9g+GdaCMky7pE/Ke8Va0CjKOtn9fK26ebzdOfILe2pmh+qPdsBkA0RgznFRfBOaYt7
-         GUzozO9Z4fjzUewkjQR7T1rrB71fuEHKj1vAVSXaAAQ25lLcZ0PbKqr8q9z0NI5nzbJg
-         9YDw==
-X-Gm-Message-State: AFqh2kpz3JBL7ogXpmcm5uFaeNnOUReQkMZ7tU9zzWzIIuMhzKJO/MK+
-        umMYiXJdKq9nDFr6XtV0a8c=
-X-Google-Smtp-Source: AMrXdXs7cNbhwA+bj5rLYj2P4qsSAtK/8VVjqvsyPwzuy3XmuU1iCXWCeQ/UNJLP6R/IqGJu7sJdRw==
-X-Received: by 2002:a05:600c:600a:b0:3d1:ed41:57c0 with SMTP id az10-20020a05600c600a00b003d1ed4157c0mr42683797wmb.30.1673009109244;
-        Fri, 06 Jan 2023 04:45:09 -0800 (PST)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id k4-20020a05600c1c8400b003d22528decesm7213556wms.43.2023.01.06.04.45.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 06 Jan 2023 04:45:08 -0800 (PST)
-Message-ID: <628cef2b-ce8c-64c1-56bc-c10f2587fa37@gmail.com>
-Date:   Fri, 6 Jan 2023 13:44:45 +0100
+        with ESMTP id S234811AbjAFM5W (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 6 Jan 2023 07:57:22 -0500
+Received: from EUR01-DB5-obe.outbound.protection.outlook.com (mail-db5eur01on2080.outbound.protection.outlook.com [40.107.15.80])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6A57D728B7
+        for <linux-man@vger.kernel.org>; Fri,  6 Jan 2023 04:57:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9dk4Ns6uui9kdER/Dol4RvhFrTdOWNEm8n09xxK0Izg=;
+ b=HEthgkCsACj7dfOhU3j2BnHUnxbLUngBY7OqBUnnQew+c/oXOUlblC6DWzjTXkZ82i3Qd0pX9wpxILqHjTv43MMLe59NtM5pKDPfiRXJ2MlLP+S7TDQ5t8FWU6O/jFZY62mY94cDrCOArz0DXbA9oYnD53fbTZssHNZR2YRL/+0=
+Received: from AS9PR06CA0630.eurprd06.prod.outlook.com (2603:10a6:20b:46e::22)
+ by DU2PR08MB10132.eurprd08.prod.outlook.com (2603:10a6:10:49a::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.7; Fri, 6 Jan
+ 2023 12:57:13 +0000
+Received: from VI1EUR03FT029.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:20b:46e:cafe::df) by AS9PR06CA0630.outlook.office365.com
+ (2603:10a6:20b:46e::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.15 via Frontend
+ Transport; Fri, 6 Jan 2023 12:57:13 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ VI1EUR03FT029.mail.protection.outlook.com (100.127.145.13) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5944.17 via Frontend Transport; Fri, 6 Jan 2023 12:57:12 +0000
+Received: ("Tessian outbound 0d7b2ab0f13d:v132"); Fri, 06 Jan 2023 12:57:12 +0000
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 339646456406ba00
+X-CR-MTA-TID: 64aa7808
+Received: from f4700e6a1c3b.1
+        by 64aa7808-outbound-1.mta.getcheckrecipient.com id 3CC9AB7A-A3A2-4835-83D6-F03DB0222A43.1;
+        Fri, 06 Jan 2023 12:57:06 +0000
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+    by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id f4700e6a1c3b.1
+    (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+    Fri, 06 Jan 2023 12:57:05 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=DeeBWKEELuxK8Yr/GfEki3BwhM/+EHPv0EBe7q1seIJ/dBhFBlZC+B+rV7hvLeedWcFA/PppIfpY2JATtUxED64jCqHu/PRxwANEjQitvEhIgZHC825BBjiVBT/jesgKlKP1faTqTwfaHxZ1kJcEn/rSoQuZOxNxm3NWDZNeNfRlyGpF45pBKFrHij/A/oBgUOo5HTfvcVwkZcyum0uYt4BNpwCbWW4eRVp4NRdIdexiOWpKffeIb1gBt6/79bP2XDWr4SEkGLyvLUPrjgFLZIzHXniMmVjeyHFvIyrT13ewzEPNZJjdbkb+yQEq2fYbfK5Gd3SC2GctmawJZtDS6Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9dk4Ns6uui9kdER/Dol4RvhFrTdOWNEm8n09xxK0Izg=;
+ b=SZXIJmQ+NSvDgzxnPKgAxvnx6yD/Li59GdV5rsbI7fbO39ERYFa8QnS+9oog7S/h1jhBU4DpW5dFA+uBEl1FL8AriQ1XNC7eCkBq6GW3ZF4boNdMWwsmJvoyH6/BF+EU3OBQoEiGfySTQxQjdu0p0jgSqCId21KYRZbaU2VjNlVzBCsDGLWOYTKxHuiqOpGdcA8PHj+mW3ZLt0TZ2U6Lbb7c3WMOG9KwYy8lqqC+V5S+RSxRYZbJr4Rn5AUmqwygfJBvBIVdB44HQsF4hEG7zOJOn5L94/EkouCGxm+9GOhtv5S9Y88uMDAflI+wdg8V1yeJMik04fyHYi2liMOakg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9dk4Ns6uui9kdER/Dol4RvhFrTdOWNEm8n09xxK0Izg=;
+ b=HEthgkCsACj7dfOhU3j2BnHUnxbLUngBY7OqBUnnQew+c/oXOUlblC6DWzjTXkZ82i3Qd0pX9wpxILqHjTv43MMLe59NtM5pKDPfiRXJ2MlLP+S7TDQ5t8FWU6O/jFZY62mY94cDrCOArz0DXbA9oYnD53fbTZssHNZR2YRL/+0=
+Received: from PAWPR08MB8982.eurprd08.prod.outlook.com (2603:10a6:102:33f::20)
+ by PR3PR08MB5721.eurprd08.prod.outlook.com (2603:10a6:102:84::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.9; Fri, 6 Jan
+ 2023 12:57:04 +0000
+Received: from PAWPR08MB8982.eurprd08.prod.outlook.com
+ ([fe80::66e4:4940:d096:4f7]) by PAWPR08MB8982.eurprd08.prod.outlook.com
+ ([fe80::66e4:4940:d096:4f7%9]) with mapi id 15.20.5986.014; Fri, 6 Jan 2023
+ 12:57:03 +0000
+From:   Wilco Dijkstra <Wilco.Dijkstra@arm.com>
+To:     Alejandro Colomar <alx.manpages@gmail.com>,
+        "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
+CC:     Alejandro Colomar <alx@kernel.org>,
+        "libc-alpha@sourceware.org" <libc-alpha@sourceware.org>
+Subject: Re: [PATCH] memchr.3: Deprecate rawmemchr(3)
+Thread-Topic: [PATCH] memchr.3: Deprecate rawmemchr(3)
+Thread-Index: AQHZIThty8O/p6e6+0yd/LZsoK+4wK6RUnP9
+Date:   Fri, 6 Jan 2023 12:57:03 +0000
+Message-ID: <PAWPR08MB898270B26F1A5776B87DE3F883FB9@PAWPR08MB8982.eurprd08.prod.outlook.com>
+References: <20230105190246.17819-1-alx@kernel.org>
+In-Reply-To: <20230105190246.17819-1-alx@kernel.org>
+Accept-Language: en-GB, en-US
+Content-Language: en-GB
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: 
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic: PAWPR08MB8982:EE_|PR3PR08MB5721:EE_|VI1EUR03FT029:EE_|DU2PR08MB10132:EE_
+X-MS-Office365-Filtering-Correlation-Id: c8dfb60a-6338-40fd-a021-08daefe587a1
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original: kA2s9/h2ljpuJlXWCs9p7dZ/evkUVG7mKHkgCTYz+0bXSfnw3Qn/rUexbF/WO3DV6c7VPIK5M6cXscDd5RB34aL2sg2BX/j/RsgV8IaavGjAnHZe4jd2W/YPmbZHOlzV5CUfbCUIzBgIPg4kqsZ4LWJb+8lG3a7dIxZYj4q+DeMPFVOHBmrVNXzSIBjUbJiI6NP3mWyiZPe9P26XPawb8NxM+d32JQygQGXL8fal/GBQimRnaLAG6dCi9EGr5bDfWauX9zQEC/UBpEZ4lSqEG1j4EH7RzWZyDvLRvlrk+hJJa69VtQZ9B5K/3SDtm+6pLq2G93cfpwbo0Fuld0gph732Trnm2ZQ5/F3fXjNzlJdQrvpRzbDLLqB0o85npiQDPPKXwP/N4lgBA1boWLp/IlFZPI3veJ/rcgeRfMRb9QBv29fptJng/zJerRLN3ZHx8xOY2b9Mx5+eOqbeVyxRd9BGJBNg+MzQfHM/GWxOhiXgmHDwygkj1UIPGj6uUouTRzNY5CJGWqKtT2WOhyWqdSMYNNG30S/SPcm+VIXbUII5b9S8oLLw+Wx9npwRVObZ4G4FLqpaU2zCV3210YISkE26Lt+yymkE2Xb3vTUNFLTafb5yUy5mHeZh/ZqxUD9kEXoaAAZbKYC1FDjxvlTEB62VALIuswMSiWNYkaexwM2JAT05deePUddrJSjmqI525NvVDua/rTQMoL33O6PWDA==
+X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAWPR08MB8982.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(376002)(346002)(136003)(396003)(39860400002)(366004)(451199015)(7696005)(71200400001)(9686003)(26005)(478600001)(55016003)(86362001)(186003)(122000001)(38100700002)(33656002)(38070700005)(4744005)(66476007)(66556008)(64756008)(66446008)(110136005)(5660300002)(4326008)(52536014)(76116006)(66946007)(41300700001)(316002)(8676002)(2906002)(8936002)(6506007)(91956017)(54906003);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-Subject: Re: [PATCH v3 05/13] ldconfig.8: Revise and update for glibc 2.32
-Content-Language: en-US
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc:     linux-man@vger.kernel.org
-References: <20230105225246.uid2pwwivc6testz@illithid>
- <2ef7c0b8-978e-7bc0-d5b9-88ea9348a677@gmail.com>
- <20230106072020.zpjzc2pk4kjhwotx@illithid>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20230106072020.zpjzc2pk4kjhwotx@illithid>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------zkpZ3MFbsUlPyWLxdowdn3nb"
-X-Spam-Status: No, score=-5.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR08MB5721
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: VI1EUR03FT029.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs: 05958f3a-7f18-4bbb-b5fb-08daefe581f3
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: OPIRQMSGCZW8vuEstqHbNEWY5/00XiUWc8Um+Zb2PwrtgoFVaiQlfRNjtJ1ciSyQ5Roi3K7E3SKrk9KbJjEnuZHA7NRuTsfInOHG7XrhDNFIZGy1Z8AJELTYCJeosMe8DNd9SJdxp/+z25CIi9vKRyJsotGVYdkQVoxKphuLV53ppnZXBSm5ed/+3A4Jq1n+Ex0REL3lBBTzGKAbYnalFhbp1y/m8qcHscXKn4W8r67CMWfAMH6IaHECJeJ0NJtHg5w+Ke2I1/ABQEeFdbBhk/z5Vx5J3OxeLeuwXX20uPYpNCuiooxz0ipy5/bEOMawUioN12KMvdAATRDcMUSnMGtIJRE0jlrWNDWsW8kIWWPms3rV0usI+KuEdmXGGW0Ba7eL+4byhwhQjRouAIPCX2f0ZusPjY7uaNtZEMhxc4VIJ3H4AIfjgg33MDTJ21GIwePDYw+GeOzblH3PhuOShRYEYhcegnKiS0QWiF5HyCZSdM83WH8PsCreDK+28QFhZsUqse9FNVPEjqnDclSnH/u+p3fwfqMBZ2UabC19F2+Lq1EI3NNayWQh2qvenDqsg3FIQ+uvXlnZj809yH/XZUybERy7jLJ+PYdA5k0dqPEtCz8CYwh6XN8L2Nojr5wG/lEREEsZankyZIWhdX15MgYUp75vnftVK7t0ghTy1hmhRWikggSjxSgKq1Qs72RO7LyT/4+CMBR8UYz2aKCqwA==
+X-Forefront-Antispam-Report: CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230022)(4636009)(376002)(396003)(136003)(39860400002)(346002)(451199015)(46966006)(36840700001)(40470700004)(478600001)(70586007)(7696005)(70206006)(4326008)(54906003)(52536014)(9686003)(6506007)(107886003)(8936002)(26005)(82310400005)(8676002)(41300700001)(186003)(336012)(47076005)(316002)(86362001)(40460700003)(33656002)(110136005)(81166007)(82740400003)(356005)(5660300002)(4744005)(2906002)(55016003)(36860700001)(40480700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jan 2023 12:57:12.7474
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c8dfb60a-6338-40fd-a021-08daefe587a1
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource: VI1EUR03FT029.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR08MB10132
+X-Spam-Status: No, score=-0.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,FORGED_SPF_HELO,RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,
+        SPF_HELO_PASS,SPF_NONE,UNPARSEABLE_RELAY autolearn=no
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -76,80 +136,29 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------zkpZ3MFbsUlPyWLxdowdn3nb
-Content-Type: multipart/mixed; boundary="------------1GOkHZfqgZn00Ao6TazLBDp3";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: linux-man@vger.kernel.org
-Message-ID: <628cef2b-ce8c-64c1-56bc-c10f2587fa37@gmail.com>
-Subject: Re: [PATCH v3 05/13] ldconfig.8: Revise and update for glibc 2.32
-References: <20230105225246.uid2pwwivc6testz@illithid>
- <2ef7c0b8-978e-7bc0-d5b9-88ea9348a677@gmail.com>
- <20230106072020.zpjzc2pk4kjhwotx@illithid>
-In-Reply-To: <20230106072020.zpjzc2pk4kjhwotx@illithid>
-
---------------1GOkHZfqgZn00Ao6TazLBDp3
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
-
-SGkgQnJhbmRlbiwNCg0KT24gMS82LzIzIDA4OjIwLCBHLiBCcmFuZGVuIFJvYmluc29uIHdy
-b3RlOg0KPiBIaSBBbGV4LA0KPiANCj4gQXQgMjAyMy0wMS0wNlQwMjoyMToyNyswMTAwLCBB
-bGVqYW5kcm8gQ29sb21hciB3cm90ZToNCj4+IE9uIDEvNS8yMyAyMzo1MiwgRy4gQnJhbmRl
-biBSb2JpbnNvbiB3cm90ZToNCj4+PiAqIENvbW1lbnQgb3V0IG11bHRpcGxlIHBhcmFncmFw
-aHMgZGlzY3Vzc2luZyBsaWJjNCBhbmQgbGliYzUgc2hhcmVkDQo+Pj4gICAgIGxpYnJhcnkg
-c3VwcG9ydC4gIEl0IHdhcyByZW1vdmVkIHVwc3RyZWFtIGluIEp1bHk7IGFubm90YXRlDQo+
-Pj4gICAgIGNvbW1pdC4NCj4gWy4uLl0NCj4+PiArLlwiIFN1cHBvcnQgZm9yIGxpYmM0IGFu
-ZCBsaWJjNSBkcm9wcGVkIGluDQo+Pj4gKy5cIiA4ZWU4Nzg1OTJjNGE2NDI5MzcxNTJjODMw
-OGI4ZmFlZjg2YmNmYzQwICgyMDIyLTA3LTE0KSBhcyAib2Jzb2xldGUNCj4+PiArLlwiIGZv
-ciBvdmVyIHR3ZW50eSB5ZWFycyIuDQo+Pg0KPj4gSSBwcmVmZXIgcmVtb3ZpbmcgdGhlIGNv
-ZGUgY29tcGxldGVseS4gIFNpbmNlIHJlbW92aW5nIGNvZGUgaXMgbW9yZQ0KPj4gZGVsaWNh
-dGUsIGFuZCB0byBoZWxwIHdob2V2ZXIgbWF5IHdhbnQgdG8gaW52ZXN0aWdhdGUgaGlzdG9y
-eSBpbiB0aGUNCj4+IGZ1dHVyZSwgcGxlYXNlIGRvIHNvIGluIGEgc2VwYXJhdGUgY29tbWl0
-LiAgSSBndWVzcyBpdCB3aWxsIGJlIGJldHRlcg0KPj4gaWYgdGhhdCBjb21taXQgcmVtb3Zp
-bmcgY29kZSBnb2VzIGJlZm9yZSB0aGUgZ2VuZXJhbCByZXZpc2lvbiBvZiB0aGUNCj4+IHBh
-Z2UuDQo+IA0KPiBPa2F5LCB3aWxsIGRvLiAgSSBkaXRoZXJlZCBvdmVyIGl0IGJlY2F1c2Ug
-dGhlIHdpdGhkcmF3biBzdXBwb3J0IGlzIHN1Y2gNCj4gYSByZWNlbnQgY2hhbmdlLg0KDQpX
-aGlsZSBzdXBwb3J0IHdhcyByZW1vdmVkIHJlY2VudGx5LCBpdCdzIHNvbWV0aGluZyB0aGF0
-IHdhcyBvYnNvbGV0ZSBmb3IgDQpkZWNhZGVzLCBzbyBwcm9iYWJseSB0aGVyZSB3ZXJlbid0
-IG1hbnkgdXNlcnMgKGhvcGVmdWxseSBub25lKS4NCg0KPiAgQnV0IG9uIHRoZSBvdGhlciBo
-YW5kIGl0IHdpbGwgdGFrZSB0aW1lIGZvciBtYW4tcGFnZXMNCj4gNi4wMiAob3Igd2hhdCBo
-YXZlIHlvdSkgdG8gcGVyY29sYXRlIG91dCB0byBkaXN0cmlidXRvcnMganVzdCBhcyBnbGli
-Yw0KPiAyLjMyIHdpbGwuDQoNCkZvciB1c2VycyBvZiB1bnN0YWJsZSBkaXN0cmlidXRpb25z
-LCB3ZSBhbHJlYWR5IGhhdmUgNi4wMi4gIEl0IHRvb2sgb25seSBvbmUgDQp3ZWVrIG9yIHNv
-IGZyb20gdGhlIGRheSBJIHJlbGVhc2VkIGl0Lg0KDQphbHhAZGViaWFuOn4kIGFwdC1jYWNo
-ZSBzaG93IG1hbnBhZ2VzLWRldiB8IGhlYWQgLW4zDQpQYWNrYWdlOiBtYW5wYWdlcy1kZXYN
-ClNvdXJjZTogbWFucGFnZXMNClZlcnNpb246IDYuMDItMQ0KSW5zdGFsbGVkLVNpemU6IDM2
-OTgNCk1haW50YWluZXI6IERyLiBUb2JpYXMgUXVhdGhhbWVyIDx0b2RkeUBkZWJpYW4ub3Jn
-Pg0KQXJjaGl0ZWN0dXJlOiBhbGwNCkRlcGVuZHM6IG1hbnBhZ2VzDQpTdWdnZXN0czogbWFu
-LWJyb3dzZXINCkJyZWFrczogbWFucGFnZXMgKDw8IDYuMDEtMSkNCkRlc2NyaXB0aW9uLWVu
-OiBNYW51YWwgcGFnZXMgYWJvdXQgdXNpbmcgR05VL0xpbnV4IGZvciBkZXZlbG9wbWVudA0K
-DQoNCj4gDQo+IFJlZ2FyZHMsDQo+IEJyYW5kZW4NCg0KLS0gDQo8aHR0cDovL3d3dy5hbGVq
-YW5kcm8tY29sb21hci5lcy8+DQo=
-
---------------1GOkHZfqgZn00Ao6TazLBDp3--
-
---------------zkpZ3MFbsUlPyWLxdowdn3nb
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmO4F70ACgkQnowa+77/
-2zLEyg//Y+q7AEVmIOtHgdA9jUoOnToGjgK3Wp/envKjd8vo6s7+Pg08SEbIy7Aj
-zGggdmPcG7/+bbn3h46eoLPvXNUvgCu77BdWBeAM7vBtGuxYAxLoo7Q4gsS3eQws
-6qnLRdUVpXePVtHVFC8uPu+/lT134oCmlLH5/P0BUCZ0kvH/3bVYUMR7aOAMuVV4
-xw8F5GMkNY0EQGBQgpaoluIW9Cr8/CH74hbnJUQnc5IpCt1hVAxWLJlkBYeRqys3
-jzLHEnPI55I8bsFsHgUkxs3580rs1t/xKuRo5Va6E0DiTLwZsnAUDxkB/yXXUOlI
-Y1Nm6Uc/K1gwKrlulemA4ctFwdz+Dhd/HfTDAxjjTHU75JDnZ1GKBSNKeC/ZPlNF
-9VFOrTQD65k1yiMSEMiLjNg/hPXcnZjwnzckkOizlWMqjBHEbsTVV84HwWVuWRqL
-3xH/5o5gGk0gZTNlRi3Ei1oulmv3uBgoWlPWjtrTmi6DEYVBqtKqYXnjuOuc/Cxr
-bkhTfUWdH6E5Nd0Ffd4ryt+djzEiT5LcNpigWTAMEuOletJx0m2kHeUQSiMbpNFH
-yaN9nph18lYF5Cjme20UtVEzU4Zgls6mEhwaEIR1H747EKNt29QN3VFSdrahmRlK
-ty5yMHsYhu3U1nvqAcWyEejHXwmRuiHkT8js0Te4Jv515qwdOUI=
-=7B40
------END PGP SIGNATURE-----
-
---------------zkpZ3MFbsUlPyWLxdowdn3nb--
+Hi Alex,=0A=
+=0A=
+> It is not optimized, and it calls either strlen(3) or memchr(3), so the=
+=0A=
+> caller can do it directly, and it will be better.=0A=
+>=0A=
+> Suggested-by: Wilco Dijkstra <Wilco.Dijkstra@arm.com>=0A=
+> Signed-off-by: Alejandro Colomar <alx@kernel.org>=0A=
+=0A=
+This looks good to me. Btw in the codesearch there are about 800=0A=
+uses, the majority looks like prototypes etc, so there are few actual=0A=
+uses. Interestingly GLIBC still contains this:=0A=
+=0A=
+#ifdef _LIBC=0A=
+      p =3D __rawmemchr (p, '\0');=0A=
+#else=0A=
+      p =3D strchr (p, '\0');=0A=
+#endif=0A=
+=0A=
+The strchr (p, 0) is optimized by compilers into strlen (since that's=0A=
+obviously the right optimization) so adding rawmemchr was not=0A=
+only wasted effort, but it made things slower as well. So we should=0A=
+remove these uses from GLIBC.=0A=
+=0A=
+Cheers,=0A=
+Wilco=
