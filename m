@@ -2,66 +2,71 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id A1AB2660DB1
-	for <lists+linux-man@lfdr.de>; Sat,  7 Jan 2023 11:17:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id DAABF660E7C
+	for <lists+linux-man@lfdr.de>; Sat,  7 Jan 2023 13:04:59 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229544AbjAGKR5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 7 Jan 2023 05:17:57 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33398 "EHLO
+        id S232493AbjAGME6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 7 Jan 2023 07:04:58 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38608 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229468AbjAGKR4 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 7 Jan 2023 05:17:56 -0500
-Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com [IPv6:2607:f8b0:4864:20::32e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 61EA87FEEA
-        for <linux-man@vger.kernel.org>; Sat,  7 Jan 2023 02:17:55 -0800 (PST)
-Received: by mail-ot1-x32e.google.com with SMTP id x44-20020a05683040ac00b006707c74330eso2303957ott.10
-        for <linux-man@vger.kernel.org>; Sat, 07 Jan 2023 02:17:55 -0800 (PST)
+        with ESMTP id S232473AbjAGME4 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 7 Jan 2023 07:04:56 -0500
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com [IPv6:2a00:1450:4864:20::32c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B990A5C90F
+        for <linux-man@vger.kernel.org>; Sat,  7 Jan 2023 04:04:54 -0800 (PST)
+Received: by mail-wm1-x32c.google.com with SMTP id c4-20020a1c3504000000b003d9e2f72093so477943wma.1
+        for <linux-man@vger.kernel.org>; Sat, 07 Jan 2023 04:04:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=fHHyyGSUfYEe2mgs502dZG6ffpKT+PzrXaBXlUBZC5c=;
-        b=gXBryncbKFdVw+A87bGCTeX435j0GMsPBh06gyyFMNR/VTOzHYt5eBnJwl3FqZLlOR
-         XVixtcuS2jQwovcGhzAM5O2pYN3oBLQUxNXi5H9DL+fIg1xRx+QsxSriEeexW03BfUGD
-         95q7rP32OGtVRKU10nKyrYCgzl1igdvVI7h+Cweyl1H9k6Oamk8uqV54dJAdf4dd2R3Z
-         KGu/0IOFgzG3kamimJwO3JV/Oc1fnqetKbWkK+CwHf3g3a9ICiGv4iHfcsohEa5IECLZ
-         B4jF/aZABrjrGTw44Y/cejWAsKkUAECl9u1w+nzmIsCY8fvjacngO9vBHOp3F63IV/wd
-         jXcA==
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=o3Ns7gae5qxo4SB0hRhPjKIJ2fYaLk8jqQvNhqaYGLc=;
+        b=ePy5dgpEHvU0urTxFpixF/oKTIL4zQ5s6BgcaVGagecL94M9C9BalAYKzdZj9hkQOh
+         7LgiE+T9LqYCTDJdK7my5KQKWr6bl+yg/fM+dVPLlaK0hpT4TklTbFee6OYR0cJ49TIf
+         I5ZM37XJk0i+D5JRjTREJaIJkbG+IpIOlvaO8yzGjBTpBGh79oT9aePTYcn3LvdnxFGt
+         1iyvHISBkrnoEcF0TxuG5WuO+vAfs6Ov7v+6g9I0OmOFX4M10Qm3u9uIzgyI/wLj0Y+6
+         5dEICdS2yPImMS3nhOUzVR7LVC+dNPk/IK/MvWmZ0A7AQIW9FevhZtieF/ewlIwsNJwM
+         MaQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=fHHyyGSUfYEe2mgs502dZG6ffpKT+PzrXaBXlUBZC5c=;
-        b=OmTojcjoQRO4zoCcbBsYzLDF+KwOVM8GHIRRazL3RyOk3gMbbmjpzqEVKnrUe+F1xj
-         0JOsHuWg90ngfhZebKp6TBbZXlJSnXmlZ/H1sf7KoJE4LOevta80jbSVbCEmunxFBvZn
-         3lGzAQyhLWcgspUPV4fz5ScelOJFJgjkt0mTprr694RLmAfqgCSJgl9AmQ2Br+S2YKxv
-         aPJNknCGO2EL69g90URbfKX+4THW6yAfmVEF6HLR3/l+5gE8Yzi1yjs1ioxKBFGgVvz6
-         Ap5vygRptfstW7Ny+bzcsOMudmu0KUEbJRsZM1qXSLF/S/a7bFwDNZ/3idysi4HNir3u
-         S5/A==
-X-Gm-Message-State: AFqh2krfmEwR9UJb4wP23yaY05u5zUEYCFNxIpSDOOCJzRFgD/2KP2rQ
-        bUUQs2YbF7AbL8ZGq6ZpMibOVofsQag=
-X-Google-Smtp-Source: AMrXdXukMZoZy5r2l1T2T6pWPgyftpRzi586Z1mG3YkVtTVdTGNYnBCbzm1o1C/M/+QBHVFIFwpepA==
-X-Received: by 2002:a9d:6317:0:b0:66e:810a:5d45 with SMTP id q23-20020a9d6317000000b0066e810a5d45mr30853183otk.4.1673086674716;
-        Sat, 07 Jan 2023 02:17:54 -0800 (PST)
-Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id cp17-20020a056830661100b00670763270fcsm1680573otb.71.2023.01.07.02.17.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Jan 2023 02:17:54 -0800 (PST)
-Date:   Sat, 7 Jan 2023 04:17:52 -0600
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     groff <groff@gnu.org>, linux-man <linux-man@vger.kernel.org>
-Subject: Re: Manual page sections shouting
-Message-ID: <20230107101752.p66xbjbojut4azes@illithid>
-References: <4ab3e3aa-9b05-765a-ba44-06bf39994d81@gmail.com>
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=o3Ns7gae5qxo4SB0hRhPjKIJ2fYaLk8jqQvNhqaYGLc=;
+        b=OqE9wSRuOHWAISTgbTtcwb8rkbIuV5BFxY6vMepxE7DxNIuMYJ96oel2YFDBeCbOsd
+         aofIPX3WM72ZhSWycDy/F5pqAgqr8HSEWiESPKslSV8gYf9Fpcr2zDW+nAPv2SkrNkQf
+         q0QdfNOS0bPHtvrOd8EH/+6EJYI/LDm+uhO4n/PtJ0UiRM1oZ9BHKMMhTwXW4Mssn+NN
+         t4VG1WIHFGKLskGE0FK8rHCffawiyu6tZ1pfqVXhI0sxyEXc2E72ewcqpeAhb1Bq9Qge
+         STj7f1J3i7zlr3L3hyiCsju/cHpe+thYBXRxfFPYzT3sUaIvVnAed3/dJvSq/PI3Zgd6
+         H+3Q==
+X-Gm-Message-State: AFqh2kqx+ymcB0JY6lDBdPOeVkfp5HrIiqwvEySk24FuPjvB6UAXvfbJ
+        F+AZzFkIfh0hSzPz+/3FLYZ7EdeKnZg=
+X-Google-Smtp-Source: AMrXdXsxD3Wvpo8KuS769qNqzSSLYj2e0yJ8fpuZcnfFhxtdSarS+XvxgpYyu9Qiq4pFdDHOk7hYVA==
+X-Received: by 2002:a05:600c:1f12:b0:3d2:267d:64bd with SMTP id bd18-20020a05600c1f1200b003d2267d64bdmr50336728wmb.3.1673093093186;
+        Sat, 07 Jan 2023 04:04:53 -0800 (PST)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id q6-20020a05600c46c600b003d1f3e9df3csm10376415wmo.7.2023.01.07.04.04.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 07 Jan 2023 04:04:52 -0800 (PST)
+Message-ID: <2e232ee6-907f-376f-5aea-d31ee68872aa@gmail.com>
+Date:   Sat, 7 Jan 2023 13:04:36 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+Subject: Re: Manual page sections shouting
+Content-Language: en-US
+To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc:     groff <groff@gnu.org>, linux-man <linux-man@vger.kernel.org>
+References: <4ab3e3aa-9b05-765a-ba44-06bf39994d81@gmail.com>
+ <20230107101752.p66xbjbojut4azes@illithid>
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <20230107101752.p66xbjbojut4azes@illithid>
 Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="7krsuf5knpjmhb2z"
-Content-Disposition: inline
-In-Reply-To: <4ab3e3aa-9b05-765a-ba44-06bf39994d81@gmail.com>
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+ protocol="application/pgp-signature";
+ boundary="------------51QoiX28OaJJZiyg4dVw1gpU"
+X-Spam-Status: No, score=-5.2 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -70,110 +75,128 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------51QoiX28OaJJZiyg4dVw1gpU
+Content-Type: multipart/mixed; boundary="------------KQA1550bIEtDcCc30xewBkBr";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: groff <groff@gnu.org>, linux-man <linux-man@vger.kernel.org>
+Message-ID: <2e232ee6-907f-376f-5aea-d31ee68872aa@gmail.com>
+Subject: Re: Manual page sections shouting
+References: <4ab3e3aa-9b05-765a-ba44-06bf39994d81@gmail.com>
+ <20230107101752.p66xbjbojut4azes@illithid>
+In-Reply-To: <20230107101752.p66xbjbojut4azes@illithid>
 
---7krsuf5knpjmhb2z
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+--------------KQA1550bIEtDcCc30xewBkBr
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Hi Alex!
+SGkgQnJhbmRlbiwNCg0KT24gMS83LzIzIDExOjE3LCBHLiBCcmFuZGVuIFJvYmluc29uIHdy
+b3RlOg0KPiBIaSBBbGV4IQ0KPiANCj4gQXQgMjAyMy0wMS0wN1QwMToyNTo1MCswMTAwLCBB
+bGVqYW5kcm8gQ29sb21hciB3cm90ZToNCj4+IEkgYWdyZWUgd2l0aCB5b3UgdGhhdCBJJ2Qg
+cHJlZmVyIHRoYXQgc2VjdGlvbiBoZWFkaW5ncyBkaWRuJ3Qgc2hvdXQgYXQNCj4+IHRoZSBy
+ZWFkZXIuICBIb3dldmVyLCBJJ3ZlIHdhaXRlZCB0byBkbyBzdWNoIGEgY2hhbmdlLCBiZWNh
+dXNlIEknbSBub3QNCj4+IHN1cmUgYWJvdXQgaXQuICBUaGVyZSdzIGEgZ29vZCB0aGluZyBh
+Ym91dCBoYXZpbmcgdGhlbSBpbiB1cHBlcmNhc2U6DQo+PiByZWZlcmVuY2VzIHRvIHRoZW0g
+YXJlIGFsc28gaW4gdXBwZXJjYXNlLCBhbmQgdGhhdCBtYWtlcyBpdCBlYXN5IHRvDQo+PiBn
+cmVwIGZvciB0aGVtIChJIG5lZWQgdG8gZG8gdGhhdCBmcm9tIHRpbWUgdG8gdGltZSkuDQo+
+Pg0KPj4gRG8geW91IGhhdmUgYW55IG9waW5pb24gb24gdGhhdD8NCj4gDQo+IFllcy4gIDop
+ICBTZWN0aW9uIGhlYWRpbmdzIGFyZSBzdGlsbCBpbiBzZW50ZW5jZSBjYXNlIChjYXBpdGFs
+aXplIGZpcnN0DQo+IGxldHRlcikgb3IgdGl0bGUgY2FzZSAoY2FwaXRhbGl6ZSBlYWNoIHdv
+cmQgZXhjZXB0IGZvciBhIGZ1enp5IGxpc3Qgb2YNCj4gZXhjZXB0aW9ucyBldmVuIG5hdGl2
+ZSBFbmdsaXNoIHNwZWFrZXJzIHN0cnVnZ2xlIHRvIG1hc3RlcikuDQo+IA0KPiBXaGV0aGVy
+IHNlbnRlbmNlIG9yIHRpdGxlIGNhc2UgaXMgdXNlZCBpcyBhIHN0eWxlIGNob2ljZSB0aGF0
+IEkgZG9uJ3QNCj4gaGF2ZSBhIHByZXNjcmlwdGlvbiBmb3IuICBJbiB0aGUgZ3JvZmYgbWFu
+IHBhZ2VzLCBhZnRlciBzb21lIGRpc2N1c3Npb24NCj4gb24gdGhlIGxpc3Qgd2UgbWlncmF0
+ZWQgdG8gc2VudGVuY2UgY2FzZS4gIEFzIEkgcmVjYWxsIHRoZXJlIHdhcyBhdA0KPiBsZWFz
+dCBvbmUgYWR2b2NhdGUgZm9yIHRpdGxlIGNhc2UgZm9yIHNlY3Rpb24gaGVhZGluZ3MgcHJv
+cGVyIChgU0hgKSBhbmQNCj4gc2VudGVuY2UgY2FzZSBmb3Igc3Vic2VjdGlvbiBoZWFkaW5n
+cyAoYFNTYCkuDQo+IA0KPiBUaGUgZGlzdGluY3Rpb24gaXMgYWxtb3N0IGludmlzaWJsZSBm
+b3Igc3RhbmRhcmQgc2VjdGlvbiBoZWFkaW5ncw0KPiBhbnl3YXk7IHRoZSBvbmx5IGNvbW1v
+biBtdWx0aS13b3JkIGhlYWRpbmcgaXMgIlNlZSBhbHNvIjsgdGhhdCBvbmUgaXMNCj4gcHJh
+Y3RpY2FsbHkgbmV2ZXIgY3Jvc3MgcmVmZXJlbmNlZCwgYW5kIGl0J3MgYWxtb3N0IGFsd2F5
+cyBlYXNpZXIgdG8NCj4gZmluZCBieSBqdXN0IG1hc2hpbmcgU2hpZnQrRyBpbiB0aGUgcGFn
+ZXIuDQo+IA0KPiBJZiB5b3UgdHlwZSAiLWkiIGluIGxlc3MoMSksIHRoaXMgd2lsbCB0b2dn
+bGUgY2FzZS1pbnNlbnNpdGl2ZSBwYXR0ZXJuDQo+IG1hdGNoaW5nLiAgWW91IGNhbiB0aGVu
+IHNlYXJjaCBmb3IgdGhlIHNlY3Rpb24gbmFtZSB3aXRoIGEgbGVhZGluZw0KPiBjYXBpdGFs
+IGxldHRlcjsgdGhhdCBpcyB1c3VhbGx5IHJlbGlhYmxlIGZvciBkZXRlY3RpbmcgdGhlIGhl
+YWRpbmdzLCBvcg0KPiBjcm9zcyByZWZlcmVuY2VzIHRvIHRoZW0uDQo+IA0KPj4gQWxzbywg
+d2hlbiByZWZlcnJpbmcgdG8gdGhlIHNlY3Rpb24gd2l0aGluIGEgcGFnZSwgd291bGQgeW91
+IHJlZmVyIGluDQo+PiBsb3dlcmNhc2UsIG9yIHRoZSBmaXJzdC11cHBlci10aGVuLWxvd2Vy
+PyAgVXNpbmcgdXBwZXJjYXNlIGlzDQo+PiB1bmFtYmlndW91cywNCj4gDQo+IFRoYXQncyB0
+cnVlLCBhbGJlaXQgc2hvdXR5Lg0KPiANCj4+IHdoaWxlIHVzaW5nIGxvd2VyY2FzZSBtaWdo
+dCBuZWVkICJzZWN0aW9uIiBuZXh0IHRvIHRoZSBzZWN0aW9uIG5hbWUuDQo+IA0KPiBJbiB0
+aGUgZ3JvZmYgbWFuIHBhZ2VzIEkgaGF2ZSBhZG9wdGVkIHRoZSBwcmFjdGljZSBvZiBhbHdh
+eXMgcHJlY2VkaW5nDQo+IHRoZSBjcm9zcyByZWZlcmVuY2Ugd2l0aCAic2VjdGlvbiIgb3Ig
+InN1YnNlY3Rpb24iIGFzIGFwcHJvcHJpYXRlLCBhbmQNCj4gcXVvdGluZyBpdCB3aXRoIHR5
+cG9ncmFwaGVyJ3MgcXVvdGF0aW9uIG1hcmtzIChcKGxxIGFuZCBcKHJxKS4NCj4gDQo+IEkg
+Z28gdG8gdGhlIHRyb3VibGUgb2YgZGlzdGluZ3Vpc2hpbmcgc2VjdGlvbnMgZnJvbSBzdWJz
+ZWN0aW9ucyBiZWNhdXNlDQo+IHRoZXkgYXJlIGJ5IGRlZmF1bHQgaW5kZW50ZWQgZGlmZmVy
+ZW50bHksIGFuZCB0aGF0IGdpdmVzIHBlb3BsZSwNCj4gZXNwZWNpYWxseSB0aG9zZSB3aXRo
+IGEgbGl0dGxlIGZhY2lsaXR5IHdpdGggcmVndWxhciBleHByZXNzaW9ucywNCj4gYW5vdGhl
+ciB0b29sIHdpdGggd2hpY2ggdG8gbG9jYXRlIHRoZSByZWxldmFudCBtYXRlcmlhbC4NCj4g
+DQo+IEZvciBpbnN0YW5jZSwgdGhlIGZvbGxvd2luZyBydWxlcyBvZiB0aHVtYiBhcmUgY3J1
+ZGUgYnV0IGVmZmVjdGl2ZToNCj4gDQo+IEZpbmQgYSBzZWN0aW9uIG5hbWVkICJPcHRpb25z
+IiBpbiBhIHBhZ2U6DQo+IA0KPiAvXk9wdGlvbnMNCj4gDQo+IEZpbmQgYSBzdWJzZWN0aW9u
+IG5hbWVkICJIaXN0b3J5IiBpbiBhIHBhZ2U6DQo+IA0KPiAvXiAgIEhpc3RvcnkNCj4gDQo+
+ICh3aGVyZSAzIHNwYWNlcyBsaWUgYmV0d2VlbiBeIGFuZCAiSGlzdG9yeSIpLg0KPiANCj4g
+X0lmXyB3ZSBhZGRlZCB5ZXQgYW5vdGhlciBncm9mZiBleHRlbnNpb24gdG8gbWFuKDcpLCBh
+bmFsb2dvdXMgdG8NCj4gbWRvYyg3KSdzIGBTeGAsIHdlIGNvdWxkIHN1cHBvcnQgaHlwZXJs
+aW5rcyBkaXJlY3RseSB0byBtYW4gcGFnZQ0KPiBzZWN0aW9ucyBhbmQgc3Vic2VjdGlvbnMu
+ICAoT24gdGVybWluYWxzLCB3ZSdkIHN0aWxsIG5lZWQgYSB3YXkgdG8gbWFyaw0KPiBsb2Nh
+dGlvbnMgaW4gdGhlIHBhZ2UgdGV4dCBhcyBsaW5rIHRhcmdldHMsIGFuZCBmb3IgaXQgdG8g
+YmUgcHJhY3RpY2FsbHkNCj4gdXNlZnVsLCBwYWdlcnMgd291bGQgaGF2ZSB0byBncm93IG1v
+cmUgZmVhdHVyZXMuICBHaXZlbiB0aGUgYW1vdW50IG9mDQo+IGlkaW9jeSwgcGFydGljdWxh
+cmx5IGZyb20gcGVvcGxlIHdobyB0aGluayB0aGF0IGEgVVJMIGluIGEgdGVybWluYWwNCj4g
+d2luZG93IGlzIGEgc2VjdXJpdHkgcmlzayBpbiBzb21lIHdheSB0aGF0IGEgVVJMIG9uIGEg
+d2ViIHBhZ2UgaXNuJ3QsDQo+IHRoYXQgRWdtb250IEtvYmxpbmdlciBoYXMgaGFkIHRvIHB1
+dCB1cCB3aXRoIGluIHByb211bGdhdGluZyBPU0MgOCwgSQ0KPiB3b3VsZCBub3QgY291bnQg
+b24gdGhlIGluZnJhc3RydWN0dXJlIGZvciB0aGlzIG1hdGVyaWFsaXppbmcgc29vbi4pICBC
+dXQNCj4gZm9yIFBERiBhbGwgdGhlIHBpZWNlcyBhcmUgaW4gcGxhY2U7IHRoZXkganVzdCBu
+ZWVkIHNvbWUgZ2x1ZSBpbiB0aGUNCj4gZ3JvZmYgbWFuKDcpIHBhY2thZ2UuDQo+IA0KPj4g
+TWF5YmUgaXQncyBub3Qgc28gZWFzeSB0byBkbyB0aGUgY2hhbmdlLg0KPiANCj4gQ2hhbmdp
+bmcgdGhlIGxldHRlcmNhc2Ugb2YgdGhlIChzdWIpc2VjdGlvbiBoZWFkaW5ncyBpbiBncm9m
+ZidzIH42MCBtYW4NCj4gcGFnZXMgd2FzIG5vdCBkaWZmaWN1bHQuICAic2VkIC1pIiB3YXMg
+ZXF1YWwgdG8gdGhlIHRhc2suICA6KQ0KDQpDaGFuZ2luZyB0aGUgc2VjdGlvbiBuYW1lcyBp
+cyBlYXN5LiAgSSBhbHJlYWR5IHN0YXJ0ZWQuICBUaGUgZGlmZmljdWx0IHBhcnQgd2lsbCAN
+CmJlIGZpbmRpbmcgdGhlIHJlZmVyZW5jZXMgYW5kIGNoYW5naW5nIHRoZW0sIHdoaWNoIGlz
+IG1vcmUgdGhhbiBzZWQgLWksIHNpbmNlIA0KSSdsbCBoYXZlIHRvIGRpZmZlcmVudGlhdGUg
+YmV0d2VlbiBhY3R1YWwgcmVmZXJlbmNlcywgYW5kIG90aGVyIHRoaW5ncyBjYWxsZWQgDQpO
+QU1FLiAgQWxzbywgZGVwZW5kaW5nIG9uIHRoZSBjb250ZXh0LCBJJ2xsIGhhdmUgdG8gcXVv
+dGUgYW5kIHByZXBlbmQgd2l0aCANCiJzZWN0aW9uIiAoaWYgbm90IGFscmVhZHkgZG9uZSks
+IG9yIGtlZXAgaXQgcmF3IChmb3IgZXhhbXBsZSBpbiB0YWJsZXMpLg0KDQpCdXQgeWVzLCBJ
+IHRoaW5rIHRoYXQgc2VlbXMgYSBjb25zaXN0ZW50LWVub3VnaCB3YXkgb2YgaGF2aW5nIHJl
+ZmVyZW5jZXMsIHNvIA0KbWF5YmUgdGhlIExpbnV4IG1hbi1wYWdlcyB3aWxsIHN0b3Agc2hv
+dXRpbmcgcmF0aGVyIHNvb24gOikNCg0KQ2hlZXJzLA0KDQpBbGV4DQoNCkJUVywgSSBoYWQg
+YW5vdGhlciBzaW1pbGFyIGNvbmNlcm4gYWJvdXQgc29tZSBnbG9iYWwgc3R5bGUgZml4IG9m
+IHRoYXQgc29ydCANCndoaWxlIHdha2luZyB1cC4gIE5vdyBJIGRvbid0IHJlbWVtYmVyLCBi
+dXQgd2hlbiBJIGRvLCBJJ2xsIHNlbmQgeW91IGFuIGVtYWlsIDopDQoNCj4gDQo+IFJlZ2Fy
+ZHMsDQo+IEJyYW5kZW4NCg0KLS0gDQo8aHR0cDovL3d3dy5hbGVqYW5kcm8tY29sb21hci5l
+cy8+DQo=
 
-At 2023-01-07T01:25:50+0100, Alejandro Colomar wrote:
-> I agree with you that I'd prefer that section headings didn't shout at
-> the reader.  However, I've waited to do such a change, because I'm not
-> sure about it.  There's a good thing about having them in uppercase:
-> references to them are also in uppercase, and that makes it easy to
-> grep for them (I need to do that from time to time).
->=20
-> Do you have any opinion on that?
+--------------KQA1550bIEtDcCc30xewBkBr--
 
-Yes.  :)  Section headings are still in sentence case (capitalize first
-letter) or title case (capitalize each word except for a fuzzy list of
-exceptions even native English speakers struggle to master).
-
-Whether sentence or title case is used is a style choice that I don't
-have a prescription for.  In the groff man pages, after some discussion
-on the list we migrated to sentence case.  As I recall there was at
-least one advocate for title case for section headings proper (`SH`) and
-sentence case for subsection headings (`SS`).
-
-The distinction is almost invisible for standard section headings
-anyway; the only common multi-word heading is "See also"; that one is
-practically never cross referenced, and it's almost always easier to
-find by just mashing Shift+G in the pager.
-
-If you type "-i" in less(1), this will toggle case-insensitive pattern
-matching.  You can then search for the section name with a leading
-capital letter; that is usually reliable for detecting the headings, or
-cross references to them.
-
-> Also, when referring to the section within a page, would you refer in
-> lowercase, or the first-upper-then-lower?  Using uppercase is
-> unambiguous,
-
-That's true, albeit shouty.
-
-> while using lowercase might need "section" next to the section name.
-
-In the groff man pages I have adopted the practice of always preceding
-the cross reference with "section" or "subsection" as appropriate, and
-quoting it with typographer's quotation marks (\(lq and \(rq).
-
-I go to the trouble of distinguishing sections from subsections because
-they are by default indented differently, and that gives people,
-especially those with a little facility with regular expressions,
-another tool with which to locate the relevant material.
-
-For instance, the following rules of thumb are crude but effective:
-
-Find a section named "Options" in a page:
-
-/^Options
-
-Find a subsection named "History" in a page:
-
-/^   History
-
-(where 3 spaces lie between ^ and "History").
-
-_If_ we added yet another groff extension to man(7), analogous to
-mdoc(7)'s `Sx`, we could support hyperlinks directly to man page
-sections and subsections.  (On terminals, we'd still need a way to mark
-locations in the page text as link targets, and for it to be practically
-useful, pagers would have to grow more features.  Given the amount of
-idiocy, particularly from people who think that a URL in a terminal
-window is a security risk in some way that a URL on a web page isn't,
-that Egmont Koblinger has had to put up with in promulgating OSC 8, I
-would not count on the infrastructure for this materializing soon.)  But
-for PDF all the pieces are in place; they just need some glue in the
-groff man(7) package.
-
-> Maybe it's not so easy to do the change.
-
-Changing the lettercase of the (sub)section headings in groff's ~60 man
-pages was not difficult.  "sed -i" was equal to the task.  :)
-
-Regards,
-Branden
-
---7krsuf5knpjmhb2z
-Content-Type: application/pgp-signature; name="signature.asc"
+--------------51QoiX28OaJJZiyg4dVw1gpU
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmO5RscACgkQ0Z6cfXEm
-bc4vcQ/+MqPlk8w04rt62V+4szhHSZTfuXv6K50qqUUEAGx87yzrowqC3+Q5c9sf
-E+bG20Ds5ehREvXSE6zhqGk2LgVVZJhKB9ZjdxwtuZfMBCxkshoZCDrgYXiaCmax
-rBN41WJeKOstb0S6U7FELvXslp/lf43h94Y6U2KHHaQ5oG9H/UgbZgXQ2zjWs1RP
-GPhwwGhMRJRjU1L5L7pX6cb5M75ju1wWsPaHjuvDdF9Gh+/iUZNvp7PGw9a8NYzx
-0t2QQn1MZ7wwIDuyI3EAUl8VF5w0wcdsh+JgyH9rHUjyC5MNHt3YWkjIk2SPN8Jr
-lBgYH/PW0hOJ6UyS6vlgzROpIksmdJoxgsdC0yiiNPdLVyuEfKFXoH9uIr1Gk3pP
-n+sgAa0SZmWDvu383MAr7xCMyltpI7IeKbuggBp0yrfJ9w2MdcNP6dwptuq73v2f
-axmWous9cKAtAXpSzvTWoBPh6Cbew05V1VRBkR7j4rSkQehQPDFr5Lb+BKPnb82P
-bCg7Xe9n3LhJvbzD21DpScxItx8XCQiFmSyyq11TAFx2OnfBxvMGh7nG6CmoGteI
-GbmttvV/g8SV/yIjagSP0yYEwFR6vutF775Yjv8evJReU5FdRvkhktuWjyMZk1BR
-yh7I7q11DuInzkfqnsY4ohkLX82gArR0VJ3ueiJQFTgSmNXSgjY=
-=XKJB
+iQIyBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmO5X9UACgkQnowa+77/
+2zIt9A/4swy1oqVqBfrJw5eWsgkoPjikz/K/jV8YdamDW9bxoMviiRmx24KXpQRP
+36sZ3kpDODBK7+lAL1MKjafTlIt2IsIKDeE/MVvV5PsPTZcCHWg2Qdoc94nEB0Sa
+5NrZl/TMaFOjqR1KEzIyTQddKXJRVBwzy9VhKko85+PJUoDSUjUW/gkoE8j4ACb/
+uEHQ/eY9mUVJILKlaqUr2O+iY4Yq1wNpmzhD+u6GAxF0dcgBIQ7pw6hjfaszwdXr
+eS/iWQC1qtzjaz+60eUvFUZbfWtQ8JAWK55icunXeJ0ZxoGoWej7oD26ZaeRP5Xo
+yMj0E2/mLlLOMShWGdD9ZDvRXkN3DODLT8HZzYR9fr9Y9hvG1AvNRMW1dSybQ+Lx
+FfZnJsju/+OWi8tfDBOEh/23DfwZpJ5GWLDh4Y/yb5CLrXYx3fAu/9FvCXGoSnQ4
+q3s2Dmze8W8C0yjHif+jWDXDGBkKF4G5hTsnVrKQA1JGoPRGVD6HMbhlcIMORzX0
+ygKICITUrpdw9ZDFbVv1rPVxwskvIUbnTJZSDk0/d3UImrzgYl50ZFuntMLPpE7X
+wIYFKs89Y8/6OoTtf0bYOaB0gupDgdnum2vNj/IlkoxPtnQC+6WFSeWTGb7wzekV
+vW7JH50mN2cGTRG9bN8aa0wTQ14OjKYpPDIgiEbuyoXscStBgA==
+=g+Vj
 -----END PGP SIGNATURE-----
 
---7krsuf5knpjmhb2z--
+--------------51QoiX28OaJJZiyg4dVw1gpU--
