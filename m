@@ -2,60 +2,60 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 83BFD660D94
-	for <lists+linux-man@lfdr.de>; Sat,  7 Jan 2023 10:57:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id CC76E660D99
+	for <lists+linux-man@lfdr.de>; Sat,  7 Jan 2023 10:59:02 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S237171AbjAGJ5r (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 7 Jan 2023 04:57:47 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48934 "EHLO
+        id S237349AbjAGJ6u (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 7 Jan 2023 04:58:50 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49144 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231209AbjAGJzx (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 7 Jan 2023 04:55:53 -0500
-Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com [IPv6:2607:f8b0:4864:20::235])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 500788D3A5
-        for <linux-man@vger.kernel.org>; Sat,  7 Jan 2023 01:55:12 -0800 (PST)
-Received: by mail-oi1-x235.google.com with SMTP id r205so3038830oib.9
-        for <linux-man@vger.kernel.org>; Sat, 07 Jan 2023 01:55:12 -0800 (PST)
+        with ESMTP id S237023AbjAGJ5U (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 7 Jan 2023 04:57:20 -0500
+Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com [IPv6:2607:f8b0:4864:20::334])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 227368D5F6
+        for <linux-man@vger.kernel.org>; Sat,  7 Jan 2023 01:55:21 -0800 (PST)
+Received: by mail-ot1-x334.google.com with SMTP id m6-20020a9d7e86000000b0066ec505ae93so2288963otp.9
+        for <linux-man@vger.kernel.org>; Sat, 07 Jan 2023 01:55:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=content-disposition:mime-version:message-id:subject:cc:to:from:date
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=178R303viHsUq1R65BsU74qX+xXrKEx3bvRTiYXn3WA=;
-        b=qg9ZnBy5QoidlaOsx4yrH39KSiJvPce7ivgQYKraZtzwGZ13FG1iNRoeHWsNsw9d6W
-         WfNnB1DWdmXF9UMfU+Mr8gfGcPtuyFPKZZ5+s6t0F0YFY6mOtupklYZepK/4FHqKT3LC
-         l3Zjg4xXjptBYhzKRcimwPrL0YnxlXgf2JkXUTuC6qXNAePZi2jPThnDb+W/5wynPleK
-         FmzfZTFCeKSNeLJWQRXySQIOgDY3a0pjLuVJEirLNj9GV5sQCptP2WzVdsUx59HnRBKF
-         YnCZ8drReSpySun/qJzvpFCumcbS7HI6qZ1D6pz3kEhxsLvkEB7V3/dRzqpO2Mm4r6T9
-         yiIg==
+        bh=/tH/Juk6+5kOA0KJXRdgdHxNz8KFtup2+NtgVl7XqW4=;
+        b=LRR7hkLrRRkEHiSbDlii9vfP62fUAVgezOigzwh01H6Nby3uQupqGhX20sMLmHGpLI
+         i6YGeuVjUBIAHZRKWeirbX0ivRsK1HUINJ93p8LaPTxUTRygy8OALxg4OE6CHQkkH5dL
+         +0p6CL5q4q8zWz149gtHf8RDDDjW9aHslNsovOm1B5k+9TLTY1mFWyRAy7CYBvMv7wzx
+         ekq/WUdapBU6QU1DdBpKsHBGcxvJPvdphVVYrs3gfsmcx77bYOUu3D4TS7pe3FWbdrDG
+         XAWnzCML4yYzQ8FZB0iIQCn0Pn8yfBwBong77jOEkAdKPWQjMd5926yke7+SkmJm28GI
+         GOTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-disposition:mime-version:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=178R303viHsUq1R65BsU74qX+xXrKEx3bvRTiYXn3WA=;
-        b=mPptQmMWUN1tVCpHDXAj78KjHo/uMPGLGmcwgs2rBr+7MVQo6CfoTTQWUA02v8/rQF
-         LJcpy/xBVx2jww9jRff/fFpR5Qdq6VcosXueMJO+mVsk8cupHbUPeWIdbFOX4wdMpth+
-         JLRD8qx1g2SokmGbsC7bDEdeznXcMdsoGvbLTHxtKs1EHM+S5AXn4fS0vwLHUMnUfh1h
-         W1g2zZGSOPUB1SFO8rF0pJQDLGYJPD2U6WG28CwV9COAknxBdH+C8wJKJFSPFyLKiCEY
-         525XIDF9dNymTLz3aK38rCB/SpejJvcfoDvS4ZGlq3iIw1cO5i20RFxUj8GFfDCFdKW6
-         O7mA==
-X-Gm-Message-State: AFqh2koMriOjRxA3Dj7FqW5sHsefFrBpVEGTLE+Uz9+f4ncTol7Gk4fj
-        wBjiIciE4tR0ctHHimyDFZs=
-X-Google-Smtp-Source: AMrXdXswneZStx7irlucZSbknNp49VJRNc2uxfCIrmLUNz0fX0LbCnBQSW8Sr7jAji5oiwhz/wITJQ==
-X-Received: by 2002:a05:6808:1290:b0:355:1df0:9b84 with SMTP id a16-20020a056808129000b003551df09b84mr37391990oiw.2.1673085311641;
-        Sat, 07 Jan 2023 01:55:11 -0800 (PST)
+        bh=/tH/Juk6+5kOA0KJXRdgdHxNz8KFtup2+NtgVl7XqW4=;
+        b=BmAt1203987FzeEdY+k9iBZLkWjPaawgmun0k6OiOilFt6yIQwVAtv6lX8v74ZTloV
+         rgKKzJpidyM+TmM5yOuUKtZUYSJVp/7kw5uN7a3mtEl4QxqrOQzNb3CyZJNpWIFBbnkW
+         v2oEnAgx54FMb9WG7ov9gYhczShtiT0Lm1w5kh3qr/vOSgdUhpR7HLc1csSNvr4tmX7+
+         XBlgMHMGafqCOI0ARnL6X8M9CNzlpzYuQti7m8CycdiHSDaTKiMiX3dO5fvSOzYFs50/
+         IUfiloD0zJZsf5Coyle8TiG02RnXlUnhqM+DLVaIS2ja1hQfHfRRUnqIITWtw1pbiexc
+         P2pw==
+X-Gm-Message-State: AFqh2kpOjqXtcJyBTi3J2tO/SvLygrm1DNCYFHoebg0+BadGoNxbOcVN
+        OSXiI21VLgv6v5Y+Cg+joNexJw6wmbc=
+X-Google-Smtp-Source: AMrXdXsUQMvwOEzbT/Rgd0K/aBfUPlfX/ltVogfaR+zv0fv947m01mJVmuCzIC5E3gHqp8aW/zo2ww==
+X-Received: by 2002:a05:6830:14c9:b0:66d:334d:b8a7 with SMTP id t9-20020a05683014c900b0066d334db8a7mr26229115otq.17.1673085320443;
+        Sat, 07 Jan 2023 01:55:20 -0800 (PST)
 Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id k18-20020a05680808d200b0035a921f2093sm1336837oij.20.2023.01.07.01.55.11
+        by smtp.gmail.com with ESMTPSA id cb2-20020a056830618200b0068460566f4bsm1665174otb.30.2023.01.07.01.55.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Jan 2023 01:55:11 -0800 (PST)
-Date:   Sat, 7 Jan 2023 03:55:09 -0600
+        Sat, 07 Jan 2023 01:55:19 -0800 (PST)
+Date:   Sat, 7 Jan 2023 03:55:18 -0600
 From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
 To:     Alejandro Colomar <alx.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org
-Subject: [PATCH v4 07/10] intro.3: ffix
-Message-ID: <20230107095509.rh72usl2yif7gkx3@illithid>
+Subject: [PATCH v4 08/10] intro.3: wfix
+Message-ID: <20230107095518.3ix6hfbgig43tmkw@illithid>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="ulul5k54efvycl44"
+        protocol="application/pgp-signature"; boundary="xgwyxeev2kwvl2wa"
 Content-Disposition: inline
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
@@ -68,57 +68,101 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---ulul5k54efvycl44
+--xgwyxeev2kwvl2wa
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Set "feature test macros" in italics when introducing it as a technical
-term.
+* Tighten cross reference.  It wastes words to tell people to look
+  elsewhere "for further information".  Why else would they look there?
+* Use passive voice less.
+* Relocate sentence for more coherent discussion.
+* Say "application _programming_ interface".
 
 Signed-off-by: G. Branden Robinson <g.branden.robinson@gmail.com>
 ---
- man3/intro.3 | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ man3/intro.3 | 23 ++++++++++++-----------
+ 1 file changed, 12 insertions(+), 11 deletions(-)
 
 diff --git a/man3/intro.3 b/man3/intro.3
-index 1758ccaf8..d6d91f6bd 100644
+index d6d91f6bd..bbaef525e 100644
 --- a/man3/intro.3
 +++ b/man3/intro.3
-@@ -36,7 +36,9 @@ the programmer must define a feature test macro in order =
-to obtain
- the declaration of a function from the header file specified
- in the man page SYNOPSIS section.
- (Where required,
--these feature test macros must be defined before including
-+these
-+.I feature test macros
-+must be defined before including
+@@ -42,9 +42,8 @@ must be defined before including
  .I any
  header files.)
  In such cases,
+-the required macro is described in the man page.
+-For further information on feature test macros,
+-see
++the relevant function's man page describes the required macro.
++See
+ .BR feature_test_macros (7).
+ .\"
+ .\" There
+@@ -77,9 +76,16 @@ see
+ .\" Various special libraries.  The manual pages documenting their functio=
+ns
+ .\" specify the library names.
+ .SS Subsections
+-Section 3 of this manual is organized into subsections
++The Linux
++.I man-pages
++organize section 3 into subsections
+ that reflect the complex structure of the standard C library
+-and its many implementations:
++and its many implementations.
++.IR libc 's
++difficult history frequently makes it a poor example to follow
++in design,
++implementation,
++and presentation.
+ .IP \(bu 3
+ 3const
+ .IP \(bu
+@@ -87,11 +93,6 @@ and its many implementations:
+ .IP \(bu
+ 3type
+ .PP
+-This difficult history frequently makes it a poor example to follow
+-in design,
+-implementation,
+-and presentation.
+-.PP
+ Ideally,
+ a library for the C language
+ is designed such that each header file
+@@ -101,7 +102,7 @@ and exposes only data types and constants that
+ are required for use of those functions.
+ Together,
+ these are termed an API or
+-.IR "application program interface" .
++.IR "application programming interface" .
+ Types and constants to be shared among multiple APIs
+ should be placed in header files that declare no functions.
+ This organization permits a C library module
 --=20
 2.30.2
 
 
---ulul5k54efvycl44
+--xgwyxeev2kwvl2wa
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmO5QX0ACgkQ0Z6cfXEm
-bc5jfA/8C39smkcFbJ16hT1VzI12X/Zn96vNCyb35kiUfO6yrqNgjMy0fmzmNUcy
-fZmZcw9XWx8TUmqBKC+fL81OltL27h7ND4jK8MYUQmJnZLKjHJv0uqfD1cvQJBH7
-J0Rbptz4AxAAiKZjBF7Tpke8w9D0T+YAxKQn7rSVhYqz73UuecmHsWht2ec0MCqo
-6ukANqR47dfbIHMbVDVUftmcY8W+krLdmbonV1qFJOyDaFOnYD6A1dtgkrp11h/Z
-9+wMmgLvL6u/l8j8xGrNyt28wY+bx8wTtaIlNIsDrhBUWGnyKhhBxNuM3JWVcKuu
-4BVCVE2Iiq5oNXM6pNYlcFDh7i0j6isBmsnlR61lV/KtWYEOaY1TBK87kWhJxToO
-vOeONC6JeTZhG2A+MsJ0Qioy/LhWSKrqSy5EjynIdWW2/owz342E/NoHsTxHFnIg
-OqTjHdOkDMCrF1lwKWzj0MrULimD0A09Pz9ZcfrAyGqUybYSmETa7YnynVPFXdA/
-sgCSLuRaVMZRYqE6E8MTBTIIBmQNzpQeG6hUGiBjJxN0m8ivUAQ0Va3wt0Rrg+Qw
-ud82ZHhSRAxOaWATGv2tZ0tss+XwsiXd0G7PDsJhgND/YzjlKoYrq1WgV3gRPIiK
-W7FfzadyjTqjwXSsPdOfbeOb4ZM2s5ag7DU78oiUn5tzz6dIEUE=
-=Kwoi
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmO5QYYACgkQ0Z6cfXEm
+bc79+w/8D0c0sJ8cvrbfEex8x0/44sk3TjVp+wdQEcaLbwBiahyN6wngKjZZaKbX
+Mc7S7wCES5VT7YnztsZTiR5PfEDQOD7x5ZPOLEPSo1pqmqniBKHXZDzXkbwY9pFw
+JJleKxzS5heXV7EqOaffaALVYF+qDYv3vJsswlWg7mqCaUofNIJtpcCRT4Dc7l9K
+IowicgOsr5OIKRLFX8oL7ZJ9A5UesUXXr/BJs6sIc2pXpblUVJXH3YBuEDgXK7f9
+xrDaog6tS6FEPCQxlZDyaEbRew0QdSk/urXWXfOVvZFU7Zv1J75wYhCHuztIvEQY
+sLl0gK0Nd1r0laFyGTJ4v+FKap0mvHWcj6TVg0UoqMK5epKv8p2J04x/MMPBvPMY
+A8e9EAKPXQwn/YKz3zENz2ekrzTrM6DXYtmD7iGseCFQZocBZvTddSFQyDZx7UKB
+NmA+IzjeTwPsiud4pe1EMJA6zSVNqDbvp5/5qNQVUscQWfMBBR6I5ehzhZqUU18x
+vTgrQMTEtwICG8kLe0JoBotGhTvERB6hL4zDjs5dgOkTObCECYNIU9Yi+ntTcJYV
+1HNvQQVvtCCorSKhypxnTHhXg9JOoXfZUlXygsMLRGn51jKbZ70rnprHxNyHrZhS
+dW2pc9LwYGMHtooCuSRyceA06lVxxdbooeJM7Y2XDkDRqDKMaQk=
+=fQO5
 -----END PGP SIGNATURE-----
 
---ulul5k54efvycl44--
+--xgwyxeev2kwvl2wa--
