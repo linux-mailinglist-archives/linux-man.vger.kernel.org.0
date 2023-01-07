@@ -2,67 +2,72 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id C3E2766104B
-	for <lists+linux-man@lfdr.de>; Sat,  7 Jan 2023 17:53:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 2BD14661160
+	for <lists+linux-man@lfdr.de>; Sat,  7 Jan 2023 20:39:15 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231533AbjAGQx2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 7 Jan 2023 11:53:28 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57522 "EHLO
+        id S230092AbjAGTjN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 7 Jan 2023 14:39:13 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47508 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229632AbjAGQx1 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 7 Jan 2023 11:53:27 -0500
-Received: from mail-ot1-x32d.google.com (mail-ot1-x32d.google.com [IPv6:2607:f8b0:4864:20::32d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8875D3AA87
-        for <linux-man@vger.kernel.org>; Sat,  7 Jan 2023 08:53:26 -0800 (PST)
-Received: by mail-ot1-x32d.google.com with SMTP id p17-20020a9d6951000000b00678306ceb94so2682620oto.5
-        for <linux-man@vger.kernel.org>; Sat, 07 Jan 2023 08:53:26 -0800 (PST)
+        with ESMTP id S229904AbjAGTjM (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 7 Jan 2023 14:39:12 -0500
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com [IPv6:2a00:1450:4864:20::335])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 91E5740C16
+        for <linux-man@vger.kernel.org>; Sat,  7 Jan 2023 11:39:11 -0800 (PST)
+Received: by mail-wm1-x335.google.com with SMTP id m8-20020a05600c3b0800b003d96f801c48so5919351wms.0
+        for <linux-man@vger.kernel.org>; Sat, 07 Jan 2023 11:39:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=W1arkv414C+GdAAvGBoyDftgQBJ5LbyFdKWI4T4u+tw=;
-        b=l9GO9EiGD7cGFLiTNHqZb1cEpQHDa64WuGnFv0GpOCNasg3Q5tDq6wcmuP9M+i7DmJ
-         TcG3rTcfCMNuRf8A0rp7lGjqN26uaW8f97fNhFZy4CkwS8Uu++GmJfTAXBOYzfXzj/Pm
-         QvJZ2q3Gq8i50K2gAcfM8T94uEFP3bznzyBqVeGW/em+zxTcW1cdR6wLsYyaMjvMYWWg
-         8A0GpW/7dwrsZOVYfMUuxfGNKF/73VOTkSPlvFqjp7iF3CKgATN1/a+c8kQ/qcAYFKG6
-         Xfir0oBGmfMzTzSF797KaDMCAib1f0xpcrZgXNA3KSf3/GLedkHrf0wU1WmfhjEhvj0r
-         f7rA==
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=DIhUCBNI/R2N+LVKNvVVPQl0OOeJBsyZ42f5UJ4LbwE=;
+        b=DilPJeAV2IIwPyBnuHThcZ+9MXFnBd+eP9K4CfTWISfK1rB9SXHhCab3iXqlW092Cy
+         4as2DoyG4UCpvv3ldUpcxITIVJ1S+GDYOzJHzCf+/vc3O0F6jefy4v8egKOrqRxKmehx
+         3uJ6gk5cSjQwQIJ11hFTWo2AckwIXjSL3Vmv5PEBMdx1JeIFEDUcJTTxKbUYZJ9PK++J
+         1DQM/RUUhLJqbzNyK+L9JUrLCDcC8v0Xa7kP+mkTYObPCvvLMGK3dm0/I06s5LRENjC7
+         OlY0BzFER+bgaPpFlo3s4ZJ60iOO07MckKhI3qPoryputjYnCEMMs4a4RI03mzOwKNDs
+         zT4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=W1arkv414C+GdAAvGBoyDftgQBJ5LbyFdKWI4T4u+tw=;
-        b=nB4ksj5mEMmTjtOV6oo7TKY2HPyrWkrzhGdgyyBtyM1So7moRGcmoQ6G07eo4w3Iqy
-         hEeNnmbaTGyh/sIXDxVHUigJuMSwmfKUvFD1Qw+5PPzXbK9Os2tQ+ZpYQtyvTaWPqzqM
-         5YUAaQIFhSVRa09Q3sonIduVuhixPvUdw18APW8bXNeNlHVKWhHICu93tS+P0EUIEU1/
-         4uD8aTXfqc6ENxWXPGaMIw5JLLUWhqworD6NblIAO5VOmOqwXSoAzncC0xkj7n+xkD+P
-         O/+H8AYdKu/tk33RP9yn+Bez0Z9kkoDBJazaIcHXEyP7Sz6dn2ru5eMAX09tRNdxTLRK
-         c+OQ==
-X-Gm-Message-State: AFqh2kqLhgMIw97AY7vnuETANNciSFJVlcxvejF6hcKpV2jy1wBLoDQ2
-        sFIrEQUzNgmcHN8SmEV+O6TVzruFIqM=
-X-Google-Smtp-Source: AMrXdXvlv1eFtfV7+k2gyDsMsKjx+DO1ZPzHDTFANds7LUiW5K8/onWUSyob5xRTyEQ6G35X8Vx8AA==
-X-Received: by 2002:a9d:6048:0:b0:67d:6d15:640c with SMTP id v8-20020a9d6048000000b0067d6d15640cmr28038801otj.12.1673110405933;
-        Sat, 07 Jan 2023 08:53:25 -0800 (PST)
-Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id w18-20020a056830411200b00670747b88c9sm1972755ott.39.2023.01.07.08.53.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Jan 2023 08:53:25 -0800 (PST)
-Date:   Sat, 7 Jan 2023 10:53:24 -0600
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=DIhUCBNI/R2N+LVKNvVVPQl0OOeJBsyZ42f5UJ4LbwE=;
+        b=e2wxw3lPadCgJp2o8Ml1v0N7AAzEfNHW/8cVjhRyzGqonllvIpIvMoFA0FULKc6I9+
+         NMsW4/weqj2T5V9GMhAdIe3sjRXmXa1joD/kOgycmY0ps/zuayE/BXUta9k09HxYT9+e
+         6xZvSAVA/sDRgrI3Dg8nF8BOs0VfG6MqgFHaz4J5cmIW0dj/9gd628clFhgTtC56CW2c
+         EOZQNSrpysn3firiGM+p73eBAl4/6WVin16Ar6XWGcrkLjut2nreAdDvvJleOI2M6/S9
+         uStlw/K19uzgvce+saMVXVNpNkrAapr1EYLFiewyq+MtZqMs3q+K6a6M9APWXdY3rvaw
+         oMHg==
+X-Gm-Message-State: AFqh2krEZcr77mE+zahsEFkmsmq/mAw6ROl5BkUVMmE00bKZz2dmlpQJ
+        ozuC49gUfrD50avcEn/x6OA=
+X-Google-Smtp-Source: AMrXdXvebzTWEDrlQvO5tqmrO1Ad72QCGDvBj+IkxdKwGH0VOVS5i0UnypmhbXe7rzCEIIHkZzXTMQ==
+X-Received: by 2002:a05:600c:4fcf:b0:3d1:d396:1ade with SMTP id o15-20020a05600c4fcf00b003d1d3961ademr42275500wmq.9.1673120349999;
+        Sat, 07 Jan 2023 11:39:09 -0800 (PST)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id bg42-20020a05600c3caa00b003b4cba4ef71sm12216030wmb.41.2023.01.07.11.39.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 07 Jan 2023 11:39:09 -0800 (PST)
+Message-ID: <a7647f84-d15f-aab9-94ea-2ddddf397407@gmail.com>
+Date:   Sat, 7 Jan 2023 20:39:01 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
 Subject: Re: [PATCH v4 02/10] ldconfig.8: Revise and update for glibc 2.32
-Message-ID: <20230107165324.c2t2senoh3loyof4@illithid>
+To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc:     linux-man@vger.kernel.org
 References: <20230107095422.44loq4pzsfjktvpz@illithid>
  <43a8427b-4038-054e-cea1-c54417bf65bb@gmail.com>
-MIME-Version: 1.0
+ <20230107165324.c2t2senoh3loyof4@illithid>
+Content-Language: en-US
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <20230107165324.c2t2senoh3loyof4@illithid>
 Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="6f53loq6u3ifl3zg"
-Content-Disposition: inline
-In-Reply-To: <43a8427b-4038-054e-cea1-c54417bf65bb@gmail.com>
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+ protocol="application/pgp-signature";
+ boundary="------------AFYulXVrhCS1segPEpbLBeT9"
+X-Spam-Status: No, score=-5.2 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -71,61 +76,72 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------AFYulXVrhCS1segPEpbLBeT9
+Content-Type: multipart/mixed; boundary="------------lnSz0YwhvsIMl5xZRItB6ebJ";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: linux-man@vger.kernel.org
+Message-ID: <a7647f84-d15f-aab9-94ea-2ddddf397407@gmail.com>
+Subject: Re: [PATCH v4 02/10] ldconfig.8: Revise and update for glibc 2.32
+References: <20230107095422.44loq4pzsfjktvpz@illithid>
+ <43a8427b-4038-054e-cea1-c54417bf65bb@gmail.com>
+ <20230107165324.c2t2senoh3loyof4@illithid>
+In-Reply-To: <20230107165324.c2t2senoh3loyof4@illithid>
 
---6f53loq6u3ifl3zg
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+--------------lnSz0YwhvsIMl5xZRItB6ebJ
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Hi Alex,
+SGkgQnJhbmRlbiwNCg0KT24gMS83LzIzIDE3OjUzLCBHLiBCcmFuZGVuIFJvYmluc29uIHdy
+b3RlOg0KPiBIaSBBbGV4LA0KPiANCj4gQXQgMjAyMy0wMS0wN1QxNDoxMDoxMiswMTAwLCBB
+bGVqYW5kcm8gQ29sb21hciB3cm90ZToNCj4+PiAqIEV4cGFuZCBkZXNjcmlwdGlvbiBvZiAi
+bGQuc28uY29uZiIgZmlsZSB0byBkaXNjdXNzICJpbmNsdWRlIiBhbmQNCj4+PiAgICAiaHdj
+YXAiIGZlYXR1cmVzLiAgRGVzY3JpYmUgdGhlc2UgYXMgImRpcmVjdGl2ZXMiICh0aG91Z2gg
+dGhlDQo+Pj4gICAgbGF0dGVyIGRpZWQgdXBzdHJlYW0gaW4gZ2xpYmMgMi4zMiBiZWZvcmUg
+d2UgZ290IGFyb3VuZCB0bw0KPj4+ICAgIGRvY3VtZW50aW5nIGl0KS4gIERvY3VtZW50IGxk
+LnNvLmNvbmYncyBjb21tZW50IHN5bnRheC4NCj4+DQo+PiBJIHRoaW5rIGxkLnNvLmNvbmYo
+NCkgbWlnaHQgYmUgYSBnb29kIG1hbnVhbCBwYWdlIG9uIGl0cyBvd24sIGFuZA0KPj4gbGRj
+b25maWcoMSkgcmVmZXIgdG8gaXQuDQo+IA0KPiBzLzEvODtzLzQvNQ0KDQpEJ29oIQ0KDQo+
+IA0KPiBUaGF0IHNlZW1zIHJlYXNvbmFibGUuICBDYW4gSSB0YWNrbGUgdGhhdCBfYWZ0ZXJf
+IHRoZSBjdXJyZW50IGJhdGNoIGlzDQo+IG9mZiBteSBwbGF0ZT8gIDotTw0KDQpZb3UgbWVh
+biBhcHBseSB0aGlzIHBhdGNoLCB0aGVuIHByZXBhcmUgYSBuZXcgcGFnZT8gIElmIHNvLCB5
+ZXMsIHRoYXQgbWFrZXMgc2Vuc2UuDQoNCj4gDQo+PiBBbmQgbWF5YmUgYWxzbyBmb3IgbGQu
+c28uY2FjaGUoNCkuDQo+IA0KPiAoYXNzdW1pbmcgcy80LzUpDQoNCiouKg0KDQo+IA0KPiBI
+ZXJlIEkgZG9uJ3QgYWdyZWUuICBUaGUgZm9ybWF0IG9mIHRoZSBjYWNoZSBmaWxlIGlzIGFu
+IGludGVybmFsDQo+IGltcGxlbWVudGF0aW9uIGRldGFpbDsgdGhlIHVzZXIgY2FuIHNlbGVj
+dCBhIGZvcm1hdCAocG9zc2libHkgZm9yDQo+IGZpbGUtc2hhcmluZyBwdXJwb3Nlc1sxXSks
+IGJ1dCBiZXlvbmQgdGhlIG5hbWUgb2YgZWFjaCBmb3JtYXQgKCJvbGQiLA0KPiAiY29tcGF0
+IiwgIm5ldyIpLCB0aGVzZSBhcmUgb3BhcXVlLg0KPiANCj4gSW4gbXkgb3BpbmlvbiBhIGZp
+bGUgZm9ybWF0IG5lZWQgYmUgZG9jdW1lbnRlZCBpbiBzZWN0aW9uIDUgb25seSBpZiBpdA0K
+PiBpcyAoZGVsaWJlcmF0ZWx5KSBleHBvc2VkIHRvIG1hbmlwdWxhdGlvbiBieSBvdGhlciB0
+b29scy4NCg0KTWFrZXMgc2Vuc2UuDQoNCj4gDQo+IFJlZ2FyZHMsDQo+IEJyYW5kZW4NCg0K
+Q2hlZXJzLA0KDQpBbGV4DQoNCi0tIA0KPGh0dHA6Ly93d3cuYWxlamFuZHJvLWNvbG9tYXIu
+ZXMvPg0K
 
-At 2023-01-07T14:10:12+0100, Alejandro Colomar wrote:
-> > * Expand description of "ld.so.conf" file to discuss "include" and
-> >   "hwcap" features.  Describe these as "directives" (though the
-> >   latter died upstream in glibc 2.32 before we got around to
-> >   documenting it).  Document ld.so.conf's comment syntax.
->=20
-> I think ld.so.conf(4) might be a good manual page on its own, and
-> ldconfig(1) refer to it.
+--------------lnSz0YwhvsIMl5xZRItB6ebJ--
 
-s/1/8;s/4/5
-
-That seems reasonable.  Can I tackle that _after_ the current batch is
-off my plate?  :-O
-
-> And maybe also for ld.so.cache(4).
-
-(assuming s/4/5)
-
-Here I don't agree.  The format of the cache file is an internal
-implementation detail; the user can select a format (possibly for
-file-sharing purposes[1]), but beyond the name of each format ("old",
-"compat", "new"), these are opaque.
-
-In my opinion a file format need be documented in section 5 only if it
-is (deliberately) exposed to manipulation by other tools.
-
-Regards,
-Branden
-
---6f53loq6u3ifl3zg
-Content-Type: application/pgp-signature; name="signature.asc"
+--------------AFYulXVrhCS1segPEpbLBeT9
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmO5o4QACgkQ0Z6cfXEm
-bc555BAApIlc2kJ8z861FhQFK9cCkNfguHbLBC35H+GgRxrGiPSvTAypmWDeyrU9
-T0e95tXpKjZU5/zB+Qjt/cWr/4l2mx32aJ073YrQ/uu77b+rCOkaTceMpLaTuXHh
-QXlGeYUUa7Jj7qxhjilBAffxL24XOHqw/6TyG8ti2V1IaqSzyqzQ2ezWfqtlAn+L
-zdgny4Goir+IKcLEYgv+LKmL9uBzjW9qfxehJpQnS/at2zjLYxrv/joJeKKM38Fy
-Yzr6ksaPm1UB3AJF9Q/SDGyZZNS9cSVabFfasJp/H3pcqQKe2TvtOy200SNfXejv
-Vi+tyj4JY9tx7kqGPbbi7fNWOdoZhXwXrw1jEvyJn1JMxYh74dsTV7qmU3vsDLY6
-eO0vLWu+RxQatBuMzVC5CWOqZF5VdZw1+Kb+qlSc00DUjjQtfWAW97CM5L0DMJQ/
-Q3AIGXmmSM6SS4YX+v+v8UOdpUmYA76xpsN8gn/CLkZksc0LBD9b5/AoApP8+x87
-TPaKg34YBDMTa2/dHaB47r/nLF8jefZQmpjaHdwvIJfrb/tKh9JgzZrw2JRR9fIz
-l/iuJQHgysmXwpxFFMpr394maUt78nwSztN4i4/64yAOY+f8VIcHzqDUORhPQ14x
-7EFsq2G/1PgoMHHW2YucYDumokruKOZ+2vUSaUt9KmciDwIhsWA=
-=dlc0
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmO5ylUACgkQnowa+77/
+2zI+Ww/+OG3ZLWqIjIgG7rqjydT8Gg5v3tDL1DA3VpJ1ZgkLwLJGy6O2uCrk6scO
+siaGATyGm+NV4JyOkds5akoVZR9Bo7Ri/eXoWWLDl1ok4S85gIXrEBegOm/YL6Mi
+tBqqqhQeqQCLTRX6I2yOkXEtimCqFdPlEKsKAu+YKOvWhIQNBH2vqMruyQWwDEyo
+7BydxSU5gv1Rd51Y0yV7aqno6GGAnVQfkl7tuaJK9PjTrI0P2sNmSzyhpd7kVj1d
+p2/9M5nt3SPoKH5Ndg6kXN4Go2OIUihdcgQzgIgjc88TuFgt3+AWFrjdg7Pt/A/i
+o3/GNoIE2u/DX5MaEXoB4b4dGLA8OQf6wuBD6PhVsweb7zSv8uRLaygqw05f2S5F
+i8L51pg4Dg47hc4yV/Ug5etFQVu/6flrawp/uV8Z2CKIHuyuAzGVroAzbwO18zJ/
+49HiZuQQgahohPO/COwEGNWfLuIQMmUv76Km+kDgtfGzJRA0iBh7ia8YSneQrybS
+5nGRCOqsTxtz08tWlmE67uEhgxMVnMA4Fg9+qk2qF4QVPOIFM8+HbLwYBchn+1fl
+qWvlKj6tSMbpWUj3CCeOobF/nLXBh2yZaG0ycDwnMpgNnDw0xlvgv7xAN1aJdTmW
+RnvJkT/qrgwJDivOo3I1Q+3pfdYbYQhMx8VzOu8FaecPS7Wfe94=
+=Orca
 -----END PGP SIGNATURE-----
 
---6f53loq6u3ifl3zg--
+--------------AFYulXVrhCS1segPEpbLBeT9--
