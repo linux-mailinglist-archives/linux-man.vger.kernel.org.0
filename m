@@ -2,73 +2,46 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id BF47966D78E
-	for <lists+linux-man@lfdr.de>; Tue, 17 Jan 2023 09:08:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id CC0F166DAD1
+	for <lists+linux-man@lfdr.de>; Tue, 17 Jan 2023 11:22:39 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235972AbjAQIIx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 17 Jan 2023 03:08:53 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55314 "EHLO
+        id S236472AbjAQKWi (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 17 Jan 2023 05:22:38 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33744 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235942AbjAQIIv (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 17 Jan 2023 03:08:51 -0500
-Received: from mail-pl1-x635.google.com (mail-pl1-x635.google.com [IPv6:2607:f8b0:4864:20::635])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8B7399EE7;
-        Tue, 17 Jan 2023 00:08:49 -0800 (PST)
-Received: by mail-pl1-x635.google.com with SMTP id g23so17152475plq.12;
-        Tue, 17 Jan 2023 00:08:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Cji+UTBPs50J5pprYnZf8VV2tZ6dNTKxF2LaNCwmPQM=;
-        b=ErGNGhjJFV9bRnh+P2Cgwo8VYw15/j0m7c1KuJjYkPPBzA9pWh+fRjFKLGWAL1AYyU
-         R5PDf9LyYZpNCREOFHq392HZ+k5M3TcSnNQPZhkHIQj52GJEhNaDFqhHFws6sQ9mLE/9
-         yWTYRzH7LhN/pxLUCxz3zqmPAo3835Q+KFfoqKVQ6MVX2DN4N2GTOSWSrSHko97ViJXi
-         ICtObaq0GLsvtzN0J+YSpjDDKsKKLaz5piseDOJVgLwsgi3pwYN+j8ftrdST5sUoi6SP
-         +jY2P1H/mw+MlkTzUpLFpEf8qkZ7711NKHa+K+TJVkG2rse3qMF10o2wdK/A6jr2tNX4
-         6DEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Cji+UTBPs50J5pprYnZf8VV2tZ6dNTKxF2LaNCwmPQM=;
-        b=vwhmM2cXOna3IQzAbwTteoqHpIT3o3JeVXJuvgMSrRGbThLNKimYENqoowo2caILfI
-         bZW2s5P1L4rvofwwe9moV6CHHbU4moKDOVIa478NmaIIeFnag3ns9PrM6Zuz0IleOo8z
-         1V2QBcyJbZZYoVyYvOVhfpSGsdi7S6ciYsttwWlUbfhfBanOxQinz0U1LdWQCjKQKgfL
-         Vcgi0CAFv1bhCmww9ed8F7PuITG8jIQeye6H/dnmiGqVH5NWDfuibnybVs39+OGFcOo2
-         fMnRyTDkNTpY9Nc9QlWuALv4XYY9hHv8JkalboNcIVFAH/jJPpeVZjF5hMJLYXWVcER+
-         MMbg==
-X-Gm-Message-State: AFqh2kr89IrETUjQOlJgqBk3SfQ3jPI/zALP1PX9Wnpf5Vydm6kt9oVn
-        jX9IlSsmyfs0H7UannVhqhqHx54zuHo=
-X-Google-Smtp-Source: AMrXdXsJVsDWtKGjTlbukd1NF1R5TEAoG0t1l1TrVw42/fNAC8Y9UnFSptJe5pQHbHPm93eJUmUjHg==
-X-Received: by 2002:a17:90a:ad02:b0:226:b783:674 with SMTP id r2-20020a17090aad0200b00226b7830674mr2151267pjq.37.1673942928846;
-        Tue, 17 Jan 2023 00:08:48 -0800 (PST)
-Received: from balhae.hsd1.ca.comcast.net ([2601:647:6780:ff0:c222:6c5b:fa46:8f0e])
-        by smtp.gmail.com with ESMTPSA id m12-20020a634c4c000000b0047063eb4098sm16509744pgl.37.2023.01.17.00.08.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Jan 2023 00:08:48 -0800 (PST)
-From:   Namhyung Kim <namhyung@gmail.com>
-To:     Alejandro Colomar <alx@kernel.org>
-Cc:     linux-man@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
-        Arnaldo Carvalho de Melo <acme@kernel.org>,
-        Jiri Olsa <jolsa@kernel.org>,
-        Alexei Starovoitov <ast@kernel.org>,
-        Marco Elver <elver@google.com>,
-        Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-        Kan Liang <kan.liang@linux.intel.com>,
-        Stephane Eranian <eranian@google.com>,
-        linux-perf-users@vger.kernel.org,
-        Namhyung Kim <namhyung@kernel.org>
-Subject: [PATCH v3] perf_event_open.2: Update recent changes
-Date:   Tue, 17 Jan 2023 00:08:46 -0800
-Message-Id: <20230117080846.588289-1-namhyung@gmail.com>
-X-Mailer: git-send-email 2.39.0.314.g84b9a713c41-goog
+        with ESMTP id S236570AbjAQKWc (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 17 Jan 2023 05:22:32 -0500
+Received: from stravinsky.debian.org (stravinsky.debian.org [IPv6:2001:41b8:202:deb::311:108])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1DDAA26593
+        for <linux-man@vger.kernel.org>; Tue, 17 Jan 2023 02:22:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+        s=smtpauto.stravinsky; h=X-Debian-User:Content-Type:MIME-Version:Message-ID:
+        Date:Subject:Cc:To:From:Reply-To:Content-Transfer-Encoding:Content-ID:
+        Content-Description:In-Reply-To:References;
+        bh=EV4rHl0grMArANTn8BcBVNDUFm5o4ZPRnZ6Oo07Y0+c=; b=F95YPsRp7qv6zKXkIZFmDJhul6
+        OW+cIaAJJBoD3kNYGvksVGJjjsCyPfIJtCAr54mNq6HC234T9d4cy70P6mO5+1dNKGyULb06dS5um
+        fE/f15Z8Twj8/kjpRmjf0am6V12wcKmrsPCpLpskqjayc+8s+h4QMLsIbbU+7y5btWblB07BDEFs3
+        2WE1/SxbsI/IM3lcYCAn8UGSFbrLSy96m+G9ZIzKdJ/M4yB0Jb9gwv8j47lzFJtiW2mH656tEq51u
+        RSA3bjhR51uEO32B/rSWILi4fmaqg+NQa2lEEEYeqIIkPL1EEmnCe2FGy9UC6Dlr01uGY6CchiOLu
+        dYUfcV/g==;
+Received: from authenticated user
+        by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+        (Exim 4.94.2)
+        (envelope-from <rouca@debian.org>)
+        id 1pHj6p-009mao-3M; Tue, 17 Jan 2023 10:22:27 +0000
+From:   Bastien =?ISO-8859-1?Q?Roucari=E8s?= <rouca@debian.org>
+To:     "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
+Subject: Improve getsockname
+Date:   Tue, 17 Jan 2023 10:22:25 +0000
+Message-ID: <2889739.XEG2VLDMQ1@portable-bastien>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
+Content-Type: multipart/signed; boundary="nextPart1932131.Cvsq4nNeXK";
+ micalg="pgp-sha512"; protocol="application/pgp-signature"
+X-Debian-User: rouca
+X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+        SPF_HELO_NONE,SPF_NONE,UNPARSEABLE_RELAY autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -76,355 +49,165 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From: Namhyung Kim <namhyung@kernel.org>
+--nextPart1932131.Cvsq4nNeXK
+Content-Type: multipart/mixed; boundary="nextPart2338276.Br8ZInOmSc";
+ protected-headers="v1"
+Content-Transfer-Encoding: 7Bit
+From: Bastien =?ISO-8859-1?Q?Roucari=E8s?= <rouca@debian.org>
+To: "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Cc: "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
+Subject: Improve getsockname
+Date: Tue, 17 Jan 2023 10:22:07 +0000
+Message-ID: <2889739.XEG2VLDMQ1@portable-bastien>
+MIME-Version: 1.0
 
-Add missing perf_event_attr fields, new event codes and sample type.
-Also add descriptions for PERF_FORMAT_LOST.
+This is a multi-part message in MIME format.
 
-Signed-off-by: Namhyung Kim <namhyung@kernel.org>
+--nextPart2338276.Br8ZInOmSc
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="UTF-8"
+
+Hi,
+
+I have a lot of student that does not use correctly getsockname in case of 
+dual stack. 
+
+May be this kind of discussion should be factorized in  sockaddr_storage (the 
+historical note particularly).
+
+i suppose the same should be done for getpeername
+
+I think a safe programming example may be given that accept a socket as stdin 
+and print information on it. Using socat it could be simple to test. maybe 
+forcing ENOTSUPP if *addr > sizeof(sockadd_storage)
+
+Regards
+
+Bastien
+--nextPart2338276.Br8ZInOmSc
+Content-Disposition: attachment;
+ filename="0001-Document-use-of-struct-sockaddr_storage-in-getsockna.patch"
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/x-patch; charset="unicode-2-0-utf-8";
+ name="0001-Document-use-of-struct-sockaddr_storage-in-getsockna.patch"
+
+From 0afb3ad23f8ea09331f21a377e3ad19c44e4df18 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Bastien=20Roucari=C3=A8s?= <rouca@debian.org>
+Date: Tue, 17 Jan 2023 10:07:43 +0000
+Subject: [PATCH] Document use of struct sockaddr_storage in getsockname
+
+Document:
+- storage requierement
+- future compatibility
 ---
- man2/perf_event_open.2 | 201 +++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 193 insertions(+), 8 deletions(-)
+ man2/getsockname.2 | 56 ++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 56 insertions(+)
 
-diff --git a/man2/perf_event_open.2 b/man2/perf_event_open.2
-index 8e94fb4ac..05f06cf68 100644
---- a/man2/perf_event_open.2
-+++ b/man2/perf_event_open.2
-@@ -245,8 +245,15 @@ struct perf_event_attr {
-                                    instead of events */
-           cgroup         :  1,  /* include cgroup events */
-           text_poke      :  1,  /* include text poke events */
-+          build_id       :  1,  /* use build id in mmap2 events */
-+          inherit_thread :  1,  /* children only inherit */
-+                                /* if cloned with CLONE_THREAD */
-+          remove_on_exec :  1,  /* event is removed from task
-+                                   on exec */
-+          sigtrap        :  1,  /* send synchronous SIGTRAP
-+                                   on event */
- 
--          __reserved_1   : 30;
-+          __reserved_1   : 26;
- 
-     union {
-         __u32 wakeup_events;    /* wakeup every n events */
-@@ -277,6 +284,9 @@ struct perf_event_attr {
-     __u32 aux_watermark;        /* aux bytes before wakeup */
-     __u16 sample_max_stack;     /* max frames in callchain */
-     __u16 __reserved_2;         /* align to u64 */
-+    __u32 aux_sample_size;      /* max aux sample size */
-+    __u32 __reserved_3;         /* align to u64 */
-+    __u64 sig_data;             /* user data for sigtrap */
- 
- };
- .EE
-@@ -538,6 +548,19 @@ Informational sample record types such as mmap or comm
- must be associated with an active event.
- This dummy event allows gathering such records without requiring
- a counting event.
-+.TP
-+.BR PERF_COUNT_SW_BPF_OUTPUT " (since Linux 4.4)"
-+.\" commit a43eec304259a6c637f4014a6d4767159b6a3aa3
-+This is used to generate raw sample data from BPF.
-+BPF programs can write to this event using
-+.B bpf_perf_event_output
-+helper.
-+.TP
-+.BR PERF_COUNT_SW_CGROUP_SWITCHES " (since Linux 5.13)"
-+.\" commit d0d1dd628527c77db2391ce0293c1ed344b2365f
-+This counts context switches to a task in a different cgroup.
-+In other words, if the next task is in the same cgroup,
-+it won't count the switch.
- .RE
- .PP
- .RS
-@@ -879,6 +902,41 @@ This corresponds to the
- field in the
- .B PERF_RECORD_CGROUP
- event.
-+.TP
-+.BR PERF_SAMPLE_DATA_PAGE_SIZE " (since Linux 5.11)"
-+.\" commit 8d97e71811aaafe4abf611dc24822fd6e73df1a1
-+Records page size of data like in
-+.BR PERF_SAMPLE_ADDR .
-+.TP
-+.BR PERF_SAMPLE_CODE_PAGE_SIZE " (since Linux 5.11)"
-+.\" commit 995f088efebe1eba0282a6ffa12411b37f8990c2
-+Records page size of ip like in
-+.BR PERF_SAMPLE_IP .
-+.TP
-+.BR PERF_SAMPLE_WEIGHT_STRUCT " (since Linux 5.12)"
-+.\" commit 2a6c6b7d7ad346f0679d0963cb19b3f0ea7ef32c
-+Records hardware provided weight values like in
-+.BR PERF_SAMPLE_WEIGHT ,
-+but it can represent multiple values in a struct.
-+This shares the same space as the
-+.BR PERF_SAMPLE_WEIGHT ,
-+so users can apply either of those, not the both.
-+When used, it would have the following format and
-+the meaning of each fields is dependent to the
-+hardware implementation.
+diff --git a/man2/getsockname.2 b/man2/getsockname.2
+index e6e8980c9..5914c9e12 100644
+--- a/man2/getsockname.2
++++ b/man2/getsockname.2
+@@ -39,6 +39,17 @@ The returned address is truncated if the buffer provided is too small;
+ in this case,
+ .I addrlen
+ will return a value greater than was supplied to the call.
 +.PP
-+.in +4n
-+.EX
-+union perf_sample_weight {
-+    u64    full;         /* PERF_SAMPLE_WEIGHT */
-+    struct {             /* PERF_SAMPLE_WEIGHT_STRUCT */
-+        u32    var1_dw;
-+        u16    var2_w;
-+        u16    var3_w;
-+    };
-+};
-+.EE
-+.in
- .RE
- .TP
- .I read_format
-@@ -908,6 +966,15 @@ Adds a 64-bit unique value that corresponds to the event group.
- .TP
- .B PERF_FORMAT_GROUP
- Allows all counter values in an event group to be read with one read.
-+.TP
-+.B PERF_FORMAT_LOST " (since Linux 6.0)"
-+.\" commit 119a784c81270eb88e573174ed2209225d646656
-+Adds a 64-bit value that is the number of lost samples for this event.
-+This would be only meaningful when
-+.I sample_period
-+or
-+.I sample_freq
-+is set.
- .RE
- .TP
- .I disabled
-@@ -1243,7 +1310,7 @@ This enables the generation of
- .B PERF_RECORD_BPF_EVENT
- records when an eBPF program is loaded or unloaded.
- .TP
--.IR auxevent " (since Linux 5.4)"
-+.IR aux_output " (since Linux 5.4)"
- .\" commit ab43762ef010967e4ccd53627f70a2eecbeafefb
- This allows normal (non-AUX) events to generate data for AUX events
- if the hardware supports it.
-@@ -1261,6 +1328,31 @@ This enables the generation of
- records when there's a change to the kernel text
- (i.e., self-modifying code).
- .TP
-+.IR build_id " (since Linux 5.12)"
-+.\" commit 88a16a1309333e43d328621ece3e9fa37027e8eb
-+This changes the contents in the
-+.B PERF_RECORD_MMAP2
-+to have a build-id instead of device and inode numbers.
-+.TP
-+.IR inherit_thread " (since Linux 5.13)"
-+.\" commit 2b26f0aa004995f49f7b6f4100dd0e4c39a9ed5f
-+This disables the inheritance of the event to a child process.
-+Only new threads in the same process (which is cloned with
-+.BR CLONE_THREAD )
-+will inherit the event.
-+.TP
-+.IR remove_on_exec " (since Linux 5.13)"
-+.\" commit 2e498d0a74e5b88a6689ae1b811f247f91ff188e
-+This closes the event when it starts a new process image by
-+.BR execve (2)
-+system call.
-+.TP
-+.IR sigtrap " (since Linux 5.13)"
-+.\" commit 97ba62b278674293762c3d91f724f1bb922f04e0
-+This enables synchronous signal delivery of
-+.B SIGTRAP
-+on event overflow.
-+.TP
- .IR wakeup_events ", " wakeup_watermark
- This union sets how many samples
- .RI ( wakeup_events )
-@@ -1471,6 +1563,21 @@ includes
- .BR PERF_SAMPLE_CALLCHAIN ,
- this field specifies how many stack frames to report when
- generating the callchain.
-+.TP
-+.IR aux_sample_size " (since Linux 5.5)"
-+.\" commit a4faf00d994c40e64f656805ac375c65e324eefb
-+When
-+.B PERF_SAMPLE_AUX
-+flag is set, specify the desired size of AUX data.
-+Note that it can get smaller data than the specified size.
-+.TP
-+.IR sig_data " (since Linux 5.13)"
-+.\" commit 97ba62b278674293762c3d91f724f1bb922f04e0
-+This data will be copied to user's signal handler (through
-+.I si_perf
-+in the
-+.IR siginfo_t )
-+to disambiguate which event triggered the signal.
- .SS Reading results
- Once a
- .BR perf_event_open ()
-@@ -1502,6 +1609,7 @@ struct read_format {
-     struct {
-         u64 value;     /* The value of the event */
-         u64 id;        /* if PERF_FORMAT_ID */
-+        u64 lost;      /* if PERF_FORMAT_LOST */
-     } values[nr];
- };
- .EE
-@@ -1520,6 +1628,7 @@ struct read_format {
-     u64 time_enabled;  /* if PERF_FORMAT_TOTAL_TIME_ENABLED */
-     u64 time_running;  /* if PERF_FORMAT_TOTAL_TIME_RUNNING */
-     u64 id;            /* if PERF_FORMAT_ID */
-+    u64 lost;          /* if PERF_FORMAT_LOST */
- };
- .EE
- .in
-@@ -1551,6 +1660,12 @@ A globally unique value for this particular event; only present if
- .B PERF_FORMAT_ID
- was specified in
- .IR read_format .
-+.TP
-+.I lost
-+The number of lost samples of this event; only present if
-+.B PERF_FORMAT_LOST
-+was specified in
-+.IR read_format .
- .SS MMAP layout
- When using
- .BR perf_event_open ()
-@@ -2002,6 +2117,22 @@ to the actual instruction that triggered the event.
- See also
- .IR perf_event_attr.precise_ip .
- .TP
-+.BR PERF_RECORD_MISC_SWITCH_OUT_PREEMPT " (since Linux 4.17)"
-+.\" commit 101592b4904ecf6b8ed2a4784d41d180319d95a1
-+When a
-+.B PERF_RECORD_SWITCH
-+or
-+.B PERF_RECORD_SWITCH_CPU_WIDE
-+record is generated, this indicates the context switch
-+was a preemption.
-+.TP
-+.BR PERF_RECORD_MISC_MMAP_BUILD_ID " (since Linux 5.12)"
-+.\" commit 88a16a1309333e43d328621ece3e9fa37027e8eb
-+This indicates that the content of
-+.B PERF_SAMPLE_MMAP2
-+contains build-ID data instead of device major and minor numbers
-+as well as the inode number.
-+.TP
- .BR PERF_RECORD_MISC_EXT_RESERVED " (since Linux 2.6.35)"
- .\" commit 1676b8a077c352085d52578fb4f29350b58b6e74
- This indicates there is extended data available (currently not used).
-@@ -2201,7 +2332,9 @@ struct {
-     char   data[size];  /* if PERF_SAMPLE_STACK_USER */
-     u64    dyn_size;    /* if PERF_SAMPLE_STACK_USER &&
-                            size != 0 */
--    u64    weight;      /* if PERF_SAMPLE_WEIGHT */
-+    union perf_sample_weight;
-+                        /* if PERF_SAMPLE_WEIGHT */
-+                        /* || PERF_SAMPLE_WEIGHT_STRUCT */
-     u64    data_src;    /* if PERF_SAMPLE_DATA_SRC */
-     u64    transaction; /* if PERF_SAMPLE_TRANSACTION */
-     u64    abi;         /* if PERF_SAMPLE_REGS_INTR */
-@@ -2209,6 +2342,12 @@ struct {
-                         /* if PERF_SAMPLE_REGS_INTR */
-     u64    phys_addr;   /* if PERF_SAMPLE_PHYS_ADDR */
-     u64    cgroup;      /* if PERF_SAMPLE_CGROUP */
-+    u64    data_page_size;
-+                      /* if PERF_SAMPLE_DATA_PAGE_SIZE */
-+    u64    code_page_size;
-+                      /* if PERF_SAMPLE_CODE_PAGE_SIZE */
-+    u64    size;        /* if PERF_SAMPLE_AUX */
-+    char   data[size];  /* if PERF_SAMPLE_AUX */
- };
- .EE
- .in
-@@ -2411,6 +2550,8 @@ is 0.
- .I weight
- If
- .B PERF_SAMPLE_WEIGHT
-+or
-+.B PERF_SAMPLE_WEIGHT_STRUCT
- is enabled, then a 64-bit value provided by the hardware
- is recorded that indicates how costly the event was.
- This allows expensive events to stand out more clearly
-@@ -2643,7 +2784,30 @@ If the
- flag is set,
- then the 64-bit cgroup ID (for the perf_event subsystem) is recorded.
- To get the pathname of the cgroup, the ID should match to one in a
--.B PERF_RECORD_CGROUP .
-+.BR PERF_RECORD_CGROUP .
-+.TP
-+.I data_page_size
-+If the
-+.B PERF_SAMPLE_DATA_PAGE_SIZE
-+flag is set,
-+then the 64-bit page size value of the
-+.B data
-+address is recorded.
-+.TP
-+.I code_page_size
-+If the
-+.B PERF_SAMPLE_CODE_PAGE_SIZE
-+flag is set,
-+then the 64-bit page size value of the
-+.B ip
-+address is recorded.
-+.TP
-+.I size
-+.TQ
-+.IR data [size]
-+If
-+.B PERF_SAMPLE_AUX
-+is enabled, then a snapshot of the aux buffer is recorded.
- .RE
- .TP
- .B PERF_RECORD_MMAP2
-@@ -2654,6 +2818,9 @@ The format is similar to that of the
- .B PERF_RECORD_MMAP
- record, but includes extra values that allow uniquely identifying
- shared mappings.
-+Depending on the
-+.B PERF_RECORD_MISC_MMAP_BUILD_ID
-+bit in the header, the extra values have different layout and meanings.
- .IP
- .in +4n
- .EX
-@@ -2664,10 +2831,20 @@ struct {
-     u64    addr;
-     u64    len;
-     u64    pgoff;
--    u32    maj;
--    u32    min;
--    u64    ino;
--    u64    ino_generation;
-+    union {
-+        struct {
-+            u32    maj;
-+            u32    min;
-+            u64    ino;
-+            u64    ino_generation;
-+        };
-+        struct {   /* if PERF_RECORD_MISC_MMAP_BUILD_ID */
-+            u8     build_id_size;
-+            u8     __reserved_1;
-+            u16    __reserved_2;
-+            u8     build_id[20];
-+        };
-+    };
-     u32    prot;
-     u32    flags;
-     char   filename[];
-@@ -2704,6 +2881,14 @@ is the inode number.
- .I ino_generation
- is the inode generation.
- .TP
-+.I build_id_size
-+is the actual size of
-+.I build_id
-+field (up to 20).
-+.TP
-+.I build_id
-+is a raw data to identify a binary.
-+.TP
- .I prot
- is the protection information.
- .TP
++For greater portability
++.I addr
++should point to a structure of type
++.I sockaddr_storage.
++.I sockaddr_storage
++structure is large enough to hold any of the other
++.I sockaddr_*
++variants and always well aligned. On return, it should be cast to the correct
++.I sockaddr_*
++type, according to the current protocol family, given by the member ss_family.
+ .SH RETURN VALUE
+ On success, zero is returned.
+ On error, \-1 is returned, and
+@@ -80,10 +91,55 @@ For background on the
+ .I socklen_t
+ type, see
+ .BR accept (2).
++.PP
++Security and portability wise, use of
++.I struct sockaddr_storage
++type as
++.I addr
++and
++.I addrlen
++set to
++.BI "sizeof(struct sockaddr_storage)"
++is strongly encouraged. Particularly this usage avoid bugs in dual stack IPv4+IPv6 configuration.
++.PP
++Historical use of
++.I addr
++requires one to use a structure specific to the protocol family in use,
++such as
++.I sockaddr_in
++(AF_INET or IPv4),
++.I sockaddr_in6
++(AF_INET6 or IPv6), or
++.I sockaddr_un
++(AF_UNIX)
++cast to a
++.I (struct sockaddr *).
++The purpose of the
++.I struct sockaddr *
++type
++is purely to allow casting of  domain-specific  socket  address  types  to  a
++"generic" type, so as to avoid compiler warnings about type mismatches in calls to the sockets API.
++Nevertheless,
++. I struct sockaddr *
++is too small to hold newer protocol address (for instance IPv6) and not always well aligned.
++.PP
++Even if
++.I sockaddr_storage
++type is large enough at compilation time to hold any of the
++.I sockaddr_*
++variants known by the library,
++this guarantee will not hold for future. Newer protocol may need an increase of
++.I sockaddr_storage
++size or alignement requirement, and safe program should always runtime check if returned
++.I addr
++is smaller or equal to compile time
++.BI "sizeof(struct sockaddr_storage)"
++size.
+ .SH SEE ALSO
+ .BR bind (2),
+ .BR socket (2),
+ .BR getifaddrs (3),
++.BR sockaddr_storage (3type),
+ .BR ip (7),
+ .BR socket (7),
+ .BR unix (7)
 -- 
-2.39.0.314.g84b9a713c41-goog
+2.39.0
+
+
+--nextPart2338276.Br8ZInOmSc--
+
+--nextPart1932131.Cvsq4nNeXK
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEXQGHuUCiRbrXsPVqADoaLapBCF8FAmPGds8ACgkQADoaLapB
+CF82nw//YEv7fbqrguCFOqA2rcjkaH1hZYQV8Wg9JhVufufAWb5NPiap/SrvNrRn
+zr+02jftqp7gi+/iHVBg9nAvZTDWIdMYfK4hQnEcovUkJrYCtjphYMoFTru7az74
+jIu68X1R+dLowIWFs0PYcmuVUJgl6Esukr5cUme3MLCzumzC+Uoxl5/0ACpeeMQ8
+TXMx3GagjAtJQzdV5TugGEcKXGHc26fDLOJAMyaFrnh3RVfZqqSTKHv9QDG/3oOu
+CTQKS1wNeeJFZuLZPE4/sm4lRReSV2tL3n9PlVBePUb1eKfVCKrWUdcfqdkav9m9
+/5l4Ye+qV/oCoCg7L9/C72QQEX3zIAsQ0uX5Fty3NPA2BgrRitU77qBHZBeJ77TT
+WJohaXyapKcnhM2ShaoOtfi4OEsHqmFBwWDCsdVr7+8gwW46wmECEHwaMCBN9nTN
+WNSgq0WuFmZFRdwL4m403SVf/HYVgG5tffNivE+yQMEjmo/np4leFtDEB1xrqp6/
+axvXyhEClYh34u+bydBA+OiiUSBVm25BOCP6ZsxbK1plJgwjT786seqJtvENogOx
+/a0tNswCpsNbsBA6extDxTneYCZDVBd6rqc6Bd84J2K5ccJ24hooV4DWEMtN0tu4
+98IExu8e2bpMSVNXJENsOCUsV92mmSuHJ/VulbpxUSgZQrKd1BQ=
+=aTv5
+-----END PGP SIGNATURE-----
+
+--nextPart1932131.Cvsq4nNeXK--
 
