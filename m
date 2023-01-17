@@ -2,92 +2,149 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 0797466E158
-	for <lists+linux-man@lfdr.de>; Tue, 17 Jan 2023 15:55:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B7D0B66E64A
+	for <lists+linux-man@lfdr.de>; Tue, 17 Jan 2023 19:43:26 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230147AbjAQOzP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 17 Jan 2023 09:55:15 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37844 "EHLO
+        id S231950AbjAQSnO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 17 Jan 2023 13:43:14 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56270 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229616AbjAQOzO (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 17 Jan 2023 09:55:14 -0500
-Received: from mail-oo1-xc2c.google.com (mail-oo1-xc2c.google.com [IPv6:2607:f8b0:4864:20::c2c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A94123B3DB
-        for <linux-man@vger.kernel.org>; Tue, 17 Jan 2023 06:55:12 -0800 (PST)
-Received: by mail-oo1-xc2c.google.com with SMTP id h12-20020a4a940c000000b004fa81915b1cso112377ooi.4
-        for <linux-man@vger.kernel.org>; Tue, 17 Jan 2023 06:55:12 -0800 (PST)
+        with ESMTP id S232608AbjAQScS (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 17 Jan 2023 13:32:18 -0500
+Received: from mail-oo1-xc2f.google.com (mail-oo1-xc2f.google.com [IPv6:2607:f8b0:4864:20::c2f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3BE3241B72
+        for <linux-man@vger.kernel.org>; Tue, 17 Jan 2023 10:04:11 -0800 (PST)
+Received: by mail-oo1-xc2f.google.com with SMTP id d16-20020a4a5210000000b004f23d1aea58so4388080oob.3
+        for <linux-man@vger.kernel.org>; Tue, 17 Jan 2023 10:04:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=content-transfer-encoding:in-reply-to:organization:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=YqrgVz6WhvLyeWv0YSDxgsdt4ir9pfg9FaNLlFo1S18=;
-        b=NdJmDPoh/J/+xqWMBHjNkiROlBMZ2M5K9XHgDlJC7SVadsbYdH+gq0ODI/AIL20r5S
-         uhVjLhIaTM18DIEViPiqYhxnqQFfIAEhWC5bh7isDLZ08gLvJJqQJlEVJ/K0OH0PPwVA
-         xrmt/HunOW3Ylzxppgx9Qd89FKtWqiZ9oRe5TAMagF1SFRfo5iozGioxxtQx5h+SLvZX
-         ev+TLp8737ANJtzrYT5B1FUWAfJaqgWY9MSVNasASXTlPxplIyq6aGc86wc8nDjyH8gN
-         h57SDkt1coPQh6NDdVzxuKMopAefimUFlYMGrlydxxtYig8nihjVeJ5SCYtN2AlK14nS
-         U1TA==
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=cvzEDQmPvMAP7PKqE7zzoQpzT4CiAyklkGQgAYqxHRk=;
+        b=QeywlLZ76kqUtlWPs3FhHA9qwJSy3XehdGePR2g9OnC1Z5R3TFsg1winAxdOeid62h
+         mLshx3sCmNxlgZC6uhlpo+Fa+Dh0dpx10OULxn/hhqI08Upwv1F9p0qHln4dJXM2h4fw
+         R6kKqbN030pY9VT/SOwMjUi+9X4G4zHNWT8sBxxpF1Ewr60hJqhchuBtXHBRELAxz8jI
+         Rz2IFMmhC7OembWLgnNKNXsnd3KkCTIWPH0uOkybAAvVns2WiigeB4eEC6G+7dGmuSdK
+         Qe+zpiB3SH8Gd/vroJF9S8FkS9WJYNY4CifZBk8556FatZ3IerD4Xfp9/je5DgcE7mNT
+         BJfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:in-reply-to:organization:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=YqrgVz6WhvLyeWv0YSDxgsdt4ir9pfg9FaNLlFo1S18=;
-        b=hSmLtuT96oPJI9zJOt2VsTudWdiQmbyIt5LiWIUGocHchjP4AINbPDOw0eL/jgpa5A
-         MmuE/SnU9+0lSWroYE1nukOKdx+aI5l2p5vETSGB0/uiO1ZixNNy/phEGERXMP1wIugE
-         r7BjP61qoWXP0K7jFcY2U22Z8HNUz4+PyDf/BayMsax+RqPZCnV5nuq5IDitrqoJea28
-         0VrCMEF40n+rfYKCylKHD9yo8GsXaKZg2/N0QKw9Xv+k09rkS0cttY6Wl/4Oq28Jrv2A
-         W1fYevtKv54bNseltuG0njD7IpPfO5Mqp4tcJ8JcrO2+/wRn6BQPok5jIo9653onV9Vi
-         ptIA==
-X-Gm-Message-State: AFqh2kpDH0Aj63Q02ExpIjMgGSTxQMq4G8UzPR+IDWlnJO2/pSLVpkH8
-        SPtSOAwUbvEYhOEHCvJgYjLmcQ==
-X-Google-Smtp-Source: AMrXdXs5QuZGE2dItPCxttmJ/R5eCpi7kAfa29LZ+NAAtDPH5LwAtKy5+30O+i75XUreGeurDrSlTg==
-X-Received: by 2002:a05:6820:42:b0:4f5:22d4:75f5 with SMTP id v2-20020a056820004200b004f522d475f5mr1745900oob.0.1673967311970;
-        Tue, 17 Jan 2023 06:55:11 -0800 (PST)
-Received: from ?IPV6:2804:1b3:a7c1:1652:49fa:2dd7:dbd:38f6? ([2804:1b3:a7c1:1652:49fa:2dd7:dbd:38f6])
-        by smtp.gmail.com with ESMTPSA id f23-20020a4ae617000000b0049fd5c02d25sm2725467oot.12.2023.01.17.06.55.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 17 Jan 2023 06:55:11 -0800 (PST)
-Message-ID: <e33b8713-d225-0fb3-ca87-abb00b8ec553@linaro.org>
-Date:   Tue, 17 Jan 2023 11:55:08 -0300
+        bh=cvzEDQmPvMAP7PKqE7zzoQpzT4CiAyklkGQgAYqxHRk=;
+        b=OTxj3kNiZ0M5v0G+z6MTST/dwao3PMKgMUBbdHwQ5j0Q+K4BCbefVBXFrhTFzNyP+p
+         lJ7i5hIcEicav4hhYwLWJVA+o1FvBQNBuDBjRweSA91qvpenGRsGzmni/Ez4rjm/lq88
+         a1pZMmNUJcRFPQDorxj9ATFj57MhLgNqB32bxy6FV1guwEx2H/XDd5JhH/hIviuEQj3M
+         wAo0+SG5GKXbH+6XPAp6c30ENqVvZ58zlvFZcIvLu2ZDd0YYJblXRSywLUWqEEg0HOjw
+         plYxmnq4Hts+oLeYSI+NmEWKdT0KIu+u3s0Ax6i+Hv4OkV3bT2QtgAZW6q49mdYn65ay
+         H18A==
+X-Gm-Message-State: AFqh2koCc6DnCzDRd0D0jWEj6xwwbVgq9k+so2oityaef00PbMeryH+n
+        c0lwe9535c+gaAojp0Dd0iiUW0rUcghalg==
+X-Google-Smtp-Source: AMrXdXtGgylhMBZqG9KpczJ7kvgx5D9sQwhsHym7/NmNiAYuXVJ/CGi7Sy1Bd+d+90l6FDU1DS+ybQ==
+X-Received: by 2002:a4a:8c6e:0:b0:4fa:325e:ebb0 with SMTP id v43-20020a4a8c6e000000b004fa325eebb0mr788385ooj.5.1673978650110;
+        Tue, 17 Jan 2023 10:04:10 -0800 (PST)
+Received: from instant-on1.fyre.ibm.com ([129.41.87.2])
+        by smtp.gmail.com with ESMTPSA id r4-20020a4aad04000000b004a394578e14sm15281873oon.32.2023.01.17.10.04.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Jan 2023 10:04:09 -0800 (PST)
+From:   Younes Manton <younes.m@gmail.com>
+To:     mtk.manpages@gmail.com, alx.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org, Younes Manton <younes.m@gmail.com>
+Subject: [PATCH] proc.5: Fix caps needed to read map_files contents
+Date:   Tue, 17 Jan 2023 10:03:36 -0800
+Message-Id: <20230117180336.352611-1-younes.m@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.6.1
-Subject: Re: bug in roundup(3) from <sys/param.h>
-Content-Language: en-US
-To:     Alejandro Colomar <alx.manpages@gmail.com>,
-        GNU C Library <libc-alpha@sourceware.org>
-Cc:     linux-man <linux-man@vger.kernel.org>
-References: <1825384a-e02a-c19d-eb22-aedc749046bc@gmail.com>
-From:   Adhemerval Zanella Netto <adhemerval.zanella@linaro.org>
-Organization: Linaro
-In-Reply-To: <1825384a-e02a-c19d-eb22-aedc749046bc@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Spam-Status: No, score=-2.2 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
-        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-1.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,FREEMAIL_REPLY,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=no
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+imachug@yandex.ru testing CRIU noticed that the documentation for
+proc's map_files directory with respect to CAP_CHECKPOINT_RESTORE and
+namespaces appears to be wrong. The text reads:
 
+> since Linux 5.9, the reading process must have
+> either CAP_SYS_ADMIN or CAP_CHECKPOINT_RESTORE in the user
+> namespace where it resides.
 
-On 16/01/23 17:46, Alejandro Colomar via Libc-alpha wrote:
-> Hi!
+The reporter noted that the user actually needs the capabilities in
+the initial user namespace, not in the namespace the process resides
+in. As far as I can tell this appears to be the case.
 
-> 
-> Do you think this is something to be fixed without important performance penalties, or should we just document the bug and live with it?
+The text was introduced in 167f94b707148bcd46fe39c7d4ebfada9eed88f6
+and refers to kernel commit 12886f8ab10ce6a09af1d92535d49c81aaa215a8.
 
-That's the problem with ill-defined interfaces, each implementation might 
-eventually differs.  It seems that BSD, AIX, and Solaris follows glibc 
-implementation by wrapping around (Solaris also provides it through 
-sysmacros.h instead of param.h).  The exception is macOS that saturates 
-the value.
+The code and message in the kernel commit refer to the initial user namespace.
 
-I really won't bother with this interface, since potentially changing it
-might generate more potentially breakage than improvements.
+An example program and shell session verifying the existing behaviour
+follows:
+
+$ uname -r
+5.15.0-52-generic
+
+$ ./test.sh
++ make rmf
+cc rmf.c -o rmf
++ sudo setcap cap_checkpoint_restore-eip ./rmf
++ ./rmf
+19582: =
+Can't read map_files/ entry: Operation not permitted
++ sudo setcap cap_checkpoint_restore+eip ./rmf
++ ./rmf
+19588: cap_checkpoint_restore=ep
++ unshare --user ./rmf
+19591: cap_checkpoint_restore=ep
+Can't read map_files/ entry: Operation not permitted
+
+$ cat rmf.c
+
+int main(int argc, char **argv)
+{
+    DIR *mfd;
+    struct dirent *mfe;
+    struct stat mfstat;
+    int ret;
+
+    system("getpcaps $PPID");
+
+    chdir("/proc/self/map_files");
+    mfd = opendir(".");
+    do {
+        mfe = readdir(mfd);
+    } while (!strcmp(mfe->d_name, ".") || !strcmp(mfe->d_name, ".."));
+    if (ret = stat(mfe->d_name, &mfstat))
+        perror("Can't read map_files/ entry");
+    closedir(mfd);
+
+    return ret;
+}
+
+Signed-off-by: Younes Manton <younes.m@gmail.com>
+---
+ man5/proc.5 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/man5/proc.5 b/man5/proc.5
+index 1217cea89..981310562 100644
+--- a/man5/proc.5
++++ b/man5/proc.5
+@@ -1267,7 +1267,7 @@ since Linux 5.9, the reading process must have either
+ .B CAP_SYS_ADMIN
+ or
+ .B CAP_CHECKPOINT_RESTORE
+-in the user namespace where it resides.
++in the initial (i.e. root) user namespace.
+ .TP
+ .IR /proc/ pid /maps
+ A file containing the currently mapped memory regions and their access
+-- 
+2.34.1
+
