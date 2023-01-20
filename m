@@ -2,135 +2,90 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 769046747DD
-	for <lists+linux-man@lfdr.de>; Fri, 20 Jan 2023 01:12:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id CA205674AC9
+	for <lists+linux-man@lfdr.de>; Fri, 20 Jan 2023 05:36:24 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229453AbjATAMT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 19 Jan 2023 19:12:19 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:32914 "EHLO
+        id S230170AbjATEgX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 19 Jan 2023 23:36:23 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44712 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229379AbjATAMS (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 19 Jan 2023 19:12:18 -0500
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com [IPv6:2a00:1450:4864:20::32b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id ADE1CA25AD
-        for <linux-man@vger.kernel.org>; Thu, 19 Jan 2023 16:12:17 -0800 (PST)
-Received: by mail-wm1-x32b.google.com with SMTP id fl11-20020a05600c0b8b00b003daf72fc844so4796129wmb.0
-        for <linux-man@vger.kernel.org>; Thu, 19 Jan 2023 16:12:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=in-reply-to:references:cc:to:from:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=uZKoPPL9zAPawaK+nqjsIeOhLRDPwflbj1nr02WLMFk=;
-        b=Z4L5zBa2s5z2LQCCc1SZfzO7EaOJsFy8uhL5N3Y5UiZ3MBvuWhlgN9ZWj5q3udrrGQ
-         haxeVizIGxd+AicXeEh8h18+7YtiCyBkNCy/3qmEg9uyvP+Awg/+ekhRIl0NmVeWWNiK
-         F20o/Bp5KHiDmskpvjyqI7zY2c2GBETff3O1r/2j5MT0vNUpjPhrNZQtpWzy1kG8PPXc
-         oHb1Q9FctbPh5zfupVSgHl4m0twzeVzymEuo24MaOXi4KoRVASsmJLA8O3ROa/OICXYo
-         Z7iVk5LH8KyhVcj2a3MEQghMkl8ZbYnDrsNk14UCXbaTAoWJNNilbNxAG6RjyXPQl2bA
-         eKeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=in-reply-to:references:cc:to:from:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=uZKoPPL9zAPawaK+nqjsIeOhLRDPwflbj1nr02WLMFk=;
-        b=XWCBDLrS9zeGEsRKndhATMz/mC8lS1bNIEwhYlH/4+qFbK85R9sO5SYh2N5YFdCIVA
-         vQ9XIFDMPwbMu8xlJzNtDjeptPvWveEZGasWgaZ0vyIT+EVzp4ucw7NoAJh1zJhXL2eY
-         A90SF28ukiJQoJpGCWr4NSoNpkycSeIG+mxRWJFkLRcnpcNZGRd3iRdohvwMlyXlSHaa
-         aFgP0CEK4Y8jcKWxu+JNOBw9R6FLueinFPTxjlzyFFqturRRTIimN6BvVeKUDhkIVOKC
-         szKi9ewZslCRa/rnbEVlN7pgetcz/q3m0tEejgq7pSF3lNENMlM1BMb2L02Rgj3tOdZ3
-         gHCA==
-X-Gm-Message-State: AFqh2kruoltEPZ5NRY+uwwKoydb8NP4sOD0VgcFf5B81cXDsGPjzAlFB
-        8JbK2n4yDKuVNrY48gQ5JNU=
-X-Google-Smtp-Source: AMrXdXs09dCPxSJIX51u4OXrKmdLSQ1feT+f534wOabfDZMGWBQo1TRHe862XWKVfBDZ1CkPA+yB8Q==
-X-Received: by 2002:a05:600c:4e50:b0:3da:4e:8dfe with SMTP id e16-20020a05600c4e5000b003da004e8dfemr11836402wmq.38.1674173536114;
-        Thu, 19 Jan 2023 16:12:16 -0800 (PST)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id k10-20020a05600c1c8a00b003db2dbbd710sm643299wms.25.2023.01.19.16.12.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 19 Jan 2023 16:12:15 -0800 (PST)
-Message-ID: <9dc0c245-b92e-d90e-fdfc-b266d9e5a83e@gmail.com>
-Date:   Fri, 20 Jan 2023 01:12:02 +0100
+        with ESMTP id S229911AbjATEgB (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 19 Jan 2023 23:36:01 -0500
+Received: from ams.source.kernel.org (ams.source.kernel.org [IPv6:2604:1380:4601:e00::1])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AB06FC13DF
+        for <linux-man@vger.kernel.org>; Thu, 19 Jan 2023 20:33:57 -0800 (PST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        by ams.source.kernel.org (Postfix) with ESMTPS id 9692BB82815
+        for <linux-man@vger.kernel.org>; Fri, 20 Jan 2023 04:09:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 103E9C433D2;
+        Fri, 20 Jan 2023 04:09:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1674187753;
+        bh=wAI8LfOPMvRXC46lkLljaX8lEV4lt5nx0bVrmWL857Y=;
+        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+        b=rspNoV6ImT6mBL4BbujbG/YRwwMHGpu6mxfkO84MXNVGNmkBCMrvwf54kk+Aam6yn
+         Ybibvl243LzCPh9Pldu/zMI0RVy+aVM6sFveLLq3FKHPlHCZ+00C7KLZSNyAIo9/S7
+         kx1p5ezqxYzLw90Nd2TrbIm2qaQ/F9JafhsjEzGdLhmMBg2VgiGXo/TqYzby3mbE5Q
+         46ntnzJIBjXgOT2+RjhCllnonRAobGrxfarRQ2QCjc5lhYJu1jTzVuobLakQnJnNC+
+         soaEhxjhwgvECWcdsjXJS1dvcwzOZ4FKslaZZhPYuctUfPqeQevwvBdK1NYk+nQ3AQ
+         ov9yROMOniY7A==
+Date:   Thu, 19 Jan 2023 20:09:11 -0800
+From:   Eric Biggers <ebiggers@kernel.org>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     Ian Abbott <abbotti@mev.co.uk>, Zack Weinberg <zack@owlfolio.org>,
+        linux-man@vger.kernel.org,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        Alejandro Colomar <alx@kernel.org>
+Subject: Re: [PATCH] scanf.3: Do not mention the ERANGE error
+Message-ID: <Y8oT53gEtkAOX0Zb@sol.localdomain>
+References: <20221208123454.13132-1-abbotti@mev.co.uk>
+ <633629bd-753c-3097-9896-2491a0b0f1a2@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-Subject: Re: struct sockaddr_storage, union (was: Improve getsockname)
-Content-Language: en-US
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     =?UTF-8?Q?Bastien_Roucari=c3=a8s?= <rouca@debian.org>
-Cc:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
-        eblake <eblake@redhat.com>, Zack Weinberg <zack@owlfolio.org>,
-        GNU C Library <libc-alpha@sourceware.org>
-References: <2889739.XEG2VLDMQ1@portable-bastien>
- <3299211.1eNo6cvScQ@portable-bastien>
- <b709c21f-2553-8679-fde9-49d7400ca4ca@gmail.com>
- <18201055.pzcD54PWfD@portable-bastien>
- <528e35f3-ee79-52e0-be5b-ea5572cf3d07@gmail.com>
-In-Reply-To: <528e35f3-ee79-52e0-be5b-ea5572cf3d07@gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------Bb80U8Zy4OBq2mwZGc0qxWtF"
-X-Spam-Status: No, score=-2.2 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
-        autolearn_force=no version=3.4.6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <633629bd-753c-3097-9896-2491a0b0f1a2@gmail.com>
+X-Spam-Status: No, score=-7.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------Bb80U8Zy4OBq2mwZGc0qxWtF
-Content-Type: multipart/mixed; boundary="------------ttV8t5hBMnJ0sgINCL0IKcXv";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: =?UTF-8?Q?Bastien_Roucari=c3=a8s?= <rouca@debian.org>
-Cc: "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
- eblake <eblake@redhat.com>, Zack Weinberg <zack@owlfolio.org>,
- GNU C Library <libc-alpha@sourceware.org>
-Message-ID: <9dc0c245-b92e-d90e-fdfc-b266d9e5a83e@gmail.com>
-Subject: Re: struct sockaddr_storage, union (was: Improve getsockname)
-References: <2889739.XEG2VLDMQ1@portable-bastien>
- <3299211.1eNo6cvScQ@portable-bastien>
- <b709c21f-2553-8679-fde9-49d7400ca4ca@gmail.com>
- <18201055.pzcD54PWfD@portable-bastien>
- <528e35f3-ee79-52e0-be5b-ea5572cf3d07@gmail.com>
-In-Reply-To: <528e35f3-ee79-52e0-be5b-ea5572cf3d07@gmail.com>
+Hi Alejandro,
 
---------------ttV8t5hBMnJ0sgINCL0IKcXv
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+On Mon, Dec 12, 2022 at 12:33:08PM +0100, Alejandro Colomar wrote:
+> > Documenting `ERANGE` in the ERRORS section kind of implies that
+> > `scanf()` should return `EOF` when an integer overflow is encountered,
+> > which it doesn't (and doing so would violate the C standard).
+> > 
+> > Just remove any mention of the `ERANGE` error to avoid confusion.
+> > 
+> > Fixes: 646af540e467 ("Add an ERRORS section documenting at least some of the errors that may occur for scanf().")
+> > Cc: Michael Kerrisk <mtk.manpages@gmail.com>
+> > Signed-off-by: Ian Abbott <abbotti@mev.co.uk>
+> 
+> I applied the patch; thanks!  And also applied another one explicitly
+> marking all those numeric conversion specifiers as deprecated:
+> 
+> <https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?id=a15d34326c581eab107bf05782cc60d8ebdcad69>
+> 
+> Cheers,
+> 
 
-V2hpbGUgaW1wbGVtZW50aW5nIHRoaXMsIEknbSBoYXZpbmcgc29tZSBkb3VidHMgYWJvdXQg
-c3RyaWN0IGFsaWFzaW5nIHJ1bGVzIGFuZCANCmZ1bmN0aW9uIGJvdW5kYXJpZXMuICBZb3Ug
-bWF5IGJlIGFibGUgdG8gYW5zd2VyIHRoaXMgcXVlc3Rpb24gdGhhdCBJIGp1c3QgcG9zdGVk
-Og0KDQo8aHR0cHM6Ly9zb2Z0d2FyZS5jb2RpZGFjdC5jb20vcG9zdHMvMjg3NzQ4Pg0KDQpD
-aGVlcnMsDQoNCkFsZXgNCg0KLS0gDQo8aHR0cDovL3d3dy5hbGVqYW5kcm8tY29sb21hci5l
-cy8+DQo=
+This is commonly used functionality with no replacement suggested.  Should it
+really be deprecated?  Is the undefined behavior here a real world issue
+anywhere, or is this just a theoretical issue based on interpretation of the C
+standard?  Perhaps instead of a deprecation, this just deserves a mention in the
+BUGS section of the man page, and a request to the C standard committee to fix
+the text in the standard to make the behavior defined?
 
---------------ttV8t5hBMnJ0sgINCL0IKcXv--
+I'll note that memcpy() is not deprecated, even though the C standard has a bug
+where 'memcpy(dst, src, 0)' is undefined if either pointer is NULL.  That's a
+very similar sort of issue.  The fix, of course, is for implementations to
+ignore the defective standard and make the behavior defined...
 
---------------Bb80U8Zy4OBq2mwZGc0qxWtF
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmPJ3FIACgkQnowa+77/
-2zJV7RAAiNFddXFqLHpZD6z1A9FAlRxbK71RyrWc1DXTYD3SAd4uYyBw6eulh5SQ
-QUW0K1XTwsh0FZv7RWoMWTY+GtdYVSk8q+0OougmW0qcTBvZzu3lYYAgIs+04pMj
-dScEFi3Aq4KXrb2kO3w0g8N6wWZoKRHQjwbHroPjXbrMGr3Sv8KetW4zpmgWnLCV
-OOvFvQ1npteA1L2VGKUIctJwRmxnQcNlkaCtrQ2Bb2tgAzZXrwnKD53OecI6TQPq
-AAkXEJL8V7XJDOeK5lLj9YgfD9Z52X2Ad0yr1zg8ZMOucfoMy5A7TeeuU5o6xRls
-dHNgAuzdkgICpMcujJR6lrCqi/nUlheg/wCkB/J2gApxJ2IQ8D3Bz+UJiX+AfgqW
-WwEAvT9jGYaoGu+R/na6XXzYDcdVFKyAEVOchQQNX8V9AOnMGQUZw1jj7WsTfI5b
-PjIZ39JhUYjQ/UAmdzBGfqrZ4KVxTfdYHj/e2bArEFHH+hy+VwLk3wWoOJ+AUYJB
-vWdP2GytD/Z8EzxRYmVq0bV3bZMD4cL6owrHaGUxcsu2LAzvamuQIUKizYkA3XEv
-5iyQ2fChNZuY3Y94tRzjzwdJH4JBUovqhbHAdPbnRkkhU6xcI6FnmSiMfbron914
-fg81YlgOLyiOzCCxsHzTiDFXERN+dUHEReAPp7gNI+qOnaxAqw8=
-=xUq1
------END PGP SIGNATURE-----
-
---------------Bb80U8Zy4OBq2mwZGc0qxWtF--
+- Eric
