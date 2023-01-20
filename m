@@ -2,52 +2,52 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id AA2396755F2
-	for <lists+linux-man@lfdr.de>; Fri, 20 Jan 2023 14:36:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 5950767560B
+	for <lists+linux-man@lfdr.de>; Fri, 20 Jan 2023 14:42:11 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229539AbjATNgo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 20 Jan 2023 08:36:44 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48112 "EHLO
+        id S229684AbjATNmK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 20 Jan 2023 08:42:10 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51440 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229459AbjATNgn (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 20 Jan 2023 08:36:43 -0500
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com [IPv6:2a00:1450:4864:20::334])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 93689798C4
-        for <linux-man@vger.kernel.org>; Fri, 20 Jan 2023 05:36:42 -0800 (PST)
-Received: by mail-wm1-x334.google.com with SMTP id c4-20020a1c3504000000b003d9e2f72093so5867176wma.1
-        for <linux-man@vger.kernel.org>; Fri, 20 Jan 2023 05:36:42 -0800 (PST)
+        with ESMTP id S229459AbjATNmJ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 20 Jan 2023 08:42:09 -0500
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com [IPv6:2a00:1450:4864:20::42b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0E95AC41EC
+        for <linux-man@vger.kernel.org>; Fri, 20 Jan 2023 05:41:55 -0800 (PST)
+Received: by mail-wr1-x42b.google.com with SMTP id r9so4898061wrw.4
+        for <linux-man@vger.kernel.org>; Fri, 20 Jan 2023 05:41:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=im4tULGSbk0cK2gDmgYZZ3rxmc5Gk6ACWTMimWXDUjE=;
-        b=GTqzyy0da1tH9Oqx1lfAS7/JOysc1faQ1egHfTwFjYJlYB12bMp0Mbgim2aq39C2Ka
-         TL3NnCZ/8NPEvnZTY4UDMe70uTl5tnmjAjiN9Lq2hsRSVJROv0z5PfwyxdKJb8/pSOHa
-         W4oQEw4jlaX3ACjUl//CugZ3YjwruzQMBeP72zl8cK0WAo4Uvi1sNAZ2rKbZBsO6fLuP
-         dgTqhYUwWsWxlGDNQgOBDCoLTovSOWLlzPKGOQdMo1XS1QJq5sqg+AUYh8cfJU4u5bg7
-         eDxNsreFjpQzdL9Ccajv64edMD0DNOwF7SYDLO63U0jC8arZeXlZnOFN4+Ss7tmRUeyb
-         v+zw==
+        bh=29UuMZbFNvAJQvZZe7CsOFMjH1IuDxTbGoCRBb8noJk=;
+        b=FaV/FL0zfM/aV1W+bXmTP6oQ9vmBK1lk/93CVutbul57DXdM+bUnmP02Wax88REXUu
+         DlkuoLtXeixgPmIADINo51upLGF9pF0cxAaPMNg4X5P3GS89GGCkTQx+DRdzdt+WukUx
+         hZsV7zQn/qVtN394bfDun+MAdzcbYzntzOaFBFw5RpMI3JwCDoJuwetMocHExDf9LAZ2
+         +weCdYPRpC+vWNKZ7gNbWmF01jFQb3gQwFN5Bx97Ab+GPk2qwvcGNCUlCnu4ohJuVw4d
+         miHUQS1rUG3HZFat4+6eyMhQfaRdeik2mKlryqqWz0E48H7gFJjfeERfqawHd3NqWeWX
+         i3BA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=im4tULGSbk0cK2gDmgYZZ3rxmc5Gk6ACWTMimWXDUjE=;
-        b=LIvtqwe6I23qAAwS+9mnuuktXtKUTAkZjj1W4eE+WcNTo7WFUgfQp0Z+gNl03vwgCU
-         EIfSXv347vKry9DgTqErgr9OUj6qaFpoG6c8oXP6N1lezYEGC4flMl53JAE5+U0E5+Bg
-         htOIG2Ar6dckSgd/lQyOF/DP+l6/fKnpfrDTpxS3GjV+4rmn4Q4UGw85vRj46Jcn2/eW
-         uw6BNJcseNW19trfYVPnnpTEU4r08iCTIKyMaVdAqSBE7TKdl0VRmYh6M9/lHReRGzUY
-         Tm0rgI1LjufsMM7SXGHHEbF87WF1NT1oEw9x4oOyR2qbK8WpT+bqkQwVIwQen0Qsb3XQ
-         NAxw==
-X-Gm-Message-State: AFqh2ko/xl0Jork7shdYtK0vkM6+qFAoYs6ymDkLePOTH1KNDkVsRQuW
-        sY7UJpisLjcoHVwv5+N7jiER+v9QfIQ=
-X-Google-Smtp-Source: AMrXdXtUwXfbcLJ8EJj2V28MJoX11oBMtoSIXLUQ/V4ybVQkDguxHG3wGc4gJi5w5xX3A+zAKjflWw==
-X-Received: by 2002:a05:600c:1508:b0:3d3:5166:2da4 with SMTP id b8-20020a05600c150800b003d351662da4mr14270357wmg.8.1674221801185;
-        Fri, 20 Jan 2023 05:36:41 -0800 (PST)
+        bh=29UuMZbFNvAJQvZZe7CsOFMjH1IuDxTbGoCRBb8noJk=;
+        b=ESxTwpZ7ZivOEU7fbu41BnXZ6feixgPIZO3Lhy3OTQ7prteIVp23BfHJ3V4/ILIbna
+         YKnLFZnvjcMc2eOtsqMzIJcOqqJikH/rMwCQEV87SMYH4e+ezYXiBeF3R8rO1jpIKK5V
+         5SxZT/m2JoTuU3Wlw/qapxcXYrDAsmwUUYXYUXS6s1Qgl32HWft98Q3DeR5BQ+yHtyXx
+         sIw31hLlOXG+0/P+VnPq60EZ5URsWLlTWXoveV++XQYjjDDy0GhVQqhzP8JtHC2ATw2r
+         zi7LXQdEEhF8luw8XuV0c1yKAKTVd0OkY2/miceEB+XVzJkzvPOquyCIljyogAUgHFvY
+         KWRA==
+X-Gm-Message-State: AFqh2kpiZO8tvJXutQ6oaN6VFrWdy9U/UdDD1AYyCl/MMWibolrGhqCV
+        wvnlkOeG98qBMtc9tZQvLP0FYV1cktw=
+X-Google-Smtp-Source: AMrXdXupUEqDWbAhBuMtoZ0Ji1r5xJLJxZJsjMBmra/KJgiy1IagQS4sgll+5a5lNWwTsRlxRynnJg==
+X-Received: by 2002:adf:e947:0:b0:2be:579b:158 with SMTP id m7-20020adfe947000000b002be579b0158mr2002457wrn.39.1674222113523;
+        Fri, 20 Jan 2023 05:41:53 -0800 (PST)
 Received: from asus5775.alejandro-colomar.es ([170.253.36.171])
-        by smtp.googlemail.com with ESMTPSA id u8-20020a05600c19c800b003db0647645fsm2459138wmq.48.2023.01.20.05.36.40
+        by smtp.googlemail.com with ESMTPSA id s18-20020adfecd2000000b002bdfcd8c77csm14112625wro.101.2023.01.20.05.41.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Jan 2023 05:36:40 -0800 (PST)
+        Fri, 20 Jan 2023 05:41:53 -0800 (PST)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 X-Google-Original-From: Alejandro Colomar <alx@kernel.org>
 To:     libc-alpha@sourceware.org
@@ -57,13 +57,13 @@ Cc:     Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org,
         Zack Weinberg <zack@owlfolio.org>,
         Stefan Puiu <stefan.puiu@gmail.com>,
         Igor Sysoev <igor@sysoev.ru>
-Subject: [PATCH] socket: Implement sockaddr_storage with an anonymous union
-Date:   Fri, 20 Jan 2023 14:36:28 +0100
-Message-Id: <20230120133628.10070-1-alx@kernel.org>
+Subject: [PATCH v2] socket: Implement sockaddr_storage with an anonymous union
+Date:   Fri, 20 Jan 2023 14:40:44 +0100
+Message-Id: <20230120134043.10247-1-alx@kernel.org>
 X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3617; i=alx@kernel.org; h=from:subject; bh=s/ktb7BitczomHPAFZb4g83BzjUpnepIyiXKkjr0Hpg=; b=owEBbQKS/ZANAwAKAZ6MGvu+/9syAcsmYgBjypjBR2NppXGx+efCqCl9mhzUcFRCMnvh3OlCGlFw namE5LeJAjMEAAEKAB0WIQTqOofwpOugMORd8kCejBr7vv/bMgUCY8qYwQAKCRCejBr7vv/bMvZrD/ 4kmwrNpPiJPvaVWD7iMXsKC+MnMnEUHhAnsCvVYhChxCF+xOOI+CIjBBnfQWCqobWuO4y5efktjaqH kV//fIYngOPyBkXT3Pq04YnET6YIIt0h732G6/foFVNtfXEvTJ8c/FnsyigjFXxCrqEA3gjdegVMwH TUkKt68ySneBMDbWJ4d0oiz9BmT8CavyN84CggNdnZs1ZQxXk/ODBURyV+u+rqCxGx3WPJkFv1LQFQ KKuwaX0CW6N4WJhkVQeyhDMwX5UVF0Ad5aSsayYnO1tDwBVEnqZIuSFt308Y8BT2UyjxGbzh4V6v6/ w2s7sN5zO5ilWucHfg5u4ciPXDTKrBmh/tvlIf8HAs6qmclMtdvOjwnPTA01DbFtR1NVvFRU41stPF RiBvv6ZRyrBmY7xIsZxsOYPupoK2JcHgbDNLQu7jp7lw5yx7HCS1cpSw08i2llCwuLjtFtJzAvjLLB Tx4BOhEkFatfXm5fIznehs1gemr+dciEC4mYtDcZI3E6bS8MEHujzPJ3gcjI2+LfLiRwcYE0RA+rFF n3vmss8yZtWo3mHuB9PUqh3ppHxYLfqRsojAXWKtPa4k/w12Zrb4+wIZjD9qnjfyyBX+wR0VXyJMZ3 amxNuptLncQuLSTYqF/qb0O5iVr+xyIIwnV4RfjozTg1NJlZdRnuX+ARyxxg==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3417; i=alx@kernel.org; h=from:subject; bh=hFEQe++dPCjfYJneXg5K84jfa3ctoJSsSNor/f7bY8A=; b=owEBbQKS/ZANAwAKAZ6MGvu+/9syAcsmYgBjypnaFBhXmoYAsyzmL4KbiBJQKg0m3nkMYkxUZiNP VZ51XeWJAjMEAAEKAB0WIQTqOofwpOugMORd8kCejBr7vv/bMgUCY8qZ2gAKCRCejBr7vv/bMiPCEA CgtaHuHaSGUBnktWIp5b6qK74n4octdb7J6TKojrr+B95wRWNMHll57WI6UE5AVqSQuA/l5zefSvsZ j56+no3HX634mxezBBntnLVPjh9G8Op6lriF3YyJCqlfXO+cmgoGWsnAfjV8qdSX4wnFqrtKf9B3YB EnhBALsLcUJzvSXG1orfQfmQAg/kgJpSMVz53GmXbhh2pNxbvlGWhSgV0fIAltM/hlSVU/wa2ZiqEt GA1WlxuwRkzRL9Da2uCGwfO9v3mrisnSJtlsDiToHlDMXFxl0qCVi6WP2QGMP7FiVg4kqkDoe4lRrv MDtaXoRFSnjxtZMB3jmDbN3K3WSXzNPvAgbkX9/NCRgFJCOJmw0GDYaongoRL/FYazsBloOf88YflL kaf5wvsEvLb7EKuwLdDHaGvI+7LHPpAX1m7Nc900QJHrBlzwavBLqBQ1twoAs5rte536N7SXqUf+fA uYjBkO7XtIq/biw3CVD6JGTkjoUOM5KvgZK6qVol7Z4VPlVZEzHVNlajSVzO/OedK6QWDRxIxs8SgJ yA5Xyb+cFJ7legllCqDCF5jWw3sgNWARiVEqtX2UKqX9hhceae1s5GiXnbs3KgeoAE9JHcdgXHcStv B5vv35Jv+guV3uonw1pLGaGJWmJwiCGBKA6aeP5THuvO+djcrjhKjZ3iqzgQ==
 X-Developer-Key: i=alx@kernel.org; a=openpgp; fpr=A9348594CE31283A826FBDD8D57633D441E25BB5
 Content-Transfer-Encoding: 8bit
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
@@ -104,8 +104,8 @@ foo(foo)
     // ... (initialize oss and nss)
 
     inet_sockaddr2str(&nss.sa);  // correct (and has no casts)
-    inet_sockaddr2str((struct sockaddr_storage *)&oss);  // UB
-    inet_sockaddr2str((struct sockaddr_storage *)&nss);  // correct
+    inet_sockaddr2str((struct sockaddr *)&oss);  // UB
+    inet_sockaddr2str((struct sockaddr *)&nss);  // correct
 }
 
 /* This function is correct, as far as the accessed object has the
@@ -152,6 +152,11 @@ Cc: Stefan Puiu <stefan.puiu@gmail.com>
 Cc: Igor Sysoev <igor@sysoev.ru>
 Signed-off-by: Alejandro Colomar <alx@kernel.org>
 ---
+
+v2:
+
+-  Fix incorrect cast in commit message.
+
  bits/socket.h | 11 ++++++++---
  1 file changed, 8 insertions(+), 3 deletions(-)
 
