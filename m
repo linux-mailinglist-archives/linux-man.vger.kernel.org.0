@@ -2,297 +2,105 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id BE813675FDF
-	for <lists+linux-man@lfdr.de>; Fri, 20 Jan 2023 23:02:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id F0B6E676270
+	for <lists+linux-man@lfdr.de>; Sat, 21 Jan 2023 01:31:43 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229498AbjATWCg (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 20 Jan 2023 17:02:36 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55700 "EHLO
+        id S229776AbjAUAbU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 20 Jan 2023 19:31:20 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43134 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229445AbjATWCf (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 20 Jan 2023 17:02:35 -0500
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com [IPv6:2a00:1450:4864:20::42a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0EEA551421
-        for <linux-man@vger.kernel.org>; Fri, 20 Jan 2023 14:02:34 -0800 (PST)
-Received: by mail-wr1-x42a.google.com with SMTP id e3so5975251wru.13
-        for <linux-man@vger.kernel.org>; Fri, 20 Jan 2023 14:02:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=5wkWCvoMJR7xCjHN5qPp0Ja9DT7Sk/qNRPkabTmEgEc=;
-        b=W9mmXs90QVWGzdTnWZ2OPAZhZ2+1VZK2KoTfoJeRbGX6fxXMqwJ/hBGIO4YPcewg/0
-         3LxBHOBxhUgRdJKj1h+4/FSJ4wcZgYIEhHjJSjFE+yAxRSG4LGuzgO9OwFikvVnq028U
-         K+zVt+6fXcvuPoIMWEDQOlQ9ZEKGHhwZdnnvDkcWI2FJEIZ/jqJ/K7marKqgqMCLxl6m
-         ipj7qldg4qjWYLwXzcU9ikqnBfGOEFJTsoZsApO8jnGMxOn5eeuMhKAATerJSnjRDMv5
-         vmowt0Qqad9F+2ZGOM+35vNVb6XJ2n3yRfmdW/BZfZ37AqcHb1eX6ZSYJkGSfkmyZlzQ
-         cE6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=5wkWCvoMJR7xCjHN5qPp0Ja9DT7Sk/qNRPkabTmEgEc=;
-        b=HDjBd/mo4yV0zdiUX9oEex62up/+vBT79/jwWMGL5D0ysRMHyZTYjeJi1cnBH4hga0
-         LSrIF3TxUSCVh2XoRL32c+mUz2cW8roRC40IbIhLZKMASMmiLf00G19ScNCVb5bgMNC0
-         fu2Zwnra2y9QT1IaEpgdAJMxgkoQN4maNxjgEXsPR2AhjqBhfw8tOcDp0Kv3fUFXhOn9
-         Hvdaiwo0wTAKG5UiK4mQ6oHFYDWGYdnZDikwiNkulSY+prmMIRZIpxwKAY7/q+vdImEf
-         pEr95vZUqYR0NYejafkARkZXpFJ8IebH6wGaJWscy87qxDyxLrR2Z94sJIaBfiQb+yXK
-         oVtg==
-X-Gm-Message-State: AFqh2krTagdCp2CwUvuNBFsRIPNmVL4zzr/3jWm8Hn35XlNa1SwBFsXK
-        /2mA1efce6uELlAtryHEWrr8K/JuPyQ=
-X-Google-Smtp-Source: AMrXdXvN6LHVGRafChqArVa8wg3csBmFXix/Q0GootZT+417RXmu2IlYl6C4yGjUrkxF6Y/rcyEANA==
-X-Received: by 2002:a05:6000:98d:b0:2be:129c:2920 with SMTP id by13-20020a056000098d00b002be129c2920mr15618404wrb.13.1674252152315;
-        Fri, 20 Jan 2023 14:02:32 -0800 (PST)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id n1-20020a5d67c1000000b002bc7f64efa3sm29110180wrw.29.2023.01.20.14.02.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 20 Jan 2023 14:02:31 -0800 (PST)
-Message-ID: <8f997c92-e82d-08ed-5e01-3f54efa03dcb@gmail.com>
-Date:   Fri, 20 Jan 2023 23:02:22 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-Subject: Re: [PATCH] scanf.3: Do not mention the ERANGE error
-Content-Language: en-US
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc:     Eric Biggers <ebiggers@kernel.org>, Ian Abbott <abbotti@mev.co.uk>,
-        Zack Weinberg <zack@owlfolio.org>, linux-man@vger.kernel.org,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        Alejandro Colomar <alx@kernel.org>
-References: <20221208123454.13132-1-abbotti@mev.co.uk>
- <633629bd-753c-3097-9896-2491a0b0f1a2@gmail.com>
- <Y8oT53gEtkAOX0Zb@sol.localdomain>
- <b929eaed-0e8f-bb6c-87cb-8a36573c2769@gmail.com>
- <20230120175552.ri5odhrf56bapuxj@illithid>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20230120175552.ri5odhrf56bapuxj@illithid>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------rtPFhRP4R0w0wPjMgVrnZxIg"
-X-Spam-Status: No, score=-0.2 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,URI_DOTEDU autolearn=no
-        autolearn_force=no version=3.4.6
+        with ESMTP id S229993AbjAUAbT (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 20 Jan 2023 19:31:19 -0500
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D35C1E0504;
+        Fri, 20 Jan 2023 16:30:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1674261057; x=1705797057;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references;
+  bh=Ev3PbBoQTPu++s79dlTb8COWuPsvkK7r7MmlVY0+IpE=;
+  b=TREhDKDdzzEQ021DnCxcIpiK26fvYpeXAIKtwIUoRXTBd2OObS+loWOn
+   HejAwWsvDWne8Na3WATnIMIZcBqnDCfUHlRDdh0K2JQGfrk/DuEml2adl
+   tvwh6oOmN/+eKgDpmNb+claWAVK/f4Uj7LQ46p0hWpWl9xQd6LQSxFDrs
+   pRtbtol4Hatm3pdqhDH3RSQ/+vOhz8xjWS7ckURbdTUufEpoZWUFjTyhH
+   b1kqPDMsYEXxh6RAWSai8uattHl4fPEbdFZgqEjPtw7UnREU0BCfTyEuH
+   1UtY4nTT4q8zsxZDAryl6DLl1hmmkLBDpdlE4crBvXbkHh4qs1yJeRmDC
+   A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10596"; a="305404597"
+X-IronPort-AV: E=Sophos;i="5.97,233,1669104000"; 
+   d="scan'208";a="305404597"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Jan 2023 16:30:16 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10596"; a="784729479"
+X-IronPort-AV: E=Sophos;i="5.97,233,1669104000"; 
+   d="scan'208";a="784729479"
+Received: from chang-linux-3.sc.intel.com ([172.25.66.173])
+  by orsmga004.jf.intel.com with ESMTP; 20 Jan 2023 16:30:15 -0800
+From:   "Chang S. Bae" <chang.seok.bae@intel.com>
+To:     dave.hansen@linux.intel.com, x86@kernel.org, tglx@linutronix.de,
+        mingo@redhat.com, bp@alien8.de
+Cc:     hpa@zytor.com, corbet@lwn.net, bagasdotme@gmail.com,
+        tony.luck@intel.com, yang.zhong@intel.com,
+        linux-doc@vger.kernel.org, linux-man@vger.kernel.org,
+        linux-kernel@vger.kernel.org, chang.seok.bae@intel.com
+Subject: [PATCH v5 RESEND 0/4] Documentation/x86: Improve the AMX documentation
+Date:   Fri, 20 Jan 2023 16:18:56 -0800
+Message-Id: <20230121001900.14900-1-chang.seok.bae@intel.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20220922195810.23248-1-chang.seok.bae@intel.com>
+References: <20220922195810.23248-1-chang.seok.bae@intel.com>
+X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+        SPF_HELO_PASS,SPF_NONE,URIBL_BLOCKED autolearn=ham autolearn_force=no
+        version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------rtPFhRP4R0w0wPjMgVrnZxIg
-Content-Type: multipart/mixed; boundary="------------9P0EmkJLNLDneMAx7ZIJ6LTp";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: Eric Biggers <ebiggers@kernel.org>, Ian Abbott <abbotti@mev.co.uk>,
- Zack Weinberg <zack@owlfolio.org>, linux-man@vger.kernel.org,
- Michael Kerrisk <mtk.manpages@gmail.com>, Alejandro Colomar <alx@kernel.org>
-Message-ID: <8f997c92-e82d-08ed-5e01-3f54efa03dcb@gmail.com>
-Subject: Re: [PATCH] scanf.3: Do not mention the ERANGE error
-References: <20221208123454.13132-1-abbotti@mev.co.uk>
- <633629bd-753c-3097-9896-2491a0b0f1a2@gmail.com>
- <Y8oT53gEtkAOX0Zb@sol.localdomain>
- <b929eaed-0e8f-bb6c-87cb-8a36573c2769@gmail.com>
- <20230120175552.ri5odhrf56bapuxj@illithid>
-In-Reply-To: <20230120175552.ri5odhrf56bapuxj@illithid>
+Hi,
 
---------------9P0EmkJLNLDneMAx7ZIJ6LTp
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+This is a resend of the previous posting [1]. They are rebased on the
+current tip master.
 
-SGkgQnJhbmRlbiENCg0KT24gMS8yMC8yMyAxODo1NSwgRy4gQnJhbmRlbiBSb2JpbnNvbiB3
-cm90ZToNCj4gW3JlLW9yZGVyaW5nIHRoZSBtYWlsIEknbSBxdW90aW5nXQ0KPiANCj4gSGkg
-QWxleCwNCj4gDQo+IEkgaGF2ZSBzb21lIG9ic2VydmF0aW9ucyBvbiB5b3VyIGRlcHJlY2F0
-aW9uIGluaXRpYXRpdmUgYW5kIHBlb3BsZSdzDQo+IHJlYWN0aW9ucyB0byBpdC4NCg0KU3Vy
-ZSA6KQ0KDQo+IA0KPiBBdCAyMDIzLTAxLTIwVDE0OjEyOjA3KzAxMDAsIEFsZWphbmRybyBD
-b2xvbWFyIHdyb3RlOg0KPj4gQWxsIGltcGxlbWVudGF0aW9ucyBvZiBzc2NhbmYoMykgcHJv
-ZHVjZSBVbmRlZmluZWQgQmVoYXZpb3IgKFVCKSwNCj4+IEFGQUlLLiAgSG93IG11Y2ggeW91
-IGNvbnNpZGVyIFVCIHRvIGJlIGEgcmVhbC13b3JsZCBpc3N1ZSBkaWZmZXJzIGZvcg0KPj4g
-ZWFjaCBwcm9ncmFtbWVyLCBidXQgSSB0ZW5kIHRvIGNvbnNpZGVyIGFsbCBVQiB0byBiZSBh
-cyBiYWQgYXMgbmFzYWwNCj4+IGRlbW9ucy4gIEknbSBub3Qgc2F5aW5nIFVCIHNob3VsZG4n
-dCBleGlzdCwganVzdCB0aGF0IHlvdSBzaG91bGRuJ3QNCj4+IGludm9rZSBpdC4gIEFuZCBh
-IGZ1bmN0aW9uIHRoYXQgaXMgdXNlZCBmb3Igc2Nhbm5pbmcgdXNlciBpbnB1dCBpcyBvbmUN
-Cj4+IG9mIHRob3NlIHBsYWNlcyB3aGVyZSB5b3UgcmVhbGx5IHdhbnQgdG8gYXZvaWQgaW52
-b2tpbmcgVUIuDQo+IA0KPiBJZiB0aGVyZSBhcmUgY29tbW9uIGlkaW9tcyB0aGF0IHJlc3Vs
-dCBpbiBVQiwgaXQgbWlnaHQgYmUgd29ydGgNCj4gZG9jdW1lbnRpbmcgdGhpcyBpbiB0aGUg
-bWFuIHBhZ2UsIHdpdGggYSBjaXRhdGlvbiB0byB0aGUgcmVsZXZhbnQNCj4gY2xhdXNlIG9m
-IHRoZSBzdGFuZGFyZCB0aGF0IGRlY2xhcmVzIGl0IHRodXMuDQoNCk9rYXkuICBTZWUgcHJv
-cG9zZWQgZGlmZiBiZWxvdw0KDQo+ICBJIGFncmVlIHRoYXQgVUIgaXMNCj4gc29tZXRoaW5n
-IHRvIGJlIGF2b2lkZWQgYW5kIEkgdGhpbmsgbW9zdCBvdGhlciBwcm9ncmFtbWVycyBkbyB0
-b28uICBUaGUNCj4gYWR2YW50YWdlIHRvIHRoaXMgYXBwcm9hY2ggaXMgdGhhdCBpZiB0aGV5
-IGRpc2FncmVlLCB0aGV5IGNhbiB0YWtlIHRoZWlyDQo+IGFyZ3VtZW50IHRvIHRoZSBzdGFu
-ZGFyZHMgYm9keSBpbnN0ZWFkIG9mIGxpdGlnYXRpbmcgaXQgd2l0aCB5b3UuDQoNCjopDQoN
-Cj4gDQo+PiBUaGlzIGlzIHNpbWlsYXIgYnV0IGRpZmZlcmVudCB0byBiemVybygzKS4gIGJ6
-ZXJvKDMpIHdhcyBicm9rZW4gb3INCj4+IHNsb3cgaW4gc29tZSBpbXBsZW1lbnRhdGlvbnMu
-ICBUaGF0J3MgcHJvYmFibHkgd2h5IGl0IHdhcyBuZXZlciBhZGRlZA0KPj4gdG8gSVNPIEMs
-IGFuZCB3aHkgUE9TSVggbGF0ZXIgcmVtb3ZlZCBpdC4gIFRoZSBBUEkgd2Fzbid0IGJhZCwg
-YW5kIGluDQo+PiBmYWN0IGl0J3MgZ3JlYXQsIEkgcHJlZmVyIGl0IG92ZXIgbWVtc2V0KDMp
-LiAgVGhlIGRpZmZlcmVuY2UgYmV0d2Vlbg0KPj4gYnplcm8oMykgYW5kIHNzY2FuZigzKSBp
-cyB0aGF0IGJ6ZXJvKDMpIGhhcyBub3cgYmVlbiBmaXhlZCwNCj4gDQo+IEkgc3RpbGwgZG9u
-J3Qgc2hhcmUgeW91ciBwcmVmZXJlbmNlIGhlcmUuICBUaGUgZXhwb3N1cmUgb2YgYSBtb3Jl
-DQo+IGdlbmVyYWwgaW50ZXJmYWNlIChtZW1zZXQpIGJ5IGEgZ2VuZXJhbC1wdXJwb3NlIGxp
-YnJhcnkgd2hlbiB0aGUNCj4gaW1wbGVtZW50YXRpb24gb3RoZXJ3aXNlIGhhcyBubyBhZGRp
-dGlvbmFsIGltcGxlbWVudGF0aW9uIGNvc3QgaXMgdGhlDQo+IGNvcnJlY3QgY2hvaWNlLg0K
-DQpXaGlsZSBJIHNoYXJlIHlvdXIgaW50ZXJlc3QgaW4gZ2VuZXJhbC1wdXJwb3NlIG92ZXIg
-c3BlY2lhbGl6ZWQsIGFuZCB0aGF0J3MgaW4gDQplc3NlbmNlIHRoZSBlc3NlbmNlIG9mIFVu
-aXgsIEkgYWxzbyBiZWxpZXZlIHRoYXQgZW5jYXBzdWxhdGlvbiBpcyB2ZXJ5IG5lY2Vzc2Fy
-eSANCmZvciB3cml0aW5nIHJlYWRhYmxlIGNvZGUuDQoNCllvdXIgKGFuZCBtYW55IG90aGVy
-cycpIHByb3Bvc2FsIG9mIGhhdmluZyBhIHByb2plY3Qtc3BlY2lmaWMgbWFjcm8gZm9yIGJ6
-ZXJvKDMpIA0Kc2VlbXMgcmVhc29uYWJsZSBpbiBhYnNlbmNlIG9mIGEgc3RhbmRhcmQgbmFt
-ZSBmb3IgaXQuICBIb3dldmVyLCBoYXZpbmcgYSANClBPU0lYLWJsZXNzZWQgKHVudGlsIHJl
-Y2VudGx5KSBuYW1lIGZvciBzdWNoIGFuIGludGVyZmFjZSwgSSdkIHByZWZlciBzdGlja2lu
-ZyANCnRvIGl0LiAgT3RoZXJ3aXNlLCB3ZSByaXNrIGhhdmluZyBiemVybygpLCBtZW16ZXJv
-KCksIHplcm9ieXRlcygpLCB6ZXJvKCksIC4uLiANCndoaWNoIGlzIG5vdCBjcmF6eSwgYnV0
-IGhleSwgSSBwcmVmZXIgbGVzcyBtb3ZpbmcgcGFydHMgd2hlbiByZWFkaW5nIGNvZGUgOikN
-Cg0KQXMgZm9yIHJlbW92aW5nIGZyb20gUE9TSVggYSBmdW5jdGlvbiBqdXN0IGJlY2F1c2Ug
-aXQncyBub3QgZ2VuZXJpYy4uLiBJIGhhdmUgaW4gDQptaW5kIGEgbG9uZyBsaXN0IG9mIHN1
-Y2ggZmVhdHVyZXMgdGhhdCBhcmUgZXF1YWxseSB0cml2aWFsIGFuZCB1bm5lY2Vzc2FyeSAo
-YW5kIA0KaW4gc29tZSBjYXNlcywgdGhleSBodXJ0IHVubGlrZSBiemVybygzKSwgSU1PKSwg
-eWV0IHRoZXkgaGF2ZW4ndCBkaWVkLiAgRm9yIGEgDQpyZXByZXNlbnRhdGl2ZSwgbGV0IG1l
-IHByZXNlbnQgb3VyIGZyaWVuZDoNCg0KCXByaW50ZigzKQ0KDQpPaCBib3ksIHRlbGwgbWUg
-aXQgaHVydHMgeW91ciBmaW5nZXJzIHdyaXRpbmcgZnByaW50ZihzdGRvdXQsICkgYnV0IG5v
-dCBtZW1zZXQoLCANCjAsICkuICBBdCBsZWFzdCB3aXRoIGZwcmludGYoMykgaXQncyBvYnZp
-b3VzIHRoZSBvcmRlcmluZyBvZiB0aGUgcGFyYW1ldGVycyBhbmQgDQpJIGRvbid0IG5lZWQg
-dG8gY2hlY2sgdGhlIG1hbiBwYWdlLg0KDQoNCj4gIElmIGEgZ2l2ZW4gcHJvZ3JhbW1lcidz
-IHVzZSBjYXNlcyBhcmUgcmVzdHJpY3RlZCBzdWNoDQoNCkl0J3Mgbm90IGEgc2luZ2xlIGdp
-dmVuIHByb2dyYW1tZXIuICBtZW1zZXQoMykgaXMgbGlrZWx5IHRvIGJlIHRoZSBtb3N0IG9i
-dmlvdXMgDQpjYXNlIHdoZXJlIHRoZSB0aGluIHdyYXBwZXIgaXMgd2hhdCB5b3Ugd2FudCB0
-byBjYWxsLiAgVGhlcmUgYXJlIG1hbnkgdXNlcyBmb3IgDQpmcHJpbnRmKDMpLCB0aGVyZSBh
-cmUgbWFueSB1c2VzIGZvciBvdGhlciBzdWNoIGZ1bmN0aW9ucyB0aGF0IGhhdmUgYSB0aGlu
-IA0Kd3JhcHBlciBpbiB0aGUgc2FtZSBsaWJjLCBidXQgbWVtc2V0KDMpPyAgSG93IG11Y2gg
-eW91J3ZlIChvciBhbnkgY29kZSB5b3Uga25vdykgDQp1c2VkIGl0IHdpdGggc29tZXRoaW5n
-IG90aGVyIHRoYW4gY29uc3RhbnQgZXhwcmVzc2lvbiAwPw0KDQo+IHRoYXQgb25lIG9mIHRo
-ZSBhcmd1bWVudHMgdG8gYSBnZW5lcmFsLXB1cnBvc2UgZnVuY3Rpb24gaXMgY29uc3RhbnQs
-DQo+IHRoZW4gdGhhdCBpcyBleGFjdGx5IHRoZSB0aW1lIGZvciB0aGVtIHRvIHdyaXRlIGEg
-bWFjcm8gb3IgZnVuY3Rpb24NCj4gc3BlY2lmaWMgdG8gdGhlaXIgcHJvamVjdCB0byBoaWRl
-IHRoZSBjb21wbGV4aXR5Lg0KPiANCj4gSWYgeW91IHRpbHQgeW91ciBoZWFkIHJpZ2h0LCB0
-aGlzIGlzIHNpbWlsYXIgdG8gb25lIG9mIHRoZSB3YXlzIGNsb3N1cmVzDQo+IGFyZSB1c2Vk
-IGluIG90aGVyIGxhbmd1YWdlcy4NCg0KSSdtIGZpbmUgd2l0aCB0aGUgZnVuY3Rpb24gYmVp
-bmcgaW1wbGVtZW50ZWQgYXMgYSBtYWNybywgYWx0aG91Z2ggaXQgd291bGQgYmUgDQpiZXR0
-ZXIgdG8gaGF2ZSBpdCBhcyBhbiBpbmxpbmUgZnVuY3Rpb24sIHNvIHRoYXQgLU9zIGNhbiBw
-cm9kdWNlIHNtYWxsZXIgY29kZSBpZiANCm5lZWRlZC4gIEluIGdlbmVyYWwsIEkgZG9uJ3Qg
-bGlrZSBtYWNyb3MgdW5sZXNzIHRoZXJlJ3MgYSBuZWVkIHRvIGF2b2lkIHR5cGUgDQpjb252
-ZXJzaW9uczsgZm9yIGV4YW1wbGUgZm9yIGtlZXBpbmcgYXJyYXlzIGFzIGFycmF5cy4NCg0K
-PiANCj4+IEkgY291bGQgY2hhbmdlIHRoZSAiZGVwcmVjYXRlZCIgc3RhdGVtZW50cyBieSAi
-c2VlIGJ1Z3MiLA0KPiANCj4gSSB0aGluayB5b3UndmUgaGl0IHVwb24gb25lIG9mIHRoZSBj
-b3JlIGRyaXZlcnMgb2YgcmVzaXN0YW5jZSBoZXJlLiAgQQ0KPiBwcm9ibGVtIHdpdGggY2Fs
-bGluZyBzb21ldGhpbmcgImRlcHJlY2F0ZWQiIGlzIHRoYXQgaXQncyBvZnRlbiB1bnN0YXRl
-ZA0KPiBfd2hvXyBpcyBkb2luZyB0aGUgZGVwcmVjYXRpb24uICBUcmFkaXRpb25hbGx5LCBJ
-IHRoaW5rIHRoZSBMaW51eA0KPiBtYW4tcGFnZXMgaGF2ZSB0ZW5kZWQgb25seSB0byB1c2Ug
-dGhpcyB0ZXJtIGluIHJlZmVyZW5jZSB0byBvbmUgb2YgdGhlDQo+IHN0YW5kYXJkcyBib2Rp
-ZXMgKFdHMTQgb3IgdGhlIEF1c3RpbiBHcm91cCkgZm9ybWFsbHkgZW1wbG95aW5nIGl0Lg0K
-DQpUaGVyZSBhcmUgc29tZSBwYWdlcyB3aGljaCBoYXZlIHNpbmdsZS1oYW5kZWRseSBkZXBy
-ZWNhdGVkIGZlYXR1cmVzIHdpdGggbm8gDQpzdGFuZGFyZCBvciBncm91cCBkb2luZyBzby4g
-IEkgcmVtZW1iZXIgaGF2aW5nIHNlZW4gYSBmZXcgcGFnZXMgZG8gdGhhdCwgYnV0IA0KdGhl
-eSBhcmUgYWxsIGZyb20gcHJlaGlzdG9yaWMgdGltZXMsIHdoZW4gc3RhbmRhcmRzIGRpZG4n
-dCBtZWFuIHNvIG11Y2ggKG9yIA0KbWF5YmUgdGhlcmUgd2VyZW4ndCBzdWNoIHN0YW5kYXJk
-cykuDQoNCj4gDQo+IChNYXliZSBJJ20gd3JvbmcsIGFuZCBMaW51eCBtYW4tcGFnZXMgX2hh
-c18gZGVwcmVjYXRlZCB0aGluZ3MgaW4gaXRzIG93bg0KPiBhdXRob3JpYWwgdm9pY2UuLi5i
-dXQgaWYgb3RoZXIgcGVvcGxlIGFsc28gZG9uJ3Qga25vdyB0aGF0LCBpdCBkb2Vzbid0DQo+
-IG1hdHRlciwgYW5kIGNvbmZ1c2lvbiByZW1haW5zLikNCg0KWWVzLCB0aGV5IGRpZC4gIFdl
-bGwsIGNvbmZ1c2lvbiBhbHdheXMgaGFwcGVucyB3aGVuIHRoaW5ncyBjaGFuZ2UuICBJIGV4
-cGVjdCANCnRoYXQgdG8gc2V0dGxlIGRvd24uICBIb3dldmVyLCBJJ2xsIHRyeSB0byBpbXBy
-b3ZlIG15IG1ldGhvZHMgZm9yIGRlcHJlY2F0aW5nIA0KYnJva2VuIHN0dWZmIGFzIG11Y2gg
-YXMgSSBjYW4gc28gd2UgY2FuIHJlZHVjZSB0aGUgY29uZnVzaW9uLg0KDQo+IA0KPiBTbyBJ
-IHN1Z2dlc3QgeW91IGFkb3B0IGEgbmV3IHBocmFzZSwgbGlrZSAiZGlzY291cmFnZWQgYnkg
-TGludXgNCj4gbWFuLXBhZ2VzIiwgdG8gY2hhcmFjdGVyaXplIHRoZSBhdXRob3JpYWwgdm9p
-Y2UgaGVyZS4gIFNvbWUgcGVvcGxlIHdpbGwNCj4gaWdub3JlIHlvdXIgYWR2aWNlIGVpdGhl
-ciB3YXksIGJ1dCBhdCBsZWFzdCB0aGV5J2xsIGtub3cgd2hvIHRoZXkncmUNCj4gaWdub3Jp
-bmcuWzFdDQoNCkkgbGlrZSBkZXByZWNhdGluZy4gIEkgd2FudCBzdWNoIGEgc3Ryb25nIHRl
-cm0uICBJJ2xsIHRyeSB0byBjbGFyaWZ5IHRoYXQgaXQncyANCnRoZSBtYW4tcGFnZXMgdGhh
-dCBkbyB0aGUgZGVwcmVjYXRpb24sIGFuZCBub3QgYSBzdGFuZGFyZHMgYm9keS4NCg0KPiAN
-Cj4+IEhvd2V2ZXIsIGlmIHNvbWVib2R5IHJlYWxseSB3YW50cyB0byB1c2UgdGhhdCBmdW5j
-dGlvbiwgYW5kIHdvdWxkIGxpa2UNCj4+IHRvIGZpeCBpdCwgSSBlbmNvdXJhZ2UgdGhhdCBl
-ZmZvcnQuICBJZiB0aGUgZnVuY3Rpb24gaXMgZml4ZWQsIHdoaWNoDQo+PiBzaG91bGRuJ3Qg
-YmUgdGhhdCBoYXJkLCBJJ20gZmluZSByZW1vdmluZyB0aGUgbWVzc2FnZXMgYWdhaW5zdCBp
-dHMNCj4+IHVzYWdlIGluIHRoZSBtYW51YWwuDQo+Pg0KPj4gV2hpbGUgdGhhdCBkb2Vzbid0
-IGhhcHBlbiwgSSBwcmVmZXIgc3Ryb25nbHkgcmVjb21tZW5kaW5nIGFnYWluc3QNCj4+IHRo
-ZWlyIHVzYWdlIGluIHRoZSBtYW51YWwuICBBbmQgZGljdCgxKSBzZWVtcyB0byBzYXkgdGhh
-dCB0aGUgdmVyYiBmb3INCj4+IHRoYXQgaXMgInRvIGRlcHJlY2F0ZSIgOikNCj4gDQo+IFlv
-dXIgZGljdGlvbmFyeSBpcyBjb3JyZWN0IGJ1dCBzb2NpYWwga25vd2xlZGdlLCBhLmsuYS4g
-dHJhZGl0aW9uIGFuZA0KPiBmb2xrbG9yZSwgaW1wb3NlIGEgY29udGV4dCBvbiB0aGUgZGlz
-Y3Vzc2lvbi4gIFNvbWV0aW1lcyBkdW1iIHRoaW5ncw0KPiBiZWNvbWUgdHJhZGl0aW9uIChs
-aWtlIGNhbGN1bGF0aW5nIGZhY3RvcmlhbHMgb3IgRmlib25hY2NpIG51bWJlcnMgd2l0aA0K
-PiByZWN1cnNpdmUgZnVuY3Rpb25zWzJdKS0td2UgZG9uJ3QgaGF2ZSB0byBhY3F1aWVzY2Ug
-dG8gdGhhdCwgYnV0IHdlIHdpbGwNCj4gaGF2ZSB0byBkb2N1bWVudCBhbmQgc29tZXRpbWVz
-IGRlZmVuZCBvdXIgcmVqZWN0aW9uIG9mIHRoZW0uDQo+IA0KPj4gUmlnaHQuICBtZW1jcHko
-MykgaGFzIGEgYnVnIGluIHRoZSBzdGFuZGFyZC4gIEhvd2V2ZXIsIGltcGxlbWVudGF0aW9u
-cw0KPj4gZG8gdGhlIFJpZ2h0IFRoaW5nICh0bSkuICBJZiBpbXBsZW1lbnRhdGlvbnMgZGlk
-IHRoZSByaWdodCB0aGluZyBmb3INCj4+IHNzY2FuZigzKSwgdGhhdCB3b3VsZCBiZSBlbm91
-Z2ggdG8gcmVtb3ZlIHRoZSByZWNvbW1lbmRhdGlvbiBhZ2FpbnN0DQo+PiBpdC4gIEJ1dCBt
-eSB1bmRlcnN0YW5kaW5nIGlzIHRoYXQgdGhlIHNzY2FuZigzKSBpbXBsZW1lbnRhdGlvbiBp
-cyBub3QNCj4+IGZyZWUgb2YgdGhhdCBwcm9ibGVtLg0KPiANCj4gVGhpcyBpcyBhIGdvb2Qg
-b3Bwb3J0dW5pdHkgdG8gc2F5IHNvIGluIHRoZXNlIHRlcm1zLiAgIkxpbnV4IG1hbi1wYWdl
-cw0KPiBkaXNjb3VyYWdlcyB1c2Ugb2Ygc3NjYW5mIFt1bmRlciB0aGUgY29uZGl0aW9ucyBY
-WFhdIHVudGlsDQo+IGltcGxlbWVudGF0aW9ucyBhcmUgY29ycmVjdGVkIHRvIGF2b2lkIHVu
-ZGVmaW5lZCBiZWhhdmlvciBbY2l0ZSBVUkwNCj4gaGVyZV0uIlszXQ0KPiANCj4gUmVnYXJk
-cywNCj4gQnJhbmRlbg0KPiANCj4gWzFdIEluIGdyb2ZmX21hbig3KSwgSSBhZG1pdCBJIGhh
-dmUgbm90IHRha2VuIG15IG93biBhZHZpY2UsIGFuZCB1c2UgdGhlDQo+ICAgICAgdGVybSAi
-ZGVwcmVjYXRlZCIgaW4gYSBzdWJzZWN0aW9uIGhlYWRpbmcuICBJIGhhdmUgdHdvIGRlZmVu
-c2VzIGZvcg0KPiAgICAgIHRoaXMuICAoMSkgSSByZW9yZ2FuaXplZCB0aGUgbWFuIHBhZ2Ug
-YWxvbmcgdGhvc2UgbGluZXMgNS02IHllYXJzDQo+ICAgICAgYWdvLCB3aGVuIEkgaGFkIGxl
-c3MgcHJhY3RpY2UgYXQgd3JpdGluZyB0ZWNobmljYWwgZG9jdW1lbnRhdGlvbiwNCj4gICAg
-ICBhbmQgKDIpIHRoZSBtYW4oNykgbWFjcm9zIGFyZSBub3QgZm9ybWFsbHkgc3RhbmRhcmRp
-emVkIGFueXdoZXJlDQo+ICAgICAgYW55d2F5LiAgVGhlcmUgaXMgbm8gIm9mZmljaWFsIiBi
-b2R5IHdpdGggd2hpY2ggdG8gY29uZmxpY3QsIG9yIHdpdGgNCj4gICAgICB3aG9tIGdyb2Zm
-IGNhbiBiZSBjb25mdXNlZCBieSB0aGUgcmVhZGVyLg0KPiANCj4gICAgICBBZnRlciBncm9m
-ZiAxLjIzIGlzIHJlbGVhc2VkIChnb29kIG5ld3MsIEkgaGVhcmQgZnJvbSBCZXJ0cmFuZCBs
-YXN0DQo+ICAgICAgd2Vla2VuZCkNCg0KTmljZSA6KQ0KDQo+IEkgaG9wZSB0byBhZGQgdGhl
-IFN1bk9TIGV4dGVuc2lvbiAiU0IiIHRvIHRoZSBkZXByZWNhdGlvbg0KPiAgICAgIGxpc3Qg
-bm93IHRoYXQgU29sYXJpcydzIGRlYXRoIHNlZW1zIGlycmV2ZXJzaWJsZS4NCj4gDQo+IFsy
-XSBodHRwczovL3NsZWVwbGVzc2FmdGVybm9vbi53b3JkcHJlc3MuY29tLzIwMTMvMDMvMjYv
-ZXhhbXBsZXMtb2YtcmVjdXJzaW9uLXRoZS1nb29kLXRoZS1iYWQtYW5kLXRoZS1zaWxseS8N
-Cj4gDQo+ICAgICAgRm9yIHRoZSBtYXRoZW1hdGljYWxseSBvciBhbGdvcml0aG1pY2FsbHkg
-aW5jbGluZWQsIEkgYWxzbw0KPiAgICAgIHJlY29tbWVuZCAiVGhlIEdlbnVpbmUgU2lldmUg
-b2YgRXJhdG9zdGhlbmVzIiwgYnkgTWVsaXNzYSBPJ05laWxsLg0KPiANCj4gICAgICBodHRw
-czovL3d3dy5jcy5obWMuZWR1L35vbmVpbGwvcGFwZXJzL1NpZXZlLUpGUC5wZGYNCj4gDQo+
-IFszXSBncm9mZl9tYW4oNykgZ2l2ZXMgeW91IFVSL1VFLCBzbyB1c2UgdGhlbSEgID46LSkN
-Cg0KSG93IGFib3V0IHRoZSBmb2xsb3dpbmc/DQoNCkNoZWVycywNCg0KQWxleA0KDQotLS0N
-Cg0KZGlmZiAtLWdpdCBhL21hbjMvc3NjYW5mLjMgYi9tYW4zL3NzY2FuZi4zDQppbmRleCAy
-NmEwMjUyMWIuLjg3MGM2ZjU0YiAxMDA2NDQNCi0tLSBhL21hbjMvc3NjYW5mLjMNCisrKyBi
-L21hbjMvc3NjYW5mLjMNCkBAIC02NTMsNiArNjUzLDI1IEBAIC5TUyBUaGUgJ2EnIGFzc2ln
-bm1lbnQtYWxsb2NhdGlvbiBtb2RpZmllcg0KICAuSSBnY2Ncflwtc3RkPWM5OQ0KICBldGMu
-KS4NCiAgLlNIIEJVR1MNCisuU1MgTnVtZXJpYyBjb252ZXJzaW9uIHNwZWNpZmllcnMNCitV
-c2Ugb2YgdGhlIG51bWVyaWMgY29udmVyc2lvbiBzcGVjaWZpZXJzIHByb2R1Y2VzIFVuZGVm
-aW5lZCBCZWhhdmlvcg0KK2ZvciBpbnZhbGlkIGlucHV0Lg0KK1NlZQ0KKy5VUiBodHRwczov
-L3BvcnQ3MC5uZXQvXDolN0Vuc3ovXDpjL1w6YzExL1w6bjE1NzAuaHRtbFw6IzcuMjEuNi4y
-cDEwDQorQzExIDcuMjEuNi4yLzEwDQorLlVFIC4NCitUaGlzIGlzIGEgYnVnIGluIHRoZSBJ
-U08gQyBzdGFuZGFyZCwNCithbmQgbm90IGFuIGluaGVyZW50IGRlc2lnbiBpc3N1ZSB3aXRo
-IHRoZSBBUEkuDQorSG93ZXZlciwNCitjdXJyZW50IGltcGxlbWVudGF0aW9ucyBhcmUgbm90
-IHNhZmUgZnJvbSB0aGF0IGJ1ZywNCitzbyBpdCBpcyBub3QgcmVjb21tZW5kZWQgdG8gdXNl
-IHRoZW0uDQorSW5zdGVhZCwNCitwcm9ncmFtcyBzaG91bGQgdXNlIGZ1bmN0aW9ucyBzdWNo
-IGFzDQorLkJSIHN0cnRvbCAoMykNCit0byBwYXJzZSBudW1lcmljIGlucHV0Lg0KK1RoaXMg
-bWFudWFsIHBhZ2UgZGVwcmVjYXRlcyB1c2Ugb2YgdGhlIG51bWVyaWMgY29udmVyc2lvbiBz
-cGVjaWZpZXJzDQordW50aWwgdGhleSBhcmUgZml4ZWQgYnkgSVNPIEMuDQorLlNTIE5vbnN0
-YW5kYXJkIG1vZGlmaWVycw0KICBUaGVzZSBmdW5jdGlvbnMgYXJlIGZ1bGx5IEM5OSBjb25m
-b3JtYW50LCBidXQgcHJvdmlkZSB0aGUNCiAgYWRkaXRpb25hbCBtb2RpZmllcnMNCiAgLkIg
-cQ0KDQoNCi0tIA0KPGh0dHA6Ly93d3cuYWxlamFuZHJvLWNvbG9tYXIuZXMvPg0K
+Looks like the below changes are still helpful for users as I had to
+reference the pending series to some folks:
 
---------------9P0EmkJLNLDneMAx7ZIJ6LTp--
+(1) The AMX-enabling code example is expected to clarify the steps.
+(2) Along with that, a couple of ABI constants may be useful for users.
+(3) Also, describing the motivation will provide the context of this.
+(4) Lastly, the description of new guest options is added as missing.
 
---------------rtPFhRP4R0w0wPjMgVrnZxIg
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+If they are acceptable, I will follow up on the arch_prctl(2) documentation
+[2] to update based on this.
 
------BEGIN PGP SIGNATURE-----
+These patches can be also found in this repository:
+  git://github.com/intel/amx-linux.git amx-doc
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmPLD28ACgkQnowa+77/
-2zKZixAAn93vc9k+tEOepQ5FxIw+g3I50JkTnOIm9raZyQNyExtKRSRoZh3xQutH
-NAZRg8XlE3CZ/6aSYdghuruEw2YoQiABK0uOB1dbnqOh8Th4jNHR/VY6ucRQCXmN
-c+6hjgyGJw5+eXisasAlG413E6l6m7V/+dveN0xtuDWC3HATGZg4YiqfJMgWeOI+
-nvtCJHpUXZox1mf+aIJbi68x+XF1eEOTio9oGspdXRqXFZkhJSwlcXdSUCyWOnjM
-TAvOv+fs3mPZCFiHkOpktBAdNdsJ4uel469eArEUSd0O1/ZlNlgLJzdeAXqtdipm
-PAAIWQwRRnbK41CwxjXvbr3lCnlnD3r/xU3VPYn4zT4+IkgibrrxLt9vUmnSFZDw
-sTDRwbUm94cCF4oKwwHKkP7+w3ANDFiupuKRfZUBOc4vgYjruAvxLjKCC4c0e7G0
-ZtWrL9xcsJlRNHPXXHlXhulJnF1vpccfn//g9m8M6wTQ1Vaz+lc8bzzO+Zk43PVG
-+UbRmwQYkbXZrirMrpqhcbyakPSnEi9efRmVmiak8L9YZsEacCWeY+BA/cGAAPYf
-j9Ix7fjOPgHNXkCU/9efXh+8PZ+vhXxytNhWSIjBRcN00HvLlMID/lpIXuvw7ZCW
-GNIGXOGQObQAiHp9nVG15fLylL7pEAcV3nxevuZcfXodyXrlKF4=
-=f+De
------END PGP SIGNATURE-----
+And the compiled preview is available here:
+  https://htmlpreview.github.io/?https://github.com/intel/amx-linux/doc-web/x86/xstate.html
 
---------------rtPFhRP4R0w0wPjMgVrnZxIg--
+Thanks,
+Chang
+
+[1] https://lore.kernel.org/lkml/20220922195810.23248-1-chang.seok.bae@intel.com/
+[2] arch_prctl(2): https://man7.org/linux/man-pages/man2/arch_prctl.2.html
+
+Chang S. Bae (4):
+  Documentation/x86: Explain the purpose for dynamic features
+  x86/arch_prctl: Add AMX feature numbers as ABI constants
+  Documentation/x86: Add the AMX enabling example
+  Documentation/x86: Explain the state component permission for guests
+
+ Documentation/x86/xstate.rst      | 100 ++++++++++++++++++++++++++++++
+ arch/x86/include/uapi/asm/prctl.h |   3 +
+ 2 files changed, 103 insertions(+)
+
+
+base-commit: 1642cea9d9ab82b596857eea14bf6e04806a6c5a
+-- 
+2.17.1
+
