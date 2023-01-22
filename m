@@ -2,40 +2,68 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 79ED867722F
-	for <lists+linux-man@lfdr.de>; Sun, 22 Jan 2023 21:04:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E065F677232
+	for <lists+linux-man@lfdr.de>; Sun, 22 Jan 2023 21:06:00 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230366AbjAVUED (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 22 Jan 2023 15:04:03 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34844 "EHLO
+        id S230086AbjAVUF7 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 22 Jan 2023 15:05:59 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34952 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230155AbjAVUED (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 22 Jan 2023 15:04:03 -0500
-Received: from static.213-239-213-133.clients.your-server.de (luckmann.name [213.239.213.133])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 560466A67
-        for <linux-man@vger.kernel.org>; Sun, 22 Jan 2023 12:04:02 -0800 (PST)
-Received: from localhost (localhost [127.0.0.1])
-  (uid 502)
-  by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E5808C.0000000063CD96B0.00007849; Sun, 22 Jan 2023 21:04:00 +0100
-Date:   Sun, 22 Jan 2023 21:04:00 +0100
-From:   Helge Kreutzmann <debian@helgefjell.de>
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
+        with ESMTP id S230137AbjAVUF6 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 22 Jan 2023 15:05:58 -0500
+Received: from mail-oo1-xc2f.google.com (mail-oo1-xc2f.google.com [IPv6:2607:f8b0:4864:20::c2f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 067DA93C4
+        for <linux-man@vger.kernel.org>; Sun, 22 Jan 2023 12:05:58 -0800 (PST)
+Received: by mail-oo1-xc2f.google.com with SMTP id h12-20020a4a940c000000b004fa81915b1cso1838884ooi.4
+        for <linux-man@vger.kernel.org>; Sun, 22 Jan 2023 12:05:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=IFK5RceAWZQ8DqhBPhqg+krkWnECEhrvFWp5YnVitno=;
+        b=Xfbit2RSJHwYqG+dCwuGeABHA6yzz4MU+AQyeMBmDlJtIENLkYwYkANsoH6UUdq1U6
+         SdzC+OG3R+0Z92iZhBDuICGkj+6Psg/4zmk2npKeBSU8rxHSNpir+l5UNdJL/OCXQlsR
+         sUAVmWAWprZB2NQVhz5nc9L8yyLkH7dHG5oWx4OfcQUnkRG16SatoFTX75jg+hMhm8MP
+         PiKxbrpXojoltSSYLZIjGAE+SMUFhsbSGSXt5zzrtfgMwZd4dZkYYuoZ4KpbY2SRnNjm
+         4/z1dIqRDeiekLOvB9x4bKdbyOPVb8NxnWeKxhxiUbe7gBunSvWoSB0P3T0w98PM1YGq
+         n7Zw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=IFK5RceAWZQ8DqhBPhqg+krkWnECEhrvFWp5YnVitno=;
+        b=tKTLuKtm8GcAHAbMGkuP/eG/28r7C/MKJznEvWMxhMOAKiwYTgF8UOc19pYRQYosX1
+         +A01v7zMfCh6aAAdO5GkUGd/I3Brim+eQQh5e/uIaHrfLoacNlnCdP7IZTZVEggtVFNh
+         2Chz/GKiwiDwbQp+1SaBZ9pGFT4y+wrLQEe+eSmgTiouF/uXcxrAiL+BIfIjdUmpBXN8
+         /65zwpHLSFEigEYGkBinExyYLOcsUxxC48lqk/BHoOtmbKdtgLfih0suOoJaXOipPmFq
+         +SVd5LeBKd9pGuiTixxLyxXX5UnSBy3NnDbnSFeSkgIn1eKi2z2TbID2pLqc3vmAE7/I
+         ehww==
+X-Gm-Message-State: AFqh2krpbIfgBz/RKWzbbnczLWSOdj/0TN8QkS+pNU6FTnmKw57abAoS
+        MV1YHYitUXaLvxMC5jdKpbfq45PNG3k=
+X-Google-Smtp-Source: AMrXdXtG1oMcd2ROTtIkNUPGMPl57CLzf1H4cwiHVROmqaBFMerNLgkQBpcLWrzLycu+4Nd8I7ClEA==
+X-Received: by 2002:a4a:a6ca:0:b0:4d0:1b43:70e0 with SMTP id i10-20020a4aa6ca000000b004d01b4370e0mr9736490oom.9.1674417956310;
+        Sun, 22 Jan 2023 12:05:56 -0800 (PST)
+Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
+        by smtp.gmail.com with ESMTPSA id w15-20020a4ae08f000000b004f1f6b25091sm19954071oos.41.2023.01.22.12.05.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 22 Jan 2023 12:05:55 -0800 (PST)
+Date:   Sun, 22 Jan 2023 14:05:54 -0600
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To:     Helge Kreutzmann <debian@helgefjell.de>
 Cc:     alx.manpages@gmail.com, mario.blaettermann@gmail.com,
         linux-man@vger.kernel.org
-Subject: Re: Issue in man page wctype.3
-Message-ID: <20230122200400.GB30353@Debian-50-lenny-64-minimal>
-References: <20230122193133.GA29288@Debian-50-lenny-64-minimal>
- <20230122200149.54quo22te2kckbee@illithid>
-Mime-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-30793-1674417840-0001-2"
+Subject: Re: Issue in man page wctrans.3
+Message-ID: <20230122200554.j3yg5gk5noae6rqw@illithid>
+References: <20230122193132.GA29235@Debian-50-lenny-64-minimal>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+        protocol="application/pgp-signature"; boundary="fhuqtxksucvomtoy"
 Content-Disposition: inline
-In-Reply-To: <20230122200149.54quo22te2kckbee@illithid>
-X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
-X-homepage: http://www.helgefjell.de/debian
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Spam-Status: No, score=0.3 required=5.0 tests=BAYES_00,CK_HELO_GENERIC,
-        HELO_DYNAMIC_IPADDR,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=no
+In-Reply-To: <20230122193132.GA29235@Debian-50-lenny-64-minimal>
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -43,70 +71,55 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is a MIME-formatted message.  If you see this text it means that your
-E-mail software does not support MIME-formatted messages.
 
---=_luckmann.name-30793-1674417840-0001-2
+--fhuqtxksucvomtoy
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hello Branden,
-On Sun, Jan 22, 2023 at 02:01:49PM -0600, G. Branden Robinson wrote:
-> At 2023-01-22T20:31:33+0100, Helge Kreutzmann wrote:
-> > Without further ado, the following was found:
-> >=20
-> > Issue:    all locales. =E2=86=92 all locales:
-> >=20
-> > "The B<wctype>()  function returns a property, given by its name.  The =
-set of "
-> > "valid names depends on the B<LC_CTYPE> category of the current locale,=
- but "
-> > "the following names are valid in all locales."
+Hi Helge,
+
+At 2023-01-22T20:31:32+0100, Helge Kreutzmann wrote:
+> Without further ado, the following was found:
 >=20
-> I disagree with this.  The material that follows does not serve to end
-> the sentence; it is a displayed list of items with no grammatical
-> structure.
+> Issue:    all locales. =E2=86=92 all locales:
+>=20
+> "The B<wctrans>()  function returns a mapping, given by its name.  The se=
+t of "
+> "valid names depends on the B<LC_CTYPE> category of the current locale, b=
+ut "
+> "the following names are valid in all locales."
 
-For me, this would have been the perfect use of a colon, but =E2=80=A6
+-1 for the reason stated in my reply to wctype.3.
 
-> The colon in English must be followed by an independent clause. (A list
-> of comma-separated items, or a list of semicolon-separated items that
-> contain commas is tolerated after a colon by some style guides.)
+(This is however a more interesting case, as the two items in question
+are very nearly grammatical sentences of themselves, requiring only
+changes in puncuation.  Doing so, however, would not make use of the
+colon correct, as then only indentation would remain to clearly
+associate both sentences with the colon-bearing predecessor, instead of
+only the first.)
 
-=E2=80=A6 I'm not a native speaker, so please disregard this if it is
-incorrect.
+Regards,
+Branden
 
-Greetings
-
-         Helge
-
-
---=20
-      Dr. Helge Kreutzmann                     debian@helgefjell.de
-           Dipl.-Phys.                   http://www.helgefjell.de/debian.php
-        64bit GNU powered                     gpg signed mail preferred
-           Help keep free software "libre": http://www.ffii.de/
-
---=_luckmann.name-30793-1674417840-0001-2
+--fhuqtxksucvomtoy
 Content-Type: application/pgp-signature; name="signature.asc"
-Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmPNlrAACgkQQbqlJmgq
-5nBuwA//S7JKMzd8tPxLst2WWWK1DnnWV1y11bUKaxk7ebUO5jRfoABX1icc2Fee
-TbaGjebRk6KZUdivlbazzWxxZI+SBOQcp77HG0BfR0X+qNXoZdDQXElzHGjHsW6r
-SX32y1SATuymzAnVYe/lkHIn+GDapMTxKXL9eBnsw8Bn/cZ00q+5lCSep2VeI7jC
-MfdtObrzRCskJqYYtqleJag7V67PXeWLkNEHPTpFK/US2DuX+jEzrDl8yWJAx9rK
-R3vkANGz0NAmm3yXQoeZxzqq4X3t0fkCf0vZkkzULD/OJJ4FVuTdktpBaQLEoaVj
-N1UKiuGLUYazB5MMraproShEmyMY/tCwyBg4HLU2KtG14O2YJFmU5szp1APF++Qo
-2rJeV9cJqKVoY0bap3ofrTgqR1+gQrqrkZ99Mui2BaDOyunMmZEMNJR/LGnOmExF
-5Y1NHnhOV1M3aKPWvLtmmWpgtOZU67RGtONHiWpXUOik76KvDrzBI8SFj0yLlfI+
-iZFI5ioAQrpE90pDXBS8L3lhMnqW0VeUZRgIV3GgZ0XpzwgdaLJ3t2ryJIdcI/iB
-yfVNShqKvjHp8z6I6Q9upVETjHNeDm+LciGCWi7w/FBTfIs5S7a8qI2FfP+xDTnV
-YO2nxJ6HRENelbaXtbz14vwtMUgNaEuUNSFUyu7iDcblkiIsYbg=
-=cCV7
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmPNlyIACgkQ0Z6cfXEm
+bc6Hxw//fr3mZMiDybLFRGG0c3O1ANfken6u5YR24+ZNctRDdkAeCbi460bTJu0q
+0FjaT8PfMGUv4nEvpl4atxagdHmqjc0RPkfrziJY22wHWJ8om0kY5WxdPJx9UX3I
+/ZHJzwVNSlRM9qBBNHQtekoK3PwAocBg3rwYvuugH8AxhbO8WoZqqnrvdgaPsFek
+4w7UYGTFEnMecsbpuImmbrWDuq8Q8IWm5uxW86C+6wcZGmo1o+8PqfYIEWDF62Gv
+WHqsHw+UNYU2GKAwUOr2n6hP0KNDBvs8G96+yv1EAjn7NFTZrKph2hF8tfiu7+o6
+UvTc//ZLC0BNg2Ih0TXM4mveYuyIF+sBIgjNnH4n9aURpszafxNpJIlGi4k9tC51
+okRB5H9cHhwwtO9sf0aQIeMntRFi8C2AOdddcl57jH+xiA4yMGEvfJWWBj6et7g5
+DYh26PXFT1kDNfoKUAgn7eD9eDqz5XTXFL5IUUoIauFqraQSm+dbt8YtdZ0ITFXy
+nkRzapby/ACfvM/BUrDGfCsU2o4a8S1uB6oQNuj/7UaZuZjUwDlGsZPHzMY2tien
+A0BeQ1bbJew7qsYVaUemAsWAaqomEuE6W2Ysd4ooO66pUNHT1fCsBAQSonyyu9Ch
+GBEr6ndKyUHmZ40NPwU1d1AZi7/MwnwwasceQh9YL6iYwFIk+6A=
+=H+2y
 -----END PGP SIGNATURE-----
 
---=_luckmann.name-30793-1674417840-0001-2--
+--fhuqtxksucvomtoy--
