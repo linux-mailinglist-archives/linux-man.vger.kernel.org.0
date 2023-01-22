@@ -2,68 +2,40 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 8EA6B677226
-	for <lists+linux-man@lfdr.de>; Sun, 22 Jan 2023 20:55:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 3AB4067722C
+	for <lists+linux-man@lfdr.de>; Sun, 22 Jan 2023 21:01:39 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229999AbjAVTzk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 22 Jan 2023 14:55:40 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60036 "EHLO
+        id S230086AbjAVUBh (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 22 Jan 2023 15:01:37 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33480 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229814AbjAVTzk (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 22 Jan 2023 14:55:40 -0500
-Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com [IPv6:2607:f8b0:4864:20::230])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6E6AFFF10
-        for <linux-man@vger.kernel.org>; Sun, 22 Jan 2023 11:55:39 -0800 (PST)
-Received: by mail-oi1-x230.google.com with SMTP id d188so8752565oia.3
-        for <linux-man@vger.kernel.org>; Sun, 22 Jan 2023 11:55:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=ePr8YpMucWAH3vIQDvbVV236E5UQa8LagW1oF56/aWw=;
-        b=K6lXNmdad0DnH0Q5E3tjeJ1+ktXjnNVh71QC0HnvSVM06d9QcNt1twZkuvr9zebrak
-         s2XYk9CBJQ88Rr8N71nNxLz/eme4QnniaD57qOLMSdYEVIKz0JGocU6VLaIdYIoykERY
-         FckMndvR3M9IS0zMWQPT/FbgG8miAfPaqnAJZgSvlzuQJfp79UWt91TU27OlblwJ8LVp
-         h3AsL7r3Es2hP5/x3z+EvEfPrINOJ0hrBUMZe9mNzd31gFBU3w/R/+BnKrsTMuWFfhyM
-         9trJWav3+ndW9J4XGj0N9iNg5n4d8HUsHFKOx+1ZQ+vLkuEbaDjVzkXBFEvDBadXFRDG
-         OOEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ePr8YpMucWAH3vIQDvbVV236E5UQa8LagW1oF56/aWw=;
-        b=VjwZVH9AXy6QmU9Js8TS0J/Bz0pVUo23fs0ComEcREas2nXPUP9aw3CSPVOj/M784q
-         c6JX0pAwsxQr4sxasQX0dYKIcvoo699ob5UfckvLB3f5IbgkIb4kaUEi+qwDgVyXk+0U
-         6u93gfUSfq3BWWmkDy3rSctX09R6FHmBqXuHKQb5J52kmRk7QlLZ/TQ4eBTfEpznRU6r
-         bv6DH3540P6n//Us9NUj0F/nCi+RA+/aGEKgLG7SmnS1BQBiJF/Mad/IZQLaP5WPbSws
-         ReGArNJ0mpS9FrUXZq7Tu2nVGlziY4JW8SGUyso0+EQFx+dFyI3O5SwhVOJaFs4rpMeH
-         gbiA==
-X-Gm-Message-State: AFqh2kooPBxPRa97VG3KYCc00f+c+6ejHQpRjfrEKKXweOA+g2fZXQ65
-        b4g9fU6xeMsvqYKncVScVj3J40jwZ3Q=
-X-Google-Smtp-Source: AMrXdXv4g6dlzWxg7ALFNms9JVVcVvN/OB6wbS4hYmM0sKFHVE1SsHKIjsPa1H1zZuUNm17i6DRjiA==
-X-Received: by 2002:aca:1710:0:b0:36e:b552:1ec3 with SMTP id j16-20020aca1710000000b0036eb5521ec3mr5568544oii.38.1674417338821;
-        Sun, 22 Jan 2023 11:55:38 -0800 (PST)
-Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id z17-20020a544591000000b0036ed074f028sm2631897oib.58.2023.01.22.11.55.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 22 Jan 2023 11:55:38 -0800 (PST)
-Date:   Sun, 22 Jan 2023 13:55:36 -0600
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     Helge Kreutzmann <debian@helgefjell.de>
+        with ESMTP id S229811AbjAVUBg (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 22 Jan 2023 15:01:36 -0500
+Received: from static.213-239-213-133.clients.your-server.de (luckmann.name [213.239.213.133])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 28FE865BB
+        for <linux-man@vger.kernel.org>; Sun, 22 Jan 2023 12:01:34 -0800 (PST)
+Received: from localhost (localhost [127.0.0.1])
+  (uid 502)
+  by static.213-239-213-133.clients.your-server.de with local
+  id 0000000000E5807F.0000000063CD961D.000077E3; Sun, 22 Jan 2023 21:01:33 +0100
+Date:   Sun, 22 Jan 2023 21:01:33 +0100
+From:   Helge Kreutzmann <debian@helgefjell.de>
+To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
 Cc:     alx.manpages@gmail.com, mario.blaettermann@gmail.com,
         linux-man@vger.kernel.org
-Subject: Re: Issue in man page intro.3
-Message-ID: <20230122195536.y3tejcbcbcx7emfd@illithid>
-References: <20230122193135.GA29436@Debian-50-lenny-64-minimal>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="tjtpgdzdhpfekrxw"
+Subject: Re: Issue in man page mount_namespaces.7
+Message-ID: <20230122200133.GA30353@Debian-50-lenny-64-minimal>
+References: <20230122193125.GA28817@Debian-50-lenny-64-minimal>
+ <20230122195410.2ke5fk3dunh75vip@illithid>
+Mime-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-30691-1674417693-0001-2"
 Content-Disposition: inline
-In-Reply-To: <20230122193135.GA29436@Debian-50-lenny-64-minimal>
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
+In-Reply-To: <20230122195410.2ke5fk3dunh75vip@illithid>
+X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
+X-homepage: http://www.helgefjell.de/debian
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Spam-Status: No, score=0.3 required=5.0 tests=BAYES_00,CK_HELO_GENERIC,
+        HELO_DYNAMIC_IPADDR,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=no
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -71,42 +43,71 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+This is a MIME-formatted message.  If you see this text it means that your
+E-mail software does not support MIME-formatted messages.
 
---tjtpgdzdhpfekrxw
-Content-Type: text/plain; charset=utf-8
+--=_luckmann.name-30691-1674417693-0001-2
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hi Helge,
-
-At 2023-01-22T20:31:35+0100, Helge Kreutzmann wrote:
-> Without further ado, the following was found:
+Hello Branden,
+On Sun, Jan 22, 2023 at 01:54:10PM -0600, G. Branden Robinson wrote:
+> At 2023-01-22T20:31:25+0100, Helge Kreutzmann wrote:
+> > Without further ado, the following was found:
+> >=20
+> > Issue:    Why hard (and strange) line breaks?
+> >=20
+> > "Since, when one uses\n"
+> [...]
 >=20
-> Issue:    shopuld =E2=86=92 should
+> I don't see these "\n" line endings in Git HEAD or the change history of
+> the page.  Maybe there is a problem with your searching/reporting tool?
 
-This was fixed in 6a6d1d27a4c4eb8229d88ce2f4ef068d0521a7e8, 2 January.
+This is the represenation we see (like B<> for bold, I<> for italics).
+It most likely does not look like this in groff.
 
-Regards,
-Branden
+> 1ae6b2c7b8 (Alejandro Colomar   2022-03-18 20:25:09 +0100 1016) .I util\-=
+linux
+> b324e17d32 (Alejandro Colomar   2022-12-04 20:38:06 +0100 1017)  2.27) in=
+ turn reverses the step performed by
 
---tjtpgdzdhpfekrxw
+At this point I see a hard line break as well when I read the english=20
+page in man.
+
+> That is why I suspect a problem with your tool.
+
+I can mark it as such, i.e. a po4a problem.
+
+Greetings
+
+         Helge
+
+--=20
+      Dr. Helge Kreutzmann                     debian@helgefjell.de
+           Dipl.-Phys.                   http://www.helgefjell.de/debian.php
+        64bit GNU powered                     gpg signed mail preferred
+           Help keep free software "libre": http://www.ffii.de/
+
+--=_luckmann.name-30691-1674417693-0001-2
 Content-Type: application/pgp-signature; name="signature.asc"
+Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmPNlLgACgkQ0Z6cfXEm
-bc76ag//eNvBJthJFFQ0kQx6ziL/S0KFEcHlk1skQvdpm2Rg5Y9EM48rk3KdQ1pI
-hDqmU5ogNgtCrgA8nBKQ7PQO6VMXF9X9CMEpvhuUVTMBkyED7cpsjLlGtWMr3q77
-RFKxuc5ETQCW9QTgXD3+EVmDUg9d3NW2S4pc/j7tm5an7k7GM7NeKz5Q5LaYDoE+
-yKwMBhSBwpCHqL/Lh+jBoM1pCxP/nyxtA8dIRU8WkuGJFtnGVdmBCrBSgrQr90lh
-5GdvL57erKMEQ8/PlF5Xwr4uwOye7ohJgc7tCKe5h+R/zWxrerf+Eq3aSxkAaZf+
-0ROrevJFEHcqwrZ74w7wULTaMmpA6E8C5B8y1OGrzRWCeXIPDPiFUlN/Xov0MRpR
-ok6m+AzjX1cfaItpnTSBerc/s1AVUCGyO3GI8sf3T7YiCtEhJnw6a5TD5lFThlvy
-cQSqxD3xhf9YxS1bIJn9Rm6s0wVNeuaAO4DCu8wyKlSv5y6LlSKCxDp27u19W0ug
-zWcNExSOfEKKVFx7oJG2iUXI+O8c7kvPYLJQqraAlIa3ZJAamay95h3t9Ws2W2C0
-v8dTwWdtVqIC2BLAraiQLe85IqpjZUG38WewWWltc8xL+ZBJjTUoCMz/XQB1r6uk
-isGmd0iA9n+nf59GUgrt/LuGNN7jBnIOejqGKw5214qyhmS71W0=
-=zWfv
+iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmPNlhcACgkQQbqlJmgq
+5nC5XQ//SgL0mSHYTHZi5+U0GKuFp+xHIWb2GGzGGhdbsNcwh+fAtKWDQGwmW0Od
+pDm57WLnwPbBK2LS5ZtALzKDtLqI2NVsHMmFLbe2Iq8ZJ284GY0BpW85QYaf+4gp
+l3ScQqSOaZdxhTrFK+Ufde3EprnBAzqjS52uTptQMiTxID/E/mr+l/YCxtoCZoD2
+g6TV5r7GDU1BRKWRnV6KL2qVZ+C9ffs49Sl/eS+xH97uQjmOTq9Jw6Vzm+eNR8SC
+Xonl8Jnz8r7dtMrXodAM3MEGKwgcj/hUcBn7XuOLmlWUDG1V3cQ1JJLgEEuXR96S
+3IovZF4XczZ3RDQGcYBPXFwoSRyQDkufsL3mMJivEhnUbkdWRWzmILK3C0XfCoSu
+FtiWWMV2NhGrTa3/irjHpnt68UbJWjVS++9eQPi2kGg2k5O82hxfjSNYXzDwkymP
+TPbQjdKj38+p8cHikKbpEPDxuxgZSZDYibScg/Aki8H6VFh8pdoliqSrOwuvOJvR
+JBirtnlOjX8sUVMU0NvzgpkJTkd6CsXro2p8fU/1MDW3/RcOpvY4MSH1D958FXGD
+QiK6C72PWOoVnJwrsi8hxWoSzlYMiON8YW1OzlR24PGgc3kDfurOdqpVA9aSLLEE
+U92k6HNgs+07u2uDbhO76ynEypbnZdZ/T6BXFS7lXDgpoTlQVqw=
+=1JlU
 -----END PGP SIGNATURE-----
 
---tjtpgdzdhpfekrxw--
+--=_luckmann.name-30691-1674417693-0001-2--
