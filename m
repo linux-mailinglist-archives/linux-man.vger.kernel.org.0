@@ -2,65 +2,65 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 72A3C677225
-	for <lists+linux-man@lfdr.de>; Sun, 22 Jan 2023 20:54:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 8EA6B677226
+	for <lists+linux-man@lfdr.de>; Sun, 22 Jan 2023 20:55:41 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230245AbjAVTyP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 22 Jan 2023 14:54:15 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59896 "EHLO
+        id S229999AbjAVTzk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 22 Jan 2023 14:55:40 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60036 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229999AbjAVTyP (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 22 Jan 2023 14:54:15 -0500
-Received: from mail-oa1-x33.google.com (mail-oa1-x33.google.com [IPv6:2001:4860:4864:20::33])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DB4E4FF10
-        for <linux-man@vger.kernel.org>; Sun, 22 Jan 2023 11:54:13 -0800 (PST)
-Received: by mail-oa1-x33.google.com with SMTP id 586e51a60fabf-15ebfdf69adso12020461fac.0
-        for <linux-man@vger.kernel.org>; Sun, 22 Jan 2023 11:54:13 -0800 (PST)
+        with ESMTP id S229814AbjAVTzk (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 22 Jan 2023 14:55:40 -0500
+Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com [IPv6:2607:f8b0:4864:20::230])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6E6AFFF10
+        for <linux-man@vger.kernel.org>; Sun, 22 Jan 2023 11:55:39 -0800 (PST)
+Received: by mail-oi1-x230.google.com with SMTP id d188so8752565oia.3
+        for <linux-man@vger.kernel.org>; Sun, 22 Jan 2023 11:55:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=7WyNWZTa1luDjIe1g6wG8hF2yD9puzS4n6v5PwFGDHA=;
-        b=cVfBmXQ2wb5KlftqVCRHHbnI0XqwlV8Ki3W1i13qy+gmq664PYnP+d5nRzKVn/hPIV
-         0IhHPhTyExox5OUDV30ndFMJgWr2Fn/OsbxTxlT/RMZcddpiQASJDAJ7glImVR+9VbPQ
-         1iD3gPFSHBZYE1RpvJDRPzVdm9dQQCRblWprmhPnz7Kam1+l/EZkHH+OAWkVMrhpZeLQ
-         i/m9tk8rEiGR2lhY4YSwXoDx4n/3B/wlnBoTBwwmwxfXAI5Zglm8r4bkdQ8ugZFjIWZY
-         6I0eVGgAxi1aPo+GQdOqCfPTnTGMSaT6kFiUP6TOa/JiGvb5UDsjlTwazRx7sC/0SoKV
-         46fA==
+        bh=ePr8YpMucWAH3vIQDvbVV236E5UQa8LagW1oF56/aWw=;
+        b=K6lXNmdad0DnH0Q5E3tjeJ1+ktXjnNVh71QC0HnvSVM06d9QcNt1twZkuvr9zebrak
+         s2XYk9CBJQ88Rr8N71nNxLz/eme4QnniaD57qOLMSdYEVIKz0JGocU6VLaIdYIoykERY
+         FckMndvR3M9IS0zMWQPT/FbgG8miAfPaqnAJZgSvlzuQJfp79UWt91TU27OlblwJ8LVp
+         h3AsL7r3Es2hP5/x3z+EvEfPrINOJ0hrBUMZe9mNzd31gFBU3w/R/+BnKrsTMuWFfhyM
+         9trJWav3+ndW9J4XGj0N9iNg5n4d8HUsHFKOx+1ZQ+vLkuEbaDjVzkXBFEvDBadXFRDG
+         OOEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=7WyNWZTa1luDjIe1g6wG8hF2yD9puzS4n6v5PwFGDHA=;
-        b=YCgHzchegBwr6QwFzTmZ4CUDkIj5/9VXeCkr6LdPf5fxMGzPhZ42AbLeMaACx9FPSx
-         Hb5/Nkq7fR+sHTy+8YDYa+u3KBWvFSR3KFtf2Sd+httIavfTrqy9MIm/FWqx/q7GIY2Y
-         aRDzkYst/bOObTWjp4xgwgbUUjoPYh3EsPGSzH3vY74qZ8MZiriJjDIX2jWREgKfrcTv
-         uBXFcL6KSolvN9sbZA9Px0t7guvaqhCf05QF4HuRktfTPU/xt0wU/wBzR1HuCzW+Nte6
-         1GVKSJI4+qoIdrVchG+38u/eG6B6Y3zllmulzAIO8m1CISAU6zTqhWqcmxwYB8BMaXGL
-         vY4g==
-X-Gm-Message-State: AFqh2koEINaiROdBktC7piIYe83Rb2eVhfX8HjerfjME8KCWk82VX7Yz
-        lCg2Rhu4NKaI5soyDT3ORssK06RoWuA=
-X-Google-Smtp-Source: AMrXdXvgm2qxkDZE++M0NY9NGL6OrTGdn5VMn2KJfE1MwLQN3cZxVfIaSG21OaG8JYzO1njh6c1OGg==
-X-Received: by 2002:a05:6870:b85:b0:15b:848b:f7e5 with SMTP id lg5-20020a0568700b8500b0015b848bf7e5mr10936079oab.31.1674417253209;
-        Sun, 22 Jan 2023 11:54:13 -0800 (PST)
+        bh=ePr8YpMucWAH3vIQDvbVV236E5UQa8LagW1oF56/aWw=;
+        b=VjwZVH9AXy6QmU9Js8TS0J/Bz0pVUo23fs0ComEcREas2nXPUP9aw3CSPVOj/M784q
+         c6JX0pAwsxQr4sxasQX0dYKIcvoo699ob5UfckvLB3f5IbgkIb4kaUEi+qwDgVyXk+0U
+         6u93gfUSfq3BWWmkDy3rSctX09R6FHmBqXuHKQb5J52kmRk7QlLZ/TQ4eBTfEpznRU6r
+         bv6DH3540P6n//Us9NUj0F/nCi+RA+/aGEKgLG7SmnS1BQBiJF/Mad/IZQLaP5WPbSws
+         ReGArNJ0mpS9FrUXZq7Tu2nVGlziY4JW8SGUyso0+EQFx+dFyI3O5SwhVOJaFs4rpMeH
+         gbiA==
+X-Gm-Message-State: AFqh2kooPBxPRa97VG3KYCc00f+c+6ejHQpRjfrEKKXweOA+g2fZXQ65
+        b4g9fU6xeMsvqYKncVScVj3J40jwZ3Q=
+X-Google-Smtp-Source: AMrXdXv4g6dlzWxg7ALFNms9JVVcVvN/OB6wbS4hYmM0sKFHVE1SsHKIjsPa1H1zZuUNm17i6DRjiA==
+X-Received: by 2002:aca:1710:0:b0:36e:b552:1ec3 with SMTP id j16-20020aca1710000000b0036eb5521ec3mr5568544oii.38.1674417338821;
+        Sun, 22 Jan 2023 11:55:38 -0800 (PST)
 Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id d9-20020a056870d28900b0014b8347e1e3sm24451106oae.12.2023.01.22.11.54.12
+        by smtp.gmail.com with ESMTPSA id z17-20020a544591000000b0036ed074f028sm2631897oib.58.2023.01.22.11.55.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 22 Jan 2023 11:54:12 -0800 (PST)
-Date:   Sun, 22 Jan 2023 13:54:10 -0600
+        Sun, 22 Jan 2023 11:55:38 -0800 (PST)
+Date:   Sun, 22 Jan 2023 13:55:36 -0600
 From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
 To:     Helge Kreutzmann <debian@helgefjell.de>
 Cc:     alx.manpages@gmail.com, mario.blaettermann@gmail.com,
         linux-man@vger.kernel.org
-Subject: Re: Issue in man page mount_namespaces.7
-Message-ID: <20230122195410.2ke5fk3dunh75vip@illithid>
-References: <20230122193125.GA28817@Debian-50-lenny-64-minimal>
+Subject: Re: Issue in man page intro.3
+Message-ID: <20230122195536.y3tejcbcbcx7emfd@illithid>
+References: <20230122193135.GA29436@Debian-50-lenny-64-minimal>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="vvlxm7v6c2lpkawr"
+        protocol="application/pgp-signature"; boundary="tjtpgdzdhpfekrxw"
 Content-Disposition: inline
-In-Reply-To: <20230122193125.GA28817@Debian-50-lenny-64-minimal>
+In-Reply-To: <20230122193135.GA29436@Debian-50-lenny-64-minimal>
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
@@ -72,100 +72,41 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---vvlxm7v6c2lpkawr
-Content-Type: text/plain; charset=us-ascii
+--tjtpgdzdhpfekrxw
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
 Hi Helge,
 
-At 2023-01-22T20:31:25+0100, Helge Kreutzmann wrote:
+At 2023-01-22T20:31:35+0100, Helge Kreutzmann wrote:
 > Without further ado, the following was found:
 >=20
-> Issue:    Why hard (and strange) line breaks?
->=20
-> "Since, when one uses\n"
-[...]
+> Issue:    shopuld =E2=86=92 should
 
-I don't see these "\n" line endings in Git HEAD or the change history of
-the page.  Maybe there is a problem with your searching/reporting tool?
-
-I would add that these are not "hard line breaks" in the *roff language.
-
-"\n" is the register interpolation escape sequence.  It must always be
-followed by an argument, the name of the register to be interpolated.
-
-Register interpolation should not be used in portable man pages.  But I
-don't think it's happening here.
-
-groff 1.22.4 (and earlier) diagnose the incorrect input as follows.
-
-$ printf 'hello\\n\n' | nroff | cat -s
-troff: <standard input>:1: a newline character is not allowed in an escape =
-name
-hello
-
-groff 1.23.0 will be a little more precise.  (The escape _name_ itself
-is not where the invalid syntax was encountered.)
-
-$ printf 'hello\\n\n' | ./build/test-groff -T utf8 | cat -s
-troff:<standard input>:1: error: a newline character is not allowed in an e=
-scape sequence parameter
-hello
-
-In any event, "git blame" says the following about the relevant portion
-of the page.
-
-a66648bbd1 (Michael Kerrisk     2021-08-17 05:04:11 +0200 1009) Since, when=
- one uses
-a66648bbd1 (Michael Kerrisk     2021-08-17 05:04:11 +0200 1010) .BR unshare=
- (1)
-a66648bbd1 (Michael Kerrisk     2021-08-17 05:04:11 +0200 1011) to create a=
- mount namespace,
-8c9a827429 (Michael Kerrisk     2021-08-18 01:34:54 +0200 1012) the goal is=
- commonly to provide full isolation of the mounts
-a66648bbd1 (Michael Kerrisk     2021-08-17 05:04:11 +0200 1013) in the new =
-namespace,
-a66648bbd1 (Michael Kerrisk     2021-08-17 05:04:11 +0200 1014) .BR unshare=
- (1)
-a66648bbd1 (Michael Kerrisk     2021-08-17 05:04:11 +0200 1015) (since
-1ae6b2c7b8 (Alejandro Colomar   2022-03-18 20:25:09 +0100 1016) .I util\-li=
-nux
-b324e17d32 (Alejandro Colomar   2022-12-04 20:38:06 +0100 1017)  2.27) in t=
-urn reverses the step performed by
-a66648bbd1 (Michael Kerrisk     2021-08-17 05:04:11 +0200 1018) .BR systemd=
- (1),
-8c9a827429 (Michael Kerrisk     2021-08-18 01:34:54 +0200 1019) by making a=
-ll mounts private in the new namespace.
-a66648bbd1 (Michael Kerrisk     2021-08-17 05:04:11 +0200 1020) That is,
-a66648bbd1 (Michael Kerrisk     2021-08-17 05:04:11 +0200 1021) .BR unshare=
- (1)
-a66648bbd1 (Michael Kerrisk     2021-08-17 05:04:11 +0200 1022) performs th=
-e equivalent of the following in the new mount namespace:
-
-That is why I suspect a problem with your tool.
+This was fixed in 6a6d1d27a4c4eb8229d88ce2f4ef068d0521a7e8, 2 January.
 
 Regards,
 Branden
 
---vvlxm7v6c2lpkawr
+--tjtpgdzdhpfekrxw
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmPNlFsACgkQ0Z6cfXEm
-bc5KoBAArch7LtXVCLuX1DfS18hzpFsnKOHVmCy8Ro2Nr0wF6HycRsQYFOwaiiTU
-3efEMb3XJyUwWouggo6PGDLsaQfmFE+2LswOYuXrpuWExBdXUadhqUSybmhvUeKU
-q4NebioKjt5CcmUQpMHQ4yYKi4hZFr1aEF2Y5dCGYS3hMO2iFDOx8XhI1vmheMnx
-WeoHj5U8cZKhXiMTnnoQwkBOBa2f7oHdJplXObyulFmpEp2p7TfFagyvmRJ5ZAzy
-Y1OsDt3tAO0PB0NqT9hu8CM3SOo49GMRUE30JB7BKmjPvILjCeSx5DF3ZhquZ1vA
-k5VtsielcbxWHkv0vY4qSYulXBKzAoCOnxHN4KaL01j9CbCzohpUMComP8I5KeIp
-SE/o+JMT8zfFm4/QZ+tUjKiqxSjGLvqFCHuarl8ys2He4VX9Z8+R7KRa2vhMcwYD
-gwtNtKHhzvh+0nRZ7qgRKZ3IfP0wARTgE38PcsJalzG/Aa+LfJkun58ewALAWWXc
-R76j2okngRjjqsQkK6voZfR/A/DVKSlHEeagufYRhk1RLp5sYj58vf9pcnmF7qoS
-241JMVCcnN9FbMBitNbRffqlOt2yXhHGPbp/zgEXZrYIfJFJYJcC79YxNYXmUhEN
-fna1jFzBHKAzu50nQgKDGjAkuqDk+cFZvYWwLEh35d2E8x0cmvk=
-=4x4N
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmPNlLgACgkQ0Z6cfXEm
+bc76ag//eNvBJthJFFQ0kQx6ziL/S0KFEcHlk1skQvdpm2Rg5Y9EM48rk3KdQ1pI
+hDqmU5ogNgtCrgA8nBKQ7PQO6VMXF9X9CMEpvhuUVTMBkyED7cpsjLlGtWMr3q77
+RFKxuc5ETQCW9QTgXD3+EVmDUg9d3NW2S4pc/j7tm5an7k7GM7NeKz5Q5LaYDoE+
+yKwMBhSBwpCHqL/Lh+jBoM1pCxP/nyxtA8dIRU8WkuGJFtnGVdmBCrBSgrQr90lh
+5GdvL57erKMEQ8/PlF5Xwr4uwOye7ohJgc7tCKe5h+R/zWxrerf+Eq3aSxkAaZf+
+0ROrevJFEHcqwrZ74w7wULTaMmpA6E8C5B8y1OGrzRWCeXIPDPiFUlN/Xov0MRpR
+ok6m+AzjX1cfaItpnTSBerc/s1AVUCGyO3GI8sf3T7YiCtEhJnw6a5TD5lFThlvy
+cQSqxD3xhf9YxS1bIJn9Rm6s0wVNeuaAO4DCu8wyKlSv5y6LlSKCxDp27u19W0ug
+zWcNExSOfEKKVFx7oJG2iUXI+O8c7kvPYLJQqraAlIa3ZJAamay95h3t9Ws2W2C0
+v8dTwWdtVqIC2BLAraiQLe85IqpjZUG38WewWWltc8xL+ZBJjTUoCMz/XQB1r6uk
+isGmd0iA9n+nf59GUgrt/LuGNN7jBnIOejqGKw5214qyhmS71W0=
+=zWfv
 -----END PGP SIGNATURE-----
 
---vvlxm7v6c2lpkawr--
+--tjtpgdzdhpfekrxw--
