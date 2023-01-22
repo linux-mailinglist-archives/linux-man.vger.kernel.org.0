@@ -2,71 +2,68 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 70274677236
-	for <lists+linux-man@lfdr.de>; Sun, 22 Jan 2023 21:08:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 075E1677237
+	for <lists+linux-man@lfdr.de>; Sun, 22 Jan 2023 21:08:50 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230094AbjAVUIE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 22 Jan 2023 15:08:04 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35872 "EHLO
+        id S230354AbjAVUIt (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 22 Jan 2023 15:08:49 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36002 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230026AbjAVUID (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 22 Jan 2023 15:08:03 -0500
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com [IPv6:2a00:1450:4864:20::334])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9C46FF76B
-        for <linux-man@vger.kernel.org>; Sun, 22 Jan 2023 12:08:02 -0800 (PST)
-Received: by mail-wm1-x334.google.com with SMTP id l41-20020a05600c1d2900b003daf986faaeso7172187wms.3
-        for <linux-man@vger.kernel.org>; Sun, 22 Jan 2023 12:08:02 -0800 (PST)
+        with ESMTP id S230026AbjAVUIs (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 22 Jan 2023 15:08:48 -0500
+Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com [IPv6:2607:f8b0:4864:20::22f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3AC0012F22
+        for <linux-man@vger.kernel.org>; Sun, 22 Jan 2023 12:08:47 -0800 (PST)
+Received: by mail-oi1-x22f.google.com with SMTP id i9so4983313oif.4
+        for <linux-man@vger.kernel.org>; Sun, 22 Jan 2023 12:08:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=fWESgv5Ax7NlX2MS9AZKr5q0he5LnGRuFN5v9jVkCtk=;
-        b=mWrNkoWTBUklXvaVptndLQL0SPMK7MzT/b1Q+QXr7zfvdKvaDVgUL5XFBRJxaWTegX
-         vGhPwVrCBSigCL4ARBpv1OWz5QiP8OrUQ0+Px12CEBxNafYVlN9CUCp8Ks2FG2u1R4IW
-         YEAs61tLMlqq+XRvJ1eWrcSEt1Q9n7O+L1O+HJFnvfRKMV6Qy0UF8JSsLKR1VrEmmC6T
-         6wANMN5xRJEvQ6ZDAuPG6rjGPHbswz8K8IX69S4xaiyxLCkO3ZgJkaAkUQ03gd9hN0gD
-         dVMrNkx2zY80WBJabj4ytFCEZcYfPett9lWCqpZV2Q7Ru0JlYp2bbjoCsmYLHHYDxHtU
-         RUbA==
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=z7AO8N21hHkT2SPnug7NzPW+lRZYL63SffX1ZarZY5U=;
+        b=TfXTwC8TxblFAR0cyjSLkHPiKwpyKDeC/Qat5HaN1mAb5vN19uOxbipaYsaegv/V20
+         IN+yAZiUd+Q9Ft/dir5Dq6sQ08qa62+ueVH2YcqqPO1ROLoJO4F79FqMKFeFjrihBt+d
+         +76aVRg+chFTF0EX8WW86xDTYC+2u5+4cvJqn1Jb9Sd7dBbLKKri2ayeKeHSq8+1bvum
+         zIfRQAcUrYRufi8ZQOrPLAhZoCrl4s8Wn+v2U82zem1L6WuZAHcTlg6QXDeAhwZy01DS
+         pRf5jODHH5INSV94PDVbvTbCUrgLiIc1oJtVT/kI1sr2hgx+O0seZhfvOaSBapb5GAi1
+         dGrA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=fWESgv5Ax7NlX2MS9AZKr5q0he5LnGRuFN5v9jVkCtk=;
-        b=MDdyl2VbsQJW2Hfl2ZaWhoCi4ujvSmOTEDwistWkpMASesm955tP7TW0tUjm1qCDbJ
-         JltHlAwiGWT5htCb431KxRYUfLVce8Yk2BkIm6HwR+LRfMHvydAeKeX9qLfxDBVngmwQ
-         4e2srmYoVBGJucYxNqx11zE6S30Xwr2ZLMgAK8oytoiO+38bZfSdhTBrjLu9vH22mYTX
-         iabIjTLe60Lt2Z/oS91wYKk5k4GpZvBqnbsdEWY/rGrDbvDolgtHYqeZ3KJnSek+caM8
-         VHJVxNtFhIxo3SbAYmFVegiNhJ3bru0g4i9pn9A+v4wpD982+SvmfRQsKmmQ4qUDtyEe
-         rw1Q==
-X-Gm-Message-State: AFqh2kpHODFR1FaidRbTUIVQd93Nko48TIuMAqm+bcxr1SOPJ8QRk9pz
-        ozEbdAxezdfHKqZAn/vjLA9fC9aTDf0=
-X-Google-Smtp-Source: AMrXdXu9SwtSb3YYLQvEc3qsuam3GFNkywggR6BA20L9AKgZXG3ACIxs7Nu7yVWNwli8GNWq55FA/A==
-X-Received: by 2002:a05:600c:3c86:b0:3da:2a59:8a4f with SMTP id bg6-20020a05600c3c8600b003da2a598a4fmr21578030wmb.38.1674418081012;
-        Sun, 22 Jan 2023 12:08:01 -0800 (PST)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id p7-20020a05600c468700b003a3442f1229sm9292061wmo.29.2023.01.22.12.08.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 22 Jan 2023 12:08:00 -0800 (PST)
-Message-ID: <fc20e87a-bb2e-3821-ea0f-40d923163cdd@gmail.com>
-Date:   Sun, 22 Jan 2023 21:07:49 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-Subject: Re: Issue in man page motd.5
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=z7AO8N21hHkT2SPnug7NzPW+lRZYL63SffX1ZarZY5U=;
+        b=Y87bDaM3dad+8E8YD/hz7qZC7vbX0DHeA0o2EcZfudHWgEqV/HS9Y51gvyujCpopiz
+         qQwLhKmDsyfqvHME9YZ1cua7mh5hFWtxG+E9v0GG1iuatKgSDK5QU7x5ithiZK8Y8x0f
+         r9NBTUObTeVC6M9DLMlYcdoaeLKmH+XoBJ6HAnQCQ7mY5GXkqkjLA1rvV8HXyJXWkkJj
+         aWalUR5MxhocPnl9SXVMy/LWIJswF5pUnEJUUXYp6oXdoCAybgq/CKihBy/BGjIgHN07
+         YpBeuI7dwFt2cwvYCPZiO76rWOnDJAPcEK7HBHZ9rFqwJsQZI0xNAw8Pq5BE6GRTNNXD
+         aU1Q==
+X-Gm-Message-State: AFqh2kpIiYbMFKdrQObb+uD3yjL7ecB8QkDr4CAPm4ZBl7hRNVk+kjDI
+        tvwUPJYoCTZhoDL4flMIJpc=
+X-Google-Smtp-Source: AMrXdXuzBJ3oPlHczjHwAlY+8jV+8jhlBOf6Ow6ERBNIFomVbLN9vvvDJuXUZKkzK13yaZM4XRAnEg==
+X-Received: by 2002:a05:6808:319:b0:35b:d787:d6e7 with SMTP id i25-20020a056808031900b0035bd787d6e7mr20884535oie.47.1674418126610;
+        Sun, 22 Jan 2023 12:08:46 -0800 (PST)
+Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
+        by smtp.gmail.com with ESMTPSA id q33-20020a056830442100b00684cbd8dd49sm15518803otv.79.2023.01.22.12.08.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 22 Jan 2023 12:08:46 -0800 (PST)
+Date:   Sun, 22 Jan 2023 14:08:44 -0600
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
 To:     Helge Kreutzmann <debian@helgefjell.de>
-Cc:     mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-References: <20230122193124.GA28740@Debian-50-lenny-64-minimal>
-Content-Language: en-US
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20230122193124.GA28740@Debian-50-lenny-64-minimal>
+Cc:     alx.manpages@gmail.com, mario.blaettermann@gmail.com,
+        linux-man@vger.kernel.org
+Subject: Re: Issue in man page session-keyring.7
+Message-ID: <20230122200844.au2yezkhalgk44n7@illithid>
+References: <20230122193129.GA29087@Debian-50-lenny-64-minimal>
+MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------YdrfiVFcToVEm6tPgASsJs0s"
-X-Spam-Status: No, score=-3.2 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+        protocol="application/pgp-signature"; boundary="d6nlamsobal22chq"
+Content-Disposition: inline
+In-Reply-To: <20230122193129.GA29087@Debian-50-lenny-64-minimal>
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -74,62 +71,54 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------YdrfiVFcToVEm6tPgASsJs0s
-Content-Type: multipart/mixed; boundary="------------0wI0ILMDnuLk2uYYsoAC5W7Y";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Helge Kreutzmann <debian@helgefjell.de>
-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Message-ID: <fc20e87a-bb2e-3821-ea0f-40d923163cdd@gmail.com>
-Subject: Re: Issue in man page motd.5
-References: <20230122193124.GA28740@Debian-50-lenny-64-minimal>
-In-Reply-To: <20230122193124.GA28740@Debian-50-lenny-64-minimal>
 
---------------0wI0ILMDnuLk2uYYsoAC5W7Y
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+--d6nlamsobal22chq
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-SGkgSGVsZ2UsDQoNCk9uIDEvMjIvMjMgMjA6MzEsIEhlbGdlIEtyZXV0em1hbm4gd3JvdGU6
-DQo+IFdpdGhvdXQgZnVydGhlciBhZG8sIHRoZSBmb2xsb3dpbmcgd2FzIGZvdW5kOg0KPiAN
-Cj4gSXNzdWU6ICAgIEI8cGFtX21vdGQ+KDgpICBCPGxvZ2luPigxKSDihpIgQjxwYW1fbW90
-ZD4oOCkgZnJvbSBCPGxvZ2luPigxKQ0KDQpTb3JyeSwgSSBjYW4ndCByZXByb2R1Y2UuICBU
-aGUgY3VycmVudCB1cHN0cmVhbSBtYW51YWwgcGFnZSBoYXMgdGhlIGZvbGxvd2luZyANCnRl
-eHQgKGlnbm9yaW5nIGZvcm1hdHRpbmcpOg0KDQoNCkRFU0NSSVBUSU9ODQogICAgICAgIFRo
-ZSAgY29udGVudHMgb2YgL2V0Yy9tb3RkIGFyZSBkaXNwbGF5ZWQgYnkgbG9naW4oMSkgYWZ0
-ZXIgYSBzdWNjZXNzZnVsDQogICAgICAgIGxvZ2luIGJ1dCBqdXN0IGJlZm9yZSBpdCBleGVj
-dXRlcyB0aGUgbG9naW4gc2hlbGwuDQoNCiAgICAgICAgVGhlIGFiYnJldmlhdGlvbiAibW90
-ZCIgc3RhbmRzIGZvciAibWVzc2FnZSBvZiB0aGUgZGF5IiwgYW5kIHRoaXMgIGZpbGUNCiAg
-ICAgICAgaGFzICBiZWVuICB0cmFkaXRpb25hbGx5ICB1c2VkICBmb3IgZXhhY3RseSB0aGF0
-IChpdCByZXF1aXJlcyBtdWNoIGxlc3MNCiAgICAgICAgZGlzayBzcGFjZSB0aGFuIG1haWwg
-dG8gYWxsIHVzZXJzKS4NCg0KDQo+IA0KPiAiVGhlIGNvbnRlbnRzIG9mIEk8L2V0Yy9tb3Rk
-PiBhcmUgZGlzcGxheWVkIGJ5IEI8cGFtX21vdGQ+KDgpICBCPGxvZ2luPigxKSINCj4gImFm
-dGVyIGEgc3VjY2Vzc2Z1bCBsb2dpbiBidXQganVzdCBiZWZvcmUgaXQgZXhlY3V0ZXMgdGhl
-IGxvZ2luIHNoZWxsLiINCg0KQ2hlZXJzLA0KDQpBbGV4DQoNCi0tIA0KPGh0dHA6Ly93d3cu
-YWxlamFuZHJvLWNvbG9tYXIuZXMvPg0K
+Hi Helge,
 
---------------0wI0ILMDnuLk2uYYsoAC5W7Y--
+At 2023-01-22T20:31:30+0100, Helge Kreutzmann wrote:
+> Without further ado, the following was found:
+>=20
+> Issue:    What does "under others" mean? Is this a special hook? Or does =
+this mean "amongst other actions done by this command"?
+>=20
+> "If a process doesn't have a session keyring when it is accessed, then, u=
+nder "
+> "certain circumstances, the B<user-session-keyring>(7)  will be attached =
+as "
+> "the session keyring and under others a new session keyring will be creat=
+ed.  "
+> "(See B<user-session-keyring>(7)  for further details.)"
 
---------------YdrfiVFcToVEm6tPgASsJs0s
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+It seems idiomatic to me.
+
+Under certain circumstances, I wake up in the morning.
+Under others [other circumstances], I awaken after noon.
+
+Regards,
+Branden
+
+--d6nlamsobal22chq
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmPNl5UACgkQnowa+77/
-2zIJCQ/+Pq0xjFkL01QQxlgtmL2Hxi4dCm+u5yrNr1eENm19qZFaRds/uVLeueZf
-CGdtLAujdtZjM2sL3NqqDEYtOuE8UcwRhXv/gxBAJn1SM9EkkSy1c73kCImwbaS2
-/dIBQJv3+waO3ur1u9av5WECMvCN2cXk8ASCNT9iNUp1zL2OmSowYQlIeVx+kYdc
-SWPZYZxcTrZWB/bUH4yJK5nfb2S6BPgmzGH9zKS1C5Oq1l3PNuc/dyDpvVW40JR7
-5mWTM9tZCixfRjUkKPVKw9aF+7mM2/m+dVosT3dMN35Gq3hLb1XM/NZvKhztKV5a
-6pUsmzKZCmBvBlbyDGRTxr5Yrb/nZ98MhOCwP8r/RAZnid97azRJDDaDtcfnkrNR
-ulM+CIrXEvpvh/gkNehJ4ev24t6Ir2KPPUiZ4T5r3GQwNOBXLUddM5LFGvtCKZiK
-9hjhd46L6YjnsXgrJGRh6GvGVdeAOLz7koiXaO7gqB10dvP+tvlokKOJF+Zbvsgf
-4xihjtDAw0Bm7uzmMp+shfeBs0+jupIphtOvZqjDc+T8YS7D41CWukmLz6O1NrkE
-oxo4BddZY2yL0hVwWZ254/QWqphS8tUw0tLK2mVAF0c+KZExhYXGVUfDN4GaBXy4
-0SfUohi928tbqc3mhJjtxXwjb0aEkwPER+xL6LEWFaqdeh72SSs=
-=ctiE
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmPNl8wACgkQ0Z6cfXEm
+bc5kNQ//YegYSqZjySVbaot9F5hsEJ8p9PEefQGpjZZniIjEAifZaCFSIUOf87fI
+1OCCtaRM44SPbUJGoQTsSWZQkOynRx+fsKW7IGEXL5ciEWE66MI/Jiabi8jbl2/V
+qNON49BHkKWOJfteTYJ68fN3IYfKfqOLWZM6FIJ3smF2MZU3YC2dyBshYtvmWyap
+xmMFl+McQBM3R7PxIQEzE8StSrUWspFF/j9LNRcKBmx/WSyzBD/M75lXqn3Bw1eZ
+NNumB/FzVs2YAlzylZvGbXoKLtRkEdAVXsvNdUP1uB5EPu+CNMHGURjVwjPiqd7a
+BhuFk76uliftRXjN/5ZJkltzUEI4q4QV2HPwxgX9qdcOBh8KVhNOCocd+xnCzoYY
+us57JUB92r1FZcJhyM5ApDjqZohF2stYn4H6/4xqZQz70hhLj4OjYX35Apf+yNmo
+LMNL/zcXn6egG3Zd1+3flK2V5eeeVR2a+kXKbruYhy9WVwcQw6+DLqW2e/oEP/im
+iTvgduY9oqjqVlvzt//6UQzazc3o3kF2HLfxiErt/86Ke7Hi5WpJrDTrhUkz6HRa
+rsRJKNs3NV5rYneh0tKe/nEcqvqsh0lsvULpZGDQzvMU/zQkrCrr6lQ7B8/1JAyg
+SCGY1JJwJEGpySRy1Yn5hWVB0ewYwcerB7NOdwy8GW2k2/l0yYk=
+=lxt/
 -----END PGP SIGNATURE-----
 
---------------YdrfiVFcToVEm6tPgASsJs0s--
+--d6nlamsobal22chq--
