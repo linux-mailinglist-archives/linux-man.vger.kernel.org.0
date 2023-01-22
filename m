@@ -2,71 +2,43 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 687C76772D7
-	for <lists+linux-man@lfdr.de>; Sun, 22 Jan 2023 22:43:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 3B23D677308
+	for <lists+linux-man@lfdr.de>; Sun, 22 Jan 2023 23:49:29 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230150AbjAVVm6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 22 Jan 2023 16:42:58 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34874 "EHLO
+        id S230007AbjAVWt1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 22 Jan 2023 17:49:27 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44670 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230014AbjAVVm6 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 22 Jan 2023 16:42:58 -0500
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com [IPv6:2a00:1450:4864:20::336])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1A6F217CF7
-        for <linux-man@vger.kernel.org>; Sun, 22 Jan 2023 13:42:57 -0800 (PST)
-Received: by mail-wm1-x336.google.com with SMTP id m15so7696106wms.4
-        for <linux-man@vger.kernel.org>; Sun, 22 Jan 2023 13:42:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=QILhUXb0xKoh1Y42T2lAGuJxYwU/o9xBfdQKoHE+MXo=;
-        b=S7777ct4qJfcYGx5B2Zgky+D1CsGbbPMz1Kkx5zgRji+ggOZers/boMc9d9Ya29Afn
-         pDOV+BAGlm2MB27OUAnDLkIea6K8MVicnhHRedrpRIhRt0Hh1ttpkmftG5r/BRcOCrun
-         CWhXQJtWlx0P9iwZaKEc/JlhwTG2KJZz8jU0PGJLO4Qhc/s5nnclI0zzoix1C6bB/4Tl
-         6GVRJcdkyAn2SKwuHLrt3cM3zDjyF4uFUzfbTZpDgGpCGziBydq0PjvqCEwKJoKhb3rP
-         VyuP6dZStjJEzxFMAIdDzEnacexik2MfCaiw+bn78B+/4VmJDPx3MkMZC5Y+21yyFixf
-         VCpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=QILhUXb0xKoh1Y42T2lAGuJxYwU/o9xBfdQKoHE+MXo=;
-        b=g0BMbiJR5x96aUdDyrwfUHizbT9m31s5tPrjJmLU33tDUnYMxgGYdHBnvX0+iw5cPu
-         0sGF0hwDin3ge8eVbOUlU0CN5y3aJkJ8b9Sny7OaG7Ssq2tqHcFVUGxp1xs91ilUVN9a
-         pOSqMuCUm1HmDPfZ5jvQs8NfAoe4AQrG+nTr8p4joEa3LgzXYA4ZC69vtNw0Ws/AtFfT
-         SllJL0iSoiXgODzMLnaT2G+JiI19gyZs9VoYZ+zEKezDLTmCUEuzmv5EGWIO6PUhJ/fi
-         Sqdg3trgMrHReCpaASJWLja4Sty1e/C8HELnfkjinkkBZhtNpiviKQF94YM2c+H+vsKq
-         Wnfg==
-X-Gm-Message-State: AFqh2krUdnQvRkk/n9K0/g3MtpbBe+Xpdzy/zSByWn+NEEeFvcP1O71u
-        6VNtK3W30h8LGoIj492EvX4gYbsSNeQ=
-X-Google-Smtp-Source: AMrXdXtvom3Nolx9xSppY/pNX5bvABfybiPRbEoUA9AUetGzzTo0CySLj28xB2zzJoLNRjG/kDtdRg==
-X-Received: by 2002:a05:600c:4fcb:b0:3db:1919:41b5 with SMTP id o11-20020a05600c4fcb00b003db191941b5mr15792514wmq.21.1674423775693;
-        Sun, 22 Jan 2023 13:42:55 -0800 (PST)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id p7-20020a05600c468700b003db0bb81b6asm9430868wmo.1.2023.01.22.13.42.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 22 Jan 2023 13:42:55 -0800 (PST)
-Message-ID: <1d345ae5-88fe-bf2c-2f45-a7179a4b74ba@gmail.com>
-Date:   Sun, 22 Jan 2023 22:42:54 +0100
+        with ESMTP id S230002AbjAVWt0 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 22 Jan 2023 17:49:26 -0500
+Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net [217.70.183.199])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5F4931714E;
+        Sun, 22 Jan 2023 14:49:24 -0800 (PST)
+Received: (Authenticated sender: schoen@loyalty.org)
+        by mail.gandi.net (Postfix) with ESMTPSA id 00B41FF803;
+        Sun, 22 Jan 2023 22:49:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=loyalty.org; s=gm1;
+        t=1674427763;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type;
+        bh=cV2qhPqki74Px+vTRxaDMKbdo3dSKb5l5S7PACpgtjo=;
+        b=MAQEOBqKAEZOB8oKJ8IkCD5KGI+MhnFb2Eda7XLRQGXJjPLeBOl6Xsr5Cbu4qzwLhwh+yK
+        o4wma26Ybfrki5z/pR0zJXL8K+v62j8An9Ayak4PoKlJXK1ffehCnvIVgTiQ//FyMsLcLR
+        GQ9eQCS82+pGS68LNWBWUE7kearxJh8zUu47655zPkypa5v7wTSzVakuT4n/uKG36BZmMW
+        QNc3/yfXnbeechot/ld+NiZxTHD9Ga4UdxJWj2mLsNuhi7arpueHccXw/ZQLUqgJqUNR0T
+        oG5fLptR6mkZslKLZViSJHxjMk4F/iBwiPaH4S8xmW74L+JeN7qBGbu56sbobw==
+Date:   Sun, 22 Jan 2023 14:49:18 -0800
+From:   Seth David Schoen <schoen@loyalty.org>
+To:     linux-man@vger.kernel.org
+Cc:     netdev@vger.kernel.org
+Subject: [PATCH v4] ip.7: Add Special and Reserved IP Addresses section
+Message-ID: <20230122224918.GA373019@demorgan>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-Subject: Re:
-Content-Language: en-US
-To:     Helge Kreutzmann <debian@helgefjell.de>
-Cc:     mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-References: <20230122193117.GA28689@Debian-50-lenny-64-minimal>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20230122193117.GA28689@Debian-50-lenny-64-minimal>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------1m0kQThWHypTZ3zOR131pVF3"
-X-Spam-Status: No, score=-3.2 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Spam-Status: No, score=-2.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,
+        RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -74,49 +46,94 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------1m0kQThWHypTZ3zOR131pVF3
-Content-Type: multipart/mixed; boundary="------------k0pL1mSjlNvmudYIeXBvF2QG";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Helge Kreutzmann <debian@helgefjell.de>
-Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Message-ID: <1d345ae5-88fe-bf2c-2f45-a7179a4b74ba@gmail.com>
-Subject: Re:
-References: <20230122193117.GA28689@Debian-50-lenny-64-minimal>
-In-Reply-To: <20230122193117.GA28689@Debian-50-lenny-64-minimal>
+Break out the discussion of special and reserved IPv4 addresses
+into a subsection, and briefly describe three cases in which
+Linux no longer treats addresses specially, where other systems
+do or did.
 
---------------k0pL1mSjlNvmudYIeXBvF2QG
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+The divergences in Linux's behavior mentioned in this patch were
+introduced at
 
-SGkgSGVsZ2UsDQoNCk9uIDEvMjIvMjMgMjA6MzEsIEhlbGdlIEtyZXV0em1hbm4gd3JvdGU6
-DQo+IFdpdGhvdXQgZnVydGhlciBhZG8sIHRoZSBmb2xsb3dpbmcgd2FzIGZvdW5kOg0KDQpF
-bXB0eSByZXBvcnQuICBBbiBhY2NpZGVudD8gOikNCg0KQ2hlZXJzLA0KDQpBbGV4DQo+IA0K
-DQotLSANCjxodHRwOi8vd3d3LmFsZWphbmRyby1jb2xvbWFyLmVzLz4NCg==
+unicast 240/4 (since 2.6.25):
+  commit 1e637c74b0f84eaca02b914c0b8c6f67276e9697
+  Author: Jan Engelhardt <jengelh@computergmbh.de>
+  Date:   Mon Jan 21 03:18:08 2008 -0800
 
---------------k0pL1mSjlNvmudYIeXBvF2QG--
+unicast 0/8 (since 5.3):
+  commit 96125bf9985a75db00496dd2bc9249b777d2b19b
+  Author: Dave Taht <dave.taht@gmail.com>
+  Date:   Sat Jun 22 10:07:34 2019 -0700
 
---------------1m0kQThWHypTZ3zOR131pVF3
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+unicast subnet lowest address (since 5.14):
+  commit 58fee5fc83658aaacf60246aeab738946a9ba516
+  Merge: 77091933e453 6101ca0384e3
+  Author: David S. Miller <davem@davemloft.net>
+  Date:   Mon May 17 13:47:58 2021 -0700
 
------BEGIN PGP SIGNATURE-----
+Signed-off-by: Seth David Schoen <schoen@loyalty.org>
+Suggested-by: John Gilmore <gnu@toad.com>
+---
+ man7/ip.7 | 38 +++++++++++++++++++++++++++++++++++---
+ 1 file changed, 35 insertions(+), 3 deletions(-)
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmPNrd4ACgkQnowa+77/
-2zJKsw/+LyiUG8NDbW/gurKPI23EoBDJmOsAsSI6lX5kOKX0WUFRP84lv2eamSK8
-0PXhG8jsq4GOcq4yhSwwUl6qx0nSurkgf8ErqYCmvg2fTB8LdVfNcD3antqwtNG6
-VSgvGamrUTUozKJZXL8gm8sAHEN0gHhj2s30aVtoJwws5Tew0HeGd4B7eq/GFGBz
-7fsSEsuOrLx6rdUw0EYIup2YkXgmxXBKbn+9pNyIQZ5E6g5W4k03LGndm1OyA2vn
-q/IQ8sVNPA8aWQ129PSIhCZP42Ntz+IZMamcar9OAmWuWIuFNt/SSVn3ZddKfLyy
-ok8f6YUh/wHpatmsZC6Uj30oE6Unvg6lDKhXNK9BC7O7/abrpeThwNG3vY4GRbap
-PZ0L28OVADzXSIY09BICPXHuhFvLRN/o2vUIID3kG8LwEMVtSpXIT7RwHp0w+yhM
-z/n5ptSD1TEgFwmJBh7D2ia9R8fUurbRyTc8pa2hJLAocydUDA790Sa3iEnlJEgT
-66Vza7+3sYfgLDxQJkH0l5QFHGXKkOzxMbz47ej7J2FNGncUTBpOBfspc5hD2/CV
-Pzr83oWGB05Pyr4wz550eGyqcf1CPT7sxXTsrPxq1Y2wEbwA4NfGNfGH4ZMfMkYs
-CwTw3IKFPK4xCJhdwwt6k6lNCRxE4nDav0BXX2F0pikMVq23dbQ=
-=kles
------END PGP SIGNATURE-----
-
---------------1m0kQThWHypTZ3zOR131pVF3--
+diff --git a/man7/ip.7 b/man7/ip.7
+index f69af1b32..94de21979 100644
+--- a/man7/ip.7
++++ b/man7/ip.7
+@@ -237,6 +237,7 @@ In particular, this means that you need to call
+ on the number that is assigned to a port.
+ All address/port manipulation
+ functions in the standard library work in network byte order.
++.SS Special and reserved addresses
+ .PP
+ There are several special addresses:
+ .B INADDR_LOOPBACK
+@@ -244,12 +245,43 @@ There are several special addresses:
+ always refers to the local host via the loopback device;
+ .B INADDR_ANY
+ (0.0.0.0)
+-means any address for binding;
++means any address for socket binding;
+ .B INADDR_BROADCAST
+ (255.255.255.255)
+-means any host and has the same effect on bind as
++has the same effect on socket binding as
+ .B INADDR_ANY
+-for historical reasons.
++for historical reasons. A packet addressed to
++.B INADDR_BROADCAST
++through a socket which has
++.B SO_BROADCAST
++set will be broadcast to all hosts on the local network segment, as
++long as the link is broadcast-capable.
++.PP
++On any locally-attached IP subnet with a link type that supports
++broadcasts, the highest-numbered address (e.g., the .255 address on a
++subnet with netmask 255.255.255.0) is designated as a broadcast address.
++This "broadcast address" cannot usefully be assigned to an interface, and
++can only be addressed with a socket on which the
++.B SO_BROADCAST
++option has been set.
++Internet standards have historically also reserved the lowest-numbered
++address (e.g., the .0 address on a subnet with netmask 255.255.255.0)
++for broadcast, though they call it "obsolete" for this purpose.  Since
++Linux 5.14, it is treated as an ordinary unicast address.
++.PP
++Internet standards have also traditionally reserved various addresses
++for particular uses, though Linux no longer treats some of these
++specially. Addresses in the ranges 0.0.0.1 through 0.255.255.255 and
++240.0.0.0 through 255.255.255.254 (0/8 and 240/4) are reserved globally.
++Since Linux 5.3 and Linux 2.6.245, respectively, the 0/8 and 240/4
++addresses are treated as ordinary unicast addresses. Systems that follow
++the traditional behaviors may not interoperate with these historically
++reserved addresses.
++.PP
++All addresses from 127.0.0.1 through 127.255.255.254
++are treated as loopback addresses akin to the standardized
++local loopback address 127.0.0.1, while addresses in 224.0.0.0 through
++239.255.255.255 (224/4) are dedicated to multicast use.
+ .SS Socket options
+ IP supports some protocol-specific socket options that can be set with
+ .BR setsockopt (2)
+-- 
+2.25.1
