@@ -2,62 +2,68 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 045F66775BE
-	for <lists+linux-man@lfdr.de>; Mon, 23 Jan 2023 08:41:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 256786776A0
+	for <lists+linux-man@lfdr.de>; Mon, 23 Jan 2023 09:46:03 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230023AbjAWHlJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 23 Jan 2023 02:41:09 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35554 "EHLO
+        id S231570AbjAWIqC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 23 Jan 2023 03:46:02 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36234 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229549AbjAWHlI (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 23 Jan 2023 02:41:08 -0500
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com [IPv6:2a00:1450:4864:20::636])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F08CD7AA6
-        for <linux-man@vger.kernel.org>; Sun, 22 Jan 2023 23:41:06 -0800 (PST)
-Received: by mail-ej1-x636.google.com with SMTP id bk15so28061307ejb.9
-        for <linux-man@vger.kernel.org>; Sun, 22 Jan 2023 23:41:06 -0800 (PST)
+        with ESMTP id S230122AbjAWIp7 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 23 Jan 2023 03:45:59 -0500
+Received: from mail-oa1-x2b.google.com (mail-oa1-x2b.google.com [IPv6:2001:4860:4864:20::2b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C0AEA193E1
+        for <linux-man@vger.kernel.org>; Mon, 23 Jan 2023 00:45:58 -0800 (PST)
+Received: by mail-oa1-x2b.google.com with SMTP id 586e51a60fabf-15ff0a1f735so4970168fac.5
+        for <linux-man@vger.kernel.org>; Mon, 23 Jan 2023 00:45:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=j6whu3VaAOHrIT3vygPRqMwjbob4XsZ9l8PAHsFl4uc=;
-        b=foQwRnU83HiiFVd+2ryI/5oXrVC8NidMqPHqnqTA/Ywc1x95Xh4qU8OZE3p1gxb5Ed
-         S4qSYpXN8ut+Xz+ZDE7fDat453qCBYnhm5Me726+86Se7UOCDJ2RcLhUuws78vCnKJzF
-         Kkbd57dBx8770Tc2obJfDDPLMgDNV3FzlH0ELKFF0whTdos1e5kLOkKuG2Lsxaoakiil
-         cw/EvTiVpOiDc1Fn8Dh65KC35ka4bRC+Sd32Wjk4cpJSoJtRiW241TGmQNFW7xe45yD2
-         9WsfWYbSQWLfQDn8IADs6qHkOzENU9ob7RRedMhrWYcZiW0al3UDqtsdT6v3CpLwlIL1
-         dW5Q==
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=vf8BuZ+vSCrPRBHM1q/5zSEDhZjYCGNODDi+BvW15JQ=;
+        b=GrE0VsFHW/H2BYQE+1IvXgm8pmLTl4i8z1l/JFvnPbEm00YbyrqrCtO+4Fz7kiDXWL
+         pqXfQmGYy7cw5qVhMyQq0Y1Ww18PnVk48emmBEftMzqVra87bZb4Mw7qbG4WrrgedfBe
+         8Y22n0TF+sLfYoRA67ehlcS7C+1PIVcbxG3vZdCYyd5UMCW/b7i8oBqQJvzNeG3rT40h
+         tCUWTOlwSrU+RQVa3eMYe2EguBww201ML1L0CVgFwh6+FeC8K/e8bHJxivWBY1fkd126
+         zROC6X5siqGkchd6Wm1Y+ss5mTSbVeN9aObLi3XYjgFskvSXLe38iVjJFr3dpZTDPyQs
+         3OmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=j6whu3VaAOHrIT3vygPRqMwjbob4XsZ9l8PAHsFl4uc=;
-        b=BhL4ND/Qqu1JHbO5/jc2g/VoBvz8c3cxyXAkZx2SGUHZpCKxZxpY8MsGaaPnmFtf52
-         O8ZN2qvXR8tP0zN4ererGFKkU1L+KlDxIuCB5zMgF+dass/audEB/bmbwpnKw8D9XhNd
-         b5AtIlCAjsUDnsVB7o8NfMCUIQugfw6/TbW7XvVCzJZWoEPUtKLJ8P3eKBZQr4MUfnCU
-         Xvrx7sFrYFi4e9LBvI4PoL7UaFtESiiDKqYVHTiIdsQ7rSgWkqe+zgCVG7CWydf+FVv2
-         swuZDH8pDxjX+dUkXv28S+Bn47FsFT4wYrc9UQP26i3oX23fBuElESbICNJ6WUfBUKjN
-         6GbQ==
-X-Gm-Message-State: AFqh2krjZA3GJO2J/Wo/b4QRv6iMcJV1xYWuXQUYm82pWcTzCe5cWRGz
-        MTgw+wXq+xJteeufmBBwLdPOlQs7LC/TRqH35Ht7v41z
-X-Google-Smtp-Source: AMrXdXvoaVZIIuqnXwfYcnxqJMPWTyKguzsAp4OW7e1Ldj33f8RX2V3WEwZvzcb9rSxw7+evzWP+KUSCe6jcTXDpazI=
-X-Received: by 2002:a17:906:cc11:b0:877:61e9:80ad with SMTP id
- ml17-20020a170906cc1100b0087761e980admr2050349ejb.495.1674459665274; Sun, 22
- Jan 2023 23:41:05 -0800 (PST)
-MIME-Version: 1.0
-References: <ab492040-2058-bcbe-c920-a9088a20f071@gmail.com>
- <CACKs7VAXOXLw5Zm0wqVt8dDwam_=w8aeAu5wNpXcTRSqObimyQ@mail.gmail.com> <61bbb556-ff9b-ebdc-5566-bc1ae533c0aa@gmail.com>
-In-Reply-To: <61bbb556-ff9b-ebdc-5566-bc1ae533c0aa@gmail.com>
-From:   Stefan Puiu <stefan.puiu@gmail.com>
-Date:   Mon, 23 Jan 2023 09:40:57 +0200
-Message-ID: <CACKs7VDGAaSXkjeuBdvEkFbFJ_OnwObTf1_9eVb44RJf-O3Fwg@mail.gmail.com>
-Subject: Re: struct sockaddr_storage
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=vf8BuZ+vSCrPRBHM1q/5zSEDhZjYCGNODDi+BvW15JQ=;
+        b=MYqW0kBncIoIsK0/QwCmAVgnUXqJVxWGClLrQgbU7vVF9CyDpJSWfoln+mlczuOry0
+         BvEmESU49MD/TVyR4bYyauoaQZh9GH6yTqzKTk8ar0p3AJmr4ED80ApyIrOojMu/6VOl
+         KYwt1TXu8q60zUVWudarB4E86j6IfRBTUhppStvVx3zXme8Lrvmi4O7/LspXd8vwEjuL
+         F0rWw1goCVlZPSGTS0zQ75+917Tu56Kv+0y+PapcTGLj5+pm4ny4lGgz4FuP7lTspzVy
+         9m/sh4tefthd5xST/JGyNtedsk/t4xB8ynSuNDbADYMMfd4ENNsvpcrQGw7PjL5etqDS
+         SLsA==
+X-Gm-Message-State: AFqh2kpGn6JZzM59fuPOvgmujMGF6HgenZe0VFAR2CdwF6oNcbErDbMd
+        0ObvoUxXHg6PtLWuFdYTFeP25TdeC2c=
+X-Google-Smtp-Source: AMrXdXto2Mlc+ityG14gjtE9bNeU8hVFi8fRqzGMdC13gAzyU4zZudVMSATXAeNtoMZmsWQKDbJsBQ==
+X-Received: by 2002:a05:6870:3b8e:b0:15f:32b:6e3d with SMTP id gi14-20020a0568703b8e00b0015f032b6e3dmr11803094oab.54.1674463558015;
+        Mon, 23 Jan 2023 00:45:58 -0800 (PST)
+Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
+        by smtp.gmail.com with ESMTPSA id g18-20020a056870a71200b001428eb454e9sm25458604oam.13.2023.01.23.00.45.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Jan 2023 00:45:57 -0800 (PST)
+Date:   Mon, 23 Jan 2023 02:45:55 -0600
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
 To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     GNU C Library <libc-alpha@sourceware.org>,
-        linux-man <linux-man@vger.kernel.org>, gcc@gcc.gnu.org,
-        Igor Sysoev <igor@sysoev.ru>
-Content-Type: text/plain; charset="UTF-8"
+Cc:     Helge Kreutzmann <debian@helgefjell.de>,
+        mario.blaettermann@gmail.com, linux-man@vger.kernel.org
+Subject: Re: Issue in man page namespaces.7
+Message-ID: <20230123084555.5oqiuzabsjpv2yas@illithid>
+References: <20230122193125.GA28843@Debian-50-lenny-64-minimal>
+ <21a40d27-e732-fb70-edc7-c18af8a59ed1@gmail.com>
+ <20230122210207.w25k5br5idyna3c2@illithid>
+ <9a08e09f-6ecd-3e53-6d5f-613fdd720a7d@gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+        protocol="application/pgp-signature"; boundary="bz7upqo6yc7n6qcm"
+Content-Disposition: inline
+In-Reply-To: <9a08e09f-6ecd-3e53-6d5f-613fdd720a7d@gmail.com>
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
@@ -68,212 +74,86 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+
+--bz7upqo6yc7n6qcm
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
 Hi Alex,
 
-On Fri, Jan 20, 2023 at 2:40 PM Alejandro Colomar
-<alx.manpages@gmail.com> wrote:
->
-> Hi Stefan,
->
-> On 1/20/23 11:06, Stefan Puiu wrote:
-> > Hi Alex,
-> >
-> > On Thu, Jan 19, 2023 at 4:14 PM Alejandro Colomar
-> > <alx.manpages@gmail.com> wrote:
-> >>
-> >> Hi!
-> >>
-> >> I just received a report about struct sockaddr_storage in the man pages.  It
-> >> reminded me of some concern I've always had about it: it doesn't seem to be a
-> >> usable type.
-> >>
-> >> It has some alignment promises that make it "just work" most of the time, but
-> >> it's still a UB mine, according to ISO C.
-> >>
-> >> According to strict aliasing rules, if you declare a variable of type 'struct
-> >> sockaddr_storage', that's what you get, and trying to access it later as some
-> >> other sockaddr_8 is simply not legal.  The compiler may assume those accesses
-> >> can't happen, and optimize as it pleases.
-> >
-> > Can you detail the "is not legal" part?
->
-> I mean that it's Undefined Behavior contraband.
+At 2023-01-22T22:11:06+0100, Alejandro Colomar wrote:
+> On 1/22/23 22:02, G. Branden Robinson wrote:
+> > I would use \fP instead of \fR, this way you return to the
+> > "previous"
+>=20
+> Ahh, yes, thanks for catching that!  Sleeping 3 hours is definitely
+> not good for the brain :P
 
-OK, next question. Is this theoretical or practical UB? People check
-documentation about how to write code today, I think.
+Certainly not.  Good self-care keeps the engineer's brain supple.  :)
 
->
-> > How about the APIs like
-> > connect() etc that use pointers to struct sockaddr, where the
-> > underlying type is different, why would that be legal while using
-> > sockaddr_storage isn't?
->
-> That's also bad.  However, it can be fixed by fixing `sockaddr_storage` and
-> telling everyone to use it instead of using whatever other `sockaddr_*`.  You
-> need a union for the underlying storage, so that the library functions can
-> access both as `sockaddr` and as `sockaddr_*`.
->
-> The problem isn't really in the implementation of connect(2), but on the type.
-> The implementation of connect(2) would be fine if we just fixed the type.  See
-> some example:
->
-> struct my_sockaddr_storage {
->         union {
->                 sa_family_t          ss_family;
->                 struct sockaddr      sa;
->                 struct sockaddr_in   sin;
->                 struct sockaddr_in6  sin6;
->                 struct sockaddr_un   sun;
->         };
-> };
->
->
-> void
-> foo(foo)
-> {
->         struct my_sockaddr_storage  mss;
->         struct sockaddr_storage     ss;
->
->         // initialize mss and ss
->
->         inet_sockaddr2str(&mss.sa);  // correct
->         inet_sockaddr2str((struct sockaddr_storage *)&ss);  // UB
-> }
->
-> /* This function is correct, as far as the accessed object has the
->   * type we're using.  That's only possible through a `union`, since
->   * we're accessing it with 2 different types: `sockaddr` for the
->   * `sa_family` and then the appropriate subtype for the address
->   * itself.
->   */
-> const char *
-> inet_sockaddr2str(const struct sockaddr *sa)
-> {
->         struct sockaddr_in   *sin;
->         struct sockaddr_in6  *sin6;
->
->         static char          buf[INET_ADDRSTRLENMAX];
->
->         switch (sa->sa_family) {
->         case AF_INET:
->                 sin = (struct sockaddr_in *) sa;
->                 inet_ntop(AF_INET, &sin->sin_addr, buf, NITEMS(buf));
->                 return buf;
->         case AF_INET6:
->                 sin6 = (struct sockaddr_in6 *) sa;
->                 inet_ntop(AF_INET6, &sin6->sin6_addr, buf, NITEMS(buf));
->                 return buf;
->         default:
->                 errno = EAFNOSUPPORT;
->                 return NULL;
->         }
-> }
->
->
-> BTW, you need a union _even if_ you only care about a single address family.
-> That is, if you only care about Unix sockets, you can't declare your variable of
-> type sockaddr_un, because the libc functions and syscalls still need to access
-> it as a sockaddr to see which family it has.
->
-> > Will code break in practice?
->
-> Well, it depends on how much compilers advance.  Here's some interesting experiment:
->
-> <https://software.codidact.com/posts/287748/287750#answer-287750>
+> > But I would also quote multi-word arguments to _any_ man(7) macro.
+>=20
+> Why is it?  I remember you mentioned that, but what's the win?
 
-That code plays with 2 pointers to the same area, one to double and
-one to int, so I don't think it's that similar to the sockaddr
-situation. At least for struct sockaddr, the sa_family field is the
-same for all struct sockaddr_* variants. Also, in practical terms, I
-don't think any compiler optimization that breaks socket APIs (and, if
-I recall correctly, there are instances of this pattern in the kernel
-as well) is going to be an easy sell. It's possible, but realistically
-speaking, I don't think it's going to happen.
+It's more portable.  AT&T troff and its descendants (except for Heirloom
+Doctools troff) support only 9 macro arguments at most.  Worse, the AT&T
+man(7) macros and most descendants support only _six_.
 
->
-> I wouldn't rely on Undefined Behavior not causing nasal demons.  When you get
-> them, you can only kill them with garlic.
+When doing maintenance, it's easy to forget that.
 
-OK, but not all theoretical issues have practical implications. Is
-there code that can show UB in practical terms with struct
-sockaddr_storage today? Like Eric mentioned in another thread, does
-UBSan complain about code using struct sockaddr_storage?
+But even in a groff-only world, I would recommend the practice as good
+style because it leaves room to expand the syntax of some macros.
 
-Thanks,
-Stefan.
+Admittedly I don't see any promising places where we might do that in
+man(7) to any macros that already accept formattable text as arguments.
 
->
-> >
-> >>
-> >> That means that one needs to declare a union with all possible sockaddr_* types
-> >> that are of interest, so that access as any of them is later allowed by the
-> >> compiler (of course, the user still needs to access the correct one, but that's
-> >> of course).
-> >>
-> >> In that union, one could add a member that is of type sockaddr_storage for
-> >> getting a more consistent structure size (for example, if some members are
-> >> conditional on preprocessor stuff), but I don't see much value in that.
-> >> Especially, given this comment that Igor Sysoev wrote in NGINX Unit's source code:
-> >>
-> >>    * struct sockaddr_storage is:
-> >>    *    128 bytes on Linux, FreeBSD, MacOSX, NetBSD;
-> >>    *    256 bytes on Solaris, OpenBSD, and HP-UX;
-> >>    *   1288 bytes on AIX.
-> >>    *
-> >>    * struct sockaddr_storage is too large on some platforms
-> >>    * or less than real maximum struct sockaddr_un length.
-> >>
-> >> Which makes it even more useless as a type.
-> >
-> > I'm not sure using struct sockaddr_storage for storing sockaddr_un's
-> > (UNIX domain socket addresses, right?) is that common a usage. I've
-> > used it in the past to store either a sockaddr_in or a sockaddr_in6,
-> > and I think that would be a more common scenario. The comment above
-> > probably makes sense for nginx, but different projects have different
-> > needs.
-> >
-> > As for the size, I guess it might matter if you want to port your code
-> > to AIX, Solaris, OpenBSD etc. I don't think all software is meant to
-> > be portable, though (or portable to those platforms). Maybe a warning
-> > is in order that, for portable code, developers should check its size
-> > on the other platforms targeted.
->
-> The size thing is just an added problem.  The deep problem is that you need to
-> use a union that contains all types that you care about _plus_ plain sockaddr,
-> because the structure will be accessed at least as a sockaddr, plus one of the
-> different specialized structures.  So even for only sockaddr_un, you need at
-> least the following:
->
-> union my_unix_sockaddr {
->         struct sockaddr     sa;
->         struct sockaddr_un  sun;
-> };
->
-> Not doing that will necessarily result in invoking Undefined Behavior at some point.
->
-> >
-> > Just my 2 cents, as always,
-> > Stefan.
->
-> The good thing is that fixing sockaddr_storage and telling everybody to use it
-> always fixes the problem, so I'm preparing a patch for glibc.
->
-> Cheers,
->
-> Alex
->
-> >
-> >>
-> >>
-> >> Should we warn about uses of this type?  Should we recommend against using it in
-> >> the manual page, since there's no legitimate uses of it?
-> >>
-> >> Cheers,
-> >>
-> >> Alex
-> >>
-> >> --
-> >> <http://www.alejandro-colomar.es/>
->
-> --
-> <http://www.alejandro-colomar.es/>
+I still think it's a good idea style-wise because the man(7) author
+should keep the count of words following a macro call in mind,
+especially if they want to effectively use the font style alternation
+macros (.BI, .BR, .IB, .IR, .RB, .RI).
+
+In mdoc(7) argument count makes a difference due to the package's
+unique recursive argument interpretation feature.  Still, while this was
+a measurable phenomenon 30 years ago, it may not be today.  (The whole
+reason "cat pages" exist in man(1) is that the time spent by the
+formatter on a document was significant then; it is negligible now.)
+
+I will admit right now that I don't follow this rule rigidly myself in
+groff's man pages when it comes to `I` calls.  I may fix that at some
+point.  (If I did so, it would align doc/ms.ms better with groff_ms(7).)
+
+So it's not a big deal, but there's so much ignorance about man(7) out
+there that it's a goal of mine to make the language easier to acquire.
+
+> > > +.SS "The \f[I]/proc/sys/user\f[] directory"
+>=20
+> Interesting.  I'll consider that for the long term.  However, for now
+> I'll keep \fP style.
+
+No worries.
+
+Regards,
+Branden
+
+--bz7upqo6yc7n6qcm
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmPOSTwACgkQ0Z6cfXEm
+bc4KZw/8DVuVX2a2a3aJqaffiz1FqjhsqJ3BBskv2dehSpoIHL8uleF93sCI5lWO
+vdRMW1CWfvmdNcBUD4Bt4K/4EdH9ll2ChiRPQ2cym2tlaAZoTANOoxFw7MJPCJS5
+RIMfKE75v/aQD4XW/kyVkbQQANQBnKB2kJjpUaN6sZsMtTYwQ1MKXDchbdTx/u46
+BrjhP64wQFwKWBlYjKpfeD+pbM8exGTqpf4dHfHoHRnG0IaG3j8cv7TH5SjLNxOr
+s2U+79tDwXgQ7NaQ9Lwyvc3r3OdzYwQ550pSVFtkovKXsiBhuKO41IHT0G8EjEKZ
+3U39jHe+sBfUQUl2ZFF9ss7kb6LkQYFfel+0z1JrQQlkiqAjVSe60/sQU3Ek5pZ6
++waGehsnuOcldRS24Fa0C+5I3Ab+NjnLZn1KQguwVZdGYQZSBWJI0LpgHOY7Dwxj
+qJ0Dy+nQMCyyLOu/VqYNd+qyRMnbxG+qk7cID7sURi/q5n74nPPOKSvMUhgmnZsE
+O5dvxD/6Tkjf2RMd37LGo3JuTQnMD4ltIScQZ+z5f7OypogoOvvwXELWCJqb6ofT
+glMyA5gTA+qRiaB3HSggozMRpdMwDAvlzgthGbK1GdLoRlHmyYqHWhX9qPwJCXUm
+0bnIZcNPR4LMRVtm9V26CgaEvNrv2VaAi1D3GYU/8q9sAz5+GSo=
+=s1/Z
+-----END PGP SIGNATURE-----
+
+--bz7upqo6yc7n6qcm--
