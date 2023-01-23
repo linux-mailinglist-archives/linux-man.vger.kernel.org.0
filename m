@@ -2,43 +2,69 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 3B23D677308
-	for <lists+linux-man@lfdr.de>; Sun, 22 Jan 2023 23:49:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 6A47567753D
+	for <lists+linux-man@lfdr.de>; Mon, 23 Jan 2023 07:54:31 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230007AbjAVWt1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 22 Jan 2023 17:49:27 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44670 "EHLO
+        id S230266AbjAWGya (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 23 Jan 2023 01:54:30 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44634 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230002AbjAVWt0 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 22 Jan 2023 17:49:26 -0500
-Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net [217.70.183.199])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5F4931714E;
-        Sun, 22 Jan 2023 14:49:24 -0800 (PST)
-Received: (Authenticated sender: schoen@loyalty.org)
-        by mail.gandi.net (Postfix) with ESMTPSA id 00B41FF803;
-        Sun, 22 Jan 2023 22:49:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=loyalty.org; s=gm1;
-        t=1674427763;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type;
-        bh=cV2qhPqki74Px+vTRxaDMKbdo3dSKb5l5S7PACpgtjo=;
-        b=MAQEOBqKAEZOB8oKJ8IkCD5KGI+MhnFb2Eda7XLRQGXJjPLeBOl6Xsr5Cbu4qzwLhwh+yK
-        o4wma26Ybfrki5z/pR0zJXL8K+v62j8An9Ayak4PoKlJXK1ffehCnvIVgTiQ//FyMsLcLR
-        GQ9eQCS82+pGS68LNWBWUE7kearxJh8zUu47655zPkypa5v7wTSzVakuT4n/uKG36BZmMW
-        QNc3/yfXnbeechot/ld+NiZxTHD9Ga4UdxJWj2mLsNuhi7arpueHccXw/ZQLUqgJqUNR0T
-        oG5fLptR6mkZslKLZViSJHxjMk4F/iBwiPaH4S8xmW74L+JeN7qBGbu56sbobw==
-Date:   Sun, 22 Jan 2023 14:49:18 -0800
-From:   Seth David Schoen <schoen@loyalty.org>
-To:     linux-man@vger.kernel.org
-Cc:     netdev@vger.kernel.org
-Subject: [PATCH v4] ip.7: Add Special and Reserved IP Addresses section
-Message-ID: <20230122224918.GA373019@demorgan>
+        with ESMTP id S230344AbjAWGy1 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 23 Jan 2023 01:54:27 -0500
+Received: from mail-oa1-x33.google.com (mail-oa1-x33.google.com [IPv6:2001:4860:4864:20::33])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 85BB41A496
+        for <linux-man@vger.kernel.org>; Sun, 22 Jan 2023 22:54:26 -0800 (PST)
+Received: by mail-oa1-x33.google.com with SMTP id 586e51a60fabf-1442977d77dso12985246fac.6
+        for <linux-man@vger.kernel.org>; Sun, 22 Jan 2023 22:54:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=jxalqmAQunRNO+yqzvVcvP4wVkQitI2XJUBPiCLudHA=;
+        b=B675ZCPFq7xIj6xoa59b0n8LQngbrfNYF6DXtcAYkgXwR5opATI9iBEOYAhFn0uUXJ
+         /D3vDgseCD1z9IK4YYhzrV8Uvz6lIOOA7mCGjr+z5twXw+gOIa2Unpv4B0l1Vo8iA7FT
+         xoi4KiTNXFZhOywGt6DlXBSmCFqY5e/lKvOwMgvrfSfXhmj9f5AoHGMO4y4iMCElAr+G
+         PkdnXitiPH2JA371/n2vkILv98czWGJkWI8zdkMF/MysfRpUyWSdJwpqUtuoZXICIb3o
+         39bSz47Vrb5ilYnnu+2iViAvxC7RuQ9pRxXuVqMDv9WwARwCvQoX/HEj7x/+aN5iVS53
+         i6SA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=jxalqmAQunRNO+yqzvVcvP4wVkQitI2XJUBPiCLudHA=;
+        b=P4bBzSyJL2BB+Vkg+S5s4GmcQthVZmYeeBvqqlSiMns9D7EpT5rVQul/cfPArprfoT
+         R8Vmwt0qte3LD2QEQnUJ601wG1C7UfuuDPYUg2kDueDfkcZqj8T7Kz2l2ghbOxsKGK8M
+         AkiY3/d5P3psPfhAJKdFNmuopRnsQWiCR3LXKJ6jP0SR86SZ2slPgr0ssSGaTRnuXMZ3
+         NsYR9Bcpfh33P/yUB364TD2dKIb/0ZOg42c7bOEpgxLyU8NCXUYC8QLVpLGE2eJPmA4E
+         WmIIEd/1oOYhXJ4bU4FHC453rVyTPcmVxzL0mAjgdyVtzeSWvKGcO76tx3V7uYal0bkS
+         DiLQ==
+X-Gm-Message-State: AFqh2kqR47m3BMPh/21rSlH92QKiv78WK9ebiV81WoMRe8pcWs9JSihL
+        IFcbTu0SNQA+xZiw3uRFIIRTr2aVUfw=
+X-Google-Smtp-Source: AMrXdXtkABo7trHtfRz7dPvtoKomORGUfThlnGpxbE2RTCp2Q5wQWofO5vB54qbnqyMUKnsBbBuwMQ==
+X-Received: by 2002:a05:6870:81a:b0:15e:ad43:9ae1 with SMTP id fw26-20020a056870081a00b0015ead439ae1mr13692811oab.8.1674456865854;
+        Sun, 22 Jan 2023 22:54:25 -0800 (PST)
+Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
+        by smtp.gmail.com with ESMTPSA id z2-20020a4ade42000000b004fca8a11c61sm6422150oot.3.2023.01.22.22.54.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 22 Jan 2023 22:54:25 -0800 (PST)
+Date:   Mon, 23 Jan 2023 00:54:23 -0600
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     Helge Kreutzmann <debian@helgefjell.de>,
+        mario.blaettermann@gmail.com, linux-man@vger.kernel.org
+Subject: Re: Issue in man page boot.7
+Message-ID: <20230123065423.ih7jblasf2frt6bz@illithid>
+References: <20230122193132.GA29262@Debian-50-lenny-64-minimal>
+ <623dc3a0-e6d1-e8cf-9e69-06721c4fcbcd@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha256;
+        protocol="application/pgp-signature"; boundary="otso62722iuid4yy"
 Content-Disposition: inline
-X-Spam-Status: No, score=-2.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,
-        RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+In-Reply-To: <623dc3a0-e6d1-e8cf-9e69-06721c4fcbcd@gmail.com>
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -46,94 +72,72 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Break out the discussion of special and reserved IPv4 addresses
-into a subsection, and briefly describe three cases in which
-Linux no longer treats addresses specially, where other systems
-do or did.
 
-The divergences in Linux's behavior mentioned in this patch were
-introduced at
+--otso62722iuid4yy
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-unicast 240/4 (since 2.6.25):
-  commit 1e637c74b0f84eaca02b914c0b8c6f67276e9697
-  Author: Jan Engelhardt <jengelh@computergmbh.de>
-  Date:   Mon Jan 21 03:18:08 2008 -0800
+Hi Alex,
 
-unicast 0/8 (since 5.3):
-  commit 96125bf9985a75db00496dd2bc9249b777d2b19b
-  Author: Dave Taht <dave.taht@gmail.com>
-  Date:   Sat Jun 22 10:07:34 2019 -0700
+At 2023-01-22T22:22:02+0100, Alejandro Colomar wrote:
+> On 1/22/23 20:31, Helge Kreutzmann wrote:
+> > Without further ado, the following was found:
+> >=20
+> > Issue 1:  runlevel 2 =E2=86=92 run-level 2
 
-unicast subnet lowest address (since 5.14):
-  commit 58fee5fc83658aaacf60246aeab738946a9ba516
-  Merge: 77091933e453 6101ca0384e3
-  Author: David S. Miller <davem@davemloft.net>
-  Date:   Mon May 17 13:47:58 2021 -0700
+> I believe the fix would be to use runlevel everywhere.  run-level is
+> not correct under any point of view, if I'm correct.
 
-Signed-off-by: Seth David Schoen <schoen@loyalty.org>
-Suggested-by: John Gilmore <gnu@toad.com>
----
- man7/ip.7 | 38 +++++++++++++++++++++++++++++++++++---
- 1 file changed, 35 insertions(+), 3 deletions(-)
+It would be correct if it were used attributively, to modify a
+subsequent noun, for example.  "I was able to gain root with some
+run-level shenanigans," for example.
 
-diff --git a/man7/ip.7 b/man7/ip.7
-index f69af1b32..94de21979 100644
---- a/man7/ip.7
-+++ b/man7/ip.7
-@@ -237,6 +237,7 @@ In particular, this means that you need to call
- on the number that is assigned to a port.
- All address/port manipulation
- functions in the standard library work in network byte order.
-+.SS Special and reserved addresses
- .PP
- There are several special addresses:
- .B INADDR_LOOPBACK
-@@ -244,12 +245,43 @@ There are several special addresses:
- always refers to the local host via the loopback device;
- .B INADDR_ANY
- (0.0.0.0)
--means any address for binding;
-+means any address for socket binding;
- .B INADDR_BROADCAST
- (255.255.255.255)
--means any host and has the same effect on bind as
-+has the same effect on socket binding as
- .B INADDR_ANY
--for historical reasons.
-+for historical reasons. A packet addressed to
-+.B INADDR_BROADCAST
-+through a socket which has
-+.B SO_BROADCAST
-+set will be broadcast to all hosts on the local network segment, as
-+long as the link is broadcast-capable.
-+.PP
-+On any locally-attached IP subnet with a link type that supports
-+broadcasts, the highest-numbered address (e.g., the .255 address on a
-+subnet with netmask 255.255.255.0) is designated as a broadcast address.
-+This "broadcast address" cannot usefully be assigned to an interface, and
-+can only be addressed with a socket on which the
-+.B SO_BROADCAST
-+option has been set.
-+Internet standards have historically also reserved the lowest-numbered
-+address (e.g., the .0 address on a subnet with netmask 255.255.255.0)
-+for broadcast, though they call it "obsolete" for this purpose.  Since
-+Linux 5.14, it is treated as an ordinary unicast address.
-+.PP
-+Internet standards have also traditionally reserved various addresses
-+for particular uses, though Linux no longer treats some of these
-+specially. Addresses in the ranges 0.0.0.1 through 0.255.255.255 and
-+240.0.0.0 through 255.255.255.254 (0/8 and 240/4) are reserved globally.
-+Since Linux 5.3 and Linux 2.6.245, respectively, the 0/8 and 240/4
-+addresses are treated as ordinary unicast addresses. Systems that follow
-+the traditional behaviors may not interoperate with these historically
-+reserved addresses.
-+.PP
-+All addresses from 127.0.0.1 through 127.255.255.254
-+are treated as loopback addresses akin to the standardized
-+local loopback address 127.0.0.1, while addresses in 224.0.0.0 through
-+239.255.255.255 (224/4) are dedicated to multicast use.
- .SS Socket options
- IP supports some protocol-specific socket options that can be set with
- .BR setsockopt (2)
--- 
-2.25.1
+> It should be runlevel for a new term formed specifically for
+> programming purposes, or run level for normal English.
+>=20
+> Branden, can you confirm?
+
+Only the latter half of that.  There are no rules in English grammar for
+forming terms specifically for programming purposes.
+
+You may be thinking of programming languages that don't permit spaces in
+identifiers (for good reason).
+
+For example,
+
+int runlevel;
+
+is fine.  To drop this variable name as-is into prose is to mistake the
+implementation for the concept, or to confuse the map with the
+territory, as the saying goes.
+
+Man pages are _in_ normal English, except for quotations or displayed
+examples of code.
+
+I therefore recommend "run level".
+
+Regards,
+Branden
+
+--otso62722iuid4yy
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmPOLxUACgkQ0Z6cfXEm
+bc5cVw/7BSsnS0Lwlr826nvxoVvWD6hPouVrdspNNRnSnO9X76eftWRbLqBasEYd
+no1TingtBxaVjJ7iy6sZYJVETx8yIa0DEDRnSpN9MuLziVkbkY8sf2YpJPVL8b4z
+NNYaaAwQD2IQMO7yMSwmLeYnMWGw35nMSeyNb3/QRiu+9Mub+wGGtKv73OqG8Dqx
+GpYigjH4UH30MyDY9WwIQfNRn1gKZ6uWWOtdfLxgoiw5rBPqtRMZZ2hjLh3DlQ67
+93rlBfs9RfKNpAxOE+TNTA2c4+LDiFl+x9pplZz9V9urNmVpBOVtDQFgz4XgVYwr
+Q1mIZXpmRfufeL30VGew3z7IlfTvV6r1tIoUZsamPEjSsTRWL3NPofTSBItIFxXS
+ADmvRSJ+1DXaakvU5i9axWNS9rZxE8GF4TM1PfYfzEGjO09fdYU6+kFw1Tm2l1EE
+qb3zbuW21hgSfjDUMeUepaHS/52hFlYGIbMzxN7NVESdsrwj9SuDXDXXfmMnOcz6
+8X2LjEQapkxL7RGf4QDIY4T1l/OTLMTkNjC4TJ9qd1aR6XqXJ9TfQv9kdOxdm/dA
+/wGO9nSEmsPB4u2lmjWYuhE8cUhPFovK1fui8Yu+5cKUUIedYl24KbcnkL9GnU9r
++ML3Ilyif3QUCyRX7iYgb7p6WBbfxjLN8Vgna+YebK1orzL1E/E=
+=Cco9
+-----END PGP SIGNATURE-----
+
+--otso62722iuid4yy--
