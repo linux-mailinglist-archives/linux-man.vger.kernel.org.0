@@ -2,35 +2,36 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 7498A678389
-	for <lists+linux-man@lfdr.de>; Mon, 23 Jan 2023 18:47:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 7B55C67838D
+	for <lists+linux-man@lfdr.de>; Mon, 23 Jan 2023 18:47:48 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231690AbjAWRrK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 23 Jan 2023 12:47:10 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55592 "EHLO
+        id S232427AbjAWRrr (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 23 Jan 2023 12:47:47 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56064 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229791AbjAWRrK (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 23 Jan 2023 12:47:10 -0500
+        with ESMTP id S232248AbjAWRrq (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 23 Jan 2023 12:47:46 -0500
 Received: from static.213-239-213-133.clients.your-server.de (luckmann.name [213.239.213.133])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 605DE30292
-        for <linux-man@vger.kernel.org>; Mon, 23 Jan 2023 09:47:08 -0800 (PST)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 42F6144BB
+        for <linux-man@vger.kernel.org>; Mon, 23 Jan 2023 09:47:43 -0800 (PST)
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E5808D.0000000063CEC81A.0000038D; Mon, 23 Jan 2023 18:47:06 +0100
-Date:   Mon, 23 Jan 2023 18:47:06 +0100
+  id 0000000000E580F5.0000000063CEC83E.000003B4; Mon, 23 Jan 2023 18:47:42 +0100
+Date:   Mon, 23 Jan 2023 18:47:42 +0100
 From:   Helge Kreutzmann <debian@helgefjell.de>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     mario.blaettermann@gmail.com, linux-man@vger.kernel.org,
-        "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Subject: Re: Issue in man page regex.3
-Message-ID: <20230123174706.GA32751@Debian-50-lenny-64-minimal>
-References: <20230122193128.GA29030@Debian-50-lenny-64-minimal>
- <923d1f91-0e5b-d770-db4f-15588f3c2d23@gmail.com>
+To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        mario.blaettermann@gmail.com, linux-man@vger.kernel.org
+Subject: Re: Issue in man page boot.7
+Message-ID: <20230123174741.GB32751@Debian-50-lenny-64-minimal>
+References: <20230122193132.GA29262@Debian-50-lenny-64-minimal>
+ <623dc3a0-e6d1-e8cf-9e69-06721c4fcbcd@gmail.com>
+ <20230123065423.ih7jblasf2frt6bz@illithid>
 Mime-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-909-1674496026-0001-2"
+Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-948-1674496062-0001-2"
 Content-Disposition: inline
-In-Reply-To: <923d1f91-0e5b-d770-db4f-15588f3c2d23@gmail.com>
+In-Reply-To: <20230123065423.ih7jblasf2frt6bz@illithid>
 X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
 X-homepage: http://www.helgefjell.de/debian
 User-Agent: Mutt/1.10.1 (2018-07-13)
@@ -46,52 +47,31 @@ X-Mailing-List: linux-man@vger.kernel.org
 This is a MIME-formatted message.  If you see this text it means that your
 E-mail software does not support MIME-formatted messages.
 
---=_luckmann.name-909-1674496026-0001-2
-Content-Type: text/plain; charset=us-ascii
+--=_luckmann.name-948-1674496062-0001-2
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
 Hello Alex,
-On Sun, Jan 22, 2023 at 10:03:46PM +0100, Alejandro Colomar wrote:
-> On 1/22/23 20:31, Helge Kreutzmann wrote:
-> > Without further ado, the following was found:
-> >=20
-> > Issue:    How can a variable (I<preg>) free memory? Isn't it B<regfree>=
-() which frees the memory?
+hello Branden,
+On Mon, Jan 23, 2023 at 12:54:23AM -0600, G. Branden Robinson wrote:
+> At 2023-01-22T22:22:02+0100, Alejandro Colomar wrote:
+> > On 1/22/23 20:31, Helge Kreutzmann wrote:
+> > > Without further ado, the following was found:
+> > >=20
+> > > Issue 1:  runlevel 2 =E2=86=92 run-level 2
 >=20
-> How about the patch below?
->=20
-> Cheers,
->=20
-> Alex
->=20
-> >=20
-> > "Supplying B<regfree>()  with a precompiled pattern buffer, I<preg> wil=
-l free"
-> > "the memory allocated to the pattern buffer by the compiling process,"
-> > "B<regcomp>()."
->=20
->=20
-> diff --git a/man3/regex.3 b/man3/regex.3
-> index 6f5831f24..f6faf6240 100644
-> --- a/man3/regex.3
-> +++ b/man3/regex.3
-> @@ -240,7 +240,7 @@ .SS POSIX pattern buffer freeing
->  Supplying
->  .BR regfree ()
->  with a precompiled pattern buffer,
-> -.I preg
-> +.IR preg ,
->  will free the memory allocated to the pattern buffer by the compiling
->  process,
->  .BR regcomp ().
+> > I believe the fix would be to use runlevel everywhere.  run-level is
+> > not correct under any point of view, if I'm correct.
 
-I don't really see a change here? It's only the markup, that changed?
+> I therefore recommend "run level".
+
+I'm fine with either version. Currently, it is mixing both, so it
+should "just" be unifrom (at least throught linux man pages).
 
 Greetings
 
          Helge
-
 
 --=20
       Dr. Helge Kreutzmann                     debian@helgefjell.de
@@ -99,25 +79,25 @@ Greetings
         64bit GNU powered                     gpg signed mail preferred
            Help keep free software "libre": http://www.ffii.de/
 
---=_luckmann.name-909-1674496026-0001-2
+--=_luckmann.name-948-1674496062-0001-2
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmPOyBEACgkQQbqlJmgq
-5nBMtA/7BYVh0ETyrsn4TgNAlKd2hAsPu27P7GbLSQ2GU6tUu7rp1VQVn8bUmZ8+
-qxavTsfHu1Xuln2pCuURFyouA6mJL6uMi7nDqnUFfnBnK8ylN8dDtku+BPRU1Lr5
-5yU1oltNhpyxJ63ya0VetXh5edGBKYLQACAvk73F3cJKd9yMGxB8ujQj1FNBsxlN
-c3yweAtxubVDR+4ZoY1dFcwXT4qjfrp9A1CdHCppz7VHNZImJHvybrxplbzhVKDm
-Gzje2DxNTWgB5Ee4bVDo9NQBx/Zi366WER1cQ/H90D7UmR2xWAal2SO8dntJ3m2P
-ABFizKByWSiiTMcb9m+mPWgsLLnbD2yxpw7A/UNxUrbHrDnPVOX6owlu6RCKxZ9H
-vwgmTol2WglvM1eW812WcHIr75UF54EjYDwxdBkV6TBOPcKirwsvdDmO8fkHENdw
-pWgayp6d8zAX0WiUI21sKwhH/BaB/8ADX2CqmhwGiGiNW6HbcjTb5SC5nMTUWpRr
-IN1fP9DBIQvuzzvPdOL2CBgqM53IRsgnwx/OAIwEIk56re6ILxsXAzmpf7gdJtYI
-IMW+rZYyZHSdVMRQzL0i5tSkBmZYSljPLZRckRtdgYVsdEsVMhInu6iIan+opj3o
-5bk2dZgrkjueVGOf8jdAtpKkNx3dA8R9Vr0trHqJHkMwgnCiLwo=
-=9o7P
+iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmPOyD0ACgkQQbqlJmgq
+5nAZoA//cV+VROW44Xf6V1XxXqcd6MlEiOHOBWvJONN3Hhgwejfmb78fDA/GeW9X
+MZecTeDjxi7ZL8GFR44qZeybMBPKkwFenCm83rQyKBffUXyBeH+HbsAxOTuIgPH6
+9ZqQ0+nqL7n2N8SEzvEnLee7vd6KERd7JmySiHiM/j7wDXFatmJbgX/kv159/FwN
+GFu932mr4QrrH5AKY7/Nut4EpLEA7V0uXDpOwqBKAouN4vcl0ugEbhYb55pJ9Iob
+cl+jhKdmQgP5RXNV0eds1R1MD1n8dP6R1sUbpBGJ6gNIPJAZd8DXhV/uMTF1NfpQ
+8L87VmGPyaAguk7cBEUBUJgh8wuAPLod0SU9Xsytg9h/YmiFfgL6r/HdIYUgiU3k
+vvTgdeqbO4iLN733jf1ghQu4zh97OtJLscj5aQhwRqUmo0MKHWJr3yJ0BKIysz/s
+R9LBNdrB6npCUX3gdAupznHc16Oyy7FEBL/5Muhg907UzcncvFNu04Zsk5mBcS+N
+d5oDRxJwxqp5AvGIvJkC0dsPmGTTJjD/74jsNnVV1Jx3JWREXMDBlQvzVpW8S3yW
+Q4z+rHGh5skJtlpKP+NC65cZLYZYFwqJP25bjUBz8ZplXD1HsoYpae6L+t3zHNph
+BplKojiTU8aM41C6egBLxEG7RaZkZ4XWFFqsEOYvcy9pPUq5S4E=
+=fW82
 -----END PGP SIGNATURE-----
 
---=_luckmann.name-909-1674496026-0001-2--
+--=_luckmann.name-948-1674496062-0001-2--
