@@ -2,70 +2,76 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 256786776A0
-	for <lists+linux-man@lfdr.de>; Mon, 23 Jan 2023 09:46:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0CE1C6780C3
+	for <lists+linux-man@lfdr.de>; Mon, 23 Jan 2023 17:03:24 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231570AbjAWIqC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 23 Jan 2023 03:46:02 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36234 "EHLO
+        id S231378AbjAWQDX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 23 Jan 2023 11:03:23 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39672 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230122AbjAWIp7 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 23 Jan 2023 03:45:59 -0500
-Received: from mail-oa1-x2b.google.com (mail-oa1-x2b.google.com [IPv6:2001:4860:4864:20::2b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C0AEA193E1
-        for <linux-man@vger.kernel.org>; Mon, 23 Jan 2023 00:45:58 -0800 (PST)
-Received: by mail-oa1-x2b.google.com with SMTP id 586e51a60fabf-15ff0a1f735so4970168fac.5
-        for <linux-man@vger.kernel.org>; Mon, 23 Jan 2023 00:45:58 -0800 (PST)
+        with ESMTP id S233024AbjAWQDV (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 23 Jan 2023 11:03:21 -0500
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com [IPv6:2a00:1450:4864:20::436])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A293D1E1F3
+        for <linux-man@vger.kernel.org>; Mon, 23 Jan 2023 08:03:15 -0800 (PST)
+Received: by mail-wr1-x436.google.com with SMTP id d14so7582969wrr.9
+        for <linux-man@vger.kernel.org>; Mon, 23 Jan 2023 08:03:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=vf8BuZ+vSCrPRBHM1q/5zSEDhZjYCGNODDi+BvW15JQ=;
-        b=GrE0VsFHW/H2BYQE+1IvXgm8pmLTl4i8z1l/JFvnPbEm00YbyrqrCtO+4Fz7kiDXWL
-         pqXfQmGYy7cw5qVhMyQq0Y1Ww18PnVk48emmBEftMzqVra87bZb4Mw7qbG4WrrgedfBe
-         8Y22n0TF+sLfYoRA67ehlcS7C+1PIVcbxG3vZdCYyd5UMCW/b7i8oBqQJvzNeG3rT40h
-         tCUWTOlwSrU+RQVa3eMYe2EguBww201ML1L0CVgFwh6+FeC8K/e8bHJxivWBY1fkd126
-         zROC6X5siqGkchd6Wm1Y+ss5mTSbVeN9aObLi3XYjgFskvSXLe38iVjJFr3dpZTDPyQs
-         3OmA==
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=MtiuMVl3NiHECUYtynUfZDLjuzpn33AGbysLMSNcdeI=;
+        b=dLLpqxhCgGrvFQ87GWHULXSqtL381Pd4hW8+6/nbEhwxWuVra4ORPcQxhwyttSqQVn
+         qCLAnXXbWiOcy67drWhcKKIOV+fbYmgJwruuFN/N8l/zdUwKoNur6OwOcLojZQZsNCNR
+         3aQA+nrD9Vi+0dhsXwkW9s7TAPS6J3xX13L3NGE9P73YaffCg2RPhgConBlhyaYQ/XVc
+         Yl70WuPCTNzAD56gL426F4UeHv59FVQ+/pH6iV/8lPwHcBHU4AvxGicwCuTFuMXdsRv4
+         knxnDq/tg/Lu17PuDpadnWCdx5Xqgm8jB+g0hCL5SAT4EwvpKRLLQJzAux2cCk49fMOn
+         X5EA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=vf8BuZ+vSCrPRBHM1q/5zSEDhZjYCGNODDi+BvW15JQ=;
-        b=MYqW0kBncIoIsK0/QwCmAVgnUXqJVxWGClLrQgbU7vVF9CyDpJSWfoln+mlczuOry0
-         BvEmESU49MD/TVyR4bYyauoaQZh9GH6yTqzKTk8ar0p3AJmr4ED80ApyIrOojMu/6VOl
-         KYwt1TXu8q60zUVWudarB4E86j6IfRBTUhppStvVx3zXme8Lrvmi4O7/LspXd8vwEjuL
-         F0rWw1goCVlZPSGTS0zQ75+917Tu56Kv+0y+PapcTGLj5+pm4ny4lGgz4FuP7lTspzVy
-         9m/sh4tefthd5xST/JGyNtedsk/t4xB8ynSuNDbADYMMfd4ENNsvpcrQGw7PjL5etqDS
-         SLsA==
-X-Gm-Message-State: AFqh2kpGn6JZzM59fuPOvgmujMGF6HgenZe0VFAR2CdwF6oNcbErDbMd
-        0ObvoUxXHg6PtLWuFdYTFeP25TdeC2c=
-X-Google-Smtp-Source: AMrXdXto2Mlc+ityG14gjtE9bNeU8hVFi8fRqzGMdC13gAzyU4zZudVMSATXAeNtoMZmsWQKDbJsBQ==
-X-Received: by 2002:a05:6870:3b8e:b0:15f:32b:6e3d with SMTP id gi14-20020a0568703b8e00b0015f032b6e3dmr11803094oab.54.1674463558015;
-        Mon, 23 Jan 2023 00:45:58 -0800 (PST)
-Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id g18-20020a056870a71200b001428eb454e9sm25458604oam.13.2023.01.23.00.45.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Jan 2023 00:45:57 -0800 (PST)
-Date:   Mon, 23 Jan 2023 02:45:55 -0600
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     Helge Kreutzmann <debian@helgefjell.de>,
-        mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page namespaces.7
-Message-ID: <20230123084555.5oqiuzabsjpv2yas@illithid>
-References: <20230122193125.GA28843@Debian-50-lenny-64-minimal>
- <21a40d27-e732-fb70-edc7-c18af8a59ed1@gmail.com>
- <20230122210207.w25k5br5idyna3c2@illithid>
- <9a08e09f-6ecd-3e53-6d5f-613fdd720a7d@gmail.com>
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=MtiuMVl3NiHECUYtynUfZDLjuzpn33AGbysLMSNcdeI=;
+        b=bE2yROVmWh3+ElOsYThSMf7ombZN5Xhf5ofXKCJnRbsgnnyMX5RUQJHnlb2ZOdl1DM
+         DP7x017PdNaXp/9eqeKEl+PoA65P2EPdgEinmn5ZTm9DbVg+6VbCK/tF9yGqbayih6V8
+         XwJWVWPRXWdrCunFFXpfTCepvtdMIWjdTpDTtQks0RgR+pJUFCfIQhElkjchR0K3MYTn
+         07l8mgPs28CBKII7WNUEJq/3tFh7758EBp7JlqwcblhCe5CNnlMqSFI74dcVBm2ANlMU
+         wUAj+U371EoaIVLRiyYJNFs3ES6acCqKLYwDgEi1mUEKTfZn+jcPYfULNk5SFaWCkhw2
+         u45w==
+X-Gm-Message-State: AFqh2krUJ1zH2WJVUoTIDTfJwwxFWYGZWnS5jwlgQ8mkGNUbkKDHSg0c
+        IOckHQZNOl+1Zh4jDE7on9o=
+X-Google-Smtp-Source: AMrXdXsCtv8LL645qwthwVR1zDylQM0SI0zkfHl/s6j4oOD/9csJTD901VQH9jVZUReG37uTHCvycA==
+X-Received: by 2002:adf:f347:0:b0:2be:5cff:5d01 with SMTP id e7-20020adff347000000b002be5cff5d01mr10549398wrp.12.1674489793991;
+        Mon, 23 Jan 2023 08:03:13 -0800 (PST)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id o13-20020a5d670d000000b002bdc19f8e8asm30874033wru.79.2023.01.23.08.03.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 23 Jan 2023 08:03:13 -0800 (PST)
+Message-ID: <4c47dcb0-f665-d6ff-cc26-d5f4e99bd739@gmail.com>
+Date:   Mon, 23 Jan 2023 17:03:00 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+Subject: Re: struct sockaddr_storage
+To:     Stefan Puiu <stefan.puiu@gmail.com>
+Cc:     GNU C Library <libc-alpha@sourceware.org>,
+        linux-man <linux-man@vger.kernel.org>, gcc@gcc.gnu.org,
+        Igor Sysoev <igor@sysoev.ru>,
+        =?UTF-8?Q?Bastien_Roucari=c3=a8s?= <rouca@debian.org>
+References: <ab492040-2058-bcbe-c920-a9088a20f071@gmail.com>
+ <CACKs7VAXOXLw5Zm0wqVt8dDwam_=w8aeAu5wNpXcTRSqObimyQ@mail.gmail.com>
+ <61bbb556-ff9b-ebdc-5566-bc1ae533c0aa@gmail.com>
+ <CACKs7VDGAaSXkjeuBdvEkFbFJ_OnwObTf1_9eVb44RJf-O3Fwg@mail.gmail.com>
+Content-Language: en-US
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <CACKs7VDGAaSXkjeuBdvEkFbFJ_OnwObTf1_9eVb44RJf-O3Fwg@mail.gmail.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="bz7upqo6yc7n6qcm"
-Content-Disposition: inline
-In-Reply-To: <9a08e09f-6ecd-3e53-6d5f-613fdd720a7d@gmail.com>
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+ protocol="application/pgp-signature";
+ boundary="------------UFaWRQEkrpverxEpLqPj44jb"
+X-Spam-Status: No, score=-3.2 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -74,86 +80,136 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------UFaWRQEkrpverxEpLqPj44jb
+Content-Type: multipart/mixed; boundary="------------pjuNAXNgJkMExLeUiE42T2La";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: Stefan Puiu <stefan.puiu@gmail.com>
+Cc: GNU C Library <libc-alpha@sourceware.org>,
+ linux-man <linux-man@vger.kernel.org>, gcc@gcc.gnu.org,
+ Igor Sysoev <igor@sysoev.ru>, =?UTF-8?Q?Bastien_Roucari=c3=a8s?=
+ <rouca@debian.org>
+Message-ID: <4c47dcb0-f665-d6ff-cc26-d5f4e99bd739@gmail.com>
+Subject: Re: struct sockaddr_storage
+References: <ab492040-2058-bcbe-c920-a9088a20f071@gmail.com>
+ <CACKs7VAXOXLw5Zm0wqVt8dDwam_=w8aeAu5wNpXcTRSqObimyQ@mail.gmail.com>
+ <61bbb556-ff9b-ebdc-5566-bc1ae533c0aa@gmail.com>
+ <CACKs7VDGAaSXkjeuBdvEkFbFJ_OnwObTf1_9eVb44RJf-O3Fwg@mail.gmail.com>
+In-Reply-To: <CACKs7VDGAaSXkjeuBdvEkFbFJ_OnwObTf1_9eVb44RJf-O3Fwg@mail.gmail.com>
 
---bz7upqo6yc7n6qcm
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+--------------pjuNAXNgJkMExLeUiE42T2La
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Hi Alex,
+SGkgU3RlZmFuLA0KDQpPbiAxLzIzLzIzIDA4OjQwLCBTdGVmYW4gUHVpdSB3cm90ZToNCj4+
+Pj4gQWNjb3JkaW5nIHRvIHN0cmljdCBhbGlhc2luZyBydWxlcywgaWYgeW91IGRlY2xhcmUg
+YSB2YXJpYWJsZSBvZiB0eXBlICdzdHJ1Y3QNCj4+Pj4gc29ja2FkZHJfc3RvcmFnZScsIHRo
+YXQncyB3aGF0IHlvdSBnZXQsIGFuZCB0cnlpbmcgdG8gYWNjZXNzIGl0IGxhdGVyIGFzIHNv
+bWUNCj4+Pj4gb3RoZXIgc29ja2FkZHJfOCBpcyBzaW1wbHkgbm90IGxlZ2FsLiAgVGhlIGNv
+bXBpbGVyIG1heSBhc3N1bWUgdGhvc2UgYWNjZXNzZXMNCj4+Pj4gY2FuJ3QgaGFwcGVuLCBh
+bmQgb3B0aW1pemUgYXMgaXQgcGxlYXNlcy4NCj4+Pg0KPj4+IENhbiB5b3UgZGV0YWlsIHRo
+ZSAiaXMgbm90IGxlZ2FsIiBwYXJ0Pw0KPj4NCj4+IEkgbWVhbiB0aGF0IGl0J3MgVW5kZWZp
+bmVkIEJlaGF2aW9yIGNvbnRyYWJhbmQuDQo+IA0KPiBPSywgbmV4dCBxdWVzdGlvbi4gSXMg
+dGhpcyB0aGVvcmV0aWNhbCBvciBwcmFjdGljYWwgVUI/DQoNCg0KU2luY2UgdGhlIGZ1bmN0
+aW9ucyB1c2luZyB0aGlzIHR5cGUgYXJlIG5vdCBmdW5jdGlvbnMgdGhhdCBzaG91bGQgYmUg
+aW5saW5lZCwgDQpzaW5jZSB0aGUgY29kZSBpcyByYXRoZXIgbGFyZ2UsIHRoZXkgYXJlIG5v
+dCB2aXNpYmxlIHRvIHRoZSBjb21waWxlciwgc28gbWFueSBvZiANCnRoZSBvcHRpbWl6YXRp
+b25zIHRoYXQgdGhpcyBVQiBlbmFibGVzIGFyZSBub3QgbGlrZWx5IHRvIGhhcHBlbi4gIFRy
+YW5zbGF0aW9uIA0KVW5pdCAoVFUpIGJvdW5kYXJpZXMgYXJlIHdoYXQga2VlcHMgbW9zdCBV
+QiBpbnZva2F0aW9ucyBub3QgYmUgcmVhbGx5IGRhbmdlcm91cy4NCg0KQWxzbywgZ2xpYmMg
+c2VlbXMgdG8gYmUgdXNpbmcgYSBHQ0MgYXR0cmlidXRlICh0cmFuc3BhcmVudF91bmlvbikg
+dG8gbWFrZSB0aGUgDQpjb2RlIGF2b2lkIFVCIGV2ZW4gaWYgaXQgd2VyZSBpbmxpbmVkLCBz
+byBpZiB5b3UgdXNlIGdsaWJjLCB5b3UncmUgZmluZS4gIElmIA0KeW91J3JlIHVzaW5nIHNv
+bWUgc21hbGxlciBsaWJjIHdpdGggYSBsZXNzIGNhcGFibGUgY29tcGlsZXIsIG9yIG1heWJl
+IEMrKywgeW91IA0KYXJlIGxlc3MgbHVja3ksIGJ1dCBUVSBib3VuZGFyaWVzIHdpbGwgcHJv
+YmFibHkgc3RpbGwgc2F2ZSB5b3VyIGRheS4NCg0KPiBQZW9wbGUgY2hlY2sNCj4gZG9jdW1l
+bnRhdGlvbiBhYm91dCBob3cgdG8gd3JpdGUgY29kZSB0b2RheSwgSSB0aGluay4NCg0KSSdt
+IGZpbmUgZG9jdW1lbnRpbmcgaG93IHRvIGRvIGl0IHRvZGF5LiAgQnV0IGJlZm9yZSBjaGFu
+Z2luZyB0aGUgZG9jdW1lbnRhdGlvbiwgDQpJJ2QgbGlrZSB0byB0YWtlIHNvbWUgdGltZSB0
+byByZWZsZWN0IG9uIHdoYXQgY2FuIHdlIGRvIHRvIGZpeCB0aGUgc3RhbmRhcmQgc28gDQp0
+aGF0IHdlIGRvbid0IGhhdmUgdGhpcyBzZW1pLWJyb2tlbiBzdGF0ZSBmb3JldmVyLiAgV2hl
+biB3ZSBoYXZlIGEgY2xlYXIgaWRlYSBvZiANCndoYXQgd2UgY2FuIGRvIHRvIGZpeCB0aGUg
+aW1wbGVtZW50YXRpb24gYW5kIGhvcGVmdWxseSB0aGUgc3RhbmRhcmQgbG9uZy10ZXJtLCAN
+CnBvc3NpYmx5IGtlZXBpbmcgc291cmNlIGNvZGUgdGhlIHNhbWUsIHdlIGNhbiBkbyBhIGJl
+dHRlciByZWNvbW1lbmRhdGlvbiBmb3IgDQpwcm9ncmFtbWVycy4NCg0KVG9kYXksIHlvdSBj
+YW4gZG8gMiB0aGluZ3M6DQoNCi0gIFlvdSBkb24ndCBjYXJlIGFib3V0IFVCLCBhbmQgd291
+bGQgbGlrZSB0aGF0IEMgaGFkIGFsd2F5cyBiZWVuIEsmUiBDLCBhbmQgR0NDIA0KanVzdCBt
+YWtlcyBpdCB3b3JrLiAgVGhlbiB1c2UgYHNvY2thZGRyX3N0b3JhZ2VgLiAgSXQgd2lsbCBq
+dXN0IHdvcmsuICBXaGVuIGl0IA0Kc3RvcHMgd29ya2luZywgeW91IGNhbiBibGFtZSB0aGUg
+Y29tcGlsZXIgYW5kIGxpYmMgZm9yIG9wdGltaXppbmcgd2F5IHRvbyBtdWNoLg0KDQotICBZ
+b3UgY2FyZSBhIGxvdCBhYm91dCBVQi4gIFRoZW4gd3JpdGUgeW91ciBvd24gdW5pb24sIGFz
+IGFsbCB0aGUgYHNvY2thZGRyYCANCmludGVyZmFjZSBzaG91bGQgaGF2ZSBiZWVuIGRlc2ln
+bmVkIGZyb20gdGhlIGdyb3VuZCB1cC4gIFRoYXQncyB3aGF0IHVuaW9ucyBhcmUgZm9yLg0K
+DQpXaGljaCBzaG91bGQgd2UgcmVjb21tZW5kPyAgVGhhdCdzIG15IHByb2JsZW0uDQoNCkkg
+ZG9uJ3Qgd2FudCB0byBiZSBkb2N1bWVudGluZyB0aGUgbGF0dGVyLCBiZWNhdXNlIGl0J3Mg
+bm9uLXN0YW5kYXJkLCBhbmQgaXQncyANCnN0aWxsIGxpa2VseSB0byBkbyBpdCBpbnZva2lu
+ZyBVQiBpbiBhIGRpZmZlcmVudCB3YXksIGJlY2F1c2UgaXQncyBhIGRpZmZpY3VsdCANCnBh
+cnQgb2YgdGhlIGxhbmd1YWdlLCBhbmQgd2hlbiB5b3Ugcm9sbCB5b3VyIG93biwgeW91J3Jl
+IGxpa2VseSB0byBtYWtlIGFjY2lkZW50cy4NCg0KU28sIGlkZWFsbHksIEknZCBsaWtlIHRv
+IGRvY3VtZW50IHRoZSBmb3JtZXIsIGJ1dCBmb3IgdGhhdCwgSSdkIGxpa2UgdG8gbWFrZSAN
+CnN1cmUgdGhhdCBpdCB3aWxsIHdvcmsgZm9yZXZlciwgc2luY2Ugb3RoZXJ3aXNlIHdlJ2Qg
+YmUgYmxhbWVkIHdoZW4gc29tZWJvZHkncyANCmNvZGUgaXMgY29tcGlsZWQgaW4gYSBwbGF0
+Zm9ybSB3aXRoIHNvbWUgY29tYmluYXRpb24gb2YgbGliYywgY29tcGlsZXIsIGFuZCANCnBo
+YXNlIG9mIHRoZSBtb29uLCB0aGF0IG1ha2VzIHRoZSBVQiBiZWNvbWUgbm9uLXRoZW9yZXRp
+Y2FsLg0KDQpJIHRoaW5rIHdlIGNhbiBmaXggdGhlIGRlZmluaXRpb24gb2YgYHNvY2thZGRy
+X3N0b3JhZ2VgIHRvIGhhdmUgZGVmaW5lZCANCmJlaGF2aW9yLCB3aXRoIHRoZSBjaGFuZ2Vz
+IEknbSBkaXNjdXNzaW5nIHdpdGggQmFzdGllbiwgc28gSSBndWVzcyB3ZSdsbCANCmRvY3Vt
+ZW50IHRoZSBmb3JtZXIuDQoNCj4+PiBXaWxsIGNvZGUgYnJlYWsgaW4gcHJhY3RpY2U/DQo+
+Pg0KPj4gV2VsbCwgaXQgZGVwZW5kcyBvbiBob3cgbXVjaCBjb21waWxlcnMgYWR2YW5jZS4g
+IEhlcmUncyBzb21lIGludGVyZXN0aW5nIGV4cGVyaW1lbnQ6DQo+Pg0KPj4gPGh0dHBzOi8v
+c29mdHdhcmUuY29kaWRhY3QuY29tL3Bvc3RzLzI4Nzc0OC8yODc3NTAjYW5zd2VyLTI4Nzc1
+MD4NCj4gDQo+IFRoYXQgY29kZSBwbGF5cyB3aXRoIDIgcG9pbnRlcnMgdG8gdGhlIHNhbWUg
+YXJlYSwgb25lIHRvIGRvdWJsZSBhbmQNCj4gb25lIHRvIGludCwgc28gSSBkb24ndCB0aGlu
+ayBpdCdzIHRoYXQgc2ltaWxhciB0byB0aGUgc29ja2FkZHINCj4gc2l0dWF0aW9uLiBBdCBs
+ZWFzdCBmb3Igc3RydWN0IHNvY2thZGRyLCB0aGUgc2FfZmFtaWx5IGZpZWxkIGlzIHRoZQ0K
+PiBzYW1lIGZvciBhbGwgc3RydWN0IHNvY2thZGRyXyogdmFyaWFudHMuIEFsc28sIGluIHBy
+YWN0aWNhbCB0ZXJtcywgSQ0KPiBkb24ndCB0aGluayBhbnkgY29tcGlsZXIgb3B0aW1pemF0
+aW9uIHRoYXQgYnJlYWtzIHNvY2tldCBBUElzIChhbmQsIGlmDQo+IEkgcmVjYWxsIGNvcnJl
+Y3RseSwgdGhlcmUgYXJlIGluc3RhbmNlcyBvZiB0aGlzIHBhdHRlcm4gaW4gdGhlIGtlcm5l
+bA0KPiBhcyB3ZWxsKSBpcyBnb2luZyB0byBiZSBhbiBlYXN5IHNlbGwuIEl0J3MgcG9zc2li
+bGUsIGJ1dCByZWFsaXN0aWNhbGx5DQo+IHNwZWFraW5nLCBJIGRvbid0IHRoaW5rIGl0J3Mg
+Z29pbmcgdG8gaGFwcGVuLg0KDQpUaGUgY29tbW9uIGluaXRpYWwgc2VxdWVuY2Ugb2Ygc3Ry
+dWN0dXJlcyBpcyBvbmx5IGFsbG93ZWQgaWYgdGhlIHN0cnVjdHVyZXMgZm9ybSANCnBhcnQg
+b2YgYSB1bmlvbiAod2hpY2ggaXMgd2h5IHRvIGF2b2lkIFVCIHlvdSBuZWVkIGEgdW5pb247
+IGFuZCBzdGlsbCwgeW91IG5lZWQgDQp0byBtYWtlIHN1cmUgeW91IGRvbid0IGludm9rZSBV
+QiBpbiBhIGRpZmZlcmVudCB3YXkpLg0KPGh0dHBzOi8vcG9ydDcwLm5ldC8lN0Vuc3ovYy9j
+MTEvbjE1NzAuaHRtbCM2LjUuMi4zcDY+DQoNCj4gDQo+Pg0KPj4gSSB3b3VsZG4ndCByZWx5
+IG9uIFVuZGVmaW5lZCBCZWhhdmlvciBub3QgY2F1c2luZyBuYXNhbCBkZW1vbnMuICBXaGVu
+IHlvdSBnZXQNCj4+IHRoZW0sIHlvdSBjYW4gb25seSBraWxsIHRoZW0gd2l0aCBnYXJsaWMu
+DQo+IA0KPiBPSywgYnV0IG5vdCBhbGwgdGhlb3JldGljYWwgaXNzdWVzIGhhdmUgcHJhY3Rp
+Y2FsIGltcGxpY2F0aW9ucy4gSXMNCj4gdGhlcmUgY29kZSB0aGF0IGNhbiBzaG93IFVCIGlu
+IHByYWN0aWNhbCB0ZXJtcyB3aXRoIHN0cnVjdA0KPiBzb2NrYWRkcl9zdG9yYWdlIHRvZGF5
+PyBMaWtlIEVyaWMgbWVudGlvbmVkIGluIGFub3RoZXIgdGhyZWFkLCBkb2VzDQo+IFVCU2Fu
+IGNvbXBsYWluIGFib3V0IGNvZGUgdXNpbmcgc3RydWN0IHNvY2thZGRyX3N0b3JhZ2U/DQoN
+Ckl0J3MgdW5saWtlbHkuICBCdXQgSSBjYW4ndCBwcm9taXNlIGl0IHdpbGwgYmUgc2FmZSB1
+bmRlciBzb21lIHJhbmRvbSANCmNvbWJpbmF0aW9uIG9mIGNvbXBpbGVyIGFuZCBsaWJyYXJ5
+LCBhbmQgZGVwZW5kcyBhbHNvIG9uIHdoYXQgeW91IGRvIGluIHlvdXIgDQpjb2RlLCB3aGlj
+aCB3aWxsIGFmZmVjdCBjb21waWxlciBvcHRpbWl6YXRpb25zLg0KDQpDaGVlcnMsDQoNCkFs
+ZXgNCg0KLS0gDQo8aHR0cDovL3d3dy5hbGVqYW5kcm8tY29sb21hci5lcy8+DQo=
 
-At 2023-01-22T22:11:06+0100, Alejandro Colomar wrote:
-> On 1/22/23 22:02, G. Branden Robinson wrote:
-> > I would use \fP instead of \fR, this way you return to the
-> > "previous"
->=20
-> Ahh, yes, thanks for catching that!  Sleeping 3 hours is definitely
-> not good for the brain :P
+--------------pjuNAXNgJkMExLeUiE42T2La--
 
-Certainly not.  Good self-care keeps the engineer's brain supple.  :)
-
-> > But I would also quote multi-word arguments to _any_ man(7) macro.
->=20
-> Why is it?  I remember you mentioned that, but what's the win?
-
-It's more portable.  AT&T troff and its descendants (except for Heirloom
-Doctools troff) support only 9 macro arguments at most.  Worse, the AT&T
-man(7) macros and most descendants support only _six_.
-
-When doing maintenance, it's easy to forget that.
-
-But even in a groff-only world, I would recommend the practice as good
-style because it leaves room to expand the syntax of some macros.
-
-Admittedly I don't see any promising places where we might do that in
-man(7) to any macros that already accept formattable text as arguments.
-
-I still think it's a good idea style-wise because the man(7) author
-should keep the count of words following a macro call in mind,
-especially if they want to effectively use the font style alternation
-macros (.BI, .BR, .IB, .IR, .RB, .RI).
-
-In mdoc(7) argument count makes a difference due to the package's
-unique recursive argument interpretation feature.  Still, while this was
-a measurable phenomenon 30 years ago, it may not be today.  (The whole
-reason "cat pages" exist in man(1) is that the time spent by the
-formatter on a document was significant then; it is negligible now.)
-
-I will admit right now that I don't follow this rule rigidly myself in
-groff's man pages when it comes to `I` calls.  I may fix that at some
-point.  (If I did so, it would align doc/ms.ms better with groff_ms(7).)
-
-So it's not a big deal, but there's so much ignorance about man(7) out
-there that it's a goal of mine to make the language easier to acquire.
-
-> > > +.SS "The \f[I]/proc/sys/user\f[] directory"
->=20
-> Interesting.  I'll consider that for the long term.  However, for now
-> I'll keep \fP style.
-
-No worries.
-
-Regards,
-Branden
-
---bz7upqo6yc7n6qcm
-Content-Type: application/pgp-signature; name="signature.asc"
+--------------UFaWRQEkrpverxEpLqPj44jb
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmPOSTwACgkQ0Z6cfXEm
-bc4KZw/8DVuVX2a2a3aJqaffiz1FqjhsqJ3BBskv2dehSpoIHL8uleF93sCI5lWO
-vdRMW1CWfvmdNcBUD4Bt4K/4EdH9ll2ChiRPQ2cym2tlaAZoTANOoxFw7MJPCJS5
-RIMfKE75v/aQD4XW/kyVkbQQANQBnKB2kJjpUaN6sZsMtTYwQ1MKXDchbdTx/u46
-BrjhP64wQFwKWBlYjKpfeD+pbM8exGTqpf4dHfHoHRnG0IaG3j8cv7TH5SjLNxOr
-s2U+79tDwXgQ7NaQ9Lwyvc3r3OdzYwQ550pSVFtkovKXsiBhuKO41IHT0G8EjEKZ
-3U39jHe+sBfUQUl2ZFF9ss7kb6LkQYFfel+0z1JrQQlkiqAjVSe60/sQU3Ek5pZ6
-+waGehsnuOcldRS24Fa0C+5I3Ab+NjnLZn1KQguwVZdGYQZSBWJI0LpgHOY7Dwxj
-qJ0Dy+nQMCyyLOu/VqYNd+qyRMnbxG+qk7cID7sURi/q5n74nPPOKSvMUhgmnZsE
-O5dvxD/6Tkjf2RMd37LGo3JuTQnMD4ltIScQZ+z5f7OypogoOvvwXELWCJqb6ofT
-glMyA5gTA+qRiaB3HSggozMRpdMwDAvlzgthGbK1GdLoRlHmyYqHWhX9qPwJCXUm
-0bnIZcNPR4LMRVtm9V26CgaEvNrv2VaAi1D3GYU/8q9sAz5+GSo=
-=s1/Z
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmPOr7UACgkQnowa+77/
+2zJw4BAAgQQ62rsBH+bPshNp+2T43ZvIhd8MVGlD4CR6NwnAalt4C4QTVjUttV/N
+VFQMnlxseOtjfyDHNjQERh9JmoeOqy1M5G2c988zzPmKHnRw+sjVek4XffdMMGV4
+Gaf6xso4+v+dWF6n+jXWs/uyAvevXge9ABNcI73czQZvUIL2jr0AXUe3o+GuNPIC
+kB58NuESsycbnSk42VjKtUEpU5Rp+48iPWDYCBGt/ANGlUqviL3O4hjhmulP89Kd
+hErnFrkWAAu0Zd2k1N94CZ6/XWbLUj9hAT/6N9bTtOoBPi3ylqEBHESjmX+U4DoK
+c466WC1svoRJ4Liefa/NVHtnY3mXdn61rQIbqs9upHeiGO39IL56tuanW6y+H8/t
+LUsJ/BqBT6z3cqB/Xr3pXZwnOPHelU4a5gEIgORrj+sWfEsnTrEV1XrIs5szj3sV
+focKgNGFTPU0x+3EmW3r0VlfDw+M+VVdflW3lXaflYpnRAD8/esj5enZpu9Okj4I
+vZpwrkpBDlEK4yHLWi2JL9ZtGhiQPO/9ImuwJZWms0tHXYTm16SLr5k5Pr+URrDw
+0EZyLHkRrch/YQpWymf9knil/X/zhwvX5MhgS0Dl3tpZBkkQnDMbpARnRam9PO6s
+oas/1TiRoyQyi8EwBMSMjKf0ZIzKXgrreGcTvOaS5ycLrOKm+oE=
+=fhgb
 -----END PGP SIGNATURE-----
 
---bz7upqo6yc7n6qcm--
+--------------UFaWRQEkrpverxEpLqPj44jb--
