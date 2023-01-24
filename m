@@ -2,126 +2,79 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 2AF5A678753
-	for <lists+linux-man@lfdr.de>; Mon, 23 Jan 2023 21:14:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B98186796AA
+	for <lists+linux-man@lfdr.de>; Tue, 24 Jan 2023 12:31:44 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232799AbjAWUOd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 23 Jan 2023 15:14:33 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45948 "EHLO
+        id S234049AbjAXLbn (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 24 Jan 2023 06:31:43 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56704 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232562AbjAWUOd (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 23 Jan 2023 15:14:33 -0500
-Received: from static.213-239-213-133.clients.your-server.de (luckmann.name [213.239.213.133])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C6C6E2B632
-        for <linux-man@vger.kernel.org>; Mon, 23 Jan 2023 12:14:31 -0800 (PST)
-Received: from localhost (localhost [127.0.0.1])
-  (uid 502)
-  by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E5808D.0000000063CEEAA5.00001234; Mon, 23 Jan 2023 21:14:29 +0100
-Date:   Mon, 23 Jan 2023 21:14:29 +0100
-From:   Helge Kreutzmann <debian@helgefjell.de>
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
+        with ESMTP id S234060AbjAXLbj (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 24 Jan 2023 06:31:39 -0500
+X-Greylist: delayed 911 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Tue, 24 Jan 2023 03:31:36 PST
+Received: from brightrain.aerifal.cx (brightrain.aerifal.cx [216.12.86.13])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 69EE53C2AE
+        for <linux-man@vger.kernel.org>; Tue, 24 Jan 2023 03:31:35 -0800 (PST)
+Date:   Tue, 24 Jan 2023 06:16:23 -0500
+From:   Rich Felker <dalias@libc.org>
+To:     Stefan Puiu <stefan.puiu@gmail.com>
 Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page regex.3
-Message-ID: <20230123201429.GB4438@Debian-50-lenny-64-minimal>
-References: <20230122193128.GA29030@Debian-50-lenny-64-minimal>
- <923d1f91-0e5b-d770-db4f-15588f3c2d23@gmail.com>
- <20230123174706.GA32751@Debian-50-lenny-64-minimal>
- <20230123190326.4mnvzasguf4dbfww@illithid>
-Mime-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-4660-1674504869-0001-2"
+        GNU C Library <libc-alpha@sourceware.org>,
+        linux-man <linux-man@vger.kernel.org>, gcc@gcc.gnu.org,
+        Igor Sysoev <igor@sysoev.ru>
+Subject: Re: struct sockaddr_storage
+Message-ID: <20230124111623.GD3298@brightrain.aerifal.cx>
+References: <ab492040-2058-bcbe-c920-a9088a20f071@gmail.com>
+ <CACKs7VAXOXLw5Zm0wqVt8dDwam_=w8aeAu5wNpXcTRSqObimyQ@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230123190326.4mnvzasguf4dbfww@illithid>
-X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
-X-homepage: http://www.helgefjell.de/debian
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Spam-Status: No, score=0.3 required=5.0 tests=BAYES_00,CK_HELO_GENERIC,
-        HELO_DYNAMIC_IPADDR,SPF_HELO_NONE,SPF_NONE autolearn=no
-        autolearn_force=no version=3.4.6
+In-Reply-To: <CACKs7VAXOXLw5Zm0wqVt8dDwam_=w8aeAu5wNpXcTRSqObimyQ@mail.gmail.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,SPF_HELO_NONE,
+        SPF_NONE autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is a MIME-formatted message.  If you see this text it means that your
-E-mail software does not support MIME-formatted messages.
+On Fri, Jan 20, 2023 at 12:06:50PM +0200, Stefan Puiu via Libc-alpha wrote:
+> Hi Alex,
+> 
+> On Thu, Jan 19, 2023 at 4:14 PM Alejandro Colomar
+> <alx.manpages@gmail.com> wrote:
+> >
+> > Hi!
+> >
+> > I just received a report about struct sockaddr_storage in the man pages.  It
+> > reminded me of some concern I've always had about it: it doesn't seem to be a
+> > usable type.
+> >
+> > It has some alignment promises that make it "just work" most of the time, but
+> > it's still a UB mine, according to ISO C.
+> >
+> > According to strict aliasing rules, if you declare a variable of type 'struct
+> > sockaddr_storage', that's what you get, and trying to access it later as some
+> > other sockaddr_8 is simply not legal.  The compiler may assume those accesses
+> > can't happen, and optimize as it pleases.
+> 
+> Can you detail the "is not legal" part? How about the APIs like
+> connect() etc that use pointers to struct sockaddr, where the
+> underlying type is different, why would that be legal while using
+> sockaddr_storage isn't?
 
---=_luckmann.name-4660-1674504869-0001-2
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Because they're specified to take different types. In C, any struct
+pointer type can legally point to any other struct type. You just
+can't dereference through it with the wrong type. How the
+implementation of connect etc. handle this is an implementation
+detail. You're allowed to pass pointers to struct sockaddr_in, etc. to
+connect etc. simply because the specification says you are.
 
-Hello Branden,
-On Mon, Jan 23, 2023 at 01:03:26PM -0600, G. Branden Robinson wrote:
-> At 2023-01-23T18:47:06+0100, Helge Kreutzmann wrote:
-> > On Sun, Jan 22, 2023 at 10:03:46PM +0100, Alejandro Colomar wrote:
-> > > On 1/22/23 20:31, Helge Kreutzmann wrote:
-> > > > Without further ado, the following was found:
-> > > >=20
-> > > > Issue:    How can a variable (I<preg>) free memory?
->=20
-> It doesn't, but no claim is made that (by itself) it does.
->=20
-> > > > Isn't it B<regfree>() which frees the memory?
->=20
-> Yes.
->=20
-> > >  Supplying
-> > >  .BR regfree ()
-> > >  with a precompiled pattern buffer,
-> > > -.I preg
-> > > +.IR preg ,
-> > >  will free the memory allocated to the pattern buffer by the compiling
-> > >  process,
-> > >  .BR regcomp ().
-> >=20
-> > I don't really see a change here? It's only the markup, that changed?
->=20
-> The addition of a comma makes clear that the subject corresponding to
-> the verb "will free" is "regfree", not "preg".
->=20
-> https://thecriticalreader.com/commas-names-titles/
->=20
-> Without the added comma, the sentence reads as if it has a comma splice,
-> and would thus be (strictly) invalid.
->=20
-> https://www.grammarly.com/blog/comma-splice/
+In any case, sockaddr_storage is a legacy thing designed by folks who
+didn't understand the rules of the C language. It should never appear
+in modern code except perhaps with sizeof for allocting buffers. There
+is no action that needs to be taken here except documenting that it
+should not be used (cannot be used meaningfully without UB).
 
-
-Thanks, I missed the comma. Yes, this makes it clear.
-
-Greetings
-
-        Helge
-
-
---=20
-      Dr. Helge Kreutzmann                     debian@helgefjell.de
-           Dipl.-Phys.                   http://www.helgefjell.de/debian.php
-        64bit GNU powered                     gpg signed mail preferred
-           Help keep free software "libre": http://www.ffii.de/
-
---=_luckmann.name-4660-1674504869-0001-2
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmPO6qUACgkQQbqlJmgq
-5nCYxQ/8CNUL1re5pBC1Hgsl1zrE9aTvybKr5l1cLIS/tN3VHoj8MwC9mu13L0gA
-gFIh2RvSOHPthxNbI/cM8e7FFxpn0h3Yu4Nb9+4MwekeyJhYyQw04LErK/GTmZ7Z
-bkox/uHqvUPoQlQSawERPLPhAgjIZG9zChbzIAIbsAkDk6A9G2KREKLNMsaP4sCj
-MgY9ZUQld7UVzp7rBCOYTX91b2CkSPjAxXwXtTx8MD2Lrol6J71DfhoIW0Rn+nCa
-SMNWm/FV5eeCwhKVp0pYqCGyv2YLZ2CTLpY4x0UE8fFrci9AoOSCZl/urkqeyKF4
-tn6IuDKu9Xeyw58H/RGiyiMgEoP+DtZGawUFovnyBnZH6m1+sb9HnOmIVv5yXmXk
-2+nYeV27pLQE5Ug6I9JYVSNhL/N7Yhj14lPrC6r1CM9TzZ/ym4qeD5RHT+U2cF4H
-9ca9mBjEiAGYL5X1ET0Xk+/SH80Sw9Dk/Si7tdxPx9nQ/q9b3pUDvOfDEyTvYNhl
-YVuvw4iePbrUiPYLB4e1qzex9NtozBUneXvVfcoT1JZuU5N6dU/z5TD2+ap90SxY
-Q8ENQTv4c7LrbmvcOATPvD3V78XPwKpOfbTJ7RzuW+wc+v3WvbM+TPQ9pHflk+uI
-9j+KvWOveCa5Gd3wALpf1Uum3QPSVZ2p1kowABimDTsZR1poavk=
-=/Ep1
------END PGP SIGNATURE-----
-
---=_luckmann.name-4660-1674504869-0001-2--
+Rich
