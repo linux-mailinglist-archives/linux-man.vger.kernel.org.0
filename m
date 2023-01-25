@@ -2,96 +2,84 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id D2B5567A388
-	for <lists+linux-man@lfdr.de>; Tue, 24 Jan 2023 21:01:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 40E5E67BC70
+	for <lists+linux-man@lfdr.de>; Wed, 25 Jan 2023 21:20:09 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233125AbjAXUBk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 24 Jan 2023 15:01:40 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57466 "EHLO
+        id S234642AbjAYUUI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 25 Jan 2023 15:20:08 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54194 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233542AbjAXUBj (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 24 Jan 2023 15:01:39 -0500
-Received: from static.213-239-213-133.clients.your-server.de (luckmann.name [213.239.213.133])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 670E86EBB
-        for <linux-man@vger.kernel.org>; Tue, 24 Jan 2023 12:01:38 -0800 (PST)
-Received: from localhost (localhost [127.0.0.1])
-  (uid 502)
-  by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E5807F.0000000063D03920.00001AA1; Tue, 24 Jan 2023 21:01:36 +0100
-Date:   Tue, 24 Jan 2023 21:01:36 +0100
-From:   Helge Kreutzmann <debian@helgefjell.de>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re:
-Message-ID: <20230124200136.GB6523@Debian-50-lenny-64-minimal>
-References: <20230122193117.GA28689@Debian-50-lenny-64-minimal>
- <1d345ae5-88fe-bf2c-2f45-a7179a4b74ba@gmail.com>
-Mime-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-6817-1674590496-0001-2"
+        with ESMTP id S235846AbjAYUUH (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 25 Jan 2023 15:20:07 -0500
+X-Greylist: delayed 1128 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Wed, 25 Jan 2023 12:20:05 PST
+Received: from smtpout3.mo529.mail-out.ovh.net (smtpout3.mo529.mail-out.ovh.net [46.105.54.81])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D01DF5925A
+        for <linux-man@vger.kernel.org>; Wed, 25 Jan 2023 12:20:05 -0800 (PST)
+Received: from mxplan6.mail.ovh.net (unknown [10.109.146.239])
+        by mo529.mail-out.ovh.net (Postfix) with ESMTPS id 16BA222B22;
+        Wed, 25 Jan 2023 20:01:15 +0000 (UTC)
+Received: from jwilk.net (37.59.142.109) by DAG4EX1.mxp6.local (172.16.2.31)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.17; Wed, 25 Jan
+ 2023 21:01:14 +0100
+Authentication-Results: garm.ovh; auth=pass (GARM-109S0039836103c-89c9-430f-b004-61bb7703a870,
+                    1F687A1444F9BFD9A03C4A3924F05843A5FA2A9E) smtp.auth=jwilk@jwilk.net
+X-OVh-ClientIp: 5.172.255.200
+Date:   Wed, 25 Jan 2023 21:01:11 +0100
+From:   Jakub Wilk <jwilk@jwilk.net>
+To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
+CC:     Helge Kreutzmann <debian@helgefjell.de>,
+        Alejandro Colomar <alx.manpages@gmail.com>,
+        <mario.blaettermann@gmail.com>, <linux-man@vger.kernel.org>
+Subject: Re: Issue in man page wcsncpy.3
+Message-ID: <20230125200111.z4gblsqs7uouavp7@jwilk.net>
+References: <20221204090724.GA1249@Debian-50-lenny-64-minimal>
+ <e358f853-93e5-a30a-2d59-1115d64a61af@gmail.com>
+ <20221205170935.GE5000@Debian-50-lenny-64-minimal>
+ <20221205175503.ts7a3agzslnoycqb@illithid>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"; format=flowed
 Content-Disposition: inline
-In-Reply-To: <1d345ae5-88fe-bf2c-2f45-a7179a4b74ba@gmail.com>
-X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
-X-homepage: http://www.helgefjell.de/debian
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Spam-Status: No, score=0.3 required=5.0 tests=BAYES_00,CK_HELO_GENERIC,
-        HELO_DYNAMIC_IPADDR,SPF_HELO_NONE,SPF_NONE autolearn=no
-        autolearn_force=no version=3.4.6
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20221205175503.ts7a3agzslnoycqb@illithid>
+X-Originating-IP: [37.59.142.109]
+X-ClientProxiedBy: DAG8EX2.mxp6.local (172.16.2.72) To DAG4EX1.mxp6.local
+ (172.16.2.31)
+X-Ovh-Tracer-GUID: 1a671301-539a-4035-8bda-3c9fcc61e324
+X-Ovh-Tracer-Id: 9983072999029266339
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvhedruddvvddgudeffecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfhfgggtugfgjghisehtkeertddttdejnecuhfhrohhmpeflrghkuhgsucghihhlkhcuoehjfihilhhksehjfihilhhkrdhnvghtqeenucggtffrrghtthgvrhhnpeetgedvgfduueegffeftdffueeftedvgfdtteekieevhffhuefgheeuieevgfeijeenucfkphepuddvjedrtddrtddruddpfeejrdehledrudegvddruddtleenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpeduvdejrddtrddtrddupdhmrghilhhfrhhomhepoehjfihilhhksehjfihilhhkrdhnvghtqedpnhgspghrtghpthhtohepuddprhgtphhtthhopehgrdgsrhgrnhguvghnrdhrohgsihhnshhonhesghhmrghilhdrtghomhdpuggvsghirghnsehhvghlghgvfhhjvghllhdruggvpdgrlhigrdhmrghnphgrghgvshesghhmrghilhdrtghomhdpmhgrrhhiohdrsghlrggvthhtvghrmhgrnhhnsehgmhgrihhlrdgtohhmpdhlihhnuhigqdhmrghnsehvghgvrhdrkhgvrhhnvghlrdhorhhgpdfovfetjfhoshhtpehmohehvdelpdhmohguvgepshhmthhpohhuth
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,SPF_HELO_NONE,
+        SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is a MIME-formatted message.  If you see this text it means that your
-E-mail software does not support MIME-formatted messages.
+* G. Branden Robinson <g.branden.robinson@gmail.com>, 2022-12-05 11:55:
+>The following compiles without warnings on my system, even with -Wall.
+>
+>int main(int argc, char *argv[]) {
+>        wchar_t w1 = '\0', w2 = L'\0';
+>        printf("%d\n", (w1 + w2));
+>}
+>
+>For me this reliably writes "0" to the standard output.
+>
+>However it is conceivable, depending on the implementation, that bits 
+>8+ of w1 come from uninitialized memory, and a large positive or 
+>negative value would be written to stdout.
 
---=_luckmann.name-6817-1674590496-0001-2
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Er, no? Both assignments and additions in this code are well defined. 
+You're just operating with zeros of different types, which is completely 
+fine.
 
-Helo Alex,
-On Sun, Jan 22, 2023 at 10:42:54PM +0100, Alejandro Colomar wrote:
-> Hi Helge,
->=20
-> On 1/22/23 20:31, Helge Kreutzmann wrote:
-> > Without further ado, the following was found:
->=20
-> Empty report.  An accident? :)
+The only potential for undefined behavior is printf, because %d may not 
+be compatible with wchar_t. In fact, it isn't on my system (i386):
 
-I tried to figure out what happend - but I don't know.
+wchar.c:5:18: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘wchar_t’ {aka ‘long int’} [-Wformat=]
 
-Sorry for the empty report, please disregard.
-
-Greetings
-
-         Helge
-
---=20
-      Dr. Helge Kreutzmann                     debian@helgefjell.de
-           Dipl.-Phys.                   http://www.helgefjell.de/debian.php
-        64bit GNU powered                     gpg signed mail preferred
-           Help keep free software "libre": http://www.ffii.de/
-
---=_luckmann.name-6817-1674590496-0001-2
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmPQOSAACgkQQbqlJmgq
-5nBZGw//akOXXDtwkFlT0QyUnZ/GX5pVMH+qXFcrL7VOma/8yT777SASpeZa9DwS
-iXYcMrH3FdoNh02rvMLzS9TMnNhSVUJCbId2BxrXzseWOZeLrKY1Pm8S7QbxbKN1
-t6QNmKdGw/9DizIDCYZQa0XWWIb/e4bqIFtiumBpD3ZKdu1Oyy1AcJORWdyjIYmo
-zEZRUMys/CFTnMnVfww1XZ1dO0Jdh8hF4KeEVPiWOQmMnSsWCiw+p7mSUYaXtfve
-KM6lDfFqDpdmWOMa3UxIUlBdCMzkn0yRZxUZsYmacSEi2Ru+b8knAB/CAJPN3SF5
-yktvikn1Z/VENvz6mvCjKSP5Cm4FSb0cbk4n5I6MFt0YmqO1BD16wPhBWqp7c+aB
-IDeWiIZDzaBFHhe2ROQfWhx3f5plwa5Nid2H3D85t3zeLY+qYXNlwbFFShyYQ2Zx
-Kfo87F4B0PTNJ5JU3Wm812UqX/FmT3Zppgb5JjrHvVIyPUawn3d+f8sO/hyXFpKy
-8JWa9pAiV8Rbri5dab4bBZaFW//PBnWXfrU+re80KrDJ1DcfibLIgfAsMNE00uXm
-fXCSb7zErMBh66Yp2whftS6Xr7eGge4LdHkdjXRkVzHkVfe4gauzJRkCt0141Icj
-Q7BBS6DTlGDV1sV7eajJ8j1b9z5EqvMBEPmpIxaU36R4QGGrXDE=
-=Z/b0
------END PGP SIGNATURE-----
-
---=_luckmann.name-6817-1674590496-0001-2--
+-- 
+Jakub Wilk
