@@ -2,84 +2,97 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 40E5E67BC70
-	for <lists+linux-man@lfdr.de>; Wed, 25 Jan 2023 21:20:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 5E96367EADB
+	for <lists+linux-man@lfdr.de>; Fri, 27 Jan 2023 17:27:03 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234642AbjAYUUI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 25 Jan 2023 15:20:08 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54194 "EHLO
+        id S230257AbjA0Q1B (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 27 Jan 2023 11:27:01 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55250 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235846AbjAYUUH (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 25 Jan 2023 15:20:07 -0500
-X-Greylist: delayed 1128 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Wed, 25 Jan 2023 12:20:05 PST
-Received: from smtpout3.mo529.mail-out.ovh.net (smtpout3.mo529.mail-out.ovh.net [46.105.54.81])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D01DF5925A
-        for <linux-man@vger.kernel.org>; Wed, 25 Jan 2023 12:20:05 -0800 (PST)
-Received: from mxplan6.mail.ovh.net (unknown [10.109.146.239])
-        by mo529.mail-out.ovh.net (Postfix) with ESMTPS id 16BA222B22;
-        Wed, 25 Jan 2023 20:01:15 +0000 (UTC)
-Received: from jwilk.net (37.59.142.109) by DAG4EX1.mxp6.local (172.16.2.31)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.17; Wed, 25 Jan
- 2023 21:01:14 +0100
-Authentication-Results: garm.ovh; auth=pass (GARM-109S0039836103c-89c9-430f-b004-61bb7703a870,
-                    1F687A1444F9BFD9A03C4A3924F05843A5FA2A9E) smtp.auth=jwilk@jwilk.net
-X-OVh-ClientIp: 5.172.255.200
-Date:   Wed, 25 Jan 2023 21:01:11 +0100
-From:   Jakub Wilk <jwilk@jwilk.net>
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
-CC:     Helge Kreutzmann <debian@helgefjell.de>,
-        Alejandro Colomar <alx.manpages@gmail.com>,
-        <mario.blaettermann@gmail.com>, <linux-man@vger.kernel.org>
-Subject: Re: Issue in man page wcsncpy.3
-Message-ID: <20230125200111.z4gblsqs7uouavp7@jwilk.net>
-References: <20221204090724.GA1249@Debian-50-lenny-64-minimal>
- <e358f853-93e5-a30a-2d59-1115d64a61af@gmail.com>
- <20221205170935.GE5000@Debian-50-lenny-64-minimal>
- <20221205175503.ts7a3agzslnoycqb@illithid>
+        with ESMTP id S233708AbjA0Q0z (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 27 Jan 2023 11:26:55 -0500
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 66D2D80F8F
+        for <linux-man@vger.kernel.org>; Fri, 27 Jan 2023 08:26:53 -0800 (PST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id 0268061D0C
+        for <linux-man@vger.kernel.org>; Fri, 27 Jan 2023 16:26:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 6232AC4339E
+        for <linux-man@vger.kernel.org>; Fri, 27 Jan 2023 16:26:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1674836812;
+        bh=Vt2s2mYG9NrCX2s06UWEb/gX4x8WYOdnWIlCf6Kv3kE=;
+        h=From:To:Subject:Date:From;
+        b=VftdGq1nzQlNRjnofEg6ntiRoaeT30GlX7sqR1AHUvQK24tCmLWPIAFOmAAC4t5UA
+         Rz/TVmR0LizswdXyFapbLUCUd9aMYdnxzGXLL/Pl3ucOXoUyNCU/gkk8HuwQn4+p3N
+         tanm/yv2hse2R+AWX4fSJ0iXcaDrwrZhntcaN1HRmo26KtBuvN8oeCVKOhHLtXItD8
+         EgshU/m6Fv1nxXYkycryP7RELfBVOn0ZqD0AFAH0K/MAL4CenK/naTGSbRSLIjPOoI
+         6YdWSF47iSTH3UdjOSI5IDVuI7AkGlxPY7SVJ/Bd1vWkzOSVKPQ1PnRe4bympGLQ1J
+         28NXXZMEhnulg==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
+        id 4D84BC43145; Fri, 27 Jan 2023 16:26:52 +0000 (UTC)
+From:   bugzilla-daemon@kernel.org
+To:     linux-man@vger.kernel.org
+Subject: [Bug 216971] New: add a link from filesystems(7) to mq_overview(7)
+Date:   Fri, 27 Jan 2023 16:26:51 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: new
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Documentation
+X-Bugzilla-Component: man-pages
+X-Bugzilla-Version: unspecified
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: enhancement
+X-Bugzilla-Who: giecrilj@stegny.2a.pl
+X-Bugzilla-Status: NEW
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P1
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: bug_id short_desc product version rep_platform
+ op_sys bug_status bug_severity priority component assigned_to reporter
+ cf_regression
+Message-ID: <bug-216971-11311@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20221205175503.ts7a3agzslnoycqb@illithid>
-X-Originating-IP: [37.59.142.109]
-X-ClientProxiedBy: DAG8EX2.mxp6.local (172.16.2.72) To DAG4EX1.mxp6.local
- (172.16.2.31)
-X-Ovh-Tracer-GUID: 1a671301-539a-4035-8bda-3c9fcc61e324
-X-Ovh-Tracer-Id: 9983072999029266339
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvhedruddvvddgudeffecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfhfgggtugfgjghisehtkeertddttdejnecuhfhrohhmpeflrghkuhgsucghihhlkhcuoehjfihilhhksehjfihilhhkrdhnvghtqeenucggtffrrghtthgvrhhnpeetgedvgfduueegffeftdffueeftedvgfdtteekieevhffhuefgheeuieevgfeijeenucfkphepuddvjedrtddrtddruddpfeejrdehledrudegvddruddtleenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpeduvdejrddtrddtrddupdhmrghilhhfrhhomhepoehjfihilhhksehjfihilhhkrdhnvghtqedpnhgspghrtghpthhtohepuddprhgtphhtthhopehgrdgsrhgrnhguvghnrdhrohgsihhnshhonhesghhmrghilhdrtghomhdpuggvsghirghnsehhvghlghgvfhhjvghllhdruggvpdgrlhigrdhmrghnphgrghgvshesghhmrghilhdrtghomhdpmhgrrhhiohdrsghlrggvthhtvghrmhgrnhhnsehgmhgrihhlrdgtohhmpdhlihhnuhigqdhmrghnsehvghgvrhdrkhgvrhhnvghlrdhorhhgpdfovfetjfhoshhtpehmohehvdelpdhmohguvgepshhmthhpohhuth
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,SPF_HELO_NONE,
-        SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-7.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-* G. Branden Robinson <g.branden.robinson@gmail.com>, 2022-12-05 11:55:
->The following compiles without warnings on my system, even with -Wall.
->
->int main(int argc, char *argv[]) {
->        wchar_t w1 = '\0', w2 = L'\0';
->        printf("%d\n", (w1 + w2));
->}
->
->For me this reliably writes "0" to the standard output.
->
->However it is conceivable, depending on the implementation, that bits 
->8+ of w1 come from uninitialized memory, and a large positive or 
->negative value would be written to stdout.
+https://bugzilla.kernel.org/show_bug.cgi?id=3D216971
 
-Er, no? Both assignments and additions in this code are well defined. 
-You're just operating with zeros of different types, which is completely 
-fine.
+            Bug ID: 216971
+           Summary: add a link from filesystems(7) to mq_overview(7)
+           Product: Documentation
+           Version: unspecified
+          Hardware: Intel
+                OS: Linux
+            Status: NEW
+          Severity: enhancement
+          Priority: P1
+         Component: man-pages
+          Assignee: documentation_man-pages@kernel-bugs.osdl.org
+          Reporter: giecrilj@stegny.2a.pl
+        Regression: No
 
-The only potential for undefined behavior is printf, because %d may not 
-be compatible with wchar_t. In fact, it isn't on my system (i386):
+Please add mqueue to filesystem types!
+The filesystem type mqueue is reported by mountinfo.
+The documentation for mountinfo says where filesystem types are documented.
+But mqueue is not mentioned there.
 
-wchar.c:5:18: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘wchar_t’ {aka ‘long int’} [-Wformat=]
+--=20
+You may reply to this email to add a comment.
 
--- 
-Jakub Wilk
+You are receiving this mail because:
+You are watching the assignee of the bug.=
