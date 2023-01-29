@@ -2,45 +2,44 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id B697968003B
-	for <lists+linux-man@lfdr.de>; Sun, 29 Jan 2023 17:29:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 3F0D168003C
+	for <lists+linux-man@lfdr.de>; Sun, 29 Jan 2023 17:31:45 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234123AbjA2Q3y (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 29 Jan 2023 11:29:54 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41118 "EHLO
+        id S234449AbjA2Qbo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 29 Jan 2023 11:31:44 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41206 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232771AbjA2Q3y (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 29 Jan 2023 11:29:54 -0500
+        with ESMTP id S232771AbjA2Qbn (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 29 Jan 2023 11:31:43 -0500
 Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 4D68A1E9E1
-        for <linux-man@vger.kernel.org>; Sun, 29 Jan 2023 08:29:50 -0800 (PST)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 384F41F4B0
+        for <linux-man@vger.kernel.org>; Sun, 29 Jan 2023 08:31:42 -0800 (PST)
 Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 09ABE356;
-        Sun, 29 Jan 2023 17:29:46 +0100 (CET)
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 6AB279C2;
+        Sun, 29 Jan 2023 17:31:41 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-        s=202211; t=1675009786;
-        bh=ONMrxs22veDXrs26OKnnOl1PRWkvO8oiwO+ryHGIjfE=;
+        s=202211; t=1675009901;
+        bh=mY4SIr60ZdK4EAgGfhaq5dM29OtBYA8BibbwdtB2d0k=;
         h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=IiPlAl0iJXHIHlhVXNB0E8SYabxM4Qoo+WYzECxh7BY+fgKHHS/9kZw6pdmouNYb5
-         rff2rDiletqYHV8UztEnis3BhcL7XsnpbvkoW8DP5kz7uDptBE6rSUvA73f6pvvOaj
-         ZdeyBSgvMb2BjIllmOpou/v11kEHacy9reGVPopgK5tihxOABh2RPL0dlF8vAulOrY
-         /8+328c3xM32ii0T4p5ksQMv6xRXnl7CtQQLNq4/dDb4PW/Za6ZdcnDN8bqYVOu8eZ
-         C3rF38Sys8s8GFoHYb8B6FH3m/XXcdRTQkRv/jMKARbr6IegPp+WIKroQQZ5ZP3iX1
-         yA9yX7qtzWVzQ==
-Date:   Sun, 29 Jan 2023 17:29:44 +0100
+        b=NpCP2aTfNq5rYVdyLxrePG78EFYDYoRvPUfkB2pJ+cTqdK1quhRbX3caivPe5eZae
+         14DsF6xCaqRsS5pIAGIom2d74BISpWZm/lwEwZ6sFPinACscmCidLmM3bH7pS5pp5H
+         e5ZKak/mpKQ/Cg6V6Fh7fRDoaWV512lmBKP5Zq/IItcQssldNubtp8bHhrlXiyq9Jl
+         jwpebINvTxgU3qjQmTYfgNgBX+QzPe0qY7mRleqLKufm2eCimYVRFCrPXtVGGi9WNz
+         96ojZBAKCk8CWZvzZB4BbK/O+GpWrlQ5Lde/RrU/nczVxzn0hYKkabWuUdZiLajxb4
+         Lts80O7azMqAQ==
+Date:   Sun, 29 Jan 2023 17:31:40 +0100
 From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
 To:     Alejandro Colomar <alx.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org
-Subject: Re: [PATCH 1/3] timespec.3type: tv_nsec is impl-def-type, glibc
- llong not a bug
-Message-ID: <20230129162944.353r46pnt6fbcqeg@tarta.nabijaczleweli.xyz>
-References: <4a67167df30db6019a6320dc92a953f9df3f4db2.1674915219.git.nabijaczleweli@nabijaczleweli.xyz>
- <cfda064c-b3f0-d541-bbee-e3a72c0b3cf3@gmail.com>
+Subject: [PATCH v2 1/3] timespec.3type: tv_nsec is impl-def-type, glibc llong
+ not a bug
+Message-ID: <dd82d5ab07d5a0aafee6a1166a757a22c39f52af.1675009892.git.nabijaczleweli@nabijaczleweli.xyz>
+References: <20230129162944.353r46pnt6fbcqeg@tarta.nabijaczleweli.xyz>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="vvmfw3hxjkgfq6tt"
+        protocol="application/pgp-signature"; boundary="hefufcynlsexprnt"
 Content-Disposition: inline
-In-Reply-To: <cfda064c-b3f0-d541-bbee-e3a72c0b3cf3@gmail.com>
+In-Reply-To: <20230129162944.353r46pnt6fbcqeg@tarta.nabijaczleweli.xyz>
 User-Agent: NeoMutt/20220429
 X-Spam-Status: No, score=-0.6 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FROM_SUSPICIOUS_NTLD,
@@ -53,88 +52,118 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---vvmfw3hxjkgfq6tt
+--hefufcynlsexprnt
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hi!
+n3091 accepts n3066, making it part of the next working draft and C23:
+  https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3091.doc
 
-On Sun, Jan 29, 2023 at 04:48:04PM +0100, Alejandro Colomar wrote:
-> On 1/28/23 15:17, =D0=BD=D0=B0=D0=B1 wrote:
-> > This is in many ways a followup to the patchset that originally added
-> > the BUGS sexion to timespec.3type, root msgid of
-> >    <ec1dcc655184f6cdaae40ff8b7970b750434e4ef.1638123425.git.nabijaczlew=
-eli@nabijaczleweli.xyz>
-> >=20
-> > For ease of reference, n3066:
-> >    https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3066.pdf
-> > and the relevant part of n3091 (screenshot, it's a .doc):
-> >    https://cohost.org/nabijaczleweli/post/922578-pog-pog
-> What happened in the end with nsec_t?  Was it rejected, or are they still
-> considering it?
+Update timespec.3type appropriately, largely mirroring my paper.
 
-n3066 (p1) was accepted, and it had nsec_t purged from n2878;
-according to my archive, that's because
-"nsec_t is only reserved in POSIX, not in C",
-so introducing it would be a breaking change,
-and it really doesn't matter
-(and even my patience for standards processes is limited,
- especially when multiple Austin Group liaisons
- choose to die when you want something from them).
+Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
+---
+ man3type/timespec.3type | 47 +++++++++++++----------------------------
+ 1 file changed, 15 insertions(+), 32 deletions(-)
 
-> > diff --git a/man3type/timespec.3type b/man3type/timespec.3type
-> > index 7cd80ce86..ca5533814 100644
-> > --- a/man3type/timespec.3type
-> > +++ b/man3type/timespec.3type
-> > @@ -16,14 +16,27 @@ Standard C library
-> >   .PP
-> >   .B struct timespec {
-> >   .BR "    time_t  tv_sec;" "   /* Seconds */"
-> > -.BR "    long    tv_nsec;" "  /* Nanoseconds [" 0 ", " 999999999 "] */"
-> > +.BR "    /*\(da*/   tv_nsec;" "  /* Nanoseconds [" 0 ", " 999999999 "]=
- */"
-> I'm tempted to merge this patch.  It's sooo qute /*=E2=86=93*/
->=20
-> Please use the digit separator \(aq for the big number.
-Applied.
+diff --git a/man3type/timespec.3type b/man3type/timespec.3type
+index 7cd80ce86..37dc2da61 100644
+--- a/man3type/timespec.3type
++++ b/man3type/timespec.3type
+@@ -16,14 +16,28 @@ Standard C library
+ .PP
+ .B struct timespec {
+ .BR "    time_t  tv_sec;" "   /* Seconds */"
+-.BR "    long    tv_nsec;" "  /* Nanoseconds [" 0 ", " 999999999 "] */"
++.BR "    /*\(da*/   tv_nsec;" "  /* Nanoseconds [" 0 ", " 999\(aq999\(aq99=
+9 "] */"
+ .B };
+ .EE
+ .SH DESCRIPTION
+ Describes times in seconds and nanoseconds.
++.PP
++.I tv_nsec
++is of an implementation-defined signed type capable of holding the specifi=
+ed range.
++Under glibc, this is usually
++.IR long ,
++and
++.I long long
++on X32.
++It can be safely down-cast to any concrete 32-bit integer type for process=
+ing.
+ .SH STANDARDS
+ C11 and later;
+ POSIX.1-2001 and later.
++.SH VERSIONS
++Prior to C23,
++.I tv_nsec
++was
++.IR long .
+ .SH NOTES
+ The following headers also provide this type:
+ .IR <aio.h> ,
+@@ -33,37 +47,6 @@ The following headers also provide this type:
+ .IR <sys/select.h> ,
+ and
+ .IR <sys/stat.h> .
+-.SH BUGS
+-Under glibc,
+-.I tv_nsec
+-is the
+-.I syscall
+-long,
+-though this affects only fringe architectures like X32,
+-which is ILP32, but uses the LP64 AMD64 syscall ABI.
+-In reality, the field ends up being defined as:
+-.PP
+-.in +4n
+-.EX
+-#if __x86_64__ && __ILP32__  /* =3D=3D x32 */
+-    long long  tv_nsec;
+-#else
+-    long       tv_nsec;
+-#endif
+-.EE
+-.in
+-.PP
+-This is a long-standing and long-enshrined glibc bug
+-.UR https://sourceware.org/bugzilla/show_bug.cgi?id=3D16437
+-.I #16437
+-.UE ,
+-and an incompatible extension to the standards;
+-however, as even a 32-bit
+-.I long
+-can hold the entire
+-.I tv_nsec
+-range,
+-it's always safe to forcibly down-cast it to the standard type.
+ .SH SEE ALSO
+ .BR clock_gettime (2),
+ .BR clock_nanosleep (2),
+--=20
+2.30.2
 
-> >   .SH STANDARDS
-> >   C11 and later;
-> >   POSIX.1-2001 and later.
-> > +Prior to C23
-> A comma here?
-Sure.
 
-> > +.I tv_nsec
-> > +was
-> > +.IR long .
-> Please move this to a new VERSIONS sexion.
-Added.
-
-v2 with these notes and \(aqs in 3/3 in follow-up.
-
-Best,
-=D0=BD=D0=B0=D0=B1
-
---vvmfw3hxjkgfq6tt
+--hefufcynlsexprnt
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmPWnvgACgkQvP0LAY0m
-WPHjbQ//dX042QLyq+HJDkCN6X9mS9ZZadBs2YcOl4O0kwilqaQ0LZwLmHhr1tzu
-hZ7LwOBRQLBu1011nrGAD/N7iQhpZuJh8oqEMMntzZY1dJidiOP+PyzpGPxD4ebK
-FaJct7ngVpH0OhCYWlK3/qZWd8WV5i2qEqn7JfqkzJhHPwUQSpeb9O/41AlcEKCO
-dr6JlbI30d2+OP5XRCKkl395ah7b8Se239VLulYtl1DpHgU77YgAdUW/dpL6mgMr
-V5EBpKjIydBGkbCUoP5LmKVW4i20bD0Pv72iOr4AN4Cx6Z2VIY4o3PCUmcBFULfE
-293R89H7PFRgmqJlRj0ycByDqPVEj1cwNGXVWma08cPYLZiRlKNAUX2eARYBU0vE
-vcQuXr7X82YAceo5gKzte8pmogJBvt6nTsQlsX9XuVD3pbjVXd0H9i53KBtmew3f
-7wGHs6ZT9CO7ho3JSJDrCLhhqLLTgrQDZmbbswUACOuxeS9Xt4utpSqHC8OmB9Fe
-IVb/u4YEJeii5b/BPhmHDEe/oRTbjTLti/BiAcRIR7bdj0Jw4ojWgF+pMvGlKN7r
-xyxY7Ugq4fB9YvcTuBaiyULbjKeVDk8YgrPJPp13qS4olyHhe+hi1P8mwOda5bxy
-ll+qcEm/s50KQVzqMqPoInEQtIr1hmmxQuCZosyVzLMQ3bEdiTY=
-=wUoh
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmPWn2sACgkQvP0LAY0m
+WPHzbg//V7bP474rjHOsltu3phK+/IgrmA7fy9bfcI1s/AW9z4oGiNUUrXttAbDU
+9UButz5C5AOtEARZloUn5H90Mnc2hQa1NsGPbCCAG1K6Q+Nrtf9gjOWh7N3ZASWw
+msH4QphJOje72euNMVqiSS+rdvKzzSe6/GVrpIw+RMPsHKgRfhzl8yxMPFcl0PkP
+33aVzBDFr2K0I9stI+Iborq8M5MkTD759HeSsrgB9RV92fUyd66Xm806B7PRCe/I
+bA6GVJ9gG3FzvY8xY43c33y310Zn1lvOLyLPPIOtn7c6fwaXXzYcWEJ3OhkrXxw/
+3jKWvm5Wk2g3LSkAEPBOtosnU26pQUxi074wxy7JJ/4YE5UHPzPGovH7oN5T6oSB
+Kv5SEHJIlTzYzO0uJs/hc2pdh0cGIa+P6CZckRweHY25h4ALPoVM51R+XCOoMtWf
+ymA+e0gzTaj2q2kh5dbUINd/4TWTL4pQGl+COIcEzLfE1joAMULPumQpzgkcFBrd
+fTB1y69Jf5t/htvhETfKQg8LupmkUW2TMG7Ev3p79vYcChJXjPskp8elzLf8z2rI
+hKLEkw5cbhVfGB038GbbT7j5K2XtnSjW4suAf+d1qoGlNt3E3f+Xa6b/99et/HsT
+CbKT0EyCDRspqh5HfE+Y6BEkurHig27Cbyrii2+1CrUyYgzbqPw=
+=9liO
 -----END PGP SIGNATURE-----
 
---vvmfw3hxjkgfq6tt--
+--hefufcynlsexprnt--
