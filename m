@@ -2,69 +2,69 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id CC5D167FF90
-	for <lists+linux-man@lfdr.de>; Sun, 29 Jan 2023 15:38:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B5B8368000E
+	for <lists+linux-man@lfdr.de>; Sun, 29 Jan 2023 16:48:18 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230220AbjA2Oie (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 29 Jan 2023 09:38:34 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37562 "EHLO
+        id S229835AbjA2PsR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 29 Jan 2023 10:48:17 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59054 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229835AbjA2Oid (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 29 Jan 2023 09:38:33 -0500
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com [IPv6:2a00:1450:4864:20::435])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B7EFD5FC1
-        for <linux-man@vger.kernel.org>; Sun, 29 Jan 2023 06:38:31 -0800 (PST)
-Received: by mail-wr1-x435.google.com with SMTP id q5so8942475wrv.0
-        for <linux-man@vger.kernel.org>; Sun, 29 Jan 2023 06:38:31 -0800 (PST)
+        with ESMTP id S229741AbjA2PsQ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 29 Jan 2023 10:48:16 -0500
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com [IPv6:2a00:1450:4864:20::42e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EC36FC150
+        for <linux-man@vger.kernel.org>; Sun, 29 Jan 2023 07:48:14 -0800 (PST)
+Received: by mail-wr1-x42e.google.com with SMTP id d14so8967687wrr.9
+        for <linux-man@vger.kernel.org>; Sun, 29 Jan 2023 07:48:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=in-reply-to:from:references:cc:to:content-language:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rCAIV8t+IXk4ONHPYIuOTpYPdkoT1rRiKv0RNLfE36Q=;
-        b=IfZzD3AKZkpDZA9ak9+QQnFaKHRqio4uHCZ+V7/dKMKIAx/URwgUw9bqkovTDupLjj
-         y6RyVrZ/v/PdJrtt3Rh8kYVEfTTkZ/mOgfU6BlULlAL5E0WfyP4dAyu+p+zIsqIZoVDY
-         iThHrrAVVdJfyrDbf6nzDD5aElHy7devYv0zz7cte9sHIpXAFvHgkeRI+bb/9lIPU8Sm
-         8ctpJfGpHCn5nEoWkwhUqULspVhe+z8HWkHf7DKXWD79R42SJ/GCLPs36vMOOoh+Yn0W
-         FTIcx/st9adNEthE0rAycZ0fFLKQMxaYiSEfwD7+9TFKCoErjOkXdg9B3AhsIaJZmth9
-         e4QA==
+        bh=7gZGpJSCHWEmhk0EJbGpHK+w5Dnfx1WdP3AW3ijsTdY=;
+        b=AmusrsQMwYVW5+ygg2pYJiGe3APjrGOBBaxUp25NFcorFQzJkGjmfjjPXS9TTliC4P
+         MV8PjzGVoy2VnukDqOhNzblhOVqyKhOnU06ONhI9H5DLZ0iZR3wycDuoI0HVqTNuZI2y
+         sbzR31wTXwtB96qC2Zd4mBUEGnDatjkwFq0CqEqstufopvFECAtKSrdEMTqAiPSpUAbW
+         RBJ2PAKfVq3S85RPucGQmtwgeDeEUuo9OyG02NADkjXpIHjHg73N/grVYujZHpLtVpf3
+         tzrZeLIweb8gG+mhRZ7axs9hGl/wHhndHFxZGsme361oHQv7f/iKs4UzFCHvc8zumSeY
+         EgSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=in-reply-to:from:references:cc:to:content-language:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=rCAIV8t+IXk4ONHPYIuOTpYPdkoT1rRiKv0RNLfE36Q=;
-        b=uefdC7qlUhXscUa6rwWhn6OQ652lNNC4EQiafZ9REaok+UbiyqZsFNPj5g3Z9Yd2M5
-         qYGyOZKIYXMbM611bQoW1vnMbUXaRy767of0d8J8ZACn5plA2uKSqmxPfWXCVLI0J7ky
-         fpqUbqCDEAt373jRxhuXjalCe8AthF4B8N43/o6MCBPnxzi6sebYCwt4YEXjFjMhq4l5
-         qcHEvuH2fkP0DP2RW9IWYbDTuGq8xanmgZk+zOUeC+AuylGIRcxgLtT9phkbb888O+gl
-         CLv7jxkFpNo3Y7lpPuVHu/66jPbNkpblpz1sGNgkXBnefuwgJRve70ZYM1T1xRJfHZAM
-         b5MQ==
-X-Gm-Message-State: AO0yUKUvK44LY0ZYOxiblo6Hfd2I6lvOln8aNv6Crb5nJA5oq6TgOaia
-        On1NXZkgwiA97/IQJD9OKjOY/r94LyQ=
-X-Google-Smtp-Source: AK7set9I3s7HUZcffVM75baJHkr6ICQR+MzfOurdoyqHEgEd4JwrhX71hNZrcuWwCiv6vnUKl0PIdw==
-X-Received: by 2002:adf:decc:0:b0:2bf:b119:e6e2 with SMTP id i12-20020adfdecc000000b002bfb119e6e2mr18636624wrn.47.1675003109990;
-        Sun, 29 Jan 2023 06:38:29 -0800 (PST)
+        bh=7gZGpJSCHWEmhk0EJbGpHK+w5Dnfx1WdP3AW3ijsTdY=;
+        b=vH0LzOmoydgJ4sGDmJ0LYDmnhGChI/pKD1IAs5WauSqjSPp6yU2iVFcpjVPupn2Weu
+         kku6BLTATYacVeh5/8P+L1dloTWrrmDlF02y3U/AU0Fx1DiQCdAPA8wQ7T0UGkmW7oD5
+         baouVD2/2/vtWI/YosWhX9MZZ9FJwNcK4bpMB76yJrWCAsiriEIgv0oiCsNXt82vuUuz
+         +uMg/BvlFh/hUZ4bF28p0WpZ4PlBe4KXu0oZ5QnMJyBD/tYBDsDSQPscesb13XVSPS9N
+         BGZj3VV/uaT5S0wRDIJhT9EAOHKLhdbekWl4GsupWu+KbJw3Zmwhie6VNf8F2TvhwbQK
+         Amcg==
+X-Gm-Message-State: AFqh2ko+O/OdqcruCQb7TIaYz5IpOZ74Ph1AIcz925eiMKJ692y0iU6Q
+        4tc3SU9tMsYhw4PUqJXMZvLmuc7iA20=
+X-Google-Smtp-Source: AMrXdXsddD0Fo/pD0p1UcAxDez3u0bcm8hcife/Bo4ZUJKJZuqNWX+iO9WGIkJfBSUhUASm0RMTrOg==
+X-Received: by 2002:a05:6000:1f0f:b0:2b4:e5e:c0a3 with SMTP id bv15-20020a0560001f0f00b002b40e5ec0a3mr33632605wrb.21.1675007293381;
+        Sun, 29 Jan 2023 07:48:13 -0800 (PST)
 Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id s5-20020a5d5105000000b002bdfcd8c77csm9249168wrt.101.2023.01.29.06.38.29
+        by smtp.gmail.com with ESMTPSA id f7-20020a5d64c7000000b002bdfe3aca17sm10022100wri.51.2023.01.29.07.48.12
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 29 Jan 2023 06:38:29 -0800 (PST)
-Message-ID: <717e8fb9-9159-65f8-093e-a117c82be704@gmail.com>
-Date:   Sun, 29 Jan 2023 15:38:21 +0100
+        Sun, 29 Jan 2023 07:48:12 -0800 (PST)
+Message-ID: <cfda064c-b3f0-d541-bbee-e3a72c0b3cf3@gmail.com>
+Date:   Sun, 29 Jan 2023 16:48:04 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.0
-Subject: Re: Using C23 digit separators not locale digit grouping characters
+Subject: Re: [PATCH 1/3] timespec.3type: tv_nsec is impl-def-type, glibc llong
+ not a bug
 Content-Language: en-US
-To:     Brian Inglis <Brian.Inglis@Shaw.ca>,
-        =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc:     Linux Man-Pages <linux-man@vger.kernel.org>
-References: <19a71139-7807-2692-3eec-16a0f754911d@Shaw.ca>
+To:     =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Cc:     linux-man@vger.kernel.org
+References: <4a67167df30db6019a6320dc92a953f9df3f4db2.1674915219.git.nabijaczleweli@nabijaczleweli.xyz>
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <19a71139-7807-2692-3eec-16a0f754911d@Shaw.ca>
+In-Reply-To: <4a67167df30db6019a6320dc92a953f9df3f4db2.1674915219.git.nabijaczleweli@nabijaczleweli.xyz>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------rBtVMvmSYnc1XtROL0dPQDUi"
+ boundary="------------MmaRp01GRngPs6UzzInqWywf"
 X-Spam-Status: No, score=-2.2 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
@@ -76,88 +76,109 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------rBtVMvmSYnc1XtROL0dPQDUi
-Content-Type: multipart/mixed; boundary="------------28meZobo0wj3LPrEbMsUxDFG";
+--------------MmaRp01GRngPs6UzzInqWywf
+Content-Type: multipart/mixed; boundary="------------tf0uAJXTldB8rP83xuWXEbm4";
  protected-headers="v1"
 From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Brian Inglis <Brian.Inglis@Shaw.ca>,
- =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc: Linux Man-Pages <linux-man@vger.kernel.org>
-Message-ID: <717e8fb9-9159-65f8-093e-a117c82be704@gmail.com>
-Subject: Re: Using C23 digit separators not locale digit grouping characters
-References: <19a71139-7807-2692-3eec-16a0f754911d@Shaw.ca>
-In-Reply-To: <19a71139-7807-2692-3eec-16a0f754911d@Shaw.ca>
+To: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Cc: linux-man@vger.kernel.org
+Message-ID: <cfda064c-b3f0-d541-bbee-e3a72c0b3cf3@gmail.com>
+Subject: Re: [PATCH 1/3] timespec.3type: tv_nsec is impl-def-type, glibc llong
+ not a bug
+References: <4a67167df30db6019a6320dc92a953f9df3f4db2.1674915219.git.nabijaczleweli@nabijaczleweli.xyz>
+In-Reply-To: <4a67167df30db6019a6320dc92a953f9df3f4db2.1674915219.git.nabijaczleweli@nabijaczleweli.xyz>
 
---------------28meZobo0wj3LPrEbMsUxDFG
+--------------tf0uAJXTldB8rP83xuWXEbm4
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: base64
 
-SGkgQnJpYW4gYW5kINC90LDQsSENCg0KT24gMS8yOC8yMyAyMTo0MCwgQnJpYW4gSW5nbGlz
-IHdyb3RlOg0KPiBIaSBmb2xrcywNCj4gDQo+IFNlZWluZyB0aGUgcmVjZW50IHR2X25zZWMg
-cGF0Y2hlcyBkcm9wIHRoZSBzdGFuZGFyZCBsb2NhbGUgZGlnaXQgZ3JvdXBpbmcgDQo+IGNo
-YXJhY3RlcnMgIiwiIGZyb20gdGhlIG1lbWJlciByYW5nZSBbMC05OTksOTk5LDk5OV0gbWFk
-ZSBtZSByZWdyZXQgdGhlIGxvc3Mgb2YgDQo+IHRoZSBwdW5jdHVhdGlvbiB3aGljaCBwcm92
-aWRlcyBiZXR0ZXIgYW5kIHF1aWNrZXIgY29tcHJlaGVuc2lvbiBvZiBsb25nIHN0cmluZ3Mg
-DQo+IG9mIGRpZ2l0cy4NCg0KTmljZSEgRGlkbid0IHJlbWVtYmVyIGFib3V0IHRoYXQgc2Vw
-YXJhdG9yLiAgSXQgbWFrZXMgYSBsb3Qgb2Ygc2Vuc2UgdG8gdXNlIGl0IA0KaW4gY29tbWVu
-dHMgYW5kIHRoZSBsaWtlcyBpbiB0aGUgcGFnZXMuICBNYXliZSB3ZSBzaG91bGQgYmUgYSBi
-aXQgbW9yZSBjYXV0aW91cyANCmluIHNvdXJjZSBjb2RlIGV4YW1wbGVzLCBidXQgZGVmaW5p
-dGVseSBmb3IgYmlnIG51bWJlcnMgb3V0c2lkZSBvZiBydW5uaW5nIGNvZGUgDQpzaG91bGQg
-aGF2ZSB0aGVtLg0KDQrQvdCw0LEsIHdvdWxkIHlvdSBwbGVhc2UgdXBkYXRlIHlvdXIgcGF0
-Y2hlcyB3aXRoIHRoYXQ/ICBJIGFsc28gaGF2ZSBhIGZldyBjb21tZW50cyANCnRoYXQgSSds
-bCB3cml0ZSBpbiBhIG1vbWVudCBpbiBhbnN3ZXJzIHRvIHlvdXIgcGF0Y2hlcy4NCg0KQ2hl
-ZXJzLA0KDQpBbGV4DQoNCj4gDQo+IEl0IG1heSBiZSB0aW1lIHRvIGNvbnNpZGVyIHVzaW5n
-IHRoZSBsb2NhbGUgaW5kZXBlbmRlbnQgQzIzIGRpZ2l0IHNlcGFyYXRvciANCj4gY2hhcmFj
-dGVycyAiJyIgd2hlcmV2ZXIgbW9yZSB0aGFuIGEgaGFuZGZ1bCBvZiBkaWdpdHMgb2NjdXIs
-IHBvc3NpYmx5IGNvbnZlcnQgDQo+IGdyb3VwaW5nIGNoYXJhY3RlciB1c2VzIGluIGV4aXN0
-aW5nIG1hbiBwYWdlcyBhcyB0aGV5IGFyZSBjaGFuZ2VkLCBhbmQgc3BlY2lmeSBhIA0KPiBm
-dXR1cmUgc3RhbmRhcmQgcG9saWN5IGFwcHJvYWNoIHRvIHByb3ZpZGUgYmV0dGVyIGFuZCBx
-dWlja2VyIGNvbXByZWhlbnNpb24gb2YgDQo+IGxvbmcgc3RyaW5ncyBvZiBkaWdpdHM6IHBl
-cmhhcHMgdXNpbmcgYSBuZXcgZGlnaXQgc2VwYXJhdG9yIHJlZ2lzdGVyIGFuZCBnbHlwaCAN
-Cj4gZXNjYXBlIHNlcXVlbmNlIFwqZHMgXCpbZHNdIFxbZHNdIFwoZHMgaWYgbm90IGluIHVz
-ZSBieSBiYXNlIGdyb2ZmPw0KDQpUaGUgc2VxdWVuY2UgZm9yIHRoZSB1bnNsYW50ZWQgc2lu
-Z2xlIHF1b3RlIGlzIFwoYXEuDQoNCldlIGNvdWxkIGFkZCBzb21ld2hlcmUgaW4gbWFuLXBh
-Z2VzKDcpIHRoYXQgZGVjaW1hbCBudW1iZXJzIHNob3VsZCB1c2UgYSANCnNlcGFyYXRvciBl
-dmVyeSAzIGRpZ2l0cywgYW5kIGhleCBhbmQgYmluYXJ5IHNob3VsZCB1c2UgaXQgZXZlcnkg
-NCBkaWdpdHMuDQoNCj4gDQo+IEFzIHdlbGwgYXMgdGhlIHJlY2VudGx5IG1vZGlmaWVkIHBh
-Z2VzOg0KPiANCj4gY2xvY2tfZ2V0cmVzLjINCj4gdGltZXJfc2V0dGltZS4yDQo+IHRpbWVy
-ZmRfY3JlYXRlLjINCj4gdXRpbWVuc2F0LjINCj4gDQo+IHRoZXJlIGFwcGVhciB0byBiZSBv
-YnZpb3VzIG9jY3VycmVuY2VzIGluIG9ubHkgdGhlIGZvbGxvd2luZyBwYWdlczoNCj4gDQo+
-IGZ1dGV4LjINCj4gcmVhZC4yDQo+IHNlbmRmaWxlLjINCj4gd3JpdGUuMg0KPiBtYWxsb3B0
-LjMNCj4ga2V5cmluZ3MuNw0KPiBtcV9vdmVydmlldy43DQo+IHNjaGVkLjcNCj4gdGltZV9u
-YW1lc3BhY2VzLjcNCj4gDQo+IGJ1dCB0aGVyZSBhcHBlYXIgdG8gYmUgYWJvdXQgNDAwIHBh
-Z2VzIHdpdGggbW9yZSB0aGFuIDYgZGVjaW1hbCBkaWdpdCBzdHJpbmdzIA0KPiAoc29tZSBz
-cHVyaW91cyBnbGliYyBoZXggY29tbWl0cyBhbmQgYWRkcmVzcyBvdXRwdXRzKSB3aGVyZSBp
-dCBjb3VsZCBwZXJoYXBzIA0KPiBoZWxwLCBzdWNoIGFzIGluIFBPU0lYIHZlcnNpb24gZGF0
-ZXMgZS5nLiAyMDAxJzEyTCwgYW5kIHVuZG91YnRlZGx5IG1vcmUgd2l0aCANCj4gbG9uZyBk
-aWdpdCBzdHJpbmdzIGluIG90aGVyIHJhZGl4ZXMuDQoNCldvdWxkIHlvdSBtaW5kIHByZXBh
-cmluZyBhIHBhdGNoIGZvciBhbGwgb2YgdGhvc2U/ICBJZiB5b3UnbGwgZG8gaXQsIGJldHRl
-ciB3YWl0IA0KdW50aWwgd2UgbWVyZ2Ug0L3QsNCxJ3MgcGF0Y2hlcywgdG8gYXZvaWQgY29u
-ZmxpY3RzLg0KDQpDaGVlcnMsDQoNCkFsZXgNCg0KPiANCg0KLS0gDQo8aHR0cDovL3d3dy5h
-bGVqYW5kcm8tY29sb21hci5lcy8+DQo=
+SGV5INC90LDQsSENCg0KT24gMS8yOC8yMyAxNToxNywg0L3QsNCxIHdyb3RlOg0KPiBuMzA5
+MSBhY2NlcHRzIG4zMDY2LCBtYWtpbmcgaXQgcGFydCBvZiB0aGUgbmV4dCB3b3JraW5nIGRy
+YWZ0IGFuZCBDMjM6DQo+ICAgIGh0dHBzOi8vd3d3Lm9wZW4tc3RkLm9yZy9qdGMxL3NjMjIv
+d2cxNC93d3cvZG9jcy9uMzA5MS5kb2MNCj4gDQo+IFVwZGF0ZSB0aW1lc3BlYy4zdHlwZSBh
+cHByb3ByaWF0ZWx5LCBsYXJnZWx5IG1pcnJvcmluZyBteSBwYXBlci4NCk5pY2UhIDotKQ0K
+DQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBBaGVsZW5pYSBaaWVtaWHFhHNrYSA8bmFiaWphY3ps
+ZXdlbGlAbmFiaWphY3psZXdlbGkueHl6Pg0KPiAtLS0NCj4gVGhpcyBpcyBpbiBtYW55IHdh
+eXMgYSBmb2xsb3d1cCB0byB0aGUgcGF0Y2hzZXQgdGhhdCBvcmlnaW5hbGx5IGFkZGVkDQo+
+IHRoZSBCVUdTIHNleGlvbiB0byB0aW1lc3BlYy4zdHlwZSwgcm9vdCBtc2dpZCBvZg0KPiAg
+ICA8ZWMxZGNjNjU1MTg0ZjZjZGFhZTQwZmY4Yjc5NzBiNzUwNDM0ZTRlZi4xNjM4MTIzNDI1
+LmdpdC5uYWJpamFjemxld2VsaUBuYWJpamFjemxld2VsaS54eXo+DQo+IA0KPiBGb3IgZWFz
+ZSBvZiByZWZlcmVuY2UsIG4zMDY2Og0KPiAgICBodHRwczovL3d3dy5vcGVuLXN0ZC5vcmcv
+anRjMS9zYzIyL3dnMTQvd3d3L2RvY3MvbjMwNjYucGRmDQo+IGFuZCB0aGUgcmVsZXZhbnQg
+cGFydCBvZiBuMzA5MSAoc2NyZWVuc2hvdCwgaXQncyBhIC5kb2MpOg0KPiAgICBodHRwczov
+L2NvaG9zdC5vcmcvbmFiaWphY3psZXdlbGkvcG9zdC85MjI1NzgtcG9nLXBvZw0KDQpXaGF0
+IGhhcHBlbmVkIGluIHRoZSBlbmQgd2l0aCBuc2VjX3Q/ICBXYXMgaXQgcmVqZWN0ZWQsIG9y
+IGFyZSB0aGV5IHN0aWxsIA0KY29uc2lkZXJpbmcgaXQ/DQoNCj4gDQo+IDIvMyBhbmQgMy8z
+IG9ubHkgc3BhbiB0aGUgcGFnZXMgdGhhdCBtYXRjaGVkIGdpdCBncmVwIC1sIHR2X25zZWMs
+DQo+IGJ1dCB0aGF0IHNob3VsZCBiZSBtb3N0IG9mIHRoZSByZWxldmFudCBvbmVzDQo+IA0K
+PiAgIG1hbjN0eXBlL3RpbWVzcGVjLjN0eXBlIHwgNDYgKysrKysrKysrKysrKy0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0NCj4gICAxIGZpbGUgY2hhbmdlZCwgMTQgaW5zZXJ0aW9u
+cygrKSwgMzIgZGVsZXRpb25zKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvbWFuM3R5cGUvdGlt
+ZXNwZWMuM3R5cGUgYi9tYW4zdHlwZS90aW1lc3BlYy4zdHlwZQ0KPiBpbmRleCA3Y2Q4MGNl
+ODYuLmNhNTUzMzgxNCAxMDA2NDQNCj4gLS0tIGEvbWFuM3R5cGUvdGltZXNwZWMuM3R5cGUN
+Cj4gKysrIGIvbWFuM3R5cGUvdGltZXNwZWMuM3R5cGUNCj4gQEAgLTE2LDE0ICsxNiwyNyBA
+QCBTdGFuZGFyZCBDIGxpYnJhcnkNCj4gICAuUFANCj4gICAuQiBzdHJ1Y3QgdGltZXNwZWMg
+ew0KPiAgIC5CUiAiICAgIHRpbWVfdCAgdHZfc2VjOyIgIiAgIC8qIFNlY29uZHMgKi8iDQo+
+IC0uQlIgIiAgICBsb25nICAgIHR2X25zZWM7IiAiICAvKiBOYW5vc2Vjb25kcyBbIiAwICIs
+ICIgOTk5OTk5OTk5ICJdICovIg0KPiArLkJSICIgICAgLypcKGRhKi8gICB0dl9uc2VjOyIg
+IiAgLyogTmFub3NlY29uZHMgWyIgMCAiLCAiIDk5OTk5OTk5OSAiXSAqLyINCg0KSSdtIHRl
+bXB0ZWQgdG8gbWVyZ2UgdGhpcyBwYXRjaC4gIEl0J3Mgc29vbyBxdXRlIC8q4oaTKi8NCg0K
+UGxlYXNlIHVzZSB0aGUgZGlnaXQgc2VwYXJhdG9yIFwoYXEgZm9yIHRoZSBiaWcgbnVtYmVy
+Lg0KDQo+ICAgLkIgfTsNCj4gICAuRUUNCj4gICAuU0ggREVTQ1JJUFRJT04NCj4gICBEZXNj
+cmliZXMgdGltZXMgaW4gc2Vjb25kcyBhbmQgbmFub3NlY29uZHMuDQo+ICsuUFANCj4gKy5J
+IHR2X25zZWMNCj4gK2lzIG9mIGFuIGltcGxlbWVudGF0aW9uLWRlZmluZWQgc2lnbmVkIHR5
+cGUgY2FwYWJsZSBvZiBob2xkaW5nIHRoZSBzcGVjaWZpZWQgcmFuZ2UuDQo+ICtVbmRlciBn
+bGliYywgdGhpcyBpcyB1c3VhbGx5DQo+ICsuSVIgbG9uZyAsDQo+ICthbmQNCj4gKy5JIGxv
+bmcgbG9uZw0KPiArb24gWDMyLg0KPiArSXQgY2FuIHNhZmVseSBiZSBkb3duLWNhc3QgdG8g
+YW55IGNvbmNyZXRlIDMyLWJpdCBpbnRlZ2VyIHR5cGUgZm9yIHByb2Nlc3NpbmcuDQoNCk9r
+Lg0KDQo+ICAgLlNIIFNUQU5EQVJEUw0KPiAgIEMxMSBhbmQgbGF0ZXI7DQo+ICAgUE9TSVgu
+MS0yMDAxIGFuZCBsYXRlci4NCj4gK1ByaW9yIHRvIEMyMw0KDQpBIGNvbW1hIGhlcmU/DQoN
+Cj4gKy5JIHR2X25zZWMNCj4gK3dhcw0KPiArLklSIGxvbmcgLg0KDQpQbGVhc2UgbW92ZSB0
+aGlzIHRvIGEgbmV3IFZFUlNJT05TIHNleGlvbi4NCg0KPiAgIC5TSCBOT1RFUw0KPiAgIFRo
+ZSBmb2xsb3dpbmcgaGVhZGVycyBhbHNvIHByb3ZpZGUgdGhpcyB0eXBlOg0KPiAgIC5JUiA8
+YWlvLmg+ICwNCj4gQEAgLTMzLDM3ICs0Niw2IEBAIFRoZSBmb2xsb3dpbmcgaGVhZGVycyBh
+bHNvIHByb3ZpZGUgdGhpcyB0eXBlOg0KPiAgIC5JUiA8c3lzL3NlbGVjdC5oPiAsDQo+ICAg
+YW5kDQo+ICAgLklSIDxzeXMvc3RhdC5oPiAuDQo+IC0uU0ggQlVHUw0KPiAtVW5kZXIgZ2xp
+YmMsDQo+IC0uSSB0dl9uc2VjDQo+IC1pcyB0aGUNCj4gLS5JIHN5c2NhbGwNCj4gLWxvbmcs
+DQo+IC10aG91Z2ggdGhpcyBhZmZlY3RzIG9ubHkgZnJpbmdlIGFyY2hpdGVjdHVyZXMgbGlr
+ZSBYMzIsDQo+IC13aGljaCBpcyBJTFAzMiwgYnV0IHVzZXMgdGhlIExQNjQgQU1ENjQgc3lz
+Y2FsbCBBQkkuDQo+IC1JbiByZWFsaXR5LCB0aGUgZmllbGQgZW5kcyB1cCBiZWluZyBkZWZp
+bmVkIGFzOg0KPiAtLlBQDQo+IC0uaW4gKzRuDQo+IC0uRVgNCj4gLSNpZiBfX3g4Nl82NF9f
+ICYmIF9fSUxQMzJfXyAgLyogPT0geDMyICovDQo+IC0gICAgbG9uZyBsb25nICB0dl9uc2Vj
+Ow0KPiAtI2Vsc2UNCj4gLSAgICBsb25nICAgICAgIHR2X25zZWM7DQo+IC0jZW5kaWYNCj4g
+LS5FRQ0KPiAtLmluDQo+IC0uUFANCj4gLVRoaXMgaXMgYSBsb25nLXN0YW5kaW5nIGFuZCBs
+b25nLWVuc2hyaW5lZCBnbGliYyBidWcNCj4gLS5VUiBodHRwczovL3NvdXJjZXdhcmUub3Jn
+L2J1Z3ppbGxhL3Nob3dfYnVnLmNnaT9pZD0xNjQzNw0KPiAtLkkgIzE2NDM3DQo+IC0uVUUg
+LA0KPiAtYW5kIGFuIGluY29tcGF0aWJsZSBleHRlbnNpb24gdG8gdGhlIHN0YW5kYXJkczsN
+Cj4gLWhvd2V2ZXIsIGFzIGV2ZW4gYSAzMi1iaXQNCj4gLS5JIGxvbmcNCj4gLWNhbiBob2xk
+IHRoZSBlbnRpcmUNCj4gLS5JIHR2X25zZWMNCj4gLXJhbmdlLA0KPiAtaXQncyBhbHdheXMg
+c2FmZSB0byBmb3JjaWJseSBkb3duLWNhc3QgaXQgdG8gdGhlIHN0YW5kYXJkIHR5cGUuDQoN
+Ck9rLg0KDQpDaGVlcnMsDQoNCkFsZXgNCg0KPiAgIC5TSCBTRUUgQUxTTw0KPiAgIC5CUiBj
+bG9ja19nZXR0aW1lICgyKSwNCj4gICAuQlIgY2xvY2tfbmFub3NsZWVwICgyKSwNCg0KLS0g
+DQo8aHR0cDovL3d3dy5hbGVqYW5kcm8tY29sb21hci5lcy8+DQo=
 
---------------28meZobo0wj3LPrEbMsUxDFG--
+--------------tf0uAJXTldB8rP83xuWXEbm4--
 
---------------rBtVMvmSYnc1XtROL0dPQDUi
+--------------MmaRp01GRngPs6UzzInqWywf
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmPWhN0ACgkQnowa+77/
-2zJFFw//bDLeWIGtsiQNzlP03DXxu7OZt8LHmxwPGE6BB5DqAm2mUi6MCo7jftSx
-P/dEUmY0pRWIo677g6d09WKSxPVuIMxG9jJpM7IdDwmuPDL3CgrdV6ga0SvsX9+4
-f5STOO7XLOdXP7ZiRNLYR506eGVb4JGogsn7bD4mvMdLDPAp8HjMoZvDuzklntXl
-yC1zdxVxcuPTV8mWMZ07xtPHLaDzuhmkeFqXBfzHs2kWzNJFHllo3TvQ/uhlhOPy
-JwDgh8i21ztGgcLXRhgHeXzFlTQobaANFjrzMNPOCtyYT53NG1mJm/DfsglG2KZP
-wna3MkFNIweeWWVJgtIlU+9/J7DvcS3Cr+6BI9MfvscWjOLxods5Q+FxjvTFMugh
-D27vjXXoKsuC/1P2cHGE46gkdk2imaJH3iBLGT2txj4RxVzmTK3Pxrru1Zf5nyoj
-9ZQv9+IKNHCGHgJOUprE0998WpaGsn8ASfAe+yPXuI61y9Eo3pQxnIBN1ezOEj+H
-hEkvCY4SZ+uE0vJRHtq7Aqsr6R+W1B8RxRWc+iJJG4Gyi157zuN/LmMqHfCJlslC
-zNwGa8hD3y0DGStbw0MbjUJYoO0zGyJFvGpqBOE7OgWANuq8bX+W/yNpIc3eo94o
-RC1yBc2+gAKTz3TYjhwJ8fpBgvstvAKCMCALMz9F71XLXbHh9Ng=
-=UoNn
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmPWlTUACgkQnowa+77/
+2zJASxAAheeq3GSOJAK6ow/TEH0ssGT6T22usxlhnxfe7es32HhgqN3UFl5OkXwn
+j0/UGX15SBYXYFfdH3yysmUBiO2f4omZ4eMCwsP0ZyCX1oWEaCSxl5Kp/2LR8drW
+6g/SFJlWE2OF691EO2NdKf93nIQP9F8xBrlgNjAVUYRLYhDQLJ5tYJivRD/Qw+WP
+fQG3u1iPSa2tjKTJ8x5h0G65fxMMlEPWIbmQZZ914QNIpjWulBKqKf6gjA6yPrSi
+D+tjP0FF5UI/p1cmbNyg95TyKNPQtUO2iWm70ThT8WrvgZry4u0PiewqSzz23vnK
+eD3fIObEjWdGGE20xXa/EuaWzumfF64VZT/hisZmTRNRILS75y7FpiF//Wc89Sxt
+6YNMVRjEcjLAW7FJm8WP1HZqGerCCxiVMeYKqGTVAKpAkzChKW1WGklb2RWX72W+
+aHTog1XEMla38MBygzc/btj9RY2sARf1ueGcg5yhUC1OayGLUwcx3tTJ5JZQx8cJ
+cp2PCaj8qbANdVGk9DIPcc8VLfLWFkl1dahnl5ghfcQ6IXtjSu6Inf69GUPItWDA
+PXshGr1Ad75v+FV6DLf9MTgeotVkIyCIe6QBKb7s/QmR2EDaKQBg5r2SS2nF8wzb
+YMee1Xt14tp9P1nlOD1BijLARXzWZAZZYCTAFR6GJaoHRAkLYac=
+=VzJQ
 -----END PGP SIGNATURE-----
 
---------------rBtVMvmSYnc1XtROL0dPQDUi--
+--------------MmaRp01GRngPs6UzzInqWywf--
