@@ -2,58 +2,71 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 34A9F6829E0
-	for <lists+linux-man@lfdr.de>; Tue, 31 Jan 2023 11:03:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 1452D682AC0
+	for <lists+linux-man@lfdr.de>; Tue, 31 Jan 2023 11:43:38 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229680AbjAaKDb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 31 Jan 2023 05:03:31 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34626 "EHLO
+        id S231535AbjAaKng (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 31 Jan 2023 05:43:36 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35538 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230091AbjAaKD2 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 31 Jan 2023 05:03:28 -0500
-Received: from mail-yw1-x1129.google.com (mail-yw1-x1129.google.com [IPv6:2607:f8b0:4864:20::1129])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3C733234F9
-        for <linux-man@vger.kernel.org>; Tue, 31 Jan 2023 02:03:26 -0800 (PST)
-Received: by mail-yw1-x1129.google.com with SMTP id 00721157ae682-501c3a414acso196249157b3.7
-        for <linux-man@vger.kernel.org>; Tue, 31 Jan 2023 02:03:26 -0800 (PST)
+        with ESMTP id S229943AbjAaKng (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 31 Jan 2023 05:43:36 -0500
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com [IPv6:2a00:1450:4864:20::336])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 661E614E91
+        for <linux-man@vger.kernel.org>; Tue, 31 Jan 2023 02:43:35 -0800 (PST)
+Received: by mail-wm1-x336.google.com with SMTP id c10-20020a05600c0a4a00b003db0636ff84so10269307wmq.0
+        for <linux-man@vger.kernel.org>; Tue, 31 Jan 2023 02:43:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=8ma5RZv16KlXjhX0aLLkp3Oag3AFQ1AJajJ87o/Y9ms=;
-        b=mjt4akUXxiyxGQbM72KkaBGXlkL7TnWLK8a9iKoNct9BoJk/wFCM2H+chfWfG14/vP
-         NlTqpIt3UlPykt/dR/uL+3HCpnnWxWqIt6Sy6Mo7WHTQlQVW2b08DNEaPy8HQ+lbY1O4
-         QIsoj4GBje/Em4SYN/UhaQJ2KhSAIx+siYVp4iGzDHvaQYIlO2QNI+U+O/QKNGpIu7qQ
-         yfBQOPW1ZzXVWbi3ELyef4iVa4d5X7ZOwt/UQ4Lk5FzM3Aelm/3WMJ2Wh6Eg4ndbxwBG
-         QE5KNtlneQ6Tn6feS0c6XDabqfiZPgmkSS1zUHIjBK1RnLOyao37xDm3Ju22NPgyLuTr
-         6ZMQ==
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=+oqT4jcT9fmz2njKToPQ7j/XKAOR7BpP+atdnpFjFsQ=;
+        b=DOFc8LbfenBAvICsVng9jLiK0ROvdVvRhyWlUrYMsJd3VuKbdysVdVfuTVtgPBBQAC
+         zkAr9j3evJQ8W91E0TJ8aTG0DU165VCY8QJ4D1HtQWqA3cVm3blDbNpjKxokIWXiavgo
+         fuh7U6gloBZ0ZeOqdFXVIqed2fra5opLHU2T+E+tYrKPkgJKE2dteXqg75CLHQM9E74n
+         SIJ1wLTWURxEpGSUGIxwBiQOJR6YUFui+FBkJHNmFcf5HqazApVamV1ReCG17SlTMorn
+         cM9MKdGpOMjr1Y5u3B8pfvdJc8tViLNTeVe7Jgux6XbrIX/7vd2/wjQ+LeisZYQEZXan
+         vt+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=8ma5RZv16KlXjhX0aLLkp3Oag3AFQ1AJajJ87o/Y9ms=;
-        b=tU2GJCXC5gQdmpc0Vao1B+3K8H1gxQMbvzbOponhz9N4NqLstdNOFNbAv8e8HyC4hH
-         mM1BFA3OzBRmCPS0NVc4BlVo7IBLcML6wOevoZAlsK/wi8s9hsyFIaYhObti4uEoRR+D
-         Arkk0LGoxrLS0Ps/433OqknQtIfU4PBzKLdLOWA3tb06xN7vPk30iBu4Ld36S4nOtxvX
-         RBJB+lkpyQE4p7rCpJzJhFqBXj7/pgtU4YT0DMEeJWzdgTD8kn3hVSgWuFQvyiyi8KHS
-         lMLAFDRgguJw0xGKckvfw5h3nQZlM4MT7xHTSN4lsQuLEOs3iAluwc+IXBfUTNu+rwmQ
-         gw/g==
-X-Gm-Message-State: AO0yUKW1T7okLVYVFPaABwChK70C3qABqdf9p/xQxPL1v/SLZehakxZH
-        +Ybk+ErfUQu15rsokLeAMkQtljuEitgzEVVjtWq/YfOkO84=
-X-Google-Smtp-Source: AK7set8XKwMy/j/6vH0ttYKngYzBQydqK6nRGS02OoZtzMt7izoDSvKiTH3MRpH4X31KoJECkwvl/UcxCEq0JodZ0Ck=
-X-Received: by 2002:a81:af66:0:b0:506:6130:258e with SMTP id
- x38-20020a81af66000000b005066130258emr2677213ywj.346.1675159405496; Tue, 31
- Jan 2023 02:03:25 -0800 (PST)
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=+oqT4jcT9fmz2njKToPQ7j/XKAOR7BpP+atdnpFjFsQ=;
+        b=TQrC0QHYqmeLq/W8s25CP9SkFlzJJ9gx9yDPYk2pz+Ind1HD2K6bbcXEP6I/RLuUrq
+         vz0k+LO+nxxgUZbqLDa9tTxa0ck7PcZop4Ug7ktRNR+oaASQzkDTfE93MLI+Nwzt/D9T
+         pAt2P0WbVmocwyl+nc1KoJtG44xwvFBSIXzTebDfBbv5BWfGFYAGx7cYCWA9Rer2lGNa
+         ad4fDGCU47L6TDqJ+gaVxl8Eei7fitnRWZ6tb7zmd6YrSW6TRiErmD5YwmxP0BO9ZNQO
+         0BuIairw6T4Y3OBd9fthhp0ZzWTlb/EPfkh2Ile8OhE8YnJFy7JXKaAUAathkKojMdni
+         FHmQ==
+X-Gm-Message-State: AO0yUKWWjXXjDkxyR+7N42tG6rFMopSM0jBfxdYuhdbF+iOtNUSUEfpn
+        bFwXx3oZbHT91cbjJQBZc/8=
+X-Google-Smtp-Source: AK7set/J8EMhrA/KVb02bG3owr8bM4WdQxvS0KJpPmfI+TJ8j3jmKL520vkaWMaDNM7tqA5f5ILo5Q==
+X-Received: by 2002:a05:600c:3b88:b0:3dd:1bd6:385e with SMTP id n8-20020a05600c3b8800b003dd1bd6385emr2722428wms.21.1675161813795;
+        Tue, 31 Jan 2023 02:43:33 -0800 (PST)
+Received: from [192.168.0.160] ([170.253.36.171])
+        by smtp.gmail.com with ESMTPSA id p20-20020a05600c2e9400b003d9862ec435sm15321731wmn.20.2023.01.31.02.43.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 31 Jan 2023 02:43:33 -0800 (PST)
+Message-ID: <169cff3a-6791-59af-5e01-910a1fbe5a2f@gmail.com>
+Date:   Tue, 31 Jan 2023 11:43:32 +0100
 MIME-Version: 1.0
-From:   Zexuan Luo <spacewanderlzx@gmail.com>
-Date:   Tue, 31 Jan 2023 18:03:15 +0800
-Message-ID: <CAADJU1032g+sNGN9AZKeVuMzZywXZ0BWpm3592XcGJdp4goCUQ@mail.gmail.com>
-Subject: Typo in the man7 bpf-helpers page
-To:     Alejandro Colomar <alx@kernel.org>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+Subject: Re: [PATCH] intN_t.3type: tfix
+Content-Language: en-US
+To:     Jakub Wilk <jwilk@jwilk.net>,
+        Michael Kerrisk <mtk.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+References: <20230130190941.4633-1-jwilk@jwilk.net>
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <20230130190941.4633-1-jwilk@jwilk.net>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------LP3ycTrbwW9Jzjh8JD9Me4nj"
+X-Spam-Status: No, score=-2.2 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -62,48 +75,60 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Colomar,
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------LP3ycTrbwW9Jzjh8JD9Me4nj
+Content-Type: multipart/mixed; boundary="------------qML6EYATMNSbK1w71g3StAgx";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: Jakub Wilk <jwilk@jwilk.net>, Michael Kerrisk <mtk.manpages@gmail.com>
+Cc: linux-man@vger.kernel.org
+Message-ID: <169cff3a-6791-59af-5e01-910a1fbe5a2f@gmail.com>
+Subject: Re: [PATCH] intN_t.3type: tfix
+References: <20230130190941.4633-1-jwilk@jwilk.net>
+In-Reply-To: <20230130190941.4633-1-jwilk@jwilk.net>
 
-I just found a potential bug in the bpf-helpers page.
+--------------qML6EYATMNSbK1w71g3StAgx
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Under the https://www.man7.org/linux/man-pages/man7/bpf-helpers.7.html:
+SGkgSmFrdWIsDQoNCk9uIDEvMzAvMjMgMjA6MDksIEpha3ViIFdpbGsgd3JvdGU6DQo+IFNp
+Z25lZC1vZmYtYnk6IEpha3ViIFdpbGsgPGp3aWxrQGp3aWxrLm5ldD4NCg0KUGF0Y2ggYXBw
+bGllZC4NCg0KVGhhbmtzIQ0KDQpBbGV4DQoNCj4gLS0tDQo+ICAgbWFuM3R5cGUvaW50Tl90
+LjN0eXBlIHwgMiArLQ0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBk
+ZWxldGlvbigtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL21hbjN0eXBlL2ludE5fdC4zdHlwZSBi
+L21hbjN0eXBlL2ludE5fdC4zdHlwZQ0KPiBpbmRleCBjYTMwNTE2ZWYuLjA5MzgzY2Q2NSAx
+MDA2NDQNCj4gLS0tIGEvbWFuM3R5cGUvaW50Tl90LjN0eXBlDQo+ICsrKyBiL21hbjN0eXBl
+L2ludE5fdC4zdHlwZQ0KPiBAQCAtOTgsNyArOTgsNyBAQCBhcmUgb25seSByZXF1aXJlZCBp
+biBpbXBsZW1lbnRhdGlvbnMgdGhhdCBwcm92aWRlIGludGVnZXIgdHlwZXMgd2l0aCB3aWR0
+aCA2NDsNCj4gICBhbmQgYWxsIG90aGVyIHR5cGVzIG9mIHRoaXMgZm9ybSBhcmUgb3B0aW9u
+YWwuDQo+ICAgLlBQDQo+ICAgVGhlIG1hY3Jvcw0KPiAtLlJCIFsgVSBdIElOVCBcZklOXGZQ
+IF9XSURUSCBXDQo+ICsuUkIgWyBVIF0gSU5UIFxmSU5cZlAgX1dJRFRIDQo+ICAgZXhwYW5k
+IHRvIHRoZSB3aWR0aCBpbiBiaXRzIG9mIHRoZXNlIHR5cGVzDQo+ICAgLlJJICggTiApLg0K
+PiAgIC5QUA0KDQotLSANCjxodHRwOi8vd3d3LmFsZWphbmRyby1jb2xvbWFyLmVzLz4NCg==
 
-```
-       u64 bpf_get_socket_cookie(struct sk_buff *skb)
 
-              Description
-                     If the struct sk_buff pointed by skb has a known
-                     socket, retrieve the cookie (generated by the
-                     kernel) of this socket.  If no cookie has been set
-                     yet, generate a new cookie. Once generated, the
-                     socket cookie remains stable for the life of the
-                     socket. This helper can be useful for monitoring
-                     per socket networking traffic statistics as it
-                     provides a global socket identifier that can be
-                     assumed unique.
+--------------qML6EYATMNSbK1w71g3StAgx--
 
-              Return A 8-byte long non-decreasing number on success, or
-                     0 if the socket field is missing inside skb.
+--------------LP3ycTrbwW9Jzjh8JD9Me4nj
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-       u64 bpf_get_socket_cookie(struct bpf_sock_addr *ctx)
+-----BEGIN PGP SIGNATURE-----
 
-              Description
-                     Equivalent to bpf_get_socket_cookie() helper that
-                     accepts skb, but gets socket from struct
-                     bpf_sock_addr context.
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmPY8NQACgkQnowa+77/
+2zK0LRAAmwWngjfF62QzGMFDEqbMr3hyQh5ONpgt6+fmaCO5zO2qoM4bH05nV/+g
+VffejfqSnCz8Xy0kreVcsjzVXe2Qlx4dz4iTKx93Md+qzRoAmMgFixK1GE0zpDGu
+pDC3WiP/GRKnnhcChfrTClPKk8PajXZBiT1WqAUnHLlSFB+5g7pCXHBKXqde38w4
+nEBkWdP/Il6krui4aHFN9fUyow0YwD4/LcTaAPGmODfZ6C02WJTKrhV2G7CxOwZg
+x20OvWCfSiencL6BRTazDmiufq7gG9cw3Q7sjIZpM7fsNw0gIrZXaoQ4aE1rYkWz
+zfgD56Tjvo3HP/Td3nc/mJwxJre3E9F5v6xVS8tkVyn7JzlPFyoYgf29VA2CP1Hz
+5nliwq3QyV0eB4CxaZcq9zd13M7tIGrRRGs8IteYv7vtU1MQZzle8NdqMiqRZE01
+y3sKQJu50npEuEsw9q15HxcXdhsYCw1Jqf9Wegz04iSmmg+D8pwBBJGWzTNIYJga
+4C7D2rb2+S+QMHkvokPvVpeKOBZCa60CFfcCM4y6I/cFAY4TWWCY7qxPGiJklJVo
+TY1omNY9qDRBrryyVW3s5zQw4Wag9m/JdGm7cmwZIFqCDrit4++IHYACz9pQPYOr
++V0FV0lAMspQ7+OFdpa3qQX+Qwmc7iAy7GEeS9TM+49TLb11iAs=
+=oC0N
+-----END PGP SIGNATURE-----
 
-              Return A 8-byte long non-decreasing number.
-
-       u64 bpf_get_socket_cookie(struct bpf_sock_ops *ctx)
-
-              Description
-                     Equivalent to bpf_get_socket_cookie() helper that
-                     accepts skb, but gets socket from struct
-                     bpf_sock_ops context.
-
-              Return A 8-byte long non-decreasing number.
-```
-
-The function bpf_get_socket_cookie repeats three times. The second one
-should be bpf_get_socket_cookie_addr and the third one should be
-bpf_get_socket_cookie_ops.
+--------------LP3ycTrbwW9Jzjh8JD9Me4nj--
