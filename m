@@ -2,71 +2,68 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 1452D682AC0
-	for <lists+linux-man@lfdr.de>; Tue, 31 Jan 2023 11:43:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 85C20682AEA
+	for <lists+linux-man@lfdr.de>; Tue, 31 Jan 2023 11:57:03 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231535AbjAaKng (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 31 Jan 2023 05:43:36 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35538 "EHLO
+        id S229692AbjAaK5B (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 31 Jan 2023 05:57:01 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41476 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229943AbjAaKng (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 31 Jan 2023 05:43:36 -0500
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com [IPv6:2a00:1450:4864:20::336])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 661E614E91
-        for <linux-man@vger.kernel.org>; Tue, 31 Jan 2023 02:43:35 -0800 (PST)
-Received: by mail-wm1-x336.google.com with SMTP id c10-20020a05600c0a4a00b003db0636ff84so10269307wmq.0
-        for <linux-man@vger.kernel.org>; Tue, 31 Jan 2023 02:43:35 -0800 (PST)
+        with ESMTP id S231538AbjAaK5B (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 31 Jan 2023 05:57:01 -0500
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com [IPv6:2a00:1450:4864:20::62e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1F7EDDBDA
+        for <linux-man@vger.kernel.org>; Tue, 31 Jan 2023 02:56:59 -0800 (PST)
+Received: by mail-ej1-x62e.google.com with SMTP id ml19so16854740ejb.0
+        for <linux-man@vger.kernel.org>; Tue, 31 Jan 2023 02:56:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=+oqT4jcT9fmz2njKToPQ7j/XKAOR7BpP+atdnpFjFsQ=;
-        b=DOFc8LbfenBAvICsVng9jLiK0ROvdVvRhyWlUrYMsJd3VuKbdysVdVfuTVtgPBBQAC
-         zkAr9j3evJQ8W91E0TJ8aTG0DU165VCY8QJ4D1HtQWqA3cVm3blDbNpjKxokIWXiavgo
-         fuh7U6gloBZ0ZeOqdFXVIqed2fra5opLHU2T+E+tYrKPkgJKE2dteXqg75CLHQM9E74n
-         SIJ1wLTWURxEpGSUGIxwBiQOJR6YUFui+FBkJHNmFcf5HqazApVamV1ReCG17SlTMorn
-         cM9MKdGpOMjr1Y5u3B8pfvdJc8tViLNTeVe7Jgux6XbrIX/7vd2/wjQ+LeisZYQEZXan
-         vt+w==
+        bh=Zidr1BfWsvpNvbxd9awHMrJAGKQJQtICIvv9dSiLOlk=;
+        b=HWdbaXsKqMuIHelCQSGo13bJJqUU9Ei24oZS7PFjT2KWds9YEklN44/MS1TKZvF6Ib
+         ImaxVdQ62kvHIOT/dwqaGpPtRgDmCsjYRy0G5nLNaPSUqU6suR2tBe/9h8Sg/P11OSjp
+         ZQijureamdbljp4C4cjvGLwReQIG8dbTLKs/syJbK+MDWu0V22Q6AfJA09Mtbp1g98h7
+         6fmO8V39AQHrMIWTZqTIdUr/pcsapbwB8Iijpo0RdUqttHjwfd1+Wi9mjBoeFwvv+tsi
+         /YTM2lQkGo2SAqTAua4yDXLdVN3YsrC7nbFyb3r9bN5T/LVZMS3RW3jQqGCIVb9XKj5e
+         U8kg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=+oqT4jcT9fmz2njKToPQ7j/XKAOR7BpP+atdnpFjFsQ=;
-        b=TQrC0QHYqmeLq/W8s25CP9SkFlzJJ9gx9yDPYk2pz+Ind1HD2K6bbcXEP6I/RLuUrq
-         vz0k+LO+nxxgUZbqLDa9tTxa0ck7PcZop4Ug7ktRNR+oaASQzkDTfE93MLI+Nwzt/D9T
-         pAt2P0WbVmocwyl+nc1KoJtG44xwvFBSIXzTebDfBbv5BWfGFYAGx7cYCWA9Rer2lGNa
-         ad4fDGCU47L6TDqJ+gaVxl8Eei7fitnRWZ6tb7zmd6YrSW6TRiErmD5YwmxP0BO9ZNQO
-         0BuIairw6T4Y3OBd9fthhp0ZzWTlb/EPfkh2Ile8OhE8YnJFy7JXKaAUAathkKojMdni
-         FHmQ==
-X-Gm-Message-State: AO0yUKWWjXXjDkxyR+7N42tG6rFMopSM0jBfxdYuhdbF+iOtNUSUEfpn
-        bFwXx3oZbHT91cbjJQBZc/8=
-X-Google-Smtp-Source: AK7set/J8EMhrA/KVb02bG3owr8bM4WdQxvS0KJpPmfI+TJ8j3jmKL520vkaWMaDNM7tqA5f5ILo5Q==
-X-Received: by 2002:a05:600c:3b88:b0:3dd:1bd6:385e with SMTP id n8-20020a05600c3b8800b003dd1bd6385emr2722428wms.21.1675161813795;
-        Tue, 31 Jan 2023 02:43:33 -0800 (PST)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id p20-20020a05600c2e9400b003d9862ec435sm15321731wmn.20.2023.01.31.02.43.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 31 Jan 2023 02:43:33 -0800 (PST)
-Message-ID: <169cff3a-6791-59af-5e01-910a1fbe5a2f@gmail.com>
-Date:   Tue, 31 Jan 2023 11:43:32 +0100
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Zidr1BfWsvpNvbxd9awHMrJAGKQJQtICIvv9dSiLOlk=;
+        b=nOLouJ3SwDGHJwJCT6Ypc7xv9Dlq/brgpC+nJyP/CV9+2YjZNbmRhOHEXJaQZ7a/F4
+         9vOvTE/YTFuHx1qogBxgisS1qsNTqb3pxLgrUMjMN6kLPlRjC2E9RjsKWaR0S71XUa+M
+         wjEyVEZUtexT82wg9lRQupOAwDgxvfp+uB5rQuqkuzTQ0rXuU6fOvyYK2t5U/IsY5Jrk
+         i37UkpMG5Ev41V46h/Dj72RHeEInwBU/tcWqEFaA0cIrBEG/MOJ+xKrv7+DlKOcAFeL9
+         bZSjOzCD+Ltj2IDFkEQHSWQREa8JHxSpJzVHkZLw7Yw7Z1MRH05au20+DmEdZvOewv5l
+         3KRA==
+X-Gm-Message-State: AO0yUKUg+uKaxmIpGGiWzGR3PYMBE86QNo0Zc2HdCMqo1id5bQdTNKYS
+        e3e2Jih2WUw3v2MUj9aSWjqszGfVc96XukR4FoYLoiMw
+X-Google-Smtp-Source: AK7set9UGOY9dnJhae7k6dbbLB2tJl3UzYW3auFmhF4m+JL/wWLMBbuK5Z2tTWcEkAhIVV4BywlZFRrBeYcy4NynUGo=
+X-Received: by 2002:a17:906:24d0:b0:878:6828:3f27 with SMTP id
+ f16-20020a17090624d000b0087868283f27mr5847010ejb.164.1675162617373; Tue, 31
+ Jan 2023 02:56:57 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-Subject: Re: [PATCH] intN_t.3type: tfix
-Content-Language: en-US
-To:     Jakub Wilk <jwilk@jwilk.net>,
-        Michael Kerrisk <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-References: <20230130190941.4633-1-jwilk@jwilk.net>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20230130190941.4633-1-jwilk@jwilk.net>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------LP3ycTrbwW9Jzjh8JD9Me4nj"
-X-Spam-Status: No, score=-2.2 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+References: <20230122193134.GA29363@Debian-50-lenny-64-minimal>
+ <CACKs7VAbs=fuqfEYhXALq3_PfoVbvVYUCc_D-GK5ObZJUPNwSw@mail.gmail.com>
+ <534b83d9-0936-4a45-7d1e-159bfb07f492@gmail.com> <a2a3eeba-8292-9759-f29c-205a49f2a9c9@petrovitsch.priv.at>
+ <87dbeee1-5f7a-2490-091c-2efd7ba2a25b@gmail.com>
+In-Reply-To: <87dbeee1-5f7a-2490-091c-2efd7ba2a25b@gmail.com>
+From:   Stefan Puiu <stefan.puiu@gmail.com>
+Date:   Tue, 31 Jan 2023 12:56:46 +0200
+Message-ID: <CACKs7VDERzxrgoAwMLBCTTCNbTc-Ju0jdgoUuYzNb_mfSHT+Ug@mail.gmail.com>
+Subject: Re: Issue in man page charsets.7
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     Bernd Petrovitsch <bernd@petrovitsch.priv.at>,
+        Helge Kreutzmann <debian@helgefjell.de>,
+        mario.blaettermann@gmail.com, linux-man@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -75,60 +72,73 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------LP3ycTrbwW9Jzjh8JD9Me4nj
-Content-Type: multipart/mixed; boundary="------------qML6EYATMNSbK1w71g3StAgx";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Jakub Wilk <jwilk@jwilk.net>, Michael Kerrisk <mtk.manpages@gmail.com>
-Cc: linux-man@vger.kernel.org
-Message-ID: <169cff3a-6791-59af-5e01-910a1fbe5a2f@gmail.com>
-Subject: Re: [PATCH] intN_t.3type: tfix
-References: <20230130190941.4633-1-jwilk@jwilk.net>
-In-Reply-To: <20230130190941.4633-1-jwilk@jwilk.net>
+Hi,
 
---------------qML6EYATMNSbK1w71g3StAgx
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+On Sun, Jan 29, 2023 at 9:29 PM Alejandro Colomar
+<alx.manpages@gmail.com> wrote:
+>
+> Hi Bernd,
+>
+> On 1/29/23 20:20, Bernd Petrovitsch wrote:
+> > Hi all!
+> >
+> > On 29/01/2023 19:35, Alejandro Colomar wrote:
+> > [...]
+> >> On 1/29/23 17:45, Stefan Puiu wrote:
+> > [...]
+> >>> On Sun, Jan 22, 2023 at 9:39 PM Helge Kreutzmann <debian@helgefjell.d=
+e> wrote:
+> > [...]
+> >>>> "Latin-1 covers many West European languages such as Albanian, Basqu=
+e,"
+> >>>> "Danish, English, Faroese, Galician, Icelandic, Irish, Italian, Norw=
+egian,"
+> >>>> "Portuguese, Spanish, and Swedish.  The lack of the ligatures Dutch =
+=C4=B2/=C4=B3,"
+> >>>> "French =C5=93, and old-style =E2=80=9EGerman=E2=80=9C quotation mar=
+ks was considered tolerable."
+> >>>
+> >>> A bit weird to include Albanian in West European languages, isn't it?
+> >>> Maybe the text could be reworked to:
+> >>>
+> >>>    "many West European languages such as Basque, Danish, [... other
+> >>> languages ...] and also Albanian."
+> >>
+> >> I'd rather remove the "West" adjective from Europe.  It's simpler.  Do=
+es it
+> >> sound reasonable to you?
+> >
+> > And it's way more accurate:
+> > - Albanian is Balkan.
+> > - Icelandic, Norwegian and Swedish is Scandinavian.
+> > - Italy is (usually) southern Europe.
+> > - Faroese is propably also Scandinavian.
+> > - Where is actually Galician spoken? In the north-west of Spain?
+>
+> Yep, Galician is the language spoken in Galicia, in the north-west of spa=
+in.
+> It's a language very similar to Portuguese.
+>
+> Will fix then.
 
-SGkgSmFrdWIsDQoNCk9uIDEvMzAvMjMgMjA6MDksIEpha3ViIFdpbGsgd3JvdGU6DQo+IFNp
-Z25lZC1vZmYtYnk6IEpha3ViIFdpbGsgPGp3aWxrQGp3aWxrLm5ldD4NCg0KUGF0Y2ggYXBw
-bGllZC4NCg0KVGhhbmtzIQ0KDQpBbGV4DQoNCj4gLS0tDQo+ICAgbWFuM3R5cGUvaW50Tl90
-LjN0eXBlIHwgMiArLQ0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBk
-ZWxldGlvbigtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL21hbjN0eXBlL2ludE5fdC4zdHlwZSBi
-L21hbjN0eXBlL2ludE5fdC4zdHlwZQ0KPiBpbmRleCBjYTMwNTE2ZWYuLjA5MzgzY2Q2NSAx
-MDA2NDQNCj4gLS0tIGEvbWFuM3R5cGUvaW50Tl90LjN0eXBlDQo+ICsrKyBiL21hbjN0eXBl
-L2ludE5fdC4zdHlwZQ0KPiBAQCAtOTgsNyArOTgsNyBAQCBhcmUgb25seSByZXF1aXJlZCBp
-biBpbXBsZW1lbnRhdGlvbnMgdGhhdCBwcm92aWRlIGludGVnZXIgdHlwZXMgd2l0aCB3aWR0
-aCA2NDsNCj4gICBhbmQgYWxsIG90aGVyIHR5cGVzIG9mIHRoaXMgZm9ybSBhcmUgb3B0aW9u
-YWwuDQo+ICAgLlBQDQo+ICAgVGhlIG1hY3Jvcw0KPiAtLlJCIFsgVSBdIElOVCBcZklOXGZQ
-IF9XSURUSCBXDQo+ICsuUkIgWyBVIF0gSU5UIFxmSU5cZlAgX1dJRFRIDQo+ICAgZXhwYW5k
-IHRvIHRoZSB3aWR0aCBpbiBiaXRzIG9mIHRoZXNlIHR5cGVzDQo+ICAgLlJJICggTiApLg0K
-PiAgIC5QUA0KDQotLSANCjxodHRwOi8vd3d3LmFsZWphbmRyby1jb2xvbWFyLmVzLz4NCg==
+Well, I think it might be that the intention was to suit Western
+European languages (although yes, strictly speaking there are multiple
+language families involved), and Albanian just happened to be able to
+use the same charset. I'm thinking of latin-1 in contrast to latin-2,
+which I was using in the past for Romanian.
 
+Stefan.
 
---------------qML6EYATMNSbK1w71g3StAgx--
-
---------------LP3ycTrbwW9Jzjh8JD9Me4nj
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmPY8NQACgkQnowa+77/
-2zK0LRAAmwWngjfF62QzGMFDEqbMr3hyQh5ONpgt6+fmaCO5zO2qoM4bH05nV/+g
-VffejfqSnCz8Xy0kreVcsjzVXe2Qlx4dz4iTKx93Md+qzRoAmMgFixK1GE0zpDGu
-pDC3WiP/GRKnnhcChfrTClPKk8PajXZBiT1WqAUnHLlSFB+5g7pCXHBKXqde38w4
-nEBkWdP/Il6krui4aHFN9fUyow0YwD4/LcTaAPGmODfZ6C02WJTKrhV2G7CxOwZg
-x20OvWCfSiencL6BRTazDmiufq7gG9cw3Q7sjIZpM7fsNw0gIrZXaoQ4aE1rYkWz
-zfgD56Tjvo3HP/Td3nc/mJwxJre3E9F5v6xVS8tkVyn7JzlPFyoYgf29VA2CP1Hz
-5nliwq3QyV0eB4CxaZcq9zd13M7tIGrRRGs8IteYv7vtU1MQZzle8NdqMiqRZE01
-y3sKQJu50npEuEsw9q15HxcXdhsYCw1Jqf9Wegz04iSmmg+D8pwBBJGWzTNIYJga
-4C7D2rb2+S+QMHkvokPvVpeKOBZCa60CFfcCM4y6I/cFAY4TWWCY7qxPGiJklJVo
-TY1omNY9qDRBrryyVW3s5zQw4Wag9m/JdGm7cmwZIFqCDrit4++IHYACz9pQPYOr
-+V0FV0lAMspQ7+OFdpa3qQX+Qwmc7iAy7GEeS9TM+49TLb11iAs=
-=oC0N
------END PGP SIGNATURE-----
-
---------------LP3ycTrbwW9Jzjh8JD9Me4nj--
+>
+> >
+> > Kind regards,
+> >      Bernd
+> >
+> > PS: Keen to learn something.
+>
+> Cheers,
+>
+> Alex
+>
+> --
+> <http://www.alejandro-colomar.es/>
