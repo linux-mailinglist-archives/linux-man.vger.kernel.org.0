@@ -2,117 +2,121 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 7A256686606
-	for <lists+linux-man@lfdr.de>; Wed,  1 Feb 2023 13:36:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 4A0C4686F07
+	for <lists+linux-man@lfdr.de>; Wed,  1 Feb 2023 20:39:50 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231520AbjBAMgl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 1 Feb 2023 07:36:41 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49212 "EHLO
+        id S231482AbjBATjt (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 1 Feb 2023 14:39:49 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53774 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230514AbjBAMgk (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Feb 2023 07:36:40 -0500
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com [IPv6:2a00:1450:4864:20::62b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8C3865B59C
-        for <linux-man@vger.kernel.org>; Wed,  1 Feb 2023 04:36:37 -0800 (PST)
-Received: by mail-ej1-x62b.google.com with SMTP id dr8so29404875ejc.12
-        for <linux-man@vger.kernel.org>; Wed, 01 Feb 2023 04:36:37 -0800 (PST)
+        with ESMTP id S229471AbjBATjt (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Feb 2023 14:39:49 -0500
+Received: from mail-qk1-x733.google.com (mail-qk1-x733.google.com [IPv6:2607:f8b0:4864:20::733])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 85FB526856
+        for <linux-man@vger.kernel.org>; Wed,  1 Feb 2023 11:39:47 -0800 (PST)
+Received: by mail-qk1-x733.google.com with SMTP id d18so4462597qko.12
+        for <linux-man@vger.kernel.org>; Wed, 01 Feb 2023 11:39:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloudflare.com; s=google;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=UG0+CbPKl+yc+rOVVgUYjitIGI/X5mZqO7Eu1sUc9pk=;
-        b=sj8VF/6y8FqJEFfS5LWKl26EHboGDrVqumt4cfjJd1NPIGVsdyiRMDkSkVqlkIdy7O
-         ajupPh4QVyggboOVJvbX2dw6xY6SB+xlzAvUuXvMlNNPrTlKnZKT5gBZ5xNCt/qRaRKI
-         fOKnuUY1fzEQbcF6iP5Q3SQUzTMq2PliL+Y8k=
+        d=google.com; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=X7W8bIOnHRgQe8HTzSrivLI89JLA+bi7mphq0XyLcq4=;
+        b=O9Z4rR64zuKjH2xJWmzoxGJPgVaJBnV6t+l7LXM8hsqgJvoj2VEE3/QSeET8rY8sNH
+         r6V1IA/IwJ/F6Fz23vWIfywMOTxiuc5k2qJ+9vO/CPx/+OOt7WtmKXaiSrQURtHDiile
+         S4oY8kqiamLphLzoZ1eS82JMuyRwgB403KVG+xraGY33cfbK6rrw8CRlOqB0TMKdU1YG
+         baJiioDwwKjPs4a/M7nxWkAOYqmDrrHQh4UheW69CPZQbA7W+4xbhDVxSPF9t0A8WmSd
+         PlszayDmUIzRQ0f8PiMCT1VJgUtnyBns2Jn4WoNr1qrt1XmwyQEky5W7o5GOIfjGEt+Q
+         efJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=UG0+CbPKl+yc+rOVVgUYjitIGI/X5mZqO7Eu1sUc9pk=;
-        b=nRF4CAOF29gh9/gG2D5aPL1vP+q8irM9NtVo1j42U1IKRisW93sh+ETIdJmaZYkp+L
-         z/4h7XUobUVpJ370+urB2f6ifMygCQBPZsmGkWMnROV7XegN0B+2m2eEc5+7xRRRi4hA
-         3j+tab96XLDDeA2uoUoJg4/jJ9ckxo5gEmK+p73zBxd2fwmXn8R+vBA7p670DEl0b6R6
-         Gkn0vFZt9moRn9jOJslmbHJQMgFXQIDXQHsAfh8ff+GVW2789+CF7Yq+LtyyIRbvsKlZ
-         GFN5cVPkhUxaboirBEbtipj9jyo6jIFyJDkQ1ya3YVP8G+BYW+C+rvGH8eRzZwpU5WhW
-         cJZw==
-X-Gm-Message-State: AO0yUKW4ehicW9K4gW6JmYbDr0QZysACLNcILAECG4VlIPYFUbq9nLZV
-        4py7Ej0Cca2d3ybOs7SPPLYAsw==
-X-Google-Smtp-Source: AK7set8cgNtpP8ym9uEQjpSd9da0X2g2FDEmnwRraaDsncowbdnWvVfCMcAYTvHwaR/TacmF//efkg==
-X-Received: by 2002:a17:906:1659:b0:88c:bc3e:de46 with SMTP id n25-20020a170906165900b0088cbc3ede46mr2203792ejd.34.1675254996014;
-        Wed, 01 Feb 2023 04:36:36 -0800 (PST)
-Received: from cloudflare.com (79.191.53.204.ipv4.supernova.orange.pl. [79.191.53.204])
-        by smtp.gmail.com with ESMTPSA id 17-20020a170906059100b0085fc3dec567sm10035066ejn.175.2023.02.01.04.36.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 01 Feb 2023 04:36:35 -0800 (PST)
-From:   Jakub Sitnicki <jakub@cloudflare.com>
-To:     Alejandro Colomar <alx.manpages@gmail.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org, netdev@vger.kernel.org,
-        kernel-team@cloudflare.com
-Subject: [PATCH] ip.7: Document IP_LOCAL_PORT_RANGE socket option
-Date:   Wed,  1 Feb 2023 13:36:34 +0100
-Message-Id: <20230201123634.284689-1-jakub@cloudflare.com>
-X-Mailer: git-send-email 2.39.1
+        bh=X7W8bIOnHRgQe8HTzSrivLI89JLA+bi7mphq0XyLcq4=;
+        b=eCKjLAE/KBSyS233e9KElsUPMH39tEqxNCQOao0kU4v3thGc44ccvSXlHe2s3OLdXd
+         lXQEuudY2Gmbgfjjzbw/Wd/6qRBsXNc22vXHjEA+tu0usM4TVYewiVnhSIa+DsiRrs5u
+         YpcRZM99Tb+CaNnxZFWbWW+bBMwJ7GBgngujNw6BdvAebgSkPTxa2TnYaP+LmK9fu3Lq
+         eFPzt6KIa7Mf+DczNWJHZj5FW+tJCgt7LaSz7NC4LeZynkNGpAZ6l5aQ3Vd3q/RuFNX+
+         PS8i374keiMD06zR8Hv46I+UiYvEARLyJlpUz2LmRe1j3aTNxddq27n6jkUYxi/lWh7E
+         QCbg==
+X-Gm-Message-State: AO0yUKVXKwquaIXiVzwaIsR9zm3Nryzsavr9rGUu94nczXcD7++0V/jG
+        n+qa+kJOTEvLiNCMAbAWU2lpyAya2l+e2Icf2zMmwA==
+X-Google-Smtp-Source: AK7set9g4kqMSijPrRiVN0zfNxTMxxFM9+s6sDs0JmA2GFgGgmLh0JA+gdvpGmAoRsNcGU1dlM3JlXA3JKrnScJ0AUM=
+X-Received: by 2002:a37:6302:0:b0:706:50f5:8c6d with SMTP id
+ x2-20020a376302000000b0070650f58c6dmr321579qkb.20.1675280386413; Wed, 01 Feb
+ 2023 11:39:46 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
-        SPF_HELO_NONE,SPF_NONE autolearn=ham autolearn_force=no version=3.4.6
+References: <CAJgzZoqTHGh-VLMSN7H6t9K95TddyCRm2L6f-mnYv6dSquc3nQ@mail.gmail.com>
+ <b1496bcd-4cf5-ba8c-8e83-c262f4af178e@gmail.com> <CAJgzZooXi8G=Ega2VN26KGBC7pKknRAW6E1tWXYr81_Dx2BZgA@mail.gmail.com>
+ <9b541acf-4522-a74e-d3b7-bcdea6c8aded@gmail.com>
+In-Reply-To: <9b541acf-4522-a74e-d3b7-bcdea6c8aded@gmail.com>
+From:   enh <enh@google.com>
+Date:   Wed, 1 Feb 2023 11:39:35 -0800
+Message-ID: <CAJgzZoq4DXJXuNPp79XN0=bQ7iEcGkG+viEo9qKh337rsnOS9g@mail.gmail.com>
+Subject: Re: [PATCH] vdso.7: fix risc-v symbol names.
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+X-Spam-Status: No, score=-17.6 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+        ENV_AND_HDR_SPF_MATCH,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+        USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Linux commit 91d0b78c5177 ("inet: Add IP_LOCAL_PORT_RANGE socket option")
-introduced a new socket option available for AF_INET and AF_INET6 sockets.
+On Tue, Jan 31, 2023 at 3:59 PM Alejandro Colomar
+<alx.manpages@gmail.com> wrote:
+>
+> Hi Elliott,
+>
+> On 1/31/23 18:39, enh wrote:
+> > On Tue, Jan 31, 2023 at 4:52 AM Alejandro Colomar
+> > <alx.manpages@gmail.com> wrote:
+> >>
+> >> Hi!
+> >>
+> >> On 1/31/23 00:02, enh wrote:
+> >>> The kernel git history says the names have always been "__vdso_" rather
+> >>> than "__kernel_", so I assume this was a copy & paste mistake from a
+> >>> different architecture.
+> >>>
+> >>> Luckily, the path to the kernel source that lets you confirm/deny this
+> >>> _is_ correct :-)
+> >>
+> >> Could you please sign the patch?
+> >
+> > done.
+>
+> Patch applied.  Thanks!
+>
+> > (i did read that part of the docs, but assumed this counted as a
+> > "trivial" patch :-) )
+>
+> :-)
+>
+> >
+> >>
+> >> Also, it seems something is broken in the patch; maybe the mailer broke it?  I
+> >> can't seem to apply it.  Please check.
+> >
+> > ugh, yeah, gmail and tabs really don't get on, and this file is full
+> > of tabs. trying again as an attachment...
+>
+> Heh :)  Any hopes that you can suggest google brings back full plain text
+> support? :P
 
-Option will be available starting from Linux 6.3. Document it.
+i think that was one of the first bugs i filed at google :-(
 
-Signed-off-by: Jakub Sitnicki <jakub@cloudflare.com>
----
-Submitting this man page update as the author of the feature.
+i remember when we could `| mail` from our desktops and it would just
+work! that was a very long time ago...
 
-We did a technical review of the man page text together with the code [1].
-
-[1]: https://lore.kernel.org/all/20221221-sockopt-port-range-v6-0-be255cc0e51f@cloudflare.com/
----
- man7/ip.7 | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
-
-diff --git a/man7/ip.7 b/man7/ip.7
-index f69af1b32..f166c3b57 100644
---- a/man7/ip.7
-+++ b/man7/ip.7
-@@ -439,6 +439,27 @@ and
- .B IP_TOS
- are ignored.
- .TP
-+.BR IP_LOCAL_PORT_RANGE " (since Linux 6.3)"
-+Set or get the per-socket default local port range. This option can be used to
-+clamp down the global local port range, defined by the
-+.I ip_local_port_range
-+.I /proc
-+interface described below, for a given socket.
-+.IP
-+The option takes an
-+.I uint32_t
-+value with the high 16 bits set to the upper range bound, and the low 16 bits
-+set to the lower range bound. Range bounds are inclusive. The 16-bit values
-+should be in host byte order.
-+.IP
-+The lower bound has to be less than the upper bound when both bounds are not
-+zero. Otherwise, setting the option fails with EINVAL.
-+.IP
-+If either bound is outside of the global local port range, or is zero, then that
-+bound has no effect.
-+.IP
-+To reset the setting, pass zero as both the upper and the lower bound.
-+.TP
- .BR IP_MSFILTER " (since Linux 2.4.22 / 2.5.68)"
- This option provides access to the advanced full-state filtering API.
- Argument is an
--- 
-2.39.1
-
+> Cheers,
+>
+> Alex
+>
+> --
+> <http://www.alejandro-colomar.es/>
