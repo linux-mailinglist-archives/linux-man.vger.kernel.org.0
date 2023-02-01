@@ -2,65 +2,68 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 4A0C4686F07
-	for <lists+linux-man@lfdr.de>; Wed,  1 Feb 2023 20:39:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 68A0868711D
+	for <lists+linux-man@lfdr.de>; Wed,  1 Feb 2023 23:42:50 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231482AbjBATjt (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 1 Feb 2023 14:39:49 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53774 "EHLO
+        id S229774AbjBAWmt (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 1 Feb 2023 17:42:49 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57764 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229471AbjBATjt (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Feb 2023 14:39:49 -0500
-Received: from mail-qk1-x733.google.com (mail-qk1-x733.google.com [IPv6:2607:f8b0:4864:20::733])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 85FB526856
-        for <linux-man@vger.kernel.org>; Wed,  1 Feb 2023 11:39:47 -0800 (PST)
-Received: by mail-qk1-x733.google.com with SMTP id d18so4462597qko.12
-        for <linux-man@vger.kernel.org>; Wed, 01 Feb 2023 11:39:47 -0800 (PST)
+        with ESMTP id S229608AbjBAWms (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Feb 2023 17:42:48 -0500
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com [IPv6:2a00:1450:4864:20::62c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D7AAE28D01
+        for <linux-man@vger.kernel.org>; Wed,  1 Feb 2023 14:42:47 -0800 (PST)
+Received: by mail-ej1-x62c.google.com with SMTP id ml19so1091925ejb.0
+        for <linux-man@vger.kernel.org>; Wed, 01 Feb 2023 14:42:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=X7W8bIOnHRgQe8HTzSrivLI89JLA+bi7mphq0XyLcq4=;
-        b=O9Z4rR64zuKjH2xJWmzoxGJPgVaJBnV6t+l7LXM8hsqgJvoj2VEE3/QSeET8rY8sNH
-         r6V1IA/IwJ/F6Fz23vWIfywMOTxiuc5k2qJ+9vO/CPx/+OOt7WtmKXaiSrQURtHDiile
-         S4oY8kqiamLphLzoZ1eS82JMuyRwgB403KVG+xraGY33cfbK6rrw8CRlOqB0TMKdU1YG
-         baJiioDwwKjPs4a/M7nxWkAOYqmDrrHQh4UheW69CPZQbA7W+4xbhDVxSPF9t0A8WmSd
-         PlszayDmUIzRQ0f8PiMCT1VJgUtnyBns2Jn4WoNr1qrt1XmwyQEky5W7o5GOIfjGEt+Q
-         efJw==
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=abLb+NUSqXKNPoCuBnikKGyobOlToYswzT8N9gL3CUw=;
+        b=gxkTGyyRzrhirjd/cCbmmzCtOWBmikmskxFoQsYI4w2fLxV8DE+tye2QqniCcV100I
+         oRNyaMd7uOUDYqrvRaxjBNU2qcIkSAcpB5Sh62g+w9xb9WiXiPzoT0GoWGv2dRgQF6Oc
+         Xk1S9+gfLDZZGcitN95KF3XjOoH4eE46JlHdLghtj+GIopdhn73KsrD+BAyNozmt5WuB
+         qXGCqSFuFeHWhKeoWW+mwjwkgk7tYDFu2/nzbVSCc3Bp4q8SNedYqTd+MWjFDNrj6+mS
+         5Ko4DxQKpU8au5Vv9ZZ1XgI6encsp+bL6Epqq14tcDQSM8Y6QXUbBm9d6iJwZzk7RnAe
+         7q6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=X7W8bIOnHRgQe8HTzSrivLI89JLA+bi7mphq0XyLcq4=;
-        b=eCKjLAE/KBSyS233e9KElsUPMH39tEqxNCQOao0kU4v3thGc44ccvSXlHe2s3OLdXd
-         lXQEuudY2Gmbgfjjzbw/Wd/6qRBsXNc22vXHjEA+tu0usM4TVYewiVnhSIa+DsiRrs5u
-         YpcRZM99Tb+CaNnxZFWbWW+bBMwJ7GBgngujNw6BdvAebgSkPTxa2TnYaP+LmK9fu3Lq
-         eFPzt6KIa7Mf+DczNWJHZj5FW+tJCgt7LaSz7NC4LeZynkNGpAZ6l5aQ3Vd3q/RuFNX+
-         PS8i374keiMD06zR8Hv46I+UiYvEARLyJlpUz2LmRe1j3aTNxddq27n6jkUYxi/lWh7E
-         QCbg==
-X-Gm-Message-State: AO0yUKVXKwquaIXiVzwaIsR9zm3Nryzsavr9rGUu94nczXcD7++0V/jG
-        n+qa+kJOTEvLiNCMAbAWU2lpyAya2l+e2Icf2zMmwA==
-X-Google-Smtp-Source: AK7set9g4kqMSijPrRiVN0zfNxTMxxFM9+s6sDs0JmA2GFgGgmLh0JA+gdvpGmAoRsNcGU1dlM3JlXA3JKrnScJ0AUM=
-X-Received: by 2002:a37:6302:0:b0:706:50f5:8c6d with SMTP id
- x2-20020a376302000000b0070650f58c6dmr321579qkb.20.1675280386413; Wed, 01 Feb
- 2023 11:39:46 -0800 (PST)
+        bh=abLb+NUSqXKNPoCuBnikKGyobOlToYswzT8N9gL3CUw=;
+        b=xS7yzfpeKA8FNIuRI5s5sd9sXcYxoDNf0D69UsnEU0kY3Hx1WKvzhksQGv/IP6fZII
+         cRoecOBDLcEeDEjZTq9gcKvghclymJl2IqauqjDTaNDPlQfb3pAqewKJXWKQc6gNaPKO
+         rXAU28A1LLLIDmqxJ14adu4muKcch/v49XUmx6DDSVsq9Q51W+DV4rFWgu6eXLgmAKXH
+         vU05eKhG/gBAdq+nuIulJt9hAgi+f0la/CtCJbRIWdNeAaD9j4Zkh9eBdcgsTus1yys8
+         06b0Z8pdzbnZJ069UH1f9ywZInN3507WR2IMJF/EFXHpXAJC+4IgWCGySRhqWKsM4Ans
+         Auxg==
+X-Gm-Message-State: AO0yUKXoR1cF0322Tiwbc94URK2CNQBu7wbMLinUDk03WJzurvpPHtxT
+        ndK6zRf+qUlYkll2TdHSk00=
+X-Google-Smtp-Source: AK7set9LQqkAXhQvoCVOgW01ZPeciX+c0klwkBF7d+jIqPLwkSoWEYv6rwrqHINbIuNYOUUscYt+nA==
+X-Received: by 2002:a17:906:6a27:b0:88d:ba89:1833 with SMTP id qw39-20020a1709066a2700b0088dba891833mr552746ejc.4.1675291366485;
+        Wed, 01 Feb 2023 14:42:46 -0800 (PST)
+Received: from localhost ([2a02:168:633b:1:7c09:9c3b:256e:8ba1])
+        by smtp.gmail.com with ESMTPSA id o25-20020a1709061b1900b0084d4e9a13cbsm10745667ejg.221.2023.02.01.14.42.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 01 Feb 2023 14:42:46 -0800 (PST)
+From:   =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
+To:     Michael Kerrisk <mtk.manpages@gmail.com>
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
+        linux-man@vger.kernel.org,
+        =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
+Subject: [PATCH 1/2] landlock.7: ffix
+Date:   Wed,  1 Feb 2023 23:42:23 +0100
+Message-Id: <20230201224224.16378-1-gnoack3000@gmail.com>
+X-Mailer: git-send-email 2.39.1
 MIME-Version: 1.0
-References: <CAJgzZoqTHGh-VLMSN7H6t9K95TddyCRm2L6f-mnYv6dSquc3nQ@mail.gmail.com>
- <b1496bcd-4cf5-ba8c-8e83-c262f4af178e@gmail.com> <CAJgzZooXi8G=Ega2VN26KGBC7pKknRAW6E1tWXYr81_Dx2BZgA@mail.gmail.com>
- <9b541acf-4522-a74e-d3b7-bcdea6c8aded@gmail.com>
-In-Reply-To: <9b541acf-4522-a74e-d3b7-bcdea6c8aded@gmail.com>
-From:   enh <enh@google.com>
-Date:   Wed, 1 Feb 2023 11:39:35 -0800
-Message-ID: <CAJgzZoq4DXJXuNPp79XN0=bQ7iEcGkG+viEo9qKh337rsnOS9g@mail.gmail.com>
-Subject: Re: [PATCH] vdso.7: fix risc-v symbol names.
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     linux-man <linux-man@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: No, score=-17.6 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-        ENV_AND_HDR_SPF_MATCH,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
-        USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=ham
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-1.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
+        FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -68,55 +71,27 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Tue, Jan 31, 2023 at 3:59 PM Alejandro Colomar
-<alx.manpages@gmail.com> wrote:
->
-> Hi Elliott,
->
-> On 1/31/23 18:39, enh wrote:
-> > On Tue, Jan 31, 2023 at 4:52 AM Alejandro Colomar
-> > <alx.manpages@gmail.com> wrote:
-> >>
-> >> Hi!
-> >>
-> >> On 1/31/23 00:02, enh wrote:
-> >>> The kernel git history says the names have always been "__vdso_" rather
-> >>> than "__kernel_", so I assume this was a copy & paste mistake from a
-> >>> different architecture.
-> >>>
-> >>> Luckily, the path to the kernel source that lets you confirm/deny this
-> >>> _is_ correct :-)
-> >>
-> >> Could you please sign the patch?
-> >
-> > done.
->
-> Patch applied.  Thanks!
->
-> > (i did read that part of the docs, but assumed this counted as a
-> > "trivial" patch :-) )
->
-> :-)
->
-> >
-> >>
-> >> Also, it seems something is broken in the patch; maybe the mailer broke it?  I
-> >> can't seem to apply it.  Please check.
-> >
-> > ugh, yeah, gmail and tabs really don't get on, and this file is full
-> > of tabs. trying again as an attachment...
->
-> Heh :)  Any hopes that you can suggest google brings back full plain text
-> support? :P
+Signed-off-by: Günther Noack <gnoack3000@gmail.com>
+---
+ man7/landlock.7 | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-i think that was one of the first bugs i filed at google :-(
+diff --git a/man7/landlock.7 b/man7/landlock.7
+index 5c4ebb2ca..84e422f3c 100644
+--- a/man7/landlock.7
++++ b/man7/landlock.7
+@@ -196,7 +196,8 @@ to enable Landlock.
+ If the command line parameter is not specified,
+ the initialization falls back to the value of the deprecated
+ .I security=
+-command line parameter and further to the value of CONFIG_LSM.
++command line parameter and further to the value of
++.BR CONFIG_LSM .
+ We can check that Landlock is enabled by looking for
+ .I landlock: Up and running.
+ in kernel logs.
 
-i remember when we could `| mail` from our desktops and it would just
-work! that was a very long time ago...
+base-commit: fd0e0d342de093001b034905acd5496069fed888
+-- 
+2.39.1
 
-> Cheers,
->
-> Alex
->
-> --
-> <http://www.alejandro-colomar.es/>
