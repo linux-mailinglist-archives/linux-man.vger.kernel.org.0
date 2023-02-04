@@ -2,132 +2,181 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 3C74868A2A3
-	for <lists+linux-man@lfdr.de>; Fri,  3 Feb 2023 20:10:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 752A568A8C3
+	for <lists+linux-man@lfdr.de>; Sat,  4 Feb 2023 08:19:33 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233325AbjBCTKB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 3 Feb 2023 14:10:01 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53358 "EHLO
+        id S229449AbjBDHTc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 4 Feb 2023 02:19:32 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38308 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231614AbjBCTKA (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 3 Feb 2023 14:10:00 -0500
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com (mail-bn8nam12on2136.outbound.protection.outlook.com [40.107.237.136])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 14284EA;
-        Fri,  3 Feb 2023 11:09:59 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ISdJ1cFgocKs/xOe0sCMGKKaQ1Mh/YJNKHquzrhal/3CA/IsC+bFVAxtG8XWEXlv4yGnb/PQn7mS/Bel3AoOfXKGJMdr7wSzszOhL19iFSOBt9Q0BcGVG3VAWojz0fgRpx9b39P7rDPRHY+ugKSLCbX0xSxVOm55hRAq8C3/4X9TqtNSxxHxDL1WdIS1u3rOAOaXn2Sv5suMiifhg6keZNauuunqjp/CW6A364wlT6+g3nXvzHb9wc82Ih3VUqb1BWDySnv9IgWXT+/q972pqwNURnr9rv3ky8q6HwZnipd56G6KWv91kIrCrlEI0c358JODCCmIj0KKQG75e7nSPQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hRkRJhVktJp5ijn1o9Sk3osCk7XMX3vht3cENPQq7g8=;
- b=A/unXQPsxsI1NgrwsbbKjvTmArxDQrZMbFrIBm4xfeiTgG7PluIFRe/N5yiI7k5jaGkMefs+vEtPMJpQ5caiAUB4qELGBuwk9Dg9KPyzkBjiJ4vhm6YgO6y+rTKhj7/BKn1EG3v+vRcqUoYsT8IpWTohZf1bV09pwU+0hFIqU7UkToeg8wnAIuN1TdAqPRkqX3JDsVQYxkpMap/XpctHZHXf5VPW9K+0yifeX507+2F9/jAn8S7YmFjj1LvCBhvJasTe6H50I/vlLPOnFwOpkMCjHgr6r10cRcLATu4ySJjLJlnvIM+1XxqMvZ1bdfK9q12cVBLHq99M0Z2tLpO74w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=corigine.com; dmarc=pass action=none header.from=corigine.com;
- dkim=pass header.d=corigine.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=corigine.onmicrosoft.com; s=selector2-corigine-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hRkRJhVktJp5ijn1o9Sk3osCk7XMX3vht3cENPQq7g8=;
- b=bW2GpsRrua/rH3OX2df1aMh7j4OQ1zFWASB6IJwBo8PH2cddKYlyzc0pSCwQZFdEQ1qYAQ2TVH7CNP1wNCX6UB3zqdadNFBLXjR5FUTYmDmEB6+Kb5OxIy01tU9Wfq2k+YMfCtYcznNcuGQTDBAsOYWQXkgy78cBJpDM/VjTMDg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=corigine.com;
-Received: from PH0PR13MB4842.namprd13.prod.outlook.com (2603:10b6:510:78::6)
- by CO6PR13MB6029.namprd13.prod.outlook.com (2603:10b6:303:140::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.31; Fri, 3 Feb
- 2023 19:09:54 +0000
-Received: from PH0PR13MB4842.namprd13.prod.outlook.com
- ([fe80::eb5c:910f:3730:fd65]) by PH0PR13MB4842.namprd13.prod.outlook.com
- ([fe80::eb5c:910f:3730:fd65%5]) with mapi id 15.20.6064.027; Fri, 3 Feb 2023
- 19:09:54 +0000
-Date:   Fri, 3 Feb 2023 20:09:47 +0100
-From:   Simon Horman <simon.horman@corigine.com>
-To:     Jakub Sitnicki <jakub@cloudflare.com>
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-man@vger.kernel.org, netdev@vger.kernel.org,
-        kernel-team@cloudflare.com
-Subject: Re: [PATCH] ip.7: Document IP_LOCAL_PORT_RANGE socket option
-Message-ID: <Y91b+yiXtEWDTn56@corigine.com>
-References: <20230201123634.284689-1-jakub@cloudflare.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230201123634.284689-1-jakub@cloudflare.com>
-X-ClientProxiedBy: AS4P189CA0044.EURP189.PROD.OUTLOOK.COM
- (2603:10a6:20b:5dd::13) To PH0PR13MB4842.namprd13.prod.outlook.com
- (2603:10b6:510:78::6)
+        with ESMTP id S229877AbjBDHTb (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 4 Feb 2023 02:19:31 -0500
+Received: from omta001.cacentral1.a.cloudfilter.net (omta001.cacentral1.a.cloudfilter.net [3.97.99.32])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 440D93BD89
+        for <linux-man@vger.kernel.org>; Fri,  3 Feb 2023 23:19:30 -0800 (PST)
+Received: from shw-obgw-4002a.ext.cloudfilter.net ([10.228.9.250])
+        by cmsmtp with ESMTP
+        id O511pj91xc9C4OCpdpOENL; Sat, 04 Feb 2023 07:19:29 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=shaw.ca; s=s20180605;
+        t=1675495169; bh=qcetIpWMGipPn2lqKJH0+owRtdo0rgctUo48PJJHmhk=;
+        h=Date:Reply-To:Subject:To:References:Cc:From:In-Reply-To;
+        b=Y/QFYp92UPcAFxXIpfvkwNPfohYTzOOWrDO29pIcTph94oYOhHLtqN+vDfFHKTK9O
+         oqq9zQSUjr9/+ufOjoeZwdVYng30xHLGBC+YIM1KBtN0Oi7mOrgsHe87jWPfMdd6MA
+         Snwt15VcHhE2OA/cR3bvNCqmx4fUivNx2/UVQUF+X5SgmMv73et6qjyo9I7juO0nYT
+         gCEcHOoLNXbAB1s5+vY92tpYoWIUBVoGqptAUO867A1nE2NCY9mcLUAgEpP8RHuE3+
+         cuU+wUufRN1HmP3Oq0t3N1CHXHHHT2xS2PRsPfRydNUoUbmB7/IH7EprSABKqCNtpe
+         Ze9KsZkz6YLwQ==
+Received: from [10.0.0.5] ([184.64.124.72])
+        by cmsmtp with ESMTP
+        id OCpcpnTYiyAOeOCpcpA5j6; Sat, 04 Feb 2023 07:19:29 +0000
+X-Authority-Analysis: v=2.4 cv=e5oV9Il/ c=1 sm=1 tr=0 ts=63de0701
+ a=oHm12aVswOWz6TMtn9zYKg==:117 a=oHm12aVswOWz6TMtn9zYKg==:17
+ a=IkcTkHD0fZMA:10 a=-0DEaQdXr7HJxSbumrUA:9 a=QEXdDO2ut3YA:10
+Message-ID: <571ee4b8-15cc-470c-88a9-ec6ee09619cb@Shaw.ca>
+Date:   Sat, 4 Feb 2023 00:19:28 -0700
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR13MB4842:EE_|CO6PR13MB6029:EE_
-X-MS-Office365-Filtering-Correlation-Id: 51f0361e-2a13-4adc-0ea7-08db061a3b69
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: vH1m38pU0XATwHT9iailfFGVBeIOz3vOiIXOls50UA22HWgaLv5H3NZPQc1gL5HCxsvWwNKURWCvsiMK/14siqpEn3CQ1WSyDTUbpxvjNeV3QM9Wq1VHvJaujKbuP3UjT+taofZ2oWVs6vVPfD2COjnES0MajbAkN7Rs5AzngGDjRuexITQcC4fAPLSwbqDofM8HM27EyyVXasb+ZKz+HkiuiZmreOeQf88NKGadZ1xeZW2GqinbJWKQxywlCagLXCH9ToYa8pVJ3CjfIRp6YjFiHeA1BukUeW9WA8/EPkMtINl+CS/Ex7gZSr6LedY8f/RykV7CtuMNMT6C95smFE2neBbRreuJXCi+oDhqXHgZ3fBvuaKJGm6lxhHKhbqIt+65CwMbdW7lEgDrY6SP2/Yj60Y4IFU+545iV/djCrEWk6pylL7gkT8KECXrBUTCjIRcFyCvwYGjsDpBL1GyJzHQnUM8wgA6sqjhyxlMdADtlFtfGMrHNKnFCesVTmt/hudUzCBntk0Xs7EbAXcqG4M8wo94doHb77pziO7rLZkwo0BzadT5YNc88oZYiI9u+ySvUolZwileJMfvTjeNSBE+f1yn7wxbDJKoanxDItLokj1JaVOl+z/rpzvg+e+/Tz1M79oqHdHQqy/f0WjQAvBQTeuM6wR6YHkfrSk19yWfGqwiAPKr0rgsk+jCGQFBNmi4qeWyzCa1w3Ffiey12EZr22Lhi8M88+Qjy/S26WmvTlXVt+w0XkkZLLmBXIdg7lHlaEBkr5Voown3mZD2pA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR13MB4842.namprd13.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(376002)(366004)(346002)(39840400004)(136003)(396003)(451199018)(6916009)(66476007)(66556008)(66946007)(4326008)(4744005)(5660300002)(8936002)(41300700001)(54906003)(316002)(8676002)(2906002)(44832011)(83380400001)(38100700002)(2616005)(6666004)(966005)(6486002)(478600001)(186003)(6512007)(36756003)(86362001)(6506007)(67856001);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?+JXSAAtwdxPueTbw0s1+D4atmVBQtFIPMUK4i6JftW2f6AOgc3L8vloQg5g7?=
- =?us-ascii?Q?JU4nP3TNUQp92gQlTphvQlNS4le582aqtFsxetToMKuxcd2IuOBdT3AfJnM/?=
- =?us-ascii?Q?YfVTpLe2PrbM8MqdD16/mhrEl1Ix2PegAIBG9dl9m7pCZHn002GoyQSrIU8V?=
- =?us-ascii?Q?5L5uipkU1M7q+VTXMV2RI7w/KTlLS3YbWQ6bR5f5xZjV/oLvYUdU7JfMifZm?=
- =?us-ascii?Q?bYdOL/Nqr1HD+FosQtL2YgkZEDikBc7/sh0tII66PlsfQAVWXAeFzuV6e372?=
- =?us-ascii?Q?zny5NhEDWOqNGBMM3RLr7bVTrAb7whXgOPiyoH0bDfqf8cDNRJpZWQeDgf5o?=
- =?us-ascii?Q?SxyVIxoT4QdQItzbQpTi0ywKGIWuOpbyIzj6dY+TYgGMBwWvGBVhHslOswj9?=
- =?us-ascii?Q?hPr9ijjVgHyOg6UozIBIsRbp7xh6X35xkOb6w+tKeSdojHRp3Js+2eJo/b/8?=
- =?us-ascii?Q?kMHcqzuwoO4g4WTGfdgU9+panQSCEzNzDs5onL7mJzmqSrxEjGeKk6KHFRSr?=
- =?us-ascii?Q?Oher4LmcB5arUDU7ZUROfHPXPkwek22TqEYK5wgtoLiXgjrF2pN6WSu5YStd?=
- =?us-ascii?Q?K0sOkHmilR6gf/JTE31zVLAU/uP2QjkfdHBEETA4cL+6q5RSb/q/p0Qj8BDP?=
- =?us-ascii?Q?pLtBS89i4O7PE+uoWN0RblAcRF1mTPL1NGbkwx1x/+pE02OTfEfrZk38LCC4?=
- =?us-ascii?Q?pwSpRMYGTiN5fMD1BiWrpRjr7W+KT/If2w80OIyB7MDRHIiO6ejn/5QFPoj+?=
- =?us-ascii?Q?LKsHfkZ9ZAjPN3MPV7H7nCb30HnER0NbfGvNJwKzXhkvaUVskt+L+7jPA8QX?=
- =?us-ascii?Q?6h7V6q5A5AMzU8Gy/AuqpDw6LciUj3K3OCNjpg80C+/BgiiXtW1gCue9bLCl?=
- =?us-ascii?Q?U1YhIByXtCDwsuTc1FsC1m9aRzWoGeGtRZ+b735pwUFctOcJINNgk2FbaId3?=
- =?us-ascii?Q?V+ch/Bph0TIqfXSF5+Q0jwebmTS6yXbPH6jbdchZQKDM3riNJhdY8b6SeQWN?=
- =?us-ascii?Q?nm7JBQMKIkDnGbYd8FJQMEC8e9a5Irnr8D3eqjnlrz2GP5BKij4nCtv8HnK7?=
- =?us-ascii?Q?bqXSWe4vgZ5yiSMlOn4eQlQdJl/0OOY80u0CYfuNC8b+FLa5hQQK6VDIInTG?=
- =?us-ascii?Q?XfYLoeiZtZIZjoAlgxOH092Ss5jiOy9E5sCp23KqBBoOkT4Oh9zMJ05EMBjA?=
- =?us-ascii?Q?lhwldUvw9vs+VmG245223b7yuFKrKQ21kcqQI9IVnoJ2H3XoVVf1YiEiBtn1?=
- =?us-ascii?Q?OzL0gxYfEnimhR5nOGrRj8OO/ozCp6c5ztMv8q4z9uckFnQ0nLxj0TZEzupY?=
- =?us-ascii?Q?zGIKNwJ4rsLUSmkBD8OTIKsy6xvzxpxnfdptB/KOLUkFlfV6uClj7QJwXfRp?=
- =?us-ascii?Q?lJnEQLJR9hlObUQvMJyL9WJKn7+d6S8B2xMjvhKpQxvpdBF+djI0B4wKbg4x?=
- =?us-ascii?Q?4njNKinkFOjWjCOVX5kmrieMkM+jtR0MiUuvfOEFc9aTyLHWopzG+C4A8gIa?=
- =?us-ascii?Q?q9r2xzemm42LAAWq+Wlq5pxKF+OBTloM8cV++6RsD0yrOo+T9rI0MB6T2Gka?=
- =?us-ascii?Q?cFNE8h/2R3e8cP6cBYq80f++Xo/csU0NNpof042dXcmEZ9z5yN4lkylYuto/?=
- =?us-ascii?Q?sPGoS69iSK/lcAAQwKFImrq5eQcMY7R4nL8pQc5r1AsjB7XkArJ2onoWgovf?=
- =?us-ascii?Q?4GowAw=3D=3D?=
-X-OriginatorOrg: corigine.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 51f0361e-2a13-4adc-0ea7-08db061a3b69
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR13MB4842.namprd13.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Feb 2023 19:09:54.2307
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fe128f2c-073b-4c20-818e-7246a585940c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ALsTQgXBajUwi4uZAxEzz/jKwU0BUHl7VBuvEJHQPkk9q349az00TZcEqYgCSEu4M8fck404bIX2vSC+NI8cWO6euzz50Owxv/pI9aKa03c=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR13MB6029
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS
-        autolearn=ham autolearn_force=no version=3.4.6
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Reply-To: Linux Man-Pages <linux-man@vger.kernel.org>
+Subject: Re: Using C23 digit separators not locale digit grouping characters
+Content-Language: en-CA
+To:     Linux Man-Pages <linux-man@vger.kernel.org>
+References: <19a71139-7807-2692-3eec-16a0f754911d@Shaw.ca>
+ <717e8fb9-9159-65f8-093e-a117c82be704@gmail.com>
+ <aebef9ae-1bd0-b0e7-b333-7269dbaf50a2@Shaw.ca>
+ <5c2be1e7-4c75-dc20-8d2e-a528edea7e32@gmail.com>
+ <f93b5307-4f11-eeeb-3a52-1dc1b4ea0ac8@Shaw.ca>
+ <8ecb3f01-2035-9408-9605-1e64e6f25b5a@gmail.com>
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>
+From:   Brian Inglis <Brian.Inglis@Shaw.ca>
+Organization: Inglis
+In-Reply-To: <8ecb3f01-2035-9408-9605-1e64e6f25b5a@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CMAE-Envelope: MS4xfB0sMexNuJ6ZPk35oOje/8JOY7GSHJ8t4geWB2nOfceuk5h5xwurs3WeRVNMb0nNWzy56vOaTnZVcXdVhmHIeh6oO0ATGtl5AVZSD4lIRhI2i+u18P2R
+ 7fnKQtGTkgAnYGsJ1eTF5SCqAoAL+mTB111Y0eIU9B8Gpkwoi+Hqhn9XwBfnCB7+HYGKw8wQNf2Wwjtjg71LN0LTli9DWnbldzUrBvxtGPJippYYYbDz+xpF
+X-Spam-Status: No, score=-2.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_LOW,
+        RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed, Feb 01, 2023 at 01:36:34PM +0100, Jakub Sitnicki wrote:
-> Linux commit 91d0b78c5177 ("inet: Add IP_LOCAL_PORT_RANGE socket option")
-> introduced a new socket option available for AF_INET and AF_INET6 sockets.
-> 
-> Option will be available starting from Linux 6.3. Document it.
-> 
-> Signed-off-by: Jakub Sitnicki <jakub@cloudflare.com>
-> ---
-> Submitting this man page update as the author of the feature.
-> 
-> We did a technical review of the man page text together with the code [1].
-> 
-> [1]: https://lore.kernel.org/all/20221221-sockopt-port-range-v6-0-be255cc0e51f@cloudflare.com/
+On 2023-02-02 16:59, Alejandro Colomar wrote:
+> On 2/2/23 23:29, Brian Inglis wrote:> Hi Alex,
+>> Took your views on board and changed man2 pages.
+>> Attached summary only has file names and changed lines.
+> I prefer inline in the email :)
+>> Would like feedback on what to continue doing and what to forget doing before 
+>> starting man3?
+> See below.
+>> Of note for review are open.2 octal perms,
+> The octals read a bit weirder than the others.  Please keep them in a separate 
+> patch, so we can decide on it later.  But I wouldn't discard it for now.
 
-Reviewed-by: Simon Horman <simon.horman@corigine.com>
+Intend to keep these noted large changes in separate commits, in case of such 
+issues.
 
+>> reboot.2 LINUX_REBOOT_MAGIC* adding hex birth dates
+> LGTM
+>> (arguably should remove the decimals, or all values, and cryptic comment from 
+>> doc?),
+> Not sure what you mean.
+
+See below - decimal (and added hex) "BCD" values of Linus and kid's birthdates!
+
+>> statsf.2 hex *_MAGIC,
+> LGTM
+>> changing large arbitrary values to SI/IEC suffix forms (as the exact decimal 
+>> values are not as informative or useful),
+> But I'd use multipliers that result in exact values.  See below.
+>> and feature docs using yyyy\(aqmmL (no example *code* was changed, although 
+>> comments were).
+> LGTM.
+>> -the supplied value is clamped to the range (\-32768000, +32768000).
+>> +the supplied value is clamped to the range (\-31.25Mi, +31.25Mi).
+> I'd prefer here (\-32000Ki, +32000Ki).  Decimals on multipliers induce doubts on 
+> how much precision you kept; round numbers make it clear.
+
+Dithered about representing 32kKi - again magnitude seemed more important to 
+document, but did not consider using decimals might introduce uncertainty about 
+precision!
+
+>> -is outside the range [0..999,999,999].
+>> +is outside the range [0..999\(aq999\(aq999].
+> Please fix also the format of the range, now that you're at it (in a separate 
+> commit, if you don't mind).  I prefer mathematical notation, where possible: [0, 
+> 999'999'999].
+>> -field was not in the range 0 to 999999999 or
+>> +field was not in the range 0 to 999\(aq999\(aq999 or
+> Same here: [0, 999'999'999]
+
+If we are changing to consistent interval notation in a separate patch, should 
+we replace the closed inclusive limit strings of "[0, ...999]" by open exclusive 
+limits e.g. "[0, 1G)" etc. or would semi-open be too ambiguous, as intervals 
+seen in the sample so far are either open (...) or closed [...]?
+I presume doc readers have less familiarity with maths and computer arithmetic 
+than engineers or technical devs may require.
+
+>> -source, a maximum of 33554431 bytes is returned by a single call to
+>> +source, a maximum of 32Mi-1 bytes is returned by a single call to
+> When the value is not an exact one, as here where it's the multiplier minus one, 
+> I prefer a more correct mathematical notation: 2^25-1
+
+I don't think that notation is meaningful documentation to most readers.
+The original decimal value is easier to comprehend.
+Even the hex 0x2000000-1 would be a bit more informative (0x20Mi-1).
+An odd binary power does not bring a value quickly to mind, and has to be 
+decoded to 2^5*2^20-1 to make any sense: I had to evaluate it to be sure!
+With large values, the magnitude is more important to get across clearly with 
+binary or decimal suffixes, although the value must be exact.
+
+>> -(that is, 0xfee1dead) and
+>> +(that is, 0xfee1\(aqdead) and
+>> -(that is, 672274793).
+>> +(that is, 672\(aq274\(aq793 0x2812\(aq1969).
+>> -(that is, 85072278)
+>> +(that is, 85\(aq072\(aq278 0x0512\(aq1996)
+>> -(that is, 369367448)
+>> +(that is, 369\(aq367\(aq448 0x1604\(aq1998)
+>> -(that is, 537993216)
+>> +(that is, 537\(aq993\(aq216 0x2011\(aq2000)
+> In these cases, where you added the hex equivalent, I think it would need a 
+> comma as a separator, and maybe some connector?
+
+That's the decimal and "BCD" values of Linus and kid's birthdates if you look at 
+the hex, to which the following "...meaningful" comment refers.
+Suggest we separate with a dash, or I wondered if we should just drop the "cute" 
+values and comments?
+They are in the header if anyone other than Linus cares.
+
+>> -this limit was 0x2000000 (32\ MB).
+>> +this limit was 0x200\(aq0000 (32\ MiB).
+> Could you please separate the bugfixes such as this one in a different patch, if 
+> you don't mind?  I don't care about the order of them, though.
+>> -AFS_SUPER_MAGIC       0x5346414f
+>> -ANON_INODE_FS_MAGIC   0x09041934 /* Anonymous inode FS (for
+>> +AFS_SUPER_MAGIC       0x5346\(aq414f
+>> +ANON_INODE_FS_MAGIC   0x0904\(aq1934 /* Anonymous inode FS (
+> I'm getting a bit confusing while reading the diff. The \(aq syntax is 
+> definitely a bit confusing when mixed with other random characters that the 
+> brain doesn't recognize as words. We can solve this by using \[aq] notation, 
+> which I like more personally. Please use this syntax. We'll also need some 
+> global fixes to change the notation all across the pages. I'm not asking you
+> to do this though. It's probably a lot of work. I can do that after your
+> patches.
+
+Agree here, that's why I wanted you to have a look at the changes first.
+
+> Other than those minor comments, I like the diff very much.  Please continue :)
+
+-- 
+Take care. Thanks, Brian Inglis			Calgary, Alberta, Canada
+
+La perfection est atteinte			Perfection is achieved
+non pas lorsqu'il n'y a plus rien à ajouter	not when there is no more to add
+mais lorsqu'il n'y a plus rien à retirer	but when there is no more to cut
+			-- Antoine de Saint-Exupéry
