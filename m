@@ -2,39 +2,77 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id B8CD068B05D
-	for <lists+linux-man@lfdr.de>; Sun,  5 Feb 2023 15:49:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 41A9468B09A
+	for <lists+linux-man@lfdr.de>; Sun,  5 Feb 2023 16:30:28 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229511AbjBEOt6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 5 Feb 2023 09:49:58 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:32770 "EHLO
+        id S229519AbjBEPa0 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 5 Feb 2023 10:30:26 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41878 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229498AbjBEOt5 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 5 Feb 2023 09:49:57 -0500
-Received: from static.213-239-213-133.clients.your-server.de (luckmann.name [213.239.213.133])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 33EC81ADF0
-        for <linux-man@vger.kernel.org>; Sun,  5 Feb 2023 06:49:55 -0800 (PST)
-Received: from localhost (localhost [127.0.0.1])
-  (uid 502)
-  by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E5E025.0000000063DFC211.00005688; Sun, 05 Feb 2023 15:49:53 +0100
-Date:   Sun, 5 Feb 2023 15:49:53 +0100
-From:   Helge Kreutzmann <debian@helgefjell.de>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page charsets.7
-Message-ID: <20230205144953.GA21906@Debian-50-lenny-64-minimal>
-References: <20230122193133.GA29311@Debian-50-lenny-64-minimal>
- <1482b0cf-cb89-76a3-ca33-ad9b29ef21f5@gmail.com>
-Mime-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-22152-1675608593-0001-2"
-Content-Disposition: inline
-In-Reply-To: <1482b0cf-cb89-76a3-ca33-ad9b29ef21f5@gmail.com>
-X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
-X-homepage: http://www.helgefjell.de/debian
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Spam-Status: No, score=0.3 required=5.0 tests=BAYES_00,CK_HELO_GENERIC,
-        HELO_DYNAMIC_IPADDR,SPF_HELO_NONE,SPF_NONE autolearn=no
+        with ESMTP id S229457AbjBEPaZ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 5 Feb 2023 10:30:25 -0500
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com [IPv6:2a00:1450:4864:20::42c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4A4C94C19
+        for <linux-man@vger.kernel.org>; Sun,  5 Feb 2023 07:30:24 -0800 (PST)
+Received: by mail-wr1-x42c.google.com with SMTP id o18so8373161wrj.3
+        for <linux-man@vger.kernel.org>; Sun, 05 Feb 2023 07:30:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=VU2zRmdDezhcg1tV1N9BKQByb+mc/HyDCQKGJKdaU84=;
+        b=arx8QtOGmpoe6rV90tNrx7vWPACawsz29P6Kqt8R5+NZOZsyFEtdU3trpn3y8AcfeW
+         iSqpP6oMpZ0whAEc/2DUeP7Wo0dkZekKU77MRxjSessmDuzGXwuknVN/w0p11/FeUgYc
+         GxDkrHeo8JC/94vKcFTLlahrV8+IpUl4OhdKoVIlwkRU1gSoAq10x7aVy0ad2ZtHbd/t
+         /NbSlJfjQpmTGMc2z0j8SWkrOZzbJ0ARCzUGzLrzCI2c3bBSeK3i5MlOq8BIWAla+sSZ
+         0zGp5sYg/pkCDB/s+kGASif8fFUqW1Pu8uxxk66erc5aQwp/lTdq2cH3g389cTip+YOA
+         E8WQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=VU2zRmdDezhcg1tV1N9BKQByb+mc/HyDCQKGJKdaU84=;
+        b=iytAH3lBnAvU9DQkWPR2/ziFijg0eQmK4jMPqZwv2BGD8/JPM7qkAJR561apGpKNWn
+         bnq17aLiHVlCpCW0NUrJPiRaSlmYhdTMnm8MlD8wNB+Nh8hSZyulNJ8EJ5jJxrlHXt+6
+         36s8TJJZmiQmky3hK/lhFsJCWDuDoFRui4KV9iin/5HyWRLrhdvEmvky3FzpIjXnHwnI
+         EIP//ZZATOqC1CuhWtcwgfmnI1wFtxe7vGJDLHCZTdOoedNAxXJA+KZ17Ms9s9bwpefJ
+         6CRln4k9WcAQd6dJYma381gNY8HaGCd8rdRDVqJB9pxPBzK3b/JX8Tw4Ae9bB+Ig6i4E
+         +5yQ==
+X-Gm-Message-State: AO0yUKVryJwcVeMb3JF/5qGHEsmadwIMM67lWyqdC6ii9trtIES1b2zr
+        YMKRvo/Paj3KqLBK5mpfzeT0ZV7C2T0=
+X-Google-Smtp-Source: AK7set+rgr7+PGBq2xt/PZzkQly23B8lUXXcYEW7+VW3rRHwzwwVr32JNpl6/Rb5sIPaXvXpCZrpIQ==
+X-Received: by 2002:adf:dc03:0:b0:2bf:f2f2:7d64 with SMTP id t3-20020adfdc03000000b002bff2f27d64mr14041504wri.33.1675611022881;
+        Sun, 05 Feb 2023 07:30:22 -0800 (PST)
+Received: from asus5775.alejandro-colomar.es ([170.253.36.171])
+        by smtp.googlemail.com with ESMTPSA id b12-20020adff90c000000b002c3e89039casm914150wrr.12.2023.02.05.07.30.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 05 Feb 2023 07:30:22 -0800 (PST)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+X-Google-Original-From: Alejandro Colomar <alx@kernel.org>
+To:     linux-man@vger.kernel.org
+Cc:     Alejandro Colomar <alx@kernel.org>, GCC <gcc@gcc.gnu.org>,
+        glibc <libc-alpha@sourceware.org>,
+        =?UTF-8?q?Bastien=20Roucari=C3=A8s?= <rouca@debian.org>,
+        Stefan Puiu <stefan.puiu@gmail.com>,
+        Igor Sysoev <igor@sysoev.ru>, Rich Felker <dalias@libc.org>,
+        Andrew Clayton <a.clayton@nginx.com>,
+        Richard Biener <richard.guenther@gmail.com>,
+        Zack Weinberg <zack@owlfolio.org>,
+        Florian Weimer <fweimer@redhat.com>,
+        Joseph Myers <joseph@codesourcery.com>,
+        Jakub Jelinek <jakub@redhat.com>,
+        Eric Blake <eblake@redhat.com>
+Subject: [PATCH] sockaddr.3type: BUGS: Document that libc should be fixed using a union
+Date:   Sun,  5 Feb 2023 16:28:36 +0100
+Message-Id: <20230205152835.17413-1-alx@kernel.org>
+X-Mailer: git-send-email 2.39.1
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -42,63 +80,85 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is a MIME-formatted message.  If you see this text it means that your
-E-mail software does not support MIME-formatted messages.
+As discussed before, and Bastien and I seem to agree, ideally we should
+define the following types:
 
---=_luckmann.name-22152-1675608593-0001-2
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+    struct sockaddr_storage {
+        union {
+            struct {
+                sa_family_t      ss_family;
+            };
+            struct sockaddr_in   sin;
+            struct sockaddr_in6  sin6;
+            struct sockaddr_un   sun;
+            // ...
+        };
+    };
 
-Hello Alex,
-On Sun, Feb 05, 2023 at 03:28:45PM +0100, Alejandro Colomar wrote:
-> Hi Helge,
->=20
-> On 1/22/23 20:31, Helge Kreutzmann wrote:
-> > Without further ado, the following was found:
-> >=20
-> > Issue:    ISO =E2=86=92 ISO/IEC
->=20
-> Please someone write a documented patch for this one.
+    struct [[deprecated]] sockaddr {
+        sa_family_t              sa_family;
+    };
 
-These standards are all written in the same committee, hence they are
-all from "ISO/IEC".
+    union [[gnu::transparent_union]] sockaddr_ptr {
+        struct sockaddr_storage  *ss;
+        struct sockaddr          *sa;
+    };
 
-So pick your favourite editor, and do a global search and replace,
-i.e. ISO =E2=86=92 ISO/IEC
+And then we could define APIs like:
 
-If you still feel uncomfortable with any occurence, put the number
-into the search field on www.iso.org and check yourself.
+    int bind(int sockfd, const union sockaddr_ptr *addr, socklen_t len);
 
-Greetings
+Link: <https://lore.kernel.org/linux-man/ab492040-2058-bcbe-c920-a9088a20f071@gmail.com/T/#u>
+Link: <https://inbox.sourceware.org/libc-alpha/20230120134043.10247-1-alx@kernel.org/T/#u>
+Cc: GCC <gcc@gcc.gnu.org>
+Cc: glibc <libc-alpha@sourceware.org>
+Cc: Bastien Roucariès <rouca@debian.org>
+Cc: Stefan Puiu <stefan.puiu@gmail.com>
+Cc: Igor Sysoev <igor@sysoev.ru>
+Cc: Rich Felker <dalias@libc.org>
+Cc: Andrew Clayton <a.clayton@nginx.com>
+Cc: Richard Biener <richard.guenther@gmail.com>
+Cc: Zack Weinberg <zack@owlfolio.org>
+Cc: Florian Weimer <fweimer@redhat.com>
+Cc: Joseph Myers <joseph@codesourcery.com>
+Cc: Jakub Jelinek <jakub@redhat.com>
+Cc: Eric Blake <eblake@redhat.com>
+Signed-off-by: Alejandro Colomar <alx@kernel.org>
+---
+ man3type/sockaddr.3type | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-          Helge
+diff --git a/man3type/sockaddr.3type b/man3type/sockaddr.3type
+index 319a5e552..239e836fc 100644
+--- a/man3type/sockaddr.3type
++++ b/man3type/sockaddr.3type
+@@ -120,6 +120,26 @@ .SH NOTES
+ .I <netinet/in.h>
+ and
+ .IR <sys/un.h> .
++.SH BUGS
++.I sockaddr_storage
++was designed back when strict aliasing wasn't a problem.
++Back then,
++one would define a variable of that type,
++and then access it as any of the other
++.IR sockaddr_ *
++types,
++depending on the value of the first member.
++This is Undefined Behavior.
++However, there is no way to use these APIs without invoking Unedfined Behavior,
++either in the user program or in libc,
++so it is still recommended to use this method.
++The only correct way to use different types in an API is through a union.
++However,
++that union must be implemented in the library,
++since the type must be shared between the library and user code,
++so libc should be fixed by implementing
++.I sockaddr_storage
++as a union.
+ .SH SEE ALSO
+ .BR accept (2),
+ .BR bind (2),
+-- 
+2.39.1
 
---=20
-      Dr. Helge Kreutzmann                     debian@helgefjell.de
-           Dipl.-Phys.                   http://www.helgefjell.de/debian.php
-        64bit GNU powered                     gpg signed mail preferred
-           Help keep free software "libre": http://www.ffii.de/
-
---=_luckmann.name-22152-1675608593-0001-2
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmPfwgoACgkQQbqlJmgq
-5nDY/A/9GQe3el+RQcPkEJseinCKKfdnQvpOd7ltOIePG0WfsUS+mdMz2U8k5PFV
-886XgKkZKGZA52LUwDbxLpO2Mdof1/Diq0MdtL3eI63gHLnJJtzqnisPQmCvdUob
-lcZZhMfSkhUAFHW/RK9mSPdwn3af4zZe++S+emYkG/2cKjadEFT0Nmje99KFLL7N
-fVPCo9qCIEtt9RK/r3jJ0l/zN6SzeV7sgL5VLyKAPORrydj03e3wycqlug3dh/mM
-l3Du8e06I92Aro/7qT5ThU5aW+3FIO6Dk/zzXe2kGrEgTPve2S9oLYzkRIrCZtvf
-gXtQ+5JRYYz+1/3JheVzeOS2soWm5peCzoNOcPc75gPFFBz7j2yQw/2w4S+9DRD6
-R9TcMga9qJTtyamzp6zJvny4vjxZfuAUnKkmIbI7y+aE1Bw2F7yoeFIBk9lSiDYT
-AK3HNBnz5czB6fWFAw9r+XnAiz3OFUgShYNSNR7MRBtufIJQ+Tw/bpCYRfFFrTQV
-IUr+Wie/jQbLiZWitlaa6EVwreqlrenaFHmgWqGeE/ZnFw/cHBeuic/slm14eJTY
-dyLPcvSW0wy0kiUtp23xzBBUeEvmNxt4JD3vWN9SthlYS4ti40jzF7cGbQIvcK5G
-INuiVnYMzUOSXK4PY3FOC2mZJokOIyadWJdFQFbiyOMJHwXjRmo=
-=N8qc
------END PGP SIGNATURE-----
-
---=_luckmann.name-22152-1675608593-0001-2--
