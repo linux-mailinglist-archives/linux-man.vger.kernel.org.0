@@ -2,71 +2,70 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 4BB1068B2F6
-	for <lists+linux-man@lfdr.de>; Mon,  6 Feb 2023 01:02:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 8BF8C68B2FA
+	for <lists+linux-man@lfdr.de>; Mon,  6 Feb 2023 01:05:39 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229564AbjBFAC5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 5 Feb 2023 19:02:57 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38564 "EHLO
+        id S229562AbjBFAFi (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 5 Feb 2023 19:05:38 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38758 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229571AbjBFACy (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 5 Feb 2023 19:02:54 -0500
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com [IPv6:2a00:1450:4864:20::335])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1DBC446B4
-        for <linux-man@vger.kernel.org>; Sun,  5 Feb 2023 16:02:52 -0800 (PST)
-Received: by mail-wm1-x335.google.com with SMTP id u10so4500243wmj.3
-        for <linux-man@vger.kernel.org>; Sun, 05 Feb 2023 16:02:52 -0800 (PST)
+        with ESMTP id S229503AbjBFAFh (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 5 Feb 2023 19:05:37 -0500
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com [IPv6:2a00:1450:4864:20::331])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B9C3716AF7
+        for <linux-man@vger.kernel.org>; Sun,  5 Feb 2023 16:05:35 -0800 (PST)
+Received: by mail-wm1-x331.google.com with SMTP id f47-20020a05600c492f00b003dc584a7b7eso9647713wmp.3
+        for <linux-man@vger.kernel.org>; Sun, 05 Feb 2023 16:05:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=in-reply-to:references:to:from:content-language:subject:user-agent
+        h=in-reply-to:from:references:to:content-language:subject:user-agent
          :mime-version:date:message-id:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=HXqG5qYVAm9bq5jbteU1tRQKp+5d9oKvKJMN28Z2Quw=;
-        b=hmX5a7GUSfmShFlWcHBeW02eVwYsGBeY/0iv3Ll2JGQQDH0p06xzADTGMEcfyiQkae
-         gOz1HNAfQ1j0uuV+Teg+Kxsl1gQtijoKRnaauOYGKInZ2TZmQ7fphpLn+XylA3VNatAl
-         Ugoivp/Wwwd5KP/gdZ5u3QhyZWHAZBdxkx8qGoIekBWt932bAxg3dg7XGEqxiCw9FQSf
-         m2VLGWbkj9riNYhlVpbeTrL7ToOWTHQnmlOT/4/s6rnOnsx5580T4585uis+VZxdmeBN
-         mbbGWjvptwqzQMyu9hRRCVQJbzm+9RzRJeJ28dMx3sV3u9UDxqb/mk9h0vfzY6qbCyGZ
-         RxNg==
+        bh=oJMtoEpmnNqmEV8hGde87gkPrn9hBlrWKwC8Ra8DUfE=;
+        b=DhEGpouCRDL/tgy77pe7pwilJQi6iTAn3rTtF61wlq7s6vBhZhCFzjJenOFLzMS299
+         ad1sn9tlMAk3FytCKUqO6bFaI+xaqGE+rLB53I190tMC60RuPNMiLtEW4bMOdOBGMcHe
+         dDvkJVv5C/TqdVhrik6Bsz2hyfvsYGISbMZWpSbVX+xiljroBA8PHXNa+Fj/+TlVCrpP
+         BmfvxadZ/kYiZX95l7yOsGvTjs/K5oa6SR0fl11fvLRVW9fAy7avvHHD8x7CrC4Wm2Om
+         YloysX/zkzNWHsJVthhy+C55DqmJtX1kPUV8VHRXBdDYot0nfQJYyDd4DDiNcbkQuhbh
+         83pw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=in-reply-to:references:to:from:content-language:subject:user-agent
+        h=in-reply-to:from:references:to:content-language:subject:user-agent
          :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=HXqG5qYVAm9bq5jbteU1tRQKp+5d9oKvKJMN28Z2Quw=;
-        b=iadBMIF8AiyiLWLxk1NZxQxrguTQpazT9nUJLqrHl55AxJjNlNCFmmJnn6LGEht8Qc
-         oO6vqt1P3ydJm8v65GBQ8jvtIjVePnRRaPHTnNqDHnPlraaPr2ZgNjJFseZ96BDfLShc
-         KIzQ8LZJ3UMOv4F/Uv8AEQypUfoDYCMH2eZIsn3AzQwno3p59idn8QwSMtQtasJYerMi
-         M+L4Q7l+OeOx8FNraTnN4mFWNM/u8XBN+/Pq80oL5s2dMIL3L+Tsc5Nin3SJekZvuN/A
-         ZpNu38WlHnvR959ie0JK1xnR0mQY35/Qk88oaKnBQG/us9f9YrSoKLlFkQ13o/8WXpYM
-         D60Q==
-X-Gm-Message-State: AO0yUKWvrno0Z4iLdA+CeG+OVYBHG5WwA6IDCCB1OSn1mDlxyqR1TcbJ
-        kbWoSCH+AmfPd5fFlzcUmqsS1lgiOWg=
-X-Google-Smtp-Source: AK7set/yF+M60M0o4cUH1dnRQA3R4c/Gaxtt3E6IS2NzIOnwtVccUJdR0AMnceDOApmYqAX6UWJCTA==
-X-Received: by 2002:a1c:4c17:0:b0:3db:262a:8ef with SMTP id z23-20020a1c4c17000000b003db262a08efmr17692433wmf.38.1675641770666;
-        Sun, 05 Feb 2023 16:02:50 -0800 (PST)
+        bh=oJMtoEpmnNqmEV8hGde87gkPrn9hBlrWKwC8Ra8DUfE=;
+        b=X/VAcS/8RR5K2CyZTNYTJLsfEX7sBpIL91qw35goPOhoiZxJnpFVZXEEc5PlvxwWrL
+         JJ5YY6cp5wx8Sl4c0n7APYVQpnMSgYKhTewtZabopyYCof+QSvk3LcwRd5VKF6vtbRZh
+         FupkYlibxBRuGAWFAu1lCy3gyveNVjUIIpQfLH/Tv25dMWRPyJPJpV8x8dQgG+tdOxKb
+         ld0ZCGaNEilgMhcUeec/hE668ItR7uCmw5C2YkD1Rna6zrV8MzQhhQ7uihUa9kdhDXHW
+         MM8+BqXWcpspHvCdAl+wMJ/qu9IkHIWGWrT4/ZZU+r0c1pSleXyaeHMYXLx+96vkdRvL
+         3o2Q==
+X-Gm-Message-State: AO0yUKVOXoM6jpQckPSDmISfTcYy7Lwb+3Yg6Xl2Shsvu0i41H+d3/+5
+        3OqkOxPTzBu9bDfa9YwocA3xhb8PnpM=
+X-Google-Smtp-Source: AK7set8wDbhUru9BMCFCHZJUPWkK8VCPyjRx4ll0VC+AFyQO04kkjxwfDTlT1PpT3cWKeEChiRwc+A==
+X-Received: by 2002:a05:600c:21ce:b0:3df:f61f:9b01 with SMTP id x14-20020a05600c21ce00b003dff61f9b01mr3845624wmj.31.1675641934246;
+        Sun, 05 Feb 2023 16:05:34 -0800 (PST)
 Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id i21-20020a05600c355500b003dc4b4dea31sm9945773wmq.27.2023.02.05.16.02.49
+        by smtp.gmail.com with ESMTPSA id p9-20020a05600c468900b003dc53217e07sm10047002wmo.16.2023.02.05.16.05.33
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 05 Feb 2023 16:02:50 -0800 (PST)
-Message-ID: <0048ff92-dc4a-f58e-ba5b-6aeb80031abb@gmail.com>
-Date:   Mon, 6 Feb 2023 01:02:49 +0100
+        Sun, 05 Feb 2023 16:05:33 -0800 (PST)
+Message-ID: <4cc8be2e-6202-6181-6e49-453849e73a69@gmail.com>
+Date:   Mon, 6 Feb 2023 01:05:32 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.7.1
 Subject: Re: [PATCH 01/11] man2/shmget.2: fix limit units suffix from SI to
  IEC
 Content-Language: en-US
-From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     Brian Inglis <Brian.Inglis@Shaw.ca>,
         Linux Man-Pages <linux-man@vger.kernel.org>
 References: <20230205225924.63300-1-Brian.Inglis@Shaw.ca>
  <20230205225924.63300-2-Brian.Inglis@Shaw.ca>
- <aa33a846-5a32-2464-2dfa-d8785d604f71@gmail.com>
-In-Reply-To: <aa33a846-5a32-2464-2dfa-d8785d604f71@gmail.com>
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <20230205225924.63300-2-Brian.Inglis@Shaw.ca>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------p57IKsDKYkLQdMS0xe2wY3PI"
+ boundary="------------J1AMFtalBlQcw0SIOatoGHHK"
 X-Spam-Status: No, score=-3.2 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
@@ -78,56 +77,54 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------p57IKsDKYkLQdMS0xe2wY3PI
-Content-Type: multipart/mixed; boundary="------------sLUd3qjxFQMnMjPLqp96JnGc";
+--------------J1AMFtalBlQcw0SIOatoGHHK
+Content-Type: multipart/mixed; boundary="------------klsR09MeU5MeTy8p80AMkzHj";
  protected-headers="v1"
 From: Alejandro Colomar <alx.manpages@gmail.com>
 To: Brian Inglis <Brian.Inglis@Shaw.ca>,
  Linux Man-Pages <linux-man@vger.kernel.org>
-Message-ID: <0048ff92-dc4a-f58e-ba5b-6aeb80031abb@gmail.com>
+Message-ID: <4cc8be2e-6202-6181-6e49-453849e73a69@gmail.com>
 Subject: Re: [PATCH 01/11] man2/shmget.2: fix limit units suffix from SI to
  IEC
 References: <20230205225924.63300-1-Brian.Inglis@Shaw.ca>
  <20230205225924.63300-2-Brian.Inglis@Shaw.ca>
- <aa33a846-5a32-2464-2dfa-d8785d604f71@gmail.com>
-In-Reply-To: <aa33a846-5a32-2464-2dfa-d8785d604f71@gmail.com>
+In-Reply-To: <20230205225924.63300-2-Brian.Inglis@Shaw.ca>
 
---------------sLUd3qjxFQMnMjPLqp96JnGc
+--------------klsR09MeU5MeTy8p80AMkzHj
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: base64
 
-T24gMi82LzIzIDAwOjMxLCBBbGVqYW5kcm8gQ29sb21hciB3cm90ZTo+IENvdWxkIHlvdSBw
-bGVhc2Ugc2VuZCB0aGUgcGF0Y2hlcyBpbmxpbmU/DQo+IElmIHlvdSBmZWFyIHRoYXQgeW91
-ciBtYWlsZXIgbWlnaHQgYnJlYWsgdGhlbSwgc2VuZCB0aGVtIF9hbHNvXyBhdHRhY2hlZCwg
-YnV0IA0KPiBwbGVhc2Ugc2VuZCB0aGVtIGlubGluZSBpbiB0aGUgZW1haWwuDQoNCkFsc28s
-IHBsZWFzZSBzZW5kIGdpdCBwYXRjaGVzLCB3aXRoIGEgY29tbWl0IG1lc3NhZ2UsIHdoaWNo
-IGNhbiBiZSBwcm9kdWNlZCB3aXRoIA0KZ2l0LWZvcm1hdC1wYXRjaCgxKS4NCg0KQ2hlZXJz
-LA0KDQpBbGV4DQoNCi0tIA0KPGh0dHA6Ly93d3cuYWxlamFuZHJvLWNvbG9tYXIuZXMvPg0K
-R1BHIGtleSBmaW5nZXJwcmludDogQTkzNDg1OTRDRTMxMjgzQTgyNkZCREQ4RDU3NjMzRDQ0
-MUUyNUJCNQ0K
+SGkgQnJpYW4sDQoNCk9uIDIvNS8yMyAyMzo1OSwgQnJpYW4gSW5nbGlzIHdyb3RlOg0KPiAt
+LS0NCj4gICBtYW4yL3NobWdldC4yIHwgMiArLQ0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAxIGlu
+c2VydGlvbigrKSwgMSBkZWxldGlvbigtKQ0KDQpUaGUgU0kgYWxzbyBzcGVjaWZpZXMgTWlC
+LiAgU2VlIHVuaXRzKDcpIGFuZCANCuKfqGh0dHBzOi8vd3d3LmJpcG0ub3JnL2RvY3VtZW50
+cy8yMDEyNi80MTQ4MzAyMi9TSeKAkEJyb2NodXJl4oCQOS5wZGbin6kuDQoNCkNoZWVycywN
+Cg0KQWxleA0KDQoNCj4gDQoNCi0tIA0KPGh0dHA6Ly93d3cuYWxlamFuZHJvLWNvbG9tYXIu
+ZXMvPg0KR1BHIGtleSBmaW5nZXJwcmludDogQTkzNDg1OTRDRTMxMjgzQTgyNkZCREQ4RDU3
+NjMzRDQ0MUUyNUJCNQ0K
 
---------------sLUd3qjxFQMnMjPLqp96JnGc--
+--------------klsR09MeU5MeTy8p80AMkzHj--
 
---------------p57IKsDKYkLQdMS0xe2wY3PI
+--------------J1AMFtalBlQcw0SIOatoGHHK
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmPgQ6kACgkQnowa+77/
-2zJQShAAhO3hcChuT5qNW3p8BtuaYuknqh+hyD2jo+ejWpMaOtQmOaDn3DXaT5mZ
-3AxttYqDDEhpnoEFhQYNpNg8bAArNcoiFuyXD+Eg+qpLm+Bw1Pv1VcJfpVTPu25c
-0rlveHr/MTUKPupmg2bV2PReJGshJzoMLbnE5yf9wSSnpZ5rt1xHXnk21/1pKq/I
-xPP0sYz6KgjmNjHYrdFddBMU4QojZs3yeOKsWNlgPox0QyroRDnVnjD0MyT0d5x9
-t6eiK/jx99/prefL7jKbt4gyHS/kuyQLRXIvITjBO0t28viSp289yMtyPVkNLjIV
-RhSNu27YOxBBR5V/WpnkLT+wwuRa5qIlC6BsuxjZhF1cEMPX3/Vy8gxHGqvArJbG
-KmCtl+58az+ip5rvXV1bJou9BukQQBff0GbP2Bed9DR6t4Ezo3rG5Pb7mDdwpT+K
-aCV4G+u1Dpgtk1QK0idcF5KLcFG8CcjRcKa3HEJjd8IYZIdJXghoLz0kalCmK7ny
-VCXpudaE1pCKRmHnKZ8BEg6GTBJd1KtoCrmR5QR7oVE83n/fL2OAD0/vI+PxKUTp
-0UH/7bZB/2MHstJ/NlU2fQjdYAA+euBi64fj2m9hSIe+DQ7BPCSJ96dhJ+Ag1/6g
-pW6MfBQ4qrVa8rr3K8aUa0ODpyCS2CrekWpN/hPeTGlj4Ffov8w=
-=H7uc
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmPgREwACgkQnowa+77/
+2zJW0Q//R8sKMDMqKtStUJ2WlmpE4LEyXirHJk80FhsKvsI/vHp01RIaXfM5Hss1
+Gf5PM7bUjH+RgGdNyTwLeL+kkZpZATndnX4uSutOeyKw+6qzXh1C6cPOsTEl51DI
++YwC6z/Dbv4DGAV/pPYytG0Ak8s1UztKZ+4z2aI3h1BBj78fG6O0hENKX/t5pbSY
+auMMRYNRJNc43xbXWVB87WWBAkZSYXrdep+/D9A6zUpxSkigN2vrFxvfmHbl2L63
+WOvEulOtLE78B8c0A1OG44x8PBlraadEplt5oziuh+gw1aQuIyKj+GbCZzLqgyZV
+lHcaSkBP8+HBfcuD+D9aKiypov7pwoL1h7baXuIlS52oqOhsDMfl7G+IrPXL89Eg
+4/v/tHgYuZ7i3U1Y5FJ1gq5bAExstmWcAZl35Fm+j/DdNiKSKnjlKam7e83/iQj/
+yc/UiSXcxLvolzcG02lLFe1hgiLGsT0C4JrcFt6tdksGK+rk2uAfiAg9sJahpnfK
+gz9usASxGEo4lG6jyFRG3j+QXCmIGFrV/8IAP9Axi90p/JCGBwqjeW876iIWxOm3
+iw+i6Qte1gCj0EEL9CVdQIUWr/Rf6sKYLAMNnO5fAjSMXxSJenq1ghuRX9Ckm6Mm
+P4i/XWo/6tNhji3jaXRnr6uXVTZahXXotnPhhU3WNFZdXtjUySc=
+=wWAm
 -----END PGP SIGNATURE-----
 
---------------p57IKsDKYkLQdMS0xe2wY3PI--
+--------------J1AMFtalBlQcw0SIOatoGHHK--
