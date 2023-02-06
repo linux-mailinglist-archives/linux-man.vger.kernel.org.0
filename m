@@ -2,129 +2,167 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 8BF8C68B2FA
-	for <lists+linux-man@lfdr.de>; Mon,  6 Feb 2023 01:05:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 6618968B310
+	for <lists+linux-man@lfdr.de>; Mon,  6 Feb 2023 01:15:53 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229562AbjBFAFi (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 5 Feb 2023 19:05:38 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38758 "EHLO
+        id S229490AbjBFAPw (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 5 Feb 2023 19:15:52 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41704 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229503AbjBFAFh (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 5 Feb 2023 19:05:37 -0500
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com [IPv6:2a00:1450:4864:20::331])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B9C3716AF7
-        for <linux-man@vger.kernel.org>; Sun,  5 Feb 2023 16:05:35 -0800 (PST)
-Received: by mail-wm1-x331.google.com with SMTP id f47-20020a05600c492f00b003dc584a7b7eso9647713wmp.3
-        for <linux-man@vger.kernel.org>; Sun, 05 Feb 2023 16:05:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=in-reply-to:from:references:to:content-language:subject:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=oJMtoEpmnNqmEV8hGde87gkPrn9hBlrWKwC8Ra8DUfE=;
-        b=DhEGpouCRDL/tgy77pe7pwilJQi6iTAn3rTtF61wlq7s6vBhZhCFzjJenOFLzMS299
-         ad1sn9tlMAk3FytCKUqO6bFaI+xaqGE+rLB53I190tMC60RuPNMiLtEW4bMOdOBGMcHe
-         dDvkJVv5C/TqdVhrik6Bsz2hyfvsYGISbMZWpSbVX+xiljroBA8PHXNa+Fj/+TlVCrpP
-         BmfvxadZ/kYiZX95l7yOsGvTjs/K5oa6SR0fl11fvLRVW9fAy7avvHHD8x7CrC4Wm2Om
-         YloysX/zkzNWHsJVthhy+C55DqmJtX1kPUV8VHRXBdDYot0nfQJYyDd4DDiNcbkQuhbh
-         83pw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=in-reply-to:from:references:to:content-language:subject:user-agent
-         :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=oJMtoEpmnNqmEV8hGde87gkPrn9hBlrWKwC8Ra8DUfE=;
-        b=X/VAcS/8RR5K2CyZTNYTJLsfEX7sBpIL91qw35goPOhoiZxJnpFVZXEEc5PlvxwWrL
-         JJ5YY6cp5wx8Sl4c0n7APYVQpnMSgYKhTewtZabopyYCof+QSvk3LcwRd5VKF6vtbRZh
-         FupkYlibxBRuGAWFAu1lCy3gyveNVjUIIpQfLH/Tv25dMWRPyJPJpV8x8dQgG+tdOxKb
-         ld0ZCGaNEilgMhcUeec/hE668ItR7uCmw5C2YkD1Rna6zrV8MzQhhQ7uihUa9kdhDXHW
-         MM8+BqXWcpspHvCdAl+wMJ/qu9IkHIWGWrT4/ZZU+r0c1pSleXyaeHMYXLx+96vkdRvL
-         3o2Q==
-X-Gm-Message-State: AO0yUKVOXoM6jpQckPSDmISfTcYy7Lwb+3Yg6Xl2Shsvu0i41H+d3/+5
-        3OqkOxPTzBu9bDfa9YwocA3xhb8PnpM=
-X-Google-Smtp-Source: AK7set8wDbhUru9BMCFCHZJUPWkK8VCPyjRx4ll0VC+AFyQO04kkjxwfDTlT1PpT3cWKeEChiRwc+A==
-X-Received: by 2002:a05:600c:21ce:b0:3df:f61f:9b01 with SMTP id x14-20020a05600c21ce00b003dff61f9b01mr3845624wmj.31.1675641934246;
-        Sun, 05 Feb 2023 16:05:34 -0800 (PST)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id p9-20020a05600c468900b003dc53217e07sm10047002wmo.16.2023.02.05.16.05.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 05 Feb 2023 16:05:33 -0800 (PST)
-Message-ID: <4cc8be2e-6202-6181-6e49-453849e73a69@gmail.com>
-Date:   Mon, 6 Feb 2023 01:05:32 +0100
+        with ESMTP id S229468AbjBFAPv (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 5 Feb 2023 19:15:51 -0500
+Received: from brightrain.aerifal.cx (brightrain.aerifal.cx [216.12.86.13])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F15E01816E
+        for <linux-man@vger.kernel.org>; Sun,  5 Feb 2023 16:15:49 -0800 (PST)
+Date:   Sun, 5 Feb 2023 19:15:47 -0500
+From:   Rich Felker <dalias@libc.org>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org, Alejandro Colomar <alx@kernel.org>,
+        GCC <gcc@gcc.gnu.org>, glibc <libc-alpha@sourceware.org>,
+        Bastien =?utf-8?Q?Roucari=C3=A8s?= <rouca@debian.org>,
+        Stefan Puiu <stefan.puiu@gmail.com>,
+        Igor Sysoev <igor@sysoev.ru>,
+        Andrew Clayton <a.clayton@nginx.com>,
+        Richard Biener <richard.guenther@gmail.com>,
+        Zack Weinberg <zack@owlfolio.org>,
+        Florian Weimer <fweimer@redhat.com>,
+        Joseph Myers <joseph@codesourcery.com>,
+        Jakub Jelinek <jakub@redhat.com>,
+        Eric Blake <eblake@redhat.com>
+Subject: Re: [PATCH] sockaddr.3type: BUGS: Document that libc should be fixed
+ using a union
+Message-ID: <20230206001546.GG3298@brightrain.aerifal.cx>
+References: <20230205152835.17413-1-alx@kernel.org>
+ <20230205234359.GF3298@brightrain.aerifal.cx>
+ <29bb163d-ab7b-2fb7-a1c8-cfd720984a8d@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Subject: Re: [PATCH 01/11] man2/shmget.2: fix limit units suffix from SI to
- IEC
-Content-Language: en-US
-To:     Brian Inglis <Brian.Inglis@Shaw.ca>,
-        Linux Man-Pages <linux-man@vger.kernel.org>
-References: <20230205225924.63300-1-Brian.Inglis@Shaw.ca>
- <20230205225924.63300-2-Brian.Inglis@Shaw.ca>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20230205225924.63300-2-Brian.Inglis@Shaw.ca>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------J1AMFtalBlQcw0SIOatoGHHK"
-X-Spam-Status: No, score=-3.2 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
-        autolearn_force=no version=3.4.6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <29bb163d-ab7b-2fb7-a1c8-cfd720984a8d@gmail.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,SPF_HELO_NONE,
+        SPF_NONE autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------J1AMFtalBlQcw0SIOatoGHHK
-Content-Type: multipart/mixed; boundary="------------klsR09MeU5MeTy8p80AMkzHj";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Brian Inglis <Brian.Inglis@Shaw.ca>,
- Linux Man-Pages <linux-man@vger.kernel.org>
-Message-ID: <4cc8be2e-6202-6181-6e49-453849e73a69@gmail.com>
-Subject: Re: [PATCH 01/11] man2/shmget.2: fix limit units suffix from SI to
- IEC
-References: <20230205225924.63300-1-Brian.Inglis@Shaw.ca>
- <20230205225924.63300-2-Brian.Inglis@Shaw.ca>
-In-Reply-To: <20230205225924.63300-2-Brian.Inglis@Shaw.ca>
+On Mon, Feb 06, 2023 at 12:59:48AM +0100, Alejandro Colomar wrote:
+> Hi Rich,
+> 
+> On 2/6/23 00:43, Rich Felker wrote:
+> >On Sun, Feb 05, 2023 at 04:28:36PM +0100, Alejandro Colomar wrote:
+> >>As discussed before, and Bastien and I seem to agree, ideally we should
+> >>define the following types:
+> >>
+> >>     struct sockaddr_storage {
+> >>         union {
+> >>             struct {
+> >>                 sa_family_t      ss_family;
+> >>             };
+> >>             struct sockaddr_in   sin;
+> >>             struct sockaddr_in6  sin6;
+> >>             struct sockaddr_un   sun;
+> >>             // ...
+> >>         };
+> >>     };
+> >
+> >AFAIK this is not permitted because of namespace. sys/socket.h is not
+> >permitted to expose sockaddr_{in,in6,un}. And if you defined
+> >differently-tagged structures with the same contents, it would not do
+> >any good; accessing the members with the wrong-tagged struct type
+> >would still be UB.
+> 
+> I'm not sure.  ISO C has that restriction that a header can only
+> define what the standard says it defines.  However, does POSIX have
+> the same restriction?
 
---------------klsR09MeU5MeTy8p80AMkzHj
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Yes.
 
-SGkgQnJpYW4sDQoNCk9uIDIvNS8yMyAyMzo1OSwgQnJpYW4gSW5nbGlzIHdyb3RlOg0KPiAt
-LS0NCj4gICBtYW4yL3NobWdldC4yIHwgMiArLQ0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAxIGlu
-c2VydGlvbigrKSwgMSBkZWxldGlvbigtKQ0KDQpUaGUgU0kgYWxzbyBzcGVjaWZpZXMgTWlC
-LiAgU2VlIHVuaXRzKDcpIGFuZCANCuKfqGh0dHBzOi8vd3d3LmJpcG0ub3JnL2RvY3VtZW50
-cy8yMDEyNi80MTQ4MzAyMi9TSeKAkEJyb2NodXJl4oCQOS5wZGbin6kuDQoNCkNoZWVycywN
-Cg0KQWxleA0KDQoNCj4gDQoNCi0tIA0KPGh0dHA6Ly93d3cuYWxlamFuZHJvLWNvbG9tYXIu
-ZXMvPg0KR1BHIGtleSBmaW5nZXJwcmludDogQTkzNDg1OTRDRTMxMjgzQTgyNkZCREQ4RDU3
-NjMzRDQ0MUUyNUJCNQ0K
+> Doesn't POSIX allow including any other POSIX
+> headers (maybe it does, but IIRC it doesn't)?
 
---------------klsR09MeU5MeTy8p80AMkzHj--
+Not except where it's explicitly allowed.
 
---------------J1AMFtalBlQcw0SIOatoGHHK
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+> Since <sys/socket.h>
+> is just a POSIX thing, that's the only standard we should care
+> about.
 
------BEGIN PGP SIGNATURE-----
+The relevant text is here:
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmPgREwACgkQnowa+77/
-2zJW0Q//R8sKMDMqKtStUJ2WlmpE4LEyXirHJk80FhsKvsI/vHp01RIaXfM5Hss1
-Gf5PM7bUjH+RgGdNyTwLeL+kkZpZATndnX4uSutOeyKw+6qzXh1C6cPOsTEl51DI
-+YwC6z/Dbv4DGAV/pPYytG0Ak8s1UztKZ+4z2aI3h1BBj78fG6O0hENKX/t5pbSY
-auMMRYNRJNc43xbXWVB87WWBAkZSYXrdep+/D9A6zUpxSkigN2vrFxvfmHbl2L63
-WOvEulOtLE78B8c0A1OG44x8PBlraadEplt5oziuh+gw1aQuIyKj+GbCZzLqgyZV
-lHcaSkBP8+HBfcuD+D9aKiypov7pwoL1h7baXuIlS52oqOhsDMfl7G+IrPXL89Eg
-4/v/tHgYuZ7i3U1Y5FJ1gq5bAExstmWcAZl35Fm+j/DdNiKSKnjlKam7e83/iQj/
-yc/UiSXcxLvolzcG02lLFe1hgiLGsT0C4JrcFt6tdksGK+rk2uAfiAg9sJahpnfK
-gz9usASxGEo4lG6jyFRG3j+QXCmIGFrV/8IAP9Axi90p/JCGBwqjeW876iIWxOm3
-iw+i6Qte1gCj0EEL9CVdQIUWr/Rf6sKYLAMNnO5fAjSMXxSJenq1ghuRX9Ckm6Mm
-P4i/XWo/6tNhji3jaXRnr6uXVTZahXXotnPhhU3WNFZdXtjUySc=
-=wWAm
------END PGP SIGNATURE-----
+https://pubs.opengroup.org/onlinepubs/9699919799/functions/V2_chap02.html#tag_15_02_02
 
---------------J1AMFtalBlQcw0SIOatoGHHK--
+> >Really, there is no action needed here. Nothing is wrong on libc's
+> >side. The problem is just that the type is *not useful for anything*
+> >and should not be used except in the context of sizeof, which is
+> >purely a documentation issue.
+> >
+> >>     struct [[deprecated]] sockaddr {
+> >>         sa_family_t              sa_family;
+> >>     };
+> >>
+> >>     union [[gnu::transparent_union]] sockaddr_ptr {
+> >>         struct sockaddr_storage  *ss;
+> >>         struct sockaddr          *sa;
+> >>     };
+> >>
+> >>And then we could define APIs like:
+> >>
+> >>     int bind(int sockfd, const union sockaddr_ptr *addr, socklen_t len);
+> >
+> >You cannot just change APIs because you wish they were different.
+> 
+> This API is compatible.  In fact, it already is now like that:
+
+Unless I'm mistaken, it's not. The function pointer the name 'bind'
+produces will not have the right type, and will have problems being
+stored in a function pointer object with the right type, as well as
+wrong results with _Generic, etc. Only plain calls to it are
+unaffected.
+
+> alx@debian:/usr/include$ grepc bind
+> ./x86_64-linux-gnu/sys/socket.h:112:
+> extern int bind (int __fd, __CONST_SOCKADDR_ARG __addr, socklen_t __len)
+>      __THROW;
+> 
+> alx@debian:/usr/include$ sed -n 83,84p x86_64-linux-gnu/sys/socket.h
+> typedef union { __SOCKADDR_ALLTYPES
+> 	      } __CONST_SOCKADDR_ARG __attribute__ ((__transparent_union__));
+> 
+> 
+> >Ideally bind, etc. would just take void *,
+> 
+> void * is a bit too much unsafe.  GCC's transparent unions are a
+> restricted catch-many pointer, rather than a catch-all.
+> 
+> >which is what the struct
+> >sockaddr * is being used as.
+> 
+> And in fact, void* wouldn't sole the union problem.
+> 
+> >But they don't, so callers have to cast.
+> 
+> With the current glibc implementation, you don't need to cast,
+> thanks to the [[gnu::transparent_union]]:
+
+This is just facilitating writing non-portable code, since correct
+code written to the spec *does* have to cast.
+
+> >It's ugly but it's really not a big deal. Much less of a big deal than
+> >breaking the interface because you think it would look prettier if it
+> >had been done differently.
+> 
+> It's not breaking the interface; not in GNU C.  Current code still
+> falls back to the a POSIX-complying UB-invoking interface when you
+> don't ask for _GNU_SOURCE, but we can keep that.  I'm only asking
+> that we fix the GNU C version.  Moreover, in POSIX-complying code,
+> you can keep the interface pointer, since you'll need to cast
+> anyway, but can still make sockaddr_storage be implemented through
+> an anonymous union.
+
+If it's only for _GNU_SOURCE it's probably mostly harmless, and
+allowable to violate the namespace rules, but also not terribly
+helpful...
+
+Rich
