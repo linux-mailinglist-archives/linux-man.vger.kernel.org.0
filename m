@@ -2,72 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id D468168EE5E
-	for <lists+linux-man@lfdr.de>; Wed,  8 Feb 2023 12:59:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 4A44168F058
+	for <lists+linux-man@lfdr.de>; Wed,  8 Feb 2023 15:06:26 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230340AbjBHL7S (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 8 Feb 2023 06:59:18 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47074 "EHLO
+        id S229732AbjBHOGY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 8 Feb 2023 09:06:24 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57800 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230303AbjBHL7R (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 8 Feb 2023 06:59:17 -0500
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com [IPv6:2a00:1450:4864:20::433])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C4BD746160
-        for <linux-man@vger.kernel.org>; Wed,  8 Feb 2023 03:59:16 -0800 (PST)
-Received: by mail-wr1-x433.google.com with SMTP id bk16so16474250wrb.11
-        for <linux-man@vger.kernel.org>; Wed, 08 Feb 2023 03:59:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Xkw0qXo/v/x4s3BG7+A1io7Oc6avGQ4CLIg0HId8y4Q=;
-        b=euZ1x7ZcGFjkyS8fBuI/2wLZlAkWoGrDK9iF42TRSLU1pbsYlS4lxTAdM581pUtuNu
-         zcacJEfHy1SiutRlOSl5peFqGlQdk6v4vFkIrvL936+IUsPB3Racj2AxiuPsZgn8hDkQ
-         l/MWOU9rqhtcGoR7tfpQgQbLJy6qyVnKync17c79ZH4hasjZtkCWqmlFo1Hum3twyvK2
-         yNgiPeEMpawUXZt0xYZbAsiYSiVhn6fRAWBimEerbGqSyCKMZVVmZnVsaOK7LHHq+HGF
-         IsrYIDBdZJaoB13QZmn8VpGvjBcIXhsqoyMBU3LeIHQiODUK5ikm77itDN6mh+Uugjxf
-         ekcw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=Xkw0qXo/v/x4s3BG7+A1io7Oc6avGQ4CLIg0HId8y4Q=;
-        b=8JCVPBJ6Ns9IdaYM1gNmJDZO/bjq8k00un3VLBnxZQeZWXj95Npv5M0AYrYFXxS5Mp
-         y0havqXB7K/+jFnErE3QjQ25ptesH+cwbBGne9CQlzrc6Cfc8sadgbCE6HYwriWE7O9+
-         tRg5jR+E2e/bN1Ha6M8nUfGFMzGXqHRp6sH6O8wko5GGrd7FqUwwpn5fbXaeQzesD9se
-         RPDRV1dV5AOTBzR73ql7Tdh7qmWn3XyYRrD+p2hqHFtQxcv95B0CoDbTzMKzS1bo28pN
-         SO7+UC2FmiEykAIvn8s/jYO18LZihHoJQABYrySR1KOYjh04b4zj0PHvbnyI83Wn+DRz
-         txTw==
-X-Gm-Message-State: AO0yUKUhX8VqACIkij4CbIsuyfjSklx2OtR+xizJyxAi9XN4pVSOaeYw
-        AlGLrceVFEyF41LwgRBPJO8=
-X-Google-Smtp-Source: AK7set8HDrJ99Q9+vYGlNv12vy8kiFITZKQErEXJaDDXP3oHVsgiBylbcvSLjXDz+ZSaEXXMnEhmDQ==
-X-Received: by 2002:a5d:6c64:0:b0:2c3:be89:7c1e with SMTP id r4-20020a5d6c64000000b002c3be897c1emr1766688wrz.1.1675857555381;
-        Wed, 08 Feb 2023 03:59:15 -0800 (PST)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id p4-20020a5d68c4000000b002c3e4f2ffdbsm8577338wrw.58.2023.02.08.03.59.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 08 Feb 2023 03:59:14 -0800 (PST)
-Message-ID: <0fe7f064-2f3d-7375-de7a-0fd382bcf972@gmail.com>
-Date:   Wed, 8 Feb 2023 12:59:13 +0100
+        with ESMTP id S230011AbjBHOGX (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 8 Feb 2023 09:06:23 -0500
+Received: from omta001.cacentral1.a.cloudfilter.net (omta001.cacentral1.a.cloudfilter.net [3.97.99.32])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 755D7172A
+        for <linux-man@vger.kernel.org>; Wed,  8 Feb 2023 06:06:22 -0800 (PST)
+Received: from shw-obgw-4003a.ext.cloudfilter.net ([10.228.9.183])
+        by cmsmtp with ESMTP
+        id PaWVprKXzc9C4Pl5ZpaUoz; Wed, 08 Feb 2023 14:06:21 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=shaw.ca; s=s20180605;
+        t=1675865181; bh=FdVqN1OEW6YaiVoMIFQjuWCZVcm/cXP2BK4xrN2hElg=;
+        h=Date:Reply-To:Subject:To:References:Cc:From:In-Reply-To;
+        b=DE4IP32NRu6nj5ycIqKnXDaH9rq8FWTcS2G89GG89E9bMcF9pv4ONQ8Z3JXaFDB6L
+         K95zkJai74XFQGZu3c3ZosNccK9n985Axngi9scE8osrDlKE0xPvmDC5OOh75APZgt
+         7stGRTDeII3ABheJNeSOhkQxRS/HClOmaM6Y9yW8TrDAaVSHRqoKlzzQ/bjIDORLwQ
+         LiGx1ZgGMOgm600VzcANusReGuBEilHRhmrITQukFBTHbmmxNhVfW+OD5idG0yuSGm
+         zptqr9oLDANlXhyeSlUpMOIfjB8lci9YpI8cpHPx8ffeypqn/KBT/VADSrspDn6jOc
+         pIUd9upFVV1wA==
+Received: from [10.0.0.5] ([184.64.102.149])
+        by cmsmtp with ESMTP
+        id Pl5YpKlN6cyvuPl5ZpkwMp; Wed, 08 Feb 2023 14:06:21 +0000
+X-Authority-Analysis: v=2.4 cv=VbHkgXl9 c=1 sm=1 tr=0 ts=63e3ac5d
+ a=DxHlV3/gbUaP7LOF0QAmaA==:117 a=DxHlV3/gbUaP7LOF0QAmaA==:17
+ a=IkcTkHD0fZMA:10 a=8pif782wAAAA:8 a=HjEdur_ZAAAA:8 a=r2hQAoJQDWf6hjc69t8A:9
+ a=QEXdDO2ut3YA:10 a=aD4WmjVXVPxnezg8-Tec:22
+Message-ID: <6d8a77e6-013f-e96a-0b6c-39c238a91831@Shaw.ca>
+Date:   Wed, 8 Feb 2023 07:06:20 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Subject: Re: [PATCH] perf_event_open.2: Add missing variable name
-Content-Language: en-US
-To:     Namhyung Kim <namhyung@kernel.org>,
-        Alejandro Colomar <alx@kernel.org>
-Cc:     linux-man@vger.kernel.org
-References: <20230207015029.71177-1-namhyung@kernel.org>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20230207015029.71177-1-namhyung@kernel.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------KFPO12ExJ3IdQwqafjIvNoHl"
-X-Spam-Status: No, score=-3.2 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Reply-To: Brian.Inglis@Shaw.ca
+Subject: Re: [PATCH 01/11] man2/shmget.2: fix limit units suffix from SI to
+ IEC
+Content-Language: en-CA
+To:     Linux Man-Pages <linux-man@vger.kernel.org>
+References: <20230207201132.49747-1-Brian.Inglis@Shaw.ca>
+ <4f2f18f59261d9da0d7e1c530ad6e63b6b367a2d.1675800581.git.Brian.Inglis@Shaw.ca>
+ <5683f0e0-f561-d7e8-8727-c1453178bba0@gmail.com>
+ <0ff16070-522a-d943-f7b5-3696f002c520@Shaw.ca>
+ <155f2766-394d-8b89-71b0-a7021701d818@gmail.com>
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>
+From:   Brian Inglis <Brian.Inglis@Shaw.ca>
+Organization: Inglis
+In-Reply-To: <155f2766-394d-8b89-71b0-a7021701d818@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CMAE-Envelope: MS4xfKrfsBvyhFDAfubUTxib7le03/xT9ufxDM7fo8R5pO22ILk71YbB+umy6GUdQ+jx1oMh/EoCg7Aj4cq2k7CjSRlV3kUycBx2Wa5zM4tvy2+GjrrwEGEP
+ 2B9Ube/q85+e7l0qnpTMDi+kM8zqe0b9hFTvpp1G2wwT1tgaOXPvzdHUPreZKwwy0hw5RqmUDrjWI6pRz2NV/wwtips4muX9OUSmim/8pRVJ5IrXYWePLRuO
+X-Spam-Status: No, score=-3.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_LOW,
+        RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -75,75 +66,49 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------KFPO12ExJ3IdQwqafjIvNoHl
-Content-Type: multipart/mixed; boundary="------------TrTiKrdEZYDKH5tRZCGkMHem";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Namhyung Kim <namhyung@kernel.org>, Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org
-Message-ID: <0fe7f064-2f3d-7375-de7a-0fd382bcf972@gmail.com>
-Subject: Re: [PATCH] perf_event_open.2: Add missing variable name
-References: <20230207015029.71177-1-namhyung@kernel.org>
-In-Reply-To: <20230207015029.71177-1-namhyung@kernel.org>
+On 2023-02-08 03:59, Alejandro Colomar wrote:
+> On 2/8/23 04:58, Brian Inglis wrote:
+>> TL;DR: They are bit/byte unit prefixes kibi..., ... but abstract value suffix
+>> symbols, which is how I think of them, and mainly how we use them. Perhaps we
+>> should just call them all multiples or symbosl, as we only sometimes(/rarely?)
+>> use them as unit prefixes (and seldom written out, only to explain the weird Xi
+>> notation)? Feel free to change the titles and log messages as you see fit.
+> 
+> Indeed, I had doubts about using them as suffixes because that's incorrect 
+> according to the SI, but it makes sense and improves documentation, so I'm
+> fine with the use as suffixes now. However, I'm still concerned with calling
+> them suffixes. How about multipliers? Does it make sense to you?
+>> [BT;DT: Many discussions about units over the decades, including various
+>> *industry* conventions about "accepted" units, values, and conversion factors,
+>> invariant regardless of SI and CODATA.
+>>
+>> ISO/BIPM etc. uses SI to mean decimal *metric* unit prefixes (and notes that SI
+>> does not support non-physical units of information) and IEC to mean binary unit
+>> prefixes for bits, bytes, and also allows Hertz so far. See refs from:
+>>
+>> https://en.wikipedia.org/wiki/Binary_prefix#cite_note-bipm-book-91
 
---------------TrTiKrdEZYDKH5tRZCGkMHem
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+>> https://www.bipm.org/documents/20126/41483022/SI-Brochure-9-EN.pdf#page=29
 
-Hi!
+> Thanks.  It now makes sense.  Looks like the SI talks about them, but only 
+> takes them as defined by IEC, and doesn't incorporate them as their own.
+> So, using IEC seems correct (as SI does itself).
 
-On 2/7/23 02:50, Namhyung Kim wrote:
-> Signed-off-by: Namhyung Kim <namhyung@kernel.org>
+> BTW, this was one of the few patches that I received inline :/
 
-Patch applied.  Thanks,
+>> On 2023-02-07 16:44, Alejandro Colomar wrote:
+>>> The subject is not correct, IMO.  The SI also defines the Ki, Mi, ... prefixes for binary multipliers.
+>>> Also, they are prefixes, not suffixes.
 
-Alex
+Thanks Alex,
 
-> ---
->  man2/perf_event_open.2 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/man2/perf_event_open.2 b/man2/perf_event_open.2
-> index df515f7d1..dd90ab007 100644
-> --- a/man2/perf_event_open.2
-> +++ b/man2/perf_event_open.2
-> @@ -2336,7 +2336,7 @@ struct {
->      char   data[size];  /* if PERF_SAMPLE_STACK_USER */
->      u64    dyn_size;    /* if PERF_SAMPLE_STACK_USER &&
->                             size !=3D 0 */
-> -    union perf_sample_weight;
-> +    union perf_sample_weight weight;
->                          /* if PERF_SAMPLE_WEIGHT */
->                          /* || PERF_SAMPLE_WEIGHT_STRUCT */
->      u64    data_src;    /* if PERF_SAMPLE_DATA_SRC */
+I have regenerated with format-patch -v2 --inline and will later edit and resend 
+as suggested and hopefully you will get what you expect to review.
 
---=20
-<http://www.alejandro-colomar.es/>
-GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
+-- 
+Take care. Thanks, Brian Inglis			Calgary, Alberta, Canada
 
---------------TrTiKrdEZYDKH5tRZCGkMHem--
-
---------------KFPO12ExJ3IdQwqafjIvNoHl
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmPjjpEACgkQnowa+77/
-2zIhhA/9HYAx1KD9zHMKQLR5kq2Jc127IB4JZOn6QP0IS/0sf69KLu8BZkOcAWU3
-HYfhrRGSjqwrLGvcRyiiX10ompNLEBLjWcbmJkyyGnPM6ckwhpeFznvCj5a04GZD
-4CE8HF7ElT6+4qOQLuDiClVFd7PA3D9YcOf1D/WQYAujEHxAUD7Xj4T7ebd93VeS
-HSH1q5oxB0+90/CAu/2b8j318BVEQvSofrhGvanm6wqjgAenA7QvTlVKPOeUrP9m
-xCcrpTUh8GC48KpN8B7eJUDlOsoXTRvxA2mAXv6P8G0JXFDcmL9xF2bUU6maHgbL
-w7jwDKImRTtHxKLCwGXAeo0fmBJukc+5DmA9eoDtvkvekrKLEmFM6uCa03a5bhAF
-LR22LHmnGh3brWwXkcWkfM35LSJaSwVQSJ3Ur+w/oABNGqMVmcpcgkjb6oI2I8r0
-9bvIbjE9ZIfiqR4tFhfJ8thgWO1r8NYzTx7K3CDyR2z+nO7JtbeSjlz9tYRb4ALC
-YbayZ+CiQmIEOvO6Y8EF7WYD06jd2U4n5NePN3M3vTnaE9AjOikiKPueIGN3s4tb
-fF6ywR8QmfEqPypM7VArLaAQTOLj5VXj3Iy4DGkC/H6+TYQTiL2Z0xGf+5bMNbGO
-0HWh/20cQmAeHOqvjyYhJbZ74x8p6hafDufC6qv1h0ypeUKWO7A=
-=5ayE
------END PGP SIGNATURE-----
-
---------------KFPO12ExJ3IdQwqafjIvNoHl--
+La perfection est atteinte			Perfection is achieved
+non pas lorsqu'il n'y a plus rien à ajouter	not when there is no more to add
+mais lorsqu'il n'y a plus rien à retirer	but when there is no more to cut
+			-- Antoine de Saint-Exupéry
