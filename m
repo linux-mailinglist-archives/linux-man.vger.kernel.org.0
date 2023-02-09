@@ -2,60 +2,60 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 07E05690FEE
-	for <lists+linux-man@lfdr.de>; Thu,  9 Feb 2023 19:09:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B8334690FEF
+	for <lists+linux-man@lfdr.de>; Thu,  9 Feb 2023 19:09:12 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229696AbjBISJD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 9 Feb 2023 13:09:03 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55150 "EHLO
+        id S229625AbjBISJM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 9 Feb 2023 13:09:12 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55178 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229625AbjBISJC (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 9 Feb 2023 13:09:02 -0500
-Received: from mail-oa1-x2d.google.com (mail-oa1-x2d.google.com [IPv6:2001:4860:4864:20::2d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D957E60D7D
-        for <linux-man@vger.kernel.org>; Thu,  9 Feb 2023 10:09:01 -0800 (PST)
-Received: by mail-oa1-x2d.google.com with SMTP id 586e51a60fabf-16ab8581837so3518678fac.4
-        for <linux-man@vger.kernel.org>; Thu, 09 Feb 2023 10:09:01 -0800 (PST)
+        with ESMTP id S229537AbjBISJL (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 9 Feb 2023 13:09:11 -0500
+Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com [IPv6:2607:f8b0:4864:20::334])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6571863104
+        for <linux-man@vger.kernel.org>; Thu,  9 Feb 2023 10:09:10 -0800 (PST)
+Received: by mail-ot1-x334.google.com with SMTP id r34-20020a05683044a200b0068d4a8a8d2dso781392otv.12
+        for <linux-man@vger.kernel.org>; Thu, 09 Feb 2023 10:09:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=content-disposition:mime-version:message-id:subject:cc:to:from:date
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=m9W/LmHt197x71LRbTaZ2xhl9nReQljjoxsHSR/kdpg=;
-        b=ViU8zdMgr5/z6Sj5a0k/0HEyLP3zRCsxxEv0KlJGgt91IJjfrrgFgpx96XL9i8DJxD
-         csaxGc046+K6wyW+pjk6J3HnmxGy2jPDqgDtSF+4JFed+gw7bHrZ4qhlQaOU4TwDqsN2
-         rhoPk0bUtRa+C0hvPiYAsqozE/3T2lGM4PwkfKl1YSoA1mn9AeqZV/5ufFVzUMGPmXtP
-         PJKj9vDwJqd3wwzcxfdBBuKB+4VbFLQkl81vTTfaYbIvmjWzCvU8HVoTrJnW4d1fcgH7
-         /5CaZuvZcZcNgSCjV8uqwuSrwsrK1Z570cSHFJ2W+Ll6ctkfvVXaXcGcKzF/x2YLaVkx
-         6JFw==
+        bh=PH0+3mPeROwK8CwhwrXRaqo1JAMr/2z2aqVHaWq5tGg=;
+        b=c1fzzOeC6KJ7eOJ+icGnYJX0dNeuoit98hWZ4PCMHRLjqbGuZcWgk2BAvnD9q5fLEF
+         w+QQAIXibkhQip0nKcJ6PyEk30ttGSle2UleN5ryra4b76joPrxFDOiZXWnwEWYR96QE
+         PUd6LgKKaEadOeFg5aBJZ+OTeJx7eCJRYX6Wp96B4sCGzXqm9zSDqfEo5KUcG02K0mLo
+         YIALXMOAt6HDbMzDtdbE+hZTJVwcod52/y6lEl9sUcmOy/xJxHhy4w/ph/hukV8ePu3r
+         qyWM0S8xTY1zvy09zOwcv2QBdTioTtfZUOSXW8lYdlquFxBASveDrqP5bmDyUT5pQMCt
+         h0bw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-disposition:mime-version:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=m9W/LmHt197x71LRbTaZ2xhl9nReQljjoxsHSR/kdpg=;
-        b=CPqXUVYdIzjyTh2rHXXYTnCm2xlRlhUDUlPpk5gykzs6jym7rZzGPQdghbIaP+ieBo
-         i+ygjkL42/1hu24n+fOsIDxQq5ocFCLnvNh2MQ4HoI1zIAbToU2KeW0gDOeVbVEfO+b9
-         4LUl8j78aEHzBJua5BvFXRGUkkGxAxWrHYyu1vTc15kqq05vJKe4hEvKBepASsmAkgw3
-         WwNIYELczBcYuuo2hlWCwoXaDoespLT2KfNRNS+CHxGlNr0NOYfcERv3yB2WQQlZd4g9
-         G11hmtJm3zq2Zg/O5MmGNE+NHvMm0C/arqxOWqDWWFDkVntRU8Z/xbNegN1MzX+x37hP
-         1zmA==
-X-Gm-Message-State: AO0yUKWgf2w17wqA80q6T8+edgGjxfifyAUdG//VNH/PLCvXxA2OZnhg
-        A80h7rKUZHNIQKRklS1pKk40LC5Cwuw=
-X-Google-Smtp-Source: AK7set/CpsQuKZx9TtS0q7SbLP9SjQrQtpprHzKQVVWcbdQhrQpQ79LADNjuUW/DnIRrVyWIC2JtiA==
-X-Received: by 2002:a05:6870:4391:b0:15f:835:82e7 with SMTP id r17-20020a056870439100b0015f083582e7mr7083275oah.14.1675966141097;
-        Thu, 09 Feb 2023 10:09:01 -0800 (PST)
+        bh=PH0+3mPeROwK8CwhwrXRaqo1JAMr/2z2aqVHaWq5tGg=;
+        b=s0BJlQX82ac6KBFSgCkUBA1Iruwf9jKIlyLZdi+sm4eFofIVO52jiEwrmhmPkH9tZG
+         gvSw3L0QqVKp08WiHCyNJzABApvrUIiKHUwP+fDJdqsAcT9g8k4vhqH5MDE1WfyqnNXV
+         FfT1Sm88cIFzyA+q33YxSDZfhodfdIAj8g+UwSbZ21qvajc6J84CWh6dbO9EEtp+01iO
+         yPEHu0YpXlre8qkJBTAow2/7hx+U2O9ID7nY8cHr13HDyr7cJfaHMQDBzPhBeDHeaAbv
+         WECBNHrckbgckKxKgqGyEZW8AOPe3lJHk9xNAMPbVHix96J3EuaL3dwHBkKbUfGfrx4Y
+         tgNg==
+X-Gm-Message-State: AO0yUKXAIYzADVZocuie1WKbQBIAtIBgmKEmNb9jIEvtV3wUWnWlcXd+
+        8e64/vdmu9FxYCcftQ0ANKTMPkcf+Cw=
+X-Google-Smtp-Source: AK7set+q7D9nUZeZyRNEatZ9VKdESTQYKgbTnAltrv5OqkVontwCvx6nmngkM2+mRYvDGvX3gSjaMA==
+X-Received: by 2002:a05:6830:6506:b0:68b:b35a:5d6a with SMTP id cm6-20020a056830650600b0068bb35a5d6amr7338294otb.17.1675966149671;
+        Thu, 09 Feb 2023 10:09:09 -0800 (PST)
 Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id x4-20020a056870740400b00163ac4f1acasm987392oam.10.2023.02.09.10.09.00
+        by smtp.gmail.com with ESMTPSA id g18-20020a9d6b12000000b0068d6ed06b73sm1003440otp.18.2023.02.09.10.09.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Feb 2023 10:09:00 -0800 (PST)
-Date:   Thu, 9 Feb 2023 12:08:59 -0600
+        Thu, 09 Feb 2023 10:09:09 -0800 (PST)
+Date:   Thu, 9 Feb 2023 12:09:07 -0600
 From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
 To:     Alejandro Colomar <alx.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org
-Subject: [PATCH 01/20] many pages: srcfix (hyphens used as C operators)
-Message-ID: <20230209180859.xyihlkanuf6hqikn@illithid>
+Subject: [PATCH 02/20] sched.7: srcfix
+Message-ID: <20230209180907.bcp4lgm6uqrugkuk@illithid>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="6dra5d4wu6xlpcda"
+        protocol="application/pgp-signature"; boundary="i3tiziur24fc3gwb"
 Content-Disposition: inline
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
@@ -68,172 +68,63 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---6dra5d4wu6xlpcda
+--i3tiziur24fc3gwb
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Escape hyphens used as parts of C `->` operators.
+Fix warnings from formatter.
+
+troff:./man7/sched.7:989: warning [p 10, 2.7i]: cannot adjust line
+troff:./man7/sched.7:990: warning [p 10, 2.8i]: cannot adjust line
+
+Add hyphenless break points to file names, but also suppress hyphenation
+to reduce copy-and-paste frustration.
 
 Signed-off-by: G. Branden Robinson <g.branden.robinson@gmail.com>
 ---
- man2/landlock_add_rule.2       |  4 ++--
- man2/landlock_create_ruleset.2 |  2 +-
- man2/mount_setattr.2           |  8 ++++----
- man2/perfmonctl.2              |  2 +-
- man2/seccomp_unotify.2         | 14 +++++++-------
- man2/sigaction.2               |  4 ++--
- 6 files changed, 17 insertions(+), 17 deletions(-)
+ man7/sched.7 | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/man2/landlock_add_rule.2 b/man2/landlock_add_rule.2
-index 4c37bafac..871621348 100644
---- a/man2/landlock_add_rule.2
-+++ b/man2/landlock_add_rule.2
-@@ -89,12 +89,12 @@ Landlock is supported by the kernel but disabled at boo=
-t time.
- .B EINVAL
- .I flags
- is not 0, or the rule accesses are inconsistent (i.e.,
--.I rule_attr->allowed_access
-+.I rule_attr\->allowed_access
- is not a subset of the ruleset handled accesses).
- .TP
- .B ENOMSG
- Empty accesses (i.e.,
--.I rule_attr->allowed_access
-+.I rule_attr\->allowed_access
- is 0).
- .TP
- .B EBADF
-diff --git a/man2/landlock_create_ruleset.2 b/man2/landlock_create_ruleset.2
-index ac79ab788..8c83813ec 100644
---- a/man2/landlock_create_ruleset.2
-+++ b/man2/landlock_create_ruleset.2
-@@ -109,7 +109,7 @@ was not a valid address.
- .TP
- .B ENOMSG
- Empty accesses (i.e.,
--.I attr->handled_access_fs
-+.I attr\->handled_access_fs
- is 0).
- .SH VERSIONS
- Landlock was added in Linux 5.13.
-diff --git a/man2/mount_setattr.2 b/man2/mount_setattr.2
-index d233fa51f..30e878916 100644
---- a/man2/mount_setattr.2
-+++ b/man2/mount_setattr.2
-@@ -174,21 +174,21 @@ are equivalent to the following steps:
+diff --git a/man7/sched.7 b/man7/sched.7
+index 568b74b42..ba9196ac8 100644
+--- a/man7/sched.7
++++ b/man7/sched.7
+@@ -985,8 +985,8 @@ was not possible up to Linux 2.6.17.
+ by Bill O.\& Gallmeister, O'Reilly & Associates, Inc., ISBN 1-56592-074-0.
  .PP
- .in +4n
- .EX
--unsigned int current_mnt_flags =3D mnt->mnt_flags;
-+unsigned int current_mnt_flags =3D mnt\->mnt_flags;
-=20
- /*
-  * Clear all flags set in .attr_clr,
-  * clearing MOUNT_ATTR_NOEXEC and MOUNT_ATTR_NODEV.
-  */
--current_mnt_flags &=3D ~attr->attr_clr;
-+current_mnt_flags &=3D \(tiattr\->attr_clr;
-=20
- /*
-  * Now set all flags set in .attr_set,
-  * applying MOUNT_ATTR_RDONLY and MOUNT_ATTR_NOSUID.
-  */
--current_mnt_flags |=3D attr->attr_set;
-+current_mnt_flags |=3D attr\->attr_set;
-=20
--mnt->mnt_flags =3D current_mnt_flags;
-+mnt\->mnt_flags =3D current_mnt_flags;
- .EE
- .in
- .PP
-diff --git a/man2/perfmonctl.2 b/man2/perfmonctl.2
-index 7f32b777e..1adbba492 100644
---- a/man2/perfmonctl.2
-+++ b/man2/perfmonctl.2
-@@ -51,7 +51,7 @@ The
- parameter is ignored.
- A new perfmon context is created as specified in
- .I ctxt
--and its file descriptor is returned in \fIctxt->ctx_fd\fR.
-+and its file descriptor is returned in \fIctxt\->ctx_fd\fR.
- .IP
- The file descriptor can be used in subsequent calls to
- .BR perfmonctl ()
-diff --git a/man2/seccomp_unotify.2 b/man2/seccomp_unotify.2
-index ff5f23f6c..94bbf2b27 100644
---- a/man2/seccomp_unotify.2
-+++ b/man2/seccomp_unotify.2
-@@ -848,11 +848,11 @@ operation (here, to emulate a call to
- .in +4n
- int fd, removeFd;
-=20
--fd =3D openat(req->data.args[0], path, req->data.args[2],
--                req->data.args[3]);
-+fd =3D openat(req\->data.args[0], path, req\->data.args[2],
-+                req\->data.args[3]);
-=20
- struct seccomp_notif_addfd addfd;
--addfd.id =3D req->id; /* Cookie from SECCOMP_IOCTL_NOTIF_RECV */
-+addfd.id =3D req\->id; /* Cookie from SECCOMP_IOCTL_NOTIF_RECV */
- addfd.srcfd =3D fd;
- addfd.newfd =3D 0;
- addfd.flags =3D 0;
-@@ -864,10 +864,10 @@ close(fd);          /* No longer needed in supervisor=
- */
-=20
- struct seccomp_notif_resp *resp;
-     /* Code to allocate 'resp' omitted */
--resp->id =3D req->id;
--resp->error =3D 0;        /* "Success" */
--resp->val =3D targetFd;
--resp->flags =3D 0;
-+resp\->id =3D req\->id;
-+resp\->error =3D 0;        /* "Success" */
-+resp\->val =3D targetFd;
-+resp\->flags =3D 0;
- ioctl(notifyFd, SECCOMP_IOCTL_NOTIF_SEND, resp);
- .in
- .EE
-diff --git a/man2/sigaction.2 b/man2/sigaction.2
-index 0b1c872c2..c352da8b5 100644
---- a/man2/sigaction.2
-+++ b/man2/sigaction.2
-@@ -260,9 +260,9 @@ argument yields
- .B SA_UNSUPPORTED
- .I clear
- in
--.IR oldact->sa_flags ,
-+.IR oldact\->sa_flags ,
- then
--.I oldact->sa_flags
-+.I oldact\->sa_flags
- may be used as a bitmask
- describing which of the potentially unsupported flags are,
- in fact, supported.
+ The Linux kernel source files
+-.IR Documentation/scheduler/sched\-deadline.txt ,
+-.IR Documentation/scheduler/sched\-rt\-group.txt ,
+-.IR Documentation/scheduler/sched\-design\-CFS.txt ,
++.IR \%Documentation/\:scheduler/\:sched\-deadline\:.txt ,
++.IR \%Documentation/\:scheduler/\:sched\-rt\-group\:.txt ,
++.IR \%Documentation/\:scheduler/\:sched\-design\-CFS\:.txt ,
+ and
+-.I Documentation/scheduler/sched\-nice\-design.txt
++.I \%Documentation/\:scheduler/\:sched\-nice\-design\:.txt
 --=20
 2.30.2
 
 
---6dra5d4wu6xlpcda
+--i3tiziur24fc3gwb
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmPlNrEACgkQ0Z6cfXEm
-bc7jWQ/7BTIEbichWPKGuLRp6sixZSazL+3AdOCWFa1cV+qEL2FSURN6JplapRzn
-ahTWqp6oAgttBc7Ud2j6jCbytMGYccIfat3TQjfvMHJGl891H4qfRn3FWcBExs2S
-cZi5UJXLfR5C5D/8I7ACw/4TgB1MtSNmy0wCX9M4Apay1IZgL1KE0xkfQnmT59Fh
-nsyhYCT8dcr658mAH86P5ic1dw8+FnBVRPVQHFg7emz5GMUa4DED/R8fBZfQDcnX
-vCb1RXfuEzQfkSD20iqBeu5r2TN388pLw0iY4iW8+nzjrSRFNNz1r4RhZIE7uFwR
-gPX3f7xo//BOpvBOOgx+klYw9FNXSETid/ZsICsnKdXdqw32y0fipzLcJpYjgsga
-dgmQ+X7cvMTlBtYwMACFdHNXCrO5xC3ckEaMJ04ln9WExNag8+qNicBJDimN0DHs
-CEzBHt7XXb4vd885Gs1UOML095envn9khzb+SgXIE5BunHQZGNFv6HlpkvoBlkcE
-WMRIGOI6jD+LSc6TBdrN3t436XxgQWIXRZAHDsgwouYG+zOCD4a61+T9Xedjk1Mr
-exvr0aGFvHU4qD36aG3XQY0PAu246r6gbXtn5eLru1f5O0cmnMu81TaXiECk5hDQ
-Xb3i2RC4RRYpDnQlRNSem0u0eZ5CYGnj0BwsOhI9nx+Do7rxY20=
-=8zdI
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmPlNsMACgkQ0Z6cfXEm
+bc5sxQ/+NXX/tyf1OvTkw4tgp7NHFdUI0awFsVYFphAsXN9eezmFxgRTiEnnRpzk
+o19mtk+nDzZ9sQyEb2FW/Il8Zhj8YliY27T2L+C6WMFGltEEitD2V9fr3UDauDi7
+tAZ8GdDY6E+Fedx438HOTE/Da8ZW02xkde+HqC0OoGeeMbErHsO5BsmSAiDe94AV
+PAgSZElPl7WULYeK1rt1HvDar1IBh6g/xx5hEKIc9lCNcP29yK5BovmKV8vsqfV+
+Z3mj0qZC0P0XU1fF17iSzC2HlD72bsu4J4zRERdZaenCC6DFz3Eig7nXP3f5umfj
+R+WFLHlDPWNQuUKw9aCAb9sVOX+9F9tkto7MIttBj/BGx6n5eIJHJUX5TZqTC0uW
+ky5G1Hn6XU7cB9wwu/8/yYkA/9N5eC8Zpnjwe1YLiHpMS6yE6E5CME/vu8x9PL4B
+1aconOTasvZCIvXWJqJdvGvYWNOifedQl+3fw9GLwKiRn63H9k4zELJb9KW53ivp
+8iq7UqDczW1fogEoGtHcJZjHT5zear1Q0awGb0ASnqBPBEVM25i1cyd9x/rBWdlG
+Nj62s3pQMf0X/lUdIbXN3W4802e8bJdlLSQCR/0IwZKYSJ3HuMDzxrjeCRVFSPXV
+MkmsV+Ss9ahmN3/wjl+yRN32vGBjEFPBJMaGyWsbRAX4Y/uaOXs=
+=UFwL
 -----END PGP SIGNATURE-----
 
---6dra5d4wu6xlpcda--
+--i3tiziur24fc3gwb--
