@@ -2,60 +2,60 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 2EADC690FFC
-	for <lists+linux-man@lfdr.de>; Thu,  9 Feb 2023 19:10:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 20720690FFF
+	for <lists+linux-man@lfdr.de>; Thu,  9 Feb 2023 19:10:49 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230018AbjBISKd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 9 Feb 2023 13:10:33 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55728 "EHLO
+        id S229583AbjBISKr (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 9 Feb 2023 13:10:47 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56254 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230031AbjBISKZ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 9 Feb 2023 13:10:25 -0500
+        with ESMTP id S230338AbjBISKh (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 9 Feb 2023 13:10:37 -0500
 Received: from mail-oa1-x31.google.com (mail-oa1-x31.google.com [IPv6:2001:4860:4864:20::31])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6D86168126
-        for <linux-man@vger.kernel.org>; Thu,  9 Feb 2023 10:10:23 -0800 (PST)
-Received: by mail-oa1-x31.google.com with SMTP id 586e51a60fabf-1685cf2003aso3560236fac.12
-        for <linux-man@vger.kernel.org>; Thu, 09 Feb 2023 10:10:23 -0800 (PST)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7E65A69514
+        for <linux-man@vger.kernel.org>; Thu,  9 Feb 2023 10:10:31 -0800 (PST)
+Received: by mail-oa1-x31.google.com with SMTP id 586e51a60fabf-1685cf2003aso3560781fac.12
+        for <linux-man@vger.kernel.org>; Thu, 09 Feb 2023 10:10:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=content-disposition:mime-version:message-id:subject:cc:to:from:date
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=B8/fJk5DHAP3/9tl2RR+Hk2pTzhwvWz1GJc8uUELrzo=;
-        b=C/I7a+onEkXd8Pzxr7O1cSLIuqnQrEioMde2mn0jdHG3dfHLMgn1ykEMJC0qoiKtGi
-         TMz8LIqdrCRexGdW4J55fddIapGe6+X5ZGJq2iW2z+29OhVgky3+08N3YKnopguUKjLC
-         dpN7NK2h+OJQMfznn7dsaDVoeJKpPX8EOKqOUPg6OKyX4EH1NmChe1cukrvXIHK2mlqX
-         TwOMe8eqbzPnB2dYuRjem2+2iW4wRXl7jX4vfrZ2UvbYF5/TI5C0kJOfNZpoWGbdcA7O
-         U0JZsViT6a9Bo+3Xba8F66gIk9zP30rXPK4meghKrS9tog8oOaMT9p9zwNjsgS/vx/Zp
-         4AKg==
+        bh=NV9c2Zm6M2cMosJ3Ok280zhCqbB3JBbdb55V36jEuS0=;
+        b=j9oFwYx/blaZfX5qYvdqz9CJPC/lFQNhwZ2BVCF9NqGT3maxZm4HdbDp87a+Zpib/j
+         GuPoBw/IhQECMSEeCp6sBGU/ycjMbR3nautXz5yofllb/JEYujOTqbrM29uuo2lp61uf
+         LNvNDvXP6O84+uLloDt+E4J3ZhE6XmzBHlbW3CDTxRzA04oguW7bF5rqp+XrVyO+DcJF
+         CSgP5UOfvHGLjKOIloHowphRCDmVQRBD65qfl1IiFhIsETlEPzzTGe39D8wKpKyTb8Ez
+         RbdPyBfEahcAeFuXhHtgElHynUbORIJMumY89qyG23pjZTusT2AyI6WxNUx/y6MpPpOL
+         e+mA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-disposition:mime-version:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=B8/fJk5DHAP3/9tl2RR+Hk2pTzhwvWz1GJc8uUELrzo=;
-        b=5nc0cd3PrZDqkC7bkTN+bj40FacH8lg9GzGzq9eK1a8LTJWcMQf2XAvj4wEaoTzEIc
-         9xRgrVC7cPPAk3rb9VFgKP2MqwQw1SUEsCnhxDZ71xvX0KbNqE/qyMmmqzCab5Qes5pm
-         OX+TdzkC2fzgXIkOD5C2y7LmoImP/p989unssaQVCCSKiTwNMKay9kXNqPr0d0tJED6o
-         kfK2dd/K1aEjp2+TDYnYVJGuZ+1e30gdEmQ+Fo0JeKS8d6NugDuXtXIUwvquruKYgJ7l
-         hlz61A9Ixg6OCtmlvHGR9aRp265PwqjX8CRkjm25SwbI6fWBimK5UeUpEgxZkwrMq8du
-         D3rA==
-X-Gm-Message-State: AO0yUKV0lk8pdBYwOkTDG3XPPDT22eRA8goDDc54Qb726YehzhFlT/rm
-        CuHhUZsuS0gjTCQeLBsKOiXILBrOlyo=
-X-Google-Smtp-Source: AK7set8hCh268TF2ylP7Iv/xFUhxATWBkRanZ46WgeCobpz+aDdRzflvlsvCbYEGQniB4IJurTsQVw==
-X-Received: by 2002:a05:6870:b003:b0:163:7563:41a0 with SMTP id y3-20020a056870b00300b00163756341a0mr6486232oae.36.1675966222597;
-        Thu, 09 Feb 2023 10:10:22 -0800 (PST)
+        bh=NV9c2Zm6M2cMosJ3Ok280zhCqbB3JBbdb55V36jEuS0=;
+        b=cXTKriPJvXH1RSzBP3pjGvPiEZI+9NQzEDlf1GsieogoDTFh+Lf3HSOi5kuJQ0sq0S
+         xy93ykWcee6yBNOjh5QbDFxfIFAYW4QatWTdPtrnNU9LP9jfUVnMeVaRQgRYE/+AG8/E
+         1VNzBiwgAZhuk6LQppRRlj6tolEDUoEUOZ8wShOfPsU3H9ZENEn7fBMr5kcYTficIyO1
+         m6wCuPgypqBI6rlZOS0wgx2VNNo6drNJDj9I8L/wYyc0AHE+SW144fCC0a/KRcJXWwU7
+         RxloomuENb6MwexM+tYKGod5om3uRWKZCxCvTojB5cpSFlBVuiJQbYLKRbGD08wbXf4v
+         iu9Q==
+X-Gm-Message-State: AO0yUKVAUdW3/Ma8T2+M8wGzIQYcCbnmK9T/qJh4h4TBtEBr7hkesxv8
+        YX0MPp9NFvFC+ANv8MeEJYU1PLiBk4g=
+X-Google-Smtp-Source: AK7set+hg8q7COg5fDQJdk9ffRX+DKFdjSQwIrxzn92n0BopWUDrqEY41lwdgbHsCS7QD7cB/O6xog==
+X-Received: by 2002:a05:6870:73d2:b0:157:cc21:2076 with SMTP id a18-20020a05687073d200b00157cc212076mr7480293oan.22.1675966231023;
+        Thu, 09 Feb 2023 10:10:31 -0800 (PST)
 Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id e6-20020a056870944600b0016ac9cbec6bsm436709oal.6.2023.02.09.10.10.22
+        by smtp.gmail.com with ESMTPSA id a9-20020a056870d60900b0013bc40b09dasm981937oaq.17.2023.02.09.10.10.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Feb 2023 10:10:22 -0800 (PST)
-Date:   Thu, 9 Feb 2023 12:10:20 -0600
+        Thu, 09 Feb 2023 10:10:30 -0800 (PST)
+Date:   Thu, 9 Feb 2023 12:10:29 -0600
 From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
 To:     Alejandro Colomar <alx.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org
-Subject: [PATCH 09/20] signal.2, utf-8.7: srcfix
-Message-ID: <20230209181020.m27pdmwwmnjzy7hp@illithid>
+Subject: [PATCH 10/20] times.2: srcfix
+Message-ID: <20230209181029.27nnprbto5nakldy@illithid>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="x3dliwla5bblnart"
+        protocol="application/pgp-signature"; boundary="fc4nyyloulmwejnd"
 Content-Disposition: inline
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
@@ -68,126 +68,161 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---x3dliwla5bblnart
+--fc4nyyloulmwejnd
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Use `IP` macro instead of `TP` for paragraph tags with no semantic
-value.
+Break input lines after commas.
 
 Signed-off-by: G. Branden Robinson <g.branden.robinson@gmail.com>
 ---
- man2/signal.2 |  9 +++------
- man7/utf-8.7  | 21 +++++++--------------
- 2 files changed, 10 insertions(+), 20 deletions(-)
+ man2/times.2 | 47 +++++++++++++++++++++++++++++++++--------------
+ 1 file changed, 33 insertions(+), 14 deletions(-)
 
-diff --git a/man2/signal.2 b/man2/signal.2
-index b21abc3b8..63b81e50f 100644
---- a/man2/signal.2
-+++ b/man2/signal.2
-@@ -51,20 +51,17 @@ or the address of a programmer-defined function (a "sig=
-nal handler").
- If the signal
- .I signum
- is delivered to the process, then one of the following happens:
--.TP 3
--*
-+.IP * 3
- If the disposition is set to
- .BR SIG_IGN ,
- then the signal is ignored.
--.TP
--*
-+.IP *
- If the disposition is set to
- .BR SIG_DFL ,
- then the default action associated with the signal (see
- .BR signal (7))
- occurs.
--.TP
--*
-+.IP *
- If the disposition is set to a function,
- then first either the disposition is reset to
- .BR SIG_DFL ,
-diff --git a/man7/utf-8.7 b/man7/utf-8.7
-index 5ff634306..0b9a1493f 100644
---- a/man7/utf-8.7
-+++ b/man7/utf-8.7
-@@ -33,8 +33,7 @@ does not have these problems and is the common way in whi=
-ch
- Unicode is used on UNIX-style operating systems.
- .SS Properties
- The UTF-8 encoding has the following nice properties:
--.TP 0.2i
--*
-+.IP * 0.2i
- UCS
- characters 0x00000000 to 0x0000007f (the classic US-ASCII
- characters) are encoded simply as bytes 0x00 to 0x7f (ASCII
-@@ -44,23 +43,18 @@ This means that files and strings which contain only
- ASCII
+diff --git a/man2/times.2 b/man2/times.2
+index 745867e8e..f45faa01e 100644
+--- a/man2/times.2
++++ b/man2/times.2
+@@ -80,7 +80,8 @@ are added in at the moment
+ or
+ .BR waitpid (2)
+ returns their process ID.
+-In particular, times of grandchildren
++In particular,
++times of grandchildren
+ that the children did not wait for are never seen.
+ .PP
+ All times reported are in clock ticks.
+@@ -90,7 +91,9 @@ returns the number of clock ticks that have elapsed since
+ an arbitrary point in the past.
+ The return value may overflow the possible range of type
+ .IR clock_t .
+-On error, \fI(clock_t)\ \-1\fP is returned, and
++On error,
++\fI(clock_t)\ \-1\fP is returned,
++and
+ .I errno
+ is set to indicate the error.
+ .SH ERRORS
+@@ -99,7 +102,10 @@ is set to indicate the error.
+ .I tms
+ points outside the process's address space.
+ .SH STANDARDS
+-POSIX.1-2001, POSIX.1-2008, SVr4, 4.3BSD.
++POSIX.1-2001,
++POSIX.1-2008,
++SVr4,
++4.3BSD.
+ .SH NOTES
+ The number of clock ticks per second can be obtained using:
+ .PP
+@@ -124,7 +130,8 @@ are automatically included in the
+ .I tms_cstime
  and
- UTF-8 .
--.TP
--*
-+.IP *
- All UCS characters greater than 0x7f are encoded as a multibyte sequence
- consisting only of bytes in the range 0x80 to 0xfd, so no ASCII
- byte can appear as part of another character and there are no
- problems with, for example,  \[aq]\e0\[aq] or \[aq]/\[aq].
--.TP
--*
-+.IP *
- The lexicographic sorting order of UCS-4 strings is preserved.
--.TP
--*
-+.IP *
- All possible 2\[ha]31 UCS codes can be encoded using UTF-8.
--.TP
--*
-+.IP *
- The bytes 0xc0, 0xc1, 0xfe, and 0xff are never used in the UTF-8 encoding.
--.TP
--*
-+.IP *
- The first byte of a multibyte sequence which represents a single non-ASCII
- UCS character is always in the range 0xc2 to 0xfd and indicates how long
- this multibyte sequence is.
-@@ -68,8 +62,7 @@ All further bytes in a multibyte sequence
- are in the range 0x80 to 0xbf.
- This allows easy resynchronization and
- makes the encoding stateless and robust against missing bytes.
--.TP
--*
-+.IP *
- UTF-8 encoded UCS characters may be up to six bytes long, however the
- Unicode standard specifies no characters above 0x10ffff, so Unicode charac=
-ters
- can be only up to four bytes long in
+ .I tms_cutime
+-fields, although POSIX.1-2001 says that this should happen
++fields,
++although POSIX.1-2001 says that this should happen
+ only if the calling process
+ .BR wait (2)s
+ on its children.
+@@ -133,12 +140,16 @@ This nonconformance is rectified in Linux 2.6.9 and l=
+ater.
+ .\"	The times of a terminated child process are included... when wait()
+ .\"	or waitpid() returns the process ID of this terminated child.
+ .PP
+-On Linux, the
++On Linux,
++the
+ .I buf
+-argument can be specified as NULL, with the result that
++argument can be specified as NULL,
++with the result that
+ .BR times ()
+ just returns a function result.
+-However, POSIX does not specify this behavior, and most
++However,
++POSIX does not specify this behavior,
++and most
+ other UNIX implementations require a non-NULL value for
+ .IR buf .
+ .PP
+@@ -151,17 +162,22 @@ but this value is measured in units of
+ not the clock ticks used by
+ .BR times ().
+ .PP
+-On Linux, the "arbitrary point in the past" from which the return value of
++On Linux,
++the "arbitrary point in the past"
++from which the return value of
+ .BR times ()
+ is measured has varied across kernel versions.
+-On Linux 2.4 and earlier, this point is the moment the system was booted.
+-Since Linux 2.6, this point is \fI(2\[ha]32/HZ) \- 300\fP
++On Linux 2.4 and earlier,
++this point is the moment the system was booted.
++Since Linux 2.6,
++this point is \fI(2\[ha]32/HZ) \- 300\fP
+ seconds before system boot time.
+ This variability across kernel versions (and across UNIX implementations),
+ combined with the fact that the returned value may overflow the range of
+ .IR clock_t ,
+ means that a portable application would be wise to avoid using this value.
+-To measure changes in elapsed time, use
++To measure changes in elapsed time,
++use
+ .BR clock_gettime (2)
+ instead.
+ .\" .PP
+@@ -172,10 +188,12 @@ SVr1-3 returns
+ .I long
+ and the struct members are of type
+ .I time_t
+-although they store clock ticks, not seconds since the Epoch.
++although they store clock ticks,
++not seconds since the Epoch.
+ V7 used
+ .I long
+-for the struct members, because it had no type
++for the struct members,
++because it had no type
+ .I time_t
+ yet.
+ .SH BUGS
+@@ -183,7 +201,8 @@ A limitation of the Linux system call conventions on so=
+me architectures
+ (notably i386) means that on Linux 2.6 there is a small time window
+ (41 seconds) soon after boot when
+ .BR times ()
+-can return \-1, falsely indicating that an error occurred.
++can return \-1,
++falsely indicating that an error occurred.
+ The same problem can occur when the return value wraps past
+ the maximum value that can be stored in
+ .BR clock_t .
 --=20
 2.30.2
 
 
---x3dliwla5bblnart
+--fc4nyyloulmwejnd
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmPlNwwACgkQ0Z6cfXEm
-bc7ieA/8Df0WSqk9zIzA20tPKSqQCU+Zidishs4eFkIQDBMu7lrCUa2yB33hfB4d
-VOvASYm8LyP+cj0CgNKbPBfrcXsa31HW34MP0KW6YEn0CLJV0U4Ps+0cpc42iSuN
-pXkhV5Sa1OrGRbOfSDk3hStb7qLVDHTjamotE6g2vCTut5y5NznVecANN/Ri1JyH
-d4sHZdAJbAESNTWc58cIUz7f+7jUz3h2CxcvOlOrPwso99tEVQumv8DumC6CNsgh
-Wb0q2E88yPc6HNcbfk7yZdGi3Vlaz5C0b4IA8WPKITNoe5ff/DXD3/hXlHlaZqB4
-fPey6FSQIhE4C1xGQGtTOc2rUxN7mTLmf+Ea55+hs/muenCw+XlG5B76jyx8K+bL
-l0mZikA+fah0HihvF0Z3d7s/h3aDq9CPkIwCioE2UgC8uJuSvEe3Y8wWV1SNPIcD
-5lH3yv6KeVJ2U0qNzm/Xo5xCWXyC886jUQnyhu/cua16ZrV4rLnWdfcQMrNdAQsc
-/ixKtsmMeHOPUjxn3ClrvP4Ijd08q9QYNzAG5TzrzK7jEavHwmxO0+kCLOKk+P+K
-zWAHk72np5JBoi8PFbknddmB7QfVZwhanV/gNiRYlyy525U+/XSIpnS6hxVwzX3n
-zHkOgJJIu+oNX8BkXFRwxbdgsof4Z3S6vnltJYqRX0UwJfkCzxw=
-=gni2
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmPlNxUACgkQ0Z6cfXEm
+bc7xqQ/9ET5W7KS+7chsXHdWZur21YBP7JK1iAu7ujRgpuIPlOp1o/AyXLH1e0yp
+lVwOVuuIUxQ3tUN2U8lX4Rr+0LLYkpSt9TOxqppJQu1DS7VA95kSacbq2em/djf2
+kK3D6qzj9WdWfqBHEG/LMX5VPTkGghq4uqs1rh13TfYOXypuvt7WMgs/ow02ZA6i
+m/fSg9VbagaKhGVDxTdFoP2KQmTZmvtEw/dCOJdfisO3UEMAs++Id+gXHL7e4zXZ
+H5XinCH2FjWpZjyoT2nDT3tMI+ZJJxDFAjPUOgooFs473jqvaINPj1fsv28Pgdq7
+7r7ASt1S5U//2Fnm1QuiKMiRKflKVjUBuHSPI+JE8qnb02Ut6dikGNf04d/Q4Ba0
+xiK3fXpiBQaiiGYT0FDGQrFNKi8tA7NWXLmSdE8psDgoqjI5BaYrUMIWEJ1Fd1XG
+oM9JEITkQPnQE2hG57YpAcNYdmBZcPTiQLjL9a32k9uV/cXB+yia7ReJk6yVQsrb
+SSY1umODKsKJRTe9KhIdplgG/4hdiVewugP3jOKPuwbYqOuqdSzMRt06jjfEpxQY
+tdbHj1rThDp/rAWXqZ1IYfSuXvLHTQgPYNKk7djjVo2fUkoNVIw3KHhBc8A39HeZ
+2NoTTwKX5vLWeYRgrERCjqQN9aOMwh6+qm78PvSUWQi4etpkakM=
+=YPLj
 -----END PGP SIGNATURE-----
 
---x3dliwla5bblnart--
+--fc4nyyloulmwejnd--
