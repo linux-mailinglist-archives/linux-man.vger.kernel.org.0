@@ -2,75 +2,74 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 3251469399D
-	for <lists+linux-man@lfdr.de>; Sun, 12 Feb 2023 20:14:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 8D07A69399F
+	for <lists+linux-man@lfdr.de>; Sun, 12 Feb 2023 20:15:23 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229505AbjBLTOX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 12 Feb 2023 14:14:23 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44630 "EHLO
+        id S229520AbjBLTPW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 12 Feb 2023 14:15:22 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45072 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229651AbjBLTOW (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 12 Feb 2023 14:14:22 -0500
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com [IPv6:2a00:1450:4864:20::335])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8709ED501
-        for <linux-man@vger.kernel.org>; Sun, 12 Feb 2023 11:14:20 -0800 (PST)
-Received: by mail-wm1-x335.google.com with SMTP id o36so7338386wms.1
-        for <linux-man@vger.kernel.org>; Sun, 12 Feb 2023 11:14:20 -0800 (PST)
+        with ESMTP id S229436AbjBLTPV (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 12 Feb 2023 14:15:21 -0500
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com [IPv6:2a00:1450:4864:20::32f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id ABD15C14C
+        for <linux-man@vger.kernel.org>; Sun, 12 Feb 2023 11:15:20 -0800 (PST)
+Received: by mail-wm1-x32f.google.com with SMTP id f23-20020a05600c491700b003dff4480a17so7349035wmp.1
+        for <linux-man@vger.kernel.org>; Sun, 12 Feb 2023 11:15:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=in-reply-to:from:content-language:references:cc:to:subject
+        h=in-reply-to:from:references:cc:to:content-language:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=kLLM+gKVA/uWT1Gl2B7H2g5RVaR07MV29g+HPGnHy/A=;
-        b=jqIv/9il4jtm42V/rewGTTF/PBzKrlJj/dCLcJCvp61CZAgGd00nT0khGVeB7y/T2a
-         odklz7Bp/7y+7YElgNu3u8dl/6QG3dHzkxt5oykqI09lQmmMk5fegdKZx42gY1OPy3N8
-         79oa+BuOIS5bN8dMkrk3vPA1jBQeuQWeSStoFJ+jPRA6XJ5L/2/5N+Cr2DD3ySY/7hu9
-         VJruPphqSYNx72vLZso8/BFTI/3yC3XCCjV6EteI81B8yZ7vH1kqHmXHfXTzwM2PK6dt
-         S4/y5y7VPruZ6zkeCEMI2PrZY3WKVy15VHCXjgU4tBpYlufO0kP00Y9r79wZ8fR9exVe
-         r68Q==
+        bh=VzWFC9pKJOXHFtmOewYxlrJRsixG0L0WIv+OQ6PAMgA=;
+        b=Sk//whnBq2GsUFxvJZrzMxTjA2DbP47BywbVewmOmglxFsyPGcZ+r75i/ZDQ46obrW
+         0HryUNkLXgSuYVCPQY9Q+FyzjNx/IXx1VNIXOmx4q/i4ypDo/2TXohZ1B2ZMxDsO7p6h
+         CpAnsT1Zp4rUcoj4eYiZawuVQgyR/lMutBZpfpHAnHk1reCcGqQEzloQl6WjYPyeTk1t
+         APHT7GGkVwg5cuAYFSvplvgFm/NLY313v9JsAgGUL49vtomBTV7STshxau/uIYdDjasZ
+         NykBJkyx9ORT/SgmJ8yyF/4Ljdpmu+XGRoFrxHtV6MrgxX4fsXT9CiQObZF9HxBs0fOX
+         stWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=in-reply-to:from:content-language:references:cc:to:subject
+        h=in-reply-to:from:references:cc:to:content-language:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=kLLM+gKVA/uWT1Gl2B7H2g5RVaR07MV29g+HPGnHy/A=;
-        b=ZbD5VKobvvxQZtuQsWfFQ4BhmwHc3tgLx2orD66UJSpSmTz5AlQzBsw+XH2fXvgHsj
-         gkXPIH8LDZ8FqnE+21hf1NVeEwEOKE8JKUdci+o0hiP7ibTppR/6IIKjYcF21jqnocWy
-         bU97m1JFtfmrEg7Go4acRg7FXc3UYDeLWa6KWrnvS7V156iLCnsk81oDu3nW8UZW13aM
-         3wyf8f79qeQ6gKbCgtIKbKEBURwZfGvERALAtcT0Wh2t1ubEeIRtpuubtc+TQfnZKOvL
-         ddXobyOlwgWpzP5gt/mT5Po4AliZAO31m3bXpnD1TLsWODxN+P5wGpnHc/8R6/D5Ph+H
-         IRTg==
-X-Gm-Message-State: AO0yUKWoZTI0EIu12a3aGrKEmjW8+aIISQKVYk6XMQvk+PSF7CUbW/fF
-        4ZLuok2rCWjMNVa4cFMqMuKj0SBoVA8=
-X-Google-Smtp-Source: AK7set+SNFta/PhcECE7EDgvPe09wbttuGconYp0g2v+bijaLm9gExsZqV9yxpCAocn1iNw6+8YT4w==
-X-Received: by 2002:a05:600c:491d:b0:3da:2a78:d7a4 with SMTP id f29-20020a05600c491d00b003da2a78d7a4mr17342873wmp.21.1676229258951;
-        Sun, 12 Feb 2023 11:14:18 -0800 (PST)
+        bh=VzWFC9pKJOXHFtmOewYxlrJRsixG0L0WIv+OQ6PAMgA=;
+        b=uqgad7ovR1teaOGMKiAEd0zWCvOFE4NyEKadhpvzTGtnSxzRmk41QfuDzja4D/+m7U
+         8Kg/1BQNDfYH8pbIaXH2LskLQ8vPNF6PbWDiC6vapl3oSV3xLW/D0CTdc+Ppo76IyhuZ
+         KIztScFfEHDk+OXqMMeO1uoVCfQRYuV0LziyjaLwycafFtPbAi4E4aAp1hMwjfrzWXqa
+         rUm+Cw1Ly1+4V/qo9Cs8bFNS+daawz/0po5HgCOfs3xhKs9gLrlH225U7rhrBwQNFe+5
+         Qkp8QgZrEiBvtagxPsho2Va4nVERfBG4prZze70sfKWSqKTNXmPf3judU9EZ+nTj+OIS
+         fxmQ==
+X-Gm-Message-State: AO0yUKUuNNODTOXod3y/EwwFA0ek3vPcR5fRqd1CgdNULoyyGDy3vU/Z
+        9m0m+j6+sa/s/U/di4AUOwxbS1HSIJc=
+X-Google-Smtp-Source: AK7set/7X+SF/n2OjUkdqk+hZmSn3aHdKThBH24EbDj0pmGkWkxlG/+Z6WkZAhwCit/NJnzUXQyskQ==
+X-Received: by 2002:a05:600c:181d:b0:3db:9e3:3bf1 with SMTP id n29-20020a05600c181d00b003db09e33bf1mr17017182wmp.31.1676229319311;
+        Sun, 12 Feb 2023 11:15:19 -0800 (PST)
 Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id y6-20020a05600c364600b003df7b40f99fsm14249486wmq.11.2023.02.12.11.14.17
+        by smtp.gmail.com with ESMTPSA id c63-20020a1c3542000000b003df14531724sm15498554wma.21.2023.02.12.11.15.18
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 12 Feb 2023 11:14:18 -0800 (PST)
-Message-ID: <e4231c01-73f0-7846-f462-f3921a811ec1@gmail.com>
-Date:   Sun, 12 Feb 2023 20:14:10 +0100
+        Sun, 12 Feb 2023 11:15:18 -0800 (PST)
+Message-ID: <b5785597-3738-f405-261c-885be5fd9acc@gmail.com>
+Date:   Sun, 12 Feb 2023 20:15:17 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.7.1
-Subject: Re: [patch] recv.2: Mention SOCK_SEQPACKET in MSG_TRUNC flag
- description
-To:     Vladislav Ivanishin <vlad@ispras.ru>
-Cc:     linux-man@vger.kernel.org, Eric Dumazet <eric.dumazet@gmail.com>,
-        Piergiorgio Beruto <piergiorgio.beruto@gmail.com>,
-        "David S. Miller" <davem@davemloft.net>
-References: <87v8n03coa.fsf@ispras.ru>
- <00e2987e-0f37-b572-256c-163ded066fa0@gmail.com> <87cz6fqa0z.fsf@ispras.ru>
+Subject: Re: [PATCH 19/20] adjtimex.2: Drop dead hyperlink.
 Content-Language: en-US
+To:     Jakub Wilk <jwilk@jwilk.net>
+Cc:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        linux-man@vger.kernel.org
+References: <20230209181142.6gmv4ygmbxjtj7wu@illithid>
+ <0c370824-a968-410c-1c8e-1e650ea21761@gmail.com>
+ <20230210170341.k4eyazbvd6xy6phm@jwilk.net>
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <87cz6fqa0z.fsf@ispras.ru>
+In-Reply-To: <20230210170341.k4eyazbvd6xy6phm@jwilk.net>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------ykZN20fjPekGyT5HhhQCFnj9"
-X-Spam-Status: No, score=-2.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+ boundary="------------B7stUnA1hG7eYSE0maKV3qHE"
+X-Spam-Status: No, score=-0.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,URI_DOTEDU autolearn=no
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -79,123 +78,75 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------ykZN20fjPekGyT5HhhQCFnj9
-Content-Type: multipart/mixed; boundary="------------8whvNiLacbRWxxKFs0VR7guS";
+--------------B7stUnA1hG7eYSE0maKV3qHE
+Content-Type: multipart/mixed; boundary="------------860fK10GaQ8YInJJuOAwz7yP";
  protected-headers="v1"
 From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Vladislav Ivanishin <vlad@ispras.ru>
-Cc: linux-man@vger.kernel.org, Eric Dumazet <eric.dumazet@gmail.com>,
- Piergiorgio Beruto <piergiorgio.beruto@gmail.com>,
- "David S. Miller" <davem@davemloft.net>
-Message-ID: <e4231c01-73f0-7846-f462-f3921a811ec1@gmail.com>
-Subject: Re: [patch] recv.2: Mention SOCK_SEQPACKET in MSG_TRUNC flag
- description
-References: <87v8n03coa.fsf@ispras.ru>
- <00e2987e-0f37-b572-256c-163ded066fa0@gmail.com> <87cz6fqa0z.fsf@ispras.ru>
-In-Reply-To: <87cz6fqa0z.fsf@ispras.ru>
+To: Jakub Wilk <jwilk@jwilk.net>
+Cc: "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+ linux-man@vger.kernel.org
+Message-ID: <b5785597-3738-f405-261c-885be5fd9acc@gmail.com>
+Subject: Re: [PATCH 19/20] adjtimex.2: Drop dead hyperlink.
+References: <20230209181142.6gmv4ygmbxjtj7wu@illithid>
+ <0c370824-a968-410c-1c8e-1e650ea21761@gmail.com>
+ <20230210170341.k4eyazbvd6xy6phm@jwilk.net>
+In-Reply-To: <20230210170341.k4eyazbvd6xy6phm@jwilk.net>
 
---------------8whvNiLacbRWxxKFs0VR7guS
+--------------860fK10GaQ8YInJJuOAwz7yP
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi Vladislav!
+Hi Jakub!
 
-On 2/12/23 14:38, Vladislav Ivanishin wrote:
+On 2/10/23 18:03, Jakub Wilk wrote:
+> * Alejandro Colomar <alx.manpages@gmail.com>, 2023-02-10 02:44:
+>>> "UNIX and Scientific Computing Services Pages
+>>>
+>>> The information that was previously in this area is out of date.=20
+>>> Please refer to the SCS Confluence Page or contact unix-admin."
 >=20
-> unix_seqpacket_recvmsg() calls unix_dgram_recvmsg() which handles
-> MSG_TRUNC. This has been the case since the handling was added in
-> 9f6f9af7694ede6314bed281eec74d588ba9474f; see net/unix/af_unix.c:
+>> Do you have any idea of what that link maybe provided,
 >=20
-> static int unix_seqpacket_recvmsg([...])
-> {
->         [...]
-> 	return unix_dgram_recvmsg(iocb, sock, msg, size, flags);
-> }
->=20
-> The sequential-packet socket type seems to have been left out from the
-> description by an oversight.
->=20
-> Signed-off-by: Vladislav Ivanishin <vlad@ispras.ru>
-> ---
->=20
-> Hi Alex,
->=20
-> On Sun, Dec 11 2022, Alejandro Colomar <alx.manpages@gmail.com> wrote:
->> Hi Vladislav,
->>
->> On 11/27/22 11:38, Vladislav Ivanishin wrote:
->>> unix_seqpacket_recvmsg() calls unix_dgram_recvmsg() which handles
->>> MSG_TRUNC. This has been the case since the support for this flag was=
+> Wayback Machine has an archived copy:
+> https://web.archive.org/web/20190729131746/https://www.slac.stanford.ed=
+u/comp/unix/package/rtems/src/ssrlApps/ntpNanoclock/api.htm
 
->>> implemented in the latter; the sequential-packet socket type seems to=
-
->>> have been left out from the description by an oversight.
->>> Signed-off-by: Vladislav Ivanishin<vlad@ispras.ru>
->>
->> Could you please point to the relevant kernel commits, or quote the re=
-levant
->> lines of code, in the commit message?
->>
->> Thanks,
->>
->> Alex
->    =20
-> Sure, here's an updated version.
-
-Thanks!  I CCd those involved in the referred commit.  I'll give them a w=
-eek or so to have a look.  Could you please ping me again in a week or so=
-?
+Thanks!  Branden, could you please replace the link with this one?
 
 Cheers,
 
 Alex
+
 >=20
-> Vlad
+> BTW, ntp_gettime.3 includes this URL in the SEE ALSO section too.
 >=20
->  man2/recv.2 | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->=20
-> diff --git a/man2/recv.2 b/man2/recv.2
-> index 5298a2745..81cd1957c 100644
-> --- a/man2/recv.2
-> +++ b/man2/recv.2
-> @@ -226,7 +226,8 @@ subsequent receive call will return the same data.
->  For raw
->  .RB ( AF_PACKET ),
->  Internet datagram (since Linux 2.4.27/2.6.8),
-> -netlink (since Linux 2.6.22), and UNIX datagram
-> +netlink (since Linux 2.6.22),
-> +and UNIX datagram as well as sequenced-packet
->  .\" commit 9f6f9af7694ede6314bed281eec74d588ba9474f
->  (since Linux 3.4) sockets:
->  return the real length of the packet or datagram,
 
 --=20
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
---------------8whvNiLacbRWxxKFs0VR7guS--
+--------------860fK10GaQ8YInJJuOAwz7yP--
 
---------------ykZN20fjPekGyT5HhhQCFnj9
+--------------B7stUnA1hG7eYSE0maKV3qHE
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmPpOoIACgkQnowa+77/
-2zKudw/7BH/MUNbm6zRg/O9SiLg9EeQxBvqilmnAvKHJDGRTTlEoEGuIUe8Ynb6E
-UPMjEY34NFioq/T+KbJVCS/Hw9EPMqDsoJybB04x/0/o4Bb3BwG6i/yBEGGUL3nT
-1PsMtBtEHQatgEDXYiKJ/zG4leNXPUdvKWObrJTB9VxyGovuP//oWVahaHVzylRn
-q9PnQPprYyUqk23+00NnLrKEOJHO8fP7e+ZaExuMfmA94a8fLE1ELjHLlFjqUKU3
-f2+Erbwm4xAALiOOXg1CRkPsX+wWn9Nf1X2EUZ6Ucupfnc/ZAe5fjcU1XeX72Qi/
-VwTTT7qbHrlE096XS0LEJ/8hyQVev4HcPBsEim6Tfp/q2cyfAlZ8u35URN8y2IhX
-0ldO+0Ponp1u8eAmTbIo4d238BfGK6ZQ+CRk4Cv6xhCFpQqp/Lh4Y1cX/wb5d6df
-gsaX+ogL4ZogFDgxN6haZ3kfG02Ixr+t0I4D7ISZSD5XbTfH4dy9/qbg2T0w8ocx
-sXf07cKt92AnLzlSbPaZ9OsTb665LQVEfBbRm51egShOOZ4SlNGlo1paNmD+pKh9
-/HKikaM0yVarTTLoUahIOVO3XPF8zrD0JYYOTW5f1f9Lyvz8KvVNXt3Fw99Zs7rB
-PIksDs24J14fqitsXPaXiimPyh7niWmUyENQorxdi5q2ItLwfaE=
-=EF4j
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmPpOsUACgkQnowa+77/
+2zL6UQ/+Mm23hf/rqIS/Osl/GQiUJ8LHkq//5f8L5OZmqIJn0fTxjC9de+WDq/B9
+VDxJWKDybRylBsF7+yUybhHKUrPOJ3nBsJ+gasImAypUOQ+eInoB0Soklu/LfPOo
+TF2kPjjeStNATPQwwrO2E39OZ7yllzeiSSCScYZpqOFo/ligTJpJnn1OZ737X0ri
+z4X43EIRVIuSSxsbI2/Xm8A5Ec42skQFXqdWIwE9PUcOAFRRwk/bt/hn2V2ean8S
+isk9te3RIovhmIjPPSCgPngbnSit3LYPrVxIno59mn5Hzl4HsLgWcgRl6vvtcAPz
+9jlSYoh46dSZNI2BZFNQfvWbQyvo2oZGnqzMNDeFviIVmpreIVXjozembcrF3kZu
+a94Pi0n+xN6R2OzNA09XkgdOCXAbpc6iUeprBr6yfv/hy5pqZXW9A8iZIAyBZ0Y4
+MMH/VZ4SfsZvMWBqdzRBWpXYgS1hYEtXuw0UyD/eREXesXQ7G0hwZHMQM2z9d2rh
+Qt+Eyc0HqHd8ikrtYbvgxPMuvFMxkFPRaj0n28QBGqrt6Ex7kG2RLZtZDLcUgXwv
+O7qim4QPWiVhaIE6O+tX5VofdQL1AFxm+NsoE7ZGZ8pB9bQxGo8aG33iZSoko9/x
+y71ksalcImj/o3La1hEHB9RL8/OZUU8HvXciobZwkHWzQ4I0c4c=
+=Dj2C
 -----END PGP SIGNATURE-----
 
---------------ykZN20fjPekGyT5HhhQCFnj9--
+--------------B7stUnA1hG7eYSE0maKV3qHE--
