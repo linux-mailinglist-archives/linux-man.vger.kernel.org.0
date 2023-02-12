@@ -2,74 +2,73 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 8D07A69399F
-	for <lists+linux-man@lfdr.de>; Sun, 12 Feb 2023 20:15:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 81AFE6939A1
+	for <lists+linux-man@lfdr.de>; Sun, 12 Feb 2023 20:19:24 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229520AbjBLTPW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 12 Feb 2023 14:15:22 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45072 "EHLO
+        id S229564AbjBLTTX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 12 Feb 2023 14:19:23 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45782 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229436AbjBLTPV (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 12 Feb 2023 14:15:21 -0500
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com [IPv6:2a00:1450:4864:20::32f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id ABD15C14C
-        for <linux-man@vger.kernel.org>; Sun, 12 Feb 2023 11:15:20 -0800 (PST)
-Received: by mail-wm1-x32f.google.com with SMTP id f23-20020a05600c491700b003dff4480a17so7349035wmp.1
-        for <linux-man@vger.kernel.org>; Sun, 12 Feb 2023 11:15:20 -0800 (PST)
+        with ESMTP id S229436AbjBLTTX (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 12 Feb 2023 14:19:23 -0500
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com [IPv6:2a00:1450:4864:20::32c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D1666D531
+        for <linux-man@vger.kernel.org>; Sun, 12 Feb 2023 11:19:21 -0800 (PST)
+Received: by mail-wm1-x32c.google.com with SMTP id s13-20020a05600c45cd00b003ddca7a2bcbso2173981wmo.3
+        for <linux-man@vger.kernel.org>; Sun, 12 Feb 2023 11:19:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=VzWFC9pKJOXHFtmOewYxlrJRsixG0L0WIv+OQ6PAMgA=;
-        b=Sk//whnBq2GsUFxvJZrzMxTjA2DbP47BywbVewmOmglxFsyPGcZ+r75i/ZDQ46obrW
-         0HryUNkLXgSuYVCPQY9Q+FyzjNx/IXx1VNIXOmx4q/i4ypDo/2TXohZ1B2ZMxDsO7p6h
-         CpAnsT1Zp4rUcoj4eYiZawuVQgyR/lMutBZpfpHAnHk1reCcGqQEzloQl6WjYPyeTk1t
-         APHT7GGkVwg5cuAYFSvplvgFm/NLY313v9JsAgGUL49vtomBTV7STshxau/uIYdDjasZ
-         NykBJkyx9ORT/SgmJ8yyF/4Ljdpmu+XGRoFrxHtV6MrgxX4fsXT9CiQObZF9HxBs0fOX
-         stWw==
+        h=in-reply-to:from:references:to:content-language:subject:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=+85YZUEAjqHj9QP9mXYeFvXi5zOHOcaC21L1+Y/2XoA=;
+        b=fGaM6K84AwCjUqM/KzTlBOUd7aZ501i/Qx/Vibd1a6+Lax/4N6Fp07HfuW6WwnXRIU
+         viTI1PedmnjbddLf8WN0JmTk2D0TNUrkmjiws/b0ZrIMRkg0jMIqAkVZhcRgCcWbPrKL
+         8HYW6Fde4RD/B2yN1qKKG6Q2zdF2kmgfLYijXaVACmzJ6GUheLnNfkfVJPYozcXyPtfj
+         UbI14UcRlEtlUqfp+7IprXuvSkbS0f0hvN2IPRtJAY8BfqnbJnlgX2AK3cK6YysCLcst
+         ateHYfEuvCdtFNFl9PoelKdfTqH/AnonjjzyBIcK1UZELoVC4gUz51pAGbQk4fp3ULvH
+         SeOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=VzWFC9pKJOXHFtmOewYxlrJRsixG0L0WIv+OQ6PAMgA=;
-        b=uqgad7ovR1teaOGMKiAEd0zWCvOFE4NyEKadhpvzTGtnSxzRmk41QfuDzja4D/+m7U
-         8Kg/1BQNDfYH8pbIaXH2LskLQ8vPNF6PbWDiC6vapl3oSV3xLW/D0CTdc+Ppo76IyhuZ
-         KIztScFfEHDk+OXqMMeO1uoVCfQRYuV0LziyjaLwycafFtPbAi4E4aAp1hMwjfrzWXqa
-         rUm+Cw1Ly1+4V/qo9Cs8bFNS+daawz/0po5HgCOfs3xhKs9gLrlH225U7rhrBwQNFe+5
-         Qkp8QgZrEiBvtagxPsho2Va4nVERfBG4prZze70sfKWSqKTNXmPf3judU9EZ+nTj+OIS
-         fxmQ==
-X-Gm-Message-State: AO0yUKUuNNODTOXod3y/EwwFA0ek3vPcR5fRqd1CgdNULoyyGDy3vU/Z
-        9m0m+j6+sa/s/U/di4AUOwxbS1HSIJc=
-X-Google-Smtp-Source: AK7set/7X+SF/n2OjUkdqk+hZmSn3aHdKThBH24EbDj0pmGkWkxlG/+Z6WkZAhwCit/NJnzUXQyskQ==
-X-Received: by 2002:a05:600c:181d:b0:3db:9e3:3bf1 with SMTP id n29-20020a05600c181d00b003db09e33bf1mr17017182wmp.31.1676229319311;
-        Sun, 12 Feb 2023 11:15:19 -0800 (PST)
+        h=in-reply-to:from:references:to:content-language:subject:user-agent
+         :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=+85YZUEAjqHj9QP9mXYeFvXi5zOHOcaC21L1+Y/2XoA=;
+        b=1A/M/kli+0mBqKZKayH5z6tyAc4LyRiAr5hD9rgZobHIkeyDmf0f1f+aar4Uc6t7Xt
+         acnOwziXUEy5dcGvON4VD9IryQ2+CFwrjDEbz1pqQqmKL/cTjunhX/luB2cXj4EsNWD7
+         L0M4ByH1kmSLCqzSkZj7Q9n8Rc57QhQYVzoaRZ+ngYAvc5wf2laH9K6JZAsZHxondwiT
+         VtE8YUdbBFHdg0RFc8W6Wxxn61TgoeF4ZDBeJu7DcGKTj6N8U/PbI2n9fzN7ZMqDyu+H
+         kJrrB/05pI0WjfzJVzT8H7q4YO6K8PdgZFKC5BNa10uRE1mrf/qx8T9wABabRAFkLGn1
+         j+Qw==
+X-Gm-Message-State: AO0yUKXmAUZkeGnFSjiu56VypeqQo5zFzuULPyv0GreNvJ6Y16tb+3Bm
+        Hfbx8u6cMlshorpxLjnCCHY=
+X-Google-Smtp-Source: AK7set8Kes/tFNV/KUpR9T4mXUGuvPjU7ScTSYkGFDyKqMLIss11mSnDswAdQtan1vdtQcja4RlWeg==
+X-Received: by 2002:a05:600c:43d2:b0:3da:f5d1:c677 with SMTP id f18-20020a05600c43d200b003daf5d1c677mr17440286wmn.35.1676229560324;
+        Sun, 12 Feb 2023 11:19:20 -0800 (PST)
 Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id c63-20020a1c3542000000b003df14531724sm15498554wma.21.2023.02.12.11.15.18
+        by smtp.gmail.com with ESMTPSA id x2-20020a1c7c02000000b003df30c94850sm14705837wmc.25.2023.02.12.11.19.19
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 12 Feb 2023 11:15:18 -0800 (PST)
-Message-ID: <b5785597-3738-f405-261c-885be5fd9acc@gmail.com>
-Date:   Sun, 12 Feb 2023 20:15:17 +0100
+        Sun, 12 Feb 2023 11:19:19 -0800 (PST)
+Message-ID: <8743714b-80f0-e8ef-286d-62924db3d412@gmail.com>
+Date:   Sun, 12 Feb 2023 20:19:18 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.7.1
-Subject: Re: [PATCH 19/20] adjtimex.2: Drop dead hyperlink.
+Subject: Re: [PATCH v2 04/11] man2/open.2: punctuate octal perms with digit
+ separators
 Content-Language: en-US
-To:     Jakub Wilk <jwilk@jwilk.net>
-Cc:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        linux-man@vger.kernel.org
-References: <20230209181142.6gmv4ygmbxjtj7wu@illithid>
- <0c370824-a968-410c-1c8e-1e650ea21761@gmail.com>
- <20230210170341.k4eyazbvd6xy6phm@jwilk.net>
+To:     Brian Inglis <Brian.Inglis@Shaw.ca>,
+        Linux Man-Pages <linux-man@vger.kernel.org>
+References: <cover.1675830945.git.Brian.Inglis@Shaw.ca>
+ <55dc9a52adaa99408437708f8141d44aade52464.1675830945.git.Brian.Inglis@Shaw.ca>
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20230210170341.k4eyazbvd6xy6phm@jwilk.net>
+In-Reply-To: <55dc9a52adaa99408437708f8141d44aade52464.1675830945.git.Brian.Inglis@Shaw.ca>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------B7stUnA1hG7eYSE0maKV3qHE"
-X-Spam-Status: No, score=-0.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+ boundary="------------FK0lPWWTIf0jKJlO0BZo0JP0"
+X-Spam-Status: No, score=-2.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,URI_DOTEDU autolearn=no
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -78,75 +77,152 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------B7stUnA1hG7eYSE0maKV3qHE
-Content-Type: multipart/mixed; boundary="------------860fK10GaQ8YInJJuOAwz7yP";
+--------------FK0lPWWTIf0jKJlO0BZo0JP0
+Content-Type: multipart/mixed; boundary="------------pRB2SlG1pgNWvKT2NhqLfx3e";
  protected-headers="v1"
 From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Jakub Wilk <jwilk@jwilk.net>
-Cc: "G. Branden Robinson" <g.branden.robinson@gmail.com>,
- linux-man@vger.kernel.org
-Message-ID: <b5785597-3738-f405-261c-885be5fd9acc@gmail.com>
-Subject: Re: [PATCH 19/20] adjtimex.2: Drop dead hyperlink.
-References: <20230209181142.6gmv4ygmbxjtj7wu@illithid>
- <0c370824-a968-410c-1c8e-1e650ea21761@gmail.com>
- <20230210170341.k4eyazbvd6xy6phm@jwilk.net>
-In-Reply-To: <20230210170341.k4eyazbvd6xy6phm@jwilk.net>
+To: Brian Inglis <Brian.Inglis@Shaw.ca>,
+ Linux Man-Pages <linux-man@vger.kernel.org>
+Message-ID: <8743714b-80f0-e8ef-286d-62924db3d412@gmail.com>
+Subject: Re: [PATCH v2 04/11] man2/open.2: punctuate octal perms with digit
+ separators
+References: <cover.1675830945.git.Brian.Inglis@Shaw.ca>
+ <55dc9a52adaa99408437708f8141d44aade52464.1675830945.git.Brian.Inglis@Shaw.ca>
+In-Reply-To: <55dc9a52adaa99408437708f8141d44aade52464.1675830945.git.Brian.Inglis@Shaw.ca>
 
---------------860fK10GaQ8YInJJuOAwz7yP
+--------------pRB2SlG1pgNWvKT2NhqLfx3e
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi Jakub!
+Hi Brian,
 
-On 2/10/23 18:03, Jakub Wilk wrote:
-> * Alejandro Colomar <alx.manpages@gmail.com>, 2023-02-10 02:44:
->>> "UNIX and Scientific Computing Services Pages
->>>
->>> The information that was previously in this area is out of date.=20
->>> Please refer to the SCS Confluence Page or contact unix-admin."
+On 2/8/23 21:27, Brian Inglis wrote:
+> ---
+>  man2/open.2 | 32 ++++++++++++++++----------------
+>  1 file changed, 16 insertions(+), 16 deletions(-)
 >=20
->> Do you have any idea of what that link maybe provided,
 >=20
-> Wayback Machine has an archived copy:
-> https://web.archive.org/web/20190729131746/https://www.slac.stanford.ed=
-u/comp/unix/package/rtems/src/ssrlApps/ntpNanoclock/api.htm
+> v2-0004-man2-open.2-punctuate-octal-perms-with-digit-sepa.patch
+>=20
+> diff --git a/man2/open.2 b/man2/open.2
+> index fc796e25537d..82e3e2102e7c 100644
+> --- a/man2/open.2
+> +++ b/man2/open.2
+> @@ -308,40 +308,40 @@ The following symbolic constants are provided for=
 
-Thanks!  Branden, could you please replace the link with this one?
+>  .RS
+>  .TP 9
+>  .B S_IRWXU
+> -00700 user (file owner) has read, write, and execute permission
+> +00\[aq]700 user (file owner) has read, write, and execute permission
+>  .TP
+>  .B S_IRUSR
+> -00400 user has read permission
+> +00\[aq]400 user has read permission
+>  .TP
+>  .B S_IWUSR
+> -00200 user has write permission
+> +00\[aq]200 user has write permission
+>  .TP
+>  .B S_IXUSR
+> -00100 user has execute permission
+> +00\[aq]100 user has execute permission
+>  .TP
+>  .B S_IRWXG
+> -00070 group has read, write, and execute permission
+> +00\[aq]070 group has read, write, and execute permission
+>  .TP
+>  .B S_IRGRP
+> -00040 group has read permission
+> +00\[aq]040 group has read permission
+>  .TP
+>  .B S_IWGRP
+> -00020 group has write permission
+> +00\[aq]020 group has write permission
+>  .TP
+>  .B S_IXGRP
+> -00010 group has execute permission
+> +00\[aq]010 group has execute permission
+>  .TP
+>  .B S_IRWXO
+> -00007 others have read, write, and execute permission
+> +00\[aq]007 others have read, write, and execute permission
+>  .TP
+>  .B S_IROTH
+> -00004 others have read permission
+> +00\[aq]004 others have read permission
+>  .TP
+>  .B S_IWOTH
+> -00002 others have write permission
+> +00\[aq]002 others have write permission
+>  .TP
+>  .B S_IXOTH
+> -00001 others have execute permission
+> +00\[aq]001 others have execute permission
+>  .RE
+>  .IP
+>  According to POSIX, the effect when other bits are set in
+> @@ -352,14 +352,14 @@ On Linux, the following bits are also honored in
+>  .RS
+>  .TP 9
+>  .B S_ISUID
+> -0004000 set-user-ID bit
+> +0\[aq]004\[aq]000 set-user-ID bit
+>  .TP
+>  .B S_ISGID
+> -0002000 set-group-ID bit (see
+> +0\[aq]002\[aq]000 set-group-ID bit (see
+>  .BR inode (7)).
+>  .TP
+>  .B S_ISVTX
+> -0001000 sticky bit (see
+> +0\[aq]001\[aq]000 sticky bit (see
+>  .BR inode (7)).
+>  .RE
+>  .TP
+> @@ -1319,7 +1319,7 @@ flags are not specified in POSIX.1-2001,
+>  but are specified in POSIX.1-2008.
+>  Since glibc 2.12, one can obtain their definitions by defining either
+>  .B _POSIX_C_SOURCE
+> -with a value greater than or equal to 200809L or
+> +with a value greater than or equal to 2008\[aq]09L or
+
+This is not an octal :)
 
 Cheers,
 
 Alex
 
->=20
-> BTW, ntp_gettime.3 includes this URL in the SEE ALSO section too.
->=20
+>  .B _XOPEN_SOURCE
+>  with a value greater than or equal to 700.
+>  In glibc 2.11 and earlier, one obtains the definitions by defining
 
 --=20
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
---------------860fK10GaQ8YInJJuOAwz7yP--
+--------------pRB2SlG1pgNWvKT2NhqLfx3e--
 
---------------B7stUnA1hG7eYSE0maKV3qHE
+--------------FK0lPWWTIf0jKJlO0BZo0JP0
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmPpOsUACgkQnowa+77/
-2zL6UQ/+Mm23hf/rqIS/Osl/GQiUJ8LHkq//5f8L5OZmqIJn0fTxjC9de+WDq/B9
-VDxJWKDybRylBsF7+yUybhHKUrPOJ3nBsJ+gasImAypUOQ+eInoB0Soklu/LfPOo
-TF2kPjjeStNATPQwwrO2E39OZ7yllzeiSSCScYZpqOFo/ligTJpJnn1OZ737X0ri
-z4X43EIRVIuSSxsbI2/Xm8A5Ec42skQFXqdWIwE9PUcOAFRRwk/bt/hn2V2ean8S
-isk9te3RIovhmIjPPSCgPngbnSit3LYPrVxIno59mn5Hzl4HsLgWcgRl6vvtcAPz
-9jlSYoh46dSZNI2BZFNQfvWbQyvo2oZGnqzMNDeFviIVmpreIVXjozembcrF3kZu
-a94Pi0n+xN6R2OzNA09XkgdOCXAbpc6iUeprBr6yfv/hy5pqZXW9A8iZIAyBZ0Y4
-MMH/VZ4SfsZvMWBqdzRBWpXYgS1hYEtXuw0UyD/eREXesXQ7G0hwZHMQM2z9d2rh
-Qt+Eyc0HqHd8ikrtYbvgxPMuvFMxkFPRaj0n28QBGqrt6Ex7kG2RLZtZDLcUgXwv
-O7qim4QPWiVhaIE6O+tX5VofdQL1AFxm+NsoE7ZGZ8pB9bQxGo8aG33iZSoko9/x
-y71ksalcImj/o3La1hEHB9RL8/OZUU8HvXciobZwkHWzQ4I0c4c=
-=Dj2C
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmPpO7YACgkQnowa+77/
+2zIzLBAApIn+y99lOEZjR1qq+UqkWi8ftA/NBBnbh1gTj8xnJB5Fa+xqsmMRPgDQ
+ux28V+BfhcwOu7Sm0/03k1WyB+xttkWL0YoZDp05OO4NTtBiebQjuwmBFpO81VY6
+okctX0eltqu+vKBXPYOngJf2OXo9g7NWQMf8UCn98MnsnCW084EEbMmQIJx85JMh
+22BsRKnYWo369FGtEB+bdIiD1S/WUaCt1J7Egalb/8yKFQPjhPvokaQMv5ItOrmJ
+v7KO44vZz4d9NO4quClGI5AFtg82brGKwXAAvXgEYGAMsbc6Ax02f1V3c2XT7jmb
+/6u21hMLvrFLyTUXm237nzaoDW7iZsZDKQRtfgqoFe8QOJ/yrCkTORYgc4FgGBwb
++tb04d0VgYKEqRO/w+55bNNqxhZuOVfNRowxc9aRvPvD4qP4psLWKatdUGWxRWnP
+Hy+A2wJ6v0iBJeogwX4ECT/M25qFbbqdKeylDpb5Bjdtdaq8gPAL5lyPhfiSAumw
+ncMOdyQOodInYVjBO3M07eClftq9nSEANgFtLKgIEKBNGtjG8yNDTWtuNVVzA8bo
+/lOIsvIyLN6ioaWXmmoAaXrN09Yok9jqDiAHVH+jlxlbceN8NPuMM/QWOin6nIXK
+YHoc29IZ51TqKq+V3miI4rjlUgx04DVTSTWhBzVVumV1NZcCqjY=
+=OuGQ
 -----END PGP SIGNATURE-----
 
---------------B7stUnA1hG7eYSE0maKV3qHE--
+--------------FK0lPWWTIf0jKJlO0BZo0JP0--
