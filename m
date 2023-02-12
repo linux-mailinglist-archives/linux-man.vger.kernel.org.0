@@ -2,72 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 3456B6939A3
-	for <lists+linux-man@lfdr.de>; Sun, 12 Feb 2023 20:22:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0117A6939FD
+	for <lists+linux-man@lfdr.de>; Sun, 12 Feb 2023 21:47:38 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229499AbjBLTWp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 12 Feb 2023 14:22:45 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45910 "EHLO
+        id S229479AbjBLUrg (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 12 Feb 2023 15:47:36 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44948 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229436AbjBLTWn (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 12 Feb 2023 14:22:43 -0500
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com [IPv6:2a00:1450:4864:20::32d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9BA7AD538
-        for <linux-man@vger.kernel.org>; Sun, 12 Feb 2023 11:22:40 -0800 (PST)
-Received: by mail-wm1-x32d.google.com with SMTP id bg5-20020a05600c3c8500b003e00c739ce4so7534790wmb.5
-        for <linux-man@vger.kernel.org>; Sun, 12 Feb 2023 11:22:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=in-reply-to:from:references:to:content-language:subject:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=dIB4JyKmTIx3oKLbOO1neKoPXllrn7rKC9lamMcYMwE=;
-        b=VWINxfF7oJyjoCv3PpuKiSppjbgcXELZZSF6bllzk/Vxe9hcq3uWUnz7HV8dRCDmaV
-         RpgpJQ2+5E0ROJyENIHULgbg3J/rv+zq4TCrJ/Z59GZmqX7+8VGKQnzRbSQUoTmVT+N1
-         xqJJxU6+0C/Mch2ucX3HSrkUB6AkNeP7UXmOGNBZOsTDx7Juooh1TZ2A1gdDtV3js6JC
-         97uWvbt0z8rJRWpq+B7uy/n0qrsZ6CPHxSZfwdsw9xMExLds92WI+JVef+UXN0WgpZ/m
-         jZFpzuMaol2bnJEdWhlh1ohSbNUIei8hVhsivaPlIwG+V9mt9qkjsIMQniCBP9vBd0hJ
-         qeTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=in-reply-to:from:references:to:content-language:subject:user-agent
-         :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=dIB4JyKmTIx3oKLbOO1neKoPXllrn7rKC9lamMcYMwE=;
-        b=Ye13l+yFPg0EwcPzAZLPFrxaImfBrG9X115QWNViH3ROfIUgBGluEbceOeDf3c4kOS
-         SQAEMkHhxSBPFLJkOljQ36CaT1ecQW7VIctLLp7Smggxi7L1CsvatqghJAATa35WtawO
-         kX43E8CWP/WYZpIzz/Q4vZOCaoYTweVbhIeLhPMIqfm/Sor7LkGFbBWg6n6Lq7jwQwx1
-         I55aHaIRn6wY7fWdoafw7M+K7OgSXLf8nPmCrY42a3LmElkYXAP9YF5Kn0SbcVHH+xNP
-         JYK7wxR+N/eH1UfhMv4YxDRH4FoFcfH7YW9QQfQKJUMEL5eWoF+ZM6MWndFqUx51y6Du
-         m4mQ==
-X-Gm-Message-State: AO0yUKXlsWNn4mGHYBI3vZreIRdg7uysQGfjjz39/ellAE+x8uOGzqpQ
-        hpItMtOGTGeY9GBbCW2rqPM=
-X-Google-Smtp-Source: AK7set+0sWtAcVUjMkXYGW7yQ3a73I1sMjIV2n422hRMDSgYFurnbd7lh3AQGyEte97/t/ouRu37rA==
-X-Received: by 2002:a05:600c:4a9a:b0:3dc:5b48:ee5 with SMTP id b26-20020a05600c4a9a00b003dc5b480ee5mr17291721wmp.2.1676229759194;
-        Sun, 12 Feb 2023 11:22:39 -0800 (PST)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id az10-20020a05600c600a00b003dc3f07c876sm15310952wmb.46.2023.02.12.11.22.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 12 Feb 2023 11:22:38 -0800 (PST)
-Message-ID: <96403174-53d6-8bd7-d209-161ed85f13d4@gmail.com>
-Date:   Sun, 12 Feb 2023 20:22:37 +0100
+        with ESMTP id S229476AbjBLUrf (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 12 Feb 2023 15:47:35 -0500
+Received: from omta001.cacentral1.a.cloudfilter.net (omta001.cacentral1.a.cloudfilter.net [3.97.99.32])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D719CF757
+        for <linux-man@vger.kernel.org>; Sun, 12 Feb 2023 12:47:33 -0800 (PST)
+Received: from shw-obgw-4002a.ext.cloudfilter.net ([10.228.9.250])
+        by cmsmtp with ESMTP
+        id RHHdp0KDJc9C4RJG0ppZTQ; Sun, 12 Feb 2023 20:47:32 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=shaw.ca; s=s20180605;
+        t=1676234852; bh=Lbi9x/bOlEgygXMyjxdinJ5e337xQpErF5HScftOo6M=;
+        h=Date:Reply-To:Subject:To:Cc:References:From:In-Reply-To;
+        b=jqp8DPjwgOJ4RyHKe2IiEHsM9JZomQG0fTla4XNzwiHEfmfLJZERjJ8rbRO1Jid+T
+         EsZvNo+8bxT5+q/35kaBJ4jRavtqZ1elwRt0IXDgOMbIgTGcP2a8zX0UrDAheSA9Nq
+         UcZrP4FplDBRnZJOxa76cuTapezvGGKeeT7Qoe9wikqzhkBrPYjm1TKJcl4ahl0xHM
+         NCUW9kCcFjcxgEn3mp+AE1EfwgxzHlhFLHS5xBv9RzRk66pEZyyhkx7iaYaK2P+1kE
+         jChxOlJUai46+omXmcAE1YywU3bRPJouThTvcmdLJh3mbluDroBJG0fLwTqG0ILa5o
+         Nhb+fKSYhdnqA==
+Received: from [10.0.0.5] ([184.64.102.149])
+        by cmsmtp with ESMTP
+        id RJG0pg1QYyAOeRJG0pUYmz; Sun, 12 Feb 2023 20:47:32 +0000
+X-Authority-Analysis: v=2.4 cv=e5oV9Il/ c=1 sm=1 tr=0 ts=63e95064
+ a=DxHlV3/gbUaP7LOF0QAmaA==:117 a=DxHlV3/gbUaP7LOF0QAmaA==:17
+ a=IkcTkHD0fZMA:10 a=86U1H9NdAAAA:8 a=cJvSUKa_wtWgw8kqzecA:9 a=QEXdDO2ut3YA:10
+ a=3ocqyLwIp7_IhjRobAq6:22
+Message-ID: <7f5bb786-b2a4-a73c-ec9e-c8126c2a2ba0@Shaw.ca>
+Date:   Sun, 12 Feb 2023 13:47:31 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Subject: Re: [PATCH v2 00/11] punctuate long numeric strings with digit
- separators
-Content-Language: en-US
-To:     Brian Inglis <Brian.Inglis@Shaw.ca>,
-        Linux Man-Pages <linux-man@vger.kernel.org>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.2
+Reply-To: Brian.Inglis@Shaw.ca
+Subject: Re: [PATCH v2 10/11] man2/futex.2: change limit to use ISO multiple
+ symbol
+Content-Language: en-CA
+To:     linux-man@vger.kernel.org
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        Jakub Wilk <jwilk@jwilk.net>, Tom Schwindl <schwindl@posteo.de>
 References: <cover.1675830945.git.Brian.Inglis@Shaw.ca>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <cover.1675830945.git.Brian.Inglis@Shaw.ca>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------lrpHNJpHNMFNoyEExZJKzE8F"
-X-Spam-Status: No, score=-2.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
+ <dbcc41d977d4eeac999a0381ff9a411453b838fe.1675830945.git.Brian.Inglis@Shaw.ca>
+ <b10498de-f55e-e39f-a051-3bbab2682ea5@gmail.com>
+ <716eb1e9-8e51-b25f-2476-6e3d635d2538@Shaw.ca>
+ <20230209113637.yifd3ojsgqameauz@jwilk.net>
+ <5ad757b9-b84a-4a05-096a-d28235e7e68f@gmail.com>
+From:   Brian Inglis <Brian.Inglis@Shaw.ca>
+Organization: Inglis
+In-Reply-To: <5ad757b9-b84a-4a05-096a-d28235e7e68f@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CMAE-Envelope: MS4xfEGCl01ewidbrtvrQh0eZCf15JdkNgkuhiQPKkXMWaVfuQyxtZ7taUTR3VjMHgRhEhjn9zlvolA712YZ+VeKVSy2gR4wvPZakSkrzeCFTdBhPTrr+lQE
+ TvWKa0k7UQ+jNuqJBqpCsYpbXf47YEcWfYe2M0x99p7ORP9ohhEPLo0ghIKnHWoOHLYxd/T78VyPzLzD1R2hxDDTWK4jKKsCuWNfLuoA/rO99WNh/WHoQA5w
+ 5QFuOmg5Uz3vsmA4sDVGosn4YQmUZMZ41ErGdNboyP3Xl2cTi0nnQVNLh8XoIX90
+X-Spam-Status: No, score=-3.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_LOW,
+        RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -75,140 +69,110 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------lrpHNJpHNMFNoyEExZJKzE8F
-Content-Type: multipart/mixed; boundary="------------AAJVubRVz4v6wFCQOaPL7gEv";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Brian Inglis <Brian.Inglis@Shaw.ca>,
- Linux Man-Pages <linux-man@vger.kernel.org>
-Message-ID: <96403174-53d6-8bd7-d209-161ed85f13d4@gmail.com>
-Subject: Re: [PATCH v2 00/11] punctuate long numeric strings with digit
- separators
-References: <cover.1675830945.git.Brian.Inglis@Shaw.ca>
-In-Reply-To: <cover.1675830945.git.Brian.Inglis@Shaw.ca>
+On 2023-02-09 05:21, Alejandro Colomar wrote:
+> On 2/9/23 12:36, Jakub Wilk wrote:
+>> * Brian Inglis, 2023-02-08 15:33:
+>>>>> -was not less than 1,000,000,000).
+>>>>> +was not less than 1G).
 
---------------AAJVubRVz4v6wFCQOaPL7gEv
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+>>>> For nanoseconds, I think 1G is a bit weird.
 
-Hi Brian,
+>> Not only weird, but also not allowed by SI. From the brochure: "Prefix
+>> symbols can neither stand alone nor be attached to the number 1".
+> 
+> That's in section 5.4.7 of the SI Brochure (v9) for those who don't have the context.  However, that section not only forbids 1G, but also 32G or 32Mi.  The point is that you can't attach a prefix to a number without units, because it's a prefix rather than a suffix.  According to the SI, one would have to express that as powers of 10 (or the expanded number if you prefer).
 
-On 2/8/23 21:27, Brian Inglis wrote:
-> man2/: use C digit separators with \\[aq] to show "'" or ISO/IEC
-> suffixes to clarify long binary, octal, hex, decimal numeric strings;
-> use consistent interval notation for value ranges;
-> fix minor discrepancies.
->=20
-> [PATCH 01/11] man2/shmget.2: fix limit units suffix from SI to IEC
-> [PATCH 02/11] man2/spu_run.2: fix example comment status code or-ed val=
-ue
-> [PATCH 03/11] man2/: use consistent interval notation for value ranges
-> [PATCH 04/11] man2/open.2: punctuate octal perms with digit separators
-> [PATCH 05/11] man2/reboot.2: show BCD dates in hex not decimal
-> [PATCH 06/11] man2/reboot.2: punctuate hex in docs with digit separator=
-s
-> [PATCH 07/11] man2/statfs.2: punctuate hex in docs with digit separator=
-s
-> [PATCH 08/11] man2/adjtimex.2: use ISO/IEC suffixes and digit separator=
-s in ranges and example docs
-> [PATCH 09/11] man2/getrandom.2: change limit to use IEC suffix
-> [PATCH 10/11] man2/futex.2: change limit to use ISO suffix
-> [PATCH 11/11] man2/: punctuate long numeric strings with digit separato=
-rs
+That's commonly accepted, and we are not writing scientific papers, we are 
+producing docs for comsumption by international English readers, where many 
+native speakers may actually be less familiar with metric units and SI conventions.
+[In those financial and management areas M = 1k and MM = 1M!
+And I do cringe at such common usages as 1,000kg for tonne or 1,000km for 1Mm, 
+where nobody has problems with MJ/GJ/PJ for gas energy or MW/GW/PW for 
+electrical power in their monthly bills!]
 
-I've applied some of these patches.  Please rebase the rest, fix some min=
-or comments that I made about them (in those that I did), and send v3 whe=
-n you can :)
+> However, since in the case of 32Mi-1, which is 33554431, which is 32 * 2^20 - 1, which is 2^25-1, the most readable version is 32Mi-1, I'm willing to make an exception an divert the SI in that regards.
+> 
+> If someone is familiar with ISO/IEC 80000-1 and could check if it allows that, it would be nice to know.
 
-Cheers,
+The following is available online (more recent is not publicly available between 
+3. Normative References and Bibliography - To view...click on the "Buy" button. 
+even for the original 80000-13:2008 Information science and technology):
 
-Alex
+	https://www.iso.org/obp/ui/#iso:std:iso:80000:-1:ed-1:v1:en
 
->=20
-> Brian Inglis (11):
->   man2/shmget.2: fix limit units suffix from SI to IEC
->   man2/spu_run.2: fix example comment status code or-ed value
->   man2/: use consistent interval notation for value ranges
->   man2/open.2: punctuate octal perms with digit separators
->   man2/reboot.2: show BCD dates in hex not decimal
->   man2/reboot.2: punctuate hex in docs with digit separators
->   man2/statfs.2: punctuate hex in docs with digit separators
->   man2/adjtimex.2: use ISO/IEC suffixes and digit separators in ranges =
-and example docs
->   man2/getrandom.2: change limit to use IEC suffix
->   man2/futex.2: change limit to use ISO suffix
->   man2/: punctuate long numeric strings with digit separators
->=20
->  man2/add_key.2         |   2 +-
->  man2/adjtimex.2        |  12 ++---
->  man2/clock_getres.2    |   2 +-
->  man2/clock_nanosleep.2 |   2 +-
->  man2/eventfd.2         |   6 +--
->  man2/execve.2          |   2 +-
->  man2/fcntl.2           |   4 +-
->  man2/futex.2           |   2 +-
->  man2/getitimer.2       |   4 +-
->  man2/getrandom.2       |   2 +-
->  man2/gettimeofday.2    |   2 +-
->  man2/ioctl.2           |   4 +-
->  man2/ioctl_console.2   |   2 +-
->  man2/ioctl_getfsmap.2  |   4 +-
->  man2/ioperm.2          |   2 +-
->  man2/kexec_load.2      |   2 +-
->  man2/link.2            |   4 +-
->  man2/msgget.2          |   2 +-
->  man2/nanosleep.2       |   4 +-
->  man2/open.2            |  32 ++++++------
->  man2/pciconfig_read.2  |   2 +-
->  man2/perf_event_open.2 |   2 +-
->  man2/personality.2     |   8 +--
->  man2/prctl.2           |   2 +-
->  man2/read.2            |   2 +-
->  man2/reboot.2          |  24 ++++-----
->  man2/semget.2          |   4 +-
->  man2/sendfile.2        |   2 +-
->  man2/shmget.2          |   2 +-
->  man2/sigaction.2       |   4 +-
->  man2/spu_run.2         |   8 +--
->  man2/statfs.2          | 110 ++++++++++++++++++++---------------------=
+"3.8
+quantity of dimension one
+dimensionless quantity
+quantity for which all the exponents of the factors corresponding to the base 
+quantities in its quantity dimension are zero
+Note 1 to entry: The term “dimensionless quantity” is commonly used and is kept 
+here for historical reasons. It stems from the fact that all exponents are zero 
+in the symbolic representation of the dimension for such quantities. The term 
+“quantity of dimension one” reflects the convention in which the symbolic 
+representation of the dimension for such quantities is the symbol 1, see Clause 
+5. This dimension is not a number, but the neutral element for multiplication of 
+dimensions.
+Note 2 to entry: The measurement units and values of quantities of dimension one 
+are numbers, but such quantities convey more information than a number.
+Note 3 to entry: Some quantities of dimension one are defined as the ratios of 
+two quantities of the same kind. The coherent derived unit is the number one, 
+symbol 1.
+EXAMPLE
 
->  man2/statx.2           |   2 +-
->  man2/syscall.2         |   2 +-
->  man2/timer_settime.2   |   4 +-
->  man2/timerfd_create.2  |   2 +-
->  man2/truncate.2        |   4 +-
->  man2/utimensat.2       |   6 +--
->  man2/write.2           |   2 +-
->  39 files changed, 144 insertions(+), 144 deletions(-)
->=20
+Plane angle, solid angle, refractive index, relative permeability, mass 
+fraction, friction factor, Mach number.
+Note 4 to entry: Numbers of entities are quantities of dimension one.
+EXAMPLE
 
---=20
-<http://www.alejandro-colomar.es/>
-GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
+Number of turns in a coil, number of molecules in a given sample, degeneracy of 
+the energy levels of a quantum system.
+Note 5 to entry: Adapted from ISO/IEC Guide 99:2007, definition 1.8, in which 
+Notes 1 and 3 are different and in which “dimensionless quantity” is given as an 
+admitted term."
 
---------------AAJVubRVz4v6wFCQOaPL7gEv--
+	https://www.iso.org/obp/ui/#iso:std:iso-iec:guide:99:ed-1:v2:en
 
---------------lrpHNJpHNMFNoyEExZJKzE8F
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+"1.8 (1.6)
+quantity of dimension one
+dimensionless quantity
+quantity for which all the exponents of the factors corresponding to the base 
+quantities in its quantity dimension are zero
+Note 1 to entry: The term “dimensionless quantity” is commonly used and is kept 
+here for historical reasons. It stems from the fact that all exponents are zero 
+in the symbolic representation of the dimension for such quantities. The term 
+“quantity of dimension one” reflects the convention in which the symbolic 
+representation of the dimension for such quantities is the symbol 1 (see ISO 
+31-0:1992, 2.2.6).
+Note 2 to entry: The measurement units and values of quantities of dimension one 
+are numbers, but such quantities convey more information than a number.
+Note 3 to entry: Some quantities of dimension one are defined as the ratios of 
+two quantities of the same kind.
+EXAMPLE  1:Plane angle, solid angle, refractive index, relative permeability, 
+mass fraction, friction factor, Mach number.
+Note 4 to entry: Numbers of entities are quantities of dimension one.
+EXAMPLE  2:Number of turns in a coil, number of molecules in a given sample, 
+degeneracy of the energy levels of a quantum system."
 
------BEGIN PGP SIGNATURE-----
+> But in this case, we have a unit, which is seconds, and we're already
+> multiplying it by nano, so G doesn't fit in the rule below.
+>>> SI actually allows Gns (/nGs?)
+>> Nope: "Compound prefix symbols, i.e. prefix symbols formed by the
+>> juxtaposition of two or more prefix symbols, are not permitted."
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmPpPH0ACgkQnowa+77/
-2zJMgw/8DyiHrWvYPSYObSwsLcNtSZ6SEOfB9aRZQTM/UiFBjX1CYNJtDMyjNOZ5
-gha3zz3wUwq3D6zLYv1BZvVyzTij4qyinolBVxpHIeDyKyM4VnAGA73e6KAi00uf
-0/vGrgyYdkdOlwiMoXijXbMu36sZOM+9ClQUoeuJDf8pUpeCgGm+H8PgA+43B8ss
-IsYUiUJBoHg2rNabG5GhyfVzWmQTzIudWkx2CJAEqsWrAj6LQh1/DwAfYecK7X0M
-Kb19LeLoHOhuR1T8TZbntkQzBhkPVR2dsrLAZLCl58sH0EXPW1wQ8kDDA4mAda/Z
-qlEopfK/DIsl1FDpLTcG0cJJQUwAtGf/IbiyTAN0Hp9ICw0BLYTdeUq30WmROrP9
-5qR2zrSoTfPWAAlz4of/gM9EZxJnCRp7AhCYHg+Kg1CVROhK3JcB4FMDH6Nco1M/
-pXZt/GQCKsrAgLjHp96ZLq3x6hS/4dfFew/PEjKF9UdhqwGpk+lewAlXZWcHVNYe
-HxuapHkhl7maHNYbanZ9qWAN+9Z2EKdLf+fQAu3km0UJh6cIvEJjW+VMGgyWzlaL
-DPCSPcbTRjjVkSJ4GmlMHoPQ07SbnutmOLF/8dMsoDiIFuX3h7b9N1dNKN2wlNqB
-c4mdmM2JrO+DRH1QyyEktJZ4kVCl/35wC2SB4a/q2yWc46f7Ww4=
-=fC5n
------END PGP SIGNATURE-----
+May have been more flexible when introduced or in another metric system [vulgar 
+fractions, GCD, LCM, and variable radix arithmetic were standard in my primary 
+school - L/s/d - t/cwt/st/lb/oz - mi/fl/ch/rod/yd/ft/in - as was CGS when we got 
+to decimal fractions ;^> ]
 
---------------lrpHNJpHNMFNoyEExZJKzE8F--
+> Thanks for finding the right quotation. That was my understanding, but couldn't find it.
+> This rule I'd rather follow.
+
+No problem - would add confusion for non-metric types.
+
+-- 
+Take care. Thanks, Brian Inglis			Calgary, Alberta, Canada
+
+La perfection est atteinte			Perfection is achieved
+non pas lorsqu'il n'y a plus rien à ajouter	not when there is no more to add
+mais lorsqu'il n'y a plus rien à retirer	but when there is no more to cut
+			-- Antoine de Saint-Exupéry
