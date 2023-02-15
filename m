@@ -2,166 +2,250 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 5C6AE698183
-	for <lists+linux-man@lfdr.de>; Wed, 15 Feb 2023 18:01:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 4B8796981A5
+	for <lists+linux-man@lfdr.de>; Wed, 15 Feb 2023 18:09:27 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229958AbjBORBN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 15 Feb 2023 12:01:13 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42496 "EHLO
+        id S229882AbjBORJ0 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 15 Feb 2023 12:09:26 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48574 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229946AbjBORBM (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 15 Feb 2023 12:01:12 -0500
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com [IPv6:2a00:1450:4864:20::429])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9264534303
-        for <linux-man@vger.kernel.org>; Wed, 15 Feb 2023 09:01:08 -0800 (PST)
-Received: by mail-wr1-x429.google.com with SMTP id by3so18538880wrb.10
-        for <linux-man@vger.kernel.org>; Wed, 15 Feb 2023 09:01:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=WgZmStt6NRlOUC+cuLi0AjYwgzx3BA99s4z5BLcoCXU=;
-        b=BhNyjRVtpcTs80g6TtpJO3iSM9BbP555a7Hy//AUX8VEFwblACJ/RLt6FZWXgSsx1y
-         i/y1hBB/an+VwXHDrS2IFhf2+WTl7fARzydINUDM7u7RC9BoeZVXZ9cyebxrk8SP46ns
-         b3IeYAS0VcC/DphKs4ZzLodCCIe5bXgqfsA/ziy3M1SAZJDKHsDKurWulYoUjn96eJYb
-         8rZ0OfslZZbH0lHqpPnXPUFHHBW4VApyVIB67lQsBoTErQ8YgPQo80MSFEnQQmoE0VgC
-         q/GB+IXkHZ8bRF6r6WZzktBbJuPCAW3uFR+4jVO8qK1ORWBIM4knmonflIM3Vv1KyeXR
-         kAaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=WgZmStt6NRlOUC+cuLi0AjYwgzx3BA99s4z5BLcoCXU=;
-        b=TewvC59fEu9wOIa6NDAOLgWfKIiF+zTnx2c3ORTzA+Hp0xl8HnTEdsUKH6Thz8u0HG
-         nCeCpwWFL1uwWnUOaQQpYJ+DPIMvhLj2iQ8Jmt2USORBv5fsQGjMu+TCh6M2SNFQiXrT
-         HcfZffq5N27qGfRSSsJbTa1Z0OIHTv1am5U0yUbR4J/+OMoqafRKM7+IBc2uQZ2la7TR
-         EmtL1ly8u7cyhgSy3eoXN8HeYaOfv4TpiVtM+U/tcvDEnSvs9tvCzVujdouhjbISAN7c
-         utq6e0z3iq4OjzUzuQv5W93qd+0C7bwwjIZb1E2t1tWD6gbT9RYy3D1ypxeCjVMsaiYj
-         c0kA==
-X-Gm-Message-State: AO0yUKWHKelJA6yqDGKKLGTnqTLKrtvrBuhYeeeMgNK1N65W5ZyncqYw
-        281l/G5z5fmJ5tmKRna+qw4=
-X-Google-Smtp-Source: AK7set/bbGjHMLc191TpAXewjbXMCrhsx0ll3wcufOVmEVN9qirpW2AAeIOsxAFS7Z4ZD2UfTchBGQ==
-X-Received: by 2002:a05:6000:1152:b0:2c5:52f5:c63b with SMTP id d18-20020a056000115200b002c552f5c63bmr2399075wrx.11.1676480467023;
-        Wed, 15 Feb 2023 09:01:07 -0800 (PST)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id h18-20020a5d4312000000b002c54d970fd8sm11834593wrq.36.2023.02.15.09.01.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 15 Feb 2023 09:01:06 -0800 (PST)
-Message-ID: <aaf147aa-fbf3-c649-f98f-6ea341fbb7dc@gmail.com>
-Date:   Wed, 15 Feb 2023 18:00:59 +0100
+        with ESMTP id S229660AbjBORJZ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 15 Feb 2023 12:09:25 -0500
+Received: from smtpout.efficios.com (unknown [IPv6:2607:5300:203:b2ee::31e5])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 23BEF7A9E;
+        Wed, 15 Feb 2023 09:09:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=efficios.com;
+        s=smtpout1; t=1676480963;
+        bh=eiSYp3CWa9f5+5UCPUS1CMqGZs9fj9OtcbZW+higofY=;
+        h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+        b=D+11Ayfy6w51aezry8N6+/JDX6p+k2xSEAToS+GTO49Ix2LfFLT0Yx/mgw3EJ5VPq
+         XOpCDh1dgxxSOwKe89Zk8nd8HFWN0kdDDIOWwzwnPk25gOsM2nRlJGCQLhjHtRRa4C
+         sKP3AGsF6D01ybPFaYPsNKwXZzOkxnYf/2bO48F5gnw09nRIkQX+bhMZdURsvGUI/P
+         D/y9VnkAOVCI8L9i4LI5f3lcqeH4npJ2uAcLQ+nn3Syx1pGr765CAvcEWjZUVaTfub
+         bJxZ2WEWJ4KklliH8Dln6SBeXa8xhRDQ5VhSTWZA2ZLfTJ/OhlxB9REdMDTc1TVFVh
+         tWSSA1ZUHjE8Q==
+Received: from [172.16.0.188] (192-222-180-24.qc.cable.ebox.net [192.222.180.24])
+        by smtpout.efficios.com (Postfix) with ESMTPSA id 4PH4LW2d36zlZV;
+        Wed, 15 Feb 2023 12:09:23 -0500 (EST)
+Message-ID: <849b233c-b094-849d-a8fe-9b53cde33c80@efficios.com>
+Date:   Wed, 15 Feb 2023 12:09:23 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Subject: Re: [PATCH] memcmp.3: wfix
+ Thunderbird/102.6.0
+Subject: Re: [PATCH 1/1] rseq.2: New man page for the rseq(2) API
 Content-Language: en-US
-To:     Tom Schwindl <schwindl@posteo.de>,
-        "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc:     Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org
-References: <20230215130750.30037-1-schwindl@posteo.de>
- <20230215151834.qorjvmvoqza2ddmr@illithid>
- <CQJ9NXF0GW79.O9TXGIQJ1PRK@morphine>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <CQJ9NXF0GW79.O9TXGIQJ1PRK@morphine>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------qO053XMZjpkcM0EeNWVnLU5T"
-X-Spam-Status: No, score=-2.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
-        autolearn_force=no version=3.4.6
+To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     linux-kernel@vger.kernel.org, linux-api@vger.kernel.org,
+        linux-man <linux-man@vger.kernel.org>
+References: <20230214195442.937586-1-mathieu.desnoyers@efficios.com>
+ <669eb324-aef6-0583-c8a4-f54a93ee4d6d@gmail.com>
+ <20230215012054.twzw4k5et6hxvi2j@illithid>
+From:   Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+In-Reply-To: <20230215012054.twzw4k5et6hxvi2j@illithid>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-1.6 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RDNS_NONE,
+        SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------qO053XMZjpkcM0EeNWVnLU5T
-Content-Type: multipart/mixed; boundary="------------lwr1kuHLq0Z7YZejelVHGCkA";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Tom Schwindl <schwindl@posteo.de>,
- "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org
-Message-ID: <aaf147aa-fbf3-c649-f98f-6ea341fbb7dc@gmail.com>
-Subject: Re: [PATCH] memcmp.3: wfix
-References: <20230215130750.30037-1-schwindl@posteo.de>
- <20230215151834.qorjvmvoqza2ddmr@illithid>
- <CQJ9NXF0GW79.O9TXGIQJ1PRK@morphine>
-In-Reply-To: <CQJ9NXF0GW79.O9TXGIQJ1PRK@morphine>
+On 2023-02-14 20:20, G. Branden Robinson wrote:
+> [CC list violently trimmed; for those who remain, this is mostly man
+> page style issues]
 
---------------lwr1kuHLq0Z7YZejelVHGCkA
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+[ Gently added linux-man to CC list. ;-) ]
 
-Hi Tom,
-
-On 2/15/23 17:11, Tom Schwindl wrote:
-> On Wed Feb 15, 2023 at 4:18 PM CET, G. Branden Robinson wrote:
->> At 2023-02-15T13:07:50+0000, Tom Schwindl wrote:
->>> -On Linux, it may be necessary to implement such a function oneself.
->>> +On Linux, it may be necessary to implement such a function yourself.=
-
+> 
+> At 2023-02-14T23:29:37+0100, Alejandro Colomar wrote:
+>> On 2/14/23 20:54, Mathieu Desnoyers wrote:
+>>> +per-thread data structure shared between kernel and user-space.
 >>
->> The existing language is sound.  What is the motivation for the change=
-?
+>> This last 'user-space' is not adjectivated, so it should go without
+>> a hyphen, according to common English rules.
+> 
+> +1
+
+done
+
+
+> 
+> Also I like your coinage.  "Adjectivated yeast" is reflexive and
+> tautological!
+> 
+>>> +.RB ( "struct rseq" )
 >>
->> Regards,
->> Branden
->=20
-> From a formal perspective it's probably fine. But as a reader, I think =
-it sounds
-> wrong. Or at least strange. That may be because I'm not a native speake=
-r, but
-> neither is the majority of the manpage readers.
-> I simply think that "yourself" sounds better in this context. That's al=
-so the
-> reason for this patch. I've read the manpage and hesitated for a short =
-moment
-> which, for me, indicates a poor choice of words. A `grep -i -r oneself`=
- also
-> only yields a single result, this manpage.
+>> We format types in italics, so this should be '.RI'.
+> 
+> +1
 
-To me, the existing text reads fine.  Maybe it's because in my language
-(Spanish), there's a similar expression for oneself, which may not exist
-in other languages?
+OK, so it's italics for both types and arguments.
 
-I'd keep it as it, unless I see more similar reports.  Anyway, thanks
-for the report!
+I will replace all the bold markers for "struct rseq" and "struct 
+rseq_cs" to italic in the description (but not in the synopsis section 
+and not in the code snippets).
 
-Cheers,
+> 
+>>> +Only one
+>>> +.BR rseq ()
+>>> +ABI can be registered per thread, so user-space libraries and
+>>> +applications must follow a user-space ABI defining how to share this
+>>> +resource.
+>>
+>> Please use semantic newlines.  See man-pages(7):
+>>
+>>     Use semantic newlines
+>>         In  the source of a manual page, new sentences should be started on new
+>>         lines, long sentences should be split into lines at clause breaks (com‐
+>>         mas, semicolons, colons, and so on), and long clauses should  be  split
+>>         at  phrase  boundaries.   This convention, sometimes known as "semantic
+>>         newlines", makes it easier to see the effect of  patches,  which  often
+>>         operate at the level of individual sentences, clauses, or phrases.
+> 
+> I think I've said this before, but, strictly, commas in particular can
+> separate things that are not clauses.  Clauses have subjects and
+> predicates.
+> 
+> Might it be better to say simply:
+> 
+>    Start each sentence on a new line.  Split long sentences where
+>    punctuated by commas, semicolons, and colons.
+> 
+> With this there is not even any need to discuss "phrase boundaries".
+> 
 
-Alex
->=20
+I've modified to:
 
---=20
-<http://www.alejandro-colomar.es/>
-GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
+Only one
+.BR rseq ()
+ABI can be registered per thread,
+so user-space libraries and applications must follow a user-space ABI
+defining how to share this resource.
 
---------------lwr1kuHLq0Z7YZejelVHGCkA--
+Hopefully that's correct.
 
---------------qO053XMZjpkcM0EeNWVnLU5T
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
 
------BEGIN PGP SIGNATURE-----
+>> In the above lines, that would mean breaking after the comma,
+>> and not leaving resource in a line of its own.
+> 
+> The latter is inevitably going to happen from time to time simply due to
+> sentence length and structure and the line length used by one's text
+> editor.  I don't think an "orphan word" (what typographers call this) is
+> symptomatic of anything in *roff source when filling is enabled.
+> 
+>>> +The ABI defining how to share this resource between applications and
+>>> +libraries is defined by the C library.
+>>> +Allocation of the per-thread
+>>> +.BR rseq ()
+>>> +ABI and its registration to the kernel is handled by glibc since version
+>>> +2.35.
+>>> +.PP
+>>> +The
+>>> +.BR rseq ()
+>>> +ABI per-thread data structure contains a
+>>> +.I rseq_cs
+>>> +field which points to the currently executing critical section.
+>>
+>> currently-executing should probably use a hyphen
+>> (if I understood the line correctly).
+> 
+> This is not the case, according to some style authorities.  Dave Kemper
+> convinced me of this on the groff list.
+> 
+> Here is one resource.
+> 
+> https://www.editorgroup.com/blog/to-hyphenate-or-not-to-hyphenate/
+> 
+>> See an interesting discussion in the groff@ mailing list:
+>> <https://lists.gnu.org/archive/html/groff/2022-10/msg00015.html>
+> 
+> That's not _squarely_ on point, as none of "block", "device", or "based"
+> is an adverb.  "Currently" is.
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmPtD8sACgkQnowa+77/
-2zISKxAAiMCjHpPWNAOdu2NSwscDKQoS+kssZof7jbAzhb2lDxN2qERpayS6ckcj
-LB3cbgUv+KfqGL2ARuCLpDBMHBp8O+Hht09uqsX9J/HoL1Slx5j/5CriJfrrC3De
-YrW/69GEDno6xfDvuj5jEgp/1YearmBCb2ZYXwxjWlWWiwPx2T7DOc1xqcGyVG6P
-8j6i1VFEO/8fiOIG85LruiiDUJjDJCXxAHxjQbHctEdlkrx7ZFrfBss7J4j0JKZl
-fj+duvVsJW5hO19EyYji6iQ/71wmb1qBMQMkQUUEkAzzL6CKHkM9+WsPLwyFF2sM
-oHFd6WIWLov9MSbHmKTX9DcxThzepkmJk8j5YuKnjvQL/Vy/0LI4xt0ST4ud28z0
-SjiJ+5idvhmLJN9FPMlYu8ltseVwfmaa9i1Ncjpu5UEWoRgqM56itb4EUqMFx1cz
-ZhJkC15TvpohvJmIUAys8s3z9vV/Yqh/nIgiOVgfMzt7aFqAnA2kn1NkBYB0+dsW
-Hdo4VKY/JFj8tbcv3GgvID8MJjqJIhBjpDzPgr7GJVZ1AZIIWBKBXGpLxgjPUcBb
-K7dKDqvjCR6HIdP1I41/cpWbKCwBhbSjmZK0EFgDv3FiXo/qELHiboWcQs/K76j4
-6sfHg+W4Q4C0ZM8CHh5U8b9gLniPjel9yapC5M2mBXqRh643HXc=
-=1STX
------END PGP SIGNATURE-----
+Leaving unchanged based on this discussion.
 
---------------qO053XMZjpkcM0EeNWVnLU5T--
+> 
+>>> +For each thread, a single rseq critical section can run at any given
+>>> +point.
+>>> +Each critical section need to be implemented in assembly.
+>>
+>> needs?
+> 
+> +1
+
+done.
+
+> 
+>>> +.TP
+>>> +.B Structure alignment
+>>
+>> Let's remove the bold here.  It's not necessary for marking a constant
+>> or something that needs bold.  And the indentation is already making
+>> it stand out, so bold is a bit too much aggressive to the reader.
+> 
+> I agree; if it wouldn't be styled in running text, it doesn't need
+> styling as a paragraph tag; it already stands out by dint of its
+> placement as a tag.
+> 
+>>> +Its value should always be confirmed by reading the cpu_id field before
+>>
+>> cpu_id should be formatted (.I).
+> 
+> +1
+
+done
+
+> 
+>>> +user-space performs any side-effect
+>>> +(e.g. storing to memory).
+>>> +.IP
+>>> +This field is always guaranteed to hold a valid CPU number in the range
+>>> +[ 0 ..  nr_possible_cpus - 1 ].
+>>
+>> Please use interval notation:
+>> 	[0, nr_possible_cpus)
+>> or
+>> 	[0, nr_possible_cpus - 1]
+>> whichever looks better to you.
+>>
+>> We did some consistency fix recently:
+>> <https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?id=147a60d792a5db8f3cb93ea16eefb73e16c1fb91>
+>>
+>> Also, do we have a more standard way of saying nr_possible_cpus?
+>> Should we say nproc?
+
+nproc(1) means:
+
+        Print  the number of processing units available to the current
+        process, which may be less than the number of online processors
+
+Which is the number of cpus currently available (AFAIU the result of the
+cpuset and sched affinity).
+
+What I really mean here is the maximum value for possible cpus which can 
+be hotplugged into the system. So it's not the maximum number of 
+possible CPUs per se, but rather the maximum enabled bit in the possible 
+CPUs mask.
+
+Note that we could express this differently as well: rather than saying 
+that it guarantees a value in the range [0, nr_possible_cpus - 1], we 
+could say that the values are guaranteed to be part of the possible cpus 
+mask, which would actually more accurate in case the possible cpus mask 
+has a hole (it tends to happen with things like lxc containers nowadays).
+
+Do you agree that we should favor expressing this in terms of belonging 
+to the possible cpumask set rather than a range starting from 0 ?
+
+Thanks,
+
+Mathieu
+
+-- 
+Mathieu Desnoyers
+EfficiOS Inc.
+https://www.efficios.com
+
