@@ -2,65 +2,50 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 5FC9469ADBF
-	for <lists+linux-man@lfdr.de>; Fri, 17 Feb 2023 15:17:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 1CD7C69BB4D
+	for <lists+linux-man@lfdr.de>; Sat, 18 Feb 2023 18:43:08 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229648AbjBQORd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 17 Feb 2023 09:17:33 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43866 "EHLO
+        id S229573AbjBRRnG (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 18 Feb 2023 12:43:06 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52824 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229478AbjBQORc (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 17 Feb 2023 09:17:32 -0500
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com [IPv6:2a00:1450:4864:20::530])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D20DACA34
-        for <linux-man@vger.kernel.org>; Fri, 17 Feb 2023 06:16:58 -0800 (PST)
-Received: by mail-ed1-x530.google.com with SMTP id dn12so12535026edb.5
-        for <linux-man@vger.kernel.org>; Fri, 17 Feb 2023 06:16:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=1s2jlDlOfzUdTBZ1V5/CAYbzmO5mavirfE7v4X9gt18=;
-        b=FF/YwY19qOJZFZUp8AEXn47UxJkQSEYARSC+3ECeXebGuydsDHsN8W+uzytcFevffS
-         F6RpKSXCd2jaJVJ8j5nnVejX7A+We/mb23uQbUj0I4Cba5JR5fUaR6+27TcvNCrcVTUy
-         XP6khOvVurJAn39vlaMwaUCFnqbN26VHVTODzkxstNZlKIXdcps7hTtvVM48HNSTETwv
-         4Q7USUYWzByNEO0v817WRUr7bMpxsJ0nSvFQCcWiyrYaeAfZszzht96Ag3M+qrm5ndwZ
-         hv81H/YYtC7wHY8jKjQoHsY4xrHK3fEDu4a86N0lDPzb62dL7oWHdJCTx9WPqN5oC1ik
-         ta6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=1s2jlDlOfzUdTBZ1V5/CAYbzmO5mavirfE7v4X9gt18=;
-        b=vR381U8BdU+4khyyMcYTKgABFaOtkhVfhcneB0TNztbxHKsulbvW/JKhi+EnNQnueQ
-         WmoGA2oPm6N4sN5shwleDeKSeQVFKiHkLvDo9iR5cP6DVCoifC0Hw5s5IRuDAjS0mM2B
-         7XXLRcWKRmj50FuWS8WG8LkbeOxftVWGmc3vZgBxP0a2ixqPI2W0KTeb0p9Qj9pZoiSf
-         x7JBrQ93TXXQ34RTeYdf+a2xDiV2dXpx5fEre6OhGwUOL3R+F+vw9YyAoZnuPIrZ95bP
-         6g1QnqAZ5SSW8aL5kGW9bKxY6YEWiwF59ut8HlC8+sCFiiQdfQhWVtg7pelgE4FtH9oh
-         VrFw==
-X-Gm-Message-State: AO0yUKVPa+8zn5qpl6LnsbPjdfarV2dJEe/wqmjrocNBhu/FTx27srhu
-        K2QydszVlXvfQ26FFc6q5l+a8Cp4JrKOt/CeN2kvfPzS
-X-Google-Smtp-Source: AK7set/l0gNgMWjW5gnwsr8fGrU4/EOKTwY6AdobKtJhVY1EhjHEj9baHIBPSbRWx4vWY99I80EigcsRmki75tX3UWQ=
-X-Received: by 2002:a50:9fce:0:b0:4ad:4c0:c4f9 with SMTP id
- c72-20020a509fce000000b004ad04c0c4f9mr866978edf.3.1676643416872; Fri, 17 Feb
- 2023 06:16:56 -0800 (PST)
-MIME-Version: 1.0
-References: <cover.1676489380.git.Brian.Inglis@Shaw.ca> <d47cf59d1b4d921aeeb9cbedc06323c4108303b3.1676489381.git.Brian.Inglis@Shaw.ca>
- <CACKs7VCNztr2c8zeN2WcMv2ryBVFwwRFscZ6DEQAAHwMiGA4Vw@mail.gmail.com> <94b4e2b2-1286-59e4-07b4-d5b8e25d4136@gmail.com>
-In-Reply-To: <94b4e2b2-1286-59e4-07b4-d5b8e25d4136@gmail.com>
-From:   Stefan Puiu <stefan.puiu@gmail.com>
-Date:   Fri, 17 Feb 2023 16:16:45 +0200
-Message-ID: <CACKs7VDNRDSOA4hZ7wPM55am==-RgC3RU8qb7NVjj3M0_pRcuA@mail.gmail.com>
-Subject: Re: [PATCH v3 3/6] man2/: add C digit separators to clarify POSIX
- feature release dates
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     Brian Inglis <Brian.Inglis@shaw.ca>,
-        Linux Man Pages <linux-man@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
+        with ESMTP id S229441AbjBRRnF (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 18 Feb 2023 12:43:05 -0500
+Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 707281040A
+        for <linux-man@vger.kernel.org>; Sat, 18 Feb 2023 09:43:04 -0800 (PST)
+Received: from submission (posteo.de [185.67.36.169]) 
+        by mout02.posteo.de (Postfix) with ESMTPS id ED4D924021C
+        for <linux-man@vger.kernel.org>; Sat, 18 Feb 2023 18:43:02 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=posteo.de; s=2017;
+        t=1676742183; bh=DDi6My+rtgouLMZvA9G6lOvOvIQXdzcgiGSV4lH9VUA=;
+        h=Date:Cc:Subject:From:To:From;
+        b=aZhD24tzNLAbHPG3mBx9qyCALEnkxUH6ZQYzgbKN7dCEZTSRr82yFzTYmnTxOIIbs
+         Zf2ec/B167rZy3G0lbfLypP8xzq46i7to0lU5gYupXnSyds3fO6PPpWxWswupKW6mt
+         LjQFHMyp27UWycTUgElacgkGNHcRdD9x6AVOV1l2VWh4FLQF2biRSKJG/7r7c5a5/A
+         dciFj16+3lXONQ72zMTn8xbZwZ6ZaHw4KMr2zG25D3aC3CkZOWFwOD+NvIIGePndsj
+         zX4eGHE4o3hTwfOqX3KWJ9kK9moxOJdqtwgerdHxDyRFt90lzYSuLnHp3yz0uL115D
+         xkDK13d6IGnlg==
+Received: from customer (localhost [127.0.0.1])
+        by submission (posteo.de) with ESMTPSA id 4PJwxy15ygz9rxF;
+        Sat, 18 Feb 2023 18:43:02 +0100 (CET)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date:   Sat, 18 Feb 2023 17:42:05 +0000
+Message-Id: <CQLVH6DLAYFQ.T4VQOGPPW8CP@morphine>
+Cc:     "Linux Man Pages" <linux-man@vger.kernel.org>
+Subject: Re: [PATCH v3 5/6] man2/chmod.2: add C digit separators to clarify
+ POSIX feature release dates and long numeric digit strings
+From:   "Tom Schwindl" <schwindl@posteo.de>
+To:     "Alejandro Colomar" <alx.manpages@gmail.com>,
+        "Brian Inglis" <Brian.Inglis@Shaw.ca>
+References: <cover.1676489380.git.Brian.Inglis@Shaw.ca>
+ <4c53ab820fbbeb3f3170f8d1d81a14713f256dd9.1676489381.git.Brian.Inglis@Shaw.ca> <804a2b6d-e1d7-3d23-7768-d0ee4933dd68@gmail.com>
+In-Reply-To: <804a2b6d-e1d7-3d23-7768-d0ee4933dd68@gmail.com>
+X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+        RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -70,62 +55,43 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Hi Alex,
 
-On Fri, Feb 17, 2023 at 1:04 AM Alejandro Colomar
-<alx.manpages@gmail.com> wrote:
+On Wed Feb 15, 2023 at 10:10 PM CET, Alejandro Colomar wrote:
+> Hi Brian,
 >
-> Hi Stefan,
+> On 2/15/23 21:17, Brian Inglis wrote:
+> > ---
+> >  man2/chmod.2 | 30 +++++++++++++++---------------
+> >  1 file changed, 15 insertions(+), 15 deletions(-)
+> >=20
+> > diff --git a/man2/chmod.2 b/man2/chmod.2
+> > index 8b5db74ed7e3..674b54368314 100644
+> > --- a/man2/chmod.2
+> > +++ b/man2/chmod.2
+> > @@ -37,7 +37,7 @@ Feature Test Macro Requirements for glibc (see
+> >  .nf
+> >  .BR fchmod ():
+> >      Since glibc 2.24:
+> > -        _POSIX_C_SOURCE >=3D 199309L
+> > +        _POSIX_C_SOURCE >=3D 1993\[aq]09L
 >
-> On 2/16/23 22:11, Stefan Puiu wrote:
-> > Hi Brian,
->
-> [...]
->
-> >> diff --git a/man2/access.2 b/man2/access.2
-> >> index d3deeecba0c7..4c93a132b209 100644
-> >> --- a/man2/access.2
-> >> +++ b/man2/access.2
-> >> @@ -56,7 +56,7 @@ Feature Test Macro Requirements for glibc (see
-> >>  .BR faccessat ():
-> >>  .nf
-> >>      Since glibc 2.10:
-> >> -        _POSIX_C_SOURCE >= 200809L
-> >> +        _POSIX_C_SOURCE >= 2008\[aq]09L
-> >
-> > Not sure how \[aq] renders,
->
-> \[aq] is equivalent to \(aq, which renders as ', the single quote character.
->
-> > but if people want to copy / paste some of
-> > these snippets (for use in their code, or for searching), wouldn't
-> > they need to then remove the separator?
->
-> It depends on your compiler version and language version.
-> ISO C23 will add support for this.  What we could do is prepare the patches,
-> and leave them in a branch until C23 is made official.
->
-> Right now, you can already get recent enough versions of GCC to
-> accept that code, if you use -std=c2x.
+> Please keep all POSIX dates in a single separate patch
+> (unless there's another reason that I'm not seeing).
 
-Good to know. If this were a few years old, it would probably be a
-no-brainer, but if this is valid code only for the latest and greatest
-gcc, then yes, maybe these changes can wait. There are many projects
-that take a while to adapt to newer compiler versions, and not
-everybody runs distros with new compilers.
+As long as I'm not completely lost, those values are often passed on the co=
+mmand
+line via `-D`. Wouldn't a random \[aq] interfere with shell quoting and res=
+ult in
+hard to find bugs and unexpected bahavior? So is it really a good idea to p=
+resent
+those values in such a way in the manpage? Or am I simply underestimating t=
+he
+intelligence of the readers? :-)
 
-Just my 2 cents,
-Stefan.
+--=20
+Best Regards,
+Tom Schwindl
 
->
-> > I think that can cause
-> > confusion, which you probably don't want documentation to do.>
-> > Again, just my 2 cents,
-> > Stefan.
-> >
 >
 > Cheers,
 >
 > Alex
->
-> --
-> <http://www.alejandro-colomar.es/>
-> GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
