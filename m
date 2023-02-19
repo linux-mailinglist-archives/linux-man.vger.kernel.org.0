@@ -2,76 +2,76 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id B936B69C01B
-	for <lists+linux-man@lfdr.de>; Sun, 19 Feb 2023 12:50:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 51DE569C29D
+	for <lists+linux-man@lfdr.de>; Sun, 19 Feb 2023 22:10:57 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229684AbjBSLu3 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 19 Feb 2023 06:50:29 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33134 "EHLO
+        id S231638AbjBSVKz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 19 Feb 2023 16:10:55 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55738 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229676AbjBSLu2 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Feb 2023 06:50:28 -0500
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com [IPv6:2a00:1450:4864:20::431])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 55267EB4B
-        for <linux-man@vger.kernel.org>; Sun, 19 Feb 2023 03:50:27 -0800 (PST)
-Received: by mail-wr1-x431.google.com with SMTP id m7so321933wrr.13
-        for <linux-man@vger.kernel.org>; Sun, 19 Feb 2023 03:50:27 -0800 (PST)
+        with ESMTP id S231637AbjBSVKz (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 19 Feb 2023 16:10:55 -0500
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com [IPv6:2a00:1450:4864:20::329])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0181319684
+        for <linux-man@vger.kernel.org>; Sun, 19 Feb 2023 13:10:53 -0800 (PST)
+Received: by mail-wm1-x329.google.com with SMTP id p8so966737wmq.4
+        for <linux-man@vger.kernel.org>; Sun, 19 Feb 2023 13:10:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=apTqKn2g+RFER62SZ5IKSbie1yfIWwNGgheG2RTn6dQ=;
-        b=lP5FGtJjnMlR9XgZnEqOtCCjws9GnfaSdwv0B6KfJd3K0xhAP17by0bbxMMKLfBNvD
-         e4/0xsEIH92KYj0PwBHWxPELRpQaPOmqkOkGBpf7t4qOIszSX/bdpFPVNHzi1D1OVCX+
-         mDooesw0+ml7N550DI28OttzXoPIhsnJYp56dUpLih+Pg1iTs3jk/DxSg1Wmy4vy/x9L
-         e0veKskq5uhNMlRK4bbdmW++ZOJlYCXCdQbTSQCxBsHgb4/Yig9rK84AAJHRTOzhXTHA
-         O0zAFwzVkmXa4mu5lwQaimUZAR8+wCENekEd6wfGpwx6f3OyNkxwrgLSHRykdy3yQu/c
-         3qUw==
+        bh=reyzYJrY7Eui+S+2Li9nvIJOC2uy/YmbKSzwHHTvyHM=;
+        b=E9Kvqg6y5qBipfG16hPaTQm0xohaLoyCdw2rowMgmZf3WctUJIDwXplFi1n4yQqm+1
+         aoLnJYOYUyo2q56SnGGLJ/csQ0PijXCcpSC2leI2n7KAx8sL+1ORzsX4sABMofMcRd/l
+         NHd+yrWY/e0aMY512GrzXNxcvlJd8jLTVKMmbXCJY8rgX386PO4+cp0iS8SNbZt0uuEe
+         DCedfWvJ4kVU22/RGHjMyLUjj/HHvew/+DJTVBJ5TiCKP7NH7hdxdVG6z5C83lA2tn30
+         7wTRD3iH158m9HitZ80WXkEsZ1bAb0icQr8gZjfs1zSjacLTGDURZt7Bw3fDXhnUJR3A
+         RpBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=apTqKn2g+RFER62SZ5IKSbie1yfIWwNGgheG2RTn6dQ=;
-        b=skuQsmFSyelHsySzZIiiaYqpJAZ6TYWxicML/MJUJuWoJPstpf82E9JrKwpszf7mnm
-         hhdlqOGDvHDSEoGj7RteppAF6QuuEnG9xyNI2XIWndAx6jNFQltvhWEi7M6Sywnl+2HC
-         KEKZH4P8u/oxpP9MtVfrC0oREuBIx7nFw8BpPYu972WQMBCZGEF1jL+ekrLbFTa08Cmy
-         01w4LteoAPesrvoj0EAqU3nVkoOQeiu3YjMIpr8YM56Yy/VfZTm/Ph8Rx5j8gFakcIip
-         xDRz9GbLEgf+XphUFs4WcscVlQ/z0PhBJEWSDJZzJSDIAkjiQXPyawyyGd+E1ReyAEVo
-         uhqA==
-X-Gm-Message-State: AO0yUKV8Y6jl5ksJFt8c40Otco48cfiyFa8tRW+ixaAQ+xghoZ6qeqBB
-        AllfJPIMztkh8U4AjFbWBIg=
-X-Google-Smtp-Source: AK7set/h82p3UFD8RfZ1LOeqvipSk8SxrqGvQ76gQZQFuA++NaRSdkd0AaKMazlLH0su4KqNuEgX8Q==
-X-Received: by 2002:a05:6000:1009:b0:2c3:ddbe:d7b2 with SMTP id a9-20020a056000100900b002c3ddbed7b2mr64204wrx.62.1676807425672;
-        Sun, 19 Feb 2023 03:50:25 -0800 (PST)
+        bh=reyzYJrY7Eui+S+2Li9nvIJOC2uy/YmbKSzwHHTvyHM=;
+        b=GR25s2kmH2K2PzWPjy99rQMYMG8p3qYoOcPh1P8lqgmJYrW5Uk1dtvhO3+MyeqDR1a
+         n4i1B92j1tRNjo6dWsyoE8z7qUjdMHAT+h40JFGpbnwMowV3HQE9ZnvEOvAiM19S+ROT
+         Ikq34nbqiVF/0JIoqUO0xuIaa7S7GuJ04xDsamckNfoIIyinIUm4W9pujIEr7MuEjepa
+         NTRYPNMKN/Xjw4PA3ShKYnqh6w6ZGJ4fuqK5WN3IevkWt9rx3a9nsFUOwr8GI08grCMi
+         mK/5abW7yBRArJEk7TmhHSCg0hvQ03eBmxZ2nRo1N+CZyIZO+fqUVoLi4ZYXgaQcvl32
+         ItcQ==
+X-Gm-Message-State: AO0yUKWyHQVt/T/15O/J8/0aBWCaxiMHrMIraSrIlUoPtXbVE0pzTd8B
+        EvwNAFe3yq02R/3cAEdHiTY=
+X-Google-Smtp-Source: AK7set9lqygMDXfWVjvac78+shrmQEzmv01jH2r3SZX/xunREXg48LjWQ0h7x0lWRobpTRiyN35IcQ==
+X-Received: by 2002:a05:600c:30ca:b0:3dc:5009:bc74 with SMTP id h10-20020a05600c30ca00b003dc5009bc74mr5733139wmn.7.1676841052319;
+        Sun, 19 Feb 2023 13:10:52 -0800 (PST)
 Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id w8-20020adfec48000000b002c59f18674asm7843233wrn.22.2023.02.19.03.50.24
+        by smtp.gmail.com with ESMTPSA id l33-20020a05600c1d2100b003db012d49b7sm9683072wms.2.2023.02.19.13.10.51
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 19 Feb 2023 03:50:25 -0800 (PST)
-Message-ID: <219d96c9-cf8f-0c53-c30c-b14244932beb@gmail.com>
-Date:   Sun, 19 Feb 2023 12:50:15 +0100
+        Sun, 19 Feb 2023 13:10:51 -0800 (PST)
+Message-ID: <ed3e2487-2b28-e205-b1aa-c65cb54843ce@gmail.com>
+Date:   Sun, 19 Feb 2023 22:10:36 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.7.1
-Subject: ADA and base prefix for numbers
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc:     Linux Man Pages <linux-man@vger.kernel.org>
+Subject: Re: [PATCH v3 1/6] man2/: use IEC or ISO multiples to clarify long
+ numeric digit strings
+To:     Stefan Puiu <stefan.puiu@gmail.com>
+Cc:     Brian Inglis <Brian.Inglis@shaw.ca>,
+        Linux Man Pages <linux-man@vger.kernel.org>
 References: <cover.1676489380.git.Brian.Inglis@Shaw.ca>
- <4c53ab820fbbeb3f3170f8d1d81a14713f256dd9.1676489381.git.Brian.Inglis@Shaw.ca>
- <804a2b6d-e1d7-3d23-7768-d0ee4933dd68@gmail.com>
- <CQLVH6DLAYFQ.T4VQOGPPW8CP@morphine>
- <20230218180803.be44sughf62klrjw@illithid>
- <CQLWIYCOY3P2.3EHP3RAE6LJTD@morphine>
- <20230218190354.supiu6teaby5el4l@illithid>
+ <4a3350ac873f45df96abf9045cfe1605839f490d.1676489381.git.Brian.Inglis@Shaw.ca>
+ <CACKs7VB672Ka6GJQmVozS6n1kR+g8LoDuLtw1XuwSjKsttFBTg@mail.gmail.com>
+ <cb47e19b-ba02-da3f-b253-ee8ddec28aa8@gmail.com>
+ <CACKs7VDaAX=qZh9fhn9wa5L5c4xegF0q+ZDBbzE9KTY9pPN+mQ@mail.gmail.com>
 Content-Language: en-US
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20230218190354.supiu6teaby5el4l@illithid>
+In-Reply-To: <CACKs7VDaAX=qZh9fhn9wa5L5c4xegF0q+ZDBbzE9KTY9pPN+mQ@mail.gmail.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------2fwPR1MT5us0Og5CcDLYcAvl"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+ boundary="------------3ePMJ8TQCN3UbXtSLsgUsdwY"
+X-Spam-Status: No, score=-2.2 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -81,98 +81,56 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------2fwPR1MT5us0Og5CcDLYcAvl
-Content-Type: multipart/mixed; boundary="------------Ai66XO3INIo8109PNY0LBFYo";
+--------------3ePMJ8TQCN3UbXtSLsgUsdwY
+Content-Type: multipart/mixed; boundary="------------m02ewnVxu2YxjdoOpKdp3WaP";
  protected-headers="v1"
 From: Alejandro Colomar <alx.manpages@gmail.com>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: Linux Man Pages <linux-man@vger.kernel.org>
-Message-ID: <219d96c9-cf8f-0c53-c30c-b14244932beb@gmail.com>
-Subject: ADA and base prefix for numbers
+To: Stefan Puiu <stefan.puiu@gmail.com>
+Cc: Brian Inglis <Brian.Inglis@shaw.ca>,
+ Linux Man Pages <linux-man@vger.kernel.org>
+Message-ID: <ed3e2487-2b28-e205-b1aa-c65cb54843ce@gmail.com>
+Subject: Re: [PATCH v3 1/6] man2/: use IEC or ISO multiples to clarify long
+ numeric digit strings
 References: <cover.1676489380.git.Brian.Inglis@Shaw.ca>
- <4c53ab820fbbeb3f3170f8d1d81a14713f256dd9.1676489381.git.Brian.Inglis@Shaw.ca>
- <804a2b6d-e1d7-3d23-7768-d0ee4933dd68@gmail.com>
- <CQLVH6DLAYFQ.T4VQOGPPW8CP@morphine>
- <20230218180803.be44sughf62klrjw@illithid>
- <CQLWIYCOY3P2.3EHP3RAE6LJTD@morphine>
- <20230218190354.supiu6teaby5el4l@illithid>
-In-Reply-To: <20230218190354.supiu6teaby5el4l@illithid>
+ <4a3350ac873f45df96abf9045cfe1605839f490d.1676489381.git.Brian.Inglis@Shaw.ca>
+ <CACKs7VB672Ka6GJQmVozS6n1kR+g8LoDuLtw1XuwSjKsttFBTg@mail.gmail.com>
+ <cb47e19b-ba02-da3f-b253-ee8ddec28aa8@gmail.com>
+ <CACKs7VDaAX=qZh9fhn9wa5L5c4xegF0q+ZDBbzE9KTY9pPN+mQ@mail.gmail.com>
+In-Reply-To: <CACKs7VDaAX=qZh9fhn9wa5L5c4xegF0q+ZDBbzE9KTY9pPN+mQ@mail.gmail.com>
 
---------------Ai66XO3INIo8109PNY0LBFYo
+--------------m02ewnVxu2YxjdoOpKdp3WaP
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-[CC trimmed]
+Hi Stefan,
 
-Hi Branden,
-
-On 2/18/23 20:03, G. Branden Robinson wrote:
-> Mainly because Alex is reading, I will point out that Ada did this, and=
-
-> several other aspects of numeric literals, right--40 years ago.
->=20
->>> Numeric literals are all introduced by an initial digit. A
->>> requirement that has long been recognized when printing numeric
->>> tables is for a character to break up long sequences of digits: in
->>> Ada, the underline character serves this purpose. In contrast to
->>> identifiers, underlines in numeric literals do not alter the meaning,=
-
->>> so that 12_000 naturally has the same value as 12000.
->>>
->>> A simple sequence of digits is an integer literal written in decimal
->>> notation. For other bases from 2 up to 16, the base is given first
->>> and is followed by a sequence of digits enclosed by sharp characters
->>> (#) or by colons (:), the colon being used as replacement character
->>> for the sharp, but only when the sharp is not available. The enclosed=
-
->>> digits may include the letters A to F for bases greater than ten.
->>> Thus, the conventional ways of expressing bit patterns in binary,
->>> octal, or hexadecimal are provided.
->>>
->>> Real literals must contain a period, which represents the radix
->>> point. They may be expressed in decimal notation or with other bases.=
-
->>> Finally, both integer and real literals may include the letter E
->>> followed by an exponent.
-
-I like Ada's base selection :-)
-Even if one will rarely use anything other than 2, 8, 10, and 16,
-it's interesting to be able to.  C's is not completely broken, and
-I'd like it to follow Python and add 0o for octal (and deprecate 0
-as a prefix), which would fix the most aberrant thing I hate from
-C's numeric literals.
- =20
->=20
-> http://archive.adaic.com/standards/83rat/html/ratl-02-01.html#2.1
-
-[I still didn't finish reading it, but am doing :)]
-
->=20
-> But C programmers have long indulged in the sport of ignoring every
-> lesson any other programming language had to teach, whether through
-> careful design or blundering mistake.[1]  C'est la vie.
-
+On 2/17/23 15:05, Stefan Puiu wrote:
 [...]
 
+>>>> diff --git a/man2/add_key.2 b/man2/add_key.2
+>>>> index 56fc6d198d21..215de20baeae 100644
+>>>> --- a/man2/add_key.2
+>>>> +++ b/man2/add_key.2
+>>>> @@ -167,7 +167,7 @@ The size of the string (including the terminatin=
+g null byte) specified in
+>>>>  .I type
+>>>>  or
+>>>>  .I description
+>>>> -exceeded the limit (32 bytes and 4096 bytes respectively).
+>>>> +exceeded the limit (32 bytes and 4Ki bytes respectively).
+>>>
+>>> For what it's worth, I find 4096 much clearer over 4Ki (what is Ki
+>>> anyway?). Ditto for 32768 / 32Ki etc. What are we trying to achieve?
+>>
+>> In this case, we should rather use 4\ KiB, which is standard.
 >=20
-> Regards,
-> Branden
->=20
-> [1] Thompson discarded type checking and "//" comments from BCPL; the
->     latter came back relatively painlessly (though only in C99, which
->     Ritchie refused to endorse).  The former has been resurrected in
->     fitful stages, and only where the suffering imposed by careless
->     typing can be discerned as imposing engineering costs in defect
->     resolution greater than in initial implementation by a factor of
->     1,000 or more.
->=20
->     https://www.bell-labs.com/usr/dmr/www/chist.html
+> Maybe it is standard, but why is 4 KiB better / more suitable than 4096=
+?
 
-I have some consistency fixes pending for the Linux man-pages:
-
--  Use // where the comment is a single line _and_ affects only
-   the code in the same line (not below, not above).
--  Use /**/ elsewhere.
+4 KiB is not that much better than 4096, since 4096 is easy to read.
+For higher numbers such as 33554432, it becomes more important to use 32 =
+KiB.
+For consistency, using 4 KiB seems reasonable.
 
 Cheers,
 
@@ -182,28 +140,28 @@ Alex
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
---------------Ai66XO3INIo8109PNY0LBFYo--
+--------------m02ewnVxu2YxjdoOpKdp3WaP--
 
---------------2fwPR1MT5us0Og5CcDLYcAvl
+--------------3ePMJ8TQCN3UbXtSLsgUsdwY
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmPyDPcACgkQnowa+77/
-2zJ5fg//QqxEJxtodnv1siX42aRshJ1TIRWOkk0kN1rrublK9eFDCR6RDLcMNQQl
-sw/sM1BPYDGMF3gWWgAm0gsFixNNv6+m87TkiP/rKGxu0h81E1Nj4iQiea/bzUSO
-k7rqOyj9J2uvdcA9KsJSTcZpEwB7gCEmlue2L5R/KWkJkAvGQWh+QIVWvhyekRlk
-bE7KARPVl44rhCGO3kmen6vhL46lFaK9Obt5JeHRCFdTRCW/jB0K/j+/9bPUnw+4
-37WUprMCYUVuA2toKHzZMlQGCLRSHsg1/zrJTza4cTWZSOGQ1CXvNPaoOyHEClav
-azFYm57MvEsZD71fQPj+xeGY/t+qaqUe6h2dbwnOI3EN6SVRuDNgURKllTrGVMWB
-W3vDbEIdx55OKgX5oAjCQUpNi59yDBSqFlfpP1SRK56wXwUgkgyM4BRLl16qRJ5f
-cMeUqWGSmAVe0fdM8eF7ZBGYXmvnQb7gqUaCwV6djDvUua1FbHx+bdbqp+4PePUw
-ugV4Y92ktN9JFtMYYQEj9luqYUuPpiCfyhpXn1wT+iADkMxBLawxmDLNk7x8lPUx
-mRYPZy6O+mMKm3eeNs49FRO4x5CZunyqm9XfZPMAoQGfY2Hx2lfsJ9yETnwfbEtK
-K/zk2VYiBf+g2h4FzUlpW+9yaA+80HsuGLupDiMqIFInGhgyIzg=
-=Qjls
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmPykEwACgkQnowa+77/
+2zKUORAAl3Q94PUktle4YeYhSHBvXbtvudDqXMEgMBgT0533biF8CoJ2wYYidbw/
+6IUNaFz2hnGE1jJL7v3Jp2E4o87xXP9EaPa1sOnVtbyzTivAFi6WrnFrpjT20RLR
+m4BrsdmEFIq3IBHII1HlDKD0s7zONzruZ36zyy4xYL9suIIt5U8nFvSQFJmIq5ez
+i6Fr1oK8Qt44n8gG/2eZe0R54PMnWNq8Iwp7N4JfHT91m2vX2rY0ny5X6/9/8gxR
+nUIYyjTQUk59RydE1+AiKi5khO0TWGRpsMQ1OsrvYtgHkwTDjNIyoXHk3RXixZDd
+maa+IRN3Y+sTArAJPkxA6hS6aOhA09v/9/uNMef0+uchN4S/WUZ2tJjqQAi6dqHF
+K2/fv++GrvsTlsYICb/rxvsTWEyi99sugbWDAfV8M2qD5pPRYGSFBLY/ekRVc2hA
+PlxKBt/Oi5d65Cpi+iSXG75V4naLbW3hPL+21fqPZ//k/nbDf1MYWoi0sOniLdkz
+iJzrqyxeIkoweiPmLFlZ1tQvOqDOHyMBxjBinw5F9vF72JyilF0X7b9RY0IyQiJK
+/4LjJertXtGniXXKL1T9jUFDU+10KyfkwA5gCtEaqJ8V0PbSpTj8wRbJjHwQN05y
+t9Mm8QzaGXGc6bIhHG8tN/exvqKdxKWS62tHG5FGnqkmqufN+UE=
+=7Wmv
 -----END PGP SIGNATURE-----
 
---------------2fwPR1MT5us0Og5CcDLYcAvl--
+--------------3ePMJ8TQCN3UbXtSLsgUsdwY--
