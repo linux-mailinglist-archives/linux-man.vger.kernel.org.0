@@ -2,62 +2,62 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 0A31769E91F
-	for <lists+linux-man@lfdr.de>; Tue, 21 Feb 2023 21:50:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 7610169E920
+	for <lists+linux-man@lfdr.de>; Tue, 21 Feb 2023 21:50:48 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229796AbjBUUun (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 21 Feb 2023 15:50:43 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56688 "EHLO
+        id S229776AbjBUUur (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 21 Feb 2023 15:50:47 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56746 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229606AbjBUUun (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 21 Feb 2023 15:50:43 -0500
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com [IPv6:2a00:1450:4864:20::430])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DA11E2916A
-        for <linux-man@vger.kernel.org>; Tue, 21 Feb 2023 12:50:41 -0800 (PST)
-Received: by mail-wr1-x430.google.com with SMTP id 6so5386600wrb.11
-        for <linux-man@vger.kernel.org>; Tue, 21 Feb 2023 12:50:41 -0800 (PST)
+        with ESMTP id S229606AbjBUUuq (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 21 Feb 2023 15:50:46 -0500
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com [IPv6:2a00:1450:4864:20::432])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 95CBA2E825
+        for <linux-man@vger.kernel.org>; Tue, 21 Feb 2023 12:50:45 -0800 (PST)
+Received: by mail-wr1-x432.google.com with SMTP id bo30so5232762wrb.0
+        for <linux-man@vger.kernel.org>; Tue, 21 Feb 2023 12:50:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=0XaOUhvC7Rf3mJel1lz4+jdyUN0nHPRTamkIJsQuvF0=;
-        b=CtFKioIkUrUe5ijxr4r1/pclzzJtS9qsr3lhAAKVVIgXPlcSrPvXgdzlL39MgToS6d
-         HW3okiusRwLRFXV8mvhOhu14/bWjOOFllOTM83umiJrvkFknOMQ1Ssr7Mv+sY8lQ2vWE
-         WtkitBQ7sGFtjNZP6S9l7apluevANm6uQHHBiujGcULg0HMoMDeM3GWcvQNTTjIiKLZk
-         dxMLw792uwfu4UF6rY2Rym91/OIOuJUfnXvGSMAjU9M8z4S1CGUw0tcQkxCAxYIbLHUi
-         HywVHDe835ntC3hfABJlbd3oA4YpxTTNwm7mCnhgybUodW5jgtcqu2LnZgAaeJ8a6D5j
-         ICIQ==
+        bh=KfDtQ7EL2V8rWCVVowy9OeZ4Y17CRc7Kk4zsidNIHQs=;
+        b=n+72gZqfsCMyQCaMvj2PDRueApvLyxFCpjLBEc8p1tzu6NlW3/XQ9K7P+CRkS6jFuw
+         1kCVC5ncWUT/coMuSVKo2xxC/T5Irtzm1c1EvPj1mv1r6uC1Zi2PbJfdNvQJ8dVrSC+6
+         lvlHkFZ8q+xLKQPqyC1/kLu4qwEeV0iH/V5TyKdAFcFYm4Mh8L+VmMhaDjMOt+wYbkWT
+         FHwG9GZmz/iviLtdUwJfu+I8t9HLUMt5yTwr+sJcKjjWYXgmEWl29zYglzeb96TvWdSV
+         Mn60eiZuadVcDmJB+o+bDF5/S9p0lBBUjfGlNJDXpIWtphJhuUaqKrh8jQQa0UbSpUTE
+         zlxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=0XaOUhvC7Rf3mJel1lz4+jdyUN0nHPRTamkIJsQuvF0=;
-        b=aTwOjaJXEI7PnMXOf+HDpxiipXi94adJwoNlziMrL+Put/t5n6ugV4PM0y2ta7n2lf
-         yUPahD//4se6ZZFjMMbULSRZ94xyvqyvnrngXz+XdihEFRHLiw9zlcscCTxqxxuOfX/4
-         NiVEW0dRUX9uDryQWNd49vCbt3oMfFsYqt8iVtDciPUyMC/+LyrBJKa94u1eeOPC73tz
-         KyZh6L4l8ojwOVyzhBV8HjXKUqu+qfGBjIe5FhH8DU/mkQ7zBofgdCj6fWPKrk5YqH2a
-         jHUFsBfAJlMmktr2Dm0xrwgQeaZMd6/Sv4ar2b4xbyy8nPUiPKTdzXTCCQtjk2WlgFZa
-         Rwfg==
-X-Gm-Message-State: AO0yUKUQMsKFzLYzm1fzBPdVqXpxtLrZDpwYPrhqtvuwRGpObSn8KmVK
-        1837ofcQpYuuYcFetBDFmIA=
-X-Google-Smtp-Source: AK7set8dX3nK7j3nU4oufYn0oSm7k1ROTdmXADm8WcVS1CUqyU0HlZb9X50gRUy5RJzsjd8PWIlzZg==
-X-Received: by 2002:a5d:4c8e:0:b0:2c5:5574:5d5f with SMTP id z14-20020a5d4c8e000000b002c555745d5fmr6889587wrs.57.1677012640090;
-        Tue, 21 Feb 2023 12:50:40 -0800 (PST)
+        bh=KfDtQ7EL2V8rWCVVowy9OeZ4Y17CRc7Kk4zsidNIHQs=;
+        b=GflUIobscoIkomlAQZM1fP4kmYXL0tLhVvs3Ht9NdyQb/qqLjg5S1gANg4xWvXq2cq
+         ePWT7aUFGN7XmsXQgP5n+jkBm3xCjz7sq6WVr+tNZSIixfhOe4v3oxJR2C/f1PlzVwKs
+         aTIIXuh6UB1uEXnXGBbSUHnxiS5QJXEeq2j7FReNXMe/biuligs5JGRB4u7xTIobkbjo
+         jROQll1MzNAIT83cK7EQAsdE3NYzgjnpag73Em3cLFpQ4eitWXpsiTlxTmiHxqLx1ZWH
+         YYAwVCEqVrvt17QxMl96bysLF1o9H4ySShunKtvFHeF4MKEZ06Da0KCjKT5bj4pvH6Z0
+         V85g==
+X-Gm-Message-State: AO0yUKXYRVHGRUoWbx0iLb1tqY2ylboJnLbKOw+7r+PQ3IsDFbDtxCY3
+        dQSP8gJwJ6KOc71gmb1ksuQ+kHyBmcs=
+X-Google-Smtp-Source: AK7set/uQ9iXxTRLn3x2oV1hMeLgFymQ4ugE0GJNLubBcEcgtfOftsPNltQs5J4nNXYIwZmoh8Th1A==
+X-Received: by 2002:a5d:6052:0:b0:2bd:f5bd:5482 with SMTP id j18-20020a5d6052000000b002bdf5bd5482mr6229342wrt.28.1677012644194;
+        Tue, 21 Feb 2023 12:50:44 -0800 (PST)
 Received: from localhost ([2a02:168:633b:1:7c09:9c3b:256e:8ba1])
-        by smtp.gmail.com with ESMTPSA id j16-20020a056000125000b002c5706f7c6dsm2374385wrx.94.2023.02.21.12.50.39
+        by smtp.gmail.com with ESMTPSA id a2-20020adfed02000000b002c70851fdd8sm872033wro.75.2023.02.21.12.50.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Feb 2023 12:50:39 -0800 (PST)
+        Tue, 21 Feb 2023 12:50:43 -0800 (PST)
 From:   =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
 To:     Alejandro Colomar <alx.manpages@gmail.com>,
         =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
 Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
         linux-man@vger.kernel.org,
         =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
-Subject: [PATCH 2/3] landlock.7: Document Landlock ABI v2 (file reparenting; kernel 5.19)
-Date:   Tue, 21 Feb 2023 21:50:22 +0100
-Message-Id: <20230221205023.2739-2-gnoack3000@gmail.com>
+Subject: [PATCH 3/3] landlock.7: Document Landlock ABI v3 (file truncation; kernel 6.2)
+Date:   Tue, 21 Feb 2023 21:50:23 +0100
+Message-Id: <20230221205023.2739-3-gnoack3000@gmail.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230221205023.2739-1-gnoack3000@gmail.com>
 References: <20230221205023.2739-1-gnoack3000@gmail.com>
@@ -73,134 +73,130 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-* Add the description for LANDLOCK_ACCESS_FS_REFER,
-  in line with recent update to the uapi headers:
-  https://lore.kernel.org/linux-security-module/20230202204623.10345-1-gnoack3000@gmail.com/T/
-* VERSIONS: Add a table of Landlock versions and their changes.
-  Briefly talk about how to probe ABI levels and warn users about the
-  special semantics of the LANDLOCK_ACCESS_FS_REFER right.
-* Add LANDLOCK_ACCESS_FS_REFER to the code example.
-
-Code review threads for the "refer" feature:
-* https://lore.kernel.org/all/20220506161102.525323-1-mic@digikod.net/ (initial commit)
-* https://lore.kernel.org/all/20220823144123.633721-1-mic@digikod.net/ (bugfix)
-* https://lore.kernel.org/all/20230221165205.4231-1-gnoack3000@gmail.com/ (documentation update)
+https://lore.kernel.org/all/20221018182216.301684-1-gnoack3000@gmail.com/
 ---
- man7/landlock.7 | 90 +++++++++++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 88 insertions(+), 2 deletions(-)
+ man7/landlock.7 | 80 +++++++++++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 77 insertions(+), 3 deletions(-)
 
 diff --git a/man7/landlock.7 b/man7/landlock.7
-index 099f68067..6321b56ab 100644
+index 6321b56ab..b5b356642 100644
 --- a/man7/landlock.7
 +++ b/man7/landlock.7
-@@ -105,6 +105,53 @@ Create (or rename or link) a block device.
+@@ -63,10 +63,38 @@ A file can only receive these access rights:
+ Execute a file.
  .TP
- .B LANDLOCK_ACCESS_FS_MAKE_SYM
- Create (or rename or link) a symbolic link.
+ .B LANDLOCK_ACCESS_FS_WRITE_FILE
+-Open a file with write access.
++Open a file with write access. Note that you might additionally need the
++.B LANDLOCK_ACCESS_FS_TRUNCATE
++right in order to overwrite files with
++.BR open (2)
++using
++.B O_TRUNC
++or
++.BR creat (2).
+ .TP
+ .B LANDLOCK_ACCESS_FS_READ_FILE
+ Open a file with read access.
 +.TP
-+.B LANDLOCK_ACCESS_FS_REFER
-+Link or rename a file from or to a different directory (i.e. reparent
-+a file hierarchy).
-+.IP
-+This access right is available since the second version of the
-+Landlock ABI.
-+.IP
-+This is the only access right which is denied by default by any
-+ruleset, even if the right is not specified as handled at ruleset
-+creation time.  The only way to make a ruleset grant this right is to
-+explicitly allow it for a specific directory by adding a matching rule
-+to the ruleset.
-+.IP
-+In particular, when using the first Landlock ABI version, Landlock will
-+always deny attempts to reparent files between different directories.
-+.IP
-+In addition to the source and destination directories having the
-+.B LANDLOCK_ACCESS_FS_REFER
-+access right, the attempted link or rename operation must meet the
-+following constraints:
-+.RS
-+.IP \(bu 3
-+The reparented file may not gain more access rights in the destination
-+directory than it previously had in the source directory.  If this is
-+attempted, the operation results in an
-+.B EXDEV
-+error.
-+.IP \(bu 3
-+When linking or renaming, the
-+.B LANDLOCK_ACCESS_FS_MAKE_*
-+right for the respective file type must be granted for the destination
-+directory. Otherwise, the operation results in an
-+.BR EACCES
-+error.
-+.IP \(bu 3
-+When renaming, the
-+.B LANDLOCK_ACCESS_FS_REMOVE_*
-+right for the respective file type must be granted for the source directory. Otherwise, the operation results in an
-+.B EACCES
-+error.
-+.RE
-+.IP
-+If multiple requirements are not met, the
-+.B EACCES
-+error code takes precedence over
-+.BR EXDEV .
- .\"
- .SS Layers of file path access rights
- Each time a thread enforces a ruleset on itself,
-@@ -182,7 +229,45 @@ and related syscalls on a target process,
++.B LANDLOCK_ACCESS_FS_TRUNCATE
++Truncate a file with
++.BR truncate (2),
++.BR ftruncate (2),
++.BR creat (2),
++or
++.BR open (2)
++with
++.BR O_TRUNC .
++Whether an opened file can be truncated with
++.BR ftruncate (2)
++is determined during
++.BR open (2),
++in the same way as read and write permissions are checked during
++.BR open (2)
++using
++.B LANDLOCK_ACCESS_FS_READ_FILE
++and
++.BR LANDLOCK_ACCESS_FS_WRITE_FILE .
++This access right is available since the third version of the Landlock ABI.
+ .PP
+ A directory can receive access rights related to files or directories.
+ The following access right is applied to the directory itself,
+@@ -228,6 +256,50 @@ To be allowed to use
+ and related syscalls on a target process,
  a sandboxed process should have a subset of the target process rules,
  which means the tracee must be in a sub-domain of the tracer.
++.\"
++.SS Truncating files
++The operations covered by
++.B LANDLOCK_ACCESS_FS_WRITE_FILE
++and
++.B LANDLOCK_ACCESS_FS_TRUNCATE
++both change the contents of a file and sometimes overlap in
++non-intuitive ways. It is recommended to always specify both of these
++together.
++.PP
++A particularly surprising example is
++.BR creat (2).
++The name suggests that this system call requires the rights to create
++and write files. However, it also requires the truncate right if an
++existing file under the same name is already present.
++.PP
++It should also be noted that truncating files does not require the
++.B LANDLOCK_ACCESS_FS_WRITE_FILE
++right.  Apart from the
++.BR truncate (2)
++system call, this can also be done through
++.BR open (2)
++with the flags
++.BR "O_RDONLY | O_TRUNC" .
++.PP
++When opening a file, the availability of the
++.B LANDLOCK_ACCESS_FS_TRUNCATE
++right is associated with the newly created file descriptor and will be used for
++subsequent truncation attempts using
++.BR ftruncate (2).
++The behavior is similar to opening a file for reading or writing,
++where permissions are checked during
++.BR open (2),
++but not during the subsequent
++.BR read (2)
++and
++.BR write (2)
++calls.
++.PP
++As a consequence, it is possible to have multiple open file descriptors for the
++same file, where one grants the right to truncate the file and the other does
++not.  It is also possible to pass such file descriptors between processes,
++keeping their Landlock properties, even when these processes do not have an
++enforced Landlock ruleset.
  .SH VERSIONS
--Landlock was added in Linux 5.13.
-+Landlock was introduced in Linux 5.13.
-+.PP
-+The availability of individual Landlock features is versioned through
-+ABI levels:
-+.TS
-+box;
-+ntb| ntb| lbx
-+nt| nt| lbx.
-+ABI	Kernel	Newly introduced access rights
+ Landlock was introduced in Linux 5.13.
+ .PP
+@@ -254,6 +326,8 @@ _	_	_
+ \^	\^	LANDLOCK_ACCESS_FS_MAKE_SYM
+ _	_	_
+ 2	5.19	LANDLOCK_ACCESS_FS_REFER
 +_	_	_
-+1	5.13	LANDLOCK_ACCESS_FS_EXECUTE
-+\^	\^	LANDLOCK_ACCESS_FS_WRITE_FILE
-+\^	\^	LANDLOCK_ACCESS_FS_READ_FILE
-+\^	\^	LANDLOCK_ACCESS_FS_READ_DIR
-+\^	\^	LANDLOCK_ACCESS_FS_REMOVE_DIR
-+\^	\^	LANDLOCK_ACCESS_FS_REMOVE_FILE
-+\^	\^	LANDLOCK_ACCESS_FS_MAKE_CHAR
-+\^	\^	LANDLOCK_ACCESS_FS_MAKE_DIR
-+\^	\^	LANDLOCK_ACCESS_FS_MAKE_REG
-+\^	\^	LANDLOCK_ACCESS_FS_MAKE_SOCK
-+\^	\^	LANDLOCK_ACCESS_FS_MAKE_FIFO
-+\^	\^	LANDLOCK_ACCESS_FS_MAKE_BLOCK
-+\^	\^	LANDLOCK_ACCESS_FS_MAKE_SYM
-+_	_	_
-+2	5.19	LANDLOCK_ACCESS_FS_REFER
-+.TE
-+.PP
-+To query the running kernel's Landlock ABI level, programs may pass
-+the
-+.B LANDLOCK_CREATE_RULESET_VERSION
-+flag to
-+.BR landlock_create_ruleset (2).
-+.PP
-+When building fallback mechanisms for compatibility with older kernels,
-+users are advised to consider the special semantics of the
-+.B LANDLOCK_ACCESS_FS_REFER
-+access right: In ABI v1, linking and moving of files between different
-+directories is always forbidden, so programs relying on such
-+operations are only compatible with Landlock ABI v2 and higher.
- .SH NOTES
- Landlock is enabled by
- .BR CONFIG_SECURITY_LANDLOCK .
-@@ -242,7 +327,8 @@ attr.handled_access_fs =
-         LANDLOCK_ACCESS_FS_MAKE_SOCK |
++3	6.2	LANDLOCK_ACCESS_FS_TRUNCATE
+ .TE
+ .PP
+ To query the running kernel's Landlock ABI level, programs may pass
+@@ -290,7 +364,6 @@ in kernel logs.
+ It is currently not possible to restrict some file-related actions
+ accessible through these system call families:
+ .BR chdir (2),
+-.BR truncate (2),
+ .BR stat (2),
+ .BR flock (2),
+ .BR chmod (2),
+@@ -328,7 +401,8 @@ attr.handled_access_fs =
          LANDLOCK_ACCESS_FS_MAKE_FIFO |
          LANDLOCK_ACCESS_FS_MAKE_BLOCK |
--        LANDLOCK_ACCESS_FS_MAKE_SYM;
-+        LANDLOCK_ACCESS_FS_MAKE_SYM |
-+        LANDLOCK_ACCESS_FS_REFER;
+         LANDLOCK_ACCESS_FS_MAKE_SYM |
+-        LANDLOCK_ACCESS_FS_REFER;
++        LANDLOCK_ACCESS_FS_REFER |;
++        LANDLOCK_ACCESS_FS_TRUNCATE;
  
  ruleset_fd = landlock_create_ruleset(&attr, sizeof(attr), 0);
  if (ruleset_fd == -1) {
