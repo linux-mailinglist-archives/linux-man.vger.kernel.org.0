@@ -2,33 +2,33 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 3F5B169EF72
-	for <lists+linux-man@lfdr.de>; Wed, 22 Feb 2023 08:36:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 7296B69EFA5
+	for <lists+linux-man@lfdr.de>; Wed, 22 Feb 2023 08:54:51 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230414AbjBVHgo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 22 Feb 2023 02:36:44 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59198 "EHLO
+        id S231229AbjBVHyt (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 22 Feb 2023 02:54:49 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42486 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229581AbjBVHgn (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 22 Feb 2023 02:36:43 -0500
-X-Greylist: delayed 2105 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Tue, 21 Feb 2023 23:36:39 PST
-Received: from smtp-bc0b.mail.infomaniak.ch (smtp-bc0b.mail.infomaniak.ch [45.157.188.11])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 87D24366AD
-        for <linux-man@vger.kernel.org>; Tue, 21 Feb 2023 23:36:39 -0800 (PST)
+        with ESMTP id S229755AbjBVHyr (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 22 Feb 2023 02:54:47 -0500
+X-Greylist: delayed 554 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Tue, 21 Feb 2023 23:54:46 PST
+Received: from smtp-190c.mail.infomaniak.ch (smtp-190c.mail.infomaniak.ch [IPv6:2001:1600:4:17::190c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5A1B92A9AA
+        for <linux-man@vger.kernel.org>; Tue, 21 Feb 2023 23:54:46 -0800 (PST)
 Received: from smtp-2-0001.mail.infomaniak.ch (unknown [10.5.36.108])
-        by smtp-2-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4PM7JQ0QlgzMrNlK;
-        Wed, 22 Feb 2023 08:36:38 +0100 (CET)
-Received: from unknown by smtp-2-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4PM7JP4xjwzMrwPd;
-        Wed, 22 Feb 2023 08:36:37 +0100 (CET)
+        by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4PM7Vd2c5czMr24L;
+        Wed, 22 Feb 2023 08:45:29 +0100 (CET)
+Received: from unknown by smtp-2-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4PM7Vd0CxYzMrwS4;
+        Wed, 22 Feb 2023 08:45:29 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=digikod.net;
-        s=20191114; t=1677051397;
-        bh=vs2Nl7F5gXH7A6NuRSwxtRZtLx3j2wx223SVDfAGhWA=;
+        s=20191114; t=1677051929;
+        bh=E83KE3Yo6QfjjqySYuYhEkAb7xrTWpO1K6w1Yfifjwk=;
         h=Date:Subject:From:Reply-To:To:Cc:References:In-Reply-To:From;
-        b=BKi536bswWNDQW6hED+D0fV6QOxfDdz9fJoWz1CwRwWzwqkt6uDO0yjg+wEmX3W/c
-         Hzysa9nd98aPXsEomoAA9Trp0svgqzqhNNd06tGpACzULRaXATmrhIXedgNBVQLjdw
-         hY/QJaCNQSdYlz4N710iLS7xSy0Iw+POuPpmbF+Q=
-Message-ID: <5495bf9a0580a049bbe5a874c57202ba@mail.infomaniak.com>
-Date:   Wed, 22 Feb 2023 08:36:37 +0100
+        b=J0rdxIr83kjAZHCzK2IM7RgY3pFGGwaBYunGzV5oiPnSUH/3UdvZfugiyS0LEWX81
+         +sUbADXr1SR7roVUYcGdpwfqsTe8ThtXYwdl0jOkYEQ9EdnHwdCz5HwMz1VDrlH4Kq
+         KPAf9PF00nSyiuxTaNkXKq/g2J2b04rYmKi4pcYc=
+Message-ID: <1bb1d91c9edd6b4b65b012827aa4f739@mail.infomaniak.com>
+Date:   Wed, 22 Feb 2023 08:45:28 +0100
 Subject: Re: [PATCH 2/3] landlock.7: Document Landlock ABI v2 (file
  reparenting; kernel 5.19)
 From:   =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
@@ -40,17 +40,17 @@ Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-X-WS-User-Origin: eyJpdiI6Im92Mi81c3c5bUxNZTVTM0hrYVcyQUE9PSIsInZhbHVlIjoiM3c1c2JxNDFFWnVXRVh1Vk8vR1Fndz09IiwibWFjIjoiYjMyZTA2YzVkNmM3NzQ2MTljMzdkN2RhZTdhZWVjZjNlMTk2YzYxOGIwN2FhNWY1OTIyYTNhMjZmNmY0MzQ0NyIsInRhZyI6IiJ9
-X-WS-User-Mbox: eyJpdiI6IitLRGNpUG1OVFdqK1BDNzlrZGVhenc9PSIsInZhbHVlIjoiMkk2cWY5NzdnUGtyOEVQbW1ZTXFLZz09IiwibWFjIjoiODA5YWQ3ZmMyMTg3YzAzYjAxNjI4Y2NiOGZiZmFmMzg1ZjhhMGJiYTVhNDY2NmNlN2NlZmI5OTM5OWM1MjU5MyIsInRhZyI6IiJ9
+X-WS-User-Origin: eyJpdiI6IlMwNUVXYXhXNWVvSDNKU3dSRUkrclE9PSIsInZhbHVlIjoiNmgxcFhmNlRuaVJ0VXlFeW9sOXdsUT09IiwibWFjIjoiZTdhODA5YzgwYWRjMWYzNTQ1NDBiYzY0MjdkYjI5OTdhYzdjMjMwNzM0ZDQ0NjM3MjQ3YmJiZmRhMmZmYjg4NyIsInRhZyI6IiJ9
+X-WS-User-Mbox: eyJpdiI6IjFDTVYvQ2FrbnB5K3BXWUd6L1ZpMGc9PSIsInZhbHVlIjoiQ1I4OHVPWklpS0M0d0FIVVh6algrZz09IiwibWFjIjoiZGZlOWNjZDkxYmZiOTIyOTA0OGE0NTk1OGVkMmVkNDA2MzVlZTVjNjJkOGI0MGJlMmVlMGUxZWRhOTVlZGU3OSIsInRhZyI6IiJ9
 X-WS-Location: eJxzKUpMKykGAAfpAmU-
 X-Mailer: Infomaniak Workspace (1.3.446)
 References: <20230221205023.2739-1-gnoack3000@gmail.com>
  <20230221205023.2739-2-gnoack3000@gmail.com>
 In-Reply-To: <20230221205023.2739-2-gnoack3000@gmail.com>
 X-Infomaniak-Routing: alpha
-X-Spam-Status: No, score=-2.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,
-        SPF_PASS,UPPERCASE_50_75 autolearn=ham autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
@@ -90,14 +90,34 @@ On 2023-02-21T21:50:22.000+01:00, G=C3=BCnther Noack wrote:
 > +2=095.19=09LANDLOCK_ACCESS_FS_REFER
 > +.TE
 > +.PP
-
-A line break would be nice here.
-
 > +To query the running kernel's Landlock ABI level, programs may pass
-
-s/level/version/
-
 > +the
 > +.B LANDLOCK_CREATE_RULESET_VERSION
 > +flag to
 > +.BR landlock_create_ruleset (2).
+> +.PP
+> +When building fallback mechanisms for compatibility with older kernels,
+> +users are advised to consider the special semantics of the
+> +.B LANDLOCK_ACCESS_FS_REFER
+> +access right: In ABI v1, linking and moving of files between different
+> +directories is always forbidden, so programs relying on such
+> +operations are only compatible with Landlock ABI v2 and higher.
+>  .SH NOTES
+>  Landlock is enabled by
+>  .BR CONFIG_SECURITY_LANDLOCK .
+> @@ -242,7 +327,8 @@ attr.handled_access_fs =3D
+>          LANDLOCK_ACCESS_FS_MAKE_SOCK |
+>          LANDLOCK_ACCESS_FS_MAKE_FIFO |
+>          LANDLOCK_ACCESS_FS_MAKE_BLOCK |
+> -        LANDLOCK_ACCESS_FS_MAKE_SYM;
+> +        LANDLOCK_ACCESS_FS_MAKE_SYM |
+> +        LANDLOCK_ACCESS_FS_REFER;
+
+This code example should now query the Landlock ABI version and mask new ac=
+cess right to make it works with old kernels.
+
+> =20
+>  ruleset_fd =3D landlock_create_ruleset(&attr, sizeof(attr), 0);
+>  if (ruleset_fd =3D=3D -1) {
+> --=20
+2.39.2
