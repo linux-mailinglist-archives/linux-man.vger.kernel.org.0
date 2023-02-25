@@ -2,40 +2,76 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 482016A28BF
-	for <lists+linux-man@lfdr.de>; Sat, 25 Feb 2023 11:10:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B15A76A2912
+	for <lists+linux-man@lfdr.de>; Sat, 25 Feb 2023 11:33:21 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229489AbjBYKKS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 25 Feb 2023 05:10:18 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35998 "EHLO
+        id S229569AbjBYKdU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 25 Feb 2023 05:33:20 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50076 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229527AbjBYKKQ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 25 Feb 2023 05:10:16 -0500
-Received: from vmicros1.altlinux.org (vmicros1.altlinux.org [194.107.17.57])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id ADB39BDE1
-        for <linux-man@vger.kernel.org>; Sat, 25 Feb 2023 02:10:15 -0800 (PST)
-Received: from mua.local.altlinux.org (mua.local.altlinux.org [192.168.1.14])
-        by vmicros1.altlinux.org (Postfix) with ESMTP id C7AF972C90B;
-        Sat, 25 Feb 2023 13:10:14 +0300 (MSK)
-Received: by mua.local.altlinux.org (Postfix, from userid 508)
-        id AA8287CFDF8; Sat, 25 Feb 2023 13:10:14 +0300 (MSK)
-Date:   Sat, 25 Feb 2023 13:10:14 +0300
-From:   "Dmitry V . Levin" <ldv@strace.io>
-To:     Fotios Valasiadis <fvalasiad@gmail.com>
+        with ESMTP id S229473AbjBYKdT (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 25 Feb 2023 05:33:19 -0500
+Received: from mail-vs1-xe2d.google.com (mail-vs1-xe2d.google.com [IPv6:2607:f8b0:4864:20::e2d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 11A1EC649
+        for <linux-man@vger.kernel.org>; Sat, 25 Feb 2023 02:33:19 -0800 (PST)
+Received: by mail-vs1-xe2d.google.com with SMTP id a3so3529580vsi.0
+        for <linux-man@vger.kernel.org>; Sat, 25 Feb 2023 02:33:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=AZFROnHVgjIfGhqkh0YpoMy846G7Ix5Hc5h83vJ7Sxs=;
+        b=aThivJ8xfF8QNMITCIi5y0nPdYd6eIT9kSVvLB9Efe4WDBfcLv1gtDhisr+J3ze7nn
+         cNq4m+eN+cw5MdjzNqcIXMhkw4wm3omBNPSUBYLudVvN5cY9UyHtproUrHeq3+hT55wI
+         SsJBSeRhGLps19js/KCYZvz/gPoXr2/uRQFAULI8xznm0zVVpSI8bhUcSoWSnXenNK+q
+         8x6VO2Wcw61TZVuspCrlUEejxYJSU8+77Jkro1vx/Z3+4MFKTeoX1i4cxo7MGYbUX7g8
+         AP5uTd2cwVou3pZIWrFZgDQ3lWiAJAePzrgKFb2nHGMRTQNgrFRTLL+MwHtox/4PuhJg
+         2k9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=AZFROnHVgjIfGhqkh0YpoMy846G7Ix5Hc5h83vJ7Sxs=;
+        b=KJrSx+QCzZanQ4dWY78/wyzYuNUaPBeA7+3rnY+CjaCM2DFU6soouhduGdPgrVNrQ4
+         05om1N1Js8jWHPPO7oZVpv/VjeBvrvqC+BFNTFzDK6HzpsFwd0GJGdMHmO9OfYQo0OTx
+         mXIydKrXk9MSVR4Fdr8fR1VTwM4B/DT6iMt62EK/YdVSYt9g4Wt5UIo0fS1j3T0pbfnU
+         U4YYQLgIvSJcfz7XzM1qhd8kLiConHXNOoBud0xud6OiaXWla7FGYKlsUNW5xfsqsFPl
+         dZpUyfI+t6yZi+hmiAqgLZ2xxBj8H6dCKCgRso2eE1iCpKb25dUba7AAMBI5WLfhc5JX
+         4d2Q==
+X-Gm-Message-State: AO0yUKUEgB4KZDIBXDDToWRwTQ5sYsfw2c6SAAAcLDWbQ51gaTWLK1rt
+        U56WrN3HUXpUUiaAnrCTaqXXnpH3faE=
+X-Google-Smtp-Source: AK7set+85qi2YuX40jWGpBZJOL664agy93NLMbhOxVDtS1UXp+L8xN05Bms8jjssZT/pt8Px6lfr3g==
+X-Received: by 2002:a67:ca95:0:b0:414:538d:3af2 with SMTP id a21-20020a67ca95000000b00414538d3af2mr14252086vsl.5.1677321198125;
+        Sat, 25 Feb 2023 02:33:18 -0800 (PST)
+Received: from ?IPV6:2a02:587:6e15:d61a:5cc8:cceb:8cd5:6326? ([2a02:587:6e15:d61a:5cc8:cceb:8cd5:6326])
+        by smtp.gmail.com with ESMTPSA id h6-20020a1f2106000000b004007ad86fa2sm203334vkh.46.2023.02.25.02.33.16
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 25 Feb 2023 02:33:17 -0800 (PST)
+Message-ID: <b8941b80-2f6d-68b0-d793-71542f96b6bb@gmail.com>
+Date:   Sat, 25 Feb 2023 12:33:15 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Subject: Re: [PATCH] ptrace.2: Add details about usage of
+ PTRACE_GET_SYSCALL_INFO
+Content-Language: en-US
+To:     "Dmitry V . Levin" <ldv@strace.io>
 Cc:     linux-man@vger.kernel.org,
         Alejandro Colomar <alx.manpages@gmail.com>,
         Michael Kerrisk <mtk.manpages@gmail.com>,
         Elvira Khabirova <lineprinter0@gmail.com>
-Subject: Re: [PATCH] ptrace.2: Add details about usage of
- PTRACE_GET_SYSCALL_INFO
-Message-ID: <20230225101014.GB16562@altlinux.org>
 References: <20230225024212.31500-1-fvalasiad@gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230225024212.31500-1-fvalasiad@gmail.com>
-X-Spam-Status: No, score=-1.6 required=5.0 tests=BAYES_00,
-        HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS autolearn=no
+ <20230225101014.GB16562@altlinux.org>
+From:   =?UTF-8?B?zqbPjs+EzrfPgiDOks6xzrvOsc+DzrnOrM60zrfPgg==?= 
+        <fvalasiad@gmail.com>
+In-Reply-To: <20230225101014.GB16562@altlinux.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, score=-2.2 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -43,49 +79,13 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Sat, Feb 25, 2023 at 04:42:12AM +0200, Fotios Valasiadis wrote:
-> Fixed incomplete doc. PTRACE_GET_SYSCALL_INFO wouldn't inform the user that they need to enable PTRACE_O_TRACESYSGOOD to get detailed information from said operation.
+On 25/2/23 12:10, Dmitry V . Levin wrote:
+> I'm not sure about the word "fix" in this context as we are not
+> correcting some wrong information but simply extending the documentation.
+>
+> How about the following wording:
+>
+> Document the role of PTRACE_O_TRACESYSGOOD option in connection with
+> PTRACE_GET_SYSCALL_INFO.
 
-I'm not sure about the word "fix" in this context as we are not
-correcting some wrong information but simply extending the documentation.
-
-How about the following wording:
-
-Document the role of PTRACE_O_TRACESYSGOOD option in connection with
-PTRACE_GET_SYSCALL_INFO.
-
-> Signed-off-by: Fotios Valasiadis <fvalasiad@gmail.com>
-> Cowritten-by: Dmitry V. Levin <ldv@strace.io>
-
-Feel free to add
-Complements: fc91449cb "ptrace.2: Document PTRACE_GET_SYSCALL_INFO"
-
-> ---
->  man2/ptrace.2 | 9 +++++++++
->  1 file changed, 9 insertions(+)
-> 
-> diff --git a/man2/ptrace.2 b/man2/ptrace.2
-> index 55d9fd36d..ad0543b0b 100644
-> --- a/man2/ptrace.2
-> +++ b/man2/ptrace.2
-> @@ -1111,6 +1111,15 @@ stop.
->  .B PTRACE_SYSCALL_INFO_NONE
->  No component of the union contains relevant information.
->  .RE
-> +.IP
-> +Note that in case of
-> +syscall entry or exit stops, the data returned by
-> +.B PTRACE_GET_SYSCALL_INFO
-> +is limited to type
-> +.B PTRACE_SYSCALL_INFO_NONE
-> +unless
-> +.B PTRACE_O_TRACESYSGOOD
-> +option is set before the corresponding ptrace stop has occurred.
->  .\"
->  .SS Death under ptrace
->  When a (possibly multithreaded) process receives a killing signal
-> -- 
-> 2.39.2
-
--- 
-ldv
+Sure! Do I use Cowritten-by, Acked-by or Reviewed-by?
