@@ -2,73 +2,74 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id AB1436A2675
-	for <lists+linux-man@lfdr.de>; Sat, 25 Feb 2023 02:21:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id CEDE66A267A
+	for <lists+linux-man@lfdr.de>; Sat, 25 Feb 2023 02:21:48 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229809AbjBYBVZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 24 Feb 2023 20:21:25 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49016 "EHLO
+        id S229698AbjBYBVq (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 24 Feb 2023 20:21:46 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48690 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229736AbjBYBTk (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 24 Feb 2023 20:19:40 -0500
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com [IPv6:2a00:1450:4864:20::329])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 39ECD15CA9
-        for <linux-man@vger.kernel.org>; Fri, 24 Feb 2023 17:18:24 -0800 (PST)
-Received: by mail-wm1-x329.google.com with SMTP id o38-20020a05600c512600b003e8320d1c11so4782834wms.1
-        for <linux-man@vger.kernel.org>; Fri, 24 Feb 2023 17:18:24 -0800 (PST)
+        with ESMTP id S229536AbjBYBTx (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 24 Feb 2023 20:19:53 -0500
+Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com [IPv6:2607:f8b0:4864:20::236])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BFA48199D5
+        for <linux-man@vger.kernel.org>; Fri, 24 Feb 2023 17:19:19 -0800 (PST)
+Received: by mail-oi1-x236.google.com with SMTP id t22so781044oiw.12
+        for <linux-man@vger.kernel.org>; Fri, 24 Feb 2023 17:19:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ky3j/+NfcPPc1ssK5jyQ1AMLz8rXXU0eqDkUii7VMhQ=;
-        b=fWZrAx5yaupEk6XA8uZmPQC8PP9Ku9+gQmZqkPG6DdxSFCs0KeKDpstjiINcjYtQMf
-         T/1+ZXl876zOTrwC/yolxCpWUSwIXZeiJG91/KO10GnbAcfm//2tr5BfVNPpJjPQkXCy
-         ctXqrShOCwIMGJHbboq2RoItVl7RBOEtHelqBBc3mgxR/WKduTwanvjWCuz9Kjht5Bqr
-         OkIt8AzQVoHJiTjVBSvJU9U7w4a7yusluwvjbUyJjBE/JdZLMRiRvAkVQ4A+wBCWUciG
-         33Cvc41jJVIywOOnyzs/N6UGthKNtF4vCt7AhQSlwwlbkISUS0ifJ6UnWFsz1ffg7egK
-         TUmQ==
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=dNGZj6QcANTe4Pn2Lt1o4XqjE9uowk+cSiwUeLUYx9s=;
+        b=LWbbav5z6NtfY78E8UtjWJqvrlrCl2EvfucNvZChaVtKw5l5wy04jb/6+1unVISxIa
+         v2cW7UFtvS1PmOW3/N8FJwUbd0m6CtCqQ6RTF0OG+o8BQ1Y9hbOuxTW2Z2hSI0hgYRTX
+         Um1h1jKypcqQX/E1j+YUDTdkI4PaG5s5+EQWIM3f7YOZovZlTN5JEd0N3PkhfMNL9Dx4
+         nN75XZvdk6d6u2vuXF6uJqK2uIstMdcDhVC5hsDHqsAF3nGp/cufOEHa+vPhjMDpCJpW
+         kTbWBOlpcV0Vbp+JAG6DQNR4/GFXRpHpTcs6jYCgi6ty8M5PwLD+fqmZQA6aFBcnSho4
+         dhMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=ky3j/+NfcPPc1ssK5jyQ1AMLz8rXXU0eqDkUii7VMhQ=;
-        b=HrUEYayvuVM8qFxR/pVYNEVCLZQljTW88ktE7y/9h6K8HCaa7ggYocLJRQOf8al2s9
-         0OqVAsCiuhrKsxoXYpHrshyNlLzi8hk1MPbn7i9iaA93kjzlKP1L/IWyUlrtyJrX8Z/r
-         BivizZi0Iz4MgU1AXa19yiMJLPasDdgN+LBdmVp6u7WCA6LrIf2obKJyXpu8r/vYES7n
-         dihs0gto6QVohAX0JkTrBlGV/o7BQWTlcm+rCv9fxkIb985/sny6wi9UWUdtNGqF1wpf
-         HZgSaDavx4jCVRgqx+R4JpaJAQdARuTkUpeTlFnZJqokFtnmnXMhWPdI4kScY5EokNel
-         +aGw==
-X-Gm-Message-State: AO0yUKVrAEKFXy88K7Lz69WZg4/JQKaDcmE3oaGyULzSugQvalzhZiw7
-        ITtSyGX480jbOqGnmDZ+ylmKD5Y+6qE=
-X-Google-Smtp-Source: AK7set88yBb2i7QHsCkEqjpYaQ/gxJSON7+FgYISEUtyn+3TXxFUdsXskyxgKF86GG9bcZaL1YbWRQ==
-X-Received: by 2002:a05:600c:492a:b0:3dc:42d2:aee4 with SMTP id f42-20020a05600c492a00b003dc42d2aee4mr7582623wmp.25.1677287902642;
-        Fri, 24 Feb 2023 17:18:22 -0800 (PST)
-Received: from [172.26.3.7] (240.red-88-26-240.staticip.rima-tde.net. [88.26.240.240])
-        by smtp.gmail.com with ESMTPSA id c4-20020adffb04000000b002c70bfe505esm284304wrr.82.2023.02.24.17.18.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 24 Feb 2023 17:18:22 -0800 (PST)
-Message-ID: <e8d981d1-c03a-cfe6-f6c7-9b4d422d7d0a@gmail.com>
-Date:   Sat, 25 Feb 2023 02:18:21 +0100
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=dNGZj6QcANTe4Pn2Lt1o4XqjE9uowk+cSiwUeLUYx9s=;
+        b=PlrfrvyPWWtARZSXodeaZTrLebRDm/r/BPQGWKh+HEXeNsnqigMv86oe00qS/LJTY2
+         hu/2io4qzQ2YBh4WuzCTevyASz9fGDQEr0CwITbwX1SL2+GOnhymKfFxLwDo0PQoZDXi
+         fOYUNVTIc2ROFun5Q8SPfHlEJZCkX9DlzkmxGrE6udzc25EzykiiK+KGg1/GAV6TDRK8
+         BPQNY9zrnAMl66OSonuLes5pF2xVhCurkxcs4Eif01DnDkkLrtQQLQ+6gh3nZ4wmqtu2
+         ixNXTo5UWgUxSVM92Ih0TCDq6gO9A22eJ5fHAAKVW6r+kM3QnTt/vkK9wONnCRlNLasi
+         sFmA==
+X-Gm-Message-State: AO0yUKXdoq+ugfH3Q3T42F5+oomILbpAFHmulaC73j9av9bZskwWYSS6
+        s6dk7UhOma/nAM/bBScPge4L60cVT6D4xA==
+X-Google-Smtp-Source: AK7set+QZVXcXm1ouzntkhaFlcdpIMlAgiKJYmM18yXFrL+lZZK7OGZfaZLt+mwK5sambt3DPETyKw==
+X-Received: by 2002:a05:6808:4241:b0:378:2e00:6059 with SMTP id dp1-20020a056808424100b003782e006059mr3923771oib.1.1677287959063;
+        Fri, 24 Feb 2023 17:19:19 -0800 (PST)
+Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
+        by smtp.gmail.com with ESMTPSA id p84-20020acad857000000b00383f0773beasm365239oig.52.2023.02.24.17.19.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 24 Feb 2023 17:19:18 -0800 (PST)
+Date:   Fri, 24 Feb 2023 19:19:17 -0600
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To:     Alex Colomar <alx.manpages@gmail.com>
+Cc:     =?utf-8?Q?G=C3=BCnther?= Noack <gnoack3000@gmail.com>,
+        =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        linux-man@vger.kernel.org, Groff <groff@gnu.org>
+Subject: Re: [PATCH 2/3] landlock.7: Document Landlock ABI v2 (file
+ reparenting; kernel 5.19)
+Message-ID: <20230225011917.o4hkprqg4c2gqd7u@illithid>
+References: <20230221205023.2739-1-gnoack3000@gmail.com>
+ <20230221205023.2739-2-gnoack3000@gmail.com>
+ <5495bf9a0580a049bbe5a874c57202ba@mail.infomaniak.com>
+ <Y/coag7XQRIRDK0h@galopp>
+ <d6b21981-71bc-4906-2adf-79b00df38b73@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH] ptrace.2: Add details about usage of
- PTRACE_GET_SYSCALL_INFO
-Content-Language: en-US
-To:     Fotios Valasiadis <fvalasiad@gmail.com>,
-        Nate Eldredge <nate@thatsmathematics.com>,
-        linux-man@vger.kernel.org
-Cc:     mtk.manpages@gmail.com, Fotios Valasiadis <fvalasiad@csd.auth.gr>
-References: <20230224163142.29934-1-fvalasiad@gmail.com>
-From:   Alex Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20230224163142.29934-1-fvalasiad@gmail.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------ne3gBWrx8fNIc2OSMueSZMEw"
-X-Spam-Status: No, score=-2.2 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        protocol="application/pgp-signature"; boundary="i4i2bm24ktryg4bb"
+Content-Disposition: inline
+In-Reply-To: <d6b21981-71bc-4906-2adf-79b00df38b73@gmail.com>
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -77,87 +78,171 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------ne3gBWrx8fNIc2OSMueSZMEw
-Content-Type: multipart/mixed; boundary="------------EgDUyn4tYY5Nq3RtqMQxCz0E";
- protected-headers="v1"
-From: Alex Colomar <alx.manpages@gmail.com>
-To: Fotios Valasiadis <fvalasiad@gmail.com>,
- Nate Eldredge <nate@thatsmathematics.com>, linux-man@vger.kernel.org
-Cc: mtk.manpages@gmail.com, Fotios Valasiadis <fvalasiad@csd.auth.gr>
-Message-ID: <e8d981d1-c03a-cfe6-f6c7-9b4d422d7d0a@gmail.com>
-Subject: Re: [PATCH] ptrace.2: Add details about usage of
- PTRACE_GET_SYSCALL_INFO
-References: <20230224163142.29934-1-fvalasiad@gmail.com>
-In-Reply-To: <20230224163142.29934-1-fvalasiad@gmail.com>
 
---------------EgDUyn4tYY5Nq3RtqMQxCz0E
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+--i4i2bm24ktryg4bb
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-T24gMi8yNC8yMyAxNzozMSwgRm90aW9zIFZhbGFzaWFkaXMgd3JvdGU6DQo+IEZyb206IEZv
-dGlvcyBWYWxhc2lhZGlzIDxmdmFsYXNpYWRAY3NkLmF1dGguZ3I+DQo+IA0KPiBGaXhlZCBp
-bmNvbXBsZXRlIGRvYy4gUFRSQUNFX0dFVF9TWVNDQUxMX0lORk8ncyBkZXNjcmlwdGlvbiB3
-b3VsZG4ndCBpbmZvcm0gdGhlIHVzZXIgdGhhdCB0aGV5IG5lZWQgdG8gZW5hYmxlIFBUUkFD
-RV9PX1RSQUNFU1lTR09PRCB0byBnZXQgZGV0YWlsZWQgaW5mb3JtYXRpb24gZnJvbSBzYWlk
-IG9wZXJhdGlvbi4NCj4gDQo+IENhbWUgdXBvbiB0aGlzIGJ1ZyBhZnRlciB3cml0aW5nIGEg
-dGVzdCBwcm9ncmFtIHVzaW5nIFBUUkFDRV9PX1RSQUNFU1lTR09PRC4gQWZ0ZXIgZmFpbGlu
-ZyB0byBmaW5kIHdoYXQncyB3cm9uZyBJIHBvc3RlZCBhIHN0YWNrb3ZlcmZsb3cgcXVlc3Rp
-b24gd2hpY2ggeW91IGNhbiBmaW5kIHJpZ2h0IGhlcmU6IGh0dHBzOi8vc3RhY2tvdmVyZmxv
-dy5jb20vcXVlc3Rpb25zLzcyNDEwMTgyL3B0cmFjZS1nZXQtc3lzY2FsbC1pbmZvLWFsd2F5
-cy1yZXR1cm5zLWluZm8tb3AtYXMtcHRyYWNlLXN5c2NhbGwtaW5mby1ub25lDQo+IA0KPiBO
-YXRlIEVsZHJlZGdlIGZvdW5kIG91dCB3aGF0J3Mgd3JvbmcgYnkgbG9va2luZyBpbnRvIHRo
-ZSBrZXJuZWwncyBzb3VyY2UgY29kZSwgaGVyZSBpcyBhIGxpbmsgdG8gdGhlIHJlbGV2YW50
-IHBhcnQgaHR0cHM6Ly9naXRodWIuY29tL3RvcnZhbGRzL2xpbnV4L2Jsb2IvODI5MWVhYWZl
-ZDM2ZjU3NWYyMzk1MWYzY2UxODQwN2Y0ODBlOWVjZi9rZXJuZWwvcHRyYWNlLmMjTDEwMTgN
-Cj4gDQo+IEluIHRoZSBjb2RlIGl0IGNhbiBiZSBzZWVuIHRoYXQgdGhlIHVuaW9uIGlzIGZp
-bGxlZCBpZiBhbmQgb25seSBpZiB0aGUgc2lnbmFsIG1hdGNoZXMgIlNJR1RSQVAgfCAweDgw
-IiwgYSBzaWduYWwgd2hpY2ggaXMgb25seSBzZW50IGlmIHRoZSBQVFJBQ0VfT19UUkFDRVNZ
-U0dPT0Qgb3B0aW9uIGlzIHNldC4gWW91IGNhbiByZWFkIGFib3V0IHRoYXQgaW4gdGhlIFBU
-UkFDRV9PX1RSQUNFU1lTR09PRCBzZWN0aW9uIG9mIHB0cmFjZS4yICdzIG1hbnVhbC4NCj4g
-DQo+IEkgYW0gdW5hd2FyZSBpZiBOYXRlIHdhbnRzIHRvIGJlIGluY2x1ZGVkIGFzIGEgY28t
-YXV0aG9yIG9mIHRoaXMgY29tbWl0LCBub3IgYW0gSSBhd2FyZSBvZiBhbnkgd2F5IHRvIGNv
-bnRhY3QgaGltLg0KDQpIZWxsbyBGb3Rpb3MsDQoNCkkgZm91bmQgaGlzIGFkZHJlc3MgaW4g
-YSBrZXJuZWwgY29tbWl0Og0KDQpOYXRlIEVsZHJlZGdlIDxuYXRlQHRoYXRzbWF0aGVtYXRp
-Y3MuY29tPg0KDQpJJ20gQ0NpbmcgaGltIGluIGNhc2UgaGUgd2FudHMgdG8gcmV2aWV3Lg0K
-DQpUaGFua3MgZm9yIHRoZSBwYXRjaCENCg0KQWxleA0KDQo+IA0KPiBTaWduZWQtb2ZmLWJ5
-OiBGb3Rpb3MgVmFsYXNpYWRpcyA8ZnZhbGFzaWFkQGdtYWlsLmNvbT4NCj4gLS0tDQo+ICAg
-bWFuMi9wdHJhY2UuMiB8IDUgKysrKysNCj4gICAxIGZpbGUgY2hhbmdlZCwgNSBpbnNlcnRp
-b25zKCspDQo+IA0KPiBkaWZmIC0tZ2l0IGEvbWFuMi9wdHJhY2UuMiBiL21hbjIvcHRyYWNl
-LjINCj4gaW5kZXggNTVkOWZkMzZkLi5iNDM3YjRmNDQgMTAwNjQ0DQo+IC0tLSBhL21hbjIv
-cHRyYWNlLjINCj4gKysrIGIvbWFuMi9wdHJhY2UuMg0KPiBAQCAtMTAzMyw2ICsxMDMzLDEx
-IEBAIElmIHRoZSBzaXplIG9mIHRoZSBkYXRhIHRvIGJlIHdyaXR0ZW4gYnkgdGhlIGtlcm5l
-bCBleGNlZWRzIHRoZSBzaXplDQo+ICAgc3BlY2lmaWVkIGJ5IHRoZQ0KPiAgIC5JIGFkZHIN
-Cj4gICBhcmd1bWVudCwgdGhlIG91dHB1dCBkYXRhIGlzIHRydW5jYXRlZC4NCj4gK1RvIG9i
-dGFpbiBjb21wbGV0ZSBpbmZvcm1hdGlvbiBkdXJpbmcgc3lzdGVtIGNhbGwgZW50cnkgb3Ig
-ZXhpdCBzdG9wcywNCj4gK3lvdSBzaG91bGQgZW5hYmxlIHRoZQ0KPiArLkIgUFRSQUNFX09f
-VFJBQ0VTWVNHT09EDQo+ICtvcHRpb24gdXNpbmcNCj4gKy5CIFBUUkFDRV9TRVRPUFRJT05T
-Lg0KPiAgIC5JUA0KPiAgIFRoZQ0KPiAgIC5JIHB0cmFjZV9zeXNjYWxsX2luZm8NCg0KLS0g
-DQo8aHR0cDovL3d3dy5hbGVqYW5kcm8tY29sb21hci5lcy8+DQpHUEcga2V5IGZpbmdlcnBy
-aW50OiBBOTM0ODU5NENFMzEyODNBODI2RkJERDhENTc2MzNENDQxRTI1QkI1DQoNCg==
+Hi Alex,
 
---------------EgDUyn4tYY5Nq3RtqMQxCz0E--
+At 2023-02-25T02:10:22+0100, Alex Colomar wrote:
+> On 2/23/23 09:48, G=C3=BCnther Noack wrote:
+> > On Wed, Feb 22, 2023 at 08:36:37AM +0100, Micka=C3=ABl Sala=C3=BCn wrot=
+e:
+> > > On 2023-02-21T21:50:22.000+01:00, G=C3=BCnther Noack wrote:
+> > > > +The availability of individual Landlock features is versioned thro=
+ugh
+> > > > +ABI levels:
+> > > > +.TS
+> > > > +box;
+> > > > +ntb| ntb| lbx
+> > > > +nt| nt| lbx.
+> > > > +ABI	Kernel	Newly introduced access rights
+> > > > +_	_	_
+> > > > +1	5.13	LANDLOCK_ACCESS_FS_EXECUTE
+> > > > +\^	\^	LANDLOCK_ACCESS_FS_WRITE_FILE
+> > > > +\^	\^	LANDLOCK_ACCESS_FS_READ_FILE
+> > > > +\^	\^	LANDLOCK_ACCESS_FS_READ_DIR
+> > > > +\^	\^	LANDLOCK_ACCESS_FS_REMOVE_DIR
+> > > > +\^	\^	LANDLOCK_ACCESS_FS_REMOVE_FILE
+> > > > +\^	\^	LANDLOCK_ACCESS_FS_MAKE_CHAR
+> > > > +\^	\^	LANDLOCK_ACCESS_FS_MAKE_DIR
+> > > > +\^	\^	LANDLOCK_ACCESS_FS_MAKE_REG
+> > > > +\^	\^	LANDLOCK_ACCESS_FS_MAKE_SOCK
+> > > > +\^	\^	LANDLOCK_ACCESS_FS_MAKE_FIFO
+> > > > +\^	\^	LANDLOCK_ACCESS_FS_MAKE_BLOCK
+> > > > +\^	\^	LANDLOCK_ACCESS_FS_MAKE_SYM
+> > > > +_	_	_
+> > > > +2	5.19	LANDLOCK_ACCESS_FS_REFER
+> > > > +.TE
+> > > > +.PP
+> > >=20
+> > > A line break would be nice here.
+> >=20
+> > Added. (Used .sp 1 for that, as it is already used in the
+> > mount_namespaces.7, ip.7 and other man pages.)
+>=20
+[reorganized]
+> I see:
+>=20
+>        The  availability  of individual Landlock features is versioned
+>        through ABI levels:
+>=20
+>        =E2=94=8C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=AC=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=AC=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=90
+>        =E2=94=82ABI =E2=94=82 Kernel =E2=94=82 Newly introduced access ri=
+ghts                 =E2=94=82
+>        =E2=94=9C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=BC=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=BC=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=A4
+>        =E2=94=82 1  =E2=94=82  5.13  =E2=94=82 LANDLOCK_ACCESS_FS_EXECUTE=
+                     =E2=94=82
+>        =E2=94=82    =E2=94=82        =E2=94=82 LANDLOCK_ACCESS_FS_WRITE_F=
+ILE                  =E2=94=82
+>        =E2=94=82    =E2=94=82        =E2=94=82 LANDLOCK_ACCESS_FS_READ_FI=
+LE                   =E2=94=82
+>        =E2=94=82    =E2=94=82        =E2=94=82 LANDLOCK_ACCESS_FS_READ_DI=
+R                    =E2=94=82
+>        =E2=94=82    =E2=94=82        =E2=94=82 LANDLOCK_ACCESS_FS_REMOVE_=
+DIR                  =E2=94=82
+>        =E2=94=82    =E2=94=82        =E2=94=82 LANDLOCK_ACCESS_FS_REMOVE_=
+FILE                 =E2=94=82
+>        =E2=94=82    =E2=94=82        =E2=94=82 LANDLOCK_ACCESS_FS_MAKE_CH=
+AR                   =E2=94=82
+>        =E2=94=82    =E2=94=82        =E2=94=82 LANDLOCK_ACCESS_FS_MAKE_DI=
+R                    =E2=94=82
+>        =E2=94=82    =E2=94=82        =E2=94=82 LANDLOCK_ACCESS_FS_MAKE_RE=
+G                    =E2=94=82
+>        =E2=94=82    =E2=94=82        =E2=94=82 LANDLOCK_ACCESS_FS_MAKE_SO=
+CK                   =E2=94=82
+>        =E2=94=82    =E2=94=82        =E2=94=82 LANDLOCK_ACCESS_FS_MAKE_FI=
+FO                   =E2=94=82
+>        =E2=94=82    =E2=94=82        =E2=94=82 LANDLOCK_ACCESS_FS_MAKE_BL=
+OCK                  =E2=94=82
+>        =E2=94=82    =E2=94=82        =E2=94=82 LANDLOCK_ACCESS_FS_MAKE_SY=
+M                    =E2=94=82
+>        =E2=94=9C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=BC=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=BC=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=A4
+>        =E2=94=82 2  =E2=94=82  5.19  =E2=94=82 LANDLOCK_ACCESS_FS_REFER  =
+                     =E2=94=82
+>        =E2=94=94=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=B4=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=B4=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=98
+>        To query the running kernel's Landlock ABI level, programs  may
+>        pass  the LANDLOCK_CREATE_RULESET_VERSION flag to landlock_cre=E2=
+=80=90
+>        ate_ruleset(2).
+[reorganized]
+> This sounds weird, but they are right that there seems to be a missing
+> blank line.
 
---------------ne3gBWrx8fNIc2OSMueSZMEw
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+Yes, they are.
+
+> Could you explain why it's happening?
+
+This is Savannah #49390.
+
+https://savannah.gnu.org/bugs/?49390
+
+It is fixed in groff 1.23.0.  Which, by the way, is at release candidate
+3 now.  Final release may be this weekend, depending on Bertrand's
+opinion of the changes I've made this week.[1]
+
+> I'd expect the .PP to separate paragraphs with a blank, right?
+
+It does, and it is, but you can't see it because groff 1.22.4 and
+earlier table did not move the drawing position below the bottom box
+border on nroff devices.
+
+The '.sp 1' workaround (which is synonymous with plain '.sp') can be
+removed when you feel groff 1.23.0 has spread sufficiently.
+
+Regards,
+Branden
+
+[1] https://git.savannah.gnu.org/cgit/groff.git/log/
+
+--i4i2bm24ktryg4bb
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmP5Yd0ACgkQnowa+77/
-2zJrdQ//YVPXXW2NLD9mSHkH0wYjHtFMzMQFXAG1+zRYGqoSfx4lkjln8ITKimyY
-NOkjAOAr7yoHaX0yLn5Dog07d8RArk7d46pOluBsl3RpRYNFItZX64HxCTdr0gfB
-n42Ts/dXIfKRRIrApAYvXeoso/DNsvkEWnTgtzk2WINcx8CZUoam39FSzbGrg/Kx
-ZPUjtaZ9ZHo+d4kbBTjWye94fEozOdxBui9JZI7QCt5WsEoM4RWHxKZuaIIsWJOr
-R7EeOCIJz89STCdZcl+lrKLXAPFqJ1+f1MVTA16WclPK6G52WZ8EDJbxLtOJ1cz+
-JdoaVA5RKMdKq8vZ7tBGEPu9pnWzZz+XmCx9J+9XoQZZAQXcoopOlGxwwZ5F9sLF
-3viSe8sslW3/jZHZf71nhb6M8PvN6tOJ/eh3wErpieCV8DqGvOdWcuYQ47NO8n3H
-81JdCg0gW9r0DdQVfZtXHSd96a1+tQBzQ7UDE/yanOOiFSoqcUO5RM6eJNxSjErF
-Kq7Ehw+uGonvuefLc85Tc4qeuGvZ9wK089ICPSl8oGrm+B5ALKs8qZWm6BOs2nag
-YhmDkQOMTVX7FncXzWw+AGiSm1EU1hZ1UabLoOptm+i2UlcNkNyn+2TXgxP0OpQ1
-laexMqIzMEDSKo1fPrCKg8vB344a7Ywoqc+KJ83sfzkU6lwdHdI=
-=rumY
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmP5YgQACgkQ0Z6cfXEm
+bc5AvA/+M0GcFPNXQxwC41TbXsppAsEvnRuxA+P5/nD8KyFuSJTpknLz+DKdIybi
+L8U1ehBSnDhchaGlT8R5OFNoQ28ass+Zu2HUJH4dIB1wr0Gh4ZiSsNMJSn+nqfhK
+Na0hEevWvfCUuVjbFESrHgsMTThLP+x5OXRTn91hQJlGX7se/8BVcq4pyOZIQANU
+d+TvjAVAi0b3owhyIqQPdoN9TObryZ5HteKjFPofi28+MgsN7BnErHMSgPZBwR1l
+l7siPPhx/27gdu8A4D3ni0TKFeRBGp7/vfBZhy0Qrx8kHFlLAHy+s0i6l6/QqwaS
+IN5TAF2QKeW+1GfryAeRmDa9aAYdh/GAZXDDvh8PkAI+oKjWDWXewmSzCTW5AHHq
+4VsRJb8J0O4NgRLHRTOurCc1Kq7mmwiNjAFTM8uZzivVV4vC+0yBJqwOLPVnlt5i
+iLbj/x9Uv1gz9bpU4D1DqwZAg15W0XhKdhWNxyKjX92/rYT8AMG5lMKWia+LZnMI
+weFzqiLdTX7vWLasYbY6yYABrlPk/rpT1ZbzmdcHrcm5aHY5rvQ4mEJSiBCZ1Py+
+z5Q6sZ05+3dikayrwGBLVpt3yPzyGzkGWAtLi+7DdcVtXqhC945sCt8DPmgZv7Kz
+4h19TSTcT0ZaJw4gCGI1GZXn5qM7x9fkm06wePQU095UgNslMwg=
+=WVDa
 -----END PGP SIGNATURE-----
 
---------------ne3gBWrx8fNIc2OSMueSZMEw--
+--i4i2bm24ktryg4bb--
