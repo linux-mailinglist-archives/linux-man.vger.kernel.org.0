@@ -2,70 +2,64 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id E922F6A6060
-	for <lists+linux-man@lfdr.de>; Tue, 28 Feb 2023 21:30:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id A93746A60BE
+	for <lists+linux-man@lfdr.de>; Tue, 28 Feb 2023 21:52:44 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229437AbjB1UaD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 28 Feb 2023 15:30:03 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50812 "EHLO
+        id S229512AbjB1Uwn (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 28 Feb 2023 15:52:43 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41510 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229481AbjB1UaC (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 28 Feb 2023 15:30:02 -0500
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com [IPv6:2a00:1450:4864:20::52d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4D6F61284E
-        for <linux-man@vger.kernel.org>; Tue, 28 Feb 2023 12:30:01 -0800 (PST)
-Received: by mail-ed1-x52d.google.com with SMTP id cy6so45227838edb.5
-        for <linux-man@vger.kernel.org>; Tue, 28 Feb 2023 12:30:01 -0800 (PST)
+        with ESMTP id S229738AbjB1Uwm (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 28 Feb 2023 15:52:42 -0500
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com [IPv6:2a00:1450:4864:20::42f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A416AD335
+        for <linux-man@vger.kernel.org>; Tue, 28 Feb 2023 12:52:40 -0800 (PST)
+Received: by mail-wr1-x42f.google.com with SMTP id v16so8342756wrn.0
+        for <linux-man@vger.kernel.org>; Tue, 28 Feb 2023 12:52:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1677616200;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=f2yL8FGFUJ9GBn3+pv7NQVXhdr+j/TmA5x5j27C8lnI=;
-        b=k/u9Pho2mG/AyeE8yLoNWoY14hOKyjpvIl+4w4/wZea53lydZzv32UHicF2QQ9Olzj
-         RXRI3CRjbR9JdyQdA4xc1UbyJXpg6d+khSiigT0p3EHADGKRpzjR5TmBISVHA3BywIAt
-         RGRQoCMyrepoL2HZV4VHgkJ7LFDC1y2vYFvfzm7+zU0JjBoG2hM6i7W/4Nz2RAD8dCZ6
-         Blbg3HvJypPfqONNa/8upBMT+eRdSI0ELk0BSTxSiZmQAMO5sgY3C3n5iUb54U2CBKxb
-         xlffg/sBB3bPIsjy+uVZosmAGZH+od/nbwcb2eAmD0B+AsmyZ2vtSkpR7U8bLZm25j8W
-         BtiA==
+        d=gmail.com; s=20210112; t=1677617559;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=JeG8NgZUQ26YA+VtExaK2r0lHzhxS8aMrxe4YEFdkMk=;
+        b=iCUZc6cpYMFU/mMZS49Y3633rvgvqS3qdWLGcYUQ47zMfRMODK9TW5tcvz5u3I0WZz
+         1c7jFzECk1mxvQ57YKF7ZoZy/fhfqdnUbi4UVVie+CRFXG/CY7nUK0+Q8CAOE6rTmtPT
+         +lqM4ciKlWK0uT+4V3Fa3YekuDMaaIFJcvRZAW8KONzUn0fNg2NdKi2pcWpcYj+abA85
+         HbNz64nyXLbIU8QTs+icAf6ulC2SMSi2yMa+unMc1LsW4Gb3qZn1F2pokMhqDxvppSnD
+         lp2i3ZHRY7Bh1JY0HSr6ZwUPCetUKGYh3NLpp9+9r39xLmNiJ6DnF38KsQmHEMiXpz+Y
+         s1Uw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1677616200;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=f2yL8FGFUJ9GBn3+pv7NQVXhdr+j/TmA5x5j27C8lnI=;
-        b=4eoMzgy1HbVG7XRBVO3H9fTpppIWSc5nmaC+X0ByP+Ru1Cx2KowTOY7q/FuJcLA1nr
-         +1P782YTlXD5fRLB6TtNSPw7/m/lLZ9DLS34BBUPh1oC+a5NCqt0cK8fT8zh2iYjOZPr
-         F3AlBi4M+aaFXvFXPi/mpqcaFvVhZlNUmkjNFOquDBXzuNVx6tuj1I1xgj3LuV6ko3QI
-         q8ws+0yLdAz21LTIl8Tyamu5iKKV/0y2nE2AO1PrEWmy1B1DfWno6fMjguW7qtBbudkr
-         SnylEQ4FlYyY6pv74Zo/SQtwmoK/wzlfy4oXirjcB6RAbGm5PJmYBgoYnLu1U2ElwA6n
-         biyQ==
-X-Gm-Message-State: AO0yUKVzRR6bLiscyr1EsrIQpRKJowZE1YnxU99JyCz96Sxb9eIqOdnh
-        gQJzmj1FO4BkjzgpFJE2YKM=
-X-Google-Smtp-Source: AK7set8v5j3lra+V3EPJh1lsePlCDuYO5eKRSVdOZPM9wWUfm0Zok+4N+X0FNpx5tQUmGtQ6GJzxwQ==
-X-Received: by 2002:a17:906:7084:b0:8b1:3009:536b with SMTP id b4-20020a170906708400b008b13009536bmr3970766ejk.29.1677616199782;
-        Tue, 28 Feb 2023 12:29:59 -0800 (PST)
+        d=1e100.net; s=20210112; t=1677617559;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=JeG8NgZUQ26YA+VtExaK2r0lHzhxS8aMrxe4YEFdkMk=;
+        b=yKzEtTeopWgHPg6CZulzoYNk85TljNCzoikAA69a5O23Po5uvduRJ2fe/m9vgSc3jT
+         f5LzDJ8IbMkI/5037Gyb1guhAWf2NfMKuusqWlbfO6WOSKVjDpwsxDPaZvrf3ohRWqDI
+         JYUDmNYMiIlm4NhzhUUByj8HWJh13+OI44iukfi3NnfxI6wz9nH7mb/TQjliMDfYT42N
+         3e/ilVjwXoKLKDITqCo5PY9U0HmpsfacoTDZ6nfAe1kdXuwBy4q/7q3c6i2gB43024ae
+         eIrxPQzVW/zxQ8M4xPmeh5rfCV6u/TkZFdszW7TDdBnYnWvK4BMRhX4iaC7COB35LkQz
+         OV7g==
+X-Gm-Message-State: AO0yUKV6FBG7mgUUkMXKcSs+pKvlaW2AOFWpWsmIltXIxWlQe9kfiXv4
+        LPC6FDn0FIAhrjvtNAEWTswpBO+hxoQ=
+X-Google-Smtp-Source: AK7set8vc5Dg1TiV/isVsARFQW7l6WBf4kwqQX6WdQuKf9EXdJZgwq+BZ2WcsplTASexEFu3jMV7pA==
+X-Received: by 2002:adf:fecd:0:b0:2c7:13e4:2094 with SMTP id q13-20020adffecd000000b002c713e42094mr3283540wrs.42.1677617558944;
+        Tue, 28 Feb 2023 12:52:38 -0800 (PST)
 Received: from localhost ([2a02:168:633b:1:7c09:9c3b:256e:8ba1])
-        by smtp.gmail.com with ESMTPSA id kb16-20020a1709070f9000b008cae50b0115sm4843915ejc.87.2023.02.28.12.29.59
+        by smtp.gmail.com with ESMTPSA id e15-20020a5d594f000000b002c5d3f0f737sm10636156wri.30.2023.02.28.12.52.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Feb 2023 12:29:59 -0800 (PST)
-Date:   Tue, 28 Feb 2023 21:29:58 +0100
-From:   =?iso-8859-1?Q?G=FCnther?= Noack <gnoack3000@gmail.com>
-To:     Alex Colomar <alx.manpages@gmail.com>
-Cc:     =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-man@vger.kernel.org
-Subject: Re: [PATCH 3/3] landlock.7: Document Landlock ABI v3 (file
- truncation; kernel 6.2)
-Message-ID: <Y/5kRnddGTSquwxl@galopp>
-References: <20230221205023.2739-1-gnoack3000@gmail.com>
- <20230221205023.2739-3-gnoack3000@gmail.com>
- <0dd34ee2-c86a-7f73-0d5e-814f2e460476@gmail.com>
+        Tue, 28 Feb 2023 12:52:38 -0800 (PST)
+From:   =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
+To:     Alejandro Colomar <alx.manpages@gmail.com>,
+        =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
+Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
+        linux-man@vger.kernel.org,
+        =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
+Subject: [PATCH v2 1/2] landlock.7: Document Landlock ABI v2 (file reparenting; kernel 5.19)
+Date:   Tue, 28 Feb 2023 21:52:23 +0100
+Message-Id: <20230228205224.5991-1-gnoack3000@gmail.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <0dd34ee2-c86a-7f73-0d5e-814f2e460476@gmail.com>
 X-Spam-Status: No, score=-1.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
         FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
@@ -76,43 +70,151 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Sat, Feb 25, 2023 at 12:31:38AM +0100, Alex Colomar wrote:
-> On 2/21/23 21:50, Günther Noack wrote:
-> > +Open a file with write access. Note that you might additionally need the
-> 
-> Again,
-> please use semantic newlines.
-> 
-> Also,
-> roff(7) requires two spaces after period in source code,
-> to detect sentence endings.
-> I say this as a curiosity,
-> since due to the requirement of semantic newlines,
-> we always write a newline after period.
+* Add the description for LANDLOCK_ACCESS_FS_REFER,
+  in line with recent update to the uapi headers:
+  https://lore.kernel.org/linux-security-module/20230202204623.10345-1-gnoack3000@gmail.com/T/
+* VERSIONS: Add a table of Landlock versions and their changes.
+  Briefly talk about how to probe ABI levels and warn users about the
+  special semantics of the LANDLOCK_ACCESS_FS_REFER right.
+* Add LANDLOCK_ACCESS_FS_REFER to the code example.
 
-Applied semantic newlines.  There are no single-space sentence ends left.
+Code review threads for the "refer" feature:
+* https://lore.kernel.org/all/20220506161102.525323-1-mic@digikod.net/ (initial commit)
+* https://lore.kernel.org/all/20220823144123.633721-1-mic@digikod.net/ (bugfix)
+* https://lore.kernel.org/all/20230221165205.4231-1-gnoack3000@gmail.com/ (documentation update)
+---
+ man7/landlock.7 | 102 +++++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 100 insertions(+), 2 deletions(-)
 
-> > +Whether an opened file can be truncated with
-> > +.BR ftruncate (2)
-> > +is determined during
-> > +.BR open (2),
-> > +in the same way as read and write permissions are checked during
-> > +.BR open (2)
-> > +using
-> > +.B LANDLOCK_ACCESS_FS_READ_FILE
-> > +and
-> > +.BR LANDLOCK_ACCESS_FS_WRITE_FILE .
-> > +This access right is available since the third version of the Landlock ABI.
-> 
-> Maybe it's simpler to say Landlock ABI v3?  That's usual convention in
-> software, so not using formal English for that is not a crime :).
+diff --git a/man7/landlock.7 b/man7/landlock.7
+index b2bc9e10b..f70a01484 100644
+--- a/man7/landlock.7
++++ b/man7/landlock.7
+@@ -105,6 +105,56 @@ Create (or rename or link) a block device.
+ .TP
+ .B LANDLOCK_ACCESS_FS_MAKE_SYM
+ Create (or rename or link) a symbolic link.
++.TP
++.B LANDLOCK_ACCESS_FS_REFER
++Link or rename a file from or to a different directory
++(i.e. reparent a file hierarchy).
++.IP
++This access right is available since the second version of the Landlock ABI.
++.IP
++This is the only access right which is denied by default by any ruleset,
++even if the right is not specified as handled at ruleset creation time.
++The only way to make a ruleset grant this right
++is to explicitly allow it for a specific directory
++by adding a matching rule to the ruleset.
++.IP
++In particular, when using the first Landlock ABI version,
++Landlock will always deny attempts to reparent files
++between different directories.
++.IP
++In addition to the source and destination directories having the
++.B LANDLOCK_ACCESS_FS_REFER
++access right,
++the attempted link or rename operation must meet the following constraints:
++.RS
++.IP \[bu] 3
++The reparented file may not gain more access rights in the destination directory
++than it previously had in the source directory.
++If this is attempted, the operation results in an
++.B EXDEV
++error.
++.IP \[bu] 3
++When linking or renaming, the
++.B LANDLOCK_ACCESS_FS_MAKE_*
++right for the respective file type must be granted
++for the destination directory.
++Otherwise, the operation results in an
++.BR EACCES
++error.
++.IP \[bu] 3
++When renaming, the
++.B LANDLOCK_ACCESS_FS_REMOVE_*
++right for the respective file type must be granted
++for the source directory.
++Otherwise, the operation results in an
++.B EACCES
++error.
++.RE
++.IP
++If multiple requirements are not met, the
++.B EACCES
++error code takes precedence over
++.BR EXDEV .
+ .\"
+ .SS Layers of file path access rights
+ Each time a thread enforces a ruleset on itself,
+@@ -182,7 +232,54 @@ and related syscalls on a target process,
+ a sandboxed process should have a subset of the target process rules,
+ which means the tracee must be in a sub-domain of the tracer.
+ .SH VERSIONS
+-Landlock was added in Linux 5.13.
++Landlock was introduced in Linux 5.13.
++.PP
++To determine which Landlock features are available,
++users should query the Landlock ABI version:
++.TS
++box;
++ntb| ntb| lbx
++nt| nt| lbx.
++ABI	Kernel	Newly introduced access rights
++_	_	_
++1	5.13	LANDLOCK_ACCESS_FS_EXECUTE
++\^	\^	LANDLOCK_ACCESS_FS_WRITE_FILE
++\^	\^	LANDLOCK_ACCESS_FS_READ_FILE
++\^	\^	LANDLOCK_ACCESS_FS_READ_DIR
++\^	\^	LANDLOCK_ACCESS_FS_REMOVE_DIR
++\^	\^	LANDLOCK_ACCESS_FS_REMOVE_FILE
++\^	\^	LANDLOCK_ACCESS_FS_MAKE_CHAR
++\^	\^	LANDLOCK_ACCESS_FS_MAKE_DIR
++\^	\^	LANDLOCK_ACCESS_FS_MAKE_REG
++\^	\^	LANDLOCK_ACCESS_FS_MAKE_SOCK
++\^	\^	LANDLOCK_ACCESS_FS_MAKE_FIFO
++\^	\^	LANDLOCK_ACCESS_FS_MAKE_BLOCK
++\^	\^	LANDLOCK_ACCESS_FS_MAKE_SYM
++_	_	_
++2	5.19	LANDLOCK_ACCESS_FS_REFER
++.TE
++.sp 1
++.PP
++Users should use the Landlock ABI version rather than the kernel version
++to determine which features are available.
++The mainline kernel versions listed here are only included for orientation.
++Kernels from other sources may contain backported features,
++and their version numbers may not match.
++.PP
++To query the running kernel's Landlock ABI version,
++programs may pass the
++.B LANDLOCK_CREATE_RULESET_VERSION
++flag to
++.BR landlock_create_ruleset (2).
++.PP
++When building fallback mechanisms for compatibility with older kernels,
++users are advised to consider the special semantics of the
++.B LANDLOCK_ACCESS_FS_REFER
++access right:
++In ABI v1,
++linking and moving of files between different directories is always forbidden,
++so programs relying on such operations are only compatible
++with Landlock ABI v2 and higher.
+ .SH NOTES
+ Landlock is enabled by
+ .BR CONFIG_SECURITY_LANDLOCK .
+@@ -242,7 +339,8 @@ attr.handled_access_fs =
+         LANDLOCK_ACCESS_FS_MAKE_SOCK |
+         LANDLOCK_ACCESS_FS_MAKE_FIFO |
+         LANDLOCK_ACCESS_FS_MAKE_BLOCK |
+-        LANDLOCK_ACCESS_FS_MAKE_SYM;
++        LANDLOCK_ACCESS_FS_MAKE_SYM |
++        LANDLOCK_ACCESS_FS_REFER;
+ 
+ ruleset_fd = landlock_create_ruleset(&attr, sizeof(attr), 0);
+ if (ruleset_fd == -1) {
 
-Hm, I took that sentence from the kernel documentation,
-and I would like to avoid deviating in minor wording aspects.
-https://docs.kernel.org/userspace-api/landlock.html
+base-commit: 53a7e5dfc3554a2e8dbdfdc4504e99652e1d6382
+-- 
+2.39.2
 
-I would be in favor of "ABI v3" as well though, for brevity.
-Mickaël, do you have a strong opinion on this?
-
-Thank you for the review!
-–Günther
