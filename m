@@ -2,69 +2,70 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 2E2896A762E
-	for <lists+linux-man@lfdr.de>; Wed,  1 Mar 2023 22:31:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0A1436A7637
+	for <lists+linux-man@lfdr.de>; Wed,  1 Mar 2023 22:35:59 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229561AbjCAVbr (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 1 Mar 2023 16:31:47 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33002 "EHLO
+        id S229496AbjCAVf6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 1 Mar 2023 16:35:58 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35174 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229496AbjCAVbq (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Mar 2023 16:31:46 -0500
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com [IPv6:2a00:1450:4864:20::335])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9711E51FA1
-        for <linux-man@vger.kernel.org>; Wed,  1 Mar 2023 13:31:42 -0800 (PST)
-Received: by mail-wm1-x335.google.com with SMTP id p23-20020a05600c1d9700b003ead4835046so1289352wms.0
-        for <linux-man@vger.kernel.org>; Wed, 01 Mar 2023 13:31:42 -0800 (PST)
+        with ESMTP id S229633AbjCAVf5 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Mar 2023 16:35:57 -0500
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com [IPv6:2a00:1450:4864:20::32f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E38D3231E3;
+        Wed,  1 Mar 2023 13:35:55 -0800 (PST)
+Received: by mail-wm1-x32f.google.com with SMTP id k37so9526780wms.0;
+        Wed, 01 Mar 2023 13:35:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=in-reply-to:from:cc:references:to:content-language:subject
+        h=in-reply-to:from:references:cc:to:content-language:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=BZ8P5VWjbg3mpdHRmLK6FdjFOAX9vaffFS+U/KrnlZI=;
-        b=hi6bMTi7jUsfaEl0rMSChrCWTs7VmOkkO/zNGY/o3ZGPqE6aTSJH+pT6c7CEnFp9Wv
-         jheLKs3PJl9b9nRfCqTq3lRAYqhqFIsS6RQtSRz3GBf/TVAmiy05t3c1SaJz4kQwzvpk
-         m4ioDJYTARcT3BVH1wZ9ky419bhgepni697o0ta7ag9atJtsFUOoe40LOvr88G/ULnt3
-         Ktt0+aAJsFBD2xwXCBkI70WE9fdpF6paaBQ5dHYlE19bcBZ9SqufwXNkyeUgxQTpM+LY
-         vIeeg/7hxTdHG52c3p+KiNErzeSg+lxFX8RxLdB/jbc7aACcLilRVBR2YjIMpLjC2c9V
-         XL7Q==
+        bh=1DeOoRTCEVkow8hedgErTLZBFh/zEnfd1ox1XO8mCE8=;
+        b=cul+e1AFLQrQoQAweKbgk5aAOAUzQeL+jJ1yEYOngbQGrh1g6Wab277fxqLY7Fyq0g
+         8aaHPBMk6gLgxOio+YXpducjA1vyncSl20dNKmYkWcXmf/Y4XdXJ6Gytp300CpABwxdl
+         3o46+PQgVigD6HI30736nU1hN8mLDSEqxRNKufJhuW3tybGFKB8gBtff/JyyztmOllQO
+         GVFJ55OcQ3UHW9P6//pYqqYnhGLexqyF1PPuhg4Wm/41uJ6Bqt5J3adhGdQPe7QNPHBl
+         kO6jtyU0yLPCpYX+8waj1n8zK1YJxvN096UySJLKURp3uD50/ZLTz5XHCk/bLrBtNPdP
+         46Xg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=in-reply-to:from:cc:references:to:content-language:subject
+        h=in-reply-to:from:references:cc:to:content-language:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=BZ8P5VWjbg3mpdHRmLK6FdjFOAX9vaffFS+U/KrnlZI=;
-        b=QBs+jAs879XYtD96sJHhaDi0AyHZVJMOVjluZQbNUUk39CpL5CTgmifEZl/xYHhLhc
-         3aXd+GvtXuCaXAwyIcRGnGNgZ38OekuxChnDAP6uDUM6301QbmqKnSLetcGzhuauTeMy
-         qPsVkAC1chfohx7dg4cy+TX3/OxCAUm1q5dDE6iLbQfjpF0/rtq27b6CVJSpAntaNNgU
-         CtPG25tfaGw+MjyJhnaf6YgptXrq7JWRcAw2j+hNUD/M+I0dZhKz4ofBXHIA5m4l5qkM
-         aDGZdZSbH9xgp8pAtJHdxo69IyTtQ/o8GvW0Vvx2X8ZSuKeHpZDGM+BMOSUXeLOLaSH7
-         29qQ==
-X-Gm-Message-State: AO0yUKVbUeWLVN/dWjH7EAgffgH6Z4sUYO/DbwXvXRuozHHsGgWViJTg
-        ZgoF7aoZLi9HajSuzJbVX44=
-X-Google-Smtp-Source: AK7set+Zz4LQ3U2yY8JC062hZ8QNL44brLRKvQW3Az065twj3Kn9mF/3AWa4mZeciirIfHNHUwBdbg==
-X-Received: by 2002:a05:600c:4a9d:b0:3ea:e7f6:f8f9 with SMTP id b29-20020a05600c4a9d00b003eae7f6f8f9mr6062144wmp.19.1677706300843;
-        Wed, 01 Mar 2023 13:31:40 -0800 (PST)
+        bh=1DeOoRTCEVkow8hedgErTLZBFh/zEnfd1ox1XO8mCE8=;
+        b=OIqYs9KZ3ncZan/gT9s3iL4U4lyIqyO3eRvnf+kwNtlQXfTyODTAoivFKQLJkUhdR2
+         HF+ybIoRVB7ZX4dG7NJykTmQZ3emoWiKsBr9P03FqmnIn7C0sc2s2t6gXpzYD4JfsI9p
+         IkneRARvF9bfmacndogttXWoJPOwMa+dFAOdLO7aTBZnLNs8vTiYTtCU8pxOShhFQoGV
+         r7+Cwn6I3YTaZF/68mkCJGsAIpartGI5lIo4pdUBDjACAkczFGCB2A81pQ5TqKvHZChV
+         XWv62l2nI2ckb6YkVwpVDvDHBbR3QBaKqCBnBjxkkQCPAHc3UpvY/2pr3u1JgxvlpPSl
+         oO2A==
+X-Gm-Message-State: AO0yUKXtPbvg57fe+JicE19ZOLYIt59Q5IovSKoeFANvBYSzCuvy1ZwK
+        7lqeYtBC9poKScCtDsRRhH4OjDVRJ38=
+X-Google-Smtp-Source: AK7set/VLJdFJWrMyjWAMWsukxXj5M4Xim1HsdNEtiLlWz5MwOvyp7Men9NowVhOVOaNY35riQ/zaQ==
+X-Received: by 2002:a1c:cc0a:0:b0:3ea:ea6b:f9ad with SMTP id h10-20020a1ccc0a000000b003eaea6bf9admr5964125wmb.31.1677706554395;
+        Wed, 01 Mar 2023 13:35:54 -0800 (PST)
 Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id q18-20020a05600c46d200b003eaee9e0d22sm787728wmo.33.2023.03.01.13.31.39
+        by smtp.gmail.com with ESMTPSA id hn6-20020a05600ca38600b003e22508a343sm747937wmb.12.2023.03.01.13.35.53
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 01 Mar 2023 13:31:40 -0800 (PST)
-Message-ID: <1ec9c450-3bb3-b6e9-b3f1-112869b62798@gmail.com>
-Date:   Wed, 1 Mar 2023 22:31:38 +0100
+        Wed, 01 Mar 2023 13:35:53 -0800 (PST)
+Message-ID: <7d4571c6-b708-c63b-5a5c-2b2d4f963914@gmail.com>
+Date:   Wed, 1 Mar 2023 22:35:52 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
-Subject: Re: [PATCH] clone.2: note EINVAL when exit_signal + bad flags
+Subject: Re: [PATCH manpages 1/2] udp.7: add UDP_SEGMENT
 Content-Language: en-US
-To:     Jack Pearson <jack@pearson.onl>, linux-man@vger.kernel.org
-References: <20230228234246.466811-1-jack@pearson.onl>
-Cc:     Carlos O'Donell <carlos@redhat.com>,
-        GNU C Library <libc-alpha@sourceware.org>
+To:     Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+        linux-man@vger.kernel.org
+Cc:     pabeni@redhat.comm, netdev@vger.kernel.org,
+        Willem de Bruijn <willemb@google.com>
+References: <20230301211146.1974507-1-willemdebruijn.kernel@gmail.com>
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20230228234246.466811-1-jack@pearson.onl>
+In-Reply-To: <20230301211146.1974507-1-willemdebruijn.kernel@gmail.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------oQpUd0DGFrAlcOJawCjhiYOu"
+ boundary="------------AAfoGPbn0liB40h1p45O0na1"
 X-Spam-Status: No, score=-2.2 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
@@ -76,138 +77,134 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------oQpUd0DGFrAlcOJawCjhiYOu
-Content-Type: multipart/mixed; boundary="------------LsXoPxte1fWP6AWy9hSR0mAz";
+--------------AAfoGPbn0liB40h1p45O0na1
+Content-Type: multipart/mixed; boundary="------------byzYXQpnh2SzIh0WsWOLGXr0";
  protected-headers="v1"
 From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Jack Pearson <jack@pearson.onl>, linux-man@vger.kernel.org
-Cc: Carlos O'Donell <carlos@redhat.com>,
- GNU C Library <libc-alpha@sourceware.org>
-Message-ID: <1ec9c450-3bb3-b6e9-b3f1-112869b62798@gmail.com>
-Subject: Re: [PATCH] clone.2: note EINVAL when exit_signal + bad flags
-References: <20230228234246.466811-1-jack@pearson.onl>
-In-Reply-To: <20230228234246.466811-1-jack@pearson.onl>
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+ linux-man@vger.kernel.org
+Cc: pabeni@redhat.comm, netdev@vger.kernel.org,
+ Willem de Bruijn <willemb@google.com>
+Message-ID: <7d4571c6-b708-c63b-5a5c-2b2d4f963914@gmail.com>
+Subject: Re: [PATCH manpages 1/2] udp.7: add UDP_SEGMENT
+References: <20230301211146.1974507-1-willemdebruijn.kernel@gmail.com>
+In-Reply-To: <20230301211146.1974507-1-willemdebruijn.kernel@gmail.com>
 
---------------LsXoPxte1fWP6AWy9hSR0mAz
+--------------byzYXQpnh2SzIh0WsWOLGXr0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi Jack,
+Hi Willem,
 
-On 3/1/23 00:42, Jack Pearson wrote:
-> Document that Linux will report EINVAL when exit_signal is specified an=
-d
-> either CLONE_THREAD or CLONE_PARENT is specified.
+On 3/1/23 22:11, Willem de Bruijn wrote:
+> From: Willem de Bruijn <willemb@google.com>
 >=20
-> From clone3_args_valid in Linux:
-> ```
-> 	if ((kargs->flags & (CLONE_THREAD | CLONE_PARENT)) &&
-> 	    kargs->exit_signal)
-> 		return false;
-> ```
+> UDP_SEGMENT was added in commit bec1f6f69736
+> ("udp: generate gso with UDP_SEGMENT")
 >=20
-> I have verified that this happens on my kernel with a small program:
+>     $ git describe --contains bec1f6f69736
+>     linux/v4.18-rc1~114^2~377^2~8
 >=20
-> ```
-> #include <stdio.h>
-> #include <linux/sched.h>
-> #include <signal.h>
-> #include <sys/syscall.h>
-> #include <unistd.h>
+> Kernel source has example code in tools/testing/selftests/net/udpgso*
 >=20
-> int main() {
-> 	struct clone_args ca =3D {
-> 		.flags =3D CLONE_THREAD | CLONE_SIGHAND | CLONE_VM,
-> 		.exit_signal =3D SIGCHLD, // comment me out to fix error
-> 		.set_tid_size =3D 0,
-> 	};
-> 	syscall(SYS_clone3, &ca, sizeof(struct clone_args));
-> 	perror("");
-> }
-> ```
+> Per https://www.kernel.org/doc/man-pages/patches.html,
+> "Describe how you obtained the information in your patch":
+> I am the author of the above commit and follow-ons.
 >=20
-> And I have verified that this doesn't happen with normal `clone` throug=
-h
-> the glibc helper:
->=20
-> ```
-> #define _GNU_SOURCE
->=20
-> #include <sched.h>
-> #include <signal.h>
-> #include <stdio.h>
-> #include <sys/mman.h>
->=20
-> int do_nothing(void *_) { return 0; }
->=20
-> int main() {
->         void *map =3D mmap(NULL, 0x10000, PROT_READ | PROT_WRITE,
-> 	                 MAP_ANONYMOUS | MAP_PRIVATE, 0, 0);
-> 	void *stack_top =3D map + 0x10000 - 1;
-> 	clone(do_nothing, stack_top,
-> 	      CLONE_THREAD | CLONE_VM | CLONE_SIGHAND | SIGCHLD, NULL);
-> 	perror("");
-> }
-> ```
->=20
-> Signed-off-by: Jack Pearson <jack@pearson.onl>
+> Signed-off-by: Willem de Bruijn <willemb@google.com>
 > ---
->  man2/clone.2 | 10 ++++++++++
->  1 file changed, 10 insertions(+)
+>  man7/udp.7 | 25 +++++++++++++++++++++++++
+>  1 file changed, 25 insertions(+)
+>=20
+> diff --git a/man7/udp.7 b/man7/udp.7
+> index 5822bc551fdf..ec16306df605 100644
+> --- a/man7/udp.7
+> +++ b/man7/udp.7
+> @@ -204,6 +204,31 @@ portable.
+>  .\"     UDP_ENCAP_ESPINUDP draft-ietf-ipsec-udp-encaps-06
+>  .\"     UDP_ENCAP_L2TPINUDP rfc2661
+>  .\" FIXME Document UDP_NO_CHECK6_TX and UDP_NO_CHECK6_RX, added in Lin=
+ux 3.16
+> +.TP
+> +.BR UDP_SEGMENT " (since Linux 4.18)"
+> +Enables UDP segmentation offload.
+> +Segmentation offload reduces
+> +.BR send(2)
+> +cost by transferring multiple datagrams worth of data as a single
+> +large packet through the kernel transmit path, even when that
 
-Patch applied.  Thanks!
+Please use semantic newlines.  See man-pages(7):
+
+   Use semantic newlines
+       In the source of a manual page, new sentences should be started
+       on  new  lines,  long  sentences  should be split into lines at
+       clause breaks (commas, semicolons, colons, and so on), and long
+       clauses should be split at phrase boundaries.  This convention,
+       sometimes known as "semantic newlines", makes it easier to  see
+       the  effect of patches, which often operate at the level of in=E2=80=
+=90
+       dividual sentences, clauses, or phrases.
+
+
+> +exceeds MTU.
+> +As late as possible, the large packet is split by segment size into a
+> +series of datagrams.
+> +This segmentation offload step is deferred to hardware if supported,
+> +else performed in software.
+> +This option takes a value between 0 and USHRT_MAX that sets the
+> +segment size: the size of datagram payload, excluding the UDP header.
+> +The segment size must be chosen such that at most 64 datagrams are
+> +sent in a single call and that the datagrams after segmentation meet
+> +the same MTU rules that apply to datagrams sent without this option.
+> +Segmentation offload depends on checksum offload, as datagram
+> +checksums are computed after segmentation.
+> +The option may also be set for individual
+> +.BR sendmsg(2)
+
+There should be a space between the bold part and the roman part:
+
+=2EBR foo (2)
+
+Otherwise, it all gets printed in bold.
+
+Cheers,
 
 Alex
 
->=20
-> diff --git a/man2/clone.2 b/man2/clone.2
-> index d63895189..be802a280 100644
-> --- a/man2/clone.2
-> +++ b/man2/clone.2
-> @@ -1436,6 +1436,16 @@ One of the PIDs specified in
->  .I set_tid
->  was an invalid.
->  .TP
-> +.BR EINVAL " (" clone3 "() only)"
-> +.\" commit 7f192e3cd316ba58c88dfa26796cf77789dd9872
-> +.B CLONE_THREAD
-> +or
-> +.B CLONE_PARENT
-> +was specified in the
-> +.I flags
-> +mask, but a signal was specified in
-> +.I exit_signal.
-> +.TP
->  .BR EINVAL " (AArch64 only, Linux 4.6 and earlier)"
->  .I stack
->  was not aligned to a 128-bit boundary.
+> +calls by passing it as a
+> +.BR cmsg(7).
+> +A value of zero disables the feature.
+> +This option should not be used in code intended to be portable.
+>  .SS Ioctls
+>  These ioctls can be accessed using
+>  .BR ioctl (2).
 
 --=20
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
---------------LsXoPxte1fWP6AWy9hSR0mAz--
+--------------byzYXQpnh2SzIh0WsWOLGXr0--
 
---------------oQpUd0DGFrAlcOJawCjhiYOu
+--------------AAfoGPbn0liB40h1p45O0na1
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmP/xDsACgkQnowa+77/
-2zKQlhAAmtmiZH5Yo47tV+fsc0JdmIRu+S558H4zvc0NFlkPR+ZtLveat8A6yZ64
-nEyN7KT5TgujJb4zDYzXc9PKj+YExKQzjM9G5YN6bKPa+ZxnyZZZLupSOH1ab7PH
-Yt5aEl3gOfnfSKgZvjkpZjjgGA6vygxfUZD152x3AvRhqN8FtZ66hHkgSrHewgEU
-vcEol/47xTtWi718UxyBqlcsfwgL7uVzkn/Rov08NJiwOAhI4o9uwyxAsdTkIzjf
-S6dceAGMxsiFYUQX87LhbN7z2wARAP5HyVRALVLwDWQvwyTSEBTH8fIClzMuKwkw
-7xqCPWEs7GMr9HuwX/DgA9/Np15/DhHUfttz87++cWv8eNrtQaaBsCh8Ehd3ucfF
-A2RWvRJLFwFrUkZHExX4PXIMq+250YLORBM1tdx2hX1RZm4fC9+47cpBF9RDCUzh
-RSa0oIYuvV9p5keJWk2ZaK+YM9TEIudyjoECg8TfPvWZrx0VfjoJHEBISCKerN58
-ypYLxoZxAIu+SWPoT5PoI9vWQajZ9pvnpveIPD0p2tPxYlfvfK/8dfhb8reKpAPL
-/1QayowejNn3hCSFmvP2ET2Sqb/PgbsDmlyhmI0tSpvRCl7lyvNWH1BFMFJTrw4A
-1S7LMXTzcf/GCp9ahkaKe3YfuEGdcKXq38ytxZdCM5yqYNsU14w=
-=Hr2+
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmP/xTgACgkQnowa+77/
+2zLJkA/5ASuc7CJszey1/NyCp+x+lnfm26j4W8I2LQBflg7yjIA4SEIVolI18Sab
+PSo52rDMm5qCq6PQqMmbqGsmbRlr5cmMJCDe74azJfuNrr+GtrN1xc4pPXx6Qt4Q
+r2PW8bcn2bChYNtY/aIFKhCnyN46HgnFUsSAOPOD/jl2O05mBGtv9omQACE/aMRm
+0zd6Kg2E4HMQXt9LzoMAzJbmFhiKBFBEFXbTr7Ge8R3ycuowIvpZAUzPz+2kQBCx
+xCwTX42C7nav9ljnATzmDN6Vz5Eu4FDY3FR/bUSSoPe81+4LiWm6rG2nDoZQZ5Ln
+QIGO2KdeBii/3M9vPbxACTiQ9Ria8AxIN4JGqkJlYo9DvAosTfgKunxpMfuejWVF
+HS+oRG1xtqMZrgmMeG5lIv7u9S7CaHotERACF7el0Iwd5qEPkryqcq/HvREn1b+R
+kw3MxjNSHNAGd0yvOCJZ2FVVEP8WtHY6y7gihe+HykCDiyGSdmJ8dXL5L3+DAEDC
+y8yzL7+FsuyGlQfOZNDgLXjeg5q4i0x1CJlZYthLuUclM92Bm1LsflUUWCBr+bLs
+Ya5f3G1Kw36U/CPVqIv2tdA7Jvypsbymi7kB7/3NWgSBvyjlGPvPlQZxAk0dafXT
+z+KIcRtWDGdlLdvCsK6vHHJHo0HFKP/6gLbyvQQDIFgvcpcejdg=
+=dkNP
 -----END PGP SIGNATURE-----
 
---------------oQpUd0DGFrAlcOJawCjhiYOu--
+--------------AAfoGPbn0liB40h1p45O0na1--
