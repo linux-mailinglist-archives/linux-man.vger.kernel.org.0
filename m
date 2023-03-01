@@ -2,86 +2,149 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id C7C3A6A63DC
-	for <lists+linux-man@lfdr.de>; Wed,  1 Mar 2023 00:44:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 8C17A6A743B
+	for <lists+linux-man@lfdr.de>; Wed,  1 Mar 2023 20:28:54 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229629AbjB1XoH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 28 Feb 2023 18:44:07 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58128 "EHLO
+        id S229547AbjCAT2x (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 1 Mar 2023 14:28:53 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34596 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229656AbjB1XoG (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 28 Feb 2023 18:44:06 -0500
-Received: from hosted.mailcow.de (hosted.mailcow.de [IPv6:2a00:f820:417::202])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F1CF323648
-        for <linux-man@vger.kernel.org>; Tue, 28 Feb 2023 15:44:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pearson.onl; s=default;
-        t=1677627840; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-         content-transfer-encoding:in-reply-to:references;
-        bh=VYTIAMkEn4WwejVRZbeLslPriY63+RDNMkIwkN50y+Y=;
-        b=dqj/QpjPq78+9c6dR0gqe46jKtEt6oThdgjfhoSswA1OY848GGyAw/JPelJXVPAbGzG3Q+
-        aAxhlpsn7ONnDpQb9x6H7eVJ/3/ofnXAndmfGPRltuwOvCTKSFf0OFR6JmFyUhiNL7FUE9
-        StJ3ewsn4/dBIrGAGJUZCWWBGZlcQQD39YrXuiCs3VR926zuAUGvkRLdstkNRXFvRHMHMp
-        mW/wMVympPczvyLjEljtstUvcRfo9Euut9STyfLka7t23JJZkBTH3SWYYzXUfaVBt3JTes
-        FrJXdxjfRBuhTTkqixTCfdjB4XSvX/yVsHjcux96YnRmEjFLaMon4SfutRxvlw==
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4D8B45C0569;
-        Wed,  1 Mar 2023 00:43:59 +0100 (CET)
-Message-ID: <68576ad9-3e29-c609-b9aa-88806152b8a0@pearson.onl>
-Date:   Tue, 28 Feb 2023 15:43:54 -0800
+        with ESMTP id S229509AbjCAT2w (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Mar 2023 14:28:52 -0500
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com [IPv6:2a00:1450:4864:20::429])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7091E59F6
+        for <linux-man@vger.kernel.org>; Wed,  1 Mar 2023 11:28:48 -0800 (PST)
+Received: by mail-wr1-x429.google.com with SMTP id g3so5510026wri.6
+        for <linux-man@vger.kernel.org>; Wed, 01 Mar 2023 11:28:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:from:subject:user-agent:mime-version:date:message-id:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=OgoTUbQE4QTrYAzcClUJDmsR8TOl/gmU2/xGelc4Udk=;
+        b=QS8L1VLtzqshrFrS2sOA6Sgwdt4XjiOAoe370jyLfexIo0547oZMdl4PodtgHR7afW
+         jfWt36tOnz6ymfFxEq9Wsm/yU/fKUbd42jGgrTJy0Q18MWguwGV/3Z2zGzOpObuAAAuZ
+         fpms2SnkLXy67jDGIvocXgPduWDffXxMwLcX6rByoW2RFvXNUe/bk2LtbLNw/mHH4P2S
+         UGdYCSBigyrYoQKoSasjYflCdA4jl/NIlx35IcmQx3RT/DpQE0Od71OWlOtlDAis/ebi
+         8TU3KrXsK31WwZuyqscZsfB/yOqwhsfOuZfjzYneKHIvXkVT0g3aWK3tdWPu44i6Z4Zm
+         tNqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:from:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=OgoTUbQE4QTrYAzcClUJDmsR8TOl/gmU2/xGelc4Udk=;
+        b=hwAGogGnw84iVH5MpBgucQQKqYJIrl/LfFu/CfD36G+y+6A0SM292ZwJE+SUbv9VNV
+         8IOBhJ473sjc2kC+ZW8TSxk1nNCb85kQ9phR/F0JlogNsZrlTsLRaFKsPdH41RuikaJ5
+         midLVcgM/TsPrOd/XDPEvrbW6dmbsfGN9hiZI2QoG3LUhNqRIGSLdW9YEelM6r7H5Ui1
+         Cc7S60tvH3Bl3OuDeF6oS1hNxKHU7RS/xPB0Ie5suV1lzfbEfoZKCrb/2t8jdzvERkAw
+         5kfoEBgH+9dG6hLZtbiZRipfwvAaoC6bWcxhxSlUoQg1MeEiXSjnlxx8ZIx4UeLX9WjK
+         O9/Q==
+X-Gm-Message-State: AO0yUKX2idO8SO/b0LvIzf//PXT4BCwp/GmB2j97BmQ+szb1oA76haYe
+        Sxi9zRBV67hyOggRz3vxDnJCBeMbzPw=
+X-Google-Smtp-Source: AK7set8unsWOjjpGonnKUrbWDzN3mUvKZ95TDFzofNGP1CAlr9torhYw8jPuburLGovaQ9QQAbRLfA==
+X-Received: by 2002:a5d:428e:0:b0:2c7:a3c:5b90 with SMTP id k14-20020a5d428e000000b002c70a3c5b90mr5293045wrq.9.1677698926362;
+        Wed, 01 Mar 2023 11:28:46 -0800 (PST)
+Received: from ?IPV6:2a02:85f:e63c:d500:6659:3d96:c62:a251? ([2a02:85f:e63c:d500:6659:3d96:c62:a251])
+        by smtp.gmail.com with ESMTPSA id x16-20020a5d54d0000000b002c71703876bsm13320810wrv.14.2023.03.01.11.28.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 01 Mar 2023 11:28:45 -0800 (PST)
+Message-ID: <588fb3db-887e-697a-8e0a-a428f59d1187@gmail.com>
+Date:   Wed, 1 Mar 2023 21:28:44 +0200
 MIME-Version: 1.0
-Subject: Re: [PATCH v2] clone.2: note EINVAL when exit_signal + bad flags
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Subject: Re: [PATCH] ptrace.2: Add details about usage of
+ PTRACE_GET_SYSCALL_INFO
+From:   =?UTF-8?B?zqbPjs+EzrfPgiDOks6xzrvOsc+DzrnOrM60zrfPgg==?= 
+        <fvalasiad@gmail.com>
+To:     linux-man@vger.kernel.org
+Cc:     alx.manpages@gmail.com, ldv@strace.io, mtk.manpages@gmail.com,
+        lineprinter0@gmail.com, Nate Eldredge <nate@thatsmathematics.com>,
+        Alejandro Colomar <alx@kernel.org>
+References: <9f4aaf34-66cc-554f-d45f-73f0bb9b4a94@gmail.com>
+ <20230227191731.15069-1-fvalasiad@gmail.com>
+ <aa9ed282-a4ff-b853-b07a-9acb9b3d1739@gmail.com>
 Content-Language: en-US
-To:     Alex Colomar <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org,
-        GNU C Library <libc-alpha@sourceware.org>,
-        Carlos O'Donell <carlos@redhat.com>
-References: <20221214212849.17388-1-jack@pearson.onl>
- <9e2b4a99-7e68-844f-bffb-3c8efcc277fe@pearson.onl>
- <e7f4a2ad-7b84-d678-921c-ec1e790b3614@gmail.com>
-From:   Jack Pearson <jack@pearson.onl>
-In-Reply-To: <e7f4a2ad-7b84-d678-921c-ec1e790b3614@gmail.com>
+In-Reply-To: <aa9ed282-a4ff-b853-b07a-9acb9b3d1739@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Spam-Status: No, score=-2.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_PASS,
-        T_SPF_PERMERROR autolearn=ham autolearn_force=no version=3.4.6
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-2.2 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Alright, done!
+Hi yet again Alex!
 
-Thanks,
+You didn't confirm so I was wondering if you received my message!
 
-Jack
+Let me know if possible.
 
-On 2/24/23 17:04, Alex Colomar wrote:
-> Hi Jack,
-> 
-> On 2/22/23 03:28, Jack Pearson wrote:
->> Hello,
+-- fvalasiad --
+
+On 27/2/23 21:19, Φώτης Βαλασιάδης wrote:
+> Hi Alex!
+>
+> Is that good enough?
+>
+> -- fvalasiad --
+>
+> On 27/2/23 21:17, Fotios Valasiadis wrote:
+>> Document the role of PTRACE_O_TRACESYSGOOD option in connection with
+>> PTRACE_GET_SYSCALL_INFO.
 >>
->> In this patch, I included my test program for the absence of this behavior with
->> normal `clone` per Alex's request:
+>> Came upon this after writing a test program using 
+>> PTRACE_GET_SYSCALL_INFO.
+>> After failing to find what's wrong I posted a StackOverflow question
+>> which you can find right here:
+>> <https://stackoverflow.com/questions/72410182/ptrace-get-syscall-info-always-returns-info-op-as-ptrace-syscall-info-none> 
 >>
->> https://lore.kernel.org/linux-man/fba3de52-91cc-6cbe-b4ae-7140564e9ad2@pearson.onl/T/#mde63a642e9c8d0b4e367b0a2817248e8e0b29a50
 >>
->> Let me know if there's anything else I should do.
-> 
-> Could you please resend the patch (keeping all CCs), and I'll have a look at it again?
-> 
-> Thanks for the ping,
-> 
-> Alex
-> 
+>> Nate Eldredge found out what happens by looking into the kernel's source
+>> code, here is a link to the relevant part
+>> <https://github.com/torvalds/linux/blob/8291eaafed36f575f23951f3ce18407f480e9ecf/kernel/ptrace.c#L1018> 
 >>
->> Thanks,
->> Jack
 >>
->> On 12/14/22 13:28, Jack Pearson wrote:
->>> Document that Linux will report EINVAL when exit_signal is specified and
->>> either CLONE_THREAD or CLONE_PARENT is specified.
->>>
->> ...
-> 
+>> In the code it can be seen that in case of system call entry or
+>> exit stops, the union is filled if and only if the signal matches
+>> "SIGTRAP | 0x80", a signal which is only sent if the 
+>> PTRACE_O_TRACESYSGOOD
+>> option is set.  You can read about that in the PTRACE_O_TRACESYSGOOD
+>> section of ptrace(2)'s manual.
+>>
+>> Complements: fc91449cb "ptrace.2: Document PTRACE_GET_SYSCALL_INFO"
+>> Cowritten-by: Dmitry V. Levin <ldv@strace.io>
+>> Signed-off-by: Dmitry V. Levin <ldv@strace.io>
+>> Signed-off-by: Fotios Valasiadis <fvalasiad@gmail.com>
+>> Acked-by: Nate Eldredge <nate@thatsmathematics.com>
+>> Cc: Elvira Khabirova <lineprinter0@gmail.com>
+>> Signed-off-by: Alejandro Colomar <alx@kernel.org>
+>> ---
+>>   man2/ptrace.2 | 9 +++++++++
+>>   1 file changed, 9 insertions(+)
+>>
+>> diff --git a/man2/ptrace.2 b/man2/ptrace.2
+>> index 55d9fd36d..9737b3825 100644
+>> --- a/man2/ptrace.2
+>> +++ b/man2/ptrace.2
+>> @@ -1111,6 +1111,15 @@ stop.
+>>   .B PTRACE_SYSCALL_INFO_NONE
+>>   No component of the union contains relevant information.
+>>   .RE
+>> +.IP
+>> +In case of system call entry or exit stops,
+>> +the data returned by
+>> +.B PTRACE_GET_SYSCALL_INFO
+>> +is limited to type
+>> +.B PTRACE_SYSCALL_INFO_NONE
+>> +unless
+>> +.B PTRACE_O_TRACESYSGOOD
+>> +option is set before the corresponding system call stop has occurred.
+>>   .\"
+>>   .SS Death under ptrace
+>>   When a (possibly multithreaded) process receives a killing signal
