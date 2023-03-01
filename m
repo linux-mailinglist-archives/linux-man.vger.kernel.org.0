@@ -2,74 +2,64 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id E58556A75BD
-	for <lists+linux-man@lfdr.de>; Wed,  1 Mar 2023 22:00:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 620796A75F5
+	for <lists+linux-man@lfdr.de>; Wed,  1 Mar 2023 22:11:55 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229480AbjCAVAR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 1 Mar 2023 16:00:17 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36318 "EHLO
+        id S229494AbjCAVLx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 1 Mar 2023 16:11:53 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45974 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229540AbjCAVAQ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Mar 2023 16:00:16 -0500
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com [IPv6:2a00:1450:4864:20::434])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C848E4E5C2
-        for <linux-man@vger.kernel.org>; Wed,  1 Mar 2023 13:00:13 -0800 (PST)
-Received: by mail-wr1-x434.google.com with SMTP id t15so14608808wrz.7
-        for <linux-man@vger.kernel.org>; Wed, 01 Mar 2023 13:00:13 -0800 (PST)
+        with ESMTP id S229470AbjCAVLx (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Mar 2023 16:11:53 -0500
+Received: from mail-qt1-x82a.google.com (mail-qt1-x82a.google.com [IPv6:2607:f8b0:4864:20::82a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A3FEB1B2FC;
+        Wed,  1 Mar 2023 13:11:51 -0800 (PST)
+Received: by mail-qt1-x82a.google.com with SMTP id y10so11259489qtj.2;
+        Wed, 01 Mar 2023 13:11:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=KFtJz9RVp457IWDINHeujMGMxTfe7m0UuqKuNpc/14U=;
-        b=dPyLlYyHygFte6MEZRbZTO5kNWAht6aWcU+ATFw2/F1AHMUo2GnKF9AZ5IEACPfTVz
-         ssJ7PWGp8pNwNE+K9KulxcqpEkm9hoc71b31riU+iG+k2PaS6XPyHIHsb8C+hLWVwQCi
-         59T6Ba5eYHIAXbO7Yj++1S/fPRW4Ok612Z1+gHjdBRA5yBwOmd1+ETmw2FW0nyfarqB0
-         aSNzBGN+4zEJkfOQHcnh+PFVQ8gxze0y343E24xB/cMmNU0agXmBdoORTprC44iRohPI
-         k4l/hDjJrNBZubFm98qM0mquA6jZG/nA5mt1d6jXjZbnz7rbdfckNoGDxP4Fhv52WyGt
-         8ZqA==
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=LYRVxUnOeTppEiPbfUISwKkk8e/BBPxX9fPkCXak0EY=;
+        b=pcPX0GUhh1yhCgpm3fJgSsoGP60VTIi1oFo5Q4QqHGF4UoHn6+iPPbXDtxjAt5vkwa
+         aMRhcTljcSueS7FpCfVVbfuw95BAc0y/ZaTV4B/eICgaWfMb/4gmrWmsb3WDXWA33L5b
+         9krjfP8nSrfeHLeW3+X8ZOqWUCNVgdU8dSCOE41A5p9ECutdruXJgvXavJITg0ke+jKt
+         MMlNOVDnNydJv5b6Gvrlhbatkker/YzPM0HWdjuUndwggU+agP6iyHtd/045xqLUixmY
+         oucauvLfESXXsrLxK/g3VTRbTK4+cTejt7gsSHJuelvoZcjEg7KZLdp3DnGo7F+V1MV9
+         dQRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=KFtJz9RVp457IWDINHeujMGMxTfe7m0UuqKuNpc/14U=;
-        b=gqTHIT0qMk91ltZyG+nExRNIYHTI3pb/PpdNRQt/OHG6KFC3AKm1v3COAMDfilfVEG
-         I2d82ZlQ4HdeNATuRwkklQczl7yYyZI6KEdw0JVVwpIk70ix1B71UpWHU/tztGBGG4GH
-         JGaIDjqs31hwgUWwVENrDERbPwHwz9UMjJL7wt8Jf8Qjra4+SsNM/UsH3yQOKZjecwyM
-         LNbP3CZMJqIYSKyT14KTybwmHUl40FrF7mJ3luOPLsHGV0jvud7kOFH/h4ofJFdPomkN
-         NeLnDgXhC4Nxlb3m17lsdSDUvecBg6XKOOxPhWe+uELNOmKRQm545RbuPigDo3+0Jfuu
-         SdPA==
-X-Gm-Message-State: AO0yUKXk/nK3NJFh6aov6SDDNbz/rs/EWWV+vnlGp+5irg6Ud5tYCXl9
-        1Cmv/Iso/wJljyZ5S4kbtag=
-X-Google-Smtp-Source: AK7set+vHXCSmlUunAyKeq/L43fyD3a19EAJ73ECVCwQLjgj9YXFgDERT9QUNrMVMpdSzvfSDd7Yyg==
-X-Received: by 2002:a05:6000:1e07:b0:2c7:d7c:7d7 with SMTP id bj7-20020a0560001e0700b002c70d7c07d7mr5733844wrb.22.1677704412169;
-        Wed, 01 Mar 2023 13:00:12 -0800 (PST)
-Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id l3-20020a05600012c300b002c5694aef92sm13427310wrx.21.2023.03.01.13.00.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 01 Mar 2023 13:00:11 -0800 (PST)
-Message-ID: <472f9e40-7259-e7a5-ce5b-c462037cda68@gmail.com>
-Date:   Wed, 1 Mar 2023 22:00:01 +0100
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=LYRVxUnOeTppEiPbfUISwKkk8e/BBPxX9fPkCXak0EY=;
+        b=nFsBUUUPFa65GwrRBgBwB+wkkkgY6zbMr6keH9EqkWj3dW9xpGrMyitWtlO2XDAeRP
+         z4kknlaxqJGUZFyg12w53R+FYz4G9j7qi+lSeChR078KFHOOuTZfJRHnFNaGdhI+B17u
+         +RbfvnLSVl0d++7QGhIcUNKPCsLSAwUWhIow81BrSeTv0qmZ5sHyb+azaDCadKQiJjXV
+         Wlx+XFBtzpwfIMLWe3RMalKu6AAz2aAUpExH7dF+2w2gN8ephcHWVcLjvhfBxTBGYcoe
+         paNcs9rfTgStpnkRW/9Lly5Kk/XiWtSryVeEKmhps5Pnh0Gwqq7LlfdNtnwneZBUSaKH
+         oRag==
+X-Gm-Message-State: AO0yUKUZSL76hcrR6i5I+8BkBDiQocPMkW23eMsCtsgTOWXCV9yQCGe0
+        d/aFsRZ0bGAABo4dFlPTqMpSL8JAVto=
+X-Google-Smtp-Source: AK7set8Y0eCcAZnhV65hqyvUmBnS2RUsJfnH9rJ8xhcQMW+xUCNYjrJ3+upuStHLu2QIw6oZioiHtQ==
+X-Received: by 2002:a05:622a:110f:b0:3b4:79f8:26c3 with SMTP id e15-20020a05622a110f00b003b479f826c3mr12996650qty.33.1677705110565;
+        Wed, 01 Mar 2023 13:11:50 -0800 (PST)
+Received: from willemb.c.googlers.com.com (240.157.150.34.bc.googleusercontent.com. [34.150.157.240])
+        by smtp.gmail.com with ESMTPSA id a12-20020ae9e80c000000b007423843d879sm9560442qkg.93.2023.03.01.13.11.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 01 Mar 2023 13:11:50 -0800 (PST)
+From:   Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To:     linux-man@vger.kernel.org
+Cc:     mtk.manpages@gmail.com, alx.manpages@gmail.com, pabeni@redhat.comm,
+        netdev@vger.kernel.org, Willem de Bruijn <willemb@google.com>
+Subject: [PATCH manpages 1/2] udp.7: add UDP_SEGMENT
+Date:   Wed,  1 Mar 2023 16:11:45 -0500
+Message-Id: <20230301211146.1974507-1-willemdebruijn.kernel@gmail.com>
+X-Mailer: git-send-email 2.39.2.722.g9855ee24e9-goog
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH] ptrace.2: Add details about usage of
- PTRACE_GET_SYSCALL_INFO
-To:     Fotios Valasiadis <fvalasiad@gmail.com>, linux-man@vger.kernel.org
-Cc:     ldv@strace.io, mtk.manpages@gmail.com, lineprinter0@gmail.com,
-        Nate Eldredge <nate@thatsmathematics.com>,
-        Alejandro Colomar <alx@kernel.org>
-References: <9f4aaf34-66cc-554f-d45f-73f0bb9b4a94@gmail.com>
- <20230227191731.15069-1-fvalasiad@gmail.com>
-Content-Language: en-US
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20230227191731.15069-1-fvalasiad@gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------Yr6CU79FmknA4EqaDzXRduW5"
-X-Spam-Status: No, score=-2.2 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -78,120 +68,61 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------Yr6CU79FmknA4EqaDzXRduW5
-Content-Type: multipart/mixed; boundary="------------pKMIvYxukWAKwKHnGQqYuAGr";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Fotios Valasiadis <fvalasiad@gmail.com>, linux-man@vger.kernel.org
-Cc: ldv@strace.io, mtk.manpages@gmail.com, lineprinter0@gmail.com,
- Nate Eldredge <nate@thatsmathematics.com>, Alejandro Colomar <alx@kernel.org>
-Message-ID: <472f9e40-7259-e7a5-ce5b-c462037cda68@gmail.com>
-Subject: Re: [PATCH] ptrace.2: Add details about usage of
- PTRACE_GET_SYSCALL_INFO
-References: <9f4aaf34-66cc-554f-d45f-73f0bb9b4a94@gmail.com>
- <20230227191731.15069-1-fvalasiad@gmail.com>
-In-Reply-To: <20230227191731.15069-1-fvalasiad@gmail.com>
+From: Willem de Bruijn <willemb@google.com>
 
---------------pKMIvYxukWAKwKHnGQqYuAGr
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+UDP_SEGMENT was added in commit bec1f6f69736
+("udp: generate gso with UDP_SEGMENT")
 
-Hi Fotios,
+    $ git describe --contains bec1f6f69736
+    linux/v4.18-rc1~114^2~377^2~8
 
-On 2/27/23 20:19, =CE=A6=CF=8E=CF=84=CE=B7=CF=82 =CE=92=CE=B1=CE=BB=CE=B1=
-=CF=83=CE=B9=CE=AC=CE=B4=CE=B7=CF=82 wrote:
-> Hi Alex!
->=20
-> Is that good enough?
->=20
+Kernel source has example code in tools/testing/selftests/net/udpgso*
 
-Yep.  Patch applied.  Thanks!
+Per https://www.kernel.org/doc/man-pages/patches.html,
+"Describe how you obtained the information in your patch":
+I am the author of the above commit and follow-ons.
 
-Alex
+Signed-off-by: Willem de Bruijn <willemb@google.com>
+---
+ man7/udp.7 | 25 +++++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
 
-On 2/27/23 20:17, Fotios Valasiadis wrote:
-> Document the role of PTRACE_O_TRACESYSGOOD option in connection with
-> PTRACE_GET_SYSCALL_INFO.
->=20
-> Came upon this after writing a test program using PTRACE_GET_SYSCALL_IN=
-FO.
-> After failing to find what's wrong I posted a StackOverflow question
-> which you can find right here:
-> <https://stackoverflow.com/questions/72410182/ptrace-get-syscall-info-a=
-lways-returns-info-op-as-ptrace-syscall-info-none>
->=20
-> Nate Eldredge found out what happens by looking into the kernel's sourc=
-e
-> code, here is a link to the relevant part
-> <https://github.com/torvalds/linux/blob/8291eaafed36f575f23951f3ce18407=
-f480e9ecf/kernel/ptrace.c#L1018>
->=20
-> In the code it can be seen that in case of system call entry or
-> exit stops, the union is filled if and only if the signal matches
-> "SIGTRAP | 0x80", a signal which is only sent if the PTRACE_O_TRACESYSG=
-OOD
-> option is set.  You can read about that in the PTRACE_O_TRACESYSGOOD
-> section of ptrace(2)'s manual.
->=20
-> Complements: fc91449cb "ptrace.2: Document PTRACE_GET_SYSCALL_INFO"
-> Cowritten-by: Dmitry V. Levin <ldv@strace.io>
-> Signed-off-by: Dmitry V. Levin <ldv@strace.io>
-> Signed-off-by: Fotios Valasiadis <fvalasiad@gmail.com>
-> Acked-by: Nate Eldredge <nate@thatsmathematics.com>
-> Cc: Elvira Khabirova <lineprinter0@gmail.com>
-> Signed-off-by: Alejandro Colomar <alx@kernel.org>
-> ---
->  man2/ptrace.2 | 9 +++++++++
->  1 file changed, 9 insertions(+)
->=20
-> diff --git a/man2/ptrace.2 b/man2/ptrace.2
-> index 55d9fd36d..9737b3825 100644
-> --- a/man2/ptrace.2
-> +++ b/man2/ptrace.2
-> @@ -1111,6 +1111,15 @@ stop.
->  .B PTRACE_SYSCALL_INFO_NONE
->  No component of the union contains relevant information.
->  .RE
-> +.IP
-> +In case of system call entry or exit stops,
-> +the data returned by
-> +.B PTRACE_GET_SYSCALL_INFO
-> +is limited to type
-> +.B PTRACE_SYSCALL_INFO_NONE
-> +unless
-> +.B PTRACE_O_TRACESYSGOOD
-> +option is set before the corresponding system call stop has occurred.
->  .\"
->  .SS Death under ptrace
->  When a (possibly multithreaded) process receives a killing signal
+diff --git a/man7/udp.7 b/man7/udp.7
+index 5822bc551fdf..ec16306df605 100644
+--- a/man7/udp.7
++++ b/man7/udp.7
+@@ -204,6 +204,31 @@ portable.
+ .\"     UDP_ENCAP_ESPINUDP draft-ietf-ipsec-udp-encaps-06
+ .\"     UDP_ENCAP_L2TPINUDP rfc2661
+ .\" FIXME Document UDP_NO_CHECK6_TX and UDP_NO_CHECK6_RX, added in Linux 3.16
++.TP
++.BR UDP_SEGMENT " (since Linux 4.18)"
++Enables UDP segmentation offload.
++Segmentation offload reduces
++.BR send(2)
++cost by transferring multiple datagrams worth of data as a single
++large packet through the kernel transmit path, even when that
++exceeds MTU.
++As late as possible, the large packet is split by segment size into a
++series of datagrams.
++This segmentation offload step is deferred to hardware if supported,
++else performed in software.
++This option takes a value between 0 and USHRT_MAX that sets the
++segment size: the size of datagram payload, excluding the UDP header.
++The segment size must be chosen such that at most 64 datagrams are
++sent in a single call and that the datagrams after segmentation meet
++the same MTU rules that apply to datagrams sent without this option.
++Segmentation offload depends on checksum offload, as datagram
++checksums are computed after segmentation.
++The option may also be set for individual
++.BR sendmsg(2)
++calls by passing it as a
++.BR cmsg(7).
++A value of zero disables the feature.
++This option should not be used in code intended to be portable.
+ .SS Ioctls
+ These ioctls can be accessed using
+ .BR ioctl (2).
+-- 
+2.39.2.722.g9855ee24e9-goog
 
---=20
-<http://www.alejandro-colomar.es/>
-GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
-
---------------pKMIvYxukWAKwKHnGQqYuAGr--
-
---------------Yr6CU79FmknA4EqaDzXRduW5
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmP/vNIACgkQnowa+77/
-2zLp0RAAoARRxBjHjxVliYmFoi4JHpBwh4XCanH5/rWEcbc8buFWC2RHV1RbVRCm
-kBk1e7g1qcUYB6vwxhu1cWO9Oo/5A2GwfuIKt9S/V0XVT18/VEOMAiGfTVA/xShN
-Y1up4Y6VHsvIjbmlRLTM96cfO3Z93Jw050Ag2ZwdxkoV3gt02Rfo2TqiMef44F4z
-5JYK9vroVPbu+aid48gT46YOjwVbtUiTEww3SMMlXYRpzwddsmsm/605PJxvU5YU
-shaepIbqNW5koDBv0f7gPQhzFGQR5CpwDYFS9Xk1EOMztiqdgAAQbsQoHoETj3ix
-SeQ3ueqz2NY0/HYY3Wmh0MLc/4K5SjrEFciih7+tjI2HS8BmCq1XHJCmqbHfma0T
-ZEpdGJgLds0QDhFD+gK4Gm0RQGKOMqS7YsbxIT86kXXd6Luj6mKHGVLh/gTbsH4B
-vCzaDGlxwUwCGaX6GoX0XvYj8zoNO1OKXs0jOIDj1Dak+eMSten023EQa/rmgCf2
-3buPYFkDZSfrIc+LY9uT3GbDFmMR18tYO5wN/16S0AdEvHYgg43W65LLFnAT2HE3
-87/quDz8lLqel+BKrniAAk2xR/vbbT5mS8M7E63IdQIffHxpoktnRLMXfjHk1zr/
-O8ieQatJnXTd9iZx33TeGnCgU+vtMyjBwKwrS+2Mlk5dWUAU1uI=
-=UAk1
------END PGP SIGNATURE-----
-
---------------Yr6CU79FmknA4EqaDzXRduW5--
