@@ -2,70 +2,69 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 4A2396A7620
-	for <lists+linux-man@lfdr.de>; Wed,  1 Mar 2023 22:25:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 2E2896A762E
+	for <lists+linux-man@lfdr.de>; Wed,  1 Mar 2023 22:31:48 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229486AbjCAVZo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 1 Mar 2023 16:25:44 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56586 "EHLO
+        id S229561AbjCAVbr (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 1 Mar 2023 16:31:47 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33002 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229453AbjCAVZn (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Mar 2023 16:25:43 -0500
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com [IPv6:2a00:1450:4864:20::336])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 71A744ECFC
-        for <linux-man@vger.kernel.org>; Wed,  1 Mar 2023 13:25:41 -0800 (PST)
-Received: by mail-wm1-x336.google.com with SMTP id j3so9482956wms.2
-        for <linux-man@vger.kernel.org>; Wed, 01 Mar 2023 13:25:41 -0800 (PST)
+        with ESMTP id S229496AbjCAVbq (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Mar 2023 16:31:46 -0500
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com [IPv6:2a00:1450:4864:20::335])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9711E51FA1
+        for <linux-man@vger.kernel.org>; Wed,  1 Mar 2023 13:31:42 -0800 (PST)
+Received: by mail-wm1-x335.google.com with SMTP id p23-20020a05600c1d9700b003ead4835046so1289352wms.0
+        for <linux-man@vger.kernel.org>; Wed, 01 Mar 2023 13:31:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=in-reply-to:from:references:cc:to:content-language:subject
+        h=in-reply-to:from:cc:references:to:content-language:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=GQi+QQz7owbPhtqnEa0swcjc4FuLp8uGTPtuh9LdyNQ=;
-        b=YMuD5j1f3kx5Qc6S1MfeDeqdypVA6PscGrDdoL4JwzpYdHTZzaqXwb88pHAg18wdWz
-         s3lqGkWzV6FDZjSjWE5JbReqQdnRnoy2B9kiBn/l/Z34Ka7oxa9SySiyEfOZlPz4DaIY
-         +D+2/oWSp5wplCW6qydIXTNFQSDkx5zv9CWRmptUgpk9x6eMBt4tfEqZJJmv4TQPAt9I
-         CVSN1PeXfyKQwllSSNqFMAPC62PYxVuqKlcSIZZ2gMZzwfsaZ7FBmKkJvwukdszXxJmS
-         it84ZSQ7dsdVTrsLn2jgy7o1Hxx8TgZa4DQhMbkOfefuQa6SMoFD0/R8K7WyLzbFhDSj
-         yYLA==
+        bh=BZ8P5VWjbg3mpdHRmLK6FdjFOAX9vaffFS+U/KrnlZI=;
+        b=hi6bMTi7jUsfaEl0rMSChrCWTs7VmOkkO/zNGY/o3ZGPqE6aTSJH+pT6c7CEnFp9Wv
+         jheLKs3PJl9b9nRfCqTq3lRAYqhqFIsS6RQtSRz3GBf/TVAmiy05t3c1SaJz4kQwzvpk
+         m4ioDJYTARcT3BVH1wZ9ky419bhgepni697o0ta7ag9atJtsFUOoe40LOvr88G/ULnt3
+         Ktt0+aAJsFBD2xwXCBkI70WE9fdpF6paaBQ5dHYlE19bcBZ9SqufwXNkyeUgxQTpM+LY
+         vIeeg/7hxTdHG52c3p+KiNErzeSg+lxFX8RxLdB/jbc7aACcLilRVBR2YjIMpLjC2c9V
+         XL7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=in-reply-to:from:references:cc:to:content-language:subject
+        h=in-reply-to:from:cc:references:to:content-language:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=GQi+QQz7owbPhtqnEa0swcjc4FuLp8uGTPtuh9LdyNQ=;
-        b=hDN5uEnsR59DkN10aGUFgNu9S8e9YC+ZxLKKcniD/fQ2WeWobRt8qzdXLy9kD2n1d5
-         NSiMZTTm7+wL6Yzz8gsvorwZ09mPaDHOT2zljKGkYfl0a5+5axxjgXwHTTjS4XabsoaO
-         eERjSRowHRbLPChzUz66ETT/HUVSAhtuN5yGKXnoBJWsxfjB/9C0Rdn3NFqeAfDWXoy9
-         s+Y0B2UBfY7Xgwfxlc2LTuZfEOMCkAzaiUespVAkgpo2NfypOSQbABPgmhNik2vbg9Ma
-         CfVTBONxYW5GhfTEVQeg6TdHSs67Se3LdR87zy2LTuzix4w/TXA5aadOf37CEf+Gactq
-         shaQ==
-X-Gm-Message-State: AO0yUKUiy33A/5QFerNqMi26RSHct2+Qaqi3PyR+18KLhMzCPadz3P2w
-        qIV4nCukeb8XjfecGEOKm3EO4aWtOc8=
-X-Google-Smtp-Source: AK7set8Oc2yBwiytHtuHW6ZmJU9xZepSoyLTMFW8e8uiSdyCN6FysFXoE3APD2RY35awA6zMOhhS4Q==
-X-Received: by 2002:a05:600c:755:b0:3e2:66b:e90e with SMTP id j21-20020a05600c075500b003e2066be90emr6741290wmn.10.1677705939785;
-        Wed, 01 Mar 2023 13:25:39 -0800 (PST)
+        bh=BZ8P5VWjbg3mpdHRmLK6FdjFOAX9vaffFS+U/KrnlZI=;
+        b=QBs+jAs879XYtD96sJHhaDi0AyHZVJMOVjluZQbNUUk39CpL5CTgmifEZl/xYHhLhc
+         3aXd+GvtXuCaXAwyIcRGnGNgZ38OekuxChnDAP6uDUM6301QbmqKnSLetcGzhuauTeMy
+         qPsVkAC1chfohx7dg4cy+TX3/OxCAUm1q5dDE6iLbQfjpF0/rtq27b6CVJSpAntaNNgU
+         CtPG25tfaGw+MjyJhnaf6YgptXrq7JWRcAw2j+hNUD/M+I0dZhKz4ofBXHIA5m4l5qkM
+         aDGZdZSbH9xgp8pAtJHdxo69IyTtQ/o8GvW0Vvx2X8ZSuKeHpZDGM+BMOSUXeLOLaSH7
+         29qQ==
+X-Gm-Message-State: AO0yUKVbUeWLVN/dWjH7EAgffgH6Z4sUYO/DbwXvXRuozHHsGgWViJTg
+        ZgoF7aoZLi9HajSuzJbVX44=
+X-Google-Smtp-Source: AK7set+Zz4LQ3U2yY8JC062hZ8QNL44brLRKvQW3Az065twj3Kn9mF/3AWa4mZeciirIfHNHUwBdbg==
+X-Received: by 2002:a05:600c:4a9d:b0:3ea:e7f6:f8f9 with SMTP id b29-20020a05600c4a9d00b003eae7f6f8f9mr6062144wmp.19.1677706300843;
+        Wed, 01 Mar 2023 13:31:40 -0800 (PST)
 Received: from [192.168.0.160] ([170.253.36.171])
-        by smtp.gmail.com with ESMTPSA id hg13-20020a05600c538d00b003d9aa76dc6asm762158wmb.0.2023.03.01.13.25.38
+        by smtp.gmail.com with ESMTPSA id q18-20020a05600c46d200b003eaee9e0d22sm787728wmo.33.2023.03.01.13.31.39
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 01 Mar 2023 13:25:39 -0800 (PST)
-Message-ID: <930993f4-36ce-c78e-13b3-fe2421350a45@gmail.com>
-Date:   Wed, 1 Mar 2023 22:25:38 +0100
+        Wed, 01 Mar 2023 13:31:40 -0800 (PST)
+Message-ID: <1ec9c450-3bb3-b6e9-b3f1-112869b62798@gmail.com>
+Date:   Wed, 1 Mar 2023 22:31:38 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
-Subject: Re: [PATCH v2 1/2] landlock.7: Document Landlock ABI v2 (file
- reparenting; kernel 5.19)
+Subject: Re: [PATCH] clone.2: note EINVAL when exit_signal + bad flags
 Content-Language: en-US
-To:     =?UTF-8?Q?G=c3=bcnther_Noack?= <gnoack3000@gmail.com>,
-        =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>
-Cc:     linux-man@vger.kernel.org
-References: <20230228205224.5991-1-gnoack3000@gmail.com>
+To:     Jack Pearson <jack@pearson.onl>, linux-man@vger.kernel.org
+References: <20230228234246.466811-1-jack@pearson.onl>
+Cc:     Carlos O'Donell <carlos@redhat.com>,
+        GNU C Library <libc-alpha@sourceware.org>
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20230228205224.5991-1-gnoack3000@gmail.com>
+In-Reply-To: <20230228234246.466811-1-jack@pearson.onl>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------rjIJgXuT8AovrBqmzIA5iTRo"
+ boundary="------------oQpUd0DGFrAlcOJawCjhiYOu"
 X-Spam-Status: No, score=-2.2 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
@@ -77,228 +76,138 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------rjIJgXuT8AovrBqmzIA5iTRo
-Content-Type: multipart/mixed; boundary="------------EZZwEh7miAquL0cg2B50KFHN";
+--------------oQpUd0DGFrAlcOJawCjhiYOu
+Content-Type: multipart/mixed; boundary="------------LsXoPxte1fWP6AWy9hSR0mAz";
  protected-headers="v1"
 From: Alejandro Colomar <alx.manpages@gmail.com>
-To: =?UTF-8?Q?G=c3=bcnther_Noack?= <gnoack3000@gmail.com>,
- =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>
-Cc: linux-man@vger.kernel.org
-Message-ID: <930993f4-36ce-c78e-13b3-fe2421350a45@gmail.com>
-Subject: Re: [PATCH v2 1/2] landlock.7: Document Landlock ABI v2 (file
- reparenting; kernel 5.19)
-References: <20230228205224.5991-1-gnoack3000@gmail.com>
-In-Reply-To: <20230228205224.5991-1-gnoack3000@gmail.com>
+To: Jack Pearson <jack@pearson.onl>, linux-man@vger.kernel.org
+Cc: Carlos O'Donell <carlos@redhat.com>,
+ GNU C Library <libc-alpha@sourceware.org>
+Message-ID: <1ec9c450-3bb3-b6e9-b3f1-112869b62798@gmail.com>
+Subject: Re: [PATCH] clone.2: note EINVAL when exit_signal + bad flags
+References: <20230228234246.466811-1-jack@pearson.onl>
+In-Reply-To: <20230228234246.466811-1-jack@pearson.onl>
 
---------------EZZwEh7miAquL0cg2B50KFHN
+--------------LsXoPxte1fWP6AWy9hSR0mAz
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi G=C3=BCnther,
+Hi Jack,
 
-On 2/28/23 21:52, G=C3=BCnther Noack wrote:
-> * Add the description for LANDLOCK_ACCESS_FS_REFER,
->   in line with recent update to the uapi headers:
->   https://lore.kernel.org/linux-security-module/20230202204623.10345-1-=
-gnoack3000@gmail.com/T/
-> * VERSIONS: Add a table of Landlock versions and their changes.
->   Briefly talk about how to probe ABI levels and warn users about the
->   special semantics of the LANDLOCK_ACCESS_FS_REFER right.
-> * Add LANDLOCK_ACCESS_FS_REFER to the code example.
+On 3/1/23 00:42, Jack Pearson wrote:
+> Document that Linux will report EINVAL when exit_signal is specified an=
+d
+> either CLONE_THREAD or CLONE_PARENT is specified.
 >=20
-> Code review threads for the "refer" feature:
-> * https://lore.kernel.org/all/20220506161102.525323-1-mic@digikod.net/ =
-(initial commit)
-> * https://lore.kernel.org/all/20220823144123.633721-1-mic@digikod.net/ =
-(bugfix)
-> * https://lore.kernel.org/all/20230221165205.4231-1-gnoack3000@gmail.co=
-m/ (documentation update)
+> From clone3_args_valid in Linux:
+> ```
+> 	if ((kargs->flags & (CLONE_THREAD | CLONE_PARENT)) &&
+> 	    kargs->exit_signal)
+> 		return false;
+> ```
+>=20
+> I have verified that this happens on my kernel with a small program:
+>=20
+> ```
+> #include <stdio.h>
+> #include <linux/sched.h>
+> #include <signal.h>
+> #include <sys/syscall.h>
+> #include <unistd.h>
+>=20
+> int main() {
+> 	struct clone_args ca =3D {
+> 		.flags =3D CLONE_THREAD | CLONE_SIGHAND | CLONE_VM,
+> 		.exit_signal =3D SIGCHLD, // comment me out to fix error
+> 		.set_tid_size =3D 0,
+> 	};
+> 	syscall(SYS_clone3, &ca, sizeof(struct clone_args));
+> 	perror("");
+> }
+> ```
+>=20
+> And I have verified that this doesn't happen with normal `clone` throug=
+h
+> the glibc helper:
+>=20
+> ```
+> #define _GNU_SOURCE
+>=20
+> #include <sched.h>
+> #include <signal.h>
+> #include <stdio.h>
+> #include <sys/mman.h>
+>=20
+> int do_nothing(void *_) { return 0; }
+>=20
+> int main() {
+>         void *map =3D mmap(NULL, 0x10000, PROT_READ | PROT_WRITE,
+> 	                 MAP_ANONYMOUS | MAP_PRIVATE, 0, 0);
+> 	void *stack_top =3D map + 0x10000 - 1;
+> 	clone(do_nothing, stack_top,
+> 	      CLONE_THREAD | CLONE_VM | CLONE_SIGHAND | SIGCHLD, NULL);
+> 	perror("");
+> }
+> ```
+>=20
+> Signed-off-by: Jack Pearson <jack@pearson.onl>
 > ---
->  man7/landlock.7 | 102 +++++++++++++++++++++++++++++++++++++++++++++++-=
+>  man2/clone.2 | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
 
->  1 file changed, 100 insertions(+), 2 deletions(-)
->=20
-> diff --git a/man7/landlock.7 b/man7/landlock.7
-> index b2bc9e10b..f70a01484 100644
-> --- a/man7/landlock.7
-> +++ b/man7/landlock.7
-> @@ -105,6 +105,56 @@ Create (or rename or link) a block device.
->  .TP
->  .B LANDLOCK_ACCESS_FS_MAKE_SYM
->  Create (or rename or link) a symbolic link.
-> +.TP
-> +.B LANDLOCK_ACCESS_FS_REFER
-> +Link or rename a file from or to a different directory
-> +(i.e. reparent a file hierarchy).
-> +.IP
-> +This access right is available since the second version of the Landloc=
-k ABI.
-> +.IP
-> +This is the only access right which is denied by default by any rulese=
-t,
-> +even if the right is not specified as handled at ruleset creation time=
-=2E
-> +The only way to make a ruleset grant this right
-> +is to explicitly allow it for a specific directory
-> +by adding a matching rule to the ruleset.
-> +.IP
-> +In particular, when using the first Landlock ABI version,
-> +Landlock will always deny attempts to reparent files
-> +between different directories.
-> +.IP
-> +In addition to the source and destination directories having the
-> +.B LANDLOCK_ACCESS_FS_REFER
-> +access right,
-> +the attempted link or rename operation must meet the following constra=
-ints:
-> +.RS
-> +.IP \[bu] 3
-> +The reparented file may not gain more access rights in the destination=
- directory
-> +than it previously had in the source directory.
-> +If this is attempted, the operation results in an
-> +.B EXDEV
-> +error.
-> +.IP \[bu] 3
-
-You only need to specify the indentation (the "3") in the first
-consecutive .IP.  All others reuse the indentation level until
-a .PP appears (or a few other situations that I won't enumerate
-for brevity).
-
-> +When linking or renaming, the
-> +.B LANDLOCK_ACCESS_FS_MAKE_*
-> +right for the respective file type must be granted
-> +for the destination directory.
-> +Otherwise, the operation results in an
-> +.BR EACCES
-> +error.
-> +.IP \[bu] 3
-> +When renaming, the
-> +.B LANDLOCK_ACCESS_FS_REMOVE_*
-
-The * should be in italics, since it's not part of the literal,
-but rather a variable part.  I know the pages are not very
-consistent in this, but I'd like to make them consistent in the
-future.
-
-Cheers,
+Patch applied.  Thanks!
 
 Alex
 
-> +right for the respective file type must be granted
-> +for the source directory.
-> +Otherwise, the operation results in an
-> +.B EACCES
-> +error.
-> +.RE
-> +.IP
-> +If multiple requirements are not met, the
-> +.B EACCES
-> +error code takes precedence over
-> +.BR EXDEV .
->  .\"
->  .SS Layers of file path access rights
->  Each time a thread enforces a ruleset on itself,
-> @@ -182,7 +232,54 @@ and related syscalls on a target process,
->  a sandboxed process should have a subset of the target process rules,
->  which means the tracee must be in a sub-domain of the tracer.
->  .SH VERSIONS
-> -Landlock was added in Linux 5.13.
-> +Landlock was introduced in Linux 5.13.
-> +.PP
-> +To determine which Landlock features are available,
-> +users should query the Landlock ABI version:
-> +.TS
-> +box;
-> +ntb| ntb| lbx
-> +nt| nt| lbx.
-> +ABI	Kernel	Newly introduced access rights
-> +_	_	_
-> +1	5.13	LANDLOCK_ACCESS_FS_EXECUTE
-> +\^	\^	LANDLOCK_ACCESS_FS_WRITE_FILE
-> +\^	\^	LANDLOCK_ACCESS_FS_READ_FILE
-> +\^	\^	LANDLOCK_ACCESS_FS_READ_DIR
-> +\^	\^	LANDLOCK_ACCESS_FS_REMOVE_DIR
-> +\^	\^	LANDLOCK_ACCESS_FS_REMOVE_FILE
-> +\^	\^	LANDLOCK_ACCESS_FS_MAKE_CHAR
-> +\^	\^	LANDLOCK_ACCESS_FS_MAKE_DIR
-> +\^	\^	LANDLOCK_ACCESS_FS_MAKE_REG
-> +\^	\^	LANDLOCK_ACCESS_FS_MAKE_SOCK
-> +\^	\^	LANDLOCK_ACCESS_FS_MAKE_FIFO
-> +\^	\^	LANDLOCK_ACCESS_FS_MAKE_BLOCK
-> +\^	\^	LANDLOCK_ACCESS_FS_MAKE_SYM
-> +_	_	_
-> +2	5.19	LANDLOCK_ACCESS_FS_REFER
-> +.TE
-> +.sp 1
-> +.PP
-> +Users should use the Landlock ABI version rather than the kernel versi=
-on
-> +to determine which features are available.
-> +The mainline kernel versions listed here are only included for orienta=
-tion.
-> +Kernels from other sources may contain backported features,
-> +and their version numbers may not match.
-> +.PP
-> +To query the running kernel's Landlock ABI version,
-> +programs may pass the
-> +.B LANDLOCK_CREATE_RULESET_VERSION
-> +flag to
-> +.BR landlock_create_ruleset (2).
-> +.PP
-> +When building fallback mechanisms for compatibility with older kernels=
-,
-> +users are advised to consider the special semantics of the
-> +.B LANDLOCK_ACCESS_FS_REFER
-> +access right:
-> +In ABI v1,
-> +linking and moving of files between different directories is always fo=
-rbidden,
-> +so programs relying on such operations are only compatible
-> +with Landlock ABI v2 and higher.
->  .SH NOTES
->  Landlock is enabled by
->  .BR CONFIG_SECURITY_LANDLOCK .
-> @@ -242,7 +339,8 @@ attr.handled_access_fs =3D
->          LANDLOCK_ACCESS_FS_MAKE_SOCK |
->          LANDLOCK_ACCESS_FS_MAKE_FIFO |
->          LANDLOCK_ACCESS_FS_MAKE_BLOCK |
-> -        LANDLOCK_ACCESS_FS_MAKE_SYM;
-> +        LANDLOCK_ACCESS_FS_MAKE_SYM |
-> +        LANDLOCK_ACCESS_FS_REFER;
-> =20
->  ruleset_fd =3D landlock_create_ruleset(&attr, sizeof(attr), 0);
->  if (ruleset_fd =3D=3D -1) {
 >=20
-> base-commit: 53a7e5dfc3554a2e8dbdfdc4504e99652e1d6382
+> diff --git a/man2/clone.2 b/man2/clone.2
+> index d63895189..be802a280 100644
+> --- a/man2/clone.2
+> +++ b/man2/clone.2
+> @@ -1436,6 +1436,16 @@ One of the PIDs specified in
+>  .I set_tid
+>  was an invalid.
+>  .TP
+> +.BR EINVAL " (" clone3 "() only)"
+> +.\" commit 7f192e3cd316ba58c88dfa26796cf77789dd9872
+> +.B CLONE_THREAD
+> +or
+> +.B CLONE_PARENT
+> +was specified in the
+> +.I flags
+> +mask, but a signal was specified in
+> +.I exit_signal.
+> +.TP
+>  .BR EINVAL " (AArch64 only, Linux 4.6 and earlier)"
+>  .I stack
+>  was not aligned to a 128-bit boundary.
 
 --=20
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
---------------EZZwEh7miAquL0cg2B50KFHN--
+--------------LsXoPxte1fWP6AWy9hSR0mAz--
 
---------------rjIJgXuT8AovrBqmzIA5iTRo
+--------------oQpUd0DGFrAlcOJawCjhiYOu
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmP/wtIACgkQnowa+77/
-2zKQ/g//ZiYet/PY7FxBdY2cDOanYuAcscv3yc4HdS0TFZ+2a1r/jy+knJ/Y+xNB
-zfQx6SftNja4jlNTxWOkB1Jp2mm8dGQUFomogMaOw1PgeJqP9gKI6NgC7IAZfEb4
-s9rsI/YKuRJrRiDsDAl2xCGT0eYkH+LDH9CQvF9a4bcUaIw9dziiXiAbg/Gqu32x
-1bv3BddEfUZnAcmfcc815X0i2s5Jv1GO4uuv9Zo/qT3jT+T3Phli52Wt0aZeun63
-otC5P7/ji18wpv4tUH1cpDjzf0XkXATrcbSGOO32Me/VBs03pT6Bg874FPouLMim
-2PxV3pEGBp/eJ+3lKAXAp1hlsykHZDfV7c01noDIz20JkXyn+DBz5KHIv3oETDmZ
-rqhhPRBdDgIHAd9uDE/PgcUJabJA23Xr9X2PoCfAdppcUULb2q03IK9oUAaJZPFw
-k4qKpLv5m8KyZuVSTBXRoJva0XnRmhCOxgdk5ASvTCWTKdn9uKB4+/+P06ra2NNu
-zTHmAqiCsIEi5sD0RJ8skdNCjp9aK74pijSDmKjdC1M4Hqy11ubEE6kemjzb2bG5
-+5rdQu/4RJIoqWeoydrQU1AIb694PDiccEGPI9Pj4r/I5KqwTwB1LSXXWCXjxjGo
-ITGxvIzvz3s71dVDt/575wRfq6ftSdJgmJDnIywsQ1I+VD1VWBY=
-=WDXO
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmP/xDsACgkQnowa+77/
+2zKQlhAAmtmiZH5Yo47tV+fsc0JdmIRu+S558H4zvc0NFlkPR+ZtLveat8A6yZ64
+nEyN7KT5TgujJb4zDYzXc9PKj+YExKQzjM9G5YN6bKPa+ZxnyZZZLupSOH1ab7PH
+Yt5aEl3gOfnfSKgZvjkpZjjgGA6vygxfUZD152x3AvRhqN8FtZ66hHkgSrHewgEU
+vcEol/47xTtWi718UxyBqlcsfwgL7uVzkn/Rov08NJiwOAhI4o9uwyxAsdTkIzjf
+S6dceAGMxsiFYUQX87LhbN7z2wARAP5HyVRALVLwDWQvwyTSEBTH8fIClzMuKwkw
+7xqCPWEs7GMr9HuwX/DgA9/Np15/DhHUfttz87++cWv8eNrtQaaBsCh8Ehd3ucfF
+A2RWvRJLFwFrUkZHExX4PXIMq+250YLORBM1tdx2hX1RZm4fC9+47cpBF9RDCUzh
+RSa0oIYuvV9p5keJWk2ZaK+YM9TEIudyjoECg8TfPvWZrx0VfjoJHEBISCKerN58
+ypYLxoZxAIu+SWPoT5PoI9vWQajZ9pvnpveIPD0p2tPxYlfvfK/8dfhb8reKpAPL
+/1QayowejNn3hCSFmvP2ET2Sqb/PgbsDmlyhmI0tSpvRCl7lyvNWH1BFMFJTrw4A
+1S7LMXTzcf/GCp9ahkaKe3YfuEGdcKXq38ytxZdCM5yqYNsU14w=
+=Hr2+
 -----END PGP SIGNATURE-----
 
---------------rjIJgXuT8AovrBqmzIA5iTRo--
+--------------oQpUd0DGFrAlcOJawCjhiYOu--
