@@ -2,71 +2,65 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 4E1456A83D7
-	for <lists+linux-man@lfdr.de>; Thu,  2 Mar 2023 14:52:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id CC8D16A8588
+	for <lists+linux-man@lfdr.de>; Thu,  2 Mar 2023 16:48:16 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229449AbjCBNwd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 2 Mar 2023 08:52:33 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49376 "EHLO
+        id S229494AbjCBPsP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 2 Mar 2023 10:48:15 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48064 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229445AbjCBNwd (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 2 Mar 2023 08:52:33 -0500
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com [IPv6:2a00:1450:4864:20::336])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C28AE32E62
-        for <linux-man@vger.kernel.org>; Thu,  2 Mar 2023 05:52:31 -0800 (PST)
-Received: by mail-wm1-x336.google.com with SMTP id j19-20020a05600c191300b003eb3e1eb0caso1795612wmq.1
-        for <linux-man@vger.kernel.org>; Thu, 02 Mar 2023 05:52:31 -0800 (PST)
+        with ESMTP id S229624AbjCBPsN (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 2 Mar 2023 10:48:13 -0500
+Received: from mail-qt1-x82d.google.com (mail-qt1-x82d.google.com [IPv6:2607:f8b0:4864:20::82d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5FEED193C2;
+        Thu,  2 Mar 2023 07:48:12 -0800 (PST)
+Received: by mail-qt1-x82d.google.com with SMTP id d7so18399522qtr.12;
+        Thu, 02 Mar 2023 07:48:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1677765150;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=7vRSdcVGLPp4c3wgctmkiXwrGlAwqRsG50ckGfRM6Ec=;
-        b=XEg4xv7A1OJQ3Ag00IpHV58sI5Z1Z/yJl/n0jL70KmWiMzPELG7jBxazePmSOXl+ms
-         GMrGkCLVLHSrELrhzugZeX438CZLZZ46U1OmtFMFOJADfoCnFzDrriy0Td87dl/wY7F2
-         mDhDuE0X04WFXL9I4IMjOXa1sOJ47QvGrNMEonCEI5f4Slh9OXuNtndrflDxUjR8tAeG
-         TUhrWY+JNnKWM2FNR9q9TqQ/iHR2y4LsXZ9/QipMAGkTHbUWJCaaGhbiXpnG7gEiND2Y
-         eHKjObw4mVfIjru/atJofjME34bYpb4YI3iX7XkKzlOmfa5PTIWxI+mmbzKhUN27ZTiM
-         +sAg==
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=OQkiJND02BK/IXx43D/6SWtx0ejjMuFojMoaAG3gPWQ=;
+        b=Kmv5Z9EesMZzu6NKbOpKGZKLADvdtBnDEbDoxdsbw6Lib1WTNhqahAziVKjahTDTun
+         Pv972CHmYjqZG2TUOS09QD2fCzvNiuuR5G2E/aV27SbzVzgJMk5wKbLAZcNKsBsyy/K+
+         rIfqZQSGHZ2ob+j5MP2atFMYZxlAjSHYVzM2SooQx8WtmYP7NHqV6D3vECmfsh7/OIRd
+         jzl68Ua+YrU2EtYG+AExN1CPxe1G9eNoACegPEcW/jRg5c44tfi0VZsV0iFrRc+If9FW
+         CVrr+RuvLfdhR+bWJphB67kMCMWGd3dRG7AusQtqWQAzBvCJ75tJnTAey9R7vXwVjIX9
+         pbdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1677765150;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=7vRSdcVGLPp4c3wgctmkiXwrGlAwqRsG50ckGfRM6Ec=;
-        b=ulrcs44Z9CWY3Lym20fJsFPDqQOAAJnNEb3AgkdaNXDnHG3zxJY/brqxLNEiixtsOl
-         qBZypaZhZW5DQ6iEY4fyZ9qKLsfOmEu+NlcfW0wGCzG5NAWWQGSgSxZxeQZSWjxCCgIK
-         TsRWhnRmv1L9W+rgOeAQdm6PpAa1iKFJvRG455LHLJ8iY7TF8bzYPgSiRjvsika8oOAN
-         uqD9ccON6hiMIImy79go6jPObNmkWJxKqMN3CrYOiyg1zcoV3LI/jmd5JZnOyJKReGQb
-         fXPfTztD+GyQo1vMAu1rTZwG0eHnoryJ1YDPZm0qP8Mev4ZTHwcsviTKGsVvz9xSnDlG
-         RO8w==
-X-Gm-Message-State: AO0yUKX6Mtj+QdKkTjMlW3ELzj9PeOUi9ZsluZ/eJay1lanqM71YYBin
-        XyQgnnNZB369KG9GPzenJ4M=
-X-Google-Smtp-Source: AK7set8bta3RJFXPW0Ek4X1ePRfbTj7fCdfmKdDePRttcTsVVELfBcUF/LzYA7BWa8zSwRc1EVP3xg==
-X-Received: by 2002:a05:600c:81b:b0:3ea:fca4:8c48 with SMTP id k27-20020a05600c081b00b003eafca48c48mr7292256wmp.23.1677765150340;
-        Thu, 02 Mar 2023 05:52:30 -0800 (PST)
-Received: from localhost ([2a02:168:633b:1:7c09:9c3b:256e:8ba1])
-        by smtp.gmail.com with ESMTPSA id bg37-20020a05600c3ca500b003dc4fd6e624sm3408578wmb.19.2023.03.02.05.52.29
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=OQkiJND02BK/IXx43D/6SWtx0ejjMuFojMoaAG3gPWQ=;
+        b=6gR8DbGYj2HA4Psaa74llcSXNXqnfyUS/Yt2nxECZrCsV9zUNKweP1afgoCBy1ahxc
+         PeLE25ywhz3+ygkyvtH7u83RT3qsktShCg54u/f6SVzZz8up7xFL6589WYd01mG0p7sO
+         SCjSgEON4x3L7phm4AKAolhuywyJTPo50vreBVPoUGxfP8iog4EwZ80NEFiFd3TMk64V
+         DwFU4cc60xSQ5SiNKc5mi9A4cuk2V6GbXC/HiSGYQHc/xu+lIl8a7A3JIlYM7x0O7PSA
+         rqU5BrlvEu8566Zb8m9JnjzRbzXOYb4T9OYkIaHEDZAGuVaIY/ue1cDRV5EvKjy5rVQj
+         2uMw==
+X-Gm-Message-State: AO0yUKXYODLUE/affmdgvVMqCDnfdhoij832/HpJTzeP92JLQWf7yyKC
+        I3ZKmkkluhe7iEU2lWEareIRLiP+jY4=
+X-Google-Smtp-Source: AK7set93WhOxbqAThjFxYgvJAJzjliza/f79qldeP6f1q5EDaxzX6P6kKyYwUrDi1HhgfY8Wx44PVg==
+X-Received: by 2002:a05:622a:11c3:b0:3b9:bd8d:bb22 with SMTP id n3-20020a05622a11c300b003b9bd8dbb22mr4279873qtk.14.1677772091443;
+        Thu, 02 Mar 2023 07:48:11 -0800 (PST)
+Received: from willemb.c.googlers.com.com (240.157.150.34.bc.googleusercontent.com. [34.150.157.240])
+        by smtp.gmail.com with ESMTPSA id s72-20020a37454b000000b007417e60f621sm11097113qka.126.2023.03.02.07.48.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 02 Mar 2023 05:52:29 -0800 (PST)
-Date:   Thu, 2 Mar 2023 14:52:28 +0100
-From:   =?iso-8859-1?Q?G=FCnther?= Noack <gnoack3000@gmail.com>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>,
-        linux-man@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] landlock.7: Document Landlock ABI v2 (file
- reparenting; kernel 5.19)
-Message-ID: <20230302.bd0c17ff26e7@gnoack.org>
-References: <20230228205224.5991-1-gnoack3000@gmail.com>
- <930993f4-36ce-c78e-13b3-fe2421350a45@gmail.com>
+        Thu, 02 Mar 2023 07:48:11 -0800 (PST)
+From:   Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To:     linux-man@vger.kernel.org
+Cc:     mtk.manpages@gmail.com, alx.manpages@gmail.com, pabeni@redhat.com,
+        netdev@vger.kernel.org, Willem de Bruijn <willemb@google.com>
+Subject: [PATCH manpages v2 1/2] udp.7: add UDP_SEGMENT
+Date:   Thu,  2 Mar 2023 10:48:07 -0500
+Message-Id: <20230302154808.2139031-1-willemdebruijn.kernel@gmail.com>
+X-Mailer: git-send-email 2.39.2.722.g9855ee24e9-goog
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <930993f4-36ce-c78e-13b3-fe2421350a45@gmail.com>
-X-Spam-Status: No, score=-1.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
-        FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -74,28 +68,71 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Alex!
+From: Willem de Bruijn <willemb@google.com>
 
-On Wed, Mar 01, 2023 at 10:25:38PM +0100, Alejandro Colomar wrote:
-> On 2/28/23 21:52, Günther Noack wrote:
-> > +.IP \[bu] 3
-> 
-> You only need to specify the indentation (the "3") in the first
-> consecutive .IP.  All others reuse the indentation level until
-> a .PP appears (or a few other situations that I won't enumerate
-> for brevity).
+UDP_SEGMENT was added in commit bec1f6f69736
+("udp: generate gso with UDP_SEGMENT")
 
-Thanks, I missed that.
+    $ git describe --contains bec1f6f69736
+    linux/v4.18-rc1~114^2~377^2~8
 
-> > +When renaming, the
-> > +.B LANDLOCK_ACCESS_FS_REMOVE_*
-> 
-> The * should be in italics, since it's not part of the literal,
-> but rather a variable part.  I know the pages are not very
-> consistent in this, but I'd like to make them consistent in the
-> future.
+Kernel source has example code in tools/testing/selftests/net/udpgso*
 
-Done.
+Per https://www.kernel.org/doc/man-pages/patches.html,
+"Describe how you obtained the information in your patch":
+I am the author of the above commit and follow-ons.
 
-Thank you for the review!
-–Günther
+Signed-off-by: Willem de Bruijn <willemb@google.com>
+
+---
+
+Changes v1->v2
+  - semantic newlines: also break on comma and colon
+  - remove bold: section number following function name
+  - add bold: special macro USHRT_MAX
+---
+ man7/udp.7 | 28 ++++++++++++++++++++++++++++
+ 1 file changed, 28 insertions(+)
+
+diff --git a/man7/udp.7 b/man7/udp.7
+index 5822bc551fdf..6646c1e96bb0 100644
+--- a/man7/udp.7
++++ b/man7/udp.7
+@@ -204,6 +204,34 @@ portable.
+ .\"     UDP_ENCAP_ESPINUDP draft-ietf-ipsec-udp-encaps-06
+ .\"     UDP_ENCAP_L2TPINUDP rfc2661
+ .\" FIXME Document UDP_NO_CHECK6_TX and UDP_NO_CHECK6_RX, added in Linux 3.16
++.TP
++.BR UDP_SEGMENT " (since Linux 4.18)"
++Enables UDP segmentation offload.
++Segmentation offload reduces
++.BR send (2)
++cost by transferring multiple datagrams worth of data as a single large
++packet through the kernel transmit path,
++even when that exceeds MTU.
++As late as possible,
++the large packet is split by segment size into a series of datagrams.
++This segmentation offload step is deferred to hardware if supported,
++else performed in software.
++This option takes a value between 0 and
++.BR USHRT_MAX
++that sets the segment size:
++the size of datagram payload,
++excluding the UDP header.
++The segment size must be chosen such that at most 64 datagrams are sent in
++a single call and that the datagrams after segmentation meet the same MTU
++rules that apply to datagrams sent without this option.
++Segmentation offload depends on checksum offload,
++as datagram checksums are computed after segmentation.
++The option may also be set for individual
++.BR sendmsg (2)
++calls by passing it as a
++.BR cmsg (7).
++A value of zero disables the feature.
++This option should not be used in code intended to be portable.
+ .SS Ioctls
+ These ioctls can be accessed using
+ .BR ioctl (2).
+-- 
+2.39.2.722.g9855ee24e9-goog
+
