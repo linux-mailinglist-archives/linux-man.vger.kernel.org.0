@@ -2,67 +2,38 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 623B16A76C1
-	for <lists+linux-man@lfdr.de>; Wed,  1 Mar 2023 23:22:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 55A536A7FE1
+	for <lists+linux-man@lfdr.de>; Thu,  2 Mar 2023 11:21:11 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229684AbjCAWWp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 1 Mar 2023 17:22:45 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40342 "EHLO
+        id S229890AbjCBKVK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 2 Mar 2023 05:21:10 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41094 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229577AbjCAWWn (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 1 Mar 2023 17:22:43 -0500
-Received: from mail-il1-x12d.google.com (mail-il1-x12d.google.com [IPv6:2607:f8b0:4864:20::12d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C9030521EE
-        for <linux-man@vger.kernel.org>; Wed,  1 Mar 2023 14:22:42 -0800 (PST)
-Received: by mail-il1-x12d.google.com with SMTP id h10so9307785ila.11
-        for <linux-man@vger.kernel.org>; Wed, 01 Mar 2023 14:22:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20210112; t=1677709362;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=k1OfUsPNZa/yCh5ZP0Yea9ZJmv1L6xq50Y+PGxW2aZI=;
-        b=KRQ158g7VMbGrxbxsKzDdVlLzBYl7VW2zDWcjPlzShif5Prvf/pP/sOyyOASEzahJi
-         wQf8AgOXqRvjwLkvBtWyu8p+DiR3ebxF3amr//bHPp7+5a3Z23k1IA5hxkCsVJxkxEUD
-         DHO2vzws2U/XO9NjzZAbw76RErI95+mvc84zd4Qiq8LiboFikrHcreW9Dcw9if35nezH
-         StEvY7Q+hR4/ib4Uev2AD4PgCEU+8MpLaYlvAlyqm6N+JennhjJLzeA8qEDMmVMP1Fud
-         sbljIZD1g8PgZNGaNmQfGKS0t7Ura0ZRUpNpCFHVr1eKCQAkeJccKNu6G9+JNxrImeLx
-         okmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1677709362;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=k1OfUsPNZa/yCh5ZP0Yea9ZJmv1L6xq50Y+PGxW2aZI=;
-        b=iPsvXQEGro4Mm5gqdv8VG/YzBZ7BJydJFDiaC/8KxB4BVa8JQTIoukC1XG5EsF7yFh
-         k2CD4j//xCvQ5wupEVbdA6z9p8srXXdKLuNZMYs7t7IYx6UUB9+xF/cicn3hPPFC4KUS
-         FuvsTLWKofxw+ILVzPZHFgZ8iIww4+lYERozjAjOMrZ/7BYJ2lbZud18i8d9XCaFiWKU
-         87owSiHiB2oP33JJK9FGnytthMuDhsUpcrDKZBCjkg1ca+beBtDARyng2SdsJgVK4ZtT
-         8dnhQyT053aMwZS9eyEKNLIs5vVuMBguSPpk9Ytba4E0c83qGx186WuX78hcI1u791w4
-         F5IA==
-X-Gm-Message-State: AO0yUKXrbhGi82vBbLN9w7jaylxX8mVG1jayD9+Ni6ptluJMkWkGpR7Y
-        UEFNPX93OOCYH6IxLSipoRPgWk5DiFDwmNGJ/Grbog==
-X-Google-Smtp-Source: AK7set9sbtGGP/xTmOF61RUzH+wJKaLJIf/y6gD4BErAlzjMcup7DHHzWbe38lQjD/8oneX+9jdsGYSWcRcus2LsP50=
-X-Received: by 2002:a92:1a0d:0:b0:310:a24c:4231 with SMTP id
- a13-20020a921a0d000000b00310a24c4231mr3867674ila.6.1677709362077; Wed, 01 Mar
- 2023 14:22:42 -0800 (PST)
+        with ESMTP id S229749AbjCBKVJ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 2 Mar 2023 05:21:09 -0500
+Received: from smtp.smtpout.orange.fr (smtp-22.smtpout.orange.fr [80.12.242.22])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 810873B3DA
+        for <linux-man@vger.kernel.org>; Thu,  2 Mar 2023 02:21:05 -0800 (PST)
+Received: from [137.202.253.23] ([192.94.31.2])
+        by smtp.orange.fr with ESMTPA
+        id Xg3apmwbns1Q5Xg3bpMek0; Thu, 02 Mar 2023 11:21:03 +0100
+X-ME-Helo: [137.202.253.23]
+X-ME-Auth: cGpmbG95ZEB3YW5hZG9vLmZy
+X-ME-Date: Thu, 02 Mar 2023 11:21:03 +0100
+X-ME-IP: 192.94.31.2
+Message-ID: <0cbbd062-bc91-25ec-7744-d474e372cc62@wanadoo.fr>
+Date:   Thu, 2 Mar 2023 11:21:01 +0100
 MIME-Version: 1.0
-References: <20230301211146.1974507-1-willemdebruijn.kernel@gmail.com> <7d4571c6-b708-c63b-5a5c-2b2d4f963914@gmail.com>
-In-Reply-To: <7d4571c6-b708-c63b-5a5c-2b2d4f963914@gmail.com>
-From:   Willem de Bruijn <willemb@google.com>
-Date:   Wed, 1 Mar 2023 17:22:05 -0500
-Message-ID: <CA+FuTSd2=8e73ALPxZR8k03oHOrsJfAQwoaLT+i-YLzwwCf+Bg@mail.gmail.com>
-Subject: Re: [PATCH manpages 1/2] udp.7: add UDP_SEGMENT
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
-        linux-man@vger.kernel.org, netdev@vger.kernel.org,
-        Paolo Abeni <pabeni@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: No, score=-17.6 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-        ENV_AND_HDR_SPF_MATCH,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
-        USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=ham
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+To:     mtk.manpages@gmail.com, alx.manpages@gmail.com
+Cc:     linux-man@vger.kernel.org
+From:   "Floyd, Paul" <pjfloyd@wanadoo.fr>
+Subject: memalign man page
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE,
+        RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -70,81 +41,16 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Wed, Mar 1, 2023 at 4:35=E2=80=AFPM Alejandro Colomar <alx.manpages@gmai=
-l.com> wrote:
->
-> Hi Willem,
->
-> On 3/1/23 22:11, Willem de Bruijn wrote:
-> > From: Willem de Bruijn <willemb@google.com>
-> >
-> > UDP_SEGMENT was added in commit bec1f6f69736
-> > ("udp: generate gso with UDP_SEGMENT")
-> >
-> >     $ git describe --contains bec1f6f69736
-> >     linux/v4.18-rc1~114^2~377^2~8
-> >
-> > Kernel source has example code in tools/testing/selftests/net/udpgso*
-> >
-> > Per https://www.kernel.org/doc/man-pages/patches.html,
-> > "Describe how you obtained the information in your patch":
-> > I am the author of the above commit and follow-ons.
-> >
-> > Signed-off-by: Willem de Bruijn <willemb@google.com>
-> > ---
-> >  man7/udp.7 | 25 +++++++++++++++++++++++++
-> >  1 file changed, 25 insertions(+)
-> >
-> > diff --git a/man7/udp.7 b/man7/udp.7
-> > index 5822bc551fdf..ec16306df605 100644
-> > --- a/man7/udp.7
-> > +++ b/man7/udp.7
-> > @@ -204,6 +204,31 @@ portable.
-> >  .\"     UDP_ENCAP_ESPINUDP draft-ietf-ipsec-udp-encaps-06
-> >  .\"     UDP_ENCAP_L2TPINUDP rfc2661
-> >  .\" FIXME Document UDP_NO_CHECK6_TX and UDP_NO_CHECK6_RX, added in Lin=
-ux 3.16
-> > +.TP
-> > +.BR UDP_SEGMENT " (since Linux 4.18)"
-> > +Enables UDP segmentation offload.
-> > +Segmentation offload reduces
-> > +.BR send(2)
-> > +cost by transferring multiple datagrams worth of data as a single
-> > +large packet through the kernel transmit path, even when that
->
-> Please use semantic newlines.  See man-pages(7):
->
->    Use semantic newlines
->        In the source of a manual page, new sentences should be started
->        on  new  lines,  long  sentences  should be split into lines at
->        clause breaks (commas, semicolons, colons, and so on), and long
->        clauses should be split at phrase boundaries.  This convention,
->        sometimes known as "semantic newlines", makes it easier to  see
->        the  effect of patches, which often operate at the level of in=E2=
-=80=90
->        dividual sentences, clauses, or phrases.
->
->
-> > +exceeds MTU.
-> > +As late as possible, the large packet is split by segment size into a
-> > +series of datagrams.
-> > +This segmentation offload step is deferred to hardware if supported,
-> > +else performed in software.
-> > +This option takes a value between 0 and USHRT_MAX that sets the
-> > +segment size: the size of datagram payload, excluding the UDP header.
-> > +The segment size must be chosen such that at most 64 datagrams are
-> > +sent in a single call and that the datagrams after segmentation meet
-> > +the same MTU rules that apply to datagrams sent without this option.
-> > +Segmentation offload depends on checksum offload, as datagram
-> > +checksums are computed after segmentation.
-> > +The option may also be set for individual
-> > +.BR sendmsg(2)
->
-> There should be a space between the bold part and the roman part:
->
-> .BR foo (2)
->
-> Otherwise, it all gets printed in bold.
+Hi
 
-Thanks Alex. I'll leave this open for other comments for a bit, but
-will address both points in both patches in v2.
+I see several issues with the man page for memalign/aligned_alloc with 
+respect to the glibc implementations.
+
+What is the best way to report them? Log an issue at 
+https://bugzilla.kernel.org?
+
+
+Regards
+
+Paul Floyd
+
