@@ -2,68 +2,68 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 882776AAB89
-	for <lists+linux-man@lfdr.de>; Sat,  4 Mar 2023 18:16:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 098EA6AAF04
+	for <lists+linux-man@lfdr.de>; Sun,  5 Mar 2023 11:25:02 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229457AbjCDRQZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 4 Mar 2023 12:16:25 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33884 "EHLO
+        id S229625AbjCEKZB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 5 Mar 2023 05:25:01 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35940 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229484AbjCDRQY (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 4 Mar 2023 12:16:24 -0500
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com [IPv6:2a00:1450:4864:20::52b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6BADC12059
-        for <linux-man@vger.kernel.org>; Sat,  4 Mar 2023 09:16:17 -0800 (PST)
-Received: by mail-ed1-x52b.google.com with SMTP id cy23so22193008edb.12
-        for <linux-man@vger.kernel.org>; Sat, 04 Mar 2023 09:16:17 -0800 (PST)
+        with ESMTP id S229469AbjCEKY6 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 5 Mar 2023 05:24:58 -0500
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com [IPv6:2a00:1450:4864:20::331])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1D58614489
+        for <linux-man@vger.kernel.org>; Sun,  5 Mar 2023 02:24:56 -0800 (PST)
+Received: by mail-wm1-x331.google.com with SMTP id o11-20020a05600c4fcb00b003eb33ea29a8so3593991wmq.1
+        for <linux-man@vger.kernel.org>; Sun, 05 Mar 2023 02:24:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1677950176;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=hLmGr2lIy8o3km3/e7xZ7rn4u/OAP/5n4RD9gODZ3mw=;
-        b=G0h2HRtPF6LLX1Y45bGSGP/snPxxXm7RKYSE8k8ZX9PF54Bb6mom7D7DGZofpbHObZ
-         Ke3wPHIbsInbuTJsKhTOPD/HBBzI3ZYktkNXL7E/amai4ufKfqAAbgBSSb/1zQpVbp3F
-         MY3GnmbMcDPHpP44LpYQLVBWCTsf96rWIpnFtYoWLCxKfvmiesXVlrC3BpZ7e+MNTsHs
-         sADEMa7rBYlUSLxbD2LTYQq6Il2NV/RBH1TLohTq9y8sYCrXuUEqYn+B5byFDHsk8dkl
-         YAF2BgRU/O98/h2nxcOeusyRmD9cGn5MFrUNL3ZPfGbR9heheylNQqvTLAnIQzjdNXyn
-         7uDQ==
+        d=gmail.com; s=20210112; t=1678011894;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=zdvNZUESFYdbdEiJOLgXnmhwjStNeX3StPvUWqhPj30=;
+        b=h2vK6L/PXibvYsGC691D0q4SIpi1PFCLTClmLGCMOU+vEH+RUkjPjgyuuBkQcEIO2x
+         qEp0OGC6rXllT6qqP2v7JRDci2fetIZeezt4+uIXnAA62HqZywhveXHw9Ltr60iHXH4H
+         Bq2Xh7O5DtSE9vexd1lEJRUQuAoopIm2udilwDxUDEJ2b0TTIHzW5kuVzikMhSTF1XYz
+         wP96IZ3EtwDvvBXz0dp4gSEnbdaKT1MwFGEzwO6ueh4qPqkcHS5Ltrh+uGl2aPcuP4vK
+         cLSLpXiryuzBnuu3ybxNZYqgBlvA+AMoUq08osRCBT+eOInhmwiz4q2K1HNGpiw+KVV1
+         ySnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1677950176;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=hLmGr2lIy8o3km3/e7xZ7rn4u/OAP/5n4RD9gODZ3mw=;
-        b=X2PToUjCoCvEhhY1dWUj5maUftUE6KKeyqEqAGMbCIuZYHRi3YWJq/APk2jT0uqMY2
-         QNAJDQnL4W0t6rbK7DYLUOnox01natAeZ8AyUyM0JIR6CryPsPtEH6SX5t/3oHkuwSMN
-         utM3npRNMRreG8ZrxWreRBuFavnGFItC8B6ecMlGD+EI4sT5NtSfXcq1FNS6Wau2gLfE
-         IQ626h7ddHRl2coA8MHx/MtEzvq7i2R67BBxVvhmDodFrjrDoWKBE30WOoQerMoolWEk
-         6mDyU5bkh/JkRh5/44aeCHhwZYGJG3EelvJJKtN8wwxv6uCwtxJZeYPY+YhqNDc4HFk3
-         7B9A==
-X-Gm-Message-State: AO0yUKW+liLa/JCSzXOwXtqHD9DRULg+GD0JCkH7bYUacxdxVc4eExCh
-        94Hsr06cC8bbhhd2cs31tMo+6kjGEyg=
-X-Google-Smtp-Source: AK7set/e5keDYtKLKJHQ4J+flH/0hCZRExKA99pmSGZwUFB/2LtBx2Mlk2pCV3gTRQUVdauzyASK6A==
-X-Received: by 2002:a17:907:31cd:b0:8cf:fda0:5b9b with SMTP id xf13-20020a17090731cd00b008cffda05b9bmr7371910ejb.22.1677950175953;
-        Sat, 04 Mar 2023 09:16:15 -0800 (PST)
+        d=1e100.net; s=20210112; t=1678011894;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=zdvNZUESFYdbdEiJOLgXnmhwjStNeX3StPvUWqhPj30=;
+        b=aq4ebxWnBSX0hNqjkeUYYS0jPpOaiT4exBwLLbKpVe70aFzsAzelf5gbx51Bm9ZuVV
+         39S9lwL3Fuh8yLQX9ZbjgY3Dw9BbIzC8QqWvSOUNyG+zKKjJgimDyrejqswQaPXJmC9N
+         u6cU3pBvCuDxC1HXEiasipp4nYU64+FAafTlE/OW/hkljwUW8Bo+EnVHocjyMlCHQyUD
+         GX5AZVMO/FAoJrrhnmCEMJyBNOX0UzR31pmQlfG/xiBbGui2aSNlHIv0L1TU5X7WdFNl
+         uR48gcQFBtHEU2Z3XJz6PQPJYstIfKG/7OjcVQvrpKERThDr/H8yPaj7zs56WwF9a9AA
+         BNhA==
+X-Gm-Message-State: AO0yUKU0t3G9HoidR6WXA9yiBHz2qyfU/3BUH57MjaiOgHJWIQ0ltVMS
+        zVCfip0KTlc8lCFUGOiowXXpZ4IAYbQ=
+X-Google-Smtp-Source: AK7set8Irn0IfGecr0tz6Ukzi8gRa3EmxCZPMlKTiyRXZr5JMI1MbQMyvfGuHyEVESyMC4CdXEGHGw==
+X-Received: by 2002:a05:600c:1d19:b0:3e2:147f:ac1a with SMTP id l25-20020a05600c1d1900b003e2147fac1amr6149704wms.21.1678011894273;
+        Sun, 05 Mar 2023 02:24:54 -0800 (PST)
 Received: from localhost ([2a02:168:633b:1:7c09:9c3b:256e:8ba1])
-        by smtp.gmail.com with ESMTPSA id q27-20020a17090622db00b008b1787ce722sm2231953eja.152.2023.03.04.09.16.15
+        by smtp.gmail.com with ESMTPSA id bg12-20020a05600c3c8c00b003e8dc7a03basm11756537wmb.41.2023.03.05.02.24.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 04 Mar 2023 09:16:15 -0800 (PST)
-From:   =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
+        Sun, 05 Mar 2023 02:24:53 -0800 (PST)
+Date:   Sun, 5 Mar 2023 11:24:48 +0100
+From:   =?iso-8859-1?Q?G=FCnther?= Noack <gnoack3000@gmail.com>
 To:     Alejandro Colomar <alx.manpages@gmail.com>,
-        =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
+        =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>
 Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-man@vger.kernel.org,
-        =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
-Subject: [PATCH v3 2/2] landlock.7: Document Landlock ABI v3 (file truncation; Linux 6.2)
-Date:   Sat,  4 Mar 2023 18:16:07 +0100
-Message-Id: <20230304171607.8301-2-gnoack3000@gmail.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230304171607.8301-1-gnoack3000@gmail.com>
+        linux-man@vger.kernel.org, landlock@lists.linux.dev
+Subject: Re: [PATCH v3 1/2] landlock.7: Document Landlock ABI v2 (file
+ reparenting; Linux 5.19)
+Message-ID: <20230305.d639b17946bd@gnoack.org>
 References: <20230304171607.8301-1-gnoack3000@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20230304171607.8301-1-gnoack3000@gmail.com>
 X-Spam-Status: No, score=-1.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
         FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
@@ -74,138 +74,70 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-https://git.kernel.org/torvalds/c/299e2b1967578b1442128ba8b3e86ed3427d3651
++landlock mailing list (feeback welcome)
 
-Signed-off-by: Günther Noack <gnoack3000@gmail.com>
----
- man7/landlock.7 | 83 +++++++++++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 81 insertions(+), 2 deletions(-)
+Hello!
 
-diff --git a/man7/landlock.7 b/man7/landlock.7
-index 1ab0a6cbc..f711000f1 100644
---- a/man7/landlock.7
-+++ b/man7/landlock.7
-@@ -64,9 +64,39 @@ Execute a file.
- .TP
- .B LANDLOCK_ACCESS_FS_WRITE_FILE
- Open a file with write access.
-+.IP
-+When opening files for writing,
-+you will often additionally need the
-+.B LANDLOCK_ACCESS_FS_TRUNCATE
-+right.
-+In many cases,
-+these system calls truncate existing files when overwriting them
-+(e.g.,
-+.BR creat (2)).
- .TP
- .B LANDLOCK_ACCESS_FS_READ_FILE
- Open a file with read access.
-+.TP
-+.B LANDLOCK_ACCESS_FS_TRUNCATE
-+Truncate a file with
-+.BR truncate (2),
-+.BR ftruncate (2),
-+.BR creat (2),
-+or
-+.BR open (2)
-+with
-+.BR O_TRUNC .
-+Whether an opened file can be truncated with
-+.BR ftruncate (2)
-+is determined during
-+.BR open (2),
-+in the same way as read and write permissions are checked during
-+.BR open (2)
-+using
-+.B LANDLOCK_ACCESS_FS_READ_FILE
-+and
-+.BR LANDLOCK_ACCESS_FS_WRITE_FILE .
-+This access right is available since the third version of the Landlock ABI.
- .PP
- A directory can receive access rights related to files or directories.
- The following access right is applied to the directory itself,
-@@ -231,6 +261,53 @@ To be allowed to use
- and related syscalls on a target process,
- a sandboxed process should have a subset of the target process rules,
- which means the tracee must be in a sub-domain of the tracer.
-+.\"
-+.SS Truncating files
-+The operations covered by
-+.B LANDLOCK_ACCESS_FS_WRITE_FILE
-+and
-+.B LANDLOCK_ACCESS_FS_TRUNCATE
-+both change the contents of a file and sometimes overlap in
-+non-intuitive ways.
-+It is recommended to always specify both of these together.
-+.PP
-+A particularly surprising example is
-+.BR creat (2).
-+The name suggests that this system call requires
-+the rights to create and write files.
-+However, it also requires the truncate right
-+if an existing file under the same name is already present.
-+.PP
-+It should also be noted that truncating files does not require the
-+.B LANDLOCK_ACCESS_FS_WRITE_FILE
-+right.
-+Apart from the
-+.BR truncate (2)
-+system call, this can also be done through
-+.BR open (2)
-+with the flags
-+.IR "O_RDONLY\ |\ O_TRUNC" .
-+.PP
-+When opening a file, the availability of the
-+.B LANDLOCK_ACCESS_FS_TRUNCATE
-+right is associated with the newly created file descriptor
-+and will be used for subsequent truncation attempts using
-+.BR ftruncate (2).
-+The behavior is similar to opening a file for reading or writing,
-+where permissions are checked during
-+.BR open (2),
-+but not during the subsequent
-+.BR read (2)
-+and
-+.BR write (2)
-+calls.
-+.PP
-+As a consequence,
-+it is possible to have multiple open file descriptors for the same file,
-+where one grants the right to truncate the file and the other does not.
-+It is also possible to pass such file descriptors between processes,
-+keeping their Landlock properties,
-+even when these processes do not have an enforced Landlock ruleset.
- .SH VERSIONS
- Landlock was introduced in Linux 5.13.
- .PP
-@@ -257,6 +334,8 @@ _	_	_
- \^	\^	LANDLOCK_ACCESS_FS_MAKE_SYM
- _	_	_
- 2	5.19	LANDLOCK_ACCESS_FS_REFER
-+_	_	_
-+3	6.2	LANDLOCK_ACCESS_FS_TRUNCATE
- .TE
- .sp 1
- .PP
-@@ -302,7 +381,6 @@ in kernel logs.
- It is currently not possible to restrict some file-related actions
- accessible through these system call families:
- .BR chdir (2),
--.BR truncate (2),
- .BR stat (2),
- .BR flock (2),
- .BR chmod (2),
-@@ -340,7 +418,8 @@ attr.handled_access_fs =
-         LANDLOCK_ACCESS_FS_MAKE_FIFO |
-         LANDLOCK_ACCESS_FS_MAKE_BLOCK |
-         LANDLOCK_ACCESS_FS_MAKE_SYM |
--        LANDLOCK_ACCESS_FS_REFER;
-+        LANDLOCK_ACCESS_FS_REFER |
-+        LANDLOCK_ACCESS_FS_TRUNCATE;
- 
- ruleset_fd = landlock_create_ruleset(&attr, sizeof(attr), 0);
- if (ruleset_fd == -1) {
--- 
-2.39.2
+On Sat, Mar 04, 2023 at 06:16:06PM +0100, Günther Noack wrote:
+> * Add LANDLOCK_ACCESS_FS_REFER to the code example.
 
+To follow up on the discussion on the man page update v1 [1] -- let me
+make a constructive proposal for a simpler code example for "best
+effort" fallback in the man page.
+
+I feel that implementing the full generic "best effort" fallback logic
+would complicate the example too much:
+
+ (a) examples that try to demonstrate too many things at once
+     tend to become confusing to the reader
+ (b) there are readers to whom the full example might not matter:
+     - readers who know what kernel their software runs on
+     - readers in the future or on cutting-edge distributions
+       who can assume that their kernel is likely to be fresh enough
+
+The main complication with the "best effort" logic is really just that
+the "refer" right requires a different fallback logic, and this is
+easy to overlook (has happened in multiple instances already).
+
+I believe that many potential Landlock users, especially smaller
+tools, probably do not need to reparent files ("refer").
+
+We can group the existing Landlock use cases like this:
+
+Case 1: Callers who know they *do not* need to reparent files
+        can skip the "refer" complications.
+
+Case 2: Callers who know they *do* need to reparent files
+        need to fall back to no-op if the kernel only suppports ABI v1,
+        as reparenting files is always forbidden with ABI v1.
+
+Case 3: Callers who *sometimes do and sometimes don't* reparent files
+        are the only ones where it's harder to implement.
+
+I've put the required for code cases 1, 2, and 3 on my weblog at [2]
+(skip to the "Implementation" section).
+
+The complicated case 3 is what we need in the Go and Rust helper
+libraries for Landlock, but it should hopefully not be needed for
+most Landlock users who use it directly from C.
+
+
+**This is how I think we should describe it in the man page**:
+
+  * Define the backwards compatibility table.
+  * Implement fallback logic for programs
+    which do *not* need to reparent files.
+  * Call it out prominently that the fallback code is different
+    if the program needs file reparenting, and explain that separately,
+    in the man page or elsewhere.
+
+I believe this should cover the use cases for a large chunk of simple
+Unix tools, and I would like to encourage the use of Landlock in
+these.  Readers should not have to adapt the example code to work in
+their program.
+
+Let me know what you think!
+–Günther
+
+[1] https://lore.kernel.org/linux-man/Y%2FcvfmEM1XEL%2FTPz@galopp/
+[2] https://blog.gnoack.org/post/landlock-best-effort/
