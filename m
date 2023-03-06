@@ -2,73 +2,69 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 5B7986ABF90
-	for <lists+linux-man@lfdr.de>; Mon,  6 Mar 2023 13:33:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 2218F6ABFC4
+	for <lists+linux-man@lfdr.de>; Mon,  6 Mar 2023 13:41:51 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229528AbjCFMdu (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 6 Mar 2023 07:33:50 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59782 "EHLO
+        id S230074AbjCFMlt (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 6 Mar 2023 07:41:49 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39690 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229656AbjCFMdu (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Mar 2023 07:33:50 -0500
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com [IPv6:2a00:1450:4864:20::32a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C66E91B2C8
-        for <linux-man@vger.kernel.org>; Mon,  6 Mar 2023 04:33:48 -0800 (PST)
-Received: by mail-wm1-x32a.google.com with SMTP id c18so5530672wmr.3
-        for <linux-man@vger.kernel.org>; Mon, 06 Mar 2023 04:33:48 -0800 (PST)
+        with ESMTP id S230197AbjCFMls (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Mar 2023 07:41:48 -0500
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com [IPv6:2a00:1450:4864:20::329])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 94FCC2BEEA
+        for <linux-man@vger.kernel.org>; Mon,  6 Mar 2023 04:41:44 -0800 (PST)
+Received: by mail-wm1-x329.google.com with SMTP id j3so5551583wms.2
+        for <linux-man@vger.kernel.org>; Mon, 06 Mar 2023 04:41:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1678106027;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=5T4/wnF4Rh7DV/6oE8yeQTYQE0+5B/iM5+Pi4y5tNWg=;
-        b=WnLu3RxcA2SsY4VFxFMUqkpuODQ6XUVzwlbuGu+jBVIDJx/K9PptLAzogJ4B30eclC
-         vjaAa75AojNIn7kv50qBPnFa9jy6Aapr8JbIMLZeT6phxw7bfjZnwNlg+fRiaFRCx62I
-         6rYJkfbXghnB5JXMSlv8AR82pGs9KVLsK7b8HHNJdYzaOPWYT5rrGQpLDyk05it8SaMg
-         /Br54NDz2N3zHNLJbPQHewUKmrh3g7jxP0ebZXnF3nZpsUUKxzBAD4OdSI4whNWkOIf/
-         vXRrqgpgk2nJkwUGXcbnaM7deRNQKs1RjgUu4SgEVc7R7Ui5fpUEmvBg0zTdPdwqaILs
-         3eNQ==
+        d=gmail.com; s=20210112; t=1678106503;
+        h=in-reply-to:from:references:to:content-language:subject:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=MYrGKdrG80iJIe4wDFi5pUX7J1rzFoeKbBLNfLiqKYI=;
+        b=HFxWPcjvL5dhjh+AmcVAIWFZf+Qlnl8+PzHaBcQEIZr5lUEszkTQWwpM2SjLGtpggr
+         xWQySRd4DHljmdwedtBp9lXg3ryo9HMuoOdrPxeiuco0rUNqYAp2TND7wc0OogPzlePH
+         OiNau14PTipoaZ2IolowgNRqP8KjMRDjqAAEshGWoVSDL01H7DhvHi1Exlaa4DLbK3Be
+         eF4ghT879THHGi+tdnHkeybgPpqSatXwZ2akRrggVgAnOSdJHlb2z/6CAuqq5B/DtZzW
+         KLGnyzip7caG1VmfFsn2k1GoXHH4IM0DfoNe+xNWA8biICDiY51eEdCVLG9i16KCixMN
+         H5dA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678106027;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=5T4/wnF4Rh7DV/6oE8yeQTYQE0+5B/iM5+Pi4y5tNWg=;
-        b=m23JqKMN4G9+y4P3Dhg8X7au+5i/LOcTInMW1gmtyXNxIuZ76W4WxrcKV8FcsK2tIm
-         1Kt/QVc10yIT5pCcobkYtSJESpWjaTB/EzfGB1s+kqrLrCYeun6DIY0IN4G58LMTnjRd
-         WU5tRU6HIXWThO/otM8o+pEwx8NWyTVjMLRZr66wlcpqXxy26l2gh4Hl1KYKFFDoPx6a
-         uGWnmftYTm05hJdq3JPZGfF/a9AMl/61X5dobjWheJoKjkDa3LK1YcLoop0uqVxkDIlW
-         24GvIpig7d5BRPajx1YUyKOQti8FjxssjG+GssQbf0q7Rb2XFwhZt+QjoFN14x+VpMTZ
-         Nejw==
-X-Gm-Message-State: AO0yUKVxVbU7MyeS089C6+NIiyCObYUM+a+JOqvpK08Eq9MLT/D9VxmF
-        l3FQcJRk6fA2lo/X2Cqf4YY=
-X-Google-Smtp-Source: AK7set+N2bHmPQeBHskfHet60OgeLnNFHPlipP2joxjPuxdIMlW46Y/O2QuOrpzPvIovQwQl+LBeug==
-X-Received: by 2002:a05:600c:4f88:b0:3e2:66b:e90e with SMTP id n8-20020a05600c4f8800b003e2066be90emr9448032wmq.10.1678106027313;
-        Mon, 06 Mar 2023 04:33:47 -0800 (PST)
+        d=1e100.net; s=20210112; t=1678106503;
+        h=in-reply-to:from:references:to:content-language:subject:user-agent
+         :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=MYrGKdrG80iJIe4wDFi5pUX7J1rzFoeKbBLNfLiqKYI=;
+        b=6je1H0MT964hdGVBIs01mwAznRG4AMM8fxUfPxEgp5iOfVFGH8ryRxK+7BS4MOEAMr
+         ASF2WPgyebXJJzuS1Bqk2wxakLg8myK/Ufd0q2tI/7tJ/k7kEAgzG4D+DvXCBFEJf1x9
+         BkBPVeRHlRpA2ocJ3soMG64nABE69MbL4h3x/7IJ39lK51bsrccqPMgpb66S8unRujkn
+         5fRYJB90X5Nl7fvJvuWf31d2OhQKYCRimagNWXd/vcIiYZG29oNf4UHnchWNdjRnr7g/
+         GMnBrc0X4ugSjApe1/64F3U7CHIVXKF44QzROYiuD8QufOt9v8Wvje+nCyrsjOl/Pkta
+         AVRA==
+X-Gm-Message-State: AO0yUKVgAPFN1RFQRc37Q3Yi86ctb18rMDe72GolebcsNmE6SCPEp5nt
+        cKUJdSqVn8/E6x8pJ7YLOLI=
+X-Google-Smtp-Source: AK7set/Sf1Zg8o2iip4bc1wBifhHuNTXGFB/tfombYhry0VfM52crsuB2vKrb3L5gnDPl0BbPqB/5w==
+X-Received: by 2002:a05:600c:4f53:b0:3ea:dbdd:b59c with SMTP id m19-20020a05600c4f5300b003eadbddb59cmr9204013wmq.15.1678106503050;
+        Mon, 06 Mar 2023 04:41:43 -0800 (PST)
 Received: from [192.168.0.160] ([170.253.51.134])
-        by smtp.gmail.com with ESMTPSA id b3-20020a5d40c3000000b002ce37d2464csm6124922wrq.83.2023.03.06.04.33.46
+        by smtp.gmail.com with ESMTPSA id r22-20020a05600c435600b003eae73ee4a1sm10020532wme.17.2023.03.06.04.41.42
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 06 Mar 2023 04:33:47 -0800 (PST)
-Message-ID: <192c38ba-efd8-144d-30a2-c81c0eff78bf@gmail.com>
-Date:   Mon, 6 Mar 2023 13:33:45 +0100
+        Mon, 06 Mar 2023 04:41:42 -0800 (PST)
+Message-ID: <fee0bb29-593f-869d-044b-3bb25e02c6c4@gmail.com>
+Date:   Mon, 6 Mar 2023 13:41:41 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
-Subject: Re: [PATCH v2 2/2] landlock.7: Document Landlock ABI v3 (file
- truncation; kernel 6.2)
+Subject: Re: [patch] read.1p: Split format and argument of printf call
 Content-Language: en-US
-To:     =?UTF-8?Q?G=c3=bcnther_Noack?= <gnoack3000@gmail.com>
-Cc:     =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>,
-        linux-man@vger.kernel.org
-References: <20230228205224.5991-1-gnoack3000@gmail.com>
- <20230228205224.5991-2-gnoack3000@gmail.com>
- <0aafcdd6-4ac7-8501-c607-9a24a98597d7@gmail.com>
- <20230302.2f7c767e1b94@gnoack.org>
+To:     Florian Loth <florian.loth@yahoo.de>, linux-man@vger.kernel.org,
+        elmono@mailbox.org
+References: <c9684666-8915-42fe-c44b-2d90c18f71e0.ref@yahoo.de>
+ <c9684666-8915-42fe-c44b-2d90c18f71e0@yahoo.de>
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20230302.2f7c767e1b94@gnoack.org>
+In-Reply-To: <c9684666-8915-42fe-c44b-2d90c18f71e0@yahoo.de>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------wB8IfeHI0U9iLEPzleMFTSji"
+ boundary="------------01ZZ7MYQnFL1kMwHsBc4qwPk"
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
@@ -80,139 +76,80 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------wB8IfeHI0U9iLEPzleMFTSji
-Content-Type: multipart/mixed; boundary="------------lrbaXB65NWV70EKd9v9ytOBU";
+--------------01ZZ7MYQnFL1kMwHsBc4qwPk
+Content-Type: multipart/mixed; boundary="------------hLE0w5FGWnZ0epleddDRtsCh";
  protected-headers="v1"
 From: Alejandro Colomar <alx.manpages@gmail.com>
-To: =?UTF-8?Q?G=c3=bcnther_Noack?= <gnoack3000@gmail.com>
-Cc: =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>,
- linux-man@vger.kernel.org
-Message-ID: <192c38ba-efd8-144d-30a2-c81c0eff78bf@gmail.com>
-Subject: Re: [PATCH v2 2/2] landlock.7: Document Landlock ABI v3 (file
- truncation; kernel 6.2)
-References: <20230228205224.5991-1-gnoack3000@gmail.com>
- <20230228205224.5991-2-gnoack3000@gmail.com>
- <0aafcdd6-4ac7-8501-c607-9a24a98597d7@gmail.com>
- <20230302.2f7c767e1b94@gnoack.org>
-In-Reply-To: <20230302.2f7c767e1b94@gnoack.org>
+To: Florian Loth <florian.loth@yahoo.de>, linux-man@vger.kernel.org,
+ elmono@mailbox.org
+Message-ID: <fee0bb29-593f-869d-044b-3bb25e02c6c4@gmail.com>
+Subject: Re: [patch] read.1p: Split format and argument of printf call
+References: <c9684666-8915-42fe-c44b-2d90c18f71e0.ref@yahoo.de>
+ <c9684666-8915-42fe-c44b-2d90c18f71e0@yahoo.de>
+In-Reply-To: <c9684666-8915-42fe-c44b-2d90c18f71e0@yahoo.de>
 
---------------lrbaXB65NWV70EKd9v9ytOBU
+--------------hLE0w5FGWnZ0epleddDRtsCh
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-On 3/2/23 14:42, G=C3=BCnther Noack wrote:
-> Hello Alex!
+Hi Florian,
 
-Hello G=C3=BCnther!
+On 3/2/23 23:05, Florian Loth wrote:
+> As printf expects the format and arguments as separate arguments, split=
 
->=20
-> On Wed, Mar 01, 2023 at 10:21:13PM +0100, Alejandro Colomar wrote:
->> In the subject it's not so important, but for consistency with the
->> language used within the pages, I'd ask you to rewrite it as Linux 6.2=
+> the string accordingly. This is already fixed in the HTML version of th=
+e
+> standard.
+Patch applied.
 
->> (and similarly for patch 1/2).
->=20
-> Done, sure thing.
->=20
->=20
->> On 2/28/23 21:52, G=C3=BCnther Noack wrote:
->>> diff --git a/man7/landlock.7 b/man7/landlock.7
->>> index f70a01484..9ddb17ae8 100644
->>> --- a/man7/landlock.7
->>> +++ b/man7/landlock.7
->>> +Note that you might additionally need the
->>
->> "Note that" is usually redundant.
->> See:
->> <https://lore.kernel.org/linux-man/20210729223535.qvyomfqvvahzmu5w@loc=
-alhost.localdomain/>
->> <https://lore.kernel.org/linux-man/20230105225235.6cjtz6orjzxzvo6v@ill=
-ithid/>
->=20
-> Thank you, that is a good observation, the "Kemper notectomy".
-> This is very helpful, exactly the kind of review I was hoping for. :)
-
-:)
-
->=20
-> How about this rewording:
->=20
->   LANDLOCK_ACCESS_FS_WRITE
->=20
->     Open a file with write access.
->=20
->     When opening files for writing, you will often additionally need
->     the LANDLOCK_ACCESS_FS_TRUNCATE right.  In many cases, these
->     system calls truncate existing files when overwriting them (e.g.
->     creat(2)).
-
-Sounds good.
-
->=20
-> This paragraph started with "note that" because it talks about an
-> unintuitive side-aspect of the LANDLOCK_ACCESS_FS_WRITE_FILE right.
->=20
-> I reworded it to make it more clear why that should be relevant to the
-> reader (because creat(2) and its open(2) equivalent are used very
-> commonly).
->=20
-> Does that sound better?
->=20
-> The man page also explains it in more detail in the "Truncating files"
-> section further below.
->=20
->=20
->>> +system call, this can also be done through
->>> +.BR open (2)
->>> +with the flags
->>> +.BR "O_RDONLY | O_TRUNC" .
->>
->> Expressions should go in italics.  See man-pages(7):
->>
->>        Expressions, if not written on a separate indented line, should=
-
->>        be  specified in italics.  Again, the use of nonbreaking spaces=
-
->>        may be appropriate if the expression  is  inlined  with  normal=
-
->>        text.
->=20
-> Done.
->=20
-> Thank you for the review!
-> =E2=80=93G=C3=BCnther
-
-Cheers,
+Thanks,
 
 Alex
-
+> ---
+>  man-pages-posix-2017/man1p/read.1p | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/man-pages-posix-2017/man1p/read.1p b/man-pages-posix-2017/=
+man1p/read.1p
+> index e09b896..d7e3a0a 100644
+> --- a/man-pages-posix-2017/man1p/read.1p
+> +++ b/man-pages-posix-2017/man1p/read.1p
+> @@ -196,7 +196,7 @@ The following command:
+> =20
+>  while read -r xx yy
+>  do
+> -    printf "%s %s\en$yy$xx"
+> +    printf "%s %s\en" "$yy" "$xx"
+>  done < \fIinput_file\fR
+>  .fi
+>  .P
 
 --=20
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
---------------lrbaXB65NWV70EKd9v9ytOBU--
+--------------hLE0w5FGWnZ0epleddDRtsCh--
 
---------------wB8IfeHI0U9iLEPzleMFTSji
+--------------01ZZ7MYQnFL1kMwHsBc4qwPk
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQF3akACgkQnowa+77/
-2zIwzA//Up0hSJjcjc+khd4R/pjkRL9v3lcWtpkC5TAXvOVXl3ZOt6j9SzqFcpfP
-zT0uhWn0HR3gu+CO1TEfRIV7VdYCP7qg3VK6l+cVK313UaQbd88JNDUlFo9GYduE
-/4o6MCGHTYpnhV/junrQJu2232TO9isZ3qfY3KqX9OZPY0d8tkrYRLdUDI4LfA9q
-o4LoTn4QFFo5LBuXgqFuIJUuwpP3dCfj3rgEJe9CKHps6bkPvnoUf86ub4guxaD2
-JmqTLNbFBYIYy1VcqkHGihyBJRy7vEUFCOMo+MVovWR0gNy3fPBvtty6/QktIKid
-p1Z6r/vVykcYirsJr4RITBJFCjSbpdtWXouNlhMh2Cdnrq6sgsCHkWVZSFlrM4GV
-EUpGM95Qy/FZbIwfPbzOMDqFbMgCvACanhJF6Cvp2F0BJSEmTkFeNLw5MEYBS8Vm
-RIZKy2PHP40ULizGipJfH9JD/FmJqrMF2GKoqJS9yiKQbn3G5tVyGi6ziF0WdsW/
-UC65fiUUXImkDAGKREUuBy/RQkKIMsacWu2yy21A8DL6Zc51FBS7jVcserYBtvVj
-h2yalDP2AaOueatS0kco6kZIdBgjRh87mzOavzzAP0Ql+8RGFsF+q/zy3vIfvWR+
-cagtUd2or4MZZ+A62wxV+P6XAVP3bgXU5AfzOUIQITcwXdqCaVY=
-=G98o
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQF34UACgkQnowa+77/
+2zJvmBAAnVPhXJTbX1GlY0fcHL68Cpz2wfwpQxTIswm6WBxOeq2O8EprKr5weXmU
+8ayubLC1j9nqnJ8wDEf6b9WOprqSWIwOqs1dSyCRkjWkxl9BM0s70LWOV8Gjt5pM
+FWEGuuRPEtT1JPHyuYZqIr5Vi+tTr2/qipV5Ib+bhW9t5GFA5L/iXlc8iWouxMFl
+Ec31j6imT1W/hk9PvAAc/Tlq6E+NFqSuBvZgLWHkGIB67zGVK4vuK4+m6VlZXZB8
+gV1aKIfX4rpgIpZ5gg6tME+xSFuePFEymq/1qnuxxpMgmpC3hluaFG74sjrMX4FD
+ozMm9ecaXBZ0/OOr8pkJRQX9dHvMH0O11hUp6/vT4rPN6YhW32O4cAYZAAqbDHRl
+CJZX/G6gL1vI6d8Ej//y/HFn92YkDNj7bY8ov0+VNAjZNK7zHNUYnJgDWGkeWonV
+8ZjlBsFaITfWI+ix8TSndyv4MMyibGcyK5Nbrm8GXSD4w2IGoyqD/IownLuyoDjc
+leSDbO2GeQzQtc4hkgv467L38VDdqwi70T/NiYR1BlrM3j2FSFi/PJ7EV7TLeAb9
+DG+FAqmPmfQSMIxZRc954R1wLPAJx3yaqvoEfUrb7UZdvXi+h9VvVGDtR8KK9Mui
+BPH53pLJgAItcPTrHOIUcdnbItZJyG1n15HqfUMOySnGfUrC+mQ=
+=OgXX
 -----END PGP SIGNATURE-----
 
---------------wB8IfeHI0U9iLEPzleMFTSji--
+--------------01ZZ7MYQnFL1kMwHsBc4qwPk--
