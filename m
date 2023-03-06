@@ -2,71 +2,72 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id C0C686AC118
-	for <lists+linux-man@lfdr.de>; Mon,  6 Mar 2023 14:32:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 1C7796AC17C
+	for <lists+linux-man@lfdr.de>; Mon,  6 Mar 2023 14:38:07 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231260AbjCFNcQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 6 Mar 2023 08:32:16 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44996 "EHLO
+        id S230489AbjCFNiF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 6 Mar 2023 08:38:05 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53592 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231259AbjCFNcK (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Mar 2023 08:32:10 -0500
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com [IPv6:2a00:1450:4864:20::333])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E36C42F789;
-        Mon,  6 Mar 2023 05:32:01 -0800 (PST)
-Received: by mail-wm1-x333.google.com with SMTP id p23-20020a05600c1d9700b003ead4835046so5644464wms.0;
-        Mon, 06 Mar 2023 05:32:01 -0800 (PST)
+        with ESMTP id S230410AbjCFNiE (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Mar 2023 08:38:04 -0500
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com [IPv6:2a00:1450:4864:20::432])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 348768685;
+        Mon,  6 Mar 2023 05:38:03 -0800 (PST)
+Received: by mail-wr1-x432.google.com with SMTP id l1so8798587wry.12;
+        Mon, 06 Mar 2023 05:38:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1678109520;
-        h=in-reply-to:references:cc:to:from:content-language:subject
+        d=gmail.com; s=20210112; t=1678109881;
+        h=in-reply-to:from:references:cc:to:content-language:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=63Ix+yRqI271KmuKByZdgzfOI0reMM5z9wla+hPerdw=;
-        b=ElqWY+dKygPyFaXXLubo0Hn4m/HOQfIiNaCG8L3/oYg8hDAkXnCqOqIDlanWZa8Ad8
-         ptttH+zgHnDKH4AAhbHlCwHToJKGdOScuqW6sEX4Q7sDu+EBe+QWfYyeyxyECA+tOSgt
-         eKXOTE2M8ihOKjOKfcJyc3vbzQ+FDGl0aFvtSnjV09AkqPcRH+zwgpjvkd9vdnHtKhQe
-         91ReEJ8IsPrkED/vO1/5Ah9YSOENa5IJg/PCmyWMyz4pchj+fcSDEnY01CcCCypYsRJA
-         MRbZmvWRCY74ESAqJ2nHEJgcatOeaAlgKlazExKM/+066qDJhFPG+/q//Se8gJ+w1o67
-         bL/w==
+        bh=WC2BDk0t1UFRGr/Jhnehs62wFldMDAYr2fKYa8X3+VE=;
+        b=VSBeNMTxsp1zuGfgKOhdXwpInqAnoPZdyklKuCzbvp6KofssUqBL+sl0kLAnFE8fTc
+         LcWSgPLOPWbPxlOuP22K6AULvEeskitleEYu5oFotpkdd77vmCGcxgrhQ3WIAfB0olnV
+         gMTOFwoB9WqziIrrigTZQH6V46/XTYoCIVl/LH2mhS5Po1qbUorhmzf/vPALt/esSTeM
+         4OJ6BiTwlbiic8fsaK4kr5UCk4NmsXuKiCKnZJHRvh2MsMg29Ib9jBkPyM/GZHWOVpET
+         JYV4S2yWp731E4TCKPAa9MyjjlzWafR8xUxEi/blEFJywKqSa1aUgwx0W+J+01fUcH8o
+         lDEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678109520;
-        h=in-reply-to:references:cc:to:from:content-language:subject
+        d=1e100.net; s=20210112; t=1678109881;
+        h=in-reply-to:from:references:cc:to:content-language:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=63Ix+yRqI271KmuKByZdgzfOI0reMM5z9wla+hPerdw=;
-        b=jUYlPZ6Ftkpjd9rIiXnv6tSfi/+lLcVIm92p8cfZli8LdAxyOG5RpUD9dsdd1rDsC6
-         nZjTKTAdon7aQausw/4kP9DEVXhMKY2Rg5PzoxC64E3ykjlQQK6i/Li63idcz2Pnd+go
-         BoOP1CvB/h0HRrjMEhKevuxYGDwr6Jq85j0nrybMwoAWk5uB+k2MLnppQ/CLVARCPMRc
-         l3EM4A2/PytKihu3P1Rg72y1Ibg4WM9yB6TUO2M+im0mUCiCVT8D1AvuHIt8WWeVZRlO
-         6SSYIx2sUZzSvy7/21ykBIDtYtOeAkUW7XVEeBWp2zCXPno7FJgJphVQYSE+DXbCqQFu
-         3aqw==
-X-Gm-Message-State: AO0yUKWCdVSm3QWv7pENmjL5/QEdMek7zgJXWzPzN/oDTCh3Xs0aH57N
-        0qovuHsIRZh+MM6vLQKinao=
-X-Google-Smtp-Source: AK7set9MNEbTf9I01LS3aiPmmUNVd61QtAtliFJe1ly9z5+eyb3wt7hbVt/mPih8YR+xj8BowASakQ==
-X-Received: by 2002:a05:600c:4449:b0:3df:e659:f9d9 with SMTP id v9-20020a05600c444900b003dfe659f9d9mr8600677wmn.34.1678109520335;
-        Mon, 06 Mar 2023 05:32:00 -0800 (PST)
+        bh=WC2BDk0t1UFRGr/Jhnehs62wFldMDAYr2fKYa8X3+VE=;
+        b=K0h1p2h5s6xMzaqbAOWWAH5poRbI2VQLq4yxCENUYKJMNgtCQgU+fEbx/ik2WTyA3R
+         CcucaZJf/jA3NB7ta34ClO6TNGoumAB6YRm3eb4TXylpgeBVBwkAv0Rz4x1WayL68R7V
+         FwnaXKV2wUf0RZQwWoI5/JIbGhs+RdidYgoBVQBkceUBrjFJtdlKeApSCpzzvRQAXsWc
+         cHzPuNk74NaXl4qTtnGyLGCoZnFF9GZtIXUsF8Uamo06ttqgWX7I9/aB9IN4K7xPCH1H
+         Yof5QJnDrKu2yf1/g3vyeuH5GF4j9U4p6B2o90YdcPDSjUsbXlaNDP22Zi+WwBU4rDlE
+         g2aQ==
+X-Gm-Message-State: AO0yUKVMOwjlvhE0xiLWltm+37co3rpp6xWzeHZyVLs3wW0Mjhd+42RM
+        R9ZldrLTu1vCjB0sJQKW59s=
+X-Google-Smtp-Source: AK7set+XOuRRiEW4odHhDwEzQPC4LcVl9G9IQgGknKn3TuQso15mokiEp9wgWz6gyOfgRIY8PRUfQQ==
+X-Received: by 2002:adf:cc86:0:b0:2c7:a3b:4e76 with SMTP id p6-20020adfcc86000000b002c70a3b4e76mr8749896wrj.6.1678109881585;
+        Mon, 06 Mar 2023 05:38:01 -0800 (PST)
 Received: from [192.168.0.160] ([170.253.51.134])
-        by smtp.gmail.com with ESMTPSA id n5-20020a5d4c45000000b002c55306f6edsm9557273wrt.54.2023.03.06.05.31.59
+        by smtp.gmail.com with ESMTPSA id a7-20020a5d4d47000000b002c5706f7c6dsm9917321wru.94.2023.03.06.05.38.00
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 06 Mar 2023 05:32:00 -0800 (PST)
-Message-ID: <c78f6a59-dac4-e5ce-cef6-533ad0cdbcac@gmail.com>
-Date:   Mon, 6 Mar 2023 14:31:58 +0100
+        Mon, 06 Mar 2023 05:38:01 -0800 (PST)
+Message-ID: <cf3aa207-7423-f04a-ad02-4eda85f58301@gmail.com>
+Date:   Mon, 6 Mar 2023 14:37:59 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
-Subject: Re: [PATCH manpages v2 1/2] udp.7: add UDP_SEGMENT
+Subject: Re: [PATCH manpages v2 2/2] udp.7: add UDP_GRO
 Content-Language: en-US
-From:   Alejandro Colomar <alx.manpages@gmail.com>
 To:     Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
         linux-man@vger.kernel.org
-Cc:     pabeni@redhat.com, netdev@vger.kernel.org,
-        Willem de Bruijn <willemb@google.com>
+Cc:     mtk.manpages@gmail.com, pabeni@redhat.com, netdev@vger.kernel.org,
+        Willem de Bruijn <willemb@google.com>,
+        Simon Horman <simon.horman@corigine.com>
 References: <20230302154808.2139031-1-willemdebruijn.kernel@gmail.com>
- <d204f477-2655-57f6-c44c-cbe15f991933@gmail.com>
-In-Reply-To: <d204f477-2655-57f6-c44c-cbe15f991933@gmail.com>
+ <20230302154808.2139031-2-willemdebruijn.kernel@gmail.com>
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <20230302154808.2139031-2-willemdebruijn.kernel@gmail.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------0g0urM1vIn0lnB1KzMJZgUmr"
+ boundary="------------sAQXjHV2hMfGm8oE6OL5pL8Z"
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
@@ -78,141 +79,113 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------0g0urM1vIn0lnB1KzMJZgUmr
-Content-Type: multipart/mixed; boundary="------------xBdePX8SQIfKy9dKkObel3Ve";
+--------------sAQXjHV2hMfGm8oE6OL5pL8Z
+Content-Type: multipart/mixed; boundary="------------eX1P2I0UECjx6v2ZthatbZ7F";
  protected-headers="v1"
 From: Alejandro Colomar <alx.manpages@gmail.com>
 To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
  linux-man@vger.kernel.org
-Cc: pabeni@redhat.com, netdev@vger.kernel.org,
- Willem de Bruijn <willemb@google.com>
-Message-ID: <c78f6a59-dac4-e5ce-cef6-533ad0cdbcac@gmail.com>
-Subject: Re: [PATCH manpages v2 1/2] udp.7: add UDP_SEGMENT
+Cc: mtk.manpages@gmail.com, pabeni@redhat.com, netdev@vger.kernel.org,
+ Willem de Bruijn <willemb@google.com>,
+ Simon Horman <simon.horman@corigine.com>
+Message-ID: <cf3aa207-7423-f04a-ad02-4eda85f58301@gmail.com>
+Subject: Re: [PATCH manpages v2 2/2] udp.7: add UDP_GRO
 References: <20230302154808.2139031-1-willemdebruijn.kernel@gmail.com>
- <d204f477-2655-57f6-c44c-cbe15f991933@gmail.com>
-In-Reply-To: <d204f477-2655-57f6-c44c-cbe15f991933@gmail.com>
+ <20230302154808.2139031-2-willemdebruijn.kernel@gmail.com>
+In-Reply-To: <20230302154808.2139031-2-willemdebruijn.kernel@gmail.com>
 
---------------xBdePX8SQIfKy9dKkObel3Ve
+--------------eX1P2I0UECjx6v2ZthatbZ7F
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
+Hi Willem,=20
 
-
-On 3/6/23 14:30, Alejandro Colomar wrote:
-> Hi Willem,
+On 3/2/23 16:48, Willem de Bruijn wrote:
+> From: Willem de Bruijn <willemb@google.com>
 >=20
-> On 3/2/23 16:48, Willem de Bruijn wrote:
->> From: Willem de Bruijn <willemb@google.com>
->>
->> UDP_SEGMENT was added in commit bec1f6f69736
->> ("udp: generate gso with UDP_SEGMENT")
->>
->>     $ git describe --contains bec1f6f69736
->>     linux/v4.18-rc1~114^2~377^2~8
->>
->> Kernel source has example code in tools/testing/selftests/net/udpgso*
->>
->> Per https://www.kernel.org/doc/man-pages/patches.html,
->> "Describe how you obtained the information in your patch":
->> I am the author of the above commit and follow-ons.
->>
->> Signed-off-by: Willem de Bruijn <willemb@google.com>
->>
+> UDP_GRO was added in commit e20cf8d3f1f7
+> ("udp: implement GRO for plain UDP sockets.")
 >=20
-> It doesn't apply.  Can you please rebase on top of master?
+>     $ git describe --contains e20cf8d3f1f7
+>     linux/v5.0-rc1~129^2~379^2~8
+>=20
+> Kernel source has example code in tools/testing/selftests/net/udpgro*
+>=20
+> Per https://www.kernel.org/doc/man-pages/patches.html,
+> "Describe how you obtained the information in your patch":
+> I reviewed the relevant UDP_GRO patches.
+>=20
+> Signed-off-by: Willem de Bruijn <willemb@google.com>
 
-Oops, sorry, I tried to apply 1/2 twice, instead of 1/2 and 2/2 :-)
-Ignore that.
+Patch applied.  BTW, it was cmsg(3), not (7) :)
 
 Cheers,
 
 Alex
->=20
-> Thanks,
->=20
-> Alex
->=20
->> ---
->>
->> Changes v1->v2
->>   - semantic newlines: also break on comma and colon
->>   - remove bold: section number following function name
->>   - add bold: special macro USHRT_MAX
->> ---
->>  man7/udp.7 | 28 ++++++++++++++++++++++++++++
->>  1 file changed, 28 insertions(+)
->>
->> diff --git a/man7/udp.7 b/man7/udp.7
->> index 5822bc551fdf..6646c1e96bb0 100644
->> --- a/man7/udp.7
->> +++ b/man7/udp.7
->> @@ -204,6 +204,34 @@ portable.
->>  .\"     UDP_ENCAP_ESPINUDP draft-ietf-ipsec-udp-encaps-06
->>  .\"     UDP_ENCAP_L2TPINUDP rfc2661
->>  .\" FIXME Document UDP_NO_CHECK6_TX and UDP_NO_CHECK6_RX, added in Li=
-nux 3.16
->> +.TP
->> +.BR UDP_SEGMENT " (since Linux 4.18)"
->> +Enables UDP segmentation offload.
->> +Segmentation offload reduces
->> +.BR send (2)
->> +cost by transferring multiple datagrams worth of data as a single lar=
-ge
->> +packet through the kernel transmit path,
->> +even when that exceeds MTU.
->> +As late as possible,
->> +the large packet is split by segment size into a series of datagrams.=
 
->> +This segmentation offload step is deferred to hardware if supported,
->> +else performed in software.
->> +This option takes a value between 0 and
->> +.BR USHRT_MAX
->> +that sets the segment size:
->> +the size of datagram payload,
->> +excluding the UDP header.
->> +The segment size must be chosen such that at most 64 datagrams are se=
-nt in
->> +a single call and that the datagrams after segmentation meet the same=
- MTU
->> +rules that apply to datagrams sent without this option.
->> +Segmentation offload depends on checksum offload,
->> +as datagram checksums are computed after segmentation.
->> +The option may also be set for individual
->> +.BR sendmsg (2)
->> +calls by passing it as a
->> +.BR cmsg (7).
->> +A value of zero disables the feature.
->> +This option should not be used in code intended to be portable.
->>  .SS Ioctls
->>  These ioctls can be accessed using
->>  .BR ioctl (2).
+>=20
+> ---
+>=20
+> Changes v1->v2
+>   - semantic newlines: also break on comma
+>   - remove bold: section number following function name
+> ---
+>  man7/udp.7 | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
+>=20
+> diff --git a/man7/udp.7 b/man7/udp.7
+> index 6646c1e96bb0..a350a40da340 100644
+> --- a/man7/udp.7
+> +++ b/man7/udp.7
+> @@ -232,6 +232,20 @@ calls by passing it as a
+>  .BR cmsg (7).
+>  A value of zero disables the feature.
+>  This option should not be used in code intended to be portable.
+> +.TP
+> +.BR UDP_GRO " (since Linux 5.0)"
+> +Enables UDP receive offload.
+> +If enabled,
+> +the socket may receive multiple datagrams worth of data as a single la=
+rge
+> +buffer,
+> +together with a
+> +.BR cmsg (7)
+> +that holds the segment size.
+> +This option is the inverse of segmentation offload.
+> +It reduces receive cost by handling multiple datagrams worth of data
+> +as a single large packet in the kernel receive path,
+> +even when that exceeds MTU.
+> +This option should not be used in code intended to be portable.
+>  .SS Ioctls
+>  These ioctls can be accessed using
+>  .BR ioctl (2).
 
 --=20
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
---------------xBdePX8SQIfKy9dKkObel3Ve--
+--------------eX1P2I0UECjx6v2ZthatbZ7F--
 
---------------0g0urM1vIn0lnB1KzMJZgUmr
+--------------sAQXjHV2hMfGm8oE6OL5pL8Z
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQF604ACgkQnowa+77/
-2zL13Q/+N760EX/S7Gswn2PaEDl0RzaqgWak1Qh+iyrgCxSrbko/4b4qcKsBsjD9
-VPKCxB2WVF1HbRX9EjD6sM1mjHyeAaeSmn0IMsp9tO/o5a4bX45cfxjOcjtCCBDa
-caGSSt7QAyMrLssFP/L7qEmlki6gdo3fPY33CrFubtbfHYv4Vdqx2LYdNR4j64lL
-Tla6+dRUByvznvomHg77s0rR1IBCsiykZTgJJ3vxCLI56Aw6OVJBnlCzoawuofFs
-Xwa02oH/bFy2eDXwS2BWWUzSuaJNFzgVH5kcIbows8pA+CmFh8o8v0TYbrwDnjpk
-gR+isV0BhWkoKH5FmQfaXJqwvJex8rCCB6q7O57+rraYCohC/Ph9lVQcTVbZkGhI
-6/umBpSBaTe6lz1Nm1FjPC2HKgLVuDRoiN3ghAZBQqXaSNt6Z8x8rltJDJnx999C
-E5OxKab+U0f3s5esPiL8SeO7SAJPm2RRd3onRHbbbgtRhcdkRijb6G5toFC9qd99
-fzsYQH4u3dfVnOhp8rBmcwic3c1BOlYd1al9C7UD0Q8kRN0aLhjtaTnP8pO0cKZW
-8mRh5T9RQ7f0CxcgPXoAtlQgH3hifbN12ArA0MXbu+NDZztWlq2MACBJkhhFVK3w
-O//hFpq8L/ez+0ykj0zCFFxdHzcvNUCbSkiQVJV+6Y1AbcxqAMU=
-=fIcH
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQF7LcACgkQnowa+77/
+2zJXhxAAgjDvX9hFPmk1MGQ/tcaioZLs8JCZDHTRNM9gQtQkJ8WH28+Ojb7lgBev
+KtmcX8ORO8vzfuv9fsrfcKqU4FjVUoV0e4pIBNdP05YjnPRqXSpSWQWLMzLV11Li
+7eEdkSl/a4Nrge/OM01UXXe3ypiogGea+PQ9I3sU1gMYnturSMMPTOAjR68HOxDE
+FvNhl+LV4YHmDCnSqvhggXZqFg+ch3b96lj65HZOcHVeM7f01RHPWeBMqn9pLldC
+oIGJsJd6oQ0Ck92qs1tf4z+r1iwBUSOhp0GIRDAryFJUCeZpOje2ptMjCzhfFquD
+hg8jJNeuLF3UWLJRDH5r/taswhKbKgCtVzqQU6889CTikJYKwk0D1hsnc4Ra02SW
+m+djVvXI2sfYENaz4wHiRhqu+39uenV/PXYLGqbRJimFi+jg37X6txf/uz7Dz152
+hJSIMyq+DN/twdVFcBucNFry7rimrqMEiwsk4Gp8u/M45XN/IzN9FWgLjW9hI+Yh
+C6sixXJgqT/nrmGOXu9TVa5bQkgcKGl2Zh5i0fc6WoGWhvX8HHf5RxIGY+ZWkfOe
+hVS1i7S4xu3u5WPHkwtmdqClO6XSQCu2FM3tkQqBIAh0k2izAWrQZhmOw/2wmQZk
+EKMO1IPkfEQ0XWbjk9+P8LSFGts6zQgW4IEdiYiDXsBoYdZuDvE=
+=zNgt
 -----END PGP SIGNATURE-----
 
---------------0g0urM1vIn0lnB1KzMJZgUmr--
+--------------sAQXjHV2hMfGm8oE6OL5pL8Z--
