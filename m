@@ -2,121 +2,75 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id C1A6D6ACBDA
-	for <lists+linux-man@lfdr.de>; Mon,  6 Mar 2023 19:03:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 43E646ADBAE
+	for <lists+linux-man@lfdr.de>; Tue,  7 Mar 2023 11:21:50 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229659AbjCFSDM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 6 Mar 2023 13:03:12 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33552 "EHLO
+        id S229986AbjCGKVs (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 7 Mar 2023 05:21:48 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59222 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229972AbjCFSDK (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 6 Mar 2023 13:03:10 -0500
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B742B3E086
-        for <linux-man@vger.kernel.org>; Mon,  6 Mar 2023 10:02:45 -0800 (PST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by ams.source.kernel.org (Postfix) with ESMTPS id 153C2B81081
-        for <linux-man@vger.kernel.org>; Mon,  6 Mar 2023 18:01:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id B2690C433A0
-        for <linux-man@vger.kernel.org>; Mon,  6 Mar 2023 18:01:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1678125667;
-        bh=Pfw6skcp2TC9Iu3CPKLmImfQR21IwmRfchGBeo04q6Y=;
-        h=From:To:Subject:Date:From;
-        b=elbVWLs0kjj0iaq5HhvBbzQibLUJzDtI2pqen11QcKpXL3gZKVh01bgyOwXHY/m+L
-         5OazOzaUCNaY3umch8Qld9F3FeBXFKc41O8T3YuQ29w7+VasSMOAwsTM8Zp02bLzTh
-         EoljCvf4zqwcmGgblF9qVCdXB8MQuJtossUheh5Uaje8adOXmQs60dyOSNxxA+87nh
-         JqHKQov4A9MxpE8oKrBpTPqgvEmym5GToetuiFG3TSEYuM/pGAIe0nE1lhKa5jvJoS
-         GxQB+HPeZCaM+BSl9tSmEaJplMTQiWBddpzVeaY+IshrkvVMsc6TSD/cbFxA6pEA4t
-         RsFv14DPgrGOA==
-Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
-        id 99B44C43145; Mon,  6 Mar 2023 18:01:07 +0000 (UTC)
-From:   bugzilla-daemon@kernel.org
-To:     linux-man@vger.kernel.org
-Subject: [Bug 217148] New: man-pages-posix: create symlinks during
- installation
-Date:   Mon, 06 Mar 2023 18:01:07 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: new
-X-Bugzilla-Watch-Reason: AssignedTo
- documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Product: Documentation
-X-Bugzilla-Component: man-pages
-X-Bugzilla-Version: unspecified
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: normal
-X-Bugzilla-Who: esteve.varela@gmail.com
-X-Bugzilla-Status: NEW
-X-Bugzilla-Resolution: 
-X-Bugzilla-Priority: P1
-X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: bug_id short_desc product version rep_platform
- op_sys bug_status bug_severity priority component assigned_to reporter
- cf_regression
-Message-ID: <bug-217148-11311@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
+        with ESMTP id S229914AbjCGKVs (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 7 Mar 2023 05:21:48 -0500
+Received: from mail-pf1-x429.google.com (mail-pf1-x429.google.com [IPv6:2607:f8b0:4864:20::429])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 178F5265A4
+        for <linux-man@vger.kernel.org>; Tue,  7 Mar 2023 02:21:46 -0800 (PST)
+Received: by mail-pf1-x429.google.com with SMTP id cp12so7687375pfb.5
+        for <linux-man@vger.kernel.org>; Tue, 07 Mar 2023 02:21:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112; t=1678184505;
+        h=to:subject:message-id:date:from:sender:reply-to:mime-version:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=x50Qlw1MrbKfPc5Y3tqZO5+1c26Aew+5oqPX3JirLAY=;
+        b=TE6E5VUw5HBCWcNlpvAPy28hQkL2NkgpzMKvh0VeYw15g57cfFt9feuOD/Ssme4V3o
+         Z2nZ6xaG8XjcLVxK5IF8bLf5frNjEr1sgBGVgBZAFwOsbEzcWPBN3dbeyLWTKd9lCgOV
+         ENj2MxgbHzr6pP9V0F7HTP2WObRDe1mEySmG+95zdrEmHC2YNnUPza5rOQftQwe5GtyW
+         m95QK2UKZIe4B/N+/kV8XAPuqCucM2a37JwY/ZdSx7Em9eAXBdznSq0ro6u0iePZHiIw
+         rCZ8uFOOvhfTYdY12jO2qv7m6PHMiFz6Ow8bpakNu5u5W6WlLiHLjH1BCv8yhoRqh2jA
+         knuA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1678184505;
+        h=to:subject:message-id:date:from:sender:reply-to:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=x50Qlw1MrbKfPc5Y3tqZO5+1c26Aew+5oqPX3JirLAY=;
+        b=wrHU2mK7pfeAPVjplrFw2cVl7TfEt+DPjjyJk+I62ANcjWKUoAa2/wmxaEGhW0yYi8
+         mlHXxDCSpgn88un4i7FNfotbTe2nVvQMWV8tcbnZrWScxfuw9P17kubPcDIPFvCGJiDF
+         L63l+d5jYnfz04BEybZNoa/S7+MLbHtbxOFjKEOWOj2kDj6gnJ6zuIEtBkW92+Ogry56
+         hhYh1ny3W7vA31BLPlwdKhsViXjnCwsUHnDvcZtserYL35fHXnZVomwdftAF/ltY811i
+         7+0uVDRJsb5HEcxgwWzkRgJPL5GeRg35XDh+zKBNaHEqSuF6X6BIfBJnTw/NjSajNkUw
+         hayg==
+X-Gm-Message-State: AO0yUKUUa7Pw6u0yUkEroNqaZNLcqIuJb1ErzaXlQuonVdods6NMfsbA
+        crLif6FnOBEojk9LqIIltKkZSkVmYAAta83SRAM=
+X-Google-Smtp-Source: AK7set9HaP/UPgY7K/TxVNqvBBfIPLs5pR7aMpTjNRzw/f+HmV5WnnNYXz0m5+NCwkjkyd+vOX+qBPBn/8SF/6QNv8A=
+X-Received: by 2002:a62:ce87:0:b0:606:d488:f058 with SMTP id
+ y129-20020a62ce87000000b00606d488f058mr5864753pfg.3.1678184505456; Tue, 07
+ Mar 2023 02:21:45 -0800 (PST)
 MIME-Version: 1.0
-X-Spam-Status: No, score=-7.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
+Reply-To: vandekujohmaria@outlook.com
+Sender: congo2029@gmail.com
+Received: by 2002:a05:6a21:8dc5:b0:cc:1c41:858f with HTTP; Tue, 7 Mar 2023
+ 02:21:44 -0800 (PST)
+From:   Gerhardus Maria <vandekujohmaria@gmail.com>
+Date:   Tue, 7 Mar 2023 10:21:44 +0000
+X-Google-Sender-Auth: GkOdey-of5QSi38XOtTZhvEkW9k
+Message-ID: <CAMe-s-KoPW-t3SXWrxG7dVyODoJsrwS_iTUdf+5J9aOEzbWLCQ@mail.gmail.com>
+Subject: Best Regards
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
+X-Spam-Status: No, score=4.8 required=5.0 tests=BAYES_50,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
+        FREEMAIL_FROM,FREEMAIL_REPLYTO,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,
+        SPF_PASS,UNDISC_FREEM autolearn=no autolearn_force=no version=3.4.6
+X-Spam-Level: ****
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D217148
+Hello, how are you?  My name is van der kuil Johannes gerhardus Maria.
+I am a lawyer from the Netherlands who reside in Belgium and I am
+working on the donation file of my client, Mr. Bartos Pierre
+Nationality of Belgium.  I would like to know if you will accept my
+client's donation Mr. Bartos Pierre?
 
-            Bug ID: 217148
-           Summary: man-pages-posix: create symlinks during installation
-           Product: Documentation
-           Version: unspecified
-          Hardware: All
-                OS: Linux
-            Status: NEW
-          Severity: normal
-          Priority: P1
-         Component: man-pages
-          Assignee: documentation_man-pages@kernel-bugs.osdl.org
-          Reporter: esteve.varela@gmail.com
-        Regression: No
-
-Doing some pthreads programming as of recently, I've found that the
-documentation is scattered across the man-pages and man-pages-posix project=
-s.
-
-Various pages refer to the existence of other pages, which simply don't exi=
-st
-in a default installation as created by "make install" of man-pages-posix. =
-For
-example, pthreads(3) refers to pthread_cond_wait(3). Running "man
-pthread_cond_wait" will result in the man page not being found.
-
-On the website[1], this page appears to be a symlink. The correct page it
-should lead to, being pthread_cond_wait(3p) (yes, 3p, not 3, as was referre=
-d).
-However, currently no distributions make a symlink for these, so the correct
-page is frequently hard to find.
-
-I'd like to have a default set of man page symlinks created by the
-man-pages-posix distribution tarball, reflecting whatever the man7.org site
-does, such that these pages are more easily found, and the documentation is
-consistent across linux distributions.
-
-Interestingly, debian has a set of pages[2] for some of the "missing" pages,
-but these aren't shipped in any other distribution I'm aware of.
-
-[1]: https://man7.org/linux/man-pages/man3/pthread_cond_wait.3p.html
-[2]: https://manpages.debian.org/bullseye/glibc-doc/index.html
-
---=20
-You may reply to this email to add a comment.
-
-You are receiving this mail because:
-You are watching the assignee of the bug.=
+Waiting to hear from you soon
