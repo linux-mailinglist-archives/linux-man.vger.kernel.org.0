@@ -2,66 +2,64 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id E0F2F6AFAC8
-	for <lists+linux-man@lfdr.de>; Wed,  8 Mar 2023 00:54:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id A06986AFBC2
+	for <lists+linux-man@lfdr.de>; Wed,  8 Mar 2023 02:07:36 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229768AbjCGXyj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 7 Mar 2023 18:54:39 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41834 "EHLO
+        id S229887AbjCHBHe (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 7 Mar 2023 20:07:34 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44588 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229497AbjCGXyi (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 7 Mar 2023 18:54:38 -0500
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com [IPv6:2a00:1450:4864:20::433])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7E45FA3B7A
-        for <linux-man@vger.kernel.org>; Tue,  7 Mar 2023 15:54:36 -0800 (PST)
-Received: by mail-wr1-x433.google.com with SMTP id r18so13808404wrx.1
-        for <linux-man@vger.kernel.org>; Tue, 07 Mar 2023 15:54:36 -0800 (PST)
+        with ESMTP id S229974AbjCHBHc (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 7 Mar 2023 20:07:32 -0500
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com [IPv6:2a00:1450:4864:20::42d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 05A71AE13C
+        for <linux-man@vger.kernel.org>; Tue,  7 Mar 2023 17:07:27 -0800 (PST)
+Received: by mail-wr1-x42d.google.com with SMTP id g3so13897023wri.6
+        for <linux-man@vger.kernel.org>; Tue, 07 Mar 2023 17:07:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1678233275;
-        h=subject:from:cc:to:content-language:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=WlB6LfkIl+TRU4IlmU2+Pl+70twq+PppccEE09goppo=;
-        b=WGUoh1ZTFfG3OTFyFu2ytlpO1f1TaKVFz3NgxnGWnhFieDEufQ3oO0RuEx3ZzsfLfo
-         mbGneOHKxK6iTZaUhFbTzV3Vz9xfts7yOqRXXLpGTlO6vxsf8PRkEvg/faZj4AZYLRIX
-         WivkO5J2zeFtni3opTYWc1tFqH8qMIZcsNCh1zfONW46OvkeRO91FA0/zPJ44i3RBVj3
-         ZmbTKcx+Z28BK8rKvdhlIoaRwuLLZjU3LZUGabdpglFxfG+oGbh5YYUrm8r/xU7M4Nwt
-         3WCHuCbua//7fiN/MZNHD9d8y6irhbFSqpLFW3j+NZr91CMoDnpuNnakmLGji4yntaSi
-         4Mgg==
+        d=gmail.com; s=20210112; t=1678237645;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=zF0ugv183wcbjmQoNE+7+6TLYI6Zh5KPNsr6RuJz9AE=;
+        b=DdWJLYMbiy9BcYsXLEdkw2Fye+Sfap7yIVSpqmjOELqLJV3kKfVTQTWmtm5cwzqsD4
+         4DxHXmhCdh5PMFvveRyfGbuDdqaPr8ylI9O0NPDW/Lvs1dpNnPkqRXT7e4SJT6qVjCcZ
+         ZMV5Vfd95tNNJmlvMRPdFlRHqyqykR8NK2tGkmoCKAiCu2MdZRZajbW8+MLsRUB6Z7ji
+         WiY0+89qww5l46u/AsbyHPsP36DMLmLCkHu0NKTyXG2K0B6VnQ2iQ/rJf9gqO7iAmR9l
+         KMpiQViXPf4pWA6spPl+Aw8AWC4eGdNEy8ywt5olXug7WCVW3vM6M6zclrZEk5kP56Se
+         rJjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678233275;
-        h=subject:from:cc:to:content-language:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=1e100.net; s=20210112; t=1678237645;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=WlB6LfkIl+TRU4IlmU2+Pl+70twq+PppccEE09goppo=;
-        b=q57SZtVZg2kzBVAwF8u74CUTKWPnYJ7vHQXGQ42Fn0imcsMmjUJ3tMhjbaBFGzo9XH
-         XyGjWHintzPTeb8i3rlzug//+dCfqzWgAcbzD7GG0EgY2lQstSGG5ILH6wRDNjWyXHFL
-         3wclgndl23vXDwX1LVD/A2Eii4DnFSuWpm3M99eQHHOY2/zM69jFtDM5SQY8JyqKlXoS
-         5bh9RMp0M/SOPcvfBbVSbcR/wRSilP3PnxlV6b4v1kldKOJ9BLsvFUnARHb/OGB85XLU
-         zAzJIXUAKIHLt6KN2ZrZJFtSeHFqHbgjSr+7O+BMk+efct0g3Ew+SKorF5uLAAzQJ1yu
-         qQkg==
-X-Gm-Message-State: AO0yUKV9q9kw/cOo1Q8cnTy+L6AIf1gsgialXuhAXb/3LziluUXimnNf
-        8IVJzXr7Lv0xWa+FrDo4UkN9FRSvyMU=
-X-Google-Smtp-Source: AK7set+pJbXIr4zomJddCBqCGRXwee4/R58NT5wQCb/F+mHQ0R80Hq6zuHV61YN67iPx7lfyryT4GQ==
-X-Received: by 2002:adf:e506:0:b0:2ce:3d6c:9a03 with SMTP id j6-20020adfe506000000b002ce3d6c9a03mr9474543wrm.19.1678233274824;
-        Tue, 07 Mar 2023 15:54:34 -0800 (PST)
-Received: from [192.168.0.160] ([170.253.51.134])
-        by smtp.gmail.com with ESMTPSA id q9-20020a5d61c9000000b002c54911f50bsm13769974wrv.84.2023.03.07.15.54.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 07 Mar 2023 15:54:34 -0800 (PST)
-Message-ID: <884cb5d0-27ce-a5ca-b449-972021e62e92@gmail.com>
-Date:   Wed, 8 Mar 2023 00:54:25 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Content-Language: en-US
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        Paul Eggert <eggert@cs.ucla.edu>
-Cc:     linux-man <linux-man@vger.kernel.org>, groff <groff@gnu.org>
+        bh=zF0ugv183wcbjmQoNE+7+6TLYI6Zh5KPNsr6RuJz9AE=;
+        b=Wv9vJ4YHJ+YpxBq0WDO1V5RG0E1gnSnEkgr94iHrvdXLkoP71Ok7TOMaZ1vk1HbCcw
+         LudwuK/2rC++XsI6KQTyeg9fFXSt9O4pCGKl37NJtPUQifGfOu8/f4eZs87bHmqpFyk2
+         gE3d7dJ5tc+B5fhKeHzBaofzh4IKH79CX3r6WOMa1xVCZtdksxqBzb5ja9+7GD0tZ8bh
+         PEvPfNARmdT43j2CS6Sy6SjXXZEHwzI5QKEADYGqknAS0iNJ/rtXRt/EADHtw7VLsW3C
+         7F1kMoRPpqitGQB0jd9Cg5uT+gZ+Cw270NsfqVMcLXdZttvz8HR2cSC7GZn2R4Sg4fz7
+         KIsg==
+X-Gm-Message-State: AO0yUKUQiEQtyGEc67HJ5rGgHc16zsITKvl8deETG7yz7+XilXxOOKGO
+        1R9KRgWtr/Ngg85UAreVU1KBJRUNzjk=
+X-Google-Smtp-Source: AK7set+Gio5zsFSL0Lr8KgWQOl7woHeZDutJ1iIphNSFQTw4X21KQCobCJG5Bb65A7kqYYAesLTqXA==
+X-Received: by 2002:adf:fd89:0:b0:2c9:70a4:4f94 with SMTP id d9-20020adffd89000000b002c970a44f94mr12148833wrr.18.1678237645366;
+        Tue, 07 Mar 2023 17:07:25 -0800 (PST)
+Received: from asus5775.alejandro-colomar.es ([170.253.51.134])
+        by smtp.googlemail.com with ESMTPSA id f10-20020a5d4dca000000b002c70bfe505esm13616286wru.82.2023.03.07.17.07.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 07 Mar 2023 17:07:24 -0800 (PST)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-Subject: mandoc(1) warning in tzfile(5) regarding //
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------fmMXKAXGrBF3aB0B9eU0hoGh"
+X-Google-Original-From: Alejandro Colomar <alx@kernel.org>
+To:     linux-man@vger.kernel.org,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc:     Alejandro Colomar <alx@kernel.org>,
+        Marcos Fouces <marcos@debian.org>
+Subject: [PATCH] cmd.mk, install-man.mk: Allow installing link pages as symlinks
+Date:   Wed,  8 Mar 2023 02:04:19 +0100
+Message-Id: <20230308010418.174517-1-alx@kernel.org>
+X-Mailer: git-send-email 2.39.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
@@ -72,106 +70,72 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------fmMXKAXGrBF3aB0B9eU0hoGh
-Content-Type: multipart/mixed; boundary="------------DbNirlB6Y61QA0rkKW2hQdNb";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>,
- Paul Eggert <eggert@cs.ucla.edu>
-Cc: linux-man <linux-man@vger.kernel.org>, groff <groff@gnu.org>
-Message-ID: <884cb5d0-27ce-a5ca-b449-972021e62e92@gmail.com>
-Subject: mandoc(1) warning in tzfile(5) regarding //
+We keep them as .so "includes" in our source code, but if some
+distribution wants to have them as symlinks in their filesystem, make it
+easy for them to install as such, by specifying 'LINK_PAGES=symlink'.
 
---------------DbNirlB6Y61QA0rkKW2hQdNb
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Alejandro Colomar <alx@kernel.org>
+---
 
-Hi Paul, Branden,
+Hi!
 
-I don't remember if we covered this bit in the discussions we had
-a few months ago.  I'm seeing a couple of warnings from mandoc(1)
-in tzfile(5):
+I'm going to add support for installing link pages as symlinks.  Debian
+installs them this way, so I think it makes sense to help distributors
+use our upstream build system to install in their preferred way, since
+otherwise, to be more useful.
 
+Here's the implementation I came up with, but I'd like to hear comments
+about the interface (the LINK_PAGES variable).  Would you make it
+different?
 
-$ make lint-man-mandoc V=3D1
-LINT (mandoc)	tmp/lint/man5/tzfile.5.lint-man.mandoc.touch
-! (mandoc -man -Tlint  man5/tzfile.5 2>&1 \
-   | grep -v 'STYLE: lower case character in document title:' \
-   | grep -v 'UNSUPP: ignoring macro in table:' \
-   | grep -v 'WARNING: cannot parse date, using it verbatim: TH (date)' \=
-
-   | grep -v 'WARNING: empty block: UR' \
-   ||:; \
-) \
-| grep '.' >&2
-mandoc: man5/tzfile.5:15:19: WARNING: undefined escape, printing literall=
-y: \\
-mandoc: man5/tzfile.5:15:10: WARNING: undefined escape, printing literall=
-y: \\
-make: *** [lib/lint-man.mk:88: tmp/lint/man5/tzfile.5.lint-man.mandoc.tou=
-ch] Error 1
-
-
-The source is:
-
-$ head man5/tzfile.5 -n20
-=2E\" %%%LICENSE_START(PUBLIC_DOMAIN)
-=2E\" This file is in the public domain, so clarified as of
-=2E\" 1996-06-05 by Arthur David Olson <arthur_david_olson@nih.gov>.
-=2E\" %%%LICENSE_END
-=2E\"
-=2ETH tzfile 5 2022-09-09 Linux "Linux Programmer's Manual"
-=2ESH NAME
-tzfile \- timezone information
-=2ESH DESCRIPTION
-=2Eie '\[lq]'' .ds lq \&"\"
-=2Eel .ds lq \[lq]\"
-=2Eie '\[rq]'' .ds rq \&"\"
-=2Eel .ds rq \[rq]\"
-=2Ede q
-\\$3\*(lq\\$1\*(rq\\$2
-=2E.
-=2Eie \n(.g .ds - \f(CW-\fP
-=2Eel ds - \-
-The timezone information files used by
-=2EBR tzset (3)
-
-
-Is this a limitation in mandoc(1)?  Should we change the source code?
-
-Cheers,
+Thanks!
 
 Alex
 
 
+ lib/cmd.mk         | 1 +
+ lib/install-man.mk | 9 +++++++++
+ 2 files changed, 10 insertions(+)
 
---=20
-<http://www.alejandro-colomar.es/>
-GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
+diff --git a/lib/cmd.mk b/lib/cmd.mk
+index 17f3a8ee5..9cd09fe89 100644
+--- a/lib/cmd.mk
++++ b/lib/cmd.mk
+@@ -16,6 +16,7 @@ GREP       := grep
+ GZIP       := gzip
+ HEAD       := head
+ INSTALL    := install
++LN         := ln
+ LOCALE     := locale
+ PKG-CONFIG := pkg-config
+ SED        := sed
+diff --git a/lib/install-man.mk b/lib/install-man.mk
+index 174f503ca..aaa545290 100644
+--- a/lib/install-man.mk
++++ b/lib/install-man.mk
+@@ -12,6 +12,9 @@ include $(srcdir)/lib/install.mk
+ include $(srcdir)/lib/src.mk
+ 
+ 
++LINK_PAGES := so  # Alternatives: "so", "symlink"
++
++
+ mandir      := $(datarootdir)/man
+ man1dir     := $(mandir)/man1
+ man2dir     := $(mandir)/man2
+@@ -147,6 +150,12 @@ $(_manpages):
+ 		-e '/^\.so /s, man7/\(.*\)\.7$$, $(notdir $(man7dir))/\1$(man7ext),' \
+ 		-e '/^\.so /s, man8/\(.*\)\.8$$, $(notdir $(man8dir))/\1$(man8ext),' \
+ 		$@
++ifeq ($(LINK_PAGES),symlink)
++	if $(GREP) '^\.so ' <$@ >/dev/null; then \
++		$(SED) 's,^\.so \(.*\),../\1,' <$@ \
++		| $(XARGS) -I tgt $(LN) -fsT tgt $@; \
++	fi
++endif
+ 
+ $(_mandirs): %/.: | $$(dir %). $(_mandir)/.
+ 
+-- 
+2.39.2
 
---------------DbNirlB6Y61QA0rkKW2hQdNb--
-
---------------fmMXKAXGrBF3aB0B9eU0hoGh
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQHzrEACgkQnowa+77/
-2zLbcw//fSj7a2PKVNiEB1caxKHWTTo9tHDtcapgsOUJQi8S7UzwVCN+eGlAq2Q8
-8FkEVJwF41h9KWDcBvgoNTCC2rAPw7otOHI9CRIfSSzpGHB0u2HxTKUV2emDiV0o
-5LV2keFlr2PzI0EmK+x2NTMvB40FXKTllBWBCyQqXbwnVcxf41/VODo7rBrOxZ3h
-99DGj/vCZkfZuUg4naIM+meNJb4iETEaFGNrcp6SLCEmLA3Ak6s2wxgFJM+dJfjo
-Xki7D5HeyoaQZeZlGmfI9xn5a9ADd/3DrZmp4i4AIUP2CEJ4qsiUF6d0CTszy7+F
-GAhdsToWM/yJ8HP3z95S34z0UmPHDuduYRcFp8zq8fnZx1VQvZboLr9BCYfgGgb/
-bafoDOF0vxIQdjI7IIMmmWyxxGIx2SV31flNiSKJnRsl04Gv2/q2NOuou7My+HGD
-FYpxPITdQBqoq6JSkBh5gvHxp5UkoLCzxSGnMv3vgWgbrviE0Hk9sgQht39zSHRT
-SBELp2cWbxEK0kXPrsLDBC8y9+r/17xgdIjKIMTJN54g6vrrzLkBYAn2fBiMGnCl
-l9jt3S3IeSMJDSBOAYLQ7zgD3vB6U9HKsoqL95ZMh882EzRSKu9/lKokP6uIVAcg
-HmKZ2dw0G6W94FTBGrx/DiaGuvQ6xhUmYUJVrIZFZCaZAAsTrJ0=
-=8/i5
------END PGP SIGNATURE-----
-
---------------fmMXKAXGrBF3aB0B9eU0hoGh--
