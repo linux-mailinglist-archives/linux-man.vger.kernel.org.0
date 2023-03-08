@@ -2,88 +2,85 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id B37E06B0E7C
-	for <lists+linux-man@lfdr.de>; Wed,  8 Mar 2023 17:21:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E85296B0FB2
+	for <lists+linux-man@lfdr.de>; Wed,  8 Mar 2023 18:05:07 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230107AbjCHQVB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 8 Mar 2023 11:21:01 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58096 "EHLO
+        id S229480AbjCHRFG (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 8 Mar 2023 12:05:06 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41640 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229927AbjCHQUp (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 8 Mar 2023 11:20:45 -0500
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0917AB6935
-        for <linux-man@vger.kernel.org>; Wed,  8 Mar 2023 08:20:43 -0800 (PST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id 9949A616DE
-        for <linux-man@vger.kernel.org>; Wed,  8 Mar 2023 16:20:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 0DEAFC4339E
-        for <linux-man@vger.kernel.org>; Wed,  8 Mar 2023 16:20:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1678292442;
-        bh=MPosa0TATyTCLE52gMwjOFnwf8pUdjH/Q95JJlSyMXc=;
-        h=From:To:Subject:Date:In-Reply-To:References:From;
-        b=NAubJd/72h9q0kAM9SERxsmMQk17FH2rZWNHSq9AaD4CXK6DnHbtFIrIUyA/CaKG6
-         1Ke5ZPJrUujqWV22vJVOaL8tfJYex+KBDkdahAmRkcpyIaf4OKYUbWGXd5Jef63o2R
-         k1u9SzLyzr9KbxDy9ErrNEM1PtIhoc1m30fRgI7bjNsWF1l/CJHB5yOLrNEdP7zvSu
-         eVN73FtbMJNK1F9DGsjmuayP3dmgDe/6O/8609UFWujWeXPFYXADaAZbl7eCoa/ZiZ
-         cjF3+8cbt0GHHU0hp++HoD1hfAyb4ABFXU8xT8cGa2y6NUz1NWQydd3VgxDtOJQ/UF
-         tpqJBKzjbCjjQ==
-Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
-        id EE124C43142; Wed,  8 Mar 2023 16:20:41 +0000 (UTC)
-From:   bugzilla-daemon@kernel.org
-To:     linux-man@vger.kernel.org
-Subject: [Bug 217164] proc(5) man page says that VmallocUsed is not
- calculated despite being calculated
-Date:   Wed, 08 Mar 2023 16:20:41 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: changed
-X-Bugzilla-Watch-Reason: AssignedTo
- documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Product: Documentation
-X-Bugzilla-Component: man-pages
-X-Bugzilla-Version: unspecified
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: normal
-X-Bugzilla-Who: konrad@borowski.pw
-X-Bugzilla-Status: NEW
-X-Bugzilla-Resolution: 
-X-Bugzilla-Priority: P1
-X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: short_desc
-Message-ID: <bug-217164-11311-n7gyCEJyjI@https.bugzilla.kernel.org/>
-In-Reply-To: <bug-217164-11311@https.bugzilla.kernel.org/>
-References: <bug-217164-11311@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
+        with ESMTP id S230088AbjCHREq (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 8 Mar 2023 12:04:46 -0500
+Received: from alerce.blitiri.com.ar (alerce.blitiri.com.ar [IPv6:2001:bc8:228b:9000::1])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E874130E87
+        for <linux-man@vger.kernel.org>; Wed,  8 Mar 2023 09:04:22 -0800 (PST)
+Received: from localhost.localdomain
+        by sdfg.com.ar (chasquid) with ESMTPSA
+        tls TLS_AES_128_GCM_SHA256
+        (over submission, TLS-1.3, envelope from "rodrigo@sdfg.com.ar")
+        ; Wed, 08 Mar 2023 17:04:19 +0000
+From:   Rodrigo Campos <rodrigo@sdfg.com.ar>
+To:     Alejandro Colomar <alx@kernel.org>
+Cc:     linux-man@vger.kernel.org, Christian Brauner <brauner@kernel.org>,
+        Rodrigo Campos <rodrigo@sdfg.com.ar>
+Subject: [PATCH] user_namespaces.7: Add note about PR_SET_DUMPABLE on nested userns
+Date:   Wed,  8 Mar 2023 18:03:52 +0100
+Message-Id: <20230308170352.68915-1-rodrigo@sdfg.com.ar>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230308161744.iqr3kllrvgkgo5tn@wittgenstein>
+References: <20230308161744.iqr3kllrvgkgo5tn@wittgenstein>
 MIME-Version: 1.0
-X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
-        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,SPF_HELO_NONE,
+        SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D217164
+In order to create a nested user namespace, we need to re-set the
+PR_SET_DUMPABLE attribute after switching the effective UID/GID. Clarify
+this in the section about nested user namespaces.
 
-Konrad Borowski (konrad@borowski.pw) changed:
+Having this note would have saved me some time debugging.
 
-           What    |Removed                     |Added
-----------------------------------------------------------------------------
-            Summary|proc(5) man page says that  |proc(5) man page says that
-                   |VmallocUsed is not          |VmallocUsed is not
-                   |calculated, but it is       |calculated despite being
-                   |calculated for me           |calculated
+Signed-off-by: Rodrigo Campos <rodrigo@sdfg.com.ar>
+---
 
---=20
-You may reply to this email to add a comment.
+Thanks, so how about this instead?
 
-You are receiving this mail because:
-You are watching the assignee of the bug.=
+---
+ man7/user_namespaces.7 | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+diff --git man7/user_namespaces.7 man7/user_namespaces.7
+index 6647b02bf..6bc04bde5 100644
+--- man7/user_namespaces.7
++++ man7/user_namespaces.7
+@@ -91,6 +91,22 @@ The
+ operation can be used to discover the parental relationship
+ between user namespaces; see
+ .BR ioctl_ns (2).
++.PP
++A task that changes one of its effective IDs will have its dumpability
++reset to the value in /proc/sys/fs/suid_dumpable. This may affect the
++ownership of proc files of child processes and may thus cause the parent
++to lack the permissions to write to mapping files of child processes
++running in a new user namespace. In such cases making the parent process
++dumpable, using
++.B PR_SET_DUMPABLE
++in a call to
++.BR prctl (2),
++before creating a child process in a new user namespace may
++rectify this problem. See
++.BR prctl (2)
++and
++.BR proc (5)
++for details on how ownership is affected.
+ .\"
+ .\" ============================================================
+ .\"
+-- 
+2.39.2
+
