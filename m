@@ -2,60 +2,60 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 861B86B2C71
-	for <lists+linux-man@lfdr.de>; Thu,  9 Mar 2023 18:58:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 514C56B2C72
+	for <lists+linux-man@lfdr.de>; Thu,  9 Mar 2023 18:58:45 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229685AbjCIR6m (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 9 Mar 2023 12:58:42 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42008 "EHLO
+        id S229804AbjCIR6n (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 9 Mar 2023 12:58:43 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42094 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229804AbjCIR6l (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 9 Mar 2023 12:58:41 -0500
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com [IPv6:2a00:1450:4864:20::32b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 84224DD5A8
-        for <linux-man@vger.kernel.org>; Thu,  9 Mar 2023 09:58:40 -0800 (PST)
-Received: by mail-wm1-x32b.google.com with SMTP id p26so1757469wmc.4
-        for <linux-man@vger.kernel.org>; Thu, 09 Mar 2023 09:58:40 -0800 (PST)
+        with ESMTP id S230000AbjCIR6m (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 9 Mar 2023 12:58:42 -0500
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com [IPv6:2a00:1450:4864:20::32d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1E838DD5BA
+        for <linux-man@vger.kernel.org>; Thu,  9 Mar 2023 09:58:41 -0800 (PST)
+Received: by mail-wm1-x32d.google.com with SMTP id r19-20020a05600c459300b003eb3e2a5e7bso1829508wmo.0
+        for <linux-man@vger.kernel.org>; Thu, 09 Mar 2023 09:58:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112; t=1678384719;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=lhWs9ZM4b/ueiRLVCKKkccOTVPAAa9ToAeVjhLIoN7w=;
-        b=F4PKVulP3eTt91W7qZyzuUPteJWZ38ZF1Md22D3Z/fVX5r3/abC3Hr+kraPBW5NMym
-         uguEQHpLN0ToG8rPdKt+OBN/A80PmHi2MjvDpZbko8boJV4LLo8muXFsOsnccLdzJozN
-         X8WCEuCLMgxn6Jz9wRESZmYFjJrLr4MXkJAhgh8o0CrniBHPPhwxpZUINn6jibMa2lfq
-         +GEV4Yjhqu/KIXyFJCVwKsQb9HJokHQOxdIne2kMc9kHaFOQcRE47/Zd7X7pYyxj15Wv
-         b8KaimWEpdlwjKjxwqB/2Cx1hy2RKmewxgWKPHWOxtTR/MXnTlUZ8wysfMjxLQ9F0ddq
-         RH/g==
+        bh=L3uTnggsV+xpAqaI3LTopYh1vXxBSMAW7FIQsOANOKM=;
+        b=UCdEnz7r7qpsWEbAi85wFVoU8l/1g5YxhZyJiJd0EsbNiDKXmequrCqXbe1TmVfvfr
+         N+IjosThM96t7I4Rp5tJwyCGMuElFjQZvuOISkJrCNo2kFgYVd77m6OLET6ZGAI4K7BX
+         TmtvSyc9xUvjepy8IbG+6Suc95nfsy4zg14QsO0OUP/aJoQg4mQ2CMeXEzfwrRYOTqpn
+         cp6dUsyMmsnRMjBK2FpVWKh+VymttoAVLLNFVwC1Q4oZ0/9yTBK31WEOUOeoCdJIpyOT
+         BWHBbaFXDyLwhCt96CmqW014v6XFq18l5PPWHxmoKbZhcFiCjOx3mx8mpprVHnljF6tw
+         yX1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112; t=1678384719;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=lhWs9ZM4b/ueiRLVCKKkccOTVPAAa9ToAeVjhLIoN7w=;
-        b=nyHO0ssoglJLnxZ1zStQ3ryAdsTXaS1Lhnzl6hEFmLMJe/MYPeBEaCjOohlvkiPPnx
-         9BjyCa0kqs2473kLnrjdXRnK2EJkmLZY37uDI7wl6OzIvQYV8c7DWUgr+sF1W0dfSC6T
-         cMxFuXL50hw0GcODj0zwiGmVXBfRT5vkxXoOqdbBJNmpgoJHjG826aLFtSs2xGSVqc4M
-         ld5Get16x+1S9oxM3AK/8mUB5wrPOur1crTQO1qvIyh/b4o/kJeKSBILqpSlD7R+IXek
-         5qSf+XRBtnW0RDgdeI854z+A2RJpndjczA0pkngqqZEtxhyIWWoFgBlhaXSYbMEFvHgO
-         KWNA==
-X-Gm-Message-State: AO0yUKVWDEO6bgk06lfakxiTeg9uw0IJJJd50e0gHSrKh2XmvkJyIwTH
-        Yj3O0IgGPZkWV4+bhlI1wUJ0aOu6ZkE=
-X-Google-Smtp-Source: AK7set8VU5g3xlHg1V+ibkmSbPaMsEiMXkmrajzEYIy8lqwTz7qUrPmvGYrTEhHhi4YF0OVo1QGKIw==
-X-Received: by 2002:a05:600c:c06:b0:3e1:feb9:5a33 with SMTP id fm6-20020a05600c0c0600b003e1feb95a33mr128073wmb.9.1678384718958;
-        Thu, 09 Mar 2023 09:58:38 -0800 (PST)
+        bh=L3uTnggsV+xpAqaI3LTopYh1vXxBSMAW7FIQsOANOKM=;
+        b=xzYPQaBC2L116qOHOt2861m+JGMfrLsLfRAG4udKhNKq6Toqh5OgneODR27G2wow5i
+         n2tT67XD6FIWvh8j844mVtPuktVWsdOuJWtoiS2WjMpQj14MkxMG6SS4fHaXIZX4fYI5
+         oteBApBKHwK91CsA9Sn37NnxOGEXqinhKjbVuxxYjBjLh1A0MF2ypFgsn+Z16Ks/aXvr
+         T+iv53zmc2WiJrcb5eUJSBnolmhoeDGH92/VFE+LPTtIAF+aSddlDOZGx8mNj2tv+OJS
+         FqwsppA7hPV7C6/ZxvIuw/O+ViFMF67Tc2HRjL9+w97nyRjwUX5f7OTcyYxvaDWFkVRw
+         zmbw==
+X-Gm-Message-State: AO0yUKXT1OQ+qzd1K03ZQNk0Mfo+RJol9kyj0iOCEMnJO+HLHhRG64f2
+        Wb5dY5F86BZOLIpp/KnI69AMxvB8m8U=
+X-Google-Smtp-Source: AK7set/6vmctR5GC0IpGF4zf1Wv9ykq4CZF6q6/PEVogzDNCiaVnMrcxDyoPpviWJUhk2f4+IkPMuw==
+X-Received: by 2002:a05:600c:3d0f:b0:3e2:9b4:4303 with SMTP id bh15-20020a05600c3d0f00b003e209b44303mr105902wmb.19.1678384719579;
+        Thu, 09 Mar 2023 09:58:39 -0800 (PST)
 Received: from asus5775.alejandro-colomar.es ([170.253.51.134])
-        by smtp.googlemail.com with ESMTPSA id g10-20020a05600c310a00b003daf6e3bc2fsm654231wmo.1.2023.03.09.09.58.38
+        by smtp.googlemail.com with ESMTPSA id g10-20020a05600c310a00b003daf6e3bc2fsm654231wmo.1.2023.03.09.09.58.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Mar 2023 09:58:38 -0800 (PST)
+        Thu, 09 Mar 2023 09:58:39 -0800 (PST)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 X-Google-Original-From: Alejandro Colomar <alx@kernel.org>
 To:     linux-man@vger.kernel.org
 Cc:     Alejandro Colomar <alx@kernel.org>, groff@gnu.org
-Subject: [PATCH 1/6] lint-man.mk: make-lint-tbl: ffix
-Date:   Thu,  9 Mar 2023 18:58:23 +0100
-Message-Id: <20230309175828.136591-2-alx@kernel.org>
+Subject: [PATCH 2/6] Makefile, lint-man.mk: lint-man-groff-tbl: Split target from lint-man-groff
+Date:   Thu,  9 Mar 2023 18:58:24 +0100
+Message-Id: <20230309175828.136591-3-alx@kernel.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230309175828.136591-1-alx@kernel.org>
 References: <20230309175828.136591-1-alx@kernel.org>
@@ -71,27 +71,75 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Print 'LINT (tbl comment)' to not confuse users to think that we run
-tbl(1) at all.
+Allow running tbl(1) separately, which has several benefits:
+
+-  More granular testing.
+-  Allows inspecting the output of tbl(1), which can be useful for
+   debugging the pages.
 
 Signed-off-by: Alejandro Colomar <alx@kernel.org>
 ---
- lib/lint-man.mk | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ Makefile        |  3 ++-
+ lib/lint-man.mk | 15 ++++++++++++---
+ 2 files changed, 14 insertions(+), 4 deletions(-)
 
+diff --git a/Makefile b/Makefile
+index 54b492d40..46e71faab 100644
+--- a/Makefile
++++ b/Makefile
+@@ -70,9 +70,10 @@ help:
+ 	$(info	lint-c-cpplint		Lint C programs from EXAMPLES with cpplint(1))
+ 	$(info	lint-c-iwyu		Lint C programs from EXAMPLES with iwyu(1))
+ 	$(info	lint-man		Wrapper for lint-man-* targets)
+-	$(info	lint-man-groff		Lint man pages with groff(1))
+ 	$(info	lint-man-mandoc		Lint man pages with mandoc(1))
+ 	$(info	lint-man-tbl		Lint man pages about '\" t' comment for tbl(1))
++	$(info	lint-man-groff		Lint man pages with groff(1))
++	$(info	lint-man-groff-tbl	Lint man pages with tbl(1))
+ 	$(info	)
+ 	$(info	[un]install		Alias for "[un]install-man")
+ 	$(info	[un]install-man		Wrapper for [un]install-man* targets)
 diff --git a/lib/lint-man.mk b/lib/lint-man.mk
-index e0f72d303..c4a4c57b0 100644
+index c4a4c57b0..8207860d8 100644
 --- a/lib/lint-man.mk
 +++ b/lib/lint-man.mk
-@@ -98,7 +98,7 @@ $(_LINT_man_mandoc): $(_LINTDIR)/%.lint-man.mandoc.touch: $(MANDIR)/% | $$(@D)/.
+@@ -64,6 +64,8 @@ MANDOCFLAGS         := $(DEFAULT_MANDOCFLAGS) $(EXTRA_MANDOCFLAGS)
+ MANDOC              := mandoc
+ 
+ 
++_LINT_man_groff_eqn   :=$(patsubst $(MANDIR)/%,$(_LINTDIR)/%.eqn,$(LINTMAN))
++
+ _LINT_man_groff :=$(patsubst $(MANDIR)/%,$(_LINTDIR)/%.lint-man.groff.touch,$(LINTMAN))
+ _LINT_man_mandoc:=$(patsubst $(MANDIR)/%,$(_LINTDIR)/%.lint-man.mandoc.touch,$(LINTMAN))
+ _LINT_man_tbl   :=$(patsubst $(MANDIR)/%,$(_LINTDIR)/%.lint-man.tbl.touch,$(LINTMAN))
+@@ -73,10 +75,13 @@ linters_man := groff mandoc tbl
+ lint_man    := $(foreach x,$(linters_man),lint-man-$(x))
+ 
+ 
+-$(_LINT_man_groff): $(_LINTDIR)/%.lint-man.groff.touch: $(MANDIR)/% | $$(@D)/.
++$(_LINT_man_groff_eqn): $(_LINTDIR)/%.eqn: $(MANDIR)/% | $$(@D)/.
++	$(info LINT (tbl)	$@)
++	$(TBL) $< >$@
++
++$(_LINT_man_groff): %.lint-man.groff.touch: %.eqn | $$(@D)/.
+ 	$(info LINT (groff)	$@)
+-	$(TBL) $< \
+-	| $(EQN) $(EQNFLAGS) \
++	$(EQN) $(EQNFLAGS) <$< \
+ 	| $(TROFF) $(TROFFFLAGS) \
+ 	| $(GROTTY) $(GROTTYFLAGS) \
+ 	| $(COL) $(COLFLAGS) \
+@@ -120,6 +125,10 @@ $(_LINT_man_tbl): $(_LINTDIR)/%.lint-man.tbl.touch: $(MANDIR)/% | $$(@D)/.
  	touch $@
  
- $(_LINT_man_tbl): $(_LINTDIR)/%.lint-man.tbl.touch: $(MANDIR)/% | $$(@D)/.
--	$(info LINT (tbl)	$@)
-+	$(info LINT (tbl comment)	$@)
- 	if $(GREP) -q '^\.TS$$' $< && ! $(HEAD) -n1 $< | $(GREP) -q '\\" t$$'; \
- 	then \
- 		>&2 $(ECHO) "$<:1: missing '\\\" t' comment:"; \
+ 
++.PHONY: lint-man-groff-tbl
++lint-man-groff-tbl: $(_LINT_man_groff_eqn)
++	@:
++
+ .PHONY: $(lint_man)
+ $(lint_man): lint-man-%: $$(_LINT_man_%)
+ 	@:
 -- 
 2.39.2
 
