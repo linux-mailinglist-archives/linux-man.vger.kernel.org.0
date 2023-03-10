@@ -2,69 +2,71 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 319CB6B3FA2
-	for <lists+linux-man@lfdr.de>; Fri, 10 Mar 2023 13:49:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 977726B4069
+	for <lists+linux-man@lfdr.de>; Fri, 10 Mar 2023 14:29:38 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229655AbjCJMtd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 10 Mar 2023 07:49:33 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39606 "EHLO
+        id S229804AbjCJN3g (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 10 Mar 2023 08:29:36 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48056 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229473AbjCJMtc (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 10 Mar 2023 07:49:32 -0500
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com [IPv6:2a00:1450:4864:20::42a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D7CAD80914
-        for <linux-man@vger.kernel.org>; Fri, 10 Mar 2023 04:49:30 -0800 (PST)
-Received: by mail-wr1-x42a.google.com with SMTP id g3so4926770wri.6
-        for <linux-man@vger.kernel.org>; Fri, 10 Mar 2023 04:49:30 -0800 (PST)
+        with ESMTP id S229453AbjCJN3f (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 10 Mar 2023 08:29:35 -0500
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com [IPv6:2a00:1450:4864:20::429])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6E32862FD2
+        for <linux-man@vger.kernel.org>; Fri, 10 Mar 2023 05:29:34 -0800 (PST)
+Received: by mail-wr1-x429.google.com with SMTP id v16so5090565wrn.0
+        for <linux-man@vger.kernel.org>; Fri, 10 Mar 2023 05:29:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1678452569;
-        h=in-reply-to:from:references:cc:to:content-language:subject
+        d=gmail.com; s=20210112; t=1678454973;
+        h=in-reply-to:from:cc:references:to:content-language:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=k5ag6sHAKrSnz5nTfy07DguP6eNewShLqz1sRvCSuoU=;
-        b=Rdq27RA/WMTCF2MSfCsHwStuyrKcgk/XFfudgLE/G/IaGGwb1wtqLQ15+X3w8QwNx0
-         ZCXTtprdU3eFEQJREHzpxVxIviyDs1aS954C5fSNcU5esxhqHo3HGgLUCE3xxrds+0uW
-         Y4ck7n7W/d7zOhBh4OJE0KWU4BJXpOdqNWptQsF2UIMoCkucIaxl6cwO1mQmK9HRwDPt
-         x+hzcDTxRTeXgOwe5wKYVa/ee35ldzI/Fmy7B94zy5feIYhaiUUo4lRw4lg23lLfFMnY
-         PWlxnijP7LJLpp6EyXou4ogSHPfbhCiVxvU82QnG5xhgYtvBtdDPmmFQqLXz79wO15N5
-         w9jw==
+        bh=mA3bBX62wsxXLqQCPWAFaaXLpUx79p30AC3plZsiIQQ=;
+        b=gYQ/6EVdW1UNtbLBl9AlH7DUTRaLZLYJYbwdWTx7e5svWOQPr0P3u6gjjxj5VAumLQ
+         TgkynW4WbGJ0oOboEKikyiamop5CQot3jvgb4hH51ZOa3qh8e/sZ4BcqJ0dMIqA2UF4s
+         MQAF8Q6CpQYpigivLkExSju/X+YT6GD/Ayl3nmdtL6LlIZonl+v93bBOQ2m1zFTHfeWL
+         uSj3oPKag+saKmphfi/+q9xHR+F+re987ViKtlWUN92TiqecVr54CudCYM2zdNpmwmPm
+         GQDoN9R+SRkUb9o7B3cvnacJm7VBdL4WEUC0fU+LzRAEbUDnE9OxcsMIdaFTzvN0hjzs
+         YD9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678452569;
-        h=in-reply-to:from:references:cc:to:content-language:subject
+        d=1e100.net; s=20210112; t=1678454973;
+        h=in-reply-to:from:cc:references:to:content-language:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=k5ag6sHAKrSnz5nTfy07DguP6eNewShLqz1sRvCSuoU=;
-        b=nySTOI3ax2Qv+6c0mF/ABSh04BTg0Yfl6iNicKd0g0S6DKN2hRAomjv1oTXw/GLh56
-         BPwrJSLA9mEHM4q6Szla2xF0VsoHDdIREvX0FK40AWbssrX7bRmFVaJN6eh/kplO5JAP
-         MVfqtARbhMxbOTJqMVXlVApuWKRZaMqaSDdeZNfV0BeOtumL8+w/CyrlJ5+NQkFmMzRm
-         7GQU6J72wbwF8K5HgxSZRyLuEfkgaQ7XZucOIC/ohnmh0nSYuAPBtpQsE5Pt7mN24Ukp
-         J9Ymrk/ftnGdopbSUpjCP+uJBtxP1SDJUuVte4urtyu2aypbcVD1xoEY2HPe8FckxLTt
-         le6Q==
-X-Gm-Message-State: AO0yUKUkiyAv/pUGAT0wMKkxeOu8roGBPIhXhlIDf5YaDcq5vw4IvL1k
-        5cpW3dNZVi8uBRWM0n9erfC49TUA1y8=
-X-Google-Smtp-Source: AK7set+YSjWt53G1npMPW9DIzF8rBa8EjB09EKM86z9WhL/ATnsXb5IK1BHAE1p4ZE4wO4thRFfPpw==
-X-Received: by 2002:a5d:4383:0:b0:2bf:e39d:c8a7 with SMTP id i3-20020a5d4383000000b002bfe39dc8a7mr16856467wrq.44.1678452569356;
-        Fri, 10 Mar 2023 04:49:29 -0800 (PST)
+        bh=mA3bBX62wsxXLqQCPWAFaaXLpUx79p30AC3plZsiIQQ=;
+        b=3GnY1SySyExj5BYUI/pt95QXsvvq7/M6LSVjhQJF5OI5R0/gepJmsIjMNHa4aFIkMe
+         7VPRhyml8hKGUuV44vRlc7RemotMS7FqOkNuXxouZQ6mguI+aiBzKhhjK7e4XCI8N8Qg
+         w0uSREtfP9rW1MYa547Gb2IssIDb4ug5AuWIzP1YnaJ9tg0TIKtljOCCqpRNvESL0CAp
+         rRmC1zbuWevdkOLo2303zHqvUvNUgk54Gf6WJFteops+1+qdeACvK0UVYQ7Vsy1QKgt8
+         2B2tr04zoX99OwWLFRS1WEGLCC7EnCJEvaN/HJRTbuphbjS3l1jNF6hpXXLqWJYx2CV4
+         +0Fw==
+X-Gm-Message-State: AO0yUKV8fUUinYSpMNpNiMQpkCGreGL2cUaM2nHJFQnCrgRKaDkjRKPw
+        DYN3LIZCUSRr+QRIObj98+jm4dS8MQc=
+X-Google-Smtp-Source: AK7set9Aw9I25D/85+9ghlPnUzQ0sMCppOtfWePG3XlTphZ8CS4ilDD3flCt3xbyLggSUpza83NyDg==
+X-Received: by 2002:adf:ce91:0:b0:2c3:fb3e:ae85 with SMTP id r17-20020adfce91000000b002c3fb3eae85mr17427120wrn.44.1678454972832;
+        Fri, 10 Mar 2023 05:29:32 -0800 (PST)
 Received: from [192.168.0.160] ([170.253.51.134])
-        by smtp.gmail.com with ESMTPSA id a8-20020adfed08000000b002c53f6c7599sm2155750wro.29.2023.03.10.04.49.28
+        by smtp.gmail.com with ESMTPSA id b18-20020adfee92000000b002c70bfe505esm2240753wro.82.2023.03.10.05.29.32
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 10 Mar 2023 04:49:28 -0800 (PST)
-Message-ID: <b73a9636-1a17-36f3-3718-d9ca3b9293ed@gmail.com>
-Date:   Fri, 10 Mar 2023 13:49:21 +0100
+        Fri, 10 Mar 2023 05:29:32 -0800 (PST)
+Message-ID: <f5aac742-4417-fced-343d-002117d629f1@gmail.com>
+Date:   Fri, 10 Mar 2023 14:29:24 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
 Subject: Re: Revert "Many Pages: Remove references to C89"
 Content-Language: en-US
-To:     linux-man@vger.kernel.org, Brian Inglis <Brian.Inglis@Shaw.ca>
-Cc:     Matt.Jolly@footclan.ninja
-References: <8899aff7-4193-dd54-4488-234b1a6cee83@gmail.com>
- <edd32b0f-651d-c8c1-cf74-737d75c72578@Shaw.ca>
+To:     Oskari Pirhonen <xxc3ncoredxx@gmail.com>,
+        Matt Jolly <Matt.Jolly@footclan.ninja>,
+        linux-man@vger.kernel.org
+References: <20230310015150.3545768-1-Matt.Jolly@footclan.ninja>
+ <8899aff7-4193-dd54-4488-234b1a6cee83@gmail.com> <ZAq5gg+aQB5TrDQ3@dj3ntoo>
+Cc:     Brian Inglis <Brian.Inglis@Shaw.ca>
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <edd32b0f-651d-c8c1-cf74-737d75c72578@Shaw.ca>
+In-Reply-To: <ZAq5gg+aQB5TrDQ3@dj3ntoo>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------m2jdQBJRn9xhke1O7kiCC4ZY"
+ boundary="------------QSPJWovA0y6oDfeZ7eJD1EPf"
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
@@ -76,144 +78,182 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------m2jdQBJRn9xhke1O7kiCC4ZY
-Content-Type: multipart/mixed; boundary="------------RrRZHpZ23OWfQpfjIP5E11t0";
+--------------QSPJWovA0y6oDfeZ7eJD1EPf
+Content-Type: multipart/mixed; boundary="------------f2b411TAcYIEUSfb4Pj3KVz0";
  protected-headers="v1"
 From: Alejandro Colomar <alx.manpages@gmail.com>
-To: linux-man@vger.kernel.org, Brian Inglis <Brian.Inglis@Shaw.ca>
-Cc: Matt.Jolly@footclan.ninja
-Message-ID: <b73a9636-1a17-36f3-3718-d9ca3b9293ed@gmail.com>
+To: Oskari Pirhonen <xxc3ncoredxx@gmail.com>,
+ Matt Jolly <Matt.Jolly@footclan.ninja>, linux-man@vger.kernel.org
+Cc: Brian Inglis <Brian.Inglis@Shaw.ca>
+Message-ID: <f5aac742-4417-fced-343d-002117d629f1@gmail.com>
 Subject: Re: Revert "Many Pages: Remove references to C89"
-References: <8899aff7-4193-dd54-4488-234b1a6cee83@gmail.com>
- <edd32b0f-651d-c8c1-cf74-737d75c72578@Shaw.ca>
-In-Reply-To: <edd32b0f-651d-c8c1-cf74-737d75c72578@Shaw.ca>
+References: <20230310015150.3545768-1-Matt.Jolly@footclan.ninja>
+ <8899aff7-4193-dd54-4488-234b1a6cee83@gmail.com> <ZAq5gg+aQB5TrDQ3@dj3ntoo>
+In-Reply-To: <ZAq5gg+aQB5TrDQ3@dj3ntoo>
 
---------------RrRZHpZ23OWfQpfjIP5E11t0
+--------------f2b411TAcYIEUSfb4Pj3KVz0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi Brian,
+Hi Oskari,
 
-On 3/10/23 07:40, Brian Inglis wrote:
-> On Fri, 10 Mar 2023 03:22:12 +0100, Alejandro Colomar wrote:
->> On 3/10/23 02:51, Matt Jolly wrote:
->>> I hope this email finds you well. I am writing to raise an issue that=
- has=20
->>> been causing inconvenience for me (and potentially others). The recen=
-t=20
->>> removal of C89 information from man pages (72b349dd8c209d7375d4d4f76e=
-2315943d654ee9)=20
->>> has put me in a difficult situation. >> As I continue to work on code=
- that adheres to the C89 style, such as cURL,
->>> I am unable to quickly determine if a particular function can be used=
- or if
->>> it was introduced in a later standard like C 99. >> This slows down m=
-y workflow and hampers my productivity.
->>> Therefore, I kindly request that we revert the changes made in the "M=
-any=20
->>> pages: Remove references to C89" patch. >> Furthermore, I urge everyo=
-ne to recognize the importance of this
->>> information and ensure it is not removed from man pages in the future=
-=2E
+[reordered your sentences for my reply]
+
+On 3/10/23 06:00, Oskari Pirhonen wrote:
+> Hi,
+>=20
+> On Fri, Mar 10, 2023 at 03:22:12 +0100, Alejandro Colomar wrote:
+
+[...]
+
 >> The main problem was that the existing info about C89 was not consiste=
 nt.
 >> Some pages declared APIs being standard since C89, while others didn't=
 =2E
 >> Incorrect info isn't much better than no info.
->> I'm curious about cURL's real need for C89. I see that cURL uses GNU
->> extensions (-std=3Dgnu89), which actually pulls most of C99[1] (I thin=
-k
->> it pulls the entire C library, and most of the core language).
->> Virtually all (even MS, which has always been the last in this)
->> systems support C99; why would you consciously avoid it? Is there
->> any system that doesn't yet support it? Which are the C libraries
->> that you need to support that don't provide C99 functions by default
->> (or at all)?
+>>
+>=20
+> This is something that can (and should) be fixed then, instead of
+> blindly dropping all references to C89, no?
+
+We decided back in 2020 that it wasn't worth the extra effort to
+check C89.
+
+[...]
+
 >> I'd like to really understand the need for C89 in 2023.
-> A quick browse down:
+>>
 >=20
-> 	https://curl.se/download.html
+> Some projects might like C89 and there's not much that can be done on
+> that front without the maintainers having a change of heart...
 >=20
-> shows a number of legacy platforms and versions available:
+> What is not fine, on
+> the other hand, is saying that it's in C99 and POSIX.1-2001 but giving
+> the impression that it's all of a sudden _not_ in C89 anymore.
 >=20
-> 	SCO UnixWare             	7.10.3
-> 	Linux MIPSel             	7.10.7
-> 	RISC OS                  	7.11.0
-> 	Linux Slackware S390     	7.12.2
-> 	BeOS                     	7.12.3
-> 	AmigaOS m68k             	7.14.0
-> 	SGI IRIX 6.5             	7.15.1
-> 	Digital Tru64 UNIX 4.0D  	7.15.1
-> 	SCO Open Server 5        	7.15.1
-> 	Linux Maemo 3.2          	7.15.5
-> 	Linux Slackware PPC      	7.16.2	Slackintosh
-> 	Linux OpenWRT 8.09.1 MIPSel	7.17.1
-> 	Linux Unslung            	7.17.1
-> 	MiNT                     	7.20.1
-> 	QNX 6.5                  	7.21.7
-> 	Linux =C3=85ngstr=C3=B6m PPC       	7.24.0
-> 	Plan9                    	7.28.1	9front
-> 	Linux Tizen 2.3 ARM      	7.28.1
-> 	OS/2                     	7.36.0
+> The STANDARDS section should not be the place for opinions,
+> rather facts about when something was standardized. If this is not the
+> case then perhaps it should be renamed to something else. "STANDARDS
+> EXCEPT ONES WE DON'T LIKE" comes to mind.
+>=20
 
-It would be interesting to know which compiler and libc is being
-used for each of those.
+But there are many standard.  Who decides which to mention and which
+not to mention?  How about POSIX.1=E2=80=901988, POSIX.1=E2=80=901990, an=
+d
+POSIX.1=E2=80=901996?
+
+There are still projects out there that care about POSIX.1=E2=80=901996, =
+and
+that's not compelling enough for me to do the extra work of searching
+if something happens to be supported by it.  I will just state
+POSIX.1-2001, which is the oldest one I care about, and live with it.
+
+In fact, some pages documented POSIX.1=E2=80=901996, and I removed any me=
+ntions
+to it in the same commit that removed mentions to C89, and even forgot
+to mention it in the commit message.
+
+
+>> I'd like to really understand the need for C89 in 2023.
+>>
+>=20
+> Some projects might like C89 and there's not much that can be done on
+> that front without the maintainers having a change of heart...
+
+If you really want C89, I suggest (as I did in the commit message) that
+you read the C89 Standard itself, which will be much more precise than
+the Linux man-pages have ever been or will ever be.
+
+However, I suggest you change your heart, and consider C99, since that's
+the future (or the past, I should say).  I would at least ask that you
+show _proof_ that you _need_ C89, before I consider spending some extra
+time in documenting C89 in the man pages.
+
+Especially, when you can just download a plain text version of the C89
+Standard, and grep(1) for the function name you're interested in:
+
+<https://port70.net/~nsz/c/c89/c89-draft.txt>
+
+I suggest you download that file, and use a function like this:
+
+$ stdc89() { grep "[[:alpha:]] \**\b$1([[:alnum:]*,. ]*);" /path/to/c89-d=
+raft.txt; }
+$ stdc89 printf
+         int printf(const char *format, ...);
+         int printf(const char *format, ...);
+
 
 >=20
-> which may need e.g. third party patches to remain secure.
-> Not to mention the legacy systems on those platforms.
-> Perhaps the US FAA or certain US regional airlines still use these? ;^>=
+> Personally, I see this more as an issue of manpages inappropriately
+> editorializing. Mentioning in DESCRIPTION of gets(3) to "Never use this=
 
-> Even DOS DJGPP supports GCC 9.3 with -std=3Dc2x!
+> function" is perfectly fine. In fact, I applaud that it's emphasized
+> before even getting into what the function does.
+>=20
+> From the original commit message:
+>=20
+>> Let's move forward, so readers get the intended notice that C89 is not=
+ a
+>> useful version of C.
+>=20
+> This is incorrect. I can write useful code, even in C89.
+>=20
+> More importantly, I find it to be an inappropriate attitude for a manua=
+l
+> to take.
 
-Indeed.  Port your compiler (and libc) not your program ;)
+I admit some editorializing.  I think there needs to be some.  Otherwise,=
 
-C99 has been supported by GCC since basically forever.  Most
-of it seems to be supported since gcc-3.0 (year 2001),
-according to <https://gcc.gnu.org/c99status.html>.  Anyway,
-in the manual pages, the relevant part is libc.  glibc supports
-C99 since glibc-2.2 (year 2000), according to
-<https://gcc.gnu.org/onlinedocs/gcc-9.3.0/gcc/Standard-Libraries.html>.
+there will always be some projects that request support for their
+favorite standard.  We're close to the point where C89 becomes irrelevant=
+=2E
+I admit we're not yet there, but I'm not sure if it's because it's really=
 
-I would like to see a list of actual systems where there's no
-support for C99 functions at all.
+needed, or because some projects blindly stuck to it for fear of the
+unknown.  I believe it's the latter, and would like to ask you to try C99=
+,
+or show some proof that you still need C89 for some reasons that are
+different from "I like it".  Please understand that I'm not going to
+spend my time on documenting POSIX.1-1988 or even K&R C just because
+some project likes it (there are still projects that use K&R functions).
 
+However, if you show me that some system can't possibly have C99 in any
+form, because there's no C99-compatible compiler or libc that runs on
+that system, I would reconsider reverting the patch.
 
 Cheers,
+
 Alex
 
-
-P.S.:  Brian, how's that thing about digit separators going on?
-I hope I didn't discourage you by being picky in the commit
-separation :-)  I'm really interested in those patches.
-
+>=20
+> - Oskari
 
 --=20
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
---------------RrRZHpZ23OWfQpfjIP5E11t0--
+--------------f2b411TAcYIEUSfb4Pj3KVz0--
 
---------------m2jdQBJRn9xhke1O7kiCC4ZY
+--------------QSPJWovA0y6oDfeZ7eJD1EPf
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQLJ1EACgkQnowa+77/
-2zI/HA//RDIhZx+EOqFXXA+utetT93CDpCtXFO2Tz9E5EQbRZV5uQtbjeF1lx393
-m7DaHrVoGgq0jwZwRCyFpSDUarfR7X4qKn2vNlOeNij8BgPKrfbge62xr5d9pbjD
-MAtZpv9bzZRQJaW35M1lBgOoeZp97I7ICwfhAi3A6MAb1vVDibGbVIHs2h4D3Ncw
-IfmugsEMA3/IAt/3sPTQM18T6bSmMhvk96kq+znonzjT2Ap3rqFbYsvVa4WLgmAZ
-D7rIqFl4l7rFaBpaI1HXB40Y+3iitdP90WoAgwgjLhIjNU532/ISCgVTQaoqVKvq
-3aaAz2iM7TriAFSTGF0dveyuDKCiQPrR7HegLnC8xWgF2P64rnIztsdJymduWm/E
-X89/ci9TNhNGsmX66HNiwgTFXSN+tMaXnibjYo3utKk5LMhFdtuS9ShZeTbaDVmx
-Nmi8bRhdQaxStjt33vCOR7m6y76djv3byKARQld18aLMOFsRHVFTDPDjzPquucVC
-ZPaBKKVPUzYj+jL4a0yZVUKParSiMhVhOV5z54Qz//qSgnDwPMEJK5zIOiKGa0CQ
-7N2jZavqJIO1d0dHfcAg0+oU34SEp7M3HHysSQRuHdn9BICJFUiYYNP60SLGYxT1
-upJs/2TaPJQyMFTMTp4y6pMZgoWXfebGjz3gCbWmKw3oKjtWL+o=
-=u/Nd
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQLMLQACgkQnowa+77/
+2zI0FhAAhwI8K/oNWtUmg5e0/gQo5Ir+B0sJ9al/sgBhs8Rv5u2u3F23+ngR4CvR
+NmWasDHvU/24mA2CDilwQAKM7SZDzqls/524VPLWfaht+aQgJe7L+hqZxys3be3t
+c91sitKVDkTNhjvvgNsM/qj16zScthMMdfM+J2NyXtoqsxmwDOyXGC0/mAr+G9ne
+jHQrs1HECwtzwZB5u1AA0CJvfr6VGchikfZAO5IwbKtEQHTZJ7UxG9mEm2aKadcG
+n8tfcMFCqVYecOPzBPBQqJ3VCIVgm9MSR036Gwli6+q4aW0j//u1rm+WZ1LK6Xdn
+GtsITFFu98DjIhXym+m05SLgnHkbng+MAhJObkLWecvnAuO19abqjVgfEqLsWoqS
+iidWg+LGJIO0Nr5xTge+CJRV5SbOyxbLfyXWGTYl8swx/dibZhAiKzPZbUc3B+tg
+ZRmUrJlAUksYJpKdBw9WsxO0wIiWJvyh3jx37+ko9oSwPzoT4p04qow5BqbTlJxV
+yLBC9VHPxB3qmMl6XUVyU4Aq5VFUg6LmDdEMtlEn3NpztC5qzqvUEvqmeUxlMUor
+SB6koU6WBhfUMQHb2jaQFZJFDj4GiGKReeB6PFtDdpCJAZq7G/5v/0YhOmuCP2ZH
+pYTLTSkmn5pjGv+Bvodh8bhi1HyuoRYtYuRVh55qlojS69FKFe8=
+=mbW0
 -----END PGP SIGNATURE-----
 
---------------m2jdQBJRn9xhke1O7kiCC4ZY--
+--------------QSPJWovA0y6oDfeZ7eJD1EPf--
