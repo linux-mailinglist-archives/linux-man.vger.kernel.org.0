@@ -2,71 +2,71 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 0795F6B53E3
-	for <lists+linux-man@lfdr.de>; Fri, 10 Mar 2023 23:10:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 77B936B55E6
+	for <lists+linux-man@lfdr.de>; Sat, 11 Mar 2023 00:44:26 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230168AbjCJWJ6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 10 Mar 2023 17:09:58 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34748 "EHLO
+        id S232016AbjCJXoY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 10 Mar 2023 18:44:24 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35178 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231629AbjCJWJi (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 10 Mar 2023 17:09:38 -0500
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com [IPv6:2a00:1450:4864:20::52f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8AE3B12877
-        for <linux-man@vger.kernel.org>; Fri, 10 Mar 2023 14:09:10 -0800 (PST)
-Received: by mail-ed1-x52f.google.com with SMTP id s11so26291269edy.8
-        for <linux-man@vger.kernel.org>; Fri, 10 Mar 2023 14:09:10 -0800 (PST)
+        with ESMTP id S232017AbjCJXoJ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 10 Mar 2023 18:44:09 -0500
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com [IPv6:2a00:1450:4864:20::436])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8FA20141618
+        for <linux-man@vger.kernel.org>; Fri, 10 Mar 2023 15:43:56 -0800 (PST)
+Received: by mail-wr1-x436.google.com with SMTP id h11so6493275wrm.5
+        for <linux-man@vger.kernel.org>; Fri, 10 Mar 2023 15:43:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1678486140;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=gmail.com; s=20210112; t=1678491834;
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=6nrqTyKZ7UmlgjbuXnGwkSSps3vzTkTiLX9T4r2nuro=;
-        b=SvQ9CxjCR2WWe2xtDMbNQkolJxfQoS523/n8gvfz97BYwPPgEqaEE+G6styv5USu4z
-         KCYhwx6rqMzlXa//rmAGFS29KHzJOVONDG2sk4naF4VL78rgdy4Z3FRNwKSn5MOSqSUR
-         xagGzmNkbviuT49ILtOZuq8GT01tp7cLDDVmHT7VRuXurxKrGb+LAFO2X0O7PrqqiF4e
-         D9yyExybbutMCSjF14wVn71n+W5GBLhpQIbyX8TXcB0+zLNdJBlSqPQxDR7Oe6yQc1y2
-         yMaN/HrZtGJzIhN+Slb0kRqNXnSLv2/wQapzqeRInEwAPpz9NYbYHxnm5ab1k391Vlgv
-         iDIg==
+        bh=+yTvNalGEMEU6jfk20vEt4BWimUfL/op9ChLWPV510U=;
+        b=i6R+ImII0iPLgM90eEyGuv9m2n1v/W3XIS4scrrWIwn+cRh7LJuY6GBunRNSKl/nPK
+         On3ypigJROZNM20ob1YKWRUVuSSz1FedTI4iEzzWSs/uoB+HoFP2B0TLVDDXWt6U+uyP
+         JcEKowW6QU1gULiwfDSmvGnJYGmYUvYKQip7bqf4zFUL04BBklcYfk+7Ob9XzCawsjzF
+         jQCwYw6R9S3V/HOfKwoU6kjwYcY0Ke1qbDr94whLDvr41DgNBiZauSVxYtTF8JWXzAQD
+         y6na5qfybwMdW13elB1QlzMS+fCPEDGwICJ2GJ0OEjp3AZfdeRq6+1GOdtvMkkX+1Fry
+         6bfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678486140;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=6nrqTyKZ7UmlgjbuXnGwkSSps3vzTkTiLX9T4r2nuro=;
-        b=r8AydBt/sOGmQ4MknsAuuc1GBu3PZTS671QH4D51qL9WXet2y7wUygpsr8pOQE0zSR
-         kS9P8VqFoJYcPhQbbtyDCb9LFmd3ZVl0CaCXKTr3jRJ94UCPrwx6FnU6LEPU7N6tLSou
-         IKj1xADRp8xkk3XTbw3kapQrwkm92Od3w2KYoSM0xaanuga71sPnszDwWE9YjinSuBlA
-         RC2Uw11V+07841JZu3H9/BirCn/tNUj0/sYyA/FfHn2CU8gLYFEBt2oWgusNCoIr14fG
-         mzLO9sBWYEL2PuVdAoazlAkVMU7LwbE/WdbCSJ03pvMHIH57fzB7RJOgr1XHNje9DEXT
-         3JmA==
-X-Gm-Message-State: AO0yUKVWuReFbjUTfq8pP6Uim4O+S/TyN86zGW6AHQrY1N1YrQH/9WNd
-        dT58eJ8i/c/20j5KIpv82uA=
-X-Google-Smtp-Source: AK7set93/tGqbhQgQMDJJIGrrIMMftBni2ekUSCsbTyayzR5qPCGFxcLRTDyE6hm1ZXttvwhR02QDg==
-X-Received: by 2002:a17:907:8a06:b0:889:ed81:dff7 with SMTP id sc6-20020a1709078a0600b00889ed81dff7mr33831044ejc.9.1678486140389;
-        Fri, 10 Mar 2023 14:09:00 -0800 (PST)
-Received: from localhost ([2a02:168:633b:1:7c09:9c3b:256e:8ba1])
-        by smtp.gmail.com with ESMTPSA id oz16-20020a170906cd1000b008da6a37de1bsm369034ejb.10.2023.03.10.14.09.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 10 Mar 2023 14:09:00 -0800 (PST)
-From:   =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
-To:     Alejandro Colomar <alx.manpages@gmail.com>,
-        =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-man@vger.kernel.org,
-        =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
-Subject: [PATCH v4 3/3] landlock.7: Give a pointer to how to implement a fallback mechanism
-Date:   Fri, 10 Mar 2023 23:08:51 +0100
-Message-Id: <20230310220851.22261-3-gnoack3000@gmail.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230310220851.22261-1-gnoack3000@gmail.com>
-References: <20230310220851.22261-1-gnoack3000@gmail.com>
+        d=1e100.net; s=20210112; t=1678491834;
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=+yTvNalGEMEU6jfk20vEt4BWimUfL/op9ChLWPV510U=;
+        b=ONSFeH+rsErHEK3FArf3BZ/zsQZbBMKusNcra7LGQBm0arNBDoeUlf8FFn3jaSpqm/
+         KgYtxZauZNaU8Lvxk9hIEdsOh9X/+tzuKnsUwChOtze5UqVKyUIMnqhNYtuRdsMCklV1
+         D0T7RkSKMDmexrvyFo4Om92+iYUCiGz1+l9s1LaDcpJOEY9ch4HFjICWbEe/CAuf+7Z3
+         2XLorL0XNeAM2VI2MPNlU5E9kFYsqaQvNfqJxf4uwij1AINvKyal5dlBJhTvNZZhV8Ng
+         TIG23ZxfZruyCqz0Mbg8Tv5fggOHdH86IUODtE3q7NjASqbDLQiUkY4+OuujWKrR+KoD
+         nkgg==
+X-Gm-Message-State: AO0yUKWYql8NY3pQpcYQcP2PT7yipm2Hu0qI2Pv4Pj7+zKjoNp3tpMnW
+        87DXJI9amv6R/RvFb508mMFaZoz9NrU=
+X-Google-Smtp-Source: AK7set/RAmbqI1FesqyhuMQk8tRTi0llJuFA681QZtxzRUhtMD0BjqMU5Xzrz5DGZ3/1BhsUsJk87Q==
+X-Received: by 2002:adf:f7c5:0:b0:2c7:bbe:4572 with SMTP id a5-20020adff7c5000000b002c70bbe4572mr18386645wrq.39.1678491834482;
+        Fri, 10 Mar 2023 15:43:54 -0800 (PST)
+Received: from [192.168.0.160] ([170.253.51.134])
+        by smtp.gmail.com with ESMTPSA id p8-20020a5d4588000000b002c54536c662sm913714wrq.34.2023.03.10.15.43.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 10 Mar 2023 15:43:54 -0800 (PST)
+Message-ID: <cd2dcfa2-9779-64ac-80a0-0288469b77e7@gmail.com>
+Date:   Sat, 11 Mar 2023 00:43:53 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-1.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
-        FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH] standards.7: ffix
+Content-Language: en-US
+To:     Jakub Wilk <jwilk@jwilk.net>
+Cc:     linux-man@vger.kernel.org
+References: <20230310134959.6667-1-jwilk@jwilk.net>
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <20230310134959.6667-1-jwilk@jwilk.net>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------SV8MIIeqvVLLG52L1YcEkFzt"
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -74,49 +74,77 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Signed-off-by: Günther Noack <gnoack3000@gmail.com>
----
- man7/landlock.7 | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------SV8MIIeqvVLLG52L1YcEkFzt
+Content-Type: multipart/mixed; boundary="------------a6PfMzAaaZLJQ7oRwZZltXvo";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: Jakub Wilk <jwilk@jwilk.net>
+Cc: linux-man@vger.kernel.org
+Message-ID: <cd2dcfa2-9779-64ac-80a0-0288469b77e7@gmail.com>
+Subject: Re: [PATCH] standards.7: ffix
+References: <20230310134959.6667-1-jwilk@jwilk.net>
+In-Reply-To: <20230310134959.6667-1-jwilk@jwilk.net>
 
-diff --git a/man7/landlock.7 b/man7/landlock.7
-index 9c305edef..c173cbb98 100644
---- a/man7/landlock.7
-+++ b/man7/landlock.7
-@@ -393,12 +393,14 @@ accessible through these system call families:
- Future Landlock evolutions will enable to restrict them.
- .SH EXAMPLES
- We first need to create the ruleset that will contain our rules.
-+.PP
- For this example,
- the ruleset will contain rules that only allow read actions,
- but write actions will be denied.
- The ruleset then needs to handle both of these kinds of actions.
--See below for the description of filesystem actions.
--.PP
-+See the
-+.B DESCRIPTION
-+section for the description of filesystem actions.
- .in +4n
- .EX
- struct landlock_ruleset_attr attr = {0};
-@@ -429,6 +431,16 @@ if (ruleset_fd == \-1) {
- .EE
- .in
- .PP
-+The ruleset we have constructed requires Landlock ABI version 3 or higher.
-+On kernels which do not provide that,
-+the call to
-+.BR landlock_create_ruleset (2)
-+will fail.
-+You can build a more graceful fallback mechanism
-+by using the version compatibility table from the
-+.B VERSIONS
-+section.
-+.PP
- We can now add a new rule to this ruleset thanks to the returned file
- descriptor referring to this ruleset.
- The rule will only allow reading the file hierarchy
--- 
-2.39.2
+--------------a6PfMzAaaZLJQ7oRwZZltXvo
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
+Hi Jakub,
+
+On 3/10/23 14:49, Jakub Wilk wrote:
+> Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
+
+I see you're following the discussion about standards :)
+
+Patch applied.  Thanks!
+
+Alex
+
+> ---
+>  man7/standards.7 | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/man7/standards.7 b/man7/standards.7
+> index 3073025fd..54dd2eb30 100644
+> --- a/man7/standards.7
+> +++ b/man7/standards.7
+> @@ -132,7 +132,7 @@ describing real-time facilities
+>  for portable operating systems, ratified by ISO in 1996
+>  .RI ( "ISO/IEC 9945-1:1996" ).
+>  .TP
+> -.B POSIX.1c " (formerly known as \fIPOSIX.4a\fP)"
+> +.BR POSIX.1c " (formerly known as \fIPOSIX.4a\fP)"
+>  IEEE Std 1003.1c-1995, which describes the POSIX threads interfaces.
+>  .TP
+>  .B POSIX.1d
+
+--=20
+<http://www.alejandro-colomar.es/>
+GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
+
+--------------a6PfMzAaaZLJQ7oRwZZltXvo--
+
+--------------SV8MIIeqvVLLG52L1YcEkFzt
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQLwLkACgkQnowa+77/
+2zL9cA/9HNBw2p/cGr/aGN3ykH5jmJk+xZHN8mCVQgZsg+bTRmqIjwBpt53NxYj9
+inZUUiZGnExdxB1AJmtpOzW9Ep5QmlZp9xAW0kdSOTaTFshtofvMxdVCNFGeDImo
+Qs6+h5g8YcdTnTXvlOwwaRS7EAEy6rEXQ0CaA/bLzgtj2UatW4m9sBW65YznZJ8I
+H9b1NghtxOGG8vCT8PR+O0D6eAD1GxgyxaW7VJCWAtTbcUwfC4awHsk4DmDf5nIS
+mQOZmLSBFYIx6c54TxTJp+AQ+K2znfQkgVIRBximc3c87MIs5Ja/yivjP0AQH4Ng
+rOHzRMsu9Mp1mfmlgqilRmG6VVHGsyhFC57DHSE7a5qy42pYLUAk5pWApiBcDCCy
+Eg8PTVA5b8FtYqfhb1n0Czgo+FoXEO0zcKBedugGg0I0FMyxihH/VNvdbMTBCSGY
+T+eyRrH+E70BPVhNvPhJUuWPdi+jV1tXLgITHnw0RY7Sa7pKzKsBEFuWvEg4Ajqw
+kfNV1dAE9Y/eqafjlUVaq9UfamM9/fwo5PETpPMOA223s3o3C/rLC4fRTmUQKJQ4
+yBkI/fXiFoTW0M9y42ue3Ra5jlZBpmzJai2+Xhh4ba2FVkDoUXfyytgP5Z7Mj2r1
+J2tt3BCRl1PpFVyP19v98dRBAn0dh/m5QGuMJaY3RNWsm1/Fz1w=
+=uzhB
+-----END PGP SIGNATURE-----
+
+--------------SV8MIIeqvVLLG52L1YcEkFzt--
