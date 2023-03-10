@@ -2,69 +2,69 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 9F8256B52C3
-	for <lists+linux-man@lfdr.de>; Fri, 10 Mar 2023 22:25:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 34A876B52E4
+	for <lists+linux-man@lfdr.de>; Fri, 10 Mar 2023 22:31:38 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231178AbjCJVZB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 10 Mar 2023 16:25:01 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55496 "EHLO
+        id S230426AbjCJVbh (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 10 Mar 2023 16:31:37 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36660 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231823AbjCJVY4 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 10 Mar 2023 16:24:56 -0500
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com [IPv6:2a00:1450:4864:20::329])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4C57C12C801
-        for <linux-man@vger.kernel.org>; Fri, 10 Mar 2023 13:24:14 -0800 (PST)
-Received: by mail-wm1-x329.google.com with SMTP id bg16-20020a05600c3c9000b003eb34e21bdfso7071888wmb.0
-        for <linux-man@vger.kernel.org>; Fri, 10 Mar 2023 13:24:14 -0800 (PST)
+        with ESMTP id S231641AbjCJVb1 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 10 Mar 2023 16:31:27 -0500
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com [IPv6:2a00:1450:4864:20::334])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 38A946EA8
+        for <linux-man@vger.kernel.org>; Fri, 10 Mar 2023 13:31:22 -0800 (PST)
+Received: by mail-wm1-x334.google.com with SMTP id p26so4308098wmc.4
+        for <linux-man@vger.kernel.org>; Fri, 10 Mar 2023 13:31:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1678483451;
+        d=gmail.com; s=20210112; t=1678483880;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=3KnsQiI8YzWcjE4HOg+Q9ggs1znpmtJ7/KedJaT/gko=;
-        b=Gu943m8dOFKN7tDYwZtNzD1gsL5ZAGDZcsraEeH0vblNf8CLOFSzCcmLXOJ9UIFjUA
-         ZsSQNUuh5HIJ79Iz4qr+4UuG/OMrbFu3gA1nf56PzdiloUMS1e3ITr1yFM8wcyMqipyl
-         2myi+Azaulp7+TawbBWtZtMkTqj9sFjUKyCTcaC+F2jq2DI8tTcuC+3Nsm4btG+ix7XZ
-         ktclVeDPV0f2bS/F0pfLR8Ff1CvolRmPmBrWD96DTly/Ptb5GMvDAmHbCB7+hHDp+b1T
-         3fOLp024Lvb41XLf5Po9PGmLEPPeV/VLi82RJLsxQpvP0q13VXI3FMXJCtnKDCqXmGUl
-         +VFA==
+        bh=KSBkH3+D9W+G9TS2OMqOTXcMDQkKRw2iNv8LxDcGHt4=;
+        b=QqzU3/kQRA5ts16Kbv5N9Oi4cQ9hB24ps0PTme1G3HXN0Inn1ZYrf7at4ZW4Oq8TWe
+         +En4qEObeMa9J0dLCSEbxdzbFrekJJ+ZLk37B9Yzn8bt8TtyCFx0KJ3UfK/8IIhrs5mv
+         Qb8qzDVHmtg8UidEP0DlQ+yknpdlXSmG3JM8n5QUhLyUlpROKxx4QZ7h50Zg9nNiaNj8
+         yPf4lGpVrmrECKJ59bmlCcuGzpWeLDowUirK49ei2aS/6NACAc7zOyQqxygaSPfDccHH
+         Sd8gGXoivXm6BW5UsHfRXohCYqLTnizjW2z+GYu69N2Eqg5r0kZZ/8TUL9mWJvaDUOWj
+         hpdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678483451;
+        d=1e100.net; s=20210112; t=1678483880;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=3KnsQiI8YzWcjE4HOg+Q9ggs1znpmtJ7/KedJaT/gko=;
-        b=YdoXFNQXQN18iK3yZ1sCP6AbiPvErBjJskz/qBlBw8B9IFqvBctxYMFT+InyNSVpx6
-         y8yr+pGxjdUSmSLBwP/CoivFw4Mys++8EfQCo2ARnk7YY3Vt05OC13mHCYWQEcs1Bwk7
-         7xLJFACotHqJdWzIaJWzAv5P4emOWS0z3+CUV/DqRiGxUyigJAsclvVR1llGknTifRv2
-         s6RoMelwB7/9LJcwmrdqa9jHB7IA09Rc7CnGpYyMEw9Ey5W5P7GWt93BgaK2OuJ/SCkk
-         prL1uE7JJY2XNO16cDkPjutxcGAvPKNL1ObH/WA5Lp16HedZP84FJ2deRosOIuCpZ2gp
-         P+Gw==
-X-Gm-Message-State: AO0yUKXWLE8YJFi1gKKxSxIvAfo67zEjj5wPVBiPRI8VmHXWveE1Sj4e
-        acZINQgSdgbD0+M5MOnF5Bs=
-X-Google-Smtp-Source: AK7set+IT+L7Lrd/z8gfuyOlghrZzMH8Sj8aQQBjAoX62PA/fs4yRxy6wEin5fVLBJvG3UU76zT9Ng==
-X-Received: by 2002:a05:600c:3c83:b0:3ea:d620:57a7 with SMTP id bg3-20020a05600c3c8300b003ead62057a7mr3941850wmb.8.1678483451310;
-        Fri, 10 Mar 2023 13:24:11 -0800 (PST)
+        bh=KSBkH3+D9W+G9TS2OMqOTXcMDQkKRw2iNv8LxDcGHt4=;
+        b=iShn6JpW8cxhlP5ktFbpfWRQGGtRTE3BF0s0k9eMiKV3LgiD/Dz28ILkCp9FuuqYfC
+         jryQiqC8zI+t7ZAuHKZPVDycQ5MPuWlZTIS1ghoE5MyuDZHsaHRlliu0WdGP+/ij9ODj
+         ZXaKU8A+Fq8lgs79GuttbQRaqZ5JkgmNwsXTS+wtCVdjA7IlM4uBJD1A9ih/XtTFwSer
+         jQvh0E3LZtx5BFqJXmZt1bOuJmovzCl4+7B7gOpEYZmIe3WxZlbZWLQDXbUmTb3EepEH
+         TKnVfkhx6zKUt6NijZ23lyOQfDTNoTAMRkthmFef8XY/gUOVJ+gh/6hHF5cU8q2Un9yT
+         ASwQ==
+X-Gm-Message-State: AO0yUKUVuXt3AuqoXQYIt9tKMt4E9wWFgPag2g6oTKdjmk+TZV3FCnw0
+        MmNUIW5tPa0D5kerZMDBnvfdKzfn4SE=
+X-Google-Smtp-Source: AK7set+u+ee72E8xENAK7Gf1SK6rYaqQFIwSF5KGN7T0dSym+DtNCKGkH/b6sin+DGNNaYrTZUp78Q==
+X-Received: by 2002:a05:600c:34d5:b0:3ea:f882:bb3d with SMTP id d21-20020a05600c34d500b003eaf882bb3dmr4077171wmq.4.1678483880733;
+        Fri, 10 Mar 2023 13:31:20 -0800 (PST)
 Received: from localhost ([2a02:168:633b:1:7c09:9c3b:256e:8ba1])
-        by smtp.gmail.com with ESMTPSA id c3-20020a7bc843000000b003db0bb81b6asm963008wml.1.2023.03.10.13.24.10
+        by smtp.gmail.com with ESMTPSA id s6-20020a7bc386000000b003db06224953sm942195wmj.41.2023.03.10.13.31.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 10 Mar 2023 13:24:10 -0800 (PST)
-Date:   Fri, 10 Mar 2023 22:24:09 +0100
+        Fri, 10 Mar 2023 13:31:20 -0800 (PST)
+Date:   Fri, 10 Mar 2023 22:31:19 +0100
 From:   =?iso-8859-1?Q?G=FCnther?= Noack <gnoack3000@gmail.com>
-To:     =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-man@vger.kernel.org
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>,
+        linux-man@vger.kernel.org, landlock@lists.linux.dev
 Subject: Re: [PATCH v3 1/2] landlock.7: Document Landlock ABI v2 (file
  reparenting; Linux 5.19)
-Message-ID: <20230310.3e66b439b5a2@gnoack.org>
+Message-ID: <20230310.3c71a20ff2de@gnoack.org>
 References: <20230304171607.8301-1-gnoack3000@gmail.com>
- <e7563a7c-98f2-0779-9283-1c0180615516@digikod.net>
+ <20230305.d639b17946bd@gnoack.org>
+ <cb3d6b3e-0c9b-635e-380a-c79e36ae8ede@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <e7563a7c-98f2-0779-9283-1c0180615516@digikod.net>
+In-Reply-To: <cb3d6b3e-0c9b-635e-380a-c79e36ae8ede@gmail.com>
 X-Spam-Status: No, score=-1.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
         FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
@@ -75,30 +75,25 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Tue, Mar 07, 2023 at 11:40:53PM +0100, Mickaël Salaün wrote:
-> On 04/03/2023 18:16, Günther Noack wrote:
-> > Code review threads for the "refer" feature:
-> > * https://lore.kernel.org/all/20220506161102.525323-1-mic@digikod.net/ (initial commit)
-> > * https://lore.kernel.org/all/20220823144123.633721-1-mic@digikod.net/ (bugfix)
+Hello Alex!
+
+On Fri, Mar 10, 2023 at 01:31:22AM +0100, Alejandro Colomar wrote:
+> On 3/5/23 11:24, Günther Noack wrote:
+> > I feel that implementing the full generic "best effort" fallback logic
+> > would complicate the example too much:
+> >
+> >  [...]
 > 
-> You can replace these links with
-> https://git.kernel.org/torvalds/c/cb44e4f061e16be65b8a16505e121490c66d30d0
-> I don't think the fix is worth mentioning because it doesn't change the
-> documentation
-
-Thanks, applied.
-
-> > * https://lore.kernel.org/all/20230221165205.4231-1-gnoack3000@gmail.com/ (documentation update)
+> I prefer if examples assume latest and greatest kernel.
 > 
-> FYI, this patch is in my -next tree and will be merged with the next
-> release.
+> Examples of how to support old kernels would be good in complete
+> tutorials, but over-complicate a short example.
 
-Ack, thanks.
+Thank you for the review!
 
-> > Signed-off-by: Günther Noack <gnoack3000@gmail.com>
-> 
-> Reviewed-by: Mickaël Salaün <mic@digikod.net>
-
-Applied.
+Fair enough, let's use the variant then where we just assume the
+newest kernel -- that is the code which we already have right now, in
+fact. I'll add a small remark to point out the place where people
+might want to handle the backwards compatibility with older kernels.
 
 –-Günther
