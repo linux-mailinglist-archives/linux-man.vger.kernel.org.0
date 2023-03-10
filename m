@@ -2,75 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 73AA96B32EB
-	for <lists+linux-man@lfdr.de>; Fri, 10 Mar 2023 01:51:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 2341C6B33D4
+	for <lists+linux-man@lfdr.de>; Fri, 10 Mar 2023 02:52:19 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229716AbjCJAvq (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 9 Mar 2023 19:51:46 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50328 "EHLO
+        id S229659AbjCJBwR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 9 Mar 2023 20:52:17 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43574 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229521AbjCJAvq (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 9 Mar 2023 19:51:46 -0500
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com [IPv6:2a00:1450:4864:20::430])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BF6E8F98C2
-        for <linux-man@vger.kernel.org>; Thu,  9 Mar 2023 16:51:44 -0800 (PST)
-Received: by mail-wr1-x430.google.com with SMTP id h11so3606418wrm.5
-        for <linux-man@vger.kernel.org>; Thu, 09 Mar 2023 16:51:44 -0800 (PST)
+        with ESMTP id S229580AbjCJBwQ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 9 Mar 2023 20:52:16 -0500
+Received: from mail-il1-x164.google.com (mail-il1-x164.google.com [IPv6:2607:f8b0:4864:20::164])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7FFA8FCF02
+        for <linux-man@vger.kernel.org>; Thu,  9 Mar 2023 17:52:15 -0800 (PST)
+Received: by mail-il1-x164.google.com with SMTP id y9so2179876ill.3
+        for <linux-man@vger.kernel.org>; Thu, 09 Mar 2023 17:52:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1678409503;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=DCQ96yW0VTujvanxGU+ddpqpfeR+kUlad/xiO2WbD1s=;
-        b=dXa+ZUm6HRUYosSgzm7zGvn5ppZXd9zGYf6JXoQHIxpM47z5BTq9HxhTkkMdXBM7gw
-         n9ky7463pK/FDRuELQ41raQjy6KkqRWX14RHghNGRQ9hyxEymyAStML7EGwmosNEF0Zo
-         0L0FH/Ne93kX4ojSJOG93n+vmocP1d7ZONJ4PV/1e8UQHvDqejcp6mIxVmL2BSkGUZJD
-         fhH95JiscdajFgW4sLoheLy+VkDJAoxDThlTgvYU96yX9vxkPmDztHpV8xaoCawuxhuA
-         NqSDdlEHXZFsaJ9WGkyt5rzYF/8Yld1cqZIGF2541jfyopThNV3E6FRqx1CekkiwL0FW
-         wZSA==
+        d=footclan-ninja.20210112.gappssmtp.com; s=20210112; t=1678413135;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=8nJOPBQ6Wy/cDpSYnZIyGOLpcl7xq3fAyZUtbcvsCYI=;
+        b=EjBWug+V+a/K1BFhCqhwhIq5MmSlgW0Gdw34f49CZHFgf8+DanOdTzEKqSQQBUHYDo
+         JGBTuKWy+Fltw/ssf5BGZEJRiVZz6FBMF3VidS7ggeyzayWvC7cflkqts44HPIbohPEr
+         sNVr/AZe2Qa/XBZdLAy5ENoIfUObtbYzDpNOdQbOJ2SzluvgcC1oLnBW/A2BopG77Ndn
+         QOaOw87TWwPy4jxYypdlCjKwY6BWtmaF866BGRdTnAW2LP3ZbDafCrd5JQcVDsI++ByE
+         7w9arYqcK3SuRdiR08wNCUtXzS8cVS2tEK568ZbZL/JbXetUTSSGDPEV+mYVLmeFvxEY
+         rvTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678409503;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=DCQ96yW0VTujvanxGU+ddpqpfeR+kUlad/xiO2WbD1s=;
-        b=LuctHRvX9aGlxD1uzxOVkca8PCk+GmBKf2zHtCwJCWEB5V4nrfZ5wtnyRhYJ+bcrrP
-         Kv8OROSKYcWQEiSIRvolUd+TTLHYvnuYa/BI4CQBDG66L9oPCCLtvcAJkGqc60AD41cN
-         qdA3OL0wQChica5Xf0O18QdG9r5+yWdPgZfFWLnPikYepNa/kemefY6VpeABKygJ1sVj
-         v70mvY7wDOB10iIssIH09QmqaufaQ81wmNqMzylpXzH6/RQGK61SnfZpsjmkwKDR2cl8
-         qwf6NkPqx828wfKZgoNoK7Qdl6C9x/P+ao5gWJLBrdyonWoq6Sgo/6mEnUnFopX7Iobq
-         vXIA==
-X-Gm-Message-State: AO0yUKUZec2oQZ9z6nVpU1b3nwDGOjIRFc5IUUiJfGzedvMYDw8SuMnV
-        7oKYR4akcQUB+W6nd9vSb9Q=
-X-Google-Smtp-Source: AK7set/kTzNgrjLB1SaReMwtJtPzRasEr+UdBaNYSArxa8SWqIsMpzdlmPFd3IY+TdeJwoDXpfHetw==
-X-Received: by 2002:adf:cc86:0:b0:2c7:a3b:4e76 with SMTP id p6-20020adfcc86000000b002c70a3b4e76mr19102491wrj.6.1678409503253;
-        Thu, 09 Mar 2023 16:51:43 -0800 (PST)
-Received: from [192.168.0.160] ([170.253.51.134])
-        by smtp.gmail.com with ESMTPSA id e23-20020a05600c219700b003dd1bd0b915sm1293265wme.22.2023.03.09.16.51.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 09 Mar 2023 16:51:42 -0800 (PST)
-Message-ID: <9f678634-d89c-c6fa-f06c-fbee8c5960bf@gmail.com>
-Date:   Fri, 10 Mar 2023 01:51:33 +0100
+        d=1e100.net; s=20210112; t=1678413135;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=8nJOPBQ6Wy/cDpSYnZIyGOLpcl7xq3fAyZUtbcvsCYI=;
+        b=bul+2KL7/5Mogl8SOlOZlUuWWMd0EyyhO0fWmA83Gr0/XrtkMt0UYuJ6uIHxczNG5l
+         nx+GrzAuLRSSj9s5hCHn/jZKv+I6+qujOW4p6bTYW6q3vhz7GKh+Id3i7ZblmWu3mpt3
+         Ppngqhmi8ON0cLuMk2kE3k0XP9HKWxpCu+1Y8MST0xI3880FJ+Poi8fH14Ol9IlCKhEQ
+         XXpHlgOAPpbpYW429VZsqxTKycSUzhmNDnG3Vxc3fwOhR1m3RoR/kO+R0DgG1rDnAaE5
+         8KCmR5BUZ8t1RcfqziLIySTdEnHcfl474WiUBlPsI7KGNGEK6qyZT5SoPmaSVHpkuDZp
+         vGfA==
+X-Gm-Message-State: AO0yUKVva69fioSx/mJ7GLqEaDAZ5MLjzZd0OPK88HHJgoIb6JlyGrCq
+        MHD9yIxw6O69tpsSxR+fg8VYZs9b9dKPKrTfWS/21I7/p14MsLuABHI0MBYmTOBMBE4U4WblaXe
+        T0HcmUFFr4sFSiYX6eJM3OPZZo4QAoreIHswrywK8TgKSTIZJJY4iNaKgjbnCcQwJqEtmuZXw1K
+        wo4QRK34LvQ3sF8WS3w68ZXReT7wjSE5TPrpimqecM93g79g==
+X-Google-Smtp-Source: AK7set9IA/OhTRHnmFv2vsrTc8fZ3juNbbS6iDB83SWc7tKFde2/qDezZ0hhI0X+zghDCzA2h7lrQijx1x7e
+X-Received: by 2002:a92:c691:0:b0:315:2b6b:f0a9 with SMTP id o17-20020a92c691000000b003152b6bf0a9mr259819ilg.11.1678413134850;
+        Thu, 09 Mar 2023 17:52:14 -0800 (PST)
+Received: from obsidian.wifi.footclan.ninja (2403-5808-2e-4--1192.ip6.aussiebb.net. [2403:5808:2e:4::1192])
+        by smtp-relay.gmail.com with ESMTPS id n15-20020a056638120f00b003dd53eab58fsm59842jas.85.2023.03.09.17.52.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 09 Mar 2023 17:52:14 -0800 (PST)
+X-Relaying-Domain: footclan.ninja
+From:   Matt Jolly <Matt.Jolly@footclan.ninja>
+To:     linux-man@vger.kernel.org
+Cc:     alx.manpages@gmail.com
+Subject: Revert "Many Pages: Remove references to C89"
+Date:   Fri, 10 Mar 2023 12:51:49 +1100
+Message-Id: <20230310015150.3545768-1-Matt.Jolly@footclan.ninja>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: nextafter underflow and errno in Glibc
-Content-Language: en-US
-To:     Pascal Cuoq <cuoq@trust-in-soft.com>,
-        "mtk.manpages@gmail.com" <mtk.manpages@gmail.com>
-Cc:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
-        Guillaume Cluzel <guillaume.cluzel@trust-in-soft.com>,
-        GNU C Library <libc-alpha@sourceware.org>,
-        Andreas Schwab <schwab@linux-m68k.org>
-References: <PR0P264MB07942F010016373449ED98D6C0B49@PR0P264MB0794.FRAP264.PROD.OUTLOOK.COM>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <PR0P264MB07942F010016373449ED98D6C0B49@PR0P264MB0794.FRAP264.PROD.OUTLOOK.COM>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------Ib508aIGmza2qEAo7GTZm9Zj"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-0.0 required=5.0 tests=BAYES_20,DKIM_SIGNED,
+        DKIM_VALID,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -78,115 +69,22 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------Ib508aIGmza2qEAo7GTZm9Zj
-Content-Type: multipart/mixed; boundary="------------23iMuuX5RAEXq4Ly8d5xciPa";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Pascal Cuoq <cuoq@trust-in-soft.com>,
- "mtk.manpages@gmail.com" <mtk.manpages@gmail.com>
-Cc: "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
- Guillaume Cluzel <guillaume.cluzel@trust-in-soft.com>,
- GNU C Library <libc-alpha@sourceware.org>,
- Andreas Schwab <schwab@linux-m68k.org>
-Message-ID: <9f678634-d89c-c6fa-f06c-fbee8c5960bf@gmail.com>
-Subject: Re: nextafter underflow and errno in Glibc
-References: <PR0P264MB07942F010016373449ED98D6C0B49@PR0P264MB0794.FRAP264.PROD.OUTLOOK.COM>
-In-Reply-To: <PR0P264MB07942F010016373449ED98D6C0B49@PR0P264MB0794.FRAP264.PROD.OUTLOOK.COM>
+Hi All
 
---------------23iMuuX5RAEXq4Ly8d5xciPa
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+I hope this email finds you well. I am writing to raise an issue that has been causing inconvenience
+for me (and potentially others). The recent removal of C89 information from man pages
+(72b349dd8c209d7375d4d4f76e2315943d654ee9) has put me in a difficult situation.
+As I continue to work on code that adheres to the C89 style, such as cURL, I am unable to quickly
+determine if a particular function can be used or if it was introduced in a later standard like C99.
+This slows down my workflow and hampers my productivity.
 
-Hello Pascal,
+Therefore, I kindly request that we revert the changes made in the "Many pages: Remove references to C89" patch.
+Furthermore, I urge everyone to recognize the importance of this information and ensure it is not removed from man pages in the future.
 
-On 3/8/23 19:10, Pascal Cuoq wrote:
-> Hello,
->=20
-> in 2008 Michael Kerrisk reported that Glibc's nextafter implementation =
-did not set errno as it should:
->=20
-> https://sourceware.org/bugzilla/show_bug.cgi?id=3D6799
->=20
-> That bug was marked as =E2=80=9CRESOLVED FIXED=E2=80=9D in 2020 but the=
-re still exists a disagreement between what the current man page for next=
-after at https://man7.org/linux/man-pages/man3/nextafter.3.html says, nam=
-ely:
->=20
->        If x is not equal to y, and the correct function result would be=
+Thank you for your attention to this matter. Please let me know if you have any questions or concerns.
 
->        subnormal, zero, or underflow, a range error occurs, and either
->        the correct value (if it can be represented), or 0.0, is
->        returned.
->        =E2=80=A6
->        Range error: result is subnormal or underflows
->               errno is set to ERANGE.  An underflow floating-point
->               exception (FE_UNDERFLOW) is raised.
->=20
-> =E2=80=A6 and what Glibc's implementation does for nextafter(0., 1.).
->=20
-> This has been reported by myself in January of 2023:
->=20
-> https://sourceware.org/bugzilla/show_bug.cgi?id=3D30040
->=20
-> As of this writing, the Glibc maintainers' stance appears to be that th=
-is behavior is intentional because the specification that Glibc intends t=
-o implement only mandates setting errno when the result is zero, and appa=
-rently allows setting it or not when the result is 0x1.0p-1074, depending=
- on whether this value was obtained by going one step up from 0.0 or one =
-step down from 0x2.0p-1074.
->=20
-> If the Glibc maintainers do not consider the current behavior a bug, th=
-en this should be noted somehow in the nextafter man page.
+Cheers,
 
-Would you please send a patch for the manual page?  You can
-find the guidelines for that here:
-<https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/CONTRIB=
-UTING>.
+Matt
 
-You can clone the git repository from here:
-<https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/>
 
-If you send a patch, please CC the folowing:
-Cc: Andreas Schwab <schwab@linux-m68k.org>
-Cc: <libc-alpha@sourceware.org>
-
-Thanks,
-
-Alex
-
->=20
-> Regards,
->=20
-> Pascal
->=20
-
---=20
-<http://www.alejandro-colomar.es/>
-GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
-
---------------23iMuuX5RAEXq4Ly8d5xciPa--
-
---------------Ib508aIGmza2qEAo7GTZm9Zj
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQKfxUACgkQnowa+77/
-2zKF+A/+KFxfnLCjQkKl6uEUvMZBrpSf/HJ+4cKla77v0oxV+9U6f8vTPDHembsr
-Tw975dRFfJLzZzB8kQfP/HPtwqXFWDFj0lz9XhcXIXd/o5yBZKDXV4j21vkgEXJY
-rr87uHC2UFysDdei55rZiRFP5R4/Ot6YfrxwRUM7gc0SWF3bnpD0awqyF/3IoMNt
-DesSWsQpqtMW35NR78tJBHTYAEzGOm/FMHF+XVMQsKfyv+Ec1/PBJSfm9NcnZzkU
-loYh3+WZg6Ys6GbmixqKrhybQGwIy9mu5kUVNVLmrmjSmqBzWEkZfeBqb4PKP585
-eGKXMvpZcyOXRKC05gtHdP2W069XDHI2n9xjkj9ji8k48BsYv8IpSwXVFlVXNivl
-mzIbkfbOapcp5e+RYhp/KxYKus7WNK5Kha/6ZvpL+C9ui5UQBObYDbahICfr35m+
-eYR4mEZL8EigxyF5v2hqa0uNV0u07MZt4dHjO3O+bSl1lzIjDV3KTXtdceIA/k5B
-5m7TwB66JURBmXVnmhFKTopk5YQrsFJCX3mxv1lNWcd5imEq2H4dd7qxfbqxcDo7
-+lFVrBufDaAePbdt9krZKheFZnYvbcFf3TeO/CC58HgcPIFSjLZHNeck+WGt9XWK
-Hr0fY1Q5FLXugM3dgPfwdE7XqSIAZKUus+x2taV/EaMeZid14Yc=
-=CzTb
------END PGP SIGNATURE-----
-
---------------Ib508aIGmza2qEAo7GTZm9Zj--
