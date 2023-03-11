@@ -2,71 +2,49 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id D2FD96B5C90
-	for <lists+linux-man@lfdr.de>; Sat, 11 Mar 2023 15:03:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 8835C6B5CC5
+	for <lists+linux-man@lfdr.de>; Sat, 11 Mar 2023 15:21:11 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229473AbjCKOD0 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 11 Mar 2023 09:03:26 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41662 "EHLO
+        id S230193AbjCKOVJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 11 Mar 2023 09:21:09 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41452 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229455AbjCKODZ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 11 Mar 2023 09:03:25 -0500
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com [IPv6:2a00:1450:4864:20::331])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 541832B62F
-        for <linux-man@vger.kernel.org>; Sat, 11 Mar 2023 06:03:23 -0800 (PST)
-Received: by mail-wm1-x331.google.com with SMTP id j3so5165591wms.2
-        for <linux-man@vger.kernel.org>; Sat, 11 Mar 2023 06:03:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1678543402;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=0x6ir7d3tCMefHxImwIVBtRbt+gSonuTO8X6YDsNl8Y=;
-        b=BQG6s3yKxpDVwNcOSymnWJQLQHrywJITdb9qoPhUDa4HJhxjbXkUS/8cTeZa25ySc8
-         /t82CwvQmSFmVowBkneiBCAMZu+S3GNt8yVCsVQkm+CrrBTBP9/M76cBx5Qy20nhklXW
-         0c0oYkxYmFG9Ecdz4aLde31ydSfC7ZrYsLo3IkgwffLa884BNOJJUi16Y8vv3aiCoe4t
-         aA26XeWs8MgW6Hx/Mua1El3LInPO32tRI/bAaJmXxbYoM0L7jQUeZJG38NNmbbd5bkYu
-         TVBd0ypVNtJsLUdmCIzHmFOhos/3T4JpA6EBKQ7WrMi+BTWkS28RzzuOF4YIS91X87Lb
-         JmHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678543402;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=0x6ir7d3tCMefHxImwIVBtRbt+gSonuTO8X6YDsNl8Y=;
-        b=IiRje1yl36Ynbnr8Q8rxY/lgIvGsFrt5ZW2QJVmZz5nNddmVyE3dTpv0CA2NbCgZum
-         NV8EiFTuV3PmlvfV2Tvq1IMPY6mBXk/GqTn2U3kkmuBnZHWfnSb327uIfhvIsg9YWIqN
-         TES1SB9HCuEK8TrMDIi55EnhMEOC3RZFLXVTuPXxyeXEHUxvMXqdtdtYyLZy763SrBc2
-         lM2UNVDC1Yalx/8DGLjxAOyZioRqenruDVWHj0kYrei0r2Kli4YttkX8+YAf+Kk062v8
-         /BWi1MUB65Ff6dBtsUsqGGAlp4FkNOgxWheEnGD6hfBu09egIZA+gETZKRGs5ph95koW
-         Hwvw==
-X-Gm-Message-State: AO0yUKXo10z/ZBTvDs6qV4MEFl68wBPfTblY33caRIYPPAvKkEVdFhh1
-        MvBAH/S8c7BVimIc58ILKQE=
-X-Google-Smtp-Source: AK7set+MVNvrLcPee8xaKcc4S9ExN9zXQ0it5mbf5Zp+qyqMSx9lJPEDdiOPKYroDAfh45pL0UbaPA==
-X-Received: by 2002:a05:600c:384f:b0:3eb:2b79:a40 with SMTP id s15-20020a05600c384f00b003eb2b790a40mr5590738wmr.20.1678543401785;
-        Sat, 11 Mar 2023 06:03:21 -0800 (PST)
-Received: from [192.168.0.160] ([170.253.51.134])
-        by smtp.gmail.com with ESMTPSA id y22-20020a7bcd96000000b003ecc64edf7esm1659263wmj.39.2023.03.11.06.03.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 11 Mar 2023 06:03:21 -0800 (PST)
-Message-ID: <c1a84495-0335-f8f6-c3b0-f4de30112b14@gmail.com>
-Date:   Sat, 11 Mar 2023 15:03:13 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH] ldconfig.8: tfix
-Content-Language: en-US
-To:     Samanta Navarro <ferivoz@riseup.net>, linux-man@vger.kernel.org
-Cc:     mtk.manpages@gmail.com
-References: <20230311115954.yg5v3asurx7idr2e@localhost>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20230311115954.yg5v3asurx7idr2e@localhost>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------aSzimdeEglx6H8xehAfiWR05"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+        with ESMTP id S230199AbjCKOU1 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 11 Mar 2023 09:20:27 -0500
+Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 06E11305E1
+        for <linux-man@vger.kernel.org>; Sat, 11 Mar 2023 06:18:56 -0800 (PST)
+Received: from submission (posteo.de [185.67.36.169]) 
+        by mout02.posteo.de (Postfix) with ESMTPS id 8F127240344
+        for <linux-man@vger.kernel.org>; Sat, 11 Mar 2023 15:18:25 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=posteo.de; s=2017;
+        t=1678544305; bh=+ZbJvXTLkaL5HZ24miqeiJ/RVViVEX/AOfgL5c9qelY=;
+        h=Date:Subject:Cc:From:To:From;
+        b=MU4S14DxnaFEaz6vQI/g6LoMWTLOC/Nla26oZr8JyS2pOwB6fgupqtw59AewaOKAr
+         oUcxqKzHw1828gXPb0ElsF/Wk3RctGrGotcnaM4zZW5m90zsEamoRl6jS5rwRb71cs
+         b3CIsVK4b33vXpVEQLfBmx+9GmweIR3/pAGFO5znubOw5mSdpxIe7TCQujORBpXPOB
+         8nRt2cQc+LISmfqkpLmIXqGoMKgAGzBKc2wEorTBYt1N598giMWlja/7o96/P1VZLt
+         6V1uXls8E1Uz9Lv9zfj1jUZ0TkkCxmyQd9DPxfvW5YJyX5sOKg2r/XjQAWYjSdz1Kk
+         snLITR7ah1cbA==
+Received: from customer (localhost [127.0.0.1])
+        by submission (posteo.de) with ESMTPSA id 4PYlQ85xJkz6trW;
+        Sat, 11 Mar 2023 15:18:24 +0100 (CET)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date:   Sat, 11 Mar 2023 14:17:35 +0000
+Message-Id: <CR3MA1O55PTL.Z871EDUY4TFS@morphine>
+Subject: Re: [PATCH] CONTRIBUTING: tfix
+Cc:     <alx@kernel.org>, <alx.manpages@gmail.com>,
+        <linux-man@vger.kernel.org>
+From:   "Tom Schwindl" <schwindl@posteo.de>
+To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
+References: <20230309073900.11503-1-schwindl@posteo.de>
+ <20230309152857.usupq3b4ekjhi7pv@illithid>
+In-Reply-To: <20230309152857.usupq3b4ekjhi7pv@illithid>
+X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+        RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -74,77 +52,64 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------aSzimdeEglx6H8xehAfiWR05
-Content-Type: multipart/mixed; boundary="------------iaVndOWseainXYUMRlL5dxqh";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Samanta Navarro <ferivoz@riseup.net>, linux-man@vger.kernel.org
-Cc: mtk.manpages@gmail.com
-Message-ID: <c1a84495-0335-f8f6-c3b0-f4de30112b14@gmail.com>
-Subject: Re: [PATCH] ldconfig.8: tfix
-References: <20230311115954.yg5v3asurx7idr2e@localhost>
-In-Reply-To: <20230311115954.yg5v3asurx7idr2e@localhost>
+Hi Branden,
 
---------------iaVndOWseainXYUMRlL5dxqh
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+On Thu Mar 9, 2023 at 4:28 PM CET, G. Branden Robinson wrote:
+> [natural language grammar]
+>
+> Hi Tom,
+>
+> At 2023-03-09T07:39:00+0000, Tom Schwindl wrote:
+> > as I'm not a native speaker, I wonder if the "be" is correct in this
+> > context.  I haven't changed it for now because it's likely that it's
+> > just me who thinks that this sounds awkward.
+> [...]
+> >         Please CC any relevant developers and mailing lists that may
+> >         know about or be interested in the discussion.
+>
+> In this respect, English is subject to mechanical analysis to resolve
+> the issue.  You will observe the presence of a coordinating conjunction
+> ("and" or "or"; there are others but these are by far the most common).
+> You can decide the grammar of the sentence by eliminating one of the
+> branches of the conjunction.
+>
+> ...that (may (know about) or (be interested in) the discussion).
+>
+> Possibly one of the sources of confusion here is that the conjunction is
+> applied after the modal auxiliary verb "may".
+>
+> While that's not non-standard,[1] it does reveal that a recast to more
+> clearly apply the coordinating conjunction after the _sub_ordinating
+> conjunction "that", as follows.
+>
+> ...that (may know about) or (may be interested in) the discussion.
+>
+> The fact that I need fewer pairs of parentheses to suggest the
+> recommended parse might indeed recommend it over the former alternative.
+>
+> Do not underestimate the power of conjunction elimination; I frequently
+> use this tool to decide grammatical questions in my own writing.[2]  I
+> cannot think of a time that it has led me to an incorrect construction.
+>
+> Lest anyone feel badly, I note that native English speakers often screw
+> up much simpler applications of coordinating conjunctions than this.
+>
+> *Jackie and me are going to the beach.
+> *This discussion is to be kept between you and I.
+>
+> Both are wrong, wrong, wrong, but you run into them all the time even in
+> attempts at formal writing (particularly the latter--people get anxious,
+> it seems, and think that this error somehow puts their text into a
+> higher register).
+>
+> Regards,
+> Branden
+>
+> [1] Example: "The market is full of things that you might need or want."
+> [2] which can get highfalutin' and florid, to say nothing of loquacious
 
-Hola Samanta,
-
-On 3/11/23 12:59, Samanta Navarro wrote:
-> Typo found with codespell.
->=20
-> Signed-off-by: Samanta Navarro <ferivoz@riseup.net>
-
-Patch applied.  Thanks,
-
-Alex
-
-> ---
->  man8/ldconfig.8 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/man8/ldconfig.8 b/man8/ldconfig.8
-> index 36b891dab..2f974ad7d 100644
-> --- a/man8/ldconfig.8
-> +++ b/man8/ldconfig.8
-> @@ -130,7 +130,7 @@ Ignore auxiliary cache file.
->  .TP
->  .B \-l
->  (Since glibc 2.2)
-> -Interpret each operand as a libary name and configure its links.
-> +Interpret each operand as a library name and configure its links.
->  Intended for use only by experts.
->  .TP
->  .B \-n
+Thanks for the thorough explanation! I really appreciate it.
 
 --=20
-<http://www.alejandro-colomar.es/>
-GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
-
---------------iaVndOWseainXYUMRlL5dxqh--
-
---------------aSzimdeEglx6H8xehAfiWR05
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQMiiIACgkQnowa+77/
-2zJv/Q//Wz5A5953j1zBaZ0JX+OmY4sv23f4OzNNY+J9rZlJrIe3O1JM6EWmuRLw
-BSJO7Q/xi1FP9bqOekcc1ZQSyty0S6ROCHF1KayBvEPOieKRkUFtZfF0SqZba1+g
-OjYIelHgHxiidqpFDSJ5/uh6YDtBHeQ6AlJCIZaaE2UedT34HGQpirDcfoCnT8Mn
-YyUaEJyIuutpMRBIlnmjTqhskK1TpxHZ7fAtQzC6n9Th+DwvqaQlKjmJNYpWXiRp
-d6OpNUuS+PcnWd/Hw1j6c9Biv0qzAcp9nADi0+/FgCd52iJg9Im5dk533dqBbRRn
-1Cerh1vAHzqn5oblNYq0BPYn1lmHFQZG1/0a1FiJbgxpmiNnYZeAOZ5OTiT0e7je
-OpOXONWUJYRZ4VZyOFHDlGXYVLYi/+DgMy0Rh35jqdMnLL932WghKiof4E8ZGtbx
-Cz2yAVghndCX+8Vt+MZCpwlNjIj4VbSp0/fSg0k6guC8vLt1jXtOgjo7RChh5y/D
-RzLRtBdPWt10AAXRXLyMug+4CZd10X04uRIz2ol0M08SDtAT7vXTsjLamcaSwHOe
-ijy3LzyXQLpFHTz2mQW7H9okNilfjf9G8jXHERpTgcK5GAc2Sef6aI8toKLZKYvp
-txcHnpJrqUMdhnKCasPv+YarhJB+yan/gYp09LN1yRMWiBbPUR4=
-=hxpl
------END PGP SIGNATURE-----
-
---------------aSzimdeEglx6H8xehAfiWR05--
+Best Regards,
+Tom Schwindl
