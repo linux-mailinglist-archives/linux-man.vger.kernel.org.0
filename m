@@ -2,68 +2,68 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 5F71E6B6205
-	for <lists+linux-man@lfdr.de>; Sun, 12 Mar 2023 00:21:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 95A456B6206
+	for <lists+linux-man@lfdr.de>; Sun, 12 Mar 2023 00:23:26 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229473AbjCKXVK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 11 Mar 2023 18:21:10 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44446 "EHLO
+        id S229457AbjCKXXZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 11 Mar 2023 18:23:25 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46920 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229562AbjCKXVJ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 11 Mar 2023 18:21:09 -0500
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com [IPv6:2a00:1450:4864:20::42f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0BD5267818
-        for <linux-man@vger.kernel.org>; Sat, 11 Mar 2023 15:21:08 -0800 (PST)
-Received: by mail-wr1-x42f.google.com with SMTP id f11so8185775wrv.8
-        for <linux-man@vger.kernel.org>; Sat, 11 Mar 2023 15:21:07 -0800 (PST)
+        with ESMTP id S229450AbjCKXXY (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 11 Mar 2023 18:23:24 -0500
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com [IPv6:2a00:1450:4864:20::433])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8A44C2F7A7
+        for <linux-man@vger.kernel.org>; Sat, 11 Mar 2023 15:23:23 -0800 (PST)
+Received: by mail-wr1-x433.google.com with SMTP id r18so8218311wrx.1
+        for <linux-man@vger.kernel.org>; Sat, 11 Mar 2023 15:23:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1678576866;
+        d=gmail.com; s=20210112; t=1678577002;
         h=in-reply-to:from:references:cc:to:content-language:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=wg5E9GWmFhssW4fqyTH+YHEWV+Jvv5QauM/JbglTGCo=;
-        b=ZENpaUboj51BdoPr/3XfMcPojXaz6b5cQV9bPhJLYhH4vHkLSPCZGMdikVJBrugthd
-         NU4siP/DmHYh6J3J9LbwSo8aXa1F5YYEnBcnF9G58ViTpT8iN9Q6m+xVwx57et6ef//0
-         PETtGFUjROKwESEveBm/luMZFklYNAqfihxJgURVe6ZnFctD0NVhgn2coLJ+oMi4OLZy
-         rRtqFEGwhoGIcNMSAHBWFb4FIFe+tAVqPSCAar9ZQ21CQNU/blvm1A/i8ntJg8ciZpiA
-         OaInfytTf4xtKRQS41xHUKtkSObjoxOqFglDk1C9DzlS30GzBNBzP+sp7+nggye5wWSo
-         yFKw==
+        bh=26Hfeth2QdzBsA75/QqEj/A1RMxDcYd15BN6R0CMUNE=;
+        b=VJJ16iky3YMIrrAnw0vlVh2PnpWsTMquuAHPHzPe+Go+mn6Mk65wazaZUsiN4sSOF1
+         g8zWeA2MIsdjgphZF6aLoAYLzcOBjRYuMeUb7UElhAFa0adw3QzCocTaNNC19r5nor85
+         PtsTAQx/lMsRjPRqmd09ssxS4wv6BUgMOSUDJ+ir3mD1o+izkefaeMi0egfYwFcYbbTj
+         Fx/ofUsV8Gv7PGINsoFuls1UutfOdiBrBqDj7uSOvO7dfBGTjSEPlUwFin2Jj1Rz+hJS
+         99PI1YSc7o6wuwNOIuJWutsKBu9ZsxEyVRU5NG7hCzAF8Gh2W5XfvMBU2qyb4fB/5aZH
+         znSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678576866;
+        d=1e100.net; s=20210112; t=1678577002;
         h=in-reply-to:from:references:cc:to:content-language:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=wg5E9GWmFhssW4fqyTH+YHEWV+Jvv5QauM/JbglTGCo=;
-        b=fy2l6sqSuITbFwzbRIDD42uNNgkCioxmdi657bQvCA3/Sg8CRwiHfiS36cNSK6gdI3
-         4Vmh66jubRbVdbmedEqJlsP7HJYuQz4RFVYHZ9d2zR8eiyIxq7A/aA7GXUqG2sBhT24L
-         732rCywArwlVdEfl+IzkOSyS3LUbJMD5u1b4snsr2eh8iFi4yP4SxfZK36ZQNHRunSYJ
-         xFTHnM3srQefn60+0iGN5mH8RqemsvDbH/zz/cV9VjyL17wY0yy/Xf0wH+w9xZxea51h
-         oDGrqkjTQ0Hh1d6IUoCRF2v2FNuj73+K0wnbe3u9/fy6CYWNnKp3f67d8Bbauu+LbJVa
-         0rew==
-X-Gm-Message-State: AO0yUKURRfbYDMi3psYcNTXUTzd0P+b55WJr9VCn5hWJ5BpBlULkANoE
-        NJljoXs/H7ukWKTAWRD915CEhQZDwUE=
-X-Google-Smtp-Source: AK7set/La6833Xv0HTuOvcPUyMwbPV5SfeRnkZ5Sl902hcTNDZBw8XVlB7nvTpoqdxm30CpXnKMHIA==
-X-Received: by 2002:a5d:6d41:0:b0:2ce:8234:3a5b with SMTP id k1-20020a5d6d41000000b002ce82343a5bmr8808918wri.22.1678576866431;
-        Sat, 11 Mar 2023 15:21:06 -0800 (PST)
+        bh=26Hfeth2QdzBsA75/QqEj/A1RMxDcYd15BN6R0CMUNE=;
+        b=04qloaLQ/vXh+g/rcAVWDlJr7T1NWbMZhfMwY68LRCcc5vXg5oF0oOCdV7Cd6rk0jx
+         1XZ3iiKPeqFf+5Re5KRV2jPEcrAOyKX/DE995HSccKpH45Mq2pSNAVX1wCFEd3jD5bHl
+         uOUe5uCiYxbLNWMXPnboJZKGecuhwceENZVmJXIyeSDGmbkcHP1gWeYj2izIYCVSbphB
+         iqzCD1D/g0AE5uL7y6gpX+FwRS3f8iI/uGTjS1i5UkhADjM9g/9ZLvwJw4fcany3L/+H
+         Vp0i+KutkJcvrRZC4L5KGJjAmO1Ty9jWfbzD4ZzrhYdWyayVjCZdwv3YDdYGHw7P7Vn8
+         FYRQ==
+X-Gm-Message-State: AO0yUKV5uer5EN+/TsoT5LrxX1391YU1Ct43kEg9ZHOmvZcDRhBKTydd
+        pgprA/UBLIrMHn+rVJ43F1lP8P53AWs=
+X-Google-Smtp-Source: AK7set/IXr8fOGLmkqGrxpeveBehYmf99fwnyQTU9nMGqiEX4kOiA5+1HroyVD1879S4HVVZIKbMzg==
+X-Received: by 2002:adf:ee11:0:b0:2cb:76d4:42e3 with SMTP id y17-20020adfee11000000b002cb76d442e3mr20418263wrn.23.1678577002058;
+        Sat, 11 Mar 2023 15:23:22 -0800 (PST)
 Received: from [192.168.0.160] ([170.253.51.134])
-        by smtp.gmail.com with ESMTPSA id c10-20020a056000104a00b002c70e60eb40sm3566653wrx.11.2023.03.11.15.21.05
+        by smtp.gmail.com with ESMTPSA id u5-20020a5d4345000000b002c71dd1109fsm3488389wrr.47.2023.03.11.15.23.21
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 11 Mar 2023 15:21:05 -0800 (PST)
-Message-ID: <6c0d437c-8d7e-ddd1-a333-45812dd26629@gmail.com>
-Date:   Sun, 12 Mar 2023 00:20:57 +0100
+        Sat, 11 Mar 2023 15:23:21 -0800 (PST)
+Message-ID: <c36c21ee-8244-a6fe-7bfb-2f4a2b61c5fc@gmail.com>
+Date:   Sun, 12 Mar 2023 00:23:20 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
-Subject: Re: Issue in man page time_namespaces.7
+Subject: Re: Issue in man page wcsncpy.3
 Content-Language: en-US
 To:     Helge Kreutzmann <debian@helgefjell.de>
 Cc:     mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-References: <20230311171356.GA4836@Debian-50-lenny-64-minimal>
+References: <20230311171357.GA4888@Debian-50-lenny-64-minimal>
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20230311171356.GA4836@Debian-50-lenny-64-minimal>
+In-Reply-To: <20230311171357.GA4888@Debian-50-lenny-64-minimal>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------H71EUYFR2jWIX30kDjnR5NVa"
+ boundary="------------57QWtszGq0BkWNTduSrJSXTI"
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
@@ -75,18 +75,18 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------H71EUYFR2jWIX30kDjnR5NVa
-Content-Type: multipart/mixed; boundary="------------9Ym3Y4B5hY0QbV1IxJ95WwQp";
+--------------57QWtszGq0BkWNTduSrJSXTI
+Content-Type: multipart/mixed; boundary="------------GnSYLtQbP2gerPuto5SY6YJe";
  protected-headers="v1"
 From: Alejandro Colomar <alx.manpages@gmail.com>
 To: Helge Kreutzmann <debian@helgefjell.de>
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Message-ID: <6c0d437c-8d7e-ddd1-a333-45812dd26629@gmail.com>
-Subject: Re: Issue in man page time_namespaces.7
-References: <20230311171356.GA4836@Debian-50-lenny-64-minimal>
-In-Reply-To: <20230311171356.GA4836@Debian-50-lenny-64-minimal>
+Message-ID: <c36c21ee-8244-a6fe-7bfb-2f4a2b61c5fc@gmail.com>
+Subject: Re: Issue in man page wcsncpy.3
+References: <20230311171357.GA4888@Debian-50-lenny-64-minimal>
+In-Reply-To: <20230311171357.GA4888@Debian-50-lenny-64-minimal>
 
---------------9Ym3Y4B5hY0QbV1IxJ95WwQp
+--------------GnSYLtQbP2gerPuto5SY6YJe
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
@@ -95,56 +95,58 @@ Hi Helge,
 On 3/11/23 18:13, Helge Kreutzmann wrote:
 > Without further ado, the following was found:
 >=20
-> Issue:    /proc/PID/timens_offsets =E2=86=92 /proc/[pid]/timens_offsets=
-?
->=20
-> "Associated with each time namespace are offsets, expressed with respec=
-t to "
-> "the initial time namespace, that define the values of the monotonic an=
-d boot-"
-> "time clocks in that namespace.  These offsets are exposed via the file=
- I</"
-> "proc/PID/timens_offsets>.  Within this file, the offsets are expressed=
- as "
-> "lines consisting of three space-delimited fields:"
+> Issue:    null wide characters =E2=86=92 NUL wide characters?
 
-Fixed, but in a different direction:
-<https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?id=3D=
-b1b42a5dbcaeb973f4c0a5e74fc01b24955ea6ba>
-
-Variable stuff should go in italics, except when the surrounding text
-is already in italics, in which case it goes in roman.
+This is incorrect.  NUL is an ASCII character, which hasn't wide
+characters.  It's correct as "null wide characters", a.k.a. L'\0'.
 
 Cheers,
 
 Alex
 
+>=20
+> "The B<wcsncpy>()  function is the wide-character equivalent of the "
+> "B<strncpy>(3)  function.  It copies at most I<n> wide characters from =
+the "
+> "wide-character string pointed to by I<src>, including the terminating =
+null "
+> "wide character (L\\[aq]\\e0\\[aq]), to the array pointed to by I<dest>=
+=2E  "
+> "Exactly I<n> wide characters are written at I<dest>.  If the length "
+> "I<wcslen(src)> is smaller than I<n>, the remaining wide characters in =
+the "
+> "array pointed to by I<dest> are filled with null wide characters.  If =
+the "
+> "length I<wcslen(src)> is greater than or equal to I<n>, the string poi=
+nted "
+> "to by I<dest> will not be terminated by a null wide character."
+
 --=20
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
---------------9Ym3Y4B5hY0QbV1IxJ95WwQp--
+--------------GnSYLtQbP2gerPuto5SY6YJe--
 
---------------H71EUYFR2jWIX30kDjnR5NVa
+--------------57QWtszGq0BkWNTduSrJSXTI
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQNDNkACgkQnowa+77/
-2zJzFQ//WyFgfy+8/Y6RARqPhIuLCeU+ETUIhJdriM/XSIGfIqGy7PgBoxOuYA/Q
-l0L4tNYydufTNXKcr6sxzN0BD6z89o1BfeH4AQ14KxsrgCFaKsbyZzLiP5RlW8FI
-/jiBxxDaTwuZ0CorsZ9JQToi6XT0c2PIkp+8q8MYXhW3S1OM0GENWGjXnIynmp5Q
-7+VKpAXQXpQcOvcJrtDm6Rz4C4C0iZcgQFmLkolG6ksGD8TrIkXwm2rgGSLpFUbF
-1tb/dNsOXUJoDreMkAWlytm3zzD5tc05xR64W4xAFkNzbLOvgBMSDKCOTdMs+/0q
-1CDa15n6rYcTdVn5itg8ZPCPXnZ9W5A0uaXwLjfSHaqqh0+YMuNfU/q8L8mc5agH
-fzcwq8U8TQV2orNZQtBZo2tCFzxHJY6yHpUAC1L2a6jp5VJL9tigkPkwlo0iNbnY
-i50TiTEYbu0v9nPDnmnrf5Q+Ls4vxR3JC38vF5MhkSNKfJVlz+9R6c5D5B6vw8tT
-FSCykKugC8td+WEo4xT61AeM0Unhx0JAIgyihyYRySBvLwGEn2mU56UjaazXg3mg
-h1AJQGOThkVroKFc6iYAHbPuxKM6Y0kkTVjViUdkT+P8y9SGePnvjlc6Wy9iK/8o
-KVVYGh0og+cCLOLw8DqkpLOUfr+s8kL8BpV/u+7DnwTOGcZLcnA=
-=pUxW
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQNDWgACgkQnowa+77/
+2zLuaA/+JN2YB/DsLuX6z6+Wh0Mkj6GndH0F0QrCvHv2SvmJZ40ipoTEKKi5TyB0
+ia8zets3lP8pTC7kxRnDd3vC3PDbz3o2ov/xbvGa/5GBsVDUq9eBJMGyU7Mh4UkW
+EZR1yj7C3hD5xkkkNfmqv0eXhUIWn9DOd+nzW+YSPrqZSCEQ69SzSbNzYmoW4qrn
+mA/1KBncH5IlwX5m5EZp0bbMBsvt12rHgsOQwHu8iA8tA5VtZINXbrk/+cCNFqXv
+NZXy1zQ6aRIp298GIEhqLwb6adg01xRqzHInuKH1zrwUyFmQxq5eT47dWaTMlf3r
+el6rJBPWL4Fx3P1Cu3b7/iF7Cwh4w4Cwo3xjuDorcwTHo2RIkgShOVX4OQcGDKzA
+fCCK7T773T9YKyd3yBetwRtEACLiF31bRfpR1+YSaSJywff1P2SarmM2XC9UdTPY
+oiKsbE+SYKwEVJHYMcDWoMjNyo84ZG3bw+clpj5M47bAKBY+tm9+ijhYoCt5+eZa
+kenZEWRfBIEA/vnM0smrLcQCg+46Iw83opRrXJG0fEGn8zWIMcsjS+Vd8YW4Mb6t
+UwCY7LU3oOPJ8sxwTi59N3cwcBJqDbNm03MNO6ezMYUInT1cAetn3pGeaycb68TN
+Mr4E+VRUOxYJveKLYTKcyWjZAWGanmOYgxhVe2e2uhOoMv3tne0=
+=pqMf
 -----END PGP SIGNATURE-----
 
---------------H71EUYFR2jWIX30kDjnR5NVa--
+--------------57QWtszGq0BkWNTduSrJSXTI--
