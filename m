@@ -2,68 +2,69 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 77B936B55E6
-	for <lists+linux-man@lfdr.de>; Sat, 11 Mar 2023 00:44:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 260686B573E
+	for <lists+linux-man@lfdr.de>; Sat, 11 Mar 2023 02:08:01 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232016AbjCJXoY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 10 Mar 2023 18:44:24 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35178 "EHLO
+        id S229743AbjCKBH6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 10 Mar 2023 20:07:58 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48544 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232017AbjCJXoJ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 10 Mar 2023 18:44:09 -0500
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com [IPv6:2a00:1450:4864:20::436])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8FA20141618
-        for <linux-man@vger.kernel.org>; Fri, 10 Mar 2023 15:43:56 -0800 (PST)
-Received: by mail-wr1-x436.google.com with SMTP id h11so6493275wrm.5
-        for <linux-man@vger.kernel.org>; Fri, 10 Mar 2023 15:43:56 -0800 (PST)
+        with ESMTP id S229471AbjCKBH5 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 10 Mar 2023 20:07:57 -0500
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com [IPv6:2a00:1450:4864:20::32f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3BC1C3ABB
+        for <linux-man@vger.kernel.org>; Fri, 10 Mar 2023 17:07:55 -0800 (PST)
+Received: by mail-wm1-x32f.google.com with SMTP id j19-20020a05600c191300b003eb3e1eb0caso7305734wmq.1
+        for <linux-man@vger.kernel.org>; Fri, 10 Mar 2023 17:07:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1678491834;
-        h=in-reply-to:from:references:cc:to:content-language:subject
+        d=gmail.com; s=20210112; t=1678496874;
+        h=in-reply-to:content-language:references:cc:to:subject:from
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=+yTvNalGEMEU6jfk20vEt4BWimUfL/op9ChLWPV510U=;
-        b=i6R+ImII0iPLgM90eEyGuv9m2n1v/W3XIS4scrrWIwn+cRh7LJuY6GBunRNSKl/nPK
-         On3ypigJROZNM20ob1YKWRUVuSSz1FedTI4iEzzWSs/uoB+HoFP2B0TLVDDXWt6U+uyP
-         JcEKowW6QU1gULiwfDSmvGnJYGmYUvYKQip7bqf4zFUL04BBklcYfk+7Ob9XzCawsjzF
-         jQCwYw6R9S3V/HOfKwoU6kjwYcY0Ke1qbDr94whLDvr41DgNBiZauSVxYtTF8JWXzAQD
-         y6na5qfybwMdW13elB1QlzMS+fCPEDGwICJ2GJ0OEjp3AZfdeRq6+1GOdtvMkkX+1Fry
-         6bfw==
+        bh=uor2GF1AlVmZTmFYu1Ia++fFARoIM/8tG5baX9RdrDY=;
+        b=UgPqvjgT5S7EZMB836KLX6I8kvTLIk3N5DTIzELMzEXoiUeWPmSrEFNjn1rWTFyPn5
+         AJsVT+abifYy9KGNJOmy7/K+BJEZlGchwhF8DflTLzmVWCkNRyUh9/wVU6tncfpc/o4V
+         LrYLZN+u7Xsdjtu7ruL+pj2ViBPZGnulLna6K39t4+EDeHWPhMhsQqPjJX8bScUODJ0R
+         haCoEYB/MNi8yzDRnQkbpzqwE+bG6SSREETAb2jx6dpSLwn9eXzdXptDwJKdNu7z2X7W
+         sd2Z3/Zk4ghO+9hQD61g6IT0RGV8A9JfrF68aYVsVTQQbCLlU1eJ1+MB/D8TFGdIumNO
+         U6wQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678491834;
-        h=in-reply-to:from:references:cc:to:content-language:subject
+        d=1e100.net; s=20210112; t=1678496874;
+        h=in-reply-to:content-language:references:cc:to:subject:from
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=+yTvNalGEMEU6jfk20vEt4BWimUfL/op9ChLWPV510U=;
-        b=ONSFeH+rsErHEK3FArf3BZ/zsQZbBMKusNcra7LGQBm0arNBDoeUlf8FFn3jaSpqm/
-         KgYtxZauZNaU8Lvxk9hIEdsOh9X/+tzuKnsUwChOtze5UqVKyUIMnqhNYtuRdsMCklV1
-         D0T7RkSKMDmexrvyFo4Om92+iYUCiGz1+l9s1LaDcpJOEY9ch4HFjICWbEe/CAuf+7Z3
-         2XLorL0XNeAM2VI2MPNlU5E9kFYsqaQvNfqJxf4uwij1AINvKyal5dlBJhTvNZZhV8Ng
-         TIG23ZxfZruyCqz0Mbg8Tv5fggOHdH86IUODtE3q7NjASqbDLQiUkY4+OuujWKrR+KoD
-         nkgg==
-X-Gm-Message-State: AO0yUKWYql8NY3pQpcYQcP2PT7yipm2Hu0qI2Pv4Pj7+zKjoNp3tpMnW
-        87DXJI9amv6R/RvFb508mMFaZoz9NrU=
-X-Google-Smtp-Source: AK7set/RAmbqI1FesqyhuMQk8tRTi0llJuFA681QZtxzRUhtMD0BjqMU5Xzrz5DGZ3/1BhsUsJk87Q==
-X-Received: by 2002:adf:f7c5:0:b0:2c7:bbe:4572 with SMTP id a5-20020adff7c5000000b002c70bbe4572mr18386645wrq.39.1678491834482;
-        Fri, 10 Mar 2023 15:43:54 -0800 (PST)
+        bh=uor2GF1AlVmZTmFYu1Ia++fFARoIM/8tG5baX9RdrDY=;
+        b=ThCzRm9LipCkMbQXiVzfhFRMhvWKNveuXPQGxIpt3fehOV9J5IHK2DLcBtmkfzWCu1
+         Ge6Roy2dOnrZrVQwsJqLAlSVpEavS/TtoCN+M40thdubp7YgIh+C2A2C5UEtV9s7KhIz
+         gCTtYGUIlMmoyKwEkg6hTttXmGHipjKkoas3TrNUyQPDWBov0K3cb2nOgqRRnxaByhSQ
+         psJWb9pe2DH3ikfZGl+3CDwpOuIEz3PqVD8j5jujgLoVyNgAYUkVg1woYjHf2VpcdgkA
+         qziC0VhWuBJnHiEi3oFHMjX/wr1loAbPgPYQqAFShdu/rEUIYNJpVoTqkYHU5SKedZ7y
+         D0Nw==
+X-Gm-Message-State: AO0yUKWLu3U7EpjVPUXHp26uJGmPbbtvJQY/ounL81X5gvQ10GuoojmG
+        WD44QyMOYQ8u2l7jVAwoIAPZm2fTIXc=
+X-Google-Smtp-Source: AK7set/nwZUtnlQ4TMz9spUGy1v1SKro9q/6rpTy85s7q/fKXdphBE6UBR6H+qyp2GmdBvn5mvMK0Q==
+X-Received: by 2002:a05:600c:45d3:b0:3eb:39e0:3530 with SMTP id s19-20020a05600c45d300b003eb39e03530mr4241136wmo.41.1678496873625;
+        Fri, 10 Mar 2023 17:07:53 -0800 (PST)
 Received: from [192.168.0.160] ([170.253.51.134])
-        by smtp.gmail.com with ESMTPSA id p8-20020a5d4588000000b002c54536c662sm913714wrq.34.2023.03.10.15.43.53
+        by smtp.gmail.com with ESMTPSA id k26-20020a05600c1c9a00b003dfe549da4fsm1478747wms.18.2023.03.10.17.07.52
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 10 Mar 2023 15:43:54 -0800 (PST)
-Message-ID: <cd2dcfa2-9779-64ac-80a0-0288469b77e7@gmail.com>
-Date:   Sat, 11 Mar 2023 00:43:53 +0100
+        Fri, 10 Mar 2023 17:07:53 -0800 (PST)
+Message-ID: <f26f973b-a856-5846-c027-048d973fa1ef@gmail.com>
+Date:   Sat, 11 Mar 2023 02:07:42 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
-Subject: Re: [PATCH] standards.7: ffix
-Content-Language: en-US
-To:     Jakub Wilk <jwilk@jwilk.net>
-Cc:     linux-man@vger.kernel.org
-References: <20230310134959.6667-1-jwilk@jwilk.net>
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20230310134959.6667-1-jwilk@jwilk.net>
+Subject: Re: Example code at the manpage of strtok produces segmentation
+ fault.
+To:     Leon Breidt <lebr1004@stud.hs-kl.de>
+Cc:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
+References: <e6bbc992874d4b1eabedc70a59032283@stud.hs-kl.de>
+Content-Language: en-US
+In-Reply-To: <e6bbc992874d4b1eabedc70a59032283@stud.hs-kl.de>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------SV8MIIeqvVLLG52L1YcEkFzt"
+ boundary="------------0W6011jtBq9IDcuQ8oWCjbGh"
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
@@ -75,76 +76,186 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------SV8MIIeqvVLLG52L1YcEkFzt
-Content-Type: multipart/mixed; boundary="------------a6PfMzAaaZLJQ7oRwZZltXvo";
+--------------0W6011jtBq9IDcuQ8oWCjbGh
+Content-Type: multipart/mixed; boundary="------------oECKiMh3Hs0rHk4PnnDty9j3";
  protected-headers="v1"
 From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Jakub Wilk <jwilk@jwilk.net>
-Cc: linux-man@vger.kernel.org
-Message-ID: <cd2dcfa2-9779-64ac-80a0-0288469b77e7@gmail.com>
-Subject: Re: [PATCH] standards.7: ffix
-References: <20230310134959.6667-1-jwilk@jwilk.net>
-In-Reply-To: <20230310134959.6667-1-jwilk@jwilk.net>
+To: Leon Breidt <lebr1004@stud.hs-kl.de>
+Cc: "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>
+Message-ID: <f26f973b-a856-5846-c027-048d973fa1ef@gmail.com>
+Subject: Re: Example code at the manpage of strtok produces segmentation
+ fault.
+References: <e6bbc992874d4b1eabedc70a59032283@stud.hs-kl.de>
+In-Reply-To: <e6bbc992874d4b1eabedc70a59032283@stud.hs-kl.de>
 
---------------a6PfMzAaaZLJQ7oRwZZltXvo
+--------------oECKiMh3Hs0rHk4PnnDty9j3
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi Jakub,
+Hi Leon,
 
-On 3/10/23 14:49, Jakub Wilk wrote:
-> Signed-off-by: Jakub Wilk <jwilk@jwilk.net>
+On 3/10/23 06:09, Leon Breidt wrote:
+> Dear Mr. Kerrisk, dear Mr. Colomar,
+>=20
+>=20
+> I am a student at the university of applied sciences of Kaiserslautern,=
+ Germany. I am currently working on some code for a class using c, in whi=
+ch I needed to split some char arrays.
+>=20
+>=20
+> I tried to understand the functionality of strtok using the manual and =
+found a code example which seemed helpful. However, simply copy-pasting i=
+t, compiling it and executing the example usage produces a segmentation f=
+ault. Particulary annoying is this as the code was used in answers on sta=
+ckoverflow, and continues to spread its false message from there...
+>=20
+>=20
+> Steps to reproduce:
+>=20
+> - execute: man strtok
+>=20
+> - copy the code from the section "EXAMPLES"
+>=20
+> - paste it into a new file "main.c"
+>=20
+> - execute "gcc main.c"
+>=20
+> - execute the example usage given in the manual: ./a.out 'a/bbb///cc;xx=
+x:yyy:' ':;' '/'
+>=20
+>=20
+> =3D> Segmentation fault instead of the output described in the man page=
+=2E
 
-I see you're following the discussion about standards :)
+I can't reproduce that[1].  Could you please confirm if you can build and=
+ run
+the program as shown below using the build system (Makefile)?
 
-Patch applied.  Thanks!
+>=20
+>=20
+> I would be more than happy to create a better usage example, but I am u=
+ncertain how to submit a patch via E-Mail. I've never done this before. W=
+ill it be sufficient to send you the code of a new, hopefully better/fixe=
+d version via E-Mail?
+
+Sure, if you can't send a patch, something like that should be good.
+
+Nevertheless, I encourage you to learn to send patches through email.
+It's not so difficult.  I guess you know how to use git(1).  If you do,
+the simplest thing you can do is to paste the output of `git diff` (or
+a similar command) into an email.  Once you can do that, you can learn
+git-format-patch(1) and git-send-email(1), which would allow me to
+apply the patch directly from the email, without having to copy+paste,
+but git-diff(1) should be enough for a start.
+
+>=20
+>=20
+> Kind regards,
+>=20
+> Leon Breidt
+
+Kind regards,
 
 Alex
 
-> ---
->  man7/standards.7 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/man7/standards.7 b/man7/standards.7
-> index 3073025fd..54dd2eb30 100644
-> --- a/man7/standards.7
-> +++ b/man7/standards.7
-> @@ -132,7 +132,7 @@ describing real-time facilities
->  for portable operating systems, ratified by ISO in 1996
->  .RI ( "ISO/IEC 9945-1:1996" ).
->  .TP
-> -.B POSIX.1c " (formerly known as \fIPOSIX.4a\fP)"
-> +.BR POSIX.1c " (formerly known as \fIPOSIX.4a\fP)"
->  IEEE Std 1003.1c-1995, which describes the POSIX threads interfaces.
->  .TP
->  .B POSIX.1d
+
+
+[1]:
+
+alx@debian:~/src/linux/man-pages/man-pages/main$ make build-src -ij >/dev=
+/null 2>&1
+alx@debian:~/src/linux/man-pages/man-pages/main$ make build-src -tj
+alx@debian:~/src/linux/man-pages/man-pages/main$ touch man3/strtok.3
+alx@debian:~/src/linux/man-pages/man-pages/main$ make build-src V=3D1
+MKDIR	tmp/src/man3/strtok.3.d
+mkdir -p tmp/src/man3/strtok.3.d
+touch tmp/src/man3/strtok.3.d
+SED	tmp/src/man3/strtok.3.d/strtok.c
+<man3/strtok.3 \
+sed -n \
+	-e '/^\.TH/,/^\.SH/{/^\.SH/!p}' \
+	-e '/^\.SH EXAMPLES/p' \
+	-e "/^\... SRC BEGIN (strtok.c)$/,/^\... SRC END$/p" \
+| man -P cat -l - \
+| sed '/^[^ ]/d' \
+| sed 's/^       //' \
+>tmp/src/man3/strtok.3.d/strtok.c
+CC	tmp/src/man3/strtok.3.d/strtok.o
+cc -c -isystem /usr/include/bsd -DLIBBSD_OVERLAY   -std=3Dgnu17 -Wall -We=
+xtra -Wstrict-prototypes -Wdeclaration-after-statement -Werror -Wno-error=
+=3Dunused-parameter -Wno-error=3Dsign-compare -Wno-error=3Dformat -Wno-er=
+ror=3Duninitialized  -o tmp/src/man3/strtok.3.d/strtok.o tmp/src/man3/str=
+tok.3.d/strtok.c
+LD	tmp/src/man3/strtok.3.d/strtok
+cc -std=3Dgnu17 -Wall -Wextra -Wstrict-prototypes -Wdeclaration-after-sta=
+tement -Werror -Wno-error=3Dunused-parameter -Wno-error=3Dsign-compare -W=
+no-error=3Dformat -Wno-error=3Duninitialized  -Wl,--as-needed -Wl,--no-al=
+low-shlib-undefined -Wl,--no-copy-dt-needed-entries -Wl,--no-undefined  -=
+o tmp/src/man3/strtok.3.d/strtok tmp/src/man3/strtok.3.d/strtok.o -lc -lb=
+sd =20
+alx@debian:~/src/linux/man-pages/man-pages/main$ tmp/src/man3/strtok.3.d/=
+strtok
+Usage: tmp/src/man3/strtok.3.d/strtok string delim subdelim
+alx@debian:~/src/linux/man-pages/man-pages/main$ tmp/src/man3/strtok.3.d/=
+strtok a.s,q.w,z.x . ,
+1: a
+	 --> a
+2: s,q
+	 --> s
+	 --> q
+3: w,z
+	 --> w
+	 --> z
+4: x
+	 --> x
+alx@debian:~/src/linux/man-pages/man-pages/main$ tmp/src/man3/strtok.3.d/=
+strtok 'a/bbb///cc;xxx:yyy:' ':;' '/'
+1: a/bbb///cc
+	 --> a
+	 --> bbb
+	 --> cc
+2: xxx
+	 --> xxx
+3: yyy
+	 --> yyy
+
+
+If it crashes for you running these commands, there might be something wr=
+ong
+either in the page or in your system.
+
+If it works, then the problem is probably in the way you copied it.  Do y=
+ou
+see any warnings from the compiler?
+
 
 --=20
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
---------------a6PfMzAaaZLJQ7oRwZZltXvo--
 
---------------SV8MIIeqvVLLG52L1YcEkFzt
+--------------oECKiMh3Hs0rHk4PnnDty9j3--
+
+--------------0W6011jtBq9IDcuQ8oWCjbGh
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQLwLkACgkQnowa+77/
-2zL9cA/9HNBw2p/cGr/aGN3ykH5jmJk+xZHN8mCVQgZsg+bTRmqIjwBpt53NxYj9
-inZUUiZGnExdxB1AJmtpOzW9Ep5QmlZp9xAW0kdSOTaTFshtofvMxdVCNFGeDImo
-Qs6+h5g8YcdTnTXvlOwwaRS7EAEy6rEXQ0CaA/bLzgtj2UatW4m9sBW65YznZJ8I
-H9b1NghtxOGG8vCT8PR+O0D6eAD1GxgyxaW7VJCWAtTbcUwfC4awHsk4DmDf5nIS
-mQOZmLSBFYIx6c54TxTJp+AQ+K2znfQkgVIRBximc3c87MIs5Ja/yivjP0AQH4Ng
-rOHzRMsu9Mp1mfmlgqilRmG6VVHGsyhFC57DHSE7a5qy42pYLUAk5pWApiBcDCCy
-Eg8PTVA5b8FtYqfhb1n0Czgo+FoXEO0zcKBedugGg0I0FMyxihH/VNvdbMTBCSGY
-T+eyRrH+E70BPVhNvPhJUuWPdi+jV1tXLgITHnw0RY7Sa7pKzKsBEFuWvEg4Ajqw
-kfNV1dAE9Y/eqafjlUVaq9UfamM9/fwo5PETpPMOA223s3o3C/rLC4fRTmUQKJQ4
-yBkI/fXiFoTW0M9y42ue3Ra5jlZBpmzJai2+Xhh4ba2FVkDoUXfyytgP5Z7Mj2r1
-J2tt3BCRl1PpFVyP19v98dRBAn0dh/m5QGuMJaY3RNWsm1/Fz1w=
-=uzhB
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQL1F4ACgkQnowa+77/
+2zJFsA//VzH/5kK09NuvH19uXnzA9HveUDmCO+f/r8fb1cvZSJ+Tkl2pgMFDckXs
+My2cIgEVRnPJ+0a3V6YKuAFpbLBmmBXy58Ceb4yGBl1lD4ZM0D675Vn8caZPRSjH
+288PNkd2Bp3wzvvIW3s8mthI2ihFe1TxoBOFTFZQgJd185bhfqHHNtvdzYr+VfxF
+FbmhoC9Loe1BA+plFUyPdlkBju70GFUc73zYi/X9zD3fCM9pavk+Rgmt1k8cv7QG
+RQ5ZsfBnPpdah9Ht2ir46g5/0b8WhsgfY9aBekWwbddM0uXhVd1h/gGojvE09qFW
+BrtImlJvNbBot1IlBBM4EKSj7G9ggIHSIRQCGRq20F1LCh0Oe514EKH62OeipsEl
+XXE3A0HZJwsLDnprwno+Kzpyn+E34qGiySoFinCF3Xyjua8pQ1PziTVcLJkIi4bF
+LczIhn55dO7fGydYHgKOmZOLdEMIW/oqIA+vcrU2uYC8Rar+Oeqx+Fabh8czI7vE
+FRW63QlhvZ8rvIUW/UVTmPGkyG6ghDPqkR0RxHh4TcsL6aXebyCHccvmhZZJz1Qq
+cPbj7YSGqdKk1XGHTMr0aBBaeic5+N0bffsF1tecjiU5ZXM3hcxk4InbcDyvXEVK
+Nv/o1jL4/aXF5IMgPv8bNljMyLE9tCg0CGQtxtwB+ncGj5/NiEU=
+=0Wll
 -----END PGP SIGNATURE-----
 
---------------SV8MIIeqvVLLG52L1YcEkFzt--
+--------------0W6011jtBq9IDcuQ8oWCjbGh--
