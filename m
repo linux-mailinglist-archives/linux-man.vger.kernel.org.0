@@ -2,68 +2,70 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 14FB36B620B
-	for <lists+linux-man@lfdr.de>; Sun, 12 Mar 2023 00:27:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 9CD586B620C
+	for <lists+linux-man@lfdr.de>; Sun, 12 Mar 2023 00:29:52 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229493AbjCKX1m (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 11 Mar 2023 18:27:42 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51544 "EHLO
+        id S229704AbjCKX3v (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 11 Mar 2023 18:29:51 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55982 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229450AbjCKX1l (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 11 Mar 2023 18:27:41 -0500
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com [IPv6:2a00:1450:4864:20::335])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3B25D4DBE3
-        for <linux-man@vger.kernel.org>; Sat, 11 Mar 2023 15:27:40 -0800 (PST)
-Received: by mail-wm1-x335.google.com with SMTP id j3so5660948wms.2
-        for <linux-man@vger.kernel.org>; Sat, 11 Mar 2023 15:27:40 -0800 (PST)
+        with ESMTP id S229655AbjCKX3v (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 11 Mar 2023 18:29:51 -0500
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com [IPv6:2a00:1450:4864:20::436])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DAE1852F7C
+        for <linux-man@vger.kernel.org>; Sat, 11 Mar 2023 15:29:48 -0800 (PST)
+Received: by mail-wr1-x436.google.com with SMTP id f11so8194039wrv.8
+        for <linux-man@vger.kernel.org>; Sat, 11 Mar 2023 15:29:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1678577258;
+        d=gmail.com; s=20210112; t=1678577387;
         h=in-reply-to:from:references:cc:to:content-language:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=/rJi9ed6O1VyPfp/Rz4KvabopmQM/V8GnUxx5Bn6ILk=;
-        b=os/cvXhj/hhevcanLpxzealzduN4pb+ICaVi6YumpUSfIJT9pHAlZxSdF2wQpibDh9
-         Ip83Y5wE3pM9UUQCiEeW0qF5Hzr692lYxf8et/N21dgbLsOYyOFwn5b94Nt4U0L03TR1
-         WgX22MKsbJuKmW1M29PzQ1KtO1A3A93g8gKStiXcGhNdecBAvSYD4446e1I60aRRVIAl
-         u+XmzLuHyDowsW0M+h5bRlaw4UJ1wa8Q4vzfGY+VeyDsJ+mp4E05W4u4VorsvfC50gyY
-         FKrQMzpGFm1zjV5qhaU99dztcGx2dOuPaVhVE/+zpsK4wq+sGzUBdO2Kj4Pj3Oya/Hml
-         SIrA==
+        bh=5UABPxcBepGFVvGmwc9M3c81zl1uQ1ZNl+BrlZdGzF8=;
+        b=S51kniQwf6F4TpwURExnTtK7PD48WikfWeTTmgPMI3B6tKY6KOMTbPkpu+fgcXvlyi
+         izuoDJF9xywrXfECazP4ITEb4qzbjnZq9hsVRyvTehpgPvz1cakXwUiw/qb/oOLcNu9D
+         NyaUvlTs86GH91VrDZgizhl1YooU8bv9DJEiU+JszkEW2NUIqOu3i9SynlUHaAZJDMW2
+         QUdToQgDiNL/5f/LZzDVHW4NoJe3pRIRZEo/cuR8EzgUL2XfY8ZeeJ40pOJZo0TIgboT
+         DSRn84heTViL8/iq3CeVDNvSluaGHOdi5sbIK10J6umnBSd+ZNbXFsTI3iOgPC0p7O9k
+         jz2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678577258;
+        d=1e100.net; s=20210112; t=1678577387;
         h=in-reply-to:from:references:cc:to:content-language:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=/rJi9ed6O1VyPfp/Rz4KvabopmQM/V8GnUxx5Bn6ILk=;
-        b=Q8NqWozQhpb7qoIFHEHeNeizcVty8VERXQ2QQx3uDYQUXptxghIsLgKkl9dun0ilf5
-         Ggf/7Pil/ey6g7Mv7V2eEUD8fC9DGK9m7J3tDyPsi3sR2tZDjm22OZ1rdD9qu7Fgz19o
-         hcfVJE/FaTZflBaK/TfY/tbmrE8X1NJIfI1E8JQNy6ueowwz9L99AJPeAjo4gFjnP8JZ
-         4PRpLnxgFq7Pnec7spKjp32WKjp3YAb7dR3tSflV2Lvv12tcatKmPzM3MxZcH0lr/mxS
-         6CI8g9AmPUSZDAX3f4bqQWxYuTR3xzbGv+b+11vmORKBWaie9dQiCq91Av20xXwC2iyK
-         loqQ==
-X-Gm-Message-State: AO0yUKWofciMYfHadZDrxH7FCWVoR4JwBAlk46EOBqn4ZZQFOrgoZDGR
-        ckLDDXo7gq/Hym60K1oM/FU=
-X-Google-Smtp-Source: AK7set9gk6OT4C3FwLGqKOfYTv23b1h8pHGsxHWGDw2zjkFOmlBNxzQ9fmWYBwfVo0k8AtfIQIYFSg==
-X-Received: by 2002:a05:600c:3ca2:b0:3eb:3104:efec with SMTP id bg34-20020a05600c3ca200b003eb3104efecmr7079318wmb.16.1678577258659;
-        Sat, 11 Mar 2023 15:27:38 -0800 (PST)
+        bh=5UABPxcBepGFVvGmwc9M3c81zl1uQ1ZNl+BrlZdGzF8=;
+        b=Dn9skHL1BZAuhDhTiTwHjb8VFfbQ4G2Jjt2Gfyj0ai06tk9LRPvzFaqSHCutVdjtv9
+         FlA8c2rg7p/mMXKxzsLxy8xFFxKOUYgN1IPs6S8/UT1JMy2n4kZWa8peAOhp4hovD9k4
+         TXfnLuy7+eZalZg7Vj/H9xeAYUTQZ7G5iAHCR2L3Xd8zVARUCXCWFs4BozzcHhf6Wszh
+         OFIEz4xFDmbmqdLgMr+XYop0JTwn5SANN0WBVjIzyWAuPJ7cVyrF4swo9crAch9nLS6S
+         JYysq/eHJEk7oFn5YrN+bNOlOQ5DVL1zpMx2QfvspHLMfQwn4MSG+6FoQEiJhZWUhPDz
+         AHOw==
+X-Gm-Message-State: AO0yUKXGdZ8o+i1V4QTgC1b2hDqR12qUYo+qrO2nY3RbeakBFVCMhHi4
+        R9fVUqAyTzOaQ5j7Qzh0nTo=
+X-Google-Smtp-Source: AK7set+zXoVzbBQxpWyt9TBhkgQD690VmoeGe0P/6jWcRI2Hf1OJK7lqbSaIFB0Kgmilz3sU7HgEmQ==
+X-Received: by 2002:a5d:4b04:0:b0:2c5:3cfa:f7dc with SMTP id v4-20020a5d4b04000000b002c53cfaf7dcmr21575634wrq.7.1678577387318;
+        Sat, 11 Mar 2023 15:29:47 -0800 (PST)
 Received: from [192.168.0.160] ([170.253.51.134])
-        by smtp.gmail.com with ESMTPSA id p14-20020a5d4e0e000000b002cde626cd96sm3594645wrt.65.2023.03.11.15.27.37
+        by smtp.gmail.com with ESMTPSA id g14-20020a05600c310e00b003e8dcc67bdesm4230883wmo.30.2023.03.11.15.29.46
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 11 Mar 2023 15:27:38 -0800 (PST)
-Message-ID: <f4fd4e46-7129-0f0b-519b-54ae39e2aba8@gmail.com>
-Date:   Sun, 12 Mar 2023 00:27:36 +0100
+        Sat, 11 Mar 2023 15:29:46 -0800 (PST)
+Message-ID: <5f55b64b-0cdf-6a2f-3af8-b9dd9e8ff070@gmail.com>
+Date:   Sun, 12 Mar 2023 00:29:45 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
-Subject: Re: Issue in man page charsets.7
+Subject: Re: Dear linux man-pages maintainer,
 Content-Language: en-US
-To:     Helge Kreutzmann <debian@helgefjell.de>
+To:     Seth David Schoen <schoen@loyalty.org>,
+        Helge Kreutzmann <debian@helgefjell.de>
 Cc:     mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-References: <20230311171358.GA5005@Debian-50-lenny-64-minimal>
+References: <20230311171354.GA4709@Debian-50-lenny-64-minimal>
+ <20230311185634.GA441010@demorgan>
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20230311171358.GA5005@Debian-50-lenny-64-minimal>
+In-Reply-To: <20230311185634.GA441010@demorgan>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------j00ntXirNugBMi7FL75ST4iW"
+ boundary="------------FQvIN0uCnishXM6Axan9n2tt"
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
@@ -75,71 +77,84 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------j00ntXirNugBMi7FL75ST4iW
-Content-Type: multipart/mixed; boundary="------------HXfiEy5oavmtSRxY8UHjLBHo";
+--------------FQvIN0uCnishXM6Axan9n2tt
+Content-Type: multipart/mixed; boundary="------------UGaXfxsbD8WwhL67GD4KEG2X";
  protected-headers="v1"
 From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Helge Kreutzmann <debian@helgefjell.de>
+To: Seth David Schoen <schoen@loyalty.org>,
+ Helge Kreutzmann <debian@helgefjell.de>
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Message-ID: <f4fd4e46-7129-0f0b-519b-54ae39e2aba8@gmail.com>
-Subject: Re: Issue in man page charsets.7
-References: <20230311171358.GA5005@Debian-50-lenny-64-minimal>
-In-Reply-To: <20230311171358.GA5005@Debian-50-lenny-64-minimal>
+Message-ID: <5f55b64b-0cdf-6a2f-3af8-b9dd9e8ff070@gmail.com>
+Subject: Re: Dear linux man-pages maintainer,
+References: <20230311171354.GA4709@Debian-50-lenny-64-minimal>
+ <20230311185634.GA441010@demorgan>
+In-Reply-To: <20230311185634.GA441010@demorgan>
 
---------------HXfiEy5oavmtSRxY8UHjLBHo
+--------------UGaXfxsbD8WwhL67GD4KEG2X
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi Helge,
+Hi Seth, Helge,
 
-On 3/11/23 18:13, Helge Kreutzmann wrote:
-> Without further ado, the following was found:
+On 3/11/23 19:56, Seth David Schoen wrote:
+> Hi Helge,
 >=20
-> Issue:    ISO =E2=86=92 ISO/IEC
+> I am not the maintainer or anything, but I think it's great that
+> translators give feedback on the original text.
+>=20
+> I have two disagreements with your changes:
+>=20
+> (1) You proposed correcting "null byte" to "NUL byte".  However, "null
+> byte" is a standard way to refer to a byte with the numerical value of
+> zero.  This byte is also the same as the ASCII character NUL; it could
+> be regarded as the "encoding" of that character.
 
-I've already seen several reports about ISO -> ISO/IEC in several pages
-from several people.  I'd like someone who knows about these standards
-to take a look at all the man pages and suggest a global fix about this.
+Agree.
 
-Thanks,
+>=20
+> (2) You proposed correcting "runlevel" to "run level".  The word
+> "runlevel" is a coinage by operating system developers; in ordinary
+> English it would indeed have to be two words, but it's common to write
+> it with no space in this context.
+
+About this, in the Linux man-pages we tend to favor correct English,
+and not words like runlevel or userspace.  So, when it is a noun it
+is run level, and when it's an adjective, it's run-level.  I'll have
+a look at it, and see what needs fixing.
+
+Cheers,
 
 Alex
 
 >=20
-> "The ISO 2022 and 4873 standards describe a font-control model based on=
- VT100 "
-> "practice.  This model is (partially) supported by the Linux kernel and=
- by "
-> "B<xterm>(1).  Several ISO 2022-based character encodings have been def=
-ined, "
-> "especially for Japanese."
+> https://en.wikipedia.org/wiki/Runlevel
 
 --=20
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
---------------HXfiEy5oavmtSRxY8UHjLBHo--
+--------------UGaXfxsbD8WwhL67GD4KEG2X--
 
---------------j00ntXirNugBMi7FL75ST4iW
+--------------FQvIN0uCnishXM6Axan9n2tt
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQNDmkACgkQnowa+77/
-2zIxIBAAil5FGQs/gv05mcqbk7ggQy8qlrpsty2RBUIN1SEowYYfgr4JgnKx/oEu
-TxhQwumo1Z644YILRGjCRhl8ZccsAdubpEc7bcKP71t651goaaUXvS3PN1kytlZO
-dPyGmwrfihyF5oMTx2atu2dzjpTspFjwWvEt2eR2TzZZ3SqqJzRDhFN+pt5r8INF
-O+r0ajrzaY4A+GRruWLj79cwWqX12OLoGJ6Cx6BhjA/kq40F11vPjv1gQn9TC8DN
-deWjz1JytnNuBKvk153d93GUQacVVXW29pcz2b5FH/d1VY6PlP0TnhhmIIJt7vqy
-aDX0nShOqA0BvogxvoCa2eslhcHW+kgarb6otvnvfsPwu961m0a3vaePHnuccBgG
-w8EoGcR7zKBPnxGEcZH65Pgvhim9xyKSBIxBcjTcKQTPI7zi3smWjO3zi2g3zJ3s
-V7IIftnouVg2CU1fEUnRtRl2BTrtcI7psdze7GghjNa13UaDsHWNMhI0nSy8fQnD
-mMexOA2t8gM/VlwQ5C1ub8+A5EikCweyHfu2IeTCUWKzmoC6ZvwhnSXpnWH/TMQn
-jqxH1l5jRJCsC77KGVZIa1lB5yS5jmZTVwKt7qaM86lP+mIECSkGQTAYHI+yGoOO
-HRofqVsyfWm5tC9rhYLeUU6GMQBcYM3Cy2kIlrhYGL90XGSf/XA=
-=gPVl
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQNDukACgkQnowa+77/
+2zIKHg/8DYJAHVdEc+VJpWbVxQFpQLaw3XIHev3fe7gLwEJRMkE6NCI+eLXB7wY4
+O7FHdiuorBoStM6h8Ky3H64wdv6/2TqgTjq7uifZBWNdd58Q3GJ+WNeln8sQI+Gg
+qNMn8Km/7XO9UT8OTD0vTd7ldTMS+pPWyvuqHZti2iOiQp65EvY33PIH6rqPiFvP
+HoiSs/1WOHL+0NetJ4dejdl3VZEUCzn7enO0MyfytgfLlrgdGKq28e3JzKiUOLGJ
+q5UvKSRQuDuo23AZPqeI67tT1BIIVMjoOjSNtT+2306p+GAxfcwqzS7cYLQNpAAp
+Q7NzV710E0VFeqdpul8XRbiPi3dcWT5nVNZTsMls1LItfnl+lJc7c/fgJTraajsW
+CbYyBQ76/5+qETGmQZeRCuLjX4sujk/HsENPAK0Igf4gcb8+GYqrQVnmMjgqa/ZJ
+g6+Ypn4GL63lByD50lvjBM/6CUq2lVcFjBfx3AjDNmL633bhRugzNkQRCi7cWATY
+rPfUKQae/avVg2ypfxOYTO3jOQDIVN7SQTrFY9fuj+TL8VrfxLhpVORGzI2EiI26
+mZK/j+uuZa1eMOuXx6k8Dd4AT0vBGv65JihOkXs54qxeV/AZoTmWJ3No9lkvVlPU
+JnWbIbpFx4l1ILqYgLPPpiq5dKKWDJRdV2yMJKvmOuPKGXoVPR8=
+=COMb
 -----END PGP SIGNATURE-----
 
---------------j00ntXirNugBMi7FL75ST4iW--
+--------------FQvIN0uCnishXM6Axan9n2tt--
