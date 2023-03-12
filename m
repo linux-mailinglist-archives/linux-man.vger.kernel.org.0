@@ -2,65 +2,76 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 5E3F76B652E
-	for <lists+linux-man@lfdr.de>; Sun, 12 Mar 2023 12:03:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 76B396B6530
+	for <lists+linux-man@lfdr.de>; Sun, 12 Mar 2023 12:05:53 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229562AbjCLLDS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 12 Mar 2023 07:03:18 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58572 "EHLO
+        id S229585AbjCLLFw (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 12 Mar 2023 07:05:52 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33946 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229877AbjCLLDO (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 12 Mar 2023 07:03:14 -0400
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com [IPv6:2a00:1450:4864:20::331])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EC5FA222CF
-        for <linux-man@vger.kernel.org>; Sun, 12 Mar 2023 04:03:12 -0700 (PDT)
-Received: by mail-wm1-x331.google.com with SMTP id ay8so866916wmb.1
-        for <linux-man@vger.kernel.org>; Sun, 12 Mar 2023 04:03:12 -0700 (PDT)
+        with ESMTP id S229515AbjCLLFv (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 12 Mar 2023 07:05:51 -0400
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com [IPv6:2a00:1450:4864:20::434])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 06DCE39BB9
+        for <linux-man@vger.kernel.org>; Sun, 12 Mar 2023 04:05:50 -0700 (PDT)
+Received: by mail-wr1-x434.google.com with SMTP id t15so8833270wrz.7
+        for <linux-man@vger.kernel.org>; Sun, 12 Mar 2023 04:05:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1678618991;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=kcDblhdUVX9Z8kZuoqutHE7z4xHm5CshB+AdIxn0vSc=;
-        b=quTGcu1QyBo3zNIWyIkQsiT9FhL6UQkV6snGEIe8Nt5UFgEFYcNyyG2xBamX/ifdWD
-         JomXr8l6si1xHOBbSMhN4ZtPOl2Rwj8ZtNOccQozNUuBbxi4AxCbVMIQxU1JPP+1s8l2
-         BXw77zRXurChv97WR32bj3yZh77m/t9tjyhsVg3xLyDD3THCu4wFX+IB9Od4TcSY79Lb
-         x4gGcfJFQql8KMS9KMW05FkaJmhH7E2uu9GBN8jePM11VmfwxdktpXx7kYB8plI/wBT7
-         xJ9rpvqxvPho5lEU/lDCa8pJGr9IaKIFt0vrWN9NDGx/gwhEtUQy3l18h4M8TQCNyS2p
-         +scw==
+        d=gmail.com; s=20210112; t=1678619148;
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=vJ0NplS+/S80TxUTCcDkYouQcYFBHEJvVKP60mpORfI=;
+        b=AWBSg5ibn4DA1IqaD6lWY5vU8MV4K07rkfVgT8L4PSF5ZyO6Ux525wrdrAFouQmPbq
+         L4REAhJs7nTvI68tusPOlITBtZa+sxZ9kcyZk7rIJepQk4kBUI7TMHenc/XJi8cIxPYJ
+         Ro35NMGiYXfyg/rgcwRsbJqgR6igiJ00vh2mwimfa2xwn5G4oC7reNRJtZ4Im2wZz2kY
+         oUjnOZ15Rnj+WV7TbBcuUgFecN8vm3o+BvE23rpPLKpll6yFzfu/S/mLfnKH1H/XiC99
+         OnsCvnJNbZ6Wv2vuZqZBxp0yxbIYcxe+vToX/MeVrN2rhJ4x1kAjQ2CurBMAGY9vI6bA
+         Mj8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678618991;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=kcDblhdUVX9Z8kZuoqutHE7z4xHm5CshB+AdIxn0vSc=;
-        b=hutLOGmB4FCaqENPxidfilOg4wS7Y6W6UMTIhwmM+bwCHY8BASUONYwpxGa+Xo1PBV
-         PrsaAcUcSB0N9r0W1LtqbzSnJpJI1w9Q64Paxv3W+ZPl94FbgZiSLJ2qWTDHs+UKsfVJ
-         tMJNA8cOGLJX2Z1M2rC4R03YDMHynfrYmQswoBY5PNuSQ8veeiXe9ELqGW7CoPcuZHDl
-         +dX4S3Qh2iNQhZYfjNP3wsPGc5XYE5kAV7byEjlWjmpO3meEisHLrQXCbFUfScpUxN6V
-         U6MVmK6NGo3j2JMHCuzdTYChYE8XXRFrc53wbtaWxTuQYb9cPbKFW5uZHFgMRT+cWChv
-         8MuA==
-X-Gm-Message-State: AO0yUKXuyrYll3PnuewTCRu9dqEJRL9ui3uxpQMr7Rf1ssjVodQ9HUeM
-        LQHbIkSoqBDptHXC2oAega7oIOF90EY=
-X-Google-Smtp-Source: AK7set+Mk5TFi2fYOUU0Ddpp9/INVEvejsLXtmclj4rYt0Rm3p7BaU3A2lSm5D/iAI/yqUtno5rPOw==
-X-Received: by 2002:a05:600c:45c6:b0:3eb:4cb5:e13 with SMTP id s6-20020a05600c45c600b003eb4cb50e13mr7587419wmo.31.1678618991232;
-        Sun, 12 Mar 2023 04:03:11 -0700 (PDT)
-Received: from asus5775.alejandro-colomar.es ([170.253.51.134])
-        by smtp.googlemail.com with ESMTPSA id u15-20020a5d514f000000b002c563b124basm4830945wrt.103.2023.03.12.04.03.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 12 Mar 2023 04:03:11 -0700 (PDT)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-X-Google-Original-From: Alejandro Colomar <alx@kernel.org>
-To:     linux-man@vger.kernel.org, g.branden.robinson@gmail.com
-Cc:     Alejandro Colomar <alx@kernel.org>, groff@gnu.org,
-        Helge Kreutzmann <debian@helgefjell.de>
-Subject: [PATCH] man7/: ffix
-Date:   Sun, 12 Mar 2023 12:02:04 +0100
-Message-Id: <20230312110203.3898-1-alx@kernel.org>
-X-Mailer: git-send-email 2.39.2
+        d=1e100.net; s=20210112; t=1678619148;
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=vJ0NplS+/S80TxUTCcDkYouQcYFBHEJvVKP60mpORfI=;
+        b=NUbAzDmzTALMen9FNxjq8jZSRt6JTKX26Rm48RB2Xqfc1SMnTeHnyPdhw86dRt6++h
+         JxHplJey8/W0LJCWfoM1+/QRysxwqJ2678EM9PZNMsHkRbzMa1tWsxkAbpezobJ0pE9z
+         nhuN811v9sWACZZWMi33dN4Wp+b4ve9Cm8PAMF4nzRwXYGDhxiAacmu8D0DPlcif7Nsh
+         vZGvscfN1VZC/JzGNzyLIVyXCRGO89ZhkqxfADMpyDW9vkbm/3gsgnwt3CrevLB7Oau9
+         aX/zZnt6FDpyrLj19tntQnnxb3Tfy02MjFRpD+whtEHJvjnzYY8/r6COEQIGyJALA7WE
+         Lirg==
+X-Gm-Message-State: AO0yUKXKZaISLwSH3xPZ5D8SQyWLZxoeAKk5EhuNHbURwzgBr7Nfy9VD
+        cpGQMsPb+pgO+MvxQS7xx6s=
+X-Google-Smtp-Source: AK7set9hS4qhGpVLP1C8NeGpu0RZW5A+aUCcTsgIzoBzFviIUClEViiyimNMZaxTLgs6K+0sSnkcMw==
+X-Received: by 2002:adf:dccf:0:b0:2ce:adfd:9d98 with SMTP id x15-20020adfdccf000000b002ceadfd9d98mr674812wrm.3.1678619148405;
+        Sun, 12 Mar 2023 04:05:48 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.51.134])
+        by smtp.gmail.com with ESMTPSA id p14-20020a5d4e0e000000b002cde626cd96sm4946034wrt.65.2023.03.12.04.05.47
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 12 Mar 2023 04:05:48 -0700 (PDT)
+Message-ID: <cfbeaf79-c6a2-05bd-6618-63aed8482135@gmail.com>
+Date:   Sun, 12 Mar 2023 12:05:40 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: Dear linux man-pages maintainer,
+Content-Language: en-US
+To:     Helge Kreutzmann <debian@helgefjell.de>,
+        Seth David Schoen <schoen@loyalty.org>
+Cc:     mario.blaettermann@gmail.com, linux-man@vger.kernel.org
+References: <20230311171354.GA4709@Debian-50-lenny-64-minimal>
+ <20230311185634.GA441010@demorgan>
+ <5f55b64b-0cdf-6a2f-3af8-b9dd9e8ff070@gmail.com>
+ <20230312052006.GF7927@Debian-50-lenny-64-minimal>
+ <20230312054710.GB441010@demorgan>
+ <20230312060256.GJ7927@Debian-50-lenny-64-minimal>
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <20230312060256.GJ7927@Debian-50-lenny-64-minimal>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------p1P0k4JpClu9KKjadS0uSXdQ"
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -69,50 +80,85 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Signed-off-by: Alejandro Colomar <alx@kernel.org>
----
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------p1P0k4JpClu9KKjadS0uSXdQ
+Content-Type: multipart/mixed; boundary="------------G6DVjVkH0PNAPF0DmAY0fuTm";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: Helge Kreutzmann <debian@helgefjell.de>,
+ Seth David Schoen <schoen@loyalty.org>
+Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
+Message-ID: <cfbeaf79-c6a2-05bd-6618-63aed8482135@gmail.com>
+Subject: Re: Dear linux man-pages maintainer,
+References: <20230311171354.GA4709@Debian-50-lenny-64-minimal>
+ <20230311185634.GA441010@demorgan>
+ <5f55b64b-0cdf-6a2f-3af8-b9dd9e8ff070@gmail.com>
+ <20230312052006.GF7927@Debian-50-lenny-64-minimal>
+ <20230312054710.GB441010@demorgan>
+ <20230312060256.GJ7927@Debian-50-lenny-64-minimal>
+In-Reply-To: <20230312060256.GJ7927@Debian-50-lenny-64-minimal>
 
-Hi Branden,
+--------------G6DVjVkH0PNAPF0DmAY0fuTm
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Should I apply this patch?  I'm not sure if the variable part should be
-bold because it's part of a heading or roman because it's variable part
-within italics.  How would you format it?
+Hi Helge,
 
-Thanks,
+On 3/12/23 07:02, Helge Kreutzmann wrote:
+>=20
+> I just wonder if reporting "errors" like these in man-pages makes
+> sense.
+
+Yes, it makes sense :)
+
+> Looking at this conversion you are very well aware of all the
+> details of English, so my 5 cents are probably more distracting /
+> confusing than helpful?
+
+Nope, not distracting at all.  They help me notice details I didn't
+think of (I've already applied many patches thanks to your reports.
+
+Please continue reporting stuff you find.  If I later discard some
+of them is not a problem.  Some others will help fix things.
+
+> (Though I learn a lot form them).
+>=20
+> Greetings
+>=20
+>         Helge
+
+Cheers,
 
 Alex
 
+>=20
 
- man7/time_namespaces.7 | 2 +-
- man7/user_namespaces.7 | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+--=20
+<http://www.alejandro-colomar.es/>
+GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
-diff --git a/man7/time_namespaces.7 b/man7/time_namespaces.7
-index 708099934..8c31b5f95 100644
---- a/man7/time_namespaces.7
-+++ b/man7/time_namespaces.7
-@@ -56,7 +56,7 @@ .SH DESCRIPTION
- .BR setns (2)
- in order to move into the namespace.)
- .\"
--.SS /proc/\fIpid\fP/timens_offsets
-+.SS \fI/proc/\fPpid\fI/timens_offsets\fP
- Associated with each time namespace are offsets,
- expressed with respect to the initial time namespace,
- that define the values of the monotonic and
-diff --git a/man7/user_namespaces.7 b/man7/user_namespaces.7
-index 6647b02bf..737dd54ad 100644
---- a/man7/user_namespaces.7
-+++ b/man7/user_namespaces.7
-@@ -739,7 +739,7 @@ .SS Interaction with system calls that change process UIDs or GIDs
- .\"
- .\" ============================================================
- .\"
--.SS The /proc/\fIpid\fP/setgroups file
-+.SS The \fI/proc/\fPpid\fI/setgroups\fP file
- .\"
- .\" commit 9cc46516ddf497ea16e8d7cb986ae03a0f6b92f8
- .\" commit 66d2f338ee4c449396b6f99f5e75cd18eb6df272
--- 
-2.39.2
+--------------G6DVjVkH0PNAPF0DmAY0fuTm--
 
+--------------p1P0k4JpClu9KKjadS0uSXdQ
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQNsgQACgkQnowa+77/
+2zKGxg//dSHxIvc20GbJ+nfqBNugMdZ5aSkyHVzVFaPgO4yQ+MN0+L750ZFVsIDr
+5FyKiZ4AXzn97R7ZNlyG7Z8d5I4DyLDzegScSUp+tTb25vaGs9l79SmOi+J3lfCz
+C3u3Ar28/bSruZkzEs/Lr83GP1WfVFJtaEo+jK1B8giONB1ila8QiYKAoLMpfWat
+94wkGKimZ4vAu8U6mgzXrB2tJqmVBFKSqwTdomRPP+k+V3w887VsV25468P+uk3O
+A0crX6ZLEzTR6PBpjDbQnpmvrBybKFhFT7QUml3Ll3JHN5YOzafwadFTOBnzRaqS
+HUn3tD95yP8AbJzZg8jSfRWzotiCX3tQy3maW3LnfsQ3CpsH6uu8RXecIvCtvvOs
+7ZjvTRC39Ab4PNzX9q2tOrXSKy/gabj2BGQtwD3VrL5TgnIAzWokFSd9J0n87ggO
+pZh23cmJfQbQAgZXYfhuV2Dy++VFtHve7cWLfHDydd+YKXEjyefoeaqauSEIlrCI
+jaOYN/ETMu9SEL2z4n8ZPQCS16Fd/x2B1078igrKV0wKwdku2dvdoCb6d0x3bFsE
+40Cts55MOC0e1zJHPH4osd0FmWJFIqx3dTOe6XNWoyK+hy4Kj56j+2HQxHF+7Job
+srCHShF/QEpwiWxqYrVL8MAbewKVG/62SQbAgkA+rVjEP2Dovdk=
+=xIan
+-----END PGP SIGNATURE-----
+
+--------------p1P0k4JpClu9KKjadS0uSXdQ--
