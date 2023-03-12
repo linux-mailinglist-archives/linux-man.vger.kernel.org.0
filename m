@@ -2,36 +2,34 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 4F5186B636E
-	for <lists+linux-man@lfdr.de>; Sun, 12 Mar 2023 07:00:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 89F376B6370
+	for <lists+linux-man@lfdr.de>; Sun, 12 Mar 2023 07:03:41 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229618AbjCLGAR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 12 Mar 2023 01:00:17 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60522 "EHLO
+        id S229642AbjCLGDk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 12 Mar 2023 01:03:40 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35916 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229534AbjCLGAR (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 12 Mar 2023 01:00:17 -0500
+        with ESMTP id S229534AbjCLGDj (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 12 Mar 2023 01:03:39 -0500
 Received: from static.213-239-213-133.clients.your-server.de (luckmann.name [213.239.213.133])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DB8F73B649
-        for <linux-man@vger.kernel.org>; Sat, 11 Mar 2023 22:00:13 -0800 (PST)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 27B233BDA7
+        for <linux-man@vger.kernel.org>; Sat, 11 Mar 2023 22:03:37 -0800 (PST)
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E5403E.00000000640D6106.00007800; Sun, 12 Mar 2023 06:20:06 +0100
-Date:   Sun, 12 Mar 2023 06:20:06 +0100
+  id 0000000000E540D2.00000000640D61D5.00004221; Sun, 12 Mar 2023 06:23:33 +0100
+Date:   Sun, 12 Mar 2023 06:23:33 +0100
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     Seth David Schoen <schoen@loyalty.org>,
-        mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Dear linux man-pages maintainer,
-Message-ID: <20230312052006.GF7927@Debian-50-lenny-64-minimal>
-References: <20230311171354.GA4709@Debian-50-lenny-64-minimal>
- <20230311185634.GA441010@demorgan>
- <5f55b64b-0cdf-6a2f-3af8-b9dd9e8ff070@gmail.com>
+Cc:     mario.blaettermann@gmail.com, linux-man@vger.kernel.org
+Subject: Re: Issue in man page nfsservctl.2
+Message-ID: <20230312052333.GG7927@Debian-50-lenny-64-minimal>
+References: <20230311171355.GA4755@Debian-50-lenny-64-minimal>
+ <730751cc-f526-2378-98ba-36834f4c5d8e@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-30720-1678598406-0001-2"
+Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-16929-1678598613-0001-2"
 Content-Disposition: inline
-In-Reply-To: <5f55b64b-0cdf-6a2f-3af8-b9dd9e8ff070@gmail.com>
+In-Reply-To: <730751cc-f526-2378-98ba-36834f4c5d8e@gmail.com>
 X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
 X-homepage: http://www.helgefjell.de/debian
 User-Agent: Mutt/1.10.1 (2018-07-13)
@@ -47,37 +45,26 @@ X-Mailing-List: linux-man@vger.kernel.org
 This is a MIME-formatted message.  If you see this text it means that your
 E-mail software does not support MIME-formatted messages.
 
---=_luckmann.name-30720-1678598406-0001-2
-Content-Type: text/plain; charset=us-ascii
+--=_luckmann.name-16929-1678598613-0001-2
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
 Hello Alex,
-On Sun, Mar 12, 2023 at 12:29:45AM +0100, Alejandro Colomar wrote:
-> On 3/11/23 19:56, Seth David Schoen wrote:
-> > I am not the maintainer or anything, but I think it's great that
-> > translators give feedback on the original text.
+On Sun, Mar 12, 2023 at 12:31:05AM +0100, Alejandro Colomar wrote:
+> On 3/11/23 18:13, Helge Kreutzmann wrote:
+> > Without further ado, the following was found:
 > >=20
-> > I have two disagreements with your changes:
-
-> > (2) You proposed correcting "runlevel" to "run level".  The word
-> > "runlevel" is a coinage by operating system developers; in ordinary
-> > English it would indeed have to be two words, but it's common to write
-> > it with no space in this context.
+> > Issue:    mountd(8) =E2=86=92 B<mountd>(8)
 >=20
-> About this, in the Linux man-pages we tend to favor correct English,
-> and not words like runlevel or userspace.  So, when it is a noun it
-> is run level, and when it's an adjective, it's run-level.  I'll have
-> a look at it, and see what needs fixing.
+> We don't use that formatting in example code.
 
-Sigh, learning more and more the finer details of English.
+I think I saw it elsewhere, but then probably from one of our ~ 100
+other projects.
 
-I just wonder, since these are technical documents, if this is
-supporting understanding or reducing it? Personllay I prefer one word
-for one concept.
-
-Just to complete the picture: Is "runlevel" (i.e. one word) ever
-correct?
+(And again, for hyperlinking etc. I think it can be helpful; I just
+checked, even with formatting I can simply copy that code out - so
+there is not disadvantage?)
 
 Greetings
 
@@ -89,25 +76,25 @@ Greetings
         64bit GNU powered                     gpg signed mail preferred
            Help keep free software "libre": http://www.ffii.de/
 
---=_luckmann.name-30720-1678598406-0001-2
+--=_luckmann.name-16929-1678598613-0001-2
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmQNYQYACgkQQbqlJmgq
-5nB/rA//Uu8aMtj+m1w9DWS2VP+E9dKfu3uFrWacPYp7rp2ondz0p2DdiWJI/0+c
-q2/vjmD1QB4tNvjSoYAIMUY4d99Zy7mTpa1opIzIdFASgSKwHyTEDgyueOKdoISH
-jz6LpPnLKx1bezAt15nmnyLqu5DeLbpU+fFmzq8W4X+THF89bFwLh/4RnBBK/PI1
-akr1a6gc2OFGRpcTB2UK4y5VtL8K6LgJmAdIxHoHy3ySf+ERzxjLELzxR0X4kkqb
-erDpzuMIK6IqYowrvJHQpOrrxgOwwViSLVa0Ajk79SDiiHLKHLkec51w64WjXoWW
-xbkgBR+tnKcdADRaIqsAR//GdQfKK1NMGCyF87gVciBTLQXLUoiQ5vrwB73PSJLk
-q3fNDK0Eu43/FdL5RWG4lv2HB/DykbwTB1jmnfGF+94K6LWTwX8uqd5vKTf5BHI8
-ie/Cn3xal5gypz2QmbOluWexwtJF1KptgLuA0C9LA5DmoEtY3r0FxxpkLhltPRa4
-ga5HxJWDe8DpswzVb9j30xU6L8iz894+XWFVScmn0EoXLTGIkrXHOo7xeHvXYMrv
-wHIXY3CqNBizT3R5gCXrhztjH1dxoLKaWYQ+NrsMThw9uGRL1SctwHKIKUaJCn3V
-tkv16gRPpUYMd+Rmai0E30NXBnPXGBxPkUCGzukXFgqa18DFNYc=
-=xxQc
+iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmQNYdQACgkQQbqlJmgq
+5nCsxw//URd/ZD61v7mH5YhRZ+u+bndAZ5YUuPBZnRMEOsJ3S5SBEP6o2MSNuQbW
+4GNTdnG7dhcFnRkfeNHquw/d5YWh5zJR/LEgqzCzIBfXEd/ZyOMygF3oJztd6qVi
+gtSzPwwAohNU5AkSr1Vf9MaFuT5fOjK7bOfrVaJAJJhX3Pc9b8q6TshRl9Wdh2+w
+H1fNnwUc3ElnL9TEkTlKWPdwMtvibLGpDaHBrHcq0y9IwqyYhpyVHljcOGgdQHd3
+LHSCBiC51maEADinra/BnHlkIMa9FDmE6KBUvyjVqjDo/nT1Ti6Y5Y6tByQs+NQx
+By0hEyQDZ83qkff5OMnfDgkBPc8S6Yd6bFUTdpZOToPNoiWBPQfryUrKlUi8G4TZ
+ZMYXNnQIgFGiBuJFBNxrHRkvl9xg7FjByBIvwL21El7ZOLwoGAknt8hXtbGhvpxL
+/7bQ5oZBMQNUt9wSV3GFOsDHI3HtleVxxFL8EFUC4JpD27JUQN2FY5oCUvkb7FiD
+j4+Ew4nvAcRp2HRzPU2R+Yirwkz+VQsZ9/TKmBJqWBB+5MLZlp06BN+/qF7EmJEI
+J8NwNIB/WsS9Ktdi6vhvEGLqt0Wx+083PCbOeQSYkBIfCWZwhd22uLBt5X5DIGnP
+tTlkGhVXpJfURVYzSHA7z/v4Ig4KB3VNqbCx+Mjc50xKCm/iCOk=
+=Hrpv
 -----END PGP SIGNATURE-----
 
---=_luckmann.name-30720-1678598406-0001-2--
+--=_luckmann.name-16929-1678598613-0001-2--
