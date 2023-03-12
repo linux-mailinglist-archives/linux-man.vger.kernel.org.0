@@ -2,70 +2,70 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 7B9036B6574
-	for <lists+linux-man@lfdr.de>; Sun, 12 Mar 2023 12:29:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 246706B65F0
+	for <lists+linux-man@lfdr.de>; Sun, 12 Mar 2023 13:18:57 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230071AbjCLL3y (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 12 Mar 2023 07:29:54 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41974 "EHLO
+        id S229515AbjCLMSz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 12 Mar 2023 08:18:55 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58444 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230350AbjCLL3V (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 12 Mar 2023 07:29:21 -0400
+        with ESMTP id S229502AbjCLMSy (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 12 Mar 2023 08:18:54 -0400
 Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com [IPv6:2a00:1450:4864:20::42f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E7279366A0
-        for <linux-man@vger.kernel.org>; Sun, 12 Mar 2023 04:28:46 -0700 (PDT)
-Received: by mail-wr1-x42f.google.com with SMTP id r18so8879295wrx.1
-        for <linux-man@vger.kernel.org>; Sun, 12 Mar 2023 04:28:46 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 483DF4BE80
+        for <linux-man@vger.kernel.org>; Sun, 12 Mar 2023 05:18:52 -0700 (PDT)
+Received: by mail-wr1-x42f.google.com with SMTP id t15so8913684wrz.7
+        for <linux-man@vger.kernel.org>; Sun, 12 Mar 2023 05:18:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1678620506;
+        d=gmail.com; s=20210112; t=1678623531;
         h=in-reply-to:from:references:cc:to:content-language:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=kL7ytlOt4OClfiUBvwr3qJFdZpF3iQ5IGQadu3NOT6A=;
-        b=D3mpP8mUyjPNO2XP66exk0UIsFwPmdSQoW1+NlDyD0Xo6DBsqJJ1gbPFP0aCx2EACZ
-         w1kLGb7tNk6/B3y80tQWBPxYnDMIwJ66HHPumJlHA0UV+7xTXdzdVYAVLdVZSpQQlJf5
-         zBzcAMS8igBEjti+BUrGVwFg3+Bfa4ns3v+KFCXxWus4L8Rhb55xZzooWkdPO3g718eA
-         n9qWY3Lv0J95siIFvpkFrTjovcltRvGVU/ss+dXV9LcsKC4Ro5hVF4cuMyT3ftVgftXM
-         EKHgpF2P7qX0jHpol64fPZNHt6OX/6myzJGfhD60AEwsf0wsmXPXSZi0AjwF6pL6ascv
-         ndUQ==
+        bh=xBSXyZqSALCAipDRrkQmJv8Vr3nebsncArnSgXKsXp0=;
+        b=I/SM8lRXqFHnEAItZ5n4ktCKyY+KoaYjeKzlaY/k9bI6cLRRJIziEv88ke2ssmJ1Ce
+         uNBeds68zP+DOkYAGjABOOHAZ/sC7HvA2NEEKrCOTYfJRZ8eddPMiC2HWqV3+FyE2Nnx
+         ZkapGL2pDA158bNMg2xHvNyttPUmbtiq5a/6fporzC/JN6GHIq9qdylO/FfPpAasJmRP
+         CQ0q3sV42AOBMlXlM8Dyrk7GAbsgwMzURQBM1j9kcVpewLkh9P2QytYCT7qj64JhvfcX
+         0ttZ6zLFWuio7VNcfazFAuTOgb1v6FwVI65G4bM+D8jOOAQN1CrXaTV6LmTpGY1VByth
+         LBHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678620506;
+        d=1e100.net; s=20210112; t=1678623531;
         h=in-reply-to:from:references:cc:to:content-language:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=kL7ytlOt4OClfiUBvwr3qJFdZpF3iQ5IGQadu3NOT6A=;
-        b=XHnp/Hwakgf2F18F5IZyi2zY12rbDyjc++n7tEObQ0+NeLjIlT7E++vdwbSeIWsy7X
-         coG4qQwgzFsVEIS4F9WnL6nB0fV0B6gXWpc7ljClScSOMfHDd8Li/nouXW9MxOjSgD20
-         9vZ2sxSvvf1m0+eSBY9IaRJzuF2KW0WcCKnGX7FptJjF9GhH2ZmJuF7nG/vHV2vqwdKH
-         jKd/pKRa7IrB5OfQY453EKwlMkoxE78gQA0akbagVtfBKjk7dK0TIB5abDHtMbRxYliN
-         5Efxbv4r40UAUgA+04oyu27Pl2zr60tiGlUGxAvy3rT057Tcb2GEPRmqyJLPQ92qOmJf
-         mpBQ==
-X-Gm-Message-State: AO0yUKUfXv1QuYcMoerJWoLIlw4kujLg6M3sXPmBjBWWKhPW6Upn0YRw
-        HaVz34EAD268QFnS4P+58/A=
-X-Google-Smtp-Source: AK7set+v/aafOUrLU/hPkTz+HOHGqBtqt9nVEC0kKHt1eDew50y9swIkyufI3ObrBFywqOb3gKuCWw==
-X-Received: by 2002:adf:ffcf:0:b0:2c7:103f:7122 with SMTP id x15-20020adfffcf000000b002c7103f7122mr22864662wrs.28.1678620506452;
-        Sun, 12 Mar 2023 04:28:26 -0700 (PDT)
+        bh=xBSXyZqSALCAipDRrkQmJv8Vr3nebsncArnSgXKsXp0=;
+        b=VHSxQyQLpKIHgahX1G+uQlL/wBkca4XkUne85jA6heTFLqw1k4WLnia0w3UfzXt1zl
+         Eawz4rCoPRirbvdt393uVJ+yYvOByvBDyZuWy5F+Q8r9JOBwwHyDm+q25we3jNx/Cvk7
+         RiYSBKRj6uthzbzuI2CgaV2vFwudx7yHDNUfV/u1grMkqRMK9i0toxSo6jjLPS6WOJ4l
+         B5ADhrwzFeviUX62uwe9d6CiMB9GTo8nllsj5d+IF/+Z0MsQas0acKo2Mqfm/ZfFkza2
+         GH2Y1id0BbrXe/Y3jwsG2g471ysuXT9DThGFcCy91jBG42yAUdF/7jIx5kZKPWTiFHTN
+         qeSw==
+X-Gm-Message-State: AO0yUKWR/kgGNTLY7dmTkJxEftrAvF92rd7KCfMaSKLodelqveHcWoG8
+        Qs5bh68YlS0hSgg6NqyGu9E=
+X-Google-Smtp-Source: AK7set81BzyzcdxgcbLGN3WJcIn2Pmpd+rX2JKzDFTc9phsAdEwZjQukkFW5XrDxdnNWl7EUglEO4A==
+X-Received: by 2002:a5d:6151:0:b0:2c7:1a22:411 with SMTP id y17-20020a5d6151000000b002c71a220411mr18364179wrt.17.1678623530722;
+        Sun, 12 Mar 2023 05:18:50 -0700 (PDT)
 Received: from [192.168.0.160] ([170.253.51.134])
-        by smtp.gmail.com with ESMTPSA id z1-20020a5d4c81000000b002c59f18674asm4931386wrs.22.2023.03.12.04.28.25
+        by smtp.gmail.com with ESMTPSA id n9-20020adfe349000000b002c55de1c72bsm5070729wrj.62.2023.03.12.05.18.49
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 12 Mar 2023 04:28:25 -0700 (PDT)
-Message-ID: <5fa7853e-5973-9c40-ac19-cdf7be6be591@gmail.com>
-Date:   Sun, 12 Mar 2023 12:28:17 +0100
+        Sun, 12 Mar 2023 05:18:50 -0700 (PDT)
+Message-ID: <93252839-1087-51c5-3349-bf558b3160eb@gmail.com>
+Date:   Sun, 12 Mar 2023 13:18:42 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
-Subject: Re: Issue in man page charsets.7
+Subject: Re: Issue in man page session-keyring.7
 Content-Language: en-US
 To:     Helge Kreutzmann <debian@helgefjell.de>
 Cc:     mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-References: <20230311171358.GA5005@Debian-50-lenny-64-minimal>
- <f4fd4e46-7129-0f0b-519b-54ae39e2aba8@gmail.com>
- <20230312051444.GE7927@Debian-50-lenny-64-minimal>
+References: <20230311171356.GA4805@Debian-50-lenny-64-minimal>
+ <d0d766d5-2482-9c1a-21f3-5d4dd2a8080e@gmail.com>
+ <20230312045736.GB7927@Debian-50-lenny-64-minimal>
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20230312051444.GE7927@Debian-50-lenny-64-minimal>
+In-Reply-To: <20230312045736.GB7927@Debian-50-lenny-64-minimal>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------iGNLZoZsPlb4M4nLcLNtA9b4"
+ boundary="------------VfLBcWPrgil3DP0Mfuqo2vUH"
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
@@ -77,163 +77,98 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------iGNLZoZsPlb4M4nLcLNtA9b4
-Content-Type: multipart/mixed; boundary="------------JIuQqgfBgHC3K0gvbo6rdzNx";
+--------------VfLBcWPrgil3DP0Mfuqo2vUH
+Content-Type: multipart/mixed; boundary="------------v6831b44itrLByh9uZV6wBml";
  protected-headers="v1"
 From: Alejandro Colomar <alx.manpages@gmail.com>
 To: Helge Kreutzmann <debian@helgefjell.de>
 Cc: mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Message-ID: <5fa7853e-5973-9c40-ac19-cdf7be6be591@gmail.com>
-Subject: Re: Issue in man page charsets.7
-References: <20230311171358.GA5005@Debian-50-lenny-64-minimal>
- <f4fd4e46-7129-0f0b-519b-54ae39e2aba8@gmail.com>
- <20230312051444.GE7927@Debian-50-lenny-64-minimal>
-In-Reply-To: <20230312051444.GE7927@Debian-50-lenny-64-minimal>
+Message-ID: <93252839-1087-51c5-3349-bf558b3160eb@gmail.com>
+Subject: Re: Issue in man page session-keyring.7
+References: <20230311171356.GA4805@Debian-50-lenny-64-minimal>
+ <d0d766d5-2482-9c1a-21f3-5d4dd2a8080e@gmail.com>
+ <20230312045736.GB7927@Debian-50-lenny-64-minimal>
+In-Reply-To: <20230312045736.GB7927@Debian-50-lenny-64-minimal>
 
---------------JIuQqgfBgHC3K0gvbo6rdzNx
+--------------v6831b44itrLByh9uZV6wBml
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
 Hi Helge,
 
-On 3/12/23 06:14, Helge Kreutzmann wrote:
+On 3/12/23 05:57, Helge Kreutzmann wrote:
 > Hello Alex,
-> On Sun, Mar 12, 2023 at 12:27:36AM +0100, Alejandro Colomar wrote:
+> On Sat, Mar 11, 2023 at 11:24:53PM +0100, Alejandro Colomar wrote:
 >> On 3/11/23 18:13, Helge Kreutzmann wrote:
 >>> Without further ado, the following was found:
 >>>
->>> Issue:    ISO =E2=86=92 ISO/IEC
+>>> Issue:    PAM =E2=86=92 B<PAM>(7)
+>>>
+>>> "The session keyring is a keyring used to anchor keys on behalf of a =
+"
+>>> "process.  It is typically created by B<pam_keyinit>(8)  when a user =
+logs in "
+>>> "and a link will be added that refers to the B<user-keyring>(7).  Opt=
+ionally, "
+>>> "PAM may revoke the session keyring on logout.  (In typical configura=
+tions, "
+>>> "PAM does do this revocation.)  The session keyring has the name "
+>>> "(description)  I<_ses>."
 >>
->> I've already seen several reports about ISO -> ISO/IEC in several page=
-s
->> from several people.  I'd like someone who knows about these standards=
-
->> to take a look at all the man pages and suggest a global fix about thi=
-s.
+>> I think I prefer not doing this change, since we already have a refere=
+nce
+>> to PAM(7) in the SEE ALSO section, and it would clutter the descriptio=
+n
+>> to add more formatting to it.  I'm doubting.
 >=20
-> Well, *most likely* the global fix is to always replace "ISO" by
-> "ISO/IEC" in the man pages.
+> Ok.
 >=20
-> Rationale:
-> Almost all relevant standards in the IT domain are prepared by the
-> joint technical committee 1 from ISO and ITC (ISO/IEC JTC1). Hence
-> they always carry an "ISO/IEC".=20
+> Just that in HTML view, these are often turned into hyperlinks, thus
+> people could easily continue reading (like in any HTML article). But I
+> don't know how many people are actually doing this.
 >=20
-> But there *may* be exceptions. Thus I always check each individual
-> case (and hence made several reports). You can simply do this by going
-> to http://www.iso.org and entering the number in the search box.
+> (And of course knowing that PAM(7) even exists in the text is not too
+> bad, either).
 
-Okay.
+I decided to add a man-page reference in the first occurence.
 
->=20
-> If this is too tiresome, then a global fix of ISO =E2=86=92 ISO/IEC is =
-most
-> likely the correct fix.
->=20
-> All I can do is to review each occurence I note and point you to this.
+Cheers,
 
-I've listed all ISO numbers that I could find (maybe there remain a few
-uncovered, but this should show at least most of them):
-
-$ grep -rho 'ISO[^a-zA-Z()<";:\.,&/[]*' \
-  | sed 's/_/ /g' \
-  | sed 's/\\\\//g' \
-  | sed 's/-/ /g' \
-  | sed 's/[ \t]*$//' \
-  | sort \
-  | uniq \
-  | sed 's/ /-/' \
-  | sed 's/ .*//' \
-  | sort \
-  | uniq \
-  | sed 's/-/ /' \
-  | grep ' ';
-ISO 10646
-ISO 14652
-ISO 2022
-ISO 2375
-ISO 3166
-ISO 4217
-ISO 4873
-ISO 639
-ISO 6429
-ISO 646
-ISO 6709
-ISO 8208
-ISO 8601
-ISO 8602
-ISO 8859
-ISO 9660
-ISO 9945
-
-
-And then searching those numbers in the ISO website, I created the
-following list:
-
-
-iso/iec:
-	10646
-	14652
-
-iso:
-	2022
-	2375
-	3166
-	4217
-	4873
-	639
-	6429
-	8208
-	8601
-	8602
-	8859-
-	9660
-
-iso/iec/ieee:
-	9945
-
-I'll apply a global fix with this info.
+Alex
 
 >=20
 > Greetings
 >=20
 >          Helge
-
-Greetings,
-
-Alex
-
 >=20
-> P.S. If I should explain this even more verbosely, I can, please let
->      me know. I work in these committes for ~ 15 years.
 >=20
 
 --=20
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
---------------JIuQqgfBgHC3K0gvbo6rdzNx--
+--------------v6831b44itrLByh9uZV6wBml--
 
---------------iGNLZoZsPlb4M4nLcLNtA9b4
+--------------VfLBcWPrgil3DP0Mfuqo2vUH
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQNt1EACgkQnowa+77/
-2zI43RAAnc+K1apRoqkB8Efm66FWSpaCAGtkK3EFcyTjSqQjLeM8EdXUgDoTCu0r
-7GZJv/f1ftL2QUux0LAGwa207WmNjVWdVhUS4aWgzHH5aMPAaou4kAqRtPc+zuNC
-RKufFBY7LKlx3vDG7Vr4TxNghUXQZBjVD/XGzsm4e+JDp0onJ+5OKQgDYV5Bzjxw
-+KN9MlkHKVQ0zJ/apdtxEP1r3EPrNSEKq6Mfk4kaXhsVnul2a7GgPSXlsI80uNCT
-JsilamDigHVsGw0BpWoDQ4c+OI/KIn1NFUuIdm9M0OlnZ4ToFU723i2fFg12ef6S
-MN03b+Y44oh0mxjNEk5lXK+5O1aQZDtBYj1BxwxV7LuU/TgMzWSVYQ8a9nrrcmbj
-ubpKaA/MLfaeiS27Kv/8pwMi81lY8ilKK11jjneMB4PNacqw5t6OBfUesforZ7Yk
-DkdnIma5eSszYtU4L9+Vkj+yWxuUmMmbLmK7xBwq3ELtBN28CtiWhfHlbSksoJl2
-djjLpZpDhRFQENzfUer88MzuGj/gwlG9uCQLxxUsHBNA4gSc2cQ3YzaNNvbUsrsc
-qyvGEa1HfYsuzQck7l5reYUbpmTslmxsk64vnLavxxRCMVMrA/FfQwnbAXv2Llla
-ScVIHXDS3tfJbCs2sxML5+cSNZNjSWu6gqAuVTh0AiLN2qEoCT8=
-=/iQT
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQNwyIACgkQnowa+77/
+2zJMhA/7BgCw2S16fzzn6lkEWZ2KUqSbFEBpanzG4ll401bh+1BxSeIvNxRR2qg+
++D21uR9fF0GR+FLR6rKmlMHTEcpc2USYrVBYvtkOC2y+xpRPjyYMRl2AHQP1eklh
+wjsQtRD9E4Ve+zudIPFQB9yU8073YZaM9kolF0IqCB5bmUBjtoCIQEAKOpvWBhrY
+2PuznZB89dYEqlP5cxT+IJfhPfaf9IGax66N0m/hgQLeJKDYs1IsTXfPRoN+1q78
+gYOpF1jexpmf5KdLxpGGMGMxUglb8GwuAbUlzD6bkGkp2fH+HHXcahJ590sYNTKT
+lTPaZpVghRtKI8mZxfsf7czbW1gHzAXpOQcuioukYRe8P2uQI7Y2Tg4cfdPjxmbG
+LMMSZQV2OWW43vhl18DohTuifdBlpHHkD5pNrkGhU97WI34+8DvqkMPvJ+zLHrrD
+4l3tLPKVJ41UX7iyX8XCbv5XsGWATNOls4Tysw5idoQz+WvCq4myo3Fdv9z6dLAM
+eECIlopCmmuBthA8tCBXz2CTO7qEMvsiKZZR5+jmCP77Iimo3RKXfmlUsSxFg0Yx
+iA2TzWuTK0GwSIxonu9/8rGHN2rWvcNvD29TnMIZLzQ9ek3JChqTq4scyN8V2Yim
+WywDNYuyCiccdvlVPbl+WtPHtdgESeDSMMX9xoLadTvq0BRpf3k=
+=8CPX
 -----END PGP SIGNATURE-----
 
---------------iGNLZoZsPlb4M4nLcLNtA9b4--
+--------------VfLBcWPrgil3DP0Mfuqo2vUH--
