@@ -2,34 +2,34 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 775086B6337
-	for <lists+linux-man@lfdr.de>; Sun, 12 Mar 2023 05:54:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 675A16B633A
+	for <lists+linux-man@lfdr.de>; Sun, 12 Mar 2023 05:57:41 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229534AbjCLEy3 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 11 Mar 2023 23:54:29 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41308 "EHLO
+        id S229612AbjCLE5k (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 11 Mar 2023 23:57:40 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42728 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229450AbjCLEy2 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 11 Mar 2023 23:54:28 -0500
+        with ESMTP id S229450AbjCLE5j (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 11 Mar 2023 23:57:39 -0500
 Received: from static.213-239-213-133.clients.your-server.de (luckmann.name [213.239.213.133])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0B3AD59E43
-        for <linux-man@vger.kernel.org>; Sat, 11 Mar 2023 20:54:25 -0800 (PST)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 332FB51F91
+        for <linux-man@vger.kernel.org>; Sat, 11 Mar 2023 20:57:38 -0800 (PST)
 Received: from localhost (localhost [127.0.0.1])
   (uid 502)
   by static.213-239-213-133.clients.your-server.de with local
-  id 0000000000E5403E.00000000640D5AFE.000007A0; Sun, 12 Mar 2023 05:54:22 +0100
-Date:   Sun, 12 Mar 2023 05:54:22 +0100
+  id 0000000000E5403E.00000000640D5BC0.000056DC; Sun, 12 Mar 2023 05:57:36 +0100
+Date:   Sun, 12 Mar 2023 05:57:36 +0100
 From:   Helge Kreutzmann <debian@helgefjell.de>
 To:     Alejandro Colomar <alx.manpages@gmail.com>
 Cc:     mario.blaettermann@gmail.com, linux-man@vger.kernel.org
-Subject: Re: Issue in man page wcsncpy.3
-Message-ID: <20230312045422.GA7927@Debian-50-lenny-64-minimal>
-References: <20230311171357.GA4888@Debian-50-lenny-64-minimal>
- <c36c21ee-8244-a6fe-7bfb-2f4a2b61c5fc@gmail.com>
+Subject: Re: Issue in man page session-keyring.7
+Message-ID: <20230312045736.GB7927@Debian-50-lenny-64-minimal>
+References: <20230311171356.GA4805@Debian-50-lenny-64-minimal>
+ <d0d766d5-2482-9c1a-21f3-5d4dd2a8080e@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-1952-1678596862-0001-2"
+Content-Type: multipart/signed; micalg=pgp-sha256; protocol="application/pgp-signature"; boundary="=_luckmann.name-22236-1678597056-0001-2"
 Content-Disposition: inline
-In-Reply-To: <c36c21ee-8244-a6fe-7bfb-2f4a2b61c5fc@gmail.com>
+In-Reply-To: <d0d766d5-2482-9c1a-21f3-5d4dd2a8080e@gmail.com>
 X-Public-Key-URL: http://www.helgefjell.de/data/debian_neu.asc
 X-homepage: http://www.helgefjell.de/debian
 User-Agent: Mutt/1.10.1 (2018-07-13)
@@ -45,25 +45,45 @@ X-Mailing-List: linux-man@vger.kernel.org
 This is a MIME-formatted message.  If you see this text it means that your
 E-mail software does not support MIME-formatted messages.
 
---=_luckmann.name-1952-1678596862-0001-2
+--=_luckmann.name-22236-1678597056-0001-2
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
 Hello Alex,
-On Sun, Mar 12, 2023 at 12:23:20AM +0100, Alejandro Colomar wrote:
+On Sat, Mar 11, 2023 at 11:24:53PM +0100, Alejandro Colomar wrote:
+> On 3/11/23 18:13, Helge Kreutzmann wrote:
 > > Without further ado, the following was found:
 > >=20
-> > Issue:    null wide characters =E2=86=92 NUL wide characters?
+> > Issue:    PAM =E2=86=92 B<PAM>(7)
+> >=20
+> > "The session keyring is a keyring used to anchor keys on behalf of a "
+> > "process.  It is typically created by B<pam_keyinit>(8)  when a user lo=
+gs in "
+> > "and a link will be added that refers to the B<user-keyring>(7).  Optio=
+nally, "
+> > "PAM may revoke the session keyring on logout.  (In typical configurati=
+ons, "
+> > "PAM does do this revocation.)  The session keyring has the name "
+> > "(description)  I<_ses>."
 >=20
-> This is incorrect.  NUL is an ASCII character, which hasn't wide
-> characters.  It's correct as "null wide characters", a.k.a. L'\0'.
+> I think I prefer not doing this change, since we already have a reference
+> to PAM(7) in the SEE ALSO section, and it would clutter the description
+> to add more formatting to it.  I'm doubting.
 
-Thanks for the explanation; I'm still learning about these NUL(L).=20
+Ok.
+
+Just that in HTML view, these are often turned into hyperlinks, thus
+people could easily continue reading (like in any HTML article). But I
+don't know how many people are actually doing this.
+
+(And of course knowing that PAM(7) even exists in the text is not too
+bad, either).
 
 Greetings
 
-           Helge
+         Helge
+
 
 --=20
       Dr. Helge Kreutzmann                     debian@helgefjell.de
@@ -71,25 +91,25 @@ Greetings
         64bit GNU powered                     gpg signed mail preferred
            Help keep free software "libre": http://www.ffii.de/
 
---=_luckmann.name-1952-1678596862-0001-2
+--=_luckmann.name-22236-1678597056-0001-2
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmQNWvcACgkQQbqlJmgq
-5nDwjA//STqFTqJtthrKfzNhZBzhtcRrGJXmSZrokLKJ5NYZALxlDC0KBEdLFv7n
-79NdY+ghbNo2o87c9TbaicQ5wp85pw9/oTcqDcbnZYkayX9giPCUvAwc3cv/3WJ/
-iCddrNSP7shj2C/yxFdsKP9skn+65RAC/aX+sAcaVKT9mQTF3I9RSvGoBAydFfhJ
-vYyBKCkVJ1RaMfmRZwFE+9QKJ8naQPZ8VTgpRkecEtmvwE+pQnqs5tdHOLn31MlN
-W+SPjWzE1MsqjiZfFK70g1BOBCeabREjAripEROv3EQy9KuL6fFL/AY3G0XDqjmD
-p6HsJsHAPOhfZNsDwHSw9phZcTW+zvPxNhDKBWh12LHW6mmYOvXDXXlPLLvFudSt
-R2gYZGqkcIGBgP6TpzfFSL9MmBhWXElRcw/2mtljnewAQXmqo/xIQu+1jBu/aE3o
-8lBsBJ4PYRGP7zCZgYoZymLc41UxRiC3L7HpBBQdkJ6lUG0AV3QJWN0gXndz+pC6
-ZceFSL1mTR9FXFsJ+Te+at6FMy+wI2RxVL+iypS0r/juakT93t5HH+AeVrDysWPL
-BBwyvlgOvMBoafIF8DQs957hNDxo9FiXYjokO6PojuMyAwCtJWNzoRgoJsgKCBcd
-FY5m9umY2oTQgJ1zL/UCwa1PlP8KaMW1tiYgiOEOy7/hvxYK50M=
-=pnn2
+iQIzBAABCAAdFiEEbZZfteMW0gNUynuwQbqlJmgq5nAFAmQNW78ACgkQQbqlJmgq
+5nD3qw//TG2cyw0cYJXORSxUhksqHQKORMsbqwUZ16Y4ZFjZBQDPnqay4IV4Uf5X
+1+P0btn8cC6bIfiE2RDNTmM0sSWjdUjS7JK/+S40I23pe6Hk0kJAgrUSW8cpyG0P
+P2lUR/lW+Uo8ehyz4N4QohipeGI9qUvfeHYhrxhHGZkrkkBVOiBQfcqOwn0eRRz2
+tDcC7qUTL8CdP6RCcV7zQ+BQp7jqHR27upAvgFj8doZTjvg+i4UABrMRLqYz6bgV
+rGQ4TReotnOytyVj8WfYMPQWsp2SApE62/Cefau3+JuwQmkfUa3D9J8fw7324dNW
+hN0twaJ+upZtxcHfaQP0IGggoZUWW1oH5xneE8ZdmLuKyzTKKXLDOC/Vnqr2H6xb
+oOtU2VbKcdYTBWrJ91WINFrvXykkMMBqMyRbCV85a+CR0ItqmDl5rzPVee/gdRfa
+p/3rWQUmMpXIIdu7/iX3N4E1Ma1CxcjqkW6KyMbSIDUgpmAmIzRqlQ37AUS+6+Yb
+XBqi8Vw1IJ+8KG+e07tWar46+AcukqbcHdOdVisebO+Xg3YU2nAP56IvkqIxzY+u
+Ic7y6TdRF9/TesMoEMwsrjv3Hvr9q1+2Eanp0fgo3xJbnLqVZaYNjDHY3OpWcVEg
+MXi3Zie8v1weLmBZJfMQ57LtQghWwrPji624CUo8amTfWDY6drU=
+=vg7U
 -----END PGP SIGNATURE-----
 
---=_luckmann.name-1952-1678596862-0001-2--
+--=_luckmann.name-22236-1678597056-0001-2--
