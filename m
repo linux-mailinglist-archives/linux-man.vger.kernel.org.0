@@ -2,72 +2,74 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 8332D6B6BCB
-	for <lists+linux-man@lfdr.de>; Sun, 12 Mar 2023 22:39:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 05DF76B6D1E
+	for <lists+linux-man@lfdr.de>; Mon, 13 Mar 2023 02:43:08 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230354AbjCLVjg (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 12 Mar 2023 17:39:36 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33666 "EHLO
+        id S229534AbjCMBnG (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 12 Mar 2023 21:43:06 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49450 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230179AbjCLVjf (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 12 Mar 2023 17:39:35 -0400
+        with ESMTP id S229561AbjCMBnF (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 12 Mar 2023 21:43:05 -0400
 Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com [IPv6:2a00:1450:4864:20::333])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BD8DA34C1F
-        for <linux-man@vger.kernel.org>; Sun, 12 Mar 2023 14:39:32 -0700 (PDT)
-Received: by mail-wm1-x333.google.com with SMTP id k37so6711581wms.0
-        for <linux-man@vger.kernel.org>; Sun, 12 Mar 2023 14:39:32 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CCB366E8A
+        for <linux-man@vger.kernel.org>; Sun, 12 Mar 2023 18:43:02 -0700 (PDT)
+Received: by mail-wm1-x333.google.com with SMTP id j19-20020a05600c1c1300b003e9b564fae9so9850855wms.2
+        for <linux-man@vger.kernel.org>; Sun, 12 Mar 2023 18:43:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1678657170;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=XRHPsAi5YXa8alpSSxeBY1BLvU0HEuOCCN2wxJQ6UZs=;
-        b=qKC/+C79hjOV7pLxFgokDsyEdzCIKGsbYyYv+8LjDuLGNQRwaGHkgYY/+pJ8ghGSg4
-         F3CKhPpkDTIGnDfn17Ql/Y/zZpJwJGuRxDGDu5eqQ8EKJS77y2bY2LHZ6H026mDTSnQp
-         1EFQ4FrD7uAYFLc3qV+UT5zNLXKRwpIXFXXsBT2OUH++RSnZeBClZcsCW0gbhRo3p4tX
-         iEKf2xGa7LAy2u5O0b05uuQZNWBdzDUjnHkeyNQt4vHEK/hLVcaecy20NAPGKqNYQjbK
-         3Sx47Te4QaEZwwE71zCqlilPjTWjjrR7JCFfN7Y8MMyU8gxejfC7n+sW/NfHEkiKVibU
-         PHAQ==
+        d=gmail.com; s=20210112; t=1678671781;
+        h=in-reply-to:content-disposition:mime-version:references
+         :mail-followup-to:message-id:subject:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=fVsS8LBYLy+diFoKz5auFgMpIiCDV51Gf0r1HVThvjo=;
+        b=jo6LPEXSsl/93knDs4xa+eXy940StadI/vk2EuS5labtlj8exbh0UImgceyE9rArRq
+         0ctZ37UDKlbyBjRL1uUVatUWLhTmEPWlA8P2aW1YHjWT02WOeaWQQ7VwwdNRApB6rFMY
+         GgfGXBL/ni3pbFifH0KJ3NwiEDJKYUplQRhnID9kNlX03mZ8YNDMpLlPIBFpvBDzKhYL
+         mdm94cSxisyeC0bU+qzgCWH0Bp7J2R2ygt6KIpdgsBmT0ouPoqaZUNqW9VBQkEInngFY
+         QJvXG9WeFMS8tY40S5X1ZlHh7l4lhw7JIMNiTQzLGbB/FOtHWIIhdhoqASmt7M/q7TgG
+         2iIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678657170;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=XRHPsAi5YXa8alpSSxeBY1BLvU0HEuOCCN2wxJQ6UZs=;
-        b=egPFd6Z2M3RiYi/R96rAgHDeiErx1NDAin2vIPX/8RyiR0k9tXHOYOO+buBIjSajug
-         xrbxt3INVxDn63lsMK6zAXsH0wi77V0dnZBAFdBkqpXqtGEJrOAC+4YDD+q7F2vOyi2Y
-         EmiVNJl8fFHrjJ+28g4+KVNoGblBBR0kbn6Uos8pUfvyMvlwlsV0r9+1qvsbKAFH6rjw
-         /Od/rxtjXp2lUCWcSCRT2UNCSzRXrtfetGmTRyklqgdT1A2JQjFKXrAO03vRRQfjNqng
-         9HBvrm2U0HgFIza2GQRwYi00K9KhSktDPKwhmOhA1b/HCM8WSvIznd6BNmGaH2fZbEyw
-         Iq2w==
-X-Gm-Message-State: AO0yUKULKrzMhSj6yhEihRiovb0FvaCHE3c1ueSLHhQ7gZFVi7gUatbK
-        MZXXZ+0QSAvxhc6Stqxmt2E=
-X-Google-Smtp-Source: AK7set/gYEMNH174h/czUb3Wr8xmRF/bnwGnjbceOvbfVlX5wh/Y5Gm8naw6kZzcyxrfWY4O5E6SeQ==
-X-Received: by 2002:a05:600c:3b08:b0:3eb:38a2:2bd2 with SMTP id m8-20020a05600c3b0800b003eb38a22bd2mr8989213wms.11.1678657169928;
-        Sun, 12 Mar 2023 14:39:29 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.51.134])
-        by smtp.gmail.com with ESMTPSA id h9-20020a05600c2ca900b003daf7721bb3sm6145887wmc.12.2023.03.12.14.39.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 12 Mar 2023 14:39:29 -0700 (PDT)
-Message-ID: <e35baa3f-91af-dfb2-2ec8-cc2dea002f79@gmail.com>
-Date:   Sun, 12 Mar 2023 22:39:20 +0100
+        d=1e100.net; s=20210112; t=1678671781;
+        h=in-reply-to:content-disposition:mime-version:references
+         :mail-followup-to:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=fVsS8LBYLy+diFoKz5auFgMpIiCDV51Gf0r1HVThvjo=;
+        b=zVwlvGypVy1gi2Ti8bs9F3Mz9deKRKfJixZUnxonTAH/l6WDuWZhyrjzmxokxW6LJ3
+         3BrrPyExWPqdc9A9amRdihss72K/QmIqPogjE8CUf8VcGW6gq32uggdvzCw4gg0dAeqj
+         fM2fFXGwAzItJ7cd7MK/e4ErkYW6ZYvDxnopRy2IeHC+bKg0wbemg/UYHKXnEVeh6IqA
+         EgJyIdXeB63Zu1m5drcwOBi41Io2Kcz29T3iYAmPjUI6MPztkB1Pk/UOY2BSNRp/aOrB
+         OpocWdB8XtOu4JS1d8qTmLOaNg7uAiCKhhJDBaZqNMbsgMZuEYqRmEQoo0UO7UHMIPu2
+         ysmQ==
+X-Gm-Message-State: AO0yUKWSM2m4QFNs/frm795eGEwQZY3PsHpFbRhgQeODwO6Rq2vhPzv3
+        GBGW+XubmG7DntWokTH89E5CDDtmBzM=
+X-Google-Smtp-Source: AK7set9D3rtAcHkqvOi5FihE0lWrpBvuR+Nq/obEnt/nu/z4T1kJJ9X3NoCwVtpkXQjxOeta1ZtRlg==
+X-Received: by 2002:a1c:f213:0:b0:3ea:d611:f8 with SMTP id s19-20020a1cf213000000b003ead61100f8mr10073687wmc.38.1678671781123;
+        Sun, 12 Mar 2023 18:43:01 -0700 (PDT)
+Received: from dj3ntoo (222.sub-72-110-0.myvzw.com. [72.110.0.222])
+        by smtp.gmail.com with ESMTPSA id i2-20020a05600c290200b003ed1fa34bd3sm4486488wmd.13.2023.03.12.18.42.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 12 Mar 2023 18:43:00 -0700 (PDT)
+Date:   Sun, 12 Mar 2023 20:42:55 -0500
+From:   Oskari Pirhonen <xxc3ncoredxx@gmail.com>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     Matt Jolly <Matt.Jolly@footclan.ninja>, linux-man@vger.kernel.org,
+        Brian Inglis <Brian.Inglis@Shaw.ca>
+Subject: Re: Revert "Many Pages: Remove references to C89"
+Message-ID: <ZA5/n8Ix+eCYnNgM@dj3ntoo>
+Mail-Followup-To: Alejandro Colomar <alx.manpages@gmail.com>,
+        Matt Jolly <Matt.Jolly@footclan.ninja>, linux-man@vger.kernel.org,
+        Brian Inglis <Brian.Inglis@Shaw.ca>
+References: <20230310015150.3545768-1-Matt.Jolly@footclan.ninja>
+ <8899aff7-4193-dd54-4488-234b1a6cee83@gmail.com>
+ <ZAq5gg+aQB5TrDQ3@dj3ntoo>
+ <f5aac742-4417-fced-343d-002117d629f1@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH] man7/: ffix
-Content-Language: en-US
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc:     linux-man@vger.kernel.org, Alejandro Colomar <alx@kernel.org>,
-        groff@gnu.org, Helge Kreutzmann <debian@helgefjell.de>
-References: <20230312110203.3898-1-alx@kernel.org>
- <20230312164434.ga3hkxnszly7agk5@illithid>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20230312164434.ga3hkxnszly7agk5@illithid>
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------jaasqvahqi5PNGMSEJhA5Rpg"
+        protocol="application/pgp-signature"; boundary="2pg7o5GhrgG0eHqb"
+Content-Disposition: inline
+In-Reply-To: <f5aac742-4417-fced-343d-002117d629f1@gmail.com>
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -76,317 +78,162 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------jaasqvahqi5PNGMSEJhA5Rpg
-Content-Type: multipart/mixed; boundary="------------tn5wylI8cndbZouXC0D02q6I";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: linux-man@vger.kernel.org, Alejandro Colomar <alx@kernel.org>,
- groff@gnu.org, Helge Kreutzmann <debian@helgefjell.de>
-Message-ID: <e35baa3f-91af-dfb2-2ec8-cc2dea002f79@gmail.com>
-Subject: Re: [PATCH] man7/: ffix
-References: <20230312110203.3898-1-alx@kernel.org>
- <20230312164434.ga3hkxnszly7agk5@illithid>
-In-Reply-To: <20230312164434.ga3hkxnszly7agk5@illithid>
 
---------------tn5wylI8cndbZouXC0D02q6I
-Content-Type: text/plain; charset=UTF-8
+--2pg7o5GhrgG0eHqb
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hi Branden,
+Hi,
 
-On 3/12/23 17:44, G. Branden Robinson wrote:
-> Hi Alex,
+On Fri, Mar 10, 2023 at 14:29:24 +0100, Alejandro Colomar wrote:
+
+=2E.. snip ...
+
+> >> The main problem was that the existing info about C89 was not consiste=
+nt.
+> >> Some pages declared APIs being standard since C89, while others didn't.
+> >> Incorrect info isn't much better than no info.
+> >>
+> >=20
+> > This is something that can (and should) be fixed then, instead of
+> > blindly dropping all references to C89, no?
 >=20
-> Short answer: take the patch.  :)
+> We decided back in 2020 that it wasn't worth the extra effort to
+> check C89.
 
-I pushed it earlier today.  :)
+=2E.. snip ...
 
-> At 2023-03-12T12:02:04+0100, Alejandro Colomar wrote:
->> Should I apply this patch?  I'm not sure if the variable part should
->> be bold because it's part of a heading or roman because it's variable
->> part within italics.  How would you format it?
+> But there are many standard.  Who decides which to mention and which
+> not to mention?  How about POSIX.1=E2=80=901988, POSIX.1=E2=80=901990, and
+> POSIX.1=E2=80=901996?
+>=20
+> There are still projects out there that care about POSIX.1=E2=80=901996, =
+and
+> that's not compelling enough for me to do the extra work of searching
+> if something happens to be supported by it.  I will just state
+> POSIX.1-2001, which is the oldest one I care about, and live with it.
+>=20
+> In fact, some pages documented POSIX.1=E2=80=901996, and I removed any me=
+ntions
+> to it in the same commit that removed mentions to C89, and even forgot
+> to mention it in the commit message.
+>=20
 
-[...]
-
-> Long answer:
-
-[...]
-
-> I prefer the former to the latter, and would apply the patch.
-
-Good.
-
->  In groff
-> 1.23.0 (which still doesn't have its final tag :( ), the man(7) macro
-> package remaps the `I` (italic) style to `BI` (bold+italic) if it is
-> available and the font being used for (subsection) headings is
-> configured to be bold.
-
-Yup, I tested it only with 1.23.0-rc3.  I assume 1.22.4 will do
-something reasonable, but probably not so good.
-
-[...]
-
-> However, if it were my man page, I might recast the headings entirely t=
-o
-> describe the files--or rather their purpose--in English, avoiding both
-> the use of escape sequences and concern with typeface changes.
-
-It doesn't itch me enough to do the work.  :)
-
-[...]
+I'm neutral on removing POSIX.1-1996 if it was barely mentioned to begin
+with (a search on patch found just 2 instances of "1996") which is not
+the case for C89.
 
 >=20
-> [1] (groff war story)
+> >> I'd like to really understand the need for C89 in 2023.
+> >>
+> >=20
+> > Some projects might like C89 and there's not much that can be done on
+> > that front without the maintainers having a change of heart...
 >=20
->     As I recall, a few years ago Ingo Schwarze once lobbied me to take
->     out the "Options" sections of groff's section 1 man pages using a
->     similar argument, claiming that options should be motivated and
->     discussed within the "Description" section in a more organic manner=
-=2E
->     (And I did in fact change our nroff(1) page to do this, to test out=
-
->     his advice and because GNU nroff is a wrapper--nearly all its
->     options are synonymous with groff(1) or troff(1) options).  He's no=
-t
->     wrong, but because GNU programs tend to have many options (also a
->     defect, in his view and others', like Rob Pike[2]) and because man
->     pages are so frequently consulted to determine what a command optio=
-n
->     is for, I decided I could not dispense with them.
-
-Heh, I remember having some problem related to this reading mandoc(1)
-(or maybe it was mdoc(7)).  I don't remember which it was, but having
-a quick look at mandoc(1), I found some flag insufficiently documented:
-'-l'.  See the only mentions in his page:
-
-       MANPAGER  Any  non=E2=80=90empty  value  of  the  environment  var=
-iable
-                 MANPAGER is used instead of the  standard  pagination
-                 program,  less(1); see man(1) for details.  Only used
-                 if -a or -l is specified.
-
-       PAGER     Specifies the pagination program to use when MANPAGER
-                 is not defined.  If neither PAGER nor MANPAGER is de=E2=80=
-=90
-                 fined, less(1) is used.  Only used if  -a  or  -l  is
-                 specified.
-
-That's probably a glitch of not having a comprehensive list of options
-and their description.
-
-Going more into what concerns me, which is man3, I often miss an
-ARGUMENTS (or PARAMETERS, to be more precise) section in the pages for
-functions.  Sometimes it would be just one line per argument, but in
-other cases it would help a lot have more organized information.  I'll
-show you a few cases where I've used it, and where I think it made a
-difference.
-
-<https://github.com/shadow-maint/shadow/blob/master/lib/stpecpy.h>
-<https://github.com/shadow-maint/shadow/blob/master/lib/stpeprintf.h>
-<https://github.com/shadow-maint/shadow/blob/master/libmisc/agetpass.c>
-
-
- * SYNOPSIS
- *	char *_Nullable stpecpy(char *_Nullable dst, char end[0],
- *	                        const char *restrict src);
- *
- * ARGUMENTS
- *	dst	Destination buffer where to copy a string.
- *
- *	end	Pointer to one after the last element of the buffer
- *		pointed to by `dst`.  Usually, it should be calculated
- *		as `dst + NITEMS(dst)`.
- *
- *	src	Source string to be copied into dst.
- *
- * DESCRIPTION
- *	This function copies the string pointed to by src, into a string
- *	at the buffer pointed to by dst.  If the destination buffer,
- *	limited by a pointer to its end --one after its last element--,
- *	isn't large enough to hold the copy, the resulting string is
- *	truncated.
- *
- *	This function can be chained with calls to [v]stpeprintf().
-
-
-
- * SYNOPSIS
- *	[[gnu::format(printf, 3, 4)]]
- *	char *_Nullable stpeprintf(char *_Nullable dst, char end[0],
- *	                           const char *restrict fmt, ...);
- *
- *	[[gnu::format(printf, 3, 0)]]
- *	char *_Nullable vstpeprintf(char *_Nullable dst, char end[0],
- *	                           const char *restrict fmt, va_list ap);
- *
- *
- * ARGUMENTS
- *	dst	Destination buffer where to write a string.
- *
- *	end	Pointer to one after the last element of the buffer
- *		pointed to by `dst`.  Usually, it should be calculated
- *		as `dst + NITEMS(dst)`.
- *
- *	fmt	Format string
- *
- *	...
- *	ap	Variadic argument list
- *
- * DESCRIPTION
- *	These functions are very similar to [v]snprintf(3).
- *
- *	The destination buffer is limited by a pointer to its end --one
- *	after its last element-- instead of a size.  This allows
- *	chaining calls to it safely, unlike [v]snprintf(3), which is
- *	difficult to chain without invoking Undefined Behavior.
-
-
-
- * SYNOPSIS
- *	[[gnu::malloc(erase_pass)]]
- *	char *agetpass(const char *prompt);
- *
- *	void erase_pass(char *pass);
- *
- * ARGUMENTS
- *   agetpass()
- *	prompt	String to be printed before reading a password.
- *
- *   erase_pass()
- *	pass	password previously returned by agetpass().
- *
- * DESCRIPTION
- *   agetpass()
- *	This function is very similar to getpass(3).  It has several
- *	advantages compared to getpass(3):
- *
- *	- Instead of using a static buffer, agetpass() allocates memory
- *	  through malloc(3).  This makes the function thread-safe, and
- *	  also reduces the visibility of the buffer.
- *
- *	- agetpass() doesn't reallocate internally.  Some
- *	  implementations of getpass(3), such as glibc, do that, as a
- *	  consequence of calling getline(3).  That's a bug in glibc,
- *	  which allows leaking prefixes of passwords in freed memory.
- *
- *	- agetpass() doesn't overrun the output buffer.  If the input
- *	  password is too long, it simply fails.  Some implementations
- *	  of getpass(3), share the same bug that gets(3) has.
- *
- *	As soon as possible, the password obtained from agetpass() be
- *	erased by calling erase_pass(), to avoid possibly leaking the
- *	password.
- *
- *   erase_pass()
- *	This function first clears the password, by calling
- *	explicit_bzero(3) (or an equivalent call), and then frees the
- *	allocated memory by calling free(3).
- *
- *	NULL is a valid input pointer, and in such a case, this call is
- *	a no-op.
-
-
-It's kind of a synopsis of the parameters.  Would it be better _after_
-the description?  Maybe.  Is it better than having it all in the
-description?  I think it is.  Will we see this in the Linux man-pages
-some day?  Maybe.  What's your opinion?
-
->     Another reform to groff's man pages that I undertook was to begin
->     shifting more discursive material earlier in the page.  A popular
->     approach to man page organization for section 1 and 8 pages is to
->     have a single paragraph of overview followed immediately by the
->     "Options" section, which promptly starts referring to technical
->     details, sometimes obscure ones, that the reader must already
->     comprehend or which are not properly presented until later in the
->     document.  As you may suspect, I dislike that.  Ingo felt that if I=
-
->     was going to have an Options section at all, I should keep it up
->     high so it would at least start on the first pager screen--I think
->     this was meant for the convenience of the expert reader.  But I
->     think this approach sacrifices too much accessibility to the
->     learner.  One should be able to read a man page linearly and feel
->     one's understanding of the topic building.  Some people would retor=
-t
->     that man pages are meant as a reference, not a tutorial.  My counte=
-r
->     is that while they generally aren't tutorials, terming one's page a=
-
->     "reference" does not excuse one from covering the domain-specific
->     knowledge that another needs to acquire to competently use the
->     software at issue.
-
-Yup, I think the man pages should serve as both (short) tutorials *and*
-quick references.  If I need further info, I go to StackOverflow, but
-I'd like to understand at least the basics of a function when reading
-its page (and I've learnt many of the man3 functions by reading the
-pages while maintaining them; for example, I didn't even know there was
-a regex(3) function until I saw the page being mentioned in a ffix
-patch by Michael; a few weeks later I needed it, and could use it by
-just reading the manual; then I added the example program with
-something close to what I did with it).
-
-Something I do is first look at the synopsis, have a quick look at the
-description searching for one line that describes each argument, and
-then look at the example program to guess myself about the function.
-Only after that is when I try to read the entire page to know the details=
-=2E
-But most of a function should be obvious already before reading the
-description, or the design of the function would be dubious.
-
->  I think the boot(8) and crash(8) pages from the
->     V7 Unix manual (1979) are examples, from an esteemed source, of how=
-
->     discursive--nigh-on tutorial--a man page of good reputation can get=
-=2E
+> If you really want C89, I suggest (as I did in the commit message) that
+> you read the C89 Standard itself, which will be much more precise than
+> the Linux man-pages have ever been or will ever be.
 >=20
->     My opinion is that the reader who is already familiar with the
->     page's material can type "/Options" in their pager to navigate ther=
-e
->     if they are in a hurry.  Alternatively, thanks to Deri James, they
->     can view man pages as PDFs, open up the navigation pane of their PD=
-F
->     viewer, and click on "Options".  A good conversion to HTML enables
->     this, too.
+> However, I suggest you change your heart, and consider C99, since that's
+> the future (or the past, I should say).  I would at least ask that you
+> show _proof_ that you _need_ C89, before I consider spending some extra
+> time in documenting C89 in the man pages.
+>=20
 
-Which reminds me that when I move to 1.23.0 as a dependency, we should
-have another look at Deri's script, and simplify it.
+I think you misunderstood what I meant here. I've got nothing against
+using current versions of the language. Perhaps that was not clear
+enough in my message.
 
-Cheers,
+> Especially, when you can just download a plain text version of the C89
+> Standard, and grep(1) for the function name you're interested in:
+>=20
+> <https://port70.net/~nsz/c/c89/c89-draft.txt>
+>=20
+> I suggest you download that file, and use a function like this:
+>=20
+> $ stdc89() { grep "[[:alpha:]] \**\b$1([[:alnum:]*,. ]*);" /path/to/c89-d=
+raft.txt; }
+> $ stdc89 printf
+>          int printf(const char *format, ...);
+>          int printf(const char *format, ...);
+>=20
 
-Alex
+I gave this a quick spin and it seems to work decently well. So thanks
+for that. It's still not quite as nice as having C89 mentioned in
+STANDARDS, and couldn't this be leveraged to fix up the inconsistencies
+you mentioned earlier?
 
 >=20
-> [2] http://harmful.cat-v.org/cat-v/
+> >=20
+> > Personally, I see this more as an issue of manpages inappropriately
+> > editorializing. Mentioning in DESCRIPTION of gets(3) to "Never use this
+> > function" is perfectly fine. In fact, I applaud that it's emphasized
+> > before even getting into what the function does.
+> >=20
+> > From the original commit message:
+> >=20
+> >> Let's move forward, so readers get the intended notice that C89 is not=
+ a
+> >> useful version of C.
+> >=20
+> > This is incorrect. I can write useful code, even in C89.
+> >=20
+> > More importantly, I find it to be an inappropriate attitude for a manual
+> > to take.
+>=20
+> I admit some editorializing.  I think there needs to be some.  Otherwise,
+> there will always be some projects that request support for their
+> favorite standard.  We're close to the point where C89 becomes irrelevant.
+> I admit we're not yet there, but I'm not sure if it's because it's really
+> needed, or because some projects blindly stuck to it for fear of the
+> unknown.  I believe it's the latter, and would like to ask you to try C99,
+> or show some proof that you still need C89 for some reasons that are
+> different from "I like it".  Please understand that I'm not going to
+> spend my time on documenting POSIX.1-1988 or even K&R C just because
+> some project likes it (there are still projects that use K&R functions).
+>=20
+> However, if you show me that some system can't possibly have C99 in any
+> form, because there's no C99-compatible compiler or libc that runs on
+> that system, I would reconsider reverting the patch.
+>=20
 
---=20
-<http://www.alejandro-colomar.es/>
-GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
+I appreciate the honesty WRT admitting to editorializing. Even if we
+disagree on it here.
 
---------------tn5wylI8cndbZouXC0D02q6I--
+"Usefulness" seems to be a hard sell for you, but perhaps you would
+reconsider it based on the historical relevance of C89? It was, after
+all, the first proper standard of the C language. If you don't want to
+promote C89 by having it mentioned alongside the others, perhaps you'd
+be open to the idea of adding a historical note? Saying that C89 is
+obsolete in the note would be acceptable IMO, but not having any mention
+of C89 at all makes the manpages feel incomplete. Others have shared
+this sentiment when chatting with them online.
 
---------------jaasqvahqi5PNGMSEJhA5Rpg
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+There is also somewhat of a precedent of such a line being included in
+STANDARDS. For example, the following excerpts from gets(3) and
+printf(3), respectively:
+
+> LSB deprecates gets().  POSIX.1-2008 marks gets() obsolescent.
+> ISO C11 removes the specification of gets() from the C language,
+> and since version 2.16, glibc header files don't expose the
+> function declaration if the _ISOC11_SOURCE feature test macro is
+> defined.
+
+> The dprintf() and vdprintf() functions were originally GNU
+> extensions that were later standardized in POSIX.1-2008.
+
+- Oskari
+
+--2pg7o5GhrgG0eHqb
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQORokACgkQnowa+77/
-2zKL7xAAhChl942gvuvo3le9o4x2fQfXkoJoPlQNs179ZgWrGEnba6GJ/aRqvRjX
-xTipqxMosQ83xIWJHWEDGz538hpRtLR0wYBJRNDyO/YBtk5fRwidRxNKWz2+mQf2
-66Qjxq1q77Ae+rpGpvHg7HIssR1K9ehb4nQfqctkEsVByOzhV9WFCWavGxPCwlnx
-kkQMhKxBkc9JdHNiGuRIPkrXDTENaFUWWi1k/WNv4NIT2pa4TqQ27tQ4UgAlvbZ0
-dENGg5WCIA8T/ebyOGL2bSlt9DpocnuAikckMn0T1vc2ziEZ0C8i8hgzQCY71hAJ
-NnZ5Ki/2mvC8PeabN0Hxi6CtY9ur9PmKlDFAuDds8ERuiDCLwGnk8Iln7x83VSup
-jZ8XOhc2oRqR5nGSrlMNZcLmbQyamBGU1HlDSId13S9kIr/g1IxMziAuZH/zdnPS
-wnw+q18v8cVoa5wKcy11UEzpUEjgwZrLRtLLN7uZuVoxPdb1eDslS2wWlGRKEmEC
-BIyvWJTOzPW1P9WENvvNd/WA3zpTW+Pc6p9b6kSBy7bmdmXLKoUNuD/ZoC6pIBW+
-QJ4tjXen/fTsDri+a9Yl3F0zEpA17BazsdibBCBG4FBOax+DxabE9uV4eJoQqEXq
-RgODY8sJaKFJmqywGjgs/pM0h9F66xWxTgpWywI63sKEf6FJR1s=
-=lEoj
+iHUEABYIAB0WIQQfOU+JeXjo4uxN6vCp8he9GGIfEQUCZA5/mQAKCRCp8he9GGIf
+EVXUAQC2B8P6a/0w1U6qHUqOluAawTOyvlR1g7vl7w6DegJTrAD+LbCCV5nQ11AO
+fTr69G2qPzyDz3KOwl1krbPtkL//Ugk=
+=kYcJ
 -----END PGP SIGNATURE-----
 
---------------jaasqvahqi5PNGMSEJhA5Rpg--
+--2pg7o5GhrgG0eHqb--
