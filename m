@@ -2,125 +2,76 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 449FF6BBF3B
-	for <lists+linux-man@lfdr.de>; Wed, 15 Mar 2023 22:40:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B5D656BC1C4
+	for <lists+linux-man@lfdr.de>; Thu, 16 Mar 2023 00:52:05 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232474AbjCOVj6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 15 Mar 2023 17:39:58 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43068 "EHLO
+        id S231894AbjCOXwD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 15 Mar 2023 19:52:03 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56228 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232400AbjCOVj5 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 15 Mar 2023 17:39:57 -0400
-Received: from smtp-8fae.mail.infomaniak.ch (smtp-8fae.mail.infomaniak.ch [IPv6:2001:1600:4:17::8fae])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4DA6D4EDB
-        for <linux-man@vger.kernel.org>; Wed, 15 Mar 2023 14:39:55 -0700 (PDT)
-Received: from smtp-2-0000.mail.infomaniak.ch (unknown [10.5.36.107])
-        by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4PcP1h0gQxzMpnPZ;
-        Wed, 15 Mar 2023 22:39:52 +0100 (CET)
-Received: from unknown by smtp-2-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4PcP1g48cfzMt2f6;
-        Wed, 15 Mar 2023 22:39:51 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=digikod.net;
-        s=20191114; t=1678916391;
-        bh=S0lcAzRGjVmoe+WM3s7JLd10IelKNO4zNj0FhbwMSJI=;
-        h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-        b=WnwO4mebE+FdC/EbwG6w7yjQ2xniYZAH+VUAFD6jLNkeqQW8x3jYreA40pOYHZJ2A
-         0jZvUs6O24It2yLMetoKAEuMCB+OqnpidVdxsIOCDGJtf7riozmiq891FzXygowDJ7
-         Im0TJTAY6bmSKO2ospfUC7CeOzgkFZGTgY8eplR4=
-Message-ID: <1421ea14-dca4-2969-11b7-4a37720b9886@digikod.net>
-Date:   Wed, 15 Mar 2023 22:39:50 +0100
+        with ESMTP id S233030AbjCOXwD (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 15 Mar 2023 19:52:03 -0400
+X-Greylist: delayed 429 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Wed, 15 Mar 2023 16:51:58 PDT
+Received: from gentwo.de (gentwo.de [IPv6:2a02:c206:2048:5042::1])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 58FBD24499
+        for <linux-man@vger.kernel.org>; Wed, 15 Mar 2023 16:51:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gentwo.de; s=default;
+        t=1678923838; bh=HjICPMHoCSSiRwXQgLJ3ACmU/KCg2Qlr6EbGputSdWs=;
+        h=Date:From:To:cc:Subject:From;
+        b=F2+SY6T/MwWPZab0wMUy9w81nip5Fxr8RvWKGw5krap08HA1OZHV+1RMbPakEquCB
+         3nAI/WLNm+b1efAcWQ+HwbSzyLXO7IUynlXhg6pMKjtKKcIcau0INwlLe0Z5re8pAK
+         baxSrnKfAVp3mdQ8CBOW95731R96cdsIbiegvbRk4F8tg+tj+8mXkpC5RZ/jB+WIcc
+         uz6PXrUBe8F9uVsh7hO08D8te2RTbyMHVNREpKi0qoy7uJdnUH8SCaksCWG32bZ1aq
+         nE687ixa7uKdEIxb2i0bPThh2QTUHn7yYXNOgKrJLj5FVTahugmf6SCrUF090lPRKx
+         MsVBrg6Ja4HOw==
+Received: by gentwo.de (Postfix, from userid 1001)
+        id 80536B00162; Thu, 16 Mar 2023 00:43:58 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+        by gentwo.de (Postfix) with ESMTP id 7C572B000AB;
+        Thu, 16 Mar 2023 00:43:58 +0100 (CET)
+Date:   Thu, 16 Mar 2023 00:43:58 +0100 (CET)
+From:   Christoph Lameter <cl@gentwo.de>
+To:     linux-man@vger.kernel.org
+cc:     mtk.manpages@gmail.com, alx.manpages@gmail.com
+Subject: [PATCH] ip.7: Fix IP_MULTICAST_ALL description
+Message-ID: <ba9a8cc2-c7f0-f96e-74f8-c7dea334fb4@gentwo.de>
 MIME-Version: 1.0
-User-Agent: 
-Subject: Re: [PATCH v4 3/3] landlock.7: Give a pointer to how to implement a
- fallback mechanism
-Content-Language: en-US
-To:     =?UTF-8?Q?G=c3=bcnther_Noack?= <gnoack3000@gmail.com>,
-        Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>, linux-man@vger.kernel.org
-References: <20230310220851.22261-1-gnoack3000@gmail.com>
- <20230310220851.22261-3-gnoack3000@gmail.com>
-From:   =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>
-In-Reply-To: <20230310220851.22261-3-gnoack3000@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Infomaniak-Routing: alpha
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
-        URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.6
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Status: No, score=-0.7 required=5.0 tests=BAYES_05,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+INADDR_ANY has nothing to do with the IP_MULTICAST_ALL option.
+It does not matter if the interface is bound to all interfaces
+or a particular interface for the functionality of IP_MULTICAST_ALL.
 
-On 10/03/2023 23:08, Günther Noack wrote:
-> Signed-off-by: Günther Noack <gnoack3000@gmail.com>
-> ---
->   man7/landlock.7 | 16 ++++++++++++++--
->   1 file changed, 14 insertions(+), 2 deletions(-)
-> 
-> diff --git a/man7/landlock.7 b/man7/landlock.7
-> index 9c305edef..c173cbb98 100644
-> --- a/man7/landlock.7
-> +++ b/man7/landlock.7
-> @@ -393,12 +393,14 @@ accessible through these system call families:
->   Future Landlock evolutions will enable to restrict them.
->   .SH EXAMPLES
->   We first need to create the ruleset that will contain our rules.
-> +.PP
->   For this example,
->   the ruleset will contain rules that only allow read actions,
->   but write actions will be denied.
->   The ruleset then needs to handle both of these kinds of actions.
-> -See below for the description of filesystem actions.
-> -.PP
-> +See the
-> +.B DESCRIPTION
-> +section for the description of filesystem actions.
->   .in +4n
->   .EX
->   struct landlock_ruleset_attr attr = {0};
-> @@ -429,6 +431,16 @@ if (ruleset_fd == \-1) {
->   .EE
->   .in
->   .PP
-> +The ruleset we have constructed requires Landlock ABI version 3 or higher.
-> +On kernels which do not provide that,
-> +the call to
-> +.BR landlock_create_ruleset (2)
-> +will fail.
+Multicast datagrams are addressed to a multicast IP address and will enter
+the network stack via a particular interface. The application can choose
+from which interface it will receive multicast data by binding the socket
+to an IP address. It can then use the IP_MULTICAST_ALL option to
+restrict the multicast groups that the IP stack will deliver via the
+socket.
 
-One of the goal of Landlock is to avoid developers and their code to 
-(lazily) error out if one feature is not supported by the running 
-kernel. If this happens, a lot of sandboxing will be disabled (and then 
-useless) because users don't necessarily have the same kernel as 
-developers'.
+Signed-off-by: Christoph Lameter <cl@linux.com>
 
-Such security feature is not the same as a "necessary" feature. Indeed, 
-sandboxing is and should be optional for applications to run correctly, 
-hence the recommended best-effort approach: 
-https://docs.kernel.org/userspace-api/landlock.html#backward-and-forward-compatibility
-
-I agree that the man page should not be too complex, but I think 
-teaching the best (default) approach should be the goal.
-
-For the example, we can ignore LANDLOCK_ACCESS_FS_REFER but use all 
-other access rights, especially LANDLOCK_ACCESS_FS_TRUNCATE. However, 
-this last one should be masked if not supported by the running kernel. 
-See 
-https://docs.kernel.org/userspace-api/landlock.html#defining-and-enforcing-a-security-policy
-
-An alternative would be to ignore access rights for ABI > 1 to make it 
-simple, but this would not help developers dealing with real use cases.
-
-This comment applies to all these 3 patches.
-
-
-> +You can build a more graceful fallback mechanism
-> +by using the version compatibility table from the
-> +.B VERSIONS
-> +section.
-> +.PP
->   We can now add a new rule to this ruleset thanks to the returned file
->   descriptor referring to this ruleset.
->   The rule will only allow reading the file hierarchy
+Index: manpages-5.10/man7/ip.7
+===================================================================
+--- manpages-5.10.orig/man7/ip.7
++++ manpages-5.10/man7/ip.7
+@@ -571,10 +571,7 @@ that wish to deliberately send probe pac
+ the observed Path MTU.
+ .TP
+ .BR IP_MULTICAST_ALL " (since Linux 2.6.31)"
+-This option can be used to modify the delivery policy of multicast messages
+-to sockets bound to the wildcard
+-.B INADDR_ANY
+-address.
++This option can be used to modify the delivery policy of multicast messages.
+ The argument is a boolean integer (defaults to 1).
+ If set to 1,
+ the socket will receive messages from all the groups that have been joined
