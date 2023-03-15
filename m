@@ -2,72 +2,73 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 416646BAFE3
-	for <lists+linux-man@lfdr.de>; Wed, 15 Mar 2023 13:06:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id F0B3C6BB1F1
+	for <lists+linux-man@lfdr.de>; Wed, 15 Mar 2023 13:31:47 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231613AbjCOMGA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 15 Mar 2023 08:06:00 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52298 "EHLO
+        id S232670AbjCOMbp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 15 Mar 2023 08:31:45 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39538 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231962AbjCOMFN (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 15 Mar 2023 08:05:13 -0400
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com [IPv6:2a00:1450:4864:20::42a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7D4C9193C8
-        for <linux-man@vger.kernel.org>; Wed, 15 Mar 2023 05:04:40 -0700 (PDT)
-Received: by mail-wr1-x42a.google.com with SMTP id r18so17089367wrx.1
-        for <linux-man@vger.kernel.org>; Wed, 15 Mar 2023 05:04:40 -0700 (PDT)
+        with ESMTP id S232603AbjCOMbb (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 15 Mar 2023 08:31:31 -0400
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com [IPv6:2a00:1450:4864:20::430])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B43A412F25
+        for <linux-man@vger.kernel.org>; Wed, 15 Mar 2023 05:30:42 -0700 (PDT)
+Received: by mail-wr1-x430.google.com with SMTP id r29so9121256wra.13
+        for <linux-man@vger.kernel.org>; Wed, 15 Mar 2023 05:30:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1678881879;
-        h=in-reply-to:from:references:cc:to:content-language:subject
+        d=gmail.com; s=20210112; t=1678883440;
+        h=in-reply-to:from:cc:references:to:content-language:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=LWaGlUQfiRqwR5XAFQp3lnEsJR+2qYrmg0T0Brabl38=;
-        b=KriM7pWJz3m8VUX8APswztARv0ETKmFN+BRUeZ/G3yB+CMB/eR1k1UaJCAJCIHNQiH
-         wgJl/+wvZUe6GYfZGccQW+CHYYbBZbQUx9mUQw1oGArNxRQ336y+LbS/OFRjkMtghOXc
-         rDKlNBTxYwBz47fpbfF15U2GUEc24SqnHxeKers1D+YUXB4pIarqO8oUGez3VSlP7Eud
-         M9WFadPAb/Irrej0QpsqklqYKm+KOG2fQpstClvNOteGOqiLXI9Me5eoKNHPay2BmJIf
-         Rk0gx8ZgJJZWYYNRd/5jU9AglGmVK1EBzKA7y5Kg67S5loOurCgZWTW/DfQ2R8VKQgja
-         Fx4A==
+        bh=pnF67glUabzeOLK95pj4UFeNbPafkL4Ft3DT42kHuEc=;
+        b=GbF/BH+gfh/woUcz4pXYfZmoZK35cqIy7wASmXk2ZZh73RoOn5PzLkOTA7G9YJSwFM
+         o4psjbi21BJGG/EyspROD+oSH2dHAekUMqE5LJyFVwVExedILWkbqnjuol3l45BnrCn9
+         3KawBLPaAmxFXUrii9Yk+pNEJEM2SSmhKvgsXXudFaq4GKHV3cTN5ERwS23EMwNrtHgC
+         2U4geeeih75+POTfC8UNQ3uRGFUSgiduHvw919qTB1x7JY/UT8y7jHERc6wUCMCGPcL3
+         klmL5puGcZYRf9UQt7Zj+ZgVL1bygizG0aXKrfgNaRvKDeD0d+/j1TNpwVBAqpnvdeIS
+         kasA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678881879;
-        h=in-reply-to:from:references:cc:to:content-language:subject
+        d=1e100.net; s=20210112; t=1678883440;
+        h=in-reply-to:from:cc:references:to:content-language:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=LWaGlUQfiRqwR5XAFQp3lnEsJR+2qYrmg0T0Brabl38=;
-        b=L5RtJuqMcijok3rQVZYe/19LfFnzqX4PWUEAmQ7jrwqvGb4nf6unv4QqkvigUAt6Q8
-         aMakzaBtjAPfWVeeuGEagqlLBmbCslTsw77NEfPEna9L5m54kKKy8lDpnZWo+8EEIyts
-         +sBv03FEmsUQ7TnBX76+dzrkTSKi9GJSEgaeUUnPnTjYjKdafEShQ1eHxEk01d8BXoJC
-         6wIsFkkBLLOEVTtSK3CIpQNn8fo/Tj5r8E10OhnTIj1hI8oLr6Md+12Po7JNQxIkUxjw
-         /UAzCy3Z6r/cp77gPxDW7i8OHNCv+u62TYC81ogbC12IIXGcMs9JqGzRkJokukJV280X
-         ajSw==
-X-Gm-Message-State: AO0yUKU0IaPcwD2yAu60MuEkin3LBfKkc+19wSeeQe7fkju2FODJ4zHv
-        RZ9cux/+/y0MFQOvj+IRH+8=
-X-Google-Smtp-Source: AK7set/n310c69JqoxzcZDHwabYuTdHYRm9Q4hNj48F4nhS9hARVm3dYW5kVAVbmpwtdHiHRltRCXQ==
-X-Received: by 2002:adf:e683:0:b0:2cf:6878:a43a with SMTP id r3-20020adfe683000000b002cf6878a43amr2252130wrm.3.1678881878420;
-        Wed, 15 Mar 2023 05:04:38 -0700 (PDT)
+        bh=pnF67glUabzeOLK95pj4UFeNbPafkL4Ft3DT42kHuEc=;
+        b=lRZ7CDvFfciU9RdjeyjOnyVD9n228eURUO1BDTaDuRn/5nSNG2Wny0ZkkHByZqiWZg
+         xLgpN0q04i5SJn0/WhNUVRqFgSPvZIOVv74IKMq/bF+TcoksThsBPOH0n7lWkFONue39
+         hcPPr4Bc5T8iERbWRycQ8N6nYsKWbqsyDajz09x2jbot5wQ2gp25GyDOlyBLH6pDEghw
+         AQpZGCBtUWHBLHL8/XmfD0oU1+CwbUp1pi0oKuPSqB2OUN9pJepxv/42v6cJqgn6As0P
+         KZL5x24joo4oVYpRJnEhW+2uV+iVk4XJyyQJtt6vI2Chro13+cz4rwcoKe7JjOpruuQC
+         h5cQ==
+X-Gm-Message-State: AO0yUKWsasr3okHhBo3GHJb552byrX0aaDh2IDhsVd/Ku52FmRGAVIRI
+        uOyvrX0jnvG+SWPyj5xF9uocMHTT8FQ=
+X-Google-Smtp-Source: AK7set98hmixFvtG8QUIfOsDt3tOWs+NeAIILePtL6/95KuZPdmpuZnJJcGnkYy6geVlc6z00Y/2Mw==
+X-Received: by 2002:a5d:4850:0:b0:2c9:b9bf:e20c with SMTP id n16-20020a5d4850000000b002c9b9bfe20cmr2180191wrs.2.1678883440457;
+        Wed, 15 Mar 2023 05:30:40 -0700 (PDT)
 Received: from [192.168.0.160] ([170.253.51.134])
-        by smtp.gmail.com with ESMTPSA id q14-20020a05600000ce00b002c3f03d8851sm4486330wrx.16.2023.03.15.05.04.37
+        by smtp.gmail.com with ESMTPSA id b15-20020adff90f000000b002cfe0ab1246sm4515959wrr.20.2023.03.15.05.30.39
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 15 Mar 2023 05:04:38 -0700 (PDT)
-Message-ID: <062a16a8-7057-15d8-eb8a-bfcdb7644ece@gmail.com>
-Date:   Wed, 15 Mar 2023 13:04:29 +0100
+        Wed, 15 Mar 2023 05:30:40 -0700 (PDT)
+Message-ID: <d3aee611-844b-fba3-5642-16b0ddc576a3@gmail.com>
+Date:   Wed, 15 Mar 2023 13:30:30 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
-Subject: Re: [PATCH] arc4random.3: New page documenting the arc4random(3)
- family of functions
+Subject: Re: Revert "Many Pages: Remove references to C89"
 Content-Language: en-US
-To:     Tom Schwindl <schwindl@posteo.de>, Jakub Wilk <jwilk@jwilk.net>
-Cc:     linux-man@vger.kernel.org,
-        "G. Branden Robinson" <g.branden.robinson@gmail.com>
-References: <20230101162627.28031-1-alx@kernel.org>
- <20230313213044.scl37hpwvuyo2dif@jwilk.net>
- <CR6C48K1388R.2M61G9YHB8VHA@morphine>
+To:     linux-man@vger.kernel.org, Oskari Pirhonen <xxc3ncoredxx@gmail.com>
+References: <20230310015150.3545768-1-Matt.Jolly@footclan.ninja>
+ <8899aff7-4193-dd54-4488-234b1a6cee83@gmail.com> <ZAq5gg+aQB5TrDQ3@dj3ntoo>
+ <f5aac742-4417-fced-343d-002117d629f1@gmail.com> <ZA5/n8Ix+eCYnNgM@dj3ntoo>
+ <591290fb-e78d-ad3a-8b25-4a860d26f775@gmail.com> <ZBAIkHrBm50vjSqL@dj3ntoo>
+Cc:     Brian Inglis <Brian.Inglis@Shaw.ca>,
+        Matt Jolly <Matt.Jolly@footclan.ninja>,
+        Guillem Jover <guillem@hadrons.org>
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <CR6C48K1388R.2M61G9YHB8VHA@morphine>
+In-Reply-To: <ZBAIkHrBm50vjSqL@dj3ntoo>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------AjXp13H8qPGxXxnnL5uKVWSt"
+ boundary="------------IaaqA26ATWl585BNgiegS1nW"
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
@@ -79,105 +80,171 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------AjXp13H8qPGxXxnnL5uKVWSt
-Content-Type: multipart/mixed; boundary="------------0Z5kE0k0w4VFd4nA5S0skzA0";
+--------------IaaqA26ATWl585BNgiegS1nW
+Content-Type: multipart/mixed; boundary="------------Y0A82qq2UXKZAZNUNAdknUI3";
  protected-headers="v1"
 From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Tom Schwindl <schwindl@posteo.de>, Jakub Wilk <jwilk@jwilk.net>
-Cc: linux-man@vger.kernel.org,
- "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Message-ID: <062a16a8-7057-15d8-eb8a-bfcdb7644ece@gmail.com>
-Subject: Re: [PATCH] arc4random.3: New page documenting the arc4random(3)
- family of functions
-References: <20230101162627.28031-1-alx@kernel.org>
- <20230313213044.scl37hpwvuyo2dif@jwilk.net>
- <CR6C48K1388R.2M61G9YHB8VHA@morphine>
-In-Reply-To: <CR6C48K1388R.2M61G9YHB8VHA@morphine>
+To: linux-man@vger.kernel.org, Oskari Pirhonen <xxc3ncoredxx@gmail.com>
+Cc: Brian Inglis <Brian.Inglis@Shaw.ca>,
+ Matt Jolly <Matt.Jolly@footclan.ninja>, Guillem Jover <guillem@hadrons.org>
+Message-ID: <d3aee611-844b-fba3-5642-16b0ddc576a3@gmail.com>
+Subject: Re: Revert "Many Pages: Remove references to C89"
+References: <20230310015150.3545768-1-Matt.Jolly@footclan.ninja>
+ <8899aff7-4193-dd54-4488-234b1a6cee83@gmail.com> <ZAq5gg+aQB5TrDQ3@dj3ntoo>
+ <f5aac742-4417-fced-343d-002117d629f1@gmail.com> <ZA5/n8Ix+eCYnNgM@dj3ntoo>
+ <591290fb-e78d-ad3a-8b25-4a860d26f775@gmail.com> <ZBAIkHrBm50vjSqL@dj3ntoo>
+In-Reply-To: <ZBAIkHrBm50vjSqL@dj3ntoo>
 
---------------0Z5kE0k0w4VFd4nA5S0skzA0
+--------------Y0A82qq2UXKZAZNUNAdknUI3
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi Tom & Jakub,
+Hi Oskari,
 
-On 3/14/23 19:57, Tom Schwindl wrote:
-> On Mon Mar 13, 2023 at 10:30 PM CET, Jakub Wilk wrote:
->> * Alejandro Colomar <alx.manpages@gmail.com>, 2023-01-01 17:26:
->>> +.SH LIBRARY
->>> +Standard C library
->>> +.RI ( libc ", " -lc )
+On 3/14/23 06:39, Oskari Pirhonen wrote:
+> Hi,
+>=20
+> On Mon, Mar 13, 2023 at 13:00:52 +0100, Alejandro Colomar wrote:
+>=20
+> ... snip ...
+>=20
+>>>> <https://port70.net/~nsz/c/c89/c89-draft.txt>
+>>>>
+>>>> I suggest you download that file, and use a function like this:
+>>>>
+>>>> $ stdc89() { grep "[[:alpha:]] \**\b$1([[:alnum:]*,. ]*);" /path/to/=
+c89-draft.txt; }
+>>>> $ stdc89 printf
+>>>>          int printf(const char *format, ...);
+>>>>          int printf(const char *format, ...);
+>>>>
+>>>
+>>> I gave this a quick spin and it seems to work decently well. So thank=
+s
+>>> for that.
 >>
->> That should be \-lc, but...
-
-Ahh, I thought I had fixed that; it seems not.  Thanks!
-
->> To be frank, I'd just remove the whole=20
->> section. Most people shouldn't use -lc,
-
-While there's no need for most users, it's not wrong to specify it.
-I always do it, just for completeness, and treat libc as any other
-library.
-
->> and those who do need it can=20
->> figure it out on their own.
-
-It's surprising how much trivial knowledge is not taught anywhere
-just because it's so trivial, and then it becomes not so trivial
-because nobody tells it.  I'll keep it just in case.  Anyway, I
-think being consistent so that all C functions specify a LIBRARY
-section is in itself good, since that will probably prompt authors
-of pages to use it in their own pages.  Also, since I copied this
-idea from FreeBSD, it makes sense to follow their decissions unless
-we find them harmful.
+>> :-)
+>>
+>>> It's still not quite as nice as having C89 mentioned in
+>>> STANDARDS, and couldn't this be leveraged to fix up the inconsistenci=
+es
+>>> you mentioned earlier?
+>>
+>> Yup, you caught me.  That's what I thought when writing the email.  :p=
 
 >>
 >=20
-> I don't quite remember what the arguments for the LIBRARY section were,=
-
-> but it should be kept for consistency with the other man-pages.
+> I played around with this a bit more, and with a little work it should
+> be possible to query, eg, all the "str*" functions. As it's written,
+> it's doable with something like this (but not the most elegant):
 >=20
+>     $ stdc89 'str[[:alnum:]]*'
+>     double strtod(const char *nptr, char **endptr);
+>     long int strtol(const char *nptr, char **endptr, int base);
+>     char *strcpy(char *s1, const char *s2);
+>     char *strcat(char *s1, const char *s2);
+>     int strcmp(const char *s1, const char *s2);
+>     ...
 >=20
-> off-topic for Alex:
-> As we're talking about libc here, what about the libc.7 patch?
-> Is there any progress regarding it?
+> The duplicates and leading whitespace is a trivial change.
 
-I guess you refer to the patch set by Branden that touched
-ldconfig(8), libc(7), and a some more?  I guess Branden is busy
-with his own stuff (releasing groff-1.23.0).  Probably after the
-release we'll see some updated patches.
+stdc89()
+{
+    grep "[[:alpha:]] \**\b$1([[:alnum:]*,. ]*);" /path/to/c89-draft.txt =
+\
+    | sort \
+    | uniq;
+}
+
+That seems to be enough.  I don't know if in some cases there will be
+whitespace difference that will make this not work, but I tried with
+'printf' and 'gets' and it seems to work so far.
+
+>=20
+> Looking at the site you linked to for the c89-draft.txt, there's also
+> C99, C11, and C2x. With yet some more work, it'd be possible to have
+> equivalent functions for those standards as well. They could even be
+> combined to create an "std-diff" tool to give, eg, new "str*" functions=
+
+> introduced in C89 -> C99.
+>=20
+> Perhaps such a tool already exists, but I thought it worth mentioning
+> here in case anyone reading this gets inspired to write it. I've added
+> it to my (ever growing) TODO list, but don't know when I might get
+> around to actually giving it a go.
+
+Interesting idea.  Sounds fun to do.  I'll check if we can redistribute
+the drafts of the standard in the Linux man-pages repo.  If so, we could
+have the standard .txt files in some directory inside the repo, and then
+have a script that reads those files.
+
+>=20
+> ... snip ...
+>=20
+>>> "Usefulness" seems to be a hard sell for you, but perhaps you would
+>>> reconsider it based on the historical relevance of C89? It was, after=
+
+>>> all, the first proper standard of the C language. If you don't want t=
+o
+>>> promote C89 by having it mentioned alongside the others, perhaps you'=
+d
+>>> be open to the idea of adding a historical note?
+>>
+>> I've been considering something like that for a long time.  The
+>> STANDARDS section (previously known as CONFORMING TO), is a mix of a
+>> proper standards section, and what a HISTORY section should contain.
+>>
+>> It would be interesting to do a split, and inaugurate a HISTORY sectio=
+n.
+>> For that section, I would keep any references to C89, since as you say=
+
+>> it's historically very relevant.  Thus, I will revert the patch, and l=
+ater apply some patches that move the info without discarding it.
+>>
+>=20
+> Well this is good news, and if you ask me, an improvement in the long
+> run instead of just returning to the status quo.
+
+Nice :)
+
+>=20
+> Much appreciated :)
+
+You're welcome :-)
+
+>=20
+> - Oskari
 
 Cheers,
 
 Alex
 
->=20
-
 --=20
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
---------------0Z5kE0k0w4VFd4nA5S0skzA0--
+--------------Y0A82qq2UXKZAZNUNAdknUI3--
 
---------------AjXp13H8qPGxXxnnL5uKVWSt
+--------------IaaqA26ATWl585BNgiegS1nW
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQRtE0ACgkQnowa+77/
-2zLEKRAAjKoC4SylkoWipmdkB0zii+pfJfAuoskNRSjaWwh6HcOLGT/Ye2mIJboj
-+s8ktrstANRtpyDUAqQnT8O/RLg5hOYjhyNznaq9HldzC9BF0RfWijEATd9IuIJR
-rFQVb/LXsNYwYR696yefPYZuycW8+VCpsjIvGochoWzHbOrZKnd+q0Ss1ZZmJ+rL
-tTBEvitWCj2hOHWU9YWBr6R6eH+J4qpdcIRg7aXD0M7uqEsWB+ec87GeFtWnLJOz
-SgrgqzFPnNUCLPcxpByKvS2n/dcrlMsEOgEGTIh2dXlO0SaF59rQeXAnEfw7JDMy
-9ljSiU2PQ5+tXqbXrn5jpmZLqH99fVAg3kgSJnflrBHY2ztzSH3L//OdKC8wvjWp
-YN3SjMkwpI+hgb4H0LDatTvDqmvIWcfVM9RA08fYqpSqE/hv/+Tf+C5hSq9LrOwf
-HoOSx6brvwDJub3j0zhJ/qWiiLx5e2JXnJpiDQs8Wx6AixFP7AcOOzU4zPMsjjGW
-zzy+J/867/f4td8LwqbliRQ7JviC0XG3YVRqa/epSABZ9TomOnqQcBDinicTA4WC
-Bh5Jk8IxLznCWeDkpbSwxszCW+2/uM/1l2jBWO2eCKnJvzWc/aPyQpnqA+HbdvLP
-quShREoImDgBmGdJxqe8iteM/4Nvvf4by5aOGFNTy/T4AIKtIxk=
-=TlD0
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQRumcACgkQnowa+77/
+2zIaZg//bCt8sd9kV4yj0LmXN0+Mz94aTKxdjAoRQlnEVv/l7xkQFYeXOkD95lq3
+iaPIOHvc5G1Pa2wKFwpJmYAFXgPyd8/oLQ5/BOA2G8mdzIKU5GRgHxJ71OCEUWwe
+sIhv9nl0qwr0yA2gzk6iSkA2tlqDVnW5iC1DmBCB0UUv6e2baEHyEGbo16uFOqSy
+AlM8dAjhoev+xBiT5SQY0wbtob42RJR2lggWeEI5l7afXclWcMt4bB+36mZxbXWu
+m0zF5VztMy4Jd7NY/YNHIUBmx6P9u8ejHKbKRwKI67RXU7vX+MvUucKaE40vnw1X
+QdvxLAQOVZEIBuL1mspbYQeWRNAdoJNsRHR3b8yC5A23hsSxja//yLxtQjwUJSkb
+hkG9XM/zGdfkWNpo4Ob5nX1CvqJoOa5kTVEIaYVxFRb5gHXeGUCM3rQVaJb+kTBf
+D2XH0l7LUVaOamboeeEBzC3clThycIyimDpWh2FyhdbOYW0hYw6wxzvogbIhHBc6
+gs+12dnFf1y0tvXM37ObEl+IS6R+Kjeka1rNt9KfdcO8awQwQjFF69lvY74Skorx
+amBH56XbwTTMZHyfgDIFpCa/b0X4U2rKTL9yfssbwmsMwsMi2Gvx8LvRozj6SEGN
+75KJzF5X/PvsUpDZuCwpqnZxpTWqwsHcylU0LpH1C0ATrWSg5gs=
+=TGMl
 -----END PGP SIGNATURE-----
 
---------------AjXp13H8qPGxXxnnL5uKVWSt--
+--------------IaaqA26ATWl585BNgiegS1nW--
