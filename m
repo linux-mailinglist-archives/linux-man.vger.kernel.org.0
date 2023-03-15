@@ -2,78 +2,61 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id E0B6D6BB5E0
-	for <lists+linux-man@lfdr.de>; Wed, 15 Mar 2023 15:23:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 089886BBA31
+	for <lists+linux-man@lfdr.de>; Wed, 15 Mar 2023 17:51:11 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233101AbjCOOXV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 15 Mar 2023 10:23:21 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43132 "EHLO
+        id S231232AbjCOQvJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 15 Mar 2023 12:51:09 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36852 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233112AbjCOOXM (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 15 Mar 2023 10:23:12 -0400
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com [IPv6:2a00:1450:4864:20::436])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 76D9B69CEC
-        for <linux-man@vger.kernel.org>; Wed, 15 Mar 2023 07:23:03 -0700 (PDT)
-Received: by mail-wr1-x436.google.com with SMTP id l12so9201226wrm.10
-        for <linux-man@vger.kernel.org>; Wed, 15 Mar 2023 07:23:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1678890182;
-        h=in-reply-to:references:cc:to:from:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=1xnfHcfKEzJWj6nPyHJxUTKf0eUAAN07ojFFMBzIHFE=;
-        b=RGT+9drMbleSXDrKpC7ojEv35T5iF/PrHZngskibSbVvmO4MtQxyx3rVwFoxfOWpXQ
-         vVsHQNT1LYnnciTYoMmycemYUPFJFBLZAGH1cEvdOxSexoCO4TAt+xctqpDBGi6oMFIS
-         KrcF/j8tTLfpfsaEYfmH8AYrN1BB8PBP4Km8ez/yVJf/6Nx1mImbBLDZ7q/kLpXGU7nX
-         qSP/zMQy+LUtV97pZ7rPhSSLqjqT6y+mpcP1lGDUPfCxj2pm9+EmOzn0VtqOvfG4ySlA
-         wlwAZ7r12JE4MT6RVCbqKaYW+w+RUhRgjDHOpvslqHiHE+nLOeB6kdEgnYe+iNzbD32m
-         hVUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678890182;
-        h=in-reply-to:references:cc:to:from:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=1xnfHcfKEzJWj6nPyHJxUTKf0eUAAN07ojFFMBzIHFE=;
-        b=AjUDfvfxf9wqBhyHWgoseTWVR2tiIE/zezAugm9uMgtVLF838e6f+tXrCHTI5nQcbl
-         EsAYBlC51UDX6iUd1Ekptd+MHC7SrY0Ys1UN2fNg5x27jxDRvhZvisuqs2OtRnGKxnF5
-         PvPx1Ec0v6sCnyEDFDBefznu1nVCpswGqL3BW8zaIy17ZvEmX3wrXJOGabuGigZ+UDL0
-         Yk2g7uqPLYfhcRcPQSEbpeFItK6yYqPqURxp8FecQtpEo/gV4BMx9zKTBWmJRU1diKWE
-         yCbcQkKLr52ax7VrJnFRElsWyqBrgY8gxRep4mDxvELFA8PbF7iz1Bx32hzSjMXuK2WM
-         Y1AQ==
-X-Gm-Message-State: AO0yUKWlwmLBRgTdl2Rrobu28kPGctW4PiG85/aFPUy4O0VNfIS/06Qz
-        SGQvLiFiAQ8P3AZuwuUj+TUFdDAg39Y=
-X-Google-Smtp-Source: AK7set+8AtMod1sjbkjaD7hWR1qYTHjgvpHSLRrmsf1fdUzx27ojKQ7MubWplKFBj1kudr0LibW6JQ==
-X-Received: by 2002:a5d:44cd:0:b0:2ce:aed5:7dc with SMTP id z13-20020a5d44cd000000b002ceaed507dcmr1926865wrr.68.1678890181707;
-        Wed, 15 Mar 2023 07:23:01 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.51.134])
-        by smtp.gmail.com with ESMTPSA id n5-20020a5d4c45000000b002d1801018e2sm176120wrt.63.2023.03.15.07.23.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 15 Mar 2023 07:23:01 -0700 (PDT)
-Message-ID: <c893343f-a92f-8a00-250d-728c851b1deb@gmail.com>
-Date:   Wed, 15 Mar 2023 15:22:52 +0100
+        with ESMTP id S231631AbjCOQvI (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 15 Mar 2023 12:51:08 -0400
+Received: from omta001.cacentral1.a.cloudfilter.net (omta001.cacentral1.a.cloudfilter.net [3.97.99.32])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9E0E3422C
+        for <linux-man@vger.kernel.org>; Wed, 15 Mar 2023 09:51:03 -0700 (PDT)
+Received: from shw-obgw-4002a.ext.cloudfilter.net ([10.228.9.250])
+        by cmsmtp with ESMTP
+        id cNJxpFAPzuZMScUL8pwtx2; Wed, 15 Mar 2023 16:51:02 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=shaw.ca; s=s20180605;
+        t=1678899062; bh=sFfGAtl652GJ+apBJT7W5XrdkP4MTNLrHDhK/tafJdk=;
+        h=Date:Reply-To:Subject:To:References:From:In-Reply-To;
+        b=Ln1H7+VMbFP2LAnwJqOVp+HZPMg5oTz/JjBlcXnK7nI/t9jKiBUVWFJ8Ne20OCMkv
+         wIi1K6m7ds+EBlOA6UI/v5G5cwNzLVzyRZ2qpcnJQRFcQvuYbMNeG03xak9u+fQNYd
+         eQBkAYG+4eSNLYzZtfVUqd8eCaCiKYx00E+y3pGAC67ENO08Ql8Knv9rwokNd7tdJd
+         8A4vWr1/knogMag+Y9Z7YAJpiC/YtkpEVdl+1tK9/HsSpHOfmFE23dLS9wgvPXTHKE
+         vd3xJsiFMGKc1wPFtmLFwr1G2pUsf3Krs0JMRsqGw72BEYHRflzihJ4RT7aZI790FM
+         cz2CngiZX+hpw==
+Received: from [10.0.0.5] ([184.64.102.149])
+        by cmsmtp with ESMTP
+        id cUL7pncBzyAOecUL8pbpxa; Wed, 15 Mar 2023 16:51:02 +0000
+X-Authority-Analysis: v=2.4 cv=e5oV9Il/ c=1 sm=1 tr=0 ts=6411f776
+ a=DxHlV3/gbUaP7LOF0QAmaA==:117 a=DxHlV3/gbUaP7LOF0QAmaA==:17
+ a=IkcTkHD0fZMA:10 a=m6UvoRncAAAA:8 a=b4LDLZbEAAAA:8 a=qn1SYCEQgjSGkVY21MsA:9
+ a=QEXdDO2ut3YA:10 a=lfUPCyLtUyi34tMhaCBG:22 a=20T61YgZp4ItGotXEy2O:22
+Message-ID: <6aad40b5-04ca-68d8-7da2-cb4a7bed7ded@Shaw.ca>
+Date:   Wed, 15 Mar 2023 10:51:01 -0600
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
+Reply-To: linux-man@vger.kernel.org
 Subject: Re: Revert "Many Pages: Remove references to C89"
-Content-Language: en-US
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     linux-man@vger.kernel.org, Oskari Pirhonen <xxc3ncoredxx@gmail.com>
-Cc:     Brian Inglis <Brian.Inglis@Shaw.ca>,
-        Matt Jolly <Matt.Jolly@footclan.ninja>,
-        Guillem Jover <guillem@hadrons.org>
+Content-Language: en-CA
+To:     linux-man@vger.kernel.org
 References: <20230310015150.3545768-1-Matt.Jolly@footclan.ninja>
  <8899aff7-4193-dd54-4488-234b1a6cee83@gmail.com> <ZAq5gg+aQB5TrDQ3@dj3ntoo>
  <f5aac742-4417-fced-343d-002117d629f1@gmail.com> <ZA5/n8Ix+eCYnNgM@dj3ntoo>
  <591290fb-e78d-ad3a-8b25-4a860d26f775@gmail.com> <ZBAIkHrBm50vjSqL@dj3ntoo>
  <d3aee611-844b-fba3-5642-16b0ddc576a3@gmail.com>
- <6da28b50-e086-acde-6bb0-0409ada022d6@gmail.com>
-In-Reply-To: <6da28b50-e086-acde-6bb0-0409ada022d6@gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------6oD7QYvEz9d5ihjHT3QwmR9k"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+From:   Brian Inglis <Brian.Inglis@Shaw.ca>
+Organization: Inglis
+In-Reply-To: <d3aee611-844b-fba3-5642-16b0ddc576a3@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CMAE-Envelope: MS4xfFRWt6qnJCz0HpZWfM6t/Fa5H5YixjRXt8nUdcB7Ta+I0+2r2QjxGnS3B/waFv6Fjvl3r2sdtzkSyqTro1ZcoMe+NAngDevy/UtUslhv0DCYUyUDLYPC
+ BvUW55iHpI8ih4Ovr5EDrcdfTHX7AxZy0kBxjFNIAcxCz7P1oly9WjBxpkPYfy+kuB8OFyZ1Yzoqb3N9KLpwo7ei3ZsqlUVumzk=
+X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,
+        RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -81,104 +64,58 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------6oD7QYvEz9d5ihjHT3QwmR9k
-Content-Type: multipart/mixed; boundary="------------5J6x0s492HBzjRsHU4piiS17";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: linux-man@vger.kernel.org, Oskari Pirhonen <xxc3ncoredxx@gmail.com>
-Cc: Brian Inglis <Brian.Inglis@Shaw.ca>,
- Matt Jolly <Matt.Jolly@footclan.ninja>, Guillem Jover <guillem@hadrons.org>
-Message-ID: <c893343f-a92f-8a00-250d-728c851b1deb@gmail.com>
-Subject: Re: Revert "Many Pages: Remove references to C89"
-References: <20230310015150.3545768-1-Matt.Jolly@footclan.ninja>
- <8899aff7-4193-dd54-4488-234b1a6cee83@gmail.com> <ZAq5gg+aQB5TrDQ3@dj3ntoo>
- <f5aac742-4417-fced-343d-002117d629f1@gmail.com> <ZA5/n8Ix+eCYnNgM@dj3ntoo>
- <591290fb-e78d-ad3a-8b25-4a860d26f775@gmail.com> <ZBAIkHrBm50vjSqL@dj3ntoo>
- <d3aee611-844b-fba3-5642-16b0ddc576a3@gmail.com>
- <6da28b50-e086-acde-6bb0-0409ada022d6@gmail.com>
-In-Reply-To: <6da28b50-e086-acde-6bb0-0409ada022d6@gmail.com>
+On 2023-03-15 06:30, Alejandro Colomar wrote:
+> On 3/14/23 06:39, Oskari Pirhonen wrote:
+>> On Mon, Mar 13, 2023 at 13:00:52 +0100, Alejandro Colomar wrote:
+>>>>> <https://port70.net/~nsz/c/c89/c89-draft.txt>
+>>>>> I suggest you download that file, and use a function like this:
+>>>>> $ stdc89() { grep "[[:alpha:]] \**\b$1([[:alnum:]*,. ]*);" /path/to/c89-draft.txt; }
+>>>>> $ stdc89 printf
+>>>>>           int printf(const char *format, ...);
+>>>>>           int printf(const char *format, ...);
 
---------------5J6x0s492HBzjRsHU4piiS17
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+>>>> I gave this a quick spin and it seems to work decently well. So thanks
+>>>> for that.
 
-On 3/15/23 13:53, Alejandro Colomar wrote:
-> Hi Oskari,
->=20
-> On 3/15/23 13:30, Alejandro Colomar wrote:
->> stdc89()
->> {
->>     grep "[[:alpha:]] \**\b$1([[:alnum:]*,. ]*);" /path/to/c89-draft.t=
-xt \
->>     | sort \
->>     | uniq;
->> }
->=20
-> I found a bug.  I was missing '_' in identifier names.  So it didn't
-> match memcpy(3), which uses size_t.  Also, I found some spurious match,=
+>>>> It's still not quite as nice as having C89 mentioned in
+>>>> STANDARDS, and couldn't this be leveraged to fix up the inconsistencies
+>>>> you mentioned earlier?
 
-> so added a '$' anchor after the ';'.
->=20
->=20
-> stdc89()
-> {
->     grep "[[:alpha:]] \**\b$1([[:alnum:]*,._ ]*);" /path/to/c89-draft.t=
-xt \
->     | sort \
->     | uniq;
-> }
->=20
->=20
-> This function finds 136 declarations in C89.  I'm not sure if that's
-> all of them.  Is anyone missing any?
+>> Looking at the site you linked to for the c89-draft.txt, there's also
+>> C99, C11, and C2x. With yet some more work, it'd be possible to have
+>> equivalent functions for those standards as well. They could even be
+>> combined to create an "std-diff" tool to give, eg, new "str*" functions
+>> introduced in C89 -> C99.
+>> Perhaps such a tool already exists, but I thought it worth mentioning
+>> here in case anyone reading this gets inspired to write it. I've added
+>> it to my (ever growing) TODO list, but don't know when I might get
+>> around to actually giving it a go.
 
-Actually, that was missing a few (multi-line declarations, signal(3),
-which is quite weird, and asm()).  The following seems to be complete
-(per the count of ';'):
+> Interesting idea.  Sounds fun to do.  I'll check if we can redistribute
+> the drafts of the standard in the Linux man-pages repo.  If so, we could
+> have the standard .txt files in some directory inside the repo, and then
+> have a script that reads those files.
 
-$ cat stdc89=20
-#!/bin/sh
+I have an archive of many drafts including (so far):
 
-sed -n '/A.3 LIBRARY SUMMARY/,$p' <c89-draft.txt \
-| pcregrep -M "(?s)\b$1 *\([[:alnum:]*,._\s\(\)-]*\);$";
+  1.5M Sep 10  1998 N0843-C1999-CD-1998-08.pdf
+  3.4M May  6  2005 N1124-C1999+TC2-CD-2005-05.pdf
+  3.7M Sep  8  2007 N1256-C1999+TC3-CD-2007-09.pdf
+  1.7M Apr 12  2011 N1570-C201X-CD-2011-04.pdf
+  2.3M Oct  9  2017 N2176-C2017-CD-2017-10.pdf
+  6.7M Jan 24 11:37 N3088-C2023-CD1-2023-01.pdf
 
-$ ./stdc89 '[[:alpha:]][[:alnum:]_]+' \
-  | grep ';' \
-  | wc -l
-146
-$ sed -n '/A.3 LIBRARY SUMMARY/,$p' <c89-draft.txt \
-  | grep '         .*);' \
-  | wc -l
-146
+which can be downloaded as:
 
+	https://www.open-std.org/jtc1/sc22/wg14/www/docs/n####.pdf
 
---=20
-<http://www.alejandro-colomar.es/>
-GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
+Package poppler contains pdftotext which with -layout produces easily searchable 
+text files.
 
---------------5J6x0s492HBzjRsHU4piiS17--
+-- 
+Take care. Thanks, Brian Inglis              Calgary, Alberta, Canada
 
---------------6oD7QYvEz9d5ihjHT3QwmR9k
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQR1LwACgkQnowa+77/
-2zLpbQ//SVy1G9dGajAZzCk/RLNDD/4sP6sM7RkHzd69Q/ttYyrmfwesvTjHgmiA
-kM/cIAv9ljFOMDtyMkymHfYmCjDsmJB3MycYMiK7GLCnoqXbG8eyMi0Ucmmrf9CG
-hCg9k8W9knUGqeEqYhXr6sen+NsbqSoZc+cGuPdhUonxDeKO59xL5SRSQtyY/a6w
-gaoHxuoE6AyNvrl/Vzbtl4xaXCvvsazpzVMe4OXmmmB5LRZcnQ5cPzY7yyW++zEH
-GNALZvgfjaTM937TKh0tvGIaa+013QaRQEXyXrrMAfSCPNTUuI7ikohyoMmEgM8t
-F96QrlUkG+gJPzxm1D3ByQim0JzoNdYRaZ5sVqud5xlFdYf9dADz23CCFWRqzINA
-/Jxth9OaLmiHI9Hw+pZocwjaCpfFmzsDIhODtktYVgitJxv0wksV7Dr3rrbyOuOk
-dwLx6UIFAPcaps4hFYUWn9IqxyjVCjaQAOWs6zAjbwDAfkRXVOpsvFn5aaSoBgI9
-e+YFV+9ZuMuCtIFqtcPxZxGc1S6Jvzm0+5TYb/DgqyoikBYXdWyQsoMQzNiCrtqN
-gHYZT/BTCyAxvXXyNdfsAAUKFANeMx+1QOJNxZdqiCF4e5GTCLAuiJKW4vuQ2xC7
-yS6xho5sZ/wZ0D9qU9riBNvVsE5vc9vRQRYB/8O3vDS3VhBaFXk=
-=Xt1q
------END PGP SIGNATURE-----
-
---------------6oD7QYvEz9d5ihjHT3QwmR9k--
+La perfection est atteinte                   Perfection is achieved
+non pas lorsqu'il n'y a plus rien à ajouter  not when there is no more to add
+mais lorsqu'il n'y a plus rien à retirer     but when there is no more to cut
+                                 -- Antoine de Saint-Exupéry
