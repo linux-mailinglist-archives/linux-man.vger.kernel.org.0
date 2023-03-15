@@ -2,76 +2,104 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 5BF356B9F31
-	for <lists+linux-man@lfdr.de>; Tue, 14 Mar 2023 19:58:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 3C9096BA750
+	for <lists+linux-man@lfdr.de>; Wed, 15 Mar 2023 06:45:50 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229720AbjCNS6m (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 14 Mar 2023 14:58:42 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44734 "EHLO
+        id S230169AbjCOFps (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 15 Mar 2023 01:45:48 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43594 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229836AbjCNS6l (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 14 Mar 2023 14:58:41 -0400
-Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BB4B6457D9
-        for <linux-man@vger.kernel.org>; Tue, 14 Mar 2023 11:58:39 -0700 (PDT)
-Received: from submission (posteo.de [185.67.36.169]) 
-        by mout01.posteo.de (Postfix) with ESMTPS id 047A324069B
-        for <linux-man@vger.kernel.org>; Tue, 14 Mar 2023 19:58:38 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=posteo.de; s=2017;
-        t=1678820318; bh=IWH7HICZa2hfWy5yMlin7t6xhlBiTt4AZju3mBCnHR0=;
-        h=Date:Cc:From:To:Subject:From;
-        b=VNaEOHQZnHrHUjQIAON1vHL+CzELcQmbv3PkgvhsiA3U27SmrToov2XMl9AVRICci
-         qtYxkbu5163DF+LMyzBpGGarwH9F3Y0i/tMHDWyem3aB6hRhI/4+Bpq+aJkm88vH9x
-         vIJE7qGI8+KJb04zX9eWWwj0HQaGma1p1YXOae2RaqUSC8Y1O/0jNc9ZIJEy9Vb27c
-         bSVNjOVzGK78Pxf2ms9h83qaaT3M9t28Y1OJVK52zQCnSBSrIK7yEYsJCHjECw8yZA
-         57ak+OaPUsWGyYmNaUDRkuELScfvqgE+Nb3Rc9b99N96jjdyjqogey06oey4Prs8f1
-         Pg0UI4bhXlKOA==
-Received: from customer (localhost [127.0.0.1])
-        by submission (posteo.de) with ESMTPSA id 4PbjV52Dr8z9rxV;
-        Tue, 14 Mar 2023 19:58:37 +0100 (CET)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date:   Tue, 14 Mar 2023 18:57:49 +0000
-Message-Id: <CR6C48K1388R.2M61G9YHB8VHA@morphine>
-Cc:     <linux-man@vger.kernel.org>
-From:   "Tom Schwindl" <schwindl@posteo.de>
-To:     "Jakub Wilk" <jwilk@jwilk.net>,
-        "Alejandro Colomar" <alx.manpages@gmail.com>
-Subject: Re: [PATCH] arc4random.3: New page documenting the arc4random(3)
- family of functions
-References: <20230101162627.28031-1-alx@kernel.org>
- <20230313213044.scl37hpwvuyo2dif@jwilk.net>
-In-Reply-To: <20230313213044.scl37hpwvuyo2dif@jwilk.net>
-X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
-        RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-        autolearn_force=no version=3.4.6
+        with ESMTP id S229487AbjCOFpr (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 15 Mar 2023 01:45:47 -0400
+X-Greylist: delayed 4176 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Tue, 14 Mar 2023 22:45:42 PDT
+Received: from pulsar.hadrons.org (2.152.192.238.dyn.user.ono.com [2.152.192.238])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7694B9010
+        for <linux-man@vger.kernel.org>; Tue, 14 Mar 2023 22:45:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=hadrons.org
+        ; s=201908; h=In-Reply-To:Content-Transfer-Encoding:Content-Type:MIME-Version
+        :References:Message-ID:Subject:Cc:To:From:Date:From:Reply-To:Subject:
+        Content-ID:Content-Description:X-Debbugs-Cc;
+        bh=qvqjHImbCPg9IFWhzBt9PXDCy9lxUD0+fzbVtbRgGfA=; b=B+a7gto2JE+L5TZJ6hYOoIjnSx
+        zB/Q4ukMHUJNkYsd2pkOQfn6bNJT0dc8/yAw1YkZFZc+daX46we1y62J4Gowt0SMdIcALFtVvZsYZ
+        FZ2QL4Lvc/Wqwwtt6zuPVxKvk2ziHkynqvd2JXoFWQwPO1ALnCIkb77FidxNGpPdgpDna873safQR
+        jn6J5V7xigCWBjJF1EoBgKd72NEsl10yRlkG2igLIN0HWLwpZtadnUqGsptjnd64VrWDfux/HrVGB
+        2450Y4AapzmloPdRL2/bXsFx6z3R7pSYHAJ5c6pfyS0DM5Ew8CPBJ9yVXmQlwlXPYlQbk9z1sO75n
+        EoPq6uPw==;
+Received: from guillem by pulsar.hadrons.org with local (Exim 4.96)
+        (envelope-from <guillem@hadrons.org>)
+        id 1pcIro-00019y-2s;
+        Wed, 15 Mar 2023 05:36:00 +0100
+Date:   Wed, 15 Mar 2023 05:36:00 +0100
+From:   Guillem Jover <guillem@hadrons.org>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     Oskari Pirhonen <xxc3ncoredxx@gmail.com>,
+        linux-man@vger.kernel.org, Brian Inglis <Brian.Inglis@shaw.ca>,
+        Matt Jolly <Matt.Jolly@footclan.ninja>
+Subject: Re: Revert "Many Pages: Remove references to C89"
+Message-ID: <ZBFLMHHTxwhzXYWf@thunder.hadrons.org>
+Mail-Followup-To: Guillem Jover <guillem@hadrons.org>,
+        Alejandro Colomar <alx.manpages@gmail.com>,
+        Oskari Pirhonen <xxc3ncoredxx@gmail.com>, linux-man@vger.kernel.org,
+        Brian Inglis <Brian.Inglis@shaw.ca>,
+        Matt Jolly <Matt.Jolly@footclan.ninja>
+References: <20230310015150.3545768-1-Matt.Jolly@footclan.ninja>
+ <8899aff7-4193-dd54-4488-234b1a6cee83@gmail.com>
+ <ZAq5gg+aQB5TrDQ3@dj3ntoo>
+ <f5aac742-4417-fced-343d-002117d629f1@gmail.com>
+ <ZA5/n8Ix+eCYnNgM@dj3ntoo>
+ <591290fb-e78d-ad3a-8b25-4a860d26f775@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <591290fb-e78d-ad3a-8b25-4a860d26f775@gmail.com>
+X-Spam-Status: No, score=0.8 required=5.0 tests=BAYES_20,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,PDS_RDNS_DYNAMIC_FP,
+        RCVD_IN_SORBS_DUL,RDNS_DYNAMIC,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+        autolearn=no autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Mon Mar 13, 2023 at 10:30 PM CET, Jakub Wilk wrote:
-> * Alejandro Colomar <alx.manpages@gmail.com>, 2023-01-01 17:26:
-> >+.SH LIBRARY
-> >+Standard C library
-> >+.RI ( libc ", " -lc )
->
-> That should be \-lc, but... To be frank, I'd just remove the whole=20
-> section. Most people shouldn't use -lc, and those who do need it can=20
-> figure it out on their own.
->
+Hi!
 
-I don't quite remember what the arguments for the LIBRARY section were,
-but it should be kept for consistency with the other man-pages.
+I had in mind starting a similar thread like this some days ago, but
+did not find the time, so thanks for doing that!
 
+On Mon, 2023-03-13 at 13:00:52 +0100, Alejandro Colomar wrote:
+> On 3/13/23 02:42, Oskari Pirhonen wrote:
+> > "Usefulness" seems to be a hard sell for you, but perhaps you would
+> > reconsider it based on the historical relevance of C89? It was, after
+> > all, the first proper standard of the C language. If you don't want to
+> > promote C89 by having it mentioned alongside the others, perhaps you'd
+> > be open to the idea of adding a historical note?
 
-off-topic for Alex:
-As we're talking about libc here, what about the libc.7 patch?
-Is there any progress regarding it?
+> I've been considering something like that for a long time.  The
+> STANDARDS section (previously known as CONFORMING TO), is a mix of a
+> proper standards section, and what a HISTORY section should contain.
+> 
+> It would be interesting to do a split, and inaugurate a HISTORY section.
+> For that section, I would keep any references to C89, since as you say
+> it's historically very relevant.  Thus, I will revert the patch, and later apply some patches that move the info without discarding it.
 
---=20
-Best Regards,
-Tom Schwindl
+As long as the information is preserved, because as has been mentioned
+in the thread it is helpful when dealing with codebases that restrict
+to C89 for whatever reason, this seems good. :) And also to canvas for
+how long an interface has been around.
+
+> > Saying that C89 is
+> > obsolete in the note would be acceptable IMO, but not having any mention
+> > of C89 at all makes the manpages feel incomplete. Others have shared
+> > this sentiment when chatting with them online.
+
+For me what seemed rather confusing was that mentions of C89 were
+removed but there are references to stuff like «4.xBSD», so I guess
+that's why it felt incomplete to me too. (Not suggesting to remove
+those either! But I guess this might have planted the idea now. :)
+
+In any case, thanks for the revert!
+
+Regards,
+Guillem
