@@ -2,76 +2,50 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 843496BD0E0
-	for <lists+linux-man@lfdr.de>; Thu, 16 Mar 2023 14:33:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B60026BDA5E
+	for <lists+linux-man@lfdr.de>; Thu, 16 Mar 2023 21:49:13 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229629AbjCPNdd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 16 Mar 2023 09:33:33 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55490 "EHLO
+        id S229674AbjCPUtM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 16 Mar 2023 16:49:12 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58382 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229647AbjCPNdc (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 16 Mar 2023 09:33:32 -0400
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com [IPv6:2a00:1450:4864:20::42c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B4B2364238
-        for <linux-man@vger.kernel.org>; Thu, 16 Mar 2023 06:33:29 -0700 (PDT)
-Received: by mail-wr1-x42c.google.com with SMTP id j2so1552604wrh.9
-        for <linux-man@vger.kernel.org>; Thu, 16 Mar 2023 06:33:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1678973608;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=xkwIP4jJvmqRy9mc9MKvr2rsi9DlKQ6AmTnXM9xpJZ0=;
-        b=QLmng+loOL4FUQqw5dqSLB1aYhhksE0kVinA1R3Z/DZgS3EyalgNSfSXsakR5ZDRiw
-         7h0UhhZ+svErYy8qjBezZCexyU6FsaYbW5vUb5LAjHXyP++Z/VjkpL/Jaa5v+P+PFWg7
-         GRsaTURceI8mM24cLKfjCrJzSI8BS5nJ3eEpC7iOJkwJqyl0T7sqE+PZDw3PYgS+z9lh
-         GezN066HZL2Lw8b4cqL/u1h3Pwf/kM3zG//7MnQNQYyaTwkuMcUikIZthGZ22jfuv5wG
-         6CbmDk1XVCimCFinuypBTP96Lvn6OH3X53L8hcHP9M6duQR8xhOPymiGen4l4HiKQ2vu
-         1/6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678973608;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=xkwIP4jJvmqRy9mc9MKvr2rsi9DlKQ6AmTnXM9xpJZ0=;
-        b=lJYrd6dvhfQ7DchusWIP/nPYZosaf7mxpHKpp89IcAgGPfCMalyIfn/6ZuzuB8qdzQ
-         CMKHOJpjZZLpw89V8DuQRwKfJwsfpIvvSQpFO04dFC9QhtJ0xYWqkmtYF7ObTYSbgs90
-         uROY5ASKk55dTumT2x8pkmA5a3m66nRWfqHCINtisVzwK1OqcghYA0haWQtq4Rx8W/2H
-         Kd9mPVFAY348GD7BxJuQBR6KLncpi+RzhjElxP2+VOFByvk5fQGCyrSCyTiYcwafW8bN
-         fSHTVKTVxKoLDRr/9t9ksMXWecE099WQWYoMXDkc6BfdSM97BAFPlONqnjj8k5/+GbZL
-         8Phw==
-X-Gm-Message-State: AO0yUKVebs5S0w5YefbJn+2P035Oc5h3lwqRnixJq6pkZx3Htj2RBJqV
-        YRWMh2u/8OUVrw6o/6SrEgITV3Uj2dg=
-X-Google-Smtp-Source: AK7set/KwNo6JUhx2VpT4h9DEwP5ddZoo7LYB8bGQu+W3v4VmPHr9wkNq5FwZHTv7DIbfp4Icuzc1w==
-X-Received: by 2002:a5d:474e:0:b0:2cf:d25a:635b with SMTP id o14-20020a5d474e000000b002cfd25a635bmr4987803wrs.62.1678973608100;
-        Thu, 16 Mar 2023 06:33:28 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.51.134])
-        by smtp.gmail.com with ESMTPSA id b14-20020adff90e000000b002cff0e213ddsm4741111wrr.14.2023.03.16.06.33.27
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 16 Mar 2023 06:33:27 -0700 (PDT)
-Message-ID: <02a63754-21b0-681a-3e58-0da053fe818f@gmail.com>
-Date:   Thu, 16 Mar 2023 14:33:18 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH v4 3/3] landlock.7: Give a pointer to how to implement a
- fallback mechanism
-To:     =?UTF-8?Q?G=c3=bcnther_Noack?= <gnoack3000@gmail.com>,
-        =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>, linux-man@vger.kernel.org
-References: <20230310220851.22261-1-gnoack3000@gmail.com>
- <20230310220851.22261-3-gnoack3000@gmail.com>
- <1421ea14-dca4-2969-11b7-4a37720b9886@digikod.net>
- <20230316.49640ba315d3@gnoack.org>
-Content-Language: en-US
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20230316.49640ba315d3@gnoack.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------jIjQsO20OSwACpJFbvCbYLLC"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
+        with ESMTP id S229521AbjCPUtL (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 16 Mar 2023 16:49:11 -0400
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 071901633E
+        for <linux-man@vger.kernel.org>; Thu, 16 Mar 2023 13:48:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1678999701;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc; bh=2DBviDjtVQ2jlrN5MbFFdCqpk4s86RnQ7ojkrXt030w=;
+        b=AJZ50Ye9SHM6+OyVrnSuyDqRjXyfNz4niE0nwoZNgn7zTg50V0AzmDGmf7H9T+P68ozjbX
+        vym9FETMdKHkce/Up8LULulYWYFZswWa0ClgvblsdFfhop/3QVGe0Nqma1O3bRX8BaB6od
+        4MhSZ8IFmlPrkdh/mMTnLD9ts4w1j8Y=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-176-ickaWx0kPyKBtEgPHZcUlg-1; Thu, 16 Mar 2023 16:48:18 -0400
+X-MC-Unique: ickaWx0kPyKBtEgPHZcUlg-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C3C023815F76;
+        Thu, 16 Mar 2023 20:48:17 +0000 (UTC)
+Received: from greed.delorie.com (unknown [10.22.8.48])
+        by smtp.corp.redhat.com (Postfix) with ESMTPS id AF97F40C6E67;
+        Thu, 16 Mar 2023 20:48:17 +0000 (UTC)
+Received: from greed.delorie.com.redhat.com (localhost [127.0.0.1])
+        by greed.delorie.com (8.15.2/8.15.2) with ESMTP id 32GKmHSF3599040;
+        Thu, 16 Mar 2023 16:48:17 -0400
+Date:   Thu, 16 Mar 2023 16:48:17 -0400
+Message-Id: <xnv8j02zji.fsf@greed.delorie.com>
+From:   DJ Delorie <dj@redhat.com>
+To:     libc-alpha@sourceware.org, linux-man@vger.kernel.org
+Subject: [patch] aligned_alloc: conform to C17
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
+        RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_NONE autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -79,99 +53,179 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------jIjQsO20OSwACpJFbvCbYLLC
-Content-Type: multipart/mixed; boundary="------------WCCNTUfntDSQWijf0pUNx7DD";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: =?UTF-8?Q?G=c3=bcnther_Noack?= <gnoack3000@gmail.com>,
- =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>
-Cc: Michael Kerrisk <mtk.manpages@gmail.com>, linux-man@vger.kernel.org
-Message-ID: <02a63754-21b0-681a-3e58-0da053fe818f@gmail.com>
-Subject: Re: [PATCH v4 3/3] landlock.7: Give a pointer to how to implement a
- fallback mechanism
-References: <20230310220851.22261-1-gnoack3000@gmail.com>
- <20230310220851.22261-3-gnoack3000@gmail.com>
- <1421ea14-dca4-2969-11b7-4a37720b9886@digikod.net>
- <20230316.49640ba315d3@gnoack.org>
-In-Reply-To: <20230316.49640ba315d3@gnoack.org>
 
---------------WCCNTUfntDSQWijf0pUNx7DD
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+References:
+https://patchwork.sourceware.org/project/glibc/patch/33ec9e0c1e587813b90e8aa771c2c8e6e379dd48.camel@posteo.net/
+https://sourceware.org/bugzilla/show_bug.cgi?id=20137
+https://sourceware.org/pipermail/libc-alpha/2023-February/145858.html
 
-Hi G=C3=BCnther, Micka=C3=ABl,
+The memory.texi portion matches Martin's proposed patch.
 
-On 3/16/23 07:54, G=C3=BCnther Noack wrote:
-> Alejandro, what are your thoughts?
+man page portion, quoted to avoid CI/CD issues (I can send an official
+patch separately after the glibc patch is applied):
 
-It all depends on how much complexity increases.  If it's not much, we
-can keep everything.  You can send the complete example, and then if
-it's too much we can cut pieces of it.
+> diff --git a/man3/posix_memalign.3 b/man3/posix_memalign.3
+> index f5d6618b7..a73ff0421 100644
+> --- a/man3/posix_memalign.3
+> +++ b/man3/posix_memalign.3
+> @@ -91,9 +91,8 @@ The function
+>  is the same as
+>  .BR memalign (),
+>  except for the added restriction that
+> -.I size
+> -should be a multiple of
+> -.IR alignment .
+> +.I alignment
+> +must be a power of two.
+>  .PP
+>  The obsolete function
+>  .BR valloc ()
 
->  (Happy Birthday, btw :))
 
-:)
+From 4767e0e764e1a7a5ef01e303f503036379dd42c5 Mon Sep 17 00:00:00 2001
+From: DJ Delorie <dj@redhat.com>
+Date: Thu, 16 Mar 2023 01:33:41 -0400
+Subject: aligned_alloc: conform to C17
 
->=20
->=20
-> (My personal stance is: I'm concerned that the man page example might
-> become too long if we try to add the "best effort" fallback to it, so
-> I would slightly prefer to explain the fallback logic outside, but
-> could be convinced otherwise.  I see the point that people might
-> cut&paste the example from the man page and miss the longer
-> explanation in a different place.
->=20
-> I have attempted to explain the "best effort" fallback on my weblog
-> starting from a blank slate, and ended up with the explanation at
-> https://blog.gnoack.org/post/landlock-best-effort/.  I believe that
-> most users can use a simpler "best effort" fallback logic when doing
-> this case analysis, but the explanation is probably too long for the
-> man page.)
->=20
-> Another alternative would be to make the example assume Landlock v2
-> (Linux 5.19). In that case, the fallback logic would be simpler and
-> the case analysis from the weblog entry collapse into a single case,
-> but the example would fall back to not using Landlock on Linux 5.13 to
-> 5.18 (including the long-term release 5.15), which is also not nice.)
+This patch adds the strict checking for power-of-two alignments
+in aligned_alloc(), and updates the manual accordingly.
 
-Debian Bullseye (stable) has 6.0.12 in bullseye-backports.  Maybe it's
-not crazy to assume >=3D5.19.  No Debian release has anything in the
-range [5.13, 5.18] (non-backports Bullseye has 5.10).
+diff --git a/malloc/Versions b/malloc/Versions
+index c763395c6d..28f41a94f3 100644
+--- a/malloc/Versions
++++ b/malloc/Versions
+@@ -67,6 +67,9 @@ libc {
+   GLIBC_2.33 {
+     mallinfo2;
+   }
++  GLIBC_2.38 {
++    __libc_aligned_alloc;
++  }
+   GLIBC_PRIVATE {
+     # Internal startup hook for libpthread.
+     __libc_malloc_pthread_startup;
+diff --git a/malloc/malloc-debug.c b/malloc/malloc-debug.c
+index 3867d15698..4d2ec04a1a 100644
+--- a/malloc/malloc-debug.c
++++ b/malloc/malloc-debug.c
+@@ -268,7 +268,8 @@ __debug_realloc (void *oldmem, size_t bytes)
+ strong_alias (__debug_realloc, realloc)
+ 
+ static void *
+-_debug_mid_memalign (size_t alignment, size_t bytes, const void *address)
++_debug_mid_memalign (size_t alignment, size_t bytes, const void *address,
++		     int check_alignment)
+ {
+   void *(*hook) (size_t, size_t, const void *) =
+     atomic_forced_read (__memalign_hook);
+@@ -281,9 +282,15 @@ _debug_mid_memalign (size_t alignment, size_t bytes, const void *address)
+   if ((!__is_malloc_debug_enabled (MALLOC_MCHECK_HOOK)
+        || !memalign_mcheck_before (alignment, &bytes, &victim)))
+     {
+-      victim = (__is_malloc_debug_enabled (MALLOC_CHECK_HOOK)
+-		? memalign_check (alignment, bytes)
+-		: __libc_memalign (alignment, bytes));
++      if (check_alignment && !powerof2 (alignment))
++	{
++	  __set_errno (EINVAL);
++	  victim = NULL;
++	}
++      else
++	victim = (__is_malloc_debug_enabled (MALLOC_CHECK_HOOK)
++		  ? memalign_check (alignment, bytes)
++		  : __libc_memalign (alignment, bytes));
+     }
+   if (__is_malloc_debug_enabled (MALLOC_MCHECK_HOOK) && victim != NULL)
+     victim = memalign_mcheck_after (victim, alignment, orig_bytes);
+@@ -296,10 +303,15 @@ _debug_mid_memalign (size_t alignment, size_t bytes, const void *address)
+ static void *
+ __debug_memalign (size_t alignment, size_t bytes)
+ {
+-  return _debug_mid_memalign (alignment, bytes, RETURN_ADDRESS (0));
++  return _debug_mid_memalign (alignment, bytes, RETURN_ADDRESS (0), 0);
+ }
+ strong_alias (__debug_memalign, memalign)
+-strong_alias (__debug_memalign, aligned_alloc)
++static void *
++__debug_aligned_alloc (size_t alignment, size_t bytes)
++{
++  return _debug_mid_memalign (alignment, bytes, RETURN_ADDRESS (0), 1);
++}
++strong_alias (__debug_aligned_alloc, aligned_alloc)
+ 
+ static void *
+ __debug_pvalloc (size_t bytes)
+diff --git a/malloc/malloc.c b/malloc/malloc.c
+index 76c50e3f58..09619ed168 100644
+--- a/malloc/malloc.c
++++ b/malloc/malloc.c
+@@ -656,6 +656,9 @@ libc_hidden_proto (__libc_realloc)
+ void*  __libc_memalign(size_t, size_t);
+ libc_hidden_proto (__libc_memalign)
+ 
++void * __libc_aligned_alloc (size_t alignment, size_t bytes);
++libc_hidden_proto (__libc_aligned_alloc)
++
+ /*
+   valloc(size_t n);
+   Equivalent to memalign(pagesize, n), where pagesize is the page
+@@ -3509,6 +3512,27 @@ __libc_memalign (size_t alignment, size_t bytes)
+   void *address = RETURN_ADDRESS (0);
+   return _mid_memalign (alignment, bytes, address);
+ }
++libc_hidden_def (__libc_memalign)
++
++/* For ISO C11.  */
++void *
++__libc_aligned_alloc (size_t alignment, size_t bytes)
++{
++  if (!__malloc_initialized)
++    ptmalloc_init ();
++
++  /* Similar to memalign, but ISO C17 requires an error for invalid
++     alignments.  Valid alignments are non-negative powers of two.  */
++  if (!powerof2 (alignment))
++    {
++      __set_errno (EINVAL);
++      return 0;
++    }
++
++  void *address = RETURN_ADDRESS (0);
++  return _mid_memalign (alignment, bytes, address);
++}
++libc_hidden_def (__libc_aligned_alloc)
+ 
+ static void *
+ _mid_memalign (size_t alignment, size_t bytes, void *address)
+@@ -3567,9 +3591,6 @@ _mid_memalign (size_t alignment, size_t bytes, void *address)
+           ar_ptr == arena_for_chunk (mem2chunk (p)));
+   return tag_new_usable (p);
+ }
+-/* For ISO C11.  */
+-weak_alias (__libc_memalign, aligned_alloc)
+-libc_hidden_def (__libc_memalign)
+ 
+ void *
+ __libc_valloc (size_t bytes)
+@@ -5903,6 +5924,7 @@ weak_alias (__libc_mallinfo, mallinfo)
+ strong_alias (__libc_mallinfo2, __mallinfo2)
+ weak_alias (__libc_mallinfo2, mallinfo2)
+ strong_alias (__libc_mallopt, __mallopt) weak_alias (__libc_mallopt, mallopt)
++weak_alias (__libc_aligned_alloc, aligned_alloc)
+ 
+ weak_alias (__malloc_stats, malloc_stats)
+ weak_alias (__malloc_usable_size, malloc_usable_size)
+diff --git a/manual/memory.texi b/manual/memory.texi
+index 9d3398a326..8952ff2bfa 100644
+--- a/manual/memory.texi
++++ b/manual/memory.texi
+@@ -995,7 +995,7 @@ power of two than that, use @code{aligned_alloc} or @code{posix_memalign}.
+ @c Alias to memalign.
+ The @code{aligned_alloc} function allocates a block of @var{size} bytes whose
+ address is a multiple of @var{alignment}.  The @var{alignment} must be a
+-power of two and @var{size} must be a multiple of @var{alignment}.
++power of two.
+ 
+ The @code{aligned_alloc} function returns a null pointer on error and sets
+ @code{errno} to one of the following values:
 
->=20
-> =E2=80=93-G=C3=BCnther
-
-Cheers,
-
-Alex
-
---=20
-<http://www.alejandro-colomar.es/>
-GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
-
---------------WCCNTUfntDSQWijf0pUNx7DD--
-
---------------jIjQsO20OSwACpJFbvCbYLLC
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQTGp4ACgkQnowa+77/
-2zKQ7xAAlRyPPbvfPX6NqLOfIOK8iDTqJhlRZbiB5Ya/Fu2uecNNukfaXUsC8mBT
-Asv7kkoWF9j7k/tnb+5HFXnyeZr13ptPjVzNKWamS2ruDr4Wx988vTh/YMGiYuti
-2t3/IDkzxMEAWADR7IL0kyUNZwiHQrfhhal769p9DwkjV1CyVwM2+GZpiGuRB6YS
-cKi0x75KuMoGsd3Sp7W+AAmQCuDVFyfcMTgG+dUAXaab+47RLeoAu5IlMe5EOUQl
-6nL4IDJTSfnUw1fv2xUSszAN8EbOxCIQbeFj11rHKRSrRcQfX+rv69c5b7prOQcc
-nFV5Qez14RsQCtcMgZXWCgmENC4iWsuF1Dmogj8692yhxcc9titF1FwcLPydWZuE
-VHlJs151tEihUUq2IDr0fpgCb7BEMLP34CgftWj6+5YS+338sKpMzedzXtZFnksS
-voD8Y2gisWgFzxxqgJLLPebNwxwb35gFkTTjOGx1hlLaIRVcqJfuG+WK04hhdPMb
-cutXJBUbVfOfqzVVFomEleDX6nNWJANJDn1KLG+QmLuo0ys5+P/udIpimSgzOxLj
-b6SsST2WIF4FcrILKgrxHdUugZApIvNLSVMYL8g3GbFeNIk5yVgwUQx07tk4LpaA
-vKk5ulG5VEmJ78DZyhLj2wm2YzgNyXYoEMqpdVjTzQvDRsK29aE=
-=PKCr
------END PGP SIGNATURE-----
-
---------------jIjQsO20OSwACpJFbvCbYLLC--
