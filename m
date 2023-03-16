@@ -2,75 +2,72 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 0FB3C6BC370
-	for <lists+linux-man@lfdr.de>; Thu, 16 Mar 2023 02:44:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 56E7D6BC388
+	for <lists+linux-man@lfdr.de>; Thu, 16 Mar 2023 03:00:45 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229488AbjCPBoI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 15 Mar 2023 21:44:08 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34210 "EHLO
+        id S229599AbjCPCAo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 15 Mar 2023 22:00:44 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51282 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229479AbjCPBoH (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 15 Mar 2023 21:44:07 -0400
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com [IPv6:2a00:1450:4864:20::435])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0B40F72B0
-        for <linux-man@vger.kernel.org>; Wed, 15 Mar 2023 18:44:05 -0700 (PDT)
-Received: by mail-wr1-x435.google.com with SMTP id j2so112107wrh.9
-        for <linux-man@vger.kernel.org>; Wed, 15 Mar 2023 18:44:04 -0700 (PDT)
+        with ESMTP id S229532AbjCPCAl (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 15 Mar 2023 22:00:41 -0400
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com [IPv6:2a00:1450:4864:20::432])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 76824AFB98
+        for <linux-man@vger.kernel.org>; Wed, 15 Mar 2023 19:00:39 -0700 (PDT)
+Received: by mail-wr1-x432.google.com with SMTP id o7so140548wrg.5
+        for <linux-man@vger.kernel.org>; Wed, 15 Mar 2023 19:00:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1678931043;
-        h=in-reply-to:from:content-language:references:cc:to:subject
+        d=gmail.com; s=20210112; t=1678932038;
+        h=in-reply-to:references:cc:to:from:content-language:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=s+DzzJ/FEKIGmewQ01xQAlCvdV1o6qJZDfh8Am3WIxg=;
-        b=jXXnP+hpParNpV+S1KA3xPCQf3mvRGM4t7nosdG1Tk4fR+PpdlVrJ6VnGntrIc9aDO
-         NDimlYeIudCQOuOt427zNbbPbCTR/otEjiBDrIPgAtp4L24lOtQ/1SpRgtSyKmqmwyvS
-         jGFYV2oSUbMP+ZK4wNwxmzGxdv9HHbvZheXFAOp4nZbzVV5UN05X2ae+/s2MOl1jV1sg
-         rcCXqNi32+0PVejLbfPl6XSm7z0RrLybEHIqA5cT+izhdZ/KjuI8a6V68P50rLZVbyJ/
-         Ol5HoObEtkjrbgsiSaCvKeS8YigDfB/HERNOtplj9Vuxk8F5jjgEmHkG4U4WxprH4ZFR
-         ohQw==
+        bh=Fphk7FPw+tsMNsCPLhWW1N0lEeRh45c/o0UrM9RW6o4=;
+        b=hMzlj6XLD/d5PvVrz7+aKLDLyHHPaQur45MVkOgkylYpRIrK9aOtjOSO6UWT06xp0/
+         AJHlKp8ClKbHdjKH3wSeb2nHinZ5AEOd1nZCHahyqK+Zx2tWy50T+zrr5YEkco5MUrSG
+         vd8/RamdRSc92Pha/mOF2NUbEATZtnxg30QZVcs3WIvIMPU1AwOEjE885Z7GGy+wh13w
+         g5MhhYwTGirg5wA8A4sv9xCmfQxcVBnB6h3MYGE0FIvL0rcwEX/VD8zTmMRlzg0hC33d
+         5iz5r4nf/i/h5+Tmthg/9ydpcUBEXeik5fvxy9k6BMWZBFzeHmmKStPd8Nme0vqeqCw8
+         9NwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678931043;
-        h=in-reply-to:from:content-language:references:cc:to:subject
+        d=1e100.net; s=20210112; t=1678932038;
+        h=in-reply-to:references:cc:to:from:content-language:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=s+DzzJ/FEKIGmewQ01xQAlCvdV1o6qJZDfh8Am3WIxg=;
-        b=WzJKaBWKKpVc33wQPZSCTOjDkP54/RjXCK3J7j405N1gMY61y96O1kaXpfKvQrhmI1
-         zMbI2cKN6Xey4+28XeAcMdLUcjCrF3uWPNxV53S9+K5Wm+/koHh/1ZWvxBMAwjmBHJVq
-         KSqdVslSPKirjFJX8g3wLJK8QJzuhk8Zov9skMcO9shyUvhJ1wLi3VC6XIP6uTKmmgc+
-         gQkOYrSyLQQtQmHIKIGHCqlikY0uHGlmoetOlIIaToySF/fhUnTgo2N4Z1OhYsv4vUKj
-         mu0PEDbaUrEx3PxrjwIQM/e1ognvW5nZtzE0UE4XG+NKTOhhwmS1riINj0N0GaIDusTn
-         84bw==
-X-Gm-Message-State: AO0yUKWVsu1wO+6ct4fahnphdTdOo8XYhBGUWLKAZZGSmp2p0gVbn192
-        0hav2RXq7OX+2VVhpNkffLg=
-X-Google-Smtp-Source: AK7set+MYrq7l+3H/pmkmEvH7umi38/aA56H2+ashCrnsv6CrMpGm9cNSqyhR5+R6+1Lvaf2a4vTEg==
-X-Received: by 2002:adf:e8cd:0:b0:2ca:175b:d850 with SMTP id k13-20020adfe8cd000000b002ca175bd850mr3024296wrn.11.1678931043359;
-        Wed, 15 Mar 2023 18:44:03 -0700 (PDT)
+        bh=Fphk7FPw+tsMNsCPLhWW1N0lEeRh45c/o0UrM9RW6o4=;
+        b=KphRc7byULWq7qCfnxO8t4YIju166wUvJWOh8evwjUt885S2WvN7TOAdOp8olruIlM
+         6fYotO+6sBeAVds2X/dtWp+TzXEYmK80sA8kLWkR+m4tuwn6PaxQFoEdmhs5ce15lOT5
+         61EFp7bDgvWUdq/l2dMnryt9yeEahkaHnUPJPDUJ0f1S8eYXsTszddk50DkLgGP/kRFa
+         QGn0XY5ovH4VMEo8v1BDwgp5b9lvm8HNrOExZ3mQj8GzPnpZwupRDgluJH/PTOyMNhHY
+         iZ4Blt/2lE9UXI41PTv2f2REuG0N9rXBf7ypyIN0q/sxkDru4xEBffMbpTGcfWxUBF89
+         dL8g==
+X-Gm-Message-State: AO0yUKVJCoJZbUQ5Y1IVaJNlWngD8pizDFZlfv+GsNfWeM0Bn1T4J3Qm
+        64dOET/EXFpsWVK2Yk/cjtv4PfVAuaU=
+X-Google-Smtp-Source: AK7set9J2UHAabz2AHWCk0gNutUFEYjQcdjuU5NGLc1Jg7HrDceQPUy0xm068KUU3j93uz7QIZ3XoA==
+X-Received: by 2002:a5d:5232:0:b0:2cf:e827:b597 with SMTP id i18-20020a5d5232000000b002cfe827b597mr3658889wra.10.1678932037775;
+        Wed, 15 Mar 2023 19:00:37 -0700 (PDT)
 Received: from [192.168.0.160] ([170.253.51.134])
-        by smtp.gmail.com with ESMTPSA id j17-20020adfe511000000b002c707785da4sm5909433wrm.107.2023.03.15.18.44.02
+        by smtp.gmail.com with ESMTPSA id j28-20020a5d6e5c000000b002cfef4cfdfbsm4735056wrz.115.2023.03.15.19.00.36
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 15 Mar 2023 18:44:02 -0700 (PDT)
-Message-ID: <bef1b957-b1ea-2562-57a9-ad9ef6d8b951@gmail.com>
-Date:   Thu, 16 Mar 2023 02:43:54 +0100
+        Wed, 15 Mar 2023 19:00:37 -0700 (PDT)
+Message-ID: <9c3dba5f-b71b-b577-5914-b3d5eadf42c2@gmail.com>
+Date:   Thu, 16 Mar 2023 03:00:28 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
-Subject: Re: Revert "Many Pages: Remove references to C89"
-To:     Tom Schwindl <schwindl@posteo.de>
-Cc:     linux-man@vger.kernel.org
-References: <20230310015150.3545768-1-Matt.Jolly@footclan.ninja>
- <8899aff7-4193-dd54-4488-234b1a6cee83@gmail.com> <ZAq5gg+aQB5TrDQ3@dj3ntoo>
- <f5aac742-4417-fced-343d-002117d629f1@gmail.com> <ZA5/n8Ix+eCYnNgM@dj3ntoo>
- <591290fb-e78d-ad3a-8b25-4a860d26f775@gmail.com> <ZBAIkHrBm50vjSqL@dj3ntoo>
- <d3aee611-844b-fba3-5642-16b0ddc576a3@gmail.com>
- <6aad40b5-04ca-68d8-7da2-cb4a7bed7ded@Shaw.ca>
- <a1a5ea63-9fbe-17f6-fe69-1850552a5422@gmail.com>
- <CR75QLUXYL2F.9ZFRDB68HXGW@morphine>
+Subject: Re: .txt draft C standards
 Content-Language: en-US
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <CR75QLUXYL2F.9ZFRDB68HXGW@morphine>
+To:     JeanHeyd Meneide <wg14@soasis.org>
+Cc:     linux-man <linux-man@vger.kernel.org>,
+        Oskari Pirhonen <xxc3ncoredxx@gmail.com>,
+        Brian Inglis <Brian.Inglis@Shaw.ca>,
+        Matt Jolly <Matt.Jolly@footclan.ninja>, nsz@port70.net,
+        mnagy@port70.net
+References: <d8c1e5d9-e648-91f5-3b0f-4434c4140b94@gmail.com>
+In-Reply-To: <d8c1e5d9-e648-91f5-3b0f-4434c4140b94@gmail.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------pNPB0iUWk8h6nmXoNOcenAjc"
+ boundary="------------UU56HUnElZo8tut2MrVZ6edl"
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
@@ -82,136 +79,86 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------pNPB0iUWk8h6nmXoNOcenAjc
-Content-Type: multipart/mixed; boundary="------------wMksQ0dG4VRrovdK9djmi8Bm";
+--------------UU56HUnElZo8tut2MrVZ6edl
+Content-Type: multipart/mixed; boundary="------------7DhQvMt87QzrxZv8U8MS1i7p";
  protected-headers="v1"
 From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Tom Schwindl <schwindl@posteo.de>
-Cc: linux-man@vger.kernel.org
-Message-ID: <bef1b957-b1ea-2562-57a9-ad9ef6d8b951@gmail.com>
-Subject: Re: Revert "Many Pages: Remove references to C89"
-References: <20230310015150.3545768-1-Matt.Jolly@footclan.ninja>
- <8899aff7-4193-dd54-4488-234b1a6cee83@gmail.com> <ZAq5gg+aQB5TrDQ3@dj3ntoo>
- <f5aac742-4417-fced-343d-002117d629f1@gmail.com> <ZA5/n8Ix+eCYnNgM@dj3ntoo>
- <591290fb-e78d-ad3a-8b25-4a860d26f775@gmail.com> <ZBAIkHrBm50vjSqL@dj3ntoo>
- <d3aee611-844b-fba3-5642-16b0ddc576a3@gmail.com>
- <6aad40b5-04ca-68d8-7da2-cb4a7bed7ded@Shaw.ca>
- <a1a5ea63-9fbe-17f6-fe69-1850552a5422@gmail.com>
- <CR75QLUXYL2F.9ZFRDB68HXGW@morphine>
-In-Reply-To: <CR75QLUXYL2F.9ZFRDB68HXGW@morphine>
+To: JeanHeyd Meneide <wg14@soasis.org>
+Cc: linux-man <linux-man@vger.kernel.org>,
+ Oskari Pirhonen <xxc3ncoredxx@gmail.com>, Brian Inglis
+ <Brian.Inglis@Shaw.ca>, Matt Jolly <Matt.Jolly@footclan.ninja>,
+ nsz@port70.net, mnagy@port70.net
+Message-ID: <9c3dba5f-b71b-b577-5914-b3d5eadf42c2@gmail.com>
+Subject: Re: .txt draft C standards
+References: <d8c1e5d9-e648-91f5-3b0f-4434c4140b94@gmail.com>
+In-Reply-To: <d8c1e5d9-e648-91f5-3b0f-4434c4140b94@gmail.com>
 
---------------wMksQ0dG4VRrovdK9djmi8Bm
+--------------7DhQvMt87QzrxZv8U8MS1i7p
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi Tom,
+Hi JeanHeyd!
 
-On 3/15/23 19:10, Tom Schwindl wrote:
-> Hi Alex,
->=20
->>> I have an archive of many drafts including (so far):
->>>
->>>   1.5M Sep 10  1998 N0843-C1999-CD-1998-08.pdf
->>>   3.4M May  6  2005 N1124-C1999+TC2-CD-2005-05.pdf
->>>   3.7M Sep  8  2007 N1256-C1999+TC3-CD-2007-09.pdf
->>>   1.7M Apr 12  2011 N1570-C201X-CD-2011-04.pdf
->>>   2.3M Oct  9  2017 N2176-C2017-CD-2017-10.pdf
->>>   6.7M Jan 24 11:37 N3088-C2023-CD1-2023-01.pdf
->>>
->>> which can be downloaded as:
->>>
->>> 	https://www.open-std.org/jtc1/sc22/wg14/www/docs/n####.pdf
->>
->> Do you know if we can distribute them?  which license applied to them?=
+I'd like to ask you too about this.  You can read the entire thread in
+the Linux man-pages mailing list:
+<https://lore.kernel.org/linux-man/ebd2141a-c535-6288-1f2b-497bed043880@g=
+mail.com/T/>.
 
->> I'm worried that some distros are very strict in what can be distribut=
-ed
->> in a package (e.g., Fedora, Debian (main)).  There were issues with
->> man-pages-posix in the past.
->>
->> Should we maybe open a separate project iso-c-drafts that installs
->> drafts of the ISO C standards and maybe some scripts that will be usef=
-ul
->> with them?
->>
->=20
-> This is probably a legal gray area and I'd be careful.
+What license applies to the drafts of the standard?  I've seen drafts
+published in many sites, but I'm not sure if that's correct or not.  I'd
+like to redistribute the drafts of the C standards in plain-text version
+(probably autogenerated from the PDF), because I find them very useful
+for my work in the man pages.
 
-Yeah, that's what I think.  Until I'm 100% sure that it's legal, I
-won't do it.
+We discussed recently that being able to grep(1) for function
+declarations is quite nice, as in:
 
-> ISOs license agreement[0] explicitly states the following:
+$ ./stdc89 gets
+         char *gets(char *s);
+$ ./stdc89 printf
+         int printf(const char *format, ...);
+$ ./stdc89 asm
+         asm (  character-string-literal );
 
-I had some doubts, because since the drafts have always been published
-in many sites, I don't know if that's legal, or simply ISO doesn't
-enforce the license over drafts...  If someone knows for sure and can
-clarify, that would help.  In fact, maybe I can write to someone in the
-committee...
+Do you know what we can do legally?  The plan is to at least ship the
+drafts in a package that distros would install somewhere like
+</usr/share/doc/c/{c89,c99,c11,c23}/>, and we could also ship some
+scripts that grep declarations in them.
 
-Thanks,
+Another related thread:
+<https://lore.kernel.org/linux-man/b73a9636-1a17-36f3-3718-d9ca3b9293ed@g=
+mail.com/T/#m9e2b93ad9926a45b6f0b0cfed9376e1d7bab6a59>
+
+Kind regards,
 
 Alex
-
->=20
->   > The ISO publication(s) you order is/are copyrighted by the Internat=
-ional
->   > Organization for Standardization. You acknowledge and agree to resp=
-ect ISO=E2=80=99s
->   > copyright in our publications by purchasing, downloading, copying o=
-r
->   > otherwise using (an) ISO publication(s). Except as provided for und=
-er this
->   > Licence Agreement, you may not lend, lease, reproduce, distribute o=
-r
->   > otherwise commercially exploit ISO publication(s). In the case of j=
-oint
->   > standards (such as ISO/IEC standards), this clause shall apply to t=
-he
->   > respective joint copyright ownership.
->=20
-> As we (or a third party) can only produce a plaintext version by downlo=
-ading the
-> original PDF draft and converting it, we agree with the above. Thus, we=
- can't
-> "reproduce" or "distribute" the standard, at least that's my understand=
-ing[1].
-> I highly doubt that major distibutions would take that risk, nor should=
- we.
->=20
->=20
-> [0] <https://www.iso.org/terms-conditions-licence-agreement.html#Custom=
-er-Licence>
-> [1] For the record: I'm not a lawyer, this is not legal advice. It's ve=
-ry well
->     possible that I've overlooked something.
->=20
 
 --=20
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
---------------wMksQ0dG4VRrovdK9djmi8Bm--
+--------------7DhQvMt87QzrxZv8U8MS1i7p--
 
---------------pNPB0iUWk8h6nmXoNOcenAjc
+--------------UU56HUnElZo8tut2MrVZ6edl
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQSdFoACgkQnowa+77/
-2zL8nhAAkT4sI+/1+dSa8jZbPxyFYbH06zw+mWiR22vUsouITNvJYhYsAqkEIZ6H
-71DftuZIAg3Rn6tjBtgKZ42T+E53k39xMdpflSQE8iwPWrf7y6CeK9dl5wfkqpn7
-AWVyh0u4SOaJmxMFKPllfKftdD58QFPgqZ5kVKz1vzLd1Xz6mIrhnVVdgJ5mH90a
-LXwh4/LuKoWYZzWpdyqaQcyJ9pqO7GKocNuemT2NxZIWmhN8QiirnHy/3ki1gc+L
-iksXQmP5LFjFP376XXjPNbLhjZF0FiU5nM8dIOF03PZ0JYNNOkYW4RYKwr3657WS
-WXQz248ffWLZoGsKYgJA1vZ15Jq58VfOvD1GoZturqgEW54oKavhJxHbMyfCZRZE
-glRopRgRYn3Z9FWvP7fWJHilsakDTT9KaLh8CE26UsdZesspGEOZ1sgFcWikuVb2
-h90AV5eiixPd/45Z0+YovZ1PhGJyD2LUvixHJetFckk8dYX3sdwUnvZupTiq2vOa
-EAIWZw/z2yYzB5XX9FKg5sVW8Oujbmtr1BDUHLiMIB85Fsw3dpmTzxyuzjLe1wwd
-9nGl9GOVm0n3prDsDgiPdelASsRzEB51qhVuv4zVd7ULAd9OVzMae4zZHoKBbwmF
-07wt60RzgtLfqdDUeCpHH2oEkceF5/0YBg+GTwJpGObcvyaoPjM=
-=4Lfm
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQSeDwACgkQnowa+77/
+2zJb+w//UDyyCyGHQzjWECdUNSaQXG2GMRDJM123RxHjYDNu/mmQRkjk2A9sq3w8
+sfJNMQu2DclHe9nFgKra9SMltRtVmz2GElMmReEfFlCrEz2Mhnnip+mX4IWR71Jg
+IoQM6QCynHMSQofQZCDNrb4chag/kyJbhGQtRZyIjrEJU4bRSMuF/XS08QgK2/G2
+HMxn2iVG7imqjvlurFZprFmE3sMnDP23FKELk7DqgS4ZSiiKdw6v9TniWpq5cqUW
+6uLyu67mDNYqKBcswcYrPlbEMusC5/2O+lM0yCjoS61nhHrr+buxvWfbZz74QKyW
+0KqT+5byjRRCith+AM31uEUOGJnO43K6leGCx0A2R0cIUMdpR/silz72IYgcNNAi
+BCl+aTjyCxafYotKM/zKyjyL4FGkKc+OaPY61eJs5aG4G1QvgzLmUGRxWcfY0/zH
+g6dO+uT6MYNkj90p83WttAnPlhS7WsotfbMgv5rMqMMk4hnxDENjXSJfGyn6NFca
++RxYRP1p2hHOBzTPeeyeBOOmgLZKwMAy4c+ce8evBKprv5UwaQYW7EBrw6+gXeD+
+Ca12I81zJLervfafdm2v6vlHv0oMTrh7dkpsjDIt/QAL1wb7WcUb05al50FzmYwX
+7Tdn9M2SLbp6QzYmT1sFaEIc7YWNSYk1y4vXE5aX5R5agmfh4qk=
+=X2ap
 -----END PGP SIGNATURE-----
 
---------------pNPB0iUWk8h6nmXoNOcenAjc--
+--------------UU56HUnElZo8tut2MrVZ6edl--
