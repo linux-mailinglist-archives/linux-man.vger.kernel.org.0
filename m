@@ -2,76 +2,73 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 7CBB66BF7DB
-	for <lists+linux-man@lfdr.de>; Sat, 18 Mar 2023 05:59:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 48BDB6BF893
+	for <lists+linux-man@lfdr.de>; Sat, 18 Mar 2023 08:54:45 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229478AbjCRE7F (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 18 Mar 2023 00:59:05 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42456 "EHLO
+        id S229769AbjCRHyo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 18 Mar 2023 03:54:44 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42148 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229681AbjCRE7D (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 18 Mar 2023 00:59:03 -0400
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com [IPv6:2a00:1450:4864:20::52a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D3A80166C4
-        for <linux-man@vger.kernel.org>; Fri, 17 Mar 2023 21:58:53 -0700 (PDT)
-Received: by mail-ed1-x52a.google.com with SMTP id fd5so27745849edb.7
-        for <linux-man@vger.kernel.org>; Fri, 17 Mar 2023 21:58:53 -0700 (PDT)
+        with ESMTP id S229881AbjCRHym (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 18 Mar 2023 03:54:42 -0400
+Received: from mail-oi1-x232.google.com (mail-oi1-x232.google.com [IPv6:2607:f8b0:4864:20::232])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C5593233F8
+        for <linux-man@vger.kernel.org>; Sat, 18 Mar 2023 00:54:33 -0700 (PDT)
+Received: by mail-oi1-x232.google.com with SMTP id be16so5480126oib.0
+        for <linux-man@vger.kernel.org>; Sat, 18 Mar 2023 00:54:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1679115532;
-        h=in-reply-to:content-disposition:mime-version:references
-         :mail-followup-to:message-id:subject:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=ct8qQU7a+932jPNB3yPX/jCSP+tOMyP/tZihIk7stm4=;
-        b=b7as05SMut5XaM/+yS9fIMBMdrBkNuizwR5HIe60mfI8ceT+mdpYxt3Q/9p/TkaITo
-         zcymSSwICLyosMV4FLQrw2o6FFVBKVYWb3BON0oB2n3tjlzVotuz4soFVzF1YixRPbov
-         1HCiQf8f7oGqvrzU72wmAxy3eSLFlUEKpXXTW5DyHT6DT/L52kYiD1O+VjdXdD37/Zd3
-         8o08dmzUL+NGAJKzHufNtmR9Yt4TY/4aviMEhdI34Tj1tEmbzXe44c+qO8a1Sq7+YIZb
-         9deUrgeDCQdEUgM2ml8cshfSg2WZkQi0rMla0sScCjo8zbyEo4Zl1NJJK4TJprU92HO5
-         WLKA==
+        d=gmail.com; s=20210112; t=1679126073;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ESSgT8w5sgTnsHyFI1Z37ra0Yui3QZZOyN9DRW5nrCM=;
+        b=jEZUPaoArU7tfGVrsOp2/ecKIXe6TbMUfyYZZU9dAoxne3KqgxlnvRmsmGdtGsI6MW
+         dmBwb/TWOLwCbrd4DcdJyvJbsanSC1GNZ5O+Oe13ZJ9xB+rmYN232Acsjv9W+bdfCDxG
+         gIOTqv2mvwxQWgACSRvUYB+J1/DgHTXdo6sC6fS+AqLUjYNJUGel+gaAUlJUCaYTWNsm
+         pQVpHzK1ItrdnSkGjZfTfTzemgcV/pNZ2sbfYSq4zo1rTO5fWZnZRUzBl4OTUa36fBfL
+         VTejda/5sufEF8J2d75hMpWM1NjjizRitQ2cAJnyvYZMyE4iYT/bxD2QXkl7CgPnRYci
+         9YqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1679115532;
-        h=in-reply-to:content-disposition:mime-version:references
-         :mail-followup-to:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ct8qQU7a+932jPNB3yPX/jCSP+tOMyP/tZihIk7stm4=;
-        b=nkY/is+q/O+/3sZ4u793vSf8EyGWaal2h/9aGHMA+XWWxCpww8LsVojs69vYy0tb1f
-         Pcz1ePCdLdafphcSJgpl/bsltiLR2WY1/XZYAPkvlM77foIOnuzx+8eaUij76zkoNI+d
-         5NNOd2Bn3JNSsDWDAJIC6yNxQSZesPgo1yXFheBtK0Tbfsoegw1bqAQbiD7bxC6N/fLi
-         +dFm7gn6QykBiL3lCbKNzRmykl0Ue4MdNivQHtO5rGDeIn/V+QkdVGJ5m7q7AFdJXDLk
-         ETfnN+3g2gqO+x55iIv4hNvGEJz8Odo6NKoiCGh2eggN3KP0rKPyDi93Hh/8EiTBPr33
-         Gvuw==
-X-Gm-Message-State: AO0yUKXZUTNWrwroQv7+7qq4OcP2jfmdgQF3FgZXmNPZKOmil6+sHSuU
-        r8yY0ZEr2ze0zq4KKoT5DR8=
-X-Google-Smtp-Source: AK7set8xWnWKBMvEUQZtOJplMWqSHxzxjAi8D0kvx1rCxmjFc2wu7msig6pIQlEeH9yaDgp7T4LcLA==
-X-Received: by 2002:a17:906:6d08:b0:92f:b18a:b518 with SMTP id m8-20020a1709066d0800b0092fb18ab518mr1494449ejr.66.1679115532194;
-        Fri, 17 Mar 2023 21:58:52 -0700 (PDT)
-Received: from dj3ntoo (212.sub-72-109-208.myvzw.com. [72.109.208.212])
-        by smtp.gmail.com with ESMTPSA id g18-20020a170906395200b008c979c74732sm1688849eje.156.2023.03.17.21.58.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Mar 2023 21:58:51 -0700 (PDT)
-Date:   Fri, 17 Mar 2023 23:58:45 -0500
-From:   Oskari Pirhonen <xxc3ncoredxx@gmail.com>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     Tom Schwindl <schwindl@posteo.de>, linux-man@vger.kernel.org
-Subject: Re: Revert "Many Pages: Remove references to C89"
-Message-ID: <ZBVE1QUaoCZZ73Os@dj3ntoo>
-Mail-Followup-To: Alejandro Colomar <alx.manpages@gmail.com>,
-        Tom Schwindl <schwindl@posteo.de>, linux-man@vger.kernel.org
-References: <ZAq5gg+aQB5TrDQ3@dj3ntoo>
- <f5aac742-4417-fced-343d-002117d629f1@gmail.com>
- <ZA5/n8Ix+eCYnNgM@dj3ntoo>
- <591290fb-e78d-ad3a-8b25-4a860d26f775@gmail.com>
- <ZBAIkHrBm50vjSqL@dj3ntoo>
- <d3aee611-844b-fba3-5642-16b0ddc576a3@gmail.com>
- <6aad40b5-04ca-68d8-7da2-cb4a7bed7ded@Shaw.ca>
- <a1a5ea63-9fbe-17f6-fe69-1850552a5422@gmail.com>
- <CR75QLUXYL2F.9ZFRDB68HXGW@morphine>
- <bef1b957-b1ea-2562-57a9-ad9ef6d8b951@gmail.com>
+        d=1e100.net; s=20210112; t=1679126073;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=ESSgT8w5sgTnsHyFI1Z37ra0Yui3QZZOyN9DRW5nrCM=;
+        b=NfXyuoP7Ofr7Iw6t19klYN1w19d17lgxoXiYlMh3H2Zx5er/YCW1Pe9+CxiU73yoNs
+         Q6Xe/m0JY1rdGSA6mBlPt4O8Ybq0yl37taI4MFWUDuzJb0Gh+DH9hfNuYTGRYPtJRNCn
+         8A28lgmTqsKEJYAv0zUxSWC3Ti1q9CaE4MJVUdD+sZBYJbKttE5kkn2vx+CWVnEsSVsK
+         PThX/wJeUuCL4q/9fDPdGaxW9Ihc7Vb8p6sQLx7T8aBckDwIiKtTf7oUaGsHULUfQPxs
+         If+D1RreHhcaSSPzBnn9Aesw+/ba8yOR9s/62ByZHqd4lUuw9AJbHSDgObl+s9dBk7zo
+         Chsg==
+X-Gm-Message-State: AO0yUKWdjiEiPHfh1+QGB1RUp8pXYd0nnwdo6t70Hx5iUlFnz5JCa+dd
+        6FjRvNdl/v4fezJ4ElE6fc7CgSRXJ0o3IZOo4D0vnFD1nlE=
+X-Google-Smtp-Source: AK7set/C3uZ5W4iCgzn9WwzSZRR9+OpZ5/oQGPmLsqj/mbulctQwon0jjmLyOVa8JRgMV9FGzjEalvQbZo3N36qD974=
+X-Received: by 2002:a05:6808:342:b0:386:91d1:34b1 with SMTP id
+ j2-20020a056808034200b0038691d134b1mr3959826oie.10.1679126071577; Sat, 18 Mar
+ 2023 00:54:31 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="1mO4t9h6uEupiJuN"
-Content-Disposition: inline
-In-Reply-To: <bef1b957-b1ea-2562-57a9-ad9ef6d8b951@gmail.com>
+References: <20230205152835.17413-1-alx@kernel.org> <20230206184530.zn5kq7x6xmcfxhqm@redhat.com>
+In-Reply-To: <20230206184530.zn5kq7x6xmcfxhqm@redhat.com>
+From:   roucaries bastien <roucaries.bastien+debian@gmail.com>
+Date:   Sat, 18 Mar 2023 07:54:05 +0000
+Message-ID: <CAE2SPAbnWViwyrjz1s_X18RPtZyqZJj0d8_ib=oYcUgQhCsh8w@mail.gmail.com>
+Subject: Re: [PATCH] sockaddr.3type: BUGS: Document that libc should be fixed
+ using a union
+To:     Eric Blake <eblake@redhat.com>
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org, Alejandro Colomar <alx@kernel.org>,
+        GCC <gcc@gcc.gnu.org>, glibc <libc-alpha@sourceware.org>,
+        =?UTF-8?Q?Bastien_Roucari=C3=A8s?= <rouca@debian.org>,
+        Stefan Puiu <stefan.puiu@gmail.com>,
+        Igor Sysoev <igor@sysoev.ru>, Rich Felker <dalias@libc.org>,
+        Andrew Clayton <a.clayton@nginx.com>,
+        Richard Biener <richard.guenther@gmail.com>,
+        Zack Weinberg <zack@owlfolio.org>,
+        Florian Weimer <fweimer@redhat.com>,
+        Joseph Myers <joseph@codesourcery.com>,
+        Jakub Jelinek <jakub@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
@@ -82,118 +79,62 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-
---1mO4t9h6uEupiJuN
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
 Hi,
 
-On Thu, Mar 16, 2023 at 02:43:54 +0100, Alejandro Colomar wrote:
-> Hi Tom,
->=20
-> On 3/15/23 19:10, Tom Schwindl wrote:
-> > Hi Alex,
-> >>
-> >> Do you know if we can distribute them?  which license applied to them?
-> >> I'm worried that some distros are very strict in what can be distribut=
-ed
-> >> in a package (e.g., Fedora, Debian (main)).  There were issues with
-> >> man-pages-posix in the past.
-> >>
-> >> Should we maybe open a separate project iso-c-drafts that installs
-> >> drafts of the ISO C standards and maybe some scripts that will be usef=
-ul
-> >> with them?
-> >>
-> >=20
-> > This is probably a legal gray area and I'd be careful.
->=20
-> Yeah, that's what I think.  Until I'm 100% sure that it's legal, I
-> won't do it.
->=20
-> > ISOs license agreement[0] explicitly states the following:
->=20
-> I had some doubts, because since the drafts have always been published
-> in many sites, I don't know if that's legal, or simply ISO doesn't
-> enforce the license over drafts...  If someone knows for sure and can
-> clarify, that would help.  In fact, maybe I can write to someone in the
-> committee...
->=20
-> Thanks,
->=20
-> Alex
->=20
-> >=20
-> >   > The ISO publication(s) you order is/are copyrighted by the Internat=
-ional
-> >   > Organization for Standardization. You acknowledge and agree to resp=
-ect ISO=E2=80=99s
-> >   > copyright in our publications by purchasing, downloading, copying or
-> >   > otherwise using (an) ISO publication(s). Except as provided for und=
-er this
-> >   > Licence Agreement, you may not lend, lease, reproduce, distribute or
-> >   > otherwise commercially exploit ISO publication(s). In the case of j=
-oint
-> >   > standards (such as ISO/IEC standards), this clause shall apply to t=
-he
-> >   > respective joint copyright ownership.
-> >=20
-> > As we (or a third party) can only produce a plaintext version by downlo=
-ading the
-> > original PDF draft and converting it, we agree with the above. Thus, we=
- can't
-> > "reproduce" or "distribute" the standard, at least that's my understand=
-ing[1].
-> > I highly doubt that major distibutions would take that risk, nor should=
- we.
-> >=20
-> >=20
-> > [0] <https://www.iso.org/terms-conditions-licence-agreement.html#Custom=
-er-Licence>
-> > [1] For the record: I'm not a lawyer, this is not legal advice. It's ve=
-ry well
-> >     possible that I've overlooked something.
-> >=20
+I have opened a defect at austin group
+https://www.austingroupbugs.net/view.php?id=3D1641
 
-Gentoo has a concept of "fetch restricted packages" [1] where ebuilds
-are available through Portage, but you have to provide the distfiles
-yourself. Perhaps something similar in spririt can be used here if the
-license terms forbid/are unclear about distributing the standards (or
-drafts) themselves?
+Bastien
 
-Here's my idea:
-
-- Create the utils with the assumption that the docs exist at some TBD
-  path and ship them (the utils, that is).
-- Include a check for the docs and instruct the user to install them to
-  that path manually if they don't exist.
-- If it turns out the docs can be distributed, the check can be removed.
-  Although it might be better to keep it around for the sake of the
-  pickier distros in hopes that they don't patch out the utils from
-  their packages.
-
-Obligatory I'm not a lawyer either.
-
-For people unfamiliar with Gentoo terminology, "ebuilds" are basically
-scripts used to fetch, build, and install packages and "distfiles" are
-what's being fetched (source code, etc).
-
-- Oskari
-
-[1]: https://devmanual.gentoo.org/general-concepts/licenses/index.html#lice=
-nse-implied-restrictions
-
---1mO4t9h6uEupiJuN
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQQfOU+JeXjo4uxN6vCp8he9GGIfEQUCZBVFAAAKCRCp8he9GGIf
-ESG+AP0edRzwxMsl0iqBeY+lsx3brJomy/kfXFuCfgxfIWVH5QEA8NkA9KA17T6H
-IaR4tEb9nKfqCCcFvIJ2gJIML5VOCwg=
-=b/iO
------END PGP SIGNATURE-----
-
---1mO4t9h6uEupiJuN--
+Le lun. 6 f=C3=A9vr. 2023 =C3=A0 18:45, Eric Blake <eblake@redhat.com> a =
+=C3=A9crit :
+>
+> On Sun, Feb 05, 2023 at 04:28:36PM +0100, Alejandro Colomar wrote:
+>
+> Regardless of the merits of the patch, let's not introduce typos:
+>
+> > +++ b/man3type/sockaddr.3type
+> > @@ -120,6 +120,26 @@ .SH NOTES
+> >  .I <netinet/in.h>
+> >  and
+> >  .IR <sys/un.h> .
+> > +.SH BUGS
+> > +.I sockaddr_storage
+> > +was designed back when strict aliasing wasn't a problem.
+> > +Back then,
+> > +one would define a variable of that type,
+> > +and then access it as any of the other
+> > +.IR sockaddr_ *
+> > +types,
+> > +depending on the value of the first member.
+> > +This is Undefined Behavior.
+> > +However, there is no way to use these APIs without invoking Unedfined =
+Behavior,
+>
+> Undefined
+>
+> > +either in the user program or in libc,
+> > +so it is still recommended to use this method.
+> > +The only correct way to use different types in an API is through a uni=
+on.
+> > +However,
+> > +that union must be implemented in the library,
+> > +since the type must be shared between the library and user code,
+> > +so libc should be fixed by implementing
+> > +.I sockaddr_storage
+> > +as a union.
+> >  .SH SEE ALSO
+> >  .BR accept (2),
+> >  .BR bind (2),
+>
+> Also, while I could raise the issue with the Austin Group on your
+> behalf to get the POSIX wording improved, I think it would work better
+> if you initiate a bug report rather than having me do it:
+>
+> https://www.austingroupbugs.net/main_page.php
+>
+> --
+> Eric Blake, Principal Software Engineer
+> Red Hat, Inc.           +1-919-301-3266
+> Virtualization:  qemu.org | libvirt.org
+>
