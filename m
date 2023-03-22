@@ -2,154 +2,173 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 5BB376C5531
-	for <lists+linux-man@lfdr.de>; Wed, 22 Mar 2023 20:50:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E92676C5892
+	for <lists+linux-man@lfdr.de>; Wed, 22 Mar 2023 22:12:16 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229673AbjCVTu5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 22 Mar 2023 15:50:57 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33554 "EHLO
+        id S229501AbjCVVLo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 22 Mar 2023 17:11:44 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49104 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229534AbjCVTu4 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 22 Mar 2023 15:50:56 -0400
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com [IPv6:2a00:1450:4864:20::42e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B7B4E4FCF0
-        for <linux-man@vger.kernel.org>; Wed, 22 Mar 2023 12:50:54 -0700 (PDT)
-Received: by mail-wr1-x42e.google.com with SMTP id r11so1493043wrr.12
-        for <linux-man@vger.kernel.org>; Wed, 22 Mar 2023 12:50:54 -0700 (PDT)
+        with ESMTP id S229738AbjCVVLl (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 22 Mar 2023 17:11:41 -0400
+Received: from mail-pg1-x52f.google.com (mail-pg1-x52f.google.com [IPv6:2607:f8b0:4864:20::52f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C64A323A44
+        for <linux-man@vger.kernel.org>; Wed, 22 Mar 2023 14:11:38 -0700 (PDT)
+Received: by mail-pg1-x52f.google.com with SMTP id x37so11412014pga.1
+        for <linux-man@vger.kernel.org>; Wed, 22 Mar 2023 14:11:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1679514653;
-        h=in-reply-to:references:cc:to:from:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=PmHbnL68Coht+A2aXJgVneT6a6uRaNO0pLuUrEfgawM=;
-        b=N4kfF1PItQ3Ow9cQCY8uX6id9d/ApbrPBwJSOEQ+DOykYWi+1sXO+0pvaf47rZtRIe
-         99it2a2YRAQmDDQoNqZuDH6pq/iuN2fvPQ3amv8psXG9cq385v+eAuDct0jW8hPLwMrG
-         EfPdX3zsyn5uyFzv9FDX7jy+qKvmzLu0F2Z9xvxC2xTwne5efS6cEMg4ozlbft2KF6fi
-         IdMY5qBo8nsN5LeMo/ROr+exr8Md3oSOybVZeeTevAc498Om1BoRXa8qeE59Wuzt9Fsg
-         BCC+2zUCw1kH9r99RPvQcVzkxI8NW0B++xHJZWVenEa2K772iEQNDvkcv3Qj+asb5tuU
-         4pvw==
+        d=dilger-ca.20210112.gappssmtp.com; s=20210112; t=1679519498;
+        h=to:date:message-id:subject:mime-version:from:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=bQDM5I2/8RiogP9VeZGWSxa7JSdKA7lXDpSJ2t1cvWg=;
+        b=QFJoYhxHvQPb1pRDQYXsxKJkUOuyuCpi4kLxQn9V9AWBu7e7xCGWVPZC/6NnI/H8KK
+         HGC3+3LdXMJKCveUgzEykimkabXcjRmSRNgVBW4kzUxx8pczFZ0JjcNXslcFpZFilTnJ
+         KIdelcsuxnS7mew2LmshDAZsZfscF0nzTKBUFBvC7tBHLQZ7na9phj+hsdToxDIvGfpB
+         s+y2m6Ogy8MDYjAx7yj/rhR9I1kUo8StNzJGJ7Ec+p/IHRG6/v+BWyPx8NaPsWo+19JJ
+         V306IEKV9I7NX0l0LIFyVpDR/PjA4Mggf+cPw60KfRdYPbJE7o8EfWDmNhY5Xw5ttSfH
+         HMOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1679514653;
-        h=in-reply-to:references:cc:to:from:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=PmHbnL68Coht+A2aXJgVneT6a6uRaNO0pLuUrEfgawM=;
-        b=aBZBz1TwYxr3xgl6v0PuVFc774HSouR7FJPzLuFy7Sy4x8WYoHU2XHK/wyCRc4Bp5i
-         6E2CDrq+wD7aMtAAzPbd0pEXWSWOSiYJ7jjux8YnUSwTKLiCE0NHtA8zEBHGwNIBJ2z3
-         ED+TV2aEFprffjlDh5PECB76Gz7hbtmo/K8Q3LqKrQDZu1N7ul0d8i0RUsRn2tj/3FeD
-         Nl/YbicFq3DIj6LKJJJZVpoPj5RtsjVQhjCtEbl6qaed1q0ZDtuZpXQeaCGXTOpHdnOL
-         UkaGHklkTW9C6vBvI4NHmcI6DpyEWm8gsmeXCH8Ch4aW/eCHKNRyNbyCFjeuseIzJldF
-         hBzA==
-X-Gm-Message-State: AAQBX9eCfCwpQF6q69iO4xWmg2gDSfm00pjl0hbUzMS43Y9Jp0nQ2KiR
-        v5PG71P9bFBQ9WfgThAIjzK7sFyXyss=
-X-Google-Smtp-Source: AKy350ZWT5VKp2vfjhaemfyWpk3mlQXVxV46Bm8YmnXqnOH+Yx9SCXYKKUN7axEf7cvhEgO3nESgHw==
-X-Received: by 2002:adf:fac3:0:b0:2c7:efb:dded with SMTP id a3-20020adffac3000000b002c70efbddedmr710027wrs.24.1679514652979;
-        Wed, 22 Mar 2023 12:50:52 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.51.134])
-        by smtp.gmail.com with ESMTPSA id d5-20020adfef85000000b002cfed482e9asm14552092wro.61.2023.03.22.12.50.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 22 Mar 2023 12:50:52 -0700 (PDT)
-Message-ID: <ac2ba951-340f-d074-730b-ad8986338e8d@gmail.com>
-Date:   Wed, 22 Mar 2023 20:50:51 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: stdc: search function prototypes in ISO C documents
-Content-Language: en-US
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     linux-man <linux-man@vger.kernel.org>
-Cc:     Matt Jolly <Matt.Jolly@footclan.ninja>,
-        Brian Inglis <Brian.Inglis@Shaw.ca>,
-        Guillem Jover <guillem@hadrons.org>,
-        Tom Schwindl <schwindl@posteo.de>, Sam James <sam@gentoo.org>,
-        Marcos Fouces <marcos@debian.org>
-References: <28c1d825-0ef5-7363-6822-f2c876bf73d4@gmail.com>
-In-Reply-To: <28c1d825-0ef5-7363-6822-f2c876bf73d4@gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------Dglvrp1kthJA2S0AoaURClaJ"
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-        DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-        autolearn=unavailable autolearn_force=no version=3.4.6
+        d=1e100.net; s=20210112; t=1679519498;
+        h=to:date:message-id:subject:mime-version:from:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=bQDM5I2/8RiogP9VeZGWSxa7JSdKA7lXDpSJ2t1cvWg=;
+        b=bdSJr2Lz0fE9BePM/QIyGV0Ebc8qYmbbsAs+TZlO+VpygYQvoEYE/OnNa4AFvYoVHh
+         sAUFQIUMX8fsfnaknP/ymL6OHeG0T1tija+2+Cxw/clIIfgSafuCgnLsYxjkiS80kGM7
+         OmM0NPAeKyHkFDZNOglp234kjGgk2QIMoKnRHodw4xU8qNcP4IFFn4ETIDb4c25Yeglp
+         M1h99xJMrmGhCl8xsrOPGS9m/lXwMjwr3W8ZlDgGhZeXHHIYrwe4L4J44UvhEEwc7X9i
+         zKl8ycnFo6WlRiSs3tCBSq8muYYPzX9LPV+Kdx9oXfjGhHMg5bdkCuSM+iUtiViSTVxx
+         4Pmw==
+X-Gm-Message-State: AO0yUKWngbVnRA6TsYBVf4bhBlWwbYNbBugn3fZa5jMWiYHMrfpAlvS4
+        hl5AWIUiV5fqW/G8sollWqvf+y/iOWx8V4TMqkwErw==
+X-Google-Smtp-Source: AK7set/x7/WRH3S+QjkXQrN+2SmCLBxlLWX85x3EgkdqMTd2MobHrx1vf3qrb25pVCKI9tX1fIr2pg==
+X-Received: by 2002:a62:4e06:0:b0:628:9b4:a6a3 with SMTP id c6-20020a624e06000000b0062809b4a6a3mr3224478pfb.2.1679519497699;
+        Wed, 22 Mar 2023 14:11:37 -0700 (PDT)
+Received: from cabot.adilger.int (S01061cabc081bf83.cg.shawcable.net. [70.77.221.9])
+        by smtp.gmail.com with ESMTPSA id e12-20020a62ee0c000000b005d866d184b5sm10388163pfi.46.2023.03.22.14.11.36
+        for <linux-man@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 22 Mar 2023 14:11:36 -0700 (PDT)
+From:   Andreas Dilger <adilger@dilger.ca>
+Content-Type: multipart/signed;
+ boundary="Apple-Mail=_3477B223-52DA-4C07-8659-5B2ED86D9CFD";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
+Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
+Subject: [PATCH] man7: improve example in utf-8(7) page
+Message-Id: <692C1250-7DDF-45E7-83D4-77BB4494608E@dilger.ca>
+Date:   Wed, 22 Mar 2023 15:11:49 -0600
+To:     linux-man@vger.kernel.org
+X-Mailer: Apple Mail (2.3273)
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------Dglvrp1kthJA2S0AoaURClaJ
-Content-Type: multipart/mixed; boundary="------------dRBBpC6hz05SVcR0jNshLFvb";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: linux-man <linux-man@vger.kernel.org>
-Cc: Matt Jolly <Matt.Jolly@footclan.ninja>,
- Brian Inglis <Brian.Inglis@Shaw.ca>, Guillem Jover <guillem@hadrons.org>,
- Tom Schwindl <schwindl@posteo.de>, Sam James <sam@gentoo.org>,
- Marcos Fouces <marcos@debian.org>
-Message-ID: <ac2ba951-340f-d074-730b-ad8986338e8d@gmail.com>
-Subject: Re: stdc: search function prototypes in ISO C documents
-References: <28c1d825-0ef5-7363-6822-f2c876bf73d4@gmail.com>
-In-Reply-To: <28c1d825-0ef5-7363-6822-f2c876bf73d4@gmail.com>
 
---------------dRBBpC6hz05SVcR0jNshLFvb
-Content-Type: text/plain; charset=UTF-8
+--Apple-Mail=_3477B223-52DA-4C07-8659-5B2ED86D9CFD
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=us-ascii
+
+The first example provided in the utf-8(7) page (encoding for char
+"0xa9") is not a very good one to use.  The man page reports:
+
+   The Unicode character 0xa9 =3D 1010 1001 (the copyright sign) is
+   encoded in UTF-8 as
+
+      11000010 10101001 =3D 0xc2 0xa9
+
+This might have the reader believe that the UTF-8 encoding for any
+ISO-8859-1 char is "0xc2 <char>".  This is actually a coincidence
+that this is true, since "1010" is both starting the second UTF-8
+byte and top nibble of "0xa9", according to the "Encoding" section
+for symbols in 0x80-0x7ff range.
+
+Instead, use another character for the example that does not have
+"10" as the top bits of the first nibble.  Emphasize the encoded
+bits in the examples to make it clear which bits are holding the
+character and which are the UTF-8 format.
+
+Signed-off-by: Andreas Dilger <adilger@dilger.ca>
+---
+ man7/utf-8.7 | 23 +++++++++++++++++------
+ 1 file changed, 17 insertions(+), 6 deletions(-)
+
+diff --git a/man7/utf-8.7 b/man7/utf-8.7
+index 015d4b746..6e96c2f27 100644
+--- a/man7/utf-8.7
++++ b/man7/utf-8.7
+@@ -123,18 +123,29 @@ The UCS code values 0xd800\[en]0xdfff (UTF-16 =
+surrogates) as well as 0xfffe and
+ According to RFC 3629 no point above U+10FFFF should be used,
+ which limits characters to four bytes.
+ .SS Example
+-The Unicode character 0xa9 =3D 1010 1001 (the copyright sign) is =
+encoded
+-in UTF-8 as
++The Unicode character 0x0d7 =3D
++.I 00 1101 0101
++(the multiplication sign) is encoded in UTF-8 with two bytes (high bits
++.IR 110 )
++as:
+ .PP
+ .RS
+-11000010 10101001 =3D 0xc2 0xa9
++.RI 110 00011
++.RI 10 010101
++=3D 0xc3 0x97
+ .RE
+ .PP
+-and character 0x2260 =3D 0010 0010 0110 0000 (the "not equal" symbol) =
+is
+-encoded as:
++and character 0x2260 =3D
++.I 0010 0010 0110 0000
++(the "not equal" symbol) is encoded in UTF-8 with three bytes (high =
+bits
++.IR 1110 )
++as:
+ .PP
+ .RS
+-11100010 10001001 10100000 =3D 0xe2 0x89 0xa0
++.RI 1110 0010
++.RI 10 001001
++.RI 10 100000
++=3D 0xe2 0x89 0xa0
+ .RE
+ .SS Application notes
+ Users have to select a UTF-8 locale, for example with
+--
+2.31.1
 
 
-
-On 3/22/23 20:49, Alejandro Colomar wrote:
-> Gidday!
->=20
-> I created a git repository for the stdc(1) script, and created a signed=
-
-> tag v0.1 for it.
->=20
-> It's yet undocumented, but I plan to add a man page for it.  Anyway,
-> being a bash(1) script, I guess it's quite readable to anyone here.
->=20
-> Please suggest any improvements that you can think of =3D).
-
-Heh, of course I forgot to paste the link to the repo:
-
-cgit:
-<http://www.alejandro-colomar.es/src/alx/alx/doc/stdc.git/>
-git:
-<git://www.alejandro-colomar.es/src/alx/alx/doc/stdc.git>
-
->=20
-> Cheers,
->=20
-> Alex
->=20
-
---=20
-<http://www.alejandro-colomar.es/>
-GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
-
---------------dRBBpC6hz05SVcR0jNshLFvb--
-
---------------Dglvrp1kthJA2S0AoaURClaJ
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+--Apple-Mail=_3477B223-52DA-4C07-8659-5B2ED86D9CFD
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename=signature.asc
+Content-Type: application/pgp-signature;
+	name=signature.asc
+Content-Description: Message signed with OpenPGP
 
 -----BEGIN PGP SIGNATURE-----
+Comment: GPGTools - http://gpgtools.org
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQbXBsACgkQnowa+77/
-2zLcDw/8C0BRo6j1oG5JWDKiBsjbMmiGpklJedo2DGe/GHjtSqN+uqyhIM3mb7Ga
-xpXtPCzuCnaQrj9K2SSuGqYv0HKcPCoCKGYtrhxAY1vXmaBISAH1KqeseJ1uZ6S+
-dDqv55f+Kv5EPAZdVX5M1V921RGc5kja+EsTlDMqNNdRrox1kHYEAoUaSavIkUVR
-AhMuDzj+Ba//h5MoEKsD6ANsB70SYn2+ghtyKTYTAn46LForjNqSsp+wqhZ0DbJj
-iUoPCsCOxY2mRQLbTxmp2laAAZtZHRwzYcCtjuGi8pmBvvCgW1s6zKJ4LMYk2D6g
-w4opIhMXe4gjudwIUkLDBHor3muHefbOHKDpCQgDFVkYjnwx+7IgrKTJ16eqEJHE
-mEtqcSSp6G6ngkj5jnYYtmM+vdvNiy3HK8WXZCY+x3RiS8LliA8+Tqh1TlUOMPqb
-dGuUzDXjZF2kVALsyKnCMx9wcIJGhEBbh5Bprr9bT/YAdG0C8YjxrNbvL11JaAXi
-X0XqNk4AY/oTGvW6kRblVdLMmC5R0NuAsJ45nPwHBiNRr5p6xfqrzgH5JUT2i+Wz
-5Ds9H3UP/hfvdAtxZxvteRbKOAlUEZ8X5NYOkuIi6mFkOrYwvyO+0lWALgJMxMog
-3EekvxKvWYD3ZBbjgBC4JWFEweA32vV50Omrf2LC/SPIOfqquTI=
-=mDWK
+iQIzBAEBCAAdFiEEDb73u6ZejP5ZMprvcqXauRfMH+AFAmQbbxUACgkQcqXauRfM
+H+DYOQ//Rszunnv+Y/rUt82NAS2bQtpsk5ztfQv7L6RjAzVTdf3CfDZSMhgMhmdq
+UMK6Je2bVCBcBfwZOrQT+EEKS8v9yqpjnSe2K3CZZCVFUhisaKJ2AfmnFek1qiZU
+U0RtZh9/ELd6f6ziy9CZ7IbPqJmZooa2P8cx/u8qrv8SGN4blyct/8jLeKWLpnFO
+N+HPtvN0zX8WRZJGlmGd5s4IwpZptBOI97Xa/4gzerPteCAQ4jtcZPa4tPaA036E
+ajpdRX5ASbULH0qmopXkNEtm+PO4NvLnT/7w+/sLGyNMIh4jEQo3wyN6gWqvddPO
+zVXrZPbsBaP5BaSIDLjvWdRFhijsQWMcBxJQZgDF7NgMaspjBQ+IwSglmj2hkQtb
+R0PV2vs/7zIbfpsrPJ+WrE5XFEjAtK/yZ0jjkYHgeUrQcc0486wWP2J93WpDQ3wT
+4tZLGd//wFFsSh3kZcRKr0yuf4MDwSo9dlJH8ccvSKvSAFhrpgU2GDG/1qUWqLUq
+63zWV5uDfk4RhvIud9gt/ynHkoXrcacYKYVmL6PkeiwIvZ1cO+KQorS9iPgmIjAF
+TtD9u69aoekfEDrRABbKVnO1qw9UH/S/BsHbTmuGkvzwh5Jmkbxs8xjiIpEn8n4N
+7ctkcT43EIsir6z6H2MhY/J1Rz4WtpsrB85X047XX5IKaWvy8Bw=
+=j1B6
 -----END PGP SIGNATURE-----
 
---------------Dglvrp1kthJA2S0AoaURClaJ--
+--Apple-Mail=_3477B223-52DA-4C07-8659-5B2ED86D9CFD--
