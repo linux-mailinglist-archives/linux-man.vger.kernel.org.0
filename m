@@ -2,123 +2,234 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 2E9C66C452F
-	for <lists+linux-man@lfdr.de>; Wed, 22 Mar 2023 09:39:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 2B69C6C5243
+	for <lists+linux-man@lfdr.de>; Wed, 22 Mar 2023 18:20:19 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229833AbjCVIjY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 22 Mar 2023 04:39:24 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47632 "EHLO
+        id S229833AbjCVRUS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 22 Mar 2023 13:20:18 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43148 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229656AbjCVIjW (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 22 Mar 2023 04:39:22 -0400
-Received: from mail-qt1-x82f.google.com (mail-qt1-x82f.google.com [IPv6:2607:f8b0:4864:20::82f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 329333B862
-        for <linux-man@vger.kernel.org>; Wed, 22 Mar 2023 01:39:22 -0700 (PDT)
-Received: by mail-qt1-x82f.google.com with SMTP id n2so21775818qtp.0
-        for <linux-man@vger.kernel.org>; Wed, 22 Mar 2023 01:39:22 -0700 (PDT)
+        with ESMTP id S231431AbjCVRT7 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 22 Mar 2023 13:19:59 -0400
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com [IPv6:2a00:1450:4864:20::330])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 18C096772B
+        for <linux-man@vger.kernel.org>; Wed, 22 Mar 2023 10:19:39 -0700 (PDT)
+Received: by mail-wm1-x330.google.com with SMTP id o32so5605384wms.1
+        for <linux-man@vger.kernel.org>; Wed, 22 Mar 2023 10:19:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1679474361;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=2CRlMDZ2z6r16UVopShHFpbbPxquoaFapwt5cF08/Qw=;
-        b=REQKLElbVDNxwyEFNPvhWokReBux2tp4e1eDpVT/BsZh7JojeW6mV4YAyZUbde1qtd
-         qCQdRxux9F+4n72zUiEhH++tjNGJ16GJSpbXZlwLiGYk85NIbZYN/I3OHGVWrWCdZdu4
-         ZGq/TquTcRpG5Y2pfV/jrDbgoKYkXpTjk2GSl8iz5NOcQ0TIOLgeLIbDlLggE/5oBgAw
-         z+VJEG7Eq6oICNyssV0gABa8GQyOBzgQk0dFyUZywr4XIhHDg2FC0EnZnxvmH9NDLsIM
-         XXRSXhUywKobAq4DO7/zT9pbawclaxhvUpSuttTMKQ635l+rpne8NuikLg78co3NJO5e
-         aUfQ==
+        d=gmail.com; s=20210112; t=1679505577;
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=fVcZ2T1BvYq8vkKV+cJkug5MO/cFyerANzhX5lHP2PI=;
+        b=OvJWomGO+2dqxXKJt8WpaWe3j5IRhaNtdkhG5EaeDGxuPY5k6joiSIheSrpnqANhiR
+         ub+vT9q/ddO3yivbdrSp09RXWkYCTN8abWq9W6m/eZUvRQfYRustiE16m8s+hCTn8bDQ
+         AgKAfto3pDWboYJ5mCX0I6+nvnmiosdA8ad+uSfSEPsWZwW5UXniC835fnfg6eqcpV/r
+         8FpW44VEKL1hxSow4W8MqmZ7o+OFfKN50AZS3/OyN9Ds2wvzTG1wjAnIqWA80IyePyC5
+         pkmFVQywKiTsQFTfamrsFFnj/Px2vkHioAXOS1LbgAKFni33Ib0PJJfaLhhT1yeTNGzu
+         8iRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1679474361;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=2CRlMDZ2z6r16UVopShHFpbbPxquoaFapwt5cF08/Qw=;
-        b=gBmk17xsWXbnrn9ri0DKxj66I75EL0HUE8d/omPYhB2YNDTtc1znXFTYNMkY6doGpi
-         Ay8iZGlMCZIltvvhRTDmb43rk/YPAhyKk5lcH/Qtc7ZaNHD71y6HAdbNm0IhwpG/yfZ5
-         vPh6250JgVpgnrQAB65Y61hR8ls9aHvx3InanTzit67O2Y5agJZ1Uzrb55MXHFmDpTA5
-         Ev+obXOERTKSssHvUH8LNKjg46V4ePrMUvkFrVP/lScMEwGWoGGCUpIiAZqCkOxaGVMH
-         puT7YhOsepzuGz38zu1cgM6S/X/OSASmAV1FnOAo2GaodQhSw04FghZ2HdlN0i0Bf76r
-         oKEA==
-X-Gm-Message-State: AO0yUKV3QWT9Nf6UUosrDh75WAzt1vm84uNTHl61vQQRsxwxF0D8fowk
-        F0uVR3OaSG3RJlQ3w1CpbYEIK6BjZJAYZF+dizh26YEb9buWS39z
-X-Google-Smtp-Source: AK7set9tsdVh0xlBWFrsXd+3tJNwz8TPDZ0a4Jg0hqaA9QpwIDdP6cTbIrdpzkxcmo5l1/y9wC2BWqYMs4cN/ig82Ng=
-X-Received: by 2002:ac8:5906:0:b0:3de:fa64:ff24 with SMTP id
- 6-20020ac85906000000b003defa64ff24mr1053831qty.4.1679474361260; Wed, 22 Mar
- 2023 01:39:21 -0700 (PDT)
+        d=1e100.net; s=20210112; t=1679505577;
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=fVcZ2T1BvYq8vkKV+cJkug5MO/cFyerANzhX5lHP2PI=;
+        b=ZECbsnrKGyowOoqEDPELnIHjA9KFxaaq1hKFtlZLZuKqJT2cpHuTUyCwIQLDVBH0KQ
+         woTfGJeQtKC6OcHRNZz0SAudGieMbnWYCMFxiDRB6JoIc/2ZHW4taPDcAVX3dVJWwuom
+         FAulHPIapBJGQI+Cr5aZf9fgylEjgWNlwpOaCNuogIj1xUPBaNUl4Yw+Gb0urgBvYL3v
+         o2ch8/7UYt/y8bfjrFLQQpXXWxaoTy+Uh3mEyPAUYePGRp3aqCiwzH6Ek7hWuT9gO9wS
+         OHhKUDzxgoTnzYj9+s4B1HLHoY08ijcTJnn1vMJePQ8ADS+hKFHVMAx71LUSVlQ2+WV/
+         8feg==
+X-Gm-Message-State: AO0yUKWLcbiAMeTmxt0/6k/OudgCjIys/HiKm5jsMDb+PU51TblWJOHI
+        N/1jtgQT47UgFqJ/IxvnyiY=
+X-Google-Smtp-Source: AK7set9hRIcrylEj68KMRPAL79DnRbwFqN97PwhImIh6mtXcWg8k1OBQkWvkw77+E03LJLIJJpohIg==
+X-Received: by 2002:a1c:4c0d:0:b0:3ed:ba4d:f081 with SMTP id z13-20020a1c4c0d000000b003edba4df081mr226426wmf.23.1679505577049;
+        Wed, 22 Mar 2023 10:19:37 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.51.134])
+        by smtp.gmail.com with ESMTPSA id y6-20020a05600c364600b003ed2c0a0f37sm17348219wmq.35.2023.03.22.10.19.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 22 Mar 2023 10:19:36 -0700 (PDT)
+Message-ID: <5858fd32-aced-7f87-a1c2-2b92c002e4d3@gmail.com>
+Date:   Wed, 22 Mar 2023 18:19:29 +0100
 MIME-Version: 1.0
-References: <CAD66C+aECcWHSogwDygQnHOvDCayHbH2emKrsUhVxkg48KzXfA@mail.gmail.com>
- <6c5593f5-efc0-564d-83fa-430328b31231@gmail.com>
-In-Reply-To: <6c5593f5-efc0-564d-83fa-430328b31231@gmail.com>
-From:   Mingye Wang <arthur200126@gmail.com>
-Date:   Wed, 22 Mar 2023 16:39:09 +0800
-Message-ID: <CAD66C+Y_b_9j1Oty=kbt2jZywzdVOen4i31ndhqyTTCRp=-xTg@mail.gmail.com>
-Subject: [PATCH] feature_test_macros.7: document clang fortify support
-To:     Alejandro Colomar <alx.manpages@gmail.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH] feature_test_macros.7: document clang fortify support
+Content-Language: en-US
+To:     Mingye Wang <arthur200126@gmail.com>
 Cc:     linux-man@vger.kernel.org, Sam James <sam@gentoo.org>,
         Erik Pilkington <erik.pilkington@gmail.com>
-Content-Type: multipart/mixed; boundary="000000000000b70eb905f77918a5"
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-        DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-        autolearn_force=no version=3.4.6
+References: <CAD66C+aECcWHSogwDygQnHOvDCayHbH2emKrsUhVxkg48KzXfA@mail.gmail.com>
+ <6c5593f5-efc0-564d-83fa-430328b31231@gmail.com>
+ <CAD66C+Y_b_9j1Oty=kbt2jZywzdVOen4i31ndhqyTTCRp=-xTg@mail.gmail.com>
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <CAD66C+Y_b_9j1Oty=kbt2jZywzdVOen4i31ndhqyTTCRp=-xTg@mail.gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------a0ZeyNEpFgvhCKtKE0jJs1KD"
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+        DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+        autolearn=unavailable autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
---000000000000b70eb905f77918a5
-Content-Type: text/plain; charset="UTF-8"
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------a0ZeyNEpFgvhCKtKE0jJs1KD
+Content-Type: multipart/mixed; boundary="------------6egiKOu1CQEp9r0tbozZvYGh";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: Mingye Wang <arthur200126@gmail.com>
+Cc: linux-man@vger.kernel.org, Sam James <sam@gentoo.org>,
+ Erik Pilkington <erik.pilkington@gmail.com>
+Message-ID: <5858fd32-aced-7f87-a1c2-2b92c002e4d3@gmail.com>
+Subject: Re: [PATCH] feature_test_macros.7: document clang fortify support
+References: <CAD66C+aECcWHSogwDygQnHOvDCayHbH2emKrsUhVxkg48KzXfA@mail.gmail.com>
+ <6c5593f5-efc0-564d-83fa-430328b31231@gmail.com>
+ <CAD66C+Y_b_9j1Oty=kbt2jZywzdVOen4i31ndhqyTTCRp=-xTg@mail.gmail.com>
+In-Reply-To: <CAD66C+Y_b_9j1Oty=kbt2jZywzdVOen4i31ndhqyTTCRp=-xTg@mail.gmail.com>
 
-Hi Alex,
+--------------6egiKOu1CQEp9r0tbozZvYGh
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-It looks like Sam James has already documented level 3 of the macro.
-The attached (no, git send-email is not happy with my proxy setup)
-patch only adds some language related to clang. Here's to hoping the
-system is happy with multipart mail.
+Hi Mingye,
 
-I've CCed Erik Pilington, since he is the author of the LLVM-svn
-352665, the change that introduced __builtin_dynamic_object_size() in
-2019.
+On 3/22/23 09:39, Mingye Wang wrote:
+> Hi Alex,
+>=20
+> It looks like Sam James has already documented level 3 of the macro.
+> The attached (no, git send-email is not happy with my proxy setup)
+> patch only adds some language related to clang. Here's to hoping the
+> system is happy with multipart mail.
+>=20
+> I've CCed Erik Pilington, since he is the author of the LLVM-svn
+> 352665, the change that introduced __builtin_dynamic_object_size() in
+> 2019.
 
-Regards,
-Mingye Wang
+Thanks!
 
---000000000000b70eb905f77918a5
-Content-Type: application/octet-stream; 
-	name="0001-feature_test_macros.7-document-clang-fortify-support.patch"
-Content-Disposition: attachment; 
-	filename="0001-feature_test_macros.7-document-clang-fortify-support.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_lfjfn6pr0>
-X-Attachment-Id: f_lfjfn6pr0
+>=20
+> Regards,
+> Mingye Wang
 
-RnJvbSBiMjFiYzQxNmYwNzcyYjNjNzc4M2ExY2IzOTZjY2U1YzBhMTcwNzEzIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBNaW5neWUgV2FuZyA8YXJ0aHVyMjAwMTI2QGdtYWlsLmNvbT4K
-RGF0ZTogV2VkLCAyMiBNYXIgMjAyMyAxNjoxODoyNyArMDgwMApTdWJqZWN0OiBbUEFUQ0hdIGZl
-YXR1cmVfdGVzdF9tYWNyb3MuNzogZG9jdW1lbnQgY2xhbmcgZm9ydGlmeSBzdXBwb3J0CgpUaGlz
-IGNvbW1pdCBsaXN0cyBib3RoIGdjYyBhbmQgY2xhbmcgdmVyc2lvbnMuIEl0IGFsc28gaGFwcGVu
-cyB0byBmaXgKdGhlICJnbGliYyA0LjAiIG1pc3Rha2UgaW4gYjMyNGUxN2QzMjA4Yzk0MDYyMmFi
-MTkyNjA5YjgzNjkyOGQ1YWE4ZC4KClNpZ25lZC1vZmYtYnk6IE1pbmd5ZSBXYW5nIDxhcnRodXIy
-MDAxMjZAZ21haWwuY29tPgotLS0KIG1hbjcvZmVhdHVyZV90ZXN0X21hY3Jvcy43IHwgMTUgKysr
-KysrKysrKystLS0tCiAxIGZpbGUgY2hhbmdlZCwgMTEgaW5zZXJ0aW9ucygrKSwgNCBkZWxldGlv
-bnMoLSkKCmRpZmYgLS1naXQgYS9tYW43L2ZlYXR1cmVfdGVzdF9tYWNyb3MuNyBiL21hbjcvZmVh
-dHVyZV90ZXN0X21hY3Jvcy43CmluZGV4IDRkYzliOTU5NC4uMWMyNzE5YTgwIDEwMDY0NAotLS0g
-YS9tYW43L2ZlYXR1cmVfdGVzdF9tYWNyb3MuNworKysgYi9tYW43L2ZlYXR1cmVfdGVzdF9tYWNy
-b3MuNwpAQCAtNjU1LDE1ICs2NTUsMjIgQEAgRm9yIGV4YW1wbGUsIGEgcHJvZ3JhbSB3aGVyZQog
-c2l6ZSBhcmd1bWVudCBpcyB2YXJpYWJsZQogY2FuIG5vdyBiZSBmb3J0aWZpZWQuCiAuSVAKLVVz
-ZSBvZiB0aGlzIG1hY3JvIHJlcXVpcmVzIGNvbXBpbGVyIHN1cHBvcnQsIGF2YWlsYWJsZSB3aXRo
-CitVc2Ugb2YgdGhpcyBtYWNybyByZXF1aXJlcyBjb21waWxlciBzdXBwb3J0LCBhdmFpbGFibGUg
-c2luY2UKIC5CUiBnY2MgKDEpCi1zaW5jZSBnbGliYyA0LjAuCi0uSVAKKzQuMAorYW5kCisuQlIg
-Y2xhbmcgKDEpCisyLjYuCiBVc2Ugb2YKIC5CIF9GT1JUSUZZX1NPVVJDRQogc2V0IHRvIDMgcmVx
-dWlyZXMKIC5CUiBnY2MgKDEpCi12ZXJzaW9uIDEyLjAgb3IgbGF0ZXIuCit2ZXJzaW9uIDEyLjAg
-b3IgbGF0ZXIsIG9yCisuQlIgY2xhbmcgKDEpCit2ZXJzaW9uIDkuMCBvciBsYXRlciwgaW4gY29u
-anVuY3Rpb24gd2l0aCBnbGliYyAyLjMzIG9yIGxhdGVyLgorLlwiIGdsaWJjIGlzIG5vdCBhbiBh
-YnNvbHV0ZSByZXF1aXJlbWVudCAoZ2NjIGhhcyBsaWJzc3A7IE5ldEJTRC9uZXdsaWIKKy5cIiBh
-bmQgRGFyd2luIGVhY2ggaGF2ZSB0aGVpciBvd24gaW1wbGVtZW50YXRpb24pLCBidXQgbGV0J3Mg
-a2VlcCBpdAorLlwiIHNpbXBsZS4KIC5TUyBEZWZhdWx0IGRlZmluaXRpb25zLCBpbXBsaWNpdCBk
-ZWZpbml0aW9ucywgYW5kIGNvbWJpbmluZyBkZWZpbml0aW9ucwogSWYgbm8gZmVhdHVyZSB0ZXN0
-IG1hY3JvcyBhcmUgZXhwbGljaXRseSBkZWZpbmVkLAogdGhlbiB0aGUgZm9sbG93aW5nIGZlYXR1
-cmUgdGVzdCBtYWNyb3MgYXJlIGRlZmluZWQgYnkgZGVmYXVsdDoKLS0gCjIuNDAuMC53aW5kb3dz
-LjEKCg==
---000000000000b70eb905f77918a5--
+> From b21bc416f0772b3c7783a1cb396cce5c0a170713 Mon Sep 17 00:00:00 2001
+> From: Mingye Wang <arthur200126@gmail.com>
+> Date: Wed, 22 Mar 2023 16:18:27 +0800
+> Subject: [PATCH] feature_test_macros.7: document clang fortify support
+>=20
+> This commit lists both gcc and clang versions. It also happens to fix
+> the "glibc 4.0" mistake in b324e17d3208c940622ab192609b836928d5aa8d.
+>=20
+> Signed-off-by: Mingye Wang <arthur200126@gmail.com>
+> ---
+>  man7/feature_test_macros.7 | 15 +++++++++++----
+>  1 file changed, 11 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/man7/feature_test_macros.7 b/man7/feature_test_macros.7
+> index 4dc9b9594..1c2719a80 100644
+> --- a/man7/feature_test_macros.7
+> +++ b/man7/feature_test_macros.7
+> @@ -655,15 +655,22 @@ For example, a program where
+>  size argument is variable
+>  can now be fortified.
+>  .IP
+> -Use of this macro requires compiler support, available with
+> +Use of this macro requires compiler support, available since
+>  .BR gcc (1)
+> -since glibc 4.0.
+> -.IP
+> +4.0
+
+Please follow the style used since this commit:
+
+commit b324e17d3208c940622ab192609b836928d5aa8d
+Author: Alejandro Colomar <alx@kernel.org>
+Date:   Sun Dec 4 20:38:06 2022 +0100
+
+    Many pages: wfix
+   =20
+    Refer consistently to software versions.  In most cases, it is done a=
+s
+    <software> <version>.  In the case of Linux and glibc, use the projec=
+t
+    name, instead of other terms such as 'kernel' or 'library'.
+   =20
+    I found the uses of inconsistent language with the following:
+   =20
+    $ find man* -type f \
+    | xargs grep -i '\(since\|before\|after\|until\|to\|from\|in\|between=
+\|version\|with\) \(kernel\|version\|2\.\|3\.\|4\.\|5\.\)' \
+    | sort
+   =20
+    However, I might have missed some cases.  Anyway, 99% consistency is
+    pretty good consistency.  We'll fix the remaining cases as we see the=
+m.
+   =20
+    Signed-off-by: Alejandro Colomar <alx@kernel.org>
+
+
+That means, unformatted GCC 4.0 and Clang 2.6.
+
+> +and
+> +.BR clang (1)
+> +2.6.
+>  Use of
+>  .B _FORTIFY_SOURCE
+>  set to 3 requires
+>  .BR gcc (1)
+> -version 12.0 or later.
+> +version 12.0 or later, or
+
+Remove the "version" word.
+
+Cheers,
+Alex
+
+> +.BR clang (1)
+> +version 9.0 or later, in conjunction with glibc 2.33 or later.
+> +.\" glibc is not an absolute requirement (gcc has libssp; NetBSD/newli=
+b
+> +.\" and Darwin each have their own implementation), but let's keep it
+> +.\" simple.
+>  .SS Default definitions, implicit definitions, and combining definitio=
+ns
+>  If no feature test macros are explicitly defined,
+>  then the following feature test macros are defined by default:
+> --=20
+> 2.40.0.windows.1
+>=20
+
+
+--=20
+<http://www.alejandro-colomar.es/>
+GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
+
+--------------6egiKOu1CQEp9r0tbozZvYGh--
+
+--------------a0ZeyNEpFgvhCKtKE0jJs1KD
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQbOKEACgkQnowa+77/
+2zJlsw/+Of+48G+5FTgDhww/hXFOwRhR/mD/q5LHk7frvmMvVi7xn1ukPPsH0zmS
+aL6Mr89JNya7zrIKbN1yr+Vp9hDBG0tFE4ssPn0Qf9mjJAPNPE7n3LInR7WoS4HV
+uW9ID9urTKg2e+kSLeCpD9b03ar5Zw/BcjIGwAgiJ+Fvf78CB0SjWwaFyzq0+8t/
+w+h2TyO3al5H5t0N6qTCj7RIHpGSGjL7sSiUbgwMY10eNxlRNxOE1SUj/5279S9V
+W/aJHgQRhoGnGUPIuf8MikILzwJr0im3ePMZUFr4sbGSDVVUORxfEwsfyCCf0rMb
+eXGrPCHB8dIZwiAHWcoNj6X0Vz0JSJeaWi/oWEE5trYy8DV6crQ7Ev2OfVDyUmNX
+lv/URjMoMXS24IjnV6jIGjvYbV8brUK18RMMWTpoJpMdPqALqI6Iuc/92773VIDX
+tqgV5Ahgy/1h/KEabfhQVrGxhZCeTPcYkW6A12zMVLR52kEAu2kVbEkxDMd8I6pd
+DKGsji7VDriyPRAuKBQxm7U9/ZhGrBNVH00jHB/UJwamqog94i5G5T4WJA2mNP2x
+HNKpO7ZEsvfwqWDqhogEe13lLX7I+OksT1tYFT6hGBg8Wghv+dsvNIWuLQAAK5U+
+FLuwcrjnjkk+gmosSzOaN3m9/lqJ8etsaZsSNOdK35xNmDPlxPo=
+=8gOa
+-----END PGP SIGNATURE-----
+
+--------------a0ZeyNEpFgvhCKtKE0jJs1KD--
