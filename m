@@ -2,216 +2,251 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id C23036C6945
-	for <lists+linux-man@lfdr.de>; Thu, 23 Mar 2023 14:13:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 5A6E66C731A
+	for <lists+linux-man@lfdr.de>; Thu, 23 Mar 2023 23:30:08 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231476AbjCWNNZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 23 Mar 2023 09:13:25 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40444 "EHLO
+        id S231614AbjCWWaF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 23 Mar 2023 18:30:05 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39268 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231634AbjCWNNU (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 23 Mar 2023 09:13:20 -0400
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com [IPv6:2a00:1450:4864:20::32a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 32B752101
-        for <linux-man@vger.kernel.org>; Thu, 23 Mar 2023 06:13:15 -0700 (PDT)
-Received: by mail-wm1-x32a.google.com with SMTP id fm20-20020a05600c0c1400b003ead37e6588so1143667wmb.5
-        for <linux-man@vger.kernel.org>; Thu, 23 Mar 2023 06:13:15 -0700 (PDT)
+        with ESMTP id S231584AbjCWWaE (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 23 Mar 2023 18:30:04 -0400
+Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com [IPv6:2001:4860:4864:20::2f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6116429E2E
+        for <linux-man@vger.kernel.org>; Thu, 23 Mar 2023 15:29:58 -0700 (PDT)
+Received: by mail-oa1-x2f.google.com with SMTP id 586e51a60fabf-17786581fe1so24143045fac.10
+        for <linux-man@vger.kernel.org>; Thu, 23 Mar 2023 15:29:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1679577194;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=hqAgsQ7SR/YaQPt3+Q8QV7woeCKWICY+eeF1yJw1BaQ=;
-        b=HH7L6aRQ2R26ghzviLSDYP6GZXal1ygqby9MwFWSq11tdire8721KWIz24dskuvBb5
-         +foStd5yRRejcIHWRwtraTa2UurccFNoX5fP056q45VaqMQhQwRAHWmz3OuL2GI4/CIv
-         0J+UgY3aIhukuCXgzXoZQKwiTEpZ8t+LYaB7HC3Y5E/GTfZBhR1mME4vel+5fzPop+hk
-         0Aevs2eQDrVA1tw5tSrEICgburgSFeyR0JmeH9P+4ZpK+V82qYS9R0fkBGjuZDdB//E8
-         f1XpCT4dJHyN1Tq/COIOuyokZsubCZyiz24VE4HTQfQShBsR702nJtreIRgjPpCDxpqb
-         259w==
+        d=gmail.com; s=20210112; t=1679610597;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=CnY0ene/WR+SxBq9JquHdga4TqvfMyem7XtOLicHtY8=;
+        b=H/utYkCXjtp0AMI0XbYhtlpggAkasH5XSZZ19tM49xkoX07veCO0UXkUvqqQ7oQDlU
+         6f/dWtB3ul1w3eDF2WHbKtM0lFvWwlK+t9ERIkcOQ2GneLH9RzHuQ6zAUvtYrp4FQ+Ft
+         kSPhX0v1WD5v/wNvDMMWlfXIEOT3UkW5kzkM9P4nHaLw0aTm5AZD7TPqJu7JDef4YVeo
+         YtRWOqaimMYjm9tE/CE+yKdiRkh3Or9pPAajs5TOC5RFQSk4tCwJ23lQ0NKwIBAUf4Bm
+         w+PBJop710Wjo3RgII6nbt02FKOLMxS7AKjdP5qwU96vfZAs1zyYKp1XMQ6o3CXe1v7B
+         p4cg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1679577194;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=hqAgsQ7SR/YaQPt3+Q8QV7woeCKWICY+eeF1yJw1BaQ=;
-        b=JwoOSprD+bL2kBBFYywiUCeme5Uigi7iX4GTCgMthD/hPLcKfCpIMrbC2DC7cft43K
-         NN0zaLStEcese6sIzziRD3U7fs7TbRg0vZKqfjnveDogjXqCEGUDQPt4FEIQhBECKpwB
-         OAb54/usVSoDK4uZhnDoUwzIL6C9heQWau/OMk+8BfHoomGSHDLnoekDFulm4xxcyoDi
-         LVUlTE0FHYYPp62QWGn0l9iFz/XdGW+sx2X+sL+xSAVWVkBcXnw7lMBCz18CfSfPmWjP
-         7q4vtvFxr3ZTUmwCFiT10Ex0zjnb7O3kfxdSvohX2HGtHd83uvzFJsGuroYpXU3zjRGw
-         00uw==
-X-Gm-Message-State: AO0yUKULBUGrduh+xthPy6CwoXVl90Lti0TEsd5LV/7mve7FkeqWqIkW
-        20bcVkhp2Sz6a0QeL5cuVTc=
-X-Google-Smtp-Source: AK7set/Ynd7Otq/Rd5dcvH78vctMlJma7kJYVHuapAZ0+EBCgZ5XbpQybnc90oK+uy0mbcyhIQdprQ==
-X-Received: by 2002:a05:600c:224b:b0:3ed:6ba7:66d9 with SMTP id a11-20020a05600c224b00b003ed6ba766d9mr2601109wmm.5.1679577194597;
-        Thu, 23 Mar 2023 06:13:14 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.51.134])
-        by smtp.gmail.com with ESMTPSA id o14-20020a05600c378e00b003ed2276cd0dsm1824788wmr.38.2023.03.23.06.13.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 23 Mar 2023 06:13:14 -0700 (PDT)
-Message-ID: <82ff42f9-629f-53ea-bbfd-0f98f365184e@gmail.com>
-Date:   Thu, 23 Mar 2023 14:13:13 +0100
+        d=1e100.net; s=20210112; t=1679610597;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=CnY0ene/WR+SxBq9JquHdga4TqvfMyem7XtOLicHtY8=;
+        b=gl8d09efyQ6rs/8Bk7OCUU/1Tde3MgOI8zTQiHhBgC/UdxFGiFjgLnW8yWkT5917No
+         PDamMIOdBeX5x1Y1jCVRDey7o619KNZ1/GDVyEegAuBJu/xCPU98e6xuz51ng7Zo2bRX
+         arZwGr4rF5WtSalBHaJb5LmZjYkka9NzlbzbmqtsprodgBmQOtuYa2Mcd/McKN47A1Jg
+         bkfAmgAzieAw+doHBCKqSXhmHLr0JvsslRVRmvRDBIiEkdFR8L4oZcqd7k8AlxdmEZqg
+         QykWZTYWPJFFvZYBnMW3ZX6uFImJzRdMv/RcIcxC2ZxhSolR8rpmNniPpJAyz8blTjsV
+         reGg==
+X-Gm-Message-State: AAQBX9dZ2I3C4R7cxr8TRuFWMbxQYHMEzYoQ0yV0PVB8lCo9RdM5Ofas
+        k1SyqeTz1ssCWSQtcc8XFVwKPmeIE0c=
+X-Google-Smtp-Source: AKy350YhZ/29DptZM9eIZK4GR7VwSW7gLGGg8UDXXY1FFwCmxwsjG2Lr247YcFDFFnKXAKmYaQyMbQ==
+X-Received: by 2002:a05:6870:828b:b0:176:acb8:905c with SMTP id q11-20020a056870828b00b00176acb8905cmr327254oae.26.1679610597602;
+        Thu, 23 Mar 2023 15:29:57 -0700 (PDT)
+Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
+        by smtp.gmail.com with ESMTPSA id h15-20020a9d6f8f000000b0069fa834c3b4sm1526614otq.19.2023.03.23.15.29.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 23 Mar 2023 15:29:57 -0700 (PDT)
+Date:   Thu, 23 Mar 2023 17:29:55 -0500
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org, Alejandro Colomar <alx@kernel.org>,
+        groff@gnu.org, Helge Kreutzmann <debian@helgefjell.de>
+Subject: Re: [PATCH] man7/: ffix
+Message-ID: <20230323222955.xm7ykh32izdrl3k5@illithid>
+References: <20230312110203.3898-1-alx@kernel.org>
+ <20230312164434.ga3hkxnszly7agk5@illithid>
+ <e35baa3f-91af-dfb2-2ec8-cc2dea002f79@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: Revert "Many Pages: Remove references to C89"
-Content-Language: en-US
-To:     Sam James <sam@gentoo.org>
-Cc:     Matt Jolly <Matt.Jolly@footclan.ninja>, linux-man@vger.kernel.org
-References: <20230310015150.3545768-1-Matt.Jolly@footclan.ninja>
- <8899aff7-4193-dd54-4488-234b1a6cee83@gmail.com> <877cv8xc6e.fsf@gentoo.org>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <877cv8xc6e.fsf@gentoo.org>
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------oXQvsLj15IkJiVnuHDSRht0P"
+        protocol="application/pgp-signature"; boundary="tgmnqglvdciitxve"
+Content-Disposition: inline
+In-Reply-To: <e35baa3f-91af-dfb2-2ec8-cc2dea002f79@gmail.com>
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-        DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-        autolearn_force=no version=3.4.6
+        DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
+        SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no
+        version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------oXQvsLj15IkJiVnuHDSRht0P
-Content-Type: multipart/mixed; boundary="------------N8NEKt94xbMwlVJxJ26ZBZi5";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Sam James <sam@gentoo.org>
-Cc: Matt Jolly <Matt.Jolly@footclan.ninja>, linux-man@vger.kernel.org
-Message-ID: <82ff42f9-629f-53ea-bbfd-0f98f365184e@gmail.com>
-Subject: Re: Revert "Many Pages: Remove references to C89"
-References: <20230310015150.3545768-1-Matt.Jolly@footclan.ninja>
- <8899aff7-4193-dd54-4488-234b1a6cee83@gmail.com> <877cv8xc6e.fsf@gentoo.org>
-In-Reply-To: <877cv8xc6e.fsf@gentoo.org>
 
---------------N8NEKt94xbMwlVJxJ26ZBZi5
-Content-Type: text/plain; charset=UTF-8
+--tgmnqglvdciitxve
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hi Sam
+Hi Alex,
 
-On 3/23/23 06:32, Sam James wrote:
+At 2023-03-12T22:39:20+0100, Alejandro Colomar wrote:
+> On 3/12/23 17:44, G. Branden Robinson wrote:
+> > In groff 1.23.0 (which still doesn't have its final tag :( ), the
+> > man(7) macro package remaps the `I` (italic) style to `BI`
+> > (bold+italic) if it is available and the font being used for
+> > (subsection) headings is configured to be bold.
 >=20
-> Alejandro Colomar <alx.manpages@gmail.com> writes:
->=20
->> [[PGP Signed Part:Undecided]]
->> Hi Matt,
->>
->> On 3/10/23 02:51, Matt Jolly wrote:
->>> Hi All
->>>
->>> I hope this email finds you well. I am writing to raise an issue that=
- has been causing inconvenience
->>> for me (and potentially others). The recent removal of C89 informatio=
-n from man pages
->>> (72b349dd8c209d7375d4d4f76e2315943d654ee9) has put me in a difficult =
-situation.
->>> As I continue to work on code that adheres to the C89 style, such as =
-cURL, I am unable to quickly
->>> determine if a particular function can be used or if it was introduce=
-d in a later standard like C99.
->>> This slows down my workflow and hampers my productivity.
->>>
->>> Therefore, I kindly request that we revert the changes made in the "M=
-any pages: Remove references to C89" patch.
->>> Furthermore, I urge everyone to recognize the importance of this info=
-rmation and ensure it is not removed from man pages in the future.
->>
->> The main problem was that the existing info about C89 was not consiste=
-nt.
->> Some pages declared APIs being standard since C89, while others didn't=
-=2E
->> Incorrect info isn't much better than no info.
->>
->> I'm curious about cURL's real need for C89.  I see that cURL uses GNU
->> extensions (-std=3Dgnu89), which actually pulls most of C99[1] (I thin=
-k
->> it pulls the entire C library, and most of the core language).
->=20
-> I don't really agree with it, but the gist is at
-> https://daniel.haxx.se/blog/2022/11/17/considering-c99-for-curl/.
->=20
-> The general principle here being two things, I guess:
-> 1. It's pretty useful to have this information (even if it's just
-> on a best-effort basis) because I can cite it in arguments even if
-> a project is using >=3D C99.
->=20
-> 2. People expect the information to be there, so omitting it ends up
-> giving the impression something just isn't in C89, rather than the
-> reader realising the information is removed from the man pages entirely=
-=2E
->=20
-> but also, and this was the case for Matt here:
->=20
-> 3. I don't always have a choice. Especially doing distribution work,
-> I end up patching and contributing to all sorts of projects, and while
-> I wish many things would use newer C, they're either dead projects, or
-> their maintainers are of a strong mind on the matter.
->=20
->>
->> Virtually all (even MS, which has always been the last in this)
->> systems support C99; why would you consciously avoid it?  Is there
->> any system that doesn't yet support it?  Which are the C libraries
->> that you need to support that don't provide C99 functions by default
->> (or at all)?
->>
->> I'd like to really understand the need for C89 in 2023.
->=20
-> i.e. what I'm saying is that it's not so much about the need, but rathe=
-r
-> that changing the man pages just ends up inconveniencing people who
-> aren't really happy about using C89 either.
+> Yup, I tested it only with 1.23.0-rc3.  I assume 1.22.4 will do
+> something reasonable, but probably not so good.
 
-Makes sense.  And yeah, history is always useful, even for corner
-cases, which is why we still document things like 4.0BSD.  I'm almost
-finished in adding the HISTORY section and reorganizing VERSIONS and
-STANDARDS (and NOTES).  This week or next week, I'll push the commit.
+groff 1.22.4 man(7) performs no font remapping in (sub)section headings,
+so if you ask for font style `I` there, that is what you will get, at a
+lighter stroke weight than the adjacent upright bold material.
 
-So far, I've done:
+Perhaps only typographers and nit-pickers will notice the difference...
 
- 536 files changed, 4704 insertions(+), 4278 deletions(-)
-
-And there are still 353 pages pending.  :)
-But the change is looking quite good.  I think it will be a nice
-improvement.
-
-Cheers,
-Alex
-
+> Heh, I remember having some problem related to this reading mandoc(1)
+> (or maybe it was mdoc(7)).  I don't remember which it was, but having
+> a quick look at mandoc(1), I found some flag insufficiently
+> documented: '-l'.  See the only mentions in his page:
 >=20
-> best,
-> sam
+>        MANPAGER  Any  non=E2=80=90empty  value  of  the  environment  var=
+iable
+>                  MANPAGER is used instead of the  standard  pagination
+>                  program,  less(1); see man(1) for details.  Only used
+>                  if -a or -l is specified.
+>=20
+>        PAGER     Specifies the pagination program to use when MANPAGER
+>                  is not defined.  If neither PAGER nor MANPAGER is de=E2=
+=80=90
+>                  fined, less(1) is used.  Only used if  -a  or  -l  is
+>                  specified.
+>=20
+> That's probably a glitch of not having a comprehensive list of options
+> and their description.
 
---=20
-<http://www.alejandro-colomar.es/>
-GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
+=2E..or a glitch of not integrating discussion the `-l` option into the
+narrative as Ingo suggested I do.  I further note that at least as of
+mandoc 1.14.6 in Debian, `-l` is also not documented in its man page's
+"Synopsis" section.
 
---------------N8NEKt94xbMwlVJxJ26ZBZi5--
+I can't hurl too many stones--there are groff man pages where I not only
+do not practice what I preach, but where I haven't even gotten around to
+recasting a former contributor's rambling asides and rather anguished
+English.
 
---------------oXQvsLj15IkJiVnuHDSRht0P
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+> Going more into what concerns me, which is man3, I often miss an
+> ARGUMENTS (or PARAMETERS, to be more precise) section in the pages for
+> functions.  Sometimes it would be just one line per argument, but in
+> other cases it would help a lot have more organized information.  I'll
+> show you a few cases where I've used it, and where I think it made a
+> difference.
+>=20
+> <https://github.com/shadow-maint/shadow/blob/master/lib/stpecpy.h>
+> <https://github.com/shadow-maint/shadow/blob/master/lib/stpeprintf.h>
+> <https://github.com/shadow-maint/shadow/blob/master/libmisc/agetpass.c>
+
+I don't have strong feelings about this.  A deeper principle I hold is
+that functions shouldn't take a lot of arguments in the first place.  If
+they do, it is a sign that
+
+1. a data structure is called for, and a pointer to it should be passed;
+
+and/or
+
+2. the function is too complex, tries to do too much, and should be
+   decomposed into orthogonal features.
+
+The latter doesn't mean you can't also provide a convenience function to
+handle common cases, or show the user how to implement one.  To recall
+and old disagreement of ours, this is why I prefer memset() to bzero()
+as a standard library function.  (Yes, memset() takes more arguments,
+but it is also more _general_.  But I digress...)
+
+On the TUHS list in the past year or so, someone posted, or shared a
+link to, a reminiscence by a 1970s Bell Labs CSRC person that they
+introduced the system call with the longest signature seen in Unix to
+date (I think it was mmap(2)).  They expressed nervousness about it,
+fearing cries of inelegance from their peers--perhaps even the figure
+of Ken Thompson himself darkening the office doorway.
+
+But it went in anyway, apparently, on the strength of the functionality.
+Maybe the prospect of fighting Multics on its own ground was too
+appealing to pass up.
+
+> It's kind of a synopsis of the parameters.  Would it be better _after_
+> the description?  Maybe.
+
+Maybe not.  _If_ you're going to have an "Arguments" heading for
+section 2 or 3 man page, placing it between "Synopsis" and "Description"
+seems appropriate.
+
+> Is it better than having it all in the description?  I think it is.
+> Will we see this in the Linux man-pages some day?  Maybe.  What's your
+> opinion?
+
+I think you should collect more opinions.  Also consider going back to
+the Unix Programmer's Manuals of the 1970s and see how they tackled the
+issue.  The complications of history are not going to make _every_
+simplification impossible.  And you may well find places where these
+manuals were ill-written or the API badly designed.  (Inter-process
+communication was not born elegant in Unix and still isn't to this day.)
+
+> Yup, I think the man pages should serve as both (short) tutorials
+> *and* quick references.  If I need further info, I go to
+> StackOverflow, but I'd like to understand at least the basics of a
+> function when reading its page (and I've learnt many of the man3
+> functions by reading the pages while maintaining them; for example, I
+> didn't even know there was a regex(3) function until I saw the page
+> being mentioned in a ffix patch by Michael; a few weeks later I needed
+> it, and could use it by just reading the manual; then I added the
+> example program with something close to what I did with it).
+
+I learned years ago that the only way I can truly learn anything that
+isn't simple is to start rewriting its documentation, which usually
+means conducting a lot of experiments.  In the 6 years or so I've been
+contributing to groff I've amassed a set of 1,433 files in my
+"EXPERIMENTS" subdirectory.  I've also thrown many experiments away.
+
+Other people may have an easier time forming accurate models of
+programming systems in their heads, but for me the right approach
+appears to be radical skepticism combined with a record of findings
+(i.e., expanding or correcting the documentation where appropriate).
+
+> Something I do is first look at the synopsis, have a quick look at the
+> description searching for one line that describes each argument, and
+> then look at the example program to guess myself about the function.
+> Only after that is when I try to read the entire page to know the
+> details.  But most of a function should be obvious already before
+> reading the description, or the design of the function would be
+> dubious.
+
+I broadly agree.  This is one reason naming things well is important.
+
+> Which reminds me that when I move to 1.23.0 as a dependency, we should
+> have another look at Deri's script, and simplify it.
+
+I feel a powerful urge to simplify his "an:cln" macro to near
+triviality by filling a feature gap in the formatter.
+
+https://savannah.gnu.org/bugs/?62264
+
+Assuming groff internals work the way my mental model says they do, and
+the test of that will come with more experiments...
+
+Regards,
+Branden
+
+--tgmnqglvdciitxve
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQcUGkACgkQnowa+77/
-2zJ40g//SLF/p3UsCe6JBZl/lS5Om5D3gIaV/S5sGJ2F5k6P/l4RqE+3grDSroJk
-rRYfClEeo4pllMxxeeP1RYuHNwRChbDGQuN5XoHl/XukFf0zzs9KsmgeWikmbDTZ
-SeuXTlXkdpU1ggaKVqLKJFCI4QuSKCef1VILHXSWtDpr0B9geLLzUn4URAcVbGJz
-D5Z4LCiU4n7xDyvDwP3Ukdvq+uxpkWWJ4kaF6MsHp2yuhEiE3G0Ti4ij4ezumtYI
-vaqnxXW7UXnE2xMq7rVtO2PyGNiQkOi0AQnbXWCDHgRYnc2iu+e+wY/z8e1jfyTY
-3BWZFdX494q6A9sW/eFo97wQlditweHmWHeK1ojGerJE4uH5GQHnKk4F8AvROMxx
-BlrEoxeJLgTstVfhj9qUAhi51b0Z7AZ1sKtrF54D/EDamZuOpgBF9DpspX8UrKsC
-3vWrYXaRpla6d9sXf4A+/hyUXWrP4TQmIcc7JOqwddM9bnKn0WlnkXOPKtv0Z9Tw
-3DCEzS8HHMT2ed3oLi4XcRFILUgZq4uiSj/hJodcaXyImWqq5grAKLhH0iMriCiP
-80fWU4kVDZNLcynq11rcQReIL0ey46SrgfqAxVqMx9E/HEOqETc/p6JB4lJonuMa
-dY2dgEzJ2pLXTp9ULShJb4IXJwoEFKhYJli/m+5flaf6zNSIKDI=
-=9Jrd
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmQc0toACgkQ0Z6cfXEm
+bc7jFhAAmZ5/vgLdQB0IUlqRVg/ztob23le3guFGQ89HWV0TVDm9FS3NSFOrX26S
+zleozU+XWRNc3Rz5ps+5hKlDo7jjELJ+nQL7AC+8dlGHRXRoU25kckTzKptdERY9
+7WttlcDKtjRABFRj/oFCnwiQWKgjaF7JeplnZZFHScn+Il7C2zuwL8f32xUQYFJH
+wDRiXZW1KGbujQLih7fW4pgFTsbzANHq9p83gutAVskvjQDwAM/xcIX2pwlOD9Az
+inVUliP4D9CVOU4bAA49qlrIT1WpvXerjtya1UbJTU7Bzs78Paj0eksyjGMtSPY6
+mvvH4MT8eQIBjWH6mVCmXY1LIvFCEWRbCauSriHnR3qki+jjOCzbU9/DDRlMixm4
+QtmVGhoKYPtHJN05Dqa17R99/r/i5bhpKQnfQeKH32qYBZBE8rWRfx/xWFwEBBPd
+bIqLsiUEbuCtcy1vQN8OTaFBbVfNb8one3RC/KGq4++AMOiReiSfLn/wyuo5jVeE
+oIi+Bf4IR9WIOXIohEoKyXj1yTwQnfShi1NrtEVEHzxvMOjugJxXOjka9mYZQCtc
++YOmWVlyXZul2kTDevkQoz/4P0vui96lbJbPWeelD3lzWhW7ImNU4PecPYqL49w/
+8UJTmzpAgjIhtJg/8ei7m1o2cQLHQOak0ll3g7jqnv+/e0uwOx8=
+=noQq
 -----END PGP SIGNATURE-----
 
---------------oXQvsLj15IkJiVnuHDSRht0P--
+--tgmnqglvdciitxve--
