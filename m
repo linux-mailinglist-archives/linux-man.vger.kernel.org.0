@@ -2,251 +2,290 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 5A6E66C731A
-	for <lists+linux-man@lfdr.de>; Thu, 23 Mar 2023 23:30:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 5A9756C7499
+	for <lists+linux-man@lfdr.de>; Fri, 24 Mar 2023 01:30:14 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231614AbjCWWaF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 23 Mar 2023 18:30:05 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39268 "EHLO
+        id S229734AbjCXAaM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 23 Mar 2023 20:30:12 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48060 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231584AbjCWWaE (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 23 Mar 2023 18:30:04 -0400
-Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com [IPv6:2001:4860:4864:20::2f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6116429E2E
-        for <linux-man@vger.kernel.org>; Thu, 23 Mar 2023 15:29:58 -0700 (PDT)
-Received: by mail-oa1-x2f.google.com with SMTP id 586e51a60fabf-17786581fe1so24143045fac.10
-        for <linux-man@vger.kernel.org>; Thu, 23 Mar 2023 15:29:58 -0700 (PDT)
+        with ESMTP id S229681AbjCXAaL (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 23 Mar 2023 20:30:11 -0400
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com [IPv6:2a00:1450:4864:20::32d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7534BE39C
+        for <linux-man@vger.kernel.org>; Thu, 23 Mar 2023 17:30:10 -0700 (PDT)
+Received: by mail-wm1-x32d.google.com with SMTP id o32so221454wms.1
+        for <linux-man@vger.kernel.org>; Thu, 23 Mar 2023 17:30:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1679610597;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=CnY0ene/WR+SxBq9JquHdga4TqvfMyem7XtOLicHtY8=;
-        b=H/utYkCXjtp0AMI0XbYhtlpggAkasH5XSZZ19tM49xkoX07veCO0UXkUvqqQ7oQDlU
-         6f/dWtB3ul1w3eDF2WHbKtM0lFvWwlK+t9ERIkcOQ2GneLH9RzHuQ6zAUvtYrp4FQ+Ft
-         kSPhX0v1WD5v/wNvDMMWlfXIEOT3UkW5kzkM9P4nHaLw0aTm5AZD7TPqJu7JDef4YVeo
-         YtRWOqaimMYjm9tE/CE+yKdiRkh3Or9pPAajs5TOC5RFQSk4tCwJ23lQ0NKwIBAUf4Bm
-         w+PBJop710Wjo3RgII6nbt02FKOLMxS7AKjdP5qwU96vfZAs1zyYKp1XMQ6o3CXe1v7B
-         p4cg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1679610597;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20210112; t=1679617809;
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=CnY0ene/WR+SxBq9JquHdga4TqvfMyem7XtOLicHtY8=;
-        b=gl8d09efyQ6rs/8Bk7OCUU/1Tde3MgOI8zTQiHhBgC/UdxFGiFjgLnW8yWkT5917No
-         PDamMIOdBeX5x1Y1jCVRDey7o619KNZ1/GDVyEegAuBJu/xCPU98e6xuz51ng7Zo2bRX
-         arZwGr4rF5WtSalBHaJb5LmZjYkka9NzlbzbmqtsprodgBmQOtuYa2Mcd/McKN47A1Jg
-         bkfAmgAzieAw+doHBCKqSXhmHLr0JvsslRVRmvRDBIiEkdFR8L4oZcqd7k8AlxdmEZqg
-         QykWZTYWPJFFvZYBnMW3ZX6uFImJzRdMv/RcIcxC2ZxhSolR8rpmNniPpJAyz8blTjsV
-         reGg==
-X-Gm-Message-State: AAQBX9dZ2I3C4R7cxr8TRuFWMbxQYHMEzYoQ0yV0PVB8lCo9RdM5Ofas
-        k1SyqeTz1ssCWSQtcc8XFVwKPmeIE0c=
-X-Google-Smtp-Source: AKy350YhZ/29DptZM9eIZK4GR7VwSW7gLGGg8UDXXY1FFwCmxwsjG2Lr247YcFDFFnKXAKmYaQyMbQ==
-X-Received: by 2002:a05:6870:828b:b0:176:acb8:905c with SMTP id q11-20020a056870828b00b00176acb8905cmr327254oae.26.1679610597602;
-        Thu, 23 Mar 2023 15:29:57 -0700 (PDT)
-Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id h15-20020a9d6f8f000000b0069fa834c3b4sm1526614otq.19.2023.03.23.15.29.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 23 Mar 2023 15:29:57 -0700 (PDT)
-Date:   Thu, 23 Mar 2023 17:29:55 -0500
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
+        bh=0QcrO9AI0g1Dst325pTo31j0gGexbuAiJe5SPl7SOL4=;
+        b=hfwASy3wWMY4GNmmLG2MXTPeh+pgqN8yeAZLZV3Ye+2NgTHU16ddAGwxDy9GequgTO
+         xDYHDND/O9+fyYv7Ej8kE3nelRy/EoJpyPokFWtW1XIONCNwfZJnOwsWCsyngaA5HYkf
+         +t8u6vUxdohKzQPaz6AY7zcbHOPW4CuoRHdOfpj/NEBmC53+noe/z64H/uLsmvPCVygh
+         6zTQykdm+wRnu1H47tGMN5E8SL+QDU6E/kZavlWBLQ5Lkryzfl4RKKlGd+gwnPlek//w
+         v7TuMI4K675Q4A9G0aSWUv6U6tNWy8ko534p3i5PtsCk6VR49Rw4pFihsVspVhXxvCKd
+         tLKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1679617809;
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=0QcrO9AI0g1Dst325pTo31j0gGexbuAiJe5SPl7SOL4=;
+        b=PitK1l8HD1X/NqdCaULvU4UnRO3fJdAWq5vhFFXcvIrJ05Y7MBzk9xaOU98PjrpJKf
+         GXA0V7rO6tlA2mA0+Ukvqb9bNrKFgPxmv4u1qFbXe0oRUdYwgm4HXDbwnELBv2n0uWP5
+         /K3jNya8Cdk759TfTjILfgztvpiwOkQrn7C6Fefm34eKkCv29B/O3vPpi4d4jln1gh0j
+         5HYD2GU7atq7fryWIrtnqDlOFi99vNlynx9sPsSbf93MUx7cofN1SQXOh3upBOzTLzWK
+         zxwVaKPjoylY7lom7GzuAaGH0KCTHVGPmGhr7YPPClIo19NFhDv9HhADXCHh+vHomKyz
+         38rQ==
+X-Gm-Message-State: AO0yUKXr3LUGa/WZeLe1LmNOqaHO2M7lWMBbfxkiFCQy0MumAyfB5l+Q
+        +o0ibpEd+NapCUROTxkkbv4=
+X-Google-Smtp-Source: AK7set9jnDQvqMcoa4MnnfS6wJ2qmVn/eDCBAFYdGzJudrX8jLemaHGeiM8r+Gj/82FwaOo5Ac60hw==
+X-Received: by 2002:a7b:cb92:0:b0:3ea:ed4d:38f6 with SMTP id m18-20020a7bcb92000000b003eaed4d38f6mr1000175wmi.4.1679617808558;
+        Thu, 23 Mar 2023 17:30:08 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.51.134])
+        by smtp.gmail.com with ESMTPSA id a8-20020a056000100800b002d8566128e5sm8796921wrx.25.2023.03.23.17.30.07
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 23 Mar 2023 17:30:07 -0700 (PDT)
+Message-ID: <ac01dc54-34ba-f075-1f48-1c72caa13537@gmail.com>
+Date:   Fri, 24 Mar 2023 01:29:59 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH] man7/: ffix
+Content-Language: en-US
+To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
 Cc:     linux-man@vger.kernel.org, Alejandro Colomar <alx@kernel.org>,
         groff@gnu.org, Helge Kreutzmann <debian@helgefjell.de>
-Subject: Re: [PATCH] man7/: ffix
-Message-ID: <20230323222955.xm7ykh32izdrl3k5@illithid>
 References: <20230312110203.3898-1-alx@kernel.org>
  <20230312164434.ga3hkxnszly7agk5@illithid>
  <e35baa3f-91af-dfb2-2ec8-cc2dea002f79@gmail.com>
-MIME-Version: 1.0
+ <20230323222955.xm7ykh32izdrl3k5@illithid>
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <20230323222955.xm7ykh32izdrl3k5@illithid>
 Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="tgmnqglvdciitxve"
-Content-Disposition: inline
-In-Reply-To: <e35baa3f-91af-dfb2-2ec8-cc2dea002f79@gmail.com>
+ protocol="application/pgp-signature";
+ boundary="------------FT89Iu9Hpbq2GoURYVOtGIs0"
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-        DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
-        SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no
-        version=3.4.6
+        DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------FT89Iu9Hpbq2GoURYVOtGIs0
+Content-Type: multipart/mixed; boundary="------------CyLJxAZroAd6kZx8WQI9xdzG";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: linux-man@vger.kernel.org, Alejandro Colomar <alx@kernel.org>,
+ groff@gnu.org, Helge Kreutzmann <debian@helgefjell.de>
+Message-ID: <ac01dc54-34ba-f075-1f48-1c72caa13537@gmail.com>
+Subject: Re: [PATCH] man7/: ffix
+References: <20230312110203.3898-1-alx@kernel.org>
+ <20230312164434.ga3hkxnszly7agk5@illithid>
+ <e35baa3f-91af-dfb2-2ec8-cc2dea002f79@gmail.com>
+ <20230323222955.xm7ykh32izdrl3k5@illithid>
+In-Reply-To: <20230323222955.xm7ykh32izdrl3k5@illithid>
 
---tgmnqglvdciitxve
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+--------------CyLJxAZroAd6kZx8WQI9xdzG
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi Alex,
+Hey Branden!
 
-At 2023-03-12T22:39:20+0100, Alejandro Colomar wrote:
-> On 3/12/23 17:44, G. Branden Robinson wrote:
-> > In groff 1.23.0 (which still doesn't have its final tag :( ), the
-> > man(7) macro package remaps the `I` (italic) style to `BI`
-> > (bold+italic) if it is available and the font being used for
-> > (subsection) headings is configured to be bold.
+On 3/23/23 23:29, G. Branden Robinson wrote:
 >=20
-> Yup, I tested it only with 1.23.0-rc3.  I assume 1.22.4 will do
-> something reasonable, but probably not so good.
+>> Going more into what concerns me, which is man3, I often miss an
+>> ARGUMENTS (or PARAMETERS, to be more precise) section in the pages for=
 
-groff 1.22.4 man(7) performs no font remapping in (sub)section headings,
-so if you ask for font style `I` there, that is what you will get, at a
-lighter stroke weight than the adjacent upright bold material.
+>> functions.  Sometimes it would be just one line per argument, but in
+>> other cases it would help a lot have more organized information.  I'll=
 
-Perhaps only typographers and nit-pickers will notice the difference...
-
-> Heh, I remember having some problem related to this reading mandoc(1)
-> (or maybe it was mdoc(7)).  I don't remember which it was, but having
-> a quick look at mandoc(1), I found some flag insufficiently
-> documented: '-l'.  See the only mentions in his page:
+>> show you a few cases where I've used it, and where I think it made a
+>> difference.
+>>
+>> <https://github.com/shadow-maint/shadow/blob/master/lib/stpecpy.h>
+>> <https://github.com/shadow-maint/shadow/blob/master/lib/stpeprintf.h>
+>> <https://github.com/shadow-maint/shadow/blob/master/libmisc/agetpass.c=
+>
 >=20
->        MANPAGER  Any  non=E2=80=90empty  value  of  the  environment  var=
-iable
->                  MANPAGER is used instead of the  standard  pagination
->                  program,  less(1); see man(1) for details.  Only used
->                  if -a or -l is specified.
+> I don't have strong feelings about this.  A deeper principle I hold is
+> that functions shouldn't take a lot of arguments in the first place.  I=
+f
+> they do, it is a sign that
 >=20
->        PAGER     Specifies the pagination program to use when MANPAGER
->                  is not defined.  If neither PAGER nor MANPAGER is de=E2=
-=80=90
->                  fined, less(1) is used.  Only used if  -a  or  -l  is
->                  specified.
+> 1. a data structure is called for, and a pointer to it should be passed=
+;
 >=20
-> That's probably a glitch of not having a comprehensive list of options
-> and their description.
-
-=2E..or a glitch of not integrating discussion the `-l` option into the
-narrative as Ingo suggested I do.  I further note that at least as of
-mandoc 1.14.6 in Debian, `-l` is also not documented in its man page's
-"Synopsis" section.
-
-I can't hurl too many stones--there are groff man pages where I not only
-do not practice what I preach, but where I haven't even gotten around to
-recasting a former contributor's rambling asides and rather anguished
-English.
-
-> Going more into what concerns me, which is man3, I often miss an
-> ARGUMENTS (or PARAMETERS, to be more precise) section in the pages for
-> functions.  Sometimes it would be just one line per argument, but in
-> other cases it would help a lot have more organized information.  I'll
-> show you a few cases where I've used it, and where I think it made a
-> difference.
+> and/or
 >=20
-> <https://github.com/shadow-maint/shadow/blob/master/lib/stpecpy.h>
-> <https://github.com/shadow-maint/shadow/blob/master/lib/stpeprintf.h>
-> <https://github.com/shadow-maint/shadow/blob/master/libmisc/agetpass.c>
+> 2. the function is too complex, tries to do too much, and should be
+>    decomposed into orthogonal features.
+>=20
+> The latter doesn't mean you can't also provide a convenience function t=
+o
+> handle common cases, or show the user how to implement one.  To recall
+> and old disagreement of ours, this is why I prefer memset() to bzero()
+> as a standard library function.  (Yes, memset() takes more arguments,
+> but it is also more _general_.  But I digress...)
 
-I don't have strong feelings about this.  A deeper principle I hold is
-that functions shouldn't take a lot of arguments in the first place.  If
-they do, it is a sign that
+While it is more general, I yet haven't been shown a list of uses for it.=
 
-1. a data structure is called for, and a pointer to it should be passed;
+I recall 1 use in my entire life (not too long, I know).  It was for
+initializing an array of bitfields to all-bits-1.  I would expect that a
+function that allows doing that would be something obscure that is rarely=
 
-and/or
+used.
 
-2. the function is too complex, tries to do too much, and should be
-   decomposed into orthogonal features.
+While bzero(3) and memset(3) are similar in the implementation,
+they are rather different in the abstract semantics: one zeroes a buffer.=
 
-The latter doesn't mean you can't also provide a convenience function to
-handle common cases, or show the user how to implement one.  To recall
-and old disagreement of ours, this is why I prefer memset() to bzero()
-as a standard library function.  (Yes, memset() takes more arguments,
-but it is also more _general_.  But I digress...)
+The other allows two uses (that I know): initializing to 1s, in the rare
+case where you want all 1s; and initializing memory to some magic
+pattern to be able to detect uses of invalid memory.
 
-On the TUHS list in the past year or so, someone posted, or shared a
-link to, a reminiscence by a 1970s Bell Labs CSRC person that they
-introduced the system call with the longest signature seen in Unix to
-date (I think it was mmap(2)).  They expressed nervousness about it,
-fearing cries of inelegance from their peers--perhaps even the figure
-of Ken Thompson himself darkening the office doorway.
+It would be nice if grepping for memset() would show these rare cases
+only, rather than being needles in a huge haystack of zeroing.  A regex
+might help, but still...
 
-But it went in anyway, apparently, on the strength of the functionality.
-Maybe the prospect of fighting Multics on its own ground was too
-appealing to pass up.
+I would even go further and say that libc doesn't need memset(3).  It's
+such a niche function, that we don't really need it in the most
+essential library.  I mean, we still don't have strlcpy(3) in some libc
+implementations, and it's quite useful.  Why don't we ask users to
+implement their own loop for the rare case they want to initialize their
+buffers to 0xF0?  Why not a memset32(3) to initialize arrays of
+uint32_t?  What's so special about non-zero byte initialization?  If you
+need memset(3) to be optimized, you can write libmemset and write it in
+assembly...  Can anyone justify the existence of memset(3) in libc?
+Apart from the obvious "because we already had it, so why remove it" or
+"because ISO C says so".  If we had none of them in libc, and were
+presented both bzero(3) and memset(3), I'd go for bzero(3) 10 out of 10
+times, as it's essential, and would ask the interested in memset(3) to
+write their own niche library.
 
-> It's kind of a synopsis of the parameters.  Would it be better _after_
-> the description?  Maybe.
+> But it went in anyway, apparently, on the strength of the functionality=
+=2E
+> Maybe the prospect of fighting Multics on its own ground was too
+> appealing to pass up.
+>=20
+>> It's kind of a synopsis of the parameters.  Would it be better _after_=
 
-Maybe not.  _If_ you're going to have an "Arguments" heading for
-section 2 or 3 man page, placing it between "Synopsis" and "Description"
-seems appropriate.
+>> the description?  Maybe.
+>=20
+> Maybe not.  _If_ you're going to have an "Arguments" heading for
+> section 2 or 3 man page, placing it between "Synopsis" and "Description=
+"
+> seems appropriate.
 
-> Is it better than having it all in the description?  I think it is.
-> Will we see this in the Linux man-pages some day?  Maybe.  What's your
-> opinion?
+Yep.
 
-I think you should collect more opinions.  Also consider going back to
-the Unix Programmer's Manuals of the 1970s and see how they tackled the
-issue.  The complications of history are not going to make _every_
-simplification impossible.  And you may well find places where these
-manuals were ill-written or the API badly designed.  (Inter-process
-communication was not born elegant in Unix and still isn't to this day.)
+>=20
+>> Is it better than having it all in the description?  I think it is.
+>> Will we see this in the Linux man-pages some day?  Maybe.  What's your=
 
-> Yup, I think the man pages should serve as both (short) tutorials
-> *and* quick references.  If I need further info, I go to
-> StackOverflow, but I'd like to understand at least the basics of a
-> function when reading its page (and I've learnt many of the man3
-> functions by reading the pages while maintaining them; for example, I
-> didn't even know there was a regex(3) function until I saw the page
-> being mentioned in a ffix patch by Michael; a few weeks later I needed
-> it, and could use it by just reading the manual; then I added the
-> example program with something close to what I did with it).
+>> opinion?
+>=20
+> I think you should collect more opinions.
 
-I learned years ago that the only way I can truly learn anything that
-isn't simple is to start rewriting its documentation, which usually
-means conducting a lot of experiments.  In the 6 years or so I've been
-contributing to groff I've amassed a set of 1,433 files in my
-"EXPERIMENTS" subdirectory.  I've also thrown many experiments away.
+Yeah, I don't have any plans for that now.  While I use that section
+in other projects where I write man pages or man-page-like documentation
+from scratch, here that we don't use it, it would be more work than I'm
+willing to do for now.  Maybe in something like several years, I could
+consider that, if other people want it.
 
-Other people may have an easier time forming accurate models of
-programming systems in their heads, but for me the right approach
-appears to be radical skepticism combined with a record of findings
-(i.e., expanding or correcting the documentation where appropriate).
+>  Also consider going back to
+> the Unix Programmer's Manuals of the 1970s and see how they tackled the=
 
-> Something I do is first look at the synopsis, have a quick look at the
-> description searching for one line that describes each argument, and
-> then look at the example program to guess myself about the function.
-> Only after that is when I try to read the entire page to know the
-> details.  But most of a function should be obvious already before
-> reading the description, or the design of the function would be
-> dubious.
+> issue.  The complications of history are not going to make _every_
+> simplification impossible.  And you may well find places where these
+> manuals were ill-written or the API badly designed.  (Inter-process
+> communication was not born elegant in Unix and still isn't to this day.=
+)
+>=20
+>> Yup, I think the man pages should serve as both (short) tutorials
+>> *and* quick references.  If I need further info, I go to
+>> StackOverflow, but I'd like to understand at least the basics of a
+>> function when reading its page (and I've learnt many of the man3
+>> functions by reading the pages while maintaining them; for example, I
+>> didn't even know there was a regex(3) function until I saw the page
+>> being mentioned in a ffix patch by Michael; a few weeks later I needed=
 
-I broadly agree.  This is one reason naming things well is important.
+>> it, and could use it by just reading the manual; then I added the
+>> example program with something close to what I did with it).
+>=20
+> I learned years ago that the only way I can truly learn anything that
+> isn't simple is to start rewriting its documentation, which usually
+> means conducting a lot of experiments.  In the 6 years or so I've been
+> contributing to groff I've amassed a set of 1,433 files in my
+> "EXPERIMENTS" subdirectory.  I've also thrown many experiments away.
 
-> Which reminds me that when I move to 1.23.0 as a dependency, we should
-> have another look at Deri's script, and simplify it.
+Heh, me too :).  Probably one of the most run commands in my terminals
+is `cd ~/tmp`.  However, I discard them always (keep them maybe for a
+week, until it grows too much and `rm -rf *` does its job); organizing
+that mess of 10-liner programs is too much for me :p.
 
-I feel a powerful urge to simplify his "an:cln" macro to near
-triviality by filling a feature gap in the formatter.
+>=20
+> Other people may have an easier time forming accurate models of
+> programming systems in their heads, but for me the right approach
+> appears to be radical skepticism combined with a record of findings
+> (i.e., expanding or correcting the documentation where appropriate).
 
-https://savannah.gnu.org/bugs/?62264
+Well, once I write the test, it at least gets into my brain so I can
+discard it.  Cache misses of that kind don't seem a big issue in my
+head, it seems.  I have good video memory.  :-)
 
-Assuming groff internals work the way my mental model says they do, and
-the test of that will come with more experiments...
+>=20
+>> Something I do is first look at the synopsis, have a quick look at the=
 
-Regards,
-Branden
+>> description searching for one line that describes each argument, and
+>> then look at the example program to guess myself about the function.
+>> Only after that is when I try to read the entire page to know the
+>> details.  But most of a function should be obvious already before
+>> reading the description, or the design of the function would be
+>> dubious.
+>=20
+> I broadly agree.  This is one reason naming things well is important.
 
---tgmnqglvdciitxve
-Content-Type: application/pgp-signature; name="signature.asc"
+Guess what's been the discussion of the day?  Why do we find bool more
+readable than uint8_t (with a comment saying /* 1 bit */) for boolean
+variables, and true/false vs 1/0.  lol.
+
+Cheers,
+Alex
+
+--=20
+<http://www.alejandro-colomar.es/>
+GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
+
+--------------CyLJxAZroAd6kZx8WQI9xdzG--
+
+--------------FT89Iu9Hpbq2GoURYVOtGIs0
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmQc0toACgkQ0Z6cfXEm
-bc7jFhAAmZ5/vgLdQB0IUlqRVg/ztob23le3guFGQ89HWV0TVDm9FS3NSFOrX26S
-zleozU+XWRNc3Rz5ps+5hKlDo7jjELJ+nQL7AC+8dlGHRXRoU25kckTzKptdERY9
-7WttlcDKtjRABFRj/oFCnwiQWKgjaF7JeplnZZFHScn+Il7C2zuwL8f32xUQYFJH
-wDRiXZW1KGbujQLih7fW4pgFTsbzANHq9p83gutAVskvjQDwAM/xcIX2pwlOD9Az
-inVUliP4D9CVOU4bAA49qlrIT1WpvXerjtya1UbJTU7Bzs78Paj0eksyjGMtSPY6
-mvvH4MT8eQIBjWH6mVCmXY1LIvFCEWRbCauSriHnR3qki+jjOCzbU9/DDRlMixm4
-QtmVGhoKYPtHJN05Dqa17R99/r/i5bhpKQnfQeKH32qYBZBE8rWRfx/xWFwEBBPd
-bIqLsiUEbuCtcy1vQN8OTaFBbVfNb8one3RC/KGq4++AMOiReiSfLn/wyuo5jVeE
-oIi+Bf4IR9WIOXIohEoKyXj1yTwQnfShi1NrtEVEHzxvMOjugJxXOjka9mYZQCtc
-+YOmWVlyXZul2kTDevkQoz/4P0vui96lbJbPWeelD3lzWhW7ImNU4PecPYqL49w/
-8UJTmzpAgjIhtJg/8ei7m1o2cQLHQOak0ll3g7jqnv+/e0uwOx8=
-=noQq
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQc7wcACgkQnowa+77/
+2zKVdhAAgnWqmjb2zJ5eKpEjQDhpz1qCslxxYh2tYxsi7M2Cx1DUri+xUJfgGoF1
+0+JwAA2K13ukhzP1AbiHoOFDG17UhrSF6P467gjEkxrP2hU1730AtL24qNGHMcJG
+PO4cCk84o+jfDHU2+xKX4WtgY4Dkco4sxvpI/5LFxc7Nk14faG88ObwjrszZcSXu
+4WJzzKJ7hnaaGa/Uz9JwaqmH9SbslHE3HrXN/Mf8FPwoC3yc5hSX2I0J4HU0PbIb
+Dcxhvre+Qr2hLvVtl+xdHwMCflwTvgoIvDvlqbf6NmKAjDBG/D/jFSKN/YC0DX/Y
+D1z0dyDtfScXW7A8EOp0FLmv/FZCvzzYhzt6LU1FgKh7PnmKfMmXqOx9fCpI9d2F
+KYfF0xJOXLUtUz9AEJa3r4epg7ziosl69JE7Cwy3lLuAB7xZMmHDAha2/jVB50uT
+WUJdY2j1IooHRvU6TIUSARRPwfec03akb+xB/5VlzdOnJEs3DyahAMLtAoQunmUY
+c/bHbFj6EQpHgFxUe/TzUlOQoUIwIDZK6rfKbUE/vdyah/5gK8csD2kVLYfMe+Gn
+9+u1hxyiPSPU384SZI/l74KwoKiF4lCUqQ6fVgr/KZUKVg8DJuHGbrAEDnnVsBFu
+o4av7ov5cIRez4s9RWE7/Zy79Oz+qVkzWSl+oR2GBuPT2kGA0Vw=
+=K83y
 -----END PGP SIGNATURE-----
 
---tgmnqglvdciitxve--
+--------------FT89Iu9Hpbq2GoURYVOtGIs0--
