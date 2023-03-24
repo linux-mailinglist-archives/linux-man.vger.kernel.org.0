@@ -2,62 +2,62 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id A4A9A6C8348
-	for <lists+linux-man@lfdr.de>; Fri, 24 Mar 2023 18:24:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 7E9C06C834B
+	for <lists+linux-man@lfdr.de>; Fri, 24 Mar 2023 18:24:39 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231602AbjCXRYd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 24 Mar 2023 13:24:33 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45666 "EHLO
+        id S231639AbjCXRYi (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 24 Mar 2023 13:24:38 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45926 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230495AbjCXRYc (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 24 Mar 2023 13:24:32 -0400
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com [IPv6:2a00:1450:4864:20::130])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 315F0A5DE
-        for <linux-man@vger.kernel.org>; Fri, 24 Mar 2023 10:24:31 -0700 (PDT)
-Received: by mail-lf1-x130.google.com with SMTP id x17so3167708lfu.5
-        for <linux-man@vger.kernel.org>; Fri, 24 Mar 2023 10:24:30 -0700 (PDT)
+        with ESMTP id S230495AbjCXRYh (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 24 Mar 2023 13:24:37 -0400
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com [IPv6:2a00:1450:4864:20::134])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E76369EE6
+        for <linux-man@vger.kernel.org>; Fri, 24 Mar 2023 10:24:33 -0700 (PDT)
+Received: by mail-lf1-x134.google.com with SMTP id i13so3148310lfe.9
+        for <linux-man@vger.kernel.org>; Fri, 24 Mar 2023 10:24:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1679678669;
+        d=gmail.com; s=20210112; t=1679678672;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=0lKeDd3VBI2M1Nqk5ezX1R/6WnZjczS9i9hxGFBKuB0=;
-        b=RdJKQH42x39wj5GJwryjU76Clq20eMf5lLqjKEhvdhb+YbjMDP8T4nSgSzNvfHqEzs
-         AWWZyCrARzrhhpFYFaaSeJhMRy7CeDrtznxZYDeT0PnPWep/TF1fdHuYxZsJf4g/gFbr
-         JuJpM7YbJw5HEzo3WAOByTxdH5wvM00kIxfne2xfu3IKIxYFYedOetwgymuelC0Mm3nn
-         YaJzXuMRA0531tR5+wgRm5mM7ccm292LfP3chwafOWDikLSZlM33KjEBdJWqdFZKDMWU
-         h5MHYYrwxVTAc04eEpE9O2Oh6b5wiaOXFGr8LegTorSbCWIBKirC/arbmTO39oyDId9K
-         L/ng==
+        bh=Jkloectzin8QALiCmAHP+V+yqUk3s6umto4gBYlqkpw=;
+        b=Wp9vMuWTv39nTWT3dt26fkHHITsdVX5JROVsUzy3PCBglcTalqCDMYHixWhV2k0ZQt
+         CmRweJebp2LaC2+IC3ot652KE7Pon0moQWWTfqdiI37HjQ+HnGAd4rFcxtznb8Lyu8Vh
+         WS9GU9YPI8XmxxWsCIKyrK9eY5aweVuR8AjRp75dx/WPYfXTGkj02vGvEUUovC3/u9IS
+         EFQVXwgw431IWTTzdJSfAGCMgNlPMTqcqJ4vvULBAUrB3KXDCAKoIGWNZnj4dUyELLeu
+         LcVf9NzGE0IUgMf6G5UUzQlG9mW5/CrQOetrfuupLcVp9O5C9cMYAh4l77XGB/EIZ5Nn
+         fE4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1679678669;
+        d=1e100.net; s=20210112; t=1679678672;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=0lKeDd3VBI2M1Nqk5ezX1R/6WnZjczS9i9hxGFBKuB0=;
-        b=qSKpND9zU0xi6FbFJMpRN71kezJUD7w5Cvrn1HgVysHTsS/DimgrR9BOBrtJdek5va
-         3R5vuph5r21CAwf4Q5TseQhlR59esiEwD53Qm1OTXdORNlcMCgcN1nWIUQzbrVN6KpBS
-         Kl+yRmdxC0GaGx33F+plUi8UwHPihxSUTT6uc7BQQYVkOub8wuTyT6m9tO+UqYm6/UsA
-         WB0K2R4Kcd7bVsQeIKyrunk8TcGb7+mE509O85JK555KgiSpARdJUZKNZhulVLM91xBe
-         90g+c3sDdFPUtLfKBYSnNnMN6q1MuNCN/MOBn4OAqjuU3ifKjrIOvdyJq2ADliEcTJr5
-         Xn7A==
-X-Gm-Message-State: AAQBX9fefBwLOSg4xwfoRfbC9vIJKKLSVGH4Syax0mHRE8lncuOmImhF
-        P7NP1s+alkizDrmKi0IC9vIMEg90vKA=
-X-Google-Smtp-Source: AKy350aDjKQXNAiyo3AsRGdMDRHROIO6WXZ/haxA3G/5rEPU2ZLr7fZtO+eakcokVLI7lSy+YW8wZw==
-X-Received: by 2002:ac2:51c7:0:b0:4e0:c8ef:42b5 with SMTP id u7-20020ac251c7000000b004e0c8ef42b5mr925231lfm.6.1679678669181;
-        Fri, 24 Mar 2023 10:24:29 -0700 (PDT)
+        bh=Jkloectzin8QALiCmAHP+V+yqUk3s6umto4gBYlqkpw=;
+        b=TiY+PQIZv7bYq9JOoypyUVP25UbhkxmXhHUes8QcdUEN15klG+valVQKTAUgBRPryF
+         M2nqPGe5oldIiABdd+MTbQJ8EX43+lae0OBjnXzKYjSLgjsN3mTiAOw8Nts0gOJA/w3z
+         IBhlhdnalcG4MRvaPhDDbJi7I/Pirz9VUTewcPRDxmPjJ9noXPFpsBaWeLruEdPN0QmU
+         2hiM0cIyimyNEzFrqm94CtNI6/CInc5ZJOxAkA+ybWL5UCPKfgbzjbZbk3uYoGwXg1v5
+         UzJAWpquCZ8stQCuYrOKz1Jc3oHnkCJb+adl7j/b8AjK7rT9+fau9KFZwf0pNURAzEcJ
+         JF0Q==
+X-Gm-Message-State: AAQBX9dQ00WyWkwz3V0AuPJRKE0UZQEu0OLqTJiqoOOGQ5LCPLjHStq9
+        gLWaoWFX2trTMDvCLPr6pzA=
+X-Google-Smtp-Source: AKy350ZqN3RUcElZF654CIscVHA9/RIiG2GBke3QaPFH4lhbHfHcLoc9H4T4Xe0QNmSSkrdtniHoVg==
+X-Received: by 2002:ac2:5dcf:0:b0:4e9:afb3:d56a with SMTP id x15-20020ac25dcf000000b004e9afb3d56amr944716lfq.7.1679678672103;
+        Fri, 24 Mar 2023 10:24:32 -0700 (PDT)
 Received: from localhost ([2a02:168:633b:1:7c09:9c3b:256e:8ba1])
-        by smtp.gmail.com with ESMTPSA id c21-20020ac25315000000b004e845a08567sm3429489lfh.291.2023.03.24.10.24.28
+        by smtp.gmail.com with ESMTPSA id x25-20020ac25dd9000000b004d576298c89sm3430720lfq.141.2023.03.24.10.24.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 24 Mar 2023 10:24:28 -0700 (PDT)
+        Fri, 24 Mar 2023 10:24:31 -0700 (PDT)
 From:   =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
 To:     Alejandro Colomar <alx.manpages@gmail.com>,
         =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
 Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
         linux-man@vger.kernel.org,
         =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
-Subject: [PATCH v5 2/3] landlock.7: Document Landlock ABI v3 (file truncation; Linux 6.2)
-Date:   Fri, 24 Mar 2023 18:24:18 +0100
-Message-Id: <20230324172419.117632-2-gnoack3000@gmail.com>
+Subject: [PATCH v5 3/3] landlock.7: Explain the best-effort fallback mechanism in the example
+Date:   Fri, 24 Mar 2023 18:24:19 +0100
+Message-Id: <20230324172419.117632-3-gnoack3000@gmail.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230324172419.117632-1-gnoack3000@gmail.com>
 References: <20230324172419.117632-1-gnoack3000@gmail.com>
@@ -74,139 +74,106 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-https://git.kernel.org/torvalds/c/299e2b1967578b1442128ba8b3e86ed3427d3651
-
 Signed-off-by: Günther Noack <gnoack3000@gmail.com>
-Reviewed-by: Mickaël Salaün <mic@digikod.net>
 ---
- man7/landlock.7 | 83 +++++++++++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 81 insertions(+), 2 deletions(-)
+ man7/landlock.7 | 65 ++++++++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 61 insertions(+), 4 deletions(-)
 
 diff --git a/man7/landlock.7 b/man7/landlock.7
-index d3a7ec0d2..9c305edef 100644
+index 9c305edef..d1214ba27 100644
 --- a/man7/landlock.7
 +++ b/man7/landlock.7
-@@ -64,9 +64,39 @@ Execute a file.
- .TP
- .B LANDLOCK_ACCESS_FS_WRITE_FILE
- Open a file with write access.
-+.IP
-+When opening files for writing,
-+you will often additionally need the
-+.B LANDLOCK_ACCESS_FS_TRUNCATE
-+right.
-+In many cases,
-+these system calls truncate existing files when overwriting them
-+(e.g.,
-+.BR creat (2)).
- .TP
- .B LANDLOCK_ACCESS_FS_READ_FILE
- Open a file with read access.
-+.TP
-+.B LANDLOCK_ACCESS_FS_TRUNCATE
-+Truncate a file with
-+.BR truncate (2),
-+.BR ftruncate (2),
-+.BR creat (2),
-+or
-+.BR open (2)
-+with
-+.BR O_TRUNC .
-+Whether an opened file can be truncated with
-+.BR ftruncate (2)
-+is determined during
-+.BR open (2),
-+in the same way as read and write permissions are checked during
-+.BR open (2)
-+using
-+.B LANDLOCK_ACCESS_FS_READ_FILE
-+and
-+.BR LANDLOCK_ACCESS_FS_WRITE_FILE .
-+This access right is available since the third version of the Landlock ABI.
+@@ -393,11 +393,14 @@ accessible through these system call families:
+ Future Landlock evolutions will enable to restrict them.
+ .SH EXAMPLES
+ We first need to create the ruleset that will contain our rules.
++.PP
+ For this example,
+ the ruleset will contain rules that only allow read actions,
+ but write actions will be denied.
+ The ruleset then needs to handle both of these kinds of actions.
+-See below for the description of filesystem actions.
++See the
++.B DESCRIPTION
++section for the description of filesystem actions.
  .PP
- A directory can receive access rights related to files or directories.
- The following access right is applied to the directory itself,
-@@ -231,6 +261,53 @@ To be allowed to use
- and related syscalls on a target process,
- a sandboxed process should have a subset of the target process rules,
- which means the tracee must be in a sub-domain of the tracer.
-+.\"
-+.SS Truncating files
-+The operations covered by
-+.B LANDLOCK_ACCESS_FS_WRITE_FILE
-+and
-+.B LANDLOCK_ACCESS_FS_TRUNCATE
-+both change the contents of a file and sometimes overlap in
-+non-intuitive ways.
-+It is recommended to always specify both of these together.
-+.PP
-+A particularly surprising example is
-+.BR creat (2).
-+The name suggests that this system call requires
-+the rights to create and write files.
-+However, it also requires the truncate right
-+if an existing file under the same name is already present.
-+.PP
-+It should also be noted that truncating files does not require the
-+.B LANDLOCK_ACCESS_FS_WRITE_FILE
-+right.
-+Apart from the
-+.BR truncate (2)
-+system call, this can also be done through
-+.BR open (2)
-+with the flags
-+.IR "O_RDONLY\ |\ O_TRUNC" .
-+.PP
-+When opening a file, the availability of the
-+.B LANDLOCK_ACCESS_FS_TRUNCATE
-+right is associated with the newly created file descriptor
-+and will be used for subsequent truncation attempts using
-+.BR ftruncate (2).
-+The behavior is similar to opening a file for reading or writing,
-+where permissions are checked during
-+.BR open (2),
-+but not during the subsequent
-+.BR read (2)
-+and
-+.BR write (2)
-+calls.
-+.PP
-+As a consequence,
-+it is possible to have multiple open file descriptors for the same file,
-+where one grants the right to truncate the file and the other does not.
-+It is also possible to pass such file descriptors between processes,
-+keeping their Landlock properties,
-+even when these processes do not have an enforced Landlock ruleset.
- .SH VERSIONS
- Landlock was introduced in Linux 5.13.
- .PP
-@@ -257,6 +334,8 @@ _	_	_
- \^	\^	LANDLOCK_ACCESS_FS_MAKE_SYM
- _	_	_
- 2	5.19	LANDLOCK_ACCESS_FS_REFER
-+_	_	_
-+3	6.2	LANDLOCK_ACCESS_FS_TRUNCATE
- .TE
- .sp 1
- .PP
-@@ -302,7 +381,6 @@ in kernel logs.
- It is currently not possible to restrict some file-related actions
- accessible through these system call families:
- .BR chdir (2),
--.BR truncate (2),
- .BR stat (2),
- .BR flock (2),
- .BR chmod (2),
-@@ -340,7 +418,8 @@ attr.handled_access_fs =
-         LANDLOCK_ACCESS_FS_MAKE_FIFO |
-         LANDLOCK_ACCESS_FS_MAKE_BLOCK |
+ .in +4n
+ .EX
+@@ -420,7 +423,57 @@ attr.handled_access_fs =
          LANDLOCK_ACCESS_FS_MAKE_SYM |
--        LANDLOCK_ACCESS_FS_REFER;
-+        LANDLOCK_ACCESS_FS_REFER |
-+        LANDLOCK_ACCESS_FS_TRUNCATE;
+         LANDLOCK_ACCESS_FS_REFER |
+         LANDLOCK_ACCESS_FS_TRUNCATE;
++.EE
++.in
++.PP
++To be compatible with older Linux versions,
++we detect the available Landlock ABI version,
++and only use the available subset of access rights:
++.PP
++.in +4n
++.EX
++/* Table of available file system access rights by ABI version */
++__u64 landlock_fs_access_rights[] = {
++    (1ULL << 13) \- 1,  /* ABI v1                 */
++    (1ULL << 14) \- 1,  /* ABI v2: add "refer"    */
++    (1ULL << 15) \- 1,  /* ABI v3: add "truncate" */
++};
++
++int abi = landlock_create_ruleset(NULL, 0,
++                                  LANDLOCK_CREATE_RULESET_VERSION);
++if (abi <= 0) {
++    perror("Giving up \- No Landlock support");
++    exit(EXIT_FAILURE);
++}
++if (abi > 3)
++    abi = 3;
  
++/* Only use the available rights in the ruleset. */
++attr.handled_access_fs &= landlock_fs_access_rights[abi \- 1];
++.EE
++.in
++.PP
++The available access rights for each ABI version are listed in the
++.B VERSIONS
++section.
++.PP
++If our program needed to create hard links or rename files between different directories
++.RB ( LANDLOCK_ACCESS_FS_REFER ),
++we would require the following change to the backwards compatibility logic:
++Directory reparenting is not possible in a process restricted with Landlock ABI version 1.
++Therefore,
++if the program needed to do file reparenting,
++and if only Landlock ABI version 1 was available,
++we could not restrict the process.
++.PP
++Now that the ruleset attributes are determined,
++we create the Landlock ruleset
++and acquire a file descriptor as a handle to it,
++using
++.BR landlock_create_ruleset (2):
++.PP
++.in +4n
++.EX
  ruleset_fd = landlock_create_ruleset(&attr, sizeof(attr), 0);
  if (ruleset_fd == \-1) {
+     perror("Failed to create a ruleset");
+@@ -429,9 +482,13 @@ if (ruleset_fd == \-1) {
+ .EE
+ .in
+ .PP
+-We can now add a new rule to this ruleset thanks to the returned file
+-descriptor referring to this ruleset.
+-The rule will only allow reading the file hierarchy
++We can now add a new rule to the ruleset through the ruleset's file descriptor.
++The requested access rights must be a subset of the access rights
++which were specified in
++.I attr.handled_access_fs
++at ruleset creation time.
++.PP
++In this example, the rule will only allow reading the file hierarchy
+ .IR /usr .
+ Without another rule, write actions would then be denied by the ruleset.
+ To add
 -- 
 2.39.2
 
