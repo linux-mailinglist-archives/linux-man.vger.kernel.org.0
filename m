@@ -2,61 +2,61 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 6FC9F6C7697
-	for <lists+linux-man@lfdr.de>; Fri, 24 Mar 2023 05:35:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 4FC7A6C76CE
+	for <lists+linux-man@lfdr.de>; Fri, 24 Mar 2023 06:07:15 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229589AbjCXEfa (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 24 Mar 2023 00:35:30 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54940 "EHLO
+        id S229864AbjCXFHO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 24 Mar 2023 01:07:14 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47866 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229499AbjCXEf3 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 24 Mar 2023 00:35:29 -0400
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com [IPv6:2a00:1450:4864:20::42b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 326A419F16
-        for <linux-man@vger.kernel.org>; Thu, 23 Mar 2023 21:35:28 -0700 (PDT)
-Received: by mail-wr1-x42b.google.com with SMTP id t15so501591wrz.7
-        for <linux-man@vger.kernel.org>; Thu, 23 Mar 2023 21:35:28 -0700 (PDT)
+        with ESMTP id S229484AbjCXFHN (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 24 Mar 2023 01:07:13 -0400
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com [IPv6:2a00:1450:4864:20::42f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1E5CA2886C
+        for <linux-man@vger.kernel.org>; Thu, 23 Mar 2023 22:07:12 -0700 (PDT)
+Received: by mail-wr1-x42f.google.com with SMTP id e18so532503wra.9
+        for <linux-man@vger.kernel.org>; Thu, 23 Mar 2023 22:07:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1679632526;
+        d=gmail.com; s=20210112; t=1679634430;
         h=content-disposition:mime-version:mail-followup-to:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=FqwqSeMO7jIF5nLSWYfosFr8/E6vyyMyqeR5y0pfcQU=;
-        b=ZyOcZyhNVUxIszAGHDK7WRq5La2e/LXev95h9Z3+UCUF+1G3eyrEcMApaEUfTSjYQ+
-         J8hZMqoNAqKf/hN6U0kHbEQEGcquwdVdLii6In7P1ukyP9ZZ21gg5Zs06TVPz2l3LIzX
-         AZd+ytn+1jGgp+DI/bkrPjiIHg8NKDu6CnWx2OVCJZO2n/0ei4cPhOc7a8WxTBAEfcpH
-         1Bz4GAeOxAj6XZ6Ig4OdqcfLmFUbd72xmevf0B1q54IBmanCZtUSChEwSkwaA7RNV1/p
-         hbw61DD0m7v1dQ+NWTZdQgA05ZFWNQhMXJm+ItQitc1sul8giKylEs3RHvAaXyj7LOEs
-         0YTg==
+        bh=jagFuk1/NEvC1pCnwdX58Wy6UY7UMvFnl3zu9r6xAZ4=;
+        b=GvAghCDuz0t+/GCotw6Xxg3hnGNSw3CRjp8QQj4CicuAh6Mg+1hMUaPDDxbV9kZGzu
+         MBYVK23d1fC6+8UonLunNXyeR1hVCt2uVA4dAOuAdv05VGjbUXoV+GJanW9BRPqvQheO
+         6I7v0Ft8ppS5cnrLEAjf1MPnlVxXKZ72VndNI2/X6WnkCaqMKm640HXxpH46UIIB3BBq
+         ZaKywbjc3mn0/bLdMG2aH1zaUsjIqeydbUdwi3lg+MCmNBnNR+S5mmylAnlAV/1vS5q1
+         6sbGPJDo8DZIjXl9VEuc4S4i8xSZV9QCn1zrgKc8DQ42nJH+qMHoFdJOYMlWpcwo/cpI
+         AMng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1679632526;
+        d=1e100.net; s=20210112; t=1679634430;
         h=content-disposition:mime-version:mail-followup-to:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=FqwqSeMO7jIF5nLSWYfosFr8/E6vyyMyqeR5y0pfcQU=;
-        b=C0N8B80VbqBChh6XJUWd9pAZZKN8m+YCqmSPclLrtvJ3818f3U1c9cU4eEMvjZ85KT
-         vFA83uWn/STNapRdUTUPmtnF+mxwcD4FoGWmfJp69EoSc/gS7UFJNnT3C4BTgmUxd9gM
-         GbntmUatKuDN1+dHiou3l4K0+bHgwAhJymKIMXSxB2VT5Erlkn5hzOw9LfNr3wW6tzl1
-         03i5GpKbwbEyJGDJo4kw9WqGKBXJ+w5QUI++IIH25SqUiJxJMXI5IzxSAPeA754xv4kS
-         lnq/fbJDc29dSCIfhnZJapCRpAVN1Ge4AF2rwAx4kS5IxKQ3J3eevJB9y+HHDOTtEtXz
-         459A==
-X-Gm-Message-State: AAQBX9fMECEl1zmyQBuw4WVUPdQPd8E3vFNrv5PktEDPn9d6/EJOSWeg
-        ydEGe76eKQUzMMOuMoum4zU=
-X-Google-Smtp-Source: AKy350bKu+jH8PWqvygwGumaMZgWuPZ4O99b5HgpC3Si6I7rh8PIcOKQAAbapj8VNkj0mxGsGHrAUg==
-X-Received: by 2002:adf:e552:0:b0:2d6:8d2d:5a7c with SMTP id z18-20020adfe552000000b002d68d2d5a7cmr919213wrm.57.1679632526219;
-        Thu, 23 Mar 2023 21:35:26 -0700 (PDT)
+        bh=jagFuk1/NEvC1pCnwdX58Wy6UY7UMvFnl3zu9r6xAZ4=;
+        b=gvWcY+17WswRg2cR44ghdFmyQ97y16SY0fSevFUmR4FHCyStrq88U6uMNXSQbjNpC8
+         AvHm7os1FFM74joWG/INPHYp/6AgeIU74LwNcN+x+cs/tPvlixAvs41uzK6TWVtYJJoJ
+         gKBFPlapHYbl/R2PQ1bmc0y58Xf4a8zbHlHxpzGRBtwTNu1R3t7E5uFARL+KjrcjbjLq
+         soTH1VSGqbww9naEGjyDjzXoDNAKtnEVTjVI7gcVtoNZV8MtqIX6LwFU2sZ0qvPXN6Pq
+         +96s5UGxg1sMS5Ygr/sybXY3GqHNH52dqKxucUlpoeUYnRNSD4jmC83gGaAbyp+5jWH8
+         GlAw==
+X-Gm-Message-State: AAQBX9dtZQMEU0m3nCM7LfkdcqFIXgWlgfgsGSGF+xeaLClPSzE+Sj0H
+        tGSIhw322kVPwWK9dpPJ0Rw=
+X-Google-Smtp-Source: AKy350Zkv/GYmlSkDw9t1Bo+jVwVKO40S0Jw1PhciieU03omXmlX3bewoDrXGoUxSAi/OlNyrRdQxA==
+X-Received: by 2002:a5d:46c9:0:b0:2c7:e5f:e0e0 with SMTP id g9-20020a5d46c9000000b002c70e5fe0e0mr998830wrs.65.1679634430594;
+        Thu, 23 Mar 2023 22:07:10 -0700 (PDT)
 Received: from dj3ntoo (87.sub-72-108-136.myvzw.com. [72.108.136.87])
-        by smtp.gmail.com with ESMTPSA id c10-20020adffb0a000000b002c70c99db74sm17474817wrr.86.2023.03.23.21.35.22
+        by smtp.gmail.com with ESMTPSA id u8-20020adfdb88000000b002cff06039d7sm17502870wri.39.2023.03.23.22.07.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 23 Mar 2023 21:35:25 -0700 (PDT)
-Date:   Thu, 23 Mar 2023 23:35:19 -0500
+        Thu, 23 Mar 2023 22:07:10 -0700 (PDT)
+Date:   Fri, 24 Mar 2023 00:07:03 -0500
 From:   Oskari Pirhonen <xxc3ncoredxx@gmail.com>
 To:     Alejandro Colomar <alx@kernel.org>
 Cc:     linux-man@vger.kernel.org, Matt Jolly <Matt.Jolly@footclan.ninja>,
         Brian Inglis <Brian.Inglis@Shaw.ca>,
         Guillem Jover <guillem@hadrons.org>,
         Tom Schwindl <schwindl@posteo.de>, Sam James <sam@gentoo.org>
-Subject: [PATCH] stdc: some improvements
-Message-ID: <ZB0oh8/A5Ll/0SY0@dj3ntoo>
+Subject: [PATCH v2] stdc: some improvements
+Message-ID: <ZB0v95XCMia3ibVj@dj3ntoo>
 Mail-Followup-To: Alejandro Colomar <alx@kernel.org>,
         linux-man@vger.kernel.org, Matt Jolly <Matt.Jolly@footclan.ninja>,
         Brian Inglis <Brian.Inglis@Shaw.ca>,
@@ -78,7 +78,8 @@ X-Mailing-List: linux-man@vger.kernel.org
 - Some small stylistic changes such as removing trailing semicolons and
   noisy `shift` calls.
 - Ensure pcregrep exists. It is installed as pcre2grep on my machine, so
-  check for both and error out if neither is found.
+  check for both and error out if neither is found. Prefer pcre2grep
+  (installed by libpcre2) because libpcre is EOL.
 - Make libc_summ() standard-agnostics by passing in the filter
   expression and the path to the doc as arguments.
 - Make libc_summ() error out if the doc is not found.
@@ -87,11 +88,14 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 Signed-off-by: Oskari Pirhonen <xxc3ncoredxx@gmail.com>
 ---
+v1 -> v2:
+- Prefer pcre2grep from libpcre2. Suggested by Sam on IRC.
+
  bin/stdc | 101 +++++++++++++++++++++++++++++++++++++------------------
  1 file changed, 68 insertions(+), 33 deletions(-)
 
 diff --git a/bin/stdc b/bin/stdc
-index 8c725a2..375be76 100755
+index 8c725a2..0d322af 100755
 --- a/bin/stdc
 +++ b/bin/stdc
 @@ -1,65 +1,100 @@
@@ -115,9 +119,9 @@ index 8c725a2..375be76 100755
 +c11_filter='/Library summary$/,/Sequence points$/p'
 +c11_doc="$docdir/c/c11/n1570.txt"
 +
-+pcregrep="$(type -P pcregrep)"
++pcregrep="$(type -P pcre2grep)"
 +if [[ -z "$pcregrep" ]]; then
-+	pcregrep="$(type -P pcre2grep)"
++	pcregrep="$(type -P pcregrep)"
 +fi
  
  err()
@@ -172,7 +176,7 @@ index 8c725a2..375be76 100755
  }
  
 +if [[ -z "$pcregrep" ]]; then
-+	die "pcregrep or pcre2grep required but is not installed"
++	die "pcre2grep or pcregrep required but is not installed"
 +fi
 +
  case $# in
