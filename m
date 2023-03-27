@@ -2,129 +2,142 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id B3F026CA419
-	for <lists+linux-man@lfdr.de>; Mon, 27 Mar 2023 14:29:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9ACAD6CA6C8
+	for <lists+linux-man@lfdr.de>; Mon, 27 Mar 2023 16:06:55 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232349AbjC0M3n (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 27 Mar 2023 08:29:43 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58906 "EHLO
+        id S232356AbjC0OGy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 27 Mar 2023 10:06:54 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38786 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232473AbjC0M3k (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 27 Mar 2023 08:29:40 -0400
-Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 27A343AA2
-        for <linux-man@vger.kernel.org>; Mon, 27 Mar 2023 05:29:38 -0700 (PDT)
-Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 6B5AE473C;
-        Mon, 27 Mar 2023 14:29:34 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-        s=202211; t=1679920174;
-        bh=2DaqADyRdqJD+IsKfhGrTnQjP7DCMIpHXySCAVeKhDo=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=RFQBeeSsQodAYlpFT3MdltWcqbVxgrmuQYx+Qaa53d7pTjSnU2iypF8g/TAnDMY99
-         aZpa1BUnb6sGC6kcE1Cyv3nW8TKXSbw4gJaLBNDfmgRgwFDDdj5xSaPFtnwYkoM2JE
-         IIDrfP+ExukQwu5Bty7T1BxJWTUS5pJwkzeAQa89CPalq7VuVqEi50VOpsYLOZWrMg
-         4Dw7N55hKPj3u8/x40wfiqHGQVosrelEs5HXl2hlNlkpRd7EVgiGHqoCpeGni9fzUe
-         REIHVTgvyZX5BSYEP7N+dqW2SGIhSHYyckiEBzt3psWoIIImUri3QiYsNuwe+J0Iwq
-         BRUHy4c1q9emg==
-Date:   Mon, 27 Mar 2023 14:29:33 +0200
-From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-To:     Jakub Wilk <jwilk@jwilk.net>
-Cc:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org
-Subject: [PATCH v2] symlink.7: cross-link to proc.5 for fs.protected_symlinks
-Message-ID: <fneuwvfzrpj22nk4u6pgjr4zd62z2mrjbvyuvgl5vkkiwtfnvr@ca4gsy5ktdld>
-References: <20230327063142.pdeeemawtssywcqg@jwilk.net>
+        with ESMTP id S229462AbjC0OGt (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 27 Mar 2023 10:06:49 -0400
+Received: from ams.source.kernel.org (ams.source.kernel.org [IPv6:2604:1380:4601:e00::1])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D01FE5255
+        for <linux-man@vger.kernel.org>; Mon, 27 Mar 2023 07:05:45 -0700 (PDT)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        by ams.source.kernel.org (Postfix) with ESMTPS id 7A975B8159D
+        for <linux-man@vger.kernel.org>; Mon, 27 Mar 2023 14:05:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 3DAE6C433A1
+        for <linux-man@vger.kernel.org>; Mon, 27 Mar 2023 14:05:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1679925943;
+        bh=7B5PrwNxky4tmpnatB1GAJukGF9BuWvozsLkqZ6wg3s=;
+        h=From:To:Subject:Date:From;
+        b=f7V0tdYLBrF5tT4hXUh4Q9UDuAWTO8ws+GHHsNBXbDONbuhH1oEzddaEtjSz8VFUc
+         wp4TAa4an3vgP4FyyHa5xwaE2GBCsrbIAe3Oqm8XGIR79f/2CXl0K65qwCIQB1iJPX
+         Sr68LUVT44xTGBbOkZx7O2Gqu7NFmQNVxnKrk0Sv5vEEnFpSu9SqyANb8yvOLivce+
+         jPIc7bor2WgQidyFux4u4NMwkXJSYV9OPP3f4yl34A3OKkZetRK+N7t/08xOMd31t3
+         UTKlZaxrICOkK6fzgXnULy4aSCQLvM0pSfHFQZfG4LX9lHoD98JYMqfn2DieAO+o88
+         h9nw/U4HqJhiQ==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
+        id 2C451C43141; Mon, 27 Mar 2023 14:05:43 +0000 (UTC)
+From:   bugzilla-daemon@kernel.org
+To:     linux-man@vger.kernel.org
+Subject: [Bug 217253] New: mbind, set_mempolicy, migrate_pages: maxnode
+ description is off-by-one
+Date:   Mon, 27 Mar 2023 14:05:42 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: new
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Documentation
+X-Bugzilla-Component: man-pages
+X-Bugzilla-Version: unspecified
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: tonyb@cybernetics.com
+X-Bugzilla-Status: NEW
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P1
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: bug_id short_desc product version rep_platform
+ op_sys bug_status bug_severity priority component assigned_to reporter
+ cf_regression
+Message-ID: <bug-217253-11311@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="be4brfng4ehtd5cf"
-Content-Disposition: inline
-In-Reply-To: <20230327063142.pdeeemawtssywcqg@jwilk.net>
-User-Agent: NeoMutt/20230322
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-        DKIM_VALID_AU,DKIM_VALID_EF,PDS_RDNS_DYNAMIC_FP,RDNS_DYNAMIC,
-        SPF_HELO_PASS,SPF_PASS autolearn=no autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+        SPF_PASS autolearn=unavailable autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+https://bugzilla.kernel.org/show_bug.cgi?id=3D217253
 
---be4brfng4ehtd5cf
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+            Bug ID: 217253
+           Summary: mbind, set_mempolicy, migrate_pages: maxnode
+                    description is off-by-one
+           Product: Documentation
+           Version: unspecified
+          Hardware: All
+                OS: Linux
+            Status: NEW
+          Severity: normal
+          Priority: P1
+         Component: man-pages
+          Assignee: documentation_man-pages@kernel-bugs.osdl.org
+          Reporter: tonyb@cybernetics.com
+        Regression: No
 
-This is on by default in Debian, maybe the next reader won't spend an
-hour tracing the kernel
+linux/mm/mempolicy.c::get_nodes() does "--maxnode" at the beginning, so:
+maxnode =3D=3D 0 is invalid (-EINVAL).
+maxnode =3D=3D 1 specifies the empty set of nodes (the man pages currently =
+say to
+use maxnode =3D=3D 0).
+maxnode =3D=3D 2 indicates one valid bit in nodemask.
+maxnode =3D=3D 3 indicates two valid bits in nodemask.
+etc.
 
-Fixes: e8ff4f53ab9a7cbd ("Remove information migrated to inode(7) page")
-Closes: https://bugs.debian.org/1033477
-Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
----
-This definitely needs to be referenced here, because "The only time that
-the ownership of a symbolic link matters is when the link is being
-removed or renamed in a directory that has the sticky bit set" is an
-abject lie, especially since Debian ships with fs.protected_symlinks=3D1;
-the minimum here is to cross-ref to an extended description.
+Incorrect section from mbind manpage:
 
-I straight-up didn't know proc(5) listed sysctls, and I looked!
-(Well, defined as "apropos sysctl" didn't list anything in particular,
- and sysctl(2) has an unannotated proc(5) in SEE ALSO.)
+"nodemask points to a bit mask of nodes containing up to maxnode bits.  The=
+ bit
+mask size is rounded to the next multiple of sizeof(unsigned long), but the
+kernel will use bits only up to maxnode.  A NULL value of nodemask or a max=
+node
+value of zero specifies the empty set of nodes.  If the value of maxnode is
+zero, the nodemask argument is ignored."
 
-It'd be nice if, idk, the proc.5 SH were extended with "process
-information, system information, and sysctl pseudo-filesystem" or
-whatever, or there were a sysctl.[47] alias for proc.5,
-because as it stands, I would never have guesssed there's a listing of
-sysctls in proc(5).
+I am not sure if this was an intentional design choice or a bug that got
+enshrined in the userspace API, but userspace programs "in the know" seem to
+rely on this now:
 
- man7/symlink.7 | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+https://gitlab.com/qemu-project/qemu/-/blob/60ca584b8af0de525656f959991a440=
+f8c191f12/backends/hostmem.c#L369
 
-diff --git a/man7/symlink.7 b/man7/symlink.7
-index 77fefb743..4403f6214 100644
---- a/man7/symlink.7
-+++ b/man7/symlink.7
-@@ -84,10 +84,14 @@ magic links have been used as attack vectors in various=
- exploits.
- The owner and group of an existing symbolic link can be changed
- using
- .BR lchown (2).
--The only time that the ownership of a symbolic link matters is
-+The ownership of a symbolic link matters
- when the link is being removed or renamed in a directory that
- has the sticky bit set (see
--.BR stat (2)).
-+.BR inode (7)),
-+and when the
-+.I fs.protected_symlinks
-+sysctl is set (see
-+.BR proc (5)).
- .PP
- The last access and last modification timestamps
- of a symbolic link can be changed using
+Also, the commit message for linux commit c6018b4b2549 ("mm/mempolicy: add
+set_mempolicy_home_node syscall") shows using "new_nodes->size + 1", so this
+API bug/choice seems to be known within the kernel community.
+
+Here is a related bugzilla entry that treats the problem as a kernel bug ra=
+ther
+than a documentation issue:
+https://bugzilla.kernel.org/show_bug.cgi?id=3D201433
+
+But since "fixing" the bug (assuming that it was unintentional) might break
+existing userspace programs that work around the bug, I suggest fixing the
+documentation instead.  But that is just my opinion as a user who just ran =
+into
+the bug and did some investigating; best to check with the kernel maintaine=
+rs
+for their opinion.
+
+Related:
+linux commit 050c17f239fd ("numa: change get_mempolicy() to use nr_node_ids
+instead of MAX_NUMNODES") commit message talks about calculating maxnode for
+get_mempolicy().
+
 --=20
-2.30.2
+You may reply to this email to add a comment.
 
---be4brfng4ehtd5cf
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmQhjCwACgkQvP0LAY0m
-WPHQkw//bv4yzu/wx6rIQQi8UbR+tiwoRoNFgjl/gs4h04U+3FEx4xmUSmI2OqoA
-vnXYZpeO7ea++fa2/tNv26f3XlfDiZECirBiil6YgfNWY3cWNZV63CGoh7NudX3C
-5M7fRDtncYZoXprYl2+uRt7m1jvLeQ5Qsklmsjh7cRAaZ6L++tKQAOLNLVTRwavK
-UxVzLgL2di27GwIDNCWVQrjnwHPJrm+XpdSNUMKGigLRKVRbMqfQ/h55ewfKmKrq
-DoE3+p9szluGrdH2hsmhH3L8+VO0iaUrbDD/Dbn76foF0Alnvdp6vIElEr7ayFWV
-UFmNJBX4M7eM8nNcsj1jxedDasWyxC0EcrPZeVJ1ojtlcdVZH8VocuxsCiWKMkXl
-E2yjndHvyYgAl/2CmlEbB/F/n9jlHEGNvjy03f7qjvmR8lk/EZNVWdpwvFpj+ys7
-yWBLJxeh8xuEIv4ack+6ImJZZbhDCRCUQXlQKQXUDngfGZ6LS/yxojo74m/zW+jg
-F80M2AwxtAGIJctpZbuS0c8FpyXzyWVHr0vZ+PjJeBXOVXrJhOyKQX2BQ7oSk0Bw
-XsUrWvBYuRU0HekZaBBKvFb6QQpq2p/JFj1+nWquwVjX8taULkHogZOLGUIX2nNw
-eUq0LQowiWA6s4JifTwQ47bF0yT+yuDoOD1kmhxrj0ugSpD3KdA=
-=ctOU
------END PGP SIGNATURE-----
-
---be4brfng4ehtd5cf--
+You are receiving this mail because:
+You are watching the assignee of the bug.=
