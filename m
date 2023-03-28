@@ -2,142 +2,77 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 9ACAD6CA6C8
-	for <lists+linux-man@lfdr.de>; Mon, 27 Mar 2023 16:06:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 92C836CC993
+	for <lists+linux-man@lfdr.de>; Tue, 28 Mar 2023 19:46:14 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232356AbjC0OGy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 27 Mar 2023 10:06:54 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38786 "EHLO
+        id S229468AbjC1RqN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 28 Mar 2023 13:46:13 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58042 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229462AbjC0OGt (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 27 Mar 2023 10:06:49 -0400
-Received: from ams.source.kernel.org (ams.source.kernel.org [IPv6:2604:1380:4601:e00::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D01FE5255
-        for <linux-man@vger.kernel.org>; Mon, 27 Mar 2023 07:05:45 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by ams.source.kernel.org (Postfix) with ESMTPS id 7A975B8159D
-        for <linux-man@vger.kernel.org>; Mon, 27 Mar 2023 14:05:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 3DAE6C433A1
-        for <linux-man@vger.kernel.org>; Mon, 27 Mar 2023 14:05:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1679925943;
-        bh=7B5PrwNxky4tmpnatB1GAJukGF9BuWvozsLkqZ6wg3s=;
-        h=From:To:Subject:Date:From;
-        b=f7V0tdYLBrF5tT4hXUh4Q9UDuAWTO8ws+GHHsNBXbDONbuhH1oEzddaEtjSz8VFUc
-         wp4TAa4an3vgP4FyyHa5xwaE2GBCsrbIAe3Oqm8XGIR79f/2CXl0K65qwCIQB1iJPX
-         Sr68LUVT44xTGBbOkZx7O2Gqu7NFmQNVxnKrk0Sv5vEEnFpSu9SqyANb8yvOLivce+
-         jPIc7bor2WgQidyFux4u4NMwkXJSYV9OPP3f4yl34A3OKkZetRK+N7t/08xOMd31t3
-         UTKlZaxrICOkK6fzgXnULy4aSCQLvM0pSfHFQZfG4LX9lHoD98JYMqfn2DieAO+o88
-         h9nw/U4HqJhiQ==
-Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
-        id 2C451C43141; Mon, 27 Mar 2023 14:05:43 +0000 (UTC)
-From:   bugzilla-daemon@kernel.org
-To:     linux-man@vger.kernel.org
-Subject: [Bug 217253] New: mbind, set_mempolicy, migrate_pages: maxnode
- description is off-by-one
-Date:   Mon, 27 Mar 2023 14:05:42 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: new
-X-Bugzilla-Watch-Reason: AssignedTo
- documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Product: Documentation
-X-Bugzilla-Component: man-pages
-X-Bugzilla-Version: unspecified
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: normal
-X-Bugzilla-Who: tonyb@cybernetics.com
-X-Bugzilla-Status: NEW
-X-Bugzilla-Resolution: 
-X-Bugzilla-Priority: P1
-X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: bug_id short_desc product version rep_platform
- op_sys bug_status bug_severity priority component assigned_to reporter
- cf_regression
-Message-ID: <bug-217253-11311@https.bugzilla.kernel.org/>
+        with ESMTP id S229521AbjC1RqM (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 28 Mar 2023 13:46:12 -0400
+Received: from mail-qt1-x834.google.com (mail-qt1-x834.google.com [IPv6:2607:f8b0:4864:20::834])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8A869212D
+        for <linux-man@vger.kernel.org>; Tue, 28 Mar 2023 10:46:11 -0700 (PDT)
+Received: by mail-qt1-x834.google.com with SMTP id p2so7625550qtw.13
+        for <linux-man@vger.kernel.org>; Tue, 28 Mar 2023 10:46:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112; t=1680025570;
+        h=content-transfer-encoding:to:subject:message-id:date:from
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=8JznIRGOkP2NEIWf4eImjXNoLJKVCYKdWTOqrWmVS94=;
+        b=iAfI5IJO/1u7u/I2Ff728SC81E++PaCJfzzPoi3MT4yhvgkDfQk2KnolrSNn5TVigy
+         fGXWyHw6qAUTNA9QE1qFpZ+FpUF0ZCProur6Zf1EVT74HnNFq7wW16kM44VtZQ8+M92e
+         JEsb4BhIRp5P7ckckJR90Mt8+1D+sCUKGj62f90L47k7Lt2h27ajooXsSyGQ5U9w76Hd
+         +rOMTveMbDrc7X0+tOPZVBC/BxHm1RUj/3NohTPxZf0xY4eX+dh/stZi8kTwpqhTr3+K
+         /rqshKf4zsH5C9HNV1kBWk3ovnMxGmWBZ6yV+UKPZ2CRBWUAaydOUH1cDvyWhFhQ87/G
+         7MQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1680025570;
+        h=content-transfer-encoding:to:subject:message-id:date:from
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=8JznIRGOkP2NEIWf4eImjXNoLJKVCYKdWTOqrWmVS94=;
+        b=7LfqZq4b1Vg3It269bcWvEpO778xNEWU+yTC55EjxR/pPQxkQ9ZJg0OsZVw9n/W3My
+         llZ477TWOELrhk56URZk5MOHamuLUUWMko50LXnCF2D4FVk20wtU+5A3Ho/aGys6VaN2
+         bgPx2xZ8CpaGAq0ip49YN+iRHncieYh6LdhiZH5rXokz4MCvbsK7SVW4Vhf3OSqrzNqh
+         gR83iHwnRA5M6VmEMXg4Wh6AmKT/ZXjm+ZSAODc08O0+TNBt7sZtY4m2cRhGgNIMZxPW
+         mlrOU8Jndy0879d9zKhWR9wDkgy4hN6Fo+HOqVH2pluZY0H735eZecCnCqfkOeYyvifi
+         4DBA==
+X-Gm-Message-State: AO0yUKV32OkzShq639iFuPiHxTQJiSiHItZ7TPNfz6iCaEJ127SuaMcM
+        2BkCXmz1I92TyLflQYH37SUwHy0GToksCbF/jFM=
+X-Google-Smtp-Source: AKy350bP2I5/3Xyp7HLrVOhfiD1JvYhidgv7P/GPBOR3nvectLaHXngTbp+Ax3+O99Q8BdO4C3ykNzlJ153SxuzPnvY=
+X-Received: by 2002:ac8:7f88:0:b0:3e3:9275:17b4 with SMTP id
+ z8-20020ac87f88000000b003e3927517b4mr5942418qtj.10.1680025570666; Tue, 28 Mar
+ 2023 10:46:10 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 2002:ac8:5b15:0:b0:3da:ef36:569a with HTTP; Tue, 28 Mar 2023
+ 10:46:10 -0700 (PDT)
+From:   audu bello <w21smed@gmail.com>
+Date:   Tue, 28 Mar 2023 19:46:10 +0200
+Message-ID: <CAL131226mccLnqD_pvRY8HbJsXpEstwLN5++4fg+9iQJg6KvUA@mail.gmail.com>
+Subject: se requiere su atencion urgente
+To:     undisclosed-recipients:;
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
-MIME-Version: 1.0
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-        SPF_PASS autolearn=unavailable autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+        DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,FREEMAIL_REPLY,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=no
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D217253
-
-            Bug ID: 217253
-           Summary: mbind, set_mempolicy, migrate_pages: maxnode
-                    description is off-by-one
-           Product: Documentation
-           Version: unspecified
-          Hardware: All
-                OS: Linux
-            Status: NEW
-          Severity: normal
-          Priority: P1
-         Component: man-pages
-          Assignee: documentation_man-pages@kernel-bugs.osdl.org
-          Reporter: tonyb@cybernetics.com
-        Regression: No
-
-linux/mm/mempolicy.c::get_nodes() does "--maxnode" at the beginning, so:
-maxnode =3D=3D 0 is invalid (-EINVAL).
-maxnode =3D=3D 1 specifies the empty set of nodes (the man pages currently =
-say to
-use maxnode =3D=3D 0).
-maxnode =3D=3D 2 indicates one valid bit in nodemask.
-maxnode =3D=3D 3 indicates two valid bits in nodemask.
-etc.
-
-Incorrect section from mbind manpage:
-
-"nodemask points to a bit mask of nodes containing up to maxnode bits.  The=
- bit
-mask size is rounded to the next multiple of sizeof(unsigned long), but the
-kernel will use bits only up to maxnode.  A NULL value of nodemask or a max=
-node
-value of zero specifies the empty set of nodes.  If the value of maxnode is
-zero, the nodemask argument is ignored."
-
-I am not sure if this was an intentional design choice or a bug that got
-enshrined in the userspace API, but userspace programs "in the know" seem to
-rely on this now:
-
-https://gitlab.com/qemu-project/qemu/-/blob/60ca584b8af0de525656f959991a440=
-f8c191f12/backends/hostmem.c#L369
-
-Also, the commit message for linux commit c6018b4b2549 ("mm/mempolicy: add
-set_mempolicy_home_node syscall") shows using "new_nodes->size + 1", so this
-API bug/choice seems to be known within the kernel community.
-
-Here is a related bugzilla entry that treats the problem as a kernel bug ra=
-ther
-than a documentation issue:
-https://bugzilla.kernel.org/show_bug.cgi?id=3D201433
-
-But since "fixing" the bug (assuming that it was unintentional) might break
-existing userspace programs that work around the bug, I suggest fixing the
-documentation instead.  But that is just my opinion as a user who just ran =
-into
-the bug and did some investigating; best to check with the kernel maintaine=
-rs
-for their opinion.
-
-Related:
-linux commit 050c17f239fd ("numa: change get_mempolicy() to use nr_node_ids
-instead of MAX_NUMNODES") commit message talks about calculating maxnode for
-get_mempolicy().
-
 --=20
-You may reply to this email to add a comment.
+Hola,
 
-You are receiving this mail because:
-You are watching the assignee of the bug.=
+Tengo un asunto urgente que tratar contigo que cambiar=C3=A1 nuestras vidas=
+.
+
+Por favor dirija toda la correspondencia futura a m=C3=AD a  : a54111045@ou=
+tlook.com
+
+Gracias,
+Gerente de Auditor=C3=ADa de BIA
