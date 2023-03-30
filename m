@@ -2,152 +2,178 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id D31386D10B6
-	for <lists+linux-man@lfdr.de>; Thu, 30 Mar 2023 23:21:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 4F3596D10FE
+	for <lists+linux-man@lfdr.de>; Thu, 30 Mar 2023 23:46:25 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229470AbjC3VVV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 30 Mar 2023 17:21:21 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48360 "EHLO
+        id S229549AbjC3VqX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 30 Mar 2023 17:46:23 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:32912 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229505AbjC3VVV (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 30 Mar 2023 17:21:21 -0400
-Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com [IPv6:2607:f8b0:4864:20::22f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 22C867EED
-        for <linux-man@vger.kernel.org>; Thu, 30 Mar 2023 14:21:18 -0700 (PDT)
-Received: by mail-oi1-x22f.google.com with SMTP id f14so1728328oiw.10
-        for <linux-man@vger.kernel.org>; Thu, 30 Mar 2023 14:21:18 -0700 (PDT)
+        with ESMTP id S229517AbjC3VqW (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 30 Mar 2023 17:46:22 -0400
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com [IPv6:2a00:1450:4864:20::432])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C370CD530;
+        Thu, 30 Mar 2023 14:46:20 -0700 (PDT)
+Received: by mail-wr1-x432.google.com with SMTP id m2so20488853wrh.6;
+        Thu, 30 Mar 2023 14:46:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1680211277;
-        h=content-disposition:mime-version:message-id:subject:to:from:date
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=hqtS+DqvHI7AH/wWLmGXbb/4BzT/ziVq2Y/ZF1NpVMo=;
-        b=DlrzqEi/uDqe0Q3X/bzpGEZBVjK9R14Ok47ye9a8zQMnU9D+epr/11i/ShPhSjshd5
-         XKev75zuoVZsApzEkd9yjjTYlU9FaWBKkgttf3ODpAPKEe/xAIjhJzIFN2oUdPB5Wqb1
-         82gvT91ktbL+aw8VPqGWqBRsD6BZhGf6zkV5fo1mqqhgu91G+eUti8DwPqi8zruHLoDU
-         V1scvnwc/03KUxhwiLYK2wjZDPYamb7hWNd1ku7Z0DMgoIbu4IiWo3VF37eidGRdcQP2
-         /osF/P8RBeXA+ha7HpmkRtuJZ0dCIPR58MVxnO3MTjiNw4/CvQcdaB9YB7YX1KCXUGrm
-         L4/g==
+        d=gmail.com; s=20210112; t=1680212779;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=R1Jk475IjMY0JL30bXA6f3iBvRwQ5t0sLRQAyTvVik8=;
+        b=BmQLZwf6IbC1biHjC82BGqLpvFBu6wO4D1/4gwwS3PqfG8DJGtLQTB82jCAD5LpZun
+         8qRcUl2b4EvCll8Bbnnz6YPC+jLdeyfDGMY0rIdYI/nMptecjZ4aBMEc/kMaYFvSBS5Y
+         f/qHgSRW0Ent6n32UKctzOKK91yNJv7xmPnxgxLv1qRTrCnKM1EhEo+6V1LRpfCJxoYz
+         g4fghyd3qN3Ium5tq3iYGnqeyEsjvg6RWipQu+TxqYGQtLllGmH38S3pfduuTnX/VK2z
+         WYhlv5IeWE3Xzags7Xqr4vrpUvuknPYXP5TsTaC/YQana2op6ECXkI+pUBRBdCxszTkV
+         mEsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680211277;
-        h=content-disposition:mime-version:message-id:subject:to:from:date
+        d=1e100.net; s=20210112; t=1680212779;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=hqtS+DqvHI7AH/wWLmGXbb/4BzT/ziVq2Y/ZF1NpVMo=;
-        b=gujmBR4zf/YrP7/boJcSwKZtvHDIcsudN4cfrUHXd+p6hOzTR4IwiZlLDcAy88W2gE
-         ELnZrsc4lUSA178tbNNyEfupTwquczxTonMt5/myoaCA8Dq3x4idOo09Oco/TaxGUh+H
-         f2/wylfvT/R304Ov3zQfar9wOUw35igkBHB823oN5zDbGJOzBVKay/vgf2tmNeLPVSB8
-         1QGL8JhIVDofXgdQPU79nmaD1hRiTs9bH0WN1hKNDmbnnVA0zxiqKZ5GGMk8z6Is923X
-         N7fjjKUo6Lq7FWoTTc5RkcckMX61NGML7+8OXTgyKYiRGLWEWUD1LE2BWvOlMt6z+gdP
-         Qnqw==
-X-Gm-Message-State: AO0yUKVMAWw18Ss0u7iMsrC99wYcg0fKeVQ6e4NYBg/74gVp3l3Oqiic
-        3lIYa8F1SY5kgVH22xX1dn7kWKrVElI=
-X-Google-Smtp-Source: AK7set9V9WXHhpE1MC8FjCuUbCsSc/JW5qvtDFAqf+oMVrAWsN6NV36TZNPSFooswEG7+ujlgKxc6g==
-X-Received: by 2002:a54:400e:0:b0:37a:cef7:ca15 with SMTP id x14-20020a54400e000000b0037acef7ca15mr10780458oie.18.1680211277256;
-        Thu, 30 Mar 2023 14:21:17 -0700 (PDT)
-Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id c192-20020a4a4fc9000000b0053b88b03e24sm134057oob.18.2023.03.30.14.21.16
-        for <linux-man@vger.kernel.org>
+        bh=R1Jk475IjMY0JL30bXA6f3iBvRwQ5t0sLRQAyTvVik8=;
+        b=tSQ4gc+rJxHt1uSUii4YinHnGGnvpASZiUF/5ZvILBrXvvEH17fe8CFzwtvdNbI/pV
+         x7rO6eKvkMGHvQH1xUuTLEUgb3xuV2RT+X7w7niJOBL5ayKHxrh0QJeg6+Qp4e0N/I58
+         9Fu0IB4XQrZ6nctw2vTdqxDRMgp6i+ZmOF9l0My/X9vOXNKqn5D1ghRVmhK46ohykAVx
+         Sgl47Yc5PVL9Xni7lLoQFeIc99FEC7dAsRlL6tJGGejQMkHQWmq0qCgbZjFZ4IJ1KAOR
+         Xu6JvsyLHXcD0GnYpqfnzTXNRG9sIPgghXEu5U2lfMB+CcAvIwn8gaE/qSl1kn5KrggI
+         K6cA==
+X-Gm-Message-State: AAQBX9eK9vZHNU48ZvaYD2yw+pyjQYY30v7slqQWO0IRUkkKE1TEY8E0
+        KftAm6kNd/+4OOAI4xupjMfJ0PZ2yBw=
+X-Google-Smtp-Source: AKy350YaRFFB3xxobFlglKBbgiRZZuknlk/LsyEySw9oyQtlo2TmQXta8yEb+TxeI9sURd5551b/kw==
+X-Received: by 2002:a5d:4406:0:b0:2e5:26eb:bd1b with SMTP id z6-20020a5d4406000000b002e526ebbd1bmr1849193wrq.58.1680212778974;
+        Thu, 30 Mar 2023 14:46:18 -0700 (PDT)
+Received: from localhost ([2a00:23c5:dc8c:8701:fdcf:52c5:7af:c812])
+        by smtp.gmail.com with ESMTPSA id y13-20020adff14d000000b002c55306f6edsm414676wro.54.2023.03.30.14.46.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Mar 2023 14:21:16 -0700 (PDT)
-Date:   Thu, 30 Mar 2023 16:21:15 -0500
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     linux-man@vger.kernel.org
-Subject: rumors of C89/C90's death exaggerated
-Message-ID: <20230330212115.wm7wm54oo5z7nrze@illithid>
+        Thu, 30 Mar 2023 14:46:17 -0700 (PDT)
+Date:   Thu, 30 Mar 2023 22:46:17 +0100
+From:   Lorenzo Stoakes <lstoakes@gmail.com>
+To:     Andy Lutomirski <luto@amacapital.net>
+Cc:     Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
+        David Herrmann <dh.herrmann@gmail.com>, yshuiv7@gmail.com,
+        bugzilla-daemon@kernel.org, linux-api@vger.kernel.org,
+        linux-man@vger.kernel.org,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        Andy Lutomirski <luto@kernel.org>
+Subject: Re: [Bug 217238] New: Creating shared read-only map is denied after
+ add write seal to a memfd
+Message-ID: <ZCYDKeuAttQJHm8S@murray>
+References: <a586f817-dbe4-4a44-b516-6086d9a89962@lucifer.local>
+ <6793EAB9-CF91-425A-B278-8A5D4415AD72@amacapital.net>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="2r7ik7ssmhq2oy25"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-        DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
-        SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no
-        version=3.4.6
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <6793EAB9-CF91-425A-B278-8A5D4415AD72@amacapital.net>
+X-Spam-Status: No, score=0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+        DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,FREEMAIL_REPLY,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=no
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+On Thu, Mar 30, 2023 at 01:47:48PM -0700, Andy Lutomirski wrote:
+>
+>
+> > On Mar 30, 2023, at 12:25 PM, Lorenzo Stoakes <lstoakes@gmail.com> wrote:
+> >
+> > ﻿On Sat, Mar 25, 2023 at 02:51:05PM +0000, Lorenzo Stoakes wrote:
+> >>> On Fri, Mar 24, 2023 at 01:36:46PM -0700, Andrew Morton wrote:
+> >>> (switched to email.  Please respond via emailed reply-to-all, not via the
+> >>> bugzilla web interface).
+> >>>
+> >>>> On Fri, 24 Mar 2023 03:34:23 +0000 bugzilla-daemon@kernel.org wrote:
+> >>>
+> >>>> https://bugzilla.kernel.org/show_bug.cgi?id=217238
+> >>>>
+> >>>>            Bug ID: 217238
+> >>>>           Summary: Creating shared read-only map is denied after add
+> >>>>                    write seal to a memfd
+> >>>>           Product: Memory Management
+> >>>>           Version: 2.5
+> >>>>    Kernel Version: 6.2.8
+> >>>>          Hardware: All
+> >>>>                OS: Linux
+> >>>>              Tree: Mainline
+> >>>>            Status: NEW
+> >>>>          Severity: normal
+> >>>>          Priority: P1
+> >>>>         Component: Other
+> >>>>          Assignee: akpm@linux-foundation.org
+> >>>>          Reporter: yshuiv7@gmail.com
+> >>>>        Regression: No
+> >>>>
+> >>>> Test case:
+> >>>>
+> >>>>    int main() {
+> >>>>      int fd = memfd_create("test", MFD_ALLOW_SEALING);
+> >>>>      write(fd, "test", 4);
+> >>>>      fcntl(fd, F_ADD_SEALS, F_SEAL_WRITE);
+> >>>>
+> >>>>      void *ret = mmap(NULL, 4, PROT_READ, MAP_SHARED, fd, 0);
+> >>>>    }
+> >>>>
+> >>>> This fails with EPERM. This is in contradiction with what's described in the
+> >>>> documentation of F_SEAL_WRITE.
+> >>>>
+> >>>> --
+> >>>> You may reply to this email to add a comment.
+> >>>>
+> >>>> You are receiving this mail because:
+> >>>> You are the assignee for the bug.
+> >>>
+> >>
+> >> This issue seems to be the result of the use of the memfd's shmem region's
+> >> page cache object (struct address_space)'s i_mmap_writable field to denote
+> >> whether it is write-sealed.
+> >>
+> >> The kernel assumes that a VM_SHARED mapping might become writable at any
+> >> time via mprotect(), therefore treats VM_SHARED mappings as if they were
+> >> writable as far as i_mmap_writable is concerned (this field's primary use
+> >> is to determine whether, for architectures that require it, flushing must
+> >> occur if this is set to avoid aliasing, see filemap_read() for example).
+> >>
+> >> In theory we could convert all such checks to VM_SHARED | VM_WRITE
+> >> (importantly including on fork) and then update mprotect() to check
+> >> mapping_map_writable() if a user tries to make unwritable memory
+> >> writable.
+> >>
+>
+> Unless I’m missing something, we have VM_MAYWRITE for almost exactly this purpose.  Can’t we just make a shared mapping with both of these bits clear?
+>
 
---2r7ik7ssmhq2oy25
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+That's a good point, and there's definitely quite a few places where
+VM_SHARED is simply taken to imply writable which is a little irksome,
+however sprinkling some VM_MAYWRITE checks in these places would resolve
+that.
 
-Not to pile on regarding C89 and the (pending? discussed?) reversion to
-the "STANDARDS" section currently on the tip of the master branch, but
-as recently as _last week_, implementations are still being certified as
-compliant with ISO C90.
+Let me take a look into this and perhaps spin up a RFC to iron out the
+ details if this is indeed viable.
 
-Admittedly, you know, just for tiny hobbyist concerns like IBM z/OS.
-
-I'm dropping the PDF attachment because vger.kernel.org is really harsh
-about such things, but you can find it at the Austin Group list
-archives.
-
-Regards,
-Branden
-
-ObGroffStatus: Hoping Bertrand can tag 1.23.0.rc4 this weekend.  Bruno
-Haible is a portability BAMF, and helped us fix several issues.
-
------ Forwarded message from "beh@peren.com via austin-group-l at The Open =
-Group" <austin-group-l@opengroup.org> -----
-
-Date: Thu, 30 Mar 2023 14:59:09 -0400
-=46rom: "beh@peren.com via austin-group-l at The Open Group"
- <austin-group-l@opengroup.org>
-To: austin-group-l@opengroup.org, beh@peren.com
-Cc: 'Kobi Vinayagamoorthy' <kobiv@ca.ibm.com>, 'Rajan Bhakta'
- <rbhakta@us.ibm.com>, 'Sean Perry' <perry@ca.ibm.com>, 'Jia BJ Yu'
- <yujiabj@cn.ibm.com>
-Subject: IBM C90 Certification
-X-Mailer: Microsoft Outlook 16.0
-
-We've been asked by IBM to let you know that IBM has been branded by
-Perennial as conforming to the ISO/IEC C Standard for C Compilers for C90. A
-copy of the Branding Certificate is attached.
-
-=20
-
-Thank you,
-
-Barry Hedquist
-
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
-Barry E Hedquist
-
-Perennial, Inc.
-
-Tel: 1-904-280-2600
-
-Email: beh@peren.com
-
-=20
-
-
-
-
------ End forwarded message -----
-
---2r7ik7ssmhq2oy25
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmQl/UIACgkQ0Z6cfXEm
-bc7rfg//cb2275yDMqDbrOHo/lU5nYcWt8zWv8Bzcm31yJEJ/nor56h6FYWK/sTk
-2Er+0LJau5Q3klp+p949sAJdhoREIBdCK4TXmAEHqhRgBfndzKVhUzOwp/BJDfGz
-kck0zwIfHdFuBNYaMR9OwFGxvmXbXcBESlOSb0fGz7QosXsueNzEwV1hIDYeDYvp
-BGo8CjQ095ZBkiwHwEYYrGPD4kO/LiYTFOxmD6ZqzSn15iwq5pDRSJ4DIzPjNPWG
-l6LtUCeFZqzMeuzEDXPBhmf+Dqc18xcyFWTCAEFEaU/alAZ6zUmSyxT4j7TJKFzl
-m0FEgKwklqIEWwcjW4pXkf6N2lDORhOZ99FjpIgz+4TthEqs86ylUpYRclUXhY3g
-/pnnPf+onYBLVBI9PQM3fCLs0x+XROEFSCgBrYlufF9IgTjTowoXK0yp/T51du5y
-CViPg1L7o2H13ZC0CjlfasJc4UnhiSQ4oWnlC3aZd5CvLHQ2HC1tpgnXPbfV7iJY
-NdkMAfaLxwlYefvgW39dnuzNq3rXc687o5w5Ty+ZVhtXT94PAeLYQMQ+PfJ11hXx
-YBSFMtK7pv9sKLevH/vZMWakETxWDrwqqyglOMz8Ge9M/npuPqkBXxfCdxYhAVaC
-hI/ZeuPH+0K8LwTidPHpgpzLAASbho9Qz7AWqVnvL5kjSEcuTkg=
-=AT5x
------END PGP SIGNATURE-----
-
---2r7ik7ssmhq2oy25--
+> >> I suspect however there are reasons relating to locking that make it
+> >> unreasonable to try to do this, but I may be mistaken (others might have
+> >> some insight on this). I also see some complexity around this in the
+> >> security checks on marking shared writable mappings executable (e.g. in
+> >> mmap_violation_check()).
+> >>
+> >> In any case, it doesn't really make much sense to have a write-sealed
+> >> shared mapping, since you're essentially saying 'nothing _at all_ can write
+> >> to this' so it may as well be private. The semantics are unfortunate here,
+> >> the memory will still be shared read-only by MAP_PRIVATE mappings.
+> >>
+> >> A better choice here might be F_SEAL_FUTURE_WRITE (available from kernel
+> >>> =5.1) which does permit shared read-only mappings as this is explicitly
+> >> checked for in seal_check_future_write() invoked from shmem_mmap().
+> >>
+> >> Regardless, I think the conclusion is that this is not a bug, but rather
+> >> that the documentation needs to be updated.
+> >>
+> >
+> > Adding docs people to cc list (sorry didn't think to do this in first
+> > reply).
