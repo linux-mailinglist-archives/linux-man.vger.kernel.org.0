@@ -2,76 +2,73 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 628CD6D12D6
-	for <lists+linux-man@lfdr.de>; Fri, 31 Mar 2023 01:09:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 020C86D13CD
+	for <lists+linux-man@lfdr.de>; Fri, 31 Mar 2023 01:57:49 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230360AbjC3XJH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 30 Mar 2023 19:09:07 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40114 "EHLO
+        id S231138AbjC3X5s (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 30 Mar 2023 19:57:48 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51712 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229717AbjC3XJG (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 30 Mar 2023 19:09:06 -0400
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com [IPv6:2a00:1450:4864:20::430])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B5345CA0F
-        for <linux-man@vger.kernel.org>; Thu, 30 Mar 2023 16:09:04 -0700 (PDT)
-Received: by mail-wr1-x430.google.com with SMTP id j24so20711487wrd.0
-        for <linux-man@vger.kernel.org>; Thu, 30 Mar 2023 16:09:04 -0700 (PDT)
+        with ESMTP id S230340AbjC3X5r (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 30 Mar 2023 19:57:47 -0400
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com [IPv6:2a00:1450:4864:20::333])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F344BCA26
+        for <linux-man@vger.kernel.org>; Thu, 30 Mar 2023 16:57:45 -0700 (PDT)
+Received: by mail-wm1-x333.google.com with SMTP id j18-20020a05600c1c1200b003ee5157346cso14364492wms.1
+        for <linux-man@vger.kernel.org>; Thu, 30 Mar 2023 16:57:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1680217743; x=1682809743;
+        d=gmail.com; s=20210112; t=1680220664; x=1682812664;
         h=in-reply-to:references:cc:to:from:content-language:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Av1n10xk33xSufeg4CRILMjSpyX+kxczz9iuyx4Llp4=;
-        b=AYsPqF6LsA8HB0QIeBtQdt7BfrRe/R68aQ0Uiv9+FONmSO5IDFk0zOUk5rbrhVYEli
-         U2D5r0b+xmEM3RgFXhOa0whJkwVVHRy3/rRd5LzvGlRFpEWR8LEh5CfcAJ/ID9t9aidK
-         9dR4cBsuWdBR12692NjkH5plYG9Rl2tUUOPQko9lMdCnyQyYpRZH2iZzWXW/Hh4iw0o7
-         Go6bERxWhQ6/UTv7LkAI3KRqM0pY3Bp1WPm82wMPy7lFuKKB+Z7S5E/inoJff9lwa40+
-         KDUyn+s+7avPaPi1ZqB6zuU3qXvujDBN6IEDyo49qPcan1ALWALIgJZ07yFOhPqSnDAZ
-         xjgQ==
+        bh=Em/2yXPHi96K0bB1r2brvgsHW7qhTyIo8OdrnWfxeNc=;
+        b=C62l8CuT4KI9yTi6BghQSZq5YBWdkWP5sZkZLeEWWjKbFhJhWSY7yujG/LFg5pG/AU
+         6etRjImFMW+tnLfW5IJQSVRX+R5X1HF7MFWUk0mEEvj5/tWGxZlL4HPYsJ7VxDACYEdB
+         Tlxk6PdleKv7aPmxnfpR33jKFvQs5p8CGkklr0hDYlY1wb/BYPLspOsgfA032YQRvubL
+         jSZZPhfCU4lFtN7CwhEmnHNGxz/E7Hpamzf5ItnGvppJTXR4El3x5sG8NeitQpG30vtJ
+         wJHIn2IPRUvepZ+Im6EtM6p4sjASyp+i3MBDZ3AN5VAUxWZVjREKyO3JtgypyuVyZEDB
+         Y3dQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680217743; x=1682809743;
+        d=1e100.net; s=20210112; t=1680220664; x=1682812664;
         h=in-reply-to:references:cc:to:from:content-language:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=Av1n10xk33xSufeg4CRILMjSpyX+kxczz9iuyx4Llp4=;
-        b=RGcUZvfrDp5YqlUZd0usOWzo6rKLhzDvozL8l7jFIx8ioRpI/zPfLy+ezkMRxnwcKL
-         DnRWchHYnDckKIqkBxmXmkbGAMLuhSvyEgevdsWZQL7lvD1vRUg9xHpsRgoQoGzjyLVH
-         /us3lMF0hoQpaeHH1aBGy9Lg4pFhSoJWIq5uxW5ns8yvfmrPdUzlmXuKpTuLQ3LzRrmk
-         Ha6hGFa2ltDCoXXuBI3xar4JRHKy9bdebUF73p1P48LEcgV2ITCK7wSKrhf5ALE5WcXL
-         jaOqGgtcDBqbYi1A5ulwQwX5rFYsKcfQ5yQiP9WaItqGuZrJITCssECi1gUoxblRjs9P
-         PlSA==
-X-Gm-Message-State: AAQBX9c7YgHRxxYPW3KWsQ+qpFlX9l/6UOM8hX1LiOvevYn7u3RyoX4H
-        aYK9DsurlCaG5U2XE0F9BootqsOms80=
-X-Google-Smtp-Source: AKy350azF776BCifJIQuRt7pbbzMK812hMkfvIjFrso3x9ymU5B4BSTdeOQS9cWIWidBo8UtVLLoeA==
-X-Received: by 2002:adf:ed4c:0:b0:2e5:9101:e3ae with SMTP id u12-20020adfed4c000000b002e59101e3aemr685783wro.25.1680217742900;
-        Thu, 30 Mar 2023 16:09:02 -0700 (PDT)
+        bh=Em/2yXPHi96K0bB1r2brvgsHW7qhTyIo8OdrnWfxeNc=;
+        b=oEXKHl2EaTXBWwSDoo3DZ2efRnMXjDE9nRADCxzXJY0a4J0R7C6MC1Nv6yYett8jup
+         i6kKOP1R6hNqsc18xaXShLNeCMYz2/usUXx9L5nAStsB+8Plg7SdEzq9RmuoJ/RjWBYR
+         OcwvxpOMEj4p3f6P8Z8bb0UBDt3GAh/TrMVeBm/sb8d+mlEgkMwQ8pdoqVDySNmBwqDF
+         hNhka4v8XTg2a099q+WUmTxf6bSeJ2ZdFTGLXzYWI/NWcCmmP9SWOKOld1T3PzzGOGhr
+         spaJAPK/HDXO5DoAxP2ng0zp0mFAqbPQL13BorQPDKAhTNHx5ZS2rtUVd86qAjVo7TdX
+         uC3w==
+X-Gm-Message-State: AO0yUKVFjKgAsNLvaxg72+f5vwMazaQtItjnOsAugdeL3aVlO1Y+y9O9
+        TuSZsG3hcNqmIo1/hYRWQyw=
+X-Google-Smtp-Source: AK7set9SoT9q6Lra253DlLcJqpEIEUAQt99qrfJtwaqY8Yuv8pkyQ6267hzvQ1J+K8te1IPe4eFtLQ==
+X-Received: by 2002:a1c:f201:0:b0:3ee:6d55:8b68 with SMTP id s1-20020a1cf201000000b003ee6d558b68mr18892869wmc.37.1680220664362;
+        Thu, 30 Mar 2023 16:57:44 -0700 (PDT)
 Received: from [192.168.0.160] ([170.253.51.134])
-        by smtp.gmail.com with ESMTPSA id k17-20020adfe8d1000000b002c8ed82c56csm515440wrn.116.2023.03.30.16.09.02
+        by smtp.gmail.com with ESMTPSA id bd6-20020a05600c1f0600b003ef36ef3833sm7621474wmb.8.2023.03.30.16.57.43
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 30 Mar 2023 16:09:02 -0700 (PDT)
-Message-ID: <2a994c08-c324-06c6-384c-13a529f3f5ff@gmail.com>
-Date:   Fri, 31 Mar 2023 01:08:54 +0200
+        Thu, 30 Mar 2023 16:57:44 -0700 (PDT)
+Message-ID: <a60d2199-f35e-8812-77e1-226ac4912490@gmail.com>
+Date:   Fri, 31 Mar 2023 01:57:42 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
-Subject: Re: [patch] Add docs on mount namespace rootfs access and pid
- namespace pid mapping
+Subject: Ping: [PATCH] ioctl_pipe.2: Add.
 Content-Language: en-US
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-To:     Craig Ringer <craig.ringer@enterprisedb.com>,
-        linux-man@vger.kernel.org
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>,
-        "G. Branden Robinson" <g.branden.robinson@gmail.com>
-References: <CAGRY4nx5R6d5iH1SUZHEuJO+M67h1p1zLNQB_6F6X5GGBKFYeg@mail.gmail.com>
- <2678e0e8-0057-7b63-a3a0-9f49b57f0cf4@gmail.com>
-In-Reply-To: <2678e0e8-0057-7b63-a3a0-9f49b57f0cf4@gmail.com>
+To:     chrubis@suse.cz, linux-man@vger.kernel.org
+Cc:     David Howells <dhowells@redhat.com>
+References: <20220608124710.12647-1-chrubis@suse.cz>
+ <8f521c29-3822-0e04-9f67-9b832edd2d50@gmail.com>
+In-Reply-To: <8f521c29-3822-0e04-9f67-9b832edd2d50@gmail.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------Sp8qluySvsj6iC0aVG1jSo40"
+ boundary="------------YxtGSh6tBAu85yybHNDPY8ZP"
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-        DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-        autolearn_force=no version=3.4.6
+        DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
+        SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no
+        version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
@@ -79,336 +76,245 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------Sp8qluySvsj6iC0aVG1jSo40
-Content-Type: multipart/mixed; boundary="------------AElE44RHRUeOYNnyUcNCviKN";
+--------------YxtGSh6tBAu85yybHNDPY8ZP
+Content-Type: multipart/mixed; boundary="------------OxsPCHl0EFnzqMi00XnwANus";
  protected-headers="v1"
 From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Craig Ringer <craig.ringer@enterprisedb.com>, linux-man@vger.kernel.org
-Cc: Michael Kerrisk <mtk.manpages@gmail.com>,
- "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Message-ID: <2a994c08-c324-06c6-384c-13a529f3f5ff@gmail.com>
-Subject: Re: [patch] Add docs on mount namespace rootfs access and pid
- namespace pid mapping
-References: <CAGRY4nx5R6d5iH1SUZHEuJO+M67h1p1zLNQB_6F6X5GGBKFYeg@mail.gmail.com>
- <2678e0e8-0057-7b63-a3a0-9f49b57f0cf4@gmail.com>
-In-Reply-To: <2678e0e8-0057-7b63-a3a0-9f49b57f0cf4@gmail.com>
+To: chrubis@suse.cz, linux-man@vger.kernel.org
+Cc: David Howells <dhowells@redhat.com>
+Message-ID: <a60d2199-f35e-8812-77e1-226ac4912490@gmail.com>
+Subject: Ping: [PATCH] ioctl_pipe.2: Add.
+References: <20220608124710.12647-1-chrubis@suse.cz>
+ <8f521c29-3822-0e04-9f67-9b832edd2d50@gmail.com>
+In-Reply-To: <8f521c29-3822-0e04-9f67-9b832edd2d50@gmail.com>
 
---------------AElE44RHRUeOYNnyUcNCviKN
+--------------OxsPCHl0EFnzqMi00XnwANus
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi Craig,
+Hi Cyril,
 
-I'm checking old mail, and see that this thread was unresolved.  Do
-you still have this patch around and are interested in sending it?\
+I'm checking old mail, and found that this thread was unresolved.
+Do you still have that page around and would like to resend?
 
 Thanks,
-
 Alex
 
-On 3/14/22 15:05, Alejandro Colomar (man-pages) wrote:
-> Hi Craig,
+On 6/8/22 17:12, Alejandro Colomar wrote:
+> Hi Cyril,
 >=20
-> On 3/14/22 07:10, Craig Ringer wrote:
->> The attached 4-patch series adds information to the mount namespaces
->> and pid namespaces documentation to help users discover how to access
->> important related information.
+> On 6/8/22 14:47, chrubis@suse.cz wrote:
+>> From: Cyril Hrubis <chrubis@suse.cz>
 >>
->> 1. Elaborate on /proc/[pid]/root and x-ref it
->> 2. Mention /proc/$pid/status NSpid in pid_namespaces
->> 3. Mention pid namespaces /proc/[pid]/root/proc
->> 4. Additional namespaces related x-refs
->>
->> 1): Mention /proc/[pid]/root in mount_namespaces(7) to help people
->> discover how to access the file system tree seen by a process in
->> another mount namespace. In the proc (5) entry for it, warn about the
->> possibly-confusing semantics of readlink() vs following the path in
->> the vfs layer.
->>
->>   Adding because I found it difficult to figure out how to access the
->> file system seen by another process in a disjoint chroot in a
->> non-ancestor mount namespace.
->>
->> 2): Mention the /proc/[pid]/status NSpid field and related fields in
->> pid_namespaces (7) to help people discover how to map process IDs
->> between a parent namespace and any child namespace(s) the process is
->> in.
->>
->>   Adding because I found it difficult to discover how to map pids
->> between namespaces.
->>
->> 3): Mention how /proc/[pid]/root/proc behaves when [pid] is in a
->> different pid namespace. It's useful to know that you can see another
->> process's view of procfs via its /proc/[pid]/root link.
->>
->> 4): Some minor cross-references and see-alsos that would've helped me
->> during unrelated past efforts.
+>> Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
 >=20
-> PATCH 1/4:
+> Please check a few things below.  Thanks for the page.
 >=20
->> Subject: [PATCH v1 1/4] Elaborate on /proc/[pid]/root and x-ref it
+> Also, the title could be a little bit clearer; maybe "Add page".
 >=20
-> Please mention the modified page(s) in the Subject line.
-> See <https://www.kernel.org/doc/man-pages/patches.html>.
->=20
-> Also, per the same documentation, please send the patches inline (or
-> inline + attached if your mailer is likely to break the patches) if you=
-
-> can, since it's easier for us to review and work with them.
->=20
->>
->> Mention /proc/[pid]/{root,cwd,exe,fds} in mount_namespaces (7)
->> to help users understand how to access the file system tree of
->> a process in different mount namespace and possibly-disjoint
->> chroot.
->>
->> In proc (5) provide a little more detail on how links like
->> /proc/[pid]/root behave when read with readlink (2) vs when
->> resolved via kernel vfs layer path lookup. It can be quite confusing
->> that "readlink /proc/$pid/root" prints "/" so
->> "ls $(readlink /proc/$pid/root)" has the same result as "ls /" but
->> "ls /proc/$pid/root/" actually lists the target pid's root.
->>
->> Signed-off-by: Craig Ringer <craig.ringer@2ndquadrant.com>
->> ---
->>  man5/proc.5             | 29 ++++++++++++++++++++++++++++-
->>  man7/mount_namespaces.7 | 14 ++++++++++++++
->>  2 files changed, 42 insertions(+), 1 deletion(-)
->>
->> diff --git a/man5/proc.5 b/man5/proc.5
->> index c6684620e..2eed160e2 100644
->> --- a/man5/proc.5
->> +++ b/man5/proc.5
->> @@ -658,6 +658,12 @@ are not available if the main thread has already =
-terminated
->>  (typically by calling
->>  .BR pthread_exit (3)).
->>  .IP
->> +If the process is in a chroot and/or a different mount namespace, rea=
-ding the
->=20
-> Please use semantic newlines
-> (i.e., break after that comma, instead of just before col 80).
-> See man-pages(7):
->=20
-> STYLE GUIDE
->        [...]
->    Use semantic newlines
->        In the source of a manual page, new sentences  should  be
->        started on new lines, long sentences should be split into
->        lines  at  clause breaks (commas, semicolons, colons, and
->        so on), and long clauses should be split at phrase bound=E2=80=90=
-
->        aries.  This convention,  sometimes  known  as  "semantic
->        newlines",  makes it easier to see the effect of patches,
->        which often operate at the level of individual sentences,
->        clauses, or phrases.
->=20
->> +symlink path will return the executable path relative to the process'=
-s root.
->> +Opening the path within the kernel vfs layer will yield the actual ex=
-ecutable
->> +contents even if  the path does may not exist within the currently ac=
-tive mount
->> +namespace.
->> +.IP
->>  Permission to dereference or read
->>  .RB ( readlink (2))
->>  this symbolic link is governed by a ptrace access mode
->> @@ -1830,7 +1836,8 @@ and
->>  .IP
->>  Note however that this file is not merely a symbolic link.
->>  It provides the same view of the filesystem (including namespaces and=
- the
->> -set of per-process mounts) as the process itself.
->> +set of per-process mounts) as the process itself
->> +if dereferenced via the kernel vfs layer.
->>  An example illustrates this point.
->>  In one terminal, we start a shell in new user and mount namespaces,
->>  and in that shell we create some new mounts:
->> @@ -1866,6 +1873,26 @@ sh2# \fBls /usr | wc \-l\fP                  # =
-/usr in initial NS
->>  .EE
->>  .in
->>  .IP
->> +If the target process is in a different mount namespace
->> +and has a different root, following the
->> +.B /proc/[pid]/root
->> +link directly will resolve paths relative to the target
->> +process's root. But
->> +.BR readlink (2)
->> +will return the root path as seen from within the target process's mo=
-unt
->> +namespace. Tools that canonicalize paths or resolve symbolic links in=
-
->=20
-> Always start sentences after '.' in a new line.
-> That's already covered by "semantic newlines" (see above),
-> but it's especially important in this case because
-> groff(1) prints (at least) 2 spaces after '.' normally,
-> but if you write it this way it doesn't.
->=20
-> BTW, Branden,
-> I CCd you because I didn't find this documented in groff(7),
-> or at least I couldn't find it.
-> I tried /\.[^ [a-z]] and also keywords like period, point or dot,
-> but no luck.
-> Is it documented anywhere?
->=20
->> +user-space will not be able to see the target process's root. So
->> +.B ls $(realpath /proc/[pid]/root)
->=20
-> Commands should use italics (.I) instead of bold (.B).
-> See man-pages(7):
->=20
-> [
-> STYLE GUIDE
->        [...]
->    Formatting conventions (general)
->        [...]
->        Complete commands should, if long, be written as  an  in=E2=80=90=
-
->        dented  line  on  their own, with a blank line before and
->        after the command, for example
->=20
->            man 7 man-pages
->=20
->        If the command is short, then it can be  included  inline
->        in  the  text,  in italic format, for example, man 7 man-
->        pages.  In this case, it may be worth  using  nonbreaking
->        spaces  (\~)  at suitable places in the command.  Command
->        options should be written in italics (e.g., -l).
-> ]
->=20
-> Variable text inside running italics should be in roman.
-> So instead of writing [pid], you should use:
-> .IR "ls $(realpath /proc/" pid /root)
->=20
-> See groff_man_style(7):
->=20
-> [
-> Description
->        [...]
->    Font style macros
->        [...]
->        .I [text]
->               Set text in italics.  If the macro is given no ar=E2=80=90=
-
->               guments, the text of the next input line is set in
->               italics.
->=20
->               Use italics for file and path names, for  environ=E2=80=90=
-
->               ment  variables, for C data types, for enumeration
->               or  preprocessor  constants  in  C,  for  variable
->               (user-determined) portions of syntax synopses, for
->               the first occurrence (only) of a technical concept
->               being  introduced,  for  names  of journals and of
->               literary works longer than an  article,  and  any=E2=80=90=
-
->               where  a  parameter  requiring  replacement by the
->               user is encountered.  An exception involves  vari=E2=80=90=
-
->               able  text  in a context that is already marked up
->               in italics, such as file or path names with  vari=E2=80=90=
-
->               able components; in such cases, follow the conven=E2=80=90=
-
->               tion  of  mathematical typography: set the file or
->               path name in italics as usual but  use  roman  for
->               the  variable  part  (see  .IR and .RI below), and
->               italics again in running roman text when referring
->               to the variable material.
-> ]
->=20
->> +will expand to
->> +.B ls /
->> +and print the root of the invoking shell, but
->> +.B ls /proc/[pid]/root/
->> +will list the contents of
->> +.B /
->> +as seen by [pid]. See
->=20
-> In this case, use:
-> .IR pid .
->=20
-> Se rationale above.
->=20
->> +.BR mount_namespaces (7)
->> +for details.
->> +.IP
->>  .\" The following was still true as at kernel 2.6.13
->>  In a multithreaded process, the contents of the
->>  .I /proc/[pid]/root
->=20
-> BTW, I now realize that the manual page is currently incorrectly
-> formatted according to what I just said above.
-> So, please don't fix that in your patch,
-> so that the whole page is consistent with itself,
-> and I'll fix the whole page after your patch
-> (and some other pages that seem to the same problem). :)
->=20
->> diff --git a/man7/mount_namespaces.7 b/man7/mount_namespaces.7
->> index 7725b341f..98bfd864c 100644
->> --- a/man7/mount_namespaces.7
->> +++ b/man7/mount_namespaces.7
->> @@ -75,6 +75,20 @@ and
->>  in either mount namespace will not (by default) affect the
->>  mount list seen in the other namespace
->>  (but see the following discussion of shared subtrees).
->> +.PP
->> +The pseudo-symlinks
->> +.IR /proc/[pid]/exe ,
->> +.IR /proc/[pid]/root ,
->> +.IR /proc/[pid]/fds ,
->> +and
->> +.IR /proc/[pid]/cwd
->> +provide views into the mount namespace of
->> +.IR [pid]
->> +from outside that namespace.
->> +These links provide a way to access the mount namespace seen by anoth=
-er process
->> +- even if its root is disjoint from the current process's root. See
->> +.BR proc (5)
->> +for details and caveats.
->>  .\"
->>  .SH SHARED SUBTREES
->>  After the implementation of mount namespaces was completed,
->> --=20
->> 2.34.1
->>
->=20
-> Thanks!
+> Cheers,
 >=20
 > Alex
+>=20
+>> ---
+>>   man2/ioctl_pipe.2 | 75 +++++++++++++++++++++++++++++++++++++++++++++=
+++
+>>   1 file changed, 75 insertions(+)
+>>   create mode 100644 man2/ioctl_pipe.2
+>>
+>> diff --git a/man2/ioctl_pipe.2 b/man2/ioctl_pipe.2
+>> new file mode 100644
+>> index 000000000..e60bc2134
+>> --- /dev/null
+>> +++ b/man2/ioctl_pipe.2
+>> @@ -0,0 +1,75 @@
+>> +.\" Copyright (c) 2022 by Cyril Hrubis <chrubi@suse.cz>
+>> +.\"
+>> +.\" %%%LICENSE_START(VERBATIM)
+>> +.\" Permission is granted to make and distribute verbatim copies of t=
+his
+>> +.\" manual provided the copyright notice and this permission notice a=
+re
+>> +.\" preserved on all copies.
+>> +.\"
+>> +.\" Permission is granted to copy and distribute modified versions of=
+ this
+>> +.\" manual under the conditions for verbatim copying, provided that t=
+he
+>> +.\" entire resulting derived work is distributed under the terms of a=
+
+>> +.\" permission notice identical to this one.
+>> +.\"
+>> +.\" Since the Linux kernel and libraries are constantly changing, thi=
+s
+>> +.\" manual page may be incorrect or out-of-date.  The author(s) assum=
+e no
+>> +.\" responsibility for errors or omissions, or for damages resulting =
+from
+>> +.\" the use of the information contained herein.  The author(s) may n=
+ot
+>> +.\" have taken the same level of care in the production of this manua=
+l,
+>> +.\" which is licensed free of charge, as they might when working
+>> +.\" professionally.
+>> +.\"
+>> +.\" Formatted or processed versions of this manual, if unaccompanied =
+by
+>> +.\" the source, must acknowledge the copyright and authors of this wo=
+rk.
+>> +.\" %%%LICENSE_END
+>=20
+> Could you please add just an SPDX-License-Identifier?  I removed the=20
+> actual license texts recently to have less overhead lines.
+>=20
+> See=20
+> <https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/man=
+2/pipe.2?h=3Dalx/main&id=3D5fbde956cb550ffeae83c31e4f8c1142544f4b4f>
+>=20
+>> +.\"
+>> +.\"
+>> +.TH IOCTL_PIPE 2 2022-08-06 "Linux" "Linux Programmer's Manual"
+>> +.SH NAME
+>> +ioctl_pipe \- ioctl() operations for General notification mechanism
+>> +.SH SYNOPSIS
+>> +.nf
+>> +.B #include <linux/watch_queue.h>
+>> +.PP
+>> +.BI "int ioctl(int " pipefd[1] ", IOC_WATCH_QUEUE_SET_SIZE, int " siz=
+e ");
+>> +.PP
+>=20
+> You can remove that .PP to get the two prototypes together.  I looks=20
+> nicer, IMO.
+>=20
+> See man-pages(7):
+>     SYNOPSIS
+>         Wrap the function prototype(s) in a .nf/.fi pair to  pre-
+>         vent filling.
+>=20
+>         In  general,  where  more  than one function prototype is
+>         shown in the SYNOPSIS, the prototypes should not be sepa-
+>         rated by blank lines.  However, blank lines (achieved us-
+>         ing .PP) may be added in the following cases:
+>=20
+>         *  to separate long lists of function prototypes into re-
+>            lated groups (see for example list(3));
+>=20
+>         *  in other cases that may improve readability.
+>=20
+>=20
+>> +.BI "int ioctl(int " pipefd[1] ", IOC_WATCH_QUEUE_SET_FILTER, struct =
+watch_notification_filter * " filter ");
+>=20
+> This gets past the 80-col margin.  Check for example openat2(2) for a=20
+> solution.
+>=20
+>> +.fi
+>> +.PP
+>> +.SH DESCRIPTION
+>> +The following
+>> +.BR ioctl (2)
+>> +operations are provided to set up a general notification queue parame=
+ters.
+>=20
+> s/a //   ?
+>=20
+>> +The notification queue is build on the top of a
+>=20
+> s/build/built/
+>=20
+>> +.BR pipe (2)
+>> +opened with
+>=20
+> s/with/with the/
+>=20
+>> +.B O_NOTIFICATION_PIPE
+>> +flag.
+>> +.TP
+>> +.BR IOC_WATCH_QUEUE_SET_SIZE " (since Linux 5.8)"
+>> +.\" commit c73be61cede5882f9605a852414db559c0ebedfd
+>> +Preallocates the pipe buffer memory so that it can fit size notificat=
+ion messages. Currently the size must be between 1 and 512.
+>> +.TP
+>> +.BR IOC_WATCH_QUEUE_SET_FILTER " (since Linux 5.8)"
+>> +.\" commit c73be61cede5882f9605a852414db559c0ebedfd
+>> +Watch queue filter, if set, can limit events that are received.
+>=20
+> Of course if set, isn't it?  I mean, if it's not set, it can't do=20
+> nothing.  Do we need to specify "if set"? :)
+>=20
+>> +Filters are passed in a \fIstruct watch_notification_filter\fP
+>=20
+> .I struct watch_notification_filter
+>=20
+>> +and each filter is described by \fIstruct watch_notification_type_fil=
+ter\fP structure.
+>=20
+> .I str [...] ilter
+>=20
+>> +
+>=20
+> .PP
+>=20
+> See man-pages(7):
+>     Formatting conventions (general)
+>         Paragraphs  should be separated by suitable markers (usu-
+>         ally either .PP or .IP).  Do not separate paragraphs  us-
+>         ing  blank  lines,  as  this results in poor rendering in
+>         some output formats (such as PostScript and PDF).
+>=20
+>> +.EX
+>> +struct watch_notification_filter {
+>> +        __u32   nr_filters;
+>> +        __u32   __reserved;
+>> +        struct watch_notification_type_filter filters[];
+>> +};
+>> +
+>> +struct watch_notification_type_filter {
+>> +        __u32   type;
+>> +        __u32   info_filter;
+>> +        __u32   info_mask;
+>> +        __u32   subtype_filter[8];
+>> +};
+>> +.EE
+>> +
+>=20
+> .PP
+>=20
+>> +.SH SEE ALSO
+>> +.BR pipe (2),
+>> +.BR ioctl (2)
+>=20
+> | sort
+>=20
 >=20
 
 --=20
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
---------------AElE44RHRUeOYNnyUcNCviKN--
+--------------OxsPCHl0EFnzqMi00XnwANus--
 
---------------Sp8qluySvsj6iC0aVG1jSo40
+--------------YxtGSh6tBAu85yybHNDPY8ZP
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQmFoYACgkQnowa+77/
-2zJc0A//XtEPr89AL0Dtc+9Uit5OGaClHWrrUbEYqaU2xKB1lu9cP9nfzwzOxj+N
-YD7iyomSpVqH1xv3+qkp5tJkEpuNd+0xelAMOjwL3vHbWM60nzzldIT5kRmiYv7g
-d0uXZQT0s6LV+6a3yt56kKnsYYs14wBhS45QIR6Kgcyk817rLv3YRuVbR0U52Gpm
-1u7emjPrOuPQy5iuFfTBxWLrQSNatVQpGas2Zji1uvezHSjqdjVxfXDUI7vD4Pwk
-8eAlczBW63jgzbUvG6sajUb5Zgt/Nca0tXo62U5WKqnNwreY5Yu8wSLTBTOpHaI+
-Y98qd3MYTuA1cI6EAPRlB72Rbjhu0sPBASaf1Xy07pXtBU0AIIzAcA5MyY4WvVxV
-TNgbTzSI99mqdjEQeBymj1QaNFgQZBalln4xDh6O2p+O6WZX1k7AzbWZmDwIrNr/
-SMfPJFoC2scil9e1WOE2HYGitsQ91xB/cqyvdZJi3R2nGccyYjzJ2MOTl8CAZfwP
-F46M0NdUzlMpzyJtxcyktCIVttDtN9S19YBBJTPvZy3vSDvUFp4vKWWlLanR4aB5
-O6+pRNtafDs5NqPf6YvE9OnApEHOsx+5G4HDRaWhrL2ZK0poEtXlmfs4VocEjVjU
-H8ET1Voob0je2vFpfXiIjgJMfOe7q3A3jyUNnbLniGCV6fy7IBI=
-=LnqN
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQmIfcACgkQnowa+77/
+2zLaeg/8CC4fBsZ9ivj+O/AnSaxq9IDZeuuU4lPqTen66mfEGSgReO3QOM8I7yKy
+9RKv8+6RtI5ThFNtHfPxpqpB9KZ8pe8dFRnTaHUD9AZqfE/Rq2qH+Y7AdFOTgKXi
+XL8v8CnR3vAwTviSnr3Gmne9r+zT7QWcbNjnI4AKTFYJbQDnk2WvBW/Phf+2tw80
+lKigXDJLupRfAQtyquHVyU/vis9QQUtaLqrkoI6A81cQIcsl4nzST0ynvzFvAr8I
+E5iAs62wsblP3UIyURMDUUTJrs/dXVQPrJd25LTO38wa8mo+NIQJRAgOWHwqQ9Tm
+IhT03IhfmbttBsJg74CH3kNnZthiz9d7HwZEC8CDBcdxjG3oDlKuWXj+NruH0if/
+HQZb5BLeCjDvgeNFNB7uhaqRr3Yj3QVmfIk5LUL5V/NsHY/It0MnIs8UmGtm/883
+Z3QtBultJ8ht6tFXVh42GUs1nP85xFMjzhlMjg+Aa9YnCO7IXICfo3mWAUT+zSDs
+EvJR9AgIgaqnFUQeZ9/qoAq36O0T8fHmkXttAvQsONL5XiwSLkHoIW8CczkPTPjp
+tafPJZrL5LWBJgQ7oYBW/HjpR1di1Fdn6pj8nmn8UJTGzEsEVgYdph99xgc0nQmR
++iHxvcmlHqiy0VzKOHzeEPSc/Oxd1byujAKrg1QuvKCtS+bPX7k=
+=BX/P
 -----END PGP SIGNATURE-----
 
---------------Sp8qluySvsj6iC0aVG1jSo40--
+--------------YxtGSh6tBAu85yybHNDPY8ZP--
