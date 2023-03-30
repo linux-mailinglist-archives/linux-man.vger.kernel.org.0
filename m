@@ -2,130 +2,214 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id EF7BB6D0E03
-	for <lists+linux-man@lfdr.de>; Thu, 30 Mar 2023 20:43:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CC6666D0E63
+	for <lists+linux-man@lfdr.de>; Thu, 30 Mar 2023 21:12:16 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231591AbjC3SnA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 30 Mar 2023 14:43:00 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45834 "EHLO
+        id S229967AbjC3TMO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 30 Mar 2023 15:12:14 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45376 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231616AbjC3Smy (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 30 Mar 2023 14:42:54 -0400
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com [IPv6:2a00:1450:4864:20::42c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BF022CDEE;
-        Thu, 30 Mar 2023 11:42:39 -0700 (PDT)
-Received: by mail-wr1-x42c.google.com with SMTP id i9so20074427wrp.3;
-        Thu, 30 Mar 2023 11:42:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1680201758;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=2fPzEeGQfGKvHIpXtPehtZ0JbbS+swuQ9EVmGDwLLEA=;
-        b=HtX6Y03xeHioKLx988e7xQQTyhBoTywZuRNy6+OykxZQBG5iRT44BecKWnsodswzHS
-         BRBk6JAs6fcVQPxzviOyWoLE/5Hn4mcTelCx6DMpFosKX8gwIlWIOhgw1eG9lfmR3i6/
-         7IaqyAxWjpo2XirEuGXrbU47ZVDiRhy8D06oZyhDaRwqK0oCC8I6yway9QTohJjGRJ5r
-         XrTTBPlqsVCzwoT5nC4dSWB2A+I/9FuopwgBoXIyBhGDCXghl6EyhJ6pYj3/3k1EBPBl
-         pGLb+BbaeoyXUNUDtRx88GIDER/WTZVP0rr89eo4RnEXS2Z/v0F4Ql7fxC7Js3gHe4AB
-         +L6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680201758;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=2fPzEeGQfGKvHIpXtPehtZ0JbbS+swuQ9EVmGDwLLEA=;
-        b=5HYA2UYVgXMO3B1XCC7KQIrv64ftWGyuIug0aLGBNficjFM970NQCJSxX1fHTbKPPL
-         2Pj7C0Uf/BqCS2xBtRdshRfBGCqblQAN68kAbQZnRd+bdaGwjrENoKXUqUo41WqNw3MR
-         wP0MBkieh2W+Tfdt2c/WMwvseXi0o+1OmKACsU7ympA8p41OolwSjqSW77EGp+anIB5N
-         b6sAb3mwkkDE5UIkkUU9tVlIGBNaBuf8MYUHjCPG/hInw5B755y8JWTyiNNkm4MLhxod
-         nzJHfrW39ZGLBLTyc42OGCv/UpwP9hEIC/xuZ2N4gJfWJidlBOnOeKjfHXSHkA+NfgMe
-         InKw==
-X-Gm-Message-State: AAQBX9cWCwo6+XnRVqYfPhqgMAekJmzkTM20wvv7ePSKp0PXy/oquPmI
-        CJzTjHOlUMbokzcaPhENI6Q=
-X-Google-Smtp-Source: AKy350Y5DDfVY64K5seLH5yUFT65ouB/N/TVyyiwQ6GJYaZBgTP1CSO3OTSCDVHGopJOmaiElejokg==
-X-Received: by 2002:adf:db4b:0:b0:2d9:eb77:90d2 with SMTP id f11-20020adfdb4b000000b002d9eb7790d2mr17610492wrj.70.1680201758038;
-        Thu, 30 Mar 2023 11:42:38 -0700 (PDT)
-Received: from localhost (host86-156-84-164.range86-156.btcentralplus.com. [86.156.84.164])
-        by smtp.gmail.com with ESMTPSA id q9-20020a5d61c9000000b002cfe3f842c8sm70489wrv.56.2023.03.30.11.42.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Mar 2023 11:42:37 -0700 (PDT)
-Date:   Thu, 30 Mar 2023 19:42:36 +0100
-From:   Lorenzo Stoakes <lstoakes@gmail.com>
-To:     stsp <stsp2@yandex.ru>
-Cc:     Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-        linux-mm@kvack.org, Brian Geffon <bgeffon@google.com>,
-        Li Xinhai <lixinhai.lxh@gmail.com>,
-        Dmitry Safonov <0x7f454c46@gmail.com>,
-        linux-api@vger.kernel.org, linux-man@vger.kernel.org,
-        Michael Kerrisk <mtk.manpages@gmail.com>
-Subject: Re: MREMAP_DONTUNMAP corrupts initial mapping
-Message-ID: <498d7a19-2b29-46ea-9c34-ec8fb7394e6c@lucifer.local>
-References: <aee53ac3-6d25-5009-7416-3f7c5fe1f989@yandex.ru>
- <38c80313-ba1c-092c-ae31-f58fe6ffa82c@yandex.ru>
+        with ESMTP id S229475AbjC3TMO (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 30 Mar 2023 15:12:14 -0400
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A682AF742
+        for <linux-man@vger.kernel.org>; Thu, 30 Mar 2023 12:11:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1680203479;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         content-transfer-encoding:content-transfer-encoding:
+         in-reply-to:in-reply-to:references:references;
+        bh=M7bnFoaEaHXxU/Erap+/ivfOplD6BFSq98xp5K6Cc8Q=;
+        b=FlSpnZkJQPnWHgSBxofk97znQS8oRZHNoUgailkDoOroghWAOlpdIwxaqQCcOgZXyQO9Gl
+        uxclPxY5gMRlr34RAm/wM6FyemLAhV1Cj4KSJfGL/QHsCjUBLfbUV8z1/dQVz1aQ/1Mefy
+        QPtlaQT4ty+os4TH+IVecbTkjwFuQM4=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-63-CIdP-iX8OIukHCKRYS43QA-1; Thu, 30 Mar 2023 15:11:16 -0400
+X-MC-Unique: CIdP-iX8OIukHCKRYS43QA-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C3C6C87B2B5;
+        Thu, 30 Mar 2023 19:11:15 +0000 (UTC)
+Received: from redhat.com (unknown [10.2.16.50])
+        by smtp.corp.redhat.com (Postfix) with ESMTPS id 286E51121330;
+        Thu, 30 Mar 2023 19:11:14 +0000 (UTC)
+Date:   Thu, 30 Mar 2023 14:11:12 -0500
+From:   Eric Blake <eblake@redhat.com>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org, Alejandro Colomar <alx@kernel.org>,
+        Bastien =?utf-8?Q?Roucari=C3=A8s?= <rouca@debian.org>,
+        glibc <libc-alpha@sourceware.org>, GCC <gcc@gcc.gnu.org>,
+        Stefan Puiu <stefan.puiu@gmail.com>,
+        Igor Sysoev <igor@sysoev.ru>, Rich Felker <dalias@libc.org>,
+        Andrew Clayton <andrew@digital-domain.net>,
+        Richard Biener <richard.guenther@gmail.com>,
+        Zack Weinberg <zack@owlfolio.org>,
+        Florian Weimer <fweimer@redhat.com>,
+        Joseph Myers <joseph@codesourcery.com>,
+        Jakub Jelinek <jakub@redhat.com>, Sam James <sam@gentoo.org>
+Subject: Re: [PATCH] sockaddr.3type: Document that sockaddr_storage is the
+ API to be used
+Message-ID: <ga44kb7s2atbgl6exbjvpffp6czurhxff4nxf7ugflyfpjhlb5@pvwnm2udgso5>
+References: <20230330171310.12330-1-alx@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <38c80313-ba1c-092c-ae31-f58fe6ffa82c@yandex.ru>
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-        DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
-        SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no
-        version=3.4.6
+In-Reply-To: <20230330171310.12330-1-alx@kernel.org>
+User-Agent: NeoMutt/20230322
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
+        RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_NONE autolearn=unavailable
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Thu, Mar 30, 2023 at 07:45:14PM +0500, stsp wrote:
-> Add a few CCs.
->
-> 30.03.2023 17:38, stsp пишет:
-> > Hello.
-> >
-> > Attached is a small test-case that
-> > demonstrates the problem.
-> > The problem happens if you change
-> > some data in a file-backed private
-> > mapping and then use mremap on
-> > it with MREMAP_DONTUNMAP flag.
-> > The result is:
-> > - destination copy is valid
-> > - source copy restored from the original file
-> >
-> > So the 2 copies do not match.
+On Thu, Mar 30, 2023 at 07:13:11PM +0200, Alejandro Colomar wrote:
+> POSIX.1 Issue 8 will fix the long-standing issue with sockaddr APIs,
+> which inevitably caused UB either on user code, libc, or more likely,
+> both.  sockaddr_storage has been clarified to be implemented in a manner
+> that aliasing it is safe (suggesting a unnamed union, or other compiler
+> magic).
+> 
+> Link: <https://www.austingroupbugs.net/view.php?id=1641>
+> Reported-by: Bastien Roucariès <rouca@debian.org>
+> Reported-by: Alejandro Colomar <alx@kernel.org>
+> Cc: glibc <libc-alpha@sourceware.org>
+> Cc: GCC <gcc@gcc.gnu.org>
+> Cc: Eric Blake <eblake@redhat.com>
+> Cc: Stefan Puiu <stefan.puiu@gmail.com>
+> Cc: Igor Sysoev <igor@sysoev.ru>
+> Cc: Rich Felker <dalias@libc.org>
+> Cc: Andrew Clayton <andrew@digital-domain.net>
+> Cc: Richard Biener <richard.guenther@gmail.com>
+> Cc: Zack Weinberg <zack@owlfolio.org>
+> Cc: Florian Weimer <fweimer@redhat.com>
+> Cc: Joseph Myers <joseph@codesourcery.com>
+> Cc: Jakub Jelinek <jakub@redhat.com>
+> Cc: Sam James <sam@gentoo.org>
+> Signed-off-by: Alejandro Colomar <alx@kernel.org>
+> ---
+> 
+> Hi all,
+> 
+> This is my proposal for documenting the POSIX decission of fixing the
+> definition of sockaddr_storage.  Bastien, I believe you had something
+> similar in mind; please review.  Eric, thanks again for the fix!  Could
+> you please also have a look at this?
+> 
+> Cheers,
+> 
+> Alex
+> 
+>  man3type/sockaddr.3type | 22 ++++++++++++++++++++++
+>  1 file changed, 22 insertions(+)
+> 
+> diff --git a/man3type/sockaddr.3type b/man3type/sockaddr.3type
+> index 32c3c5bd0..d1db87d5d 100644
+> --- a/man3type/sockaddr.3type
+> +++ b/man3type/sockaddr.3type
+> @@ -23,6 +23,14 @@ .SH SYNOPSIS
+>  .PP
+>  .B struct sockaddr_storage {
+>  .BR "    sa_family_t     ss_family;" "      /* Address family */"
+> +.PP
+> +.RS 4
+> +/* This structure is not really implemented this way.  It may be
+> +\&   implemented with an unnamed union or some compiler magic to
+> +\&   avoid breaking aliasing rules when accessed as any other of the
+> +\&   sockaddr_* structures documented in this page.  See CAVEATS.
+> +\& */
 
-This seems to be a case of the documentation not quite being correct in the
-case of a MAP_PRIVATE file mapping, from the mremap man page discussing
-MREMAP_DONTUNMAP:-
+Do we want similar comments in struct sockaddr and/or sockaddr_XX?
 
-    After completion, any access to the range specified by old_address and
-    old_size will result in a page fault.  The page fault will be han‐ dled
-    by a userfaultfd(2) handler if the address is in a range previously
-    registered with userfaultfd(2).  Otherwise, the kernel allocates a
-    zero-filled page to handle the fault.
+> +.RE
+>  .B };
+>  .PP
+>  .BR typedef " /* ... */ " socklen_t;
+> @@ -122,6 +130,20 @@ .SH NOTES
+>  .I <netinet/in.h>
+>  and
+>  .IR <sys/un.h> .
+> +.SH CAVEATS
+> +To avoid breaking aliasing rules,
+> +programs that use functions that receive pointers to
+> +.I sockaddr
+> +structures should declare objects of type
+> +.IR sockaddr_storage ,
+> +which is defined in a way that it
+> +can be accessed as any of the different structures defined in this page.
+> +Failure to do so may result in Undefined Behavior.
 
-This documents what happens with the combination of MREMAP_DONTUNMAP and
-_anonymous_ mappings. This is accurate in the anonymous mapping case
-because after move_page_tables() the VMA remains the same but accesses
-cause page faults which will map the zero page.
+Existing POSIX already requires sockaddr_storage to be suitably sized
+and aligned to overlay with all other sockaddr* types.  What the
+recent POSIX bug change does is add wording to emphasize that casts in
+any of the 6 directions:
 
-However, MAP_PRIVATE file-backed mappings have different semantics - if the
-page table mappings are invalidated in any way (typically due to file
-truncation) then, on fault, the mappings revert to a CoW of the page cache
-entries, which is exactly what is happening here.
+sockaddr* <-> sockaddr_XX*
+sockaddr_storage* <-> sockaddr*
+sockaddr_storage* <-> sockaddr_XX*
 
-I think this is probably the behaviour you want because fundamentally the
-VMAs in both cases map a file and these are the semantics associated with a
-MAP_PRIVATE file mapping. You'd otherwise have to either change the
-original VMA to be a wholly anonymous mapping (which would cause surprising
-behaviour on truncation) or you'd have to explicitly zero the memory and
-CoW it in which doesn't really sound appealing either.
+must allow the sa_family/ss_family/sa_family_t member to overlay
+without triggering undefined behavior due to bad aliasing, at which
+point, access to that member lets you deduce what other object type
+you really have.  But you are also correct that merely casting a
+pointer to another larger struct that doesn't trigger aliasing, but
+then dereferencing beyond the bounds of the original, is not intended
+to be portable.  The aliasing diagnostics are suppressed because of
+the requirements on the first member, so now the user must now be
+careful that their access of remaining members is safe even if the
+compiler is no longer helping them because of the magic that
+suppressed the aliasing detection.
 
-Overall this strikes me as a problem with the documentation being a bit
-outdated since MREMAP_DONTUNMAP was extended to non-anonymous mappings [1]
-and ultimately needs a slightly tweaked explanation to cover this case.
+I agree with your warning that code that can handle generic socket
+types should use sockaddr_storage (and not sockaddr) as the original
+object (the one object that the standard requires to be suitably sized
+and aligned to overlay with the entirety of all other sockaddr types,
+rather than just the sa_family_t first member), although we may want
+to be more precise that code using a specific protocol type can
+directly use the proper sockaddr_XX type rather than having to use an
+intermediate sockaddr_storage.
 
-CC-ing Michael, manpages/api lists accordingly.
+I'm not sure if there are better ways to word that paragraph to convey
+the intended sentiment.
 
-[1]:https://lore.kernel.org/all/20210323182520.2712101-1-bgeffon@google.com/
+> +.PP
+> +New functions should be written to accept pointers to
+> +.I sockaddr_storage
+> +instead of the traditional
+> +.IR sockaddr .
+
+I'm less certain about this one.  The POSIX wording specifically chose
+to keep existing API/ABI of sockaddr* in all the standardized
+functions unchanged, as it would be too invasive to existing code to
+change the signatures now.  The burden is on the system headers to
+define types so that the necessary casts (present in lots of existing
+code because sockaddr* has a bit more type-safety than void*) do not
+of themselves cause aliasing issues, and therefore avoid undefined
+behavior provided subsequent code accessing through the pointers is
+not accessing beyond the bounds of the real object.  The likelihood of
+POSIX adding new socket APIs taking sockaddr_storage* just to enforce
+non-aliasing seems slim.  But then again, this advice applies to more
+than just functions likely to be standardized in a future libc, so
+maybe this paragraph is worth it after all.
+
+>  .SH SEE ALSO
+>  .BR accept (2),
+>  .BR bind (2),
+> -- 
+> 2.39.2
+> 
+
+-- 
+Eric Blake, Principal Software Engineer
+Red Hat, Inc.           +1-919-301-3266
+Virtualization:  qemu.org | libvirt.org
+
