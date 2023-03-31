@@ -2,69 +2,70 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id B99876D2968
-	for <lists+linux-man@lfdr.de>; Fri, 31 Mar 2023 22:27:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id AC05C6D2A1A
+	for <lists+linux-man@lfdr.de>; Fri, 31 Mar 2023 23:45:05 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231701AbjCaU1J (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 31 Mar 2023 16:27:09 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41860 "EHLO
+        id S231195AbjCaVpD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 31 Mar 2023 17:45:03 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33782 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229529AbjCaU1I (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 31 Mar 2023 16:27:08 -0400
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com [IPv6:2a00:1450:4864:20::330])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5A79D1EFF2
-        for <linux-man@vger.kernel.org>; Fri, 31 Mar 2023 13:27:07 -0700 (PDT)
-Received: by mail-wm1-x330.google.com with SMTP id p34so13591242wms.3
-        for <linux-man@vger.kernel.org>; Fri, 31 Mar 2023 13:27:07 -0700 (PDT)
+        with ESMTP id S231701AbjCaVpC (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 31 Mar 2023 17:45:02 -0400
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com [IPv6:2a00:1450:4864:20::42b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 045462369F
+        for <linux-man@vger.kernel.org>; Fri, 31 Mar 2023 14:45:01 -0700 (PDT)
+Received: by mail-wr1-x42b.google.com with SMTP id e18so23786217wra.9
+        for <linux-man@vger.kernel.org>; Fri, 31 Mar 2023 14:45:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1680294426; x=1682886426;
+        d=gmail.com; s=20210112; t=1680299099; x=1682891099;
         h=in-reply-to:from:references:cc:to:content-language:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=KEgrnvB2O5RzkRmPrBkKSQ5C6AZzEuvaI+pwn0v1PX4=;
-        b=nE1vPmv1YUcWwmCkkfzwosIsMbMSdw8ZSDesFC/HjKvUGrfqT22TUCJWSR5ORWOdQ6
-         ys9VSDZ2AFqFhzfRX5JipbI/QajqkzVTYkCG4H4rwqciQ4YgPe3sSpL2Uq53i2BF+T6Y
-         57cfjKt5GttRkM+LJfSI0Jb8df5Tmj7nhVwSCwRee32MFfPbWQSWa9tjISPUWL5iM8Jg
-         xxnZloYw59HElbndIqKVEHJPQgs1qRA+JPO705ZFESFIATPKNZ5Pstg2DAGrmHpioPLE
-         foWZGhEL9SkjGkoTJj2+2cIuupIqaEH4tR2VN18l35egNzqCoWDwHzCjVjowvcLLWl4d
-         SCWQ==
+        bh=7A5NqgUNCUgTQUDIHiuE6umfEqKaRJXdu2vV0juHPs8=;
+        b=CIDRzGQkLVp+YcFACNKBmnWGBK2x0U6RQYd8MvmPbSGlIJJmqxPeHG+pPI08nsbtbO
+         paxZqGIm6mV5ER5vboYbg8RBv5uwp374XU7R5C0Wf50ZpF+rdL/5GiFKJqK48MK4Cy/b
+         Jj6WGOcYIknSKNHrtdfx20uAOZW+M5m03DxZlj3FDRno3uW5csbu87cl04MSsV6PSoMI
+         XxGHx42lTRamtB3EzpFfx74Otf0ReDtKCrW3RZi4F70ii7raJj0rieP2PhglVMbcn/ZP
+         /WSbVabree3WLPYfY5hKhILinTBok0YepYlrYjs0pZyfytlAzJyWOx/LAByjYeow6BV4
+         lfKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680294426; x=1682886426;
+        d=1e100.net; s=20210112; t=1680299099; x=1682891099;
         h=in-reply-to:from:references:cc:to:content-language:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=KEgrnvB2O5RzkRmPrBkKSQ5C6AZzEuvaI+pwn0v1PX4=;
-        b=eRZR49AP5rFsv/UXokwia36C9kXup7yQnp6tPNMDU/5DGbvmk9hJvwkOpHS9KJB40Y
-         eZNUtTYBeVhG6DPnZ9trC5ZMFFvlbj5nd0WUhc/1kW72xoIIlNGPMf0caB6i33tIg1F/
-         qoCDZAFU0oHa/aCpJOzxIopdM1U0Gewfv3JeuQESDYLOAD/U8PGxh7Px53yRvYfdIf3j
-         8nsFinV0wD1jNS4NW56UiIZu+xQw3NHzYV4IXYYbrmMLcovik8R25ypELELFmBkdotvU
-         5Lp0e6fnwyhLXcGBGd3LV4YtAxXm4Qfvd7R9t2+tveEkdHYp6eQZdWLZ01A+AllH1TBh
-         bjfg==
-X-Gm-Message-State: AO0yUKX9jsfaRSrswKp2MhIkU5elwZa1rKDTOgm93wW8EO505YT5pl72
-        jGTOwTIDy4I5Fr+VH5h/8gg=
-X-Google-Smtp-Source: AK7set9R+jv70iAdMaL6OdTXQU+h3mOG4AmqkGhWWBQB0l0E+iGgqY0KkFk+8bH9wTJhMnnciaTQnw==
-X-Received: by 2002:a7b:c448:0:b0:3ef:294c:de50 with SMTP id l8-20020a7bc448000000b003ef294cde50mr22135345wmi.29.1680294425809;
-        Fri, 31 Mar 2023 13:27:05 -0700 (PDT)
+        bh=7A5NqgUNCUgTQUDIHiuE6umfEqKaRJXdu2vV0juHPs8=;
+        b=Oweq2E3fNIAIYafSPvgjZ0Ap7Mj55AZ5vFKfHhrJICQnULvkyM0Fjq01qSIksz4aiO
+         blk40rMuYwmFKZ7dwKKUP5AP620BdZsGzCAl9yLqaN9rzvoVox3e4i7WvVFIdyN2L3av
+         Bs9gAXTwp3CHyR9fW8DbUB9Qr5k408M0qdyK9WhFoabwRWFCfZKfmOSX2EzflaUpAU/p
+         s+RIxRx+Pe28IlYVYreKlVYBPZPlw56RpY6+y+cZavUHZZutXiXN/8OYwJG+NjsDYpVJ
+         4QC5ves8ixTOCnGtkpVQpZMsei+D0l2ZNvkCCPLI8p4C+Ynz/5jKBnABiihcP3q0zwqb
+         VLMA==
+X-Gm-Message-State: AAQBX9fkOFVlOIzYAva9OMA3xHYWVUA1G9c/EN4gIj6gpun2nQYjIh2X
+        90fWHfrWfqj2x3WpTd7+VIvGybn5B5Q=
+X-Google-Smtp-Source: AKy350ZkulqVdcCIUstYtv+EJd22HI5y884ftuIENwJyq07Tr2Czk3YcNPx0/4cNIqTZ2wX/qFYKtQ==
+X-Received: by 2002:adf:e848:0:b0:2c7:fde:f7e0 with SMTP id d8-20020adfe848000000b002c70fdef7e0mr19548817wrn.65.1680299099303;
+        Fri, 31 Mar 2023 14:44:59 -0700 (PDT)
 Received: from [192.168.0.160] ([170.253.51.134])
-        by smtp.gmail.com with ESMTPSA id p1-20020a7bcc81000000b003ef5b011b30sm3741292wma.8.2023.03.31.13.27.05
+        by smtp.gmail.com with ESMTPSA id b5-20020a5d4b85000000b002c559843748sm3172885wrt.10.2023.03.31.14.44.58
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 31 Mar 2023 13:27:05 -0700 (PDT)
-Message-ID: <496af066-fa96-ddd4-d420-b109f67c8645@gmail.com>
-Date:   Fri, 31 Mar 2023 22:27:04 +0200
+        Fri, 31 Mar 2023 14:44:58 -0700 (PDT)
+Message-ID: <792eaf9c-f43e-adc9-c7ae-b1ef9f28a7bf@gmail.com>
+Date:   Fri, 31 Mar 2023 23:44:50 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
-Subject: Re: [PATCH v3] posix_fadvise.2: NOREUSE now supported.
+Subject: Re: [PATCH v2] symlink.7: cross-link to proc.5 for
+ fs.protected_symlinks
 Content-Language: en-US
-To:     "T.J. Alumbaugh" <talumbau@google.com>
-Cc:     Andrew Morton <akpm@linux-foundation.org>,
-        Yu Zhao <yuzhao@google.com>, linux-man@vger.kernel.org
-References: <20230320222057.1976956-1-talumbau@google.com>
+To:     =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Cc:     linux-man@vger.kernel.org, Jakub Wilk <jwilk@jwilk.net>
+References: <20230327063142.pdeeemawtssywcqg@jwilk.net>
+ <fneuwvfzrpj22nk4u6pgjr4zd62z2mrjbvyuvgl5vkkiwtfnvr@ca4gsy5ktdld>
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20230320222057.1976956-1-talumbau@google.com>
+In-Reply-To: <fneuwvfzrpj22nk4u6pgjr4zd62z2mrjbvyuvgl5vkkiwtfnvr@ca4gsy5ktdld>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------6Jdz5IdqjPgj7AZzDP64N4ip"
+ boundary="------------O0voFOjwivP5ljg0HHztM8dl"
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
         DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
@@ -76,114 +77,114 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------6Jdz5IdqjPgj7AZzDP64N4ip
-Content-Type: multipart/mixed; boundary="------------i1903diKaOHnvERz2HnWiPsd";
+--------------O0voFOjwivP5ljg0HHztM8dl
+Content-Type: multipart/mixed; boundary="------------5OyKNzl2t3ZI36qaqvkzd0KX";
  protected-headers="v1"
 From: Alejandro Colomar <alx.manpages@gmail.com>
-To: "T.J. Alumbaugh" <talumbau@google.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Yu Zhao <yuzhao@google.com>,
- linux-man@vger.kernel.org
-Message-ID: <496af066-fa96-ddd4-d420-b109f67c8645@gmail.com>
-Subject: Re: [PATCH v3] posix_fadvise.2: NOREUSE now supported.
-References: <20230320222057.1976956-1-talumbau@google.com>
-In-Reply-To: <20230320222057.1976956-1-talumbau@google.com>
+To: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Cc: linux-man@vger.kernel.org, Jakub Wilk <jwilk@jwilk.net>
+Message-ID: <792eaf9c-f43e-adc9-c7ae-b1ef9f28a7bf@gmail.com>
+Subject: Re: [PATCH v2] symlink.7: cross-link to proc.5 for
+ fs.protected_symlinks
+References: <20230327063142.pdeeemawtssywcqg@jwilk.net>
+ <fneuwvfzrpj22nk4u6pgjr4zd62z2mrjbvyuvgl5vkkiwtfnvr@ca4gsy5ktdld>
+In-Reply-To: <fneuwvfzrpj22nk4u6pgjr4zd62z2mrjbvyuvgl5vkkiwtfnvr@ca4gsy5ktdld>
 
---------------i1903diKaOHnvERz2HnWiPsd
+--------------5OyKNzl2t3ZI36qaqvkzd0KX
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi T.J.,
+Hi!
 
-On 3/20/23 23:20, T.J. Alumbaugh wrote:
-> POSIX_FADV_NOREUSE is now supported in Linux[1].
-> Updates text regarding former no op behavior. Indicates the readahead
-> policy and treatment of file pages read with this flag.
+On 3/27/23 14:29, =D0=BD=D0=B0=D0=B1 wrote:
+> This is on by default in Debian, maybe the next reader won't spend an
+> hour tracing the kernel
 >=20
-> [1]: https://lore.kernel.org/linux-mm/20221230215252.2628425-2-yuzhao@g=
-oogle.com/
->=20
-> Signed-off-by: T.J. Alumbaugh <talumbau@google.com>
+> Fixes: e8ff4f53ab9a7cbd ("Remove information migrated to inode(7) page"=
+)
+> Closes: https://bugs.debian.org/1033477
+> Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.=
+xyz>
+
+Patch applied.
+
 > ---
->  man2/posix_fadvise.2 | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
+> This definitely needs to be referenced here, because "The only time tha=
+t
+> the ownership of a symbolic link matters is when the link is being
+> removed or renamed in a directory that has the sticky bit set" is an
+> abject lie, especially since Debian ships with fs.protected_symlinks=3D=
+1;
+> the minimum here is to cross-ref to an extended description.
 >=20
-> diff --git a/man2/posix_fadvise.2 b/man2/posix_fadvise.2
-> index 57c65c810..9e562f74d 100644
-> --- a/man2/posix_fadvise.2
-> +++ b/man2/posix_fadvise.2
-> @@ -64,7 +64,10 @@ The specified data will be accessed only once.
->  .IP
->  Before Linux 2.6.18, \fBPOSIX_FADV_NOREUSE\fP had the
->  same semantics as \fBPOSIX_FADV_WILLNEED\fP.
-> -This was probably a bug; since Linux 2.6.18, this flag is a no-op.
-> +This was probably a bug; from Linux 2.6.18 until Linux 6.2 this flag w=
-as
-> +a no-op. From Linux 6.3 and beyond, \fBPOSIX_FADV_NOREUSE\fP signals
+> I straight-up didn't know proc(5) listed sysctls, and I looked!
+> (Well, defined as "apropos sysctl" didn't list anything in particular,
+>  and sysctl(2) has an unannotated proc(5) in SEE ALSO.)
+>=20
+> It'd be nice if, idk, the proc.5 SH were extended with "process
+> information, system information, and sysctl pseudo-filesystem" or
+> whatever, or there were a sysctl.[47] alias for proc.5,
+> because as it stands, I would never have guesssed there's a listing of
+> sysctls in proc(5).
 
-Please use semantic newlines.  See man-pages(7):
-   Use semantic newlines
-       In the source of a manual page, new sentences should be started
-       on  new  lines,  long  sentences  should be split into lines at
-       clause breaks (commas, semicolons, colons, and so on), and long
-       clauses should be split at phrase boundaries.  This convention,
-       sometimes known as "semantic newlines", makes it easier to  see
-       the  effect of patches, which often operate at the level of in=E2=80=
-=90
-       dividual sentences, clauses, or phrases.
+Feel free to send a patch for it :)
 
-
-Also, please format with macros such as:
-
-=2EB POSIX_FADV_NOREUSE
-
-instead of inline with \f.
-
-Thanks,
+Cheers,
 Alex
 
-> +that the LRU algorithm can ignore access to mapped page cache marked
-> +by this flag. This is useful, for example, while streaming large files=
-=2E
->  .TP
->  .B POSIX_FADV_WILLNEED
->  The specified data will be accessed in the near future.
-> @@ -154,6 +157,7 @@ in POSIX.1-2001 TC1.
->  Under Linux, \fBPOSIX_FADV_NORMAL\fP sets the readahead window to the
->  default size for the backing device; \fBPOSIX_FADV_SEQUENTIAL\fP doubl=
-es
->  this size, and \fBPOSIX_FADV_RANDOM\fP disables file readahead entirel=
-y.
-> +\fBPOSIX_FADV_NOREUSE\fP does not modify the readahead window size.
->  These changes affect the entire file, not just the specified region
->  (but other open file handles to the same file are unaffected).
+>=20
+>  man7/symlink.7 | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/man7/symlink.7 b/man7/symlink.7
+> index 77fefb743..4403f6214 100644
+> --- a/man7/symlink.7
+> +++ b/man7/symlink.7
+> @@ -84,10 +84,14 @@ magic links have been used as attack vectors in var=
+ious exploits.
+>  The owner and group of an existing symbolic link can be changed
+>  using
+>  .BR lchown (2).
+> -The only time that the ownership of a symbolic link matters is
+> +The ownership of a symbolic link matters
+>  when the link is being removed or renamed in a directory that
+>  has the sticky bit set (see
+> -.BR stat (2)).
+> +.BR inode (7)),
+> +and when the
+> +.I fs.protected_symlinks
+> +sysctl is set (see
+> +.BR proc (5)).
 >  .PP
+>  The last access and last modification timestamps
+>  of a symbolic link can be changed using
 
 --=20
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
---------------i1903diKaOHnvERz2HnWiPsd--
+--------------5OyKNzl2t3ZI36qaqvkzd0KX--
 
---------------6Jdz5IdqjPgj7AZzDP64N4ip
+--------------O0voFOjwivP5ljg0HHztM8dl
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQnQhgACgkQnowa+77/
-2zIumA//UstaHNoGlh/0lFJ6yFg9OldWT/GkrVJkvIHQvZtpRBJolCrvQdPqpZLR
-8bZ+/Makcy92SX1YuZQRGrKffcTpK74jOI509M3pQeaScSnkhpeSIoJ2BtM7oB/0
-J4Pu7F7bnt+Df/eu08EzMRPWTEI7/1NKxNrHchv4PvZGW8YtB3fo0uTmwcKHamJF
-+cBxv+feaRqGG5qxZFTDinAiXzJRlMpOI3d+1EVn25vKyLd8uf1p/86vBVUdDPGY
-yZzYcktFFQXL1+x8zoHPUGgq8tRxSB8J+uD4Bq1aPedy7BWvuidh/ZfIpl7eWCy3
-JTi2E7+nohdT1qMbNe9mrjeO8Kcuyb4A4pBobjD6xNpe/WC1YN152pkOR8jIyvk0
-JMvKvX9kHVxZMixQ05UHhi40605crtVHpmbifHPj48FXRfX3u0LCp+qq+6tTH6TI
-/BtB0adacfM2Y59aBkqa8ASsrEG9/TwmD/7Bj79JvbbCqvMdfc8Uw4ghJbaM8mDr
-p216cHTDUaxz5IyGYWtzGO7kHfcpmQ7hIU715sLmxRM9bejiFwIcYJ2s0LebsObh
-6yDhs0eedyC5UAg1oRrS+/Ywn8govXEAkJE0qzjTsp2FyEjjHuZ2AE5WggM17dLv
-GWHHQN93iKc+utSQagyJtqaxxkdDT5a3DZW3/Y0/lW68zMhb22M=
-=mxP8
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQnVFIACgkQnowa+77/
+2zJm+A//SMhk7mpnw1Qf8ggB9BN+QiLL/MrzR8XRCcFubwaQwOtLaSBY3dUlisgD
+PBwtqG9IIjJRD0PJgoSaZroEiSOG9zteOG3uEjMtmC7p7dvXRVsRWOOl/Kj82+IW
+YntNPlw45jeTfO3SvDQLCVJ5gOd3Ab7/1CJA2pwAgCGgNNjnIxhiNqpiSCKi5MDR
+0usdHjeSlB14b5ICr9ApoftTdiOvp7n2OsYYfBWwUabAinlUwBgLvxYn7fydcOSs
+ep6mPOWBo8Af0pUVLsDEnK65PIp07aYMRE+Sq7IZ6Bqh8QAB4b7iYZ/NQmpt4vpa
+sdAYn+iPUIGTJFa6qcM5aj1+sdmNfpJUQt+wZ9D1FM0pfXfMD4B/D/Z3YCKDQwSe
+RiGVXZ5QO7y0VoRZZNhOr8GcmWGi1BBVYlzvCZFVI9IdcofGdeLsyz7mgYuBngpy
+eT4s4KrQYX1qNAH9M4TqTR6Ej6dE194DFoX0Q9vBC70cCb0MPT1btE57DVitMaz8
+OjT/2WmEl1G8fK7YmcmlFB/f1rCrLAvrUhXHX6dmQ5LjlI3snOmTm0yMVob8SUH0
+jhkRkMxyrHvd/sPWjcjcIL6SjbWc8DtOHe6oQtbITip2GErbUoBP0NWhOaPMogMD
+s3ZtlzAgC3foCS9Lu8g4s74+Xh0Z23WPhjhvFzCj3X/hsJXPtPs=
+=R2Ag
 -----END PGP SIGNATURE-----
 
---------------6Jdz5IdqjPgj7AZzDP64N4ip--
+--------------O0voFOjwivP5ljg0HHztM8dl--
