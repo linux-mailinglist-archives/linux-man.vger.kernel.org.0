@@ -2,40 +2,36 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id B66976D2D8E
-	for <lists+linux-man@lfdr.de>; Sat,  1 Apr 2023 04:02:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 51E4A6D30E0
+	for <lists+linux-man@lfdr.de>; Sat,  1 Apr 2023 15:00:06 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233605AbjDACCd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 31 Mar 2023 22:02:33 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54486 "EHLO
+        id S229441AbjDANAE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 1 Apr 2023 09:00:04 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46132 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233791AbjDACCV (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 31 Mar 2023 22:02:21 -0400
-X-Greylist: delayed 313 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Fri, 31 Mar 2023 19:01:37 PDT
-Received: from joooj.vinc17.net (joooj.vinc17.net [IPv6:2001:4b99:1:3:216:3eff:fe20:ac98])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 05F7723B6D
-        for <linux-man@vger.kernel.org>; Fri, 31 Mar 2023 19:01:36 -0700 (PDT)
-Received: from smtp-zira.vinc17.net (128.119.75.86.rev.sfr.net [86.75.119.128])
-        by joooj.vinc17.net (Postfix) with ESMTPSA id 1B9A22E1;
-        Sat,  1 Apr 2023 03:46:05 +0200 (CEST)
-Received: by zira.vinc17.org (Postfix, from userid 1000)
-        id 9C15B28001BB; Sat,  1 Apr 2023 03:46:04 +0200 (CEST)
-Date:   Sat, 1 Apr 2023 03:46:04 +0200
-From:   Vincent Lefevre <vincent@vinc17.net>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-Subject: Re: [PATCH] printf.3: Fix wording for the 0 flag with given precision
-Message-ID: <20230401014604.GC7123@zira.vinc17.org>
-References: <20230331143332.3649621-1-vincent@vinc17.net>
- <756bf5f3-a368-be05-5177-b113abf5741e@gmail.com>
+        with ESMTP id S229379AbjDANAD (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 1 Apr 2023 09:00:03 -0400
+Received: from alerce.blitiri.com.ar (alerce.blitiri.com.ar [IPv6:2001:bc8:228b:9000::1])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A28B3B775
+        for <linux-man@vger.kernel.org>; Sat,  1 Apr 2023 05:59:59 -0700 (PDT)
+Received: from localhost.localdomain
+        by sdfg.com.ar (chasquid) with ESMTPSA
+        tls TLS_AES_128_GCM_SHA256
+        (over submission, TLS-1.3, envelope from "rodrigo@sdfg.com.ar")
+        ; Sat, 01 Apr 2023 12:59:55 +0000
+From:   Rodrigo Campos <rodrigo@sdfg.com.ar>
+To:     Alejandro Colomar <alx@kernel.org>
+Cc:     linux-man@vger.kernel.org, Christian Brauner <brauner@kernel.org>,
+        Rodrigo Campos <rodrigo@sdfg.com.ar>
+Subject: [PATCH v3] user_namespaces.7: Add note about PR_SET_DUMPABLE on nested userns
+Date:   Sat,  1 Apr 2023 14:59:26 +0200
+Message-Id: <20230401125926.445620-1-rodrigo@sdfg.com.ar>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <896cc07b-c6d1-555e-b3ba-f14bf1bb81e2@gmail.com>
+References: <896cc07b-c6d1-555e-b3ba-f14bf1bb81e2@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <756bf5f3-a368-be05-5177-b113abf5741e@gmail.com>
-X-Mailer-Info: https://www.vinc17.net/mutt/
-User-Agent: Mutt/2.2.10+60 (d2ed5d18) vl-149028 (2023-03-25)
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
         autolearn=unavailable autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -43,29 +39,51 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi,
+In order to create a nested user namespace, we need to re-set the
+PR_SET_DUMPABLE attribute after switching the effective UID/GID. Clarify
+this in the section about nested user namespaces.
 
-On 2023-03-31 21:35:19 +0200, Alejandro Colomar wrote:
-> On 3/31/23 16:33, Vincent Lefevre wrote:
-> > When a precision is given, the 0 flag is ignored only for integer
-> > conversions, not for all numeric conversions.
-> 
-> I think I've seen some related discussion in some other list,
-> right?  Could you please link to it in the commit message?
+Having this note would have saved me some time debugging.
 
-If you mean my message "printf: 0 flag and given precision for %b" in
-the libc-alpha list, then this does not concern the printf man page
-yet, because this man page currently does not mention %b at all (%b
-is rather new, and not in the current C standard). This should be
-added to the man page, but this is not trivial, and I think that the
-inconsistency I've mentioned should be resolve in one way or the
-other before %b is added to the man page (in order to make sure that
-it does not contain something that could become obsolete).
+Signed-off-by: Rodrigo Campos <rodrigo@sdfg.com.ar>
+---
 
-So, does one really need the link in the commit message, while %b is
-not in the man page yet?
+Thanks for the review. Is this okay now? :)
 
+I'm new to semantic new lines and doubted about how to split some parts :-)
+
+---
+ man7/user_namespaces.7 | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
+
+diff --git man7/user_namespaces.7 man7/user_namespaces.7
+index 3c376a9f0..3db79d9a2 100644
+--- man7/user_namespaces.7
++++ man7/user_namespaces.7
+@@ -91,6 +91,23 @@ The
+ operation can be used to discover the parental relationship
+ between user namespaces; see
+ .BR ioctl_ns (2).
++.PP
++A task that changes one of its effective IDs
++will have its dumpability reset to the value in
++.IR /proc/sys/fs/suid_dumpable .
++This may affect the ownership of proc files of child processes
++and may thus cause the parent to lack the permissions
++to write to mapping files of child processes running in a new user namespace.
++In such cases making the parent process dumpable, using
++.B PR_SET_DUMPABLE
++in a call to
++.BR prctl (2),
++before creating a child process in a new user namespace may rectify this problem.
++See
++.BR prctl (2)
++and
++.BR proc (5)
++for details on how ownership is affected.
+ .\"
+ .\" ============================================================
+ .\"
 -- 
-Vincent Lefèvre <vincent@vinc17.net> - Web: <https://www.vinc17.net/>
-100% accessible validated (X)HTML - Blog: <https://www.vinc17.net/blog/>
-Work: CR INRIA - computer arithmetic / AriC project (LIP, ENS-Lyon)
+2.39.2
+
