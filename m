@@ -2,118 +2,71 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 090E16D6826
-	for <lists+linux-man@lfdr.de>; Tue,  4 Apr 2023 18:01:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 920206D70E2
+	for <lists+linux-man@lfdr.de>; Wed,  5 Apr 2023 01:46:00 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235348AbjDDQBj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 4 Apr 2023 12:01:39 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37786 "EHLO
+        id S236634AbjDDXp7 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 4 Apr 2023 19:45:59 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58496 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235408AbjDDQBc (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 4 Apr 2023 12:01:32 -0400
-Received: from DM4PR02CU002-vft-obe.outbound.protection.outlook.com (mail-centralusazon11013002.outbound.protection.outlook.com [52.101.64.2])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BFEEF44AE
-        for <linux-man@vger.kernel.org>; Tue,  4 Apr 2023 09:01:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ffGj4qzPAdikxhABeKuYjICAFdzIEigeQkWfuhqb3EPnUuG56YWnuvCYQUvGE6TX/AKnNQFORsDLBF/UOQpQ90r5IRgUeNQ4cbgMGVoprlSHVP6Gnta1TZ+2U3Y9RGzBrH2FwOZGZtup5JxpYb/ZnXX5YIhErHaFA2Q5et4iBiKwHuIE5jVHdw0FUs5M8qNaids6ed1JAX3iauLeHqV3toisCGBtZGa0zo5MeEC4b581sHIejBxHVpeX3f8ZrSbTFF9f7jFp4em7fNnZdg7qCdwHdLLHWYa3Qty+TLgdtxFjIe3pcvmN/D2+3AfRE3tDXbzNZjvMZRrBjZgYqy0AGw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0+nEtTJD+e1Mtln90vbKovu/vGwP3LAsCc/Q8sDUAz8=;
- b=XCofeGV9Jr/rk2YmZZEdpxhxvFuX0RZib9K8q4wzqFIWGl8RAEed2+bZ0y8IHvYeaWapv36vieXQbqhfCfylv1P3puUY+KUkql0fTdIdFX0gNHRMKEPVsToZaAVpdaCc9BqqbOyLcDrxz+IlcLMXU6Ywd+zbRJAXj0vP0zSx2ULbsuL4dPA2mlY5bYoXLrm/8MqfzZw1JkAu8JKjVHZ2QYWs7A9kFubfK5hBCm6n8LEgYRdTq0cYXR7fl6WF1u96/sRx4KLUUUZfpF2/n8PL9tNo/6s6iHLuVSddbEJibUqk5PQ82b27ZZjIYS/sN1U0IeDbfM8/6tHC7Nixxbb1bg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=vmware.com; dmarc=pass action=none header.from=vmware.com;
- dkim=pass header.d=vmware.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vmware.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0+nEtTJD+e1Mtln90vbKovu/vGwP3LAsCc/Q8sDUAz8=;
- b=DuCI1aqSUT/7T/U0PcY9YNsZxDcY2vOYLnJ4CQrqPNomjdKCiHrk33sRZQ8+xaogW/b9zJzMpNUp7MKSBUFSvlbzzKIvOk5oz18Pam8xEw6kQa/KHFFigsVJf4ue7VB5TdcN/osvwoec8GOTjr7T8quWBq/T9b8xxjvhsOO6bm0=
-Received: from BY3PR05MB8531.namprd05.prod.outlook.com (2603:10b6:a03:3ce::6)
- by DM6PR05MB4492.namprd05.prod.outlook.com (2603:10b6:5:99::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.33; Tue, 4 Apr
- 2023 16:01:28 +0000
-Received: from BY3PR05MB8531.namprd05.prod.outlook.com
- ([fe80::e9bd:ef2f:b71:8084]) by BY3PR05MB8531.namprd05.prod.outlook.com
- ([fe80::e9bd:ef2f:b71:8084%9]) with mapi id 15.20.6254.037; Tue, 4 Apr 2023
- 16:01:27 +0000
-From:   Nadav Amit <namit@vmware.com>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-CC:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        Peter Xu <peterx@redhat.com>,
-        David Hildenbrand <david@redhat.com>
-Subject: Re: [PATCH 1/2] ioctl_userfaultfd.2: add UFFD_FEATURE_EXACT_ADDRESS
-Thread-Topic: [PATCH 1/2] ioctl_userfaultfd.2: add UFFD_FEATURE_EXACT_ADDRESS
-Thread-Index: AQHYMlPj1HJ3hlhQs0qxJTnjJp7Mnay+1+0Agld4AQCAB2jJAA==
-Date:   Tue, 4 Apr 2023 16:01:27 +0000
-Message-ID: <644B7C32-221D-43B5-B9DC-31F9E53143E9@vmware.com>
-References: <20220307184852.20351-1-namit@vmware.com>
- <5281de2a-08c2-e159-0e15-cf4225f4466b@gmail.com>
- <7a4e4c9b-e135-a3bf-17fb-388efd0a341e@gmail.com>
-In-Reply-To: <7a4e4c9b-e135-a3bf-17fb-388efd0a341e@gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-mailer: Apple Mail (2.3731.500.231)
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=vmware.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BY3PR05MB8531:EE_|DM6PR05MB4492:EE_
-x-ms-office365-filtering-correlation-id: b5bc2360-867e-4daf-eb20-08db3525d8ff
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: BrNh/+tjGdUJz7W4SFNrsFfYJK9zK5gi9NhrQ/w3A038nF5fhnEFKtH+Gm+MVajsPMhZdBHI2KKSq571Xo6DvkDJ74vLHxUI+NFgvvKlANt+AJMLdzqKSyqligdganJaC61qMftpWt+WlA9sV2Lb1fctNWszDaGCq0/98j6R3pdbA5UM5nK4rDCRWAdycyZZ6cIPrLECai8p3/V/zc8OBH5HKosjgelSnJLv7v+XiYVkzwtK2wafxVOlDX9Iu9iPLaXxduMD4pNIo2YT5WAliATNhQV6tDhkicMSm40clLur0ipJRyj8Z+6em8m868NWpuAqizd6GEuSxh7FIXax/FN2GS+Kci+7eKt2UpNccHtNvuxB/qKAl5sEtScwkmwVEU5o/QHo8qJXHkXXbEdCe3NVMhBKK2DH0SH7YtlmFEE5YQFr4Df9yURrVipuDT3yBHu+0L85iiYZYWRWo/TinxTyhnlnKjck4pNpbcy6dzw24fh5BCSx6zx53NyjKwsp6gRuRiQY0Tu2nHVRqhAAsWOGww6wpHl7dUuFGvs3Fv77aYDAQRf/q0SHVsXm6r5RdIWRjFEm9j0s3uRFPar0xN0BFIuLhVtc2zl1X/mr05IEHvdJieEBa9xVmo5TXE0msX5bZ2/7AyDtiySPi8TjHQ==
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BY3PR05MB8531.namprd05.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(136003)(39860400002)(376002)(396003)(346002)(366004)(451199021)(6916009)(41300700001)(66476007)(66446008)(64756008)(66556008)(66946007)(76116006)(8676002)(316002)(478600001)(4326008)(4744005)(8936002)(122000001)(5660300002)(38100700002)(54906003)(186003)(83380400001)(2616005)(6486002)(71200400001)(6506007)(6512007)(53546011)(26005)(38070700005)(36756003)(33656002)(2906002)(86362001)(45980500001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?JAfeEMkxTwsLiGg8OJNndNUB+4W/19UXdcOae4FoPk08VpahKEZgSwJXYDgu?=
- =?us-ascii?Q?qAnx5ZVAn/CYihhhuwca8dSi50PZxHBOBbW1BFqu3cGc6tRb/wL2nU8K4MQG?=
- =?us-ascii?Q?8Do80Zm/toI9pMsUMNBGKmj7f/VpbX1ekiVZYZEmU98UssvByDDCqcKi1wJc?=
- =?us-ascii?Q?hcJSnfa+N7U2COCeU4rksIUk/+8wPFLJUz8OmzglCZu1m/QIT+50u/2zgfNy?=
- =?us-ascii?Q?6hJmUY6IV8arkV1OTEz9w4RqELmpE0W+lNWSr/QAa8+d0CAR26Nj+9T+a4+h?=
- =?us-ascii?Q?1z8Gx6xt9ICLn6brYf1tlG8P6I6ZPxMpaVvwo/5OU4mUXc034L61rRcVmGup?=
- =?us-ascii?Q?zzHi9uUqCejLLCXDxL6ipp1/lYz+SOfayPp6y8GxtDWXnSE0+N/yY/C7Eo3R?=
- =?us-ascii?Q?SCOSdkpe+kW62/4q1KbbzFRYkNRdJky2s99MNu555nHV639O6F6Kr6dApJWM?=
- =?us-ascii?Q?GDLsjH8C5Tb+WPdrF803BItX9ZLKhew75SiBuegVhabUQem53DwVlG5+EieJ?=
- =?us-ascii?Q?W5ldF/04jqMMPKOHGYLIDTTugfvKMFReuzpdsENoZlDEmVgI8HyWy3WczVwQ?=
- =?us-ascii?Q?tHvzjHa92GxiSma3jO+6fLhT6BMKpeEsDbpCaH/ybp25f4GQmB8gCJsRCHal?=
- =?us-ascii?Q?b6dxp+zhrb6+BuDJHgHuEQ9TpI0O6Lro9prfJnuAcgT+afhHf/H84YaGW80M?=
- =?us-ascii?Q?R2Afp6m+hC/8YHjNHyqa2tCb5mOcM6CFsgiPWwtgOEfqVD6ElBD/F9i8VbZT?=
- =?us-ascii?Q?JfJbrv3DM2JTgjCrfg1zYRsURCl0p1bgIGe0cX7l5yPDbMMRdw5daeF8cL59?=
- =?us-ascii?Q?SDxQZDh6tnostUekzIYxsK3LVy3o+Ltasd6NsbKGYgV+owSk65UnT0AK60GG?=
- =?us-ascii?Q?+lzZCa2m+DFPgpb2TzP0Qr5F5lL53tjZqbvLxZBNu0liXmqHgSld2B79gcft?=
- =?us-ascii?Q?wvQsqQvnzNg4kQZTaQDYyYFF8o3VmxJHxAJDfXmGUnqap4lc2RcXYYRQbS6Y?=
- =?us-ascii?Q?6MLf9C2LAQySLencz7sIaN+v3tnYa+l3PZvc9BYgz1usa8jxPO+KCogClTP2?=
- =?us-ascii?Q?WrJUZR3Ott82Un84l/6CzKjTvZ9N8ocQ7dCJJcIE4lhx9oX730SHeXg9oMi0?=
- =?us-ascii?Q?CKEcys+2KC07RDfXnKpqS0N7RnRXEGgtAG1M7EtNMNetx+nMZgC9KnoPC6lc?=
- =?us-ascii?Q?M1P7zrjndpdMh2m1mEU+ojtxCwAYX/ME/Vs6eqDSPYFoH6ejf60sPiMH1EAn?=
- =?us-ascii?Q?AkujpcFcTbOImUFF2N7cpyOnh53hI90E1CyI5+S38Bxd2tNalidwN/fUOdD5?=
- =?us-ascii?Q?19slFI0gvqNu61/Rk1DSumXAAup82v/zPFSZJFjUAfkAGRpoaiu6KJRTlLgP?=
- =?us-ascii?Q?Pino0Okbf+PqncMsCczMPsu9SB5awE5AGei90Vd6Bxq5JbanDnVJHnl+Pvc/?=
- =?us-ascii?Q?YjnQygG3oq2vKrOqmSSWfbYSt0uQWbMEgkNKQDL62igr0Y5I4WdycL6rJyTG?=
- =?us-ascii?Q?xnwxvRQ5n2I0oAoqBrKnGA+EnDls/k54qwzhGgZycnNAHxc1AAX8+cpCIQhu?=
- =?us-ascii?Q?BvLmNHHp0ROy/4MBqFERPH3/Jly/bTV4p+Q1NvdK?=
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <CF90530FD89FE2488587DBC503C6DD3F@namprd05.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+        with ESMTP id S236585AbjDDXp6 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 4 Apr 2023 19:45:58 -0400
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com [IPv6:2a00:1450:4864:20::32e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BF5D140E4
+        for <linux-man@vger.kernel.org>; Tue,  4 Apr 2023 16:45:56 -0700 (PDT)
+Received: by mail-wm1-x32e.google.com with SMTP id m8so9021550wmq.5
+        for <linux-man@vger.kernel.org>; Tue, 04 Apr 2023 16:45:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112; t=1680651955; x=1683243955;
+        h=in-reply-to:from:cc:references:to:content-language:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Pbmk2OhUy4/kqDWNEU16dB3ZESggL5yhAMJNztskYqw=;
+        b=QLWqlJS4WMAzyRqhJ/1aSEX0BCP5YKpA0wXd/kenEVr6b8cYJtJ4hlrnle6J7pagH1
+         G/mb3zEesX6UrVoyVCBMyvkzloNOslldqtgOmcoieuy6oRQWHHReUgL+iIhSZqy1aW92
+         6KKWChlBQdhclBrHyVb8pHEc2Dyp5I7i0Zw4GxvtoCs8v7uEyrjT6kvu0vHnpTwdmy7d
+         UZtL/kBIcgd6hRRGhQTn4vvRt7K8BOm3dgaLFyZ4nzHNJ5GjFwK3zt45act+pjXR5L3A
+         6yHhxmz+1h53Oa/7KwBBPk7TC1w4ApBCcTep1U4Lt5apv9zbQ7zotUUM6HzUox1sVOH6
+         HxEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1680651955; x=1683243955;
+        h=in-reply-to:from:cc:references:to:content-language:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Pbmk2OhUy4/kqDWNEU16dB3ZESggL5yhAMJNztskYqw=;
+        b=uQiwMVNfMV4JhRn2PzyPK1uX8c3jDgJycrqt0d81ilCD1J/aBsDd3f4YfU0UIPtsP8
+         kywlC8nCddZ+a+MNkvfYOn2houLYZx2UZqDJ9gZBm+jUQOdW0HwgwFvhVM/5O3tP1nyX
+         ztdpcBC/sihUmHbawO9HKOgf3yKzaeTzTUYRsGXvGtA+06en/KIKSdNgeuRMixWE9wRn
+         WJz13Hvxjl2IIPwMR7HKYdIRSLJxW3Uz5jVVTc7EhqiG1ca6VvsAJrGXTeePImK9XWWb
+         QlKMxmy7SX3szlD1MzRkNswqn+prcl7bHq3TNbGdkqXV1WMHuhuUVPmgvnhClT0G63sE
+         Hqtg==
+X-Gm-Message-State: AAQBX9flitnxthztbA6AUOIb7/SiaCkIGbAngcSMv73BLixRkZvGL6gL
+        klacZi+KzOCihC93Vdgtez+S5ZSBjRc=
+X-Google-Smtp-Source: AKy350bNMPls8wY7PPsGFK885GC3fPOf6B2RbT61DQfOV8qRYToD5/6I5C5GeiGYz+AVijoTE+SxFg==
+X-Received: by 2002:a7b:ca55:0:b0:3ef:61f6:d7be with SMTP id m21-20020a7bca55000000b003ef61f6d7bemr3051170wml.35.1680651954945;
+        Tue, 04 Apr 2023 16:45:54 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.51.134])
+        by smtp.gmail.com with ESMTPSA id c13-20020adffb0d000000b002e5e7ee11besm12942080wrr.94.2023.04.04.16.45.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 04 Apr 2023 16:45:54 -0700 (PDT)
+Message-ID: <073413e2-7d35-f0d7-26eb-f66908d7af6a@gmail.com>
+Date:   Wed, 5 Apr 2023 01:45:46 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: vmware.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BY3PR05MB8531.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b5bc2360-867e-4daf-eb20-08db3525d8ff
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Apr 2023 16:01:27.3358
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b39138ca-3cee-4b4a-a4d6-cd83d9dd62f0
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: TA6YSqHv4sNFC7cLwAw3IpondsRdnnhDiZmUSJkaqDEYiWPfOuyLjgmv+uIPhY6VUevqyl2mgAfvk9xiQlJESA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR05MB4492
-X-Spam-Status: No, score=0.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FORGED_SPF_HELO,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_PASS,SPF_NONE autolearn=no
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.1
+Subject: Re: Playground pager lsp(1)
+Content-Language: en-US
+To:     Dirk Gouders <dirk@gouders.net>, linux-man@vger.kernel.org
+References: <ghileoo9dk.fsf@gouders.net> <ghbkkgo8x8.fsf@gouders.net>
+Cc:     help-texinfo@gnu.org
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <ghbkkgo8x8.fsf@gouders.net>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------U1pC3YKI5iUYKz08deo7i8tm"
+X-Spam-Status: No, score=-2.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+        DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -121,31 +74,372 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------U1pC3YKI5iUYKz08deo7i8tm
+Content-Type: multipart/mixed; boundary="------------Hk073cm9v705qUCgqVtAzBWj";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: Dirk Gouders <dirk@gouders.net>, linux-man@vger.kernel.org
+Cc: help-texinfo@gnu.org
+Message-ID: <073413e2-7d35-f0d7-26eb-f66908d7af6a@gmail.com>
+Subject: Re: Playground pager lsp(1)
+References: <ghileoo9dk.fsf@gouders.net> <ghbkkgo8x8.fsf@gouders.net>
+In-Reply-To: <ghbkkgo8x8.fsf@gouders.net>
 
+--------------Hk073cm9v705qUCgqVtAzBWj
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-> On Mar 30, 2023, at 3:52 PM, Alejandro Colomar <alx.manpages@gmail.com> w=
-rote:
+Hi Dirk.
+
+On 3/25/23 21:47, Dirk Gouders wrote:
+> Hi Alejandro,
 >=20
-> Hi Nadav,
->=20
-> On 3/14/22 13:23, Alejandro Colomar (man-pages) wrote:
->> Hi Nadav,
->>=20
->> On 3/7/22 19:48, Nadav Amit wrote:
->>> From: Nadav Amit <namit@vmware.com>
->>>=20
->>> Describe the new UFFD_FEATURE_EXACT_ADDRESS API feature.
->>>=20
->>> Signed-off-by: Nadav Amit <namit@vmware.com>
->>> ---
->>=20
->> LGTM.  Please ping when it's added to Linus's tree,
->> and add a comment with the commit message that added it.
->=20
-> I've checked that this was finally added to the kernel.  Should I apply
-> the patch as is, or is there anything that was changed?
+> first of all, chances are that you consider this post as spam, because
+> this list is about linux manual pages and not pagers.
 
-Thanks for following up. Nothing to change, just apply it as is.
+No, I don't.
 
-Regards,
-Nadav=
+>  In that case
+> please accept my apologies and ignore this post.
+>=20
+> My reasoning was that readers here have some interest in manual pages
+> and therefore probably also in pagers that claim to "understand" manual=
+
+> pages.  My hope is that even if you consider this post inappropriate yo=
+u
+> will perhaps suggest some more appropriate place for such discussion.
+>=20
+> Not long ago, I noticed a discussion [1] about what pagers can and
+> cannot do.  That was interesting to me, because I am currently playing
+> with a pager that claims to have a focus on manual pages.
+>=20
+> I will try to not waste your time and attach the manual page and a link=
+
+> to a short (3:50) demo video.  To me it is absolutely OK should you jus=
+t
+> ignore this spam post, but perhaps you find lsp(1) interesting enough
+> for further discussion.
+
+If you had a Debian package, I might try it :)
+
+Or maybe a Makefile to build from source...  What is this meson.build?
+
+>=20
+> Best regards,
+>=20
+> Dirk
+>=20
+> [1] https://www.spinics.net/lists/linux-man/index.html#24494
+> [2] https://youtu.be/syGT4POgTAw
+>=20
+> LSP(1)                           User commands                         =
+ LSP(1)
+>=20
+> NAME
+>        lsp - list pages (or least significant pager)
+>=20
+> SYNOPSIS
+>        lsp [options] [file_name]...
+>=20
+>        lsp -h
+>=20
+>        lsp -v
+>=20
+> DESCRIPTION
+>        lsp is a terminal pager that assists in paging through data, usu=
+ally
+>        text =E2=80=94 no more(1), no less(1).
+
+I'd say it does quite a lot more than paging...  We could say this is som=
+e
+info(1) equivalent for manual pages.
+
+With the benefit that you don't need to implement such a system from scra=
+tch,
+but just reusing the existing tools (apropos, man, whatis, ...).  It seem=
+s
+something like what I would have written if I had to implement info(1) fr=
+om
+scratch.  I wish GNU guys had thought of this instead of developing their=
+
+own incompatible system.
+
+>=20
+>        The given files are opened if file names are given as options.
+>        Otherwise lsp assumes input from stdin and tries to read from th=
+ere.
+>=20
+>        In addition to it=E2=80=99s ability to aid in paging through tex=
+t files lsp has
+>        limited knowledge about manual pages and offers some help in vie=
+wing
+>        them:
+>=20
+>        =E2=80=A2   Manual pages usually refer to other manual pages and=
+ lsp allows to
+>            navigate those references and to visit them as new files wit=
+h the
+>            ability to also navigate through all opened manual pages or =
+other
+>            files.
+
+Out of curiosity, is this implemented with heuristics?  Or do you rely on=
+
+semantic mdoc(7) macros?
+
+If it's the first, how do you handle exit(1)?  Is it a reference, or is i=
+t
+just code (with the meaning exit(EXIT_FAILURE))?
+
+If it's the second, I guess it doesn't support that in man(7), right?  At=
+
+least until MR is released.
+
+>=20
+>            Here, lsp tries to minimize frustration caused by unavailabl=
+e
+>            references and verifies their existance before offering them=
+ as
+>            references that can be visited.
+
+Do you mark these as broken references?  It is interesting to know that
+there's a reference which you don't have installed.  It may prompt you to=
+
+install it and read it.  When I see a broken reference, I usually find it=
+
+with `apt-file find man3/page.3`, and then install the relevant package.
+
+>=20
+>        =E2=80=A2   In windowing environments lsp does complete resizes =
+when windows
+>            get resized. This means it also reloads the manual page to f=
+it the
+>            new window size.
+
+Good.  This I miss it in less(1) often.  Not sure if they had any strong
+reason to not support that.
+
+>=20
+>        =E2=80=A2   Search for manual pages using apropos(1); in the cur=
+rent most basic
+>            form it lists all known manual pages ready for text search a=
+nd
+>            visiting referenced manual pages.
+
+What does it bring that `apropos * | less` can't do?  If you're going the=
+
+of info(1) with full-blown system, it seems reasonable, but I never reall=
+y
+liked all that if it's just a new terminal and a command away from me.
+
+>=20
+>        =E2=80=A2   lsp has an experimental TOC mode.
+>=20
+>            This is a three-level folding mode trying to list only secti=
+on and
+>            sub-section names for quick navigation in manual pages.
+
+Nice, and this an important feature missing feature in info(1), as I
+reported recently.  :)  Maybe they are interested in something similar.
+
+>=20
+>            The TOC is created using naive heuristics which works well t=
+o some
+>            extend, but it might be incomplete. Users should keep that i=
+n mind.
+
+I guess the heuristics are just `^[^ ]` for SH and `^   [^ ]` for SS, rig=
+ht?
+I tipically use something similar for searching for command flags, and as=
+
+you say, these just work.
+
+Cheers,
+Alex
+
+>=20
+> OPTIONS
+>        All options can be given on the command line or via the environm=
+ent
+>        variable LSP_OPTIONS. The short version of toggles can also be u=
+sed as
+>        commands, e.g. you can input -i while paging through a file to t=
+oggle
+>        case sensitivity for searches.
+>=20
+>        -a, --load-apropos
+>            Create an apropos pseudo-file.
+>=20
+>        -c, --chop-lines
+>            Toggle chopping of lines that do not fit the current screen =
+width.
+>=20
+>        -h, --help
+>            Output help and exit.
+>=20
+>        -i, --no-case
+>            Toggle case sensitivity in searches.
+>=20
+>        -I, --man-case
+>            Turn on case sensitivity for names of manual pages.
+>=20
+>            This is used for example to verify references to other manua=
+l
+>            pages.
+>=20
+>        -l, --log-file
+>            Specify a path to where write debugging output.
+>=20
+>        -n, --line-numbers
+>            Toggle visible line numbers.
+>=20
+>        -s, --search-string
+>            Specify an initial search string.
+>=20
+>        -v, --version
+>            Output version information of lsp and exit.
+>=20
+>        --no-color
+>            Disable colored output.
+>=20
+>        --reload-command
+>            Specify command to load manual pages. Default is man.
+>=20
+>        --verify-command
+>            Specify command to verify the existance of references. Defau=
+lt is
+>            man -w.
+>=20
+>        --verify-with-apropos
+>            Use the entries of the apropos pseudo-file for validation of=
+
+>            references.
+>=20
+> COMMANDS
+>        Pg-Down / Pg-Up
+>            Forward/backward one page, respectively.
+>=20
+>        Key-Down / Key-Up / Mouse-Wheel down/up
+>            Forward/backward one line, respectively.
+>=20
+>        CTRL-l
+>            In search mode: bring current match to top of the page.
+>=20
+>        ESC
+>            Turn off current highlighting of matches.
+>=20
+>        TAB / S-TAB
+>            Navigate to next/previous reference respectively.
+>=20
+>        ENTER
+>=20
+>            =E2=80=A2   If previous command was TAB or S-TAB:
+>=20
+>                Open reference at point, i.e. call `man <reference>'.
+>=20
+>            =E2=80=A2   In TOC-mode:
+>=20
+>                Go to currently selected position in file.
+>=20
+>        /
+>            Start a forward search for regular expression.
+>=20
+>        ?
+>            Start a backward search for regular expression.
+>=20
+>        B
+>            Change buffer; choose from list.
+>=20
+>        a
+>            Create a pseudo-file with the output of `apropos .'.
+>=20
+>            That pseudo-file contains short descriptions for all manual =
+pages
+>            known to the system; those manual pages can also be opened w=
+ith TAB
+>            / S-TAB and ENTER commands.
+>=20
+>        b
+>            Backward one page
+>=20
+>        c
+>            Close file currently paged.
+>=20
+>            Exits lsp if it was the only/last file being paged.
+>=20
+>        f
+>            Forward one page
+>=20
+>        h
+>            Show online help with command summary.
+>=20
+>        m
+>            Open another manual page.
+>=20
+>        n
+>            Find next match in search.
+>=20
+>        p
+>            Find previous match in search.
+>=20
+>        q
+>=20
+>            =E2=80=A2   Exit lsp.
+>=20
+>            =E2=80=A2   In TOC-mode: switch back to normal view.
+>=20
+>            =E2=80=A2   In help-mode: close help file.
+>=20
+> ENVIRONMENT
+>        LSP_OPTIONS
+>            All command line options can also be specified using this va=
+riable.
+>=20
+>        LSP_OPEN / LESSOPEN
+>            Analogical to less(1), lsp supports an input preprocessor bu=
+t
+>            currently just the two basic forms:
+>=20
+>            One that provides the path to a replacement file and the one=
+ that
+>            writes the content to be paged to a pipe.
+>=20
+> SEE ALSO
+>        apropos(1), less(1), man(1), more(1), pg(1)
+>=20
+> BUGS
+>        Report bugs at https://github.com/dgouders/lsp
+>=20
+> alpha-1.0e-42                     03/25/2023                           =
+ LSP(1)
+
+--=20
+<http://www.alejandro-colomar.es/>
+GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
+
+--------------Hk073cm9v705qUCgqVtAzBWj--
+
+--------------U1pC3YKI5iUYKz08deo7i8tm
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIyBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQstqoACgkQnowa+77/
+2zKZ/g/4x0EQJN8h/Z+VFIIn1Eyl69l1mUT8VBn13XWbU/o+ZqrGUvL8j/3m7i7r
+ePWMT23Qw2g2foa0rYvLJKonZNqEbE+I7TLMXfiLrq2RzdhTeLaIWrlNG67I5mhC
+XXX2XM9DWvmwjCpp0W2NeNCKfp6enEFd0qs5mjYdLqN3BScXqKnsQ/pFkt/mhItM
+yN6Ql/zUSnJlyubujV16aKxF+REGQpTjoOpnsNwFxBQnfPPbop+j0FkgIE+YQkmE
+R11uFljGuoFLilVQReM3snq3vBbb1LWHpvBTH64WPVDpdS0HmJuQR7kUtLlk49d5
+E3sSm7CYAmqu6Cmqw8M43XRRvWJ8B8/vLjK8Cbt3jKMdNHCFnqgIe19NZsUZL6Kc
+8gZZWeb+/T5K448FGJdmEobQpdckDlirW0UKa74YlITgy8ESv7oxfIyxpMbdhqZ3
+HCQEO5nDww4OiS2a7yFGC+psL4IdaRviRG60bh9CvxTw4uwQoplvhGmDL+Ocbzlv
+qC2cgwlNdrEsd/OSrW/6+85CWgWSIGDekgXJCch8+lUTin9Z7rjEWB9PW+S9WB6E
+yEV2E+y9cqdRScTFAfIRYJHCiNKCZvtMlACS+EdSV0tFMCgNZmo7Owq+TSOX90wi
+P4rgFyq11xABK9YwhVuB7OIkdH6XC0OtKF21NHK3HIvkIYxr+Q==
+=TKJp
+-----END PGP SIGNATURE-----
+
+--------------U1pC3YKI5iUYKz08deo7i8tm--
