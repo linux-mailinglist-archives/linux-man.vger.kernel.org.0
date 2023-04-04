@@ -2,64 +2,56 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 919FE6D4D92
-	for <lists+linux-man@lfdr.de>; Mon,  3 Apr 2023 18:25:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0DB276D583B
+	for <lists+linux-man@lfdr.de>; Tue,  4 Apr 2023 07:52:24 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232677AbjDCQZN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 3 Apr 2023 12:25:13 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55320 "EHLO
+        id S233417AbjDDFwW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 4 Apr 2023 01:52:22 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43712 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232782AbjDCQY6 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 3 Apr 2023 12:24:58 -0400
-Received: from mail-qt1-x829.google.com (mail-qt1-x829.google.com [IPv6:2607:f8b0:4864:20::829])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 27D5E40CB
-        for <linux-man@vger.kernel.org>; Mon,  3 Apr 2023 09:24:31 -0700 (PDT)
-Received: by mail-qt1-x829.google.com with SMTP id p2so23776285qtw.13
-        for <linux-man@vger.kernel.org>; Mon, 03 Apr 2023 09:24:31 -0700 (PDT)
+        with ESMTP id S233453AbjDDFwU (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 4 Apr 2023 01:52:20 -0400
+Received: from mail-qv1-xf30.google.com (mail-qv1-xf30.google.com [IPv6:2607:f8b0:4864:20::f30])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 697741FEF
+        for <linux-man@vger.kernel.org>; Mon,  3 Apr 2023 22:52:12 -0700 (PDT)
+Received: by mail-qv1-xf30.google.com with SMTP id jl13so22692518qvb.10
+        for <linux-man@vger.kernel.org>; Mon, 03 Apr 2023 22:52:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1680539069;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=TbZJ/owSEKBIT9R/T3bG+NYiuizThHC/BYpHAJIfRk0=;
-        b=V8XatR2FC2WxDfSdNZLgEn25lnzBAx54ZwV6KN9hZZ/DFJzowQJGI3tOEx5hgzwVok
-         VMCO2PGH++ZRB/V78Wq0kTYpVlMiaVmifg42wmailk9JbNAK0ZPqm+qdy4HkU233aW5/
-         l3hpxAJeFEL/Bu7nlXKeohF+W1CByJaS/cA4a0Xdmsl4hWvXXKAw04hX7DKbIP3j9FKV
-         1nyG6+sJeQR5LKlxtcIMBGa2epTjLh5WC3k/ERJ/2vn0KuXybi7+6USNNgJk76zKw86j
-         YmX0FHZm1gXs3pLYYpQH96Yi2LTAU29Sxeiva3nNl39CCckhZZnlJ8jU0We/8Nn2qArj
-         xMMA==
+        d=gmail.com; s=20210112; t=1680587531;
+        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=0tu4HIVWM2/KBZaX6TPmhhlIs14Zx9CChbyENqb36LU=;
+        b=b2+HpyUL0sBcWZCdR648IyZ2ZV6TGu6tuMP46+PHPZ7WU/GaRNFovqtBLGxGlNMMaP
+         e9QHxPFoz6ayxyHD5jyYrqQRxPcTWZ4JG6cQ2QpW6OjfNoDg2+rOQ5Z1/D+R+jFZHunx
+         PrlyjRHC/yHcyV5cVR8e5EQEJzzDlJuxyBLPfbhFwBa43lnfQ3IdTgBFk5bLY9sD7rd9
+         PrQ8BtVpuRqJ0v2hGAqX8akjkuzDe5U7oaRMo9hfXCZyOuPGlI6rUQNKt/LwMK9em3bo
+         vWYpq3wsQvQ1b+pOxNeVZy0xrrJ5jtOER23BOFr80i0aDwVDK/BsqaX6zKN+nLxge1RL
+         LLsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680539069;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=TbZJ/owSEKBIT9R/T3bG+NYiuizThHC/BYpHAJIfRk0=;
-        b=iitn0OMjUVGt2a3z7q2QwA3aGAMneP3NZ0v4nZoBXXJKOyHwIrEH5xDlP6rriVgapO
-         5NSAJ/5/VBZo3+mOpUPb2ShdPBR/i5PzrTq5jV3JpXERtGY4n8Nv66gWufT99utxMvuG
-         XNMzH9apnZuY/zONdj4Ew8vhxDzHSSvWiVEvnWimmmOhb23fGqCv5ygMWTu07exO9M84
-         cxBgTabrxutPdVzBPa3InSHkfdBU2CuhCb5isPmVnEBWexianuG8rGEj551SZlmXH+FC
-         dxUzVZ0ba1+dNzImT1g0JmvD1Yrhu0ttZeoAjymEqQ487XsF9bALd31kIgprcev4zaji
-         QujQ==
-X-Gm-Message-State: AAQBX9cmnPkw3lRBgVnKgpU8CohsR97fc32K/rzz8nyh6xYzyR1Jk1Bf
-        tP+eNVB9N13C+NuYCpC9eWiRT2joCPVmbY5vTH0=
-X-Google-Smtp-Source: AKy350bWVV0o5DRWwR2eJpiuwvnat2cF8oDFyfB0V0TSaQXcFcrXxiuM3d0t61yqZbw5bFFlaUPcNSuWPhV8RKvtVhg=
-X-Received: by 2002:a05:622a:180a:b0:3df:dd8e:4e8 with SMTP id
- t10-20020a05622a180a00b003dfdd8e04e8mr13702400qtc.4.1680539068951; Mon, 03
- Apr 2023 09:24:28 -0700 (PDT)
+        d=1e100.net; s=20210112; t=1680587531;
+        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=0tu4HIVWM2/KBZaX6TPmhhlIs14Zx9CChbyENqb36LU=;
+        b=nmHn9f7NtDh+hzb2W/NTFQwqle/8QV5IhDF7S+pcDHsL2zVXg7GB+kEZxr0EX7hW6l
+         LuKQTIalQx79/YnOm04FkfjbC6J5K17ILrO8TRTZ0DENJbPKJDOHkz1hLP8siftXwjwV
+         VPmKOwhupO+gCpSNmOyhhKbcXHC6fNyBmkQVZAc/qnjYxLP81yE2F3XzGjAQHrEz28no
+         o2C7/CAXGTezGCsk3PnuMK/iCyjGc5vkfaxSwVcFc2J63PU3KL+YRCbbHUma2Y0XuDpq
+         v96W/TAZNnpHHhY+XXJwZpI6T/EnR/cuCEvHaCiyk5tMYZ9lySecd124RgW0zU1Air9O
+         8wrg==
+X-Gm-Message-State: AAQBX9eYePHRqUzpGEYWQ/leOChWts/zgYDN6ggUqxVcSCszPHBjNDp2
+        UF/YhLT4DmmB9e/6/Ma9PjbSoylxn8kd9kj1pU92r5sJLQRFC8It
+X-Google-Smtp-Source: AKy350YRZqL/7TEUGvs63s+SRSk/+ieYj3aGE1RJFmsynV+CKElW8ZOR10nQWDELJkKm+v3+jvN8wtjX78BlRAjfHI0=
+X-Received: by 2002:a05:6214:b30:b0:570:ed88:8a13 with SMTP id
+ w16-20020a0562140b3000b00570ed888a13mr242067qvj.6.1680587531544; Mon, 03 Apr
+ 2023 22:52:11 -0700 (PDT)
 MIME-Version: 1.0
-References: <CAD66C+aECcWHSogwDygQnHOvDCayHbH2emKrsUhVxkg48KzXfA@mail.gmail.com>
- <6c5593f5-efc0-564d-83fa-430328b31231@gmail.com> <CAD66C+Y_b_9j1Oty=kbt2jZywzdVOen4i31ndhqyTTCRp=-xTg@mail.gmail.com>
- <5858fd32-aced-7f87-a1c2-2b92c002e4d3@gmail.com> <CAD66C+bWn5Vm3gKa=ygvqyAkELpdCz82huqMk6FJG2Z87B0=Fw@mail.gmail.com>
- <0219f97b-f28e-18f0-3451-87ee00f851aa@gmail.com>
-In-Reply-To: <0219f97b-f28e-18f0-3451-87ee00f851aa@gmail.com>
 From:   Mingye Wang <arthur200126@gmail.com>
-Date:   Tue, 4 Apr 2023 00:24:16 +0800
-Message-ID: <CAD66C+anMmcxDAf+KDDzEP7B5HHyzZKiSfZM9Q5fhN3HxqaHbw@mail.gmail.com>
-Subject: Re: [PATCHv2] feature_test_macros.7: document clang fortify support
+Date:   Tue, 4 Apr 2023 13:52:01 +0800
+Message-ID: <CAD66C+YQKWJQNv2i=8+BuL3Z5NzDQsG-1izhVxZ549xhMTTUjA@mail.gmail.com>
+Subject: [RFC PATCH] malloc_usable_size.3: Warn about _FORTIFY_SOURCE interaction
 To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Cc:     linux-man@vger.kernel.org, siddhesh@gotplt.org
+Content-Type: multipart/mixed; boundary="000000000000d51d6d05f87c463b"
 X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
         DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
@@ -70,15 +62,50 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Alex,
+--000000000000d51d6d05f87c463b
+Content-Type: text/plain; charset="UTF-8"
 
-On Sat, Apr 1, 2023 at 5:56=E2=80=AFAM Alejandro Colomar wrote:
-> If it's just a reference to the software, that is fine.  If it's a
-> reference to the version, then I want it to be greppable.
->
+Hi all,
 
-Is my patch attached to the last message all good, or is there
-anything more to do?
+In (somewhat) recent discussions about _FORTIFY_SOURCE level 3, a
+common snag to hit seems to be abuse of malloc_usable_size(). The
+attached patch is my attempt at making the situation easier to sort
+through.
 
-Thanks,
-Mingye
+See siddhesh's comment on GitHub.[0] I wonder if the language needs to
+be stronger.
+  [0]: https://github.com/systemd/systemd/issues/22801#issuecomment-1343041481
+
+Best,
+Mingye Wang (Artoria2e5)
+
+--000000000000d51d6d05f87c463b
+Content-Type: application/octet-stream; 
+	name="0001-malloc_usable_size.3-Warn-about-_FORTIFY_SOURCE-inte.patch"
+Content-Disposition: attachment; 
+	filename="0001-malloc_usable_size.3-Warn-about-_FORTIFY_SOURCE-inte.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_lg1uc25m0>
+X-Attachment-Id: f_lg1uc25m0
+
+RnJvbSBmMDYxNTIyNzY0ZWM0MTdlODA2MjJkYjU1Nzg1M2MyZDc0OTNiYmI3IE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBNaW5neWUgV2FuZyA8YXJ0aHVyMjAwMTI2QGdtYWlsLmNvbT4K
+RGF0ZTogVHVlLCA0IEFwciAyMDIzIDEzOjQzOjM5ICswODAwClN1YmplY3Q6IFtQQVRDSF0gbWFs
+bG9jX3VzYWJsZV9zaXplLjM6IFdhcm4gYWJvdXQgX0ZPUlRJRllfU09VUkNFIGludGVyYWN0aW9u
+CgpBYnVzZSBvZiBtYWxsb2NfdXNhYmxlX3NpemUoKSBpcyBjb21tb24gZW5vdWdoIHRvIHNuYXAg
+dXAgUmVkaGF0J3MKdHJpYWxzIG9mIC1EX0ZPUlRJRllfU09VUkNFPTMuICBXYXJuIGFnYWluc3Qg
+dGhpcyB0byBlYXNlIGRlYnVnZ2luZy4KClNpZ25lZC1PZmYtYnk6IE1pbmd5ZSBXYW5nIDxhcnRo
+dXIyMDAxMjZAZ21haWwuY29tPgotLS0KIG1hbjMvbWFsbG9jX3VzYWJsZV9zaXplLjMgfCA5ICsr
+KysrKysrKwogMSBmaWxlIGNoYW5nZWQsIDkgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL21h
+bjMvbWFsbG9jX3VzYWJsZV9zaXplLjMgYi9tYW4zL21hbGxvY191c2FibGVfc2l6ZS4zCmluZGV4
+IDc1NGIyNTVkZS4uMTM2MWU2ZjFlIDEwMDY0NAotLS0gYS9tYW4zL21hbGxvY191c2FibGVfc2l6
+ZS4zCisrKyBiL21hbjMvbWFsbG9jX3VzYWJsZV9zaXplLjMKQEAgLTYyLDUgKzYyLDE0IEBAIHRo
+ZSBudW1iZXIgb2YgZXhjZXNzIGJ5dGVzIGluIGFuIGFsbG9jYXRpb24gZGVwZW5kcyBvbgogdGhl
+IHVuZGVybHlpbmcgaW1wbGVtZW50YXRpb24uCiAuUFAKIFRoZSBtYWluIHVzZSBvZiB0aGlzIGZ1
+bmN0aW9uIGlzIGZvciBkZWJ1Z2dpbmcgYW5kIGludHJvc3BlY3Rpb24uCisuUFAKKy5CUiBXYXJu
+aW5nIDoKK1NvbWUgcHJvZ3JhbXMgYWJ1c2UKKy5CUiBtYWxsb2NfdXNhYmxlX3NpemUgKCkKK3Rv
+IHJlZHVjZSB0aGUgbnVtYmVyIG9mIGNhbGxzIHRvCisuQlIgcmVhbGxvYyAoMykuCitTdWNoIHVz
+ZSB3aWxsIGNvbmZ1c2UKKy5CUiBfRk9SVElGWV9TT1VSQ0UKK2xldmVsIDMsIGFzIGl0IG9ubHkg
+a2VlcHMgdHJhY2sgb2YgdGhlIG9yaWdpbmFsIHJlcXVlc3RlZCBzaXplLgogLlNIIFNFRSBBTFNP
+CiAuQlIgbWFsbG9jICgzKQotLSAKMi40MC4wLndpbmRvd3MuMQoK
+--000000000000d51d6d05f87c463b--
