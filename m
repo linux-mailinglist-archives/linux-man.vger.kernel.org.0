@@ -2,99 +2,118 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id EA7F46D5F4F
-	for <lists+linux-man@lfdr.de>; Tue,  4 Apr 2023 13:42:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 090E16D6826
+	for <lists+linux-man@lfdr.de>; Tue,  4 Apr 2023 18:01:45 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234075AbjDDLm4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 4 Apr 2023 07:42:56 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47462 "EHLO
+        id S235348AbjDDQBj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 4 Apr 2023 12:01:39 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37786 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229551AbjDDLmz (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 4 Apr 2023 07:42:55 -0400
-Received: from bee.birch.relay.mailchannels.net (bee.birch.relay.mailchannels.net [23.83.209.14])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 24E2E138
-        for <linux-man@vger.kernel.org>; Tue,  4 Apr 2023 04:42:51 -0700 (PDT)
-X-Sender-Id: dreamhost|x-authsender|siddhesh@gotplt.org
-Received: from relay.mailchannels.net (localhost [127.0.0.1])
-        by relay.mailchannels.net (Postfix) with ESMTP id C9F12641D8A;
-        Tue,  4 Apr 2023 11:42:50 +0000 (UTC)
-Received: from pdx1-sub0-mail-a307.dreamhost.com (unknown [127.0.0.6])
-        (Authenticated sender: dreamhost)
-        by relay.mailchannels.net (Postfix) with ESMTPA id 4A053641E2D;
-        Tue,  4 Apr 2023 11:42:50 +0000 (UTC)
-ARC-Seal: i=1; s=arc-2022; d=mailchannels.net; t=1680608570; a=rsa-sha256;
-        cv=none;
-        b=OR+W741dVWtUf8oz8BE45TkArqv5zZvklSf+PJ/WhQSQZBLTxjpPo5yLBNLS455V0B7eq2
-        Rmg6PVhbg848ruR3pQGLgiepwQiS4aG8tVBRqjBu2FA/iGeKyQkirio5MDRkBSox8T47q5
-        VA4GRARS7N3gNDo5wcTtvOB3Yys4m8GDa+FtzJgjdG0oB09YomPRDZdArhcuahAKWvxUq3
-        z/PPc75Da+glV2GlApTCtNOyjmjKcj8+cr47u113VzvI4IxQIre6uylYu+iHw8AbMAYRKj
-        ASGsowvETJUlVTIekgWri+PtFCb2JSFkw/D9hbzGinBBSbmwL6prPAzs2elv7Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mailchannels.net;
-        s=arc-2022; t=1680608570;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         content-transfer-encoding:content-transfer-encoding:
-         in-reply-to:in-reply-to:references:references:dkim-signature;
-        bh=hKIGfZ+zJQNmdFo9ZeKRiB1MwE4H7mtllnRmHVWIwkE=;
-        b=u6os/iuTUcVoXVCqY6KAKALjnNrTgMMMswqog2KURYTiRQ0dQiZV8Bzdnd3F9wvX3HJLve
-        t9Eq1vtljxAMJGiEWLIIfCei89irGa8N0fOtEGT+iHFHdepIwc9Bw6N6ILJ4bS36lDNV7U
-        rq2BgNu6Pnvgr5+k98Wk7bmiCUd+QG4WYMiw9Hqf5kSwbJ7ZV+cqn5DnFeP3GeFJSMmdrj
-        EmKEl+0G9LATbtkZq8EU21v99kxh7A0wgAcifN+m6ETHgQHBLeMuIgGrwnWKlugQpR8OOl
-        OgPoYK66njWPhEoWToMQ/05eyoAPC7Fm2fD8J8W3Md6rPr7HGdqm322t2qPd0Q==
-ARC-Authentication-Results: i=1;
-        rspamd-786cb55f77-5wm9m;
-        auth=pass smtp.auth=dreamhost smtp.mailfrom=siddhesh@gotplt.org
-X-Sender-Id: dreamhost|x-authsender|siddhesh@gotplt.org
-X-MC-Relay: Neutral
-X-MailChannels-SenderId: dreamhost|x-authsender|siddhesh@gotplt.org
-X-MailChannels-Auth-Id: dreamhost
-X-Wiry-Lonely: 15573d4925809252_1680608570591_2621405331
-X-MC-Loop-Signature: 1680608570591:3150206419
-X-MC-Ingress-Time: 1680608570591
-Received: from pdx1-sub0-mail-a307.dreamhost.com (pop.dreamhost.com
- [64.90.62.162])
-        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
-        by 100.126.30.62 (trex/6.7.2);
-        Tue, 04 Apr 2023 11:42:50 +0000
-Received: from [192.168.2.12] (bras-vprn-toroon4834w-lp130-09-174-91-45-153.dsl.bell.ca [174.91.45.153])
-        (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-         key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-        (No client certificate requested)
-        (Authenticated sender: siddhesh@gotplt.org)
-        by pdx1-sub0-mail-a307.dreamhost.com (Postfix) with ESMTPSA id 4PrQqY4qc2zM5;
-        Tue,  4 Apr 2023 04:42:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gotplt.org;
-        s=dreamhost; t=1680608570;
-        bh=hKIGfZ+zJQNmdFo9ZeKRiB1MwE4H7mtllnRmHVWIwkE=;
-        h=Date:Subject:To:Cc:From:Content-Type:Content-Transfer-Encoding;
-        b=h1g35rf4+SXuZsDgGQNf3cLZLrseWP4eLSeXWCfx75Zfa+qDwFyU2BaUrfnARu32F
-         ca5AyhEiyHyC/V7GsGgpDW57j4InJrpNQmBIUWBRAMkCuqELWmNFjnZ2AO5l3VF9mJ
-         zWZh0E4xm+MhdO/ceQtGkyLK+3X2ONVQk+DuCQqrdKQygQdFc/V7C5RMdaamcZAfD+
-         Ql2iWMrpKeQYtmhhrC5Y8BRZfxVEvcTI4YG/Z3hzmzBeo17AZT95TSLaOG/gxi09TJ
-         Y9tMhrL3rEHMgXW9pLTLyHWcR2gL7Zl3NOrzhH55KN2j7oSC/JuW8ETTTqzWdDn9uL
-         MJ2OWGkjDVbjQ==
-Message-ID: <fdbd4b16-6e99-ffb6-40c0-85a2b1509222@gotplt.org>
-Date:   Tue, 4 Apr 2023 07:42:48 -0400
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [RFC PATCH] malloc_usable_size.3: Warn about _FORTIFY_SOURCE
- interaction
+        with ESMTP id S235408AbjDDQBc (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 4 Apr 2023 12:01:32 -0400
+Received: from DM4PR02CU002-vft-obe.outbound.protection.outlook.com (mail-centralusazon11013002.outbound.protection.outlook.com [52.101.64.2])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BFEEF44AE
+        for <linux-man@vger.kernel.org>; Tue,  4 Apr 2023 09:01:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ffGj4qzPAdikxhABeKuYjICAFdzIEigeQkWfuhqb3EPnUuG56YWnuvCYQUvGE6TX/AKnNQFORsDLBF/UOQpQ90r5IRgUeNQ4cbgMGVoprlSHVP6Gnta1TZ+2U3Y9RGzBrH2FwOZGZtup5JxpYb/ZnXX5YIhErHaFA2Q5et4iBiKwHuIE5jVHdw0FUs5M8qNaids6ed1JAX3iauLeHqV3toisCGBtZGa0zo5MeEC4b581sHIejBxHVpeX3f8ZrSbTFF9f7jFp4em7fNnZdg7qCdwHdLLHWYa3Qty+TLgdtxFjIe3pcvmN/D2+3AfRE3tDXbzNZjvMZRrBjZgYqy0AGw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0+nEtTJD+e1Mtln90vbKovu/vGwP3LAsCc/Q8sDUAz8=;
+ b=XCofeGV9Jr/rk2YmZZEdpxhxvFuX0RZib9K8q4wzqFIWGl8RAEed2+bZ0y8IHvYeaWapv36vieXQbqhfCfylv1P3puUY+KUkql0fTdIdFX0gNHRMKEPVsToZaAVpdaCc9BqqbOyLcDrxz+IlcLMXU6Ywd+zbRJAXj0vP0zSx2ULbsuL4dPA2mlY5bYoXLrm/8MqfzZw1JkAu8JKjVHZ2QYWs7A9kFubfK5hBCm6n8LEgYRdTq0cYXR7fl6WF1u96/sRx4KLUUUZfpF2/n8PL9tNo/6s6iHLuVSddbEJibUqk5PQ82b27ZZjIYS/sN1U0IeDbfM8/6tHC7Nixxbb1bg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vmware.com; dmarc=pass action=none header.from=vmware.com;
+ dkim=pass header.d=vmware.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vmware.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0+nEtTJD+e1Mtln90vbKovu/vGwP3LAsCc/Q8sDUAz8=;
+ b=DuCI1aqSUT/7T/U0PcY9YNsZxDcY2vOYLnJ4CQrqPNomjdKCiHrk33sRZQ8+xaogW/b9zJzMpNUp7MKSBUFSvlbzzKIvOk5oz18Pam8xEw6kQa/KHFFigsVJf4ue7VB5TdcN/osvwoec8GOTjr7T8quWBq/T9b8xxjvhsOO6bm0=
+Received: from BY3PR05MB8531.namprd05.prod.outlook.com (2603:10b6:a03:3ce::6)
+ by DM6PR05MB4492.namprd05.prod.outlook.com (2603:10b6:5:99::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.33; Tue, 4 Apr
+ 2023 16:01:28 +0000
+Received: from BY3PR05MB8531.namprd05.prod.outlook.com
+ ([fe80::e9bd:ef2f:b71:8084]) by BY3PR05MB8531.namprd05.prod.outlook.com
+ ([fe80::e9bd:ef2f:b71:8084%9]) with mapi id 15.20.6254.037; Tue, 4 Apr 2023
+ 16:01:27 +0000
+From:   Nadav Amit <namit@vmware.com>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+CC:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        Peter Xu <peterx@redhat.com>,
+        David Hildenbrand <david@redhat.com>
+Subject: Re: [PATCH 1/2] ioctl_userfaultfd.2: add UFFD_FEATURE_EXACT_ADDRESS
+Thread-Topic: [PATCH 1/2] ioctl_userfaultfd.2: add UFFD_FEATURE_EXACT_ADDRESS
+Thread-Index: AQHYMlPj1HJ3hlhQs0qxJTnjJp7Mnay+1+0Agld4AQCAB2jJAA==
+Date:   Tue, 4 Apr 2023 16:01:27 +0000
+Message-ID: <644B7C32-221D-43B5-B9DC-31F9E53143E9@vmware.com>
+References: <20220307184852.20351-1-namit@vmware.com>
+ <5281de2a-08c2-e159-0e15-cf4225f4466b@gmail.com>
+ <7a4e4c9b-e135-a3bf-17fb-388efd0a341e@gmail.com>
+In-Reply-To: <7a4e4c9b-e135-a3bf-17fb-388efd0a341e@gmail.com>
+Accept-Language: en-US
 Content-Language: en-US
-To:     Mingye Wang <arthur200126@gmail.com>,
-        Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org,
-        GNU C Library <libc-alpha@sourceware.org>,
-        DJ Delorie <dj@redhat.com>
-References: <CAD66C+YQKWJQNv2i=8+BuL3Z5NzDQsG-1izhVxZ549xhMTTUjA@mail.gmail.com>
-From:   Siddhesh Poyarekar <siddhesh@gotplt.org>
-In-Reply-To: <CAD66C+YQKWJQNv2i=8+BuL3Z5NzDQsG-1izhVxZ549xhMTTUjA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Spam-Status: No, score=-2.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-        DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
-        RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-mailer: Apple Mail (2.3731.500.231)
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=vmware.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BY3PR05MB8531:EE_|DM6PR05MB4492:EE_
+x-ms-office365-filtering-correlation-id: b5bc2360-867e-4daf-eb20-08db3525d8ff
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: BrNh/+tjGdUJz7W4SFNrsFfYJK9zK5gi9NhrQ/w3A038nF5fhnEFKtH+Gm+MVajsPMhZdBHI2KKSq571Xo6DvkDJ74vLHxUI+NFgvvKlANt+AJMLdzqKSyqligdganJaC61qMftpWt+WlA9sV2Lb1fctNWszDaGCq0/98j6R3pdbA5UM5nK4rDCRWAdycyZZ6cIPrLECai8p3/V/zc8OBH5HKosjgelSnJLv7v+XiYVkzwtK2wafxVOlDX9Iu9iPLaXxduMD4pNIo2YT5WAliATNhQV6tDhkicMSm40clLur0ipJRyj8Z+6em8m868NWpuAqizd6GEuSxh7FIXax/FN2GS+Kci+7eKt2UpNccHtNvuxB/qKAl5sEtScwkmwVEU5o/QHo8qJXHkXXbEdCe3NVMhBKK2DH0SH7YtlmFEE5YQFr4Df9yURrVipuDT3yBHu+0L85iiYZYWRWo/TinxTyhnlnKjck4pNpbcy6dzw24fh5BCSx6zx53NyjKwsp6gRuRiQY0Tu2nHVRqhAAsWOGww6wpHl7dUuFGvs3Fv77aYDAQRf/q0SHVsXm6r5RdIWRjFEm9j0s3uRFPar0xN0BFIuLhVtc2zl1X/mr05IEHvdJieEBa9xVmo5TXE0msX5bZ2/7AyDtiySPi8TjHQ==
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BY3PR05MB8531.namprd05.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(136003)(39860400002)(376002)(396003)(346002)(366004)(451199021)(6916009)(41300700001)(66476007)(66446008)(64756008)(66556008)(66946007)(76116006)(8676002)(316002)(478600001)(4326008)(4744005)(8936002)(122000001)(5660300002)(38100700002)(54906003)(186003)(83380400001)(2616005)(6486002)(71200400001)(6506007)(6512007)(53546011)(26005)(38070700005)(36756003)(33656002)(2906002)(86362001)(45980500001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?JAfeEMkxTwsLiGg8OJNndNUB+4W/19UXdcOae4FoPk08VpahKEZgSwJXYDgu?=
+ =?us-ascii?Q?qAnx5ZVAn/CYihhhuwca8dSi50PZxHBOBbW1BFqu3cGc6tRb/wL2nU8K4MQG?=
+ =?us-ascii?Q?8Do80Zm/toI9pMsUMNBGKmj7f/VpbX1ekiVZYZEmU98UssvByDDCqcKi1wJc?=
+ =?us-ascii?Q?hcJSnfa+N7U2COCeU4rksIUk/+8wPFLJUz8OmzglCZu1m/QIT+50u/2zgfNy?=
+ =?us-ascii?Q?6hJmUY6IV8arkV1OTEz9w4RqELmpE0W+lNWSr/QAa8+d0CAR26Nj+9T+a4+h?=
+ =?us-ascii?Q?1z8Gx6xt9ICLn6brYf1tlG8P6I6ZPxMpaVvwo/5OU4mUXc034L61rRcVmGup?=
+ =?us-ascii?Q?zzHi9uUqCejLLCXDxL6ipp1/lYz+SOfayPp6y8GxtDWXnSE0+N/yY/C7Eo3R?=
+ =?us-ascii?Q?SCOSdkpe+kW62/4q1KbbzFRYkNRdJky2s99MNu555nHV639O6F6Kr6dApJWM?=
+ =?us-ascii?Q?GDLsjH8C5Tb+WPdrF803BItX9ZLKhew75SiBuegVhabUQem53DwVlG5+EieJ?=
+ =?us-ascii?Q?W5ldF/04jqMMPKOHGYLIDTTugfvKMFReuzpdsENoZlDEmVgI8HyWy3WczVwQ?=
+ =?us-ascii?Q?tHvzjHa92GxiSma3jO+6fLhT6BMKpeEsDbpCaH/ybp25f4GQmB8gCJsRCHal?=
+ =?us-ascii?Q?b6dxp+zhrb6+BuDJHgHuEQ9TpI0O6Lro9prfJnuAcgT+afhHf/H84YaGW80M?=
+ =?us-ascii?Q?R2Afp6m+hC/8YHjNHyqa2tCb5mOcM6CFsgiPWwtgOEfqVD6ElBD/F9i8VbZT?=
+ =?us-ascii?Q?JfJbrv3DM2JTgjCrfg1zYRsURCl0p1bgIGe0cX7l5yPDbMMRdw5daeF8cL59?=
+ =?us-ascii?Q?SDxQZDh6tnostUekzIYxsK3LVy3o+Ltasd6NsbKGYgV+owSk65UnT0AK60GG?=
+ =?us-ascii?Q?+lzZCa2m+DFPgpb2TzP0Qr5F5lL53tjZqbvLxZBNu0liXmqHgSld2B79gcft?=
+ =?us-ascii?Q?wvQsqQvnzNg4kQZTaQDYyYFF8o3VmxJHxAJDfXmGUnqap4lc2RcXYYRQbS6Y?=
+ =?us-ascii?Q?6MLf9C2LAQySLencz7sIaN+v3tnYa+l3PZvc9BYgz1usa8jxPO+KCogClTP2?=
+ =?us-ascii?Q?WrJUZR3Ott82Un84l/6CzKjTvZ9N8ocQ7dCJJcIE4lhx9oX730SHeXg9oMi0?=
+ =?us-ascii?Q?CKEcys+2KC07RDfXnKpqS0N7RnRXEGgtAG1M7EtNMNetx+nMZgC9KnoPC6lc?=
+ =?us-ascii?Q?M1P7zrjndpdMh2m1mEU+ojtxCwAYX/ME/Vs6eqDSPYFoH6ejf60sPiMH1EAn?=
+ =?us-ascii?Q?AkujpcFcTbOImUFF2N7cpyOnh53hI90E1CyI5+S38Bxd2tNalidwN/fUOdD5?=
+ =?us-ascii?Q?19slFI0gvqNu61/Rk1DSumXAAup82v/zPFSZJFjUAfkAGRpoaiu6KJRTlLgP?=
+ =?us-ascii?Q?Pino0Okbf+PqncMsCczMPsu9SB5awE5AGei90Vd6Bxq5JbanDnVJHnl+Pvc/?=
+ =?us-ascii?Q?YjnQygG3oq2vKrOqmSSWfbYSt0uQWbMEgkNKQDL62igr0Y5I4WdycL6rJyTG?=
+ =?us-ascii?Q?xnwxvRQ5n2I0oAoqBrKnGA+EnDls/k54qwzhGgZycnNAHxc1AAX8+cpCIQhu?=
+ =?us-ascii?Q?BvLmNHHp0ROy/4MBqFERPH3/Jly/bTV4p+Q1NvdK?=
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <CF90530FD89FE2488587DBC503C6DD3F@namprd05.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: vmware.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BY3PR05MB8531.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b5bc2360-867e-4daf-eb20-08db3525d8ff
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Apr 2023 16:01:27.3358
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b39138ca-3cee-4b4a-a4d6-cd83d9dd62f0
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: TA6YSqHv4sNFC7cLwAw3IpondsRdnnhDiZmUSJkaqDEYiWPfOuyLjgmv+uIPhY6VUevqyl2mgAfvk9xiQlJESA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR05MB4492
+X-Spam-Status: No, score=0.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FORGED_SPF_HELO,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_PASS,SPF_NONE autolearn=no
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -102,37 +121,31 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 2023-04-04 01:52, Mingye Wang wrote:
-> Hi all,
-> 
-> In (somewhat) recent discussions about _FORTIFY_SOURCE level 3, a
-> common snag to hit seems to be abuse of malloc_usable_size(). The
-> attached patch is my attempt at making the situation easier to sort
-> through.
-> 
-> See siddhesh's comment on GitHub.[0] I wonder if the language needs to
-> be stronger.
->    [0]: https://github.com/systemd/systemd/issues/22801#issuecomment-1343041481
 
-For more context of my statement, please see this discussion:
 
-https://sourceware.org/pipermail/libc-alpha/2022-November/143599.html
+> On Mar 30, 2023, at 3:52 PM, Alejandro Colomar <alx.manpages@gmail.com> w=
+rote:
+>=20
+> Hi Nadav,
+>=20
+> On 3/14/22 13:23, Alejandro Colomar (man-pages) wrote:
+>> Hi Nadav,
+>>=20
+>> On 3/7/22 19:48, Nadav Amit wrote:
+>>> From: Nadav Amit <namit@vmware.com>
+>>>=20
+>>> Describe the new UFFD_FEATURE_EXACT_ADDRESS API feature.
+>>>=20
+>>> Signed-off-by: Nadav Amit <namit@vmware.com>
+>>> ---
+>>=20
+>> LGTM.  Please ping when it's added to Linus's tree,
+>> and add a comment with the commit message that added it.
+>=20
+> I've checked that this was finally added to the kernel.  Should I apply
+> the patch as is, or is there anything that was changed?
 
-which continued into the next month:
+Thanks for following up. Nothing to change, just apply it as is.
 
-https://sourceware.org/pipermail/libc-alpha/2022-December/143667.html
-
-This amendment that DJ wrote is probably the most precise description of 
-the current malloc_usage_size situation:
-
-   The value returned by malloc_usable_size() may be greater than the
-   requested size of the allocation because of various internal
-   implementation details, none of which the programmer should rely on.
-   This function is intended to only be used for diagnostics and
-   statistics; writing to the excess memory without first calling
-   realloc() to resize the allocation is not supported.  The returned
-   value is only valid at the time of the call; any other call to a
-   malloc family API may invalidate it.
-
-Thanks,
-Sid
+Regards,
+Nadav=
