@@ -2,75 +2,99 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 5F73A6D59BB
-	for <lists+linux-man@lfdr.de>; Tue,  4 Apr 2023 09:34:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id EA7F46D5F4F
+	for <lists+linux-man@lfdr.de>; Tue,  4 Apr 2023 13:42:57 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233757AbjDDHeC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 4 Apr 2023 03:34:02 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41438 "EHLO
+        id S234075AbjDDLm4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 4 Apr 2023 07:42:56 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47462 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233477AbjDDHd7 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 4 Apr 2023 03:33:59 -0400
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com [IPv6:2a00:1450:4864:20::52e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B3E12137
-        for <linux-man@vger.kernel.org>; Tue,  4 Apr 2023 00:33:57 -0700 (PDT)
-Received: by mail-ed1-x52e.google.com with SMTP id i5so126974010eda.0
-        for <linux-man@vger.kernel.org>; Tue, 04 Apr 2023 00:33:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1680593636;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=cXzs52WGxV6bTAkEliQtmeOezZRJLXer8hSkSChfykI=;
-        b=pdPg502CufWZ/qSi+m5XN545xEKtfpzvKRgQi4wC6lljk5qBAaObuWpVtjYSJlSxqc
-         jCvmIue4LuwtYAPRfwh2q+4gzSY/TzVdfC4n2rhRB4nEVRf4tIu7uHDkgWnfvl5xOu0u
-         uLxfiVKRCj8uWqPzjV8C8ZYpmfCov4vjC8YvPt1E9rG/OYjzEzYPFXRGS20VyAt1Q4TC
-         1LNzA9sCqqBloj5ALccTMi/7TakehKgG7ZOmYpdCQS2AyTyvEanlLldJNM1zxDys4aQS
-         EOXsXokTbTa5SLN+kl3EpvfbQGOXt5BoBDgk53Ay2ICVnZBcnJw+8z4P9ijAmhfefwuS
-         OF9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680593636;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=cXzs52WGxV6bTAkEliQtmeOezZRJLXer8hSkSChfykI=;
-        b=LMksgb7E8WApOCVYQQVwOyQvkXlZTQR9Fsap5EGSawIK81MMZ4hOWVra8paKCsCjuk
-         WGec/AkbMaY+xYtKqjoeOTHgYc4+A5yLV0qJXUNaMQHzraBiVY3OoWgQfAHicvc1mNX0
-         +SQbo/mWMuGRbNk7ALxmQEszl/Ne7tEpF05rU7uD0UBWqJmWLEFtMk+Uho6sY2kJPAzM
-         WX/b0i6UiZaGiH0zQQbgLpJr/rzvBvFLaIANLY0ZevRTYYL0l+Q9N2q/fASz/D4uKyWY
-         QNMHjGYHqxkqGDdRVNSsTuyxeqTjNt56tVTPSWf5Lhoa2CaanxHIa+x1Q9hUSvtCZNG7
-         meUQ==
-X-Gm-Message-State: AAQBX9fw0hF/kZdt4RzuXPH/1WleNkiBclcQ8ziEi6HKdM1Ipjmm88lO
-        kfeaUWNrrqtIJphk15iCSY65wrElcozKhQ==
-X-Google-Smtp-Source: AKy350aspBECoYxy1n3TiKChEZAJhtoK7zo585GRY0tTklrSBWQQGRgCS1vcvR+CugdK+XXo9mn3FQ==
-X-Received: by 2002:a17:906:1e12:b0:933:3cd8:a16f with SMTP id g18-20020a1709061e1200b009333cd8a16fmr1042159ejj.75.1680593636176;
-        Tue, 04 Apr 2023 00:33:56 -0700 (PDT)
-Received: from localhost (p200300f87f3c28814890d3c71c5b6643.dip0.t-ipconnect.de. [2003:f8:7f3c:2881:4890:d3c7:1c5b:6643])
-        by smtp.gmail.com with ESMTPSA id x5-20020a170906b08500b0093dfd62f9dasm5537659ejy.35.2023.04.04.00.33.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 04 Apr 2023 00:33:55 -0700 (PDT)
-Date:   Tue, 4 Apr 2023 09:33:54 +0200
-From:   =?iso-8859-1?Q?G=FCnther?= Noack <gnoack3000@gmail.com>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        linux-man@vger.kernel.org
-Subject: Re: [PATCH v5 3/3] landlock.7: Explain the best-effort fallback
- mechanism in the example
-Message-ID: <20230404.16675e4d7765@gnoack.org>
-References: <20230324172419.117632-1-gnoack3000@gmail.com>
- <20230324172419.117632-3-gnoack3000@gmail.com>
- <a5daa228-284e-12d3-cd5b-28611830e21b@gmail.com>
- <20230401.1316d7f843d7@gnoack.org>
- <7eda6974-1f1f-66aa-f63c-f33daf2ab6e1@gmail.com>
+        with ESMTP id S229551AbjDDLmz (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 4 Apr 2023 07:42:55 -0400
+Received: from bee.birch.relay.mailchannels.net (bee.birch.relay.mailchannels.net [23.83.209.14])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 24E2E138
+        for <linux-man@vger.kernel.org>; Tue,  4 Apr 2023 04:42:51 -0700 (PDT)
+X-Sender-Id: dreamhost|x-authsender|siddhesh@gotplt.org
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+        by relay.mailchannels.net (Postfix) with ESMTP id C9F12641D8A;
+        Tue,  4 Apr 2023 11:42:50 +0000 (UTC)
+Received: from pdx1-sub0-mail-a307.dreamhost.com (unknown [127.0.0.6])
+        (Authenticated sender: dreamhost)
+        by relay.mailchannels.net (Postfix) with ESMTPA id 4A053641E2D;
+        Tue,  4 Apr 2023 11:42:50 +0000 (UTC)
+ARC-Seal: i=1; s=arc-2022; d=mailchannels.net; t=1680608570; a=rsa-sha256;
+        cv=none;
+        b=OR+W741dVWtUf8oz8BE45TkArqv5zZvklSf+PJ/WhQSQZBLTxjpPo5yLBNLS455V0B7eq2
+        Rmg6PVhbg848ruR3pQGLgiepwQiS4aG8tVBRqjBu2FA/iGeKyQkirio5MDRkBSox8T47q5
+        VA4GRARS7N3gNDo5wcTtvOB3Yys4m8GDa+FtzJgjdG0oB09YomPRDZdArhcuahAKWvxUq3
+        z/PPc75Da+glV2GlApTCtNOyjmjKcj8+cr47u113VzvI4IxQIre6uylYu+iHw8AbMAYRKj
+        ASGsowvETJUlVTIekgWri+PtFCb2JSFkw/D9hbzGinBBSbmwL6prPAzs2elv7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mailchannels.net;
+        s=arc-2022; t=1680608570;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         content-transfer-encoding:content-transfer-encoding:
+         in-reply-to:in-reply-to:references:references:dkim-signature;
+        bh=hKIGfZ+zJQNmdFo9ZeKRiB1MwE4H7mtllnRmHVWIwkE=;
+        b=u6os/iuTUcVoXVCqY6KAKALjnNrTgMMMswqog2KURYTiRQ0dQiZV8Bzdnd3F9wvX3HJLve
+        t9Eq1vtljxAMJGiEWLIIfCei89irGa8N0fOtEGT+iHFHdepIwc9Bw6N6ILJ4bS36lDNV7U
+        rq2BgNu6Pnvgr5+k98Wk7bmiCUd+QG4WYMiw9Hqf5kSwbJ7ZV+cqn5DnFeP3GeFJSMmdrj
+        EmKEl+0G9LATbtkZq8EU21v99kxh7A0wgAcifN+m6ETHgQHBLeMuIgGrwnWKlugQpR8OOl
+        OgPoYK66njWPhEoWToMQ/05eyoAPC7Fm2fD8J8W3Md6rPr7HGdqm322t2qPd0Q==
+ARC-Authentication-Results: i=1;
+        rspamd-786cb55f77-5wm9m;
+        auth=pass smtp.auth=dreamhost smtp.mailfrom=siddhesh@gotplt.org
+X-Sender-Id: dreamhost|x-authsender|siddhesh@gotplt.org
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: dreamhost|x-authsender|siddhesh@gotplt.org
+X-MailChannels-Auth-Id: dreamhost
+X-Wiry-Lonely: 15573d4925809252_1680608570591_2621405331
+X-MC-Loop-Signature: 1680608570591:3150206419
+X-MC-Ingress-Time: 1680608570591
+Received: from pdx1-sub0-mail-a307.dreamhost.com (pop.dreamhost.com
+ [64.90.62.162])
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
+        by 100.126.30.62 (trex/6.7.2);
+        Tue, 04 Apr 2023 11:42:50 +0000
+Received: from [192.168.2.12] (bras-vprn-toroon4834w-lp130-09-174-91-45-153.dsl.bell.ca [174.91.45.153])
+        (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+         key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+        (No client certificate requested)
+        (Authenticated sender: siddhesh@gotplt.org)
+        by pdx1-sub0-mail-a307.dreamhost.com (Postfix) with ESMTPSA id 4PrQqY4qc2zM5;
+        Tue,  4 Apr 2023 04:42:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gotplt.org;
+        s=dreamhost; t=1680608570;
+        bh=hKIGfZ+zJQNmdFo9ZeKRiB1MwE4H7mtllnRmHVWIwkE=;
+        h=Date:Subject:To:Cc:From:Content-Type:Content-Transfer-Encoding;
+        b=h1g35rf4+SXuZsDgGQNf3cLZLrseWP4eLSeXWCfx75Zfa+qDwFyU2BaUrfnARu32F
+         ca5AyhEiyHyC/V7GsGgpDW57j4InJrpNQmBIUWBRAMkCuqELWmNFjnZ2AO5l3VF9mJ
+         zWZh0E4xm+MhdO/ceQtGkyLK+3X2ONVQk+DuCQqrdKQygQdFc/V7C5RMdaamcZAfD+
+         Ql2iWMrpKeQYtmhhrC5Y8BRZfxVEvcTI4YG/Z3hzmzBeo17AZT95TSLaOG/gxi09TJ
+         Y9tMhrL3rEHMgXW9pLTLyHWcR2gL7Zl3NOrzhH55KN2j7oSC/JuW8ETTTqzWdDn9uL
+         MJ2OWGkjDVbjQ==
+Message-ID: <fdbd4b16-6e99-ffb6-40c0-85a2b1509222@gotplt.org>
+Date:   Tue, 4 Apr 2023 07:42:48 -0400
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <7eda6974-1f1f-66aa-f63c-f33daf2ab6e1@gmail.com>
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-        DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [RFC PATCH] malloc_usable_size.3: Warn about _FORTIFY_SOURCE
+ interaction
+Content-Language: en-US
+To:     Mingye Wang <arthur200126@gmail.com>,
+        Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org,
+        GNU C Library <libc-alpha@sourceware.org>,
+        DJ Delorie <dj@redhat.com>
+References: <CAD66C+YQKWJQNv2i=8+BuL3Z5NzDQsG-1izhVxZ549xhMTTUjA@mail.gmail.com>
+From:   Siddhesh Poyarekar <siddhesh@gotplt.org>
+In-Reply-To: <CAD66C+YQKWJQNv2i=8+BuL3Z5NzDQsG-1izhVxZ549xhMTTUjA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Spam-Status: No, score=-2.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+        DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
+        RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -78,48 +102,37 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello!
-
-On Sun, Apr 02, 2023 at 12:01:43AM +0200, Alejandro Colomar wrote:
-> On 4/1/23 19:19, Günther Noack wrote:
-> > (It feels out of scope for this documentation patch, but do you think
-> > these bitmasks should be defined in the uapi/linux/landlock.h header?
-> > You have looked at so many man pages already -- Do you happen to know
-> > other places in the kernel API where such a problem has come up?)
+On 2023-04-04 01:52, Mingye Wang wrote:
+> Hi all,
 > 
-> I don't remember having seen something similar in other pages.
+> In (somewhat) recent discussions about _FORTIFY_SOURCE level 3, a
+> common snag to hit seems to be abuse of malloc_usable_size(). The
+> attached patch is my attempt at making the situation easier to sort
+> through.
 > 
-> I think defining a macro in uapi headers could be the right thing to
-> do.  Something like LANDLOCK_ACCESS_FS_RIGHTS_MASK_ABI_{1,2,3} or
-> other similar name?
+> See siddhesh's comment on GitHub.[0] I wonder if the language needs to
+> be stronger.
+>    [0]: https://github.com/systemd/systemd/issues/22801#issuecomment-1343041481
 
-Noted it on my TODO list - it's probably best discussed on the kernel
-list whether this is the right approach.
+For more context of my statement, please see this discussion:
 
+https://sourceware.org/pipermail/libc-alpha/2022-November/143599.html
 
-> > 1) Make assumptions about the numbers, for brevity
-> >    (as done in the patch I sent).
-> > 
-> >    [...]
-> > 
-> > 2) Use the constants from the header and OR them.
-> > 
-> >    [...]
-> > 
-> > 3) Third option is the middle way,
-> >    naming the "highest" known access right for each ABI version:
-> > 
-> > __u64 landlock_fs_access_rights[] = {
-> >     (LANDLOCK_ACCESS_FS_MAKE_SYM << 1) - 1,  /* ABI v1                 */
-> >     (LANDLOCK_ACCESS_FS_REFER << 1) - 1,     /* ABI v2: add "refer"    */
-> >     (LANDLOCK_ACCESS_FS_TRUNCATE << 1) - 1,  /* ABI v3: add "truncate" */
-> > }
-> 
-> I'm not sure if I like this one.  I'll leave it up to you to decide
-> the one you like.  :)
+which continued into the next month:
 
-I'll ponder it a bit and send a new patch soon.
+https://sourceware.org/pipermail/libc-alpha/2022-December/143667.html
 
-Mickaël, do you have any opinions/preferences on this?
+This amendment that DJ wrote is probably the most precise description of 
+the current malloc_usage_size situation:
 
-–Günther
+   The value returned by malloc_usable_size() may be greater than the
+   requested size of the allocation because of various internal
+   implementation details, none of which the programmer should rely on.
+   This function is intended to only be used for diagnostics and
+   statistics; writing to the excess memory without first calling
+   realloc() to resize the allocation is not supported.  The returned
+   value is only valid at the time of the call; any other call to a
+   malloc family API may invalidate it.
+
+Thanks,
+Sid
