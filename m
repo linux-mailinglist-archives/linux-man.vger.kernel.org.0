@@ -2,123 +2,203 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 703EF6D73CE
-	for <lists+linux-man@lfdr.de>; Wed,  5 Apr 2023 07:35:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3B64C6D792F
+	for <lists+linux-man@lfdr.de>; Wed,  5 Apr 2023 12:02:41 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S236880AbjDEFfC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 5 Apr 2023 01:35:02 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35474 "EHLO
+        id S231873AbjDEKCi (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 5 Apr 2023 06:02:38 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50138 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S236854AbjDEFfB (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 5 Apr 2023 01:35:01 -0400
-Received: from eggs.gnu.org (eggs.gnu.org [IPv6:2001:470:142:3::10])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8B888199C
-        for <linux-man@vger.kernel.org>; Tue,  4 Apr 2023 22:35:00 -0700 (PDT)
-Received: from fencepost.gnu.org ([2001:470:142:3::e])
-        by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
-        (Exim 4.90_1)
-        (envelope-from <eliz@gnu.org>)
-        id 1pjvnL-0004j0-78; Wed, 05 Apr 2023 01:34:55 -0400
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=gnu.org;
-        s=fencepost-gnu-org; h=MIME-version:References:Subject:In-Reply-To:To:From:
-        Date; bh=zV0YP08ncMy3s4IgPo3y1zAPSzxeSONTyYwM7Y8Oo+M=; b=gcZs7d1VsjWamwB2A7Ag
-        KwpsrgqihanKdayqt8NtnU3Mq7NqKaQA11vkZPMt+mXY4dSEPNm+1Ex+ENWdhUcwVuiSrlH2S1J4u
-        fp61DWfUNx8WP5AnsJNuuOzfZcUqtFScRDs3vBaaiZVJBVX3bQiciiunylKS6XHgHjNPesrxg1QOE
-        1iCrJu2ZuU5rin3tfoT08hFksj/FahECOzJ2A0OoMTTBfTHZm/TzKDJKGPNaK57/JWZr/UP32a1dv
-        oPvaul2HGW/8+hrxylzGFrJmjFy0BySJ2UiSaOMy3HN5kIKQSKLqFgS4/aGJsGrxKluwXMb34H0q+
-        4JxVzKpOColICw==;
-Received: from [87.69.77.57] (helo=home-c4e4a596f7)
-        by fencepost.gnu.org with esmtpsa (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
-        (Exim 4.90_1)
-        (envelope-from <eliz@gnu.org>)
-        id 1pjvnE-0001JC-9O; Wed, 05 Apr 2023 01:34:54 -0400
-Date:   Wed, 05 Apr 2023 08:35:13 +0300
-Message-Id: <834jpuuc1a.fsf@gnu.org>
-From:   Eli Zaretskii <eliz@gnu.org>
+        with ESMTP id S235498AbjDEKCe (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 5 Apr 2023 06:02:34 -0400
+Received: from mx10.gouders.net (mx10.gouders.net [202.61.206.94])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B30FDD7
+        for <linux-man@vger.kernel.org>; Wed,  5 Apr 2023 03:02:31 -0700 (PDT)
+Received: from localhost ([193.175.198.193])
+        (authenticated bits=0)
+        by mx10.gouders.net (8.17.1.9/8.16.1) with ESMTPSA id 335A27YZ030852
+        (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+        Wed, 5 Apr 2023 12:02:07 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gouders.net; s=gnet;
+        t=1680688927; bh=ag74DpgkjHSRuamjgvtTvj6OV+43ELfc9pkvtH9fNeg=;
+        h=From:To:Cc:Subject:In-Reply-To:References:Date;
+        b=Qolh8Xf8j3n3HNzL6wuqGGjUOJpL0TLPySShETaDyBVsr4ZKkfk2yeTf2w0fT0oGx
+         vxVSuU3yiEmS2VUZkYWKaPBmqlJNFbYjmhC13ecAlPIzUlai0y5gSQLNO0zg98V+o+
+         LIqPlTn0y0XEcEUHaOPn+eVhA6T6K54VCt+hSJoc=
+From:   Dirk Gouders <dirk@gouders.net>
 To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     dirk@gouders.net, linux-man@vger.kernel.org, help-texinfo@gnu.org
-In-Reply-To: <073413e2-7d35-f0d7-26eb-f66908d7af6a@gmail.com> (message from
-        Alejandro Colomar on Wed, 5 Apr 2023 01:45:46 +0200)
+Cc:     linux-man@vger.kernel.org, help-texinfo@gnu.org
 Subject: Re: Playground pager lsp(1)
-References: <ghileoo9dk.fsf@gouders.net> <ghbkkgo8x8.fsf@gouders.net> <073413e2-7d35-f0d7-26eb-f66908d7af6a@gmail.com>
-MIME-version: 1.0
-Content-type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_PASS,
-        SPF_PASS autolearn=unavailable autolearn_force=no version=3.4.6
+In-Reply-To: <073413e2-7d35-f0d7-26eb-f66908d7af6a@gmail.com> (Alejandro
+        Colomar's message of "Wed, 5 Apr 2023 01:45:46 +0200")
+References: <ghileoo9dk.fsf@gouders.net> <ghbkkgo8x8.fsf@gouders.net>
+        <073413e2-7d35-f0d7-26eb-f66908d7af6a@gmail.com>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/28.2 (gnu/linux)
+Date:   Wed, 05 Apr 2023 12:02:01 +0200
+Message-ID: <ghedoy8x5y.fsf@gouders.net>
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="=-=-="
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+        DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
+        autolearn=unavailable autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-> Date: Wed, 5 Apr 2023 01:45:46 +0200
-> Cc: help-texinfo@gnu.org
-> From: Alejandro Colomar <alx.manpages@gmail.com>
-> 
-> With the benefit that you don't need to implement such a system from scratch,
-> but just reusing the existing tools (apropos, man, whatis, ...).  It seems
-> something like what I would have written if I had to implement info(1) from
-> scratch.  I wish GNU guys had thought of this instead of developing their
-> own incompatible system.
+--=-=-=
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-This last sentence is a misunderstanding.  The goal of Texinfo is not
-to improve the man pages.  Texinfo is a completely different approach
-to software documentation, which allows to write large books and then
-produce various on-line and off-line formats to read and efficiently
-search those books.
+Hi Alex,
 
-Man pages have no means of specifying structure and hyper-links except
-by loosely-coupling pages via "SEE ALSO" cross-references at the end;
-they have no means of quickly and efficiently finding some specific
-subject except by text search (which usually produces a lot of false
-positives).
+>> first of all, chances are that you consider this post as spam, because
+>> this list is about linux manual pages and not pagers.
+>
+> No, I don't.
 
-By contrast, Texinfo documents have sectioning structure, have
-cross-references that can appear where you need them and point
-anywhere else in the document (or into another document).  They also
-have indexing and commands that allow the reader to use the index in
-order to find the subject he/she is interested in very quickly and
-accurately, even if the text of the index entry doesn't appear
-anywhere in the manual.
+that's fine, thank you for taking the time give me feedback.
 
-How can you document a large and flexible software package, such as
-GDB or Texinfo or Emacs, in man pages?
+>> I will try to not waste your time and attach the manual page and a link
+>> to a short (3:50) demo video.  To me it is absolutely OK should you just
+>> ignore this spam post, but perhaps you find lsp(1) interesting enough
+>> for further discussion.
+>
+> If you had a Debian package, I might try it :)
+>
+> Or maybe a Makefile to build from source...  What is this meson.build?
 
-It is a mistake to even compare these two documentation systems,
-certainly in this way.
+If you want to take a look at it: there is a branch "next" which you
+might prefer as it closer resembles my current work.  There is a new
+toggle "-V" that can be used to completely turn off validation.
 
-> >        •   In windowing environments lsp does complete resizes when windows
-> >            get resized. This means it also reloads the manual page to fit the
-> >            new window size.
-> 
+I tried to assemble a Makefile that might work without a configure
+script and attach it to the end.  A prefix /usr is the default value, if
+your system prefers /usr/local you can use `make prefix=3D/usr/local
+install`.  I hope I prepared some reasonable Makefile...
+
+Concerning meson.build: I decided to have a look at meson as the
+autobuild tool for lsp.  I am just gathering experiences with it and if
+you have meson(1) installed you could use thes steps to (un)install lsp:
+
+$ # cd to lsp directory
+$ meson setup --prefix=3D/usr builddir ; cd builddir
+$ ninja install # or uninstall
+
+>>        =E2=80=A2   Manual pages usually refer to other manual pages and =
+lsp allows to
+>>            navigate those references and to visit them as new files with=
+ the
+>>            ability to also navigate through all opened manual pages or o=
+ther
+>>            files.
+>
+> Out of curiosity, is this implemented with heuristics?  Or do you rely on
+> semantic mdoc(7) macros?
+
+This is purely based on heuristics (regex) which is one reason for
+validation of the found references.
+
+> If it's the first, how do you handle exit(1)?  Is it a reference, or is it
+> just code (with the meaning exit(EXIT_FAILURE))?
+
+exit(1) gets recognized as a possible reference but validation will fail.
+
+> If it's the second, I guess it doesn't support that in man(7), right?  At
+> least until MR is released.
+
+>>=20
+>>            Here, lsp tries to minimize frustration caused by unavailable
+>>            references and verifies their existance before offering them =
+as
+>>            references that can be visited.
+>
+> Do you mark these as broken references?  It is interesting to know that
+> there's a reference which you don't have installed.  It may prompt you to
+> install it and read it.  When I see a broken reference, I usually find it
+> with `apt-file find man3/page.3`, and then install the relevant package.
+
+No, broken references aren't marked.  Usually those unavailable
+references make sense, e.g. if a manual page references some program
+that not everyone uses.
+
+One example that I couldn't resolve so far is a reference to
+getconf(1) for example in fpatchconf(3).  Up to now I was not able to
+find out which package contains getconf(1)...
+
+>>=20
+>>        =E2=80=A2   In windowing environments lsp does complete resizes w=
+hen windows
+>>            get resized. This means it also reloads the manual page to fi=
+t the
+>>            new window size.
+>
 > Good.  This I miss it in less(1) often.  Not sure if they had any strong
 > reason to not support that.
 
-??? Why do you say 'less' doesn't support window resizing?  It does
-here.
+Unfortunately, info(1) also doesn't do full resizes (on my system).
 
-> >        •   lsp has an experimental TOC mode.
-> > 
-> >            This is a three-level folding mode trying to list only section and
-> >            sub-section names for quick navigation in manual pages.
-> 
+>>=20
+>>        =E2=80=A2   Search for manual pages using apropos(1); in the curr=
+ent most basic
+>>            form it lists all known manual pages ready for text search and
+>>            visiting referenced manual pages.
+>
+> What does it bring that `apropos * | less` can't do?  If you're going the
+> of info(1) with full-blown system, it seems reasonable, but I never really
+> liked all that if it's just a new terminal and a command away from me.
+
+You get a pseudo-file from where you can reach any manual page on the
+system.  Originally I thought this to help novice users but since lsp is
+my system's PAGER I use it more often than expected.  I'm missing the
+ability to give keywords to apropos but that's just a matter of time to
+get fixed.
+
+>>=20
+>>        =E2=80=A2   lsp has an experimental TOC mode.
+>>=20
+>>            This is a three-level folding mode trying to list only sectio=
+n and
+>>            sub-section names for quick navigation in manual pages.
+>
 > Nice, and this an important feature missing feature in info(1), as I
-> reported recently.  :)
+> reported recently.  :)  Maybe they are interested in something similar.
+>
+>>=20
+>>            The TOC is created using naive heuristics which works well to=
+ some
+>>            extend, but it might be incomplete. Users should keep that in=
+ mind.
+>
+> I guess the heuristics are just `^[^ ]` for SH and `^   [^ ]` for SS, rig=
+ht?
+> I tipically use something similar for searching for command flags, and as
+> you say, these just work.
 
-It isn't missing.  The TOC is presented as top-level menu in each
-manual, and large manuals have also the "detailed menu" with all the
-sub-nodes spelled out.  In addition, the Emacs Info reader has the
-Info-toc command, which presents a structured menu with all the
-sectioning levels of a manual even if the manual didn't produce it.
+Yes, that is correct.  Only level 2 (0-based) does some additional
+look-ahead.
 
-There are also more focused commands which present TOC-like lists
-across all the manuals, which you can then navigate to read what you
-deem appropriate.  See the description of "--all" command-line option
-of the stand-alone Info reader.  For example, try this command:
+Cheers,
 
-  $ info --all e --index-search "init file"
+Dirk
 
-There's also the index-apropos command from inside the stand-alone
-reader (and the matching info-apropos in the Emacs Info reader).
+
+--=-=-=
+Content-Type: application/octet-stream
+Content-Disposition: attachment; filename=Makefile.new
+Content-Transfer-Encoding: base64
+Content-Description: Makefile
+
+dmVyc2lvbj1cIiQoc2hlbGwgY2F0IC52ZXJzaW9uKVwiCkNGTEFHUyA6PSAkKHNoZWxsIHBrZy1j
+b25maWcgLS1jZmxhZ3MgbmN1cnNlc3cpCkNGTEFHUyArPSAtRExTUF9WRVJTSU9OPSQodmVyc2lv
+bikKTERGTEFHUyA6PSAkKHNoZWxsIHBrZy1jb25maWcgLS1saWJzIG5jdXJzZXN3KQoKaWZlcSAo
+JChwcmVmaXgpLCkKCXByZWZpeCA6PSAvdXNyCmVuZGlmCgpsc3A6IGxzcC5jCglnY2MgJChDRkxB
+R1MpICQoTERGTEFHUykgLW8gJEAgJDwKCmRvYy9sc3AuMTogZG9jL2xzcC5hZG9jCglhMnggLS1k
+b2N0eXBlIG1hbnBhZ2UgLS1mb3JtYXQgbWFucGFnZSAtYSBsc3AtdmVyc2lvbj0kKHZlcnNpb24p
+ICQ8CgouUEhPTlk6IHVuaW5zdGFsbCBpbnN0YWxsCgppbnN0YWxsOiBsc3AgZG9jL2xzcC4xIGRv
+Yy9sc3AtaGVscC4xCglpbnN0YWxsIGxzcCAkKHByZWZpeCkvYmluCglpbnN0YWxsIGRvYy9sc3Au
+MSBkb2MvbHNwLWhlbHAuMSAkKHByZWZpeCkvc2hhcmUvbWFuL21hbjEvCgp1bmluc3RhbGw6Cgly
+bSAkKHByZWZpeCkvYmluL2xzcAoJcm0gJChwcmVmaXgpL3NoYXJlL21hbi9tYW4xL2xzcHssLWhl
+bHB9LjEK
+--=-=-=--
