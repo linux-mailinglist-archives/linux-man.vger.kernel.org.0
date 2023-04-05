@@ -2,74 +2,67 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 193D06D71FB
-	for <lists+linux-man@lfdr.de>; Wed,  5 Apr 2023 03:32:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C50B56D721B
+	for <lists+linux-man@lfdr.de>; Wed,  5 Apr 2023 03:40:51 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230455AbjDEBck (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 4 Apr 2023 21:32:40 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49538 "EHLO
+        id S236695AbjDEBku (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 4 Apr 2023 21:40:50 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55074 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235409AbjDEBcj (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 4 Apr 2023 21:32:39 -0400
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com [IPv6:2a00:1450:4864:20::332])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4EF2F30E2
-        for <linux-man@vger.kernel.org>; Tue,  4 Apr 2023 18:32:38 -0700 (PDT)
-Received: by mail-wm1-x332.google.com with SMTP id n19so20028391wms.0
-        for <linux-man@vger.kernel.org>; Tue, 04 Apr 2023 18:32:38 -0700 (PDT)
+        with ESMTP id S236694AbjDEBkt (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 4 Apr 2023 21:40:49 -0400
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com [IPv6:2a00:1450:4864:20::42d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 98ECB3ABC
+        for <linux-man@vger.kernel.org>; Tue,  4 Apr 2023 18:40:47 -0700 (PDT)
+Received: by mail-wr1-x42d.google.com with SMTP id h17so34607456wrt.8
+        for <linux-man@vger.kernel.org>; Tue, 04 Apr 2023 18:40:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1680658356; x=1683250356;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=HxYj7FgThyJ9R4c64seHS1va58uXtj9oR0fPoLMM7o0=;
-        b=RRfAV79Ed6DiqMGA6+oCyVROVQ+IB1jzfk7BWZDCcpo8gb7DME5LYVDB2lPXG8P5JT
-         3XbnA5FnsFWATwhDVTpgXPbkQlh3d+gz5Vl1JjSk5eun59f6ACy9SfVfVVY5Fo/7tiZR
-         ovUG36OlXpNSkh13U3s82xHZN/I/6TRX80u89siDpspzOGzhIjRQLg81dnnCiruTt/V/
-         izU3+m8H3c9krvD/grt0kYBfxgYe25HOZ6UUH27tWEE8ySufzlgwan2qBHHK5VhcaXWY
-         PznbTTUtX7+stnoIwxkp7bmzsUEm/f688RHXi/YJslzz7ORMpRaVNxazAKiHBWRim8UW
-         bRAg==
+        d=gmail.com; s=20210112; t=1680658846; x=1683250846;
+        h=in-reply-to:from:references:to:content-language:subject:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=G+47JEKnuQ4zBld29PoJCMPsjXjFHfW6ooUW2NkGpgc=;
+        b=eLWN49h1PYDt0wV6tkAO1BFandZd4l2/zO216UA5oRS/Y5oIliqX9Z8DL0KPITvqN9
+         cPxsFLQnT74DmDJ9X125ZfEqtqitGtzAJ+v+CNr2hU7Zgzs6VRc2sq4u/w6H0tYBiNdv
+         IaJZvoX2qhww4+7HSuAFsuvHQqnQW+gmQKFPVs7DCosgNzrjXFg+b5u7eRLqj9O1C5qC
+         FCiidT+x3vqzo2+netVBLZid5UMoIqRS8f9Cedz/EGVNhE1p56RhIve7F5nMQcuUJOVl
+         DyekY/uQmEIzk6L2L1UJWVLJQs5bDoyAFv7MBMJwdU3RQ+PPo4SQ3t2baWzhSl0/RjwX
+         WarQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680658356; x=1683250356;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=HxYj7FgThyJ9R4c64seHS1va58uXtj9oR0fPoLMM7o0=;
-        b=2B6Sr78ngTnjso+SbC3DBRyAS7gRcguiMSJYlxvEeaRh28h/sLSKBYaY6Fise+Ti84
-         yGyLAZnx/8S9/kVPpl6JYD5zj4le/m1sN3ooLJNIns9c2LaAmgfTzBDl3khr0cRANQHu
-         QAWfkDuw+nMM1dL+NKGEU7eNe4MrTr1RKh7JX88HuTZwfn4QpBfj82Dp2DnV2dmQT2gR
-         6ixQNQvYeMhgPd0UAHBiVTnwEHiauNXIJhNzcik44+VCcK5HCLUxykYo9ohpK1NzMRO2
-         vIJfYVGZ5azA8TB4pBV4uVyzorMLkY8JfW9h6y+NgpkydxVGOvz3hiwKkfJf1NJ08bbX
-         oWxQ==
-X-Gm-Message-State: AAQBX9cNJ7y3sFP/XcBLxsNNp56x7G+ZckNW4cRMoPxkhEqpU53QdRjQ
-        OuXeORPYKeiVa+PN7Mi8qjQ=
-X-Google-Smtp-Source: AKy350YmhmBNEhYa5C2vVgCearqCu2jya44GcMfX3TGGx3I+9/5L7PFrLGmtnYinbxleTyVazN+uOA==
-X-Received: by 2002:a1c:7c12:0:b0:3ed:29e1:ed21 with SMTP id x18-20020a1c7c12000000b003ed29e1ed21mr3258158wmc.37.1680658356363;
-        Tue, 04 Apr 2023 18:32:36 -0700 (PDT)
+        d=1e100.net; s=20210112; t=1680658846; x=1683250846;
+        h=in-reply-to:from:references:to:content-language:subject:user-agent
+         :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=G+47JEKnuQ4zBld29PoJCMPsjXjFHfW6ooUW2NkGpgc=;
+        b=LJF0FlAbb+RWBXXqmavIIf63SCt6aLVwwpVzqZNXXlCw+J/9DLDsBSg0tBaYD9g5j/
+         039Jd04PnaKl4pjIR8R0uULpqt8tldIKPDOmseyMatLYrWIs4tuL/OE/NrWZ50LpU4NU
+         GRpDAomN+h1ZVoqB+QRw63kGM53NsiOZxB9Zi6sWg7KETGnUiFxcHIdIDtcxxHNGjA+F
+         Mbp+TFZ4JZ3eayLbK6GTZQVjlc1re6Fpl4JvhfTRalLP91ZNwOIslgZf3VZsJmT3C3Pr
+         6l64lMONv18C0luqMUa8/lQ3nJ78WFL3RwAmAnzghnXfPrC0mLm4FpeWRsnRG+m7Q4un
+         GR6g==
+X-Gm-Message-State: AAQBX9fOZceIFOcvsm5p0tLxNyB3GIPnsBPoR6OuxchLy3gPiDnEPaea
+        DtPitzRtmcsVmr+xAP6XRU85oZnciNc=
+X-Google-Smtp-Source: AKy350Z1iNwhfTBX+0giK0j8FCCa3wpu+XQ1tEv2hFW/kkDMD0k7DH75bMMd/+hcjrsUSyE+r9Dkog==
+X-Received: by 2002:a5d:400e:0:b0:2e4:abb1:3e8b with SMTP id n14-20020a5d400e000000b002e4abb13e8bmr2943960wrp.25.1680658845917;
+        Tue, 04 Apr 2023 18:40:45 -0700 (PDT)
 Received: from [192.168.0.160] ([170.253.51.134])
-        by smtp.gmail.com with ESMTPSA id n11-20020a7bc5cb000000b003ee70225ed2sm528185wmk.15.2023.04.04.18.32.35
+        by smtp.gmail.com with ESMTPSA id d9-20020adff849000000b002c56af32e8csm13585225wrq.35.2023.04.04.18.40.45
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 04 Apr 2023 18:32:36 -0700 (PDT)
-Message-ID: <6409b7ad-8b17-c2c4-9671-7c251cb93471@gmail.com>
-Date:   Wed, 5 Apr 2023 03:32:28 +0200
+        Tue, 04 Apr 2023 18:40:45 -0700 (PDT)
+Message-ID: <d3bc8e72-bac4-7d10-785d-93e4ad9ad248@gmail.com>
+Date:   Wed, 5 Apr 2023 03:40:44 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.1
-Subject: Re: [PATCHv2] feature_test_macros.7: document clang fortify support
+Subject: Re: [patch] poll.2: tfix
 Content-Language: en-US
-To:     Mingye Wang <arthur200126@gmail.com>
-Cc:     linux-man@vger.kernel.org
-References: <CAD66C+aECcWHSogwDygQnHOvDCayHbH2emKrsUhVxkg48KzXfA@mail.gmail.com>
- <6c5593f5-efc0-564d-83fa-430328b31231@gmail.com>
- <CAD66C+Y_b_9j1Oty=kbt2jZywzdVOen4i31ndhqyTTCRp=-xTg@mail.gmail.com>
- <5858fd32-aced-7f87-a1c2-2b92c002e4d3@gmail.com>
- <CAD66C+bWn5Vm3gKa=ygvqyAkELpdCz82huqMk6FJG2Z87B0=Fw@mail.gmail.com>
- <0219f97b-f28e-18f0-3451-87ee00f851aa@gmail.com>
- <CAD66C+anMmcxDAf+KDDzEP7B5HHyzZKiSfZM9Q5fhN3HxqaHbw@mail.gmail.com>
+To:     Enke Chen <enchen@paloaltonetworks.com>, linux-man@vger.kernel.org
+References: <CANJ8pZ_g0Bq+9AH6iVjm_xJr3o5TEuhkEA0qRi4JNteUB+jfrQ@mail.gmail.com>
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <CAD66C+anMmcxDAf+KDDzEP7B5HHyzZKiSfZM9Q5fhN3HxqaHbw@mail.gmail.com>
+In-Reply-To: <CANJ8pZ_g0Bq+9AH6iVjm_xJr3o5TEuhkEA0qRi4JNteUB+jfrQ@mail.gmail.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------8tJyUhOMQJJwviI0gu5f0I0b"
+ boundary="------------UonALQEyove7dV0Va5XD240T"
 X-Spam-Status: No, score=-2.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
         DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
@@ -81,88 +74,77 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------8tJyUhOMQJJwviI0gu5f0I0b
-Content-Type: multipart/mixed; boundary="------------NcRRimmBA4V2gA0OOpJQWghv";
+--------------UonALQEyove7dV0Va5XD240T
+Content-Type: multipart/mixed; boundary="------------jrq7DACIS0MFT5jbNOp5YUFB";
  protected-headers="v1"
 From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Mingye Wang <arthur200126@gmail.com>
-Cc: linux-man@vger.kernel.org
-Message-ID: <6409b7ad-8b17-c2c4-9671-7c251cb93471@gmail.com>
-Subject: Re: [PATCHv2] feature_test_macros.7: document clang fortify support
-References: <CAD66C+aECcWHSogwDygQnHOvDCayHbH2emKrsUhVxkg48KzXfA@mail.gmail.com>
- <6c5593f5-efc0-564d-83fa-430328b31231@gmail.com>
- <CAD66C+Y_b_9j1Oty=kbt2jZywzdVOen4i31ndhqyTTCRp=-xTg@mail.gmail.com>
- <5858fd32-aced-7f87-a1c2-2b92c002e4d3@gmail.com>
- <CAD66C+bWn5Vm3gKa=ygvqyAkELpdCz82huqMk6FJG2Z87B0=Fw@mail.gmail.com>
- <0219f97b-f28e-18f0-3451-87ee00f851aa@gmail.com>
- <CAD66C+anMmcxDAf+KDDzEP7B5HHyzZKiSfZM9Q5fhN3HxqaHbw@mail.gmail.com>
-In-Reply-To: <CAD66C+anMmcxDAf+KDDzEP7B5HHyzZKiSfZM9Q5fhN3HxqaHbw@mail.gmail.com>
+To: Enke Chen <enchen@paloaltonetworks.com>, linux-man@vger.kernel.org
+Message-ID: <d3bc8e72-bac4-7d10-785d-93e4ad9ad248@gmail.com>
+Subject: Re: [patch] poll.2: tfix
+References: <CANJ8pZ_g0Bq+9AH6iVjm_xJr3o5TEuhkEA0qRi4JNteUB+jfrQ@mail.gmail.com>
+In-Reply-To: <CANJ8pZ_g0Bq+9AH6iVjm_xJr3o5TEuhkEA0qRi4JNteUB+jfrQ@mail.gmail.com>
 
---------------NcRRimmBA4V2gA0OOpJQWghv
+--------------jrq7DACIS0MFT5jbNOp5YUFB
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi Mingye,
+Hello Enke,
 
-On 4/3/23 18:24, Mingye Wang wrote:
-> Hi Alex,
+On 4/4/23 03:40, Enke Chen wrote:
+> diff --git a/man2/poll.2 b/man2/poll.2
+> index 4e26e62d4..5d2fa622d 100644
+> --- a/man2/poll.2
+> +++ b/man2/poll.2
+> @@ -604,7 +604,7 @@ main(int argc, char *argv[])
 >=20
-> On Sat, Apr 1, 2023 at 5:56=E2=80=AFAM Alejandro Colomar wrote:
->> If it's just a reference to the software, that is fine.  If it's a
->> reference to the version, then I want it to be greppable.
->>
+>          /* Deal with array returned by poll(). */
 >=20
-> Is my patch attached to the last message all good, or is there
-> anything more to do?
+> -        for (nfds_t j =3D 0; j < nfds; j++) {
+> +        for (nfds_t j =3D 0; j < ready; j++) {
 
-Sorry about the delay; I'm a bit overloaded.  Did you check Sam's
-objection?
+This is not correct.  The array is of size nfds.  ready is
+just the number of entries in the array that have been changed,
+but there's no information about the order in which they'll
+appear.
 
-On 3/23/23 06:38, Sam James wrote:
-> The patch looks OK to me in terms of the content, apart from the libssp=
-
-> mention. libssp and stack smashing protection overall is distinct from
-> fortification.
->=20
-> SSP is where stack canaries are emitted and their value is checked
-> later on to see if they're intact. Fortification is where certain
-> functions are replaced with variants that check the size of their
-> arguments e.g. dst & src and ensure they're big enough. They're distinc=
-t.
+If you compile the program with the current code, you'll be
+able to verify that it works.  But with this patch, I believe
+it will stop working.
 
 Thanks,
 Alex
 
+>              if (pfds[j].revents !=3D 0) {
+>                  printf("  fd=3D%d; events: %s%s%s\en", pfds[j].fd,
+>                         (pfds[j].revents & POLLIN)  ? "POLLIN "  : "",
 >=20
-> Thanks,
-> Mingye
 
 --=20
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
---------------NcRRimmBA4V2gA0OOpJQWghv--
+--------------jrq7DACIS0MFT5jbNOp5YUFB--
 
---------------8tJyUhOMQJJwviI0gu5f0I0b
+--------------UonALQEyove7dV0Va5XD240T
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQsz6wACgkQnowa+77/
-2zIHLA/+L+Wzwh7Du7Hhox2AZ6z2QzBis58kvZo5SJdojYhgpaGHiTd6SJ6RPGoA
-FwjuBOwS71w8NazXpK/Rz2HWnsT/RhvvC9bCsaJE+32Hwkv9qUQ7SkeBbCq9FYFx
-/VuOM+2L38k0tMNHKUQudShpcrfiTQn7CyUIYMqkHw8YcKvDS9wofzZwXvbY0pQM
-r7XMjUMhV0ZUqZbXhtJOSeHDGMHSsmpkWPmC9MJMRFprLQ6/45IRkPxxZWebA7iY
-eQ0QEpiXJ22uowuqm5rWgbysiVULUxdtcSIEw7atd7cEbPzmWRCxsFuIgTSlaSir
-QMagNGol0ejXTa2DPkpBmVlqmIcYin6bina36YhS+oD3uwhhHxzvjTTzOE6nM0T9
-gwFTATyCXHlO1bDEeD30d2I4wtuVEnAbCTSLTJbUyuudPyrRE24+JsYrblMQgOtW
-LAcz8nJg9tY7EvZEhUgTLXbC1rUcclLRzVroEigh69c8rHCCxpq4ZsYFiJBmZOty
-eWFYTZM3jMssoK41StckbNduBUCGAIq9/SJfnJRZ1kp8CyCp1OjuWCq245QnRRlf
-HfLA0z8wdp/u7/D6wV0T8dNLh479+xkC2ZKo1YFbqneaLXZ/Bjuf78XmjWd6oQfo
-CQ97qBdecbBiTowWVGekKCuy1H9gx0cfCxtJaD+rZUCoVJWwgVc=
-=M7P+
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQs0ZwACgkQnowa+77/
+2zKIhRAAqFhx0gpU2CdaMDXeIIqWtIXr8UdmzPVSas9z6ARZ+BE6o7TifjQCrJce
++Cd1xXeja20c1N0haokz60miEIuaibYIRnoG1sGnb20O74yC+F+BjCgskuj7jGGB
+V+qhBesLMPJpEXOmVdom2OJq1Nme/2gAT3MvCc76jx9pj/iemcfn+YqIiKwPshxD
+b29zj4le6vpHLu5P0DQSxOXB1sJtcvjT3dkT+PfqTrk2+Pq9X/m7FjA7iCi1tD7q
+wH5riM2JmK8VwHEWFB45MLawVGzOtaDT+S6rt7qFOk8R0TItkwOfbMSo1o0NXCS4
+gbPIJwVFYftoJhWKjX5fGw6Mq1MV9vDzvpDMyznORqvMZpvyzpyQigSeBiaeXYTB
+s/eszrBSssKf0ZWDdNu4fAf27xcAtnezanCVCUPVD4qs8v9SqokGzbLBTiGbfW4v
+vzUp7Z+132f1ebnymt283AgzorbVktrVu99sAApBFEfuIX0Ml8NN+UflSh76bC2r
+wi54OOTx8H2FAhIv+0ZuEV+/dUjovnGA21XQ5wq/nS1sMCkf6esec2KaVvE+XG9/
+pB7DGI9NagEOrlWwBr224EbUkABO4dYdSSaGTw28OyaazmkmS3eSPiHNNGcBfZDt
+s0n4ssrJEijrcSRn24EYjZHvuy5a9wydv1KG1idGFDH6d2PdH/s=
+=wNs3
 -----END PGP SIGNATURE-----
 
---------------8tJyUhOMQJJwviI0gu5f0I0b--
+--------------UonALQEyove7dV0Va5XD240T--
