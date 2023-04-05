@@ -2,126 +2,157 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 0532A6D8970
-	for <lists+linux-man@lfdr.de>; Wed,  5 Apr 2023 23:20:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3844A6D896F
+	for <lists+linux-man@lfdr.de>; Wed,  5 Apr 2023 23:19:39 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229379AbjDEVUN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 5 Apr 2023 17:20:13 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39700 "EHLO
+        id S234174AbjDEVTh (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 5 Apr 2023 17:19:37 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39206 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232642AbjDEVUN (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 5 Apr 2023 17:20:13 -0400
-X-Greylist: delayed 24996 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Wed, 05 Apr 2023 14:20:12 PDT
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [IPv6:2001:67c:2050:0:465::102])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3070B6585
-        for <linux-man@vger.kernel.org>; Wed,  5 Apr 2023 14:20:12 -0700 (PDT)
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-         key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest SHA256)
-        (No client certificate requested)
-        by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4PsHbD3qxwz9sW7;
-        Wed,  5 Apr 2023 23:20:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aarsen.me; s=MBO0001;
-        t=1680729608;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         in-reply-to:in-reply-to:references:references;
-        bh=KxWpUe7cFDctIdkKmwgo80OfhLQRu1fsaxSd1T1/CGI=;
-        b=G+M0jco1AQvp9m3kiKlN6qt9xVXtDxWC2XURKXudxT4HQ3yr42uKOVETicbJaiu/sqeTXX
-        t8FA0Np4mPH3Mo4++57Srw4x00Kj1y7pP4VLSC5y4ttWrmLAhinah9Aki7/WxoSAWcfOcj
-        R1gALKJy0LUYg6J/caNPXsNAs7zkmMtA1Jd302zQ1bUiFIXZAVdH6IRkw3+6s3dd0AHaJh
-        eZoEdYJfVYVZyl2buryrkPbMSkaQE/VrZvzgvhGOswf6sYX4xDQlK0nUr6XnFE3KgMqiKN
-        LTL07bJt12sox03ebnJc+Irjk9992E5ir76RnraNDE3cS8SFl3EP5dkXqt/wmg==
-References: <ghileoo9dk.fsf@gouders.net> <ghbkkgo8x8.fsf@gouders.net>
- <073413e2-7d35-f0d7-26eb-f66908d7af6a@gmail.com>
- <ghedoy8x5y.fsf@gouders.net> <87y1n6o1b3.fsf@aarsen.me>
- <ghpm8iyzqj.fsf@gouders.net> <83zg7mqha4.fsf@gnu.org>
-From:   Arsen =?utf-8?Q?Arsenovi=C4=87?= <arsen@aarsen.me>
-To:     Eli Zaretskii <eliz@gnu.org>,
-        Gavin Smith <GavinSmith0123@gmail.com>
-Cc:     Dirk Gouders <dirk@gouders.net>, alx.manpages@gmail.com,
-        linux-man@vger.kernel.org, help-texinfo@gnu.org
-Subject: A less presumptive .info? (was: Re: Playground pager lsp(1))
-Date:   Wed, 05 Apr 2023 22:38:12 +0200
-In-reply-to: <83zg7mqha4.fsf@gnu.org>
-Message-ID: <865yaa81ru.fsf@aarsen.me>
+        with ESMTP id S234115AbjDEVTf (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 5 Apr 2023 17:19:35 -0400
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com [IPv6:2a00:1450:4864:20::332])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 45BEE6585
+        for <linux-man@vger.kernel.org>; Wed,  5 Apr 2023 14:19:33 -0700 (PDT)
+Received: by mail-wm1-x332.google.com with SMTP id v6-20020a05600c470600b003f034269c96so12515161wmo.4
+        for <linux-man@vger.kernel.org>; Wed, 05 Apr 2023 14:19:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112; t=1680729572; x=1683321572;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=ueeeIj2GXTilyh1vp+gNP5VsvO7TETLArnAbj81KJKU=;
+        b=RxOMrN2lxOEyJDXt37EqBlX6jlXzWhZdtoGsm8TYr9uWp3K86Z1THJ1is5BjsG09JW
+         t3veZXvDWB8qRdFHnD9LcugWxCeuHns4tnNefBHLrDtuhMLGTiEZGcFQ/3rYdS1OifTv
+         7Izfq9dd+bw4Lci2Fi6GXrLa0QqCKKXb4ScWlQG0bG+FeTm4fet8T1vm1CsuObHkgmPd
+         tbuIvkiRmAEvQd0OBUf9MXRp6PK+wHxdyG6LdOJrmf6Gk9xQHp15bs7GdWZjc5Ysrr/z
+         XbZOwIs1EJgs8DXzf4aEBuMcXalF0Ihy4L/dcFE2cBxTRXk2Q8Iwn/2QOWOpgK44mokV
+         V5xw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1680729572; x=1683321572;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=ueeeIj2GXTilyh1vp+gNP5VsvO7TETLArnAbj81KJKU=;
+        b=lK599NQj3JayU/if8hkUJu/6A9GbQQU9oebEPWwptuyHXAIg7OzdsIFk9gIx+4tQD0
+         3bNGujk3fS9ZnDapbjtl5BKIhPC9JKDdc1HN7BgRoUdeprRR48d/fF2RBtcnMtvEAEf3
+         fq5NF67CzwOVE0uD7deu+uJ5t973gOx7PtDOqk4pzWHN0JoXzyBDjGlSDk7eoHRgpCRj
+         6pkH+hh+NAA3jYrjVKeWlOM0rMyoGOBnCOy1ToIal5Z4+jbQRccm826LUIzHvVAQK4OD
+         B/ORxdZUorvNhwZI1+SZq+6XULbvTyhlILpHyZPHvpsU0FjWqJA7Zppz/3vHBC3tcmEv
+         MlMw==
+X-Gm-Message-State: AAQBX9cZL4rrt8QAoQaIn0ZB/U62R/6ra+L/wufecndeJSoFZqpwrOC+
+        yFr9Ko8T6C7HbiaPpS/7SaIrLfUDJUk=
+X-Google-Smtp-Source: AKy350adHpTEL/LO7+QbM1A4vRW+iGoXW9jJMUBtGNjeG9UWuXdYSeZGj9fG2hnrNLbEDtCViyNsEA==
+X-Received: by 2002:a1c:f617:0:b0:3ee:672d:caae with SMTP id w23-20020a1cf617000000b003ee672dcaaemr5677502wmc.36.1680729571593;
+        Wed, 05 Apr 2023 14:19:31 -0700 (PDT)
+Received: from asus5775.alejandro-colomar.es ([170.253.51.134])
+        by smtp.googlemail.com with ESMTPSA id h18-20020a05600c315200b003ef6708bc1esm3414677wmo.43.2023.04.05.14.19.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 05 Apr 2023 14:19:31 -0700 (PDT)
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+X-Google-Original-From: Alejandro Colomar <alx@kernel.org>
+To:     linux-man@vger.kernel.org
+Cc:     Alejandro Colomar <alx@kernel.org>,
+        Mingye Wang <arthur200126@gmail.com>,
+        Siddhesh Poyarekar <siddhesh@gotplt.org>,
+        DJ Delorie <dj@redhat.com>, Sam James <sam@gentoo.org>,
+        Florian Weimer <fweimer@redhat.com>,
+        Andreas Schwab <schwab@linux-m68k.org>,
+        Zack Weinberg <zack@owlfolio.org>,
+        Wilco Dijkstra <Wilco.Dijkstra@arm.com>
+Subject: [PATCH] malloc_usable_size.3: The returned value should not be trusted
+Date:   Wed,  5 Apr 2023 23:19:26 +0200
+Message-Id: <20230405211925.32070-1-alx@kernel.org>
+X-Mailer: git-send-email 2.40.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="=-=-=";
-        micalg=pgp-sha512; protocol="application/pgp-signature"
-X-Rspamd-Queue-Id: 4PsHbD3qxwz9sW7
-X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-        DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS
-        autolearn=unavailable autolearn_force=no version=3.4.6
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+        DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
+        SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no
+        version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
---=-=-=
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+It might very well return a value larger than the actual usable size, so
+writing to the excess bytes is Undefined Behavior.  There's absolutely
+no promise about the value, except that it is no less than the size
+that was once passed to malloc(3).
 
+Link: <https://github.com/systemd/systemd/issues/22801#issuecomment-1343041481>
+Link: <https://inbox.sourceware.org/libc-alpha/20221124213258.305192-1-siddhesh@gotplt.org/T/>
+Reported-by: Mingye Wang <arthur200126@gmail.com>
+Reported-by: Siddhesh Poyarekar <siddhesh@gotplt.org>
+Cc: DJ Delorie <dj@redhat.com>
+Cc: Sam James <sam@gentoo.org>
+Cc: Florian Weimer <fweimer@redhat.com>
+Cc: Andreas Schwab <schwab@linux-m68k.org>
+Cc: Zack Weinberg <zack@owlfolio.org>
+Cc: Wilco Dijkstra <Wilco.Dijkstra@arm.com>
+Signed-off-by: Alejandro Colomar <alx@kernel.org>
+---
+ man3/malloc_usable_size.3 | 33 +++++++++++++++------------------
+ 1 file changed, 15 insertions(+), 18 deletions(-)
 
-Eli Zaretskii <eliz@gnu.org> writes:
+diff --git a/man3/malloc_usable_size.3 b/man3/malloc_usable_size.3
+index 754b255de..f96f1abb5 100644
+--- a/man3/malloc_usable_size.3
++++ b/man3/malloc_usable_size.3
+@@ -13,20 +13,17 @@ .SH SYNOPSIS
+ .nf
+ .B #include <malloc.h>
+ .PP
+-.BI "size_t malloc_usable_size(void *" ptr );
++.BI "size_t malloc_usable_size(void *_Nullable " ptr );
+ .fi
+ .SH DESCRIPTION
+-The
+-.BR malloc_usable_size ()
+-function returns the number of usable bytes in the block pointed to by
+-.IR ptr ,
+-a pointer to a block of memory allocated by
++This function can be used for
++diagnostics or statistics about allocations from
+ .BR malloc (3)
+ or a related function.
+ .SH RETURN VALUE
+ .BR malloc_usable_size ()
+-returns the number of usable bytes in
+-the block of allocated memory pointed to by
++returns a value no less than
++the size of the block of allocated memory pointed to by
+ .IR ptr .
+ If
+ .I ptr
+@@ -50,17 +47,17 @@ .SH ATTRIBUTES
+ .sp 1
+ .SH STANDARDS
+ GNU.
+-.SH NOTES
++.SH CAVEATS
+ The value returned by
+ .BR malloc_usable_size ()
+-may be greater than the requested size of the allocation because
+-of alignment and minimum size constraints.
+-Although the excess bytes can be overwritten by the application
+-without ill effects,
+-this is not good programming practice:
+-the number of excess bytes in an allocation depends on
+-the underlying implementation.
+-.PP
+-The main use of this function is for debugging and introspection.
++may be greater than the requested size of the allocation
++because of various internal implementation details,
++none of which the programmer should rely on.
++This function is intended to only be used
++for diagnostics and statistics;
++writing to the excess memory without first calling
++.BR realloc (3)
++to resize the allocation is not supported.
++The returned value is only valid at the time of the call.
+ .SH SEE ALSO
+ .BR malloc (3)
+-- 
+2.40.0
 
-> Info files are formatted already, you cannot ask the reader to
-> reformat them for a different line length.
->
-> With man pages this is only possible if you never keep the formatted
-> pages and reuse them once they were produced.
-
-I've been casually wondering if creating a new format that can host more
-formatting options and uses more precise syntax than 'plaintext with
-some binary tags' would be a decent thing to work on.
-
-My thoughts were brief and undeveloped as this was thought of on the
-commute, but something that retains the binary offsets for indices and
-tags, but stores formatted data (perhaps as s-exprs, those would be easy
-to parse).  It is always easier to remove information than to
-reintroduce it.
-
-Such a structure should resemble the input language, but with far less
-complexity (e.g. something at the level of abstraction that HTML5 sits
-at, so, macros would be expanded, and we'd be dealing with lists of
-paragraphs and formatted blocks, etc.).
-
-This would allow for the reflowing that was talked about in this thread,
-and provide more readable output in graphical contexts, as it wouldn't
-be data generated with the assumption of a monospace font (rather, the
-format could store whether your context wants monospace or proportional
-fonts at a given point), or data generated for a given screen size, or
-with a given indentation size, or with the assumption of a lack of
-features like italics, etc.
-
-For instance, info2html used by the KDE info viewer currently produces
-quite terrible results, because it fails to implement the heuristics the
-Info viewers have properly.  This problem would be hard to have with a
-better "at-rest" format for Info pages.
-
-The alternative is, of course, bringing HTML up to par feature-wise
-(wrt. indices etc), but that'd be on the other end of the extreme, where
-instead of being too easy to parse and lacking important information,
-it'd be oververbose with and difficult to parse (not that such a thing
-should not be done too, so that folks using ordinary browsers can enjoy
-documentation, and so that projects can provide more accessible
-documentation by the merit of more people having HTML than Info
-viewers).
-
-WDYT folks?
-=2D-=20
-Arsen Arsenovi=C4=87
-
---=-=-=
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iOYEARYKAI4WIQT+4rPRE/wAoxYtYGFSwpQwHqLEkwUCZC3mBV8UgAAAAAAuAChp
-c3N1ZXItZnByQG5vdGF0aW9ucy5vcGVucGdwLmZpZnRoaG9yc2VtYW4ubmV0RkVF
-MkIzRDExM0ZDMDBBMzE2MkQ2MDYxNTJDMjk0MzAxRUEyQzQ5MxAcYXJzZW5AYWFy
-c2VuLm1lAAoJEFLClDAeosSTzFMA/jI9krEYlWgZFxbw6KwuYUvKBrGpCDcdny1E
-vwn46GiYAP4xE6pIyK0ovr2eEGVrq1064tXZy5fKBrSJI4TgS1oPAA==
-=CsPW
------END PGP SIGNATURE-----
---=-=-=--
