@@ -2,75 +2,76 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 27F566D728C
-	for <lists+linux-man@lfdr.de>; Wed,  5 Apr 2023 04:42:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id EBC4A6D7297
+	for <lists+linux-man@lfdr.de>; Wed,  5 Apr 2023 04:50:21 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S236228AbjDECmC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 4 Apr 2023 22:42:02 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53036 "EHLO
+        id S235995AbjDECuT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 4 Apr 2023 22:50:19 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56628 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235365AbjDECmB (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 4 Apr 2023 22:42:01 -0400
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com [IPv6:2a00:1450:4864:20::32d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1CA5530C1
-        for <linux-man@vger.kernel.org>; Tue,  4 Apr 2023 19:42:00 -0700 (PDT)
-Received: by mail-wm1-x32d.google.com with SMTP id m8so9155688wmq.5
-        for <linux-man@vger.kernel.org>; Tue, 04 Apr 2023 19:42:00 -0700 (PDT)
+        with ESMTP id S235182AbjDECuT (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 4 Apr 2023 22:50:19 -0400
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com [IPv6:2a00:1450:4864:20::42b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E829D35BB
+        for <linux-man@vger.kernel.org>; Tue,  4 Apr 2023 19:50:17 -0700 (PDT)
+Received: by mail-wr1-x42b.google.com with SMTP id l27so34742547wrb.2
+        for <linux-man@vger.kernel.org>; Tue, 04 Apr 2023 19:50:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1680662518; x=1683254518;
+        d=gmail.com; s=20210112; t=1680663016; x=1683255016;
         h=in-reply-to:from:references:cc:to:content-language:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ufOzHXAX0WunXmU232l0Neek/LEgyAJyFP+/kz50S74=;
-        b=Lp7zRAbw3T/1vUJqySJmsoXkqctD7M1OBrj6b3LFQ1xATcfq/Lz68gc8UdjaB6G8TE
-         AV4glTvoD9domxL/fx4AXIkysbUa5Kpg0h+NHkdIIWD1FRbINoI0KBOF9D49rBekgZ+A
-         a7o5C4Ap+YCPV91iasg8qLjAigTzHeTdrnkUok66J6aRctP6hJuB/Hs7imbxOqZsVYay
-         j6t7+51aNs6oAtMWCi9eP7F77SkBT8rg/m37sesG1WQSMgihCHQpTKihJVORKSgBuWAj
-         /A7QEWk6tqcHU3m85I2cr5B1oJMI/tlDrv4/YLnMd1t9Tnv1RIBfzstVVSgcPpCDvbkS
-         /k1w==
+        bh=EQyOqvmFFf19+L9iaZKITGa8KSmHBMxsiOGyXsZYlSI=;
+        b=fqQSIX6zN+XIDveLPgh7+z4wTiUSiAh0nLIszhrVH13g7rAfIF6gwiRbZaTHsJ3km+
+         RZyrwytTayRo8GAQAWRxicTqEfbWAz76hdBnBZdTn7CXGD0HALb3uaMqSKWuCnuciVpx
+         trZr5Cy2yQVVNqOTWx3DkYMNyLU3OwERyAM0h/EjYyO0dxEo0lT8yKUwDhDYlPNIeMDk
+         SuBLDQ8/Qt/dz6whcGtWhXftB8tbo0Q/qysvcN87R0DjkwfB06mIs+uTV40UcfVuHZBQ
+         kZbqHe8ypMmCVeQLhvE6hvhIp3+vlCy43XPaFCLL4c7XHpA3YhcJjsxopVcQVsm9+Ceg
+         wjmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680662518; x=1683254518;
+        d=1e100.net; s=20210112; t=1680663016; x=1683255016;
         h=in-reply-to:from:references:cc:to:content-language:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=ufOzHXAX0WunXmU232l0Neek/LEgyAJyFP+/kz50S74=;
-        b=UKiiT/BTbCH2bauD7ju0IHBICdz4jrsq23Q3lXLSa8SuRPMBa9i5FMOgJrSsnLP5AQ
-         qzyjBAbjKjiuTpebV+MhQ88dBqfefOKmWMy3Ev76CKG8heqcXzRY9nvOuL3Lsa5Fs+hL
-         WCUVzEXWBoMv7ANtkeAtW8r9IIkAv89GU91VeeU5KU9SQOZVAA7KtUOtT/lsLqQaspYX
-         eNOLi4VPTVjMEGnm9OFPrxg7Ip8749UG5GDc5dfp35NnXoKOMVKVS/mGb4vv8n57AIho
-         uzURpvLHIZpCOOavpRq6T/D3OHCcDh04fsyB3+FEIkLRUihj2F8oxv1/UUuwjAQ51ORz
-         Rufg==
-X-Gm-Message-State: AAQBX9dP8jIgPqO/XzDR/sfxnuxokfguGKADQFIYe/HHgEy5/7wFf/iq
-        7m1OjGWsObY14SzZrYT4Q7g=
-X-Google-Smtp-Source: AKy350ZgcsxYkEfcNVXRCCIh9KhaBXb8/SsR0rzrZqPx9apb7gIWCRxvlPjUfe+pVms40qw/whZaLA==
-X-Received: by 2002:a1c:7c0a:0:b0:3ef:64b4:b081 with SMTP id x10-20020a1c7c0a000000b003ef64b4b081mr3463797wmc.39.1680662518478;
-        Tue, 04 Apr 2023 19:41:58 -0700 (PDT)
+        bh=EQyOqvmFFf19+L9iaZKITGa8KSmHBMxsiOGyXsZYlSI=;
+        b=mQbTBKMVbCTBOF4O/VhlLI50cP8kqv7lUGjx3jcpD0x6xWO7UG/pPleybq7VJCTvQD
+         orrycq+jZQxtGOPs9HTgRycjgsRIZhW4CMe05WP18W4Dn9bl2Dn3m+B+NOe4ZaYD6YKe
+         TA64gyu+PKTJDxxabhA02OohHWHXMsbwclhJeprvFlG8mePkmLM8gQkdcQdImv5pI6VV
+         qwn/Gnv4lBq0YYbzDQ3PlUzQBaYs+LtdoSBKMWRcHWV1D74bKWLeKsiArt/4pGYKoEB4
+         /hpOO5FI0kv5hqgCMMq7kdSWKt7fuCpLF/zcnMzhqqhDJHygvsKOIuOWGpSBekTR8BG8
+         Ktdg==
+X-Gm-Message-State: AAQBX9dSlMtatBNaYhr5m1WmG4ycdanv1aKQMtKo9UPBmZOzYX/jKk4e
+        KyRyaIM9AnQRNYXYPJhRWLSMvnpErj4=
+X-Google-Smtp-Source: AKy350ajO9Y+4CuBvMtvCj6d9fnuZht04qm1ipSsM8EU2IpZRNa92lf91s6eoTtvIeqo1EPk7aSAww==
+X-Received: by 2002:a5d:5310:0:b0:2e4:cbef:9f2a with SMTP id e16-20020a5d5310000000b002e4cbef9f2amr2452927wrv.2.1680663016357;
+        Tue, 04 Apr 2023 19:50:16 -0700 (PDT)
 Received: from [192.168.0.160] ([170.253.51.134])
-        by smtp.gmail.com with ESMTPSA id m19-20020a7bcb93000000b003dc522dd25esm613705wmi.30.2023.04.04.19.41.57
+        by smtp.gmail.com with ESMTPSA id d9-20020adff849000000b002c56af32e8csm13688297wrq.35.2023.04.04.19.50.15
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 04 Apr 2023 19:41:58 -0700 (PDT)
-Message-ID: <616e47e3-c09a-26cf-59aa-e38bbdde96ca@gmail.com>
-Date:   Wed, 5 Apr 2023 04:41:56 +0200
+        Tue, 04 Apr 2023 19:50:15 -0700 (PDT)
+Message-ID: <70de076b-86bd-fd09-6f59-cc682c2412f7@gmail.com>
+Date:   Wed, 5 Apr 2023 04:50:14 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.1
-Subject: Re: [RFC PATCH] malloc_usable_size.3: Warn about _FORTIFY_SOURCE
- interaction
+Subject: Re: [PATCH v5 3/3] landlock.7: Explain the best-effort fallback
+ mechanism in the example
 Content-Language: en-US
-To:     Mingye Wang <arthur200126@gmail.com>
-Cc:     linux-man@vger.kernel.org, siddhesh@gotplt.org,
-        DJ Delorie <dj@redhat.com>,
-        Florian Weimer <fweimer@redhat.com>,
-        Andreas Schwab <schwab@linux-m68k.org>,
-        Zack Weinberg <zack@owlfolio.org>, Sam James <sam@gentoo.org>,
-        Wilco Dijkstra <Wilco.Dijkstra@arm.com>,
-        Adhemerval Zanella <adhemerval.zanella@linaro.org>
-References: <CAD66C+YQKWJQNv2i=8+BuL3Z5NzDQsG-1izhVxZ549xhMTTUjA@mail.gmail.com>
+To:     =?UTF-8?Q?G=c3=bcnther_Noack?= <gnoack3000@gmail.com>
+Cc:     =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        linux-man@vger.kernel.org
+References: <20230324172419.117632-1-gnoack3000@gmail.com>
+ <20230324172419.117632-3-gnoack3000@gmail.com>
+ <a5daa228-284e-12d3-cd5b-28611830e21b@gmail.com>
+ <20230401.1316d7f843d7@gnoack.org>
+ <7eda6974-1f1f-66aa-f63c-f33daf2ab6e1@gmail.com>
+ <20230404.16675e4d7765@gnoack.org>
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <CAD66C+YQKWJQNv2i=8+BuL3Z5NzDQsG-1izhVxZ549xhMTTUjA@mail.gmail.com>
+In-Reply-To: <20230404.16675e4d7765@gnoack.org>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------C1ZxwvNM4YJ58gLGO6E59Q4O"
+ boundary="------------jzZyeLOyDdg0mwAK8GG0ukY8"
 X-Spam-Status: No, score=-2.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
         DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
@@ -82,122 +83,139 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------C1ZxwvNM4YJ58gLGO6E59Q4O
-Content-Type: multipart/mixed; boundary="------------kzvBO09eIpJChkt1sUn5HAZx";
+--------------jzZyeLOyDdg0mwAK8GG0ukY8
+Content-Type: multipart/mixed; boundary="------------E92HJFntzWkDGyTbP0kJ7CGF";
  protected-headers="v1"
 From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Mingye Wang <arthur200126@gmail.com>
-Cc: linux-man@vger.kernel.org, siddhesh@gotplt.org, DJ Delorie
- <dj@redhat.com>, Florian Weimer <fweimer@redhat.com>,
- Andreas Schwab <schwab@linux-m68k.org>, Zack Weinberg <zack@owlfolio.org>,
- Sam James <sam@gentoo.org>, Wilco Dijkstra <Wilco.Dijkstra@arm.com>,
- Adhemerval Zanella <adhemerval.zanella@linaro.org>
-Message-ID: <616e47e3-c09a-26cf-59aa-e38bbdde96ca@gmail.com>
-Subject: Re: [RFC PATCH] malloc_usable_size.3: Warn about _FORTIFY_SOURCE
- interaction
-References: <CAD66C+YQKWJQNv2i=8+BuL3Z5NzDQsG-1izhVxZ549xhMTTUjA@mail.gmail.com>
-In-Reply-To: <CAD66C+YQKWJQNv2i=8+BuL3Z5NzDQsG-1izhVxZ549xhMTTUjA@mail.gmail.com>
+To: =?UTF-8?Q?G=c3=bcnther_Noack?= <gnoack3000@gmail.com>
+Cc: =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>,
+ Michael Kerrisk <mtk.manpages@gmail.com>, linux-man@vger.kernel.org
+Message-ID: <70de076b-86bd-fd09-6f59-cc682c2412f7@gmail.com>
+Subject: Re: [PATCH v5 3/3] landlock.7: Explain the best-effort fallback
+ mechanism in the example
+References: <20230324172419.117632-1-gnoack3000@gmail.com>
+ <20230324172419.117632-3-gnoack3000@gmail.com>
+ <a5daa228-284e-12d3-cd5b-28611830e21b@gmail.com>
+ <20230401.1316d7f843d7@gnoack.org>
+ <7eda6974-1f1f-66aa-f63c-f33daf2ab6e1@gmail.com>
+ <20230404.16675e4d7765@gnoack.org>
+In-Reply-To: <20230404.16675e4d7765@gnoack.org>
 
---------------kzvBO09eIpJChkt1sUn5HAZx
+--------------E92HJFntzWkDGyTbP0kJ7CGF
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi Mingye,
+Hello!
 
-On 4/4/23 07:52, Mingye Wang wrote:
-> Hi all,
+On 4/4/23 09:33, G=C3=BCnther Noack wrote:
+> Hello!
 >=20
-> In (somewhat) recent discussions about _FORTIFY_SOURCE level 3, a
-> common snag to hit seems to be abuse of malloc_usable_size(). The
-> attached patch is my attempt at making the situation easier to sort
-> through.
->=20
-> See siddhesh's comment on GitHub.[0] I wonder if the language needs to
-> be stronger.
->   [0]: https://github.com/systemd/systemd/issues/22801#issuecomment-134=
-3041481
->=20
-> Best,
-> Mingye Wang (Artoria2e5)
+> On Sun, Apr 02, 2023 at 12:01:43AM +0200, Alejandro Colomar wrote:
+>> On 4/1/23 19:19, G=C3=BCnther Noack wrote:
+>>> (It feels out of scope for this documentation patch, but do you think=
 
+>>> these bitmasks should be defined in the uapi/linux/landlock.h header?=
 
-> From f061522764ec417e80622db557853c2d7493bbb7 Mon Sep 17 00:00:00 2001
-> From: Mingye Wang <arthur200126@gmail.com>
-> Date: Tue, 4 Apr 2023 13:43:39 +0800
-> Subject: [PATCH] malloc_usable_size.3: Warn about _FORTIFY_SOURCE inter=
-action
+>>> You have looked at so many man pages already -- Do you happen to know=
+
+>>> other places in the kernel API where such a problem has come up?)
+>>
+>> I don't remember having seen something similar in other pages.
+>>
+>> I think defining a macro in uapi headers could be the right thing to
+>> do.  Something like LANDLOCK_ACCESS_FS_RIGHTS_MASK_ABI_{1,2,3} or
+>> other similar name?
 >=20
-> Abuse of malloc_usable_size() is common enough to snap up Redhat's
-> trials of -D_FORTIFY_SOURCE=3D3.  Warn against this to ease debugging.
+> Noted it on my TODO list - it's probably best discussed on the kernel
+> list whether this is the right approach.
+
+Sure!  Feel free to CC me there.
+
 >=20
-> Signed-Off-by: Mingye Wang <arthur200126@gmail.com>
-> ---
->  man3/malloc_usable_size.3 | 9 +++++++++
->  1 file changed, 9 insertions(+)
 >=20
-> diff --git a/man3/malloc_usable_size.3 b/man3/malloc_usable_size.3
-> index 754b255de..1361e6f1e 100644
-> --- a/man3/malloc_usable_size.3
-> +++ b/man3/malloc_usable_size.3
-> @@ -62,5 +62,14 @@ the number of excess bytes in an allocation depends =
-on
->  the underlying implementation.
->  .PP
->  The main use of this function is for debugging and introspection.
-> +.PP
-> +.BR Warning :
-> +Some programs abuse
-> +.BR malloc_usable_size ()
-> +to reduce the number of calls to
-> +.BR realloc (3).
-> +Such use will confuse
-> +.BR _FORTIFY_SOURCE
-> +level 3, as it only keeps track of the original requested size.
+>>> 1) Make assumptions about the numbers, for brevity
+>>>    (as done in the patch I sent).
+>>>
+>>>    [...]
+>>>
+>>> 2) Use the constants from the header and OR them.
+>>>
+>>>    [...]
+>>>
+>>> 3) Third option is the middle way,
+>>>    naming the "highest" known access right for each ABI version:
+>>>
+>>> __u64 landlock_fs_access_rights[] =3D {
+>>>     (LANDLOCK_ACCESS_FS_MAKE_SYM << 1) - 1,  /* ABI v1               =
+  */
+>>>     (LANDLOCK_ACCESS_FS_REFER << 1) - 1,     /* ABI v2: add "refer"  =
+  */
+>>>     (LANDLOCK_ACCESS_FS_TRUNCATE << 1) - 1,  /* ABI v3: add "truncate=
+" */
+>>> }
+>>
+>> I'm not sure if I like this one.  I'll leave it up to you to decide
+>> the one you like.  :)
+>=20
+> I'll ponder it a bit and send a new patch soon.
 
-This is much milder than what I read in the linked discussions.
-I would go ahead with something much stronger as suggested there,
-or did you change your mind?
+Ok.  No hurries.
 
-How about using DJ's suggestion in a CAVEATS section (I cut the
-clause in the paragraph)?
+>=20
+> Micka=C3=ABl, do you have any opinions/preferences on this?
+>=20
+> =E2=80=93G=C3=BCnther
 
-    The value returned by malloc_usable_size() may be greater than the
-    requested size of the allocation because of various internal
-    implementation details, none of which the programmer should rely on.
-    This function is intended to only be used for diagnostics and
-    statistics; writing to the excess memory without first calling
-    realloc() to resize the allocation is not supported.  The returned
-    value is only valid at the time of the call.
+On 4/4/23 09:17, G=C3=BCnther Noack wrote:
+>> <https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/CONT=
+RIBUTING#n132>
+>> ...
+> Thank you for pointing this out (and for reworking this
+> documentation)!
+
+:-)
+
+>  I had indeed missed the CONTRIBUTING doc.
+> The "make -t" trick is also new to me.
+
+Heh, I've fine-tuned makefiles too much to come up with this
+workflow. :p
+
+I met that feature long ago reading make(1)'s man page, but didn't
+know what it would be useful for, until I recently realized it could
+help in this use case.
 
 Cheers,
 Alex
+
+
 
 --=20
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
---------------kzvBO09eIpJChkt1sUn5HAZx--
+--------------E92HJFntzWkDGyTbP0kJ7CGF--
 
---------------C1ZxwvNM4YJ58gLGO6E59Q4O
+--------------jzZyeLOyDdg0mwAK8GG0ukY8
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQs3/QACgkQnowa+77/
-2zJsoA//X+ilV0TatP/UdODVT7IVugWGt20JJjfKuua+F+tQzxN4K/JUP8fI4Kc1
-nO89iCzdGJaDQTRmvJpj+1ReIsb647NJ/U7FgJ1jxfH7Q9xUjeJogwOBVMz2xGp1
-5HPGHpnnpmUcw93aZcHdVJoSgiIX1Q4J0OnuSVh3Nao+yWxRx+4RDE1Vik8aZ2lm
-uBDvYeiHnhYWXm1TXS5s0Oezz6gW1nEGSa8t9Wm/0cEsiRSbkd4eLkpl/Bt74JIN
-EjOHLcz4GwhBwh5LbDGrMZHDPUO4IqnpQxN4VsMyGrXI8vfXAWG68fuOk/izQ6Vg
-yEbAQNvHQiYgXdylq6ZH+OaZ2RWbryumJNVsJQL9KOXy6hqQ7e6pG7TNO7TMyxr5
-jrICjXbzfD9c8+OK78ZKheBVFnn0zkGVk6C3ALdF/R9DgF0rIu+I2GHsB/Y5epiv
-Juks7dCQEEaK5CmWJ0Z+KqJGbGG2+w34zSxeD5OnCJvdN4hY6/VFVM0Jrr/YbOC2
-JRRKSssvchVVtyTWl1n6Ftm5PdKE7XaCsrBlJnj7pFNJXrAXDQUogxNtUUO1AYq/
-ZRdCUZZkhmEycv/Cjd0MKAmGu0XcMeHl641nuXGC74h8Hn8weacN6jR+fQkbDBWP
-odP5W7cApMU/7mtr0/ZaKSoPVOTecI5JydYeuwhqTiDiSIUbJ4M=
-=umXi
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQs4eYACgkQnowa+77/
+2zKS2hAAhAlvZhfs6OKtekw9O3dgIAbkvI31BgVrVhlUq58zc64DPXrWVtWJtmEy
+FC+KQznlLrdVs8RIWmu/F/6OmXGfzIJXSjQOHQ6owHLp96O4CxHuY5IG5/iIfE6p
+xzukMHspLJQB9RupxCMxnqCk+tSY2Lh0CNbGSK6Yi3PVjHRGsTM2s6wWHlERRsTk
+UI+7Djf6o/zsZIlRar1DoGuY+Xp3o87qD3Rqu7gWhkPf30QjusLQD9GGpOv4A6rn
+ATt1SAvRWf5CUgcPvyY1319mkgFCD5BWo+7RpeuCmp7Lj9w8TjOae5gxsI4uKheb
+EpG/lPUIGxE3p3yExjLB6Ta5vtHm2iPJLcorN3fNQnFJrh/QghSIuCe2/fvptZ+u
+qbeL4BJDHxpbnwr3zQX03gFZrqMYiutTlo0vnWMyWx0SeghwM7yA5mLLsrL1BfD8
+Oj5DtaFpTn2IdGOQZc8VrQ98hKjSqFkKLO/IyVDMFrND3gED5l3tdqla+kG1HCQT
+i0dCksK8mqjq8V18quzTSpB/CbIXpy5xtGjTomvVo8YFNuVMayp1KrQ3S/GUk5LT
+lFt8rDTl7+aqN4lLx9XetfDZ1DD/CwnBRiTWtvCTrHKjq4Lus663HuaUyFEw3Ij6
+5ODuxPeHWUCe1Q6xtts643CtMPqcPzHAmYr09Gu4+qvROgJNWVc=
+=4Aci
 -----END PGP SIGNATURE-----
 
---------------C1ZxwvNM4YJ58gLGO6E59Q4O--
+--------------jzZyeLOyDdg0mwAK8GG0ukY8--
