@@ -2,75 +2,73 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 398236D7255
-	for <lists+linux-man@lfdr.de>; Wed,  5 Apr 2023 04:21:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 84BEE6D7288
+	for <lists+linux-man@lfdr.de>; Wed,  5 Apr 2023 04:35:28 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235178AbjDECVl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 4 Apr 2023 22:21:41 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40806 "EHLO
+        id S236546AbjDECf1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 4 Apr 2023 22:35:27 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51752 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231166AbjDECVk (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 4 Apr 2023 22:21:40 -0400
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com [IPv6:2a00:1450:4864:20::32f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BC3CD30EE
-        for <linux-man@vger.kernel.org>; Tue,  4 Apr 2023 19:21:39 -0700 (PDT)
-Received: by mail-wm1-x32f.google.com with SMTP id l10-20020a05600c1d0a00b003f04bd3691eso6224621wms.5
-        for <linux-man@vger.kernel.org>; Tue, 04 Apr 2023 19:21:39 -0700 (PDT)
+        with ESMTP id S235178AbjDECf0 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 4 Apr 2023 22:35:26 -0400
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com [IPv6:2a00:1450:4864:20::42d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3E133E69
+        for <linux-man@vger.kernel.org>; Tue,  4 Apr 2023 19:35:25 -0700 (PDT)
+Received: by mail-wr1-x42d.google.com with SMTP id v1so34708987wrv.1
+        for <linux-man@vger.kernel.org>; Tue, 04 Apr 2023 19:35:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1680661298; x=1683253298;
+        d=gmail.com; s=20210112; t=1680662124; x=1683254124;
         h=in-reply-to:from:references:cc:to:content-language:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=iT+uS32RoC806KR1wZdwz5hFbdNpr9kxjUuvW1V1x+4=;
-        b=GUEV8wHekxHQSYrnDQQG/8oTLyQnnAf6vQpciHoIBvupe5vcqnGcIgNSJf5XmZu7s6
-         iDg2/nqkrjfqkcGnfJNAWQ0Uw2TgFeGZHZmuVTgFtbzMPoiyxoXLItn8PXwvkbHsFs6/
-         wnF2U7A2+hGduENWXPkqlAjtl7FIx1bsaYFON+qRS4f0AQB+YA38o47hDdi87z8vTh4H
-         dguAlqEu+ktJILWlgVFpD6rE67PFbNVqPKBCg8YLROVFEWr7aebHPjVSBmpfEKaKiXEt
-         DbcS/aewo7JRynt46ahy9tlLCa07LEXq/gnr3mRNsK6j29/5ClymiuQXsZrf/3wLJPHz
-         x8fQ==
+        bh=9m8f3SebZkDz07hNyzudI0Bnz5/oJ1iTXwiX2RArtRQ=;
+        b=oKP5TEmmajoRopHwnU8RHK021ZSGcEt5SFQ1WL+wXYOQ5j+gQiYHvIgS6q9X4vQ90M
+         ZgXAIUM1MiaLlYeOJmJXrMeJZLiCPQKL0Ggqj4nFZfg4bp6xiQCmnvznK9wooe/DC7W0
+         +ZS2qBFRvqkJTvN1DbC6mzFA/aofIvZTOHCAaKOR6NalU2iNd8ECcKxz6FI/fYoOzMx4
+         EMyyPPgrEJSRfZKw/UmKi5LkGqJ0G5Ol4ICFInlX4GrNfGWIBab/PG7hPMw6c79vu1Lt
+         415T4OWZ6JTarTNvk+NFUpT/4/v6tblGMwd0TSwVDcKTJfdmFn6JohLrMjCVqCzElXMy
+         TFvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680661298; x=1683253298;
+        d=1e100.net; s=20210112; t=1680662124; x=1683254124;
         h=in-reply-to:from:references:cc:to:content-language:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=iT+uS32RoC806KR1wZdwz5hFbdNpr9kxjUuvW1V1x+4=;
-        b=eUbyVnnKebFOO4B/xW6//JmmSW0cLMLkKvOS0l0kllxbWFNYY2Q4cyD6A+ij0Bbk/+
-         QFlGJyfs4N+Di3gH2ARkjjclBWSIG4d/RESJaMS1mdbsHapXuVEMnkJvAjCtFDKwPKLp
-         JEok6kf7XsADGyrFfEaKRl/ZHqBOnU9P93ZwPDDCuIzagJBloIZ8QBA9Aood3SXTrajC
-         F6AkDl6YeB4I2HZaVptmx7byo+02YcgjRt7uqV3Dg9lWDxXzY+CMFp/ZzxrpR3Sqzc3F
-         Gba1W8xxU4cyEIj2IzI+iOByywXzVHH7vVymnrmtaBJraMDosoqDWIZ8LiJcl+2uRPWo
-         xH9g==
-X-Gm-Message-State: AAQBX9c+PaN1Hdx19xxSlEQCdsSK3DCPblVTJGBJDHlg6JvGqGN6GAHN
-        RnWBZvMv5/Tmpc/MwLewDbHf9jztqeo=
-X-Google-Smtp-Source: AKy350bRuE9ZHbK4Eclw8Rrfqqm2Uhdps7VWdhUPBBaKUIAq6sw1rcdBRh+xc9NdnrgGxuyVPRLB4w==
-X-Received: by 2002:a05:600c:3788:b0:3ef:62cd:1ee with SMTP id o8-20020a05600c378800b003ef62cd01eemr3462337wmr.16.1680661297985;
-        Tue, 04 Apr 2023 19:21:37 -0700 (PDT)
+        bh=9m8f3SebZkDz07hNyzudI0Bnz5/oJ1iTXwiX2RArtRQ=;
+        b=b/v2oxXI2kty116rCRtDLCzXx7bAKh8rK6/jyFZTDzi0qhKPUjxuw02eZt8lo0LYUc
+         J0hoSLDh26YMs1UdXSYZIIH6FxfPhfcyxMo0hW4iLVGpu74TYFqTaD+VpidCugXhk1S8
+         cDQVTMEmGivxaiFqDJjQjVYSHVB9+6ivODl0vnxRSSkKzBYlLpUHQW/1RVE70T4x6BSH
+         zsiHYD5wCZDWZ55b71nxN7yYElq83uR/QCxK3RaOGdgm1LRylxEffLS7ipfvoOGl4AcZ
+         z97ZcyVEVykRODO+OIB9FLRVSAx0Hy00B1I2vFpewTAcgzFn7IkxnGLrDkvCcL3L9CRw
+         MvUw==
+X-Gm-Message-State: AAQBX9ezzA47A+3rqFd+RlYeHYI5ry7WU8hTEZZUC6OCKILTrZu1iGAQ
+        KCMiuLjwqpSKqGPohaNL5JY=
+X-Google-Smtp-Source: AKy350aatBqe546+0JC2Vpu+nqHKI51amZs0tV0LXhhcdMwJtbgl0IHM2QFIplo7vZGqiTZXNj6NsA==
+X-Received: by 2002:adf:ffc9:0:b0:2c7:fde:f7e0 with SMTP id x9-20020adfffc9000000b002c70fdef7e0mr2421568wrs.65.1680662123700;
+        Tue, 04 Apr 2023 19:35:23 -0700 (PDT)
 Received: from [192.168.0.160] ([170.253.51.134])
-        by smtp.gmail.com with ESMTPSA id m19-20020a7bcb93000000b003dc522dd25esm581544wmi.30.2023.04.04.19.21.37
+        by smtp.gmail.com with ESMTPSA id 21-20020a05600c025500b003f04646838esm592994wmj.39.2023.04.04.19.35.22
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 04 Apr 2023 19:21:37 -0700 (PDT)
-Message-ID: <421345a1-06be-8364-99c8-9fe269db284f@gmail.com>
-Date:   Wed, 5 Apr 2023 04:21:29 +0200
+        Tue, 04 Apr 2023 19:35:23 -0700 (PDT)
+Message-ID: <62c2e2dd-fe20-774d-cecb-3c629336e87c@gmail.com>
+Date:   Wed, 5 Apr 2023 04:35:15 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.1
-Subject: Re: [PATCHv2] feature_test_macros.7: document clang fortify support
+Subject: Re: [RFC PATCH] malloc_usable_size.3: Warn about _FORTIFY_SOURCE
+ interaction
 Content-Language: en-US
-To:     Sam James <sam@gentoo.org>
-Cc:     Mingye Wang <arthur200126@gmail.com>, linux-man@vger.kernel.org
-References: <CAD66C+aECcWHSogwDygQnHOvDCayHbH2emKrsUhVxkg48KzXfA@mail.gmail.com>
- <6c5593f5-efc0-564d-83fa-430328b31231@gmail.com>
- <CAD66C+Y_b_9j1Oty=kbt2jZywzdVOen4i31ndhqyTTCRp=-xTg@mail.gmail.com>
- <5858fd32-aced-7f87-a1c2-2b92c002e4d3@gmail.com>
- <CAD66C+bWn5Vm3gKa=ygvqyAkELpdCz82huqMk6FJG2Z87B0=Fw@mail.gmail.com>
- <0219f97b-f28e-18f0-3451-87ee00f851aa@gmail.com>
- <CAD66C+anMmcxDAf+KDDzEP7B5HHyzZKiSfZM9Q5fhN3HxqaHbw@mail.gmail.com>
- <6409b7ad-8b17-c2c4-9671-7c251cb93471@gmail.com> <87edozqekm.fsf@gentoo.org>
+To:     Siddhesh Poyarekar <siddhesh@gotplt.org>,
+        Mingye Wang <arthur200126@gmail.com>
+Cc:     linux-man@vger.kernel.org,
+        GNU C Library <libc-alpha@sourceware.org>,
+        DJ Delorie <dj@redhat.com>, Sam James <sam@gentoo.org>
+References: <CAD66C+YQKWJQNv2i=8+BuL3Z5NzDQsG-1izhVxZ549xhMTTUjA@mail.gmail.com>
+ <fdbd4b16-6e99-ffb6-40c0-85a2b1509222@gotplt.org>
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <87edozqekm.fsf@gentoo.org>
+In-Reply-To: <fdbd4b16-6e99-ffb6-40c0-85a2b1509222@gotplt.org>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------4gukerLtTzS1TRtdbLuIQbze"
+ boundary="------------pzyNtUEDlNdFDict3k02PTYc"
 X-Spam-Status: No, score=-2.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
         DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
@@ -82,109 +80,154 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------4gukerLtTzS1TRtdbLuIQbze
-Content-Type: multipart/mixed; boundary="------------AtUFQEoNU0M7Ta1CbSOu30Eo";
+--------------pzyNtUEDlNdFDict3k02PTYc
+Content-Type: multipart/mixed; boundary="------------FMdplsq0Ke9T1qHURce5dXQj";
  protected-headers="v1"
 From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Sam James <sam@gentoo.org>
-Cc: Mingye Wang <arthur200126@gmail.com>, linux-man@vger.kernel.org
-Message-ID: <421345a1-06be-8364-99c8-9fe269db284f@gmail.com>
-Subject: Re: [PATCHv2] feature_test_macros.7: document clang fortify support
-References: <CAD66C+aECcWHSogwDygQnHOvDCayHbH2emKrsUhVxkg48KzXfA@mail.gmail.com>
- <6c5593f5-efc0-564d-83fa-430328b31231@gmail.com>
- <CAD66C+Y_b_9j1Oty=kbt2jZywzdVOen4i31ndhqyTTCRp=-xTg@mail.gmail.com>
- <5858fd32-aced-7f87-a1c2-2b92c002e4d3@gmail.com>
- <CAD66C+bWn5Vm3gKa=ygvqyAkELpdCz82huqMk6FJG2Z87B0=Fw@mail.gmail.com>
- <0219f97b-f28e-18f0-3451-87ee00f851aa@gmail.com>
- <CAD66C+anMmcxDAf+KDDzEP7B5HHyzZKiSfZM9Q5fhN3HxqaHbw@mail.gmail.com>
- <6409b7ad-8b17-c2c4-9671-7c251cb93471@gmail.com> <87edozqekm.fsf@gentoo.org>
-In-Reply-To: <87edozqekm.fsf@gentoo.org>
+To: Siddhesh Poyarekar <siddhesh@gotplt.org>,
+ Mingye Wang <arthur200126@gmail.com>
+Cc: linux-man@vger.kernel.org, GNU C Library <libc-alpha@sourceware.org>,
+ DJ Delorie <dj@redhat.com>, Sam James <sam@gentoo.org>
+Message-ID: <62c2e2dd-fe20-774d-cecb-3c629336e87c@gmail.com>
+Subject: Re: [RFC PATCH] malloc_usable_size.3: Warn about _FORTIFY_SOURCE
+ interaction
+References: <CAD66C+YQKWJQNv2i=8+BuL3Z5NzDQsG-1izhVxZ549xhMTTUjA@mail.gmail.com>
+ <fdbd4b16-6e99-ffb6-40c0-85a2b1509222@gotplt.org>
+In-Reply-To: <fdbd4b16-6e99-ffb6-40c0-85a2b1509222@gotplt.org>
 
---------------AtUFQEoNU0M7Ta1CbSOu30Eo
+--------------FMdplsq0Ke9T1qHURce5dXQj
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi Sam, Mingye,
+Hi Siddhesh,
 
-On 4/5/23 03:53, Sam James wrote:
->=20
-> Alejandro Colomar <alx.manpages@gmail.com> writes:
->=20
->> [[PGP Signed Part:Undecided]]
->> Hi Mingye,
+On 4/4/23 13:42, Siddhesh Poyarekar wrote:
+> On 2023-04-04 01:52, Mingye Wang wrote:
+>> Hi all,
 >>
->> On 4/3/23 18:24, Mingye Wang wrote:
->>> Hi Alex,
->>>
->>> On Sat, Apr 1, 2023 at 5:56=E2=80=AFAM Alejandro Colomar wrote:
->>>> If it's just a reference to the software, that is fine.  If it's a
->>>> reference to the version, then I want it to be greppable.
->>>>
->>>
->>> Is my patch attached to the last message all good, or is there
->>> anything more to do?
+>> In (somewhat) recent discussions about _FORTIFY_SOURCE level 3, a
+>> common snag to hit seems to be abuse of malloc_usable_size(). The
+>> attached patch is my attempt at making the situation easier to sort
+>> through.
 >>
->> Sorry about the delay; I'm a bit overloaded.  Did you check Sam's
->> objection?
->=20
-> I'm happy now after a clarification was made (libssp does more than I t=
-hought
-> it did).
+>> See siddhesh's comment on GitHub.[0] I wonder if the language needs to=
 
-Thanks!  I applied the patch, with Acked-by: Sam James <sam@gentoo.org>.
+>> be stronger.
+>>    [0]: https://github.com/systemd/systemd/issues/22801#issuecomment-1=
+343041481
+>=20
+> For more context of my statement, please see this discussion:
+>=20
+> https://sourceware.org/pipermail/libc-alpha/2022-November/143599.html
+>=20
+> which continued into the next month:
+>=20
+> https://sourceware.org/pipermail/libc-alpha/2022-December/143667.html
+
+This might be useful to you: I happen to comaintain a code base that
+uses malloc_usable_size(3).  I have no idea why it was added, and it
+seems to be used in a test, but not in the actual program, which makes
+me happy to not have to fix that :).  Maybe it is useful to you to check
+that code to see why would some heavily-optimized code base want to use
+it.  You may very well find that it was not really used for anything
+useful; there's a lot of dead code which I haven't been able to remove
+yet due to discrepancies.
+
+Here are all the mentions I see to this API:
+
+$ grep -rn malloc_usable_size
+src/test/nxt_malloc_test.c:54:        nxt_malloc_usable_size(p[i], s);
+src/nxt_malloc.h:37: * memory than is requested, so malloc_usable_size() =
+allows to use all
+src/nxt_malloc.h:52: * with small cutback and then to adjust size with ma=
+lloc_usable_size().
+src/nxt_malloc.h:53: * Glibc malloc_usable_size() is fast operation.
+src/nxt_malloc.h:56:#define nxt_malloc_usable_size(p, size)              =
+                         \
+src/nxt_malloc.h:57:    size =3D malloc_usable_size(p)
+src/nxt_malloc.h:77: * FreeBSD 7.0 malloc_usable_size() is fast for alloc=
+ations, which
+src/nxt_malloc.h:81:#define nxt_malloc_usable_size(p, size)              =
+                         \
+src/nxt_malloc.h:82:    size =3D malloc_usable_size(p)
+src/nxt_malloc.h:101:#define nxt_malloc_usable_size(p, size)             =
+                          \
+src/nxt_malloc.h:108:#define nxt_malloc_usable_size(p, size)
+src/nxt_unix.h:32:#include <malloc.h>                 /* malloc_usable_si=
+ze(). */
+src/nxt_unix.h:49:#include <malloc_np.h>              /* malloc_usable_si=
+ze(). */
+auto/malloc:53:# Linux malloc_usable_size().
+auto/malloc:55:nxt_feature=3D"Linux malloc_usable_size()"
+auto/malloc:66:                      if (malloc_usable_size(p) < 4096)
+auto/malloc:75:    # FreeBSD malloc_usable_size().
+auto/malloc:77:    nxt_feature=3D"FreeBSD malloc_usable_size()"
+auto/malloc:89:                          if (malloc_usable_size(p) < 4096=
+)
+
+The only ones that may be interesting to you are the single use (the
+commit that added the line says "Initial version.", so it won't help):
+
+<https://github.com/nginx/unit/blob/c54331fa3d9597ba6bc85e7b7242981f00ed2=
+5c2/src/test/nxt_malloc_test.c#L54>
+
+and the header where we define a wrapper macro, which contains several
+comments about assumptions made about different libc implementations:
+
+<https://github.com/nginx/unit/blob/c54331fa3d9597ba6bc85e7b7242981f00ed2=
+5c2/src/nxt_malloc.h#L35>
+
+I hope that tells you something.  It doesn't tell me anything, but I'm
+not used to fiddling with allocators.  :)
 
 Cheers,
 Alex
 
+
 >=20
->>
->> On 3/23/23 06:38, Sam James wrote:
->>> The patch looks OK to me in terms of the content, apart from the libs=
-sp
->>> mention. libssp and stack smashing protection overall is distinct fro=
-m
->>> fortification.
->>>
->>> SSP is where stack canaries are emitted and their value is checked
->>> later on to see if they're intact. Fortification is where certain
->>> functions are replaced with variants that check the size of their
->>> arguments e.g. dst & src and ensure they're big enough. They're disti=
-nct.
->>
->> Thanks,
->> Alex
->>
->>>
->>> Thanks,
->>> Mingye
+> This amendment that DJ wrote is probably the most precise description o=
+f=20
+> the current malloc_usage_size situation:
 >=20
+>    The value returned by malloc_usable_size() may be greater than the
+>    requested size of the allocation because of various internal
+>    implementation details, none of which the programmer should rely on.=
+
+>    This function is intended to only be used for diagnostics and
+>    statistics; writing to the excess memory without first calling
+>    realloc() to resize the allocation is not supported.  The returned
+>    value is only valid at the time of the call; any other call to a
+>    malloc family API may invalidate it.
+>=20
+> Thanks,
+> Sid
 
 --=20
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
---------------AtUFQEoNU0M7Ta1CbSOu30Eo--
+--------------FMdplsq0Ke9T1qHURce5dXQj--
 
---------------4gukerLtTzS1TRtdbLuIQbze
+--------------pzyNtUEDlNdFDict3k02PTYc
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQs2ykACgkQnowa+77/
-2zJHkg//UylvOQf1HcSUUqavnrAml2Nj5kLLbmPkaXaryru9t/o9xtBVVZMRVXht
-13yc9bSQFL3zncTEbe5DPv4GusVzGOcdUBKOuxSbyqzH+59GORB65lD1aB0XXBoW
-m4ECUvd93ARwiZ2FVM48EY2gNNZngWQHDjreBo6ALUJJ2TQPsb8KAEsC586+Bh8j
-XBwKRuoICsQgI4xV+2A8QpSb4ayN3/i0KGlBwVUWzSBMD0bbXYWHU+ab/iUTyCNN
-EYv3urm3B95PG1Kvq0C3TrD82Oeih0aH7ln1Mw6SkQ6ubHGhGdMtvZwHI8MEnvPo
-oFYPv5gbZSW6ySryBtU2wCOhEaYbywZXMP7lK0p6sKfj8YFVUDAsecNxUDnZnPdO
-7mpaWe/IQksdz6rWyrAJfteWslMDUX6CsHE0ri/s3BWSR4nrkP6YoEeaGVQ0y3se
-IrPC1SCkoYixoc1DMf7W8SHORV6gk8SOHI5JAj+sAmhFi4HGwciIIM39xl4bmCHX
-eXZahMlIeUVYxb241CPNbT6r7ouX/VhP1uUF3G+g8nrsTf0u43zq1cpl3+4Bd8Im
-TNhV9ZdQb9IBkaIxFdfUiEOuITbttX3t59DydBI/TwbpskOLCNqLknKqJp09hj+S
-7jDkQH49lrPseeC+BYEplDjLgVB8U3L7H6zeKQkghGKbzo2Qck8=
-=ROZ9
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQs3mMACgkQnowa+77/
+2zLEYRAAmmP6Tsw7PzLKPghVVFe7C/lOrO2xQtZ+0ITveUAgoxb58bSEoxDd5N+N
+S7YuTuZtK8019YN7LDp9JGKProuOj3uIUAfolZIg6DacOa/roNwrnGVKda6Gwhwb
+XrtaEiAHcBffA3CbcPAZEewxzp7HWxH4+6cUwxwwLhneo2GPB7LoPmO0VjDpKrYM
+/LEyC2gvR6/Kgv3oVnTaE3tEC+pS/1HH2l9bbrPUSp1yvqbv7SCWvLBHett69X+R
+ZqM7IlqsPOD+ZMzh1ZMOu/Ok8Nb9YQ5GjROroW/ALbBAVSmEJBJuNcByFvi5hOwO
+Qe0ReeKu4+WpdMoztGsLwtufpTsvDp8jA94p2H3e5PUA7aZvh+UeBxrNZ4ZwPr1s
+mdblaOcEyhgERZBw+1mDmTyj99AfqM2mHA783pDVNV4duOkPULV18agX6Ts2rgcS
+PX6SmBobHUERM9LzSEAwL9iN1no7B1NiULfxYWGGOkp8yrDsDotmZyerFHkfF5hq
+6iYsdn0pkRNTGPD5fn3Z0graA14I9Is+3TvQZ9pgn7T7IKuqpi4b4CDC+0pfNzvO
+1ew8NCefGLHkX8DfARjvy5peY3MdL/QB557umbzcw+dD2hq5IUo4NchmzHM0ysZ+
+kfoZTI2J0B7YMUpP32zPA/BP/ltAUWKrqZEPW3o5n3xgHCECKTo=
+=SDq3
 -----END PGP SIGNATURE-----
 
---------------4gukerLtTzS1TRtdbLuIQbze--
+--------------pzyNtUEDlNdFDict3k02PTYc--
