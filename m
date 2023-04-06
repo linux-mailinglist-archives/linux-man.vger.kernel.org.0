@@ -2,60 +2,101 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id B7A346D920B
-	for <lists+linux-man@lfdr.de>; Thu,  6 Apr 2023 10:54:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5BCFD6D91EE
+	for <lists+linux-man@lfdr.de>; Thu,  6 Apr 2023 10:48:44 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231484AbjDFIy5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 6 Apr 2023 04:54:57 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40544 "EHLO
+        id S236287AbjDFIsn (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 6 Apr 2023 04:48:43 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34590 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229456AbjDFIyv (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 6 Apr 2023 04:54:51 -0400
-X-Greylist: delayed 598 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Thu, 06 Apr 2023 01:54:47 PDT
-Received: from sosiego.soundray.org (sosiego.soundray.org [116.203.207.114])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A1F794EFD
-        for <linux-man@vger.kernel.org>; Thu,  6 Apr 2023 01:54:47 -0700 (PDT)
-From:   Linus Heckemann <git@sphalerite.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sphalerite.org;
-        s=sosiego; t=1680770687;
-        bh=V30AxIokxsyExVrf7DdHfi77qcS/0LjPSOBtc5c67TI=;
-        h=From:To:Cc:Subject:Date;
-        b=IfIwP97BWHJIYeWAztkOhHNff8wYigcTaS6AKPWsSxzQ1RcP7dKZQN3SHMsQgn9mx
-         +EdjOr04RwFSTUcutrrUXZF1E77LNU9Ci6d6HRsEogcteipBX7pgH8OXCJy7RVvkbp
-         rfA2NGYfdWUQUi1RZgc/Acd/wHydvmMCIvL9M+sU=
-To:     linux-man@vger.kernel.org, alx.manpages@gmail.com,
-        mtk.manpages@gmail.com
-Cc:     Linus Heckemann <git@sphalerite.org>
-Subject: [PATCH] rtnetlink.7: Document IFLA_PERM_ADDRESS
-Date:   Thu,  6 Apr 2023 10:44:45 +0200
-Message-Id: <20230406084445.1416637-1-git@sphalerite.org>
+        with ESMTP id S236263AbjDFIsf (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 6 Apr 2023 04:48:35 -0400
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com [IPv6:2a00:1450:4864:20::32e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EE30D83DC
+        for <linux-man@vger.kernel.org>; Thu,  6 Apr 2023 01:48:27 -0700 (PDT)
+Received: by mail-wm1-x32e.google.com with SMTP id n19-20020a05600c501300b003f064936c3eso2537660wmr.0
+        for <linux-man@vger.kernel.org>; Thu, 06 Apr 2023 01:48:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112; t=1680770906; x=1683362906;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=toVgTGrtLweBpLeqbEfnfC7n7F5jzT+Ctf2NfZKYJRA=;
+        b=fjxRjnlcJGSOVrZy99FNJP0Ms+3hoo6Je1LYiHmGUoOkJXyjc6EeYc+WeqbZZsWiD5
+         WNbD6NNWIjtMzwz26pux2wY4so3iZZ8ke06aJFZTyekVHoWIIAxXFNhWcW7U8PBlniMl
+         S70JNzbx2dPWaaO/DMVXOsM4pTeIbJ6/tDz2SHIrdqxCxZ3Ie6aFin0eEwcxj94kHfwP
+         EQ3NK3etSRr0v8CE3nu/5UPbQcQVUNNWuiaG2xKhXyAX/H3dMXGVn6d4WnABAVmwDrUo
+         8bjPLc+RBmEVNv31sn28XVEjQ5lKlDAgllIuwiSBn/1duvOfrvPUZ5I6xPYf3WakJQsN
+         r3Xg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1680770906; x=1683362906;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=toVgTGrtLweBpLeqbEfnfC7n7F5jzT+Ctf2NfZKYJRA=;
+        b=D4W3D1wE8KAUF8ZD/ZUjx2w4QbGhe0L5nHst88uoLvyoUy83n9mLoBpTXYkaf9R5Mb
+         MXe6rmoA6666MU6dU1r20jiAiZAl5AJ2flbLgFHrdhnU4ilMYyUkaIvGeF0xrUd4NFwC
+         63wSvQ5kDhpDhp9bjUrGoArzEZXeiuxLJ0wtnuOYrpBbc7mAWvb5eyJhXNEKRvAvD7Xr
+         u5EsXHoaJLVRnZAPBqDopBcxLPs4Bs5uqvQbsg3gSj+u9PHBEKNvPdxs9Ly4EqiiNhQa
+         JYpGbzKvDIfpfeuVEWjX2ou91EvE/tCJ3XvRLbacuieCB7qk0kQL1PVYvxZRVUKwrVRn
+         dVdw==
+X-Gm-Message-State: AAQBX9ezL20nk76Fhecm4YUP6hhrgFYYCuAX2lfRQwXn3UwS0U77nUgP
+        dpQPnxZPe+xVAwCC1zIOrKg=
+X-Google-Smtp-Source: AKy350Zt8d7Ne4gyvt+zaFGzhmiYMTGkDoIwwdkkeyH7hOfqnUblM7Pr3woHIvruUyDvVRVs1ASMcQ==
+X-Received: by 2002:a7b:c34a:0:b0:3ef:f26b:a187 with SMTP id l10-20020a7bc34a000000b003eff26ba187mr6616015wmj.0.1680770906194;
+        Thu, 06 Apr 2023 01:48:26 -0700 (PDT)
+Received: from localhost (93.7.115.87.dyn.plus.net. [87.115.7.93])
+        by smtp.gmail.com with ESMTPSA id z6-20020a05600c220600b003ed246c1d28sm916377wml.44.2023.04.06.01.48.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 06 Apr 2023 01:48:25 -0700 (PDT)
+From:   Gavin Smith <gavinsmith0123@gmail.com>
+X-Google-Original-From: Gavin Smith <GavinSmith0123@gmail.com>
+Date:   Thu, 6 Apr 2023 09:48:24 +0100
+To:     Eli Zaretskii <eliz@gnu.org>
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>, dirk@gouders.net,
+        linux-man@vger.kernel.org, help-texinfo@gnu.org
+Subject: Re: Playground pager lsp(1)
+Message-ID: <ZC6HWJ7LmRmxD5CF@starmint>
+References: <ghileoo9dk.fsf@gouders.net>
+ <ghbkkgo8x8.fsf@gouders.net>
+ <073413e2-7d35-f0d7-26eb-f66908d7af6a@gmail.com>
+ <834jpuuc1a.fsf@gnu.org>
+ <6ea6d1fe-375f-487a-b524-adc86880d3de@gmail.com>
+ <83sfddqvk3.fsf@gnu.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-        DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
-        autolearn=unavailable autolearn_force=no version=3.4.6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <83sfddqvk3.fsf@gnu.org>
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+        DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
----
- man7/rtnetlink.7 | 1 +
- 1 file changed, 1 insertion(+)
+On Thu, Apr 06, 2023 at 11:11:40AM +0300, Eli Zaretskii wrote:
+> How do you find the description of, say, "dereference symbolic link"
+> (to take just a random example from the Emacs manual) when the actual
+> text of the manual include neither this string nor matches for any
+> related regular expressions, like "dereference.*link"?
+> 
+> The way Info does it is to use the index (which should be present in
+> any respectable reference document) to find description of the
+> corresponding subject.  The indexing, which is done by the author of
+> the document, if it's a good indexing, should include index entries
+> that specify subjects the reader could have in mind when he/she is
+> looking for this kind of information.
+> 
+> The corresponding index-searching commands of Info readers are a
+> primary means for finding information quickly and efficiently,
+> avoiding too many false positives and also avoiding frustrating
+> misses, i.e., searches that fail to find anything pertinent.
 
-diff --git a/man7/rtnetlink.7 b/man7/rtnetlink.7
-index 2ce541c37..6061b5fd4 100644
---- a/man7/rtnetlink.7
-+++ b/man7/rtnetlink.7
-@@ -105,6 +105,7 @@ IFLA_QDISC:asciiz string:Queueing discipline
- IFLA_STATS:T{
- see below
- T}:Interface Statistics
-+IFLA_PERM_ADDRESS:hardware address:hardware address provided by device (since 5.5)
- .TE
- .IP
- The value type for
--- 
-2.38.4
-
+In the future, there should be a local documentation search driven
+by AI algorithms which handles synonyms and rewordings, so that if
+the user searched for "dereference", they also found text about
+"following a reference" even if the word "dereference" wasn't used.
+Think of it like a version of G**gle running on your own machine.
+Implementing such a thing is beyond me, though.
