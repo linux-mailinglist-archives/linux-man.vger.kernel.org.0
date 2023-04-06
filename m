@@ -2,77 +2,69 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id A61516D9217
-	for <lists+linux-man@lfdr.de>; Thu,  6 Apr 2023 10:56:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 046576D9D7E
+	for <lists+linux-man@lfdr.de>; Thu,  6 Apr 2023 18:25:02 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235374AbjDFI4p (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 6 Apr 2023 04:56:45 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42056 "EHLO
+        id S229561AbjDFQZB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 6 Apr 2023 12:25:01 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38672 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233973AbjDFI4o (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 6 Apr 2023 04:56:44 -0400
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com [IPv6:2a00:1450:4864:20::335])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 85551526C
-        for <linux-man@vger.kernel.org>; Thu,  6 Apr 2023 01:56:43 -0700 (PDT)
-Received: by mail-wm1-x335.google.com with SMTP id s13so22192592wmr.4
-        for <linux-man@vger.kernel.org>; Thu, 06 Apr 2023 01:56:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1680771402; x=1683363402;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=W/IWwjs5BNz0UTbwKkqvDBjxC/GKybEbeFaL0XrixRk=;
-        b=CIQkR438sPmuLXu/ovwiLwUulEduuiATFeNnh0dUdYof3J+CVzgudWchd6XLomimUP
-         TyiX0GpYg7SPJbiKMkUs7IA7NCGwiNsZ2+DqlO+eE3VQy3skxjJWgVpncjmp1zSlX2Dc
-         an11Z3gitI3ivuHKZAdyr7a6AkALCUgeMhcSNTK+gdiI1IVzpe5xEMUeSoiKczDvXThy
-         37Uxpe5F4TV0NKi0mLT5E85qPjGbsrS030PtNN9bNs80Oa9MsBmz8J9D/Lgpd3z/bF/r
-         DJ2sUIOW4Q6V+AVOS576jh4fTzaTggEVlNT/R1gv5G4J0X3muubtRaVstcLiIdkNy9SE
-         wKHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680771402; x=1683363402;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=W/IWwjs5BNz0UTbwKkqvDBjxC/GKybEbeFaL0XrixRk=;
-        b=efl+2ljAymVhopt5hTyZ2C63V93yCxC51YUHxPyZeUsXC5vjMuNZ33274tSFGMqfZb
-         OZSZu44i099BMuwgJT+tump5zRQu6cXiQKT0OZN3qa2khyvtcZ2lLcVOeAGIw6eiXQoN
-         TZSKqy3wl9NrvGeXhSHjKbETLBXF2kK31v5ZhEJQRG1Tyer1PycBshUM+MsedEDCnsCV
-         5BHZ8Xo2tVow1q/kTm6zwpEIqb0koikFy3J5ozwqxh4K2SPe/auI36COiB6l0lqDTleY
-         Ixpmbi7l8NqLQ+AMOcyuM8Iwydeb3OfLmm3Unc/wfaoCo8YtKU9yGhEjTPEwUkB+7/MM
-         6TuQ==
-X-Gm-Message-State: AAQBX9cw5HqRqqRxEYajiVa99m50K9F6p97RkE58dIHTGN0/TLYEDHvB
-        dPM9jKWJ9i5sdTOBzeuGcgJQ8apvILo=
-X-Google-Smtp-Source: AKy350Y5s+sDn3IjT2VRssrG0OJ/71Sq5WpsWYnBPgV12XiKJtRhnPGNKR44Eb2ogSi5dMnEGhWGZQ==
-X-Received: by 2002:a05:600c:254:b0:3ee:2552:7512 with SMTP id 20-20020a05600c025400b003ee25527512mr6402790wmj.13.1680771401960;
-        Thu, 06 Apr 2023 01:56:41 -0700 (PDT)
-Received: from localhost (93.7.115.87.dyn.plus.net. [87.115.7.93])
-        by smtp.gmail.com with ESMTPSA id iv15-20020a05600c548f00b003ef5b285f65sm4708121wmb.46.2023.04.06.01.56.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 06 Apr 2023 01:56:41 -0700 (PDT)
-From:   Gavin Smith <gavinsmith0123@gmail.com>
-X-Google-Original-From: Gavin Smith <GavinSmith0123@gmail.com>
-Date:   Thu, 6 Apr 2023 09:56:41 +0100
-To:     Eli Zaretskii <eliz@gnu.org>
-Cc:     Arsen =?utf-8?Q?Arsenovi=C4=87?= <arsen@aarsen.me>,
-        dirk@gouders.net, alx.manpages@gmail.com,
-        linux-man@vger.kernel.org, help-texinfo@gnu.org
-Subject: Re: A less presumptive .info? (was: Re: Playground pager lsp(1))
-Message-ID: <ZC6JSWQDCUQJHbwA@starmint>
-References: <ghileoo9dk.fsf@gouders.net>
- <ghbkkgo8x8.fsf@gouders.net>
- <073413e2-7d35-f0d7-26eb-f66908d7af6a@gmail.com>
- <ghedoy8x5y.fsf@gouders.net>
- <87y1n6o1b3.fsf@aarsen.me>
- <ghpm8iyzqj.fsf@gouders.net>
- <83zg7mqha4.fsf@gnu.org>
- <865yaa81ru.fsf@aarsen.me>
- <83r0sxqvg6.fsf@gnu.org>
+        with ESMTP id S239470AbjDFQY5 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 6 Apr 2023 12:24:57 -0400
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C2DB6AD0D
+        for <linux-man@vger.kernel.org>; Thu,  6 Apr 2023 09:24:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1680798249;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=qQdY9Ol7C3y+jL9vTK0658UFli16RaD7mNj64O03nOA=;
+        b=Nb4iN2+ILsD47ZL4glW38Ua0+ISWuAEuAPhOmgW2rHKzLZZid27CHIrtN8jhjLoNQ6rkRp
+        HrqaXqBErAYS72hUOeKyeWURRzBt811UUZ5Uu80ih9MqUxkv9kI0QyJmO7CojiA2+x/G2+
+        2H0ZExG4FAJE8O26/iGQ1nJo8BVtrrc=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-66-mjQGf9JBNFOxbGRpjWXoug-1; Thu, 06 Apr 2023 12:24:06 -0400
+X-MC-Unique: mjQGf9JBNFOxbGRpjWXoug-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D2C0B8996E1;
+        Thu,  6 Apr 2023 16:24:05 +0000 (UTC)
+Received: from redhat.com (unknown [10.2.16.67])
+        by smtp.corp.redhat.com (Postfix) with ESMTPS id 3FF322027062;
+        Thu,  6 Apr 2023 16:24:04 +0000 (UTC)
+Date:   Thu, 6 Apr 2023 11:24:02 -0500
+From:   Eric Blake <eblake@redhat.com>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org, Alejandro Colomar <alx@kernel.org>,
+        Bastien =?utf-8?Q?Roucari=C3=A8s?= <rouca@debian.org>,
+        glibc <libc-alpha@sourceware.org>, GCC <gcc@gcc.gnu.org>,
+        Stefan Puiu <stefan.puiu@gmail.com>,
+        Igor Sysoev <igor@sysoev.ru>, Rich Felker <dalias@libc.org>,
+        Andrew Clayton <andrew@digital-domain.net>,
+        Richard Biener <richard.guenther@gmail.com>,
+        Zack Weinberg <zack@owlfolio.org>,
+        Florian Weimer <fweimer@redhat.com>,
+        Joseph Myers <joseph@codesourcery.com>,
+        Jakub Jelinek <jakub@redhat.com>, Sam James <sam@gentoo.org>
+Subject: Re: [PATCH] sockaddr.3type: Document that sockaddr_storage is the
+ API to be used
+Message-ID: <qeo4eortjhpardcwgpjf6ryp56ivpzauzceszufkgdc2yrdrp7@ucmx7voexotw>
+References: <20230330171310.12330-1-alx@kernel.org>
+ <ga44kb7s2atbgl6exbjvpffp6czurhxff4nxf7ugflyfpjhlb5@pvwnm2udgso5>
+ <9b528ba9-e1c6-1c03-8ec7-177c4dc66e19@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <83r0sxqvg6.fsf@gnu.org>
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-        DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+In-Reply-To: <9b528ba9-e1c6-1c03-8ec7-177c4dc66e19@gmail.com>
+User-Agent: NeoMutt/20230322
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
+        RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_NONE autolearn=unavailable
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -80,28 +72,66 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Thu, Apr 06, 2023 at 11:14:01AM +0300, Eli Zaretskii wrote:
-> > The alternative is, of course, bringing HTML up to par feature-wise
-> > (wrt. indices etc), but that'd be on the other end of the extreme, where
-> > instead of being too easy to parse and lacking important information,
-> > it'd be oververbose with and difficult to parse (not that such a thing
-> > should not be done too, so that folks using ordinary browsers can enjoy
-> > documentation, and so that projects can provide more accessible
-> > documentation by the merit of more people having HTML than Info
-> > viewers).
-> > 
-> > WDYT folks?
+On Wed, Apr 05, 2023 at 02:42:04AM +0200, Alejandro Colomar wrote:
+> Hi Eric,
 > 
-> Gavin will tell, but AFAIU our plan is to develop js as the means
-> towards the goals you mentioned.  That will allow using HTML browsers
-> to read Texinfo documentation without losing the functionalities of
-> the Info readers we value.  HTML rendering reflows as integral part of
-> its workings, so that problem is not an issue if this plan succeeds.
+> I'm going to reply both your emails here so that GCC is CCed, and they can
+> suggest better stuff.  I'm worried about sending something to POSIX without
+> enough eyes checking it.  So this will be a long email.
 
-Progress on this issue is described in the TODO.HTML file in the Texinfo
-repository.
+Because your mail landed in a publicly archived mailing list, the
+POSIX folks saw it anyways ;)
 
-https://git.savannah.gnu.org/cgit/texinfo.git/tree/TODO.HTML
+...
+> > 
+> > Whether gcc already has all the attributes you need is not my area of
+> > expertise.  In my skim of the glibc list conversation, I saw mention
+> > of attribute [[gnu:transparent_union]] rather than [[__may_alias__]] -
+> > if that's a better implementation-defined extension that does what we
+> > need, then use it.  The standard developers were a bit uncomfortable
+> > directly putting [[gnu:transparent_union]] in the standard, but
+> > [[__may_alias__]] was noncontroversial (it's in the namespace reserved
+> > for the implementation)
+> 
+> Not really; implementation-defined attributes are required to use an
+> implementation-defined prefix like 'gnu::'.  So [[__may_alias__]] is
+> reserved by ISO C, AFAIR.  Maybe it would be better to just mention
+> attributes without any specific attribute name; being fuzzy about it
+> would help avoid making promises that we can't hold.
 
-In short, the main avenue of progress appears to be the documentation
-browser using the embedded WebkitGTK browser.
+On this point, the group agreed, and we intentionally loosened to
+wording to just mention an implementation-defined extension, rather
+than giving any specific attribute name.
+
+...
+> 
+> I would just make it more fuzzy about which standard version did what.
+> How about this?:
+> 
+> [[
+> Note that defining the sockaddr_storage and sockaddr structures using
+> only mechanisms defined in editions of the ISO C standard may produce
+> aliasing diagnostics.  Because of the large body of existing code
+> utilizing sockets in a way that could trigger undefined behavior due
+> to strict aliasing rules, this standard mandates that the various socket
+> address structures can alias each other for accessing their first member,
+
+The sa_family_t member is not necessarily the first member on all
+platforms (it happens to be first in Linux, but as a counter-example,
+https://man.freebsd.org/cgi/man.cgi?query=unix&sektion=4 shows
+sun_family as the second one-byte field in struct sockaddr_un).  The
+emphasis is on derefencing the family member (whatever offset it is
+at) to learn what cast to use to then safely access the rest of the
+storage.
+
+As such, here's the updated wording that the Austin Group tried today
+(and we plan on starting a 30-day interpretation feedback window if
+there are still adjustments to be made to the POSIX wording):
+
+https://austingroupbugs.net/view.php?id=1641#c6255
+
+-- 
+Eric Blake, Principal Software Engineer
+Red Hat, Inc.           +1-919-301-3266
+Virtualization:  qemu.org | libvirt.org
+
