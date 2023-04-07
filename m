@@ -2,115 +2,110 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 4313E6DABF1
-	for <lists+linux-man@lfdr.de>; Fri,  7 Apr 2023 13:04:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E99516DADA3
+	for <lists+linux-man@lfdr.de>; Fri,  7 Apr 2023 15:32:44 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231727AbjDGLEE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 7 Apr 2023 07:04:04 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56114 "EHLO
+        id S230474AbjDGNcm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 7 Apr 2023 09:32:42 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43196 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230189AbjDGLEA (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 7 Apr 2023 07:04:00 -0400
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com [IPv6:2a00:1450:4864:20::42a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E6A21E5F
-        for <linux-man@vger.kernel.org>; Fri,  7 Apr 2023 04:03:51 -0700 (PDT)
-Received: by mail-wr1-x42a.google.com with SMTP id y14so42051483wrq.4
-        for <linux-man@vger.kernel.org>; Fri, 07 Apr 2023 04:03:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1680865430; x=1683457430;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=EWu6r9O11ZhcMfRmLMTLeHpWZg9KbuIE6zfIZryGncQ=;
-        b=HwGLOejh2D/RNdA02Qu+bXjJBswFPnG7JT+ARm3hFXDXEw2sGMGRqj6MimjeerTKOL
-         obXIpNn4DmOI+c5CHNaboR9juE85xXtlabgQGUzGh9Q6cQVTTiamQ2XxEvs4AZE5WFfR
-         IRTLge/wkaOYWgOwU0RW8CNHNZkth9QSQAYEkqrxeXLSVGQ2hSXnXwtR+0mgK09i5RvV
-         QgkVvlmdN77wFSdDjF6AxrE2h+ZgW33lGgNzOYoEFu3pZUJC76H5/FRjZz9CWS20xJFY
-         nonMJHaHP6GEvMooyVYpdY39tnZ1oy8TkorEWsfU5dqiqL8+AQg6yZtoIRrP/+EXZ+VM
-         FF/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680865430; x=1683457430;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=EWu6r9O11ZhcMfRmLMTLeHpWZg9KbuIE6zfIZryGncQ=;
-        b=xVu1773hp73IqCyoRe0nrMF9jfuii0XSHEYPeNV2sphB+nTui5YZL/3oq7OqU8bJ/7
-         brPWF64RIQF3+iPQEdqTrBFtS36aLbNB3MWhB1BfO14ggQMiJaLm6kyFfUbBAciZH9vy
-         NAewf64LisJqt6tdY5vKj1vF6mILPH+suADUehbgS9dS2v6xlk2EZ5BlhX5W9hau/42p
-         Zc1vnPVKAdFy1xyKHGa3aq/zOf8kbBI/1CrHsMMIvdiUSuOSpxwB/i+9GEHRaoK6kcBw
-         KxCU5JlJZoCrBjSk5EJkhC0SBfs1RTu05lG9ztsF38BkGsxHjkyduClontpZIjA8kuJg
-         tJOw==
-X-Gm-Message-State: AAQBX9dOfWGRFhhU9cw834/esh1b5jA3dOcpK2jZuN2AHkL+lpCVqbb0
-        qdPSQOAiiSDjw4l749CDCro=
-X-Google-Smtp-Source: AKy350aYtxlzXrvbrZqQVwIOKOll/zqPRkHEbJ4Iif1vnDOqTo7SjGBTr02ox0hCZCdDoE6RQvRwiw==
-X-Received: by 2002:a5d:518b:0:b0:2ef:b137:37fe with SMTP id k11-20020a5d518b000000b002efb13737femr937707wrv.0.1680865430114;
-        Fri, 07 Apr 2023 04:03:50 -0700 (PDT)
-Received: from localhost (93.7.115.87.dyn.plus.net. [87.115.7.93])
-        by smtp.gmail.com with ESMTPSA id b2-20020adff242000000b002d322b9a7f5sm4278981wrp.88.2023.04.07.04.03.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 07 Apr 2023 04:03:49 -0700 (PDT)
-From:   Gavin Smith <gavinsmith0123@gmail.com>
-X-Google-Original-From: Gavin Smith <GavinSmith0123@gmail.com>
-Date:   Fri, 7 Apr 2023 12:03:48 +0100
-To:     Eli Zaretskii <eliz@gnu.org>
-Cc:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        alx.manpages@gmail.com, dirk@gouders.net,
-        linux-man@vger.kernel.org, help-texinfo@gnu.org
-Subject: Re: Playground pager lsp(1)
-Message-ID: <ZC/4lA46mZX1nFY0@starmint>
-References: <ghileoo9dk.fsf@gouders.net>
- <ghbkkgo8x8.fsf@gouders.net>
+        with ESMTP id S230363AbjDGNcm (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 7 Apr 2023 09:32:42 -0400
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [IPv6:2001:67c:2050:0:465::103])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5638846B7
+        for <linux-man@vger.kernel.org>; Fri,  7 Apr 2023 06:32:40 -0700 (PDT)
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+         key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest SHA256)
+        (No client certificate requested)
+        by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4PtK6q0WJZz9sT0;
+        Fri,  7 Apr 2023 15:32:35 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aarsen.me; s=MBO0001;
+        t=1680874355;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=frR7TUX0fsleki9IVXwRILOARqVupqAiV8D0h8ReMnw=;
+        b=Pm8piLOFDE5usYOtyZKkfIjk+nyChNWjK2nv3ZX6mA/higbnPEIitGGl2KZhRFxAZumeYg
+        O1pQhoWRpD0/NmGysLExK0EhpQvK9g3RL9OYOnZ10j2n5z6jWEo4rY5YkSd0U4UaGQMPZE
+        cW5ycWSusBZvyDSnTMYQaZZu1s10MfIGQlh35IDO3bojjbbCgTzev31DxkmYCnNVWhAziu
+        ipQFLNe5Htf98LFlLA4TSe4ARMsE5ns6Xp7ZNJUYAu/FbM52s0ALL4Jc3SNv7AKWC7HMgt
+        nlYJ1DEV5RwBfBhjCXp9295uVES2f7xN0rn3DB9l/zqIvAUxDIwyZrTWbj91Pw==
+References: <ghileoo9dk.fsf@gouders.net> <ghbkkgo8x8.fsf@gouders.net>
  <073413e2-7d35-f0d7-26eb-f66908d7af6a@gmail.com>
- <834jpuuc1a.fsf@gnu.org>
- <6ea6d1fe-375f-487a-b524-adc86880d3de@gmail.com>
- <20230407021822.3grfnenicwjhdive@illithid>
- <83fs9cp5b9.fsf@gnu.org>
+ <ghedoy8x5y.fsf@gouders.net> <87y1n6o1b3.fsf@aarsen.me>
+ <ghpm8iyzqj.fsf@gouders.net> <83zg7mqha4.fsf@gnu.org>
+ <865yaa81ru.fsf@aarsen.me> <83r0sxqvg6.fsf@gnu.org>
+From:   Arsen =?utf-8?Q?Arsenovi=C4=87?= <arsen@aarsen.me>
+To:     Eli Zaretskii <eliz@gnu.org>
+Cc:     GavinSmith0123@gmail.com, dirk@gouders.net, alx.manpages@gmail.com,
+        linux-man@vger.kernel.org, help-texinfo@gnu.org
+Subject: Re: A less presumptive .info? (was: Re: Playground pager lsp(1))
+Date:   Fri, 07 Apr 2023 15:14:03 +0200
+In-reply-to: <83r0sxqvg6.fsf@gnu.org>
+Message-ID: <87fs9bu8b5.fsf@aarsen.me>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <83fs9cp5b9.fsf@gnu.org>
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-        DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-        autolearn_force=no version=3.4.6
+Content-Type: multipart/signed; boundary="=-=-=";
+        micalg=pgp-sha512; protocol="application/pgp-signature"
+X-Rspamd-Queue-Id: 4PtK6q0WJZz9sT0
+X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+        DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS
+        autolearn=unavailable autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Fri, Apr 07, 2023 at 09:36:10AM +0300, Eli Zaretskii wrote:
-> This should be possible, but it flies in the face of the feature
-> whereby formatted man pages are kept for future perusal, which is
-> therefore faster: if the formatted pages reflect the particular size
-> of the pager's window, it is meaningless to cache them.
-> 
-> >   ... Run the command 'sudo make uninstall'.  (If you successfully used
-> >   'make install', simply run 'make uninstall'.)  At a minimum, some
-> >   directories not particular to groff, like 'bin' and (depending on
-> >   configuration) an X11 'app-defaults' directory will remain, as will
-> >   one plain file called 'dir', created by GNU Texinfo's 'install-info'
-> >   command.  (As of this writing, 'install-info' offers no provision for
-> >   removing an effectively empty 'dir' file, and groff does not attempt
-> >   to parse this file to determine whether it can be safely removed.)
-> >   All other groff artifacts will be deleted from the installation
-> >   hierarchy.
-> > 
-> > Any chance 'install-info' could get savvy as noted above?  (Maybe it
-> > already has--I'm running 6.7.0.)
-> 
-> Why does it make sense to do that?  An "empty" DIR file is not really
-> empty: it has instructions at its beginning, which are important for
-> newbies.  Also, on well-maintained system, DIR will rarely become
-> empty, and if it does, it will soon enough become non-empty again,
-> since all the Info manuals installed on the system should be mentioned
-> there, and why would we want to imagine a system which has no Info
-> manuals at all, not even an Info manual that describes how to use Info
-> (which comes with the Texinfo distribution)?
+--=-=-=
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-It falls under the same category as the "directories not particular
-to groff" mentioned in the instructions.  You want install-info (or
-Automake rules) to remove an empty dir file; you could equally claim
-that install-info should remove the empty 'info' directory that contains
-that dir file.
 
-What are the benefits of removing the file?
+Eli Zaretskii <eliz@gnu.org> writes:
+
+> Gavin will tell, but AFAIU our plan is to develop js as the means
+> towards the goals you mentioned.  That will allow using HTML browsers
+> to read Texinfo documentation without losing the functionalities of
+> the Info readers we value.  HTML rendering reflows as integral part of
+> its workings, so that problem is not an issue if this plan succeeds.
+
+Sure, but how will this work with the standalone and/or Emacs viewers?
+
+In Emacs, doing so places a strain on the HTML generator to work around
+eww, and presuming we choose to do that, it requires the user to have
+Emacs.
+
+In the non-Emacs case, it requires that the implementor implement at
+least a subset of HTML, or places a demand on the user to have a web
+browser (in which, there are two extremes: either the 'underimplemented
+and insufficient' ones for which JS as glue won't work, or full browsers
+which aren't accessible in many scenarios).
+
+On the other hand, having a more advanced format based on s-exprs for
+info at rest storage could let us have complete information about the
+intended markup of the text to be displayed with only two syntactic
+elements (lists and strings).  That should be rather easy to parse.
+
+I don't see it as very viable to replace an implementable info storage
+format with only HTML for that reason.
+
+I have TODO.HTML open on my workstation to take a look through some of
+those when I get back home.  I do believe that it's a high priority
+target, as it is very important to newcommers to GNU who are viewing GNU
+documentation from remote servers, but I doubt it can replace a native
+Info format.
+=2D-=20
+Arsen Arsenovi=C4=87
+
+--=-=-=
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iIYEARYKAC4WIQT+4rPRE/wAoxYtYGFSwpQwHqLEkwUCZDAbbhAcYXJzZW5AYWFy
+c2VuLm1lAAoJEFLClDAeosSTuuIBAPwKIhJMVhjRDQMWmGlQ8upHFXO52qfolZpU
+XLCVJKPEAQDGaoBD8V4UehlOSI/hatmF3/Xip6nMARo4usP6UBY1DQ==
+=nKqW
+-----END PGP SIGNATURE-----
+--=-=-=--
