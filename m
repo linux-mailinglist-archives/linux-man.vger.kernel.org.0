@@ -2,310 +2,145 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id C81546DAFCA
-	for <lists+linux-man@lfdr.de>; Fri,  7 Apr 2023 17:40:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 82F616DB035
+	for <lists+linux-man@lfdr.de>; Fri,  7 Apr 2023 18:08:47 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229545AbjDGPkD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 7 Apr 2023 11:40:03 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48958 "EHLO
+        id S229704AbjDGQIp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 7 Apr 2023 12:08:45 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45870 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229469AbjDGPkC (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 7 Apr 2023 11:40:02 -0400
-Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 4BC268A42
-        for <linux-man@vger.kernel.org>; Fri,  7 Apr 2023 08:40:01 -0700 (PDT)
-Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 9FDDD5A02;
-        Fri,  7 Apr 2023 17:40:00 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-        s=202211; t=1680882000;
-        bh=UAbCDPrmUOPsUoXp8Af+bALKOFGK4EfZOri3OPTUStc=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=jQHos73Hdpi9nCBDLzZUIcqvs8y6iNZ5a8FsZX450ZjLzTHW4CgSJGtuc+8bMeLCT
-         qH7kR2PNOQ3Y/keZ03hXnMVrvVjM/DyIaDSQRWSZsIdoTUPQBc4iwpBFgHmR+wrbJ+
-         VILOsCQbDGZ37l+p6YupjHmYCua/djeGpG4VygNEr1M31ad4QBGDOb4+oALLvYD9hh
-         qXEswNMhePWgbfNZ7+gHDRo6X8hIoH1ofMIT9xukpuAbMr3t2rNjKU38zv4biUEOop
-         fRgWC7CmmybQrqaVxDyVQ26cEZMCk21+ATHQ7NhX7S6Zyiy6PniaAKgKWYLmS2B5Dt
-         Ys5BQ3S1ggFyA==
-Date:   Fri, 7 Apr 2023 17:39:59 +0200
-From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-Subject: [PATCH 2/2] personality.2: review, update for Linux 6.2
-Message-ID: <60d0a9233d92929cf5b4e984729f12bf9716c98b.1680881976.git.nabijaczleweli@nabijaczleweli.xyz>
-References: <69aebed63a65313581798c8b630fa2efbf351400.1680881976.git.nabijaczleweli@nabijaczleweli.xyz>
+        with ESMTP id S230303AbjDGQIo (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 7 Apr 2023 12:08:44 -0400
+Received: from stravinsky.debian.org (stravinsky.debian.org [IPv6:2001:41b8:202:deb::311:108])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7266230FB
+        for <linux-man@vger.kernel.org>; Fri,  7 Apr 2023 09:08:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+        s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Transfer-Encoding:
+        Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
+        Reply-To:Content-ID:Content-Description;
+        bh=lzZinMxP0taHN64r+JzXshH+ECEsPuHpnL1ML2QTf7Q=; b=W2YEt2RrdrGENV9n+Kumy5H2Vf
+        eltcq8PF/xC2+GTO9WZz3qONHXd/bPJF9MjYdWju16EGO69iWcxkPEjLJWxmsXBnLDqYOW4OdJ7zE
+        w4XKVtOo7yYr0AoVRBQtxC/lppzSvaoHTo0pt+6EfqY71wZNbOh3QvYJQYS7vtTP/sjUdHGczIwGw
+        CUSVpHhoI9zL0slziz3/AfxQ9N8HlU50NfYBvUt3ueHk/ZLHcBbL2iH+MXtvXepvo3UY7siQnAjK7
+        eCj7kHpJ2HY0bY3D+IbH6uO7ojJYA/6kdkxmSoBGwrf8pAzVUkkFIQ60QhBr5LaJONJYcwfPuZI5Y
+        m07Yoh8g==;
+Received: from authenticated user
+        by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+        (Exim 4.94.2)
+        (envelope-from <cjwatson@debian.org>)
+        id 1pkodD-00CslO-BM; Fri, 07 Apr 2023 16:08:07 +0000
+Received: from ns1.rosewood.vpn.ucam.org ([172.20.153.2] helo=riva.ucam.org)
+        by riva.rosewood.vpn.ucam.org with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+        (Exim 4.94.2)
+        (envelope-from <cjwatson@debian.org>)
+        id 1pkodB-00B79q-Fa; Fri, 07 Apr 2023 17:08:05 +0100
+Date:   Fri, 7 Apr 2023 17:08:04 +0100
+From:   Colin Watson <cjwatson@debian.org>
+To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc:     Eli Zaretskii <eliz@gnu.org>, alx.manpages@gmail.com,
+        dirk@gouders.net, linux-man@vger.kernel.org, help-texinfo@gnu.org,
+        groff@gnu.org
+Subject: Re: man page rendering speed (was: Playground pager lsp(1))
+Message-ID: <ZDA/5MFwtljBigBl@riva.ucam.org>
+Mail-Followup-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        Eli Zaretskii <eliz@gnu.org>, alx.manpages@gmail.com,
+        dirk@gouders.net, linux-man@vger.kernel.org, help-texinfo@gnu.org,
+        groff@gnu.org
+References: <ghileoo9dk.fsf@gouders.net>
+ <ghbkkgo8x8.fsf@gouders.net>
+ <073413e2-7d35-f0d7-26eb-f66908d7af6a@gmail.com>
+ <834jpuuc1a.fsf@gnu.org>
+ <6ea6d1fe-375f-487a-b524-adc86880d3de@gmail.com>
+ <20230407021822.3grfnenicwjhdive@illithid>
+ <83fs9cp5b9.fsf@gnu.org>
+ <20230407144319.iju3v3os2a7kngp2@illithid>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="275ybmqf6fj4fxr6"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <69aebed63a65313581798c8b630fa2efbf351400.1680881976.git.nabijaczleweli@nabijaczleweli.xyz>
-User-Agent: NeoMutt/20230322
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-        DKIM_VALID_AU,DKIM_VALID_EF,RDNS_DYNAMIC,SPF_HELO_PASS,SPF_PASS
-        autolearn=no autolearn_force=no version=3.4.6
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20230407144319.iju3v3os2a7kngp2@illithid>
+X-Debian-User: cjwatson
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+        SPF_NONE,UNPARSEABLE_RELAY autolearn=unavailable autolearn_force=no
+        version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+On Fri, Apr 07, 2023 at 09:43:19AM -0500, G. Branden Robinson wrote:
+> At 2023-04-07T09:36:10+0300, Eli Zaretskii wrote:
+> > > From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+> [re-running *roff when a viewing a man page and resizing the terminal]
+> > > Seems like it shouldn't be impossible to me, but what I imagine
+> > > would require a little reëngineering of man(1), perhaps to spawn a
+> > > little custom program to manage zcat/nroff pipeline it constructs.
+> > > This little program's sole job could be to be aware of this pipeline
+> > > and listen for SIGWINCH; if it happens, kill the rest of the
+> > > pipeline and reëxecute it.
 
---275ybmqf6fj4fxr6
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+I didn't see the rest of the thread, but one significant complexity here
+would be interacting with the pager to arrange for the viewing position
+to be returned to where it was pre-SIGWINCH; bear in mind that the pager
+is user-configurable (less(1) is common but not universal) and isn't
+directly part of man(1).
 
-Settle on "no effect", concretify vaguely-described behaviours;
-both [to be documented]s replaced with documentation
-(these match my 6.2 checkout, if there were subtleties in the history
- they got lost).
+> > This should be possible, but it flies in the face of the feature
+> > whereby formatted man pages are kept for future perusal, which is
+> > therefore faster:
+> 
+> You're referring to cat pages.  As far as I know, these are on their way
+> out if not already gone.  Colin Watson, who has maintained the man-db
+> implementation of man(1)[1] for something like 20 years, can speak more
+> authoritatively to this, but as I understand it, the advent of resizable
+> xterm windows started to kill the utility of cat pages decades ago and
+> the increasing importance of desktop environments accelerated their
+> demise.
 
-Added the full system names to the PER_s that lacked them;
-no clue what UW7 is though.
+Another major change in that period was the general though gradual move
+to UTF-8, making it somewhat unclear for some time which encoding should
+be preferred when rendering cat pages.  (Since 2010, man-db always saves
+cat pages in UTF-8 and converts to the proper encoding at display time,
+but it took a while to settle on this approach and in the meantime there
+were perhaps four or five years when cat pages were commonly unavailable
+in practice.  Even then, very few people cared enough to complain.)
 
-Didn't validate or chase down the versions except for PER_RISCOS.
+Furthermore, the traditional approach to saving system-wide cat pages
+involved having man(1) be set-id.  From a modern standpoint, this was
+obviously problematic, and it caused both security vulnerabilities and
+more ordinary bugs.  There are ways in which this might have been
+rearranged to be less of a serious problem, but if you can avoid
+bothering with set-id at all then that's clearly safer.
 
-Having these be sorted instead of in the original enumeration order is
-really more trouble than it's worth.
+My general approach to cat pages for at least the last ten years has
+been to put as little effort into them as possible.  This has so far
+included not outright removing support for them (since dealing with the
+resulting support load, even if small, would itself be effort), but if
+an improvement to man(1) has some kind of degradation of cat pages as a
+side-effect then I usually won't hesitate to make it anyway.
 
-Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
----
- man2/personality.2 | 96 ++++++++++++++++++++++++++++++++--------------
- 1 file changed, 68 insertions(+), 28 deletions(-)
+> ...which brings me to the other factor, of which I'm more confident: man
+> page rendering times are much lower than they were in Unix's early days.
 
-diff --git a/man2/personality.2 b/man2/personality.2
-index caca709b8..598e2cd2f 100644
---- a/man2/personality.2
-+++ b/man2/personality.2
-@@ -67,10 +67,12 @@ With this flag set, use 0xc0000000 as the offset at whi=
-ch to search
- a virtual memory chunk on
- .BR mmap (2);
- otherwise use 0xffffe000.
-+Applies to 32-bit x86 processes only.
- .TP
- .BR FDPIC_FUNCPTRS " (since Linux 2.6.11)"
- User-space function pointers to signal handlers point
--(on certain architectures) to descriptors.
-+to descriptors.
-+Applies only to ARM if BINFMT_ELF_FDPIC and SuperH.
- .TP
- .BR MMAP_PAGE_ZERO " (since Linux 2.4.0)"
- Map page 0 as read-only
-@@ -85,7 +87,7 @@ for
- .BR mmap (2).
- .TP
- .BR SHORT_INODE " (since Linux 2.4.0)"
--No effects(?).
-+No effect.
- .TP
- .BR STICKY_TIMEOUTS " (since Linux 1.2.0)"
- With this flag set,
-@@ -99,7 +101,7 @@ interrupted by a signal handler.
- .BR UNAME26 " (since Linux 3.1)"
- Have
- .BR uname (2)
--report a 2.6.40+ version number rather than a 3.x version number.
-+report a 2.6.(40+x) version number rather than a MAJ.x version number.
- Added as a stopgap measure to support broken applications that
- could not handle the
- kernel version-numbering switch from Linux 2.6.x to Linux 3.x.
-@@ -127,111 +129,149 @@ Implies
- IRIX 6 64-bit.
- Implies
- .BR STICKY_TIMEOUTS ;
--otherwise no effects.
-+otherwise no effect.
- .TP
- .BR PER_IRIXN32 " (since Linux 2.2)"
- IRIX 6 new 32-bit.
- Implies
- .BR STICKY_TIMEOUTS ;
--otherwise no effects.
-+otherwise no effect.
- .TP
- .BR PER_ISCR4 " (since Linux 1.2.0)"
- Implies
- .BR STICKY_TIMEOUTS ;
--otherwise no effects.
-+otherwise no effect.
- .TP
- .BR PER_LINUX " (since Linux 1.2.0)"
- Linux.
- .TP
- .BR PER_LINUX32 " (since Linux 2.2)"
--[To be documented.]
-+.BR uname (2)
-+returns the name of the 32-bit architecture in the
-+.I machine
-+field ("i686" instead of "x86_64", &c.).
-+.IP
-+Under ia64 (Itanium), processes with this personality don't have the
-+O_LARGEFILE
-+.BR open (2)
-+flag forced.
-+.IP
-+Under 64-bit ARM, setting this personality is forbidden if
-+.BR execve (2)ing
-+a 32-bit process would also be forbidden
-+(cf. the allow_mismatched_32bit_el0 kernel parameter and
-+.IR Documentation/arm64/asymmetric-32bit.rst ).
- .TP
- .BR PER_LINUX32_3GB " (since Linux 2.4)"
--Implies
-+.BR PER_LINUX32 ;
-+implies
- .BR ADDR_LIMIT_3GB .
- .TP
- .BR PER_LINUX_32BIT " (since Linux 2.0)"
--Implies
-+.BR PER_LINUX ;
-+implies
- .BR ADDR_LIMIT_32BIT .
- .TP
- .BR PER_LINUX_FDPIC " (since Linux 2.6.11)"
--Implies
-+.BR PER_LINUX ;
-+implies
- .BR FDPIC_FUNCPTRS .
- .TP
- .BR PER_OSF4 " (since Linux 2.4)"
- OSF/1 v4.
--On alpha,
-+.\" commit 987f20a9dcce3989e48d87cff3952c095c994445
-+No effect since Linux 6.1, which removed a.out binary support.
-+Before, on alpha,
- .\" Following is from a comment in arch/alpha/kernel/osf_sys.c
--clear top 32 bits of iov_len in the user's buffer for
-+would clear top 32 bits of iov_len in the user's buffer for
- compatibility with old versions of OSF/1 where iov_len
- was defined as.
- .IR int .
- .TP
- .BR PER_OSR5 " (since Linux 2.4)"
--Implies
-+Same base personality as
-+.BR PER_SCOSVR3 ,
-+but implies
- .B STICKY_TIMEOUTS
- and
--.BR WHOLE_SECONDS ;
--otherwise no effects.
-+.B WHOLE_SECONDS
-+instead.
- .TP
--.BR PER_RISCOS " (since Linux 2.2)"
--[To be documented.]
-+.BR PER_RISCOS " (since Linux 2.3.7; macro since Linux 2.3.13)"
-+Acorn RISC OS/Arthur (MIPS).
-+No effect.
-+.\" commit 125ec7b4e90cbae4eed5a7ff1ee479cc331dcf3c
-+Up to Linux v4.0, would set the emulation altroot to
-+.I /usr/gnemul/riscos
-+(cf.\&
-+.BR PER_SUNOS,
-+below).
-+Before then, up to Linux 2.6.3, just Arthur emulation.
- .TP
- .BR PER_SCOSVR3 " (since Linux 1.2.0)"
-+SCO UNIX System V Release 3.
- Implies
- .BR STICKY_TIMEOUTS ,
- .BR WHOLE_SECONDS ,
- and
- .BR SHORT_INODE ;
--otherwise no effects.
-+otherwise no effect.
- .TP
- .BR PER_SOLARIS " (since Linux 2.4)"
-+Solaris.
- Implies
- .BR STICKY_TIMEOUTS ;
--otherwise no effects.
-+otherwise no effect.
- .TP
- .BR PER_SUNOS " (since Linux 2.4.0)"
--Implies
-+Sun OS.
-+Same as
-+.BR PER_BSD ,
-+but implies
- .BR STICKY_TIMEOUTS .
--Divert library and dynamic linker searches to
-+Prior to Linux 2.6.26,
-+diverted library and dynamic linker searches to
- .IR /usr/gnemul .
--Buggy, largely unmaintained, and almost entirely unused;
--support was removed in Linux 2.6.26.
-+Buggy, largely unmaintained, and almost entirely unused.
- .TP
- .BR PER_SVR3 " (since Linux 1.2.0)"
-+AT&T UNIX System V Release 3.
- Implies
- .B STICKY_TIMEOUTS
- and
- .BR SHORT_INODE ;
--otherwise no effects.
-+otherwise no effect.
- .TP
- .BR PER_SVR4 " (since Linux 1.2.0)"
-+AT&T UNIX System V Release 4.
- Implies
- .B STICKY_TIMEOUTS
- and
- .BR MMAP_PAGE_ZERO ;
--otherwise no effects.
-+otherwise no effect.
- .TP
- .BR PER_UW7 " (since Linux 2.4)"
- Implies
- .B STICKY_TIMEOUTS
- and
- .BR MMAP_PAGE_ZERO ;
--otherwise no effects.
-+otherwise no effect.
- .TP
- .BR PER_WYSEV386 " (since Linux 1.2.0)"
-+WYSE UNIX System V/386.
- Implies
- .B STICKY_TIMEOUTS
- and
- .BR SHORT_INODE ;
--otherwise no effects.
-+otherwise no effect.
- .TP
- .BR PER_XENIX " (since Linux 1.2.0)"
-+XENIX.
- Implies
- .B STICKY_TIMEOUTS
- and
- .BR SHORT_INODE ;
--otherwise no effects.
-+otherwise no effect.
- .SH RETURN VALUE
- On success, the previous
- .I persona
---=20
-2.30.2
+Indeed, and it's been the case for at least a decade that rendering
+times have been short enough that they can largely be considered
+negligible.  (For most of that time my own equipment has not been
+particularly on the bleeding edge of performance.)
 
---275ybmqf6fj4fxr6
-Content-Type: application/pgp-signature; name="signature.asc"
+> The bottom line is that, even on BSD systems (where mdoc(7) is preferred
+> to man(7)), a user can expect a man page to render from *roff source in
+> less than, say, half a second in the worst case, and the median
+> GNU/Linux user can expect to start reading a man page "instantaneously":
 
------BEGIN PGP SIGNATURE-----
+The other thing to note explicitly here is that what normally matters
+most is the time to _start_ reading, not the time to render the whole
+page.  My usual example for where this makes a difference is zshall(1),
+which is a concatenation of several other pages and comes to about 30000
+lines of 80-column rendered output; on my system this takes about 0.6
+seconds to render in its entirety, but typing "man zshall" nevertheless
+shows the first page subjectively instantaneously.
 
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmQwOU8ACgkQvP0LAY0m
-WPEMcw/9GUAfy4P+4kBUok86aMQ++eH0MpxQnP2RF4u6vDFF+XBzIaO8wnZcStDe
-3W0ItbnAIWvcFMVTHkeY3KjpFHMNiuRxHTxtQgRTb6E0MvSNSkW4ROcdSuN+K3/c
-hQrcAd2Q8QainyqoTIE0U+Ks5P+fuVN3BYMOJS40eWr/lGb7tx55Hl/7RtedsS45
-X/Majc4mUW9ujlfkdo7v/aHLXzcmoei5QfNPlfyenmzlxaWMtVpgv1SUdBblKJOI
-5JzRtrgPX8UP0OP2LjSK4n6ijajGCPyks9eKb3AlRIEvPIroYhScM1mX5ULKCe0p
-JQlm0U9HAo6hvYMF7s6Uz3rahxbBUgGVa/dF+Y5HoPNE1cNwmkLzStMz5IC7uc+U
-XxYaifNj4Yn4++UPYRR4GQAktbcX0+Vn3SrIz3vB5K68PNo+iKmPaJAeyL+KLRld
-/QX5L7GkqeB+0FNwtqm8YCtkWDmdFknYXU2qW43S5pTniaBbcU1TDaBv7gynlWMX
-zhYJIUDFEii2e6ry1uPnucS31hjBA3xuOd3tXVasdec9XCX+PBdd7QBrfFQfb3k4
-LGeh5F83x+vrMfzVZgzDru0qJdLzFXYkZb4OmWB9d9d+ufobNkClV1cGDw9zevg3
-t8NvLaNLs4yJxlinQZNtLn5YvW/2YET3Niep/D86wGX0g5c773U=
-=m4VJ
------END PGP SIGNATURE-----
-
---275ybmqf6fj4fxr6--
+-- 
+Colin Watson (he/him)                              [cjwatson@debian.org]
