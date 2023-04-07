@@ -2,157 +2,150 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id A77CB6DB6D0
-	for <lists+linux-man@lfdr.de>; Sat,  8 Apr 2023 01:07:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E5B5D6DB725
+	for <lists+linux-man@lfdr.de>; Sat,  8 Apr 2023 01:28:40 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229654AbjDGXHQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 7 Apr 2023 19:07:16 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33138 "EHLO
+        id S229456AbjDGX2j (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 7 Apr 2023 19:28:39 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54072 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229658AbjDGXHO (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 7 Apr 2023 19:07:14 -0400
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com [IPv6:2a00:1450:4864:20::333])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3CFE9E049
-        for <linux-man@vger.kernel.org>; Fri,  7 Apr 2023 16:06:57 -0700 (PDT)
-Received: by mail-wm1-x333.google.com with SMTP id hg25-20020a05600c539900b003f05a99a841so7918144wmb.3
-        for <linux-man@vger.kernel.org>; Fri, 07 Apr 2023 16:06:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1680908815; x=1683500815;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=5slmtkxBa02r9GYuxyg9ycY0OZkS2FqxGeL+rjITqkQ=;
-        b=jKGa9Rm7Rw/QcHsYo9ThkVSE37qir96n+Pr26ybYW6jO6+DMJ4baxcEzDEKyRfJhdc
-         dw7oVXb6zfjsYODhER/FOZI1xa5bGDWmP6pjpHf9fgbt/S12rYYICNxuAyhCfwPbj+22
-         xufp6EsyBBJj4clB8vMaIZocJudtaXes/GEda5kCvBOC1aSbczFq2lI0ZxXjQWvkhe1k
-         Ue28nzk5ZPS++6Xk9EHU0+jrjr9U/gcs/UMrAuJHDC+QvrRIcuCel1hROE6dfK9aa6ag
-         L1R5FbksVfH+18bqA9NMilKPrXjNyrZ2Ia95jprry+bCiFNDkKtjv+M/JFKM923Cwpgz
-         YBQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680908815; x=1683500815;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=5slmtkxBa02r9GYuxyg9ycY0OZkS2FqxGeL+rjITqkQ=;
-        b=ahk8aXsMe0eYrZe/z8xlP8ptuA4it7zIJ3YdfocAyyiHAwo2g/DJp2D4UJ3tN9J2cw
-         I7UxAcN5b2w5vXaucuN+GIkudO8QaCg7LiEXdo0LQos8sMlvnLqlLkHXAejQci8Y87Gh
-         WLRbZv/L/cepAmVBkLpO27y9AY0F7bUpSV1FwxLTaEkodlBNzWCJfUiPf/VliR4vNYAe
-         Pp/gpWy6C/RyLfphFwTnP63uzu4T1mfka9ju6p14zqSX7wmiSjaLDjC8ZcJlTpo/ooW5
-         IwKmYNZ65SrQYL8FR8IY1J/QnCoNOaVc/x5J4eBeJt8E1J1Py/aSKmuOG7+5VlfCCaHQ
-         TuLQ==
-X-Gm-Message-State: AAQBX9fE11OMlLTjX3o3PL0cuhO2/yoB350v+6SFNnr5lJ2ZxELGN/lu
-        lO1Y0vGnagDWi0Z8kHBNBbE=
-X-Google-Smtp-Source: AKy350YuayKGR4M9MYZI4mJD3WWRtm1Y+19GPW0LwLO9qJ9GjR3s+9JxuGUDUGxsEQWIgLCE7K+xBA==
-X-Received: by 2002:a1c:750b:0:b0:3ee:9909:acc8 with SMTP id o11-20020a1c750b000000b003ee9909acc8mr2547931wmc.32.1680908815696;
-        Fri, 07 Apr 2023 16:06:55 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.51.134])
-        by smtp.gmail.com with ESMTPSA id q8-20020a1ce908000000b003ed2276cd0dsm5978851wmc.38.2023.04.07.16.06.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 07 Apr 2023 16:06:55 -0700 (PDT)
-Message-ID: <54a46052-3a26-ef27-8b65-5dbbc68ecc22@gmail.com>
-Date:   Sat, 8 Apr 2023 01:06:54 +0200
+        with ESMTP id S229436AbjDGX2j (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 7 Apr 2023 19:28:39 -0400
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 34401E051
+        for <linux-man@vger.kernel.org>; Fri,  7 Apr 2023 16:28:38 -0700 (PDT)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id C5060653B9
+        for <linux-man@vger.kernel.org>; Fri,  7 Apr 2023 23:28:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2EC78C4339C
+        for <linux-man@vger.kernel.org>; Fri,  7 Apr 2023 23:28:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1680910117;
+        bh=dI4bd9VCmkTwi7p5JcwnbROS5Ztx3llfrH7PkDXID94=;
+        h=From:To:Subject:Date:In-Reply-To:References:From;
+        b=Lue3jVxkYT4AWir8VhIhoAodlXLTkRepQz7CW7t0qHbeJmLnxv+U0J/UbbLSq6UPI
+         lP9froym2opy+FH8Z6FWMnwNOT9Ke/s1IEFLZ7lSZnSXfLhZnxXkmuHX8raX3gC+39
+         7OLPCX8jzIKrP+UVxV1SXgRM+6ed0yz3YG3oWIQEjQ3XFDBwe63wH13Pi8DEHVNqu/
+         LhU0FoTsfTwks8ymuRPvkUZftTvgxCkVuAzz2YSp41ygL0d/Ddc/ijFmDjERLLevfZ
+         VicpZ3viL3U1MLgsC7lq1SthqllilaFnb02+RCfQffD7C8pGZIDOLjyrXDfjzuDunD
+         7Vp/psUWIeDPg==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
+        id 0BCC0C43141; Fri,  7 Apr 2023 23:28:37 +0000 (UTC)
+From:   bugzilla-daemon@kernel.org
+To:     linux-man@vger.kernel.org
+Subject: [Bug 217291] librt empty, man pages should not tell users to link
+ with -lrt
+Date:   Fri, 07 Apr 2023 23:28:36 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Documentation
+X-Bugzilla-Component: man-pages
+X-Bugzilla-Version: unspecified
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: low
+X-Bugzilla-Who: alx@kernel.org
+X-Bugzilla-Status: RESOLVED
+X-Bugzilla-Resolution: INVALID
+X-Bugzilla-Priority: P1
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: bug_status cc resolution
+Message-ID: <bug-217291-11311-e6ShTufJun@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-217291-11311@https.bugzilla.kernel.org/>
+References: <bug-217291-11311@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.1
-Subject: Re: [PATCH 1/2] proc.5: note effective removal of /proc/execdomains
- in v4.1
-Content-Language: en-US
-To:     =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc:     linux-man@vger.kernel.org
-References: <69aebed63a65313581798c8b630fa2efbf351400.1680881976.git.nabijaczleweli@nabijaczleweli.xyz>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <69aebed63a65313581798c8b630fa2efbf351400.1680881976.git.nabijaczleweli@nabijaczleweli.xyz>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------Vmn9CNU5Jxi5wWhK0bxMEHo1"
-X-Spam-Status: No, score=-2.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-        DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-        autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+        SPF_PASS autolearn=unavailable autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------Vmn9CNU5Jxi5wWhK0bxMEHo1
-Content-Type: multipart/mixed; boundary="------------mTzmnb3T5y0HiMVmuVPccBnY";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc: linux-man@vger.kernel.org
-Message-ID: <54a46052-3a26-ef27-8b65-5dbbc68ecc22@gmail.com>
-Subject: Re: [PATCH 1/2] proc.5: note effective removal of /proc/execdomains
- in v4.1
-References: <69aebed63a65313581798c8b630fa2efbf351400.1680881976.git.nabijaczleweli@nabijaczleweli.xyz>
-In-Reply-To: <69aebed63a65313581798c8b630fa2efbf351400.1680881976.git.nabijaczleweli@nabijaczleweli.xyz>
+https://bugzilla.kernel.org/show_bug.cgi?id=3D217291
 
---------------mTzmnb3T5y0HiMVmuVPccBnY
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Alejandro Colomar (alx@kernel.org) changed:
 
-Hi!
+           What    |Removed                     |Added
+----------------------------------------------------------------------------
+             Status|NEW                         |RESOLVED
+                 CC|                            |alx@kernel.org
+         Resolution|---                         |INVALID
 
-On 4/7/23 17:39, =D0=BD=D0=B0=D0=B1 wrote:
-> The file was turned into a fixed string in upstream commit
-> 973f911f55a0e510dd6db8bbb29cd82ff138d3c0 ("Remove execution domain
-> support"); the entire mechanism was fully removed in a patchset by
-> Weinberger ending at commit 720d70716d137c0cb83b9a5279c384286c02a1c0
-> ("sparc: Fix execution domain removal").
+--- Comment #3 from Alejandro Colomar (alx@kernel.org) ---
+On 4/5/23 07:02, bugzilla-daemon@kernel.org wrote:
+> I'm not sure the man-pages project really concerns itself with non-glibc
+> libc's.
+
+It does.
+
+> Of course you're right that a project that wants to be portable to
+> multiple libc's will need configure tests (or equivalent). But that doesn=
+'t
+> mean that a project that aims to document how to use glibc shouldn't tell
+> users
+> how to use it.
+
+POSIX says that we should use -lrt, so I document that.  If glibc makes it
+easier by putting everything in -lc, that's sugar for us, but unless the
+entire world follows glibc in that, or at least POSIX, I prefer to document
+POSIX.
+
 >=20
-> Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.=
-xyz>
+> My suggestion is that the man pages I mentioned above should have languag=
+es
+> like clock_gettime and friends already have. That is, from
+> https://www.man7.org/linux/man-pages/man3/clock_gettime.3.html :
 
-Patch applied.  Thanks,
+I should rather fix clock_gettime(3) to show only what POSIX requires, which
+is -lrt.  I just didn't find the time to compare all the pages with POSIX.
 
-Alex
+What's the benefit of removing -lrt?
 
-> ---
->  man5/proc.5 | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
 >=20
-> diff --git a/man5/proc.5 b/man5/proc.5
-> index 233cc1c9d..2cc2c5e95 100644
-> --- a/man5/proc.5
-> +++ b/man5/proc.5
-> @@ -3216,7 +3216,8 @@ channels in use.
->  Empty subdirectory.
->  .TP
->  .I /proc/execdomains
-> -List of the execution domains (ABI personalities).
-> +Used to list ABI personalities before Linux 4.1,
-> +now contains a constant string for userspace compatibility.
->  .TP
->  .I /proc/fb
->  Frame buffer information when
+> Link with -lrt (only for glibc versions before 2.17).
+>=20
+> Or in the current repo:
+>=20
+> .SH LIBRARY
+> Standard C library
+> .RI ( libc ", " \-lc ),
+> since glibc 2.17
+> .PP
+> Before glibc 2.17,
+> Real-time library
+> .RI ( librt ", " \-lrt )
+>=20
+> (Not sure why one needs to explicitly tell to link with libc (-lc) and th=
+us
+> how
+> this is an improvement over the older version published on the web page (=
+and
+> in
+> most Linux distros man pages), but I digress)
+
+Consistency.  If you see -lc, you know where it is.  If you don't see it,
+then there are two options: either it is in libc, or the author forgot to
+document where it is.
+
+Also, while it's often unnecessary to specify -lc, it may in some corner ca=
+ses
+be
+necessary, so I prefer specifying it.
+
+Thanks for reporting!  However, I don't agree with the report :)
 
 --=20
-<http://www.alejandro-colomar.es/>
-GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
+You may reply to this email to add a comment.
 
---------------mTzmnb3T5y0HiMVmuVPccBnY--
-
---------------Vmn9CNU5Jxi5wWhK0bxMEHo1
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQwog4ACgkQnowa+77/
-2zIUvRAAmsy1Abgvln92Zx+kVsrx27aXg3r2IEppuTaZJwMfvJtJdgpRDbI3pFMw
-F0B4lnia3piDrwYoNcpGEebBebkx1kGERULZ8TXbgLo5nsjgh1GCSTkn4VJ9SRLv
-9wYpDa1VlEseihwdPH+Hvc3lNG5N+bSAAkD0sJorlOA+vr3Wf6AuXMCSU+xq7njK
-Jlrn90IzMvWAa0D8XtldiMg57tjeqw9lfhDnZ4y3sHe08ZKfPXmb3wKEtvcKKlhc
-9sfa5dP22Ey/YNjHy6P1149SqUD3hp8BkmDKSDyBMc6n61bBnAXD+4TQ7EJgbrLv
-Kkj/BqlIcsWt1CRen7XYstdTkly0rLVFhYv+VOuhpE2Y07tI0od69/PYuAYJXt4w
-4aVPU8LJV3/cLypjMiP0EzUj1/ak59a62qPuQcY2Do2uOXnZGXtPo5N8U4wBlL/1
-pojlpzghFN/d7iaf1rRtGpslo0xFxFVUXGX78RKk7bdLvXvePBvWnOIqv0by5O8C
-t7kSeJib46JhEG4Ooj7PkGGND86hlshjCXK1D3ea9tDI79B4KOYbYvSDBtcnTZKy
-fZePuMzy29nI0zyR1v/WyihMAju8zAoQj3FaWlNTkfVk6CZAL9yx2jWXOxQg4GAf
-H8GXPNmCRmI18Vb/wtIFS6Ol93mIQb1uL3XYkxd6yOdxC+JVSko=
-=Urh1
------END PGP SIGNATURE-----
-
---------------Vmn9CNU5Jxi5wWhK0bxMEHo1--
+You are receiving this mail because:
+You are watching the assignee of the bug.=
