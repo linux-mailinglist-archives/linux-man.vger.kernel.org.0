@@ -2,68 +2,67 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 269ED6DB729
-	for <lists+linux-man@lfdr.de>; Sat,  8 Apr 2023 01:32:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A45136DB73A
+	for <lists+linux-man@lfdr.de>; Sat,  8 Apr 2023 01:34:11 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229497AbjDGXcc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 7 Apr 2023 19:32:32 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55126 "EHLO
+        id S229482AbjDGXeK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 7 Apr 2023 19:34:10 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58080 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229452AbjDGXcb (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 7 Apr 2023 19:32:31 -0400
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com [IPv6:2a00:1450:4864:20::333])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 796A8E07A
-        for <linux-man@vger.kernel.org>; Fri,  7 Apr 2023 16:32:30 -0700 (PDT)
-Received: by mail-wm1-x333.google.com with SMTP id gw13so113843wmb.3
-        for <linux-man@vger.kernel.org>; Fri, 07 Apr 2023 16:32:30 -0700 (PDT)
+        with ESMTP id S229652AbjDGXeE (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 7 Apr 2023 19:34:04 -0400
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com [IPv6:2a00:1450:4864:20::32c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 20933E1BE
+        for <linux-man@vger.kernel.org>; Fri,  7 Apr 2023 16:33:44 -0700 (PDT)
+Received: by mail-wm1-x32c.google.com with SMTP id j1-20020a05600c1c0100b003f04da00d07so4902196wms.1
+        for <linux-man@vger.kernel.org>; Fri, 07 Apr 2023 16:33:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1680910349; x=1683502349;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=BchBnnov2/OkSO8fgO8dxi4baQj6nHmdsHmwCpfGlas=;
-        b=KejHJ5RAviIKtZrL0eMQlZngVF8UpK8y+PHxU2VnSrYTkekvYg8dDOndcGjZXNv0X9
-         7N0Bd86mXzqdQun7C1of5o0oRJT5ZjRwluFq3Clcj7JBHx2Mkxla/tHKKt2AEa0ZdNyM
-         3Z4hif/z+UzdFT5zazz/0kkUKXkTPECs8+670yqa5FJvbFsJ35IGjO1U3kJgpMClMK47
-         teiCMB3ALEfhlXiYyxvdkg/xkaynuQAFJqiQzsTB4zBY9m8e9AQvU9K24285+VDhTVcZ
-         VPvYVlsJtwZumZRzzCOhnMz2U91ZStCApz9hJK0dyzxcqY+o0RzZ4qlWW+e9gFeizzCN
-         X8Jg==
+        d=gmail.com; s=20210112; t=1680910407; x=1683502407;
+        h=in-reply-to:from:references:to:content-language:subject:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=H05m65Ct/a+86CrODfK0WoIKqu3VXCzdEMtywLZVSbg=;
+        b=GoLOBvxeM5LjzF9y3+tYPbTFE5wyT8quJtDMvnydrMUAHIhyP+ScBPUf/rRltrw/yN
+         n0PZ/JRSXel+XwXhBXlnDhbvqZkwpWBA+mXYua1eLxeLEPvkZjQ1jlO+s4kPNsn8o25h
+         U441iM1MLDw24e2tsQov5+v4gXkVzyP1M+Ba6gOqqvDy6Og+5hPeBZCMc+QCQyw3rwor
+         3i8tsIcJNYQgEBmiGEKOktvmrzECgwnh+2u1JBowdxonVQcj69PImCHqzh02ht+GRIc5
+         cI7actkg5CEeRWdbLDxqAJPrGn1HLGjyOlRR0Y8chqinR7MGV6W/ITv7mJnEK3rr0mFQ
+         op+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680910349; x=1683502349;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=BchBnnov2/OkSO8fgO8dxi4baQj6nHmdsHmwCpfGlas=;
-        b=CZCdxMMyt6upzadD/tjin9lyfKbrNKapFX6uWJf4cLmCnpVBR8wW5ZFilnCq1IYX3U
-         NS980d2fGvP2bH1SesvOlviJQophdWXUIBWPRLlGk7rRiapNmtOpinMP1gTMSO6gRPKo
-         qklWLYuLKSZqs92W2dHPS0ed3YZtO9QvV8d+DGDntJ6uv8GtuDwcRoIWqS6zg7RVt8DY
-         AerMODODfsMwEPYTh7ch2CmKJOjDF0o//eQq7fZu3cnwi68Mr65CGON8xR8o4EOXvlyY
-         7gQJ4Le7HdAtx/FPx+PjUA/6Ob/OcrIyutefzQRqI0sAo3NeEwu+KmJNAJ5NBBl1exNa
-         7B3g==
-X-Gm-Message-State: AAQBX9dSg1EYZeudoSx3M0SSVguSA2p3nvB65qo3ulE8GNNUGtT4rFjS
-        1Rxn18Q+IeqAuU7rHKLbQ+UxP50sKNE=
-X-Google-Smtp-Source: AKy350Ya0bsKo8dk8j/LsgOaItSS1EiSpfl1iE2+OZ5NCxaFBb5udx4WGs8l9H6msQS+5H0H6lwW1g==
-X-Received: by 2002:a05:600c:3646:b0:3ed:809b:79ac with SMTP id y6-20020a05600c364600b003ed809b79acmr2450113wmq.19.1680910348742;
-        Fri, 07 Apr 2023 16:32:28 -0700 (PDT)
+        d=1e100.net; s=20210112; t=1680910407; x=1683502407;
+        h=in-reply-to:from:references:to:content-language:subject:user-agent
+         :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=H05m65Ct/a+86CrODfK0WoIKqu3VXCzdEMtywLZVSbg=;
+        b=ACmmh+5+w5zbbg7Y/+kDl6nPoyXJrd4KwP7kCcFBOpOo1nVQTdrMGHsKIagnaxCfVJ
+         Ub/NIZNgWB/lhwxukNzAV+qgNMKKYMCXdN1w9XQC93MK8V7CDX7zZPS5F8xDtu74+9Rp
+         DKN3wZCBB605brw/fQJQdw5TsoZ0080EXfWWKqXi6hmfEplT2vMebj87q4CZ8gmb9X06
+         /iP65N1iIpc4eHIyyFxD7pSC1rX0hjyYVkeG/QmVbAG94dKSg8NPD0ckshpgL8iDdNgW
+         kXFTrHdbq5ZFqvHBEwJIkfJNx2tOOWBCzUR5u6/Pz/QXf6gbbcRPFv1LnMpeFkKk3fMd
+         nwdg==
+X-Gm-Message-State: AAQBX9djnglpFNUwH12Uo+qFyFugG6twGFvyxXUKobhATlojfpl2p+IK
+        9Nl4qvzrP70Y3T6QxjGePJc=
+X-Google-Smtp-Source: AKy350bqM0Sj6aZ4/5DOGk6hXJVkVeH0zmo8k5gyPsd5M+WCbk9f1T9KkcFYlpGX7D33Z2GMf3lnpQ==
+X-Received: by 2002:a1c:7501:0:b0:3ea:e834:d0d1 with SMTP id o1-20020a1c7501000000b003eae834d0d1mr2280382wmc.36.1680910406736;
+        Fri, 07 Apr 2023 16:33:26 -0700 (PDT)
 Received: from [192.168.0.160] ([170.253.51.134])
-        by smtp.gmail.com with ESMTPSA id c8-20020a05600c0a4800b003ee5fa61f45sm10116274wmq.3.2023.04.07.16.32.27
+        by smtp.gmail.com with ESMTPSA id u15-20020a05600c210f00b003ee20b4b2dasm5996309wml.46.2023.04.07.16.33.26
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 07 Apr 2023 16:32:28 -0700 (PDT)
-Message-ID: <2985c6c5-e9bd-9a08-0765-5bfcb270a918@gmail.com>
-Date:   Sat, 8 Apr 2023 01:32:19 +0200
+        Fri, 07 Apr 2023 16:33:26 -0700 (PDT)
+Message-ID: <70457ddc-2210-f453-c70b-23a286a404dd@gmail.com>
+Date:   Sat, 8 Apr 2023 01:33:25 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.1
-Subject: Re: [PATCH] mlock.2: Improve wording
+Subject: Re: [PATCH] stat.3type: tfix
 Content-Language: en-US
-To:     Avinesh Kumar <akumar@suse.de>, alx@kernel.org
-Cc:     linux-man@vger.kernel.org
-References: <20230405104426.5007-1-akumar@suse.de>
+To:     Daniel Verkamp <daniel@drv.nu>, linux-man@vger.kernel.org
+References: <20230406065803.3646818-1-daniel@drv.nu>
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20230405104426.5007-1-akumar@suse.de>
+In-Reply-To: <20230406065803.3646818-1-daniel@drv.nu>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------L4EC0VZGHNRP2ZKT3BlFCrCp"
+ boundary="------------RC4isoxl0qTCemp2v1vGtMtp"
 X-Spam-Status: No, score=-2.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
         DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
@@ -75,77 +74,75 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------L4EC0VZGHNRP2ZKT3BlFCrCp
-Content-Type: multipart/mixed; boundary="------------BuCJVVTQOWWHbnvfjMoHkC9j";
+--------------RC4isoxl0qTCemp2v1vGtMtp
+Content-Type: multipart/mixed; boundary="------------uYW3e2gJ3bijefxzEwAW6O0C";
  protected-headers="v1"
 From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Avinesh Kumar <akumar@suse.de>, alx@kernel.org
-Cc: linux-man@vger.kernel.org
-Message-ID: <2985c6c5-e9bd-9a08-0765-5bfcb270a918@gmail.com>
-Subject: Re: [PATCH] mlock.2: Improve wording
-References: <20230405104426.5007-1-akumar@suse.de>
-In-Reply-To: <20230405104426.5007-1-akumar@suse.de>
+To: Daniel Verkamp <daniel@drv.nu>, linux-man@vger.kernel.org
+Message-ID: <70457ddc-2210-f453-c70b-23a286a404dd@gmail.com>
+Subject: Re: [PATCH] stat.3type: tfix
+References: <20230406065803.3646818-1-daniel@drv.nu>
+In-Reply-To: <20230406065803.3646818-1-daniel@drv.nu>
 
---------------BuCJVVTQOWWHbnvfjMoHkC9j
+--------------uYW3e2gJ3bijefxzEwAW6O0C
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi Avinesh,
+Hi Daniel,
 
-On 4/5/23 12:44, Avinesh Kumar wrote:
-> Signed-off-by: Avinesh Kumar <akumar@suse.de>
+On 4/6/23 08:58, Daniel Verkamp wrote:
+> Signed-off-by: Daniel Verkamp <daniel@drv.nu>
 
 Patch applied.  Thanks,
 
 Alex
 
 > ---
->  man2/mlock.2 | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  man3type/stat.3type | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >=20
-> diff --git a/man2/mlock.2 b/man2/mlock.2
-> index 30828fbdf..ecd7158e5 100644
-> --- a/man2/mlock.2
-> +++ b/man2/mlock.2
-> @@ -36,8 +36,8 @@ and
->  .BR munlockall ()
->  perform the converse operation,
->  unlocking part or all of the calling process's virtual
-> -address space, so that pages in the specified virtual address range ma=
-y
-> -once more be swapped out if required by the kernel memory manager.
-> +address space, so that pages in the specified virtual address range
-> +can be swapped out again if required by the kernel memory manager.
->  .PP
->  Memory locking and unlocking are performed in units of whole pages.
->  .SS mlock(), mlock2(), and munlock()
+> diff --git a/man3type/stat.3type b/man3type/stat.3type
+> index c511b4337..dd3c0aca5 100644
+> --- a/man3type/stat.3type
+> +++ b/man3type/stat.3type
+> @@ -35,7 +35,7 @@ Standard C library
+>  .BR "    struct timespec  st_ctim;" "  /* Time of last status change *=
+/"
+> =20
+>  .BR "#define st_atime  st_atim.tv_sec" "  /* Backward compatibility */=
+"
+> -.B "#define st_mtine  st_mtim.tv_sec"
+> +.B "#define st_mtime  st_mtim.tv_sec"
+>  .B "#define st_ctime  st_ctim.tv_sec"
+>  .B };
+>  .EE
 
 --=20
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
---------------BuCJVVTQOWWHbnvfjMoHkC9j--
+--------------uYW3e2gJ3bijefxzEwAW6O0C--
 
---------------L4EC0VZGHNRP2ZKT3BlFCrCp
+--------------RC4isoxl0qTCemp2v1vGtMtp
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQwqAMACgkQnowa+77/
-2zKTkQ//RkNiOjgiG3vFvxSeBWFRmrLRqoaHLAadWKw3bscDQtWkj/g9tpvDwqgV
-+IqbZAklRyuPsVhfKABfGkfBLBCRmX66IeX4uCMmnluvSWt4WvSR1EnoPwVWWMPy
-IbsbYZcoLdJGcTZsbR95tqxtt3OjT8X5Is44Q0ZaUGbIdZIgw2HJONEu5z4MJdk3
-LRwOP4YqXubb8fNFUFBjrNB+SMK0vHFGf1whzx28edEvvHX2vPbwP5B4dgdcvLnn
-lgREOMzEj5vnYY+nwceV8ptxpJNqBqbLRfyb0t6BcS+2yoBOlbCL5jKW7CaXwjez
-C3yi5tYqTOXSvVFCqUKRkVrxeEa/UiDXzIE3zoPTbVM7Q3JI5pU3A6P8d5eZ/CJf
-hlinci1vg5TcROkrv2d1mD+ZahF7XYSAvGwzsZDlEntXe47141xqamaFFmbrPa2X
-TJwGYIQtG4tWUEBSDRqVnklSgyXB0aYYpRN8dZAiKhphVNT4+2tDzIM/v8skCSJi
-StrB7F9XAUVRu+wC+gfMoSMrD5EeBgiD/uDF/hiw99uelpjb5Qp4/EbFuwhESDAv
-LHvuAtg44B57Z8myqB188+LhysHlreQT2xXjNlEEmGoyUE1bWXOqeMkkJLFasYcF
-mESzRejwYGUWD3LwaLsmvvxPRZJe7/hRMdh0mcoLb89G4u7XvRc=
-=kJlP
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQwqEUACgkQnowa+77/
+2zIsyw/9Hn4GYFozrD+SKQskkM5H2MF13IA0dVwvyqPmv4vQj/g4SbkHJ5cuoy2n
+qyXyKz/JvtSQ0gXdD21mO2Jlm8c9kXuhmz5H1ER/0q3LSv1PAOw/Au9dPlYlJqSj
+nqkX+lUylfWk/XGOF5qzyqzwUoIv+GBW+ijbz54vS0gNlnjKlCxwxyZ4zp+wj1cx
+WV1zW06qd8ENx3sTcp7QtU21Az/dK4LsyGvPAIZf32i3RMvs245QxSIkQXtMqGCO
+ShzNo6c3hMV55hwp82BP4DOaWVrLAprK0kkt8RzOMZTNg/YZZMgsN8ezk9lPEpgS
+iJJVnSbTqo4E1za5hg9jdsrFtmYBLHydgRlCEpdI/W6EPBBjwQcpIqwLEScvcgw/
+CATX3YewQE1Sq7CWdkYWbvSZJ6fL/E269nFxh9MzzMVXMb3uD/klIyJ9i8Ilt7uM
+aNzcMEStEZjSGrYAh4+qz+9M6yDvj2MdiStuYVGa47jJTGP9npcly2Knn7T+Ymie
+Tw9hpNYnlrQ//nv172OX4IAOD3PQBaxjshG11lg9F48KN2ibSmwhOhAc0H5DKShL
+ThKUvnhujvw5srI65DyB9xr9AfAQ7uuOl+k5IDNDnwJboV0yAPLG7mrqtuoI4oKw
+53DxKcj8bMejWbRQ4BGu4fX6Kws/s18fF6hM9iOrUG3rgBxKNF4=
+=O6UC
 -----END PGP SIGNATURE-----
 
---------------L4EC0VZGHNRP2ZKT3BlFCrCp--
+--------------RC4isoxl0qTCemp2v1vGtMtp--
