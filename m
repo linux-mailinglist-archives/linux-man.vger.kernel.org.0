@@ -2,204 +2,95 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id CABB16DB93E
-	for <lists+linux-man@lfdr.de>; Sat,  8 Apr 2023 09:04:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0A90F6DBA6F
+	for <lists+linux-man@lfdr.de>; Sat,  8 Apr 2023 13:34:29 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229494AbjDHHEs (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 8 Apr 2023 03:04:48 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44666 "EHLO
+        id S230177AbjDHLe1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 8 Apr 2023 07:34:27 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55872 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229457AbjDHHEr (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 8 Apr 2023 03:04:47 -0400
-Received: from eggs.gnu.org (eggs.gnu.org [IPv6:2001:470:142:3::10])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id ECF2BD515
-        for <linux-man@vger.kernel.org>; Sat,  8 Apr 2023 00:04:45 -0700 (PDT)
-Received: from fencepost.gnu.org ([2001:470:142:3::e])
-        by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
-        (Exim 4.90_1)
-        (envelope-from <eliz@gnu.org>)
-        id 1pl2cr-0001I3-Gy; Sat, 08 Apr 2023 03:04:41 -0400
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=gnu.org;
-        s=fencepost-gnu-org; h=MIME-version:References:Subject:In-Reply-To:To:From:
-        Date; bh=D8mrVYRukvneWYSMratrvQhiZ17IKXjP0MxxTAabfJ4=; b=NJUpFVMas61AxIYJ67gP
-        Yj+YwI4K6OHaHjnKfHRCxY2hgiap2fspHXXhhkFDvEzXN+JtnCLqHjX2jG+PJgJymTgqDZfSDPdXg
-        UdHP4DdKXgRtSzSwGUrcpF1q/sFSUactRbuLRBrvRgtMHxOXrzxML1bPDzVcNsUZ+S+UMSFow22L+
-        oGf5AGRd/Q4/wEf+rVMeU1fkIJ1MnsGgr8P7hpuKAKXfQTuZQ+XpHXwbPoXc4vmJl4xB37mcT/sU7
-        1pR1g5TE2HxIbeasTeV8xSUCPDPGuPLuZ9VFPOaeq+z5obmUP4+rBVRJmPK9Fn6+QyEhOHvUx4ybA
-        gE95EaBXDvSM4w==;
-Received: from [87.69.77.57] (helo=home-c4e4a596f7)
-        by fencepost.gnu.org with esmtpsa (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
-        (Exim 4.90_1)
-        (envelope-from <eliz@gnu.org>)
-        id 1pl2cr-0001hp-0c; Sat, 08 Apr 2023 03:04:41 -0400
-Date:   Sat, 08 Apr 2023 10:05:14 +0300
-Message-Id: <837cumonv9.fsf@gnu.org>
-From:   Eli Zaretskii <eliz@gnu.org>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     dirk@gouders.net, linux-man@vger.kernel.org, help-texinfo@gnu.org,
-        nabijaczleweli@nabijaczleweli.xyz, g.branden.robinson@gmail.com,
-        groff@gnu.org, cjwatson@debian.org
-In-Reply-To: <390c8bba-6089-b006-eaf1-9fcfda2c6c4b@gmail.com> (message from
-        Alejandro Colomar on Sat, 8 Apr 2023 00:01:08 +0200)
-Subject: Re: Playground pager lsp(1)
-References: <ghileoo9dk.fsf@gouders.net> <ghbkkgo8x8.fsf@gouders.net>
- <073413e2-7d35-f0d7-26eb-f66908d7af6a@gmail.com> <834jpuuc1a.fsf@gnu.org>
- <6ea6d1fe-375f-487a-b524-adc86880d3de@gmail.com> <83sfddqvk3.fsf@gnu.org> <390c8bba-6089-b006-eaf1-9fcfda2c6c4b@gmail.com>
-MIME-version: 1.0
-Content-type: text/plain; charset=utf-8
+        with ESMTP id S229614AbjDHLeZ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 8 Apr 2023 07:34:25 -0400
+X-Greylist: delayed 569 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Sat, 08 Apr 2023 04:34:24 PDT
+Received: from relay05.pair.com (relay05.pair.com [216.92.24.67])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 681E5C650
+        for <linux-man@vger.kernel.org>; Sat,  8 Apr 2023 04:34:24 -0700 (PDT)
+Received: from orac.inputplus.co.uk (unknown [87.112.67.239])
+        by relay05.pair.com (Postfix) with ESMTP id 53D261A17CD;
+        Sat,  8 Apr 2023 07:24:54 -0400 (EDT)
+Received: from orac.inputplus.co.uk (orac.inputplus.co.uk [IPv6:::1])
+        by orac.inputplus.co.uk (Postfix) with ESMTP id 778732083C;
+        Sat,  8 Apr 2023 12:24:53 +0100 (BST)
+From:   Ralph Corderoy <ralph@inputplus.co.uk>
+To:     linux-man@vger.kernel.org, groff@gnu.org
+cc:     Eli Zaretskii <eliz@gnu.org>, alx.manpages@gmail.com,
+        dirk@gouders.net, Colin Watson <cjwatson@debian.org>
+Subject: Re: man page rendering speed (was: Playground pager lsp(1))
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_PASS,
-        SPF_PASS autolearn=unavailable autolearn_force=no version=3.4.6
+In-reply-to: <20230407144319.iju3v3os2a7kngp2@illithid>
+References: <ghileoo9dk.fsf@gouders.net> <ghbkkgo8x8.fsf@gouders.net> <073413e2-7d35-f0d7-26eb-f66908d7af6a@gmail.com> <834jpuuc1a.fsf@gnu.org> <6ea6d1fe-375f-487a-b524-adc86880d3de@gmail.com> <20230407021822.3grfnenicwjhdive@illithid> <83fs9cp5b9.fsf@gnu.org> <20230407144319.iju3v3os2a7kngp2@illithid>
+Date:   Sat, 08 Apr 2023 12:24:53 +0100
+Message-Id: <20230408112453.778732083C@orac.inputplus.co.uk>
+X-Spam-Status: No, score=-0.7 required=5.0 tests=RCVD_IN_DNSWL_LOW,
+        SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no
+        version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-> Date: Sat, 8 Apr 2023 00:01:08 +0200
-> Cc: dirk@gouders.net, linux-man@vger.kernel.org, help-texinfo@gnu.org,
->  наб <nabijaczleweli@nabijaczleweli.xyz>,
->  "G. Branden Robinson" <g.branden.robinson@gmail.com>, groff <groff@gnu.org>,
->  Colin Watson <cjwatson@debian.org>
-> From: Alejandro Colomar <alx.manpages@gmail.com>
-> 
-> > How do you find the description of, say, "dereference symbolic link"
-> > (to take just a random example from the Emacs manual) when the actual
-> > text of the manual include neither this string nor matches for any
-> > related regular expressions, like "dereference.*link"?
-> 
-> $ apropos link | grep sym | head -n5
-> readlink (2)         - read value of a symbolic link
-> readlinkat (2)       - read value of a symbolic link
-> sln (8)              - create symbolic links
-> symlink (2)          - make a new name for a file
-> symlink (7)          - symbolic link handling
-> 
-> I bet you're looking for readlink(2) and symlink(7), aren't you?
+Hi Branden,
 
-I said "in the Emacs manual", and I said "when the actual text of the
-manual doesn't include the phrase you are looking for".  So your
-example is not really up to its job: it uses text that is not the
-Emacs manual, and it finds only hits that literally appear in the
-title text of the man pages.  For example, the above doesn't find the
-man page of Find, nor the man pages of cp and ls (and quite a few of
-others), all of which discuss what these utilities do with symbolic
-links.  By contrast, the Info manual of Coreutils has almost 40 index
-entries starting with "symbolic link", and they are all shown when the
-user types "i symbolic link TAB" ('i' being the letter that invokes
-index-searching command).
+> You're referring to cat pages.  As far as I know, these are on their
+> way out if not already gone.
 
-> diff --git a/man5/proc.5 b/man5/proc.5
-> index 521402fe8..233cc1c9d 100644
-> --- a/man5/proc.5
-> +++ b/man5/proc.5
-> @@ -36,7 +36,7 @@
->  .\"
->  .TH proc 5 (date) "Linux man-pages (unreleased)"
->  .SH NAME
-> -proc \- process information pseudo-filesystem
-> +proc \- process information, system information, and sysctl pseudo-filesystem
->  .SH DESCRIPTION
->  The
->  .B proc
-> 
-> 
-> After this patch, if you apropos "system" or "sysctl", you'll see
-> proc(5) pop up in your list.
+catman must die.  It was never a good solution to the problem.  As well
+as ignoring different TERMs, it also didn't handle a user's variations
+to a terminal's definition.  I'm glad to see Colin is open to the idea,
+though accept it's initial and on-going work for him.
 
-This literally adds the text to what the reader will see.  It makes
-the text longer and thus more difficult to read and parse, and there's
-a limit to how many key phrases you can add like this.  By contrast,
-Texinfo lets you add any number of index entries that point to the
-same text.  A random example from the Emacs manual:
+> On my system, all groff man pages but one render in between a tenth and
+> a fortieth of a second.
 
-  @cindex arrow keys
-  @cindex moving point
-  @cindex movement
-  @cindex cursor motion
-  @cindex moving the cursor
-    To do more than insert characters, you have to know how to move
-  point (@pxref{Point}).  The keyboard commands @kbd{C-f}, @kbd{C-b},
-  @kbd{C-n}, and @kbd{C-p} move point to the right, left, down, and up,
-  respectively.  You can also move point using the @dfn{arrow keys}
-  present on most keyboards: @key{RIGHT}, @key{LEFT},
-  @key{DOWN}, and @key{UP}; however, many Emacs users find
-  that it is slower to use the arrow keys than the control keys, because
-  you need to move your hand to the area of the keyboard where those
-  keys are located.
+Colin made the point I was going to make: how long must my eyeballs wait
+to be pleasured?
 
-This paragraph has 5 index entries with different key phrases, all
-pointing to it.  Different people will have different phrases in their
-minds when they think about "cursor movement", thus the need for
-several entries.  One of the phrases appears in the text literally,
-the other don't; moreover, one of them, "movement" is a very frequent
-word, so searching for it with Grep is likely to bring a lot of false
-hits, whereas index-searching commands will not.
+    $ strace -ttt -fe read,write -o /tmp/st man ffmpeg-all
+    $ cat /tmp/st
+ →  19788 1680952657.119429 read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0  \0\0\0\0\0\0"..., 832) = 832
+    ...
+    19801 1680952658.350823 write(1, "FFMPEG-ALL(1)                   "..., 1023 <unfinished ...>
+    19801 1680952658.352054 <... write resumed>) = 1023
+    19801 1680952658.353074 write(1, "ified by a plain output url.\33[m\n"..., 1023 <unfinished ...>
+    19801 1680952658.353357 <... write resumed>) = 1023
+    19801 1680952658.354272 write(1, "e command line multiple times. E"..., 1023) = 1023
+    19801 1680952658.357171 write(1, "aw input files.\33[m\n\33[m\n\33[1mDETAI"..., 1009) = 1009
+    19801 1680952658.357478 read(0, "--- | encoded data | <----+\n    "..., 4096) = 4096
+    19801 1680952658.358752 write(1, "               | output | <-----"..., 1023) = 1023
+    19801 1680952658.359556 write(1, "peg\33[0m can process raw audio an"..., 574) = 574
+ →  19801 1680952658.359735 read(3,  <unfinished ...>
+    ...
+    19801 1680952662.323859 <... read resumed>"q", 1) = 1
+    ...
+    $
 
-> > The corresponding index-searching commands of Info readers are a
-> > primary means for finding information quickly and efficiently,
-> > avoiding too many false positives and also avoiding frustrating
-> > misses, i.e., searches that fail to find anything pertinent.
-> 
-> That's no different than apropos(1).
+    1680952658.359735 - 1680952657.119429 = 1.240306
 
-See above: it is very different.
+strace adds a bit of overhead.
 
-> >>> Man pages have no means of specifying structure
-> >>
-> >> .SH, .SS, .TP, .TQ, and very soon (hopefully weeks not months) .MR
-> > 
-> > These provide just one level.
-> 
-> We have many levels:
-> 
-> book:		/opt/local/foobar/man/
-> volume:		man2/, man3/, ...
-> chapter:	man3/, man3type/, ...
-> page:		sscanf(3)
-> section:	sscanf(3)/DESCRIPTION
-> subsection:	sscanf(3)/DESCRIPTION/Conversions
-> tags:		sscanf(3)/DESCRIPTION/Conversions/n
+    $ PAGER=true time -p man ffmpeg-all
+    real 0.99
+    user 1.07
+    sys 0.15
+    $
 
-Texinfo has:
+Hard to find a slower CPU.
 
-  - chapters
-  - sections
-  - subsections
-  - subsubsections
-  - unnumbered variants of the above (unnumberedsubsec etc.)
-  - appendices (appendix, appendixsubsec etc.)
-  - headings (majorheading, chapheading, subheading, etc.)
+    $ grep name /proc/cpuinfo | uniq -c
+          4 model name      : Intel(R) Atom(TM) CPU D525   @ 1.80GHz
 
-More importantly, all those have meaningful names, not just standard
-labels like "DESCRIPTION" or "Conversions".  So when you see them in
-TOC or any similar navigation aid, you _know_, at least approximately,
-what each section is about.
-
-> >>> and hyper-links except
-> >>> by loosely-coupling pages via "SEE ALSO" cross-references at the end;
-> >>> they have no means of quickly and efficiently finding some specific
-> >>> subject except by text search (which usually produces a lot of false
-> >>> positives).
-> >>
-> >> I guess you mean searching from the command line by the name of the
-> >> parameter to a function, or what?
-> > 
-> > No, I mean looking a specific subject of interest without having to
-> > search/read through the entire document.
-> 
-> See symlink above.
-
-Not relevant.
-
-> >> I would be interested in a more detailed description of what you
-> >> want to be able to search in current pages (hopefully ones that I
-> >> maintain, so I can speak of them) that you can't find easily?  Maybe
-> >> I can help making something more accessible.
-> > 
-> > See above, the example of using index-searching commands.
-> 
-> Yep.  I hope my answer about symlinks satisfied you.
-
-No, it didn't.
+-- 
+Cheers, Ralph.
