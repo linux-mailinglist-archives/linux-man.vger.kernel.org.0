@@ -2,181 +2,155 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id C24786DBB33
-	for <lists+linux-man@lfdr.de>; Sat,  8 Apr 2023 15:34:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7EF3C6DBB34
+	for <lists+linux-man@lfdr.de>; Sat,  8 Apr 2023 15:41:58 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230140AbjDHNe2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 8 Apr 2023 09:34:28 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50468 "EHLO
+        id S229631AbjDHNl4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 8 Apr 2023 09:41:56 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51766 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229820AbjDHNe1 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 8 Apr 2023 09:34:27 -0400
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com [IPv6:2a00:1450:4864:20::32e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AC364E061
-        for <linux-man@vger.kernel.org>; Sat,  8 Apr 2023 06:34:23 -0700 (PDT)
-Received: by mail-wm1-x32e.google.com with SMTP id l26-20020a05600c1d1a00b003edd24054e0so2089206wms.4
-        for <linux-man@vger.kernel.org>; Sat, 08 Apr 2023 06:34:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1680960862; x=1683552862;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=4pp35IxuV1p3pdgcYL/OWwmDftEOZgMqLw1SwxaF41U=;
-        b=a8ONL7cUQb1goFGxI5Rj9Ew+KSNRbWwTgT4fRykK6610HPKcCciYObyQh/e6H1KtBq
-         dK3t0Utl7iftWzyPZph/NQBwiYo6Gp+xLoYQvWvq0Q6z2MlslIjErEMClBbFfFYv+Y5o
-         Fqpe7lbgzm+aB+6dOdtuXZk53KHjXrdUvm9Dwoc76QB8+L692Xt9TCG1e68fENrvU+ti
-         kUZNeEeirqyZ7m+Q29D3BraADufImWlnH7SXnjjP2pZ8GcFl0jng/HmhI5FGgcVj952H
-         Sx+BAd1Ea5IZxR8K4h5USCG5fr/bvkNraMIoML7GlB5sOJ/jQJkAXSifPEloL8BKqaQa
-         ALDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680960862; x=1683552862;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=4pp35IxuV1p3pdgcYL/OWwmDftEOZgMqLw1SwxaF41U=;
-        b=pHNgb9IAgMsdy7q9Ar+fkPbJTo4BGMy19MxfP7K974IW1bl/DcUelTHc+KMDSsYKpu
-         GlGIE/9AfXYZkpIwVnPmlWmrtpzrdFKDd51JJqjQjpQArVW6EV2Ye/dMH8NsuGQZNtKt
-         3G2fy3C1wI19Kaa566kBN6BZG9GNAtECwjQhP79Gr8OACSQjh/SRtxSDQRXDf2fS/cbS
-         4Qa9aoX2T3zRWYIlDJBis4iO0+194rH+a7e0yS8rq608SUWK1V5FYGh6zF1buGyVxCtt
-         p4iutdtKYDDKUaGCMGCIJxtHGXuczEeKNrhSiRxKkgd+We27DNP1Vs6w4if2YO0lqb59
-         blaQ==
-X-Gm-Message-State: AAQBX9cMr5UOBWyYL3853/FUwMszaRKXJ3KkEyI/jX3a6c0jwq4tnBXZ
-        RoaO6wbVpcOcoCBnyXQIF/Vov2ByFE0=
-X-Google-Smtp-Source: AKy350Z0JdRKUlgJjcZL5/3AbCssyvKkURPgRzXeuYwbmedQlt9Zjy2NxbiCx2tRyUiXae34JCeI3w==
-X-Received: by 2002:a7b:ca45:0:b0:3f0:683d:224d with SMTP id m5-20020a7bca45000000b003f0683d224dmr1307358wml.9.1680960861967;
-        Sat, 08 Apr 2023 06:34:21 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.51.134])
-        by smtp.gmail.com with ESMTPSA id i7-20020a5d5587000000b002cf8220cc75sm6930775wrv.24.2023.04.08.06.34.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 08 Apr 2023 06:34:21 -0700 (PDT)
-Message-ID: <5bce07b9-d4b7-8cb4-273d-72c3867682ba@gmail.com>
-Date:   Sat, 8 Apr 2023 15:34:20 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.1
-Subject: Re: [PATCH 2/2] userfaultfd.2: fix userfaultfd_demo output
-Content-Language: en-US
-To:     Nadav Amit <nadav.amit@gmail.com>, linux-man@vger.kernel.org
-Cc:     "Michael Kerrisk )" <mtk.manpages@gmail.com>,
-        Peter Xu <peterx@redhat.com>,
-        David Hildenbrand <david@redhat.com>,
-        Nadav Amit <namit@vmware.com>
-References: <20220307184852.20351-1-namit@vmware.com>
- <20220307184852.20351-2-namit@vmware.com>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20220307184852.20351-2-namit@vmware.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------UCu0OL5LibNQFHgeJSf5SVjR"
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-        DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-        autolearn_force=no version=3.4.6
+        with ESMTP id S229468AbjDHNlz (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 8 Apr 2023 09:41:55 -0400
+Received: from eggs.gnu.org (eggs.gnu.org [IPv6:2001:470:142:3::10])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0368CD524
+        for <linux-man@vger.kernel.org>; Sat,  8 Apr 2023 06:41:54 -0700 (PDT)
+Received: from fencepost.gnu.org ([2001:470:142:3::e])
+        by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+        (Exim 4.90_1)
+        (envelope-from <eliz@gnu.org>)
+        id 1pl8pC-0008FH-RF; Sat, 08 Apr 2023 09:41:50 -0400
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=gnu.org;
+        s=fencepost-gnu-org; h=References:Subject:In-Reply-To:To:From:Date:
+        mime-version; bh=iFVoS9BMhip9df1/1V0/IqurOmKA6gqzZ7wfKGFfbRM=; b=C9GteaKlTf0O
+        chSmJ6Lb/4R3Wb2ENOPD7pCBxicd/DVkXa8IuNHlkcRfJPj7CZKpHF4u8awpkPRjTekO4U4OZNRT+
+        xfv+NI4yF54i0V1fFyQp4gJEJJPDCNStFMHjxBjilYcUnD63dWVzkDeltoDyMXT6P48BEAEk0SW0t
+        Cx0pMmcomp+XFeyvDT55R6pHIw/bSpsJx7Hybl2Z+U3a+MYmOlyy0IA6BWUySDwomRsI/rdMQVupZ
+        rU3DwV7M7G3srXd7FxJrz7aCYQRoWTEMTutuf3QrDepIiINnJgXGHvT5oFwt2UpyTmwB5PJb1qDCY
+        tG2b9nIMMZ/RLZnKVJ6N4Q==;
+Received: from [87.69.77.57] (helo=home-c4e4a596f7)
+        by fencepost.gnu.org with esmtpsa (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+        (Exim 4.90_1)
+        (envelope-from <eliz@gnu.org>)
+        id 1pl8pB-0008Bm-RW; Sat, 08 Apr 2023 09:41:50 -0400
+Date:   Sat, 08 Apr 2023 16:42:22 +0300
+Message-Id: <83mt3imqwx.fsf@gnu.org>
+From:   Eli Zaretskii <eliz@gnu.org>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     cjwatson@debian.org, dirk@gouders.net, linux-man@vger.kernel.org,
+        help-texinfo@gnu.org, nabijaczleweli@nabijaczleweli.xyz,
+        g.branden.robinson@gmail.com, groff@gnu.org
+In-Reply-To: <78ca213f-8723-dccb-e131-081400c28e5d@gmail.com> (message from
+        Alejandro Colomar on Sat, 8 Apr 2023 15:02:59 +0200)
+Subject: Re: Accessibility of man pages (was: Playground pager lsp(1))
+References: <ghileoo9dk.fsf@gouders.net> <ghbkkgo8x8.fsf@gouders.net>
+ <073413e2-7d35-f0d7-26eb-f66908d7af6a@gmail.com> <834jpuuc1a.fsf@gnu.org>
+ <6ea6d1fe-375f-487a-b524-adc86880d3de@gmail.com> <83sfddqvk3.fsf@gnu.org>
+ <390c8bba-6089-b006-eaf1-9fcfda2c6c4b@gmail.com> <837cumonv9.fsf@gnu.org> <78ca213f-8723-dccb-e131-081400c28e5d@gmail.com>
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_PASS,
+        SPF_PASS autolearn=unavailable autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------UCu0OL5LibNQFHgeJSf5SVjR
-Content-Type: multipart/mixed; boundary="------------yoIipfoTGFv1vhhZQV2AHBPo";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Nadav Amit <nadav.amit@gmail.com>, linux-man@vger.kernel.org
-Cc: "Michael Kerrisk )" <mtk.manpages@gmail.com>, Peter Xu
- <peterx@redhat.com>, David Hildenbrand <david@redhat.com>,
- Nadav Amit <namit@vmware.com>
-Message-ID: <5bce07b9-d4b7-8cb4-273d-72c3867682ba@gmail.com>
-Subject: Re: [PATCH 2/2] userfaultfd.2: fix userfaultfd_demo output
-References: <20220307184852.20351-1-namit@vmware.com>
- <20220307184852.20351-2-namit@vmware.com>
-In-Reply-To: <20220307184852.20351-2-namit@vmware.com>
+> Date: Sat, 8 Apr 2023 15:02:59 +0200
+> Cc: dirk@gouders.net, linux-man@vger.kernel.org, help-texinfo@gnu.org,
+>  nabijaczleweli@nabijaczleweli.xyz, g.branden.robinson@gmail.com,
+>  groff@gnu.org
+> From: Alejandro Colomar <alx.manpages@gmail.com>
+> 
+> If you want how symlinks are dereferenced by find(1):
+> 
+> $ man find | grep sym.*link | head -n1
+>        The  -H,  -L  and  -P  options control the treatment of symbolic links.
 
---------------yoIipfoTGFv1vhhZQV2AHBPo
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+That's because the text appears verbatim in the man page.  Suppose the
+person in question doesn't think about "symbolic links", but has
+something else in mind, for example, "dereference".  (Why? because
+he/she just happened to see that term in some article, and wanted to
+know what does Find do with that.  Or for some other reason.)  Then
+they will not find the description of symlink behavior of Find by
+searching for "dereference".
 
-Hi Nadav,
+Do you see the crucial issue here?  Indexing can tag some text with
+topics which do not appear verbatim in the text, but instead
+anticipate what people could have in mind when they are searching for
+that text without knowing what it says, exactly.
 
-On 3/7/22 19:48, Nadav Amit wrote:
-> From: Nadav Amit <namit@vmware.com>
->=20
-> A bug in the kernel caused in recent version a different output (masked=
+> >> After this patch, if you apropos "system" or "sysctl", you'll see
+> >> proc(5) pop up in your list.
+> > 
+> > This literally adds the text to what the reader will see.  It makes
+> > the text longer and thus more difficult to read and parse, and there's
+> > a limit to how many key phrases you can add like this.
+> 
+> If a page has too many topics, consider splitting the page (I agree
+> that proc(5) is asking for that job).
 
-> offset). Update the output of the demo program accordingly.
+Indexing can tag any paragraph of text, not just the entire page.  A
+page cannot usefully have too many keywords in its title, but it _can_
+benefit from different keywords for different paragraphs.
 
-I'd like to have some more information about this in the commit message.
-I don't really understand it.  When was the bug introduced?  When was it
-fixed?  Was the example in the page created in a buggy version?
+> >  By contrast,
+> > Texinfo lets you add any number of index entries that point to the
+> > same text.  A random example from the Emacs manual:
+> > 
+> >   @cindex arrow keys
+> >   @cindex moving point
+> >   @cindex movement
+> >   @cindex cursor motion
+> >   @cindex moving the cursor
+> 
+> Using consistent language across pages helps for these things.
 
-Thanks,
-Alex
+There's no consistency when we want to be friendly to different people
+with vastly different backgrounds and cultural preferences.  Good
+indexing will anticipate any "inconsistent" habits.  And, once again,
+since the index entries don't appear in the text presented to the
+reader, the text remains consistent even if the index entries draw
+from different inconsistent sources.
 
->=20
-> Signed-off-by: Nadav Amit <namit@vmware.com>
-> ---
->  man2/userfaultfd.2 | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
->=20
-> diff --git a/man2/userfaultfd.2 b/man2/userfaultfd.2
-> index cee7c01d2..779ff8817 100644
-> --- a/man2/userfaultfd.2
-> +++ b/man2/userfaultfd.2
-> @@ -648,7 +648,7 @@ Address returned by mmap() =3D 0x7fd30106c000
-> =20
->  fault_handler_thread():
->      poll() returns: nready =3D 1; POLLIN =3D 1; POLLERR =3D 0
-> -    UFFD_EVENT_PAGEFAULT event: flags =3D 0; address =3D 7fd30106c00f
-> +    UFFD_EVENT_PAGEFAULT event: flags =3D 0; address =3D 7fd30106c000
->          (uffdio_copy.copy returned 4096)
->  Read address 0x7fd30106c00f in main(): A
->  Read address 0x7fd30106c40f in main(): A
-> @@ -657,7 +657,7 @@ Read address 0x7fd30106cc0f in main(): A
-> =20
->  fault_handler_thread():
->      poll() returns: nready =3D 1; POLLIN =3D 1; POLLERR =3D 0
-> -    UFFD_EVENT_PAGEFAULT event: flags =3D 0; address =3D 7fd30106d00f
-> +    UFFD_EVENT_PAGEFAULT event: flags =3D 0; address =3D 7fd30106d000
->          (uffdio_copy.copy returned 4096)
->  Read address 0x7fd30106d00f in main(): B
->  Read address 0x7fd30106d40f in main(): B
-> @@ -666,7 +666,7 @@ Read address 0x7fd30106dc0f in main(): B
-> =20
->  fault_handler_thread():
->      poll() returns: nready =3D 1; POLLIN =3D 1; POLLERR =3D 0
-> -    UFFD_EVENT_PAGEFAULT event: flags =3D 0; address =3D 7fd30106e00f
-> +    UFFD_EVENT_PAGEFAULT event: flags =3D 0; address =3D 7fd30106e000
->          (uffdio_copy.copy returned 4096)
->  Read address 0x7fd30106e00f in main(): C
->  Read address 0x7fd30106e40f in main(): C
+> > Texinfo has:
+> > 
+> >   - chapters
+> >   - sections
+> >   - subsections
+> >   - subsubsections
+> >   - unnumbered variants of the above (unnumberedsubsec etc.)
+> >   - appendices (appendix, appendixsubsec etc.)
+> >   - headings (majorheading, chapheading, subheading, etc.)
+> > 
+> > More importantly, all those have meaningful names, not just standard
+> > labels like "DESCRIPTION" or "Conversions".
+> 
+> "Conversions" is not a standard subsection.  It's about conversion
+> specifiers; something exclusive of sscanf(3).  However, sections and
+> above do be standardized, and I believe that's good, so that you can
+> have some a-priori expectations of the organization of a page.
 
---=20
-<http://www.alejandro-colomar.es/>
-GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
+But it then makes it impossible to add sections with meaningful names,
+if those names aren't standardized.
 
---------------yoIipfoTGFv1vhhZQV2AHBPo--
+> >  So when you see them in
+> > TOC or any similar navigation aid, you _know_, at least approximately,
+> > what each section is about.
+> 
+> I know a priori that if I'm reading sscanf(3)'s SYNOPSIS, I'll find
+> the function prototype for it.  Or if I read printf(3)'s ATTRIBUTES
+> I'll find the thread-safety of the function.
 
---------------UCu0OL5LibNQFHgeJSf5SVjR
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+SYNOPSIS is at least approximately self-describing (although some
+non-native English speakers might stumble on it).  But how would a
+random reader know that ATTRIBUTES will describe thread-safety, for
+example?  I wouldn't.  Isn't it better to have a section named "Thread
+Safety" instead?
 
------BEGIN PGP SIGNATURE-----
+> text search has false positives, like anything else.  But having good
+> tools for handling text is the key to solving the problem.  grep(1)
+> and sed(1) are your friends when reading man pages.
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQxbVwACgkQnowa+77/
-2zLxbg/+Ku84Jx95YJ0NYrAB7IXEabVBFFsuowoneyqu1ccRbRbr7LBVczOPWB8r
-RnRBVALnWuq5hE59ZLCbMQVFl3NP+tCFYqRNHvROXU0ZaA9ZWcrskSEPrSj66u+o
-eyHFhShUXIxkA6X/TmaSMNj6JxQd5Tpj8TlafHA/JmJU6Ws00qKbFSXe2UqtCukp
-4y2CRFkNpmUBobG5vF55yZha17emSlzYIJYHL7ogjGczzGHCdZrsXuLCT+94v2TM
-0ynj68F+mKHWbZSP5Z/8xvOA+sDudXkQ4lpKqF+++DGQBQKViZle4Hj1Opk61BtQ
-bivvdO0/T4LTCfq2TLudBKAR55UKMjS/Bobd98v8pqaeaC7stP+ssFWpEFb9MfQf
-MJevVBVmW4tY5TbT5YBfjLDjktWiibATbym3FZBnJNYZczGS5fmEearWBRdOF604
-PUXOikRIjHvm4ZzuV1BSF3pJKVN1H4vk1Zcl0KMkX5O4d1ZCPmQxkU00npgRxJyb
-PptadfXjseUujzRJNnCVYaJ3s/DalFDswRSyC5rO4rjYQGJ3QpO+WAdYBUd2fS7k
-UQ6nh0BfMLsJRXXiOxFmnxAtsjYheUTbWnfzrsn4DFDcSvHvjzY5dJ7w3DImfzhe
-6v86n6Cj6iLcS9mtZ8PArIpXTbT9YV5g6MF6D9zBdP3zYY5v9h0=
-=pQ1Y
------END PGP SIGNATURE-----
-
---------------UCu0OL5LibNQFHgeJSf5SVjR--
+Modern documentation is not plain text (even if we ignore
+compression), so tools which just search the text have limitations,
+sometimes serious ones.
