@@ -2,98 +2,66 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 322236DBCDA
-	for <lists+linux-man@lfdr.de>; Sat,  8 Apr 2023 22:01:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1A6166DBCEC
+	for <lists+linux-man@lfdr.de>; Sat,  8 Apr 2023 22:31:37 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229521AbjDHUBs (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 8 Apr 2023 16:01:48 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47308 "EHLO
+        id S229436AbjDHUbe (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 8 Apr 2023 16:31:34 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51494 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229446AbjDHUBs (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 8 Apr 2023 16:01:48 -0400
-Received: from eggs.gnu.org (eggs.gnu.org [IPv6:2001:470:142:3::10])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E572E6184
-        for <linux-man@vger.kernel.org>; Sat,  8 Apr 2023 13:01:46 -0700 (PDT)
-Received: from fencepost.gnu.org ([2001:470:142:3::e])
-        by eggs.gnu.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
-        (Exim 4.90_1)
-        (envelope-from <eliz@gnu.org>)
-        id 1plEkn-0003Tb-Dp; Sat, 08 Apr 2023 16:01:42 -0400
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=gnu.org;
-        s=fencepost-gnu-org; h=References:Subject:In-Reply-To:To:From:Date:
-        mime-version; bh=Yvt38icGOBHd41IKUhY2yJZrQODpIrKxSmFka0PVe6g=; b=XLZ7JOBEDTcd
-        y+szYRoLiVlAUfcKhsvgOEwiTvDjoVEpT9vDpl2232F1sImz9D4JEuzM66giS6x9xV7Cvu/AtuTJk
-        vRvGi4/sbrIu4r0K7R93YtE0R8mb6sUaYQUXyoH2udd8zkWIjcSu4y6nTFnsUCm2ZVpSJExmhAAP/
-        nNeeI3g3Sq/wgK7rbw+jjVmaT3qBaDJLQz9VyIOhQHHWxkOA99aTyVIC7mUDM8wIcdI8N8qJPwjUS
-        ZCrnTbuRjXER/yNEoWSUwAD0aHyt7CQDsUrt4lt9/jTvyelTnuXNvibHU1zgxwA5ZELEfIqFrimEg
-        5IUNm7lGtIRkHVkay1PLWw==;
-Received: from [87.69.77.57] (helo=home-c4e4a596f7)
-        by fencepost.gnu.org with esmtpsa (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
-        (Exim 4.90_1)
-        (envelope-from <eliz@gnu.org>)
-        id 1plEki-000353-Ig; Sat, 08 Apr 2023 16:01:40 -0400
-Date:   Sat, 08 Apr 2023 23:02:11 +0300
-Message-Id: <83bkjym9bw.fsf@gnu.org>
-From:   Eli Zaretskii <eliz@gnu.org>
+        with ESMTP id S229379AbjDHUbe (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 8 Apr 2023 16:31:34 -0400
+Received: from scc-mailout-kit-01.scc.kit.edu (scc-mailout-kit-01.scc.kit.edu [IPv6:2a00:1398:9:f712::810d:e751])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5B2816590
+        for <linux-man@vger.kernel.org>; Sat,  8 Apr 2023 13:31:31 -0700 (PDT)
+Received: from hekate.asta.kit.edu ([2a00:1398:5:f401::77])
+        by scc-mailout-kit-01.scc.kit.edu with esmtps (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+        (envelope-from <schwarze@usta.de>)
+        id 1plFDc-003ICx-Ik; Sat, 08 Apr 2023 22:31:29 +0200
+Received: from login-1.asta.kit.edu ([2a00:1398:5:f400::72])
+        by hekate.asta.kit.edu with esmtp (Exim 4.94.2)
+        (envelope-from <schwarze@usta.de>)
+        id 1plFDa-001HTG-QF; Sat, 08 Apr 2023 22:31:27 +0200
+Received: from schwarze by login-1.asta.kit.edu with local (Exim 4.94.2)
+        (envelope-from <schwarze@usta.de>)
+        id 1plFDb-0070E7-1o; Sat, 08 Apr 2023 22:31:27 +0200
+Date:   Sat, 8 Apr 2023 22:31:27 +0200
+From:   Ingo Schwarze <schwarze@usta.de>
 To:     Dirk Gouders <dirk@gouders.net>
-Cc:     alx.manpages@gmail.com, cjwatson@debian.org,
-        linux-man@vger.kernel.org, help-texinfo@gnu.org,
-        nabijaczleweli@nabijaczleweli.xyz, g.branden.robinson@gmail.com,
-        groff@gnu.org
-In-Reply-To: <ghh6tqkveq.fsf@gouders.net> (message from Dirk Gouders on Sat,
-        08 Apr 2023 21:48:13 +0200)
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        Colin Watson <cjwatson@debian.org>,
+        Eli Zaretskii <eliz@gnu.org>, linux-man@vger.kernel.org,
+        help-texinfo@gnu.org, nabijaczleweli@nabijaczleweli.xyz,
+        g.branden.robinson@gmail.com, groff@gnu.org
 Subject: Re: Accessibility of man pages
-References: <ghileoo9dk.fsf@gouders.net> <ghbkkgo8x8.fsf@gouders.net>
-        <073413e2-7d35-f0d7-26eb-f66908d7af6a@gmail.com>
-        <834jpuuc1a.fsf@gnu.org>
-        <6ea6d1fe-375f-487a-b524-adc86880d3de@gmail.com>
-        <83sfddqvk3.fsf@gnu.org>
-        <390c8bba-6089-b006-eaf1-9fcfda2c6c4b@gmail.com>
-        <837cumonv9.fsf@gnu.org>
-        <78ca213f-8723-dccb-e131-081400c28e5d@gmail.com>
-        <ZDFwisXkZNvthBc6@riva.ucam.org> <ghh6tqkveq.fsf@gouders.net>
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_PASS,
-        SPF_PASS autolearn=unavailable autolearn_force=no version=3.4.6
+Message-ID: <ZDHPH4wOu+jYqFI9@asta-kit.de>
+References: <ghbkkgo8x8.fsf@gouders.net>
+ <073413e2-7d35-f0d7-26eb-f66908d7af6a@gmail.com>
+ <834jpuuc1a.fsf@gnu.org>
+ <6ea6d1fe-375f-487a-b524-adc86880d3de@gmail.com>
+ <83sfddqvk3.fsf@gnu.org>
+ <390c8bba-6089-b006-eaf1-9fcfda2c6c4b@gmail.com>
+ <837cumonv9.fsf@gnu.org>
+ <78ca213f-8723-dccb-e131-081400c28e5d@gmail.com>
+ <ZDFwisXkZNvthBc6@riva.ucam.org>
+ <ghh6tqkveq.fsf@gouders.net>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ghh6tqkveq.fsf@gouders.net>
+X-Spam-Status: No, score=-2.3 required=5.0 tests=RCVD_IN_DNSWL_MED,
+        SPF_HELO_NONE,SPF_NONE autolearn=unavailable autolearn_force=no
+        version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-> From: Dirk Gouders <dirk@gouders.net>
-> Cc: Colin Watson <cjwatson@debian.org>, Eli Zaretskii <eliz@gnu.org>,
->         linux-man@vger.kernel.org, help-texinfo@gnu.org,
->         nabijaczleweli@nabijaczleweli.xyz, g.branden.robinson@gmail.com,
->         groff@gnu.org
-> Date: Sat, 08 Apr 2023 21:48:13 +0200
-> 
-> $ find /usr/share/man -type f -exec bzgrep -l RLIMIT_NOFILE {} \;
-> /usr/share/man/man1/runuser.1.bz2
-> /usr/share/man/man1/su.1.bz2
-> /usr/share/man/man1/nghttpx.1.bz2
-> /usr/share/man/man3/getdtablesize.3.bz2
-> /usr/share/man/man3/mq_open.3.bz2
-> /usr/share/man/man3/errno.3.bz2
-> /usr/share/man/man3/sysconf.3.bz2
-> /usr/share/man/man3p/getrlimit.3p.bz2
-> /usr/share/man/man3p/sysconf.3p.bz2
-> /usr/share/man/man3p/posix_spawn_file_actions_addclose.3p.bz2
-> /usr/share/man/man0p/sys_resource.h.0p.bz2
-> /usr/share/man/man2/pidfd_open.2.bz2
-> /usr/share/man/man2/poll.2.bz2
-> /usr/share/man/man2/getrlimit.2.bz2
-> /usr/share/man/man2/open.2.bz2
-> /usr/share/man/man2/select.2.bz2
-> /usr/share/man/man2/fcntl.2.bz2
-> /usr/share/man/man2/seccomp_unotify.2.bz2
-> /usr/share/man/man2/dup.2.bz2
-> /usr/share/man/man2/pidfd_getfd.2.bz2
-> /usr/share/man/man7/fanotify.7.bz2
-> /usr/share/man/man7/capabilities.7.bz2
-> /usr/share/man/man7/unix.7.bz2
-> /usr/share/man/man5/proc.5.bz2
-> 
+Hi Dirk,
+
+Dirk Gouders wrote on Sat, Apr 08, 2023 at 09:48:13PM +0200:
+
 > Yes, it's very slow but close to `man -K`:
 > 
 > find...             man -K...
@@ -115,7 +83,55 @@ X-Mailing-List: linux-man@vger.kernel.org
 > 
 > Hmm, perhaps, someone has an explanation for this?
 
-Multiprocessing, obviously.  Your CPU has more than one execution
-unit, so the pipe via xargs runs 'find' and 'bzgrep' in parallel on
-two different execution units.  By contrast, "find -exec" runs them
-sequentially, in a single thread.
+These are all terribly slow IMHO.
+
+For comparison, this happens on my OpenBSD notebook, with more than
+five hundred optional software packages installed in addition to the
+complete default installation:
+
+   $ time man -k any=RLIMIT_NOFILE
+  dup, dup2, dup3(2) - duplicate an existing file descriptor
+  getrlimit, setrlimit(2) - control maximum system resource consumption
+  sudoers(5) - default sudo security policy plugin
+    0m00.21s real     0m00.00s user     0m00.03s system
+
+   $ time man -k 'any=rlimit'       
+  ps(1) - display process status
+  brk, sbrk(2) - change data segment size
+  dup, dup2, dup3(2) - duplicate an existing file descriptor
+  execve(2) - execute a file
+  fork(2) - create a new process
+  getdtablecount(2) - get descriptor table count
+  getrlimit, setrlimit(2) - control maximum system resource consumption
+  mlock, munlock(2) - lock (unlock) physical pages in memory
+  mlockall, munlockall(2) - lock (unlock) the address space of a process
+  pledge(2) - restrict system operations
+  poll, ppoll(2) - synchronous I/O multiplexing
+  quotactl(2) - manipulate filesystem quotas
+  sigaction(2) - software signal facilities
+  getdtablesize(3) - get descriptor table size
+  login_cap, login_getclass, login_close, login_getcapbool, login_getcapnum, login_getcapsize, login_getcapstr, login_getcaptime, login_getstyle, setclasscontext, setusercontext(3) - query login.conf database about a user class
+  signal, bsd_signal(3) - simplified software signal facilities
+  sigvec(3) - software signal facilities
+  core(5) - memory image file format
+  login.conf(5) - login class capability database
+  sudoers(5) - default sudo security policy plugin
+  fork1(9) - create a new process
+  mi_switch, cpu_switchto(9) - switch to another process context
+      0m00.05s real     0m00.01s user     0m00.00s system
+
+   $ time man -k any=RLIMIT_NOFILE 
+  dup, dup2, dup3(2) - duplicate an existing file descriptor
+  getrlimit, setrlimit(2) - control maximum system resource consumption
+  sudoers(5) - default sudo security policy plugin
+    0m00.01s real     0m00.01s user     0m00.01s system
+
+The effect that the time goes down from 210 milliseconds to 10
+milliseconds when doing the search a second time is due to the fact
+that the kernel now has the required information in the buffer cache
+and no longer needs to read from the rotating disk.  The machine in
+question has i5 2.3 GHz processors and 8 GB of RAM, so it's hardly
+a high-end machine.
+
+Yours,
+  Ingo
