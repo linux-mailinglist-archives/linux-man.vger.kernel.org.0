@@ -2,45 +2,80 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id A3EAA6DC0D3
-	for <lists+linux-man@lfdr.de>; Sun,  9 Apr 2023 19:16:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 550936DC11B
+	for <lists+linux-man@lfdr.de>; Sun,  9 Apr 2023 20:55:29 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229463AbjDIRQq (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 9 Apr 2023 13:16:46 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43910 "EHLO
+        id S229585AbjDISz2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 9 Apr 2023 14:55:28 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36872 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229445AbjDIRQq (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 9 Apr 2023 13:16:46 -0400
-Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 854C830F8
-        for <linux-man@vger.kernel.org>; Sun,  9 Apr 2023 10:16:43 -0700 (PDT)
-Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 9D6EC50CC;
-        Sun,  9 Apr 2023 19:16:40 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-        s=202211; t=1681060600;
-        bh=W24uNitSBcM5w3AguqG8Hk8WBMy9bvPoJFISFubc5Tk=;
-        h=Date:From:To:Cc:Subject:From;
-        b=MFyjam64QiVK8C6QGiherbvoktyxBKulA7wFMEtlUfkUYDjvIFBoona820IxW0HMR
-         Kp55poD4Uhi1YaiZt2R3ojlPyFwV4rKzFWs2btkQ0J3XiaypFXfyZ8EnzEt3sWQhqX
-         /kqoSmUXBL8wfhf0dda3ardA4E0nq3HxgrlAmMFgz0j8FBZrL7AEU829SoX8BFKi93
-         FuznTKwlyU5be3zpdemYon/JyNaq4dpyTB41fT/N76WJ7dL7XGYE4gIN9rw/GOD2AT
-         QqjdyE27pWyDB6YounzAxIPKerbvhun0ZzYDinsmDnJveneqi6TTrw5sxqBeyv0Abi
-         qFo0WprFt39nA==
-Date:   Sun, 9 Apr 2023 19:16:39 +0200
-From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-Subject: [PATCH] filesystems.5, erofs.5: add erofs documentation
-Message-ID: <hpmjk4rzx2prznaxlb2gnc5vrnjmljxndsvxcsc22pliytevup@4lah64un5sht>
+        with ESMTP id S229505AbjDISz1 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 9 Apr 2023 14:55:27 -0400
+Received: from mail-oa1-x29.google.com (mail-oa1-x29.google.com [IPv6:2001:4860:4864:20::29])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B70642D49
+        for <linux-man@vger.kernel.org>; Sun,  9 Apr 2023 11:55:22 -0700 (PDT)
+Received: by mail-oa1-x29.google.com with SMTP id 586e51a60fabf-1842e278605so3935807fac.6
+        for <linux-man@vger.kernel.org>; Sun, 09 Apr 2023 11:55:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112; t=1681066522; x=1683658522;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=uUwu+DVu8sRkPbstatwsgZ+LH6erHgCuC9ONamIK5NA=;
+        b=IZyISHIzuFDaPSBLgBagQgWVNGvaie09Q5jURvwtHPvPZi/DFgV0+wi6rI7DpoGHV7
+         SuBW+A/1LDIvnoOfAL8QOEDdga29W9B+Ejxv7Jue8wTZ8kkEND+bm4+n5DV3fk5HAGtQ
+         YiiiiWjVwRy6p1zqqQx6yOqgZasAvnzdspKW/XUr+QcuxMJg/vT/QbsIae9vORe43BuA
+         viLI4cumSxlZ2ei2E7AEi1Qa573ZvQm0iWVeUAs4NSE3ODSWYlyYLtWbc/QqgV296l2n
+         a+6Jn8KXfRW7eb4Rg3b0rnoRhLpjzqX1bCyr/Chdes7r1UJdF0/II6Vjed41OylIKim6
+         c98A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1681066522; x=1683658522;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=uUwu+DVu8sRkPbstatwsgZ+LH6erHgCuC9ONamIK5NA=;
+        b=V3Fxo0GEKogh2TNfIlx7vyFvScs8MN8J3BcY5tppr4jsIfnPfYXd9S8bi0C7mnbaYt
+         pMD1YGmnz/EtUzsX6z1z60XFiOfkk2+Bua8P5bo/p9N8w0e7i76R7m0wULCB4kMwLlsO
+         4RJMtPa9/Es8qMC11jOlri96M7hMrvrVb5UB6h+s4D3VZ6ENKI3HKuWV6ClnOzsaPGcO
+         jQvCEESRO4L8+eBoRz0IgpS25k0KpOZY9llZ0bt29hAEftk3xZtHYbxrlVrB8vN5XU9s
+         aZ0DkUxulbhcMpxKdm2oUrUMYa+MmvEettwXZKBQoIyk7eolQDULh5L62/hWXEYHRySQ
+         Gwew==
+X-Gm-Message-State: AAQBX9f1oqQqDu+HhLdq3StMBSGj2o03HsRePfIVb9TKZwwC9T7fS3fc
+        NihAXouhlsEfWJWvEfSt2/ztpeQz6So=
+X-Google-Smtp-Source: AKy350bHsRDmzDTCT9SaIrVmfVSNl2rmpxUnYFN03Lz8igjV3N+Tw3Gk5UAWyV7Y50k0fidkWavS7A==
+X-Received: by 2002:a05:6870:b148:b0:17a:cc85:5b1e with SMTP id a8-20020a056870b14800b0017acc855b1emr4877621oal.3.1681066521954;
+        Sun, 09 Apr 2023 11:55:21 -0700 (PDT)
+Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
+        by smtp.gmail.com with ESMTPSA id yx21-20020a056871251500b001842bb0a01csm1465832oab.27.2023.04.09.11.55.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 09 Apr 2023 11:55:21 -0700 (PDT)
+Date:   Sun, 9 Apr 2023 13:55:19 -0500
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     groff@gnu.org, linux-man <linux-man@vger.kernel.org>,
+        Dirk Gouders <dirk@gouders.net>, Sam James <sam@gentoo.org>,
+        Alexis <flexibeast@gmail.com>
+Subject: Re: Compressed man pages (was: Accessibility of man pages (was:
+ Playground pager lsp(1)))
+Message-ID: <20230409185519.q4fv2aajwudgpnjh@illithid>
+References: <073413e2-7d35-f0d7-26eb-f66908d7af6a@gmail.com>
+ <834jpuuc1a.fsf@gnu.org>
+ <6ea6d1fe-375f-487a-b524-adc86880d3de@gmail.com>
+ <83sfddqvk3.fsf@gnu.org>
+ <390c8bba-6089-b006-eaf1-9fcfda2c6c4b@gmail.com>
+ <837cumonv9.fsf@gnu.org>
+ <78ca213f-8723-dccb-e131-081400c28e5d@gmail.com>
+ <87a5zhwntt.fsf@ada>
+ <c6e9eb6a-a2ba-1de1-211f-bc6ccc3f7a9a@gmail.com>
+ <53b0f991-7187-07ed-b2f8-4b6d8d7ffc3a@gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="n2kphhketznwbd2m"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+        protocol="application/pgp-signature"; boundary="nh7czoi4i6pgrlgm"
 Content-Disposition: inline
-User-Agent: NeoMutt/20230407
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-        DKIM_VALID_AU,DKIM_VALID_EF,RDNS_DYNAMIC,SPF_HELO_PASS,SPF_PASS
-        autolearn=no autolearn_force=no version=3.4.6
+In-Reply-To: <53b0f991-7187-07ed-b2f8-4b6d8d7ffc3a@gmail.com>
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+        DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
+        SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no
+        version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
@@ -48,159 +83,64 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---n2kphhketznwbd2m
-Content-Type: text/plain; charset=utf-8
+--nh7czoi4i6pgrlgm
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Modelled after tmpfs(5) =E2=80=92 there's a listing of mount options,
-and a summary of limitations. The feature flags are described in
-mkfs.erofs, and they're versioned and maintained upstream quite well
-there, so no need to duplicate those, since you only care on image
-creation.
+[dropping some people I recognize from the groff list from CC]
 
-The real value add is the mount options, but I cannot figure out
-how device_id and fsid interact with the system at large,
-so I just noted they're there.
+At 2023-04-09T14:17:57+0200, Alejandro Colomar wrote:
+> -  Using plain man(7) source is blazingly fast.  So much that I
+>    don't miss mdoc(7)'s indexability so much.
+>=20
+> However, I must admit that I do miss mdoc(7)'s power sometimes.
+> The man_lsfunc() and man_lsvar() functions for finding function
+> prototypes and variable declarations in man(7) source would be
+> much simpler using mdoc(1), and I could even use mandoc(1) to
+> find such things.
 
-State as of 6.3-rc5.
+I must point out that I have sketched a solution for solving the problem
+of semantic tagging in man(7).
 
-Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
----
- man5/erofs.5       | 84 ++++++++++++++++++++++++++++++++++++++++++++++
- man5/filesystems.5 |  6 ++++
- 2 files changed, 90 insertions(+)
- create mode 100644 man5/erofs.5
+https://lists.gnu.org/archive/html/groff/2022-12/msg00075.html
 
-diff --git a/man5/erofs.5 b/man5/erofs.5
-new file mode 100644
-index 000000000..de5b56121
---- /dev/null
-+++ b/man5/erofs.5
-@@ -0,0 +1,84 @@
-+.\" Copyright (c) 2016 by Michael Kerrisk <mtk.manpages@gmail.com>
-+.\"
-+.\" SPDX-License-Identifier: Linux-man-pages-copyleft
-+.\"
-+.TH erofs 5 (date) "Linux man-pages (unreleased)"
-+.SH NAME
-+erofs \- the Enhanced Read-Only File System
-+.SH DESCRIPTION
-+.B erofs
-+is a create-once read-only filesystem,
-+with support for compression and a multi-device backing store.
-+.PP
-+There are two inode formats:
-+32-byte compact with 16-bit UID/GID, 32-bit file size, and no file times,
-+and 64-byte extended with 32-bit UID/GID, 64-bit file size,
-+and a modification time
-+.RI ( st_mtim ).
-+.\" See fs/erofs/super.c:shmem_parse_options for options it supports.
-+.SS Mount options
-+.TP
-+.BR user_xattr / nouser_xattr
-+Controls whether
-+.I user
-+extended attributes are exposed.
-+Defaults to yes
-+.TP
-+.BR acl / noacl
-+Controls whether POSIX
-+.BR acl (5)s
-+are exposed.
-+Defaults to yes.
-+.TP
-+.BR cache_strategy =3D disabled | readahead | readaround
-+Cache allocation for compressed files:
-+never, if reading from start of file, regardless of position.
-+Defaults to
-+.BR readaround .
-+.TP
-+.BR dax ", " dax =3D always | never
-+Direct Access control.
-+If
-+.B always
-+and the source device supports DAX, uncompressed non-inlined files
-+will be read directly, without going through the page cache.
-+.B dax
-+is a synonym for
-+.BR always .
-+Defaults to unset, which is equivalent to
-+.BR never .
-+.TP
-+.BR device =3D \fIblobdev\fP
-+Add extra device holding some of the data.
-+Must be given as many times and in the same order as=20
-+.B \-\-blobdev
-+was to
-+.BR mkfs.erofs (8).
-+.\" Nominally there's a device_table feature and it somehow scans(?) for t=
-hem,
-+.\" cf. super.c:erofs_scan_devices(), but I haven't gotten it to work
-+.TP
-+.BR domain_id =3D \fIdid\fP ", " fsid =3D \fIid\fP
-+Control CacheFiles on-demand read support.
-+To be documented.
-+.RE
-+.IP
-+.SH VERSIONS
-+.B erofs
-+images are versioed through the use of feature flags;
-+these are listed in the
-+.B \-E
-+section of
-+.BR mkfs.erofs (1),
-+.SH NOTES
-+The kernel must be configured with the
-+.B CONFIG_EROFS_FS
-+option to mount EROFS filesystems.
-+There are sub-configuration items that restrict the availability
-+of some of the parameters above.
-+.SH SEE ALSO
-+.BR mkfs.erofs (1),
-+.BR fsck.erofs (1),
-+.BR dump.erofs (1)
-+.PP
-+.I Documentation/filesystems/erofs.txt
-+in the kernel source.
-diff --git a/man5/filesystems.5 b/man5/filesystems.5
-index 3c15f14da..c9b0bf695 100644
---- a/man5/filesystems.5
-+++ b/man5/filesystems.5
-@@ -48,6 +48,12 @@ filesystems in the Linux kernel.
- See the kernel documentation for a comprehensive
- description of all options and limitations.
- .TP 10
-+.B erofs
-+is the Enhanced Read-Only File System, stable since Linux 5.4.
-+.\" commit 47e4937a4a7ca4184fd282791dfee76c6799966a moves it out of staging
-+See
-+.BR erofs (5).
-+.TP
- .B ext
- is an elaborate extension of the
- .B minix
---=20
-2.30.2
+=2E..though perhaps I should add some detail to that sketch.  My ideas are
+firming up, so I may mail a proposal to groff@ and linux-man@ in the
+near future.
 
---n2kphhketznwbd2m
+I'm happy to report that all the man(7) extension macros I have in mind,
+except for `Q` for quotation[1], will be trivially ignorable; i.e., an
+implementation (like mandoc(1)) that doesn't recognize them can ignore
+them (treating them as comment lines) without doing damage to the
+rendered text of a page.
+
+Regards,
+Branden
+
+[1] https://lists.gnu.org/archive/html/groff/2022-12/msg00078.html
+
+    ...and even that admits a one-line fallback definition.  I suspect
+    you could even get away with defining it as a string.
+
+--nh7czoi4i6pgrlgm
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmQy8vcACgkQvP0LAY0m
-WPG34Q/+IvZAOnhMeitS+96UvR4znCbjP5R8S8tkihTTYjsZ1zZPCQNLLnuyaJ3D
-OAShgiKqbVQabl7MUqkWmmCYBz9qRIWYO79ub/j4C0+nnA9RJfyjbtvE9VkxsLt8
-l+IwnzcqjH6xxnUdgEIGemYBsnMqduEeemARJPaTtE3mrHFW5PPzOFPf6U8w8Rv/
-9NSHNm91EvgO4VppUMbsDEFzUuOd7JjeFYKYYwek303lZTBTdeWPmSuqEzjaz1IO
-HQgOLLNL8CTUhay5FPrkKSjy3zMULpRIdqUSk9Bq9azAImzIN9cEJKIdW9uSNk4V
-0GX4z3Tzer1JuLF5wuG+VjxxI81G6Y7UfoCNr4npXLPizBCs+4TOK+JG1fn4TCDf
-oJChoT+0apgrUuOF57aSmqRvtK0b7KBIrfB+q9mf63Jrx2EpM5PSJV+fxKZPy4JQ
-QZpR4KDN/ygmFv9tT9iY9RZjjyz8Ubk2plKY22leakSwPDuS3Jv2+D0k/43XLyvW
-VltUCMJZ9BRteinGxJms8c1TiAlNgQBv8BigSYL+8AbEZQdVafLniI+qde7bMjO1
-MoWrZ1xuVX98XULSkkQ7b0wn7x79oagc/xdbFrtWhxvJ4ZGGN9qE+KMh6rGdimr8
-+msusILhLSGxtEkB9O9h+QLR4GfyUw4xtwYhrgRw60ugIgkbhJQ=
-=Sgxr
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmQzCg4ACgkQ0Z6cfXEm
+bc7b0w/+OEFwd3q4aS9i21Tug4XctsYVGbnFj9IfjTSbZQ09U94D9xwI1QJ9fY9V
+8CQK6Cxs3TOi2M628Xk5iZrxB2WX9eyIfOL0XccbSqX9qnLw/oyqfoI/HiFL+Tty
+nahgYuSrrcZDbhHAkhdZZLsBJ2Tw3zPvM2oHLzaQeYm6b7KXuw5HfBsYM3Xs347a
+msZY/B49TRLyFLHh7PbbngXip3wGTjcvdWXBR2ek/1s4pcn6ePtrzMOKmVSMjlWU
+uydJ8IFfKd3+CbkGTmPODBWpYc7PT+FH+q14Vv38qGBxpQ58G5vN9f4nxFHL7k1g
+01bzeBqgxjHU6L4VRyMXBorTLI/q5bVN2wWUM1GhC/7RDLe9otk/aUY95nvGka4G
+318xIS7LzMy+HyXpgsY7rnziG+Uojay82Sr8WYPuRIW5bXNnsLprmssn/FwUsGmH
+tYNSl4O2psYbS3+yYkVg9io1UiU8Pdz/le0G/fBEV7ifw5PDMIRT95NQnVQwn7Tq
+obAAIANun2Huy7XVd1bFV5aN0Fbk2HHw3QQg0WRrQ4cslHvQPo9+VNnNbTRbLzD4
+ffhnmmWa7GqfyXEaXrEbc6kzchy79FAaagVkmF+EEHwV0sdxD1MsLdzVLW8wZvXT
+vdNrMTKcbErXbeyO8JrRl2F7M4iwArBzn0/wOq/f0ywjWv/ynvA=
+=CKIw
 -----END PGP SIGNATURE-----
 
---n2kphhketznwbd2m--
+--nh7czoi4i6pgrlgm--
