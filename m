@@ -2,197 +2,205 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 902E66DC089
-	for <lists+linux-man@lfdr.de>; Sun,  9 Apr 2023 17:20:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A3EAA6DC0D3
+	for <lists+linux-man@lfdr.de>; Sun,  9 Apr 2023 19:16:48 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229548AbjDIPUz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 9 Apr 2023 11:20:55 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43740 "EHLO
+        id S229463AbjDIRQq (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 9 Apr 2023 13:16:46 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43910 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229462AbjDIPUy (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 9 Apr 2023 11:20:54 -0400
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com [IPv6:2a00:1450:4864:20::32c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BF5A52D4A
-        for <linux-man@vger.kernel.org>; Sun,  9 Apr 2023 08:20:52 -0700 (PDT)
-Received: by mail-wm1-x32c.google.com with SMTP id d8-20020a05600c3ac800b003ee6e324b19so1550320wms.1
-        for <linux-man@vger.kernel.org>; Sun, 09 Apr 2023 08:20:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1681053651; x=1683645651;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=n16nu+RsIBOQ3Q048ZvYsG9ykAgsW+1z5udM4afR70U=;
-        b=e6ecwHLlZYBBDn02TlOkzq1YAQwLXoliY92UnN1njXHGdTB0sNGcSJpqK6eVYNvBKM
-         o+MmYu/Aywblgq3XMkN5pjNpadrYv1IjTv4tpbIbDTCAE6oPVRLafVXacoM5LL2DRGY0
-         mLTuL/A+kRwwANqwsI7IryUJZ6kNpkvk1VJgkLl3/kAfCiE/BPi2ST+nx27dLfNzJRhv
-         x9Xm7bnVgkVijfMAZTAnO2LAmNnwe2xqN0hyHTTXA7KdLAa4+GxYgcksSmiGGRKHi7c4
-         EWV5z6LcOIP8fCbsbvxSChg4jVdCu25OXmmf2wmiaE8LxfITlTUxXwUHlxyG0JBpQWts
-         XQRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1681053651; x=1683645651;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=n16nu+RsIBOQ3Q048ZvYsG9ykAgsW+1z5udM4afR70U=;
-        b=mfTaKnA84/vT+DJEnKtCSOnl1h9qcuSzuqhOl65aFkzZx5XGDmdQMiTX0YQjtiwm5r
-         ACNop95gvfQwTNUR1K+WAUZSbAjeu1UKY/4LBhacNZKSn/Uh+hQVBacJCGSiG86lMZat
-         DYtZl3osQf3oCpeuXIIZwQyd7PFwtuKXGdMP1qGGnHyHbTPR4JFUsKrGrhjwJAZ6cY+6
-         81mhPwLGIBeP/JJa6qNtLgiV42y7j/yGUXZUW1CKPq0bc44sP7qeXtf4LPkdvodg1vlg
-         mSGtfAUJCpBrqY7sSeuJi3/ropKERMaQ6ojJDtrpSBMr0D5fixCbG3/4369LrYEoR90F
-         TA7Q==
-X-Gm-Message-State: AAQBX9ftUyLznMFVDCN8zNo8BcPVxdqgINBdDv5+bXHCw5ck+b7LUy2h
-        YWtKtGIoDWbI/FVk3FeKOJaamtP+n7I=
-X-Google-Smtp-Source: AKy350YlgyjPqPbMcKyMrGVp3fQSGOSF2D1zZYEOZYVyvYdYPzmXMvNYC9vsMZ25zi2xikD4L8rs4g==
-X-Received: by 2002:a05:600c:249:b0:3ed:2a8f:e6dd with SMTP id 9-20020a05600c024900b003ed2a8fe6ddmr5531624wmj.6.1681053651165;
-        Sun, 09 Apr 2023 08:20:51 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.51.134])
-        by smtp.gmail.com with ESMTPSA id k19-20020a5d5253000000b002effef459eesm2410254wrc.72.2023.04.09.08.20.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 09 Apr 2023 08:20:50 -0700 (PDT)
-Message-ID: <6bc6cc90-88e3-2ad1-c761-395ae512b560@gmail.com>
-Date:   Sun, 9 Apr 2023 17:20:43 +0200
+        with ESMTP id S229445AbjDIRQq (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 9 Apr 2023 13:16:46 -0400
+Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 854C830F8
+        for <linux-man@vger.kernel.org>; Sun,  9 Apr 2023 10:16:43 -0700 (PDT)
+Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 9D6EC50CC;
+        Sun,  9 Apr 2023 19:16:40 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
+        s=202211; t=1681060600;
+        bh=W24uNitSBcM5w3AguqG8Hk8WBMy9bvPoJFISFubc5Tk=;
+        h=Date:From:To:Cc:Subject:From;
+        b=MFyjam64QiVK8C6QGiherbvoktyxBKulA7wFMEtlUfkUYDjvIFBoona820IxW0HMR
+         Kp55poD4Uhi1YaiZt2R3ojlPyFwV4rKzFWs2btkQ0J3XiaypFXfyZ8EnzEt3sWQhqX
+         /kqoSmUXBL8wfhf0dda3ardA4E0nq3HxgrlAmMFgz0j8FBZrL7AEU829SoX8BFKi93
+         FuznTKwlyU5be3zpdemYon/JyNaq4dpyTB41fT/N76WJ7dL7XGYE4gIN9rw/GOD2AT
+         QqjdyE27pWyDB6YounzAxIPKerbvhun0ZzYDinsmDnJveneqi6TTrw5sxqBeyv0Abi
+         qFo0WprFt39nA==
+Date:   Sun, 9 Apr 2023 19:16:39 +0200
+From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org
+Subject: [PATCH] filesystems.5, erofs.5: add erofs documentation
+Message-ID: <hpmjk4rzx2prznaxlb2gnc5vrnjmljxndsvxcsc22pliytevup@4lah64un5sht>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.1
-Subject: Poor performance of man -K for uncompressed pages (was: man -K finds
- repeated entries for each symlink page)
-Content-Language: en-US
-To:     Colin Watson <cjwatson@debian.org>
-Cc:     man-db-devel@nongnu.org, linux-man <linux-man@vger.kernel.org>
-References: <a93419ac-b06a-41d3-7c82-339f1773ee76@gmail.com>
- <ZDLR5SrIPXstHgBM@riva.ucam.org>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <ZDLR5SrIPXstHgBM@riva.ucam.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------Gbk0l5eTzUYAMx5y5taOwiKl"
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-        DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
-        SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no
-        version=3.4.6
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="n2kphhketznwbd2m"
+Content-Disposition: inline
+User-Agent: NeoMutt/20230407
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+        DKIM_VALID_AU,DKIM_VALID_EF,RDNS_DYNAMIC,SPF_HELO_PASS,SPF_PASS
+        autolearn=no autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------Gbk0l5eTzUYAMx5y5taOwiKl
-Content-Type: multipart/mixed; boundary="------------N3LyZygtnbR6vyYgSjVqFjJj";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Colin Watson <cjwatson@debian.org>
-Cc: man-db-devel@nongnu.org, linux-man <linux-man@vger.kernel.org>
-Message-ID: <6bc6cc90-88e3-2ad1-c761-395ae512b560@gmail.com>
-Subject: Poor performance of man -K for uncompressed pages (was: man -K finds
- repeated entries for each symlink page)
-References: <a93419ac-b06a-41d3-7c82-339f1773ee76@gmail.com>
- <ZDLR5SrIPXstHgBM@riva.ucam.org>
-In-Reply-To: <ZDLR5SrIPXstHgBM@riva.ucam.org>
 
---------------N3LyZygtnbR6vyYgSjVqFjJj
-Content-Type: text/plain; charset=UTF-8
+--n2kphhketznwbd2m
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hi Colin,
+Modelled after tmpfs(5) =E2=80=92 there's a listing of mount options,
+and a summary of limitations. The feature flags are described in
+mkfs.erofs, and they're versioned and maintained upstream quite well
+there, so no need to duplicate those, since you only care on image
+creation.
 
-On 4/9/23 16:55, Colin Watson wrote:
-> On Sun, Apr 09, 2023 at 03:58:28PM +0200, Alejandro Colomar wrote:
->> $ man -Kaw RLIMIT_NOFILE | sort | uniq -c
->>       3 /opt/local/man/share/man/man2/dup.2
->>       2 /opt/local/man/share/man/man2/fcntl.2
->>       5 /opt/local/man/share/man/man2/getrlimit.2
->>       3 /opt/local/man/share/man/man2/open.2
->>       1 /opt/local/man/share/man/man2/pidfd_getfd.2
->>       1 /opt/local/man/share/man/man2/pidfd_open.2
->>       2 /opt/local/man/share/man/man2/poll.2
->>       1 /opt/local/man/share/man/man2/seccomp_unotify.2
->>       4 /opt/local/man/share/man/man2/select.2
->>
->> Those numbers coincide with 1+ the number of symlinks for each of the
->> pages.  For example, see select.2:
->=20
-> Thanks for the report.  Fixed by this commit:
->=20
->   https://gitlab.com/man-db/man-db/-/commit/7ef30573a7023eb78bf70a34eda=
-a4e3906531993
+The real value add is the mount options, but I cannot figure out
+how device_id and fsid interact with the system at large,
+so I just noted they're there.
 
-Heh, that was fast :)
+State as of 6.3-rc5.
 
-As a side effect of not reading too many files, performance improved
-considerably for bzip2 (~3x), and for gzip (~2x).
+Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
+---
+ man5/erofs.5       | 84 ++++++++++++++++++++++++++++++++++++++++++++++
+ man5/filesystems.5 |  6 ++++
+ 2 files changed, 90 insertions(+)
+ create mode 100644 man5/erofs.5
 
-I built man from source (tweaking with -O3, so I cheated a little bit),
-and here are the results:
-
-
-$ export MANPATH=3D/tmp/man/gz_/share/man
-$ /bin/time -f %e dash -c "man -Kaw RLIMIT_NOFILE | wc -l"
-17
-0.19
-$ /bin/time -f %e dash -c "find $MANPATH -type f | while read f; do gzip =
--d - <\$f | grep -l RLIMIT_NOFILE >/dev/null && echo \$f; done | wc -l"
-17
-1.14
-
-
-$ export MANPATH=3D/tmp/man/bz2/share/man
-$ /bin/time -f %e dash -c "man -Kaw RLIMIT_NOFILE | wc -l"
-17
-3.05
-$ /bin/time -f %e dash -c "find $MANPATH -type f | while read f; do bzip2=
- -d - <\$f | grep -l RLIMIT_NOFILE >/dev/null && echo \$f; done | wc -l"
-17
-1.20
-
-
-$ export MANPATH=3D/tmp/man/man/share/man
-$ /bin/time -f %e dash -c "man -Kaw RLIMIT_NOFILE | wc -l"
-17
-0.52
-$ /bin/time -f %e dash -c "find $MANPATH -type f | xargs grep -l RLIMIT_N=
-OFILE | wc -l"
-17
-0.01
-
-
-Please consider this a new bug report, about performance.  See the last
-block of commands.  man(1) takes half a second, while my loop with
-find(1) and grep(1) is almost non-measurable.  I could understand that
-man(1) has some overhead, but 52x feels like there's some serious
-performance problem; especially when man(1) is faster reading
-uncompressed pages (see at the top).
-
-
-Cheers,
-Alex
-
+diff --git a/man5/erofs.5 b/man5/erofs.5
+new file mode 100644
+index 000000000..de5b56121
+--- /dev/null
++++ b/man5/erofs.5
+@@ -0,0 +1,84 @@
++.\" Copyright (c) 2016 by Michael Kerrisk <mtk.manpages@gmail.com>
++.\"
++.\" SPDX-License-Identifier: Linux-man-pages-copyleft
++.\"
++.TH erofs 5 (date) "Linux man-pages (unreleased)"
++.SH NAME
++erofs \- the Enhanced Read-Only File System
++.SH DESCRIPTION
++.B erofs
++is a create-once read-only filesystem,
++with support for compression and a multi-device backing store.
++.PP
++There are two inode formats:
++32-byte compact with 16-bit UID/GID, 32-bit file size, and no file times,
++and 64-byte extended with 32-bit UID/GID, 64-bit file size,
++and a modification time
++.RI ( st_mtim ).
++.\" See fs/erofs/super.c:shmem_parse_options for options it supports.
++.SS Mount options
++.TP
++.BR user_xattr / nouser_xattr
++Controls whether
++.I user
++extended attributes are exposed.
++Defaults to yes
++.TP
++.BR acl / noacl
++Controls whether POSIX
++.BR acl (5)s
++are exposed.
++Defaults to yes.
++.TP
++.BR cache_strategy =3D disabled | readahead | readaround
++Cache allocation for compressed files:
++never, if reading from start of file, regardless of position.
++Defaults to
++.BR readaround .
++.TP
++.BR dax ", " dax =3D always | never
++Direct Access control.
++If
++.B always
++and the source device supports DAX, uncompressed non-inlined files
++will be read directly, without going through the page cache.
++.B dax
++is a synonym for
++.BR always .
++Defaults to unset, which is equivalent to
++.BR never .
++.TP
++.BR device =3D \fIblobdev\fP
++Add extra device holding some of the data.
++Must be given as many times and in the same order as=20
++.B \-\-blobdev
++was to
++.BR mkfs.erofs (8).
++.\" Nominally there's a device_table feature and it somehow scans(?) for t=
+hem,
++.\" cf. super.c:erofs_scan_devices(), but I haven't gotten it to work
++.TP
++.BR domain_id =3D \fIdid\fP ", " fsid =3D \fIid\fP
++Control CacheFiles on-demand read support.
++To be documented.
++.RE
++.IP
++.SH VERSIONS
++.B erofs
++images are versioed through the use of feature flags;
++these are listed in the
++.B \-E
++section of
++.BR mkfs.erofs (1),
++.SH NOTES
++The kernel must be configured with the
++.B CONFIG_EROFS_FS
++option to mount EROFS filesystems.
++There are sub-configuration items that restrict the availability
++of some of the parameters above.
++.SH SEE ALSO
++.BR mkfs.erofs (1),
++.BR fsck.erofs (1),
++.BR dump.erofs (1)
++.PP
++.I Documentation/filesystems/erofs.txt
++in the kernel source.
+diff --git a/man5/filesystems.5 b/man5/filesystems.5
+index 3c15f14da..c9b0bf695 100644
+--- a/man5/filesystems.5
++++ b/man5/filesystems.5
+@@ -48,6 +48,12 @@ filesystems in the Linux kernel.
+ See the kernel documentation for a comprehensive
+ description of all options and limitations.
+ .TP 10
++.B erofs
++is the Enhanced Read-Only File System, stable since Linux 5.4.
++.\" commit 47e4937a4a7ca4184fd282791dfee76c6799966a moves it out of staging
++See
++.BR erofs (5).
++.TP
+ .B ext
+ is an elaborate extension of the
+ .B minix
 --=20
-<http://www.alejandro-colomar.es/>
-GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
+2.30.2
 
---------------N3LyZygtnbR6vyYgSjVqFjJj--
-
---------------Gbk0l5eTzUYAMx5y5taOwiKl
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+--n2kphhketznwbd2m
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQy18sACgkQnowa+77/
-2zLzrhAAqdPTEaaTqM7gfTFIEReC+N36PMLp0pMWrJB/f3hsCcBfEd6WiGwRxuDI
-LY/dRezBe2Gnsb3NEtxE8d5t/8mEg+FjXhsO5isWs2+HjSCdyaDhCHS1jnh1jp1N
-pdIh8vm9nOeCUgS208IL0LG2q1a8z/I0e+VsATQdl6JeqATzmQsMZsrZBR14mQpu
-OT14N4Q0S1Kjz3pC3YS8eY17yIFwtFHuOjoD8P0Pdl2/8g4sgXlBUza1noVmSgGa
-4By2sHTkxqw156AbTpCD8fUatuXrKATp1n002LHsuzmgAjAIG0OXyQdxKkh2+b60
-Z69Xsfld+mW8m5w3UjPjQW90beQZE8NlYKCQ06MRatazbtFevfN3jj7sDGRGZic1
-BkKsjZ4PZYvlzMBa2SBss5HHYX6fHS/9hxyn2fDmEbr7Xm3pQR5WvEf6e96K8H1A
-jkUuTLTYrDGPJfwbEwquZdy3Uz26o4Z+VvO6ge6c8mot6fRT5//DluqmWlR3jSq1
-axEE6xu1vCHMEnLECbfsz346OCeDZvEZCA06XmKhOLRbOsrC2ZWeYaDH2tmJLA2t
-iAyVwxyly4Z2voicaQMlyz11RdATS4GqYhUPmdNGZEwNbnoVnAj59s7xAX/cSiVu
-xetHukepi1IObNpHsVeXcpTonB+k2T1aIiOc8xL8zsNzeiAHN2g=
-=4evI
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmQy8vcACgkQvP0LAY0m
+WPG34Q/+IvZAOnhMeitS+96UvR4znCbjP5R8S8tkihTTYjsZ1zZPCQNLLnuyaJ3D
+OAShgiKqbVQabl7MUqkWmmCYBz9qRIWYO79ub/j4C0+nnA9RJfyjbtvE9VkxsLt8
+l+IwnzcqjH6xxnUdgEIGemYBsnMqduEeemARJPaTtE3mrHFW5PPzOFPf6U8w8Rv/
+9NSHNm91EvgO4VppUMbsDEFzUuOd7JjeFYKYYwek303lZTBTdeWPmSuqEzjaz1IO
+HQgOLLNL8CTUhay5FPrkKSjy3zMULpRIdqUSk9Bq9azAImzIN9cEJKIdW9uSNk4V
+0GX4z3Tzer1JuLF5wuG+VjxxI81G6Y7UfoCNr4npXLPizBCs+4TOK+JG1fn4TCDf
+oJChoT+0apgrUuOF57aSmqRvtK0b7KBIrfB+q9mf63Jrx2EpM5PSJV+fxKZPy4JQ
+QZpR4KDN/ygmFv9tT9iY9RZjjyz8Ubk2plKY22leakSwPDuS3Jv2+D0k/43XLyvW
+VltUCMJZ9BRteinGxJms8c1TiAlNgQBv8BigSYL+8AbEZQdVafLniI+qde7bMjO1
+MoWrZ1xuVX98XULSkkQ7b0wn7x79oagc/xdbFrtWhxvJ4ZGGN9qE+KMh6rGdimr8
++msusILhLSGxtEkB9O9h+QLR4GfyUw4xtwYhrgRw60ugIgkbhJQ=
+=Sgxr
 -----END PGP SIGNATURE-----
 
---------------Gbk0l5eTzUYAMx5y5taOwiKl--
+--n2kphhketznwbd2m--
