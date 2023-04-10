@@ -2,210 +2,204 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id DAC656DCBD5
-	for <lists+linux-man@lfdr.de>; Mon, 10 Apr 2023 21:57:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6E8A16DCC10
+	for <lists+linux-man@lfdr.de>; Mon, 10 Apr 2023 22:24:28 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229618AbjDJT5t (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 10 Apr 2023 15:57:49 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40078 "EHLO
+        id S229649AbjDJUY0 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 10 Apr 2023 16:24:26 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48948 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229593AbjDJT5t (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 10 Apr 2023 15:57:49 -0400
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com [IPv6:2a00:1450:4864:20::336])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 10EF91BF0
-        for <linux-man@vger.kernel.org>; Mon, 10 Apr 2023 12:57:48 -0700 (PDT)
-Received: by mail-wm1-x336.google.com with SMTP id he13so8362443wmb.2
-        for <linux-man@vger.kernel.org>; Mon, 10 Apr 2023 12:57:47 -0700 (PDT)
+        with ESMTP id S229640AbjDJUY0 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 10 Apr 2023 16:24:26 -0400
+Received: from mail-oa1-x2c.google.com (mail-oa1-x2c.google.com [IPv6:2001:4860:4864:20::2c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E4DB21735
+        for <linux-man@vger.kernel.org>; Mon, 10 Apr 2023 13:24:24 -0700 (PDT)
+Received: by mail-oa1-x2c.google.com with SMTP id 586e51a60fabf-18436e0b673so6517691fac.0
+        for <linux-man@vger.kernel.org>; Mon, 10 Apr 2023 13:24:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1681156666; x=1683748666;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=9V/NPI1nICdGLD6UY2MtY6rkJZprIX194fHZuRBmNtg=;
-        b=LIMUw/M8HRGp9lSVndWT4wbXyIObe9ASF+uvgxHCmA4NQD5YBbJt8i5PlHwbJJgAm6
-         laFyL+lwavPYP0EkFs23H8Z9LwfIBclRor490qxIqsG/mUi5LPIDncZe8ahf+p2GkD/K
-         nNb/eIJv/vuD/Vq8C+Xs4Nux88hUi+YjdlBr3wUBKgdJNKFELXjcAVpFROWTezGeeNpU
-         7qimpfROz187a1nK6owFxRYFjlbQM2Xu3KQLG5cKI7+MWmmsDzH6d7ylbnQ6V7/RT5kt
-         n43TO9P/IpWEdO+fjJdlYbxW+9AtJW9q+zcFWKbBeRBvv2zFcvRdPIe5cdo6HrmmDCpT
-         ZLNw==
+        d=gmail.com; s=20210112; t=1681158264; x=1683750264;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=h67bjSTwbmVoF6JEWCIonaDXUVjrRDs5uWZE5FAJA/Q=;
+        b=dFBJ9NlOBmzxYxnSkoCO05/6TTAQqc424pe59q5p5v8bHI5UwglUc5N64Rbb9EgVQb
+         c3CpDfWnxRdqpPZzsHMc76OsRGr7+idWPd6AYeqYZ3lW2A5LNwTt7qv7EfJIKU6hELT0
+         /xhiljh9WT0Rfx8NUSSMt5LJT6wzzeUUngUyZ8IKctPWRasOgq7X7dDohVf7N0exlR86
+         U+fR86tzL34ZBbuMYwKkD1ftbaB+RkKmJixI4ClQlF8TzxfSspv6m6/LRtBVv11LFGFv
+         RVypcMPQX4mF5cmXKyvURnj1SS/7V14JTDt8KpUa6Oiw99g4HVILoUkeRX5C0hfssdM+
+         T++w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1681156666; x=1683748666;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=9V/NPI1nICdGLD6UY2MtY6rkJZprIX194fHZuRBmNtg=;
-        b=KeSCCdZSxSYULgyZWjyFNw5jtXaRhOFs+X85RvhnhAIkAE3n5fkJnyYP2LBEvGzYpC
-         dpUGAtYHoAdw3Wpk5z+nBofGG4gBpgDlddWfxGEBvWMaEASPFa/VKsVnZLcM5Lz7tF7u
-         N0w7HG38w/2qhyKjt5ij1OybCEJChf4QiZcz6JJkrcq5udLDkFkTv7wHT0YVjgWCnzvx
-         XA/+x3bZS6KYnoXqq0d9gxh9f0HvIEFZKuMAZb2G46EOWdebtvgZN5sZdqtryjTqqscl
-         5Uk1lj4FKCG88xRpQSZq6TMVF4WNjgzn0rMsqeU9ev28isUW5jF5aZO3/jZKzarkAAcD
-         keow==
-X-Gm-Message-State: AAQBX9esy+UVM3WL9FfKccvwFXtmc/F9IivW31BvwTojIJROOH+f7/pj
-        YLXLescc9nRGZHNWGVs9qaI=
-X-Google-Smtp-Source: AKy350ZJFtzK+JILjBbXRlMr5ivMQh855DG16g8GqBUVx8rcciXU2pI3FC1UZ6czOcysEHcmc8vKPw==
-X-Received: by 2002:a1c:4b16:0:b0:3f0:7ddf:d8d8 with SMTP id y22-20020a1c4b16000000b003f07ddfd8d8mr6710428wma.18.1681156666409;
-        Mon, 10 Apr 2023 12:57:46 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.51.134])
-        by smtp.gmail.com with ESMTPSA id k22-20020a7bc416000000b003f04f0c5a6fsm14772857wmi.26.2023.04.10.12.57.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 10 Apr 2023 12:57:46 -0700 (PDT)
-Message-ID: <aedb1698-dc6e-a4db-798a-da6e4ef89207@gmail.com>
-Date:   Mon, 10 Apr 2023 21:57:33 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.1
-Subject: Re: reformatting man pages at SIGWINCH
-Content-Language: en-US
+        d=1e100.net; s=20210112; t=1681158264; x=1683750264;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=h67bjSTwbmVoF6JEWCIonaDXUVjrRDs5uWZE5FAJA/Q=;
+        b=QpZS47vS++Rocli59X8OQyeWSA1xAlFZIjfJNndji23m+JL19AP+b7IlqvLIVRN1jb
+         8Z9DDNqI+TK5gfFaspTRZLiGwMA0ZPJLu+C7iLvxFVucgIOu++sCYSGHQ2pkeNiQsqyr
+         acmrrunrnDtdMqceyKD7bXuFKvAMzGJcigb0tKxM8GHPGLXGsYzgtwm8IZd4USxDVS4d
+         hvDpFuxLFSSQtSePugGWi2WbBx90MDRaAyq4Yyxo0WELD1frrdoncCgYdbczWvR1XsK5
+         TrcZ7BxQi/k4aWgUD73jxOLL3qxtYUxSqi2qTyvwAS8yASLmjWPc7tdWVi+btro8vNHm
+         Y+aQ==
+X-Gm-Message-State: AAQBX9crHxLdFoUOUjJVYABS8+ENeU4quzvQ9ZV5e2RaOeHEzqwj7f88
+        AluC3cM6P8nNbB7e1pj8sI4=
+X-Google-Smtp-Source: AKy350bBxmmyRAulbAk+WerWW9rHpYGdtWOQRE67GeEI1nfukieNJxYPadYukPlEBa0r1qiIwoLriA==
+X-Received: by 2002:a05:6870:c590:b0:17f:7dca:8926 with SMTP id ba16-20020a056870c59000b0017f7dca8926mr6417373oab.20.1681158264169;
+        Mon, 10 Apr 2023 13:24:24 -0700 (PDT)
+Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
+        by smtp.gmail.com with ESMTPSA id g4-20020a056870d20400b0018045663fc5sm4425281oac.48.2023.04.10.13.24.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 10 Apr 2023 13:24:23 -0700 (PDT)
+Date:   Mon, 10 Apr 2023 15:24:22 -0500
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
 To:     Dirk Gouders <dirk@gouders.net>
-Cc:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
         Eli Zaretskii <eliz@gnu.org>, linux-man@vger.kernel.org,
         help-texinfo@gnu.org, groff <groff@gnu.org>
-References: <ghileoo9dk.fsf@gouders.net> <ghbkkgo8x8.fsf@gouders.net>
- <073413e2-7d35-f0d7-26eb-f66908d7af6a@gmail.com> <834jpuuc1a.fsf@gnu.org>
+Subject: Re: reformatting man pages at SIGWINCH
+Message-ID: <20230410202422.s4xdqcdxzsgdge7v@illithid>
+References: <ghileoo9dk.fsf@gouders.net>
+ <ghbkkgo8x8.fsf@gouders.net>
+ <073413e2-7d35-f0d7-26eb-f66908d7af6a@gmail.com>
+ <834jpuuc1a.fsf@gnu.org>
  <6ea6d1fe-375f-487a-b524-adc86880d3de@gmail.com>
  <20230407021822.3grfnenicwjhdive@illithid>
- <c704777c-bd1b-08d7-df63-7570d69b709e@gmail.com> <ghwn2nl4yn.fsf@gouders.net>
- <3f802d85-99a2-a9b9-ec5f-9e3067fdfc61@gmail.com> <ghsfd7k16z.fsf@gouders.net>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <ghsfd7k16z.fsf@gouders.net>
+ <c704777c-bd1b-08d7-df63-7570d69b709e@gmail.com>
+ <ghwn2nl4yn.fsf@gouders.net>
+ <3f802d85-99a2-a9b9-ec5f-9e3067fdfc61@gmail.com>
+ <ghsfd7k16z.fsf@gouders.net>
+MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------9c9e3DHUIvZg2RJ0KD0gHNa9"
-X-Spam-Status: No, score=-3.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-        DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-        autolearn_force=no version=3.4.6
+        protocol="application/pgp-signature"; boundary="dyq2ludqvkigdbja"
+Content-Disposition: inline
+In-Reply-To: <ghsfd7k16z.fsf@gouders.net>
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+        DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
+        SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no
+        version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------9c9e3DHUIvZg2RJ0KD0gHNa9
-Content-Type: multipart/mixed; boundary="------------OXy60osCtQS1Hc8gEQgV3X11";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Dirk Gouders <dirk@gouders.net>
-Cc: "G. Branden Robinson" <g.branden.robinson@gmail.com>,
- Eli Zaretskii <eliz@gnu.org>, linux-man@vger.kernel.org,
- help-texinfo@gnu.org, groff <groff@gnu.org>
-Message-ID: <aedb1698-dc6e-a4db-798a-da6e4ef89207@gmail.com>
-Subject: Re: reformatting man pages at SIGWINCH
-References: <ghileoo9dk.fsf@gouders.net> <ghbkkgo8x8.fsf@gouders.net>
- <073413e2-7d35-f0d7-26eb-f66908d7af6a@gmail.com> <834jpuuc1a.fsf@gnu.org>
- <6ea6d1fe-375f-487a-b524-adc86880d3de@gmail.com>
- <20230407021822.3grfnenicwjhdive@illithid>
- <c704777c-bd1b-08d7-df63-7570d69b709e@gmail.com> <ghwn2nl4yn.fsf@gouders.net>
- <3f802d85-99a2-a9b9-ec5f-9e3067fdfc61@gmail.com> <ghsfd7k16z.fsf@gouders.net>
-In-Reply-To: <ghsfd7k16z.fsf@gouders.net>
 
---------------OXy60osCtQS1Hc8gEQgV3X11
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+--dyq2ludqvkigdbja
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
 Hi Dirk,
 
-On 4/10/23 21:05, Dirk Gouders wrote:
->> For something simpler, you could just count words since the start of t=
-he
->> section divided by total words in the section.  That should be fast, a=
-nd
->> I expect, also quite precise.  Hyphenating might work against you on
->> this, but on average it shouldn't move you too much.
->=20
-> very pragmatic -- very effective, thanks for that suggestion.  I
-> started with implementing a simpler version of that (no counting of all=
-
-> words in the section):
->=20
-> - Backwards count words until we reach an empty line, the section
->   header or the beginning of the document
->=20
->         Stop if it was the section header or beginning of the document
->=20
->         Continue and just count empty lines until we reach the
->         section header or the beginning of the document
-
-Hmmmm, good idea.
-
-$ man gcc 2>/dev/null | grep "^$" | wc -l
-5462
-$ man gcc 2>/dev/null | grep "^$" | wc -l
-5462
-$ man gcc 2>/dev/null | grep "^$" | wc -l
-5464
-
-$ man tzset 2>/dev/null | grep "^$" | wc -l
-41
-$ man tzset 2>/dev/null | grep "^$" | wc -l
-41
-$ man tzset 2>/dev/null | grep "^$" | wc -l
-41
-
-$ man bash 2>/dev/null | grep "^$" | wc -l
-657
-$ man bash 2>/dev/null | grep "^$" | wc -l
-657
-$ man bash 2>/dev/null | grep "^$" | wc -l
-658
-
-
-Of course there were important resizes between those invocations.=20
-
->=20
+At 2023-04-10T21:05:24+0200, Dirk Gouders wrote:
 > This relies on the assumption that horizontal resizes don't create or
 > delete emty lines and it still has the weakness that manual pages
 > (e.g. bash(1)) contain large areas without empty lines but it's
 > definitely better than just staying at the position as it was before.
 
-=20
-That should give you a quite precise idea of where you were.
+I think this assumption should hold for man and mdoc documents rendered
+by a *roff--I'm not sure about mandoc(1), but it probably will for
+reasons I'll elaborate below.
 
->=20
+Vertical space in *roff documents might get reduced at page breaks, but
+not to zero, except at page breaks.
+
+There are a few reasons that I think reinforce the assumption holding:
+
+1.  man(7) and mdoc(7) don't offer macros for just sticking an arbitrary
+amount of vertical space into a document.  If you want that, you'll need
+to go down to formatter requests, which is seldom done by human man page
+authors, but a bit more frequently by automated generators of man(7) or
+mdoc(7) from other formats.
+
+2.  Even in traditional *roff, if you issued an ".sp 6" request
+(demanding 6 blank lines), then if you were within 6 lines of a "trap"
+(usually a page footer trap or the actual bottom of the page), the
+result would be that you'd get blank lines until the trap sprung, and
+any excess would be thrown away.  So if there were only 4 lines of
+distance to the page footer, the leftover two would be discarded and
+_not_ appear after the header of the next page.[1]
+
+3.  mandoc(1) and groff's man(7) and mdoc(7) macro packages both
+implement "continuous rendering" for terminal output.  This means that
+they contrive to arrange for an effectively infinite page length, so
+there are no page breaks.  (Except when you render multiple man pages at
+a time, a use case groff 1.23.0 will support.) Since pager programs are
+applicable only to terminal output in the first place, this should
+address your use case.  (You _can_ turn off continuous rendering in
+groff, and see man pages as they would have formatted for Western
+Electric Teletype machines, which printed to long spools of paper with
+66 lines to the nominal page.)
+
+4.  A habit has grown up among man(1) programs and pagers to call for
+and support, respectively, a "blank line squeezing" feature: any runs of
+more than one blank line are condensed to 1 blank line each.  In groff
+1.23.0, this will no longer be necessary when continuously rendering.
+(Historically, this squeezing feature was used to "tighten up" vertical
+space after the page header, prior to the "NAME" section heading of the
+document.)  In my opinion, pager programs should perform as few
+transformations as possible on the output of grotty(1), the groff output
+driver that supports terminal devices.  The long-time author and
+maintainer of less(1) does not agree, so you have to call that program
+with its "-R" flag to view grotty(1) output as groff intends it.  (To
+see what those intentions are, format the document without paging it.)
+
 > If it turns out to still be too weak, I could count all words between
 > two empty lines and set that in relation to the words from the
 > preceeding empty line.
->=20
-> But perhaps, I now learn that empty lines are by no means that constant=
 
-> value that I assume...
+You might do this only as a fallback, if there were no blank lines on
+the screen at the old window size when the resizing event happened.
 
-They seem to be constant.  Only with the shortest terminal size I can
-have, that number changes, and only by one or two per entire page.
+> But perhaps, I now learn that empty lines are by no means that
+> constant value that I assume...
 
->=20
-> Dirk
+In my opinion, the presence or absence of a single blank line in
+formatted output is important.  groff 1.23.0 will feature some bug fixes
+with respect to their handling within and adjacent to tbl(1) input.[2]
 
-Cheers,
-Alex
+Since I flogged groff 1.23.0 three times in this email, I suppose I
+should point people to where they can get the 1.23.0.rc3 release
+candidate source archive.  Feedback would be appreciated.
 
---=20
-<http://www.alejandro-colomar.es/>
-GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
+https://alpha.gnu.org/gnu/groff/
 
---------------OXy60osCtQS1Hc8gEQgV3X11--
+Regards,
+Branden
 
---------------9c9e3DHUIvZg2RJ0KD0gHNa9
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+[1] For example, give the following input to "nroff | cat -n".
+
+--snip--
+.pl 10v
+.nf
+The page length is set to 10 vees.
+2
+3
+4
+5
+Asking for 6 vees of space now.
+.sp 6
+How many appeared?
+--end snip--
+
+[2] https://savannah.gnu.org/bugs/?57665
+    https://savannah.gnu.org/bugs/?49390
+
+--dyq2ludqvkigdbja
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQ0ai0ACgkQnowa+77/
-2zJbQQ/+PmsN1ibHE9Cu6xZTvqGgbhWGbzu2i6RSghqrGwuoy6LhVToHCi0l5W4Q
-lVmyHKY8e4P/RBnSArir0U1z4RIrCTrdPpAm5DPVFJGoQ8cZvTbuvbyEvykqaOMk
-HNW+izvBQppGUnBJzjm12sqW/KOau1FMYqK8Ifa6BCBePdAPKLt2eKlZ+2MXxJDz
-PmPPRvPuLg3mnVl5pB7FChSKUISz3SCUd1Si6T3lr196r99YBK41i2OhhrZpMwZQ
-kIsklEOR5G5x+MejvQ5dVemW6/0uBr3JgGgfr440dlAkHoCj71rO2YPlFOVzEwjh
-ka0ikn31sZVY0VBNF30L1MZBSQv6dSmS5LSmH3APRM1/yB5ztaT15OF/xF9b+lX+
-ob5kA+7CyRPSttKXeG9TB9pbKvJZ1vLAOTCLmhmZbv5g9oO6IhOoNC4ihbnvt9bk
-OgzT5jpwsbLV/2IwTxewjmBHjnyAOcRdmN2QTH85eosFTW8ke44SIg+CqhBjH9F0
-6yHqSpzpjGdNR3IOifapEqplW69lh4fnwXUm/iUWdjDAFNXCh3i8qc0N7Jp4Qrtw
-h2mTgEYsPiZfh0XFReuOgvpIUPactfprBAj9TNrDJF9lbt9Gac97zNfynBWNZ+8C
-eVPu9mLzwH+bKpoGxXA/gtziU/bn7TmpSKNPtKBoArk/EDDckoI=
-=EtVC
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmQ0cG0ACgkQ0Z6cfXEm
+bc6GzBAAoHfNAEVgnjzQeLaKpqgUvZ/RsZvuu5vdNmhPwv7aIKd/f1/Tdm77Dk5E
+ss2IGa+UIcdjAwD51d5nTqnaTXyg0c/YYU4rI3W9ofup7xFDusNdVYMi7siEwtnL
+ZJL5QDqHl0MzvUwYf4UywR9mHQveVbfnfMgBLdMpzb2m+QTT8PIXzMecpeTbyo3Q
+GSJAjf+egK6MVKT+vXsKIy0Mo4kr3DUva3o5zszUdKAsHk+n3fznZyY3Yi3P/5WR
+h0w8iaD5biw6QL/2mKB/NVV04mW1WbJvFIfIR3NJd6yXfUtGo0jo7IHReKX71FUj
+IZBm9DsRhDc9IZmC63Ud+G2qA5yvxFzt1lhj0lwwK7BXgOQjrxzEchcW2EkQVcbL
+/rHZj/a0VnuZ+CVXsjEMGct8+u+kYZORWLSBiUK677xVT4Rsdjw+rFrVooy4uEe3
+kHT4ZGfDDh6GEyUXOG0AIH675uZL+C6pHodhojhJMw/ERM+p+MORZR5dktjClOYE
+ay2paR9c8ZzP4txJJ8ze/P4DardFO2AEW69hdY6vf5WPttozne/YaVJpgOBD3qUc
+NszJ8kpp2Z1v/1xSfkgrOndQuIV2T82ckFvt7OUvNp91lwjDaKiobQTjy3TyIJTS
+jr9aAkAWzmVknOq4MyNg1wE88RzKibp50a4+vxqNZY96A97UOSk=
+=LS0b
 -----END PGP SIGNATURE-----
 
---------------9c9e3DHUIvZg2RJ0KD0gHNa9--
+--dyq2ludqvkigdbja--
