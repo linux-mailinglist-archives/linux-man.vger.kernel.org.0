@@ -2,153 +2,210 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id CE3DB6DCBD4
-	for <lists+linux-man@lfdr.de>; Mon, 10 Apr 2023 21:57:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DAC656DCBD5
+	for <lists+linux-man@lfdr.de>; Mon, 10 Apr 2023 21:57:50 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229693AbjDJT5P (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 10 Apr 2023 15:57:15 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39928 "EHLO
+        id S229618AbjDJT5t (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 10 Apr 2023 15:57:49 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40078 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229618AbjDJT5O (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 10 Apr 2023 15:57:14 -0400
-Received: from DM4PR02CU001.outbound.protection.outlook.com (mail-centralusazon11012008.outbound.protection.outlook.com [52.101.63.8])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B7C92E73
-        for <linux-man@vger.kernel.org>; Mon, 10 Apr 2023 12:57:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nERyc12MNC9GqZrP6VMIIjqCCvZxzKYw1QrdfhyFqWqCtzBCGCxHtlhJwZ90Qdh6EAB3FVFR4oLmIgMZUL6aIPMvM9YUQZHGdTQ9OMf3/YoXOmoC5bzpTXtarHGduoSEjoZftcb3FqRiWrcFlCKp05E1ke+I5yqO6mjgmfVZBWoRzCdUsacChJEnZYrpBkf6suMsfKzfwpNKakcyKkKr6Xczgg5cBq5OZF4UifSAuThjjeiptLEfJhmFrBl43Ju0ozFb/q/W2ajAvnKRPGAgXKQylZtY9KbKTjcFap2C8msajqTtWsN1zls+s2fWtlT34LXS4Akf1gcguN7o+7ll3g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jh0tn6hYwvkoPyG9bRYa8rDikfvSx4RFWvQgNkF5VYg=;
- b=e9R1k2zJMbxeNFH9kC+1Vk9KKkpdAhCwwCV5ttYRzvWEUS6O5Hv6r6BSHhs36yDb5PRSlFKqGcafdYYLgpasXbT1IUZ0D9H7A0Kzqp5An+3y/+6p/5EPRwF34RSgfPhnHmuq/Clne+SuVJrXu1feu7Xvc6g6238ABe+JDmdrAu1miUa/cbU81GU+EsRJ/6lIfQ7ROT25xJodKxXN9V9xUdQI73svLaMUaHwJ52KsUg7FF8g2hO83pFSnfDLZi2olWT2/F2JGClbmILbuhZ3WCdcv5KcBoBFQx4G2wwOfQ7yR48GKHgzfy2+SvfSBEGcbGOAYH4LrM8t74RENXV3snw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=vmware.com; dmarc=pass action=none header.from=vmware.com;
- dkim=pass header.d=vmware.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vmware.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jh0tn6hYwvkoPyG9bRYa8rDikfvSx4RFWvQgNkF5VYg=;
- b=dbL5fI02QZOsZwIHhZOGzQeoWImWkH9uYnyhbLiJnCukNQ1AIBh0dju4R0Oy4sHyGNOHh01hcDFaMV1Qmw8BZ9LpiRntzpcv7JHGbYQIp1AjXibOmiL+szojGsA4sUnp/zr5WznY2wkTVUyht4q1mlODdxFLMUfh4K8e6vOA3N4=
-Received: from BY3PR05MB8531.namprd05.prod.outlook.com (2603:10b6:a03:3ce::6)
- by CH0PR05MB10184.namprd05.prod.outlook.com (2603:10b6:610:184::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6277.36; Mon, 10 Apr
- 2023 19:57:11 +0000
-Received: from BY3PR05MB8531.namprd05.prod.outlook.com
- ([fe80::f1bc:4933:8701:7ff0]) by BY3PR05MB8531.namprd05.prod.outlook.com
- ([fe80::f1bc:4933:8701:7ff0%6]) with mapi id 15.20.6277.038; Mon, 10 Apr 2023
- 19:57:11 +0000
-From:   Nadav Amit <namit@vmware.com>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-CC:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
-        "Michael Kerrisk )" <mtk.manpages@gmail.com>,
-        Peter Xu <peterx@redhat.com>,
-        David Hildenbrand <david@redhat.com>
-Subject: Re: [PATCH 2/2] userfaultfd.2: fix userfaultfd_demo output
-Thread-Topic: [PATCH 2/2] userfaultfd.2: fix userfaultfd_demo output
-Thread-Index: AQHYMlPixrj1bjPEFE26v1rbqamWsK8j2P0AgAOPlAA=
-Date:   Mon, 10 Apr 2023 19:57:11 +0000
-Message-ID: <2C89D6DA-8B73-493F-95D7-456507D00EEE@vmware.com>
-References: <20220307184852.20351-1-namit@vmware.com>
- <20220307184852.20351-2-namit@vmware.com>
- <5bce07b9-d4b7-8cb4-273d-72c3867682ba@gmail.com>
-In-Reply-To: <5bce07b9-d4b7-8cb4-273d-72c3867682ba@gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-mailer: Apple Mail (2.3731.500.231)
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=vmware.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BY3PR05MB8531:EE_|CH0PR05MB10184:EE_
-x-ms-office365-filtering-correlation-id: 34130bff-0e7d-4dea-b075-08db39fdc5ca
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: AXto5DLIqXTPuxrnk4nbH2JeASSsv9SuFi7FkysGEPvjo7jf8soziHtg2JlVXhn2pbbJTzlGTSghhBGQwvofzIBX3RDCDZ1NQ6S2xxETv2kyEI0UBmTux/dxn5KDx71H2keRwDJ4qbEbyRgInME2C67BO9vBe/TYNgNp+r3XvNfjjj0tDTQsxaEEVSPQ2zNbcvrkEieqm9NKTSsbMAxVqr475JvFQHB24dZ1WbXJkXhO/YuXhywV+y0SWHJkpLXUe3v7B0jxHJJ8GCnAq6ccQ5duWfQ2LnHqNt0lNXruo/+Myoxer0PXCMT6xRYAbOwOnRZQhddOD1UtCZ/pi+Gge9cW0giVZoCl9JWV/TUAsgGr5HXX/RKO6+2d2oq92BMGWLtNYcP+IN1eS0sPge15JyxUQhi1F69eip0sEl1DUHdByfGgGIffqAGqnv3KmzJ6vRAn2EiFpsXfN9jo2G2CKh8wyu/Z6y/D6wgSCnPOScb22EBy6dGRrsaqBB0Fs3BGqSSoDPxjXGepGA0a6I+v/mmKgde/ZC2A90iAE/JMHEpzEpPSj8HGj1EzFXOWX1mUqY41ZjpactQwG48hWo+IcJudtHL8cN6Kda8qwlT2COPhxfBGxyVVmC7vlep0hkAeXkqD4rnbilZ9LpGRX6FUkbuwmAT43HYYwHJiDa/LhOmI/8dDP9XLKWxL1tSJKB6S
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BY3PR05MB8531.namprd05.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(346002)(136003)(376002)(366004)(39860400002)(396003)(451199021)(86362001)(36756003)(33656002)(6486002)(41300700001)(316002)(76116006)(6916009)(64756008)(478600001)(4326008)(66556008)(966005)(66446008)(66476007)(8676002)(66946007)(71200400001)(54906003)(5660300002)(2906002)(8936002)(38070700005)(38100700002)(122000001)(186003)(53546011)(6512007)(6506007)(26005)(2616005)(83380400001)(45980500001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?OUQyYzVtOFRHV1lIR1A1UWdlUHRIRFM0OVdjRGxEencyb1ZGN1JrOUFJcFBF?=
- =?utf-8?B?WnYyb2lJN0Q2UnNoZmwrVVFrNFVTZWwwMWFPWDZYVHlyUTAxQ2NxTjlWZVNn?=
- =?utf-8?B?TXl0UTdQbW1LUmFZMVpjdWdwRityQ0M1cmEzaHkyMUJ6MHpSTnRnZkJIdzl2?=
- =?utf-8?B?YlR3UVRVdnRDaVYxWjRsb2dEcUlPQkx3V1kvOXRDQS9mTURqWjBvMHpEei83?=
- =?utf-8?B?eWhmVDdPUzJNRW5QTWs3bnl4bzBOSVFIYmZjdU9hQjI0VTF6UlN6Zm9JK2dv?=
- =?utf-8?B?WUNyRVJHeDJRSUdSZ2Y0NUhaMkd3d24yNVBpcFNHZHg2WU1qL0VoVkNMZ2hL?=
- =?utf-8?B?NmNqNDlMOExUblNTZUdMUm5xWHF1dTEvVnB2ZUxXMTZ2SmdjUWVvdmk4MzNL?=
- =?utf-8?B?Tk01NDQ3ZmgvZjBhc0FHUDlBYlpXdlJBbWVOTVUzM01reVQzMUV5b1hlMWhw?=
- =?utf-8?B?R2ZQQjZFSmVHaHdiTEZiem1FRU5kYVFRUEc2bWlMdDZINk5UamtqQVRzRmpS?=
- =?utf-8?B?VFFWT25ScjhtdWpOZjZVK0Y5OWQ2UWp1MEdoaWZxYlVRNXUyb2xxa2VlbEV0?=
- =?utf-8?B?ejQwSThKdlNkYVRCWkNyTittblc1NU9yUDl2VHZ3ejBPYUVEU2dhV21WeGVN?=
- =?utf-8?B?eXQ0NDVyWm41TVE2UlY1Skt1ZkMyL253MFFacjRZQmMrcy9JUDFFRDhuS2w4?=
- =?utf-8?B?RWFSLytJQXZ4bFZsd1NOZG4xL05NdklDRUdoaGg4OHBPTlZrNFFTOGJCL1N2?=
- =?utf-8?B?Yko5TDN2YWJrbzR5djhKQ1c4aTZwNFA0c0lMckRHdmJkUENuVmRseEtYS2c1?=
- =?utf-8?B?OVlLYmdzZ2J4eVBCMmFUdVBHUzg5akhTaThFREVzV0s5Vk13SnBNYlJzSE5J?=
- =?utf-8?B?L0UwMDFhV2lEeXhVejFBV1lraGhBWHNIbWd4VlNYc1hDdFNWKzlBUHB1bGVt?=
- =?utf-8?B?M1NOQnZZTTUxRjJjWDJISHp4RStZT1RuUVhaV2JSK1lVTkFGVUVod2pLWFFG?=
- =?utf-8?B?bGNmellNVXlyZ1Vxc25BSi95b1VrSzlUd25uMTZ6Vy8wRGNnSGpUcVJZTzFY?=
- =?utf-8?B?QVBJVnFRRHhrdDNBQW9SaDk5anpHU0gvMW1lSk1nMnV2a0VvQ1IycE5UYnBX?=
- =?utf-8?B?NlVwYjgvTjRqQnJLbUt3eEFsZDYzTXNpenNqZTMzSGs3QnJrcUI3T0hkN1ZK?=
- =?utf-8?B?Rmk1SFl0YnVpTFdoS1ZVYUJMbFI2NVhiSjVxcmhGN0VSdXgxWXQ5V1F1dmJu?=
- =?utf-8?B?enJNMlh2MC95d1JLYm1kRmQvU3djSUtoQ0ZaVXQrL2U5Z21CNlQ1RGJWY3NG?=
- =?utf-8?B?ZWZvMkZuK1RNb3QyMHVkNUJrOWc3VVBJKzdJajhaVG1zUEViaWRTSHZaUVBu?=
- =?utf-8?B?OVl3Rkx2dUZnSFc2Q2JFbys3TWo1NCtnV242NEQwN2pHYjYyNkxXRk9wTmxJ?=
- =?utf-8?B?aVdLazJzVVFwVFBBSFVucmdTVnRmWWJtUHVIUDBuWmxQa20yc2FEUXdkaHgr?=
- =?utf-8?B?K3FPYlkrdXVFTER0VHZ3bUtKRFBNWU9BTW1YMEt4SytERWl3cmp3U2FsSUh6?=
- =?utf-8?B?Wjg4MXEvdXgzNW5jemozbzY2NFQ5cFl6MHlJdSt2NVVoSkY2dm1TYVh4Zlh6?=
- =?utf-8?B?aUhFdjlVMHlaZ2Vvc2pqVDFudzBZdFYvU1puOEJXKzhjSzZxOUc4ZW1WRkxZ?=
- =?utf-8?B?K05Hdk8yUUVnRm1lWXdKWWMzVXdVQjMxWTZYTGdtSElsYkFtbExDSnFhaFhh?=
- =?utf-8?B?NVBYTVA4OGtDQkJFMUgvM0w4V1NkaDdtQ1Qyek1hSEl6SzVlVXZjaEdGTEln?=
- =?utf-8?B?QlNGTDBmVkYrUWxNVTRXY3RnclZTSG4xMENoUkliRmpDUzg4THhBbEtrbHhL?=
- =?utf-8?B?SlJ0VFRSSmFubXU3MVd1MENFZnk2Z2FkMzdNcWFmSTVYaVJ4bk5HN3MrSE1r?=
- =?utf-8?B?dTk1bmRzVDZRZGZVM2ZHejlzd2hlbHBaTXB4RzdlNDlraVJTcmhKVnpubHJE?=
- =?utf-8?B?MkpYWlNnTDJqNU0xM1VIV1RrajFZRUYybW93K25pNDB0dWF6eTNnSU9ONEcw?=
- =?utf-8?B?ODhPU0Nwd0VpZ1RwR3Zrb3NPV2hBUlpBWXZmOVlHM2RDaGJ2UzFFSlBFVk9m?=
- =?utf-8?Q?aaCm8AseFmgln88VCUoQakNBA?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <64BEA8390FA96441ADAF14A7076C6B05@namprd05.prod.outlook.com>
-Content-Transfer-Encoding: base64
+        with ESMTP id S229593AbjDJT5t (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 10 Apr 2023 15:57:49 -0400
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com [IPv6:2a00:1450:4864:20::336])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 10EF91BF0
+        for <linux-man@vger.kernel.org>; Mon, 10 Apr 2023 12:57:48 -0700 (PDT)
+Received: by mail-wm1-x336.google.com with SMTP id he13so8362443wmb.2
+        for <linux-man@vger.kernel.org>; Mon, 10 Apr 2023 12:57:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112; t=1681156666; x=1683748666;
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=9V/NPI1nICdGLD6UY2MtY6rkJZprIX194fHZuRBmNtg=;
+        b=LIMUw/M8HRGp9lSVndWT4wbXyIObe9ASF+uvgxHCmA4NQD5YBbJt8i5PlHwbJJgAm6
+         laFyL+lwavPYP0EkFs23H8Z9LwfIBclRor490qxIqsG/mUi5LPIDncZe8ahf+p2GkD/K
+         nNb/eIJv/vuD/Vq8C+Xs4Nux88hUi+YjdlBr3wUBKgdJNKFELXjcAVpFROWTezGeeNpU
+         7qimpfROz187a1nK6owFxRYFjlbQM2Xu3KQLG5cKI7+MWmmsDzH6d7ylbnQ6V7/RT5kt
+         n43TO9P/IpWEdO+fjJdlYbxW+9AtJW9q+zcFWKbBeRBvv2zFcvRdPIe5cdo6HrmmDCpT
+         ZLNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1681156666; x=1683748666;
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=9V/NPI1nICdGLD6UY2MtY6rkJZprIX194fHZuRBmNtg=;
+        b=KeSCCdZSxSYULgyZWjyFNw5jtXaRhOFs+X85RvhnhAIkAE3n5fkJnyYP2LBEvGzYpC
+         dpUGAtYHoAdw3Wpk5z+nBofGG4gBpgDlddWfxGEBvWMaEASPFa/VKsVnZLcM5Lz7tF7u
+         N0w7HG38w/2qhyKjt5ij1OybCEJChf4QiZcz6JJkrcq5udLDkFkTv7wHT0YVjgWCnzvx
+         XA/+x3bZS6KYnoXqq0d9gxh9f0HvIEFZKuMAZb2G46EOWdebtvgZN5sZdqtryjTqqscl
+         5Uk1lj4FKCG88xRpQSZq6TMVF4WNjgzn0rMsqeU9ev28isUW5jF5aZO3/jZKzarkAAcD
+         keow==
+X-Gm-Message-State: AAQBX9esy+UVM3WL9FfKccvwFXtmc/F9IivW31BvwTojIJROOH+f7/pj
+        YLXLescc9nRGZHNWGVs9qaI=
+X-Google-Smtp-Source: AKy350ZJFtzK+JILjBbXRlMr5ivMQh855DG16g8GqBUVx8rcciXU2pI3FC1UZ6czOcysEHcmc8vKPw==
+X-Received: by 2002:a1c:4b16:0:b0:3f0:7ddf:d8d8 with SMTP id y22-20020a1c4b16000000b003f07ddfd8d8mr6710428wma.18.1681156666409;
+        Mon, 10 Apr 2023 12:57:46 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.51.134])
+        by smtp.gmail.com with ESMTPSA id k22-20020a7bc416000000b003f04f0c5a6fsm14772857wmi.26.2023.04.10.12.57.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 10 Apr 2023 12:57:46 -0700 (PDT)
+Message-ID: <aedb1698-dc6e-a4db-798a-da6e4ef89207@gmail.com>
+Date:   Mon, 10 Apr 2023 21:57:33 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: vmware.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BY3PR05MB8531.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 34130bff-0e7d-4dea-b075-08db39fdc5ca
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Apr 2023 19:57:11.0798
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b39138ca-3cee-4b4a-a4d6-cd83d9dd62f0
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: es8JU1HIvM470uhJMCqJopYwt8yzdzzpkZh8pDq7jeeYgIqPLWVW1L8TIyLoa19aqysCwwH53Nu3stCUEABtIg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR05MB10184
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
-        SPF_HELO_NONE,SPF_NONE autolearn=unavailable autolearn_force=no
-        version=3.4.6
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.1
+Subject: Re: reformatting man pages at SIGWINCH
+Content-Language: en-US
+To:     Dirk Gouders <dirk@gouders.net>
+Cc:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        Eli Zaretskii <eliz@gnu.org>, linux-man@vger.kernel.org,
+        help-texinfo@gnu.org, groff <groff@gnu.org>
+References: <ghileoo9dk.fsf@gouders.net> <ghbkkgo8x8.fsf@gouders.net>
+ <073413e2-7d35-f0d7-26eb-f66908d7af6a@gmail.com> <834jpuuc1a.fsf@gnu.org>
+ <6ea6d1fe-375f-487a-b524-adc86880d3de@gmail.com>
+ <20230407021822.3grfnenicwjhdive@illithid>
+ <c704777c-bd1b-08d7-df63-7570d69b709e@gmail.com> <ghwn2nl4yn.fsf@gouders.net>
+ <3f802d85-99a2-a9b9-ec5f-9e3067fdfc61@gmail.com> <ghsfd7k16z.fsf@gouders.net>
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <ghsfd7k16z.fsf@gouders.net>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------9c9e3DHUIvZg2RJ0KD0gHNa9"
+X-Spam-Status: No, score=-3.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+        DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-DQo+IE9uIEFwciA4LCAyMDIzLCBhdCA2OjM0IEFNLCBBbGVqYW5kcm8gQ29sb21hciA8YWx4Lm1h
-bnBhZ2VzQGdtYWlsLmNvbT4gd3JvdGU6DQo+IA0KPiBIaSBOYWRhdiwNCj4gDQo+IE9uIDMvNy8y
-MiAxOTo0OCwgTmFkYXYgQW1pdCB3cm90ZToNCj4+IEZyb206IE5hZGF2IEFtaXQgPG5hbWl0QHZt
-d2FyZS5jb20+DQo+PiANCj4+IEEgYnVnIGluIHRoZSBrZXJuZWwgY2F1c2VkIGluIHJlY2VudCB2
-ZXJzaW9uIGEgZGlmZmVyZW50IG91dHB1dCAobWFza2VkDQo+PiBvZmZzZXQpLiBVcGRhdGUgdGhl
-IG91dHB1dCBvZiB0aGUgZGVtbyBwcm9ncmFtIGFjY29yZGluZ2x5Lg0KPiANCj4gSSdkIGxpa2Ug
-dG8gaGF2ZSBzb21lIG1vcmUgaW5mb3JtYXRpb24gYWJvdXQgdGhpcyBpbiB0aGUgY29tbWl0IG1l
-c3NhZ2UuDQo+IEkgZG9uJ3QgcmVhbGx5IHVuZGVyc3RhbmQgaXQuICBXaGVuIHdhcyB0aGUgYnVn
-IGludHJvZHVjZWQ/ICBXaGVuIHdhcyBpdA0KPiBmaXhlZD8gIFdhcyB0aGUgZXhhbXBsZSBpbiB0
-aGUgcGFnZSBjcmVhdGVkIGluIGEgYnVnZ3kgdmVyc2lvbj8NCg0KSGkgQWxleCwNCg0KU29ycnkg
-Zm9yIHRoZSBsYXRlIHJlc3BvbnNlLg0KDQpUaGUgYnVnIHdhcyBpbnRyb2R1Y2VkIGluIDFhMjlk
-ODVlYjBmMSAoIm1tOiB1c2Ugdm1mLT5hZGRyZXNzIGluc3RlYWQgb2Ygb2YNCnZtZi0+dmlydHVh
-bF9hZGRyZXNz4oCdKSB3aGljaCBpcyBjaXJjYSAyMDE2LiBJdCB3YXMgaW50cm9kdWNlZCBzaG9y
-dGx5IGFmdGVyDQp1c2VyZmF1bHRmZCwgc28gaXQgd2FzIGRldGVybWluZWQgdGhhdCBubyB1c2Vy
-cyBhcmUgbGlrZWx5IHRvIHJlbHkgb24gdGhlDQppbnRlbmRlZCBjb3JyZWN0IGJlaGF2aW9yIHRo
-YXQgd2FzIGRvY3VtZW50ZWQgaW4gdGhlIG1hbiBwYWdlLCBidXQgdGhlcmUNCm1pZ2h0IGJlIHVz
-ZXJzIHdobyByZWxpZWQgb24gdGhlIHdyb25nIGJlaGF2aW9yLCB3aGljaCB3YXMgaW4gdGhlIGNv
-ZGUNCmZvciBzZXZlcmFsIHllYXJzLg0KDQpNb3JlIGluZm9ybWF0aW9uIGlzIGF2YWlsYWJsZSBp
-biB0aGUgcGF0Y2ggb2YgdGhlIGZpeDoNCg0KaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvYWxsLzIw
-MjIwMjI2MDIyNjU1LjM1MDU2Mi0xLW5hbWl0QHZtd2FyZS5jb20vDQoNCkxldCBtZSBrbm93IGlm
-IGl0IGFuc3dlcnMgeW91IHF1ZXN0aW9ucywgYW5kIHdoZXRoZXIgeW91IHdhbnQgbWUgdG8gc2Vu
-ZA0KYW4gdXBkYXRlZCBwYXRjaCBmb3IgdGhlIG1hbiBwYWdlLg0KDQo=
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------9c9e3DHUIvZg2RJ0KD0gHNa9
+Content-Type: multipart/mixed; boundary="------------OXy60osCtQS1Hc8gEQgV3X11";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: Dirk Gouders <dirk@gouders.net>
+Cc: "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+ Eli Zaretskii <eliz@gnu.org>, linux-man@vger.kernel.org,
+ help-texinfo@gnu.org, groff <groff@gnu.org>
+Message-ID: <aedb1698-dc6e-a4db-798a-da6e4ef89207@gmail.com>
+Subject: Re: reformatting man pages at SIGWINCH
+References: <ghileoo9dk.fsf@gouders.net> <ghbkkgo8x8.fsf@gouders.net>
+ <073413e2-7d35-f0d7-26eb-f66908d7af6a@gmail.com> <834jpuuc1a.fsf@gnu.org>
+ <6ea6d1fe-375f-487a-b524-adc86880d3de@gmail.com>
+ <20230407021822.3grfnenicwjhdive@illithid>
+ <c704777c-bd1b-08d7-df63-7570d69b709e@gmail.com> <ghwn2nl4yn.fsf@gouders.net>
+ <3f802d85-99a2-a9b9-ec5f-9e3067fdfc61@gmail.com> <ghsfd7k16z.fsf@gouders.net>
+In-Reply-To: <ghsfd7k16z.fsf@gouders.net>
+
+--------------OXy60osCtQS1Hc8gEQgV3X11
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+Hi Dirk,
+
+On 4/10/23 21:05, Dirk Gouders wrote:
+>> For something simpler, you could just count words since the start of t=
+he
+>> section divided by total words in the section.  That should be fast, a=
+nd
+>> I expect, also quite precise.  Hyphenating might work against you on
+>> this, but on average it shouldn't move you too much.
+>=20
+> very pragmatic -- very effective, thanks for that suggestion.  I
+> started with implementing a simpler version of that (no counting of all=
+
+> words in the section):
+>=20
+> - Backwards count words until we reach an empty line, the section
+>   header or the beginning of the document
+>=20
+>         Stop if it was the section header or beginning of the document
+>=20
+>         Continue and just count empty lines until we reach the
+>         section header or the beginning of the document
+
+Hmmmm, good idea.
+
+$ man gcc 2>/dev/null | grep "^$" | wc -l
+5462
+$ man gcc 2>/dev/null | grep "^$" | wc -l
+5462
+$ man gcc 2>/dev/null | grep "^$" | wc -l
+5464
+
+$ man tzset 2>/dev/null | grep "^$" | wc -l
+41
+$ man tzset 2>/dev/null | grep "^$" | wc -l
+41
+$ man tzset 2>/dev/null | grep "^$" | wc -l
+41
+
+$ man bash 2>/dev/null | grep "^$" | wc -l
+657
+$ man bash 2>/dev/null | grep "^$" | wc -l
+657
+$ man bash 2>/dev/null | grep "^$" | wc -l
+658
+
+
+Of course there were important resizes between those invocations.=20
+
+>=20
+> This relies on the assumption that horizontal resizes don't create or
+> delete emty lines and it still has the weakness that manual pages
+> (e.g. bash(1)) contain large areas without empty lines but it's
+> definitely better than just staying at the position as it was before.
+
+=20
+That should give you a quite precise idea of where you were.
+
+>=20
+> If it turns out to still be too weak, I could count all words between
+> two empty lines and set that in relation to the words from the
+> preceeding empty line.
+>=20
+> But perhaps, I now learn that empty lines are by no means that constant=
+
+> value that I assume...
+
+They seem to be constant.  Only with the shortest terminal size I can
+have, that number changes, and only by one or two per entire page.
+
+>=20
+> Dirk
+
+Cheers,
+Alex
+
+--=20
+<http://www.alejandro-colomar.es/>
+GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
+
+--------------OXy60osCtQS1Hc8gEQgV3X11--
+
+--------------9c9e3DHUIvZg2RJ0KD0gHNa9
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQ0ai0ACgkQnowa+77/
+2zJbQQ/+PmsN1ibHE9Cu6xZTvqGgbhWGbzu2i6RSghqrGwuoy6LhVToHCi0l5W4Q
+lVmyHKY8e4P/RBnSArir0U1z4RIrCTrdPpAm5DPVFJGoQ8cZvTbuvbyEvykqaOMk
+HNW+izvBQppGUnBJzjm12sqW/KOau1FMYqK8Ifa6BCBePdAPKLt2eKlZ+2MXxJDz
+PmPPRvPuLg3mnVl5pB7FChSKUISz3SCUd1Si6T3lr196r99YBK41i2OhhrZpMwZQ
+kIsklEOR5G5x+MejvQ5dVemW6/0uBr3JgGgfr440dlAkHoCj71rO2YPlFOVzEwjh
+ka0ikn31sZVY0VBNF30L1MZBSQv6dSmS5LSmH3APRM1/yB5ztaT15OF/xF9b+lX+
+ob5kA+7CyRPSttKXeG9TB9pbKvJZ1vLAOTCLmhmZbv5g9oO6IhOoNC4ihbnvt9bk
+OgzT5jpwsbLV/2IwTxewjmBHjnyAOcRdmN2QTH85eosFTW8ke44SIg+CqhBjH9F0
+6yHqSpzpjGdNR3IOifapEqplW69lh4fnwXUm/iUWdjDAFNXCh3i8qc0N7Jp4Qrtw
+h2mTgEYsPiZfh0XFReuOgvpIUPactfprBAj9TNrDJF9lbt9Gac97zNfynBWNZ+8C
+eVPu9mLzwH+bKpoGxXA/gtziU/bn7TmpSKNPtKBoArk/EDDckoI=
+=EtVC
+-----END PGP SIGNATURE-----
+
+--------------9c9e3DHUIvZg2RJ0KD0gHNa9--
