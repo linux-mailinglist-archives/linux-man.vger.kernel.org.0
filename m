@@ -2,158 +2,188 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 457F16DD70A
-	for <lists+linux-man@lfdr.de>; Tue, 11 Apr 2023 11:40:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 36F056DDDA2
+	for <lists+linux-man@lfdr.de>; Tue, 11 Apr 2023 16:22:28 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229953AbjDKJkM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 11 Apr 2023 05:40:12 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35972 "EHLO
+        id S229911AbjDKOW0 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 11 Apr 2023 10:22:26 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58180 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230373AbjDKJjx (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 11 Apr 2023 05:39:53 -0400
-Received: from mx10.gouders.net (mx10.gouders.net [202.61.206.94])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 36D7940F6
-        for <linux-man@vger.kernel.org>; Tue, 11 Apr 2023 02:39:25 -0700 (PDT)
-Received: from localhost (ip-109-40-241-98.web.vodafone.de [109.40.241.98])
-        (authenticated bits=0)
-        by mx10.gouders.net (8.17.1.9/8.16.1) with ESMTPSA id 33B9dGmw001622
-        (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
-        Tue, 11 Apr 2023 11:39:16 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gouders.net; s=gnet;
-        t=1681205957; bh=0xiU1eRzohm/kAfzRtFtIKdcSPnNgxVWTBUKRbOl/Zk=;
-        h=From:To:Cc:Subject:In-Reply-To:References:Date;
-        b=o5RhcpgM+FgeDA6wflCwG2Ozl3YMI0CYpN1Ov4cZwGRkKeLtRO49i2ngzenvYE0Zw
-         mM9KKjOjgV9wncKjAIVbNA7jk34w2WKCz9s4Oz7SHFXyYllzXpALTDHd/A7/6bYQpr
-         T7jmtZQ4j2zu+n9c/PDoWUuRKrrj70dhCIXh9raQ=
-From:   Dirk Gouders <dirk@gouders.net>
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        Eli Zaretskii <eliz@gnu.org>, linux-man@vger.kernel.org,
-        help-texinfo@gnu.org, groff <groff@gnu.org>
-Subject: Re: reformatting man pages at SIGWINCH
-In-Reply-To: <20230410202422.s4xdqcdxzsgdge7v@illithid> (G. Branden Robinson's
-        message of "Mon, 10 Apr 2023 15:24:22 -0500")
-References: <ghileoo9dk.fsf@gouders.net> <ghbkkgo8x8.fsf@gouders.net>
-        <073413e2-7d35-f0d7-26eb-f66908d7af6a@gmail.com>
-        <834jpuuc1a.fsf@gnu.org>
-        <6ea6d1fe-375f-487a-b524-adc86880d3de@gmail.com>
-        <20230407021822.3grfnenicwjhdive@illithid>
-        <c704777c-bd1b-08d7-df63-7570d69b709e@gmail.com>
-        <ghwn2nl4yn.fsf@gouders.net>
-        <3f802d85-99a2-a9b9-ec5f-9e3067fdfc61@gmail.com>
-        <ghsfd7k16z.fsf@gouders.net>
-        <20230410202422.s4xdqcdxzsgdge7v@illithid>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/28.2 (gnu/linux)
-Date:   Tue, 11 Apr 2023 11:39:11 +0200
-Message-ID: <ghfs96kbb4.fsf@gouders.net>
+        with ESMTP id S229977AbjDKOWY (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 11 Apr 2023 10:22:24 -0400
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com [IPv6:2a00:1450:4864:20::42f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 004EA120
+        for <linux-man@vger.kernel.org>; Tue, 11 Apr 2023 07:22:21 -0700 (PDT)
+Received: by mail-wr1-x42f.google.com with SMTP id e22so7655728wra.6
+        for <linux-man@vger.kernel.org>; Tue, 11 Apr 2023 07:22:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112; t=1681222940; x=1683814940;
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=wlebWDj5ha+KhN2WCmCioY1oryXBQd05w7XV0I370p0=;
+        b=muXPs6oxV7HqQpfaMDvGPvQlxhVtONnn2s8vEQ8pmPNwLgvyCMP02JtfLH44eD4bRy
+         Im6uF6Qq0mQWS46QEqGBhjZ+h/K8Z3rjIMUTW4Bn9rnebupPAqmnjI30IrtapO9/3Bkt
+         e+zt+rgCBdnbCBq9o6l/iW6sAylPdvIIWbN2+UPeGk5iHYKpjZBXdmrN/9Dv1Ndy8LQY
+         fSuTVYXYBbCO72ysp+8On0K8Oey+5iVd7ccAOHUjDbFk8Kw1VjGGOP0wi7yuWiYRTgyS
+         dwpZu6dKNXp/4fu9hWUcgylP8P7EKmCpfOtzfXeIkTkVFN+yeV+9Xz662W6pY4haVZnN
+         St9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1681222940; x=1683814940;
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=wlebWDj5ha+KhN2WCmCioY1oryXBQd05w7XV0I370p0=;
+        b=XeZwLHeBayCJk/OF4jEYWOkCzWMAv84faKEJFHr+0k5UOduX0veehFF0oBfDOYGGrn
+         COtBAvxi5dArH6clYpB++KPQliiRXWVlLCFRkLKhS1o9Ut44r8Bl0qSavvNVyJbz9HPh
+         wzdqgsvmEQ25YZoU/mgFDCW4MVejy1QMptQh0G7X/Wz+DixkU/P6fdb7su7VmeihHqI5
+         T4UFvUGHAEluinyr10f3a5/TwJlGVemDOIVR7Uh/VPvf5Cb5qs15mAo+IJXbfq2X26dg
+         dVtxont34oJ96KfajeBENFB+HAwZPk1A2DrtuUqQu5AyAeNVFgFTa9FZteHA0pYXQTqK
+         vvQg==
+X-Gm-Message-State: AAQBX9em3B9QnLo9rjmIKWM0F/caG53pmLig1FQxnaVJ3MzTWRlE5YJR
+        JgCx6vmjp4V/gGRRW2GHM0Y=
+X-Google-Smtp-Source: AKy350bJzMvorIFMF9n9Z+Q1ClBwdpVIw3To95Q3pYQLo5cYaq9Hyk2zgPZaLJsEdoYZ9dkK0F9yLg==
+X-Received: by 2002:a5d:514a:0:b0:2c9:1a3f:d5f8 with SMTP id u10-20020a5d514a000000b002c91a3fd5f8mr6589462wrt.41.1681222940159;
+        Tue, 11 Apr 2023 07:22:20 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.51.134])
+        by smtp.gmail.com with ESMTPSA id c3-20020adffb43000000b002de99432fc8sm14685418wrs.49.2023.04.11.07.22.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 11 Apr 2023 07:22:19 -0700 (PDT)
+Message-ID: <5aac8abb-9c56-e483-2cfa-9cb2615cd738@gmail.com>
+Date:   Tue, 11 Apr 2023 16:22:09 +0200
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-        DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
-        autolearn=unavailable autolearn_force=no version=3.4.6
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.1
+Subject: Re: [PATCH] fts.3: note fts_open() behaviour with empty strings
+Content-Language: en-US
+To:     =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Cc:     linux-man@vger.kernel.org
+References: <5pllbtzrjd5qpzjirtmritpk3it4whf43fnigbv3vqfkgwov2u@xk5dulph2uzk>
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <5pllbtzrjd5qpzjirtmritpk3it4whf43fnigbv3vqfkgwov2u@xk5dulph2uzk>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------WSqcp717CFl2rx7IJkOoicxt"
+X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+        DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Branden,
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------WSqcp717CFl2rx7IJkOoicxt
+Content-Type: multipart/mixed; boundary="------------WEsPNnhXR6QViL0UH55ADO7S";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Cc: linux-man@vger.kernel.org
+Message-ID: <5aac8abb-9c56-e483-2cfa-9cb2615cd738@gmail.com>
+Subject: Re: [PATCH] fts.3: note fts_open() behaviour with empty strings
+References: <5pllbtzrjd5qpzjirtmritpk3it4whf43fnigbv3vqfkgwov2u@xk5dulph2uzk>
+In-Reply-To: <5pllbtzrjd5qpzjirtmritpk3it4whf43fnigbv3vqfkgwov2u@xk5dulph2uzk>
 
-"G. Branden Robinson" <g.branden.robinson@gmail.com> writes:
+--------------WEsPNnhXR6QViL0UH55ADO7S
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-> At 2023-04-10T21:05:24+0200, Dirk Gouders wrote:
->> This relies on the assumption that horizontal resizes don't create or
->> delete emty lines and it still has the weakness that manual pages
->> (e.g. bash(1)) contain large areas without empty lines but it's
->> definitely better than just staying at the position as it was before.
->
-> I think this assumption should hold for man and mdoc documents rendered
-> by a *roff--I'm not sure about mandoc(1), but it probably will for
-> reasons I'll elaborate below.
->
-> Vertical space in *roff documents might get reduced at page breaks, but
-> not to zero, except at page breaks.
->
-> There are a few reasons that I think reinforce the assumption holding:
->
-> 1.  man(7) and mdoc(7) don't offer macros for just sticking an arbitrary
-> amount of vertical space into a document.  If you want that, you'll need
-> to go down to formatter requests, which is seldom done by human man page
-> authors, but a bit more frequently by automated generators of man(7) or
-> mdoc(7) from other formats.
->
-> 2.  Even in traditional *roff, if you issued an ".sp 6" request
-> (demanding 6 blank lines), then if you were within 6 lines of a "trap"
-> (usually a page footer trap or the actual bottom of the page), the
-> result would be that you'd get blank lines until the trap sprung, and
-> any excess would be thrown away.  So if there were only 4 lines of
-> distance to the page footer, the leftover two would be discarded and
-> _not_ appear after the header of the next page.[1]
->
-> 3.  mandoc(1) and groff's man(7) and mdoc(7) macro packages both
-> implement "continuous rendering" for terminal output.  This means that
-> they contrive to arrange for an effectively infinite page length, so
-> there are no page breaks.  (Except when you render multiple man pages at
-> a time, a use case groff 1.23.0 will support.) Since pager programs are
-> applicable only to terminal output in the first place, this should
-> address your use case.  (You _can_ turn off continuous rendering in
-> groff, and see man pages as they would have formatted for Western
-> Electric Teletype machines, which printed to long spools of paper with
-> 66 lines to the nominal page.)
->
-> 4.  A habit has grown up among man(1) programs and pagers to call for
-> and support, respectively, a "blank line squeezing" feature: any runs of
-> more than one blank line are condensed to 1 blank line each.  In groff
-> 1.23.0, this will no longer be necessary when continuously rendering.
-> (Historically, this squeezing feature was used to "tighten up" vertical
-> space after the page header, prior to the "NAME" section heading of the
-> document.)  In my opinion, pager programs should perform as few
-> transformations as possible on the output of grotty(1), the groff output
-> driver that supports terminal devices.  The long-time author and
-> maintainer of less(1) does not agree, so you have to call that program
-> with its "-R" flag to view grotty(1) output as groff intends it.  (To
-> see what those intentions are, format the document without paging it.)
+Hi!
 
-Thank you for the detailled assessment.  Perhaps my misunderstanding is
-because I'm not a native speaker but which document should I format to
-see what those intentions are?
+On 4/11/23 04:21, =D0=BD=D0=B0=D0=B1 wrote:
+> This is undocumented in BSD, too, and present in the original SCCS
+> check-in (5.1 (Berkeley) 12/30/89).
+>=20
+> This is very surprising, since in most other cases FTS is rather quite
+> sane about error reporting, but /any/ empty string in the input vector
+> blows out the creation entirely.
+>=20
+> Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.=
+xyz>
 
->> If it turns out to still be too weak, I could count all words between
->> two empty lines and set that in relation to the words from the
->> preceeding empty line.
->
-> You might do this only as a fallback, if there were no blank lines on
-> the screen at the old window size when the resizing event happened.
+Applied, with some editorialization:
 
-Yes, such a fallback would be good to have.  I am again about to
-implement a suggestion with some modifications: I would make using the
-section-word-count (which is expensive) dependent on _how many_ words I
-found while searching for an empty line or the section header.  My
-motivation for this is that an increasing number of continuous words
-also increases the possibility for hyphenation working against the
-heuristics.  Saying that, I probably also need to consider the number of
-lines that contain those words.  I have to think more about this.
 
->> But perhaps, I now learn that empty lines are by no means that
->> constant value that I assume...
->
-> In my opinion, the presence or absence of a single blank line in
-> formatted output is important.  groff 1.23.0 will feature some bug fixes
-> with respect to their handling within and adjacent to tbl(1) input.[2]
->
-> Since I flogged groff 1.23.0 three times in this email, I suppose I
-> should point people to where they can get the 1.23.0.rc3 release
-> candidate source archive.  Feedback would be appreciated.
+@@ -722,6 +722,17 @@ .SH ERRORS
+ and
+ .BR malloc (3).
+ .PP
++In addition,
++.BR fts_open ()
++may fail and set
++.I errno
++as follows:
++.TP
++.B ENOENT
++Any element of
++.I path_argv
++was an empty string.
++.PP
+ The function
+ .BR fts_close ()
+ may fail and set
 
-Oh well, I didn't measure it but I spent quite some time to work on
-doc/lsp-help.1 and try to find a solution for that "nasty empty line"
-that appeared in of the tables that I use for the online help -- I was
-convinced it was my fault.
 
-Gentoo already has an ebuild for groff-1.23.0-rc3 and simply using this
-fixes that problem in the table.  So, from now on all my testing happens
-with groff-1.23.0-rc3 and I will report should I recognize problems.
+Btw, while you're at it, could you confirm if the nullability (_Nullable)=
 
-Regards,
+of the documented funtion prototypes is correct?  I never used those
+functions.
 
-Dirk
+Cheers,
+Alex
+
+> ---
+>  man3/fts.3 | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+>=20
+> diff --git a/man3/fts.3 b/man3/fts.3
+> index 66b2fcab3..392f8acfe 100644
+> --- a/man3/fts.3
+> +++ b/man3/fts.3
+> @@ -722,6 +722,14 @@ for any of the errors specified for
+>  and
+>  .BR malloc (3).
+>  .PP
+> +It will also fail and set
+> +.I errno
+> +to
+> +.B ENOENT
+> +if any element of
+> +.I path_argv
+> +is an empty string.
+> +.PP
+>  The function
+>  .BR fts_close ()
+>  may fail and set
+
+--=20
+<http://www.alejandro-colomar.es/>
+GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
+
+--------------WEsPNnhXR6QViL0UH55ADO7S--
+
+--------------WSqcp717CFl2rx7IJkOoicxt
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQ1bREACgkQnowa+77/
+2zKfhxAAjV40tSo8vboMjaTXDt6v4XqehfEBZonqrafd8ypU5K0J0ZAf1nDkBqAp
+U7hmuODh0EFfwmHfaYqAhLa04D9XNCF7gz2RhNCMRZfG0RJsv3/y1iwRgEqQFRn0
+SlmaYT42WXPwkod3E9lvBz8Npg4WQozmVT5u688nN7Ib3BtNjeE8admAkMzJAV3u
+QTnzFMLlxKqmUr8Z4MZls5pkwek0Yo28Fpg9uqT2Obma7ZJ14JCeGrudfdiCXPvS
+FcxV0vAMWOfjPC5wsLC1idb84dsGWenLtdc+fTxxADrZhSrstR0p3+tthE+gqmle
+h8LezmR9COZ6JBh/r+69dZcCvsIAHO0erIVt6XeuWCLyHDr5clXjTd8MdmKiPMfG
+4gu7jU4ytrsXmsbAn7bdwJqE3EYt+0SaXhtEYJ2yVBa1sKqYdbVk+U0mi4AqxrgX
+KnCjZ7F/b/F5iSF5KNBSGqKRHg0gw51rjSjzCGVfTf4PXcq3+xsGo34eH77wnlZR
+O/KSkbQIvdY1+8+ZbcAAlOBDBLEvUWJAVclXmy+CZxdL1Hdtlbf4UYKYG4wopDTE
+wW6kl7GwQy4EVLIlIt1xrEQ0LoQmyzi+qAK1z3dv42NQfag/VP2CETDczQ6KvlUd
+xT3aeLm7nZJjcCfS3EwQ5lXG6Y7lS9jn5KPDyva7ThTd36F5+Vk=
+=AAFv
+-----END PGP SIGNATURE-----
+
+--------------WSqcp717CFl2rx7IJkOoicxt--
