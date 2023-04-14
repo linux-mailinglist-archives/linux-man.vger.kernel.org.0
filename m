@@ -2,69 +2,69 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id C7B0C6E2A74
-	for <lists+linux-man@lfdr.de>; Fri, 14 Apr 2023 21:09:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 223DA6E2AC9
+	for <lists+linux-man@lfdr.de>; Fri, 14 Apr 2023 21:53:39 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229894AbjDNTJb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 14 Apr 2023 15:09:31 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43896 "EHLO
+        id S229749AbjDNTxh (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 14 Apr 2023 15:53:37 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54692 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229628AbjDNTJa (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 14 Apr 2023 15:09:30 -0400
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com [IPv6:2a00:1450:4864:20::42f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4BB0C106;
-        Fri, 14 Apr 2023 12:09:27 -0700 (PDT)
-Received: by mail-wr1-x42f.google.com with SMTP id q6so7077030wrc.3;
-        Fri, 14 Apr 2023 12:09:27 -0700 (PDT)
+        with ESMTP id S229497AbjDNTxg (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 14 Apr 2023 15:53:36 -0400
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com [IPv6:2a00:1450:4864:20::32c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A67B64C39;
+        Fri, 14 Apr 2023 12:53:32 -0700 (PDT)
+Received: by mail-wm1-x32c.google.com with SMTP id gw13so10936279wmb.3;
+        Fri, 14 Apr 2023 12:53:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1681499366; x=1684091366;
+        d=gmail.com; s=20221208; t=1681502011; x=1684094011;
         h=in-reply-to:from:references:cc:to:content-language:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=TPaSN8j8Tte71Ibw03Nwg/bJ1T4n2RtGqmHptCINpCY=;
-        b=Lee8XBlhNOgenRYbV5pnEfYUOxdSh+TcNIdnGk/thc9GLfS0DjUmICve6XnDMJkNjJ
-         H2P7z02gQck9dGOA0ADzK2yn0mJwbdnlBZ98rkx85ZGKL4oTeBhOVDRDq7ug6XAcMp4o
-         KCBwnnvrwWqBstwGam8lTzoyZ5KKsX0grJc4vMs/11Z31Y6aa0dYF99IE6r1FWdwV5lO
-         f1O9ANjFnNlCXs2hrBH5ICynEaXXOdSm8eA2ZsAC9hVm9MX4y1wnaljgqdFh0iVEzUVj
-         8D8vb80Egpmwl2CksYkEPxgVp+qJz8Dloob5RPYGakU5P9tdKtayzn2hgQYtL9kNmxl4
-         cvMA==
+        bh=UWXPfkHIdx+FJmYAkBJsOZzbgSV6XnN2u5PkiZkzUTY=;
+        b=GVjmlEq1EFjEhIe8MWj2JF2T06yXmfN5xb4iMUPHiUnyrEhZNpO0og0QRMGEvKGuAd
+         zg3EUgDxWnI8VeRpaDglKDKXx/RFlf2mGlOhXL6akgRH7MaqqOYwwR3+0BZ4ruNfkGAq
+         nVp4h5ZIpM2k4Jx3NLcmM9870A9azbI8V2Tlop5i4t8LXPxOcyB5CzNyjM7T80IG2Aht
+         /P7sJG6hZPy/C1ZswqsbEyLQxBI3PFRrzX+S6Bf+EPxf9qHp0PkUTzS+rSQw7xVRULdK
+         GMObQgDdublXU1HQqSAlgUKzOhOm+mvAcpROqfadJhkE9kKwYR1tGxQGmpgJRFdCXSV+
+         LtMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1681499366; x=1684091366;
+        d=1e100.net; s=20221208; t=1681502011; x=1684094011;
         h=in-reply-to:from:references:cc:to:content-language:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=TPaSN8j8Tte71Ibw03Nwg/bJ1T4n2RtGqmHptCINpCY=;
-        b=RXlnHTqZIgBe0xFZ7XmOkya4xlPoDVuRJ/t4PewF+HIr9JZ0eobC4JJS5M6fNUZ4kc
-         WsiHaIV9bxUv43KSG5P+DKhTTEc7UXBBLXQsnTuDbUvVdRw+rYbOIhZvEVbE48GxdANj
-         e8PL5xqCLivlLJEH2qF0+StAWWvrLbKx5fKLqzQ/J4fSSXliodPNhmosr3i615hUM3vG
-         xVtWJJDbxcnsHSG5sTlw59TYwyqAI7+nwSWPh+VRLciqF6wXMyyAHZojzhVuqgeAymCf
-         HDcW+4mEb+PE8hVoEtKeWGl+Hz2qswrQatGtLWaEvDuxRSOqjttbVQ+erLJmKLjscx5U
-         vOjw==
-X-Gm-Message-State: AAQBX9fFlLoDwxvcY1GU1wldU8YgpLel5Xcz5D5K9MfCGhbQM+qnW59M
-        M+81NkgEfGJFKA8dhc+LY7IWVghz3tI=
-X-Google-Smtp-Source: AKy350ZmGftd9sN063rKsCG6oMEAwCkuRIEO/k/UXVnLyJq21Zg/RrLpvxmSN1cjWt3VLwiC/2FVAw==
-X-Received: by 2002:a5d:570c:0:b0:2f2:7adf:3c67 with SMTP id a12-20020a5d570c000000b002f27adf3c67mr5313246wrv.61.1681499365582;
-        Fri, 14 Apr 2023 12:09:25 -0700 (PDT)
+        bh=UWXPfkHIdx+FJmYAkBJsOZzbgSV6XnN2u5PkiZkzUTY=;
+        b=IX2jpToSCK5QgTwK0zGaAgYWG59QTMe8qPsS2DyLPrfjNoFgbbnSdEyVu2Px5UO7ZM
+         t1blBMnReA5mD+X+OYFbAUiKrCzORHGkizuAGBHiTvM8trgMMIlv1QxujidVl/J43+aW
+         yDwTPRykOuwbRe9qbGGQBHSw940a7Ft2Htl9Y+xZJj3RD9Ta0+QIDVYK84/ybK9/AjNe
+         NNr3miLYRN8fU0TujxpULKXr514MivJLHOziO4CGRQYUQiV3C3Q/v6p0K0lmPgfpZZui
+         qw6DwVmGhq0VaLWcJF5dekXrkuRodRf7DNE4pbiBiLFhwH6dgMJRTUSPHAIYjyYwAafB
+         WbSw==
+X-Gm-Message-State: AAQBX9eUozJkX3mu7k8OQuZE+NN0WgWckBse6ody3nqdmPFJrPPZRkm6
+        U/HMQ2GYyjwwrSh9Fjcizeo=
+X-Google-Smtp-Source: AKy350Z15s78qOdDPta8LS3ODBN10ICElywGuD+ijEAFvvh58rYVE5xYOFXiRrpE5DGrkZy3fuYSWg==
+X-Received: by 2002:a7b:c40a:0:b0:3dc:4b87:a570 with SMTP id k10-20020a7bc40a000000b003dc4b87a570mr5328772wmi.35.1681502011066;
+        Fri, 14 Apr 2023 12:53:31 -0700 (PDT)
 Received: from [192.168.0.160] ([170.253.51.134])
-        by smtp.gmail.com with ESMTPSA id e2-20020a5d65c2000000b002ceacff44c7sm4119496wrw.83.2023.04.14.12.09.24
+        by smtp.gmail.com with ESMTPSA id v3-20020a1cf703000000b003f04646838esm5003112wmh.39.2023.04.14.12.53.30
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 14 Apr 2023 12:09:25 -0700 (PDT)
-Message-ID: <d9aecd22-47af-c59a-5345-ecb416af83db@gmail.com>
-Date:   Fri, 14 Apr 2023 21:09:18 +0200
+        Fri, 14 Apr 2023 12:53:30 -0700 (PDT)
+Message-ID: <0d95a96b-dd49-db45-ab3c-1d9cee51381d@gmail.com>
+Date:   Fri, 14 Apr 2023 21:53:22 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.1
-Subject: Re: [PATCH v6] ip.7: Add "special and reserved addresses" section
+Subject: Re: Checking for support of ptrace(PTRACE_SEIZE,...) on older kernels
 Content-Language: en-US
-To:     Seth David Schoen <schoen@loyalty.org>
-Cc:     linux-man@vger.kernel.org, netdev@vger.kernel.org
-References: <20230414184433.GA2557040@demorgan>
- <20230414184558.GB2557040@demorgan>
+To:     Sergei Zhirikov <sfzhi@yahoo.com>, Oleg Nesterov <oleg@redhat.com>
+Cc:     linux-man@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
+References: <997950238.3486335.1681414225118.ref@mail.yahoo.com>
+ <997950238.3486335.1681414225118@mail.yahoo.com>
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20230414184558.GB2557040@demorgan>
+In-Reply-To: <997950238.3486335.1681414225118@mail.yahoo.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------482Dq4jiSwqrjr1R9NKL51pW"
+ boundary="------------RgM6wphRtTIER0lTot2cUfDu"
 X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
@@ -76,182 +76,89 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------482Dq4jiSwqrjr1R9NKL51pW
-Content-Type: multipart/mixed; boundary="------------4OEGrm8LtK6uWpl90jPV7sm3";
+--------------RgM6wphRtTIER0lTot2cUfDu
+Content-Type: multipart/mixed; boundary="------------voYPYiFG8IDLaQduQaOQE9xm";
  protected-headers="v1"
 From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Seth David Schoen <schoen@loyalty.org>
-Cc: linux-man@vger.kernel.org, netdev@vger.kernel.org
-Message-ID: <d9aecd22-47af-c59a-5345-ecb416af83db@gmail.com>
-Subject: Re: [PATCH v6] ip.7: Add "special and reserved addresses" section
-References: <20230414184433.GA2557040@demorgan>
- <20230414184558.GB2557040@demorgan>
-In-Reply-To: <20230414184558.GB2557040@demorgan>
+To: Sergei Zhirikov <sfzhi@yahoo.com>, Oleg Nesterov <oleg@redhat.com>
+Cc: linux-man@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
+Message-ID: <0d95a96b-dd49-db45-ab3c-1d9cee51381d@gmail.com>
+Subject: Re: Checking for support of ptrace(PTRACE_SEIZE,...) on older kernels
+References: <997950238.3486335.1681414225118.ref@mail.yahoo.com>
+ <997950238.3486335.1681414225118@mail.yahoo.com>
+In-Reply-To: <997950238.3486335.1681414225118@mail.yahoo.com>
 
---------------4OEGrm8LtK6uWpl90jPV7sm3
+--------------voYPYiFG8IDLaQduQaOQE9xm
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi Seth,
+Hi Sergei,
 
-On 4/14/23 20:45, Seth David Schoen wrote:
-> Break out the discussion of special and reserved IPv4 addresses into
-> a subsection, formatted as a pair of definition lists, and briefly
-> describing three cases in which Linux no longer treats addresses
-> specially, where other systems do or did.
+On 4/13/23 21:30, Sergei Zhirikov wrote:
+> Hello,
 >=20
-> Also add a specific example to the NOTES paragraph that discourages
-> the use of IP broadcasting, so people can more easily understand
-> what they are supposed to do instead.
+> I've been studying the ptrace(2) man page and experimenting with ptrace=
+() recently and came across this unexpected aspect of its behavior that I=
+ think would be good to have documented.
 >=20
-> Signed-off-by: Seth David Schoen <schoen@loyalty.org>
-> Suggested-by: John Gilmore <gnu@toad.com>
+> I would like to use PTRACE_SEIZE in my project because of the advantage=
+s it offers, but I would also like to support kernels older than 3.4 (whe=
+re it was fully introduced). My thinking was that I would call ptrace(PTR=
+ACE_SEIZE, ...) and if it fails with the appropriate error code indicatin=
+g that it's not supported I would fall back to PTRACE_ATTACH. That is whe=
+re a little surprise was waiting for me. According to the man page, ptrac=
+e will fail with errno=3DEIO if called with an invalid request code. Logi=
+cally, that was the error code I expected to get when PTRACE_SEIZE is not=
+ supported. In reality I got ESRCH instead. In my attempts to make sense =
+of it I had to resort to reading the kernel source. Apparently, the logic=
+ in the kernel (=C2=A0https://elixir.bootlin.com/linux/v3.0.101/source/ke=
+rnel/ptrace.c#L944=C2=A0) seems to assume that any request other than PTR=
+ACE_ATTACH must come for an already existing tracee. So it proceeds to lo=
+ok for such a tracee (by calling ptrace_check_attach) before trying to in=
+terpret the request code. Obviously, in case of PTRACE_SEIZE, the target =
+process/thread is not being traced yet, so ESRCH is returned. As far as I=
+ can tell by looking at the source code, that will happen for any request=
+ code (with a couple of exceptions), valid or otherwise. The relevant pie=
+ce of logic seems to remain unchanged to this day, so this isn't just a p=
+roblem with an ancient kernel that nobody cares about. I am not sure whet=
+her this behavior is intentional (I would guess it's not), but in any cas=
+e it's probably good to have it documented in the man page.
 
-Patch applied.
+I've added some CCs.  Feel free to send a patch.
 
-Thanks!
-
+Cheers,
 Alex
 
-> ---
->  man7/ip.7 | 83 +++++++++++++++++++++++++++++++++++++++++++++++++------=
-
->  1 file changed, 75 insertions(+), 8 deletions(-)
 >=20
-> diff --git a/man7/ip.7 b/man7/ip.7
-> index 6c50d0281..6f1ee4dbe 100644
-> --- a/man7/ip.7
-> +++ b/man7/ip.7
-> @@ -237,19 +237,82 @@ In particular, this means that you need to call
->  on the number that is assigned to a port.
->  All address/port manipulation
->  functions in the standard library work in network byte order.
-> -.PP
-> +.SS Special and reserved addresses
->  There are several special addresses:
-> -.B INADDR_LOOPBACK
-> -(127.0.0.1)
-> +.TP
-> +.BR INADDR_LOOPBACK " (127.0.0.1)"
->  always refers to the local host via the loopback device;
-> +.TP
-> +.BR INADDR_ANY " (0.0.0.0)"
-> +means any address for socket binding;
-> +.TP
-> +.BR INADDR_BROADCAST " (255.255.255.255)"
-> +has the same effect on
-> +.BR bind (2)
-> +as
->  .B INADDR_ANY
-> -(0.0.0.0)
-> -means any address for binding;
-> +for historical reasons.
-> +A packet addressed to
->  .B INADDR_BROADCAST
-> -(255.255.255.255)
-> -means any host and has the same effect on bind as
-> +through a socket which has
-> +.B SO_BROADCAST
-> +set will be broadcast to all hosts on the local network segment,
-> +as long as the link is broadcast-capable.
-> +
-> +.TP
-> +Highest-numbered address
-> +.TQ
-> +Lowest-numbered address
-> +On any locally-attached non-point-to-point IP subnet
-> +with a link type that supports broadcasts,
-> +the highest-numbered address
-> +(e.g., the .255 address on a subnet with netmask 255.255.255.0)
-> +is designated as a broadcast address.
-> +It cannot usefully be assigned to an individual interface,
-> +and can only be addressed with a socket on which the
-> +.B SO_BROADCAST
-> +option has been set.
-> +Internet standards have historically
-> +also reserved the lowest-numbered address
-> +(e.g., the .0 address on a subnet with netmask 255.255.255.0)
-> +for broadcast, though they call it "obsolete" for this purpose.
-> +(Some sources also refer to this as the "network address.")
-> +Since Linux 5.14,
-> +.\" commit 58fee5fc83658aaacf60246aeab738946a9ba516
-> +it is treated as an ordinary unicast address
-> +and can be assigned to an interface.
-> +
-> +.PP
-> +Internet standards have traditionally also reserved various addresses
-> +for particular uses, though Linux no longer treats
-> +some of these specially.
-> +
-> +.TP
-> +[0.0.0.1, 0.255.255.255]
-> +.TQ
-> +[240.0.0.0, 255.255.255.254]
-> +Addresses in these ranges (0/8 and 240/4) are reserved globally.
-> +Since Linux 5.3
-> +.\" commit 96125bf9985a75db00496dd2bc9249b777d2b19b
-> +and Linux 2.6.25,
-> +.\" commit 1e637c74b0f84eaca02b914c0b8c6f67276e9697
-> +respectively,
-> +the 0/8 and 240/4 addresses, other than
->  .B INADDR_ANY
-> -for historical reasons.
-> +and
-> +.BR INADDR_BROADCAST ,
-> +are treated as ordinary unicast addresses.
-> +Systems that follow the traditional behaviors may not
-> +interoperate with these historically reserved addresses.
-> +.TP
-> +[127.0.0.1, 127.255.255.254]
-> +Addresses in this range (127/8) are treated as loopback addresses
-> +akin to the standardized local loopback address
-> +.B INADDR_LOOPBACK
-> +(127.0.0.1);
-> +.TP
-> +[224.0.0.0, 239.255.255.255]
-> +Addresses in this range (224/4) are dedicated to multicast use.
->  .SS Socket options
->  IP supports some protocol-specific socket options that can be set with=
-
->  .BR setsockopt (2)
-> @@ -1343,6 +1406,10 @@ with careless broadcasts.
->  For new application protocols
->  it is better to use a multicast group instead of broadcasting.
->  Broadcasting is discouraged.
-> +See RFC 6762 for an example of a protocol (mDNS)
-> +using the more modern multicast approach
-> +to communicating with an open-ended
-> +group of hosts on the local network.
->  .PP
->  Some other BSD sockets implementations provide
->  .B IP_RCVDSTADDR
+> Thanks and regards,
+> Sergei.
 
 --=20
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
---------------4OEGrm8LtK6uWpl90jPV7sm3--
+--------------voYPYiFG8IDLaQduQaOQE9xm--
 
---------------482Dq4jiSwqrjr1R9NKL51pW
+--------------RgM6wphRtTIER0lTot2cUfDu
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQ5pN4ACgkQnowa+77/
-2zLrrw//UbdxNe2Jsgq9xR6PBut1DLAVjX0vs+cZ8B+7j6IsJHIYXrx2gzTKnG9H
-Wt3LSKTDoGbgv2iNfoRiRZrXsDPGXfD0BR5uQoKYTHvDnL56aJ7B7byvWVBTS5Y5
-f+X77OsIYD3PaGl3jgyB2FZbOKKzHiXyK/aH5Fk4dTAx1VtEdWBVDUuwXY8IYJrQ
-lFOy8Qvuuad/QBsE4lPIk+JTxDuz3/ZyQvFbGQJAp+B2HyAJznRKgsMgdOM4jFY6
-b9UxftATSYzm/wv8Whzbg93TbOrS0T6vRs5SqsRGMUKCSqeq1D7+e4TyJWx5IieB
-UB0C4QSlVaMum5LdX7lVjKLas+yCu2L5NQdZ9ByzAtTXR7ISc/eyvYQoLzPj7ccL
-6AAkLkmzKRPS7kVzHs9FiNnSyfWoce2QJuVzAxAGScWNTiooVMe7gy3y8kCSvyV+
-85OCIX3479WpBSegbMsSZUOtb9uxps1Zk0B89qo3x85POw8s9V+6xw1wnL06EOd9
-ZgAwG/6mYZzuGrYjPt+CQCNxh1EGrwjcRmEnaPL116Zd07UXSHdExUFqA6hW9/3h
-uK4/G0mm3uAvWbdIhW2AkvfLVYUqn7MrOGyEWyspr7wRVt8vs4OB4Y+mVL3EEgUY
-UwqBhszhvGqffCyokbKEfbDpsHpdS32U1mu2Qg0jvCpS82dVrWo=
-=LuDg
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQ5rzIACgkQnowa+77/
+2zK1lQ//d/swWXkNyq0QLyf0fKC7PMLwdxy/ZP4ZOesekitkafRYOsirR0XYdObK
+rVMWll3kHOx3MqIPQ0w5iwDVCXOzlPGlqM32MycHvK6byP/p6n4/TXVwz1NyjiwO
+M9KDK0MXkEBq52QR7G0WqJhIbpuPi40uDVdUEl61tVQZQBvasM2dXWAlBzjW5/QN
+uXHKmwHoJPoI4RQ//t2WimKD6eZHcX2TY9mKzprZ0aHuoOAld7/POLn8v6OtwBCx
+1sqDx6fJFW5Lop8kvpNJxXF8JDGYcxfqaUwsGSFZTP4ou3qIqjzieGShXwvQ1GSZ
+GNq4zATnyVz/l8QGhZIuG8KKFfkvJ1xAet8q9f7KRPWZ8mt6jvyQJAFNWdOJ7X/m
+2s5T6aBtjbZZ4BR9eRROk+ngOcsqjySn4VoBmT74qm1vUCo/e9xQ843pQiCxOGQb
+4BLpBN3dYfzig2ybT1jiJZS7LzW56ab2wIjfQuPc/DiZPEtYEGq0JZF2KqKBCsDD
+F2aFCl4e4/HZj/Gth3ySXwPpnKXG72aKunP5s7YpYzuoFx6ZssPCMd82KN3ICL0l
+VQppmv9kb5y9vh13QjjrD8dZ+xhlRka7q3KlvApxkx190oWEdueI/o8SoQX3cM9O
+PnK4Ws6D2HfK/XTh8YrIPxbspAAga/73buRGnKJFH46kuJP41cA=
+=Qc0s
 -----END PGP SIGNATURE-----
 
---------------482Dq4jiSwqrjr1R9NKL51pW--
+--------------RgM6wphRtTIER0lTot2cUfDu--
