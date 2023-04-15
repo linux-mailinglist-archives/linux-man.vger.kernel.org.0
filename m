@@ -2,163 +2,149 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 223DA6E2AC9
-	for <lists+linux-man@lfdr.de>; Fri, 14 Apr 2023 21:53:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 121FF6E2F6C
+	for <lists+linux-man@lfdr.de>; Sat, 15 Apr 2023 09:16:59 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229749AbjDNTxh (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 14 Apr 2023 15:53:37 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54692 "EHLO
+        id S229773AbjDOHQ5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 15 Apr 2023 03:16:57 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41020 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229497AbjDNTxg (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 14 Apr 2023 15:53:36 -0400
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com [IPv6:2a00:1450:4864:20::32c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A67B64C39;
-        Fri, 14 Apr 2023 12:53:32 -0700 (PDT)
-Received: by mail-wm1-x32c.google.com with SMTP id gw13so10936279wmb.3;
-        Fri, 14 Apr 2023 12:53:32 -0700 (PDT)
+        with ESMTP id S229522AbjDOHQz (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 15 Apr 2023 03:16:55 -0400
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com [IPv6:2a00:1450:4864:20::633])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0659E5243
+        for <linux-man@vger.kernel.org>; Sat, 15 Apr 2023 00:16:54 -0700 (PDT)
+Received: by mail-ej1-x633.google.com with SMTP id xd13so17239797ejb.4
+        for <linux-man@vger.kernel.org>; Sat, 15 Apr 2023 00:16:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1681502011; x=1684094011;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=UWXPfkHIdx+FJmYAkBJsOZzbgSV6XnN2u5PkiZkzUTY=;
-        b=GVjmlEq1EFjEhIe8MWj2JF2T06yXmfN5xb4iMUPHiUnyrEhZNpO0og0QRMGEvKGuAd
-         zg3EUgDxWnI8VeRpaDglKDKXx/RFlf2mGlOhXL6akgRH7MaqqOYwwR3+0BZ4ruNfkGAq
-         nVp4h5ZIpM2k4Jx3NLcmM9870A9azbI8V2Tlop5i4t8LXPxOcyB5CzNyjM7T80IG2Aht
-         /P7sJG6hZPy/C1ZswqsbEyLQxBI3PFRrzX+S6Bf+EPxf9qHp0PkUTzS+rSQw7xVRULdK
-         GMObQgDdublXU1HQqSAlgUKzOhOm+mvAcpROqfadJhkE9kKwYR1tGxQGmpgJRFdCXSV+
-         LtMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1681502011; x=1684094011;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+        d=gmail.com; s=20221208; t=1681543012; x=1684135012;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=UWXPfkHIdx+FJmYAkBJsOZzbgSV6XnN2u5PkiZkzUTY=;
-        b=IX2jpToSCK5QgTwK0zGaAgYWG59QTMe8qPsS2DyLPrfjNoFgbbnSdEyVu2Px5UO7ZM
-         t1blBMnReA5mD+X+OYFbAUiKrCzORHGkizuAGBHiTvM8trgMMIlv1QxujidVl/J43+aW
-         yDwTPRykOuwbRe9qbGGQBHSw940a7Ft2Htl9Y+xZJj3RD9Ta0+QIDVYK84/ybK9/AjNe
-         NNr3miLYRN8fU0TujxpULKXr514MivJLHOziO4CGRQYUQiV3C3Q/v6p0K0lmPgfpZZui
-         qw6DwVmGhq0VaLWcJF5dekXrkuRodRf7DNE4pbiBiLFhwH6dgMJRTUSPHAIYjyYwAafB
-         WbSw==
-X-Gm-Message-State: AAQBX9eUozJkX3mu7k8OQuZE+NN0WgWckBse6ody3nqdmPFJrPPZRkm6
-        U/HMQ2GYyjwwrSh9Fjcizeo=
-X-Google-Smtp-Source: AKy350Z15s78qOdDPta8LS3ODBN10ICElywGuD+ijEAFvvh58rYVE5xYOFXiRrpE5DGrkZy3fuYSWg==
-X-Received: by 2002:a7b:c40a:0:b0:3dc:4b87:a570 with SMTP id k10-20020a7bc40a000000b003dc4b87a570mr5328772wmi.35.1681502011066;
-        Fri, 14 Apr 2023 12:53:31 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.51.134])
-        by smtp.gmail.com with ESMTPSA id v3-20020a1cf703000000b003f04646838esm5003112wmh.39.2023.04.14.12.53.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 14 Apr 2023 12:53:30 -0700 (PDT)
-Message-ID: <0d95a96b-dd49-db45-ab3c-1d9cee51381d@gmail.com>
-Date:   Fri, 14 Apr 2023 21:53:22 +0200
+        bh=a6uT2DYcDW5fvy+CFtMsMktgQhwIlwziwV5D2RHrqek=;
+        b=Ah+vRf034CHvPMnjdFxoJOfDZEOE/u3xd9/m1ijP6wE1QhMkyb4QDiFCUY+SqSv7nH
+         6D7G9pnwljh2g3bFRBN7hHWz3b9vuicmJ6kG4BuycUJB3fyO7g98vGVHCG0Q4zO1YxT4
+         Qy/1pNo4OV7mSwgRe4ou2um5rBfpMpNOOAtKP7ohNOmEdqQPxIJ/rz0vVMqus4nhlCYt
+         Xmm3SR8JJFkVKKXJYPEKZDq2o/W4arDeSWKt2w2rY9z8PuCngm7rMKDXWkrJCEH+OIVj
+         F/m/Sgcw2byuDlGdkUxhH0DoOiHwa4AP4C/CnL1wpfjkfVFXeujQDET4qX0GlpSnB2Bk
+         c2zg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1681543012; x=1684135012;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=a6uT2DYcDW5fvy+CFtMsMktgQhwIlwziwV5D2RHrqek=;
+        b=XToFzMcmHIfBkjeQITMY75cSpkfCTO/lcjC5xI0KQ5T0lJiZmTrrhL2eEheBhB3Mlf
+         sNZIt/4dsI2Yh3hjyuYTDS8YwdeEHp7S4mq9OkKoikZYdZkO3PpUG3r6NejjqzdjOgIY
+         UHiufj1OAWZNtvgu5FDjDkXmN37z7dT2VRJGP1YV9qvTRz7WyujB+DUinw1zlKti6Bx0
+         PjhmWcP8Fxw8Y+xuMmccgm0TJt52rg2ndjwufRY5COwgGqqmBp6WG8WJyyM4VPzvnZqx
+         2Rv32gFWuU+2Gc7DIF5/KqDgo6zr0lLQ4jEXnSHzFwAlmkvdT6/Zw6B57PWlaXHG9XEj
+         bGfA==
+X-Gm-Message-State: AAQBX9ekw30vyMdxemo8HLzK1uNm3jeE8WE2qkLqIKxTIiSpPNE4Pobt
+        TKpo81PctMwbaELby6y10IE=
+X-Google-Smtp-Source: AKy350abPm+6CIJbGJj0D5yzsa4hs8lJXSfFRx42nTMt1/dZw/ij6rEuZKMKhvbxLqUlDFuK4zz+Fg==
+X-Received: by 2002:a17:906:d18c:b0:925:1d1d:6825 with SMTP id c12-20020a170906d18c00b009251d1d6825mr1377725ejz.42.1681543012400;
+        Sat, 15 Apr 2023 00:16:52 -0700 (PDT)
+Received: from localhost ([2a02:168:633b:1:9d6a:15a4:c7d1:a0f0])
+        by smtp.gmail.com with ESMTPSA id f20-20020a170906739400b0094ecbf906ecsm2449833ejl.41.2023.04.15.00.16.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 15 Apr 2023 00:16:52 -0700 (PDT)
+Date:   Sat, 15 Apr 2023 09:16:50 +0200
+From:   =?iso-8859-1?Q?G=FCnther?= Noack <gnoack3000@gmail.com>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>,
+        linux-man@vger.kernel.org
+Subject: Re: [PATCH v6 1/1] landlock.7: Explain the best-effort fallback
+ mechanism in the example
+Message-ID: <20230415.de079bcd1e29@gnoack.org>
+References: <20230414155926.6937-1-gnoack3000@gmail.com>
+ <20230414155926.6937-2-gnoack3000@gmail.com>
+ <ba15e85d-db90-88cf-ca60-1d4a11a40c31@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.1
-Subject: Re: Checking for support of ptrace(PTRACE_SEIZE,...) on older kernels
-Content-Language: en-US
-To:     Sergei Zhirikov <sfzhi@yahoo.com>, Oleg Nesterov <oleg@redhat.com>
-Cc:     linux-man@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
-References: <997950238.3486335.1681414225118.ref@mail.yahoo.com>
- <997950238.3486335.1681414225118@mail.yahoo.com>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <997950238.3486335.1681414225118@mail.yahoo.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------RgM6wphRtTIER0lTot2cUfDu"
-X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-        autolearn=ham autolearn_force=no version=3.4.6
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ba15e85d-db90-88cf-ca60-1d4a11a40c31@gmail.com>
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
+        FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+        T_SCC_BODY_TEXT_LINE autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------RgM6wphRtTIER0lTot2cUfDu
-Content-Type: multipart/mixed; boundary="------------voYPYiFG8IDLaQduQaOQE9xm";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Sergei Zhirikov <sfzhi@yahoo.com>, Oleg Nesterov <oleg@redhat.com>
-Cc: linux-man@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
-Message-ID: <0d95a96b-dd49-db45-ab3c-1d9cee51381d@gmail.com>
-Subject: Re: Checking for support of ptrace(PTRACE_SEIZE,...) on older kernels
-References: <997950238.3486335.1681414225118.ref@mail.yahoo.com>
- <997950238.3486335.1681414225118@mail.yahoo.com>
-In-Reply-To: <997950238.3486335.1681414225118@mail.yahoo.com>
+Hello Alejandro!
 
---------------voYPYiFG8IDLaQduQaOQE9xm
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+On Fri, Apr 14, 2023 at 06:35:22PM +0200, Alejandro Colomar wrote:
+> On 4/14/23 17:59, Günther Noack wrote:
+> > Signed-off-by: Günther Noack <gnoack3000@gmail.com>
+> > ---
+> >  man7/landlock.7 | 70 ++++++++++++++++++++++++++++++++++++++++++++++---
+> >  1 file changed, 66 insertions(+), 4 deletions(-)
+> > 
+> > diff --git a/man7/landlock.7 b/man7/landlock.7
+> > index 24488465e..64bfa0752 100644
+> > --- a/man7/landlock.7
+> > +++ b/man7/landlock.7
+> > [...]
+> > +/*
+> > + * Table of available file system access rights by ABI version,
+> > + * numbers hardcoded to keep the example short.
+> > + */
+> > +__u64 landlock_fs_access_rights[] = {
+> > +    (1ULL << 13) \- 1,  /* ABI v1                 */
+> > +    (1ULL << 14) \- 1,  /* ABI v2: add "refer"    */
+> > +    (1ULL << 15) \- 1,  /* ABI v3: add "truncate" */
+> > +};
+> > +
+> > +int abi = landlock_create_ruleset(NULL, 0,
+> > +                                  LANDLOCK_CREATE_RULESET_VERSION);
+> > +if (abi <= 0) {
+> > +    perror("Giving up \- No Landlock support");
+> 
+> Using perror(3) will already print "Operation not supported", since
+> errno is ENOTSUP.  Maybe this string is redundant?  How about the
+> following?
+> 
+> 	perror("landlock_create_ruleset");  // EOPNOTSUPP
 
-Hi Sergei,
+The fallback code assumes that we don't know the kernel that we run on,
+so in practice we also have to handle ENOSYS.
 
-On 4/13/23 21:30, Sergei Zhirikov wrote:
-> Hello,
->=20
-> I've been studying the ptrace(2) man page and experimenting with ptrace=
-() recently and came across this unexpected aspect of its behavior that I=
- think would be good to have documented.
->=20
-> I would like to use PTRACE_SEIZE in my project because of the advantage=
-s it offers, but I would also like to support kernels older than 3.4 (whe=
-re it was fully introduced). My thinking was that I would call ptrace(PTR=
-ACE_SEIZE, ...) and if it fails with the appropriate error code indicatin=
-g that it's not supported I would fall back to PTRACE_ATTACH. That is whe=
-re a little surprise was waiting for me. According to the man page, ptrac=
-e will fail with errno=3DEIO if called with an invalid request code. Logi=
-cally, that was the error code I expected to get when PTRACE_SEIZE is not=
- supported. In reality I got ESRCH instead. In my attempts to make sense =
-of it I had to resort to reading the kernel source. Apparently, the logic=
- in the kernel (=C2=A0https://elixir.bootlin.com/linux/v3.0.101/source/ke=
-rnel/ptrace.c#L944=C2=A0) seems to assume that any request other than PTR=
-ACE_ATTACH must come for an already existing tracee. So it proceeds to lo=
-ok for such a tracee (by calling ptrace_check_attach) before trying to in=
-terpret the request code. Obviously, in case of PTRACE_SEIZE, the target =
-process/thread is not being traced yet, so ESRCH is returned. As far as I=
- can tell by looking at the source code, that will happen for any request=
- code (with a couple of exceptions), valid or otherwise. The relevant pie=
-ce of logic seems to remain unchanged to this day, so this isn't just a p=
-roblem with an ancient kernel that nobody cares about. I am not sure whet=
-her this behavior is intentional (I would guess it's not), but in any cas=
-e it's probably good to have it documented in the man page.
+See https://docs.kernel.org/userspace-api/landlock.html#landlock-abi-versions
 
-I've added some CCs.  Feel free to send a patch.
+I'd suggest to just make it more explicit here that it can be two
+different error codes:
 
-Cheers,
-Alex
+if (abi <= 0) {
+    /* ENOTSUP or ENOSYS */
+    perror("Giving up \- No Landlock support");
+}
 
->=20
-> Thanks and regards,
-> Sergei.
+Does that sound reasonable?
 
---=20
-<http://www.alejandro-colomar.es/>
-GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
---------------voYPYiFG8IDLaQduQaOQE9xm--
+> BTW, now I checked that while in Linux ENOTSUP and EOPNOTSUPP are
+> equivalent, in POSIX the latter has a connotation that it's about
+> sockets.  Should we document ENOTSUP in landlock_create_ruleset(2)
+> instead of EOPNOTSUPP?
 
---------------RgM6wphRtTIER0lTot2cUfDu
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+EOPNOTSUP is also used in Landlock's kernel documentation,
+we'd maybe have to update it there as well.
+I'll have a look at what is more common.
 
------BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQ5rzIACgkQnowa+77/
-2zK1lQ//d/swWXkNyq0QLyf0fKC7PMLwdxy/ZP4ZOesekitkafRYOsirR0XYdObK
-rVMWll3kHOx3MqIPQ0w5iwDVCXOzlPGlqM32MycHvK6byP/p6n4/TXVwz1NyjiwO
-M9KDK0MXkEBq52QR7G0WqJhIbpuPi40uDVdUEl61tVQZQBvasM2dXWAlBzjW5/QN
-uXHKmwHoJPoI4RQ//t2WimKD6eZHcX2TY9mKzprZ0aHuoOAld7/POLn8v6OtwBCx
-1sqDx6fJFW5Lop8kvpNJxXF8JDGYcxfqaUwsGSFZTP4ou3qIqjzieGShXwvQ1GSZ
-GNq4zATnyVz/l8QGhZIuG8KKFfkvJ1xAet8q9f7KRPWZ8mt6jvyQJAFNWdOJ7X/m
-2s5T6aBtjbZZ4BR9eRROk+ngOcsqjySn4VoBmT74qm1vUCo/e9xQ843pQiCxOGQb
-4BLpBN3dYfzig2ybT1jiJZS7LzW56ab2wIjfQuPc/DiZPEtYEGq0JZF2KqKBCsDD
-F2aFCl4e4/HZj/Gth3ySXwPpnKXG72aKunP5s7YpYzuoFx6ZssPCMd82KN3ICL0l
-VQppmv9kb5y9vh13QjjrD8dZ+xhlRka7q3KlvApxkx190oWEdueI/o8SoQX3cM9O
-PnK4Ws6D2HfK/XTh8YrIPxbspAAga/73buRGnKJFH46kuJP41cA=
-=Qc0s
------END PGP SIGNATURE-----
+> > +    exit(EXIT_FAILURE);
+> > +}
+> > +if (abi > 3)
+> > +    abi = 3;
+> 
+> This makes the example a line shorter (see MIN(3)):
+> 
+> abi = MIN(abi, 3);
 
---------------RgM6wphRtTIER0lTot2cUfDu--
+Thanks, good point! I'll add that.
+
+–Günther
