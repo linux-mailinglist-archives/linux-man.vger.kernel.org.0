@@ -2,170 +2,128 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id D17476E2F73
-	for <lists+linux-man@lfdr.de>; Sat, 15 Apr 2023 09:21:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id BD6C06E3106
+	for <lists+linux-man@lfdr.de>; Sat, 15 Apr 2023 13:07:04 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229459AbjDOHVV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 15 Apr 2023 03:21:21 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42022 "EHLO
+        id S230257AbjDOLHC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 15 Apr 2023 07:07:02 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60906 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229772AbjDOHVV (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 15 Apr 2023 03:21:21 -0400
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com [IPv6:2a00:1450:4864:20::62a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 52D575FE1
-        for <linux-man@vger.kernel.org>; Sat, 15 Apr 2023 00:21:13 -0700 (PDT)
-Received: by mail-ej1-x62a.google.com with SMTP id rp27so14150998ejb.12
-        for <linux-man@vger.kernel.org>; Sat, 15 Apr 2023 00:21:13 -0700 (PDT)
+        with ESMTP id S229922AbjDOLHB (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 15 Apr 2023 07:07:01 -0400
+Received: from mail-ua1-x930.google.com (mail-ua1-x930.google.com [IPv6:2607:f8b0:4864:20::930])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D6B132D73;
+        Sat, 15 Apr 2023 04:06:58 -0700 (PDT)
+Received: by mail-ua1-x930.google.com with SMTP id p12so1334943uak.13;
+        Sat, 15 Apr 2023 04:06:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1681543272; x=1684135272;
-        h=in-reply-to:content-disposition:mime-version:references
-         :mail-followup-to:message-id:subject:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=DPcnkVhBu+RMoIPyozih75PtOJ57PSpjNrrKSf3KNEQ=;
-        b=V7I9ub8c3/ma34GZ5w2EOSf1ijitjE0Z/MxwDbOjrH9WMG1ZlDoMQJZljri7OOSZep
-         j9QyzBIuPczSbdz/Lukjc4FrxryNjMWJOif8F0wnhjU8I8WoLHc3xLb62yj6DmBnWEA7
-         AVJwkjw7ROrCCgmiVQUIu7faxRFm0KxVtVEScwSvY1RBIyFqAI9yOz4AyIWfF0WzTLql
-         UWJsKqF3CqJYpTNSTEU4PpQAURaRzxZG8r8ENvuN08YNcGBZWD6pKBMasAjIbKkMYtMU
-         KYaZS9OrcbvRZ11jaV7ICulFGSrXuC7bahQW+mQdt57c0KB246Yh0NQDQdlTF4iJYEyX
-         kQCA==
+        d=gmail.com; s=20221208; t=1681556818; x=1684148818;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=kVGsSDU61/EuKltyjrXqAdX0XD2PqbdZCRx1bpZ6xCk=;
+        b=X5tzDCCejdJvbofekQqDCL6jYGXndkgENYffMcZyz0H8IghP1GJAU/5C960PWIaZor
+         kWzzrE/Sl2Rm0sIyY7uGJn8luAzLxsOArABMgNoUcJTv3kUQKxZSWgi3fZKSoX6ftE+G
+         i9HmXwnQoc3eJVYv4QFJneoxtiJwOwQwgPgbp6QL/2def5qyHBTgxZ4Ce/qaQ/Cs3P5G
+         BrkvUDoanJloSNDWwtYiG2NW8xBd4TtKvZhkd7K/+tTugljwssIm2+Ur033PQKd9A4fc
+         GFvOasrrxqKVCzkTWWEXUF3S77uPzGIOKGELEbxxZVR5XSH14SgPgT3/W64uH9COCqrF
+         8wsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1681543272; x=1684135272;
-        h=in-reply-to:content-disposition:mime-version:references
-         :mail-followup-to:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=DPcnkVhBu+RMoIPyozih75PtOJ57PSpjNrrKSf3KNEQ=;
-        b=i8RurJDAowZEsIfNnaVlhYbVGpkKJVOjR3B/a3I4tgGSwcNfOaVkqALu57yb4HCT94
-         ksiX16wce3EH7C4BA3NbUs2lPLuqWHBZM1KtTPJzPxuqldbV6WKWsjErxP2YIosbn4sh
-         NbTYE3wsxBNmFTr8RQ4P1LLvezRyAmgqEexC9FpZKfswgDJSxn9g2b2e9V101Ndb8es5
-         ewhw+/xqxh9u7adB+WLijJQnz1PR/ZZWl6DCZtRd+Wh3rhwEAtU4BTPFvcpjR6BHqqi2
-         LWFMoArZZ6Oo7TVyYy3v0uvYsvNxq47xFqrFYGzAoU88J7/juQlS0gNYVulrt9ACpeq1
-         puhw==
-X-Gm-Message-State: AAQBX9d67AVk0q1k5zop2luwngVVr7z4QatTPoSeOhIcAW6UF+iekg/z
-        E2uqaXZXI5V7Pyh6gBp1G4X+H14V/8Y=
-X-Google-Smtp-Source: AKy350bycOmhOuAzuVE5eUh0tthgZwhaCNf0amPG8w7c66NLmwTGEwqXnZTpggxc9e5SDVQW530kZg==
-X-Received: by 2002:a17:906:fca3:b0:94a:8b9f:e9de with SMTP id qw3-20020a170906fca300b0094a8b9fe9demr1674239ejb.32.1681543271652;
-        Sat, 15 Apr 2023 00:21:11 -0700 (PDT)
-Received: from dj3ntoo (87.sub-72-108-136.myvzw.com. [72.108.136.87])
-        by smtp.gmail.com with ESMTPSA id k13-20020a17090632cd00b0094e96e46cc0sm3382741ejk.69.2023.04.15.00.21.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 15 Apr 2023 00:21:11 -0700 (PDT)
-Date:   Sat, 15 Apr 2023 02:21:05 -0500
-From:   Oskari Pirhonen <xxc3ncoredxx@gmail.com>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org
-Subject: Re: [PATCH] bin/stdc: Improve output formatting
-Message-ID: <ZDpQYWOGbOEyDEuz@dj3ntoo>
-Mail-Followup-To: Alejandro Colomar <alx.manpages@gmail.com>,
-        Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org
-References: <ZDjGUp5t5Fefb+zW@dj3ntoo>
- <852b1842-3d1b-2b40-7e88-a8a34d00d264@gmail.com>
+        d=1e100.net; s=20221208; t=1681556818; x=1684148818;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=kVGsSDU61/EuKltyjrXqAdX0XD2PqbdZCRx1bpZ6xCk=;
+        b=FZobX4asFlPEPjKZh15jmJNAcaapVjhs3i9y97b1nJltDeuhDDk8sk5nllI4INJc28
+         mmKUaEINm2EPuz8Jnq+ch0ZweIaHGCrjaH4QbviQiyNRFP7J3KHFIeKpw7OYbcZYyIV0
+         aJ6/nY0cEzaERMLMUJmIK1OxpCZah70OkdIzWJ0VC7CpZZSUFXbFUhhXD/lAvG6ZdTKM
+         n32ukb9eDmlPRoIfHix3MvnKQAcew4nkdcrsZ+eAczZJGby4nT7qw97LKoK4sm1HIVvi
+         z0z6i86NZ4P6a5Y4GQLLJ8VGWL5Vbx95nRSzSKEK9GWNnbPMYtC6RE65qRin//8UPwHN
+         wuFA==
+X-Gm-Message-State: AAQBX9e1K8AbHsriYAyS61JT7qM7qTjvBXzDWEWxJ6a85HTJwbRSiW8F
+        2GlOivtFxt2+66ZL+078jweb+kUOFD2pw0PD2Bk=
+X-Google-Smtp-Source: AKy350ajYHddrdnQrEFILBzfyaG+m6smLJQW39SyhgN7Unq0V4I6LbZK1QtK2k9FHdVHmiIlf9FrM4R2FD5SH7cjuVY=
+X-Received: by 2002:a05:6122:17a1:b0:440:60e7:f8e6 with SMTP id
+ o33-20020a05612217a100b0044060e7f8e6mr5162222vkf.0.1681556817879; Sat, 15 Apr
+ 2023 04:06:57 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="4l+9YK4qLYMz4Bqd"
-Content-Disposition: inline
-In-Reply-To: <852b1842-3d1b-2b40-7e88-a8a34d00d264@gmail.com>
+References: <YnEeuw6fd1A8usjj@miu.piliscsaba.redhat.com> <e57733cd-364d-84e0-cfe0-fd41de14f434@bytedance.com>
+ <CAJfpegsVsnjUy2N+qO-j4ToScwev01AjwUA0Enp_DxroPQS30A@mail.gmail.com>
+In-Reply-To: <CAJfpegsVsnjUy2N+qO-j4ToScwev01AjwUA0Enp_DxroPQS30A@mail.gmail.com>
+From:   Amir Goldstein <amir73il@gmail.com>
+Date:   Sat, 15 Apr 2023 14:06:46 +0300
+Message-ID: <CAOQ4uxhYi2823GiVn9Sf-CRGrcigkbPw2x1VQRV3_Md92gJnrw@mail.gmail.com>
+Subject: Re: [LSF/MM TOPIC] fsinfo and mount namespace notifications
+To:     Miklos Szeredi <miklos@szeredi.hu>
+Cc:     Abel Wu <wuyun.abel@bytedance.com>,
+        linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+        Christian Brauner <brauner@kernel.org>,
+        Linux API <linux-api@vger.kernel.org>,
+        linux-man <linux-man@vger.kernel.org>,
+        David Howells <dhowells@redhat.com>,
+        Al Viro <viro@zeniv.linux.org.uk>,
+        Christian Brauner <christian@brauner.io>,
+        lsf-pc <lsf-pc@lists.linux-foundation.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-        autolearn=ham autolearn_force=no version=3.4.6
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+On Mon, Nov 14, 2022 at 2:36=E2=80=AFPM Miklos Szeredi <miklos@szeredi.hu> =
+wrote:
+>
+> On Mon, 14 Nov 2022 at 10:00, Abel Wu <wuyun.abel@bytedance.com> wrote:
+> >
+> > Hi Miklos and anyone interested in this proposal, is there any update o=
+n
+> > this? Sorry that I didn't find any..
+>
+> No update.
+>
+> Which part are you interested in?
+>
+> Getting mount attributes?  Or a generic key-value retrieval and
+> storage interface?
+>
+> For the first one there are multiple proposals, one of them is adding
+> a new system call using binary structs.  The fsinfo(2) syscall was
+> deemed overdesigned and rejected.  Something simpler would probably be
+> fairly uncontroversial.
+>
+> As for the other proposal it seems like some people would prefer a set
+> of new syscalls, while some others would like to reuse the xattr
+> syscalls.  No agreement seems to have been reached.
+>
+> Also I think a notification system for mount related events is also a
+> much needed component.   I've tried to explore using the fsnotify
+> framework for this, but the code is pretty convoluted and I couldn't
+> get prototype working.
+>
 
---4l+9YK4qLYMz4Bqd
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi Miklos,
 
-Hi Alex,
+You indicated that you would like to discuss the topic of
+"mount info/mount notification" in LSF/MM, so I am resurrecting
+this thread [1] from last year's topic.
 
-On Fri, Apr 14, 2023 at 13:26:59 +0200, Alejandro Colomar wrote:
-> Hi Oskari,
->=20
-> On 4/14/23 05:19, Oskari Pirhonen wrote:
-> > Remove leading whitespace and collapse multi-line declarations into a
-> > single line using (g)awk.
->=20
-> I can't reak awk(1) :(
->=20
+Would you be interested to lead a session this year?
+So far, it felt like the topic was in a bit of a stalemate.
 
-Awww man, but I even left the optional semicolons in...
+Do you have a concrete suggestion of how to escape this stalemate?
+I think it is better that we start discussing it a head of LSF/MM if we hop=
+e
+to reach consensus in LSF/MM, so that people will have a chance to
+get re-familiar with the problems and proposed solutions.
 
-> But I like the idea.  I implemented the same using sed(1) after your
-> suggestion.  Does the below patch look good to you?
->=20
+Thanks,
+Amir.
 
-I actually had an earlier version with sed(1), but it used
-looping/branching to handle the multi-line bits, so I figured it was a
-bit ugly and didn't send it. I didn't think to try `-z`.
-
-It seems to do the same thing, so LGTM.
-
-> Cheers,
-> Alex
->=20
-> P.S.: I forgot about writing a man page.  I'll start now.
->=20
-
-I was about to say "and license file and appropriate blurb" but then I
-saw your commit. I've got some suggestions for the man page, so I'll
-send some patches sometime soon.
-
-- Oskari
-
-
-Since you said you can't read awk, then just to satisfy your curiosity,
-here's what was going on:
-
-    BEGIN {
-        RS =3D ";\n"
-        ORS =3D RS
-    }
-
-This block is run at the start before any records are processed.
-
-The default Record Separator is "\n", but here we set it to ";\n". In
-(g)awk, a value of `RS` that is >1 char is actually a regex, but we only
-need to match a literal string. The Output Record Separator is by
-default also "\n".
-
-    {
-        gsub(/\n/, " ")
-        sub(/^ +/, "")
-        gsub(/ +/, " ")
-        print
-    }
-
-This block is run on all records, since it doesn't have any patterns for
-contitional execution attached to it.
-
-`gsub()` does an in-place global regex replace on a string, similar to
-the `s/regex/replace/g` you're familiar with. It takes an optional third
-arg, but if it's left out then it has an implicit `$0` which means the
-entire current record. `sub()` is like `gsub()`, but only does the first
-match, similar to `s/regex/replace/`.
-
-`print`, without any args, prints the current record followed by `ORS`.
-This was set earlier because the `RS` is consumed from the input as it
-is being processed record by record, but we want to keep the output
-looking intact.
-
-Hopefully not so bad after all. Awk is pretty nice IMO (and gawk in
-particular), and I would recommend checking it out if you find yourself
-borded one day :)
-
---4l+9YK4qLYMz4Bqd
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQQfOU+JeXjo4uxN6vCp8he9GGIfEQUCZDpQWwAKCRCp8he9GGIf
-EdC0AP0cUknQpiW5X4w2SrIUS+cc9tyWMw2fxpp3nSx7n7OLKwEArss19Nxsj2Hp
-jWRbNTZreDJMNvpEHguYhZg4jZ8TzQM=
-=Ql2U
------END PGP SIGNATURE-----
-
---4l+9YK4qLYMz4Bqd--
+[1] https://lore.kernel.org/linux-fsdevel/YnEeuw6fd1A8usjj@miu.piliscsaba.r=
+edhat.com/
