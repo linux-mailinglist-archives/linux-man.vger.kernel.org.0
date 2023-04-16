@@ -2,73 +2,44 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id BD6C06E3106
-	for <lists+linux-man@lfdr.de>; Sat, 15 Apr 2023 13:07:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id EB7706E3CC1
+	for <lists+linux-man@lfdr.de>; Mon, 17 Apr 2023 01:19:30 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230257AbjDOLHC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 15 Apr 2023 07:07:02 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60906 "EHLO
+        id S229484AbjDPXT2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 16 Apr 2023 19:19:28 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46426 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229922AbjDOLHB (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 15 Apr 2023 07:07:01 -0400
-Received: from mail-ua1-x930.google.com (mail-ua1-x930.google.com [IPv6:2607:f8b0:4864:20::930])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D6B132D73;
-        Sat, 15 Apr 2023 04:06:58 -0700 (PDT)
-Received: by mail-ua1-x930.google.com with SMTP id p12so1334943uak.13;
-        Sat, 15 Apr 2023 04:06:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1681556818; x=1684148818;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=kVGsSDU61/EuKltyjrXqAdX0XD2PqbdZCRx1bpZ6xCk=;
-        b=X5tzDCCejdJvbofekQqDCL6jYGXndkgENYffMcZyz0H8IghP1GJAU/5C960PWIaZor
-         kWzzrE/Sl2Rm0sIyY7uGJn8luAzLxsOArABMgNoUcJTv3kUQKxZSWgi3fZKSoX6ftE+G
-         i9HmXwnQoc3eJVYv4QFJneoxtiJwOwQwgPgbp6QL/2def5qyHBTgxZ4Ce/qaQ/Cs3P5G
-         BrkvUDoanJloSNDWwtYiG2NW8xBd4TtKvZhkd7K/+tTugljwssIm2+Ur033PQKd9A4fc
-         GFvOasrrxqKVCzkTWWEXUF3S77uPzGIOKGELEbxxZVR5XSH14SgPgT3/W64uH9COCqrF
-         8wsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1681556818; x=1684148818;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=kVGsSDU61/EuKltyjrXqAdX0XD2PqbdZCRx1bpZ6xCk=;
-        b=FZobX4asFlPEPjKZh15jmJNAcaapVjhs3i9y97b1nJltDeuhDDk8sk5nllI4INJc28
-         mmKUaEINm2EPuz8Jnq+ch0ZweIaHGCrjaH4QbviQiyNRFP7J3KHFIeKpw7OYbcZYyIV0
-         aJ6/nY0cEzaERMLMUJmIK1OxpCZah70OkdIzWJ0VC7CpZZSUFXbFUhhXD/lAvG6ZdTKM
-         n32ukb9eDmlPRoIfHix3MvnKQAcew4nkdcrsZ+eAczZJGby4nT7qw97LKoK4sm1HIVvi
-         z0z6i86NZ4P6a5Y4GQLLJ8VGWL5Vbx95nRSzSKEK9GWNnbPMYtC6RE65qRin//8UPwHN
-         wuFA==
-X-Gm-Message-State: AAQBX9e1K8AbHsriYAyS61JT7qM7qTjvBXzDWEWxJ6a85HTJwbRSiW8F
-        2GlOivtFxt2+66ZL+078jweb+kUOFD2pw0PD2Bk=
-X-Google-Smtp-Source: AKy350ajYHddrdnQrEFILBzfyaG+m6smLJQW39SyhgN7Unq0V4I6LbZK1QtK2k9FHdVHmiIlf9FrM4R2FD5SH7cjuVY=
-X-Received: by 2002:a05:6122:17a1:b0:440:60e7:f8e6 with SMTP id
- o33-20020a05612217a100b0044060e7f8e6mr5162222vkf.0.1681556817879; Sat, 15 Apr
- 2023 04:06:57 -0700 (PDT)
+        with ESMTP id S229478AbjDPXT2 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 16 Apr 2023 19:19:28 -0400
+Received: from pulsar.hadrons.org (2.152.192.238.dyn.user.ono.com [2.152.192.238])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5B0422127
+        for <linux-man@vger.kernel.org>; Sun, 16 Apr 2023 16:19:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=hadrons.org
+        ; s=201908; h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:Subject:
+        Cc:To:From:From:Reply-To:Subject:Content-Type:Content-ID:Content-Description:
+        In-Reply-To:References:X-Debbugs-Cc;
+        bh=34UcFaCKc5PBooVaZOLuDfqtkIGBgCNRTMeiiXqMtXw=; b=plkc/dUdRCLW72z3Ri6aVL4X1y
+        IlezI7zunObHmi6Iyism2jLQPvBVVPpl+xRZcXZwGaz+MszlGWlpSKWDSvfxoYA61uK2Q9a42vLjO
+        kkj3Ui9ag29R6onoY3g+DDdyvSAwySV2Nu9EZKoCplB60aPjZmHTqUwV/+Uld4F6YiO3uEZHwr8A4
+        dzGS3WeXeXz4G1uSR7/oXn/jxGMcE+aZuzISSJrj5oJ5umJjsXwDDJ52fjYIpm2wFSDswzlP/kuW2
+        nOeQdoJxwKii+EhjszhExySHZddriTs5QB07VrUq9cYvf3w8uGHBxgfsKlusN+MTLdmBIKN1TI3CR
+        qUwztXnQ==;
+Received: from guillem by pulsar.hadrons.org with local (Exim 4.96)
+        (envelope-from <guillem@hadrons.org>)
+        id 1poBeV-0000pQ-2O;
+        Mon, 17 Apr 2023 01:19:23 +0200
+From:   Guillem Jover <guillem@hadrons.org>
+To:     Alejandro Colomar <alx@kernel.org>
+Cc:     linux-man@vger.kernel.org
+Subject: [PATCH] man*/: ffix
+Date:   Mon, 17 Apr 2023 01:19:16 +0200
+Message-Id: <20230416231916.281037-1-guillem@hadrons.org>
+X-Mailer: git-send-email 2.40.0
 MIME-Version: 1.0
-References: <YnEeuw6fd1A8usjj@miu.piliscsaba.redhat.com> <e57733cd-364d-84e0-cfe0-fd41de14f434@bytedance.com>
- <CAJfpegsVsnjUy2N+qO-j4ToScwev01AjwUA0Enp_DxroPQS30A@mail.gmail.com>
-In-Reply-To: <CAJfpegsVsnjUy2N+qO-j4ToScwev01AjwUA0Enp_DxroPQS30A@mail.gmail.com>
-From:   Amir Goldstein <amir73il@gmail.com>
-Date:   Sat, 15 Apr 2023 14:06:46 +0300
-Message-ID: <CAOQ4uxhYi2823GiVn9Sf-CRGrcigkbPw2x1VQRV3_Md92gJnrw@mail.gmail.com>
-Subject: Re: [LSF/MM TOPIC] fsinfo and mount namespace notifications
-To:     Miklos Szeredi <miklos@szeredi.hu>
-Cc:     Abel Wu <wuyun.abel@bytedance.com>,
-        linux-fsdevel <linux-fsdevel@vger.kernel.org>,
-        Christian Brauner <brauner@kernel.org>,
-        Linux API <linux-api@vger.kernel.org>,
-        linux-man <linux-man@vger.kernel.org>,
-        David Howells <dhowells@redhat.com>,
-        Al Viro <viro@zeniv.linux.org.uk>,
-        Christian Brauner <christian@brauner.io>,
-        lsf-pc <lsf-pc@lists.linux-foundation.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-1.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_SORBS_DUL,RDNS_DYNAMIC,
+        SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=no
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -76,54 +47,110 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Mon, Nov 14, 2022 at 2:36=E2=80=AFPM Miklos Szeredi <miklos@szeredi.hu> =
-wrote:
->
-> On Mon, 14 Nov 2022 at 10:00, Abel Wu <wuyun.abel@bytedance.com> wrote:
-> >
-> > Hi Miklos and anyone interested in this proposal, is there any update o=
-n
-> > this? Sorry that I didn't find any..
->
-> No update.
->
-> Which part are you interested in?
->
-> Getting mount attributes?  Or a generic key-value retrieval and
-> storage interface?
->
-> For the first one there are multiple proposals, one of them is adding
-> a new system call using binary structs.  The fsinfo(2) syscall was
-> deemed overdesigned and rejected.  Something simpler would probably be
-> fairly uncontroversial.
->
-> As for the other proposal it seems like some people would prefer a set
-> of new syscalls, while some others would like to reuse the xattr
-> syscalls.  No agreement seems to have been reached.
->
-> Also I think a notification system for mount related events is also a
-> much needed component.   I've tried to explore using the fsnotify
-> framework for this, but the code is pretty convoluted and I couldn't
-> get prototype working.
->
+Escape dashes on dates, UUIDs, URLs, file and package names.
 
-Hi Miklos,
+Signed-off-by: Guillem Jover <guillem@hadrons.org>
+---
+ man2/futex.2        | 2 +-
+ man4/random.4       | 2 +-
+ man4/rtc.4          | 2 +-
+ man5/proc.5         | 2 +-
+ man7/capabilities.7 | 2 +-
+ man7/hier.7         | 2 +-
+ man7/rtld-audit.7   | 2 +-
+ 7 files changed, 7 insertions(+), 7 deletions(-)
 
-You indicated that you would like to discuss the topic of
-"mount info/mount notification" in LSF/MM, so I am resurrecting
-this thread [1] from last year's topic.
+diff --git a/man2/futex.2 b/man2/futex.2
+index 92eccde5b..eb4abac9e 100644
+--- a/man2/futex.2
++++ b/man2/futex.2
+@@ -1965,7 +1965,7 @@ Drepper, U., 2011. \fIFutexes Are Tricky\fP,
+ .UR http://www.akkadia.org/drepper/futex.pdf
+ .UE
+ .PP
+-Futex example library, futex-*.tar.bz2 at
++Futex example library, futex\-*.tar.bz2 at
+ .br
+ .UR https://mirrors.kernel.org\:/pub\:/linux\:/kernel\:/people\:/rusty/
+ .UE
+diff --git a/man4/random.4 b/man4/random.4
+index 38396b667..edd047b77 100644
+--- a/man4/random.4
++++ b/man4/random.4
+@@ -265,7 +265,7 @@ These values can be changed by writing to the files.
+ .TP
+ .IR uuid " and " boot_id
+ These read-only files
+-contain random strings like 6fd5a44b-35f4-4ad4-a9b9-6b9be13e1fe9.
++contain random strings like 6fd5a44b\-35f4\-4ad4\-a9b9\-6b9be13e1fe9.
+ The former is generated afresh for each read, the latter was
+ generated once.
+ .\"
+diff --git a/man4/rtc.4 b/man4/rtc.4
+index 55dc1ff6b..b16be16c1 100644
+--- a/man4/rtc.4
++++ b/man4/rtc.4
+@@ -43,7 +43,7 @@ and
+ .BR time (2),
+ as well as setting timestamps on files, and so on.
+ The system clock reports seconds and microseconds since a start point,
+-defined to be the POSIX Epoch: 1970-01-01 00:00:00 +0000 (UTC).
++defined to be the POSIX Epoch: 1970\-01\-01 00:00:00 +0000 (UTC).
+ (One common implementation counts timer interrupts, once
+ per "jiffy", at a frequency of 100, 250, or 1000 Hz.)
+ That is, it is supposed to report wall clock time, which RTCs also do.
+diff --git a/man5/proc.5 b/man5/proc.5
+index dc5397a22..9c0b3e2ab 100644
+--- a/man5/proc.5
++++ b/man5/proc.5
+@@ -4383,7 +4383,7 @@ Unnumbered interrupts are not shown, only summed into the total.
+ The number of context switches that the system underwent.
+ .TP
+ \fIbtime 769041601\fP
+-boot time, in seconds since the Epoch, 1970-01-01 00:00:00 +0000 (UTC).
++boot time, in seconds since the Epoch, 1970\-01\-01 00:00:00 +0000 (UTC).
+ .TP
+ \fIprocesses 86031\fP
+ Number of forks since boot.
+diff --git a/man7/capabilities.7 b/man7/capabilities.7
+index a9a676891..013efb0a5 100644
+--- a/man7/capabilities.7
++++ b/man7/capabilities.7
+@@ -1759,7 +1759,7 @@ capabilities and user namespaces, see
+ .SH STANDARDS
+ No standards govern capabilities, but the Linux capability implementation
+ is based on the withdrawn
+-.UR https://archive.org\:/details\:/posix_1003.1e-990310
++.UR https://archive.org\:/details\:/posix_1003.1e\-990310
+ POSIX.1e draft standard
+ .UE .
+ .SH NOTES
+diff --git a/man7/hier.7 b/man7/hier.7
+index dc254c269..20a8a103b 100644
+--- a/man7/hier.7
++++ b/man7/hier.7
+@@ -273,7 +273,7 @@ and
+ point at a random kernel tree.
+ Debian systems don't do this
+ and use headers from a known good kernel
+-version, provided in the libc*-dev package.)
++version, provided in the libc*\-dev package.)
+ .TP
+ .I /usr/include/g++
+ Include files to use with the GNU C++ compiler.
+diff --git a/man7/rtld-audit.7 b/man7/rtld-audit.7
+index c5d4fdddc..cc4b0431b 100644
+--- a/man7/rtld-audit.7
++++ b/man7/rtld-audit.7
+@@ -7,7 +7,7 @@
+ .\"
+ .TH RTLD-AUDIT 7 (date) "Linux man-pages (unreleased)"
+ .SH NAME
+-rtld-audit \- auditing API for the dynamic linker
++rtld\-audit \- auditing API for the dynamic linker
+ .SH SYNOPSIS
+ .nf
+ .BR "#define _GNU_SOURCE" "             /* See feature_test_macros(7) */"
+-- 
+2.40.0
 
-Would you be interested to lead a session this year?
-So far, it felt like the topic was in a bit of a stalemate.
-
-Do you have a concrete suggestion of how to escape this stalemate?
-I think it is better that we start discussing it a head of LSF/MM if we hop=
-e
-to reach consensus in LSF/MM, so that people will have a chance to
-get re-familiar with the problems and proposed solutions.
-
-Thanks,
-Amir.
-
-[1] https://lore.kernel.org/linux-fsdevel/YnEeuw6fd1A8usjj@miu.piliscsaba.r=
-edhat.com/
