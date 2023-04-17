@@ -2,168 +2,188 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id BC87D6E5069
-	for <lists+linux-man@lfdr.de>; Mon, 17 Apr 2023 20:50:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9BE7F6E5203
+	for <lists+linux-man@lfdr.de>; Mon, 17 Apr 2023 22:45:16 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229575AbjDQSut (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 17 Apr 2023 14:50:49 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51774 "EHLO
+        id S229652AbjDQUpP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 17 Apr 2023 16:45:15 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34412 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229461AbjDQSus (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 17 Apr 2023 14:50:48 -0400
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com [IPv6:2a00:1450:4864:20::333])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B79E48F
-        for <linux-man@vger.kernel.org>; Mon, 17 Apr 2023 11:50:46 -0700 (PDT)
-Received: by mail-wm1-x333.google.com with SMTP id gw13so14310879wmb.3
-        for <linux-man@vger.kernel.org>; Mon, 17 Apr 2023 11:50:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1681757445; x=1684349445;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=HquLBHE7aZnBFI8SjM2JQI9RxAgibqmw6qMgq+70Yus=;
-        b=DXCDivfYnIxyhiWkaiANvtYBpOI9wccVJs6GybGED8uGVR5ajxl7NFM8oixgonOgDz
-         yu97xTiY0BDZWCYoH/wMPOchv3kwpm1WLQV9UxwOWIPQptqVc87DAFVnLcF9G6SGyrXZ
-         k6Kr0KUu8QaKiQhWv8b3All1XwtstIoyasAiasZvJ3pNmKo2iA8qNq5JV52a0ofNXD7/
-         917Jhiv2c24XB2+4JxnyoxJn4ZjwhytCodT+9SxisUU4mX9kfIuVKnJK+E0mit6oSFcS
-         5a1i4tsFjeaKaiTt5V6SctYJ2UrCr6mSpHrYr5SL17ybjM0fBnA4PfDX24hl7uBlq61l
-         Y8kg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1681757445; x=1684349445;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=HquLBHE7aZnBFI8SjM2JQI9RxAgibqmw6qMgq+70Yus=;
-        b=c2uvkN+B6Exk0FX5qcwwBtFNJGNVtdskceuxJ8bPEsTh6jhyzz+7p24ihjTJBqNWMw
-         AvbRzbRwbePMSKBC0f4D3345tsc0ltYTpNjJcWgwNPrnDy4+vsNjIDz7PLncaWOwMw6A
-         ogSWaKU6vzOCPBgheh+o657X7TX3bwNydW2BzZSmvWMOnSSxg+lLOiUOGkWRjKP/KQ+p
-         7bZOK33+CdcK7xHI5qtvFUELFN6AsL1UhlrYVHsF79TaflYf8oNB56pCv7ftN1vxwIXP
-         6jQu55kHrM6xH2m+7ogBtOBTSqE2jrCkNUfAGdPuoH3kd59f637FfgChF1V13/R7Robp
-         Pznw==
-X-Gm-Message-State: AAQBX9cOaYX3KqU9Cy/j/lKljW+hmGpNYyWw52AHZzlSWUArpevBYd4P
-        tr69+B3/8W5Epros3fvp9lB3YyT7Wko=
-X-Google-Smtp-Source: AKy350bsnXORhvLIKPZC3M3aIrcfdtJ12LcyUuQVDxcepC4OBnoF9AIgn1q4miX930wdE2fh9PKEiw==
-X-Received: by 2002:a05:600c:6017:b0:3f1:6ebd:d995 with SMTP id az23-20020a05600c601700b003f16ebdd995mr5302711wmb.0.1681757445259;
-        Mon, 17 Apr 2023 11:50:45 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.51.134])
-        by smtp.gmail.com with ESMTPSA id k22-20020a05600c0b5600b003ef64affec7sm12593001wmr.22.2023.04.17.11.50.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 17 Apr 2023 11:50:44 -0700 (PDT)
-Message-ID: <4b71fa54-8007-eb33-e8fb-c8c3ddaabf15@gmail.com>
-Date:   Mon, 17 Apr 2023 20:50:43 +0200
+        with ESMTP id S229521AbjDQUpO (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 17 Apr 2023 16:45:14 -0400
+Received: from smtp-1908.mail.infomaniak.ch (smtp-1908.mail.infomaniak.ch [IPv6:2001:1600:4:17::1908])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2F0A7422E
+        for <linux-man@vger.kernel.org>; Mon, 17 Apr 2023 13:45:12 -0700 (PDT)
+Received: from smtp-2-0001.mail.infomaniak.ch (unknown [10.5.36.108])
+        by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4Q0fFJ0xGgzMq0W8;
+        Mon, 17 Apr 2023 22:45:08 +0200 (CEST)
+Received: from unknown by smtp-2-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4Q0fFH1JnGzMppvT;
+        Mon, 17 Apr 2023 22:45:07 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=digikod.net;
+        s=20191114; t=1681764308;
+        bh=DqIiKOyu5n3TIyrbgrm46YhNiGLM9pVkvpufP/FlyvA=;
+        h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+        b=Ki88cHdYq5+4+GiVVNGmEQ4L0oCtWh+3UERcti04vvhrZF7f5+RoV7iu07b6ECCTg
+         4/eRQDPgKmzFqZDm6S2eGQnbGqmFaUWpvpFhKhIWAopeYiiAekpy8HITQ1Yk7AG/3L
+         pdAou8SKGFwEVH9ww0MjE5k+369NaCVQyOoGVktA=
+Message-ID: <5d90e3b0-1577-7efd-03b8-f94b6e50fbc1@digikod.net>
+Date:   Mon, 17 Apr 2023 22:45:06 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.1
-Subject: Re: [PATCH v7 0/1] landlock.7: Explain best-effort fallback in
- example
+User-Agent: 
+Subject: Re: [PATCH v7 1/1] landlock.7: Explain the best-effort fallback
+ mechanism in the example
 Content-Language: en-US
 To:     =?UTF-8?Q?G=c3=bcnther_Noack?= <gnoack3000@gmail.com>,
-        =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>
+        Alejandro Colomar <alx.manpages@gmail.com>
 Cc:     Michael Kerrisk <mtk.manpages@gmail.com>, linux-man@vger.kernel.org
 References: <20230417172513.5731-1-gnoack3000@gmail.com>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20230417172513.5731-1-gnoack3000@gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------bmLjFkCJ8HLgEgpNMVl7FajO"
-X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-        autolearn=ham autolearn_force=no version=3.4.6
+ <20230417172513.5731-2-gnoack3000@gmail.com>
+From:   =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>
+In-Reply-To: <20230417172513.5731-2-gnoack3000@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Infomaniak-Routing: alpha
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+        T_SCC_BODY_TEXT_LINE autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------bmLjFkCJ8HLgEgpNMVl7FajO
-Content-Type: multipart/mixed; boundary="------------hqBlhd00PMmgNBaOjl50VzxB";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: =?UTF-8?Q?G=c3=bcnther_Noack?= <gnoack3000@gmail.com>,
- =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>
-Cc: Michael Kerrisk <mtk.manpages@gmail.com>, linux-man@vger.kernel.org
-Message-ID: <4b71fa54-8007-eb33-e8fb-c8c3ddaabf15@gmail.com>
-Subject: Re: [PATCH v7 0/1] landlock.7: Explain best-effort fallback in
- example
-References: <20230417172513.5731-1-gnoack3000@gmail.com>
-In-Reply-To: <20230417172513.5731-1-gnoack3000@gmail.com>
 
---------------hqBlhd00PMmgNBaOjl50VzxB
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+On 17/04/2023 19:25, Günther Noack wrote:
+> Signed-off-by: Günther Noack <gnoack3000@gmail.com>
+> ---
+>   man7/landlock.7 | 73 ++++++++++++++++++++++++++++++++++++++++++++++---
+>   1 file changed, 69 insertions(+), 4 deletions(-)
+> 
+> diff --git a/man7/landlock.7 b/man7/landlock.7
+> index 24488465e..16feef42c 100644
+> --- a/man7/landlock.7
+> +++ b/man7/landlock.7
+> @@ -394,11 +394,14 @@ accessible through these system call families:
+>   Future Landlock evolutions will enable to restrict them.
+>   .SH EXAMPLES
+>   We first need to create the ruleset that will contain our rules.
+> +.PP
+>   For this example,
+>   the ruleset will contain rules that only allow read actions,
+>   but write actions will be denied.
+>   The ruleset then needs to handle both of these kinds of actions.
+> -See below for the description of filesystem actions.
+> +See the
+> +.B DESCRIPTION
+> +section for the description of filesystem actions.
+>   .PP
+>   .in +4n
+>   .EX
+> @@ -421,7 +424,65 @@ attr.handled_access_fs =
+>           LANDLOCK_ACCESS_FS_MAKE_SYM |
+>           LANDLOCK_ACCESS_FS_REFER |
+>           LANDLOCK_ACCESS_FS_TRUNCATE;
+> +.EE
+> +.in
+> +.PP
+> +To be compatible with older Linux versions,
+> +we detect the available Landlock ABI version,
+> +and only use the available subset of access rights:
+> +.PP
+> +.in +4n
+> +.EX
+> +/*
+> + * Table of available file system access rights by ABI version,
+> + * numbers hardcoded to keep the example short.
+> + */
+> +__u64 landlock_fs_access_rights[] = {
+> +    (1ULL << 13) \- 1,  /* ABI v1                 */
 
-Hola!
-
-On 4/17/23 19:25, G=C3=BCnther Noack wrote:
-> Hello!
->=20
-> Same patch as before, with these changes:
->=20
->  * Use the MIN() macro instead of an explicit "if".
->  * Point out in a comment what the error scenarios are
->    when we can not retrieve the Landlock ABI version.
->=20
-> I'm avoiding to spell out the exact error codes,
-> as they are already documented in the respective man page
-> for the syscall.
-
-Makes sense.
-
->=20
-> =E2=80=93G=C3=BCnther
->=20
->=20
-> Previous mail thread:
-> v6: https://lore.kernel.org/linux-man/20230414155926.6937-1-gnoack3000@=
-gmail.com/
->=20
-> G=C3=BCnther Noack (1):
->   landlock.7: Explain the best-effort fallback mechanism in the example=
+This would be more explicit and avoid hardcoded values with:
+(LANDLOCK_ACCESS_FS_MAKE_SYM << 1) - 1,
+(LANDLOCK_ACCESS_FS_REFER << 1) - 1,
+(LANDLOCK_ACCESS_FS_TRUNCATE << 1) - 1,
 
 
-Patch applied.
+> +    (1ULL << 14) \- 1,  /* ABI v2: add "refer"    */
+> +    (1ULL << 15) \- 1,  /* ABI v3: add "truncate" */
+> +};
+> +
+> +int abi = landlock_create_ruleset(NULL, 0,
+> +                                  LANDLOCK_CREATE_RULESET_VERSION);
+> +if (abi <= 0) {
+> +    /*
+> +     * Kernel too old, not compiled with Landlock,
+> +     * or Landlock was not enabled at boot time.
+> +     */
+> +    perror("Giving up \- No Landlock support");
 
-BTW, it would be nice to use --range-diff in git-format-patch(1).  :)
+The cause of the error will be appended by perror, so we can just say 
+that we cannot use it:
+perror("Unable to use Landlock");
 
-Cheers,
-Alex
+As a side note, this syscall and this flag should never return 0, but if 
+it does (e.g. because of weird seccomp filter), the errno value might be 
+unspecified.
 
->=20
->  man7/landlock.7 | 73 ++++++++++++++++++++++++++++++++++++++++++++++---=
 
->  1 file changed, 69 insertions(+), 4 deletions(-)
->=20
->=20
-> base-commit: 6263befb32fdc99dd5d02b6afdd5613db9df4c3b
+> +    exit(EXIT_FAILURE);
 
---=20
-<http://www.alejandro-colomar.es/>
-GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
+I'm not sure this example code should exit if Landlock is not supported 
+because (most) developers don't want to exit if some (optional) security 
+features are not available.
 
---------------hqBlhd00PMmgNBaOjl50VzxB--
 
---------------bmLjFkCJ8HLgEgpNMVl7FajO
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+> +}
+> +abi = MIN(abi, 3);
+>   
+> +/* Only use the available rights in the ruleset. */
+> +attr.handled_access_fs &= landlock_fs_access_rights[abi \- 1];
+> +.EE
+> +.in
+> +.PP
+> +The available access rights for each ABI version are listed in the
+> +.B VERSIONS
+> +section.
+> +.PP
+> +If our program needed to create hard links
+> +or rename files between different directories
+> +.RB ( LANDLOCK_ACCESS_FS_REFER ),
+> +we would require the following change to the backwards compatibility logic:
+> +Directory reparenting is not possible
+> +in a process restricted with Landlock ABI version 1.
+> +Therefore,
+> +if the program needed to do file reparenting,
+> +and if only Landlock ABI version 1 was available,
+> +we could not restrict the process.
+> +.PP
+> +Now that the ruleset attributes are determined,
+> +we create the Landlock ruleset
+> +and acquire a file descriptor as a handle to it,
+> +using
+> +.BR landlock_create_ruleset (2):
+> +.PP
+> +.in +4n
+> +.EX
+>   ruleset_fd = landlock_create_ruleset(&attr, sizeof(attr), 0);
+>   if (ruleset_fd == \-1) {
+>       perror("Failed to create a ruleset");
+> @@ -430,9 +491,13 @@ if (ruleset_fd == \-1) {
+>   .EE
+>   .in
+>   .PP
+> -We can now add a new rule to this ruleset thanks to the returned file
+> -descriptor referring to this ruleset.
+> -The rule will only allow reading the file hierarchy
+> +We can now add a new rule to the ruleset through the ruleset's file descriptor.
+> +The requested access rights must be a subset of the access rights
+> +which were specified in
+> +.I attr.handled_access_fs
+> +at ruleset creation time.
+> +.PP
+> +In this example, the rule will only allow reading the file hierarchy
+>   .IR /usr .
+>   Without another rule, write actions would then be denied by the ruleset.
+>   To add
 
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQ9lQMACgkQnowa+77/
-2zLTxw/+MsHznJTXCgebTW57nmhOprrWuKF9H3oYumhI2+5Iu42hrXMySOpu0MkN
-0Zzn0hE1K2g1cyQpFHUjdI5P60amFwutEJIfEsrNzeWc1OtPZ1/xf1dEyhu369yX
-AdFzBn7Vu1E+1//JnI0cIV6E1pTN3tsIx32Xd6Hd5ERbAPsjszQxsFq/YoadtyKX
-XV3jq9vL7tGzKhk+dYLK/Qh6QsGENHTvTV9P5NCZAlJvjnvTGuYoVHD4iR7Qxep9
-Wo56sE5TBTGlvvPwKgn7xwDUvX+jpAabugobIs7NsKb7nOO6E3oqBWEHFkPHhea0
-pzt4GzC0ZtPxfzKcazIvvoePEG96ujXM/B38/lsizp7j+rRVOvbQLQAQBXIk8t1M
-/obl+tBaf2p0+dIwi1vsTZBxdtbHUMe2Lu2/aib/Bko+nGWwBCMOwYea5oADLEiQ
-4VN8r2kUAc9riVzVAqxS9mbCk/bhrw1pwsCQjWi1xOd4NDdqjWUnSj4K0aspQGXm
-sk2bNjmZzTspkov0bwiVJDs3FpfLLarJoAz/zC+symsrVYNX/ujZLJ+RktWakXVy
-nrOCMpK6BCGHjQ/uWwZwfzOUyyjtbZRF9HPIkfLLzXbXl4yruDL2b7mgf+zAR8K+
-hKLIqigePCWvvBji8OGMd/nSbr4M1nqLBhPOUPKFam5q3D8Ov80=
-=APd0
------END PGP SIGNATURE-----
-
---------------bmLjFkCJ8HLgEgpNMVl7FajO--
+Thanks Günther!
