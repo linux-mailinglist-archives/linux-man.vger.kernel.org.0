@@ -2,71 +2,71 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id D3AE16E5013
-	for <lists+linux-man@lfdr.de>; Mon, 17 Apr 2023 20:21:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DDB006E5026
+	for <lists+linux-man@lfdr.de>; Mon, 17 Apr 2023 20:28:45 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229461AbjDQSVD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 17 Apr 2023 14:21:03 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37952 "EHLO
+        id S229655AbjDQS2o (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 17 Apr 2023 14:28:44 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39942 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229648AbjDQSVC (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 17 Apr 2023 14:21:02 -0400
+        with ESMTP id S229562AbjDQS2n (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 17 Apr 2023 14:28:43 -0400
 Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com [IPv6:2a00:1450:4864:20::333])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 791ABB0
-        for <linux-man@vger.kernel.org>; Mon, 17 Apr 2023 11:21:01 -0700 (PDT)
-Received: by mail-wm1-x333.google.com with SMTP id o9-20020a05600c510900b003f17012276fso2747339wms.4
-        for <linux-man@vger.kernel.org>; Mon, 17 Apr 2023 11:21:01 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 530F110DD
+        for <linux-man@vger.kernel.org>; Mon, 17 Apr 2023 11:28:42 -0700 (PDT)
+Received: by mail-wm1-x333.google.com with SMTP id o29-20020a05600c511d00b003f1739de43cso1815726wms.4
+        for <linux-man@vger.kernel.org>; Mon, 17 Apr 2023 11:28:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1681755660; x=1684347660;
+        d=gmail.com; s=20221208; t=1681756121; x=1684348121;
         h=in-reply-to:from:references:cc:to:content-language:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Rzs0cTaOZ7PNqTWzf21RWCFHogGRMDmTC6xU50tsL1Y=;
-        b=OuEyu6P9rRbhHRTVTLi8hNpG4UcbrQNHs8j8DxoV+2GtMI3IwyBleqYlXgEYtf6X0K
-         xIkjG9sZdhlrezbZpLsGJHPcBizUiDw1UQOqNJqOfd9oqXecpBUOJnPC28u2n7PJ3Im3
-         bn2ogMuqQ70OHEjZsj1C9vy9KbIqeVu+gdYssL0a6bIY0qAkkj0SvdrP59J/6OECOLwi
-         ipcc8jESdLGqoe/sgPDp3MoNe6Ac6KYLsZTsgyCUIYZWcSds8sJ4V3jsgIbh3Ewgq//0
-         XOq0IPBHUpoX1cDKASmT2t8GVL6ZNZJhUMsfTUB+I+6gV9/xxxu4p5pYUY7l/NwbAbBp
-         /7Aw==
+        bh=6WxWHCQBnAGedvPTBlm7Ce6F6AQccsc146EncSlANWk=;
+        b=mns6+VP994qexssJPkRX0xDTrhhKbVu74MiMphdhtFpCqdoApEcFNPlowSxI9PURzn
+         KP96iiJU4y/WZsoFu9wRE1oxWaWkAsLHOiCYIDo+H2O9AEs7fXe0bOF7B5vltsDLvmLH
+         C3Kt6FLZ9LzNiAJiVs44tn4ZBHl/jnhMkKEwr59iS6AN078U20h8sVzU+oK36kRdqpxJ
+         bj2MuU9wK59oJA0m0+FXVA56a6PPZc9RKD/6WtGGRGe5nx1YpxBu6zNvgvFeWP/+ogiK
+         OLHwcG2Anxru9ojm6nkEm0vEONML1cUJ65JLGoY5u0NUGkeGbOUHftdA/xxUkobmncWt
+         FIXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1681755660; x=1684347660;
+        d=1e100.net; s=20221208; t=1681756121; x=1684348121;
         h=in-reply-to:from:references:cc:to:content-language:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=Rzs0cTaOZ7PNqTWzf21RWCFHogGRMDmTC6xU50tsL1Y=;
-        b=fG/OtOReyRwbsSshVbIzp1ocmfBBuceAMWuvYEWHUKjKAoL75MCUcFbTqDJnb+Jvg2
-         EEJPQ+WeVCTwpolVWhYtFxdswwHZeTiPI/4Z55jGpLz4f5AzNjpL6gH+IQnFQJDJDrZJ
-         Xulfsg+ox7qMlDglQ8lou9Zx50F48I2D+pNHfV1u5P8nwG+SZtWO4RFbxAdLvMjifnJY
-         P0f0lJ58+pRqD7fu0yd7cVIZqnFw3uqirm7+JjaBR5F/YMOEKDc9nSfAauCxCFgKc2RF
-         8sAXo9M73LfPpxAcIVhz3fCIeLToMGMZsNVuYTTry2lQVhd3/Ln/cln7VtT3T2RxyXxY
-         FmMQ==
-X-Gm-Message-State: AAQBX9c3UwlAqB8aH7iEq5Uod6xwXcXErK1/sLKeeSF7NCjdU2tBx/0j
-        bgqqCbZ7dDjyRegijJzpvyxo1b3rkKQ=
-X-Google-Smtp-Source: AKy350Y3XuG5/QUKVtIFFqwXw5wMLOjQjIG0yWgx/5vRChwxuKPhjzTO29GevJkrdYgDHlAHz8VvjQ==
-X-Received: by 2002:a1c:7207:0:b0:3f1:72ec:4024 with SMTP id n7-20020a1c7207000000b003f172ec4024mr4002393wmc.21.1681755659676;
-        Mon, 17 Apr 2023 11:20:59 -0700 (PDT)
+        bh=6WxWHCQBnAGedvPTBlm7Ce6F6AQccsc146EncSlANWk=;
+        b=Z6vJEhHXuWFaTnl9socE3Z3/YpbJESUJbkaEw9RjulN1yh8NL9eVQgdVXO9PWoVA9w
+         q3kKWQ45ZQCSpF0P4ylrb6UmTpHDgCCY4uDbdtnyGcoKO4o/tSk5rDze875mLPGdy0Ig
+         AV9wJ3Gc60/c0djTB24zyh73HjPCIBh43qInwQW70Ha17nCD5e61hdwfmZxSTv/lTqvt
+         w3H0WpG+QRQ2CUf4kH77CdLBKSdjv9h0S7JkTFG1mY0jgMxhIbNICFsov6p1z4ntM+z5
+         I1eNqs7xcyWvY7oteE+q9hFIsNyEIK248CRetyQxRj3YejbCAGpAX5J+SAUsM0joDldE
+         699w==
+X-Gm-Message-State: AAQBX9fUqnWF8RubNKub/fXHthrzN+225AeIREZXuZFinvzhOumHYS4l
+        KdMBaZEeMVS7+RAnN28C1+Nv5EupQYQ=
+X-Google-Smtp-Source: AKy350YwRbyStt6vBuYcJ4Mc69qkwb0Nnp8srfIty45Y36lar/8Y6wl2dRrI8waiJFjQtecB6pSy0g==
+X-Received: by 2002:a7b:ca4d:0:b0:3f1:745c:7de2 with SMTP id m13-20020a7bca4d000000b003f1745c7de2mr2128223wml.5.1681756120819;
+        Mon, 17 Apr 2023 11:28:40 -0700 (PDT)
 Received: from [192.168.0.160] ([170.253.51.134])
-        by smtp.gmail.com with ESMTPSA id g2-20020a05600c000200b003f0aa490336sm11944038wmc.26.2023.04.17.11.20.59
+        by smtp.gmail.com with ESMTPSA id f14-20020a5d58ee000000b002f3e1122c1asm11082955wrd.15.2023.04.17.11.28.40
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 17 Apr 2023 11:20:59 -0700 (PDT)
-Message-ID: <cbd5bdd6-faf3-49ec-6952-089e8eda96c1@gmail.com>
-Date:   Mon, 17 Apr 2023 20:20:58 +0200
+        Mon, 17 Apr 2023 11:28:40 -0700 (PDT)
+Message-ID: <75f10c45-b00b-4126-6843-a8f241ef16d5@gmail.com>
+Date:   Mon, 17 Apr 2023 20:28:39 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.1
-Subject: Re: [PATCH 2/4] proc.5: A process can increase its own
- /proc/PID/oom_adj setting
+Subject: Re: [PATCH 3/4] proc.5: Document that /proc/<pid>/oom_adj is no
+ longer present
 Content-Language: en-US
 To:     Guillem Jover <guillem@hadrons.org>,
         Alejandro Colomar <alx@kernel.org>
 Cc:     linux-man@vger.kernel.org
 References: <20230416233552.283776-1-guillem@hadrons.org>
- <20230416233552.283776-3-guillem@hadrons.org>
+ <20230416233552.283776-4-guillem@hadrons.org>
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20230416233552.283776-3-guillem@hadrons.org>
+In-Reply-To: <20230416233552.283776-4-guillem@hadrons.org>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------PNG08gHhFuQlBe63FUJo2Lvy"
+ boundary="------------4f6VMa2O7v5dJ53bSp2KcNrZ"
 X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
@@ -78,86 +78,84 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------PNG08gHhFuQlBe63FUJo2Lvy
-Content-Type: multipart/mixed; boundary="------------869t9vhvd6u8rb7Hlr67LcJL";
+--------------4f6VMa2O7v5dJ53bSp2KcNrZ
+Content-Type: multipart/mixed; boundary="------------xcnA6ujpHtDlx4DbLg4rIqd0";
  protected-headers="v1"
 From: Alejandro Colomar <alx.manpages@gmail.com>
 To: Guillem Jover <guillem@hadrons.org>, Alejandro Colomar <alx@kernel.org>
 Cc: linux-man@vger.kernel.org
-Message-ID: <cbd5bdd6-faf3-49ec-6952-089e8eda96c1@gmail.com>
-Subject: Re: [PATCH 2/4] proc.5: A process can increase its own
- /proc/PID/oom_adj setting
+Message-ID: <75f10c45-b00b-4126-6843-a8f241ef16d5@gmail.com>
+Subject: Re: [PATCH 3/4] proc.5: Document that /proc/<pid>/oom_adj is no
+ longer present
 References: <20230416233552.283776-1-guillem@hadrons.org>
- <20230416233552.283776-3-guillem@hadrons.org>
-In-Reply-To: <20230416233552.283776-3-guillem@hadrons.org>
+ <20230416233552.283776-4-guillem@hadrons.org>
+In-Reply-To: <20230416233552.283776-4-guillem@hadrons.org>
 
---------------869t9vhvd6u8rb7Hlr67LcJL
+--------------xcnA6ujpHtDlx4DbLg4rIqd0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
 Hi Guillem,
 
 On 4/17/23 01:35, Guillem Jover wrote:
-> See kernel commit 8fb4fc68ca391862b061b3d358a288ccf6abed39.
->=20
 > Signed-off-by: Guillem Jover <guillem@hadrons.org>
 
-Patch applied.
+Patch applied.  BTW, changes the subject to PID for consistency with
+your other patches.
 
 > ---
->  man5/proc.5 | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
+>  man5/proc.5 | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
 >=20
 > diff --git a/man5/proc.5 b/man5/proc.5
-> index 1947957ad..4bb7dd262 100644
+> index 4bb7dd262..a3b5ffc7b 100644
 > --- a/man5/proc.5
 > +++ b/man5/proc.5
-> @@ -1633,7 +1633,11 @@ a new process inherits its parent's
->  setting.
->  A process must be privileged
->  .RB ( CAP_SYS_RESOURCE )
-> -to update this file.
-> +to update this file,
-> +.\" commit 8fb4fc68ca391862b061b3d358a288ccf6abed39
-> +although a process can always increase its own
-> +.I oom_adj
-> +setting (since 2.6.20).
+> @@ -1640,7 +1640,9 @@ although a process can always increase its own
+>  setting (since 2.6.20).
+>  .IP
+>  Since Linux 2.6.36, use of this file is deprecated in favor of
+> -.IR /proc/ pid /oom_score_adj .
+> +.IR /proc/ pid /oom_score_adj ,
+> +.\" commit 01dc52ebdf472f77cca623ca693ca24cfc0f1bbe
 
-I specified "(since Linux 2.6.20)", for consistency.
+And moved this to the commit message, since I don't want to pollute
+the source code for such an antique reference.
 
 Cheers,
 Alex
 
->  .IP
->  Since Linux 2.6.36, use of this file is deprecated in favor of
->  .IR /proc/ pid /oom_score_adj .
+> +and finally removed in Linux 3.7.
+>  .TP
+>  .IR /proc/ pid /oom_score " (since Linux 2.6.11)"
+>  .\" See mm/oom_kill.c::badness() before Linux 2.6.36 sources
 
 --=20
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
---------------869t9vhvd6u8rb7Hlr67LcJL--
+--------------xcnA6ujpHtDlx4DbLg4rIqd0--
 
---------------PNG08gHhFuQlBe63FUJo2Lvy
+--------------4f6VMa2O7v5dJ53bSp2KcNrZ
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQ9jgoACgkQnowa+77/
-2zJ/bxAAmKpkVtOASD6ylyVAhoG6hznEdEZSjRXoodjjqp/XYCwcujSOCenndGsh
-7yHWvD/w0AOkDFAsbHn0iZgQsjn5i6DcGfDkpDOz9QvR0FPZ2SyYX+rq4Ie+ekir
-RtUJ1p+xFhm+0J6N9c43kIpXAEfTdua3U4u0ewWX1Y7KLkU+xmie45Ou2k0b2/fL
-bKBMGBs3ewo6JZEWkUf8btLk8lHCOnPSwRx5cjMRvb6xmSaEUiGFyDgrvklPKmmM
-fWZB7cDTJ7tfIjQ7vqSMqOWj7YnPjexvJd2OYTfgZvw5juYdE9vYq4yc8Sy4pxIz
-Bnt+66oQMybo+eynKKRWVQfU7ASp1rxdtO/r60HaPkL8qqLpfUvfZnpqz5ub74dB
-Vzgx3oVhsbtCtDYBJQIBxl/MHo8sOQOLM/CJzWewnq82R4gMBFieAB8i13+KQ0/g
-KSfmhereH0cdmvxAaQ9QSSRAB1Z4BFD/nv7H7Yag3TN5JRJEyrZySStHHfLi2r1r
-OetCdw2ZG7/AUZksvqPUnLkUO8s6c0mwub1Ku2g9alD2kwLxpIPErJ+6zwUsjBpR
-Dx3cxZU5fE4B+H1wNoPeOVnm6NX6LG5j352fzVBuZ44s2d4bN+6L8NkZJRXN/mb8
-JV8yEa/PZdny4aPrQW6jPrfUGKpSHzZsP2Lu1aEydjJcKm05of8=
-=JF3g
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQ9j9cACgkQnowa+77/
+2zL61g//SvaoiMAvanLUuJnzHsdS6xwaBTZccij5GPrXV0+uMlVAqRPhvDfCOYJ0
+RBi6UGIU0uTgNxm5OGZpbdx6hsNRaOsBNKpZLq+4t/ysfqdRaR5DtBrR1gCHw2SG
+E/CyMYnRt1XMOu4HWn/W+BJwJLscX6mU17SMWb+eXNDYK2ug0zQkBoHIhkavf+WU
+viOzV4rQKxOtIRcUCJZlNyECMqNP3mmvIkxsky9MAtw3wu5et+rEvNKGJBcYVPfH
+gotjZc83E1zvXNkVJhq6FJO6CmaG6W6SSVyLRq38H+p0C5MYyThC0EYv8P9o+cH9
+4kRuuFXuldKq+8eVcnAiqcZx3kC4JFdeIIpgQTNpMv7GdwJ063IG8W9lLsudRt6g
+HXThOp2/plv+0toojV7vmn0ujOCp6GGwi8z8WdHAgpjGWFHN6dn0TAzkuDHrc2iy
+eUcSX3+RuZ+A5ezg9N7piLY9fde4DvuJp2xbUzH+rlQLDy+olGj1v1KNYn0G9KKY
++idzDsXcJLRxON41o/hI4uIurjNckED8+UVlTvulGnMKTk5XcPHZtk3NPcB7E9ti
+ZSKpzTUyhFlhodc72c3bh2gZd7h4t4VXKv3J1c8AAFW/xmtwyJ99oP/2w5wWx2+B
+idAa3DvoozQghFD3XXUaEz7bH7634LeHztg1i/vCNdLie9tvyxk=
+=G7Ga
 -----END PGP SIGNATURE-----
 
---------------PNG08gHhFuQlBe63FUJo2Lvy--
+--------------4f6VMa2O7v5dJ53bSp2KcNrZ--
