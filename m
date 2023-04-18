@@ -2,138 +2,217 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id DA7476E5C9D
-	for <lists+linux-man@lfdr.de>; Tue, 18 Apr 2023 10:54:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 902DC6E6606
+	for <lists+linux-man@lfdr.de>; Tue, 18 Apr 2023 15:33:57 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230389AbjDRIyj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 18 Apr 2023 04:54:39 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34568 "EHLO
+        id S229517AbjDRNd4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 18 Apr 2023 09:33:56 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53294 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230440AbjDRIyh (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 18 Apr 2023 04:54:37 -0400
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com [IPv6:2a00:1450:4864:20::635])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3B88E40D2
-        for <linux-man@vger.kernel.org>; Tue, 18 Apr 2023 01:54:24 -0700 (PDT)
-Received: by mail-ej1-x635.google.com with SMTP id xi5so71206729ejb.13
-        for <linux-man@vger.kernel.org>; Tue, 18 Apr 2023 01:54:24 -0700 (PDT)
+        with ESMTP id S229627AbjDRNdz (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 18 Apr 2023 09:33:55 -0400
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com [IPv6:2a00:1450:4864:20::32b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 393A810C0
+        for <linux-man@vger.kernel.org>; Tue, 18 Apr 2023 06:33:54 -0700 (PDT)
+Received: by mail-wm1-x32b.google.com with SMTP id n43-20020a05600c502b00b003f17466a9c1so3062492wmr.2
+        for <linux-man@vger.kernel.org>; Tue, 18 Apr 2023 06:33:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=szeredi.hu; s=google; t=1681808062; x=1684400062;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=4k3WW0HYYEev3nuwv7vDX4T8/KUYMFlvnkJox7nmgfY=;
-        b=rZgoEYmWcvDFqkdD0nxXePfvBvn3u5ZOur7mt+d4l5P9aQ9Gl/6qCmeGFgQdIDNixe
-         zyd4xFj49Dbjf/+YBEzuWTsI5AHawGdIsTaxkF2LATuyXvEQCNPrCPnDQY7A7rpWaV3I
-         Be0da+ecOYtTG5E4BsnQPezrWLtzlqR+4QPXg=
+        d=gmail.com; s=20221208; t=1681824832; x=1684416832;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=rt9oYb0ioyRqhmn2UYwOgoETkfiEqh6aQqb4XshkOSQ=;
+        b=EVv5WPZIIphGiLXVjl2v4546Vc2Ui25FZ0VKDDRZ95cuA127hrLU+2IHtMSPuDntSf
+         hGwWIGgX0ra+vtnKxrzLhSoaCTejsG2PCD4YIAh+wwqCbH3kwMp3QL83QCB8O7+2u0jJ
+         /d7ZKDmN5F1CGQyjQdDVjHDamX5x7+7hmwQKvzKy95e+X+WaFRCd4tU6P3nWppqdyUfw
+         9PyBMYMpVuLQvVmwKQF3Ze9IQVQO9V6ggiJbGVtmg+WICV3Y5GQIvw1ZWNuamr9w/j/m
+         JgauseK5CASE8mfnU1DSQduSOhxpu9mtqmjb9TV2dQj+uje4EoiW8hpU62lT9bF8BlVo
+         5x4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1681808062; x=1684400062;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=4k3WW0HYYEev3nuwv7vDX4T8/KUYMFlvnkJox7nmgfY=;
-        b=fW/IOS9gVWQrUBjVM22/L8UKsmFisSDLVENIqD+Lwy9gr2Yjpn7KlvfPzlHMJnuKvl
-         xHyl2lSZv+jvburP7+/mgOtrL37BZQ+oc9a+Q6abRfoNJPmO6zZrKZag0n80+5bvMXOe
-         q/OhZeVU6kAHtnC7514T7DUS1muI6OHXYn3tX8KX9411YHbJXDHUK5gr75v0UcjD4jAY
-         heJ1gbN4cmyhxIN+0+iaDHJ9CXTu4ShL/yTYg+sytX8Vra4cprqMic4HsZtC7y1uypcw
-         QRdpoASfyKf5ya4lN5GEQBu2Sv9mSwlIjX3pNtJrmSY54F/6bWSXMwqOu8w+M9WdH+Jv
-         T1PQ==
-X-Gm-Message-State: AAQBX9eCpLEjk1G/JYxEi443mWpV/kBcwvuT6yICjXkQ9fX3FQsNf6V0
-        Bu+80dWEKR6a3bkojgfqLNIjAWL/NYSwUkZb00/TUA==
-X-Google-Smtp-Source: AKy350ZeR14T6BUocbJhKdgdvJG00gRRWuAG9wyFQ4gTSTVTWmefyGehGfMzmKL4FI9uxUOFNpYalzs+EfMXy3v9vew=
-X-Received: by 2002:a17:906:149b:b0:948:b9ea:3302 with SMTP id
- x27-20020a170906149b00b00948b9ea3302mr10922599ejc.1.1681808062685; Tue, 18
- Apr 2023 01:54:22 -0700 (PDT)
+        d=1e100.net; s=20221208; t=1681824832; x=1684416832;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=rt9oYb0ioyRqhmn2UYwOgoETkfiEqh6aQqb4XshkOSQ=;
+        b=R2/49/sw76udFYySdyfh3Uc3+HAV4hizfvwOIjmgEeXwVziEeLoKDTT6HA3PIQ0zKv
+         YJHL2h7tJ8Ck7cviqJOuEqUeE4mIHsy7bzssUr9fxvFnVH1esGiJw5xzOtX/tFPAM31P
+         KycMna/vKadbkN4QLd7ujfWh3EHoswSdRoApJjWpHYVcbsAhgj1WwhYcBPKvbo+tW8vK
+         ZVu4ieJdBwYhu6uZ3RpxYju4gGn4B1tGckcEbKlxEZM9V015YdBI4QGRzF0FsUEhWaXw
+         mOcJSZ5p/GVKULdHn+Ed3bjfzzOZcVL7jul7NiArlBCye+DHj/7yHgH+F71tj7eC5FEx
+         u49w==
+X-Gm-Message-State: AAQBX9edI72rsURQhmH7hQMuy6s02q91tsvGFvhgUEHp88uGwRaNi92/
+        UG9jso05S/vgtsf8safR+XY=
+X-Google-Smtp-Source: AKy350aCcpRq5iEEKu0w6pRdAw7jT6nXcy5cq61KIDtZuBPLV7TjM4/IOoibNfOqhdgOjbvqJAv9LA==
+X-Received: by 2002:a1c:7c15:0:b0:3f0:b095:15d9 with SMTP id x21-20020a1c7c15000000b003f0b09515d9mr10398157wmc.40.1681824832544;
+        Tue, 18 Apr 2023 06:33:52 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.51.134])
+        by smtp.gmail.com with ESMTPSA id f24-20020a1cc918000000b003ee63fe5203sm14929633wmb.36.2023.04.18.06.33.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 18 Apr 2023 06:33:51 -0700 (PDT)
+Message-ID: <12c2889f-7f05-8338-b758-5d9b83af536c@gmail.com>
+Date:   Tue, 18 Apr 2023 15:33:43 +0200
 MIME-Version: 1.0
-References: <YnEeuw6fd1A8usjj@miu.piliscsaba.redhat.com> <e57733cd-364d-84e0-cfe0-fd41de14f434@bytedance.com>
- <CAJfpegsVsnjUy2N+qO-j4ToScwev01AjwUA0Enp_DxroPQS30A@mail.gmail.com> <CAOQ4uxhYi2823GiVn9Sf-CRGrcigkbPw2x1VQRV3_Md92gJnrw@mail.gmail.com>
-In-Reply-To: <CAOQ4uxhYi2823GiVn9Sf-CRGrcigkbPw2x1VQRV3_Md92gJnrw@mail.gmail.com>
-From:   Miklos Szeredi <miklos@szeredi.hu>
-Date:   Tue, 18 Apr 2023 10:54:11 +0200
-Message-ID: <CAJfpegsLD-OxYfqPR7AfWbgE1EAPfWs672omt+_u8sYCMFB5Fg@mail.gmail.com>
-Subject: Re: [LSF/MM TOPIC] fsinfo and mount namespace notifications
-To:     Amir Goldstein <amir73il@gmail.com>
-Cc:     Abel Wu <wuyun.abel@bytedance.com>,
-        linux-fsdevel <linux-fsdevel@vger.kernel.org>,
-        Christian Brauner <brauner@kernel.org>,
-        Linux API <linux-api@vger.kernel.org>,
-        linux-man <linux-man@vger.kernel.org>,
-        David Howells <dhowells@redhat.com>,
-        Al Viro <viro@zeniv.linux.org.uk>,
-        Christian Brauner <christian@brauner.io>,
-        lsf-pc <lsf-pc@lists.linux-foundation.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
-        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-        autolearn=ham autolearn_force=no version=3.4.6
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.1
+Subject: Re: [PATCH] man*/: ffix
+To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc:     linux-man@vger.kernel.org, Guillem Jover <guillem@hadrons.org>,
+        Alejandro Colomar <alx@kernel.org>
+References: <20230416231916.281037-1-guillem@hadrons.org>
+ <20230416235126.vdbiab5p5jwty4ol@illithid>
+ <245b3f67-3686-a784-c0ae-d3e5db117a21@gmail.com>
+ <20230417211030.tzxakddee7qehrcw@illithid>
+Content-Language: en-US
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <20230417211030.tzxakddee7qehrcw@illithid>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------ZIdzqHrYSqQrH2QxTcsqw3mU"
+X-Spam-Status: No, score=-4.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+        URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Sat, 15 Apr 2023 at 13:06, Amir Goldstein <amir73il@gmail.com> wrote:
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------ZIdzqHrYSqQrH2QxTcsqw3mU
+Content-Type: multipart/mixed; boundary="------------Nv9gexZFvVDOwhbmoRt0AQL6";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: linux-man@vger.kernel.org, Guillem Jover <guillem@hadrons.org>,
+ Alejandro Colomar <alx@kernel.org>
+Message-ID: <12c2889f-7f05-8338-b758-5d9b83af536c@gmail.com>
+Subject: Re: [PATCH] man*/: ffix
+References: <20230416231916.281037-1-guillem@hadrons.org>
+ <20230416235126.vdbiab5p5jwty4ol@illithid>
+ <245b3f67-3686-a784-c0ae-d3e5db117a21@gmail.com>
+ <20230417211030.tzxakddee7qehrcw@illithid>
+In-Reply-To: <20230417211030.tzxakddee7qehrcw@illithid>
 
-> You indicated that you would like to discuss the topic of
-> "mount info/mount notification" in LSF/MM, so I am resurrecting
-> this thread [1] from last year's topic.
->
-> Would you be interested to lead a session this year?
-> So far, it felt like the topic was in a bit of a stalemate.
->
-> Do you have a concrete suggestion of how to escape this stalemate?
-> I think it is better that we start discussing it a head of LSF/MM if we hope
-> to reach consensus in LSF/MM, so that people will have a chance to
-> get re-familiar with the problems and proposed solutions.
+--------------Nv9gexZFvVDOwhbmoRt0AQL6
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-The reason for the stalemate is possibly that we are not trying to
-solve the issue at hand...
+Hi Branden,
 
-So first of all, here's what we currently have:
+On 4/17/23 23:10, G. Branden Robinson wrote:
+> Hi Alex,
+>=20
+> At 2023-04-17T20:14:42+0200, Alejandro Colomar wrote:
+>> What do standards say about formatting dates?
+>=20
+> Nothing that I know of.
+>=20
+>> Do they specify the character?
+>=20
+> Not that I know of.
+>=20
+>> I read some RFCs, but didn't see it specified, other than calling it
+>> literally '"-"'.  No name of the character, or ASCII code.
+>=20
+> Most RFCs don't concern themselves with typography.  :)
+>=20
+>> However, date(1) only accepts hyphen-minus, so it would be nice to use=
 
-- reading a process' mount table via /proc/$PID/mountinfo
-   o mount parameters (ID, parent ID, root path, mountpoint path,
-mount flags, propagation)
-   o super block parameters (devnum, fstype, source, options)
-   o need to iterate the whole list even if interested in just a single mount
+>> a compatible format, even if standards didn't mandate it.
+>=20
+> Sure, and for an example you actually intend someone to copy and paste,=
 
-- notification on mount table change using poll on /proc/$PID/mountinfo
-   o no indication what changed
-   o finding out what changed needs to re-parse possibly the whole
-mountinfo file
-   o this can lead to performance problems if the table is large and
-constantly changing
+> you should _typeset it as an example_.
+>=20
+> In my opinion, the cases at issue weren't examples of things to be
+> copied and pasted, but _read_.  That is why I attempted to point out a
+> much easier way of getting date(1) to format the Epoch.
+>=20
+> As another example, in the history section of a man page, I might say
+> something like the following.
+>=20
+>   This system call appeared in First Edition Unix, 1971-11-03.
+>=20
+> It would be silly, in my opinion, to escape these hyphens.  They're not=
 
-- mount ID's do not uniquely identify a mount across time
-  o when a mount is deleted, the ID can be immediately reused
+> intended as command parameters, but for the enlightenment of the reader=
+=2E
+>=20
+> I concede that there are people who don't _ever_ want to see proper
+> hyphens in UTF-8 man pages.  For them, _every_ hyphen should be a
+> hyphen-minus.  I don't agree, but groff man(7) can accommodate their
+> desires.  That is why groff has the following in its "PROBLEMS" file.
 
-The following are the minimal requirements needed to fix the above issues:
+You know I'm not one of those ;)
 
-1) create a new ID for each mount that is unique across time; lets
-call this umntid
+>=20
+> ---snip---
+[...]
+> ---end snip---
+>=20
+> By analogy, we don't compose man pages to write "don\[aq]t", even if fo=
+r
+> some reason a person might want to type "don't" as input to a Unix
+> command.  (I hope they've prepared for its potential interaction with
+> the shell's quoting mechanisms.)  People have gradually realized over
+> the years that typing "don\[aq]t" is derpy and awkward.  Typesetting
+> enthusiasts also note that it gives you a wrongly-shaped apostrophe in
+> DVI, PostScript, and PDF output.
 
-2) notification needs to indicate the umntid that changed
+I'm not convinced, because dates are not prose.  Why should we use hyphen=
+s
+in dates formatted with standards-like formats?  I would agree in using
+hyphens in dates if we spelled out dates unformatted, in plain English.
+But if we use ISO-like or RFC-like formats, I think we should adhere to
+them completely.
 
-3) allow querying mount parameters via umntid
+>=20
+>> I'll hold the patch, to allow for some discussion, but I want to apply=
 
-And I think here's where it gets bogged down due to everyone having
-their own ideas about how that interface should look like.
+>> it.
+>=20
+> I unflinchingly agree with the remainder of the patch.  I simply want t=
+o
+> caution against a robotic process of demoting perfectly legitimate
+> hyphens to the crudely compromised hyphen-minus character.
 
-Proposals that weren't rejected so far:
+Please explain why they are reasonable there?  What's the use of a
+hyphen in a date?  It's not a compound noun, or something like that.
 
-- mount notifications using watch_queue
+Cheers,
+Alex
 
-https://lore.kernel.org/all/159645997768.1779777.8286723139418624756.stgit@warthog.procyon.org.uk/
+>=20
+> Regards,
+> Branden
 
-I also explored fsnotify infrastructure for this.  I think the API is
-better fit, since we are talking about filesystem related events, but
-notifications l would need to be extended with the mount ID.
+--=20
+<http://www.alejandro-colomar.es/>
+GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
-- getxattr(":mntns:$ID:info",...)
+--------------Nv9gexZFvVDOwhbmoRt0AQL6--
 
-https://lore.kernel.org/all/YnEeuw6fd1A8usjj@miu.piliscsaba.redhat.com/
+--------------ZIdzqHrYSqQrH2QxTcsqw3mU
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-Christian would like to see the xattr based interface replaced with a
-new set of syscalls to avoid confusion with "plain" xattrs.
+-----BEGIN PGP SIGNATURE-----
 
-Thanks,
-Miklos
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQ+nDcACgkQnowa+77/
+2zJJOg//T1TBPUlbjJbgHWkKjU5hdG9DmkYbbqAXpuJOVMf2q4vCWO0zpATdY3vl
+mPPZLUviF83e1yc6kN9eNI6FZBWYl89AfrjpMJ59DbVP2YWbusC1cJMro9JdauFb
+q3G5pmGOV81NexOkjdg5Qzo4MNQ3fef5HPIEtUKe416pmQRLd9s/6+ZRLhO7AeUr
+INcpsRyv1myqrgjSRegiaBAek/qMtASaDYVlhPZImWwK/sXXMGkFzBIkbGkHLpDg
+JdgtVI4Ri1Wm3R8vlMa2FBt9iAk8O00qdAh4CNVfnUnmj52KT5u6rv2aDiH5QEF3
+AN/hKZj4fyzlUftGcFJbiFp/5wWRuhfO+kayeWVe+tG4/S5tSK2HBY9lNr8ixrY5
+j9vp5O2DIRXupzJAKvG1w1/kaP2qCwEHduxM02eT5BRb+Y5q9QUkqLIpshRzt5tg
+I15niT4W7pvFe/sx0JGZpplNhCX5KF5VCRkAwGaXnZJtDC5GoSwVKPXaDB9AnuRa
+MkQRJQpGRviYrmdHriJD8PGXm/O43UYp1qPxcdEfptLRKf66xtom9yVQ6ao8Vq1n
+qQbtMZ3m8Fi9gPjEYl9MxiJgVR62+xQjIT0RPBc8E1P51sVd372TfcVW5Lc8pkqD
+pvOEztLC6MIyH4pZni6LNGVoMslmvhmwUGgganm0oicHbxQ047A=
+=Vkcb
+-----END PGP SIGNATURE-----
+
+--------------ZIdzqHrYSqQrH2QxTcsqw3mU--
