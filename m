@@ -2,160 +2,171 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id B12CA6E6766
-	for <lists+linux-man@lfdr.de>; Tue, 18 Apr 2023 16:47:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 389D26E68C0
+	for <lists+linux-man@lfdr.de>; Tue, 18 Apr 2023 17:57:08 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229456AbjDROrP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 18 Apr 2023 10:47:15 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46024 "EHLO
+        id S231769AbjDRP5F (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 18 Apr 2023 11:57:05 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42140 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229972AbjDROrP (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 18 Apr 2023 10:47:15 -0400
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com [IPv6:2a00:1450:4864:20::334])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F31753C02
-        for <linux-man@vger.kernel.org>; Tue, 18 Apr 2023 07:47:13 -0700 (PDT)
-Received: by mail-wm1-x334.google.com with SMTP id v10so9036474wmn.5
-        for <linux-man@vger.kernel.org>; Tue, 18 Apr 2023 07:47:13 -0700 (PDT)
+        with ESMTP id S232459AbjDRP5E (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 18 Apr 2023 11:57:04 -0400
+Received: from mail-ua1-x92a.google.com (mail-ua1-x92a.google.com [IPv6:2607:f8b0:4864:20::92a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 06DA21BC7;
+        Tue, 18 Apr 2023 08:57:02 -0700 (PDT)
+Received: by mail-ua1-x92a.google.com with SMTP id v18so9228557uak.8;
+        Tue, 18 Apr 2023 08:57:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1681829232; x=1684421232;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+        d=gmail.com; s=20221208; t=1681833421; x=1684425421;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ArVeszdvcASQWIqxC5VNCClGT7F74LWN179rCFk0pmE=;
-        b=KOlpPaGvJ2Lkkd8FvIYlMJRRfVI6+UYsGcH8A8SrweikkWuodW4UFtk0ph2I65ND7b
-         Jz768vUUq5DHm6pAQo0tmA7Sk4fjEHRt5bGFZa2g/XWDZ/iy/1bAaS/h+ztA+3nB0Yyz
-         /LAqn8jCAu5fWDPyWHwIqxYQdRM4JTZajL/4pN5Ts3myDCt/mqUiw77NFlTut4Gx4byu
-         NgQCHSKptxCwhGGw4aUsT5cB4UrbmYPVfXpulOBZ4zhX4XSVkUmJVnq0lnEwGeNcEuGv
-         BlgslaYoPC1Eji+YW3FqQ1Drj041BN9w8ZICIXnv569eXQQYfr4jy/2m7hORBLC/uy15
-         gANA==
+        bh=AFvk9gmhgZkAAjvzYaqZSKoXPDLyjqkrafwU+VuiAkw=;
+        b=XIw0w3d9lT4i5bZevfx9VzES2JCC/LfbgQQuXsAdQaWkInfS8MR9U5VmyeH2DimWxB
+         5c4vLW/WheTaAXdtZ3YoSmkOsGDuh9Cw7cQCm12WqgVunoHAioG3n2fS84l0aSlkQ6wi
+         Sh77Kt9loIJ1owFpNjPokKVhWZtfO/SIYoXzysp8nmWQFwdVYhrflBCuhGe+34YJVhSq
+         Bt3laOUqobIWs4omuzHDPWrKd/cVJT2e1SnR88ptu6LkDLi1bmcP/o2TQ9apMYJr50LV
+         ZCRkn9ZPJPXGl9B+0IX51vKzabjbqEoFtkVyRWfDI2ZSZB/Q+ok+bPtNUIh68XxxpOia
+         z78Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1681829232; x=1684421232;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=ArVeszdvcASQWIqxC5VNCClGT7F74LWN179rCFk0pmE=;
-        b=DhbOcVXVyRSW992+aQvGWogM2Jk1PbUqCOfeQDzhFihamxAgYMvlhXbHZty6ATIeSS
-         H+nyTXmS3DailpuJN1m3fAkhdT0MBq5viDFOP5vFUbscZEDCDe4Zg9FIk7xBlKHNjB8F
-         dsMdK7TY4xsqi9Xhnus3301vu1R7pg4vjIk57P03WQbL0Xcvy3ozS9koSjT9CT92Fw3+
-         CWb3FNIIr2WmyrN2ZinyIMGsYgczRld2BbvPy7XQ7TjWLoPciXmdkYUWdz/8W5Rpc1ih
-         xCa4718vY3UPR66q3Sl4J/G6WojwQVc+bZkHyWfcz9QBeWcjPtIgOYgalwAYtraPTFtX
-         krCQ==
-X-Gm-Message-State: AAQBX9daGUofndju69m/mhzpF+Wiosh70UoFinpQCAIRvk6e5wBofSdL
-        N7RUqGvlBJa4vIL8zBawSJA=
-X-Google-Smtp-Source: AKy350a58beS4tFe+g1aT8q7lN05yvMpgJfUQsKbt9f293AjjEYAbi5CxPeeaPhmzy1fAnE3acrGnA==
-X-Received: by 2002:a1c:f002:0:b0:3f1:749b:1cb0 with SMTP id a2-20020a1cf002000000b003f1749b1cb0mr4091369wmb.0.1681829232329;
-        Tue, 18 Apr 2023 07:47:12 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.51.134])
-        by smtp.gmail.com with ESMTPSA id m4-20020a05600c4f4400b003f0ae957fcesm13333725wmq.42.2023.04.18.07.47.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 18 Apr 2023 07:47:11 -0700 (PDT)
-Message-ID: <bd68a9b6-e6a6-252c-eaa2-14f7ffdc1801@gmail.com>
-Date:   Tue, 18 Apr 2023 16:47:10 +0200
+        d=1e100.net; s=20221208; t=1681833421; x=1684425421;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=AFvk9gmhgZkAAjvzYaqZSKoXPDLyjqkrafwU+VuiAkw=;
+        b=BRN8XI+EoxpmqEb1lV5KhNc1bBZNQvu62NuG029RTpXSUuuiXVkZx3jfTsGQfAvc7X
+         D8+fNVf1oUIcA6XCPiZ5H3V655cyei8AHThSoRvJp5T1NrvcgGyUfy7+kEi214kjEAB5
+         4/JBTF/VZS0LusF8dQEH9hvZJKI/IWwMT6fQLW5kDxb/miHg6aQwiKBBlbwvCEnuhpYy
+         PMROLFvbyIbx+TaFR6UUytFfgCg3u8HMU3XY5zPgo85m/fciSfPyWZmn9lAPmtlP7BwI
+         0a11+qS1FhmZyYsBcD2VfXhzM1elk9kp+fREze/w6YjixuDMts2Lnkcea2Lt5ZnPGkRu
+         vZ0A==
+X-Gm-Message-State: AAQBX9f169Rj8uEEgjct7EYZwLsZjrxxoOSEU1pBUjYm1wHodqFxRfE9
+        5VOwEmz7tPtjn4oacQ+io3rR7QYQzdgh6jtSbaU=
+X-Google-Smtp-Source: AKy350ZEwp8dMkpMonlG6NCFsYEHd5elQ92IwQiuRO1KXNIp8vzYpYJyYLN+csB6Hga8XYlzgvi0aB1lzXGymJCq1ZY=
+X-Received: by 2002:a1f:1652:0:b0:406:6b94:c4fe with SMTP id
+ 79-20020a1f1652000000b004066b94c4femr10863813vkw.0.1681833420848; Tue, 18 Apr
+ 2023 08:57:00 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.1
-Subject: Re: [PATCH v5 3/3] landlock.7: Explain the best-effort fallback
- mechanism in the example
-Content-Language: en-US
-To:     =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>,
-        =?UTF-8?Q?G=c3=bcnther_Noack?= <gnoack3000@gmail.com>
-Cc:     Michael Kerrisk <mtk.manpages@gmail.com>, linux-man@vger.kernel.org
-References: <20230324172419.117632-1-gnoack3000@gmail.com>
- <20230324172419.117632-3-gnoack3000@gmail.com>
- <a5daa228-284e-12d3-cd5b-28611830e21b@gmail.com>
- <20230401.1316d7f843d7@gnoack.org>
- <7eda6974-1f1f-66aa-f63c-f33daf2ab6e1@gmail.com>
- <20230404.16675e4d7765@gnoack.org>
- <b2397aa5-9e39-fabd-7a87-8c404dc9f933@digikod.net>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <b2397aa5-9e39-fabd-7a87-8c404dc9f933@digikod.net>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------n8nFGVGZmtcDCVv0C5BemUqV"
-X-Spam-Status: No, score=-4.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-        URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.6
+References: <YnEeuw6fd1A8usjj@miu.piliscsaba.redhat.com> <e57733cd-364d-84e0-cfe0-fd41de14f434@bytedance.com>
+ <CAJfpegsVsnjUy2N+qO-j4ToScwev01AjwUA0Enp_DxroPQS30A@mail.gmail.com>
+ <CAOQ4uxhYi2823GiVn9Sf-CRGrcigkbPw2x1VQRV3_Md92gJnrw@mail.gmail.com> <CAJfpegsLD-OxYfqPR7AfWbgE1EAPfWs672omt+_u8sYCMFB5Fg@mail.gmail.com>
+In-Reply-To: <CAJfpegsLD-OxYfqPR7AfWbgE1EAPfWs672omt+_u8sYCMFB5Fg@mail.gmail.com>
+From:   Amir Goldstein <amir73il@gmail.com>
+Date:   Tue, 18 Apr 2023 18:56:49 +0300
+Message-ID: <CAOQ4uxhz7g=N0V8iGiKa2+vupEuH_m9_27kas++6c0bLL2qRyA@mail.gmail.com>
+Subject: Re: [LSF/MM TOPIC] fsinfo and mount namespace notifications
+To:     Miklos Szeredi <miklos@szeredi.hu>
+Cc:     Abel Wu <wuyun.abel@bytedance.com>,
+        linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+        Christian Brauner <brauner@kernel.org>,
+        Linux API <linux-api@vger.kernel.org>,
+        linux-man <linux-man@vger.kernel.org>,
+        David Howells <dhowells@redhat.com>,
+        Al Viro <viro@zeniv.linux.org.uk>,
+        Christian Brauner <christian@brauner.io>,
+        lsf-pc <lsf-pc@lists.linux-foundation.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------n8nFGVGZmtcDCVv0C5BemUqV
-Content-Type: multipart/mixed; boundary="------------TioCmllXOSSjaCZJgb8ProBV";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>,
- =?UTF-8?Q?G=c3=bcnther_Noack?= <gnoack3000@gmail.com>
-Cc: Michael Kerrisk <mtk.manpages@gmail.com>, linux-man@vger.kernel.org
-Message-ID: <bd68a9b6-e6a6-252c-eaa2-14f7ffdc1801@gmail.com>
-Subject: Re: [PATCH v5 3/3] landlock.7: Explain the best-effort fallback
- mechanism in the example
-References: <20230324172419.117632-1-gnoack3000@gmail.com>
- <20230324172419.117632-3-gnoack3000@gmail.com>
- <a5daa228-284e-12d3-cd5b-28611830e21b@gmail.com>
- <20230401.1316d7f843d7@gnoack.org>
- <7eda6974-1f1f-66aa-f63c-f33daf2ab6e1@gmail.com>
- <20230404.16675e4d7765@gnoack.org>
- <b2397aa5-9e39-fabd-7a87-8c404dc9f933@digikod.net>
-In-Reply-To: <b2397aa5-9e39-fabd-7a87-8c404dc9f933@digikod.net>
+On Tue, Apr 18, 2023 at 11:54=E2=80=AFAM Miklos Szeredi <miklos@szeredi.hu>=
+ wrote:
+>
+> On Sat, 15 Apr 2023 at 13:06, Amir Goldstein <amir73il@gmail.com> wrote:
+>
+> > You indicated that you would like to discuss the topic of
+> > "mount info/mount notification" in LSF/MM, so I am resurrecting
+> > this thread [1] from last year's topic.
+> >
+> > Would you be interested to lead a session this year?
+> > So far, it felt like the topic was in a bit of a stalemate.
+> >
+> > Do you have a concrete suggestion of how to escape this stalemate?
+> > I think it is better that we start discussing it a head of LSF/MM if we=
+ hope
+> > to reach consensus in LSF/MM, so that people will have a chance to
+> > get re-familiar with the problems and proposed solutions.
+>
+> The reason for the stalemate is possibly that we are not trying to
+> solve the issue at hand...
+>
+> So first of all, here's what we currently have:
+>
+> - reading a process' mount table via /proc/$PID/mountinfo
+>    o mount parameters (ID, parent ID, root path, mountpoint path,
+> mount flags, propagation)
+>    o super block parameters (devnum, fstype, source, options)
+>    o need to iterate the whole list even if interested in just a single m=
+ount
+>
+> - notification on mount table change using poll on /proc/$PID/mountinfo
+>    o no indication what changed
+>    o finding out what changed needs to re-parse possibly the whole
+> mountinfo file
+>    o this can lead to performance problems if the table is large and
+> constantly changing
+>
+> - mount ID's do not uniquely identify a mount across time
+>   o when a mount is deleted, the ID can be immediately reused
+>
+> The following are the minimal requirements needed to fix the above issues=
+:
+>
+> 1) create a new ID for each mount that is unique across time; lets
+> call this umntid
+>
 
---------------TioCmllXOSSjaCZJgb8ProBV
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Do you reckon we just stop recycling mntid?
+Do we also need to make it 64bit?
+statx() has already allocated 64bit for stx_mnt_id.
+In that case, should name_to_handle_at() return a truncated mnt_id?
 
-Hi Micka=C3=ABl,
+> 2) notification needs to indicate the umntid that changed
+>
+> 3) allow querying mount parameters via umntid
+>
+> And I think here's where it gets bogged down due to everyone having
+> their own ideas about how that interface should look like.
+>
+> Proposals that weren't rejected so far:
+>
+> - mount notifications using watch_queue
+>
+> https://lore.kernel.org/all/159645997768.1779777.8286723139418624756.stgi=
+t@warthog.procyon.org.uk/
+>
+> I also explored fsnotify infrastructure for this.  I think the API is
+> better fit, since we are talking about filesystem related events, but
+> notifications l would need to be extended with the mount ID.
 
-On 4/17/23 23:13, Micka=C3=ABl Sala=C3=BCn wrote:
->> Micka=C3=ABl, do you have any opinions/preferences on this?
->=20
-> Sorry, I missed this thread. I prefer your third solution because it is=
-=20
-> explicit and relies on non-harcoded/magic values. I replied to the last=
-=20
-> version of this patch but it might be a bit late now.
+Like this? ;-)
 
-No, it's not late.  I already applied the patches, but new patches to fix=
+https://lore.kernel.org/linux-fsdevel/20230414182903.1852019-1-amir73il@gma=
+il.com/
 
-stuff are always welcome ;)
+I was considering whether fanotify should report a 32bit mntid
+(like name_to_handle_at()) or 64bit one (like statx()).
+I should probably go with the latter then.
 
->=20
-> I'm not sure that defining a mask per ABI should be part of UAPI=20
-> (instead of dedicated libraries), but I'll think about that.
+>
+> - getxattr(":mntns:$ID:info",...)
+>
+> https://lore.kernel.org/all/YnEeuw6fd1A8usjj@miu.piliscsaba.redhat.com/
+>
+> Christian would like to see the xattr based interface replaced with a
+> new set of syscalls to avoid confusion with "plain" xattrs.
+>
 
-Thanks.
+OK, I penciled the session - we can (re)try to iron the concerns
+and reach consensus.
 
-Cheers,
-Alex
-
---=20
-<http://www.alejandro-colomar.es/>
-GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
-
---------------TioCmllXOSSjaCZJgb8ProBV--
-
---------------n8nFGVGZmtcDCVv0C5BemUqV
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQ+rW4ACgkQnowa+77/
-2zJCtA//ak8VkxzoK6kHDqbvGqcJ7qfXdqIo1xV6W78Hors8O+7YxmbkfCUiXpy9
-wbTYGNHT3LaEwJBSCH15y7yatcA5Dz81X8cx56GZcfPC0hiUIqS2dYvW2Z24JH6M
-WmRz5DESo5Vf+YD2bir/L3KvfeiVO698DzHOIhwFsLjBmVDquvVEkWfCT/uc2n1g
-+TTR5ypVT1OtmdGjFXA3qOinMfm++B1AtB+rvCy0VFYF1OFFCXUZnrW9mPIODjSm
-CGtawoXKzOomEDEHbjTcqBcbjQFXQ/mAO+3ne6iRGijbe02eQxYDe/h7xAWfezj3
-d6p+myOWXn/GMvxAEGj6KjQlt0M32dhgL5JcG9K1jL08FKY/5MKGQfDZjVnKyHXD
-4ChpGaKwOWvL65rwku0sBnNJlr9jJkaXynJwl/XVW1cmrWU1fbHdfyaC5bd4X6Vx
-ei1bn1X5hLdvqFAJ7lEpSIUYR/mZQ8n7is4gihpe7/w0lg466JxOMvAin97wBN5F
-/uX6I16cPaVqcR1NMcV9hhN0QZpI/dBqbUl/+fHNLkazIcB9nU6w3BUfpjpjnK9k
-RjcsW/H9oJfCKhwULERWB2Z9EpVZpB2BpjaIJ7KjT0k523eTbuVkcOkOwEJ1RZhA
-wf6D8ypBsf6gYfZRMuyzn58BknE3wYUVvW+WyT5w0lmsOHCOMvg=
-=AIP8
------END PGP SIGNATURE-----
-
---------------n8nFGVGZmtcDCVv0C5BemUqV--
+Thanks,
+Amir.
