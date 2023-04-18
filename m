@@ -2,75 +2,76 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 8534F6E6748
-	for <lists+linux-man@lfdr.de>; Tue, 18 Apr 2023 16:37:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B12CA6E6766
+	for <lists+linux-man@lfdr.de>; Tue, 18 Apr 2023 16:47:16 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231384AbjDROhZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 18 Apr 2023 10:37:25 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42178 "EHLO
+        id S229456AbjDROrP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 18 Apr 2023 10:47:15 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46024 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230307AbjDROhY (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 18 Apr 2023 10:37:24 -0400
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com [IPv6:2a00:1450:4864:20::336])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E1FC86A63
-        for <linux-man@vger.kernel.org>; Tue, 18 Apr 2023 07:37:22 -0700 (PDT)
-Received: by mail-wm1-x336.google.com with SMTP id 5b1f17b1804b1-3f1728c2a57so19633235e9.0
-        for <linux-man@vger.kernel.org>; Tue, 18 Apr 2023 07:37:22 -0700 (PDT)
+        with ESMTP id S229972AbjDROrP (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 18 Apr 2023 10:47:15 -0400
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com [IPv6:2a00:1450:4864:20::334])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F31753C02
+        for <linux-man@vger.kernel.org>; Tue, 18 Apr 2023 07:47:13 -0700 (PDT)
+Received: by mail-wm1-x334.google.com with SMTP id v10so9036474wmn.5
+        for <linux-man@vger.kernel.org>; Tue, 18 Apr 2023 07:47:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1681828641; x=1684420641;
+        d=gmail.com; s=20221208; t=1681829232; x=1684421232;
         h=in-reply-to:from:references:cc:to:content-language:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=soDgPH0arS5AayIBPVM3DxZxHMoEDHGVCfYWrx2ZCig=;
-        b=eFSvlmIN/fXT1xlgsMECCdEhhPVLAgD7rycn2Q27MsWyqS9conlIQbegc+wuz0Qnas
-         vaDdH6V8ASdOqu30SE9G09ppxIXTLazFu/OH5TWtccoCWTVtjd0iBSJrbs/uz6EC7ZDY
-         aZjLLUy1BpjyR4WqDsjL0hiWDOwOcEVyHfD5qzuLJ/G98w+0M3euE6etZ6gCUdA1XkCc
-         qgty/DW23Mzu2vihquhA1s0AC5gbaxiHrva5+HydMhxNe/1IkSGCVLUI1voU4AFvE5SS
-         BYDJbohkh2fOcSyZmJQhOw53D1WvVUCBXiRt8xwwuBXvWwb4a4P7tUaIiHvPJzuRR6I1
-         x1rw==
+        bh=ArVeszdvcASQWIqxC5VNCClGT7F74LWN179rCFk0pmE=;
+        b=KOlpPaGvJ2Lkkd8FvIYlMJRRfVI6+UYsGcH8A8SrweikkWuodW4UFtk0ph2I65ND7b
+         Jz768vUUq5DHm6pAQo0tmA7Sk4fjEHRt5bGFZa2g/XWDZ/iy/1bAaS/h+ztA+3nB0Yyz
+         /LAqn8jCAu5fWDPyWHwIqxYQdRM4JTZajL/4pN5Ts3myDCt/mqUiw77NFlTut4Gx4byu
+         NgQCHSKptxCwhGGw4aUsT5cB4UrbmYPVfXpulOBZ4zhX4XSVkUmJVnq0lnEwGeNcEuGv
+         BlgslaYoPC1Eji+YW3FqQ1Drj041BN9w8ZICIXnv569eXQQYfr4jy/2m7hORBLC/uy15
+         gANA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1681828641; x=1684420641;
+        d=1e100.net; s=20221208; t=1681829232; x=1684421232;
         h=in-reply-to:from:references:cc:to:content-language:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=soDgPH0arS5AayIBPVM3DxZxHMoEDHGVCfYWrx2ZCig=;
-        b=Oo+eD6BZG692q1krYruMzJPCYQCHb+UB0TE3HeUhMDdfjWSG3Zxeq9yIfDPh6Rb30/
-         FoAYXOcQVQtMfW38OyFGyLnzO3ugf8AxwT2FGtdrYuv9cOik8NkeDCOlzpEVl+Q3cyEb
-         3sAHrQGduFUF5SISA3FepAdDghTzJMweQX/HfPXWJhufMTR7hq65VGLNy82XXV6yd8Ih
-         +2v8Rf70FMK5MMP2CrJ6NnHZuC2xHftc4N7PaNjtiGn9tRYbxvRVjM6s+xylNX1UktBU
-         1EMEbl5g2WseMGq3LtbX+MJJX59808lVP4tOjyEl0Sr0ZGDjNJOyZ42al0+ntQlZLFtq
-         cDAA==
-X-Gm-Message-State: AAQBX9cVXMa10+y07wbdqcpPX8tgq5E5y56oz/ofj+jx/b4egun0wKU3
-        QqIoWO3nuHHnIjXqiQFcSZk=
-X-Google-Smtp-Source: AKy350a551RuZL7gXiuTjKAaF5T6Mn2nyMKLwskeT0Q8TuoWyQ362T0OeEoxz1OGRqYbM1xqaKrVMA==
-X-Received: by 2002:adf:d84e:0:b0:2e2:730a:c7dc with SMTP id k14-20020adfd84e000000b002e2730ac7dcmr1886857wrl.25.1681828641348;
-        Tue, 18 Apr 2023 07:37:21 -0700 (PDT)
+        bh=ArVeszdvcASQWIqxC5VNCClGT7F74LWN179rCFk0pmE=;
+        b=DhbOcVXVyRSW992+aQvGWogM2Jk1PbUqCOfeQDzhFihamxAgYMvlhXbHZty6ATIeSS
+         H+nyTXmS3DailpuJN1m3fAkhdT0MBq5viDFOP5vFUbscZEDCDe4Zg9FIk7xBlKHNjB8F
+         dsMdK7TY4xsqi9Xhnus3301vu1R7pg4vjIk57P03WQbL0Xcvy3ozS9koSjT9CT92Fw3+
+         CWb3FNIIr2WmyrN2ZinyIMGsYgczRld2BbvPy7XQ7TjWLoPciXmdkYUWdz/8W5Rpc1ih
+         xCa4718vY3UPR66q3Sl4J/G6WojwQVc+bZkHyWfcz9QBeWcjPtIgOYgalwAYtraPTFtX
+         krCQ==
+X-Gm-Message-State: AAQBX9daGUofndju69m/mhzpF+Wiosh70UoFinpQCAIRvk6e5wBofSdL
+        N7RUqGvlBJa4vIL8zBawSJA=
+X-Google-Smtp-Source: AKy350a58beS4tFe+g1aT8q7lN05yvMpgJfUQsKbt9f293AjjEYAbi5CxPeeaPhmzy1fAnE3acrGnA==
+X-Received: by 2002:a1c:f002:0:b0:3f1:749b:1cb0 with SMTP id a2-20020a1cf002000000b003f1749b1cb0mr4091369wmb.0.1681829232329;
+        Tue, 18 Apr 2023 07:47:12 -0700 (PDT)
 Received: from [192.168.0.160] ([170.253.51.134])
-        by smtp.gmail.com with ESMTPSA id k14-20020a5d66ce000000b002f103ca90cdsm13329319wrw.101.2023.04.18.07.37.20
+        by smtp.gmail.com with ESMTPSA id m4-20020a05600c4f4400b003f0ae957fcesm13333725wmq.42.2023.04.18.07.47.11
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 18 Apr 2023 07:37:21 -0700 (PDT)
-Message-ID: <da83fef9-5275-f149-6cf7-988220ae0b27@gmail.com>
-Date:   Tue, 18 Apr 2023 16:37:13 +0200
+        Tue, 18 Apr 2023 07:47:11 -0700 (PDT)
+Message-ID: <bd68a9b6-e6a6-252c-eaa2-14f7ffdc1801@gmail.com>
+Date:   Tue, 18 Apr 2023 16:47:10 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.1
-Subject: Re: [PATCH v6 1/1] landlock.7: Explain the best-effort fallback
+Subject: Re: [PATCH v5 3/3] landlock.7: Explain the best-effort fallback
  mechanism in the example
 Content-Language: en-US
 To:     =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>,
         =?UTF-8?Q?G=c3=bcnther_Noack?= <gnoack3000@gmail.com>
-Cc:     linux-man@vger.kernel.org
-References: <20230414155926.6937-1-gnoack3000@gmail.com>
- <20230414155926.6937-2-gnoack3000@gmail.com>
- <ba15e85d-db90-88cf-ca60-1d4a11a40c31@gmail.com>
- <20230415.de079bcd1e29@gnoack.org>
- <31ecebc5-1b97-b610-a097-f260ec4d4c8d@gmail.com>
- <dca3298a-c65a-1270-6540-7ec66feb0c49@digikod.net>
+Cc:     Michael Kerrisk <mtk.manpages@gmail.com>, linux-man@vger.kernel.org
+References: <20230324172419.117632-1-gnoack3000@gmail.com>
+ <20230324172419.117632-3-gnoack3000@gmail.com>
+ <a5daa228-284e-12d3-cd5b-28611830e21b@gmail.com>
+ <20230401.1316d7f843d7@gnoack.org>
+ <7eda6974-1f1f-66aa-f63c-f33daf2ab6e1@gmail.com>
+ <20230404.16675e4d7765@gnoack.org>
+ <b2397aa5-9e39-fabd-7a87-8c404dc9f933@digikod.net>
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <dca3298a-c65a-1270-6540-7ec66feb0c49@digikod.net>
+In-Reply-To: <b2397aa5-9e39-fabd-7a87-8c404dc9f933@digikod.net>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------zwKJrGSrQvHkjOIPi34UO0Y5"
+ boundary="------------n8nFGVGZmtcDCVv0C5BemUqV"
 X-Spam-Status: No, score=-4.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
@@ -82,87 +83,49 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------zwKJrGSrQvHkjOIPi34UO0Y5
-Content-Type: multipart/mixed; boundary="------------9zoKx40zOvy7YNkAbpEEkuxi";
+--------------n8nFGVGZmtcDCVv0C5BemUqV
+Content-Type: multipart/mixed; boundary="------------TioCmllXOSSjaCZJgb8ProBV";
  protected-headers="v1"
 From: Alejandro Colomar <alx.manpages@gmail.com>
 To: =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>,
  =?UTF-8?Q?G=c3=bcnther_Noack?= <gnoack3000@gmail.com>
-Cc: linux-man@vger.kernel.org
-Message-ID: <da83fef9-5275-f149-6cf7-988220ae0b27@gmail.com>
-Subject: Re: [PATCH v6 1/1] landlock.7: Explain the best-effort fallback
+Cc: Michael Kerrisk <mtk.manpages@gmail.com>, linux-man@vger.kernel.org
+Message-ID: <bd68a9b6-e6a6-252c-eaa2-14f7ffdc1801@gmail.com>
+Subject: Re: [PATCH v5 3/3] landlock.7: Explain the best-effort fallback
  mechanism in the example
-References: <20230414155926.6937-1-gnoack3000@gmail.com>
- <20230414155926.6937-2-gnoack3000@gmail.com>
- <ba15e85d-db90-88cf-ca60-1d4a11a40c31@gmail.com>
- <20230415.de079bcd1e29@gnoack.org>
- <31ecebc5-1b97-b610-a097-f260ec4d4c8d@gmail.com>
- <dca3298a-c65a-1270-6540-7ec66feb0c49@digikod.net>
-In-Reply-To: <dca3298a-c65a-1270-6540-7ec66feb0c49@digikod.net>
+References: <20230324172419.117632-1-gnoack3000@gmail.com>
+ <20230324172419.117632-3-gnoack3000@gmail.com>
+ <a5daa228-284e-12d3-cd5b-28611830e21b@gmail.com>
+ <20230401.1316d7f843d7@gnoack.org>
+ <7eda6974-1f1f-66aa-f63c-f33daf2ab6e1@gmail.com>
+ <20230404.16675e4d7765@gnoack.org>
+ <b2397aa5-9e39-fabd-7a87-8c404dc9f933@digikod.net>
+In-Reply-To: <b2397aa5-9e39-fabd-7a87-8c404dc9f933@digikod.net>
 
---------------9zoKx40zOvy7YNkAbpEEkuxi
+--------------TioCmllXOSSjaCZJgb8ProBV
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
 Hi Micka=C3=ABl,
 
-On 4/17/23 22:54, Micka=C3=ABl Sala=C3=BCn wrote:
->>>> BTW, now I checked that while in Linux ENOTSUP and EOPNOTSUPP are
->>>> equivalent, in POSIX the latter has a connotation that it's about
+On 4/17/23 23:13, Micka=C3=ABl Sala=C3=BCn wrote:
+>> Micka=C3=ABl, do you have any opinions/preferences on this?
 >=20
-> For Linux:
-> #define	EOPNOTSUPP	95	/* Operation not supported on transport endpoint =
-*/
-> #define ENOTSUPP	524	/* Operation is not supported */
+> Sorry, I missed this thread. I prefer your third solution because it is=
+=20
+> explicit and relies on non-harcoded/magic values. I replied to the last=
+=20
+> version of this patch but it might be a bit late now.
 
-$ errno 95
-EOPNOTSUPP 95 Operation not supported
-$ errno 524
-$ echo $?
-1
+No, it's not late.  I already applied the patches, but new patches to fix=
 
-
-$ grepc -k ENOTSUP /usr/include/
-/usr/include/x86_64-linux-gnu/bits/errno.h:30:#  define ENOTSUP		EOPNOTSU=
-PP
-$ grepc -k ENOTSUPP /usr/include/
-$ grepc -k EOPNOTSUPP /usr/include/
-/usr/include/asm-generic/errno.h:78:#define	EOPNOTSUPP	95	/* Operation no=
-t supported on transport endpoint */
-
-
-Is ENOTSUPP a kernel thing?  User space we doesn't seem to agree with
-that :).  I'm on Debian Sid.
-
-
-Indeed, it seems a kernel thing:
-
-$ man -Kaw ENOTSUPP
-/usr/local/man/man1/checkpatch.1
-
-
-That page is one I wrote extracting info from checkpatch.rst.  It seems
-checkpatch.pl warns about use of ENOTSUPP.
-
+stuff are always welcome ;)
 
 >=20
-> EOPNOTSUPP is not only used for network error, but to identify generic =
+> I'm not sure that defining a mask per ABI should be part of UAPI=20
+> (instead of dedicated libraries), but I'll think about that.
 
-> unsupported operations, while ENOTSUPP was initially dedicated to NFS=20
-> error (but now also slipped to other areas)
->=20
->>>> sockets.  Should we document ENOTSUP in landlock_create_ruleset(2)
->>>> instead of EOPNOTSUPP? >>
->>> EOPNOTSUP is also used in Landlock's kernel documentation,
->>> we'd maybe have to update it there as well.
->>> I'll have a look at what is more common.
->>
->> Thanks.  In the man pages I see both often, so maybe we need to fix
->> consistency there too.
->=20
-> No, ENOTSUP*P* is not used by Landlock.
-
-But should it?  I mean ENOTSUP, not ENOTSUPP.
+Thanks.
 
 Cheers,
 Alex
@@ -171,28 +134,28 @@ Alex
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
---------------9zoKx40zOvy7YNkAbpEEkuxi--
+--------------TioCmllXOSSjaCZJgb8ProBV--
 
---------------zwKJrGSrQvHkjOIPi34UO0Y5
+--------------n8nFGVGZmtcDCVv0C5BemUqV
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQ+qxoACgkQnowa+77/
-2zIQzw/9HMJYdfMeqsZM9DJvwPK+ybrZQG5UliL35s/2lRwqtnZY4sd/L+Z4C1ip
-KhD6uzAtR4fNtpCvyMQ8e+WUCODf0vFsv1XAII6GuJavyShxB+tPETAEvB6jDbep
-EnJrv7kTXWS7kif4B+3KGy3TeibnKAy6s9Wf+yxJdqhhIVs1+CIVxOdrf/+IxHh0
-NXKVGjQ4rpQoqxvgxkVI6xFdo4NaqabR4ARz7ynpdSJuGsmx8RxKENCc3kGO0Br+
-V5rOxDRV1lqdETBGJ0HsnDHDx4wA2wiaWBImdWD7iJkm1ZBPny253jAxjY7eBtVx
-NZhJqzpHlUBaYQCbkl4i70A01uPXtKqWfjcjSLAnwh3k61Tds12s9IovkAyKMD+r
-2YrbZDsosmdMeW7QuWa89ek1vNjn9+0eqgstoK1w2Cm3ypXi+Wy6fhLt9BiO1FoB
-UxDEd9Ma9SB3UKynuEZA1hH3qw2epqk7Rh2Y3g4qRIULj0FsyyUothYVeqbWZjFE
-2YopQf3kH2r3LE3Eblub1t8T5R92RmkZ39sxgG9kBxdXd2MZWHcyrgngxZfcs3dy
-SV/tANFoOXyXo8dGow0iHGMtXC1+DmTIFmH4QVHl7Cr/c+qDniOkpKlnQpquD+4a
-zDS8zfCzYkFzB681NLeX9VHc31qdju0fDP/uWvHL/kGcnpDhsXU=
-=St6D
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmQ+rW4ACgkQnowa+77/
+2zJCtA//ak8VkxzoK6kHDqbvGqcJ7qfXdqIo1xV6W78Hors8O+7YxmbkfCUiXpy9
+wbTYGNHT3LaEwJBSCH15y7yatcA5Dz81X8cx56GZcfPC0hiUIqS2dYvW2Z24JH6M
+WmRz5DESo5Vf+YD2bir/L3KvfeiVO698DzHOIhwFsLjBmVDquvVEkWfCT/uc2n1g
++TTR5ypVT1OtmdGjFXA3qOinMfm++B1AtB+rvCy0VFYF1OFFCXUZnrW9mPIODjSm
+CGtawoXKzOomEDEHbjTcqBcbjQFXQ/mAO+3ne6iRGijbe02eQxYDe/h7xAWfezj3
+d6p+myOWXn/GMvxAEGj6KjQlt0M32dhgL5JcG9K1jL08FKY/5MKGQfDZjVnKyHXD
+4ChpGaKwOWvL65rwku0sBnNJlr9jJkaXynJwl/XVW1cmrWU1fbHdfyaC5bd4X6Vx
+ei1bn1X5hLdvqFAJ7lEpSIUYR/mZQ8n7is4gihpe7/w0lg466JxOMvAin97wBN5F
+/uX6I16cPaVqcR1NMcV9hhN0QZpI/dBqbUl/+fHNLkazIcB9nU6w3BUfpjpjnK9k
+RjcsW/H9oJfCKhwULERWB2Z9EpVZpB2BpjaIJ7KjT0k523eTbuVkcOkOwEJ1RZhA
+wf6D8ypBsf6gYfZRMuyzn58BknE3wYUVvW+WyT5w0lmsOHCOMvg=
+=AIP8
 -----END PGP SIGNATURE-----
 
---------------zwKJrGSrQvHkjOIPi34UO0Y5--
+--------------n8nFGVGZmtcDCVv0C5BemUqV--
