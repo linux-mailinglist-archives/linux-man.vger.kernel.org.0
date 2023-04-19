@@ -2,61 +2,61 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id A87DF6E8185
-	for <lists+linux-man@lfdr.de>; Wed, 19 Apr 2023 20:54:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 707E36E8186
+	for <lists+linux-man@lfdr.de>; Wed, 19 Apr 2023 20:55:00 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230049AbjDSSy4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 19 Apr 2023 14:54:56 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55618 "EHLO
+        id S229991AbjDSSy5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 19 Apr 2023 14:54:57 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55628 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229477AbjDSSyz (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 19 Apr 2023 14:54:55 -0400
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com [IPv6:2a00:1450:4864:20::432])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6261A44A6
-        for <linux-man@vger.kernel.org>; Wed, 19 Apr 2023 11:54:54 -0700 (PDT)
-Received: by mail-wr1-x432.google.com with SMTP id ffacd0b85a97d-2efac435608so12297f8f.3
-        for <linux-man@vger.kernel.org>; Wed, 19 Apr 2023 11:54:54 -0700 (PDT)
+        with ESMTP id S229477AbjDSSy4 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 19 Apr 2023 14:54:56 -0400
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com [IPv6:2a00:1450:4864:20::42d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 033C044A6
+        for <linux-man@vger.kernel.org>; Wed, 19 Apr 2023 11:54:56 -0700 (PDT)
+Received: by mail-wr1-x42d.google.com with SMTP id ffacd0b85a97d-2efbaad9d76so24180f8f.0
+        for <linux-man@vger.kernel.org>; Wed, 19 Apr 2023 11:54:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1681930493; x=1684522493;
+        d=gmail.com; s=20221208; t=1681930494; x=1684522494;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=VCEAQIVBMKeq9YbOhBjOVQEKDNJyfgK4nOVgMFIRDOs=;
-        b=GpPHrzOx4bnt9FJothrE9EIEXavvqReLCj3ibjrftvAiNRszUxhatOkhNSvjYIWQ/5
-         DoZ3EJJ1DaDsYW+/pybaHBHbbjdiZYgbxtSpO1GqGvqX6/RlZ3JrZAe6Ugum26bcSUyO
-         QdyomePhJlpUVxLUg/qiFaHVCUEHIybMewZypHsxVBxCyH/ud0XNepJk8yVHT/mqKxsQ
-         VrN7kjHLf4yzSu9hJFVd5mFg1n4FXB06L13f//aCy6bf+lNOqWcNkpSOKTrCVcmWWcxD
-         ORdqssLkIsBQWk4UtGxBGf+lOGKTtLMi5yh19NDs+fKzDbl/PgUCubR+J+2R1I1QgLwm
-         rDdA==
+        bh=32xbMJp+ZH55N7+Kkxa+39RAwVpjcSqZoedXNiPvwLE=;
+        b=Gpyq4kSEv28cISdZtvUzIsFM/BoBFTjdJR1aZ5ix9tmFZlX5vcgvmffpTl9kVIkwbn
+         dswoF4CQaOcnbxAgy1fub6MbsCXjTvjNBPe71M8voRMwagX5hWgHeuiCFfmHTAVCFT/b
+         xWoKFGzH1lJ0KwJWMVWkHyuCipXZGLhr/JHz7lhO9isNOpjL8R/rtGUOm57Zeyg2nsOB
+         MtNqT4IjqYc876Tr1+yonhSl082AODB1k8Ivpz+yfBOTyg67H8AIwqtd1K+6d/tejuJG
+         vzCUztPYP0iYRAgPoycxke694eS4xiWjZzPuCRYlbPO+zX7380Lj5efkt1Kyzmeum0Lf
+         j59A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1681930493; x=1684522493;
+        d=1e100.net; s=20221208; t=1681930494; x=1684522494;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=VCEAQIVBMKeq9YbOhBjOVQEKDNJyfgK4nOVgMFIRDOs=;
-        b=Rob6o9HWJy6jWfLrj/Ws1pSBS5hINxA1x5rGGB9brYglbFSsWrmVvSOjYCT3RDmmUO
-         gVOiay2WIkB5jIXiDmtcarmYH4vr06Javg2FvpYZkYL9XVCtKlmHBEGzLTaJRujfMgvD
-         pYW+w2GwMTkqx82rtZlB4QuN9Gf5E04I5D4MM5YsXXxjNXFFgJZ5nAvd6p/9qcT/CGv1
-         qlJXsKcLq14SIM45fH0wAWD8UC4RyQddFEEOSA6X70Muwc6HIh38rhYNfuBJu8Iyhb50
-         V4YkDG9pMzbC5HR401Pla6eqREQs2Vy8rZuAv2D3GM4ssPoMIksANZ3gY+R+do7dgpQn
-         VaNA==
-X-Gm-Message-State: AAQBX9cvCw/B/oaLpCDnztXYYllHBLAzsO/M+v+07+eWD3vOVDJrxI0Z
-        9LKWNHosmU8icYfHE1Ni/GM=
-X-Google-Smtp-Source: AKy350ZhAks2+/6KhjB/OE5hAS3xzfookR3Pv18BFeiqRE00ym/ijy08C0wG5ZsQnABNmghngGhYrQ==
-X-Received: by 2002:adf:e892:0:b0:2f8:67ee:5ca9 with SMTP id d18-20020adfe892000000b002f867ee5ca9mr5356204wrm.65.1681930492876;
-        Wed, 19 Apr 2023 11:54:52 -0700 (PDT)
+        bh=32xbMJp+ZH55N7+Kkxa+39RAwVpjcSqZoedXNiPvwLE=;
+        b=HxXNnFdDIHjd+UURgEx6+MY71Ztl38iwwj1MUs5VXAh1tz0OL6KMFKg8W92kxE5PSp
+         WAL30+GCa8QRm13YJIKaN21T9X/K+o+FCx/+ejtPC5bf1KsC8ZUE64ne8wJxokdeaFsI
+         ZOKeQaG8M3TTnNiEN1+7qLH0bR/J3V53uW/DBtObw6YfSKB2Gzyqt38fQ3cAdBkJVvEw
+         1gjzX9TR8YA9xSdhSUpnoJOE1pHoOLqpQuhxEKk3PqnDQhn3QYZ9eUVQtCu+HrIT5chz
+         rXlZ1Y1t8aCoSJ+1QwJ6Y/VRiuKyjdsS+3OrwN9enttOvkpL4enQHM++OXRSuKkqyzWY
+         Y4OA==
+X-Gm-Message-State: AAQBX9dAni1I8izQKK+bmcwGumtvGNv0vatOGsbHFH6swh+RQojzp/lS
+        f4ER+ZGvzM7+52EyUS14SRM=
+X-Google-Smtp-Source: AKy350Zs35squemG7fDwzQez+nfVq8qOm9lmeXufw0VeVjGGEgQ30IzMMGFLtu/kCaCLSXMPxkL32g==
+X-Received: by 2002:a5d:550d:0:b0:2f1:e162:d48 with SMTP id b13-20020a5d550d000000b002f1e1620d48mr5424801wrv.47.1681930494630;
+        Wed, 19 Apr 2023 11:54:54 -0700 (PDT)
 Received: from localhost ([2a02:168:633b:1:9d6a:15a4:c7d1:a0f0])
-        by smtp.gmail.com with ESMTPSA id v7-20020a5d6107000000b002fdeafcb132sm4579538wrt.107.2023.04.19.11.54.52
+        by smtp.gmail.com with ESMTPSA id y14-20020adffa4e000000b002f5fbc6ffb2sm16359425wrr.23.2023.04.19.11.54.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 19 Apr 2023 11:54:52 -0700 (PDT)
+        Wed, 19 Apr 2023 11:54:54 -0700 (PDT)
 From:   =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
 To:     Alejandro Colomar <alx.manpages@gmail.com>,
         =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
 Cc:     linux-man@vger.kernel.org,
         =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
-Subject: [PATCH 2/4] landlock.7: Use LANDLOCK_* constants for compatibility table
-Date:   Wed, 19 Apr 2023 20:54:41 +0200
-Message-Id: <20230419185443.7368-3-gnoack3000@gmail.com>
+Subject: [PATCH 3/4] landlock.7: wfix: Error message wording in code example
+Date:   Wed, 19 Apr 2023 20:54:42 +0200
+Message-Id: <20230419185443.7368-4-gnoack3000@gmail.com>
 X-Mailer: git-send-email 2.40.0
 In-Reply-To: <20230419185443.7368-1-gnoack3000@gmail.com>
 References: <20230419185443.7368-1-gnoack3000@gmail.com>
@@ -73,31 +73,27 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-As discussed in
+As suggested by Mickaël Salaün in
 https://lore.kernel.org/linux-man/5d90e3b0-1577-7efd-03b8-f94b6e50fbc1@digikod.net/
 
 Signed-off-by: Günther Noack <gnoack3000@gmail.com>
 ---
- man7/landlock.7 | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ man7/landlock.7 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/man7/landlock.7 b/man7/landlock.7
-index fc4a95031..cb8a4f62e 100644
+index cb8a4f62e..7067c058c 100644
 --- a/man7/landlock.7
 +++ b/man7/landlock.7
-@@ -438,9 +438,9 @@ and only use the available subset of access rights:
-  * numbers hardcoded to keep the example short.
-  */
- __u64 landlock_fs_access_rights[] = {
--    (1ULL << 13) \- 1,  /* ABI v1                 */
--    (1ULL << 14) \- 1,  /* ABI v2: add "refer"    */
--    (1ULL << 15) \- 1,  /* ABI v3: add "truncate" */
-+    (LANDLOCK_ACCESS_FS_MAKE_SYM << 1) \- 1,  /* v1                 */
-+    (LANDLOCK_ACCESS_FS_REFER    << 1) \- 1,  /* v2: add "refer"    */
-+    (LANDLOCK_ACCESS_FS_TRUNCATE << 1) \- 1,  /* v3: add "truncate" */
- };
- 
- int abi = landlock_create_ruleset(NULL, 0,
+@@ -450,7 +450,7 @@ if (abi == \-1) {
+      * Kernel too old, not compiled with Landlock,
+      * or Landlock was not enabled at boot time.
+      */
+-    perror("Giving up \- No Landlock support");
++    perror("Unable to use Landlock");
+     exit(EXIT_FAILURE);
+ }
+ abi = MIN(abi, 3);
 -- 
 2.40.0
 
