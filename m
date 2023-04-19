@@ -2,65 +2,73 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 006006E735A
-	for <lists+linux-man@lfdr.de>; Wed, 19 Apr 2023 08:34:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A0B5C6E74D4
+	for <lists+linux-man@lfdr.de>; Wed, 19 Apr 2023 10:19:00 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231128AbjDSGec (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 19 Apr 2023 02:34:32 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50934 "EHLO
+        id S231925AbjDSIS6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 19 Apr 2023 04:18:58 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57858 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231605AbjDSGeb (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 19 Apr 2023 02:34:31 -0400
-Received: from mail-oo1-xc30.google.com (mail-oo1-xc30.google.com [IPv6:2607:f8b0:4864:20::c30])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 190304EF4
-        for <linux-man@vger.kernel.org>; Tue, 18 Apr 2023 23:34:27 -0700 (PDT)
-Received: by mail-oo1-xc30.google.com with SMTP id 006d021491bc7-541b61d166aso956906eaf.2
-        for <linux-man@vger.kernel.org>; Tue, 18 Apr 2023 23:34:27 -0700 (PDT)
+        with ESMTP id S229978AbjDSIS5 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 19 Apr 2023 04:18:57 -0400
+Received: from mail-ua1-x934.google.com (mail-ua1-x934.google.com [IPv6:2607:f8b0:4864:20::934])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D34E718B;
+        Wed, 19 Apr 2023 01:18:56 -0700 (PDT)
+Received: by mail-ua1-x934.google.com with SMTP id l13so6856004uan.10;
+        Wed, 19 Apr 2023 01:18:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1681886066; x=1684478066;
-        h=in-reply-to:content-disposition:mime-version:message-id:subject:cc
-         :to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZZ2grAaVnk4wJ7PZUHvZbJitSg7hgoNWAAzIx5zl3kI=;
-        b=M0tIroUL66mCJv8AfmPpjrqPwOs4iK/c+ryYCqLcy9zA0Ch404gHf4w8Qm/qSiw2zP
-         rvlK5D8pX9ztZxGcliPjr2OIw8ac0ZPf0djOeNVIoMwW6snslclWURTVBOd3jF1Sdfz+
-         SUUDLka9Guno32wy0OqjnvpJ+AVtkd7TFlyhv6+CcyOa2BjxdT2uMbabqI0NFWpZyxG6
-         XnHr8MQqraUUUWk693mRDsdGsW74ykZInpnGP8g1a+UnU7OIusWG1cU5jO5gHudeZi61
-         sDsNa5iRgJHUiVQruk/+18OrNZGGvYzsI0jfFgM+nhdrkExxKaJV4dzTPjkbg/zhW72g
-         HE5A==
+        d=gmail.com; s=20221208; t=1681892335; x=1684484335;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=W22e4ydAV4n5nCBd2MwS4yU05iphAlzsogcBTpIAP90=;
+        b=ZhargNF1aPIYqxidwwZ3h5Yfm4PQdEmahsH7VRxaBXgya3HIze6xj6OoXkuKhqw4DO
+         awECMItY9eVGCV2JAgs7dWvFjhTUSYBkWmx4J4H7dRXO0SdC3aSJFJUMVfzUOwlmQPRl
+         ix4uBroF7y1fzIwSRPesBsbuEKs0OEOZP0EM8HIG3EgC7BN3hSnXoHZhiVG3PuCMqXZs
+         FeKemioMZG8Sg/m2nKPYlAoG9xOLBkLfBFH1ur/jlGQ11gh52A8cFjgkEczC1S8U5ohN
+         7fJgHZKK3PEvEQsoZphgDpmAMKPMrzxmuYclIC0mtZ4GbFoanmN0aJoTyX0j7QTOZeQ3
+         qwaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1681886066; x=1684478066;
-        h=in-reply-to:content-disposition:mime-version:message-id:subject:cc
-         :to:from:date:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ZZ2grAaVnk4wJ7PZUHvZbJitSg7hgoNWAAzIx5zl3kI=;
-        b=RciXOdqaOuIqaQwFEfeAqXW+TKWYO/G8sR/mEUeJJMi2D5nnR6s2i1CQAz4bTAMsHK
-         3/zDLgvKg7D7ey3dAI2BeQ2yF2DRWVkzhVmhmBljT32M7qVvGyGup2qZDq7/f0a0aUlT
-         fqJwjAbTzvfbHcFPTvq8O/C6uP9unVy/fQleR9cgq9BMMVnwmYj6vkbub8qQJmHtQrik
-         saGZSO+5aV+EAAjORD/PKo7MmdDHwmBhY+XgpM3gV4SJhCbBuA+qMInR5unmR1Y3MhhH
-         vWtqLXwKVcDpVlSS4TL+d+W6EuKbK6dSa8V3b0gzVAUbTbih27ayZW4A2QqscvgBQMnF
-         r0+Q==
-X-Gm-Message-State: AAQBX9c6V+gleS4oEUuEG1xSJi7F13/+bYhMgizDhm0lalGVO6pqdewO
-        yBUFl8njeNH/jf8BjoNI/ChRviMIQKY=
-X-Google-Smtp-Source: AKy350ZuQtukPWaRbsjOn6FjLhsrBcLUOIl8amNkOvXL6WbFNW7949DtqMe8tzmykglzN9PRgO5WDA==
-X-Received: by 2002:a05:6870:96a6:b0:184:64eb:d688 with SMTP id o38-20020a05687096a600b0018464ebd688mr3228651oaq.22.1681886066339;
-        Tue, 18 Apr 2023 23:34:26 -0700 (PDT)
-Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id a4-20020a056830008400b006a1508d348dsm6411392oto.22.2023.04.18.23.34.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 18 Apr 2023 23:34:25 -0700 (PDT)
-Date:   Wed, 19 Apr 2023 01:34:24 -0500
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     Lennart Jablonka <vol@ljabl.com>, linux-man@vger.kernel.org
-Subject: Re: [PATCH] man*/: ffix
-Message-ID: <20230419063424.wdx6gmqvjfedvck4@illithid>
+        d=1e100.net; s=20221208; t=1681892335; x=1684484335;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=W22e4ydAV4n5nCBd2MwS4yU05iphAlzsogcBTpIAP90=;
+        b=BB3y+3E/VS32/xcVDNEvTMeCXT/GPqT9BVCIaeFGL0VNr9rVN8+GaPrNpt12w837Zi
+         1SrOrZzC8SXwYEZi9dnGiAzWeFkHiV58Q0ZXeLwvMHOhWFTYSGgC072xpVdd19E4sv7x
+         ECRFRfbzCa/mumYS+wiSASqH9IIAQqfh1fWAcHeGK1p1T8brxXSaPxjEssDv+OWVmgnZ
+         uu+0GnZx9YuBEjMqX5faPqgMnf442IbtIYVSXapybWx7YIBUn6CI+BxKVUXzASdGJl0h
+         rmXyF1HalblE8GBN8jFHSXMBerTUO83p1SrsfGIQahpuk/cbfL92YGtorxukxQNhDiw6
+         fyYg==
+X-Gm-Message-State: AAQBX9ftR+ONmw/hZrVXsX0u36Aw+GiJ4m3MNZlhsbjXq7sVAVOwGTfD
+        QLQ50UioZXy78J9qcWuK8Wfvyvh871P/R4KDZ+A=
+X-Google-Smtp-Source: AKy350ZN3+oKBwJN+I2YD8FIb+KTiqQkUFNRsq2Qvuw8/Jgue8NMWHR/LQ5+y1XDn4YFh2bKAZ2R1zv9gSBHW1LHO8E=
+X-Received: by 2002:a1f:a710:0:b0:40c:4d1:b550 with SMTP id
+ q16-20020a1fa710000000b0040c04d1b550mr11156104vke.0.1681892335680; Wed, 19
+ Apr 2023 01:18:55 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="lnfujexnbozjofwk"
-Content-Disposition: inline
-In-Reply-To: <12c2889f-7f05-8338-b758-5d9b83af536c@gmail.com>
- <ZD7UEaKv9Gvui9ib@beryllium>
- <fe9666d9-a4af-84fb-e709-da5e812ee529@gmail.com>
+References: <YnEeuw6fd1A8usjj@miu.piliscsaba.redhat.com> <e57733cd-364d-84e0-cfe0-fd41de14f434@bytedance.com>
+ <CAJfpegsVsnjUy2N+qO-j4ToScwev01AjwUA0Enp_DxroPQS30A@mail.gmail.com>
+ <CAOQ4uxhYi2823GiVn9Sf-CRGrcigkbPw2x1VQRV3_Md92gJnrw@mail.gmail.com>
+ <CAJfpegsLD-OxYfqPR7AfWbgE1EAPfWs672omt+_u8sYCMFB5Fg@mail.gmail.com>
+ <CAOQ4uxhz7g=N0V8iGiKa2+vupEuH_m9_27kas++6c0bLL2qRyA@mail.gmail.com> <CAJfpegt38gHcNeEt1mwOYHeMYdVEbj0RhZEs-4iYG7VPJhYDzQ@mail.gmail.com>
+In-Reply-To: <CAJfpegt38gHcNeEt1mwOYHeMYdVEbj0RhZEs-4iYG7VPJhYDzQ@mail.gmail.com>
+From:   Amir Goldstein <amir73il@gmail.com>
+Date:   Wed, 19 Apr 2023 11:18:44 +0300
+Message-ID: <CAOQ4uxgzJTg61UOnYQOWggPUX9347gJRafUmQTd=rxxFMEdzrg@mail.gmail.com>
+Subject: Re: [LSF/MM TOPIC] fsinfo and mount namespace notifications
+To:     Miklos Szeredi <miklos@szeredi.hu>
+Cc:     Abel Wu <wuyun.abel@bytedance.com>,
+        linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+        Christian Brauner <brauner@kernel.org>,
+        Linux API <linux-api@vger.kernel.org>,
+        linux-man <linux-man@vger.kernel.org>,
+        David Howells <dhowells@redhat.com>,
+        Al Viro <viro@zeniv.linux.org.uk>,
+        Christian Brauner <christian@brauner.io>,
+        lsf-pc <lsf-pc@lists.linux-foundation.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
@@ -71,77 +79,61 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+On Tue, Apr 18, 2023 at 9:57 PM Miklos Szeredi <miklos@szeredi.hu> wrote:
+>
+> On Tue, 18 Apr 2023 at 17:57, Amir Goldstein <amir73il@gmail.com> wrote:
+> >
+> > On Tue, Apr 18, 2023 at 11:54=E2=80=AFAM Miklos Szeredi <miklos@szeredi=
+.hu> wrote:
+>
+> > > - mount ID's do not uniquely identify a mount across time
+> > >   o when a mount is deleted, the ID can be immediately reused
+> > >
+> > > The following are the minimal requirements needed to fix the above is=
+sues:
+> > >
+> > > 1) create a new ID for each mount that is unique across time; lets
+> > > call this umntid
+> > >
+> >
+> > Do you reckon we just stop recycling mntid?
+> > Do we also need to make it 64bit?
+> > statx() has already allocated 64bit for stx_mnt_id.
+> > In that case, should name_to_handle_at() return a truncated mnt_id?
+>
+> I'm not sure it's realistic to implement the new 64bit ID such that
+> the truncated value retains the properties of the previous mount ID
+> implementation.
+>
+> I think the only sane option is to leave the old mnt_id alone and add
+> a new 64bit one that is assigned from an atomic counter at allocation
+> and looked up using a hash table.
+>
 
---lnfujexnbozjofwk
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+At the risk of shoehorning, that sounds a bit like file_handle of a mount.
+Meaning that it could be the result of
 
-Hi Alex,
+name_to_handle_at(...,&mount_handle, &mount_id, AT_MNTID)
 
-At 2023-04-18T15:33:43+0200, Alejandro Colomar wrote:
-> On 4/17/23 23:10, G. Branden Robinson wrote:
-> > At 2023-04-17T20:14:42+0200, Alejandro Colomar wrote:
-> >> What do standards say about formatting dates?
-> >=20
-> > Nothing that I know of.
+We can possibly use open_by_handle_at() to get a mountfd from
+mount_handle - not sure if that makes sesnse.
 
-At 2023-04-18T17:32:01+0000, Lennart Jablonka wrote:
-> ISO 8601:2004 (not the newest revision, but the one I found), the
-> standard defining the YYYY=E2=80=90MM=E2=80=90DD explicitly calls for a =
-=E2=80=9Chyphen,=E2=80=9D
-> stating additionally:
->=20
-> > In an environment where use is made of a character repertoire based
-> > on ISO/IEC 646, =E2=80=9Chyphen=E2=80=9D and =E2=80=9Cminus=E2=80=9D ar=
-e both mapped onto
-> > =E2=80=9Chyphen-minus=E2=80=9D.
->=20
-> This is not the case here.  A hyphen is the character to use; that is,
-> an unescaped hyphen-minus in the input.
+[...]
 
-I thank Lennart for having a standards doc to brandish when I did not.
+> > > 3) allow querying mount parameters via umntid
 
-I'll see if I can scare up a copy of ISO 8601.  It's a shame so many
-standards docs are not open-access.
+I forgot to mention in the context of this topic, that there was a
+topic proposal
+about using "BFP iterator" [1] to query fs/mount info.
 
-There is only one point I want to further pursue.
+I don't know if that can be used to get namespace change notifications
+or if it meets other requirements (i.e. permissions), but wanted to
+mention it here.
 
-> I'm not convinced, because dates are not prose.
+I think we can discuss both topics in the same session.
 
-A character sequence's status as prose is determined by context, not
-content.
+Thanks,
+Amir.
 
-who am i
-
-is prose (if somewhat substandard English) in some contexts, and a Unix
-shell command in others.
-
-Or it might be part of an e. e. cummings poem.
-
-We cannot solve all of our man page formatting problems with sed, alas.
-
-Regards,
-Branden
-
---lnfujexnbozjofwk
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmQ/i2gACgkQ0Z6cfXEm
-bc4aKQ//UjAMkfmD83zwgC9RW9DV8qEKJvyZRvoPz+fA6SHctM7n0oiMSpU3TKum
-cqsrp6V0COiyumPtV06AJsO5Cw6td8dmIjXvqM5oav0Hhmm6H0/4YiHh+46+0Ts9
-3wBY7CnDCLuHwCHTeF+dQnENpoV0c2oMQhyyg+y8fr7tX07eI2YeRhPufbiU+IF8
-ddZEEx0jgkTJ+p1qtO2SSWnePxZ2qtvcxw2S25SQTZ+2h+GqScJITYGJusmcmNUP
-KjuHEdluzJgUZJY/gtzQWagOsemF/+Nn+P9cSR2XAWCls7G2nPUbXjnYy3uH8M4h
-UJGtZrl/QKBj4RekUfBQg21I+ATIgMu2h0SrL28lRdadta/pqMx1aJw+Yvw16Hkp
-mUDIxtCQdcSg9K+a+0/KN3Fvfcc7lM1S9GSXGbz18m/7ES4TczaWkSEsIklHawhH
-aSiaeZ2NvWHhEgFZhg1z4ckYRCQihcHXurTAhVx4b0UGN4zNYhCd+oiooXAB7YTi
-momUAyfq+IZ9Y8URTf2JDsF981/1wUjsrjdUggeoDKnBq+AhjQtBYaQi7GjfHoKm
-QVHVCb9Qg/xixidFlajjZ7LFLSVX66g/Ve5KBbLMH5eN8w7WZlss7iAhQZlV6RJH
-px4ksXZFarG4ZHt+jeVX4LZ2REzqVor1K2vbc16z1wKOx0okZGQ=
-=bZyY
------END PGP SIGNATURE-----
-
---lnfujexnbozjofwk--
+[1] https://lore.kernel.org/linux-fsdevel/0a6f0513-b4b3-9349-cee5-b0ad38c81=
+d2e@huaweicloud.com/
