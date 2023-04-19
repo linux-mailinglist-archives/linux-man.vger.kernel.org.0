@@ -2,41 +2,41 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id E58E46E85DA
-	for <lists+linux-man@lfdr.de>; Thu, 20 Apr 2023 01:23:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id AC48A6E85DB
+	for <lists+linux-man@lfdr.de>; Thu, 20 Apr 2023 01:23:36 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231510AbjDSXX1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 19 Apr 2023 19:23:27 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46342 "EHLO
+        id S231194AbjDSXXf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 19 Apr 2023 19:23:35 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46406 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232047AbjDSXXZ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 19 Apr 2023 19:23:25 -0400
+        with ESMTP id S230331AbjDSXXf (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 19 Apr 2023 19:23:35 -0400
 Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id A8A982703
-        for <linux-man@vger.kernel.org>; Wed, 19 Apr 2023 16:23:24 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 07A63E4D
+        for <linux-man@vger.kernel.org>; Wed, 19 Apr 2023 16:23:34 -0700 (PDT)
 Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 0537A5D6A;
-        Thu, 20 Apr 2023 01:23:24 +0200 (CEST)
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 56EA05D6C;
+        Thu, 20 Apr 2023 01:23:33 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-        s=202211; t=1681946604;
-        bh=Ayu9DG/baqJmBpkS++WSrIGtKNI0AHeUIuISmmFTIqE=;
+        s=202211; t=1681946613;
+        bh=Vx1rbb++rsZhl7WuHu3an3qaw1q/DMSCMVgGMYpjBMQ=;
         h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=Ihpylg1jHf3tNTpEfXXkdM0+9xVjRJws7Uqun7vcC66NKxn1PaxfrClaHrTzzxFrE
-         f1DxXJuJS1HA8dKy+TFy4WHDKltUxxsLqrDmg75jhFw1RSnQ0PQqrjK9aFIFPQVyk/
-         raPoNwPXqR6fkqXfiTkpJicEMlbgFHFOuBTRBsVMBTvFPieRFpaW/sitX2HG6g50og
-         SjltiGrMI3jDprgk1HbNlGFa82eVkRp7MC6wthuPph72ST1ASzEqdqhAXJv0BTwvM2
-         Xd4nsZ7PpJklclUdrQj4BSeIf4tzrFBmcRxT6jU937wsKunWoRT/837Z6rJ8ez7QE9
-         t/gZMf30t9DvA==
-Date:   Thu, 20 Apr 2023 01:23:22 +0200
+        b=RXdXQPFl68Tj+Ygrx1Iuu4RwXXA+t4FzTY0a3KrfjkOBr67yPGsKfkLOhH5zul8Za
+         pTHmFagw5r6/Dvd2nN0fwvDx/qMqOZKR8FoRTtFbBH82aqi55uWtg79XJ2MKKIL36T
+         A/p9RzGLwEp06CNXUygWET4jhgAzEQAGaGo5+UJE9YBWAvjDVuN70ec8bihOo6O6r7
+         U6GCv+eoBwGOjQOJXrUFPNG0u5QF7hGi3457d5SehM0Fg/PEYsfIzVaO0xyxtlPTcb
+         fAdM7EBLXh5hOtz7+WoppXuJ+Py05IDujfeAj2xkIogpOe8WxSB2AQjhf6bjmvYi/1
+         DF8/8PtNp/ddQ==
+Date:   Thu, 20 Apr 2023 01:23:32 +0200
 From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
 To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org
-Subject: [PATCH v2 3/9] regex.3: ffix
-Message-ID: <eb0bff3196509aff18b57f0fbb242df02d9c00e2.1681946212.git.nabijaczleweli@nabijaczleweli.xyz>
+Subject: [PATCH v2 4/9] regex.3: wfix
+Message-ID: <3f7a0a3e3ef00bb490ce2b4040087dce9d114ddc.1681946212.git.nabijaczleweli@nabijaczleweli.xyz>
 References: <747kzwqbq2dqlrf7znp4eextcl5p2dlickflwicxstnk6fpinv@ntnnei6ianmk>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="spa6ysxug7ptqogs"
+        protocol="application/pgp-signature"; boundary="rxivoww2wkvqdzqw"
 Content-Disposition: inline
 In-Reply-To: <747kzwqbq2dqlrf7znp4eextcl5p2dlickflwicxstnk6fpinv@ntnnei6ianmk>
 User-Agent: NeoMutt/20230407
@@ -51,12 +51,14 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---spa6ysxug7ptqogs
+--rxivoww2wkvqdzqw
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-We never bold POSIX, not even anywhere else on this page.
+"Not in POSIX.2", so is it in POSIX.1-2008? POSIX.1-2001?
+(or any other combination of standards from this millenion
+not mentioned on this page?) It's not: just say POSIX.
 
 Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
 ---
@@ -64,45 +66,49 @@ Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/man3/regex.3 b/man3/regex.3
-index 74f19945d..5aaf42caa 100644
+index 5aaf42caa..b6e574b4d 100644
 --- a/man3/regex.3
 +++ b/man3/regex.3
-@@ -61,11 +61,11 @@ of zero or more of the following:
+@@ -289,7 +289,7 @@ Unknown character class name.
  .TP
- .B REG_EXTENDED
- Use
--.B POSIX
-+POSIX
- Extended Regular Expression syntax when interpreting
- .IR regex .
- If not set,
--.B POSIX
-+POSIX
- Basic Regular Expression syntax is used.
+ .B REG_EEND
+ Nonspecific error.
+-This is not defined by POSIX.2.
++This is not defined by POSIX.
  .TP
- .B REG_ICASE
+ .B REG_EESCAPE
+ Trailing backslash.
+@@ -303,7 +303,7 @@ occurs prior to the starting point.
+ .TP
+ .B REG_ESIZE
+ Compiled regular expression requires a pattern buffer larger than 64\ kB.
+-This is not defined by POSIX.2.
++This is not defined by POSIX.
+ .TP
+ .B REG_ESPACE
+ The regex routines ran out of memory.
 --=20
 2.30.2
 
 
---spa6ysxug7ptqogs
+--rxivoww2wkvqdzqw
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmRAd+oACgkQvP0LAY0m
-WPE5fRAAlUembC3LX7Hcqx3/4umnweHXuKO9M4dPl102dr/ze+JFYg/04dHnxoW1
-PHXSDcT1Ywe35rRIe5mYa83U8WVWgEBnV/0AL8yUIsheTIYtQ+Atzm5i+Wazvt4Y
-YuQNg1cMBAGtxzlH+SMTRQ2ec0M8l28pO+ni2yORMuMcop6ErMoPX3W7BjFba6zL
-Y+j7mzkQEMkF3o7txzQYzjwO4kJTnB55LHAxm3U3XZOJh0rI+nPWB1o+RubYaN7w
-rHIVLXGOd+MAzGKB4ISw5lTrwBwcy2MFxBULELO9EYD+SmMXqY5kMURI+V1ePf6W
-JDRxF1H9xQsnnj765Do2BQsIlMbuHzsAyvmZ/CQtoLAjhTdjTHwJn75R0igUO5Pf
-r+rJd5MCjawmt9hLx0Rc3sXB4HUgnwh16Xw6zbu1XARH9GLg4n+Eq8TjtTo0Mboz
-A29thHxcooPOalOHLHc9DiqhNRgnPzLi0htm9si1RpvHjbMRWpLpjrxkYxMKyYn6
-c4JuLR1gufJAQWCx8AsPwtdQuNODAQeK922cMrHtIr5c/V+kKFTOkVfqhTWR2zOM
-BoL4iWw4dBXYEcFhd/0bVswpR2Hyqj8g8Wd7w2xJ03powFF/MoDdkhaLM32q/SxF
-MQMWLnlYdinx1RXPE75YUEpJ2L5ezQz8CtfaZX9Yu+yxAVwH9tA=
-=WkdH
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmRAd/MACgkQvP0LAY0m
+WPFOZhAAsQdvbcPYIp9i1iMaco1JXh1n8uGyhUiXFcpBEG6EbR3cTN9H5y6ahZcy
+kx86nUL7fxsN4gMgby1+AHN/4uoKS1l/Qlz78XNPkCjoH5q17s1P4+zZKkHKmsAK
+Uqmbwme/YEHRl6oixsePfcKwjSnU4Q91IWMoYS81/QJ/fa1H4CyC4su1LheM223E
+sUGBm6sL3E846YqjdnoTjve/TBZD4U52ixzfMfvCrGqEqe/uk/dczs49iobAIelo
+5IizZkUkQF+yMnvLYymwOaYPeo6vkgeMPScAXypWQblKwVTg12qtXVp6Fr4uaOHO
+h3bxQOorlVh691g1XpW71RJFlB9eaMRhrCsjVDz0cTO4JiGeUWIKu2fNftkQHFUD
+rg6UGm4A5zl+omXL6XdaWDvwHeMaTZL/Dr1Lwg/ZUm+riP+WrJhEHGacWCUk4Y/Y
+5sGFNGdPsyYeDb+wkJRqAd7jrxiTPmM5h015lo8mtO7tFkbGp6cRKlPNsYLNv58Q
+J0oLZdhq2zOAWHcprNGo6Y0CXgqwXjUemxlx81Rj5QdRhTYvaDB8YSpoZqQnJ2/f
+o1fMOdk5WkCkkT04waTv/ZurggE0QpswtWe70Tqq7egmQiRyuT+pw1oMjtqxa/IU
+e5zaA3y4EVmf/dMn2NWATkn1HzJFrKNc/D4qrZbOi0xtlcd2/0o=
+=PpQQ
 -----END PGP SIGNATURE-----
 
---spa6ysxug7ptqogs--
+--rxivoww2wkvqdzqw--
