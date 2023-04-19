@@ -2,62 +2,60 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id A0B5C6E74D4
-	for <lists+linux-man@lfdr.de>; Wed, 19 Apr 2023 10:19:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 17AD66E758F
+	for <lists+linux-man@lfdr.de>; Wed, 19 Apr 2023 10:43:56 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231925AbjDSIS6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 19 Apr 2023 04:18:58 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57858 "EHLO
+        id S232700AbjDSIny (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 19 Apr 2023 04:43:54 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53070 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229978AbjDSIS5 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 19 Apr 2023 04:18:57 -0400
-Received: from mail-ua1-x934.google.com (mail-ua1-x934.google.com [IPv6:2607:f8b0:4864:20::934])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D34E718B;
-        Wed, 19 Apr 2023 01:18:56 -0700 (PDT)
-Received: by mail-ua1-x934.google.com with SMTP id l13so6856004uan.10;
-        Wed, 19 Apr 2023 01:18:56 -0700 (PDT)
+        with ESMTP id S232536AbjDSInv (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 19 Apr 2023 04:43:51 -0400
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com [IPv6:2a00:1450:4864:20::632])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1FE727EDD
+        for <linux-man@vger.kernel.org>; Wed, 19 Apr 2023 01:43:48 -0700 (PDT)
+Received: by mail-ej1-x632.google.com with SMTP id fy21so36646571ejb.9
+        for <linux-man@vger.kernel.org>; Wed, 19 Apr 2023 01:43:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1681892335; x=1684484335;
+        d=szeredi.hu; s=google; t=1681893826; x=1684485826;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=W22e4ydAV4n5nCBd2MwS4yU05iphAlzsogcBTpIAP90=;
-        b=ZhargNF1aPIYqxidwwZ3h5Yfm4PQdEmahsH7VRxaBXgya3HIze6xj6OoXkuKhqw4DO
-         awECMItY9eVGCV2JAgs7dWvFjhTUSYBkWmx4J4H7dRXO0SdC3aSJFJUMVfzUOwlmQPRl
-         ix4uBroF7y1fzIwSRPesBsbuEKs0OEOZP0EM8HIG3EgC7BN3hSnXoHZhiVG3PuCMqXZs
-         FeKemioMZG8Sg/m2nKPYlAoG9xOLBkLfBFH1ur/jlGQ11gh52A8cFjgkEczC1S8U5ohN
-         7fJgHZKK3PEvEQsoZphgDpmAMKPMrzxmuYclIC0mtZ4GbFoanmN0aJoTyX0j7QTOZeQ3
-         qwaA==
+        bh=PoaJl359qZUYDJa00LijMCBeZ9q8sK607R/iQiV1/HA=;
+        b=BXBbL/9e5Z/e16fIKN825T7HQfMsjkYbzeD1Ok1tQbttzq1uDjBEhUIzju71+s/hTN
+         rSAQWcYuMavpcUUu2pIa6yqOy4VCUfocRm2PqBjocjDOiY/Nn0C/NAcYLsA1n4HzXYqT
+         iDBMJfHWKMMd8eA7xrCuf3JxLrqq9V7YU4E2U=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1681892335; x=1684484335;
+        d=1e100.net; s=20221208; t=1681893826; x=1684485826;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=W22e4ydAV4n5nCBd2MwS4yU05iphAlzsogcBTpIAP90=;
-        b=BB3y+3E/VS32/xcVDNEvTMeCXT/GPqT9BVCIaeFGL0VNr9rVN8+GaPrNpt12w837Zi
-         1SrOrZzC8SXwYEZi9dnGiAzWeFkHiV58Q0ZXeLwvMHOhWFTYSGgC072xpVdd19E4sv7x
-         ECRFRfbzCa/mumYS+wiSASqH9IIAQqfh1fWAcHeGK1p1T8brxXSaPxjEssDv+OWVmgnZ
-         uu+0GnZx9YuBEjMqX5faPqgMnf442IbtIYVSXapybWx7YIBUn6CI+BxKVUXzASdGJl0h
-         rmXyF1HalblE8GBN8jFHSXMBerTUO83p1SrsfGIQahpuk/cbfL92YGtorxukxQNhDiw6
-         fyYg==
-X-Gm-Message-State: AAQBX9ftR+ONmw/hZrVXsX0u36Aw+GiJ4m3MNZlhsbjXq7sVAVOwGTfD
-        QLQ50UioZXy78J9qcWuK8Wfvyvh871P/R4KDZ+A=
-X-Google-Smtp-Source: AKy350ZN3+oKBwJN+I2YD8FIb+KTiqQkUFNRsq2Qvuw8/Jgue8NMWHR/LQ5+y1XDn4YFh2bKAZ2R1zv9gSBHW1LHO8E=
-X-Received: by 2002:a1f:a710:0:b0:40c:4d1:b550 with SMTP id
- q16-20020a1fa710000000b0040c04d1b550mr11156104vke.0.1681892335680; Wed, 19
- Apr 2023 01:18:55 -0700 (PDT)
+        bh=PoaJl359qZUYDJa00LijMCBeZ9q8sK607R/iQiV1/HA=;
+        b=C75RuVS1H9JRSMF5UFx4tK4ADcJxeriUAHpFLZY8x3GL/FYJALvS35Svs9c6O3e3AL
+         nirHL91wEu8tJz7doCLKTS6LefSq5ttf7yLj/gxYNXO6YrN3nJH70UoA0XYKpWDSUGR6
+         oNsHlldcLpVQ0aJ7oAuLObyJU3ALa0PRNdupsQ5nI1usjN2tV7BmzFa6s67w8rRqzdzI
+         FsUze4vt/c4tSJO7L/o0H8z+EKFVLC+H3Gkj3BA2Juqg/eE6S9lI68evOs0Nw0KmT5F8
+         ysjxxakUNmLeC/TDz5rFJPw7o7PQEyLXOCZBHJltblwKQEjexN/SGxKq7BTPRR0Q7Yqn
+         CPUw==
+X-Gm-Message-State: AAQBX9ciPOfL6nGm5szXK/HwciTTVg/8mHF0zyf07TdCAGS4gOLckVth
+        dQCkc8jAE6Wgk/720oyINl84IRAntB4/pYThu4Rsvw==
+X-Google-Smtp-Source: AKy350akRy72DX1DUVKexX0fDjnJbHEwbEfB+W1QMyjRxbW6iLu1mB89PVLcrbsjXK09tOFrkIAFDKqDPmOTywH4kd8=
+X-Received: by 2002:a17:906:3a4b:b0:94e:d72b:d10c with SMTP id
+ a11-20020a1709063a4b00b0094ed72bd10cmr13302303ejf.40.1681893826528; Wed, 19
+ Apr 2023 01:43:46 -0700 (PDT)
 MIME-Version: 1.0
 References: <YnEeuw6fd1A8usjj@miu.piliscsaba.redhat.com> <e57733cd-364d-84e0-cfe0-fd41de14f434@bytedance.com>
  <CAJfpegsVsnjUy2N+qO-j4ToScwev01AjwUA0Enp_DxroPQS30A@mail.gmail.com>
  <CAOQ4uxhYi2823GiVn9Sf-CRGrcigkbPw2x1VQRV3_Md92gJnrw@mail.gmail.com>
  <CAJfpegsLD-OxYfqPR7AfWbgE1EAPfWs672omt+_u8sYCMFB5Fg@mail.gmail.com>
- <CAOQ4uxhz7g=N0V8iGiKa2+vupEuH_m9_27kas++6c0bLL2qRyA@mail.gmail.com> <CAJfpegt38gHcNeEt1mwOYHeMYdVEbj0RhZEs-4iYG7VPJhYDzQ@mail.gmail.com>
-In-Reply-To: <CAJfpegt38gHcNeEt1mwOYHeMYdVEbj0RhZEs-4iYG7VPJhYDzQ@mail.gmail.com>
-From:   Amir Goldstein <amir73il@gmail.com>
-Date:   Wed, 19 Apr 2023 11:18:44 +0300
-Message-ID: <CAOQ4uxgzJTg61UOnYQOWggPUX9347gJRafUmQTd=rxxFMEdzrg@mail.gmail.com>
+ <CAOQ4uxhz7g=N0V8iGiKa2+vupEuH_m9_27kas++6c0bLL2qRyA@mail.gmail.com>
+ <CAJfpegt38gHcNeEt1mwOYHeMYdVEbj0RhZEs-4iYG7VPJhYDzQ@mail.gmail.com> <CAOQ4uxgzJTg61UOnYQOWggPUX9347gJRafUmQTd=rxxFMEdzrg@mail.gmail.com>
+In-Reply-To: <CAOQ4uxgzJTg61UOnYQOWggPUX9347gJRafUmQTd=rxxFMEdzrg@mail.gmail.com>
+From:   Miklos Szeredi <miklos@szeredi.hu>
+Date:   Wed, 19 Apr 2023 10:43:35 +0200
+Message-ID: <CAJfpegv9=FKb=hUWOMb0-X_7yP8x8qfeCUvm9VTSpg5SCWAOng@mail.gmail.com>
 Subject: Re: [LSF/MM TOPIC] fsinfo and mount namespace notifications
-To:     Miklos Szeredi <miklos@szeredi.hu>
+To:     Amir Goldstein <amir73il@gmail.com>
 Cc:     Abel Wu <wuyun.abel@bytedance.com>,
         linux-fsdevel <linux-fsdevel@vger.kernel.org>,
         Christian Brauner <brauner@kernel.org>,
@@ -70,8 +68,8 @@ Cc:     Abel Wu <wuyun.abel@bytedance.com>,
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
+        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
         autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -79,61 +77,69 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Tue, Apr 18, 2023 at 9:57 PM Miklos Szeredi <miklos@szeredi.hu> wrote:
+On Wed, 19 Apr 2023 at 10:18, Amir Goldstein <amir73il@gmail.com> wrote:
 >
-> On Tue, 18 Apr 2023 at 17:57, Amir Goldstein <amir73il@gmail.com> wrote:
+> On Tue, Apr 18, 2023 at 9:57 PM Miklos Szeredi <miklos@szeredi.hu> wrote:
 > >
-> > On Tue, Apr 18, 2023 at 11:54=E2=80=AFAM Miklos Szeredi <miklos@szeredi=
-.hu> wrote:
->
-> > > - mount ID's do not uniquely identify a mount across time
-> > >   o when a mount is deleted, the ID can be immediately reused
+> > On Tue, 18 Apr 2023 at 17:57, Amir Goldstein <amir73il@gmail.com> wrote=
+:
 > > >
-> > > The following are the minimal requirements needed to fix the above is=
-sues:
-> > >
-> > > 1) create a new ID for each mount that is unique across time; lets
-> > > call this umntid
-> > >
+> > > On Tue, Apr 18, 2023 at 11:54=E2=80=AFAM Miklos Szeredi <miklos@szere=
+di.hu> wrote:
 > >
-> > Do you reckon we just stop recycling mntid?
-> > Do we also need to make it 64bit?
-> > statx() has already allocated 64bit for stx_mnt_id.
-> > In that case, should name_to_handle_at() return a truncated mnt_id?
+> > > > - mount ID's do not uniquely identify a mount across time
+> > > >   o when a mount is deleted, the ID can be immediately reused
+> > > >
+> > > > The following are the minimal requirements needed to fix the above =
+issues:
+> > > >
+> > > > 1) create a new ID for each mount that is unique across time; lets
+> > > > call this umntid
+> > > >
+> > >
+> > > Do you reckon we just stop recycling mntid?
+> > > Do we also need to make it 64bit?
+> > > statx() has already allocated 64bit for stx_mnt_id.
+> > > In that case, should name_to_handle_at() return a truncated mnt_id?
+> >
+> > I'm not sure it's realistic to implement the new 64bit ID such that
+> > the truncated value retains the properties of the previous mount ID
+> > implementation.
+> >
+> > I think the only sane option is to leave the old mnt_id alone and add
+> > a new 64bit one that is assigned from an atomic counter at allocation
+> > and looked up using a hash table.
+> >
 >
-> I'm not sure it's realistic to implement the new 64bit ID such that
-> the truncated value retains the properties of the previous mount ID
-> implementation.
+> At the risk of shoehorning, that sounds a bit like file_handle of a mount=
+.
+> Meaning that it could be the result of
 >
-> I think the only sane option is to leave the old mnt_id alone and add
-> a new 64bit one that is assigned from an atomic counter at allocation
-> and looked up using a hash table.
+> name_to_handle_at(...,&mount_handle, &mount_id, AT_MNTID)
+>
+> We can possibly use open_by_handle_at() to get a mountfd from
+> mount_handle - not sure if that makes sesnse.
 >
 
-At the risk of shoehorning, that sounds a bit like file_handle of a mount.
-Meaning that it could be the result of
+There are conceptual similarities, yes.  Whether reusing the file
+handle interfaces makes sense or not is another question.
 
-name_to_handle_at(...,&mount_handle, &mount_id, AT_MNTID)
 
-We can possibly use open_by_handle_at() to get a mountfd from
-mount_handle - not sure if that makes sesnse.
+> [...]
+>
+> > > > 3) allow querying mount parameters via umntid
+>
+> I forgot to mention in the context of this topic, that there was a
+> topic proposal
+> about using "BFP iterator" [1] to query fs/mount info.
+>
+> I don't know if that can be used to get namespace change notifications
+> or if it meets other requirements (i.e. permissions), but wanted to
+> mention it here.
+>
+> I think we can discuss both topics in the same session.
 
-[...]
-
-> > > 3) allow querying mount parameters via umntid
-
-I forgot to mention in the context of this topic, that there was a
-topic proposal
-about using "BFP iterator" [1] to query fs/mount info.
-
-I don't know if that can be used to get namespace change notifications
-or if it meets other requirements (i.e. permissions), but wanted to
-mention it here.
-
-I think we can discuss both topics in the same session.
+Okay.
 
 Thanks,
-Amir.
-
-[1] https://lore.kernel.org/linux-fsdevel/0a6f0513-b4b3-9349-cee5-b0ad38c81=
-d2e@huaweicloud.com/
+Miklos
