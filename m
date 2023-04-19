@@ -2,158 +2,165 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id C0F4B6E82D0
-	for <lists+linux-man@lfdr.de>; Wed, 19 Apr 2023 22:38:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 626B06E83D0
+	for <lists+linux-man@lfdr.de>; Wed, 19 Apr 2023 23:32:46 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229499AbjDSUiD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 19 Apr 2023 16:38:03 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49614 "EHLO
+        id S232771AbjDSVco (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 19 Apr 2023 17:32:44 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56386 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229461AbjDSUiC (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 19 Apr 2023 16:38:02 -0400
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com [IPv6:2a00:1450:4864:20::32f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 258DF5B89
-        for <linux-man@vger.kernel.org>; Wed, 19 Apr 2023 13:38:01 -0700 (PDT)
-Received: by mail-wm1-x32f.google.com with SMTP id 5b1f17b1804b1-3f182d74658so1217935e9.0
-        for <linux-man@vger.kernel.org>; Wed, 19 Apr 2023 13:38:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1681936679; x=1684528679;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=7F3NmRN5MSrktCbPHZhtMEMdOxrB5rtccso5eXA5324=;
-        b=oacFA5OdZzvCDz1v6EvwpONpSCrcB4n4CSo1FPlj2KJeP3iRxXE9OOm6ulJe3WXyyD
-         8pkU49EYmFUHYTXZVQCz86ksE7dKWK3zkV0pUPZx92TG5cA2ehfez65U9WZg6Xcwzb7/
-         9FsRrml38J9IOz9Skpi8Kx5zlWqz2WQ+YOX4JoJI5T0WAJ5juunqbJN8e9wBks2h0vOu
-         G+UtqMIc8izWDde27z2kdGA1uVc/DdcMmRxHRTf1P8ZfBRmji2x+WmH7S1ZHr2a0wjuu
-         3YjttXC2AJzkPeBjcyybZeFmCOdxwTyVFW9ezVkKcRSAmTJ8KG9JyPmSCIWtRm08wutN
-         jQ2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1681936679; x=1684528679;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=7F3NmRN5MSrktCbPHZhtMEMdOxrB5rtccso5eXA5324=;
-        b=hcqhavTBCMxveuh1qcGLX5raDOq6e5h4R6+pYCFAkLwuXEmg6mihAs+nwPTEqA3GeX
-         ydoxitOCmekmZrukVWLaAoP/dc+G/edP5ckm+ji8k+ZVWEU0oSEsSZJ6JeXlR14qkAmv
-         0mBlAtc8fKKizlgsQmnnvNow3tsags4+1IQ4yU5M+rtCzbYYFLI9qR6Ir4eZQGMsYtcQ
-         a+CTdbFbk3D11KNoeA7uKoAuNTkjtstjm7TWPVXGfoCKDrXTzXpOPopaMxz3lvaT6l3G
-         sZngbSLyh9ThqpcOmJY3ANFXPBpJc8fQ9gUUCtOmNSIL7DVlmdZ06eWNw/uiXNTclckl
-         WhaA==
-X-Gm-Message-State: AAQBX9cc+FXyF/vMWwt9lddO96crNwJEld5+8jYBhb0AENXDRZKux7hn
-        6e65t3wZkKdEqgQOWCvQx3E=
-X-Google-Smtp-Source: AKy350YtTAnRzwqFugLct5JX0A2d61+8Lq6Xf5RZWr0fVJjuKE4nW90Peu/hOGflBb3m/3+tLhGyqg==
-X-Received: by 2002:adf:e906:0:b0:2c5:5687:5ed5 with SMTP id f6-20020adfe906000000b002c556875ed5mr5782464wrm.18.1681936679496;
-        Wed, 19 Apr 2023 13:37:59 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.51.134])
-        by smtp.gmail.com with ESMTPSA id z16-20020a5d4410000000b002f79ea6746asm26564wrq.94.2023.04.19.13.37.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 19 Apr 2023 13:37:58 -0700 (PDT)
-Message-ID: <e7e34004-ab5c-68dd-da7b-1d275ccde190@gmail.com>
-Date:   Wed, 19 Apr 2023 22:37:57 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.1
-Subject: Re: [PATCH 0/4] landlock.7: Code example improvements
-Content-Language: en-US
-To:     =?UTF-8?Q?G=c3=bcnther_Noack?= <gnoack3000@gmail.com>,
-        =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>
+        with ESMTP id S232592AbjDSVcg (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 19 Apr 2023 17:32:36 -0400
+Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id A0AB4B2
+        for <linux-man@vger.kernel.org>; Wed, 19 Apr 2023 14:32:20 -0700 (PDT)
+Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 906FB6822;
+        Wed, 19 Apr 2023 23:20:32 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
+        s=202211; t=1681939232;
+        bh=bAuxOSlBpUrK8YS0Pl8ohtafrfzSFf/N6D4ziU6cuqk=;
+        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+        b=oAUGLDYNqkn16Co2Qqs30DTIMgaYxWX2BOmdteQG0447e3+KEXE25RNk6kcI7Tpqx
+         rGZrnZUrgFLE8yW5n3LWJrZhgD+Jmdl/uZyjJozgG3rOa4IXvXsAE+FgQiB9BVdt5l
+         bJSRI8cUTqipqQDBWOaByZNFPJJlQWR3SGFMB9ingWI4RLXY0ZxWV7afdqMHjH/6jP
+         eJElQAvLOqBJZbFKBcGgyzN1W8DH2TgqLf2v0wxDKuiNXIKVYbO8mj6UGRmcZirXPD
+         05lEbB80RpXeo0YXSUFHm8G+WDITiL1TE2ss/tisLlUjDRrIeily98HF+R93i1Htmu
+         WIW0+qgJGUJeA==
+Date:   Wed, 19 Apr 2023 23:20:31 +0200
+From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org
-References: <20230419185443.7368-1-gnoack3000@gmail.com>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20230419185443.7368-1-gnoack3000@gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------LGkkEZi7oKivbpRToUKgmiuM"
-X-Spam-Status: No, score=-4.7 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-        URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.6
+Subject: Re: [PATCH 2/2] regex.3: improve REG_STARTEND
+Message-ID: <747kzwqbq2dqlrf7znp4eextcl5p2dlickflwicxstnk6fpinv@ntnnei6ianmk>
+References: <15d73d2add2adf0fbc33fd6697a6b29d126c11b9.1681926298.git.nabijaczleweli@nabijaczleweli.xyz>
+ <52a12177427a5e781b16b4efc85f8b90360a4e8a.1681926298.git.nabijaczleweli@nabijaczleweli.xyz>
+ <4139e0ad-c25f-59f2-1ebf-83779a5c507f@gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="m7vgkybxm5ncctyv"
+Content-Disposition: inline
+In-Reply-To: <4139e0ad-c25f-59f2-1ebf-83779a5c507f@gmail.com>
+User-Agent: NeoMutt/20230407
+X-Spam-Status: No, score=-1.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RDNS_DYNAMIC,SPF_HELO_PASS,
+        SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=no
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------LGkkEZi7oKivbpRToUKgmiuM
-Content-Type: multipart/mixed; boundary="------------n13Mm3aS004XigRcnrKGuYUj";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: =?UTF-8?Q?G=c3=bcnther_Noack?= <gnoack3000@gmail.com>,
- =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>
-Cc: linux-man@vger.kernel.org
-Message-ID: <e7e34004-ab5c-68dd-da7b-1d275ccde190@gmail.com>
-Subject: Re: [PATCH 0/4] landlock.7: Code example improvements
-References: <20230419185443.7368-1-gnoack3000@gmail.com>
-In-Reply-To: <20230419185443.7368-1-gnoack3000@gmail.com>
 
---------------n13Mm3aS004XigRcnrKGuYUj
-Content-Type: text/plain; charset=UTF-8
+--m7vgkybxm5ncctyv
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hi G=C3=BCnther!
+Hi!
 
-On 4/19/23 20:54, G=C3=BCnther Noack wrote:
-> Various improvements as pointed out by Micka=C3=ABl Sala=C3=BCn in
-> https://lore.kernel.org/linux-man/5d90e3b0-1577-7efd-03b8-f94b6e50fbc1@=
-digikod.net/
+On Wed, Apr 19, 2023 at 10:23:29PM +0200, Alejandro Colomar wrote:
+> On 4/19/23 19:48, =D0=BD=D0=B0=D0=B1 wrote:
+> > diff --git a/man3/regex.3 b/man3/regex.3
+> > index d54d6024c..2c8b87aca 100644
+> > --- a/man3/regex.3
+> > +++ b/man3/regex.3
+> > @@ -141,23 +141,20 @@ compilation flag
+> >  above).
+> >  .TP
+> >  .B REG_STARTEND
+> > -Use
+> > -.I pmatch[0]
+> > -on the input string, starting at byte
+> > -.I pmatch[0].rm_so
+> > -and ending before byte
+> > -.IR pmatch[0].rm_eo .
+> > +Match
+> > +.RI [ string " + " pmatch->rm_so ", " string " + " pmatch->rm_eo )
+> > +instead of
+> > +.RI [ string ", " string " + \fBstrlen\fP(" string )).
+> Hmmm, I like this!
 >=20
-> * Checking system call results differently, for consistency
-> * Use constants for the compatibility table
->   (I'm not very attached to the other solution)
-> * Better wording for error message if Landlock unusable
-> * Return instead of exit() if Landlock unusable
->=20
-> Regarding the EOPNOTSUPP/ENOTSUP discussion, the consensus seems to be
-> that EOPNOTSUPP is preferable, because that is the only of the two
-> error codes that the kernel knows about.
->=20
-> G=C3=BCnther Noack (4):
->   landlock.7: Check syscall result with =3D=3D -1 instead of <=3D 0
->   landlock.7: Use LANDLOCK_* constants for compatibility table
->   landlock.7: wfix: Error message wording in code example
->   landlock.7: Return instead of exit() if Landlock is unusable
+> Let's see if I understand it.  pmatch[] is normally
+> [[gnu::access(write_only, 4, 3)]]
+> but if ((.eflags & REG_STARTEND) !=3D 0) it's [1] and
+> [[gnu::access(read_write, 4)]]?
+I fucked the ternary in my previous mail I think, soz;
+I don't know if it's gnu::anything, but you could model it as
+{
+	if(eflags & REG_STARTEND)
+		read(pmatch, 1);
 
-Thanks!  Patch set applied.  (I tweaked the commit messages a little
-bit.)
+	if(!(preg->flags & REG_NOSUB))  // as "set" in regcomp()
+		write(pmatch, nmatch);
+}
 
-Cheers,
-Alex
+I.e. pmatch[nmatch] must be a writable array, unless REG_NOSUB,
+and also, additively, *pmatch must be readable if REG_STARTEND.
 
->=20
->  man7/landlock.7 | 12 ++++++------
->  1 file changed, 6 insertions(+), 6 deletions(-)
->=20
->=20
-> base-commit: 6693a21cf73c502f2429b4ec07698130a2be9a93
+> >  This allows matching embedded NUL bytes
+> >  and avoids a
+> >  .BR strlen (3)
+> > -on large strings.
+> > -It does not use
+> > +on known-length strings.
+> >  .I nmatch
+> > -on input, and does not change
+> > -.B REG_NOTBOL
+> > -or
+> > -.B REG_NEWLINE
+> > -processing.
+> > +is not consulted for this purpose.
+> > +If any matches are returned, they're relative to
+> > +.IR string ,
+> > +not
+> > +.IR string " + " pmatch->rm_so .
+> How are such matches returned?  In pmatch[>0]?  Or how?
+In the usual way in pmatch[0..nmatch].
 
---=20
-<http://www.alejandro-colomar.es/>
-GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
+I guess the "nmatch isn't taken into account" thing is confusing,
+because REG_STARTEND just adds a read. regexec() can be modelled as
+{
+	const char * start, * end;
+	if(eflags & REG_STARTEND) {
+		start =3D string + pmatch->rm_so;
+		end   =3D string + pmatch->rm_eo;
+	} else {
+		start =3D string;
+		end   =3D string + strlen(string);
+	}
+=09
+	// match stuff in [start, end)
+}
 
---------------n13Mm3aS004XigRcnrKGuYUj--
+And that's the /only/ effect REG_STARTEND has
+(+ matches are returned relative to string, not to start,
+   but that's consistent, and they just got decoupled;
+   it bears noting it there since it's not what I expected to happen).
 
---------------LGkkEZi7oKivbpRToUKgmiuM
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+I'll sleep on this and post something I hate less tomorrow.
+
+Best,
+
+--m7vgkybxm5ncctyv
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmRAUSUACgkQnowa+77/
-2zJFFQ//VPSpjjrRoJeXIV8bo4sXsPUwXtBVDVv0KFBKNbywCgaWvOX/MNnOwlbX
-88xu4xKsk2pg8aS7SS3Xnv20xJzMvQpHizgfb1lG2NE1F6PwJTpoamJDZ9cwxwWW
-UQ0TXrhuFIcWRvz9LM7292KQx2ssDSI1M1K0+kNu5xFARjNPR8isJ1RfrG10OFsv
-Kn0XeqNfp/lYKRrsUwDYzVkPjwqlT3VdCf0RaxbjMnxWcSiZJbv21SQI5fDRNVdv
-Lfq4dzjg57FH4udFF+qak5bMa2H23vP4fMbBbauCYI2oFjaLWlsA/5KMytDW6rWT
-+ihNTbtvGRei2swFBbTmC7l2KFGMUPS2mjWV/De5ZO2BPyznTiJdpBw9X9D0M/oq
-OJCp8koe4GhMdsuVuDWWdRjb+MKCXj/YVhBmficV0IP3AEJSOUQ6Pw0rHkYuN5re
-2XDu3BUxrP0dag01gt6SKdAaDjd1O9W/pTKz6N9e+DCAX0ZDu3xi7dMYxFP7GZOQ
-RzXsgJA5ZGfnf4hToIGbJu66E34UpicaFAagJtER+m8LRAYMfz9dM8WNyGXcXG5l
-bMNE0Nyms8aooGQglRUuQQYoFEEi3w+6Z2CRVZCkUsd+gpvPVZnZOQfJ/5dX5CCs
-0qM4q6dxuxMFcBx36wEyHY0HHvI+tAaWcHBFgzAK1kaamjbosZA=
-=n/bo
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmRAWxwACgkQvP0LAY0m
+WPFp6RAAob08n1fyLtES9XmKnwImYxFsHYyAklbj3GL68rVyLbpMTrBbeahTjLo2
+j6x/Ji5wTg8BE9VD9zjVfK8GqlBtHboG2XIsQUM+3L5SCQdU1WyVKfu7MhGd9417
+W/9wk8iGqoCIUya0KRg3BfkwA5zeaqJQJWeqsQVa6KWlAPVxXjMdYU2dXYFxLQAt
+C1ZxjKI4tEcvQlUNRlOVKMhAzquyv3u1imqv+Zxkgf5VgUjWRGAhzhBbb2PPKFyJ
+WhdOLsE3yifIJUyyjQwQ3Jnde+SbaM6YzdDZTxsDmpimTic6LEpVwxjN2fQmHCtw
+dXAEFrSCz8b9WmIvv6feh7K5ZWluBqsF6TK4sl6fIKZkJ0Q1UT2btC2Y3+ESklQ9
+k2F6BBf513xhYWGysLseyS/eYjuwUrC9U4TBY3exwAnLf4LZzMu8D5vj/aSZz4Qu
+/TdvTKK2aY4ReAAapAcOpBsBbuXYcA1Y4XKgqNrHLdrm+IdRICZT7IMUk6UYDps9
+HsHXr2K5f3eVIoUtmqWtmvf5h3uaI96Gt26bpZpwMrNS2PIDu3dSO3tDuMPHxako
+sLnZ6YxGM2+ECUSR4OPcjV4jLCZAzHegd1CLfpqbNePPw+H+K8Ix7+MnBD74NlAl
+lWad/z0fUKhVw7vyptihGqHtPI8d8TJJjI81JWsoJtmyjF5hPjI=
+=dOSL
 -----END PGP SIGNATURE-----
 
---------------LGkkEZi7oKivbpRToUKgmiuM--
+--m7vgkybxm5ncctyv--
