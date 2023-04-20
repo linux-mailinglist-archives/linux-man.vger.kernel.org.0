@@ -2,42 +2,42 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id BB5C66E985F
-	for <lists+linux-man@lfdr.de>; Thu, 20 Apr 2023 17:35:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C34C56E9860
+	for <lists+linux-man@lfdr.de>; Thu, 20 Apr 2023 17:35:53 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230089AbjDTPfu (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 20 Apr 2023 11:35:50 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36648 "EHLO
+        id S231843AbjDTPfx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 20 Apr 2023 11:35:53 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36670 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229811AbjDTPfs (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 20 Apr 2023 11:35:48 -0400
+        with ESMTP id S229811AbjDTPfw (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 20 Apr 2023 11:35:52 -0400
 Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 9FB021988
-        for <linux-man@vger.kernel.org>; Thu, 20 Apr 2023 08:35:47 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 7FD4540E5
+        for <linux-man@vger.kernel.org>; Thu, 20 Apr 2023 08:35:51 -0700 (PDT)
 Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id BE7636A08;
-        Thu, 20 Apr 2023 17:35:46 +0200 (CEST)
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id CD659690E;
+        Thu, 20 Apr 2023 17:35:50 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-        s=202211; t=1682004946;
-        bh=g3zOWNBFqp5z1cczjsBpmAzyLonk7Ry1UGMHla8Npns=;
+        s=202211; t=1682004950;
+        bh=zWu/zSK5C2ZbGuEQNS5LTj0fCKmxXejKTq4breS0uC4=;
         h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=GZiRuEzp4yrsFd/vrj8GHRG6FsbfzL1VD8FKA6eFnbvKlLndOIXjPOockigupwOs1
-         9R0SWII2ZGreFdJDIHagEAuleOohG9oyS74jSo1cs/kYkVlF1ENDzA21GMxmr/5dzz
-         QuJIsuEl6M70VmBSIH9zTLOJWNXiJ0DK1u/XlxvE9uBpoAb6ZSTp1FmvtrZMJA+PHd
-         1IEsJRG1c7j1UIKdwDS44hl1xtP2qDLVkYXhcSC8PZSqy2PeoRbFIIVetdKmrKIdI8
-         T5sqbcn70niwSRIiEC8DObUrDyxW8Y5tw58M+jJmUHRqoNFehk/bMn5nyGr1JtV3Qx
-         TZYr/RgzSGHKA==
-Date:   Thu, 20 Apr 2023 17:35:45 +0200
+        b=GU+nV9Oe4AKQ5oHihKWNghhIccH8GPEuxQfHIkojCJajYvjHSLn22PySiE52c7uA/
+         vytoQDs2L92kNZy2ct7jxWSm7euvxndxO0Erjc+27TWvLE1m6QHyg35iuKSHr4uy+p
+         55ugpG4aClHdUDEwKUj34+sV5TF2MYTLFpTbO04QCM5NWLbSjE4PsrovL+4BN75Xvo
+         ctRvh1xlOpsBI94IncB0XO9G1blg/H/ppUOfyWFe57BAlAeMekYEZ8NLYodod4HVTD
+         yII0ukicaKxTeGG2JUgcYspzXXsJgfc4veDwAD+bacDSARbhrDhpmPjFNWEwK7KxBh
+         /+TU6h36WsqXw==
+Date:   Thu, 20 Apr 2023 17:35:49 +0200
 From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
 To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org
-Subject: [PATCH v5 1/8] regex.3: Desoupify regcomp() description
-Message-ID: <fcb8df21b1f734ef33a64fa7d0861984c133faea.1682004802.git.nabijaczleweli@nabijaczleweli.xyz>
+Subject: [PATCH v5 2/8] regex.3: Desoupify regexec() description
+Message-ID: <7240de5b781210489d8155d089e1f6f2e496bc9b.1682004802.git.nabijaczleweli@nabijaczleweli.xyz>
 References: <6405717b8de85a370febef4f102676dc65c61113.1681995401.git.nabijaczleweli@nabijaczleweli.xyz>
  <cover.1682004802.git.nabijaczleweli@nabijaczleweli.xyz>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="gol74vs4ib6udvhv"
+        protocol="application/pgp-signature"; boundary="jcxhrkhhgx3lsbtf"
 Content-Disposition: inline
 In-Reply-To: <cover.1682004802.git.nabijaczleweli@nabijaczleweli.xyz>
 User-Agent: NeoMutt/20230407
@@ -52,84 +52,59 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---gol74vs4ib6udvhv
+--jcxhrkhhgx3lsbtf
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Behold:
-  regerror() is passed the error code, errcode, the pattern buffer,
-  preg, a pointer to a character string buffer, errbuf, and the size
-  of the string buffer, errbuf_size.
-
-Absolute soup. This reads to me like an ill-conceived copy from a very
-early standard version. It looks fine in source form but is horrific to
-read as running text.
-
-Instead, replace all of these with just the descriptions of what they do
-with their arguments. What the arguments are is very clearly noted in
-big bold in the prototypes.
-
 Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
 ---
- man3/regex.3 | 22 +++++++---------------
- 1 file changed, 7 insertions(+), 15 deletions(-)
+ man3/regex.3 | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
 
 diff --git a/man3/regex.3 b/man3/regex.3
-index 129c42412..2f6ee816f 100644
+index 2f6ee816f..ae160c9b3 100644
 --- a/man3/regex.3
 +++ b/man3/regex.3
-@@ -38,21 +38,13 @@ .SS Compilation
+@@ -105,12 +105,10 @@ .SS Compilation
+ .SS Matching
  .BR regexec ()
- searches.
- .PP
--.BR regcomp ()
--is supplied with
--.IR preg ,
--a pointer to a pattern buffer storage area;
--.IR regex ,
--a pointer to the null-terminated string and
--.IR cflags ,
--flags used to determine the type of compilation.
--.PP
--All regular expression searching must be done via a compiled pattern
--buffer, thus
--.BR regexec ()
--must always be supplied with the address of a
--.BR regcomp ()-initialized
--pattern buffer.
-+On success, the pattern buffer at
-+.I *preg
-+is initialized.
-+.I regex
-+is a null-terminated string.
-+The locale must be the same when running
+ is used to match a null-terminated string
+-against the precompiled pattern buffer,
+-.IR preg .
+-.I nmatch
+-and
+-.I pmatch
+-are used to provide information regarding the location of any matches.
++against the compiled pattern buffer in
++.IR *preg ,
++which must have been initialised with
 +.BR regexec ().
- .PP
- .I cflags
+ .I eflags
  is the
+ bitwise OR
 --=20
 2.30.2
 
 
---gol74vs4ib6udvhv
+--jcxhrkhhgx3lsbtf
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmRBW9EACgkQvP0LAY0m
-WPFI8RAAo8AnpzIs2YxB/N5A6tHJkKNCgymYBPSDOwFYXFZDaU2PUqvo0DYbmrjW
-Uu256i9mvt567k69so8PO93fbXiIGhYGUqo55Wjoz02j1FCm/clBbzvRMNLtq2kZ
-GhzFJ1S5D1DNPlDG27luXSfaWEuMAF0FF7V5SYehcJH8IN+3DaLapPf5CD/rgMb6
-fcTwa3g3eOTMz++pRntqfx/fy5DQOV/sRKEl9Ti9C4U2ojNasDI9pZt35OWKnzHU
-Gmkfb4d9EFICel3qRRuntt/7PIT55ZeL1Fp27UPOtHmkhmdi4h3XCluizDvgWM5U
-c4wXOzGmnpk0WswrE3t9aNDQE8YFQr0bLaQBwrtVI9V2KAlTXqIlovRFCD4dlIIl
-jXV5DauWKoXk+XWclWyPgLxLQ/N+PPdS3mb10jrnrrYCaNf1oZbZPqBB4rcapFQB
-niw9UD0CLEnxGBP893hPA2xewe1HRcrqX4EHcWCbl3vv8eliasvMrp2x1IXoRXef
-Rf5QCWlqtsALHd5aTqfWPh66HVeJUUeV9jqNK9aH8Jnv1nu/RrssjmfNyB4wNSJR
-RutGnIcEusAuswZf21GPirmMHmhyRkKlyrgiDcyVbHDiOZThTBVy88lDMmt5V/TJ
-NRBWF9giPVaLWlb4HnDIltHbEWrFxn8XJDl97sET85HdWueT64A=
-=HJ4B
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmRBW9UACgkQvP0LAY0m
+WPHYvg//RwmU60w0USLSGlH7YRBuXtuUy1JUpVLIin1jHpm47IKWJZipi/Bhq+m7
+SkIb7rTLCn7HgOgAGYE76f7b0re3pDnosPwLZCFCXC2MAenDa+h3213n3X+VcLkt
+c9IDRYGztajzQzz94LqRkHbn+UEWBDWNINWIYoyBLXhOP0e/DmAQnWeCU70oD4S8
+FCK1aGP0O5V1dEwoyr40SRP18p6fkV49eiBz59PtloWW54PdUlButVy6uDAkBLAt
+mYvgQ52E1vRqvmsX2lmZDEqoAYXlWu2P6XUWPBvGGPxQCsScofBwIWNNQjQt7LSW
+uW7PFvZyoO+BdtnS46tRILIWJdsPV1Mk/o1sukbq+4bukEliP60Rk9f5Pr8o8cba
+IjhiOYnwpAnofCUZ9QapH7qO8NaPygB/Y3Kx6Mc4Ggb/KIZAi+AIFbMhd2bPOP2b
+dJdwMpDJ2mUcbs6OomaQDDsDCbC3/iCmtCz+viNe881FK5+NnIQ9xPcZYs748cqI
++5MJw+/1uVVTLe2tS13VTImTsVaZa/on9qQHZZlkesVAjv4iBxbYzi51lksmXhQg
+cgsh/Mc63M/FULCLm8u3jWv//Q5VhiN/TF8ASRG4CypxMVlGoOgTX6I51GXvo+gW
+I4XyY2A4sUIQNeMkwIUYC5vzDZzlro+W7QnRLu8xCFGu5gmWuok=
+=0CJH
 -----END PGP SIGNATURE-----
 
---gol74vs4ib6udvhv--
+--jcxhrkhhgx3lsbtf--
