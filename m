@@ -2,72 +2,51 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 4307B6E9BEF
-	for <lists+linux-man@lfdr.de>; Thu, 20 Apr 2023 20:51:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 436416E9C7A
+	for <lists+linux-man@lfdr.de>; Thu, 20 Apr 2023 21:30:17 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231470AbjDTSvP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 20 Apr 2023 14:51:15 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56016 "EHLO
+        id S232051AbjDTTaQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 20 Apr 2023 15:30:16 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49978 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230118AbjDTSvP (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 20 Apr 2023 14:51:15 -0400
-Received: from mail-oa1-x35.google.com (mail-oa1-x35.google.com [IPv6:2001:4860:4864:20::35])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1871030F5
-        for <linux-man@vger.kernel.org>; Thu, 20 Apr 2023 11:51:14 -0700 (PDT)
-Received: by mail-oa1-x35.google.com with SMTP id 586e51a60fabf-187edc01fa3so413117fac.3
-        for <linux-man@vger.kernel.org>; Thu, 20 Apr 2023 11:51:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1682016673; x=1684608673;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=7DQnNWXsIyCZ6DSqoQeWT7JJN0NTl4hXl2cKqgzYsLA=;
-        b=AA6X/QFZyPze8yFlf3WbnZGuvTJWZI2foRA8DEp++Nb6ZWtxzsa4JkAzWg5ZRaDuII
-         KD5OByIuNPZkpYVadFWX9Ef24paaqCywpnsXStvxysXeszRVoaHcMZjB3ItKBByL2PG8
-         aNBdIlAC2WSmsxYKS91K4yrlPeAa2jtAzM1qXZcZ+zCERz0UzKLtgyBBXWzpWm+5zfMe
-         yuiHUuWCQ2NT2salES0M7/xchHxKEkEW58XEug4htN8sglKpiiD0jYEM30Z3Sc8S9LWL
-         xKgFX+8fwxYkGG+X/R5cPUxuP13Sb7UOvoM2ODez4AXyFdDuKy/W3MaooxcHrHgumakO
-         TJsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1682016673; x=1684608673;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=7DQnNWXsIyCZ6DSqoQeWT7JJN0NTl4hXl2cKqgzYsLA=;
-        b=ghBlY5fR697pLARbqAmV4XLCfQkL71buFj/0Vkk9CYLEyb54K37cWiEEzcZO7Wcg9b
-         xt6fdm0gFY6R99x/vTNII4/IYsfDGTsYJVZbnnOG2BNqcCvaJNqDbiXm29igCQJ2gq14
-         JMxEsgRLHNWs++cLYdyL4TQWPIp1Fc8fL52pmF8X6EYp9XvPfxcm9EsEPnrYf8asLzu9
-         +YeLj9JSKEkAR2wwecVtmneWB5GMlwiyUsjA90AN7uzlnjxkGv8zUucwl7pdQH4fGlIF
-         9tY3AyTRy3rLvJVZz7PvuU0UVhvXCX6ZWvJFCeNFEbF6SMe/DF54v9XAU9ZNd73SVd9S
-         BHPQ==
-X-Gm-Message-State: AAQBX9eBJB4CcLXc0uIZqpGJX7rClvgSbo0fXRXSItMpvOHeeHiZJ4Ez
-        RxAcUaYqyt11xaqFNVMgU2c=
-X-Google-Smtp-Source: AKy350YvyuY1ZoZ+Fxb+LtsW7oOa3gEK5IgqCZXW6PlNzpyZOMJS0wUBfiPhQ+j+6mhVYJMM17j0Qw==
-X-Received: by 2002:a05:6870:42cb:b0:187:8c36:d392 with SMTP id z11-20020a05687042cb00b001878c36d392mr1616700oah.18.1682016673273;
-        Thu, 20 Apr 2023 11:51:13 -0700 (PDT)
-Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id dv15-20020a056870d88f00b0017ad7a5f57dsm1040109oab.11.2023.04.20.11.51.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 20 Apr 2023 11:51:12 -0700 (PDT)
-Date:   Thu, 20 Apr 2023 13:51:11 -0500
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org
-Subject: Re: [PATCH v4 6/6] regex.3: Destandardeseify Match offsets
-Message-ID: <20230420185111.hep3acduthzt3zds@illithid>
-References: <1df1b495-6e7f-b2b5-174d-f138b6bc3d5c@gmail.com>
- <9b1790334c6f1367f7ea63c8e2ce04d2ae0f9eb7.1681995401.git.nabijaczleweli@nabijaczleweli.xyz>
- <09c3c0bf-79e4-1cdf-8aa7-b82155aa3f47@gmail.com>
- <tffsidfrewe4yxhfr534jsznrbv526x2ilrk7k7vfpwabpmxne@5bilrttama4e>
+        with ESMTP id S231206AbjDTTaL (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 20 Apr 2023 15:30:11 -0400
+Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 6A60840DA
+        for <linux-man@vger.kernel.org>; Thu, 20 Apr 2023 12:30:08 -0700 (PDT)
+Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 98D4463E4;
+        Thu, 20 Apr 2023 21:30:06 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
+        s=202211; t=1682019006;
+        bh=2lo6aqFMSBJmRV9ndg5G+MPoT0L2YL76N/4N3rBq6ng=;
+        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+        b=o5LQ2ZHTTGS5tXKLk+2YmvkCGgV24IzNgoDjyL53iHY/qUWc/2sXR+H6j1X7JTbYO
+         9W+qyQdzm85+KnrUOlWXnUwRIb+UxG6bgdRGsm1PwmLuBo/OBBd2J2eQr5umLKQPVe
+         OewkTQJt06BcrGi7EXIDkAkjw1QG5SDB9/v3DFsJzQ52xxSbby4tgq8pnmfz0cKt9h
+         27Mh03mAZwQt1KWfF1UnXOjnVPZYSEDgkS64Sj54MeuKEAjMCa34e0b319NwDDPsPd
+         P4l/97jw+zEs++vt79Ypa5w5bHU9T8RLWXpQoA90EFRck0uKDKqOMuX8ec414GXP8H
+         WsEajtpVn0Tag==
+Date:   Thu, 20 Apr 2023 21:30:05 +0200
+From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org
+Subject: Re: [PATCH v5 4/8] regex.3: Improve REG_STARTEND
+Message-ID: <uubrf6suz7z2kw4el7i5wbzzdxywcqjwhcyqxkdddlwabve5p2@uupjducqbdgk>
+References: <6405717b8de85a370febef4f102676dc65c61113.1681995401.git.nabijaczleweli@nabijaczleweli.xyz>
+ <cover.1682004802.git.nabijaczleweli@nabijaczleweli.xyz>
+ <fd1a104d6abc70a2450b17a6b424ca8e20897634.1682004802.git.nabijaczleweli@nabijaczleweli.xyz>
+ <1735c494-c165-87d9-8660-865bbfce709a@gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="dgllbbg7lyg6pdvl"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="to34slzny7idf526"
 Content-Disposition: inline
-In-Reply-To: <tffsidfrewe4yxhfr534jsznrbv526x2ilrk7k7vfpwabpmxne@5bilrttama4e>
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-        autolearn=ham autolearn_force=no version=3.4.6
+In-Reply-To: <1735c494-c165-87d9-8660-865bbfce709a@gmail.com>
+User-Agent: NeoMutt/20230407
+X-Spam-Status: No, score=-1.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RDNS_DYNAMIC,SPF_HELO_PASS,
+        SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=no autolearn_force=no
+        version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
@@ -75,50 +54,91 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---dgllbbg7lyg6pdvl
+--to34slzny7idf526
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-At 2023-04-20T17:05:53+0200, =D0=BD=D0=B0=D0=B1 wrote:
-> I think changing our description to
->   REG_NOSUB  Only report overall success. regexec() will only use pmatch
->              for REG_STARTEND, and ignore nmatch.
-> may make that more obvious.
+On Thu, Apr 20, 2023 at 07:29:27PM +0200, Alejandro Colomar wrote:
+> On 4/20/23 17:35, =D0=BD=D0=B0=D0=B1 wrote:
+> > --- a/man3/regex.3
+> > +++ b/man3/regex.3
+> > @@ -131,23 +131,30 @@ .SS Matching
+> >  above).
+> >  .TP
+> >  .B REG_STARTEND
+> > -Use
+> > -.I pmatch[0]
+> > -on the input string, starting at byte
+> > -.I pmatch[0].rm_so
+> > -and ending before byte
+> > -.IR pmatch[0].rm_eo .
+> > +Match
+> > +.RI [ string " + " pmatch[0].rm_so ", " string " + " pmatch[0].rm_eo )
+> > +instead of
+> > +.RI [ string ", " string " + \fBstrlen\fP(" string )).
+> >  This allows matching embedded NUL bytes
+> >  and avoids a
+> >  .BR strlen (3)
+> > -on large strings.
+> > -It does not use
+> > +on known-length strings.
+> > +.I pmatch
+> > +must point to a valid readable object.
+> I think this is redundant, since we showed that [0] is accessed by
+> the function.
+Yeah.
 
-s/Only report/Report only/
-s/only use/use only/
+> > +If any matches are returned
+> > +.RB ( REG_NOSUB
+> > +wasn't passed to
+> > +.BR regcomp (),
+> > +the match succeeded, and
+> >  .I nmatch
+> > -on input, and does not change
+> > -.B REG_NOTBOL
+> > -or
+> > -.B REG_NEWLINE
+> > -processing.
+> > +> 0), they overwrite
+> And of course, nmatch must be at least 1, since otherwise, [0] was
+> not valid, and the whole call would have been UB; right?  So that
+> third condition must be true to not invoke UB, so we can omit it too,
+> I think.
+What? idk where you got this from.
+Per 0d120a3c76b4446b194a54387ce0e7a84b208bfd:
+    In the regexec() signature
+      regmatch_t pmatch[restrict .nmatch],
+    is a simplification. It's actually
+      regmatch_t pmatch[restrict
+        ((.preg->flags & REG_NOSUB) ? 0 : .nmatch) ?:
+         !!(.eflags & REG_STARTEND)],
 
-You might then further economize on space:
+If REG_STARTEND, pmatch must point to a valid readable object.
+(Naturally, if you pass in uninitialised memory or a null pointer,
+ then you get UB.)
+nmatch is not consulted and has no bearing on this.
 
->   REG_NOSUB  Report only overall success. regexec() will use only pmatch
->              for REG_STARTEND, ignoring nmatch.
+Best,
 
-As a rule of thumb, get the adverb "only" as close to the word it
-modifies as you can, because "only" can modify pretty much anything in
-English.
-
-Regards,
-Branden
-
---dgllbbg7lyg6pdvl
+--to34slzny7idf526
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmRBiZ8ACgkQ0Z6cfXEm
-bc62UQ//dc5ZZQpVOW8WShzbIfg0jfw8k433tewOm3TIydb1zSjiJAo7xShSkyNT
-gX+C6/6GNu9+7b2DUDwz8wOLIzCLIcliJR7crhnareYGj/uBUTegLwltxIVUXnPT
-WjXrZqkdGYjzkvwa7SppLnoiuY2Z44yiJOP//KelDfg6WEPCas1p+80CK85975Y5
-p0uNER+KWXyYBJ8tDH4/FWu8Eb/+hJAiGge5Bq0A5KF0ZRGXN8BFTplwLE0CfA7e
-TTKIguLapeTrGi423TwhHUTjtKuXNfeSv+917R2uvv3bAD4LOthaKC4GTrox7TVq
-n7hRenfUKzkJ3KMnTTR4gES/K7qCCMwwaH87g3C1/6GrAwqLDchltzxaq5lCitcc
-SvI8IrLbetNyvzLrjwXZrCkiiOuqmpZvoQGuz6qBPTVMICdextdVSNG/s++PIflQ
-GZ3vV9pLbt1kyn96yBcEku16glbo1AiJkxNRD1efkMHWUCc+tpREGnXNnMAdHmsk
-9n0u4nAt2QAoWeA9e2qWCflQmv5BpVoF+2ho8uA4DeczhPPgAC/1Pksaj1WgPbRt
-nPK7weutlk+NxV0D6fVQ7oBDIOAP0X9kvqkMIirsj2s83xru4jLC/B8lciPTBNhX
-pgNHyo65EPSjiZYG4H/Ypa1tuLhHhxcOV3eGO+AZ+5wZ+uaAXaU=
-=zS06
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmRBkr0ACgkQvP0LAY0m
+WPELdw//WtDpeQ2JF9H1yn1u30+2vC1qfqwamZcK1Djag1K4i7nVP01BXCxZCY4y
+nLI/pwJfm1nO17XyJuztxC01yeG4RyhoY9sGYBv41nOcET14vElFSr6lRvbziEm5
+cVdm0blf/wDonpuSuVVlKXX647cT9LsAtK6D3Md9XV2N7GMzyMjhXgE7AkQW7dHx
+Wc0UeDLvGwJ6LZjOoWgHntSDVk3UM3EB4bvKQ1dVEouxQHt4gY2tEz0hWNU5fQ0G
+M0EgWTJeibMJIqKOtU4I0g2s8gBGjuuSVV51YODIQkEzcwpMw9CelNlTmetXj0gR
+dF9n0FzetdOdR+N6dUAKVSkhaTgE3JLE4+F2TuFsOCL62fEyvAX2mqfBbVLzmkat
+02LUE45YOvMEpofzvgYhCPqCq9awolXDWcunPfRl2wqQBys3JXqJgcrj9fezODIY
+OCVAKjH8BPUXnuVZpAmx1CfoFwWn1H5xtM94tX2x99P2dmMUnVGjR03oM8CgnjE8
+qN5wAySDI2J607sq3M/2uSgKu9febBpoFe9yvS8nVftlsl0ZWqz+Czxqcc9Syu+u
+cTCrscQYS/Mc3QUXVAWYkXm8F+Oq/kLLnrE5DbzJW/Umn16v4KmcDEUNJ9nkf4HT
+0qGeN7rt34ty0Mf5p1soCwKngbclBKAEJHZRtikQ1ccRhxiCa2c=
+=dCFe
 -----END PGP SIGNATURE-----
 
---dgllbbg7lyg6pdvl--
+--to34slzny7idf526--
