@@ -2,42 +2,41 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 472F76E954D
-	for <lists+linux-man@lfdr.de>; Thu, 20 Apr 2023 15:02:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A24A06E954E
+	for <lists+linux-man@lfdr.de>; Thu, 20 Apr 2023 15:02:42 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230384AbjDTNCj (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 20 Apr 2023 09:02:39 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51262 "EHLO
+        id S231250AbjDTNCl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 20 Apr 2023 09:02:41 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51304 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231182AbjDTNCi (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 20 Apr 2023 09:02:38 -0400
+        with ESMTP id S231166AbjDTNCj (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 20 Apr 2023 09:02:39 -0400
 Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 411F85FFB
-        for <linux-man@vger.kernel.org>; Thu, 20 Apr 2023 06:02:25 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 9510865A9
+        for <linux-man@vger.kernel.org>; Thu, 20 Apr 2023 06:02:31 -0700 (PDT)
 Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 8BC836A06;
-        Thu, 20 Apr 2023 15:02:24 +0200 (CEST)
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 916DB6624;
+        Thu, 20 Apr 2023 15:02:28 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-        s=202211; t=1681995744;
-        bh=T0nCLllUUcQJhvupVKeyui8q3WGQksos4MhJBL3BrZA=;
+        s=202211; t=1681995748;
+        bh=hwD0GXC9iTNnNdRyYLGIEHSYtNtxGsN6fferQmwi3vE=;
         h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=MRx8nDJtpg9pdasL3xW04o8kHVO1K2j+I5koDFUSQBWKbEV61iNc8y8lBjsZmNqcO
-         WvCZm8XCAg4eecnVunXSzitY7RmwUFKiH6lnSW2EbENAK1HGu4foGjVUwRqQbYwMKk
-         j5JwLa9lU6Au85CjndDcx6IO6hr98FT0EyvxIecBFU8IS7+E6vQzdXxRXx1DSVac6S
-         tXB8zEzlVdHWRX697WuXLujtTg6tytQF6+aP5EEh4C5YBdgvcqOO0AUis2Coky6vNL
-         5J2Fx2c9yaRbUWsQD/oNTD+bW5QsMCkelpwDzmL+7d7yNyXtI/g3vIswkD4FTkd9G9
-         YZ4o3E+2EVS3w==
-Date:   Thu, 20 Apr 2023 15:02:23 +0200
+        b=lqGrai57iSS9us1J5DfM6gJ/B/N+dC0cplBG9blUg/DdKYKMhtFdHlCMfYX+zYhEv
+         HPdAQ/SM9PTtfqeZjD0CznutygUmCGGbpBYL6ZQbXz0iJejRpgbdcy4AxpY71fXdVc
+         xJN+QJlKw5ittbM5NJxocd6++AO5UeSWeYsDsJqiLDpulkqeGx6WovAnDt/w8MflIL
+         uwjPT5rK4Tr5fHXXFaDNia1vd1//rb1WvJrH0le7+30Fz13L0YCRPIg4Zs9idiKq1S
+         GguBQI7doj2U7ZpW8naHxb3sxdUN39ipz5SAgyznjLIPbgCyuqb91Wt3bjFTvJA3wI
+         w0ShL2h2lWiEw==
+Date:   Thu, 20 Apr 2023 15:02:27 +0200
 From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
 To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org
-Subject: [PATCH v4 5/6] regex.3, regex_t.3type, regmatch_t.3type,
- regoff_t.3type: Move in with regex.3
-Message-ID: <685b4fb7b12c8e99beedd75d65a000748b771ee4.1681995401.git.nabijaczleweli@nabijaczleweli.xyz>
+Subject: [PATCH v4 6/6] regex.3: Destandardeseify Match offsets
+Message-ID: <9b1790334c6f1367f7ea63c8e2ce04d2ae0f9eb7.1681995401.git.nabijaczleweli@nabijaczleweli.xyz>
 References: <1df1b495-6e7f-b2b5-174d-f138b6bc3d5c@gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="67mqyycjimg2zo6o"
+        protocol="application/pgp-signature"; boundary="zhavyfk7ybplllmv"
 Content-Disposition: inline
 In-Reply-To: <1df1b495-6e7f-b2b5-174d-f138b6bc3d5c@gmail.com>
 User-Agent: NeoMutt/20230407
@@ -52,160 +51,110 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---67mqyycjimg2zo6o
+--zhavyfk7ybplllmv
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-They're inextricably linked, not cross-referenced at all,
-and not used anywhere else.
+This section reads like it were (and pretty much is) lifted from POSIX.
+That's hard to read, because POSIX is horrendously verbose, as usual.
 
-Now that they (realistically) exist to the reader, add a note
-on how big nmatch can be; POSIX even says "The application developer
-should note that there is probably no reason for using a value of
-nmatch that is larger than preg=E2=88=92>re_nsub+1.".
-
-Also remove the now-duplicate regmatch_t declaration.
+Instead, synopsise it into something less formal but more reasonable,
+and describe the resulting range with a range instead of a paragraph.
 
 Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
 ---
- man3/regex.3              | 40 +++++++++++++++++++--------------------
- man3type/regex_t.3type    |  1 +
- man3type/regmatch_t.3type |  2 +-
- man3type/regoff_t.3type   |  2 +-
- 4 files changed, 23 insertions(+), 22 deletions(-)
- create mode 100644 man3type/regex_t.3type
+ man3/regex.3 | 53 +++++++++++++++++++++++++---------------------------
+ 1 file changed, 25 insertions(+), 28 deletions(-)
 
 diff --git a/man3/regex.3 b/man3/regex.3
-index 615e065de..6d203fa22 100644
+index 6d203fa22..552763940 100644
 --- a/man3/regex.3
 +++ b/man3/regex.3
-@@ -15,7 +15,7 @@ regcomp, regexec, regerror, regfree \- POSIX regex functi=
-ons
- Standard C library
- .RI ( libc ", " \-lc )
- .SH SYNOPSIS
--.nf
-+.EX
- .B #include <regex.h>
- .PP
- .BI "int regcomp(regex_t *restrict " preg ", const char *restrict " regex ,
-@@ -43,7 +43,7 @@ size_t " errbuf_size );
- .B } regmatch_t;
- .PP
- .BR typedef " /* ... */  " regoff_t;
--.fi
-+.EE
- .SH DESCRIPTION
- .SS Compilation
- .BR regcomp ()
-@@ -60,6 +60,21 @@ is a null-terminated string.
- The locale must be the same when running
- .BR regexec ().
- .PP
-+After
-+.BR regcomp ()
-+succeeds,
-+.I preg->re_nsub
-+holds the number of subexpressions in
-+.IR regex .
-+Thus, a value of
-+.I preg->re_nsub
-++ 1
-+passed as
-+.I nmatch
-+to
-+.BR regexec ()
-+is sufficient to capture all matches.
-+.PP
- .I cflags
- is the
- bitwise OR
-@@ -196,22 +211,6 @@ must be at least
- .IR N+1 .)
- Any unused structure elements will contain the value \-1.
- .PP
--The
--.I regmatch_t
--structure which is the type of
+@@ -188,37 +188,34 @@ This flag is a BSD extension, not present in POSIX.
+ .SS Match offsets
+ Unless
+ .B REG_NOSUB
+-was set for the compilation of the pattern buffer, it is possible to
+-obtain match addressing information.
 -.I pmatch
--is defined in
--.IR <regex.h> .
--.PP
--.in +4n
--.EX
--typedef struct {
--    regoff_t rm_so;
--    regoff_t rm_eo;
--} regmatch_t;
--.EE
--.in
--.PP
- Each
- .I rm_so
- element that is not \-1 indicates the start offset of the next largest
-@@ -222,7 +221,7 @@ element indicates the end offset of the match,
- which is the offset of the first character after the matching text.
+-must be dimensioned to have at least
+-.I nmatch
+-elements.
+-These are filled in by
++was passed to
++.BR regcomp (),
++it is possible to
++obtain the locations of matches within
++.IR string :
+ .BR regexec ()
+-with substring match addresses.
+-The offsets of the subexpression starting at the
+-.IR i th
+-open parenthesis are stored in
+-.IR pmatch[i] .
+-The entire regular expression's match addresses are stored in
+-.IR pmatch[0] .
+-(Note that to return the offsets of
+-.I N
+-subexpression matches,
++fills
+ .I nmatch
+-must be at least
+-.IR N+1 .)
+-Any unused structure elements will contain the value \-1.
++elements of
++.I pmatch
++with results:
++.I pmatch[0]
++corresponds to the entire match,
++.I pmatch[1]
++to the first expression, etc.
++If there were more matches than
++.IR nmatch ,
++they are discarded;
++if fewer,
++unused elements of
++.I pmatch
++are filled with
++.BR \-1 s.
+ .PP
+-Each
+-.I rm_so
+-element that is not \-1 indicates the start offset of the next largest
+-substring match within the string.
+-The relative
+-.I rm_eo
+-element indicates the end offset of the match,
+-which is the offset of the first character after the matching text.
++Each returned valid
++.RB (non- \-1 )
++match corresponds to the range
++.RI [ string " + " rm_so ", " string " + " rm_eo ).
  .PP
  .I regoff_t
--It is a signed integer type
-+is a signed integer type
- capable of storing the largest value that can be stored in either an
- .I ptrdiff_t
- type or a
-@@ -346,7 +345,8 @@ POSIX.1-2008.
- POSIX.1-2001.
- .PP
- Prior to POSIX.1-2008,
--the type was
-+.I regoff_t
-+was required to be
- capable of storing the largest value that can be stored in either an
- .I off_t
- type or a
-diff --git a/man3type/regex_t.3type b/man3type/regex_t.3type
-new file mode 100644
-index 000000000..c0daaf0ff
---- /dev/null
-+++ b/man3type/regex_t.3type
-@@ -0,0 +1 @@
-+.so man3/regex.3
-diff --git a/man3type/regmatch_t.3type b/man3type/regmatch_t.3type
-index dc78f2cf2..c0daaf0ff 100644
---- a/man3type/regmatch_t.3type
-+++ b/man3type/regmatch_t.3type
-@@ -1 +1 @@
--.so man3type/regex_t.3type
-+.so man3/regex.3
-diff --git a/man3type/regoff_t.3type b/man3type/regoff_t.3type
-index dc78f2cf2..c0daaf0ff 100644
---- a/man3type/regoff_t.3type
-+++ b/man3type/regoff_t.3type
-@@ -1 +1 @@
--.so man3type/regex_t.3type
-+.so man3/regex.3
+ is a signed integer type
 --=20
 2.30.2
 
-
---67mqyycjimg2zo6o
+--zhavyfk7ybplllmv
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmRBN98ACgkQvP0LAY0m
-WPECAg/+PfALj9XUkFic9KeHOa7F3HCi/+UZZTnOyREjnZs2Z8U1kBn+yp2Ni7Vv
-1I3vOmPibZ/4UVqPCR9iPQT7cxeWJvXG8yddzmOEIl2sEw18fiv1dnnrkgteu+p7
-MFRqrjxoPrVAo7S6qYrFyK8twbRtbG3gI3bq+Ux1rkT/NwqhEB+euLtAhiuy0goD
-vx1FEoiubZ97uiNoHNmyfHXsm9i3qlXnEivUIRCZdHdezd4KyqaMSupFZeJD3D0L
-v4YluUCSCtgn5r+q/6LFMLLdSxmXh5IcWF22Iv76kKH2XXHU9fGnY0KPsBC/IJCP
-WJqjhRPshPpjg9S6EmySsiRD9lGpW0lkuWTt/hbiYIJ1geP3GgbBPzmFcnrT0Por
-49zhTl5iFMYYlNhzz9BJJqx4dLnZaFx6wCPmfhGwq4QAHDMb0//LtidWIdKTD6LU
-+x6H0CK7VptN+sQTkV0FmX7GKfXQs5U1mRLEglWBzKsDWs1s7w9G9yCD56SDMYsr
-BwylXWBihACijtJcfqrlDKzZoAABKvGdCfG3Wq9IdlCZowZf95+qsCYyS3+umPbV
-5Dkvxx0jhOw5usW96mfHhu8o0MkFDFB/nOqfs9E+a+F6legfSFHtwZIra6GfenHb
-fRWNn3/yA90GzRjtkhXc0bSHAcpVzOrBAHFEnmpuYQjVFxoGKKQ=
-=XPQA
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmRBN+MACgkQvP0LAY0m
+WPG1Yg//QmDzSxpje3tqFxkv9vjmnsfQAjeAYgmlYotSjnIII/Igi6j0v6aIpPlb
+/Cz0sQF9eaJCG7d6JtRokvpQQzzhozc/BBPC1CYPQcsvx2eqN/wiGJzV0qv59olM
+ovOOaYbe6Dlau0gGGllY+SG+P7GY0d7eK3xOgtnukpKE9yJ1SdN96YgvogatLdpq
+JlCmIy64FwzeCKPFSPF75pjgnILkOVCYEsDaa3uD6U8Jwf/NHv1sdOipPHUlMGnk
+ReCJSSDpUKbwvJjW5MiEYguLGhPTbEqHRRD7ONcmfvlkhqLCR9ZKc3NEuiqUSVkh
+yD6ht1lR43txN0c/xxFUxjbTnCmx/a5oS5LbGSqnyxzs4UaKVVhR/mO0avAJCWz3
+mKwKGriBAfFBEEXbXTw5DBlR/FY/uCROtjRGOIA8qoQ/QQWBL2Gz1MD7c7pYMecG
+CCifw0cbYYQAMhLjimnEWccKlH8az7Tbf5Gh6XtZgCB2z1RHiwiJ6F+CbIKUJvjK
+s8V0Osp3znxlt3x6dgAfOvarGZ3nU+dkarlSl7grINqwOap1Yja+nSNI/kQWxVbC
+V4v1Ycat206DMIuYR1ZoBQBJeXydpmoFEMBlqp1aQhSha5oR9MtpwUNH6C/TlORD
+oCg4cnDsqXWjhf15hVTPmG3HiBuuIqvuBbySw/VqMbtAuGkgaIE=
+=Mfg9
 -----END PGP SIGNATURE-----
 
---67mqyycjimg2zo6o--
+--zhavyfk7ybplllmv--
