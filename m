@@ -2,72 +2,70 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id C8C3A6E9AC1
-	for <lists+linux-man@lfdr.de>; Thu, 20 Apr 2023 19:29:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E8BEB6E9BB9
+	for <lists+linux-man@lfdr.de>; Thu, 20 Apr 2023 20:35:04 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230187AbjDTR3d (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 20 Apr 2023 13:29:33 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35252 "EHLO
+        id S229523AbjDTSfD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 20 Apr 2023 14:35:03 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46276 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231561AbjDTR3c (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 20 Apr 2023 13:29:32 -0400
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com [IPv6:2a00:1450:4864:20::329])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9F5402D5E
-        for <linux-man@vger.kernel.org>; Thu, 20 Apr 2023 10:29:30 -0700 (PDT)
-Received: by mail-wm1-x329.google.com with SMTP id v20-20020a05600c471400b003ed8826253aso3902651wmo.0
-        for <linux-man@vger.kernel.org>; Thu, 20 Apr 2023 10:29:30 -0700 (PDT)
+        with ESMTP id S229640AbjDTSfC (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 20 Apr 2023 14:35:02 -0400
+Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com [IPv6:2607:f8b0:4864:20::335])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 75C433C27
+        for <linux-man@vger.kernel.org>; Thu, 20 Apr 2023 11:34:17 -0700 (PDT)
+Received: by mail-ot1-x335.google.com with SMTP id 46e09a7af769-6a60460a23dso1082440a34.0
+        for <linux-man@vger.kernel.org>; Thu, 20 Apr 2023 11:34:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1682011769; x=1684603769;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=YNoz2Ll6qAl7ar2xhBklXkCnG3s2MezWgQiZVIiRe4k=;
-        b=C+BI/2TFh71nloETW9/uiNUJVqSoIjV6i4hKROGbYEhYpSlLVYiV1EtU9/jBX+48uz
-         xHMl7z8IcrAw4j4EJbTJh2kxfSdYmzsvQoIMsEDC6F+Fn90AFLr//pPbYldsqXNMC6hH
-         ZsRf5p4jnX8JlXPDTICV1H9zezpx3ah/ho/J87SUiqCZ0bHrBv2SzZvygWAI+H5KrECT
-         U7ev2pS2DfCRjC2BQZC0WawPV4HzR24RUnOtXsrsyPmLQ91N267Si0fGJKoxXrTfUVqO
-         TGCnlE/jcDQ7nghFhF89Tc+2fPCeQo4TK7Tg/kTw7gK9Y/SYzWrkTPfm/WL98uTQy8Ic
-         PrYQ==
+        d=gmail.com; s=20221208; t=1682015582; x=1684607582;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=FTNLzCGsOPS1k1rCLdiQEgIjaUChOxd5pB6YaE4mXtE=;
+        b=cNnRRlxGsHobMZhRiQFltYTUsjctpwE0kNWXSTIekkh89eW9HrdqmSZNyAdIfga86L
+         6NHJqOb4kkaR++B2iJH6TrhfiATx/QSsVsAKgtD/RDZBdhsSc4e5sXlHCjR8by8V2kMJ
+         rEjOCvbqFyrFZcqvyBghZ5m8UIbN9kQSZBN9ksVaKfK6NyAVfnzCDYwQqQt5vAv9vJTZ
+         rgeDFAMxRLkqxjTHcg+s9BR26Q1z4+qLJ3zOgaMCQ0H6IZ9ME5vj3lzDWw6ZW/N9syDC
+         jpFReyvI6OMsmrLSBO2oOtHkWAjFBbwaEHZgczxY2kmuWHCJp4VDENKCWzeLAHbheGyP
+         LA2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1682011769; x=1684603769;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=YNoz2Ll6qAl7ar2xhBklXkCnG3s2MezWgQiZVIiRe4k=;
-        b=dFykzRMGjarQ5VUEabkN1O2RwhrUR/iessETB/GNLapAFqcUsM06SmEsHjO9M3FP+W
-         kPvyBbGkiR8m0xLAUZfABcnEoKjy0FVEHJtwXfL3AVG6ldUHOEdNexhOW0wMx+Jtd+3d
-         bT7Z2GTLghrQvU9BbHYJmyhMeomn0sQ6EEqplRVMOi936OsklhNiBicHGou5OxRZDrJK
-         wxcTbjKSqIiDjK/yfTK4nuBcmvg7zOJgEm20DVv7ljf+Xl8Y4ITaV5WhgyNCAwS86Ziv
-         Uefo5pH7gZ4AlKFWyTKl45sbEMfl27bqIxHUCVaw+xd/Nspc0ae6vHJNzYBelTHhD7Fj
-         OwWg==
-X-Gm-Message-State: AAQBX9dFhR6uQRbRDyQAwm/CAI6800qRzrTh6UxXPllObVNTHsALYlnj
-        0u8XMmpBiVgsIcZr0IOjWoRV1YEszKU=
-X-Google-Smtp-Source: AKy350attCazn0RRHf0+VWVAVuzv9EWO5Ooj9isE+rxcPtmqy8v+mC4Z84vYGjfm2wzstaxd0uxgDw==
-X-Received: by 2002:a7b:c388:0:b0:3f1:72ee:97b7 with SMTP id s8-20020a7bc388000000b003f172ee97b7mr1945704wmj.15.1682011768980;
-        Thu, 20 Apr 2023 10:29:28 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.51.134])
-        by smtp.gmail.com with ESMTPSA id v16-20020a05600c471000b003ede3f5c81fsm6044123wmo.41.2023.04.20.10.29.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 20 Apr 2023 10:29:28 -0700 (PDT)
-Message-ID: <1735c494-c165-87d9-8660-865bbfce709a@gmail.com>
-Date:   Thu, 20 Apr 2023 19:29:27 +0200
+        d=1e100.net; s=20221208; t=1682015582; x=1684607582;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=FTNLzCGsOPS1k1rCLdiQEgIjaUChOxd5pB6YaE4mXtE=;
+        b=N4avyB0k87uR7zk8+Uw/01uyBph1GxVzweJim2SARzbREdZ7SKGd6N7I/KNZ02IQti
+         NyHaLzlWq81/Q5RsrJdHFj20jpVQvrNgQuL/y7GCLercdU+o4VPYtDWjXdn6+3IjEKRz
+         iTDQtBEOq3czVW3AJk46+iQ7SypdN7Wkol6aIbrETzaTNTdUjsbjnvmiiH1SK1AaalNg
+         CXE8FopEkNBzclJiTk7DYIhLQobAFXGpXnLC6d9nvKUapk+C4nlgyhi8eUArtAOZqHRr
+         V7/VPGU9b5HTuT5dxxO6NKwFfTzdVXaXLjldUfHQQaUSNoPqZlU1KKmFDR3Ljd+zdAO2
+         khSQ==
+X-Gm-Message-State: AAQBX9dCVb40f/8Odrn8OT+yNoqFIS37z+tSQLANeJzBF+nu1GjV8tOs
+        JyPxgZkG6686j8YVT0nuXjM=
+X-Google-Smtp-Source: AKy350ZbTGM97IZUAcSRkmMtra1/xWPmEO8S7BM+qpCSZo1Tf2vCyXKHhpDCH6dSS49h7mEQ+Vapzg==
+X-Received: by 2002:a9d:640e:0:b0:694:298d:408a with SMTP id h14-20020a9d640e000000b00694298d408amr1026884otl.8.1682015582263;
+        Thu, 20 Apr 2023 11:33:02 -0700 (PDT)
+Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
+        by smtp.gmail.com with ESMTPSA id s23-20020a0568301e1700b006a5e751557csm954554otr.70.2023.04.20.11.33.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 20 Apr 2023 11:33:01 -0700 (PDT)
+Date:   Thu, 20 Apr 2023 13:33:00 -0500
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To:     =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Cc:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org
+Subject: Re: [PATCH v2 2/9] regex.3: improve REG_STARTEND
+Message-ID: <20230420183300.nsw4lh2c27lwsnrs@illithid>
+References: <747kzwqbq2dqlrf7znp4eextcl5p2dlickflwicxstnk6fpinv@ntnnei6ianmk>
+ <5ae22853ab58af90c0ec2685bb740af1f6177dfe.1681946212.git.nabijaczleweli@nabijaczleweli.xyz>
+ <20230420100059.hdtey45vpaytjcvg@illithid>
+ <ooclowvlja44cqpomwmenrleernvsbsqfsmq7g5jydylbcptw2@4uys4qxjnnyy>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.1
-Subject: Re: [PATCH v5 4/8] regex.3: Improve REG_STARTEND
-Content-Language: en-US
-To:     =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc:     linux-man@vger.kernel.org
-References: <6405717b8de85a370febef4f102676dc65c61113.1681995401.git.nabijaczleweli@nabijaczleweli.xyz>
- <cover.1682004802.git.nabijaczleweli@nabijaczleweli.xyz>
- <fd1a104d6abc70a2450b17a6b424ca8e20897634.1682004802.git.nabijaczleweli@nabijaczleweli.xyz>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <fd1a104d6abc70a2450b17a6b424ca8e20897634.1682004802.git.nabijaczleweli@nabijaczleweli.xyz>
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------EqY8nOvP0Sf8Ognh064n6EVD"
-X-Spam-Status: No, score=-3.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        protocol="application/pgp-signature"; boundary="hm7ml42c655hqekh"
+Content-Disposition: inline
+In-Reply-To: <ooclowvlja44cqpomwmenrleernvsbsqfsmq7g5jydylbcptw2@4uys4qxjnnyy>
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
         autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -76,131 +74,67 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------EqY8nOvP0Sf8Ognh064n6EVD
-Content-Type: multipart/mixed; boundary="------------5T10wyuKHe5sDcDMAgnN7iwC";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc: linux-man@vger.kernel.org
-Message-ID: <1735c494-c165-87d9-8660-865bbfce709a@gmail.com>
-Subject: Re: [PATCH v5 4/8] regex.3: Improve REG_STARTEND
-References: <6405717b8de85a370febef4f102676dc65c61113.1681995401.git.nabijaczleweli@nabijaczleweli.xyz>
- <cover.1682004802.git.nabijaczleweli@nabijaczleweli.xyz>
- <fd1a104d6abc70a2450b17a6b424ca8e20897634.1682004802.git.nabijaczleweli@nabijaczleweli.xyz>
-In-Reply-To: <fd1a104d6abc70a2450b17a6b424ca8e20897634.1682004802.git.nabijaczleweli@nabijaczleweli.xyz>
 
---------------5T10wyuKHe5sDcDMAgnN7iwC
-Content-Type: text/plain; charset=UTF-8
+--hm7ml42c655hqekh
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
+At 2023-04-20T13:13:29+0200, =D0=BD=D0=B0=D0=B1 wrote:
+> On Thu, Apr 20, 2023 at 05:00:59AM -0500, G. Branden Robinson wrote:
+> > At 2023-04-20T01:23:14+0200, =D0=BD=D0=B0=D0=B1 wrote:
+> > > +> 0), they overwrite
+> > > +.I pmatch
+> > > +as usual, and the
+> > > +.B Byte offsets
+> > > +remain relative to
+> > > +.IR string
+> > I don't think "byte" needs to be captialized here.
+> I'm using it as a Sx and the section is capitalised,
+> so I think this should also be?
 
+[Note for non-mdoc(7) speakers: `Sx` is its macro for (sub)section
+heading cross references.  man(7) doesn't have an equivalent, though if
+there is demand, I'm happy to implement one.  :D]
 
-On 4/20/23 17:35, =D0=BD=D0=B0=D0=B1 wrote:
-> Explicitly spell out the ranges involved. The original wording always
-> confused me, but it's actually very sane.
->=20
-> Remove "this doesn't change R_NOTBOL & R_NEWLINE" =E2=80=92 so does it =
-change
-> R_NOTEOL? No. That's weird and confusing.
->=20
-> String largeness doesn't matter, known-lengthness does.
->=20
-> Explicitly spell out the influence on returned matches
-> (relative to string, not start of range).
->=20
-> Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.=
-xyz>
-> ---
->  man3/regex.3 | 33 ++++++++++++++++++++-------------
->  1 file changed, 20 insertions(+), 13 deletions(-)
->=20
-> diff --git a/man3/regex.3 b/man3/regex.3
-> index c5185549b..1ce0a3b7e 100644
-> --- a/man3/regex.3
-> +++ b/man3/regex.3
-> @@ -131,23 +131,30 @@ .SS Matching
->  above).
->  .TP
->  .B REG_STARTEND
-> -Use
-> -.I pmatch[0]
-> -on the input string, starting at byte
-> -.I pmatch[0].rm_so
-> -and ending before byte
-> -.IR pmatch[0].rm_eo .
-> +Match
-> +.RI [ string " + " pmatch[0].rm_so ", " string " + " pmatch[0].rm_eo )=
+Nothing I can see in man-pages(7) suggests that references to
+(sub)section headings should be in an unusual typeface.  The norm in
+English is usually to quote them.  It's also unusual to pun a
+(sub)section heading name as an ordinary noun phrase this way.
 
-> +instead of
-> +.RI [ string ", " string " + \fBstrlen\fP(" string )).
->  This allows matching embedded NUL bytes
->  and avoids a
->  .BR strlen (3)
-> -on large strings.
-> -It does not use
-> +on known-length strings.
-> +.I pmatch
-> +must point to a valid readable object.
+So in this case I would neither capitalize _nor_ embolden the phrase.
+After a piece of domain-specific jargon has been introduced in technical
+writing (usually with italics), it is not thereafter specially marked.
+In long-form works, it may get a cross reference after it in parentheses
+or a footnote if it hasn't been mentioned for dozens of pages and the
+reader requires a reminder.  I don't think regex(3) is large enough to
+warrant that consideration, and "byte offset" seems to have the meaning
+that a programmer already familiar with the individual terms would
+infer.
 
-I think this is redundant, since we showed that [0] is accessed by
-the function.
+Just the usual style coaching, not a NAK.
 
-> +If any matches are returned
-> +.RB ( REG_NOSUB
-> +wasn't passed to
-> +.BR regcomp (),
-> +the match succeeded, and
->  .I nmatch
-> -on input, and does not change
-> -.B REG_NOTBOL
-> -or
-> -.B REG_NEWLINE
-> -processing.
-> +> 0), they overwrite
+Regards,
+Branden
 
-And of course, nmatch must be at least 1, since otherwise, [0] was
-not valid, and the whole call would have been UB; right?  So that
-third condition must be true to not invoke UB, so we can omit it too,
-I think.
-
-> +.I pmatch
-> +as usual, and the
-> +.B Match offsets
-> +remain relative to
-> +.IR string
-> +(not
-> +.IR string " + " pmatch[0].rm_so ).
->  This flag is a BSD extension, not present in POSIX.
->  .SS Match offsets
->  Unless
-
---=20
-<http://www.alejandro-colomar.es/>
-GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
-
---------------5T10wyuKHe5sDcDMAgnN7iwC--
-
---------------EqY8nOvP0Sf8Ognh064n6EVD
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+--hm7ml42c655hqekh
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmRBdncACgkQnowa+77/
-2zIpIQ/8D4Xmt1smIZHE5OMVA91TwqrTF+3cu+CwnoRHB1+MbszDcW5t8pn4/uS4
-aO5JzNWezvVeqehsuGnLyGFrZm9KIvJP6vJH2tKcHcLAKXog4b9E7Hg8gKWncFb0
-QlBHLWdcZfvHTX2AmxuHInRnzInIEfM+usBknyguwdtTfPwGdPH/X4zgaswn+ZJR
-+3gZ9vEu3pTJhnTQoIRcpHA98pLBt48kzF2yQ+tCa9BM6GyPnL9MO0ad9NU9/Ur3
-Fp/nxdY8xWY0IBC/JYEzvoLBjpXrX1f1uK7Fiwi+uRDbtFIuKees1fpn86B5CwmX
-vnDNpajF5mwCOPqKHp95hfuSKEk2GJmMGvFxiHSG/phv2sEj81KCAUs8xzCyOzYm
-Z8JFpbtgZqOLdDYzapz/OrgT7WUaUngMn3tapE4GS+jSTsCZlboHBWeTfBRXi5u2
-R5wwb4ubGn0+9CcJl1ZoD1hxDCKNcKRM9oOd6+SR8UF6MeX/UjKa2wb0M3aU4Fld
-RD3vCHDmCutF3YG3wlPDO6F0Dt60G/7ow8RreWnfXRKXZQInnALI+8WPSqwwJTBq
-tsmat1esF/9uX8RQ5XIiXCtBO4gDacbTCehY7hTc6SBtxNwmw4a771rvfpB67X/y
-k5432Nril9DB5EtGiSlYbwJzmeHqwQH0y6lC9Afm+EFoUIe5MOQ=
-=eTMh
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmRBhVQACgkQ0Z6cfXEm
+bc5ogg/8D8gxuw8/57pH2vY/hSdFblyvBrE1loQqA/bwfiUSEOybKjpRPMYeP4NS
++6SRJZr8Ar1Lt55xilaDqkMmrO6YGKyx15tE1zT/WhPJmjeXHQgcGyzXrmqiPRo+
+ePgn3YocS9crGUZ7z15lmCAwh2cKatNzsqu+vpSZrsRW/5QtnsMYwROYY7mp5tDp
+iWG14GjOAiDWZhZJBjsgGVbLmehSrbdcskuufmIDA6DOfb9coB3TCnIUEKPn9Xe6
+kz2E8uhReRZ2zHYUvk8+5dU2SftSfHEGvLipXQkj+Czv6NNoF1nXeuWeFLv6cIEv
+8AtWBPn+zMAE6VcO8omO/JYD0Xn2NMP/815kePjw/RFxpXkOPP4d6hpU0TAYFyNY
+wLJAkFnaRK+TfY3L8RVWIaqg7b2f1iSZGfn4Miar2V82Pm2rODHbgCFGfZr3l3AP
+zaJBYLrTSunjKwAT5KrN2HMw8KLiYTBw8qDR1YkE4HEOmbp8S6Yf//d7in7WR0IC
+BjSt8YlNNCCPhkHj8cF/wUUDAMzxemmecE8H8Da5LJD7cdABZdUCeiezAmTxNyr/
+cuMVcmKlFDwNvaHed8M/SkzeedB5ISKoIUkmISnWPqRxTDGqBg9ctFdHEzXKOcxG
+u+xIr0Mbg754jjLoPSICJM0aPYZGglC04BiWOlgtSHw1k2o93rQ=
+=ryUa
 -----END PGP SIGNATURE-----
 
---------------EqY8nOvP0Sf8Ognh064n6EVD--
+--hm7ml42c655hqekh--
