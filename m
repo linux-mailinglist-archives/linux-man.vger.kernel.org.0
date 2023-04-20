@@ -2,41 +2,41 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id C97946E9549
-	for <lists+linux-man@lfdr.de>; Thu, 20 Apr 2023 15:02:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 21A606E954A
+	for <lists+linux-man@lfdr.de>; Thu, 20 Apr 2023 15:02:36 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229593AbjDTNCd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 20 Apr 2023 09:02:33 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51104 "EHLO
+        id S229841AbjDTNCe (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 20 Apr 2023 09:02:34 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51136 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229841AbjDTNCc (ORCPT
+        with ESMTP id S230386AbjDTNCc (ORCPT
         <rfc822;linux-man@vger.kernel.org>); Thu, 20 Apr 2023 09:02:32 -0400
 Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 44454E73
-        for <linux-man@vger.kernel.org>; Thu, 20 Apr 2023 06:02:11 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 3A8B41BC
+        for <linux-man@vger.kernel.org>; Thu, 20 Apr 2023 06:02:13 -0700 (PDT)
 Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 659E15EFA;
-        Thu, 20 Apr 2023 15:02:08 +0200 (CEST)
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 79C4362D2;
+        Thu, 20 Apr 2023 15:02:12 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-        s=202211; t=1681995728;
-        bh=49Ts+1kwHfCufoXlCMQKFuZGIdaj7N2S3YstG0xkI3w=;
+        s=202211; t=1681995732;
+        bh=6dkd+9aBxc7Rx15RicKUHSc9RXq5n59gEEawCjAEFIw=;
         h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=NFNj4rkA5UKRNEb92cgiYJWdOWV0XtRtyY7fSAzXCq8rViKzq6pnhbrNw+J9n+8rf
-         pZ5w7DNSpu7JGbodrYmwIRMm953ukmZTdrQGiJTOkL5ilKQwFjxtlRRAQ/MxiVEPuW
-         Tz2cWul1JfbnirbnVjAKw8EKsnL0Kx/9ax/Dmuigb4gF+l3l5J7jtEmrpJCs+60lLD
-         NP3835Xyl6YhXNdXoHIf51tHx4lwwjc0n1R8kToxtk0b7s0L98ehpC+C8TN/rXeaTU
-         K6zmuTkNxh4ZEwW8yZBaT8AhHL/Ox9bTj3PXwRQRrrBMSzsgw2lctwX6tE4kNYtiC7
-         574WtZHLs9O4A==
-Date:   Thu, 20 Apr 2023 15:02:07 +0200
+        b=AdP9s4B7CJlFZZQpszNpvz82kNXLmUdzbOTcUgNip2dfK43NLThheTEQNvcWRYBAk
+         5EsNp6vmluloGxla1H9a/nmW9IRSzUp54xTM97EdE/sodfDEvRRkdhswtvZmIQEkw5
+         8KxbskJ9l213jGzTWsAgvqc1HZvRVoMEHch3vzds1DTj5gpN0K5/9rJQaqqKKgkiUY
+         +EPi1HsRgJhp53aLjs8VlulJPuB3r21ocv08QNEw04TSLdebZFqUJ6wdY7B7gFrnLM
+         3zPXidNDUs5a4CBW4suthJdDHF3BStzDtyJ4XYNKKWkdoukIv8dYSIoaqM3DJGnT3W
+         X85eyQ7gRZ+xA==
+Date:   Thu, 20 Apr 2023 15:02:11 +0200
 From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
 To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org
-Subject: [PATCH v4 1/6] regex.3: Fix subsection headings
-Message-ID: <6405717b8de85a370febef4f102676dc65c61113.1681995401.git.nabijaczleweli@nabijaczleweli.xyz>
+Subject: [PATCH v4 2/6] regex.3: Desoupify function descriptions
+Message-ID: <93265aabd86cf84d93bf80af1e56b12258f0ab08.1681995401.git.nabijaczleweli@nabijaczleweli.xyz>
 References: <1df1b495-6e7f-b2b5-174d-f138b6bc3d5c@gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="6sz7q2fbaezvyncu"
+        protocol="application/pgp-signature"; boundary="kaxnsutobpja3mrw"
 Content-Disposition: inline
 In-Reply-To: <1df1b495-6e7f-b2b5-174d-f138b6bc3d5c@gmail.com>
 User-Agent: NeoMutt/20230407
@@ -51,97 +51,169 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---6sz7q2fbaezvyncu
+--kaxnsutobpja3mrw
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
+Behold:
+  regerror() is passed the error code, errcode, the pattern buffer,
+  preg, a pointer to a character string buffer, errbuf, and the size
+  of the string buffer, errbuf_size.
+
+Absolute soup. This reads to me like an ill-conceived copy from a very
+early standard version. It looks fine in source form but is horrific to
+read as running text.
+
+Instead, replace all of these with just the descriptions of what they do
+with their arguments. What the arguments are is very clearly noted in
+big bold in the prototypes.
+
 Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
 ---
-$ git diff v3
-
-But the patches are re-ordered (and a new move-only one added);
---range-diff, humorously, /only/ picks up that one, and doesn't
-understand the rest, which is worse than if it failed entirely.
-
-The 3type move is as far back as I could make it I think,
-6/6 wants to come after regoff_t deduplication.
-
- man3/regex.3 | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ man3/regex.3 | 80 +++++++++++++++++++++-------------------------------
+ 1 file changed, 32 insertions(+), 48 deletions(-)
 
 diff --git a/man3/regex.3 b/man3/regex.3
-index 3ee58f61d..637cb2231 100644
+index 637cb2231..b4feaba19 100644
 --- a/man3/regex.3
 +++ b/man3/regex.3
-@@ -31,7 +31,7 @@ size_t " errbuf_size );
+@@ -25,8 +25,8 @@ Standard C library
+ .BI "            size_t " nmatch ", regmatch_t " pmatch "[restrict ." nmat=
+ch ],
+ .BI "            int " eflags );
+ .PP
+-.BI "size_t regerror(int " errcode ", const regex_t *restrict " preg ,
+-.BI "            char " errbuf "[restrict ." errbuf_size "], \
++.BI "size_t regerror(int " errcode ", const regex_t *_Nullable restrict " =
+preg ,
++.BI "                char " errbuf "[restrict ." errbuf_size "], \
+ size_t " errbuf_size );
  .BI "void regfree(regex_t *" preg );
  .fi
- .SH DESCRIPTION
--.SS POSIX regex compiling
-+.SS Compilation
- .BR regcomp ()
- is used to compile a regular expression into a form that is suitable
- for subsequent
-@@ -110,7 +110,7 @@ whether
- .I eflags
- contains
- .BR REG_NOTEOL .
--.SS POSIX regex matching
-+.SS Matching
+@@ -38,21 +38,13 @@ for subsequent
+ .BR regexec ()
+ searches.
+ .PP
+-.BR regcomp ()
+-is supplied with
+-.IR preg ,
+-a pointer to a pattern buffer storage area;
+-.IR regex ,
+-a pointer to the null-terminated string and
+-.IR cflags ,
+-flags used to determine the type of compilation.
+-.PP
+-All regular expression searching must be done via a compiled pattern
+-buffer, thus
+-.BR regexec ()
+-must always be supplied with the address of a
+-.BR regcomp ()-initialized
+-pattern buffer.
++The pattern buffer at
++.I *preg
++is initialized.
++.I regex
++is a null-terminated string.
++The locale must be the same when running
++.BR regexec ().
+ .PP
+ .I cflags
+ is the
+@@ -113,12 +105,10 @@ contains
+ .SS Matching
  .BR regexec ()
  is used to match a null-terminated string
- against the precompiled pattern buffer,
-@@ -159,7 +159,7 @@ or
- .B REG_NEWLINE
- processing.
- This flag is a BSD extension, not present in POSIX.
--.SS Byte offsets
-+.SS Match offsets
- Unless
- .B REG_NOSUB
- was set for the compilation of the pattern buffer, it is possible to
-@@ -209,7 +209,7 @@ The relative
- .I rm_eo
- element indicates the end offset of the match,
- which is the offset of the first character after the matching text.
--.SS POSIX error reporting
-+.SS Error reporting
- .BR regerror ()
- is used to turn the error codes that can be returned by both
- .BR regcomp ()
-@@ -238,7 +238,7 @@ are nonzero,
- is filled in with the first
- .I "errbuf_size \- 1"
- characters of the error message and a terminating null byte (\[aq]\e0\[aq]=
+-against the precompiled pattern buffer,
+-.IR preg .
+-.I nmatch
+-and
+-.I pmatch
+-are used to provide information regarding the location of any matches.
++against the compiled pattern buffer in
++.IR *preg ,
++which must have been initialised with
++.BR regexec ().
+ .I eflags
+ is the
+ bitwise OR
+@@ -217,34 +207,28 @@ and
+ .BR regexec ()
+ into error message strings.
+ .PP
+-.BR regerror ()
+-is passed the error code,
+-.IR errcode ,
+-the pattern buffer,
+-.IR preg ,
+-a pointer to a character string buffer,
+-.IR errbuf ,
+-and the size of the string buffer,
+-.IR errbuf_size .
+-It returns the size of the
+-.I errbuf
+-required to contain the null-terminated error message string.
+-If both
+-.I errbuf
+-and
++.I errcode
++must be the latest error returned from an operation on
++.IR preg .
++If
++.I preg
++is a null pointer\(emthe latest error.
++.PP
++If
++.I errbuf_size
++is
++.BR 0 ,
++the size of the required buffer is returned.
++Otherwise, up to
+ .I errbuf_size
+-are nonzero,
+-.I errbuf
+-is filled in with the first
+-.I "errbuf_size \- 1"
+-characters of the error message and a terminating null byte (\[aq]\e0\[aq]=
 ).
--.SS POSIX pattern buffer freeing
-+.SS Freeing
- Supplying
++bytes are copied to
++.IR errbuf ;
++the error string is always null-terminated, and truncated to fit.
+ .SS Freeing
+-Supplying
  .BR regfree ()
- with a precompiled pattern buffer,
+-with a precompiled pattern buffer,
+-.IR preg ,
+-will free the memory allocated to the pattern buffer by the compiling
+-process,
++invalidates the pattern buffer at
++.IR *preg ,
++which must have been initialized via
+ .BR regcomp ().
+ .SH RETURN VALUE
+ .BR regcomp ()
 --=20
 2.30.2
 
 
---6sz7q2fbaezvyncu
+--kaxnsutobpja3mrw
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmRBN84ACgkQvP0LAY0m
-WPHNXg/+NSz+vDvJ3LGVpvm1VhJBO4dJwE5lEcg3NGX5nHlebE0dffCJeDf0duMk
-U6AF+bXcCyRE159fvlJI9Gj3yz4f3oG60EtdS8DuXmZzjMqYRcXO+KvTVvTpVu3A
-+taeIgF7NT2ozbyKwh4fssxMGKPWi4a5taMIVfp3ww6Pn/gsDdCgCL4M972I6s32
-7GQ83i/8d/0wn+0eOSlsE8YGf83p3BnX9tNwvR81cP1EbfWPyhVPXDlModMhSDbk
-jcrZi1I3aPVNxBESP4KZWkc+whBdlwgTV16Trb+X8aSKNjEI96umYvDQlIR7KBQZ
-EYBAGZHIl2XlsJYxW4QV5eqilPZqusDyL93CugnWOGuS0yEFBCSh16t10RFM75EG
-totHXSeu7s/Q8Fsg/Kirh3zgdkSMPh2vxZ8eEovcaiyO7QAjZ/3kZDl/egGwgaF1
-r5VpC/O+Wk4B+P0pevK5gVMywjsN+egDLHSDHr4VmFGZwBNcqJv0/S5Sh7ncOGUv
-v6V+7WqQKRjb+1bzx+YZYS7TuThMn6JjdC4hryMuNn45P2Q3hYkdmTvl1DpTdezG
-bcipQk5hXsZPb+ZaPPYD8P0fmaxWemMy3OBC1L8TBcXYR0HmUQkDyi/IsZ8F38EI
-hIs/emrw85q50G5xMdrrnQ90tWQNIOhzRgUq47aqDYyDKHubOys=
-=nenc
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmRBN9MACgkQvP0LAY0m
+WPHdsw/8DscrFFi782yH489GrQ96ot0ZAqCEOfXtHzKbRJw1jBAFJfufpJWW6qQp
+CtRkPjILVG67geJI5av1iL5V+GbOEhbdW8USXkUkj1CXncWA2UT9v9NZ2tb4qqjm
+1LI0CuPwvUq8q9wuYWG8SBGvu+sigc5T+aYpo4IPfuVyVxmq8y9EK1ktlAWELHwe
+v46H0YHZBYFGEnLR630JoMuPN/FrYYux0hQM9ZWw+Q7OpChyu4pIDH6b3drg0J2A
+5g+EFMv2hbW+Lt82CudjjVX4KkdR6dOJVY1VCFfD9trgyOum1p2pD3/48g3Z+7iG
+yshYiUK3v1XFskzwzErpHTsl3Yy8SPCE5SeWMida7F/9rAQaC7hBSIOU/KiAfVRN
+E+i10yabN6cQy/BMGJJ+kcu4q8WvM8v8D7BUtyDkw/sYJqzE6U6gr5jozZkJKhhw
+3dkvnSPLIoKnHBggVA+b2u4UsPqX2TwDqrQtISTqNYlu75RwRCogrf/PFrEdNyMD
+UEA/iI3T2Xy1MdZO0TWYgKshe0Fyq875MKwW3yfTMhWwpcWVRXuzH8CfdRVYpB7z
+voO6ctfnzSqmYUBX1j/xSqvKjTekUkM+zVAkexyLM6uFhsCpCFdqM2Z8wLCy9bL/
+cT0ImXbNpzIjveOiLmizsrktcWOkDMOcGW9VK108QfgRbFE+Mwk=
+=wf1o
 -----END PGP SIGNATURE-----
 
---6sz7q2fbaezvyncu--
+--kaxnsutobpja3mrw--
