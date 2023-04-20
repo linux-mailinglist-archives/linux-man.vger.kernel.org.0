@@ -2,69 +2,70 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 354046E92A8
-	for <lists+linux-man@lfdr.de>; Thu, 20 Apr 2023 13:29:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 59D626E92D4
+	for <lists+linux-man@lfdr.de>; Thu, 20 Apr 2023 13:33:04 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234097AbjDTL3g (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 20 Apr 2023 07:29:36 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53708 "EHLO
+        id S234817AbjDTLcw (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 20 Apr 2023 07:32:52 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34570 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234543AbjDTL3X (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 20 Apr 2023 07:29:23 -0400
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com [IPv6:2a00:1450:4864:20::330])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CFD967D90
-        for <linux-man@vger.kernel.org>; Thu, 20 Apr 2023 04:28:44 -0700 (PDT)
-Received: by mail-wm1-x330.google.com with SMTP id n31so477838wms.3
-        for <linux-man@vger.kernel.org>; Thu, 20 Apr 2023 04:28:44 -0700 (PDT)
+        with ESMTP id S234687AbjDTLcY (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 20 Apr 2023 07:32:24 -0400
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com [IPv6:2a00:1450:4864:20::32d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4E8C330F5
+        for <linux-man@vger.kernel.org>; Thu, 20 Apr 2023 04:31:50 -0700 (PDT)
+Received: by mail-wm1-x32d.google.com with SMTP id he13so1074480wmb.2
+        for <linux-man@vger.kernel.org>; Thu, 20 Apr 2023 04:31:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1681990096; x=1684582096;
+        d=gmail.com; s=20221208; t=1681990309; x=1684582309;
         h=in-reply-to:from:references:cc:to:content-language:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ZcBtGAPsxaw70CZhwJ6lV+FQYx3w32RoPmGXZKj5Atk=;
-        b=E0VdajOKjOSmTI77sL3Na6195ZOSZkfR07pImrcgkfxSRAfqWSqcyvnMkdnf/BvfC2
-         DDd0FzRz/jZpjLxzeajd4yey4gIzMNPVh1N80XMgY8CMFpZ6y4dvLXPhjTziAYcxNgiy
-         L4Pd9YTIBYaA+N7Shs8iW/vIY8ozupqZs4365FMQUR72dlQuyosvSgrCsCLqL7bPBN/4
-         THiEMmyJuc0byOXiK91hfE8eHqNW2+4xF8rLkqDi/+qGo39LDrSlz2MYndPMa7ilWwCU
-         I3N2hOXq0O6vhOV52eGST+Ahy6acd+OmoiD6sWFExIYyy1zwIj5O1jkXrEoMWldq2DZG
-         8rxQ==
+        bh=KcW1R/F9aH7ek2gDN5JDTzYzhyIeDg9dakqznSJJHtA=;
+        b=blu3FQvzLs0nSxII4jcoKoJ3sX9TYFgnrnzKkKR2prZKBNGsopMhw6T0WT+x666Hrw
+         T+lunHmnHv2OONLLTHB+iVPGEr9lEzKIsAELGxUvCQyN1ui5F8ZH4CRGmONwSba6NUwS
+         mMIfN8WJRR8Sk3uQH/1cJE5Qs+Bt+2pY8eFsBEY8TY3mSDtm+lnnD6uZTLZmE82AWR/B
+         93iItok9yYKjGkLue3AVcW5KVhiQgSdAPIqnBa25RD4sfJL7OD7CSebf2XQvlVOo71fd
+         2LjJDdj0iMyCh2BbQtF9Ektl9WBi32JC2iQavZ+s42YjIpiwb7kJKpIm+3Lh9R+OXej8
+         xWZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1681990096; x=1684582096;
+        d=1e100.net; s=20221208; t=1681990309; x=1684582309;
         h=in-reply-to:from:references:cc:to:content-language:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=ZcBtGAPsxaw70CZhwJ6lV+FQYx3w32RoPmGXZKj5Atk=;
-        b=JRQYr+1mdA/lOtUMvsEuE9flLXOYdtrmncjUd5G2jDnsp26hwz/1aXsl+Px69wDKH/
-         Ozn4zKsVWb6gK3h3ZLYOYQDPHqGwFpQFP7O7iwH2NccBRTWQrF7i6SE2OdNTe/It2ENT
-         Mmd4VL6Bn5emPIFa9Q5oDGKd01+rbtpF428aC5Gl9DAN9Jh88pnNP6AQMv2RtEwIeGvn
-         Ou3MlKE7B3JJku4GQZYzIzC+Mqrqeaej3ueNGmpuvBvRDE/0y4Yp3U6J3h/JnF8aCAin
-         WxrwWKNCrmmBXbMYUlIhaHcXAQ+DPill33U/jWCg4LxRf72BX5cV9euKj5v4hs/KV7z3
-         cSVA==
-X-Gm-Message-State: AAQBX9f7wp8WO4CUsTjc25+tKmG8UjR8n/ROEpRzZu2upsyV6PCCxvOe
-        zMIajTuj/C7g5+NDV9Lx9R8=
-X-Google-Smtp-Source: AKy350bxBDZXgLkmWVzloKjVT0tKzhKI/PAls92534FG4U9WPDpGRb6EFDF75YjIwFK/0VLofllCew==
-X-Received: by 2002:a1c:f71a:0:b0:3ef:6b97:f0c3 with SMTP id v26-20020a1cf71a000000b003ef6b97f0c3mr1135421wmh.15.1681990095927;
-        Thu, 20 Apr 2023 04:28:15 -0700 (PDT)
+        bh=KcW1R/F9aH7ek2gDN5JDTzYzhyIeDg9dakqznSJJHtA=;
+        b=hlTU4OHVkONDNcRYCOen7En/chcfNKrxgVvZ63dt2dGCJ9RMU8rics9KmWr2LyuUSx
+         Ab5dwEeTCoyjOORuoSisSuOGH/ibViKjgUsM59ge/kJ7y3cDMbiLMNKEu/8PVYxgYV01
+         lCguy+b5ZfbIyz0jL5TopMkflRDs3PdNEhL3dCfEgT4KEG7l4b0UHG8j8IGM+OoT0e1K
+         q02M6XoWVW53GhLc3FIm5kPC8y/qeLXH2L/My/NG2Yu3PERC0agt4AFbgFjm2h/vklq6
+         +I+FnJY6zRcoKAlJ1cgoHIl+AZPGMPDwkwZb9T0ZGNux3BDHQ5tJ9crPp4QCPtPv9i5z
+         hYxw==
+X-Gm-Message-State: AAQBX9eGZBQKCqg54LZHhVvC+mP8K+EruM+wX2MzNgAz97MHnwlYl5M/
+        7+ADdKhu+2QtuPJDC2vMeByxxmwYLK4=
+X-Google-Smtp-Source: AKy350YNrQUzGS7AwAVOduNP6S9DGJBm2eVRuY8qCzRJwXVU16/MNOSfP0osvlo6CRDmd+qTnfKBJA==
+X-Received: by 2002:a1c:4b1a:0:b0:3ed:a07b:c591 with SMTP id y26-20020a1c4b1a000000b003eda07bc591mr1037142wma.1.1681990308473;
+        Thu, 20 Apr 2023 04:31:48 -0700 (PDT)
 Received: from [192.168.0.160] ([170.253.51.134])
-        by smtp.gmail.com with ESMTPSA id p13-20020a7bcc8d000000b003ee63fe5203sm1737783wma.36.2023.04.20.04.28.15
+        by smtp.gmail.com with ESMTPSA id n17-20020a5d4c51000000b002d6f285c0a2sm1751251wrt.42.2023.04.20.04.31.47
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 20 Apr 2023 04:28:15 -0700 (PDT)
-Message-ID: <47fdd2db-cf65-2ffd-1b33-d1f8e3a62b5b@gmail.com>
-Date:   Thu, 20 Apr 2023 13:28:14 +0200
+        Thu, 20 Apr 2023 04:31:48 -0700 (PDT)
+Message-ID: <1df1b495-6e7f-b2b5-174d-f138b6bc3d5c@gmail.com>
+Date:   Thu, 20 Apr 2023 13:31:46 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.1
-Subject: Re: [PATCH v2 5/9] regex.3: ffix
+Subject: Re: [PATCH v2 6/9] regex.3, regex_t.3type, regmatch_t.3type,
+ regoff_t.3type: move in with regex.3
 Content-Language: en-US
 To:     =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
 Cc:     linux-man@vger.kernel.org
 References: <747kzwqbq2dqlrf7znp4eextcl5p2dlickflwicxstnk6fpinv@ntnnei6ianmk>
- <bbc587870d387a6cd84adfb8593ba3af28d39792.1681946212.git.nabijaczleweli@nabijaczleweli.xyz>
+ <60165209cca7a64f1e281be54e15db1d8d52df35.1681946212.git.nabijaczleweli@nabijaczleweli.xyz>
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <bbc587870d387a6cd84adfb8593ba3af28d39792.1681946212.git.nabijaczleweli@nabijaczleweli.xyz>
+In-Reply-To: <60165209cca7a64f1e281be54e15db1d8d52df35.1681946212.git.nabijaczleweli@nabijaczleweli.xyz>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------8N71EhTpanYsvFwesdJFtL2o"
+ boundary="------------KCiSnq1uDFV26i3mc9VSpsKU"
 X-Spam-Status: No, score=-3.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
@@ -76,94 +77,285 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------8N71EhTpanYsvFwesdJFtL2o
-Content-Type: multipart/mixed; boundary="------------Ce0flTqwTD19eUMK1nPwquG6";
+--------------KCiSnq1uDFV26i3mc9VSpsKU
+Content-Type: multipart/mixed; boundary="------------qly5fiquMW47voyNkdtzutn7";
  protected-headers="v1"
 From: Alejandro Colomar <alx.manpages@gmail.com>
 To: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
 Cc: linux-man@vger.kernel.org
-Message-ID: <47fdd2db-cf65-2ffd-1b33-d1f8e3a62b5b@gmail.com>
-Subject: Re: [PATCH v2 5/9] regex.3: ffix
+Message-ID: <1df1b495-6e7f-b2b5-174d-f138b6bc3d5c@gmail.com>
+Subject: Re: [PATCH v2 6/9] regex.3, regex_t.3type, regmatch_t.3type,
+ regoff_t.3type: move in with regex.3
 References: <747kzwqbq2dqlrf7znp4eextcl5p2dlickflwicxstnk6fpinv@ntnnei6ianmk>
- <bbc587870d387a6cd84adfb8593ba3af28d39792.1681946212.git.nabijaczleweli@nabijaczleweli.xyz>
-In-Reply-To: <bbc587870d387a6cd84adfb8593ba3af28d39792.1681946212.git.nabijaczleweli@nabijaczleweli.xyz>
+ <60165209cca7a64f1e281be54e15db1d8d52df35.1681946212.git.nabijaczleweli@nabijaczleweli.xyz>
+In-Reply-To: <60165209cca7a64f1e281be54e15db1d8d52df35.1681946212.git.nabijaczleweli@nabijaczleweli.xyz>
 
---------------Ce0flTqwTD19eUMK1nPwquG6
+--------------qly5fiquMW47voyNkdtzutn7
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
 Hi!
 
-On 4/20/23 01:23, =D0=BD=D0=B0=D0=B1 wrote:
-> Use "bitwise OR" instead of "bitwise-\fBor\fP". No other page spells it=
+On 4/20/23 01:25, =D0=BD=D0=B0=D0=B1 wrote:
+> They're inextricably linked, not cross-referenced at all,
+> and not used anywhere else.
+>=20
+> Now that they (realistically) exist to the reader, add a note
 
-> like this. The other weirdo contenders are
->   $ git grep bitwise | grep RI
->   man2/adjtimex.2:.RI bitwise- or
->   man2/open.2:.RI bitwise- or 'd
+I prefer if the text movement is done in a separate commit that does
+the minimum, so that git(1) has it easier to follow the changes.
 
-Please check also those, and maybe fix them in the same patch :)
+Also, this is a big change.  Could you please move it closer to the
+end of the patch set?
 
-Cheers,
+Thanks,
+
 Alex
 
+> on how big nmatch can be; POSIX even says "The application develope
+> should note that there is probably no reason for using a value of
+> nmatch that is larger than preg=E2=88=92>re_nsub+1.".
 >=20
 > Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.=
 xyz>
 > ---
->  man3/regex.3 | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  man3/regex.3              | 66 ++++++++++++++++++++++++++++-----------=
+
+>  man3type/regex_t.3type    | 64 +------------------------------------
+>  man3type/regmatch_t.3type |  2 +-
+>  man3type/regoff_t.3type   |  2 +-
+>  4 files changed, 51 insertions(+), 83 deletions(-)
 >=20
 > diff --git a/man3/regex.3 b/man3/regex.3
-> index b6e574b4d..fa2669544 100644
+> index fa2669544..b95b3c3b0 100644
 > --- a/man3/regex.3
 > +++ b/man3/regex.3
-> @@ -56,7 +56,7 @@ pattern buffer.
+> @@ -15,7 +15,7 @@ regcomp, regexec, regerror, regfree \- POSIX regex fu=
+nctions
+>  Standard C library
+>  .RI ( libc ", " \-lc )
+>  .SH SYNOPSIS
+> -.nf
+> +.EX
+>  .B #include <regex.h>
 >  .PP
+>  .BI "int regcomp(regex_t *restrict " preg ", const char *restrict " re=
+gex ,
+> @@ -29,7 +29,21 @@ Standard C library
+>  .BI "            char " errbuf "[restrict ." errbuf_size "], \
+>  size_t " errbuf_size );
+>  .BI "void regfree(regex_t *" preg );
+> -.fi
+> +.PP
+> +.B typedef struct {
+> +.BR "    size_t    re_nsub;" "  /* Number of parenthesized subexpressi=
+ons */"
+> +.B } regex_t;
+> +.PP
+> +.B typedef struct {
+> +.BR "    regoff_t  rm_so;" "    /* Byte offset from start of string"
+> +                           to start of substring */
+> +.BR "    regoff_t  rm_eo;" "    /* Byte offset from start of string to=
+"
+> +                           the first character after the end of
+> +                           substring */
+> +.B } regmatch_t;
+> +.PP
+> +.BR typedef " /* ... */  " regoff_t;
+> +.EE
+>  .SH DESCRIPTION
+>  .SS POSIX regex compiling
+>  .BR regcomp ()
+> @@ -54,6 +68,21 @@ must always be supplied with the address of a
+>  .BR regcomp ()-initialized
+>  pattern buffer.
+>  .PP
+> +After
+> +.BR regcomp ()
+> +succeeds,
+> +.I preg->re_nsub
+> +holds the number of subexpressions in
+> +.IR regex .
+> +Thus, a value of
+> +.I preg->re_nsub
+> ++ 1
+> +passed as
+> +.I nmatch
+> +to
+> +.BR regexec ()
+> +is sufficient to capture all matches.
+> +.PP
 >  .I cflags
 >  is the
-> -.RB bitwise- or
-> +bitwise OR
->  of zero or more of the following:
->  .TP
->  .B REG_EXTENDED
-> @@ -121,7 +121,7 @@ and
->  are used to provide information regarding the location of any matches.=
+>  bitwise OR
+> @@ -192,22 +221,6 @@ must be at least
+>  .IR N+1 .)
+>  Any unused structure elements will contain the value \-1.
+>  .PP
+> -The
+> -.I regmatch_t
+> -structure which is the type of
+> -.I pmatch
+> -is defined in
+> -.IR <regex.h> .
+> -.PP
+> -.in +4n
+> -.EX
+> -typedef struct {
+> -    regoff_t rm_so;
+> -    regoff_t rm_eo;
+> -} regmatch_t;
+> -.EE
+> -.in
+> -.PP
+>  Each
+>  .I rm_so
+>  element that is not \-1 indicates the start offset of the next largest=
 
->  .I eflags
->  is the
-> -.RB bitwise- or
-> +bitwise OR
->  of zero or more of the following flags:
->  .TP
->  .B REG_NOTBOL
+> @@ -216,6 +229,14 @@ The relative
+>  .I rm_eo
+>  element indicates the end offset of the match,
+>  which is the offset of the first character after the matching text.
+> +.PP
+> +.I regoff_t
+> +is a signed integer type
+> +capable of storing the largest value that can be stored in either an
+> +.I ptrdiff_t
+> +type or a
+> +.I ssize_t
+> +type.
+>  .SS POSIX error reporting
+>  .BR regerror ()
+>  is used to turn the error codes that can be returned by both
+> @@ -338,6 +359,15 @@ T}	Thread safety	MT-Safe
+>  POSIX.1-2008.
+>  .SH HISTORY
+>  POSIX.1-2001.
+> +.PP
+> +Prior to POSIX.1-2008,
+> +.I regoff_t
+> +was required to be
+> +capable of storing the largest value that can be stored in either an
+> +.I off_t
+> +type or a
+> +.I ssize_t
+> +type.
+>  .SH EXAMPLES
+>  .EX
+>  #include <stdint.h>
+> diff --git a/man3type/regex_t.3type b/man3type/regex_t.3type
+> index 176d2c7a6..c0daaf0ff 100644
+> --- a/man3type/regex_t.3type
+> +++ b/man3type/regex_t.3type
+> @@ -1,63 +1 @@
+> -.\" Copyright (c) 2020-2022 by Alejandro Colomar <alx@kernel.org>
+> -.\" and Copyright (c) 2020 by Michael Kerrisk <mtk.manpages@gmail.com>=
+
+> -.\"
+> -.\" SPDX-License-Identifier: Linux-man-pages-copyleft
+> -.\"
+> -.\"
+> -.TH regex_t 3type (date) "Linux man-pages (unreleased)"
+> -.SH NAME
+> -regex_t, regmatch_t, regoff_t
+> -\- regular expression matching
+> -.SH LIBRARY
+> -Standard C library
+> -.RI ( libc )
+> -.SH SYNOPSIS
+> -.EX
+> -.B #include <regex.h>
+> -.PP
+> -.B typedef struct {
+> -.BR "    size_t    re_nsub;" "  /* Number of parenthesized subexpressi=
+ons */"
+> -.B } regex_t;
+> -.PP
+> -.B typedef struct {
+> -.BR "    regoff_t  rm_so;" "    /* Byte offset from start of string"
+> -                           to start of substring */
+> -.BR "    regoff_t  rm_eo;" "    /* Byte offset from start of string to=
+"
+> -                           the first character after the end of
+> -                           substring */
+> -.B } regmatch_t;
+> -.PP
+> -.BR typedef " /* ... */  " regoff_t;
+> -.EE
+> -.SH DESCRIPTION
+> -.TP
+> -.I regex_t
+> -This is a structure type used in regular expression matching.
+> -It holds a compiled regular expression,
+> -compiled with
+> -.BR regcomp (3).
+> -.TP
+> -.I regmatch_t
+> -This is a structure type used in regular expression matching.
+> -.TP
+> -.I regoff_t
+> -It is a signed integer type
+> -capable of storing the largest value that can be stored in either an
+> -.I ptrdiff_t
+> -type or a
+> -.I ssize_t
+> -type.
+> -.SH STANDARDS
+> -POSIX.1-2008.
+> -.SH HISTORY
+> -POSIX.1-2001.
+> -.PP
+> -Prior to POSIX.1-2008,
+> -the type was
+> -capable of storing the largest value that can be stored in either an
+> -.I off_t
+> -type or a
+> -.I ssize_t
+> -type.
+> -.SH SEE ALSO
+> -.BR regex (3)
+> +.so man3/regex.3
+> diff --git a/man3type/regmatch_t.3type b/man3type/regmatch_t.3type
+> index dc78f2cf2..c0daaf0ff 100644
+> --- a/man3type/regmatch_t.3type
+> +++ b/man3type/regmatch_t.3type
+> @@ -1 +1 @@
+> -.so man3type/regex_t.3type
+> +.so man3/regex.3
+> diff --git a/man3type/regoff_t.3type b/man3type/regoff_t.3type
+> index dc78f2cf2..c0daaf0ff 100644
+> --- a/man3type/regoff_t.3type
+> +++ b/man3type/regoff_t.3type
+> @@ -1 +1 @@
+> -.so man3type/regex_t.3type
+> +.so man3/regex.3
 
 --=20
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
---------------Ce0flTqwTD19eUMK1nPwquG6--
+--------------qly5fiquMW47voyNkdtzutn7--
 
---------------8N71EhTpanYsvFwesdJFtL2o
+--------------KCiSnq1uDFV26i3mc9VSpsKU
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmRBIc4ACgkQnowa+77/
-2zK4MhAAk1102whjuIHnrWkvtA8F259siMKaWRd8mkmEnSSzi/E8LToTdvhGHa0L
-Zw8BTDieNFpHZjOXjAZJVpIAec8rtRYydMYwf2Aou+ohiU+yejaunMHFqfnSzke6
-vD3zBaMdMAkGVmZdYVftzI8F7qvl92oec3mr5L8Kz2LyBJ7D5eoGjP4E5kOsLK02
-nKXxFgcLYJBCXaeqcE/wmBxVziQcs2Hq5fbkfpsPoAy+8YTz+e6dbyh9EIyjJENr
-gW8eZo7TxRaxoJVDVrl81BeOh3isigCP7oU3jDtxeYrVLEID086N+Q7dIsbjjmdm
-wq1VFi6gVozvJF3jHBGA0ASNBggedS2vTn5Ko4T6YuA4DvknM0RDsjz9LWv1YrcV
-LtYnWqPOzfCYE6zGDhYhwTe5qHteMxMO9qbZblNs+atgsDCkCzWwD90AAxmgr66G
-+CaRp1yE5oTvaTFdLwyPscziz1elI9+pNa6WQg8JTzqzv0WAZndZJqbk2Rfu0nmS
-iqCC5L1YqNAkFIkKGUoMBxnjatfXQLiDlS0QUKG55fN2s0UsLcjAVyQoEycSe0hs
-B2K8IACQAEAl+ZTOrLhXOEdE54ObMoO5xZCgaDjPl5/rXV7S2XSf5kKz/qTrDn21
-Jb/q4QMpi3BEHY6bx2ISbes6elXr33oZRSbjhhz34grEy4uGhXI=
-=ObF1
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmRBIqMACgkQnowa+77/
+2zKHURAAkU7zFLj9q+5dpOQJNFDiU42jxOapZJqmeVq/Gv3hQIY/kgH87LFBzuwD
+bepoFr1TtCBYSM/aCniK/Fskbb1JHhduMUJW/kgj6XtEdXN90kxNagfYh2Xbyl8I
+JwKpsnuuHrfdAMmGg6HkvW9AEb6d7JhWjryW4SUu868R0MJyb2F6RkFG5xA0/E5U
+1Yj4qNorAR0Pz4hwCbqywVLSZx5Xu9Gd8azm43FxfPw3f+TjUQyvSlvrB7cPmUEd
+QLkw37sqhHkB7JaHIuM2sLYOghPyLfm6/y2xEM1I+wQHfH3MmD2EzKwZH5ju0xlG
+/WaQLF/HaLnyeRjHdahhvtN4ReMyGkxAiuQbNqSSsIKTVLASDnxb2dAbisU15+p0
+OB6VHbrXMdux7V3qIuTZHhdQynIB054qUmuaFJbq4GxWG+q07QciAe5/d5ILJoTX
+TNG/ruc37hsNVCy2uRYu/3jV/aIQWig3urSPL55RIjRhfAdDHdtpch1DIs/W0toO
+XKgcS1cXS9GrYMXXPv3H/LUgu1MHOxXL5wtw6z0nwfIUb7Ds7vb/adtr28OnqUEW
+wIJgG0+b+7lWpVCSzLFOcPOznomKptoFnmtUxFLka6XPIEiGschFVC/y6VvQmJcT
+dKfow/QFqQL0rPsrPZqbWJUzD1HnkkLsdDO/+ywZlHcMVYp5rDE=
+=1G2o
 -----END PGP SIGNATURE-----
 
---------------8N71EhTpanYsvFwesdJFtL2o--
+--------------KCiSnq1uDFV26i3mc9VSpsKU--
