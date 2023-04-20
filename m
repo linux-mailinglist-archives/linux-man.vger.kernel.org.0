@@ -2,72 +2,72 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 233ED6E9F39
-	for <lists+linux-man@lfdr.de>; Fri, 21 Apr 2023 00:45:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 953E46E9F8D
+	for <lists+linux-man@lfdr.de>; Fri, 21 Apr 2023 01:01:27 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230304AbjDTWpV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 20 Apr 2023 18:45:21 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60266 "EHLO
+        id S229984AbjDTXBX (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 20 Apr 2023 19:01:23 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44398 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229761AbjDTWpU (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 20 Apr 2023 18:45:20 -0400
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com [IPv6:2a00:1450:4864:20::333])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 374922108
-        for <linux-man@vger.kernel.org>; Thu, 20 Apr 2023 15:45:19 -0700 (PDT)
-Received: by mail-wm1-x333.google.com with SMTP id 5b1f17b1804b1-3f09b9ac51dso31767195e9.0
-        for <linux-man@vger.kernel.org>; Thu, 20 Apr 2023 15:45:19 -0700 (PDT)
+        with ESMTP id S229772AbjDTXBW (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 20 Apr 2023 19:01:22 -0400
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com [IPv6:2a00:1450:4864:20::335])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 37A76AC
+        for <linux-man@vger.kernel.org>; Thu, 20 Apr 2023 16:01:21 -0700 (PDT)
+Received: by mail-wm1-x335.google.com with SMTP id 5b1f17b1804b1-3f09b9ac51dso32022225e9.0
+        for <linux-man@vger.kernel.org>; Thu, 20 Apr 2023 16:01:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1682030717; x=1684622717;
+        d=gmail.com; s=20221208; t=1682031679; x=1684623679;
         h=in-reply-to:from:references:cc:to:content-language:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=cqzdhT7FMYSInyIlcpVBqeVn1hW2fLUHsQoxGcL8Rb0=;
-        b=fV6fuPYPzAQ90YPsygmI1+YG3Ynemd0/OOmHLHr+RHWPrjzU7TuYPOuxQHRyBuubbo
-         ZsRyowjc+9XVBcnPZj74dyoDJzcsCBkxEYMdJwubzIR69EjZ/7lbt1sK2SYY+KZGH9i8
-         uTjSI1+NL9wPWkZTv82v7UP4P0YAUXYGwrXQ6vWM0wl0A0kKOMxvWIwUf5zeImATn9sT
-         tf+gESHkIgeTXkvwIOvZ3I70fvzsEwmjfe+L2zRPWkPGgHSJT6VWhgu2/Ug08D+NgUp9
-         bIbjea1DXptCpiqNU+8MHcwZQZWjSAG6xCykFCOUe2se1Efttr+hKFU+ryuuWqQPFwFf
-         EZQg==
+        bh=ZED9cKn57Nz1QHP54pNc/UyLOgH+TXBoA4LB8FiCjfY=;
+        b=NMk8IT9ZDuC/XDxv5YmpazJ0ZDFbTAJgCNhSmcimgqAQMg3skHO1U66mXs1QVq/FOh
+         dmof/mgS3Q/17DEmI4KyGMy2fBLBZd5okZwpNE3wIe026/RJthWqFkR3YL9tqcBfbhoa
+         1bM+e0acqbOVQVLjAnnUC0AaKcGhEDyReV1HOTqbjTXqp9ryb8VQ+QiWLzOqV2p6+dbC
+         5hzzibEC+09SC6CTeu6SkhyweTwTp2tKIa1aTWgifQJ4/DVHeDrqGXLKWsuQo59LGJNa
+         m6bwSOb87qqKTkG7b+IIQOl4HwLevZhTPTqzSwSEn1ITOkiBvwdJtY0dAhaGzqm2+YV0
+         qbOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1682030717; x=1684622717;
+        d=1e100.net; s=20221208; t=1682031679; x=1684623679;
         h=in-reply-to:from:references:cc:to:content-language:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=cqzdhT7FMYSInyIlcpVBqeVn1hW2fLUHsQoxGcL8Rb0=;
-        b=Qk6pUywyfQBWfLIkcWoh96KrcbxzLWhEorO9aVvbIvdJy+m4C881jonrEtYhgtLx+h
-         3SZ4dS7iNMq90Ai7X+MiNXjgF45Pm4VQhntPsKWfyuVkhgsCHMIlbLOc7RLUhea4kr4L
-         E29EHaub6aQzD6O/NMtlNrbHfqfGsdW+9eoeB8shDg7s7sIgGHbvG7Ot+PR9gPC4i+hf
-         aF7qhmO6KF5nNQTxwqjVMZOy3DE+Jo3fHBXXJWkfz8HotYbvFtG+57s+U7Mod7+CQIVU
-         qOYAxVVfnvI/aTIoHcNRsD7BrEN7nSlPs2D7cgOzJbk7BklhHV5A6grRuzvdpqaoGbrD
-         Z+6Q==
-X-Gm-Message-State: AAQBX9fGRw0BcLSUqzZoS9aBFb3FhBTFGI4Ntc6UivRxoqVH8DWBj191
-        tC9phe2dmvcTrMmdOkYmT/sKgcEIHi0=
-X-Google-Smtp-Source: AKy350aOgWnclwMOP3RrOfpzh3S5GNdFu4Mh+Nt0VLbqmSJ9N1FOwxseUoSRr5y3N536Rr6EoKpnfA==
-X-Received: by 2002:adf:e711:0:b0:2ef:84c:a4bc with SMTP id c17-20020adfe711000000b002ef084ca4bcmr5928249wrm.19.1682030717653;
-        Thu, 20 Apr 2023 15:45:17 -0700 (PDT)
+        bh=ZED9cKn57Nz1QHP54pNc/UyLOgH+TXBoA4LB8FiCjfY=;
+        b=XtR4GBtlA/Oxh53jSgEP61lfYIe3hrSYR059xcXLb6DVG6NT3ReIbIR6ANH8Ixdqg4
+         8fwzi543WeSPf3jLYb4HurWLmKMSXvqtDHOGE5uZLlnngHNUT9W4H9rg5qljMPPg7FKe
+         l0yuAkWOltX2SEqO3bFmvwdEKLlkW2b1LDoQul2rcE4sGtb44WJKG5uX2rEpn8QO37dn
+         IEsPPUaKFF55iY33a0KacvR9VMivJnKiJA28maDzBTMRLA/ODQMMaxHrOaPXcnF/PbyR
+         mupmwwB/wBq7E5T42Q+bjOvfA+2kGaV2WcUMrETSYFQ/Rl2WA69QGEyMiCWN17enx04l
+         bV1Q==
+X-Gm-Message-State: AAQBX9flP8LSY1ilRFd7z8FC7TvCqotTnCwCDtcMyoB6qoE2oYWkGudG
+        sdkLvnmMQj012ybQ9JLclZ/iH8pc8W0=
+X-Google-Smtp-Source: AKy350YcLwEn5uQHDMJ3qneLxT2xhfYDTHrcfacD4/J1Fzy49+wzIRZd9VezQtMTNs13wTvLUFNPig==
+X-Received: by 2002:adf:ee91:0:b0:2f0:2e16:7e0c with SMTP id b17-20020adfee91000000b002f02e167e0cmr5954917wro.26.1682031679461;
+        Thu, 20 Apr 2023 16:01:19 -0700 (PDT)
 Received: from [192.168.0.160] ([170.253.51.134])
-        by smtp.gmail.com with ESMTPSA id d6-20020a5d6dc6000000b002efb31d3c24sm2997867wrz.32.2023.04.20.15.45.16
+        by smtp.gmail.com with ESMTPSA id w13-20020adff9cd000000b002cea9d931e6sm3018655wrr.78.2023.04.20.16.01.18
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 20 Apr 2023 15:45:17 -0700 (PDT)
-Message-ID: <35d79669-8782-b95e-42ea-f4ca36a98315@gmail.com>
-Date:   Fri, 21 Apr 2023 00:45:16 +0200
+        Thu, 20 Apr 2023 16:01:19 -0700 (PDT)
+Message-ID: <04a4674f-aff2-1437-6fd6-c7223b1036d8@gmail.com>
+Date:   Fri, 21 Apr 2023 01:01:11 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.1
-Subject: Re: [PATCH v5 3/8] regex.3: Desoupify regerror() description
+Subject: Re: [PATCH v5 4/8] regex.3: Improve REG_STARTEND
 Content-Language: en-US
 To:     =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
 Cc:     linux-man@vger.kernel.org
 References: <6405717b8de85a370febef4f102676dc65c61113.1681995401.git.nabijaczleweli@nabijaczleweli.xyz>
  <cover.1682004802.git.nabijaczleweli@nabijaczleweli.xyz>
- <108f30cd72f18419b3e4c62490d63807d48225b7.1682004802.git.nabijaczleweli@nabijaczleweli.xyz>
- <516ecf85-a1e5-a87e-632c-da026a16dddd@gmail.com>
- <kq2rpdxdwgk6oiccjzqyjerz5hutdsros2ewreggsbuxhbsyoe@hhbnxxou3xff>
+ <fd1a104d6abc70a2450b17a6b424ca8e20897634.1682004802.git.nabijaczleweli@nabijaczleweli.xyz>
+ <1735c494-c165-87d9-8660-865bbfce709a@gmail.com>
+ <uubrf6suz7z2kw4el7i5wbzzdxywcqjwhcyqxkdddlwabve5p2@uupjducqbdgk>
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <kq2rpdxdwgk6oiccjzqyjerz5hutdsros2ewreggsbuxhbsyoe@hhbnxxou3xff>
+In-Reply-To: <uubrf6suz7z2kw4el7i5wbzzdxywcqjwhcyqxkdddlwabve5p2@uupjducqbdgk>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------ETZGQ7THVcrDae2FhlMVCMdn"
+ boundary="------------1i0eniBN9KPs8dBlC7Zqzh1p"
 X-Spam-Status: No, score=-3.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
@@ -79,150 +79,132 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------ETZGQ7THVcrDae2FhlMVCMdn
-Content-Type: multipart/mixed; boundary="------------YzSiIpeSoHzFUMim1Z7GwDD2";
+--------------1i0eniBN9KPs8dBlC7Zqzh1p
+Content-Type: multipart/mixed; boundary="------------VXmeIAAcTZGU2y9iUuHUWXa7";
  protected-headers="v1"
 From: Alejandro Colomar <alx.manpages@gmail.com>
 To: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
 Cc: linux-man@vger.kernel.org
-Message-ID: <35d79669-8782-b95e-42ea-f4ca36a98315@gmail.com>
-Subject: Re: [PATCH v5 3/8] regex.3: Desoupify regerror() description
+Message-ID: <04a4674f-aff2-1437-6fd6-c7223b1036d8@gmail.com>
+Subject: Re: [PATCH v5 4/8] regex.3: Improve REG_STARTEND
 References: <6405717b8de85a370febef4f102676dc65c61113.1681995401.git.nabijaczleweli@nabijaczleweli.xyz>
  <cover.1682004802.git.nabijaczleweli@nabijaczleweli.xyz>
- <108f30cd72f18419b3e4c62490d63807d48225b7.1682004802.git.nabijaczleweli@nabijaczleweli.xyz>
- <516ecf85-a1e5-a87e-632c-da026a16dddd@gmail.com>
- <kq2rpdxdwgk6oiccjzqyjerz5hutdsros2ewreggsbuxhbsyoe@hhbnxxou3xff>
-In-Reply-To: <kq2rpdxdwgk6oiccjzqyjerz5hutdsros2ewreggsbuxhbsyoe@hhbnxxou3xff>
+ <fd1a104d6abc70a2450b17a6b424ca8e20897634.1682004802.git.nabijaczleweli@nabijaczleweli.xyz>
+ <1735c494-c165-87d9-8660-865bbfce709a@gmail.com>
+ <uubrf6suz7z2kw4el7i5wbzzdxywcqjwhcyqxkdddlwabve5p2@uupjducqbdgk>
+In-Reply-To: <uubrf6suz7z2kw4el7i5wbzzdxywcqjwhcyqxkdddlwabve5p2@uupjducqbdgk>
 
---------------YzSiIpeSoHzFUMim1Z7GwDD2
+--------------VXmeIAAcTZGU2y9iUuHUWXa7
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
+Hi =D0=BD=D0=B0=D0=B1,
 
-On 4/20/23 20:46, =D0=BD=D0=B0=D0=B1 wrote:
-> Hi!
->=20
-> On Thu, Apr 20, 2023 at 07:23:39PM +0200, Alejandro Colomar wrote:
+On 4/20/23 21:30, =D0=BD=D0=B0=D0=B1 wrote:
+> On Thu, Apr 20, 2023 at 07:29:27PM +0200, Alejandro Colomar wrote:
 >> On 4/20/23 17:35, =D0=BD=D0=B0=D0=B1 wrote:
->>> +.I errcode
->>> +must be the latest error returned from an operation on
->>> +.IR preg .
->>> +If
->>> +.I preg
->>> +is a null pointer\(emthe latest error.
->> I don't read that from the POSIX spec.
-> Whereas that's precisely where I got it from.
+>>> --- a/man3/regex.3
+>>> +++ b/man3/regex.3
+>>> @@ -131,23 +131,30 @@ .SS Matching
+>>>  above).
+>>>  .TP
+>>>  .B REG_STARTEND
+>>> -Use
+>>> -.I pmatch[0]
+>>> -on the input string, starting at byte
+>>> -.I pmatch[0].rm_so
+>>> -and ending before byte
+>>> -.IR pmatch[0].rm_eo .
+>>> +Match
+>>> +.RI [ string " + " pmatch[0].rm_so ", " string " + " pmatch[0].rm_eo=
+ )
+>>> +instead of
+>>> +.RI [ string ", " string " + \fBstrlen\fP(" string )).
+>>>  This allows matching embedded NUL bytes
+>>>  and avoids a
+>>>  .BR strlen (3)
+>>> -on large strings.
+>>> -It does not use
+>>> +on known-length strings.
+>>> +.I pmatch
+>>> +must point to a valid readable object.
+>> I think this is redundant, since we showed that [0] is accessed by
+>> the function.
+> Yeah.
+>=20
+>>> +If any matches are returned
+>>> +.RB ( REG_NOSUB
+>>> +wasn't passed to
+>>> +.BR regcomp (),
+>>> +the match succeeded, and
+>>>  .I nmatch
+>>> -on input, and does not change
+>>> -.B REG_NOTBOL
+>>> -or
+>>> -.B REG_NEWLINE
+>>> -processing.
+>>> +> 0), they overwrite
+>> And of course, nmatch must be at least 1, since otherwise, [0] was
+>> not valid, and the whole call would have been UB; right?  So that
+>> third condition must be true to not invoke UB, so we can omit it too,
+>> I think.
+> What? idk where you got this from.
+> Per 0d120a3c76b4446b194a54387ce0e7a84b208bfd:
+>     In the regexec() signature
+>       regmatch_t pmatch[restrict .nmatch],
+>     is a simplification. It's actually
+>       regmatch_t pmatch[restrict
+>         ((.preg->flags & REG_NOSUB) ? 0 : .nmatch) ?:
+>          !!(.eflags & REG_STARTEND)],
 
-Here's the quote I think is the most relevant (you also quoted it
-below):
+That is a model that was useful in a commit message to describe more
+or less what happens.  It doesn't need to perfectly describe reality.
+Since REG_STARTEND is not in POSIX, we can't read what POSIX says,
+so it's all up to how much implementations want to guarantee.  I
+don't think glibc would like to allow specifying .nmatch as 0 while
+the function accesses [0].  The fact that the current implementation
+doesn't open Hell's doors to nasal demons doesn't mean it can't do
+so in the future.  I conceive that _FORTIFY_SOURCE could reasonably
+check that pmatch[] has at least .nmemb elements, and I don't want
+to preclude that in the documentation.
 
-       If preg is a null pointer, but errcode is a value returned by a
-       previous  call  to regexec() or regcomp(), the regerror() still
-       generates an error string corresponding to  the  value  of  er=E2=80=
-=90
-       rcode,  but  it might not be as detailed under some implementa=E2=80=
-=90
-       tions.
-
-
->=20
->> If preg is NULL, then I think any
->> error returned by a call to one of these APIs would be valid.
-> That's unspecified.
-
-I don't think so.  POSIX says a "previous call".  It doesn't say the
-"latest" or "immediately preceeding" or similar wording.  Don't you
-understand the same from that paragraph?
-
->=20
->> In fact,
->> since these functions are MT-Safe, they can't store any state,
-> Probably. OTOH, musl raw-dogs mbtowc() in regexec(), so.
-> (I'm pretty sure it's by accident since they do have a mbstate_t
->  and juggle it a lot, but it's never actually used.)
->=20
->> which leads
->> me to think that they can't really distinguish between the latest erro=
-r,
->> and an error returned at a random point in the past, or even the resul=
-t of
->> csrand_interval(x, y)[1] with appropriate x and y.
-> Again, probably. But (line numbers from Issue 8 Draft 2.1):
-> 57517  The regerror( ) function provides a mapping from error codes ret=
-urned by regcomp( ) and
-> 57518  regexec( ) to unspecified printable strings. It generates a stri=
-ng corresponding to the value of the
-> 57519  errcode argument, which the application shall ensure is the last=
- non-zero value returned by
-> 57520  regcomp( ) or regexec( ) with the given value of preg. If errcod=
-e is not such a value, the content of
-> 57521  the generated string is unspecified.
->=20
-> 57522  If preg is a null pointer, but errcode is a value returned by a =
-previous call to regexec( ) or regcomp( ),
-> 57523  the regerror( ) still generates an error string corresponding to=
- the value of errcode, but it might not
-> 57524  be as detailed under some implementations.
->=20
-> 57525  If the errbuf_size argument is not 0, regerror( ) shall place th=
-e generated string into the buffer of
-> 57526  size errbuf_size bytes pointed to by errbuf. If the string (incl=
-uding the terminating null) cannot fit
-> 57527  in the buffer, regerror( ) shall truncate the string and null-te=
-rminate the result.
->=20
-> 57528  If errbuf_size is 0, regerror( ) shall ignore the errbuf argumen=
-t, and return the size of the buffer
-> 57529  needed to hold the generated string.
->=20
-> In these difficult times I tend to turn to what implementations do:
-> NetBSD, musl, illumos, and glibc, if you subtract REG_ATOI and REG_ITOA=
-,
-> all essentially return lsearch(errors, errcode)->description
-> + all sans NetBSD localise it.
-> None of them even use preg.
->=20
-> So yeah, I'll axe that.
->=20
->=20
-> And split out regfree() from this patch because I missed it.
-
-Thanks,
-
+Cheers,
 Alex
 
 >=20
+> If REG_STARTEND, pmatch must point to a valid readable object.
+> (Naturally, if you pass in uninitialised memory or a null pointer,
+>  then you get UB.)
+> nmatch is not consulted and has no bearing on this.
 >=20
 > Best,
-> =D0=BD=D0=B0=D0=B1
 
 --=20
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
---------------YzSiIpeSoHzFUMim1Z7GwDD2--
+--------------VXmeIAAcTZGU2y9iUuHUWXa7--
 
---------------ETZGQ7THVcrDae2FhlMVCMdn
+--------------1i0eniBN9KPs8dBlC7Zqzh1p
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmRBwHwACgkQnowa+77/
-2zKhig/7BEFPJ/UidztnhytU064LtBgYlfHSDMFgOwtqeNmTQTjp1jqutiKgepIl
-dHJnghNZG4SXcPFPZs52syG8q1EAMmXSGlgPC4SS5t3X6gk0gfJO/y8FZhputFxv
-Abn7K32fAW5LHRKYzR5lElnAUvBjNu3NiMKzevOKhYXFfkm73rL7Es3Z0wL0fug6
-YrtnOqW5fMN0giKxQ8wgu4KGRIrUXKh7VSRxyTKBq2bcDk1TBcIB0oSi/FZtfrUE
-BKwHctvcEXK98DOoimp9/+8GJxeSSy6MuRRZmOWt2qqtBcCJ2sS/V4LcyMn1OunI
-lVd4DbDbio8y2bXkzsa3s/Gim8ZzDLyU/i79Xwd0Jx+0w/zrblwqJ0DBKc5trPXz
-xwdzWrvIDtUh0qwSwFAFMAxBbgjmNkrtMxh79RiXDxMNiRcPjyAWUejJtkbTUJc6
-QVcS5prPDNbJPuMDUwMrLt3fpR0bxDRndoXAd6tyGkjj+Dsbz9++b9wfw0eAk1yT
-s6oupvV7vcuxwa3iMlSC3W4bAaZePraCwlyVyXYV0KuJqtl4WSdWWkhdvdYXDlQS
-45YgA8vVmfh2x7sY/O+luR/m1+jWpe3iGaItLdWyFGI/kClrGEOirkZAX/5CUnZB
-Ae5vLHIRiOBfKXr2YxUnMJfPZsc6V8xrmrG27ddfJl8tMCMauP8=
-=TSEl
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmRBxDcACgkQnowa+77/
+2zIjzRAAp2K5AzirqCxCVB92cW9Im9Ub9AvMx+gy/VExd4AOyWs5M5Q8PyQVTZIT
+lkdGuaAuzTUdxcNHJVZcrtnNBE5bPNypl1orYex9mTJO9vVjMirxcxvZXEdbMyAo
+mAonvhYaSdtlLTJtfmiTWIZnFIDJWzmjr/MXgrfZXcIMG8WSplwx32TWYBYg49Vs
+giIB4Caw6tYr1WhCpiQHUOqmRgs9lmYts45h1DY+oB0Qd8AZix8Fqs+xyRco1NHq
+R3vZI6sPF6XPAqEQ0APPXyX5p4itMSORcBivhylhoSiY0D6dzxtOrZQs1QSfo+sL
+G3PycOC4kD53FOuXZmv+3CGmOISlIKGdpqbh6Ir2f2pasrZF19XtnyrmCNpFAyI9
+WMK8gBVie5RfH4lJkEKajS5U766s8AI3y5DGrfHOPYeE6+tX94EuizIRNge/2IXU
+frJET0W0hDnCAbMHdTDQpU7h9keHcNSHvlCmmOxpfSKx6X8AjgHiQtvdx1HGcu5U
+Hb48DFHC01dT4np7Zi7cjIBoKG/jV1BvL78W0/fO3GOQ1G/58r9fupFQjFWvTIcY
+aFIGEp2eUYvfkSpdK/5sTUO1Tx3C5n0K6OFAkAdDWntI2BsDbT770lZUD1vjKaut
+HLJWt2oBpnzha7yRAlVcGRqrxs0UvEjq/NzIeOy0oeaOTB6XN9k=
+=4Khx
 -----END PGP SIGNATURE-----
 
---------------ETZGQ7THVcrDae2FhlMVCMdn--
+--------------1i0eniBN9KPs8dBlC7Zqzh1p--
