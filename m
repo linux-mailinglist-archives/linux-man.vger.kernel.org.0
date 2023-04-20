@@ -2,101 +2,166 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id D8C0E6E95CA
-	for <lists+linux-man@lfdr.de>; Thu, 20 Apr 2023 15:24:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 577126E95EB
+	for <lists+linux-man@lfdr.de>; Thu, 20 Apr 2023 15:35:12 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230501AbjDTNYl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 20 Apr 2023 09:24:41 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37820 "EHLO
+        id S229547AbjDTNfL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 20 Apr 2023 09:35:11 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43128 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229960AbjDTNYk (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 20 Apr 2023 09:24:40 -0400
-Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 2356A469B
-        for <linux-man@vger.kernel.org>; Thu, 20 Apr 2023 06:24:37 -0700 (PDT)
-Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id CA067672E;
-        Thu, 20 Apr 2023 15:24:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-        s=202211; t=1681997075;
-        bh=/QyDw1ftrVWdQ/qu3C5YnQ2wK7ouJVTHSNMc2Hz6FU8=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=NdNEeVhvsxvGR73vr6Qk1+ENcA2OtWmRTWOqzglNoY9d/k39eiabmVPKzqnSmQ43W
-         osG+v+kUOQbVCh8wPBPhWw+8V3+yf5emhPhXvgW3nzmUy6JxdNYoRJFqTAdbnLGykF
-         zUrfhL/ziFPyucHtNTwE/vb6JRvC1myrtEbDRW/roAEZuUN82I+KkqU2ZppbM4It+E
-         uikj3Uxpbcp07dytsIKZjOTj/pEa0K4medVbFIOgI7j987C+G6boyycm8mduqI2K79
-         c8VN0U/mMGAyaHHaHxmhfeDhkYzosWx4CV7ovf4tXMKAARMI2HGjBZ9G3VkRUpK0PW
-         K/nU/NzNEbDIQ==
-Date:   Thu, 20 Apr 2023 15:24:34 +0200
-From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
+        with ESMTP id S229568AbjDTNfK (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 20 Apr 2023 09:35:10 -0400
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com [IPv6:2a00:1450:4864:20::32d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0EA8C46B2
+        for <linux-man@vger.kernel.org>; Thu, 20 Apr 2023 06:35:09 -0700 (PDT)
+Received: by mail-wm1-x32d.google.com with SMTP id iw7-20020a05600c54c700b003f16fce55b5so1162452wmb.0
+        for <linux-man@vger.kernel.org>; Thu, 20 Apr 2023 06:35:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1681997707; x=1684589707;
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=qqdwSGfzz0bc+eosXLClM+5eYJZL9z+it0FAvf0CZvs=;
+        b=TOWhRVoZUgwih+wcZRNn30ZVeebb5JBFYE4bsxf11VLhgPE/WzD1I6IgzoG7ALM3WJ
+         04Mdt1Xoh7jE4V97uidfW0l1ayNMtz22FGnUt9FCxZT/+Tx1L235/pVluazA2XlB8rj9
+         7yvboHrY0Q8UL8+utKVS98Vry4kTYuXemb7RGQcu4tVII8FVrEZwj57vTSDA6IY/yyR2
+         YmpOM4QQytc1zMPSnSeG9nKT2lLlwD3/kB+adDdkLZ/VuQJKHJM12m8zJnKHepdtVN8Y
+         K090Gg6nK6Lafm4NZCbEGFw/47lsZLXf68Yi7eopIZ/P5WMkdvXBrdQFQTCPNdCY7j0s
+         dxxw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1681997707; x=1684589707;
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=qqdwSGfzz0bc+eosXLClM+5eYJZL9z+it0FAvf0CZvs=;
+        b=LSi7fH4gUseH177KXIwEXbhive6jMdwupNfDiJ8RaWeWwNMRy1FRlXaujF3o9txOi0
+         snvwzu5wxMjlUM5DCyyUajsOC7eEI1y3eBBWhZEWwqVkKf8aUWN0tfAmwKGsqDln7ECG
+         uysZZ2RWzB3oW3hdWrOZK3fsfoBv/6o190FkRHf2z9Qc8dc6MsLCUwep1zcuYkbqIKC3
+         yTl0EsRtPtAXw0A4LchJmlLkOgCUL6R0zAdnVMpXPEu8DVQyI5eR7gcM8lJgVYXTIjg2
+         dIC8ZAEHg7TOi5BSXROo9/54bOHzD9z3eDgY6fq82+zoo6BHa5nqdAhAnStG9lTBjbms
+         aIyw==
+X-Gm-Message-State: AAQBX9dXyRqp/vvNw7QA7UdzfgQBd+xgmlj+8q9yynsjeD2Wz1o32AOA
+        nf9xd0Tt6lWYH8Nq1sRolfz9nDdyR8c=
+X-Google-Smtp-Source: AKy350Y9IsLojcqKuLZXmJny3QB8wC4SlroMmvC2TsfgpS2i3zVBMBD+I6f30uYkLXNhK3WZ3RjPCg==
+X-Received: by 2002:a05:600c:4e45:b0:3f1:7b63:bf0e with SMTP id e5-20020a05600c4e4500b003f17b63bf0emr4984186wmq.18.1681997707394;
+        Thu, 20 Apr 2023 06:35:07 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.51.134])
+        by smtp.gmail.com with ESMTPSA id c13-20020adfe70d000000b002fbaef32231sm2020286wrm.22.2023.04.20.06.35.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 20 Apr 2023 06:35:07 -0700 (PDT)
+Message-ID: <11c230de-265f-fe26-1bd4-85f4c390cef0@gmail.com>
+Date:   Thu, 20 Apr 2023 15:35:05 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.1
 Subject: Re: [PATCH v4 1/6] regex.3: Fix subsection headings
-Message-ID: <zkv5wxvyqzmmo44yp7pnhpjwgc7z6kt3m3335sigkk73pvvw32@udv556ayshi4>
+Content-Language: en-US
+To:     =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Cc:     linux-man@vger.kernel.org
 References: <1df1b495-6e7f-b2b5-174d-f138b6bc3d5c@gmail.com>
  <6405717b8de85a370febef4f102676dc65c61113.1681995401.git.nabijaczleweli@nabijaczleweli.xyz>
  <32792f94-a74c-2956-1ae0-4538d27f1e5a@gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="ionpyxlxldmmwjiq"
-Content-Disposition: inline
-In-Reply-To: <32792f94-a74c-2956-1ae0-4538d27f1e5a@gmail.com>
-User-Agent: NeoMutt/20230407
-X-Spam-Status: No, score=-1.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RDNS_DYNAMIC,SPF_HELO_PASS,
-        SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=no autolearn_force=no
-        version=3.4.6
+ <zkv5wxvyqzmmo44yp7pnhpjwgc7z6kt3m3335sigkk73pvvw32@udv556ayshi4>
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <zkv5wxvyqzmmo44yp7pnhpjwgc7z6kt3m3335sigkk73pvvw32@udv556ayshi4>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------WoAQXqIceGbeQkS7xIZ4Udtc"
+X-Spam-Status: No, score=-3.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------WoAQXqIceGbeQkS7xIZ4Udtc
+Content-Type: multipart/mixed; boundary="------------UXNiVobd9BdF1t0w7f4X0W5g";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Cc: linux-man@vger.kernel.org
+Message-ID: <11c230de-265f-fe26-1bd4-85f4c390cef0@gmail.com>
+Subject: Re: [PATCH v4 1/6] regex.3: Fix subsection headings
+References: <1df1b495-6e7f-b2b5-174d-f138b6bc3d5c@gmail.com>
+ <6405717b8de85a370febef4f102676dc65c61113.1681995401.git.nabijaczleweli@nabijaczleweli.xyz>
+ <32792f94-a74c-2956-1ae0-4538d27f1e5a@gmail.com>
+ <zkv5wxvyqzmmo44yp7pnhpjwgc7z6kt3m3335sigkk73pvvw32@udv556ayshi4>
+In-Reply-To: <zkv5wxvyqzmmo44yp7pnhpjwgc7z6kt3m3335sigkk73pvvw32@udv556ayshi4>
 
---ionpyxlxldmmwjiq
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+--------------UXNiVobd9BdF1t0w7f4X0W5g
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
 Hi!
 
-On Thu, Apr 20, 2023 at 03:13:54PM +0200, Alejandro Colomar wrote:
-> On 4/20/23 15:02, =D0=BD=D0=B0=D0=B1 wrote:
-> > @@ -159,7 +159,7 @@ or
-> >  .B REG_NEWLINE
-> >  processing.
-> >  This flag is a BSD extension, not present in POSIX.
-> > -.SS Byte offsets
-> > +.SS Match offsets
-> I think it might be a bit clearer as "Subexpression match offsets" or
-> something like that?  What do you think?
-Nah; in a significant amount of scenarios you don't care about
-subexpressions at all, and the one thing you're guaranteed to get is,
-well, the non-subexpression match.
-Saying "Subexpression match offsets" to mean "Match offsets, including
-of subexpressions" is more confusing, and which offsets are returned is
-explained in running text.
+On 4/20/23 15:24, =D0=BD=D0=B0=D0=B1 wrote:
+> Hi!
+>=20
+> On Thu, Apr 20, 2023 at 03:13:54PM +0200, Alejandro Colomar wrote:
+>> On 4/20/23 15:02, =D0=BD=D0=B0=D0=B1 wrote:
+>>> @@ -159,7 +159,7 @@ or
+>>>  .B REG_NEWLINE
+>>>  processing.
+>>>  This flag is a BSD extension, not present in POSIX.
+>>> -.SS Byte offsets
+>>> +.SS Match offsets
+>> I think it might be a bit clearer as "Subexpression match offsets" or
+>> something like that?  What do you think?
+> Nah; in a significant amount of scenarios you don't care about
+> subexpressions at all, and the one thing you're guaranteed to get is,
+> well, the non-subexpression match.
+> Saying "Subexpression match offsets" to mean "Match offsets, including
+> of subexpressions" is more confusing, and which offsets are returned is=
+
+> explained in running text.
+
+Ahh, sorry; I was myself confused.  I thought the section was only about
+subexpressions, which is why I found confusing that the title was not
+more explicit.  Being about the main match + subexp, your title is better=
+=2E
+
+I'll apply this patch in a moment, after I push my SYNOPSIS patch, based
+on your 2/6, since I found there are 2 places where _Nullable should go,
+not one.
 
 Best,
+Alex
 
---ionpyxlxldmmwjiq
-Content-Type: application/pgp-signature; name="signature.asc"
+>=20
+> Best,
+
+P.S.: That comma without continuation feels very awkward to me :)
+
+--=20
+<http://www.alejandro-colomar.es/>
+GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
+
+--------------UXNiVobd9BdF1t0w7f4X0W5g--
+
+--------------WoAQXqIceGbeQkS7xIZ4Udtc
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmRBPRAACgkQvP0LAY0m
-WPG6hg//SJ4B4u1LChfHwji8vcQiNAYLDJ8YOMF6V2JDMX1a62VH232CKVa5cFkI
-vEB2D0CBadicOdKmLWrgwvIHt9E2Ofx4UbMKHpjoZvJaLoTi/2W/TdtSl5L6yUyw
-mJASgyTHdP5hAG7TT4ZDWnk2Ij0o/QVTvAN2cKAkUntY8IjLS8CfdrvQr5JRfqYO
-NnSbUiF1CQJPdKhSwJEmMo48Hl1QrGHQS+11TJNTemLoew4VpvIslq1HIIMtBny+
-e6ds174YjnvHrXfdCcdaKF5aNfvWdjNXNB+l1aEMok2gviXhNKVwB5c12BzYu8ZM
-W7x72yTURutCYgfxv/vPplk8EAW8YOcWWEdm6ZiQ+wbjOxwZiC4Sq6PQBcmbT3uj
-ZYHkMwwln7lOhCEFwq6cdMXmuvstfgqvubaZ4r+PRF1/LZan3XOhC9e0dopKm14g
-mVj7SgRSdIvjubXItGgTxtEicDWiNASj+9Dmoz2iiOjW+sU6apv1ECpBbuWIEoiw
-9CXEx4O+sM/Pjk3l6BaF5z0zNZs2Rf/QwCn9ZQaNsSM46Q6Plvckj7EIDehm/OKq
-eB3hSdecGQ/wfaaZUhgqXt3e8x4MtEUIB+Fyd0Jzs4k6vfXr0FgH6Ig/s/oWS5zt
-CegYfnRQ9lH48XnhP/YWkEbJVDEuH++LnfxPF2yd5NzmY0hLv0c=
-=nFNG
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmRBP4kACgkQnowa+77/
+2zKvRQ/+PX99iWcIJT7n0FtG3ntSr9+omhVMHLSq4CkYiLjxh0R8IDxtqPImtExm
+Z6FR/OVKSeUAWxnvkwnHTqai+0DSQCjz3lgCyjwagkopdj2/+K5jYlVipAITk8SJ
+mvUe5JV+bYQWoOYoIdGK4gDa3QKvIq+1F//EsNlTFIrNdXvoUKpErOmQ9Qk8slWI
+swKT4MmJqtqQS4lzGTML6/po4ZLz7TVQFqbHEybd7ulzY0WzMOddNx3dYV4QvgI3
+9iQq7xw/ApwVMcX1kHGl0pQRbPurBu7IERCrL6nXVxB103QPXSgHHOFHVOlrwdMM
+qx+jAFvcrZBUBy09l7ATeEr21MJU2TyiXat086WGLM/sQOhyVXuUmKYVdxeP1DYv
+HH259bhlrp41G+PxNcbSzeBiprD9xTfWxHqRiI3hyiN5XO5bvpHcF1lOZk3pIQEs
+9O6qEl61cqL4pgJpCVFim610k1bcDhLp3eKlYZjD3Lz44lF79g9zQcdRCfY13iGt
+aH3TywLtamPlC+sgtB29T+0xPnm46GHQxRGKImoypAYftciydMHx+At9Er03XnSa
+LClVziXsud8eLKDbgPOqCgOIU9tESDyGelKm2jP3NZJOv6tViEJWOuGnauBq6t0f
+whd9Krwjo/6tzwLAwJJ9VNANcLzLMvbTFC/a7nIYUf15Gs9t7lg=
+=WU+L
 -----END PGP SIGNATURE-----
 
---ionpyxlxldmmwjiq--
+--------------WoAQXqIceGbeQkS7xIZ4Udtc--
