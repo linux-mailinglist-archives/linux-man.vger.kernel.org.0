@@ -2,93 +2,161 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 7B5736EA9A8
-	for <lists+linux-man@lfdr.de>; Fri, 21 Apr 2023 13:49:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id EF87E6EA9BC
+	for <lists+linux-man@lfdr.de>; Fri, 21 Apr 2023 13:55:57 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230088AbjDULtz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 21 Apr 2023 07:49:55 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42886 "EHLO
+        id S230148AbjDULz4 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 21 Apr 2023 07:55:56 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45304 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229657AbjDULty (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 21 Apr 2023 07:49:54 -0400
-Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 2391BE50
-        for <linux-man@vger.kernel.org>; Fri, 21 Apr 2023 04:49:51 -0700 (PDT)
-Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 242C4664E;
-        Fri, 21 Apr 2023 13:49:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-        s=202211; t=1682077790;
-        bh=vyP6WPWXWEdJtiA1vrBB1hG4CAEbIskL+gcjCY5G4ag=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=exBF/L9NOhujUbd5hLJdq+wrrEjTG2AH1wsSwBRGCl5Kv7PDbG6Kb6AEHYOb8b/yS
-         +TkatPEHmQJZ3QTv+eqIdLc/kCvdN/hlVUHUjSXydCCRJKcYcavYQPwp4ulx19F3by
-         DlgdK0Fa3xlxKPzBEbWZ6ZpyqbQoBHuQ68Yu0BuflUdy2ZEJxpnlHSOhZpSCxclJck
-         i55UWIyVTid8rsiv8qNXOxGND90kSaFD8ZmpH3PH1Tlph75TnsFghnGAmC1NOKs7Au
-         YXGTVQilGdmHXWORyT85vqeHaqNbWjKfJi95zKpoiYE3dd/DytBjN84KutOTEg0U3L
-         Wbji/NYVeKbbA==
-Date:   Fri, 21 Apr 2023 13:49:49 +0200
-From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
+        with ESMTP id S229690AbjDULzz (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 21 Apr 2023 07:55:55 -0400
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com [IPv6:2a00:1450:4864:20::330])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 49D1F46B4
+        for <linux-man@vger.kernel.org>; Fri, 21 Apr 2023 04:55:54 -0700 (PDT)
+Received: by mail-wm1-x330.google.com with SMTP id 5b1f17b1804b1-3f177cb2c6cso10988935e9.2
+        for <linux-man@vger.kernel.org>; Fri, 21 Apr 2023 04:55:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1682078153; x=1684670153;
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=E4L6QcNweYfnLZF/O+omTKDzuZGYUYppmSp52reexi0=;
+        b=hWyObg7tVqzRViaVOsB46C8wOqvxm5c8DM//adUaL9gymzZ/C4eIbm4Psev+kGdjeV
+         /keczu6PlitGaclkfeYvwPJ2ywby9Zoma3/G+RdfZ1vmJD/Vp9xlubJtkGUE0srgwZ/l
+         IjqT5TMWFhsEhP86mCJo1pjN17VUZz6HRGdoprpgkOzFtdYX9r9CengoI6dFCws2fbRI
+         YSg448Pt7/+DCCtqQemMozpiSLU8YQWX5Dn31FcylH9be7QdiVlgQuujr/DYZ4r8SZuO
+         QxtPItSmkNkqRYyJcuRezG5xXgxcIO3b/InHSnUVJW/u//X4TAXkBwE9Th2iY0BTHvmh
+         k6Tg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1682078153; x=1684670153;
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=E4L6QcNweYfnLZF/O+omTKDzuZGYUYppmSp52reexi0=;
+        b=IcAT01SzBTx0nQKKDw9eKFlFWdaiN49cjLPPFQtSr2eRiIQVeM0c8idrNc3fei409w
+         LUwD+9BJD/nd+aOKry5YkFiUDWHRZobUaeN1MB4tf8xf8U8y51/1dM1mWhBKfgrysTfJ
+         K9jpalvb6Uc63BjDUZ5tVxdkfwRXZ+kp63ixe20dVsRp1zVJ5y797Yh1fxJi00qqku0R
+         UE7px9U77KwFoRfpUVVDIgnitVdJRq+w/4qu1diFrzl+HTTC/W4HYl5oxT2ta8qXG/m4
+         tvyVSG7btKn631JbhGBbgjgDSRUEEwMRjpKmgjXMmIsESYyKr1CmkeynhL2dJUExx0II
+         Z1Nw==
+X-Gm-Message-State: AAQBX9f23wPGz1pEIFxwTT7TSe3y15GI2xOv2AOuVqGAtgUMiguWvJII
+        3BYoI4ECTUQD9VPmBiReKyMAZWKlm5g=
+X-Google-Smtp-Source: AKy350buDIT+0MrXw9KWXUWB7y6TZbtNGpdPnms7ZouL4YNcKPgMgLkbiVLvdmazQFwjMYacpjXX8w==
+X-Received: by 2002:adf:fc07:0:b0:2f7:f6e:566 with SMTP id i7-20020adffc07000000b002f70f6e0566mr3563797wrr.31.1682078152686;
+        Fri, 21 Apr 2023 04:55:52 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.51.134])
+        by smtp.gmail.com with ESMTPSA id r17-20020adfdc91000000b002ff2c39d072sm4241918wrj.104.2023.04.21.04.55.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 21 Apr 2023 04:55:52 -0700 (PDT)
+Message-ID: <e5fb9eda-15b1-01c6-2045-ffe4d8ece910@gmail.com>
+Date:   Fri, 21 Apr 2023 13:55:51 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.1
+Subject: Re: [PATCH v8 2/5] regex.3, regex_t.3type, regmatch_t.3type,
+ regoff_t.3type: Move & link regex_t.3type into regex.3
+Content-Language: en-US
+To:     =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
 Cc:     linux-man@vger.kernel.org
-Subject: Re: [PATCH v8 3/5] regex.3: Finalise move of reg*.3type
-Message-ID: <f4povlimtyravecrmtgarq34kzld7kce2gpepshvp7qmotxs72@kwyeuoh6pga2>
 References: <567b10b2-0a3f-4bbf-642d-d6d7bc4f1580@gmail.com>
  <cover.1682045033.git.nabijaczleweli@nabijaczleweli.xyz>
- <edefa8a5e1e377089f734f0b39400a1bbb111d9c.1682045033.git.nabijaczleweli@nabijaczleweli.xyz>
- <773958d0-339b-6d0f-9ce7-5ce363636635@gmail.com>
- <d4567f56-2061-385e-fd32-472b1e5b1b23@gmail.com>
- <2clfytracz7pbsqqw7xvhb24jrcazftogik6zh7wcpaxa6oxzl@naacxs6ujend>
- <eb8ebe6e-ac65-3a5f-7d61-34d994aae086@gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="u777r5lklyrb6fvh"
-Content-Disposition: inline
-In-Reply-To: <eb8ebe6e-ac65-3a5f-7d61-34d994aae086@gmail.com>
-User-Agent: NeoMutt/20230407
-X-Spam-Status: No, score=-1.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RDNS_DYNAMIC,SPF_HELO_PASS,
-        SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=no
-        autolearn_force=no version=3.4.6
+ <bad3078472294690ca9f46d22c79db492b18e1ef.1682045033.git.nabijaczleweli@nabijaczleweli.xyz>
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <bad3078472294690ca9f46d22c79db492b18e1ef.1682045033.git.nabijaczleweli@nabijaczleweli.xyz>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------pRguZF34VHvwdV3scq1HD3wc"
+X-Spam-Status: No, score=-5.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+        URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------pRguZF34VHvwdV3scq1HD3wc
+Content-Type: multipart/mixed; boundary="------------uQS98ln6tF95aOAwvADJcAxq";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Cc: linux-man@vger.kernel.org
+Message-ID: <e5fb9eda-15b1-01c6-2045-ffe4d8ece910@gmail.com>
+Subject: Re: [PATCH v8 2/5] regex.3, regex_t.3type, regmatch_t.3type,
+ regoff_t.3type: Move & link regex_t.3type into regex.3
+References: <567b10b2-0a3f-4bbf-642d-d6d7bc4f1580@gmail.com>
+ <cover.1682045033.git.nabijaczleweli@nabijaczleweli.xyz>
+ <bad3078472294690ca9f46d22c79db492b18e1ef.1682045033.git.nabijaczleweli@nabijaczleweli.xyz>
+In-Reply-To: <bad3078472294690ca9f46d22c79db492b18e1ef.1682045033.git.nabijaczleweli@nabijaczleweli.xyz>
 
---u777r5lklyrb6fvh
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+--------------uQS98ln6tF95aOAwvADJcAxq
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Apr 21, 2023 at 01:36:19PM +0200, Alejandro Colomar wrote:
-> On 4/21/23 13:26, =D0=BD=D0=B0=D0=B1 wrote:
-> > On Fri, Apr 21, 2023 at 12:34:39PM +0200, Alejandro Colomar wrote:
-> >> But I haven't pushed, so that we can still have it in the same
-> >> patch if you confirm.
-> > Yeah, go on.
-> But do you prefer (a) or (b)?
-(a); (b) looks better (imo as a mdoc enjoyer), but blows the A4 margin.
 
---u777r5lklyrb6fvh
-Content-Type: application/pgp-signature; name="signature.asc"
+
+On 4/21/23 04:48, =D0=BD=D0=B0=D0=B1 wrote:
+> Move-only commit.
+>=20
+> Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.=
+xyz>
+> ---
+>  man3/regex.3              | 30 ++++++++++++++++++
+>  man3type/regex_t.3type    | 64 +--------------------------------------=
+
+>  man3type/regmatch_t.3type |  2 +-
+>  man3type/regoff_t.3type   |  2 +-
+>  4 files changed, 33 insertions(+), 65 deletions(-)
+>=20
+[...]
+
+> diff --git a/man3type/regex_t.3type b/man3type/regex_t.3type
+> index 176d2c7a6..c0daaf0ff 100644
+> --- a/man3type/regex_t.3type
+> +++ b/man3type/regex_t.3type
+> @@ -1,63 +1 @@
+> -.\" Copyright (c) 2020-2022 by Alejandro Colomar <alx@kernel.org>
+> -.\" and Copyright (c) 2020 by Michael Kerrisk <mtk.manpages@gmail.com>=
+
+> -.\"
+> -.\" SPDX-License-Identifier: Linux-man-pages-copyleft
+> -.\"
+> -.\"
+> -.TH regex_t 3type (date) "Linux man-pages (unreleased)"
+> -.SH NAME
+> -regex_t, regmatch_t, regoff_t
+
+Should we keep the names in regex.3?
+
+--=20
+<http://www.alejandro-colomar.es/>
+GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
+
+--------------uQS98ln6tF95aOAwvADJcAxq--
+
+--------------pRguZF34VHvwdV3scq1HD3wc
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmRCeFcACgkQvP0LAY0m
-WPEfMw//TBQHhPNF+GpJKhvplvw6WK4BoT8KI+QsvWGRdJMMn8XxvESVRo3HpE20
-UDg2Q0/rJ5r7BuquWMrzEx5e661NbgZ1SQeT8tdnrdyGW77xpC/uOIVVMxW6IYMJ
-qKgCCz8OS4KUokJ6dziNlnDdQReD/mj6AwTKr6HPLnjNDKWPLITovTeKePftUT7f
-o+yiRndXpNS3QxHJ93wo+4h8zwW7hPqbG2ZKGVe7F1MXNqaeVlyc6SQwJ6Z71yBk
-1KxkJ0e++1HdmE+ZzQAAUcUvH3+2LvcSZiijdffqNu80iY2o9uSAAzyXC28iYhSq
-Ox3/XVU/MtNMFCN6hxDAvcLc7Z3La9sksMualmnNP19Gego77nElR35FQdvPg5r/
-QZ6fRXK9Ps1Dd3c/Y91dDTGgE94Q+w9G5IOg/3XJbfgqMO2InrUZE+xxvvfRtzrs
-Xbaq7e9bKCTJ8krWFW+QzzZcTrPQxlbkr2f8XLoc/3LILDO3MbqNovlmP9VnbS0k
-RWGMunFde5PH2Q6F5ZY6lJQBecrE5RV0K11b/Gty3Xb4zR3mz87+xO1kip4ElNa0
-8IvPHUVS8EQY3VlGrq7qaa/st61R/o+sS+pFKpHa9PraNoXtXHzAXI7aSnWCOnc0
-oxILulo+b3fmDnl5J6Op0+IHmw/NtHTGKSpGGUqNM6uGtCyJslk=
-=RbXH
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmRCeccACgkQnowa+77/
+2zI9Bw/+NPS/38cyg/8BXWlWVTJYgAH7FZYjtqy0CLPezRPP9bWcL8yVJLTySYyT
+ifEglFemu0LsH/NELj3yLOw1bDIOEJCz0WY8WTssoPaycGG4eW0/CIzNdTTaVzwK
+wAnwdTCJHgvD+8/W6Ahpk6CGId0jTf7BXtfL8+TZiFOimJ27kUuujgd88+QeDIOx
+VtQPhnz9ns0czACnNeIXkde+mLDCCxVwPEfpGt7CKhKbPzA+3xR9j7sy8kM3KjJX
+joodC15Q8oFonk3fESSpOCUJMBbniDpW2BFbH9AuQEL7nniga6aTAiB/4TMd1LAW
+VdDW9qzk4rZxDIJ9NtSP7o+0LrbiPynGVQ10SNHoLM9Xcm48y2dEirGhFlTNtVUJ
+4D+ebpM5SzRLX+JMtcclqgBh6atwXvG9vShRyehn9xcP1eevj9qwF5RzUAmDqi/q
+9tws3U/tKinskq1TqQzz0K73AnSBvyeQUwwGMDcz67cCHxVwsudcqxeH1iivCt8n
+eWKrwdAqmcHYTG0FAzUg35rmqNnSOcyf7RP5MYolx1MzYA/AjAxs95kVQdK467d+
+GbgNMKMiHojxBAu6qSMcRR+uzDkRpNNfgxb5T/tEC4XhZnzS7ta2YwMVlk6kJAUH
+Wsrs9Z+oqJQJkvxpoADDNH1kGcxNK+yeODMiHzf+8r2dPzGpAVo=
+=DYMp
 -----END PGP SIGNATURE-----
 
---u777r5lklyrb6fvh--
+--------------pRguZF34VHvwdV3scq1HD3wc--
