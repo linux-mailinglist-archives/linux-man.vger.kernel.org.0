@@ -2,47 +2,48 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 0100F6EA919
-	for <lists+linux-man@lfdr.de>; Fri, 21 Apr 2023 13:26:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1A81C6EA925
+	for <lists+linux-man@lfdr.de>; Fri, 21 Apr 2023 13:34:12 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231249AbjDUL0k (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 21 Apr 2023 07:26:40 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55098 "EHLO
+        id S230088AbjDULeK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 21 Apr 2023 07:34:10 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57668 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229709AbjDUL0j (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 21 Apr 2023 07:26:39 -0400
+        with ESMTP id S230144AbjDULeJ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 21 Apr 2023 07:34:09 -0400
 Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 614F44ED7
-        for <linux-man@vger.kernel.org>; Fri, 21 Apr 2023 04:26:38 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id F0BD5AD34
+        for <linux-man@vger.kernel.org>; Fri, 21 Apr 2023 04:34:08 -0700 (PDT)
 Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 50A71664C;
-        Fri, 21 Apr 2023 13:26:36 +0200 (CEST)
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 3AAD667CE;
+        Fri, 21 Apr 2023 13:34:08 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-        s=202211; t=1682076396;
-        bh=yZG04Bb/41gUZAGLzSISek27c9/Ui5GaDwn9/nfbbV4=;
+        s=202211; t=1682076848;
+        bh=5+TL5lBrLz0BNl8MbePuhHpH6RNz3rilLZ2B1k+epvo=;
         h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=CMM7CXLqFySFXDwX07FxblAXVWl6UJYE8KDr/PxDi8l20XBcymbo3uTrpoZJiEES3
-         Y26eqM2vt/brajcAuvd+BdpGzzIlukGtNkh9gyDsLLpZbIlIbpleBx2UYYtIL74at7
-         XzKXtj7LKLIt+1ljG0r15qxBXTODTV6cov6bpi4turu2Gp8FCPePGuP2srWdVTlRRy
-         530oDyAr8Rxo4WlBnVGF1LGh41cLs1vAm1z0Iy36DO7Gu2R3yLGbv8i/aGOiUtfeVH
-         URZOlZxtvPznw621Sx1DIGiA9YAvGKt89PlWi+FtfPnbcuM5YKzvEpuuC2B1FhVPOZ
-         M2nOqn3e+ndBA==
-Date:   Fri, 21 Apr 2023 13:26:35 +0200
+        b=hasuqW4TTvpsEO8N0G+rvUPOPRL3gZ6kWu9ONTDf/+3BXf+YLx4Z2nERysItTzEy9
+         8djFnJjAY5PRSaln8k/PtVrUuTSmjUpEtPCvuAo1o9CaIvEopLMfz9JiztKiXWboYZ
+         OqkVCl5w6gjIz+hUGwiVZMPaxRX8jkluy5gAa26dvkdEgMeq/dxfdnPOgqNoQdCl2N
+         AeQ/CwjGN98GM6OwC7Zp4bjgkQbk6OHs3Zjd1+k0K3trRV4QM6TKsYHQY3sCVdR/pp
+         y0i4waO+xJJ9W6P042re/VRe7P6LyHUN8gOv8EnmDHj/fQTM65h50pr6aI4zoUkn7x
+         u8pEe4nmx9ulA==
+Date:   Fri, 21 Apr 2023 13:34:07 +0200
 From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-Subject: Re: [PATCH v8 3/5] regex.3: Finalise move of reg*.3type
-Message-ID: <2clfytracz7pbsqqw7xvhb24jrcazftogik6zh7wcpaxa6oxzl@naacxs6ujend>
-References: <567b10b2-0a3f-4bbf-642d-d6d7bc4f1580@gmail.com>
- <cover.1682045033.git.nabijaczleweli@nabijaczleweli.xyz>
- <edefa8a5e1e377089f734f0b39400a1bbb111d9c.1682045033.git.nabijaczleweli@nabijaczleweli.xyz>
- <773958d0-339b-6d0f-9ce7-5ce363636635@gmail.com>
- <d4567f56-2061-385e-fd32-472b1e5b1b23@gmail.com>
+To:     Jakub Wilk <jwilk@jwilk.net>
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org
+Subject: Re: [PATCH v7 4/8] regex.3: Improve REG_STARTEND
+Message-ID: <qczn5qtfnn5girkwm7peng6lg6arcgm4xxd5jgfryuhwgspeaw@nkdqyubmztzp>
+References: <8c4487ff-17c6-f4f6-d8cf-59a82d9daeca@gmail.com>
+ <sowec336dkzypq6kjouieoyesyfdejmo3j2err3kc4xcpine4l@2takvti7yrem>
+ <5918ccbe-d218-df42-cf0f-5eb7b3354e2b@gmail.com>
+ <atartvvgxjv7wk5rvdtiyrxjc22lnsgkf75hy3nz3m7fw3m6j4@i7khsjrvuise>
+ <20230421101957.3hpuzx4pwgwgjbjg@jwilk.net>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="nnpvmshogay22kr5"
+        protocol="application/pgp-signature"; boundary="nwsirlbzdu65or2l"
 Content-Disposition: inline
-In-Reply-To: <d4567f56-2061-385e-fd32-472b1e5b1b23@gmail.com>
+In-Reply-To: <20230421101957.3hpuzx4pwgwgjbjg@jwilk.net>
 User-Agent: NeoMutt/20230407
 X-Spam-Status: No, score=-1.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RDNS_DYNAMIC,SPF_HELO_PASS,
@@ -55,33 +56,45 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---nnpvmshogay22kr5
-Content-Type: text/plain; charset=us-ascii
+--nwsirlbzdu65or2l
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Apr 21, 2023 at 12:34:39PM +0200, Alejandro Colomar wrote:
-> But I haven't pushed, so that we can still have it in the same
-> patch if you confirm.
-Yeah, go on.
+On Fri, Apr 21, 2023 at 12:19:57PM +0200, Jakub Wilk wrote:
+> * =D0=BD=D0=B0=D0=B1 <nabijaczleweli@nabijaczleweli.xyz>, 2023-04-21 04:1=
+6:
+> > /etc/bash.bashrc: line 7: PS1: unbound variable
+> How come? bash is not supposed to read bashrc if the shell is
+> non-interactive (unless you instruct it otherwise).
+No clue, surprised me as well, esp. since I didn't see any funny bash
+flags to force interactivity. Should be protected against -u regardless.
 
---nnpvmshogay22kr5
+> > Makefile:SHELL :=3D /usr/bin/env bash -Eeuo pipefail
+> Unrelated, but what is /usr/bin/env for?
+Oddly, SHELL look-up appears to only be defined for DOS:
+  https://www.gnu.org/software/make/manual/html_node/Choosing-the-Shell.html
+
+Best,
+
+--nwsirlbzdu65or2l
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmRCcugACgkQvP0LAY0m
-WPGQ1g/+MdzR8ckYkKgYuEzhz72z/qn7n9mFDxQMpP4VP/SOTn5OmyhgxBGpMxbL
-YZSilNJVrlPEma0Uc9FWZirqUjWHgN6+qQwLHcvamUbMcTjKG2BZqpCkOQY13eY3
-kNxPhXycr4fdQBFckeTeWD1JZ+WKRf5VQfynHWkR6Qlwd/8cZo/wkkuqdL2TPo37
-bWOkV0BVbozoam3mzrGtXgQyvBaRz1yq2uW0Nr+PxpOQAwJPLl8YOSu0zoAzlgSR
-D79yzhoh8cFCQMi7iKJ+9i8idfZjxPyhjSnh5X+uJQyChJgYKfgYCCS9DRM6KmFQ
-W78Gx3x0Iinoo6i69tHxlh5rrHHTVyECGjxSUawChasCqab8CIzkGXMi3fnKPDEl
-+U2Prkf3UcHsxtabAHelNMVh35BFNEVBCnhYGLFObt6CPDf77sk7CqLtmg4uu0RE
-ErDs1lnLnjOW01nUlnalDf8uQ0jbzYHLSwkgCgAYNaYF0lCDbCUd7MQLI4O86qY8
-F7gOp7MyKJTiPMrOeHHOIzdMSNdJossbWyi8MyTvhBtLW5I+13esSKp/UqqaB7C9
-IqkxjzblG8FUqP7h5KJV0rVESqaHfn0r3N34s4igPMwTQ3YaAj/IJ/v9yOcWYFfi
-sqxg24snPoLt1r5ureTuF9KStWai83Op+w4oYH7ZHVt2HmiYybQ=
-=KfXc
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmRCdK4ACgkQvP0LAY0m
+WPF3qhAAm9GEcFFi7eTvLMzPdQTWnA/Kwm4sKGG7WYU+VUDHI0q08dK8rejTXvTs
+jiGtZiLHDaQozXchGhdBBkSJST8Y9odmxofKGn0fULniyC5ZZ3JLgSGhsSpBNRBY
+LrPEkEMSbbCGpRCCaW9kIbkcE1j3jKIWR3mWsDxBHFjDNJzm3h2P1kOopQDirOl9
+87Z7X66lF4zUPsOiR80z+nDqWIY6afqTWMKE9h3e3ZihXTj3JzEF7Og+ixUXQ71d
+V1cVqg+hhuXOFTb/0GExLLm3yB4YLgWhimbew4U9pAhCZfPVDg4S2bVcYnjxBTkQ
+z1aIc75Eip/hVVE3B3ZOuZ7SmPvUIeUFtTOB/TyUPa6+Zm7kQdjxatcE+oBUFMy0
+70tat5Y1pwPnDBGUiCa19uSryxC69d/J5r8LYxdO1dns9gff4Tb4+1HI/CWFpfee
+Hax/6JMYxdd3UbEc3kNpKmDnktqiW4k76/yW4hk3FhfkHxoPRd56ONHNJkWcRvR6
+55Li/ZbthbHt80YdzO0vh7B3FTDeXAGP/11aMWs4EvFYJppQY291kvaDADRDzwcg
+nznZlWe/FXAtWTHeIsjcSKz+V0OgW2Ru/ROHUUYfg3tnct16VQJabTAmiupAF3ZI
+Eb/FpYwh9K18pDqg88fR7Vmj9RIYASicOKZK1Us2I1Y7Vti3XiI=
+=1d9Y
 -----END PGP SIGNATURE-----
 
---nnpvmshogay22kr5--
+--nwsirlbzdu65or2l--
