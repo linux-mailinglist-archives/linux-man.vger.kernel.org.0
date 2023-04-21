@@ -2,57 +2,47 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id B169C6EADDF
-	for <lists+linux-man@lfdr.de>; Fri, 21 Apr 2023 17:16:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 502ED6EAB03
+	for <lists+linux-man@lfdr.de>; Fri, 21 Apr 2023 14:55:46 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232134AbjDUPQd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 21 Apr 2023 11:16:33 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53106 "EHLO
+        id S232135AbjDUMzl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 21 Apr 2023 08:55:41 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58404 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229877AbjDUPQc (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 21 Apr 2023 11:16:32 -0400
-X-Greylist: delayed 4200 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Fri, 21 Apr 2023 08:16:30 PDT
-Received: from 1.mo548.mail-out.ovh.net (1.mo548.mail-out.ovh.net [178.32.121.110])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 650F693F6
-        for <linux-man@vger.kernel.org>; Fri, 21 Apr 2023 08:16:30 -0700 (PDT)
-Received: from mxplan6.mail.ovh.net (unknown [10.108.16.62])
-        by mo548.mail-out.ovh.net (Postfix) with ESMTPS id C1B722048C;
-        Fri, 21 Apr 2023 12:46:32 +0000 (UTC)
-Received: from jwilk.net (37.59.142.99) by DAG4EX1.mxp6.local (172.16.2.31)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Fri, 21 Apr
- 2023 14:46:31 +0200
-Authentication-Results: garm.ovh; auth=pass (GARM-99G0038115d8a2-a8c5-47a4-a1c8-a05d3d0fa36f,
-                    5A732DE9D2D1B83706EA79E4755B3824E8629304) smtp.auth=jwilk@jwilk.net
-X-OVh-ClientIp: 5.172.255.86
-Date:   Fri, 21 Apr 2023 14:46:30 +0200
-From:   Jakub Wilk <jwilk@jwilk.net>
-To:     =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-CC:     Alejandro Colomar <alx.manpages@gmail.com>,
-        <linux-man@vger.kernel.org>
-Subject: Re: [PATCH v7 4/8] regex.3: Improve REG_STARTEND
-Message-ID: <20230421124630.dn2vc6fsdc3mo4ao@jwilk.net>
-References: <8c4487ff-17c6-f4f6-d8cf-59a82d9daeca@gmail.com>
- <sowec336dkzypq6kjouieoyesyfdejmo3j2err3kc4xcpine4l@2takvti7yrem>
- <5918ccbe-d218-df42-cf0f-5eb7b3354e2b@gmail.com>
- <atartvvgxjv7wk5rvdtiyrxjc22lnsgkf75hy3nz3m7fw3m6j4@i7khsjrvuise>
- <20230421101957.3hpuzx4pwgwgjbjg@jwilk.net>
- <qczn5qtfnn5girkwm7peng6lg6arcgm4xxd5jgfryuhwgspeaw@nkdqyubmztzp>
+        with ESMTP id S232065AbjDUMzk (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 21 Apr 2023 08:55:40 -0400
+Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 0E186902A
+        for <linux-man@vger.kernel.org>; Fri, 21 Apr 2023 05:55:31 -0700 (PDT)
+Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id F2E5562E6;
+        Fri, 21 Apr 2023 14:55:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
+        s=202211; t=1682081730;
+        bh=A5isI5cvFDpWx9x/RhiNtkPdFrf1A4uZN1AULEs5qjA=;
+        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+        b=CY8yRaYpgjEh0J5rHVlq1X62BC3yt8uGG5cpafzl5Z76QuN2vigSqjD1WcIfhb+5k
+         Zsdjzk6QqgLYYmof4/y+a7MNIRgpqWGQDm7BqobBznOULox/OyBksk5jBj9H1gbH+o
+         YxDwGRtzVJwTMUYwk+Zd5I4ty1au4b2IrOv3ZCchO/a5PnQeWqObZUwQH6JCHBW//o
+         O1YGHT9RH5UNwGjP3o9rk1Mhkj1feUwYI3yfgoatgJF190BsJGq2wmmCql9gL/vzc4
+         o+1HHZvx14XiXdj7g7KAIbZRiQyp6odtNN09fzBhfddXaBW0ImYSdtJ8xk23daHRPt
+         YUjBlgvOX/Vbg==
+Date:   Fri, 21 Apr 2023 14:55:28 +0200
+From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org
+Subject: [PATCH v9] regex.3: Destandardeseify Match offsets
+Message-ID: <udzii4h7tjcbrum7rmfewz2h5gkmfrbruh4hbkgj4wg6je7qxh@hzf64s3dpnph>
+References: <3522d12e-de7d-11c4-c5b4-80667e3b2b0f@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="kjgwpudgszf2mmhd"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <qczn5qtfnn5girkwm7peng6lg6arcgm4xxd5jgfryuhwgspeaw@nkdqyubmztzp>
-X-Originating-IP: [37.59.142.99]
-X-ClientProxiedBy: DAG5EX1.mxp6.local (172.16.2.41) To DAG4EX1.mxp6.local
- (172.16.2.31)
-X-Ovh-Tracer-GUID: d62735bf-dbc6-46ca-9557-da8fabb78870
-X-Ovh-Tracer-Id: 9630947806544910301
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: 23
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvhedrfedtgedgheehucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucgfrhhlucfvnfffucdlvdefmdenucfjughrpeffhffvvefukfhfgggtugfgjghisehtkeertddttdejnecuhfhrohhmpeflrghkuhgsucghihhlkhcuoehjfihilhhksehjfihilhhkrdhnvghtqeenucggtffrrghtthgvrhhnpefftdegkedufeeiudehueeljeejfeetudffgfffveettdelffdugefgheetveehieenucffohhmrghinhepuggvsghirghnrdhorhhgnecukfhppeduvdejrddtrddtrddupdefjedrheelrddugedvrdelledphedrudejvddrvdehhedrkeeinecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepuddvjedrtddrtddruddpmhgrihhlfhhrohhmpeeojhifihhlkhesjhifihhlkhdrnhgvtheqpdhnsggprhgtphhtthhopedupdhrtghpthhtohepnhgrsghijhgrtgiilhgvfigvlhhisehnrggsihhjrggtiihlvgifvghlihdrgiihiidprghlgidrmhgrnhhprghgvghssehgmhgrihhlrdgtohhmpdhlihhnuhigqdhmrghnsehvghgvrhdrkhgvrhhnvghlrdhorhhgpdfovfetjfhoshhtpehmohehgeekpdhmohguvgepshhmthhpohhuth
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE,
-        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
+In-Reply-To: <3522d12e-de7d-11c4-c5b4-80667e3b2b0f@gmail.com>
+User-Agent: NeoMutt/20230407
+X-Spam-Status: No, score=-1.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RDNS_DYNAMIC,SPF_HELO_PASS,
+        SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=no
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -60,22 +50,129 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-* наб <nabijaczleweli@nabijaczleweli.xyz>, 2023-04-21 13:34:
->>>/etc/bash.bashrc: line 7: PS1: unbound variable
->>How come? bash is not supposed to read bashrc if the shell is 
->>non-interactive (unless you instruct it otherwise).
->No clue, surprised me as well, esp. since I didn't see any funny bash 
->flags to force interactivity.
 
-I did some googling, which led me to this this:
-https://lists.debian.org/Ywohi2WEtK+TtquZ@wooledge.org
+--kjgwpudgszf2mmhd
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I can reproduce the bug in unstable:
+This section reads like it were (and pretty much is) lifted from POSIX.
+That's hard to read, because POSIX is horrendously verbose, as usual.
 
-    $ (SSH_CLIENT=moo bash -uc true)
-    /etc/bash.bashrc: line 7: PS1: unbound variable
+Instead, synopsise it into something less formal but more reasonable,
+and describe the resulting range with a range instead of a paragraph.
 
-What is this I don't even.
+Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
+---
+This is the last one.
 
--- 
-Jakub Wilk
+Range-diff against v8:
+1:  4479e1572 < -:  --------- regex.3: Desoupify regerror() description
+2:  bad307847 < -:  --------- regex.3, regex_t.3type, regmatch_t.3type, reg=
+off_t.3type: Move & link regex_t.3type into regex.3
+3:  edefa8a5e < -:  --------- regex.3: Finalise move of reg*.3type
+4:  500070a5e ! 1:  9af6c6b7f regex.3: Destandardeseify Match offsets
+    @@ man3/regex.3: .SS Matching
+     +Each returned valid
+     +.RB (non- \-1 )
+     +match corresponds to the range
+    -+.RI [ string " + " rm_so ", " string " + " rm_eo ).
+    ++.RI [ "string + rm_so" , " string + rm_eo" ).
+      .PP
+      .I regoff_t
+      is a signed integer type
+
+ man3/regex.3 | 53 +++++++++++++++++++++++++---------------------------
+ 1 file changed, 25 insertions(+), 28 deletions(-)
+
+diff --git a/man3/regex.3 b/man3/regex.3
+index 30f2ef318..aae31c1e9 100644
+--- a/man3/regex.3
++++ b/man3/regex.3
+@@ -179,37 +179,34 @@ .SS Matching
+ .SS Match offsets
+ Unless
+ .B REG_NOSUB
+-was set for the compilation of the pattern buffer, it is possible to
+-obtain match addressing information.
+-.I pmatch
+-must be dimensioned to have at least
+-.I nmatch
+-elements.
+-These are filled in by
++was passed to
++.BR regcomp (),
++it is possible to
++obtain the locations of matches within
++.IR string :
+ .BR regexec ()
+-with substring match addresses.
+-The offsets of the subexpression starting at the
+-.IR i th
+-open parenthesis are stored in
+-.IR pmatch[i] .
+-The entire regular expression's match addresses are stored in
+-.IR pmatch[0] .
+-(Note that to return the offsets of
+-.I N
+-subexpression matches,
++fills
+ .I nmatch
+-must be at least
+-.IR N+1 .)
+-Any unused structure elements will contain the value \-1.
++elements of
++.I pmatch
++with results:
++.I pmatch[0]
++corresponds to the entire match,
++.I pmatch[1]
++to the first expression, etc.
++If there were more matches than
++.IR nmatch ,
++they are discarded;
++if fewer,
++unused elements of
++.I pmatch
++are filled with
++.BR \-1 s.
+ .PP
+-Each
+-.I rm_so
+-element that is not \-1 indicates the start offset of the next largest
+-substring match within the string.
+-The relative
+-.I rm_eo
+-element indicates the end offset of the match,
+-which is the offset of the first character after the matching text.
++Each returned valid
++.RB (non- \-1 )
++match corresponds to the range
++.RI [ "string + rm_so" , " string + rm_eo" ).
+ .PP
+ .I regoff_t
+ is a signed integer type
+--=20
+2.30.2
+
+--kjgwpudgszf2mmhd
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmRCh8AACgkQvP0LAY0m
+WPHoShAAoJpS1zAMJeNSilHmyLq9FAeETziYtqMPf5vS/OUu5wuusji8X7fMVKAg
+H3m9MAbb1w9Kwn7eyBSroPaxzgcScvE7OCqTfHw76pcLb9RXnxzXib7yhUBeMM/l
+pWZ4GpxHXC78q1LT7G8rN/SrYum2djFaNp3ecfqRPfCE0XY6gIB7XiitvXdaqcHi
+uZdmVTjosPxjE57qygx/j0Jmh/ZoDqqejvmqLsLxilM6gEAXWHl+JafXErvp1sEE
+xJRsRPcwPq20mPp0qXy7gnPPNMLv85eWHYSgQICtjHqjiBnYrxMMRjg7hcwemlQ2
+/3OMSdecd+LvQTFxA679OkjOXMOq8phIlZfndUyR/0UMMHEFDRJk1LduxMJF5Sfn
+MPF5SoqIBehovWsPz3ugdsRfA6FL2/zpY+lWBjDxwyYwH9grwgwTjEubfUfJ4pOy
+64u71tfa/Gk4j+JUcMLRvg/8Iji6WW5x1ifCTMr4Y818JX9RgLaUqhYJGtln0Q0g
+SY5iZ+uVjL8IeSGpUvMpGGKgvZuqfdVtFfe7KBi2SoVTi7W+KJ0EH4VVB9kQHFHF
+akNHmx+E0BK4aoxkDjGBEO0ovwFDgjG2c888pw3rwa0afhUO/kyT5+zL8w+HC/Q4
+UhFdNeYq7QEegpBOByNVVbj0eCyaI5yA8rkZubr6e19JTyC9/i8=
+=+py+
+-----END PGP SIGNATURE-----
+
+--kjgwpudgszf2mmhd--
