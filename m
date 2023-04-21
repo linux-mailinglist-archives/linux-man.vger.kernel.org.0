@@ -2,73 +2,103 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id D049D6EB378
-	for <lists+linux-man@lfdr.de>; Fri, 21 Apr 2023 23:14:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 881C46EB407
+	for <lists+linux-man@lfdr.de>; Fri, 21 Apr 2023 23:58:49 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232572AbjDUVOU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 21 Apr 2023 17:14:20 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55190 "EHLO
+        id S232058AbjDUV6s (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 21 Apr 2023 17:58:48 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46328 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233395AbjDUVOS (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 21 Apr 2023 17:14:18 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 52CDD272D;
-        Fri, 21 Apr 2023 14:14:01 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id E1758652FE;
-        Fri, 21 Apr 2023 21:14:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1E63C433EF;
-        Fri, 21 Apr 2023 21:13:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1682111640;
-        bh=vWCo2pNXsYFs2y6dymmCY0yID55zU1Xi5icS5XRv5nE=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=Q84+4aFEocJz1BzZto0/1o9cGEmFODFWXVxcHjjJz/37P63meMn6EbonzSwEi6DP5
-         qVT+PeOxhGJLnhxcSAuIp/MWGFsHEbOv60wU/3YCrbG9Cx0164s2mC5Ey9M1cwb1ir
-         Gg26D6j6GOIF2+L2QoaKs4sxPO/YiVBYTSJG0kJtpPD1JOBi5tC+ZXwJsZOrMbzcLA
-         SytcLBy1vOZgUIyMnsGAINoSVywlpnPuInI8xRsN8gI40aZD40H+J/gC9bPq+cCcaj
-         HYgpTH7HPC5eLWh9Mq5C9mcTvrnsmHg18bjkZdjc4xi1vGLopzG7zsMBM4Bov44UuS
-         68zdz39K7dMaQ==
-Date:   Sat, 22 Apr 2023 00:13:57 +0300
-From:   Jarkko Sakkinen <jarkko@kernel.org>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org, linux-sgx@vger.kernel.org,
-        Dave Hansen <dave.hansen@linux.intel.com>,
-        nathaniel@profian.com, Michael Kerrisk <mtk.manpages@gmail.com>,
-        Reinette Chatre <reinette.chatre@intel.com>
-Subject: Re: [PATCH v11] sgx.7: New page with overview of Software Guard
- eXtensions (SGX)
-Message-ID: <ZEL8lVk+tQD7wuny@kernel.org>
-References: <20211211153320.17438-1-jarkko@kernel.org>
- <c58f3951-282c-ef66-fc62-844da06c5af4@gmail.com>
- <YfNElmmBbkw1Xpfy@iki.fi>
- <0bdb594e-7c3d-e05a-0d40-eff92b4cd252@gmail.com>
- <YhKfA87I0BbkLg+m@iki.fi>
- <623b0792-3bf2-271a-d451-4d4e683ce662@gmail.com>
+        with ESMTP id S231282AbjDUV6s (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 21 Apr 2023 17:58:48 -0400
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com [IPv6:2a00:1450:4864:20::62c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F26F293
+        for <linux-man@vger.kernel.org>; Fri, 21 Apr 2023 14:58:46 -0700 (PDT)
+Received: by mail-ej1-x62c.google.com with SMTP id a640c23a62f3a-94a34a0b9e2so295336366b.1
+        for <linux-man@vger.kernel.org>; Fri, 21 Apr 2023 14:58:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isovalent.com; s=google; t=1682114325; x=1684706325;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=kYdMszRABG6MW2WgEWO+PiUjXtWPZWN6zXGKBnXPsIw=;
+        b=MMx9fz8eSTfT5py2aJhvlNHt7lrY24XCo9BhvbtmJvr7KYPiVCuRAHOBM1pEhFNa1Z
+         emVDB/93JNUz4LFYvU+admoVsQpLVBT/Getvt/fgZUN2DpczfyQZ/MTGiedTYtNMQ5Qp
+         3QjZjBzEecYjta36LlNP8dvTyfyNRmbB+61TGkT5lo75bKjezzsy4mhAb5TtOgneBY/o
+         aoSGaxYe8WKJ25NuWl4upgs/jGHYMk5o3153QEaBCj6BYyxtUDfgzMZxYeE4EHDqyxqF
+         igRLdw/y2YzUOMWpOhnGLikCxexPefc3eBTrBHiWSDQTQlnOGed+nsbE2XcAUflYpC3G
+         wUGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1682114325; x=1684706325;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=kYdMszRABG6MW2WgEWO+PiUjXtWPZWN6zXGKBnXPsIw=;
+        b=YRmkSB5scd5kWzI4xqjaZ2WTa1pdWaYvmd1Jfk51IZO9+9i+pPVn6z2HgyUBkzS/VP
+         zxB1SG/pTG3mAFniIuagVH8bZHGN+tQcESPEgYY1fYeypqfN+eHBiodMrtiHnjXz9DmQ
+         QAyiwZP6SlpB0XX+VWFTSTtAzdAIiSuTf/chJx54K5NkPYWYWhZJrbxK4g7HTtRARa41
+         nAtwfp88gF+tqNbBsN7TxTSA6aGtyrOlVuTKivPTAFxKh+t8+BaoFvQ8oEmvv4dSOzJq
+         4DHM/0cZX4JtT6U3t+mzLGWRHkIti1lDIPSTMdATCMVqYGmd2VP54HhBGBxiOGfT9Z1E
+         xzxw==
+X-Gm-Message-State: AAQBX9fm7TQuvw5YqJPzGFNubke0ETKGnRTGacW03yyfnzPujtZKDdvh
+        4vPMAmEtzaEmo2fAkE/TrqxrWFyib3cVQV/y6I842Q==
+X-Google-Smtp-Source: AKy350YpUU2rc4p8chkAJLsbmdoQXx6Izf4lTwuRx3By9ve6wp6nbN5/KOd5qUpSRPiypMMJrQ1h6zo9NEh6D/sIruQ=
+X-Received: by 2002:a17:907:900e:b0:94e:ec32:ba28 with SMTP id
+ ay14-20020a170907900e00b0094eec32ba28mr3314971ejc.29.1682114325424; Fri, 21
+ Apr 2023 14:58:45 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <623b0792-3bf2-271a-d451-4d4e683ce662@gmail.com>
-X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
-        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
-        autolearn_force=no version=3.4.6
+References: <20230421150555.5075-1-gnoack3000@gmail.com> <d45fce19-e7eb-ed15-3223-df02ba926cc1@gmail.com>
+In-Reply-To: <d45fce19-e7eb-ed15-3223-df02ba926cc1@gmail.com>
+From:   Quentin Monnet <quentin@isovalent.com>
+Date:   Fri, 21 Apr 2023 22:58:34 +0100
+Message-ID: <CACdoK4KUx=ygK-PanXpPfJjivMty5UsEdUx9uPX-btuucFsRwQ@mail.gmail.com>
+Subject: Re: [PATCH] mount_setattr.2, openat2.2, bpf-helpers.7, landlock.7: wfix
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     =?UTF-8?Q?G=C3=BCnther_Noack?= <gnoack3000@gmail.com>,
+        linux-man@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
+        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Fri, Mar 31, 2023 at 12:29:06AM +0200, Alejandro Colomar wrote:
-> Hi Jarkko,
-> 
-> I was revisiting old mails, and found this thread that seems unresolved.
-> Do you still have the page around and want to send it?
+On Fri, 21 Apr 2023 at 20:45, Alejandro Colomar <alx.manpages@gmail.com> wr=
+ote:
 
-Hi, yes I have it stored in a git fork.
+> > diff --git a/man7/bpf-helpers.7 b/man7/bpf-helpers.7
+> > index 26ddf8369..663dfd1d1 100644
+> > --- a/man7/bpf-helpers.7
+> > +++ b/man7/bpf-helpers.7
+> > @@ -3025,7 +3025,7 @@ copied and the last byte is set to NUL.
+> >  On success, returns the number of bytes that were written,
+> >  including the terminal NUL. This makes this helper useful in
+> >  tracing programs for reading strings, and more importantly to
+> > -get its length at runtime. See the following snippet:
+> > +get its length at run time. See the following snippet:
+>
+> Good, but bpf-helpers.7 is generated from kernel sources.  This
+> one will depend on what kernel developers want.  I CCed Quentin,
+> since he's nice and might be able to tell if BPF guys are
+> interested in this kind of wording fixes.
 
-I can send it but I need to reburnish it first.
+Hi G=C3=BCnther, Alejandro,
 
-BR, Jarkko
+Yes, this page is generated from the comments in
+include/uapi/linux/bpf.h, in the kernel repository. From the root of
+the repo, you can visualise the changes with:
+
+    $ ./scripts/bpf_doc.py | rst2man | man -l -
+
+I can't speak for the rest of BPF folks, but personally I'm OK with
+the patch, especially if it makes spelling more consistent between man
+pages. Patches for this file should target the bpf-next tree
+(https://docs.kernel.org/bpf/bpf_devel_QA.html#submitting-patches).
+
+Thanks,
+Quentin
