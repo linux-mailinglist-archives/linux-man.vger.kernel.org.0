@@ -2,67 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id BCAB86EB9D0
-	for <lists+linux-man@lfdr.de>; Sat, 22 Apr 2023 16:59:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E08DA6EB9D6
+	for <lists+linux-man@lfdr.de>; Sat, 22 Apr 2023 17:06:53 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229672AbjDVO7R (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 22 Apr 2023 10:59:17 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60254 "EHLO
+        id S229556AbjDVPGx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 22 Apr 2023 11:06:53 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33610 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229556AbjDVO7Q (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 22 Apr 2023 10:59:16 -0400
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com [IPv6:2a00:1450:4864:20::331])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4BCF71995
-        for <linux-man@vger.kernel.org>; Sat, 22 Apr 2023 07:59:15 -0700 (PDT)
-Received: by mail-wm1-x331.google.com with SMTP id 5b1f17b1804b1-3f1728c2a57so28795575e9.0
-        for <linux-man@vger.kernel.org>; Sat, 22 Apr 2023 07:59:15 -0700 (PDT)
+        with ESMTP id S229539AbjDVPGw (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 22 Apr 2023 11:06:52 -0400
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com [IPv6:2a00:1450:4864:20::32b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 30FB019BD
+        for <linux-man@vger.kernel.org>; Sat, 22 Apr 2023 08:06:51 -0700 (PDT)
+Received: by mail-wm1-x32b.google.com with SMTP id 5b1f17b1804b1-3f193ca053eso10561525e9.0
+        for <linux-man@vger.kernel.org>; Sat, 22 Apr 2023 08:06:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1682175554; x=1684767554;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=8Kr78qnpI9OuQgkmiOTZgE/z33fhOWqbthHwc3Rz2Ac=;
-        b=cEd+rr0jqKndpIKIb8TkbgphQ19Lpc/FIARZpY/4AbrC5xZFGHKYysnpdanry0HBik
-         4tvhapq5P2wdu0pq4k4eJ6dDWiV6xXimdPeR5pRbv2oBR7NEKxmFz5TB1QdZ4Pnegrra
-         NaQthkYgp40I6A9q49eZd5C7a4AhecHbS21b6gNzFtIilTEzkq4Syl7oOW9JILH010ua
-         x1NWaobg5Fi3JxQ5ALltL41z3RJUwUw/YrLdD5kCOnJgDSoxrA+LozuDzvis2NzLGF9l
-         Euq6WBHJYF5qKr+f/DLdH5k/tSfKDW/PfMFDUJGaX0LDhgXkhYr0cq40sfSmHrmAvVcp
-         NgcA==
+        d=gmail.com; s=20221208; t=1682176009; x=1684768009;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Oxrz2bO2pfIYgKrBSTUJd8sAcGFQ4jRc6Q7ghu5ZO/w=;
+        b=DJQuV5CkumPyre5ju/1MjClufu/Ry8Y+TRT43SRARukybAKqvgrJTx62IMmMWD1dEe
+         5OcBm5k2glB47O1gsMTRBw10Obc9fY1ugyhImBFE1RyDg++Txcv0D/c3t2jACbNldqCP
+         y4AKEYz5j9aKZijDev23lvhblqOixnm61jozpV139ndl969G9qvEL7ZOnr3+EBldu/Bc
+         nw28OBjcIRtM8VdrmWwdJCTNtW14VyUeHRsfS3ZE779j9imt/Z9fFNIxLN/NMw7mAzY6
+         uk2P7/RqW8mRzheDjbrwWIs+vKrXiCPm3dCSOO4BnWxlyzQIIYZxZPZ1Y1KFiPv4TRHj
+         yitw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1682175554; x=1684767554;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=8Kr78qnpI9OuQgkmiOTZgE/z33fhOWqbthHwc3Rz2Ac=;
-        b=RT9VeX7rrFFQz103j4W/l/8U83CxQebdQqpjg2OfXl/ewNPz0AHijZFqWbGXm+2acy
-         n/cw8odfFop3godJAJ4gXxVP6gu1K5/viTvcBDPDZpKy77AdXzdxLFykfdHDBjmxs43o
-         Rd+DhlRfLj2RVu9eoAe2odXm3w5A5fEfIxX8C40SZe+n3+jKtgW3FSaUypprKDIslAcA
-         dmiC8xFhE2gSRJem8MfQWHwlLBJL6iWrB8vzJUB0KoulDXt99+mLFwpNZNSdk0n61wOC
-         3RTyKwCGbvIr7cbIWIbyF+wCW/h6IF66iRVPEmSw4bNRRL9ItJhJ/YUEEw3LR/Mi0XZD
-         cnLA==
-X-Gm-Message-State: AAQBX9ct0POnJ7ouoL4qI/jGYAF2pz9Kv+ZqAccvcoNilE0oUyzBYoK8
-        +47AU2W2W1feg/5/MBLOy3A=
-X-Google-Smtp-Source: AKy350ZUYsW8Xv56w027YoSdTSAyN3n6sQ71jZaUc7DI4CD3ls5Kn72bbz9HUtEQ1tusezj3/eV2HA==
-X-Received: by 2002:a1c:4b07:0:b0:3f0:46ca:f201 with SMTP id y7-20020a1c4b07000000b003f046caf201mr4115128wma.1.1682175553785;
-        Sat, 22 Apr 2023 07:59:13 -0700 (PDT)
+        d=1e100.net; s=20221208; t=1682176009; x=1684768009;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Oxrz2bO2pfIYgKrBSTUJd8sAcGFQ4jRc6Q7ghu5ZO/w=;
+        b=FotM9brjPGFs+SnsAvQdGK2kuGjidyVgkxaS4w6i3y9DtIDfYCgwZeCpHDo8SvztaX
+         VHzkAgwpXQRBiHxusOgjmChgHiEoQIYJxij/6GnPuV6DS5PHa33dzTi7p8YJpXpR1zZI
+         A2uKg28tTuZdmSgrP7jiXzEJQK0A94//mNeG6zCwoqZ0UPjHS8Fmx9yxSabGduT/mEK7
+         RItXr5yCWIWMu7Vyg0R51RIrKFRUn+kQary/Nih917QUUMIbiZKJVSMuiurxsm8cX3Cr
+         CYNzJn0gPGf2Ef2Z9+/YxYVDOsHMliNgSU9pk/4Le3W1tH0sH2okXFfR3yfLRG5lPmKq
+         0NSQ==
+X-Gm-Message-State: AAQBX9fNi1S9fSz/rj9XFlZ/n0MF198mcp4G6pzzjZGR7bMO940tBjw3
+        OY5fAFybeYHvRTZs9lUFO/MK55hgQe4=
+X-Google-Smtp-Source: AKy350b2SfEn3UZNMLWgxYinJeAhRrAsoHEfb8KxqKlkcedv7PwYcj1lja1yNLVmJgCrfRxJw3Gb5Q==
+X-Received: by 2002:a05:600c:b49:b0:3f1:72db:4554 with SMTP id k9-20020a05600c0b4900b003f172db4554mr4054572wmr.1.1682176009593;
+        Sat, 22 Apr 2023 08:06:49 -0700 (PDT)
 Received: from localhost ([2a02:168:633b:1:9d6a:15a4:c7d1:a0f0])
-        by smtp.gmail.com with ESMTPSA id v7-20020a5d4a47000000b002fe065da369sm6622565wrs.69.2023.04.22.07.59.13
+        by smtp.gmail.com with ESMTPSA id m5-20020a5d6a05000000b002f01e181c4asm6786867wru.5.2023.04.22.08.06.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 22 Apr 2023 07:59:13 -0700 (PDT)
-Date:   Sat, 22 Apr 2023 16:59:11 +0200
-From:   =?iso-8859-1?Q?G=FCnther?= Noack <gnoack3000@gmail.com>
+        Sat, 22 Apr 2023 08:06:49 -0700 (PDT)
+From:   =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
 To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org, Quentin Monnet <quentin@isovalent.com>
-Subject: Re: [PATCH] mount_setattr.2, openat2.2, bpf-helpers.7, landlock.7:
- wfix
-Message-ID: <20230422.e80f61bcbc21@gnoack.org>
-References: <20230421150555.5075-1-gnoack3000@gmail.com>
- <d45fce19-e7eb-ed15-3223-df02ba926cc1@gmail.com>
+Cc:     Quentin Monnet <quentin@isovalent.com>, linux-man@vger.kernel.org,
+        =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
+Subject: [PATCH] mount_setattr.2, openat2.2, landlock.7: wfix
+Date:   Sat, 22 Apr 2023 17:06:46 +0200
+Message-Id: <20230422150646.5263-1-gnoack3000@gmail.com>
+X-Mailer: git-send-email 2.40.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <d45fce19-e7eb-ed15-3223-df02ba926cc1@gmail.com>
 X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
         FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
@@ -73,39 +69,63 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Fri, Apr 21, 2023 at 09:45:15PM +0200, Alejandro Colomar wrote:
-> On 4/21/23 17:05, Günther Noack wrote:
-> > --- a/man7/bpf-helpers.7
-> > +++ b/man7/bpf-helpers.7
-> > @@ -3025,7 +3025,7 @@ copied and the last byte is set to NUL.
-> >  On success, returns the number of bytes that were written,
-> >  including the terminal NUL. This makes this helper useful in
-> >  tracing programs for reading strings, and more importantly to
-> > -get its length at runtime. See the following snippet:
-> > +get its length at run time. See the following snippet:
-> 
-> Good, but bpf-helpers.7 is generated from kernel sources.  This
-> one will depend on what kernel developers want.  I CCed Quentin,
-> since he's nice and might be able to tell if BPF guys are
-> interested in this kind of wording fixes.
+Fix spelling of "run time", as documented in man-pages(7):
 
-Ah, whoops, that's a good point.
+* "run time" in two words when used as a noun
+* "run-time" with hyphen when used as an adjective
 
-I'll remove that part of the patch then, because the fix would have to
-go in the kernel source.
+There is another occurrence in bpf-helpers.7,
+but that content gets generated from the kernel source
+and should be fixed there.
 
-> > --- a/man7/landlock.7
-> > +++ b/man7/landlock.7
-> > @@ -251,7 +251,7 @@ will stay enforced on all this thread's descendants.
-> >  This allows creating standalone and modular security policies
-> >  per application,
-> >  which will automatically be composed between themselves
-> > -according to their runtime parent policies.
-> > +according to their run time parent policies.
-> 
-> In this case, since it works as an adjective, it should be
-> "run-time", with a hyphen.
+Signed-off-by: Günther Noack <gnoack3000@gmail.com>
+---
+ man2/mount_setattr.2 | 2 +-
+ man2/openat2.2       | 2 +-
+ man7/landlock.7      | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-Thanks, good point.  Fixed.
+diff --git a/man2/mount_setattr.2 b/man2/mount_setattr.2
+index 24801a4bd..8df02641a 100644
+--- a/man2/mount_setattr.2
++++ b/man2/mount_setattr.2
+@@ -862,7 +862,7 @@ may change in the future
+ user-space applications should zero-fill
+ .I struct mount_attr
+ to ensure that recompiling the program with new headers will not result in
+-spurious errors at runtime.
++spurious errors at run time.
+ The simplest way is to use a designated initializer:
+ .PP
+ .in +4n
+diff --git a/man2/openat2.2 b/man2/openat2.2
+index e90211fad..182851089 100644
+--- a/man2/openat2.2
++++ b/man2/openat2.2
+@@ -545,7 +545,7 @@ may change in the future (with new fields being added when system headers are
+ updated), user-space applications should zero-fill
+ .I struct open_how
+ to ensure that recompiling the program with new headers will not result in
+-spurious errors at runtime.
++spurious errors at run time.
+ The simplest way is to use a designated
+ initializer:
+ .PP
+diff --git a/man7/landlock.7 b/man7/landlock.7
+index b6c9d3821..df7b87e80 100644
+--- a/man7/landlock.7
++++ b/man7/landlock.7
+@@ -251,7 +251,7 @@ will stay enforced on all this thread's descendants.
+ This allows creating standalone and modular security policies
+ per application,
+ which will automatically be composed between themselves
+-according to their runtime parent policies.
++according to their run-time parent policies.
+ .\"
+ .SS Ptrace restrictions
+ A sandboxed process has less privileges than a non-sandboxed process and
 
-–Günther
+base-commit: 59e44e4511391a98f531c08aaba17391f3b7075b
+-- 
+2.40.0
+
