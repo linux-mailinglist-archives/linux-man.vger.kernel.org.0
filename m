@@ -2,207 +2,67 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id C67D16EC0F5
-	for <lists+linux-man@lfdr.de>; Sun, 23 Apr 2023 18:03:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E405A6EC74B
+	for <lists+linux-man@lfdr.de>; Mon, 24 Apr 2023 09:41:09 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229542AbjDWQDw (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 23 Apr 2023 12:03:52 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47782 "EHLO
+        id S231419AbjDXHlI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 24 Apr 2023 03:41:08 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59462 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229535AbjDWQDv (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 23 Apr 2023 12:03:51 -0400
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com [IPv6:2a00:1450:4864:20::32f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 631531702
-        for <linux-man@vger.kernel.org>; Sun, 23 Apr 2023 09:03:50 -0700 (PDT)
-Received: by mail-wm1-x32f.google.com with SMTP id 5b1f17b1804b1-3f19c473b9eso20083485e9.0
-        for <linux-man@vger.kernel.org>; Sun, 23 Apr 2023 09:03:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1682265829; x=1684857829;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=VhwSJV1bO0e0qcqBpfDU2TOyeSPSmYAQaI7qPGkxyCk=;
-        b=EP4G5ow8KjCjGJ9j4SMZlYVNcuIkpzkBG3fGt2WLsa/ryJJCxk4QNplBwv3UCdGNIB
-         lK+BuDqpFJZcO4cHcs1WxHZK/Jkk8qJX9cM2U8KECOoABu1vn/DAJSj28zp6ANQvbdLk
-         BTDEK8IWd0sbsIXhtmGgsfPaB+lv7yICogpsKpHB9+mYEdjXGXvzLy6TU5FDb2wAgpVO
-         /0RajkocdbzZkptce9++Vjgdgo0yxgrSryMzN0iZaiopfaqoonJqHSie41zT4sFFKx70
-         LcG2UthzTT+VA/V4Jz4trzt1E9DxGCS+r7PstUOuBfQUrSivtkobCPvG1xmvr2P7015a
-         De0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1682265829; x=1684857829;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=VhwSJV1bO0e0qcqBpfDU2TOyeSPSmYAQaI7qPGkxyCk=;
-        b=j+8YAHfC39etaPK41By/nJjn3aQHfpgnAMlcECv/bdYwhFlEqObZQ76ww6S3Un1cQx
-         N/a/E+SwJ4V9o4S8cSLM9sbFpq6IW6U6ZbU75RIB+SSaqgPww0Exzwg7yf1joyPt2CP6
-         iq9w6O82qA+BNBhNmhZjtMAE/eS5TBqvhq0h11KXag+cqgGebSIIqCdTT66aIUJ1JWLG
-         qgkB0vIApv7ZZcQyvXY/pxZnsxpK5kjTHoYtuGoGo9nj3/jhMT6c/mQwM4Ry8Oeb5f8+
-         3s6yxHrS4KsPYLknoLMAajgnzX1m/Db7nlSDq6kCKTFAIvb//gFtzYwLoLXj6w7UyPhz
-         xZbA==
-X-Gm-Message-State: AAQBX9dzQhWoqposv+1ajvUsPFLj0QVDqr4nYF+JcdO/cmwqDUhXbE/1
-        441GngegBLff/UuGnv+R/7U=
-X-Google-Smtp-Source: AKy350bvjrxLaQpHKOgvk07nwJrOyNLA2VNTBGDFCweshg9+lyzQ00pYV3yMRdfYHtkmD+jbHYL9Wg==
-X-Received: by 2002:adf:fa10:0:b0:2f0:244c:277b with SMTP id m16-20020adffa10000000b002f0244c277bmr11686249wrr.27.1682265828713;
-        Sun, 23 Apr 2023 09:03:48 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.51.134])
-        by smtp.gmail.com with ESMTPSA id e5-20020a5d5305000000b002cf1c435afcsm8955907wrv.11.2023.04.23.09.03.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 23 Apr 2023 09:03:48 -0700 (PDT)
-Message-ID: <15a16ee5-edbb-3974-6470-9ba14f1634e8@gmail.com>
-Date:   Sun, 23 Apr 2023 18:03:47 +0200
+        with ESMTP id S231349AbjDXHlF (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 24 Apr 2023 03:41:05 -0400
+X-Greylist: delayed 308 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Mon, 24 Apr 2023 00:41:03 PDT
+Received: from mail.mahavavy.com (mail.mahavavy.com [92.222.170.29])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 15D54E71
+        for <linux-man@vger.kernel.org>; Mon, 24 Apr 2023 00:41:02 -0700 (PDT)
+Received: by mail.mahavavy.com (Postfix, from userid 1002)
+        id E88812226A; Mon, 24 Apr 2023 07:35:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mahavavy.com; s=mail;
+        t=1682321752; bh=IfqQW79nVX/qUpmHcJiWDpV9BQnOf/s+Zcq9ON74QJY=;
+        h=Date:From:To:Subject:From;
+        b=E0380GBty++a3Ffg0jGv+qA+ppIlVyyLcKZnKUoijjr7pQQ7Eo8/fq1XriPuBy19w
+         9RKlHFYRdg+GmwVkg7zQbd+8xJxscs7GBqFBbHXMXj9bZLvrd+xFfZo6wFPYquzU+B
+         8ThfZj86g2pSXNMCB5dgmIdrC5PJ7edcNtITQ9Sldimn34WtfDXGP+fzjwZbmbxmT2
+         KfHQw/U9lEigZjw1S7IIGnHqEafe2X6669JzmUw+DUrsjsXR8pU5Lk8Lseh9wLYS8o
+         AvVswqE4lcIExMSicci/vz4iQIrGw/I6tFpwxH122PIXyfMpogjK+ywiY6dkwjE2pe
+         ft7mYLFn+v1xQ==
+Received: by mail.mahavavy.com for <linux-man@vger.kernel.org>; Mon, 24 Apr 2023 07:35:45 GMT
+Message-ID: <20230424064500-0.1.25.3ewd.0.n2boefrlom@mahavavy.com>
+Date:   Mon, 24 Apr 2023 07:35:45 GMT
+From:   =?UTF-8?Q? "Kristi=C3=A1n_Plet=C3=A1nek" ?= 
+        <kristian.pletanek@mahavavy.com>
+To:     <linux-man@vger.kernel.org>
+Subject: =?UTF-8?Q?Tlakov=C4=9B_lit=C3=BD?=
+X-Mailer: mail.mahavavy.com
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.1
-Subject: Re: [PATCH] mount_setattr.2, openat2.2, landlock.7: wfix
-Content-Language: en-US
-To:     =?UTF-8?Q?G=c3=bcnther_Noack?= <gnoack3000@gmail.com>
-Cc:     Quentin Monnet <quentin@isovalent.com>, linux-man@vger.kernel.org
-References: <20230422150646.5263-1-gnoack3000@gmail.com>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20230422150646.5263-1-gnoack3000@gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------ZWaO8FHzsa4QJka4KRUfeLoD"
-X-Spam-Status: No, score=-4.3 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-        autolearn=ham autolearn_force=no version=3.4.6
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: No, score=-0.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,MIXED_ES,SPF_HELO_NONE,SPF_PASS,
+        T_SCC_BODY_TEXT_LINE autolearn=no autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------ZWaO8FHzsa4QJka4KRUfeLoD
-Content-Type: multipart/mixed; boundary="------------PC4k0lB9SY2qfschkyQBy4AN";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: =?UTF-8?Q?G=c3=bcnther_Noack?= <gnoack3000@gmail.com>
-Cc: Quentin Monnet <quentin@isovalent.com>, linux-man@vger.kernel.org
-Message-ID: <15a16ee5-edbb-3974-6470-9ba14f1634e8@gmail.com>
-Subject: Re: [PATCH] mount_setattr.2, openat2.2, landlock.7: wfix
-References: <20230422150646.5263-1-gnoack3000@gmail.com>
-In-Reply-To: <20230422150646.5263-1-gnoack3000@gmail.com>
+Dobr=C3=A9 r=C3=A1no,
 
---------------PC4k0lB9SY2qfschkyQBy4AN
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+zaji=C5=A1=C5=A5ujeme technologii tlakov=C3=A9ho lit=C3=AD hlin=C3=ADku.
 
-Hi!
+M=C3=A1me v=C3=BDrobn=C3=AD z=C3=A1vody v Polsku, =C5=A0v=C3=A9dsku a =C4=
+=8C=C3=ADn=C4=9B se schopnost=C3=AD flexibiln=C4=9B p=C5=99esouvat v=C3=BD=
+robu mezi lokalitami.
 
-On 4/22/23 17:06, G=C3=BCnther Noack wrote:
-> Fix spelling of "run time", as documented in man-pages(7):
->=20
-> * "run time" in two words when used as a noun
-> * "run-time" with hyphen when used as an adjective
->=20
-> There is another occurrence in bpf-helpers.7,
-> but that content gets generated from the kernel source
-> and should be fixed there.
->=20
-> Signed-off-by: G=C3=BCnther Noack <gnoack3000@gmail.com>
+Na=C5=A1e lic=C3=AD bu=C5=88ky jsou v=C4=9Bt=C5=A1inou automatick=C3=A9 n=
+ebo poloautomatick=C3=A9, co=C5=BE umo=C5=BE=C5=88uje v=C3=BDrobu velk=C3=
+=BDch v=C3=BDrobn=C3=ADch s=C3=A9ri=C3=AD s vysokou flexibilitou detail=C5=
+=AF.
+=20
+Poskytujeme podporu v ka=C5=BEd=C3=A9 f=C3=A1zi v=C3=BDvoje projektu, vyv=
+=C3=ADj=C3=ADme strukturu detailu.
 
-Patch applied, with minor tweaks to the commit log:
+Cht=C4=9Bli byste mluvit o spolupr=C3=A1ci v t=C3=A9to oblasti?
 
-    man*/: wfix
-   =20
-    Fix spelling of "run time", as documented in man-pages(7):
-   =20
-    -  "run time" in two words when used as a noun
-    -  "run-time" with hyphen when used as an adjective
-   =20
-    There is another occurrence in bpf-helpers.7,
-    but that content gets generated from the kernel source
-    and should be fixed there.
-   =20
-    Signed-off-by: G=C3=BCnther Noack <gnoack3000@gmail.com>
-    Signed-off-by: Alejandro Colomar <alx@kernel.org>
-
-
-Cheers!
-Alex
-
-> ---
->  man2/mount_setattr.2 | 2 +-
->  man2/openat2.2       | 2 +-
->  man7/landlock.7      | 2 +-
->  3 files changed, 3 insertions(+), 3 deletions(-)
->=20
-> diff --git a/man2/mount_setattr.2 b/man2/mount_setattr.2
-> index 24801a4bd..8df02641a 100644
-> --- a/man2/mount_setattr.2
-> +++ b/man2/mount_setattr.2
-> @@ -862,7 +862,7 @@ may change in the future
->  user-space applications should zero-fill
->  .I struct mount_attr
->  to ensure that recompiling the program with new headers will not resul=
-t in
-> -spurious errors at runtime.
-> +spurious errors at run time.
->  The simplest way is to use a designated initializer:
->  .PP
->  .in +4n
-> diff --git a/man2/openat2.2 b/man2/openat2.2
-> index e90211fad..182851089 100644
-> --- a/man2/openat2.2
-> +++ b/man2/openat2.2
-> @@ -545,7 +545,7 @@ may change in the future (with new fields being add=
-ed when system headers are
->  updated), user-space applications should zero-fill
->  .I struct open_how
->  to ensure that recompiling the program with new headers will not resul=
-t in
-> -spurious errors at runtime.
-> +spurious errors at run time.
->  The simplest way is to use a designated
->  initializer:
->  .PP
-> diff --git a/man7/landlock.7 b/man7/landlock.7
-> index b6c9d3821..df7b87e80 100644
-> --- a/man7/landlock.7
-> +++ b/man7/landlock.7
-> @@ -251,7 +251,7 @@ will stay enforced on all this thread's descendants=
-=2E
->  This allows creating standalone and modular security policies
->  per application,
->  which will automatically be composed between themselves
-> -according to their runtime parent policies.
-> +according to their run-time parent policies.
->  .\"
->  .SS Ptrace restrictions
->  A sandboxed process has less privileges than a non-sandboxed process a=
-nd
->=20
-> base-commit: 59e44e4511391a98f531c08aaba17391f3b7075b
-
---=20
-<http://www.alejandro-colomar.es/>
-GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
-
---------------PC4k0lB9SY2qfschkyQBy4AN--
-
---------------ZWaO8FHzsa4QJka4KRUfeLoD
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmRFVuMACgkQnowa+77/
-2zKEOxAAh3goBNZk4+oAoH7hX9pnzGaHLQXYCsSmrJYZS1uKzkoePXt5M8Me5VOz
-QmbSH2fzsEXvYom5Dw+CVe7CD3cASc1x9TiTfs5oGo7NLwqjCQW/XXgw3tFwytKW
-hQDFbbudgSmAl6f7XfutU6VfPej2b3g7GxL9Ib1w7cKLo7366EoqjoxXTab/AvAl
-SuIiNkvVpxX6igvUvAIDRNC82VCt1w4YW9Z5mD8kLxeLCeIfZ1T7Gj0ppGfK6jUs
-Dcsi3VSD/uG7w7MvARz0JHyM6YUP2SoWsFhW9flUcJ0zca+eyPYAtnjmDgvQBf6h
-nxvlNlPrO7TRo7PBbu4sNftIOSvIHqU2eXSva+mH0bRCEMCKjwS84EzI2le/bYHS
-oz0cF7w/ts7dTP70EHIo6pV0VdaFfmMrYnYQsxEywJB+7V9EoxI0OwFv2mQa5K03
-iaIwu17zhzkcXsH0ZYZIhnvb1P7o6m+yM/TJpyIpueb8QSz6yPSfnpt7BSx2hYnq
-Lr4ye4XjVYcIE923ASOHTx7ekEtJSTcYc3N6NHeyXtzoTu7aOJBkPW2rgU2tNjDo
-jjCvN81FaOZuB6iW4z1NuXVYPw3MLVBcOxEm3dXUZDMmGBAbL6f1YfgfScpBnRwc
-aZ3gqP+01jSeEeXDEhit3eMnqFx9NK6+OPxnQQ/93C7AjnWmkZc=
-=VksF
------END PGP SIGNATURE-----
-
---------------ZWaO8FHzsa4QJka4KRUfeLoD--
+Pozdravy
+Kristi=C3=A1n Plet=C3=A1nek
