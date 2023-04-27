@@ -2,44 +2,44 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 58FA56F0321
-	for <lists+linux-man@lfdr.de>; Thu, 27 Apr 2023 11:10:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3A0D36F0325
+	for <lists+linux-man@lfdr.de>; Thu, 27 Apr 2023 11:12:49 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S242902AbjD0JKi (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 27 Apr 2023 05:10:38 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37912 "EHLO
+        id S243280AbjD0JMY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 27 Apr 2023 05:12:24 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39460 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S243361AbjD0JKg (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 27 Apr 2023 05:10:36 -0400
+        with ESMTP id S243262AbjD0JMT (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 27 Apr 2023 05:12:19 -0400
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 584921A6
-        for <linux-man@vger.kernel.org>; Thu, 27 Apr 2023 02:10:35 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2AAF24ED8
+        for <linux-man@vger.kernel.org>; Thu, 27 Apr 2023 02:12:09 -0700 (PDT)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
         (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
         (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id EA13463AB2
-        for <linux-man@vger.kernel.org>; Thu, 27 Apr 2023 09:10:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 50FC8C433D2
-        for <linux-man@vger.kernel.org>; Thu, 27 Apr 2023 09:10:34 +0000 (UTC)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id B77AD63BCA
+        for <linux-man@vger.kernel.org>; Thu, 27 Apr 2023 09:12:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 27414C433EF
+        for <linux-man@vger.kernel.org>; Thu, 27 Apr 2023 09:12:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1682586634;
-        bh=NJx3f+sUmiz2uuHxsitHrkOATfPG/HLqlkjXvfYHeDY=;
-        h=From:To:Subject:Date:From;
-        b=WvC9UNkWiqrArCAacYHJ+d7Pv2c4sZIs7Yr93DwDfq05+Yapej2FJU9LeeMm9dJ0v
-         nJestiuKMj033qVz95PTMjN+4fpUPvDeZ8AMyvhO/DIQZ6IbonhI4fOoQ6jGWzTRQ1
-         VuUzNZ3iJwCe+o7+76dg54YqpLLTKC1O7Aw7WmqFKkNrHheV+9xgSpelixIO8X72vd
-         R0Rqgign/RRqXk04kL1jgjhWrixcuc3SN47l2qwo7SYDFNXP/Po09KDKBjzRvFO8a9
-         L2X2TF3so9Qg5/NI16MNElyKUtvE7hr2jdzhoPmy3dbKH9bLzlPCLyuZ/v72FJWqc9
-         virPN5527S4Ew==
+        s=k20201202; t=1682586728;
+        bh=uXRzRsjc1VwMhwyXr0NLxjThKQK8Us4iAd7Sekzf1/I=;
+        h=From:To:Subject:Date:In-Reply-To:References:From;
+        b=awsT+OuzTLuIt9w17puXAKXm8dM1mUiSp5zPZXAckCJBhuGsQSnOZYkRUOYtkOdD2
+         Jv2XfXeeiM67J0AeY6277quhAAHtHsTGBRbpTvRIhEuH+VAvptv72nDIC97ZTJ4H4u
+         8zFAAMZSSPSNtxX1YEjnd7sfFynOKAFC5DHMoIFVmCsvDXhQtiF3d82TjCW3M4274q
+         w+8AEmh6Ylgkw9p27mBLbtZEbLQI2cjoHvCJvOLZtBx2keSwvzFzvGeC6lArIWb/a3
+         xWZhrxLR9ZlbKrgms1jV8Lhyg3uvvvXX88yS/VQaRck2chSpOFhgmefzfvVUSw7/ae
+         bUalbBLc2yPZg==
 Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
-        id 35C91C43141; Thu, 27 Apr 2023 09:10:34 +0000 (UTC)
+        id 10D44C43141; Thu, 27 Apr 2023 09:12:08 +0000 (UTC)
 From:   bugzilla-daemon@kernel.org
 To:     linux-man@vger.kernel.org
-Subject: [Bug 217375] New: Add information about intel_pstate active mode in
+Subject: [Bug 217375] Add information about intel_pstate active mode in
  admin-guide/kernel-parameters.txt
-Date:   Thu, 27 Apr 2023 09:10:33 +0000
+Date:   Thu, 27 Apr 2023 09:12:07 +0000
 X-Bugzilla-Reason: None
-X-Bugzilla-Type: new
+X-Bugzilla-Type: changed
 X-Bugzilla-Watch-Reason: AssignedTo
  documentation_man-pages@kernel-bugs.osdl.org
 X-Bugzilla-Product: Documentation
@@ -53,10 +53,10 @@ X-Bugzilla-Resolution:
 X-Bugzilla-Priority: P3
 X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
 X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: bug_id short_desc product version rep_platform
- op_sys bug_status bug_severity priority component assigned_to reporter
- cf_regression
-Message-ID: <bug-217375-11311@https.bugzilla.kernel.org/>
+X-Bugzilla-Changed-Fields: attachments.created
+Message-ID: <bug-217375-11311-kWjz7Fa18L@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-217375-11311@https.bugzilla.kernel.org/>
+References: <bug-217375-11311@https.bugzilla.kernel.org/>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-Bugzilla-URL: https://bugzilla.kernel.org/
@@ -74,29 +74,10 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 https://bugzilla.kernel.org/show_bug.cgi?id=3D217375
 
-            Bug ID: 217375
-           Summary: Add information about intel_pstate active mode in
-                    admin-guide/kernel-parameters.txt
-           Product: Documentation
-           Version: unspecified
-          Hardware: All
-                OS: Linux
-            Status: NEW
-          Severity: normal
-          Priority: P3
-         Component: man-pages
-          Assignee: documentation_man-pages@kernel-bugs.osdl.org
-          Reporter: natesh9261@gmail.com
-        Regression: No
-
-Information about intel_pstate active mode is added in the doc.
-    This operation mode could be used to set on the hardware when it's
-    not activated. Status of the mode could be checked from sysfs file
-    i.e., /sys/devices/system/cpu/intel_pstate/status.
-    The information is already available in cpu-freq/intel-pstate.txt
-    documentation.
-
-    Link: https://www.kernel.org/doc/Documentation/cpu-freq/intel-pstate.txt
+--- Comment #1 from Natesh Sharma (natesh9261@gmail.com) ---
+Created attachment 304190
+  --> https://bugzilla.kernel.org/attachment.cgi?id=3D304190&action=3Dedit
+Documentation update patch information
 
 --=20
 You may reply to this email to add a comment.
