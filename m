@@ -2,85 +2,75 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 3A0D36F0325
-	for <lists+linux-man@lfdr.de>; Thu, 27 Apr 2023 11:12:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E0BAB6F24CC
+	for <lists+linux-man@lfdr.de>; Sat, 29 Apr 2023 15:18:00 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S243280AbjD0JMY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 27 Apr 2023 05:12:24 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39460 "EHLO
+        id S229729AbjD2NR6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 29 Apr 2023 09:17:58 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46170 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S243262AbjD0JMT (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 27 Apr 2023 05:12:19 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2AAF24ED8
-        for <linux-man@vger.kernel.org>; Thu, 27 Apr 2023 02:12:09 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id B77AD63BCA
-        for <linux-man@vger.kernel.org>; Thu, 27 Apr 2023 09:12:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 27414C433EF
-        for <linux-man@vger.kernel.org>; Thu, 27 Apr 2023 09:12:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1682586728;
-        bh=uXRzRsjc1VwMhwyXr0NLxjThKQK8Us4iAd7Sekzf1/I=;
-        h=From:To:Subject:Date:In-Reply-To:References:From;
-        b=awsT+OuzTLuIt9w17puXAKXm8dM1mUiSp5zPZXAckCJBhuGsQSnOZYkRUOYtkOdD2
-         Jv2XfXeeiM67J0AeY6277quhAAHtHsTGBRbpTvRIhEuH+VAvptv72nDIC97ZTJ4H4u
-         8zFAAMZSSPSNtxX1YEjnd7sfFynOKAFC5DHMoIFVmCsvDXhQtiF3d82TjCW3M4274q
-         w+8AEmh6Ylgkw9p27mBLbtZEbLQI2cjoHvCJvOLZtBx2keSwvzFzvGeC6lArIWb/a3
-         xWZhrxLR9ZlbKrgms1jV8Lhyg3uvvvXX88yS/VQaRck2chSpOFhgmefzfvVUSw7/ae
-         bUalbBLc2yPZg==
-Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
-        id 10D44C43141; Thu, 27 Apr 2023 09:12:08 +0000 (UTC)
-From:   bugzilla-daemon@kernel.org
-To:     linux-man@vger.kernel.org
-Subject: [Bug 217375] Add information about intel_pstate active mode in
- admin-guide/kernel-parameters.txt
-Date:   Thu, 27 Apr 2023 09:12:07 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: changed
-X-Bugzilla-Watch-Reason: AssignedTo
- documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Product: Documentation
-X-Bugzilla-Component: man-pages
-X-Bugzilla-Version: unspecified
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: normal
-X-Bugzilla-Who: natesh9261@gmail.com
-X-Bugzilla-Status: NEW
-X-Bugzilla-Resolution: 
-X-Bugzilla-Priority: P3
-X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: attachments.created
-Message-ID: <bug-217375-11311-kWjz7Fa18L@https.bugzilla.kernel.org/>
-In-Reply-To: <bug-217375-11311@https.bugzilla.kernel.org/>
-References: <bug-217375-11311@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
+        with ESMTP id S229659AbjD2NR6 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 29 Apr 2023 09:17:58 -0400
+Received: from mail-yb1-xb30.google.com (mail-yb1-xb30.google.com [IPv6:2607:f8b0:4864:20::b30])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 671F9171F
+        for <linux-man@vger.kernel.org>; Sat, 29 Apr 2023 06:17:57 -0700 (PDT)
+Received: by mail-yb1-xb30.google.com with SMTP id 3f1490d57ef6-b991bac987dso142210276.1
+        for <linux-man@vger.kernel.org>; Sat, 29 Apr 2023 06:17:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1682774276; x=1685366276;
+        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=Zl1Bd2xelPdaBHl6yWD8fe3T6SkhvAPlzRvSh91w2uM=;
+        b=KDWKa7hRwYDl9SWLjCTNBev2WTlZ2qKBj3prAUnQGATb5IaKcfzhkWxprXVdG5KNZa
+         Ye+ujq7Aj2coFNYr8AB/aLAliWcXjwZslNxt7WEh38orhLl0PTugHcjj07GJHDqMW6Gk
+         DT8j1H68xEyVjrjkIPl3Mr1un4nNaakVIAemb1mkr0pKlfPywZwta6INXSFncU1+Xqeu
+         DcYMfZipn0U8hpUqLl7FFLIoFXm1gSpiKgR+7fImhsaOgDz7UPi5S4a00yvTnImkyDR0
+         yRA+4yV61BzaoI9NTdXjiT1v2gmoYzh0YaFjchrHXxmcUmN0aagLDlXhcgm3lloeZXSv
+         yczg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1682774276; x=1685366276;
+        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Zl1Bd2xelPdaBHl6yWD8fe3T6SkhvAPlzRvSh91w2uM=;
+        b=EWXICo72zBElp/pdUblRkKxRq/uJtP99FbAtGF3I3AHy5pVPUWTLUqyO1D0lgIHuZq
+         ttzb+2nmfL36ECQKVp4XPBSHjxuZwD3Y+Uf8ee5bmMzRui28jURW+DKboQbgNqEAA1og
+         pd/gI0i9QCf74UCenUZM/YLKPi86b0naIHKyRV0Y1INDwxaG7OUTuYIwCa+R1ibuwAt2
+         6z6m50RCaDSpHramuhpuViEo7zfk5yFwXntGXlaUujDLfkfYQ2q4bN1nFgSpKyLxzerz
+         jhNwCMw8MBTBhGsv8KUJVqAKHiivvdb2hI1cDT4wMXf36WQQemqupx3tH/q0dXLGKidE
+         ajPw==
+X-Gm-Message-State: AC+VfDy0AB4UqUwXuHHC+LusrXDSKZZN8G39+Jl/+339TykPCmnDN3X0
+        Tn//OC9z/3cw6+SfwgqLOBBeGnGeON69Y7V5u1aik2Puad6WBg==
+X-Google-Smtp-Source: ACHHUZ7r+CJMJsEPybwKXeoxwBTjfTRDix21rv8SrKjyPrhVjUsQcRXbxPg3dUFr+vbmiji4o7RDUXNGJ5VgfC4LCoc=
+X-Received: by 2002:a81:fd5:0:b0:556:e93c:fbe with SMTP id 204-20020a810fd5000000b00556e93c0fbemr6608882ywp.5.1682774276529;
+ Sat, 29 Apr 2023 06:17:56 -0700 (PDT)
 MIME-Version: 1.0
-X-Spam-Status: No, score=-4.6 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
-        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
-        autolearn_force=no version=3.4.6
+From:   Askar Safin <safinaskar@gmail.com>
+Date:   Sat, 29 Apr 2023 16:17:20 +0300
+Message-ID: <CAPnZJGB4GkUUc7o_Fac1jjS8+jfsTUsOMpdCmAkn84ScQ-fpPg@mail.gmail.com>
+Subject: fsmount, fspick etc manpages are still absent
+To:     alx.manpages@gmail.com, dhowells@redhat.com
+Cc:     linux-man <linux-man@vger.kernel.org>, mtk.manpages@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D217375
+Hi. I look at https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/man2?id=d52ff90035ceedfab4d34b4316b94519a0864e21
+(is the link correct?) and I see that manpages for new mount API
+(fsmount, fsconfig, fspick, etc) are still absent. When they will
+appear?
 
---- Comment #1 from Natesh Sharma (natesh9261@gmail.com) ---
-Created attachment 304190
-  --> https://bugzilla.kernel.org/attachment.cgi?id=3D304190&action=3Dedit
-Documentation update patch information
+I see drafts of the manpages here:
+https://lore.kernel.org/linux-man/159827188271.306468.16962617119460123110.stgit@warthog.procyon.org.uk/
+. When will they be ready?
 
---=20
-You may reply to this email to add a comment.
+Please, CC me when answering
 
-You are receiving this mail because:
-You are watching the assignee of the bug.=
+-- 
+Askar Safin
