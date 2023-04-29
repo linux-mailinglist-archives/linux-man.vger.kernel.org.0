@@ -2,63 +2,64 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 869B36F2614
-	for <lists+linux-man@lfdr.de>; Sat, 29 Apr 2023 21:47:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 43EBF6F271B
+	for <lists+linux-man@lfdr.de>; Sun, 30 Apr 2023 01:07:55 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229529AbjD2TrC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 29 Apr 2023 15:47:02 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37736 "EHLO
+        id S231158AbjD2XHw (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 29 Apr 2023 19:07:52 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42698 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229517AbjD2TrC (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 29 Apr 2023 15:47:02 -0400
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com [IPv6:2a00:1450:4864:20::432])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E512E1997
-        for <linux-man@vger.kernel.org>; Sat, 29 Apr 2023 12:47:00 -0700 (PDT)
-Received: by mail-wr1-x432.google.com with SMTP id ffacd0b85a97d-2f9b9aa9d75so591398f8f.0
-        for <linux-man@vger.kernel.org>; Sat, 29 Apr 2023 12:47:00 -0700 (PDT)
+        with ESMTP id S229798AbjD2XHv (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 29 Apr 2023 19:07:51 -0400
+Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com [IPv6:2001:4860:4864:20::2a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 15DB110F9
+        for <linux-man@vger.kernel.org>; Sat, 29 Apr 2023 16:07:50 -0700 (PDT)
+Received: by mail-oa1-x2a.google.com with SMTP id 586e51a60fabf-187c78c6657so1049822fac.2
+        for <linux-man@vger.kernel.org>; Sat, 29 Apr 2023 16:07:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1682797619; x=1685389619;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=WPvs94loXY2l+GrcrN/buLPnHizdInbCUv9qv0Tg2HY=;
-        b=CStqdEKjLr3tksvPKJ2i1VkocRYWLAEE8du5xe+BiuhCMN6ZbTzy36itBOVKKEfIVH
-         oVJidZwA4jUFvRX9TOw8BjnfZgbJkIUdn8ho5p/KlSzT5UzL7lmHaHDB8F8qRWxkPlPW
-         6D9XX6ZW+RqpKD62/pSVbRhsT2MsSOEz8lxUPp5TNYObHXkuhjEwRuDqys83xKIlvAjl
-         BVFLaR+cCzxGu+8ugNdtfKRDuomam9D7+yEUyOdsOm8bx2rAnWe++m7+dj+cYgF3bqnb
-         Ub6ZjA1XNLfxZEIpqRYm/sZFeQSSp+XPmYbMDlOCyPJFybbMBMLWVzMUQ89mBKOSXGZl
-         ojFw==
+        d=gmail.com; s=20221208; t=1682809669; x=1685401669;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=O+xPxYY01oxWgxm5V532q2kp9G255vSaJijvqr32QUg=;
+        b=XCjLAxdsvmcGIf381kqA8xOYOXE1YdR0OIWn8LqVfmhJucZ0nVDQviqoYhvPbPjPdy
+         m61gvjUECmI1ZBOFzsoBW6A9ne/7JBMRAxaEDq8X5ZjgQrHfkO4X7ubc6O9lAMdA7Qg5
+         srEEPubvowkE6vpHszS/FSF/ZJVU/DnzYrTckR0Dkvlfw+zNHc+NssNZmUnXE26kGHt2
+         vjyzSJRjaYrRpSKW9RZ1GfBn0tJA2GEDXaz7BoDiuGYMF/y70Js5LmxKlQp0WuApYx21
+         lTRZcjXOhIt8jlM6jkciiX6FRCWCcVfoMU+UepLRFfqPMZF/lS32MQyIZPqSnpmcHOOa
+         X37A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1682797619; x=1685389619;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=WPvs94loXY2l+GrcrN/buLPnHizdInbCUv9qv0Tg2HY=;
-        b=QaOTVtgx7r/O2GXlrIRqhK50Wq+f/8Z7P8ATqzXBt9wz7ejbb2O3j2Utyfq/ecoSft
-         XJcWGcL42kR4cqolIwYd9FwA3UFauhqL+GLuvcZxn/P/xqyvl1X7mq7D+wJdPVFNQdCh
-         TfRXoT0NeXxhwMevHgzF1jEdMRH0jpl7gAERkcaPe/RuL9/9zdOftmH+XRPtFvNuzANP
-         RTpyBwruDTZeMz+/X39VbotRFaMurblQ4BFcpsq/uFPKrKzamdh/Wv3oEL2aoFnuloPI
-         qsdbblD7RHpllDkt3RY96t28DwxSG6GVrBRgiYcQc7opR3SQxIcONgRuXzsG9XhYt08q
-         Lr5w==
-X-Gm-Message-State: AC+VfDwLxTWD1k4CH+6sxUeU96iL+Cg7KVNFjj3Pxg4ts+29TxJkNiir
-        JtIy2jcvfrM6IUmjtNXjIW9rNLzkOAs=
-X-Google-Smtp-Source: ACHHUZ6sDY1a1e4xWef25gU12+EkDl/xcad/myp2AGH1m3wnAnrORDeMnAIYhi3c1UidBIXNzmJHxg==
-X-Received: by 2002:a5d:458c:0:b0:2ff:f37:9d0f with SMTP id p12-20020a5d458c000000b002ff0f379d0fmr6633644wrq.57.1682797619346;
-        Sat, 29 Apr 2023 12:46:59 -0700 (PDT)
-Received: from asus5775.alejandro-colomar.es ([170.253.51.134])
-        by smtp.googlemail.com with ESMTPSA id t15-20020adfe10f000000b00304832cd960sm14390596wrz.10.2023.04.29.12.46.58
+        d=1e100.net; s=20221208; t=1682809669; x=1685401669;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=O+xPxYY01oxWgxm5V532q2kp9G255vSaJijvqr32QUg=;
+        b=VinyOe8DlsgGZ3LTuoosnsTOKcKzWZOqTURXgZbGZ2M81COrZdylnV7gO+Y4vAWj4i
+         wpDrVYZnEATgPF44SL83Vmymuhh3WIWETphkBnTlkXrehrEURLvOCNhtcqXYw2CiijuU
+         mTBF9heMl5S8o2vvkynAlSanbOEE3RX283q56j+VUkJ/FCJFhQFDOqgjFyqIQQIpNDjY
+         16KUY1rZlNNz0wxhUUu/qof6JDNATdcX8uHIM+TvYnIcBqOcHJHmHFkiO5CbZJ6g8drC
+         cQ0kpSYkwarWINg7ycd//QTsfLgzAY1lajncm19xibdKVmmvln2FFJ/y72JbF4mb+hyI
+         OD7Q==
+X-Gm-Message-State: AC+VfDz5d6NwchgfIMCEHAnqi5hNnGPUeBeyUb71AtnYTRfN7FnkD0AT
+        Z/egBjyWnQFMV7ZM83QrAqA=
+X-Google-Smtp-Source: ACHHUZ7BfJDdHbeYWsoAxAybX7lkmIpFB3ZYEjdX1IovjYyauY5ZmWpY1/4lU3cm1mpenthxSUH22A==
+X-Received: by 2002:a05:6870:3a11:b0:18e:ff10:d032 with SMTP id du17-20020a0568703a1100b0018eff10d032mr4865313oab.28.1682809669175;
+        Sat, 29 Apr 2023 16:07:49 -0700 (PDT)
+Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
+        by smtp.gmail.com with ESMTPSA id n17-20020a9d6f11000000b006a5d7d7f6c3sm10516214otq.7.2023.04.29.16.07.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Apr 2023 12:46:59 -0700 (PDT)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-X-Google-Original-From: Alejandro Colomar <alx@kernel.org>
-To:     linux-man@vger.kernel.org,
-        "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc:     Alejandro Colomar <alx@kernel.org>
-Subject: [PATCH] uri.7: ffix
-Date:   Sat, 29 Apr 2023 21:46:43 +0200
-Message-Id: <20230429194642.174362-1-alx@kernel.org>
-X-Mailer: git-send-email 2.40.1
+        Sat, 29 Apr 2023 16:07:48 -0700 (PDT)
+Date:   Sat, 29 Apr 2023 18:07:47 -0500
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org, Alejandro Colomar <alx@kernel.org>
+Subject: Re: [PATCH] uri.7: ffix
+Message-ID: <20230429230747.xw3ym6rzaiypkq6q@illithid>
+References: <20230429194642.174362-1-alx@kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+        protocol="application/pgp-signature"; boundary="ree4ndmrzdol2agb"
+Content-Disposition: inline
+In-Reply-To: <20230429194642.174362-1-alx@kernel.org>
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
@@ -69,74 +70,60 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Cc: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Signed-off-by: Alejandro Colomar <alx@kernel.org>
----
- man7/uri.7 | 51 ++++++++++++++++++++++++++++++++-------------------
- 1 file changed, 32 insertions(+), 19 deletions(-)
 
-diff --git a/man7/uri.7 b/man7/uri.7
-index 19fe70f2f..51cf6b4e4 100644
---- a/man7/uri.7
-+++ b/man7/uri.7
-@@ -29,25 +29,38 @@
- .SH NAME
- uri, url, urn \- uniform resource identifier (URI), including a URL or URN
- .SH SYNOPSIS
--.nf
--.HP 0.2i
--URI = [ absoluteURI | relativeURI ] [ "#" fragment ]
--.HP
--absoluteURI = scheme ":" ( hierarchical_part | opaque_part )
--.HP
--relativeURI = ( net_path | absolute_path | relative_path ) [ "?" query ]
--.HP
--scheme = "http" | "ftp" | "gopher" | "mailto" | "news" | "telnet" |
--         "file" | "man" | "info" | "whatis" | "ldap" | "wais" | \&...
--.HP
--hierarchical_part = ( net_path | absolute_path ) [ "?" query ]
--.HP
--net_path = "//" authority [ absolute_path ]
--.HP
--absolute_path = "/"  path_segments
--.HP
--relative_path = relative_segment [ absolute_path ]
--.fi
-+.SY URI
-+= [ absoluteURI | relativeURI ] [ "#" fragment ]
-+.YS
-+.PP
-+.SY absoluteURI
-+= scheme ":" ( hierarchical_part | opaque_part )
-+.YS
-+.PP
-+.SY relativeURI
-+= ( net_path | absolute_path | relative_path ) [ "?" query ]
-+.YS
-+.PP
-+.SY scheme
-+= "http" | "ftp" | "gopher" | "mailto" | "news" | "telnet" |
-+"file" | "man" | "info" | "whatis" | "ldap" | "wais" | \&...
-+.YS
-+.PP
-+.SY hierarchical_part
-+= ( net_path | absolute_path ) [ "?" query ]
-+.YS
-+.PP
-+.SY net_path
-+= "//" authority [ absolute_path ]
-+.YS
-+.PP
-+.SY absolute_path
-+= "/"  path_segments
-+.YS
-+.PP
-+.SY relative_path
-+= relative_segment [ absolute_path ]
-+.YS
- .SH DESCRIPTION
- A Uniform Resource Identifier (URI) is a short string of characters
- identifying an abstract or physical resource (for example, a web page).
--- 
-2.40.1
+--ree4ndmrzdol2agb
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
+Hi Alex,
+
+At 2023-04-29T21:46:43+0200, Alejandro Colomar wrote:
+> Cc: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+> Signed-off-by: Alejandro Colomar <alx@kernel.org>
+> ---
+>  man7/uri.7 | 51 ++++++++++++++++++++++++++++++++-------------------
+>  1 file changed, 32 insertions(+), 19 deletions(-)
+
+Looks okay to me.  Glad to see deprecated things going away.
+
+You might include the equals sign within the (double-quoted) `SY`
+argument so that any indented lines align _after_ the equals sign rather
+than under it, but that's a cosmetic detail and I don't know how it
+comports with your other style conventions for man-pages(7).
+
+Do you prefer
+
+scheme = "http" | "ftp" | "gopher" | "mailto" | "news" | "telnet" |
+         "file" | "man" | "info" | "whatis" | "ldap" | "wais" | ...
+
+or
+
+scheme = "http" | "ftp" | "gopher" | "mailto" | "news" | "telnet" |
+       "file" | "man" | "info" | "whatis" | "ldap" | "wais" | ...
+
+?
+
+Regards,
+Branden
+
+--ree4ndmrzdol2agb
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmRNozsACgkQ0Z6cfXEm
+bc5h2Q/9FLF9emsSGj/TVWFF92iV1ap21jkmXRRSHlcFTVMrO1XeGAMQQVagcZ2U
+J88wPr+8yo7O2vzJFN5J9j0WGriSAX2NT4PAOh6zhjoE8qhpu/nLfOS9yzOH9aJ5
+ksfQrnbhXRjxSb84p/ocPpVYh06xaMDimBQhiO+9Q0x4WCQskwQ9uOISfo6LSV0Q
+BsRPzc4D/cd1PUgQdOx9p8h0FVgSyocR6KWyOEDHBGOSry2chX6JsXq1TLaFQbtY
+B3eMid/0H3edycBu11HsSheIwBtDaEN1eBec76TDVlowy/v0pLwz7Kk+tumjk9os
+Z3yASgE+TDrZH5Ad++fNdXbHBUJPSlbTH3b9NXAzyjuE3BvJiF64HV/BBZcJruEI
+qSkE7U/2XB7Ob9d7fL8ZT8j2+1x4CxgCvQgD7RQfcmOZdga6G5Az13ZDxHBSCVPt
+W/ShZnJEMx7n8BX9Di2CZjjToNhXW4tgtkZLZwBzmA0qLdpKqdGdhZVjKPss6aFY
+S/Y9nv+AeBzTkxC990Dd97tiNAIaZNvNFhV550MVLcE5qyVgJSYULMGG/ebOwdzb
+WAgLyMY7SqeqKGevl+6gyKpjutRIsOmj4xIVY5Fv2ib7sWYRsvHyR2Xg4f532QHT
+mLZYqxBoJ6EG2zPNWkQNVxvDyHvvKmHTUpePp35AuB3IbsvXe1A=
+=3WAH
+-----END PGP SIGNATURE-----
+
+--ree4ndmrzdol2agb--
