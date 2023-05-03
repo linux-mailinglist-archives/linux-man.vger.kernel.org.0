@@ -2,62 +2,64 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 570466F5C6B
-	for <lists+linux-man@lfdr.de>; Wed,  3 May 2023 19:04:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 148056F5C6C
+	for <lists+linux-man@lfdr.de>; Wed,  3 May 2023 19:04:23 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229878AbjECREU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 3 May 2023 13:04:20 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42242 "EHLO
+        id S229602AbjECREW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 3 May 2023 13:04:22 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42298 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229649AbjECRER (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 3 May 2023 13:04:17 -0400
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com [IPv6:2a00:1450:4864:20::435])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 759EE7AAF
-        for <linux-man@vger.kernel.org>; Wed,  3 May 2023 10:03:58 -0700 (PDT)
-Received: by mail-wr1-x435.google.com with SMTP id ffacd0b85a97d-3062c1e7df8so2880839f8f.1
+        with ESMTP id S229673AbjECREU (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 3 May 2023 13:04:20 -0400
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com [IPv6:2a00:1450:4864:20::32d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 349507D86
+        for <linux-man@vger.kernel.org>; Wed,  3 May 2023 10:03:59 -0700 (PDT)
+Received: by mail-wm1-x32d.google.com with SMTP id 5b1f17b1804b1-3f4000ec6ecso7470925e9.0
         for <linux-man@vger.kernel.org>; Wed, 03 May 2023 10:03:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20221208; t=1683133437; x=1685725437;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=VHSYAk0KnFaXom29f6besjshE4Dn39a26wINvl+LlTg=;
-        b=HwEHG+v3vtcxIDECfqblncbVH+Cm7OkD32nQ7hkvUcu5vHYLUjuEcSDhEOiuB2W6+Q
-         enbNPtrJrW/D7xCRHqAZlqcjt7HLuxu8JuY+TZmgVaS+bx7xBAG5vYRQ/fnjb3zNFEgg
-         oKqAPKAwkvYrf5JeCi8TljuILECyF2QbtyynirK0SkVZDEmjNOA4lSKXnBwxhftTwAjE
-         y3R0kaI2XXz1gzDd/q0rIjp7XgQxssDsh21lnRra8kqPpQK7SsePBcF7B9cCJ+vSjonu
-         HfFnoYocjNxuY6niwN36sDMzoF0WH5UatC1YzT7ExSPYyLMTNNlML2/yWTeHIeb4Fxja
-         VzHA==
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ECoV9P+4bIyog+Pt+n+aXpwYShXRr/95Ur8fH6Em1dg=;
+        b=Zr9Ym5iq7po8HpI0atqvgvHB6T4a9cwWpvE8AGZtrVgSvA2ZapgHC4N2EtzfgFtQyl
+         RYiDY7Zkl8OU4od9hkBv5JQMRcP1FPtOBJigTpd3qU4fSCK7KWbsozWHn54TgmY8p5Vm
+         dPSQGB7mHABX8czcUvrFpgyIt6Q8YhYIVxkIQy1BmJ0YyzAKXlURc0zjCYidyKrQOiSQ
+         uyxEk32YDmx3o4dp8FzjAPgj/pkfrmcgjTb54kqihllr9cIkm5AzzL5tIjZEHeRkBiXx
+         +4U4QxaCdTOqhtbOMYUp3vylDTZ5lZ2JtXG2DVcm6GRxstAjSAUpVcu1XxN4MQ1EnDel
+         03uQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20221208; t=1683133437; x=1685725437;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=VHSYAk0KnFaXom29f6besjshE4Dn39a26wINvl+LlTg=;
-        b=JpJNRqlJqcUaLl9TD+tPtyqf7V1MYrbEBm5vnsz10MaXnzXwyBQd/lbb3jBfm1ZNsF
-         HBLXKjyCLSe0aA6Ve+Soz8BFfNURPxnI3jGH4dIimnGM/MLCIkdPQiD7PYDkhn/zC2FY
-         6tBoBcXnwqYVd/uJQNNstiBLALyf12HNzbmEDxXrpiktCJTJi5LKK5heJak1G5e+RlQe
-         9RVRWjCE+/0+9tz1zA0QkWJmHLWhT2SYJDCiBqCugTWpwhGp+KaboGzhIR+ElbakqHAH
-         c9oCW1/+U3O9HhuhUFqY8xHbJKzSUAT/JH043miEumU5IcHP+PS263zmxcDr3SIXxQfv
-         SQFw==
-X-Gm-Message-State: AC+VfDyuITriO59c8kNBiex9+XrzF88bkTZUVgLYXspzqx7FBbeUWhsN
-        AawD63U/oyQG8UHtqJDO+TcsGwRpgD4=
-X-Google-Smtp-Source: ACHHUZ6q4c8E1Y/fwpZddI4COeMw6WTHaEeEKG0SON1Kqd4cU4gWghuYfcqv+aufNZjoOwomgW8bzg==
-X-Received: by 2002:a5d:6681:0:b0:303:97db:ae93 with SMTP id l1-20020a5d6681000000b0030397dbae93mr477238wru.44.1683133436711;
-        Wed, 03 May 2023 10:03:56 -0700 (PDT)
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=ECoV9P+4bIyog+Pt+n+aXpwYShXRr/95Ur8fH6Em1dg=;
+        b=bhADhDGSL+iK60KmM7B5QskBAL0ycBrAtu3I7UPAtlZOT35rSVeIzbtg66Jf/Tmcks
+         stqHvj5JL9SNwG64/87fF6fEVOrb483xbBXLLIr23Ez9K+lBbQg0waL/mlcKAHSNp7Dp
+         x0LjglQzZPI84Nvdn+2sQeFmRoC4jK3mFwLqtuhLNu6JGsr8lKy8fQxN8Zy11ytpNICx
+         DFh9UVwqF5xI2pUWcE0WmGKCYzd7C1GKSL6fEY3iggyDreIhag0bL4eyc3rY4L5FMAma
+         dVJGaW1TYyTZ90rO98hH1ENYi5yF3NDl96pAjKAMfvwpRZ49gao2udMHDC1mq5Jl5yNI
+         UOLg==
+X-Gm-Message-State: AC+VfDzEV+9MGoG+7PQJDJW1utqZsktE7FrXaLO0rB5nosVkG5VsATI3
+        F4F9c64KjCNUGh7W6FpFcm5sG+grRaY=
+X-Google-Smtp-Source: ACHHUZ7XbamiN5t9hkNM9wHi0lUw3xjmbJkpr3iK3DDyetjTuQLI+xH6SZ4lOBe0QRXsxB17BKZsIA==
+X-Received: by 2002:a7b:c8cb:0:b0:3f1:6ec5:bc6e with SMTP id f11-20020a7bc8cb000000b003f16ec5bc6emr16762382wml.3.1683133437417;
+        Wed, 03 May 2023 10:03:57 -0700 (PDT)
 Received: from asus5775.alejandro-colomar.es ([170.253.51.134])
         by smtp.googlemail.com with ESMTPSA id l9-20020a1c7909000000b003f193d7c6b7sm2376091wme.41.2023.05.03.10.03.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 03 May 2023 10:03:56 -0700 (PDT)
+        Wed, 03 May 2023 10:03:57 -0700 (PDT)
 From:   Alejandro Colomar <alx.manpages@gmail.com>
 X-Google-Original-From: Alejandro Colomar <alx@kernel.org>
 To:     linux-man@vger.kernel.org, a.clayton@nginx.com
 Cc:     Alejandro Colomar <alx@kernel.org>, andrew@digital-domain.net
-Subject: [PATCH 0/3] Discourage sched_yield(2)
-Date:   Wed,  3 May 2023 19:03:50 +0200
-Message-Id: <20230503170353.25998-1-alx@kernel.org>
+Subject: [PATCH 1/3] sched_yield.2: HISTORY: POSIX.1-2008 makes this non-optional
+Date:   Wed,  3 May 2023 19:03:51 +0200
+Message-Id: <20230503170353.25998-2-alx@kernel.org>
 X-Mailer: git-send-email 2.40.1
+In-Reply-To: <20230503170353.25998-1-alx@kernel.org>
+References: <20230503170353.25998-1-alx@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
@@ -69,79 +71,46 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Andrew,
-
-Here's a patch set for discouraging sched_yield(2).  See the formatted
-page at the bottom.  I also updated some POSIX historic detail.
-
-Cheers,
-Alex
-
-
-Alejandro Colomar (3):
-  sched_yield.2: HISTORY: POSIX.1-2008 makes this non-optional
-  sched_yield.2: NOTES: Remove misleading sentence
-  sched_yield.2: Rename NOTES to CAVEATS, and reorder contents
-
- man2/sched_yield.2 | 41 +++++++++++++++++++----------------------
- 1 file changed, 19 insertions(+), 22 deletions(-)
-
+Signed-off-by: Alejandro Colomar <alx@kernel.org>
 ---
-$ MANWIDTH=72 man ./man2/sched_yield.2 | cat
-sched_yield(2)            System Calls Manual           sched_yield(2)
+ man2/sched_yield.2 | 18 ++++++++++--------
+ 1 file changed, 10 insertions(+), 8 deletions(-)
 
-NAME
-       sched_yield - yield the processor
-
-LIBRARY
-       Standard C library (libc, -lc)
-
-SYNOPSIS
-       #include <sched.h>
-
-       int sched_yield(void);
-
-DESCRIPTION
-       sched_yield()  causes the calling thread to relinquish the CPU.
-       The thread is moved to the end of the queue for its static pri‐
-       ority and a new thread gets to run.
-
-RETURN VALUE
-       On success, sched_yield() returns 0.  On error, -1 is returned,
-       and errno is set to indicate the error.
-
-ERRORS
-       In the Linux implementation, sched_yield() always succeeds.
-
-STANDARDS
-       POSIX.1‐2008.
-
-HISTORY
-       POSIX.1‐2001 (but optional).  POSIX.1‐2008.
-
-       Before POSIX.1‐2008, systems on which sched_yield()  is  avail‐
-       able defined _POSIX_PRIORITY_SCHEDULING in <unistd.h>.
-
-CAVEATS
-       sched_yield()  is  intended  for  use with real‐time scheduling
-       policies (i.e., SCHED_FIFO or SCHED_RR).  Use of  sched_yield()
-       with  nondeterministic  scheduling policies such as SCHED_OTHER
-       is unspecified and very likely means your application design is
-       broken.
-
-       If the calling thread is the only thread in the highest  prior‐
-       ity  list at that time, it will continue to run after a call to
-       sched_yield().
-
-       Avoid calling sched_yield()  unnecessarily  or  inappropriately
-       (e.g.,  when  resources needed by other schedulable threads are
-       still held by the caller), since doing so will result in unnec‐
-       essary context switches, which will degrade system performance.
-
-SEE ALSO
-       sched(7)
-
-Linux man‐pages (unreleased)    (date)                  sched_yield(2)
+diff --git a/man2/sched_yield.2 b/man2/sched_yield.2
+index f1024762a..bab0f9569 100644
+--- a/man2/sched_yield.2
++++ b/man2/sched_yield.2
+@@ -38,20 +38,22 @@ .SH ERRORS
+ .SH STANDARDS
+ POSIX.1-2008.
+ .SH HISTORY
+-POSIX.1-2001.
++POSIX.1-2001 (but optional).
++POSIX.1-2008.
++.PP
++Before POSIX.1-2008,
++systems on which
++.BR sched_yield ()
++is available defined
++.B _POSIX_PRIORITY_SCHEDULING
++in
++.IR <unistd.h> .
+ .SH NOTES
+ If the calling thread is the only thread in the highest
+ priority list at that time,
+ it will continue to run after a call to
+ .BR sched_yield ().
+ .PP
+-POSIX systems on which
+-.BR sched_yield ()
+-is available define
+-.B _POSIX_PRIORITY_SCHEDULING
+-in
+-.IR <unistd.h> .
+-.PP
+ Strategic calls to
+ .BR sched_yield ()
+ can improve performance by giving other threads or processes
 -- 
 2.40.1
 
