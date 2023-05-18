@@ -2,56 +2,59 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 6229D708C3D
-	for <lists+linux-man@lfdr.de>; Fri, 19 May 2023 01:21:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 38E53708C44
+	for <lists+linux-man@lfdr.de>; Fri, 19 May 2023 01:27:57 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230071AbjERXVF (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 18 May 2023 19:21:05 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38142 "EHLO
+        id S229555AbjERX1z (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 18 May 2023 19:27:55 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39234 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229555AbjERXVF (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 18 May 2023 19:21:05 -0400
-Received: from mail-qt1-x831.google.com (mail-qt1-x831.google.com [IPv6:2607:f8b0:4864:20::831])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6E6E9E66
-        for <linux-man@vger.kernel.org>; Thu, 18 May 2023 16:21:02 -0700 (PDT)
-Received: by mail-qt1-x831.google.com with SMTP id d75a77b69052e-3f38a9918d1so44171cf.1
-        for <linux-man@vger.kernel.org>; Thu, 18 May 2023 16:21:02 -0700 (PDT)
+        with ESMTP id S229539AbjERX1y (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 18 May 2023 19:27:54 -0400
+Received: from mail-qv1-xf34.google.com (mail-qv1-xf34.google.com [IPv6:2607:f8b0:4864:20::f34])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AEDDFC1
+        for <linux-man@vger.kernel.org>; Thu, 18 May 2023 16:27:52 -0700 (PDT)
+Received: by mail-qv1-xf34.google.com with SMTP id 6a1803df08f44-6239144bd59so6448186d6.3
+        for <linux-man@vger.kernel.org>; Thu, 18 May 2023 16:27:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20221208; t=1684452061; x=1687044061;
-        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=3r7z1CMbar01ZdXs3gh1BNTXqG+ifgrWhMVJ5qLmpzA=;
-        b=GwJA4prvdM4TFkVOKwr7Uq/0tAYHrkrqvaFzA4jBPt04UjLsV3ALkzm9SbX/y4778g
-         SF9YsRzuNihqcTahv2szZCYmtaaa9D5PWaYi7sbqdaI4fLLIj/vnrQV6O24/eg9ei71S
-         St13Mv1SshAKBPjWyQU++5XkoIow/qqzd9/mtnhP8ll/xW9Gg6s3oa5KjaJTnclvkWah
-         175Gbmnj9WfqHRH2VFt9jyL5i0HoL8utGi47jMDSIOm7t5Uh+wlR9DvTbx5Y63L6mW43
-         32ZDVSqdDQ66HMilG+tjY62lmhoViHwXcckJyNzSEFk3Uldgw2YOur0+YsX0RIdLk4zL
-         9/Zg==
+        d=google.com; s=20221208; t=1684452472; x=1687044472;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=fQnIRB+9xwLLOp4+FdFBS08hpbnlG9c6Ydc1vYTZYO8=;
+        b=B4MCT9MxlGYo7m5CCbFO1NzMAiOpWKUw39+m0AyikKRSuaM3ctqYwY0baz17PJFIBf
+         lMp/rAqbdZVd3Ejh2jQX7QmElyXCZkeqKwnKGLkAXQdq1U3CUDBVZ0BIPOyaAvtqCCHV
+         h5w4uRd9MyxcMtf1Z/i2gQrJqO2/JZ+oOQhV5ka+tGRQKMPKd4vV03ALAbbxu0R6wLvs
+         xbuEQi9ZXTPs3xCkSdDl6F6S1CuOiDNpI/BNRD4j3B/09P3+owJq1phGKGP6N1lX7noC
+         QKO27OmZ0imYba/UdaX+ZIMVLsT1vBiSk5n/hlC9+UJSS2CsckxuRkJ7nfb0Oq3aYD8a
+         CWKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1684452061; x=1687044061;
-        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=3r7z1CMbar01ZdXs3gh1BNTXqG+ifgrWhMVJ5qLmpzA=;
-        b=LbFEClBAP1YNQMYAcpjl8ZX678Ue5TCzjUkrZL43cXX+FMyng7eHFoBBBkb0TBujnP
-         Av8njdWKP+29rhynXXZzr/WdiYlHNACiU7B/ihUFsWuQx3Tt4oYSeFebAoiooaaW0hm7
-         93+CMj/2lCG9v42wS20GC3x4SlTFXu8RRoTurNHROXDuYRkfN8xgSglI3wVjU7wOJF3F
-         FUv0O0CKqhMzue5DmY28lYvKktljQXsvzI4j9laWX4SAy83s+xgxSTPClcAunrN2V3JX
-         VrGerr+Z5lBz2bC1ttHDS+lRiXxU890ZlU+yMgdEr3oijCAzRUvaXLCEgKmlm/wHCKSw
-         pyYQ==
-X-Gm-Message-State: AC+VfDw/wm51t0N1/R9ppuMkF1rQPqkeYXqWEZlloKLVvku1Vzev8HOQ
-        KpjNh6r5ZK0FWoayokzlSKNChxktWVD70e7OuN2/JA==
-X-Google-Smtp-Source: ACHHUZ7CBd2wUHK8k2lgRrAuRCD05zXuyItA3V96++DWtYfbbflwkOBx5803VCm2uJlW3Pd5gPmSaLahxqRgaSxm8dA=
-X-Received: by 2002:a05:622a:14d:b0:3ef:2f55:2204 with SMTP id
- v13-20020a05622a014d00b003ef2f552204mr43260qtw.6.1684452061154; Thu, 18 May
- 2023 16:21:01 -0700 (PDT)
+        d=1e100.net; s=20221208; t=1684452472; x=1687044472;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=fQnIRB+9xwLLOp4+FdFBS08hpbnlG9c6Ydc1vYTZYO8=;
+        b=Pm2PTk/IDi6SRKxr+Z3FpEyS5GjQK5vE2XYV8oPOn3g1XlbfIM557gqpWMhqSDRYSd
+         69K0A5cKV6N9BZzNjiGtBRXPMSKyzDtzp2Gy15ZdGNhDRhft40vsJ59Y4awOeY8eH39p
+         DJ0BHzKUTawq60oDdJBxXiIvO77bz2LMFWfucRmZFOB18zsg0awKTvDFtyzu+P43YYhG
+         9TxYfz76ws5c6WXDBq2owdLd3NzKDhf7PZ7Muk5ZnvgqQKZfcQTpJm4PXcvlbWICGJwC
+         5LfbMvOR9wckU0D2mwqvP5TszjX7mIQHHkOG3GKPtfiiB4u1qDrRxHVRIj6qoWfXJTeE
+         jdmA==
+X-Gm-Message-State: AC+VfDxhSRwgaEN5OoL3V0us3bEAZmTiv+ietlVQzG2WEgniLoZO7yxt
+        xGpb7nYram/PY3yl4DfptYKuROss0OG/ZCsNj1DNTA==
+X-Google-Smtp-Source: ACHHUZ4R5srADuZvJpJFWHd02TQC2cCCY0AldUQ8En4U2gwjFg2K9jr6E4NruUQP+AUerL37LxKRW6UU+HQDdIYuQEY=
+X-Received: by 2002:a05:6214:2524:b0:621:3da:d3d5 with SMTP id
+ gg4-20020a056214252400b0062103dad3d5mr1659029qvb.23.1684452471822; Thu, 18
+ May 2023 16:27:51 -0700 (PDT)
 MIME-Version: 1.0
+References: <CAELULbeXgZWn+Nw_rpUzkGgNCtb7oFf1+JS=KnNVuLhcF5Vabg@mail.gmail.com>
+In-Reply-To: <CAELULbeXgZWn+Nw_rpUzkGgNCtb7oFf1+JS=KnNVuLhcF5Vabg@mail.gmail.com>
 From:   Zijun Zhao <zijunzhao@google.com>
-Date:   Thu, 18 May 2023 16:20:50 -0700
-Message-ID: <CAELULbeXgZWn+Nw_rpUzkGgNCtb7oFf1+JS=KnNVuLhcF5Vabg@mail.gmail.com>
-Subject: [PATCH] Fix the man page
+Date:   Thu, 18 May 2023 16:27:40 -0700
+Message-ID: <CAELULbf=z2WWpHm5QDTK81oWTC9zMZJg2MA69mjOorJQ5QAzGw@mail.gmail.com>
+Subject: Re: [PATCH] Fix the man page
 To:     alx@kernel.org
 Cc:     linux-man@vger.kernel.org, Elliott Hughes <enh@google.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/mixed; boundary="00000000000039e8c605fc00273b"
 X-Spam-Status: No, score=-17.6 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
         DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
         ENV_AND_HDR_SPF_MATCH,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
@@ -62,6 +65,9 @@ X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
+
+--00000000000039e8c605fc00273b
+Content-Type: text/plain; charset="UTF-8"
 
 Hi there,
   We are annotating settimeofday(), gettimeofday() and we will make tv
@@ -76,3 +82,31 @@ we think tv is okay to be nullable. So we make the fix to make it more clear.
 Best,
 
 Zijun Zhao
+
+--00000000000039e8c605fc00273b
+Content-Type: application/octet-stream; name="fix.patch"
+Content-Disposition: attachment; filename="fix.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_lhtrcrep0>
+X-Attachment-Id: f_lhtrcrep0
+
+RnJvbSA3NjBkOGUwN2M4YjE1Y2ZjYjg4ZGU5ZjA2NGRiOGNhZTU3N2Y3YWM3IE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBaaWp1biBaaGFvIDx6aWp1bnpoYW9AZ29vZ2xlLmNvbT4KRGF0
+ZTogRnJpLCAxMiBNYXkgMjAyMyAxOTowMzo0NyAtMDcwMApTdWJqZWN0OiBbUEFUQ0hdIEZpeCB0
+aGUgbWFuIHBhZ2UKCldlIGFyZSBhbm5vdGF0aW5nIHNldHRpbWVvZmRheSgpIGFuZCB3ZSB3aWxs
+IG1ha2UgdHYgTm9ubnVsbCBpZiBjb21waWxhdGlvbiB3YXJuaW5ncyB3aWxsCnJlc3VsdC4gQnV0
+IGFmdGVyIGNoZWNraW5nIGh0dHBzOi8vZWxpeGlyLmJvb3RsaW4uY29tL2xpbnV4L2xhdGVzdC9z
+b3VyY2Uva2VybmVsL3RpbWUvdGltZS5jI0wxOTksCndlIHRoaW5rIGl0IGlzIG9rYXkgdG8gYmUg
+bnVsbGFibGUuIFNvIHdlIG1ha2UgdGhlIGZpeCB0byBtYWtlIGl0IG1vcmUgY2xlYXIuCi0tLQog
+bWFuMi9nZXR0aW1lb2ZkYXkuMiB8IDMgLS0tCiAxIGZpbGUgY2hhbmdlZCwgMyBkZWxldGlvbnMo
+LSkKCmRpZmYgLS1naXQgYS9tYW4yL2dldHRpbWVvZmRheS4yIGIvbWFuMi9nZXR0aW1lb2ZkYXku
+MgppbmRleCA5ZDEzNGZhNDkuLjFlNzFjNWI3MCAxMDA2NDQKLS0tIGEvbWFuMi9nZXR0aW1lb2Zk
+YXkuMgorKysgYi9tYW4yL2dldHRpbWVvZmRheS4yCkBAIC05Miw5ICs5Miw2IEBAIG9yCiBpcyBO
+VUxMLCB0aGUgY29ycmVzcG9uZGluZyBzdHJ1Y3R1cmUgaXMgbm90IHNldCBvciByZXR1cm5lZC4K
+IC5cIiBGSVhNRSAuIFRoZSBjb21waWxhdGlvbiB3YXJuaW5nIGxvb2tzIHRvIGJlIGdvaW5nIGF3
+YXkgaW4gZ2xpYmMgMi4xNwogLlwiIHNlZSBnbGliYyBjb21taXQgNGI3NjM0YTVlMDNiMGRhNmY4
+ODc1ZGU5ZDNmNzRjMWNmNmYyYTZlOAotKEhvd2V2ZXIsIGNvbXBpbGF0aW9uIHdhcm5pbmdzIHdp
+bGwgcmVzdWx0IGlmCi0uSSB0dgotaXMgTlVMTC4pCiAuXCIgVGhlIGZvbGxvd2luZyBpcyBjb3Zl
+cmVkIHVuZGVyIEVQRVJNIGJlbG93OgogLlwiIC5QUAogLlwiIE9ubHkgdGhlIHN1cGVydXNlciBt
+YXkgdXNlCi0tIAoyLjQwLjEuNjA2LmdhNGIxYjEyOGQ2LWdvb2cKCg==
+--00000000000039e8c605fc00273b--
