@@ -2,69 +2,74 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 021D1709527
-	for <lists+linux-man@lfdr.de>; Fri, 19 May 2023 12:37:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 934D9709625
+	for <lists+linux-man@lfdr.de>; Fri, 19 May 2023 13:18:11 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231140AbjESKhR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 19 May 2023 06:37:17 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55762 "EHLO
+        id S231934AbjESLSJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 19 May 2023 07:18:09 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54222 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231491AbjESKhB (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 19 May 2023 06:37:01 -0400
-X-Greylist: delayed 580 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Fri, 19 May 2023 03:36:23 PDT
-Received: from dcvr.yhbt.net (dcvr.yhbt.net [173.255.242.215])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 793931991
-        for <linux-man@vger.kernel.org>; Fri, 19 May 2023 03:36:23 -0700 (PDT)
-Received: from localhost (dcvr.yhbt.net [127.0.0.1])
-        by dcvr.yhbt.net (Postfix) with ESMTP id C0C381F542;
-        Fri, 19 May 2023 10:26:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=80x24.org;
-        s=selector1; t=1684492003;
-        bh=cNSyz450mALWz0WlZCgLkM6HNb3f5o5kSStgWs1ao5Y=;
-        h=From:To:Cc:Subject:Date:From;
-        b=U1mFWA6s6NxH+5+YuhLIo+lo311zSCkdqrpQb07yRTgYsi7LbCCqOLxX7ViQSTv4X
-         94S8aLDwmOxrVojWCR0UbA9gqGx9kUbx3sQR0h90txJ3J0Bj13qbSTSXjvU7EBHhtr
-         pDppQcpNTuVcmv5QGXTuKD33FgecLYONBL/xMNRs=
-From:   Eric Wong <e@80x24.org>
-To:     Alejandro Colomar <alx@kernel.org>
-Cc:     linux-man@vger.kernel.org, Eric Wong <e@80x24.org>
-Subject: [PATCH] system_data_types.7: tfix
-Date:   Fri, 19 May 2023 10:26:43 +0000
-Message-ID: <20230519102643.3615995-1-e@80x24.org>
+        with ESMTP id S231694AbjESLSG (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 19 May 2023 07:18:06 -0400
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com [IPv6:2a00:1450:4864:20::631])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 53CB210F8
+        for <linux-man@vger.kernel.org>; Fri, 19 May 2023 04:18:04 -0700 (PDT)
+Received: by mail-ej1-x631.google.com with SMTP id a640c23a62f3a-96652cb7673so504733766b.0
+        for <linux-man@vger.kernel.org>; Fri, 19 May 2023 04:18:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1684495083; x=1687087083;
+        h=to:subject:message-id:date:from:reply-to:mime-version:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=YmxaI1amCfTksu6ynk2557PwK0HJxrBQmYIx/Pz5hBs=;
+        b=Wt/WzQmS095ww6zzUgoSSAlrCDxwL2gSoVBMsVxHRKn23YcliDiJyBLjqweTRoToj1
+         ufUOgV4j5pHE/9SR+dsRPr9gpju7XpaMYkUmYe1T6vrhoZIvsQDtFJjwfPWr0ZA8MwEK
+         A8xkN8RoXHrnV8mxXNMusUB3EToMcUvt2JPOXJbMgVYPwdz45S3ERx+Nyqo+cmGrrOa8
+         vd+RSV3BkQDybrevFx7U7UuvnFt+9sOfqdHCxo6t6nUsXpAQmNebiCtg7JMDFdLkqxgM
+         8PXBgbynXWRxC6QXqoh8bbtvc/aqA5Z2+Ycz9m8q7U5s8LdUBFb9kcl7MTOhQK2ZKsRi
+         q6Tg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1684495083; x=1687087083;
+        h=to:subject:message-id:date:from:reply-to:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=YmxaI1amCfTksu6ynk2557PwK0HJxrBQmYIx/Pz5hBs=;
+        b=LDYcS2FGhVJCr5HKe813EtYunETRgBnBazIt/QGa/rzvrg/DXguW3e2ndZD+JkLlw2
+         fVSOUo1oo3AoVjaTVhIjpOVEvVUlqy7Q17LWsy5uSqmJFkyy3kyVa4cDYb+bzqb91mEy
+         T2d53mLfJ3xKbdulxWWAvfB5dJ5HSar42HX1rFm9BRIZ3fBadPybjhWcfGskr+XsI2KM
+         pZGdL76EBsaekRq39gEEVx0k9m5p9WOBXfSZdCzWJ3Elp/cKVsesuj9aiFTPt9+eACPS
+         10cRLqniIWoJX9TaY5Inw7AL89mEUGc+c5dI/a0jdMBt2fZbG+UlopoqcLSKWWiTwO+x
+         EbGA==
+X-Gm-Message-State: AC+VfDyqpgsVxUozTZARQFZoh2fR7KHrpVx7T0Kr7jdaXznU/sGoLrwj
+        zuauFMbwd3SLZITtICpTxq7SRI2mNoExJk/D4Tw=
+X-Google-Smtp-Source: ACHHUZ4u0RD9o3Kl8FtNeecPkKIUUkqQP5EKCQy8Odb3BCVRQ/plvct7PNXp53hldLkfZ7jyXh0W2roGP4wdAWIFYf4=
+X-Received: by 2002:a17:906:af64:b0:966:5730:c3fe with SMTP id
+ os4-20020a170906af6400b009665730c3femr1223003ejb.52.1684495082502; Fri, 19
+ May 2023 04:18:02 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
-        T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=ham autolearn_force=no
-        version=3.4.6
+Received: by 2002:a17:907:7dab:b0:94f:7d03:8e8b with HTTP; Fri, 19 May 2023
+ 04:18:02 -0700 (PDT)
+Reply-To: ninacoulibaly03@myself.com
+From:   nina coulibaly <ninacoulibaly199@gmail.com>
+Date:   Fri, 19 May 2023 04:18:02 -0700
+Message-ID: <CAM7Z2JAs+q6RsD5Hw352ZDFruUVR5ngjAamir+4ZCakNdZyceg@mail.gmail.com>
+Subject: from nina coulibaly
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
+X-Spam-Status: No, score=4.8 required=5.0 tests=BAYES_50,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
+        FREEMAIL_FROM,FREEMAIL_REPLYTO,FREEMAIL_REPLYTO_END_DIGIT,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+        UNDISC_FREEM autolearn=no autolearn_force=no version=3.4.6
+X-Spam-Level: ****
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-The actual field names omit the 'g', matching sigevent.7.
+Dear,
 
-Signed-off-by: Eric Wong <e@80x24.org>
----
- I really don't understand why the 'g' is omitted to give us
- this footgun; `struct sigevent' has longer field names...
+Please grant me permission to share a very crucial discussion with
+you. I am looking forward to hearing from you at your earliest
+convenience.
 
- man7/system_data_types.7 | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/man7/system_data_types.7 b/man7/system_data_types.7
-index 6bbf71004..1840a40fa 100644
---- a/man7/system_data_types.7
-+++ b/man7/system_data_types.7
-@@ -183,8 +183,8 @@ POSIX.1-2001 and later.
- .PP
- .EX
- union sigval {
--    int     sigval_int; /* Integer value */
--    void   *sigval_ptr; /* Pointer value */
-+    int     sival_int; /* Integer value */
-+    void   *sival_ptr; /* Pointer value */
- };
- .EE
- .PP
+Mrs. Nina Coulibal
