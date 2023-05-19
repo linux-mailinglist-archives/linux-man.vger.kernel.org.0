@@ -2,42 +2,42 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 1A65C709820
-	for <lists+linux-man@lfdr.de>; Fri, 19 May 2023 15:21:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 76A55709823
+	for <lists+linux-man@lfdr.de>; Fri, 19 May 2023 15:23:13 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230093AbjESNVO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 19 May 2023 09:21:14 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47142 "EHLO
+        id S231485AbjESNXM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 19 May 2023 09:23:12 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47944 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231676AbjESNVN (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 19 May 2023 09:21:13 -0400
+        with ESMTP id S231470AbjESNXL (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 19 May 2023 09:23:11 -0400
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6FF0113A
-        for <linux-man@vger.kernel.org>; Fri, 19 May 2023 06:21:12 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D4BD2134
+        for <linux-man@vger.kernel.org>; Fri, 19 May 2023 06:23:10 -0700 (PDT)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
         (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
         (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id DBE9564061
-        for <linux-man@vger.kernel.org>; Fri, 19 May 2023 13:21:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 3F6BCC4339E
-        for <linux-man@vger.kernel.org>; Fri, 19 May 2023 13:21:11 +0000 (UTC)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id 6B5E86134B
+        for <linux-man@vger.kernel.org>; Fri, 19 May 2023 13:23:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C64DAC433A0
+        for <linux-man@vger.kernel.org>; Fri, 19 May 2023 13:23:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1684502471;
-        bh=OoLZ3EQqYTJhpeXDBtAsbYI9BLFLGYtMExw6it/KP04=;
+        s=k20201202; t=1684502589;
+        bh=h6vp65dYLrd3LFvMrErqL9esUZRBYyQdGqJVJLXo6a4=;
         h=From:To:Subject:Date:In-Reply-To:References:From;
-        b=RjfounjCmqh4zCgxtbfL13DAg5XqwIvE02B7fp7HOxllxDYZBYFuZpmkwY+BwRI++
-         FEfTkyJKckkuaFdNmvc3oFIwyvIUBnDWf+q+57TsfHjtg0e1RfDvd7sPTS2yuKvwJp
-         ZIEfxmU+qcPPcnLraERabLcIXOvqRNmNiCvnT9msULgx9zA9+RRWhV5/j94sWVH+s0
-         CsTaCTQz9whAHdE9i2gqt7cTCY+UPpM4BgPIs3Gr1cpazjLSWFQ9Mnjfwo2Pq0pvhM
-         btbQZ1Bc4hv/WYUkAuWJrQp3pZyCYJ7m4aBltvLMaXJ0Py988s4PdvbQLzcTJpK8YW
-         bXN6U3DZWG7QA==
+        b=O1uR3me4i/lllcftc/QWNJu9YXMMAbTPbNA6k5t6nJmtxKySf+CZx6GAKXlqZaQjF
+         LwVoJ3ueD7G4TmEsCbgR9bwA9P3uzMnUG+79XoVWF1weuHY4zvYKjpkdHOmu1R4h+q
+         1Ioq0bNKgUleoA+IWM1WOvuseW/zxcJcKUyghz62IGkhzQoCgY7ilKyUnzOTuUpMbc
+         j2lmk8JtectL9qb+sKSjgTcmor+WXWwPo8Cv5nTkWtNPG9oMglpgsH6GLQZEWIpjFO
+         OpDaJXbiOd5McrcS1co3uz4jdyUUt6wwj9SrhDkTbRCfbO0m2nPXVtX67xPdjSrDwV
+         1taLLzzONHHow==
 Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
-        id 30A6CC43141; Fri, 19 May 2023 13:21:11 +0000 (UTC)
+        id B37BCC43145; Fri, 19 May 2023 13:23:09 +0000 (UTC)
 From:   bugzilla-daemon@kernel.org
 To:     linux-man@vger.kernel.org
 Subject: [Bug 216876] prototype for execveat() in the documentation appears
  wrong
-Date:   Fri, 19 May 2023 13:21:10 +0000
+Date:   Fri, 19 May 2023 13:23:09 +0000
 X-Bugzilla-Reason: None
 X-Bugzilla-Type: changed
 X-Bugzilla-Watch-Reason: AssignedTo
@@ -48,13 +48,13 @@ X-Bugzilla-Version: unspecified
 X-Bugzilla-Keywords: 
 X-Bugzilla-Severity: low
 X-Bugzilla-Who: alx@kernel.org
-X-Bugzilla-Status: NEW
-X-Bugzilla-Resolution: 
+X-Bugzilla-Status: RESOLVED
+X-Bugzilla-Resolution: DOCUMENTED
 X-Bugzilla-Priority: P1
 X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
 X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: 
-Message-ID: <bug-216876-11311-yfP7jSgg1s@https.bugzilla.kernel.org/>
+X-Bugzilla-Changed-Fields: bug_status resolution
+Message-ID: <bug-216876-11311-uRtZf4ZNBW@https.bugzilla.kernel.org/>
 In-Reply-To: <bug-216876-11311@https.bugzilla.kernel.org/>
 References: <bug-216876-11311@https.bugzilla.kernel.org/>
 Content-Type: text/plain; charset="UTF-8"
@@ -74,10 +74,12 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 https://bugzilla.kernel.org/show_bug.cgi?id=3D216876
 
---- Comment #2 from Alejandro Colomar (alx@kernel.org) ---
-Fixed:
-<https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/man2/ex=
-ecveat.2?id=3D0c884c2c515d20c8ecf246eef5208dc748b98e65>
+Alejandro Colomar (alx@kernel.org) changed:
+
+           What    |Removed                     |Added
+----------------------------------------------------------------------------
+             Status|NEW                         |RESOLVED
+         Resolution|---                         |DOCUMENTED
 
 --=20
 You may reply to this email to add a comment.
