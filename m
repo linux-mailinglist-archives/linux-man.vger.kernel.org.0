@@ -2,157 +2,182 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 6968570A2C0
-	for <lists+linux-man@lfdr.de>; Sat, 20 May 2023 00:22:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id BA10E70A2C2
+	for <lists+linux-man@lfdr.de>; Sat, 20 May 2023 00:22:56 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229449AbjESWVv (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 19 May 2023 18:21:51 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48268 "EHLO
+        id S229898AbjESWWZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 19 May 2023 18:22:25 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48410 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231774AbjESWVn (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 19 May 2023 18:21:43 -0400
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com [IPv6:2a00:1450:4864:20::32f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E73411A6
-        for <linux-man@vger.kernel.org>; Fri, 19 May 2023 15:21:41 -0700 (PDT)
-Received: by mail-wm1-x32f.google.com with SMTP id 5b1f17b1804b1-3f41d087bd3so23689855e9.3
-        for <linux-man@vger.kernel.org>; Fri, 19 May 2023 15:21:41 -0700 (PDT)
+        with ESMTP id S231330AbjESWWE (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 19 May 2023 18:22:04 -0400
+Received: from mail-qv1-xf2d.google.com (mail-qv1-xf2d.google.com [IPv6:2607:f8b0:4864:20::f2d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 25E6EEE
+        for <linux-man@vger.kernel.org>; Fri, 19 May 2023 15:22:03 -0700 (PDT)
+Received: by mail-qv1-xf2d.google.com with SMTP id 6a1803df08f44-623a5f60355so6153866d6.1
+        for <linux-man@vger.kernel.org>; Fri, 19 May 2023 15:22:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1684534900; x=1687126900;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+        d=google.com; s=20221208; t=1684534922; x=1687126922;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=G610/4NrZXZtVgrSB27QfmIH/3YkYywCqEXRD9eAjBo=;
-        b=dBBwtGheMYXGKU/maDHkkZVDM20nLcMaCFZZqvScYVguflPXg10vE8rB+UGgPoQPPm
-         ZekUPdwfZhI21ct8pmfDG6fF4gTMukomGc6RQlngeDp2LEeRBMAqJ2FKq2vY/N1x4fZw
-         2BfpqNQD4Ky02lFNPGXbtgao0LdGqEXnoyfohtIuM6a1uEazxFXa8HJkz4Jw6psLev/E
-         DcgY1ZRMX+6YTBKE27cQ1gnydCxfiKTsKIVka8kcxtP6mKNEPRgIcT0OUop5kSmXqdsA
-         +RlaXa6xm5m/pWDRlO+MISLT+G8+l2LbTFyfydbimARbRLrDwIDki/qCsjHjBAYPTCLA
-         nJkw==
+        bh=xYdJR6miDYwpfAE5R2cftFEzzwiAQXUMtZ6DEEcLKco=;
+        b=UogqHf3WWsEiGm5U2wDhAEMvourEpsL2WMKRANPMJoqdstKov+S/AbRWwcu4iSdZ6A
+         9wablVOyRXB6/y9T2s4wJ3JmUeUJs78FbdVdbbfuP4DlENSRAw4RNmGW+6/b6QrfPY5t
+         ygUulra0Ij57LDA5bwbqI23y2E6LLRg/5oWiOgr1ppo09z8Xs7nU4rhonIntOLpB0LTv
+         99QtQfh9aZ7wJlK57jybwDSy9QaY8i8Se5RJer1MYTou1vUa8+v6cAWp591JdOG2NXxB
+         J7JQw1rfBjpsGfYCwWcx05FgMTD+Qkzk9uFMnyt1yT8EUKOYEOqDEoQKVf1ngXUoXxhz
+         vBLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1684534900; x=1687126900;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=G610/4NrZXZtVgrSB27QfmIH/3YkYywCqEXRD9eAjBo=;
-        b=CQXhb2dYn6+f4uYJUDj0cPD4kMF4QwjlpXaVUm0YEhUMCBI7O7ZqXVb27jBr4lQcil
-         Cvok9mDS5YcGhdafdlkX0yWqZlWrO9ES8dDo+cLpKQrLEztnScUZdhDefyx6E8mJL6TP
-         PSsOHaT2GtXvNJkA8TKWMpyJGTMs/rOp+PXF/SC7C7RpxW4NiZkO0KoSt0+TnaDCIuCz
-         I4bX411ZfWdWZXZFyPuf4QjGnTdaNIFPPQ0ZmEeY6czkkZB7IuJlAhWkg2igBXChJcFb
-         O4baDCEvEmQtn18IuRWr9gO2Fb/V7On+yX9FoLoM79WYTUucvSe85ISIqEbg/80J0Lu+
-         iD+A==
-X-Gm-Message-State: AC+VfDztWdV8P/41g/IkxXIzTs0Ov/YUIlhBWm2KPnJ/i89Sd6PAVxYY
-        wTyAY9V5HHr6fx4MpcwLHjI0GjsdgTE=
-X-Google-Smtp-Source: ACHHUZ657X5CZxF+aOS5S7+OpuYOgOi5KMD8G110LIaHVBZEtF9+9mk6VzID+xIh5M8/5p8xj2km+w==
-X-Received: by 2002:a7b:cd01:0:b0:3f4:2327:53c2 with SMTP id f1-20020a7bcd01000000b003f4232753c2mr2641019wmj.19.1684534900172;
-        Fri, 19 May 2023 15:21:40 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.51.134])
-        by smtp.gmail.com with ESMTPSA id i7-20020a05600c290700b003f506e6ff83sm385993wmd.22.2023.05.19.15.21.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 19 May 2023 15:21:39 -0700 (PDT)
-Message-ID: <0f8599ab-73ee-8ae7-6ae8-0848bfb0eac9@gmail.com>
-Date:   Sat, 20 May 2023 00:21:38 +0200
+        d=1e100.net; s=20221208; t=1684534922; x=1687126922;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=xYdJR6miDYwpfAE5R2cftFEzzwiAQXUMtZ6DEEcLKco=;
+        b=aT9G09aiMqMk5VyyrETwsLfmd6TmIojXKzZbb/6rqc43n0/GGrBJ0bV1cVU42xToyW
+         KZdKv8N2KZhAcqxPX4qkY/oZR2yzVwIDeGAoFQ5znwiH6sEgbtMTBqv4KHTf2Ol3cXHH
+         wWqc//uvS/vyIs3ed7L4KdFeal5Z4PhhMF6Bfzf7NRNfA7fH50fMOlrbvumhl8LZfyzP
+         IWWVZdM//4rcYKH1JxJgV3NB+GpykEsCuDOi2jX0AzRDBkb/I+IWYKbLT5c2ZktbmoXF
+         N2j8xzwmhi24udbXeDBxPnFYg5G4cfnLMYN//l+sj9b2Svv4g2VSnAfgw5eRC+5/u7Wn
+         p3PQ==
+X-Gm-Message-State: AC+VfDw24zcoo2n2qbuEOPNiEBqxI41UiN7cLKIk+3DjZVU+MU7QuLhS
+        QPDGB0dmikQS+6IYf0aL1KqCBpASi3LncyJ0MfoC9Q==
+X-Google-Smtp-Source: ACHHUZ45zlGgO0cDnFVAMXRIDaa8sb8fi8PwK/Eqnqs7U1vXZJ7vCac4okyPjPSMy6odH7W7yY3jexMttoIupCkzVnk=
+X-Received: by 2002:ad4:5b84:0:b0:5a9:1bd5:375e with SMTP id
+ 4-20020ad45b84000000b005a91bd5375emr7043311qvp.21.1684534922093; Fri, 19 May
+ 2023 15:22:02 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH] system_data_types.7: tfix
-To:     Eric Wong <e@80x24.org>, Alejandro Colomar <alx@kernel.org>
-Cc:     linux-man@vger.kernel.org
-References: <20230519102643.3615995-1-e@80x24.org>
-Content-Language: en-US
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <20230519102643.3615995-1-e@80x24.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------XLnQMzDPEDYil5WlUirv3MxR"
-X-Spam-Status: No, score=-3.6 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-        URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.6
+References: <CAELULbeXgZWn+Nw_rpUzkGgNCtb7oFf1+JS=KnNVuLhcF5Vabg@mail.gmail.com>
+ <CAELULbf=z2WWpHm5QDTK81oWTC9zMZJg2MA69mjOorJQ5QAzGw@mail.gmail.com>
+ <CAJgzZopuptYOKHQ32-mau9gzwaWOmRtTACqdmfZvox=c2itp7w@mail.gmail.com> <781c88a1-b71f-f600-8d75-068a65855d16@gmail.com>
+In-Reply-To: <781c88a1-b71f-f600-8d75-068a65855d16@gmail.com>
+From:   enh <enh@google.com>
+Date:   Fri, 19 May 2023 15:21:50 -0700
+Message-ID: <CAJgzZooLH5UnNU_j6jTkTFMCS+7gDMaTu9RYpSHnO2ELJat-+A@mail.gmail.com>
+Subject: Re: [PATCH] Fix the man page
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     Zijun Zhao <zijunzhao@google.com>, alx@kernel.org,
+        linux-man@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: No, score=-17.6 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+        ENV_AND_HDR_SPF_MATCH,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+        T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,
+        USER_IN_DEF_SPF_WL autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------XLnQMzDPEDYil5WlUirv3MxR
-Content-Type: multipart/mixed; boundary="------------Fl9e0Q0ormpT70Vc7qyIvzbG";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Eric Wong <e@80x24.org>, Alejandro Colomar <alx@kernel.org>
-Cc: linux-man@vger.kernel.org
-Message-ID: <0f8599ab-73ee-8ae7-6ae8-0848bfb0eac9@gmail.com>
-Subject: Re: [PATCH] system_data_types.7: tfix
-References: <20230519102643.3615995-1-e@80x24.org>
-In-Reply-To: <20230519102643.3615995-1-e@80x24.org>
+On Fri, May 19, 2023 at 1:03=E2=80=AFAM Alejandro Colomar
+<alx.manpages@gmail.com> wrote:
+>
+> Hi Zijun, Elliott,
+>
+> On 5/19/23 01:30, enh wrote:
+> > should probably remove the "The compilation warning looks to be going
+> > away in glibc 2.17 see glibc commit
+> > 4b7634a5e03b0da6f8875de9d3f74c1cf6f2a6e8" above, since this patch
+> > fixes that, but leave the FIXME because it looks like there are more
+> > FIXMEs below?
+> >
+> >
+> > On Thu, May 18, 2023 at 4:27=E2=80=AFPM Zijun Zhao <zijunzhao@google.co=
+m> wrote:
+> >>
+> >> Hi there,
+> >>    We are annotating settimeofday(), gettimeofday() and we will make t=
+v
+> >> Nonnull if compilation warnings will
+> >>
+> >> result. But after checking
+> >> https://elixir.bootlin.com/linux/latest/source/kernel/time/time.c#L199
+> >> nd https://elixir.bootlin.com/linux/latest/source/kernel/time/time.c#L=
+224,
+> >>
+> >> we think tv is okay to be nullable. So we make the fix to make it more=
+ clear.
+> >>
+> >> Best,
+> >>
+> >> Zijun Zhao
+>
+> You'll also need to add _Nullable to the function prototypes in the
+> SYNOPSIS.
 
---------------Fl9e0Q0ormpT70Vc7qyIvzbG
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+heh, funnily enough, zijunzhao's adding exactly those annotations to
+the bionic headers, which is how we stumbled across this.
 
-Hi Eric,
+> BTW, I see that glibc still requires nonnull in gettimeofday(3).  It's
+> only settimeofday(3) that is nullable.
 
-On 5/19/23 12:26, Eric Wong wrote:
-> The actual field names omit the 'g', matching sigevent.7.
->=20
-> Signed-off-by: Eric Wong <e@80x24.org>
+yeah, but the _kernel_ allows null in both (see kernel/time/time.c),
+and this is section 2 of the man page. it's unclear to me whether
+that's worth calling out up here, or should be down in the
+Linux-specific section? (this page seems to be written as if it cares
+about Hurd? "On a non-Linux kernel, with glibc ...".)
 
-Patch applied.  Thanks!
+> See:
+>
+>
+> $ grepc gettimeofday /usr/include/*/sys/time.h
+> /usr/include/x86_64-linux-gnu/sys/time.h:67:
+> extern int gettimeofday (struct timeval *__restrict __tv,
+>                          void *__restrict __tz) __THROW __nonnull ((1));
+>
+>
+> /usr/include/x86_64-linux-gnu/sys/time.h:75:
+> #  define gettimeofday __gettimeofday64
+>
+>
+> $ grepc settimeofday /usr/include/*/sys/time.h
+> /usr/include/x86_64-linux-gnu/sys/time.h:86:
+> extern int settimeofday (const struct timeval *__tv,
+>                          const struct timezone *__tz)
+>       __THROW;
+>
+>
+> /usr/include/x86_64-linux-gnu/sys/time.h:106:
+> #   define settimeofday __settimeofday64
+>
+>
+> And while NULL may be non-UB, the manual page is not very clear on why
+> someone would want to call these functions with NULL.  Could you
+> please also explain why would someone want to call these functions
+> with NULL?  (Let's discuss it in the list, and then we see what
+> wording we use for the page.)
 
-Alex
+so there are definitely several orders of magnitude more users of a
+null timezone --- most callers don't want that (not least because
+glibc seems to not fill it out anyway? musl certainly doesn't,
+implementing gettimeofday() in terms of clock_gettime() instead).
 
-> ---
->  I really don't understand why the 'g' is omitted to give us
->  this footgun; `struct sigevent' has longer field names...
+the users for a null time (and non-null timezone; i haven't seen
+anyone -- not even a test -- pass null for both!) are interesting.
+Android's init uses settimeofday() with only a timezone, but --
+although the timezone to use is settable in device-specific init
+scripts -- for devices in our tree, that's actually always 0. there's
+other proprietary (non-Google) code that uses gettimeofday() with only
+a timezone, and i'm honestly not sure whether it's deliberate that
+it's asking the _kernel_ for the timezone or not (i'm guessing they
+want the device timezone rather than the app timezone, but i do not
+believe there are devices where the _kernel_ timezone matches the
+device timezone?). certainly both of these use cases seem worth
+following up on, and i will do.
 
-v0v  Confusing it is :)
+but looking at musl (which ignores tz in both cases) it seems like the
+most impactful change would be to fix "The functions gettimeofday()
+and settimeofday() can get and set the time as well as a timezone" :-)
 
->=20
->  man7/system_data_types.7 | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->=20
-> diff --git a/man7/system_data_types.7 b/man7/system_data_types.7
-> index 6bbf71004..1840a40fa 100644
-> --- a/man7/system_data_types.7
-> +++ b/man7/system_data_types.7
-> @@ -183,8 +183,8 @@ POSIX.1-2001 and later.
->  .PP
->  .EX
->  union sigval {
-> -    int     sigval_int; /* Integer value */
-> -    void   *sigval_ptr; /* Pointer value */
-> +    int     sival_int; /* Integer value */
-> +    void   *sival_ptr; /* Pointer value */
->  };
->  .EE
->  .PP
+it also seems like an improvement to really call out the libc/kernel
+differences more clearly though.
 
---=20
-<http://www.alejandro-colomar.es/>
-GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
-
---------------Fl9e0Q0ormpT70Vc7qyIvzbG--
-
---------------XLnQMzDPEDYil5WlUirv3MxR
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmRn9nIACgkQnowa+77/
-2zKnxhAAmX3aRt12WsDnh3FDVv2xBUIPcmhP9HUpjwRYIoIC+MkO9VHl5LqXhHBw
-n1kDWYCM2FHfzlCbBdh2oxh82euhmdqwEq+jrwiqcbqBnQCOaHIsvM7/3b9M8qyF
-TXbtQ0pTNlThQ02nykNi8HbG0jVm+5JDDZMdKmuyy7TDot3yh+uquMXGmTwPhkcp
-hyvlp5Yp6n7XyORNyXI/hukL1pqahD7h7IlhWTS9heIi3eLUzdZarqmp+QBrUEkh
-B54fof6oa8akR7vh3XHxdtIAK9KcqfMEYbGPIg9fKBpXTiuq8bV/Q90SJ/t0Bpc8
-r+5tFIfzTt0PRPXJRBfOJoFDueFhdgTt1+vpfAfSBMy8Sv+zXVvQI6Co1Mz7fcFP
-yTbBvfSYqWKg8hvcAJ/6hjUxoeAx5XzbIjO7PvTX3Sh2GuvjmSNRMipU+6wioV18
-JGD4ZPv9r5oICIFKVrhLLLZYRuyUkLHEg1JimKaVtsYG/g/Gq8iDSgOh3M9DGMbU
-aInNFasrECYtcEiDSCOU3AdWJNdmgDUkLytPZD6gL9c0XmGpTCl4AwgYM0Pb+aW9
-R4J+7qRIG1+EoIA5/OQBCwQYILu4+F9u+Ar7cAa1sFPmqU6xae7Lq93G6JbaqPYT
-3sr1URGLq+lqisPr2+NRj9Cj6kitXiAougsCODQ/qQhHDMzG+LU=
-=3J6B
------END PGP SIGNATURE-----
-
---------------XLnQMzDPEDYil5WlUirv3MxR--
+> Thanks!
+> Alex
+>
+> --
+> <http://www.alejandro-colomar.es/>
+> GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
+>
