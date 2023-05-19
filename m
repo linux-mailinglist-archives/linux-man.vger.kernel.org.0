@@ -2,42 +2,42 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 225E3709781
-	for <lists+linux-man@lfdr.de>; Fri, 19 May 2023 14:49:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 51BEC709782
+	for <lists+linux-man@lfdr.de>; Fri, 19 May 2023 14:49:26 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231400AbjESMtR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 19 May 2023 08:49:17 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59952 "EHLO
+        id S231410AbjESMtZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 19 May 2023 08:49:25 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59992 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229965AbjESMtQ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 19 May 2023 08:49:16 -0400
+        with ESMTP id S229965AbjESMtZ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 19 May 2023 08:49:25 -0400
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E1E7510D
-        for <linux-man@vger.kernel.org>; Fri, 19 May 2023 05:49:15 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0F745106
+        for <linux-man@vger.kernel.org>; Fri, 19 May 2023 05:49:24 -0700 (PDT)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
         (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
         (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id 77DFA615A5
-        for <linux-man@vger.kernel.org>; Fri, 19 May 2023 12:49:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D3E03C4339C
-        for <linux-man@vger.kernel.org>; Fri, 19 May 2023 12:49:14 +0000 (UTC)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id 9A33E60AE2
+        for <linux-man@vger.kernel.org>; Fri, 19 May 2023 12:49:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 0B91BC4339C
+        for <linux-man@vger.kernel.org>; Fri, 19 May 2023 12:49:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1684500554;
-        bh=wxnyx/AGRCHF9Wbonm5FazcuzO2I+c29Wr8fdBjdEOE=;
+        s=k20201202; t=1684500563;
+        bh=gyz3XvFzf5Frdt3+NwBk4Myccps7kvYZXEI3tdyq4Bc=;
         h=From:To:Subject:Date:In-Reply-To:References:From;
-        b=T6m1qALBHxGUiHgyLOeyftDsSSDPNp0pR6pA2qCN6zxJrv2Fot2KRrlB+yCu+hJZZ
-         tziH5eYwPuoaG+JVbaz4hBE87K/EZqkWYrlCWTLI22nKkLk5tkcH6FWiD3OFPEDlf7
-         W/1g9wZeFTaFlQ7egdZI7g9dbbyLcuJtte3YJKql2kVv221CZUNpTDlFE4FyzmXkai
-         OXw1zzbQ79N9xJKrGzZI6C/XnvcCx1n3ofcq1f/HXmEfEPlEapKMOZgGjr/puvvTRr
-         63DbOJ2HLmm+jQ8AXp2V/dGyefi7uOiLUv29ZpBA1VPcRp6eHuFnvHzxjZhg5JOceu
-         JPmsKMLb0pf5w==
+        b=MKLW1V/qaMKmNdNNbjUHLF8RVrRYEeiF5l4b0wClEzXTouC2grUSQQkfA2z2xWefu
+         RtmOhoiZ9uncSfBicUroxhQ9xYYyuiQU30du4aN87necf654hAG6A+lMjs6rdlIpUz
+         2NmMSuQOAoivdgMKjdBsHqhunqZCSRdUpATgdebenGuaLH5ADJj8q8gXgiVcTmwtoW
+         R/nET0yXkTVYv9Ybv8N0tf0Jjbqod2Oh+mSUpNwPwC54+cBHp5RzLbkY8fsTBEexX3
+         3PqGjJpnSZBgqBfNV3ZGyszWI6OC2ivOdx833q4EP3LB4LalPZJRV73PcPo/BhcD1B
+         fos3rmnsbiDcA==
 Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
-        id BCF35C43145; Fri, 19 May 2023 12:49:14 +0000 (UTC)
+        id F0473C43145; Fri, 19 May 2023 12:49:22 +0000 (UTC)
 From:   bugzilla-daemon@kernel.org
 To:     linux-man@vger.kernel.org
 Subject: [Bug 216951] close_range(2) needs refreshing for glibc inclusion;
  closefrom(2) page missing
-Date:   Fri, 19 May 2023 12:49:14 +0000
+Date:   Fri, 19 May 2023 12:49:22 +0000
 X-Bugzilla-Reason: None
 X-Bugzilla-Type: changed
 X-Bugzilla-Watch-Reason: AssignedTo
@@ -48,13 +48,13 @@ X-Bugzilla-Version: unspecified
 X-Bugzilla-Keywords: 
 X-Bugzilla-Severity: normal
 X-Bugzilla-Who: alx@kernel.org
-X-Bugzilla-Status: NEW
+X-Bugzilla-Status: NEEDINFO
 X-Bugzilla-Resolution: 
 X-Bugzilla-Priority: P1
 X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
 X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: 
-Message-ID: <bug-216951-11311-5BpQOC2Kyu@https.bugzilla.kernel.org/>
+X-Bugzilla-Changed-Fields: bug_status
+Message-ID: <bug-216951-11311-YgkMubaQ3T@https.bugzilla.kernel.org/>
 In-Reply-To: <bug-216951-11311@https.bugzilla.kernel.org/>
 References: <bug-216951-11311@https.bugzilla.kernel.org/>
 Content-Type: text/plain; charset="UTF-8"
@@ -74,16 +74,11 @@ X-Mailing-List: linux-man@vger.kernel.org
 
 https://bugzilla.kernel.org/show_bug.cgi?id=3D216951
 
---- Comment #1 from Alejandro Colomar (alx@kernel.org) ---
-Hi Sam!
+Alejandro Colomar (alx@kernel.org) changed:
 
-
-I would appreciate a patch from someone experienced in these APIs to the
-mailing list, according to ./CONTRIBUTING.  Maybe you can summon someone
-by CCing in the mailing list?
-
-Cheers,
-Alex
+           What    |Removed                     |Added
+----------------------------------------------------------------------------
+             Status|NEW                         |NEEDINFO
 
 --=20
 You may reply to this email to add a comment.
