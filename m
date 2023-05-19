@@ -2,131 +2,85 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id B7BD3709809
-	for <lists+linux-man@lfdr.de>; Fri, 19 May 2023 15:16:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1A65C709820
+	for <lists+linux-man@lfdr.de>; Fri, 19 May 2023 15:21:15 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230210AbjESNQr (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 19 May 2023 09:16:47 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44832 "EHLO
+        id S230093AbjESNVO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 19 May 2023 09:21:14 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47142 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229524AbjESNQq (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 19 May 2023 09:16:46 -0400
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com [IPv6:2a00:1450:4864:20::52c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 60DF79D
-        for <linux-man@vger.kernel.org>; Fri, 19 May 2023 06:16:44 -0700 (PDT)
-Received: by mail-ed1-x52c.google.com with SMTP id 4fb4d7f45d1cf-510dabb39aeso4093494a12.2
-        for <linux-man@vger.kernel.org>; Fri, 19 May 2023 06:16:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1684502203; x=1687094203;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=NeVKyJhkll2zWDVeQbz4NghDxTRX2yS+RLRbm6nMQH4=;
-        b=EPSbqrKxxUX3V9JqayE71OYW7wB4yHs1ydSSzHxSPTxBt7OWf6Qkf6FaJZt9OXzOTy
-         LKrp/7QEHAal9wkyFCewRKq71c2yILd/gxBE9ERE5084Zx1psQ6xP30KmXgJqS4SPiUp
-         orJfPMjbIkibe1SvI5Bi2UimJdXUg1V5UObZrErQKV2Ejncde11Sj1Hk7/OsNNdcb4aS
-         NsuTVW1vThL4MSlrhXrpZmrJeBuy52WJxE2FWdQFawX1ugvfeY0d1t7j/R5hkScL8GpP
-         lvTMcJ0VpmWS233B4ajHqqLUIXSJQ4TUULi7fTollQ4sQi9KzzCCylBmusMV+TXtDppB
-         vBRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1684502203; x=1687094203;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=NeVKyJhkll2zWDVeQbz4NghDxTRX2yS+RLRbm6nMQH4=;
-        b=bkwPMgPvE8FqGzILr1LfHFlJLsx9XfyZE9BV5cmsgmCBm1fRj+NUys7n8C4Di6I+i/
-         zMSgX3X5UtwgfFauWSZZionhBZ4Vj9jMj2lgiP0UawfKX8WI4iQgCrZ8cK6G/KNItfUc
-         XSGyoppGzFAH1HYRQ1pDoalpiCNDuGgPu5KuRSTnFQG1/srwK3OCbM0s3FmNIymra86N
-         sUQSaoI6KrX/Gio1sbmxVo3mB4D5PtSv2tvPjn2ujVL8gFVWzSu1yxd0ZvlnG5Ewbzsj
-         DgO3/UOTf63kVJwgZ/lr2dMzDeynjsBGe4dY+RpbFuwCk1oc7rmqSYJgY/Vi7QLs/3jp
-         cJiA==
-X-Gm-Message-State: AC+VfDyYuEweQwTjf/xqhkoATsAlF8oeeReMXjWfYzeoRNVzHLFjCxqI
-        Q6NsVFyQuRcU+Qwf3HrKJjDmZbD1fco=
-X-Google-Smtp-Source: ACHHUZ5gp72ryg4Th4uIEXXd1RjU2TsyE0CrJFaknyrfBJlUCOyq4scZDSK8BOlDlTcop71zDhQVCQ==
-X-Received: by 2002:a17:907:a01:b0:94f:395b:df1b with SMTP id bb1-20020a1709070a0100b0094f395bdf1bmr1494880ejc.21.1684502202447;
-        Fri, 19 May 2023 06:16:42 -0700 (PDT)
-Received: from dell7760.alejandro-colomar.es ([46.222.34.83])
-        by smtp.googlemail.com with ESMTPSA id w28-20020a170907271c00b0096f8509f06dsm11031ejk.158.2023.05.19.06.16.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 19 May 2023 06:16:42 -0700 (PDT)
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-X-Google-Original-From: Alejandro Colomar <alx@kernel.org>
+        with ESMTP id S231676AbjESNVN (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 19 May 2023 09:21:13 -0400
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6FF0113A
+        for <linux-man@vger.kernel.org>; Fri, 19 May 2023 06:21:12 -0700 (PDT)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id DBE9564061
+        for <linux-man@vger.kernel.org>; Fri, 19 May 2023 13:21:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 3F6BCC4339E
+        for <linux-man@vger.kernel.org>; Fri, 19 May 2023 13:21:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1684502471;
+        bh=OoLZ3EQqYTJhpeXDBtAsbYI9BLFLGYtMExw6it/KP04=;
+        h=From:To:Subject:Date:In-Reply-To:References:From;
+        b=RjfounjCmqh4zCgxtbfL13DAg5XqwIvE02B7fp7HOxllxDYZBYFuZpmkwY+BwRI++
+         FEfTkyJKckkuaFdNmvc3oFIwyvIUBnDWf+q+57TsfHjtg0e1RfDvd7sPTS2yuKvwJp
+         ZIEfxmU+qcPPcnLraERabLcIXOvqRNmNiCvnT9msULgx9zA9+RRWhV5/j94sWVH+s0
+         CsTaCTQz9whAHdE9i2gqt7cTCY+UPpM4BgPIs3Gr1cpazjLSWFQ9Mnjfwo2Pq0pvhM
+         btbQZ1Bc4hv/WYUkAuWJrQp3pZyCYJ7m4aBltvLMaXJ0Py988s4PdvbQLzcTJpK8YW
+         bXN6U3DZWG7QA==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
+        id 30A6CC43141; Fri, 19 May 2023 13:21:11 +0000 (UTC)
+From:   bugzilla-daemon@kernel.org
 To:     linux-man@vger.kernel.org
-Cc:     Alejandro Colomar <alx@kernel.org>,
-        Florian Weimer <fweimer@redhat.com>
-Subject: [PATCH] open.2, prctl.2: SYNOPSIS: Document these as variadic functions
-Date:   Fri, 19 May 2023 15:15:47 +0200
-Message-Id: <20230519131546.25232-1-alx@kernel.org>
-X-Mailer: git-send-email 2.40.1
+Subject: [Bug 216876] prototype for execveat() in the documentation appears
+ wrong
+Date:   Fri, 19 May 2023 13:21:10 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Documentation
+X-Bugzilla-Component: man-pages
+X-Bugzilla-Version: unspecified
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: low
+X-Bugzilla-Who: alx@kernel.org
+X-Bugzilla-Status: NEW
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P1
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: 
+Message-ID: <bug-216876-11311-yfP7jSgg1s@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-216876-11311@https.bugzilla.kernel.org/>
+References: <bug-216876-11311@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-        autolearn=ham autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-7.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-I remember I discussed this with Michael Kerrisk a long ago and we
-agreed to apply this fix, as I felt that using overload syntax was
-confusing (especially since C doesn't allow overloads), but then I
-didn't feel urged to write a patch.  Florian confirmed recently that
-this is confusing to more programmers, so let's do it.
+https://bugzilla.kernel.org/show_bug.cgi?id=3D216876
 
-Reported-by: Florian Weimer <fweimer@redhat.com>
-Link: <https://bugzilla.kernel.org/show_bug.cgi?id=216876#c1>
-Signed-off-by: Alejandro Colomar <alx@kernel.org>
----
- man2/open.2  | 11 +++++------
- man2/prctl.2 |  5 +++--
- 2 files changed, 8 insertions(+), 8 deletions(-)
+--- Comment #2 from Alejandro Colomar (alx@kernel.org) ---
+Fixed:
+<https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/man2/ex=
+ecveat.2?id=3D0c884c2c515d20c8ecf246eef5208dc748b98e65>
 
-diff --git a/man2/open.2 b/man2/open.2
-index f79330a17..70b2519d8 100644
---- a/man2/open.2
-+++ b/man2/open.2
-@@ -38,18 +38,17 @@ Standard C library
- .nf
- .B #include <fcntl.h>
- .PP
--.BI "int open(const char *" pathname ", int " flags );
--.BI "int open(const char *" pathname ", int " flags ", mode_t " mode );
-+.BI "int open(const char *" pathname ", int " flags ", ..."
-+.BI "           \fR/*\fP mode_t " mode " \fR*/\fP );"
- .PP
- .BI "int creat(const char *" pathname ", mode_t " mode );
- .PP
--.BI "int openat(int " dirfd ", const char *" pathname ", int " flags );
--.BI "int openat(int " dirfd ", const char *" pathname ", int " flags \
--", mode_t " mode );
-+.BI "int openat(int " dirfd ", const char *" pathname ", int " flags ", ..."
-+.BI "           \fR/*\fP mode_t " mode " \fR*/\fP );"
- .PP
- /* Documented separately, in \fBopenat2\fP(2): */
- .BI "int openat2(int " dirfd ", const char *" pathname ,
--.BI "            const struct open_how *" how ", size_t " size ");"
-+.BI "           const struct open_how *" how ", size_t " size ");"
- .fi
- .PP
- .RS -4
-diff --git a/man2/prctl.2 b/man2/prctl.2
-index 88d94b7e8..09e9072fa 100644
---- a/man2/prctl.2
-+++ b/man2/prctl.2
-@@ -46,8 +46,9 @@ Standard C library
- .nf
- .B #include <sys/prctl.h>
- .PP
--.BI "int prctl(int " option ", unsigned long " arg2 ", unsigned long " arg3 ,
--.BI "          unsigned long " arg4 ", unsigned long " arg5 );
-+.BI "int prctl(int " option ", ..."
-+.BI "          \fR/*\fP unsigned long " arg2 ", unsigned long " arg3 ,
-+.BI "          unsigned long " arg4 ", unsigned long " arg5 " \fR*/\fP );"
- .fi
- .SH DESCRIPTION
- .BR prctl ()
--- 
-2.40.1
+--=20
+You may reply to this email to add a comment.
 
+You are receiving this mail because:
+You are watching the assignee of the bug.=
