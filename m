@@ -2,207 +2,145 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 467997100A2
-	for <lists+linux-man@lfdr.de>; Thu, 25 May 2023 00:10:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 11F527101AC
+	for <lists+linux-man@lfdr.de>; Thu, 25 May 2023 01:26:08 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234361AbjEXWK5 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 24 May 2023 18:10:57 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44436 "EHLO
+        id S229612AbjEXX0G (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 24 May 2023 19:26:06 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55064 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230423AbjEXWK4 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 24 May 2023 18:10:56 -0400
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.166])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 49A7F119
-        for <linux-man@vger.kernel.org>; Wed, 24 May 2023 15:10:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1684966066; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=bI1Abhb5zeA5XHc6Vxe1KNgeSD710+xzOYnZ8NA6WnXbUWmqC2yTGYp6m+FVm+lMU8
-    sZXfAOghqooR91eQnOg4ULmPiOfT3ARO3ykAs/P6dd1+Qa880amSjzdZKsG7ZyNuvfpD
-    fAodaGMmiSjvRDVgzHtQ1FzqdklP/304PoR/4JvHoCplBX5jFIIhs9arDzQ9KeEzD8Ed
-    iFIFJPcKp3rHMnQe1DLr8yT7bZt8v/UKS2UX0W5BQhpmdQy9CvAypPlwZ/fbh5fv2jOV
-    3OgHbJxPxYNXPA1c3CfDTMI/DKOO683tmeD7t17UCARGZhxCi4EyiNAMZnY9aEg6fchJ
-    HQzA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1684966066;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
-    From:Subject:Sender;
-    bh=206aeUKOaBWBIIkVB5d3EODu0uWEuvWxGnAZ48bjAUY=;
-    b=gh9Xnk/o4o6MC9C0dRKe22fcLBRAsY0ip4U12FiNMehCau/3hdJkr7kSIiqCcGcKvF
-    MGc0DUPiWExnz7Zq/ZioYoSTUK9Hwt5aDnbEm2+PKzZ/Py/Cd0gmK2LZvpNPLzBo8SLC
-    ogGmJP5nZHKg7yX2cALrC4vcm86xf7UnebSCX9BLovzjlwTxXZpf9ddv9mRM3DCRI2ws
-    J+ldo0DB3gH2e2KThHCgo3NK9Ov9Giejo7jGvnE86Eo3wY1Luo2bDyb2l5k7fsK6PQnq
-    7q4vlONEZ97zYXoDuHNqQejyFrgz+t8FzC60ccNXw8XxL+inakZfuW0mgyp2+SdZ2C4x
-    oSZA==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1684966066;
-    s=strato-dkim-0002; d=clisp.org;
-    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
-    From:Subject:Sender;
-    bh=206aeUKOaBWBIIkVB5d3EODu0uWEuvWxGnAZ48bjAUY=;
-    b=YnEWT4ZGZrxjX7djwORnqxp+ksAmKTvh5xhZCER/RwjvlCaec5A9UMqHnOii7E3mIS
-    0dz8Eg52fJg02PK2AUU4mrc6cwSa5YjIdxcStghiPmNTv+uZfCyjPq+jvoGMGkOa5Fzv
-    62yQSrz/mqTOvTmNKJgalsn3vHjnukpTeZyRVH4PBlQj2KtySG+RI2UTScdVnCXzlTXc
-    pyelT6TGxprMztO15TLgLXE6dJpv76/fIiIBG9TTNjX9IUuEId+1rF/IEq8AUW/rjYOJ
-    QJ+ZeVTvHB2RJGcqVK7ay65tT+OpGfmU172XZVm7a2gbkc0KDQtQO21N7TlRTteEPXOu
-    XomA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1684966066;
-    s=strato-dkim-0003; d=clisp.org;
-    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
-    From:Subject:Sender;
-    bh=206aeUKOaBWBIIkVB5d3EODu0uWEuvWxGnAZ48bjAUY=;
-    b=rSIkjs9y+bjEcGwhRrc454l7eft5yjeQHUu6xwu0Yr6yOaJyM1tHTUv7Arj79WR+XS
-    L+XNDvf+7UQ3vL1NevDA==
-X-RZG-AUTH: ":Ln4Re0+Ic/6oZXR1YgKryK8brlshOcZlIWs+iCP5vnk6shH0WWb0LN8XZoH94zq68+3cfpOU3ffWChLNQAb3OXScJHH3jsGcng=="
-Received: from nimes.localnet
-    by smtp.strato.de (RZmta 49.4.0 AUTH)
-    with ESMTPSA id D064b6z4OM7kNGG
-        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-        (Client did not present a certificate);
-    Thu, 25 May 2023 00:07:46 +0200 (CEST)
-From:   Bruno Haible <bruno@clisp.org>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
+        with ESMTP id S229527AbjEXX0F (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 24 May 2023 19:26:05 -0400
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com [IPv6:2a00:1450:4864:20::332])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 050E899
+        for <linux-man@vger.kernel.org>; Wed, 24 May 2023 16:26:04 -0700 (PDT)
+Received: by mail-wm1-x332.google.com with SMTP id 5b1f17b1804b1-3f6a6b9c079so4061535e9.1
+        for <linux-man@vger.kernel.org>; Wed, 24 May 2023 16:26:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1684970762; x=1687562762;
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=G6dQqD6xKkHVR+0VZQIkoO0alS3CeW8PX5Qik0OkEpI=;
+        b=OTXlTd5TAftbKhiulQaoDAh4xdXKLb088J24hBwKDW3KlRUvFSIaUqfeCL6Ufj5r/J
+         TH226Yxmn/IKS4RVq8AwC9yu86vzfZhoNFvf/FsIpBlCX+4d+DBJgwmKFCXp9FHnKqCI
+         4tFPliKaS2SczpL0M40IB0VkYLril4SrXdDL2RrLad4CzU/6U5VtDIljcou9x/G/dCc2
+         miM8Qx4niWBT6sBfSsjVgNGRkoEKCo/oMNFMne3m8CZNwmVxZHrn5U20Qr7D42RapbwU
+         R3CL3//latb8v+/P/ZMbNiSNbvGireMXyiXIm3R9QLVnNPZYX8AIGzZMdVbVGb/ZX2mP
+         JuiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1684970762; x=1687562762;
+        h=in-reply-to:from:references:cc:to:content-language:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=G6dQqD6xKkHVR+0VZQIkoO0alS3CeW8PX5Qik0OkEpI=;
+        b=TzB0xKwcUDzj9yIxDgmnaL0N+o/o6Em75KNkxC9txwd1tOCKvG94415fQvhz+jRmH2
+         qo3aYwMlp44Btt5w7NRate9m2NBpbINZy3AZspeoUjubuT+ue/406aiFmDlDbEM2RLo+
+         tpximZdjPWNSkOXuCuGznDpy6fqCIs6ljqQB7saec5pesWxxHXUzCV1UQGvFabWqE4Sp
+         L/1HrQ1PXYjMtoWLHMaIN01pM8SwD2JBWq1ASR/WVefTC1gUdowjCn9ZJP1D49hlHqVy
+         tk+vTVXGMOdSgKpBQKuRSQxl5kYPuM1zaVgYxE+AcCTBK/XZwRsxzL07uIF9nxrXXaeN
+         a59A==
+X-Gm-Message-State: AC+VfDza+jxs6nAnQZsupxnV5YW1dLwXxiibIJL2xOUecaM+e5quDNG8
+        hgeoDUkl/KS+dQd+fvhgxxA=
+X-Google-Smtp-Source: ACHHUZ5fw9r/ecAb8LzmqsyGkl6ZZfWNF/IpUjgOd7SdazGq+bIlr5kzuBnBwapUqdgKDVtpfRZ5CA==
+X-Received: by 2002:a05:600c:2291:b0:3f6:42ce:a384 with SMTP id 17-20020a05600c229100b003f642cea384mr802883wmf.11.1684970762155;
+        Wed, 24 May 2023 16:26:02 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.51.134])
+        by smtp.gmail.com with ESMTPSA id y11-20020adfd08b000000b002fae7408544sm13679217wrh.108.2023.05.24.16.26.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 24 May 2023 16:26:01 -0700 (PDT)
+Message-ID: <2f9c4dbd-7aa6-fc7a-f126-453603ef695e@gmail.com>
+Date:   Thu, 25 May 2023 01:25:59 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH] iconv.3: Clarify the behavior when input is
+ untranslatable
+Content-Language: en-US
+To:     Bruno Haible <bruno@clisp.org>
 Cc:     linux-man@vger.kernel.org, Reuben Thomas <rrt@sc3d.org>,
         Steffen Nurpmeso <steffen@sdaoden.eu>,
         Martin Sebor <msebor@redhat.com>,
         Alejandro Colomar <alx@kernel.org>
-Subject: Re: [PATCH] iconv.3: Clarify the behavior when input is untranslatable
-Date:   Thu, 25 May 2023 00:07:46 +0200
-Message-ID: <14654216.O6BkTfRZtg@nimes>
-In-Reply-To: <14c14d88-be1d-94f9-8a1c-3a1128eec9f2@gmail.com>
-References: <20230521103128.8472-1-alx@kernel.org> <2906989.o0KrE1Onz3@nimes> <14c14d88-be1d-94f9-8a1c-3a1128eec9f2@gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="nextPart2706938.9PvXe5no7K"
-Content-Transfer-Encoding: 7Bit
-X-Spam-Status: No, score=-2.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,
-        RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_NONE,
-        T_SCC_BODY_TEXT_LINE autolearn=ham autolearn_force=no version=3.4.6
+References: <20230521103128.8472-1-alx@kernel.org> <2906989.o0KrE1Onz3@nimes>
+ <14c14d88-be1d-94f9-8a1c-3a1128eec9f2@gmail.com> <14654216.O6BkTfRZtg@nimes>
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+In-Reply-To: <14654216.O6BkTfRZtg@nimes>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------Cc0Yfh76ChdRzhogsCQt6skU"
+X-Spam-Status: No, score=-2.2 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is a multi-part message in MIME format.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------Cc0Yfh76ChdRzhogsCQt6skU
+Content-Type: multipart/mixed; boundary="------------ot0G0fiZ9LXNbeGXJaxc6anE";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: Bruno Haible <bruno@clisp.org>
+Cc: linux-man@vger.kernel.org, Reuben Thomas <rrt@sc3d.org>,
+ Steffen Nurpmeso <steffen@sdaoden.eu>, Martin Sebor <msebor@redhat.com>,
+ Alejandro Colomar <alx@kernel.org>
+Message-ID: <2f9c4dbd-7aa6-fc7a-f126-453603ef695e@gmail.com>
+Subject: Re: [PATCH] iconv.3: Clarify the behavior when input is
+ untranslatable
+References: <20230521103128.8472-1-alx@kernel.org> <2906989.o0KrE1Onz3@nimes>
+ <14c14d88-be1d-94f9-8a1c-3a1128eec9f2@gmail.com> <14654216.O6BkTfRZtg@nimes>
+In-Reply-To: <14654216.O6BkTfRZtg@nimes>
 
---nextPart2706938.9PvXe5no7K
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-
-Alejandro Colomar wrote:
-> > Do you have a better wording than "can ... in some cases"?
-> 
-> If you include the full version in the commit log, to be able to
-> understand it in the future, I'm fine with it.
-
-OK. Here is a patch with the details included in the commit message.
-
-
---nextPart2706938.9PvXe5no7K
-Content-Disposition: attachment; filename="0001-List-a-fifth-condition-when-iconv-3-may-stop.patch"
+--------------ot0G0fiZ9LXNbeGXJaxc6anE
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/x-patch; charset="UTF-8"; name="0001-List-a-fifth-condition-when-iconv-3-may-stop.patch"
 
-=46rom 4cc4ad011b3ffa30159d3a67e262a46da4600cba Mon Sep 17 00:00:00 2001
-=46rom: Bruno Haible <bruno@clisp.org>
-Date: Sun, 21 May 2023 13:05:29 +0200
-Subject: [PATCH] List a fifth condition when iconv(3) may stop.
-MIME-Version: 1.0
-Content-Type: text/plain; charset=3DUTF-8
-Content-Transfer-Encoding: 8bit
+Hi Bruno,
 
-The wording regarding transliteration is vague, because this man page is not
-the right place for going into the details of the transliteration.
-Here are the details:
-GNU libc and GNU libiconv support transliteration, for example, of "=C2=BD"=
- to "1/2",
-or of "=C3=A5" to "aa" in a Danish locale. The transliteration maps a multi=
-byte
-character of the input encoding to zero or more characters in the output.
-There are two kinds of transliteration rules:
-  - Those that are valid regardless of locale. Typically this means that the
-    original and the transliterated character have similar glyphs, such as
-    in the case "=C2=BD" to "1/2".
-    In GNU libc, these are collected in the files
-    glibc/localedata/locales/translit_*.
-  - Those that are valid in a single locale only. Often such a rule
-    reflects similar pronounciation of the original and the transliterated
-    characters. Some locales have script-based transliteration, for example
-    from the Cyrillic script to the Latin script.
-    In GNU libc, these are collected in the file
-    glibc/localedata/locales/<locale>.
-    In GNU libiconv, transliterations of this kind are not supported.
+On 5/25/23 00:07, Bruno Haible wrote:
+> Alejandro Colomar wrote:
+>>> Do you have a better wording than "can ... in some cases"?
+>>
+>> If you include the full version in the commit log, to be able to
+>> understand it in the future, I'm fine with it.
+>=20
+> OK. Here is a patch with the details included in the commit message.
+>=20
+Thanks!  Patch applied.
 
-Link: https://sourceware.org/bugzilla/show_bug.cgi?id=3D29913#c4
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=3D217059
-Reported-by: Steffen Nurpmeso <steffen@sdaoden.eu>
-Reported-by: Reuben Thomas <rrt@sc3d.org>
-Signed-off-by: Bruno Haible <bruno@clisp.org>
-=2D--
- man3/iconv.3 | 35 ++++++++++++++++++++++++++++++++++-
- 1 file changed, 34 insertions(+), 1 deletion(-)
+Cheers,
+Alex
 
-diff --git a/man3/iconv.3 b/man3/iconv.3
-index 66f59b8c3..94441f602 100644
-=2D-- a/man3/iconv.3
-+++ b/man3/iconv.3
-@@ -71,7 +71,7 @@ If the character encoding of the input is stateful, the
- function can also convert a sequence of input bytes
- to an update to the conversion state without producing any output bytes;
- such input is called a \fIshift sequence\fP.
-=2DThe conversion can stop for four reasons:
-+The conversion can stop for five reasons:
- .IP \[bu] 3
- An invalid multibyte sequence is encountered in the input.
- In this case,
-@@ -80,6 +80,39 @@ it sets \fIerrno\fP to \fBEILSEQ\fP and returns
- \fI*inbuf\fP
- is left pointing to the beginning of the invalid multibyte sequence.
- .IP \[bu]
-+A multibyte sequence is encountered that is valid but that cannot be
-+translated to the character encoding of the output.
-+This condition depends on the implementation and on the conversion
-+descriptor.
-+In the GNU C library and GNU libiconv, if
-+.I cd
-+was created without the suffix
-+.B //TRANSLIT
-+or
-+.BR //IGNORE ,
-+the conversion is strict: lossy conversions produce this condition.
-+If the suffix
-+.B //TRANSLIT
-+was specified, transliteration can avoid this condition in some cases.
-+In the musl C library, this condition cannot occur because a conversion to
-+.B \[aq]*\[aq]
-+is used as a fallback.
-+In the FreeBSD, NetBSD, and Solaris implementations of
-+.BR iconv (),
-+this condition cannot occur either, because a conversion to
-+.B \[aq]?\[aq]
-+is used as a fallback.
-+When this condition is met,
-+.BR iconv ()
-+sets
-+.I errno
-+to
-+.B EILSEQ
-+and returns
-+.IR (size_t)\ \-1 .
-+.I *inbuf
-+is left pointing to the beginning of the unconvertible multibyte sequence.
-+.IP \[bu]
- The input byte sequence has been entirely converted,
- that is, \fI*inbytesleft\fP has gone down to 0.
- In this case,
-=2D-=20
-2.34.1
+--=20
+<http://www.alejandro-colomar.es/>
+GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
+--------------ot0G0fiZ9LXNbeGXJaxc6anE--
 
---nextPart2706938.9PvXe5no7K--
+--------------Cc0Yfh76ChdRzhogsCQt6skU
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
+-----BEGIN PGP SIGNATURE-----
 
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmRunQgACgkQnowa+77/
+2zJ6fA/+K8UxuorDAgHjRWhLZ1MK9Mu32fgXtb6YtQtATzAL6bL0oRVJIZZd/j9M
+UhqiNk1gGOVs1FqvspSIPu7ij/amj+sqeiScHjb8+CfRlr3m+bEc2yfRHvtkMdYC
+JY2CMqlRFXwMh+WdkrxnoBN/7HMBb9HTzdwq4P/4GyxQHlj2dlsXD5gi5N+noe7F
+Go9oEv3XKHX0MOFJud9UiII9ioS0xHkZGJb2wLja7H9fHggr5veqZES+gMBY+vgf
+/b0UhUcl5tKxmoIGdxHpaFAbS6N6wunn7f4NVIxfsShN6qrGAQAnmOmiLqzMXQOW
+MIewE4p6Kt46+FGs0AwB0CSsieM/p6LucPHvVdOUhe8m9I9e1Wc/yiQqZnPKTUFq
+spW4J4Rz/WK0KoDRoxhLy6wJqNF1VUJWaJHPMQoLI47CXcrbdz2HxNh0x1Lx1zPU
+vxTNgBw46uqCmUhAt7c7Rinuqbu05zT8siOtCASyEMkY71Z0Ajvw8c+gfPgnbdcm
+EF8Z9ram3BlydAoH5d472ezo0zLdhHm/elCyPP1g1ZLgmNO+TKgQTqCayyO3mjD3
+4RR7LagBZ7tXSuAEpgSVLRN28RfkjDo8wMlvbpNvma+1AWZLbiLwscqNrfyVmz0t
+1D4Ne9M/c0C35TUPYHD5C/g9r3PkfyEjd61FMyLHmkHLHrxFxIQ=
+=JgaC
+-----END PGP SIGNATURE-----
 
+--------------Cc0Yfh76ChdRzhogsCQt6skU--
