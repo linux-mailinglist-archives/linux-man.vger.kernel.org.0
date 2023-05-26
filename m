@@ -2,97 +2,230 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id F058971226C
-	for <lists+linux-man@lfdr.de>; Fri, 26 May 2023 10:41:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DAAE77125DC
+	for <lists+linux-man@lfdr.de>; Fri, 26 May 2023 13:46:49 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229648AbjEZIlI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 26 May 2023 04:41:08 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41416 "EHLO
+        id S242548AbjEZLqt (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 26 May 2023 07:46:49 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40002 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229488AbjEZIlH (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 26 May 2023 04:41:07 -0400
-Received: from mail-yb1-xb4a.google.com (mail-yb1-xb4a.google.com [IPv6:2607:f8b0:4864:20::b4a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4D841E7
-        for <linux-man@vger.kernel.org>; Fri, 26 May 2023 01:41:06 -0700 (PDT)
-Received: by mail-yb1-xb4a.google.com with SMTP id 3f1490d57ef6-ba8a5cbb012so1247490276.3
-        for <linux-man@vger.kernel.org>; Fri, 26 May 2023 01:41:06 -0700 (PDT)
+        with ESMTP id S236715AbjEZLqs (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 26 May 2023 07:46:48 -0400
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com [IPv6:2a00:1450:4864:20::330])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D084F194
+        for <linux-man@vger.kernel.org>; Fri, 26 May 2023 04:46:44 -0700 (PDT)
+Received: by mail-wm1-x330.google.com with SMTP id 5b1f17b1804b1-3f60804faf4so4515665e9.3
+        for <linux-man@vger.kernel.org>; Fri, 26 May 2023 04:46:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20221208; t=1685090465; x=1687682465;
-        h=content-transfer-encoding:cc:to:from:subject:mime-version
-         :message-id:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=1bj5gpohCaYqzE79yf6xexRMBCRi1VXvkUqW+i/HzTc=;
-        b=DjwX2e1s4SfGJK7Ut4WaBe494u44RrmKRE6zz2hH7OVmjhew1H+dDuDy3Np/k0k6xf
-         kkI0VDFJHtAjhNx+e9HegB27cABndAjNIh01OZqxE0LLqPcsplgBFWcikE6e1nYCnEbu
-         h0/d4YtdQRXtGKKNYaRo4dQCd9LtSWAeeColv43KwwkewmTtwVXZ5ku+syjaLOH//1qw
-         h71axz+Nz/txwyIeNaoqeScfG5dB2G1jhMzsND/fwfWHCwGIdz6UnGJPrlT9/vjF6yZf
-         vctsBcT4ZCtr6jHvWFIKkvBYVq3Esxp4LcOcbR8xfrB8o1UcGpXrJzi5ylhz8tBgT9Ne
-         rqtw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1685090465; x=1687682465;
-        h=content-transfer-encoding:cc:to:from:subject:mime-version
-         :message-id:date:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20221208; t=1685101603; x=1687693603;
+        h=in-reply-to:references:cc:to:from:content-language:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=1bj5gpohCaYqzE79yf6xexRMBCRi1VXvkUqW+i/HzTc=;
-        b=XzcvyB7GLMNwKKlh+KbucPgOhWK6Wt9Qgz8mQphvFGOu/cESWiZg5YdPaXMU0GiUYk
-         WSfPzCYTGRQ3Hrgc/+canKwvl0LFd1dZ2Pk03B/Q/73Cdi/4NA+PJZr0qZmvROhTXA2z
-         I4zjoFQW6NB/L1+tFocskqgYUFQPkcyMAgQ9fIGT41xNK4yweFKg02zsC0U/Y+NlLpcr
-         4o8YLG0SS6NZL3j319sAqeyGLSiXsw2nhyP43muc6MquTrbdiqY0ll1FKrUD8eEsp6co
-         adbqAGYcI6sVb77S63DnKfiE27qsn+UCLbr3E+8UJlpJVXoSGyDZeAI16UrRMikl0nCu
-         xcuA==
-X-Gm-Message-State: AC+VfDxA/tPxwO20OOM0NVRlMCRsItrgfyd6cuRF8T6IfENvLgxFmVap
-        Wd0hZxBk0bdjDIwCw9yakoo6LZBgw+o=
-X-Google-Smtp-Source: ACHHUZ6bDTfNhmNwruAzk03hyqLcz6s+jDK2MGnankEAFqOT2uYy02GuZo8tEOzkjastEaW5+ZBUzTZ/smY=
-X-Received: from sport.zrh.corp.google.com ([2a00:79e0:9d:4:df90:bb34:788b:2cbd])
- (user=gnoack job=sendgmr) by 2002:a05:6902:1341:b0:ba8:c014:ebef with SMTP id
- g1-20020a056902134100b00ba8c014ebefmr370958ybu.8.1685090465503; Fri, 26 May
- 2023 01:41:05 -0700 (PDT)
-Date:   Fri, 26 May 2023 10:41:01 +0200
-Message-Id: <20230526084101.2629775-1-gnoack@google.com>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.41.0.rc0.172.g3f132b7071-goog
-Subject: [PATCH] unshare.2: ffix: indentation inconsistencies
-From:   "=?UTF-8?q?G=C3=BCnther=20Noack?=" <gnoack@google.com>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org,
-        "=?UTF-8?q?G=C3=BCnther=20Noack?=" <gnoack@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: No, score=-9.6 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
-        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,USER_IN_DEF_DKIM_WL
-        autolearn=ham autolearn_force=no version=3.4.6
+        bh=0La4SCg3ZqHTaNqxLNwiMMsOsU7rGSsbjC2p4HSYxp0=;
+        b=B79Ju8RSCQt68cLWoXey02kN7NmYm3XP8so/BYQ16a3xLEnFVkZ++0TkIIi7nNiMC4
+         56pE0qVGSSHkZ/G4bLPUl2+6criz55ApPDDLKmfftkY9A1P2z6SPd6sALdY0OuMbjUk1
+         HfXX5tTi1E0r4669VAQc8OPvFMfcPKzDBLfh82kAy26iCUCq3IDLP6PJmAbgte/nWpP3
+         zVV/CyKOZlmP2ZCvxRLbdGPjlLADJ9o2qtMExpOcs4J/uPDFFv+wEQsr/Fm3qMnaarFy
+         9Uysf34znZyptoD5FRiCMJFTQ+C6tAyIhGAs7nBjeydDDOwrzzKjZ4YZm7BfHXFL/nd5
+         bnjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1685101603; x=1687693603;
+        h=in-reply-to:references:cc:to:from:content-language:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=0La4SCg3ZqHTaNqxLNwiMMsOsU7rGSsbjC2p4HSYxp0=;
+        b=k1B+/9WQptDwBFyt3vVVCn/9tu2msEUSKFBmhyy9UTKry9N4P93H69MqH9FKmrDtrq
+         pC5G/zGMBjEdDPpZb09uRAEOpeHWVJjsjNs99Hhtal251OnGlFK7oRVctqOUkYAsaAcM
+         7bexwd4n6LpxqMD7DPwXrum/W/p2YKLN2YTiP3ulXU3l1aQawrDouGA0lI9fra4YlzeV
+         voipGg3Wf9aOfRWG3xzuySgqejHJA8LXWJXfTy2DefXklVA7m//DAbr+lkNtaSiTwq0O
+         je13hcSOXg2q+T4l0k3FiBXmaCmHqtnxmhnIzEOefMyA3vibT9Fpsx1TxBzvc7XK3EF8
+         75nw==
+X-Gm-Message-State: AC+VfDyWAHF1FoYo5zNehzk0G52j9OFw9ro9KLIk6Se/3yv3RvEVXo5x
+        S40BBZ7GSze/Rq1SssKIr1YUD5R+nWc=
+X-Google-Smtp-Source: ACHHUZ5oP2fqibEhr+hiyTyDhR1VAVVYfOtwEEMPNwK/qql8SBPxSt81G+ZcfxLwKlzC5HE5clTdoA==
+X-Received: by 2002:a1c:e901:0:b0:3f6:2ee:6993 with SMTP id q1-20020a1ce901000000b003f602ee6993mr1335077wmc.4.1685101603040;
+        Fri, 26 May 2023 04:46:43 -0700 (PDT)
+Received: from [192.168.0.160] ([170.253.51.134])
+        by smtp.gmail.com with ESMTPSA id p23-20020a05600c205700b003f42314832fsm5003464wmg.18.2023.05.26.04.46.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 26 May 2023 04:46:42 -0700 (PDT)
+Message-ID: <ca053426-bd13-055a-88ab-9a4873f13f7e@gmail.com>
+Date:   Fri, 26 May 2023 13:46:34 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: SPDX license review requests
+Content-Language: en-US
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+To:     linux-man@vger.kernel.org
+Cc:     Brian Inglis <Brian.Inglis@Shaw.ca>,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        Michael Kerrisk <mtk.manpages@gmail.com>,
+        Matthew Wilcox <willy@infradead.org>,
+        Alan Cox <alan@lxorguk.ukuu.org.uk>,
+        Andi Kleen <ak@linux.intel.com>,
+        Heinrich Schuchardt <heinrich.schuchardt@canonical.com>,
+        Adam Dobes <adobes@redhat.com>, Chris Lameter <cl@linux.com>
+References: <CADeQ=2-ZsaSCEPfTHUO6AAZ_+H8ob4LJ5x5MuGaX=jdOVpdCog@mail.gmail.com>
+ <bd1a81d0-456a-bc19-7df0-fdbcc2a51395@gmail.com>
+ <a7ed2025-b896-bbce-f36b-0a681f38c542@gmail.com>
+In-Reply-To: <a7ed2025-b896-bbce-f36b-0a681f38c542@gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------Sk1iDJ0h07ERijyPVPZdykCs"
+X-Spam-Status: No, score=-2.2 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+        URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Signed-off-by: G=C3=BCnther Noack <gnoack@google.com>
----
- man2/unshare.2 | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------Sk1iDJ0h07ERijyPVPZdykCs
+Content-Type: multipart/mixed; boundary="------------VcQAHaiSA0jwdH0AsH0QK55d";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: linux-man@vger.kernel.org
+Cc: Brian Inglis <Brian.Inglis@Shaw.ca>,
+ "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+ Michael Kerrisk <mtk.manpages@gmail.com>,
+ Matthew Wilcox <willy@infradead.org>, Alan Cox <alan@lxorguk.ukuu.org.uk>,
+ Andi Kleen <ak@linux.intel.com>,
+ Heinrich Schuchardt <heinrich.schuchardt@canonical.com>,
+ Adam Dobes <adobes@redhat.com>, Chris Lameter <cl@linux.com>
+Message-ID: <ca053426-bd13-055a-88ab-9a4873f13f7e@gmail.com>
+Subject: Re: SPDX license review requests
+References: <CADeQ=2-ZsaSCEPfTHUO6AAZ_+H8ob4LJ5x5MuGaX=jdOVpdCog@mail.gmail.com>
+ <bd1a81d0-456a-bc19-7df0-fdbcc2a51395@gmail.com>
+ <a7ed2025-b896-bbce-f36b-0a681f38c542@gmail.com>
+In-Reply-To: <a7ed2025-b896-bbce-f36b-0a681f38c542@gmail.com>
 
-diff --git a/man2/unshare.2 b/man2/unshare.2
-index 58d57a86b..1e06d8064 100644
---- a/man2/unshare.2
-+++ b/man2/unshare.2
-@@ -532,12 +532,12 @@ main(int argc, char *argv[])
- \&
-     while ((opt =3D getopt(argc, argv, "CimnptuU")) !=3D \-1) {
-         switch (opt) {
--        case \[aq]C\[aq]: flags |=3D CLONE_NEWCGROUP;      break;
-+        case \[aq]C\[aq]: flags |=3D CLONE_NEWCGROUP;     break;
-         case \[aq]i\[aq]: flags |=3D CLONE_NEWIPC;        break;
-         case \[aq]m\[aq]: flags |=3D CLONE_NEWNS;         break;
-         case \[aq]n\[aq]: flags |=3D CLONE_NEWNET;        break;
-         case \[aq]p\[aq]: flags |=3D CLONE_NEWPID;        break;
--        case \[aq]t\[aq]: flags |=3D CLONE_NEWTIME;        break;
-+        case \[aq]t\[aq]: flags |=3D CLONE_NEWTIME;       break;
-         case \[aq]u\[aq]: flags |=3D CLONE_NEWUTS;        break;
-         case \[aq]U\[aq]: flags |=3D CLONE_NEWUSER;       break;
-         default:  usage(argv[0]);
+--------------VcQAHaiSA0jwdH0AsH0QK55d
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-base-commit: 2aa85ce3b0a85fbf6909e873c78959c2fbcc25ac
+On 5/26/23 01:03, Alejandro Colomar wrote:
+> [Minor self corrections.]
+>=20
+> On 5/26/23 00:56, Alejandro Colomar wrote:
+>> Hi list!
+>>
+>> We've got 4 derivatives of the "VERBATIM" (now one of them in SPDX
+>> as Linux-man-pages-copyleft") license.  I'll paste here the four.
+>>
+
+Here's some history of licenses in the Linux man-pages, from what I
+can see in the prehistory branch:
+
+Linux-man-pages-copyleft (previously, VERBATIM)
+	This license was first used in the Linux man-pages in version
+	3.25 (year 2010) in a single page:
+
+		quotactl.2
+			Jan Kara <jack@suse.cz>
+
+			A few pieces copyright (c) 1996 Andries Brouwer (aeb@cwi.nl)
+			and copyright 2010 (c) Michael Kerrisk <mtk.manpages@gmail.com>
+
+VERBATIM_PROF
+	This license was first used in the Linux man-pages in version
+	1.42 (year 2001) in a single page:
+
+		sigwaitinfo.2
+			Michael Kerrisk (mtk16@ext.canterbury.ac.nz)
+
+VERBATIM_ONE_PARA
+	This license was first used in the Linux man-pages in version
+	1.24 (year 1999) in several pages:
+
+		sendfile.2
+			Pawel Krawczyk
+		cmsg.3
+			Andi Kleen <ak@muc.de>
+		rtnetlink.3
+			Andi Kleen <ak@muc.de>
+		arp.7
+			Matthew Wilcox <willy@bofh.ai>
+		ddp.7
+			Alan Cox
+		icmp.7
+			Andi Kleen <ak@muc.de>
+		ip.7
+			Andi Kleen <ak@muc.de>
+		netdevice.7
+			Andi Kleen <ak@muc.de>
+		packet.7
+			Andi Kleen <ak@muc.de>
+		raw.7
+			Andi Kleen <ak@muc.de>
+		rtnetlink.7
+			Andi Kleen <ak@muc.de>
+		socket.7
+			Andi Kleen <ak@muc.de>
+			Matthew Wilcox
+		tcp.7
+			Andi Kleen <ak@muc.de>
+		udp.7
+			Andi Kleen <ak@muc.de>
+		unix.7
+			Andi Kleen <ak@muc.de>
+		x25.7
+			Heiner Eisen
+
+VERBATIM_TWO_PARA
+	This license was first used in the Linux man-pages in version
+	3.07 (year 2008) in a single page:
+
+		move_pages.2
+			Added by Michael Kerrisk <mtk.manpages@gmail.com>,
+			but Copyright (C) 2006 Silicon Graphics, Inc.
+			                  Christoph Lameter
+
+	It was later reused in another page:
+
+		migrate_pages.2
+			Copyright 2009 Intel Corporation
+=2E\"                Author: Andi Kleen
+=2E\" Based on the move_pages manpage which was
+=2E\" This manpage is Copyright (C) 2006 Silicon Graphics, Inc.
+=2E\"                               Christoph Lameter
+
+	This license is the one considered non-free by Fedora, and which
+	we need to drop.  Luckily it's only two pages, so they could be
+	reasonably rewritten in a worst case.
+
+
+
+
 --=20
-2.41.0.rc0.172.g3f132b7071-goog
+<http://www.alejandro-colomar.es/>
+GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
+--------------VcQAHaiSA0jwdH0AsH0QK55d--
+
+--------------Sk1iDJ0h07ERijyPVPZdykCs
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmRwnBoACgkQnowa+77/
+2zLYZw//ZJ9s4YbG8vzF0Nnxd81kZShVd1iEa8JVsQi5pF280Hk9suoTXjXeCZpa
+SbIJPmGukNxdwX4iRl5Q8p3EcQJJDkcO5AwiPt057dCt1pJ+KVlKO8mwv869XiKU
+eo/n4fSlfZGk9ZzS1Yqdc7aku1oNcXYLDHlbxrZ6D1TYkk+A5q5tUImB+tXLN+6g
+rTKAqSsVmHeKM5WkmJHro5vEl10wPdkFjAdCIROtQq1XPnvnIeVY2u+pL8jAlmzX
+DF5bukKpgrtzMPgjg/DGtSphe0KNo4YDlKt02h2aRpPzXlEQ34SqrSWfhknOpw8A
+OMljdd5Vu/YebUZRcV/W7c+O3RFlX3og3485rRIPaU72mKVfTX5Atvtyrjvs9qc0
+XsNff9EqCeo9FjLZIaPtOzd/CBWHBLFamAw1mCgkMd22STh15tpZl9pv7lJ4H1BK
+ibrU7rTkcv/ypQhVmpGN2SMZCbSTDPby9Zy/2FW2rq9kf8A9gr7gpoGIBpvbnGrr
+KlIGNJTYQ7Iz85IIa/kYgBH57dWMbNKWZl2DothFtD/gPU4qnWBMvLhPCxXf+0U+
+UhWdBxFRbUNHCzrPEzIGjCEbW2AJSUAgcSX2U9eqXFkHesvqANtxUOSTBGFNeWOX
+2sVrRzlBYuEnY1Rzo/DAUQLYpj5cMB8RSxw4izYnKu+PCZyUojs=
+=/C+H
+-----END PGP SIGNATURE-----
+
+--------------Sk1iDJ0h07ERijyPVPZdykCs--
