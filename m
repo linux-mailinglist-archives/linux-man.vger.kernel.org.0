@@ -2,78 +2,67 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 31C6871261E
-	for <lists+linux-man@lfdr.de>; Fri, 26 May 2023 14:00:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id BAD7A712754
+	for <lists+linux-man@lfdr.de>; Fri, 26 May 2023 15:15:46 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230172AbjEZMAT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 26 May 2023 08:00:19 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45084 "EHLO
+        id S243622AbjEZNPp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 26 May 2023 09:15:45 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54986 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229610AbjEZMAS (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 26 May 2023 08:00:18 -0400
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com [IPv6:2a00:1450:4864:20::32f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 42C84116
-        for <linux-man@vger.kernel.org>; Fri, 26 May 2023 05:00:17 -0700 (PDT)
-Received: by mail-wm1-x32f.google.com with SMTP id 5b1f17b1804b1-3f50020e0f8so12163885e9.0
-        for <linux-man@vger.kernel.org>; Fri, 26 May 2023 05:00:17 -0700 (PDT)
+        with ESMTP id S243630AbjEZNPk (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 26 May 2023 09:15:40 -0400
+Received: from mail-oo1-xc2f.google.com (mail-oo1-xc2f.google.com [IPv6:2607:f8b0:4864:20::c2f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 43EB210D8
+        for <linux-man@vger.kernel.org>; Fri, 26 May 2023 06:15:07 -0700 (PDT)
+Received: by mail-oo1-xc2f.google.com with SMTP id 006d021491bc7-555508fd7f9so179550eaf.3
+        for <linux-man@vger.kernel.org>; Fri, 26 May 2023 06:15:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1685102416; x=1687694416;
-        h=in-reply-to:references:cc:to:from:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=7bj4yzlSPbmluBwQk9b+8l+7D57S5Z8OzlGYi8N3mnw=;
-        b=R9Z9XKfTYXndOtFW2+oUpSo3V4Vnuow30puqW8gaR8bUDCfRZz0zqJRLbiXNPV1Oe6
-         TTrV2xWSON4CCd+GafitO9bye2Eh6Kr07blnVeFxVkMnwFNTtuAwFSqvIULvzbtG6NNH
-         pmwMhYhBRSRuHrt8MVEh1zH5uVjX4/4ra7kphr+HkWoB30rG2bUYL8cngHgHwfqFCJKT
-         b6ds7y/kqybXZosRjnZCaEHlI9hqnUVIBj+/X+EzZqICB4whs5yOuhiKBczgmffwHaut
-         dyykHasjEGeMLbww/pDyoJfXKwWnyCq9t6myz45d4mtIreHscLrYGfO03PcUE8KpxvMZ
-         +7CA==
+        d=gmail.com; s=20221208; t=1685106906; x=1687698906;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=18IVpsQYSu+U2hDWItrbwBnsXtrBHfhl6aS3icXzXqc=;
+        b=SDROhOYerkjuSUE48NUFCjxnzk7KFkVNIBBgi5BYV+6nC2TI1lpDgrql79Kac68kX5
+         mhN9odV+TYHPmBGsL6U580R17mq5Hpu9wJHPaQtOF/AVDJmGCHiOdq++eG0sVqWcigeF
+         eaWL5hLaw/ipjsU/E6dFW9HZw0YJilFvctVUFmMNsAPwtMCFvMbjNbF27AUoDSdKi/CZ
+         w7sRbvSblZBCadA/uhGydtL7/2L34LwNwvAr8B/ruhy7ZQUl/a3+YIKU8Tm+RcgDFZsQ
+         mH8eyO3KqPukLPZouyM0qnxAitiP11bfajvW3HSDrcHvYmGhabllHmq6dK0M/7gHiOpS
+         B90Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1685102416; x=1687694416;
-        h=in-reply-to:references:cc:to:from:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=7bj4yzlSPbmluBwQk9b+8l+7D57S5Z8OzlGYi8N3mnw=;
-        b=Q+9Ppxsb+qZR3PlMTbIjkAIyrh19v+gj9PVYpmsPsuIZz+70X/PDONsHO6BeStd8K4
-         HiLIPvvQWI0zx7dwDBEXRmoqVcVopqbsTbnPQiHUQzIComQjWqjAQSCwD/GNiDYRtgL3
-         NrfTvXG+XahaW2+NGFNHcDVzBtfGONPZ/ucag0jgg4vrIZ0tBgSGTBihhAA/Y9sbK5F4
-         sFop0cWYmpEiaQKEUOUk1SCeycpa66KJceS6YGIfC8V1fyMTpglJhXnlAqSVPSWXA5tC
-         l8uSkHLENlY+hik+EbqG48AWizBaQBXj+5N7RhQeVkTaFAIriRI1B5UPtiL9LMktLt5H
-         kFOg==
-X-Gm-Message-State: AC+VfDyE1bm5JoPnefGODMBb3p74hyRjgyeSuv5CSrJd9AJORq1rXUrC
-        J0dhk6RGqj4rwCSxcrTEPcym9m5Rp28=
-X-Google-Smtp-Source: ACHHUZ6dKKSMAr8nJN/C1IbU3dVUYRXtc9rclyH4ezolrEvw+RiS7vhO4kNV7jhKjqpP2iTFuiXMlQ==
-X-Received: by 2002:adf:ed8d:0:b0:2f0:583:44be with SMTP id c13-20020adfed8d000000b002f0058344bemr1426392wro.0.1685102415548;
-        Fri, 26 May 2023 05:00:15 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.51.134])
-        by smtp.gmail.com with ESMTPSA id q18-20020adffed2000000b003047dc162f7sm4847385wrs.67.2023.05.26.05.00.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 26 May 2023 05:00:15 -0700 (PDT)
-Message-ID: <f705c0fd-6413-8209-ca6f-75894b14be6b@gmail.com>
-Date:   Fri, 26 May 2023 14:00:13 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: SPDX license review requests
-Content-Language: en-US
-From:   Alejandro Colomar <alx.manpages@gmail.com>
+        d=1e100.net; s=20221208; t=1685106906; x=1687698906;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=18IVpsQYSu+U2hDWItrbwBnsXtrBHfhl6aS3icXzXqc=;
+        b=GTiQDXF5SMUQCCM53X7kztUHuV1Fir9J0T3NeOwzg4tqTJ+Jt4xVXQEu/3+D6BZdm+
+         ez/iWW6TLbpnaYoP+Ic30d6yf2/tBEq7G8UCjAg2pauijcfMgPSdTU1F8bHHK+FQi04Z
+         tMNUcHp7D8akRXEtQJzxfBiBENikPs9kF5gnkRiHotLTmkc48AFWW/0+i0dm/U0y5/zo
+         vCm1+oDP4cbDNunBZidXgKbsuQCqsYfniXRUZoHTt5qRCm5dxXYrEZHcFcNwIlrBooP9
+         xXKabVtRSlz95i8CmNqhFIacckfhwzlCj6G0X1peRIpd4bkE3FojM915c8X6QKXmAd0J
+         nwdQ==
+X-Gm-Message-State: AC+VfDzot/bwRHj1xPasUHJbBt50dfraSjABS5g9C3FLb1wUW7tFvej4
+        /1RMkxP8WOUgdb147Tb8EsI5KHTIBAQ=
+X-Google-Smtp-Source: ACHHUZ7Z5LX5ZZr9XDZry3S7VxfvvsgBLa5wgJtUtu9j04TgpxydqiOspV44RlY+NENaEfu0bjQ1eg==
+X-Received: by 2002:a05:6808:2083:b0:398:591a:2e62 with SMTP id s3-20020a056808208300b00398591a2e62mr1093587oiw.37.1685106905971;
+        Fri, 26 May 2023 06:15:05 -0700 (PDT)
+Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
+        by smtp.gmail.com with ESMTPSA id b185-20020aca34c2000000b0038934c5b400sm1667072oia.25.2023.05.26.06.15.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 26 May 2023 06:15:05 -0700 (PDT)
+Date:   Fri, 26 May 2023 08:15:03 -0500
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
 To:     linux-man@vger.kernel.org
-Cc:     Brian Inglis <Brian.Inglis@Shaw.ca>,
-        "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        Alan Cox <alan@lxorguk.ukuu.org.uk>,
-        Andi Kleen <ak@linux.intel.com>,
-        Heinrich Schuchardt <heinrich.schuchardt@canonical.com>,
-        Adam Dobes <adobes@redhat.com>
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>
+Subject: Re: SPDX license review requests
+Message-ID: <20230526131503.vvejwh3cgsrobgl3@illithid>
 References: <CADeQ=2-ZsaSCEPfTHUO6AAZ_+H8ob4LJ5x5MuGaX=jdOVpdCog@mail.gmail.com>
  <bd1a81d0-456a-bc19-7df0-fdbcc2a51395@gmail.com>
- <fdb702c8-1411-f143-8932-c18722511b19@gmail.com>
-In-Reply-To: <fdb702c8-1411-f143-8932-c18722511b19@gmail.com>
+MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------JCkxHRdmL4jF0XwM9RZhDwuF"
-X-Spam-Status: No, score=-2.2 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+        protocol="application/pgp-signature"; boundary="s4od7tlqijiee3bc"
+Content-Disposition: inline
+In-Reply-To: <bd1a81d0-456a-bc19-7df0-fdbcc2a51395@gmail.com>
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
         URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -82,125 +71,268 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------JCkxHRdmL4jF0XwM9RZhDwuF
-Content-Type: multipart/mixed; boundary="------------NS7QrgsEo5LbtZ0sxzomUQWY";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: linux-man@vger.kernel.org
-Cc: Brian Inglis <Brian.Inglis@Shaw.ca>,
- "G. Branden Robinson" <g.branden.robinson@gmail.com>,
- Michael Kerrisk <mtk.manpages@gmail.com>, Alan Cox
- <alan@lxorguk.ukuu.org.uk>, Andi Kleen <ak@linux.intel.com>,
- Heinrich Schuchardt <heinrich.schuchardt@canonical.com>,
- Adam Dobes <adobes@redhat.com>
-Message-ID: <f705c0fd-6413-8209-ca6f-75894b14be6b@gmail.com>
-Subject: Re: SPDX license review requests
-References: <CADeQ=2-ZsaSCEPfTHUO6AAZ_+H8ob4LJ5x5MuGaX=jdOVpdCog@mail.gmail.com>
- <bd1a81d0-456a-bc19-7df0-fdbcc2a51395@gmail.com>
- <fdb702c8-1411-f143-8932-c18722511b19@gmail.com>
-In-Reply-To: <fdb702c8-1411-f143-8932-c18722511b19@gmail.com>
 
---------------NS7QrgsEo5LbtZ0sxzomUQWY
-Content-Type: text/plain; charset=UTF-8
+--s4od7tlqijiee3bc
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
+[mailing only the list, but CCing Alex as I know he doesn't mind]
 
+Hi Alex,
 
-On 5/26/23 13:58, Alejandro Colomar wrote:
-> On 5/26/23 00:56, Alejandro Colomar wrote:
-> [...]
->=20
->> Also, Linux-man-pages-copyleft seems to contain a sentence that
->> makes it differ from VERBATIM_PROF:
->>
->> """
->>   The author(s) may
->> not have taken the same level of care in the production of this
->> manual, which is licensed free of charge, as they might when working
->> professionally.
->> """
->>
->> I believe the quality of non-professional code and manuals to be
->> at least as high as the professional one.  We have more freedom to
->> reject crap.  I propose also deprecating Linux-man-pages-copyleft
->> and moving to VERBATIM_PROF as the single surviving license from
->> all four variants.
->=20
-> I reconsidered.  The non-pro version does actually reflect reality,
-> as it doesn't say the level of care is less, but just different.
-> That can --and more often than not does-- mean higher level of care.
->=20
-> So, I prefer Linux-man-pages-copyleft over VERBATIM_PROF.
->=20
-> <https://github.com/spdx/license-list-XML/issues/1959#issuecomment-1564=
-255785>
->=20
->>
->> We're also discussing the names that each of these four should be
->> given in SPDX.
->>
->>
->> I suggest (in order of appearance in this email):
->>
->> -  Linux-man-pages-copyleft to be renamed to the following, and
->>    mark it as a deprecated license.
->>
->> 	Linux-man-pages-copyleft-nopro
->> 	Linux man-pages Copyleft (non-professional)
->=20
-> I drop my suggestion of renaming this one (and of deprecating it).
->=20
->>
->> -  VERBATIM_PROF to be SPDX'd as:
->>
->> 	Linux-man-pages-copyleft-qual
->> 	Linux man-pages Copyleft (high quality)
+Thanks for getting the ball rolling on this.  I have some critiques of
+the existing variants and a suggestion for the forms we go back to SPDX
+with.  I did also see your follow-ups which confused me a little, and I
+fear they might confuse others a bit.  I suggest taking a few days to
+shake out some points (it's going to be a holiday weekend in the U.S.
+anyway, so some engineers may already be on PTO), and then re-announce
+the relicensing effort subsequently.
 
-And suggest using -pro and (professional) for this one.
-But the real name in my mind will be -loqual and (lower
-quality).  ;)
-
->>
->> -  VERBATIM_TWO_PARA to be SPDX'd as:
->>
->> 	Linux-man-pages-copyleft-notrans
->> 	Linux man-pages Copyleft (no translations)
->>
->> -  VERBATIM_ONE_PARA to be SPDX'd as:
->>
->> 	Linux-man-pages-copyleft-verbatim
->> 	Linux man-pages Copyleft (verbatim)
->>
->>
+At 2023-05-26T00:56:47+0200, Alejandro Colomar wrote:
+> We've got 4 derivatives of the "VERBATIM" (now one of them in SPDX
+> as Linux-man-pages-copyleft") license.  I'll paste here the four.
 >=20
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>=20
+> $ cat LICENSES/Linux-man-pages-copyleft.txt=20
+> Copyright (c) <year> <owner> All rights reserved.
+>=20
+> Permission is granted to make and distribute verbatim copies of this
+> manual provided the copyright notice and this permission notice are
+> preserved on all copies.
+>=20
+> Permission is granted to copy and distribute modified versions of
+> this manual under the conditions for verbatim copying, provided that
+> the entire resulting derived work is distributed under the terms of
+> a permission notice identical to this one.
+>=20
+> Since the Linux kernel and libraries are constantly changing, this
+> manual page may be incorrect or out-of-date.  The author(s) assume
+> no responsibility for errors or omissions, or for damages resulting
+> from the use of the information contained herein.  The author(s) may
+> not have taken the same level of care in the production of this
+> manual, which is licensed free of charge, as they might when working
+> professionally.
+>=20
+> Formatted or processed versions of this manual, if unaccompanied by
+> the source, must acknowledge the copyright and authors of this work.
+>=20
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 
---=20
-<http://www.alejandro-colomar.es/>
-GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
+The final paragraph may be nearly redundant/superfluous.  (1) Copyright
+laws and international treaties forbid the effacement of (valid)
+copyright notices anyway, even under transformation ("formatt[ing]" or
+"process[ing]").  (2) Man pages are nearly always distributed and stored
+on systems in source form anyway.  If systems ship "cat pages" without
+their man(7) (or mdoc(7)) sources, they are already in violation not
+only of this provision but the aforementioned laws and treaties.
 
---------------NS7QrgsEo5LbtZ0sxzomUQWY--
+I agree with your point about how amateur work is not necessarily done
+more poorly than professional work.  Striking that sentence leads to the
+following...
 
---------------JCkxHRdmL4jF0XwM9RZhDwuF
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+> $ head -n21 man2/set_mempolicy.2
+> .\" Copyright 2003,2004 Andi Kleen, SuSE Labs.
+> .\" and Copyright 2007 Lee Schermerhorn, Hewlett Packard
+> .\"
+> .\" %%%LICENSE_START(VERBATIM_PROF)
+> .\" Permission is granted to make and distribute verbatim copies of this
+> .\" manual provided the copyright notice and this permission notice are
+> .\" preserved on all copies.
+> .\"
+> .\" Permission is granted to copy and distribute modified versions of this
+> .\" manual under the conditions for verbatim copying, provided that the
+> .\" entire resulting derived work is distributed under the terms of a
+> .\" permission notice identical to this one.
+> .\"
+> .\" Since the Linux kernel and libraries are constantly changing, this
+> .\" manual page may be incorrect or out-of-date.  The author(s) assume no
+> .\" responsibility for errors or omissions, or for damages resulting from
+> .\" the use of the information contained herein.
+> .\"
+> .\" Formatted or processed versions of this manual, if unaccompanied by
+> .\" the source, must acknowledge the copyright and authors of this work.
+> .\" %%%LICENSE_END
+
+With the next license, things get murkier.
+
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>=20
+> $ head -n8 man2/getcpu.2
+> .\" This man page is Copyright (C) 2006 Andi Kleen <ak@muc.de>.
+> .\"
+> .\" %%%LICENSE_START(VERBATIM_ONE_PARA)
+> .\" Permission is granted to distribute possibly modified copies
+> .\" of this page provided the header is included verbatim,
+> .\" and in case of nontrivial modification author and date
+> .\" of the modification is added to the header.
+> .\" %%%LICENSE_END
+
+It is not clear to me how this one is defective in not permitting
+translations, but the others aren't.  Do we know who from the Fedora
+Project made that determination?
+
+If we then look at the 4th license, things get cleaner.
+
+> $ head -n13 man2/move_pages.2
+> .\" This manpage is Copyright (C) 2006 Silicon Graphics, Inc.
+> .\"                               Christoph Lameter
+> .\"
+> .\" %%%LICENSE_START(VERBATIM_TWO_PARA)
+> .\" Permission is granted to make and distribute verbatim copies of this
+> .\" manual provided the copyright notice and this permission notice are
+> .\" preserved on all copies.
+> .\"
+> .\" Permission is granted to copy and distribute modified versions of this
+> .\" manual under the conditions for verbatim copying, provided that the
+> .\" entire resulting derived work is distributed under the terms of a
+> .\" permission notice identical to this one.
+> .\" %%%LICENSE_END
+
+This is the same as the first license we saw above with the last 2
+paragraphs removed--the one expressing a kind of disclaimer, and the one
+that I claimed is redundant/superfluous.
+
+I see from your follow-up email that _this_ is the one Fedora claimed to
+have a Freeness problem with.  Can we scare up a cite for which one,
+exactly, they were referring to?  The concern their determination causes
+me is that _none_ of the four license you present here explicitly grant
+permission to translate.
+
+The LaTeX 2e/"traditional GNU documentation license", from which all of
+these license texts seem to be derived, solved the translation problem
+with an explicit grant of permission.
+
+>> Permission is granted to copy and distribute translations of this
+>> manual into another language, under the above conditions for modified
+>> versions.
+
+And in fact if you add the foregoing paragraph to "VERBATIM_TWO_PARA",
+you get _precisely_ what SPDX calls the "Latex2e license".
+
+https://spdx.org/licenses/Latex2e.html
+
+> Here goes some comments about them:
+>=20
+> The one and two paragraph licenses are almost identical to the usual
+> one.  There seems to be a small diference regarding translations in
+> the 2-paragraph one, being more restrictive.  Was that intentional?
+> Or maybe it was just an accident, and there was no intention of
+> disallowing translations?
+>=20
+> Would you please relicense to either Linux-man-pages-copyleft or
+> VERBATIM_PROF?
+
+If you agree, I would add LaTeX 2e to the list of acceptable candidates.
+
+> Also, Linux-man-pages-copyleft seems to contain a sentence that
+> makes it differ from VERBATIM_PROF:
+>=20
+> """
+>   The author(s) may
+> not have taken the same level of care in the production of this
+> manual, which is licensed free of charge, as they might when working
+> professionally.
+> """
+>=20
+> I believe the quality of non-professional code and manuals to be
+> at least as high as the professional one.  We have more freedom to
+> reject crap.  I propose also deprecating Linux-man-pages-copyleft
+> and moving to VERBATIM_PROF as the single surviving license from
+> all four variants.
+
+I'd go farther and move to LaTeX 2e.
+
+> We're also discussing the names that each of these four should be
+> given in SPDX.
+
+Is that necessary, if you successfully migrate away from these to texts
+that are already in SPDX, like LaTeX 2e and the existing Linux man-pages
+copyleft?  I realize SPDX wants to capture many licenses for SWBOM
+purposes, but if this transition is successful, the foregoing task will
+rapidly become a problem of history.  And historical software
+distributions have far worse description problems, such as (1) unknown
+provenance, (2) missing copyright/licensing information, and (3)
+incorrect copyright/licensing information.  (To an extent, all three of
+these problems will continue to arise from time to time.)
+
+> I suggest (in order of appearance in this email):
+>=20
+> -  Linux-man-pages-copyleft to be renamed to the following, and
+>    mark it as a deprecated license.
+>=20
+> 	Linux-man-pages-copyleft-nopro
+> 	Linux man-pages Copyleft (non-professional)
+
+I thought SPDX didn't support renames at all...?
+
+But if they do, I suggest disambiguation tags that are more descriptive
+rather than trying to capture catchwords that distinguish them.
+
+	Linux-man-pages-copyleft-care-disclaimer
+	Linux man-pages Copyleft (with care disclaimer)
+
+> -  VERBATIM_PROF to be SPDX'd as:
+>=20
+> 	Linux-man-pages-copyleft-qual
+> 	Linux man-pages Copyleft (high quality)
+
+=2E..but now the license text makes no mention of the Linux kernel at all.
+It is just the LaTeX 2e license without its final paragraph, the one
+granting permission to distribute translations of the manual.
+
+=2E..which then leaves us in an awkward position regarding Fedora's
+determination that VERBATIM_ONE_PARA had this problem.
+
+And I wouldn't put a term like "high quality" (or "low quality") in a
+license identifier under any circumstances.
+
+> -  VERBATIM_TWO_PARA to be SPDX'd as:
+>=20
+> 	Linux-man-pages-copyleft-notrans
+> 	Linux man-pages Copyleft (no translations)
+
+=2E..this, too, says nothing of Linux to distinguish it from LaTeX 2e.
+
+It is the LaTeX 2e license missing its latter two paragraphs.
+
+> -  VERBATIM_ONE_PARA to be SPDX'd as:
+>=20
+> 	Linux-man-pages-copyleft-verbatim
+> 	Linux man-pages Copyleft (verbatim)
+
+This one doesn't mention "Linux" but is pretty idiosyncratically worded
+("this page").  And Fedora had the aforementioned problem wherein they
+claimed to be unable to locate permission to translate here.
+
+You have already identified it as defective in its grant of permissions,
+and it affects only 2 documents in the Linux man-pages.
+
+Can we try to slate this one for the chopping block, and just not take
+it back to SPDX at all?
+
+Regards,
+Branden
+
+--s4od7tlqijiee3bc
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmRwn04ACgkQnowa+77/
-2zKwSQ//cyO4Q4DhRkMPiBxB9CJsdMAuH8WVH79ANkYk/26c2cNgKbON6MoMBrlV
-u+wHhXXTn6FHehK6JjgBzwWNA54ltBdc/I4Yv+i7fB6D1ZNcxFpP1BIE/k4FA8Ht
-VCeg5A5NSehGM/0XqofrE9co7n08zj+VF2+u5gydrCTVBYG/GaBcIXdFZW2fPeHo
-6LMn3VNKJX5i16OXRE7i6a6JVJUCKMuarnsD+AqcQM1cMoshsqC9xjp1zHm9kCGp
-w3UGewgbEUIIcFRoR/ox+SLNx0Luh4G4b42qZoesmkBfz2ocgrKtUdGhlXm2HupE
-1U6xfNjyAGW/DjhtiEaFLEOP398NL6M/PauVMfags/vg7MvEv62bxDJs/oIZuVqW
-cEjda6n4avY81GBA0J4ipXl8CABJ11GZQIX2jZ0iLpmHqyt9WJPyqPMvWLgcxAnw
-+BGjR3LpJ6B7na0KObAlhTe6sY1tWH8YJDXGMTme5hr7DqX3kdVobGdRWTv3ezx5
-3IV2WW4isIRJV6of22sOr353pgBjew6CRuoHU0D3n80byJFlXFWUmopIcuYeZR2l
-5sKzHPs6DCPHk6p+0H+HjFG16JExn2lxiKHF5ticykfY2qghdjCLD01IDGGFbJqZ
-XquimaYVGPvG+qd1rfVUBC0EpFrvB9XjQwx+jNaVQOaATsKI2nA=
-=J+iR
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmRwsM8ACgkQ0Z6cfXEm
+bc5SNA/9EQME1EIPPRCZC3T+YQeu0Djye5CHIv0ggQIkGWpsAA+5uzSF5i6gNi4/
+y6lXYFL7NQfMhn1jGK2J8cMoPzmfvKf+EryQbOTvpiNst4GIDmr22GTmwPGcnxKJ
+3QxhIHT4I5Z6grcrPp8tkpRApYdLyp/9iXZvJ5DPtJ2l37EB+crNOu3wTKXG7i0i
+4llORTWBFnhgA9jMayzh2iOYLkuzHhxuB2N4D+4LY+dVdHtlunqu263mGwjYfHi2
+gV/VSGFNKziBVEQJYNRyjZ3d0I3i9B6Sevc+nApM2YoUmGAZdqDN2/5Kz82UWZHj
+kbKgFiTCFjvLxAlpCsex5QcIF0Y9ktTNnwH7qfmzeHyIl2lf8ovvWswatkAhk7Yr
+NEFoaqK8+XDPcw2i15jZytV1ZpIeVAdasO9Co1eIfrVWtDBwB3IfW9JXlwMfATDL
+M38D8B5kGaHUWchLbP6lzyB7xpxoJf2uLRqLXlKDP1zM2eOee7FWkEvxKEymjdtE
+3cZrTpu/bnHNC5K/Lg5KTo+9V9y/zm7bnWRHk7fCbf58+s19OQ17bzVgM2NAHzj0
+XQdZa4bbi5l4rSOQVWaBuxRANE78LBoRyvdciyvkURP8DId6VHoAsbjQvbI3IaeM
+yJnY21cs0muRPl9VfPSKiNYFM0OIdBc7+50ZN1HsubbkOQe3bKE=
+=J0Ua
 -----END PGP SIGNATURE-----
 
---------------JCkxHRdmL4jF0XwM9RZhDwuF--
+--s4od7tlqijiee3bc--
