@@ -2,43 +2,50 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 57BB0712A39
-	for <lists+linux-man@lfdr.de>; Fri, 26 May 2023 18:10:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id EE763712EB0
+	for <lists+linux-man@lfdr.de>; Fri, 26 May 2023 23:07:11 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S244177AbjEZQKA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 26 May 2023 12:10:00 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55838 "EHLO
+        id S243860AbjEZVHK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 26 May 2023 17:07:10 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60828 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S244173AbjEZQJ7 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 26 May 2023 12:09:59 -0400
-Received: from smtp83.iad3a.emailsrvr.com (smtp83.iad3a.emailsrvr.com [173.203.187.83])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4EB2C119
-        for <linux-man@vger.kernel.org>; Fri, 26 May 2023 09:09:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mev.co.uk;
-        s=20221208-6x11dpa4; t=1685117396;
-        bh=/49lUlX+mznnjr9U1EE5yygaQGvAy1apws+7+EObecA=;
-        h=From:To:Subject:Date:From;
-        b=XfxxEAwAAs5OhNOWsSRMUKCry0V3+CDLgJeo42mCyMaC7ogI2X4w7G+2Cbx2mVv6F
-         v2Hr2/omhjuyHsHW1M2rBZWJUywsvBQr9PpM2yg9gGQYWdmS1reYaCtnec7lW54q38
-         eTik0glkzrGd7VHyxRRlsNVG+VWgZyOmnY+2cCSU=
-X-Auth-ID: abbotti@mev.co.uk
-Received: by smtp11.relay.iad3a.emailsrvr.com (Authenticated sender: abbotti-AT-mev.co.uk) with ESMTPSA id ADA3942D4;
-        Fri, 26 May 2023 12:09:55 -0400 (EDT)
-From:   Ian Abbott <abbotti@mev.co.uk>
-To:     Alejandro Colomar <alx@kernel.org>
-Cc:     linux-man@vger.kernel.org, Ian Abbott <abbotti@mev.co.uk>
-Subject: [PATCH v3] fgetc.3: Describe handling of ungetc(EOF, stream)
-Date:   Fri, 26 May 2023 17:09:44 +0100
-Message-Id: <20230526160944.27743-1-abbotti@mev.co.uk>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230526154132.26865-1-abbotti@mev.co.uk>
-References: <20230526154132.26865-1-abbotti@mev.co.uk>
+        with ESMTP id S230058AbjEZVHJ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 26 May 2023 17:07:09 -0400
+Received: from bombadil.infradead.org (bombadil.infradead.org [IPv6:2607:7c80:54:3::133])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 620D0BC;
+        Fri, 26 May 2023 14:07:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+        d=infradead.org; s=bombadil.20210309; h=Sender:Content-Transfer-Encoding:
+        MIME-Version:Message-Id:Date:Subject:Cc:To:From:Reply-To:Content-Type:
+        Content-ID:Content-Description:In-Reply-To:References;
+        bh=1ogg/PUbTxKmhWJC/1xhoXa1dzdnZDY8ZuRWFCmZ38s=; b=0CftGiEnPzro23zYDvjoLbTFuY
+        rqII7GAY5PmjLXehFY5Msk61fmrmnxv/iFFbFHZG+DNz5DTQeMpTaBcuX0gWbyUeB5JB3fQfzA+kz
+        fzptzQXE+XrWAbMiezOCIrxOV0IuwLfF7FCG2gyB0DE5gbz2L0KfgjW3Bk4V0j7UiSFI4ZSFIJJr4
+        jyVf6puAi6HAZKAOHTNvCqL6Z1DEJtp2HYSBPi/zys75bwYb+23doVm93UdkVBX/T9iihvITcWI+r
+        M4+rCBQwC3bY412UlfWIrjczePv/jpUHL6dzZQ+BiMpnm4Skwd1bjpxDdxWu/pR5RPP1xvasBu+gO
+        zLzoa2FA==;
+Received: from mcgrof by bombadil.infradead.org with local (Exim 4.96 #2 (Red Hat Linux))
+        id 1q2eeO-003vDt-0W;
+        Fri, 26 May 2023 21:07:04 +0000
+From:   Luis Chamberlain <mcgrof@kernel.org>
+To:     alx@kernel.org, linux-man@vger.kernel.org,
+        linux-api@vger.kernel.org
+Cc:     hughd@google.com, p.raghav@samsung.com, da.gomez@samsung.com,
+        rohan.puri@samsung.com, rpuri.linux@gmail.com,
+        a.manzanares@samsung.com, dave@stgolabs.net, yosryahmed@google.com,
+        keescook@chromium.org, mcgrof@kernel.org, patches@lists.linux.dev,
+        linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
+        linux-kernel@vger.kernel.org
+Subject: [PATCH] tmpfs.5: extend with new noswap documentation
+Date:   Fri, 26 May 2023 14:07:03 -0700
+Message-Id: <20230526210703.934922-1-mcgrof@kernel.org>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Classification-ID: a4678b06-c444-42f9-acd5-83a624db9b58-1-1
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
-        RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+Sender: Luis Chamberlain <mcgrof@infradead.org>
+X-Spam-Status: No, score=-4.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_EF,HEADER_FROM_DIFFERENT_DOMAINS,
+        RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
         URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -46,45 +53,32 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-As per the C standard, calling ungetc() with the character parameter
-equal to EOF causes it to fail, returning EOF.
+Linux commit 2c6efe9cf2d7 ("shmem: add support to ignore swap")
+merged as of v6.4 added support to disable swap for tmpfs mounts.
 
-Signed-off-by: Ian Abbott <abbotti@mev.co.uk>
----
-v2: Correct English grammar usage for "otherwise".
-v3: Move detail of EOF special case to the end of the paragraph to give
-    it less prominence, as suggested by Alex.
----
- man3/fgetc.3 | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+This extends the man page to document that.
 
-diff --git a/man3/fgetc.3 b/man3/fgetc.3
-index 75dcaeaf6..a15d73b15 100644
---- a/man3/fgetc.3
-+++ b/man3/fgetc.3
-@@ -62,7 +62,7 @@ A terminating null byte (\[aq]\e0\[aq])
- is stored after the last character in the buffer.
- .PP
- .BR ungetc ()
--pushes
-+normally pushes
- .I c
- back to
- .IR stream ,
-@@ -71,6 +71,13 @@ cast to
- where it is available for subsequent read operations.
- Pushed-back characters
- will be returned in reverse order; only one pushback is guaranteed.
-+If the value of
-+.I c
-+equals that of the macro
-+.BR EOF ,
-+nothing is pushed back to
-+.I stream
-+and an error is returned.
- .PP
- Calls to the functions described here can be mixed with each other and with
- calls to other input functions from the
+Signed-off-by: Luis Chamberlain <mcgrof@kernel.org>
+---
+ man5/tmpfs.5 | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/man5/tmpfs.5 b/man5/tmpfs.5
+index 09d9558985e9..f7f90f112103 100644
+--- a/man5/tmpfs.5
++++ b/man5/tmpfs.5
+@@ -99,6 +99,11 @@ suffixes like
+ .BR size ,
+ but not a % suffix.
+ .TP
++.BR noswap "(since Linux 6.4)"
++.\" commit 2c6efe9cf2d7841b75fe38ed1adbd41a90f51ba0
++Disables swap. Remounts must respect the original settings.
++By default swap is enabled.
++.TP
+ .BR mode "=\fImode\fP"
+ Set initial permissions of the root directory.
+ .TP
 -- 
 2.39.2
 
