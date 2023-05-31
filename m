@@ -2,209 +2,180 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id EFEC3718B86
-	for <lists+linux-man@lfdr.de>; Wed, 31 May 2023 23:02:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 97B0B718D8A
+	for <lists+linux-man@lfdr.de>; Wed, 31 May 2023 23:51:19 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229597AbjEaVCQ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 31 May 2023 17:02:16 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59246 "EHLO
+        id S230186AbjEaVvS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 31 May 2023 17:51:18 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50720 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229473AbjEaVCP (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 31 May 2023 17:02:15 -0400
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com [IPv6:2a00:1450:4864:20::433])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 17F1F129
-        for <linux-man@vger.kernel.org>; Wed, 31 May 2023 14:02:14 -0700 (PDT)
-Received: by mail-wr1-x433.google.com with SMTP id ffacd0b85a97d-30af86a96b4so69501f8f.3
-        for <linux-man@vger.kernel.org>; Wed, 31 May 2023 14:02:14 -0700 (PDT)
+        with ESMTP id S230213AbjEaVvQ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 31 May 2023 17:51:16 -0400
+Received: from mail-qt1-x835.google.com (mail-qt1-x835.google.com [IPv6:2607:f8b0:4864:20::835])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C4BA4A0
+        for <linux-man@vger.kernel.org>; Wed, 31 May 2023 14:51:05 -0700 (PDT)
+Received: by mail-qt1-x835.google.com with SMTP id d75a77b69052e-3f6c6320d4eso28221cf.1
+        for <linux-man@vger.kernel.org>; Wed, 31 May 2023 14:51:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1685566932; x=1688158932;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=4wTnqTh8d1G5un9upJJesbet48ysAnxUZLOgOeb1Fvg=;
-        b=mv7eoy+JnFdNKKImOP70yKqA/6gXCKbunoOSfJ+nZ+pLNMQoNOfd37yTm9BTi8/US+
-         xTexCyzYMfHHSS2H1cQ1BIlAfyYM9OdaH+3w5TsMoJi2Q/OhvwdHxuXNCdbjtJ6r5SYi
-         YSZoLAOBX+AqjT5mTHgyx175vE542aNAA2RDGoLllpwtjDTaI48iAbczSws/6I9GVWQM
-         OHT0eStPPE25aTauuu99+Ka/plCeEatV6v3nNpB2SBec8Ggtv3m9KIS+ZZi4gy0yrQKl
-         gFaEowzYSiPohUq1rXL1EMeWAFF9rW5ZbMs2U6P/15b13nfx0e00/rfGql8TQV/BQypK
-         2n4A==
+        d=google.com; s=20221208; t=1685569865; x=1688161865;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=npo4iF9dYCgQ+n8j3c+lEEssVPe4fNm3LhDwNN0cYqc=;
+        b=X0V1K9j4Zvtk/H81NJS79oJPr4r2DT+Oea0gck2ch+NHaEA8RK/pjkfTNMaxoS/8jL
+         k9aWyQU3m7vH18ltLwNHIXbW32KeGN8mwT5NeAmU2ef2pWejnx0wSCsVCPaDeuPTHgB3
+         F656tNAZxZ34w3wQHq1MFQSjQyf/Y8dgBTUyjPJOzKYFHkoMsohb2X8mHXhUWUCGEsOU
+         1UCRr9pc9iwEI7BXeAlev3a/jiGIkVeD8tyFO7s0+NpeoGvqgOo66r2xONoYuwfz0FlS
+         DgMxkTKf/4UrafleNR/JXO3TI9kPZ/4xAE0l3fwkSc3y1V0UuslYZ60bgwSF0kMb1eQv
+         Jw9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1685566932; x=1688158932;
-        h=in-reply-to:from:references:cc:to:content-language:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=4wTnqTh8d1G5un9upJJesbet48ysAnxUZLOgOeb1Fvg=;
-        b=GAIwtOwQPWP78Ik91Ne9dWTn/2CC3ED3bdb2T4cGtfc947btAcjrWAJVML3EptFdnD
-         H42YU9vbdmsPKuCh6/A7Z6iWsbHyLfR7wtX3EAdzWxQfZqJErtsosy2U3QOtcZnuOOAc
-         aRNMPA790e8/SyMZfyz/pwrOTfDncbyyZnBg2CarlalKLwtdnvX0Bv176WmYGc0J3tRy
-         Md90nr2FnAXloN/CC7fVU7DlZEW9L0wt8lAJW49fdFS8o4vzpX8N0lTTF8LPLF/Da5Nh
-         7wtlOHv/T4nHtV7hKv+2Ro2KnkVD+2Om3XocXvpaP7zHI+i3a69isT1akDWcoU7vVKa2
-         pAKQ==
-X-Gm-Message-State: AC+VfDysjUa8Zq0l+2mqf6/NQVPqjak9ge9FhwKNS0/eady/OOMeSDps
-        HzhhicZG9LzGsAwHy2N4T0U=
-X-Google-Smtp-Source: ACHHUZ7JWnq8B4XSqGYhKs8MUuqLON2mpZinn9FZanczy6IfP1Q5xLouEdgceqaazZFrvckMPndAhA==
-X-Received: by 2002:adf:f781:0:b0:30a:bae6:fa98 with SMTP id q1-20020adff781000000b0030abae6fa98mr188808wrp.39.1685566932403;
-        Wed, 31 May 2023 14:02:12 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.51.134])
-        by smtp.gmail.com with ESMTPSA id e16-20020adfe390000000b003048477729asm7953530wrm.81.2023.05.31.14.02.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 31 May 2023 14:02:12 -0700 (PDT)
-Message-ID: <eda85fda-6182-fc13-3943-9084b187433e@gmail.com>
-Date:   Wed, 31 May 2023 23:02:10 +0200
+        d=1e100.net; s=20221208; t=1685569865; x=1688161865;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=npo4iF9dYCgQ+n8j3c+lEEssVPe4fNm3LhDwNN0cYqc=;
+        b=FyfQg1LUyCU44bz9zR9h3DblfqHL+SbR410q8PXPp69g+Jq3ZusYlS35sK6i9MjpT2
+         4XxpOvZlM9xzsfGmiiR4IttMeoT47z52bzyE2b5pDTHiyq+YnNDUJQL0Ia29PevGt+sP
+         hp468JKLixRrPAU2hXc6ZTUg6kpKpxQGpCgrM4yuFBVQNHbj8NMBBQyp5FIqH3fcfD7z
+         6PvUk53/XWrefbKtPWv8gN7aO8DAB4mAxdMziE+P3MNkTnfGwcGzWLCT/rT271XBqgBl
+         +Z0E4hdN05oLk14mDAxO1VE4FflWhIGiLnpUy4ZJ/KZmsKDhz/zgWwuL+w+oHl7/5L0i
+         uIJw==
+X-Gm-Message-State: AC+VfDwcOssJD0MtKuhnZEFWwggRtWTOCPeTebSBO4om2+ZeVR72a436
+        1Oq+h2YK1j6RK1nbNPRH/to7BK3zEdXM9qKDelky8G5Uy18IjdjmCzh9sw==
+X-Google-Smtp-Source: ACHHUZ4kieFIyQudQsNFaCCYxz9iDKKqsMyB//UGl9WhOdkF0uKpv3/SGJHz1S+z25+jNNqnRqGR+lzjNgk4amqgxFA=
+X-Received: by 2002:a05:622a:1820:b0:3f8:175a:4970 with SMTP id
+ t32-20020a05622a182000b003f8175a4970mr74775qtc.18.1685569864866; Wed, 31 May
+ 2023 14:51:04 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: SPDX license review requests
-Content-Language: en-US
-To:     Andi Kleen <ak@linux.intel.com>
-Cc:     linux-man@vger.kernel.org, Brian Inglis <Brian.Inglis@shaw.ca>,
-        "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        Matthew Wilcox <willy@infradead.org>,
-        Alan Cox <alan@lxorguk.ukuu.org.uk>,
-        Heinrich Schuchardt <heinrich.schuchardt@canonical.com>,
-        Adam Dobes <adobes@redhat.com>, Chris Lameter <cl@linux.com>
-References: <CADeQ=2-ZsaSCEPfTHUO6AAZ_+H8ob4LJ5x5MuGaX=jdOVpdCog@mail.gmail.com>
- <bd1a81d0-456a-bc19-7df0-fdbcc2a51395@gmail.com>
- <a7ed2025-b896-bbce-f36b-0a681f38c542@gmail.com>
- <ca053426-bd13-055a-88ab-9a4873f13f7e@gmail.com> <ZHXweLNKqHKoybXM@tassilo>
-From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <ZHXweLNKqHKoybXM@tassilo>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------7XKc0v0cCEr5Fj0TmOsATgMy"
-X-Spam-Status: No, score=-2.2 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-        URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.6
+References: <CAELULbfH8n8Gst4Bi+d9vNhiRn4xDU-wgEau5s9cPQMFVd1tqg@mail.gmail.com>
+ <926226db-e3ad-007b-b931-182530182a50@gmail.com>
+In-Reply-To: <926226db-e3ad-007b-b931-182530182a50@gmail.com>
+From:   Zijun Zhao <zijunzhao@google.com>
+Date:   Wed, 31 May 2023 14:50:53 -0700
+Message-ID: <CAELULbdo4TJBHxOFZ=+rwgko1ybqqHZXje+u8+bf0tptU7t2ZA@mail.gmail.com>
+Subject: Re: [PATCH] Fix the man page of setsockopt.2
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     enh <enh@google.com>, Dan Albert <danalbert@google.com>,
+        linux-man <linux-man@vger.kernel.org>
+Content-Type: multipart/mixed; boundary="0000000000000ad48d05fd045112"
+X-Spam-Status: No, score=-17.6 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+        ENV_AND_HDR_SPF_MATCH,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+        T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,
+        USER_IN_DEF_SPF_WL autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------7XKc0v0cCEr5Fj0TmOsATgMy
-Content-Type: multipart/mixed; boundary="------------kedPDod0UrFqhaXuAxu0NLBe";
- protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-To: Andi Kleen <ak@linux.intel.com>
-Cc: linux-man@vger.kernel.org, Brian Inglis <Brian.Inglis@shaw.ca>,
- "G. Branden Robinson" <g.branden.robinson@gmail.com>,
- Michael Kerrisk <mtk.manpages@gmail.com>,
- Matthew Wilcox <willy@infradead.org>, Alan Cox <alan@lxorguk.ukuu.org.uk>,
- Heinrich Schuchardt <heinrich.schuchardt@canonical.com>,
- Adam Dobes <adobes@redhat.com>, Chris Lameter <cl@linux.com>
-Message-ID: <eda85fda-6182-fc13-3943-9084b187433e@gmail.com>
-Subject: Re: SPDX license review requests
-References: <CADeQ=2-ZsaSCEPfTHUO6AAZ_+H8ob4LJ5x5MuGaX=jdOVpdCog@mail.gmail.com>
- <bd1a81d0-456a-bc19-7df0-fdbcc2a51395@gmail.com>
- <a7ed2025-b896-bbce-f36b-0a681f38c542@gmail.com>
- <ca053426-bd13-055a-88ab-9a4873f13f7e@gmail.com> <ZHXweLNKqHKoybXM@tassilo>
-In-Reply-To: <ZHXweLNKqHKoybXM@tassilo>
-
---------------kedPDod0UrFqhaXuAxu0NLBe
-Content-Type: text/plain; charset=UTF-8
+--0000000000000ad48d05fd045112
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Andi,
+Hi Alejandro,
+  yes, that's what needs to fix. The documentation for setsockopt() in
+https://man7.org/linux/man-pages/man2/setsockopt.2.html, the
+documentation for getsockopt(2) should be more clear. The value in
+getsockopt() may be NULL, but value in setsockopt() must be NONNULL
+due to reasons listed in the previous emails. I update the fix (see in
+the attached patch). Thank you!
+Best,
+Zijun
 
-On 5/30/23 14:47, Andi Kleen wrote:
->>
->> VERBATIM_ONE_PARA
->> 	This license was first used in the Linux man-pages in version
->> 	1.24 (year 1999) in several pages:
->>
->> 		sendfile.2
->> 			Pawel Krawczyk
->> 		cmsg.3
->> 			Andi Kleen <ak@muc.de>
->=20
-> I assume there's no need to change these.
->=20
->> VERBATIM_TWO_PARA
->> 	This license was first used in the Linux man-pages in version
->> 	3.07 (year 2008) in a single page:
->>
->> 		move_pages.2
->> 			Added by Michael Kerrisk <mtk.manpages@gmail.com>,
->> 			but Copyright (C) 2006 Silicon Graphics, Inc.
->> 			                  Christoph Lameter
->>
->> 	It was later reused in another page:
->>
->> 		migrate_pages.2
->> 			Copyright 2009 Intel Corporation
->> .\"                Author: Andi Kleen
->> .\" Based on the move_pages manpage which was
->> .\" This manpage is Copyright (C) 2006 Silicon Graphics, Inc.
->> .\"                               Christoph Lameter
->>
->> 	This license is the one considered non-free by Fedora, and which
->> 	we need to drop.  Luckily it's only two pages, so they could be
->> 	reasonably rewritten in a worst case.
->=20
-> Not sure I followed why it is non-free, but I'm ok with relicensing my =
-portions
-> of this to VERBATIM_ONE_PARA.
 
-I was confused.  It was another license that was non-free (LDPv1).  This =
-is
-fine for Fedora too.
+On Wed, May 31, 2023 at 1:29=E2=80=AFPM Alejandro Colomar
+<alx.manpages@gmail.com> wrote:
+>
+> Hi Zijun!
+>
+> On 5/31/23 20:19, Zijun Zhao wrote:
+> > Hi there,
+> >   We are annotating setsockopt()
+> > [https://man7.org/linux/man-pages/man2/setsockopt.2.html] and we will
+> > make optval _Nonnull because of the implementation:
+> > https://elixir.bootlin.com/linux/latest/source/include/linux/sockptr.h#=
+L44
+> > but we find something confusing in the linux man page.
+> >
+> >    From the linux man page, it said The option value is ignored. This
+> > is strictly correct but this one should be corrected: If no option
+> > value is to be supplied or returned, optval may be NULL. It should be
+> > corrected and make it clear that it is _Nonnull.
+> >
+> >   Also, to prove optval  should be _Nonnull, enh wrote a trivial test
+> > program to open a socket and call SO_DETACH_FILTER. He got EINVAL for
+> > null, but ENOENT for a dummy value, which makes sense, because he
+> > doesn=E2=80=99t actually have a filter to detach, so that's the expecte=
+d
+> > error.
+> >
+> >    Thank you!
+> >
+> > Best,
+> > Zijun Zhao
+>
+> That patch you're sending modifies the documentation for getsockopt(2),
+> not setsockopt(2).  Please revise.
+>
+> > diff --git a/man2/getsockopt.2 b/man2/getsockopt.2
+> > index a0cda8e87..28059793a 100644
+> > --- a/man2/getsockopt.2
+> > +++ b/man2/getsockopt.2
+> > @@ -70,23 +70,24 @@ .SH DESCRIPTION
+> >  they identify a buffer in which the value for the
+> >  requested option(s) are to be returned.
+> >  For
+> >  .BR getsockopt (),
+> >  .I optlen
+> >  is a value-result argument, initially containing the
+> >  size of the buffer pointed to by
+> >  .IR optval ,
+> >  and modified on return to indicate the actual size of
+> >  the value returned.
+> > -If no option value is to be supplied or returned,
+> >  .I optval
+> > -may be NULL.
+> > +should be
+> > +.B NONNULL ,
+> > +even no option value is to be supplied or returned.
+> >  .PP
+> >  .I Optname
+> >  and any specified options are passed uninterpreted to the appropriate
+> >  protocol module for interpretation.
+> >  The include file
+> >  .I <sys/socket.h>
+> >  contains definitions for socket level options, described below.
+> >  Options at
+> >  other protocol levels vary in format and name; consult the appropriate
+> >  entries in section 4 of the manual.
+>
+> Cheers,
+> Alex
+>
+> --
+> <http://www.alejandro-colomar.es/>
+> GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
-I don't want to force anyone to change the license; if you like it, we'll=
+--0000000000000ad48d05fd045112
+Content-Type: application/octet-stream; name="changes.patch"
+Content-Disposition: attachment; filename="changes.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_lic8ri5w0>
+X-Attachment-Id: f_lic8ri5w0
 
-keep it.  However, since I don't think there's much significant differenc=
-e
-between those two licenses above, and the more widely used
-Linux-man-pages-copyleft, if you just chose the license randomly back the=
-n,
-it might be good to reduce the quantity of licenses that we use in the
-project.
-
-So, given this, if you give consent to change your pages to use
-Linux-man-pages-copyleft, I'll do so provided for the pages that are
-completely yours, and will keep in mind that when others agree, I'll also=
-
-change the pages that are shared.
-
-If you don't, then everything is fine.
-
-Cheers,
-Alex
-
->=20
-> But I suppose you would also need agreement from the other contributors=
-=2E
->=20
-> -Andi
-
---=20
-<http://www.alejandro-colomar.es/>
-GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
-
---------------kedPDod0UrFqhaXuAxu0NLBe--
-
---------------7XKc0v0cCEr5Fj0TmOsATgMy
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmR3tdIACgkQnowa+77/
-2zKhxQ//ScZ8s0pTpjt+jaG44wVgKKeuno6JLJN33cEjv1aRORQzFNAZ1GAQtCHA
-9ZLA6ik4CpABBCOyT9V8y66rLRwrx+z+8mnkwyde+fBaNVSose1hirAG0/Ik5fI+
-ADHjXKkTlMv7aR6dCbyh6hgagZgKMRwfzBhe+ZCS6Qcwvfew7hHKTcFWy+VLSQjt
-pi6oVxHtOHhdXwm4/JMu8wZXRywwYuZbdLacclGPu8YJG3cjTWxWa1/mGjBt13fh
-2DGCEmcP3DZwxNAYSGrtApAOpojQl7/fq4ST6SHv55Rr+02vlNR0sy8uFfXtA7te
-M88gj0fYgqzhiFw7Vik3Cci25IpsRlQ78NK4DxHlLPvQcOHxRbAurQcAqjFXzHrq
-zdOOQqDwNkDvhOiWPpQ2rKZ2BwWAQBPruIHlImNWnYQb+O9vwM9aAyWeH9AEL1Dd
-EhckU/inv/MJDJVvhlP9rAPLgBFF16ZiiiXWhaUOZ5vAt5hhq2RNsXJKcchFdsKI
-++rgAOkPpaylQzL9IOs67U5CRTfapaAZd/TVnFNayi5V/aoHsJbd84WAFRRntaei
-lyOyuhsBKtfaUMcuhPX+p/AhLhpLqzp/FAoZoRmNCLFAknXEJ47iJ8/ILWM0U1gL
-1aRItH2+KNwP/3Gqiqxo/ZnIDJ0ltFEcw2EjCqbISeHNdiR4PZM=
-=g3J/
------END PGP SIGNATURE-----
-
---------------7XKc0v0cCEr5Fj0TmOsATgMy--
+RnJvbSBmYzdhOWNmNTZkYWZlYWU1NWMzNDRhZWNjMDIwZDYyMmM3ZGRlZmMzIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBaaWp1biBaaGFvIDx6aWp1bnpoYW9AZ29vZ2xlLmNvbT4KRGF0
+ZTogV2VkLCAzMSBNYXkgMjAyMyAxNDo0MToyMSAtMDcwMApTdWJqZWN0OiBbUEFUQ0hdIE1vZGlm
+eSB0aGUgZG9jdW1lbnRhdGlvbiBvZiBzZXRzb2Nrb3B0KCkKCi0tLQogbWFuMi9nZXRzb2Nrb3B0
+LjIgfCA3ICsrKysrKysKIDEgZmlsZSBjaGFuZ2VkLCA3IGluc2VydGlvbnMoKykKCmRpZmYgLS1n
+aXQgYS9tYW4yL2dldHNvY2tvcHQuMiBiL21hbjIvZ2V0c29ja29wdC4yCmluZGV4IGEwY2RhOGU4
+Ny4uOWM5ZGY1MzI3IDEwMDY0NAotLS0gYS9tYW4yL2dldHNvY2tvcHQuMgorKysgYi9tYW4yL2dl
+dHNvY2tvcHQuMgpAQCAtNzksNyArNzksMTQgQEAgYW5kIG1vZGlmaWVkIG9uIHJldHVybiB0byBp
+bmRpY2F0ZSB0aGUgYWN0dWFsIHNpemUgb2YKIHRoZSB2YWx1ZSByZXR1cm5lZC4KIElmIG5vIG9w
+dGlvbiB2YWx1ZSBpcyB0byBiZSBzdXBwbGllZCBvciByZXR1cm5lZCwKIC5JIG9wdHZhbAoraW4K
+Ky5CUiBnZXRzb2Nrb3B0ICgpCiBtYXkgYmUgTlVMTC4KK0J1dAorLkkgb3B0dmFsCitpbgorLkJS
+IHNldHNvY2tvcHQgKCkKK3Nob3VsZCBrZWVwIE5PTk5VTEwgYXQgYW55IHRpbWUuCiAuUFAKIC5J
+IE9wdG5hbWUKIGFuZCBhbnkgc3BlY2lmaWVkIG9wdGlvbnMgYXJlIHBhc3NlZCB1bmludGVycHJl
+dGVkIHRvIHRoZSBhcHByb3ByaWF0ZQotLSAKMi40MS4wLnJjMC4xNzIuZzNmMTMyYjcwNzEtZ29v
+ZwoK
+--0000000000000ad48d05fd045112--
