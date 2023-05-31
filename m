@@ -2,104 +2,115 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id E918B7169EA
-	for <lists+linux-man@lfdr.de>; Tue, 30 May 2023 18:40:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6A86F718940
+	for <lists+linux-man@lfdr.de>; Wed, 31 May 2023 20:20:03 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232735AbjE3Qkr (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 30 May 2023 12:40:47 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53876 "EHLO
+        id S230017AbjEaSTs (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 31 May 2023 14:19:48 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55844 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230096AbjE3Qkq (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 30 May 2023 12:40:46 -0400
-Received: from todd.t-8ch.de (todd.t-8ch.de [IPv6:2a01:4f8:c010:41de::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 72C588F
-        for <linux-man@vger.kernel.org>; Tue, 30 May 2023 09:40:44 -0700 (PDT)
-From:   =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas@t-8ch.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=t-8ch.de; s=mail;
-        t=1685464842; bh=E7/WyrBEoNJe5xrLBypBNFJhgPa22Dc0c2S08euVhW0=;
-        h=From:Date:Subject:To:Cc:From;
-        b=G516TEsRPLGLSgDOr5YIxRVtos07GwXvUAkoCRuReZc+XTYu4iq59BCatjX3OxwOF
-         Cr7oMBxyAMmjfpKpeZvXdWW1+0nJSCWI21V0yf6ZtSZPDGB3C4aFev2WGYok+hpd1z
-         9+dT6uAQ/0afUvpjE4FGVc537wxtpn0oHlxhTzNk=
-Date:   Tue, 30 May 2023 18:40:34 +0200
-Subject: [PATCH RFC] gettimeofday.2: Don't allow "tv" to be NULL
+        with ESMTP id S230283AbjEaSTp (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 31 May 2023 14:19:45 -0400
+Received: from mail-qt1-x82b.google.com (mail-qt1-x82b.google.com [IPv6:2607:f8b0:4864:20::82b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A46BA19F
+        for <linux-man@vger.kernel.org>; Wed, 31 May 2023 11:19:17 -0700 (PDT)
+Received: by mail-qt1-x82b.google.com with SMTP id d75a77b69052e-3f6c6320d4eso26951cf.1
+        for <linux-man@vger.kernel.org>; Wed, 31 May 2023 11:19:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20221208; t=1685557157; x=1688149157;
+        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=XMAQwpa1LHRvw8NzuH/LzqbKnEgYJRGjUJhxx5aK57I=;
+        b=ZLYxD86WXQo9/JDt9t37cWVzAHV3XEU8Pk4/T6KZ7KPPz3/vmzOHXRRPVn2XolMphb
+         yQ2xKmpAfL0gZVAheOTljwTZnP6vzOkCPc58A44RdqI+KjnrNZG3zeOecwGsCdkHyh8L
+         zwssH5k6SdDlZ9ox9SsxQqTEwq0uyDGwE6F1+cRpwQRkRgxF2k0Z9IiCmCIr+JiYLEC7
+         d9hX+pTUxUduYTvu1kn/9OHiCn1gCxiqUZjvyzVUmxoMbHiIos+gLqPbeaXsGZTGLzXL
+         NQOlXPGElMtYRzWYH2Q2PxHc6D5VwUUH8Ej/S+A/jCCGiBal7HgFQt98Qs6Szn4yKX34
+         P1lg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1685557157; x=1688149157;
+        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=XMAQwpa1LHRvw8NzuH/LzqbKnEgYJRGjUJhxx5aK57I=;
+        b=ekLp3EKjUZF1PIsi1XHPFZ+rPdWJpv/ct7it0LkrN3RwdfsfvBttsmobgFn1KxL6kP
+         fbblCf3W0y8g8/JUBlzbJ1QDUpPXxVZr5vAncUEawzrdpLUkZkOfUYbphOMn1XRc/wG/
+         qc5wZd2Ep3kU6WEU9C+020s9AKNbidWRa3RIv7DPw4twsE9oqiP5V6aDMu2M+EWnefmK
+         7dn9/Er4YOuOdrNsvj0sb8daFMLCpAOG6iSvzzc6yDNYnzdW3ioCBcdQejr5dZaO/3pF
+         tAuNKYsefvuFvfXRlepU8KGu/DyXcYPWqI+G3OlPh7z5pse1g/dRBKGMY5+RxN/1ARrY
+         YrSw==
+X-Gm-Message-State: AC+VfDx0lkjEoI50fEmJU0zIoNjNI932UMXRoyiAkqCu5NzniuZ4Z9j6
+        sSLJ7VsMq9K30grt2G4K/TmNMk0MZzDdgwVbcp5GyFKsPjB6hVAPZY8=
+X-Google-Smtp-Source: ACHHUZ7bJ2HkEtJsRyx56GbSbD2zjGry1BKCMNgs4R2iVKoYYAR8p7hFkkKyljbUbybPM0kNtCapAQku7lekHkhnR74=
+X-Received: by 2002:a05:622a:44:b0:3ef:3361:75d5 with SMTP id
+ y4-20020a05622a004400b003ef336175d5mr7405qtw.11.1685557156588; Wed, 31 May
+ 2023 11:19:16 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20230530-gettimeofday-null-v1-1-3856b6dde0c7@t-8ch.de>
-X-B4-Tracking: v=1; b=H4sIAAEndmQC/x2NQQqDMBQFryJ/3UAaFUu3hR6g2+Ii0Rf9oLH8p
- NIi3r2xy2EYZqMIYUS6FhsJVo68hAznU0HdaMMAxX1mMtqUui61GpASz1h8b78qvKdJNUClK9d
- cTO0pd85GKCc2dONRzjYmyCFeAs+f/+xJj/uN2n3/AXreW96BAAAA
-To:     Alejandro Colomar <alx@kernel.org>
-Cc:     linux-man@vger.kernel.org, Willy Tarreau <w@1wt.eu>,
-        Andreas Schwab <schwab@suse.de>,
-        =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas@t-8ch.de>
-X-Mailer: b4 0.12.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1685464841; l=1433;
- i=thomas@t-8ch.de; s=20221212; h=from:subject:message-id;
- bh=E7/WyrBEoNJe5xrLBypBNFJhgPa22Dc0c2S08euVhW0=;
- b=0MQV+FIWUv9JhHyWeE8BcM/Md1DM3m9LN1PyJPZ7t3PbGuFn97mf5tM1kPNEYhtysTmeDvTGY
- R8KwUsFCHPtCypoMJ7RNvp9zDoH9h9qPSuR6f0sPz7dErRHE+hSHYw8
-X-Developer-Key: i=thomas@t-8ch.de; a=ed25519;
- pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
-        T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=ham autolearn_force=no
-        version=3.4.6
+From:   Zijun Zhao <zijunzhao@google.com>
+Date:   Wed, 31 May 2023 11:19:05 -0700
+Message-ID: <CAELULbfH8n8Gst4Bi+d9vNhiRn4xDU-wgEau5s9cPQMFVd1tqg@mail.gmail.com>
+Subject: [PATCH] Fix the man page of setsockopt.2
+To:     alx@kernel.org
+Cc:     linux-man@vger.kernel.org, Elliott Hughes <enh@google.com>,
+        Dan Albert <danalbert@google.com>
+Content-Type: multipart/mixed; boundary="00000000000091f47405fd015b7d"
+X-Spam-Status: No, score=-17.6 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+        ENV_AND_HDR_SPF_MATCH,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+        T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,
+        USER_IN_DEF_SPF_WL autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-POSIX does not allow "tv" to be NULL.
+--00000000000091f47405fd015b7d
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On glibc and gnulib calling gettimeofday(NULL, NULL) can segfault.
+Hi there,
+  We are annotating setsockopt()
+[https://man7.org/linux/man-pages/man2/setsockopt.2.html] and we will
+make optval _Nonnull because of the implementation:
+https://elixir.bootlin.com/linux/latest/source/include/linux/sockptr.h#L44
+but we find something confusing in the linux man page.
 
-For glibc see __gettimeofday() and __gettimeofday64() in
-sysdeps/unix/sysv/linux/gettimeofday.c.
+   From the linux man page, it said The option value is ignored. This
+is strictly correct but this one should be corrected: If no option
+value is to be supplied or returned, optval may be NULL. It should be
+corrected and make it clear that it is _Nonnull.
 
-Note that by default glibc may use the gettimeofday() syscall or vdso
-function which both support "tv" to be NULL.
-The segfault can be triggered by compiling a i386 binary on a x86_64
-system.
+  Also, to prove optval  should be _Nonnull, enh wrote a trivial test
+program to open a socket and call SO_DETACH_FILTER. He got EINVAL for
+null, but ENOENT for a dummy value, which makes sense, because he
+doesn=E2=80=99t actually have a filter to detach, so that's the expected
+error.
 
-Signed-off-by: Thomas Weißschuh <thomas@t-8ch.de>
----
- man2/gettimeofday.2 | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
+   Thank you!
 
-diff --git a/man2/gettimeofday.2 b/man2/gettimeofday.2
-index 9d134fa49de7..cdbec5ede23c 100644
---- a/man2/gettimeofday.2
-+++ b/man2/gettimeofday.2
-@@ -85,16 +85,14 @@ struct timezone {
- .EE
- .in
- .PP
--If either
--.I tv
--or
-+If
- .I tz
--is NULL, the corresponding structure is not set or returned.
-+is NULL, the structure is not set or returned.
- .\" FIXME . The compilation warning looks to be going away in glibc 2.17
- .\" see glibc commit 4b7634a5e03b0da6f8875de9d3f74c1cf6f2a6e8
--(However, compilation warnings will result if
-+If
- .I tv
--is NULL.)
-+is NULL, the behavior is unspecified.
- .\" The following is covered under EPERM below:
- .\" .PP
- .\" Only the superuser may use
+Best,
+Zijun Zhao
 
----
-base-commit: f0067f73941ea0e512b9018a123472508a0858db
-change-id: 20230530-gettimeofday-null-7ee404b7825f
+--00000000000091f47405fd015b7d
+Content-Type: application/x-patch; name="changes.patch"
+Content-Disposition: attachment; filename="changes.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_lic171at0>
+X-Attachment-Id: f_lic171at0
 
-Best regards,
--- 
-Thomas Weißschuh <thomas@t-8ch.de>
-
+RnJvbSAyYTY4NDUzOTM3YzQ2MmNmODg3MWEwMmQ2MjAwMmEwZDg0NjFkMGIwIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBaaWp1biBaaGFvIDx6aWp1bnpoYW9AZ29vZ2xlLmNvbT4KRGF0
+ZTogV2VkLCAzMSBNYXkgMjAyMyAxMToxNjoxMSAtMDcwMApTdWJqZWN0OiBbUEFUQ0hdIE1vZGlm
+eSBnZXRzb2Nrb3B0LjIgZG9jdW1lbnRhdGlvbgoKLS0tCiBtYW4yL2dldHNvY2tvcHQuMiB8IDUg
+KysrLS0KIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCgpk
+aWZmIC0tZ2l0IGEvbWFuMi9nZXRzb2Nrb3B0LjIgYi9tYW4yL2dldHNvY2tvcHQuMgppbmRleCBh
+MGNkYThlODcuLjI4MDU5NzkzYSAxMDA2NDQKLS0tIGEvbWFuMi9nZXRzb2Nrb3B0LjIKKysrIGIv
+bWFuMi9nZXRzb2Nrb3B0LjIKQEAgLTc3LDkgKzc3LDEwIEBAIHNpemUgb2YgdGhlIGJ1ZmZlciBw
+b2ludGVkIHRvIGJ5CiAuSVIgb3B0dmFsICwKIGFuZCBtb2RpZmllZCBvbiByZXR1cm4gdG8gaW5k
+aWNhdGUgdGhlIGFjdHVhbCBzaXplIG9mCiB0aGUgdmFsdWUgcmV0dXJuZWQuCi1JZiBubyBvcHRp
+b24gdmFsdWUgaXMgdG8gYmUgc3VwcGxpZWQgb3IgcmV0dXJuZWQsCiAuSSBvcHR2YWwKLW1heSBi
+ZSBOVUxMLgorc2hvdWxkIGJlCisuQiBOT05OVUxMICwKK2V2ZW4gbm8gb3B0aW9uIHZhbHVlIGlz
+IHRvIGJlIHN1cHBsaWVkIG9yIHJldHVybmVkLgogLlBQCiAuSSBPcHRuYW1lCiBhbmQgYW55IHNw
+ZWNpZmllZCBvcHRpb25zIGFyZSBwYXNzZWQgdW5pbnRlcnByZXRlZCB0byB0aGUgYXBwcm9wcmlh
+dGUKLS0gCjIuNDEuMC5yYzAuMTcyLmczZjEzMmI3MDcxLWdvb2cKCg==
+--00000000000091f47405fd015b7d--
