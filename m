@@ -2,70 +2,74 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 9BE6471F709
-	for <lists+linux-man@lfdr.de>; Fri,  2 Jun 2023 02:12:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7C04571F712
+	for <lists+linux-man@lfdr.de>; Fri,  2 Jun 2023 02:18:38 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231279AbjFBAMd (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 1 Jun 2023 20:12:33 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51980 "EHLO
+        id S230166AbjFBASg (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 1 Jun 2023 20:18:36 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53822 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229545AbjFBAMc (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 1 Jun 2023 20:12:32 -0400
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com [IPv6:2a00:1450:4864:20::32c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 434F212C
-        for <linux-man@vger.kernel.org>; Thu,  1 Jun 2023 17:12:31 -0700 (PDT)
-Received: by mail-wm1-x32c.google.com with SMTP id 5b1f17b1804b1-3f6077660c6so14174785e9.0
-        for <linux-man@vger.kernel.org>; Thu, 01 Jun 2023 17:12:31 -0700 (PDT)
+        with ESMTP id S229545AbjFBASf (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 1 Jun 2023 20:18:35 -0400
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com [IPv6:2a00:1450:4864:20::333])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0FBEF12C
+        for <linux-man@vger.kernel.org>; Thu,  1 Jun 2023 17:18:34 -0700 (PDT)
+Received: by mail-wm1-x333.google.com with SMTP id 5b1f17b1804b1-3f6d3f83d0cso15112235e9.2
+        for <linux-man@vger.kernel.org>; Thu, 01 Jun 2023 17:18:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1685664750; x=1688256750;
+        d=gmail.com; s=20221208; t=1685665112; x=1688257112;
         h=in-reply-to:from:references:cc:to:content-language:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=sNnURZ8nY9lSSO5/+JPx54OS1TWzf76WBALenZzolDI=;
-        b=S9VszzZbVvdlLkZfYBHM7BIab6rZ+fOmUp9M3jU+jjzxKuO1S2krP7/fmGUraH8jmN
-         BFRP0Ft5RIk/1Zwsu0OgzLEjelE4Sd2YK/tqUdMG0nIK26+0Gi6aM13/aYb0WDe+hupY
-         K8aLDTCl6x1tzWcn+E/r0qiCvqhIS3E8zxRHKybr/V/EQ5DZE3TU3PP8vhLo2kBMcKeI
-         IWCuF9SJzWU6LhxE3knMuA8FgyaOzu0kCInLSGqWIHNQwTZh3gtzF/xFiF+xiA0ZKQRS
-         NrhvixtsCYbEGJwGFg55eYNBc0hb6/TWU2Ta7tn6GHu6eQAtBffRxZfjgX8RBB4numrB
-         WAVA==
+        bh=XVgkxOZ3roTTwC1KfgPWl5I1r+TWTeSIEnuZWgw4HNs=;
+        b=VXh2IQ1ErfBeCsQZS1biK1buHBB1U7oNRDcypG6H1vK/LLhxB86W7owdnnVxJscTrU
+         XEzz9W1wTiogvdbqgBrkb2qYowSbnbhmfJVq1r3Drc27BHAjl0SdC03Akry4yzHGvRMN
+         dODXGgmlVsQO2P8QAkiuuXYiPzoeWwyUQf5tDtLLubqCS9bgWzE8wkJYfd9E2JlkbpUT
+         jsDx4ugrpny0gnEj3Tbh6tVYqyP6odH/HYyYz1P+j2Jq7YKYzOxn23O+drRHlFAcXjHm
+         Jji3nGTnDPxM3zX9kb0GcMRPtYJTt75W6I46rEO3q4gG91/JV89mnfmhAlTDm6tZI5pU
+         5j0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1685664750; x=1688256750;
+        d=1e100.net; s=20221208; t=1685665112; x=1688257112;
         h=in-reply-to:from:references:cc:to:content-language:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=sNnURZ8nY9lSSO5/+JPx54OS1TWzf76WBALenZzolDI=;
-        b=dJr9XO3ElPP66AWiPU9kK87+KNbo6qEquDQPerVMRofbJuoHKD+BDCnsYC37n3uG1Q
-         CEagAq+GBXRcpZ7y8ThSGd8y2IxQIjSJckI1KoUvv6tImDakm8dbHPRbA6+ojYsc6F8A
-         7p6oN4Gyl2w61VHA07nrGAv9IQ2CqjN0pcNnX+s+giKvwWSF1GIz+I7goYKVJvDRhm7F
-         voLsGDYfZ/RxO+MkKGV1uQlI9JTHTNsV4cnq4Uejtyiuk8BdVwIXSOHtZ2JYG3cLu/E8
-         bB0KugjP73DIwWw/NVeAeP3S+Nn0vi2JExnquChkVtjRYnOkWBWX1LWIG2VNjIku7fLh
-         XgIw==
-X-Gm-Message-State: AC+VfDx5M6rnzGL9bN9cnCqt4ESqfwUVqyBvoTBw7bGP/aJLSLo8Ym2d
-        XBbJH3FJGyehDQW3DvsEH9RRJwn6mfc=
-X-Google-Smtp-Source: ACHHUZ6RV0aOyK2Kf/7iZAyM5amFLg4lad8+KfPwVt9CFnskTN/JueI5ma+ogCNV7+3U7QFtdtPkyQ==
-X-Received: by 2002:a1c:6a0d:0:b0:3eb:42fc:fb30 with SMTP id f13-20020a1c6a0d000000b003eb42fcfb30mr630044wmc.32.1685664749544;
-        Thu, 01 Jun 2023 17:12:29 -0700 (PDT)
+        bh=XVgkxOZ3roTTwC1KfgPWl5I1r+TWTeSIEnuZWgw4HNs=;
+        b=aVnpk8OKzaGrWkWoZDtT6GY4L7rYnjv3HaLeS+2K+wp8GjslK7O7mM9gZhw0cCvxcD
+         v7koh183bT1okFj+E/5BVqDqBnHzyFNiVJYEqsgnYu3FKi4xiNpl8s3y6pTC0V29XBwo
+         TC2mjOvhsTiGSGmP3kijxTU/pRnWPNGF3bblq02NFmZSPyyUAembz9voJlDwUV2+FDz8
+         VUvup8F4gIlEnjLImsl6oCO2OxJgUKrgkqbHDZoXQqeDsoNfKZN2LZD8/dSu3Mo4UxOI
+         m4zoUkqX3rzFa2Tidj+DROKqu57GwdDB81J11hz40DEyP6HVA1OpeK9Fb00HmwyBKUaX
+         Ag1g==
+X-Gm-Message-State: AC+VfDwUYq15/CS2IbXADVFiUouGN6UqUagZTFyWKQ9Gz+pF2LOdAH9q
+        E0LBmp0IDgroC0AQLeO1g+0=
+X-Google-Smtp-Source: ACHHUZ6AXceZdT/S3bosYwwf+gqS6OCh6DMvSTKJpPl148dn+55srYIGIjCFh19jNKdKtS7pQ1Wppg==
+X-Received: by 2002:a7b:ce09:0:b0:3f6:906:b659 with SMTP id m9-20020a7bce09000000b003f60906b659mr718929wmc.33.1685665112411;
+        Thu, 01 Jun 2023 17:18:32 -0700 (PDT)
 Received: from [192.168.0.160] ([170.253.51.134])
-        by smtp.gmail.com with ESMTPSA id l22-20020a1c7916000000b003f6f6a6e760sm3749145wme.32.2023.06.01.17.12.28
+        by smtp.gmail.com with ESMTPSA id i10-20020a05600c290a00b003f0aefcc457sm3745456wmd.45.2023.06.01.17.18.31
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 01 Jun 2023 17:12:29 -0700 (PDT)
-Message-ID: <c555035c-1d55-1de6-64e6-2911e3e49eb2@gmail.com>
-Date:   Fri, 2 Jun 2023 02:12:27 +0200
+        Thu, 01 Jun 2023 17:18:31 -0700 (PDT)
+Message-ID: <cb2d2dc7-3b71-5d05-500b-320546c562d3@gmail.com>
+Date:   Fri, 2 Jun 2023 02:18:30 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
-Subject: Re: [PATCH v2 2/9] regex.3: improve REG_STARTEND
+Subject: Re: [PATCH 2/2] userfaultfd.2: fix userfaultfd_demo output
 Content-Language: en-US
-To:     =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc:     linux-man@vger.kernel.org,
-        "G. Branden Robinson" <g.branden.robinson@gmail.com>
-References: <747kzwqbq2dqlrf7znp4eextcl5p2dlickflwicxstnk6fpinv@ntnnei6ianmk>
- <5ae22853ab58af90c0ec2685bb740af1f6177dfe.1681946212.git.nabijaczleweli@nabijaczleweli.xyz>
+To:     Nadav Amit <namit@vmware.com>
+Cc:     "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
+        "Michael Kerrisk )" <mtk.manpages@gmail.com>,
+        Peter Xu <peterx@redhat.com>,
+        David Hildenbrand <david@redhat.com>
+References: <20220307184852.20351-1-namit@vmware.com>
+ <20220307184852.20351-2-namit@vmware.com>
+ <5bce07b9-d4b7-8cb4-273d-72c3867682ba@gmail.com>
+ <2C89D6DA-8B73-493F-95D7-456507D00EEE@vmware.com>
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <5ae22853ab58af90c0ec2685bb740af1f6177dfe.1681946212.git.nabijaczleweli@nabijaczleweli.xyz>
+In-Reply-To: <2C89D6DA-8B73-493F-95D7-456507D00EEE@vmware.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------gW03b1QSpK9Maztdkz3ltUln"
+ boundary="------------SUgCKFv1EbQU8L526R0dXbuR"
 X-Spam-Status: No, score=-2.2 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
@@ -77,133 +81,105 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------gW03b1QSpK9Maztdkz3ltUln
-Content-Type: multipart/mixed; boundary="------------eo0qTH0FlV2V7Q3qyaZXgK0g";
+--------------SUgCKFv1EbQU8L526R0dXbuR
+Content-Type: multipart/mixed; boundary="------------UewamCA0NgGWn0fmgphapgd0";
  protected-headers="v1"
 From: Alejandro Colomar <alx.manpages@gmail.com>
-To: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc: linux-man@vger.kernel.org,
- "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Message-ID: <c555035c-1d55-1de6-64e6-2911e3e49eb2@gmail.com>
-Subject: Re: [PATCH v2 2/9] regex.3: improve REG_STARTEND
-References: <747kzwqbq2dqlrf7znp4eextcl5p2dlickflwicxstnk6fpinv@ntnnei6ianmk>
- <5ae22853ab58af90c0ec2685bb740af1f6177dfe.1681946212.git.nabijaczleweli@nabijaczleweli.xyz>
-In-Reply-To: <5ae22853ab58af90c0ec2685bb740af1f6177dfe.1681946212.git.nabijaczleweli@nabijaczleweli.xyz>
+To: Nadav Amit <namit@vmware.com>
+Cc: "linux-man@vger.kernel.org" <linux-man@vger.kernel.org>,
+ "Michael Kerrisk )" <mtk.manpages@gmail.com>, Peter Xu <peterx@redhat.com>,
+ David Hildenbrand <david@redhat.com>
+Message-ID: <cb2d2dc7-3b71-5d05-500b-320546c562d3@gmail.com>
+Subject: Re: [PATCH 2/2] userfaultfd.2: fix userfaultfd_demo output
+References: <20220307184852.20351-1-namit@vmware.com>
+ <20220307184852.20351-2-namit@vmware.com>
+ <5bce07b9-d4b7-8cb4-273d-72c3867682ba@gmail.com>
+ <2C89D6DA-8B73-493F-95D7-456507D00EEE@vmware.com>
+In-Reply-To: <2C89D6DA-8B73-493F-95D7-456507D00EEE@vmware.com>
 
---------------eo0qTH0FlV2V7Q3qyaZXgK0g
+--------------UewamCA0NgGWn0fmgphapgd0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
 Hi!
 
-On 4/20/23 01:23, =D0=BD=D0=B0=D0=B1 wrote:
-> Explicitly spell out the ranges involved. The original wording always
-> confused me, but it's actually very sane.
+On 4/10/23 21:57, Nadav Amit wrote:
 >=20
-> Also change the [0]. to -> here to make more obvious the point that
-> pmatch is used as a pointer-to-object, not array in this scenario.
+>> On Apr 8, 2023, at 6:34 AM, Alejandro Colomar <alx.manpages@gmail.com>=
+ wrote:
+>>
+>> Hi Nadav,
+>>
+>> On 3/7/22 19:48, Nadav Amit wrote:
+>>> From: Nadav Amit <namit@vmware.com>
+>>>
+>>> A bug in the kernel caused in recent version a different output (mask=
+ed
+>>> offset). Update the output of the demo program accordingly.
+>>
+>> I'd like to have some more information about this in the commit messag=
+e.
+>> I don't really understand it.  When was the bug introduced?  When was =
+it
+>> fixed?  Was the example in the page created in a buggy version?
 >=20
-> Remove "this doesn't change R_NOTBOL & R_NEWLINE" =E2=80=92 so does it =
-change
-> R_NOTEOL? No. That's weird and confusing.
+> Hi Alex,
 >=20
-> String largeness doesn't matter, known-lengthness does.
+> Sorry for the late response.
 >=20
-> Explicitly spell out the influence on returned matches
-> (relative to string, not start of range).
+> The bug was introduced in 1a29d85eb0f1 ("mm: use vmf->address instead o=
+f of
+> vmf->virtual_address=E2=80=9D) which is circa 2016. It was introduced s=
+hortly after
+> userfaultfd, so it was determined that no users are likely to rely on t=
+he
+> intended correct behavior that was documented in the man page, but ther=
+e
+> might be users who relied on the wrong behavior, which was in the code
+> for several years.
 >=20
-> Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.=
-xyz>
+> More information is available in the patch of the fix:
+>=20
+> https://lore.kernel.org/all/20220226022655.350562-1-namit@vmware.com/
+>=20
+> Let me know if it answers you questions, and whether you want me to sen=
+d
+> an updated patch for the man page.
 
-I forgot about this patch set.  Could you please resend anything that
-is still pending?  Thanks!
+Yes, please, a patch including all this response in the message would be
+useful.
 
-> ---
->  man3/regex.3 | 33 ++++++++++++++++++++-------------
->  1 file changed, 20 insertions(+), 13 deletions(-)
->=20
-> diff --git a/man3/regex.3 b/man3/regex.3
-> index d77aac2e7..74f19945d 100644
-> --- a/man3/regex.3
-> +++ b/man3/regex.3
-> @@ -141,23 +141,30 @@ compilation flag
->  above).
->  .TP
->  .B REG_STARTEND
-> -Use
-> -.I pmatch[0]
-> -on the input string, starting at byte
-> -.I pmatch[0].rm_so
-> -and ending before byte
-> -.IR pmatch[0].rm_eo .
-> +Match
-> +.RI [ string " + " pmatch->rm_so ", " string " + " pmatch->rm_eo )
-> +instead of
-> +.RI [ string ", " string " + \fBstrlen\fP(" string )).
->  This allows matching embedded NUL bytes
->  and avoids a
->  .BR strlen (3)
-> -on large strings.
-> -It does not use
-> +on known-length strings.
-> +.I pmatch
-> +must point to a valid readable object.
-> +If any matches are returned
-> +.RB ( REG_NOSUB
-> +wasn't passed to
-> +.BR regcomp (),
-> +the match succeeded, and
->  .I nmatch
-> -on input, and does not change
-> -.B REG_NOTBOL
-> -or
-> -.B REG_NEWLINE
-> -processing.
-> +> 0), they overwrite
-> +.I pmatch
-> +as usual, and the
-> +.B Byte offsets
-
-I'm still unsure about this.  Please do whatever you prefer, and let's
-discuss again after you send the patch(es).
-
-Cheers,
+Thanks!
 Alex
 
-> +remain relative to
-> +.IR string
-> +(not
-> +.IR string " + " pmatch->rm_so ).
->  This flag is a BSD extension, not present in POSIX.
->  .SS Byte offsets
->  Unless
+>=20
 
 --=20
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
---------------eo0qTH0FlV2V7Q3qyaZXgK0g--
+--------------UewamCA0NgGWn0fmgphapgd0--
 
---------------gW03b1QSpK9Maztdkz3ltUln
+--------------SUgCKFv1EbQU8L526R0dXbuR
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmR5M+wACgkQnowa+77/
-2zJOMw/+KpbmgKJ6yxGsi+7RF77D8m61lkFPoZdXoDGQZrqQFTOj0NgyPNxnpH7j
-GB5DoYY8wIdy1OueqBJTEoAiBeUnZZg94cQUHfDgLu8OA0MVEt9133uSgqozC94m
-EHDcGsaUhDs4Q21kJXuulyBSUsoQSrNf6gsW/cKWGZ4xqMeWKFcC9zzlyG1USvg7
-POK7J3BCdMJRhkeeu5/dLZmISKaOfd3dtekMHBnfZ2d27D/F8qXJOpyfarS+Nk7U
-Aa5rqaqHXI9WVRtSedgZ4wsTi9RigVfpceqx2sWoAZLCadf7AQ0wk2a5eE2ckKdS
-1NsNqvzgYXrFqk7xWKVTVtbpaYLMPLzSkJIRzehbORNm5lp3u7yk0sSqfNIfCPQF
-/HP4IMAQO1mkD282CM9RiDl8K3pSPOk5MWzOcWFehYdn/mgUlOeIR6m/duIpeoCB
-cXTSQ9xQHice66eyfScPVLqv3fcaMyzJK/JMBqeidmtMpS38n20DU3omSFlHwzCw
-AjLzPf9yDbFdVVCIqtx343M3IeXw6K0t75WDFIyntMVNB+YQI3UtviTuz2eEtgbH
-QqOU/brntzOB23CZGNgPOKioGSWTAOhV0fQg2IdACLCJDDiVn44WnQZ8G+P1p4vg
-IJ5UJSW8oy90awO+fTVh8X/KjrbvFRUOCzLQseHxJhVu6ksqef8=
-=tO2K
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmR5NVYACgkQnowa+77/
+2zJGOQ//WAn3ryqwGZDPHxQ72UyOHjTFmrMkAxOwM7OP4tkJtUVq5P1fjAUA+54u
+qB4bqFzb90TjUCc8ulvkqkKIZmBCcyiC+p2Bl645MB194Wfsb2kTh+42YdryMm9S
+uCZ6rMvm4SxDE/xEywZOZR32NosS496RW6jrZ1ZEdmmmMrDeSmGqd5n5tos5n6j4
+mH3s4A7HJSuob+mHy+xVizBhUTOP0IeZJy4tmZtxdJI6KULsKfhOgav9Ci5bHxjX
+Zo98uP8S0U0/nROXeZLO2gKtmyUiYvLcxVPLgIujAA+vRp5qRJbeR8h/ezC9uv6K
+ryqbp2eNky3QZthGvEVdPEd1zYvdIhktffNFs3dOWgYGEirrv0u8G6dArEKhijbn
+BQoHzURr+PGUicFcIyj/x/Z1lzEyTXXhHtFB3jZbsecuXuU4om7+6Tm0ZHQbxVl5
+u5hxF+z9ZnzQ49l1mQG9Dw426gb5DAOEUY1ZJKH0CFi6ltOreNbxPmnqBAOK04gy
+/J0q4ZbplCP5WnU2cnNTnOywLaHcwBQw3QuvyjN5Wjdv32Om1ozTUX2LpEaL/Rwc
+pRwEk5TB42heuQSGdCT89souwd1JD1tu3WM1IVFAzvBiM1y2tq60X8wQVGr3Q9KC
+BeHOl3LfKdRcNi5TAW8tpn/7Nswl9ODI1iOgqHFJmEeUWmdZS4E=
+=AuXB
 -----END PGP SIGNATURE-----
 
---------------gW03b1QSpK9Maztdkz3ltUln--
+--------------SUgCKFv1EbQU8L526R0dXbuR--
