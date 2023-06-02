@@ -2,69 +2,89 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id F09AA720EF1
-	for <lists+linux-man@lfdr.de>; Sat,  3 Jun 2023 11:29:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A8019720078
+	for <lists+linux-man@lfdr.de>; Fri,  2 Jun 2023 13:35:32 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231472AbjFCJ36 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 3 Jun 2023 05:29:58 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41530 "EHLO
+        id S233858AbjFBLfb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 2 Jun 2023 07:35:31 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60638 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230013AbjFCJ34 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 3 Jun 2023 05:29:56 -0400
-X-Greylist: delayed 89044 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Sat, 03 Jun 2023 02:29:55 PDT
-Received: from mail.webtopbits.pl (mail.webtopbits.pl [195.231.64.176])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D6DC4E49
-        for <linux-man@vger.kernel.org>; Sat,  3 Jun 2023 02:29:55 -0700 (PDT)
-Received: by mail.webtopbits.pl (Postfix, from userid 1001)
-        id 62A99A3930; Fri,  2 Jun 2023 09:45:40 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=webtopbits.pl;
-        s=mail; t=1685695550;
-        bh=Eh8ECMiYd4baGAwPAzhz8mhJACXX7NSRkYjh+plaY18=;
-        h=Date:From:To:Subject:From;
-        b=W1nK6v9hBdBhxDMALkELn9cXh6uyWTEKMCdLUtWBVWQsJTN2gBoSPrg/iQe9n/TLY
-         MuFJmgCIVMGHCu0suob66lSKdbZeJqoGsW0kmXmNV/9aOii3d7wcd4RqPd27JZIgHp
-         KoDy5LuUCH3POLTSBbW8WUrg3gUpngE6zxf6Wk1kM58XzAdmxcX1LAZx+QPYRf5MjH
-         g85C3w1xoF5It8jJhAqmyy2AbqPPCGOeV5J7H1xIsa+qY7WpDQPxpU7zqKQ3Xkq3iA
-         GzesDB4LdGSTNmBk4dQ0TfOcdD5o0jrpqhireMqgKtJdNJdlpzfiLuCdRvHyqAsUdW
-         Ewt6nFu7u1IWQ==
-Received: by mail.webtopbits.pl for <linux-man@vger.kernel.org>; Fri,  2 Jun 2023 08:45:39 GMT
-Message-ID: <20230602085530-0.1.8w.5khy.0.v8c54rl62n@webtopbits.pl>
-Date:   Fri,  2 Jun 2023 08:45:39 GMT
-From:   "Kamil Durjasz" <kamil.durjasz@webtopbits.pl>
-To:     <linux-man@vger.kernel.org>
-Subject: =?UTF-8?Q?Wy=C5=BCsza_konwersja_w_e-sklepie_?=
-X-Mailer: mail.webtopbits.pl
+        with ESMTP id S231876AbjFBLfa (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 2 Jun 2023 07:35:30 -0400
+Received: from mail-qk1-x72a.google.com (mail-qk1-x72a.google.com [IPv6:2607:f8b0:4864:20::72a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2A44618D
+        for <linux-man@vger.kernel.org>; Fri,  2 Jun 2023 04:35:28 -0700 (PDT)
+Received: by mail-qk1-x72a.google.com with SMTP id af79cd13be357-75cbbb10c69so217408385a.2
+        for <linux-man@vger.kernel.org>; Fri, 02 Jun 2023 04:35:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1685705727; x=1688297727;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=FbMBgVLeqyNKJUU/ht+mKVImt3QkQCyDxoBy3OuVyXo=;
+        b=aq8qYeLh0uF+pjcmjviwnxNW7lRvNW1KATD26wezvIWbchxtDrNzytezISGcjPRqI1
+         gaR7BuSAX/hOHwzpKXMquvRLaaFugy/P42kvnSGHtje/KJYxWz0TbJh1YCO1XIkqLadP
+         cqpQzmS11Up1YkIf3zMbLXRr/53jXwufejNNdsKTMEeIVzWbDvbj329dAHlLLx+WMuVm
+         ObzozmcIiGS3H97KTZX5Urb9RBPyHqe3pmeZYCtCjqOnQT4iNMHSoP0/Wbaqz+Z0rb4F
+         56VRpyVHiLHPN9ug/ugQOplAMOpl1DXioGDuJN45cPi3MJcUsMVugdPZydZnDBJ8fhey
+         xZWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1685705727; x=1688297727;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=FbMBgVLeqyNKJUU/ht+mKVImt3QkQCyDxoBy3OuVyXo=;
+        b=WQ5QbtfEPLfdgGVbH9zocaQuJtU/AqlencX+uSKqewqP5ZmeUFPtfQ3U/dTbpeCkpC
+         qnklL22ywn0x8zwFJkpDCd9nMPK6dxwYlJMHxirJ2r3WzJc5ocL0lRmLBvlQam1GJ+J9
+         TIpEvgQZMROuSIFBporEQVtoXeh1fwdlKkWLDo+UNDnMQ5TJN+0vDrO1UgAeA0i9a3XO
+         Cyqg+A+sPF8Zjs8AvJpfr9l7BNHHdgr/zc+1/eb2GC49hILAwQ6ONBPLBFo+Nr8rvl7u
+         X7waaWQkLqXtT/IZhyrGmOj3FkbVjf6AHnRxZV3bIc5AqnmVbk8KLveMEPrPAvU5jals
+         mMlg==
+X-Gm-Message-State: AC+VfDycqUdOs1tY0/BYYbmGgz/ZGuRkKEWBQNHRfN4EC74sVcXkf163
+        RSF0mEWmxGB9TwZYTFFOkbNeGyHkmmeXPq1xyOzK9hdEKTixsg==
+X-Google-Smtp-Source: ACHHUZ7Jf8waoey4/EqwhZjZ+Tlin1w30BnyZaZ5KiyAvlV+GElKqAEFCWbw7lp+Kw33GT+GgPb08dBe6AfwvJRXdes=
+X-Received: by 2002:ad4:5def:0:b0:623:8494:9946 with SMTP id
+ jn15-20020ad45def000000b0062384949946mr11908568qvb.45.1685705727598; Fri, 02
+ Jun 2023 04:35:27 -0700 (PDT)
 MIME-Version: 1.0
+References: <bug-214885-11311@https.bugzilla.kernel.org/> <bug-214885-11311-M5kG7tptAp@https.bugzilla.kernel.org/>
+ <CAD66C+YnJ6oAL2Qh0s91Pc5U5+8StgcyuU6P=hAoYp7Vu_J-Wg@mail.gmail.com> <c4ec42cd-c72d-76e2-0078-f8b68f525152@gmail.com>
+In-Reply-To: <c4ec42cd-c72d-76e2-0078-f8b68f525152@gmail.com>
+From:   Mingye Wang <arthur200126@gmail.com>
+Date:   Fri, 2 Jun 2023 19:35:16 +0800
+Message-ID: <CAD66C+aPZxQ+FQaFUgDAZoD_FSamWLTUiBjD8ZC3kCHn2HdVfw@mail.gmail.com>
+Subject: Re: [PATCH] random.{4,7}, getrandom.2: Adapt to Linux 5.6 changes
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     linux-man <linux-man@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
-        T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=unavailable
-        autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
+        FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+        T_SCC_BODY_TEXT_LINE autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Dzie=C5=84 dobry,
+Hi Alex,
 
-w jaki spos=C3=B3b docieraj=C4=85 Pa=C5=84stwo do odbiorc=C3=B3w?
+On Thu, Jun 1, 2023 at 6:20=E2=80=AFAM Alejandro Colomar <alx.manpages@gmai=
+l.com> wrote:
+> If some changes come from Linux 4.8, I prefer having two separate patches=
+.
 
-Tworzymy pot=C4=99=C5=BCne narz=C4=99dzia sprzeda=C5=BCy, kt=C3=B3re pozw=
-alaj=C4=85 kompleksowo rozwi=C4=85za=C4=87 problemy potencjalnych klient=C3=
-=B3w i skutecznie wp=C5=82yn=C4=85=C4=87 na ich decyzje zakupowe.=20
+Will do.
 
-Skupiamy si=C4=99 na Pa=C5=84stwa potrzebach zwi=C4=85zanych z obs=C5=82u=
-g=C4=85 sklepu, oczekiwaniach i planach sprzeda=C5=BCowych. Szczeg=C3=B3=C5=
-=82owo dopasowujemy grafik=C4=99, funkcjonalno=C5=9Bci, struktur=C4=99 i =
-mikrointerakcje do Pa=C5=84stwa grupy docelowej, co przek=C5=82ada si=C4=99=
- na oczekiwane rezultaty.
+> Just wondering:  how is this description of /dev/urandom different from
+> GRND_INSECURE?
 
-Ch=C4=99tnie przedstawi=C4=99 dotychczasowe realizacje, aby mogli Pa=C5=84=
-stwo przekona=C4=87 si=C4=99 o naszych mo=C5=BCliwo=C5=9Bciach. Mog=C4=99=
- si=C4=99 skontaktowa=C4=87?
+It isn't! I reckon that they added the flag to give device file parity.
 
+> Blank lines are wrong.
 
-Pozdrawiam
-Kamil Durjasz
+Will fix.
+
+Thanks,
+Mingye
