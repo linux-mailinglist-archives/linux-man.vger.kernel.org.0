@@ -2,72 +2,82 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id D5B197298DB
-	for <lists+linux-man@lfdr.de>; Fri,  9 Jun 2023 13:58:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5AAE672E56D
+	for <lists+linux-man@lfdr.de>; Tue, 13 Jun 2023 16:16:14 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S239298AbjFIL63 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 9 Jun 2023 07:58:29 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48632 "EHLO
+        id S241030AbjFMOLC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 13 Jun 2023 10:11:02 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34800 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S239481AbjFIL6W (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 9 Jun 2023 07:58:22 -0400
-X-Greylist: delayed 528 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Fri, 09 Jun 2023 04:57:51 PDT
-Received: from smtp26.services.sfr.fr (smtp26.services.sfr.fr [93.17.128.13])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7EBFC359E
-        for <linux-man@vger.kernel.org>; Fri,  9 Jun 2023 04:57:51 -0700 (PDT)
-X-mail-filterd: {"version":"1.6.0","queueID":"4QczrD0bgnz1LQL2C","contextId":
- "008f5231-7ae7-47f5-95a8-b8e7e886532d"}
-Received: from [192.168.1.22] (95.65.65.81.rev.sfr.net [81.65.65.95])
-        by msfrf2635.sfr.fr (SMTP Server) with ESMTP id 4QczrD0bgnz1LQL2C;
-        Fri,  9 Jun 2023 13:49:00 +0200 (CEST)
-X-mail-filterd: {"version":"1.6.0","queueID":"4QczrC5mfXz1LQKdZ","contextId":
- "bdbb8821-1c4a-4664-aaa2-75283c820b42"}
-X-sfr-mailing: LEGIT
-X-sfr-spamrating: 40
-X-sfr-spam: not-spam
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=waika9.com; s=202006;
- t=1686311340; h=Date:To:Cc:From:Subject; bh=+HaS4cVcesU3C3QKYZkT0TflruIBTq//o
-  2c9G9OauY8=; b=feNujiyAiEdHkji7MuAuCmvLhhEVemIEAVHu1eMeRG9KuW+KxPnccophPbNT7
-  OOQ8BI6Dgrfy1Ouh5Iyrix5g+gjcUPx8Jco9Oz/dVYYOpGj0SVtB27aztJKGirrVkO9zc9r+/h2Z
-  MIc3oiK4jR5UiLrh8apSK+Ap0ohxusMacoYwHbjNNsNB9QSKCmt+Zr+j847ZUIMuXvMpvPsKyzGE
-  NJbsN6nsQtIIcXFotE2w3t9rKeI86/pjarF0wlrrm0GY4cjkfjgTb0N4xFrNvojnBqQlomF/byIi
-  sh1BQMj6aosTgBLTuB+IrkehFyvjLXFCRZPusRXvY094u5kewuaNw==
-Received: from [192.168.1.22] (95.65.65.81.rev.sfr.net [81.65.65.95])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        (Authenticated sender: lucien.gentis@waika9.com)
-        by msfrf2635.sfr.fr (SMTP Server) with ESMTPSA id 4QczrC5mfXz1LQKdZ;
-        Fri,  9 Jun 2023 13:48:59 +0200 (CEST)
-Authentication-Results: sfr.fr; auth=pass (PLAIN) smtp.auth=lucien.gentis@waika9.com
-Message-ID: <f9c9f278-8914-058b-b612-a205d4a0b035@waika9.com>
-Date:   Fri, 9 Jun 2023 13:48:52 +0200
+        with ESMTP id S243084AbjFMOKR (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 13 Jun 2023 10:10:17 -0400
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 70B8F1FE7
+        for <linux-man@vger.kernel.org>; Tue, 13 Jun 2023 07:09:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1686665311;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=VYE9inGon+mJLmpEeQhC1zu8phLWShbiXOVKSwZLaZk=;
+        b=NxIHTMF/uJ/tBheC8lAZU9OqwEFeStwOC1e4w1YGPJESA0ugihDukEKi19bWB79EU2NN0L
+        efXX0UAy9iaxRWuoZKtSVHVhDcziVqmcGr4NX8YeTAXyXVzKrWcYAA//YY54CeJditZFYo
+        tmSu5ElrMywaW/xVA4PEIGv+ZoR5luc=
+Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com
+ [209.85.161.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-3-ELKWK9JCN7qLppwKXNohjg-1; Tue, 13 Jun 2023 10:08:17 -0400
+X-MC-Unique: ELKWK9JCN7qLppwKXNohjg-1
+Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-558ae609dedso5090121eaf.3
+        for <linux-man@vger.kernel.org>; Tue, 13 Jun 2023 07:08:05 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1686665284; x=1689257284;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=VYE9inGon+mJLmpEeQhC1zu8phLWShbiXOVKSwZLaZk=;
+        b=YX9wPaj8ehQmfDycvYhaf/+K8LjcFych71yw+VXZr/aZr8fcRcyj04VsiiBlOgnZ5n
+         YRb6mlGbgIxap/Hp1OrQnUdu/TfiprAggyFJeQznwciVVq/04w7c3GfryMKl50gkRUl2
+         4kIaYpHZF3IR7+VKBsNCUOpRSoPklwuCv4fjLiln6DVpPTYP1YB6VHCpr3UEnVMUf4VQ
+         9o23OEP56EvqQgneF7kzfvLtJ/u/pIm2T3Vv8Ka8VoYaRgErZ/zuC1t6KmSx54BUG2Q4
+         uN5JJX6eKVBMNes/R5eT6RrbkEX1+lDEpzOurtO/0xYCn3ZJZip1IS4PNUMaQJX8hT6b
+         9D7A==
+X-Gm-Message-State: AC+VfDy3BmnFlN9ke07TZul7zp1pRrkj209ie0+67hgK9OffdwhEPSii
+        aIo6L1KLnBGjEDbWNeo4WuOdLQRX1r8gEJ4lD1HNZxm8vUGCOhDOGvcNy728Wpfp/uAm8BoWsVD
+        SMHTlNPfffkdFh2e4AgVaUJBQxQMXd6pIsrznAkjipk0K
+X-Received: by 2002:a05:6358:1a9c:b0:12b:c8e8:3648 with SMTP id gm28-20020a0563581a9c00b0012bc8e83648mr5452988rwb.22.1686665284488;
+        Tue, 13 Jun 2023 07:08:04 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ4xucoFxcuJGVVkiTGLR3P5M68NeU/GIM61gjgFG/0fEq80l1VgPjSXbxWgPYwhaIWAH7Q7PH2fkjAQvbBcFfI=
+X-Received: by 2002:a05:6358:1a9c:b0:12b:c8e8:3648 with SMTP id
+ gm28-20020a0563581a9c00b0012bc8e83648mr5452970rwb.22.1686665284202; Tue, 13
+ Jun 2023 07:08:04 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: fr
+References: <CAHRwYXsxK-vyOLpDXk7V5F0fvit7O2s0Dj28M5aqXh8vxLdChA@mail.gmail.com>
+ <14cbb4e3-9302-8065-2320-978181fbede0@gmail.com> <CAHRwYXsPXtcT-QdO7u2kGhy4Uxgs8o+H_20sV8L2ZZURfkm8cQ@mail.gmail.com>
+ <7ddd8165-5ae5-f242-9294-7ae7a7059303@kernel.org> <CAHRwYXvVPRgKhktm7528zwTcfJiviW7Ef9oXqHGLrkoWSQvRKw@mail.gmail.com>
+In-Reply-To: <CAHRwYXvVPRgKhktm7528zwTcfJiviW7Ef9oXqHGLrkoWSQvRKw@mail.gmail.com>
+From:   Yedidyah Bar David <didi@redhat.com>
+Date:   Tue, 13 Jun 2023 17:07:51 +0300
+Message-ID: <CAHRwYXu4KT=4PLkHj4yzSSBHjJcju5AoY4GPbXSZvW-DQkoMNQ@mail.gmail.com>
+Subject: Re: [PATCH] isalpha.3: behavior is undefined if c is out-of-range
 To:     Alejandro Colomar <alx@kernel.org>
-Cc:     linux-man@vger.kernel.org, Glibc <libc-alpha@sourceware.org>
-From:   Lucien Gentis <lucien.gentis@waika9.com>
-Subject: manpages - typo in intro.3.pot
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Spam-Status: No, score=-0.2 required=5.0 tests=BAYES_40,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
-        RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-        URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.6
+Cc:     linux-man@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
+        SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello,
+Hi,
 
-intro.3.pot - line 380:
+Any update on this? Thanks!
 
-"shopuld be placed" instead of "should be placed"
-
-Regards
-
-Lucien
+Best regards,
+-- 
+Didi
 
