@@ -2,68 +2,49 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 5868172E67E
-	for <lists+linux-man@lfdr.de>; Tue, 13 Jun 2023 17:01:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A363472EB96
+	for <lists+linux-man@lfdr.de>; Tue, 13 Jun 2023 21:07:29 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S241780AbjFMPAx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 13 Jun 2023 11:00:53 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35762 "EHLO
+        id S230117AbjFMTHT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 13 Jun 2023 15:07:19 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52238 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S242655AbjFMPAw (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 13 Jun 2023 11:00:52 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 67AE3186
-        for <linux-man@vger.kernel.org>; Tue, 13 Jun 2023 08:00:50 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id F059E63757
-        for <linux-man@vger.kernel.org>; Tue, 13 Jun 2023 15:00:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 61E4EC433F1
-        for <linux-man@vger.kernel.org>; Tue, 13 Jun 2023 15:00:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1686668449;
-        bh=2IuFQDSDLCrSF2+2S2mAbOHKZpeORiqukse107Dvhlk=;
-        h=From:To:Subject:Date:From;
-        b=UV8A7R6OCHaiNsejLG2bcQgHHKJfwCNS9e+02kQNennEbS+PxLQvTlmmKINBEdf+6
-         MsW4BxrBv9fnUlcJCGMbB/wOCOiQ9Ik90j3Iv2rFDTF04fcya3cxew92RGkVgUFFPq
-         nDSJXMuw0v1jeztSphSaxnjCa8SYBV3M7+v/kB67IiJEC/NcKhC3jEIQOhndtBoZTn
-         Ub6/2iEANBJV6hLGHUKgmuLdVN8Gm/2JZkgox+JPG+xgnO+hOMhwVRX+IvE8wO54q8
-         qwBKgb7oznoKyyhO9HIOOsJoTcGJZ34kIaqEtYiMvUAdFJPNwIhKmoRWr7cBK36EQB
-         9Jb97t2lo78Lg==
-Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
-        id 49CB5C53BD0; Tue, 13 Jun 2023 15:00:49 +0000 (UTC)
-From:   bugzilla-daemon@kernel.org
-To:     linux-man@vger.kernel.org
-Subject: [Bug 217547] New: The shell example in time_namespaces doesn't
- behave as documented
-Date:   Tue, 13 Jun 2023 15:00:48 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: new
-X-Bugzilla-Watch-Reason: AssignedTo
- documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Product: Documentation
-X-Bugzilla-Component: man-pages
-X-Bugzilla-Version: unspecified
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: normal
-X-Bugzilla-Who: goeran@uddeborg.se
-X-Bugzilla-Status: NEW
-X-Bugzilla-Resolution: 
-X-Bugzilla-Priority: P3
-X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: bug_id short_desc product version rep_platform
- op_sys bug_status bug_severity priority component assigned_to reporter
- cf_regression
-Message-ID: <bug-217547-11311@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
+        with ESMTP id S230498AbjFMTHS (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 13 Jun 2023 15:07:18 -0400
+Received: from 1.mo552.mail-out.ovh.net (1.mo552.mail-out.ovh.net [178.32.96.117])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 045671995
+        for <linux-man@vger.kernel.org>; Tue, 13 Jun 2023 12:07:16 -0700 (PDT)
+Received: from mxplan6.mail.ovh.net (unknown [10.108.16.235])
+        by mo552.mail-out.ovh.net (Postfix) with ESMTPS id 47BF92A9F8;
+        Tue, 13 Jun 2023 19:00:59 +0000 (UTC)
+Received: from jwilk.net (37.59.142.97) by DAG4EX1.mxp6.local (172.16.2.31)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Tue, 13 Jun
+ 2023 21:00:58 +0200
+Authentication-Results: garm.ovh; auth=pass (GARM-97G002f6804334-332c-4e1a-9343-f6e9edd59d7e,
+                    49B04E3C7CDA3DE1AB610058B7392A4EF90995E0) smtp.auth=jwilk@jwilk.net
+X-OVh-ClientIp: 5.172.255.233
+Date:   Tue, 13 Jun 2023 21:00:54 +0200
+From:   Jakub Wilk <jwilk@jwilk.net>
+To:     Lucien Gentis <lucien.gentis@waika9.com>
+CC:     Alejandro Colomar <alx@kernel.org>, <linux-man@vger.kernel.org>,
+        <libc-alpha@sourceware.org>
+Subject: Re: manpages - typo in intro.3.pot
+Message-ID: <20230613190054.hickhdhljq72x2xp@jwilk.net>
+References: <f9c9f278-8914-058b-b612-a205d4a0b035@waika9.com>
 MIME-Version: 1.0
-X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+Content-Type: text/plain; charset="us-ascii"; format=flowed
+Content-Disposition: inline
+In-Reply-To: <f9c9f278-8914-058b-b612-a205d4a0b035@waika9.com>
+X-Originating-IP: [37.59.142.97]
+X-ClientProxiedBy: DAG5EX1.mxp6.local (172.16.2.41) To DAG4EX1.mxp6.local
+ (172.16.2.31)
+X-Ovh-Tracer-GUID: ece3392b-330d-4124-9c26-818168e769e7
+X-Ovh-Tracer-Id: 13612974302440773600
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvhedrgedujedguddvkecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfhfgggtuggjihesthdtredttddtvdenucfhrhhomheplfgrkhhusgcuhghilhhkuceojhifihhlkhesjhifihhlkhdrnhgvtheqnecuggftrfgrthhtvghrnhepudetffeilefhjeeutdegkeekgfeivdekiedvueetveffueeifeeikeeuhfehtdfgnecuffhomhgrihhnpehkvghrnhgvlhdrohhrghenucfkphepuddvjedrtddrtddruddpfeejrdehledrudegvddrleejpdehrddujedvrddvheehrddvfeefnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepuddvjedrtddrtddruddpmhgrihhlfhhrohhmpeeojhifihhlkhesjhifihhlkhdrnhgvtheqpdhnsggprhgtphhtthhopedupdhrtghpthhtoheplhhutghivghnrdhgvghnthhishesfigrihhkrgelrdgtohhmpdgrlhigsehkvghrnhgvlhdrohhrghdplhhinhhugidqmhgrnhesvhhgvghrrdhkvghrnhgvlhdrohhrghdplhhisggtqdgrlhhphhgrsehsohhurhgtvgifrghrvgdrohhrghdpoffvtefjohhsthepmhhoheehvddpmhhouggvpehsmhhtphhouhht
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE,
         SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -72,52 +53,11 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D217547
+* Lucien Gentis <lucien.gentis@waika9.com>, 2023-06-09 13:48:
+>"shopuld be placed" instead of "should be placed"
 
-            Bug ID: 217547
-           Summary: The shell example in time_namespaces doesn't behave as
-                    documented
-           Product: Documentation
-           Version: unspecified
-          Hardware: All
-                OS: Linux
-            Status: NEW
-          Severity: normal
-          Priority: P3
-         Component: man-pages
-          Assignee: documentation_man-pages@kernel-bugs.osdl.org
-          Reporter: goeran@uddeborg.se
-        Regression: No
+Already fixed:
+https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?id=6a6d1d27a4c4eb82
 
-Trying the shell example in the manual page for time_namespaces(7) does not
-behave for me the way the manual page says it should. From what I can tell,=
- it
-appears that the new shell ITSELF immediately enters the new namespace, rat=
-her
-than allowing for children to enter. This makes it impossible to write anyt=
-hing
-to the time_for_children file.
-
-Using the --boottime flag to unshare gives the expected behavior. Does an
-exec() trigger entering the new time namespace nowadays?=20
-
-This was tested on a Fedora 38 system running kernel 6.2.14-300.fc38.
-
-Example session:
-
-kalle$$ readlink /proc/$$/ns/time
-time:[4026531834]
-kalle$$ LANG=3Den_US.utf8 PS1=3D"ns2# " sudo unshare -T -- bash --norc
-[sudo] password for g=C3=B6ran:=20
-bash-5.2# echo "monotonic $((2*24*60*60)) 0" > /proc/$$/timens_offsets
-bash: echo: write error: Permission denied
-bash-5.2# readlink /proc/$$/ns/time
-time:[4026532249]
-bash-5.2# readlink /proc/$$/ns/time_for_children
-time:[4026532249]
-
---=20
-You may reply to this email to add a comment.
-
-You are receiving this mail because:
-You are watching the assignee of the bug.=
+-- 
+Jakub Wilk
