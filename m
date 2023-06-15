@@ -2,62 +2,68 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id A363472EB96
-	for <lists+linux-man@lfdr.de>; Tue, 13 Jun 2023 21:07:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DF5FC7319D6
+	for <lists+linux-man@lfdr.de>; Thu, 15 Jun 2023 15:25:12 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230117AbjFMTHT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 13 Jun 2023 15:07:19 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52238 "EHLO
+        id S1344006AbjFONZC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 15 Jun 2023 09:25:02 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38924 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230498AbjFMTHS (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 13 Jun 2023 15:07:18 -0400
-Received: from 1.mo552.mail-out.ovh.net (1.mo552.mail-out.ovh.net [178.32.96.117])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 045671995
-        for <linux-man@vger.kernel.org>; Tue, 13 Jun 2023 12:07:16 -0700 (PDT)
-Received: from mxplan6.mail.ovh.net (unknown [10.108.16.235])
-        by mo552.mail-out.ovh.net (Postfix) with ESMTPS id 47BF92A9F8;
-        Tue, 13 Jun 2023 19:00:59 +0000 (UTC)
-Received: from jwilk.net (37.59.142.97) by DAG4EX1.mxp6.local (172.16.2.31)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Tue, 13 Jun
- 2023 21:00:58 +0200
-Authentication-Results: garm.ovh; auth=pass (GARM-97G002f6804334-332c-4e1a-9343-f6e9edd59d7e,
-                    49B04E3C7CDA3DE1AB610058B7392A4EF90995E0) smtp.auth=jwilk@jwilk.net
-X-OVh-ClientIp: 5.172.255.233
-Date:   Tue, 13 Jun 2023 21:00:54 +0200
-From:   Jakub Wilk <jwilk@jwilk.net>
-To:     Lucien Gentis <lucien.gentis@waika9.com>
-CC:     Alejandro Colomar <alx@kernel.org>, <linux-man@vger.kernel.org>,
-        <libc-alpha@sourceware.org>
-Subject: Re: manpages - typo in intro.3.pot
-Message-ID: <20230613190054.hickhdhljq72x2xp@jwilk.net>
-References: <f9c9f278-8914-058b-b612-a205d4a0b035@waika9.com>
+        with ESMTP id S240465AbjFONYp (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 15 Jun 2023 09:24:45 -0400
+Received: from mail.sitirkam.com (mail.aurorateknoglobal.com [103.126.10.58])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A043A270A;
+        Thu, 15 Jun 2023 06:24:44 -0700 (PDT)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+        by mail.sitirkam.com (Postfix) with ESMTP id E95E84E7BE85;
+        Thu, 15 Jun 2023 08:32:08 +0700 (WIB)
+Received: from mail.sitirkam.com ([127.0.0.1])
+        by localhost (mail.sitirkam.com [127.0.0.1]) (amavisd-new, port 10032)
+        with ESMTP id vCWv5wv-e4bs; Thu, 15 Jun 2023 08:32:08 +0700 (WIB)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+        by mail.sitirkam.com (Postfix) with ESMTP id EBCB74E7B17E;
+        Thu, 15 Jun 2023 08:32:00 +0700 (WIB)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.sitirkam.com EBCB74E7B17E
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sitirkam.com;
+        s=B8AB377C-ED3B-11EA-8736-9248CAEF674E; t=1686792721;
+        bh=q7vDHy+gLAr4GKZUDI+hjt8I93kvW09nNmGJORUTyfg=;
+        h=MIME-Version:To:From:Date:Message-Id;
+        b=Tf7FWIxmdKqazaA50P1tzZyaij5Ra09whYpkGOTGYx+leNni4csixyNmnwapzLMY2
+         +SOpRTJcX2lJnWiyFTPPI52jdJFLC3Gxr0naX/qVoa40FXnTKMGLRrGytzuhmkrmVM
+         k02AK/m4j2GD7DBUtHZE2HAZ+7UeAeKuRJ1AWMmjaihfUvhOIW8sdcNMkWbliDVDE7
+         eBGbm0b+95+pUEgOc4ZUN2bi4mz0Wl5JgtWaG6la0EW/TSHLPcdc3Jrt7NdhMutJXj
+         EIdh2qJ3eZonpgVb2xu68Wd7xlr6RojQtmjH+Aqe5kBFTbiCRiRMxjMeXTn+KenIDo
+         Ipp2GuTzEJTPQ==
+X-Virus-Scanned: amavisd-new at mail.sitirkam.com
+Received: from mail.sitirkam.com ([127.0.0.1])
+        by localhost (mail.sitirkam.com [127.0.0.1]) (amavisd-new, port 10026)
+        with ESMTP id eMG2ZXjSIsZl; Thu, 15 Jun 2023 08:32:00 +0700 (WIB)
+Received: from [185.169.4.111] (unknown [185.169.4.111])
+        by mail.sitirkam.com (Postfix) with ESMTPSA id 230F94E7B17F;
+        Thu, 15 Jun 2023 08:31:55 +0700 (WIB)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"; format=flowed
-Content-Disposition: inline
-In-Reply-To: <f9c9f278-8914-058b-b612-a205d4a0b035@waika9.com>
-X-Originating-IP: [37.59.142.97]
-X-ClientProxiedBy: DAG5EX1.mxp6.local (172.16.2.41) To DAG4EX1.mxp6.local
- (172.16.2.31)
-X-Ovh-Tracer-GUID: ece3392b-330d-4124-9c26-818168e769e7
-X-Ovh-Tracer-Id: 13612974302440773600
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvhedrgedujedguddvkecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfhfgggtuggjihesthdtredttddtvdenucfhrhhomheplfgrkhhusgcuhghilhhkuceojhifihhlkhesjhifihhlkhdrnhgvtheqnecuggftrfgrthhtvghrnhepudetffeilefhjeeutdegkeekgfeivdekiedvueetveffueeifeeikeeuhfehtdfgnecuffhomhgrihhnpehkvghrnhgvlhdrohhrghenucfkphepuddvjedrtddrtddruddpfeejrdehledrudegvddrleejpdehrddujedvrddvheehrddvfeefnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepuddvjedrtddrtddruddpmhgrihhlfhhrohhmpeeojhifihhlkhesjhifihhlkhdrnhgvtheqpdhnsggprhgtphhtthhopedupdhrtghpthhtoheplhhutghivghnrdhgvghnthhishesfigrihhkrgelrdgtohhmpdgrlhigsehkvghrnhgvlhdrohhrghdplhhinhhugidqmhgrnhesvhhgvghrrdhkvghrnhgvlhdrohhrghdplhhisggtqdgrlhhphhgrsehsohhurhgtvgifrghrvgdrohhrghdpoffvtefjohhsthepmhhoheehvddpmhhouggvpehsmhhtphhouhht
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE,
-        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
-        autolearn_force=no version=3.4.6
+Content-Transfer-Encoding: quoted-printable
+Content-Description: Mail message body
+Subject: Spende
+To:     Recipients <admin@sitirkam.com>
+From:   "Maria-Elisabeth Schaeffler" <admin@sitirkam.com>
+Date:   Wed, 14 Jun 2023 18:34:03 -0700
+Reply-To: schaefflermariaelisabeth1941@gmail.com
+Message-Id: <20230615013156.230F94E7B17F@mail.sitirkam.com>
+X-Spam-Status: No, score=2.9 required=5.0 tests=BAYES_50,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FORGED_REPLYTO,
+        FREEMAIL_REPLYTO_END_DIGIT,SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        autolearn=no autolearn_force=no version=3.4.6
+X-Spam-Level: **
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-* Lucien Gentis <lucien.gentis@waika9.com>, 2023-06-09 13:48:
->"shopuld be placed" instead of "should be placed"
+Your email account has been selected for a donation of =E2=82=AC1,700,000. =
+Please contact me for more information.
 
-Already fixed:
-https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?id=6a6d1d27a4c4eb82
-
--- 
-Jakub Wilk
+Mrs Maria Elisabeth Schaeffler
+CEO SCHAEFFLER.
