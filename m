@@ -2,109 +2,139 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 46BFD735626
-	for <lists+linux-man@lfdr.de>; Mon, 19 Jun 2023 13:50:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B3703735FC4
+	for <lists+linux-man@lfdr.de>; Tue, 20 Jun 2023 00:11:08 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229950AbjFSLuY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 19 Jun 2023 07:50:24 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59468 "EHLO
+        id S229595AbjFSWLH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 19 Jun 2023 18:11:07 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:32858 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229810AbjFSLuX (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 19 Jun 2023 07:50:23 -0400
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D2F10E4D
-        for <linux-man@vger.kernel.org>; Mon, 19 Jun 2023 04:49:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1687175368;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type;
-        bh=irdUnLLDJUH0TysVjlJPImD2S14SKzgR/qKpqM2VYQk=;
-        b=O0yvxTj3eGyUbdr7f6mfrEXsYPOMbM+M1/F4o0wacB6aVpvDu+gjVMpZZmWzJDIZ71sWs/
-        79zWMVG1Yvd45QDU4XtAnQuHks+5d96/spiHLcE4wvT0buqZzPmDoN+Hk69EryvdMU4evO
-        pKpp2Aoi0MFrCRCcWiTPISCfJ5+Jnw4=
-Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com
- [209.85.208.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-230-TeWJGSmvMGOp7jOrmn7ZJA-1; Mon, 19 Jun 2023 07:49:25 -0400
-X-MC-Unique: TeWJGSmvMGOp7jOrmn7ZJA-1
-Received: by mail-ed1-f71.google.com with SMTP id 4fb4d7f45d1cf-514abe67064so2442702a12.0
-        for <linux-man@vger.kernel.org>; Mon, 19 Jun 2023 04:49:24 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1687175363; x=1689767363;
-        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=irdUnLLDJUH0TysVjlJPImD2S14SKzgR/qKpqM2VYQk=;
-        b=A+ZAZVBQz6ZFWG6Zz+DXAipgYcAQuM54MY4M9/t0aMh4RXcymcY17XY23+rvHLzOMr
-         Kgr5GpjR0Frka7ca8yA7y8EKm8aH7JPnOie6LeuIju5m7mVWo4AxQjNR5c1sCKlZwwDn
-         bO53PCi6QJ3i6tCc+tgBcWKlWuHiBOGJRuKRw+nwoJLh+kIER2ozJEpLitDJF48i5DKt
-         E2agM4vHrb3S8FQiVnDTbCZWrxwTU9wpZ6Ym+duAgen1FtJQN/vVz/y0TGmNf+uPUxjw
-         XXZduJY/hjADJ457mpAqakeAw9jsR3lFb+PMRDiiAFXjE8X+Zdw2IbftvGjagcDRvLgY
-         dtsQ==
-X-Gm-Message-State: AC+VfDzF15K6pVJVyTM5KAeiesBEvUrMYMk0BPhxqGyjKXA5vhc/6+ci
-        pSnXEibffaqc+Zv0TbUc9xx4KXT+j69nlXJAVZ0oqkA8Rkll0hZW+c0/tXwmOkSgRODVXsIhp+z
-        8plJ7/iwjNudIOwYoYcrImgYI7NoXhUEDZG/X
-X-Received: by 2002:a05:6402:2cd:b0:51a:2125:74d5 with SMTP id b13-20020a05640202cd00b0051a212574d5mr6292205edx.20.1687175363263;
-        Mon, 19 Jun 2023 04:49:23 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ72ZQL7Y2L2ppE0d3ntR9ZZzkVpsADwWZ0UN8Qec7mmr+YV3KRFBmF/UEtyKox/3l364VcUAUFIIx5yi7hiD1w=
-X-Received: by 2002:a05:6402:2cd:b0:51a:2125:74d5 with SMTP id
- b13-20020a05640202cd00b0051a212574d5mr6292193edx.20.1687175362972; Mon, 19
- Jun 2023 04:49:22 -0700 (PDT)
+        with ESMTP id S229567AbjFSWLH (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 19 Jun 2023 18:11:07 -0400
+Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 16A58AF
+        for <linux-man@vger.kernel.org>; Mon, 19 Jun 2023 15:11:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
+        s=202305; t=1687212662;
+        bh=rNv/CgG2I6b1vf4JVcw1T23PABXJ/7r+2c1KHbmGwJg=;
+        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+        b=b0Zpzef+zExXJl6B2vHZ4CO8f7lHjmPBy9k97/1euL2VkADNmCb2QCbbi0w3wbcSO
+         fIhIEPicASaoPD2HSze7q9tGK26etAh793D6ZMciD23bhRcL7Ed5wKCyJO/MaVfIaB
+         Guk4WygCG44c1eDvAexneBJ5J2Oy4BNwC4hvc0E5gW4GvB1SyGa3r1UCQPz993HYgS
+         27mKPvZzK+mc9s5mxnQe146fDNnxpT8hZxvHBtP4uAgOuef3QFxfgrM+DNYjGBRLWa
+         SJMS9ZHXWC+GTVjtX9zzv5FK41kf7xGstVkni7dpfz+MEwRvwF0NFYyDh1z6bvcmkE
+         jHZNwSlrSq1Dw==
+Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 98169E30;
+        Tue, 20 Jun 2023 00:11:02 +0200 (CEST)
+Date:   Tue, 20 Jun 2023 00:11:01 +0200
+From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+To:     Jakub Wilk <jwilk@jwilk.net>
+Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
+        linux-man@vger.kernel.org
+Subject: [PATCH v2] grantpt.3: no-op on modern glibc and other UNIXes
+Message-ID: <tphi327wxuem5xjzwf7u5tv5qekpb2a6cm5hczndq4urp2wp32@xgyidtmglbny>
+References: <s55h3vx7kapgrkczmyenyijo5munjjpzpmvxmtea5zlamnjqqx@toofqdlalwzl>
 MIME-Version: 1.0
-From:   Rob Linden <rlinden@redhat.com>
-Date:   Mon, 19 Jun 2023 13:49:12 +0200
-Message-ID: <CAP0H_AFpK56deW+_Lb0Q3-51Z6kiL_G-SBYmC2GDnpTmrWj0FQ@mail.gmail.com>
-Subject: [patch] recv.2: correct non-existent name msg_iovec
-To:     Alejandro Colomar <alx@kernel.org>
-Cc:     linux-man@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
-        RCVD_IN_MSPIKE_H5,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,
-        T_SCC_BODY_TEXT_LINE autolearn=ham autolearn_force=no version=3.4.6
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="fswmvvat6ya3f3vf"
+Content-Disposition: inline
+In-Reply-To: <s55h3vx7kapgrkczmyenyijo5munjjpzpmvxmtea5zlamnjqqx@toofqdlalwzl>
+User-Agent: NeoMutt/20230517
+X-Spam-Status: No, score=-1.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,PDS_RDNS_DYNAMIC_FP,
+        RDNS_DYNAMIC,SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=no
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Alejandro!
 
-I think there is a mistake on the manpage for recv. In the description of
-the flag MSG_ERRQUEUE it says that data is passed via "msg_iovec". This is
-probably referring to msg_iov in struct msghdr
-(from /usr/include/bits/socket.h). A "msg_iovec" doesn't seem to exist.
-Maybe it was spelled wrong because it's of type struct iovec.
-If it is indeed wrong then the following patch corrects it:
+--fswmvvat6ya3f3vf
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Rob Linden <rlinden@redhat.com>
+FreeBSD, OpenBSD, and Linux (/dev/ptmx) do all intialisation in open,
+and grantpt() is a no-op (that checks whether the fd is a pty, except on
+musl).
 
-From 830a1b1233eb69bd8a4a64296581d094fb0edc46 Mon Sep 17 00:00:00 2001
-From: rokkbert <rokkbert@gmail.com>
-Date: Tue, 6 Jun 2023 10:00:20 +0200
-Subject: [PATCH] recv.2: field msg_iov in struct msghdr is wrongly called
- msg_iovec. Corrected to msg_iov.
+The illumos gate and NetBSD do a ioctl (and, indeed, illumos-gate commit
+ facf4a8d7b59fde89a8662b4f4c73a758e6c402c ("PSARC/2003/246 Filesystem
+  Driven Device Naming"), which kills pt_chmod, notes that it's been
+    6464196 bfu should remove pt_chmod, obsoleted by /dev filesystem).
 
+glibc 2.33 completely kills BSD PTY support on Linux
+(Debian hasn't configured with them on any architecture since 2007:
+   https://bugs.debian.org/338404
+ and even earlier on some arches; they're really all but trivia under
+ Linux =E2=80=92 this may be better served stuffed into HISTORY as an expla=
+iner
+ for the SIGCHLD thing, since regardless of the "version", the behaviour
+ is well-defined and consistent).
+
+Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
 ---
- man2/recv.2 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Heh, yeah. While writing I read this as "or a br ioctl" so I didn't
+notice.
 
-diff --git a/man2/recv.2 b/man2/recv.2
-index 27d6d612c..62e43c9aa 100644
---- a/man2/recv.2
-+++ b/man2/recv.2
-@@ -159,7 +159,7 @@ and
- for more information.
- The payload of the original packet that caused the error
- is passed as normal data via
--.IR msg_iovec .
-+.IR msg_iov .
- The original destination address of the datagram that caused the error
- is supplied via
- .IR msg_name .
---
+ man3/grantpt.3 | 18 ++++++++----------
+ 1 file changed, 8 insertions(+), 10 deletions(-)
+
+diff --git a/man3/grantpt.3 b/man3/grantpt.3
+index a19172a3e..e3d4e4aaa 100644
+--- a/man3/grantpt.3
++++ b/man3/grantpt.3
+@@ -84,17 +84,15 @@ .SH ATTRIBUTES
+ .ad
+ .sp 1
+ .SH VERSIONS
+-Many systems implement this function via a set-user-ID helper binary
++Historical systems implemented this function via a set-user-ID helper bina=
+ry
+ called "pt_chown".
+-On Linux systems with a devpts filesystem (present since Linux 2.2),
+-the kernel normally sets the correct ownership and permissions
+-for the pseudoterminal slave when the master is opened
+-.RB ( posix_openpt (3)),
+-so that nothing must be done by
+-.BR grantpt ().
+-Thus, no such helper binary is required
+-(and indeed it is configured to be absent during the
+-glibc build that is typical on many systems).
++glibc on Linux before 2.33 could do so as well,
++in order to support configurations with only BSD pseudoterminals;
++this support has been removed.
++On modern systems this is either a no-op\[em]with
++permissions configured on pty allocation,
++as is the case on Linux\[em]or an
++.BR ioctl (2).
+ .SH STANDARDS
+ POSIX.1-2008.
+ .SH HISTORY
+--=20
 2.39.2
 
+--fswmvvat6ya3f3vf
+Content-Type: application/pgp-signature; name="signature.asc"
 
-All the best,
-rob
+-----BEGIN PGP SIGNATURE-----
 
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmSQ0nUACgkQvP0LAY0m
+WPF8ag//eDu+w80pfTRIYcm8yRN1YPV1oAC57AmcLZJ0VnjT24FMf89fF8+NBl+R
+hf0Nd3wAqb9Y3GbqQYmhOcGjQuQmdGW3XQpLfoEBEl3FTHmfep4NtERhnafFoYvf
+jsSbPFFcKxH3Q2hvEL5CkdpxtDE+Tfq90YzAH76G5zx+cPLV4eugGnSGPSRpcJ68
+WtLn5vfuZ5/LBFsClUHk91kXJ/YQ0xQDsQeKbPLdaeLx6dxy8SEH3WbZySpbnuXZ
+WsXvgoL7i93kiC+wxEEBSbbE7jhKeS2Bp7MGeT+PG8rtEoupy3sbbzj6A31eo0RM
+M8FJBANnV922+f6aIy/0xbfyZcMJgqTzy65ZhzzOv/YW4000zlaHdHcLvnGI5sTU
+27iGFlxpHQkFlEBR0BLOW9i9+mmFtJz5XPcs84jIbyuTi2R6cyw8EllrunW662vZ
+em3zOzDLsq3yWRl8ZrxjDfMWCt0dM51lsgUqTsUSBSsnIdhSibatdcaj0C0YkzPC
+K6ltOttTAW78xKo6/xpkaTlHrjCvyT5KNXfvC6XhEjz22y02/Uoi93WN7+uL2owb
+YzrAuCQqGYdfEXPyawCPYFrr8bwQ3hYJa7Po3wLHOzsodXMOcLh0kkvVdgVJoRd5
+Ed4N12JW+vDHWhV1JMG6UV/WUXKl8cwDnxW9Kf+VhNJlJSpC/so=
+=jrwa
+-----END PGP SIGNATURE-----
+
+--fswmvvat6ya3f3vf--
