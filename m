@@ -2,144 +2,122 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 6010E73A11F
-	for <lists+linux-man@lfdr.de>; Thu, 22 Jun 2023 14:45:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 354CF73A1DC
+	for <lists+linux-man@lfdr.de>; Thu, 22 Jun 2023 15:31:52 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230097AbjFVMpL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 22 Jun 2023 08:45:11 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47434 "EHLO
+        id S229765AbjFVNbu (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 22 Jun 2023 09:31:50 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40862 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230081AbjFVMpK (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 22 Jun 2023 08:45:10 -0400
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1C3351BC5
-        for <linux-man@vger.kernel.org>; Thu, 22 Jun 2023 05:44:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1687437863;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type;
-        bh=8L0ROH64OjwBJoF4pCrSXNoodBOe74nShri8upF11oo=;
-        b=YUrNCWC6M0fqQJgEFAkK0eiL3bTm//ncjYYz0q0YX7F49Sv+KoXkM/ssKmCSHl0ePN5qOz
-        YgWU8gj+vSpObzXimNuEl4w64NINHISR19xOpiwApTWQsrSQeB4E0gArEyyvqmF/FInXDS
-        N08NyChF/fWTJi+mZOY27MEih+81WoY=
-Received: from mail-lj1-f200.google.com (mail-lj1-f200.google.com
- [209.85.208.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-189-v9Whakp5Mri3Rn7darOBjg-1; Thu, 22 Jun 2023 08:44:22 -0400
-X-MC-Unique: v9Whakp5Mri3Rn7darOBjg-1
-Received: by mail-lj1-f200.google.com with SMTP id 38308e7fff4ca-2b470c4ce1dso40803241fa.2
-        for <linux-man@vger.kernel.org>; Thu, 22 Jun 2023 05:44:21 -0700 (PDT)
+        with ESMTP id S229691AbjFVNbt (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 22 Jun 2023 09:31:49 -0400
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com [IPv6:2a00:1450:4864:20::429])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D2CCDBC
+        for <linux-man@vger.kernel.org>; Thu, 22 Jun 2023 06:31:48 -0700 (PDT)
+Received: by mail-wr1-x429.google.com with SMTP id ffacd0b85a97d-311275efaf8so5625117f8f.3
+        for <linux-man@vger.kernel.org>; Thu, 22 Jun 2023 06:31:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1687440707; x=1690032707;
+        h=subject:from:to:content-language:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=MW7reYj5cPQgD2zbJ2dPQ5x/vrb0HX3Smre6XZX9Uk0=;
+        b=rPaQSEXwmFShs+v9Qk4yZmc6EdCqVzW4fwKm5CBLPvDz6L2fQm6gFxZXZBK614P8wc
+         gTlPmI6nf7Jpf8Fz8qLvdb8cLup+Hkhc+72o0rPETBWatxj6kQHjTlLjIIkRVCc1kgja
+         aSYgoZtwFD9sBw9R1ZJK9/AYDP4AvLcxWD0hsO1TwVzX8q1s4mKg1fz8n9Ybjtd+3h6S
+         XVgPwEmBgcigSApEzOXQmbMxRhJGp8/yva/QaRH8ZPNFCFzCM1rOJlWdHq6lds5VpKwg
+         JznzVs4SCdmkQ/TcnPrw6pwftPj6iqCAzAdTkUuj0kYt0X5sKPsXEpcVvlwmPJipEdtK
+         kUTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1687437860; x=1690029860;
-        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=8L0ROH64OjwBJoF4pCrSXNoodBOe74nShri8upF11oo=;
-        b=RppPINeVH/Q6B/fFzZmqm0bYSTwPT3tTlMWH0DJATn4JygJdRo59o8cgPcyVECcTb4
-         GrFw1lm1pwzuFG91aEx53WdNemy6A/Cv9Qlq/GHz3JSP8L87t4cCTNzbcCB4ifmPBA3I
-         S8YZC9uX/XCVjUy6IpzcCptFjPKX8CICO3vi4fM8gqdnLy6SUVw1roZWljBEaIE8W8Dt
-         E89x8USyTLDOAp18MK3WbBfiuoxW41BR0SVY7nHpzJBZUdc4uTtTxqOjsFwx8+grjfZL
-         necdN70poxBshUs16gu9Ts8+PHSAsaLcJ/FYA+05pJiUL2X1nkI5llBn8XQ2Y6D+T5x7
-         cBjQ==
-X-Gm-Message-State: AC+VfDzNR1qOO9sqArbeGJ1SydRQ+I56AIAVG3N3xxrkY7CtDMO0mKWl
-        yVbQGWnvY4eC7NFo7Jcdoebj5qG+XXi2MkzW8FY0TYNV3HIVpMVrRJVLb8Xmu1wBE7rLi0dnUhi
-        cSTdFgIsy52Y2htuGJHb6ZKjJ7ss9nsZjIBrni0S0Ciypv78=
-X-Received: by 2002:a2e:3508:0:b0:2b4:5b9c:a019 with SMTP id z8-20020a2e3508000000b002b45b9ca019mr11289660ljz.8.1687437860271;
-        Thu, 22 Jun 2023 05:44:20 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ6LNSw9T2HTqaT3XHiYgIbV+OhFK6bWuTDFlsjO4qD+iF0fbo1UQupYiJw5RZsRhdepiPPLNOcFD3lWhDClRE4=
-X-Received: by 2002:a2e:3508:0:b0:2b4:5b9c:a019 with SMTP id
- z8-20020a2e3508000000b002b45b9ca019mr11289644ljz.8.1687437859997; Thu, 22 Jun
- 2023 05:44:19 -0700 (PDT)
+        d=1e100.net; s=20221208; t=1687440707; x=1690032707;
+        h=subject:from:to:content-language:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=MW7reYj5cPQgD2zbJ2dPQ5x/vrb0HX3Smre6XZX9Uk0=;
+        b=BllnWX7vjbuFJbjcvOj461dtd3qGuQgDusVh8vGILjQteZtvOZjQHG6RVQVLLSsc2z
+         uCN601BUzF/LACvNPR33JDRV0t5rALFFhrn+kHBDxZhCC1ctXQScVvWyHnUZtGc4hnbj
+         6cw//oolrninw/fDRFY3U4ZPmYklV+w/lzgI1dN7Ka90xMsXEu0TRg21pPOC2NVrou6e
+         5v7NBZyhmv7gz/YxLmjd+8nuXTTDSQacnr54lt5EZZMDLIXeUYvt2XO8kSo+I5ww2UFt
+         jqnv2DLc51XiGcciO16QOHOA+lxXB0OSnwDvw0APzqD24u/JyWOujyHDrhx7meGkDQpa
+         VZIw==
+X-Gm-Message-State: AC+VfDwdSztLjetpzIRR/ukLkDYjg/xvKBl7MTD/+1vmBKVa40qLirvU
+        kTBjYwf8Nv/hN5pvtDPvEqW5GmDG+2I=
+X-Google-Smtp-Source: ACHHUZ5QcsD5sez1c1JFj2dZrvCWzhO7/oUGeejAlJEVXPLVSHMRRm+oAX1mnNJiBVUtZQ+zTH7Ppw==
+X-Received: by 2002:a05:6000:137b:b0:309:43a2:8e9f with SMTP id q27-20020a056000137b00b0030943a28e9fmr13675628wrz.27.1687440707091;
+        Thu, 22 Jun 2023 06:31:47 -0700 (PDT)
+Received: from [192.168.0.149] ([170.253.40.43])
+        by smtp.gmail.com with ESMTPSA id j17-20020a5d5651000000b003093a412310sm7091868wrw.92.2023.06.22.06.31.46
+        for <linux-man@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 22 Jun 2023 06:31:46 -0700 (PDT)
+Message-ID: <dc425a39-c16f-51b2-6940-2d4815b5cb73@gmail.com>
+Date:   Thu, 22 Jun 2023 15:31:37 +0200
 MIME-Version: 1.0
-From:   Rob Linden <rlinden@redhat.com>
-Date:   Thu, 22 Jun 2023 14:44:09 +0200
-Message-ID: <CAP0H_AFNdRjyH+yiO-7Mq3TL1rf2MUrX7nn_UTtvE=PapAYgLA@mail.gmail.com>
-Subject: [PATCH] recv.2: more verbose explanations, internal reference.
-To:     Alejandro Colomar <alx@kernel.org>
-Cc:     linux-man@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
-        RCVD_IN_MSPIKE_H5,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,
-        T_SCC_BODY_TEXT_LINE autolearn=ham autolearn_force=no version=3.4.6
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-US
+To:     lnx-man <linux-man@vger.kernel.org>
+From:   Alejandro Colomar <alx.manpages@gmail.com>
+Subject: Vacation
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------0Q8U0YXpMLOVCBk0igFCiDQa"
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hi Alejandro,
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------0Q8U0YXpMLOVCBk0igFCiDQa
+Content-Type: multipart/mixed; boundary="------------H1XhYTTM0o52TgFQGeVAMTO3";
+ protected-headers="v1"
+From: Alejandro Colomar <alx.manpages@gmail.com>
+To: lnx-man <linux-man@vger.kernel.org>
+Message-ID: <dc425a39-c16f-51b2-6940-2d4815b5cb73@gmail.com>
+Subject: Vacation
 
-while reading the recv manpage I came up with some suggestions which I
-believe would make it easier for the reader. They are not corrections
-(except for the last block, which I believe was incomplete), just
-improvements (IMHO).
+--------------H1XhYTTM0o52TgFQGeVAMTO3
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-What do You think about them?
+SGkgYWxsLA0KDQpJIGtub3cgdGhlcmUncyBhIGxvdCBvZiBwZW5kaW5nIHN0dWZmIGZyb20g
+cmVjZW50IHdlZWtzLiAgSSdtIHNvcnJ5DQphYm91dCBub3QgaGF2aW5nIHJlcGxpZWQgdG8g
+bW9zdCBvZiB5b3UsIGJ1dCBJIG5lZWRlZCBzb21lIHRpbWUgb2ZmLCBhbmQNCndpbGwgY29u
+dGludWUgb2ZmbGluZSBmb3Igc29tZSBtb3JlIHRpbWUuICBJJ20ganVzdCB3cml0aW5nIHRo
+aXMgdG8gdGhlDQpsaXN0IHNvIGFueW9uZSByZWFkaW5nIHdpbGwga25vdyBJJ20gb3V0LCBh
+bmQgbm90IGp1c3QgaWdub3JpbmcgeW91Lg0KDQpUaGUgbGl0dGxlIHRpbWUgSSdtIGhhdmlu
+ZyBmb3IgcHJvZ3JhbW1pbmcsIEknbSB1c2luZyBpdCBmb3IgdGhlDQokcGFpZF9qb2IsIHdo
+aWNoIGlzIHdoeSBJIHdvbid0IGFuc3dlciB0byB0aGlzIGxpc3QgaW4gYSBmZXcgd2Vla3Mg
+b3INCnNvLiAgVGhhbmtzIGZvciB1bmRlcnN0YW5kaW5nLg0KDQpDaGVlcnMsDQpBbGV4DQoN
+Ci0tIA0KPGh0dHA6Ly93d3cuYWxlamFuZHJvLWNvbG9tYXIuZXMvPg0KR1BHIGtleSBmaW5n
+ZXJwcmludDogQTkzNDg1OTRDRTMxMjgzQTgyNkZCREQ4RDU3NjMzRDQ0MUUyNUJCNQ0K
 
-Signed-off-by: Rob Linden <rlinden@redhat.com>
+--------------H1XhYTTM0o52TgFQGeVAMTO3--
 
-From 4f4ea0984d0a207960121f142e1b9e181194ef8e Mon Sep 17 00:00:00 2001
-From: rokkbert <rokkbert@gmail.com>
-Date: Tue, 13 Jun 2023 17:55:08 +0200
-Subject: [PATCH] recv.2: increased verbosity and, hopefully, understandability
- a bit.
+--------------0Q8U0YXpMLOVCBk0igFCiDQa
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
----
- man2/recv.2 | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
+-----BEGIN PGP SIGNATURE-----
 
-diff --git a/man2/recv.2 b/man2/recv.2
-index 3697d0c84..f675f65aa 100644
---- a/man2/recv.2
-+++ b/man2/recv.2
-@@ -92,7 +92,10 @@ All three calls return the length of the message on
-successful
- completion.
- If a message is too long to fit in the supplied buffer, excess
- bytes may be discarded depending on the type of socket the message is
--received from.
-+received from, e.g. for
-+.BR SOCK_DGRAM ", but not for " SOCK_STREAM .
-+To find out how many bytes are available see the flags
-+.BR MSG_PEEK " and " MSG_TRUNC .
- .PP
- If no messages are available at the socket, the receive calls wait for a
- message to arrive, unless the socket is nonblocking (see
-@@ -100,7 +103,7 @@ message to arrive, unless the socket is nonblocking (see
- in which case the value \-1 is returned and
- .I errno
- is set to
--.BR EAGAIN " or " EWOULDBLOCK .
-+.BR EAGAIN " or " EWOULDBLOCK " (see " ERRORS ).
- The receive calls normally return any data available, up to the requested
- amount, rather than waiting for receipt of the full amount requested.
- .PP
-@@ -256,7 +259,8 @@ For use with Internet stream sockets, see
- .TP
- .BR MSG_WAITALL " (since Linux 2.2)"
- This flag requests that the operation block until the full request is
--satisfied.
-+satisfied, i.e.
-+.BR len " bytes have been written to the buffer."
- However, the call may still return less data than requested if
- a signal is caught, an error or disconnect occurs, or the next data to be
- received is of a different type than that returned.
-@@ -432,8 +436,9 @@ is returned to indicate that expedited or
-out-of-band data was received.
- indicates that no data was received but an extended error from the socket
- error queue.
- .SH RETURN VALUE
--These calls return the number of bytes received, or \-1
--if an error occurred.
-+These calls return the number of bytes copied to buf, the number of bytes
-+received by the socket (see
-+.BR MSG_TRUNC "), or -1 if an error occurred."
- In the event of an error,
- .I errno
- is set to indicate the error.
--- 
-2.39.2
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmSUTToACgkQnowa+77/
+2zK/cg/+NPMHBmteQmk5+TqY2HqBqFyAL5O05HS6za4ksaoFUStBY7KVvo0sWjrm
+Up6IkF6kqzPO0WdtyVoTxES98ikIWkxhmU0brX/vz7c7f7xarMoHYujn7xjtoqZO
+Pi8R568H26d1d1heidVMWISO9UYLQN/r2804qTgCm+/E1fcpSjOh/zeJ0glOQXyp
+YlRdFWNRGV4obCKTfIxCQSepabhhfLAgaNyL3+SDnGKTwsrHydRgg9VEUtaBM0CR
+B7golVDA8K28l3GMZFi0p6EEOqIOUtFI1EzhlAKhYWkFSNb/6S82kiz7rqREDDZu
+irAlJ77rbztdf5Y9O9pi4HZH0Wyi5DKwVyay3ceRyGQBcR+M4wC0WX/WkwJwRzrC
+qGUHGADskjxGbYRmle8ctwZYMQfqEjAvH5V9gr+MjTr1qA3TkI83MbO+Sf7kw3Nd
+ovB724+eoTXEd5UUeGNA151Tbun3dL58eh6d6Qnxwpgb6cVznMuzyboltDbR9lRV
+Tfgp5NKnaFjpoyaNfxn7cqmvrKOZOJukNujp3SAhQGZa/8YhbNUrIbrByTa5vXtu
+ums1OSfbMb8nNz/ZiN8YDZrHCmGszD9xw+VWT8N/VWaH5hssQdmbxKebVWAXj19Z
+i0tYOb9J+jo257mlhvR25HCMroctbDujsiOE4Rk+VXRLLz8hPhs=
+=Ew9h
+-----END PGP SIGNATURE-----
 
-All the best,
-rob
-
+--------------0Q8U0YXpMLOVCBk0igFCiDQa--
