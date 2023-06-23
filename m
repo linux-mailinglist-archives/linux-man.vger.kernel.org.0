@@ -2,41 +2,41 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 58E0073C1A5
-	for <lists+linux-man@lfdr.de>; Fri, 23 Jun 2023 23:00:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7600E73C1A6
+	for <lists+linux-man@lfdr.de>; Fri, 23 Jun 2023 23:00:13 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230171AbjFWVAL (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 23 Jun 2023 17:00:11 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42562 "EHLO
+        id S231169AbjFWVAM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 23 Jun 2023 17:00:12 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42568 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229577AbjFWVAK (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 23 Jun 2023 17:00:10 -0400
+        with ESMTP id S229577AbjFWVAL (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 23 Jun 2023 17:00:11 -0400
 Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 3C3102695
-        for <linux-man@vger.kernel.org>; Fri, 23 Jun 2023 14:00:07 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id BA49C2114
+        for <linux-man@vger.kernel.org>; Fri, 23 Jun 2023 14:00:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-        s=202305; t=1687554005;
-        bh=XtMfUNLBxLuWEpP2LIyhl5upUBlnq7NgIU1ebObDjis=;
+        s=202305; t=1687554010;
+        bh=pKMtAh2V8crI1K2+fNSBpYJETdfdcvQDy2TW2axG9Pg=;
         h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=L0OIXqF849ksQaah9scrZyw4DpOgH8+YBGNO1DqCcq8L+twCuqkr5PilAKBI25dTs
-         LUdwe8M2gX17hfxLihFUkvIeDpV3E+l1ISz7/e0Ra0j9yo8nm8aLFJk+SysD3ik//N
-         t8UgjDkFrPoDyEB9K02ru7/zaTZlYj6t22Z1SXz8ovuycxiMbnZbURgSLvW5vJFt7K
-         S85Tu8cF4agVC9RdTxiL0sycbouPzNEcTOQvFWsQMcAasvt9TUWkrIJajOcJgNVbPx
-         s9ApynyBqt6t1t1+e+07VsLWc0CLvdJcaxraOs9PnBlp5U/D8PjfUSrCNOHHYWKvdp
-         GBJwEvDW5U3iA==
+        b=EiAZ1R8RHMEKa3MMyFx5R0OG8Qw53T1YFxssQXiwO5KIKtlBMvwvwCzubW6Tk0WX2
+         hLWevsBGtf8iyRU9OEmdhJANk2NZ8W7o2X9Xa2W/KOcbzDkbnFWJKkAp2OpEHysS37
+         r0Ht0Wy87h/rNoqr7dt0wp1JdToqvuRDky1UcfsodRjd8s69kBJLbE8O2BApthZnV0
+         1PYo/uBMNbapUW95Egki2ofb97pfZF7UH4YvRyOSfU33PUGnbNZcvUwTqHfJ49Y1Z2
+         SsaZCDesR0gyEsLGvOCY+BnrrYEMudc+Xy0jvnn6YkJXkxzXqUwoujm1ORZgi1D+fT
+         wey81GUdpckoA==
 Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id C07B41586;
-        Fri, 23 Jun 2023 23:00:05 +0200 (CEST)
-Date:   Fri, 23 Jun 2023 23:00:04 +0200
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 1048A1588;
+        Fri, 23 Jun 2023 23:00:10 +0200 (CEST)
+Date:   Fri, 23 Jun 2023 23:00:08 +0200
 From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
 To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
 Cc:     linux-man@vger.kernel.org
-Subject: [PATCH 1/2] statfs.2: unshade as deprecated, but direct to statvfs(3)
-Message-ID: <b4b871ffdf8f764ffd6c25039f3944b08748bd3e.1687553930.git.nabijaczleweli@nabijaczleweli.xyz>
+Subject: [PATCH 2/2] statvfs.3: note f_favail = f_ffree on Linux
+Message-ID: <3a449220b1a5b1d0be1749a98e5c284222072427.1687553930.git.nabijaczleweli@nabijaczleweli.xyz>
 References: <a24c9d24-c131-5dcf-3089-353e2451a9e7@gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="5aan2kzpy24kx3uj"
+        protocol="application/pgp-signature"; boundary="65wzwvitp2bwjkfw"
 Content-Disposition: inline
 In-Reply-To: <a24c9d24-c131-5dcf-3089-353e2451a9e7@gmail.com>
 User-Agent: NeoMutt/20230517
@@ -51,69 +51,59 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---5aan2kzpy24kx3uj
+--65wzwvitp2bwjkfw
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+
+It's unclear to me if inodes /may/ be reserved for root at all,
+but the glibc comment in the Link would imply as much.
 
 Link: https://lore.kernel.org/linux-man/f54kudgblgk643u32tb6at4cd3kkzha6hsl=
 ahv24szs4raroaz@ogivjbfdaqtb/t/#u
 Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
 ---
-Eeh, no rush.
+ man3/statvfs.3 | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Posted as
-  https://sourceware.org/pipermail/libc-alpha/2023-June/149350.html
-  https://www.openwall.com/lists/musl/2023/06/23/1
-
- man2/statfs.2 | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
-
-diff --git a/man2/statfs.2 b/man2/statfs.2
-index 0496ab6c9..307a29b3a 100644
---- a/man2/statfs.2
-+++ b/man2/statfs.2
-@@ -15,9 +15,15 @@ .SH SYNOPSIS
- .nf
- .BR "#include <sys/vfs.h>    " "/* or <sys/statfs.h> */"
- .PP
--.BI "[[deprecated]] int statfs(const char *" path ", struct statfs *" buf =
-);
--.BI "[[deprecated]] int fstatfs(int " fd ", struct statfs *" buf );
-+.BI "int statfs(const char *" path ", struct statfs *" buf );
-+.BI "int fstatfs(int " fd ", struct statfs *" buf );
- .fi
-+.PP
-+Unless you need the
-+.I f_type
-+field, you should use the standard
-+.BR statvfs (3)
-+interface instead.
- .SH DESCRIPTION
- The
- .BR statfs ()
+diff --git a/man3/statvfs.3 b/man3/statvfs.3
+index b1f0e7545..23e4388fb 100644
+--- a/man3/statvfs.3
++++ b/man3/statvfs.3
+@@ -227,6 +227,12 @@ .SH NOTES
+ .BR statvfs ()
+ with the argument
+ .IR path .
++.SH BUGS
++Under Linux,
++.I f_favail
++is always the same as
++.IR f_ffree ,
++even if some inodes are reserved for root.
+ .SH STANDARDS
+ POSIX.1-2008.
+ .SH HISTORY
 --=20
 2.39.2
 
-
---5aan2kzpy24kx3uj
+--65wzwvitp2bwjkfw
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmSWB9QACgkQvP0LAY0m
-WPG8RBAAnh95ZUA0kOCyOxQGsw6fKXQ0glNe/HOFVyJJqtUCZUK4xFzi2U9SsRoJ
-O9PQrHWZRBGs2nJaBA3mNjszX+NEp6RlBoVNVQmZRbkgkeG0C+O0xzQjcpfbdfpa
-xi0bf3PZTZfTrQy0G1wspyw8HrAHtICiuKkdR+fqpB9i+wvRUuSCZuZkc0fXAsRe
-5AkguZemTZvy5aqDkISkpPHV7SwmSxlT7h3tywfGyX5cR9cHb0BHTZBOpLNg9+49
-qWj3pbdNioc7/82wkzAhf7tKA7sZcTpKLTG8x6zvhri2v01/Qoe+hm60vDOybDrY
-qFFPX/krd5/SyL1rJs1rIpcRu+Rp47Jq26aBzorXwFkw83T9DMknGksw3FmvEq/j
-xDMmCC9/cOD+SRsxw1G38s4tlzU6nDVJ3gOM72qEMbdmIzwnY4wqwUZoV3QWQ79P
-C3lITxpDwImxLizuJlZgPk/I0gop2P7eHLDDeizfpjsHCJ9gosf9sYaVPNgieQhY
-PStCTrqeSvKR+jlNYWukYX2o1j9N4BgqlkfjigugEM9KR8EZHmCDEyNIyNc6gRhS
-ykYO9CUktmxA34MNTahB1ArygmXuIDxhxncoNBD2yzGw93gvNMCC0Sfyz1OgcXWM
-0+r3JfZSoK/wNVHbINfr1NSI1YjZ3DwYUHu0yDKfSpeYv5C/i6k=
-=VmPL
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmSWB9gACgkQvP0LAY0m
+WPENmw/+IIc7wNQ6HyEJW/NvkW8z7cjjeOIASjw4xp6Q/YpVn9e24vbNKXiVpnzP
+bQrYo10HgCAPt/jMSILbW1e+KlLXTcsx1glmlGMk7KZxiWD2EBKm8Rwio5zTTUd7
+xb41idy0bKaDtYJBVOabB0swlCwMs3lttcnEFVxkfoB/D2NHmLJwvhtp8MLA9sVA
+j5hHyq49vNxK7JajxzCjsbiXNVZVqwIGQl/f0DDF9YdnO9+rNbB9ErQZDelpFQ/w
+y9WE/YgjNueGPObI3dDSH2DjrX9r389drNYZAz6d5Piwpjky77AkDXpM6wr053yX
++u3tHk0hMyBKt7rA/AXVfHRc5by4JXSp3QZEeHztpo2V9LpqKg3z1iR+NpmFHVZN
+xOIqVNqP9ETRarhpG8ktUh41EJ6ZKvlbhZPxWtSya5xq1IqN8I5Wdrupr3/agz/Z
+Z7KIihX9GD3JB2YCtbcmShucLDoNxQ9c9V3ZoLWkk4foMeJ0WRHiJ1Xdd6O8Egvr
+vlc5VKkgMWLYE7Hp+zBk0oo0sJ4WkoOytwatG4eRvr7wEeHV1joIwx2HSpfSocEO
+HKBmIAwzTaFUUO22AV9AOjQwTMX1BzyAbz4Lni/BSs7uzv1QlFJlvBYnYkx/UENA
+SkPm/qd2owh2UDL9rTMVg98EqcKtLWP7CFbOKd2GAQ+/Jj0wqEo=
+=Eha+
 -----END PGP SIGNATURE-----
 
---5aan2kzpy24kx3uj--
+--65wzwvitp2bwjkfw--
