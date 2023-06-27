@@ -2,125 +2,67 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id DAA3373D500
-	for <lists+linux-man@lfdr.de>; Mon, 26 Jun 2023 00:07:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8F33E73F697
+	for <lists+linux-man@lfdr.de>; Tue, 27 Jun 2023 10:14:46 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229509AbjFYWHP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 25 Jun 2023 18:07:15 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52496 "EHLO
+        id S229983AbjF0IOp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 27 Jun 2023 04:14:45 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54626 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229481AbjFYWHO (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 25 Jun 2023 18:07:14 -0400
-Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 13B90122
-        for <linux-man@vger.kernel.org>; Sun, 25 Jun 2023 15:07:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-        s=202305; t=1687730827;
-        bh=qwXriwQoUPp9oYuOMt1rOfR1ocFZixNSlX/3/a5KxfU=;
-        h=Date:From:To:Cc:Subject:From;
-        b=WKOmLjUeO6RKjhVT9yBiO7b7++qwKRLOdeCfuYU7k6L0rDp9iP4akiqaSncJSO4DE
-         PZ8hQOjCcuqXTtpGIbfvUqriRl2cbTn6IOf8MZV5kK3eA2+fMlrjMfCAPKeptRdfeQ
-         DhzHbEFLV4ZM32RWyQCGTEw6I7M3OZEEbW0r+C0mitHus+0o0sg45sVCem72BxsgZn
-         ZLroVgRunsoyFwi6z6TYZoUQ74UZbGVnWq1WxqpcDNoaP3H5NhPHg/b8z1bWIjkLVz
-         A0BFrvsXeucf8VgXeSFhfPr/AAqY4D6nJgIj4nZpszm+h2RPbBZo+WHaL3hW06W23S
-         7YfKuLCuPZp/g==
-Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 47B6B105C;
-        Mon, 26 Jun 2023 00:07:07 +0200 (CEST)
-Date:   Mon, 26 Jun 2023 00:07:06 +0200
-From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-Subject: [PATCH] pipe.7: document read()s with O_NONBLOCK
-Message-ID: <lnvrz4mlpcgpsv4uyh2wkzy2xxv2urogr7643cmasxhm74pbbe@dajglucy2zum>
+        with ESMTP id S229823AbjF0IOo (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 27 Jun 2023 04:14:44 -0400
+X-Greylist: delayed 535 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Tue, 27 Jun 2023 01:14:43 PDT
+Received: from mail.clydespay.com (mail.clydespay.com [135.125.235.171])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A2DA0C7
+        for <linux-man@vger.kernel.org>; Tue, 27 Jun 2023 01:14:43 -0700 (PDT)
+Received: by mail.clydespay.com (Postfix, from userid 1002)
+        id CA56CA2734; Tue, 27 Jun 2023 08:05:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=clydespay.com;
+        s=mail; t=1687853146;
+        bh=vvfT5KcxKPIjxXFqSm5MOJ+qRY14VuG/yg8Lav3pcWQ=;
+        h=Date:From:To:Subject:From;
+        b=Hg03E7lnxc9toxsSY79UQo+fvYRSz+rYOM5dKc64hdOW/f1UqO3H9aWp/Fi/DrmhO
+         pcW8AfxwbSfhoegHSdF6LmgpSipwpPLC4r7XCDkCk2DHyH+t4eyR8JhY55ea6UEreK
+         CLEGQ9FQHabqWxkA7glfjcLL5DQXcpIm+qcKAsp8XLd5M0v4HL1yO0EuXKSADFsmfx
+         D0QjVLJaputY+t3idDaYxLOpKEdyFxBun9HoPHdD0BTwSUnQeVh3zU/sWoZ/Kphiex
+         JpV+ec0bSIKRtUmwd62Ak6yVoQ8OxTxD/yaSy/QMVpIE1+c1kGMKglLheGNLQvRjtW
+         jDQCWHZJJTIJg==
+Received: by clydespay.com for <linux-man@vger.kernel.org>; Tue, 27 Jun 2023 08:05:40 GMT
+Message-ID: <20230627064520-0.1.8l.2acum.0.ozs7cog6qh@clydespay.com>
+Date:   Tue, 27 Jun 2023 08:05:40 GMT
+From:   "Miguel Garcia" <miguel.garcia@clydespay.com>
+To:     <linux-man@vger.kernel.org>
+Subject: Consumo de combustible
+X-Mailer: mail.clydespay.com
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="pa3a47nxnio7d3tu"
-Content-Disposition: inline
-User-Agent: NeoMutt/20230517
-X-Spam-Status: No, score=-1.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,PDS_RDNS_DYNAMIC_FP,
-        RDNS_DYNAMIC,SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=no
-        autolearn_force=no version=3.4.6
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: No, score=-0.2 required=5.0 tests=BAYES_40,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+        T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=ham autolearn_force=no
+        version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Buenos dias
 
---pa3a47nxnio7d3tu
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Le escribo sobre la gesti=C3=B3n de los autom=C3=B3viles de la empresa.
 
-Which don't behave like you may expect them to.
+Gracias a las abundantes funcionalidades de la herramienta GPS, que monit=
+orea cada autom=C3=B3vil de manera continua, puede registrar la posici=C3=
+=B3n, el tiempo y el kilometraje de los autom=C3=B3viles en tiempo real.
 
-Quoth Issue 8 Draft 3:
-60746  When attempting to read from an empty pipe or FIFO:
-60747    =E2=80=A2 If no process has the pipe open for writing, read( ) sha=
-ll return 0 to indicate end-of-file.
-60748    =E2=80=A2 If some process has the pipe open for writing and O_NONB=
-LOCK is set, read( ) shall return
-60749      =E2=88=921 and set errno to [EAGAIN].
-60750    =E2=80=A2 If some process has the pipe open for writing and O_NONB=
-LOCK is clear, read( ) shall
-60751      block the calling thread until some data is written or the pipe =
-is closed by all processes that
-60752      had the pipe open for writing.
+Como resultado, los costos de mantenimiento de la flota de la compa=C3=B1=
+=C3=ADa se reducen en un 20% y el tiempo de viaje o la planificaci=C3=B3n=
+ de la entrega se reduce significativamente. 49 mil est=C3=A1n detr=C3=A1=
+s del =C3=A9xito de nuestras soluciones. Empresas que cooperan con nosotr=
+os.
 
-Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
----
- man7/pipe.7 | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+Si el tema le parece interesante, cont=C3=A1ctame.
 
-diff --git a/man7/pipe.7 b/man7/pipe.7
-index c3e06bdab..fb2ed61cd 100644
---- a/man7/pipe.7
-+++ b/man7/pipe.7
-@@ -56,12 +56,20 @@ .SS I/O on pipes and FIFOs
- .BR write (2)
- blocks until sufficient data has been read from the pipe
- to allow the write to complete.
-+.PP
- Nonblocking I/O is possible by using the
- .BR fcntl (2)
- .B F_SETFL
- operation to enable the
- .B O_NONBLOCK
--open file status flag.
-+open file status flag or by opening a
-+.BR fifo (7)
-+with
-+.BR O_NONBLOCK .
-+There are oddities if reading and no data is available:
-+if any process has the pipe open for writing, reads fail with
-+.BR EAGAIN ;
-+otherwise\[em]with no potential writers\[em]reads succeed and return empty.
- .PP
- The communication channel provided by a pipe is a
- .IR "byte stream" :
---=20
-2.39.2
 
---pa3a47nxnio7d3tu
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmSYuokACgkQvP0LAY0m
-WPFT6g//fr5wQcp3jg4qzesu74qlEVnoRjzBtQDiwReOORMt6cUw2UcqggsRopUI
-UDGzmTfZkrGesREJlAAZ7VjEF7S87hiRyymPHpOM2fxVuCYhIBXK8K8Ht0K/99Uy
-Wi29DdCI8qiTujGE0BudDhy4e65ODypCOAwPjcnU2tTDDZGaRNaAUugk20a1jWQk
-fM12dO7ZUnkN6TxfDsjxqeh3HJ4ZOJRQgFEn5CvJ0DtmCCrxhl+HT7cQIFwJ7BvM
-5khdv4Q3x//+RP2DbYGovB18g96EudU4aihzO9DR/PrKqG/Gluld3ZSOJqe7btl8
-wdRy/h5qQU+llfHC+xXLyK1nj6m9pLduhGKE71D9ZUCr0miSisL3Wa6o6aqJIpWv
-fFStLWx2d8M59j174fSm9Xo92nihls6tO7M5/FFHA46OFBODNS7Lk2bElSwFSMI5
-gWTa7Eek+f0GsWBFiNqTQWk2fmvZXa6FVos0bw3dWChwsiUfjsTlOu478DKQ5q9s
-U5/TMDPdsamjgoWyllrSYZ3Deeo79NUaDX0LrtD00bNjHK9l+V+WspNjBMogHgcb
-zklsyb0OjxKILq5jZsWbYKyMS+wER89khdGTvvKEy4KAgpCcicEMiySVcuFnrLfS
-Hl7w+vDdtT51tHz/l43TKaWsFvNRCwbcyZe+36/3JaITMu5MkXM=
-=XUco
------END PGP SIGNATURE-----
-
---pa3a47nxnio7d3tu--
+Atentamente,
+Miguel Garcia
