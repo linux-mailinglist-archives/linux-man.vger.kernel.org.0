@@ -2,33 +2,33 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 34246742F49
+	by mail.lfdr.de (Postfix) with ESMTP id 9EC12742F4A
 	for <lists+linux-man@lfdr.de>; Thu, 29 Jun 2023 23:09:33 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230158AbjF2VJb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 29 Jun 2023 17:09:31 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51524 "EHLO
+        id S231235AbjF2VJc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 29 Jun 2023 17:09:32 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51530 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229727AbjF2VJa (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 29 Jun 2023 17:09:30 -0400
+        with ESMTP id S229727AbjF2VJc (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 29 Jun 2023 17:09:32 -0400
 Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8A3A02D4E
-        for <linux-man@vger.kernel.org>; Thu, 29 Jun 2023 14:09:26 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8AC192D50
+        for <linux-man@vger.kernel.org>; Thu, 29 Jun 2023 14:09:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1688072967; x=1719608967;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
+  t=1688072971; x=1719608971;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
   bh=hL8OFq9yGlVVjU/aha3dSFzvnGxbvCR9fkDX2X/2dVs=;
-  b=VDdTjmbEBC8l46U8BaBgWCGypxQLCXg7DR1NaI18RbcKcuVccobAyqfP
-   dqmE2tKFZhwOUxBUyOnG8xlKzro39IP0AqdADnYMz61LiemaldtAv1c8b
-   l56Nn4G8CSNFX1g/9AfNa4p8T6ZDCwmmacvxQcAMu7LXFGOFVKS83iUkR
-   BcP9kXi3l2/C1+WqpK0HeUvT0Oigp4E/41dfTJ1bdyWdydt+tWIB9nq+t
-   5Npag26DNbKk+cj5+eGghnbwqh8zEyhcyIb4lKLPPkNMyddU0Yk4/Xzpy
-   j8tJT0YAVlmbds1pV36JHc85Ci5NzZgP7jueiPDODqhH26cFaIzESZPLt
+  b=VYe4B9GHTiZqIImtReORN+PiNUBt0aD3oqhSsEiex3I2SDg/UvrUQBIb
+   mfEZ2sn3ktjRC89WysnSI3V2ramhIZl0cQGI2j/w1TKYjgimeSdxmvbjO
+   0g2QX+FBqdOcyb4OQwZcr5rFE+dqUpROH29+kjQIETfsNQzhIEiHfjtVf
+   VCCETt01z2uGSkEuxsOUX5NI7KqK0wiCTS3ZN4CV/zFvZMGVRSZ5JTHqB
+   GUEpqyNC2JaoWIJ/0AVvCiu0HHaVWRsJNWzxSBp1VWYkdRUrRRkCv+exl
+   hE5W9kgD4ENVkyfj+lDtqV3NPeAGrrD9S/8epI/J2gk8PGVPlicuFN4aM
    A==;
 X-IronPort-AV: E=Sophos;i="6.01,169,1684825200"; 
-   d="scan'208";a="221284488"
+   d="scan'208";a="221284489"
 X-Amp-Result: SKIPPED(no attachment in message)
 Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
   by esa5.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256; 29 Jun 2023 14:09:26 -0700
@@ -43,10 +43,13 @@ From:   Don Brace <don.brace@microchip.com>
 To:     <mtk.manpages@gmail.com>
 CC:     <linux-man@vger.kernel.org>
 Subject: [PATCH] smartpqi: update man page
-Date:   Thu, 29 Jun 2023 16:10:20 -0500
-Message-ID: <20230629211021.1206412-1-don.brace@microchip.com>
+Date:   Thu, 29 Jun 2023 16:10:21 -0500
+Message-ID: <20230629211021.1206412-2-don.brace@microchip.com>
 X-Mailer: git-send-email 2.41.0.199.ga9e066fa63
+In-Reply-To: <20230629211021.1206412-1-don.brace@microchip.com>
+References: <20230629211021.1206412-1-don.brace@microchip.com>
 MIME-Version: 1.0
+Organization: Microchip Technology Inc.
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
