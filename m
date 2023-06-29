@@ -2,75 +2,56 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 14A69742AFB
-	for <lists+linux-man@lfdr.de>; Thu, 29 Jun 2023 19:02:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 34246742F49
+	for <lists+linux-man@lfdr.de>; Thu, 29 Jun 2023 23:09:33 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229991AbjF2RCn (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 29 Jun 2023 13:02:43 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51196 "EHLO
+        id S230158AbjF2VJb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 29 Jun 2023 17:09:31 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51524 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229459AbjF2RCm (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 29 Jun 2023 13:02:42 -0400
-X-Greylist: delayed 90 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Thu, 29 Jun 2023 10:02:40 PDT
-Received: from omta002.cacentral1.a.cloudfilter.net (omta002.cacentral1.a.cloudfilter.net [3.97.99.33])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CD5773593
-        for <linux-man@vger.kernel.org>; Thu, 29 Jun 2023 10:02:40 -0700 (PDT)
-Received: from shw-obgw-4002a.ext.cloudfilter.net ([10.228.9.250])
-        by cmsmtp with ESMTP
-        id Eu5PqFSpW6NwhEv13qZjzS; Thu, 29 Jun 2023 17:01:09 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=shaw.ca; s=s20180605;
-        t=1688058069; bh=9kPenNvda89OHqbXPkkcdQ66QV06AYDeD8vOaSfW06Y=;
-        h=Date:Reply-To:Subject:To:Cc:References:From:In-Reply-To;
-        b=QwrQyOeOm1m33l/SMSuPuO1+FL5MGmWFlwNXsJjBWNMhAQb3rI72EjSS0Ok2cFe3Z
-         hQoS5UTEgSKSTjw7Ba1rkWOtPgCbeUhpZN0molFa5k646N0/CvgUusj5xwMK4g2z0H
-         JSbmbtelppK5qgORJRer08fqFxVxxH4SL+aiaO9AV4iosWI/KVrS6N9qiAsLxze6Kx
-         kOlGMcL8J1um5BUVUSORsXWxd4FCl89Gg09EIMSS++bONYnrdaFkFvIjV102GeiEnG
-         cNls4RYGFo8SeoSEH0GIZy++Hnnrv0y60/e6QHWmeutgTE98kObTlFE7wYFoC9s/AQ
-         ss8ZE4FGvhQvw==
-Received: from [10.0.0.5] ([184.64.102.149])
-        by cmsmtp with ESMTP
-        id Ev11qO2bByAOeEv11qPO1B; Thu, 29 Jun 2023 17:01:09 +0000
-X-Authority-Analysis: v=2.4 cv=e5oV9Il/ c=1 sm=1 tr=0 ts=649db8d5
- a=DxHlV3/gbUaP7LOF0QAmaA==:117 a=DxHlV3/gbUaP7LOF0QAmaA==:17
- a=IkcTkHD0fZMA:10 a=pGLkceISAAAA:8 a=p0WdMEafAAAA:8 a=NEAV23lmAAAA:8
- a=pkkXEeoOdO91yhAzRuIA:9 a=QEXdDO2ut3YA:10
-Message-ID: <e8f9685b-ef42-6d0f-c18e-861a26922f6e@Shaw.ca>
-Date:   Thu, 29 Jun 2023 11:01:07 -0600
+        with ESMTP id S229727AbjF2VJa (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 29 Jun 2023 17:09:30 -0400
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8A3A02D4E
+        for <linux-man@vger.kernel.org>; Thu, 29 Jun 2023 14:09:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1688072967; x=1719608967;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=hL8OFq9yGlVVjU/aha3dSFzvnGxbvCR9fkDX2X/2dVs=;
+  b=VDdTjmbEBC8l46U8BaBgWCGypxQLCXg7DR1NaI18RbcKcuVccobAyqfP
+   dqmE2tKFZhwOUxBUyOnG8xlKzro39IP0AqdADnYMz61LiemaldtAv1c8b
+   l56Nn4G8CSNFX1g/9AfNa4p8T6ZDCwmmacvxQcAMu7LXFGOFVKS83iUkR
+   BcP9kXi3l2/C1+WqpK0HeUvT0Oigp4E/41dfTJ1bdyWdydt+tWIB9nq+t
+   5Npag26DNbKk+cj5+eGghnbwqh8zEyhcyIb4lKLPPkNMyddU0Yk4/Xzpy
+   j8tJT0YAVlmbds1pV36JHc85Ci5NzZgP7jueiPDODqhH26cFaIzESZPLt
+   A==;
+X-IronPort-AV: E=Sophos;i="6.01,169,1684825200"; 
+   d="scan'208";a="221284488"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa5.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256; 29 Jun 2023 14:09:26 -0700
+Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.21; Thu, 29 Jun 2023 14:09:25 -0700
+Received: from brunhilda.pdev.net (10.10.115.15) by chn-vm-ex03.mchp-main.com
+ (10.10.85.151) with Microsoft SMTP Server id 15.1.2507.21 via Frontend
+ Transport; Thu, 29 Jun 2023 14:09:25 -0700
+From:   Don Brace <don.brace@microchip.com>
+To:     <mtk.manpages@gmail.com>
+CC:     <linux-man@vger.kernel.org>
+Subject: [PATCH] smartpqi: update man page
+Date:   Thu, 29 Jun 2023 16:10:20 -0500
+Message-ID: <20230629211021.1206412-1-don.brace@microchip.com>
+X-Mailer: git-send-email 2.41.0.199.ga9e066fa63
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Reply-To: linux-man@vger.kernel.org
-Subject: Re: SPDX license review requests
-Content-Language: en-CA
-To:     linux-man@vger.kernel.org
-Cc:     Alejandro Colomar <alx.manpages@gmail.com>,
-        Andi Kleen <ak@linux.intel.com>,
-        "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        Matthew Wilcox <willy@infradead.org>,
-        Alan Cox <alan@lxorguk.ukuu.org.uk>,
-        Heinrich Schuchardt <heinrich.schuchardt@canonical.com>,
-        Adam Dobes <adobes@redhat.com>, Chris Lameter <cl@linux.com>
-References: <CADeQ=2-ZsaSCEPfTHUO6AAZ_+H8ob4LJ5x5MuGaX=jdOVpdCog@mail.gmail.com>
- <bd1a81d0-456a-bc19-7df0-fdbcc2a51395@gmail.com>
- <a7ed2025-b896-bbce-f36b-0a681f38c542@gmail.com>
- <ca053426-bd13-055a-88ab-9a4873f13f7e@gmail.com> <ZHXweLNKqHKoybXM@tassilo>
- <eda85fda-6182-fc13-3943-9084b187433e@gmail.com>
- <CAK719L2PjTr=-c_AEi89TVrJV7DHwyfBJjH6z6Bozc0Rk+rOfQ@mail.gmail.com>
- <b164d81c-225f-f450-c28a-f4aa9f219448@os.amperecomputing.com>
-From:   Brian Inglis <Brian.Inglis@Shaw.ca>
-Organization: Inglis
-In-Reply-To: <b164d81c-225f-f450-c28a-f4aa9f219448@os.amperecomputing.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CMAE-Envelope: MS4xfFjXJz+ueSwDSy8oNwH3yWN50iAn86et7YPcYoZz6W28yIIgLzOcVlbbVaQYh9B2iNcaGaMtXu5GuxEmCMQcawBRYh+d4XqFIMxPiSuuyYG5gbwxi7Bv
- JLm3U8yElLhXA0S/n6X1yJ7M5WRvggBemWUchomdoMYLh0KGyhjWf6VGI+FdOzaX0YPogn36w//8vpbBKvvND739BcxmYuy2wJCN0NCxva7dZzfq+IkfpHOa
- u6fnxZavwt6CVHRTnT8NWZ7K4bTrqZN50tWJAgLCxqdsOHtcFZqXfIJU6WcGY1ReIXQ8i1rW2GPzOYfRpWPeYO7NK49leNlTTNP4rcAGG8c8RAPbzOYxDwZ4
- xyhjsg/m+v/1c4npcARzjMchN7Qn2bWlp0gBaxmkxMPHrSX/fyhXT3cRAcznUf3ltKvMPM9BfpxAcFydW7EA6KK2pg5KlTjbJhTvCni+k3KmDlWfLj+WuMQk
- 7oW9ksxCIXSc0WGUSVsP622HHYRmh7vyojM6Xw==
-X-Spam-Status: No, score=-2.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_LOW,
-        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
+Content-Type: text/plain
+X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+        SPF_HELO_PASS,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -78,70 +59,402 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 2023-06-29 10:01, Lameter, Christopher wrote:
-> On Thu, 29 Jun 2023, Lukas Javorsky wrote:
->>       >> VERBATIM_TWO_PARA
->>       >>      This license was first used in the Linux man-pages in version
->>       >>      3.07 (year 2008) in a single page:
->>       >>
->>       >>              move_pages.2
->>       >>                      Added by Michael Kerrisk <mtk.manpages@gmail.com>,
->>       >>                      but Copyright (C) 2006 Silicon Graphics, Inc.
->>       >>                                        Christoph Lameter
->>       >>
->>       >>      It was later reused in another page:
-> The manpage was written by me and later edited by Michael as far as I remember.
->>       >>
->>       >>              migrate_pages.2
->>       >>                      Copyright 2009 Intel Corporation
->>       >> .\"                Author: Andi Kleen
->>       >> .\" Based on the move_pages manpage which was
->>       >> .\" This manpage is Copyright (C) 2006 Silicon Graphics, Inc.
->>       >> .\"                               Christoph Lameter
->>       >>
->>       >>      This license is the one considered non-free by Fedora, and which
->>       >>      we need to drop.  Luckily it's only two pages, so they could be
->>       >>      reasonably rewritten in a worst case.
-> The licensing was GPL and not a proprietary one.
->>       So, given this, if you give consent to change your pages to use
->>       Linux-man-pages-copyleft, I'll do so provided for the pages that are
->>       completely yours, and will keep in mind that when others agree, I'll also
->>       change the pages that are shared.
-> I have no objections.
+Update smartpqi.4 man page with out out-of-box driver.
 
-Updating these licences are really nice to haves for this project.
+Update copywrite.
+Change URL to microchip.
+Add in two new module parameters:
+    disable_managed_interrupts
+    ctrl_ready_timeout
+Add in some host level sysfs entries:
+    enable_stream_detection
+    ssd_smart_path_enabled
+    enable_r5_writes
+    enable_r6_writes
+Add in some device level sysfs entries:
+    lunid
+    unique_id
+    path_info
+    raid_bypass_cnt
+    sas_ncq_prio_enable
+Update some descriptions.
 
-Just to be clear, the FSF and Fedora issue is only with *dir_colors*(5) licensed 
-under *LDPv1* which contains the contentious clause:
+Reviewed-by: Scott Benesh <scott.benesh@microchip.com>
+Reviewed-by: Scott Teel <scott.teel@microchip.com>
+Reviewed-by: Mike McGowen <mike.mcgowen@microchip.com>
+Reviewed-by: Kevin Barnett <kevin.barnett@microchip.com>
+Signed-off-by: Don Brace <don.brace@microchip.com>
+---
+ man4/smartpqi.4 | 229 +++++++++++++++++++++++++++++++++++++++---------
+ 1 file changed, 186 insertions(+), 43 deletions(-)
 
-	"c) You must not add notes to the Document implying that the reader had better 
-read something produced using Texinfo."
-
-	https://gitlab.com/fedora/legal/fedora-license-data/-/issues/211
-
-	https://github.com/spdx/license-list-XML/issues/1957
-
-which restricts modification, especially by GNU or other projects which may wish 
-to offer and promote alternative doc formats or interfaces.
-
-LDPv2 requires notifying the author of modifications by email if provided, and 
-suggested authors could add a generic clause c) prohibiting modifications 
-without author consent.
-
-TLDP is now by default under GFDLv1.2+.
-
-Another problematic licence is *JSON*, which contains the clause:
-
-	"The Software shall be used for Good, not Evil."
-
-restricting use with non-specific subjective terms, unlike similar licences with 
-specific objective restrictions, like not being used for anything related to 
-animal testing or nuclear weapons.
-
+diff --git a/man4/smartpqi.4 b/man4/smartpqi.4
+index 147d53fc2a0a..7c1da3c80d57 100644
+--- a/man4/smartpqi.4
++++ b/man4/smartpqi.4
+@@ -1,13 +1,13 @@
+ '\" t
+-.\" Copyright (C) 2019, Microchip Technology Inc. and its subsidiaries
++.\" Copyright (C) 2019-2023, Microchip Technology Inc. and its subsidiaries
+ .\" Copyright (C) 2016-2018, Microsemi Corporation
+ .\" Copyright (C) 2016, PMC-Sierra, Inc.
+-.\" Written by Kevin Barnett <kevin.barnett@microsemi.com>
++.\" Written by Kevin Barnett <kevin.barnett@microchip.com>
+ .\"
+ .\" SPDX-License-Identifier: GPL-2.0-only
+ .TH smartpqi 4 (date) "Linux man-pages (unreleased)"
+ .SH NAME
+-smartpqi \- Microsemi Smart Family SCSI driver
++smartpqi \- Microchip Smart Storage SCSI driver
+ .SH SYNOPSIS
+ .SY "modprobe smartpqi"
+ .RB [ disable_device_id_wildcards= { 0 | 1 }]
+@@ -16,10 +16,12 @@ smartpqi \- Microsemi Smart Family SCSI driver
+ .RB [ lockup_action= { none | reboot | panic }]
+ .RB [ expose_ld_first= { 0 | 1 }]
+ .RB [ hide_vsep= { 0 | 1 }]
++.RB [ disable_managed_interrupts= { 0 | 1 }]
++.RB [ ctrl_ready_timeout= { 0 | 30-1800 }]
+ .YS
+ .SH DESCRIPTION
+ .B smartpqi
+-is a SCSI driver for Microsemi Smart Family controllers.
++is a SCSI driver for Microchip Smart Storage controllers.
+ .SS Supported \f[BI]ioctl\fP\/() operations
+ For compatibility with applications written for the
+ .BR cciss (4)
+@@ -66,17 +68,17 @@ Allows BMIC and CISS commands to be passed through to the controller.
+ .TP
+ .BR disable_device_id_wildcards= { 0 | 1 }
+ Disables support for device ID wildcards.
+-The default value is 0.
++The default value is 0 (wildcards are enabled).
+ .TP
+ .BR disable_heartbeat= { 0 | 1 }
+ Disables support for the controller's heartbeat check.
+ This parameter is used for debugging purposes.
+-The default value is 0, leaving the controller's heartbeat check active.
++The default value is 0 (the controller's heartbeat check is enabled).
+ .TP
+ .BR disable_ctrl_shutdown= { 0 | 1 }
+ Disables support for shutting down the controller in the
+ event of a controller lockup.
+-The default value is 0.
++The default value is 0 (controller will be shut down).
+ .TP
+ .BR lockup_action= { none | reboot | panic }
+ Specifies the action the driver takes when a controller
+@@ -94,17 +96,26 @@ parameter	action
+ .TE
+ .TP
+ .BR expose_ld_first= { 0 | 1 }
+-This option enables support for exposing logical devices to
+-the operating system before physical devices.
+-The default value is 0.
++This option exposes logical devices to the OS before physical devices.
++The default value is 0 (physical devices exposed first).
+ .TP
+ .BR hide_vsep= { 0 | 1 }
+-This option enables disabling exposure of the virtual SEP to the host.
+-This is usually associated with direct attached drives.
+-The default value is 0.
++This option disables exposure of the virtual SEP to the OS.
++The default value is 0 (virtual SEP is exposed).
++.TP
++.BR disable_managed_interrupts= { 0 | 1 }
++Disables driver utilization of Linux kernel managed interrupts for
++controllers. The managed interrupts feature automatically distributes
++interrupts to all available CPUs and assigns SMP affinity.
++The default value is 0 (managed interrupts enabled).
++.TP
++.BR ctrl_ready_timeout= { 0 | 30-1800 }
++This option specifies the timeout in seconds for the driver to wait
++for controller ready. The valid range is 0 or 30-1800. The default value
++is 0, which causes the driver to use a timeout of 180 seconds.
+ .SH FILES
+ .SS Device nodes
+-Logical drives are accessed via the SCSI disk driver
++Disk drives are accessed via the SCSI disk driver
+ .RI ( sd ),
+ tape drives via the SCSI tape driver
+ .RI ( st ),
+@@ -124,29 +135,12 @@ The host
+ attribute is a write-only attribute.
+ Writing to this attribute will cause the driver to scan for new,
+ changed, or removed devices (e.g., hot-plugged tape drives, or newly
+-configured or deleted logical drives) and notify the SCSI mid-layer of
++configured or deleted logical volumes) and notify the SCSI mid-layer of
+ any changes detected.
+ Usually this action is triggered automatically by configuration
+ changes, so the user should not normally have to write to this file.
+ Doing so may be useful when hot-plugging devices such as tape drives or
+-entire storage boxes containing pre-configured logical drives.
+-.TP
+-.IR /sys/class/scsi_host/host * /version
+-The host
+-.I version
+-attribute is a read-only attribute.
+-This attribute contains the driver version and the controller firmware
+-version.
+-.IP
+-For example:
+-.IP
+-.in +4n
+-.EX
+-$ \c
+-.B cat /sys/class/scsi_host/host1/version
+-driver: 1.1.2\-126
+-firmware: 1.29\-112
+-.EE
++entire storage boxes containing pre-configured logical volumes.
+ .in
+ .TP
+ .IR /sys/class/scsi_host/host * /lockup_action
+@@ -162,7 +156,7 @@ for an explanation of the
+ .I lockup_action
+ values.
+ .TP
+-.I /sys/class/scsi_host/host*/driver_version
++.IR /sys/class/scsi_host/host*/driver_version
+ The
+ .I driver_version
+ attribute is read-only.
+@@ -178,7 +172,7 @@ $ \c
+ .EE
+ .in
+ .TP
+-.I /sys/class/scsi_host/host*/firmware_version
++.IR /sys/class/scsi_host/host*/firmware_version
+ The
+ .I firmware_version
+ attribute is read-only.
+@@ -194,7 +188,7 @@ $ \c
+ .EE
+ .in
+ .TP
+-.I /sys/class/scsi_host/host*/model
++.IR /sys/class/scsi_host/host*/model
+ The
+ .I model
+ attribute is read-only.
+@@ -210,7 +204,7 @@ $ \c
+ .EE
+ .in
+ .TP
+-.I /sys/class/scsi_host/host*/serial_number
++.IR /sys/class/scsi_host/host*/serial_number
+ The
+ .I serial_number
+ attribute is read-only.
+@@ -226,7 +220,7 @@ $ \c
+ .EE
+ .in
+ .TP
+-.I /sys/class/scsi_host/host*/vendor
++.IR /sys/class/scsi_host/host*/vendor
+ The
+ .I vendor
+ attribute is read-only.
+@@ -241,6 +235,63 @@ $ \c
+ Adaptec
+ .EE
+ .in
++.TP
++.IR /sys/class/scsi_host/host*/enable_stream_detection
++The
++.I enable_stream_detection
++attribute is read-write.
++This attribute enables/disables stream detection in the driver.
++Enabling stream detection can improve sequential write performance for ioaccel-enabled volumes. See the
++.BI ssd_smart_path_enabled
++disk attribute section for details on ioaccel-enabled volumes.
++The default value is 1 (stream detection enabled).
++.IP
++Enable example:
++.IP
++.in +4n
++.EX
++$ \c
++.B echo 1 > /sys/class/scsi_host/host1/enable_stream_detection
++.EE
++.in
++.TP
++.IR /sys/class/scsi_host/host*/enable_r5_writes
++The
++.I enable_r5_writes
++attribute is read-write.
++This attribute enables/disables RAID 5 write operations for ioaccel-enabled volumes.
++Enabling can improve sequential write performance. See the
++.BI ssd_smart_path_enabled
++disk attribute section for details on ioaccel-enabled volumes.
++The default value is 1 (RAID 5 writes enabled).
++.IP
++Enable example:
++.IP
++.in +4n
++.EX
++$ \c
++.B echo 1 > /sys/class/scsi_host/host1/enable_r5_writes
++.EE
++.in
++.TP
++.IR /sys/class/scsi_host/host*/enable_r6_writes
++The
++.I enable_r6_writes
++attribute is read-write.
++This attribute enables/disables RAID 6 write operations for ioaccel-enabled volumes.
++Enabling can improve sequential write performance. See the
++.BI ssd_smart_path_enabled
++disk attribute section for details on ioaccel-enabled volumes.
++The default value is 1 (RAID 6 writes enabled).
++.IP
++Enable example:
++.IP
++.in +4n
++.EX
++$ \c
++.B echo 1 > /sys/class/scsi_host/host1/enable_r6_writes
++.EE
++.in
+ .SS SmartPQI-specific disk attribute files in \f[BI]/sys\fP
+ In the file specifications below,
+ .I c
+@@ -256,7 +307,7 @@ is the logical unit number (LUN).
+ The
+ .I raid_level
+ attribute is read-only.
+-This attribute contains the RAID level of each logical drive.
++This attribute contains the RAID level of the logical volume.
+ .IP
+ For example:
+ .IP
+@@ -272,7 +323,7 @@ RAID 0
+ The
+ .I sas_address
+ attribute is read-only.
+-This attribute contains the unique identifier of the disk.
++This attribute contains the SAS address of the device.
+ .IP
+ For example:
+ .IP
+@@ -305,22 +356,114 @@ $ \c
+ 0
+ .EE
+ .in
++.TP
++.IR /sys/class/scsi_disk/c : b : t : l/device/lunid
++The
++.I lunid
++attribute is read-only.
++This attribute contains the SCSI LUN ID for the device.
++.IP
++For example:
++.IP
++.in +4n
++.EX
++$ \c
++.B cat /sys/class/scsi_disk/13:1:0:3/device/lunid
++0x0300004000000000
++.EE
++.in
++.TP
++.IR /sys/class/scsi_disk/c : b : t : l/device/unique_id
++The
++.I unique_id
++attribute is read-only.
++This attribute contains a 16-byte ID that uniquely identifies the device within the controller.
++.IP
++For example:
++.IP
++.in +4n
++.EX
++$ \c
++.B cat /sys/class/scsi_disk/13:1:0:3/device/unique_id
++600508B1001C6D4723A8E98D704FDB94
++.EE
++.in
++.TP
++.IR /sys/class/scsi_disk/c : b : t : l/device/path_info
++The
++.I path_info
++attribute is read-only.
++This attribute contains the c:b:t:l of the device along with the device type and whether the device is Active or Inactive. If the device is an HBA device,
++.I path_info
++will also display the PORT, BOX, and BAY the device is plugged into.
++.IP
++For example:
++.IP
++.in +4n
++.EX
++$ \c
++.B cat /sys/class/scsi_disk/13:1:0:3/device/path_info
++[13:1:0:3]    Direct-Access     Active
++
++$ \c
++.B cat /sys/class/scsi_disk/12:0:9:0/device/path_info
++[12:0:9:0]    Direct-Access     PORT: C1 BOX: 1 BAY: 14 Inactive
++[12:0:9:0]    Direct-Access     PORT: C0 BOX: 1 BAY: 14 Active
++.EE
++.in
++.TP
++.IR /sys/class/scsi_disk/13:1:0:3/device/raid_bypass_cnt
++The
++.I raid_bypass_cnt
++attribute is read-only.
++This attribute contains the number of I/O requests that have gone through the
++ioaccel path for ioaccel-enabled volumes. See the
++.BI ssd_smart_path_enabled
++disk attribute section for details on ioaccel-enabled volumes.
++.IP
++For example:
++.IP
++.in +4n
++.EX
++$ \c
++.B cat /sys/class/scsi_disk/13:1:0:3/device/raid_bypass_cnt
++0x300
++.EE
++.in
++.TP
++.IR /sys/class/scsi_disk/13:1:0:3/device/sas_ncq_prio_enable
++The
++.I sas_ncq_prio_enable
++attribute is read/write.
++This attribute enables SATA NCQ priority support.
++This attribute works only when device has NCQ support and
++controller firmware can handle IO with NCQ priority attribute.
++.IP
++For example:
++.IP
++.in +4n
++.EX
++$ \c
++.B echo 1 > /sys/class/scsi_disk/13:1:0:3/device/sas_ncq_prio_enable
++.EE
++.in
+ .SH VERSIONS
+ The
+ .B smartpqi
+ driver was added in Linux 4.9.
+ .SH NOTES
+ .SS Configuration
+-To configure a Microsemi Smart Family controller,
++To configure a Microchip Smart Storage controller,
+ refer to the User Guide for the controller,
+ which can be found by searching for the specific controller at
+-.UR https://storage.microsemi.com/
++.UR https://www.microchip.com/design-centers/storage
+ .UE .
+ .SH SEE ALSO
+ .BR cciss (4),
+ .BR hpsa (4),
+ .BR sd (4),
+-.BR st (4)
++.BR st (4),
++.BR sg (4)
+ .PP
+ .I Documentation/ABI/testing/sysfs\-bus\-pci\-devices\-cciss
+ in the Linux kernel source tree.
 -- 
-Take care. Thanks, Brian Inglis              Calgary, Alberta, Canada
+2.41.0.199.ga9e066fa63
 
-La perfection est atteinte                   Perfection is achieved
-non pas lorsqu'il n'y a plus rien à ajouter  not when there is no more to add
-mais lorsqu'il n'y a plus rien à retirer     but when there is no more to cut
-                                 -- Antoine de Saint-Exupéry
