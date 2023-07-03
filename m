@@ -2,45 +2,57 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 0ED3A745EDA
-	for <lists+linux-man@lfdr.de>; Mon,  3 Jul 2023 16:43:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id EA4B5746245
+	for <lists+linux-man@lfdr.de>; Mon,  3 Jul 2023 20:23:23 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229750AbjGCOny (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 3 Jul 2023 10:43:54 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58972 "EHLO
+        id S229830AbjGCSXV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 3 Jul 2023 14:23:21 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46046 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230032AbjGCOnx (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 3 Jul 2023 10:43:53 -0400
-Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 8BA8AE6A
-        for <linux-man@vger.kernel.org>; Mon,  3 Jul 2023 07:43:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-        s=202305; t=1688395400;
-        bh=3fg8vhYPES9qLU6FoZdkFT5zMFsQkRWEb5lhFIbGmN0=;
-        h=Date:From:To:Cc:Subject:From;
-        b=do0l9gd9Xye72tuKiQl/h24VKjojfriYync245DoGeF+uYr77KxLg2EDjnaQo04i1
-         OqY0tWXV7XYI74yU8VjmyDgmv0kNtPtdfOhClqzGmUgdS2xGgErABppLO1QjUqzIVR
-         YlIFUwsq4Ncxh4hq2gD4J+m5v6SnOeNxOxT/3VAJW5UOUmVPjGusrqVYEUaSr8elfF
-         MBxNqPX8adsd4Okmq/X9WHa8P9hrJOZ5/ulVnHjcNakqqvAnZ4UdeoNYjA41TH+ITI
-         amZkq5sqIIOAJ65u4wjhkqiSrDNirS1aMhunLMGsRW9Cjix+lUgGlNZojkKXJnbbIT
-         ttdUjiHjIDYAA==
-Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 099BE1B6E;
-        Mon,  3 Jul 2023 16:43:20 +0200 (CEST)
-Date:   Mon, 3 Jul 2023 16:43:18 +0200
-From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-To:     "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-Subject: [PATCH] fanotify_init.2: remove empty pre-header line
-Message-ID: <egwuot7zgfcelb6632w4rkneeccrqug45aumfntkzhevrxcbcp@hdcujacv2gyt>
+        with ESMTP id S229930AbjGCSXU (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 3 Jul 2023 14:23:20 -0400
+Received: from 5.mo552.mail-out.ovh.net (5.mo552.mail-out.ovh.net [188.165.45.220])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 460EDE67
+        for <linux-man@vger.kernel.org>; Mon,  3 Jul 2023 11:23:17 -0700 (PDT)
+Received: from mxplan6.mail.ovh.net (unknown [10.109.138.129])
+        by mo552.mail-out.ovh.net (Postfix) with ESMTPS id 97F282B2CF;
+        Mon,  3 Jul 2023 18:17:02 +0000 (UTC)
+Received: from jwilk.net (37.59.142.103) by DAG4EX1.mxp6.local (172.16.2.31)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 3 Jul
+ 2023 20:17:00 +0200
+Authentication-Results: garm.ovh; auth=pass (GARM-103G005ae76bf7d-4853-4ac9-8cd0-fc120f2bab27,
+                    01F7231744D2A1151A600C9196B08FFFC15B10DD) smtp.auth=jwilk@jwilk.net
+X-OVh-ClientIp: 5.172.255.78
+Date:   Mon, 3 Jul 2023 20:16:59 +0200
+From:   Jakub Wilk <jwilk@jwilk.net>
+To:     Paul Eggert <eggert@cs.ucla.edu>
+CC:     "A. Wilcox" <AWilcox@wilcox-tech.com>,
+        <libc-coord@lists.openwall.com>,
+        Jonathan Wakely <jwakely@redhat.com>,
+        Rich Felker <dalias@libc.org>, <linux-man@vger.kernel.org>,
+        <libc-alpha@sourceware.org>, <musl@lists.openwall.com>
+Subject: Re: [musl] Re: [libc-coord] Re: regression in man pages for
+ interfaces using loff_t
+Message-ID: <20230703181659.la7gx5nx4qar6r2v@jwilk.net>
+References: <31b53a8d-7cf4-b3a3-371f-a5723963383e@cs.ucla.edu>
+ <9751E98E-025B-4E32-9EDF-D1984F998C10@wilcox-tech.com>
+ <e8cd948b-10ea-9ff6-9707-68c1e0689759@cs.ucla.edu>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="drqfz5hhyfavkamj"
+Content-Type: text/plain; charset="us-ascii"; format=flowed
 Content-Disposition: inline
-User-Agent: NeoMutt/20230517
-X-Spam-Status: No, score=-1.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,PDS_RDNS_DYNAMIC_FP,
-        RDNS_DYNAMIC,SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=no
+In-Reply-To: <e8cd948b-10ea-9ff6-9707-68c1e0689759@cs.ucla.edu>
+X-Originating-IP: [37.59.142.103]
+X-ClientProxiedBy: DAG4EX2.mxp6.local (172.16.2.32) To DAG4EX1.mxp6.local
+ (172.16.2.31)
+X-Ovh-Tracer-GUID: c42e634e-2c6b-43af-9113-733cfcb41942
+X-Ovh-Tracer-Id: 1197394554049124204
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedviedruddvgdduvdduucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujghisehttdertddttddvnecuhfhrohhmpeflrghkuhgsucghihhlkhcuoehjfihilhhksehjfihilhhkrdhnvghtqeenucggtffrrghtthgvrhhnpeeutddtteelhfffuddvhefgfedujeeltdekheduveekkeelfeduuedvgeejudffgfenucfkphepuddvjedrtddrtddruddpfeejrdehledrudegvddruddtfedphedrudejvddrvdehhedrjeeknecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepuddvjedrtddrtddruddpmhgrihhlfhhrohhmpeeojhifihhlkhesjhifihhlkhdrnhgvtheqpdhnsggprhgtphhtthhopedupdhrtghpthhtohepvghgghgvrhhtsegtshdruhgtlhgrrdgvughupdethghilhgtohigseifihhltghogidqthgvtghhrdgtohhmpdhlihgstgdqtghoohhrugeslhhishhtshdrohhpvghnfigrlhhlrdgtohhmpdhjfigrkhgvlhihsehrvgguhhgrthdrtghomhdpuggrlhhirghssehlihgstgdrohhrghdplhhinhhugidqmhgrnhesvhhgvghrrdhkvghrnhgvlhdrohhrghdplhhisggtqdgrlhhphhgrsehsohhurhgtvgifrghrvgdrohhrghdpmhhushhlsehlihhsth
+ hsrdhophgvnhifrghllhdrtghomhdpoffvtefjohhsthepmhhoheehvddpmhhouggvpehsmhhtphhouhht
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_NONE,
+        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -48,50 +60,15 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+>-This format is employed in cases where only a single
+>-feature test macro can be used to expose the function
+>-declaration, and that macro is not defined by default.
+>+This format is employed in cases where feature macros
+>+expose the function declaration with the correct type,
+>+and these macros are not defined by default.
 
---drqfz5hhyfavkamj
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+This isn't right. The shorthand format is sometimes used when there's no 
+off(64)_t involved, e.g. in memfd_create(2).
 
-Which yields an empty line in the formatted output.
-
-Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
----
- man2/fanotify_init.2 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/man2/fanotify_init.2 b/man2/fanotify_init.2
-index 65d73565f..3f4359e83 100644
---- a/man2/fanotify_init.2
-+++ b/man2/fanotify_init.2
-@@ -1,4 +1,4 @@
--\" Copyright (C) 2013, Heinrich Schuchardt <xypron.glpk@gmx.de>
-+.\" Copyright (C) 2013, Heinrich Schuchardt <xypron.glpk@gmx.de>
- .\"
- .\" SPDX-License-Identifier: Linux-man-pages-copyleft
- .TH fanotify_init 2 (date) "Linux man-pages (unreleased)"
---=20
-2.39.2
-
---drqfz5hhyfavkamj
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmSi3oYACgkQvP0LAY0m
-WPGKxw//eh7suWKuxGkKG9AP5SiOUj9jH6b1ksm//Kvlh69C+g/g/VNRJunohhiY
-dx45Qx31Zs8qTAmWOhHepKpp+gWA+v+t7qezFUb1RDLNPx+Ctk3F2AV5CIbtVwFO
-LUbeE/uWV9kQGyR6Vv9k5gkU9XL8yt5mV1S9I6wzLkNTH864+zWrfwVT1V2Y1juD
-HfscT56HKCBm3SpDdmbNMRuivgsdl8ADlgDP2ybZ9EnjY9VVXJZCGhGJY6ip+ecJ
-h8C8Pp37qkgYbDC8ig5LmodBgFU9R38arzVbfsO1IW/wNz0PsVMlZzCBxcc2ohBp
-JVpcHNvCk2su8cOu5xxypmgAQr7u/Sgjqe/RbFE1Yjd1RkuSv/Mhs4fmD+FANJ/s
-AQuyJbMMu6/fTb4lNF00io/K8tLRwt3UYs+4VdE2fZ5G7HuU/5FrgnppMCwecBEx
-xmw6JWqwdTBBba8+vxfFjPEVnRabDl6TTckmOPtuiOeAUA/6OL0HZh/53Duej21Q
-aZMwHf4KEITq1Vk9NZ3TYoU76YTasMZi7iu3F03H0pdVEvO2QrLph8VprodtYrB4
-T6oWIbyYjSgmHCuTXsb0C6aBT4FH+eCuJzaAZxQUvKUiR0O2qgK08KoeFq0PZF73
-LSqmrXQsWi7r4vosAOr/ZgnN+AnLasIzFb672phqcmPRSte834Y=
-=J8gD
------END PGP SIGNATURE-----
-
---drqfz5hhyfavkamj--
+-- 
+Jakub Wilk
