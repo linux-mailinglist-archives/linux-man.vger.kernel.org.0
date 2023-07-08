@@ -2,169 +2,132 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id D2F1074BDAE
-	for <lists+linux-man@lfdr.de>; Sat,  8 Jul 2023 15:52:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5400874BE30
+	for <lists+linux-man@lfdr.de>; Sat,  8 Jul 2023 17:29:32 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229462AbjGHNwq (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 8 Jul 2023 09:52:46 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43356 "EHLO
+        id S230414AbjGHP3b (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 8 Jul 2023 11:29:31 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60072 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229458AbjGHNwq (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 8 Jul 2023 09:52:46 -0400
-Received: from mail-ot1-x333.google.com (mail-ot1-x333.google.com [IPv6:2607:f8b0:4864:20::333])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7766DE50
-        for <linux-man@vger.kernel.org>; Sat,  8 Jul 2023 06:52:44 -0700 (PDT)
-Received: by mail-ot1-x333.google.com with SMTP id 46e09a7af769-6b7206f106cso2522450a34.1
-        for <linux-man@vger.kernel.org>; Sat, 08 Jul 2023 06:52:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1688824364; x=1691416364;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=vykiBZD8Mn9VCpzlPWD0MERs8rb23R9+AB2xa2ovEiQ=;
-        b=WIGZrCB32s8crOFP7iiYYQniihSZynwgd+BJAXKbUHcorNzwc+Sg0hRWuE8bZAsoVW
-         sNY1G7sXcAS2YpV5uV8Eot/T5IQvjXbyxxlX/qoH7iaZB88hV56BYNOivLVjTP1p3u+z
-         Dn4762wyCFdAhL6wE31CvAOf1jV2Xs8xhPanPgLBElFXlSvyIP4x+DM0MErT6h14QEwb
-         Xrp+WwXJb6fWhGLi+Xv+6azxNB+wd/6rXZqPeUV5GeB/O+JSrijTqiPmkjXK+tM4yRoA
-         JbdUDeo4EQ063mtPmoHfs8LfVMxvZ828wFDe7IHNJZsYYNfFNev7Vkxk2LfDO4EevMfM
-         jwrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1688824364; x=1691416364;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=vykiBZD8Mn9VCpzlPWD0MERs8rb23R9+AB2xa2ovEiQ=;
-        b=PsYyvoJwF7VMz3MmdQcMK8VzCspSzfnCmq+qOUQc0JrsPi+Puzr06XHxD652RRg7NU
-         glf7lJq/cPkzrufHECeM0xsSz2gXuELh4AGrnGDaaYqiP6FHuIZK3C+EakfRDUGt3Fk6
-         0NiebIFePo5dpd7gAnCZJo0lxJnpbr5ssh6VeDwvWqs38UeD5A2Oa4dZvT0hOyXh0CXL
-         d3RgXkzjkagjhDXT3KWWEdgafx5HRbwy8Pp3T9cFKcHOTyjpEh4hJW9gMLz7oYvDA/hp
-         2E/UiIlOIovagpy7/NEyH6D02hqLuRlPcRfMoBM0NlOar9aobJONugaAozzoNhaFiGWl
-         7y2Q==
-X-Gm-Message-State: ABy/qLYlgrWmlb8xk8xcL3FJVOMgh3+e4QZiWYNauhGLB+bNYO46qLtg
-        am9+1LlzqbUIBWdPJrIHZ4dWIysUt/Y=
-X-Google-Smtp-Source: APBJJlGJaur+wWd9LYe2pcJHzGKCC8gzqtVJr6wISyoqHH7yZvXqYw8ZdoIWwOn0UWkF8joyyR7bow==
-X-Received: by 2002:a9d:6f10:0:b0:6b9:48de:119d with SMTP id n16-20020a9d6f10000000b006b948de119dmr69975otq.13.1688824363709;
-        Sat, 08 Jul 2023 06:52:43 -0700 (PDT)
-Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id s16-20020a0568301e1000b006b8bf76174fsm2632216otr.21.2023.07.08.06.52.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 08 Jul 2023 06:52:43 -0700 (PDT)
-Date:   Sat, 8 Jul 2023 08:52:40 -0500
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     Tom Schwindl <schwindl@posteo.de>
-Cc:     =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>,
-        "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
-        linux-man@vger.kernel.org
-Subject: Re: [PATCH] regex.3: "([^...])" is not an end of sentence
-Message-ID: <20230708135240.b2wmsbatluv2keko@illithid>
-References: <cndmjlonfcjogtpy7fsrtouncxn335fu52u35poylcwtxihztd@hq2fb3sqvizd>
- <CTWPJBPKXRDW.3KYB31EMTA2B5@morphine>
+        with ESMTP id S229726AbjGHP3a (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 8 Jul 2023 11:29:30 -0400
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BC8B51737
+        for <linux-man@vger.kernel.org>; Sat,  8 Jul 2023 08:29:24 -0700 (PDT)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+         key-exchange X25519 server-signature RSA-PSS (2048 bits))
+        (No client certificate requested)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id 430DE60D3E
+        for <linux-man@vger.kernel.org>; Sat,  8 Jul 2023 15:29:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBB85C433C8;
+        Sat,  8 Jul 2023 15:29:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1688830163;
+        bh=QJWsW/DnOGAVJM10kel15ZXfP1BRmszf8tX+J6mb6Fo=;
+        h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+        b=BK6gzW1GuHSl54yE6fKHxWULDqTogxmBB5L4vrqoksS1zqLGqCqK/MCqr9zKZF5Lq
+         4/Z/7ZsniEC3fu49EJeWEUTboD+0IHnaoLm/JIyO6/3E4RSoJVSdcAU1QwW3tmGs5c
+         oSiPSXEt2cQgSSwoSRx+8LrdpUG/Dixq+ZffZeCPrrZ9cwpIaVgG3bEwvZrmFPhmFj
+         kxoILFmLm+2RNr4pIag6Z+NdunHR4Y0JtRLd1yW8E85aQMcYIHKEvgpImb4jcKknFb
+         f/6K6AQhOjn7KBJCgLN+puQ+jowovU6uAhcELsyLxZCUer/HoMQdMPvFcjMfN+Pjid
+         m5rXc6lsZm64w==
+Message-ID: <69f90d0f-4731-2a7d-9e6c-e1dd0b36c404@kernel.org>
+Date:   Sat, 8 Jul 2023 17:29:19 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [patch] recv.2: correct non-existent name msg_iovec
+Content-Language: en-US
+To:     Rob Linden <rlinden@redhat.com>
+Cc:     linux-man@vger.kernel.org
+References: <CAP0H_AFpK56deW+_Lb0Q3-51Z6kiL_G-SBYmC2GDnpTmrWj0FQ@mail.gmail.com>
+From:   Alejandro Colomar <alx@kernel.org>
+In-Reply-To: <CAP0H_AFpK56deW+_Lb0Q3-51Z6kiL_G-SBYmC2GDnpTmrWj0FQ@mail.gmail.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="jzuzwr5pserdra4q"
-Content-Disposition: inline
-In-Reply-To: <CTWPJBPKXRDW.3KYB31EMTA2B5@morphine>
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-        autolearn=ham autolearn_force=no version=3.4.6
+ protocol="application/pgp-signature";
+ boundary="------------B5EARsQy4ytgOH4YF0ufk1mN"
+X-Spam-Status: No, score=-2.2 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
+        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+        URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------B5EARsQy4ytgOH4YF0ufk1mN
+Content-Type: multipart/mixed; boundary="------------jAr21aADtABSjbY1NBXTTMKS";
+ protected-headers="v1"
+From: Alejandro Colomar <alx@kernel.org>
+To: Rob Linden <rlinden@redhat.com>
+Cc: linux-man@vger.kernel.org
+Message-ID: <69f90d0f-4731-2a7d-9e6c-e1dd0b36c404@kernel.org>
+Subject: Re: [patch] recv.2: correct non-existent name msg_iovec
+References: <CAP0H_AFpK56deW+_Lb0Q3-51Z6kiL_G-SBYmC2GDnpTmrWj0FQ@mail.gmail.com>
+In-Reply-To: <CAP0H_AFpK56deW+_Lb0Q3-51Z6kiL_G-SBYmC2GDnpTmrWj0FQ@mail.gmail.com>
 
---jzuzwr5pserdra4q
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+--------------jAr21aADtABSjbY1NBXTTMKS
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Hi Tom,
+T24gNi8xOS8yMyAxMzo0OSwgUm9iIExpbmRlbiB3cm90ZToNCj4gSGVsbG8gQWxlamFuZHJv
+IQ0KDQpIZWxsbyBSb2IhDQoNClNvcnJ5IGZvciB0aGUgZGVsYXk7IEkndmUgYmVlbiBvbiB2
+YWNhdGlvbi4gIFBsZWFzZSBkb24ndCBzdGFydCBuZXcNCnRocmVhZHMgZm9yIGNvbnRpbnVp
+bmcgYW4gb2xkIG9uZSwgYXMgaXQgbWFrZXMgaXQgZGlmZmljdWx0IHRvIGZvbGxvdy4NCklz
+IHRoaXMganVzdCBhIHJlc2VuZCBvZiB0aGUgcHJldmlvdXMgcGF0Y2g/DQoNClRoYW5rcywN
+CkFsZXgNCg0KPiANCj4gSSB0aGluayB0aGVyZSBpcyBhIG1pc3Rha2Ugb24gdGhlIG1hbnBh
+Z2UgZm9yIHJlY3YuIEluIHRoZSBkZXNjcmlwdGlvbiBvZg0KPiB0aGUgZmxhZyBNU0dfRVJS
+UVVFVUUgaXQgc2F5cyB0aGF0IGRhdGEgaXMgcGFzc2VkIHZpYSAibXNnX2lvdmVjIi4gVGhp
+cyBpcw0KPiBwcm9iYWJseSByZWZlcnJpbmcgdG8gbXNnX2lvdiBpbiBzdHJ1Y3QgbXNnaGRy
+DQo+IChmcm9tIC91c3IvaW5jbHVkZS9iaXRzL3NvY2tldC5oKS4gQSAibXNnX2lvdmVjIiBk
+b2Vzbid0IHNlZW0gdG8gZXhpc3QuDQo+IE1heWJlIGl0IHdhcyBzcGVsbGVkIHdyb25nIGJl
+Y2F1c2UgaXQncyBvZiB0eXBlIHN0cnVjdCBpb3ZlYy4NCj4gSWYgaXQgaXMgaW5kZWVkIHdy
+b25nIHRoZW4gdGhlIGZvbGxvd2luZyBwYXRjaCBjb3JyZWN0cyBpdDoNCj4gDQo+IFNpZ25l
+ZC1vZmYtYnk6IFJvYiBMaW5kZW4gPHJsaW5kZW5AcmVkaGF0LmNvbT4NCj4gDQo+ICBGcm9t
+IDgzMGExYjEyMzNlYjY5YmQ4YTRhNjQyOTY1ODFkMDk0ZmIwZWRjNDYgTW9uIFNlcCAxNyAw
+MDowMDowMCAyMDAxDQo+IEZyb206IHJva2tiZXJ0IDxyb2trYmVydEBnbWFpbC5jb20+DQo+
+IERhdGU6IFR1ZSwgNiBKdW4gMjAyMyAxMDowMDoyMCArMDIwMA0KPiBTdWJqZWN0OiBbUEFU
+Q0hdIHJlY3YuMjogZmllbGQgbXNnX2lvdiBpbiBzdHJ1Y3QgbXNnaGRyIGlzIHdyb25nbHkg
+Y2FsbGVkDQo+ICAgbXNnX2lvdmVjLiBDb3JyZWN0ZWQgdG8gbXNnX2lvdi4NCj4gDQo+IC0t
+LQ0KPiAgIG1hbjIvcmVjdi4yIHwgMiArLQ0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2Vy
+dGlvbigrKSwgMSBkZWxldGlvbigtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL21hbjIvcmVjdi4y
+IGIvbWFuMi9yZWN2LjINCj4gaW5kZXggMjdkNmQ2MTJjLi42MmU0M2M5YWEgMTAwNjQ0DQo+
+IC0tLSBhL21hbjIvcmVjdi4yDQo+ICsrKyBiL21hbjIvcmVjdi4yDQo+IEBAIC0xNTksNyAr
+MTU5LDcgQEAgYW5kDQo+ICAgZm9yIG1vcmUgaW5mb3JtYXRpb24uDQo+ICAgVGhlIHBheWxv
+YWQgb2YgdGhlIG9yaWdpbmFsIHBhY2tldCB0aGF0IGNhdXNlZCB0aGUgZXJyb3INCj4gICBp
+cyBwYXNzZWQgYXMgbm9ybWFsIGRhdGEgdmlhDQo+IC0uSVIgbXNnX2lvdmVjIC4NCj4gKy5J
+UiBtc2dfaW92IC4NCj4gICBUaGUgb3JpZ2luYWwgZGVzdGluYXRpb24gYWRkcmVzcyBvZiB0
+aGUgZGF0YWdyYW0gdGhhdCBjYXVzZWQgdGhlIGVycm9yDQo+ICAgaXMgc3VwcGxpZWQgdmlh
+DQo+ICAgLklSIG1zZ19uYW1lIC4NCj4gLS0NCj4gMi4zOS4yDQo+IA0KPiANCj4gQWxsIHRo
+ZSBiZXN0LA0KPiByb2INCj4gDQoNCi0tIA0KPGh0dHA6Ly93d3cuYWxlamFuZHJvLWNvbG9t
+YXIuZXMvPg0KR1BHIGtleSBmaW5nZXJwcmludDogQTkzNDg1OTRDRTMxMjgzQTgyNkZCREQ4
+RDU3NjMzRDQ0MUUyNUJCNQ0KDQo=
 
-At 2023-07-08T10:10:01+0000, Tom Schwindl wrote:
-> On Sat Jul 8, 2023 at 5:11 AM CEST, =D0=BD=D0=B0=D0=B1 wrote:
-> > diff --git a/man3/regex.3 b/man3/regex.3
-> > index 13e540b22..630c0369d 100644
-> > --- a/man3/regex.3
-> > +++ b/man3/regex.3
-> > @@ -109,7 +109,7 @@ .SS Compilation
-> >  Match-any-character operators don't match a newline.
-> >  .IP
-> >  A nonmatching list
-> > -.RB ( [\[ha]...] )
-> > +.RB ( [\[ha]...\&] )
-> >  not containing a newline does not match a newline.
-> >  .IP
-> >  Match-beginning-of-line operator
->=20
-> I cannot reproduce this on my system; only one space is rendered.
+--------------jAr21aADtABSjbY1NBXTTMKS--
 
-You may have the inter-sentence space amount configured to zero.[1]
-
-I get the extra space with all of DWB 3.3 nroff, Heirloom Doctools
-nroff, mandoc, and groff.
-
-$ printf '.ll 100n\nA nonmatching list\n([\(ha...])\nnot containing a newli=
-ne does not match a newline.\n' | groff -Tascii | cat -s
-A nonmatching list ([^...])  not containing a newline does not match a newl=
-ine.
-
-[cd DWB][2]
-$ printf '.ll 100n\nA nonmatching list\n([\(ha...])\nnot containing a newli=
-ne does not match a newline.\n' | DWBHOME=3D. ./bin/nroff | cat -s
-A nonmatching list ([...])  not containing a newline does not match a newli=
-ne.
-
-[cd Heirloom]
-$ printf '.ll 100n\nA nonmatching list\n([\(ha...])\nnot containing a newli=
-ne does not match a newline.\n' | ./bin/nroff | cat -s
-A nonmatching list ([^...])  not containing a newline does not match a newl=
-ine.
-
-$ printf '.ll 100n\nA nonmatching list\n([\(ha...])\nnot containing a newli=
-ne does not match a newline.\n' | mandoc | cat -s
-()                                                                         =
- ()
-
-A nonmatching list ([^...])  not containing a newline does not match a newl=
-ine.
-
-                                                                           =
-                       ()
-Regards,
-Branden
-
-[1] Adding the following line to your man.local file in a groff
-    installation would do the trick.
-
-    .ss 12 0
-
-    In groff, this is also the default for several "groff locales",
-    including "cs", "de", "fr", "sv", and, new in groff 1.23.0, "it".
-
-[2] I respelled the \[ha] special character escape sequence in legacy
-    form for greater portability, but the "ha" special character _name_
-    is not recognized by DWB troff (which has not been maintained for
-    about 30 years).
-
---jzuzwr5pserdra4q
-Content-Type: application/pgp-signature; name="signature.asc"
+--------------B5EARsQy4ytgOH4YF0ufk1mN
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmSpahIACgkQ0Z6cfXEm
-bc5sIxAAj+et8SAe2yivcmmfWFuyDE5Qg5PDLANACYsSMbVQa+ZB5ZKc1GZAKMU3
-hux4hdwiPsNGLuaAaxo2Fr+mJY8GDdZR9WqxRzrBrWquEXpxHfWkOX/VrcYsr07y
-KZQy3CCl9ZDyT/DE2O4B3Z5juK/+hpC0hyhcN8jazt58YiyxmGfn96t9D9Tks8ue
-PvMzYER+ImQ1ePWpYEiaZgRiZm4AbUeMN0n8JDVSMtvWD509UPsWLslh6aX7ZFuQ
-l3NArb2zY/WgXZBhWw+DptH9hu1qlnMRpVT/J2S/Cvv6jmZVH7OdZB9M1v3TuV9N
-Kj+KKTyPRi4OH2bk+gtzBcTVWRfk/Aj5l6LSrogBPcaTMlCZJ0qrtAo1VF5teSYd
-ix4vpg+Uuyf8BujQK7UMetDArxZOi72RMF1Yh+qw3lhn6YPfPMAjfShrVDSAywFS
-vN8ge4gwsFsjzTBYTx/CtTz9ALHVrzZAvfMbpTZ9UiBo0HsVdd9zZlSVRMX8XOeY
-CvqnH2Oaijcsk2tkkttfOC+PCiuy91a5H+w97vl36KIn9OSvBL45tPpJ0MhDv9lo
-kODIHKZi2bpKA3xfoLU2fCxcV+MGDcIXA9xcbVXVdzDF0hFCzTr3f438b7tbnXZ7
-isP5FlIpvJSLsfUSFA6LU3BwwlKjgWgqYjBi8UogksKsJ7folos=
-=2tzL
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmSpgM8ACgkQnowa+77/
+2zJyYw/+KxhvXBlNHGPZDvhXEWaDDuzH0wzEq0cjo+uKqfxaJn3htr7L71GjmDNE
+Ef+OSu34UIkqxzWyjlzKoiDXLDHBmeN/ZT9Kkczkp3tHPDzOsxRas6mrPl47vfPK
+dtEu2hVmwdi6rbtNBtKsglBcJaopYzF9okmICfrQ5UsKAAoJMKONDxoQliIpOaZd
+tE0K8cTlxcq0207TLUoWQEbBN6RPmiJqdJDaKoAK4ShfW0/Ww2P2zweplYgtv+l5
+KcJ4UplYfZoSAZItNB7p3Jsd6gzcUUJZQM7yNHWYMF6s8cngXA8tnD3P05OvRilk
+x7zD+dAY+CxUA2HiXQEUeHi2Lfc44T6Q6MeukuCgk3mT4veS87M2kyxzXZij9266
+m99iIfB9NC+GdWMZ6FkuxUpsEkjTWLnpZS3/uHRZ31L8AOAY5JWz+G7Za8qsLKWx
+KKcAfrzae6111zwPMwcGt5vKHQllWDk6jITdF/Je89MhdkYAJtJmAdqZvAJs7i0A
+L534x6WdtU3feytFbm2HMP0utYL5VbFhGMgvvhXJq+ePddqdmnbW9qUYqs2AolqN
+Br+wPNaHl2KNA61EwcRAeBKq0m3gMudoegRkC/JdykKCuJuMT3fDD2UAHfUFSI+C
+X83zcUE97yO6pafrgqc9wqhoh30xIUtkomlZQ1EAfhLKWue94Qw=
+=lyJd
 -----END PGP SIGNATURE-----
 
---jzuzwr5pserdra4q--
+--------------B5EARsQy4ytgOH4YF0ufk1mN--
