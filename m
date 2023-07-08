@@ -2,46 +2,46 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id DA6C874BE7F
-	for <lists+linux-man@lfdr.de>; Sat,  8 Jul 2023 18:52:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9FD5974BE82
+	for <lists+linux-man@lfdr.de>; Sat,  8 Jul 2023 18:56:14 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229725AbjGHQwD (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 8 Jul 2023 12:52:03 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43224 "EHLO
+        id S229496AbjGHQ4N (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 8 Jul 2023 12:56:13 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43296 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229483AbjGHQwC (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 8 Jul 2023 12:52:02 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D18C0B9
-        for <linux-man@vger.kernel.org>; Sat,  8 Jul 2023 09:52:00 -0700 (PDT)
+        with ESMTP id S229483AbjGHQ4N (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 8 Jul 2023 12:56:13 -0400
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4663ADB
+        for <linux-man@vger.kernel.org>; Sat,  8 Jul 2023 09:56:12 -0700 (PDT)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
         (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
          key-exchange X25519 server-signature RSA-PSS (2048 bits))
         (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id 5C55C60B71
-        for <linux-man@vger.kernel.org>; Sat,  8 Jul 2023 16:52:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEB8AC433C8;
-        Sat,  8 Jul 2023 16:51:58 +0000 (UTC)
-Message-ID: <5ec74495-490f-9f0c-0cc0-88d70c4186a0@gmail.com>
-Date:   Sat, 8 Jul 2023 18:51:55 +0200
+        by dfw.source.kernel.org (Postfix) with ESMTPS id D5C6860D2C
+        for <linux-man@vger.kernel.org>; Sat,  8 Jul 2023 16:56:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E5F9C433C8;
+        Sat,  8 Jul 2023 16:56:10 +0000 (UTC)
+Message-ID: <057290c1-576b-7c88-b593-1fc5fd4ae04a@gmail.com>
+Date:   Sat, 8 Jul 2023 18:56:08 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
-Subject: Re: [PATCH] inotify.7: wds are in the range [1, INT_MAX], not [0,
+Subject: Re: [PATCH] fanotify_init.2: remove empty pre-header line
 Content-Language: en-US
 To:     =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
 Cc:     linux-man@vger.kernel.org
-References: <erkqk2qv5kv7xbyacbcnu5yn6g3s42ncxbrm2pquhjpdugvk5d@cskpexpgyuj2>
+References: <egwuot7zgfcelb6632w4rkneeccrqug45aumfntkzhevrxcbcp@hdcujacv2gyt>
 From:   Alejandro Colomar <alx.manpages@gmail.com>
-In-Reply-To: <erkqk2qv5kv7xbyacbcnu5yn6g3s42ncxbrm2pquhjpdugvk5d@cskpexpgyuj2>
+In-Reply-To: <egwuot7zgfcelb6632w4rkneeccrqug45aumfntkzhevrxcbcp@hdcujacv2gyt>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------pBYQBJ9fJ0C9VRlXX5ljH8c8"
-X-Spam-Status: No, score=0.4 required=5.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+ boundary="------------9KsMrZ8E6B2VHgZdYCmV2tYM"
+X-Spam-Status: No, score=-4.6 required=5.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
         FORGED_GMAIL_RCVD,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
         HEADER_FROM_DIFFERENT_DOMAINS,NICE_REPLY_A,NML_ADSP_CUSTOM_MED,
-        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-        URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.6
+        RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+        URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
@@ -49,69 +49,60 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------pBYQBJ9fJ0C9VRlXX5ljH8c8
-Content-Type: multipart/mixed; boundary="------------tCe0Wlq8u80Zi2huM0bBlKO1";
+--------------9KsMrZ8E6B2VHgZdYCmV2tYM
+Content-Type: multipart/mixed; boundary="------------To23KUAaOkJme5pubRAGQ0mr";
  protected-headers="v1"
 From: Alejandro Colomar <alx.manpages@gmail.com>
 To: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
 Cc: linux-man@vger.kernel.org
-Message-ID: <5ec74495-490f-9f0c-0cc0-88d70c4186a0@gmail.com>
-Subject: Re: [PATCH] inotify.7: wds are in the range [1, INT_MAX], not [0,
-References: <erkqk2qv5kv7xbyacbcnu5yn6g3s42ncxbrm2pquhjpdugvk5d@cskpexpgyuj2>
-In-Reply-To: <erkqk2qv5kv7xbyacbcnu5yn6g3s42ncxbrm2pquhjpdugvk5d@cskpexpgyuj2>
+Message-ID: <057290c1-576b-7c88-b593-1fc5fd4ae04a@gmail.com>
+Subject: Re: [PATCH] fanotify_init.2: remove empty pre-header line
+References: <egwuot7zgfcelb6632w4rkneeccrqug45aumfntkzhevrxcbcp@hdcujacv2gyt>
+In-Reply-To: <egwuot7zgfcelb6632w4rkneeccrqug45aumfntkzhevrxcbcp@hdcujacv2gyt>
 
---------------tCe0Wlq8u80Zi2huM0bBlKO1
+--------------To23KUAaOkJme5pubRAGQ0mr
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: base64
 
-T24gNy8yLzIzIDAxOjQxLCDQvdCw0LEgd3JvdGU6DQo+IE5hdHVyYWxseSwgdGhlIGZpcnN0
-IGlub3RpZnlfYWRkX3dhdGNoKCkgcmV0dXJucyAxLA0KPiBidXQgYWxzbyBmcy9ub3RpZnkv
-aW5vdGlmeS5jOmlub3RpZnlfYWRkX3RvX2lkcigpIGFsbG9jYXRlcyB0aGVtIHdpdGgNCj4g
-ICAgaWRyX2FsbG9jX2N5Y2xpYyhpZHIsIGlfbWFyaywgc3RhcnQ9MSwgZW5kPTAsIEdGUF9O
-T1dBSVQpOw0KPiAoc3RhcnQgaW5jbHVzaXZlLCBlbmQgZXhjbHVzaXZlKS4NCj4gDQo+IChG
-cm9tIFNZU0NBTExfREVGSU5FMyhpbm90aWZ5X2FkZF93YXRjaCwgLi4uKSwNCj4gICBmcm9t
-IGlub3RpZnlfdXBkYXRlX3dhdGNoKCksDQo+ICAgZnJvbSBpbm90aWZ5X25ld193YXRjaCgp
-KS4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IEFoZWxlbmlhIFppZW1pYcWEc2thIDxuYWJpamFj
-emxld2VsaUBuYWJpamFjemxld2VsaS54eXo+DQo+IC0tLQ0KDQpIaSENCg0KUGF0Y2ggYXBw
-bGllZC4gIFRoYW5rcyENCg0KQ2hlZXJzLA0KQWxleA0KDQo+ICAgbWFuNy9pbm90aWZ5Ljcg
-fCAyICstDQo+ICAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9u
-KC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvbWFuNy9pbm90aWZ5LjcgYi9tYW43L2lub3RpZnku
-Nw0KPiBpbmRleCA0ZmU4MzkwMmEuLjI4MmU5N2VkNyAxMDA2NDQNCj4gLS0tIGEvbWFuNy9p
-bm90aWZ5LjcNCj4gKysrIGIvbWFuNy9pbm90aWZ5LjcNCj4gQEAgLTgzOCw3ICs4MzgsNyBA
-QCAuU0ggQlVHUw0KPiAgIGFueSBwZW5kaW5nIHVucmVhZCBldmVudHMgZm9yIHRoYXQgd2F0
-Y2ggZGVzY3JpcHRvciByZW1haW4gYXZhaWxhYmxlIHRvIHJlYWQuDQo+ICAgQXMgd2F0Y2gg
-ZGVzY3JpcHRvcnMgYXJlIHN1YnNlcXVlbnRseSBhbGxvY2F0ZWQgd2l0aA0KPiAgIC5CUiBp
-bm90aWZ5X2FkZF93YXRjaCAoMiksDQo+IC10aGUga2VybmVsIGN5Y2xlcyB0aHJvdWdoIHRo
-ZSByYW5nZSBvZiBwb3NzaWJsZSB3YXRjaCBkZXNjcmlwdG9ycyAoMCB0bw0KPiArdGhlIGtl
-cm5lbCBjeWNsZXMgdGhyb3VnaCB0aGUgcmFuZ2Ugb2YgcG9zc2libGUgd2F0Y2ggZGVzY3Jp
-cHRvcnMgKDEgdG8NCj4gICAuQlIgSU5UX01BWCApDQo+ICAgaW5jcmVtZW50YWxseS4NCj4g
-ICBXaGVuIGFsbG9jYXRpbmcgYSBmcmVlIHdhdGNoIGRlc2NyaXB0b3IsIG5vIGNoZWNrIGlz
-IG1hZGUgdG8gc2VlIHdoZXRoZXIgdGhhdA0KDQotLSANCjxodHRwOi8vd3d3LmFsZWphbmRy
-by1jb2xvbWFyLmVzLz4NCkdQRyBrZXkgZmluZ2VycHJpbnQ6IEE5MzQ4NTk0Q0UzMTI4M0E4
-MjZGQkREOEQ1NzYzM0Q0NDFFMjVCQjUNCg0K
+T24gNy8zLzIzIDE2OjQzLCDQvdCw0LEgd3JvdGU6DQo+IFdoaWNoIHlpZWxkcyBhbiBlbXB0
+eSBsaW5lIGluIHRoZSBmb3JtYXR0ZWQgb3V0cHV0Lg0KPiANCj4gU2lnbmVkLW9mZi1ieTog
+QWhlbGVuaWEgWmllbWlhxYRza2EgPG5hYmlqYWN6bGV3ZWxpQG5hYmlqYWN6bGV3ZWxpLnh5
+ej4NCj4gLS0tDQoNCkFwcGxpZWQuICBUaGFua3MsDQpBbGV4DQoNCj4gICBtYW4yL2Zhbm90
+aWZ5X2luaXQuMiB8IDIgKy0NCj4gICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyks
+IDEgZGVsZXRpb24oLSkNCj4gDQo+IGRpZmYgLS1naXQgYS9tYW4yL2Zhbm90aWZ5X2luaXQu
+MiBiL21hbjIvZmFub3RpZnlfaW5pdC4yDQo+IGluZGV4IDY1ZDczNTY1Zi4uM2Y0MzU5ZTgz
+IDEwMDY0NA0KPiAtLS0gYS9tYW4yL2Zhbm90aWZ5X2luaXQuMg0KPiArKysgYi9tYW4yL2Zh
+bm90aWZ5X2luaXQuMg0KPiBAQCAtMSw0ICsxLDQgQEANCj4gLVwiIENvcHlyaWdodCAoQykg
+MjAxMywgSGVpbnJpY2ggU2NodWNoYXJkdCA8eHlwcm9uLmdscGtAZ214LmRlPg0KPiArLlwi
+IENvcHlyaWdodCAoQykgMjAxMywgSGVpbnJpY2ggU2NodWNoYXJkdCA8eHlwcm9uLmdscGtA
+Z214LmRlPg0KPiAgIC5cIg0KPiAgIC5cIiBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogTGlu
+dXgtbWFuLXBhZ2VzLWNvcHlsZWZ0DQo+ICAgLlRIIGZhbm90aWZ5X2luaXQgMiAoZGF0ZSkg
+IkxpbnV4IG1hbi1wYWdlcyAodW5yZWxlYXNlZCkiDQoNCi0tIA0KPGh0dHA6Ly93d3cuYWxl
+amFuZHJvLWNvbG9tYXIuZXMvPg0KR1BHIGtleSBmaW5nZXJwcmludDogQTkzNDg1OTRDRTMx
+MjgzQTgyNkZCREQ4RDU3NjMzRDQ0MUUyNUJCNQ0KDQo=
 
---------------tCe0Wlq8u80Zi2huM0bBlKO1--
+--------------To23KUAaOkJme5pubRAGQ0mr--
 
---------------pBYQBJ9fJ0C9VRlXX5ljH8c8
+--------------9KsMrZ8E6B2VHgZdYCmV2tYM
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmSplCsACgkQnowa+77/
-2zKP3A/9FmopiXIdxxDGIEFfhgOVGKbW0t/Si8eUmp8AInjw4i3ikTfRCWGd7we4
-o5xJSodGGwsSfbtqScu2/P3iC413sC+r7HGfHJ09+tKSWrbbPhzCE2tA84wypBGp
-Fqz7FDH3wnnPfF10hHLLa0opF5KriCI8RieXfKSRLCEmsaBhfTDoOVuUkHszHLUM
-nHtw0Pgw4lnjvuqh+s0+O7yIiasKL5SpIRuFEs9pxACGD5II4ad8zT028UgFC5KT
-FFH8ociKdZscOZQWh57Qvm715+0ztpNLQ5R97eiJ4TQbec+mNM8y5BgdjVQeWZUR
-DAhGlp9XIXhn6sFC4hCvpj35LfQKPn1oTkOwM61qnZjSh5i3JZGwiU8kFvci8Kei
-e2wX0+oNOjCHljKcLlH7vheIUU6MedATpf7In6w0dGy/PW5x6Lez8nKQJFheqDsH
-efd3WoZYcjtSjrXl8tePQ7gdNk/D/+ve4XnOw16lTMUWZCxXQ8fjJlp+KrMwO9yC
-nzUt+GGQrfRJhXpS86XDdX50YCHJ1O7cAjyLXFfIEElKRBMl8CBsNdG+IPFhT3jl
-AZGsNc5K846/dm9jfQb3fqchpuTM9ZsVDOeXxr34jvf0tvbokbnabd9YQnnB2XzM
-zWkco0JBt5SIItZ5p5ELadcaeXgKcTRulM6azLv3Dgx8soxbXPg=
-=QMqB
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmSplSgACgkQnowa+77/
+2zKwFA/+PFZMCRsqz9GCLT8Bt4/fDZs7HqCE6JxsWi2S5MDmKI14Txkpni0H/Nyx
+DaHmDFEKvH1K5PtovHe5aj/dum+pcSoPIsPwDN3k2Y5Wg2bINnPK8nbgfKQKUUvS
+p5a3ygX3A6a/Wn2jWZqe2gu1p4DHXViVToNRGf96sbbtKF3hJtBpC3dSssPUCfzK
+u3FU/jPm5t8V6nj8RaXReeva0nRbbjecWf8LeNEM9/lZFci4qrz7GSdcfx4KCS6U
+P1BmXbPe+f1kPEFp6uVEuIjh7jkkU3Lfi+DNibuSEFOwXnKOCy2ANXj2TJnI3SBb
+Jiek2HaII7BsIVjvLzX/tt5GPumP8BySVvKMLdKFnMhBvZ8mAEDyqxoaKHKLTG+J
+FoHg6Ivxn+LcUTfCHsTRLS7Y9OQoB8O4UaTUqpQ28IlJfjn2VyNS1ca6yVqztoB0
+iW5xVa3gknnae7taLnrzoAB+ucBL4O+L8WlrVXKvCLcI2SLjoetc31Dwzzv1xSPV
+/EtodN1Swjo1WQg1neD/R2FnoSekDQvjsQG/vJOJbvtoNalOoHGNqed8kXbCZJ6s
+Zp3ynIFbI278NKN+9wTKw8gTRe1FTvrXMqmdlqz6ybGLSI75rmP034YO9pygznya
+QwAsgDkC3lodb6th7HKZlpvpuv74aXdtF1VnGFFTGnXzmPGln98=
+=gzF0
 -----END PGP SIGNATURE-----
 
---------------pBYQBJ9fJ0C9VRlXX5ljH8c8--
+--------------9KsMrZ8E6B2VHgZdYCmV2tYM--
