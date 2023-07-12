@@ -2,213 +2,106 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id E37A1750283
-	for <lists+linux-man@lfdr.de>; Wed, 12 Jul 2023 11:07:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7AF4C750500
+	for <lists+linux-man@lfdr.de>; Wed, 12 Jul 2023 12:45:10 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231488AbjGLJHU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 12 Jul 2023 05:07:20 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51812 "EHLO
+        id S229931AbjGLKpJ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 12 Jul 2023 06:45:09 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59152 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231294AbjGLJGj (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 12 Jul 2023 05:06:39 -0400
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 128DF173A
-        for <linux-man@vger.kernel.org>; Wed, 12 Jul 2023 02:05:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1689152743;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:mime-version:mime-version:content-type:content-type;
-        bh=2jecaLVSR5GfauCgnsT09f6T5SPtWYHg79ax/FkNb3s=;
-        b=iJg9SlaO4MooVt2iSI3+GF7L9pzGuQyXvxS5vBg3/sPdQqljb8cml9HBROKZSetollF/ZY
-        hs2j/BsqgWre2M7Qp3fMstkebjnS/nLh1rzg9+H/+uIWbVpT1X5qJaRbDdkFfA/jeclGeE
-        gZMqv0vYqzLu0Z5SVOQYrBu5Z+hvdd8=
-Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com
- [209.85.208.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-110-NxwMKYswN6uezSGUaHBvmw-1; Wed, 12 Jul 2023 05:05:41 -0400
-X-MC-Unique: NxwMKYswN6uezSGUaHBvmw-1
-Received: by mail-ed1-f72.google.com with SMTP id 4fb4d7f45d1cf-51e2497eeefso4315436a12.3
-        for <linux-man@vger.kernel.org>; Wed, 12 Jul 2023 02:05:41 -0700 (PDT)
+        with ESMTP id S230258AbjGLKpI (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 12 Jul 2023 06:45:08 -0400
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com [IPv6:2a00:1450:4864:20::136])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 100BFC2
+        for <linux-man@vger.kernel.org>; Wed, 12 Jul 2023 03:45:07 -0700 (PDT)
+Received: by mail-lf1-x136.google.com with SMTP id 2adb3069b0e04-4f96d680399so10122900e87.0
+        for <linux-man@vger.kernel.org>; Wed, 12 Jul 2023 03:45:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1689158705; x=1691750705;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=lEyY000OC90euETDQqifc31G7bhJ59Yx8+cxqWZmPZU=;
+        b=sc3T5Rc+kvExS1RljwDQ0QCH7AnqjgHob7mEVES//UNeaUkPjHDCca3XrgQkX9W9k2
+         1+vaAp+/S4NrlAKPCVR3rbprcdnIJ/aLip6x0byaAgk2JAZNth5+clCSTVUBYJAbRlnI
+         ti7f4r6K4+hzBZCi2Cm4zVgd50vLenTl8ObkPtulnIHbNY3oSglCiPd6T31JVYa4MuJ7
+         Zo7X+ZtDSP1vus8h5k4RhuH5uyeGx285c//5c6oMexKzkAhmDFHT7mSZb1eXH9Fhh+gK
+         7qf0GdxL4+hDj+Ef98iy1couzNFQ0YAIePo3tiFNh3yHykfQcxrepli6GHeNDwNLLtsv
+         q/3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689152740; x=1691744740;
-        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=2jecaLVSR5GfauCgnsT09f6T5SPtWYHg79ax/FkNb3s=;
-        b=TcmOKlpddwBDtjO3lYaMX15MNgzWj9JdSNk/qKPgY93gIcMxoGr1KSAOAaEYD49nDi
-         10Buk69dkbMssVi146UP9jXmPCSFkKjh1jQHFrksOaUFU9aTFTw0LRUkp8gY7ftdyGUO
-         BAn2eoz/kQbgCRDDqp9yyzDuS1gKd9WB5/C+dv7PtkpbONqhr792IILmPCiuVLlkTw5j
-         8FB7q57LTJUlilJy7+6/OubaWdZLqezIc/EWYejD6yIiyJdLMRemHKmVh+3dMoPjNT/U
-         +3Z84ixcCMDnbjfcTSoyDXXIraaJYb2xVswr9LKJlyAhPYbXKIbvjmLDPl0BkXD6rN8k
-         fMXw==
-X-Gm-Message-State: ABy/qLZU0SO9mDyzIL/oQQFGkFVQl1LgHcNFBfzZ8b2DO+WCWr7HSfjN
-        S4CoYCzH+NYcbBup3/D6VjZ4zXIP9yBIqrxapE8XieCn76bXzjl3aAGmkAXQa2+q7WAVUh8bTA9
-        jP/Dv4JNud4YTc2yxQ6L3zKZ+n1Zd1Z7b533/aj9p/MbyvIw=
-X-Received: by 2002:a50:fe93:0:b0:51a:5a25:6631 with SMTP id d19-20020a50fe93000000b0051a5a256631mr15942328edt.3.1689152740726;
-        Wed, 12 Jul 2023 02:05:40 -0700 (PDT)
-X-Google-Smtp-Source: APBJJlHmuTW7ujdr1lDyq1jZfdAGhpxlhx2HYnRaJiHksUqP7Zc4WtwSxHq45Qb2LrKz0gr4+39tcRCwCoIn2ugNJfU=
-X-Received: by 2002:a50:fe93:0:b0:51a:5a25:6631 with SMTP id
- d19-20020a50fe93000000b0051a5a256631mr15942313edt.3.1689152740347; Wed, 12
- Jul 2023 02:05:40 -0700 (PDT)
+        d=1e100.net; s=20221208; t=1689158705; x=1691750705;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=lEyY000OC90euETDQqifc31G7bhJ59Yx8+cxqWZmPZU=;
+        b=BGTlUIQNs0jpMrfe1vBgl/CMBjHLNkC7waqFXfChwUaTSqroVTc0ILJbLa+gQiBg0J
+         WUJ7g0ApU1GGKcBShTA6OnD11EjZAOD0xR1vFUCMlm7lXybFtjeZDGXXBXsfHSViiPnV
+         l8r6U4yjfYGwiOcmC+G4HAHxPfScpJMktz42hPpr0d3dW9slOcLs64Oz1gBtDHktf3JJ
+         zpfFkmsdBdKbWHObo6plz8I3dKOUv78ftc47cGNdotYkMCCoSmwnV99nT268fKr7x0dY
+         CzlwbNirVGQzjuzqsCh7L86OjsWlk0WOKP1AF630W2dcznXtJwST74czuZykUlqg5rZM
+         m5zg==
+X-Gm-Message-State: ABy/qLYPvNHLczKo4FHw3GWUqnXZr2helkbKj5RdKHMf7Dun1195f0U5
+        6HHRX5lmitEnHE0TuZXrfUAcRvlU9HMBsMwVZ/U=
+X-Google-Smtp-Source: APBJJlEQcd8YqvP7jV9BnswM3ZQF58YQ+D1TdyGs3M0ofjdRu0GClp1sM6Ia8Hjc6Qfk0PJ0MFgUZnKk+D6XqxGTVrE=
+X-Received: by 2002:ac2:5f45:0:b0:4f9:8c08:57db with SMTP id
+ 5-20020ac25f45000000b004f98c0857dbmr15724956lfz.58.1689158705032; Wed, 12 Jul
+ 2023 03:45:05 -0700 (PDT)
 MIME-Version: 1.0
-From:   Rob Linden <rlinden@redhat.com>
-Date:   Wed, 12 Jul 2023 11:05:29 +0200
-Message-ID: <CAP0H_AHtBCVaj2KM+DhHAoJrM4MW+vQhMEH0UHEa_UiMUzW03g@mail.gmail.com>
-Subject: [PATCH] recv.2: msg_iovec / MSG_ERRQUEUE / -v
-To:     Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org
+References: <6aa0c5c1dd37704e283794ed828461d1e0831780.1688997554.git.tgolembi@redhat.com>
+ <20230710152150.b7lwmzwmuqjxxsiv@illithid>
+In-Reply-To: <20230710152150.b7lwmzwmuqjxxsiv@illithid>
+From:   Stefan Puiu <stefan.puiu@gmail.com>
+Date:   Wed, 12 Jul 2023 13:45:01 +0300
+Message-ID: <CACKs7VB0mkKo4f6D9QkFmFuA2UZT24vQVV8L_ZsbNujNVGpaTg@mail.gmail.com>
+Subject: Re: [PATCH v2] abort: clarify consequences of calling abort
+To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc:     =?UTF-8?B?VG9tw6HFoSBHb2xlbWJpb3Zza8O9?= <tgolembi@redhat.com>,
+        Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-        RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,
-        SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=ham
-        autolearn_force=no version=3.4.6
+Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Hello Alejandro!
+Hi,
 
-This is a combined repost of the 3 individual patches I sent in June.  (I
-had thought it makes sense to split it up, because the changes were
-unrelated, so maybe one could be approved while another one needs
-discussion).
+On Mon, Jul 10, 2023 at 6:41=E2=80=AFPM G. Branden Robinson
+<g.branden.robinson@gmail.com> wrote:
+>
+>
+> At 2023-07-10T15:59:28+0200, Tom=C3=A1=C5=A1 Golembiovsk=C3=BD wrote:
+>
+> I believe Alex's preference in the Linux man-pages project is to
+> document what is actually implemented, not to repeat normative language
+> (paraphrased or not) from the POSIX standard.
+>
+> So glibc should be tested to verify the behavior it actually exhibits,
+> and the language above then updated to describe that, noting any
+> deviation from POSIX's prescription.
 
-I think there is a mistake on the manpage for recv.  In the description of
-the flag MSG_ERRQUEUE it says that data is passed via "msg_iovec".  This is
-probably referring to msg_iov in struct msghdr (from
-/usr/include/bits/socket.h).  A "msg_iovec" doesn't seem to exist.  Maybe it
-was spelled wrong because it's of type struct iovec.  If it is indeed wrong
-then the following patch corrects it.
+At least when Michael Kerrisk was the man-pages maintainer, he would
+usually ask for a test program proving that the documentation change
+is correct and / or a pointer to the kernel / libc code, where the
+behavior could be (hopefully) inferred. I think this is valuable, it
+makes it easier to track why a certain change was made, and how the
+behavior was observed at that time. If running the same test case
+after X years yields a different behavior, it's clear the change that
+it triggered no longer stands. It's also fair, I think: the burden of
+proof is on the person suggesting the change.
 
-I think the flag MSG_ERRQUEUE, that is described on the man page recv.2 is
-only applicable to recvmsg, and not recv or recvfrom.  Maybe it would be
-good to mention it, just like it is specified for MSG_CMSG_CLOEXEC.  The
-following patch does that.
+Just my 2 cents,
+Stefan.
 
-While reading the recv manpage I came up with some suggestions which I
-believe would make it easier for the reader.  They are not corrections
-(except for the last block, which I believe was incomplete), just
-improvements (IMHO).
-
-Thanks & all the best,
-rob
-
-
-From 830a1b1233eb69bd8a4a64296581d094fb0edc46 Mon Sep 17 00:00:00 2001
-From: rokkbert <rokkbert@gmail.com>
-Date: Tue, 6 Jun 2023 10:00:20 +0200
-Subject: [PATCH 1/3] recv.2: field msg_iov in struct msghdr is wrongly called
- msg_iovec. Corrected to msg_iov.
-
----
- man2/recv.2 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/man2/recv.2 b/man2/recv.2
-index 27d6d612c..62e43c9aa 100644
---- a/man2/recv.2
-+++ b/man2/recv.2
-@@ -159,7 +159,7 @@ and
- for more information.
- The payload of the original packet that caused the error
- is passed as normal data via
--.IR msg_iovec .
-+.IR msg_iov .
- The original destination address of the datagram that caused the error
- is supplied via
- .IR msg_name .
--- 
-2.39.2
-
-
-From c3ec57d21d2b754ee05913cfa035f5e31aaaae95 Mon Sep 17 00:00:00 2001
-From: rokkbert <rokkbert@gmail.com>
-Date: Tue, 13 Jun 2023 17:45:32 +0200
-Subject: [PATCH 2/3] recv.2: added note that flag MSG_ERRQUEUE is only
- applicable to recvmsg. Only recvmsg allows the caller to even pass the
- required struct msghdr to receive the error data.
-
----
- man2/recv.2 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/man2/recv.2 b/man2/recv.2
-index 62e43c9aa..3697d0c84 100644
---- a/man2/recv.2
-+++ b/man2/recv.2
-@@ -145,7 +145,7 @@ which will affect all threads in the calling process
- and as well as other processes that hold file descriptors
- referring to the same open file description.
- .TP
--.BR MSG_ERRQUEUE " (since Linux 2.2)"
-+.BR MSG_ERRQUEUE " (" recvmsg "() only; since Linux 2.2)"
- This flag
- specifies that queued errors should be received from the socket error queue.
- The error is passed in
--- 
-2.39.2
-
-
-From 4f4ea0984d0a207960121f142e1b9e181194ef8e Mon Sep 17 00:00:00 2001
-From: rokkbert <rokkbert@gmail.com>
-Date: Tue, 13 Jun 2023 17:55:08 +0200
-Subject: [PATCH 3/3] recv.2: increased verbosity and, hopefully,
- understandability a bit.
-
----
- man2/recv.2 | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
-
-diff --git a/man2/recv.2 b/man2/recv.2
-index 3697d0c84..f675f65aa 100644
---- a/man2/recv.2
-+++ b/man2/recv.2
-@@ -92,7 +92,10 @@ All three calls return the length of the message on
-successful
- completion.
- If a message is too long to fit in the supplied buffer, excess
- bytes may be discarded depending on the type of socket the message is
--received from.
-+received from, e.g. for
-+.BR SOCK_DGRAM ", but not for " SOCK_STREAM .
-+To find out how many bytes are available see the flags
-+.BR MSG_PEEK " and " MSG_TRUNC .
- .PP
- If no messages are available at the socket, the receive calls wait for a
- message to arrive, unless the socket is nonblocking (see
-@@ -100,7 +103,7 @@ message to arrive, unless the socket is nonblocking (see
- in which case the value \-1 is returned and
- .I errno
- is set to
--.BR EAGAIN " or " EWOULDBLOCK .
-+.BR EAGAIN " or " EWOULDBLOCK " (see " ERRORS ).
- The receive calls normally return any data available, up to the requested
- amount, rather than waiting for receipt of the full amount requested.
- .PP
-@@ -256,7 +259,8 @@ For use with Internet stream sockets, see
- .TP
- .BR MSG_WAITALL " (since Linux 2.2)"
- This flag requests that the operation block until the full request is
--satisfied.
-+satisfied, i.e.
-+.BR len " bytes have been written to the buffer."
- However, the call may still return less data than requested if
- a signal is caught, an error or disconnect occurs, or the next data to be
- received is of a different type than that returned.
-@@ -432,8 +436,9 @@ is returned to indicate that expedited or
-out-of-band data was received.
- indicates that no data was received but an extended error from the socket
- error queue.
- .SH RETURN VALUE
--These calls return the number of bytes received, or \-1
--if an error occurred.
-+These calls return the number of bytes copied to buf, the number of bytes
-+received by the socket (see
-+.BR MSG_TRUNC "), or -1 if an error occurred."
- In the event of an error,
- .I errno
- is set to indicate the error.
--- 
-2.39.2
-
+>
+> The same can, optionally, be done for other libcs like musl.
+>
+> Alex, please correct me if I'm mistaken.
+>
+> Regards,
+> Branden
