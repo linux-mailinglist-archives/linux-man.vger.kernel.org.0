@@ -2,71 +2,60 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id F07497500E2
-	for <lists+linux-man@lfdr.de>; Wed, 12 Jul 2023 10:12:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E37A1750283
+	for <lists+linux-man@lfdr.de>; Wed, 12 Jul 2023 11:07:21 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232126AbjGLIMe (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 12 Jul 2023 04:12:34 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44850 "EHLO
+        id S231488AbjGLJHU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 12 Jul 2023 05:07:20 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51812 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229473AbjGLIMe (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 12 Jul 2023 04:12:34 -0400
+        with ESMTP id S231294AbjGLJGj (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 12 Jul 2023 05:06:39 -0400
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 378351981
-        for <linux-man@vger.kernel.org>; Wed, 12 Jul 2023 01:11:44 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 128DF173A
+        for <linux-man@vger.kernel.org>; Wed, 12 Jul 2023 02:05:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1689149503;
+        s=mimecast20190719; t=1689152743;
         h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         content-transfer-encoding:content-transfer-encoding;
-        bh=LUMInxN68BJidtKaidz4KkWCv3tuCNo0Ln3YVNmCSZw=;
-        b=QrBjBBGAO042LFCWc91YD7itKbG0SaJUCM+2v6J8EvYMFh21UYcG/W2wukW0cpuIuOLzLt
-        lJcA4Bnm6HcmVDui8ADHz/hpUazSoinHbCnlcVlG5l6IFjZyvpmG3g8Qr19SsctVJiea0p
-        uihg8FxLXEpT8x9fKp/7X8q5Ip9BNF8=
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200]) by relay.mimecast.com with ESMTP with STARTTLS
+         to:to:cc:mime-version:mime-version:content-type:content-type;
+        bh=2jecaLVSR5GfauCgnsT09f6T5SPtWYHg79ax/FkNb3s=;
+        b=iJg9SlaO4MooVt2iSI3+GF7L9pzGuQyXvxS5vBg3/sPdQqljb8cml9HBROKZSetollF/ZY
+        hs2j/BsqgWre2M7Qp3fMstkebjnS/nLh1rzg9+H/+uIWbVpT1X5qJaRbDdkFfA/jeclGeE
+        gZMqv0vYqzLu0Z5SVOQYrBu5Z+hvdd8=
+Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com
+ [209.85.208.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-28-g9xolaCQNi6hU0kJdXZ7eg-1; Wed, 12 Jul 2023 04:11:39 -0400
-X-MC-Unique: g9xolaCQNi6hU0kJdXZ7eg-1
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-403ab5a9a83so35755801cf.1
-        for <linux-man@vger.kernel.org>; Wed, 12 Jul 2023 01:11:39 -0700 (PDT)
+ us-mta-110-NxwMKYswN6uezSGUaHBvmw-1; Wed, 12 Jul 2023 05:05:41 -0400
+X-MC-Unique: NxwMKYswN6uezSGUaHBvmw-1
+Received: by mail-ed1-f72.google.com with SMTP id 4fb4d7f45d1cf-51e2497eeefso4315436a12.3
+        for <linux-man@vger.kernel.org>; Wed, 12 Jul 2023 02:05:41 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689149499; x=1691741499;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=LUMInxN68BJidtKaidz4KkWCv3tuCNo0Ln3YVNmCSZw=;
-        b=Aia/mQp5/XYYmO2AzpjtKTD1Hfl4g0IXzfPCeJ5i8+B2wrIzOAPL33Z9IZ3Wy8LafN
-         zzgkRZbr0oLFY9ILgU5NNaqT3CfnK2BRVdDNqfY4CK5Lse/HR86Q3xgm/IGdqqUiBoDI
-         NPysNM0sClgex+CWPL7l0bs4+GeBbWMbbB13sJMrNXydwA24jyFg+bDZTBVHF0k0ZIVB
-         bzj3BgYvo96WVQZul8wsK0aZHEj4EJplROlqwlXFB9VADTBu+TOgRnmE2dTeHCcA5tcx
-         j45l64jEtTeP+k7+pPdbTzhu+YrOLGISA+sw7VmHlEvsBdj1cQ7Ti28e7kAgeWJ5WuWX
-         6trw==
-X-Gm-Message-State: ABy/qLaLrZ4Rk2gc1Jd7QgUw3sTS+iqBxQoMcAQ8cQe3WfAVm1/EgNF0
-        07j2yU5fZ7PUFL8YJ7IBxekDyX5YOuvEngrcmbhZDXCNTQt/oxpy9udWaPUwblFwYx6YZgSMrUQ
-        7MSuXpkCwp6da4PDr8VxTDPXOBSDH
-X-Received: by 2002:ac8:7fcc:0:b0:403:ad13:223a with SMTP id b12-20020ac87fcc000000b00403ad13223amr12138997qtk.8.1689149499316;
-        Wed, 12 Jul 2023 01:11:39 -0700 (PDT)
-X-Google-Smtp-Source: APBJJlGBAxEmCvTMGH2fNLB80F5tonuMMFkUZ1Aa41fWbiGMPN1sqxQ6+Zb/Hi7gUDctn41dPNlhPw==
-X-Received: by 2002:ac8:7fcc:0:b0:403:ad13:223a with SMTP id b12-20020ac87fcc000000b00403ad13223amr12138981qtk.8.1689149499133;
-        Wed, 12 Jul 2023 01:11:39 -0700 (PDT)
-Received: from cremorrah.redhat.com (ip-86-49-233-183.bb.vodafone.cz. [86.49.233.183])
-        by smtp.gmail.com with ESMTPSA id r18-20020ac87ef2000000b003ef189ffa82sm2030882qtc.90.2023.07.12.01.11.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Jul 2023 01:11:38 -0700 (PDT)
-From:   =?UTF-8?q?Tom=C3=A1=C5=A1=20Golembiovsk=C3=BD?= 
-        <tgolembi@redhat.com>
-To:     Alejandro Colomar <alx@kernel.org>
-Cc:     linux-man@vger.kernel.org,
-        =?UTF-8?q?Tom=C3=A1=C5=A1=20Golembiovsk=C3=BD?= 
-        <tgolembi@redhat.com>
-Subject: [PATCH v3] abort: clarify consequences of calling abort
-Date:   Wed, 12 Jul 2023 10:11:36 +0200
-Message-ID: <c4d5acae26ab43479e269a5a2f5b8e263a483a91.1689149490.git.tgolembi@redhat.com>
-X-Mailer: git-send-email 2.41.0
+        d=1e100.net; s=20221208; t=1689152740; x=1691744740;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=2jecaLVSR5GfauCgnsT09f6T5SPtWYHg79ax/FkNb3s=;
+        b=TcmOKlpddwBDtjO3lYaMX15MNgzWj9JdSNk/qKPgY93gIcMxoGr1KSAOAaEYD49nDi
+         10Buk69dkbMssVi146UP9jXmPCSFkKjh1jQHFrksOaUFU9aTFTw0LRUkp8gY7ftdyGUO
+         BAn2eoz/kQbgCRDDqp9yyzDuS1gKd9WB5/C+dv7PtkpbONqhr792IILmPCiuVLlkTw5j
+         8FB7q57LTJUlilJy7+6/OubaWdZLqezIc/EWYejD6yIiyJdLMRemHKmVh+3dMoPjNT/U
+         +3Z84ixcCMDnbjfcTSoyDXXIraaJYb2xVswr9LKJlyAhPYbXKIbvjmLDPl0BkXD6rN8k
+         fMXw==
+X-Gm-Message-State: ABy/qLZU0SO9mDyzIL/oQQFGkFVQl1LgHcNFBfzZ8b2DO+WCWr7HSfjN
+        S4CoYCzH+NYcbBup3/D6VjZ4zXIP9yBIqrxapE8XieCn76bXzjl3aAGmkAXQa2+q7WAVUh8bTA9
+        jP/Dv4JNud4YTc2yxQ6L3zKZ+n1Zd1Z7b533/aj9p/MbyvIw=
+X-Received: by 2002:a50:fe93:0:b0:51a:5a25:6631 with SMTP id d19-20020a50fe93000000b0051a5a256631mr15942328edt.3.1689152740726;
+        Wed, 12 Jul 2023 02:05:40 -0700 (PDT)
+X-Google-Smtp-Source: APBJJlHmuTW7ujdr1lDyq1jZfdAGhpxlhx2HYnRaJiHksUqP7Zc4WtwSxHq45Qb2LrKz0gr4+39tcRCwCoIn2ugNJfU=
+X-Received: by 2002:a50:fe93:0:b0:51a:5a25:6631 with SMTP id
+ d19-20020a50fe93000000b0051a5a256631mr15942313edt.3.1689152740347; Wed, 12
+ Jul 2023 02:05:40 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From:   Rob Linden <rlinden@redhat.com>
+Date:   Wed, 12 Jul 2023 11:05:29 +0200
+Message-ID: <CAP0H_AHtBCVaj2KM+DhHAoJrM4MW+vQhMEH0UHEa_UiMUzW03g@mail.gmail.com>
+Subject: [PATCH] recv.2: msg_iovec / MSG_ERRQUEUE / -v
+To:     Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
         DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
         RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,
@@ -78,30 +67,148 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Clarify that atexit/on_exit are not called because those are called only
-on normal process termination (as documented on their respective manual
-pages).
+Hello Alejandro!
 
-Signed-off-by: Tomáš Golembiovský <tgolembi@redhat.com>
+This is a combined repost of the 3 individual patches I sent in June.  (I
+had thought it makes sense to split it up, because the changes were
+unrelated, so maybe one could be approved while another one needs
+discussion).
+
+I think there is a mistake on the manpage for recv.  In the description of
+the flag MSG_ERRQUEUE it says that data is passed via "msg_iovec".  This is
+probably referring to msg_iov in struct msghdr (from
+/usr/include/bits/socket.h).  A "msg_iovec" doesn't seem to exist.  Maybe it
+was spelled wrong because it's of type struct iovec.  If it is indeed wrong
+then the following patch corrects it.
+
+I think the flag MSG_ERRQUEUE, that is described on the man page recv.2 is
+only applicable to recvmsg, and not recv or recvfrom.  Maybe it would be
+good to mention it, just like it is specified for MSG_CMSG_CLOEXEC.  The
+following patch does that.
+
+While reading the recv manpage I came up with some suggestions which I
+believe would make it easier for the reader.  They are not corrections
+(except for the last block, which I believe was incomplete), just
+improvements (IMHO).
+
+Thanks & all the best,
+rob
+
+
+From 830a1b1233eb69bd8a4a64296581d094fb0edc46 Mon Sep 17 00:00:00 2001
+From: rokkbert <rokkbert@gmail.com>
+Date: Tue, 6 Jun 2023 10:00:20 +0200
+Subject: [PATCH 1/3] recv.2: field msg_iov in struct msghdr is wrongly called
+ msg_iovec. Corrected to msg_iov.
+
 ---
- man3/abort.3 | 4 ++++
- 1 file changed, 4 insertions(+)
+ man2/recv.2 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/man3/abort.3 b/man3/abort.3
-index c63eace5e..8e1554eae 100644
---- a/man3/abort.3
-+++ b/man3/abort.3
-@@ -47,6 +47,10 @@ function will still terminate the process.
- It does this by restoring the default disposition for
- .B SIGABRT
- and then raising the signal for a second time.
-+.PP
-+As with other cases of abnormal termination the functions registered with
-+.BR atexit "(3) and " on_exit (3)
-+are not called.
- .SH RETURN VALUE
- The
- .BR abort ()
+diff --git a/man2/recv.2 b/man2/recv.2
+index 27d6d612c..62e43c9aa 100644
+--- a/man2/recv.2
++++ b/man2/recv.2
+@@ -159,7 +159,7 @@ and
+ for more information.
+ The payload of the original packet that caused the error
+ is passed as normal data via
+-.IR msg_iovec .
++.IR msg_iov .
+ The original destination address of the datagram that caused the error
+ is supplied via
+ .IR msg_name .
 -- 
-2.41.0
+2.39.2
+
+
+From c3ec57d21d2b754ee05913cfa035f5e31aaaae95 Mon Sep 17 00:00:00 2001
+From: rokkbert <rokkbert@gmail.com>
+Date: Tue, 13 Jun 2023 17:45:32 +0200
+Subject: [PATCH 2/3] recv.2: added note that flag MSG_ERRQUEUE is only
+ applicable to recvmsg. Only recvmsg allows the caller to even pass the
+ required struct msghdr to receive the error data.
+
+---
+ man2/recv.2 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/man2/recv.2 b/man2/recv.2
+index 62e43c9aa..3697d0c84 100644
+--- a/man2/recv.2
++++ b/man2/recv.2
+@@ -145,7 +145,7 @@ which will affect all threads in the calling process
+ and as well as other processes that hold file descriptors
+ referring to the same open file description.
+ .TP
+-.BR MSG_ERRQUEUE " (since Linux 2.2)"
++.BR MSG_ERRQUEUE " (" recvmsg "() only; since Linux 2.2)"
+ This flag
+ specifies that queued errors should be received from the socket error queue.
+ The error is passed in
+-- 
+2.39.2
+
+
+From 4f4ea0984d0a207960121f142e1b9e181194ef8e Mon Sep 17 00:00:00 2001
+From: rokkbert <rokkbert@gmail.com>
+Date: Tue, 13 Jun 2023 17:55:08 +0200
+Subject: [PATCH 3/3] recv.2: increased verbosity and, hopefully,
+ understandability a bit.
+
+---
+ man2/recv.2 | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
+
+diff --git a/man2/recv.2 b/man2/recv.2
+index 3697d0c84..f675f65aa 100644
+--- a/man2/recv.2
++++ b/man2/recv.2
+@@ -92,7 +92,10 @@ All three calls return the length of the message on
+successful
+ completion.
+ If a message is too long to fit in the supplied buffer, excess
+ bytes may be discarded depending on the type of socket the message is
+-received from.
++received from, e.g. for
++.BR SOCK_DGRAM ", but not for " SOCK_STREAM .
++To find out how many bytes are available see the flags
++.BR MSG_PEEK " and " MSG_TRUNC .
+ .PP
+ If no messages are available at the socket, the receive calls wait for a
+ message to arrive, unless the socket is nonblocking (see
+@@ -100,7 +103,7 @@ message to arrive, unless the socket is nonblocking (see
+ in which case the value \-1 is returned and
+ .I errno
+ is set to
+-.BR EAGAIN " or " EWOULDBLOCK .
++.BR EAGAIN " or " EWOULDBLOCK " (see " ERRORS ).
+ The receive calls normally return any data available, up to the requested
+ amount, rather than waiting for receipt of the full amount requested.
+ .PP
+@@ -256,7 +259,8 @@ For use with Internet stream sockets, see
+ .TP
+ .BR MSG_WAITALL " (since Linux 2.2)"
+ This flag requests that the operation block until the full request is
+-satisfied.
++satisfied, i.e.
++.BR len " bytes have been written to the buffer."
+ However, the call may still return less data than requested if
+ a signal is caught, an error or disconnect occurs, or the next data to be
+ received is of a different type than that returned.
+@@ -432,8 +436,9 @@ is returned to indicate that expedited or
+out-of-band data was received.
+ indicates that no data was received but an extended error from the socket
+ error queue.
+ .SH RETURN VALUE
+-These calls return the number of bytes received, or \-1
+-if an error occurred.
++These calls return the number of bytes copied to buf, the number of bytes
++received by the socket (see
++.BR MSG_TRUNC "), or -1 if an error occurred."
+ In the event of an error,
+ .I errno
+ is set to indicate the error.
+-- 
+2.39.2
 
