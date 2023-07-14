@@ -2,75 +2,97 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 34C3875305A
-	for <lists+linux-man@lfdr.de>; Fri, 14 Jul 2023 06:08:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 608C575326D
+	for <lists+linux-man@lfdr.de>; Fri, 14 Jul 2023 09:01:21 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233666AbjGNEIe (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 14 Jul 2023 00:08:34 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59318 "EHLO
+        id S235139AbjGNHBU (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 14 Jul 2023 03:01:20 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45302 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229463AbjGNEId (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 14 Jul 2023 00:08:33 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 046252713
-        for <linux-man@vger.kernel.org>; Thu, 13 Jul 2023 21:08:33 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-         key-exchange X25519 server-signature RSA-PSS (2048 bits))
-        (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id 9678061BCE
-        for <linux-man@vger.kernel.org>; Fri, 14 Jul 2023 04:08:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DECBEC433C7;
-        Fri, 14 Jul 2023 04:08:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1689307712;
-        bh=4S1grJh1/bWHWeboA+M1tvvqRNq3jrdpnayjNm/ulOU=;
-        h=From:To:Cc:Subject:Date:From;
-        b=UuBag1xjhSq0GxDrdmWog4Dbj0vDrZs5QmHPAFfgb2944ccYVnHB5ymSgNBTPJJqY
-         xWMIY2N3/Lcjyz81vkwljH+xxqOOl9xlqKWgKMssiJtPFPOsdcWwuMGjlxbrzLmglz
-         1KaC7XplVmp1LnlSTZb8UnRgvD6MuNbdYoWU1LymecMtxjP3PZDCM+8pAQUg5JkEEH
-         P4YdzCbkmjB+C4GW5+k7110ycaDKU9H9YzM6j7pNA3/Zl7o+Zch8V2OFqYigegFx4V
-         FDaEqoZH61lXEnU37K4MIUoEOCKBq7Q5BT4rTYNuI917+tS35t2PtbRmSExkdh95hg
-         oCNABb9LL9LNg==
-From:   Eric Biggers <ebiggers@kernel.org>
-To:     Alejandro Colomar <alx.manpages@gmail.com>
-Cc:     linux-man@vger.kernel.org
-Subject: [PATCH] socket.7: tfix
-Date:   Thu, 13 Jul 2023 21:08:12 -0700
-Message-ID: <20230714040812.6384-1-ebiggers@kernel.org>
-X-Mailer: git-send-email 2.41.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-7.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
-        autolearn_force=no version=3.4.6
+        with ESMTP id S235130AbjGNHBT (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 14 Jul 2023 03:01:19 -0400
+Received: from mail-yb1-xb49.google.com (mail-yb1-xb49.google.com [IPv6:2607:f8b0:4864:20::b49])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E7003270D
+        for <linux-man@vger.kernel.org>; Fri, 14 Jul 2023 00:01:17 -0700 (PDT)
+Received: by mail-yb1-xb49.google.com with SMTP id 3f1490d57ef6-c64521ac8d6so1373839276.1
+        for <linux-man@vger.kernel.org>; Fri, 14 Jul 2023 00:01:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20221208; t=1689318077; x=1691910077;
+        h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=/G9SpbCC/vS6DXYOrqb35JQd3l6CQ7F8tyliEEmReyU=;
+        b=katJrE+2j4ObBunvBS9MGzSC+HrrzkmVr1jAhbM5nu4waCU9+e3Dt8maOk6H1zexdH
+         Ri19/WmitzIWPPwDWChy2RuEzGFM9eGtxaFEJXy3MQgWNVIxaxkbdkY7rCwXrsiLdVC3
+         Kb1wxK2y05jNrdV6SIP/s/wQzzLaBolb0x4V1dWEMpfx2cm6sTbUa4Q7laUluVAx9NA2
+         wYLyTEr1mn0LARqrJCVXUyRbiV2NYQfJuGg75tOASoVF9DpmEAWD91vKFBfJNdGAmPdR
+         iRWdCn/6msGMLxwPG9wF+5YrwnqYtGQFMBi+IT6ai+WGlxdwPFCi38tLZvV85NRRb4Y0
+         J/XA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1689318077; x=1691910077;
+        h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=/G9SpbCC/vS6DXYOrqb35JQd3l6CQ7F8tyliEEmReyU=;
+        b=B8cBNpgmz+YFLInQm5Ok/88vS44Ce+X+jaF9V5Q5DB+C5kbRjAntf50bWMGtIN22hG
+         AKkjj4F5DmSnP0QSc0PkgdOwhgpVrtLYko/4V4MayswgHZ6ETk8MqEU+bOTfAL92ysL4
+         c5CSDhEo8RmT7ZKb76ejg1ijdZIPAFlOoJI4IPdeZys95UhADVLVzdeaAvPnXxboKoBr
+         d9cv+IDAvmBpKOvprf/k3nrpS0qd0U4ZslC9vX5+Aw/6zPXMLd6QeoFmR8KRpBViQ7Tj
+         WuU/GsVNcTInvc6Y4urX5d5Nl69+TfruIAd2dCbtAcV9SNnly0HzAxGDatytwjtiI+g+
+         UUJw==
+X-Gm-Message-State: ABy/qLZQMPcGJ0+O8Q3AyNeLxSOQuLZLy1iQraz2tfq3O7Se6VI2by4D
+        /LsDCO/TpfzJmfNfmBcZOPsdSWl/8/ST
+X-Google-Smtp-Source: APBJJlHGhFXmL99RnBjSDWLE8uqjqc6umDpokAQ9HyCP5oD9kb6MDmAoN0mAuck1g/Fw/ZBP4LVM6N9N56vo
+X-Received: from maskray.svl.corp.google.com ([2620:15c:2d3:205:f11e:1cbd:819c:6597])
+ (user=maskray job=sendgmr) by 2002:a5b:98d:0:b0:c66:b847:544d with SMTP id
+ c13-20020a5b098d000000b00c66b847544dmr23182ybq.1.1689318077243; Fri, 14 Jul
+ 2023 00:01:17 -0700 (PDT)
+Date:   Fri, 14 Jul 2023 00:00:43 -0700
+Mime-Version: 1.0
+Message-ID: <20230714070043.275611-1-maskray@google.com>
+Subject: [PATCH] ld.so.8: Correct linker option name
+From:   Fangrui Song <maskray@google.com>
+To:     Alejandro Colomar <alx@kernel.org>
+Cc:     linux-man@vger.kernel.org, Fangrui Song <maskray@google.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Spam-Status: No, score=-9.6 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+        USER_IN_DEF_DKIM_WL autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-From: Eric Biggers <ebiggers@google.com>
+The linker option that sets the DF_1_NODEFLIB flag is -z nodefaultlib
+instead of -z nodeflib.
 
-Signed-off-by: Eric Biggers <ebiggers@google.com>
+Signed-off-by: Fangrui Song <maskray@google.com>
 ---
- man7/socket.7 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ man8/ld.so.8 | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/man7/socket.7 b/man7/socket.7
-index 59a7a3f49..985f52e55 100644
---- a/man7/socket.7
-+++ b/man7/socket.7
-@@ -539,7 +539,7 @@ flows are received.
- It allows each worker thread to be associated with
- a NIC HW receive queue and service all the connection
- requests received on that RX queue.
--This mapping between a app thread and
-+This mapping between an app thread and
- a HW NIC queue streamlines the
- flow of data from the NIC to the application.
- .TP
+diff --git a/man8/ld.so.8 b/man8/ld.so.8
+index 1c9a13f56..351913bd8 100644
+--- a/man8/ld.so.8
++++ b/man8/ld.so.8
+@@ -83,7 +83,7 @@ From the cache file
+ which contains a compiled list of candidate shared objects previously found
+ in the augmented library path.
+ If, however, the binary was linked with the
+-.B \-z nodeflib
++.B \-z nodefaultlib
+ linker option, shared objects in the default paths are skipped.
+ Shared objects installed in hardware capability directories (see below)
+ are preferred to other shared objects.
+@@ -97,7 +97,7 @@ and then
+ and then
+ .IR /usr/lib64 .)
+ If the binary was linked with the
+-.B \-z nodeflib
++.B \-z nodefaultlib
+ linker option, this step is skipped.
+ .\"
+ .SS Dynamic string tokens
 -- 
-2.41.0
+2.41.0.455.g037347b96a-goog
 
