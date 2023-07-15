@@ -2,131 +2,72 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 2735C754AC8
-	for <lists+linux-man@lfdr.de>; Sat, 15 Jul 2023 20:41:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 15B50754AC9
+	for <lists+linux-man@lfdr.de>; Sat, 15 Jul 2023 20:41:32 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229549AbjGOSlP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 15 Jul 2023 14:41:15 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48744 "EHLO
+        id S229830AbjGOSla (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 15 Jul 2023 14:41:30 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48770 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229490AbjGOSlO (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 15 Jul 2023 14:41:14 -0400
-Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id B6EA9184
-        for <linux-man@vger.kernel.org>; Sat, 15 Jul 2023 11:41:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-        s=202305; t=1689446473;
-        bh=Fk3JvWmSCgL8sO+d1XXphGV/ODw9+2rfrLb1Bf9yJxY=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=IMyGi+9U8YZ0IZwSGcyg2/LGl+Bd3jbaitcJ8gT3J6QKJdf41pflAE+cqmBkrOjZp
-         Q5OOJmJE7E4zuR+zpp+wSqpELzucQF41z/+MQZa2Iz2spd5gQyDF4UmiAyz4mNfT1X
-         O+/mEYVaX0fq6lBCmJicFWhIBHiapBg0IhY/EZi3BAE0MrOXpvFDpTQkGqAneMhmTO
-         fqxSSagF8M5St8ZRDTRikXteEiOLBY4olHfvJqNppn9ad5o8ZayUVueSnD4ZJoNYAJ
-         W2FCHhOWFKu/ZjzAg1Jkhe5+sMt7fl9eKivZJiGgtDTbZLX+oataCYflcK3MinhEQF
-         JVodLb0U2XL0g==
-Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 0ADA32DF6;
-        Sat, 15 Jul 2023 20:41:13 +0200 (CEST)
-Date:   Sat, 15 Jul 2023 20:41:11 +0200
-From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-To:     Alejandro Colomar <alx@kernel.org>
-Cc:     linux-man@vger.kernel.org
-Subject: [PATCH v3] epoll_create.2: HISTORYise "max_user_instances" EMFILE
-Message-ID: <viuuagw2p3fu33lj4gytcpw2qy6lz7ypunhsxlfbbp75u6ykys@n5nntxb2micu>
-References: <3f4b7314-71ad-a4e0-0f29-b34114d8b5ed@kernel.org>
+        with ESMTP id S229490AbjGOSla (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 15 Jul 2023 14:41:30 -0400
+Received: from xry111.site (xry111.site [89.208.246.23])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3BFA3128
+        for <linux-man@vger.kernel.org>; Sat, 15 Jul 2023 11:41:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=xry111.site;
+        s=default; t=1689446488;
+        bh=Zq86nbB9uOl1irEpdC+sUSmkKxZzHpaVXp9lsSdFNXA=;
+        h=From:To:Cc:Subject:Date:From;
+        b=l6TTcajnxc45J7Vw4G8e7E20HpvDbC55V1DAbgnEv9jAlUJh8fENog7og3FPiBL5D
+         d9CeioE6ABI7nXbzc9jAVGySOywYSM55RahAkFIFUPQOn0kGwdT/gfxrtauXfo8azX
+         tJmhmfrdR9vrxkPBSA5dZuaHc3PCSJCiQu7hHEz4=
+Received: from stargazer.. (unknown [IPv6:240e:358:1143:400:dc73:854d:832e:4])
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+         key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+        (Client did not present a certificate)
+        (Authenticated sender: xry111@xry111.site)
+        by xry111.site (Postfix) with ESMTPSA id 2B4FB65B0F;
+        Sat, 15 Jul 2023 14:41:25 -0400 (EDT)
+From:   Xi Ruoyao <xry111@xry111.site>
+To:     Alejandro Colomar <alx.manpages@gmail.com>
+Cc:     linux-man@vger.kernel.org, Xi Ruoyao <xry111@xry111.site>
+Subject: [PATCH] crypt.3: The library is "libcrypt", not "libcrypto"
+Date:   Sun, 16 Jul 2023 02:41:18 +0800
+Message-ID: <20230715184118.1580451-1-xry111@xry111.site>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="qup4ou6ftobxd5jx"
-Content-Disposition: inline
-In-Reply-To: <3f4b7314-71ad-a4e0-0f29-b34114d8b5ed@kernel.org>
-User-Agent: NeoMutt/20230517
-X-Spam-Status: No, score=-1.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RDNS_DYNAMIC,SPF_HELO_PASS,
-        SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=no
-        autolearn_force=no version=3.4.6
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
+        SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+libcrypt is the password hashing library, and libcrypto is a completely
+different library (OpenSSL cryptography library).
 
---qup4ou6ftobxd5jx
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-/proc/sys/fs/epoll/max_user_instances hasn't existed since
-  commit 9df04e1f25effde823a600e755b51475d438f56b
-  ("epoll: drop max_user_instances and rely only on max_user_watches")
-=66rom
-  Date:   Thu Jan 29 14:25:26 2009 -0800
-which describes to v2.6.29-rc3-24-g9df04e1f25ef.
-
-Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
+Signed-off-by: Xi Ruoyao <xry111@xry111.site>
 ---
- man2/epoll_create.2 | 19 +++++++++++--------
- 1 file changed, 11 insertions(+), 8 deletions(-)
+ man3/crypt.3 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/man2/epoll_create.2 b/man2/epoll_create.2
-index 4d3566a79..7146757d3 100644
---- a/man2/epoll_create.2
-+++ b/man2/epoll_create.2
-@@ -83,14 +83,6 @@ .SH ERRORS
- .IR flags .
- .TP
- .B EMFILE
--The per-user limit on the number of epoll instances imposed by
--.I /proc/sys/fs/epoll/max_user_instances
--was encountered.
--See
--.BR epoll (7)
--for further details.
--.TP
--.B EMFILE
- The per-process limit on the number of open file descriptors has been reac=
-hed.
- .TP
- .B ENFILE
-@@ -134,6 +126,17 @@ .SH HISTORY
- in order to ensure backward compatibility when new
- .B epoll
- applications are run on older kernels.
-+.PP
-+Prior to Linux 2.6.29,
-+.\" commit 9df04e1f25effde823a600e755b51475d438f56b
-+a
-+.I /proc/sys/fs/epoll/max_user_instances
-+sysctl limited live epolls for each real user ID,
-+and caused
-+.BR epoll_create ()
-+to fail with
-+.B EMFILE
-+on overrun.
- .SH SEE ALSO
- .BR close (2),
- .BR epoll_ctl (2),
---=20
-2.39.2
+diff --git a/man3/crypt.3 b/man3/crypt.3
+index 1f3e4792e..ad14cb4f7 100644
+--- a/man3/crypt.3
++++ b/man3/crypt.3
+@@ -20,7 +20,7 @@
+ crypt, crypt_r \- password and data encryption
+ .SH LIBRARY
+ Encryption and decryption library
+-.RI ( libcrypto ", " \-lcrypto )
++.RI ( libcrypt ", " \-lcrypt )
+ .SH SYNOPSIS
+ .nf
+ .B #include <unistd.h>
+-- 
+2.41.0
 
---qup4ou6ftobxd5jx
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmSy6EcACgkQvP0LAY0m
-WPGUeg//cXd/2UiZrHRuiY2BNfRVUTMD53hmehcFfaOduVj3hsOxQJmSYHJ7CCFL
-uQMSmwNTidd4TprcRGHvi0bbmDDkFsRKvM5Zf7zGdj0Ceh/2XURSTXmMDgnVrNgp
-EwwiiHQ/rUrD9V3yDhNfrfJ1D93lKyGA9fCAF7qcs7SBqZBCYJSp4RrG3URpUmpB
-/poOxXsaQufLgE8pwABbZM9bMPHL7+D6oEWIz9TQs5ymz6B9Pfamk3VYlVQccVPn
-5kzFxsPtUBr3nhAy/9wSBQ+FJ9gZYI4Dj571i/emAgOUwfP9bepfOZ/BKYDRrQhK
-U0VmG6IJN/RQcShTn2COXlrKWY9INu0Pr8vuiSyLJMPidHu/juZ4n+IBm6vJZhjW
-FqQOOtaiMf7g8P4h4lc+Y8Vou0n/Gac8J2GhL5fhznnPzruDh0zgqsZ2qnP/zFqB
-DYG71S3v66l3u94vHSJNz2FpT7grelETBn3SHMdJrQ0wBC85AAZuJbTXR5fNXZ5+
-U9A9tqVf8FCf/PPZ6K2bNUibTYhbjsZgVL5UdV9MAHzjVbGw8vgUcdb+mHbeJQ+y
-/a8aoLZkYb4EoQ0KYu9qo+Dw1wc4sHXxpYBxbGmkcSS2HyfyV283E+QQH2/9wm7z
-/rYO8dUMJazk+R0uW+WQ17qmIL7/jDWXeQ/ME6oAJYIXfAd1sLg=
-=dyvg
------END PGP SIGNATURE-----
-
---qup4ou6ftobxd5jx--
