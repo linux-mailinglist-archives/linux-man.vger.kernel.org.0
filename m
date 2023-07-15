@@ -2,67 +2,56 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 2038E754A10
-	for <lists+linux-man@lfdr.de>; Sat, 15 Jul 2023 18:13:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9AB33754A11
+	for <lists+linux-man@lfdr.de>; Sat, 15 Jul 2023 18:15:51 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229472AbjGOQNk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 15 Jul 2023 12:13:40 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44984 "EHLO
+        id S229667AbjGOQPu (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 15 Jul 2023 12:15:50 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45286 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229918AbjGOQNj (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 15 Jul 2023 12:13:39 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5646430E3
-        for <linux-man@vger.kernel.org>; Sat, 15 Jul 2023 09:13:38 -0700 (PDT)
+        with ESMTP id S229593AbjGOQPu (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 15 Jul 2023 12:15:50 -0400
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2EDE0E52
+        for <linux-man@vger.kernel.org>; Sat, 15 Jul 2023 09:15:49 -0700 (PDT)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
         (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
          key-exchange X25519 server-signature RSA-PSS (2048 bits))
         (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id E894C60BC0
-        for <linux-man@vger.kernel.org>; Sat, 15 Jul 2023 16:13:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E472C433C8;
-        Sat, 15 Jul 2023 16:13:36 +0000 (UTC)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id B3F2F60BBE
+        for <linux-man@vger.kernel.org>; Sat, 15 Jul 2023 16:15:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BDD5C433C8;
+        Sat, 15 Jul 2023 16:15:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1689437617;
-        bh=i0NfenT2zSIstWmAAZNHuBNRnZQtqiNeZSVqF4Nb7ec=;
+        s=k20201202; t=1689437748;
+        bh=jrUmnhUfmd0+nb2eqNZXMf/fx4F9HPKDiZnWJnQ+feg=;
         h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-        b=advwsznAWQ3zXEOyncujeYHnE2R+m5mlrbXOcPzThSv0Y7oOvLCMTHRhf3zTsk9Ba
-         K0g5qta60z0SwzyJInTo4SNCpdCRn2ouTnXqJ1wX0dX+oEPo+dwpQCQzg8mJU9vOs1
-         x/sx1HESEoXh9ZehlRUUfZFRWYD9DaKDOdYyTq2S3FH+rZWbKkPgnXdJ7oX+5aL3ND
-         K91E/eed9JIaN/J4YEB9pkM8WR7UhL9RJiFK1bmvuE5tYmgCX8KWsmXdmmP0GXohJQ
-         wWHfSDvYTTEEJO6W4FaSXkrSznIP5InakA1xdBB5nL4QjrOWH9I5WBNWVdUUiBq+SJ
-         qIrjy5p1SOS2Q==
-Message-ID: <61009d70-8033-2e6d-7916-f45033398d7d@kernel.org>
-Date:   Sat, 15 Jul 2023 18:13:25 +0200
+        b=WI6QkvFM0GylsEJtX/Mdfji/fDfqn1ziDsLUEKQaQgfFM5WTzEpj0wNiAmmN1wwHC
+         nx0vNrPJUYBJtG3sEUJUUA638CqujYKicpRgvlMAJSFImSMjBS/gr4nVAhG7DdzTJY
+         11OO56YMGSarkMuD8s7L+EM+NLOoMT4IqgfF6zyq102eWmnMdIP92R98sb/OqtvOhN
+         E2fkMGaqZ5TGroIuoJUpiTqcPj+OMGN6+X2tRxYqfaQ8oScuWwxnPZ0pVOsUXGI4wm
+         KgYdfAfenmdj27o/Y7yfiDqv5iwEe9V9NzziOuCunn6XtUZrCHdQDhtOfnjiDuid+i
+         Lg5bubR2HQ9aA==
+Message-ID: <e615332a-ce05-efe8-6c6f-c89506dfff18@kernel.org>
+Date:   Sat, 15 Jul 2023 18:15:45 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.12.0
-Subject: Re: [PATCH] Fix the man page
+Subject: Re: [PATCH v3] abort: clarify consequences of calling abort
 Content-Language: en-US
-To:     Zijun Zhao <zijunzhao@google.com>
-Cc:     linux-man@vger.kernel.org, enh <enh@google.com>
-References: <CAELULbeXgZWn+Nw_rpUzkGgNCtb7oFf1+JS=KnNVuLhcF5Vabg@mail.gmail.com>
- <CAELULbf=z2WWpHm5QDTK81oWTC9zMZJg2MA69mjOorJQ5QAzGw@mail.gmail.com>
- <CAJgzZopuptYOKHQ32-mau9gzwaWOmRtTACqdmfZvox=c2itp7w@mail.gmail.com>
- <781c88a1-b71f-f600-8d75-068a65855d16@gmail.com>
- <CAJgzZooLH5UnNU_j6jTkTFMCS+7gDMaTu9RYpSHnO2ELJat-+A@mail.gmail.com>
- <41ea7196-c824-196d-7794-0f61d0947bcd@gmail.com>
- <CAELULbcAtuqehXmDeRjOPtCOuriw9hrUU2Ndw8-i0Z=9GkbNzg@mail.gmail.com>
- <CAELULbfDFt2Z3T45_brzhWzL8182R=uxpHy_rSdgBSXpp+QQKQ@mail.gmail.com>
- <CAJgzZoqS-QJWX87P5B1LQxCktm9BAVfVVBwBxV87RhmQg0fsdg@mail.gmail.com>
- <CAJgzZooCj9FcHwMam0TC_y6c33K8OFuWGGS0_-Ji+eEhLsXo_Q@mail.gmail.com>
- <e7083e0d-92c2-ae07-7ff5-f7fa1ca91be6@kernel.org>
- <bf4dd8ed-ded3-6fe0-d3fa-afa63164bc4c@kernel.org>
- <CAELULbcxcmRXCkXx3_q2WMb8eMHTGfRRw=kmsOCBr-YRauOgUQ@mail.gmail.com>
+To:     =?UTF-8?B?VG9tw6HFoSBHb2xlbWJpb3Zza8O9?= <tgolembi@redhat.com>
+Cc:     linux-man@vger.kernel.org, Stefan Puiu <stefan.puiu@gmail.com>,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>
+References: <c4d5acae26ab43479e269a5a2f5b8e263a483a91.1689149490.git.tgolembi@redhat.com>
 From:   Alejandro Colomar <alx@kernel.org>
 Organization: Linux
-In-Reply-To: <CAELULbcxcmRXCkXx3_q2WMb8eMHTGfRRw=kmsOCBr-YRauOgUQ@mail.gmail.com>
+In-Reply-To: <c4d5acae26ab43479e269a5a2f5b8e263a483a91.1689149490.git.tgolembi@redhat.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------AdX2WOaQfkIjJRwzXYoETEU6"
-X-Spam-Status: No, score=-2.2 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+ boundary="------------NoRwihqlBXBSk9ylsHtLutcX"
+X-Spam-Status: No, score=-4.5 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
         DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
-        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+        RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
         URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -71,118 +60,87 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------AdX2WOaQfkIjJRwzXYoETEU6
-Content-Type: multipart/mixed; boundary="------------uQjihAPkpnG7P1V04tLMCaCH";
+--------------NoRwihqlBXBSk9ylsHtLutcX
+Content-Type: multipart/mixed; boundary="------------yM4isrrIQK3K8s5mC9Wo8JGK";
  protected-headers="v1"
 From: Alejandro Colomar <alx@kernel.org>
-To: Zijun Zhao <zijunzhao@google.com>
-Cc: linux-man@vger.kernel.org, enh <enh@google.com>
-Message-ID: <61009d70-8033-2e6d-7916-f45033398d7d@kernel.org>
-Subject: Re: [PATCH] Fix the man page
-References: <CAELULbeXgZWn+Nw_rpUzkGgNCtb7oFf1+JS=KnNVuLhcF5Vabg@mail.gmail.com>
- <CAELULbf=z2WWpHm5QDTK81oWTC9zMZJg2MA69mjOorJQ5QAzGw@mail.gmail.com>
- <CAJgzZopuptYOKHQ32-mau9gzwaWOmRtTACqdmfZvox=c2itp7w@mail.gmail.com>
- <781c88a1-b71f-f600-8d75-068a65855d16@gmail.com>
- <CAJgzZooLH5UnNU_j6jTkTFMCS+7gDMaTu9RYpSHnO2ELJat-+A@mail.gmail.com>
- <41ea7196-c824-196d-7794-0f61d0947bcd@gmail.com>
- <CAELULbcAtuqehXmDeRjOPtCOuriw9hrUU2Ndw8-i0Z=9GkbNzg@mail.gmail.com>
- <CAELULbfDFt2Z3T45_brzhWzL8182R=uxpHy_rSdgBSXpp+QQKQ@mail.gmail.com>
- <CAJgzZoqS-QJWX87P5B1LQxCktm9BAVfVVBwBxV87RhmQg0fsdg@mail.gmail.com>
- <CAJgzZooCj9FcHwMam0TC_y6c33K8OFuWGGS0_-Ji+eEhLsXo_Q@mail.gmail.com>
- <e7083e0d-92c2-ae07-7ff5-f7fa1ca91be6@kernel.org>
- <bf4dd8ed-ded3-6fe0-d3fa-afa63164bc4c@kernel.org>
- <CAELULbcxcmRXCkXx3_q2WMb8eMHTGfRRw=kmsOCBr-YRauOgUQ@mail.gmail.com>
-In-Reply-To: <CAELULbcxcmRXCkXx3_q2WMb8eMHTGfRRw=kmsOCBr-YRauOgUQ@mail.gmail.com>
+To: =?UTF-8?B?VG9tw6HFoSBHb2xlbWJpb3Zza8O9?= <tgolembi@redhat.com>
+Cc: linux-man@vger.kernel.org, Stefan Puiu <stefan.puiu@gmail.com>,
+ "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Message-ID: <e615332a-ce05-efe8-6c6f-c89506dfff18@kernel.org>
+Subject: Re: [PATCH v3] abort: clarify consequences of calling abort
+References: <c4d5acae26ab43479e269a5a2f5b8e263a483a91.1689149490.git.tgolembi@redhat.com>
+In-Reply-To: <c4d5acae26ab43479e269a5a2f5b8e263a483a91.1689149490.git.tgolembi@redhat.com>
 
---------------uQjihAPkpnG7P1V04tLMCaCH
+--------------yM4isrrIQK3K8s5mC9Wo8JGK
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi Zijun,
+On 2023-07-12 10:11, Tom=C3=A1=C5=A1 Golembiovsk=C3=BD wrote:
+> Clarify that atexit/on_exit are not called because those are called onl=
+y
+> on normal process termination (as documented on their respective manual=
 
-On 2023-07-12 01:48, Zijun Zhao wrote:
-> Hi Alejandro,
->   Sorry for the late reply!
+> pages).
+>=20
+> Signed-off-by: Tom=C3=A1=C5=A1 Golembiovsk=C3=BD <tgolembi@redhat.com>
 
-No problem :-)
+Please add these:
 
-> I made some changes(make the subject more
-> formal, add a blank line, respect the80-column right margin and use -u
-> to when doing git format-patch) and attached the patch below.
+Cc: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: Stefan Puiu <stefan.puiu@gmail.com>
 
-Thanks!
-
-> But I am
-> a bit confused about semantic newlines. I think I already start on a
-> new line and use clause breaks to split long sentences? Do I
-> misunderstand something? Thank you!
-
-Here's your patch, modified to use semantic newlines:
-
-+The kernel accepts null for both time and timezone.
-+The timezone argument is ignored by glibc and musl,
-+and not passed to/from the kernel.
-+Android's bionic passes the timezone argument to/from the kernel,
-+but Android does not update the kernel timezone
-+based on the device timezone in Settings,
-+so the kernel's timezone is typically UTC.
-
-Does it make sense now?
-
-I'll also comment a few things about the patch:
-
-> +The kernel accepts null for both time and timezone.
-
-We should use the 'tv' and 'tz' identifiers.  We should also use NULL.
-I suggest:
-
-The kernel accepts NULL for both
-=2EI tv
-and
-=2EIR tz .
-
-> +The timezone argument is ignored by glibc and musl,
-> +and not passed to/from the kernel.
-> +Android's bionic passes the timezone argument to/from the kernel,
-
-Could you give an example of why bionic differs from glibc and musl,
-and why it can be useful.  It is mostly curiosity, but it might be
-useful to have it documented in the commit message.
-
-> +but Android does not update the kernel timezone
-> +based on the device timezone in Settings,
-> +so the kernel's timezone is typically UTC.
-
-Cheers,
+Thanks,
 Alex
+
+> ---
+>  man3/abort.3 | 4 ++++
+>  1 file changed, 4 insertions(+)
+>=20
+> diff --git a/man3/abort.3 b/man3/abort.3
+> index c63eace5e..8e1554eae 100644
+> --- a/man3/abort.3
+> +++ b/man3/abort.3
+> @@ -47,6 +47,10 @@ function will still terminate the process.
+>  It does this by restoring the default disposition for
+>  .B SIGABRT
+>  and then raising the signal for a second time.
+> +.PP
+> +As with other cases of abnormal termination the functions registered w=
+ith
+> +.BR atexit "(3) and " on_exit (3)
+> +are not called.
+>  .SH RETURN VALUE
+>  The
+>  .BR abort ()
 
 --=20
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
 
---------------uQjihAPkpnG7P1V04tLMCaCH--
+--------------yM4isrrIQK3K8s5mC9Wo8JGK--
 
---------------AdX2WOaQfkIjJRwzXYoETEU6
+--------------NoRwihqlBXBSk9ylsHtLutcX
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmSyxaUACgkQnowa+77/
-2zKKQw//cpEVUzeryokrt34TkxBw1c1RMv/6J0XakUN+pp/how5MvD604OBt2ZeP
-O4aXWX72tsgNZPoaG0D2HliT0KU0XAo+EC2yK36I30TB0Hqni3o3AJ4lx2lSufxj
-kYdlBf7vVBRu4a8/LTS9own/Ql06/Cs09yesvmXQ6LCAgYfPHxGo3bak2CVE3Dg3
-s1rVfAxFMkot8XVcMFiWCHMou7TPSaqzTnB8XvTJLai2tpUUYd5NFgmtCr/eHrgp
-a09/4lXGP9PupgTd/xA/wiT0xrUsaJXB8k+1S4pCBODiqJZPYyf5iVq8iBo6hEYl
-ht7sr5M+EH9tITjKgWkWfVB1ABhaFs1iskcr9bGwt3/VP64UtfwAG+yEZ+hsSHOK
-SLHMzYOIlYb5jCIqsvMTx8tby7TZoVml3SwEn4PvRNFA/AsFz9lmysteK4rG7Na/
-Uv0xOms6rg8YruorV6VWEFou+FKecg8TaCikJFXuuNe63EVZu86dDH0BulYo6Y1/
-h3XWb1JO6L14Wr9r7SN7y6lwCU14h9XY+M+MGxCOgcO6u0PlSMH6mXNZ7c6SKCjQ
-LygYwDlaIjn9/2bIF4S3mt2Am3b8QUdbmZnAYN2mtlrgrsJKdhsz/bXEZQKI6KVj
-WYn1nVxReAHQ/DS2qdZh+EvbLGjyUldF88G0dqhO4sQqSdGIk3w=
-=ULx7
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmSyxjEACgkQnowa+77/
+2zLQlBAAnYRM1ofQw94Fj3ln6OJvJfHJMxflPM1/n0LRjMxVrTij+RfBsX6CibTF
+/P8Y9fEGJk2oLTDH88ckz2WyjfQ/QlZjLZDtFtu9wDjZj42rT4n8nd/t+5hgTyUo
+UHVv5NQaje+60lWSxAlLkrQy0UL8MDV409EXNXOBBfsfQ+GA7j35BaRmg6dSE++m
+aBsP0BOXSET2rhCkpSnqZ/qqsBhUcxTCXi8+YPZpRtglzt1+3J0ZGK8/1bB1iurP
+BiFBiXURCBbr0A4QQpmtAWpAd3DEMTyDP8q6V6kvRwEtuX+Faz3NQNQRA1S2j3QT
+YhV899uFNh6LKa1PDsB2zTVj6tGiJxjDXmGIxcqJzZc99GltaelyPrN7UGuDL4oV
+KH+OEX5buIOCr3JiB56Ssw7sJ5cIqwT/CnxJvtyZPsyyZuhzjtt8GsxjWDxcPHE+
+1HqQitDM/cAOwyLdI9rhqDWLh/CdRzXtNXARksbUSTH0t7CfchjwrSkR7zULZ2o7
+gznanjCvzv7BgTtCrcUq6YgLfbA/EiTaxArMY/jYx/PrpAMwGFxAW695DvxZbr4t
+llFC2xmJHCowfPRIaC8yrFoqIDP7/Y/5y9N+n+m5XTrWGD+05xahysHc4kZBHAVt
+AWzur3uhfS0sjrXXS6Bg1s2FQxYxzZ+Q9mb5zQTLvFeFvyN4bwM=
+=7GF1
 -----END PGP SIGNATURE-----
 
---------------AdX2WOaQfkIjJRwzXYoETEU6--
+--------------NoRwihqlBXBSk9ylsHtLutcX--
