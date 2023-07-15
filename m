@@ -2,43 +2,43 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id B6782754AC5
-	for <lists+linux-man@lfdr.de>; Sat, 15 Jul 2023 20:36:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2735C754AC8
+	for <lists+linux-man@lfdr.de>; Sat, 15 Jul 2023 20:41:16 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229649AbjGOSgp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 15 Jul 2023 14:36:45 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48078 "EHLO
+        id S229549AbjGOSlP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 15 Jul 2023 14:41:15 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48744 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229490AbjGOSgo (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 15 Jul 2023 14:36:44 -0400
+        with ESMTP id S229490AbjGOSlO (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 15 Jul 2023 14:41:14 -0400
 Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id EFB492702
-        for <linux-man@vger.kernel.org>; Sat, 15 Jul 2023 11:36:42 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id B6EA9184
+        for <linux-man@vger.kernel.org>; Sat, 15 Jul 2023 11:41:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-        s=202305; t=1689446200;
-        bh=rKLGzfztgE3DhNBA8AMBpS/9x5DGZB+cSh4RfeyNj1w=;
+        s=202305; t=1689446473;
+        bh=Fk3JvWmSCgL8sO+d1XXphGV/ODw9+2rfrLb1Bf9yJxY=;
         h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=pIYM3F7rJa73KevIMXyXsoUxIRx7DQEiLCqSiKlbTlRUML0QhKHSL15oKPEBKXmKh
-         SDdYBRZMp4//xxhjU3RH2uJKP2ihWSTE488kirNDQd9mA2uZO2QYdjSHiG/mMBFZfv
-         M27zpVzFYS5JyY/UkCHHWWsIZ9R5XC60pMiHMS+xZ0kRptSYI3JgbuNB6OaJ5MFFA0
-         0BIU2bvAw6W+p51KlR/abC2rsW4oyoITv9kYI6RzLMM3/AGWt8Rav400pD5rub2uym
-         +ojkvh2/eSmRlOpfkrPOZTAh4Rb+M8T4zdcLhpHl31TLwcqGP3P40BVyN2B/SvOlpL
-         VQOHq1c5xXD5w==
+        b=IMyGi+9U8YZ0IZwSGcyg2/LGl+Bd3jbaitcJ8gT3J6QKJdf41pflAE+cqmBkrOjZp
+         Q5OOJmJE7E4zuR+zpp+wSqpELzucQF41z/+MQZa2Iz2spd5gQyDF4UmiAyz4mNfT1X
+         O+/mEYVaX0fq6lBCmJicFWhIBHiapBg0IhY/EZi3BAE0MrOXpvFDpTQkGqAneMhmTO
+         fqxSSagF8M5St8ZRDTRikXteEiOLBY4olHfvJqNppn9ad5o8ZayUVueSnD4ZJoNYAJ
+         W2FCHhOWFKu/ZjzAg1Jkhe5+sMt7fl9eKivZJiGgtDTbZLX+oataCYflcK3MinhEQF
+         JVodLb0U2XL0g==
 Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 9638134A4;
-        Sat, 15 Jul 2023 20:36:40 +0200 (CEST)
-Date:   Sat, 15 Jul 2023 20:36:39 +0200
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 0ADA32DF6;
+        Sat, 15 Jul 2023 20:41:13 +0200 (CEST)
+Date:   Sat, 15 Jul 2023 20:41:11 +0200
 From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
 To:     Alejandro Colomar <alx@kernel.org>
 Cc:     linux-man@vger.kernel.org
-Subject: [PATCH v3] pipe.7: document read()s with O_NONBLOCK
-Message-ID: <ohlr6zojoreknhkmbmrsjwtkhpm6hj7twgh6lbtpo2cyslb7nz@omy6j2ilcano>
-References: <c45d6b71-f054-c3df-9a9f-749f30aaabee@kernel.org>
+Subject: [PATCH v3] epoll_create.2: HISTORYise "max_user_instances" EMFILE
+Message-ID: <viuuagw2p3fu33lj4gytcpw2qy6lz7ypunhsxlfbbp75u6ykys@n5nntxb2micu>
+References: <3f4b7314-71ad-a4e0-0f29-b34114d8b5ed@kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="52w77wbl3snkc3r3"
+        protocol="application/pgp-signature"; boundary="qup4ou6ftobxd5jx"
 Content-Disposition: inline
-In-Reply-To: <c45d6b71-f054-c3df-9a9f-749f30aaabee@kernel.org>
+In-Reply-To: <3f4b7314-71ad-a4e0-0f29-b34114d8b5ed@kernel.org>
 User-Agent: NeoMutt/20230517
 X-Spam-Status: No, score=-1.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RDNS_DYNAMIC,SPF_HELO_PASS,
@@ -51,88 +51,82 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---52w77wbl3snkc3r3
+--qup4ou6ftobxd5jx
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Which don't behave like you may expect them to;
-unprimed, I expected the natural extension of either:
-files   (being a  filesystem object), always returning 0 if no data, or
-sockets (being an IPC mechanism),     always EAGAINing   if no data.
-
-The pipe semantics make sense of course =E2=80=92 pipes can be modelled as
-sockets if there aren't writers, but files if there are; indeed,
-this makes sense as the writer continuously appending a sliding
-"window" over a file =E2=80=92 but they're unique amongst the UNIX file typ=
-es,
-but arriving at that specific interaction table is non-obvious,
-especially to a user.
-
-Quoth Issue 8 Draft 3:
-60746  When attempting to read from an empty pipe or FIFO:
-60747    =E2=80=A2 If no process has the pipe open for writing, read( ) sha=
-ll return 0 to indicate end-of-file.
-60748    =E2=80=A2 If some process has the pipe open for writing and O_NONB=
-LOCK is set, read( ) shall return
-60749      =E2=88=921 and set errno to [EAGAIN].
-60750    =E2=80=A2 If some process has the pipe open for writing and O_NONB=
-LOCK is clear, read( ) shall
-60751      block the calling thread until some data is written or the pipe =
-is closed by all processes that
-60752      had the pipe open for writing.
+/proc/sys/fs/epoll/max_user_instances hasn't existed since
+  commit 9df04e1f25effde823a600e755b51475d438f56b
+  ("epoll: drop max_user_instances and rely only on max_user_watches")
+=66rom
+  Date:   Thu Jan 29 14:25:26 2009 -0800
+which describes to v2.6.29-rc3-24-g9df04e1f25ef.
 
 Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
 ---
- man7/pipe.7 | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ man2/epoll_create.2 | 19 +++++++++++--------
+ 1 file changed, 11 insertions(+), 8 deletions(-)
 
-diff --git a/man7/pipe.7 b/man7/pipe.7
-index c3e06bdab..91554fa3c 100644
---- a/man7/pipe.7
-+++ b/man7/pipe.7
-@@ -56,12 +56,19 @@ .SS I/O on pipes and FIFOs
- .BR write (2)
- blocks until sufficient data has been read from the pipe
- to allow the write to complete.
+diff --git a/man2/epoll_create.2 b/man2/epoll_create.2
+index 4d3566a79..7146757d3 100644
+--- a/man2/epoll_create.2
++++ b/man2/epoll_create.2
+@@ -83,14 +83,6 @@ .SH ERRORS
+ .IR flags .
+ .TP
+ .B EMFILE
+-The per-user limit on the number of epoll instances imposed by
+-.I /proc/sys/fs/epoll/max_user_instances
+-was encountered.
+-See
+-.BR epoll (7)
+-for further details.
+-.TP
+-.B EMFILE
+ The per-process limit on the number of open file descriptors has been reac=
+hed.
+ .TP
+ .B ENFILE
+@@ -134,6 +126,17 @@ .SH HISTORY
+ in order to ensure backward compatibility when new
+ .B epoll
+ applications are run on older kernels.
 +.PP
- Nonblocking I/O is possible by using the
- .BR fcntl (2)
- .B F_SETFL
- operation to enable the
- .B O_NONBLOCK
--open file status flag.
-+open file status flag or by opening a
-+.BR fifo (7)
-+with
-+.BR O_NONBLOCK .
-+If any process has the pipe open for writing, reads fail with
-+.BR EAGAIN ;
-+otherwise\[em]with no potential writers\[em]reads succeed and return empty.
- .PP
- The communication channel provided by a pipe is a
- .IR "byte stream" :
++Prior to Linux 2.6.29,
++.\" commit 9df04e1f25effde823a600e755b51475d438f56b
++a
++.I /proc/sys/fs/epoll/max_user_instances
++sysctl limited live epolls for each real user ID,
++and caused
++.BR epoll_create ()
++to fail with
++.B EMFILE
++on overrun.
+ .SH SEE ALSO
+ .BR close (2),
+ .BR epoll_ctl (2),
 --=20
 2.39.2
 
---52w77wbl3snkc3r3
+--qup4ou6ftobxd5jx
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmSy5zcACgkQvP0LAY0m
-WPGx6Q//attpYtMmkL1YbPdzOOm4TtznI/vGpjaEfPQAZcK4vy+bOmuiUgvzP2/V
-OGBPhdH0tdj3rgj8KK7PA5Ok6aNB6bIW7rQbVydNQmtn6NLLiPo+3LeucctRLIqt
-I3VWxO+KlQ4yrzTvFXj086ztKIzfHYDd8nrNnuhtRoK78V4PnlYm5TOfKhzMmRmx
-lDHNyGAvCooGQLBH8ig2/CgdJDOHxqSGyBo5c2vOsFpZR3glmuhcpirfUNzwkxhx
-/ZVT1SvU72uqtHM7ZW9zji0X1gCzQP+i+9hldj06N574VjIdtepSWVCH5EjvoHyG
-6OtFp2sdYZqsF/uIC/xIeyW27ZfASv6IzJIF+vLtSLfyopBjmH1U+4Y2cicLh1EY
-58VjrBHPC+7F/G7KYMcbF6q7V2dA+AhtPYFbBwAltH+L4dVIJ+O/CPAdvrc/6C3g
-CsHan3HmARIQ+MOqL2JachkdAo3hX2g8GQKyWaAckuO+yTaHDOdFMBd65lOFsul0
-sCC8VhiFclzaLJ/eB4sbneG59GduxqW31dBVwSKNiGDE80jxPo709jYEQbaG4BRS
-YHKh6u/gRTftWNXRUL+dSLyIuo8nzaquEo+X09PbWuYGVFTaqUDnmfTrP8PpKbj3
-YoyGNlJFl8qZlu3iRImVuZpAnCrAE9yAJQfz+43Nvl9BN2yK2vE=
-=yvMn
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmSy6EcACgkQvP0LAY0m
+WPGUeg//cXd/2UiZrHRuiY2BNfRVUTMD53hmehcFfaOduVj3hsOxQJmSYHJ7CCFL
+uQMSmwNTidd4TprcRGHvi0bbmDDkFsRKvM5Zf7zGdj0Ceh/2XURSTXmMDgnVrNgp
+EwwiiHQ/rUrD9V3yDhNfrfJ1D93lKyGA9fCAF7qcs7SBqZBCYJSp4RrG3URpUmpB
+/poOxXsaQufLgE8pwABbZM9bMPHL7+D6oEWIz9TQs5ymz6B9Pfamk3VYlVQccVPn
+5kzFxsPtUBr3nhAy/9wSBQ+FJ9gZYI4Dj571i/emAgOUwfP9bepfOZ/BKYDRrQhK
+U0VmG6IJN/RQcShTn2COXlrKWY9INu0Pr8vuiSyLJMPidHu/juZ4n+IBm6vJZhjW
+FqQOOtaiMf7g8P4h4lc+Y8Vou0n/Gac8J2GhL5fhznnPzruDh0zgqsZ2qnP/zFqB
+DYG71S3v66l3u94vHSJNz2FpT7grelETBn3SHMdJrQ0wBC85AAZuJbTXR5fNXZ5+
+U9A9tqVf8FCf/PPZ6K2bNUibTYhbjsZgVL5UdV9MAHzjVbGw8vgUcdb+mHbeJQ+y
+/a8aoLZkYb4EoQ0KYu9qo+Dw1wc4sHXxpYBxbGmkcSS2HyfyV283E+QQH2/9wm7z
+/rYO8dUMJazk+R0uW+WQ17qmIL7/jDWXeQ/ME6oAJYIXfAd1sLg=
+=dyvg
 -----END PGP SIGNATURE-----
 
---52w77wbl3snkc3r3--
+--qup4ou6ftobxd5jx--
