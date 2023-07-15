@@ -2,136 +2,98 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id A3DB77549E2
-	for <lists+linux-man@lfdr.de>; Sat, 15 Jul 2023 17:47:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A1F907549FA
+	for <lists+linux-man@lfdr.de>; Sat, 15 Jul 2023 18:02:56 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229866AbjGOPrf (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 15 Jul 2023 11:47:35 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37724 "EHLO
+        id S229530AbjGOQCz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 15 Jul 2023 12:02:55 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42026 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229441AbjGOPre (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 15 Jul 2023 11:47:34 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0D7152691
-        for <linux-man@vger.kernel.org>; Sat, 15 Jul 2023 08:47:34 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-         key-exchange X25519 server-signature RSA-PSS (2048 bits))
-        (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id 9318660BBB
-        for <linux-man@vger.kernel.org>; Sat, 15 Jul 2023 15:47:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B0DEC433C7;
-        Sat, 15 Jul 2023 15:47:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1689436053;
-        bh=TErJ4LaxHvPgq/J5oNarNhT2GSWuLk14rBEEFureT5Y=;
-        h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-        b=g/Pj1V0qknB4iMfjxq9d5nAA0Kkbic/l5vKGJQ+fsMGgy9OZc8zL+A1V3RUJSDcTH
-         KGCHQzFscEX2aPuKv4GH18dBR+oUbaIFCWDbheQoNsAwxzan/GkCLBQxbn4Ibh3ObR
-         BeUHzxlpbltPXpyrSVawpjtnh576J3mqwLxHDJm95m1C8ChD3UaS8Q6HGEQb2oRnLX
-         98Y83b4vdHl0nco10pxYsLnUlXbBqBDD9M5DXpWPKlxx3Pgr21RPXN7H0dl8wnau7z
-         QNbuclS6SM66NJCzmbcNEyfuirs09EvJAf7Rfggyh8HEucQTQuSjlxEHCGgme6k+CM
-         0PXIXlibdb7AA==
-Message-ID: <54841b60-d361-2122-1fd6-6a4e2c49a500@kernel.org>
-Date:   Sat, 15 Jul 2023 17:47:30 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Subject: Re: [PATCH] rtnetlink.7: Document IFLA_PERM_ADDRESS
-Content-Language: en-US
-To:     Linus Heckemann <git@sphalerite.org>
+        with ESMTP id S230272AbjGOQCy (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 15 Jul 2023 12:02:54 -0400
+Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 292DB2729
+        for <linux-man@vger.kernel.org>; Sat, 15 Jul 2023 09:02:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
+        s=202305; t=1689436967;
+        bh=VcHf0A2NYyN4rqGDjnHicfAYVCm/f01VmmPtvmDweG4=;
+        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+        b=c124Frf/VfCqpnD2mIIHWQULk3kPlX4QOqg8w6wUHXkPi2klVNtSSEsRhD1zsdsCZ
+         8SUWVbIcX6NQXNTUAT0EwHnaEGhfNiu+wwryI5/ca+vGe9eL7smJOrVtNv5l9sdCjc
+         0qIuAn7QFql6RJsDVBiGy2A8p2G4F6wD4NLNkQDkZD0Pe8Dg+QrkLkzZW8l+VOJink
+         c2ONx/t9+Csu01FI8fas1PkrYbVqR8wN/FIOJwzxIAOpnm6P4tpNNbBrD0v8sRv32l
+         pVHl6QYHPOQh/8A8InaxDAHE1y8UhfNEcM8408OQcdZMque/Y4pzR7tacmn9antP8A
+         NfDMM0BLSsxXw==
+Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id B8C9424F8;
+        Sat, 15 Jul 2023 18:02:47 +0200 (CEST)
+Date:   Sat, 15 Jul 2023 18:02:46 +0200
+From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+To:     Alejandro Colomar <alx@kernel.org>
 Cc:     linux-man@vger.kernel.org
-References: <20230711211350.1247303-1-git@sphalerite.org>
-From:   Alejandro Colomar <alx@kernel.org>
-Organization: Linux
-In-Reply-To: <20230711211350.1247303-1-git@sphalerite.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------jINWzx6X9dm1yaee0r60nyka"
-X-Spam-Status: No, score=-4.5 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
-        RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-        URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.6
+Subject: Re: [PATCH v2] pipe.7: document read()s with O_NONBLOCK
+Message-ID: <m2nyqfc2mv65iwgugj2zysx7dof6k4nzdvez4luxfk3yzg3x5s@s7mjae7pm2kd>
+References: <ff0e5304-2571-2f83-52c6-c07dbed65d3c@kernel.org>
+ <fomznwcpuyco5gc43fipa6tve32yh7rhtzjfsj3ivpmnmmvmxv@gs52k2jhlflu>
+ <0f1a0d18-d89d-0c1e-229a-a057e5c77b6a@kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="n7c7h5vxsvpbeqpg"
+Content-Disposition: inline
+In-Reply-To: <0f1a0d18-d89d-0c1e-229a-a057e5c77b6a@kernel.org>
+User-Agent: NeoMutt/20230517
+X-Spam-Status: No, score=-1.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RDNS_DYNAMIC,SPF_HELO_PASS,
+        SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=no
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------jINWzx6X9dm1yaee0r60nyka
-Content-Type: multipart/mixed; boundary="------------ieQycn2OHYs025JBRTyMXHGL";
- protected-headers="v1"
-From: Alejandro Colomar <alx@kernel.org>
-To: Linus Heckemann <git@sphalerite.org>
-Cc: linux-man@vger.kernel.org
-Message-ID: <54841b60-d361-2122-1fd6-6a4e2c49a500@kernel.org>
-Subject: Re: [PATCH] rtnetlink.7: Document IFLA_PERM_ADDRESS
-References: <20230711211350.1247303-1-git@sphalerite.org>
-In-Reply-To: <20230711211350.1247303-1-git@sphalerite.org>
 
---------------ieQycn2OHYs025JBRTyMXHGL
-Content-Type: text/plain; charset=UTF-8
+--n7c7h5vxsvpbeqpg
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hello Linus,
+Hi!
 
-On 2023-07-11 23:13, Linus Heckemann wrote:
-> ---
+On Sat, Jul 15, 2023 at 05:11:37PM +0200, Alejandro Colomar wrote:
+> On 2023-07-09 21:45, =D0=BD=D0=B0=D0=B1 wrote:
+> > Which don't behave like you may expect them to.
+> What is the way that you expected or might have expected,
+> and how does this differ?  I'm curious.
+By natural extension of either:
+files   (being a  filesystem object), always returning 0 if no data, or
+sockets (being an IPC mechanism),     always EAGAINing   if no data.
 
-Please document this patch in the commit message.
+The pipe semantics make /sense/ of course, but they aren't
+The First Obvious Thing, because they're unique among the inode types;
+in many ways you can model pipes under this model as being
+files if writers vs sockets if none, but, well.
 
+Best,
 
->  man7/rtnetlink.7 | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/man7/rtnetlink.7 b/man7/rtnetlink.7
-> index 2ce541c37..6061b5fd4 100644
-> --- a/man7/rtnetlink.7
-> +++ b/man7/rtnetlink.7
-> @@ -105,6 +105,7 @@ IFLA_QDISC:asciiz string:Queueing discipline
->  IFLA_STATS:T{
->  see below
->  T}:Interface Statistics
-> +IFLA_PERM_ADDRESS:hardware address:hardware address provided by device=
- (since 5.5)
-
-For improved greppability, say Linux 5.5, instead of just 5.5.
-
-Thanks,
-Alex
-
->  .TE
->  .IP
->  The value type for
-
---=20
-<http://www.alejandro-colomar.es/>
-GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
-
-
---------------ieQycn2OHYs025JBRTyMXHGL--
-
---------------jINWzx6X9dm1yaee0r60nyka
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+--n7c7h5vxsvpbeqpg
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmSyv5IACgkQnowa+77/
-2zLsfRAAi6N1dLrxJx/npNz7TjfDTQ3gTfI+xeLCQNOFqWJHlY/UElO0ckywGl1X
-T+6KdgrYLtPwEivCHTl3H0bAFHIhimF5YZEN7TtZxQejs2kAeekTAizB+SfG59Ft
-0MBa3hS5GllqQVHmcfn/9R6WfKUtQIkUxJtt8l9YYtqwdoLuMYKvLYoZAItKGV1J
-vn9WLUsI2k3JdU9CxluLxiIrefVC+A4Vh5BPxmUMChBU/FnGlEh7WLBdjJtSJp0g
-BDqky17OEJ7DNGD6EpMcwRi1D2z8EBN5BOZVbqaNSa6G8u6oyIJjguL2+xMMAOEk
-R+xUW94eyt1gRHVYHobJSITGR1MQFD8m4hfPx498tqEKoCoWzJUnXcwKmSh6yB2+
-+EJ52cK/NJn9PsyKqlcLRk8PUcSGnO1SMKUWvmRLYwRZWRTmo6m/J33bAsboGxvM
-5gGAaQHPYdL4/lsB70h72Q1GSMzL8hcdQUJY5W1+nXcE9ki66Nf5m0Vii0uegawU
-UbiX0jMRTKcyMso7tBV5MHbIRZJHuX9PYenFQxldQYWcFsl89vsW6ILxih2YQwVI
-OQT4tcJjGVVIGL3dGfG2LJMFNaW0sPdSZ3YwIrauErgsfa2neN46Ujd98gGvf8mv
-avClzNYheVZg6m5dri615zQgXy4ybxkIYckIY9XcZb1sBAWoLQI=
-=fxHH
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmSywyIACgkQvP0LAY0m
+WPFX0A/8DucaegecDidZdOGhvYh/JECkPIXe8WO93JkdJo7BaVyBesA8FxyH0TU6
+Zi84gPaPvfmt4aXcLpYjbyq2mLmoT0K3ALHevP7zLTkAOprpYvF+Y4IJdMSjVXxp
+y5VJHvLj9rl+3rRWTgSOX9LtH5FOnGol1dHXhIcJzY/BJghp9VxSZMH862vQZkD8
+DRJBATwa1lpRByVpJFW7O6zS5LxXKV266PQHcnyRzB+aHzTDgW7+jTNv8h7RiXPt
+8eEOKCkkWl1IX3WI+Puk3b7on6k0o1yXtpA0btm1dLGNb884cktVNXpKp9rJ0lvt
+s49kSPZsZ+H+pmhdeiMQhYkPAU4U0QwLjls78wfGdEG5ZwDEMyYbw+uezkOhf/aJ
+gz65zKF/DeU0oX5LixFNc2AoF47DdxsVy4I6fCub2xm54s7oVhvI2jO0rHqV1zbG
+oLa1hKC7BhWBVwWma+XQMxInvnH9lH3YonZUDzEkYHp13Dts3SX7UpfZXhOquCSY
+P4wiXio2EW2oaF7sPtF7O/2Q/ece6v+h3hQz+AX7WJ7PyWO4MtkeCNcazb+8076h
+tFq4Y6MsLY/aas9mScuMaLmlOERi1vTTmgo6ZaBO9rAImZE8VnOCqeNJQQyJKYsS
+dhLch1stEVMLbg28A05wj3faKCYDqxT746gTn2m0PeL8cwhaLUs=
+=u0Be
 -----END PGP SIGNATURE-----
 
---------------jINWzx6X9dm1yaee0r60nyka--
+--n7c7h5vxsvpbeqpg--
