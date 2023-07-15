@@ -2,98 +2,187 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id A1F907549FA
-	for <lists+linux-man@lfdr.de>; Sat, 15 Jul 2023 18:02:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2038E754A10
+	for <lists+linux-man@lfdr.de>; Sat, 15 Jul 2023 18:13:42 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229530AbjGOQCz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 15 Jul 2023 12:02:55 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42026 "EHLO
+        id S229472AbjGOQNk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 15 Jul 2023 12:13:40 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44984 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230272AbjGOQCy (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 15 Jul 2023 12:02:54 -0400
-Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 292DB2729
-        for <linux-man@vger.kernel.org>; Sat, 15 Jul 2023 09:02:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-        s=202305; t=1689436967;
-        bh=VcHf0A2NYyN4rqGDjnHicfAYVCm/f01VmmPtvmDweG4=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=c124Frf/VfCqpnD2mIIHWQULk3kPlX4QOqg8w6wUHXkPi2klVNtSSEsRhD1zsdsCZ
-         8SUWVbIcX6NQXNTUAT0EwHnaEGhfNiu+wwryI5/ca+vGe9eL7smJOrVtNv5l9sdCjc
-         0qIuAn7QFql6RJsDVBiGy2A8p2G4F6wD4NLNkQDkZD0Pe8Dg+QrkLkzZW8l+VOJink
-         c2ONx/t9+Csu01FI8fas1PkrYbVqR8wN/FIOJwzxIAOpnm6P4tpNNbBrD0v8sRv32l
-         pVHl6QYHPOQh/8A8InaxDAHE1y8UhfNEcM8408OQcdZMque/Y4pzR7tacmn9antP8A
-         NfDMM0BLSsxXw==
-Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id B8C9424F8;
-        Sat, 15 Jul 2023 18:02:47 +0200 (CEST)
-Date:   Sat, 15 Jul 2023 18:02:46 +0200
-From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-To:     Alejandro Colomar <alx@kernel.org>
-Cc:     linux-man@vger.kernel.org
-Subject: Re: [PATCH v2] pipe.7: document read()s with O_NONBLOCK
-Message-ID: <m2nyqfc2mv65iwgugj2zysx7dof6k4nzdvez4luxfk3yzg3x5s@s7mjae7pm2kd>
-References: <ff0e5304-2571-2f83-52c6-c07dbed65d3c@kernel.org>
- <fomznwcpuyco5gc43fipa6tve32yh7rhtzjfsj3ivpmnmmvmxv@gs52k2jhlflu>
- <0f1a0d18-d89d-0c1e-229a-a057e5c77b6a@kernel.org>
+        with ESMTP id S229918AbjGOQNj (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 15 Jul 2023 12:13:39 -0400
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5646430E3
+        for <linux-man@vger.kernel.org>; Sat, 15 Jul 2023 09:13:38 -0700 (PDT)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+         key-exchange X25519 server-signature RSA-PSS (2048 bits))
+        (No client certificate requested)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id E894C60BC0
+        for <linux-man@vger.kernel.org>; Sat, 15 Jul 2023 16:13:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E472C433C8;
+        Sat, 15 Jul 2023 16:13:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1689437617;
+        bh=i0NfenT2zSIstWmAAZNHuBNRnZQtqiNeZSVqF4Nb7ec=;
+        h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+        b=advwsznAWQ3zXEOyncujeYHnE2R+m5mlrbXOcPzThSv0Y7oOvLCMTHRhf3zTsk9Ba
+         K0g5qta60z0SwzyJInTo4SNCpdCRn2ouTnXqJ1wX0dX+oEPo+dwpQCQzg8mJU9vOs1
+         x/sx1HESEoXh9ZehlRUUfZFRWYD9DaKDOdYyTq2S3FH+rZWbKkPgnXdJ7oX+5aL3ND
+         K91E/eed9JIaN/J4YEB9pkM8WR7UhL9RJiFK1bmvuE5tYmgCX8KWsmXdmmP0GXohJQ
+         wWHfSDvYTTEEJO6W4FaSXkrSznIP5InakA1xdBB5nL4QjrOWH9I5WBNWVdUUiBq+SJ
+         qIrjy5p1SOS2Q==
+Message-ID: <61009d70-8033-2e6d-7916-f45033398d7d@kernel.org>
+Date:   Sat, 15 Jul 2023 18:13:25 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="n7c7h5vxsvpbeqpg"
-Content-Disposition: inline
-In-Reply-To: <0f1a0d18-d89d-0c1e-229a-a057e5c77b6a@kernel.org>
-User-Agent: NeoMutt/20230517
-X-Spam-Status: No, score=-1.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RDNS_DYNAMIC,SPF_HELO_PASS,
-        SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=no
-        autolearn_force=no version=3.4.6
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [PATCH] Fix the man page
+Content-Language: en-US
+To:     Zijun Zhao <zijunzhao@google.com>
+Cc:     linux-man@vger.kernel.org, enh <enh@google.com>
+References: <CAELULbeXgZWn+Nw_rpUzkGgNCtb7oFf1+JS=KnNVuLhcF5Vabg@mail.gmail.com>
+ <CAELULbf=z2WWpHm5QDTK81oWTC9zMZJg2MA69mjOorJQ5QAzGw@mail.gmail.com>
+ <CAJgzZopuptYOKHQ32-mau9gzwaWOmRtTACqdmfZvox=c2itp7w@mail.gmail.com>
+ <781c88a1-b71f-f600-8d75-068a65855d16@gmail.com>
+ <CAJgzZooLH5UnNU_j6jTkTFMCS+7gDMaTu9RYpSHnO2ELJat-+A@mail.gmail.com>
+ <41ea7196-c824-196d-7794-0f61d0947bcd@gmail.com>
+ <CAELULbcAtuqehXmDeRjOPtCOuriw9hrUU2Ndw8-i0Z=9GkbNzg@mail.gmail.com>
+ <CAELULbfDFt2Z3T45_brzhWzL8182R=uxpHy_rSdgBSXpp+QQKQ@mail.gmail.com>
+ <CAJgzZoqS-QJWX87P5B1LQxCktm9BAVfVVBwBxV87RhmQg0fsdg@mail.gmail.com>
+ <CAJgzZooCj9FcHwMam0TC_y6c33K8OFuWGGS0_-Ji+eEhLsXo_Q@mail.gmail.com>
+ <e7083e0d-92c2-ae07-7ff5-f7fa1ca91be6@kernel.org>
+ <bf4dd8ed-ded3-6fe0-d3fa-afa63164bc4c@kernel.org>
+ <CAELULbcxcmRXCkXx3_q2WMb8eMHTGfRRw=kmsOCBr-YRauOgUQ@mail.gmail.com>
+From:   Alejandro Colomar <alx@kernel.org>
+Organization: Linux
+In-Reply-To: <CAELULbcxcmRXCkXx3_q2WMb8eMHTGfRRw=kmsOCBr-YRauOgUQ@mail.gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------AdX2WOaQfkIjJRwzXYoETEU6"
+X-Spam-Status: No, score=-2.2 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
+        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+        URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------AdX2WOaQfkIjJRwzXYoETEU6
+Content-Type: multipart/mixed; boundary="------------uQjihAPkpnG7P1V04tLMCaCH";
+ protected-headers="v1"
+From: Alejandro Colomar <alx@kernel.org>
+To: Zijun Zhao <zijunzhao@google.com>
+Cc: linux-man@vger.kernel.org, enh <enh@google.com>
+Message-ID: <61009d70-8033-2e6d-7916-f45033398d7d@kernel.org>
+Subject: Re: [PATCH] Fix the man page
+References: <CAELULbeXgZWn+Nw_rpUzkGgNCtb7oFf1+JS=KnNVuLhcF5Vabg@mail.gmail.com>
+ <CAELULbf=z2WWpHm5QDTK81oWTC9zMZJg2MA69mjOorJQ5QAzGw@mail.gmail.com>
+ <CAJgzZopuptYOKHQ32-mau9gzwaWOmRtTACqdmfZvox=c2itp7w@mail.gmail.com>
+ <781c88a1-b71f-f600-8d75-068a65855d16@gmail.com>
+ <CAJgzZooLH5UnNU_j6jTkTFMCS+7gDMaTu9RYpSHnO2ELJat-+A@mail.gmail.com>
+ <41ea7196-c824-196d-7794-0f61d0947bcd@gmail.com>
+ <CAELULbcAtuqehXmDeRjOPtCOuriw9hrUU2Ndw8-i0Z=9GkbNzg@mail.gmail.com>
+ <CAELULbfDFt2Z3T45_brzhWzL8182R=uxpHy_rSdgBSXpp+QQKQ@mail.gmail.com>
+ <CAJgzZoqS-QJWX87P5B1LQxCktm9BAVfVVBwBxV87RhmQg0fsdg@mail.gmail.com>
+ <CAJgzZooCj9FcHwMam0TC_y6c33K8OFuWGGS0_-Ji+eEhLsXo_Q@mail.gmail.com>
+ <e7083e0d-92c2-ae07-7ff5-f7fa1ca91be6@kernel.org>
+ <bf4dd8ed-ded3-6fe0-d3fa-afa63164bc4c@kernel.org>
+ <CAELULbcxcmRXCkXx3_q2WMb8eMHTGfRRw=kmsOCBr-YRauOgUQ@mail.gmail.com>
+In-Reply-To: <CAELULbcxcmRXCkXx3_q2WMb8eMHTGfRRw=kmsOCBr-YRauOgUQ@mail.gmail.com>
 
---n7c7h5vxsvpbeqpg
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+--------------uQjihAPkpnG7P1V04tLMCaCH
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi!
+Hi Zijun,
 
-On Sat, Jul 15, 2023 at 05:11:37PM +0200, Alejandro Colomar wrote:
-> On 2023-07-09 21:45, =D0=BD=D0=B0=D0=B1 wrote:
-> > Which don't behave like you may expect them to.
-> What is the way that you expected or might have expected,
-> and how does this differ?  I'm curious.
-By natural extension of either:
-files   (being a  filesystem object), always returning 0 if no data, or
-sockets (being an IPC mechanism),     always EAGAINing   if no data.
+On 2023-07-12 01:48, Zijun Zhao wrote:
+> Hi Alejandro,
+>   Sorry for the late reply!
 
-The pipe semantics make /sense/ of course, but they aren't
-The First Obvious Thing, because they're unique among the inode types;
-in many ways you can model pipes under this model as being
-files if writers vs sockets if none, but, well.
+No problem :-)
 
-Best,
+> I made some changes(make the subject more
+> formal, add a blank line, respect the80-column right margin and use -u
+> to when doing git format-patch) and attached the patch below.
 
---n7c7h5vxsvpbeqpg
-Content-Type: application/pgp-signature; name="signature.asc"
+Thanks!
+
+> But I am
+> a bit confused about semantic newlines. I think I already start on a
+> new line and use clause breaks to split long sentences? Do I
+> misunderstand something? Thank you!
+
+Here's your patch, modified to use semantic newlines:
+
++The kernel accepts null for both time and timezone.
++The timezone argument is ignored by glibc and musl,
++and not passed to/from the kernel.
++Android's bionic passes the timezone argument to/from the kernel,
++but Android does not update the kernel timezone
++based on the device timezone in Settings,
++so the kernel's timezone is typically UTC.
+
+Does it make sense now?
+
+I'll also comment a few things about the patch:
+
+> +The kernel accepts null for both time and timezone.
+
+We should use the 'tv' and 'tz' identifiers.  We should also use NULL.
+I suggest:
+
+The kernel accepts NULL for both
+=2EI tv
+and
+=2EIR tz .
+
+> +The timezone argument is ignored by glibc and musl,
+> +and not passed to/from the kernel.
+> +Android's bionic passes the timezone argument to/from the kernel,
+
+Could you give an example of why bionic differs from glibc and musl,
+and why it can be useful.  It is mostly curiosity, but it might be
+useful to have it documented in the commit message.
+
+> +but Android does not update the kernel timezone
+> +based on the device timezone in Settings,
+> +so the kernel's timezone is typically UTC.
+
+Cheers,
+Alex
+
+--=20
+<http://www.alejandro-colomar.es/>
+GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
+
+
+--------------uQjihAPkpnG7P1V04tLMCaCH--
+
+--------------AdX2WOaQfkIjJRwzXYoETEU6
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmSywyIACgkQvP0LAY0m
-WPFX0A/8DucaegecDidZdOGhvYh/JECkPIXe8WO93JkdJo7BaVyBesA8FxyH0TU6
-Zi84gPaPvfmt4aXcLpYjbyq2mLmoT0K3ALHevP7zLTkAOprpYvF+Y4IJdMSjVXxp
-y5VJHvLj9rl+3rRWTgSOX9LtH5FOnGol1dHXhIcJzY/BJghp9VxSZMH862vQZkD8
-DRJBATwa1lpRByVpJFW7O6zS5LxXKV266PQHcnyRzB+aHzTDgW7+jTNv8h7RiXPt
-8eEOKCkkWl1IX3WI+Puk3b7on6k0o1yXtpA0btm1dLGNb884cktVNXpKp9rJ0lvt
-s49kSPZsZ+H+pmhdeiMQhYkPAU4U0QwLjls78wfGdEG5ZwDEMyYbw+uezkOhf/aJ
-gz65zKF/DeU0oX5LixFNc2AoF47DdxsVy4I6fCub2xm54s7oVhvI2jO0rHqV1zbG
-oLa1hKC7BhWBVwWma+XQMxInvnH9lH3YonZUDzEkYHp13Dts3SX7UpfZXhOquCSY
-P4wiXio2EW2oaF7sPtF7O/2Q/ece6v+h3hQz+AX7WJ7PyWO4MtkeCNcazb+8076h
-tFq4Y6MsLY/aas9mScuMaLmlOERi1vTTmgo6ZaBO9rAImZE8VnOCqeNJQQyJKYsS
-dhLch1stEVMLbg28A05wj3faKCYDqxT746gTn2m0PeL8cwhaLUs=
-=u0Be
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmSyxaUACgkQnowa+77/
+2zKKQw//cpEVUzeryokrt34TkxBw1c1RMv/6J0XakUN+pp/how5MvD604OBt2ZeP
+O4aXWX72tsgNZPoaG0D2HliT0KU0XAo+EC2yK36I30TB0Hqni3o3AJ4lx2lSufxj
+kYdlBf7vVBRu4a8/LTS9own/Ql06/Cs09yesvmXQ6LCAgYfPHxGo3bak2CVE3Dg3
+s1rVfAxFMkot8XVcMFiWCHMou7TPSaqzTnB8XvTJLai2tpUUYd5NFgmtCr/eHrgp
+a09/4lXGP9PupgTd/xA/wiT0xrUsaJXB8k+1S4pCBODiqJZPYyf5iVq8iBo6hEYl
+ht7sr5M+EH9tITjKgWkWfVB1ABhaFs1iskcr9bGwt3/VP64UtfwAG+yEZ+hsSHOK
+SLHMzYOIlYb5jCIqsvMTx8tby7TZoVml3SwEn4PvRNFA/AsFz9lmysteK4rG7Na/
+Uv0xOms6rg8YruorV6VWEFou+FKecg8TaCikJFXuuNe63EVZu86dDH0BulYo6Y1/
+h3XWb1JO6L14Wr9r7SN7y6lwCU14h9XY+M+MGxCOgcO6u0PlSMH6mXNZ7c6SKCjQ
+LygYwDlaIjn9/2bIF4S3mt2Am3b8QUdbmZnAYN2mtlrgrsJKdhsz/bXEZQKI6KVj
+WYn1nVxReAHQ/DS2qdZh+EvbLGjyUldF88G0dqhO4sQqSdGIk3w=
+=ULx7
 -----END PGP SIGNATURE-----
 
---n7c7h5vxsvpbeqpg--
+--------------AdX2WOaQfkIjJRwzXYoETEU6--
