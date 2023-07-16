@@ -2,43 +2,44 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 62C74754E7E
-	for <lists+linux-man@lfdr.de>; Sun, 16 Jul 2023 13:45:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 67F26754E7F
+	for <lists+linux-man@lfdr.de>; Sun, 16 Jul 2023 13:55:30 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229471AbjGPLpx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 16 Jul 2023 07:45:53 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47628 "EHLO
+        id S229517AbjGPLz2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 16 Jul 2023 07:55:28 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48066 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229463AbjGPLpx (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 16 Jul 2023 07:45:53 -0400
+        with ESMTP id S229449AbjGPLz1 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 16 Jul 2023 07:55:27 -0400
 Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id F2552EE
-        for <linux-man@vger.kernel.org>; Sun, 16 Jul 2023 04:45:51 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 77FEF132
+        for <linux-man@vger.kernel.org>; Sun, 16 Jul 2023 04:55:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-        s=202305; t=1689507949;
-        bh=ftlSJ/YfiME3/m6wSu2JCKFvG8HKzk/7eZJGSGeZPT0=;
+        s=202305; t=1689508525;
+        bh=hORsGW6g+Y1B0NE3vEmRugAtzoevS2DqrxsHUZIeNOI=;
         h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=b9ofbcvM+pfsa6uMbT3kpXBDSYPnJdtEfm2syearXMCpiTiCifLq+hvjqLaEulJay
-         Tm3IhOQjGbPVCa+09c7M3IOQk/MMK3LZQFLvsE4pGBBsVNQZSkx+TmXEF+Cu5g3l7W
-         0wFg0WVfiwwoD4q+zyKMJrItSqIelnE75f7uQSUmlcPn6+DPld35JEJc+fvYJ8L1pm
-         o/NJXE9X0uUvOR0oNVdtgQwXfxk1LMI4X4m4F9PqNhzwd6HtQk2FC/IUp6eRTQv8v0
-         9VPhs1BAIMp25tVXinyvwJUKV5ytj8rGMbTR2w6omjuRrMcjkTdhN8NZoLcofAMZDl
-         6ZSG8S6xpfjHw==
+        b=nYigCNRSZmPVBvHwl1JxDSTbreNw79Wi2Ba3Q9RXcSHO86VxGpn0+jDBl1loqcCBV
+         pYjzSnxU1otNpqh/sw7BK2tPETUjLP8lv4CEfQilZisWoeICmEELBgPO2vRD0MMx/w
+         969kgxMsmGbGFLU1QAFGT5qIrRWJBNwaYGYnHaBeF9UARFNOFR5VIFmnhu7MnPamNU
+         NELvQpj3708TCaxxifc+p9tHcbd/2Pqddocz/2KJBxxRKbHpWUvA1kO38C22POij9W
+         AaRFcOjahCx4ZFJf3mo9Qdciw3B9gnK9KW2W+KBNv7rKnqzhM68ih3S6f6Hf4Va8AV
+         +sMuf3juks8Lg==
 Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id D18BA334A;
-        Sun, 16 Jul 2023 13:45:49 +0200 (CEST)
-Date:   Sun, 16 Jul 2023 13:45:48 +0200
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id BA2072D50;
+        Sun, 16 Jul 2023 13:55:25 +0200 (CEST)
+Date:   Sun, 16 Jul 2023 13:55:24 +0200
 From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
 To:     Alejandro Colomar <alx@kernel.org>
-Cc:     linux-man@vger.kernel.org
-Subject: [PATCH v4] epoll_create.2: HISTORYise "max_user_instances" EMFILE
-Message-ID: <eeb222b6mvgjgush7rmu4uqn4h4tgr2lwodklz2inhicazfrch@mvjqzfksoayp>
-References: <2ac89a3b-6626-ec3c-de34-8efe976aaac7@kernel.org>
+Cc:     linux-man@vger.kernel.org, Jakub Wilk <jwilk@jwilk.net>,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Subject: [PATCH v5] grantpt.3: no-op on modern glibc and other UNIXes
+Message-ID: <van5n7dhx63tbicenevvkkg624su7xcsjrffhicjruvmdii4yk@j52kjf6qgwko>
+References: <062f90e1-25e1-295f-9c58-31c8da7b8f24@kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="qtm4hyxe3t4uk4cx"
+        protocol="application/pgp-signature"; boundary="ygdter7bl3536qrg"
 Content-Disposition: inline
-In-Reply-To: <2ac89a3b-6626-ec3c-de34-8efe976aaac7@kernel.org>
+In-Reply-To: <062f90e1-25e1-295f-9c58-31c8da7b8f24@kernel.org>
 User-Agent: NeoMutt/20230517
 X-Spam-Status: No, score=-1.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
@@ -51,85 +52,95 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---qtm4hyxe3t4uk4cx
+--ygdter7bl3536qrg
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-/proc/sys/fs/epoll/max_user_instances hasn't existed since
-  commit 9df04e1f25effde823a600e755b51475d438f56b
-  ("epoll: drop max_user_instances and rely only on max_user_watches")
-=66rom
-  Date:   Thu Jan 29 14:25:26 2009 -0800
-which describes to v2.6.29-rc3-24-g9df04e1f25ef.
+FreeBSD, OpenBSD, and Linux (/dev/ptmx) do all intialisation in open(2),
+and grantpt(3) is a no-op (that checks whether the fd is a pty, except on
+musl).
 
+The illumos gate and NetBSD do a ioctl (and, indeed, illumos-gate commit
+ facf4a8d7b59fde89a8662b4f4c73a758e6c402c ("PSARC/2003/246 Filesystem
+  Driven Device Naming"), which kills pt_chmod, notes that it's been
+ "6464196 bfu should remove pt_chmod, obsoleted by /dev filesystem").
+
+glibc 2.33 completely kills BSD PTY support on Linux
+(Debian hasn't configured with them on any architecture since 2007:
+   https://bugs.debian.org/338404
+ and even earlier on some arches; they're really just trivia under
+ Linux =E2=80=92 this may be better served stuffed into HISTORY as an expla=
+iner
+ for the SIGCHLD thing, since regardless of the "version", the behaviour
+ is well-defined and consistent).
+
+Cc: Jakub Wilk <jwilk@jwilk.net>
 Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
 ---
-The sysctl(2) path would be "fs.epoll.m_u_i" so "kernel parameter" it is
-since we spec the filesystem-domain path.
+I read it but didn't really understand what you were saying, since
+you're on record as a text=E2=80=92text=E2=80=92text liker.
+You can trivially continue the lines with \c like the below, but
+  "no-op, with permissions ... on Linux, or an ioctl(2)."
+would probably also work just as well,
+and I leave that to your editorial sensibilities.
 
- man2/epoll_create.2 | 19 +++++++++++--------
- 1 file changed, 11 insertions(+), 8 deletions(-)
+ man3/grantpt.3 | 18 ++++++++----------
+ 1 file changed, 8 insertions(+), 10 deletions(-)
 
-diff --git a/man2/epoll_create.2 b/man2/epoll_create.2
-index 4d3566a79..2a21bbf8b 100644
---- a/man2/epoll_create.2
-+++ b/man2/epoll_create.2
-@@ -83,14 +83,6 @@ .SH ERRORS
- .IR flags .
- .TP
- .B EMFILE
--The per-user limit on the number of epoll instances imposed by
--.I /proc/sys/fs/epoll/max_user_instances
--was encountered.
--See
--.BR epoll (7)
--for further details.
--.TP
--.B EMFILE
- The per-process limit on the number of open file descriptors has been reac=
-hed.
- .TP
- .B ENFILE
-@@ -134,6 +126,17 @@ .SH HISTORY
- in order to ensure backward compatibility when new
- .B epoll
- applications are run on older kernels.
-+.PP
-+Prior to Linux 2.6.29,
-+.\" commit 9df04e1f25effde823a600e755b51475d438f56b
-+a
-+.I /proc/sys/fs/epoll/max_user_instances
-+kernel parameter limited live epolls for each real user ID,
-+and caused
-+.BR epoll_create ()
-+to fail with
-+.B EMFILE
-+on overrun.
- .SH SEE ALSO
- .BR close (2),
- .BR epoll_ctl (2),
+diff --git a/man3/grantpt.3 b/man3/grantpt.3
+index a19172a3e..363a7aebd 100644
+--- a/man3/grantpt.3
++++ b/man3/grantpt.3
+@@ -84,17 +84,15 @@ .SH ATTRIBUTES
+ .ad
+ .sp 1
+ .SH VERSIONS
+-Many systems implement this function via a set-user-ID helper binary
++Historical systems implemented this function via a set-user-ID helper bina=
+ry
+ called "pt_chown".
+-On Linux systems with a devpts filesystem (present since Linux 2.2),
+-the kernel normally sets the correct ownership and permissions
+-for the pseudoterminal slave when the master is opened
+-.RB ( posix_openpt (3)),
+-so that nothing must be done by
+-.BR grantpt ().
+-Thus, no such helper binary is required
+-(and indeed it is configured to be absent during the
+-glibc build that is typical on many systems).
++glibc on Linux before glibc 2.33 could do so as well,
++in order to support configurations with only BSD pseudoterminals;
++this support has been removed.
++On modern systems this is either a no-op\c
++\[em]with permissions configured on pty allotion, as is the case on Linux\=
+[em]\c
++or an
++.BR ioctl (2).
+ .SH STANDARDS
+ POSIX.1-2008.
+ .SH HISTORY
 --=20
 2.39.2
 
---qtm4hyxe3t4uk4cx
+--ygdter7bl3536qrg
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmSz2GwACgkQvP0LAY0m
-WPHrzw/+NY7mUZ6QS8+IYt1p6gO1WImlZzEaOz3MrAXbMGE60RxvuKA/c2LpB7sB
-k+P9jP8skDInmOi4RE2agZNpXeNzJcKAAfVO7pXvSEhzjBOo5IK9vFBqKbHmXF9R
-j41BgOlhUYGW80KOMtanPGYRUajvSglTx2jZI25otJWo8N1m+wp+TGalP0jiFpwd
-5xk5xL7AjXsG7675ac59o9EuKhoW5rLosFfVhT8+Eg/BIexWO7ui74yEW4Ye3rbZ
-Vwjuzhz2MW1dlmOGbfli5R3bmKRzRUb2hg0XttIVsY+bUfZqLq8oeOJXaXHHy2DV
-TM3kP3c+KblC7jWzaE0yqOF3Mbh8sdpKf7z1a0wrZfN0YSayxvntr6fVF5zqS0J6
-6OqF8hqPZizKf5ubkwfAM3SwN+EvXwc8W+IQLqsVLclQOU/VUlVvT4lay5J+yDPl
-bLhrk+FqZ6+ci/UBHco/6kUp8KPB4XqFDrcPNwn4WJnYs4r/4BehRL28N83PY6jg
-iZy06rTOxaP8ZmNZwfO1h4LroTJgDQnZ2Z4kltUEye7dqYUtGiwAM8GGIGRKq7dJ
-YU64i4vZ/HcVOXUWZFyAMdVqI01Hi34jV6eXfbO5YdFyCGOy5NRGM4gxlcTtZTQu
-GfD8CCnivIyftNW84YsXJNurQXRgenl8nsn6BniP0OL7PLx8/cs=
-=CIs8
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmSz2qwACgkQvP0LAY0m
+WPEVeQ//XuJ4wzL8nXrAyfesMPKRqC6WcPdK5n1hrIWsu7QY+TqVvkAs5wJcphnd
+tqZd1hjoAY9pUGhWhXmGgtXCX2PnabWlhASWPcmAdIwdDvEFrqZ9KwvD8AIF/7Pd
+PtzuAb5vDXglBzzuDGYu4KYL05/qEFERyfjwGLX2URU8LtF3nn9k+nCjUW9a7gB1
+Q9pxv2y7GX6T9t1lhhm2XLtnBX01CDM+cKIjSbC8BXO63I8KK/yJbrcCuXv3B+7d
+Ys22c6T69QRnxZ7RpjXuLGoB77djme11+rAL0epH2cQx5Eb/J5l0/8mxPqvGJ4+M
+z8BIcNHp71N0kPNE5h7UuLcOT1g1LC6FfmYGDRV+GmpIz0W7YZltUWLxOAcqpt8j
+rmI5a6QbDsl0ThSAVsB0BkNhNZHOZLT8CPQAH7++E53OEBNOkCiZCXTCtgSZKIYH
+0cDbP6C34nwFO6UiTJ1CJcRAw2GN/in2med/Ft36ws7XaWrLGEftPmaELwrcn6A4
+VGNPM0+vhV0VnLV/HRI0TpeyOq9sg2z1SMKPPspzTLOgd2U6GKcXuW2BlFREf8ta
+WF//Xf+nXpqC7lBnvoYkAH1WF3H0z0ofJZwNZDaLST9+Wz9ZhjePZqVoUwJUnO3i
+OsNUWtN+4U97Nn6X5KQN5acvw5rdKYvI1/ZrLGUPIhgmrI6TvJc=
+=Hu8c
 -----END PGP SIGNATURE-----
 
---qtm4hyxe3t4uk4cx--
+--ygdter7bl3536qrg--
