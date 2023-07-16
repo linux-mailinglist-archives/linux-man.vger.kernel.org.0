@@ -2,70 +2,67 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id BD3DF754D25
-	for <lists+linux-man@lfdr.de>; Sun, 16 Jul 2023 04:34:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B5AA4754D2B
+	for <lists+linux-man@lfdr.de>; Sun, 16 Jul 2023 04:58:18 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229791AbjGPCei (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 15 Jul 2023 22:34:38 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52270 "EHLO
+        id S229587AbjGPC6R (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 15 Jul 2023 22:58:17 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54358 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229460AbjGPCeh (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 15 Jul 2023 22:34:37 -0400
-Received: from mail-ot1-x32d.google.com (mail-ot1-x32d.google.com [IPv6:2607:f8b0:4864:20::32d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 462072702
-        for <linux-man@vger.kernel.org>; Sat, 15 Jul 2023 19:34:36 -0700 (PDT)
-Received: by mail-ot1-x32d.google.com with SMTP id 46e09a7af769-6b867acbf6dso2684889a34.0
-        for <linux-man@vger.kernel.org>; Sat, 15 Jul 2023 19:34:36 -0700 (PDT)
+        with ESMTP id S229451AbjGPC6Q (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 15 Jul 2023 22:58:16 -0400
+Received: from mail-oo1-xc2b.google.com (mail-oo1-xc2b.google.com [IPv6:2607:f8b0:4864:20::c2b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C99E91BE
+        for <linux-man@vger.kernel.org>; Sat, 15 Jul 2023 19:58:15 -0700 (PDT)
+Received: by mail-oo1-xc2b.google.com with SMTP id 006d021491bc7-563439ea4a2so2204471eaf.0
+        for <linux-man@vger.kernel.org>; Sat, 15 Jul 2023 19:58:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1689474875; x=1692066875;
+        d=gmail.com; s=20221208; t=1689476295; x=1692068295;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=Du4mmCPaGlg695PqvFmUe5k2K55wMCDC7+0AyKd+OvU=;
-        b=apN3MPlXOGxDmFyPyj78zWTzXwbVNnSru5YdIrl1i6SwGf+GlqVTpRLWQBRd6ZVHGg
-         pPj7Vu34JG1H3bwZrCb706OqdMdVUq3dloznMGbcXr1QQp7QjtK5RB4SNTcAM7g3iXhd
-         w1LHlkB6EfgXwKufA7ppCaTDyTR7G3aNUOP1w1nF9gOq9jSv/+WBbH/FLRgomhWh+FX8
-         cys8XBrGL5jUB9bCrD1Lx62+vEb7+XfRGM0CELn6hzo/Zd7vDeHNsfe9LFMabz3JaLy2
-         TVjpheNvxh3YgXDAplh+qG1vWT238r8rZx0Z4zcJ/Ec57aN+XoWsaAfyoPQ0GISTBS1+
-         ojCw==
+        bh=4G/+FNT/DRWoC87PWvO6NMYeKvts5wy6tmoPBHMnFMI=;
+        b=A6r4sy08ek6UpNE8K/ZzBZhc9ZZc2Tvs9YIbBXQ7Znx1pKXNlyzQAp0NsEFOLws6Ob
+         ZNBojiFHlkPNQfWFi9UXaBqb8n02oZPuRssytX7sFa8harZ7cqp0wB+3Mcbf4P6etNqO
+         llIfJUXgI+laBIPRIVWN0BlvCdebXZmrPw2O394oh9IElkbW1dwEO5pF/UDIhLbn3R4B
+         FVxB1I58k4o5BYYg+2oeAIja+oKShsDUrxkigRdMppGbtvcfbjSrv+OlIEhil2BligIP
+         uDrnKyO0sFLNbj3YYGXmdkycOuW2Qn/2L01sw4nyNECkQC6kUmpIvgHgD04laJNI4Ubw
+         7YTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689474875; x=1692066875;
+        d=1e100.net; s=20221208; t=1689476295; x=1692068295;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Du4mmCPaGlg695PqvFmUe5k2K55wMCDC7+0AyKd+OvU=;
-        b=P2Ofry3IyKrCOjZsXoKzyxuR+e5btSySPFLbmKdk2D2Qnuf1ppJe2t8muVtE3Y7bFy
-         XVMa6NxZWk17nojVG6EzG5QryHGgHxpIVYYASo9xWQr72TJJOUVRKX2C4NUm/U1RrGW5
-         R01lAN1OSE51FO7yqB8SDndbqWzYFLhR+8l2YGnvEwgaKkFCG0X69ww2UzQ6ThWXEKil
-         au0/UHqFUmli+DKreftMZ5v8V3MJ6awo+AmY41iZuajSbfHqf+VB+pHtKNtDM3+l9NPy
-         gunv47uTMg6A+iMojv7joSYNStaDfitnJIlugox4OH3ZvCEDEBy4L9yUan61EP5DxMSH
-         W4aQ==
-X-Gm-Message-State: ABy/qLZYVTue6AYmBDSxoXTDulajJUIHqJluMo4/bQGg8zNZjP0dm+Py
-        pn46qbKIjhlzmuWiN4nhaYuB5Pof2Rg=
-X-Google-Smtp-Source: APBJJlFzWrjHPJXIFNLBiWOh1iImzCzCHQZY9xv2efuF2lCcu/cVPKYm5kOW13tk+faa019SiUfALg==
-X-Received: by 2002:a05:6870:e40c:b0:19e:941a:8c5c with SMTP id n12-20020a056870e40c00b0019e941a8c5cmr4564424oag.10.1689474874951;
-        Sat, 15 Jul 2023 19:34:34 -0700 (PDT)
+        bh=4G/+FNT/DRWoC87PWvO6NMYeKvts5wy6tmoPBHMnFMI=;
+        b=JHL7zqnIT4V2xB5Xea96EhbQCGgnz/ubeCRwvBy7Bsd7b+JA8MwrJNiKNjzH1vv/cv
+         TW+9ZD8xfjpbTAiDnABuu1ElQYuGDBYZCEWbBDV6NKVoIO/s6QU9VqYU0QRHqJKcGJqH
+         dWdgPUTPhs2qcgV+YoD5KtCBPYv1ZkJls99HLjdcoQXHMJHXVI6+KNgDRI7piiHp+0pN
+         gStLl2lLrBs/vhSSgxC0fM9Lf1sDN7frYhk9cbheQujkVQEHpXw4HOA8sgzjAZKQH8Ux
+         v/9ETnniqWdG0QVNJWhal2h5Ic5qcQVXmFewXA+nWBhnfzdZrCLAPRBMZb02tWYdxnl4
+         BkMw==
+X-Gm-Message-State: ABy/qLZ9Z07GncE6ZIG65LFnpf0F07qZ/Z4IItRd3BGkUSFRIKiuFJ0Q
+        CVZ8uZd3twH2AxCjp9Pfr+AZjgrAob0=
+X-Google-Smtp-Source: APBJJlEnaL51WM4Es4R+0tpF0NCy1YI8bJck5RUaA5StGS2zQgbQQZmZriHXynP16FYLFTZBfsnWNg==
+X-Received: by 2002:a4a:6b15:0:b0:566:fdcd:aac2 with SMTP id g21-20020a4a6b15000000b00566fdcdaac2mr2162576ooc.2.1689476294935;
+        Sat, 15 Jul 2023 19:58:14 -0700 (PDT)
 Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id ds53-20020a0568705b3500b001a6d15fc52fsm5715082oab.4.2023.07.15.19.34.34
+        by smtp.gmail.com with ESMTPSA id v7-20020a4a5a07000000b0056345fd33e4sm5679328ooa.34.2023.07.15.19.58.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 15 Jul 2023 19:34:34 -0700 (PDT)
-Date:   Sat, 15 Jul 2023 21:34:32 -0500
+        Sat, 15 Jul 2023 19:58:14 -0700 (PDT)
+Date:   Sat, 15 Jul 2023 21:58:12 -0500
 From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
 To:     Alejandro Colomar <alx@kernel.org>
-Cc:     linux-man@vger.kernel.org
-Subject: Re: [PATCH] recv.2: msg_iovec / MSG_ERRQUEUE / -v
-Message-ID: <20230716023432.eolrrjeiilr63tb4@illithid>
-References: <CAP0H_AHtBCVaj2KM+DhHAoJrM4MW+vQhMEH0UHEa_UiMUzW03g@mail.gmail.com>
- <d33c2eee-8be0-6a00-9ffe-239cc41c6242@kernel.org>
- <20230715195934.yigz5fz6ulkxktaa@illithid>
- <567cd883-412f-6b23-92c6-e7ea51fd7ebd@kernel.org>
+Cc:     linux-man <linux-man@vger.kernel.org>
+Subject: Re: Replace \f where appropriate
+Message-ID: <20230716025812.3cssvd4lfnh7c23i@illithid>
+References: <7111dade-2e26-eaf6-6ecd-13c3111d2b15@kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="pc6f2zanh3ljsrzs"
+        protocol="application/pgp-signature"; boundary="uzlaytzw72zrlzdu"
 Content-Disposition: inline
-In-Reply-To: <567cd883-412f-6b23-92c6-e7ea51fd7ebd@kernel.org>
+In-Reply-To: <7111dade-2e26-eaf6-6ecd-13c3111d2b15@kernel.org>
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
         autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -74,163 +71,92 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---pc6f2zanh3ljsrzs
+--uzlaytzw72zrlzdu
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
 Hi Alex,
 
-At 2023-07-16T03:31:54+0200, Alejandro Colomar wrote:
-> > https://www.grammarbook.com/punctuation/hyphens.asp
->=20
-> [criticizing that link]
->=20
-> + Examples:
-> + an off-campus apartment
-> + state-of-the-art design
-> +=20
-> + When a compound adjective follows a noun, a hyphen is usually not
-> + necessary.
-> +=20
-> + Example: The apartment is off campus.
->=20
-> What?  "is" is a verb.  The compound adjective follows a verb, not a
-> noun.  Or does it mean after in the sense that anything can come in
-> between, as long as it's the noun which it modifies and it has come
-> before the adjective?  Is that a valid use of the word "follows"?  I'm
-> not native, but that sounds, ughh.
+At 2023-07-16T04:22:18+0200, Alejandro Colomar wrote:
+> As you may have noticed, we're now using the recent SPDX tags, which
+> were added in a recent SPDX release.  Next plan I have for the project
+> is to stop using \f escapes where unnecessary.  I'll start tomorrow,
 
-You're right that they employed an unhelpful example.  The apartment
-example affords an ambiguous syntactical parse, which a hyphen _can_
-clarify.
+Hooray!  Let me reiterate, for those who are not man(7) experts, why
+font style macros should be preferred, where possible, to \f escape
+sequences.
 
-A.  The apartment is off-campus.
+* The macros integrate more easily with spell checking systems.
+  Contrast
+    .I length
+  with
+    \fIlenth\fP
+  for example.
 
-Here "off-campus" is an attributive phrase, and "is" is what some
-primary school educators in the U.S. call a "linking verb"; in some
-languages, my impression is that a "zero copula", meaning no verb at
-all, is permitted or even preferred there.  Renderings of broken English
-are often presented this way in literature and entertainment.
+  Here, a text editor like vim(1) will mark the latter as misspelled
+  because of the leading "fI", and you may not notice the actual
+  spelling error within.  The many false positives frustrate page
+  maintenance and lower page quality by increasing tolerance for
+  spelling errors.
 
-A1.        *The apartment off-campus.
-analogue:  *My dog old and sick.
+  groff's \f[] syntax for font changes is helpful here, but some
+  projects want page sources that are portable to AT&T troff, which yet
+  lives on Solaris 10 and possibly other places.  Such projects may also
+  complain that the brackets require "more typing".
 
-Because natural language demands a bit of Postel's Law, the foregoing
-are generally understood by English speakers despite their non-standard
-structure.
+  Font style macros are less typing than both forms of escape sequence.
 
-But consider the following alternative.
+* In groff man(7), font style macros take care of italic corrections for
+  you.  If you only ever read man pages at a terminal you won't care
+  about this.  But if you want your man pages to look good in print,
+  sooner or later you will start caring.
 
-B.  The apartment is off campus and in a suburb.
+> Branden, since this may affect your work in scripting the change to
+> start using the MR macro, I'll keep you updated about it.
 
-Here we can parse the sentence as compounding two predicate adjectives
-that are in the form of prepositional phrases, and therefore _not_
-hyphenated.
+I appreciate it.  I don't expect much frustration because my procedure
+is as follows.
 
-One of the reasons I think grammarbook's example is a poor one is that
-_semantically_, one infers the same information regardless of which
-_syntactical_ parse one uses.  Where possible, examples should be
-selected to indicate potential miscommunication, as in this classic
-illustration of the value of the Oxford example from a young Objectivist
-penning acknowledgments in a thesis for school.
+1.  Start from a clean checkout.
+2.  Dump all the non-.so man pages as plain text[2] to a file.
+3.  Execute a sed script.
+4.  Dump all the non-.so man pages as plain text to another file.
+5.  Diff the two text files.
+6.  Revise the sed script.
+7.  "git co man*"
+8.  Go to step 3.
 
-*I'd like to thank my parents, Ayn Rand and God.
-
-> BTW, that's the only case where it says to not use hyphens, and since
-> by being alone it's necessarily not following a noun, I'd say it
-> doesn't fall in this rule, and so a hyphen would be deserved.
-
-I'd agree.  I cite authorities only because I cannot expect people to
-take only my word at such things.  My authority as a grammarian is
-limited.  Unlike some, I don't have God and Ayn Rand for parents.
-
-> I don't see reasons to avoid it in the links above.
->=20
-> So, I'm tending to conclude that it's necessary, or at least useful or
-> tasteful.  Please quote the relevant parts if you disagree.
-
-Recalling the case at issue:
-
-=2EBR MSG_ERRQUEUE " (" recvmsg "() only; since Linux 2.2)"
-
-I would find the addition of a hyphen before "only" to be superfluous.
-As I said before, it disambiguates nothing.  Further, if any of these
-annotations ever has to be compounded, as in a man page that documents
-several functions but requires annotation only for a subset of them, the
-use of hyphens as you intend is liable to add clutter.
-
-=2EBR MSG_BAZQUEUE " (" foomsg "()-, " barmsg "()-only; since Linux 7.99)"
-
-Consider also the possibility that you may want to invert set
-membership; perhaps 6 out of 7 functions in a page accept a certain
-parameter.
-
-=2EBR MSG_BAZQUEUE " (not " quxmsg "(); since Linux 7.99)"
-
-There is no correct place for a hyphen here.
-
-> > commit 43b89c2304552b18c9a9ea02bca05ffd94d6518c (HEAD -> master)
-> > Author: G. Branden Robinson <g.branden.robinson@gmail.com>
-> > Date:   Sat Jul 15 14:54:32 2023 -0500
-> >=20
-> >     man-pages(7): Add attributive annotation advice.
-> >=20
-> >     Prompted-by: Alejandro Colomar <alx@kernel.org>
->=20
-> We use Reported-by: (mostly for bug fixes), Suggested-by: (for
-> features), or when none fits, just Cc:.
-
-Okay.
-
-> >     Signed-off-by: G. Branden Robinson <g.branden.robinson@gmail.com>
->=20
-> LGTM.  Please send a patch.
-
-Will do.  I've gotten sidetracked by the great automated "Mr. Sed"[1]
-project, which turns out to have some prerequisites if I am to
-demonstrate no changes in formatted text as I intend.
-
-Early findings:
-
-1.  I think I have raised warnings to this list before about
-    manipulating adjustment and hyphenation outside of table regions
-    with `ad` and `hy` requests; the Linux man-pages do so
-    systematically around hundreds of tables, attempting (but failing)
-    to (reliably) "reset" them after tables, often with miserable
-    results.  Fixing this is a separate, prior sed(1) project.
-
-2.  An ".sp 1" hack, also after tables, to work around a groff
-    pre-1.23.0 bug is also not necessary and the time to sweep it away
-    is near.  I may not _have_ to do this one to satisfy "Mr. Sed",
-    though.  I will keep you advised.
+Eventually, I will be able to break the loop after step 5.
 
 Regards,
 Branden
 
-[1] the rewrite of man page cross references to use the new groff 1.23.0
-    `MR` macro, a feature I have written about on this list before and
-    which is covered in the release announcement sent here earlier this
-    month by Bertrand Garrigues
+[1] If a man page is updated more frequently than it is read, even by
+    its sole author, I think it is likely to be of poor quality.
+    Nevertheless, the world is not short of people who claim to produce
+    perfect work on the first attempt, and groff attempts to serve them
+    as well.
 
---pc6f2zanh3ljsrzs
+[2] groff -t -mandoc -T ascii -P -cbou
+
+--uzlaytzw72zrlzdu
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmSzVzEACgkQ0Z6cfXEm
-bc5cuQ/+OiPdmeiC6q4CLCHzbCx0F1EfdAYSQuIgnS8gzYFJBUkbXsB/yofuQxXX
-iYbhVWCdWmmFl0ZrPyHh1pCdaaBajouQXDqaphTeXaFrBSKinrOE76bj+D+MkwO+
-6gssC9OnA5NMJw110oIpTNl2EJMcJKpzADZNpkhdqjvjOEs+axs9uVxkyPx/CMDi
-AlhKIlrI7iKaynTg0tePXBnm4VyO5E+wNopTI2EyPpHBJ3jhNxnReq2oo0NkNCDF
-1QcXoUjFmiMA+Xfus4UEvC5+CIrBRdAkV4NDN8DMExA8Odvt5rVQmuIIb8J8P9SU
-JHozkID8oeFB87ygvhqe0z1kODCZn1mLPa6U0M0bKz5byIQxN9ZuZaPKRGWoxvsD
-7B7f1fySRrpdzVrrx2kD70KWDKDpWYS8tKUPwXgkBlGhQRabvGNtwMdAIStfIbaE
-uiqJF3Id/zrpKZI8QQkzqRlgsRDfMOYs5pYwz4PJOz+6odcEov3annLrTORIpDfp
-PrGN6a3DWBznScEXTbqtQIYJ7ZZbgScFMAqBFJeUJSLFTP8fyVlopwhPgSklcaUM
-Rg4HPPM6xk08LbA63ioh7JqMYDSV76YftQLJZ74TR+JE+QMwW6oorzt3nmzlZ/He
-PRXFUczIUle/9y+JXYsCE0hc/auyLlQ45wfgmAb57cNaNT6Lquo=
-=j0G0
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmSzXLwACgkQ0Z6cfXEm
+bc5gLw/8CL67PAFBSYZCxP6Icn/Zt0pzSJPKUy5s88Uq2YZ2sJplDdS4zgwxTE/y
+fHkavM+8Ggm9NQ7jg7xVVW6HIlZVqs+2XeXIYi4Ihs4ksZHtuOctBhhWmOTli5R7
+qzOYaGNg8cj1u5WoEh0Cj1E4ioyQ3vEugmsykPEIGJRo+cV6EmzmdHAFu4kCq7R6
+YgJB2Oa1gjO9WGGqK2sXms+0zkXGXAdmsj0TLRhPuUNoEXjbwdzhLLJsNh+s6l8I
+Nwo66QzjnKCTebmo24Rk2/D58ifPHDPqx5JJrcndsVZl/uSG9nAi4o8ncQS8qi8Q
++U2lNVl08JJaaea5aTUzpgDDfplMmS2kT+pPb0i/5ZfW3mMUcRz7mFmh1obQj65+
+6GImKnN+kLPEmVCoo6fD2WX1FyVL8gV2IABvLfeHsNQhomLiDUdmXMZFuhd19nzr
+Qu7vK+cWifqOwVKjSFiFJ1KvyCBpyrk8+aGhaM3BTR+d0OyuNN7Ice5nXUMwyWGu
+TPNHEJ2bc7aQVN0mHvewwIwGDITGDXQtvpwrujCpD2BZwbDl+QWnbyAymB/fpwk4
+cCH+uh1Vkr06fHAmLbPvCR32WC1qf4LpTwh9B8i+jphXnxBuGti+tz6WdjHSFCq3
+YYL3hdDCk/mgQ1fLtoTAi8HgHSYPCYWT5C2ROJDTu1C91XN4a3g=
+=JTF1
 -----END PGP SIGNATURE-----
 
---pc6f2zanh3ljsrzs--
+--uzlaytzw72zrlzdu--
