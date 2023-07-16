@@ -2,75 +2,58 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 60893754CF4
-	for <lists+linux-man@lfdr.de>; Sun, 16 Jul 2023 02:59:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3F761754CFB
+	for <lists+linux-man@lfdr.de>; Sun, 16 Jul 2023 03:09:11 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229980AbjGPA7U (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 15 Jul 2023 20:59:20 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44286 "EHLO
+        id S229780AbjGPBJK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 15 Jul 2023 21:09:10 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45530 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229528AbjGPA7T (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 15 Jul 2023 20:59:19 -0400
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com [IPv6:2a00:1450:4864:20::42c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8B281271E
-        for <linux-man@vger.kernel.org>; Sat, 15 Jul 2023 17:59:18 -0700 (PDT)
-Received: by mail-wr1-x42c.google.com with SMTP id ffacd0b85a97d-3128fcd58f3so3501441f8f.1
-        for <linux-man@vger.kernel.org>; Sat, 15 Jul 2023 17:59:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1689469157; x=1692061157;
-        h=in-reply-to:references:cc:to:content-language:subject:reply-to
-         :user-agent:mime-version:date:message-id:from:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=wN1knKvWwM1skue9LV24Y/880mWYg2FHqXU88PCzpm4=;
-        b=Ah/virRmjPQLIvaC4nbPfRzOs3raF1gVioOxW9SnDkkcpKF82hVvPiMkZBPC2nK/SQ
-         I30L3ANAMSFfr6ZYnt6p0jcQNgPv73sUK1uXAt7tHXkFzOGHMQ8MleMLTYs35gUCRMTM
-         KkyMIYlINX+0hNJjcnJ4J7FeFKVkwtWn5AuX1K4kXOxzCO4/bhuzx5C3J1UmjKRtgaat
-         f5wlvSBqnU9zu6UxIv3pG5Ks9ZtV1ItLovJAuaLkgM8Cs6TSrIEwOIvtOEVW4k6Ojn2R
-         G1eo+TWUE1dpb5+UF2qdiH0Mc8n0KJMcGWiyCBIwSJj2meSrMPZYyPapD6Uhi5XG4TuD
-         D54Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689469157; x=1692061157;
-        h=in-reply-to:references:cc:to:content-language:subject:reply-to
-         :user-agent:mime-version:date:message-id:from:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=wN1knKvWwM1skue9LV24Y/880mWYg2FHqXU88PCzpm4=;
-        b=jd/eibhG/fzB3D6ro3+GmwvdPmF0h2Zbe0O10IcT6rm9YnESp8mlgvFv7DBAOFJNPx
-         OfMecNSBm4GG8oqqao1LGmX5OnercXYERhW//DfLjd2Fp6WT2gvPGkJB9RXLKvapgKX9
-         lEe7dfLSE1uFCCSqXr6mLMd0w6eOXLaU1FPrPl5KsFiW7xOIqIi2KWlw3WUIc/KHUt5K
-         k5ZJMyLSEYRLpBftSxW+ikLUkdAVPY72xedhreh9x03Y+FNoDNCXCpcvibqVu2WkU5Qz
-         QkR8ayefmycgzKD46lpGnqvK10ugtBUiWJ89KsYHhQdWS5/sNDoZbzw0nI6iHpSb47UF
-         DJhQ==
-X-Gm-Message-State: ABy/qLYzviXYMxBBxa1ORAKlqlJaaRpTd97+Yy4l04kTXDFNovutFsle
-        gpmc308RNroj36wrtlR8ukMN2TqeVHY=
-X-Google-Smtp-Source: APBJJlGmNZSnJc4coHwyD3CBbmL4krsp0W2bEoVLnnJj7XauP6L85uXaqDmgj1tCmPl/xZkTAhsU7w==
-X-Received: by 2002:a5d:6792:0:b0:316:efb9:ffd with SMTP id v18-20020a5d6792000000b00316efb90ffdmr4867109wru.1.1689469156777;
-        Sat, 15 Jul 2023 17:59:16 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.40.43])
-        by smtp.gmail.com with ESMTPSA id n8-20020a5d6b88000000b003141e9e2f81sm15166222wrx.4.2023.07.15.17.59.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 15 Jul 2023 17:59:16 -0700 (PDT)
-From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
-X-Google-Original-From: Alejandro Colomar <alx.manpages@gmail.com>
-Message-ID: <6d635c03-3e05-a8d6-4578-5704867c6d86@gmail.com>
-Date:   Sun, 16 Jul 2023 02:59:14 +0200
+        with ESMTP id S229528AbjGPBJJ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 15 Jul 2023 21:09:09 -0400
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E92FB271F
+        for <linux-man@vger.kernel.org>; Sat, 15 Jul 2023 18:09:07 -0700 (PDT)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+         key-exchange X25519 server-signature RSA-PSS (2048 bits))
+        (No client certificate requested)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id 8712160C47
+        for <linux-man@vger.kernel.org>; Sun, 16 Jul 2023 01:09:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7D52C433C7;
+        Sun, 16 Jul 2023 01:09:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1689469746;
+        bh=aYk5hcF1utD8hVfRewSs2Aon89baYEYyDp2Wr0Q7y1A=;
+        h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+        b=ogllNY9GZdux8jyUztAPwduMWtoa8EGfaUeVY+9kVAlMeH/RXzy7F4zAdu0iIoT35
+         HFFCu4tL4AciT4zHVFQ8Plg6Xx9Fiqwy+TT5LZmdJqDh8r+A7eNTi9BF7Dn8EVT+dK
+         QrLrFhy/D0J/3ky5TaNeAIQFxzpc8FMs84r1qpbze1b6gaPf9ZGNmJDBLxHHNk3LFq
+         7PZqu74PXS0wvfd4MaN7JG8intly4wz2xUCmdyG+dNurdLxi42uJvsmIm28AXBq5M5
+         X1z04O6WInjDCKyAEIDhJp80XyY3fArsMcUi9sajelCriWixG4xZB2VdWFtuU45b7c
+         RoepXc2piiw0Q==
+Message-ID: <062f90e1-25e1-295f-9c58-31c8da7b8f24@kernel.org>
+Date:   Sun, 16 Jul 2023 03:09:03 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.12.0
-Reply-To: alx@kernel.org
-Subject: Re: [PATCH] crypt.3: The library is "libcrypt", not "libcrypto"
+Subject: Re: [PATCH v4] grantpt.3: no-op on modern glibc and other UNIXes
 Content-Language: en-US
-To:     Xi Ruoyao <xry111@xry111.site>
-Cc:     linux-man@vger.kernel.org
-References: <20230715184118.1580451-1-xry111@xry111.site>
-In-Reply-To: <20230715184118.1580451-1-xry111@xry111.site>
+To:     =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Cc:     linux-man@vger.kernel.org, Jakub Wilk <jwilk@jwilk.net>,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>
+References: <232d8f2c-6a4f-de01-7fc8-739da2b71964@kernel.org>
+ <prx5h5lm7gnytjwm3jgmm2d5vrg3xgdnxssocx2gplcubexvf7@fkdavhrtedoo>
+From:   Alejandro Colomar <alx@kernel.org>
+Organization: Linux
+In-Reply-To: <prx5h5lm7gnytjwm3jgmm2d5vrg3xgdnxssocx2gplcubexvf7@fkdavhrtedoo>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------faDQ00bc8qIO4gxAJmE7F6fh"
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
-        FREEMAIL_FROM,NICE_REPLY_A,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,
-        SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham autolearn_force=no
-        version=3.4.6
+ boundary="------------16w0uSB40qB8UuFz5xNsgx2g"
+X-Spam-Status: No, score=-2.2 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
+        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
@@ -78,92 +61,169 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------faDQ00bc8qIO4gxAJmE7F6fh
-Content-Type: multipart/mixed; boundary="------------GD0Iu0wLObep4IPK6QcKGoJQ";
+--------------16w0uSB40qB8UuFz5xNsgx2g
+Content-Type: multipart/mixed; boundary="------------hnDVL7aTtdjXR3l9ne1hIYmu";
  protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-Reply-To: alx@kernel.org
-To: Xi Ruoyao <xry111@xry111.site>
-Cc: linux-man@vger.kernel.org
-Message-ID: <6d635c03-3e05-a8d6-4578-5704867c6d86@gmail.com>
-Subject: Re: [PATCH] crypt.3: The library is "libcrypt", not "libcrypto"
-References: <20230715184118.1580451-1-xry111@xry111.site>
-In-Reply-To: <20230715184118.1580451-1-xry111@xry111.site>
+From: Alejandro Colomar <alx@kernel.org>
+To: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Cc: linux-man@vger.kernel.org, Jakub Wilk <jwilk@jwilk.net>,
+ "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Message-ID: <062f90e1-25e1-295f-9c58-31c8da7b8f24@kernel.org>
+Subject: Re: [PATCH v4] grantpt.3: no-op on modern glibc and other UNIXes
+References: <232d8f2c-6a4f-de01-7fc8-739da2b71964@kernel.org>
+ <prx5h5lm7gnytjwm3jgmm2d5vrg3xgdnxssocx2gplcubexvf7@fkdavhrtedoo>
+In-Reply-To: <prx5h5lm7gnytjwm3jgmm2d5vrg3xgdnxssocx2gplcubexvf7@fkdavhrtedoo>
 
---------------GD0Iu0wLObep4IPK6QcKGoJQ
+--------------hnDVL7aTtdjXR3l9ne1hIYmu
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi Xi!
+Hi!
 
-On 2023-07-15 20:41, Xi Ruoyao wrote:
-> libcrypt is the password hashing library, and libcrypto is a completely=
-
-> different library (OpenSSL cryptography library).
-
-Thanks!  My mistake.
-
+On 2023-07-15 20:49, =D0=BD=D0=B0=D0=B1 wrote:
+> FreeBSD, OpenBSD, and Linux (/dev/ptmx) do all intialisation in open(2)=
+,
+> and grantpt(3) is a no-op (that checks whether the fd is a pty, except =
+on
+> musl).
 >=20
-> Signed-off-by: Xi Ruoyao <xry111@xry111.site>
+> The illumos gate and NetBSD do a ioctl (and, indeed, illumos-gate commi=
+t
+>  facf4a8d7b59fde89a8662b4f4c73a758e6c402c ("PSARC/2003/246 Filesystem
+>   Driven Device Naming"), which kills pt_chmod, notes that it's been
+>  "6464196 bfu should remove pt_chmod, obsoleted by /dev filesystem").
+>=20
+> glibc 2.33 completely kills BSD PTY support on Linux
+> (Debian hasn't configured with them on any architecture since 2007:
+>    https://bugs.debian.org/338404
+>  and even earlier on some arches; they're really just trivia under
+>  Linux =E2=80=92 this may be better served stuffed into HISTORY as an e=
+xplainer
+>  for the SIGCHLD thing, since regardless of the "version", the behaviou=
+r
+>  is well-defined and consistent).
+>=20
+> Cc: Jakub Wilk <jwilk@jwilk.net>
+> Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.=
+xyz>
 > ---
->  man3/crypt.3 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>> The illumos gate and NetBSD do a ioctl (and, indeed, illumos-gate comm=
+it
+> paren level 1
+>   v
+>>  facf4a8d7b59fde89a8662b4f4c73a758e6c402c ("PSARC/2003/246 Filesystem
+> paren level 2
+>    v
+>>   Driven Device Naming"), which kills pt_chmod, notes that it's been
+> this is an in-line 2-column quote of the commit message
+> (which I've misindented to 3)
+>    vvv
+>>     6464196 bfu should remove pt_chmod, obsoleted by /dev filesystem).=
+
 >=20
-> diff --git a/man3/crypt.3 b/man3/crypt.3
-> index 1f3e4792e..ad14cb4f7 100644
-> --- a/man3/crypt.3
-> +++ b/man3/crypt.3
-> @@ -20,7 +20,7 @@
->  crypt, crypt_r \- password and data encryption
->  .SH LIBRARY
->  Encryption and decryption library
+> So it works by "it doesn't", it's psycho indent, probably related to
+>   Date: Mon Jun 19 02:01:46 2023 +0200
+> I turned the blockquote into a ""-quote, which should make more sense.
 
-Is the above line accurate, or should we improve it?
+Makes sense.  Or should I say it doesn't...  :-)
 
-> -.RI ( libcrypto ", " \-lcrypto )
-> +.RI ( libcrypt ", " \-lcrypt )
+Thanks!  Just a minor comment below.
 
-I see that another page probably also needs to be fixed.
-Would you mind fixing it too,if appropriate, in this patch?
+>=20
+> Numberised open() and grantpt().
+>=20
+>  man3/grantpt.3 | 18 ++++++++----------
+>  1 file changed, 8 insertions(+), 10 deletions(-)
+>=20
+> diff --git a/man3/grantpt.3 b/man3/grantpt.3
+> index a19172a3e..e3d4e4aaa 100644
+> --- a/man3/grantpt.3
+> +++ b/man3/grantpt.3
+> @@ -84,17 +84,15 @@ .SH ATTRIBUTES
+>  .ad
+>  .sp 1
+>  .SH VERSIONS
+> -Many systems implement this function via a set-user-ID helper binary
+> +Historical systems implemented this function via a set-user-ID helper =
+binary
+>  called "pt_chown".
+> -On Linux systems with a devpts filesystem (present since Linux 2.2),
+> -the kernel normally sets the correct ownership and permissions
+> -for the pseudoterminal slave when the master is opened
+> -.RB ( posix_openpt (3)),
+> -so that nothing must be done by
+> -.BR grantpt ().
+> -Thus, no such helper binary is required
+> -(and indeed it is configured to be absent during the
+> -glibc build that is typical on many systems).
+> +glibc on Linux before glibc 2.33 could do so as well,
+> +in order to support configurations with only BSD pseudoterminals;
+> +this support has been removed.
+> +On modern systems this is either a no-op\[em]with
+> +permissions configured on pty allocation,
+> +as is the case on Linux\[em]or an
+> +.BR ioctl (2).
 
-$ grep -rn libcrypt
-man3/encrypt.3:17:.RI ( libcrypto ", " \-lcrypto )
-man3/crypt.3:23:.RI ( libcrypto ", " \-lcrypto )
+This still didn't address the following comment of mine to v2:
+
+On 2023-07-08 17:54, Alejandro Colomar wrote:
+>> +in order to support configurations with only BSD pseudoterminals;
+>> +this support has been removed.
+>> +On modern systems this is either a no-op\[em]with
+> \[em] clearly breaks/interrupts a clause or phrase.
+> Semantic newlines should apply here --I guess that you probably put the=
+
+> two words together to not add an extra space, but I do like that space
+> (and I know this may be controversial)--.
+>=20
+> Cheers,
+> Alex
+>=20
+>> +permissions configured on pty allocation,
+>> +as is the case on Linux\[em]or an
+>> +.BR ioctl (2).
+>>   .SH STANDARDS
+
+I wonder if you confirm your intention to have it this way, or if you
+just missed that comment.  Please document your intention.  I don't feel
+strong about it.  It's just that using '--' next to the "parenthesised"
+part and with a space at the other side makes it more straightforward to
+parse, even if some Powers might be against it.  It also fits better with=
+
+semantic newlines.
+
+Branden, any opinion on this?
 
 Cheers,
 Alex
-
-
->  .SH SYNOPSIS
->  .nf
->  .B #include <unistd.h>
 
 --=20
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
---------------GD0Iu0wLObep4IPK6QcKGoJQ--
 
---------------faDQ00bc8qIO4gxAJmE7F6fh
+--------------hnDVL7aTtdjXR3l9ne1hIYmu--
+
+--------------16w0uSB40qB8UuFz5xNsgx2g
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmSzQOIACgkQnowa+77/
-2zJnNw//cBEZ7cDOFab5tKU4y8/uSDKwrThFjENWXRpasqCXYHFiJ8Ics8Y/URvE
-ofZWAJ+rURdHF6cArP7gL3GzDAaBzCkUVIGRU2lbDxCyw/br00dxJQSlehHUXnjd
-zhkKjO7a7tD+bU+BoHjLSg+tYKdxq6KAa/eI1wptHp6HkD+yGK1y0nxe1b6tb723
-5ZRXkNBUu6GIegFC5eXqjeLG5eOQ5o3kjVW5JOVDcKUnSKxsEL6QqnVXoZr2a/EE
-MdHBEA4nYe7qclpEZvh6KMs8bGvteLOP27nh8IxXXYUcNO6oPEH67V44Y73CLieh
-mlS0H4oEDFPOTloSu5/sbnffNeU7z+2on9DuYrH/MXJuILTIlC4vGFEtBZfJo5pL
-o1yN7Uvo0feuFsRR+Bd7pTSK3SEKxKOzLmbhk+iyAKq4ktPFlSZSxk2LiIAhaHYa
-T1EVHTB5vyBeyMpjxXwX/rTd176KYsWgt7edlFoZELh8WTMcxhADnTpk0LUpTDb1
-UXjk7G/T9FGl2F7Dw8DFXUCGXBVfXanMxTYghJHkz4FC3Mh2DSq0jOK8o0w6ddiR
-CeBtsFefEDmDIYPY1WMzDhxqfMuFYGwLL7B+zDz3yni3myIuo9RlYSI0w8ZFRsnE
-bddeHL1Mo/bYGvwHfI2ZKlR0pcTbv2VzK5By+UNAuxja7R5VKOk=
-=1nVp
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmSzQzAACgkQnowa+77/
+2zIoBQ/+O+DcrcCAc23zSr63fdH8UklAg1bKFQegb4DytdTDTvJs7V/+NNzJC/PY
+kBBdSDEgAt0jQS9powVhI2ruAMJM/uI8RGC6Z7uTenOoMOr8xILu8GaTxHz3YFeW
+Ug2kxorflkdddY0U+f4ERGixPTA4oTsIGhUN/fz1VAi+6x2Hb30ZN5lMHl+kfPzE
+iLTWkZ89AlrcplbqcLvTaEmdw+pvToe8G39NZmKZ/ZYmF4h4d9UiWjrZ+GXAoHlR
+CQCgAQG3twRJUhf12z4iXYAz2LvBW/cOX11+HPcvJjmeI3YtTJJGOJhB1V2ciUHx
+oVrJ/M2a8dvpGP6GKTR2dzbgXmANSkBTrzZPsKML0RgEVMMiujPAvexJQa0+RftA
+azE6oejrMLoXFNCTsDWkizD7YuGA/WxW0qWF4H7i87rCKwcAvpB3K6sWraVZByYD
+NPacbM9FnJwiT9dNKCFi2Sw3GZZLVGKUQFm48r+ftlb4++N/1xq68E2lfSnmVVzj
+X4/yZBZLQGKXtUYno8+EUvuLPbhY4pCCYMZ4qAIL/hdSeHHiMXVr9PMeecRlsIW2
+90XcnrwbOLpWuNvjHhnKJQ2B0Pg0o/Mhii3bBeKDiNKJbnDxYnuhG13twFTWyn7n
+W81gJW1jnepQJ5N0tg4cb4RG+OmGPeW5w7HTnq9Tj7857A8Gvqw=
+=8mPl
 -----END PGP SIGNATURE-----
 
---------------faDQ00bc8qIO4gxAJmE7F6fh--
+--------------16w0uSB40qB8UuFz5xNsgx2g--
