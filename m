@@ -2,213 +2,134 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id C97E9754D2C
-	for <lists+linux-man@lfdr.de>; Sun, 16 Jul 2023 05:08:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 62C74754E7E
+	for <lists+linux-man@lfdr.de>; Sun, 16 Jul 2023 13:45:55 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229819AbjGPDIv (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 15 Jul 2023 23:08:51 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54854 "EHLO
+        id S229471AbjGPLpx (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 16 Jul 2023 07:45:53 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47628 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229852AbjGPDH7 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 15 Jul 2023 23:07:59 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5719E10D7
-        for <linux-man@vger.kernel.org>; Sat, 15 Jul 2023 20:07:57 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-         key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-        (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id B9AC460BF9
-        for <linux-man@vger.kernel.org>; Sun, 16 Jul 2023 03:07:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4607BC433C8;
-        Sun, 16 Jul 2023 03:07:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1689476876;
-        bh=phANgoMNRxxYh1IaXkvVee8hCLyHKB/5XWL2+XoKL3E=;
-        h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-        b=NwqKy6O7I5FlQGfMztQFfQZJ9+mytV1wjh2lhXq66kcZpMN1gczbrsNx/9GZaPk1g
-         QCga9s0p9P8TIUFwd66oZLX8PYdNOYcy1IDrGkM18ZN5fn5OVKg1tjgkLGFVMq1hTj
-         ohcBCOL+nj0SSO84FADkTwNpBvQtD4djHR0w7Sebzk8xrZ5pf2cwP1mAifIAUOSB+r
-         lQQtNNCoAeywVVtxK1VJ4xAa2vWh+/PkxDHjlAGorDZe/bJkLTZ8IzV+Y2jflEIxUM
-         YDy/sBP4gcqpo1tdFx8pl5k5nreNOSj9YgjLZgnK+1ELyltGvkUHLQ7OlWQ/NO7xX3
-         6bzgYfZMNiq3Q==
-Message-ID: <705c8a8e-be97-29e7-da7b-5a0dab0e934c@kernel.org>
-Date:   Sun, 16 Jul 2023 05:07:45 +0200
+        with ESMTP id S229463AbjGPLpx (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 16 Jul 2023 07:45:53 -0400
+Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id F2552EE
+        for <linux-man@vger.kernel.org>; Sun, 16 Jul 2023 04:45:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
+        s=202305; t=1689507949;
+        bh=ftlSJ/YfiME3/m6wSu2JCKFvG8HKzk/7eZJGSGeZPT0=;
+        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+        b=b9ofbcvM+pfsa6uMbT3kpXBDSYPnJdtEfm2syearXMCpiTiCifLq+hvjqLaEulJay
+         Tm3IhOQjGbPVCa+09c7M3IOQk/MMK3LZQFLvsE4pGBBsVNQZSkx+TmXEF+Cu5g3l7W
+         0wFg0WVfiwwoD4q+zyKMJrItSqIelnE75f7uQSUmlcPn6+DPld35JEJc+fvYJ8L1pm
+         o/NJXE9X0uUvOR0oNVdtgQwXfxk1LMI4X4m4F9PqNhzwd6HtQk2FC/IUp6eRTQv8v0
+         9VPhs1BAIMp25tVXinyvwJUKV5ytj8rGMbTR2w6omjuRrMcjkTdhN8NZoLcofAMZDl
+         6ZSG8S6xpfjHw==
+Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id D18BA334A;
+        Sun, 16 Jul 2023 13:45:49 +0200 (CEST)
+Date:   Sun, 16 Jul 2023 13:45:48 +0200
+From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+To:     Alejandro Colomar <alx@kernel.org>
+Cc:     linux-man@vger.kernel.org
+Subject: [PATCH v4] epoll_create.2: HISTORYise "max_user_instances" EMFILE
+Message-ID: <eeb222b6mvgjgush7rmu4uqn4h4tgr2lwodklz2inhicazfrch@mvjqzfksoayp>
+References: <2ac89a3b-6626-ec3c-de34-8efe976aaac7@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Subject: Re: [PATCH] recv.2: msg_iovec / MSG_ERRQUEUE / -v
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc:     linux-man@vger.kernel.org, Rob Linden <rlinden@redhat.com>
-References: <CAP0H_AHtBCVaj2KM+DhHAoJrM4MW+vQhMEH0UHEa_UiMUzW03g@mail.gmail.com>
- <d33c2eee-8be0-6a00-9ffe-239cc41c6242@kernel.org>
- <20230715195934.yigz5fz6ulkxktaa@illithid>
- <567cd883-412f-6b23-92c6-e7ea51fd7ebd@kernel.org>
- <20230716023432.eolrrjeiilr63tb4@illithid>
-Content-Language: en-US
-From:   Alejandro Colomar <alx@kernel.org>
-Organization: Linux
-In-Reply-To: <20230716023432.eolrrjeiilr63tb4@illithid>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------IGT38SkAXEG35AelTFMqgSSi"
-X-Spam-Status: No, score=-2.2 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
-        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-        autolearn=ham autolearn_force=no version=3.4.6
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="qtm4hyxe3t4uk4cx"
+Content-Disposition: inline
+In-Reply-To: <2ac89a3b-6626-ec3c-de34-8efe976aaac7@kernel.org>
+User-Agent: NeoMutt/20230517
+X-Spam-Status: No, score=-1.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
+        RDNS_DYNAMIC,SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=no
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------IGT38SkAXEG35AelTFMqgSSi
-Content-Type: multipart/mixed; boundary="------------TosQMPR7AmjRNCUGFurLbsTx";
- protected-headers="v1"
-From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: linux-man@vger.kernel.org, Rob Linden <rlinden@redhat.com>
-Message-ID: <705c8a8e-be97-29e7-da7b-5a0dab0e934c@kernel.org>
-Subject: Re: [PATCH] recv.2: msg_iovec / MSG_ERRQUEUE / -v
-References: <CAP0H_AHtBCVaj2KM+DhHAoJrM4MW+vQhMEH0UHEa_UiMUzW03g@mail.gmail.com>
- <d33c2eee-8be0-6a00-9ffe-239cc41c6242@kernel.org>
- <20230715195934.yigz5fz6ulkxktaa@illithid>
- <567cd883-412f-6b23-92c6-e7ea51fd7ebd@kernel.org>
- <20230716023432.eolrrjeiilr63tb4@illithid>
-In-Reply-To: <20230716023432.eolrrjeiilr63tb4@illithid>
 
---------------TosQMPR7AmjRNCUGFurLbsTx
-Content-Type: text/plain; charset=UTF-8
+--qtm4hyxe3t4uk4cx
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
+/proc/sys/fs/epoll/max_user_instances hasn't existed since
+  commit 9df04e1f25effde823a600e755b51475d438f56b
+  ("epoll: drop max_user_instances and rely only on max_user_watches")
+=66rom
+  Date:   Thu Jan 29 14:25:26 2009 -0800
+which describes to v2.6.29-rc3-24-g9df04e1f25ef.
 
-On 2023-07-16 04:34, G. Branden Robinson wrote:
-[...]
+Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
+---
+The sysctl(2) path would be "fs.epoll.m_u_i" so "kernel parameter" it is
+since we spec the filesystem-domain path.
 
-> Because natural language demands a bit of Postel's Law, the foregoing
-> are generally understood by English speakers despite their non-standard=
+ man2/epoll_create.2 | 19 +++++++++++--------
+ 1 file changed, 11 insertions(+), 8 deletions(-)
 
-> structure.
->=20
-[...]
-
->> BTW, that's the only case where it says to not use hyphens, and since
->> by being alone it's necessarily not following a noun, I'd say it
->> doesn't fall in this rule, and so a hyphen would be deserved.
->=20
-> I'd agree.  I cite authorities only because I cannot expect people to
-> take only my word at such things.  My authority as a grammarian is
-> limited.  Unlike some, I don't have God and Ayn Rand for parents.
-
-And yet your words make more sense than those of the "authorities".  ;)
-
->=20
->> I don't see reasons to avoid it in the links above.
->>
->> So, I'm tending to conclude that it's necessary, or at least useful or=
-
->> tasteful.  Please quote the relevant parts if you disagree.
-
-I should have said, or decree their authority rescinded in our territorie=
-s.
-They no authority here no mo.  :D
-
->=20
-> Recalling the case at issue:
->=20
-> .BR MSG_ERRQUEUE " (" recvmsg "() only; since Linux 2.2)"
->=20
-> I would find the addition of a hyphen before "only" to be superfluous.
-> As I said before, it disambiguates nothing.  Further, if any of these
-> annotations ever has to be compounded, as in a man page that documents
-> several functions but requires annotation only for a subset of them, th=
-e
-> use of hyphens as you intend is liable to add clutter.
->=20
-> .BR MSG_BAZQUEUE " (" foomsg "()-, " barmsg "()-only; since Linux 7.99)=
-"
->=20
-> Consider also the possibility that you may want to invert set
-> membership; perhaps 6 out of 7 functions in a page accept a certain
-> parameter.
->=20
-> .BR MSG_BAZQUEUE " (not " quxmsg "(); since Linux 7.99)"
->=20
-> There is no correct place for a hyphen here.
-
-Yeah, a hyphen is better omitted for your reasons.
-
----  Mr. Sed project:
-
->=20
-> Will do.  I've gotten sidetracked by the great automated "Mr. Sed"[1]
-> project, which turns out to have some prerequisites if I am to
-> demonstrate no changes in formatted text as I intend.
->=20
-> Early findings:
->=20
-> 1.  I think I have raised warnings to this list before about
->     manipulating adjustment and hyphenation outside of table regions
->     with `ad` and `hy` requests; the Linux man-pages do so
->     systematically around hundreds of tables, attempting (but failing)
->     to (reliably) "reset" them after tables, often with miserable
->     results.  Fixing this is a separate, prior sed(1) project.
-
-Great.
-
->=20
-> 2.  An ".sp 1" hack, also after tables, to work around a groff
->     pre-1.23.0 bug is also not necessary and the time to sweep it away
->     is near.
-
-While it may not be necessary, I'm all-in for killing such a workaround
-ASAP, to avoid contributors from imitating it.
-
-Cheers,
-Alex
-
->  I may not _have_ to do this one to satisfy "Mr. Sed",
->     though.  I will keep you advised.
->=20
-> Regards,
-> Branden
->=20
-> [1] the rewrite of man page cross references to use the new groff 1.23.=
-0
->     `MR` macro, a feature I have written about on this list before and
->     which is covered in the release announcement sent here earlier this=
-
->     month by Bertrand Garrigues
-
+diff --git a/man2/epoll_create.2 b/man2/epoll_create.2
+index 4d3566a79..2a21bbf8b 100644
+--- a/man2/epoll_create.2
++++ b/man2/epoll_create.2
+@@ -83,14 +83,6 @@ .SH ERRORS
+ .IR flags .
+ .TP
+ .B EMFILE
+-The per-user limit on the number of epoll instances imposed by
+-.I /proc/sys/fs/epoll/max_user_instances
+-was encountered.
+-See
+-.BR epoll (7)
+-for further details.
+-.TP
+-.B EMFILE
+ The per-process limit on the number of open file descriptors has been reac=
+hed.
+ .TP
+ .B ENFILE
+@@ -134,6 +126,17 @@ .SH HISTORY
+ in order to ensure backward compatibility when new
+ .B epoll
+ applications are run on older kernels.
++.PP
++Prior to Linux 2.6.29,
++.\" commit 9df04e1f25effde823a600e755b51475d438f56b
++a
++.I /proc/sys/fs/epoll/max_user_instances
++kernel parameter limited live epolls for each real user ID,
++and caused
++.BR epoll_create ()
++to fail with
++.B EMFILE
++on overrun.
+ .SH SEE ALSO
+ .BR close (2),
+ .BR epoll_ctl (2),
 --=20
-<http://www.alejandro-colomar.es/>
-GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
+2.39.2
 
-
---------------TosQMPR7AmjRNCUGFurLbsTx--
-
---------------IGT38SkAXEG35AelTFMqgSSi
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+--qtm4hyxe3t4uk4cx
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmSzXwEACgkQnowa+77/
-2zKRUw//cgvLVDdie85bmpv3fUu1SoXBVWqAcQbAg1mdw+flylMWquOafj34CFBa
-8IrfTyd+wddrVQxPVyRIcLs6+Uu/wIccZYWbVdYNnIaR/Mw+aWyao4Uw0ei2kZLN
-q0lcF2F+ofU+n+258UuCaeiRDji1zmqqMC4M9Fb9kRJdfVlFzwSi/rTNLeBS7BM0
-AZhbIFYCrubzSjqRry4yII0ki5aL/iaTtoUdfhpRFZe/FGaOWm7OimPUVVqoXJZR
-mEOqDy40RtDJlPOw0E9QUATarf9ErXv8T9w+iOrqc6OLfofVZsm+TrS+sBx3zTCO
-ULXNnRxe8TWPLPGjLnHJ+3ObiAd2pIhfXwLCN7Sh7LYauof7HIeeg2AGKnDy7f/u
-U//yWYHaElatPgNjW9UStY1LLBE1MSu4VbHd289RtIGtobLZFwY4dk71rq15CcuM
-BNQM8rOvyYbWbVtssemw5y7IDQJPyDJ9o24mV9YxDxxLEkvWE0LvQu8ryr2h8AZe
-pOD9Cm5W2P03DTTTb5XEhhmwBG047/RJzXq3Ig5zWqWcjrk6L0A4JeAedSdk5sXV
-GMhNqgR9wU84gHCMcYwIr6zFgOBIRXQb7L+VSXtny5hsIsJOHZO4K847QaOA21w3
-vpgTP5X/rbaICb1GlQdmdL8D2sYMEf/IO+0kVl4GAWKvxLeZav8=
-=H+dR
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmSz2GwACgkQvP0LAY0m
+WPHrzw/+NY7mUZ6QS8+IYt1p6gO1WImlZzEaOz3MrAXbMGE60RxvuKA/c2LpB7sB
+k+P9jP8skDInmOi4RE2agZNpXeNzJcKAAfVO7pXvSEhzjBOo5IK9vFBqKbHmXF9R
+j41BgOlhUYGW80KOMtanPGYRUajvSglTx2jZI25otJWo8N1m+wp+TGalP0jiFpwd
+5xk5xL7AjXsG7675ac59o9EuKhoW5rLosFfVhT8+Eg/BIexWO7ui74yEW4Ye3rbZ
+Vwjuzhz2MW1dlmOGbfli5R3bmKRzRUb2hg0XttIVsY+bUfZqLq8oeOJXaXHHy2DV
+TM3kP3c+KblC7jWzaE0yqOF3Mbh8sdpKf7z1a0wrZfN0YSayxvntr6fVF5zqS0J6
+6OqF8hqPZizKf5ubkwfAM3SwN+EvXwc8W+IQLqsVLclQOU/VUlVvT4lay5J+yDPl
+bLhrk+FqZ6+ci/UBHco/6kUp8KPB4XqFDrcPNwn4WJnYs4r/4BehRL28N83PY6jg
+iZy06rTOxaP8ZmNZwfO1h4LroTJgDQnZ2Z4kltUEye7dqYUtGiwAM8GGIGRKq7dJ
+YU64i4vZ/HcVOXUWZFyAMdVqI01Hi34jV6eXfbO5YdFyCGOy5NRGM4gxlcTtZTQu
+GfD8CCnivIyftNW84YsXJNurQXRgenl8nsn6BniP0OL7PLx8/cs=
+=CIs8
 -----END PGP SIGNATURE-----
 
---------------IGT38SkAXEG35AelTFMqgSSi--
+--qtm4hyxe3t4uk4cx--
