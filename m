@@ -2,66 +2,55 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 8E742755049
-	for <lists+linux-man@lfdr.de>; Sun, 16 Jul 2023 20:24:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 666B7755769
+	for <lists+linux-man@lfdr.de>; Sun, 16 Jul 2023 23:29:08 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229809AbjGPSYt (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 16 Jul 2023 14:24:49 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37092 "EHLO
+        id S229679AbjGPV3G (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 16 Jul 2023 17:29:06 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51324 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229576AbjGPSYt (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 16 Jul 2023 14:24:49 -0400
-Received: from mail-qt1-x82e.google.com (mail-qt1-x82e.google.com [IPv6:2607:f8b0:4864:20::82e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4EE061B0
-        for <linux-man@vger.kernel.org>; Sun, 16 Jul 2023 11:24:48 -0700 (PDT)
-Received: by mail-qt1-x82e.google.com with SMTP id d75a77b69052e-40371070eb7so255091cf.1
-        for <linux-man@vger.kernel.org>; Sun, 16 Jul 2023 11:24:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20221208; t=1689531887; x=1692123887;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=SiyXwtg/91p8cD6vwqosAoKLeV9nCSLvqLPfMtZ5N1k=;
-        b=FDv0ORr7qAZC9O/Z9xmmGkXLRoZ0GQUjUwajYyEaU0HI3EOVun6YUeKpPBdVLYmzfz
-         j9U/5afxEDAztXk+r6NV+719MN5nMp9b/bXRBn2N5Pazp/TUmvaniXVTUN16vK8ZVppV
-         nI+Jshn479TiQZKMSO9M7/WC0ZRabJZz4UvFEiImBjdSpV2vkeGSoN30c6HlVx3Ov553
-         I9yvc7fERdrlH9mEkGYX1XnxIPlnU1t3snAXuua0BHcIjxvlG+A1GBnNMazTZuECnEDr
-         rGVSLMQoLpmN61I1TkuZGEgqt4bN/6dPfgWFlk8y2cSLOmTFn/eNvWh72cYOs+8Z9u3+
-         EFgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689531887; x=1692123887;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=SiyXwtg/91p8cD6vwqosAoKLeV9nCSLvqLPfMtZ5N1k=;
-        b=i9fwCaI5onAkiB44iblmegWeEF8ljkos50kyLASAAVjSFUzIhiYXfVw28OBUSGG47h
-         6iVRm7IReVtYstfnatX3gXsWzcQuuUvO9IrhV3YiMDxmeJ0c5JjPBzN1iRvgtiuHq6Lb
-         nK50Tb6IJM2rIY4Pm0H6pzqE527T1/3rs0GyfOYmw4CuZreNxIFPNIwXN4IdFmkpBuPh
-         qPzleTmPQhnRDqKBOJ+cZHO4DeF3iR9bUxTGJn+/p2ktbfAyIqncjWckovoq7Rbrwf5b
-         o0JiWlY7md6hNN8ZVEB+wyUpYMCkjfoXHuFwy387fn3hIN4OHhdkPMv/xOktLq9e8bfY
-         GJzw==
-X-Gm-Message-State: ABy/qLY+N0bl9dk2RBrG4tA1RdqiZt6XT9SL1Pw5r8E7DM5JkQxvvIvj
-        8kSP5ajbAu/SCvNRTIXLuoUBjJxVNW01vuaZZnNTF5C7kNotjeRthJDA+Q==
-X-Google-Smtp-Source: APBJJlHj3TbVCMiWe89uKdR2hIc5U7PXSsu8EnoO/XzR5Ao7bYaMlGNBu6c+rAp7sMi2OCZmSFto4sDWPjuJjNRgQV4=
-X-Received: by 2002:a05:622a:1826:b0:403:a6e5:9cdf with SMTP id
- t38-20020a05622a182600b00403a6e59cdfmr1150217qtc.8.1689531887281; Sun, 16 Jul
- 2023 11:24:47 -0700 (PDT)
+        with ESMTP id S229589AbjGPV3F (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 16 Jul 2023 17:29:05 -0400
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9311FD7
+        for <linux-man@vger.kernel.org>; Sun, 16 Jul 2023 14:29:04 -0700 (PDT)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+         key-exchange X25519 server-signature RSA-PSS (2048 bits))
+        (No client certificate requested)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id 276E360EAA
+        for <linux-man@vger.kernel.org>; Sun, 16 Jul 2023 21:29:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9780C433C8;
+        Sun, 16 Jul 2023 21:29:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1689542943;
+        bh=f2tj3ZvuwAR22vtsL9ltWe8BDW73+A4MF32BD3pzzNA=;
+        h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+        b=Tru2LgAoNBnXsqzxsGoDj8ZgfHBzSmQ22EAsf9mogApwSEi6Uliswh8NeZBydI+FG
+         U4JojRu9efHDp8OOoe1vL7qF/FgeCOQdBfuIKLB2XZJ3eqei7QkqY1lJAnfRj22iPl
+         7FqqO4hBQEE5bpJkgODd1OL+wXM5FhkblKwV0QFGo/vqH9UhE/9Ke4eTc+DR5Nw1PX
+         ZRzVzG04JZNNtv5DINVs3kguCkJBh1m9kQzerjLUiifqJ7ncxmznrGni/9eeORPEzU
+         0X9WfChOUAMFlDahEmc7OcqDjNxYQCY6RpPW/6fQwOkbzG/STYz0heESpClEr5wsKC
+         cOI+SWBMOV4oA==
+Message-ID: <ca7e8fd6-ddd9-9a00-880d-6d3fd11eacd6@kernel.org>
+Date:   Sun, 16 Jul 2023 23:29:01 +0200
 MIME-Version: 1.0
-References: <20230714070043.275611-1-maskray@google.com> <3879502b-90f7-c445-cc68-30f53f1c86fe@kernel.org>
- <CAFP8O3LiBXNPELaoeVQgBCQshnxYMAMGBMGncJKPmMXnedqt8Q@mail.gmail.com> <b32e42ef-244f-29b7-381b-3659036e4765@kernel.org>
-In-Reply-To: <b32e42ef-244f-29b7-381b-3659036e4765@kernel.org>
-From:   Fangrui Song <maskray@google.com>
-Date:   Sun, 16 Jul 2023 11:24:35 -0700
-Message-ID: <CAFP8O3LqMD-Zw6tFJ5cW82rtC2pJFCS4RqWvZmThSt0ZVNX=yA@mail.gmail.com>
-Subject: Re: [PATCH] ld.so.8: Correct linker option name
-To:     Alejandro Colomar <alx@kernel.org>
-Cc:     linux-man <linux-man@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: No, score=-17.6 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-        ENV_AND_HDR_SPF_MATCH,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,
-        T_SCC_BODY_TEXT_LINE,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [PATCH v2] ld.so.8: Correct linker option name
+Content-Language: en-US
+To:     Fangrui Song <maskray@google.com>
+Cc:     linux-man@vger.kernel.org
+References: <20230716182227.2226356-1-maskray@google.com>
+From:   Alejandro Colomar <alx@kernel.org>
+Organization: Linux
+In-Reply-To: <20230716182227.2226356-1-maskray@google.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------3WihxWa0JzqZbHVH3TOuKy66"
+X-Spam-Status: No, score=-2.2 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
+        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
         autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -69,107 +58,101 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On Sat, Jul 15, 2023 at 5:46=E2=80=AFPM Alejandro Colomar <alx@kernel.org> =
-wrote:
->
-> Hi,
->
-> On 2023-07-15 20:19, Fangrui Song wrote:
-> > On Sat, Jul 15, 2023 at 9:42=E2=80=AFAM Alejandro Colomar <alx@kernel.o=
-rg> wrote:
-> >>
-> >> Hi Fangrui,
-> >>
-> >> On 2023-07-14 09:00, Fangrui Song wrote:
-> >>> The linker option that sets the DF_1_NODEFLIB flag is -z nodefaultlib
-> >>> instead of -z nodeflib.
-> >>
-> >> Does -z nodeflib exist?  Please mention that in your commit message.
-> >>
-> >> Thanks,
-> >> Alex
-> >
-> > Hi Alex, -z nodeflib is not defined.
-> >
-> > % ld.bfd -m elf_x86_64 -e 0 /dev/null -z nodeflib
-> > ld.bfd: warning: -z nodeflib ignored
-> > % ld.lld -m elf_x86_64 -e 0 /dev/null -z nodeflib
-> > ld.lld: warning: unknown -z value: nodeflib
-> >
-> > I have double checked that my commit message is accurate.
->
-> I say it because it is a bit ambiguous, in the sense that it's not clear
-> if nodeflib is a valid flag but which is not the one we're interested in,
-> or if it's just an invalid flag.
->
-> It's not a problem for those who know, but it reduces the work for those
-> who don't know.  Anyway, that was my guess, but I was only 90% certain
-> without checking.  I suggest appending this at the end of your commit
-> message:
->
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------3WihxWa0JzqZbHVH3TOuKy66
+Content-Type: multipart/mixed; boundary="------------2SuaXm406ks6UVZ0SAnyLH7z";
+ protected-headers="v1"
+From: Alejandro Colomar <alx@kernel.org>
+To: Fangrui Song <maskray@google.com>
+Cc: linux-man@vger.kernel.org
+Message-ID: <ca7e8fd6-ddd9-9a00-880d-6d3fd11eacd6@kernel.org>
+Subject: Re: [PATCH v2] ld.so.8: Correct linker option name
+References: <20230716182227.2226356-1-maskray@google.com>
+In-Reply-To: <20230716182227.2226356-1-maskray@google.com>
+
+--------------2SuaXm406ks6UVZ0SAnyLH7z
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+On 2023-07-16 20:22, Fangrui Song wrote:
+> The linker option that sets the DF_1_NODEFLIB flag is -z nodefaultlib.
+> -z nodeflib is undefined.
+>=20
 > ```
-> -z nodeflib is not defined.
->
 > % ld.bfd -m elf_x86_64 -e 0 /dev/null -z nodeflib
 > ld.bfd: warning: -z nodeflib ignored
 > % ld.lld -m elf_x86_64 -e 0 /dev/null -z nodeflib
 > ld.lld: warning: unknown -z value: nodeflib
 > ```
->
-> What do you think?
->
-> Thanks,
-> Alex
+>=20
+> Signed-off-by: Fangrui Song <maskray@google.com>
 
-Thank you for the suggestion! I agree that adding the commands clarifies th=
-ings.
-Sent v2: https://lore.kernel.org/linux-man/20230716182227.2226356-1-maskray=
-@google.com/T/#u
+Hi!
 
-> >
-> >>>
-> >>> Signed-off-by: Fangrui Song <maskray@google.com>
-> >>> ---
-> >>>  man8/ld.so.8 | 4 ++--
-> >>>  1 file changed, 2 insertions(+), 2 deletions(-)
-> >>>
-> >>> diff --git a/man8/ld.so.8 b/man8/ld.so.8
-> >>> index 1c9a13f56..351913bd8 100644
-> >>> --- a/man8/ld.so.8
-> >>> +++ b/man8/ld.so.8
-> >>> @@ -83,7 +83,7 @@ From the cache file
-> >>>  which contains a compiled list of candidate shared objects previousl=
-y found
-> >>>  in the augmented library path.
-> >>>  If, however, the binary was linked with the
-> >>> -.B \-z nodeflib
-> >>> +.B \-z nodefaultlib
-> >>>  linker option, shared objects in the default paths are skipped.
-> >>>  Shared objects installed in hardware capability directories (see bel=
-ow)
-> >>>  are preferred to other shared objects.
-> >>> @@ -97,7 +97,7 @@ and then
-> >>>  and then
-> >>>  .IR /usr/lib64 .)
-> >>>  If the binary was linked with the
-> >>> -.B \-z nodeflib
-> >>> +.B \-z nodefaultlib
-> >>>  linker option, this step is skipped.
-> >>>  .\"
-> >>>  .SS Dynamic string tokens
-> >>
-> >> --
-> >> <http://www.alejandro-colomar.es/>
-> >> GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
-> >>
-> >
-> >
->
+Patch applied.  Thanks!
+
+Alex
+
 > --
-> <http://www.alejandro-colomar.es/>
-> GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
->
-
+> Changes from v1:
+>=20
+> * Improve commit message
+> ---
+>  man8/ld.so.8 | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/man8/ld.so.8 b/man8/ld.so.8
+> index 1c9a13f56..351913bd8 100644
+> --- a/man8/ld.so.8
+> +++ b/man8/ld.so.8
+> @@ -83,7 +83,7 @@ From the cache file
+>  which contains a compiled list of candidate shared objects previously =
+found
+>  in the augmented library path.
+>  If, however, the binary was linked with the
+> -.B \-z nodeflib
+> +.B \-z nodefaultlib
+>  linker option, shared objects in the default paths are skipped.
+>  Shared objects installed in hardware capability directories (see below=
+)
+>  are preferred to other shared objects.
+> @@ -97,7 +97,7 @@ and then
+>  and then
+>  .IR /usr/lib64 .)
+>  If the binary was linked with the
+> -.B \-z nodeflib
+> +.B \-z nodefaultlib
+>  linker option, this step is skipped.
+>  .\"
+>  .SS Dynamic string tokens
 
 --=20
-=E5=AE=8B=E6=96=B9=E7=9D=BF
+<http://www.alejandro-colomar.es/>
+GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
+
+
+--------------2SuaXm406ks6UVZ0SAnyLH7z--
+
+--------------3WihxWa0JzqZbHVH3TOuKy66
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmS0YR0ACgkQnowa+77/
+2zL9RA//eqhyWqHFMbaYFs+aDflTuDz3gzQxGSGJjUxGb1lWNJY76Y06MlHmTOje
+elBU1U951U8mB0Ntn/vPIlB3QW/gOXTpyVp6MHjmg6VFUV9RKOVZomcOfoFGQjyq
+WYKo9hZ8imw02Sdx2J4Uroi25Hk+5V92waB13p80cLNQAS2WNQnhD86pCOxsw3VE
+AH0X2iWhhXRcQLS1zr3mfQPY4qTvrv4Na3rEWkXh6qRV6AfTDHO7Z6eHYKunNLNK
++shhBxN7pW7txs0P0GGqIQog5D/bXJzDnSuaYf5zauYDTy3vsdFT0gIu9XHFlvMm
+nrr88QmPXcQpFgLatFkKHEIkb9ZMijoDfV9+ukkonS2IOq6G5ampdb3HYnbhxhFn
+yu/Uj3bY/tr53h7G/c2sDrNz2Cr3BVKRp2XEnvXUdtoD/Vxb+9bGtYDTr6I2jACU
+SbE1OQzSU+eiu3r9D7I0uSVMGUxxFr8OQlXb8eySg4IideptGZhGhLuotYdFSMVQ
+Gshdx8JWtJGn8pMTcWEIDKH95jkRVFrd1jd1xOTVoVoMBkkzazgYR/phl6WwwRO7
+2IKWKV9O2FB601ebFY6YqpI9dmPU5bHZgLVAheMAZIAmoA+9CuXIkrJ8/DIUwE7+
+wmzTohPR+UVSqkSj3xWb9inZ6nVGfaXriWp7CUjVHM4P2x3Hrv8=
+=NDvr
+-----END PGP SIGNATURE-----
+
+--------------3WihxWa0JzqZbHVH3TOuKy66--
