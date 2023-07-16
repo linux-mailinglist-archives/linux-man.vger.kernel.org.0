@@ -2,54 +2,53 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id D630E754CED
-	for <lists+linux-man@lfdr.de>; Sun, 16 Jul 2023 02:46:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5601C754CF0
+	for <lists+linux-man@lfdr.de>; Sun, 16 Jul 2023 02:50:10 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229563AbjGPAqS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 15 Jul 2023 20:46:18 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42818 "EHLO
+        id S229539AbjGPAuI (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 15 Jul 2023 20:50:08 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43526 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229528AbjGPAqS (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 15 Jul 2023 20:46:18 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 641F6101
-        for <linux-man@vger.kernel.org>; Sat, 15 Jul 2023 17:46:17 -0700 (PDT)
+        with ESMTP id S229528AbjGPAuH (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 15 Jul 2023 20:50:07 -0400
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 90FFF101
+        for <linux-man@vger.kernel.org>; Sat, 15 Jul 2023 17:50:06 -0700 (PDT)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
         (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
          key-exchange X25519 server-signature RSA-PSS (2048 bits))
         (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id 0369A60C4C
-        for <linux-man@vger.kernel.org>; Sun, 16 Jul 2023 00:46:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D282DC433C8;
-        Sun, 16 Jul 2023 00:46:15 +0000 (UTC)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id 12AB960C50
+        for <linux-man@vger.kernel.org>; Sun, 16 Jul 2023 00:50:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4B6AC433C8;
+        Sun, 16 Jul 2023 00:50:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1689468376;
-        bh=aaZVdVGxR1ufW/9PNN3ufuUGiZ7XnYD4ltiBqsFHNTA=;
-        h=Date:Subject:To:References:Cc:From:In-Reply-To:From;
-        b=mEOB4lCeZ4cZi1n/zvxILjwpWuVng/Fy4qrQOjBM4TBl3LV/GR82UrgEIqwHrqdJe
-         L27sy7CuHPs3Rn+EutXQW8MvCH6/1yVeV0y05YWJS6grwHLh8um/akzxnNJKokf0D7
-         pJfHPd/Oo4+WiCKXw8FV3WeukfsD0QsS1HFxuB2o1iHtAbY23iabzAgjgI6ot4XNkI
-         evKu4B2S8yUXPkMY2LA7y3FoeZ9hL5DoVAxwbNbWJ5q8iGIfnjpEGNecfG6G1tA8SY
-         hj5pswnFs1P4ILwxoKM8kQCrgLPjrzcGYoZbYBfCtOOsYhmwn9xwB5xBP8pqVrR7/w
-         Y9o8TuzZ4v/VQ==
-Message-ID: <b32e42ef-244f-29b7-381b-3659036e4765@kernel.org>
-Date:   Sun, 16 Jul 2023 02:46:13 +0200
+        s=k20201202; t=1689468605;
+        bh=LL4PPIDvWoByTPN6FbWK0dpJX4SYFyJsaKFjTXCC704=;
+        h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+        b=Xb7vpu09Qgnunc7/eM5ld1GnBo5AU8O6dS6b4ddkImnijv7WQdpPK5cZdMVl9gG90
+         CZxxRd9gmC0RT/yYtL0s+en+MAQ+qA8v0wN6/9Sdnf5QvWOQph6urwRIScH5dv14Hq
+         c0vjK2+j7p4DCKQX5FveGBeJs/boTZq2E/daUfdusn3TcCXtwjBfmM2zQjyL4NvbMP
+         cScAjVdbX+J6/WsBnqxpt4DmJZPcCTEkiHQ2CkdK5l1gQ/Y2G6vdfo9uMyV/ykvQbX
+         w8shAFNzJG/PasNK0l1LAwl1wueTyjpVrdS4rh1Ce8ASwXntjlYZXgDj5WckXcWHBb
+         e73dQ/SkaC5rw==
+Message-ID: <63164c24-1e6a-f1e6-3892-047fbebd3074@kernel.org>
+Date:   Sun, 16 Jul 2023 02:50:03 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.12.0
-Subject: Re: [PATCH] ld.so.8: Correct linker option name
+Subject: Re: [PATCH v3] pipe.7: document read()s with O_NONBLOCK
 Content-Language: en-US
-To:     Fangrui Song <maskray@google.com>
-References: <20230714070043.275611-1-maskray@google.com>
- <3879502b-90f7-c445-cc68-30f53f1c86fe@kernel.org>
- <CAFP8O3LiBXNPELaoeVQgBCQshnxYMAMGBMGncJKPmMXnedqt8Q@mail.gmail.com>
-Cc:     linux-man <linux-man@vger.kernel.org>
+To:     =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Cc:     linux-man@vger.kernel.org
+References: <c45d6b71-f054-c3df-9a9f-749f30aaabee@kernel.org>
+ <ohlr6zojoreknhkmbmrsjwtkhpm6hj7twgh6lbtpo2cyslb7nz@omy6j2ilcano>
 From:   Alejandro Colomar <alx@kernel.org>
 Organization: Linux
-In-Reply-To: <CAFP8O3LiBXNPELaoeVQgBCQshnxYMAMGBMGncJKPmMXnedqt8Q@mail.gmail.com>
+In-Reply-To: <ohlr6zojoreknhkmbmrsjwtkhpm6hj7twgh6lbtpo2cyslb7nz@omy6j2ilcano>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------VJ1Sr836F9RdnzCqlKl2Xwe4"
+ boundary="------------fEh0X0evL2dYU06j0O3xflQw"
 X-Spam-Status: No, score=-2.2 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
         DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
         RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
@@ -61,140 +60,114 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------VJ1Sr836F9RdnzCqlKl2Xwe4
-Content-Type: multipart/mixed; boundary="------------IV0jnooRJYWNWTXVCnBfdaLL";
+--------------fEh0X0evL2dYU06j0O3xflQw
+Content-Type: multipart/mixed; boundary="------------039sGnZB6eK5J0pGPy3gdI7H";
  protected-headers="v1"
 From: Alejandro Colomar <alx@kernel.org>
-To: Fangrui Song <maskray@google.com>
-Cc: linux-man <linux-man@vger.kernel.org>
-Message-ID: <b32e42ef-244f-29b7-381b-3659036e4765@kernel.org>
-Subject: Re: [PATCH] ld.so.8: Correct linker option name
-References: <20230714070043.275611-1-maskray@google.com>
- <3879502b-90f7-c445-cc68-30f53f1c86fe@kernel.org>
- <CAFP8O3LiBXNPELaoeVQgBCQshnxYMAMGBMGncJKPmMXnedqt8Q@mail.gmail.com>
-In-Reply-To: <CAFP8O3LiBXNPELaoeVQgBCQshnxYMAMGBMGncJKPmMXnedqt8Q@mail.gmail.com>
+To: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Cc: linux-man@vger.kernel.org
+Message-ID: <63164c24-1e6a-f1e6-3892-047fbebd3074@kernel.org>
+Subject: Re: [PATCH v3] pipe.7: document read()s with O_NONBLOCK
+References: <c45d6b71-f054-c3df-9a9f-749f30aaabee@kernel.org>
+ <ohlr6zojoreknhkmbmrsjwtkhpm6hj7twgh6lbtpo2cyslb7nz@omy6j2ilcano>
+In-Reply-To: <ohlr6zojoreknhkmbmrsjwtkhpm6hj7twgh6lbtpo2cyslb7nz@omy6j2ilcano>
 
---------------IV0jnooRJYWNWTXVCnBfdaLL
+--------------039sGnZB6eK5J0pGPy3gdI7H
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On 2023-07-15 20:36, =D0=BD=D0=B0=D0=B1 wrote:
+> Which don't behave like you may expect them to;
+> unprimed, I expected the natural extension of either:
+> files   (being a  filesystem object), always returning 0 if no data, or=
 
-On 2023-07-15 20:19, Fangrui Song wrote:
-> On Sat, Jul 15, 2023 at 9:42=E2=80=AFAM Alejandro Colomar <alx@kernel.o=
-rg> wrote:
->>
->> Hi Fangrui,
->>
->> On 2023-07-14 09:00, Fangrui Song wrote:
->>> The linker option that sets the DF_1_NODEFLIB flag is -z nodefaultlib=
-
->>> instead of -z nodeflib.
->>
->> Does -z nodeflib exist?  Please mention that in your commit message.
->>
->> Thanks,
->> Alex
+> sockets (being an IPC mechanism),     always EAGAINing   if no data.
 >=20
-> Hi Alex, -z nodeflib is not defined.
+> The pipe semantics make sense of course =E2=80=92 pipes can be modelled=
+ as
+> sockets if there aren't writers, but files if there are; indeed,
+> this makes sense as the writer continuously appending a sliding
+> "window" over a file =E2=80=92 but they're unique amongst the UNIX file=
+ types,
+> but arriving at that specific interaction table is non-obvious,
+> especially to a user.
 >=20
-> % ld.bfd -m elf_x86_64 -e 0 /dev/null -z nodeflib
-> ld.bfd: warning: -z nodeflib ignored
-> % ld.lld -m elf_x86_64 -e 0 /dev/null -z nodeflib
-> ld.lld: warning: unknown -z value: nodeflib
+> Quoth Issue 8 Draft 3:
+> 60746  When attempting to read from an empty pipe or FIFO:
+> 60747    =E2=80=A2 If no process has the pipe open for writing, read( )=
+ shall return 0 to indicate end-of-file.
+> 60748    =E2=80=A2 If some process has the pipe open for writing and O_=
+NONBLOCK is set, read( ) shall return
+> 60749      =E2=88=921 and set errno to [EAGAIN].
+> 60750    =E2=80=A2 If some process has the pipe open for writing and O_=
+NONBLOCK is clear, read( ) shall
+> 60751      block the calling thread until some data is written or the p=
+ipe is closed by all processes that
+> 60752      had the pipe open for writing.
 >=20
-> I have double checked that my commit message is accurate.
+> Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.=
+xyz>
 
-I say it because it is a bit ambiguous, in the sense that it's not clear
-if nodeflib is a valid flag but which is not the one we're interested in,=
+Applied.  Thanks!
 
-or if it's just an invalid flag.
-
-It's not a problem for those who know, but it reduces the work for those
-who don't know.  Anyway, that was my guess, but I was only 90% certain
-without checking.  I suggest appending this at the end of your commit
-message:
-
-```
--z nodeflib is not defined.
-
-% ld.bfd -m elf_x86_64 -e 0 /dev/null -z nodeflib
-ld.bfd: warning: -z nodeflib ignored
-% ld.lld -m elf_x86_64 -e 0 /dev/null -z nodeflib
-ld.lld: warning: unknown -z value: nodeflib
-```
-
-What do you think?
-
-Thanks,
-Alex
-
+> ---
+>  man7/pipe.7 | 9 ++++++++-
+>  1 file changed, 8 insertions(+), 1 deletion(-)
 >=20
->>>
->>> Signed-off-by: Fangrui Song <maskray@google.com>
->>> ---
->>>  man8/ld.so.8 | 4 ++--
->>>  1 file changed, 2 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/man8/ld.so.8 b/man8/ld.so.8
->>> index 1c9a13f56..351913bd8 100644
->>> --- a/man8/ld.so.8
->>> +++ b/man8/ld.so.8
->>> @@ -83,7 +83,7 @@ From the cache file
->>>  which contains a compiled list of candidate shared objects previousl=
-y found
->>>  in the augmented library path.
->>>  If, however, the binary was linked with the
->>> -.B \-z nodeflib
->>> +.B \-z nodefaultlib
->>>  linker option, shared objects in the default paths are skipped.
->>>  Shared objects installed in hardware capability directories (see bel=
-ow)
->>>  are preferred to other shared objects.
->>> @@ -97,7 +97,7 @@ and then
->>>  and then
->>>  .IR /usr/lib64 .)
->>>  If the binary was linked with the
->>> -.B \-z nodeflib
->>> +.B \-z nodefaultlib
->>>  linker option, this step is skipped.
->>>  .\"
->>>  .SS Dynamic string tokens
->>
->> --
->> <http://www.alejandro-colomar.es/>
->> GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
->>
->=20
->=20
+> diff --git a/man7/pipe.7 b/man7/pipe.7
+> index c3e06bdab..91554fa3c 100644
+> --- a/man7/pipe.7
+> +++ b/man7/pipe.7
+> @@ -56,12 +56,19 @@ .SS I/O on pipes and FIFOs
+>  .BR write (2)
+>  blocks until sufficient data has been read from the pipe
+>  to allow the write to complete.
+> +.PP
+>  Nonblocking I/O is possible by using the
+>  .BR fcntl (2)
+>  .B F_SETFL
+>  operation to enable the
+>  .B O_NONBLOCK
+> -open file status flag.
+> +open file status flag or by opening a
+> +.BR fifo (7)
+> +with
+> +.BR O_NONBLOCK .
+> +If any process has the pipe open for writing, reads fail with
+> +.BR EAGAIN ;
+> +otherwise\[em]with no potential writers\[em]reads succeed and return e=
+mpty.
+>  .PP
+>  The communication channel provided by a pipe is a
+>  .IR "byte stream" :
 
 --=20
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
 
---------------IV0jnooRJYWNWTXVCnBfdaLL--
+--------------039sGnZB6eK5J0pGPy3gdI7H--
 
---------------VJ1Sr836F9RdnzCqlKl2Xwe4
+--------------fEh0X0evL2dYU06j0O3xflQw
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmSzPdYACgkQnowa+77/
-2zIe+BAAqli9pQhL2yexnEuDFaLfWvUoNUWATj/I9gbK7cwkmxnJYzZfr7iLMjVO
-BQV5l507loyM3TgLTMKnbCHOfYJI8SQhsyFyZ12KJC5aERXKdo2/iNmvI1DCLgMG
-/7lkqXzAhr+kclwdn59N6IsCC4/0620hmsgqAPKBBds50/N31vwdS0Y83EV8pyHx
-1hdkv5PY+ExKsUIPKFxXwSYEqysEbYAD1IcWy889PdrUYC66AOO4vgWWgOUWKI+u
-y9eopapBoV0wYF48FXsHmdxynogfpCsZqJM6jPjghIQHwlPJj/B8JLJTbRFk47gw
-hZGD39CquZVdzU6Gul8Yr14yiih6NYwlWEYnFx3jRa97jrCNcbIx0hgFcLi+MMjD
-PqQOhxH7gZHNRm9YQzZKPyjoyWlBBQaehY3Rou/Iq39WcjY4YZ4U1xjEMTtRsFCm
-EALbXxonhJySC2f7diE9eouby3r47gdvD2qBGMdKFi3L7KvuE49Xo6XBQVo2/IND
-TWkfEHKTxjlb5ODej6G0/z+oeUphX9hPcU8RqEPEMBtDIhYZJugHgK8HCgjCiUD2
-1q/Dv31LpYGHudGjW5fuEqwVfKEAva9FRhyb7U99xikHn3MxStfeJWlCUmGY8DzH
-WgpG1d+52bEtDTleRMumYQhoGnRNwfmwq8l5mNa7QfR2rZ5+sOo=
-=tRXI
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmSzPrsACgkQnowa+77/
+2zJPOQ/9HAeyKJ2SKGcAkzlkyhIc9Wfpt++Mn0gZ3tcElj+G2K2V7uNVCZlr1dau
+cx7Yy+eEi8O0RePaSzzFoq1ZOW7y4E1QpbOXHUm8VPcyqQGp967b5NOTMwEJyvlg
+R7HgYu2qJUk2rn7C04gPAP1WBKK+npe4JimZ6SGzZFzehRnvw4vyE8NN9uNpSzbA
+mjld79qjNv5Y8hK+/nrSFTIqvDpyevnHGGLs/tqMdpGJnwTwFc7nd2wk6Gq2/aFe
+ymf2V3KswM4uWzPSpSEYbaKKvtOdF0ZUEtKmrSXKu5OmTY5vC3E0Bwj6B2ZAGDDC
+UdFDt606B+98Ts7Rf9FsmcuRkxwdWfOT4VC+xaymKkEemVm9U7+aQuyf1MejBdYs
+v9ySnSE98cb7AtuRzDIp51OavflcO5eCCD+Rzp1lFIQBn+r5Qo+oYj5HXrQrTQWv
+QDPKZwuv9yok6swdAtRtS6bYoAaPhhhsRDSdF87ALAzZphdjf6xIWhg5s7ymgTfi
+vNIDkxYRIHKbtdqTpOfGPlHmvWXpUE0FUYuYstXXdT6f6QVC35go09kRRVytn5Zv
+CkWG84BMarkIfR+IuhorcGtbRuTNyX+ZfyrHXvsQrn8nqH0eUUCw63hCKZgXO5rs
+R785n2da8WLhAcwnnH1l4CvkxdKC7fhdL7/sSatBtaS2o9YpjQc=
+=e5ob
 -----END PGP SIGNATURE-----
 
---------------VJ1Sr836F9RdnzCqlKl2Xwe4--
+--------------fEh0X0evL2dYU06j0O3xflQw--
