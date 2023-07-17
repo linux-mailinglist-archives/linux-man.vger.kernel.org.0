@@ -2,65 +2,52 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 7FB3F7558AB
-	for <lists+linux-man@lfdr.de>; Mon, 17 Jul 2023 01:48:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 4BC8A756E61
+	for <lists+linux-man@lfdr.de>; Mon, 17 Jul 2023 22:36:44 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229793AbjGPXsW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 16 Jul 2023 19:48:22 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46790 "EHLO
+        id S229774AbjGQUgm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 17 Jul 2023 16:36:42 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36966 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229759AbjGPXsW (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 16 Jul 2023 19:48:22 -0400
-Received: from mail-yw1-x112b.google.com (mail-yw1-x112b.google.com [IPv6:2607:f8b0:4864:20::112b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9105C1B5
-        for <linux-man@vger.kernel.org>; Sun, 16 Jul 2023 16:48:20 -0700 (PDT)
-Received: by mail-yw1-x112b.google.com with SMTP id 00721157ae682-56fff21c2ebso39119187b3.3
-        for <linux-man@vger.kernel.org>; Sun, 16 Jul 2023 16:48:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1689551300; x=1692143300;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Q+Vim2UGKuMMlOdg30+44pHiZp2WRvY73Y7YkfDcf80=;
-        b=Rxb5bywO8Mq5hYAn8KXurqjLXmUJaDDOBlSCB8Wsgq4LrY5InoWDWVLgCdOGvCOBT8
-         Jaw6TrjjPu7EnPp4ZJTuMiKbO+RAZsazEWQE1wcVY9uzwGChrYMPCR1PJvBm1gRNC/Es
-         fmbl+RY8jLeg4UiVRLRI9tlLP2AdqjLWgjjobqS0dWoh2d3nWLPkrzUjzK+hICYkL8OG
-         EgSQ4d6UXfRRg3/NMlYZWF6mL75AffOaNQBXB31Bk+3FBRZ7h3INjTdBO+GiIZiaLA3A
-         uaRSg1N7/UzJZUWBzDIintmgf21779yc4FymZmHY04PNinDwpnhFJeJ9AFRAxP4sSLtc
-         W69w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689551300; x=1692143300;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Q+Vim2UGKuMMlOdg30+44pHiZp2WRvY73Y7YkfDcf80=;
-        b=bWeg1mkDu7XJVdLFph5WV1D6O+550IvqQ7PcJvW0OWMExyGleGc/lI+HABYD3DyStF
-         UyPxMBgIwElOngiWknF3e3ROaBCiZx4AD/qiGaeg+uzfIFj7VARg2N+yxnW2VNLRi6Lx
-         bqV5sXj4Dz85/ycytlxWDGtueT2d6hQtYTAdhVoUw7KIGBq03NZuVqjjbHxltktGVfps
-         nhhIiDvsJQ0M46PcqJu+qhmskMcJvSzeMGKk/qivsW12HpDTDHKbIeYiuKvIXSEl0jl1
-         qwG95jjMU52sEbCHk6j+nn7dUu74u/x5RnFJse2ZjAPDY4ajD0QAcrejGBLJAxo3rNxr
-         3E4Q==
-X-Gm-Message-State: ABy/qLYpqRFa8IzrXs3dKFPKXbZiTXoAbU9hJcl2fZ3qmbP5h35jnR/u
-        ZByXITlE89R0iw4oELZMl38=
-X-Google-Smtp-Source: APBJJlGqabnww36HIcbNivk7k0WALG7avSLt6KE7jcocvDrq7vCXhxA6xOL7/YeE6KdmHUiWyCtSkQ==
-X-Received: by 2002:a81:60c5:0:b0:559:f18d:ee94 with SMTP id u188-20020a8160c5000000b00559f18dee94mr10557120ywb.10.1689551299714;
-        Sun, 16 Jul 2023 16:48:19 -0700 (PDT)
-Received: from firmament.local (c-73-106-204-164.hsd1.ga.comcast.net. [73.106.204.164])
-        by smtp.gmail.com with ESMTPSA id k1-20020a0dfa01000000b005771bb5a25dsm3508846ywf.61.2023.07.16.16.48.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 16 Jul 2023 16:48:19 -0700 (PDT)
-From:   Matthew House <mattlloydhouse@gmail.com>
-To:     Alejandro Colomar <alx@kernel.org>
-Cc:     linux-man@vger.kernel.org
-Subject: [PATCH v2] recv.2: Document MSG_CMSG_CLOEXEC as returned in msg_flags
-Date:   Sun, 16 Jul 2023 19:47:53 -0400
-Message-ID: <20230716234803.851580-1-mattlloydhouse@gmail.com>
-In-Reply-To: <363c0f82-969d-1927-1bd5-b664cfc83a87@kernel.org>
-References: <20230709213358.389871-1-mattlloydhouse@gmail.com> <363c0f82-969d-1927-1bd5-b664cfc83a87@kernel.org>
+        with ESMTP id S229582AbjGQUgl (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 17 Jul 2023 16:36:41 -0400
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6179C1AC
+        for <linux-man@vger.kernel.org>; Mon, 17 Jul 2023 13:36:39 -0700 (PDT)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+         key-exchange X25519 server-signature RSA-PSS (2048 bits))
+        (No client certificate requested)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id E0DDD6123B
+        for <linux-man@vger.kernel.org>; Mon, 17 Jul 2023 20:36:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCDBBC433C7;
+        Mon, 17 Jul 2023 20:36:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1689626198;
+        bh=tl1igBkSEOY5pYu7xOvIz0zZTm7SEtImfmbNeBkSCok=;
+        h=Date:To:From:Subject:From;
+        b=kgVKd6cTxNS8ulXvSxwdIDGAfO9k/yy6buo+0VcgAhX8KW33R5xVbWw2mLU4Fo481
+         PZMMb6hUrjgX/FqbzGCVn9ndX7V9RDlvx6gwX9rnDxmLvq/L6Lzrf6iT5x/gMzoFau
+         W5WLGngdpylJ/mqSpUbji/gFTtc1mMrhOPalF9OBZn34PZV6ELu+yWgXuTCrTu73Yr
+         X7LsEjr0iUsuGCvxdUXKidnKzAEI1PIMpMTw86dmILHHN7QfWftlQGSrgptlmqf95a
+         tOAQ5auZ/eUWUBmVsyqEZtSP1pOpHt7TtamK/LkBPliQpfd3yTpi6I/LeBsUFF09ke
+         JRRLkOVAH5adQ==
+Message-ID: <53f8b39e-aec2-3abc-d2fe-5b437068cd7d@kernel.org>
+Date:   Mon, 17 Jul 2023 22:36:28 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Content-Language: en-US
+To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        linux-man <linux-man@vger.kernel.org>
+From:   Alejandro Colomar <alx@kernel.org>
+Subject: ffix proposal
+Organization: Linux
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------SCFreDvDM7JOeLZOnJwY4TVd"
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
         RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
         autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -69,37 +56,92 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Signed-off-by: Matthew House <mattlloydhouse@gmail.com>
----
-Clarified that the argument comes from the recvmsg() call. It feels a bit
-redundant to name recvmsg() again here, given that the list of flags is
-immediately preceded by, "The msg_flags field in the msghdr is set on
-return of recvmsg(). It can contain several flags: [...]" But I'll let you
-be the judge of that.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------SCFreDvDM7JOeLZOnJwY4TVd
+Content-Type: multipart/mixed; boundary="------------qXJowpTSuqKEzGqu9rZUbhk9";
+ protected-headers="v1"
+From: Alejandro Colomar <alx@kernel.org>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+ linux-man <linux-man@vger.kernel.org>
+Message-ID: <53f8b39e-aec2-3abc-d2fe-5b437068cd7d@kernel.org>
+Subject: ffix proposal
 
- man2/recv.2 | 9 +++++++++
- 1 file changed, 9 insertions(+)
+--------------qXJowpTSuqKEzGqu9rZUbhk9
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/man2/recv.2 b/man2/recv.2
-index 660c103fb..1cd9f3e1b 100644
---- a/man2/recv.2
-+++ b/man2/recv.2
-@@ -412,6 +412,15 @@ is returned to indicate that expedited or out-of-band data was received.
- .B MSG_ERRQUEUE
- indicates that no data was received but an extended error from the socket
- error queue.
-+.TP
-+.BR MSG_CMSG_CLOEXEC " (since Linux 2.6.23)"
-+.\" commit 4a19542e5f694cd408a32c3d9dc593ba9366e2d7
-+indicates that
-+.B MSG_CMSG_CLOEXEC
-+was specified in the
-+.I flags
-+argument of
-+.BR recvmsg ().
- .SH RETURN VALUE
- These calls return the number of bytes received, or \-1
- if an error occurred.
--- 
-2.41.0
+Hi Branden!
 
+Please check if you like this ffix patch.  Things I'm changing:
+
+-  Use .RI instead of \f
+
+	Uncontroversial.
+
+-  \%
+
+	I guess this one is uncontroversial to you.  ;)
+
+-  \:
+
+	To make the previous one not so horrible.
+
+-  Reverse what is in italics and what is in roman.
+
+	Path names should go in italics.  This wasn't being done,
+	which was a bug.  Now, the variable part is in roman, to
+	differentiate from the literal path name.
+
+-  \[dq]
+
+	We need it 'cause of .RI.
+
+
+Cheers,
+Alex
+
+
+diff --git a/man8/ld.so.8 b/man8/ld.so.8
+index 351913bd8..d9001634d 100644
+--- a/man8/ld.so.8
++++ b/man8/ld.so.8
+@@ -659,7 +662,7 @@ .SS Environment variables
+ The name of a (single) shared object to be profiled,
+ specified either as a pathname or a soname.
+ Profiling output is appended to the file whose name is:
+-"\fI$LD_PROFILE_OUTPUT\fP/\fI$LD_PROFILE\fP.profile".
++.RI \%\[dq]$LD_PROFILE_OUTPUT /\: $LD_PROFILE .profile \[dq].
+ .IP
+ Since glibc 2.2.5,
+ .B LD_PROFILE
+
+
+--=20
+<http://www.alejandro-colomar.es/>
+GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
+
+--------------qXJowpTSuqKEzGqu9rZUbhk9--
+
+--------------SCFreDvDM7JOeLZOnJwY4TVd
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmS1pk0ACgkQnowa+77/
+2zLwdg//Vyx9MvMU+i/NoZVix007D477ybIl7Ef6+mUWA239X7xBb954uOe8U53O
+q25QKXEAYo17VLE3S+iJopbii4SynS3p4kXNA7peereiHeGrq/gbOqKoZO/HIUwv
+bJNSfBNQPV9C8jt/PbN2wY4l5Wm7XBEIOb+n7ItV8fX1Qabhg36GCbZEnl+2/d/3
+V/g0v312JHfMVTzNjwHVCGPN4MfigyhEHOyI3UJ2jKKUAX1RGMRlitUxneGHYs7s
+RwhEXemQ5rSiHrRrY2STXlpRpnG+8a319QdztZIxMnu/K7i6LC3RBuFc9RCkSrjf
+i4CI7ZlV1W/oh44JHtVQj/KwmVnHGtJzLb88RlgG2g7Q+G7yqwIG3/EuBzq55Ibs
+HrrPTg2zd9VgLLwaSC6CmPPxcmLgF5NfcOf3wAGKSPZ2PkFwM7LGiVNM3k6czjv6
+v039bziE1512si9Mm7DDn2gT4EikZh3VYvbgQLBx8aFXvmXDwPn3fs5sdfXCu0hc
+fPEXSQFyhbeGQzBW/TGIR1AbvPGSrDJE5NZNknishl50St3emAN8PjZMa5E4oHHi
+mah7L+mvQL59cmc6cvBUvlNR4wt73GBptsHZ3xpnihg9Jjl30nY9KjgMpc1xNvrY
+HNmrwI7eKC0UydDgCjJMTVPIjncoZ7+syzTxc3Zibs2GOX1CLig=
+=v7kQ
+-----END PGP SIGNATURE-----
+
+--------------SCFreDvDM7JOeLZOnJwY4TVd--
