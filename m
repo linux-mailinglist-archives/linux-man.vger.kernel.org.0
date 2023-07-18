@@ -2,166 +2,147 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 75C4D7570A0
-	for <lists+linux-man@lfdr.de>; Tue, 18 Jul 2023 01:42:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1AAC9757381
+	for <lists+linux-man@lfdr.de>; Tue, 18 Jul 2023 08:01:29 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229762AbjGQXme (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 17 Jul 2023 19:42:34 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57436 "EHLO
+        id S230269AbjGRGB1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 18 Jul 2023 02:01:27 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48834 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230129AbjGQXmd (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 17 Jul 2023 19:42:33 -0400
-Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id ACE2695
-        for <linux-man@vger.kernel.org>; Mon, 17 Jul 2023 16:42:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-        s=202305; t=1689636679;
-        bh=shiLY/XSkRCzTlYzkjxVfUzyYknLrN510YfygyODCLc=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=blFa2l19RPZvvd0A7YuVXQbS3msb6aLFXfKpHQqiJ0WRISNuZAwKCzERtSliZGrTA
-         Rr4Gk8y+YIeYc81FHL2yFWYHVHz1vYAXKH0+9XiBaOYDEubQxLgwKFViqhIyohvBx0
-         /lQr98W0GwMvIwXGhjuzPabkmFZ4v4HL1qLNVpQP/fxL3onBMeHdUunuP2tD1QlWEs
-         oFz7Pfaf6WvqQ3OAhMfP2Zy2O2EOhqj+mNN4Z0pbnHTtCZQLgXMcPPUy/nzn1SE6CP
-         Z+q+R6jgym6Kyz9EssZgfZicz/xDv+mwt72Q3YcUspvnKlwoJiE4qmOZ75hOoTFZ+R
-         g10lJNYNM3nIw==
-Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 0B669335A;
-        Tue, 18 Jul 2023 01:31:19 +0200 (CEST)
-Date:   Tue, 18 Jul 2023 01:31:17 +0200
-From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+        with ESMTP id S230095AbjGRGB0 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 18 Jul 2023 02:01:26 -0400
+Received: from mail-oo1-xc2e.google.com (mail-oo1-xc2e.google.com [IPv6:2607:f8b0:4864:20::c2e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CCF5CD1
+        for <linux-man@vger.kernel.org>; Mon, 17 Jul 2023 23:01:25 -0700 (PDT)
+Received: by mail-oo1-xc2e.google.com with SMTP id 006d021491bc7-56597d949b1so2938201eaf.1
+        for <linux-man@vger.kernel.org>; Mon, 17 Jul 2023 23:01:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1689660085; x=1692252085;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=iMzVUWwi7jWU/6gyM9GsFG2CDlTQoBKW/Yg/ZYgqo4I=;
+        b=LAbv9zvxtj+vbG/rRdEoX7+NzZvIiWOOEyrrVbaTQmbT/c98542BmBwQ7UX2L7qWX9
+         MGORmCD1nJHJiUi+FTLsEzt4mOkaVHiWkCv6klwGjvCmcWKOAKYbCVyZLu/9fBNwpuEw
+         fnYD/ffGupVtxm9q/c/uRMDaC6pwC68bkSJaoAiHGm9PlG0uDiQWJlQYZ6yYxL89Z5cV
+         heHgKOrFe2/gYu+PSDxw1lhBlfIj1PH5JgXnRrZpNkg5Wm21wPIpdhbu48VIPiG16uLo
+         ym2jPZJFKQDD+H/sXREYHQGVR1wTiJJum2gI5JGki1KsspkPx4EJRF9T4W5uqZkQRWKE
+         xalg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1689660085; x=1692252085;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=iMzVUWwi7jWU/6gyM9GsFG2CDlTQoBKW/Yg/ZYgqo4I=;
+        b=cmHLcAX0Bs/lnsI8VEZE7Y5FQcPgnElsZmnm044r30Mohzg1p33bZ4ALkcPvcfWbL/
+         t653jt6bvTAkyVgRY4snu+twAGObZpEKfg+noRK1qhJ/BbAm/9YivgP96nMQTk8d/Lvw
+         Vjq67Bt8TI+4rEEWpyfdEl2dQbM9GfCoS56+AFZqPHhfldVlRXBts5kZR6RLt45eAOiJ
+         lMMFWU2D8vFmgwTKt4AScT3jYotZCLhKptSbjXxc3G/xrvouZaqAxSjfEj4wtWR8ohU7
+         EtoMPT1Es67MsN1cCmazHC6RX9I+d5cSKGCNARf89TXHD0HTBaFAsDbNU2MYslCQhSu/
+         ZuuA==
+X-Gm-Message-State: ABy/qLbI9EfiUkn/BmwHYfWF3i5wa46IY+cvWjdYNngEBhvv4K5tuTa/
+        T+qK5ylZig+qASqoGM7ro/ivl5FcuFRTXg==
+X-Google-Smtp-Source: APBJJlHEJL+xUoYp87C2XSco3UOH6aByyB1yos92WayIb2PK1j1Bvs8hW60oMn/i5TfxiQBclMxGqA==
+X-Received: by 2002:a05:6808:20a7:b0:3a3:ed22:6b51 with SMTP id s39-20020a05680820a700b003a3ed226b51mr14663873oiw.50.1689660084875;
+        Mon, 17 Jul 2023 23:01:24 -0700 (PDT)
+Received: from firmament.local (c-73-106-204-164.hsd1.ga.comcast.net. [73.106.204.164])
+        by smtp.gmail.com with ESMTPSA id c4-20020a25c004000000b00c62e0df7ca8sm287263ybf.24.2023.07.17.23.01.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 17 Jul 2023 23:01:24 -0700 (PDT)
+From:   Matthew House <mattlloydhouse@gmail.com>
 To:     Alejandro Colomar <alx@kernel.org>
-Cc:     linux-man@vger.kernel.org, Jakub Wilk <jwilk@jwilk.net>,
-        "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Subject: [PATCH v6] grantpt.3: no-op on modern glibc and other UNIXes,
- HISTORYise
-Message-ID: <4ag7sqe4pro4yguwbik6bdlfs75erm5ftip7c2ukazlubklr7y@ornznqzh7jle>
-References: <7d88523e-d0be-e65e-2dd3-d7776960dde8@kernel.org>
+Cc:     linux-man@vger.kernel.org
+Subject: Re: [PATCH v2] recv.2: Document MSG_CMSG_CLOEXEC as returned in msg_flags
+Date:   Tue, 18 Jul 2023 02:00:51 -0400
+Message-ID: <20230718060121.934187-1-mattlloydhouse@gmail.com>
+In-Reply-To: <47e21a59-f74a-4a63-0f13-237c015ae6bb@kernel.org>
+References: <20230709213358.389871-1-mattlloydhouse@gmail.com> <363c0f82-969d-1927-1bd5-b664cfc83a87@kernel.org> <20230716234803.851580-1-mattlloydhouse@gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="sl4zqhs4ksw7lpry"
-Content-Disposition: inline
-In-Reply-To: <7d88523e-d0be-e65e-2dd3-d7776960dde8@kernel.org>
-User-Agent: NeoMutt/20230517
-X-Spam-Status: No, score=-1.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
-        RDNS_DYNAMIC,SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=no
-        autolearn_force=no version=3.4.6
+Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+        URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+On Mon, Jul 17, 2023 at 7:10 PM Alejandro Colomar <alx@kernel.org> wrote:
+> Hi Matthew,
+>
+> I don't understand what's the purpose of this.  The kernel sets a bit
+> just to report to the caller that it set a bit?  No other purpose?
+> It feels very weird.  Of course, the caller already has that info,
+> doesn't it?
 
---sl4zqhs4ksw7lpry
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+The main reason I posted this patch was because I was confused by the
+flag's presence in the msg_flags when I was looking at some strace logs, so
+I figured that it would be a good idea to document it. As for the original
+purpose of the behavior, it's not really clear, and it may well have been
+an implementation artifact that got enshrined in the user space ABI. (Even
+io_uring is careful to replicate this behavior!)
 
-FreeBSD, OpenBSD, and Linux (/dev/ptmx) do all intialisation in open(2),
-and grantpt(3) is a no-op (that checks whether the fd is a pty, except on
-musl).
+This behavior began when the MSG_CMSG_CLOEXEC flag was first added in Linux
+2.6.23, with Ulrich Drepper's commit 4a19542e5f69 ("O_CLOEXEC for
+SCM_RIGHTS"). Per the commit message, the flag was designed to be
+"passe[d]... just like the existing MSG_CMSG_COMPAT flag". Since it was
+added to the msg_flags at the start of sys_recvmsg(), the
+scm_detach_fds[_compat]() functions in net/core/scm.c and net/compat.c
+could read the flag off of msg->msg_flags without having to thread the
+recvmsg() flags through.
 
-The illumos gate and NetBSD do a ioctl (and, indeed, illumos-gate commit
- facf4a8d7b59fde89a8662b4f4c73a758e6c402c ("PSARC/2003/246 Filesystem
-  Driven Device Naming"), which kills pt_chmod, notes that it's been
- "6464196 bfu should remove pt_chmod, obsoleted by /dev filesystem").
+This was indeed similar to the behavior of MSG_CMSG_COMPAT. That flag was
+added in Linux 2.5.65, with commit 3225fc8a85f4 ("[NET]: Simplify scm
+handling and sendmsg/recvmsg invocation, consolidate net compat
+syscalls."), in which put_cmsg() and scm_detach_fds() in net/core/scm.c
+read it off of msg->msg_flags. (It wouldn't actually be set in msg_flags
+until Linux 2.5.67, with commit 7e8d06bc1d90, "[COMPAT]: Fix
+MSG_CMSG_COMPAT flag passing, kill cmsg_compat_recvmsg_fixup." Both of
+these commits are from history/history.git.)
 
-glibc 2.33 completely kills BSD PTY support on Linux
-(Debian hasn't configured with them on any architecture since 2007:
-   https://bugs.debian.org/338404
- and even earlier on some arches; they're really just trivia under
- Linux =E2=80=92 this may be better served stuffed into HISTORY as an expla=
-iner
- for the SIGCHLD thing, since regardless of the "version", the behaviour
- is well-defined and consistent).
+However, the MSG_CMSG_COMPAT flag has been scrubbed from the output
+msg_flags since Linux 2.6.14, with commit 37f7f421cce1 ("[NET]: Do not leak
+MSG_CMSG_COMPAT into userspace."). That's what I find so unclear:
+MSG_CMSG_CLOEXEC was added after the kernel started scrubbing
+MSG_CMSG_COMPAT from the output, but the new flag was never written to be
+similarly scrubbed.
 
-There really aren't many cohesive "versions" of this =E2=80=92 indeed, so l=
-ong
-as grantpt(3) exists it behaves precisely as described here =E2=80=92
-inasmuch as different systems, historically, had different ptys,
-and thus different implementations. These are all but trivia.
+Later, in Linux 3.10, with commits 1be374a0518a ("net: Block
+MSG_CMSG_COMPAT in send(m)msg and recv(m)msg") and a7526eb5d06b ("net:
+Unbreak compat_sys_{send,recv}msg"), MSG_CMSG_COMPAT was banned from being
+passed to the *msg() syscalls' flags from user space, with the rationale
+that they were "not intended to be part of the API". Then, in Linux 4.0, we
+reached the current status quo with commit d720d8cec563 ("net: compat:
+Ignore MSG_CMSG_COMPAT in compat_sys_{send, recv}msg"), where
+MSG_CMSG_COMPAT is allowed (and a no-op) in compat syscalls, but banned
+from non-compat syscalls.
 
-Cc: Jakub Wilk <jwilk@jwilk.net>
-Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
----
-I originally thought to do so, but decided against it because I'm not
-substantially changing this paragraph and it's already in VERSIONS...
-Moved with rationale added.
+So I agree that it's very weird that this flag gets returned to user space,
+even while the internal flag that it's modeled after doesn't. I suppose I
+could spin up a nice story, where the user-space function calling recvmsg()
+is totally separate from the function processing the returned struct
+msghdr, and the latter function would really like to know whether the fds
+in that message are close-on-exec without having to call fcntl(F_GETFD).
+But that's all just a total guess. If you want to know for sure, perhaps
+cc'ing Drepper may be worthwhile?
 
-Also, administriva-wise, git pull tells me
-  [PATCH 1/2] statfs.2: unshade as deprecated, but direct to statvfs(3)
-with msgid
-  <b4b871ffdf8f764ffd6c25039f3944b08748bd3e.1687553930.git.nabijaczleweli@n=
-abijaczleweli.xyz>
-is the last outstanding patch I have rn, sans this one.
+A cursory look hasn't shown me any existing user-space code that depends on
+this behavior. Though one library appears to be aware of this behavior,
+actively filtering MSG_CMSG_CLOEXEC out of the result flags:
+<https://github.com/dutchanddutch/node-socket-calls/blob/ca759a0da87cb11287=
+5d158f4a81b45b31f4a871/src/socket_calls.cc#L417>
 
- man3/grantpt.3 | 22 ++++++++++------------
- 1 file changed, 10 insertions(+), 12 deletions(-)
+Also, only somewhat relatedly, some libraries incorrectly attempt to
+request MSG_CMSG_CLOEXEC by passing it into the msg_flags field instead of
+the flags argument:
+<https://git.samba.org/samba.git/?p=3Dsamba.git;a=3Dblob;f=3Dlib/messaging/=
+messages_dgm.c;hb=3Drefs/tags/samba-4.17.9#l1272>
+<https://github.com/genodelabs/genode/blob/23.05/repos/base-linux/src/lib/b=
+ase/ipc.cc#L132>
+<https://github.com/proxmox/pve-lxc-syscalld/blob/a14430f3e75c2b695332ad712=
+164e599464177fc/src/io/seq_packet.rs#L123>
 
-diff --git a/man3/grantpt.3 b/man3/grantpt.3
-index a19172a3e..949f70de9 100644
---- a/man3/grantpt.3
-+++ b/man3/grantpt.3
-@@ -83,18 +83,6 @@ .SH ATTRIBUTES
- .hy
- .ad
- .sp 1
--.SH VERSIONS
--Many systems implement this function via a set-user-ID helper binary
--called "pt_chown".
--On Linux systems with a devpts filesystem (present since Linux 2.2),
--the kernel normally sets the correct ownership and permissions
--for the pseudoterminal slave when the master is opened
--.RB ( posix_openpt (3)),
--so that nothing must be done by
--.BR grantpt ().
--Thus, no such helper binary is required
--(and indeed it is configured to be absent during the
--glibc build that is typical on many systems).
- .SH STANDARDS
- POSIX.1-2008.
- .SH HISTORY
-@@ -103,6 +91,16 @@ .SH HISTORY
- .PP
- This is part of the UNIX 98 pseudoterminal support, see
- .BR pts (4).
-+.PP
-+Historical systems implemented this function via a set-user-ID helper bina=
-ry
-+called "pt_chown".
-+glibc on Linux before glibc 2.33 could do so as well,
-+in order to support configurations with only BSD pseudoterminals;
-+this support has been removed.
-+On modern systems this is either a no-op
-+\[em]with permissions configured on pty allocation, as is the case on Linu=
-x\[em]
-+or an
-+.BR ioctl (2).
- .SH SEE ALSO
- .BR open (2),
- .BR posix_openpt (3),
---=20
-2.39.2
-
---sl4zqhs4ksw7lpry
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmS1z0UACgkQvP0LAY0m
-WPGcWQ//a2RGtNrwA4tQFQhLZarTDhIG6NHhJFo7W3tO9QO1vjpQ45qoTkqxOYDA
-DuyGfUrpWPUOJS0Woa/UbBX+2KW8ix2nlvtfcpdFpOPZnbcOQLvBb5mgpKg+Z1GQ
-+7DDXVv/C4sY5OhRo8YciZmD3L++tJrgc+xv9zlwgAaInSUgBVT+p7jyX9Paa42h
-6apVer9YrlvvcoL79Ws0vKx90ffN5k2boh38W0vUf/8kB/uq57jw2a/xOxMp0OSl
-Nuv4C29LmgYUAXLixG3LQWGySuphPslr7rlB6gk1NXh8sMcF3i/wWDttx6EAWGXu
-SVWRQepzGVxTQ3Yz3tP5f/Lbd21Zo3QdVOnqGqe7fEAU8AS1+QO+CeFDApKbbMve
-remDmj+7Kq126aYQ595Sw33s0yQwxCN9GnHOOgiFp4kfBtKRgDHskRrkRJk5y/f+
-9Qc4brM78wWnYpgbnrUiF8QEm4g3LTH5URSVD0baXCOJsO+qWu3z23EMMqnmolyz
-WFR77J0QO2T080xBG5cRpugWuFYNNq60XKfRJJkGKqCqnPFCDOJRLwFzNARj0exJ
-ZBk5sbc4XlM920AS5g4WxynFrjxRkNT8crsfHacdK7ABnMjH2wKmmB9TtaLzyODw
-gU3v0/a1eoSpXw7G3Vm0JQYBjZmSR6LG7huRNwnPcFtiLwA3X7M=
-=unuQ
------END PGP SIGNATURE-----
-
---sl4zqhs4ksw7lpry--
+Thank you,
+Matthew House
