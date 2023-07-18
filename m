@@ -2,143 +2,183 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 8E07475806A
-	for <lists+linux-man@lfdr.de>; Tue, 18 Jul 2023 17:07:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2B060758373
+	for <lists+linux-man@lfdr.de>; Tue, 18 Jul 2023 19:27:20 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231661AbjGRPHq (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 18 Jul 2023 11:07:46 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46078 "EHLO
+        id S230130AbjGRR1S (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 18 Jul 2023 13:27:18 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54604 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232158AbjGRPHp (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 18 Jul 2023 11:07:45 -0400
-Received: from tarta.nabijaczleweli.xyz (unknown [139.28.40.42])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id F37C1C0
-        for <linux-man@vger.kernel.org>; Tue, 18 Jul 2023 08:07:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
-        s=202305; t=1689692858;
-        bh=yR3nrSEWukRZuChJHJJUy3cDurNPkAVpZWegr+axUzs=;
-        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-        b=Nn8g1fpeCz3RwzDHTJNTdwBNoJ7Jvlh1A6V6pJHZy7jwgVj+J+Ep8byIUVfJAtrl+
-         KmX/jwrazBllTMUvGGxmLJswh07E7qGnpjBWMzMyYvFpZME1D6OmTNmDnQQvM55VpP
-         opR/VmKSkW1l4AvJWF+doADhXVcVM23k6JqziPifVGik99WqZBCtcRUOp2bEGSQeZe
-         QWhGkK7G8U7VV38nO538NH8kFx8nXguPBMs5z7sG/nCVrbxpgDCBU/4Uz7x5dgq0Tc
-         KkDn0X7gu626Z1cSFdbQin0ukm8EWVMT3IaQEbFpBaUYOtJvyOxIidae0glPmPCOVj
-         LB6KUsyiVzr5g==
-Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
-        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 99CDD3982;
-        Tue, 18 Jul 2023 17:07:38 +0200 (CEST)
-Date:   Tue, 18 Jul 2023 17:07:37 +0200
-From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+        with ESMTP id S230364AbjGRR1S (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 18 Jul 2023 13:27:18 -0400
+Received: from mail-yw1-x112e.google.com (mail-yw1-x112e.google.com [IPv6:2607:f8b0:4864:20::112e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id ADE261711;
+        Tue, 18 Jul 2023 10:27:12 -0700 (PDT)
+Received: by mail-yw1-x112e.google.com with SMTP id 00721157ae682-576a9507a9bso103368737b3.1;
+        Tue, 18 Jul 2023 10:27:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1689701232; x=1692293232;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=6EitCV8L/5kHKMNWP+m3nZoYflfzgDbS0oOR+mB4+WM=;
+        b=eeim6eLftiu5wQ4cJzyD0ELWWo75kP+t8nsimfHV8739n/VlUhxNm7gUQnEUpv3ahl
+         IsLaiHfNXLJJ191gbeft5qjX3y3tfkFwIfoRsBOLMPc4t5hWsqRqFXJDwWyU8Z3jpQnI
+         3zWJAxK2wUPQrgQk6jWIUpdVIi26W5rL0VKfSPPsHXV9VIMmY7c1cazGDg4dF9LpZTQ4
+         r43FTg1ewzmpQfPqZTw6fDgtWt80okEJcV9saY8GyXLfDwXp4yZ9lEPIJAc1n+ws/+ky
+         aHQRd9EID85iOhSviooJCBNsORwAHc2p24abbDM46RC++ae9BxRv3L5tml49Dq9qtvia
+         DhDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1689701232; x=1692293232;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=6EitCV8L/5kHKMNWP+m3nZoYflfzgDbS0oOR+mB4+WM=;
+        b=knYZXNSOXQ6NujmmmMbBbFtIBNo5Iq9f0ZLQlsGslH2vN7B3VkCGMumVlco+RVxhRz
+         Y20oNzKDgGsWpam3bU7YABO/cfbkj6ytpQl3pdTwMlkBAPb4yVb7MBWyIP/2dk2jiciZ
+         SKTsV4mb+lbOJwe6DQwZZuj/I/jE0ydtsH3+UvXhdWS9Se4dUlYOYt6CTNkxztBQwG/f
+         DjFSC+Up8fr1JUNPkIOPvAavYyftbmhtY8JTa63oxqA1oHHPL2DdpCqTZEOQdGhifQrb
+         xisWI984y5kLhPnAaUU22R4eL2UauFhGk0KdEbTI58yPCXb1zT15+eQ3bcBBFhxvtP+3
+         ItxA==
+X-Gm-Message-State: ABy/qLY4RcNRy43TiUuJD3AXT6HwVCQY9EG3rLblV4DgK/VEib5+UcW1
+        CICQWA229W9a2kgWYmQf8vo=
+X-Google-Smtp-Source: APBJJlGpb8CoGpCfXVSZR+nIvlah3LFCk7HHojmZWZsB67LiT3FfV041LGBjrK2aDj+tswkWh4n4ug==
+X-Received: by 2002:a0d:cbd7:0:b0:57a:8de8:e3f8 with SMTP id n206-20020a0dcbd7000000b0057a8de8e3f8mr15118947ywd.22.1689701231774;
+        Tue, 18 Jul 2023 10:27:11 -0700 (PDT)
+Received: from firmament.local (c-73-106-204-164.hsd1.ga.comcast.net. [73.106.204.164])
+        by smtp.gmail.com with ESMTPSA id i69-20020a819148000000b005774338d039sm566456ywg.96.2023.07.18.10.27.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 18 Jul 2023 10:27:11 -0700 (PDT)
+From:   Matthew House <mattlloydhouse@gmail.com>
 To:     Alejandro Colomar <alx@kernel.org>
-Cc:     linux-man@vger.kernel.org
-Subject: Re: [PATCH v6] grantpt.3: no-op on modern glibc and other UNIXes,
- HISTORYise
-Message-ID: <dfrwqbbrhrfwnvkwtbmuyv4qhyt3mvaufgybke5v5nd56jzgro@z3rj7jjrzbht>
-References: <7d88523e-d0be-e65e-2dd3-d7776960dde8@kernel.org>
- <4ag7sqe4pro4yguwbik6bdlfs75erm5ftip7c2ukazlubklr7y@ornznqzh7jle>
- <a36f5f50-b81f-4d1e-b2b3-f6237da94d0b@kernel.org>
+Cc:     linux-man@vger.kernel.org, linux-api@vger.kernel.org,
+        netdev@vger.kernel.org, Ulrich Drepper <drepper@redhat.com>,
+        "David S. Miller" <davem@davemloft.net>,
+        Andrew Morton <akpm@linux-foundation.org>
+Subject: [PATCH v3] recv.2: Document MSG_CMSG_CLOEXEC as returned in msg_flags
+Date:   Tue, 18 Jul 2023 13:26:08 -0400
+Message-ID: <20230718172648.943269-1-mattlloydhouse@gmail.com>
+In-Reply-To: <05f6395d-4ee2-ce87-253a-9dcbfe227d42@kernel.org>
+References: <20230709213358.389871-1-mattlloydhouse@gmail.com> <363c0f82-969d-1927-1bd5-b664cfc83a87@kernel.org> <20230716234803.851580-1-mattlloydhouse@gmail.com> <47e21a59-f74a-4a63-0f13-237c015ae6bb@kernel.org> <20230718060121.934187-1-mattlloydhouse@gmail.com> <05f6395d-4ee2-ce87-253a-9dcbfe227d42@kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="wrpzhzf3ofticfy2"
-Content-Disposition: inline
-In-Reply-To: <a36f5f50-b81f-4d1e-b2b3-f6237da94d0b@kernel.org>
-User-Agent: NeoMutt/20230517
-X-Spam-Status: No, score=-1.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
-        RDNS_DYNAMIC,SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-        autolearn=no autolearn_force=no version=3.4.6
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+Ever since commit 4a19542e5f69 ("O_CLOEXEC for SCM_RIGHTS") added the
+MSG_CMSG_CLOEXEC flag to recvmsg(2), the flag has also been copied into the
+returned msg->msg_flags when specified, regardless of whether any file
+descriptors were actually received, or whether the protocol supports
+receiving file descriptors at all. This behavior was primarily an
+implementation artifact: by copying MSG_CMSG_CLOEXEC into the msg_flags,
+scm_detach_fds() in net/core/scm.c (and its _compat() counterpart in
+net/compat.c) could determine whether it was set without having to receive
+a copy of the recvmsg(2) flags.
 
---wrpzhzf3ofticfy2
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+This mechanism was closely modeled after the internal MSG_CMSG_COMPAT flag,
+which is passed by the compat versions of the send[m]msg(2) and
+recv[m]msg(2) syscalls to inform various functions that user space expects
+a compat layout. When the flag was first implemented by commits
+3225fc8a85f4 ("[NET]: Simplify scm handling and sendmsg/recvmsg invocation,
+consolidate net compat syscalls.") and 7e8d06bc1d90 ("[COMPAT]: Fix
+MSG_CMSG_COMPAT flag passing, kill cmsg_compat_recvmsg_fixup.") (in
+history/history.git), the behavior was very similar: recvmsg(2) would add
+MSG_CMSG_COMPAT to the msg_flags, and put_cmsg() and scm_detach_fds() in
+net/core/scm.c would read the flag to determine whether to delegate to
+their _compat() counterparts.
 
-On Tue, Jul 18, 2023 at 01:42:08PM +0200, Alejandro Colomar wrote:
-> On 2023-07-18 01:31, =D0=BD=D0=B0=D0=B1 wrote:
-> > Also, administriva-wise, git pull tells me
-> >   [PATCH 1/2] statfs.2: unshade as deprecated, but direct to statvfs(3)
-> > with msgid
-> >   <b4b871ffdf8f764ffd6c25039f3944b08748bd3e.1687553930.git.nabijaczlewe=
-li@nabijaczleweli.xyz>
-> > is the last outstanding patch I have rn, sans this one.
-> I was waiting for you to send an v2 with the fs and inode corrections
-> suggested by Tom Schwindl.  Is that correct?
-You applied 2/2 but I got no responses for 1/2.
-Scissoring a rebased 1/2 below.
+However, after the initial implementation, more work was done to hide
+MSG_CMSG_COMPAT from user space. First, commit 37f7f421cce1 ("[NET]: Do not
+leak MSG_CMSG_COMPAT into userspace.") started scrubbing the bit from
+msg_flags right before copying it back into user space. Then, since passing
+the MSG_CMSG_COMPAT flag into the syscalls from non-compat code could
+confuse the kernel, commits 1be374a0518a ("net: Block MSG_CMSG_COMPAT in
+send(m)msg and recv(m)msg") and a7526eb5d06b ("net: Unbreak
+compat_sys_{send,recv}msg") made them return -EINVAL if user space
+attempted to pass the flag. But to reduce breakage, commit d720d8cec563
+("net: compat: Ignore MSG_CMSG_COMPAT in compat_sys_{send, recv}msg")
+rolled that back somewhat, making MSG_CMSG_COMPAT an error for the
+non-compat syscalls and a no-op for the compat syscalls, which is the
+current status quo.
 
-Update-wise: musl@ told me they basically agree and will apply it
-when glibc does, and I got the glibc first round of reviews and the
-hurd half stamped, but it's now entered the "resend every week to
-no response" stage that all glibc patches go through.
+Even though MSG_CMSG_CLOEXEC was implemented after the kernel started
+scrubbing MSG_CMSG_COMPAT from the returned msg_flags, the newer flag never
+received the same treatment. At this point, this behavior has effectively
+become part of the user-space API, to the extent that io_uring has been
+careful in commit 9bb66906f23e ("io_uring: support multishot in recvmsg")
+to replicate the behavior in its multishot IORING_OP_RECVMSG operation.
 
-When those land I'll probably re-shade the declarations, turn the
-paragraph into "use the standard statvfs(3) interface instead, but
-see VERSIONS if using f_type" and extract the magicks to, like,
-fs-magic(7) or whatever.
+Therefore, document this behavior to avoid confusion when user space sees
+MSG_CMSG_CLOEXEC returned in msg->msg_flags.
 
-Best,
--- >8 --
-Date: Fri, 23 Jun 2023 22:49:22 +0200
-Subject: [PATCH v2 1/2] statfs.2: Unshade as deprecated, but direct to stat=
-vfs(3)
-
-Link: https://lore.kernel.org/linux-man/f54kudgblgk643u32tb6at4cd3kkzha6hsl=
-ahv24szs4raroaz@ogivjbfdaqtb/t/#u
-Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.xyz>
+Cc: linux-api@vger.kernel.org
+Cc: netdev@vger.kernel.org
+Cc: Ulrich Drepper <drepper@redhat.com>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Matthew House <mattlloydhouse@gmail.com>
 ---
- man2/statfs.2 | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+Alright, I've summarized the history in the commit message, and I've added
+the CCs you requested.
 
-diff --git a/man2/statfs.2 b/man2/statfs.2
-index 0496ab6c9..307a29b3a 100644
---- a/man2/statfs.2
-+++ b/man2/statfs.2
-@@ -15,9 +15,15 @@ .SH SYNOPSIS
- .nf
- .BR "#include <sys/vfs.h>    " "/* or <sys/statfs.h> */"
- .PP
--.BI "[[deprecated]] int statfs(const char *" path ", struct statfs *" buf =
-);
--.BI "[[deprecated]] int fstatfs(int " fd ", struct statfs *" buf );
-+.BI "int statfs(const char *" path ", struct statfs *" buf );
-+.BI "int fstatfs(int " fd ", struct statfs *" buf );
- .fi
-+.PP
-+Unless you need the
-+.I f_type
-+field, you should use the standard
-+.BR statvfs (3)
-+interface instead.
- .SH DESCRIPTION
- The
- .BR statfs ()
+Also, for future reference, Drepper gave a reply to the last email, which
+did not make it onto the list:
+
+On Tue, Jul 18, 2023 at 9:24 AM Ulrich Drepper <drepper@redhat.com> wrote:
+> On Tue, Jul 18, 2023 at 2:10=E2=80=AFPM Alejandro Colomar <alx@kernel.org=
+> wrote:
+>
+> > > As for the original
+> > > purpose of the behavior, it's not really clear, and it may well have =
+been
+> > > an implementation artifact that got enshrined in the user space ABI.
+> > (Even
+> > > io_uring is careful to replicate this behavior!)
+> >
+> > This is what worries me.  I've CCd a bunch of people to see if they can
+> > bring some light.
+> >
+>
+> It definitely was an artifact of the implementation.  I haven't tested
+> getting the close-on-exec flag information for all interfaces.  The
+> assumption was that the information about the close-on-exec flag is
+> received with the universal fcntl() call.
+
+Thank you,
+Matthew House
+
+ man2/recv.2 | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/man2/recv.2 b/man2/recv.2
+index 660c103fb..1cd9f3e1b 100644
+--- a/man2/recv.2
++++ b/man2/recv.2
+@@ -412,6 +412,15 @@ is returned to indicate that expedited or out-of-band =
+data was received.
+ .B MSG_ERRQUEUE
+ indicates that no data was received but an extended error from the socket
+ error queue.
++.TP
++.BR MSG_CMSG_CLOEXEC " (since Linux 2.6.23)"
++.\" commit 4a19542e5f694cd408a32c3d9dc593ba9366e2d7
++indicates that
++.B MSG_CMSG_CLOEXEC
++was specified in the
++.I flags
++argument of
++.BR recvmsg ().
+ .SH RETURN VALUE
+ These calls return the number of bytes received, or \-1
+ if an error occurred.
 --=20
-2.39.2
+2.41.0
 
---wrpzhzf3ofticfy2
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmS2qrcACgkQvP0LAY0m
-WPE/5RAAqF+wibcbyQefKMSQ2k3MNmpkz/GvuWk4PnGikAPUMYWs5HePVwcWYzKu
-o2a/qhxCMbfl16k3hYj8Y6fKn4NlZ0PUOqAchw2qrHW2BOxBu6/9VT/MljxgeVRn
-THbVTd6tl7CyqlUazlv/K5VBxEeQ3XWWp5aDcZDaV6Z3q8KsgPQO0hfdZ4Z1CYfZ
-jBKTOgyL0lk7md62VUpaVOgnFz/McrIajjjKRlzPgOlfuVRDQvFkHwfGul4hl14z
-c8ennxGEBDYVEfI9CS3svntN0Xn67Dusa0bqF+1qkjrnQvmj7QPl7zGweToc+D50
-Y8Av/Dv2p9tZoK6nXyU/AQ3g4uIZNvD9mFjG2n9SjxwnxIK/mRwl4zi8bqfdenjj
-pSMh1eSZe4tcEacD2uhmmf7kmN4qXVfmdzpPsQbguZAfzyo2qa2CB8MRuy+OY5FL
-3w4bzntggDn4/i4gT6PqdNIgw5PqO6NYulZGFC6lqo55GcTMxS4ePO4LRvUIvbVE
-JdPXN9+FXPnzqf8HUuv3daJtviiJ6H6e6y9QVBxJ9/F5Oew9xBWHdRKOKsn4nemQ
-ywC87QAXAJ6LqpfsnDiKgTEBbUOo5ZOZUj3BB+SJzVf+o6YOsZl3iHS59YTY9Hkn
-nKGWCxzYbg+DbGpdttSFbBWDu+DrLSG8T+RGsusHutZITaRevcs=
-=HgNr
------END PGP SIGNATURE-----
-
---wrpzhzf3ofticfy2--
