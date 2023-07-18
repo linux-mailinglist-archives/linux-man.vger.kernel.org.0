@@ -2,59 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 32955757AE3
-	for <lists+linux-man@lfdr.de>; Tue, 18 Jul 2023 13:48:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3EC42757B19
+	for <lists+linux-man@lfdr.de>; Tue, 18 Jul 2023 14:03:18 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232147AbjGRLsY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 18 Jul 2023 07:48:24 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55056 "EHLO
+        id S231503AbjGRMDR (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 18 Jul 2023 08:03:17 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33566 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232154AbjGRLsV (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 18 Jul 2023 07:48:21 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 433C3EC
-        for <linux-man@vger.kernel.org>; Tue, 18 Jul 2023 04:48:19 -0700 (PDT)
+        with ESMTP id S231443AbjGRMDQ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 18 Jul 2023 08:03:16 -0400
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BF3691A5;
+        Tue, 18 Jul 2023 05:03:14 -0700 (PDT)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
         (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
          key-exchange X25519 server-signature RSA-PSS (2048 bits))
         (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id BE147613EF
-        for <linux-man@vger.kernel.org>; Tue, 18 Jul 2023 11:48:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7817CC433C7;
-        Tue, 18 Jul 2023 11:48:17 +0000 (UTC)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id 4EF0A6153D;
+        Tue, 18 Jul 2023 12:03:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 056C7C433B9;
+        Tue, 18 Jul 2023 12:03:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1689680898;
-        bh=sZgMO/NGEfHjUGMVwhpxcmX45HDsWwTQm7oQhzg1qvo=;
-        h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-        b=SFzO+i8NEy1D6QxcLwruZ/bBs524ZKYpcfnDUFHYNkkBKeMAR3CrXWdoyyswsuyIQ
-         60pWm/4A0RhN8K/S+ceRVcIYOPX0u8r8OFd4VVRgvFixx3N5OzlEAk6MN8gKYkq8Q9
-         GDRnY5wW8oOkDOucg6Lnp3LZ4h0ZM90C6s/d736blrYeAm1jAy5XUkUAMS6Hu3rhg1
-         EY489OCWbXhEUiT4C2QT2CWl701bsVmEWCU4hLOx5uqpYpeJzwipKUw2Uw5yb71HA7
-         KFspxkCecl+B4Xa42iUtN1fahxlenusTauhAXwYhfIHUfaUOYlvbdXKk95XioBYDU7
-         KhaT491LJAc9A==
-Message-ID: <4e770cae-15de-10b2-f1cf-eb2fa8e09419@kernel.org>
-Date:   Tue, 18 Jul 2023 13:48:15 +0200
+        s=k20201202; t=1689681793;
+        bh=EAi8VRs32kR48ZLJNu1wKHsY1QUZSEQk4BWzcMUNFAo=;
+        h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+        b=N6lbTfudHc1m2mYCX/V+4s9D1WAgXGy2br/jrPdu7xzvlR2pBbbUSkWRixj5sbAxm
+         USVKhmFEPBG5TIrxPzXjEauX1RBmKCQujQljlh3HU24mgoTKHhx6iDT2EVNbBLwVlN
+         Fe48jK6W6WZGCFEnx6GuFgAIpZ+RsaOCAvrU1/Rey6qBpU5QpJTlCGAhP7bQQ7jSI2
+         9iTb86VeB/Gespeb1kOSzOUBk+S48zu7i7U5c32QfA0285nHBHlzaDVBpiKCPIL4EB
+         feA58bLC8OIj0ivQPweqv4Yq0duzEFx8Hc30HRewKVQnvZmt5RwIWAr3OUwFqIEKPr
+         Ny0kyFJTUgS0g==
+Message-ID: <05f6395d-4ee2-ce87-253a-9dcbfe227d42@kernel.org>
+Date:   Tue, 18 Jul 2023 14:03:02 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.0
-Subject: Re: [PATCH v2 2/2] statvfs.3: note f_favail = f_ffree on Linux
+Subject: Re: [PATCH v2] recv.2: Document MSG_CMSG_CLOEXEC as returned in
+ msg_flags
 Content-Language: en-US
+To:     Matthew House <mattlloydhouse@gmail.com>
+Cc:     linux-man@vger.kernel.org, linux-api@vger.kernel.org,
+        netdev@vger.kernel.org, Ulrich Drepper <drepper@gmail.com>,
+        Ulrich Drepper <drepper@redhat.com>,
+        "David S. Miller" <davem@davemloft.net>,
+        Andrew Morton <akpm@linux-foundation.org>
+References: <20230709213358.389871-1-mattlloydhouse@gmail.com>
+ <363c0f82-969d-1927-1bd5-b664cfc83a87@kernel.org>
+ <20230716234803.851580-1-mattlloydhouse@gmail.com>
+ <20230718060121.934187-1-mattlloydhouse@gmail.com>
 From:   Alejandro Colomar <alx@kernel.org>
-To:     Tom Schwindl <schwindl@posteo.de>,
-        =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc:     linux-man@vger.kernel.org
-References: <3a449220b1a5b1d0be1749a98e5c284222072427.1687553930.git.nabijaczleweli@nabijaczleweli.xyz>
- <xve2ekfim2chw5s47wf76wtnan3khk5d4jdow4jkmlt7ifa2oy@uicda22mmppt>
- <CTUAI5KRV29O.19BHQPHOW5Y4@morphine>
- <cc5454bd-67f2-e151-345f-cafd62074477@kernel.org>
 Organization: Linux
-In-Reply-To: <cc5454bd-67f2-e151-345f-cafd62074477@kernel.org>
+In-Reply-To: <20230718060121.934187-1-mattlloydhouse@gmail.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------Wcy2pnpNo6m0xGNLivfITBx3"
-X-Spam-Status: No, score=-4.5 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+ boundary="------------Dac0DMFjn2KQY7N829aKX9UO"
+X-Spam-Status: No, score=-2.2 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
         DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
-        RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
         URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -63,148 +67,185 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------Wcy2pnpNo6m0xGNLivfITBx3
-Content-Type: multipart/mixed; boundary="------------Zons1Opo1wM4uKjvao3lKU0I";
+--------------Dac0DMFjn2KQY7N829aKX9UO
+Content-Type: multipart/mixed; boundary="------------botqBotNa7AKw0NfaN0pDAUd";
  protected-headers="v1"
 From: Alejandro Colomar <alx@kernel.org>
-To: Tom Schwindl <schwindl@posteo.de>, =?UTF-8?B?0L3QsNCx?=
- <nabijaczleweli@nabijaczleweli.xyz>
-Cc: linux-man@vger.kernel.org
-Message-ID: <4e770cae-15de-10b2-f1cf-eb2fa8e09419@kernel.org>
-Subject: Re: [PATCH v2 2/2] statvfs.3: note f_favail = f_ffree on Linux
-References: <3a449220b1a5b1d0be1749a98e5c284222072427.1687553930.git.nabijaczleweli@nabijaczleweli.xyz>
- <xve2ekfim2chw5s47wf76wtnan3khk5d4jdow4jkmlt7ifa2oy@uicda22mmppt>
- <CTUAI5KRV29O.19BHQPHOW5Y4@morphine>
- <cc5454bd-67f2-e151-345f-cafd62074477@kernel.org>
-In-Reply-To: <cc5454bd-67f2-e151-345f-cafd62074477@kernel.org>
+To: Matthew House <mattlloydhouse@gmail.com>
+Cc: linux-man@vger.kernel.org, linux-api@vger.kernel.org,
+ netdev@vger.kernel.org, Ulrich Drepper <drepper@gmail.com>,
+ Ulrich Drepper <drepper@redhat.com>, "David S. Miller"
+ <davem@davemloft.net>, Andrew Morton <akpm@linux-foundation.org>
+Message-ID: <05f6395d-4ee2-ce87-253a-9dcbfe227d42@kernel.org>
+Subject: Re: [PATCH v2] recv.2: Document MSG_CMSG_CLOEXEC as returned in
+ msg_flags
+References: <20230709213358.389871-1-mattlloydhouse@gmail.com>
+ <363c0f82-969d-1927-1bd5-b664cfc83a87@kernel.org>
+ <20230716234803.851580-1-mattlloydhouse@gmail.com>
+ <20230718060121.934187-1-mattlloydhouse@gmail.com>
+In-Reply-To: <20230718060121.934187-1-mattlloydhouse@gmail.com>
 
---------------Zons1Opo1wM4uKjvao3lKU0I
+--------------botqBotNa7AKw0NfaN0pDAUd
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-On 2023-07-18 13:43, Alejandro Colomar wrote:
-> Hi Tom, =D0=BD=D0=B0=D0=B1,
->=20
-> On 2023-07-05 15:57, Tom Schwindl wrote:
->> On Sat Jun 24, 2023 at 2:39 AM CEST, =D0=BD=D0=B0=D0=B1 wrote:
->>> Quoting myself from #musl:
->>> 01:59:40 hm, I think this was just invented for symmetry with bfree/b=
-avail
->>> 02:00:46 FFS has minfree for space but nothing equivalent for inodes
->>> 02:32:31 (this is mirrored in ext4;
->>> 	  a global grep over DragonFlyBSD and the illumos gate
->>> 	  showed just NFSv3 forwarding from the server;
->>> 	  OpenBSD always sets it to the same thing as f_ffree;
->>> 	  oddly, NetBSD /does/ calculate it differently
->>> 	  for LFS and FFS but due to queued writes or
->>> 	  w/e not because of root reservation;
->>> 	  and as expected a lot of "/* what to put in here? */"
->>> 	                       and "// XXX same??")
->>>
->>> Link: https://lore.kernel.org/linux-man/f54kudgblgk643u32tb6at4cd3kkz=
-ha6hslahv24szs4raroaz@ogivjbfdaqtb/t/#u
->>> Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczlewel=
-i.xyz>
->>> ---
->>>  man3/statvfs.3 | 8 ++++++++
->>>  1 file changed, 8 insertions(+)
->>>
->>> diff --git a/man3/statvfs.3 b/man3/statvfs.3
->>> index b1f0e7545..272ee5391 100644
->>> --- a/man3/statvfs.3
->>> +++ b/man3/statvfs.3
->>> @@ -227,6 +227,14 @@ .SH NOTES
->>>  .BR statvfs ()
->>>  with the argument
->>>  .IR path .
->>> +.PP
->>> +Under Linux,
->>> +.I f_favail
->>> +is always the same as
->>> +.IR f_ffree ,
->>> +and there's no way for a file-system to report otherwise.
->>
->> s/file-system/filesystem/ as that's what's used elsewhere.
->>
->>> +This is not an issue, since no filesystems with an i-node
->>> +root reservation exist.
->>
->> s/i-node/inode/ for the same reason.
->=20
-> IIRC, I've already written this in the past, but I can't find it.
-> I'll write again, just in case.
->=20
-> man-pages(7) seems to confirm what Tom says:
->=20
->    Preferred terms
->        The following table lists some preferred terms to  use  in  man
->        pages, mainly to ensure consistency across pages.
->        Term                 Avoid using              Notes
->        =E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
-=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
-=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
-=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80
->        bit mask             bitmask
->        built=E2=80=90in             builtin
->        Epoch                epoch                    For the UNIX
->                                                      Epoch
->                                                      (00:00:00, 1
->                                                      Jan 1970 UTC)
->        filename             file name
->        filesystem           file system
->        hostname             host name
->        inode                i=E2=80=90node
->=20
-> Cheers,
-> Alex
+Hi Matthew,
 
-Ahh, never mind; I could find now my old mail, which had been responded
-with v3, which I have already applied as
+On 2023-07-18 08:00, Matthew House wrote:
+> On Mon, Jul 17, 2023 at 7:10 PM Alejandro Colomar <alx@kernel.org> wrot=
+e:
+>> Hi Matthew,
+>>
+>> I don't understand what's the purpose of this.  The kernel sets a bit
+>> just to report to the caller that it set a bit?  No other purpose?
+>> It feels very weird.  Of course, the caller already has that info,
+>> doesn't it?
+>=20
+> The main reason I posted this patch was because I was confused by the
+> flag's presence in the msg_flags when I was looking at some strace logs=
+, so
+> I figured that it would be a good idea to document it.
 
-c3f43ba17 ("statvfs.3: note f_favail =3D f_ffree on Linux")
+Makes sense.
 
-Cheers,
+> As for the original
+> purpose of the behavior, it's not really clear, and it may well have be=
+en
+> an implementation artifact that got enshrined in the user space ABI. (E=
+ven
+> io_uring is careful to replicate this behavior!)
+
+This is what worries me.  I've CCd a bunch of people to see if they can
+bring some light.
+
+>=20
+> This behavior began when the MSG_CMSG_CLOEXEC flag was first added in L=
+inux
+> 2.6.23, with Ulrich Drepper's commit 4a19542e5f69 ("O_CLOEXEC for
+> SCM_RIGHTS"). Per the commit message, the flag was designed to be
+> "passe[d]... just like the existing MSG_CMSG_COMPAT flag". Since it was=
+
+> added to the msg_flags at the start of sys_recvmsg(), the
+> scm_detach_fds[_compat]() functions in net/core/scm.c and net/compat.c
+> could read the flag off of msg->msg_flags without having to thread the
+> recvmsg() flags through.
+>=20
+> This was indeed similar to the behavior of MSG_CMSG_COMPAT. That flag w=
+as
+> added in Linux 2.5.65, with commit 3225fc8a85f4 ("[NET]: Simplify scm
+> handling and sendmsg/recvmsg invocation, consolidate net compat
+> syscalls."), in which put_cmsg() and scm_detach_fds() in net/core/scm.c=
+
+> read it off of msg->msg_flags. (It wouldn't actually be set in msg_flag=
+s
+> until Linux 2.5.67, with commit 7e8d06bc1d90, "[COMPAT]: Fix
+> MSG_CMSG_COMPAT flag passing, kill cmsg_compat_recvmsg_fixup." Both of
+> these commits are from history/history.git.)
+>=20
+> However, the MSG_CMSG_COMPAT flag has been scrubbed from the output
+> msg_flags since Linux 2.6.14, with commit 37f7f421cce1 ("[NET]: Do not =
+leak
+> MSG_CMSG_COMPAT into userspace."). That's what I find so unclear:
+> MSG_CMSG_CLOEXEC was added after the kernel started scrubbing
+> MSG_CMSG_COMPAT from the output, but the new flag was never written to =
+be
+> similarly scrubbed.
+>=20
+> Later, in Linux 3.10, with commits 1be374a0518a ("net: Block
+> MSG_CMSG_COMPAT in send(m)msg and recv(m)msg") and a7526eb5d06b ("net:
+> Unbreak compat_sys_{send,recv}msg"), MSG_CMSG_COMPAT was banned from be=
+ing
+> passed to the *msg() syscalls' flags from user space, with the rational=
+e
+> that they were "not intended to be part of the API". Then, in Linux 4.0=
+, we
+> reached the current status quo with commit d720d8cec563 ("net: compat:
+> Ignore MSG_CMSG_COMPAT in compat_sys_{send, recv}msg"), where
+> MSG_CMSG_COMPAT is allowed (and a no-op) in compat syscalls, but banned=
+
+> from non-compat syscalls.
+>=20
+> So I agree that it's very weird that this flag gets returned to user sp=
+ace,
+> even while the internal flag that it's modeled after doesn't. I suppose=
+ I
+> could spin up a nice story, where the user-space function calling recvm=
+sg()
+> is totally separate from the function processing the returned struct
+> msghdr, and the latter function would really like to know whether the f=
+ds
+> in that message are close-on-exec without having to call fcntl(F_GETFD)=
+=2E
+> But that's all just a total guess. If you want to know for sure, perhap=
+s
+> cc'ing Drepper may be worthwhile?
+>=20
+> A cursory look hasn't shown me any existing user-space code that depend=
+s on
+> this behavior. Though one library appears to be aware of this behavior,=
+
+> actively filtering MSG_CMSG_CLOEXEC out of the result flags:
+> <https://github.com/dutchanddutch/node-socket-calls/blob/ca759a0da87cb1=
+12875d158f4a81b45b31f4a871/src/socket_calls.cc#L417>
+>=20
+> Also, only somewhat relatedly, some libraries incorrectly attempt to
+> request MSG_CMSG_CLOEXEC by passing it into the msg_flags field instead=
+ of
+> the flags argument:
+> <https://git.samba.org/samba.git/?p=3Dsamba.git;a=3Dblob;f=3Dlib/messag=
+ing/messages_dgm.c;hb=3Drefs/tags/samba-4.17.9#l1272>
+> <https://github.com/genodelabs/genode/blob/23.05/repos/base-linux/src/l=
+ib/base/ipc.cc#L132>
+> <https://github.com/proxmox/pve-lxc-syscalld/blob/a14430f3e75c2b695332a=
+d712164e599464177fc/src/io/seq_packet.rs#L123>
+
+In any case, all of this mail has been very interesting,
+and it would be useful to have it in the commit message of the patch.
+Please send an v2 with it, and add 'Cc:' tags for all these people:
+
+Cc: <linux-api@vger.kernel.org>
+Cc: <netdev@vger.kernel.org>
+Cc: Ulrich Drepper <drepper@gmail.com>
+Cc: Ulrich Drepper <drepper@redhat.com>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+
+(I don't know if <drepper@redhat.com> still works.  Does anyone know?)
+
+Thanks!
 Alex
 
 >=20
->>
->>>  .SH STANDARDS
->>>  POSIX.1-2008.
->>>  .SH HISTORY
->>
->=20
+> Thank you,
+> Matthew House
 
 --=20
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
 
---------------Zons1Opo1wM4uKjvao3lKU0I--
+--------------botqBotNa7AKw0NfaN0pDAUd--
 
---------------Wcy2pnpNo6m0xGNLivfITBx3
+--------------Dac0DMFjn2KQY7N829aKX9UO
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmS2e/8ACgkQnowa+77/
-2zLvvRAAjA8ZW9OJVBpIHxAS24fn3v25j8M0FDIsXDBhanuYbcFJ8i7pyLiSemrL
-lbsjAf95UqOUXRqzdobyifIdsF7CciuCxdMhE3eoS/8yiIEcokB39VHqOWZKRfx0
-blBDhJS1amhWsDKbXXB4vb644xM2zS2k/dBGcxdkKiwO9ZZW3u1OXcIFAGN6pEXK
-uZ8hUUGE9Z+Uc/eqv0sel+u/j6emjGzR52wY5p701cqQc9rFInHC+yeGJ/LfvJWm
-GY/o3zFAlpGzxzqSM2L3WRf/9AdUiPjqnFQrlCs41ihK9ZAXiO0QjldzWjNVUPRZ
-xZKkBBRaZOsbL8p7CJ0eYbH/V4YD/eJa6enn3tlWrBcEjSByVPtp3X4FO9w61yQa
-j2j0NdKrXQRVISK+CBSURrXpdU2V6/bGElYkv4mRTvJuJF67Mcp6/yNyp61yJ4i4
-b0rYSEyRKxPy1cXLpqk78q55cOT5CnsE7xNvOs1XoJ7C2vudH/+HbrnxxnBQrGxE
-s/IbH60+giW0DAE0FEoIE76tKiKXJBEF+1MxFWiHgAZuRTPR/45QzUCaQdHwGUDS
-gsMYRlSNhGdmi3cSkiuogaysc/5NyCfSwZEIGnIMlgEDThNc5sB2/vlJMttwp7eg
-tzuLMgxZAxwfsZQEoAAidqJrFLDXReY8tZSiMobaiADZPcLEPbI=
-=jCn/
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmS2f3YACgkQnowa+77/
+2zJ9iBAAj5PgJ/3F3qti5XTtK4VwTFO6bJN3Dv4KOr7pb4mwZoJ20cQ0llFX5xuf
+5sY6uA2V8wLtpOjbx0tSJM4y0dQD+PjkYjjKfrIJZr9syOY8WO0dhKG8lrUR53Co
+ygvCjuOPU3dxdy9tJo9eYVizz1vIj1Dh/2LGX0iR2jKoas69uypZuuXPVI6CKxEC
+a+J9XJouch+S2GDENgtRjmyYHfhCxCrXrdNejWE1tF5zFJXbx5XUWVNbRsG/2ksq
+lCw7vqB6TxKxUOD03KNnTpzmzCdeRIFWt0SgqlLiFAM/91ueFXTphWT5UaF+qEwh
+SuiemkogwsO8uILlD+9YZCTyRbzFIbwwnweBitdP5x0S7XPFrwxuKnXgAcYlDa85
+yFUuQCD5M7LK+htpWNf6gGd+pjeU8jige8Da4juXFeMNh2BKLVFJTh8NZ1kkwKqQ
+XtEqvBOzFFkSpLk6dwPpph2tSCUFOBMlbqanC+rP49NvoOWBItR8K7QvX7AjUaaU
+PBg0dSI1jTYZqm3/YXTiCk1QmJu1Jq4k8m596WyUAwjeJEpEKEVq2kidXSIe2oj5
+6MZwIF2ggnWGfgxXQIb7Kx3FFS779jFq0rbnUYSkUdpiEgUx4CurQBRH4JWPj412
+hlKMyyjiGOxLHuin1EADJMuvPUwYd0YzLLy0v0pWFLSPjaNmJCk=
+=BSXr
 -----END PGP SIGNATURE-----
 
---------------Wcy2pnpNo6m0xGNLivfITBx3--
+--------------Dac0DMFjn2KQY7N829aKX9UO--
