@@ -2,58 +2,56 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 40C0E75AF62
-	for <lists+linux-man@lfdr.de>; Thu, 20 Jul 2023 15:13:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 4D76575AF7B
+	for <lists+linux-man@lfdr.de>; Thu, 20 Jul 2023 15:16:47 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230362AbjGTNNM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 20 Jul 2023 09:13:12 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37716 "EHLO
+        id S230018AbjGTNQp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 20 Jul 2023 09:16:45 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40394 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231791AbjGTNND (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 20 Jul 2023 09:13:03 -0400
+        with ESMTP id S231750AbjGTNQp (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 20 Jul 2023 09:16:45 -0400
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A8FBC2710
-        for <linux-man@vger.kernel.org>; Thu, 20 Jul 2023 06:12:22 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 833F1269E
+        for <linux-man@vger.kernel.org>; Thu, 20 Jul 2023 06:16:43 -0700 (PDT)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
         (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
          key-exchange X25519 server-signature RSA-PSS (2048 bits))
         (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id 319B961AA2
-        for <linux-man@vger.kernel.org>; Thu, 20 Jul 2023 13:12:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8494C433C8;
-        Thu, 20 Jul 2023 13:12:20 +0000 (UTC)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id ED2D661A8B
+        for <linux-man@vger.kernel.org>; Thu, 20 Jul 2023 13:16:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0879C433C8;
+        Thu, 20 Jul 2023 13:16:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1689858741;
-        bh=BZa4LQnL/UO/yt8fk91Kn4v3t3Gb7EIZT08YbhKOHT4=;
-        h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-        b=UVvvuwzWhipEcdrNrupp92TCvSTBQ5Zt/bUwZcjiML1U8ivL9rF4S3q9BwlH6W/Ko
-         dTBFbyi/OIIe+ooN1gl9P8btxAaHHUwR+NqAn6faVtC8Vt9dED6yAaWOr4lSE0w5pK
-         LFSOvZUmbRblonChvL/0rGoObNRxVUk9CuTo3v1wdx8OZW8VYfgXTIKN/owa5lUf4m
-         hmfGawNvbrDMNl4gLSd+NW2u7fwHb2WkVsMNLtfYIWXg8L39haKjlirKUsE89evptl
-         //+J1ituMtbZdRe/weKygvRDH3yNaTWaQUqOLZ9xqiwSRYjxluEDSz8bCCkZYfaA28
-         ZXLdgh1NlQH8g==
-Message-ID: <06a090cd-cc84-5be1-a733-1525f5ef7444@kernel.org>
-Date:   Thu, 20 Jul 2023 15:12:08 +0200
+        s=k20201202; t=1689859002;
+        bh=y+n02zpUt+oPvPVeau/w7ouRQsEVxCIpkgsBbbIqLxo=;
+        h=Date:Subject:To:References:From:In-Reply-To:From;
+        b=Opog9hgylZ0/B971LI5PU6Z6e52cXH/K76y3ObSwPOJ9GZe+L9t7mHfv8uPuX9jo/
+         9i1D2Rii7lmMd7BDgviXL80EQOJKeUF1p82qIsUNBZSAsOsUqBSieq2oLLB9OYGnIc
+         FEjG14EYhPgeFfPDFRPpj+T6nqMvfuKhcrK3ThiT+3LzO4moDdOR781LAXgFrLxS9s
+         nSyecJWBSpyOLC56e4JsupmGKlDMvbesXR9k5HirMJmynyupSSXkpbMCfp8tELBk2L
+         AYLuBnR1ttgmjsf4296tLd1vMffRa+qFH8n81lTpk5bS17zrGCEFZdaV9T73uaHoCC
+         9AehvenInXvLg==
+Message-ID: <4bf3ea9c-d4b8-4cf6-c932-63a02d0dde34@kernel.org>
+Date:   Thu, 20 Jul 2023 15:16:39 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.0
 Subject: Re: [PATCH 1/2] man*/: ffix (use `\%`)
 Content-Language: en-US
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc:     linux-man@vger.kernel.org
+To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+        linux-man@vger.kernel.org
 References: <20230720020436.vejzttvkklhmkgpn@illithid>
- <2f35c3df-c14f-cca7-b136-328638988ec0@kernel.org>
- <20230720091048.nghqc6fj7pcnqiep@illithid>
 From:   Alejandro Colomar <alx@kernel.org>
 Organization: Linux
-In-Reply-To: <20230720091048.nghqc6fj7pcnqiep@illithid>
+In-Reply-To: <20230720020436.vejzttvkklhmkgpn@illithid>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------vZOCDqilC0nJzHf8lzgLM0HE"
+ boundary="------------0BGbCuhZlRmXgflkzHCqP4R0"
 X-Spam-Status: No, score=-4.5 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
         DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
-        RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-        autolearn=ham autolearn_force=no version=3.4.6
+        RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+        WEIRD_QUOTING autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
@@ -61,161 +59,170 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------vZOCDqilC0nJzHf8lzgLM0HE
-Content-Type: multipart/mixed; boundary="------------LMxumViPwrASb0OvtuddqzmQ";
+--------------0BGbCuhZlRmXgflkzHCqP4R0
+Content-Type: multipart/mixed; boundary="------------UFYkhj4P06QHyT0ATk5YAHUv";
  protected-headers="v1"
 From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: linux-man@vger.kernel.org
-Message-ID: <06a090cd-cc84-5be1-a733-1525f5ef7444@kernel.org>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>,
+ linux-man@vger.kernel.org
+Message-ID: <4bf3ea9c-d4b8-4cf6-c932-63a02d0dde34@kernel.org>
 Subject: Re: [PATCH 1/2] man*/: ffix (use `\%`)
 References: <20230720020436.vejzttvkklhmkgpn@illithid>
- <2f35c3df-c14f-cca7-b136-328638988ec0@kernel.org>
- <20230720091048.nghqc6fj7pcnqiep@illithid>
-In-Reply-To: <20230720091048.nghqc6fj7pcnqiep@illithid>
+In-Reply-To: <20230720020436.vejzttvkklhmkgpn@illithid>
 
---------------LMxumViPwrASb0OvtuddqzmQ
+--------------UFYkhj4P06QHyT0ATk5YAHUv
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-On 2023-07-20 11:10, G. Branden Robinson wrote:
-> Hi Alex,
+On 2023-07-20 04:04, G. Branden Robinson wrote:
+> From 25d379c486d28357a8341b0cfbce1b43b82e177f Mon Sep 17 00:00:00 2001
+> From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+> Date: Wed, 19 Jul 2023 17:59:27 -0500
+> Subject: [PATCH 1/2] man*/: ffix (use `\%`)
 >=20
-> At 2023-07-20T10:18:15+0200, Alejandro Colomar wrote:
->>> -.BR getrlimit ()
->>> +.BR \%getrlimit ()
->>>  and
->>>  .BR setrlimit ()
->>>  system calls by implementing
->>>  .BR setrlimit ()
->>>  and
->>> -.BR getrlimit ()
->>> +.BR \%getrlimit ()
->>
->> So, you don't want MR in these cases, right?
+> Protect instances of some literals from hyphenation.  These are only
+> those necessary to improve analyzability of a large-scale (500+ file),
+> sed-driven change to improve adjustment and hyphenation enablement
+> management around tables.
 >=20
-> Right.  These functions are documented in the same page, so it's not
-> sensible to mark them up with a man:getrlimit(3) hyperlink.
->=20
-> Yes, it is possible to conceive ctags-like internal linkage, but let's
-> storm one Bastille at a time...
+> * man2/getrlimit.2: Protect some instances of `RLIMIT_MSGQUEUE`,
+>   `RLIMIT_SIGPENDING`, `RLIMIT_FSIZE`, and `getrlimit` from hyphenation=
+=2E
+> * man2/sigaltstack.2: Protect an instance of `setrlimit` from
+>   hyphenation.
+> * man3/gethostbyname.3: Protect an instance of `endhostent` from
+>   hyphenation.
+> * man3/getmntent.3: Protect an instance of `getmntinfo` from
+>   hyphenation.
 
-Agree.  Let's kill ctags another day ;)
+I added a S-o-b for you.
 
->=20
->>> @@ -230,7 +230,7 @@ .SH NOTES
->>>  expects that it may exhaust its standard stack.
->>>  This may occur, for example, because the stack grows so large
->>>  that it encounters the upwardly growing heap, or it reaches a
->>> -limit established by a call to \fBsetrlimit(RLIMIT_STACK, &rlim)\fP.=
+Patch applied.
 
->>> +limit established by a call to \fB\%setrlimit(RLIMIT_STACK, &rlim)\f=
-P.
->>
->> I think I would fix those \f thingies before messing with them.
->=20
-> I'm pretty sure you know I'm not fond of them either.  ;-)
->=20
->> Do you prefer it in this order?
->=20
-> Yes, because it enables a larger, more impactful change that fixes a
-> problem with ghastly amounts of noise when regression-testing changes t=
-o
-> Linux man-pages.  When adjustment and hyphenation churn, the results ar=
-e
-> ugly, and often irrelevant to the work being done.  With the gzipped
-> change that followed this one applied, that should stop being a problem=
-,
-> for the reasons explained in its lengthy commit message.
-
-Okay, I'll try to apply this set as early as possible.
-
-Thanks,
+Cheers,
 Alex
 
+> ---
+>  man2/getrlimit.2     | 10 +++++-----
+>  man2/sigaltstack.2   |  2 +-
+>  man3/gethostbyname.3 |  2 +-
+>  man3/getmntent.3     |  2 +-
+>  4 files changed, 8 insertions(+), 8 deletions(-)
 >=20
->> Also, it seem this one is wrong: it should be I, as it's code.
->=20
-> That decision is above my pay grade; I'm not the style czar for the
-> Linux man-pages project.  ;-)
->=20
-> FWIW, I prefer italics myself for 2 reasons:
->=20
-> 1.  The general typographic rule which says to use the least garish for=
+> diff --git a/man2/getrlimit.2 b/man2/getrlimit.2
+> index 21f919fdc..5d4e428d1 100644
+> --- a/man2/getrlimit.2
+> +++ b/man2/getrlimit.2
+> @@ -577,12 +577,12 @@ .SH STANDARDS
+>  .B RLIMIT_RSS
+>  derives from BSD and is not specified in POSIX.1;
+>  it is nevertheless present on most implementations.
+> -.BR RLIMIT_MSGQUEUE ,
+> +.BR \%RLIMIT_MSGQUEUE ,
+>  .BR RLIMIT_NICE ,
+>  .BR RLIMIT_RTPRIO ,
+>  .BR RLIMIT_RTTIME ,
+>  and
+> -.B RLIMIT_SIGPENDING
+> +.B \%RLIMIT_SIGPENDING
+>  are Linux-specific.
+>  .SH HISTORY
+>  .TP
+> @@ -747,7 +747,7 @@ .SS Representation of """large""" resource limit va=
+lues on 32-bit platforms
+>  .\" https://bugzilla.kernel.org/show_bug.cgi?id=3D5042
+>  .\" https://www.sourceware.org/bugzilla/show_bug.cgi?id=3D12201
+>  The most pertinent limit here is
+> -.BR RLIMIT_FSIZE ,
+> +.BR \%RLIMIT_FSIZE ,
+>  which specifies the maximum size to which a file can grow:
+>  to be useful, this limit must be represented using a type
+>  that is as wide as the type used to
+> @@ -769,13 +769,13 @@ .SS Representation of """large""" resource limit =
+values on 32-bit platforms
+>  Since glibc 2.13,
+>  .\" https://www.sourceware.org/bugzilla/show_bug.cgi?id=3D12201
+>  glibc works around the limitations of the
+> -.BR getrlimit ()
+> +.BR \%getrlimit ()
+>  and
+>  .BR setrlimit ()
+>  system calls by implementing
+>  .BR setrlimit ()
+>  and
+> -.BR getrlimit ()
+> +.BR \%getrlimit ()
+>  as wrapper functions that call
+>  .BR prlimit ().
+>  .SH EXAMPLES
+> diff --git a/man2/sigaltstack.2 b/man2/sigaltstack.2
+> index 6ae8a612c..b42149541 100644
+> --- a/man2/sigaltstack.2
+> +++ b/man2/sigaltstack.2
+> @@ -230,7 +230,7 @@ .SH NOTES
+>  expects that it may exhaust its standard stack.
+>  This may occur, for example, because the stack grows so large
+>  that it encounters the upwardly growing heap, or it reaches a
+> -limit established by a call to \fBsetrlimit(RLIMIT_STACK, &rlim)\fP.
+> +limit established by a call to \fB\%setrlimit(RLIMIT_STACK, &rlim)\fP.=
 
->     of emphasis that gets the job done.  That means bold is nearly a
->     last resort, before full capitals.
->=20
-> 2.  It's an inline code example and I'm accustomed to seeing these in
->     italics (or Courier) in well-known Unix software engineering texts.=
-
->=20
-> A counterargument is that "setrlimit" is a topic of the page in
-> question.  groff_man_style(7) says:
->=20
->         Use bold for literal portions of syntax synopses, for command=E2=
-=80=90
->         line options in running text, and for literals that are major
->         topics of the subject under discussion; for example, this page
->         uses bold for macro, string, and register names.  In an .EX/.EE=
-
->         example of interactive I/O (such as a shell session), set only
->         user input in bold.
->=20
-> ...but one could well counter that in that case only "setrlimit" itself=
-,
-> not the entire function call with parameters, should be boldfaced.
-
-The below applies here:
-
-man-pages(7):
-   Formatting conventions (general)
-	[...]
-
-       If the command is short, then it can be included inline in  the
-       text,  in italic format, for example, man 7 man=E2=80=90pages.  In=
- this
-       case, it may be worth using nonbreaking spaces (\[ti]) at suit=E2=80=
-=90
-       able places in the command.  Command options should be  written
-       in italics (e.g., -l).
-
-       Expressions, if not written on a separate indented line, should
-       be  specified in italics.  Again, the use of nonbreaking spaces
-       may be appropriate if the expression  is  inlined  with  normal
-       text.
-
->=20
-> Regards,
-> Branden
+>  If the standard stack is exhausted, the kernel sends
+>  the thread a \fBSIGSEGV\fP signal.
+>  In these circumstances the only way to catch this signal is
+> diff --git a/man3/gethostbyname.3 b/man3/gethostbyname.3
+> index 492e22d69..b467e92d9 100644
+> --- a/man3/gethostbyname.3
+> +++ b/man3/gethostbyname.3
+> @@ -377,7 +377,7 @@ .SH ATTRIBUTES
+>  .BR gethostent (),
+>  .BR gethostent_r (),
+>  or
+> -.BR endhostent ()
+> +.BR \%endhostent ()
+>  are used in parallel in different threads of a program,
+>  then data races could occur.
+>  .SH STANDARDS
+> diff --git a/man3/getmntent.3 b/man3/getmntent.3
+> index 5c0cfde0a..37e7225bd 100644
+> --- a/man3/getmntent.3
+> +++ b/man3/getmntent.3
+> @@ -249,7 +249,7 @@ .SH HISTORY
+>  .I /etc/mnttab
+>  is used.
+>  4.4BSD and Digital UNIX have a routine
+> -.BR getmntinfo (),
+> +.BR \%getmntinfo (),
+>  a wrapper around the system call
+>  .BR getfsstat ().
+>  .SH SEE ALSO
 
 --=20
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
 
---------------LMxumViPwrASb0OvtuddqzmQ--
+--------------UFYkhj4P06QHyT0ATk5YAHUv--
 
---------------vZOCDqilC0nJzHf8lzgLM0HE
+--------------0BGbCuhZlRmXgflkzHCqP4R0
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmS5MqgACgkQnowa+77/
-2zKxeA//aQgFWmYmIXfvMu6ZctvM55fkcGaFjUzuFmKijIijn+B7HIG0JAnPztJJ
-Zqi5HquaZnxeK4nYupZvSne8X4VGn3GeWzztWZNa6Rq6reInbYldgmVOx5/FxILl
-eKEVsydt/9d9oZ1M6oIYJAYemluNfL8hshRqILtDxkTCnmUSn0yArkN9Md54M78e
-KQcXOGL9WyTZOsaLQZMjHbuBXoWsw0EHl9bGTztVzf4zVt4EgLsXdA+wUfl8bJtq
-fnltJ393yogEe5JmWB2x/hc+sNn+ho/gDcVot+WLNzATS4Pp1x+kEpIdZwRMjZGO
-bGfbMMN455dn++nWFzbcBFsZZoGj2SXchdFSNTmOPg7fhxqvGQk9zF7Edhm6/30l
-+ctyilLs6Ts6dleAmorT4BKMSVj4nV6qF2zYTwc/VoZf+ly2nMAGASd5QW7SyJwh
-G+8FddpAqA4n1i9sYS6viCWZSCYuCvL1a9Q0+lomRM4DPzuYUWHqzIrf2xY1OF52
-Rtn7Tiar4vNCPnJLDhkVFgD2lscZECyJiONlTMQbqX1rizv1gjZAxkgDLJTgfBDV
-UASUtoO49YG7kug44LUV3iTUu/DztjEHWv8J+P4kIvGWs+2jFZXeumbT0OzGbIWg
-9DtBw/j3nwRIenZWYkoTHks4GiMAZ0PXJ7t2RWn5T7ht+AKdgQs=
-=xcTr
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmS5M7cACgkQnowa+77/
+2zIe2w/9EW4LQfKKPd9umpYL/4L+I697cIrx77FFUjB83PQZ00GeOY7qQDsmb87z
+epTIQzm30Qqho14bIwiFUPT7Dlj6cLKSeA+4qk5D4Lmcoi2+tgyg1smS/xBFdfHL
+sys3bBxl+srHZ3dtj4QZsqUT5pkEdrG60Jrv72vFa8c4fjIWAT+2jYKqUN1FCcyc
+afO1XW4gLHraP/KfK5EKD+h9nnRJIGELfe8UjrKGSMkcvqExj0VpohEPT+OawlRc
+D6PWm5GuFF/5OcRbwu28yyg0hdVdlLkBncz8v+u2OqRaEilO/Y34VFRLcUy0WXm0
+jg7KAbf6loHvhlMvroaPfqUb3CzYM/O2OlbxOI8n1ZjpaxLfgO+8/U8WCvcM6fCQ
+hHb6dScH0i+kbW3KYGv07eseLKTMwJRdlvumkbCqWuao8FougI/gLYiPe8N+cTel
+MMaLAzCsbCnBpZ0FKCwKB7+qPItZnv33iGFRKqsR6fJNnO+ki+RTXlTkKO8zCjSI
+b3bIedDX7cErg2nT5JHOAvCK0jlKH5NsXyBTH8/VxLpMDUX7U8uM/A134xNKHgeJ
+jV6rX5d0QmE07GnSF8j2Y+IqL2HjN/MPcEcJo4hm60fJn7CdfPEr/22lCVWHdLyw
+fsNFaxYs48DR0Rj+3KP0RaBL1gAa+l8DWymedYC0sE5Qcb/4sjM=
+=sep+
 -----END PGP SIGNATURE-----
 
---------------vZOCDqilC0nJzHf8lzgLM0HE--
+--------------0BGbCuhZlRmXgflkzHCqP4R0--
