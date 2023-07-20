@@ -2,73 +2,71 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 8978D75B31E
-	for <lists+linux-man@lfdr.de>; Thu, 20 Jul 2023 17:39:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A130E75B34E
+	for <lists+linux-man@lfdr.de>; Thu, 20 Jul 2023 17:45:19 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232697AbjGTPjy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 20 Jul 2023 11:39:54 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41886 "EHLO
+        id S232876AbjGTPpS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 20 Jul 2023 11:45:18 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49254 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232696AbjGTPjk (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 20 Jul 2023 11:39:40 -0400
+        with ESMTP id S232907AbjGTPpR (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 20 Jul 2023 11:45:17 -0400
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C60F93C30
-        for <linux-man@vger.kernel.org>; Thu, 20 Jul 2023 08:38:18 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B58C1CE
+        for <linux-man@vger.kernel.org>; Thu, 20 Jul 2023 08:44:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1689867492;
+        s=mimecast20190719; t=1689867869;
         h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
          to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         content-transfer-encoding:content-transfer-encoding;
-        bh=WGV39ZynUSSc+PTc+VOWDsyBygUS+6xS09OjPxvuyGI=;
-        b=Of0cmzg/bCFOKiCS6ID/Bn6EM28qhwEc38wY7NRWNfF5Ff8fZd9PHtVvCZZZMg/VlYJv8a
-        8wARkvImtbIjpY2UpknxKaQ72A/zrsFqpfoxAZboDInsfVzceKjIRmKtfKZ8URMbDtuTR+
-        AOLNP3lvbKw/KyxIYdHkkUDU+b8/ZuU=
-Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
- [209.85.218.69]) by relay.mimecast.com with ESMTP with STARTTLS
+         in-reply-to:in-reply-to:references:references;
+        bh=kTYDopqFkPXwhgXniT2dnU1OW8PznJPEzsuPwOjJI0g=;
+        b=f9AL6XX3Nh99eE/SEQhoRW1bZgOCml9tVGgB38vmvVAINJ/9eC4due6ny5b1gxVM58iaxh
+        LB1REjipXHHnrn36Lg4Yhjl4KvuZkaTKYXA47Bx/qSZUoUn+kawSO9ubHnCSJ7a37urOgr
+        k1ijWZyn5uAstmaGayEdOUbve6iiv/I=
+Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
+ [209.85.218.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-206-uBLuXxq-N7eQ9yaZ5W4TyA-1; Thu, 20 Jul 2023 11:38:04 -0400
-X-MC-Unique: uBLuXxq-N7eQ9yaZ5W4TyA-1
-Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-99388334de6so68952066b.0
-        for <linux-man@vger.kernel.org>; Thu, 20 Jul 2023 08:38:04 -0700 (PDT)
+ us-mta-600-5JgDASbBN7C097sqVaefYw-1; Thu, 20 Jul 2023 11:40:42 -0400
+X-MC-Unique: 5JgDASbBN7C097sqVaefYw-1
+Received: by mail-ej1-f70.google.com with SMTP id a640c23a62f3a-94a355c9028so68196766b.3
+        for <linux-man@vger.kernel.org>; Thu, 20 Jul 2023 08:40:21 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689867483; x=1690472283;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=WGV39ZynUSSc+PTc+VOWDsyBygUS+6xS09OjPxvuyGI=;
-        b=VMEZhF1YMt3LXpLdHru5rFphWKz+w8wYHRmPXByq75AKwIVHNHlICyjBUzLAuSuHvq
-         TG8tSFt6TcgNDj6LcuUcSfe60xR5V1CXn2bwtjGy+Jc8jCoy5Y4nxe9jcibZdEP0Z1xk
-         o+LTuGFIIV7o0D7WGmATvIlAR9RVD8leWz6R/eN66R/U57QM2VvuWl+wXtmvkp68fpsi
-         7PBqfQOU0GeYaz/4vr3kjVrVmDiGwjyU36q0YPYWZisGhZB8z+qYgiUimV0p5ynPWhDe
-         MsGos7UTP2ial+Ky4CQuRf3vXuiHz2ebjcykGhhl/PGpD5RbP0sIFzg9a9blyNGIzZEB
-         Rh3w==
-X-Gm-Message-State: ABy/qLb0g+lHAH+KwVi4GJSACWexAzUWqwMF2fz8Ut8tbE70HL/MxrbO
-        HGXqmN8lQ1dD8xmxoz6Ep456wm9YweH7vNsGxBPS4U5NUjK3QhT8etbbp8lwuGjnQ8QxHAj7E7h
-        UV8p8ZSvlWirEaqAqfwPB
-X-Received: by 2002:aa7:d708:0:b0:51e:1927:6ade with SMTP id t8-20020aa7d708000000b0051e19276ademr5413420edq.11.1689867483273;
-        Thu, 20 Jul 2023 08:38:03 -0700 (PDT)
-X-Google-Smtp-Source: APBJJlEbSwFyLwGNeiIOC0NgNcXGf5knLLj1FNlhPvmTlZqHGOb5bUyqn8627hNsgzBRepkXUiinEQ==
-X-Received: by 2002:aa7:d708:0:b0:51e:1927:6ade with SMTP id t8-20020aa7d708000000b0051e19276ademr5413408edq.11.1689867483031;
-        Thu, 20 Jul 2023 08:38:03 -0700 (PDT)
-Received: from localhost.localdomain (ip-86-49-233-183.bb.vodafone.cz. [86.49.233.183])
-        by smtp.gmail.com with ESMTPSA id n16-20020aa7c690000000b00521ab0cda8fsm899794edq.27.2023.07.20.08.38.02
+        d=1e100.net; s=20221208; t=1689867619; x=1690472419;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=kTYDopqFkPXwhgXniT2dnU1OW8PznJPEzsuPwOjJI0g=;
+        b=Mn4ip4+LbvAWHhomKH3DIwcKVAFQU5RfJiQiixqcpUWWuReEojltU/XZWhBHQB/6J+
+         8huVYb3LDM9iPoEynqofsssc1OOl/QThTOny0TJ12IilQpWUcJzAC9tKS1o+iT6wGjMg
+         WopWSweNijTE1S/eCfaOMsWSY9VGxdoiIXveofyeUI6fCGEQy1WIvlA4Q5h0igfJfV4u
+         tcQRmv2fjOiu6d+PHvrsfPZuQuPDSozjB2yppKGSR8aoMglb5YWVguOFPgm6ITvLK4IZ
+         XJ3a33lgbQyr0gX/rHEblv5fhqpsmT/ceVdw9Hj9YGBV+kOtqoWQ+9E1wvG/Nk6K3AQV
+         N6cg==
+X-Gm-Message-State: ABy/qLYjpSwseuAzC837sCZEwilnTpar+Ys71HkqGNlaBZrf6b6TTu7u
+        HS/fdtHKcJq8G3C7C2nT/GVhO3/EBiWZvGNwJjtpuospFIDNrgFWSD8oFu9SmK18XMOMQ7RXysF
+        ZkMr5x65bnnmaKYZwEJ9YbT7mEYSE
+X-Received: by 2002:a17:907:2bcf:b0:98f:3485:9c44 with SMTP id gv15-20020a1709072bcf00b0098f34859c44mr4935709ejc.72.1689867619201;
+        Thu, 20 Jul 2023 08:40:19 -0700 (PDT)
+X-Google-Smtp-Source: APBJJlGxsJyOwI4UT8xS3KlxJFtpk/PESPZI4WuqdmCzOFkysFZDkqAk6WglP3f5cZyHQJQSSaZ+Ww==
+X-Received: by 2002:a17:907:2bcf:b0:98f:3485:9c44 with SMTP id gv15-20020a1709072bcf00b0098f34859c44mr4935697ejc.72.1689867618959;
+        Thu, 20 Jul 2023 08:40:18 -0700 (PDT)
+Received: from cremorrah (ip-86-49-233-183.bb.vodafone.cz. [86.49.233.183])
+        by smtp.gmail.com with ESMTPSA id u15-20020a170906124f00b009887c9b2812sm872385eja.8.2023.07.20.08.40.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 20 Jul 2023 08:38:02 -0700 (PDT)
-From:   =?UTF-8?q?Tom=C3=A1=C5=A1=20Golembiovsk=C3=BD?= 
-        <tgolembi@redhat.com>
+        Thu, 20 Jul 2023 08:40:18 -0700 (PDT)
+Date:   Thu, 20 Jul 2023 17:40:15 +0200
+From:   =?utf-8?B?VG9tw6HFoSBHb2xlbWJpb3Zza8O9?= <tgolembi@redhat.com>
 To:     Alejandro Colomar <alx@kernel.org>
 Cc:     linux-man@vger.kernel.org,
-        =?UTF-8?q?Tom=C3=A1=C5=A1=20Golembiovsk=C3=BD?= 
-        <tgolembi@redhat.com>,
         "G. Branden Robinson" <g.branden.robinson@gmail.com>,
         Stefan Puiu <stefan.puiu@gmail.com>
-Subject: [PATCH v4] abort: clarify consequences of calling abort
-Date:   Thu, 20 Jul 2023 17:38:01 +0200
-Message-ID: <5c8c0d88151e70a69c8613ad87c4441472d3ad95.1689867426.git.tgolembi@redhat.com>
-X-Mailer: git-send-email 2.41.0
+Subject: Re: [PATCH v4] abort: clarify consequences of calling abort
+Message-ID: <ZLlVX-HPL1PS6RXL@cremorrah>
+References: <5c8c0d88151e70a69c8613ad87c4441472d3ad95.1689867426.git.tgolembi@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/mixed; boundary="czo6hdGj9NevAfZr"
+Content-Disposition: inline
+In-Reply-To: <5c8c0d88151e70a69c8613ad87c4441472d3ad95.1689867426.git.tgolembi@redhat.com>
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
         DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
         RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,
@@ -79,32 +77,59 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Clarify that atexit/on_exit are not called because those are called only
-on normal process termination (as documented on their respective manual
-pages).
 
-Cc: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: Stefan Puiu <stefan.puiu@gmail.com>
-Signed-off-by: Tomáš Golembiovský <tgolembi@redhat.com>
----
- man3/abort.3 | 4 ++++
- 1 file changed, 4 insertions(+)
+--czo6hdGj9NevAfZr
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-diff --git a/man3/abort.3 b/man3/abort.3
-index c63eace5e..8e1554eae 100644
---- a/man3/abort.3
-+++ b/man3/abort.3
-@@ -47,6 +47,10 @@ function will still terminate the process.
- It does this by restoring the default disposition for
- .B SIGABRT
- and then raising the signal for a second time.
-+.PP
-+As with other cases of abnormal termination the functions registered with
-+.BR atexit "(3) and " on_exit (3)
-+are not called.
- .SH RETURN VALUE
- The
- .BR abort ()
--- 
-2.41.0
+Hi,
+
+attached is a small test program. Compile simply with:
+
+    $ gcc atexit.c -o atexit
+
+When running the test I get:
+
+    $ ./atexit 
+    terminating
+    on_exit called
+    atexit called
+
+When the abort() call is uncommented I get:
+
+    $ ./atexit 
+    terminating
+    Aborted (core dumped)
+
+Hope this helps,
+
+    Tomas
+
+--czo6hdGj9NevAfZr
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: attachment; filename="atexit.c"
+
+#define _DEFAULT_SOURCE
+
+#include <stdio.h>
+#include <stdlib.h>
+
+void one(void) {
+    puts("atexit called");
+}
+
+void two(int, void*) {
+    puts("on_exit called");
+}
+
+int main(void) {
+    atexit(one);
+    on_exit(two, NULL);
+
+    puts("terminating");
+    //abort();
+    exit (EXIT_SUCCESS);
+}
+
+--czo6hdGj9NevAfZr--
 
