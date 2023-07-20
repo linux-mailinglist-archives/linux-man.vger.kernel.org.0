@@ -2,65 +2,69 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 9242E75A43C
-	for <lists+linux-man@lfdr.de>; Thu, 20 Jul 2023 04:04:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C85C475A447
+	for <lists+linux-man@lfdr.de>; Thu, 20 Jul 2023 04:13:16 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229885AbjGTCEl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 19 Jul 2023 22:04:41 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55132 "EHLO
+        id S229540AbjGTCNP (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 19 Jul 2023 22:13:15 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56420 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229872AbjGTCEk (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 19 Jul 2023 22:04:40 -0400
-Received: from mail-oa1-x2d.google.com (mail-oa1-x2d.google.com [IPv6:2001:4860:4864:20::2d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CC9851FFE
-        for <linux-man@vger.kernel.org>; Wed, 19 Jul 2023 19:04:39 -0700 (PDT)
-Received: by mail-oa1-x2d.google.com with SMTP id 586e51a60fabf-1bac8445e06so222076fac.1
-        for <linux-man@vger.kernel.org>; Wed, 19 Jul 2023 19:04:39 -0700 (PDT)
+        with ESMTP id S229452AbjGTCNO (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 19 Jul 2023 22:13:14 -0400
+Received: from mail-ot1-x32a.google.com (mail-ot1-x32a.google.com [IPv6:2607:f8b0:4864:20::32a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 09C611FFE
+        for <linux-man@vger.kernel.org>; Wed, 19 Jul 2023 19:13:14 -0700 (PDT)
+Received: by mail-ot1-x32a.google.com with SMTP id 46e09a7af769-6b9cf4739d9so241350a34.0
+        for <linux-man@vger.kernel.org>; Wed, 19 Jul 2023 19:13:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1689818679; x=1690423479;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=midqnXLOxi5BfzcJZkwfpORF0PF+TFn9NO23vplLknM=;
-        b=YYkFHuqtexJVDTVY1f9Rywe7jkEVYhpCtgUGKFYHkhV0uDsaZ9QZpUnhTHX1JGOO9V
-         +nGTkckby9EkenMsjrQ8uN8uIuPPYDqSrNqoRSQ8Y6HiQ2Ms3ilWrzIXW/9AjrG6Qd8N
-         h0bZaUQQsbfUYhTtS5seQidiUQj9dlWs20y3/w5mzQ7LhlupbUlr8UPbQWgs97dz+MiW
-         rvNbRMaQQO8wIqpMJuUyT+FQbF74gnVzPATdnds6ChU87UNLWrZdN9dIUuLgxfk5xlZm
-         LITrCSOYovH8FPMqIE83jDRCzuYa3mbXOcpx3B7kCzrlqqLSuRK9tdPY4cZfD5H51Uux
-         2JzA==
+        d=gmail.com; s=20221208; t=1689819193; x=1690423993;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=LOmsj6idKFOeg4MpoWsmpNaFeQE9KGzH0jvR4ber2i8=;
+        b=kYpxkCuNjj0dUak+a+6iTbPWAXujYoUrtl2uPTbBz+PzeVPPuRojjO3XIgIqW7v4dD
+         2vFZqMnkmwt7tmAEpHe9eXMqXVKm1pNFZkuon72arM3lpnZ1zxcWxQJT1e/mH/4WpSfl
+         fjP0rLOskbG2w6cB4IUSMJKV8hoxGAki7ZUKLUbzdMVuvMzOboqAx5VxHno1Jn0G8ijh
+         sshsD/1IXQJjTJUTFLvQlW8kpVxnugTZGiZMMO5SIH76hayWCJupN37YGsIJ7edauFCQ
+         dgodMP/170Q+4nJVG6wL0lUZNxvynYX+vjVVABB9yEhRAh4H/55owSRVGa2eRi4jsXSX
+         c5mw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689818679; x=1690423479;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=midqnXLOxi5BfzcJZkwfpORF0PF+TFn9NO23vplLknM=;
-        b=N139ZOQgMf5Oha8P4nZsOx2/FNYvISr9mQUdN8IfJN0qoV24DFdfkTB8gNzMiTdscx
-         TMcBtUB3yk9h0iYu1rvU7hPA9e2YDFLmnS0iMLX+G0cHTm6Qj6BBYD613IX1mX0LVYiC
-         DXIQqJlKc4xVRuo/WgRug9W6ZbJzpPk+kGHnaXSKtf6r0rMHdGTcVpWoqkQT2mXdck2Q
-         HWXkV7R6QKRJ2jSm5jBvRhktRVapPX/VbJyxHINPR1tEwrHsoq79HnvTzBhgUOTa+DNS
-         K9YJQP2sjOBqi/jW4svcpfbTk7+Dj+d1omfpk+1emwbnPo5xg80pzWEnyvGhWiwIGVR0
-         pyxA==
-X-Gm-Message-State: ABy/qLY+zPI5eAbFBb6L3f1X3IywpxUC1iiIJG7q8eqM4JT9MLHEd/yN
-        im73xMXsDS/pLVzjbg9gz4aYKfLRXXM=
-X-Google-Smtp-Source: APBJJlGsG6Pv3DBHOS293Zsyuzft3dxjTgnfAnOUaoSQEIJdvypfNMjhXBX3Tuxz8I5DfPJbpZwh3w==
-X-Received: by 2002:a05:6870:80cb:b0:1a6:979f:2a2e with SMTP id r11-20020a05687080cb00b001a6979f2a2emr367251oab.13.1689818678827;
-        Wed, 19 Jul 2023 19:04:38 -0700 (PDT)
+        d=1e100.net; s=20221208; t=1689819193; x=1690423993;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=LOmsj6idKFOeg4MpoWsmpNaFeQE9KGzH0jvR4ber2i8=;
+        b=Z9LFvI5uKG4KRHOiJGMyZM59IWaYl6nODZSVAvLzhz3m/zXQQCif6xn7uyg5Cn1SF6
+         KrtmNhyoKFRCz8Y2TR2uGx9Xv0IUozzTfZfGRr3rnEfPz8HQ/t/wy/Bs+JdZ/BHkL/sB
+         cMtl8jgrgF1Zx/GmorOQ8SP/y3IXEetbwmzbM9pOVpbr94NNquZ4M7NZHayfGDoZ9hXw
+         DhHf8tAtbzLuq5WFmpVdqoTG9IV9C7e0rDztubLKZWvyRSB4BDkE5YGOx3UcqEuqJRXl
+         OY6wgSg8KEr7K/CUHjBD1CB5zQU9XczqwUDN4umdVFt6htKgMirm6UV8J8Uw/74B4M0z
+         q+iQ==
+X-Gm-Message-State: ABy/qLaC1P3aP3r73bM33ZqvnxiLlyC/ohaYp33ND4q+fnpDp4NiluZf
+        uxDTzbE5bYdc933rHnQZiW+6Xaxo6yU=
+X-Google-Smtp-Source: APBJJlHfOr2dg9r+7gsCMu7R4D3Szi0kt+WDYMtu4mIMHnixoBJ+a2dA8o2S+Ihgoa4gvTNlPz7dsA==
+X-Received: by 2002:a9d:6753:0:b0:6b9:1af7:48c5 with SMTP id w19-20020a9d6753000000b006b91af748c5mr1626658otm.9.1689819193262;
+        Wed, 19 Jul 2023 19:13:13 -0700 (PDT)
 Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id h7-20020a4aa9c7000000b005660b585a00sm3372oon.22.2023.07.19.19.04.38
+        by smtp.gmail.com with ESMTPSA id s18-20020a9d7592000000b006b99f66444bsm24495otk.71.2023.07.19.19.13.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 19 Jul 2023 19:04:38 -0700 (PDT)
-Date:   Wed, 19 Jul 2023 21:04:36 -0500
+        Wed, 19 Jul 2023 19:13:12 -0700 (PDT)
+Date:   Wed, 19 Jul 2023 21:13:11 -0500
 From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     linux-man@vger.kernel.org
-Cc:     alx@kernel.org
-Subject: [PATCH 1/2] man*/: ffix (use `\%`)
-Message-ID: <20230720020436.vejzttvkklhmkgpn@illithid>
+To:     Alejandro Colomar <alx@kernel.org>
+Cc:     linux-man@vger.kernel.org
+Subject: Re: [PATCH] man-pages(7): Add attributive annotation advice
+Message-ID: <20230720021311.2wyrt5tlglsxcl3a@illithid>
+References: <20230719041832.ulsigsjae42rqh3g@illithid>
+ <27b46089-2f83-5025-2f3d-50433b76e36b@kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="lbmndliqxjoazquu"
+        protocol="application/pgp-signature"; boundary="d7axpfcryvoslsun"
 Content-Disposition: inline
+In-Reply-To: <27b46089-2f83-5025-2f3d-50433b76e36b@kernel.org>
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-        WEIRD_QUOTING autolearn=ham autolearn_force=no version=3.4.6
+        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
@@ -68,143 +72,42 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---lbmndliqxjoazquu
+--d7axpfcryvoslsun
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-=46rom 25d379c486d28357a8341b0cfbce1b43b82e177f Mon Sep 17 00:00:00 2001
-=46rom: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Date: Wed, 19 Jul 2023 17:59:27 -0500
-Subject: [PATCH 1/2] man*/: ffix (use `\%`)
+At 2023-07-19T22:01:35+0200, Alejandro Colomar wrote:
+> I'm now doubting the necessity of this patch.  It's like very
+> obvious content when you already know what it talks about, and
+> not very clear until you know what it's talking about.  Maybe
+> following existing practice is just simpler.
 
-Protect instances of some literals from hyphenation.  These are only
-those necessary to improve analyzability of a large-scale (500+ file),
-sed-driven change to improve adjustment and hyphenation enablement
-management around tables.
+Okay.  I withdraw it.
 
-* man2/getrlimit.2: Protect some instances of `RLIMIT_MSGQUEUE`,
-  `RLIMIT_SIGPENDING`, `RLIMIT_FSIZE`, and `getrlimit` from hyphenation.
-* man2/sigaltstack.2: Protect an instance of `setrlimit` from
-  hyphenation.
-* man3/gethostbyname.3: Protect an instance of `endhostent` from
-  hyphenation.
-* man3/getmntent.3: Protect an instance of `getmntinfo` from
-  hyphenation.
----
- man2/getrlimit.2     | 10 +++++-----
- man2/sigaltstack.2   |  2 +-
- man3/gethostbyname.3 |  2 +-
- man3/getmntent.3     |  2 +-
- 4 files changed, 8 insertions(+), 8 deletions(-)
+(Also, waiting to see if my 275 KiB inline patch to "unbracket tables"
+comes through.  How should I get it to this list if it doesn't?)
 
-diff --git a/man2/getrlimit.2 b/man2/getrlimit.2
-index 21f919fdc..5d4e428d1 100644
---- a/man2/getrlimit.2
-+++ b/man2/getrlimit.2
-@@ -577,12 +577,12 @@ .SH STANDARDS
- .B RLIMIT_RSS
- derives from BSD and is not specified in POSIX.1;
- it is nevertheless present on most implementations.
--.BR RLIMIT_MSGQUEUE ,
-+.BR \%RLIMIT_MSGQUEUE ,
- .BR RLIMIT_NICE ,
- .BR RLIMIT_RTPRIO ,
- .BR RLIMIT_RTTIME ,
- and
--.B RLIMIT_SIGPENDING
-+.B \%RLIMIT_SIGPENDING
- are Linux-specific.
- .SH HISTORY
- .TP
-@@ -747,7 +747,7 @@ .SS Representation of """large""" resource limit values=
- on 32-bit platforms
- .\" https://bugzilla.kernel.org/show_bug.cgi?id=3D5042
- .\" https://www.sourceware.org/bugzilla/show_bug.cgi?id=3D12201
- The most pertinent limit here is
--.BR RLIMIT_FSIZE ,
-+.BR \%RLIMIT_FSIZE ,
- which specifies the maximum size to which a file can grow:
- to be useful, this limit must be represented using a type
- that is as wide as the type used to
-@@ -769,13 +769,13 @@ .SS Representation of """large""" resource limit valu=
-es on 32-bit platforms
- Since glibc 2.13,
- .\" https://www.sourceware.org/bugzilla/show_bug.cgi?id=3D12201
- glibc works around the limitations of the
--.BR getrlimit ()
-+.BR \%getrlimit ()
- and
- .BR setrlimit ()
- system calls by implementing
- .BR setrlimit ()
- and
--.BR getrlimit ()
-+.BR \%getrlimit ()
- as wrapper functions that call
- .BR prlimit ().
- .SH EXAMPLES
-diff --git a/man2/sigaltstack.2 b/man2/sigaltstack.2
-index 6ae8a612c..b42149541 100644
---- a/man2/sigaltstack.2
-+++ b/man2/sigaltstack.2
-@@ -230,7 +230,7 @@ .SH NOTES
- expects that it may exhaust its standard stack.
- This may occur, for example, because the stack grows so large
- that it encounters the upwardly growing heap, or it reaches a
--limit established by a call to \fBsetrlimit(RLIMIT_STACK, &rlim)\fP.
-+limit established by a call to \fB\%setrlimit(RLIMIT_STACK, &rlim)\fP.
- If the standard stack is exhausted, the kernel sends
- the thread a \fBSIGSEGV\fP signal.
- In these circumstances the only way to catch this signal is
-diff --git a/man3/gethostbyname.3 b/man3/gethostbyname.3
-index 492e22d69..b467e92d9 100644
---- a/man3/gethostbyname.3
-+++ b/man3/gethostbyname.3
-@@ -377,7 +377,7 @@ .SH ATTRIBUTES
- .BR gethostent (),
- .BR gethostent_r (),
- or
--.BR endhostent ()
-+.BR \%endhostent ()
- are used in parallel in different threads of a program,
- then data races could occur.
- .SH STANDARDS
-diff --git a/man3/getmntent.3 b/man3/getmntent.3
-index 5c0cfde0a..37e7225bd 100644
---- a/man3/getmntent.3
-+++ b/man3/getmntent.3
-@@ -249,7 +249,7 @@ .SH HISTORY
- .I /etc/mnttab
- is used.
- 4.4BSD and Digital UNIX have a routine
--.BR getmntinfo (),
-+.BR \%getmntinfo (),
- a wrapper around the system call
- .BR getfsstat ().
- .SH SEE ALSO
---=20
-2.30.2
+Regards,
+Branden
 
-
---lbmndliqxjoazquu
+--d7axpfcryvoslsun
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmS4li0ACgkQ0Z6cfXEm
-bc7pLxAAjgC1ArkJ/CtntOrxLw4+CaKZuRiPBVSdqxXyMyg0ULSt3AxJ4qyRwaYS
-fgRjD2SUIbr3EOklHAz0yC7qEGhrl0LCHJyfMS/TuDDJb3EIGdwbux7Ro5mV96hu
-2pPYyNFtG7yEtyDds/gop8MZSRIihu0yqI6HKQvQaAGYF1Bh1n9HoIJXtFm1cWWt
-KTHfWLFwCLvy/KiC2Fp6M6USIcyTFId0HSJdyqbuJ2dLVH+SKZJKJsyXZVxGiLaw
-6tzubUhsudN9MOA4Ct7eh6w8vYCUkYRnl+nglfBXuMMRQacqwvSZ5qre+1W06vcU
-uhMsSwYD5vaOxiq6sBYMcNhKQxFW07O8pVHuojiDMr2E4AWHnRVpHBBVAAsjff2u
-v02JmfJ+aLu9LiTq4FRxw/PrXIdVMCzuQsp/1D+xdjqqN0wi8JryS8Eu3j8K4tWH
-3SvlxanO1OvGeG13HXWrV97z+Zy4RfCe8hyh5jU7ZMb4VU0LW+jfDiJyLzAxDLqI
-eV3GcnupuhZHdzDBGkGOmN53bKkBIbgjrc2gUtdO6KoxVRg44lwMIjtAM/OwYpaJ
-bdFvD8EOTIMQ8eDhaAohgkgvnJdFzXrX+ern4HZvuSa1MgO3DyimQxp5xaYlAd/1
-FDLguj5SSiR6MdqW+RM8lnwyKTaCVoH8dFKagSi9WbbENVTZYZc=
-=mEGm
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmS4mDcACgkQ0Z6cfXEm
+bc4i6Q/8D330AGLYTC7HbEghtd2DY9S5Vtf5n7Hc6BDTM8fjmsjBslSRYR9ugXEL
+BZ3PxVTnD/NJDizoZa2DzKhFH5eC8xbA3OBjYEMQepnzu5op/XSnAeSCT91MIL4x
+MsfzeQdn8PymzGx29YRoXPsnusPPqr+oPal/xpipT4vx+T0wGRMdj2YtS6hkRQL0
+MQl/sfJvytiMdXK2u2U8PWGY7TngWGTOtAtjdb9ZpMtOvWdP1TFQlFt1g+oO9QJS
+UcQg0BvrD9Q+kJpkuJSE7jNxsVv0P0+yoaf4kpHd+uB833iSkOBJn5fuZH6k1qlm
+hjRDsMyE5JCHPzmhOVvwLIOlAntlNsjLaW/27RNPvuBvw23XVPoHCmbbtlSs9c+o
+253K+wMUB92yGk6RnPfP0+OofTtJQg7XccsAo7+3HkL0bK1gyHLVSr3HIeFyxbgl
+L4PHG90Cog/+xUmbguEROv3lDkoZLV5yn0DQzuTD5oTT5c6lZ1VYUJmKiCZos7F/
+xZKA7zC3eVIIQpldDUEgJZiu+1hhKkoAF20cPGgB2gcQVn0gMQfjpTr+2NQSvYjB
+2vscg8AKGGO0C4Hd29vDBvvyapi9f0RO4v69Yf26/+bGYm2c/edMriV9kMTwXCiS
+R+PIxlgUWDBx2VwpwgZPrRsdMU9NCiL5Y9qCYs69LVmxGCWXeDE=
+=eI12
 -----END PGP SIGNATURE-----
 
---lbmndliqxjoazquu--
+--d7axpfcryvoslsun--
