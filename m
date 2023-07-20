@@ -2,173 +2,209 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id B2719759F61
-	for <lists+linux-man@lfdr.de>; Wed, 19 Jul 2023 22:13:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9242E75A43C
+	for <lists+linux-man@lfdr.de>; Thu, 20 Jul 2023 04:04:43 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229619AbjGSUNu (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 19 Jul 2023 16:13:50 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51750 "EHLO
+        id S229885AbjGTCEl (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 19 Jul 2023 22:04:41 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55132 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229512AbjGSUNt (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 19 Jul 2023 16:13:49 -0400
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com (mail-mw2nam12on2077.outbound.protection.outlook.com [40.107.244.77])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D9D3CF0
-        for <linux-man@vger.kernel.org>; Wed, 19 Jul 2023 13:13:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kqyJndy/XRV71tl4VFAlws5GUHnZyLyyPTavrHCUy4/PmjIfIpP08NIuOAYtUX6LtGH/CxABQgFOUwiKGeXUn6WDa0fMkbrBcyGN3OWjTVddt0utYX37xNvWwpiSlUD80yvAp/e8rClRvd/dLk7F5FCL8Z67+SPTe1Qh7ep4LfBvT4D4dxoRJ8OFYeuq1mZ9HnyRRABE1pIZglulEqHL3STVJqyDNCASh2vMf42GnDgJo2KPZCEfyA2WqCwcU/I3FasrPOkqtda1/vJVJoQFUeIsaNZst7i4xV6iw8gvIkQYhifBm5NWPQsjERUn8o9AMtaYDbsUXH0n8UDjkOymhg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3CGno4IN120oDTBcUOkf5/weGuSYt/dJNSSChXqpEcw=;
- b=oPNscZ6jiL8HEUQ0zsd+bI/RYVfxHqKawkW1HP8EGxu7t5yev+koBkh52q2vozVNly5I9uP3aspoEMMon2PgePYGTzgavVYfE2UCtW2sJofsVl+sXlLLwiRe3JxN5f11xagJwHL6mN8QbVlvvE5UhdF1y3K5SGrwUQyhEzQGZ+jWGrLgENmWNMbld+nw9yFg2jg0EmHU5REMqbsyMW5GKp6+2bZQnff5D5OwBNuBpBlMmDhtDD3Jig9XtNRu1p+4VtGphGdzXm+fr98nZf4Xzs140k2pJ+qaTt/bf0XulK+rvQQOoZbjXHUeU82zSSahoPqcGCWdyUB4GiIykXjcMg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3CGno4IN120oDTBcUOkf5/weGuSYt/dJNSSChXqpEcw=;
- b=kXIQvzONGTBOLge04d5bnHspxzlMc7qz8uWWQXmGpwV6lCZ6JxrQJ7YphaFHSWERxK4kbiF+XRAwlzOPJcI9uf8pzeSpgUR5eQaGYr1jaFFii6uCp2Tm0FGwbn5ljFqhRS++6aLVfVHmLgTS/pHXFg13koZNGpiTgTRlgc5Wr5Uo6R6i5t1QHROXEI4clXkwlvyQsQVqV9e4Tstc7Az5miZM1eTXi/nPg6m6BK0WJ9wZGasyUJmGwdjrWbiSqIJnxJWJwypECcK/brrQeWieyV5TORWqOngn/uCC3sGzjBb8U07004pWbBwUCprHKJwMsuUtjQFdSVOD2ORuV+dvFA==
-Received: from MW4PR03CA0033.namprd03.prod.outlook.com (2603:10b6:303:8e::8)
- by DM4PR12MB5117.namprd12.prod.outlook.com (2603:10b6:5:390::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.23; Wed, 19 Jul
- 2023 20:13:46 +0000
-Received: from CO1NAM11FT085.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:8e:cafe::95) by MW4PR03CA0033.outlook.office365.com
- (2603:10b6:303:8e::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.24 via Frontend
- Transport; Wed, 19 Jul 2023 20:13:46 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- CO1NAM11FT085.mail.protection.outlook.com (10.13.174.137) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6588.34 via Frontend Transport; Wed, 19 Jul 2023 20:13:45 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.5; Wed, 19 Jul 2023
- 13:13:37 -0700
-Received: from [10.110.48.28] (10.126.231.35) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.37; Wed, 19 Jul
- 2023 13:13:36 -0700
-Message-ID: <bab9c86c-03b4-f766-378c-e391ac99992a@nvidia.com>
-Date:   Wed, 19 Jul 2023 13:13:36 -0700
+        with ESMTP id S229872AbjGTCEk (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 19 Jul 2023 22:04:40 -0400
+Received: from mail-oa1-x2d.google.com (mail-oa1-x2d.google.com [IPv6:2001:4860:4864:20::2d])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CC9851FFE
+        for <linux-man@vger.kernel.org>; Wed, 19 Jul 2023 19:04:39 -0700 (PDT)
+Received: by mail-oa1-x2d.google.com with SMTP id 586e51a60fabf-1bac8445e06so222076fac.1
+        for <linux-man@vger.kernel.org>; Wed, 19 Jul 2023 19:04:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1689818679; x=1690423479;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=midqnXLOxi5BfzcJZkwfpORF0PF+TFn9NO23vplLknM=;
+        b=YYkFHuqtexJVDTVY1f9Rywe7jkEVYhpCtgUGKFYHkhV0uDsaZ9QZpUnhTHX1JGOO9V
+         +nGTkckby9EkenMsjrQ8uN8uIuPPYDqSrNqoRSQ8Y6HiQ2Ms3ilWrzIXW/9AjrG6Qd8N
+         h0bZaUQQsbfUYhTtS5seQidiUQj9dlWs20y3/w5mzQ7LhlupbUlr8UPbQWgs97dz+MiW
+         rvNbRMaQQO8wIqpMJuUyT+FQbF74gnVzPATdnds6ChU87UNLWrZdN9dIUuLgxfk5xlZm
+         LITrCSOYovH8FPMqIE83jDRCzuYa3mbXOcpx3B7kCzrlqqLSuRK9tdPY4cZfD5H51Uux
+         2JzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1689818679; x=1690423479;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=midqnXLOxi5BfzcJZkwfpORF0PF+TFn9NO23vplLknM=;
+        b=N139ZOQgMf5Oha8P4nZsOx2/FNYvISr9mQUdN8IfJN0qoV24DFdfkTB8gNzMiTdscx
+         TMcBtUB3yk9h0iYu1rvU7hPA9e2YDFLmnS0iMLX+G0cHTm6Qj6BBYD613IX1mX0LVYiC
+         DXIQqJlKc4xVRuo/WgRug9W6ZbJzpPk+kGHnaXSKtf6r0rMHdGTcVpWoqkQT2mXdck2Q
+         HWXkV7R6QKRJ2jSm5jBvRhktRVapPX/VbJyxHINPR1tEwrHsoq79HnvTzBhgUOTa+DNS
+         K9YJQP2sjOBqi/jW4svcpfbTk7+Dj+d1omfpk+1emwbnPo5xg80pzWEnyvGhWiwIGVR0
+         pyxA==
+X-Gm-Message-State: ABy/qLY+zPI5eAbFBb6L3f1X3IywpxUC1iiIJG7q8eqM4JT9MLHEd/yN
+        im73xMXsDS/pLVzjbg9gz4aYKfLRXXM=
+X-Google-Smtp-Source: APBJJlGsG6Pv3DBHOS293Zsyuzft3dxjTgnfAnOUaoSQEIJdvypfNMjhXBX3Tuxz8I5DfPJbpZwh3w==
+X-Received: by 2002:a05:6870:80cb:b0:1a6:979f:2a2e with SMTP id r11-20020a05687080cb00b001a6979f2a2emr367251oab.13.1689818678827;
+        Wed, 19 Jul 2023 19:04:38 -0700 (PDT)
+Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
+        by smtp.gmail.com with ESMTPSA id h7-20020a4aa9c7000000b005660b585a00sm3372oon.22.2023.07.19.19.04.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 19 Jul 2023 19:04:38 -0700 (PDT)
+Date:   Wed, 19 Jul 2023 21:04:36 -0500
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To:     linux-man@vger.kernel.org
+Cc:     alx@kernel.org
+Subject: [PATCH 1/2] man*/: ffix (use `\%`)
+Message-ID: <20230720020436.vejzttvkklhmkgpn@illithid>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] man5/tmpfs.5: fix typo in reference to
- CONFIG_TRANSPARENT_HUGEPAGE
-Content-Language: en-US
-To:     <alx@kernel.org>, Mike Frysinger <vapier@gentoo.org>
-CC:     Michael Kerrisk <mtk.manpages@gmail.com>,
-        <linux-man@vger.kernel.org>, <linux-mm@kvack.org>,
-        Vahid Noormofidi <vnoormof@nvidia.com>,
-        Matthew Wilcox <willy@infradead.org>,
-        "Kirill A . Shutemov" <kirill.shutemov@linux.intel.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Carsten Grohmann <carstengrohmann@gmx.de>
-References: <20230719020533.1608867-1-jhubbard@nvidia.com>
- <eabfcdbb-3035-5593-8ed0-d9a0349b948a@gmail.com>
-From:   John Hubbard <jhubbard@nvidia.com>
-In-Reply-To: <eabfcdbb-3035-5593-8ed0-d9a0349b948a@gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.126.231.35]
-X-ClientProxiedBy: rnnvmail202.nvidia.com (10.129.68.7) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT085:EE_|DM4PR12MB5117:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8e28e3a6-856c-4b7b-b327-08db8894a81a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: XfAy+IFZKd5jj8P26hRdKta3h/WfZSI0RnkFiwPCNl24JdgWp+bfjeOkPS+LPdNiAX0wSArvmff7FwpKmH5kXEBBEuNx0H5OylZ2pl+dUYzy/tiNGcWk/4KNcknpItIfk2dE+XTLyRZTebrKFgFywIWtI367AbUjcmxRgpqoc/W3zo7TMun2DugBkqbvXkPpzH1LBs78GgltgTG3dU7vmkYz75fRAj0jAp5pjxk/1dY8fbraEtOGYyLb9eemiTq7D3JKlSXx0c5WJ224qS0vIwxzCmOo75w33YcnKf+glQTp/xE8jmoU0P/3RxXzz5dOhM6hovtpVbjv963BoqWG0a/2e2RaQxeDFymlgxCl8tON7dMS1eUaKV5u56F3cMBbe0ZM90ZFFyu2103KcbhpPZXDGuQRZPp8aONXS0dcVCW8DpNjZLN/fjghNTm4v6ShYZPaNlJk8D0nFzSkKXPRvhnZyNiDyWBau8O7YEo9R+3KZG9ewHSQB17w8XOzDA+iWSTBKsqgsS3Ps27MfNgzC0venK5bjV3ce/X/xefd/pe2+A8Ctrt4xWRbSvq5WZw8Xn+/fgZQb7wb944iEY3H18+PK7aQz7H8ls8E0kM4Lgzw5txevPkDdf2zaeWwL7sJ8l3LIuu0oCVePd7o8CPkz+YGshGX5DuAT50p+xlPqqiariqMowbR+p4XgJWXjKk0ZLMltzckxaamToxrSwLTfmfp4zcCQn04a2TaoL4nvaQYgirJBzytIw6zFROTuFqdWGAG8M0Z8ceg5TfB56lRkw==
-X-Forefront-Antispam-Report: CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230028)(4636009)(376002)(136003)(346002)(396003)(39860400002)(82310400008)(451199021)(36840700001)(46966006)(40470700004)(316002)(41300700001)(4326008)(5660300002)(16576012)(8936002)(8676002)(426003)(36860700001)(2616005)(83380400001)(47076005)(82740400003)(86362001)(31696002)(7636003)(356005)(40480700001)(70586007)(186003)(70206006)(26005)(336012)(53546011)(36756003)(16526019)(110136005)(40460700003)(54906003)(478600001)(31686004)(2906002)(43740500002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jul 2023 20:13:45.8979
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8e28e3a6-856c-4b7b-b327-08db8894a81a
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT085.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5117
-X-Spam-Status: No, score=-1.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FORGED_SPF_HELO,
-        RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_NONE,
-        T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=no autolearn_force=no
-        version=3.4.6
+Content-Type: multipart/signed; micalg=pgp-sha256;
+        protocol="application/pgp-signature"; boundary="lbmndliqxjoazquu"
+Content-Disposition: inline
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+        WEIRD_QUOTING autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 7/19/23 12:59, Alejandro Colomar wrote:
-> On 2023-07-19 04:05, John Hubbard wrote:
->> In commit 462a385e9a2 ("tmpfs.5: Document current mount options"), there
->> is a reference to CONFIG_TRANSPARENT_HUGE_PAGECACHE. However, that
->> option was removed from the kernel via commit 396bcc5299c2 ("mm: remove
->> CONFIG_TRANSPARENT_HUGE_PAGECACHE"), a couple of years later.
->>
->> The net effect is that CONFIG_TRANSPARENT_HUGEPAGE is now used in all
->> the remaining places in the kernel where
->> CONFIG_TRANSPARENT_HUGE_PAGECACHE had previously been used.
->>
->> This has caused some minor confusion at the man page level, though. So
->> let's fix it by updating the man page to also refer to
->> CONFIG_TRANSPARENT_HUGEPAGE.
->>
->> Reported-by: Vahid Noormofidi <vnoormof@nvidia.com>
->> Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
->> Cc: Kirill A. Shutemov <kirill.shutemov@linux.intel.com>
->> Cc: Andrew Morton <akpm@linux-foundation.org>
->> Cc: Carsten Grohmann <carstengrohmann@gmx.de>
->> Cc: Signed-off-by: Mike Frysinger <vapier@gentoo.org>
-> 
-> Accident here :-)
-> 
 
-Yes. :)  Michael Kerrisk, could you change that line for me
-to just be a Cc, for Mike Frysinger?
+--lbmndliqxjoazquu
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Or, let me know if you'd prefer a re-send of the patch instead.
+=46rom 25d379c486d28357a8341b0cfbce1b43b82e177f Mon Sep 17 00:00:00 2001
+=46rom: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Date: Wed, 19 Jul 2023 17:59:27 -0500
+Subject: [PATCH 1/2] man*/: ffix (use `\%`)
+
+Protect instances of some literals from hyphenation.  These are only
+those necessary to improve analyzability of a large-scale (500+ file),
+sed-driven change to improve adjustment and hyphenation enablement
+management around tables.
+
+* man2/getrlimit.2: Protect some instances of `RLIMIT_MSGQUEUE`,
+  `RLIMIT_SIGPENDING`, `RLIMIT_FSIZE`, and `getrlimit` from hyphenation.
+* man2/sigaltstack.2: Protect an instance of `setrlimit` from
+  hyphenation.
+* man3/gethostbyname.3: Protect an instance of `endhostent` from
+  hyphenation.
+* man3/getmntent.3: Protect an instance of `getmntinfo` from
+  hyphenation.
+---
+ man2/getrlimit.2     | 10 +++++-----
+ man2/sigaltstack.2   |  2 +-
+ man3/gethostbyname.3 |  2 +-
+ man3/getmntent.3     |  2 +-
+ 4 files changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/man2/getrlimit.2 b/man2/getrlimit.2
+index 21f919fdc..5d4e428d1 100644
+--- a/man2/getrlimit.2
++++ b/man2/getrlimit.2
+@@ -577,12 +577,12 @@ .SH STANDARDS
+ .B RLIMIT_RSS
+ derives from BSD and is not specified in POSIX.1;
+ it is nevertheless present on most implementations.
+-.BR RLIMIT_MSGQUEUE ,
++.BR \%RLIMIT_MSGQUEUE ,
+ .BR RLIMIT_NICE ,
+ .BR RLIMIT_RTPRIO ,
+ .BR RLIMIT_RTTIME ,
+ and
+-.B RLIMIT_SIGPENDING
++.B \%RLIMIT_SIGPENDING
+ are Linux-specific.
+ .SH HISTORY
+ .TP
+@@ -747,7 +747,7 @@ .SS Representation of """large""" resource limit values=
+ on 32-bit platforms
+ .\" https://bugzilla.kernel.org/show_bug.cgi?id=3D5042
+ .\" https://www.sourceware.org/bugzilla/show_bug.cgi?id=3D12201
+ The most pertinent limit here is
+-.BR RLIMIT_FSIZE ,
++.BR \%RLIMIT_FSIZE ,
+ which specifies the maximum size to which a file can grow:
+ to be useful, this limit must be represented using a type
+ that is as wide as the type used to
+@@ -769,13 +769,13 @@ .SS Representation of """large""" resource limit valu=
+es on 32-bit platforms
+ Since glibc 2.13,
+ .\" https://www.sourceware.org/bugzilla/show_bug.cgi?id=3D12201
+ glibc works around the limitations of the
+-.BR getrlimit ()
++.BR \%getrlimit ()
+ and
+ .BR setrlimit ()
+ system calls by implementing
+ .BR setrlimit ()
+ and
+-.BR getrlimit ()
++.BR \%getrlimit ()
+ as wrapper functions that call
+ .BR prlimit ().
+ .SH EXAMPLES
+diff --git a/man2/sigaltstack.2 b/man2/sigaltstack.2
+index 6ae8a612c..b42149541 100644
+--- a/man2/sigaltstack.2
++++ b/man2/sigaltstack.2
+@@ -230,7 +230,7 @@ .SH NOTES
+ expects that it may exhaust its standard stack.
+ This may occur, for example, because the stack grows so large
+ that it encounters the upwardly growing heap, or it reaches a
+-limit established by a call to \fBsetrlimit(RLIMIT_STACK, &rlim)\fP.
++limit established by a call to \fB\%setrlimit(RLIMIT_STACK, &rlim)\fP.
+ If the standard stack is exhausted, the kernel sends
+ the thread a \fBSIGSEGV\fP signal.
+ In these circumstances the only way to catch this signal is
+diff --git a/man3/gethostbyname.3 b/man3/gethostbyname.3
+index 492e22d69..b467e92d9 100644
+--- a/man3/gethostbyname.3
++++ b/man3/gethostbyname.3
+@@ -377,7 +377,7 @@ .SH ATTRIBUTES
+ .BR gethostent (),
+ .BR gethostent_r (),
+ or
+-.BR endhostent ()
++.BR \%endhostent ()
+ are used in parallel in different threads of a program,
+ then data races could occur.
+ .SH STANDARDS
+diff --git a/man3/getmntent.3 b/man3/getmntent.3
+index 5c0cfde0a..37e7225bd 100644
+--- a/man3/getmntent.3
++++ b/man3/getmntent.3
+@@ -249,7 +249,7 @@ .SH HISTORY
+ .I /etc/mnttab
+ is used.
+ 4.4BSD and Digital UNIX have a routine
+-.BR getmntinfo (),
++.BR \%getmntinfo (),
+ a wrapper around the system call
+ .BR getfsstat ().
+ .SH SEE ALSO
+--=20
+2.30.2
 
 
-thanks,
--- 
-John Hubbard
-NVIDIA
+--lbmndliqxjoazquu
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
 
->> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
->> ---
->>   man5/tmpfs.5 | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/man5/tmpfs.5 b/man5/tmpfs.5
->> index 09d955898..cdd5f2fd8 100644
->> --- a/man5/tmpfs.5
->> +++ b/man5/tmpfs.5
->> @@ -115,7 +115,7 @@ Set the initial user ID of the root directory.
->>   .BR huge "=\fIhuge_option\fR (since Linux 4.7.0)"
->>   .\" commit 5a6e75f8110c97e2a5488894d4e922187e6cb343
->>   Set the huge table memory allocation policy for all files in this instance (if
->> -.B CONFIG_TRANSPARENT_HUGE_PAGECACHE
->> +.B CONFIG_TRANSPARENT_HUGEPAGE
->>   is enabled).
->>   .IP
->>   The
->>
->> base-commit: c654cde5ec9e9fa975d5d041aa069489ab12a4ce
-> 
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmS4li0ACgkQ0Z6cfXEm
+bc7pLxAAjgC1ArkJ/CtntOrxLw4+CaKZuRiPBVSdqxXyMyg0ULSt3AxJ4qyRwaYS
+fgRjD2SUIbr3EOklHAz0yC7qEGhrl0LCHJyfMS/TuDDJb3EIGdwbux7Ro5mV96hu
+2pPYyNFtG7yEtyDds/gop8MZSRIihu0yqI6HKQvQaAGYF1Bh1n9HoIJXtFm1cWWt
+KTHfWLFwCLvy/KiC2Fp6M6USIcyTFId0HSJdyqbuJ2dLVH+SKZJKJsyXZVxGiLaw
+6tzubUhsudN9MOA4Ct7eh6w8vYCUkYRnl+nglfBXuMMRQacqwvSZ5qre+1W06vcU
+uhMsSwYD5vaOxiq6sBYMcNhKQxFW07O8pVHuojiDMr2E4AWHnRVpHBBVAAsjff2u
+v02JmfJ+aLu9LiTq4FRxw/PrXIdVMCzuQsp/1D+xdjqqN0wi8JryS8Eu3j8K4tWH
+3SvlxanO1OvGeG13HXWrV97z+Zy4RfCe8hyh5jU7ZMb4VU0LW+jfDiJyLzAxDLqI
+eV3GcnupuhZHdzDBGkGOmN53bKkBIbgjrc2gUtdO6KoxVRg44lwMIjtAM/OwYpaJ
+bdFvD8EOTIMQ8eDhaAohgkgvnJdFzXrX+ern4HZvuSa1MgO3DyimQxp5xaYlAd/1
+FDLguj5SSiR6MdqW+RM8lnwyKTaCVoH8dFKagSi9WbbENVTZYZc=
+=mEGm
+-----END PGP SIGNATURE-----
 
-
+--lbmndliqxjoazquu--
