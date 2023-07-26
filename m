@@ -2,65 +2,99 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id F173075F8EB
-	for <lists+linux-man@lfdr.de>; Mon, 24 Jul 2023 15:52:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 390B17633E7
+	for <lists+linux-man@lfdr.de>; Wed, 26 Jul 2023 12:35:47 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230052AbjGXNwV (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 24 Jul 2023 09:52:21 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55348 "EHLO
+        id S229715AbjGZKfp (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 26 Jul 2023 06:35:45 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59516 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231153AbjGXNwI (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 24 Jul 2023 09:52:08 -0400
-Received: from a3.inai.de (a3.inai.de [IPv6:2a01:4f8:10b:45d8::f5])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 076C659D5
-        for <linux-man@vger.kernel.org>; Mon, 24 Jul 2023 06:49:10 -0700 (PDT)
-Received: by a3.inai.de (Postfix, from userid 65534)
-        id 39E01591F5780; Mon, 24 Jul 2023 15:49:03 +0200 (CEST)
+        with ESMTP id S233186AbjGZKfo (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 26 Jul 2023 06:35:44 -0400
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CBA872129
+        for <linux-man@vger.kernel.org>; Wed, 26 Jul 2023 03:35:43 -0700 (PDT)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+         key-exchange X25519 server-signature RSA-PSS (2048 bits))
+        (No client certificate requested)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id 6903D61A4F
+        for <linux-man@vger.kernel.org>; Wed, 26 Jul 2023 10:35:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id CFDA4C433C7
+        for <linux-man@vger.kernel.org>; Wed, 26 Jul 2023 10:35:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1690367742;
+        bh=R4fEG1G6//LSFCL+39AQwbZ5PMdGDZmzxBz57dbaCi4=;
+        h=From:To:Subject:Date:From;
+        b=YRFl48X3MFJrm+aN4wggyhthb6mS9/nQS4DHp75fssIWzkBFFCTkehoLZ0PxWiqE4
+         8e1SxNz8lu0Cg2wcpk9AGb/l09wXcV9SBu/KM7zExLkO7sgc+FFw5CZ0rd9X7eCKWR
+         j8hepk7Fw9wsqnDOpL0tFyC0OHXN6ZsGBCRaSPcxxsVnK1EP0HodTIh5ob65PNo8Mg
+         Pqnzt/6FTtYxVDma0b8Vt7qfPc2hyi3Eyf7jQw+a8Z5+sGpnRlsh301ScnhmzMow7J
+         kixLAu1qtdcauSak4s2IwyFb7BMhCdpNE7OxqQZMiBjCuuYaQ0a/2XFr5kGSqKUxuN
+         34eZb/yT3oXZA==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
+        id C1615C53BC6; Wed, 26 Jul 2023 10:35:42 +0000 (UTC)
+From:   bugzilla-daemon@kernel.org
+To:     linux-man@vger.kernel.org
+Subject: [Bug 217709] New: Mistake in example in mount_namespaces(7)
+Date:   Wed, 26 Jul 2023 10:35:42 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: new
+X-Bugzilla-Watch-Reason: AssignedTo
+ documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Product: Documentation
+X-Bugzilla-Component: man-pages
+X-Bugzilla-Version: unspecified
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: low
+X-Bugzilla-Who: goeran@uddeborg.se
+X-Bugzilla-Status: NEW
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P3
+X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: bug_id short_desc product version rep_platform
+ op_sys bug_status bug_severity priority component assigned_to reporter
+ cf_regression
+Message-ID: <bug-217709-11311@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
+MIME-Version: 1.0
+X-Spam-Status: No, score=-7.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,SPF_HELO_NONE,
-        SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham autolearn_force=no
-        version=3.4.6
-Received: from a4.inai.de (a4.inai.de [IPv6:2a01:4f8:10b:45d8::f8])
-        by a3.inai.de (Postfix) with ESMTP id D408C5908F83E;
-        Mon, 24 Jul 2023 15:49:02 +0200 (CEST)
-From:   Jan Engelhardt <jengelh@inai.de>
-To:     alx@kernel.org
-Cc:     linux-man@vger.kernel.org
-Subject: [PATCH 2/2] fmod.3: add example section
-Date:   Mon, 24 Jul 2023 15:49:02 +0200
-Message-ID: <20230724134902.77081-2-jengelh@inai.de>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20230724134902.77081-1-jengelh@inai.de>
-References: <20230724134902.77081-1-jengelh@inai.de>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-Signed-off-by: Jan Engelhardt <jengelh@inai.de>
----
- man3/fmod.3 | 6 ++++++
- 1 file changed, 6 insertions(+)
+https://bugzilla.kernel.org/show_bug.cgi?id=3D217709
 
-diff --git a/man3/fmod.3 b/man3/fmod.3
-index a33b83eb5..2650d2928 100644
---- a/man3/fmod.3
-+++ b/man3/fmod.3
-@@ -154,5 +154,11 @@ to
- .B EDOM
- when a domain error occurred for an infinite
- .IR x .
-+.SH EXAMPLES
-+The call "fmod(372, 360)" returns 348.
-+.PP
-+The call "fmod(-372, 360)" returns -12.
-+.PP
-+The call "fmod(-372, -360)" also returns -12.
- .SH SEE ALSO
- .BR remainder (3)
--- 
-2.41.0
+            Bug ID: 217709
+           Summary: Mistake in example in mount_namespaces(7)
+           Product: Documentation
+           Version: unspecified
+          Hardware: All
+                OS: Linux
+            Status: NEW
+          Severity: low
+          Priority: P3
+         Component: man-pages
+          Assignee: documentation_man-pages@kernel-bugs.osdl.org
+          Reporter: goeran@uddeborg.se
+        Regression: No
 
+In the example showing how locked mounts in a less privileged mount namespa=
+ce
+can not be split, a command "umount /mnt/dir" is shown. Surely, that should
+have been "umount /etc/shadow".
+
+--=20
+You may reply to this email to add a comment.
+
+You are receiving this mail because:
+You are watching the assignee of the bug.=
