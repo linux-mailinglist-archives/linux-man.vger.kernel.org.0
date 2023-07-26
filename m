@@ -2,129 +2,126 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 08F6F76352C
-	for <lists+linux-man@lfdr.de>; Wed, 26 Jul 2023 13:38:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E8BBF7635BA
+	for <lists+linux-man@lfdr.de>; Wed, 26 Jul 2023 13:56:32 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234090AbjGZLim (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 26 Jul 2023 07:38:42 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36752 "EHLO
+        id S232271AbjGZL4b (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 26 Jul 2023 07:56:31 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53930 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234099AbjGZLik (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 26 Jul 2023 07:38:40 -0400
-Received: from mail-oa1-x34.google.com (mail-oa1-x34.google.com [IPv6:2001:4860:4864:20::34])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 75A9D2115
-        for <linux-man@vger.kernel.org>; Wed, 26 Jul 2023 04:38:39 -0700 (PDT)
-Received: by mail-oa1-x34.google.com with SMTP id 586e51a60fabf-1bb58b4c513so2636388fac.0
-        for <linux-man@vger.kernel.org>; Wed, 26 Jul 2023 04:38:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1690371518; x=1690976318;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=4xN+ro7dynPbK7oOw5o5yhrYFjjc7jdgbMD0NNaHuLA=;
-        b=qegMc025m+XcAreFQcsgFL9kpVHYOx78XRkpNtJM6krX8n8eSZ1QrTlGJyF72kkWnv
-         zPSuIxTtnOgs40KJGmG/99dydJCwFDqJR1pfi1pbNwEVpLVt/f80IKjfZhelz9agnPk1
-         QGL+YvdxOa2pWuZbQ2bxOGgKOmFbc8jw1njYE3/tRO+GfYKTUiwmFhKBfaYh1Eb39vsl
-         gmvpw5B6pn376LvMMbpsp198oWI+AHDYMadWtzP3ThHey8sQAza72hMQgKR9CM79APVA
-         u8ET89JxrUIcGv3SztvFUiIgLpbqdbXw+Mm5CjcvsvJsgC0/EHLChbfSoc5nMz+FJcNN
-         Xx8A==
+        with ESMTP id S232220AbjGZL4a (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 26 Jul 2023 07:56:30 -0400
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A49641B8
+        for <linux-man@vger.kernel.org>; Wed, 26 Jul 2023 04:55:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1690372530;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         content-transfer-encoding:content-transfer-encoding;
+        bh=t/O9imrhhOtJ0reFi/g5hHP9pnquS4wBlBKHrKmVn9M=;
+        b=Wt4IuMmXdJ+wgPBgq9VHzMFQubO//9+S+eNMCPDJA0nDoQ8KkIsCEZ3+GX0TSx2rGU4a2a
+        DMP7H8NsW6viJz07EYAHGvPgOG2ev22nixSqPAkbf5F5nQQOcqpR5orCts87FPprHDi8Tr
+        dcKCfCtSNs5n1WDgqZ0GFUYSoaOSOrc=
+Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
+ [209.85.218.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-650-Bbj4DJnVN3KuDNEogetZmA-1; Wed, 26 Jul 2023 07:55:29 -0400
+X-MC-Unique: Bbj4DJnVN3KuDNEogetZmA-1
+Received: by mail-ej1-f70.google.com with SMTP id a640c23a62f3a-993eeb3a950so20713666b.2
+        for <linux-man@vger.kernel.org>; Wed, 26 Jul 2023 04:55:29 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690371519; x=1690976319;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=4xN+ro7dynPbK7oOw5o5yhrYFjjc7jdgbMD0NNaHuLA=;
-        b=hTs2N1/NjDDmteHquX4Ocu8e/f1pYBtA3kQ9QaMoLZw2d8jGobbQ1UlrhVLVekvUr2
-         LecrQfpcVp0BiQ5yhTBK9QLetFvbG9X0555dAof9hbqMVScPF6fhXnFXBDkSAA53jdHj
-         s7rMCwLsP1E8VEy6auAarZvHaG+LfeSpBiwXvnA6fqZNgK/PNN50/lOOcErIUJEhLWJc
-         pKbwsUg4tQm5MYlLDFxoSjf9ipwMga5+SI3L2bKaOJH07iy4H1JQ3dIRZgfzY3iVYk20
-         PUYMulUH/VI3HugGnyPFGn8zKcs6j2EeQv8d2tATRBqBMJRgtP6GKYgTvVbxrMtQ3Kf0
-         s+Kg==
-X-Gm-Message-State: ABy/qLYkgWDU4TMr1qFLVffNG5+nlMjp4vyMOXe4NaAhWLDxJJ21HB0K
-        AdDsQ6tI+Zgjo3wRS14IfSWZyDCFKKo=
-X-Google-Smtp-Source: APBJJlGBIha7eGFYAJZABX5QauXNBEZeqXP9JY/OxRyi+ztiNj1biFdhogm9oOYEHyu0vcu4HBxQrg==
-X-Received: by 2002:a05:6870:1cc:b0:1ba:bb13:d007 with SMTP id n12-20020a05687001cc00b001babb13d007mr1985341oad.5.1690371518711;
-        Wed, 26 Jul 2023 04:38:38 -0700 (PDT)
-Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id u1-20020a05687004c100b0019e6b96f909sm6351099oam.22.2023.07.26.04.38.37
+        d=1e100.net; s=20221208; t=1690372528; x=1690977328;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=t/O9imrhhOtJ0reFi/g5hHP9pnquS4wBlBKHrKmVn9M=;
+        b=V1alP1RFrrEz6pUWO6nGfqvhy4wy+jYLMH0GLJ0LjNH0or+hsKgipW/4k3G3EwKSEk
+         B4phBfS2JZ6wmueab9/IAYzdhj7YM4/7srd33q1NEkHgKjF6pRrDru81Bo9U+I3EHRlm
+         cC26PKvb3x5JI9ozTg3jrdG8vjKavGMzAHplaKJ3OQIgfSfRPBIe1m3btdnrbdDMFxxd
+         8+GVXOirvP5THOb6X0wlti8XOb++h7jOkXk0JG7kJhZtdD9tVRKreqpbhEFs+Hsib/qP
+         fyhkR7St7pqSoQqd/rjPWSOVlB2uybtC3fJiuyCvHh/vSjrktcfQ64WnA89InF5dMjBz
+         hDTw==
+X-Gm-Message-State: ABy/qLYuxj0reazrAlyVkBigSduCkTMivcFtLkW5/8dpEJ/n+8O4Lx/8
+        knotNkedWIcuPVde2cpft+fiKLxW8ta98dNB2wpE6XkJx20fbTLZe1IYI7JdN2w/nn1iXFITCxX
+        1S1Th4VEXsuSEMpBzghO6
+X-Received: by 2002:a17:906:76c2:b0:993:f081:2c58 with SMTP id q2-20020a17090676c200b00993f0812c58mr1396641ejn.4.1690372528497;
+        Wed, 26 Jul 2023 04:55:28 -0700 (PDT)
+X-Google-Smtp-Source: APBJJlHud0tMyAjeBR54NJbBM/sJgZUJzuDeD3ppRyCnApBvzVD5U0/lpLPe8rI9sAPAJ3H+91QbqA==
+X-Received: by 2002:a17:906:76c2:b0:993:f081:2c58 with SMTP id q2-20020a17090676c200b00993f0812c58mr1396628ejn.4.1690372528106;
+        Wed, 26 Jul 2023 04:55:28 -0700 (PDT)
+Received: from localhost.localdomain (ip-86-49-233-183.bb.vodafone.cz. [86.49.233.183])
+        by smtp.gmail.com with ESMTPSA id d10-20020a17090648ca00b0099b6b8a0d04sm8213346ejt.157.2023.07.26.04.55.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Jul 2023 04:38:38 -0700 (PDT)
-Date:   Wed, 26 Jul 2023 06:38:36 -0500
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     =?utf-8?B?VG9tw6HFoSBHb2xlbWJpb3Zza8O9?= <tgolembi@redhat.com>
-Cc:     Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org,
-        Stefan Puiu <stefan.puiu@gmail.com>
-Subject: Re: [PATCH v4] abort: clarify consequences of calling abort
-Message-ID: <20230726113836.qery7vznhrm4hqdt@illithid>
-References: <5c8c0d88151e70a69c8613ad87c4441472d3ad95.1689867426.git.tgolembi@redhat.com>
+        Wed, 26 Jul 2023 04:55:27 -0700 (PDT)
+From:   =?UTF-8?q?Tom=C3=A1=C5=A1=20Golembiovsk=C3=BD?= 
+        <tgolembi@redhat.com>
+To:     Alejandro Colomar <alx@kernel.org>
+Cc:     linux-man@vger.kernel.org,
+        =?UTF-8?q?Tom=C3=A1=C5=A1=20Golembiovsk=C3=BD?= 
+        <tgolembi@redhat.com>, Carlos O'Donell <carlos@redhat.com>,
+        Glibc <libc-alpha@sourceware.org>
+Subject: [PATCH] abort.3: Note that the glibc implementation is not async-signal-safe
+Date:   Wed, 26 Jul 2023 13:55:27 +0200
+Message-ID: <07404317c21c86c517bc84357f91c4e179542906.1690372376.git.tgolembi@redhat.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="wme6fidjfeseqohr"
-Content-Disposition: inline
-In-Reply-To: <5c8c0d88151e70a69c8613ad87c4441472d3ad95.1689867426.git.tgolembi@redhat.com>
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-        autolearn=ham autolearn_force=no version=3.4.6
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
+        RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,
+        T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=ham autolearn_force=no
+        version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+See https://sourceware.org/bugzilla/show_bug.cgi?id=26275
 
---wme6fidjfeseqohr
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Cc: Carlos O'Donell <carlos@redhat.com>
+Cc: Glibc <libc-alpha@sourceware.org>
+Signed-off-by: Tomáš Golembiovský <tgolembi@redhat.com>
+---
+ man3/abort.3         | 6 ++++++
+ man7/signal-safety.7 | 5 +++++
+ 2 files changed, 11 insertions(+)
 
-Hi Tom=C3=A1=C5=A1,
+diff --git a/man3/abort.3 b/man3/abort.3
+index 0b57e10ed..827d5c9db 100644
+--- a/man3/abort.3
++++ b/man3/abort.3
+@@ -85,6 +85,12 @@ terminates the process without flushing streams.
+ POSIX.1 permits either possible behavior, saying that
+ .BR abort ()
+ "may include an attempt to effect fclose() on all open streams".
++.SH BUGS
++The glibc implementation of
++.BR abort ()
++is not async-signal-safe,
++.\" FIXME . https://sourceware.org/bugzilla/show_bug.cgi?id=26275
++in violation of the requirements of POSIX.1.
+ .SH SEE ALSO
+ .BR gdb (1),
+ .BR sigaction (2),
+diff --git a/man7/signal-safety.7 b/man7/signal-safety.7
+index 3d6ddc7eb..431a22f89 100644
+--- a/man7/signal-safety.7
++++ b/man7/signal-safety.7
+@@ -335,6 +335,11 @@ The glibc implementation of
+ is not async-signal-safe because it uses
+ .BR pthread_mutex_lock (3)
+ internally.
++.IP \[bu]
++.\" FIXME . https://sourceware.org/bugzilla/show_bug.cgi?id=26275
++The glibc implementation of
++.BR abort (3)
++is not async-signal-safe.
+ .SH SEE ALSO
+ .BR sigaction (2),
+ .BR signal (7),
+-- 
+2.41.0
 
-At 2023-07-20T17:38:01+0200, Tom=C3=A1=C5=A1 Golembiovsk=C3=BD wrote:
-> Clarify that atexit/on_exit are not called because those are called
-> only on normal process termination (as documented on their respective
-> manual pages).
->=20
-> Cc: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-> Cc: Stefan Puiu <stefan.puiu@gmail.com>
-> Signed-off-by: Tom=C3=A1=C5=A1 Golembiovsk=C3=BD <tgolembi@redhat.com>
-[...]
-> +.BR atexit "(3) and " on_exit (3)
-
-You might recast this line as:
-
-=2EBR atexit (3)
-and
-=2EBR on_exit (3)
-
-=2E..because it's (a) a little more readable (no quoted spaces) and (b) it
-be easily pattern-matched to migrate the man page cross references to
-the new `MR` macro in groff 1.23.0 (released at last), and for which I'm
-(slowly) working up a sed script.
-
-There are plenty of special cases to handle, but stemming the influx of
-new ones will help.  :)
-
-Regards,
-Branden
-
---wme6fidjfeseqohr
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmTBBbQACgkQ0Z6cfXEm
-bc50jRAAk1KAn7GnAz6w41vcuhFy6MTRUjAMk71xJn27SJTyYsG5InSS2XV6PW9N
-s3+v+RF2iapaFFPhFRKkxnMmtcn2UFYftxkQqlrexR/xO3PM2bUjrR7iwcg/Yhho
-6hlLHAdDPviQfAotJpPlmUlV3VkyRZHLz8IN5bzRHcPrCoZq0yoBuSddM10UhiJk
-kqm5qpVDviW/wckvYHGOjq63rA0dY3clCFzG3cy+G5NAtgcabp5kaSPddbPRiErT
-SkqcfOMS0N3rO7X2D/7lB+bOFnhv7G5gL74LS8NWtQsSXRf2TJ5XIIWjycoyRyQ5
-K0UizC0HcQl5lx/JBglOYishhD/CLGTTl2eSKVqTEaZUH2nFGzXQa5N7mpswCulc
-Wl9+tumhGWGYhZS+dySCPQhW+OMCKjis9dOgP6xRoq/KveVwMjTGgCHmTG/pkuqU
-AG72hJYUupKHkcCVe5o1HDOSFb8s1wXDRDZSvZOuObpo7CdY8jO10B6tDjhlPmX7
-+yXTmSU+myUc0xgc4Oq6nAO4Wntv/1UdBMifON6YvpC5856iVtiIbudI4/oP3NDj
-niUmfGDk8HGkiw0ezVX74DTHEu8Qj/c1lEnZJCvnowCt9uHcbJXQU5xCSI2aOypW
-ruWbUoS5RC327UHRdafYtgGxTmNYqhfpXGi2Ddyi3SMOvloVwOo=
-=HM0h
------END PGP SIGNATURE-----
-
---wme6fidjfeseqohr--
