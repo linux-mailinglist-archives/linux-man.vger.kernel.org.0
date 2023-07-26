@@ -2,126 +2,119 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id E8BBF7635BA
-	for <lists+linux-man@lfdr.de>; Wed, 26 Jul 2023 13:56:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id BD6DC7636E3
+	for <lists+linux-man@lfdr.de>; Wed, 26 Jul 2023 14:56:59 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232271AbjGZL4b (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Wed, 26 Jul 2023 07:56:31 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53930 "EHLO
+        id S231968AbjGZM47 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 26 Jul 2023 08:56:59 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57304 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232220AbjGZL4a (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Wed, 26 Jul 2023 07:56:30 -0400
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A49641B8
-        for <linux-man@vger.kernel.org>; Wed, 26 Jul 2023 04:55:31 -0700 (PDT)
+        with ESMTP id S230229AbjGZM46 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 26 Jul 2023 08:56:58 -0400
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DDFCB97
+        for <linux-man@vger.kernel.org>; Wed, 26 Jul 2023 05:56:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1690372530;
+        s=mimecast20190719; t=1690376172;
         h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
          to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         content-transfer-encoding:content-transfer-encoding;
-        bh=t/O9imrhhOtJ0reFi/g5hHP9pnquS4wBlBKHrKmVn9M=;
-        b=Wt4IuMmXdJ+wgPBgq9VHzMFQubO//9+S+eNMCPDJA0nDoQ8KkIsCEZ3+GX0TSx2rGU4a2a
-        DMP7H8NsW6viJz07EYAHGvPgOG2ev22nixSqPAkbf5F5nQQOcqpR5orCts87FPprHDi8Tr
-        dcKCfCtSNs5n1WDgqZ0GFUYSoaOSOrc=
-Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
- [209.85.218.70]) by relay.mimecast.com with ESMTP with STARTTLS
+         content-transfer-encoding:content-transfer-encoding:
+         in-reply-to:in-reply-to:references:references;
+        bh=UIAAElWP++eVJ32UquQiVLrccaUa2RySkQQUzt2bkXY=;
+        b=EyEiMPQPhoeLK1G6+yjQsOaNE/M4zw8znCIuomneD37o9EXG1Un8syLeSOTzH9RvCxADQ3
+        HR5edsTCvRoUF0d3ILVFduVzRaZdw/7/kEkgldkyPa/L3LiM2qEOpu5UdAMxBvoTFeFhcf
+        JhhD1Vl2W/udRDDMXYBXHE7vIp5IYBs=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-650-Bbj4DJnVN3KuDNEogetZmA-1; Wed, 26 Jul 2023 07:55:29 -0400
-X-MC-Unique: Bbj4DJnVN3KuDNEogetZmA-1
-Received: by mail-ej1-f70.google.com with SMTP id a640c23a62f3a-993eeb3a950so20713666b.2
-        for <linux-man@vger.kernel.org>; Wed, 26 Jul 2023 04:55:29 -0700 (PDT)
+ us-mta-307-7yk2uulrOcecka1DC8GvSQ-1; Wed, 26 Jul 2023 08:56:10 -0400
+X-MC-Unique: 7yk2uulrOcecka1DC8GvSQ-1
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-3fd0fa4d08cso35526525e9.1
+        for <linux-man@vger.kernel.org>; Wed, 26 Jul 2023 05:56:10 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690372528; x=1690977328;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=t/O9imrhhOtJ0reFi/g5hHP9pnquS4wBlBKHrKmVn9M=;
-        b=V1alP1RFrrEz6pUWO6nGfqvhy4wy+jYLMH0GLJ0LjNH0or+hsKgipW/4k3G3EwKSEk
-         B4phBfS2JZ6wmueab9/IAYzdhj7YM4/7srd33q1NEkHgKjF6pRrDru81Bo9U+I3EHRlm
-         cC26PKvb3x5JI9ozTg3jrdG8vjKavGMzAHplaKJ3OQIgfSfRPBIe1m3btdnrbdDMFxxd
-         8+GVXOirvP5THOb6X0wlti8XOb++h7jOkXk0JG7kJhZtdD9tVRKreqpbhEFs+Hsib/qP
-         fyhkR7St7pqSoQqd/rjPWSOVlB2uybtC3fJiuyCvHh/vSjrktcfQ64WnA89InF5dMjBz
-         hDTw==
-X-Gm-Message-State: ABy/qLYuxj0reazrAlyVkBigSduCkTMivcFtLkW5/8dpEJ/n+8O4Lx/8
-        knotNkedWIcuPVde2cpft+fiKLxW8ta98dNB2wpE6XkJx20fbTLZe1IYI7JdN2w/nn1iXFITCxX
-        1S1Th4VEXsuSEMpBzghO6
-X-Received: by 2002:a17:906:76c2:b0:993:f081:2c58 with SMTP id q2-20020a17090676c200b00993f0812c58mr1396641ejn.4.1690372528497;
-        Wed, 26 Jul 2023 04:55:28 -0700 (PDT)
-X-Google-Smtp-Source: APBJJlHud0tMyAjeBR54NJbBM/sJgZUJzuDeD3ppRyCnApBvzVD5U0/lpLPe8rI9sAPAJ3H+91QbqA==
-X-Received: by 2002:a17:906:76c2:b0:993:f081:2c58 with SMTP id q2-20020a17090676c200b00993f0812c58mr1396628ejn.4.1690372528106;
-        Wed, 26 Jul 2023 04:55:28 -0700 (PDT)
-Received: from localhost.localdomain (ip-86-49-233-183.bb.vodafone.cz. [86.49.233.183])
-        by smtp.gmail.com with ESMTPSA id d10-20020a17090648ca00b0099b6b8a0d04sm8213346ejt.157.2023.07.26.04.55.27
+        d=1e100.net; s=20221208; t=1690376169; x=1690980969;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=UIAAElWP++eVJ32UquQiVLrccaUa2RySkQQUzt2bkXY=;
+        b=HrodW+ObnN+fqgqU4vgTNCWB/LdIr4Nb7svzmyobzCJbJz/7S/xl0eRRNf+Xk8p5HR
+         zUvIaWC3FFDooJona7PVrTlFDB7doLEsuA6T4fZDj52lP9ukpW9fBsc996WpEuJ3Du47
+         cm0JqvhsfbaXMonis96gOmgk7E09oF3qIwNbGHuT/xPM+f/s79rIVrSDkRbabS9iI1sj
+         hem7Pn7f7A7sPVc0UB/rPGZwyu/vcyQ+YxYS81IeLkINB/1We2+pI7jJlOGePHZfMHBZ
+         3leQSZkBdi7qZO/1M6u1hvb7rQCsEQqFscSl1ZFREF0Onu/cJCWMOjn979exHW2gxZLz
+         zUew==
+X-Gm-Message-State: ABy/qLalUzu65bsHhXVKgixmSF6UiNDJPhDIN2ERUmIP3dsQgfAX2d5e
+        wQ26ykLgJ3AiM2jH3MT5Ahsrn7V0xVswkaEHsjMFGGs136qBN390tUYktDgwX1OtYXNiaW3I0X5
+        fRl3jxLSioPypmUnw4ZTX
+X-Received: by 2002:a7b:c84a:0:b0:3fc:62c:8447 with SMTP id c10-20020a7bc84a000000b003fc062c8447mr1371183wml.9.1690376169820;
+        Wed, 26 Jul 2023 05:56:09 -0700 (PDT)
+X-Google-Smtp-Source: APBJJlH+bFDWMBz4eTujAM9lfQODYGsnJ7BY61+il2jgmL+WLpjyn8NnNZmh/WcGxX153Iy2AmDJhQ==
+X-Received: by 2002:a7b:c84a:0:b0:3fc:62c:8447 with SMTP id c10-20020a7bc84a000000b003fc062c8447mr1371169wml.9.1690376169497;
+        Wed, 26 Jul 2023 05:56:09 -0700 (PDT)
+Received: from cremorrah (ip-86-49-233-183.bb.vodafone.cz. [86.49.233.183])
+        by smtp.gmail.com with ESMTPSA id c18-20020a05600c0ad200b003fa968e9c27sm1943443wmr.9.2023.07.26.05.56.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Jul 2023 04:55:27 -0700 (PDT)
-From:   =?UTF-8?q?Tom=C3=A1=C5=A1=20Golembiovsk=C3=BD?= 
-        <tgolembi@redhat.com>
-To:     Alejandro Colomar <alx@kernel.org>
-Cc:     linux-man@vger.kernel.org,
-        =?UTF-8?q?Tom=C3=A1=C5=A1=20Golembiovsk=C3=BD?= 
-        <tgolembi@redhat.com>, Carlos O'Donell <carlos@redhat.com>,
-        Glibc <libc-alpha@sourceware.org>
-Subject: [PATCH] abort.3: Note that the glibc implementation is not async-signal-safe
-Date:   Wed, 26 Jul 2023 13:55:27 +0200
-Message-ID: <07404317c21c86c517bc84357f91c4e179542906.1690372376.git.tgolembi@redhat.com>
-X-Mailer: git-send-email 2.41.0
+        Wed, 26 Jul 2023 05:56:09 -0700 (PDT)
+Date:   Wed, 26 Jul 2023 14:56:07 +0200
+From:   =?utf-8?B?VG9tw6HFoSBHb2xlbWJpb3Zza8O9?= <tgolembi@redhat.com>
+To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc:     Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org,
+        Stefan Puiu <stefan.puiu@gmail.com>
+Subject: Re: [PATCH v4] abort: clarify consequences of calling abort
+Message-ID: <ZMEX5_Mt_rm-QE0i@cremorrah>
+References: <5c8c0d88151e70a69c8613ad87c4441472d3ad95.1689867426.git.tgolembi@redhat.com>
+ <20230726113836.qery7vznhrm4hqdt@illithid>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20230726113836.qery7vznhrm4hqdt@illithid>
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
-        RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,
-        T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=ham autolearn_force=no
-        version=3.4.6
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+        RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,
+        SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-See https://sourceware.org/bugzilla/show_bug.cgi?id=26275
+Sure I will do that and resend.
 
-Cc: Carlos O'Donell <carlos@redhat.com>
-Cc: Glibc <libc-alpha@sourceware.org>
-Signed-off-by: Tomáš Golembiovský <tgolembi@redhat.com>
----
- man3/abort.3         | 6 ++++++
- man7/signal-safety.7 | 5 +++++
- 2 files changed, 11 insertions(+)
+Thanks,
 
-diff --git a/man3/abort.3 b/man3/abort.3
-index 0b57e10ed..827d5c9db 100644
---- a/man3/abort.3
-+++ b/man3/abort.3
-@@ -85,6 +85,12 @@ terminates the process without flushing streams.
- POSIX.1 permits either possible behavior, saying that
- .BR abort ()
- "may include an attempt to effect fclose() on all open streams".
-+.SH BUGS
-+The glibc implementation of
-+.BR abort ()
-+is not async-signal-safe,
-+.\" FIXME . https://sourceware.org/bugzilla/show_bug.cgi?id=26275
-+in violation of the requirements of POSIX.1.
- .SH SEE ALSO
- .BR gdb (1),
- .BR sigaction (2),
-diff --git a/man7/signal-safety.7 b/man7/signal-safety.7
-index 3d6ddc7eb..431a22f89 100644
---- a/man7/signal-safety.7
-+++ b/man7/signal-safety.7
-@@ -335,6 +335,11 @@ The glibc implementation of
- is not async-signal-safe because it uses
- .BR pthread_mutex_lock (3)
- internally.
-+.IP \[bu]
-+.\" FIXME . https://sourceware.org/bugzilla/show_bug.cgi?id=26275
-+The glibc implementation of
-+.BR abort (3)
-+is not async-signal-safe.
- .SH SEE ALSO
- .BR sigaction (2),
- .BR signal (7),
--- 
-2.41.0
+    Tomas
+
+On Wed, Jul 26, 2023 at 06:38:36AM -0500, G. Branden Robinson wrote:
+> Hi Tomáš,
+> 
+> At 2023-07-20T17:38:01+0200, Tomáš Golembiovský wrote:
+> > Clarify that atexit/on_exit are not called because those are called
+> > only on normal process termination (as documented on their respective
+> > manual pages).
+> > 
+> > Cc: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+> > Cc: Stefan Puiu <stefan.puiu@gmail.com>
+> > Signed-off-by: Tomáš Golembiovský <tgolembi@redhat.com>
+> [...]
+> > +.BR atexit "(3) and " on_exit (3)
+> 
+> You might recast this line as:
+> 
+> .BR atexit (3)
+> and
+> .BR on_exit (3)
+> 
+> ...because it's (a) a little more readable (no quoted spaces) and (b) it
+> be easily pattern-matched to migrate the man page cross references to
+> the new `MR` macro in groff 1.23.0 (released at last), and for which I'm
+> (slowly) working up a sed script.
+> 
+> There are plenty of special cases to handle, but stemming the influx of
+> new ones will help.  :)
+> 
+> Regards,
+> Branden
+
 
