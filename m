@@ -2,72 +2,64 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 4C6E4765B67
-	for <lists+linux-man@lfdr.de>; Thu, 27 Jul 2023 20:34:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 004A776740F
+	for <lists+linux-man@lfdr.de>; Fri, 28 Jul 2023 19:57:25 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229771AbjG0SeO (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 27 Jul 2023 14:34:14 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60182 "EHLO
+        id S233550AbjG1R5Y (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 28 Jul 2023 13:57:24 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47692 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229505AbjG0SeO (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 27 Jul 2023 14:34:14 -0400
-Received: from mail-qt1-x830.google.com (mail-qt1-x830.google.com [IPv6:2607:f8b0:4864:20::830])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5180E2738
-        for <linux-man@vger.kernel.org>; Thu, 27 Jul 2023 11:34:12 -0700 (PDT)
-Received: by mail-qt1-x830.google.com with SMTP id d75a77b69052e-40540a8a3bbso37911cf.1
-        for <linux-man@vger.kernel.org>; Thu, 27 Jul 2023 11:34:12 -0700 (PDT)
+        with ESMTP id S232003AbjG1R5Y (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 28 Jul 2023 13:57:24 -0400
+Received: from mail-ot1-x329.google.com (mail-ot1-x329.google.com [IPv6:2607:f8b0:4864:20::329])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5B28110CB
+        for <linux-man@vger.kernel.org>; Fri, 28 Jul 2023 10:57:21 -0700 (PDT)
+Received: by mail-ot1-x329.google.com with SMTP id 46e09a7af769-6b9edef7993so1957479a34.2
+        for <linux-man@vger.kernel.org>; Fri, 28 Jul 2023 10:57:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20221208; t=1690482851; x=1691087651;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=Wpc+eUMqSNKkZ5g/glskW5+HcFJY7oJ6YqYO/KriUXM=;
-        b=gOs9WMiLPU93Esz1lV2nNXNckobnZ4XBKBkYP9edld72w5chdacTDrJhkbfhV516dV
-         GGloa2BJmXRXcdyqcrSRKaB59XCZxap+a70NWwBcNOi56Yep/7H06lpRNzejL1BNoD26
-         KN0WJH8TjYVnzqhS6ToJLaphmc9fE8pDREvdTZFDxH/QpTCPv0TWkKeET0x3wwe31ugs
-         92m6aHswK4ULxGjyjqxhaX09YHn7GRELXauN/n/M83wj1dNmhDGgSN+J0UxLoIkGJoOD
-         XUsDeUDw12TanIHGY/SRqm1sgQmboP09RKsbPz+uMTikSJHV1HSjGMANUzRJnqOXKa0D
-         YjfQ==
+        d=gmail.com; s=20221208; t=1690567040; x=1691171840;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=8AD9w3EGjCHpsHD047Eg0izZ3w3/7k6LTpxA/IH94cg=;
+        b=skaQsS00LcqmtSbfPz4sYzNIaQPxnHXX5FvSmV4azG9KYYaS/6BbXqupcg2vVsUDZU
+         yUavtw41AtH0xQ+dHtx10liOrWeM1NGKKUNT8RvUXnjJQ5Yj1Wj0MuOff0/IOF+JyW12
+         3n12KR/Mbki1s6AVo1z4Hoe8I/mZdvOzC4gkifprziBgyyuN11EB2zmfhjKFWEu4QHg9
+         721MwJlkwO6hoKS7mCHV13yiwcBloNPzRnpmeVSqlJLGyh85pXjht7KnHUXlw99Y368O
+         Nx/MKKceK9cr05i2ECyZOm2opTFEHsUYcON7W3g+431PWHmzgTiCQ0oaVPvJnIRtn1IN
+         beRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690482851; x=1691087651;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Wpc+eUMqSNKkZ5g/glskW5+HcFJY7oJ6YqYO/KriUXM=;
-        b=MlEfHor8Zowg4ZOdY6qbuKeEfdfqLE+LUG4BstBW9Fbdd1YwHLguR5EsuvrA1q4pHX
-         u6qZDZTxyR2iRD9l/Tecs1UBe9TItDcTzvc5ji4n6BkiJdz6QnkbRIp6Hvr1TtzMXlGJ
-         51BiZcxeE6R1LJ/yCzjfQzIdjtdVU/2bwKK1hvzTeH0oclAwdOhsw4F0rS+vpjvxOrzH
-         PkWLHcadJO3R7CGZvHxWyel/gJSUPFs8HrEP4jV6iqsEaJ7qeMiOwEmPL/cV626BC7aN
-         6OH+0jdfQpHBg+3vkToeVI29rQA61HiihbF/ZMY46htTBBtkgiAL4R9H+XC9i8enxuVq
-         mElg==
-X-Gm-Message-State: ABy/qLbOPOZnyQg1xrXKpMf6eiMqTw+sTqpxgApLhO7BYzEbKvNyZzzG
-        8KhesUKlzVK7XLgTylroEvqXAlpQRviUANn/v5T/lw==
-X-Google-Smtp-Source: APBJJlGDJ77Pox5TELYXfPfrADd+5GjYpmv+U+UbQBiB29CFQ6qT7TGT8gQhX59Bfja4cksAJnDVr25NJnzSt0NDdEw=
-X-Received: by 2002:a05:622a:253:b0:3f8:8c06:c53b with SMTP id
- c19-20020a05622a025300b003f88c06c53bmr52239qtx.0.1690482851345; Thu, 27 Jul
- 2023 11:34:11 -0700 (PDT)
+        d=1e100.net; s=20221208; t=1690567040; x=1691171840;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=8AD9w3EGjCHpsHD047Eg0izZ3w3/7k6LTpxA/IH94cg=;
+        b=bx8SfrfP8AaSxIQErTNlTYOTz9K3o8nK/Jt3++0xa+LE2jkQ4BPsnYKGrN584Med9v
+         XpeJP91n8qLER3J6SpibwP/jtdiNlitcfv4wN+eU79tOE4vYl+Tm5ecwuXF5kzC8ybDg
+         5LkQJOxCg3boxpMme39c/FTGJqKTK9QdLbh1ODyUQv7w5b/ySH/kfbHOih2gGrxAdXHQ
+         qf9coBnFzPm6LQG1+JtvYIot/8WoDDNBb6Nk08zAvbeR0kcDU7bKx7emO87c4atDjbCm
+         zWWYRSqsWHMa194tRFOIs5HZWGm3FhxqXSiKYMRHmy0o1JJfR4iHnEkbdwgx9t1/9TTi
+         Cu6g==
+X-Gm-Message-State: ABy/qLbT/qWzKmKHvAb6qN/OEcc/m3+zg9zYv8GJIMsgFg+CnG0Fj5jm
+        hztLE1aQg2w7xv77SkmuxyD48elLAf0=
+X-Google-Smtp-Source: APBJJlEOw8Bha5DXuNH1kv51TkUqnd6az2kgw6ocG21BIq0iy5s4uWzijMNFYupsBJtz21g6Qy/NJA==
+X-Received: by 2002:a9d:4e89:0:b0:6bc:8cd2:dd9c with SMTP id v9-20020a9d4e89000000b006bc8cd2dd9cmr1594018otk.36.1690567040402;
+        Fri, 28 Jul 2023 10:57:20 -0700 (PDT)
+Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
+        by smtp.gmail.com with ESMTPSA id m28-20020a0568301e7c00b006b8a0c7e14asm1800721otr.55.2023.07.28.10.57.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Jul 2023 10:57:19 -0700 (PDT)
+Date:   Fri, 28 Jul 2023 12:57:18 -0500
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To:     linux-man@vger.kernel.org
+Cc:     alx@kernel.org
+Subject: [PATCH 1/6] man.7: srcfix
+Message-ID: <20230728175718.v25t776r3xqzxbog@illithid>
 MIME-Version: 1.0
-References: <CAELULbeXgZWn+Nw_rpUzkGgNCtb7oFf1+JS=KnNVuLhcF5Vabg@mail.gmail.com>
- <CAELULbf=z2WWpHm5QDTK81oWTC9zMZJg2MA69mjOorJQ5QAzGw@mail.gmail.com>
- <CAJgzZopuptYOKHQ32-mau9gzwaWOmRtTACqdmfZvox=c2itp7w@mail.gmail.com>
- <781c88a1-b71f-f600-8d75-068a65855d16@gmail.com> <CAJgzZooLH5UnNU_j6jTkTFMCS+7gDMaTu9RYpSHnO2ELJat-+A@mail.gmail.com>
- <41ea7196-c824-196d-7794-0f61d0947bcd@gmail.com> <CAELULbcAtuqehXmDeRjOPtCOuriw9hrUU2Ndw8-i0Z=9GkbNzg@mail.gmail.com>
- <CAELULbfDFt2Z3T45_brzhWzL8182R=uxpHy_rSdgBSXpp+QQKQ@mail.gmail.com>
- <CAJgzZoqS-QJWX87P5B1LQxCktm9BAVfVVBwBxV87RhmQg0fsdg@mail.gmail.com>
- <CAJgzZooCj9FcHwMam0TC_y6c33K8OFuWGGS0_-Ji+eEhLsXo_Q@mail.gmail.com>
- <e7083e0d-92c2-ae07-7ff5-f7fa1ca91be6@kernel.org> <bf4dd8ed-ded3-6fe0-d3fa-afa63164bc4c@kernel.org>
- <CAELULbcxcmRXCkXx3_q2WMb8eMHTGfRRw=kmsOCBr-YRauOgUQ@mail.gmail.com> <61009d70-8033-2e6d-7916-f45033398d7d@kernel.org>
-In-Reply-To: <61009d70-8033-2e6d-7916-f45033398d7d@kernel.org>
-From:   Zijun Zhao <zijunzhao@google.com>
-Date:   Thu, 27 Jul 2023 11:33:35 -0700
-Message-ID: <CAELULbd+_kOKdJcKuTS8XqbcFyeZB6Qsi8J_YAe6WuO_+n=26A@mail.gmail.com>
-Subject: Re: [PATCH] Fix the man page
-To:     Alejandro Colomar <alx@kernel.org>
-Cc:     linux-man@vger.kernel.org, enh <enh@google.com>
-Content-Type: multipart/mixed; boundary="000000000000daeb9306017c350a"
-X-Spam-Status: No, score=-17.6 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-        ENV_AND_HDR_SPF_MATCH,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,
-        T_SCC_BODY_TEXT_LINE,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL
+Content-Type: multipart/signed; micalg=pgp-sha256;
+        protocol="application/pgp-signature"; boundary="k3ibboqn5tyzkvcr"
+Content-Disposition: inline
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
         autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -75,119 +67,265 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
---000000000000daeb9306017c350a
-Content-Type: text/plain; charset="UTF-8"
+
+--k3ibboqn5tyzkvcr
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hi Alejandro,
-  Sorry for the late reply! Thank you for your help! Yes, all comments
-are very clear, understandable and helpful! This is the new patch.
-Thank you for reviewing! Also, thank Elliott for helping! Hope this
-patch is qualified!
-Best,
-Zijun
+Clean up in preparation for "MR sed".
+
+=46rom 219257753d7650332b7256653fcf80591da31887 Mon Sep 17 00:00:00 2001
+=46rom: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To: linux-man@vger.kernel.org
+Date: Fri, 28 Jul 2023 12:17:44 -0500
+Subject: [PATCH 1/6] man.7: srcfix
+MIME-Version: 1.0
+Content-Type: text/plain; charset=3DUTF-8
+Content-Transfer-Encoding: 8bit
+
+Drop spurious uses of *roff `\&` escape sequence.
+
+Quoting groff_man_style(7):
+
+    \&  Dummy character.  Insert at the beginning of an input line to
+        prevent a dot or apostrophe from being interpreted as beginning
+        a roff control line.  Append to an end=E2=80=90of=E2=80=90sentence =
+punctuation
+        sequence to keep it from being recognized as such.
+
+Neither case applies to the uses in this page.
+
+Signed-off-by: G. Branden Robinson <g.branden.robinson@gmail.com>
+---
+ man7/man.7 | 70 +++++++++++++++++++++++++++---------------------------
+ 1 file changed, 35 insertions(+), 35 deletions(-)
+
+diff --git a/man7/man.7 b/man7/man.7
+index cf83292fa..258ce25da 100644
+--- a/man7/man.7
++++ b/man7/man.7
+@@ -60,7 +60,7 @@ .SS Title line
+ that is, lines that start with \fB.\e"\fP) should be
+ .PP
+ .RS
+-.B \&.TH
++.B .TH
+ .I "title section date source manual"
+ .RE
+ .PP
+@@ -76,12 +76,12 @@ .SS Title line
+ command.
+ .SS Sections
+ Sections are started with
+-.B \&.SH
++.B .SH
+ followed by the heading name.
+ .\" The following doesn't seem to be required (see Debian bug 411303),
+ .\" If the name contains spaces and appears
+ .\" on the same line as
+-.\" .BR \&.SH ,
++.\" .BR .SH ,
+ .\" then place the heading in double quotes.
+ .PP
+ The only mandatory heading is NAME, which should be the first section and
+@@ -111,37 +111,37 @@ .SS Sections
+ .SS Fonts
+ The commands to select the type face are:
+ .TP 4
+-.B \&.B
++.B .B
+ Bold
+ .TP
+-.B \&.BI
++.B .BI
+ Bold alternating with italics
+ (especially useful for function specifications)
+ .TP
+-.B \&.BR
++.B .BR
+ Bold alternating with Roman
+ (especially useful for referring to other
+ manual pages)
+ .TP
+-.B \&.I
++.B .I
+ Italics
+ .TP
+-.B \&.IB
++.B .IB
+ Italics alternating with bold
+ .TP
+-.B \&.IR
++.B .IR
+ Italics alternating with Roman
+ .TP
+-.B \&.RB
++.B .RB
+ Roman alternating with bold
+ .TP
+-.B \&.RI
++.B .RI
+ Roman alternating with italics
+ .TP
+-.B \&.SB
++.B .SB
+ Small alternating with bold
+ .TP
+-.B \&.SM
++.B .SM
+ Small (useful for acronyms)
+ .PP
+ Traditionally, each command can have up to six arguments, but the GNU
+@@ -152,7 +152,7 @@ .SS Fonts
+ For the macros that produce alternating type faces,
+ the arguments will be printed next to each other without
+ intervening spaces, so that the
+-.B \&.BR
++.B .BR
+ command can be used to specify a word in bold followed by a mark of
+ punctuation in Roman.
+ If no arguments are given, the command is applied to the following line
+@@ -178,21 +178,21 @@ .SS Other macros and strings
+ The other key macro definitions are:
+ .SS Normal paragraphs
+ .TP 9m
+-.B \&.LP
++.B .LP
+ Same as
+-.B \&.PP
++.B .PP
+ (begin a new paragraph).
+ .TP
+-.B \&.P
++.B .P
+ Same as
+-.B \&.PP
++.B .PP
+ (begin a new paragraph).
+ .TP
+-.B \&.PP
++.B .PP
+ Begin a new paragraph and reset prevailing indent.
+ .SS Relative margin indent
+ .TP 9m
+-.BI \&.RS " i"
++.BI .RS " i"
+ Start relative margin indent: moves the left margin
+ .I i
+ to the right (if
+@@ -201,19 +201,19 @@ .SS Relative margin indent
+ A new prevailing indent is set to 0.5 inches.
+ As a result, all following paragraph(s) will be
+ indented until the corresponding
+-.BR \&.RE .
++.BR .RE .
+ .TP
+-.B \&.RE
++.B .RE
+ End relative margin indent and
+ restores the previous value of the prevailing indent.
+ .SS Indented paragraph macros
+ .TP 9m
+-.BI \&.HP " i"
++.BI .HP " i"
+ Begin paragraph with a hanging indent
+ (the first line of the paragraph is at the left margin of
+ normal paragraphs, and the rest of the paragraph's lines are indented).
+ .TP
+-.BI \&.IP " x i"
++.BI .IP " x i"
+ Indented paragraph with optional hanging tag.
+ If the tag
+ .I x
+@@ -224,7 +224,7 @@ .SS Indented paragraph macros
+ is provided, it is hung at the left margin
+ before the following indented paragraph
+ (this is just like
+-.B \&.TP
++.B .TP
+ except the tag is included with the command instead of being on the
+ following line).
+ If the tag is too long, the text after the tag will be moved down to the
+@@ -234,25 +234,25 @@ .SS Indented paragraph macros
+ a period as the tag;
+ this simplifies translation to other formats.
+ .TP
+-.BI \&.TP " i"
++.BI .TP " i"
+ Begin paragraph with hanging tag.
+ The tag is given on the next line, but
+ its results are like those of the
+-.B \&.IP
++.B .IP
+ command.
+ .SS Hypertext link macros
+ .TP
+-.BI \&.UR " url"
++.BI .UR " url"
+ Insert a hypertext link to the URI (URL)
+ .IR url ,
+ with all text up to the following
+-.B \&.UE
++.B .UE
+ macro as the link text.
+ .TP
+-.B \&.UE \c
++.B .UE \c
+ .RI [ trailer ]
+ Terminate the link text of the preceding
+-.B \&.UR
++.B .UR
+ macro, with the optional
+ .I trailer
+ (if present, usually a closing parenthesis and/or end-of-sentence
+@@ -270,20 +270,20 @@ .SS Hypertext link macros
+ Heirloom Doctools Troff since 160217 (2016-02-17).
+ .SS Miscellaneous macros
+ .TP 9m
+-.B \&.DT
++.B .DT
+ Reset tabs to default tab values (every 0.5 inches);
+ does not cause a break.
+ .TP
+-.BI \&.PD " d"
++.BI .PD " d"
+ Set inter-paragraph vertical distance to d
+ (if omitted, d=3D0.4v);
+ does not cause a break.
+ .TP
+-.BI \&.SS " t"
++.BI .SS " t"
+ Subheading
+ .I t
+ (like
+-.BR \&.SH ,
++.BR .SH ,
+ but used for a subsection inside a section).
+ .SS Predefined strings
+ The
+--=20
+2.30.2
 
 
-On Sat, Jul 15, 2023 at 9:13=E2=80=AFAM Alejandro Colomar <alx@kernel.org> =
-wrote:
->
-> Hi Zijun,
->
-> On 2023-07-12 01:48, Zijun Zhao wrote:
-> > Hi Alejandro,
-> >   Sorry for the late reply!
->
-> No problem :-)
->
-> > I made some changes(make the subject more
-> > formal, add a blank line, respect the80-column right margin and use -u
-> > to when doing git format-patch) and attached the patch below.
->
-> Thanks!
->
-> > But I am
-> > a bit confused about semantic newlines. I think I already start on a
-> > new line and use clause breaks to split long sentences? Do I
-> > misunderstand something? Thank you!
->
-> Here's your patch, modified to use semantic newlines:
->
-> +The kernel accepts null for both time and timezone.
-> +The timezone argument is ignored by glibc and musl,
-> +and not passed to/from the kernel.
-> +Android's bionic passes the timezone argument to/from the kernel,
-> +but Android does not update the kernel timezone
-> +based on the device timezone in Settings,
-> +so the kernel's timezone is typically UTC.
->
-> Does it make sense now?
->
-> I'll also comment a few things about the patch:
->
-> > +The kernel accepts null for both time and timezone.
->
-> We should use the 'tv' and 'tz' identifiers.  We should also use NULL.
-> I suggest:
->
-> The kernel accepts NULL for both
-> .I tv
-> and
-> .IR tz .
->
-> > +The timezone argument is ignored by glibc and musl,
-> > +and not passed to/from the kernel.
-> > +Android's bionic passes the timezone argument to/from the kernel,
->
-> Could you give an example of why bionic differs from glibc and musl,
-> and why it can be useful.  It is mostly curiosity, but it might be
-> useful to have it documented in the commit message.
->
-> > +but Android does not update the kernel timezone
-> > +based on the device timezone in Settings,
-> > +so the kernel's timezone is typically UTC.
->
-> Cheers,
-> Alex
->
-> --
-> <http://www.alejandro-colomar.es/>
-> GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
->
+--k3ibboqn5tyzkvcr
+Content-Type: application/pgp-signature; name="signature.asc"
 
---000000000000daeb9306017c350a
-Content-Type: application/x-patch; 
-	name="0001-gettimeofday.2-Add-some-details-about-the-nullabilit.patch"
-Content-Disposition: attachment; 
-	filename="0001-gettimeofday.2-Add-some-details-about-the-nullabilit.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_lklhqu6o0>
-X-Attachment-Id: f_lklhqu6o0
+-----BEGIN PGP SIGNATURE-----
 
-RnJvbSA1MzkwMDIzNTEyYzRhOGEyYzc5Y2NhNzk0Njk0NGM0ZTM2NzdkM2MwIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBaaWp1biBaaGFvIDx6aWp1bnpoYW9AZ29vZ2xlLmNvbT4KRGF0
-ZTogTW9uLCA1IEp1biAyMDIzIDExOjQ1OjQ5IC0wNzAwClN1YmplY3Q6IFtQQVRDSF0gZ2V0dGlt
-ZW9mZGF5LjI6IEFkZCBzb21lIGRldGFpbHMgYWJvdXQgdGhlIG51bGxhYmlsaXR5IG9mCiBhcmd1
-bWVudCB0diBpbiBkaWZmZXJlbnQgbGlicmFyaWVzLgoKV2UgZmluZCB0diBhcmcgaXMgYWxsb3dl
-ZCB0byBiZSBudWxsIGluIGJpb25pYyBzbyBtYWtlIHRoZSBkb2N1bWVudGF0aW9uIG1vcmUgY2xl
-YXIuClBPU0lYIHNheXMgdGhpcyBiZWhhdmlvciBpcyB1bmRlZmluZWQsIGFuZCBiaW9uaWMganVz
-dCBleHBvc2VzIHRoZSBMaW51eCBzeXNjYWxsIGRpcmVjdGx5LgpUaGVyZSdzIG5vIGNvZGUgaW4g
-YmlvbmljIGZvciBnZXR0aW1lb2ZkYXkvc2V0dGltZW9mZGF5IC0tLSBqdXN0IGEgZGVzY3JpcHRp
-b24gb2YgdGhlCnN5c2NhbGwgbmFtZSBhbmQgYXJndW1lbnRzIGZyb20gd2hpY2ggYW4gYXNzZW1i
-bGVyIHN0dWIgaXMgYXV0b21hdGljYWxseSBnZW5lcmF0ZWQgYXQgYnVpbGQgdGltZS4KbXVzbCBh
-bmQgZ2xpYmMgZ28gb3V0IG9mIHRoZWlyIHdheSB0byBiZWhhdmUgZGlmZmVyZW50bHkgZnJvbSB0
-aGUgTGludXgga2VybmVsLCBidXQgbm8gaWRlYSB3aHkuCi0tLQogbWFuMi9nZXR0aW1lb2ZkYXku
-MiB8IDExICsrKysrKysrKysrCiAxIGZpbGUgY2hhbmdlZCwgMTEgaW5zZXJ0aW9ucygrKQoKZGlm
-ZiAtLWdpdCBhL21hbjIvZ2V0dGltZW9mZGF5LjIgYi9tYW4yL2dldHRpbWVvZmRheS4yCmluZGV4
-IDlkMTM0ZmE0OS4uYTc1ZTY2MDhjIDEwMDY0NAotLS0gYS9tYW4yL2dldHRpbWVvZmRheS4yCisr
-KyBiL21hbjIvZ2V0dGltZW9mZGF5LjIKQEAgLTE3NSw2ICsxNzUsMTcgQEAgT24gc29tZSBhcmNo
-aXRlY3R1cmVzLCBhbiBpbXBsZW1lbnRhdGlvbiBvZgogLkJSIGdldHRpbWVvZmRheSAoKQogaXMg
-cHJvdmlkZWQgaW4gdGhlCiAuQlIgdmRzbyAoNykuCisuUFAKK1RoZSBrZXJuZWwgYWNjZXB0cyBu
-dWxsIGZvciBib3RoCisuSSB0dgorYW5kCisuSVIgdHouCitUaGUgdGltZXpvbmUgYXJndW1lbnQg
-aXMgaWdub3JlZCBieSBnbGliYyBhbmQgbXVzbCwKK2FuZCBub3QgcGFzc2VkIHRvL2Zyb20gdGhl
-IGtlcm5lbC4KK0FuZHJvaWQncyBiaW9uaWMgcGFzc2VzIHRoZSB0aW1lem9uZSBhcmd1bWVudCB0
-by9mcm9tIHRoZSBrZXJuZWwsCitidXQgQW5kcm9pZCBkb2VzIG5vdCB1cGRhdGUgdGhlIGtlcm5l
-bCB0aW1lem9uZQorYmFzZWQgb24gdGhlIGRldmljZSB0aW1lem9uZSBpbiBTZXR0aW5ncywKK3Nv
-IHRoZSBrZXJuZWwncyB0aW1lem9uZSBpcyB0eXBpY2FsbHkgVVRDLgogLlNIIFNUQU5EQVJEUwog
-LlRQCiAuQlIgZ2V0dGltZW9mZGF5ICgpCi0tIAoyLjQxLjAuNTg1LmdkMjE3OGE0YmQ0LWdvb2cK
-Cg==
---000000000000daeb9306017c350a--
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmTEAXQACgkQ0Z6cfXEm
+bc7DIw//R7CoDTZvfR2lh6QwXKTKWWV72XBJS1n6RY/9PPU/lmDoGsdErUwJ0xZl
+cIZ0B6WtNyTOQXc9Xi34+spb5qIIA9gpvt5fa5AsVXFB1ejhiEx+b6buZxrRAQH+
+tR+0lBcAfpyRfFj9S5h3ZJxhyXsO7zJ0pcD/vOX4Ot3ESXBeXDChiXkcCQfR2jV8
+XL/gUeP0c/K8dpTrVbzXlyOonVfdbkMRA3HFiU1afke874LC5SOukBgKtzR3eAWT
+In4qe72yTBhlasy3kVCZVEc6faj8cz/r3Jl6sfuGnSb5In4zv0xBStUm7cBYP7qF
+tVMDSRdAJqfUZznNtMeKthNmLTO5ZMmyKMZRYVx/bwyFBFWxiebf/kuVMa0A5RlR
+3vGrcg+Cgk3sazx3qcL/GNcnw5LpeBsBjnP3OmaG+hzvrjR94YcWkV5l7Hum4rZD
+z2pKZFx/TJIBLpbT0QpZgp4ntX5kLX4V3eLQEROu4eWOMc6+R3X0qAIFzbbEPQ0X
++rx2aN+tQgqIHFNA7ruBV09fnwMiu2903nnoqiXOIAaeI0n/N8plSs9iQsLcN4dm
+Ug+CL75oqVDsA6BvBfUmgyrRNghSITtIEOw40TpYaQnjj3FMpZxECAUkVZnXDJRR
+r+vxpKW9tDzyWS8rvE+rLODVEU3AN2YPXaFtiil//jE1Kx1ye0w=
+=gwtd
+-----END PGP SIGNATURE-----
+
+--k3ibboqn5tyzkvcr--
