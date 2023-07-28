@@ -2,53 +2,52 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 4917B767799
-	for <lists+linux-man@lfdr.de>; Fri, 28 Jul 2023 23:31:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 4AE4576785E
+	for <lists+linux-man@lfdr.de>; Sat, 29 Jul 2023 00:05:12 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230156AbjG1VbW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 28 Jul 2023 17:31:22 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60222 "EHLO
+        id S230213AbjG1WFK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 28 Jul 2023 18:05:10 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42610 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229505AbjG1VbW (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 28 Jul 2023 17:31:22 -0400
+        with ESMTP id S229847AbjG1WFJ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 28 Jul 2023 18:05:09 -0400
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 09D713AB3
-        for <linux-man@vger.kernel.org>; Fri, 28 Jul 2023 14:31:21 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 782082D5F
+        for <linux-man@vger.kernel.org>; Fri, 28 Jul 2023 15:05:08 -0700 (PDT)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
         (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
          key-exchange X25519 server-signature RSA-PSS (2048 bits))
         (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id 89FBC62204
-        for <linux-man@vger.kernel.org>; Fri, 28 Jul 2023 21:31:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C97FC433C8;
-        Fri, 28 Jul 2023 21:31:18 +0000 (UTC)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id 1563F62209
+        for <linux-man@vger.kernel.org>; Fri, 28 Jul 2023 22:05:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1391C433C8;
+        Fri, 28 Jul 2023 22:05:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1690579879;
-        bh=VymQfEpm0/hhyLGEPuKa5w8+vbSxTp7L8uwMMFNBsQ0=;
+        s=k20201202; t=1690581907;
+        bh=aItu2HJt9tOGGTS37NYzJ6dPqFUj4w8tpcFqXk+1pr8=;
         h=Date:Subject:To:References:Cc:From:In-Reply-To:From;
-        b=seaZwewGlkfqSytuCZwhdNGuLAIJ/Sxohwemqb88Y5Jo9vivpQDEzkcSy4Tkg2siR
-         OekDzqiFnm9pSDgc9HdRsYeRoi692CWueUoePn1/jmtA+gto4Tn6bJ2ypnyLY2mAZ3
-         w7SgR2ZvrFzcl61zrbnqfQigMr/wnGtYPXa5guVn+cQNCDSkk6U9NoDRKmrm/ARQ+c
-         ++JP/Bnh+FNge6tcNEv6o3khYrVAYZrie5cu+sy7t0EcRmfv+IfRbjTeE0/HoXZRZb
-         cw4LPPD4UgznwbV+GnsE/wNU0l8VblBtbdzrmJqdW2KISX4KsEDML8B6kaB9nx6Iya
-         6Et7YqXL+2SPA==
-Message-ID: <b6ce1d14-528f-cbe9-8117-be684526e36f@kernel.org>
-Date:   Fri, 28 Jul 2023 23:31:10 +0200
+        b=nQvYO4VgnJiTxzmObtkQV+xu0wmboWerNA+mVVKQVMW2Ybv4q8gzIqDv+NVOyfwHk
+         lkR+zq9GNcXeSjsY2TtpOiIHIEiCKHlJFufIcN+GfulerKx7HWvwPTIi6Z7wYoe3zk
+         Sq4/hx/OIVYdBS5jGxUxIWULYTd/JKd+y0RrVPAU7sTMo0L4Hu9RT6hISWherG6avv
+         9xHtX6v74QHWCCvICqbfU7DrwL2rrgvirWG6lpXRSbWL4qcp0bCY1G9l2lNWbsz6vn
+         4GkgW8Ldwmymtsg5uq/krwV+1f2vSrN+OS5Uz/DGQl0/ybHYViNi5SzITjNRequb4V
+         h56gbt1aIO/DQ==
+Message-ID: <8fe571c9-eda2-bd1e-0d78-9c5e8f7222fe@kernel.org>
+Date:   Sat, 29 Jul 2023 00:05:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.0
-Subject: Re: [PATCH] string_copying.7: tfix
+Subject: Re: [PATCH] string_copying.7: don't grant strl{cpy,cat} magic
 Content-Language: en-US
-To:     Lennart Jablonka <humm@ljabl.com>,
-        "G. Branden Robinson" <g.branden.robinson@gmail.com>
-References: <ZMQL2bAg5p2no9ir@beryllium>
+To:     Lennart Jablonka <humm@ljabl.com>
+References: <ZMQVYtquNN-s0IJr@beryllium>
 Cc:     linux-man@vger.kernel.org
 From:   Alejandro Colomar <alx@kernel.org>
 Organization: Linux
-In-Reply-To: <ZMQL2bAg5p2no9ir@beryllium>
+In-Reply-To: <ZMQVYtquNN-s0IJr@beryllium>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------BK5YZio2YK1FmB5nrqaFSna4"
+ boundary="------------0tnRpZ95CWL3HAHidXLbwYcO"
 X-Spam-Status: No, score=-7.2 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
         DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
         RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
@@ -60,236 +59,206 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------BK5YZio2YK1FmB5nrqaFSna4
-Content-Type: multipart/mixed; boundary="------------d3HyW8Ne03Rvwt9WC8afUO6p";
+--------------0tnRpZ95CWL3HAHidXLbwYcO
+Content-Type: multipart/mixed; boundary="------------AQ8seXLXYXLUAspc9slAHO4O";
  protected-headers="v1"
 From: Alejandro Colomar <alx@kernel.org>
-To: Lennart Jablonka <humm@ljabl.com>,
- "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To: Lennart Jablonka <humm@ljabl.com>
 Cc: linux-man@vger.kernel.org
-Message-ID: <b6ce1d14-528f-cbe9-8117-be684526e36f@kernel.org>
-Subject: Re: [PATCH] string_copying.7: tfix
-References: <ZMQL2bAg5p2no9ir@beryllium>
-In-Reply-To: <ZMQL2bAg5p2no9ir@beryllium>
+Message-ID: <8fe571c9-eda2-bd1e-0d78-9c5e8f7222fe@kernel.org>
+Subject: Re: [PATCH] string_copying.7: don't grant strl{cpy,cat} magic
+References: <ZMQVYtquNN-s0IJr@beryllium>
+In-Reply-To: <ZMQVYtquNN-s0IJr@beryllium>
 
---------------d3HyW8Ne03Rvwt9WC8afUO6p
+--------------AQ8seXLXYXLUAspc9slAHO4O
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi Lennart,
+Hey Lennart!
 
-(CC +=3D Branden)
+On 2023-07-28 21:22, Lennart Jablonka wrote:
+> A function can't check whether a pointer points to the start of a
+> string.  What it certainly can do is to keep reading until you either
+> find a null byte or read the secret key that lies adjacent in memory an=
+d
+> post it to your favorite mailing list.
+>=20
+> strlcpy and strlcat behave the exact same way any other function
+> accepting a string behaves:  If you don't pass a string, the behavior i=
+s
+> undefined.  And that, I believe, does not deserve a special mention
+> here, seeing as all the other string functions don't get such a mention=
 
-On 2023-07-28 20:41, Lennart Jablonka wrote:
+> either.
+
+Hmm, you're right.
+
+What I intended to mean is that while most other functions --e.g.,
+strcpy(3)-- overwrite after the buffer, the design of strlcpy(3) is a
+bit more clever and makes it so that when the caller invokes UB, it
+tries to exploit that UB in a way that the input string is entirely
+read before starting to write, which makes it more likely to crash in
+a read, rather than writing to random memory (which might still happen
+if the read is not enough to crash, though).
+
+But it's true that it's not magic, and the UB is still there, so I
+agree in removing that.  It's dangerous to make reader believe
+that it can avoid UB, so it's preferable to not mention that at all.
+
+>=20
 > Signed-off-by: Lennart Jablonka <humm@ljabl.com>
 > ---
-> On some of the commas:  There are a few of instances of
+> Hey Alex!
 >=20
-> 	Subject verb object partclause, advphrase.
+> I don't dislike string_copying(7) overall.  This is one of the parts of=
+
+> the content that I dislike---it is false, after all.  Besides that:
 >=20
-> For example:
+> The "definitions" at the top don't make it clear enough that they aren'=
+t
+> supposed to be precise definitions used in your usual C jargon; that
+> while string and a string's length and an object's size are defined
+> by C, and while you understand and sometimes use most of these terms,
+> there is no norm that says "When you talk about a pointer to one past
+> a buffer's last byte, you call it 'end'!"  That there is no norm that
+> says "When you say 'copy,' you write to the beginning, not to
+> elsewhere!"
+
+True.  My intention was to settle the jargon and pseudo-standardize
+these terms (of course in decades, not tomorrow).  Every other project
+uses a different term, and I'd like to unify.
+
 >=20
-> 	This function catenates the input character sequence contained in a nu=
-ll-padded wixed-width buffer, into a destination string.
-> 	| subject     | verb    | object                     | participial cla=
-use                           | adverbial phrase       |
+> Furthermore, the terminology around "character sequences" confused me
+> while reading the page.  When do you have a buffer, neither
+> null-terminated nor null-padded, that is defined not to contain null
+> bytes?
+
+NGINX uses these internally:
+
+$ grepc ngx_str_t
+=2E/src/core/ngx_string.h:16:
+typedef struct {
+    size_t      len;
+    u_char     *data;
+} ngx_str_t;
+
+
+Basically it's a non-zero buffer plus its length.  They have interesting
+properties; for example, you can take a substring (or should I call it
+sub-sequence) just by taking a pointer to somewhere in the middle, and
+the length of the substring, without really copying the string.
+
+>  And how do functions behave that want a character sequence if
+> that does contain a null byte?  Do they take the null byte to signal th=
+e
+> character sequence's end?  Need they accept the null byte as part of th=
+e
+> character sequence?  Is the behavior undefined?
+
+NGINX handles these strings by the length stored in the buffer.  Any
+null byte in the middle of a string would be treated as any other
+character, although they would be problematic when interfacing libc; in
+general, care is taken to not have null bytes in those strings.  NGINX
+uses mempcpy(3) (or rather, ngx_cpymem(), which is the same thing) to
+copy these things, or other more sophisticated functions and macros
+based on mempcpy(3).
+
+$ grepc ngx_cpymem
+=2E/src/core/ngx_string.h:97:
+#define ngx_cpymem(dst, src, n)   (((u_char *) ngx_memcpy(dst, src, n)) +=
+ (n))
+
+
+=2E/src/core/ngx_string.h:107:
+#define ngx_cpymem(dst, src, n)   (((u_char *) memcpy(dst, src, n)) + (n)=
+)
+
 >=20
-> Dropping the relative clause, there shouldn't be a comma preceding the
-> restrictive adverbial phrase: The input character sequence is really,
-> always catenated into a destination string; that is essential.
+> And lastly, the man page doesn't list the functions' standards or who
+> invented them.
+
+That was deliberate.  The specific pages of each of those functions
+already documents that.  Since the intention was to differentiate the
+use cases of each of the functions, I believe mentioning the standards
+would just deviate from that main point, and so I omitted that info.
+The point is that choosing one of these functions shouldn't depend on
+what standards are available to the programmer.  Instead, the
+programmer should use the appropriate function, and then if it's not
+available, it should be written within the project (probably as a
+wrapper around other functions) to be able to use it.  That's why I
+provided some naive implementations of some of them.
+
+Thanks for your opinion and review of the page!
+
 >=20
-> The participial clause, being non-restrictive---there is but one input
-> character sequence that could be meant---, should be enclosed by commas=
-=2E
-> That is the existing comma's purpose and doesn't work without the added=
-,
-> first comma.
->=20
->  man7/string_copying.7 | 26 +++++++++++++-------------
->  1 file changed, 13 insertions(+), 13 deletions(-)
+>  man7/string_copying.7 | 6 +-----
+>  1 file changed, 1 insertion(+), 5 deletions(-)
 >=20
 > diff --git a/man7/string_copying.7 b/man7/string_copying.7
-> index da1fc6752..04426ef77 100644
+> index 04426ef77..308cada36 100644
 > --- a/man7/string_copying.7
 > +++ b/man7/string_copying.7
-> @@ -49,7 +49,7 @@ const char *restrict " src ,
->  .PP
->  // Zero a fixed-width buffer, and
->  // copy a string into a character sequence with truncation.
-> -.BI "char *strncpy(char " dest "[restrict ." sz "], \
-> +.BI "char *strncpy(char " dst "[restrict ." sz "], \
-
-Ok
-
->  const char *restrict " src ,
->  .BI "               size_t " sz );
->  .PP
-> @@ -280,9 +280,9 @@ instead of
->  In programs that make considerable use of strings or character sequenc=
-es,
->  and need the best performance,
->  using overlapping character sequences can make a big difference.
-> -It allows holding subsequences of a larger character sequence.
-> +It allows holding sub-sequences of a larger character sequence,
-
-In this case, man-pages(7) advises to not hyphenate:
-
-   Hyphenation with multi, non, pre, re, sub, and so on
-       The general tendency in modern English is not to hyphenate  af=E2=80=
-=90
-       ter prefixes such as "multi", "non", "pre", "re", "sub", and so
-       on.   Manual pages should generally follow this rule when these
-       prefixes are used in natural English constructions with  simple
-       suffixes.   The  following list gives some examples of the pre=E2=80=
-=90
-       ferred forms:
-
-              [...]
-              subcomponent
-              subdirectory
-              subsystem
-
->  while not duplicating memory
-> -nor using time to do a copy.
-> +or using time to do a copy.
-
-Is nor incorrect here?  I'm not a native English speaker and would like
-to understand why it is incorrect.
-
->  .PP
->  However, this is delicate,
->  since it requires using character sequences.
-> @@ -397,7 +397,7 @@ It returns a pointer suitable for chaining.
->  Truncation needs to be detected only once after the last chained call.=
-
->  .IP
->  This function is not provided by any library;
-> -See EXAMPLES for a reference implementation.
-> +see EXAMPLES for a reference implementation.
-
-Ok
-
->  .\" ----- DESCRIPTION :: Functions :: strlcpy(3bsd), strlcat(3bsd) ---=
--/
->  .TP
+> @@ -223,8 +223,7 @@ It only requires to check for truncation once after=
+ all chained calls.
 >  .BR strlcpy (3bsd)
-> @@ -427,7 +427,7 @@ isn't large enough to hold the copy,
->  the resulting character sequence is truncated.
->  Since it creates a character sequence,
->  it doesn't need to write a terminating null byte.
-> -It's impossible to distinguish truncation by the result of the call,
-> +It's impossible to distinguish truncation by the result of the call
->  from a character sequence that just fits the destination buffer;
+>  and
+>  .BR strlcat (3bsd)
+> -are designed to crash if the input string is invalid
+> -(doesn't contain a terminating null byte).
+> +are similar, but less efficient when chained.
 
-I guess it's ok (to me they both sound good)
+Ok.
 
->  truncation should be detected by
->  comparing the length of the input string
-> @@ -444,8 +444,8 @@ is a more useful alternative to this function.
->  .\" ----- DESCRIPTION :: Functions :: zustr2ustp(3) ------------------=
---/
->  .TP
->  .BR zustr2ustp (3)
-> -This function copies the input character sequence
-> -contained in a null-padded wixed-width buffer,
-> +This function copies the input character sequence,
+>  .IP \[bu]
+>  .BR stpncpy (3)
+>  and
+> @@ -410,9 +409,6 @@ isn't large enough to hold the copy,
+>  the resulting string is truncated
+>  (but it is guaranteed to be null-terminated).
+>  They return the length of the total string they tried to create.
+> -These functions force a SIGSEGV if the
+> -.I src
+> -pointer is not a string.
 
-I believe the below is like a parenthetical, which is why I put it
-between commas; isn't it?  Although your version also looks good.
+Ok.
 
-> +contained in a null-padded fixed-width buffer,
+Patch applied.  Thanks!
 
-Ok
-
->  into a destination character sequence.
->  The programmer is responsible for allocating a buffer large enough.
->  It returns a pointer suitable for chaining.
-> @@ -455,12 +455,12 @@ since the size of the original character sequence=
- is always known,
->  so it wouldn't be very useful.
->  .IP
->  This function is not provided by any library;
-> -See EXAMPLES for a reference implementation.
-> +see EXAMPLES for a reference implementation.
-
-Ok
-
->  .\" ----- DESCRIPTION :: Functions :: zustr2stp(3) -------------------=
--/
->  .TP
->  .BR zustr2stp (3)
-> -This function copies the input character sequence
-> -contained in a null-padded wixed-width buffer,
-> +This function copies the input character sequence,
-
-Same.
-
-> +contained in a null-padded fixed-width buffer,
-
-Heh, my text is wixed!
-
->  into a destination string.
->  The programmer is responsible for allocating a buffer large enough.
->  It returns a pointer suitable for chaining.
-> @@ -470,7 +470,7 @@ since the size of the original character sequence i=
-s always known,
->  so it wouldn't be very useful.
->  .IP
->  This function is not provided by any library;
-> -See EXAMPLES for a reference implementation.
-> +see EXAMPLES for a reference implementation.
-
-Ok
-
->  .\" ----- DESCRIPTION :: Functions :: strncat(3) ---------------------=
--/
->  .TP
->  .BR strncat (3)
-> @@ -478,8 +478,8 @@ Do not confuse this function with
->  .BR strncpy (3);
->  they are not related at all.
->  .IP
-> -This function catenates the input character sequence
-> -contained in a null-padded wixed-width buffer,
-> +This function catenates the input character sequence,
-> +contained in a null-padded fixed-width buffer,
-
-And same.
-
-Thanks,
+Cheers,
 Alex
 
->  into a destination string.
->  The programmer is responsible for allocating a buffer large enough.
->  The return value is useless.
+>  .IP
+>  .BR stpecpy (3)
+>  is a simpler alternative to these functions.
 
 --=20
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
 
---------------d3HyW8Ne03Rvwt9WC8afUO6p--
+--------------AQ8seXLXYXLUAspc9slAHO4O--
 
---------------BK5YZio2YK1FmB5nrqaFSna4
+--------------0tnRpZ95CWL3HAHidXLbwYcO
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmTEM54ACgkQnowa+77/
-2zL1QA/+KG0Eeq5S3fmPmX/ZnBKL5uZPaDE1Ykax7d+2gnJ9xwO+AZHSUN510t7E
-1e3CYF0jJSsBFADO1aVHQfur8eNrhNczKuZkOthARtVkhA847jmL6NiPh/+rq5Vq
-deezzLWrLdq2aM2XPmWcPJan5lsZb+avnJ8BeGDVGf+TxbuTwpT6lxNPPEV6SbaI
-IYjGALVMjDvidLaBce5k2fVvkLYgw51+H/YqAteq5SyarsKclBhpW2vaAkV0roUZ
-8diIcpKSKnV4rOXAj7HzK/LvC4zT8fZ6DQqN6flLYfgxBgf5/CeK7eiwjinX0CvJ
-1pS6yalfj9rewwZUkvOnnWWf5oYXG64bBiBiixxeJBTXgl+XiY2jLb/fkRoAsYPu
-BPONMQL1B1VNBffqAOIY63DvO137OcON2uabFrlAdXOyuMscSoLgEBP2OVPXrDJC
-3mOjrXcUs9acb1yt1ZJdPJzhFB32qrBb6eTXDCD+sXEty3yQKQXOrU7cbcJ0wGGN
-LUAb65vWlKXBEWrjFZeex8SQR/2O6T5tIass8si3y7f0T7x13sftKCydXu5YeVV+
-Y+nnxCfzAwdCKw5DCuxv9E5Ltkhqpo46zdc98INWZb5cy342Ak7r9YZMM4/pDrRK
-dQlKQSOot60xykBuAgbl7X4sz0vBuw6l55rOEfXBRUeJAVGQ01I=
-=i1HO
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmTEO5AACgkQnowa+77/
+2zLyqw//bAAAV3nHuTCAbwrfppc2Fkb8hzFGiXdAOQWNCknQ2aw9riZV2ecYC6sL
+luu7G3NPOCJuwZuoQBhp7YFzC/fsE1wRDzBmlF0o/aTHs43VGvZMZChqsWz+bmFA
+iL5kp7KfgYLEcBPrq97BJzbzVwxXXBTBGIbsJreTF+5oHpcMshNbrnmY0CLDj4NN
+9zmL6UkaSLPkT5W9mULbMpFqnO6iSIKHoWFfWlMTJ6c17sVhQCrJ3M6yA9h/x92k
+pYXvRmXc5QY9SM1RCbi0UVBePaPfDU3ynu2UVKI1StTUMwOfG5L13ztCQMM2JHB6
+NCmF3R3UO4VMncGEnU6Z8iaizlG5ocVBbW8umF6j1fI9gSAOSSJzOrISlytXGk5T
+glH6smHjEJAQyRi+L6h04wWe7CH/mo2IDVkFCbWUMLExAXNT7++w7vVSpCeM/eXs
+muEu6vN693a9YU28RITV2DwYj7UoHHJ5SSi6aRoA3hzhwSW1Vcxtilo8W+nltsxT
+b0/+tVNEGD8ZGntqmPJ0kh5hAPanFZiwWxSbrvprW1FOePmPgGJbZACIGVxgA7An
+s+57WqfSJXTbWhVFPrwLaioDx46+tVzHLd7x/Lvf/YzEGzZiBJbyaire38xBIRxb
+Ct7nLcy+hXCBvYDA/Jqnzd04jq4S/QCWnp4LzQADcPdVR1IX/qA=
+=5rNT
 -----END PGP SIGNATURE-----
 
---------------BK5YZio2YK1FmB5nrqaFSna4--
+--------------0tnRpZ95CWL3HAHidXLbwYcO--
