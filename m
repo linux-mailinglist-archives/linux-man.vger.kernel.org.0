@@ -2,152 +2,122 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id F06B3767D42
-	for <lists+linux-man@lfdr.de>; Sat, 29 Jul 2023 10:44:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E2BDD767D43
+	for <lists+linux-man@lfdr.de>; Sat, 29 Jul 2023 10:44:55 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229521AbjG2Iok (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 29 Jul 2023 04:44:40 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36534 "EHLO
+        id S229457AbjG2Ioy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 29 Jul 2023 04:44:54 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36818 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231317AbjG2Ioi (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 29 Jul 2023 04:44:38 -0400
-Received: from mail-oo1-xc36.google.com (mail-oo1-xc36.google.com [IPv6:2607:f8b0:4864:20::c36])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5AAFC130
-        for <linux-man@vger.kernel.org>; Sat, 29 Jul 2023 01:44:37 -0700 (PDT)
-Received: by mail-oo1-xc36.google.com with SMTP id 006d021491bc7-56661fe27cbso1901399eaf.3
-        for <linux-man@vger.kernel.org>; Sat, 29 Jul 2023 01:44:37 -0700 (PDT)
+        with ESMTP id S231355AbjG2Iow (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 29 Jul 2023 04:44:52 -0400
+Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com [IPv6:2607:f8b0:4864:20::22a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6E8B1449F
+        for <linux-man@vger.kernel.org>; Sat, 29 Jul 2023 01:44:48 -0700 (PDT)
+Received: by mail-oi1-x22a.google.com with SMTP id 5614622812f47-3a3ad1f39ebso2584054b6e.1
+        for <linux-man@vger.kernel.org>; Sat, 29 Jul 2023 01:44:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1690620276; x=1691225076;
-        h=cc:to:content-transfer-encoding:mime-version:subject:date:from
-         :resent-to:resent-message-id:resent-date:resent-from:message-id:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=tYyZ+peh93miAD49NUHC58LStYoh7+xozam4igNQRFk=;
-        b=qPLUJvbV9yfYCXYGRyp5xTUxDau/nqt3MUvuYW9RMpxrlosngrJKJCqHwPhGVld3S0
-         P0Nll6lkKPWYuT8r5fqQ68bG459QXlW687/RRQunb8ExO8DEL5ZSV/t5nemB+3nOSpsA
-         10t5UkT/nL2bMKEuYMlbZLDxdnRfj/ezb68/f/mlb3Nufyvb6vgePxO279k4MZSR5Aas
-         zTVeONjZ5eBOn7x7f/zt+kqLuSZQB639fplxyNPTUAue2Vml4IaORhCRN+bJ4zT25dCv
-         CIg4U952WLWVMOosFD+xEcRgbE0mCy5F4UuMoOZwQSqa23ZMglB/MkBhU7THEykducL3
-         40PQ==
+        d=gmail.com; s=20221208; t=1690620288; x=1691225088;
+        h=cc:to:subject:date:from:resent-to:resent-message-id:resent-date
+         :resent-from:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=HvHot7FQYGB+QG+QU7eRzV99w7VxdegnhKZQU7FA5h4=;
+        b=Vr6y02MWqBwfZaucfGo9llm7cEYwEAKlLKDXuO4WCS71nu41KaJRyKAvOd9Db0BVVW
+         xS7QHC13nfR22RAicbv80E9+s5kMRMGJzp1bnln1SRrtED1Uv5Japmm/Zrb9LGQ7V6Lz
+         yksEr/iQhBBG7cWN9LFFcmhyxg6Wtzr5C8MiFxm6eW6iCzzkQ/E8+lfJ5HqW8K47yo8k
+         OBnXyp2xJ7rwWlYO1KhoODIYLotypf/SV/JYN/Znj2jFC9J5t1wHEYPoRTYMBfPVBEo5
+         jYtK6yHKsGcBgRpxVT4Uy4h/KgOmQIdBwy2yg1egkih5LF+TbNcPjqNKK2TEkKyMtyLr
+         16Nw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690620276; x=1691225076;
-        h=cc:to:content-transfer-encoding:mime-version:subject:date:from
-         :resent-to:resent-message-id:resent-date:resent-from:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=tYyZ+peh93miAD49NUHC58LStYoh7+xozam4igNQRFk=;
-        b=WRRYbPqniGW7Pz9s25L/Y4HIM6TslvwQfqJ7RW6G19US3sr4brNXRrXYXCjm2RadpE
-         pSrZ0dzLwvnkJOzkhPueWcwEs7iyJ5GWt5HnSLDxVFKo/pXefGpyz2vXDYGJaHeTLgtM
-         Las1Wrgr/wR4+BRw6P/rvbGNFgcyTRYMn/dbMlX4mzQk093/wYumwkz9g37ApeCI3aMT
-         qb5ac2bvPCZX8yMVCUy6mS7i/9qMaxHHUokeP1fMGiRxESwohAnU/LSRqncPKNB+9Bpg
-         m9hQpQscEtIu7xYwN4R0AR8UA5ft12GuFhGyEmjaXrIy/5xFO35ro0F+q+IFJeJsbNsu
-         H0Zw==
-X-Gm-Message-State: ABy/qLZIOuUzT8UNpCxCQ0gphoHGCEob1XDCJ2mp7kfiC/K3MhvhTWs9
-        Dv5cXF+Gi8nomJncKjokFGSiapZ7BQ8=
-X-Google-Smtp-Source: APBJJlFanqjPgdxIcUiJcAAexe6dS9dLsRUq/ZW4/L1ENF4XM1nCA5rDQOfqVzAfe6j0aed5me8eWQ==
-X-Received: by 2002:a05:6870:3294:b0:1ba:8307:9a24 with SMTP id q20-20020a056870329400b001ba83079a24mr5966559oac.10.1690620276531;
-        Sat, 29 Jul 2023 01:44:36 -0700 (PDT)
+        d=1e100.net; s=20221208; t=1690620288; x=1691225088;
+        h=cc:to:subject:date:from:resent-to:resent-message-id:resent-date
+         :resent-from:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=HvHot7FQYGB+QG+QU7eRzV99w7VxdegnhKZQU7FA5h4=;
+        b=WkvRfFqjZbf2a2SQEUxuw4nKWVLx+Y8diXy253an/3F9Qad4Ka3+ITGPPa4GFQFPCJ
+         HVe77Q9DGqOG2ODbUCGjC32PxItQDXdl7r46e7LgG36tikAXFqc7Iva6g7swF9zGflcU
+         OuFJPNF4qGR/C+nN/7KC2VmjK53XIyTodTFd6WGKq3aPcfiuyocBOg08rRJMmv3uFtKY
+         TMblN5BLU82jn5orKEGSU1o5Gdx5hzU/K4CNRHj7L5XzztyavLeSTBZplsR9RBvRSloQ
+         X7v4q6dyrdmWl7BSt7oY5v4+Wfh0WQ28zG0TddDQJijsLc34SweN/VRI5zlOzRCws8cO
+         seYw==
+X-Gm-Message-State: ABy/qLZcWkCTSMzR9a76TbRibZAR/bMurNCp6A4hQ6wABoAsrihjNVcQ
+        acIt0vjdsxcwLXgttZmkcrXgIa5sf2g=
+X-Google-Smtp-Source: APBJJlG4BLO4oQubCG74c2GbN0HEdPys296ZEkVYRBqBFYaOguDls2VdwGBKfpI4rnbwHgkQjIxfvQ==
+X-Received: by 2002:a05:6808:128b:b0:3a4:8ecb:185c with SMTP id a11-20020a056808128b00b003a48ecb185cmr7595954oiw.22.1690620287556;
+        Sat, 29 Jul 2023 01:44:47 -0700 (PDT)
 Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id 67-20020a4a1746000000b0054fba751207sm2460628ooe.47.2023.07.29.01.44.35
+        by smtp.gmail.com with ESMTPSA id v16-20020a056808005000b003a59c67286bsm2410742oic.47.2023.07.29.01.44.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Jul 2023 01:44:36 -0700 (PDT)
-Message-ID: <64c4d174.4a0a0220.6d519.0263@mx.google.com>
+        Sat, 29 Jul 2023 01:44:47 -0700 (PDT)
+Message-ID: <64c4d17f.050a0220.3a505.03ec@mx.google.com>
 From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Date:   Fri, 28 Jul 2023 12:02:49 -0500
-Subject: [PATCH v2 1/2] time.1: ffix
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date:   Fri, 28 Jul 2023 12:28:06 -0500
+Subject: [PATCH v2 2/2] man.7: ffix
 To:     Alejandro Colomar <alx@kernel.org>
 Cc:     linux-man@vger.kernel.org
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-        autolearn=ham autolearn_force=no version=3.4.6
+        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+        URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-v2: Include more background on proper ellipsis usage.
+v2: Use heading markup that doesn't confuse Git.
 
-Mark up ellipses properly.  They should be in roman.  The item preceding
-an ellipsis should be in the singular.  Use unbreakable space between
-metasyntactic variable and subsequent ellipsis.
+The `\c` escape sequence works in an argument to a macro call that is
+part of a paragraph tag with font style alternation macros, but not the
+ordinary font macros `B` and `I`.  This is because `TP`, `B`, and `I`
+all set up input traps; the six font style alternation macros do not.
 
-Quoting groff_man_style(7):
+The old formatting would, for some versions of some formatters, set the
+"[trailer]" text as part of the paragraph body, not the tag--like this.
 
-    • Symbols that are neither to be typed literally nor replaced at the
-      user’s discretion appear in the roman style; brackets surround
-      optional arguments, and an ellipsis indicates that the previous
-      syntactical element may be repeated arbitrarily.
-[...]
-    • The dummy character escape sequence \& follows the ellipsis when
-      further text will follow after space on the output line, keeping
-      its last period from being interpreted as the end of a sentence
-      and causing additional inter‐sentence space to be placed after it.
-[...]
-    \|  Thin space (one‐sixth em on typesetters, zero‐width on
-        terminals); a non‐breaking space.  Used primarily in ellipses
-        (“.\|.\|.”) to space the dots more pleasantly on typesetting
-        devices like dvi, pdf, and ps.
-[...]
-    • Why doesn’t the package provide a string to insert an ellipsis?
-        Examples of ellipsis usage are shown above, in subsection
-        “Command synopsis macros”.  The idiomatic roff ellipsis is three
-        dots (periods) with thin space escape sequences \| internally
-        separating them.  Since dots both begin control lines and are
-        candidate end‐of‐sentence characters, however, it is sometimes
-        necessary to prefix and/or suffix an ellipsis with the dummy
-        character escape sequence \&.  That fact stands even if a string
-        is defined to contain the sequence; further, if the string ends
-        with \&, end‐of‐sentence detection is defeated when you use the
-        string at the end of an actual sentence.  (Ending a sentence
-        with an ellipsis is often poor style, but not always.)  A
-        hypothetical string EL that contained an ellipsis, but not the
-        trailing dummy character \&, would then need to be suffixed with
-        the latter when not ending a sentence.
+       .UE    [trailer] Terminate the link text  of  the  preceding  .UR
+              macro,  with  the  optional trailer (if present, usually a
+(and so on)
 
-            Instead of...              ...do this.
-        ──────────────────────────────────────────────────
-        .ds EL \&.\|.\|.         Arguments are
-        Arguments are            .IR src‐file\~ .\|.\|.\&
-        .IR src‐file\~ \*(EL\&   .IR dest‐dir .
-        .IR dest‐dir .
-        ──────────────────────────────────────────────────
+This was a poorly understood--and undocumented--interaction of man(7)
+features until recently.  Gory details involving nroff on Unix Version 7
+(1979) running on a simulated PDP-11/45 are available.[1]
 
-        The first column practices a false economy; the savings in
-        typing is offset by the cost of obscuring even the suggestion of
-        an ellipsis to a casual reader of the source document, and
-        reduced portability to non‐roff man page formatters that cannot
-        handle string definitions.
+Here is a comparison of the former and new markup.
 
-        There is an ellipsis code point in Unicode, and some fonts have
-        an ellipsis glyph, which some man pages have accessed in a non‐
-        portable way with the font‐dependent \N escape sequence.  We
-        discourage the use of these; on terminals, they may crowd the
-        dots into a half‐width character cell, and will not render at
-        all if the output device doesn’t have the glyph.  In syntax
-        synopses, missing ellipses can cause great confusion.  Dots and
-        space are universally supported.
+before
+======
+groff 1.22.3: BAD
+groff 1.22.4: GOOD
+groff 1.23.0: BAD
+mandoc 1.14.6: BAD
+
+now
+===
+groff 1.22.3: BAD
+groff 1.22.4: GOOD
+groff 1.23.0: GOOD
+mandoc 1.14.6: GOOD
+
+[1] https://savannah.gnu.org/bugs/?51468
+    https://lists.gnu.org/archive/html/groff/2022-06/msg00020.html
 
 Signed-off-by: G. Branden Robinson <g.branden.robinson@gmail.com>
 ---
- man1/time.1 | 2 +-
+ man7/man.7 | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/man1/time.1 b/man1/time.1
-index efb818cfd..8902b4b96 100644
---- a/man1/time.1
-+++ b/man1/time.1
-@@ -9,7 +9,7 @@ .SH NAME
- time \- time a simple command or give resource usage
- .SH SYNOPSIS
- .B time
--.RI [ options ] " command " [ arguments... ]
-+.RI [ option \~.\|.\|.\&] " command " [ argument \~.\|.\|.]
- .SH DESCRIPTION
- The
- .B time
+diff --git a/man7/man.7 b/man7/man.7
+index 258ce25da..583fe354f 100644
+--- a/man7/man.7
++++ b/man7/man.7
+@@ -249,7 +249,7 @@ .SS Hypertext link macros
+ .B .UE
+ macro as the link text.
+ .TP
+-.B .UE \c
++.BR .UE \~\c
+ .RI [ trailer ]
+ Terminate the link text of the preceding
+ .B .UR
 -- 
 2.30.2
-
