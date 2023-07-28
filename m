@@ -2,52 +2,54 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 4AE4576785E
-	for <lists+linux-man@lfdr.de>; Sat, 29 Jul 2023 00:05:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id AE9E1767861
+	for <lists+linux-man@lfdr.de>; Sat, 29 Jul 2023 00:06:11 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230213AbjG1WFK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 28 Jul 2023 18:05:10 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42610 "EHLO
+        id S233277AbjG1WGK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 28 Jul 2023 18:06:10 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42848 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229847AbjG1WFJ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 28 Jul 2023 18:05:09 -0400
+        with ESMTP id S229792AbjG1WGK (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 28 Jul 2023 18:06:10 -0400
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 782082D5F
-        for <linux-man@vger.kernel.org>; Fri, 28 Jul 2023 15:05:08 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 484EB2D5F
+        for <linux-man@vger.kernel.org>; Fri, 28 Jul 2023 15:06:09 -0700 (PDT)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
         (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
          key-exchange X25519 server-signature RSA-PSS (2048 bits))
         (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id 1563F62209
-        for <linux-man@vger.kernel.org>; Fri, 28 Jul 2023 22:05:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1391C433C8;
-        Fri, 28 Jul 2023 22:05:06 +0000 (UTC)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id DB1E56220A
+        for <linux-man@vger.kernel.org>; Fri, 28 Jul 2023 22:06:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EE3AC433C8;
+        Fri, 28 Jul 2023 22:06:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1690581907;
-        bh=aItu2HJt9tOGGTS37NYzJ6dPqFUj4w8tpcFqXk+1pr8=;
-        h=Date:Subject:To:References:Cc:From:In-Reply-To:From;
-        b=nQvYO4VgnJiTxzmObtkQV+xu0wmboWerNA+mVVKQVMW2Ybv4q8gzIqDv+NVOyfwHk
-         lkR+zq9GNcXeSjsY2TtpOiIHIEiCKHlJFufIcN+GfulerKx7HWvwPTIi6Z7wYoe3zk
-         Sq4/hx/OIVYdBS5jGxUxIWULYTd/JKd+y0RrVPAU7sTMo0L4Hu9RT6hISWherG6avv
-         9xHtX6v74QHWCCvICqbfU7DrwL2rrgvirWG6lpXRSbWL4qcp0bCY1G9l2lNWbsz6vn
-         4GkgW8Ldwmymtsg5uq/krwV+1f2vSrN+OS5Uz/DGQl0/ybHYViNi5SzITjNRequb4V
-         h56gbt1aIO/DQ==
-Message-ID: <8fe571c9-eda2-bd1e-0d78-9c5e8f7222fe@kernel.org>
-Date:   Sat, 29 Jul 2023 00:05:04 +0200
+        s=k20201202; t=1690581968;
+        bh=FgHON4xsmua3UK56LupwVV5mCerBbaZYazS+y8VTFS8=;
+        h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+        b=lZyNV2iaqiZth2nt3+tUgIoksqfEyT0XLoEvoOX9vcU2yNq06NLY0yw45GLj+lCmT
+         p92Z4iWPN07djFi4GTSx7i5HT2dWJXd10Var+ibuwwdw1mI/7vYfw6B5trcs+52EOj
+         l1Pj5ild5oEvs2TwUWF2XZAFMF6FcyrKH0c5KxnWNcFiMSl4uGycWHtj4ZN7seM8ro
+         HR5OZw7AFbCHLSthoX/8d1zN6bHh5GRLLLFlI6B5ePlX5+w0sBk/E/fHsw8sQ+GHPo
+         b/K11vWgS4ly+W4WK/U6RHLAQNH3EWlFaz0MvBWihOy6QEXIqQaXCabfYubJFzGdXS
+         gwnkQgthS2CGA==
+Message-ID: <54326642-f188-c65c-5f6f-7f3f11e0c49f@kernel.org>
+Date:   Sat, 29 Jul 2023 00:06:05 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.0
-Subject: Re: [PATCH] string_copying.7: don't grant strl{cpy,cat} magic
+Subject: Re: [PATCH] bpf.2: Added missing EAGAIN error case for BPF_PROG_LOAD
 Content-Language: en-US
-To:     Lennart Jablonka <humm@ljabl.com>
-References: <ZMQVYtquNN-s0IJr@beryllium>
-Cc:     linux-man@vger.kernel.org
+To:     =?UTF-8?Q?Michael_Wei=c3=9f?= <michael.weiss@aisec.fraunhofer.de>
+Cc:     linux-man@vger.kernel.org, Alexei Starovoitov <ast@kernel.org>
+References: <20230721120636.100203-1-michael.weiss@aisec.fraunhofer.de>
+ <bcf7a83f-7d80-1a33-bcca-bed07b12f56e@kernel.org>
+ <d7bd682c-b0cd-d93a-babd-5a7644a3c903@aisec.fraunhofer.de>
 From:   Alejandro Colomar <alx@kernel.org>
 Organization: Linux
-In-Reply-To: <ZMQVYtquNN-s0IJr@beryllium>
+In-Reply-To: <d7bd682c-b0cd-d93a-babd-5a7644a3c903@aisec.fraunhofer.de>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------0tnRpZ95CWL3HAHidXLbwYcO"
+ boundary="------------l106jC5v80zqF7G4MV0VpgNN"
 X-Spam-Status: No, score=-7.2 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
         DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
         RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
@@ -59,206 +61,147 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------0tnRpZ95CWL3HAHidXLbwYcO
-Content-Type: multipart/mixed; boundary="------------AQ8seXLXYXLUAspc9slAHO4O";
+--------------l106jC5v80zqF7G4MV0VpgNN
+Content-Type: multipart/mixed; boundary="------------1XB7glu031lmsr3TTey4vrUh";
  protected-headers="v1"
 From: Alejandro Colomar <alx@kernel.org>
-To: Lennart Jablonka <humm@ljabl.com>
-Cc: linux-man@vger.kernel.org
-Message-ID: <8fe571c9-eda2-bd1e-0d78-9c5e8f7222fe@kernel.org>
-Subject: Re: [PATCH] string_copying.7: don't grant strl{cpy,cat} magic
-References: <ZMQVYtquNN-s0IJr@beryllium>
-In-Reply-To: <ZMQVYtquNN-s0IJr@beryllium>
+To: =?UTF-8?Q?Michael_Wei=c3=9f?= <michael.weiss@aisec.fraunhofer.de>
+Cc: linux-man@vger.kernel.org, Alexei Starovoitov <ast@kernel.org>
+Message-ID: <54326642-f188-c65c-5f6f-7f3f11e0c49f@kernel.org>
+Subject: Re: [PATCH] bpf.2: Added missing EAGAIN error case for BPF_PROG_LOAD
+References: <20230721120636.100203-1-michael.weiss@aisec.fraunhofer.de>
+ <bcf7a83f-7d80-1a33-bcca-bed07b12f56e@kernel.org>
+ <d7bd682c-b0cd-d93a-babd-5a7644a3c903@aisec.fraunhofer.de>
+In-Reply-To: <d7bd682c-b0cd-d93a-babd-5a7644a3c903@aisec.fraunhofer.de>
 
---------------AQ8seXLXYXLUAspc9slAHO4O
+--------------1XB7glu031lmsr3TTey4vrUh
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hey Lennart!
-
-On 2023-07-28 21:22, Lennart Jablonka wrote:
-> A function can't check whether a pointer points to the start of a
-> string.  What it certainly can do is to keep reading until you either
-> find a null byte or read the secret key that lies adjacent in memory an=
+On 2023-07-28 22:12, Michael Wei=C3=9F wrote:
+> Hi Alex,
+>=20
+> On 28.07.23 21:42, Alejandro Colomar wrote:
+>> Hi Michael, Alexei,
+>>
+>> On 2023-07-21 14:06, Michael Wei=C3=9F wrote:
+>>> Since commit c3494801cd1785e2 ("bpf: check pending signals while
+>>> verifying programs", bpf() may also fail with EAGAIN if the verifier
+>>> detects pending signals.
+>>>
+>>> This was triggered in the cmld of GyroidOS when loading a cgroups
+>>> device program during container start. We had a look in the man page
+>>> and where confused that EAGAIN was not listed as possible error.
+>>> Digging in the kernel source revealed the EAGAIN in the verifier
+>>> introduced by the commit above. Further investigation showed that
+>>> libbpf already wraps that case, by a retry loop.
+>>>
+>>> Since GyroidOS uses the system call directly and not libbpf, we misse=
 d
-> post it to your favorite mailing list.
+>>> to handle this error correctly. Thus, this hint in the man page for
+>>> the bpf() system call should be helpful for others who implement on
+>>> the low-level interface, too.
+>>>
+>>> Signed-off-by: Michael Wei=C3=9F <michael.weiss@aisec.fraunhofer.de>
+>>
+>> Thanks for the patch!  I find a few sentences have some minor wording
+>> issues.  I'll propose a small change to your proposal.  Please check.
+>> If you confirm it, I'll amend your commit, so you don't need to resend=
+=2E
+>> See below
+>>
+>> Cheers,
+>> Alex
+>>
+>>> ---
+>>>  man2/bpf.2 | 10 ++++++++++
+>>>  1 file changed, 10 insertions(+)
+>>>
+>>> diff --git a/man2/bpf.2 b/man2/bpf.2
+>>> index d32435a1d..7cef7f24d 100644
+>>> --- a/man2/bpf.2
+>>> +++ b/man2/bpf.2
+>>> @@ -991,6 +991,16 @@ and examine
+>>>  .I log_buf
+>>>  for the specific reason provided by the verifier.
+>>>  .TP
+>>> +.B EAGAIN
+>>> +For
+>>> +.BR BPF_PROG_LOAD ,
+>>> +indicates that needed resources are blocked.
+>>> +This is due to the verifier detects pending signals while it is chec=
+king
+>>> +the bpf program about its validity.
+>>> +In this case, just call
+>>> +.BR bpf ()
+>>> +again with the same parameters.
+>>> +.TP
+>>
+>> diff --git a/man2/bpf.2 b/man2/bpf.2
+>> index 7cef7f24d..ea68e1293 100644
+>> --- a/man2/bpf.2
+>> +++ b/man2/bpf.2
+>> @@ -995,8 +995,8 @@ .SH ERRORS
+>>  For
+>>  .BR BPF_PROG_LOAD ,
+>>  indicates that needed resources are blocked.
+>> -This is due to the verifier detects pending signals while it is check=
+ing
+>> -the bpf program about its validity.
+>> +This happens when the verifier detects pending signals
+>> +while it is checking the validity of the bpf program.
 >=20
-> strlcpy and strlcat behave the exact same way any other function
-> accepting a string behaves:  If you don't pass a string, the behavior i=
-s
-> undefined.  And that, I believe, does not deserve a special mention
-> here, seeing as all the other string functions don't get such a mention=
+> Sounds good, confirmed.
 
-> either.
+Thanks!  Patch applied.
 
-Hmm, you're right.
-
-What I intended to mean is that while most other functions --e.g.,
-strcpy(3)-- overwrite after the buffer, the design of strlcpy(3) is a
-bit more clever and makes it so that when the caller invokes UB, it
-tries to exploit that UB in a way that the input string is entirely
-read before starting to write, which makes it more likely to crash in
-a read, rather than writing to random memory (which might still happen
-if the read is not enough to crash, though).
-
-But it's true that it's not magic, and the UB is still there, so I
-agree in removing that.  It's dangerous to make reader believe
-that it can avoid UB, so it's preferable to not mention that at all.
-
->=20
-> Signed-off-by: Lennart Jablonka <humm@ljabl.com>
-> ---
-> Hey Alex!
->=20
-> I don't dislike string_copying(7) overall.  This is one of the parts of=
-
-> the content that I dislike---it is false, after all.  Besides that:
->=20
-> The "definitions" at the top don't make it clear enough that they aren'=
-t
-> supposed to be precise definitions used in your usual C jargon; that
-> while string and a string's length and an object's size are defined
-> by C, and while you understand and sometimes use most of these terms,
-> there is no norm that says "When you talk about a pointer to one past
-> a buffer's last byte, you call it 'end'!"  That there is no norm that
-> says "When you say 'copy,' you write to the beginning, not to
-> elsewhere!"
-
-True.  My intention was to settle the jargon and pseudo-standardize
-these terms (of course in decades, not tomorrow).  Every other project
-uses a different term, and I'd like to unify.
-
->=20
-> Furthermore, the terminology around "character sequences" confused me
-> while reading the page.  When do you have a buffer, neither
-> null-terminated nor null-padded, that is defined not to contain null
-> bytes?
-
-NGINX uses these internally:
-
-$ grepc ngx_str_t
-=2E/src/core/ngx_string.h:16:
-typedef struct {
-    size_t      len;
-    u_char     *data;
-} ngx_str_t;
-
-
-Basically it's a non-zero buffer plus its length.  They have interesting
-properties; for example, you can take a substring (or should I call it
-sub-sequence) just by taking a pointer to somewhere in the middle, and
-the length of the substring, without really copying the string.
-
->  And how do functions behave that want a character sequence if
-> that does contain a null byte?  Do they take the null byte to signal th=
-e
-> character sequence's end?  Need they accept the null byte as part of th=
-e
-> character sequence?  Is the behavior undefined?
-
-NGINX handles these strings by the length stored in the buffer.  Any
-null byte in the middle of a string would be treated as any other
-character, although they would be problematic when interfacing libc; in
-general, care is taken to not have null bytes in those strings.  NGINX
-uses mempcpy(3) (or rather, ngx_cpymem(), which is the same thing) to
-copy these things, or other more sophisticated functions and macros
-based on mempcpy(3).
-
-$ grepc ngx_cpymem
-=2E/src/core/ngx_string.h:97:
-#define ngx_cpymem(dst, src, n)   (((u_char *) ngx_memcpy(dst, src, n)) +=
- (n))
-
-
-=2E/src/core/ngx_string.h:107:
-#define ngx_cpymem(dst, src, n)   (((u_char *) memcpy(dst, src, n)) + (n)=
-)
-
->=20
-> And lastly, the man page doesn't list the functions' standards or who
-> invented them.
-
-That was deliberate.  The specific pages of each of those functions
-already documents that.  Since the intention was to differentiate the
-use cases of each of the functions, I believe mentioning the standards
-would just deviate from that main point, and so I omitted that info.
-The point is that choosing one of these functions shouldn't depend on
-what standards are available to the programmer.  Instead, the
-programmer should use the appropriate function, and then if it's not
-available, it should be written within the project (probably as a
-wrapper around other functions) to be able to use it.  That's why I
-provided some naive implementations of some of them.
-
-Thanks for your opinion and review of the page!
-
->=20
->  man7/string_copying.7 | 6 +-----
->  1 file changed, 1 insertion(+), 5 deletions(-)
->=20
-> diff --git a/man7/string_copying.7 b/man7/string_copying.7
-> index 04426ef77..308cada36 100644
-> --- a/man7/string_copying.7
-> +++ b/man7/string_copying.7
-> @@ -223,8 +223,7 @@ It only requires to check for truncation once after=
- all chained calls.
->  .BR strlcpy (3bsd)
->  and
->  .BR strlcat (3bsd)
-> -are designed to crash if the input string is invalid
-> -(doesn't contain a terminating null byte).
-> +are similar, but less efficient when chained.
-
-Ok.
-
->  .IP \[bu]
->  .BR stpncpy (3)
->  and
-> @@ -410,9 +409,6 @@ isn't large enough to hold the copy,
->  the resulting string is truncated
->  (but it is guaranteed to be null-terminated).
->  They return the length of the total string they tried to create.
-> -These functions force a SIGSEGV if the
-> -.I src
-> -pointer is not a string.
-
-Ok.
-
-Patch applied.  Thanks!
+<https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?id=3D=
+ec32926e9b5aa37c4c40fc8c09497cf2a50560a7>
 
 Cheers,
 Alex
 
->  .IP
->  .BR stpecpy (3)
->  is a simpler alternative to these functions.
+>=20
+> Thanks,
+> Michael
+>=20
+>>  In this case, just call
+>>  .BR bpf ()
+>>  again with the same parameters.
+>>
+>>
+>>>  .B EBADF
+>>>  .I fd
+>>>  is not an open file descriptor.
+>>
 
 --=20
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
 
---------------AQ8seXLXYXLUAspc9slAHO4O--
+--------------1XB7glu031lmsr3TTey4vrUh--
 
---------------0tnRpZ95CWL3HAHidXLbwYcO
+--------------l106jC5v80zqF7G4MV0VpgNN
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmTEO5AACgkQnowa+77/
-2zLyqw//bAAAV3nHuTCAbwrfppc2Fkb8hzFGiXdAOQWNCknQ2aw9riZV2ecYC6sL
-luu7G3NPOCJuwZuoQBhp7YFzC/fsE1wRDzBmlF0o/aTHs43VGvZMZChqsWz+bmFA
-iL5kp7KfgYLEcBPrq97BJzbzVwxXXBTBGIbsJreTF+5oHpcMshNbrnmY0CLDj4NN
-9zmL6UkaSLPkT5W9mULbMpFqnO6iSIKHoWFfWlMTJ6c17sVhQCrJ3M6yA9h/x92k
-pYXvRmXc5QY9SM1RCbi0UVBePaPfDU3ynu2UVKI1StTUMwOfG5L13ztCQMM2JHB6
-NCmF3R3UO4VMncGEnU6Z8iaizlG5ocVBbW8umF6j1fI9gSAOSSJzOrISlytXGk5T
-glH6smHjEJAQyRi+L6h04wWe7CH/mo2IDVkFCbWUMLExAXNT7++w7vVSpCeM/eXs
-muEu6vN693a9YU28RITV2DwYj7UoHHJ5SSi6aRoA3hzhwSW1Vcxtilo8W+nltsxT
-b0/+tVNEGD8ZGntqmPJ0kh5hAPanFZiwWxSbrvprW1FOePmPgGJbZACIGVxgA7An
-s+57WqfSJXTbWhVFPrwLaioDx46+tVzHLd7x/Lvf/YzEGzZiBJbyaire38xBIRxb
-Ct7nLcy+hXCBvYDA/Jqnzd04jq4S/QCWnp4LzQADcPdVR1IX/qA=
-=5rNT
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmTEO80ACgkQnowa+77/
+2zIq6Q/9GlH5Of5+qv7LPUzpLYYsvLxOUJWLTNsHqfdEAFmnCW0iIXvkwIkFaj7Z
+8JDhWgBopPQJHAZlYahYXIXslkXKJjbDnikGO/mfDZ59jPfve19U9OttBRZLHb0Z
+kZbPnxRjowYlGUUQJdJbQTTxpE83WphtkTPOfMtRH760JXVR5NU4iQT6Re0n/+Hs
+mZehMt/2EWM6xpgyzzezSc0Y8MrLseuOCpJLXMFU2povT7GjAPfTx7w+dcDU3XfB
+SiPcXQjM4pkJCb0hEwANbQAOMZVAchH3i7xOIU+ZjG2gIusKBGdVVgfxdUFf+5na
+EutrkhhUvkiGNBJO0T5NK3WM4JJrnhqnyZoPB35PJduv2BOoeQ2oxYSHLXvQIgvt
+UMJl/tTOJAbsGQVBKGpgINorFNPaBNfJOlA8CreEAxPAF2NgmL40HjlRDv9krvaA
+tyrRRYub39aWUyBPtCjhbjHpGSCml4oSi6+smMQeced0Rlss6X7tJvQhHigyJDmc
+ZMd7sbBDCR3yx/0tahJvp/A0bu3+D+pGuwgjkAkSMqCdaHbdWYrcr1vcM3y4SDcq
+wyqajelqPu/2lWJe1BsaFg83BZpbmZ0/Q1VNYeM8lyODfC3GhQSLuPyVCcttI24T
+9tvFjDCqbbiCMgL0xMbvXTEg4M+wGv7Yaz2ilDphiuixRnVS5Bw=
+=bbKp
 -----END PGP SIGNATURE-----
 
---------------0tnRpZ95CWL3HAHidXLbwYcO--
+--------------l106jC5v80zqF7G4MV0VpgNN--
