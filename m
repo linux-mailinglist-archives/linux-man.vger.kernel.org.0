@@ -2,163 +2,176 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id E57D876774D
-	for <lists+linux-man@lfdr.de>; Fri, 28 Jul 2023 22:58:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2D6C376774E
+	for <lists+linux-man@lfdr.de>; Fri, 28 Jul 2023 22:59:33 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233092AbjG1U6U (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 28 Jul 2023 16:58:20 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50500 "EHLO
+        id S230473AbjG1U7b (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 28 Jul 2023 16:59:31 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50748 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233322AbjG1U6T (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 28 Jul 2023 16:58:19 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A0D7F4488
-        for <linux-man@vger.kernel.org>; Fri, 28 Jul 2023 13:58:17 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-         key-exchange X25519 server-signature RSA-PSS (2048 bits))
-        (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id 3F146621FF
-        for <linux-man@vger.kernel.org>; Fri, 28 Jul 2023 20:58:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0283DC433C7;
-        Fri, 28 Jul 2023 20:58:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1690577896;
-        bh=SMU/1LLDFNrRKo4F0RYZ2HU9FExu0ogc+PQT72bWRQM=;
-        h=Date:Subject:To:References:From:In-Reply-To:From;
-        b=HdVu1MZtFak5eCStYaYdrzHuiUjOCbYEO8fRGKSNLBUI5TE3I7JX1tEigK3yFZ8oI
-         lCwvrFAKtqe5PhscFU3rZyaDseRMDJD7ptwyLSVs9mZ0/EFkbonO2ckBuifwcjAWHw
-         aS6CAP0w1IaHh6W5aWS9MhW7mbvuy0/41KMPU4Kbo1dnAw2I2brpA4pxGWu+2/5GJX
-         li45Bht8VDhzzuk1gDNyGmeczIlxDYahiMsCxmFNvVynjzkQa0B30NXROWImdc46Cm
-         nZzOjbnR3FGJpxMQ7tWF5kbSNm1gYibruvC7uMAqQkJVX8YB21YzrwkknPY0a821ny
-         3vRlZmc3AS/FA==
-Message-ID: <fe8d40d4-6d08-1807-a4d7-cbfda41173c1@kernel.org>
-Date:   Fri, 28 Jul 2023 22:58:14 +0200
+        with ESMTP id S231882AbjG1U7b (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 28 Jul 2023 16:59:31 -0400
+Received: from mail-qt1-x834.google.com (mail-qt1-x834.google.com [IPv6:2607:f8b0:4864:20::834])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 08AEA4483
+        for <linux-man@vger.kernel.org>; Fri, 28 Jul 2023 13:59:30 -0700 (PDT)
+Received: by mail-qt1-x834.google.com with SMTP id d75a77b69052e-4036bd4fff1so78671cf.0
+        for <linux-man@vger.kernel.org>; Fri, 28 Jul 2023 13:59:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20221208; t=1690577969; x=1691182769;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=oFuLALwL/EJEaH5j96tk6JYPk6zWfn7tZvQhNBjCohY=;
+        b=Equ3d4pYXEqC3R0pSwEc7wt9q6Xp9GlJfsCXZk+PgNwmUJZlQJllZeHx1FfWerFxd6
+         pke6OYeKFslRli0n2ZkvA/qs8F4ZntfJFvaV01qy2DFdUOPjC7VwL93lMC6FdPamcHr4
+         +rNiE3v0XYZBuipR7OlYxate+4m0QNaRoe2HVU7Eyex5JNH+kj6vNaltGl+PdkbyeovR
+         i/NDNshA1ao05fOhJdEqVJOxUnoqidKYGj1mZOjMlUR8ol8RTRCzg0qTtu8fnnLCk9HD
+         gmu1+GRB6hEo+5KFE2bZ50JQUgDXwReyeiOp2PgyDhqVD48yMPzAJhwn56oXsgfiT5mi
+         ho0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1690577969; x=1691182769;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=oFuLALwL/EJEaH5j96tk6JYPk6zWfn7tZvQhNBjCohY=;
+        b=FFvgbakEo4fI7AZ+8QsU+GO8jtXaXFh+pmy/aEcYe/zcrFijWMtcJhK7xqj3vpRig0
+         WdIGTJCLMi9WZ/GT9xdUC3TSo30JTKBc2OipeWHw7r/eRCBp8giYG0Sns+C3Rtfv7zwr
+         GcWsoWpQ9dRG6Z2jR8h8LCl9a+ZUgg+kpUed6RZvEK3tfTwjAcVZ/nsX2OWQ5Qp0Ujhz
+         1x8RI/4WVEM7SWN7+IT4X4eLJhS4E9wGE/PqzWreE7CrDHKQ2H06xgBjQ+tA2g7un5VH
+         3NjTwjbt5gzgMWv1RoqJuOtLvNSN4OqIjOzOPcGNcdxPnOLnZZB/G6wqLUgcAwpfM5nH
+         JjRA==
+X-Gm-Message-State: ABy/qLayUXTqM8gQcWs5B6gm2oXcZhipQNgVBOV4cZfpXXBDyvSDLdsx
+        p01+g7FB2fUSg28k/8IkJwmpOcHoA7RuxgI8r4qjBw==
+X-Google-Smtp-Source: APBJJlH3xQqwcJy3WXudUzB48NagTPLITELiWu6JcvLc1TlvAJcacjUWKQPPHfoNMtFJICBxF2bQcgTuZajn2RwHsro=
+X-Received: by 2002:a05:622a:653:b0:403:aee3:64f7 with SMTP id
+ a19-20020a05622a065300b00403aee364f7mr65678qtb.6.1690577969003; Fri, 28 Jul
+ 2023 13:59:29 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH 2/6] vfork.2: ffix
-Content-Language: en-US
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>,
-        linux-man@vger.kernel.org
-References: <20230728175855.bcm427agldvrivcd@illithid>
-From:   Alejandro Colomar <alx@kernel.org>
-Organization: Linux
-In-Reply-To: <20230728175855.bcm427agldvrivcd@illithid>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------g0DvrN0UEtNbXHOYudXOrib3"
-X-Spam-Status: No, score=-7.2 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
-        RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-        URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.6
+References: <CAELULbeXgZWn+Nw_rpUzkGgNCtb7oFf1+JS=KnNVuLhcF5Vabg@mail.gmail.com>
+ <CAELULbf=z2WWpHm5QDTK81oWTC9zMZJg2MA69mjOorJQ5QAzGw@mail.gmail.com>
+ <CAJgzZopuptYOKHQ32-mau9gzwaWOmRtTACqdmfZvox=c2itp7w@mail.gmail.com>
+ <781c88a1-b71f-f600-8d75-068a65855d16@gmail.com> <CAJgzZooLH5UnNU_j6jTkTFMCS+7gDMaTu9RYpSHnO2ELJat-+A@mail.gmail.com>
+ <41ea7196-c824-196d-7794-0f61d0947bcd@gmail.com> <CAELULbcAtuqehXmDeRjOPtCOuriw9hrUU2Ndw8-i0Z=9GkbNzg@mail.gmail.com>
+ <CAELULbfDFt2Z3T45_brzhWzL8182R=uxpHy_rSdgBSXpp+QQKQ@mail.gmail.com>
+ <CAJgzZoqS-QJWX87P5B1LQxCktm9BAVfVVBwBxV87RhmQg0fsdg@mail.gmail.com>
+ <CAJgzZooCj9FcHwMam0TC_y6c33K8OFuWGGS0_-Ji+eEhLsXo_Q@mail.gmail.com>
+ <e7083e0d-92c2-ae07-7ff5-f7fa1ca91be6@kernel.org> <bf4dd8ed-ded3-6fe0-d3fa-afa63164bc4c@kernel.org>
+ <CAELULbcxcmRXCkXx3_q2WMb8eMHTGfRRw=kmsOCBr-YRauOgUQ@mail.gmail.com>
+ <61009d70-8033-2e6d-7916-f45033398d7d@kernel.org> <CAELULbd+_kOKdJcKuTS8XqbcFyeZB6Qsi8J_YAe6WuO_+n=26A@mail.gmail.com>
+ <9b26cd45-08e1-8905-4b8a-dfa65d654b99@kernel.org>
+In-Reply-To: <9b26cd45-08e1-8905-4b8a-dfa65d654b99@kernel.org>
+From:   Zijun Zhao <zijunzhao@google.com>
+Date:   Fri, 28 Jul 2023 13:58:52 -0700
+Message-ID: <CAELULbfFmfKpV=xhUAGwYrch2yZxRx6qc5s090WkBkpnoPupMA@mail.gmail.com>
+Subject: Re: [PATCH] Fix the man page
+To:     Alejandro Colomar <alx@kernel.org>
+Cc:     linux-man@vger.kernel.org, enh <enh@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: No, score=-17.6 required=5.0 tests=BAYES_00,DKIMWL_WL_MED,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+        ENV_AND_HDR_SPF_MATCH,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,
+        T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,
+        USER_IN_DEF_SPF_WL autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------g0DvrN0UEtNbXHOYudXOrib3
-Content-Type: multipart/mixed; boundary="------------KwDKPYu7vCk5ScLe6CjqV5Rr";
- protected-headers="v1"
-From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>,
- linux-man@vger.kernel.org
-Message-ID: <fe8d40d4-6d08-1807-a4d7-cbfda41173c1@kernel.org>
-Subject: Re: [PATCH 2/6] vfork.2: ffix
-References: <20230728175855.bcm427agldvrivcd@illithid>
-In-Reply-To: <20230728175855.bcm427agldvrivcd@illithid>
+Hi Alejandro,
+  Excited to hear that! Thank you!
+Best,
+Zijun
 
---------------KwDKPYu7vCk5ScLe6CjqV5Rr
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-On 2023-07-28 19:58, G. Branden Robinson wrote:
-> Clean up in preparation for "MR sed".
->=20
-> From 0421c8301f29c2c7aeb2ebe82a72fc716617ea19 Mon Sep 17 00:00:00 2001
-> From: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-> Date: Fri, 28 Jul 2023 11:52:34 -0500
-> Subject: [PATCH 2/6] vfork.2: ffix
->=20
-> * Use typographer's quotation marks.
-> * Quote the 4.2BSD vfork(2) page _exactly_, including font styling.
->=20
-> https://minnie.tuhs.org/cgi-bin/utree.pl?file=3D4.2BSD/usr/man/man2/vfo=
-rk.2
->=20
-> This is to remove a false positive in preparation for a sed(1)-driven
-> update of man page cross references to use the groff 1.23.0 `MR` macro.=
-
->=20
-> Signed-off-by: G. Branden Robinson <g.branden.robinson@gmail.com>
-> ---
->  man2/vfork.2 | 9 ++++-----
->  1 file changed, 4 insertions(+), 5 deletions(-)
->=20
-> diff --git a/man2/vfork.2 b/man2/vfork.2
-> index 3a65010ca..d5ea876e3 100644
-> --- a/man2/vfork.2
-> +++ b/man2/vfork.2
-> @@ -149,13 +149,12 @@ .SH VERSIONS
->  Some consider the semantics of
->  .BR vfork ()
->  to be an architectural blemish, and the 4.2BSD man page stated:
-> -"This system call will be eliminated when proper system sharing mechan=
-isms
-> -are implemented.
-> +\[lq]This system call will be eliminated when proper system sharing
-> +mechanisms are implemented.
-
-Error: write poems, not prose.
-
-I've amended that ;-)
-
-<https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?id=3D=
-47b6b10ec8a61dade7f50d6ec2a2ff7001fb19af>
-
-Cheers,
-Alex
-
->  Users should not depend on the memory sharing semantics of
-> -.BR vfork ()
-> +.I vfork
->  as it will, in that case, be made synonymous to
-> -.BR fork (2).\c
-> -"
-> +.IR fork .\[rq]
->  However, even though modern memory management hardware
->  has decreased the performance difference between
->  .BR fork (2)
-
---=20
-<http://www.alejandro-colomar.es/>
-GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
-
-
---------------KwDKPYu7vCk5ScLe6CjqV5Rr--
-
---------------g0DvrN0UEtNbXHOYudXOrib3
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmTEK+YACgkQnowa+77/
-2zIJEQ/9Eof5oMj0sreoA9nC2GjuBm2W3sBNFDqW+IFR4RO71Wn93C7P9f/EHgB3
-kVR2uJPxuhrlclnijHIHJpBotySagvmZTNpdGo7g/UCrF71IybmZ6DAUj4uwzfP3
-vGangyE8RXXXt/qiP/Sp2n7QA3dlzeTDzFBKh5YeIn19kMQr8xprT5DaMTRLYxQv
-KuGugxyN3924rLWjEXk5kLECEiqR9Ecc/BS4JOrz8h75oIXhMibwBvvOnsMK/8ug
-XeBfg11e0rN9WsjfMe+Gord+l0wBT3TJUP6d8jcrsUqeITIXvAYPsc4qjpUpdccv
-Lhsv3YMgre/DmnspGSe6uXI7Et+wKmlyo78OLAsVN4KE/pPVdwxJXmsF8pIJ7O4g
-peq9+vZihqT/7gTZBAjD4An1cg9nxY1IlKDFC2iNjX3m49lqO+ugoN3fuxRZmECQ
-/QbPRlmJRoMXPv27Z1bYfS4obAPOwHYCxSScuyOTe8e0WHJYuVMpjHWn92ePCDpq
-9tnZK42XM3aUYkc9/YDbNU+sFUQ6KVRkP0b2Ebkx+PXscS8wmHugeGuM4o5eXdxJ
-5nKjTXSad4nkn2Qr55k/zcEjgbA/11Em0Ntxw7NZlFTeF4Tb9iG9oFjWbh9ukJ2j
-N7fmz3MEXGvEwkqSqTsgu5vR1FM7y9PZ0vzEldP4n67cF85CJ0s=
-=1Ic1
------END PGP SIGNATURE-----
-
---------------g0DvrN0UEtNbXHOYudXOrib3--
+On Fri, Jul 28, 2023 at 1:48=E2=80=AFPM Alejandro Colomar <alx@kernel.org> =
+wrote:
+>
+> On 2023-07-27 20:33, Zijun Zhao wrote:
+> > Hi Alejandro,
+> >   Sorry for the late reply! Thank you for your help! Yes, all comments
+> > are very clear, understandable and helpful! This is the new patch.
+> > Thank you for reviewing! Also, thank Elliott for helping! Hope this
+> > patch is qualified!
+> > Best,
+> > Zijun
+>
+> Heh, I replied to the wrong email.  Thanks for the patch; I applied it
+> (I applied this one, even if I replied to the other one).
+>
+> Cheers,
+> Alex
+>
+> >
+> >
+> > On Sat, Jul 15, 2023 at 9:13=E2=80=AFAM Alejandro Colomar <alx@kernel.o=
+rg> wrote:
+> >>
+> >> Hi Zijun,
+> >>
+> >> On 2023-07-12 01:48, Zijun Zhao wrote:
+> >>> Hi Alejandro,
+> >>>   Sorry for the late reply!
+> >>
+> >> No problem :-)
+> >>
+> >>> I made some changes(make the subject more
+> >>> formal, add a blank line, respect the80-column right margin and use -=
+u
+> >>> to when doing git format-patch) and attached the patch below.
+> >>
+> >> Thanks!
+> >>
+> >>> But I am
+> >>> a bit confused about semantic newlines. I think I already start on a
+> >>> new line and use clause breaks to split long sentences? Do I
+> >>> misunderstand something? Thank you!
+> >>
+> >> Here's your patch, modified to use semantic newlines:
+> >>
+> >> +The kernel accepts null for both time and timezone.
+> >> +The timezone argument is ignored by glibc and musl,
+> >> +and not passed to/from the kernel.
+> >> +Android's bionic passes the timezone argument to/from the kernel,
+> >> +but Android does not update the kernel timezone
+> >> +based on the device timezone in Settings,
+> >> +so the kernel's timezone is typically UTC.
+> >>
+> >> Does it make sense now?
+> >>
+> >> I'll also comment a few things about the patch:
+> >>
+> >>> +The kernel accepts null for both time and timezone.
+> >>
+> >> We should use the 'tv' and 'tz' identifiers.  We should also use NULL.
+> >> I suggest:
+> >>
+> >> The kernel accepts NULL for both
+> >> .I tv
+> >> and
+> >> .IR tz .
+> >>
+> >>> +The timezone argument is ignored by glibc and musl,
+> >>> +and not passed to/from the kernel.
+> >>> +Android's bionic passes the timezone argument to/from the kernel,
+> >>
+> >> Could you give an example of why bionic differs from glibc and musl,
+> >> and why it can be useful.  It is mostly curiosity, but it might be
+> >> useful to have it documented in the commit message.
+> >>
+> >>> +but Android does not update the kernel timezone
+> >>> +based on the device timezone in Settings,
+> >>> +so the kernel's timezone is typically UTC.
+> >>
+> >> Cheers,
+> >> Alex
+> >>
+> >> --
+> >> <http://www.alejandro-colomar.es/>
+> >> GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
+> >>
+>
+> --
+> <http://www.alejandro-colomar.es/>
+> GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
+>
