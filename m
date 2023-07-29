@@ -2,58 +2,57 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 184BA767E92
-	for <lists+linux-man@lfdr.de>; Sat, 29 Jul 2023 13:17:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 187A1767EB4
+	for <lists+linux-man@lfdr.de>; Sat, 29 Jul 2023 13:29:51 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231466AbjG2LRs (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 29 Jul 2023 07:17:48 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40100 "EHLO
+        id S231148AbjG2L3t (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 29 Jul 2023 07:29:49 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42622 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229510AbjG2LRr (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 29 Jul 2023 07:17:47 -0400
+        with ESMTP id S229889AbjG2L3q (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 29 Jul 2023 07:29:46 -0400
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C44E3119
-        for <linux-man@vger.kernel.org>; Sat, 29 Jul 2023 04:17:46 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5175E198C
+        for <linux-man@vger.kernel.org>; Sat, 29 Jul 2023 04:29:39 -0700 (PDT)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
         (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
          key-exchange X25519 server-signature RSA-PSS (2048 bits))
         (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id 5275D60BA9
-        for <linux-man@vger.kernel.org>; Sat, 29 Jul 2023 11:17:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F0A6C433C7;
-        Sat, 29 Jul 2023 11:17:44 +0000 (UTC)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id D2D5A60B98
+        for <linux-man@vger.kernel.org>; Sat, 29 Jul 2023 11:29:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76AFDC433C8;
+        Sat, 29 Jul 2023 11:29:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1690629465;
-        bh=bUwoqdvd/RfkMlt4E1fGvXngvcHMKXu1V3PZRrJauUA=;
-        h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-        b=mkUdT6gUtC4UoX/Jmb8pMW8OErUQMYmSN2vedKipO3Xwezn9uRXCCVpYLJdg4YIM9
-         KTQ/jG1qSfZhEmTSDJ840qnr5nFmtAIA6uCiy+3uz0lzW9KXdaQprGc0kTvClOEUSB
-         AIm62hQBo0l8AhAG8vfSVY/YqZC4cqxKtZeGZFrEjOqzku8/b7BXRfSC0PB4xyat1n
-         Yb1k6VEqEhjuDujSh6stmNTQw3uhdlM3s73ds4nSSt8R2CTfER4QJmZOWUIEgAg6E4
-         t6p4XqCM5aN2Z1A711VGEGLj2WEM2fU6//3tXX1Wv/Mtkj7nqEJr+7lvQRm/t/VuUj
-         7kYvuVjUnhubw==
-Message-ID: <5462849a-c7be-a5c9-d14c-11e8fb8f34de@kernel.org>
-Date:   Sat, 29 Jul 2023 13:17:43 +0200
+        s=k20201202; t=1690630178;
+        bh=Tt695GHO4c36bG9boNzQ/brxRarHNxf5PdpRwpACH/U=;
+        h=Date:Subject:To:References:Cc:From:In-Reply-To:From;
+        b=S95FQKwMi1CfHUcvuF8dasiN2XP7wy1nQt0BA8NzHdK4DO0l8QjeC5RU2Zdu9X4yh
+         E/Nyi6wflcKDgIT1i51TMzGojR0RhaEp8gj5GKMbbycoZb2N+//MlfgqalphELQie4
+         MBpn6qP0yfn5hcA1zblqSXOOu/f4vjPI8PYDDcIine/Z7qAOqzBny7UrQgxU3G524W
+         V7s3W31BAsfBXRG4rJCfRD0cvv4RGOas1VtCZ9WdTV2Io21e9po9YW/0wSTvSqTOHe
+         45mRLd2dRsOKpjlioydv9nqs9qO11qHaPfShjzh2E/0v2yVMIMXhEvXlpPOxcAeN8W
+         pzm3u7Z3dyuRQ==
+Message-ID: <a79cca5f-032e-ba4f-8f1f-c9fecbeafd9a@kernel.org>
+Date:   Sat, 29 Jul 2023 13:29:28 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.0
 Subject: Re: [PATCH] string_copying.7: tfix
 Content-Language: en-US
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc:     Lennart Jablonka <humm@ljabl.com>, linux-man@vger.kernel.org
+To:     Lennart Jablonka <humm@ljabl.com>
 References: <ZMQL2bAg5p2no9ir@beryllium>
- <b6ce1d14-528f-cbe9-8117-be684526e36f@kernel.org>
- <20230729095051.755yips2tkv5whph@illithid>
+Cc:     linux-man@vger.kernel.org,
+        "G. Branden Robinson" <g.branden.robinson@gmail.com>
 From:   Alejandro Colomar <alx@kernel.org>
 Organization: Linux
-In-Reply-To: <20230729095051.755yips2tkv5whph@illithid>
+In-Reply-To: <ZMQL2bAg5p2no9ir@beryllium>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------qBEePHiGnP038l7QhTX6UIf1"
-X-Spam-Status: No, score=-6.2 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+ boundary="------------0RKBFHY0UkjfIc6hMG6ytcSB"
+X-Spam-Status: No, score=-7.2 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
         DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
         RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-        URIBL_BLOCKED,URI_DOTEDU autolearn=ham autolearn_force=no version=3.4.6
+        URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
@@ -61,190 +60,234 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------qBEePHiGnP038l7QhTX6UIf1
-Content-Type: multipart/mixed; boundary="------------B0e3vYRJ9vtxz0x54I8P6250";
+--------------0RKBFHY0UkjfIc6hMG6ytcSB
+Content-Type: multipart/mixed; boundary="------------mUQBUbv5zhFmgtmtk576pa00";
  protected-headers="v1"
 From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: Lennart Jablonka <humm@ljabl.com>, linux-man@vger.kernel.org
-Message-ID: <5462849a-c7be-a5c9-d14c-11e8fb8f34de@kernel.org>
+To: Lennart Jablonka <humm@ljabl.com>
+Cc: linux-man@vger.kernel.org,
+ "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Message-ID: <a79cca5f-032e-ba4f-8f1f-c9fecbeafd9a@kernel.org>
 Subject: Re: [PATCH] string_copying.7: tfix
 References: <ZMQL2bAg5p2no9ir@beryllium>
- <b6ce1d14-528f-cbe9-8117-be684526e36f@kernel.org>
- <20230729095051.755yips2tkv5whph@illithid>
-In-Reply-To: <20230729095051.755yips2tkv5whph@illithid>
+In-Reply-To: <ZMQL2bAg5p2no9ir@beryllium>
 
---------------B0e3vYRJ9vtxz0x54I8P6250
+--------------mUQBUbv5zhFmgtmtk576pa00
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi Branden,
+Hi Lennart,
 
-On 2023-07-29 11:50, G. Branden Robinson wrote:
-> Hi Alex,
->=20
-> At 2023-07-28T23:31:10+0200, Alejandro Colomar wrote:
->> (CC +=3D Branden)
->=20
-> I think I just received my grammar prescriptivist's draft notice... ;-)=
+On 2023-07-28 20:41, Lennart Jablonka wrote:
+> Signed-off-by: Lennart Jablonka <humm@ljabl.com>
 
->=20
->> On 2023-07-28 20:41, Lennart Jablonka wrote:
->>>  while not duplicating memory
->>> -nor using time to do a copy.
->>> +or using time to do a copy.
->>
->> Is nor incorrect here?  I'm not a native English speaker and would
->> like to understand why it is incorrect.
->=20
-> With the humbling caveat that you find me more persuasive than some
-> online grammar authorities,
+Please send v2 with
 
-;-)
+Cc: "G. Branden Robinson" <g.branden.robinson@gmail.com>
 
-> the foregoing suggestion is in my view a
-> hypercorrection.  The (coordinating) conjunction "nor" is not restricte=
-d
-> to sentences using "neither".
->=20
-> https://newsroom.unl.edu/announce/snr/3511/19686
-> https://study.com/learn/lesson/neither-nor-usage-examples-sentences.htm=
-l
-> https://www.grammarbook.com/blog/effective-writing/using-nor-properly/
->=20
-> In the last, attend particularly to section "Using Nor Properly:
-> Interchanging with Or".
->=20
-> I'm a +0 on this hunk of the patch.  It's correct either way.
+I'll comment below on what should be removed from the patch in v2.
+Reword the commit message as you find appropriate for the revision.
 
-I prefer nor in this case.  It sounds better to me.
-
+> ---
+> On some of the commas:  There are a few of instances of
 >=20
->>> -See EXAMPLES for a reference implementation.
->>> +see EXAMPLES for a reference implementation.
->>
->> Ok
+> 	Subject verb object partclause, advphrase.
 >=20
-> Strong +1 here.  It is volcanically nonstandard to apply sentence
-> capitalization to an independent clause after a semicolon.
+> For example:
+>=20
+> 	This function catenates the input character sequence contained in a nu=
+ll-padded wixed-width buffer, into a destination string.
+> 	| subject     | verb    | object                     | participial cla=
+use                           | adverbial phrase       |
+>=20
+> Dropping the relative clause, there shouldn't be a comma preceding the
+> restrictive adverbial phrase: The input character sequence is really,
+> always catenated into a destination string; that is essential.
+>=20
+> The participial clause, being non-restrictive---there is but one input
+> character sequence that could be meant---, should be enclosed by commas=
+=2E
+> That is the existing comma's purpose and doesn't work without the added=
+,
+> first comma.
 
-Yep; I don't know why I wrote it like that.  Maybe I had initially
-written a period; I'll never know.
+
+Please include these things in the commit message.  The same it can
+be useful for me to review now, it can be useful for anyone
+revisiting the patch in the future.
 
 >=20
->>>  .\" ----- DESCRIPTION :: Functions :: strlcpy(3bsd), strlcat(3bsd) -=
----/
->>>  .TP
->>>  .BR strlcpy (3bsd)
->>> @@ -427,7 +427,7 @@ isn't large enough to hold the copy,
->>>  the resulting character sequence is truncated.
->>>  Since it creates a character sequence,
->>>  it doesn't need to write a terminating null byte.
->>> -It's impossible to distinguish truncation by the result of the call,=
+>  man7/string_copying.7 | 26 +++++++++++++-------------
+>  1 file changed, 13 insertions(+), 13 deletions(-)
+>=20
+> diff --git a/man7/string_copying.7 b/man7/string_copying.7
+> index da1fc6752..04426ef77 100644
+> --- a/man7/string_copying.7
+> +++ b/man7/string_copying.7
+> @@ -49,7 +49,7 @@ const char *restrict " src ,
+>  .PP
+>  // Zero a fixed-width buffer, and
+>  // copy a string into a character sequence with truncation.
+> -.BI "char *strncpy(char " dest "[restrict ." sz "], \
+> +.BI "char *strncpy(char " dst "[restrict ." sz "], \
 
->>> +It's impossible to distinguish truncation by the result of the call
->>>  from a character sequence that just fits the destination buffer;
->>
->> I guess it's ok (to me they both sound good)
->=20
-> I think the comma arose there due to good instincts: you have a long
-> chain of prepositional (and participial) phrases that do _not_ grow
-> strictly narrower in scope as they proceed.
->=20
-> Consider:
->=20
-> "Due to the dense foliage, it's impossible to distinguish the man in th=
-e
-> tree growing from the loamy soil laid down in the Cenozoic Era that I
-> remember learning about in geology class."
->=20
-> This (admittedly goofy) sentence is not difficult to interpret: each
-> phrase (after the first, "Due to", which serves as a topicalizer)
-> modifies only the preceding one.
->=20
-> By contrast, the sentence in this man page is structurally complex and
-> therefore challenging to parse.
->=20
-> "It's impossible to distinguish
->      (truncation (by the result (of the call))
-> from (a character sequence (that just fits
->                                            ([inside] the destination
->                                             buffer))).
->=20
-> That's pretty tough sledding.  Only semantic knowledge permits the
-> experienced programmer to make sense of it.
->=20
-> The use of the comma prompts the reader that an ambiguous parse is
-> possible, and that they should pause, as they would in speaking, to
-> permit the modifying phrases just uttered to bind to the preceding
-> language.  Or, alternatively, the comma (or pause) is a warning that th=
-e
-> phrase stack is being popped, cueing the reader or listener to attempt
-> multiple parses in search of one that seems suitable.
->=20
-> That this exhibit took so much meta-analysis to explain is what
-> motivates my advice: it would be better to recast the sentence until
-> clarity is achieved.
+ok
 
-Yep, I also like that comma to simplify parsing.
+>  const char *restrict " src ,
+>  .BI "               size_t " sz );
+>  .PP
+> @@ -280,9 +280,9 @@ instead of
+>  In programs that make considerable use of strings or character sequenc=
+es,
+>  and need the best performance,
+>  using overlapping character sequences can make a big difference.
+> -It allows holding subsequences of a larger character sequence.
+> +It allows holding sub-sequences of a larger character sequence,
 
->=20
->>> -This function copies the input character sequence
->>> -contained in a null-padded wixed-width buffer,
->>> +This function copies the input character sequence,
->>
->> I believe the below is like a parenthetical, which is why I put it
->> between commas; isn't it?  Although your version also looks good.
->>
->>> +contained in a null-padded fixed-width buffer,
->>
->> Ok
->>
->>>  into a destination character sequence.
->=20
-> I'm a +0 on this one, too.  To me, it reads equivalently either way.
+Use subsequences (but the s/./,/ is good).
 
-In this case I prefer the proposed hunk.  In fact, I doubted because
-I misread the hunk as doing the inverse of what it really does.
+>  while not duplicating memory
+> -nor using time to do a copy.
+> +or using time to do a copy.
 
-Thanks for your prescriptions!
+revert
+
+>  .PP
+>  However, this is delicate,
+>  since it requires using character sequences.
+> @@ -397,7 +397,7 @@ It returns a pointer suitable for chaining.
+>  Truncation needs to be detected only once after the last chained call.=
+
+>  .IP
+>  This function is not provided by any library;
+> -See EXAMPLES for a reference implementation.
+> +see EXAMPLES for a reference implementation.
+
+ok
+
+>  .\" ----- DESCRIPTION :: Functions :: strlcpy(3bsd), strlcat(3bsd) ---=
+-/
+>  .TP
+>  .BR strlcpy (3bsd)
+> @@ -427,7 +427,7 @@ isn't large enough to hold the copy,
+>  the resulting character sequence is truncated.
+>  Since it creates a character sequence,
+>  it doesn't need to write a terminating null byte.
+> -It's impossible to distinguish truncation by the result of the call,
+> +It's impossible to distinguish truncation by the result of the call
+
+revert
+
+>  from a character sequence that just fits the destination buffer;
+>  truncation should be detected by
+>  comparing the length of the input string
+> @@ -444,8 +444,8 @@ is a more useful alternative to this function.
+>  .\" ----- DESCRIPTION :: Functions :: zustr2ustp(3) ------------------=
+--/
+>  .TP
+>  .BR zustr2ustp (3)
+> -This function copies the input character sequence
+> -contained in a null-padded wixed-width buffer,
+> +This function copies the input character sequence,
+
+ok
+
+> +contained in a null-padded fixed-width buffer,
+
+ok
+
+>  into a destination character sequence.
+>  The programmer is responsible for allocating a buffer large enough.
+>  It returns a pointer suitable for chaining.
+> @@ -455,12 +455,12 @@ since the size of the original character sequence=
+ is always known,
+>  so it wouldn't be very useful.
+>  .IP
+>  This function is not provided by any library;
+> -See EXAMPLES for a reference implementation.
+> +see EXAMPLES for a reference implementation.
+
+ok
+
+>  .\" ----- DESCRIPTION :: Functions :: zustr2stp(3) -------------------=
+-/
+>  .TP
+>  .BR zustr2stp (3)
+> -This function copies the input character sequence
+> -contained in a null-padded wixed-width buffer,
+> +This function copies the input character sequence,
+
+ok
+
+> +contained in a null-padded fixed-width buffer,
+
+ok
+
+>  into a destination string.
+>  The programmer is responsible for allocating a buffer large enough.
+>  It returns a pointer suitable for chaining.
+> @@ -470,7 +470,7 @@ since the size of the original character sequence i=
+s always known,
+>  so it wouldn't be very useful.
+>  .IP
+>  This function is not provided by any library;
+> -See EXAMPLES for a reference implementation.
+> +see EXAMPLES for a reference implementation.
+
+ok
+
+>  .\" ----- DESCRIPTION :: Functions :: strncat(3) ---------------------=
+-/
+>  .TP
+>  .BR strncat (3)
+> @@ -478,8 +478,8 @@ Do not confuse this function with
+>  .BR strncpy (3);
+>  they are not related at all.
+>  .IP
+> -This function catenates the input character sequence
+> -contained in a null-padded wixed-width buffer,
+> +This function catenates the input character sequence,
+
+ok
+
+> +contained in a null-padded fixed-width buffer,
+
+ok
+
+>  into a destination string.
+>  The programmer is responsible for allocating a buffer large enough.
+>  The return value is useless.
 
 Cheers,
 Alex
-
->=20
-> [duplicates of the foregoing cases snipped]
->=20
-> Regards,
-> Branden
 
 --=20
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
 
---------------B0e3vYRJ9vtxz0x54I8P6250--
+--------------mUQBUbv5zhFmgtmtk576pa00--
 
---------------qBEePHiGnP038l7QhTX6UIf1
+--------------0RKBFHY0UkjfIc6hMG6ytcSB
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmTE9VcACgkQnowa+77/
-2zKbeg//cYE2t+cHF4hzytkiZp39nXWCDptWigh3s/NN1QwaktdqIXyYiL8WvpSw
-kjEvb8Qw4I67byaE/OpbVQPcFExb53qB+MUC9JDrVEFTA2K4awq+d24Z5yyVLd45
-uauqN/eFg+uItSUxxHslOT2doSVppxAJRHXmwvJiQn2G1uib1sG6Wj9/550bqMrL
-BTCwhyoc9595A4NzkRCed7lfHb5cPPBRkhyiu7+DSsSV7l0TdMK4MqKdiCIaiOQY
-YrUnrYibvAZJUMfmgCulEqyNXKnaIKtBdKf2YmiyAHizdk+iHhTbafmOy9msQO20
-W7CnAFDYbYWafCiVGRs2V6E3EAWNIDaGnoWFUQMtYySPA8qMVu5TiDxrFDW9B6CO
-Dn89eRJ4ChHLARd/vIttRHgRU2bIfuKZ2QezNfmK30Fes3JFWvcbZ/ihHoCOVmzu
-qGxsyS2Aj7H0WGRrX72aMkv6B25VvEiV/2tebq6D4wu9KTtYlrM2xMkBMqqZ0/mq
-0+We+IDaBvPiHUdU1jRLYco8svlCD6glw66IEMJkvnY7Fa8AzbbIClIAVDb3Bwas
-Dh8eJddwNFP2wSyp6U+IaC5FX6kCRjs0Zq8qnTyueqxduNMIT+1HtaFocIeyJB7L
-1DyJLhuZm3LLYmbRtdXo1iDy8jKAtilHjZz3S/BLM6kN4eIBNd0=
-=XoIy
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmTE+BgACgkQnowa+77/
+2zLZVg//cvVDidtJUSFdo5cPtmHJc03QVRrExZAlUcT0CjthQ+5qrv2OlW2X0JNe
+TcoUK2Hf8wuvA6jA87heUi9lp0FP2astOlZV/fJqvorPkK1pp6cLqRSQiU5eptVA
+G0B7/Xb1bcn/rpNRSim3tDQv8BNE69OgtbS1vhzTBil4igtbyvR5crzSncUxmmH3
+EpW72KjiNwDS9WzVka2gzGd7aIu13VT/mO3cQJbZzhSbL0smcv/Zub2ApN9Z1yeh
+vlvRGsiKluFZHtIcphn4A3ZljxZ3/TisvexKSwXB/sB6WIPKUjpCgAl/4JnEzDXd
+caEDh7i6WivrKvy+4RNfkKEUH8lFN8Kc0Z3z0x8ovIGb/Bua8bTZeHUAEhxFNvnt
+zkUJo5JkyMJCiF6Sl/MyQchX5st3nHMw/4U8f8jy0dxSyohs+PvQGUXE3XX7e13N
+56FrrQIpRRmkGuJrojhrFbkrNDvYrzYbucXSungoPhi7pjfvhrKKKEC6a4066LWV
+T5Kt3P4gUD3epbm0vbYNddKSiZu3imaE6E07/5JgeFZHxIk438h6V2pFQdBzzf0X
+ME6M1s66PiWH2zhr0StqgS9Dt1dDfC1LY1SJ8jkCu2B9aBHs3Ob3JF0T1D/C3GjT
+3naqzN/4JaElTWZUlbsu50ehCyerMclSx6+WWwZP8adrbjxRp2M=
+=lrrn
 -----END PGP SIGNATURE-----
 
---------------qBEePHiGnP038l7QhTX6UIf1--
+--------------0RKBFHY0UkjfIc6hMG6ytcSB--
