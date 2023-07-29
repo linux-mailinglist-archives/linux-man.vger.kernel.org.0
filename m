@@ -2,122 +2,122 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id E2BDD767D43
-	for <lists+linux-man@lfdr.de>; Sat, 29 Jul 2023 10:44:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6FECF767D82
+	for <lists+linux-man@lfdr.de>; Sat, 29 Jul 2023 11:13:29 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229457AbjG2Ioy (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 29 Jul 2023 04:44:54 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36818 "EHLO
+        id S231639AbjG2JN2 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 29 Jul 2023 05:13:28 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41968 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231355AbjG2Iow (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 29 Jul 2023 04:44:52 -0400
-Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com [IPv6:2607:f8b0:4864:20::22a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6E8B1449F
-        for <linux-man@vger.kernel.org>; Sat, 29 Jul 2023 01:44:48 -0700 (PDT)
-Received: by mail-oi1-x22a.google.com with SMTP id 5614622812f47-3a3ad1f39ebso2584054b6e.1
-        for <linux-man@vger.kernel.org>; Sat, 29 Jul 2023 01:44:48 -0700 (PDT)
+        with ESMTP id S231689AbjG2JNK (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 29 Jul 2023 05:13:10 -0400
+Received: from mail-oi1-x233.google.com (mail-oi1-x233.google.com [IPv6:2607:f8b0:4864:20::233])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4AF1C4EE6
+        for <linux-man@vger.kernel.org>; Sat, 29 Jul 2023 02:12:12 -0700 (PDT)
+Received: by mail-oi1-x233.google.com with SMTP id 5614622812f47-3a3fbfb616dso2120025b6e.3
+        for <linux-man@vger.kernel.org>; Sat, 29 Jul 2023 02:12:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1690620288; x=1691225088;
-        h=cc:to:subject:date:from:resent-to:resent-message-id:resent-date
-         :resent-from:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=HvHot7FQYGB+QG+QU7eRzV99w7VxdegnhKZQU7FA5h4=;
-        b=Vr6y02MWqBwfZaucfGo9llm7cEYwEAKlLKDXuO4WCS71nu41KaJRyKAvOd9Db0BVVW
-         xS7QHC13nfR22RAicbv80E9+s5kMRMGJzp1bnln1SRrtED1Uv5Japmm/Zrb9LGQ7V6Lz
-         yksEr/iQhBBG7cWN9LFFcmhyxg6Wtzr5C8MiFxm6eW6iCzzkQ/E8+lfJ5HqW8K47yo8k
-         OBnXyp2xJ7rwWlYO1KhoODIYLotypf/SV/JYN/Znj2jFC9J5t1wHEYPoRTYMBfPVBEo5
-         jYtK6yHKsGcBgRpxVT4Uy4h/KgOmQIdBwy2yg1egkih5LF+TbNcPjqNKK2TEkKyMtyLr
-         16Nw==
+        d=gmail.com; s=20221208; t=1690621918; x=1691226718;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=8FJQgOX+Tx2GcDRvKOzsD5T0AzI56iGTkhW8beLT1OI=;
+        b=ip5NzFnPejs0qza5ZYihZR42O8GVtawFZVQZjesK3Ljq8qPvZsYNyq/eTFPBQugFpk
+         bxEqD52hzucWPoBhYbKQWizEMRMyOXmznBjg25isfo1L3yLM3JLNpEODMrHFQmYGI4rP
+         6lz3XaJiB/so+/cPzk+QOMJfbhuCzb5cwMP9ht3ONKaDkM360p2MTAs0k/KgBQRxaPvM
+         tQbJ3SjE6qKSZHLdsYXQiDWst6mTq4Jw+loZSJvhsQnDhubjnjBfaBnfdaiyayqzMLPr
+         p1p2RbakTGgtwMOY+n+U4OO8VtNWaGuPq4IhTytUfmIsjmfvoQD9qKgse753DXuwwMLR
+         P8Vw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690620288; x=1691225088;
-        h=cc:to:subject:date:from:resent-to:resent-message-id:resent-date
-         :resent-from:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20221208; t=1690621918; x=1691226718;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=HvHot7FQYGB+QG+QU7eRzV99w7VxdegnhKZQU7FA5h4=;
-        b=WkvRfFqjZbf2a2SQEUxuw4nKWVLx+Y8diXy253an/3F9Qad4Ka3+ITGPPa4GFQFPCJ
-         HVe77Q9DGqOG2ODbUCGjC32PxItQDXdl7r46e7LgG36tikAXFqc7Iva6g7swF9zGflcU
-         OuFJPNF4qGR/C+nN/7KC2VmjK53XIyTodTFd6WGKq3aPcfiuyocBOg08rRJMmv3uFtKY
-         TMblN5BLU82jn5orKEGSU1o5Gdx5hzU/K4CNRHj7L5XzztyavLeSTBZplsR9RBvRSloQ
-         X7v4q6dyrdmWl7BSt7oY5v4+Wfh0WQ28zG0TddDQJijsLc34SweN/VRI5zlOzRCws8cO
-         seYw==
-X-Gm-Message-State: ABy/qLZcWkCTSMzR9a76TbRibZAR/bMurNCp6A4hQ6wABoAsrihjNVcQ
-        acIt0vjdsxcwLXgttZmkcrXgIa5sf2g=
-X-Google-Smtp-Source: APBJJlG4BLO4oQubCG74c2GbN0HEdPys296ZEkVYRBqBFYaOguDls2VdwGBKfpI4rnbwHgkQjIxfvQ==
-X-Received: by 2002:a05:6808:128b:b0:3a4:8ecb:185c with SMTP id a11-20020a056808128b00b003a48ecb185cmr7595954oiw.22.1690620287556;
-        Sat, 29 Jul 2023 01:44:47 -0700 (PDT)
+        bh=8FJQgOX+Tx2GcDRvKOzsD5T0AzI56iGTkhW8beLT1OI=;
+        b=RyYEIcF+u7zEwnfFYjMr0syY+TfqdMrRIgJz69sikw3yN6mf9tPNkMI583AbmNv1MB
+         ojNJfdRXRoTAW9Co5/9Wg7ThDJhFaGJWmzHa5I7GGhOEza6qY4qpAW/zYaqXKX922crf
+         +QIKtvN24wKJNDThvHWvbBiWeORzebPGG+eD5bPStxpBDvY3SWIJCWVYrb9fgIVEQEI1
+         WsrMg0r4Ttj3FwkqDuKMI6w+yPioGOwaEUtlKCLm8Lgam27tQhXDe4DUbRRhRqa9Ju0u
+         WMMa5lIyK1opj9d/3YRSYxhAuV6i8oXmwPl/C1gbjLJ1V0405LRiQdO8XuUZSNUJAvI0
+         40Dw==
+X-Gm-Message-State: ABy/qLZyUZq610m/ZCwVXPzerd59ZUx8s9lS9OlVbheYCKpx8Me5BLDs
+        tomay9TZH5WOQj54HhR0vEZ4+TtrGbw=
+X-Google-Smtp-Source: APBJJlFhGYe4RhimT4jWqQNodd8I5ak/EEZs9ThrlsvuPw5p/jcoVTToylLCtIdyRo45uROv3bPJmg==
+X-Received: by 2002:a05:6808:1909:b0:39e:a606:544e with SMTP id bf9-20020a056808190900b0039ea606544emr6385264oib.32.1690621918600;
+        Sat, 29 Jul 2023 02:11:58 -0700 (PDT)
 Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id v16-20020a056808005000b003a59c67286bsm2410742oic.47.2023.07.29.01.44.47
+        by smtp.gmail.com with ESMTPSA id e13-20020aca130d000000b003a5a82ef032sm2451860oii.32.2023.07.29.02.11.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 29 Jul 2023 01:44:47 -0700 (PDT)
-Message-ID: <64c4d17f.050a0220.3a505.03ec@mx.google.com>
+        Sat, 29 Jul 2023 02:11:57 -0700 (PDT)
+Date:   Sat, 29 Jul 2023 04:11:56 -0500
 From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Date:   Fri, 28 Jul 2023 12:28:06 -0500
-Subject: [PATCH v2 2/2] man.7: ffix
 To:     Alejandro Colomar <alx@kernel.org>
 Cc:     linux-man@vger.kernel.org
+Subject: Re: [PATCH 1/6] man.7: srcfix
+Message-ID: <20230729091156.4c73m3p5g7cqph5x@illithid>
+References: <20230728175718.v25t776r3xqzxbog@illithid>
+ <e6e1d97c-e6c2-9cb2-0e7b-3944e2858a24@kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+        protocol="application/pgp-signature"; boundary="zxbogd6phsle2fxh"
+Content-Disposition: inline
+In-Reply-To: <e6e1d97c-e6c2-9cb2-0e7b-3944e2858a24@kernel.org>
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-        URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.6
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-v2: Use heading markup that doesn't confuse Git.
 
-The `\c` escape sequence works in an argument to a macro call that is
-part of a paragraph tag with font style alternation macros, but not the
-ordinary font macros `B` and `I`.  This is because `TP`, `B`, and `I`
-all set up input traps; the six font style alternation macros do not.
+--zxbogd6phsle2fxh
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-The old formatting would, for some versions of some formatters, set the
-"[trailer]" text as part of the paragraph body, not the tag--like this.
+Hi Alex,
 
-       .UE    [trailer] Terminate the link text  of  the  preceding  .UR
-              macro,  with  the  optional trailer (if present, usually a
-(and so on)
+At 2023-07-28T22:56:10+0200, Alejandro Colomar wrote:
+> On 2023-07-28 19:57, G. Branden Robinson wrote:
+> > Clean up in preparation for "MR sed".
+>=20
+> Moved this into the commit message.
 
-This was a poorly understood--and undocumented--interaction of man(7)
-features until recently.  Gory details involving nroff on Unix Version 7
-(1979) running on a simulated PDP-11/45 are available.[1]
+Thanks!
 
-Here is a comparison of the former and new markup.
+[...]
+> I wonder why all this appears in your email body.  How did you
+> generate it?  I bet not with git-format-patch(1), or that you modified
+> it manually?
 
-before
-======
-groff 1.22.3: BAD
-groff 1.22.4: GOOD
-groff 1.23.0: BAD
-mandoc 1.14.6: BAD
+The latter.  It had been so long since I had submitted a series of
+patches to this list that I forgot that I had a shell script to help me
+with it.  I used it for v2 of the two remaining patches, so if those
+are well-formed, all I have to do in the future is remember my script.
 
-now
-===
-groff 1.22.3: BAD
-groff 1.22.4: GOOD
-groff 1.23.0: GOOD
-mandoc 1.14.6: GOOD
+Regards,
+Branden
 
-[1] https://savannah.gnu.org/bugs/?51468
-    https://lists.gnu.org/archive/html/groff/2022-06/msg00020.html
+--zxbogd6phsle2fxh
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Signed-off-by: G. Branden Robinson <g.branden.robinson@gmail.com>
----
- man7/man.7 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+-----BEGIN PGP SIGNATURE-----
 
-diff --git a/man7/man.7 b/man7/man.7
-index 258ce25da..583fe354f 100644
---- a/man7/man.7
-+++ b/man7/man.7
-@@ -249,7 +249,7 @@ .SS Hypertext link macros
- .B .UE
- macro as the link text.
- .TP
--.B .UE \c
-+.BR .UE \~\c
- .RI [ trailer ]
- Terminate the link text of the preceding
- .B .UR
--- 
-2.30.2
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmTE19EACgkQ0Z6cfXEm
+bc4YPA/+Ivx1WjxYKUuN6JPfIu4eMJ8vSPdDXQSXAevpND57nCEOgpWhMJ6pNHa8
+S0rDiRdyfhMiyI8q7XgMAe4vEd8Ny6Dq/JzYQbuPDlqx+/O48DW1mmLd34A+LYlk
+/pIl+CTfOyeIppRQ2iNKcZZgI8X7n3xai0qhN384Au9GCPMq3JQU33DdjqVCE4IS
+zq2QDmyWC+t5B3lT40V5qBJOyjCY+FUOYAV/8Zv/2TcLcAtIzmBUQWBrDc8DD52y
+wjCj1o0RnHOwGgI7eWEsFRYmNzBvgwH1zaX/ifGTtdVF3UaCjYl41N3FfeCJot0I
+i0GUK9mvRVRftiBupqPKutFbfqHkbligdWrldFBv8kZhYc7jCqNsuet7O/jGm5i1
+hwZIpIzfzp3kNqLguYe7wjGawyP/0EYQYgGy9qggTMFfZSD60uv0BdfCZa8I0cGT
+AUg8tvtOIIiKI2ERA3FgK22Ku1MDkgK9WHHjb8YaniHU5z9LjtCGAP+8kp/LM1iO
+jzmelQs8f/X8s+kOcbISgvg/17Ro0G754b6+tAs3eYQ2LmBciSt9ZScJLAUSJRUX
+Gbji51bREDFenKZxxu2YO+s7E4KRzESPaCf8SD+GYuHNK62Ur7gIS5K1cTA57B+v
+LL72xAtvCSbMW0tnxg411Iv7diBJ6RT5ccHYpYkkuStXMCoG6d4=
+=aCZD
+-----END PGP SIGNATURE-----
+
+--zxbogd6phsle2fxh--
