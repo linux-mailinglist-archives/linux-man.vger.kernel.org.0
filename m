@@ -2,60 +2,60 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 4C9857687C3
-	for <lists+linux-man@lfdr.de>; Sun, 30 Jul 2023 22:01:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 656787687C4
+	for <lists+linux-man@lfdr.de>; Sun, 30 Jul 2023 22:02:11 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229721AbjG3UBw (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 30 Jul 2023 16:01:52 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53856 "EHLO
+        id S229737AbjG3UCK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 30 Jul 2023 16:02:10 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53900 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229552AbjG3UBv (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 30 Jul 2023 16:01:51 -0400
-Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com [IPv6:2607:f8b0:4864:20::330])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id ED91A11C
-        for <linux-man@vger.kernel.org>; Sun, 30 Jul 2023 13:01:50 -0700 (PDT)
-Received: by mail-ot1-x330.google.com with SMTP id 46e09a7af769-6bb231f1817so2136615a34.3
-        for <linux-man@vger.kernel.org>; Sun, 30 Jul 2023 13:01:50 -0700 (PDT)
+        with ESMTP id S229552AbjG3UCJ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 30 Jul 2023 16:02:09 -0400
+Received: from mail-ot1-x333.google.com (mail-ot1-x333.google.com [IPv6:2607:f8b0:4864:20::333])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 218F311C
+        for <linux-man@vger.kernel.org>; Sun, 30 Jul 2023 13:02:08 -0700 (PDT)
+Received: by mail-ot1-x333.google.com with SMTP id 46e09a7af769-6bca5c71a6aso87873a34.3
+        for <linux-man@vger.kernel.org>; Sun, 30 Jul 2023 13:02:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1690747310; x=1691352110;
+        d=gmail.com; s=20221208; t=1690747327; x=1691352127;
         h=content-disposition:mime-version:message-id:subject:cc:to:from:date
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=57SV2oCFTajalV5PyZwlXnLEDIEGzD/1MWpT/JCXpEs=;
-        b=l/m1miuOLYUf9HBJLuDK+iNfiu6vQteEg7+0pD8UC1KE8JUnq38tonSBzf0NQp/PiG
-         /+PUxsf8Rr3RWkb/kyhqfxUxCaCJoNV2nbVv3GU22VamSZ/uBcu1heic3dB7ngtqSipk
-         ccPHowRmPErSZdkA49g9jpfWTUFNmMD5aLPEJo0Ov4ODuTiAVbVTClv/H0PS29Wu58df
-         Ih4yoBlk3uiqMyIuQyxJ59WVg30FCV78584OkOBVBtrMYeu17q7uZaAJTm+BPhRsGNPu
-         vGsVvRWYE4LgQ8eGOzZmM+NKLZu/47EjM1xK0uZT65WFNcTfA5Ut/sTHSAPEBgl/28On
-         nWuw==
+        bh=qFg89vUeydg0GhvP57ftCgb3joZK3Aj9jxh0x3hPylM=;
+        b=cOcqMglq6Pey5R5aMNZqnF5I/x53IOJIBBLTMfAe6GlLJ1d83gWGJqqTyAlhTQPBo0
+         Qt5RCaKywsHpwo/6q0gtRPpfv8op4ZnNva3LKEOk1tirGyUwYKpYyFIxHiDRr2xQgbpO
+         4XTMuLGd2w8lF1HzqVR56rJl4Y51mVKr3LyqqlffROcdiUrO3taiS7zIr2aGxWx8/0VH
+         wmw/0BmeAgxe0m0HACTwnjyCoLnuoamuq6e2cQj7qFv47mi/Eds5lj6LtD2Ed+6aWU1J
+         r8XbePndYXM1Hh9LO7UT59gqbf/7XqWAEGgyis6lcqzoRbr+08OvXyiQCjQXT/XVVFfK
+         Stag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690747310; x=1691352110;
+        d=1e100.net; s=20221208; t=1690747327; x=1691352127;
         h=content-disposition:mime-version:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=57SV2oCFTajalV5PyZwlXnLEDIEGzD/1MWpT/JCXpEs=;
-        b=Qbfrl9PX/zHJ9djAoaWj3AUBWY1DVbHj69QqGpdIEiKTmL2Z4munqPcXq4z12paNx8
-         AOXoyOxl6noeBFlcMgu5lla4RBSNggSo3HqRoGbmf1WrHkUUGVpCA2OPODJCYhUdFwDv
-         b6B9yRMbmuxh3gVyHHyT58KDOUcukMvjzrMLOll8+Rn7bIyWJPUh9tueRFfrQd3+HAKB
-         XsbqAHMk3T9ANJdW8hpUOBHSXF7mMi98eITXWZFJ9KyLA4B6FSPOsPattJ4fmnpGO2Pq
-         ksHlrdQU3pdhiY86oXj+n0aLfRBGjhbK+ncQxdnFGGsnqshwxFrF4qSGb7b8ClK1V6hN
-         yaHQ==
-X-Gm-Message-State: ABy/qLZeXa9YG7SVZXy4VQzf7R36SjMCti9apFRTZ9Tb1qlqMO4D4ATJ
-        W6TYFVW5BW9/HyGXVwZsNY4=
-X-Google-Smtp-Source: APBJJlFMMiqNTnuDwoJqOLR+r6kHsc8OaSNCdrDb1cLlcMA2LuWZ5kuTqDjleVss6ulFnpnCDgrHzw==
-X-Received: by 2002:a05:6870:3041:b0:1b7:2dfe:c1f5 with SMTP id u1-20020a056870304100b001b72dfec1f5mr8544709oau.6.1690747310076;
-        Sun, 30 Jul 2023 13:01:50 -0700 (PDT)
+        bh=qFg89vUeydg0GhvP57ftCgb3joZK3Aj9jxh0x3hPylM=;
+        b=RfOXR0bttdVR/YOjXhPowHKwKdwFqm2RhRqbjvWEtPsLtUDQ4NDQZGNPvk/HtGtlnR
+         QMjdl32UD1VRb7720ZffzCgAfdbo1nwS0A5Nje7sAsMBGxTpVGGH4bWHlUsCMeFVloME
+         U+GbQCUo4YecBsMjiNNgjyxbMzMPf0MHm6nKtFA+gZHkXebeQ0nDCI9+S21gEhaXeAOD
+         O1FMd6p8qDz7YVqlbAYnjuKbBzjLaDuNBphdjQQCfMWeJEPfUILLLDi/W/aiuFdfnLbg
+         8mcsFwfHrVUYVUeP8fjr19eOD8iN5kTtFysB/PxDFv+kJu5eoqjWP82DcGMxswm9zB34
+         b6kw==
+X-Gm-Message-State: ABy/qLY3f4xEQhX05jc+wj1QINo+ArSXgYXZKWWs3qL+/UsxLHMVGQp/
+        Omwljj/breb9YHca47zGCXkoSveMI1o=
+X-Google-Smtp-Source: APBJJlEKzsohx0qNocgXoW07zS96/ZPFL1go+S8LkOGwitTbEP64fsZ0FtyTOyU/rddOmGBiEBC3FQ==
+X-Received: by 2002:a05:6870:2048:b0:1ad:3199:ceaf with SMTP id l8-20020a056870204800b001ad3199ceafmr11108647oad.14.1690747327289;
+        Sun, 30 Jul 2023 13:02:07 -0700 (PDT)
 Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id q5-20020a056830018500b006b94a14b52asm3527899ota.9.2023.07.30.13.01.49
+        by smtp.gmail.com with ESMTPSA id y7-20020a0568301d8700b006b96aee5195sm3522405oti.11.2023.07.30.13.02.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Jul 2023 13:01:49 -0700 (PDT)
-Date:   Sun, 30 Jul 2023 15:01:48 -0500
+        Sun, 30 Jul 2023 13:02:06 -0700 (PDT)
+Date:   Sun, 30 Jul 2023 15:02:05 -0500
 From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
 To:     Alejandro Colomar <alx@kernel.org>
 Cc:     linux-man@vger.kernel.org
-Subject: [PATCH 1/9] syscalls.2: srcfix
-Message-ID: <20230730200148.erzm7n4g4ym4fv64@illithid>
+Subject: [PATCH 2/9] man*/: ffix (un-bracket tables, continued)
+Message-ID: <20230730200205.2oxspkhm3drud5ya@illithid>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="ldvoqrxru2gmeftc"
+        protocol="application/pgp-signature"; boundary="uq3af2wsp4lr3cvb"
 Content-Disposition: inline
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
@@ -68,69 +68,170 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---ldvoqrxru2gmeftc
+--uq3af2wsp4lr3cvb
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Clean up in preparation for "MR sed".
+Continue commit 9e54434ead, 19 July.
 
-Use font style alternation macros instead of font selection escape
-sequences to mark up man page cross references in table entry text
-blocks.  Also protect them from hyphenation.  (`MR` will take care of
-that for us.)
+4 pages issued requests to manipulate adjustment and automatic
+hyphenation around tbl(1) tables in a different order from the other 525
+documents in the tree that performed this trick.
+
+I produced this change with the following GNU sed script.
+
+/^\.nh/{N;/\n\.ad l/{N;/\n\.TS/s/.*/.TS/}}
+/^\.TE/{N;/\n\.ad/{N;/\n\.hy/s/.*/.TE/}}
 
 Signed-off-by: "G. Branden Robinson" <g.branden.robinson@gmail.com>
 ---
- man2/syscalls.2 | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ man2/syscalls.2 |  4 ----
+ man3/stdio.3    |  4 ----
+ man7/inode.7    |  4 ----
+ man7/netlink.7  | 12 ------------
+ 4 files changed, 24 deletions(-)
 
 diff --git a/man2/syscalls.2 b/man2/syscalls.2
-index 405629c23..8babb3e91 100644
+index 8babb3e91..8473a50d6 100644
 --- a/man2/syscalls.2
 +++ b/man2/syscalls.2
-@@ -596,7 +596,8 @@ .SS System call list
- \fBs390_sthyi\fP(2)	4.15	s390 only
- \fBs390_guarded_storage\fP(2)	4.12	s390 only
- \fBsched_get_affinity\fP(2)	2.6	T{
--Name of \fBsched_getaffinity\fP(2)
-+Name of
-+.BR \%sched_getaffinity (2)
- on SPARC and SPARC64
+@@ -136,8 +136,6 @@ .SS System call list
+ .\" Looking at scripts/checksyscalls.sh in the kernel source is
+ .\" instructive about x86 specifics.
+ .\"
+-.nh
+-.ad l
+ .TS
+ l2 le l
+ ---
+@@ -834,8 +832,6 @@ .SS System call list
+ .\" 5a0015d62668e64c8b6e02e360fbbea121bfd5e6
+ \fBxtensa\fP(2)	2.6.13	Xtensa only
+ .TE
+-.ad
+-.hy
+ .PP
+ On many platforms, including x86-32, socket calls are all multiplexed
+ (via glibc wrapper functions) through
+diff --git a/man3/stdio.3 b/man3/stdio.3
+index fb99cdd21..fef56df80 100644
+--- a/man3/stdio.3
++++ b/man3/stdio.3
+@@ -156,8 +156,6 @@ .SH DESCRIPTION
+ .B putchar
+ exist and will be used if the macros definitions are explicitly removed.
+ .SS List of functions
+-.nh
+-.ad l
+ .TS
+ ;
+ lb lbx
+@@ -330,8 +328,6 @@ .SS List of functions
+ input format conversion
  T}
- \fBsched_get_priority_max\fP(2)	2.0
-@@ -607,7 +608,8 @@ .SS System call list
- \fBsched_getscheduler\fP(2)	2.0
- \fBsched_rr_get_interval\fP(2)	2.0
- \fBsched_set_affinity\fP(2)	2.6	T{
--Name of \fBsched_setaffinity\fP(2)
-+Name of
-+.BR \%sched_setaffinity (2)
- on SPARC and SPARC64
+ .TE
+-.ad
+-.hy
+ .SH STANDARDS
+ C11, POSIX.1-2008.
+ .SH HISTORY
+diff --git a/man7/inode.7 b/man7/inode.7
+index dc2c38d1d..2fc4fde3c 100644
+--- a/man7/inode.7
++++ b/man7/inode.7
+@@ -345,8 +345,6 @@ .SS The file type and mode
+ .I st_mode
+ field:
+ .in +4n
+-.nh
+-.ad l
+ .TS
+ lB l lx.
+ S_ISUID	  04000	T{
+@@ -398,8 +396,6 @@ .SS The file type and mode
+ others have execute permission
  T}
- \fBsched_setaffinity\fP(2)	2.6
+ .TE
+-.ad
+-.hy
+ .in
+ .PP
+ The set-group-ID bit
+diff --git a/man7/netlink.7 b/man7/netlink.7
+index 84b24f308..e2205482d 100644
+--- a/man7/netlink.7
++++ b/man7/netlink.7
+@@ -218,8 +218,6 @@ .SH DESCRIPTION
+ .BR rtnetlink (7)
+ for
+ .BR NETLINK_ROUTE .
+-.nh
+-.ad l
+ .TS
+ tab(:);
+ l s
+@@ -240,11 +238,7 @@ .SH DESCRIPTION
+ Echo this request.
+ T}
+ .TE
+-.ad
+-.hy
+ .\" No right adjustment for text blocks in tables
+-.nh
+-.ad l
+ .TS
+ tab(:);
+ l s
+@@ -266,8 +260,6 @@ .SH DESCRIPTION
+ (NLM_F_ROOT|NLM_F_MATCH).
+ T}
+ .TE
+-.ad
+-.hy
+ .\" FIXME NLM_F_ATOMIC is not used anymore?
+ .PP
+ Note that
+@@ -275,8 +267,6 @@ .SH DESCRIPTION
+ requires the
+ .B CAP_NET_ADMIN
+ capability or an effective UID of 0.
+-.nh
+-.ad l
+ .TS
+ tab(:);
+ l s
+@@ -296,8 +286,6 @@ .SH DESCRIPTION
+ Add to the end of the object list.
+ T}
+ .TE
+-.ad
+-.hy
+ .PP
+ .I nlmsg_seq
+ and
 --=20
 2.30.2
 
 
---ldvoqrxru2gmeftc
+--uq3af2wsp4lr3cvb
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmTGwaQACgkQ0Z6cfXEm
-bc77dg/+NLa5+clA++kNMKowz05ZU9uSC5QC3/8vQalXWja/8GVypn/kJi5P13tv
-5lU+XTtjI8fNIzKtOkUfKNLQIfCSZc7p8As4wRoCcoXSsovU3e7B8bFbiloc0Y7b
-Ngs3OOAn2fcq7NwnTkCvjug3SlHAePC9ysFfjaKdeoDmfMpcXB67xClnjH0bY8Nv
-TKN2nZ9utnhBjM75qkcy9IowMi8iRDWPGLw/q1oYLCI0IUJjkZAVZrbcneza1NjR
-n36X7mDswjBRnBvSNg6yf99BDEQN0HBR8Vpr5Kt+vaFZ4fbEh2CSeVdVjiYf1bMw
-Uj4r1q1Qt1GvnAqoSJkkevXnyLXVta39NR/d7TPhKhvhWwEg4Ucz6/mvgKue7QNr
-ICWy2+H8+HokiIrYJp9tkC8eYZbm4yaF44yglMlTPTkbY4+HKUItzKZ5jJd/Wlm6
-VPdQyNROM3nbZvYgT7zRvnoE5kIBE7XRUa3JCdU9sOKzZvZqYWsYux+O0Suttemo
-cQOKtXHgTkkbzxHBEZuuOodvA0vHK9DQPQpt2rnygc1Z4RG1MKv788Sshwaeo0nS
-75EtcMM+V1wEeidQ0jZk2AQhqu5lrPTVgxSeGWkVS/riAIfShhccjPezqT9ONESF
-/yK0Iu5W8g34tc6tOAYD9sQw0gXDvEClNDU3gCiyr065O546VAU=
-=kOKu
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmTGwb0ACgkQ0Z6cfXEm
+bc51Pg/8Cd1ivzhBx+1ZPLsrSBJv8cTZeRHjzu9xR7tp17OX99uZ11TwNN3jwYyT
+ipJPgGq36QN1vtk3/1+oavXRMJiGqFr1gqVBTap8fKjSM2F5d8VUuPYSC4Gzt6EO
+bjdVuZYrNqJ6XoycSB6obpUFHmi3czK6z+AtaaPUIFz9f4/JkwXiI8nawcR2o0B3
+bu3TzlWO/I6gngq0pofVXm8bUqKQ9C31El1bcXYSgJtPL2SKeL/jeprpsm8fstjv
+XqWniT7tpapYs2oFPVj0YHgjMdBcSx++MlRLJACAaVwFyYfGSsMHQiV1Ypl67cqs
+W37sjGsGWThQIVoguChDK6NMHadRC0ISaUgga/AM/U8ga8YBwr28rfeQ2TCD8ysn
+UdSAuCieD5pY2SBnFhyf15lJ0b6+B3efuGaIYRR/pSXBSciPvSZr1xJYpnDgDaLe
+zMmZc8L1kuSqCR9hYRqG+du9Aqy/isArTzpFBZAkkpYL4gpV/fxwDycpIlaqEV8W
+NvlnYfj5+oCVTfJu7hos4xZRQx8DXDvyv4hDjwF0yMcWm5u/nwN0uzohz1IKwfl2
+jm9bYX3ivR/VyDWD625OfXhuds7tSgs75nmziTYzNwCDNV6mHKgy6x4wPUOJiHYY
+bgKTMS2U16O3M1UdgCV9pgtJfbw3Y0C+XxNB6wH2JNwO1FyK3Ww=
+=ZUnT
 -----END PGP SIGNATURE-----
 
---ldvoqrxru2gmeftc--
+--uq3af2wsp4lr3cvb--
