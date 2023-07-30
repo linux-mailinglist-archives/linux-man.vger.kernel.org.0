@@ -2,167 +2,288 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 0E23B7686BF
-	for <lists+linux-man@lfdr.de>; Sun, 30 Jul 2023 19:31:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7B6347686E9
+	for <lists+linux-man@lfdr.de>; Sun, 30 Jul 2023 19:53:03 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229476AbjG3Rbo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 30 Jul 2023 13:31:44 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46924 "EHLO
+        id S229530AbjG3RxB (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 30 Jul 2023 13:53:01 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52588 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229445AbjG3Rbn (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 30 Jul 2023 13:31:43 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5D47BBE
-        for <linux-man@vger.kernel.org>; Sun, 30 Jul 2023 10:31:42 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-         key-exchange X25519 server-signature RSA-PSS (2048 bits))
-        (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id EF40560C91
-        for <linux-man@vger.kernel.org>; Sun, 30 Jul 2023 17:31:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6582C433C8;
-        Sun, 30 Jul 2023 17:31:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1690738301;
-        bh=TawKb/SYCakl4MHUrClHvdG05vUczxe4pEjMmDtDn6w=;
-        h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-        b=RQn5p42EfgBG0PIWRQ+hZwPpLrrFdB6ZUVVR4x2BSDUJsIM10fHELmt5Fzl/T7vjJ
-         L5+rrJvl0NHA0HMbHK9LYKSYkM0rFi5DUo5IMdBnBq+GyLxlacTzkNM3lGiM6dBmYy
-         T5G7OQBIwhX9RykgrS3POmuqVWdhVp/Sx5s72NAjfOCnwlj7QKwA4esgbkTGvteOiY
-         PTFZIpxQYslgWis5eq0X7u2QhkGA1mfTuAInQH7BfHl1TOfbDCeOyf0Eme/o0ArmBh
-         3tNefcaaTEPz0F/PCSDKUh/HpX+pOti5N/qVBuUWXMFTufo/uH5ZGhh/igTUTMH6ys
-         FovNxHxbD/sBQ==
-Message-ID: <08b04a82-8bd3-07fb-9962-a28354e8de60@kernel.org>
-Date:   Sun, 30 Jul 2023 19:31:39 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH v2] memcmp.3: Recast security caveat
-Content-Language: en-US
-To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
+        with ESMTP id S229495AbjG3RxB (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 30 Jul 2023 13:53:01 -0400
+Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com [IPv6:2607:f8b0:4864:20::234])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DA98FA8
+        for <linux-man@vger.kernel.org>; Sun, 30 Jul 2023 10:52:59 -0700 (PDT)
+Received: by mail-oi1-x234.google.com with SMTP id 5614622812f47-3a1ebb85f99so2986315b6e.2
+        for <linux-man@vger.kernel.org>; Sun, 30 Jul 2023 10:52:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1690739579; x=1691344379;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=kkGAw5YLW3EOz7g/LsVBiEsbwI7aHpc1lUVGI3MW/oI=;
+        b=aGY56gIxsQNPJwmhfGKjQ4uM1iiehwJASR4rNdmBNSBkvFJ3tMrtsWIIFndWHRA5Gl
+         3CEXIWaKwVF5HHBVQGEOL8tK4OHmqCL69KqKmkPlKWJTPUHSI8VtxV55lKYF4BS2L4Gq
+         zhpP1T0kY0a/QGIFMJBl/wPKadWDuWdy2XAUvpdcCuVI6iwmOOmBJ9TxoeE1VvJYc7TS
+         8hDewq391yanT+e3OkriLD0WxMwogG00OBjRPawT/pJfrzgp864QE0ZGNP3Rnmzcd3wc
+         9D3Diq+uh5SuoA1bt8xGsWQozCKZgCRCKwPqVyODO6p0EUERd+WkEF1AxC+xIlu+hFwQ
+         moHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1690739579; x=1691344379;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=kkGAw5YLW3EOz7g/LsVBiEsbwI7aHpc1lUVGI3MW/oI=;
+        b=bJKfUZDBGy3rl7gZ+sClqrlZa4Yf6K2CqedUtgeF60RKazkUrrqydUw6nFTf8o/phF
+         MIcFsHG2zTjccKulK6fvPLy2l+XAFm5YiALVSmkuvUfnsLZvMcZtoYS/wBKcy9v9JGX/
+         CSP0g1lTppCb5ywTAlag5ydHJ5fPm8IPk4L9SmQc05WEIGW5TDGnhMSQ3eWrgugCqZmE
+         LyBXRTheGpFBV3MAoqI55+P4pO4YfoOevEUeTJ++guNiuP1kIkd6oSKYpmsC8m2BkbuI
+         +PbL8Nm7T2ohjE7BpTiuaoGGXR0zYboB17bsBE4u/CL7FuWK0ytPHx9fUO/sNBHt4s3k
+         vUbw==
+X-Gm-Message-State: ABy/qLawnpkFuO3Sz2KkFgZ5m+eEVgXRY6gXoS5JMrAvTIHBWdPzmOEw
+        t7QIROuMAWQA3zFeohBb9eGOZEP+8zlKgg==
+X-Google-Smtp-Source: APBJJlEqxtdLdq7EJvHrd5jPouuo40H8ksey5PitFVT8Br++5NRdzCrC+lSQHLoICZmt6Y7IMCDC/w==
+X-Received: by 2002:a05:6808:124e:b0:3a4:34c8:f84e with SMTP id o14-20020a056808124e00b003a434c8f84emr8629000oiv.2.1690739578850;
+        Sun, 30 Jul 2023 10:52:58 -0700 (PDT)
+Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
+        by smtp.gmail.com with ESMTPSA id l22-20020a544116000000b003a375c11aa5sm3466785oic.30.2023.07.30.10.52.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 30 Jul 2023 10:52:58 -0700 (PDT)
+Date:   Sun, 30 Jul 2023 12:52:56 -0500
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To:     Alejandro Colomar <alx@kernel.org>
 Cc:     linux-man@vger.kernel.org
-References: <20230730153137.qgkurw4mudy6etca@illithid>
-From:   Alejandro Colomar <alx@kernel.org>
-Organization: Linux
-In-Reply-To: <20230730153137.qgkurw4mudy6etca@illithid>
+Subject: [PATCH] man*/: srcfix
+Message-ID: <20230730175256.63fzulvoqvzay3ff@illithid>
+MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------CuudIv0yjVMRTgSlV0hiIHWG"
-X-Spam-Status: No, score=-5.2 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
-        RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-        URI_DOTEDU autolearn=ham autolearn_force=no version=3.4.6
+        protocol="application/pgp-signature"; boundary="mrbomsr6uxauyqs7"
+Content-Disposition: inline
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------CuudIv0yjVMRTgSlV0hiIHWG
-Content-Type: multipart/mixed; boundary="------------mM2jZ0605nZHO0bk9Ja0Yg88";
- protected-headers="v1"
-From: Alejandro Colomar <alx@kernel.org>
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: linux-man@vger.kernel.org
-Message-ID: <08b04a82-8bd3-07fb-9962-a28354e8de60@kernel.org>
-Subject: Re: [PATCH v2] memcmp.3: Recast security caveat
-References: <20230730153137.qgkurw4mudy6etca@illithid>
-In-Reply-To: <20230730153137.qgkurw4mudy6etca@illithid>
 
---------------mM2jZ0605nZHO0bk9Ja0Yg88
-Content-Type: text/plain; charset=UTF-8
+--mrbomsr6uxauyqs7
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hi Branden,
+Clean up in preparation for "MR sed".
 
-On 2023-07-30 17:31, G. Branden Robinson wrote:
-> Use terminology more carefully.
->=20
-> * Refer to the info sec property of confidentiality instead of saying,
->   vaguely, "security-critical".
->     https://informationsecurity.wustl.edu/items/\
->     confidentiality-integrity-and-availability-the-cia-triad/
-> * Try not to confuse anyone who's studied the analysis of algorithms:
->   don't say "constant time" when "deterministic time" is meant.  The
->   time to perform the memory comparison remains linear (O(n)), not
->   constant (O(1)).
-> * Tighten wording.
+Format only one man page cross reference per input line.
 
-I prefer 2 spaces between the bullet and the list contents.  See
-man-pages(7).  Anyway, I accepted it this time.  :)
+Also, since groff 1.23.0 (and Plan 9 from User Space's) `MR` is not a
+font style alternation macro, there is no "reversed" form as with `BR`
+and `RB`.  So when a man page cross reference must be immediately
+preceded by punctuation, put that punctuation on the previous text line
+and use the `\c` escape sequence to connect them.
 
+Signed-off-by: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+---
+ man2/eventfd.2         |  4 +++-
+ man2/open.2            |  9 +++++++--
+ man2/perf_event_open.2 |  7 ++++++-
+ man2/signalfd.2        |  4 +++-
+ man2/timerfd_create.2  |  4 +++-
+ man5/proc.5            |  4 +++-
+ man7/credentials.7     | 15 ++++++++++-----
+ man7/pty.7             |  5 ++++-
+ man7/spufs.7           |  6 +++++-
+ 9 files changed, 44 insertions(+), 14 deletions(-)
 
->=20
-> Signed-off-by: G. Branden Robinson <g.branden.robinson@gmail.com>
-
-You need to quote your name with '"' due to the '.'.  I've found
-some software has issues with it.  git-send-email(1) is one of them
-(due to the perl library it uses).
-
-Anyway, patch applied.  Thanks!
-
-Cheers,
-Alex
-
-> ---
->  man3/memcmp.3 | 14 +++++++++++---
->  1 file changed, 11 insertions(+), 3 deletions(-)
->=20
-> diff --git a/man3/memcmp.3 b/man3/memcmp.3
-> index 9a2aad353..67ebe392e 100644
-> --- a/man3/memcmp.3
-> +++ b/man3/memcmp.3
-> @@ -67,9 +67,17 @@ .SH HISTORY
->  .SH CAVEATS
->  Do not use
->  .BR memcmp ()
-> -to compare security critical data, such as cryptographic secrets,
-> -because the required CPU time depends on the number of equal bytes.
-> -Instead, a function that performs comparisons in constant time is requ=
-ired.
-> +to compare confidential data,
-> +such as cryptographic secrets,
-> +because the CPU time required for the comparison
-> +depends on the contents of the addresses compared,
-> +this function is subject to timing-based side-channel attacks.
-> +In such cases,
-> +a function that performs comparisons in deterministic time,
-> +depending only on
-> +.I n
-> +(the quantity of bytes compared)
-> +is required.
->  Some operating systems provide such a function (e.g., NetBSD's
->  .BR consttime_memequal ()),
->  but no such function is specified in POSIX.
-
+diff --git a/man2/eventfd.2 b/man2/eventfd.2
+index 2bd781bdf..003a64eb6 100644
+--- a/man2/eventfd.2
++++ b/man2/eventfd.2
+@@ -142,7 +142,9 @@ .SH DESCRIPTION
+ if the size of the supplied buffer is less than 8 bytes,
+ or if an attempt is made to write the value 0xffffffffffffffff.
+ .TP
+-.BR poll "(2), " select "(2) (and similar)"
++.BR poll (2),\~\c
++.BR select (2)\~\c
++(and similar)
+ The returned file descriptor supports
+ .BR poll (2)
+ (and analogously
+diff --git a/man2/open.2 b/man2/open.2
+index 4c921723c..6603dfdff 100644
+--- a/man2/open.2
++++ b/man2/open.2
+@@ -82,8 +82,13 @@ .SH DESCRIPTION
+ to an entry in the process's table of open file descriptors.
+ The file descriptor is used
+ in subsequent system calls
+-.RB ( read "(2), " write "(2), " lseek "(2), " fcntl (2),
+-etc.) to refer to the open file.
++(\c
++.BR read (2),
++.BR write (2),
++.BR lseek (2),
++.BR fcntl (2),
++etc.)
++to refer to the open file.
+ The file descriptor returned by a successful call will be
+ the lowest-numbered file descriptor not currently open for the process.
+ .PP
+diff --git a/man2/perf_event_open.2 b/man2/perf_event_open.2
+index aa23a4977..40686917b 100644
+--- a/man2/perf_event_open.2
++++ b/man2/perf_event_open.2
+@@ -32,7 +32,12 @@ .SH DESCRIPTION
+ Given a list of parameters,
+ .BR perf_event_open ()
+ returns a file descriptor, for use in subsequent system calls
+-.RB ( read "(2), " mmap "(2), " prctl "(2), " fcntl "(2), etc.)."
++(\c
++.BR read (2),
++.BR mmap (2),
++.BR prctl (2),
++.BR fcntl (2),
++etc.).
+ .PP
+ A call to
+ .BR perf_event_open ()
+diff --git a/man2/signalfd.2 b/man2/signalfd.2
+index 2b97c4640..9d0708799 100644
+--- a/man2/signalfd.2
++++ b/man2/signalfd.2
+@@ -131,7 +131,9 @@ .SH DESCRIPTION
+ .B EAGAIN
+ if the file descriptor has been made nonblocking.
+ .TP
+-.BR poll "(2), " select "(2) (and similar)"
++.BR poll (2),\~\c
++.BR select (2)\~\c
++(and similar)
+ The file descriptor is readable
+ (the
+ .BR select (2)
+diff --git a/man2/timerfd_create.2 b/man2/timerfd_create.2
+index d68206b05..9ba0dd315 100644
+--- a/man2/timerfd_create.2
++++ b/man2/timerfd_create.2
+@@ -317,7 +317,9 @@ .SS Operating on a timer file descriptor
+ .BR read (2)
+ on the file descriptor.
+ .TP
+-.BR poll "(2), " select "(2) (and similar)"
++.BR poll (2),\~\c
++.BR select (2)\~\c
++(and similar)
+ The file descriptor is readable
+ (the
+ .BR select (2)
+diff --git a/man5/proc.5 b/man5/proc.5
+index 04b45ccb7..fd51dcec0 100644
+--- a/man5/proc.5
++++ b/man5/proc.5
+@@ -3459,7 +3459,9 @@ .SS Files and directories
+ .TP
+ .I /proc/locks
+ This file shows current file locks
+-.RB ( flock "(2) and " fcntl (2))
++.RB ( flock (2)
++and
++.BR fcntl (2))
+ and leases
+ .RB ( fcntl (2)).
+ .IP
+diff --git a/man7/credentials.7 b/man7/credentials.7
+index 77cb5e0ef..4bf908a8e 100644
+--- a/man7/credentials.7
++++ b/man7/credentials.7
+@@ -267,21 +267,26 @@ .SS Modifying process user and group IDs
+ Subject to rules described in the relevant manual pages,
+ a process can use the following APIs to modify its user and group IDs:
+ .TP
+-.BR setuid "(2) (" setgid (2))
++.BR setuid (2) \~(\c
++.BR setgid (2))
+ Modify the process's real (and possibly effective and saved-set)
+ user (group) IDs.
+ .TP
+-.BR seteuid "(2) (" setegid (2))
++.BR seteuid (2) \~(\c
++.BR setegid (2))
+ Modify the process's effective user (group) ID.
+ .TP
+-.BR setfsuid "(2) (" setfsgid (2))
++.BR setfsuid (2) \~(\c
++.BR setfsgid (2))
+ Modify the process's filesystem user (group) ID.
+ .TP
+-.BR setreuid "(2) (" setregid (2))
++.BR setreuid (2) \~(\c
++.BR setregid (2))
+ Modify the process's real and effective (and possibly saved-set)
+ user (group) IDs.
+ .TP
+-.BR setresuid "(2) (" setresgid (2))
++.BR setresuid (2) \~(\c
++.BR setresgid (2))
+ Modify the process's real, effective, and saved-set user (group) IDs.
+ .TP
+ .BR setgroups (2)
+diff --git a/man7/pty.7 b/man7/pty.7
+index bef60e931..3f23be44d 100644
+--- a/man7/pty.7
++++ b/man7/pty.7
+@@ -122,7 +122,10 @@ .SH FILES
+ BSD slave devices
+ .SH NOTES
+ Pseudoterminals are used by applications such as network login services
+-.RB ( ssh "(1), " rlogin "(1), " telnet (1)),
++(\c
++.BR ssh (1),
++.BR rlogin (1),
++.BR telnet (1)),
+ terminal emulators such as
+ .BR xterm (1),
+ .BR script (1),
+diff --git a/man7/spufs.7 b/man7/spufs.7
+index 39fdf583a..96b100b8c 100644
+--- a/man7/spufs.7
++++ b/man7/spufs.7
+@@ -119,7 +119,11 @@ .SS Files
+ file are:
+ .RS
+ .TP
+-.BR read "(2), " pread "(2), " write "(2), " pwrite "(2), " lseek (2)
++.BR read (2),\~\c
++.BR pread (2),\~\c
++.BR write (2),\~\c
++.BR pwrite (2),\~\c
++.BR lseek (2)
+ These operate as usual, with the exception that
+ .BR lseek (2),
+ .BR write (2),
 --=20
-<http://www.alejandro-colomar.es/>
-GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
+2.30.2
 
-
---------------mM2jZ0605nZHO0bk9Ja0Yg88--
-
---------------CuudIv0yjVMRTgSlV0hiIHWG
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+--mrbomsr6uxauyqs7
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmTGnnsACgkQnowa+77/
-2zKNtw/8C4/7XNOcC0BHSZQrtgSZ93B9c5YQk+uRrlFWRicV4V6G4ILIVkhkkObc
-1OtC+jr9/xi88ssB79TZDQDBgxUNO1O1x2z1LXy9LJovgwLezCCUh/vu3V949MTc
-00Ow56hMaBEokAdp2i1mQAKsIwQCNeOWru3xxDyDdHsVF+BTMr0gicVnIl6WSKkv
-qfgFn1Q+Q1I7hJXiCWs6tUbnB1EFq4uy6QiaiKXOFTp/7aeJCGuVguMcNHmFieXe
-/4FVqw10z1ULsEF6PhvlX5ZrtCZNzPPsbvvTOTU1omQxAObx2Dlrh+YRs//pyrj1
-4qldXHcMjQ6slq+fNDY33bSQu43NM5VWmo1qOKQRTUh6ToLPGc4mOc+z7dDcntKp
-MG5UDy+E94FXZwSeOYhE4LAc3b5VvuNwoO4x0Tgn3LU9rX+i33mlGbWHp6TdXbmA
-M+AtrLzxTGAcXXgIGVf/Ck9pelIVdC4PGii1x/4r9/olVGbR+RpLgc1u9rXa9zPO
-hNXSgyUYMVMZ+NAsfP7xkVACX0wN/QJIrMxF4Ez2DnL32E723Jsfxfs4r+HqAhhe
-bzKK0OKLH2FZ2t0kPcVC/+4Vc1ynj3Kay/S11i7l98H1nbewSCLbxHQHtUr9jOXL
-dVkJVggw7CNL9lZsvzEIZV2QpLbAig17eWKbbinlxAQMu8F/BD4=
-=2Fur
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmTGo3EACgkQ0Z6cfXEm
+bc4SvA//UFrUsLtmaht+7EGtWOm7PiBUgvFO7E9RqmoKSf2H5fQL6btLHilXqV4k
+mXWCRZgTiIMcy4wflsyU4I1DMX+/QMRqs1roKEdStbGQjYxnzV17F7EsxN2VCwm9
+XdZMBu2rJOVwFVAxdEoxLpiBl0O8/xtOZUjPfLrXuWGTH/4/tMNLtITkYk6JEs34
+IWqgkmKjEacfDu+SyCiCJyd8GuqQ3PbTUhEweBlj5eSVVyJsDKRXl0G+Iej4G6fc
+S3hh5EYlUaTsrHYUloCdlP/JxvzcWqwyqLRibO7eA3w7WYEbg7y96HgYMTiLiYSY
+AJ19FlGBhKy6rKdLV9IfTZcYaXCqhhBj2SBCem9Bgt4aPEFNroIy3ZR3wWUNIwAG
+Kj0b1wYulV2leg9iKxni06gGa9/5WrgszYtt+zbCRXUDu959FZQWux4AVPzVcZ67
+HxGYEXFiT32uoI4p/9l+t77poEneH8IHtsokEt0vEFJTaYGf/Ul4SeEbJDjxxJ0f
+P2BtPJ6CfWUVaTOslTZurzRd8u+Z4T7W8G6O29UdjRJoUWqTC5NAuG/BePsW/fwK
+FP3VgISDaDd7f6xRja+DY81New6QbO9ciqldPYb+rh6xMoKNOjWBCILBlaqESe+q
+b2L3WPLrLRaByNLPcUpK5lvpPRJPA5IvP+dae5AhEip/KusVViY=
+=pR3d
 -----END PGP SIGNATURE-----
 
---------------CuudIv0yjVMRTgSlV0hiIHWG--
+--mrbomsr6uxauyqs7--
