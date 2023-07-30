@@ -2,64 +2,64 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id EB82A7687C5
-	for <lists+linux-man@lfdr.de>; Sun, 30 Jul 2023 22:02:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6DB917687C6
+	for <lists+linux-man@lfdr.de>; Sun, 30 Jul 2023 22:02:35 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229767AbjG3UC1 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 30 Jul 2023 16:02:27 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53936 "EHLO
+        id S229552AbjG3UCe (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 30 Jul 2023 16:02:34 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53944 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229552AbjG3UC0 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 30 Jul 2023 16:02:26 -0400
-Received: from mail-oa1-x29.google.com (mail-oa1-x29.google.com [IPv6:2001:4860:4864:20::29])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B0ABD11C
-        for <linux-man@vger.kernel.org>; Sun, 30 Jul 2023 13:02:23 -0700 (PDT)
-Received: by mail-oa1-x29.google.com with SMTP id 586e51a60fabf-1bba254a7d4so2906628fac.2
-        for <linux-man@vger.kernel.org>; Sun, 30 Jul 2023 13:02:23 -0700 (PDT)
+        with ESMTP id S229472AbjG3UCd (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 30 Jul 2023 16:02:33 -0400
+Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com [IPv6:2607:f8b0:4864:20::235])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E239211C
+        for <linux-man@vger.kernel.org>; Sun, 30 Jul 2023 13:02:32 -0700 (PDT)
+Received: by mail-oi1-x235.google.com with SMTP id 5614622812f47-3a38953c928so2920028b6e.1
+        for <linux-man@vger.kernel.org>; Sun, 30 Jul 2023 13:02:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1690747343; x=1691352143;
+        d=gmail.com; s=20221208; t=1690747352; x=1691352152;
         h=content-disposition:mime-version:message-id:subject:cc:to:from:date
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=UlwCrSZV9XBuoDy1yU8KufCjZ9qZzqV7gBo1WtTGsaU=;
-        b=MggHKOja0jonlBVgk1rlVqqqqgAA8/O7L7KP8Qm9GTXnZzoUYDSZ8YJQkNgwMNtjzk
-         rM6TdJ95rGznpHOh+hA/gk/KsLp0iFFnLdR+edM+QsCuRgLVSc8N1Ax4NAXCBeLbKAWB
-         zRm4/Gd55N7MjeFknL5o86GrHUFRtg6XOs9mplyRTIYGRYS4CJvCnIfPOqE7aJshNn7N
-         cMb5KGu3JpzXDoQz36uJ7ihbRUm/jAXbzb50b5QGjtK0S+paT7+aS6wa9urCcyKBezaE
-         ahPni+WvR5ggfStf9vdoPyh9ialdsTu51RvTSc48733TbPuhUY6fZWLlZekvcMq8vqvA
-         dCsg==
+        bh=wdQjCISDKiojmu9MbUm2fL2VcvkJtH0Z9ceM5j7U8Tw=;
+        b=JZd9x2AFCDZWwtpjes1USErVfS2AORPct1mIx0ICe5W7hS2aB4yiBnDktJkicxUpsj
+         j5FfCDFKTNAUsRHErBnzuCe/Ba/PijE3DX4pqXdC/5z5Y8evCiZ1ApJOiKFUAa5HOmsd
+         3JR9/zIbKfiHNWTVBszdPXetCQb8gnhfjFEDUB8eAXvaYYellb03zL1rxpevd6KvZ5ku
+         FUVwoEfm0HdWkYJsTLtevs0ZhX+SQsA9H9j7wXZmnfR93w+w3iisAg/iCwq7AeSpf7VN
+         W/cblA2cDqL4spFjPVm7hFiDyYQ4ezabBNDhsAOAnfpY/Suc3eorEplaOU733WfvjavY
+         S4cA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690747343; x=1691352143;
+        d=1e100.net; s=20221208; t=1690747352; x=1691352152;
         h=content-disposition:mime-version:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=UlwCrSZV9XBuoDy1yU8KufCjZ9qZzqV7gBo1WtTGsaU=;
-        b=SK8kwrz0RIsfq+MQYIFUoYiKUrhBW6zRk23nvy+CYerEsHxwXOvNdOLVn+cmrXxPYD
-         wf9j6GhmcrM3UuMr7wLW3CVNtiVZ8cgu8/+o9X3WvQlsQfHBGH2xBD2eOPW7QxSTu71a
-         2+JV/Qzpyx5oQlW36ghxR7O5N8bEc+5csYseTrRKzLkbJ1RAKfxsUKs/qaMlWOoL74UM
-         +fPp3oE9XAq7Sl59ZJ2q1pd83fHousTWFMXieDnx8XKsZXGBaQHNA7QubuOTUsWWNw3I
-         wyaucjSpmTwbC7JyVllC5pGX05lO6rN1Lpplp4C7ijhivz3dpl5F2yQUraRSskVYvrRI
-         0TIA==
-X-Gm-Message-State: ABy/qLYiP0j5j4NCVImVu6NEsRsjl3JetHcxyVI0QyKtghwUOtSEqfy9
-        gE10ysS5igqwaZR8QbxEautpXXFXDBE=
-X-Google-Smtp-Source: APBJJlG/4v36FMFyH8GAdDEU4S0uZNO96vBEwtz6uLnc42hQdfoZZ5oMgufN5pDBo0Kw8e3aAkhiyw==
-X-Received: by 2002:a05:6870:c685:b0:1b7:4655:2ac9 with SMTP id cv5-20020a056870c68500b001b746552ac9mr9325409oab.6.1690747342938;
-        Sun, 30 Jul 2023 13:02:22 -0700 (PDT)
+        bh=wdQjCISDKiojmu9MbUm2fL2VcvkJtH0Z9ceM5j7U8Tw=;
+        b=dD+/PHqDwgO9O9QKajqmk/jPs+JPezy3rxnGPvycODpVeY8ExcwhghrzU6But41eXj
+         MKqVmPy64QsYeCeQX8pYvOe8GE8nj80w+X7ZHYjteKrdEt/o6iMow1Bnjge9O/nNRTAD
+         Sd4TtlT2qt8S7yP2ga65iZMDHiBqpQYl+kLYJq8igQ2ppsqFOHITe+jwzhveOsuTi0Rs
+         X6yzTFLnkVFLZ+mkLOhJkM5xOJGHEY8TvWqTXd0YQcOW+vR88wqTJu5gMxbkYCvSYv3g
+         nzvC3O+Fj29ehlHfRZFXcnjF7kyUVjH5srEmsRMtO/WCPbU1iwhzWk5nRI346kUQEKaT
+         mI2g==
+X-Gm-Message-State: ABy/qLbdHQDEY7ST9SQT3sSA43xxI05wFmkHta14sRH6bxLnh7MJAV11
+        qXJixa9DSIXvfqYV0qKCWmiRlNnUSXM=
+X-Google-Smtp-Source: APBJJlEwmX4RbEn7AzP/uwQ+KC0TQfvEc02P6tOBaLerd+pu5khcwH5cQPV8Zo7uMbXyMHoLIGSaMA==
+X-Received: by 2002:a54:4e94:0:b0:3a7:30cb:c092 with SMTP id c20-20020a544e94000000b003a730cbc092mr1127572oiy.48.1690747352235;
+        Sun, 30 Jul 2023 13:02:32 -0700 (PDT)
 Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id t4-20020a4a8244000000b00567829a4991sm3711600oog.36.2023.07.30.13.02.22
+        by smtp.gmail.com with ESMTPSA id bx18-20020a0568081b1200b003a38df6284dsm3513285oib.11.2023.07.30.13.02.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Jul 2023 13:02:22 -0700 (PDT)
-Date:   Sun, 30 Jul 2023 15:02:21 -0500
+        Sun, 30 Jul 2023 13:02:31 -0700 (PDT)
+Date:   Sun, 30 Jul 2023 15:02:30 -0500
 From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
 To:     Alejandro Colomar <alx@kernel.org>
 Cc:     linux-man@vger.kernel.org
-Subject: [PATCH 3/9] pthread_setcancelstate.3: ffix
-Message-ID: <20230730200221.ulker6w3boeydwtr@illithid>
+Subject: [PATCH 4/9] isalpha.3, setnetgrent.3, unlocked_stdio.3: srcfix
+Message-ID: <20230730200230.hofy6hbmzdmka4dx@illithid>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="lzgwkd26t24yr4w4"
+        protocol="application/pgp-signature"; boundary="auxigz7co7nnnvo5"
 Content-Disposition: inline
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
         autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -68,56 +68,183 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---lzgwkd26t24yr4w4
+--auxigz7co7nnnvo5
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
 Clean up in preparation for "MR sed".
 
-Protect man page name from hyphenation.  `MR` will take care of
-that for us; this change is to detect a regression when migrating to it.
+Protect (non-cross-referenced) man page names from hyphenation.  Use the
+hyphenation control escape sequence `\%` to do this rather than
+bracketing a region of the page with `na` and `hy` requests, which
+enables automatic hyphenation even when it is not desired and uses the
+wrong hyphenation mode for English to boot.
 
 Signed-off-by: "G. Branden Robinson" <g.branden.robinson@gmail.com>
 ---
- man3/pthread_setcancelstate.3 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ man3/isalpha.3        | 26 +++++++++++-------------
+ man3/setnetgrent.3    | 12 +++++------
+ man3/unlocked_stdio.3 | 46 +++++++++++++++++++++----------------------
+ 3 files changed, 39 insertions(+), 45 deletions(-)
 
-diff --git a/man3/pthread_setcancelstate.3 b/man3/pthread_setcancelstate.3
-index 0c805fda3..bf42fb91c 100644
---- a/man3/pthread_setcancelstate.3
-+++ b/man3/pthread_setcancelstate.3
-@@ -133,7 +133,7 @@ .SH HISTORY
- POSIX.1-2001.
- .SH NOTES
- For details of what happens when a thread is canceled, see
--.BR pthread_cancel (3).
-+.BR \%pthread_cancel (3).
+diff --git a/man3/isalpha.3 b/man3/isalpha.3
+index 8f9247559..4250fecf4 100644
+--- a/man3/isalpha.3
++++ b/man3/isalpha.3
+@@ -71,21 +71,19 @@ .SH SYNOPSIS
+ .nf
+     _ISOC99_SOURCE || _POSIX_C_SOURCE >=3D 200112L
+ .fi
+-.nh
  .PP
- Briefly disabling cancelability is useful
- if a thread performs some critical action
+-.BR isalnum_l (),
+-.BR isalpha_l (),
+-.BR isblank_l (),
+-.BR iscntrl_l (),
+-.BR isdigit_l (),
+-.BR isgraph_l (),
+-.BR islower_l (),
+-.BR isprint_l (),
+-.BR ispunct_l (),
+-.BR isspace_l (),
+-.BR isupper_l (),
+-.BR isxdigit_l ():
+-.hy
++.BR \%salnum_l (),
++.BR \%salpha_l (),
++.BR \%sblank_l (),
++.BR \%scntrl_l (),
++.BR \%sdigit_l (),
++.BR \%sgraph_l (),
++.BR \%slower_l (),
++.BR \%sprint_l (),
++.BR \%spunct_l (),
++.BR \%sspace_l (),
++.BR \%supper_l (),
++.BR \%sxdigit_l ():
+ .nf
+     Since glibc 2.10:
+         _XOPEN_SOURCE >=3D 700
+diff --git a/man3/setnetgrent.3 b/man3/setnetgrent.3
+index 4a7838f09..8a1ab76ec 100644
+--- a/man3/setnetgrent.3
++++ b/man3/setnetgrent.3
+@@ -36,13 +36,11 @@ .SH SYNOPSIS
+ .RE
+ .ad l
+ .PP
+-.nh
+-.BR setnetgrent (),
+-.BR endnetgrent (),
+-.BR getnetgrent (),
+-.BR getnetgrent_r (),
+-.BR innetgr ():
+-.hy
++.BR \%setnetgrent (),
++.BR \%endnetgrent (),
++.BR \%getnetgrent (),
++.BR \%getnetgrent_r (),
++.BR \%innetgr ():
+ .nf
+     Since glibc 2.19:
+         _DEFAULT_SOURCE
+diff --git a/man3/unlocked_stdio.3 b/man3/unlocked_stdio.3
+index 55f641e6e..ba9f3dfa2 100644
+--- a/man3/unlocked_stdio.3
++++ b/man3/unlocked_stdio.3
+@@ -58,47 +58,45 @@ .SH SYNOPSIS
+ .RS -4
+ Feature Test Macro Requirements for glibc (see
+ .BR feature_test_macros (7)):
+-.nh
+ .RE
+ .ad l
+ .PP
+-.BR getc_unlocked (),
+-.BR getchar_unlocked (),
+-.BR putc_unlocked (),
+-.BR putchar_unlocked ():
++.BR \%getc_unlocked (),
++.BR \%getchar_unlocked (),
++.BR \%putc_unlocked (),
++.BR \%putchar_unlocked ():
+ .nf
+     /* glibc >=3D 2.24: */ _POSIX_C_SOURCE >=3D 199309L
+         || /* glibc <=3D 2.23: */ _POSIX_C_SOURCE
+         || /* glibc <=3D 2.19: */ _SVID_SOURCE || _BSD_SOURCE
+ .fi
+ .PP
+-.BR clearerr_unlocked (),
+-.BR feof_unlocked (),
+-.BR ferror_unlocked (),
+-.BR fileno_unlocked (),
+-.BR fflush_unlocked (),
+-.BR fgetc_unlocked (),
+-.BR fputc_unlocked (),
+-.BR fread_unlocked (),
+-.BR fwrite_unlocked ():
++.BR \%clearerr_unlocked (),
++.BR \%feof_unlocked (),
++.BR \%ferror_unlocked (),
++.BR \%fileno_unlocked (),
++.BR \%fflush_unlocked (),
++.BR \%fgetc_unlocked (),
++.BR \%fputc_unlocked (),
++.BR \%fread_unlocked (),
++.BR \%fwrite_unlocked ():
+ .nf
+     /* glibc >=3D 2.19: */ _DEFAULT_SOURCE
+         || /* glibc <=3D 2.19: */ _SVID_SOURCE || _BSD_SOURCE
+ .fi
+ .PP
+-.BR fgets_unlocked (),
+-.BR fputs_unlocked (),
+-.BR getwc_unlocked (),
+-.BR getwchar_unlocked (),
+-.BR fgetwc_unlocked (),
+-.BR fputwc_unlocked (),
+-.BR putwchar_unlocked (),
+-.BR fgetws_unlocked (),
+-.BR fputws_unlocked ():
++.BR \%fgets_unlocked (),
++.BR \%fputs_unlocked (),
++.BR \%getwc_unlocked (),
++.BR \%getwchar_unlocked (),
++.BR \%fgetwc_unlocked (),
++.BR \%fputwc_unlocked (),
++.BR \%putwchar_unlocked (),
++.BR \%fgetws_unlocked (),
++.BR \%fputws_unlocked ():
+ .nf
+     _GNU_SOURCE
+ .fi
+-.hy
+ .ad
+ .SH DESCRIPTION
+ Each of these functions has the same behavior as its counterpart
 --=20
 2.30.2
 
 
---lzgwkd26t24yr4w4
+--auxigz7co7nnnvo5
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmTGwc0ACgkQ0Z6cfXEm
-bc5q/Q/8Dr1Rq1LlPisPBsqJcEZwK15qvb3Vnp1JQKdUKKJIMyWvkzUJsRqpnaUP
-4vAeydj6+rVqCju1a0dHpTY4Acm7dPvExhbNIAWvxfjAIWPrirFw/ZqugLxNxu2V
-E8ydMU8P/E5/+aOm/wQpSZWquTa/jNT8K8zTSf2ojEQMg5Cnm/urBDLqDubFZ13E
-fTV1t50e/YXLOXLmNZieYhm2XE68yuXoTvV1ccgkltZyGTAV+Tawhx69kYjwsz7d
-LgelxAxaABslVesBIaBv7srdRmGSPbOhSoL1qdQJ3wqgpT9moP+yPCNnAe9iLwo9
-hOgrCCirIWkq5dIasYe+ZUDViCCv6syggDQ2iH1Lslkv/tgyWMK8X+G98RDNCgWm
-GVQbCsjA3DJcIJ7Xiz45gRqpLSY0ZWHyhtv03Ss/0vu0LM2jFmX7UckdgY/0FnwC
-JuaIcGOoXEtnv/R2QLehfJROu1N+ebRdKcaVRh81wUq4q836UKeeRbuV05kpF+ZE
-ZSQD9eHRGGMeSUDdSp2NzRPLpHSRSK2J3pJXf3sx+YJCNgRjzI7ZbsD0e2uO8Hf7
-WnohzPDA1W3RfCjgYsAFJmXnpGK0vY1cBT3zE9YFE1znzaG6lJG5F1JsTIYhC9JL
-pkMR2+lafBk4KF/siFjityJOWJ12V5BlUAWp9oxAa7FBx+Z/GrA=
-=QCjB
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmTGwdYACgkQ0Z6cfXEm
+bc5A9g/+Ke8Fq6ArxedvWuHZcflb8YfihegxfxlotndNXhXxEE8/NZH0V1JDqa4M
+cD8jVS/VR5kqQpA0neeLHHHkRNRiNkDXTL5R8URNFkMJSCtH6eSS5UsXsAovdzoY
+7KZBQIYw+qekHsjPVVzHyZKQGLLzH9HbfoSZaEYN6jnxPY8AcbKRmpX+yEaLOtMj
+UnO7aE1JrkfBnEp7kkCdsj2uHa+PFBRnuNkN7sFWMWRvP5WfqR8EeHDU1ZbAI5tW
+7VEWP1MtrO6Q7gqIa6Os56k4VRKvjmwaweDtfWLnZmVQEf+LDBuSsi1mAoTArQFc
+UAQxYCkzt9E9bm7A0s/Y2UCPlaa6kN08FlC11aK16sG7FCYhgcWys8PvqJduiDsu
+C6njrOEU3kSZ6JnPz/CfsXa2IAIuqZxWh9QIJKKq5B9Bcg6GhBz7J/QaoxQabv4k
+ckgCSfXwLrvVnwXlvrIRGkDDRXz7bAD4y/XcVoGwy+3kaX+9Vs/xu4nKTT3XDhHG
+UVIsHgczTycBoJSEMLbvanxgvf8tOl7++K2hC9c50DBmN8pclGDoC891XZHRBv/u
+3cfo8CAz5JP4F9qfG2E9XgydsplmVuZrhEkwsMC3zIXZbjRd+EEaJ7bypfdUczvR
+a+310j/T0ZKbQxz2pNlxDdmMdO9BbMKM9I10LdmjXY6AVVLbcmM=
+=XVs4
 -----END PGP SIGNATURE-----
 
---lzgwkd26t24yr4w4--
+--auxigz7co7nnnvo5--
