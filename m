@@ -2,60 +2,60 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id F3D707687C8
-	for <lists+linux-man@lfdr.de>; Sun, 30 Jul 2023 22:02:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6C18A7687CA
+	for <lists+linux-man@lfdr.de>; Sun, 30 Jul 2023 22:03:08 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229848AbjG3UCq (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 30 Jul 2023 16:02:46 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54018 "EHLO
+        id S229774AbjG3UDG (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 30 Jul 2023 16:03:06 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54284 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229772AbjG3UCp (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 30 Jul 2023 16:02:45 -0400
-Received: from mail-oa1-x32.google.com (mail-oa1-x32.google.com [IPv6:2001:4860:4864:20::32])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 34D5F93
-        for <linux-man@vger.kernel.org>; Sun, 30 Jul 2023 13:02:45 -0700 (PDT)
-Received: by mail-oa1-x32.google.com with SMTP id 586e51a60fabf-1bbb8daeefaso2524726fac.2
-        for <linux-man@vger.kernel.org>; Sun, 30 Jul 2023 13:02:45 -0700 (PDT)
+        with ESMTP id S229875AbjG3UDF (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 30 Jul 2023 16:03:05 -0400
+Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com [IPv6:2607:f8b0:4864:20::334])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E4DD3FF
+        for <linux-man@vger.kernel.org>; Sun, 30 Jul 2023 13:02:58 -0700 (PDT)
+Received: by mail-ot1-x334.google.com with SMTP id 46e09a7af769-6bc886d1504so1864069a34.0
+        for <linux-man@vger.kernel.org>; Sun, 30 Jul 2023 13:02:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1690747364; x=1691352164;
+        d=gmail.com; s=20221208; t=1690747378; x=1691352178;
         h=content-disposition:mime-version:message-id:subject:cc:to:from:date
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=QkAb/fKoRbkMk+DXFbkpmD+frDRFwV/Heu+yH+QtoFE=;
-        b=YnrRMTctSVNfGzuKiW/pbxSJdLaEW7dZ/Oqy5nPSxGu4hFX2LWbaAeVWEwPazXNhdw
-         PPz2y6nUlJkq6oAyHJIbTGEqPeRl3cDzPy+L5FU2/j5mdhBXDnRsNdIw2bzyETLBP0Tl
-         v3954VA4AZUG4Y5Z7rkme83tc2Py9fEY5dH6t45DOjrge7Zn9GDfB7lPhx2RMJKigDZf
-         f1A6uHcFpUq2Q3l5Gkeirtm21E282qIpOiJLRUxgeyyyVuDr8w8RgPFUlmXJIQMAXQIK
-         0D7NerCFonnCqKnmg6/IPlvZrpqNl5/CQXQGRgPbHxY+UJN3PCsepc0kOYW7YfYpTx74
-         jYRQ==
+        bh=/ioifkZsK90P8/yS/vgH42QAuc9RY/a1Eow0jdCIN1A=;
+        b=hhrzCczjNJHbZDGgjSK6Ma8r6JZV7n4z6S87Xh2eguHI/NFxuGC+tvlf4kG4aTf5Y6
+         FybvqoS/cptLzGlSPo48j/ubByqvpBCu6irX7zYGytxiaNsCUzWKU24b0l0P4pK5PB6w
+         40HwKdPtudeOtoTKW041nObw0zSRqj+UotSx0kmvTHQkP5Ip7HvJ6YSaOQvq14Mdxwm9
+         f8V3BCWMbA5zZBFKvVn6md8xeC7zFrMd/TCUE6QIEHgQfprd9bwsibmVBujRbqRMTj1G
+         8uoZTOND16E6VAj0mu066q5eVbzEqLVcCzcrOh1H4m9UAhFmm/SYitQChjkrFJvfjOgB
+         vFLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690747364; x=1691352164;
+        d=1e100.net; s=20221208; t=1690747378; x=1691352178;
         h=content-disposition:mime-version:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=QkAb/fKoRbkMk+DXFbkpmD+frDRFwV/Heu+yH+QtoFE=;
-        b=PCvGcabsJdT3BlM61UY8LDRfYaaQuvG6AKm/yktmJaf/5BHn09BMerbsEyz0CbiVE3
-         9LCROdb0VdiOZSFayVQLJKdzyyDpGlkhpQyAuZ0uHCIpudzN8lr96e0wZl45ohio76kO
-         Ea+WzH9NWvSlyx8evk+YBwsR6yuYSqlCrB0gq1efuDCiiCCEemEXfr0iaRa7T2k2ybme
-         1UfzoWIdcWcei+lwS6yLKGFqbBqCd8MmSvis0XcFhb0O8u8q/E78sOZ1d0IYz6qqSBk+
-         U4kjho5DZswAak9F2Tz5lN/Y3nxjomL3EFFpV7HBT3c+od1vSEpCCRQ5NXcwI5MZVVfj
-         rnHg==
-X-Gm-Message-State: ABy/qLbDfTdy/FLzozIOfeb9PWkv9+d0WrXT9pAaskdUOvJK2gsKfwzH
-        sAx0uyiJuL38t5xXe32i/VKG3O70Iy8=
-X-Google-Smtp-Source: APBJJlHJ/dm9Z3usGl52ko7DWHLNQt7Iwhvbt+1HAyuJi1RuTg1455YyBm76AxhdEOCHrYFz94VGDQ==
-X-Received: by 2002:a05:6870:d184:b0:1bb:7d24:eabb with SMTP id a4-20020a056870d18400b001bb7d24eabbmr9118726oac.0.1690747364473;
-        Sun, 30 Jul 2023 13:02:44 -0700 (PDT)
+        bh=/ioifkZsK90P8/yS/vgH42QAuc9RY/a1Eow0jdCIN1A=;
+        b=X2sYOrObjpRkXHo1DH8wygMJIEnZbuWypllskEkDKdejeEkKtohu9G2z8F8bCbn80y
+         XfCSjluiXkAHL3joTfMgUgey6hsbTlK+FVMCY1DaBbBomfJ4macZwFI496uNJflcFB+2
+         XxMsZz162OkUS1GrspbsJU+gmfLLVDqTS//Vu0M7tpQTOF31qS4ktgcPLvAcRRd7WKyR
+         2Se+caHm6YabnVkggxFrDtTnSxeIATppDCakz82ugrzR/LYHgPhx0toYhBZRAo3XgnHi
+         tuTW/BROypLpWeGg5RJah0yUTaf6GdtYaObqL4QK/B21hJLGpIHBXb1qGIQO7nSzhDkT
+         9Y7A==
+X-Gm-Message-State: ABy/qLYDskPnuHWfGnjMNfmz/pExmAsn+5K1EJDziKTMhp7PAwDAw918
+        JMJ0P/12Fps1MLa4yeyZ6IyfgdshZl4=
+X-Google-Smtp-Source: APBJJlEY1eXF5PB/Y4Hzsn5hKk7XasSG06YULFlBUjeDbMr5R/0iQ43NLoSq4zg1IDl3m9ImPeWXMQ==
+X-Received: by 2002:a05:6830:3a0e:b0:6af:7760:f2d0 with SMTP id di14-20020a0568303a0e00b006af7760f2d0mr8334249otb.32.1690747377751;
+        Sun, 30 Jul 2023 13:02:57 -0700 (PDT)
 Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id f3-20020a056870d30300b001b36699bd5fsm3830572oag.35.2023.07.30.13.02.44
+        by smtp.gmail.com with ESMTPSA id t3-20020a9d7483000000b006b96384ba1csm3476224otk.77.2023.07.30.13.02.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Jul 2023 13:02:44 -0700 (PDT)
-Date:   Sun, 30 Jul 2023 15:02:42 -0500
+        Sun, 30 Jul 2023 13:02:57 -0700 (PDT)
+Date:   Sun, 30 Jul 2023 15:02:55 -0500
 From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
 To:     Alejandro Colomar <alx@kernel.org>
 Cc:     linux-man@vger.kernel.org
-Subject: [PATCH 5/9] pthread_setcancelstate.3: srcfix
-Message-ID: <20230730200242.lqklx53gfsxlbgfl@illithid>
+Subject: [PATCH 6/9] setnetgrent.3, unlocked_stdio.3: ffix
+Message-ID: <20230730200255.fmpcwshdryxdq6l5@illithid>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="6oclz6zzzpj2fdpf"
+        protocol="application/pgp-signature"; boundary="4fgyoddb2yunutxp"
 Content-Disposition: inline
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
@@ -68,55 +68,81 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---6oclz6zzzpj2fdpf
+--4fgyoddb2yunutxp
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Continue commit 9e54434ead, 19 July.
-
-Fix half-bracketed table that didn't turn hyphenation off prior to the
-`TS` call in the first place.
+Stop attempting to manipulate adjustment outside of tbl(1) text blocks.
 
 Signed-off-by: "G. Branden Robinson" <g.branden.robinson@gmail.com>
 ---
- man3/pthread_setcancelstate.3 | 1 -
- 1 file changed, 1 deletion(-)
+ man3/setnetgrent.3    | 2 --
+ man3/unlocked_stdio.3 | 2 --
+ 2 files changed, 4 deletions(-)
 
-diff --git a/man3/pthread_setcancelstate.3 b/man3/pthread_setcancelstate.3
-index bf42fb91c..bcb7ef0aa 100644
---- a/man3/pthread_setcancelstate.3
-+++ b/man3/pthread_setcancelstate.3
-@@ -125,7 +125,6 @@ .SH ATTRIBUTES
- T}
- .TE
- .sp 1
--.hy
- .SH STANDARDS
- POSIX.1-2008.
- .SH HISTORY
+diff --git a/man3/setnetgrent.3 b/man3/setnetgrent.3
+index 8a1ab76ec..8fd592766 100644
+--- a/man3/setnetgrent.3
++++ b/man3/setnetgrent.3
+@@ -34,7 +34,6 @@ .SH SYNOPSIS
+ Feature Test Macro Requirements for glibc (see
+ .BR feature_test_macros (7)):
+ .RE
+-.ad l
+ .PP
+ .BR \%setnetgrent (),
+ .BR \%endnetgrent (),
+@@ -47,7 +46,6 @@ .SH SYNOPSIS
+     glibc 2.19 and earlier:
+         _BSD_SOURCE || _SVID_SOURCE
+ .fi
+-.ad
+ .SH DESCRIPTION
+ The
+ .I netgroup
+diff --git a/man3/unlocked_stdio.3 b/man3/unlocked_stdio.3
+index ba9f3dfa2..a37cd0675 100644
+--- a/man3/unlocked_stdio.3
++++ b/man3/unlocked_stdio.3
+@@ -59,7 +59,6 @@ .SH SYNOPSIS
+ Feature Test Macro Requirements for glibc (see
+ .BR feature_test_macros (7)):
+ .RE
+-.ad l
+ .PP
+ .BR \%getc_unlocked (),
+ .BR \%getchar_unlocked (),
+@@ -97,7 +96,6 @@ .SH SYNOPSIS
+ .nf
+     _GNU_SOURCE
+ .fi
+-.ad
+ .SH DESCRIPTION
+ Each of these functions has the same behavior as its counterpart
+ without the "_unlocked" suffix, except that they do not use locking
 --=20
 2.30.2
 
 
---6oclz6zzzpj2fdpf
+--4fgyoddb2yunutxp
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmTGweIACgkQ0Z6cfXEm
-bc7RBw//VqQc8qBtg5Hz5OOA5b1gPBEDnAGqMyrynsgCpSBoxexU/0PwZv2RdO/a
-o0O2MQmzmdIG0ctufjjWv8J6pRyhz85d7ZdQ7lFH3IzZVJkiCwNQhZQLpOMGOFq7
-uHNS72h82dPirog09igwQ49TKfsUm2jDy0rvjXQm/Rj5qKQ4K8j/jJdjPB8mhD8c
-OYFlJAAEyqZ/zw7tr1lK92NA4cBbYFTxpc7yuH0AuCPa7lHmA8FOiTW5k+qDSCHq
-6vkWBPTYYK2Xb/3ONb0eHOoma35mGvlJ05B16WbYffAVXGS1RrJLk/6NqGngWGjm
-jr+b9nHlcj/41x83qT7Lt4/8f2HVk+CfDiCBe3hAsGa/6XL6vaT9VjSEtO0LUYNC
-cEfhizPiVcH11HNcOtpEAKRtCF4z3Vc3zz/5VVoHUT9Yc7FLDELxhrsSNZ1pWjv+
-4b8QPfRcYYvOn4pldPis+HDcHEOTMLkJinW0KdLpSgxr8cMoTf8syNzlQ2hfWLai
-i4XB24rDeUTrZP78yXYJRZ+0m+Y8rb6S4mD6MZ+R7ilCBSIXnG4ALp3NfkfmHDRE
-JyqVlOFlucG+43FX6bOyfQKBe66D+m6GXei+io+SwSdJOU1ZXer/U86iAvFYnwRb
-KfPYbvPuLC2XUJexAgtmJ2APcaZDu65W7vZWyGZyxX9u9wX4x14=
-=geOl
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmTGwe8ACgkQ0Z6cfXEm
+bc4nMBAAjFJVhpw3LFrSuvUSkAkkQKGGUdRdZio7wQAjrnIAj5v9AHCRkZAp81O3
+RbCac/L2L7Z9c5d+N7n49phsZ+zjBkX2nx8lLYjlAt5X0SMMSsIyxQ5uZqyjnyix
+bqaV8YN5aZ8NO+/kkeNyYErRZYmEWekwH/8gsbVvcrNWAwB76qg0P5YwKIxF/Ao7
+ldwJF5WKbCBD/r4lSH4i9J30gENCfdvbRg7No7FUFPXqvlCWpIQTnOEYaaXOlyGd
+kBK8M9qt60/wZJ1rAgfk9nmZWfxljkXoci3cv5D3BsflktibDM0EVHQC7yHNvqoQ
+P0BgsWUmW2HcXBw41S76eZzAmKrxDEStHSzqQOTCw2HCEDNyWMrlYeomfw9vU/aH
+qSKANZkJKFT7Eay7oDSAEkDSx4kavYvCgg88r9TUwr1HA45chtaDO+TeX/MRVJlS
+56gXpnyLPBxWVuwHfx/Uet6W+SUnFyIA4dD4qZKKOJ8Z+5rCxbYqQDkZ/EPuqf3t
++sZ9piOWz2Xttt/zDmEErfuavoC3A3Uq3ysttvy7NTQgTXD2c78a2NxiPuqz6lqe
+5Jo4Sm1Ifnla9Ah/laz5fb+iDNk3n23E7MwAKLGqSa2zPAKrneo7GL4sssA5IonW
+BjUmDfDeSJdZcc1ivPMh8nB6vNpJ7uvzKYVnTXrogRQ+Zx6Fvoo=
+=bDuD
 -----END PGP SIGNATURE-----
 
---6oclz6zzzpj2fdpf--
+--4fgyoddb2yunutxp--
