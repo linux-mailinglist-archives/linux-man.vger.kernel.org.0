@@ -2,55 +2,64 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 822B27685EF
-	for <lists+linux-man@lfdr.de>; Sun, 30 Jul 2023 16:10:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 943FE76862F
+	for <lists+linux-man@lfdr.de>; Sun, 30 Jul 2023 17:21:59 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229550AbjG3OKK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 30 Jul 2023 10:10:10 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39742 "EHLO
+        id S229604AbjG3PV6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 30 Jul 2023 11:21:58 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53160 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229736AbjG3OKK (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 30 Jul 2023 10:10:10 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2700110C
-        for <linux-man@vger.kernel.org>; Sun, 30 Jul 2023 07:10:09 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-         key-exchange X25519 server-signature RSA-PSS (2048 bits))
-        (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id B794560C48
-        for <linux-man@vger.kernel.org>; Sun, 30 Jul 2023 14:10:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94655C433C7;
-        Sun, 30 Jul 2023 14:10:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1690726208;
-        bh=CpNJNHz5HiObaYoDxcfS96YiwoGGpE9Kp1kK6YanyOY=;
-        h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-        b=WxwD9Ag9b+p98OeCFgWct2AeYz0WGssd+0rn+iHVfUgGFqFEpTBY5nRfboPBgOijo
-         SLgu5SPix/QI2ocHMhVRyuLvXqzoehi1QOPU+iowomNRC5ylVOIjCU+afztvWxR3Fo
-         TWZlfIgnXn7+YyLIJ9UKmgkGW3pR966gYG8nCZ/nvEkIfz+cX2BeApH3roQD2UwLnJ
-         qXzElABliXGIkcWd740yEr56giRt/xe4JPFB6vrUInNJLRDsSfF3PyrgkXA0vbHweh
-         Vsi8rDRwnhpTrSfX83a6daWTxPApETWIPL1PxvCvtPAgNGrmx9nXsrSnWYoXtUN3lt
-         vyeQJinuzH0uw==
-Message-ID: <3df70320-72ed-e8c3-9137-aee413f2a29e@kernel.org>
-Date:   Sun, 30 Jul 2023 16:10:05 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH] pipe.2: tfix: refer to correct section
-Content-Language: en-US
-To:     =?UTF-8?Q?Thomas_Wei=c3=9fschuh?= <thomas@t-8ch.de>
+        with ESMTP id S229527AbjG3PV6 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 30 Jul 2023 11:21:58 -0400
+Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com [IPv6:2607:f8b0:4864:20::22c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8E611C6
+        for <linux-man@vger.kernel.org>; Sun, 30 Jul 2023 08:21:52 -0700 (PDT)
+Received: by mail-oi1-x22c.google.com with SMTP id 5614622812f47-3a5ad44dc5aso2826610b6e.3
+        for <linux-man@vger.kernel.org>; Sun, 30 Jul 2023 08:21:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1690730512; x=1691335312;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=LI2MDegxisfixkMHgU8uwgOOUxRkd3yxMFnGbJi300c=;
+        b=s0Xyp8VXvnLJtDlZPuIYoEnl4KSWxsNrGhnxokSpeSJSfvEea11qVqim/DAr60/0V9
+         RnFxYO4yK/IxH3kVgUwe47tUo/Bkxb2A/kbdKWjahDVgo8lpKaXup6x5bqtCuSyg5Q+V
+         GUSN65qf69dVss2MmvzkOxloftHovzRw+WoYCSnQPP6SymbT0/LwD/Yi2MtGLgl5vU3B
+         WQEvnp0MhxhV27clqiiQuaBzSyPH1zOmiPtYc/2pJFAEwxBpTzLewxieJrgPEaC7SzCy
+         L/XS1GSXrETGB7sz65aGRn4Qhb8c2KCSqrMv6NOdhPWFBJi6FRWD8sd874OAC3a7qxIs
+         e2sw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1690730512; x=1691335312;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=LI2MDegxisfixkMHgU8uwgOOUxRkd3yxMFnGbJi300c=;
+        b=WDuk0WkBbCEAaA3QMJPHwqsYGEdEMkGv0B8PEpWK1qzaOTgUFRdXqGwy9+WTCfnBpL
+         tr7wqrmJV1cqDZEqr87qmBKS/UzbCB8xgekTZcGzILNJsi6BW5dcT6y6rblOsw/nkbl7
+         wAXf+1wlKrCbFjBZi9+gFet3yU816yfmS/HN0/okYjqSUVaBhoPhqfTPqrUrRNQgsmyI
+         /MRF7XtOfbT3wDqLYZo+9QNxu5FVcJTWOmW2jeS3PO6LRcMiy0VKQMabvg4da2SQsp9G
+         tlNB5DMEIi4/3mIZXAtkFOVUDyY7CHAP0HkmeCaKCACExv6yLNiIowkn89aMpdMNshGs
+         cWaQ==
+X-Gm-Message-State: ABy/qLb1EEi1rTfDe9iwZOp6dTOknX9/UntkeglZgOHxd0w/8BXHMTJ3
+        uK9MShE3N106G+yciaxFHNbYdWhjtPPV8g==
+X-Google-Smtp-Source: APBJJlEdFY03HCqziQd0Z/EzAPB3FXMIr+Xe/Uvie+8ZhARUGGwNipOWg1tGZTyGcqxBRYBeqP8uzw==
+X-Received: by 2002:a05:6808:2a6c:b0:3a4:17b0:2b12 with SMTP id fu12-20020a0568082a6c00b003a417b02b12mr6710487oib.11.1690730511603;
+        Sun, 30 Jul 2023 08:21:51 -0700 (PDT)
+Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
+        by smtp.gmail.com with ESMTPSA id t16-20020a056808159000b003a38eba0bcdsm3393506oiw.0.2023.07.30.08.21.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 30 Jul 2023 08:21:51 -0700 (PDT)
+Date:   Sun, 30 Jul 2023 10:21:49 -0500
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To:     Alejandro Colomar <alx@kernel.org>
 Cc:     linux-man@vger.kernel.org
-References: <20230730-pipe-ref-v1-1-813112e880e5@t-8ch.de>
-From:   Alejandro Colomar <alx@kernel.org>
-Organization: Linux
-In-Reply-To: <20230730-pipe-ref-v1-1-813112e880e5@t-8ch.de>
+Subject: [PATCH v3] time.1: ffix
+Message-ID: <20230730152149.ajvi7zhskzzsp5jz@illithid>
+MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------3l1gFIDX8xZhsXEG8x4T4KL6"
-X-Spam-Status: No, score=-7.2 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
-        RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        protocol="application/pgp-signature"; boundary="w32teuie6rqg2d7l"
+Content-Disposition: inline
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
         autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -58,87 +67,149 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------3l1gFIDX8xZhsXEG8x4T4KL6
-Content-Type: multipart/mixed; boundary="------------UF827Gktk1bN1cNhx3kAxYRE";
- protected-headers="v1"
-From: Alejandro Colomar <alx@kernel.org>
-To: =?UTF-8?Q?Thomas_Wei=c3=9fschuh?= <thomas@t-8ch.de>
-Cc: linux-man@vger.kernel.org
-Message-ID: <3df70320-72ed-e8c3-9137-aee413f2a29e@kernel.org>
-Subject: Re: [PATCH] pipe.2: tfix: refer to correct section
-References: <20230730-pipe-ref-v1-1-813112e880e5@t-8ch.de>
-In-Reply-To: <20230730-pipe-ref-v1-1-813112e880e5@t-8ch.de>
 
---------------UF827Gktk1bN1cNhx3kAxYRE
-Content-Type: text/plain; charset=UTF-8
+--w32teuie6rqg2d7l
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hi Thomas,
+Mark up ellipses properly.  They should be in roman.  The item preceding
+an ellipsis should be in the singular.  Use unbreakable space between
+metasyntactic variable and subsequent ellipsis.
 
-On 2023-07-30 00:05, Thomas Wei=C3=9Fschuh wrote:
-> Commit 4131356cdab8 reorganized the sections a bit breaking the
-> reference. Fix it.
->=20
-> Fixes: 4131356cdab8 ("man*/, man-pages.7: VERSIONS, STANDARDS, HISTORY:=
- Reorganize sections")
-> Signed-off-by: Thomas Wei=C3=9Fschuh <thomas@t-8ch.de>
+Quoting groff_man_style(7):
 
-Patch applied.  Thanks!
+    =E2=80=A2 Symbols that are neither to be typed literally nor replaced a=
+t the
+      user=E2=80=99s discretion appear in the roman style; brackets surround
+      optional arguments, and an ellipsis indicates that the previous
+      syntactical element may be repeated arbitrarily.
+[...]
+    =E2=80=A2 The dummy character escape sequence \& follows the ellipsis w=
+hen
+      further text will follow after space on the output line, keeping
+      its last period from being interpreted as the end of a sentence
+      and causing additional inter=E2=80=90sentence space to be placed afte=
+r it.
+[...]
+    \|  Thin space (one=E2=80=90sixth em on typesetters, zero=E2=80=90width=
+ on
+        terminals); a non=E2=80=90breaking space.  Used primarily in ellips=
+es
+        (=E2=80=9C.\|.\|.=E2=80=9D) to space the dots more pleasantly on ty=
+pesetting
+        devices like dvi, pdf, and ps.
+[...]
+    Several features of the above example are of note. ...
 
-Alex
+    =E2=80=A2 The non=E2=80=90breaking adjustable space escape sequence \~ =
+is used to
+      prevent the output line from being broken within the option
+      brackets; see subsection =E2=80=9CPortability=E2=80=9D below.
+[...]
+    =E2=80=A2 Why doesn=E2=80=99t the package provide a string to insert an=
+ ellipsis?
+        Examples of ellipsis usage are shown above, in subsection
+        =E2=80=9CCommand synopsis macros=E2=80=9D.  The idiomatic roff elli=
+psis is three
+        dots (periods) with thin space escape sequences \| internally
+        separating them.  Since dots both begin control lines and are
+        candidate end=E2=80=90of=E2=80=90sentence characters, however, it i=
+s sometimes
+        necessary to prefix and/or suffix an ellipsis with the dummy
+        character escape sequence \&.  That fact stands even if a string
+        is defined to contain the sequence; further, if the string ends
+        with \&, end=E2=80=90of=E2=80=90sentence detection is defeated when=
+ you use the
+        string at the end of an actual sentence.  (Ending a sentence
+        with an ellipsis is often poor style, but not always.)  A
+        hypothetical string EL that contained an ellipsis, but not the
+        trailing dummy character \&, would then need to be suffixed with
+        the latter when not ending a sentence.
 
-> ---
->  man2/pipe.2 | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/man2/pipe.2 b/man2/pipe.2
-> index 3634a8c277dd..c05d1bf623a5 100644
-> --- a/man2/pipe.2
-> +++ b/man2/pipe.2
-> @@ -32,7 +32,7 @@ Standard C library
->  .BI "int pipe2(int " pipefd "[2], int " flags );
->  .PP
->  /* On Alpha, IA-64, MIPS, SuperH, and SPARC/SPARC64, pipe() has the
-> -   following prototype; see NOTES */
-> +   following prototype; see VERSIONS */
->  .PP
->  .B #include <unistd.h>
->  .PP
->=20
-> ---
-> base-commit: 50301358206cfd866d0bcad7627e83a23c6af064
-> change-id: 20230730-pipe-ref-326453a58bb5
->=20
-> Best regards,
+            Instead of...              ...do this.
+        =E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80
+        .ds EL \&.\|.\|.         Arguments are
+        Arguments are            .IR src=E2=80=90file\~ .\|.\|.\&
+        .IR src=E2=80=90file\~ \*(EL\&   .IR dest=E2=80=90dir .
+        .IR dest=E2=80=90dir .
+        =E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80
 
+        The first column practices a false economy; the savings in
+        typing is offset by the cost of obscuring even the suggestion of
+        an ellipsis to a casual reader of the source document, and
+        reduced portability to non=E2=80=90roff man page formatters that ca=
+nnot
+        handle string definitions.
+
+        There is an ellipsis code point in Unicode, and some fonts have
+        an ellipsis glyph, which some man pages have accessed in a non=E2=
+=80=90
+        portable way with the font=E2=80=90dependent \N escape sequence.  We
+        discourage the use of these; on terminals, they may crowd the
+        dots into a half=E2=80=90width character cell, and will not render =
+at
+        all if the output device doesn=E2=80=99t have the glyph.  In syntax
+        synopses, missing ellipses can cause great confusion.  Dots and
+        space are universally supported.
+
+Signed-off-by: G. Branden Robinson <g.branden.robinson@gmail.com>
+---
+ man1/time.1 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/man1/time.1 b/man1/time.1
+index efb818cfd..8902b4b96 100644
+--- a/man1/time.1
++++ b/man1/time.1
+@@ -9,7 +9,7 @@ .SH NAME
+ time \- time a simple command or give resource usage
+ .SH SYNOPSIS
+ .B time
+-.RI [ options ] " command " [ arguments... ]
++.RI [ option \~.\|.\|.\&] " command " [ argument \~.\|.\|.]
+ .SH DESCRIPTION
+ The
+ .B time
 --=20
-<http://www.alejandro-colomar.es/>
-GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
+2.30.2
 
+v3: Quote groff_man_style(7) regarding use of unbreakable space \~.
+v2: Include more background on proper ellipsis usage.
 
---------------UF827Gktk1bN1cNhx3kAxYRE--
+Regards,
+Branden
 
---------------3l1gFIDX8xZhsXEG8x4T4KL6
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+--w32teuie6rqg2d7l
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmTGbz0ACgkQnowa+77/
-2zIFWA/+P4CN6y4QDKSBC1NNSGkOzyQHGNb9qb1LvdAsPeMWA3Ns93MI8NYxddlk
-0+SXD1vrZ2ZCyUuWlrv4FDkEp2BEj8JU2Fbw2UKTYMfeUaX/7G19j1QILCSlVl0i
-5dnzuGODMPZ84DFTcKz59+pD0t8N537+NJknbuncBK5BBYxrM5lJsoZkOkjtwcfC
-PCe/ajapV1p2c7dveIF1B8EhUy1T4VmxMpFB/WokTumf8DiUjvTTQZr+vRJXCCLF
-QNtyWrs9rz+H+lXaLeCP8qPEUwQTeqdj74GbqKqoADlus6rWHYZzMPqT2Mlzo0Pi
-oUuvq5tD6RyD06qFnCJyfah/zfofmYy/sWtH51xZa4FzeY7fp+GtnMAanpEJhPx0
-mD0ivgW9ZP7I/AYqEdMCVaLoSl+vEVpM9r9vkqKCUB1JgH/h6WnOeAwGpmFvVU9g
-Ov8VwMUmzfTaz/cLpsu6otEiCbPEchgfGUfz+T4o0X9rhtOJhw6hBYiFWPwz9DpY
-8dEcPw5qPZvS3eDMkJ5tZUCzWIBZcCdkCYp6ABtmFehdonVqKHx0LCgKvqYQv/Pj
-JqHQrhtx0XoxaxzOff7N1Mx5Nv68aAYHLJ8MB0PrmvvEkOm58PSag0EF+Y+SRiOz
-M40j9L8bJGyhCE6k8dEN36pN2pEIklxMolLHuZKdQs6fJnL5n/E=
-=mo2n
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmTGgAYACgkQ0Z6cfXEm
+bc4Ykw//aOIzeOCWMHm168OzBk2TYrF1z7uUs75Oi+leSo+Rl9mYz83uPmGy8KA1
+RjVlfKnmMZSkiIVL06pOMWWbe5VBOZOOHZlfqHCQovkBZjSaWpJ6qhEwkkdz+Vgl
+GRobUQjy/N93jUexEGwG5nsM6yq4ahtElypyxJnMfzVl5pVHQgP4zT8w9Ebbmpr2
+xWFO4sz0465lpJzzvpBR8KkvXEqSh46hdC2k7iiG1RrksLaZ412LqOFZv/psuECN
+lgpaE4LCJ5l+zmPM07UFRnsWLuU2TnW4Yz1qtWugZKLdLz3qnJENiSS/pBLP2m/D
+vik4/9MrH4Sv9uioVtpcgh1GJET57HDIzNFLAKVD2U9wmAQMzWsWA06RfUZMEwaD
+zyE94EbIt8rdeAVlfyEaOF1YCuJs+qYKSU4AMAzcsw+uSWNSIHVM9sJevMcB8M0y
+0tlwxGNSkDo1xrX26Ai86tfmdVkQ03p9lJVBEuPmTcSlz+aqFU+zy/oILmgab/vj
+J6dWiiAj0d4RRbolyINStG23KhAJTuqoM/p71YV0hcQiM94mqxTfVXwcnFkSS3fj
+bmUkS7BjlblA1LYrIf3e52LsuaGT12AjTQ9qQPW5zSuuPgKrpR8w/o8BGG+NtNTZ
+13Y2aQphQh72RXSeQgbfyeEyydjSaeneHirUzgTOFpAt+/Bc6os=
+=Z4W2
 -----END PGP SIGNATURE-----
 
---------------3l1gFIDX8xZhsXEG8x4T4KL6--
+--w32teuie6rqg2d7l--
