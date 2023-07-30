@@ -2,145 +2,237 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id CF250768639
-	for <lists+linux-man@lfdr.de>; Sun, 30 Jul 2023 17:31:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 4342A76863C
+	for <lists+linux-man@lfdr.de>; Sun, 30 Jul 2023 17:35:19 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229503AbjG3Pbm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 30 Jul 2023 11:31:42 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54226 "EHLO
+        id S229808AbjG3PfS (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 30 Jul 2023 11:35:18 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54520 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229802AbjG3Pbl (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 30 Jul 2023 11:31:41 -0400
-Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com [IPv6:2607:f8b0:4864:20::32f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8BC2FC4
-        for <linux-man@vger.kernel.org>; Sun, 30 Jul 2023 08:31:40 -0700 (PDT)
-Received: by mail-ot1-x32f.google.com with SMTP id 46e09a7af769-6b9c90527a0so3221026a34.1
-        for <linux-man@vger.kernel.org>; Sun, 30 Jul 2023 08:31:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1690731100; x=1691335900;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=xdssZc5TE3tk5IPmZsLTpkbhjwgnqLRFR0vLo3Gk0Fo=;
-        b=lWVoBaF+gZnccGXPlHR6Ozi3iqB1dOxKJrXOJ6zcNPK8IO2Q3mYfoHMBx3X+zWO+cj
-         9pwWT95vrN/feIV1pxbisUHN+viUjS0KzGql/pJ4gZ12vwkHZS/Lvgs8WXspku2o/Xr8
-         BL4y/cquM2/SFA8oxamCSaN1y0Sgd3OSdhc76+e/5gWBZIlgWYmnskRSOVeNh/l25yF1
-         sZIQ+D+EJ2Wm4Wu0ZrtU3cdQAiNfKp+ny3CUMUyZwgODgsE3JblpjYzdCPkMvWnJMNK9
-         cGcOwD/7eKOR6SsVPtzMbw9uZA/6MtfIk6nC3ONoStH3EGfpkq/5RNwKDuBGrPU8Ah+k
-         phbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690731100; x=1691335900;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=xdssZc5TE3tk5IPmZsLTpkbhjwgnqLRFR0vLo3Gk0Fo=;
-        b=TPIdfRd121K0A0i2YV+0Yf2fXa3TKeqDsPXsmHPBKSA3Ai8mew807y7d+9LXdONKLz
-         9bQBcurQV0KUsAbB9WnJ2M2MmxuLy0s94VwIYSXXlPOELr65VW9a3cuBo45DPmNp4/Yk
-         sP4bvo26H5e8pqMDlUg8aaiRz/ASfmE3uGc1z5pDCdTDKGRAoEt1Mfevyr4obq83qH3a
-         Hc83EK7NlJynVF3v54E/MKA7ZqT8Ae6cz39q5uS9gK3Zq1RAEnPkumfkMzauRZ/qHdCu
-         BfvtpHe+Pxdm/3grhbtYP9nLTtCuLAjOA/fhc3GRwqrplCveUPKytvcqBcqOk0sZqOz4
-         3HTg==
-X-Gm-Message-State: ABy/qLaI3WaErwH/hlzEMSLp+BBBZ4FtE4hWkmZUvwZpWBdQjz/PGl4B
-        rqVo+J9KbJ8skdCnlPfY/5gpOgbtsjjRAA==
-X-Google-Smtp-Source: APBJJlHTOcX25LFJhb/o5a6S+Fv/2rUjLlrKSBmEZMEBo4ypRSvZD2Al8qprBixR2eZGriDCxvGlPA==
-X-Received: by 2002:a05:6830:1e62:b0:6ba:3d84:b9f6 with SMTP id m2-20020a0568301e6200b006ba3d84b9f6mr6564572otr.15.1690731099644;
-        Sun, 30 Jul 2023 08:31:39 -0700 (PDT)
-Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id v19-20020a05683018d300b006b8af3a2599sm3344310ote.73.2023.07.30.08.31.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Jul 2023 08:31:39 -0700 (PDT)
-Date:   Sun, 30 Jul 2023 10:31:37 -0500
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     Alejandro Colomar <alx@kernel.org>
-Cc:     linux-man@vger.kernel.org
-Subject: [PATCH v2] memcmp.3: Recast security caveat
-Message-ID: <20230730153137.qgkurw4mudy6etca@illithid>
+        with ESMTP id S229690AbjG3PfR (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 30 Jul 2023 11:35:17 -0400
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B96251A6
+        for <linux-man@vger.kernel.org>; Sun, 30 Jul 2023 08:35:16 -0700 (PDT)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+         key-exchange X25519 server-signature RSA-PSS (2048 bits))
+        (No client certificate requested)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id 557C460C8C
+        for <linux-man@vger.kernel.org>; Sun, 30 Jul 2023 15:35:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A611C433C7;
+        Sun, 30 Jul 2023 15:35:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1690731315;
+        bh=xK9A5Pbve1BBygRCjFrTWfYwV1Gl9UNkVLEaL8Xr1Hc=;
+        h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+        b=Ey0F4gno4E+/L92IhbEli/9dH82BNQKRbC0xSs7eU2JwRSFlVhoV+m/SE7UoNxl4D
+         uGD1AbieXbyDixpdCMzUJOOfDd9QAAEVnmskNPz6Ybql3xLSZJc4p7y5gd7wOXtFn3
+         pAWUHoXmBeMfPHafOtevuTzCqHgT5yI5nffJ/6oDQWMHtktZf6pCDJBcjn1rNW+udJ
+         Sc62lDPgB/RMv+1HvTE2NW6kZGppWjgASPoV6ST3RZJZGIVn0nlpISGFZFkKiCH+BH
+         kJnPLCQLXyd87oCrusBw68VflkokZZwWHeWii3N+Bl1VkduJEqS+BxTsP21Yk3IrEa
+         Byhvf/2mDzsXw==
+Message-ID: <76ee749c-6220-81e3-3c2d-af52da823ba4@kernel.org>
+Date:   Sun, 30 Jul 2023 17:35:06 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH v3] time.1: ffix
+Content-Language: en-US
+To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc:     linux-man@vger.kernel.org
+References: <20230730152149.ajvi7zhskzzsp5jz@illithid>
+From:   Alejandro Colomar <alx@kernel.org>
+Organization: Linux
+In-Reply-To: <20230730152149.ajvi7zhskzzsp5jz@illithid>
 Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="wf3rofksmfpk6fjg"
-Content-Disposition: inline
-X-Spam-Status: No, score=-0.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-        URI_DOTEDU autolearn=no autolearn_force=no version=3.4.6
+ protocol="application/pgp-signature";
+ boundary="------------iegnSe4kNIvz7wfaKl9ZLZPT"
+X-Spam-Status: No, score=-7.2 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
+        RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------iegnSe4kNIvz7wfaKl9ZLZPT
+Content-Type: multipart/mixed; boundary="------------1A3SxcHo8oZIk3wMLwE3nWZ0";
+ protected-headers="v1"
+From: Alejandro Colomar <alx@kernel.org>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: linux-man@vger.kernel.org
+Message-ID: <76ee749c-6220-81e3-3c2d-af52da823ba4@kernel.org>
+Subject: Re: [PATCH v3] time.1: ffix
+References: <20230730152149.ajvi7zhskzzsp5jz@illithid>
+In-Reply-To: <20230730152149.ajvi7zhskzzsp5jz@illithid>
 
---wf3rofksmfpk6fjg
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+--------------1A3SxcHo8oZIk3wMLwE3nWZ0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Use terminology more carefully.
+Hi Branden,
 
-* Refer to the info sec property of confidentiality instead of saying,
-  vaguely, "security-critical".
-    https://informationsecurity.wustl.edu/items/\
-    confidentiality-integrity-and-availability-the-cia-triad/
-* Try not to confuse anyone who's studied the analysis of algorithms:
-  don't say "constant time" when "deterministic time" is meant.  The
-  time to perform the memory comparison remains linear (O(n)), not
-  constant (O(1)).
-* Tighten wording.
+On 2023-07-30 17:21, G. Branden Robinson wrote:
+> Mark up ellipses properly.  They should be in roman.  The item precedin=
+g
+> an ellipsis should be in the singular.  Use unbreakable space between
+> metasyntactic variable and subsequent ellipsis.
+>=20
+> Quoting groff_man_style(7):
+>=20
+>     =E2=80=A2 Symbols that are neither to be typed literally nor replac=
+ed at the
+>       user=E2=80=99s discretion appear in the roman style; brackets sur=
+round
+>       optional arguments, and an ellipsis indicates that the previous
+>       syntactical element may be repeated arbitrarily.
+> [...]
+>     =E2=80=A2 The dummy character escape sequence \& follows the ellips=
+is when
+>       further text will follow after space on the output line, keeping
+>       its last period from being interpreted as the end of a sentence
+>       and causing additional inter=E2=80=90sentence space to be placed =
+after it.
+> [...]
+>     \|  Thin space (one=E2=80=90sixth em on typesetters, zero=E2=80=90w=
+idth on
+>         terminals); a non=E2=80=90breaking space.  Used primarily in el=
+lipses
+>         (=E2=80=9C.\|.\|.=E2=80=9D) to space the dots more pleasantly o=
+n typesetting
+>         devices like dvi, pdf, and ps.
+> [...]
+>     Several features of the above example are of note. ...
+>=20
+>     =E2=80=A2 The non=E2=80=90breaking adjustable space escape sequence=
+ \~ is used to
+>       prevent the output line from being broken within the option
+>       brackets; see subsection =E2=80=9CPortability=E2=80=9D below.
 
-Signed-off-by: G. Branden Robinson <g.branden.robinson@gmail.com>
----
- man3/memcmp.3 | 14 +++++++++++---
- 1 file changed, 11 insertions(+), 3 deletions(-)
+That's the reason to use a non-breaking space over a breaking space.
+However, I'd also like to see justification for using a non-breaking
+space over no space at all.
 
-diff --git a/man3/memcmp.3 b/man3/memcmp.3
-index 9a2aad353..67ebe392e 100644
---- a/man3/memcmp.3
-+++ b/man3/memcmp.3
-@@ -67,9 +67,17 @@ .SH HISTORY
- .SH CAVEATS
- Do not use
- .BR memcmp ()
--to compare security critical data, such as cryptographic secrets,
--because the required CPU time depends on the number of equal bytes.
--Instead, a function that performs comparisons in constant time is required.
-+to compare confidential data,
-+such as cryptographic secrets,
-+because the CPU time required for the comparison
-+depends on the contents of the addresses compared,
-+this function is subject to timing-based side-channel attacks.
-+In such cases,
-+a function that performs comparisons in deterministic time,
-+depending only on
-+.I n
-+(the quantity of bytes compared)
-+is required.
- Some operating systems provide such a function (e.g., NetBSD's
- .BR consttime_memequal ()),
- but no such function is specified in POSIX.
+Cheers,
+Alex
+
+> [...]
+>     =E2=80=A2 Why doesn=E2=80=99t the package provide a string to inser=
+t an ellipsis?
+>         Examples of ellipsis usage are shown above, in subsection
+>         =E2=80=9CCommand synopsis macros=E2=80=9D.  The idiomatic roff =
+ellipsis is three
+>         dots (periods) with thin space escape sequences \| internally
+>         separating them.  Since dots both begin control lines and are
+>         candidate end=E2=80=90of=E2=80=90sentence characters, however, =
+it is sometimes
+>         necessary to prefix and/or suffix an ellipsis with the dummy
+>         character escape sequence \&.  That fact stands even if a strin=
+g
+>         is defined to contain the sequence; further, if the string ends=
+
+>         with \&, end=E2=80=90of=E2=80=90sentence detection is defeated =
+when you use the
+>         string at the end of an actual sentence.  (Ending a sentence
+>         with an ellipsis is often poor style, but not always.)  A
+>         hypothetical string EL that contained an ellipsis, but not the
+>         trailing dummy character \&, would then need to be suffixed wit=
+h
+>         the latter when not ending a sentence.
+>=20
+>             Instead of...              ...do this.
+>         =E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80
+>         .ds EL \&.\|.\|.         Arguments are
+>         Arguments are            .IR src=E2=80=90file\~ .\|.\|.\&
+>         .IR src=E2=80=90file\~ \*(EL\&   .IR dest=E2=80=90dir .
+>         .IR dest=E2=80=90dir .
+>         =E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=
+=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=
+=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80
+>=20
+>         The first column practices a false economy; the savings in
+>         typing is offset by the cost of obscuring even the suggestion o=
+f
+>         an ellipsis to a casual reader of the source document, and
+>         reduced portability to non=E2=80=90roff man page formatters tha=
+t cannot
+>         handle string definitions.
+>=20
+>         There is an ellipsis code point in Unicode, and some fonts have=
+
+>         an ellipsis glyph, which some man pages have accessed in a non=E2=
+=80=90
+>         portable way with the font=E2=80=90dependent \N escape sequence=
+=2E  We
+>         discourage the use of these; on terminals, they may crowd the
+>         dots into a half=E2=80=90width character cell, and will not ren=
+der at
+>         all if the output device doesn=E2=80=99t have the glyph.  In sy=
+ntax
+>         synopses, missing ellipses can cause great confusion.  Dots and=
+
+>         space are universally supported.
+>=20
+> Signed-off-by: G. Branden Robinson <g.branden.robinson@gmail.com>
+> ---
+>  man1/time.1 | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/man1/time.1 b/man1/time.1
+> index efb818cfd..8902b4b96 100644
+> --- a/man1/time.1
+> +++ b/man1/time.1
+> @@ -9,7 +9,7 @@ .SH NAME
+>  time \- time a simple command or give resource usage
+>  .SH SYNOPSIS
+>  .B time
+> -.RI [ options ] " command " [ arguments... ]
+> +.RI [ option \~.\|.\|.\&] " command " [ argument \~.\|.\|.]
+>  .SH DESCRIPTION
+>  The
+>  .B time
+
 --=20
-2.30.2
+<http://www.alejandro-colomar.es/>
+GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
-v2: Tweak phrasing per suggestions from Alex Colomar.
 
-Regards,
-Branden
+--------------1A3SxcHo8oZIk3wMLwE3nWZ0--
 
---wf3rofksmfpk6fjg
-Content-Type: application/pgp-signature; name="signature.asc"
+--------------iegnSe4kNIvz7wfaKl9ZLZPT
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmTGglkACgkQ0Z6cfXEm
-bc40EQ/9G0z5lX3qEdaLtJseFXq6FSRlU329JEGyokpUIkvQRHiGfgmHgDeXMy03
-03ArrhkA9NDL8gdhKDHQubeF6Ei63RN5Ot0mRuLurFtaENarrMrmWT+GkRZAS3PM
-QDfEkbjxlq9PTB7i/+vKEsKM35Y94EYurgahsjIxNQLbzrOZvAUPhi7UY0dl+O0h
-aGlfK9LFE6JV+tNQhq9yJrx9gEeALmNvkbv+TjTDC0FmAHsBU8zVIAoiMDTMlhjk
-B334v14xquzbLu0g7Gp7tZ/0KB0VS5J8qjjNyU7gzb5wKb3FNw0mIvZaJYxQ3Qgx
-q9yyqt+C7UoQlAPnDD3yotbtRY1fJT490LRNtssFfV4aLFqi4ywXm04QMlQpZrmf
-WHTF6w+THP9Sq0GayPKWf5KCXnYTF29xWzneUyfsZL8nxNgechz4sTJSKmf2CoSn
-fI00nCcXC1jMatXalvNaQ+8ogwE+IJXH0GKclyAvQv/yzCY2ggQWuDIEdCa+dPFq
-6L0b930QaW3eLPnF+T+MlzKhtRnEL4KuzrTSG86NpwnpbGyV9sEVzmagQnQHP7Jl
-e8/GdHofHdBZfCLxJwEMFEvqGSDUe3iolD009GRgLn+UOMeFTjSRe88PuBx2TWxI
-AALumxtSr1xdaVPuwCIA6Ku9/hFlfNwhsWJq8ORMcSKDb6vyZ+s=
-=XfCz
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmTGgyoACgkQnowa+77/
+2zJyRQ//Tsh3QNTv4M74Ohbehnh9DH5yzGoSt50JLhKfsEIJxrd9jnIdF3rJSkPc
+Aee+moBKt2+h7ZGfrRyWfDOm8dwLYHGPumTk5/gw+j5AJ/GGxfAYBdK/FGzJUHbr
+qDnRIvXUb4tI7/L8kjQjIZp8C9aZnmQ885xBnX59grv/wsovZVtRSjkGN9RScs6F
+4BzdBp4CxD7a0GVajy+qmnPLwEnUVmvCDPD+cU/2D2oHCNygIO1V8U5+Z+KoiU46
+TnP3MBIh7Ou1HIMAY7GiM87Lw0XGcbh3wWhb4tPMiH4zGuPC6S+M4zQA920L/Ot/
+I5gx0aHasYRa+crqxYBdACD3tQHdD6BX+WTvYBCNt30xM0L2Q78w8xrMTETIzvFV
+L1GCd4CujHNucqVODmR+1d9NlzMIvSr8b5aTPEAzTkkHLaPjFOi4Sx7RWqXPSPhQ
+cQDoS3sd2KckbrMeX0a1GU1NV6CEJvurWlkvIXx2J4g7zhJTljeFPuDtIgt4sI3T
+z8Y9q0SDnwwbjH75vphS/omD1iserDLEmBu7fLKGJUeZl/l8wckek+u6sLcj7ldv
+MMUGo3AZyZUTVG3HrDfz0jypD3rU6Li5dBBGwsNY73o7Qpof7m8LTX7Vv156zn3a
+qPo2W+gAX18LblV8anaKbdriRRD6Mx/z3S9pQxi+oEsxhOaK0W0=
+=0S51
 -----END PGP SIGNATURE-----
 
---wf3rofksmfpk6fjg--
+--------------iegnSe4kNIvz7wfaKl9ZLZPT--
