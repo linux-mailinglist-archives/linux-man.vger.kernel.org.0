@@ -2,68 +2,68 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id B0B6776951F
-	for <lists+linux-man@lfdr.de>; Mon, 31 Jul 2023 13:42:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C084A76952E
+	for <lists+linux-man@lfdr.de>; Mon, 31 Jul 2023 13:47:44 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231136AbjGaLmg (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 31 Jul 2023 07:42:36 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47784 "EHLO
+        id S231566AbjGaLrm (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 31 Jul 2023 07:47:42 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49552 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230487AbjGaLmd (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 31 Jul 2023 07:42:33 -0400
-Received: from mail-oa1-x29.google.com (mail-oa1-x29.google.com [IPv6:2001:4860:4864:20::29])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B598EA6
-        for <linux-man@vger.kernel.org>; Mon, 31 Jul 2023 04:42:31 -0700 (PDT)
-Received: by mail-oa1-x29.google.com with SMTP id 586e51a60fabf-1bba7717d3bso3129140fac.1
-        for <linux-man@vger.kernel.org>; Mon, 31 Jul 2023 04:42:31 -0700 (PDT)
+        with ESMTP id S231517AbjGaLrl (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 31 Jul 2023 07:47:41 -0400
+Received: from mail-oi1-x232.google.com (mail-oi1-x232.google.com [IPv6:2607:f8b0:4864:20::232])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 38774A1
+        for <linux-man@vger.kernel.org>; Mon, 31 Jul 2023 04:47:40 -0700 (PDT)
+Received: by mail-oi1-x232.google.com with SMTP id 5614622812f47-3a38953c928so3318266b6e.1
+        for <linux-man@vger.kernel.org>; Mon, 31 Jul 2023 04:47:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1690803751; x=1691408551;
+        d=gmail.com; s=20221208; t=1690804059; x=1691408859;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=laa21BR2vqWTa7Fn/NGOwylCWyx3nhpcSPvmxMGF8nM=;
-        b=NrGpU8OLe+aP4rPNMBi4qRX4wfw/AW8tvz2yP8UJywORXzOT6LJrwoJIecBMq7XTMH
-         w59Ejml/+Eksw0FNuejLwX8+RgI7UQirT426N4/3MRp29G2O8u8juZESIimWrm+cxuOm
-         cinOem/ORxOlBUPA/E80SpBOgiqtIQ+e0kZpnCKTuzSyPTjy9qD3ieiBvfW7OgiLs6gH
-         mJBc6n8zVeEs0SPqUDYWBeeUHniGHzSCNOCdNfJX5WCGeHCuPugJrwIy+1ydInXqH1F/
-         sv/Kc5vow60Em9KTrOImnZ9JBHSIRzc+em9ze4lcA8HFA+sbyGk0FK/mLO2fw+4Xczvz
-         SNTw==
+        bh=sVfJ5/8w2kBMgIX1l8y98skPGXbYWe3tPmdBqG/wUvs=;
+        b=VoM86S93JgdB+8YFt0473qLmdpEIpFIf2uH/l8PpwSb9peJ0sn4KFZRPTI3qva/AVU
+         25sa5CJbi/peUXBNrXXntSzLngYrTBCO+mchxcqjhWZc10zyMW9PvSBx2+PDNp/LNtF2
+         I72SqgCMLKaUcfWTpFCRyIwgdOGqK3coQYxcMF3HxfnsHTjw70efVv/KaGxmpzeALfHp
+         28RRx1umQiaNSoGuX3+nQBU16cSUky4qv6lrnD5Ni43MZHj24+6iTuuHzeN2o7UWQbdF
+         LLra4iDjuaKy8+u0XHjwFdNylvJ6a/xeuqjbDTY6ybAjgts1sI7gwLFOENXu0KGDPiqt
+         XRig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690803751; x=1691408551;
+        d=1e100.net; s=20221208; t=1690804059; x=1691408859;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=laa21BR2vqWTa7Fn/NGOwylCWyx3nhpcSPvmxMGF8nM=;
-        b=TmoxewmO1ph5bZC/1rQ4zzjBvjDa/HBH5KsyDdxAC8An+PCXks9DGIVzNKZXU+zKcl
-         uqaYBAoPYORZVWlmEGWqWlStQYHbKvXa3Lo7QTp+PK81qRn2SXrCE7owP3XXc6x/3ewm
-         Dsg6K/B4cSstNnTZP6KNUwEEMEViLVwQbxFpH9vQk5BV93QoDxX1pawL/RRkrY3FvSBc
-         FH9MGNves+jRPLZsAlRFEqkAB2L8IZianttKBbck+IDss7woNKL2nS4v9FPuk6BW0YpX
-         JCKu2Nvtig3GshqwAIbfHpkIZxkR7bSrC4/GDDt1FlYIV12TmKrd7S/DBFxvYN1uIK6/
-         axmA==
-X-Gm-Message-State: ABy/qLbRxZgHWJ5UZeCY4iscL+TtXIAXNW4Kt0+VcebAVlkAS0SslLOW
-        IspXm83X/4HfiOTNFglBUuiP7o37TTY=
-X-Google-Smtp-Source: APBJJlEtO/RDMTy9ojX2F+F1RAeGUm6jynjM9Bw9VaJZ7VV9mdVTYY7f400pbTKnHsDhKaFbUFroow==
-X-Received: by 2002:a05:6870:46a5:b0:1b0:25b4:4b7a with SMTP id a37-20020a05687046a500b001b025b44b7amr12371317oap.51.1690803750864;
-        Mon, 31 Jul 2023 04:42:30 -0700 (PDT)
+        bh=sVfJ5/8w2kBMgIX1l8y98skPGXbYWe3tPmdBqG/wUvs=;
+        b=LwgAMQIgIYyQWF3tU4VKY1Ko/BAOUe9UgZYOtc3xOZDjRa4I8QzQhPXke52feo5NN3
+         J/VcIUYNkcPzFTLV8UQP2LeyF7pRbmfprYihv+RkI8utoBPgaypi+CdlLciUDkxMlMYc
+         TXea695bvvyi/ONnSnLXOgn/HFxER7fpxyhY9/37QjsdJ8ycMONpHXyOfpps9vx+43fy
+         77kEU5EJVJqzn7VvZRuEJrfJNrxeAwo9myQIbHpcRuofLBX3f4kQ1+1Y0wayvLDu0zXa
+         e67D+XAYCaZGVeLyUEAe+8dV+ygwO8Wn5fQSEXDvgq44SLHWl2sLqXNETHcUB9KoY3P1
+         eiaQ==
+X-Gm-Message-State: ABy/qLan6XF8BBG6k3DZFDGJSt5tVcPF3Qxj4X5r42KXymw5sHTR3i7Z
+        ZvDDwYtQn/srIKkH8IAnn68FAfZNx9E=
+X-Google-Smtp-Source: APBJJlGDBkMGvNtB1FdBt+QZhwm3V5Ajd/ZkuH73hxUKUuij3bFN5CoLdz/si2CVMjTnyJjNamfM2Q==
+X-Received: by 2002:a05:6808:1689:b0:3a3:9df9:1928 with SMTP id bb9-20020a056808168900b003a39df91928mr10357157oib.17.1690804059378;
+        Mon, 31 Jul 2023 04:47:39 -0700 (PDT)
 Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id x47-20020a4a97f2000000b005634ef4f1c0sm366907ooi.31.2023.07.31.04.42.30
+        by smtp.gmail.com with ESMTPSA id j19-20020aca1713000000b003a40b3fce01sm3963814oii.10.2023.07.31.04.47.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Jul 2023 04:42:30 -0700 (PDT)
-Date:   Mon, 31 Jul 2023 06:42:29 -0500
+        Mon, 31 Jul 2023 04:47:38 -0700 (PDT)
+Date:   Mon, 31 Jul 2023 06:47:37 -0500
 From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
 To:     Alejandro Colomar <alx@kernel.org>
 Cc:     linux-man@vger.kernel.org
-Subject: Re: [PATCH v2] man*/: srcfix
-Message-ID: <20230731114229.255gdzlt3pq66fvo@illithid>
-References: <20230730193202.sly7va2kiv2edegr@illithid>
- <538191f8-a1bc-ab53-2a13-a8166637bb30@kernel.org>
+Subject: Re: [PATCH 9/9] man*/: ffix (migrate to `MR`)
+Message-ID: <20230731114737.nubrsfjelxrnt3ap@illithid>
+References: <20230730200445.5ai65ekheopcvicx@illithid>
+ <679c73ca-8e11-51e6-8de5-0d59b6539f7d@kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="zh7atycm63sritmh"
+        protocol="application/pgp-signature"; boundary="rvquem56mrwi7c76"
 Content-Disposition: inline
-In-Reply-To: <538191f8-a1bc-ab53-2a13-a8166637bb30@kernel.org>
+In-Reply-To: <679c73ca-8e11-51e6-8de5-0d59b6539f7d@kernel.org>
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
         autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -72,154 +72,48 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---zh7atycm63sritmh
-Content-Type: text/plain; charset=utf-8
+--rvquem56mrwi7c76
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
 Hi Alex,
 
-At 2023-07-30T22:29:36+0200, Alejandro Colomar wrote:
-> On 2023-07-30 21:32, G. Branden Robinson wrote:
-> > Clean up in preparation for "MR sed".
-> >=20
-> > Format only one man page cross reference per input line.
-[...]
-> > --- a/man5/proc.5
-> > +++ b/man5/proc.5
-> > @@ -3459,7 +3459,9 @@ .SS Files and directories
-> >  .TP
-> >  .I /proc/locks
-> >  This file shows current file locks
-> > -.RB ( flock "(2) and " fcntl (2))
-> > +.RB ( flock (2)
->=20
-> I guess you'll want a \c before flock(2).  RM ain't no macro.  :)
+At 2023-07-30T22:45:14+0200, Alejandro Colomar wrote:
+> I couldn't apply this patch.  See the error below.
 
-Thanks!  Another good catch.  I was trying to get over the goal line
-too quickly yesterday, to little effect since the diff "ball" was too
-large for vger even gzip -9 compressed, and was somehow corrupted in the
-copy I sent directly to you.  Can I just omit the diff entirely when
-re-submitting?  I'll include the (vastly shorter) sed script in the
-commit message; you said you prefer to run such scripts yourself anyway.
+I can't account for this.  I use GMail for my outbound SMTP, and vger is
+notoriously irritable about attachments--so even when not smacking down
+a huge attachment for going to a mailing list, kernel.org might take a
+dark view of such things in emails to its domain even when privately
+addressed.  Or maybe the two sites have implementation glitches that
+work in negative synergy.
 
-The above scenario is "snaggable" with an additional case in MR.sed.
+> Other than that, I've applied the rest of the patch set: patches in
+> the range [1, 8] are applied.  Thanks for all your work!
 
-# Handle case: leading punctuation, as in ".RI ( foo (1)".
-s/^.R[BI] \(\\%\)*\([^[:space:]]\+\) \([@_[:alnum:]\\-]\+\) (\([1-9a-z]\+\)=
-)\([^[:space:]]\+\)$/\\%\2\\c\n.MR \3 \4 \5/
+Thank _you_!  We're almost there...
 
-To anticipate complaints:
+Regards,
+Branden
 
-The *roff markup produced by this is a bit viscous, exercising two
-escape sequences that man page authors often neglect to use, or use
-incorrectly.[1]
-
-diff --git a/man1/localedef.1 b/man1/localedef.1
-index 183f08f58..77ab69c4f 100644
---- a/man1/localedef.1
-+++ b/man1/localedef.1
-@@ -53,7 +53,8 @@ .SH DESCRIPTION
- files,
- compiles them to a binary form quickly usable by the
- locale functions in the C library
--.RB ( setlocale (3),
-+\%(\c
-+.MR setlocale 3 ,
- .MR localeconv 3 ,
- etc.),
- and places the output in
-
-On the bright side, this is only about 1% of all uses--and of course the
-decision to cast a man page cross reference at the beginning of a
-parenthetical is always(?) at the discretion of the page author.
-
-And when I say "about 1%", I'm not waving my hands.  Here is the
-diffstat summary from application of my "MR.sed" script _without_ the
-foregoing replacement.
-
- 1100 files changed, 15264 insertions(+), 15264 deletions(-)
-
-=2E..and here's what results from the replacement shown above.
-
- 56 files changed, 320 insertions(+), 160 deletions(-)
-
-The other complaint that I foresee is that while `MR` prevents man page
-names from being hyphenated, that practice gives the formatter less
-flexibility when performing adjustment, which can make the text "gappy".
-
-Here's an example from my before-and-after diff.
-
---- DUMP1       2023-07-31 06:15:47.059827045 -0500
-+++ DUMP2       2023-07-31 06:16:03.059756758 -0500
-@@ -2503,2 +2503,2 @@
--              This  specifies  the  caller=E2=80=99s  session=E2=80=90spec=
-ific  keyring  (ses=E2=80=90
--              sion-keyring(7)).
-+              This   specifies   the   caller=E2=80=99s    session=E2=80=
-=90specific    keyring
-+              (session-keyring(7)).
-
-But people who hate this often hate adjustment anyway, and that's what
-another new groff 1.23.0 feature is for.
-
-groff_man(7):
-
-    -dAD=3Dadjustment=E2=80=90mode
-        Set line adjustment to adjustment=E2=80=90mode, which is typically =
-=E2=80=9Cb=E2=80=9D
-        for adjustment to both margins (the default), or =E2=80=9Cl=E2=80=
-=9D for left
-        alignment (ragged right margin).  Any valid argument to groff=E2=80=
-=99s
-        =E2=80=9C.ad=E2=80=9D request may be used.  See groff(7) for less=
-=E2=80=90common
-        choices.
-
-man-db man(1) has also long supported an "--nj" option to do the same
-thing.  In its Git repository it now uses the foregoing means if groff
-1.23 or later is the formatter, as opposed to a rougher approach with
-some side effects.
-
-This problem also will never arise with mandoc(1), since it refuses to
-perform adjustment (or hyphenation) even if you _do_ want it.
-
-[1] For *roff non-experts, groff_man_style(7) says:
-
-    \%  Control hyphenation.  The location of this escape sequence
-        within a word marks a hyphenation point, supplementing groff=E2=80=
-=99s
-        automatic hyphenation patterns.  At the beginning of a word, it
-        suppresses any hyphenation breaks within except those specified
-        with \%.
-
-    \c  End a text line without inserting space or attempting a break.
-        Normally, if filling is enabled, the end of a text line is
-        treated like a space; an output line may be broken there (if
-        not, an adjustable space is inserted); if filling is disabled,
-        the line will be broken there, as in .EX/.EE examples.  The next
-        line is interpreted as usual and can include a macro call
-        (contrast with \newline).  \c is useful when three font styles
-        are needed in a single word, as in a command synopsis.
-
---zh7atycm63sritmh
+--rvquem56mrwi7c76
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmTHnhwACgkQ0Z6cfXEm
-bc6yVw//bViA1XFh1PXhL1QpPXe43JphU08y4wpXGty+gmoEtNOTtPRe9zFp+SyV
-MW2lHh+B1Mvfe7mD+5Q1nQeyTEXt+ZCD0gMA1btPaKkHjJdm9a/3DmesyObiiAFn
-TdyPpuQdGzODZAYCkTahc+WuEFwiRdnMepI7lvt+wJzH4sHFSRT1kshmC6DGY7l8
-Zvsg2ruGdNI5MD2EhcQmhETngEVKmupfuGu3H7mGShjPc/r9rjt3KCkufeMkgeYI
-QP4YjT/LzZ5Hrw0wsjm+A2cDdS70fdqljx68Sa+FaD9arAoE2ki163bJeD7EGHWn
-VaMMljQOUP2hi4dj0Z8nOncuA+ui2GDhgcDqjruqcW+xRetzIBtqdGvcFFa2/mpe
-lGZKSrLMQk1ngY2vApFY6itYxleegvcxOnZ3fZZdrDCb9TWmidMLgs4emaEOiiag
-UrmeFOVjfFT2eq1U11/d/f/ywRrPqLS13GZ+MiUwAuRhS8QBX8u+ufafEtYIIRyL
-qv5NfxZPG7bSDkMxKNE8OF1gvTXlFQs+TcRy1IlL7m8tZXIiaxTqTVuDR38/jdcf
-4nNIZvzCT8KgMwllpS6Bcj2wd1a396lLPHblI3nInM04+aAVL0QsHv7K/sIbEMhc
-zHYxtxSX9mPUbXVL9cZ5PKlEyXzMfIPomwduTnl7yMuGFVlWGOk=
-=0kb3
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmTHn1kACgkQ0Z6cfXEm
+bc5Z3A//Vn0pGwgtMOFjZaqlCZD7CMbVTQUczgUbgkWnc2b8BpReY74wEhLrkwMh
+jCSfqauh3FLurRmciwUJ1fwcJzyxjK7hJASOBMVE2Hp95tI5XoBodQw8HmFJ4yTw
+qhMyEdvQLcSSgNvoLeTKloI0Z+B7yyKjvd8Bbc4W+xjeNIE1YEYxk2xcC499naCQ
+9J1RzAC96geo6A4NrDWWhsyAEW886TJVOalHGF5FOYdE8NguT+NcOjlrv34iRTUA
+1NBbelAouUheBchDCGa8NsshgMNnCvQgeAsLchEbTiqn2o15Xcgm0BgMjRvfjMMW
+7Tzol7p3KpNB8nETDQfF0U1snUcYquStUq5UMc+m8p4ITa/6dSFklj0279D4Hyt7
+ESazHvvavxFaD+jtEX7F0ZdCbNpcrOipGr7ki0JGFAIDz4JqIjkVgJ1eaUXi2wlY
+ZUbNQ4mJMm2zxs6pH3Aed4SM5bdnm11pWCwEDYXWr0B7nWGCIo0Jy/av3kk+4eEo
+cMILGA6GM5CZxlAMJEkxrdWP3dPJFRc0chKDPsWQWQDoMx2MkVAeUxVmJtY6WIEQ
+PwsgAMNfKj+zzBlp7+vzIskEmXt9AHp+FTavPQrmkklWpj99hSXHixig4lbL2hme
+Vm1ltRvDU8diLgAHGtWc1NEE/9A7w9Bu0qjcXowF1iBc9ZtInoA=
+=Mvdu
 -----END PGP SIGNATURE-----
 
---zh7atycm63sritmh--
+--rvquem56mrwi7c76--
