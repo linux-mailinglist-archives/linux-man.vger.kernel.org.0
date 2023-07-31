@@ -2,72 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id C38FE769B08
-	for <lists+linux-man@lfdr.de>; Mon, 31 Jul 2023 17:45:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B0481769FB9
+	for <lists+linux-man@lfdr.de>; Mon, 31 Jul 2023 19:48:57 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231449AbjGaPps (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 31 Jul 2023 11:45:48 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54206 "EHLO
+        id S231192AbjGaRsz (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 31 Jul 2023 13:48:55 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60344 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232424AbjGaPpp (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 31 Jul 2023 11:45:45 -0400
-Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com [IPv6:2607:f8b0:4864:20::32f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 439391705
-        for <linux-man@vger.kernel.org>; Mon, 31 Jul 2023 08:45:38 -0700 (PDT)
-Received: by mail-ot1-x32f.google.com with SMTP id 46e09a7af769-6b9e478e122so4067287a34.1
-        for <linux-man@vger.kernel.org>; Mon, 31 Jul 2023 08:45:38 -0700 (PDT)
+        with ESMTP id S231391AbjGaRsq (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 31 Jul 2023 13:48:46 -0400
+Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com [IPv6:2001:4860:4864:20::2a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DF5D51718
+        for <linux-man@vger.kernel.org>; Mon, 31 Jul 2023 10:48:38 -0700 (PDT)
+Received: by mail-oa1-x2a.google.com with SMTP id 586e51a60fabf-1bb75afeee3so3262465fac.0
+        for <linux-man@vger.kernel.org>; Mon, 31 Jul 2023 10:48:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1690818337; x=1691423137;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=Xwwi2tHLysrFGZwnDu5CFOUkc1E0myqfTFjX07NO+/Y=;
-        b=aPuIBraGhzdojxFP0+m+W1gVvXCLxA3n4rwHhkQUM9MKfLcyp6nCC6u+iuEKFT3NC8
-         XmSZBmTjOCE1VnhcYL8kXgpJBGo9u6Bp6JRl5c2xOp9/oOWMzEDUhsjOPsowpw46OlkP
-         FSnDJRfjrvTPqWNacy0ahwWKvlvmE79ictNWmv2VlBxk+1heS3H5NlC7sq6RxUgjWeqQ
-         6x/s81m3dnKqJkp1mMTcBCtibtqANcL9pED4gYCI1BXMBGTgwwKLE6roZ+Km3aQ+mX/4
-         pQfGg5R7Tky0zIfKQaee6GE0ZVpk9WgZ9bSeeRxpFdpAW9k/DneRBtNVT7zGpfVTaaol
-         K9EQ==
+        d=gmail.com; s=20221208; t=1690825718; x=1691430518;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=L1U1u32MNXf37ukfzkiqlnpMrPn4/mativcsqlLgKWI=;
+        b=DAs4wJtBUXDZY7TS4RO/Ttwixsbzfoz2wTyKdWOqYb4JTU9N7fJeg2HTVQkYEZ1Ywf
+         l3AKmjscfgoIwPj3jgQOvbIzyR9l8uEqeSG0cw4V5hw7v+whHFM1hTJSVJmJP32kqm6X
+         uMjNDQePQFX6pR3sROzct7/ARI+uqnKelwT0Gm7z464haklG6IZFAHsrOUW4zfrg7v6Q
+         8uYOm9WW/xFRZiOqGSwssMZV6hFKknERoWDSVAAmRvwD3bcJr7CIyA0VzWTeoFq+6mAL
+         gJ+MetQuJr/vhimSxKhrFkdmxEfOPqs85S6puH5U6i7UAnGlANdWEnCZD1wDMWf8gRty
+         18bA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690818337; x=1691423137;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Xwwi2tHLysrFGZwnDu5CFOUkc1E0myqfTFjX07NO+/Y=;
-        b=OBrdNpLT43ppzX9VxOWaxr2Fm+JdPj51X3+DAoVkey8x5qoLZl5Ne8QoFENY5F8qQB
-         yH0JucC2mez69Kb35QSlYlW6dyPZ7KaNwxzFHL3g8M0AxB+AIkEtALg9wZNHIiUGsncR
-         +tSda0HV8/Sgl0V83H/gCuMkGoo6QT7hOFuScVHXNS/qSNuJ1cSE0KpfY4hFd9BY/mv+
-         sRwLlOrKnIEOcVdVYf6q1Ht/VpOcZWcieW2suRjdPbFteokTYswAkd3oz6eIyO7SNJJm
-         6f8CmnI46naUKJjfl0jyALJ+ca/zPv1KnOZGkiBAiKfu+Q3QvyTdAxLwZcHha9hD1A68
-         wyyQ==
-X-Gm-Message-State: ABy/qLYDhb3AdOtkL87pK3Elr1v8ehyRpR8PPvvJesK7L2narL5IQrSc
-        epvcqjVNdbb+DYG1ROqgIk9oNmSGRHo=
-X-Google-Smtp-Source: APBJJlEDDS+fd4pxATpjj7lQz83W6TLv3wPrWnGeGJBfK9eiw8Ujfy555rNsS5UylnLVrTrs80HgFw==
-X-Received: by 2002:a9d:6956:0:b0:6b8:f588:2c75 with SMTP id p22-20020a9d6956000000b006b8f5882c75mr11160551oto.21.1690818336928;
-        Mon, 31 Jul 2023 08:45:36 -0700 (PDT)
+        d=1e100.net; s=20221208; t=1690825718; x=1691430518;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=L1U1u32MNXf37ukfzkiqlnpMrPn4/mativcsqlLgKWI=;
+        b=IroOcsLXwyidrx6il8RNJ/CgL7dy7MKz+zIg94NKKpCUPcOpachxzJPKAak/YvKbJB
+         V9DCaSmfgdlB/rq/byeH5TcTtRocbWR6TQR5wj33XeM09JoHBeyF+4idcoRLEeJkEHc3
+         GH46Af0zIkUVFhpUs5u4bOTfRZ3vY3/Fxy41yPVvjygzEqyT7jVZo0w7Yecrh7jXI25c
+         oLqqD3H+RntDG1mXxGQa+Z32t2dBDRdRcJd9NtKzga1MYY/49T4Iz+KXUC4doajqhgvH
+         iY2Zmhk+Kw5Y8UZD8aKbZ8PL6VyZDz2h0xnCgdtB9hAP5XGhh4+iAkkoFprXsH8sWwZp
+         HOsQ==
+X-Gm-Message-State: ABy/qLbNaN/L9D9G1UhVkioLQXOTAIuCyP3DX75vWIGjx93rEoakWUxK
+        btZNLt5yLGwH69BVhgYxqJvFlscVis8=
+X-Google-Smtp-Source: APBJJlH9md4lYxFhysHty7ov3FzKwYD8he3/XC7jyQRn7Fg3zvWeBSYR9gjbd4P9K1XjXDcPE7dJKw==
+X-Received: by 2002:a05:6870:f5a1:b0:1bb:75af:37b5 with SMTP id eh33-20020a056870f5a100b001bb75af37b5mr11820974oab.10.1690825717971;
+        Mon, 31 Jul 2023 10:48:37 -0700 (PDT)
 Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id dg13-20020a056830480d00b006af9d8af435sm4130928otb.50.2023.07.31.08.45.36
+        by smtp.gmail.com with ESMTPSA id 68-20020a4a0047000000b00565fcfabab8sm4576354ooh.21.2023.07.31.10.48.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Jul 2023 08:45:36 -0700 (PDT)
-Date:   Mon, 31 Jul 2023 10:45:35 -0500
+        Mon, 31 Jul 2023 10:48:37 -0700 (PDT)
+Date:   Mon, 31 Jul 2023 12:48:36 -0500
 From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     linux-man@vger.kernel.org
-Cc:     groff@gnu.org, Alejandro Colomar <alx@kernel.org>
-Subject: boldface, italics, spaces and ellipses in synopses of commands, and
- *nix history
-Message-ID: <20230731154535.iqx4zuzztcum6f66@illithid>
-References: <20230730152149.ajvi7zhskzzsp5jz@illithid>
- <76ee749c-6220-81e3-3c2d-af52da823ba4@kernel.org>
- <20230730154541.uitln7ioq4bw6xkq@illithid>
- <02dce126-966c-b7f8-4b26-2fb6ce11b30f@kernel.org>
- <20230730161304.ywc7jyz7hlbjqpsd@illithid>
- <ZMefhujNRqiKVR9a@fluorine.ljabl.com>
+To:     Alejandro Colomar <alx@kernel.org>
+Cc:     linux-man@vger.kernel.org
+Subject: [PATCH v3] man*/: srcfix
+Message-ID: <20230731174836.5e3fxxe6csgitm4s@illithid>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="jjhg7dcfzobote5m"
+        protocol="application/pgp-signature"; boundary="avwodrk5vdi66gik"
 Content-Disposition: inline
-In-Reply-To: <ZMefhujNRqiKVR9a@fluorine.ljabl.com>
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,LOTS_OF_MONEY,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
         autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -77,394 +68,225 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---jjhg7dcfzobote5m
-Content-Type: text/plain; charset=utf-8
+--avwodrk5vdi66gik
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hi Lennart,
-
-At 2023-07-31T11:48:22+0000, Lennart Jablonka wrote:
-> Quoth G. Branden Robinson:
-> > "[-v ...]" would imply that only "-v -v -v" is allowed, instead of
-> > "-vvv".
->=20
-> Only if you can=E2=80=99t group options.
-
-I term this "clustering", but yes.  And most Unix `argv` interpreters
-support doing so, at least those that make it into libraries used by
-more than one application.
-
-> It is an issue that there are a few different options syntaxes and
-> often, the specific one used is not documented.
-
-I suppose it'd be too demanding to ask authors of command-line programs
-to document which they use in the Synopsis sections of their man pages.
-
-Imagine:
-
-Synopsis
-     tbl [-C] [file ...]
-
-     tbl --help
-
-     tbl -v
-     tbl --version
-
-     Arguments are parsed by getopt_long(3).
-
-Only the last line is not already present.
-
-If a lot of people actually _did_ this, then you'd know from its absence
-that someone might be using a hand-rolled argument parser, and to watch
-out for land mines for the usual quality-of-implementation issues that
-accompany NIH syndrome.
-
-> I=E2=80=99d argue that=E2=80=99s acceptable for those utilities adhering =
-to the POSIX
-> Utility Syntax Guidelines;  that is, those that just use getopt.  And
-> thus,
->=20
-> 	foobar [-v ...]
->=20
-> 	 -v ...  Be more verbose.  This options can be specified
-> 	         multiple times to increase the verbosity level.
->=20
-> Makes it reasonably clear that you can make it very verbose by both
-> -vvv and -v -v -v.
-
-I don't have a mastery of those Guidelines but I accept that they can
-contextualize the syntax enough to remove the ambiguity.
-
-> Now, if you do not adhere to the guidelines=E2=80=94if you require -vvv or
-> don=E2=80=99t allow grouping or both=E2=80=94you likely want a different =
-synopsis
-> syntax anyway: Then, -asdf could be interpreted as =E2=80=9Cthe single-da=
-sh
-> long options asdf=E2=80=9D and you shouldn=E2=80=99t write the short opti=
-ons as -adX.
-
-Yes.  It used to matter a great deal that nearly every X11 client
-application in the world applied a different conventions here, but a
-consistent one thanks to the ubiquity of the X Toolkit Intrinsics
-library.  Eventually, when GTK+ and Qt came along, that convention was
-discarded.
-
-> None of this invalidates your explanation of ellipses and space
-> therebefor.  But I don=E2=80=99t like your explanation.   Point is, I wou=
-ldn=E2=80=99t
-> have gotten the idea of not putting a space there in the first place:
-> An ellipsis is most always delimited by spaces, in synopses as in
-> prose.
-[rearranged]
-> In POSIX, an ellipsis is not italicized and not delimited by spaces,
-> as in
->=20
-> 	p=CC=B2a=CC=B2t=CC=B2h=CC=B2...
-> 	[-o f=CC=B2o=CC=B2r=CC=B2m=CC=B2a=CC=B2t=CC=B2]...
-
-Applying the rules of prose here is what makes me nervous about your
-interpretation.  And POSIX's, for that matter; `argv` processing is far
-less forgiving of whitespace errors than readers of prose are.
-
-I have no serious beef with POSIX if they supply enough context in their
-interpretation guidelines for people to make sense of their synopsis
-notation.  The hazard lies in people who don't write to those guidelines
-thoughtlessly aping POSIX's notation, unmoored from its context.
-
-I find that two rules are popular among software developers.
-
-1.  Don't write technical documentation.
-2.  If you find you must write technical documentation, do it badly.
-
-> Now, for opinions differing from yours:  In mdoc world, the ellipses
-> frequently are part of the argument, as in
->=20
-> 	.Ar path ...
->=20
-> and thus also italicized.
-
-I know, and I hate it; the ellipsis doesn't merit italicization any more
-than option brackets do.  mdoc(7) is expressive enough that you don't
-actually type the brackets; you use its `Op` macro.  To me, it is
-telling that, thus having full control of the styling of synopsis
-brackets, mdoc's author(s) (most prominently Cynthia Livingston, in the
-macro language's second and final edition) set them in roman.[7]
-
-Thanks for raising this.  The fix was straightforward, and you can
-expect it in my next push to groff Git.[9]
-
-I speculate that mdoc's italicization of ellipses would have been
-regarded as a problem, but that it was overlooked, and here's why.
-Chronologically, it appears to me that Livingston was still working in
-the pre-x86 Unix tradition, even if at what we now recognize to be its
-twilight.  People still had access to, and consulted, typeset manuals.
-
-https://minnie.tuhs.org/cgi-bin/utree.pl?file=3D4.3BSD-Tahoe/usr/doc/usd/
-
-4.3BSD-Tahoe was 1988.  mdoc(7) arrived in 4.3BSD-Reno in 1990.
-
-"The manual was intended to be typeset; some detail is sacrificed on
-terminals." (man(1), _Unix Time-Sharing System Programmer's Manual_,
-Eighth Edition, Volume 1, February 1985)
-
-Try telling the difference between a roman ellipsis and an italic one,
-when you can actually get italics instead of underlining.  I surmise
-that, as a serious *roff macro package developer, Livingston did more of
-her proofreading and validation with respect to typeset, rather than
-terminal, output.  At least that's the approach I'd _recommend_: more
-can go wrong on a typesetter--it's a better QA testbed.
-
-But if she did, then among people concerned with man pages, she was a
-member of a dying breed.
-
-It is now the early 1990s.  Enter the thundering hordes of 386BSD and
-Linux users, nearly all of them somewhat new to Unix.[10]  Every single
-one of them has a VGA video card.  These same hordes can't afford
-printed manuals (except for a few who took the time to print them using
-university resources) and do _all_ of their reading of documentation on
-VGA monitors.  The Web at first doesn't exist yet, and later, nothing's
-on it--certainly not Unix documentation from which several publishers
-derive revenue.  These new users know little of *roff.  If they even
-know that any documentation beyond man pages exists, they don't know how
-to type a troff/nroff/groff command to view it.  And if they do, it will
-often look ugly because macro package authors neglected to ensure that
-output degraded well when rendered to a terminal.  I claim this because
-I have seen first-hand what the ms and mm packages from DWB 3.3 troff
-do.  groff's implementations haven't been without defect, but I fixed
-some bugs in terminal output for 1.23.0.  More fixes are in Git.
-
-So what did the thundering hordes do?  They read man pages, only man
-pages,[11] only via the man(1) command [this, at least, is excusable],
-and only ever on VGA monitors.  Keep in mind that in the 1990s, a
-significant portion of the *BSD and GNU/Linux user community seldom or
-never started an X server.  The proud achievement of XFree86 was pulling
-a hardware support story together well enough that by about 2002, nearly
-every installer CD or USB stick gambled on X working, and defaulted to
-a graphical environment.  (Too bad about the other XFree86 issues.[1])
-
-Why does this matter?  Why are you reading this?
-
-Because the VGA character cell attribute model not only didn't
-contemplate italics, the devices also didn't support underlining.[8]
-
-In terms of stroke weight, the glyphs on your screen could be normal or
-heavy (bold).  And, at least on GNU/Linux, people badly wanted man page
-names to be marked up differently than regular text.[6]
-
-And so it was done.  In bold.  Because that's all VGA had to offer.  Man
-pages had demanded since 1979 that three text styles be available.  The
-display hardware that every 386BSD and Linux user was running supported
-two.  The, uh, obvious solution was just to use bold for everything.
-Screw italics, who needs 'em?  And thus, the man(1)-using community
-ejected itself from paradise with such force that it forgot that man
-page cross references (or to a large extent, anything else) were ever
-set in italics in the first place.
-
-As any 1980s PC gamer or USENET binary newsgroup aficionado could tell
-you, another thing that VGA hardware could do was color.  (CGA and EGA
-were marginal and MDA/Hercules so neglected that I don't know if any
-386BSD or Linux kernel hackers even bothered to write drivers for them.
-x86 Unix users were nothing if not class-conscious.  "Here's a nickel,
-kid, buy yourself a better graphics card.")
-
-It didn't take a genius to figure out that you could fake having
-additional styles by applying color attributes to man pages (as was done
-in GNU ls in early days--was it in "fileutils" back then?).  This, too,
-started a tradition that persists to this day.[5]
-
-Now, to be candid, no veteran of the 1990s BSD/Linux wars has ever
-admitted to me that this is what happened.  But I was there and
-familiar with the hardware, if wholly ignorant at the time of any Unix
-before 4.3BSD and SunOS 4.
-
-I'll always appreciate Ingo Schwarze relating this account:
-
-"At some point after groff was first released (1990) but before 4.4BSD
-(1993), Cynthia suggested to simplify the macros and the manual pages by
-making groff mandatory and dropping support for Kernighan's troff, but
-the Berkeley Computer Systems Reasearch Group objected, insisting that
-support for Kernighan's troff was retained."
-
-https://lists.gnu.org/archive/html/groff/2020-10/msg00170.html
-
-That was a noteworthy place to draw a line, given that this decision was
-taken during the very peak of animosity and litigation between the AT&T
-and BSD Unix worlds,[2] and anything that AT&T locked up had to be
-discarded or reimplemented, due to fear of a legal injunction
-prohibiting distribution of one's software.[3]  Thus it was done, and
-BSD adopted groff itself to replace the then-proprietary (and
-expensively licensed) AT&T/DWB troff.[4]
-
-It's hard to understand why the decision Ingo describes was taken.  A
-charitable interpretation is that some CSRG people hoped that Kernighan
-would find some way to get his troff into the free world.  A less
-charitable one is that Charles Hannum, a founder of NetBSD and as rabid
-an anti-GNU, anti-copyleft personality as I have ever met, had to learn
-at _someone_'s feet, and that someone was at CSRG at the time.
-
-What might have been, eh?
-
-Anyway, an italic ellipsis in a synopsis is always wrong, I submit.
-
-I also don't approve of the esthetics of boldfaced man page cross
-references.  They are neither typographically pleasant nor historically
-informed.  But _you_, the man page reader, can have them if you want.
-
-groff_man_style(7):
-
-    -dMF=3Dman=E2=80=90page=E2=80=90topic=E2=80=90font
-        Set the font used for man page topics named in .TH and .MR
-        calls; the default is =E2=80=9CI=E2=80=9D (italic style of the defa=
-ult family).
-        Any valid argument to groff=E2=80=99s =E2=80=9C.ft=E2=80=9D request=
- may be used.  If the
-        MF string ends in =E2=80=9CI=E2=80=9D, it is assumed to be an obliq=
-ue typeface,
-        and italic corrections are applied before and after man page
-        topics.
-
-I expect
-
-=2Eds MF B
-
-to become a popular addition to man.local files after Alex lands the
-"Mister Sed" (MR.sed)  change.  But people might try the default, along
-with, if their terminal emulator's up to it,
-
-MANROFFOPT=3D"-P -i"
-
-for a little while, just to see if they like 'em.
-
-Regards,
-Branden
-
-[1] https://dwheeler.com/essays/gpl-compatible.html#xfree86
-[2] https://en.wikipedia.org/wiki/UNIX_System_Laboratories,_Inc._v._Berkele=
-y_Software_Design,_Inc.
-
-[3] "[Keith] Bostic pioneered the technique of doing a mass net-based
-    development effort. He solicited folks to rewrite the Unix utilities
-    from scratch based solely on their published descriptions."
-
-    https://www.oreilly.com/openbook/opensources/book/kirkmck.html
-
-    Applying this technique to SunOS 4.0's troff documentation, my
-    understanding is that this is exactly what James Clark did for GNU
-    troff (and the programs around it--tbl in particular carries
-    evidence to this day of having been targeted at Unix troff at some
-    point--why, oh, why does it not create environments to manage
-    formatting parameters?).
-
-[4] https://minnie.tuhs.org/cgi-bin/utree.pl?file=3DNet2/usr/src/usr.bin/gr=
-off/
-
-    I cannot now remember where I saw it, but my recollection is that
-    a price schedule for DWB troff was something like $2,000.  I don't
-    know if that was per-site, per-CPU, or per-seat.
-
-[5] https://bugs.archlinux.org/task/79053
-
-    At some point, less(1) users are going to have to decide which they
-    want more: colorful man pages or OSC 8 hyperlinks.
-
-    We _could_ support color attributes in man pages directly in groff.
-    I feel sure it would horrify Ingo.  It might horrify me.  It would
-    take a lot of design work (ironically, in groff's mdoc(7)
-    implementation, which is based on 4.4BSD's, much of that work may be
-    already done, for other reasons).  Right now I doubt whether it
-    would be worth the trouble or even satisfy the people who want it.
-    less(1)'s support for colorizing man pages works by pattern matching
-    terminal output when the *roff output driver's geriatric--literally
-    pre-termcap--and ambiguous overstriking output convention is used.
-    I would not bet on it being completely robust.  grotty(1) talks
-    about these matters.  The mechanism I can conceive would still
-    require SGR support, to which people, including Ingo, are opposed
-    anyway.  =C2=AF_(=E3=83=84)_/=C2=AF
-
-[6] mdoc didn't.  Courier roman on Times roman, or--on terminals--roman
-    on roman was fine for them.
-
-    (mdoc originally used a string called `xR` to control the typeface
-    of the man page topic name.)
-
-    https://minnie.tuhs.org/cgi-bin/utree.pl?file=3D4.4BSD/usr/src/share/tm=
-ac/tmac.doc.old
-
-    https://minnie.tuhs.org/cgi-bin/utree.pl?file=3D4.4BSD/usr/share/tmac/t=
-mac.doc
-    https://minnie.tuhs.org/cgi-bin/utree.pl?file=3D4.4BSD/usr/share/tmac/t=
-mac.doc-ditroff
-    https://minnie.tuhs.org/cgi-bin/utree.pl?file=3D4.4BSD/usr/share/tmac/t=
-mac.doc-nroff
-
-[7] See the definitions of the `Op` macro...
-
-    https://minnie.tuhs.org/cgi-bin/utree.pl?file=3D4.4BSD/usr/share/tmac/t=
-mac.doc
-
-    ...and of the `lB` and `rB` strings.
-
-    https://minnie.tuhs.org/cgi-bin/utree.pl?file=3D4.4BSD/usr/share/tmac/t=
-mac.doc-ditroff
-    https://minnie.tuhs.org/cgi-bin/utree.pl?file=3D4.4BSD/usr/share/tmac/t=
-mac.doc-nroff
-
-[8] If you were a product (or purchasing) manager ticking off boxes on a
-    requirements checklist, VGA _did_ support underlining in text mode.
-    In practice...
-
-    https://en.wikipedia.org/wiki/VGA_text_mode
-
-[9]
-
-diff --git a/tmac/doc.tmac b/tmac/doc.tmac
-index 70ec41ea2..6267d2a08 100644
---- a/tmac/doc.tmac
-+++ b/tmac/doc.tmac
-@@ -359,7 +359,7 @@
- .  ie        "\$1"|" \
- .    ds doc-arg\n[doc-arg-count] \f[R]|\f[]
- .  el \{ .ie "\$1"..." \
--.    ds doc-arg\n[doc-arg-count] \|.\|.\|.
-+.    ds doc-arg\n[doc-arg-count] \f[R]\|.\|.\|.\f[]
- .  el \
- .    ds doc-arg\n[doc-arg-count] "\$1
- .  \}
-
-[10] Serious and experienced Unix users in 1993 invariably had $10,000+
-     workstations, paid for by their employers and running RISC
-     processors of some sort, for their daily drivers, not a $1,500
-     bucket of bolts with an 80386.
-
-[11] Yes, there was, and still is, the Linux Documentation Project.  For
-     a while, people devoted loving attention to these works.  I learned
-     a lot from them.  The Linux Manpage HOWTO document has not been
-     updated in 20 years.
-
-     https://tldp.org/HOWTO/Man-Page/
-     http://www.schweikhardt.net/man_page_howto.html
-
-     I'm sure there is some kind of message for me in that fact.
-
---jjhg7dcfzobote5m
+Clean up in preparation for "MR sed".
+
+Format only one man page cross reference per input line.
+
+Also, groff 1.23.0's (and Plan 9 from User Space's) `MR` is not a font
+style alternation macro; there is no "reversed" form as with `BR` and
+`RB`.  So when a man page cross reference must be immediately preceded
+by punctuation, put that punctuation on the previous text line and use
+the `\c` escape sequence to connect them.
+
+Signed-off-by: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+---
+ man2/eventfd.2         |  4 +++-
+ man2/open.2            |  9 +++++++--
+ man2/perf_event_open.2 |  7 ++++++-
+ man2/signalfd.2        |  4 +++-
+ man2/timerfd_create.2  |  4 +++-
+ man5/proc.5            |  4 +++-
+ man7/credentials.7     | 15 ++++++++++-----
+ man7/pty.7             |  5 ++++-
+ man7/spufs.7           |  6 +++++-
+ 9 files changed, 44 insertions(+), 14 deletions(-)
+
+diff --git a/man2/eventfd.2 b/man2/eventfd.2
+index 2bd781bdf..003a64eb6 100644
+--- a/man2/eventfd.2
++++ b/man2/eventfd.2
+@@ -142,7 +142,9 @@ .SH DESCRIPTION
+ if the size of the supplied buffer is less than 8 bytes,
+ or if an attempt is made to write the value 0xffffffffffffffff.
+ .TP
+-.BR poll "(2), " select "(2) (and similar)"
++.BR poll (2),\~\c
++.BR select (2)\~\c
++(and similar)
+ The returned file descriptor supports
+ .BR poll (2)
+ (and analogously
+diff --git a/man2/open.2 b/man2/open.2
+index 4c921723c..6603dfdff 100644
+--- a/man2/open.2
++++ b/man2/open.2
+@@ -82,8 +82,13 @@ .SH DESCRIPTION
+ to an entry in the process's table of open file descriptors.
+ The file descriptor is used
+ in subsequent system calls
+-.RB ( read "(2), " write "(2), " lseek "(2), " fcntl (2),
+-etc.) to refer to the open file.
++(\c
++.BR read (2),
++.BR write (2),
++.BR lseek (2),
++.BR fcntl (2),
++etc.)
++to refer to the open file.
+ The file descriptor returned by a successful call will be
+ the lowest-numbered file descriptor not currently open for the process.
+ .PP
+diff --git a/man2/perf_event_open.2 b/man2/perf_event_open.2
+index aa23a4977..40686917b 100644
+--- a/man2/perf_event_open.2
++++ b/man2/perf_event_open.2
+@@ -32,7 +32,12 @@ .SH DESCRIPTION
+ Given a list of parameters,
+ .BR perf_event_open ()
+ returns a file descriptor, for use in subsequent system calls
+-.RB ( read "(2), " mmap "(2), " prctl "(2), " fcntl "(2), etc.)."
++(\c
++.BR read (2),
++.BR mmap (2),
++.BR prctl (2),
++.BR fcntl (2),
++etc.).
+ .PP
+ A call to
+ .BR perf_event_open ()
+diff --git a/man2/signalfd.2 b/man2/signalfd.2
+index 2b97c4640..9d0708799 100644
+--- a/man2/signalfd.2
++++ b/man2/signalfd.2
+@@ -131,7 +131,9 @@ .SH DESCRIPTION
+ .B EAGAIN
+ if the file descriptor has been made nonblocking.
+ .TP
+-.BR poll "(2), " select "(2) (and similar)"
++.BR poll (2),\~\c
++.BR select (2)\~\c
++(and similar)
+ The file descriptor is readable
+ (the
+ .BR select (2)
+diff --git a/man2/timerfd_create.2 b/man2/timerfd_create.2
+index d68206b05..9ba0dd315 100644
+--- a/man2/timerfd_create.2
++++ b/man2/timerfd_create.2
+@@ -317,7 +317,9 @@ .SS Operating on a timer file descriptor
+ .BR read (2)
+ on the file descriptor.
+ .TP
+-.BR poll "(2), " select "(2) (and similar)"
++.BR poll (2),\~\c
++.BR select (2)\~\c
++(and similar)
+ The file descriptor is readable
+ (the
+ .BR select (2)
+diff --git a/man5/proc.5 b/man5/proc.5
+index 04b45ccb7..fd51dcec0 100644
+--- a/man5/proc.5
++++ b/man5/proc.5
+@@ -3459,7 +3459,9 @@ .SS Files and directories
+ .TP
+ .I /proc/locks
+ This file shows current file locks
+-.RB ( flock "(2) and " fcntl (2))
++.RB ( flock (2)
++and
++.BR fcntl (2))
+ and leases
+ .RB ( fcntl (2)).
+ .IP
+diff --git a/man7/credentials.7 b/man7/credentials.7
+index 77cb5e0ef..b07f150bd 100644
+--- a/man7/credentials.7
++++ b/man7/credentials.7
+@@ -267,21 +267,26 @@ .SS Modifying process user and group IDs
+ Subject to rules described in the relevant manual pages,
+ a process can use the following APIs to modify its user and group IDs:
+ .TP
+-.BR setuid "(2) (" setgid (2))
++.BR setuid (2)\~(\c
++.BR setgid (2))
+ Modify the process's real (and possibly effective and saved-set)
+ user (group) IDs.
+ .TP
+-.BR seteuid "(2) (" setegid (2))
++.BR seteuid (2)\~(\c
++.BR setegid (2))
+ Modify the process's effective user (group) ID.
+ .TP
+-.BR setfsuid "(2) (" setfsgid (2))
++.BR setfsuid (2)\~(\c
++.BR setfsgid (2))
+ Modify the process's filesystem user (group) ID.
+ .TP
+-.BR setreuid "(2) (" setregid (2))
++.BR setreuid (2)\~(\c
++.BR setregid (2))
+ Modify the process's real and effective (and possibly saved-set)
+ user (group) IDs.
+ .TP
+-.BR setresuid "(2) (" setresgid (2))
++.BR setresuid (2)\~(\c
++.BR setresgid (2))
+ Modify the process's real, effective, and saved-set user (group) IDs.
+ .TP
+ .BR setgroups (2)
+diff --git a/man7/pty.7 b/man7/pty.7
+index bef60e931..3f23be44d 100644
+--- a/man7/pty.7
++++ b/man7/pty.7
+@@ -122,7 +122,10 @@ .SH FILES
+ BSD slave devices
+ .SH NOTES
+ Pseudoterminals are used by applications such as network login services
+-.RB ( ssh "(1), " rlogin "(1), " telnet (1)),
++(\c
++.BR ssh (1),
++.BR rlogin (1),
++.BR telnet (1)),
+ terminal emulators such as
+ .BR xterm (1),
+ .BR script (1),
+diff --git a/man7/spufs.7 b/man7/spufs.7
+index 39fdf583a..96b100b8c 100644
+--- a/man7/spufs.7
++++ b/man7/spufs.7
+@@ -119,7 +119,11 @@ .SS Files
+ file are:
+ .RS
+ .TP
+-.BR read "(2), " pread "(2), " write "(2), " pwrite "(2), " lseek (2)
++.BR read (2),\~\c
++.BR pread (2),\~\c
++.BR write (2),\~\c
++.BR pwrite (2),\~\c
++.BR lseek (2)
+ These operate as usual, with the exception that
+ .BR lseek (2),
+ .BR write (2),
+--=20
+2.30.2
+
+v3: Resubmitted; no change.  A revision to "MR.sed" handles this case.
+v2: Fix goof that boldfaced some opening parentheses in credentials(7).
+
+--avwodrk5vdi66gik
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmTH1xcACgkQ0Z6cfXEm
-bc5NnA//czxPAgrAx7SzgZxUvhcr3QWpox4CjR0gFThHGUN9bF//4wZamUSIw5GS
-Mk2p/vOGqiovrqZxVLG3FrwTfI2jeH380/hnONXd4Rq6fjz4x7GB3wKGab6eNqbA
-TVW5E2H4vPpzChwI5Giw89KU0JRtAKlf34xdrFB2rPCym8j9gQVftsjiksTjuHBr
-6AczxFNfKORzyLsSv6hNaSPtzov0LSN3jE4bgnIk0KxI8iwhMXGOHEza1UXYdE5H
-m3113W2Ko1ZEDV1P8ajbCKPR7GTjC2De/pgmf+VPV+B1x3ULygmjGt2ACP1WCjZF
-A6iN6qlF+hYuLx6eBHBQmh2LYFB8WpmDffFu3gGFcXiiuIvqglSOF7Eyp1Pubx6o
-0YV4P87lmX2hEiFYxF2xJxlcmNctN25BPcWVJ57viswZjPlcsRNn3HMVBeKSsFwO
-MANO8mX1mc+YB3BgAoCDCueJLXSa/GQWSpuDjafLp4QKgaClSkvtfcU+eY7vabEg
-w1adNQdsgYQeVFF1oorztNmMevC07XYQpCYFhVKafQjpK7FH6qoAI9xevH1rsD+P
-7SFHpfHPzcQERbvUyF76cq/EnYlWLatshYQC6ONFd16HmVYmSOdFMkIqsSMncP+5
-U4Vddqo+z11xJE73IufSn1PaA6jihV6T1jvoXOxKWX0Efssz2o0=
-=jQTO
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmTH8+sACgkQ0Z6cfXEm
+bc74ug//Y+Rp9WMGmuWDgjawcG73y0Oi/dpRQjZt8OPTC25E7gi0xBmbUKTvTKEN
+Ic0uyG5rdn6jtH0rw/3WWVibe+BHGkMkyFvLnmR1O/hJDc4z/Exvulo+/EZGtdEd
+2TZZ2fxt0otQQqcStcQ2vbRMW4+pug51rujZh1njOJSNY/wKL5goNs+2Kde7N6kN
+AgKyxGFOahQ2IhtkCLaZseMnnVfcazLZZ/BD2LzYi6QIoIpv+IKwAHeTevZ7nxUs
+ui7i3L2Fsii9CRGfsdBUaOtze0ln88U19EOi4N/gQjXCrAHHv01YjC4gqdTvQtrH
+DfgJ45jBcqOQjAUUCnMMm4DCW561+e4rYkLFlDIPBOJOee2gsQHjFrxheTbBtpx9
+SJN/Wva260A2O1tJigF4E+tWrmKedvgwJA0RUKcMrze4gM5wSDDamaoXQxZ2IYcM
+TYo7dj36CwfctiQKCKIjjODiF8WP0Nb8qXVk0c2qnZNYSdg5MSJjTWr1PbphZVUS
+1AhRZRmOkuUU/fJDCZ/qKMylY5E421d2xE8FcYG7uYNel780FiyJTlh6vOvKG/SI
+RoSdp8B5QDRJUbOdbG44G/cemn57FXLCrOzL/b11rpcscbg8UmF7MJVVrjaDZmjz
+uYOAkkWplIfaZjDk6HEYdm/s6YEBxBOJ1bBzV5lWGEwI1ng/aeE=
+=BEow
 -----END PGP SIGNATURE-----
 
---jjhg7dcfzobote5m--
+--avwodrk5vdi66gik--
