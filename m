@@ -2,67 +2,56 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 236D276A1CA
-	for <lists+linux-man@lfdr.de>; Mon, 31 Jul 2023 22:19:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 4E5B776A20F
+	for <lists+linux-man@lfdr.de>; Mon, 31 Jul 2023 22:38:59 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229742AbjGaUTi (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 31 Jul 2023 16:19:38 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47600 "EHLO
+        id S230136AbjGaUi6 (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 31 Jul 2023 16:38:58 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56312 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229452AbjGaUTh (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 31 Jul 2023 16:19:37 -0400
-Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com [IPv6:2607:f8b0:4864:20::32c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9CD18133
-        for <linux-man@vger.kernel.org>; Mon, 31 Jul 2023 13:19:36 -0700 (PDT)
-Received: by mail-ot1-x32c.google.com with SMTP id 46e09a7af769-6bcac140aaaso599774a34.2
-        for <linux-man@vger.kernel.org>; Mon, 31 Jul 2023 13:19:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1690834776; x=1691439576;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=0tCx0T93mHg4WItvOyFwqEc83H1sSxG6sTlDDERIxQQ=;
-        b=sDjJpGhsLKSxbETmioGT9XU7WxL/lT7eNUsaNK9YS4BNLsellQkwg8cC4qMyrB88Av
-         PqzU4YUGMLjndxeDUEsUXWn94OjgrqlFn58YrHkwCf21t0sAfnPAaRzP/svIr/fPxOGT
-         DSBeARkIk1lflGXPsYBjr47+pghYNwM4KF/BjW5Cd/K72dSmvyLoOoiilX8mLzU7CCjN
-         TPKwioiDvZVT/rtDC+t0Vv2J6IyT0VFGIq+fgGGGNPmGMCIepsv7oMLpQFX3LxE9pcb2
-         jLqB9mwc/Ba/pgR5OwTjKGMwud9Gnzew6bVTiKHl6x6z/lY3gJtPVnCc4A5HzVtWxkdJ
-         Hslw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690834776; x=1691439576;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=0tCx0T93mHg4WItvOyFwqEc83H1sSxG6sTlDDERIxQQ=;
-        b=K/FNXVftCOFaHE1nGMerJiZxHJgd+0jwivZbYCpgFk3qRjsFu9NgaMqalm1ri0xt3m
-         wnjChu4HHBjoctnTkBkAZLclyDvS338dxHQ70f1NwZ9OEZfsmGOD5gw3dobh8zVK0bf/
-         /sGeQWLs8V8VLu3yaQxeH5cwINT/Uiy1Wf+qzCsYofw0/2wj5YPpAg7V0/c55WB5mI+p
-         4ai6+evYEE6NWViEV6596M27mR/ECYhALwO/maCg4y8pwr3CH58IPQy+tGduB/w6ECML
-         TOuUb2ZAfCKAG9hqqyUoxL8F/KlwI5ADIInq4IvkgFcYgZt8Isq6DFpAJeaaeuu187G9
-         9+zQ==
-X-Gm-Message-State: ABy/qLbo9fU7OLUQEvRxCDa6XzEF48ye5Whk3Al9DkmVjWh1eNl6Cwu4
-        wwuyS5z+aS2VV8ysK7YH3X9ec6CZGDQ=
-X-Google-Smtp-Source: APBJJlHg/B6TbGPThvQzaCpLjHiTHPjOGwXTV1YkG2fg5Refbhtaq3iz3VyXWhXW+Lo3Nc9bluUjuA==
-X-Received: by 2002:a9d:5e90:0:b0:6b5:920c:649c with SMTP id f16-20020a9d5e90000000b006b5920c649cmr10501547otl.29.1690834775832;
-        Mon, 31 Jul 2023 13:19:35 -0700 (PDT)
-Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id a15-20020a9d74cf000000b006b92509e76esm4359765otl.32.2023.07.31.13.19.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Jul 2023 13:19:35 -0700 (PDT)
-Date:   Mon, 31 Jul 2023 15:19:34 -0500
-From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
-To:     Alejandro Colomar <alx@kernel.org>
-Cc:     linux-man@vger.kernel.org
+        with ESMTP id S229550AbjGaUi4 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 31 Jul 2023 16:38:56 -0400
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 091F8198
+        for <linux-man@vger.kernel.org>; Mon, 31 Jul 2023 13:38:56 -0700 (PDT)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+         key-exchange X25519 server-signature RSA-PSS (2048 bits))
+        (No client certificate requested)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id 98057612D8
+        for <linux-man@vger.kernel.org>; Mon, 31 Jul 2023 20:38:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70EF9C433C8;
+        Mon, 31 Jul 2023 20:38:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1690835935;
+        bh=Cp4vFCPUcVDzGjm6/9nJCOXUQy3BdWH9wvp67BFBJJ0=;
+        h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+        b=YtH9arvPfMDmo0DMC6n+k+apxneJv/58iSTUEAlaEBJ9drzhyt4ShNenLhFVWjajZ
+         JZHIFnHsyI9Qydm2PI1jtmAAPAiAoopxkmM2ilZ9YOH9nwBJVKczwzeIfd9P9FmQab
+         q282z5PgEeu2+C3I8z1jV5TrypsGlxNOn64QcTIM5lEbgyH/eGvMelFfqzOL33iuZh
+         X9JmXV022Fiolzm1v6ED0Z8Xg5m7YWbW62E4gQBFDVgy/PFFsYeO4IvlLmWorB6ZhR
+         FEusxg0TguPK962qmIP8N2o2+S3hfQjAmrmJbVzodnYvoQTho3bvbbgZ/Cj1GbhjVI
+         F3me8GFSsnIOA==
+Message-ID: <2fe7d79d-9fdb-4a99-1e4e-c7e847ec542b@kernel.org>
+Date:   Mon, 31 Jul 2023 22:38:45 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.1
 Subject: Re: [PATCH v3] man*/: srcfix
-Message-ID: <20230731201934.gjskg73p2k33q52d@illithid>
+Content-Language: en-US
+To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc:     linux-man@vger.kernel.org
 References: <20230731174836.5e3fxxe6csgitm4s@illithid>
  <45228b33-b6c5-a7c8-e1d3-00cdb18829f7@kernel.org>
-MIME-Version: 1.0
+ <20230731201934.gjskg73p2k33q52d@illithid>
+From:   Alejandro Colomar <alx@kernel.org>
+Organization: Linux
+In-Reply-To: <20230731201934.gjskg73p2k33q52d@illithid>
 Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="2nkgfcborryq7ipn"
-Content-Disposition: inline
-In-Reply-To: <45228b33-b6c5-a7c8-e1d3-00cdb18829f7@kernel.org>
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+ protocol="application/pgp-signature";
+ boundary="------------TJyPFUcB0PbzQbeL08ibtmii"
+X-Spam-Status: No, score=-2.2 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
         RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
         autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
@@ -71,43 +60,97 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------TJyPFUcB0PbzQbeL08ibtmii
+Content-Type: multipart/mixed; boundary="------------ZkkcHjbqxnsFd15O9iPnm0EM";
+ protected-headers="v1"
+From: Alejandro Colomar <alx@kernel.org>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: linux-man@vger.kernel.org
+Message-ID: <2fe7d79d-9fdb-4a99-1e4e-c7e847ec542b@kernel.org>
+Subject: Re: [PATCH v3] man*/: srcfix
+References: <20230731174836.5e3fxxe6csgitm4s@illithid>
+ <45228b33-b6c5-a7c8-e1d3-00cdb18829f7@kernel.org>
+ <20230731201934.gjskg73p2k33q52d@illithid>
+In-Reply-To: <20230731201934.gjskg73p2k33q52d@illithid>
 
---2nkgfcborryq7ipn
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+--------------ZkkcHjbqxnsFd15O9iPnm0EM
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Alex,
+Hi Branden,
 
-At 2023-07-31T21:56:27+0200, Alejandro Colomar wrote:
-> Is this that you'll do it in MR sed, or that you forgot to fix it?  :D
+On 2023-07-31 22:19, G. Branden Robinson wrote:
+> Hi Alex,
+>=20
+> At 2023-07-31T21:56:27+0200, Alejandro Colomar wrote:
+>> Is this that you'll do it in MR sed, or that you forgot to fix it?  :D=
 
-Yes, that's what I meant to indicate by the v3 annotation at the end of
-the mail.
+>=20
+> Yes, that's what I meant to indicate by the v3 annotation at the end of=
 
->> v3: Resubmitted; no change.  A revision to "MR.sed" handles this
->> case.
+> the mail.
 
-Regards,
-Branden
+Ahh, I'll tell you my usual routine for reviewing patches, which will
+probably explain why I didn't notice:
 
---2nkgfcborryq7ipn
-Content-Type: application/pgp-signature; name="signature.asc"
+I first try to find the signature.  If there's anything not generated by
+git(1) right below the "---" and before the list of files, I read that
+first (of course after the Subject) --that's where I would have expected
+your comment to go--.
+
+Then I may have a fast look at the patch before applying it, especially
+if I suspect I won't like it at a first glance.  But if I trust the
+sender, I'll directly apply it; reading diffs in the email is not very
+pleasant, and git will color it nicely for me.  And then I review the
+patch as applied.
+
+So, the only chance that I read personal messages like "This is just a
+resend" or "I didn't provide the diff; apply the attachment" is putting
+it there, right below the "---" that goes after your signature.  That
+part is mostly ignored by git(1) --unless the content can be confused
+with a patch, I guess--.
+
+>=20
+>>> v3: Resubmitted; no change.  A revision to "MR.sed" handles this
+>>> case.
+
+Okay; your prerogative.  Free Britney!  :-}
+
+Cheers,
+Alex
+
+>=20
+> Regards,
+> Branden
+
+--=20
+<http://www.alejandro-colomar.es/>
+GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
+
+
+--------------ZkkcHjbqxnsFd15O9iPnm0EM--
+
+--------------TJyPFUcB0PbzQbeL08ibtmii
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmTIF04ACgkQ0Z6cfXEm
-bc5JAA//ZRhCv026qgOIYW38TJg/0P5OpTnG2Ls0ZiVcMBPSczyq1YDWAalUmyTR
-jUltgcLRkSzaDVSUhrdKHCPwVqFvXoaXIKmgzh8gMEy9J1fNbEvUaKR+SBhujTz2
-V4WTk19h658mFmBh4rhCCL+X7tuAYGza/Bjsj6y84ydtTKpDJBJ4xUVeGEQ/8fTK
-OEVsvampTPhGFNpRIzeAhswkxvbbvzuRrhaAZ97HdyrsLidwMH9TRtm2BDsLv6gL
-NJGemmwd9Cs/NVk+K2A1Wp4UMCQVjDDxhm/H8XEdCUDq6B92Y6LJulcZa7TcfUHp
-lTOYrF+dcGPg41CLucO+Fgl0HQTA1DnalmhI04NwMbdoi9/h/tE/a9fiCZHhGsox
-g9IJAA3oRq2J2qTTc1DCVkYxuwALIzQKsUDP0qOqAzR7z8PnshTwJNWaq5DHk8W8
-WxdgejDF6Pnomp+oFCnqZcScMVGjhavYVWO16IvzM7MRSf+yWtx8IGKY+Pq7tNT0
-M91Q6yWio/RbQOMCf2VzS0VTwpLHSUp0Qg5yqJ5Miouk1ShWQFrlJ4DjxIpUvZmf
-gUOwVZ5xsbui0kwo8MkHfGku/cxhXWIguvRnz1OTU6zQE+aX731+f91OEUwFF4QW
-yv8KcpnQzs+0dl8Ut+k9jtuu/o3jCSRburKaZ92pQXZI1n1nPlg=
-=LRCm
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmTIG9UACgkQnowa+77/
+2zJWXw/+K5GMX54jG49gba67MMQgqqy79MQMVkyGNNIqa2FAdn8Kw30jGysb0SRc
+QVxbR0rxNz0bwGOpHfWjZ3LyQm73a/LYhDS+ckeaBcxjR0Cojm+H8u9fNe2MlwSq
+fGVf21yvR7B7BWJJ/4C6SAYNh3yGWq0cfJ8cWYgBWEQNJYDmZzLSADqKvq3i0e4D
+4UwFedII3HOv7tnw95lr36XEbRxtkPVhfer2+frCVYb+veAXXwJATpoaDFHxFQuA
+YCf3X3vHDHZvDrYtYygadW0OQ5ueCBM9zpjH6rUpfY/TfOoQ4a8XLOL/eU/vpZfm
+gNSCsR4jT6pVSrglM6KUWvns5imFSqhctgJ3YERQ0gOhV440nVe5F8Nn0j3y0hyj
+zW/W/TxzK1EVfAy2tdtEGTTEOmkcDDysPmff5UZ3/Pyzg3G4r6WNuIxtGjTDwaiL
+e1/4pfk3/1At7tAU6PYWq0KEh9KlO306somTPG7rg+Kesg4qB3YxdJBYCMSA368k
+acL+dg1kOmni6JVeGh+qKn8FTXdV4wEGYyi4HkWGiD4Am3IXQvUBJvErTnR0wfc9
+v4UKVmZftbaL1p4qCQOG5zgBgjzkB2H5Kdu+VnyYRYQ7TOvM43ij6Oy5I23tEIFg
+oxQSx4PmxT3O0Q2ispA06Fg1OQA9G5n/HqjxVSm+zZqCOuasLeQ=
+=SwwY
 -----END PGP SIGNATURE-----
 
---2nkgfcborryq7ipn--
+--------------TJyPFUcB0PbzQbeL08ibtmii--
