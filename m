@@ -2,58 +2,68 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id BD6EA76A4DB
-	for <lists+linux-man@lfdr.de>; Tue,  1 Aug 2023 01:30:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 18A7976A658
+	for <lists+linux-man@lfdr.de>; Tue,  1 Aug 2023 03:31:21 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229888AbjGaXap (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 31 Jul 2023 19:30:45 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48394 "EHLO
+        id S229510AbjHABbT (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Mon, 31 Jul 2023 21:31:19 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36812 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229678AbjGaXao (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 31 Jul 2023 19:30:44 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E2596FB
-        for <linux-man@vger.kernel.org>; Mon, 31 Jul 2023 16:30:42 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-         key-exchange X25519 server-signature RSA-PSS (2048 bits))
-        (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id 5E9FD61350
-        for <linux-man@vger.kernel.org>; Mon, 31 Jul 2023 23:30:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB3AEC433C8;
-        Mon, 31 Jul 2023 23:30:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1690846241;
-        bh=VzLLwMUifY/C1eZcA7R2DxpDmVq7pw1PqSvvglOc5Z4=;
-        h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-        b=ED7w2QeSxEErCteaYvd9Rm1BYqcK9c7CSG5Zvcrtr/CxL87CnsEtn1fHYmAprprCX
-         oHxRtsnK/GIvJIbYczGbZSaGQGeKLFcC2f9byQS+c6HbuoLhdiiJ+IvhMnVkNFYwI+
-         evrr5GggQHRguCO9VUzd0VkkICQtFX9Jn0fSy2n6OlBiTaMzjdTgzXM+pC4bUDdpuK
-         aAsdHo5PEn4X4xvQn1nCIlj1unzHHh+Sird6A1Exoszuom9HreyiBCNwgmPUs58sNu
-         LnVkaD8o/VikTpE+LT+mrLQDvVlLUdQK0ILjiZMBvPzmg9M7lHfuwhFqM3qiKupZ0d
-         KAC03mmg5uAhw==
-Message-ID: <48146a83-ce14-b8d2-efbc-fc6eff753a46@kernel.org>
-Date:   Tue, 1 Aug 2023 01:30:32 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.1
+        with ESMTP id S231178AbjHABbT (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Mon, 31 Jul 2023 21:31:19 -0400
+Received: from mail-oa1-x32.google.com (mail-oa1-x32.google.com [IPv6:2001:4860:4864:20::32])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BF0321725
+        for <linux-man@vger.kernel.org>; Mon, 31 Jul 2023 18:31:16 -0700 (PDT)
+Received: by mail-oa1-x32.google.com with SMTP id 586e51a60fabf-1bba254a7d4so3915152fac.2
+        for <linux-man@vger.kernel.org>; Mon, 31 Jul 2023 18:31:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1690853476; x=1691458276;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=NuZvAc+OnF4YtUrnNZqpiP55zv2QzMA9JtELv81TK/g=;
+        b=XUdhPI8goGhBm02Gps4GcreHX4AJfTSLsSHp3ets+Wnw8yN4DzK3kjSvPOG+EPGqoa
+         cwlkiRqDYvRB/HKdeLv2nEg4Xm9IUNLIuxOOKWcVrM/U+mTZDItWX4CxE2YFUFadsgcD
+         2fnFlBbddIATL2tAZcVN94ayq/xLyYF2gGk5mYU4xDOkqK4kTeu0nkzXbbgCdELa7Xku
+         r84GOw2z8wH1Tu1rDljudcyGofRoaWpnhKCLOyqSWLqdrXiv+TMbalZVLo2ShobVIKHc
+         r4lUMdetIvZcXVl4OCZ66TBdPRYf/nXkgiiqGqUkNxuVrBm8wkD/5yOz6t3DxsgvJ86Y
+         IiyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1690853476; x=1691458276;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=NuZvAc+OnF4YtUrnNZqpiP55zv2QzMA9JtELv81TK/g=;
+        b=gbRDqrna1clIOo+qALHxbmMuqb8T3MFUxZyZ3wQW9RMWxx2LkawEjEMK0rjGd3QSvn
+         lBErKFac6Owk1PoBk3k7f4KRN+LBMjoC8LlerR+YqHCq1i9WDgKAeZX8NMskDerFQY9E
+         OCpi35simDdJmIwVlTfywOacT39RRgm3TlHPbpyU4C7cyyA8R3afWm6j/l53bQKhlxcu
+         7TsjJL7q8qLPSin3wbbpEszMIR2wL/uMwT6NezbeuoG2Fh9w5pdVdsJVyxPP0Hvzy2/f
+         vL9JCVLx9NSOCSprIubUndskJo1qDmUwdcEvcXI95ggMOfXkqyK9s5CYJjHCRwH8CzU4
+         0C7Q==
+X-Gm-Message-State: ABy/qLYeTjHKFBsFzljUIsT/GTHwhWkxL7BlxnsXJtzJVTyuGRoz0QYr
+        K72n979VO3RJImJSmWDUH27suEGWL+k=
+X-Google-Smtp-Source: APBJJlFsFdq7oMVwJQ3Zhs2NS/AnpsmnyGmiFP8ydHC09QqUpwekcXQJGQKq74JuLqZb6G1jrITo8A==
+X-Received: by 2002:a05:6870:c8a8:b0:1bb:ba55:3fdd with SMTP id er40-20020a056870c8a800b001bbba553fddmr11461592oab.7.1690853475878;
+        Mon, 31 Jul 2023 18:31:15 -0700 (PDT)
+Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
+        by smtp.gmail.com with ESMTPSA id m28-20020a0568301e7c00b006b8a0c7e14asm4580154otr.55.2023.07.31.18.31.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Jul 2023 18:31:15 -0700 (PDT)
+Date:   Mon, 31 Jul 2023 20:31:13 -0500
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To:     Jakub Wilk <jwilk@jwilk.net>
+Cc:     Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org
 Subject: Re: [PATCH v2] man*/: ffix (migrate to `MR`)
-Content-Language: en-US
-To:     Jakub Wilk <jwilk@jwilk.net>,
-        "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc:     linux-man@vger.kernel.org, groff <groff@gnu.org>,
-        Ingo Schwarze <schwarze@usta.de>
+Message-ID: <20230801013113.gw74e54tww7mrprf@illithid>
 References: <20230731175251.67rgt2r4sweutnay@illithid>
  <20230731221641.pbkcrdx52gyy4xfz@jwilk.net>
-From:   Alejandro Colomar <alx@kernel.org>
-Organization: Linux
-In-Reply-To: <20230731221641.pbkcrdx52gyy4xfz@jwilk.net>
+MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------LHIcGIeee2dHV7qk7NbdgzC2"
-X-Spam-Status: No, score=-7.2 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
-        RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        protocol="application/pgp-signature"; boundary="52vbdwqp6gikeyh5"
+Content-Disposition: inline
+In-Reply-To: <20230731221641.pbkcrdx52gyy4xfz@jwilk.net>
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
         autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -61,146 +71,128 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------LHIcGIeee2dHV7qk7NbdgzC2
-Content-Type: multipart/mixed; boundary="------------RrxPF8TYnuCmJl8HHhL9RXeZ";
- protected-headers="v1"
-From: Alejandro Colomar <alx@kernel.org>
-To: Jakub Wilk <jwilk@jwilk.net>,
- "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: linux-man@vger.kernel.org, groff <groff@gnu.org>,
- Ingo Schwarze <schwarze@usta.de>
-Message-ID: <48146a83-ce14-b8d2-efbc-fc6eff753a46@kernel.org>
-Subject: Re: [PATCH v2] man*/: ffix (migrate to `MR`)
-References: <20230731175251.67rgt2r4sweutnay@illithid>
- <20230731221641.pbkcrdx52gyy4xfz@jwilk.net>
-In-Reply-To: <20230731221641.pbkcrdx52gyy4xfz@jwilk.net>
 
---------------RrxPF8TYnuCmJl8HHhL9RXeZ
-Content-Type: text/plain; charset=UTF-8
+--52vbdwqp6gikeyh5
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hi Jakub, Branden, Ingo
+Hi Jakub,
 
-On 2023-08-01 00:16, Jakub Wilk wrote:
-> * G. Branden Robinson <g.branden.robinson@gmail.com>, 2023-07-31 12:52:=
-
->> Use the man(7) macro `MR`, new to groff 1.23.0,
+At 2023-08-01T00:16:41+0200, Jakub Wilk wrote:
+> * G. Branden Robinson <g.branden.robinson@gmail.com>, 2023-07-31 12:52:
+> > Use the man(7) macro `MR`, new to groff 1.23.0,
 >=20
-> Given that this version of groff was released approximately yesterday=C2=
-=B9,=20
-> this is very premature.
+> Given that this version of groff was released approximately
+> yesterday=B9, this is very premature.
 >=20
 > NACK from me.
-
-I included that, and the reason, in the commit message.  It's in the MR
-branch in my private repo, as I mentioned in a reply to Branden:
-<http://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/lo=
-g/?h=3DMR>
-
-My server is HTTP-only, but the commit should be signed with my PGP
-signature, so it should be safe to check anything from my git:
-
-$ git show --pretty=3Dfuller --show-signature=20
-commit d4a22d4645184c205a04477ee84b0ee429fb6200 (HEAD -> MR, alx/MR)
-gpg: Signature made Tue Aug  1 01:19:00 2023 CEST
-gpg:                using RSA key EA3A87F0A4EBA030E45DF2409E8C1AFBBEFFDB3=
-2
-gpg: Good signature from "Alejandro Colomar <alx@kernel.org>" [ultimate]
-gpg:                 aka "Alejandro Colomar Andres <alx.manpages@gmail.co=
-m>" [ultimate]
-Author:     G. Branden Robinson <g.branden.robinson@gmail.com>
-AuthorDate: Mon Jul 31 12:52:51 2023 -0500
-Commit:     Alejandro Colomar <alx@kernel.org>
-CommitDate: Tue Aug 1 01:18:59 2023 +0200
-
-    man*/: ffix (migrate to `MR`)
-
-    [...]
-   =20
-    Signed-off-by: "G. Branden Robinson" <g.branden.robinson@gmail.com>
-    [Jakub has concerns that groff-1.23.0 was released too recently]
-    Nacked-by: Jakub Wilk <jwilk@jwilk.net>
-    [alx: Added quote from gbr documenting how he tested for regressions]=
-
-    Signed-off-by: Alejandro Colomar <alx@kernel.org>
-
-
-(While preparing this email, I noticed I hadn't noted Branden's
-authorship while committing, so I've amended the commit; luckily it
-wasn't on kernel.org.  I'm sorry if I caused any inconvenience to
-anyone fetching from my repo.)
-
 >=20
->> When the text of all Linux man-pages documents (excluding those=20
->> containing only `so` requests) is dumped, with adjustment mode 'l'=20
->> ("-dAD=3Dl") and automatic hyphenation disabled ("-rHY=3D0") before an=
-d=20
->> after this change, there is no change to rendered output.
->=20
-> That's not what I'm seeing with Debian groff 1.22.4-10 (which seems to =
+> =B9 More precisely, about a month ago.
 
+5 July UTC, to be (a little) more precise.
+
+Linux man-pages release scheduling is Alex's prerogative, not mine.  He
+asked me (a long time ago) to deliver this after groff 1.23.0 was
+released.  That is what I have tried to do.
+
+> > When the text of all Linux man-pages documents (excluding those
+> > containing only `so` requests) is dumped, with adjustment mode 'l'
+> > ("-dAD=3Dl") and automatic hyphenation disabled ("-rHY=3D0") before and
+> > after this change, there is no change to rendered output.
+>=20
+> That's not what I'm seeing with Debian groff 1.22.4-10 (which seems to
 > have .MR backported).
->=20
-> After applying the patch, the man page references are typeset in=20
-> italics, which is ugly and against man-pages(7) recommendations.
 
-I guess he meant no regressions other than the intended formatting
-change.  Branden, I find that this isn't really documented in the
-commit message and it should be.  We probably thought it was obvious,
-but Jakub is right there.
+Not exactly.  It has a compatible stopgap measure to keep Debian stable
+=66rom going wrong in the event that any package using `MR` in its man
+pages gets backported to bookworm (Debian 12).
 
-I would be worried if there would remain any difference after removing
-formatting, or more precisely, if after configuring MR to do bold
-there would remain any differences.
+https://salsa.debian.org/debian/groff/-/merge_requests/4
 
-However: Branden, I suggest you content Jakub showing more proof that
-there's no regressions, and very explicitly document the intentional
-regressions a bit more (basically that we're changing to italics).
+groff 1.22.4 man(7) does not support the `MF` string (see below).  That
+could be backported too, but there seems no point before there is a
+concrete need.
 
-Jakub, you (or distributors) can always change the meaning of MR to
-perform bold instead of italics.  Just in case you didn't know.
-Although if you didn't, maybe it's a sign that it should be more
-thoroughly documented in this patch.
+> After applying the patch, the man page references are typeset in
+> italics,
 
-I started CCing Ingo in these discussions to let him know that D-day
-has come, and we would appreciate mandoc(1) support for `MR`.
+For great justice!  (See below.)
 
-Cheers,
-Alex
+> which is ugly
 
->=20
->=20
-> =C2=B9 More precisely, about a month ago.
->=20
+See my recent exchanges with Lennart Jablonka on this list.
 
---=20
-<http://www.alejandro-colomar.es/>
-GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
+> and against man-pages(7) recommendations.
 
+Not all man pages are bound by man-pages(7) style suggestions.
 
---------------RrxPF8TYnuCmJl8HHhL9RXeZ--
+Further, /etc/groff/man.local is a conffile, and assuming it's stock (to
+simplify the pattern matching below), you can do this:
 
---------------LHIcGIeee2dHV7qk7NbdgzC2
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+sed -i -e 's/IR/BR/' /etc/groff/man.local
+
+And that way, even if someone backports groff 1.23.0 itself to Debian
+stable, you will not be disturbed by the choice of font for man page
+cross references.
+
+It might be helpful to recap the `MR` feature description from the
+1.23.0 NEWS file and release announcement.  One of its objectives is to
+_stop_ prescribing a typeface for these things, though of course it has
+a default, as it must.
+
+o The an (man) macro package supports a new macro, `MR`, intended for
+  use by man page cross references in preference to the font style
+  alternation macros historically used.  Where before you would write
+    .BR ls (1).
+  or
+    .IR ls (1).
+  you should now write
+    .MR ls 1 .
+  (the third argument, typically used for trailing punctuation, is
+  optional).  Because the macro semantically identifies a man page, it
+  can create a clickable hyperlink ("man:ls(1)" for the above example)
+  on supporting devices.  Furthermore, a new string, `MF`, defines the
+  font to be used for setting the man page topic (the first argument to
+  `MR` and `TH`), permitting configuration by distributions, sites, and
+  users.
+
+  Inclusion of the `MR` macro was prompted by its introduction to
+  Plan 9 from User Space's troff in August 2020.  Its purpose is to
+  ameliorate several long-standing problems with man page cross
+  references: (1) the package's lack of inherent hyperlink support for
+  them; (2) false-positive identification of strings resembling man page
+  cross references (as can happen with "exit(1)", "while(1)",
+  "sleep(5)", "time(0)" and others) by terminal emulators and other
+  programs; (3) the unwanted intrusion of hyphens into man page topics,
+  which frustrates copy-and-paste operations (this problem has always
+  been avoidable through use of the \% escape sequence, but cross
+  references are frequent in man pages and some page authors are
+  inexpert *roff users); and (4) deep divisions in man page maintenance
+  communities over which typeface should be used to set the man page
+  topic (italics, roman, or bold).
+
+Regards,
+Branden
+
+--52vbdwqp6gikeyh5
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmTIRBgACgkQnowa+77/
-2zJIeA//akzgTUNPDUKVCN41r+knfSZFHz9fRFaPfE5MdXL3FnAi3d1Randyc9To
-OjollGQrvw6aZxxy+h+mg2/Qr7C8khwqKOiAyPBlliV0xdXJQD+u+BRAOODfssH/
-H5M53mSiUuOFcNDF5AqSVA3nPimRicyQICPG+TfjR89WgclGmZvyLT7IQGt4SeRd
-GvpxERMRZg7WeVdlrUKHnxEvHMwzvnZ82/QtT7AaVbYEANnjN68OJ+jyyMjcxJSU
-BLhjq8G7aiXmBsiWjAhUbT4z6uLkbx4acggUQo7rHf4/7aje+0lct3K5vEH2yG5Z
-mcg2Np3TGlPZD5OetVtS4oGL/Q+2zlgCD/d+iRhGzpbCPXwE0Dmjwc/bxdVClDrz
-ap7f6BS1Yzyl8h/zZhY2KvXUTuGr6mOryqUpqZmJUkDDa/O+Wrl79MunAkOVpunv
-VJTtIxtG+/qWVWuFkeDd8VOpTMgGfOx3gZ8xT28iELLU1DYAp/4zu789VArTp4Gf
-ltP9gfkRU4veGCxXsuTU4zKP72groXPBmdWgpFRfgJHT5UcmRDw6I1oYCEtmGjvd
-1VNkW4/dEr2cfA3ikGgnPG2siueKaxmUMdDwflGatADrG39TbMcVWI8XNjzxLZgq
-qKvkRHVWLRlgugWwV/lu3B2PNUDGrtwC/CkWHovQOYvlK/6iHGM=
-=H4sv
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmTIYFgACgkQ0Z6cfXEm
+bc4PRQ//bZttVbSHRc661hrBBAgRHBAD5CcAnD6ZAI2r58xAgP21Nocd076j1UBX
+aOh934i46ibMgcG4Sg0dDrMeAzykY32NagNig9x8v37fUsjVK5xR+V6KqtXRSfug
++KP5zmXgqC5oEcV34l6zBj3ZMVkF7L7uS61cdMe4THKa16LpYe/EWp4uziTJPn3o
+gf3SzM0Due3uzklPOZ2/8mn38OUic5hkIaHjS/+y9oOTJIV2Z4A9FmqLqJb3GlVF
+yNJfju8CP/YzwFzDZNrOS2bSxXZZxijIoVlAmuBEoKuPzbNkKocfWfutW2hz/J4R
+0DW9/5Ad+NmoX+A5oqdNQfYj/KOBNuF24rBr+D4Mhj0ZgN7v5x4NRQ8VMNeHVaun
+PiA870z0B7StqGdA0o/WtPfAKFdc/DDnsLrzCfvZCMrCkZkwUuqezlG0Pl+h4Cfl
+VGpf+OP5JEtuHhD8pLnHSbJ3d6HKYqohDuiqCFsW2pSUoMirgTUMB6d8JWxpw8yQ
+AFYlCz9N10XSBV9bzpsmuh9yvxDtnhPxeNyJeIQn+meVqBSZpMTM1zRiUqlbTKFd
+8da7m4wVrW9L/qbChD3lUmkTti+d9yepfYL6rHwJxqScUMZhG71FiPv/LghUB3Ui
+ncjm/48eCQpsONlLPDg3ympfRo8i9i739MzrP/0oK92hosBm47U=
+=oy/A
 -----END PGP SIGNATURE-----
 
---------------LHIcGIeee2dHV7qk7NbdgzC2--
+--52vbdwqp6gikeyh5--
