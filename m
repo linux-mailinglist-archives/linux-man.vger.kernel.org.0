@@ -2,75 +2,68 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id E53F276BE42
-	for <lists+linux-man@lfdr.de>; Tue,  1 Aug 2023 22:01:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5288C76BE4B
+	for <lists+linux-man@lfdr.de>; Tue,  1 Aug 2023 22:10:07 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229636AbjHAUBK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Tue, 1 Aug 2023 16:01:10 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42018 "EHLO
+        id S230000AbjHAUKG (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Tue, 1 Aug 2023 16:10:06 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43156 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229606AbjHAUBJ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Tue, 1 Aug 2023 16:01:09 -0400
-Received: from mail-ot1-x329.google.com (mail-ot1-x329.google.com [IPv6:2607:f8b0:4864:20::329])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 086C1B0
-        for <linux-man@vger.kernel.org>; Tue,  1 Aug 2023 13:01:08 -0700 (PDT)
-Received: by mail-ot1-x329.google.com with SMTP id 46e09a7af769-6bcae8c4072so1159749a34.1
-        for <linux-man@vger.kernel.org>; Tue, 01 Aug 2023 13:01:08 -0700 (PDT)
+        with ESMTP id S229535AbjHAUKF (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Tue, 1 Aug 2023 16:10:05 -0400
+Received: from mail-oo1-xc31.google.com (mail-oo1-xc31.google.com [IPv6:2607:f8b0:4864:20::c31])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C222BE71
+        for <linux-man@vger.kernel.org>; Tue,  1 Aug 2023 13:10:03 -0700 (PDT)
+Received: by mail-oo1-xc31.google.com with SMTP id 006d021491bc7-56ce936f7c0so1165886eaf.3
+        for <linux-man@vger.kernel.org>; Tue, 01 Aug 2023 13:10:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1690920067; x=1691524867;
+        d=gmail.com; s=20221208; t=1690920603; x=1691525403;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=Uyp0c+pTG9m2NaCiZpeVDRS8Foves9koQY0uzQUrXSk=;
-        b=cxGuD5Ej0zKxLnkAogJ13mlmQ4OI4pBFIOc3SqOolRHjOEWVf/z+dzL6SKngi383F1
-         iF4tKNX6II53yrpvBJ/+WCkEIYVOuS3g8SsLWY7jSnsYnAK0zz/NlfggDdblt0x1gSZ7
-         wNz3XHIVkvEZqyOtKaXF7xYifmAgm57wu9/7xtQtyyPvW36u3KvdcPCoVf1bOLOdw9L1
-         6KP/QoaPD1q/rxgc1OohlvpaN9U6xEvAWdGNQcgZ6n0li90T5ENUoz0hFl0dcXzFQbI9
-         W8gsKjzEayeWZEiKkGxhOYMSTa8Nit82wG6O0gy1H7hetum6PPfpRA9giaT4Pqrx4xoe
-         ROng==
+        bh=jkasxxhv0vCpAkI/82rZQFaQ+qddPiBn7jSzBzS039M=;
+        b=jTTdU9BckjTFXpdTCNSFLu8TYoq2FZTSo8EzHZWOwdPEpDGgtbFsyrT3gG+P+PTKCX
+         6IlQahJfFIVHXAn1alklAm1JVnT4T0otdntPOEYXew/gvZ5jUAwkPWS4M8Hd9wzeq8zR
+         JFEmmHsjeyGcCPyOhv3q+JmmrV1nOGGB4ARObf8Bvkxdw72QPIFHOEyFeN6dEdUVDSXg
+         sjWQ4LS/rxQjCE6smz4kJKEkryDELnsh4ykwELOG7uNAraJOm/1MPByIaRrZAxwljAhL
+         zvZgkZqAVt8eZfP1dCkfXZ6QhuaDEmz6/TDArkJ6K3tueywkdyo9qs4H3Jng/Fw3mUin
+         o5sw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1690920067; x=1691524867;
+        d=1e100.net; s=20221208; t=1690920603; x=1691525403;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Uyp0c+pTG9m2NaCiZpeVDRS8Foves9koQY0uzQUrXSk=;
-        b=CJwiMN5vSVOI8XPYcnStn+RFDZQnJF+VMUP0/H1weJR7ZZqE5Mfs8vQDcqb7G0i6HS
-         KmPwKNS2CwDAB9wwj+pWpzVFtdr0mwBvoe67cYOPEJOvktIIBLYSuVQ8LcMSS9FKouat
-         cDll90pZXpxaM0yDcpdl/z/XhslBa+JADnqCkkx7+jK+MhtepuLjHrodyB4R3Uz2uUmJ
-         jQMBrhxbmoQSId2WeKUQBkqJiAckihXibVWOWLO4Mz7b2U0BJrMsgNBX6PRJCCIeUb4e
-         GS/FgWSIZY4ZjTkLy/xBFkCMrWNR+q7Uu31kKA03mc8C8v1drJ/HtLD0Ntp0ylDsSjDw
-         oMOA==
-X-Gm-Message-State: ABy/qLbcOGi5BqS5P7rKAhaO7gJPg32+Ox6Dp4ljnsAEhhwae5NUQmFp
-        f3s3WneSgOj/nZdmKxGEEFJHJHWHWoE=
-X-Google-Smtp-Source: APBJJlHBMYkl5nXskid9oV4pkWMgqsdAd4v61NgDxRUM3P43epoiBEZvMiCKmny+abWgjgiz3VRWRQ==
-X-Received: by 2002:a05:6830:138f:b0:6b9:62f5:ac62 with SMTP id d15-20020a056830138f00b006b962f5ac62mr11740280otq.35.1690920067184;
-        Tue, 01 Aug 2023 13:01:07 -0700 (PDT)
+        bh=jkasxxhv0vCpAkI/82rZQFaQ+qddPiBn7jSzBzS039M=;
+        b=I08UHgK7hdyflWdY38bzCPuYieTgweW7hvbqg4GCvPq1mKrs6+rdtfOISfHZgY/EkI
+         lgLopjq6b8NdNpmk80ZksCf7TvpwG1hWCXi5+Ugawxe6hp7xid6PXgqozNmNY+m1Yx7v
+         MjrEkqKUfG+R+xRsb4mDjkcl0A/ow3K3jpwMy1aLXKx2ba0m/HEhlLcuOPzMPK9I87j6
+         wicIN95c7wjV3bTfx6iYY28QzWWVNDXbAmUoRwJbfwNciY4vWyLdcQs1pRWfIvjfIuTV
+         EC4+0oKohfpc3SsGYot3eJ+TylB1lzkQDhiQgEMivmH5Exb/n1Btj2bXGXHyWcSDghuo
+         yNBA==
+X-Gm-Message-State: ABy/qLZ5+yZUlUkPpMBP8pIkwRcOpUDKGTilgyu8A129+Gz31tE1FkI0
+        9v2wZ2ZUo/kXTRZlDrhlRME=
+X-Google-Smtp-Source: APBJJlFY59dDudDRh7Qd6NXtn0DfDdA6AQtz40qL19h3Bwu30wahnL8Yxx3v6Ukyqn9tEyYl05cnEA==
+X-Received: by 2002:a4a:340c:0:b0:56c:bab7:6286 with SMTP id b12-20020a4a340c000000b0056cbab76286mr6676234ooa.4.1690920602837;
+        Tue, 01 Aug 2023 13:10:02 -0700 (PDT)
 Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
-        by smtp.gmail.com with ESMTPSA id s8-20020a056830148800b006b45be2fdc2sm5304054otq.65.2023.08.01.13.01.06
+        by smtp.gmail.com with ESMTPSA id f201-20020a4a58d2000000b005658aed310bsm3493911oob.15.2023.08.01.13.10.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Aug 2023 13:01:06 -0700 (PDT)
-Date:   Tue, 1 Aug 2023 15:01:05 -0500
+        Tue, 01 Aug 2023 13:10:02 -0700 (PDT)
+Date:   Tue, 1 Aug 2023 15:10:00 -0500
 From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
 To:     Alejandro Colomar <alx@kernel.org>
-Cc:     groff@gnu.org, linux-man@vger.kernel.org,
-        Lennart Jablonka <ljabl@ljabl.com>
-Subject: function prototypes, man(7), and mdoc(7) (was: boldface, italics,
- spaces and ellipses in synopses of commands, and *nix history)
-Message-ID: <20230801200105.l2fpjwy7roo3km7w@illithid>
-References: <20230730152149.ajvi7zhskzzsp5jz@illithid>
- <76ee749c-6220-81e3-3c2d-af52da823ba4@kernel.org>
- <20230730154541.uitln7ioq4bw6xkq@illithid>
- <02dce126-966c-b7f8-4b26-2fb6ce11b30f@kernel.org>
- <20230730161304.ywc7jyz7hlbjqpsd@illithid>
- <ZMefhujNRqiKVR9a@fluorine.ljabl.com>
- <20230731154535.iqx4zuzztcum6f66@illithid>
- <ZMgAC_-lM62BHKV0@fluorine.ljabl.com>
- <20230731222027.efuv6zetn2fh3fjg@illithid>
- <a6c65fe9-2126-73aa-7852-cf6d4f9f84b5@kernel.org>
+Cc:     linux-man@vger.kernel.org, Ingo Schwarze <schwarze@usta.de>,
+        Jakub Wilk <jwilk@jwilk.net>, groff <groff@gnu.org>
+Subject: Re: [PATCH v2] man*/: ffix (migrate to `MR`)
+Message-ID: <20230801201000.xf3tggiatlam5xcj@illithid>
+References: <20230731175251.67rgt2r4sweutnay@illithid>
+ <a57068eb-83dc-5018-281d-8c122b6ccb6e@kernel.org>
+ <20230731225016.4fxao4bn4ntmnx35@illithid>
+ <c2a8024a-0d56-4fb2-ee12-7dcbca0e75e7@kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-        protocol="application/pgp-signature"; boundary="zup4goi3o2qj6qgu"
+        protocol="application/pgp-signature"; boundary="3zlruhcmi44htbsz"
 Content-Disposition: inline
-In-Reply-To: <a6c65fe9-2126-73aa-7852-cf6d4f9f84b5@kernel.org>
+In-Reply-To: <c2a8024a-0d56-4fb2-ee12-7dcbca0e75e7@kernel.org>
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
@@ -82,73 +75,87 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 
---zup4goi3o2qj6qgu
+--3zlruhcmi44htbsz
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
 Hi Alex,
 
-At 2023-08-01T01:03:38+0200, Alejandro Colomar wrote:
-> > My goal is that it not be obvious to the causal reader of a man page
-> > whether man(7) or mdoc(7) was used to compose it.
+At 2023-08-01T01:15:02+0200, Alejandro Colomar wrote:
+> Nah, I eyeballed random samples the diff and it looked good.  That,
+> and your extensive tests, make me confident enough.  If we screwed
+> anything, we can fix it.
 >=20
-> Function prototypes are the biggest difference, IMO.  I prefer how
-> man(7) pages show function prototypes (the type and the variable are
-> formatted differently).  Though I'll give to mdoc(7) that parentheses
-> and commas in roman are nice.
+> The only concern I had some time ago was with code like exit(1), but
+> that should be using italics today, so it shouldn't be a problem.  I
+> can't imagine big issues.
 
-You will scandalize some people by suggesting that bold isn't the best
-choice for all literals.  ;-)
+Well, we'll see how it sits in your 'MR' branch for a while.  Maybe we
+can recruit some beta testers.
 
-> .3 pages are easily distinguished in the first screenful of text
-> without looking at the source, in the SYNOPSIS.
+> > Please do verify it yourself with the tools above (or better ones).
+> > I'm well aware that this is a huge change that can make people
+> > nervous.
+>=20
+> I applied the patch, amended the message with a quote from this email,
+> and pushed to the MR branch in my private git repo at
+> <http://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/lo=
+g/?h=3DMR>.
 
-I think it might be tricky to achieve parity here without either:
+I saw.  Thanks!
 
-1.  imposing eyeball-bleeding complexity on man(7) authors; or
-2.  implementing the most radical of my man(7) reform proposals:
-    an extensible semantic tagging mechanism.
+> Oh, and I also removed a few pages from your patch, per CONTRIBUTING
+> guidelines:
+>=20
+> Notes
+>    External and autogenerated pages
+>        A few pages come from external sources.  Fixes to the pages
+>        should really go to the upstream source.
+>=20
+>        tzfile(5), tzselect(8), zdump(8), and zic(8) come from the tz
+>        project <https://www.iana.org/time-zones>.
+>=20
+>        bpf-helpers(7) is autogenerated from the Linux kernel sources
+>        using scripts.  See man-pages commits 53666f6c3 and 19c7f7839 for
+>        details.
 
-https://lists.gnu.org/archive/html/groff/2022-12/msg00075.html
+Right, thank you.  I completely zoned about those.
 
-I'll see how we weather the `MR` storm before sailing into that one.
+Unfortunately none of the time zone pages offer any hint I can see that
+they're autogenerated, so (short of hard-coding a list), they can't be
+automatically excluded from global changes.
 
-In any event I'd need to devote some serious time to considering the
-shape of the problem of function declarations.  Possibly their hopeless
-variability is what led mdoc(7)'s designer(s) to implement its
-challenging "called"/"parsable" system of argument interpretation.
+bpf-helpers does announce that it's produced by rst2man (without naming
+the tool explicitly).
 
-And think--C language declaration syntax has gotten _more_ complex since
-mdoc fossilized around the time ANSI C froze.  Type qualifiers are far
-more often used now, and attributes were, if not inconceivable, then on
-a distant horizon.
+The good news is that I've started to have a look at how rst2man works.
+Dmitry Schachnev of the Debian Python team was really helpful in this
+area.  I've poked and prodded it a bit.  Found some gaps.
 
-But maybe that won't matter: with only three font styles available
-(though we probably _could_ employ bold-italics if we _had_ to), there
-is a limit to how many different sorts of things we can represent.
+I'm afraid I might horrify Engelbert Gruber, the upstream maintainer.
 
 Regards,
 Branden
 
---zup4goi3o2qj6qgu
+--3zlruhcmi44htbsz
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmTJZHYACgkQ0Z6cfXEm
-bc6oShAAqZkS37ZcL/57vrChQCAHUAChzUhkIZJFg7bYyWiGdMFHxGGs6DbQayuC
-WdBwrhfGqhA8iYgXAPbO/MRHE0p9lz0uENgURpjbBu3adwjMAnHac+RPQAyWwey5
-DTHfCuhA3myKiYdkXSixKdE0/ZJnuzJGhyOV1x5MvPu8SkZPgBTiGr09yRYveTmG
-6kFP45I/TgoTI2tpAAKfFlzSr/s9Evv3+JDemHclYcdctgSqiL3JVzn8bOC4ldoX
-Qld720shDb5ewoMhhauvUdZiMHEBGw0G2fay7yuAIYfe4sxa2hsBUsurHs3s7ito
-ZLUZypLEOWBQAd+Swx7llecEKTZy54gUOBYHbByjCOfFkSjLgyvAXeZKJioGQ1yY
-JhwrpF+h0BodTq9qYJoKk8gi8fXUVObhJYqrmON5IN92biJRdAWQgITFbtQEFZi/
-6TKoIgeO6t0yxGPqS8Z8is4ezqgi9rSN/WexGHVVNHcH4ssvxzUUXcqMtkAuHLU5
-XrrhMsivlJKr1lAt0VrxkzSVaQJEfeDbyfrAvgzfCptANhgCQ6F7oBdBg+OVwD7p
-3Me5o+Y2tcW8c507YVogldM6tsNVuzG7PZOG6aHJPTzCo1kMJN6XU/ycSVd6nc65
-uyjM9dQMesB4kkFmkfA+hnvGH7MITMjZKFN/hTijZ3rFApN1tFU=
-=euyc
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmTJZpgACgkQ0Z6cfXEm
+bc6auA/9FXoli1pSrVTwEYSXlfJhI+vrD6dZoKoKoiGhA7Ou9rBpc3k1E6EZol5E
+FJXMh82tytV34tLjV5bPH6RH7RCNJ3MMxb2I0TZ0+TeSDD/odR5NCsEsG3saIV7p
+uUW3hMVqZ2wb30HVRhzs5ieYbGX/F7p9dbgDZ8kkVTuJwSOqcv+ljU7SF0/djupO
+UYjyQ+1lpTWQw0sJBSsZfr9SBGyrJwtYT1nGjuIdwirg7dCXmJD7staCxkhYbNIf
++Ot+vHd3WwK23nnX0D855IiVm5dqGD2UYLQTAI6BSfzuu6qLinMU0EAzBet5bXNQ
+W7xHngKEec27iJAnrxAImWrzFyu3r2+j7t7AWCj5cvsOfvFVx+n7TwFqJvWTwF8r
+e7PxKScY+qp45bx/WCr6iBRQZYVWmfFzDyDnxuq11q1IG0wtwNDahUx6H5rpfRb4
+93ptu9REr2KJSR84jGj1ThW6+dmC17p4wOmfguYQ5LJeC0kpFmcjPQ8Hm7o5v3sN
+eHMTAyIBpXA1CnLW/lhe0x/BygIL18/emordvJvtc9eG1Pv0ynEgzvBvcFLdHqkC
+ylmDMW6ARdcEIW39nYZJ1OPbPq0sehtofltPEZ8xHLji0qXfteKGOWwk+/Y9j8nv
+3hoH8mWUbPJR6OgAT+iSf/TMK2QpiWbKbeDWk+kNZyBEUPad7HU=
+=BDBI
 -----END PGP SIGNATURE-----
 
---zup4goi3o2qj6qgu--
+--3zlruhcmi44htbsz--
