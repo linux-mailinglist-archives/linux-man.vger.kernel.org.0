@@ -2,128 +2,99 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 56AC876E5CD
-	for <lists+linux-man@lfdr.de>; Thu,  3 Aug 2023 12:35:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id AD73E76E726
+	for <lists+linux-man@lfdr.de>; Thu,  3 Aug 2023 13:42:14 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235343AbjHCKfb (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 3 Aug 2023 06:35:31 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35290 "EHLO
+        id S232651AbjHCLmN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Thu, 3 Aug 2023 07:42:13 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41304 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234667AbjHCKfa (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 3 Aug 2023 06:35:30 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4314A11B
-        for <linux-man@vger.kernel.org>; Thu,  3 Aug 2023 03:35:29 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-         key-exchange X25519 server-signature RSA-PSS (2048 bits))
-        (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id BCFF461D07
-        for <linux-man@vger.kernel.org>; Thu,  3 Aug 2023 10:35:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A76AEC433C8;
-        Thu,  3 Aug 2023 10:35:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1691058928;
-        bh=/LiAfb02KTYXq+nGbxfRLy5Ae9//6Zrn5dvrTYpoMnU=;
-        h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-        b=JRd9kouDa9jrf6d8TGYchTpaEB5r0FDLAng3gf7OMcxpZFyzVq+irDNsLVEm7zuqf
-         HUVQUHwvcmK1YfDMg0TvvLtkdhsB1CkY99py/EAIBLxnzWoqOEAK/MYcnY1GdOlZ6G
-         PWjJsVOb/kCH95lfr/jPLoFVNQCoGGEfkmxqYzHacEBFH3EuFAbKMK4VDpBuuiDDZ9
-         OUgx9B69J9vG0LbtN0jylEHRgTz0omc5a4MWxqUof38O8rsz+dQ7QfPvJww4uTmUpC
-         xgY+Rq/eSnwTlMBfIoKzT+TvzlCVbh+CWm4jc1S57IAgQRPCxzEjf/x9ShXJT/oNCc
-         sZwK4IB1TAKKA==
-Message-ID: <bb64eb67-293d-f294-ef56-355c8118caca@kernel.org>
-Date:   Thu, 3 Aug 2023 12:34:44 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.1
-Subject: Re: Copyright for erofs.5
-To:     =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+        with ESMTP id S234154AbjHCLmM (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Thu, 3 Aug 2023 07:42:12 -0400
+Received: from tarta.nabijaczleweli.xyz (tarta.nabijaczleweli.xyz [139.28.40.42])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 942B02698
+        for <linux-man@vger.kernel.org>; Thu,  3 Aug 2023 04:42:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nabijaczleweli.xyz;
+        s=202305; t=1691062926;
+        bh=hKZHGLkGqENzW6wa+oqK73EU30LzqKkv48iPXjX8vXQ=;
+        h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+        b=O7Uy7IECJmoCpMpnJhq2iiiHkGweZFl7nIIJwr9oUYgUm/oPx5NY4phaLiLIXkCKE
+         qxN8iNqCBWc1+1UKbpyfdU8/yHYVemBvjmZJx7xCUNzL1FjW6QXBdi1wO2toGv6sQL
+         Si9zObEoo9YD5nADETYCCvOHPcMsmnocZpfy5bPCp6JAoOsJ2KsolpE76h066zu9V3
+         SSlr7dBGrMmnB4iGHJ1KYbBAlJPX5o81EOFv04fM69W2b3mg2m84Qtc+w49/7a4AGb
+         3TpWx+sap7HWgAXwC7o/QR+WLHYjb/150I6PeiYLM/ufMWzwlQvrb44zxIKmwbamb9
+         JRGoM1mUmVTDQ==
+Received: from tarta.nabijaczleweli.xyz (unknown [192.168.1.250])
+        by tarta.nabijaczleweli.xyz (Postfix) with ESMTPSA id 83F65524E;
+        Thu,  3 Aug 2023 13:42:06 +0200 (CEST)
+Date:   Thu, 3 Aug 2023 13:42:05 +0200
+From:   =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+To:     Alejandro Colomar <alx@kernel.org>
 Cc:     linux-man <linux-man@vger.kernel.org>
+Subject: Re: Copyright for erofs.5
+Message-ID: <5fa46ghw63mmhbc3go4pvgn2stcetko65lire6gm4exbxklmyu@qituembq5efj>
 References: <13248286-9e34-ceca-8e37-2166a9d39c8d@kernel.org>
  <ups5demx3inur4cudbh44smelpfmsuc2j7alegk2jjcavoyhnd@4rkmms4ugjcf>
-Content-Language: en-US
-From:   Alejandro Colomar <alx@kernel.org>
-Organization: Linux
-In-Reply-To: <ups5demx3inur4cudbh44smelpfmsuc2j7alegk2jjcavoyhnd@4rkmms4ugjcf>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------cfMA2xTrRGfp80R0OMeMMn2A"
-X-Spam-Status: No, score=-7.2 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
-        RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-        autolearn=ham autolearn_force=no version=3.4.6
+ <bb64eb67-293d-f294-ef56-355c8118caca@kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="e6grh3r2djxxehmd"
+Content-Disposition: inline
+In-Reply-To: <bb64eb67-293d-f294-ef56-355c8118caca@kernel.org>
+User-Agent: NeoMutt/20230517
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
+        SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------cfMA2xTrRGfp80R0OMeMMn2A
-Content-Type: multipart/mixed; boundary="------------QwgiUIPWPsfurAq9GnE3J2GM";
- protected-headers="v1"
-From: Alejandro Colomar <alx@kernel.org>
-To: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc: linux-man <linux-man@vger.kernel.org>
-Message-ID: <bb64eb67-293d-f294-ef56-355c8118caca@kernel.org>
-Subject: Re: Copyright for erofs.5
-References: <13248286-9e34-ceca-8e37-2166a9d39c8d@kernel.org>
- <ups5demx3inur4cudbh44smelpfmsuc2j7alegk2jjcavoyhnd@4rkmms4ugjcf>
-In-Reply-To: <ups5demx3inur4cudbh44smelpfmsuc2j7alegk2jjcavoyhnd@4rkmms4ugjcf>
 
---------------QwgiUIPWPsfurAq9GnE3J2GM
-Content-Type: text/plain; charset=UTF-8
+--e6grh3r2djxxehmd
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On 2023-08-03 03:44, =D0=BD=D0=B0=D0=B1 wrote:
-> On Thu, Aug 03, 2023 at 02:06:08AM +0200, Alejandro Colomar wrote:
->> I'm packaging manpages 6.05.01 for Debian, and while updating the
->> d/copyright file, I noticed some glitch.  You attributed erofs.5 to
->> mtk.
-> I copied it from another file (probably tmpfs.5) then edited it,
-> so I left the header as-is.
->=20
->> I guess that was a copy&paste error, isn't it?
-> Above my pay-grade to categorise this,
-> or to touch the header on a file I copied.
+On Thu, Aug 03, 2023 at 12:34:44PM +0200, Alejandro Colomar wrote:
+> On 2023-08-03 03:44, =D0=BD=D0=B0=D0=B1 wrote:
+> > On Thu, Aug 03, 2023 at 02:06:08AM +0200, Alejandro Colomar wrote:
+> >> I'm packaging manpages 6.05.01 for Debian, and while updating the
+> >> d/copyright file, I noticed some glitch.  You attributed erofs.5 to
+> >> mtk.
+> > I copied it from another file (probably tmpfs.5) then edited it,
+> > so I left the header as-is.
+> >=20
+> >> I guess that was a copy&paste error, isn't it?
+> > Above my pay-grade to categorise this,
+> > or to touch the header on a file I copied.
+> Yeah, but you could have appended yourself.  I bet you wrote something
+> that deserves a copyright, didn't you?  =3D)
+Never. I'm an avid IP hater and much more so when it means stuffing
+brands into headers. I'd release it into the public domain if I could.
 
-Yeah, but you could have appended yourself.  I bet you wrote something
-that deserves a copyright, didn't you?  =3D)
+Best,
 
-Cheers,
-Alex
-
->=20
-> Best,
-
---=20
-<http://www.alejandro-colomar.es/>
-GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
-
-
---------------QwgiUIPWPsfurAq9GnE3J2GM--
-
---------------cfMA2xTrRGfp80R0OMeMMn2A
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+--e6grh3r2djxxehmd
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmTLgsQACgkQnowa+77/
-2zL/XhAAl2kOdkiF1CLUew6QFfwkA+wRXOO8pYJ2EgeKGBTzdqLkt9qmCrjDtqU8
-txkZsQ/2YPjFsw37meOvCUj4Fw2qRFN9Mzy+jjrRqvecFMLnURpf16N2meFUTNCU
-lXTWKps0bHCry12oDMiEzdcZTdFGybtqPlOZiwaMxfnoKEDXkB523YAJn+XeQidn
-TwPZqrsVMbOAjJYAZc1+pg/vntuunLU+hKEDR88nGHN30iPow1ha9MC6p9TJjVOr
-x9tbeIpY/dA0ovB7SLEHmRTuXXSy2tiZpdfubeUD99+THr/hMv5Fm3NTeZpAyTc1
-wVWFiYUDu9OaEJcoqLG6/X1VxTw4Vs9Rs0QSJUZ3HB2t7tHr2mbnJpR6ZR0SHzw6
-7lrImbgS1PEfhrt6usuSv9oZqAlnh0xkJFXAz6JIYvspcjy/+oEeIgdQ0c9c/Q0G
-R5e3eOjrseBQpR6LH+5yqV8CYnJqUxczhNk6I9mFNm/bn0xfjWEXj6MOg+26Vxfs
-AnuIwgu0QsfZZBd5knKohY5Y2XINw03Ra9Ew2sgnyTXIlVwgBb9V8BE2O7iqZjLc
-xp6DisTrtT+zLdijwh6SqoIgEKSbnCR6P2+bBteX+rT5ifrihykihHg2z6D0f7gY
-ww6MH0Er0ugJfYYCpnTYQJBjMOHhUEhqBvB7myR+PxiOqBizBcM=
-=tZIK
+iQIzBAABCgAdFiEEfWlHToQCjFzAxEFjvP0LAY0mWPEFAmTLko0ACgkQvP0LAY0m
+WPE/tBAAqqS+hZCD2aibOhs5yLN4PvHhe0UDQGdQGguXvpV1ISyMwnmX9Elwvzp1
+5PJkLofw2teucbBhJKVxLI27cldGq7bMhZNcZObXlTGZUlsJZqb1geolpVw1keVU
+27HbWRfPAQzGWBgUucCNyHsPSGTVQkP31fADxWQTRCIjG7t68TQvdEQajcC+zGkh
+P/Yw+AJAjJe6t0nyWWF7+eLF/t6G+A7BGXtj5DBUNjfUNXSzZ0812D1uUbpKa54d
+aMm51TQILWR3Z5ip2XbrOM2gH4pz0g4Bo6vdowf4mWRDFeXh4QxfxntEEH4sUGM3
+aQXHX15mUqg5s1MEt5/cbSRZMFKU7OOKNwibg0snbP6VTQad/b9j9Y4i+el6p33f
+osUlBRF2jIMxX26BzsYbnb3ADDLO8xvE+H4VU4ttpi/9I9VLssU9TKHpIMCt9b66
+7h/hGySNFKJl4l7ZKAmvBaglDlqvTR9FKTPIF3WMlr03ViF77xKVVEnBR6wydCBA
+3joZbR7Dqmdv6PrpVgBlMXSOJeAiobEJvQYHJy5sTh4z3zBaiZBSvr5U5JYNvRjV
+Sh1B8iqwK0QqPEmsL46DShO3zGEYNEm443bh8GGVgKoGa9X+giTdVnE0y0cuG+AQ
+s/BJOXr4q8c+Vd0v866DxOxL+OIh2R8RvjPySTD1LA5/eAcfZOc=
+=9jJL
 -----END PGP SIGNATURE-----
 
---------------cfMA2xTrRGfp80R0OMeMMn2A--
+--e6grh3r2djxxehmd--
