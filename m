@@ -2,162 +2,175 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 03B6576F869
-	for <lists+linux-man@lfdr.de>; Fri,  4 Aug 2023 05:40:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3006276FE85
+	for <lists+linux-man@lfdr.de>; Fri,  4 Aug 2023 12:31:12 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229498AbjHDDkk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 3 Aug 2023 23:40:40 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48094 "EHLO
+        id S229882AbjHDKbK (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 4 Aug 2023 06:31:10 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41614 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229607AbjHDDki (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 3 Aug 2023 23:40:38 -0400
-Received: from mail-pj1-x1036.google.com (mail-pj1-x1036.google.com [IPv6:2607:f8b0:4864:20::1036])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A98694498;
-        Thu,  3 Aug 2023 20:40:36 -0700 (PDT)
-Received: by mail-pj1-x1036.google.com with SMTP id 98e67ed59e1d1-2683add3662so1068543a91.1;
-        Thu, 03 Aug 2023 20:40:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1691120436; x=1691725236;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=3taenBgw1XpvXsvPtzmLtzkM+Q2pKiv5XZ8YIpRNrrg=;
-        b=qlgyobrOEL3H72qiLP+hYDrc0vsjW40wRONEemdb4nW84mlBxnomq4bHhKv+f83hHx
-         Ongt1zOiovXIC03+RCbWmi/14McGQfRTj0FG7QpXs/381AApW+d4tcOUfE06StA+QjQo
-         t7ue7bs4HC1pwZF2qOBlyXrTeCDQNgezY4c6kHWlcgVIBv4Os2Ibx1KRlgpOEyCo5A2l
-         uq0yk+kHag1zr4CcJFTGe/toHqtNfmItREVtYhpcbuYd3EwT+oWuG+f3xNNU+LuZottY
-         NmYcIPeEGntFff7ZtIe3JzhOkZ2xd6QUl9oN8SwlCz+OfzUPIHBlxVc56aiAT9pfh8/I
-         h+hg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1691120436; x=1691725236;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=3taenBgw1XpvXsvPtzmLtzkM+Q2pKiv5XZ8YIpRNrrg=;
-        b=FsIYQ16yBTQyGgSYuHyJxfrPC8zPObGl1WCdBovqktVt2JflZoGV46tPkXRbdGfZrd
-         dbeW0j2DgF2X7Sd669lP2vJk2n6qsaRZ/WL5g+9nPEhG8mUKn3axTz+QrU1KOqOMw006
-         VmxqP5pwAWbp8OPy9cyZmF/Y3zb8rF796+vbiN6fdBcuYZFe4E6YaVsjSpA0HDsC2ADp
-         j4pvczBiHV6dcoqigccYB7c1hPscNH5Mvhnb6ow4kU6Jc3xDmNJBJDalXv08YcsmACGK
-         Rh3ALGSULcIvX6PBONpZC9aSd/CjfGKZHa9RT4kP1YG/j/PC9GW9hn4nkWXMeQPV2Ibn
-         dbQQ==
-X-Gm-Message-State: AOJu0Yy7Loc/kfdFWLTQ8Gfc0fX9+UQ4adgJM08/P1BR3bNM+S1gOz0k
-        44nt/De9KYOKtXpyT+Fv8JvWq75xvv9tPrKO/gJQOYZc
-X-Google-Smtp-Source: AGHT+IGpd2ITomzbqCjpKREKT01gjwGfonDQ2skxYtxOzvcNyLAqBZ2NdL+7iEqgRP8wiUjFmtITRYCHB15vQJV0TL0=
-X-Received: by 2002:a17:90a:e605:b0:269:18f5:683e with SMTP id
- j5-20020a17090ae60500b0026918f5683emr611134pjy.3.1691120435982; Thu, 03 Aug
- 2023 20:40:35 -0700 (PDT)
+        with ESMTP id S231339AbjHDKbJ (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 4 Aug 2023 06:31:09 -0400
+X-Greylist: delayed 1404 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Fri, 04 Aug 2023 03:31:06 PDT
+Received: from pulsar.hadrons.org (2.152.192.238.dyn.user.ono.com [2.152.192.238])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A42E946B2
+        for <linux-man@vger.kernel.org>; Fri,  4 Aug 2023 03:31:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=hadrons.org
+        ; s=201908; h=In-Reply-To:Content-Transfer-Encoding:Content-Type:MIME-Version
+        :References:Message-ID:Subject:Cc:To:From:Date:From:Reply-To:Subject:
+        Content-ID:Content-Description:X-Debbugs-Cc;
+        bh=cuJrna63J/rlGGVtVoEBq0pitvO3+a5uumHxPMfqi14=; b=HafgodxdNLEnQnrB41Lwjn5jJN
+        KXIcQ9U13KE2HZKttzE2AsZiFWuKLMM8Bhj6sJW7iHBAzIgwncjj0KDG+iAXYtrEOICJLe/AVEsJE
+        HKfRLvId/cNzu/xkjEaghJ10FiBMPiLMQ4m2pi4CvrQBePUOdGOGBw25MusbRZAsII9myBG+UtcGM
+        fLJnEkBpib4DcMp0LtdnX1YmHCqdjP4omaW4Am5QfDUYTJOTRma9A135KPooWuNFZ+27PVKqASnWo
+        4U3/HjibaNRumgUsN+l62Ptrx3R+kozWtd67ynXRtE1xk8r3xSwpua91eXnHB+ODd+UggSiMSNkSh
+        JYCUMcYw==;
+Received: from guillem by pulsar.hadrons.org with local (Exim 4.96)
+        (envelope-from <guillem@hadrons.org>)
+        id 1qRrid-0000O3-00;
+        Fri, 04 Aug 2023 12:07:39 +0200
+Date:   Fri, 4 Aug 2023 12:07:38 +0200
+From:   Guillem Jover <guillem@hadrons.org>
+To:     =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
+Cc:     Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org
+Subject: Re: [PATCH] fsync.2: no writability requirements, must operate on
+ directories
+Message-ID: <ZMzN6jovzyly8tjC@thunder.hadrons.org>
+Mail-Followup-To: Guillem Jover <guillem@hadrons.org>,
+        =?utf-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>,
+        Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org
+References: <oc67sum2hk73gl7oim7kitbqac6gcursqcxf6j2qjxzzdzgbxq@afirbuozty2f>
+ <4aa54e57-6601-088f-f143-23846af2b783@kernel.org>
+ <mwgvw3rh3tv6v3vhwf3osw7s6rs4hmfuapbycnqkk57anpqpsp@qoevitjgkjod>
 MIME-Version: 1.0
-References: <9d2898a0-239a-1bc7-4929-aa042f727ff4@kernel.org> <b1f2b859-d223-eb90-994b-8741ab7af087@kernel.org>
-In-Reply-To: <b1f2b859-d223-eb90-994b-8741ab7af087@kernel.org>
-From:   Luna Jernberg <droidbittin@gmail.com>
-Date:   Fri, 4 Aug 2023 05:40:22 +0200
-Message-ID: <CADo9pHjqNx9_DspLB2sx3pDRJv-vqO8s7PJYNk5LoQLXhvwTxQ@mail.gmail.com>
-Subject: Re: man-pages-6.05.01 released
-To:     Alejandro Colomar <alx@kernel.org>,
-        andyrtr <andyrtr@archlinux.org>,
-        Luna Jernberg <droidbittin@gmail.com>
-Cc:     linux-man <linux-man@vger.kernel.org>,
-        LKML <linux-kernel@vger.kernel.org>,
-        GNU C Library <libc-alpha@sourceware.org>,
-        Sam James <sam@gentoo.org>, Jonathan Corbet <corbet@lwn.net>,
-        Michael Kerrisk <mtk.manpages@gmail.com>,
-        Marcos Fouces <marcos@debian.org>
-Content-Type: multipart/mixed; boundary="000000000000dc11d3060210a8be"
-X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-        URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.6
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <mwgvw3rh3tv6v3vhwf3osw7s6rs4hmfuapbycnqkk57anpqpsp@qoevitjgkjod>
+X-Spam-Status: No, score=-1.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_BLOCKED,
+        RCVD_IN_SORBS_DUL,RDNS_DYNAMIC,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED,
+        URI_HEX autolearn=no autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
---000000000000dc11d3060210a8be
-Content-Type: text/plain; charset="UTF-8"
+Hi!
 
-Hello!
+On Thu, 2023-08-03 at 16:20:10 +0200, наб wrote:
+> On Thu, Aug 03, 2023 at 03:22:50PM +0200, Alejandro Colomar wrote:
+> > > diff --git a/man2/fsync.2 b/man2/fsync.2
+> > > index 1043e6a1b..9ced40b28 100644
+> > > --- a/man2/fsync.2
+> > > +++ b/man2/fsync.2
+> > > @@ -155,12 +155,6 @@ .SH VERSIONS
+> > >  .\" POSIX.1-2001: It shall be defined to -1 or 0 or 200112L.
+> > >  .\" -1: unavailable, 0: ask using sysconf().
+> > >  .\" glibc defines them to 1.
+> > > -.PP
+> > > -On some UNIX systems (but not Linux),
+> > > -.I fd
+> > > -must be a
+> > > -.I writable
+> > > -file descriptor.
+> > But that's still true.  HP-UX and AIX had that issue.  I'd move
+> > that paragraph to HISTORY, and say "some old UNIX systems".
 
-Here comes and updated PKGBUILD for Arch Linux, sorry it took a while,
-was watching Fedora Flock 2023 yesterday
+> Apparently still true on AIX, fsync(2) "Last Updated: 2023-03-24"
+> (https://www.ibm.com/docs/en/aix/7.3?topic=f-fsync-fsync-range-subroutine)
+> says
+>   Note: The file identified by the FileDescriptor parameter must be open
+>   for writing when the fsync subroutine is issued or the call is
+>   unsuccessful. This restriction was not enforced in BSD systems. The
+>   fsync_range subroutine does not require write access.
+> and
+>   EBADF  The FileDescriptor parameter is not a valid file descriptor
+>          open for writing.
 
-Den tors 3 aug. 2023 kl 00:32 skrev Alejandro Colomar <alx@kernel.org>:
->
-> Gidday!
->
-> On 2023-08-01 15:19, Alejandro Colomar wrote:
-> > Gidday!
-> >
-> > I'm proud to announce:
-> >
-> >       man-pages-6.05 - manual pages for GNU/Linux
-> >
-> > The release tarball is already available at <kernel.org>
-> >
-> > Tarball download:
-> >       <https://mirrors.edge.kernel.org/pub/linux/docs/man-pages/>
-> > Git repository:
-> >       <https://git.kernel.org/cgit/docs/man-pages/man-pages.git/>
->
-> There was a small problem while packaging for Debian.  quilt(1)
-> produces a .pc/ dir in the root of the repository, and the patches
-> stored in there confuse the build system to try to lint those patches
-> as if they were manual pages.  If you successfully packaged 6.05
-> without noticing this issue, you can safely ignore this bugfix
-> release.  If you noticed the issue, or haven't yet started, I suggest
-> you package 6.05.01.
->
-> Changes since man-pages-6.05:
->
-> man-pages-6.05.01:
->
-> -  Build system:
->    -  Ignore dot-dirs within $MANDIR
->
->
-> Cheers,
-> Alex
->
-> --
-> <http://www.alejandro-colomar.es/>
-> GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
->
+Yes. Also from current dpkg git HEAD on "AIX power8-aix 2 7 00F9C1964C00":
 
---000000000000dc11d3060210a8be
-Content-Type: application/octet-stream; name=PKGBUILD
-Content-Disposition: attachment; filename=PKGBUILD
-Content-Transfer-Encoding: base64
-Content-ID: <f_lkw1fn5s0>
-X-Attachment-Id: f_lkw1fn5s0
+  checking whether fsync works on directories... no
 
-IyBNYWludGFpbmVyOiBBbmRyZWFzIFJhZGtlIDxhbmR5cnRyQGFyY2hsaW51eC5vcmc+Cgpwa2du
-YW1lPW1hbi1wYWdlcwpwa2d2ZXI9Ni4wNS4wMQpfcG9zaXh2ZXI9MjAxNy1hCnBrZ3JlbD0xCnBr
-Z2Rlc2M9IkxpbnV4IG1hbiBwYWdlcyIKYXJjaD0oJ2FueScpCmxpY2Vuc2U9KCdHUEwnICdjdXN0
-b20nKQp1cmw9Imh0dHBzOi8vd3d3Lmtlcm5lbC5vcmcvZG9jL21hbi1wYWdlcy8iCm1ha2VkZXBl
-bmRzPSgnbWFuMmh0bWwnICdnaXQnKQojIGh0dHBzOi8vZ2l0Lmtlcm5lbC5vcmcvcHViL3NjbS9k
-b2NzL21hbi1wYWdlcy9tYW4tcGFnZXMuZ2l0Lwpzb3VyY2U9KGh0dHBzOi8vd3d3Lmtlcm5lbC5v
-cmcvcHViL2xpbnV4L2RvY3MvbWFuLXBhZ2VzLyRwa2duYW1lLSRwa2d2ZXIudGFyLnt4eixzaWdu
-fQogICAgICAgIGh0dHBzOi8vd3d3Lmtlcm5lbC5vcmcvcHViL2xpbnV4L2RvY3MvbWFuLXBhZ2Vz
-L21hbi1wYWdlcy1wb3NpeC8kcGtnbmFtZS1wb3NpeC0ke19wb3NpeHZlcn0udGFyLnt4eixzaWdu
-fSkKIyBodHRwczovL3d3dy5rZXJuZWwub3JnL3B1Yi9saW51eC9kb2NzL21hbi1wYWdlcy9zaGEy
-NTZzdW1zLmFzYwpzaGEyNTZzdW1zPSgnYjk2YWI2YjQ0YTY4OGM5MWQxYjU3MmU1MmZlY2U1MTll
-MWNmZDJiYjRjMzNmZTcwMTRmYzNmZDFlZjNmOWNhZScKICAgICAgICAgICAgJ1NLSVAnCiAgICAg
-ICAgICAgICdjZTY3YmIyNWI1MDQ4YjIwZGFkNzcyZTQwNWE4M2Y0YmM3MGZhZjA1MWFmYTI4OTM2
-MWM4MWY5NjYwMzE4YmMzJwogICAgICAgICAgICAnU0tJUCcpCnZhbGlkcGdwa2V5cz0oJ0U1MjI1
-OTVCNTJFREE0RTZCRkNDQ0I1RTg1NjE5OTExM0EzNUNFNUUnKSAjIE1pY2hhZWwgS2VycmlzayAo
-TGludXggbWFuLXBhZ2VzIG1haW50YWluZXIpIDxtdGsubWFucGFnZXNAZ21haWwuY29tPgojICsg
-Zm9yIHBvc2l4IHRhcmJhbGwKdmFsaWRwZ3BrZXlzKz0oJ0E5MzQ4NTk0Q0UzMTI4M0E4MjZGQkRE
-OEQ1NzYzM0Q0NDFFMjVCQjUnKSAjIEFsZWphbmRybyBDb2xvbWFyIEFuZHJlcyA8YWx4Lm1hbnBh
-Z2VzQGdtYWlsLmNvbT4KCnByZXBhcmUoKSB7CiAgY2QgIiR7c3JjZGlyfSIvJHBrZ25hbWUtJHBr
-Z3ZlcgoKICAjIGluY2x1ZGVkIGluIHNoYWRvdwogIHJtIG1hbjUvcGFzc3dkLjUKICBybSBtYW4z
-L2dldHNwbmFtLjMKICAjIGluY2x1ZGVkIGluIHR6ZGF0YQogIHJtIG1hbjUvdHpmaWxlLjUgbWFu
-OC97dHpzZWxlY3QsemR1bXAsemljfS44CiAgIyBpbmNsdWRlZCBpbiBsaWJ4Y3J5cHQKICBybSBt
-YW4zL2NyeXB0Ki4zCn0KCnBhY2thZ2UoKSB7CiAgY2QgIiR7c3JjZGlyfSIvJHBrZ25hbWUtJHBr
-Z3ZlcgoKICAjIGluc3RhbGwgbWFuLXBhZ2VzCiAgbWFrZSBERVNURElSPSIke3BrZ2Rpcn0iIHBy
-ZWZpeD0vdXNyIGluc3RhbGwgCgogICMgaW5zdGFsbCBwb3NpeCBwYWdlcwogIHB1c2hkICIke3Ny
-Y2Rpcn0iLyRwa2duYW1lLXBvc2l4LSR7X3Bvc2l4dmVyJS0qfQogIG1ha2UgREVTVERJUj0iJHtw
-a2dkaXJ9IiBpbnN0YWxsIAogIHBvcGQKICAKICAjIHBvc2l4IHBhZ2VzIGhhdmUgYSBjdXN0b20g
-bGljZW5zZQogIGluc3RhbGwgLW03NTUgLWQgIiR7cGtnZGlyfS91c3Ivc2hhcmUvbGljZW5zZXMv
-JHtwa2duYW1lfSIKICBpbnN0YWxsIC1tNjQ0ICIke3NyY2Rpcn0iLyRwa2duYW1lLXBvc2l4LSR7
-X3Bvc2l4dmVyJS0qfS9QT1NJWC1DT1BZUklHSFQgIiR7cGtnZGlyfS91c3Ivc2hhcmUvbGljZW5z
-ZXMvJHtwa2duYW1lfS9QT1NJWC1DT1BZUklHSFQiCn0K
---000000000000dc11d3060210a8be--
+out of:
+
+  https://git.dpkg.org/cgit/dpkg/dpkg.git/tree/m4/dpkg-funcs.m4#n28
+
+> So this purely-nominal restriction is likely to go away because
+> Issue 8 requires directories to be fsync()able. It appears that classic
+> UNIXes https://www.austingroupbugs.net/view.php?id=672 (comment 0001499)
+> simply had no need for fsync() on directories and thus we 
+
+That's still not released though? And after skimming over the proposed
+changes, I'm not sure they match reality either on Linux? For example,
+the current amount of fsync() done by dpkg for all filesystem objects
+(not just the db it had always historically done) was precisely to
+avoid 0-sized files that it was getting on abrupt system termination
+at least on ext3 and ext4(?). (I'm not sure whether this has improved
+since then though, but at the time the Linux filesystem developers
+pretty much said this was a problem with userland code as developers
+were "writing buggy code".)
+
+> No clue about recent HP-UX, no offline documentation seems to be extant.
+
+The page I found at the time is still on the Internet Archive:
+
+  https://web.archive.org/web/20080906221105/http://h30097.www3.hp.com/docs/base_doc/DOCUMENTATION/V50_HTML/MAN/MAN2/0033____.HTM
+
+but I do not have access to a current HP-UX system, so not sure
+whether that might have changed.
+
+Ref:
+<https://lore.kernel.org/linux-man/20120101024916.GA16572@gaara.hadrons.org/>
+
+> Try this on for size:
+> -- >8 --
+> Subject: [PATCH v2] fsync.2: no writability requirements, must operate on
+>  directories
+> 
+> POSIX has for a long time implied that directories are fsyncable,
+> and since Issue 8 explicitly specifies directory syncing semantics:
+>   https://www.austingroupbugs.net/view.php?id=672
+
+See above.
+
+> Simultaneously, directories being unopenable for writing is a
+> Longest-Standing UNIX Semantic, present in the UNIX Programmer's Manual
+> under directory (V), and has always been enshrined in the standards.
+
+> Replace the FUD that says that some UNIXes require the fd to be writable:
+> they /must not/ and this confuses users:
+>   https://101010.pl/@eater@cijber.social/110824211348995583
+> with mentioning explicitly that HP-UX and AIX (by name) are just broken.
+
+To me whether this is supposed to conform to some historic semantics
+does not seem very relevant when making code portable, and when that
+contradicts the specific system explicit documentation and behavior.
+And then "FUD" seems completely out of line here (even though I didn't
+write that man page update), and incorrect, because there _are_ such
+systems in existence…
+
+> @@ -181,6 +175,13 @@ .SH HISTORY
+>  or
+>  .BR sdparm (8)
+>  to guarantee safe operation.
+> +.PP
+> +Under AT&T UNIX System V Release 4
+> +.I fd
+> +needs to be opened for writing.
+> +This is by itself incompatible with the original BSD interface,
+> +and is now forbidden by POSIX,
+> +but nevertheless survives in HP-UX and AIX.
+>  .SH SEE ALSO
+>  .BR sync (1),
+>  .BR bdflush (2),
+
+My intention when I mentioned the currently documented behavior in 2012,
+was to help other people that might stumble over this portability issue.
+If the current documentation is not clear, then let's improve it. But
+this update seems more confusing than helpful to me, in addition of
+being wrong as there's no current POSIX version that forbids this.
+
+Thanks,
+Guillem
