@@ -2,61 +2,57 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id A0A69772A6F
-	for <lists+linux-man@lfdr.de>; Mon,  7 Aug 2023 18:21:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 4BF577756F2
+	for <lists+linux-man@lfdr.de>; Wed,  9 Aug 2023 12:16:39 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231340AbjHGQVH (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Mon, 7 Aug 2023 12:21:07 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55966 "EHLO
+        id S231159AbjHIKQe (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Wed, 9 Aug 2023 06:16:34 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35636 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230001AbjHGQVG (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Mon, 7 Aug 2023 12:21:06 -0400
-Received: from omta002.cacentral1.a.cloudfilter.net (omta002.cacentral1.a.cloudfilter.net [3.97.99.33])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D083310CE
-        for <linux-man@vger.kernel.org>; Mon,  7 Aug 2023 09:21:03 -0700 (PDT)
-Received: from shw-obgw-4003a.ext.cloudfilter.net ([10.228.9.183])
-        by cmsmtp with ESMTP
-        id SyG0qq5yU6NwhT2ycq9FAD; Mon, 07 Aug 2023 16:21:02 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=shaw.ca; s=s20180605;
-        t=1691425262; bh=aLAel4Lrt4GiYwQrHMBQEdWw974XT++I5ArWclanMPY=;
-        h=Date:Reply-To:Subject:To:References:From:In-Reply-To;
-        b=O8jKsFgQz34OIhOD7ZnFtPWwbGHQu7YuAdODGzak0kN+vWdPnaqUcR1eB8GF+w0l+
-         qSxqMTDtmNNf1AezuLQISKDRy2/G9/eecSOLOIz30aXm+DB5I1cG+xdgB9uFwMeUZj
-         N6Owm/DwVQscUKbJ8cY7AQp4eULhSVW2B+IP7nbW/CCw/hrxwmhWlWPK2Wgfr8NXmV
-         EFrzHMkWZedUIklAWpzp+YkHYZ0kdZluyBC3q8/KsZuU+7oZjPQRDs0MmMeR617ArK
-         kW/bZIaJ47ywj7h70k4+eNTAKsIaTvqKMxauDpoQsreqPFLoF7cAmdpHsPTsfjyVhi
-         PzyPUaGFZYuTQ==
-Received: from [10.0.0.5] ([184.64.102.149])
-        by cmsmtp with ESMTP
-        id T2ycqNcD0cyvuT2ycq9RXr; Mon, 07 Aug 2023 16:21:02 +0000
-X-Authority-Analysis: v=2.4 cv=VbHkgXl9 c=1 sm=1 tr=0 ts=64d119ee
- a=DxHlV3/gbUaP7LOF0QAmaA==:117 a=DxHlV3/gbUaP7LOF0QAmaA==:17
- a=IkcTkHD0fZMA:10 a=z-bdYiXYMVD5-_7Nf9EA:9 a=QEXdDO2ut3YA:10
-Message-ID: <01d3855b-65dc-8b99-83cf-ebe1f97a2d83@Shaw.ca>
-Date:   Mon, 7 Aug 2023 10:21:01 -0600
+        with ESMTP id S230260AbjHIKQe (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Wed, 9 Aug 2023 06:16:34 -0400
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0247A1FDE
+        for <linux-man@vger.kernel.org>; Wed,  9 Aug 2023 03:16:33 -0700 (PDT)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+         key-exchange X25519 server-signature RSA-PSS (2048 bits))
+        (No client certificate requested)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id 8CAB7630DF
+        for <linux-man@vger.kernel.org>; Wed,  9 Aug 2023 10:16:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AAD8C433C8;
+        Wed,  9 Aug 2023 10:16:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1691576191;
+        bh=ldbWRceDYDMU88AozLC1qn16Kmf9ZLMnt1k7sTXcuNA=;
+        h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+        b=JA/Gnd1B7sSDv04WZ8JY1ceE/6K4QnXI0iPJpgt1dOWZZ3j+nLWTpEiBCYlNNU4iv
+         a5Tl1e7aeEKWYBOuc6zPTblSCpm5Yyt/rOq5P/IRce6Mi/OjsSy2Wmkst2AR9XJoSQ
+         inOjlEqCR1GCf6cWLIIjnIC+6wkz4xCTfc6R7VJp/AW4E2J6dtt8p811RU9eqTED8R
+         oyi4oWhSXqUlkKDtLhM+cn/GdBTOoIw//WHvPoC19wj2W3mPrC8wvztfwolJXXLt9P
+         hq4MlSes3o/SbXJ9+SzXMl+n2QVO1Y2ita68ddB9mJ4KWGoWWq0D5E86oE3XU8dNTM
+         zz2Mb0B4L42QQ==
+Message-ID: <d508ed7b-7dfb-7b72-e052-c918c24bb1bf@kernel.org>
+Date:   Wed, 9 Aug 2023 12:16:12 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.14.0
-Reply-To: Brian.Inglis@Shaw.ca
-Subject: Re: No 6.05/.01 pdf book available
-Content-Language: en-CA
-To:     Alejandro Colomar <alx@kernel.org>, linux-man@vger.kernel.org,
-        Deri <deri@chuzzlewit.myzen.co.uk>
-References: <094c0eacf60998465be28c605bef69f2f5742459.1691370798.git.Brian.Inglis@Shaw.ca>
- <82937367-538d-46c7-19c8-5bab403fefd5@Shaw.ca>
- <ceb2c7f6-fd7e-467e-5837-c197357339fb@kernel.org>
- <ab67aa6d-712a-47f0-e694-01592bb72cd1@kernel.org>
-From:   Brian Inglis <Brian.Inglis@Shaw.ca>
-Organization: Inglis
-In-Reply-To: <ab67aa6d-712a-47f0-e694-01592bb72cd1@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CMAE-Envelope: MS4xfE90wnmNb0xuseZxJ4Pr9iQOt8u+/Q+0Yi8V4NFfHykfd2aLvRDf15Wmg2xblXx4Zapw/3az5N9ae58ReD+55UcvqWiy8v8kSygPuWr5lt68fjvoYOiY
- 2cY4mKyLl1HYqitj7TAcS0Z4jfgPQfpja/32+OfWwRlIOKBgssIt2RpchPOWjCHFOIeWbuGOKNNzJl7vKsvic4WBBKEibL8aeb/7ln/ifKmWk4NshDVyuGAW
- ruZhhAwigL1MZS8vAzNm2BhGskKUYgByR/jMHpwdwaY=
-X-Spam-Status: No, score=-3.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
-        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS autolearn=ham
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.1
+Subject: =?UTF-8?Q?Re=3a_=e2=9f=a8_vs_=3c_in_hostname_man_page_of_hostname?=
+To:     Jonny Grant <jg@jguk.org>
+Cc:     groff <groff@gnu.org>, linux-man <linux-man@vger.kernel.org>
+References: <9d4608c3-1a01-b134-c0f5-423af14563eb@jguk.org>
+ <834b4a10-8193-22aa-bfd0-57ed8f32466a@kernel.org>
+ <b743023a-4453-aba4-883d-3e896e2f38de@jguk.org>
+Content-Language: en-US
+From:   Alejandro Colomar <alx@kernel.org>
+Organization: Linux
+In-Reply-To: <b743023a-4453-aba4-883d-3e896e2f38de@jguk.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------BN1hj90zbHp3tt0FetatOYJB"
+X-Spam-Status: No, score=-5.2 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
+        RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -64,71 +60,155 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 2023-08-07 03:16, Alejandro Colomar wrote:
-> On 2023-08-07 10:45, Alejandro Colomar wrote:
->> On 2023-08-07 04:46, Brian Inglis wrote:
->>> I noticed there appears to be no 6.05/.01 pdf book available yet.
->>> Are there build issues?
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------BN1hj90zbHp3tt0FetatOYJB
+Content-Type: multipart/mixed; boundary="------------K8mjYXnVwarS7eiLrMUTaZ2n";
+ protected-headers="v1"
+From: Alejandro Colomar <alx@kernel.org>
+To: Jonny Grant <jg@jguk.org>
+Cc: groff <groff@gnu.org>, linux-man <linux-man@vger.kernel.org>
+Message-ID: <d508ed7b-7dfb-7b72-e052-c918c24bb1bf@kernel.org>
+Subject: =?UTF-8?Q?Re=3a_=e2=9f=a8_vs_=3c_in_hostname_man_page_of_hostname?=
+References: <9d4608c3-1a01-b134-c0f5-423af14563eb@jguk.org>
+ <834b4a10-8193-22aa-bfd0-57ed8f32466a@kernel.org>
+ <b743023a-4453-aba4-883d-3e896e2f38de@jguk.org>
+In-Reply-To: <b743023a-4453-aba4-883d-3e896e2f38de@jguk.org>
 
->> Yup.
+--------------K8mjYXnVwarS7eiLrMUTaZ2n
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+Hi Jinny,
+
+On 2023-08-07 17:36, Jonny Grant wrote:
+>>>
+>>> Noticed that sometimes the '=E2=9F=A8' doesn't render, perhaps it is =
+not in all fonts, would it be possible to use consider using regular '<' =
+and '>' character in the man page?
 >>
->> $ pwd
->> /home/alx/src/linux/man-pages/man-pages/6.04/scripts/LinuxManBook
->> $ ./BuildLinuxMan.pl  ../../
->> [...]
->> Failed to open 'DESC'
-
-That annoyingly minimal message provoked the patch submitted.
-
->>> When I run the script/LinuxManBook/BuildLinuxMan.pl, after applying the gropdf
->>> patch, manually in the build dir, I get a pdf, but without any man page footers.
-
->> Hmm, that's weird.  After applying your patch, It works fine for me.
->> I do see the page footers.  However, I have old builds of groff in my
->> system, which I haven't cleaned up, so maybe they interfere positively
->> to that outcome.  Maybe from a clean installation of Debian Sid I
->> wouldn't be able to reproduce that.
-
-> I have uploaded the 6.05.01 book now.
-
-Nice - with current page footers!
-
->> Nevertheless, now I remember Deri told me he hardcoded a lot of stuff
->> for 1.22.4 which should be removed after the release of 1.23.0, so it
->> seems that the time has come to chop a lot of stuff from there.
+>> That is implemented using man(7)'s UR, which is for URIs.  The source
+>> code of the manual page doesn't know about the glyph that will be
+>> produced in your system.  In your system, groff(1) will try to find
+>> the most appropriate one.  You (or your distributor) can also tweak
+>> that.  You can for example change it to use ASCII '<' and '>'.
 >>
->> Deri, would you mind simplifying the scripts assuming a Build-dep of
->> groff(>=1.23.0)?
-
-Resent the patch cc Deri.
-
-Would it make sense to merge changes into/from groff 1.23 grodpf, which I also 
-tried, and also did not produce page footers, but did produce lots of 
-*different* messages.
-It seems likely that changes made to build the huge man book might also benefit 
-other projects with large docs.
-
->>> Are there any other scripts which need to be run and/or groff commands or data
->>> which need to be supplied?
-
->> No.  It's just:
+>> In man7.org, I guess that you read it correctly from any machine.
+>> In your systems' pages there's no COLOPHON anymore (I removed it
+>> in man-pages-6.01).  If you're on an old system, you can tweak it.
 >>
->> $ cd scripts/LinuxManBook/
->> $ ./BuildLinuxMan.pl ../../
+>> But you'll still see that character in pages that have URIs in them.
+>> For example, let's consider hier(7):
+>>
+>>     $ grep -n '^\.UR ' man7/hier.7;
+>>     640:.UR https://refspecs.linuxfoundation.org/fhs.shtml
+>>
+>> which renders as (including the whole section):
+>>
+>> STANDARDS
+>>        The   Filesystem   Hierarchy   Standard   (FHS),   Version  3.0=
 
->>> It would be nice to see this eventually added to your RELEASE doc, and maybe
->>> also to the make scripts.
+>>        =E2=9F=A8https://refspecs.linuxfoundation.org/fhs.shtml=E2=9F=A9=
+,     published
+>>        March 19, 2015
+>=20
+>=20
+> Fair enough. Some pages even have both.
 
->> Yes.  I first want to put it in the Makefiles, and then add it to
->> INSTALL.  Then something to RELEASE.  But I first want to simplify
->> the script so I can understand it.
+Pages that use both are bad.  That means that in some places they used
+the correct UR man(7) macro, and in some others they hardcoded <>, which
+is wrong.  It may happen in <man7.org>, because the COLOPHON was added
+by Michael, while the page was written by a different author.  In other
+places, it means that the page is badly written.
 
-See below ;^>
+I know of uri.7, where this happens, and some day I'll fix it.
 
--- 
-Take care. Thanks, Brian Inglis              Calgary, Alberta, Canada
+> I saw sometime <> is used, as I expected,
 
-La perfection est atteinte                   Perfection is achieved
-non pas lorsqu'il n'y a plus rien à ajouter  not when there is no more to add
-mais lorsqu'il n'y a plus rien à retirer     but when there is no more to cut
-                                 -- Antoine de Saint-Exupéry
+Those pages are wrongly written.  I expect that most of those pages are
+not written in man(7), but rather translated from some other source
+language by a program, which usually produce crap man(7) source.
+
+> other times '=E2=9F=A8=E2=9F=A9' .
+
+When you see that, the page was written properly in man(7) (or
+mdoc(7)? I expect both produce the same glyph; Branden?).
+
+> "SEE ALSO"
+>=20
+> https://man7.org/linux/man-pages/man1/cp.1.html
+
+I think GNU coreutils is one of those projects that don't write man(7)
+source, but rather translate it from a different language.
+
+alx@debian:~/src/gnu/coreutils$ find | grep 'cp\.1'
+alx@debian:~/src/gnu/coreutils$
+
+>=20
+> But though "COLOPHON" looks like it was appended by a man7 website scri=
+pt with the '=E2=9F=A8=E2=9F=A9' instead,
+
+Yes, Michael uses a script to generate the COLOPHON.  That script uses
+the proper method for writing URIs: the UR man(7) macro.  He used a
+similar script for releasing man-pages until 5.13, as you'll find our
+pages in versions <=3D5.13 had a COLOPHON in them.
+
+I temporarily added a script that did the same thing:
+
+<https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/tree/scripts=
+/append_COLOPHON.sh?h=3Dcd34c839d3c9878db9105714b1e460f30057e7f2>
+
+You can expect that Michael's script will be similar.
+
+However, shortly after I decided to just remove the COLOPHON section,
+and thus the script:
+
+<https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?h=3D=
+8c3052b0322580eba62de91f04ba657f7dfe360e>
+
+> so I thought maybe that could be changed for consistency to <>.
+
+No.  It should be <> that are fixed to use the UR man(7) macro.
+
+> There are so many different characters that could be used, but <> is on=
+ every keyboard :)
+
+But nobody types =E2=9F=A8=E2=9F=A9.  It's generated by groff(1).  When y=
+ou write
+an email or anything similar, you can use <>, but for manual pages,
+those symbols are fine, I guess.
+
+> Kind regards, Jonny
+
+Cheers,
+Alex
+
+--=20
+<http://www.alejandro-colomar.es/>
+GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
+
+
+--------------K8mjYXnVwarS7eiLrMUTaZ2n--
+
+--------------BN1hj90zbHp3tt0FetatOYJB
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmTTZ2wACgkQnowa+77/
+2zIBwA//bVwVGji+fv95BqeJSlD/4DdxRzrxPOa+P2YOmzSVz+tUi1uSjmtdj0gK
+zKkXSqNRSIEUGO+KoX/If37L4AhxlHK9b56O9ocMx4MM2mnUyDej1OhzmlKvp7aV
+c8M2SAH5hz/MV2kEfbCo20Lhj1p3rZvNpxmSsRyAfQVe5mYkH8d0UH0xWHfJS8vE
+u8nVA4B4UrAueJdbaV+bpm4fCxURFbZf9saeStbMaPi9mQfvisyCG3JcS8NXk4gN
+DlNdltnt6EcNNcmLqnwIGr1B80whF83qN9KRVOgtKSF0xCJp1VyQCKUqvsZDq+Gx
+wi8RN17GKR+CJ4RjWkdKE253R7NP1pm82/Va2MnkKquv2K6UAckgRusJHPU9oDFN
+kmreDEriHgwPFqHcgHJMB6vVi3aAARrp2YBqSUJnnkC4PATn/1aV+fCWJm/FSHlr
+WBPVyKk/Jmttv8vXB4wYnY+yZ8kJU+AYIXCAqUG8C+q6M/jSji00Xtao2qln7wT5
+dBXU7ieKJn+YydFCW4VK93zZ726eFylpFJxgHUkHDanzmM5YWLmHYAQuJ5Ho5gGd
+iuAoWfexpLFqqrG8y6f+7Jfab/y9FYR+nGAFTVbwKl5Y0eHbOqnyV5wZ0Uqc8Rqv
+V1pZiChQdC7FL5l+3gggOB6VwqRYkFuXs20qXeMSSBjJDsLQ5aM=
+=uh+S
+-----END PGP SIGNATURE-----
+
+--------------BN1hj90zbHp3tt0FetatOYJB--
