@@ -2,91 +2,93 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id C4C4D778079
-	for <lists+linux-man@lfdr.de>; Thu, 10 Aug 2023 20:40:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id ADE2D778675
+	for <lists+linux-man@lfdr.de>; Fri, 11 Aug 2023 06:24:01 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235802AbjHJSkM (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Thu, 10 Aug 2023 14:40:12 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33234 "EHLO
+        id S229732AbjHKEYA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 11 Aug 2023 00:24:00 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40374 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235800AbjHJSjl (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Thu, 10 Aug 2023 14:39:41 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 10A3330EE
-        for <linux-man@vger.kernel.org>; Thu, 10 Aug 2023 11:39:04 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-         key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-        (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id B3E63665D5
-        for <linux-man@vger.kernel.org>; Thu, 10 Aug 2023 18:38:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 16FE2C433C7
-        for <linux-man@vger.kernel.org>; Thu, 10 Aug 2023 18:38:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1691692705;
-        bh=4fm7I9lPg6jxsDoG7uEQ9geLQHpT3JyZ8D5krAnv968=;
-        h=From:To:Subject:Date:In-Reply-To:References:From;
-        b=Jiz51q91c1OxBen5LdE3hxlqIeDXv4Oj+WqwwDYqRxvtn7aTnQF3/GIh4Q6R1af1c
-         /vhicI665PQecOBYPcly73BDv/QMSlWPNcLFdsHSaSdN86XqbsA3zexHA4l1utWTfN
-         okTRhI+gZxi9D52oWKdDnRT4n6wWI9TfwDBvWn0CuPPvoyvqYdndHSmyLE913ZT5/P
-         QqvcNFDLvkqc750j03LU18Gy1ONwq+md2P2s7hIr88o/odI/N40bgDMcRLuOWV2Kyw
-         E5HnhQuEmKqgNOiI9YcuQlY+Xjm4xPI/h1Vd9yzUScoU6TzkK/h9v1BRi4VKiCOLHt
-         NjkF85a8iCh3Q==
-Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix, from userid 48)
-        id F3377C53BCD; Thu, 10 Aug 2023 18:38:24 +0000 (UTC)
-From:   bugzilla-daemon@kernel.org
-To:     linux-man@vger.kernel.org
-Subject: [Bug 217783] Documentation: networking/can.rst contains incorrect
- definition for bcm_head_msg
-Date:   Thu, 10 Aug 2023 18:38:24 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: changed
-X-Bugzilla-Watch-Reason: AssignedTo
- documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Product: Documentation
-X-Bugzilla-Component: man-pages
-X-Bugzilla-Version: unspecified
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: normal
-X-Bugzilla-Who: arthur200126@gmail.com
-X-Bugzilla-Status: NEW
-X-Bugzilla-Resolution: 
-X-Bugzilla-Priority: P3
-X-Bugzilla-Assigned-To: documentation_man-pages@kernel-bugs.osdl.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: cc
-Message-ID: <bug-217783-11311-BxdrECjH3F@https.bugzilla.kernel.org/>
-In-Reply-To: <bug-217783-11311@https.bugzilla.kernel.org/>
-References: <bug-217783-11311@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
+        with ESMTP id S229552AbjHKEX7 (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 11 Aug 2023 00:23:59 -0400
+Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com [IPv6:2607:f8b0:4864:20::431])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9180C2130
+        for <linux-man@vger.kernel.org>; Thu, 10 Aug 2023 21:23:58 -0700 (PDT)
+Received: by mail-pf1-x431.google.com with SMTP id d2e1a72fcca58-686bea20652so1439938b3a.1
+        for <linux-man@vger.kernel.org>; Thu, 10 Aug 2023 21:23:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1691727838; x=1692332638;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=+16pa8s8tazuL7xzLm3ooVGpiKmu9XGmlBrdrH8xQEo=;
+        b=EnhkLGbpLOctjlKY9FTIh2xRmJsWy7gSEILbEqvF67PbW23hoBtVBycveKDHyhqJQz
+         KYJqLgxarZlAmymDCKW+c2iQBQicT37KSLmUd8FotAE3ZunJfcQ09nabj4DCn4D/cqCt
+         78mfBmPpnD7rq0BulxHveP1GUf3uVHSKYCSW5xy2CVga8yFAapB3iskrlUBfRYe1Sqzn
+         gWmUpLW3l3D+14lE+ivwrCA/THhH0RkAqAdgW36+1YaLvfqVFH4nI1zBf9C2/b6C/w9Y
+         X6xqb0wMlWdcdsWJvep/xtXLlxtcaOlfvaDFXCbKoh78xs1zzzH1AGIW5Thc8pgd6K/U
+         x2Vw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1691727838; x=1692332638;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=+16pa8s8tazuL7xzLm3ooVGpiKmu9XGmlBrdrH8xQEo=;
+        b=OG8RWgrinRXwuLpDB6EkqlZbEgDn1B/86cP8VgmxLT94Asjgep7jedzW+nfIyZiIX5
+         HFsUWewH8yX1uIxVBHhhdIK5BIoZO8KQULOoVBWfKNZOJ7hI+0kFcTROBtZ0fb5ZO8rB
+         AK7KbRTmjwTQSNFc6O6vH7yfjo7IqdImTgpkW2DBDsEWIn2xaRimIS0z+8F0KxKiFdt5
+         THr3DqDKUjZE7SY1tLvQiX+nq3/yBfM3yvIOX1DJbZCl2JavSY7+ovA3C184iVnLcy9u
+         Aq0ZMzFp8OWzKslfRvWXnKWj5n8nZ1sIDEFIVqjfYizlglD7droVYrcfc5kRRn7kMc8+
+         dBCw==
+X-Gm-Message-State: AOJu0YzFUIIsPN3quSmM5/B9tB2RTOyjK1m9XgMyAzoGoP4F0sYpNIQp
+        2nQGFbKl5roXzROVLXt713E8GS6JcYc=
+X-Google-Smtp-Source: AGHT+IFJ0BOfqIwX2rCI7iYONJocIHsa043ZqB16iPlWiSaRp9W9btUlPTAqoP5LRX7GFPnJBsdpeg==
+X-Received: by 2002:a05:6a00:3915:b0:686:2526:ee70 with SMTP id fh21-20020a056a00391500b006862526ee70mr881156pfb.14.1691727837927;
+        Thu, 10 Aug 2023 21:23:57 -0700 (PDT)
+Received: from THE-ENGINE.localdomain ([122.171.21.76])
+        by smtp.gmail.com with ESMTPSA id m10-20020aa7900a000000b0064fd4a6b306sm2337255pfo.76.2023.08.10.21.23.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Aug 2023 21:23:57 -0700 (PDT)
+From:   Sambit Nayak <sambitnayak@gmail.com>
+To:     Alejandro Colomar <alx@kernel.org>
+Cc:     linux-man@vger.kernel.org, Sambit Nayak <sambitnayak@gmail.com>
+Subject: [PATCH] clone.2: tfix: spurious comma
+Date:   Fri, 11 Aug 2023 09:53:37 +0530
+Message-Id: <20230811042337.14650-1-sambitnayak@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-Spam-Status: No, score=-7.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-        SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.6
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D217783
+I spotted a spurious comma when reading this man page, hence I'm
+suggesting this fix.
 
-Mingye Wang (arthur200126@gmail.com) changed:
 
-           What    |Removed                     |Added
-----------------------------------------------------------------------------
-                 CC|                            |arthur200126@gmail.com
+Signed-off-by: Sambit Nayak <sambitnayak@gmail.com>
+---
+ man2/clone.2 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---- Comment #1 from Mingye Wang (arthur200126@gmail.com) ---
-Can confirm that the 0-length was replaced in Linux source code. Commit
-https://github.com/torvalds/linux/commit/94dfc73e7cf4a31da66b8843f0b9283ddd=
-6b8381
+diff --git a/man2/clone.2 b/man2/clone.2
+index 4c5b4ac6b..b91b71831 100644
+--- a/man2/clone.2
++++ b/man2/clone.2
+@@ -111,7 +111,7 @@ The newer
+ system call.
+ .PP
+ In the remainder of this page, the terminology "the clone call" is used
+-when noting details that apply to all of these interfaces,
++when noting details that apply to all of these interfaces.
+ .\"
+ .SS The clone() wrapper function
+ When the child process is created with the
+-- 
+2.25.1
 
---=20
-You may reply to this email to add a comment.
-
-You are receiving this mail because:
-You are watching the assignee of the bug.=
