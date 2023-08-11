@@ -2,59 +2,59 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id BF3C97788DF
-	for <lists+linux-man@lfdr.de>; Fri, 11 Aug 2023 10:24:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C68B67788E7
+	for <lists+linux-man@lfdr.de>; Fri, 11 Aug 2023 10:26:37 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230153AbjHKIYC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 11 Aug 2023 04:24:02 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47166 "EHLO
+        id S233273AbjHKI0g (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 11 Aug 2023 04:26:36 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48964 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229610AbjHKIYC (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 11 Aug 2023 04:24:02 -0400
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com [IPv6:2a00:1450:4864:20::32e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8B20F2723
-        for <linux-man@vger.kernel.org>; Fri, 11 Aug 2023 01:24:01 -0700 (PDT)
-Received: by mail-wm1-x32e.google.com with SMTP id 5b1f17b1804b1-3fe4b45a336so15053905e9.1
-        for <linux-man@vger.kernel.org>; Fri, 11 Aug 2023 01:24:01 -0700 (PDT)
+        with ESMTP id S231617AbjHKI0g (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 11 Aug 2023 04:26:36 -0400
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com [IPv6:2a00:1450:4864:20::32c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A1A1E2D43
+        for <linux-man@vger.kernel.org>; Fri, 11 Aug 2023 01:26:35 -0700 (PDT)
+Received: by mail-wm1-x32c.google.com with SMTP id 5b1f17b1804b1-3fe5c0e57d2so15072375e9.0
+        for <linux-man@vger.kernel.org>; Fri, 11 Aug 2023 01:26:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1691742240; x=1692347040;
+        d=gmail.com; s=20221208; t=1691742394; x=1692347194;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
         bh=nq4b+QsshUFfqL9WcBnhqaRtTL7+ivCmRrByHzHpC7c=;
-        b=YUYDJoiHj1V70gwOojfKIAlHmYlxrD+owz6u7LKCqY7b/E9vpXtUNb/mBhOzZn4QTh
-         FuZwmPESxn8VAC1Uqip1Lg3y5MtgRSJYqJV+iNTor7dikeZ686tdIHUujxr0TRZ4tgDW
-         pXPv8pbCPVdNmxSOQ0zD0zuH74tBIVsG7MTudBHuC4s/GwcydyhXSv2ucfsMO46U6Wmz
-         59cYFyF7WTWypSwObbYVIcfDJpMWbXfCFX6qYrVKBnlOgxXev4cNU/Xn5h3kd9CfCRcB
-         3A6cQ+bW+qbl9QExU+kELWcXiaq1lgNKthxE6/1n78bByiLEXU/IhZv0/n9vMTKUjXgk
-         2r8A==
+        b=OrP8rbVDfm0XFbXNzcJHWY80zsaXS8m73OcOdDarDbXKU8M1BRBJMd753T2lmfowyX
+         gAHYg5VX7+WYiDpaJVdoHp8WSAXzBE6CLbzNADYLpZx2X/M8qEsVCuiH2Jqde3ChZslB
+         Tow43FE6ThaNxUmT4VW+gcmFIvyfpc8ZjHASAiwmzK8nUI0tBjN1AWZeoHFWKOMAEg7g
+         ixfKM9vI1IBzG+cMbYzlUVmYuoNpBAzn4TtcpHeSWx7+DVaiYQysKgkHxu8kaxFwHJ2e
+         PEI7LmtShGayR1sZyxVELV0r6Jd2kZlwaEmLs+HUlpO4ocP0SnWpr0qexKLVCY+Xqtwl
+         ekGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1691742240; x=1692347040;
+        d=1e100.net; s=20221208; t=1691742394; x=1692347194;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
         bh=nq4b+QsshUFfqL9WcBnhqaRtTL7+ivCmRrByHzHpC7c=;
-        b=ZskPnAUvnO+GC4ZeT6geY/ZnRR0Dytv/anNp753u1v1ojZDSIEeQfSfUzKu/2AnF1c
-         yDCE2AREL3pPjgwxx6ViDyoc0qzR7Jja2kt6uvpWq7SxrU4eXkGhhdSDvUNPyCPaJgyv
-         zpS+yvK7ztfgrrFtQEXXbcc9pSyYFQ/d8HFOKFQFjSXrHQ6ZVQ0Kp5aPjt1xveip5n0X
-         Uyg1/Ss9SO4BYn9w11u5MU/Y0GtnRVTxlY2QWeL+/1A2ZTkB2l4EsxBVJiC11HBFy7//
-         vmAvdw+4OUjpnO6kGssNOA5JO6o5FZDz63HvhNNN9AWBwg6dOgNfqe5Tt97enx5Ni/bL
-         zqcA==
-X-Gm-Message-State: AOJu0YzWAVVTXg0MSMbFv0j49BJ0PAvjy9n11rMhRd5c3151HQzSkykX
-        9k+bs+vnQMqSPLb1hus7ZC2UoxaJgIwefCvX
-X-Google-Smtp-Source: AGHT+IEVFc7osL/3eBMGSiQ1lPWZAX21qT0d0IvzOR4FE5Hs7jiJV1Y9TOKcpwSXOc7iefS1w3RIJA==
-X-Received: by 2002:a7b:c045:0:b0:3fe:795:712a with SMTP id u5-20020a7bc045000000b003fe0795712amr1061979wmc.27.1691742239703;
-        Fri, 11 Aug 2023 01:23:59 -0700 (PDT)
+        b=i5G9MerdoleGd1MtddMcZ4NrdRq9UUaKEbAuYbxCwm34cA9zsA/Wv28tQUa3RGrowN
+         0tMbURHjVvEN1JJTtCZ9uX35al11ceJKshk9PDDFES4ZZogJI6FTOD3U04dqt45Vv+9W
+         ddeO/EpdgaTcJIU2MyADZReZI8QdHOGWURIX7gvECgQ84WlpczJcJEzgrsXhe8D4vIU/
+         4W6su/0/FdAvVf/QqJZtxm4yJQSy0/O4rdExgUB0hlo9MUi+mkp3EzewxZjQMceqzgYx
+         6jaO6Rv8s/J3nu7FHlLaTCF4NMQHuDE2a1aE60+63cJXNSHejuWz9YHBKDSC1SCOuaTo
+         0ORA==
+X-Gm-Message-State: AOJu0YxXuB7AzRAbfZ9wyWfxGw3prnV7H8IdK4/D9DfJG2iFB3yQcU9M
+        TUGP7J0kml3pdDtVJrpDoAg=
+X-Google-Smtp-Source: AGHT+IEy/eqtJ8/8HbbbBaH0Tc7CDP0SsqxZqLV/fw9esboL2Nf5opEsTUWHyv6uD+ejaC4E7ETzsw==
+X-Received: by 2002:a05:600c:2258:b0:3fe:2f80:8394 with SMTP id a24-20020a05600c225800b003fe2f808394mr1048843wmm.15.1691742393807;
+        Fri, 11 Aug 2023 01:26:33 -0700 (PDT)
 Received: from nixos.fritz.box ([46.128.124.21])
-        by smtp.gmail.com with ESMTPSA id h14-20020a05600c260e00b003fa8dbb7b5dsm4469353wma.25.2023.08.11.01.23.59
+        by smtp.gmail.com with ESMTPSA id j13-20020a5d452d000000b003179d7ed4f3sm4706780wra.12.2023.08.11.01.26.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Aug 2023 01:23:59 -0700 (PDT)
+        Fri, 11 Aug 2023 01:26:33 -0700 (PDT)
 From:   Sascha Grunert <saschagrunert@gmail.com>
 To:     Alejandro Colomar <alx@kernel.org>
 Cc:     linux-man@vger.kernel.org, Kees Cook <keescook@chromium.org>,
         Sascha Grunert <saschagrunert@gmail.com>
-Subject: [PATCH] [PATCH] proc.5: add Seccomp_filters entry
-Date:   Fri, 11 Aug 2023 10:23:40 +0200
-Message-ID: <20230811082340.392669-1-saschagrunert@gmail.com>
+Subject: [PATCH] proc.5: add Seccomp_filters entry
+Date:   Fri, 11 Aug 2023 10:26:27 +0200
+Message-ID: <20230811082627.403498-1-saschagrunert@gmail.com>
 X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
