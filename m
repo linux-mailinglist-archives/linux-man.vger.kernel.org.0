@@ -2,58 +2,57 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id CE6D2779BA8
-	for <lists+linux-man@lfdr.de>; Sat, 12 Aug 2023 01:51:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6DF58779BB0
+	for <lists+linux-man@lfdr.de>; Sat, 12 Aug 2023 01:57:07 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235080AbjHKXvn (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 11 Aug 2023 19:51:43 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34090 "EHLO
+        id S234270AbjHKX5F (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 11 Aug 2023 19:57:05 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60006 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234479AbjHKXvm (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 11 Aug 2023 19:51:42 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 90282C5
-        for <linux-man@vger.kernel.org>; Fri, 11 Aug 2023 16:51:42 -0700 (PDT)
+        with ESMTP id S234177AbjHKX5F (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 11 Aug 2023 19:57:05 -0400
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BC4141719
+        for <linux-man@vger.kernel.org>; Fri, 11 Aug 2023 16:57:04 -0700 (PDT)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
         (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
          key-exchange X25519 server-signature RSA-PSS (2048 bits))
         (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id 24B8064394
-        for <linux-man@vger.kernel.org>; Fri, 11 Aug 2023 23:51:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD1AAC433C7;
-        Fri, 11 Aug 2023 23:51:40 +0000 (UTC)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id 59FCC645F3
+        for <linux-man@vger.kernel.org>; Fri, 11 Aug 2023 23:57:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1DC7C433C8;
+        Fri, 11 Aug 2023 23:57:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1691797901;
-        bh=dJTZeONTZffRaLVL9thYIfkJXjzMeF7jXuWb0vKKjwY=;
-        h=Date:Subject:To:References:Cc:From:In-Reply-To:From;
-        b=i95zLTxSAfB+F5ayuvjKK74tgXUI0dCsma12IWMYkqPgA1k4JEhq2bP5GOsQxzvXJ
-         UDed49tjDM+ST8c/a8+HFph5XvKxlo5MeUyzAA0axG2Y2Hv4HufpKkhzWYyU7NYHSK
-         Z9dQUvd7KL2kZ+9V6/UZkEHBt9aW0k2dAgl033bUepnylI5u4vqOy1gX6Mk33DGc51
-         RSxBNDmOVYx5vKbFP2KxU8y+lu9XyLmvixIifVDXScs2B41NdIFuYo+ZHYUAA1dJcE
-         l8TZSUyCKpvZG0zxk317Du6YSkxmGYtpK0iVzVA8RAeUDGY1T9xBNmf0FzTAg+HUvL
-         ieC80ywpUzkWA==
-Message-ID: <2591b315-4bd0-79d2-af09-05ea3838445d@kernel.org>
-Date:   Sat, 12 Aug 2023 01:51:31 +0200
+        s=k20201202; t=1691798223;
+        bh=Hk8F5gtAz/l6KsXR/STtWlrDlfCdM1HWSkhbnrF2wDM=;
+        h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+        b=Bj3SwB2YlalFkrZSX91WREDLTE6E9LAUFvsdmBniEhcbbO+H/F9TtATLbIrVdDB1+
+         z07xhXkD2xtnDqGdUfJ4EnTa2WQSsPgKCDIF6jgrr4WGMaWdhprc2KiBB5WiowHoYm
+         cult2nWlhT7T5YNu8wVza2xSx1jo6HQroBhLizZO11l7t+nmXhzy5wGj1jLauwozmG
+         hxorGw8OcGhoLZdcUQDWH92IpEdRqQx7ChRo1buhr6IYXNKJkW6lc3S1kwVDLovJdC
+         5nUszhrrw9uBZKOeV6Oe/aN2VVvZzg2v8fKqmUEn0GFi4qNPclvycrHkkJZYSzc50i
+         jAq3q9d29/4eA==
+Message-ID: <3b2be14d-4b79-9cb2-c3ef-610a5a6322ad@kernel.org>
+Date:   Sat, 12 Aug 2023 01:57:01 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.1
-Subject: Re: No 6.05/.01 pdf book available
+Subject: Re: [PATCH] scripts/LinuxManBook/gropdf: use symlink instead of hard
+ coded groff version
 Content-Language: en-US
-To:     Deri <deri@chuzzlewit.myzen.co.uk>, Brian.Inglis@shaw.ca
+To:     Brian Inglis <Brian.Inglis@Shaw.ca>, linux-man@vger.kernel.org
+Cc:     Deri <deri@chuzzlewit.myzen.co.uk>
 References: <094c0eacf60998465be28c605bef69f2f5742459.1691370798.git.Brian.Inglis@Shaw.ca>
- <82937367-538d-46c7-19c8-5bab403fefd5@Shaw.ca>
- <ceb2c7f6-fd7e-467e-5837-c197357339fb@kernel.org> <21975186.EfDdHjke4D@pip>
-Cc:     linux-man@vger.kernel.org
 From:   Alejandro Colomar <alx@kernel.org>
 Organization: Linux
-In-Reply-To: <21975186.EfDdHjke4D@pip>
+In-Reply-To: <094c0eacf60998465be28c605bef69f2f5742459.1691370798.git.Brian.Inglis@Shaw.ca>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------DBbxlg8ThtTuQlcS6H9C43yC"
-X-Spam-Status: No, score=-3.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+ boundary="------------JmyTaK88fTXt1F08z6nQiTWD"
+X-Spam-Status: No, score=-8.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
         DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
-        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-        autolearn=ham autolearn_force=no version=3.4.6
+        RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
@@ -61,137 +60,98 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------DBbxlg8ThtTuQlcS6H9C43yC
-Content-Type: multipart/mixed; boundary="------------h4ezjP3nvapFJk7K1HEPWQ0D";
+--------------JmyTaK88fTXt1F08z6nQiTWD
+Content-Type: multipart/mixed; boundary="------------XYw7UK0EEioglUIcYgsjPhU4";
  protected-headers="v1"
 From: Alejandro Colomar <alx@kernel.org>
-To: Deri <deri@chuzzlewit.myzen.co.uk>, Brian.Inglis@shaw.ca
-Cc: linux-man@vger.kernel.org
-Message-ID: <2591b315-4bd0-79d2-af09-05ea3838445d@kernel.org>
-Subject: Re: No 6.05/.01 pdf book available
+To: Brian Inglis <Brian.Inglis@Shaw.ca>, linux-man@vger.kernel.org
+Cc: Deri <deri@chuzzlewit.myzen.co.uk>
+Message-ID: <3b2be14d-4b79-9cb2-c3ef-610a5a6322ad@kernel.org>
+Subject: Re: [PATCH] scripts/LinuxManBook/gropdf: use symlink instead of hard
+ coded groff version
 References: <094c0eacf60998465be28c605bef69f2f5742459.1691370798.git.Brian.Inglis@Shaw.ca>
- <82937367-538d-46c7-19c8-5bab403fefd5@Shaw.ca>
- <ceb2c7f6-fd7e-467e-5837-c197357339fb@kernel.org> <21975186.EfDdHjke4D@pip>
-In-Reply-To: <21975186.EfDdHjke4D@pip>
+In-Reply-To: <094c0eacf60998465be28c605bef69f2f5742459.1691370798.git.Brian.Inglis@Shaw.ca>
 
---------------h4ezjP3nvapFJk7K1HEPWQ0D
+--------------XYw7UK0EEioglUIcYgsjPhU4
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi Deri, Brian,
+Hi Brian,
 
-On 2023-08-08 01:14, Deri wrote:
-> On Monday, 7 August 2023 09:45:22 BST Alejandro Colomar wrote:
->> Nevertheless, now I remember Deri told me he hardcoded a lot of stuff
->> for 1.22.4 which should be removed after the release of 1.23.0, so it
->> seems that the time has come to chop a lot of stuff from there.
->>
->> Deri, would you mind simplifying the scripts assuming a Build-dep of
->> groff(>=3D1.23.0)?
+On 2023-08-07 17:01, Brian Inglis wrote:
+> man-pages custom script gropdf has hard coded groff version used in fon=
+t path
+> groff provides symlink current for version to avoid the issue; use it i=
+n gropdf
+> specify failing font path used to open font description file in error m=
+essage
 >=20
-> Hi Alex, Brian,
->=20
-> I have done some work on building the pdf. One improvement is any warni=
-ngs=20
-> output by groff, i.e. use of the deprecated .PDF macro, now identify th=
-e=20
-> particular man page and line number accurately.
->=20
-> I have attached two new replacement LinuxManBook directories. The first=
-,=20
-> 1.23.0, will run on a stock groff 1.23.0 system.
+> Signed-off-by: Brian Inglis <Brian.Inglis@Shaw.ca>
 
-Thanks!  I've applied that change.  It's great to see the LinuxManBook/
-dir reduce most of its contents.
-
-
-> The second, 1.23.0+, runs=20
-> with the latest gropdf which has a number of advantages for this projec=
-t - you=20
-> will find the resulting pdf to be more than 5mb smaller, and the page n=
-umbers=20
-> in the overview pane match up with the page number at the bottom of eac=
-h page.
-
-Hmm, I'm reluctant to apply that.  I don't want to maintain a copy of
-gropdf(1) and all the files that accompany it.  However, I think that the=
-
-directory that uses the system groff (1.23.0) should work with the new
-gropdf(1) from 1.23+ if I build from source in my system.
-
-But, I installed groff from git HEAD a moment ago, and I didn't notice th=
-e
-5 MiB improvements that you claimed, and the page numbers are wrong, so m=
-aybe
-I'm doing something wrong, or have a non-clean groff installation in plac=
-e?
-
->=20
-> The file NewGropdf.pdf contains description of some of the features in =
-the new=20
-> gropdf.
->=20
-> Both of these should continue to work if the groff version changes, tha=
-nks to=20
-> Brian's helpful suggestion to include /usr/share/groff/current in the f=
-ont=20
-> path, but I have achieved this by specifying it in an -F flag rather th=
-an=20
-> patching gropdf.
-
-
-$ tree scripts/LinuxManBook/
-scripts/LinuxManBook/
-=E2=94=9C=E2=94=80=E2=94=80 BuildLinuxMan.pl
-=E2=94=9C=E2=94=80=E2=94=80 LMBfront.t
-=E2=94=9C=E2=94=80=E2=94=80 an.tmac
-=E2=94=9C=E2=94=80=E2=94=80 anmark.tmac
-=E2=94=9C=E2=94=80=E2=94=80 devpdf
-=E2=94=82=C2=A0=C2=A0 =E2=94=9C=E2=94=80=E2=94=80 TINOR
-=E2=94=82=C2=A0=C2=A0 =E2=94=9C=E2=94=80=E2=94=80 Tinos.pfa
-=E2=94=82=C2=A0=C2=A0 =E2=94=94=E2=94=80=E2=94=80 download
-=E2=94=94=E2=94=80=E2=94=80 utp.mac
-
-2 directories, 8 files
-
-
-Do we really need all of those files?  groff(1) can probably take the an.=
-tmac
-and a few others from the system, no?  I'd like to reduce this to the bar=
-e
-minimum.
-
+Deri removed our gropdf(1) copy, so this patch is not necessary anymore. =
+ :)
 
 Cheers,
 Alex
+
+> ---
+>  scripts/LinuxManBook/gropdf | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/scripts/LinuxManBook/gropdf b/scripts/LinuxManBook/gropdf
+> index 8474e583f57d..fb205395015b 100755
+> --- a/scripts/LinuxManBook/gropdf
+> +++ b/scripts/LinuxManBook/gropdf
+> @@ -58,8 +58,8 @@ else
+> =20
+>  my %cfg;
+> =20
+> -$cfg{GROFF_VERSION}=3D'1.22.4';
+> -$cfg{GROFF_FONT_PATH}=3D'/usr/share/groff/site-font:/usr/share/groff/1=
+=2E22.4/font:/usr/lib/font';
+> +$cfg{GROFF_VERSION}=3D'current';
+> +$cfg{GROFF_FONT_PATH}=3D"/usr/share/groff/site-font:/usr/share/groff/$=
+cfg{GROFF_VERSION}/font:/usr/lib/font";
+>  $cfg{RT_SEP}=3D':';
+>  binmode(STDOUT);
+> =20
+> @@ -690,7 +690,7 @@ sub LoadDesc
+>      my $f;
+> =20
+>      OpenFile(\$f,$fontdir,"DESC");
+> -    Msg(1,"Failed to open 'DESC'") if !defined($f);
+> +    Msg(1,"Failed to open 'DESC' in '$fontdir'") if !defined($f);
+> =20
+>      while (<$f>)
+>      {
 
 --=20
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
 
---------------h4ezjP3nvapFJk7K1HEPWQ0D--
+--------------XYw7UK0EEioglUIcYgsjPhU4--
 
---------------DBbxlg8ThtTuQlcS6H9C43yC
+--------------JmyTaK88fTXt1F08z6nQiTWD
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmTWyYMACgkQnowa+77/
-2zJC8Q/8CCdA9sQ1kvznFNa3AuDAtL+/crrATpvgMyESn6fcweks4H5mDgd3+hWV
-pC2pkHvJTye+4kt257HvgKFJpx5W4PpFpfgMq2vpFmStbPz/sWxrOs+/RVJ0Us7n
-Jgc9Q3s1auWW4NovzPh9Kai4Em4upAIBtSSFCFaZ+pMZFvXdqWf1KDqsmjlw8p7E
-253EtMaMD4e0uhEhtYZo5chLnNgid2f+cXko+o3OnUdlvf+bMQBIYOpRRylu37GK
-Wk853p9G0LqDnLvBeYWEfAcjfrzZOaWS5Z8IFrS5H16SF2d3qGC/wlExc7ywVvz/
-GdyXYKEO8gDE9ehXVKNp7tPXRGfNWRNWJfz25j7BuMrQygQwOg203HoQmQsXBG77
-1DE31R/uCZEWy/IZRTKijwT0D3Bi0UqcUUcffOQCOM2VKAtlKLRkSF3h4H3VA3Jx
-tWipSAC0SOxM5EoRshFUHlCShRhjzxCE7BXsqRuQ1V/4G1hlOS10PfNGUTBj8K06
-hxCLHWXFqJs9EGS66pTtYyP6ODU8zQ61AtXlONou03l1vcLC6Is6oBgnkWl1Fvwg
-QoNFNMaBHbPOjdHDBCfxsR6BRMeFI//z15KgRThcDeEDrxYWZRb7Rs4YM/73rI/0
-ULZ1ZG3o5MPw9je03MVMPkWB0XJpVJ6AHA/Ty+8ufuTj3oqEMis=
-=gAlv
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmTWys0ACgkQnowa+77/
+2zL5AQ/7BxkMx+KSjTbbW6i4g/EvqrvJZrBpGSQzsCDNjA0hbCmq1d63M9VvOaou
++3jiv8XHxWWSV/ntQfi12RoQSQ/qH+IfZS5Sc2Ye1iGxCCTF2IjqoMY3S1yaxqMI
+zhBloUtaTAL5Nih2esP0x5pbxu8PEsQqE7H/5BSaVzurppi3fu+MkqW8tSL08SMc
+xVJkTel/ZsN4h3VgNtNY8yVRgKtq/XvJUrEfu5/w01AguOKAhS/v84Ev7hcokg6E
+66F3V3Ftx5cmzolNPCLKix7+Icjb6f1qw6yo8/ZCPfKT8HcyA9z+LQ8lhdU6+aCp
+Lc0wu68bcoOLx2SZ6zXVo3hBe1Pe/JIApn2Mb73jehAmVwOc1unD8aHq4a2lNQb+
+Avfz5TDVAoQUNO95p+BNddw2Fm4Px06YrmWjZ70NpPXdAYqLhnusVFflCbsSSF0b
+Y62cqB8ZEP6WMlXqgJtbAOXZtbO1bgNBUtrDtSfOdo0wpjV/RE03EvScQRIxQtKp
+jfgbAMrZZW8QsC/gpRo44X74+VNsgdKanXXrApjDbbrZMCCJjwVPvttmAmm4Ru6d
+dYg7HnjwOSJgRAN+yd0NRQxSu4wQKZ1DQEum4smmw2v9PSXmbAxF+VFCzmQ+hIg6
+hjvTLEtbzsN7p4sAvymYxt4jlpaxT6MjdOFsU3JkVaREh6i73lE=
+=7VfU
 -----END PGP SIGNATURE-----
 
---------------DBbxlg8ThtTuQlcS6H9C43yC--
+--------------JmyTaK88fTXt1F08z6nQiTWD--
