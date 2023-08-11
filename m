@@ -2,64 +2,65 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id ADE2D778675
-	for <lists+linux-man@lfdr.de>; Fri, 11 Aug 2023 06:24:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id BF3C97788DF
+	for <lists+linux-man@lfdr.de>; Fri, 11 Aug 2023 10:24:03 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229732AbjHKEYA (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 11 Aug 2023 00:24:00 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40374 "EHLO
+        id S230153AbjHKIYC (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 11 Aug 2023 04:24:02 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47166 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229552AbjHKEX7 (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 11 Aug 2023 00:23:59 -0400
-Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com [IPv6:2607:f8b0:4864:20::431])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9180C2130
-        for <linux-man@vger.kernel.org>; Thu, 10 Aug 2023 21:23:58 -0700 (PDT)
-Received: by mail-pf1-x431.google.com with SMTP id d2e1a72fcca58-686bea20652so1439938b3a.1
-        for <linux-man@vger.kernel.org>; Thu, 10 Aug 2023 21:23:58 -0700 (PDT)
+        with ESMTP id S229610AbjHKIYC (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 11 Aug 2023 04:24:02 -0400
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com [IPv6:2a00:1450:4864:20::32e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8B20F2723
+        for <linux-man@vger.kernel.org>; Fri, 11 Aug 2023 01:24:01 -0700 (PDT)
+Received: by mail-wm1-x32e.google.com with SMTP id 5b1f17b1804b1-3fe4b45a336so15053905e9.1
+        for <linux-man@vger.kernel.org>; Fri, 11 Aug 2023 01:24:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1691727838; x=1692332638;
+        d=gmail.com; s=20221208; t=1691742240; x=1692347040;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=+16pa8s8tazuL7xzLm3ooVGpiKmu9XGmlBrdrH8xQEo=;
-        b=EnhkLGbpLOctjlKY9FTIh2xRmJsWy7gSEILbEqvF67PbW23hoBtVBycveKDHyhqJQz
-         KYJqLgxarZlAmymDCKW+c2iQBQicT37KSLmUd8FotAE3ZunJfcQ09nabj4DCn4D/cqCt
-         78mfBmPpnD7rq0BulxHveP1GUf3uVHSKYCSW5xy2CVga8yFAapB3iskrlUBfRYe1Sqzn
-         gWmUpLW3l3D+14lE+ivwrCA/THhH0RkAqAdgW36+1YaLvfqVFH4nI1zBf9C2/b6C/w9Y
-         X6xqb0wMlWdcdsWJvep/xtXLlxtcaOlfvaDFXCbKoh78xs1zzzH1AGIW5Thc8pgd6K/U
-         x2Vw==
+        bh=nq4b+QsshUFfqL9WcBnhqaRtTL7+ivCmRrByHzHpC7c=;
+        b=YUYDJoiHj1V70gwOojfKIAlHmYlxrD+owz6u7LKCqY7b/E9vpXtUNb/mBhOzZn4QTh
+         FuZwmPESxn8VAC1Uqip1Lg3y5MtgRSJYqJV+iNTor7dikeZ686tdIHUujxr0TRZ4tgDW
+         pXPv8pbCPVdNmxSOQ0zD0zuH74tBIVsG7MTudBHuC4s/GwcydyhXSv2ucfsMO46U6Wmz
+         59cYFyF7WTWypSwObbYVIcfDJpMWbXfCFX6qYrVKBnlOgxXev4cNU/Xn5h3kd9CfCRcB
+         3A6cQ+bW+qbl9QExU+kELWcXiaq1lgNKthxE6/1n78bByiLEXU/IhZv0/n9vMTKUjXgk
+         2r8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1691727838; x=1692332638;
+        d=1e100.net; s=20221208; t=1691742240; x=1692347040;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=+16pa8s8tazuL7xzLm3ooVGpiKmu9XGmlBrdrH8xQEo=;
-        b=OG8RWgrinRXwuLpDB6EkqlZbEgDn1B/86cP8VgmxLT94Asjgep7jedzW+nfIyZiIX5
-         HFsUWewH8yX1uIxVBHhhdIK5BIoZO8KQULOoVBWfKNZOJ7hI+0kFcTROBtZ0fb5ZO8rB
-         AK7KbRTmjwTQSNFc6O6vH7yfjo7IqdImTgpkW2DBDsEWIn2xaRimIS0z+8F0KxKiFdt5
-         THr3DqDKUjZE7SY1tLvQiX+nq3/yBfM3yvIOX1DJbZCl2JavSY7+ovA3C184iVnLcy9u
-         Aq0ZMzFp8OWzKslfRvWXnKWj5n8nZ1sIDEFIVqjfYizlglD7droVYrcfc5kRRn7kMc8+
-         dBCw==
-X-Gm-Message-State: AOJu0YzFUIIsPN3quSmM5/B9tB2RTOyjK1m9XgMyAzoGoP4F0sYpNIQp
-        2nQGFbKl5roXzROVLXt713E8GS6JcYc=
-X-Google-Smtp-Source: AGHT+IFJ0BOfqIwX2rCI7iYONJocIHsa043ZqB16iPlWiSaRp9W9btUlPTAqoP5LRX7GFPnJBsdpeg==
-X-Received: by 2002:a05:6a00:3915:b0:686:2526:ee70 with SMTP id fh21-20020a056a00391500b006862526ee70mr881156pfb.14.1691727837927;
-        Thu, 10 Aug 2023 21:23:57 -0700 (PDT)
-Received: from THE-ENGINE.localdomain ([122.171.21.76])
-        by smtp.gmail.com with ESMTPSA id m10-20020aa7900a000000b0064fd4a6b306sm2337255pfo.76.2023.08.10.21.23.56
+        bh=nq4b+QsshUFfqL9WcBnhqaRtTL7+ivCmRrByHzHpC7c=;
+        b=ZskPnAUvnO+GC4ZeT6geY/ZnRR0Dytv/anNp753u1v1ojZDSIEeQfSfUzKu/2AnF1c
+         yDCE2AREL3pPjgwxx6ViDyoc0qzR7Jja2kt6uvpWq7SxrU4eXkGhhdSDvUNPyCPaJgyv
+         zpS+yvK7ztfgrrFtQEXXbcc9pSyYFQ/d8HFOKFQFjSXrHQ6ZVQ0Kp5aPjt1xveip5n0X
+         Uyg1/Ss9SO4BYn9w11u5MU/Y0GtnRVTxlY2QWeL+/1A2ZTkB2l4EsxBVJiC11HBFy7//
+         vmAvdw+4OUjpnO6kGssNOA5JO6o5FZDz63HvhNNN9AWBwg6dOgNfqe5Tt97enx5Ni/bL
+         zqcA==
+X-Gm-Message-State: AOJu0YzWAVVTXg0MSMbFv0j49BJ0PAvjy9n11rMhRd5c3151HQzSkykX
+        9k+bs+vnQMqSPLb1hus7ZC2UoxaJgIwefCvX
+X-Google-Smtp-Source: AGHT+IEVFc7osL/3eBMGSiQ1lPWZAX21qT0d0IvzOR4FE5Hs7jiJV1Y9TOKcpwSXOc7iefS1w3RIJA==
+X-Received: by 2002:a7b:c045:0:b0:3fe:795:712a with SMTP id u5-20020a7bc045000000b003fe0795712amr1061979wmc.27.1691742239703;
+        Fri, 11 Aug 2023 01:23:59 -0700 (PDT)
+Received: from nixos.fritz.box ([46.128.124.21])
+        by smtp.gmail.com with ESMTPSA id h14-20020a05600c260e00b003fa8dbb7b5dsm4469353wma.25.2023.08.11.01.23.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Aug 2023 21:23:57 -0700 (PDT)
-From:   Sambit Nayak <sambitnayak@gmail.com>
+        Fri, 11 Aug 2023 01:23:59 -0700 (PDT)
+From:   Sascha Grunert <saschagrunert@gmail.com>
 To:     Alejandro Colomar <alx@kernel.org>
-Cc:     linux-man@vger.kernel.org, Sambit Nayak <sambitnayak@gmail.com>
-Subject: [PATCH] clone.2: tfix: spurious comma
-Date:   Fri, 11 Aug 2023 09:53:37 +0530
-Message-Id: <20230811042337.14650-1-sambitnayak@gmail.com>
-X-Mailer: git-send-email 2.25.1
+Cc:     linux-man@vger.kernel.org, Kees Cook <keescook@chromium.org>,
+        Sascha Grunert <saschagrunert@gmail.com>
+Subject: [PATCH] [PATCH] proc.5: add Seccomp_filters entry
+Date:   Fri, 11 Aug 2023 10:23:40 +0200
+Message-ID: <20230811082340.392669-1-saschagrunert@gmail.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS autolearn=ham
+        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -67,28 +68,39 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-I spotted a spurious comma when reading this man page, hence I'm
-suggesting this fix.
+The field exists since Linux 5.9 (818c03) but have not been documented
+yet.
 
-
-Signed-off-by: Sambit Nayak <sambitnayak@gmail.com>
+Signed-off-by: Sascha Grunert <saschagrunert@gmail.com>
 ---
- man2/clone.2 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ man5/proc.5 | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/man2/clone.2 b/man2/clone.2
-index 4c5b4ac6b..b91b71831 100644
---- a/man2/clone.2
-+++ b/man2/clone.2
-@@ -111,7 +111,7 @@ The newer
- system call.
- .PP
- In the remainder of this page, the terminology "the clone call" is used
--when noting details that apply to all of these interfaces,
-+when noting details that apply to all of these interfaces.
- .\"
- .SS The clone() wrapper function
- When the child process is created with the
+diff --git a/man5/proc.5 b/man5/proc.5
+index 04b45ccb7..c80b93e24 100644
+--- a/man5/proc.5
++++ b/man5/proc.5
+@@ -2551,6 +2551,7 @@ CapBnd: ffffffffffffffff
+ CapAmb:	0000000000000000
+ NoNewPrivs:     0
+ Seccomp:        0
++Seccomp_filters:        0
+ Speculation_Store_Bypass:       vulnerable
+ Cpus_allowed:   00000001
+ Cpus_allowed_list:      0
+@@ -2809,6 +2810,12 @@ This field is provided only if the kernel was built with the
+ .B CONFIG_SECCOMP
+ kernel configuration option enabled.
+ .TP
++.I Seccomp_filters
++.\" commit c818c03b661cd769e035e41673d5543ba2ebda64
++Number of attached seccomp filters to the process
++(since Linux 5.9, see
++.BR seccomp (2)).
++.TP
+ .I Speculation_Store_Bypass
+ .\" commit fae1fa0fc6cca8beee3ab8ed71d54f9a78fa3f64
+ Speculation flaw mitigation state
 -- 
-2.25.1
+2.41.0
 
