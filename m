@@ -2,38 +2,38 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id F178E77A324
-	for <lists+linux-man@lfdr.de>; Sat, 12 Aug 2023 23:53:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5CFFD77A43E
+	for <lists+linux-man@lfdr.de>; Sun, 13 Aug 2023 01:36:37 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229786AbjHLVxe (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 12 Aug 2023 17:53:34 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53482 "EHLO
+        id S230136AbjHLXgc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 12 Aug 2023 19:36:32 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33566 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229494AbjHLVxe (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 12 Aug 2023 17:53:34 -0400
+        with ESMTP id S229688AbjHLXgb (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 12 Aug 2023 19:36:31 -0400
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1B4361706
-        for <linux-man@vger.kernel.org>; Sat, 12 Aug 2023 14:53:37 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 71BA618B
+        for <linux-man@vger.kernel.org>; Sat, 12 Aug 2023 16:36:34 -0700 (PDT)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
         (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
          key-exchange X25519 server-signature RSA-PSS (2048 bits))
         (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id AC9AD60C13
-        for <linux-man@vger.kernel.org>; Sat, 12 Aug 2023 21:53:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05B61C433C7;
-        Sat, 12 Aug 2023 21:53:34 +0000 (UTC)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id 11F6361C06
+        for <linux-man@vger.kernel.org>; Sat, 12 Aug 2023 23:36:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6132EC433C7;
+        Sat, 12 Aug 2023 23:36:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1691877216;
-        bh=o0d5whAIwdAsRFlz5dxrft5OQ5Si+oy79H5ad9zvEXM=;
+        s=k20201202; t=1691883393;
+        bh=iBKjI/DqIAaVxaqGsKaWB8Edid0MMWCIuo6P2WXRQnk=;
         h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-        b=vOHpZ4QYq11H7qJe1U+2y+XaV0yubgR/D3DgmV0HoLiCNAUJFT2KnEHpBKX8wwiss
-         gk9rMuGyZkRrCB979FXZMs/4DNltRbWticAyyQS92a1KzykI0EhCYK0gDSqQsCZhnl
-         15NydK4E1q16h5lCNdRZi7KqluJD3sAA6a0sp1koNWxHr4GoylXBvTDSsLXt0VCCVO
-         uogqV5zBtnzzNT9wmshEaG0JUI2NhL1BLqqSmJd+u9sLFE/icu/R/eLT9XMvRLFwxj
-         7SDROZbz8l1csNG8SBCmckOrruZFTEUOHxgjhNDqQzIqajcmlAaji+6Uymht2B4BpW
-         kjVp5lRRgqmqQ==
-Message-ID: <138e84b6-dfbd-2640-f5ee-59793470c134@kernel.org>
-Date:   Sat, 12 Aug 2023 23:53:33 +0200
+        b=ill+TGm3k5jUObkm7J/je+MnLpuJOO4pHcaamX9GOzm7im8u8d0xLTY61H/GMS9PT
+         2iH8JlV9X61A0umMhO/v2Fy60KAAqr/jqnMwRXfaTVMo2VXlBUNW04/tnxKbFKWpBh
+         lhH4LrmKGqsXdgxHwCidZZlJFsKphfXZvKxS1gnbyP6Sjd6kQR7F3MQsYRZo+MtL8E
+         sWNU9gbGtfoosbZv4Ry2LOeAqOukZykxJ7TjjOQSZmNBNzdGQLyp4cRwbzzyQWGDkq
+         +v3/s8yBwGpfxmPR3XFM0Xzl/0+9ay1kCd6LPgnS8Akp9SNtXM9icmSm0Lx7vvLb47
+         ApRJ3onCednZw==
+Message-ID: <929cceff-b394-13aa-a3ae-9ef9d1b21ee5@kernel.org>
+Date:   Sun, 13 Aug 2023 01:36:30 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.1
@@ -50,7 +50,7 @@ Organization: Linux
 In-Reply-To: <3acefa68-2055-1978-da55-cc4f66cdd255@kernel.org>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------Yg56NnrbRU8ZFgQ8G5K3QKGt"
+ boundary="------------aPx70MQSRekuQJXX85gNeRlt"
 X-Spam-Status: No, score=-8.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
         DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
         RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
@@ -62,19 +62,19 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------Yg56NnrbRU8ZFgQ8G5K3QKGt
-Content-Type: multipart/mixed; boundary="------------AhO1A0agEpdaptRFxTWpRbGM";
+--------------aPx70MQSRekuQJXX85gNeRlt
+Content-Type: multipart/mixed; boundary="------------jn0vKj9Hrt1jNNgh3IVTCrvX";
  protected-headers="v1"
 From: Alejandro Colomar <alx@kernel.org>
 To: Deri <deri@chuzzlewit.myzen.co.uk>, linux-man <linux-man@vger.kernel.org>
 Cc: Brian Inglis <Brian.Inglis@Shaw.ca>,
  "G. Branden Robinson" <g.branden.robinson@gmail.com>, groff <groff@gnu.org>
-Message-ID: <138e84b6-dfbd-2640-f5ee-59793470c134@kernel.org>
+Message-ID: <929cceff-b394-13aa-a3ae-9ef9d1b21ee5@kernel.org>
 Subject: Re: PDF book improvements
 References: <3acefa68-2055-1978-da55-cc4f66cdd255@kernel.org>
 In-Reply-To: <3acefa68-2055-1978-da55-cc4f66cdd255@kernel.org>
 
---------------AhO1A0agEpdaptRFxTWpRbGM
+--------------jn0vKj9Hrt1jNNgh3IVTCrvX
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
@@ -123,19 +123,26 @@ imeofday.2.pdf
 > Could we also reuse the .pdf.set files and only run gropdf(1) on
 > the catenation of them?
 
-Oh, and another thing.  I have a branch that uses the new MR macros.
-It would be interesting to use them to do the hyperlinking.
+I added a script to sort these files, as you do with your sortman()
+perl function.  I called it sortman too :)
 
-If you want to check the branch, it's here:
-<http://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/lo=
-g/?h=3DMR>
-However, I rebase that branch against master, to update it with any
-new man-page references that are introduced by new patches, so please
-don't rely on its stability (If you need something stable, we can
-agree on something).
 
-Cheers,
-Alex
+$ cat scripts/sortman=20
+#!/bin/sh
+
+# Copyright 2023, Alejandro Colomar <alx@kernel.org>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+export LC_COLLATE=3Den_US.UTF-8;
+
+sed   -E '/\/intro./ s/.*\.([1-8])$/\10\t&/' \
+| sed -E '/\/intro./!s/.*\.([1-8])$/\11\t&/' \
+| sed -E '/\/intro./!s/.*\.([1-8].+)/\1\t&/' \
+| sort \
+| cut -f2;
+
+
+We'll probably need this to sort the files in the shell.
 
 >=20
 > Cheers,
@@ -147,28 +154,28 @@ Alex
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
 
---------------AhO1A0agEpdaptRFxTWpRbGM--
+--------------jn0vKj9Hrt1jNNgh3IVTCrvX--
 
---------------Yg56NnrbRU8ZFgQ8G5K3QKGt
+--------------aPx70MQSRekuQJXX85gNeRlt
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmTX/10ACgkQnowa+77/
-2zLusQ/+La5AQDhKyTni2BckWlVHlNx2v9nwy8okRIKVvcir0Vyjnko4vzV0MMB8
-qOAD8A9yNBfumDUCImb6/8j1niOZXK3hG+BGLA8g5eG4LcB8oI/uCmnoV3zork2m
-buhT4OK9j+Ra6N97JyN7u+PbMji+iXusXiPmhQU1Xb3EOxdQkMp/lw1yIRIPBFx2
-Wx+7ob80BOkJs483EzhzfsJM1cvr+4d0MJ5hufNHEHmKkat9BSYuhxjwBg/VZHX9
-dJbx6WnSXlrXuGj7hHRUekSazEO/PNPShcqlNWzZdfkrB/QmCsj9ERxiaQC/Wh51
-pTiS9ZOysjdXlU+tn7rtR7KNCEtkoCVRFjtifTql3vUO12qox8RECJJ2dLiT+x0e
-h7bTDFApEvrp1ikbq8fMGVsueIJqiIMRN1VOpOQPo5s4koaJuBcBMrf+/sn65veA
-agV+FBNmGzfnHDuSgVBiefmwWmHc+F/3OZytoJUENC7JHcrQHdFLpiPB6ZReR1XE
-KaXPCxaAkyTUa22tdvQ+nLMknzGCZq9JgcZPQ/+QGR2mI+RYIFxnmKD3v5Ah/Fe2
-++xtSP0HBqi29rHnW/uQ1rftXx/vEGPl9zeR8Ixuo73xS4DVuWP5VTibyenRGOvV
-Bqb0MfwbzfwEjo2imRhYKWz1rbM+JfHOmFs3k/oM1EWHyF4LME8=
-=T4AU
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmTYF34ACgkQnowa+77/
+2zKDkg//YFQx3bwelJsWQ33+2CuNXss5ZPi8xbFu354lVQhX27UkO2+Z2W8BeiGB
+tpHEE7907uFjL3CfiOBWpvldyqkJRHy99yd0+jl16G9zDn2S7JfF1ehMmv5M2JN3
+tqVxgXuTTfLZ4otGtR+CDTxYMt3GveRgA+byinhJQm4Xi24b3yl0A6t2vFcXVYO8
+m7sulefnJM9G9w52Oa8nzS128iZZRqBb6ju26CkC7tevv9qVdAkve+uI4skCBV+p
+KfKqchEMSqoMvzpNSd+JSUQ3UqB0jG5jdYG8GyGKekkxR/ZhTQ3R9bBlda7Cdhoc
+tzzpvDT0epPYIBnEze1n0cxfIOpWhGk94eta9j91yZg7pVxWa217i7r5hJGLN9bQ
+1cBTCOSFVdFOFJYm8R6g1uDxAQgXe/7kdwtU2FNnxr0E4jJQBS/dPBGJrJtlDqH7
+hyCABw/sQ5M4SGcKNfTxqw4Npo3gFqDOs9d9h9fyddfFxN11z7W2Fb+fi+xEHa1f
+Oh1UN76Py7RgneBWocyIZ2ms8HXzw7RygpAGejhiFBRXeg7Fl+bfv1UZz0MzWhI9
+si/ccfan65uwdVp1JHsP5sBSKbaHzaPU5Jn1X7cCnEDezTTBQ+io9LuaQfKJ4wYg
+LIBkHj2twQT6dStasMvt7zqN71bPfc3CEghOVvrHSBb/5jjqjIE=
+=dPHx
 -----END PGP SIGNATURE-----
 
---------------Yg56NnrbRU8ZFgQ8G5K3QKGt--
+--------------aPx70MQSRekuQJXX85gNeRlt--
