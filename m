@@ -2,58 +2,63 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 19EE977A2CC
-	for <lists+linux-man@lfdr.de>; Sat, 12 Aug 2023 22:49:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 51A9677A310
+	for <lists+linux-man@lfdr.de>; Sat, 12 Aug 2023 23:32:54 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229706AbjHLUtW (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 12 Aug 2023 16:49:22 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41502 "EHLO
+        id S230300AbjHLVcr (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 12 Aug 2023 17:32:47 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59608 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229596AbjHLUtW (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 12 Aug 2023 16:49:22 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4689910F2
-        for <linux-man@vger.kernel.org>; Sat, 12 Aug 2023 13:49:25 -0700 (PDT)
+        with ESMTP id S229499AbjHLVcr (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 12 Aug 2023 17:32:47 -0400
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 352021732
+        for <linux-man@vger.kernel.org>; Sat, 12 Aug 2023 14:32:50 -0700 (PDT)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
         (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
          key-exchange X25519 server-signature RSA-PSS (2048 bits))
         (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id CFC6B60C73
-        for <linux-man@vger.kernel.org>; Sat, 12 Aug 2023 20:49:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80F19C433C7;
-        Sat, 12 Aug 2023 20:49:23 +0000 (UTC)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id C97E762016
+        for <linux-man@vger.kernel.org>; Sat, 12 Aug 2023 21:32:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B7F4C433C9;
+        Sat, 12 Aug 2023 21:32:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1691873364;
-        bh=H7SCJbGagQmKnDDEFgM8+m1n/O+wD7rXZGAYpkD3Bb4=;
+        s=k20201202; t=1691875969;
+        bh=VMY5Dz7tnFnTGmrZVhelpnNoFWZem0hwXfIbo4Qw/wE=;
         h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-        b=bd7RVQ/P/vENPLqVknZvvvlBJvLD9VfE/DIef0wv9kiPuC7vDw2bP7SmguYnGX23S
-         6T7RWSd+QfgJuDFdCs0AIdglRBuJgno1wxM9ssNHxmB7H3Ov4wapBXpbDRHMOassaA
-         LqwefxXvXiV+sktXAEs0eWW+8+ryQmSpuIIjnwa0oNBgPsoWv62g2DVZczz2JkN0+v
-         6pDTEdl+tVJbRMuCQ2OXM/Es75TMpC62yg0h0+afIQJQ1OJqQPrC20P4qBzrUWxmSL
-         yVoRmIjHcEZQ3GNQw65njhvs+O6tMA6MEvzQAfoWNlCO17m/Z4eS/SxMr86sgzrCkz
-         ZwQOVNOkQI7eg==
-Message-ID: <d284b5e9-9b61-e9a6-1888-e58f7bf5bffe@kernel.org>
-Date:   Sat, 12 Aug 2023 22:49:21 +0200
+        b=gQXfT42byZnlzLym4vlUp4Vk7DexfzT3j6QkRnSL6QQGgmJyBn5OYQKb/3RpO5aap
+         SQu2AGzRn2V8SZV3cipGsUeXo1PQbBdDZyEdF1MGX2TimIso7VYW3XyjU83nyE0beH
+         SQRkG25FCIniyMwfzApEy2x2OknExoy2GUj2hnmczFea1Pgy1dWe2ZzHr54vms4by0
+         DJdN1IyTMRN84VQaPxxFZVVO8XkXrkFbTQHVmOfcNhSXK+FaSaStiNLM6iqIuG05jn
+         Yqfa3rzMAkSJ49W5zFObJm44q0BSzWYka1lPdIrbnTcRGt3sxaQwYWNSq19wVk0w2d
+         5AUJjUVgKtAmw==
+Message-ID: <6e547bb9-d993-da6f-e072-9daba019ea27@kernel.org>
+Date:   Sat, 12 Aug 2023 23:32:38 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.1
-Subject: Re: [PATCH v2] tmpfs.5: document size/blocks=0 and nr_inodes=0 <=>
- unlimited
+Subject: Re: No 6.05/.01 pdf book available
 Content-Language: en-US
-To:     =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc:     linux-man@vger.kernel.org, Jakub Wilk <jwilk@jwilk.net>
-References: <20230812190401.4bf7xay4fws43tza@jwilk.net>
- <yqduyx6v7k3ziu2fcwoqibrwwrg2fznga6l5xsvwgxvnkcsu4m@gqbl5hu4bw5m>
+To:     "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc:     Brian.Inglis@Shaw.ca, linux-man@vger.kernel.org,
+        Deri <deri@chuzzlewit.myzen.co.uk>
+References: <094c0eacf60998465be28c605bef69f2f5742459.1691370798.git.Brian.Inglis@Shaw.ca>
+ <82937367-538d-46c7-19c8-5bab403fefd5@Shaw.ca>
+ <ceb2c7f6-fd7e-467e-5837-c197357339fb@kernel.org>
+ <ab67aa6d-712a-47f0-e694-01592bb72cd1@kernel.org>
+ <01d3855b-65dc-8b99-83cf-ebe1f97a2d83@Shaw.ca>
+ <ac4a6675-f96a-cf39-f2c9-381d6ce0733b@kernel.org>
+ <20230812014809.zhhsz52saqwxbyh4@illithid>
 From:   Alejandro Colomar <alx@kernel.org>
 Organization: Linux
-In-Reply-To: <yqduyx6v7k3ziu2fcwoqibrwwrg2fznga6l5xsvwgxvnkcsu4m@gqbl5hu4bw5m>
+In-Reply-To: <20230812014809.zhhsz52saqwxbyh4@illithid>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------4EwEBa11kJlFgDjtK0dKZVAw"
-X-Spam-Status: No, score=-5.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+ boundary="------------Lit9XHoYrNTaR9HdyK3JdCfU"
+X-Spam-Status: No, score=-6.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
         DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
-        RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-        autolearn_force=no version=3.4.6
+        RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,URI_DOTEDU
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
@@ -61,108 +66,104 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------4EwEBa11kJlFgDjtK0dKZVAw
-Content-Type: multipart/mixed; boundary="------------j3N0xKnUKUqXmx7njnhoO0yO";
+--------------Lit9XHoYrNTaR9HdyK3JdCfU
+Content-Type: multipart/mixed; boundary="------------S07RK0M7sgwPvYCiNIPfZTwO";
  protected-headers="v1"
 From: Alejandro Colomar <alx@kernel.org>
-To: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc: linux-man@vger.kernel.org, Jakub Wilk <jwilk@jwilk.net>
-Message-ID: <d284b5e9-9b61-e9a6-1888-e58f7bf5bffe@kernel.org>
-Subject: Re: [PATCH v2] tmpfs.5: document size/blocks=0 and nr_inodes=0 <=>
- unlimited
-References: <20230812190401.4bf7xay4fws43tza@jwilk.net>
- <yqduyx6v7k3ziu2fcwoqibrwwrg2fznga6l5xsvwgxvnkcsu4m@gqbl5hu4bw5m>
-In-Reply-To: <yqduyx6v7k3ziu2fcwoqibrwwrg2fznga6l5xsvwgxvnkcsu4m@gqbl5hu4bw5m>
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: Brian.Inglis@Shaw.ca, linux-man@vger.kernel.org,
+ Deri <deri@chuzzlewit.myzen.co.uk>
+Message-ID: <6e547bb9-d993-da6f-e072-9daba019ea27@kernel.org>
+Subject: Re: No 6.05/.01 pdf book available
+References: <094c0eacf60998465be28c605bef69f2f5742459.1691370798.git.Brian.Inglis@Shaw.ca>
+ <82937367-538d-46c7-19c8-5bab403fefd5@Shaw.ca>
+ <ceb2c7f6-fd7e-467e-5837-c197357339fb@kernel.org>
+ <ab67aa6d-712a-47f0-e694-01592bb72cd1@kernel.org>
+ <01d3855b-65dc-8b99-83cf-ebe1f97a2d83@Shaw.ca>
+ <ac4a6675-f96a-cf39-f2c9-381d6ce0733b@kernel.org>
+ <20230812014809.zhhsz52saqwxbyh4@illithid>
+In-Reply-To: <20230812014809.zhhsz52saqwxbyh4@illithid>
 
---------------j3N0xKnUKUqXmx7njnhoO0yO
+--------------S07RK0M7sgwPvYCiNIPfZTwO
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
+Hi Branden,
 
-On 2023-08-12 22:03, =D0=BD=D0=B0=D0=B1 wrote:
-> Bitten by this again. Behaviour blames back to at least 2005
-> (probably original to shmem.c), documented upstream in
-> Documentation/filesystems/tmpfs.rst (formerly .txt).
+On 2023-08-12 03:48, G. Branden Robinson wrote:
+> Hi Alex,
 >=20
-> For example:
->   # mount -t tmpfs -o size=3D0 tmpfs /etc/
->   # df /etc/
->   Filesystem 1k-blocks Used Avail Use% Mounted on
->   tmpfs              0    0     0    - /etc
->   # head -c100M  < /dev/urandom > /etc/passwd
->   # df /etc/
->   Filesystem 1k-blocks Used Avail Use% Mounted on
->   tmpfs              0    0     0    - /etc
->   # ls -l /etc/passwd
->   -rw-r--r-- 1 0 0 104857600 08-12 19:55 /etc/passwd
->   # du /etc/passwd
->   204800  /etc/passwd
-> whereas the current manual insinuates head should ENOSPC instantly.
+> At 2023-08-12T02:02:49+0200, Alejandro Colomar wrote:
+>> On 2023-08-07 18:21, Brian Inglis wrote:
+>>>>> $ pwd
+>>>>> /home/alx/src/linux/man-pages/man-pages/6.04/scripts/LinuxManBook
+>>>>> $ ./BuildLinuxMan.pl  ../../
+>>>>> [...]
+>>>>> Failed to open 'DESC'
+>>>
+>>> That annoyingly minimal message provoked the patch submitted.
+>>
+>> Yeah; it took me some time to find the cause.  The error message
+>> doesn't even tell who failed --was it the shell, was it gropdf, was it=
+
+>> troff?--.
+>>
+>> :)
 >=20
-> Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.=
-xyz>
+> This sort of thing makes me purple with rage and I have tried to purge
+> groff of such unhelpful diagnostics--especially those that are uttered
+> furtively by programs (or, worse, libraries) that attempt to remain
+> anonymous.  Doug McIlroy was telling people to cut this crap out in 198=
+6
+> (or maybe a decade before that, even) and people _still_ ignore him.
+>=20
+> https://www.cs.dartmouth.edu/~doug/reader.pdf (p. 9)
 
-Patch applied.  Thanks,
+Hmm, that was an interesting read.  It explains a few inconsistencies
+in the design of UNIX that I didn't understand.  I didn't know pipes
+came so late into the timeline.  :)
 
+Cheers,
 Alex
 
-> ---
->  man5/tmpfs.5 | 4 ++++
->  1 file changed, 4 insertions(+)
 >=20
-> diff --git a/man5/tmpfs.5 b/man5/tmpfs.5
-> index cdd5f2fd8..5274e632d 100644
-> --- a/man5/tmpfs.5
-> +++ b/man5/tmpfs.5
-> @@ -51,6 +51,8 @@ .SS Mount options
->  .BR size "=3D\fIbytes\fP"
->  Specify an upper limit on the size of the filesystem.
->  The size is given in bytes, and rounded up to entire pages.
-> +The limit is removed if the size is
-> +.BR 0 .
->  .IP
->  The size may have a
->  .BR k ,
-> @@ -89,6 +91,8 @@ .SS Mount options
->  The maximum number of inodes for this instance.
->  The default is half of the number of your physical RAM pages, or (on a=
-
->  machine with highmem) the number of lowmem RAM pages, whichever is sma=
-ller.
-> +The limit is removed if the number is
-> +.BR 0 .
->  .IP
->  Inodes may be specified with
->  .BR k ,
+> Much work was done on groff 1.23 to fix this, but I'm not certain all
+> such offenders have been rehabilitated.
+>=20
+> https://savannah.gnu.org/bugs/?52463
+>=20
+> When you encounter one, strike it with lightning.
+>=20
+> Regards,
+> Branden
 
 --=20
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
 
---------------j3N0xKnUKUqXmx7njnhoO0yO--
+--------------S07RK0M7sgwPvYCiNIPfZTwO--
 
---------------4EwEBa11kJlFgDjtK0dKZVAw
+--------------Lit9XHoYrNTaR9HdyK3JdCfU
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmTX8FEACgkQnowa+77/
-2zL6eA/+K/PLUG3jEjHeDYcMt7Jg+PIpu6MQxtq4n74tQoxVZqoBuCqumYiNAur2
-d+KjyAIN+f4CW+MPqX+QeT2MAaDkcoc0wl9Y0PhY67PmkVFUPwEpkpT4oWzL/sd1
-ptlTfaSzrtEALgD0ROOfYv4GwA5QIiNNQfoK4GLCgJI11M1jkUpFVMS90i4MoiAw
-Yp11eQoRewBcw8sjdGImbjr5FUHR0KOaTaKgnVrc4mM/kPiXgwIuvNu1VosENQdd
-52uQuDRvrJjTLafpQw4cn4EPMM4bIj47TjWz0TxYkiWanQQSRgakd+GKGH2sVU2Q
-HTu+CDFVcYljxsvyMs2qGr0TXXxpRGZ7tC4e/MYbKlsajavBWOC/pIYe2++TYm6F
-4slgJelm1DD7JF5FGxNOm6CB+EoBjuDpTAs5/vuja1wT/TM8rCf7dR1fWSJPSSwX
-f1nVCMjzKwK6eYJz47hngJyaoAg11huivi1+buhb38eYrxte0Qs45PzW+vFywMWm
-TyWLP2VBM9dGcNEg0h89aRkgKXyRlvZd3SPESONbKM319X8XOl5yJGHqO9aHJlse
-ObxwSPEG2Q4GT7hi+Szt/zamn78nyvhuVt3urkNS/WcpI9adh43NYH34aykwaYF5
-YpVOZivbTrOMl7LqIqBJIxvLDGVyCbjl2Rxv7Vye6vOKmdvUK8g=
-=+or5
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmTX+ncACgkQnowa+77/
+2zKt8Q//aoMzoYUxNVvtbS3k38zK+9utuHa6TB9lCHkAhEcJiucJk7kd02OVgNDP
+dQnzAjaFsYd/qXybNsnpZP1/UzCE0s0n8TyGUwSuDIp9bW57c80a1LwtEa3CvTPz
+St3+NPc4fp42NJF9KSCHiUy2t+xX7GSbETThzHtjCnOolavbT1cC0Dj75fkERh9G
+yLLzlmQ2NZdFRaB/xcqPWIHT8TycXXknCA3iEw40VTzGhnmPVN5rtWWy53+aZ7IU
+mfAlAPRvWvW/ipvTwgv0Dz147xH0xocFyfwKJMFO6MKp4hhGihJNiOcOGssCBOEv
+EpyyK0W5Ujl8ORk4bmfnMWI4bQZJQM2Prnh130Yf9p/113UrU8frS7HDiWNF52os
+HrXjB7wNmwPiZFxDhYkf9JDlHNuzjUw7qTRRBIL903dSJLHy2BnO6H0CYEJam63/
+wi5NwG7rZUpmsEhNeuRxuF6tpK1M5RIYiHVadz1njZ/uc0hdrnKHeIZPsV5oabqI
+eaABUb+0E1FjbuUpXXI+woYAXq8PkvIVGWhoQo+p4Sb5viMt7XcEi6rmyLnXIHcf
+BtT0Zue8SjM30uPeII4Z2dAyWfckZACbND5kGQJ/Iw06taYfvjZ166ES3MMaF4sa
+QDrPGQBhq9Wpp5+0/6LPRGx7/Dr3CaU5BP8/9G93tPtkUHGqMUo=
+=KbSV
 -----END PGP SIGNATURE-----
 
---------------4EwEBa11kJlFgDjtK0dKZVAw--
+--------------Lit9XHoYrNTaR9HdyK3JdCfU--
