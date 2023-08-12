@@ -2,75 +2,59 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 123CB77A1A5
-	for <lists+linux-man@lfdr.de>; Sat, 12 Aug 2023 20:08:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8F22A77A1A6
+	for <lists+linux-man@lfdr.de>; Sat, 12 Aug 2023 20:09:08 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229553AbjHLSIe (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 12 Aug 2023 14:08:34 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58430 "EHLO
+        id S229451AbjHLSJE (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 12 Aug 2023 14:09:04 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41252 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229446AbjHLSId (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 12 Aug 2023 14:08:33 -0400
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com [IPv6:2a00:1450:4864:20::335])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C289010E3
-        for <linux-man@vger.kernel.org>; Sat, 12 Aug 2023 11:08:35 -0700 (PDT)
-Received: by mail-wm1-x335.google.com with SMTP id 5b1f17b1804b1-3fe1d462762so27288715e9.0
-        for <linux-man@vger.kernel.org>; Sat, 12 Aug 2023 11:08:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1691863714; x=1692468514;
-        h=in-reply-to:references:cc:to:content-language:subject:reply-to
-         :user-agent:mime-version:date:message-id:from:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=HLIdEcUhBuOZIVTinwpO5tlLcOveZmyOCVL7t5bSp30=;
-        b=jNPlTAqaC+AnzMKQrmDjxaESsT6F2DSdvjGOw/ubJtf4cmDf4RTLuoMPSdlKJ18vo6
-         kDyyrtBaAmvghsJRbODWToldr+Zbh1EwGvlB3NbFYCdn6udRCsB/72IEOILI6NmgGufF
-         SrRbc6mtCT2MYH6k2CF1oytLXyCnFP8RE/VN0ZfgCCARWZKYkPuWvU3q7yA1UQfSo8lk
-         eDsVZifyNHqqnWYnhdn6iVay0EDt7PGc7dwdB3kQ0KnrgFJtVo0ZeVtjh/XlmILrl+1Z
-         O1I4kGIZoFaYcGjthGPwE5Qe1t2Zpaz0djV7GGM6PfHuELEqsiURw/TpV9KRgWsP/6o9
-         WosA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1691863714; x=1692468514;
-        h=in-reply-to:references:cc:to:content-language:subject:reply-to
-         :user-agent:mime-version:date:message-id:from:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=HLIdEcUhBuOZIVTinwpO5tlLcOveZmyOCVL7t5bSp30=;
-        b=AxbyGDacbMpbfsSN9Mn0YG5rMKCWK7IpmPGZQFboHTC2E7zXV0uyqTHXEGhYFTQkbc
-         ftT/YwlKqGgOUUJHUSuQE2AqtQUNEck6voYxhCL10LhUYANJnDT2Al+0Kcz+/ootfI0j
-         d/LLO2j+K/eU5k+bbHLt1mXfR3q77jlVnnSlUy9pTQ4ZnPRNDSO7T5b+PNaBPLSt16Be
-         CIfiXSlX/hMdTs9s7AQY4FQcjfzNsjW9XwrSyzoHVVRDc2oL2SnsQ/+/dgJCiYnbiV/8
-         pQRG0V+5ivReCb4X7ZGRPPUfr89DZC2E8T693nYzHBeOGSziIHFGxEl9JOPbSAgDIHBk
-         KjPQ==
-X-Gm-Message-State: AOJu0YwL4GYYEUvwlh+eL5ahxacK8iWTQGgbomxpvV1P8GUnwIBqu9I6
-        RRr+7dFgJAAuwNbm5Z3lelxH7qnIXVM=
-X-Google-Smtp-Source: AGHT+IF19iqr22BG/4ojSfQxKYX4BSMl+T9Y20RfjHgWTQGsjZqtkeLHRdU/moZUriws4MxYs+zI7g==
-X-Received: by 2002:a1c:7c05:0:b0:3fe:179d:d42e with SMTP id x5-20020a1c7c05000000b003fe179dd42emr4180419wmc.23.1691863713865;
-        Sat, 12 Aug 2023 11:08:33 -0700 (PDT)
-Received: from [192.168.0.160] ([170.253.40.43])
-        by smtp.gmail.com with ESMTPSA id l13-20020adfe9cd000000b0031934b035d2sm8410951wrn.52.2023.08.12.11.08.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 12 Aug 2023 11:08:33 -0700 (PDT)
-From:   Alejandro Colomar <colomar.6.4.3@gmail.com>
-X-Google-Original-From: Alejandro Colomar <alx.manpages@gmail.com>
-Message-ID: <118e7b3e-9d89-32f0-781f-0e74fc7279fe@gmail.com>
-Date:   Sat, 12 Aug 2023 20:08:31 +0200
+        with ESMTP id S229446AbjHLSJD (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 12 Aug 2023 14:09:03 -0400
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B55C710E3
+        for <linux-man@vger.kernel.org>; Sat, 12 Aug 2023 11:09:06 -0700 (PDT)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+         key-exchange X25519 server-signature RSA-PSS (2048 bits))
+        (No client certificate requested)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id 4F74F616A5
+        for <linux-man@vger.kernel.org>; Sat, 12 Aug 2023 18:09:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A95BDC433C8;
+        Sat, 12 Aug 2023 18:09:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1691863745;
+        bh=vP24RWW4nj9PL+zDxOLjN+LI7SS/yNNcOM3S/5DX9to=;
+        h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+        b=ZuHo7w6J7uUC5G4AXRTQV+30KLsyM8RlXYxEu9dUvh/CTON/XQVllDzI1ad5qAnk3
+         REwikHwGQRTy53apUuWedluNzj7Zk+wE4ANRlzvL5Zkfw4M/8Lfwi809oxExCjFqFs
+         sdxImM6Go9Ylp3VKaqWoQL9agMdBDliwxIs1yx8G7k0OeJ3i/Zwrx67ShNocDRetcr
+         OxxTS6ypRxdkPPa5Ul3HuJoD1pharzupnho7rGBe2NhSlIICAvio/oSfemkWprFae9
+         tWa004Tc2LsxJulU+ObVmlM6XVsFuZA6sSbQ/5kcb0O1ok6FFxJ7F6eZpP7RCjMMjX
+         0PrBqFOJuTZCg==
+Message-ID: <98679f80-dd4c-c8a5-14ca-c4fa7f1f4bb3@kernel.org>
+Date:   Sat, 12 Aug 2023 20:09:02 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.1
-Reply-To: alx@kernel.org
-Subject: Re: [PATCH] tmpfs.5: document size/blocks=0 and nr_inodes=0 <=>
- unlimited
+Subject: Re: [PATCH] proc.5: add Seccomp_filters entry
 Content-Language: en-US
-To:     =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc:     linux-man@vger.kernel.org
-References: <s5j5wmngs2hpb5yx7frmb2uq5hc3clcpyfr65tzwmu3263bvc4@go2wfetupvjj>
-In-Reply-To: <s5j5wmngs2hpb5yx7frmb2uq5hc3clcpyfr65tzwmu3263bvc4@go2wfetupvjj>
+To:     Stefan Puiu <stefan.puiu@gmail.com>,
+        Sascha Grunert <saschagrunert@gmail.com>
+Cc:     lnx-man <linux-man@vger.kernel.org>,
+        Kees Cook <keescook@chromium.org>
+References: <20230811082627.403498-1-saschagrunert@gmail.com>
+ <CACKs7VATxovBTn3Ez5Ys-MUo0cKSO8YnfDRSFv5gj2c0SuXsbA@mail.gmail.com>
+From:   Alejandro Colomar <alx@kernel.org>
+Organization: Linux
+In-Reply-To: <CACKs7VATxovBTn3Ez5Ys-MUo0cKSO8YnfDRSFv5gj2c0SuXsbA@mail.gmail.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------pDHMEX7ADDAWMRwPv4FxZlV6"
-X-Spam-Status: No, score=-2.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
-        FREEMAIL_FROM,NICE_REPLY_A,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,
-        SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.6
+ boundary="------------wlIwW7p9fUz98dNKtQ9tUmqW"
+X-Spam-Status: No, score=-3.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
+        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
@@ -78,102 +62,112 @@ List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------pDHMEX7ADDAWMRwPv4FxZlV6
-Content-Type: multipart/mixed; boundary="------------FQqHdx0VVHXM0J9hn5jv6dWc";
+--------------wlIwW7p9fUz98dNKtQ9tUmqW
+Content-Type: multipart/mixed; boundary="------------QRRjZyBmtsIWk9qpY5g4jiyG";
  protected-headers="v1"
-From: Alejandro Colomar <alx.manpages@gmail.com>
-Reply-To: alx@kernel.org
-To: =?UTF-8?B?0L3QsNCx?= <nabijaczleweli@nabijaczleweli.xyz>
-Cc: linux-man@vger.kernel.org
-Message-ID: <118e7b3e-9d89-32f0-781f-0e74fc7279fe@gmail.com>
-Subject: Re: [PATCH] tmpfs.5: document size/blocks=0 and nr_inodes=0 <=>
- unlimited
-References: <s5j5wmngs2hpb5yx7frmb2uq5hc3clcpyfr65tzwmu3263bvc4@go2wfetupvjj>
-In-Reply-To: <s5j5wmngs2hpb5yx7frmb2uq5hc3clcpyfr65tzwmu3263bvc4@go2wfetupvjj>
+From: Alejandro Colomar <alx@kernel.org>
+To: Stefan Puiu <stefan.puiu@gmail.com>,
+ Sascha Grunert <saschagrunert@gmail.com>
+Cc: lnx-man <linux-man@vger.kernel.org>, Kees Cook <keescook@chromium.org>
+Message-ID: <98679f80-dd4c-c8a5-14ca-c4fa7f1f4bb3@kernel.org>
+Subject: Re: [PATCH] proc.5: add Seccomp_filters entry
+References: <20230811082627.403498-1-saschagrunert@gmail.com>
+ <CACKs7VATxovBTn3Ez5Ys-MUo0cKSO8YnfDRSFv5gj2c0SuXsbA@mail.gmail.com>
+In-Reply-To: <CACKs7VATxovBTn3Ez5Ys-MUo0cKSO8YnfDRSFv5gj2c0SuXsbA@mail.gmail.com>
 
---------------FQqHdx0VVHXM0J9hn5jv6dWc
+--------------QRRjZyBmtsIWk9qpY5g4jiyG
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi =D0=BD=D0=B0=D0=B1,
+On 2023-08-11 15:53, Stefan Puiu wrote:
+> Hi Sasha,
+>=20
+> Small nit below.
+>=20
+>=20
+> vin., 11 aug. 2023, 11:44 Sascha Grunert <saschagrunert@gmail.com> a sc=
+ris:
+>=20
+>> The field exists since Linux 5.9 (818c03) but have not been documented=
 
-On 2023-08-11 15:41, =D0=BD=D0=B0=D0=B1 wrote:
-> Bitten by this again. Behaviour blames back to at least 2005
-> (so probably original to shmem.c), documented upstream in tmpfs.txt.
+>> yet.
+>>
+>> Signed-off-by: Sascha Grunert <saschagrunert@gmail.com>
+>> ---
+>>  man5/proc.5 | 7 +++++++
+>>  1 file changed, 7 insertions(+)
+>>
+>> diff --git a/man5/proc.5 b/man5/proc.5
+>> index 04b45ccb7..c80b93e24 100644
+>> --- a/man5/proc.5
+>> +++ b/man5/proc.5
+>> @@ -2551,6 +2551,7 @@ CapBnd: ffffffffffffffff
+>>  CapAmb:        0000000000000000
+>>  NoNewPrivs:     0
+>>  Seccomp:        0
+>> +Seccomp_filters:        0
+>>  Speculation_Store_Bypass:       vulnerable
+>>  Cpus_allowed:   00000001
+>>  Cpus_allowed_list:      0
+>> @@ -2809,6 +2810,12 @@ This field is provided only if the kernel was b=
+uilt
+>> with the
+>>  .B CONFIG_SECCOMP
+>>  kernel configuration option enabled.
+>>  .TP
+>> +.I Seccomp_filters
+>> +.\" commit c818c03b661cd769e035e41673d5543ba2ebda64
+>> +Number of attached seccomp filters to the process
+>> +(since Linux 5.9, see
+>> +.BR seccomp (2)).
+>> +.TP
+>>
+>=20
+> I think "number of seccomp filters attached to..." sounds better, thoug=
+h
+> I'm not a native English speaker.
 
-This is a bit unclear to me.  I guess you refer to the Linux kernel as
-"upstream", but the Linux kernel repository doesn't have a tmpfs.txt
-file.  I recall that they moved their .txt docs to .rst, so would you
-please share the full link to the .txt file that you refer?  That way
-you can ask git(1) to show the history of that file even if it doesn't
-exist now.  It would also be useful to mention the new location of the
-file, and that it has moved.
-
-Also important: please share a small shell session that shows this
-behavior, so that it's easier to review.  Since you were bitten, I
-guess you'll have some shell session that would reproduce this, no?
-
-Thanks,
-Alex
++1
 
 >=20
-> Signed-off-by: Ahelenia Ziemia=C5=84ska <nabijaczleweli@nabijaczleweli.=
-xyz>
-> ---
->  man5/tmpfs.5 | 4 ++++
->  1 file changed, 4 insertions(+)
+> Stefan.
 >=20
-> diff --git a/man5/tmpfs.5 b/man5/tmpfs.5
-> index cdd5f2fd8..0e5bc853f 100644
-> --- a/man5/tmpfs.5
-> +++ b/man5/tmpfs.5
-> @@ -51,6 +51,8 @@ .SS Mount options
->  .BR size "=3D\fIbytes\fP"
->  Specify an upper limit on the size of the filesystem.
->  The size is given in bytes, and rounded up to entire pages.
-> +The limit is removed if the size is
-> +.BR 0 .
->  .IP
->  The size may have a
->  .BR k ,
-> @@ -89,6 +91,8 @@ .SS Mount options
->  The maximum number of inodes for this instance.
->  The default is half of the number of your physical RAM pages, or (on a=
-
->  machine with highmem) the number of lowmem RAM pages, whichever is sma=
-ller.
-> +The limit is removed if the number is
-> +.BR 0 .
->  .IP
->  Inodes may be specified with
->  .BR k ,
+>  .I Speculation_Store_Bypass
+>>  .\" commit fae1fa0fc6cca8beee3ab8ed71d54f9a78fa3f64
+>>  Speculation flaw mitigation state
+>> --
+>> 2.41.0
+>>
+>>
+>=20
 
 --=20
 <http://www.alejandro-colomar.es/>
 GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
 
---------------FQqHdx0VVHXM0J9hn5jv6dWc--
 
---------------pDHMEX7ADDAWMRwPv4FxZlV6
+--------------QRRjZyBmtsIWk9qpY5g4jiyG--
+
+--------------wlIwW7p9fUz98dNKtQ9tUmqW
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmTXyp8ACgkQnowa+77/
-2zL+Xw//SLx0hyFB6C6MF/j7m4Pm7jh6xcZQfgUh+qBmcNA4s2CnxSlgksFcCnxr
-q8GIchWeUn3jQ78qGepiOVfR1bEzLLy+UCFQYtlGX2hdeBlSxEVOrUWIMUC0gfTm
-ZwCZswEyRpI6993FTFkt5rppmuXJSDPK6s48M3J5L+m6gSXkqzUMH1hBmPKqPPnE
-9yF3zts3dlzmvMAD+2yTAQuwIGLTjHtmrhogo1wVhrD/s5z+198B1lPDnhBa70J+
-65Xsw3/nQ0uTi/NR8bpbkxUCtBsI8XwT6J0hb9rL+DvLqpciByY9YiYKyXxGIg8S
-YgOyy6JyXtAJMc2gZzRXxBZGpQOMAHY/WKZef4TEFM909NW2NzTqstwcCS8xUUw9
-izl06x7r4Pp3/9Gl5wPfEVw8Jdv9IFw9QWdyTLa7CzZU/8w6AI8zuaVVL971up7a
-273Ml7vMeJiY516bLvBywU3RTdw70wlUwHg02GD+i7AenC5IDHDrkbP/UDzmxtgZ
-i3GeoKgP5eoyAFRmg27c1u7l1DVQSKMLUBRWR35VJgNQEWOkExZ5tOMp77WDihCu
-JgHzgwKpy63MUjSwJtLjRww81j1odLW4DL1YnFUDMwmHlW/xjcglyMfGLAYLXaFS
-/hNv2x5XdjtxTCK9ib/KRsP4qUSqtgvnNMec//i7JnKQkEeEbxc=
-=pegp
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmTXyr4ACgkQnowa+77/
+2zKoJBAAlQU3mD6AZS8ycqaiFpbaYZ8fKieEKkImAgmaxmM1YYJlfc+D3MXqH+jk
+NbDrck7dP9QH4NL7/NeGlGsXc21P2UsMbIYwDBpUw6wEACzB5c9i2TEj4i4AV8Ab
+5RUpuNYUW4GHHKZphDlVNH7Gn6llXi7+UQJLNt3R+WUl3cqJyScYN3LMR21ji6YS
+59lA6VWmt2kNKk3fTZUo+tm3AfbpSDKwO8cPoWoLWWSN+X9EY58Fsl7w8wDSX6X+
++kqQpBJ9WMv+DRYlRVqiyQw97HTsC2BBLhLEKwYwNRdNd0WJqhr5PlOuJgnhYSEA
+lTwJ3gji9/EOQZRv80FxmO/b+W6Pxp2RMYYbbc+mmuBhg1zJTlUc4Jw4RnUZ7gBH
+33H7Q5vfIvgUQUibmXW127wIUlhC+eEq6aJoT/gcGQp7B7k2CrSipCMKcsco4hAp
+1yLoE/Hh7gngbbngkRl3Dp6VCYO024kj5M0Jz2v7wm3W0jMwOfCT4Xr297CVa2zp
+402Is/tiQ6SWbpYkRdUoudToEalKwoT13mucZye7LC8ohy/9a/pFGgZAPFzeND0U
++3LGiihQLnxDWhtnfa1DVX8l7pruvM/1ZR+B2axAc7cnT7zl3WKDIuowdza6t0wa
+AaGFzgvvYSGdQ5Wtx0+6HG7ZK7J+XgDX/tx/+p+wPL41ldydtII=
+=5zz1
 -----END PGP SIGNATURE-----
 
---------------pDHMEX7ADDAWMRwPv4FxZlV6--
+--------------wlIwW7p9fUz98dNKtQ9tUmqW--
