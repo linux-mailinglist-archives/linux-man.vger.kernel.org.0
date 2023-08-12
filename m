@@ -1,202 +1,141 @@
 Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
-Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 53B77779BB9
-	for <lists+linux-man@lfdr.de>; Sat, 12 Aug 2023 02:05:39 +0200 (CEST)
+Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
+	by mail.lfdr.de (Postfix) with ESMTP id A438E779C5F
+	for <lists+linux-man@lfdr.de>; Sat, 12 Aug 2023 03:48:15 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S237335AbjHLADZ (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Fri, 11 Aug 2023 20:03:25 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36048 "EHLO
+        id S234969AbjHLBsN (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Fri, 11 Aug 2023 21:48:13 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60970 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S237256AbjHLADZ (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Fri, 11 Aug 2023 20:03:25 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A2F5718F
-        for <linux-man@vger.kernel.org>; Fri, 11 Aug 2023 17:03:23 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-         key-exchange X25519 server-signature RSA-PSS (2048 bits))
-        (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id 38765641EA
-        for <linux-man@vger.kernel.org>; Sat, 12 Aug 2023 00:02:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E195DC433C7;
-        Sat, 12 Aug 2023 00:02:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1691798572;
-        bh=sDGmvh3crNgN9mirmgqQbVb/hOiovIjiJc85xYmLu30=;
-        h=Date:Subject:To:References:Cc:From:In-Reply-To:From;
-        b=WchpI4bo5eDsS4qJijqArHZg3PU2q1EK35rFXpQDs8nEjj5w8qEFFAcnLtt+MkZw0
-         RftDd2ACgqyPl1zyYTaPjPrZ0j+qigYThceF77EKvSU9hINxdLt7AfjHjfoGxwp7OK
-         G4+ZDTgpJ/IAmBorXUjwYhqsgh7RJM0/m1WH0kF3MXZaahumuNN9JCcgBXdeKWn/Oy
-         dc8+M7qsXbPzq6sIoN8stH513LaTUD0qXuKOIQB4Or6lTLHXYLAAFN5Mno0IMhm52N
-         6H4PM7IA8A1HzNmT3RQcbViNzYYh2cXO6brdkCYpS8I6kAQs+j4HUcs2gh1W5aYV8J
-         nGbyHHyfakdtw==
-Message-ID: <ac4a6675-f96a-cf39-f2c9-381d6ce0733b@kernel.org>
-Date:   Sat, 12 Aug 2023 02:02:49 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.1
+        with ESMTP id S229793AbjHLBsM (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Fri, 11 Aug 2023 21:48:12 -0400
+Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com [IPv6:2607:f8b0:4864:20::334])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E068830DB
+        for <linux-man@vger.kernel.org>; Fri, 11 Aug 2023 18:48:11 -0700 (PDT)
+Received: by mail-ot1-x334.google.com with SMTP id 46e09a7af769-6bc9c01e154so2281129a34.0
+        for <linux-man@vger.kernel.org>; Fri, 11 Aug 2023 18:48:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1691804891; x=1692409691;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=9VvuEb1b+4RhDYAeCDktGOxlBmAog9oe2RijEfIMUIs=;
+        b=kjRVOoCNB4+yt6FTJkBAOGDn24sNPmGM+a2ksK+UGa4kFwU2gR7fsCZy093pZGzk9F
+         sNL7UdK3QVaqxLhD8dzUoCdA/ZawVQ5ZBv9AoHI2NjdT1t2JmU2QX07k4lRR1ZQIsCLP
+         RX1sFt6v1+AOvdMPGbqU3HIV+1DfNaSZdH5yUgD/HDeKCpmyBvrJFMg88MERtHde5WEQ
+         mTQoytiHvHg272URI5+fO8ZTYtY8VTOByP2vx6RG3yv6GV/P4vZoRbwFJ+Izw0rj8GPA
+         v6ipgiIIsLlA/1SQH/ft0BDdgXpIHiJQeOIRdfHbyvMLWfA/0B3gqPfdvjn3lmaNpYZA
+         p3Gg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1691804891; x=1692409691;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=9VvuEb1b+4RhDYAeCDktGOxlBmAog9oe2RijEfIMUIs=;
+        b=C1Duny4gPHJzrnZaxSljqgyLOpeA0+ae68qb0RDCYRG1w1oKRromQvkaI9jVJncpaF
+         8onHiISoGl3XjJwPvQpOBI2JNjtNEOOXazZT3dmyiyL5JacSYJADV5VfrXsomDoH9HHt
+         tGejNz8u09pVoi0uziuDAwrYDZGKdieolRwZK4J7KlpkUbj6iPf2INFb/njhzMzsj0B1
+         I8yt+/3ZKWCvJ0GgjjkquIdxzavu6DkLoFHvuGdq5OI9JHV/Vu0SVDtNCAKNW243shC9
+         ObGChjW8afUaapudTOqh/fu+8FovkR7aYf0GTsavFaXEY7rBTmEbMRbob9hPyaH0x43E
+         GtqQ==
+X-Gm-Message-State: AOJu0YzcuMmoS2LIJ0GCdmZaaVWHcfiePVFqFdMMwuj9IToGlORhjwud
+        fiQCFmWPENQKR5DQP3fK5I8=
+X-Google-Smtp-Source: AGHT+IFDbjTcYZLQo0Nt7OdU/EuvKIP8b3lLXuhCwlWNpkERFPN6yfVl793XWje11CjoxwRzI6w2Cw==
+X-Received: by 2002:a9d:468c:0:b0:6bb:3032:55e5 with SMTP id z12-20020a9d468c000000b006bb303255e5mr4280817ote.9.1691804891116;
+        Fri, 11 Aug 2023 18:48:11 -0700 (PDT)
+Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
+        by smtp.gmail.com with ESMTPSA id m13-20020a9d6acd000000b006b466ed0484sm2172034otq.67.2023.08.11.18.48.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Aug 2023 18:48:10 -0700 (PDT)
+Date:   Fri, 11 Aug 2023 20:48:09 -0500
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To:     Alejandro Colomar <alx@kernel.org>
+Cc:     Brian.Inglis@Shaw.ca, linux-man@vger.kernel.org,
+        Deri <deri@chuzzlewit.myzen.co.uk>
 Subject: Re: No 6.05/.01 pdf book available
-Content-Language: en-US
-To:     Brian.Inglis@Shaw.ca, linux-man@vger.kernel.org
+Message-ID: <20230812014809.zhhsz52saqwxbyh4@illithid>
 References: <094c0eacf60998465be28c605bef69f2f5742459.1691370798.git.Brian.Inglis@Shaw.ca>
  <82937367-538d-46c7-19c8-5bab403fefd5@Shaw.ca>
  <ceb2c7f6-fd7e-467e-5837-c197357339fb@kernel.org>
  <ab67aa6d-712a-47f0-e694-01592bb72cd1@kernel.org>
  <01d3855b-65dc-8b99-83cf-ebe1f97a2d83@Shaw.ca>
-Cc:     Deri <deri@chuzzlewit.myzen.co.uk>
-From:   Alejandro Colomar <alx@kernel.org>
-Organization: Linux
-In-Reply-To: <01d3855b-65dc-8b99-83cf-ebe1f97a2d83@Shaw.ca>
+ <ac4a6675-f96a-cf39-f2c9-381d6ce0733b@kernel.org>
+MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------rkwm41fwKbeNQCsKftf8UXkA"
-X-Spam-Status: No, score=-8.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
-        RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-        autolearn_force=no version=3.4.6
+        protocol="application/pgp-signature"; boundary="oan4dehvlf6khej7"
+Content-Disposition: inline
+In-Reply-To: <ac4a6675-f96a-cf39-f2c9-381d6ce0733b@kernel.org>
+X-Spam-Status: No, score=-0.4 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,URI_DOTEDU
+        autolearn=no autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------rkwm41fwKbeNQCsKftf8UXkA
-Content-Type: multipart/mixed; boundary="------------BW5muehaC3OCgXN9FJt9bTMH";
- protected-headers="v1"
-From: Alejandro Colomar <alx@kernel.org>
-To: Brian.Inglis@Shaw.ca, linux-man@vger.kernel.org
-Cc: Deri <deri@chuzzlewit.myzen.co.uk>
-Message-ID: <ac4a6675-f96a-cf39-f2c9-381d6ce0733b@kernel.org>
-Subject: Re: No 6.05/.01 pdf book available
-References: <094c0eacf60998465be28c605bef69f2f5742459.1691370798.git.Brian.Inglis@Shaw.ca>
- <82937367-538d-46c7-19c8-5bab403fefd5@Shaw.ca>
- <ceb2c7f6-fd7e-467e-5837-c197357339fb@kernel.org>
- <ab67aa6d-712a-47f0-e694-01592bb72cd1@kernel.org>
- <01d3855b-65dc-8b99-83cf-ebe1f97a2d83@Shaw.ca>
-In-Reply-To: <01d3855b-65dc-8b99-83cf-ebe1f97a2d83@Shaw.ca>
 
---------------BW5muehaC3OCgXN9FJt9bTMH
-Content-Type: text/plain; charset=UTF-8
+--oan4dehvlf6khej7
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hi Brian,
+Hi Alex,
 
-On 2023-08-07 18:21, Brian Inglis wrote:
-[...]
-
->>> $ pwd
->>> /home/alx/src/linux/man-pages/man-pages/6.04/scripts/LinuxManBook
->>> $ ./BuildLinuxMan.pl  ../../
->>> [...]
->>> Failed to open 'DESC'
+At 2023-08-12T02:02:49+0200, Alejandro Colomar wrote:
+> On 2023-08-07 18:21, Brian Inglis wrote:
+> >>> $ pwd
+> >>> /home/alx/src/linux/man-pages/man-pages/6.04/scripts/LinuxManBook
+> >>> $ ./BuildLinuxMan.pl  ../../
+> >>> [...]
+> >>> Failed to open 'DESC'
+> >=20
+> > That annoyingly minimal message provoked the patch submitted.
 >=20
-> That annoyingly minimal message provoked the patch submitted.
-
-Yeah; it took me some time to find the cause.  The error message doesn't
-even tell who failed --was it the shell, was it gropdf, was it troff?--.
-
-:)
-
+> Yeah; it took me some time to find the cause.  The error message
+> doesn't even tell who failed --was it the shell, was it gropdf, was it
+> troff?--.
 >=20
->>>> When I run the script/LinuxManBook/BuildLinuxMan.pl, after applying =
-the gropdf
->>>> patch, manually in the build dir, I get a pdf, but without any man p=
-age footers.
->=20
->>> Hmm, that's weird.  After applying your patch, It works fine for me.
->>> I do see the page footers.  However, I have old builds of groff in my=
+> :)
 
->>> system, which I haven't cleaned up, so maybe they interfere positivel=
-y
->>> to that outcome.  Maybe from a clean installation of Debian Sid I
->>> wouldn't be able to reproduce that.
->=20
->> I have uploaded the 6.05.01 book now.
->=20
-> Nice - with current page footers!
+This sort of thing makes me purple with rage and I have tried to purge
+groff of such unhelpful diagnostics--especially those that are uttered
+furtively by programs (or, worse, libraries) that attempt to remain
+anonymous.  Doug McIlroy was telling people to cut this crap out in 1986
+(or maybe a decade before that, even) and people _still_ ignore him.
 
-Can you confirm if you can build the book correctly after I pushed Deri's=
+https://www.cs.dartmouth.edu/~doug/reader.pdf (p. 9)
 
-change?  I'm worried that I couldn't reproduce your problem, and would
-like to know if it has gone away or persists for you.
+Much work was done on groff 1.23 to fix this, but I'm not certain all
+such offenders have been rehabilitated.
 
->=20
->>> Nevertheless, now I remember Deri told me he hardcoded a lot of stuff=
+https://savannah.gnu.org/bugs/?52463
 
->>> for 1.22.4 which should be removed after the release of 1.23.0, so it=
+When you encounter one, strike it with lightning.
 
->>> seems that the time has come to chop a lot of stuff from there.
->>>
->>> Deri, would you mind simplifying the scripts assuming a Build-dep of
->>> groff(>=3D1.23.0)?
->=20
-> Resent the patch cc Deri.
->=20
-> Would it make sense to merge changes into/from groff 1.23 grodpf, which=
- I also=20
-> tried, and also did not produce page footers, but did produce lots of=20
-> *different* messages.
-> It seems likely that changes made to build the huge man book might also=
- benefit=20
-> other projects with large docs.
+Regards,
+Branden
 
-We don't have a gropdf(1) copy anymore.  :)
-
->=20
->>>> Are there any other scripts which need to be run and/or groff comman=
-ds or data
->>>> which need to be supplied?
->=20
->>> No.  It's just:
->>>
->>> $ cd scripts/LinuxManBook/
->>> $ ./BuildLinuxMan.pl ../../
->=20
->>>> It would be nice to see this eventually added to your RELEASE doc, a=
-nd maybe
->>>> also to the make scripts.
->=20
->>> Yes.  I first want to put it in the Makefiles, and then add it to
->>> INSTALL.  Then something to RELEASE.  But I first want to simplify
->>> the script so I can understand it.
->=20
-> See below ;^>
-
-Sooo true.
-
-Cheers,
-Alex
-
---=20
-<http://www.alejandro-colomar.es/>
-GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
-
-
---------------BW5muehaC3OCgXN9FJt9bTMH--
-
---------------rkwm41fwKbeNQCsKftf8UXkA
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+--oan4dehvlf6khej7
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmTWzCoACgkQnowa+77/
-2zJvfg//Zlj+A15SPl3nIJbQmFISDKtlRgvtCFj1Sdzh1JQ/bmqrcbENIJykiqCe
-7x8eNLGiU3tjFmUfiL9OOIjX3+bGOHtEoGqHo5wpOu2FMgUPmXvbl5WwVdwiHcWi
-eq+hE0tdLVGPCearpRGCPiN9UUkYkIS+RuGdZhW+nE5SEz/4yzaSoE76895mCpc8
-moxSlG3mvjBCRKliYx1oD7LbZP9STXsJEiog3fShMiTOgWCvghOxQjRvMC7n+aHA
-BWs9u7sOSw1NgzMOmYiQLhrLQ9P1qdvS7VyQxw+7izCJCYU/VS202xU8g9lhiHwt
-6QT8NIibtweK6ltVLRY5bxCBGqbwqVjOikxDaV4/MiXNwjCRsIufocw/IuLTD9Gs
-J2UgHShiISCae2JGpWytZ8XNO9emmxWkoLNJl4GzPTFjebAdgeINeFi0nDSPjM1E
-I5hYxOjeo2wAoPSHbLA3iJFRXAMdbhlA08qRjxx46UhboLyejJg+bf+LkVdus6Hm
-SpGoCeo74p31IOZjQKEMxAts2n1iqr9XI1sbVW/oh3gOK8rvLhsiiC3K2YusVCSu
-E9YzgNcO/76/fTyOuTrqMIsS6OqTeW8qCi7cVxJ/mwEVhNXsaSKb9yskr19WylE/
-mhZkgqH5yx8kj7ihITcqrYFyINFlAEv4OdSPIbivjqjryftrEeU=
-=k78R
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmTW5M8ACgkQ0Z6cfXEm
+bc7qJBAAjU/xFwwTUNhGvu/3f9FiNozTpKk6S24uls6eeQpt+iMzlCog2YoHUVV/
+vBMyLPbgc2vMDyboS5NEky9sWF+ljTzDoa6F5lfEuvw3bAL2A4OJsgO/QzYrlp6r
+Sn7MkkBktwmz5RfJqA2xZVgCtbF8rD3a7LeR5ACK2wILv/iBVI7Zhkz/C6S0/+vZ
+RXOHOKzyJ0pd5T7rHGOKRP82zuHvx3sOSr9PkoytzQIk2uP2hYVQ7OsLJYYJ7jI0
+sdjyloL01x10NZRERSsI/OT9tg45Ix4S31+tXBZd79xmUyhpdOAK32bH1C7uLzSJ
+n9kuc2sPjhB9YsR1M2Zp7k9hcWmJt65ORkimHqk0uFY+06nJSkup+JeOdqphlskp
+ypZbdZKLfnhcUTnSSzCVONIg8xzorSeOja/mDerkLQjzb2bpv5jxqfZa+i1ni3do
+5+k6co8UxLaQ6oys8XzT0dzeuNPWf7RM7AYCUoUGxwIDl/KTYEasvpeJW3qrMML1
+4cDTc7AUDphVNVRHGoUgqEj0Q7toF4NY9AMWYU6OSWsFftxH+styMte2Wnsujn+/
+dtFZ/YaIvHL28EM/VecL6Eb59Bj9e4ysYqYv0rKZwPtFCqyREqTwAbYCSDF/Rupi
++sWZscJCoZoUCXa7H9sJw1UHA8lxuVZlJnYRk0l29Ev3U5f0H+g=
+=E3Fn
 -----END PGP SIGNATURE-----
 
---------------rkwm41fwKbeNQCsKftf8UXkA--
+--oan4dehvlf6khej7--
