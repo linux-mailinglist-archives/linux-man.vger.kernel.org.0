@@ -2,125 +2,166 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id E3ACC77A132
-	for <lists+linux-man@lfdr.de>; Sat, 12 Aug 2023 19:02:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D165F77A148
+	for <lists+linux-man@lfdr.de>; Sat, 12 Aug 2023 19:14:41 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229568AbjHLRCY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 12 Aug 2023 13:02:24 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34066 "EHLO
+        id S229568AbjHLROh (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 12 Aug 2023 13:14:37 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57764 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229472AbjHLRCX (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 12 Aug 2023 13:02:23 -0400
-Received: from omta001.cacentral1.a.cloudfilter.net (omta001.cacentral1.a.cloudfilter.net [3.97.99.32])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 276ECD3
-        for <linux-man@vger.kernel.org>; Sat, 12 Aug 2023 10:02:26 -0700 (PDT)
-Received: from shw-obgw-4003a.ext.cloudfilter.net ([10.228.9.183])
-        by cmsmtp with ESMTP
-        id UZjoq1APQLAoIUs0PqXDtc; Sat, 12 Aug 2023 17:02:25 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=shaw.ca; s=s20180605;
-        t=1691859745; bh=Ei1Ik3B2JCEcSkO9cobKdMxY+9MnhvyWAVsilZ+k/58=;
-        h=Date:Reply-To:Subject:To:References:Cc:From:In-Reply-To;
-        b=UDu+MkVZ5UKpVhlir94gj9YV44QzsVoYlnVJradNEi9Rk00sazYklwggFIOf76416
-         okesa5fuy+SRNYDZJ/qFwvAthFG+s+4aNiMg3SlaIEmWNLNPWmrzmGPcHPjCbnSQmw
-         d6dcTZRf5X+UOP16alnBlvQvv1egiqTIIMUgUF8sg2+VPHDenNaYlTN3zv7C484oQX
-         FCxOF5oNxgkIKRgDTU9e9jYRTiNHQ2coe6IgP9eLou8x7qMNzpQOYZLprH4OBU4WRs
-         QirtSi8SZQLl9WomZU1RGSbbGeeEUDQN11jfxfpAXODrNvfSclT2PodZPEOiVZf5mn
-         20kL0E+yoPsbQ==
-Received: from [10.0.0.5] ([184.64.102.149])
-        by cmsmtp with ESMTP
-        id Us0Oqp5IhcyvuUs0OqJgRO; Sat, 12 Aug 2023 17:02:25 +0000
-X-Authority-Analysis: v=2.4 cv=VbHkgXl9 c=1 sm=1 tr=0 ts=64d7bb21
- a=DxHlV3/gbUaP7LOF0QAmaA==:117 a=DxHlV3/gbUaP7LOF0QAmaA==:17
- a=IkcTkHD0fZMA:10 a=1Zi1GwhLliC9LZjixaAA:9 a=QEXdDO2ut3YA:10
-Message-ID: <7f020624-ebc9-5eb8-b87f-8f954a8084a0@Shaw.ca>
-Date:   Sat, 12 Aug 2023 11:02:24 -0600
+        with ESMTP id S229447AbjHLROg (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 12 Aug 2023 13:14:36 -0400
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D5DFBE6C
+        for <linux-man@vger.kernel.org>; Sat, 12 Aug 2023 10:14:39 -0700 (PDT)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+         key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+        (No client certificate requested)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id 7457A615AE
+        for <linux-man@vger.kernel.org>; Sat, 12 Aug 2023 17:14:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44FC0C433C8;
+        Sat, 12 Aug 2023 17:14:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1691860478;
+        bh=koQNMVvJJFjGv+hUKYtnrPKAf2XF5zSaCpqGbe9yx8Q=;
+        h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+        b=i6jkArUIkERk4VBniSBQSYte51VYHXqNapJvMksd7QAaBJZML+y2jhk24r+jGpeGI
+         haWq9QkNfQh0Z3J4AD1TPwbK2gAEajQyONLfcPR08xmXvjO23n4mNKnLJ70iNZkTkl
+         0RZAn6kgUJiYB5Wz3cWTDt1DjmXUv15QVwO1N288Vte9lX+pMUI62hrE2ovgb1gBZ2
+         3gjCLoBuezPg5aT1pnuEPdMuvkJaploEC7PX4WF4repHbmm1hZq+YPJqZS6Df7CRAA
+         8QUwm2KH0YsUxAyaNNfGvzm6Ose59YuDD0GJqgettCNLOIhNrsKR4vbyZ+BIJk8jLo
+         tqcDy6KRjqnjQ==
+Message-ID: <ab1dd03a-9f81-662e-a4fb-714dcae8da35@kernel.org>
+Date:   Sat, 12 Aug 2023 19:14:30 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.14.0
-Reply-To: Brian.Inglis@Shaw.ca
-Subject: Re: No 6.05/.01 pdf book available
-Content-Language: en-CA
-To:     linux-man@vger.kernel.org
-References: <094c0eacf60998465be28c605bef69f2f5742459.1691370798.git.Brian.Inglis@Shaw.ca>
- <82937367-538d-46c7-19c8-5bab403fefd5@Shaw.ca>
- <ceb2c7f6-fd7e-467e-5837-c197357339fb@kernel.org> <21975186.EfDdHjke4D@pip>
-Cc:     Deri <deri@chuzzlewit.myzen.co.uk>,
-        Alejandro Colomar <alx@kernel.org>
-From:   Brian Inglis <Brian.Inglis@Shaw.ca>
-Organization: Inglis
-In-Reply-To: <21975186.EfDdHjke4D@pip>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CMAE-Envelope: MS4xfPRVstqGgpHq61mAmfK5/zKjVABSR/xu6O2p3Ecfmfyk/3g6LvvX+GCAQ8BJtOI1haYJ4kRjAU7WoKKZqzzxMijJwCI4pMW/3FpAQ1tWycpN9sM6cZPA
- ArxymfvZX+iwM9mh0Dr8mpECdC75lX4ibXcvgTmZTlwyabXPd6aS6RBux1QY5as1tK2YvzzT+p7VNKQHRLVOtA2A4hsO24XsMRgNaeU74S+gsVY57Hfr+Bwh
- vT3krVmAB1dh8lX0PlNm+pF0g27j+AMNtev0rZRI3FA=
-X-Spam-Status: No, score=-3.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
-        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS autolearn=ham
-        autolearn_force=no version=3.4.6
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.1
+Subject: Re: [PATCH] clone.2: Clarify the behaviour of exit_signal with
+ CLONE_PARENT
+Content-Language: en-US
+To:     Sargun Dhillon <sargun@sargun.me>
+Cc:     linux-man@vger.kernel.org
+References: <20230810013432.396272-1-sargun@sargun.me>
+From:   Alejandro Colomar <alx@kernel.org>
+Organization: Linux
+In-Reply-To: <20230810013432.396272-1-sargun@sargun.me>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------JEyMUT0RHVT08aBXjEBDmwgR"
+X-Spam-Status: No, score=-3.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
+        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-On 2023-08-07 17:14, Deri wrote:
-> On Monday, 7 August 2023 09:45:22 BST Alejandro Colomar wrote:
->> Nevertheless, now I remember Deri told me he hardcoded a lot of stuff
->> for 1.22.4 which should be removed after the release of 1.23.0, so it
->> seems that the time has come to chop a lot of stuff from there.
->>
->> Deri, would you mind simplifying the scripts assuming a Build-dep of
->> groff(>=1.23.0)?
-> 
-> Hi Alex, Brian,
-> 
-> I have done some work on building the pdf. One improvement is any warnings
-> output by groff, i.e. use of the deprecated .PDF macro, now identify the
-> particular man page and line number accurately.
-> 
-> I have attached two new replacement LinuxManBook directories. The first,
-> 1.23.0, will run on a stock groff 1.23.0 system. The second, 1.23.0+, runs
-> with the latest gropdf which has a number of advantages for this project - you
-> will find the resulting pdf to be more than 5mb smaller, and the page numbers
-> in the overview pane match up with the page number at the bottom of each page.
-> 
-> The file NewGropdf.pdf contains description of some of the features in the new
-> gropdf.
-> 
-> Both of these should continue to work if the groff version changes, thanks to
-> Brian's helpful suggestion to include /usr/share/groff/current in the font
-> path, but I have achieved this by specifying it in an -F flag rather than
-> patching gropdf.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------JEyMUT0RHVT08aBXjEBDmwgR
+Content-Type: multipart/mixed; boundary="------------DCZz8HIYRhLwnO8OcDZVG9Vg";
+ protected-headers="v1"
+From: Alejandro Colomar <alx@kernel.org>
+To: Sargun Dhillon <sargun@sargun.me>
+Cc: linux-man@vger.kernel.org
+Message-ID: <ab1dd03a-9f81-662e-a4fb-714dcae8da35@kernel.org>
+Subject: Re: [PATCH] clone.2: Clarify the behaviour of exit_signal with
+ CLONE_PARENT
+References: <20230810013432.396272-1-sargun@sargun.me>
+In-Reply-To: <20230810013432.396272-1-sargun@sargun.me>
 
-Nice work Deri!
+--------------DCZz8HIYRhLwnO8OcDZVG9Vg
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-The official 6.05.01 book hyphenates words across page breaks more than standard 
-1.23.0 and new 1.23.0+ gropdf books.
+Hello Sargun,
 
-File sizes are official 6.05.01 ~13.3MB, 200k more than standard 1.23.0 ~13MB, 
-which is >~5MB more than new 1.23.0+ gropdf <~8MB.
+On 2023-08-10 03:34, Sargun Dhillon wrote:
+> It's documented under ERRORS that specifying a exit_signal with CLONE_P=
+ARENT
+> is not allowed, but it is not specified how the exit_signal is to be se=
+t
+> (or is set) when using the CLONE_PARENT flag.
 
-I now see page footers on all pages!
+Would you mind providing a small C program that demonstrates this?
 
-I noticed that new 1.23.0+ seems to set some lines, especially tables, a little 
-tighter (perhaps because of space handling), but *only* the first page 
-"intro(1)" has half the normal spacing from the page header to the first heading!
+>=20
+> Signed-off-by: Sargun Dhillon <sargun@sargun.me>
+> ---
+>  man2/clone.2 | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/man2/clone.2 b/man2/clone.2
+> index 4c5b4ac6b..0b2a60482 100644
+> --- a/man2/clone.2
+> +++ b/man2/clone.2
+> @@ -290,7 +290,13 @@ The termination signal is specified in the low byt=
+e of
+>  .RB ( clone ())
+>  or in
+>  .I cl_args.exit_signal
+> -.RB ( clone3 ()).
+> +.RB ( clone3 ()),
+> +unless
+> +.BR CLONE_PARENT
+> +flag is set. If the
 
-[I also noticed that *poppler* `pdf2text -layout` (used to diff the content amd 
-layout) prints the .SH NAME and options dashes as en-dash from the official 
-6.05.01 book, but prints minus from standard 1.23.0 and new 1.23.0+ gropdf.]
+Please use semantic newlines.  See man-pages(7).
 
-I notice a number of widows and orphans, but that may be the man macros or groff 
-commands not checking for sufficient space left on the page before rendering 
-text: allowing 4em before heading spacing, 3em before para spacing would 
-probably help, at the cost of larger bottom margins; and groff footers need to 
-allow extra space to prevent widows by allowing them to intrude.
+$ MANWIDTH=3D72 man 7 man-pages | sed -n '/Use semantic newlines/,/^$/p';=
 
--- 
-Take care. Thanks, Brian Inglis              Calgary, Alberta, Canada
+   Use semantic newlines
+     In the source of a manual page, new sentences should  be  started
+     on new lines, long sentences should be split into lines at clause
+     breaks  (commas, semicolons, colons, and so on), and long clauses
+     should be split at phrase boundaries.  This convention, sometimes
+     known as "semantic newlines", makes it easier to see  the  effect
+     of  patches,  which often operate at the level of individual sen=E2=80=
+=90
+     tences, clauses, or phrases.
 
-La perfection est atteinte                   Perfection is achieved
-non pas lorsqu'il n'y a plus rien à ajouter  not when there is no more to add
-mais lorsqu'il n'y a plus rien à retirer     but when there is no more to cut
-                                 -- Antoine de Saint-Exupéry
+
+Thanks,
+Alex
+
+
+> +.BR CLONE_PARENT
+> +flag is set, then the exit_signal is copied from the calling process's=
+ process
+> +group leader.
+>  If this signal is specified as anything other than
+>  .BR SIGCHLD ,
+>  then the parent process must specify the
+
+--=20
+<http://www.alejandro-colomar.es/>
+GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
+
+
+--------------DCZz8HIYRhLwnO8OcDZVG9Vg--
+
+--------------JEyMUT0RHVT08aBXjEBDmwgR
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmTXvfYACgkQnowa+77/
+2zKLKQ/9FxF8hPxGnUJ9LWVT4fRXrFounSOK4awP/dkz5wu4YwxPfmI1EPYoxiy8
+5e/y/eGSbKVmowqXXHHgQprsGxgOuB8ojMIg2Hnyy+pB2qk2t5WLCYXdHwr9dwZt
+ZhIth3lCbxMrtc3biNktpOZ3YPT2BRZB8vE9lQb/CIpIp9MvlW+xBK4t0XKo6L06
+tmIibNe4WiSD95yN1SYAa4JfC0az318YEgwG0Wb2X+I6V3IfMIybq3xVDnuoWnEk
+jP2mR8r2xj/5sg9jDpVP0fodYi1c5LEahuT3BLvoe7e/5BWnxs5S9CLHeQtDh7Ts
+/h/ezGIyzlf+wwQ95KbuZ2VlQloulAwjcFIaDICbRaNUHKYIdVdcHfpYJy6rzHOB
+upRPyeDrheIN3ieAtkjxzlYzLUZX70WJrgkkMdh+iXcH83SJz0jLLfubGF1ssKc4
+AgxFeX9GE2J8MgyELWh2Newgd+5+sQTrsPleqHdaMI3vUR3WV6xmCRQZJzxYwRhi
+uAfofMNTwimmejvdJXHLUW+17aTqyDpSjN0+l7FJhyVMT9L87q/WgWMXbmfAYZ72
+mSbFtf5279sHJBVtzYD7JaxHR4E5w7QdkytIDUJJlncFDOu1YVZlQkQqvzw//lxk
+glTsAR5yphInpcDP523BIqferv7kbmHA5lD6RoJ2pq5cE/V7Ttg=
+=A09N
+-----END PGP SIGNATURE-----
+
+--------------JEyMUT0RHVT08aBXjEBDmwgR--
