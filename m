@@ -2,60 +2,61 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id C361C77A0D3
-	for <lists+linux-man@lfdr.de>; Sat, 12 Aug 2023 17:35:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E3ACC77A132
+	for <lists+linux-man@lfdr.de>; Sat, 12 Aug 2023 19:02:28 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230217AbjHLPfo (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sat, 12 Aug 2023 11:35:44 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44420 "EHLO
+        id S229568AbjHLRCY (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sat, 12 Aug 2023 13:02:24 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34066 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229547AbjHLPfo (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sat, 12 Aug 2023 11:35:44 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6AE47BA
-        for <linux-man@vger.kernel.org>; Sat, 12 Aug 2023 08:35:44 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-         key-exchange X25519 server-signature RSA-PSS (2048 bits))
-        (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id D8C1E61DDF
-        for <linux-man@vger.kernel.org>; Sat, 12 Aug 2023 15:35:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 215B4C433C7;
-        Sat, 12 Aug 2023 15:35:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1691854543;
-        bh=H+67Voo0Rs0z9zvzMc804GdnKGT2c6w20s/pfXcy+sM=;
-        h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-        b=E5/BkXnBtFk58HQ55BEC9xRMEUJb0hxXiCV2BH0uybEt40qS6Yt15ypPyz34dxB7s
-         iwrN+e7M1dZ8cPj3I9BdkaQfTJECHXW3JZ1Z7oP0IRh+f3F6ep/1k2jr1ONE7v3e0m
-         iZsoHLHocoh91yOdD82uPXxDrYhnh6V/tfpn94O7uHbR53lrk4+bI22kQGhp3v8W9l
-         mB6Mmnxu++n20/lcsoZPVoQ6cXgKpSWqF8zfDJgp4TygXgFUFNVcRW7J2rrcvRYvSu
-         G+Jo+34kFIgOcSkARU0pT+GJsrZ9nbNTomlghYJytqoEXUw5fMpANH5ycYxRxUx953
-         YAZ19u5PATK1Q==
-Message-ID: <fe34c908-f441-e256-2f23-1dba764be905@kernel.org>
-Date:   Sat, 12 Aug 2023 17:35:32 +0200
+        with ESMTP id S229472AbjHLRCX (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sat, 12 Aug 2023 13:02:23 -0400
+Received: from omta001.cacentral1.a.cloudfilter.net (omta001.cacentral1.a.cloudfilter.net [3.97.99.32])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 276ECD3
+        for <linux-man@vger.kernel.org>; Sat, 12 Aug 2023 10:02:26 -0700 (PDT)
+Received: from shw-obgw-4003a.ext.cloudfilter.net ([10.228.9.183])
+        by cmsmtp with ESMTP
+        id UZjoq1APQLAoIUs0PqXDtc; Sat, 12 Aug 2023 17:02:25 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=shaw.ca; s=s20180605;
+        t=1691859745; bh=Ei1Ik3B2JCEcSkO9cobKdMxY+9MnhvyWAVsilZ+k/58=;
+        h=Date:Reply-To:Subject:To:References:Cc:From:In-Reply-To;
+        b=UDu+MkVZ5UKpVhlir94gj9YV44QzsVoYlnVJradNEi9Rk00sazYklwggFIOf76416
+         okesa5fuy+SRNYDZJ/qFwvAthFG+s+4aNiMg3SlaIEmWNLNPWmrzmGPcHPjCbnSQmw
+         d6dcTZRf5X+UOP16alnBlvQvv1egiqTIIMUgUF8sg2+VPHDenNaYlTN3zv7C484oQX
+         FCxOF5oNxgkIKRgDTU9e9jYRTiNHQ2coe6IgP9eLou8x7qMNzpQOYZLprH4OBU4WRs
+         QirtSi8SZQLl9WomZU1RGSbbGeeEUDQN11jfxfpAXODrNvfSclT2PodZPEOiVZf5mn
+         20kL0E+yoPsbQ==
+Received: from [10.0.0.5] ([184.64.102.149])
+        by cmsmtp with ESMTP
+        id Us0Oqp5IhcyvuUs0OqJgRO; Sat, 12 Aug 2023 17:02:25 +0000
+X-Authority-Analysis: v=2.4 cv=VbHkgXl9 c=1 sm=1 tr=0 ts=64d7bb21
+ a=DxHlV3/gbUaP7LOF0QAmaA==:117 a=DxHlV3/gbUaP7LOF0QAmaA==:17
+ a=IkcTkHD0fZMA:10 a=1Zi1GwhLliC9LZjixaAA:9 a=QEXdDO2ut3YA:10
+Message-ID: <7f020624-ebc9-5eb8-b87f-8f954a8084a0@Shaw.ca>
+Date:   Sat, 12 Aug 2023 11:02:24 -0600
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.1
-Subject: Re: [PATCH v2] man*/: ffix (migrate to `MR`)
-Content-Language: en-US
-To:     Ingo Schwarze <schwarze@usta.de>, Jakub Wilk <jwilk@jwilk.net>,
-        "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc:     linux-man@vger.kernel.org, groff <groff@gnu.org>
-References: <20230731175251.67rgt2r4sweutnay@illithid>
- <20230731221641.pbkcrdx52gyy4xfz@jwilk.net>
- <20230801013113.gw74e54tww7mrprf@illithid>
- <4b44eef1-4e9b-8f03-8cf7-6ca9e2f5dea5@kernel.org>
- <20230801141248.bo5sujjwjfob6pgj@illithid>
-From:   Alejandro Colomar <alx@kernel.org>
-Organization: Linux
-In-Reply-To: <20230801141248.bo5sujjwjfob6pgj@illithid>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------PSdit0mxd0lRV38iXLpZCVDL"
-X-Spam-Status: No, score=-8.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
-        RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.14.0
+Reply-To: Brian.Inglis@Shaw.ca
+Subject: Re: No 6.05/.01 pdf book available
+Content-Language: en-CA
+To:     linux-man@vger.kernel.org
+References: <094c0eacf60998465be28c605bef69f2f5742459.1691370798.git.Brian.Inglis@Shaw.ca>
+ <82937367-538d-46c7-19c8-5bab403fefd5@Shaw.ca>
+ <ceb2c7f6-fd7e-467e-5837-c197357339fb@kernel.org> <21975186.EfDdHjke4D@pip>
+Cc:     Deri <deri@chuzzlewit.myzen.co.uk>,
+        Alejandro Colomar <alx@kernel.org>
+From:   Brian Inglis <Brian.Inglis@Shaw.ca>
+Organization: Inglis
+In-Reply-To: <21975186.EfDdHjke4D@pip>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CMAE-Envelope: MS4xfPRVstqGgpHq61mAmfK5/zKjVABSR/xu6O2p3Ecfmfyk/3g6LvvX+GCAQ8BJtOI1haYJ4kRjAU7WoKKZqzzxMijJwCI4pMW/3FpAQ1tWycpN9sM6cZPA
+ ArxymfvZX+iwM9mh0Dr8mpECdC75lX4ibXcvgTmZTlwyabXPd6aS6RBux1QY5as1tK2YvzzT+p7VNKQHRLVOtA2A4hsO24XsMRgNaeU74S+gsVY57Hfr+Bwh
+ vT3krVmAB1dh8lX0PlNm+pF0g27j+AMNtev0rZRI3FA=
+X-Spam-Status: No, score=-3.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
+        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -63,233 +64,63 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------PSdit0mxd0lRV38iXLpZCVDL
-Content-Type: multipart/mixed; boundary="------------yGVL4ZmTow0Cg5Jw0oM6o0u5";
- protected-headers="v1"
-From: Alejandro Colomar <alx@kernel.org>
-To: Ingo Schwarze <schwarze@usta.de>, Jakub Wilk <jwilk@jwilk.net>,
- "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Cc: linux-man@vger.kernel.org, groff <groff@gnu.org>
-Message-ID: <fe34c908-f441-e256-2f23-1dba764be905@kernel.org>
-Subject: Re: [PATCH v2] man*/: ffix (migrate to `MR`)
-References: <20230731175251.67rgt2r4sweutnay@illithid>
- <20230731221641.pbkcrdx52gyy4xfz@jwilk.net>
- <20230801013113.gw74e54tww7mrprf@illithid>
- <4b44eef1-4e9b-8f03-8cf7-6ca9e2f5dea5@kernel.org>
- <20230801141248.bo5sujjwjfob6pgj@illithid>
-In-Reply-To: <20230801141248.bo5sujjwjfob6pgj@illithid>
-
---------------yGVL4ZmTow0Cg5Jw0oM6o0u5
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-Hi Branden, Ingo,
-
-On 2023-08-01 16:12, G. Branden Robinson wrote:
-> At 2023-08-01T15:35:10+0200, Alejandro Colomar wrote:
->> [CC +=3D groff]
+On 2023-08-07 17:14, Deri wrote:
+> On Monday, 7 August 2023 09:45:22 BST Alejandro Colomar wrote:
+>> Nevertheless, now I remember Deri told me he hardcoded a lot of stuff
+>> for 1.22.4 which should be removed after the release of 1.23.0, so it
+>> seems that the time has come to chop a lot of stuff from there.
 >>
->> Hi Jakub, Branden,
->>
->> On 2023-08-01 03:31, G. Branden Robinson wrote:
->>> Hi Jakub,
->>>
->>> At 2023-08-01T00:16:41+0200, Jakub Wilk wrote:
->>>> * G. Branden Robinson <g.branden.robinson@gmail.com>, 2023-07-31 12:=
-52:
->>>>> Use the man(7) macro `MR`, new to groff 1.23.0,
->>>>
->>>> Given that this version of groff was released approximately
->>>> yesterday=C2=B9, this is very premature.
->>>>
->>>> NACK from me.
->>>>
->>>> =C2=B9 More precisely, about a month ago.
->>>
->>> 5 July UTC, to be (a little) more precise.
->>>
->>> Linux man-pages release scheduling is Alex's prerogative, not mine.
->>
->> I just made a new release, so that we have plenty of time for the next=
+>> Deri, would you mind simplifying the scripts assuming a Build-dep of
+>> groff(>=1.23.0)?
+> 
+> Hi Alex, Brian,
+> 
+> I have done some work on building the pdf. One improvement is any warnings
+> output by groff, i.e. use of the deprecated .PDF macro, now identify the
+> particular man page and line number accurately.
+> 
+> I have attached two new replacement LinuxManBook directories. The first,
+> 1.23.0, will run on a stock groff 1.23.0 system. The second, 1.23.0+, runs
+> with the latest gropdf which has a number of advantages for this project - you
+> will find the resulting pdf to be more than 5mb smaller, and the page numbers
+> in the overview pane match up with the page number at the bottom of each page.
+> 
+> The file NewGropdf.pdf contains description of some of the features in the new
+> gropdf.
+> 
+> Both of these should continue to work if the groff version changes, thanks to
+> Brian's helpful suggestion to include /usr/share/groff/current in the font
+> path, but I have achieved this by specifying it in an -F flag rather than
+> patching gropdf.
 
->> one.
->=20
-> I saw that, and thought, "ooh, that's a bit quick--surely he didn't..."=
+Nice work Deri!
 
->=20
-> And no, you didn't (include the giant `MR` migration patch).
+The official 6.05.01 book hyphenates words across page breaks more than standard 
+1.23.0 and new 1.23.0+ gropdf books.
 
-Not yet.  I hope to have MR support in mandoc(1) before I release that.
-Ingo, would you mind?  :)
+File sizes are official 6.05.01 ~13.3MB, 200k more than standard 1.23.0 ~13MB, 
+which is >~5MB more than new 1.23.0+ gropdf <~8MB.
 
->=20
-> I trust the announcement didn't give Jakub a heart attack...
->=20
->> I don't expect to make a new one in months.  :)
->=20
-> I can't cast stones about release frequency, that's for sure.
->=20
->>> He asked me (a long time ago) to deliver this after groff 1.23.0 was
->>> released.  That is what I have tried to do.
->>
->> Thanks!
->=20
-> A pleasure.  Not merely to promulgate my "baby", but also to get a lot
-> of that cargo-culty stuff around tables cleaned out of the Linux
-> man-pages.  Tidy man(7) sources make for happier documentation writers
-> who have an easier time getting what they want.
+I now see page footers on all pages!
 
-Yup!
+I noticed that new 1.23.0+ seems to set some lines, especially tables, a little 
+tighter (perhaps because of space handling), but *only* the first page 
+"intro(1)" has half the normal spacing from the page header to the first heading!
 
->=20
->>> groff 1.22.4 man(7) does not support the `MF` string (see below).
->>> That could be backported too, but there seems no point before there
->>> is a concrete need.
->>>
->>>> After applying the patch, the man page references are typeset in
->>>> italics,
->>>
->>> For great justice!  (See below.)
->>
->> Still I think this should be documented in our commit.  Would you
->> please send a paragraph (and the position at which you'd place it)
->> with which I can amend the commit?
->=20
-> Yes.  That was on oversight on my part; I was scrubbing out all font
-> changes (with "-P -cbou") because my concern was with unexpected change=
-s
-> to adjustment and hyphenation.  The style change for man page topics
-> (from bold to italics) was a "known factor" (to me).
+[I also noticed that *poppler* `pdf2text -layout` (used to diff the content amd 
+layout) prints the .SH NAME and options dashes as en-dash from the official 
+6.05.01 book, but prints minus from standard 1.23.0 and new 1.23.0+ gropdf.]
 
-Would you mind sending an updated commit message?
+I notice a number of widows and orphans, but that may be the man macros or groff 
+commands not checking for sufficient space left on the page before rendering 
+text: allowing 4em before heading spacing, 3em before para spacing would 
+probably help, at the cost of larger bottom margins; and groff footers need to 
+allow extra space to prevent widows by allowing them to intrude.
 
->=20
-> Also, I saw that some "=3D3D" quoted-printable ugliness got into the
-> commit message, buried inside groff command-line options where people
-> unaccustomed to writing them might not mentally screen out the noise.
+-- 
+Take care. Thanks, Brian Inglis              Calgary, Alberta, Canada
 
-Heh, I noticed some weirdness about it, but it happened to be after a
--rCHECKSTYLE, so it seemed like it could be some improvements that you
-had applied upstream to CHECKSTYLE.  =3D3 definitely made sense to that
-register.
-
->=20
-> Please double-check for that before pushing to kernel.org.
-
-Please send one that I don't need to modify.  I don't like modifying
-other's stuff, in case I break it.  :)
-
->=20
->>>> which is ugly
->>>
->>> See my recent exchanges with Lennart Jablonka on this list.
->>>
->>>> and against man-pages(7) recommendations.
->>
->> Well, we should update those to use MR.
->=20
-> And man(7) too, I guess.  What do you think?
-
-I want to kill that page.  Please have a look at it, take anything
-good that it has for groff_man{,_style}(7), and ping me when I
-should sharpen the scythe.  ;)
-
-Cheers,
-Alex
-
->=20
->> Branden is right that italics is more appropriate.  He has defended
->> that position very well, so I'll let him defend that point.  The
->> conversation to which he referred was:
->>
->> <https://lists.gnu.org/archive/html/groff/2021-08/msg00034.html>
->=20
-> Yes.  That message includes Ingo's acknowledgement of my historical
-> analysis, which can be found in the parent message.
->=20
-> https://lists.gnu.org/archive/html/groff/2021-08/msg00023.html
->=20
-> But we had a fairly wide-ranging discussion, much of which will not be
-> of interest to someone who updates to man-pages 6.6.6 =F0=9F=A4=98, see=
-s italics
-> appearing where they had been accustomed to bold, and flies into a rage=
-=2E
->=20
-> I reckon the virtuous thing to do would be to write an ms(7) article
-> about the history of cross reference styling in Unix man pages.  I
-> regret that my conjecture about _why_ the GNU/Linux community shifted
-> the style (VGA text mode limitations) remains unsupported by testimonia=
-l
-> accounts from people who deliberately made this change.
->=20
-> Maybe this change will attract the attention of those folks.  Even if
-> they get angry with me in the process, I'm willing to risk being called=
-
-> out as the price of improving the historical record.  :)
->=20
->> But we should document in the commit message that the MR default
->> implies a behavior change in our pages.
->=20
-> Yes.  And it's not hard to offer MANROFFOPT=3D"-dMF=3DB" as an initial
-> workaround.  One could throw this into one's shell startup file, but
-> only man-db man(1) honors that variable.  The more systemic approach is=
-
-> to edit the site configuration file for groff man(7).
->=20
-> Files
-> [...]
->    /usr/share/groff/site-tmac/man.local
->           Local changes and customizations should be put into this file=
-=2E
->=20
-> (Debian symlinks this to "/etc/groff/man.local".)
->=20
-> groff_man_style(7) offers further suggestions for content, based
-> (mostly) on feedback we've often seen over the years.
->=20
->             .\" Use narrower indentation on terminals and similar.
->             .if n .nr IN 4n
->             .\" Put only one space after the end of a sentence.
->             .ss 12 0 \" See groff(7).
->             .\" Keep pages narrow even on wide terminals.
->             .if n .if \n[LL]>78n .nr LL 78n
->             .\" Ensure hyperlinks are enabled for terminals.
->             .nr U 1
->=20
-> Debian's groff 1.23.0 packages in testing and unstable in fact already
-> enable the last (thanks, Colin!).
->=20
-> Regards,
-> Branden
-
---=20
-<http://www.alejandro-colomar.es/>
-GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
-
-
---------------yGVL4ZmTow0Cg5Jw0oM6o0u5--
-
---------------PSdit0mxd0lRV38iXLpZCVDL
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmTXpsQACgkQnowa+77/
-2zLHNQ/9H3zskjxI/Pvgz0CUR3+C6n9yL/mrxP2QuAVXm8giOSYu7/raQj0+d9VL
-l7mvYOTCiDI037xqc7xuW7MUaUK/Dfb1y+tsLeJ7hK6ER8+aFMDRLLcrswa4so9G
-mYPvMHLORGNv8+B2S5YJpXZGZ2Rt8sZRGHewXec792kEaNME7AuanuL8+dnSRwpj
-r31hkX4wTwq3fjK08Gg9RMSgwOi0YHB4FuHwZwZ+022JCT97igbq1LRM0SMyxlRJ
-v9taZvDpJnT6mo9NWtlAdBqaQcduI/59nub7kLWRsOGfuooqjM1gWsNG/w9wiW5m
-ksmoEPxevinw5OcsuUP7ZC+1hlhUE0v5jIzd4BbpHG3GT9IWjfS00NJxXCcWqEuM
-3fnO7RtGWeILYCTRUlFJf047EPM3aphSb7wdmiIxHsbsgFcim1Ts5bZKZuTq46sM
-C+ThA3rC3/08owIQ4+7wGYgXrcPft6viFDPp3pr67UiGqJVwAiHtiagQaQwbajAp
-6lDb8O9wpJp1Yy7GlHjF1S225vjYVU0TT1gZiiXauQKTvoxxW4kWHrTLDTfaJnR5
-JOWN4kVXT3fL6J6Fq1jU3JPEvjnu1LgSOMIKfGxxKFGaMRjGDcZ0TSJJF/vc0tBX
-ZeUQLlyUKKlmqE72c5RpfZFgxGP+6p+ci4Thm+7QEiGBFYWaQRo=
-=sGc7
------END PGP SIGNATURE-----
-
---------------PSdit0mxd0lRV38iXLpZCVDL--
+La perfection est atteinte                   Perfection is achieved
+non pas lorsqu'il n'y a plus rien à ajouter  not when there is no more to add
+mais lorsqu'il n'y a plus rien à retirer     but when there is no more to cut
+                                 -- Antoine de Saint-Exupéry
