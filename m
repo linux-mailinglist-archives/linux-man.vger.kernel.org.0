@@ -2,60 +2,70 @@ Return-Path: <linux-man-owner@vger.kernel.org>
 X-Original-To: lists+linux-man@lfdr.de
 Delivered-To: lists+linux-man@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id DED2C77AE3C
-	for <lists+linux-man@lfdr.de>; Mon, 14 Aug 2023 00:18:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C05AA77AE40
+	for <lists+linux-man@lfdr.de>; Mon, 14 Aug 2023 00:20:40 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231862AbjHMWSc (ORCPT <rfc822;lists+linux-man@lfdr.de>);
-        Sun, 13 Aug 2023 18:18:32 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47132 "EHLO
+        id S230170AbjHMWUk (ORCPT <rfc822;lists+linux-man@lfdr.de>);
+        Sun, 13 Aug 2023 18:20:40 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41048 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231654AbjHMWSP (ORCPT
-        <rfc822;linux-man@vger.kernel.org>); Sun, 13 Aug 2023 18:18:15 -0400
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 216ADE54
-        for <linux-man@vger.kernel.org>; Sun, 13 Aug 2023 15:18:09 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-         key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-        (No client certificate requested)
-        by dfw.source.kernel.org (Postfix) with ESMTPS id B475B635D9
-        for <linux-man@vger.kernel.org>; Sun, 13 Aug 2023 22:18:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7F35C433C8;
-        Sun, 13 Aug 2023 22:18:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1691965088;
-        bh=KekVbsn6wWmrTX0Doj83GRLP2AoiBFe3qnfrbDg1t6I=;
-        h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-        b=k3UujYN0vtNVRLHy4bRTZqOhcgk5qPhU6EfdsoYGGw0PAZMJptb46CEYPjO03hEIX
-         frjkSIjhRNsPFvWIJOfQoFTOyBhbHKoDct1B9Pfh53oj6xuV/QDBwFc/0hmlIVUEwz
-         c0O2Dp00358hXlbx2Z3ANvK9lRQ5TFmNbEF5V7xXnzGE7rtu9fPc6RfN5wzwG8Z+pu
-         cnCGp+rPxOM+NvvLpGEU9tytkauB592C6nbzfCNl5kuuCQvjGnDjJPZxBvZ2wG0C3i
-         3U81kDL3EXm54hE7GwkR+6ELDNigQ3aiimMz4nwlcl+zv3RriicICK8/lWUhbjHup/
-         t0R9G97q66u/g==
-Message-ID: <cd7f3f96-4571-22ac-c42a-6877f82b976e@kernel.org>
-Date:   Mon, 14 Aug 2023 00:18:04 +0200
+        with ESMTP id S229892AbjHMWUj (ORCPT
+        <rfc822;linux-man@vger.kernel.org>); Sun, 13 Aug 2023 18:20:39 -0400
+Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com [IPv6:2607:f8b0:4864:20::229])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8611511D
+        for <linux-man@vger.kernel.org>; Sun, 13 Aug 2023 15:20:38 -0700 (PDT)
+Received: by mail-oi1-x229.google.com with SMTP id 5614622812f47-3a7d7de894bso2549786b6e.3
+        for <linux-man@vger.kernel.org>; Sun, 13 Aug 2023 15:20:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1691965238; x=1692570038;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=/Y3VqeLaWOFVw7V9/6ZULNnkhxT2of8T6TEqF2rfMQ4=;
+        b=ABjUpjX0CMlbgDSPOqiUgSDOKCl/Idx1pOi1eWd9PXnahbCXoABNIGvyHTR1o/G4SZ
+         VDacZ/9gzIRTOdyMjTe5M0CqS2KY+kmz1OcNkkDLsPPeOIcNVHXwDTt9CIkdflTyajjw
+         p6YCo5u8acPcFf+bCnpoloIg2hKP1tUyqjPk54yJH9laUbkyYRT7gCgLSeo+0uJFOAfR
+         N8Qwz5HeP5FMqgS3hN7oj5s/e2qZWers7mUYxFXw/UQQg83wA9/h2IFionCbF26cKib6
+         sirhsCGMWS9jyog3ng2BX7Rvj29nJx4xuHfrcUW6s2q1uf0AO+Mv1KmVwNtIWWSXFhbz
+         lDkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1691965238; x=1692570038;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=/Y3VqeLaWOFVw7V9/6ZULNnkhxT2of8T6TEqF2rfMQ4=;
+        b=aRM8E6Se9Kxe78uJ78PnMcaXEyIxfzguW0n54aLVdMMGkCUm9e9DX1ANX+6ZhJ3kEJ
+         8I3TQyBODF5W+3TCPf7qrxQSpH0kLz9ewJ0pPEMhEorfdhbmTh5Kfs0Px9POKIKiEfmv
+         wVJlA5cDGvU43Bzz4Dn2nChOKa1PtMmu6S5iBZzS0tuT+N3nvvXOvpJuETsS5nwI1pb7
+         FCyHhKi5hFv4OqpTeK3TD40ZugAtoeRJiLnEHdAwXxUGFyLHbJnXFUOWuqT8gt29idVp
+         2/7VChP04x+drg0ZcNlg6w3J9eJHtcFqrxFiMtU9u7nqoh7Lv2CRkmY0DhsNT+Bcex0D
+         ZKpA==
+X-Gm-Message-State: AOJu0YwtFt2tXSTOAckCaFnNtzBO2c8EpRA+5RUpnEIsIlbG4fMoCGgz
+        tTaKiF1KjvncXKIR1acbgoM76Qsn9cY=
+X-Google-Smtp-Source: AGHT+IHeFnGuN6oOG/AtS4WaSBoC/0lNC7vvyqAhBCv3CFr6EXjBl3is/gY4fOtmI8YWuQK7DEnbcg==
+X-Received: by 2002:a05:6808:2986:b0:3a3:ed41:97d with SMTP id ex6-20020a056808298600b003a3ed41097dmr6387520oib.50.1691965237783;
+        Sun, 13 Aug 2023 15:20:37 -0700 (PDT)
+Received: from illithid (ip68-12-97-90.ok.ok.cox.net. [68.12.97.90])
+        by smtp.gmail.com with ESMTPSA id u30-20020a056808151e00b003a76d7f596esm3901698oiw.54.2023.08.13.15.20.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 13 Aug 2023 15:20:37 -0700 (PDT)
+Date:   Sun, 13 Aug 2023 17:20:35 -0500
+From:   "G. Branden Robinson" <g.branden.robinson@gmail.com>
+To:     Alejandro Colomar <alx@kernel.org>
+Cc:     Brian Inglis <Brian.Inglis@Shaw.ca>,
+        Linux Man-Pages <linux-man@vger.kernel.org>
+Subject: Re: [PATCH] man-pages-posix-2017/man1p/dd.1p: added missing
+ ASCII-EBCDIC tables
+Message-ID: <20230813222035.a5ybcqbpnzlapraz@illithid>
+References: <084cb8c0074b11327c68fb60b9c5c6238eed7df1.1691960082.git.Brian.Inglis@Shaw.ca>
+ <c68f4010-e732-6519-a777-2744eb057887@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.1
-Subject: Re: No 6.05/.01 pdf book available
-Content-Language: en-US
-From:   Alejandro Colomar <alx@kernel.org>
-To:     Brian.Inglis@Shaw.ca, linux-man@vger.kernel.org
-Cc:     Deri <deri@chuzzlewit.myzen.co.uk>,
-        Ralph Corderoy <ralph@inputplus.co.uk>,
-        "G. Branden Robinson" <g.branden.robinson@gmail.com>
-References: <094c0eacf60998465be28c605bef69f2f5742459.1691370798.git.Brian.Inglis@Shaw.ca>
- <21975186.EfDdHjke4D@pip> <7f020624-ebc9-5eb8-b87f-8f954a8084a0@Shaw.ca>
- <3258129.44csPzL39Z@pip> <1b955f49-8181-5bd5-b818-020c6b5287dd@Shaw.ca>
- <54c962ab-28df-b2c9-923e-c47db004aaba@kernel.org>
-Organization: Linux
-In-Reply-To: <54c962ab-28df-b2c9-923e-c47db004aaba@kernel.org>
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------p0YnTCx30CZwbcVQIG4PRmkp"
-X-Spam-Status: No, score=-11.5 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,
-        RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+        protocol="application/pgp-signature"; boundary="bssas4wq36bnipdb"
+Content-Disposition: inline
+In-Reply-To: <c68f4010-e732-6519-a777-2744eb057887@kernel.org>
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS autolearn=ham
         autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
@@ -63,109 +73,81 @@ Precedence: bulk
 List-ID: <linux-man.vger.kernel.org>
 X-Mailing-List: linux-man@vger.kernel.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------p0YnTCx30CZwbcVQIG4PRmkp
-Content-Type: multipart/mixed; boundary="------------R1LUvJ55jj0dBCH3Zk2jGqlJ";
- protected-headers="v1"
-From: Alejandro Colomar <alx@kernel.org>
-To: Brian.Inglis@Shaw.ca, linux-man@vger.kernel.org
-Cc: Deri <deri@chuzzlewit.myzen.co.uk>, Ralph Corderoy
- <ralph@inputplus.co.uk>, "G. Branden Robinson" <g.branden.robinson@gmail.com>
-Message-ID: <cd7f3f96-4571-22ac-c42a-6877f82b976e@kernel.org>
-Subject: Re: No 6.05/.01 pdf book available
-References: <094c0eacf60998465be28c605bef69f2f5742459.1691370798.git.Brian.Inglis@Shaw.ca>
- <21975186.EfDdHjke4D@pip> <7f020624-ebc9-5eb8-b87f-8f954a8084a0@Shaw.ca>
- <3258129.44csPzL39Z@pip> <1b955f49-8181-5bd5-b818-020c6b5287dd@Shaw.ca>
- <54c962ab-28df-b2c9-923e-c47db004aaba@kernel.org>
-In-Reply-To: <54c962ab-28df-b2c9-923e-c47db004aaba@kernel.org>
 
---------------R1LUvJ55jj0dBCH3Zk2jGqlJ
-Content-Type: text/plain; charset=UTF-8
+--bssas4wq36bnipdb
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hi Brian,
-
-On 2023-08-13 22:47, Alejandro Colomar wrote:
-> Hi Brian,
+At 2023-08-13T23:30:30+0200, Alejandro Colomar wrote:
+> And also, I don't even have the sources, which makes things more
+> complex.
 >=20
-> On 2023-08-13 22:30, Brian Inglis wrote:
-> [...]
+> I wish that POSIX allowed us to have a copy of the original source
+> code of the POSIX manual in the git repository.  With that, I'd find
+> it more interesting to maintain the project again.
 >=20
->> UI: I also noticed, while looking for tables to compare, that pages ar=
-e ordered=20
->> by filename not like rpmvercmp/ls -v/RPM::VersionSort e.g ISO_8859-2 i=
-s after=20
->> ISO_8859-16 which may not be as expected.
->> Used rpmvercmp in last line of perl sub sortman and works as expected.=
+> I'd also like to know what's the original source code of POSIX's
+> manual, because it may very well be roff(7).  If that happens to be
+> true, I'd like to have access to that source, instead of the HTML.
 
->=20
-> Hmm, I'll update the scripts/sortman script in the man-pages repo to tu=
-se sort -V.
-> I intend that script (among Makefile code) to replace Deri's perl, as I=
- don't
-> speak perl.
->=20
+My understanding from hermetic comments to the Austin Group mailing list
+over the years is that:
 
-I didn't try your sort, but while implementing my own shell version of it=
-, I
-found that version sort wasn't good enough, as it makes some cases be wor=
-se.  I
-suggest you test it against my own script, and see if you get the same or=
-dering.
-If not, you'll need to tweak it.  The most important thing is that _exit(=
-2)
-should go next to exit(2).
+1. they have used groff for many years (a decade or more);
+2. they don't use man(7) for their man pages (I was told this directly);
 
-Here's what I did:
+and
 
-<https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/?id=3D=
-aab14503ef101d918046aeaa941f226685fe7bf5>
+3. they use (a customized version of) mm(7)--or I _think_ I saw someone
+   say this, but I have no citation and I am not even sure it was an
+   Open Group employee who claimed it.
 
-#!/bin/sh
+We fixed a bunch of bugs in GNU mm for groff 1.23.0.[1]  I wonder if
+they will be cross with me about that.  Even if they didn't rely on any
+erstwhile misbehavior, the source churned, some internals changed, and
+if they patched the package, I wouldn't count on the patches still
+applying cleanly.
 
-# Copyright 2023, Alejandro Colomar <alx@kernel.org>
-# SPDX-License-Identifier: GPL-3.0-or-later
+> Would you mind forwarding my rage towards the Open group, which IMO is
+> not so open?
 
-sed   -E '/\/intro./  s/.*\.([[:digit:]])/\10\t&/' \
-| sed -E '/\/intro./! s/.*\.([[:digit:]])\>/\11\t&/' \
-| sed -E '/\/intro./! s/.*\.([[:digit:]])([[:alnum:]]+)/\12.\2\t&/' \
-| sed -E '            s/\t(.*)/&\n\1/' \
-| sed -E '/\t/        s/([^[:digit:]])[_-]([^[:digit:]])/\1\2/g' \
-| sed -E '/\t/        s/[_-]/_/g' \
-| sed -E '/\t/        {N;s/\n/\t/;}' \
-| sort -fV \
-| cut -f3;
+Maybe scrape off the rage first, or you might get a response from Robert
+Elz, who is even more cantankerous and writes at even greater length
+than I do.  ;-)
 
-Cheers,
-Alex
+Some time ago I solicited bug reports against groff from them.  So far,
+nothing, unless they filed anonymously.
 
---=20
-<http://www.alejandro-colomar.es/>
-GPG key fingerprint: A9348594CE31283A826FBDD8D57633D441E25BB5
+Regards,
+Branden
 
+[1] https://savannah.gnu.org/bugs/index.php?go_report=3DApply&group=3Dgroff=
+&func=3Dbrowse&set=3Dcustom&msort=3D0&report_id=3D225&advsrch=3D0&bug_id=3D=
+&summary=3D&submitted_by=3D0&resolution_id=3D1&assigned_to=3D0&bug_group_id=
+=3D0&status_id=3D3&severity=3D0&category_id=3D121&plan_release_id=3D103&his=
+tory_search=3D0&history_field=3D0&history_event=3Dmodified&history_date_day=
+fd=3D13&history_date_monthfd=3D8&history_date_yearfd=3D2023&chunksz=3D50&sp=
+amscore=3D5&boxoptionwanted=3D1#options
 
---------------R1LUvJ55jj0dBCH3Zk2jGqlJ--
-
---------------p0YnTCx30CZwbcVQIG4PRmkp
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+--bssas4wq36bnipdb
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE6jqH8KTroDDkXfJAnowa+77/2zIFAmTZVpwACgkQnowa+77/
-2zIriQ//Z4A8DFSp06nDakwO+DPzX40nyO9zEKMf5CStz2Mm9dmqEoiWJuytH9yD
-BBjlEfxMSulPObqM29sA1LeR1vsNwv1Eo9RSfZxT+yq651CgearqvGpcnr4tNHAX
-ODzeaZr6rljd4/Umf+fe8v+u9oU0YEhSYXalAdLdL7yv6iFZGQMB4q9n9ofCuYdC
-ygicNZmW25yeUHC0EYI76Vm4P9tP+pTbkpY2EIs+oLtipm+bdv7s0B8EnMV2n62n
-5t1xMNDonmufVb8ueu3YTKOXKfT6OtkxcDZ/Aqxl1L0RFzPv9RN6jOiW7HPIc7de
-cc/zd6UaS4VsmUsp0x94KVwgGBzOYc+hwiAkLBGHejLqvp+MnhaCfalEmytx9RnI
-m1vKQ22hyvrOvZr0Pfy6Rh5GevGPq8FaFVq9Y+xzB2qYSdSdRsgvDJ0S9OtDlGKj
-SsmaiStfWm3X42FdShNxrL+iWXuSMxlCB09i2y8HVXWU09DXJDn/guXBwlj6eRyf
-huvB0cvTHuDrhqWdTX/yKSJVnKNpRxFDv9LSBRiHbwTuoZMuOvXKBnaN9t37OIoe
-Ji21HB2frb4S7SGpjStn4F8mS3t9yg6ZSvhQiXWyKGZmgIpUxn53JjF3ITwoSWpP
-tf0VMiOs7G/QAk/QRu21oy9amf4OR80CMlKZfHZzIl2FvJg+v+E=
-=mWup
+iQIzBAABCAAdFiEEh3PWHWjjDgcrENwa0Z6cfXEmbc4FAmTZVysACgkQ0Z6cfXEm
+bc4mVw//cJnmiylaav1kRLsFNwF+0Iw0g3CK9OrI47BoUTRPRaDB/3Tz7La27+LS
+kvcvnIzNHA8b30/JwIEQjc4MsIDr7vaSm3Ci8DMAqo2mulqAkoi7a/IRjnWSb58o
+E1ONDMzZCJHXQ05CYZvYN6r/6+USNSqTO9F0TFa49aLpk55CtiDkwiU89lQ4Ky/a
+btjpGr8I8tOzLAZknVNsddpEv8KCN1FYJV/bmfGNvdoRRoW7xvVUY0tE0UKrTcj2
+Bmrt27uysCq89OLOJ6NJkQxFNxFwFM0mGg0yGY62YBPuylgM3zE4sLUVu0bPdbIw
+QHmdfOcUeKydIRKLOp4ButjF5ysp2ltUq1dOeQngRLtnO8Qm/2A7qOjm6j1d5lOX
+DP4WdKoc36veAjWFooFafS7uFS5IA6PZR4M5Bh28IQmorGQAr1FckiJUnZpIhCn6
+ceyKTVGqkqHY9VmtXqceLiE0/ll8MKe+PND2l+XpJpnFD6nxVo9urw23F/6OU5MD
+Qsco2o+tcde7X3e5YHWghJMV3G1ZadKjIDz5ffJGro8wLbPKXpdMhjLK2G3aXIVx
+f1pQA755ZyenZiaiYQxlXm98iCexzZjLbelMk21FodUg0G0ihowqRssWrFmHGpJn
+TOhkd0pf126u5qO+g7oQt16ad2ypf9mCZ2gxNR7CmqkWaSF7dcI=
+=TPza
 -----END PGP SIGNATURE-----
 
---------------p0YnTCx30CZwbcVQIG4PRmkp--
+--bssas4wq36bnipdb--
